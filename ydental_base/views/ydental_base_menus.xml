@@ -1,0 +1,9 @@
+<odoo>
+    <record id="ydental_base_action" model="ir.actions.act_url">
+        <field name="name">牙科</field>
+        <field name="url">/ydental</field>
+        <field name="target">self</field>
+    </record>
+    <menuitem id="ydental_base_menu_root" name="牙科" sequence="30"
+              action="ydental_base_action" groups="ydental_base_group_user"/>
+</odoo>

@@ -1,0 +1,9 @@
+<odoo noupdate="1">
+    <record id="user_demo" model="res.users">
+        <field name="name">YDental P00 Synthetic Demo</field>
+        <field name="login">ydental_p00_demo@example.invalid</field>
+        <field name="email">ydental_p00_demo@example.invalid</field>
+        <field name="active" eval="False"/>
+        <field name="group_ids" eval="[(6, 0, [ref('ydental_base_group_user')])]"/>
+    </record>
+</odoo>
