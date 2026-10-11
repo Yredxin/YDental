@@ -41,7 +41,7 @@ class TestSupply(TransactionCase):
 
     def test_rework_suggestions_empty_capabilities_and_location_bounds(self):
         self.staff.write({'ydental_capability_ids': [fields.Command.clear()]})
-        self.stations[0].write({'ydental_add_capability_ids': [fields.Command.clear()]})
+        self.stations[0].write({'ydental_version': self.stations[0].ydental_version, 'ydental_add_capability_ids': [fields.Command.clear()]})
         child = self.root['ydental.space.area'].create({'name': 'Nested suggestion area', 'parent_id': self.area.id,
             'ydental_store_id': self.stores[0].id, 'ydental_floor_id': self.floor.id})
         inside = self.root['ydental.space.station'].create({'name': 'No extra capability', 'ydental_area_id': child.id,
@@ -55,8 +55,8 @@ class TestSupply(TransactionCase):
             'start': fields.Datetime.to_string(now), 'end': fields.Datetime.to_string(now + timedelta(hours=1))}, 'empty-required')
         staff = bind(self, self.staff, 'empty-own')
         self.assertEqual(set(staff._workbench_suggestion(result['id'])['station_ids']), {self.stations[0].id, inside.id})
-        self.stations[0].write({'ydental_enabled': False})
-        inside.write({'active': False})
+        self.stations[0].write({'ydental_version': self.stations[0].ydental_version, 'ydental_enabled': False})
+        inside.write({'ydental_version': inside.ydental_version, 'active': False})
         self.assertEqual(staff._workbench_suggestion(result['id'])['station_ids'], [])
 
     def test_rework_assignment_leave_handling_without_slot(self):
@@ -91,12 +91,12 @@ class TestSupply(TransactionCase):
             'start': fields.Datetime.to_string(self.start), 'end': fields.Datetime.to_string(self.end)}, 'before-disable')
         record = self.root['ydental.supply.assignment'].browse(result['id'])
         domain = [('ydental_assignment_id', '=', record.id), ('ydental_slot_id', '=', False)]
-        self.stations[1].write({'ydental_enabled': False})
+        self.stations[1].write({'ydental_version': self.stations[1].ydental_version, 'ydental_enabled': False})
         self.assertTrue(record.ydental_warning)
         first = self.root['ydental.supply.disposition'].search(domain)
         self.assertEqual(len(first), 1)
-        self.stations[1].write({'ydental_enabled': False})
-        self.stations[1].write({'ydental_enabled': True})
+        self.stations[1].write({'ydental_version': self.stations[1].ydental_version, 'ydental_enabled': False})
+        self.stations[1].write({'ydental_version': self.stations[1].ydental_version, 'ydental_enabled': True})
         self.assertEqual(first.state, 'pending')
         self.service._operate('resolve', {'entity': 'disposition', 'id': first.id, 'version': first.ydental_version,
             'reason': 'Reviewed workstation restoration'}, 'resolve-station')
@@ -111,6 +111,16 @@ class TestSupply(TransactionCase):
         self.assertEqual(self.root['ydental.supply.disposition'].search(domain + [('state', '=', 'pending')]), pending)
         self.assertEqual(first.state, 'resolved')
         self.assertEqual(record.state, 'active')
+        # Native employee archival also creates handling when the login account
+        # remains active and there was no existing conflict for that assignment.
+        other = self.service._operate('assign', {'user_id': self.replacement.id, 'station_id': self.stations[0].id,
+            'start': fields.Datetime.to_string(self.start), 'end': fields.Datetime.to_string(self.end)}, 'employee-only')
+        other_assignment = self.root['ydental.supply.assignment'].browse(other['id'])
+        other_assignment.ydental_employee_id.write({'active': False})
+        self.assertTrue(self.replacement.active)
+        self.assertIn('inactive', other_assignment.ydental_warning)
+        self.assertEqual(self.root['ydental.supply.disposition'].search_count([
+            ('ydental_assignment_id', '=', other_assignment.id), ('ydental_slot_id', '=', False), ('state', '=', 'pending')]), 1)
 
     def test_rework_assignment_and_slot_dispositions_have_separate_scope(self):
         result = self.service._operate('assign', {'user_id': self.staff.id, 'station_id': self.stations[1].id,
@@ -137,7 +147,7 @@ class TestSupply(TransactionCase):
             'start': fields.Datetime.to_string(self.start), 'end': fields.Datetime.to_string(self.end)}, 'cancelled-future')
         record = self.root['ydental.supply.assignment'].browse(result['id'])
         self.service._operate('cancel_assignment', {'id': record.id, 'version': record.ydental_version, 'reason': 'Cancelled future'}, 'cancel-future')
-        self.stations[1].write({'ydental_enabled': False})
+        self.stations[1].write({'ydental_version': self.stations[1].ydental_version, 'ydental_enabled': False})
         self.assertFalse(self.root['ydental.supply.disposition'].search([('ydental_store_id', '=', self.stores[0].id)]))
 
     def test_rework_local_helper_dst_rejects_gap_fold_and_offsets(self):
