@@ -387,3 +387,12 @@ class TestSupply(TransactionCase):
         self.assertTrue(self.root['ydental.supply.disposition'].search([('ydental_slot_id', '=', capacity.id)]))
         self.assertEqual(claim.state, 'held')
         self.assert_balance(capacity)
+
+    def test_demo_policy_cannot_feed_production_allocation(self):
+        capacity = slot(self)
+        with patch.object(type(self.service), '_allow_demo_supply', return_value=False):
+            with self.assertRaises(UserError):
+                acquire(self, capacity, 'production-demo-rejected')
+            availability = self.service._availability(self.area.id, self.capabilities[0].id, self.start, self.end, 'reservation')
+            self.assertEqual(availability['shared_free'], 0)
+        self.assert_balance(capacity)

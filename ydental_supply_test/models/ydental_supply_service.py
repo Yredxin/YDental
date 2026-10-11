@@ -8,6 +8,9 @@ from odoo.exceptions import AccessError, UserError
 class YDentalSupplyService(models.AbstractModel):
     _inherit = 'ydental.supply.service'
 
+    def _allow_demo_supply(self):
+        return bool(re.fullmatch(r'ydental_s03_test_[0-9]{14}_[a-f0-9]{8}', self.env.cr.dbname) and os.environ.get('YDENTAL_S03_RUN_DIR'))
+
     def _check_capacity_source(self, operation, payload):
         # Test-only server adapter. No public method/route or context bypass.
         # It can never authorize an installed business database.
