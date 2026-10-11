@@ -119,6 +119,8 @@ def main():
             check('frontdesk clinical link is absent', page.locator('#care-open').count() == 0)
             check('frontdesk page contains no clinical background', 'S04 SYNTHETIC CROSS STORE BACKGROUND' not in page.locator('body').inner_text())
             check('this store policy prompt exists', page.locator('#document-prompts li').count() >= 1)
+            check('store relationship action is Chinese', form(page, 'relation').locator('button').inner_text() == '建立本店患者关系')
+            check('actual arrival action is Chinese', form(page, 'arrival').locator('button').inner_text() == '记录当前真实到店')
             screenshot(page, desk_context, '01-frontdesk-shared-identity.png')
             form(page, 'arrival').locator('button').click()
             page.wait_for_url('**/ydental/patients/' + str(patient_id))
