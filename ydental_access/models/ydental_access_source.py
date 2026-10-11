@@ -23,6 +23,8 @@ class YDentalAccessSource(models.AbstractModel):
         levels = service._levels(member)
         minimum = 1 if operation == 'read' else 2
         categories = [code for code, value in levels.items() if RANK[value] >= minimum]
+        if not categories:
+            return fields.Domain.FALSE
         domain = fields.Domain.AND([
             fields.Domain('ydental_store_id', '=', session.ydental_store_id.id),
             fields.Domain('ydental_category', 'in', categories),
