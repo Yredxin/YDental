@@ -57,7 +57,7 @@ class YDentalSpaceResource(models.Model):
     def _prepare_svg(self, values):
         values = dict(values)
         if 'ydental_svg' in values:
-            setting = self.env['ir.config_parameter'].sudo().get_param('ydental_space.svg_max_bytes', '1048576')
+            setting = self.env['ir.config_parameter'].sudo()._get_param('ydental_space.svg_max_bytes', '1048576')
             try:
                 limit = int(setting)
                 if not 1024 <= limit <= 4194304:

@@ -25,7 +25,7 @@ class YDentalSpaceArea(models.Model):
     ydental_prefix = fields.Char(string='Queue display prefix')
     ydental_missed_limit = fields.Integer(string='Missed calls parameter', help='Not approved for production until S06 publication.')
     ydental_queue_area_id = fields.Many2one('ydental.space.area', compute='_compute_queue_area', recursive=True)
-    ydental_capability_ids = fields.Many2many('ydental.access.capability', compute='_compute_capabilities')
+    ydental_capability_ids = fields.Many2many('ydental.access.capability', compute='_compute_capabilities', recursive=True)
     ydental_shape = fields.Selection([('rect', 'Rectangle'), ('polygon', 'Polygon')], default='rect', required=True)
     ydental_points = fields.Json(default=list)
     ydental_x = fields.Float(default=20)

@@ -4,3 +4,8 @@ ydental_space_area_access,YDental area,ydental.space.area,ydental_base.ydental_b
 ydental_space_station_access,YDental station,ydental.space.station,ydental_base.ydental_base_group_user,cru,
 ydental_space_item_access,YDental item,ydental.space.item,ydental_base.ydental_base_group_user,cru,
 ydental_space_resource_access,YDental resource,ydental.space.resource,ydental_base.ydental_base_group_user,cru,
+ydental_space_floor_company,YDental floor company,ydental.space.floor,,cru,"[('ydental_store_id.company_id', 'in', company_ids)]"
+ydental_space_area_company,YDental area company,ydental.space.area,,cru,"[('ydental_store_id.company_id', 'in', company_ids)]"
+ydental_space_station_company,YDental station company,ydental.space.station,,cru,"[('ydental_store_id.company_id', 'in', company_ids)]"
+ydental_space_item_company,YDental item company,ydental.space.item,,cru,"[('ydental_store_id.company_id', 'in', company_ids)]"
+ydental_space_resource_company,YDental resource company,ydental.space.resource,,cru,"['|', ('ydental_store_id', '=', False), ('ydental_store_id.company_id', 'in', company_ids)]"
