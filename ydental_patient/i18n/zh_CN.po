@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 20.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-11 17:12+0000\n"
-"PO-Revision-Date: 2026-10-11 17:12+0000\n"
+"POT-Creation-Date: 2026-10-11 17:14+0000\n"
+"PO-Revision-Date: 2026-10-11 17:14+0000\n"
 "Last-Translator: \n"
 "Language-Team: zh_CN\n"
 "Language: zh_CN\n"
@@ -447,7 +447,7 @@ msgstr "女"
 #. module: ydental_patient
 #: model:ir.model,name:ydental_patient.model_ir_binary
 msgid "File streaming helper model for controllers"
-msgstr ""
+msgstr "受控文件流服务"
 
 #. module: ydental_patient
 #: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_operation__ydental_fingerprint
@@ -1002,6 +1002,15 @@ msgid "State"
 msgstr "状态"
 
 #. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_clinical__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_contact__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_merge__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_number__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_operation__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_policy__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_record__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_relation__ydental_store_id
 #: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
 msgid "Store"
 msgstr "门店"
@@ -1179,19 +1188,6 @@ msgid "YDental trusted authorization and lifecycle service"
 msgstr "YDental可信授权及生命周期服务"
 
 #. module: ydental_patient
-#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient__ydental_store_id
-#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_clinical__ydental_store_id
-#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_contact__ydental_store_id
-#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_merge__ydental_store_id
-#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_number__ydental_store_id
-#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_operation__ydental_store_id
-#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_policy__ydental_store_id
-#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_record__ydental_store_id
-#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_relation__ydental_store_id
-msgid "Ydental Store"
-msgstr "门店"
-
-#. module: ydental_patient
 #. odoo-python
 #: code:addons/ydental_patient/models/ydental_patient_service.py:0
 msgid ""
@@ -1310,18 +1306,6 @@ msgstr "access_denied: 请使用受控患者动作。"
 #: code:addons/ydental_patient/models/ir_attachment.py:0
 msgid "access_denied: Use a typed clinical attachment source."
 msgstr "access_denied: 请使用已分型的临床附件来源。"
-
-#. module: ydental_patient
-#. odoo-python
-#: code:addons/ydental_patient/controllers/patient.py:0
-msgid "refresh_merge"
-msgstr "refresh_merge"
-
-#. module: ydental_patient
-#. odoo-python
-#: code:addons/ydental_patient/controllers/patient.py:0
-msgid "reject"
-msgstr "reject"
 
 #. module: ydental_patient
 #. odoo-python
