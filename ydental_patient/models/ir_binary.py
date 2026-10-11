@@ -1,4 +1,5 @@
 from odoo import models
+from odoo.tools.misc import verify_limited_field_access_token
 
 
 class IrBinary(models.AbstractModel):
@@ -12,4 +13,12 @@ class IrBinary(models.AbstractModel):
             # patient sources even when that core path already returned sudo.
             requester_record = record.with_env(self.env)
             requester_record._ydental_check_source()
+            sources = self.env['ydental.access.service']._get_sources().values()
+            if record.sudo().res_model in sources and access_token and verify_limited_field_access_token(
+                record, field, access_token, scope='binary'
+            ):
+                # Core skipped the normal download hook on this token path.
+                # Re-enter it as the requester so permitted clinical downloads
+                # retain the same source.download audit as ordinary URLs.
+                requester_record._can_return_content(field, access_token)
         return record

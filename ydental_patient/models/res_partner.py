@@ -15,9 +15,10 @@ class ResPartner(models.Model):
 
     @api.model_create_multi
     def create(self, vals_list):
-        if self.env.context.get('ydental_patient_partner_mutation') is not _PARTNER_MUTATION and any(
+        controlled = self.env.context.get('ydental_patient_partner_mutation') is _PARTNER_MUTATION
+        if not controlled and (self.env.context.get('default_ydental_patient_owner_id') or any(
             'ydental_patient_owner_id' in vals for vals in vals_list
-        ):
+        )):
             raise AccessError(self.env._('access_denied: Patient contacts require a controlled identity action.'))
         return super().create(vals_list)
 
@@ -40,7 +41,8 @@ class ResPartner(models.Model):
 
     @api.model
     def _ydental_patient_new(self, values):
-        return self.with_context(ydental_patient_partner_mutation=_PARTNER_MUTATION,
+        context = {key: value for key, value in self.env.context.items() if not key.startswith('default_')}
+        return self.with_context(context, ydental_patient_partner_mutation=_PARTNER_MUTATION,
                                  tracking_disable=True, mail_create_nosubscribe=True).create(values)
 
     def _ydental_patient_save(self, values):

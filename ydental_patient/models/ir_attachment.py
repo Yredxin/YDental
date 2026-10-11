@@ -54,8 +54,19 @@ class IrAttachment(models.Model):
     def create(self, vals_list):
         if not self.env.su:
             for vals in vals_list:
-                model, record_id = vals.get('res_model'), vals.get('res_id')
+                model = vals.get('res_model', self.env.context.get('default_res_model'))
+                record_id = vals.get('res_id', self.env.context.get('default_res_id'))
                 if model in self._ydental_blocked_source_models() or (model == 'res.partner' and record_id and
                         self.env['res.partner'].sudo().browse(record_id).exists().ydental_patient_owner_id):
                     raise AccessError(self.env._('access_denied: Use a typed clinical attachment source.'))
         return super().create(vals_list)
+
+    def write(self, vals):
+        if not self.env.su and {'res_model', 'res_id'} & vals.keys():
+            for attachment in self.sudo():
+                model = vals.get('res_model', attachment.res_model)
+                record_id = vals.get('res_id', attachment.res_id)
+                if model in self._ydental_blocked_source_models() or (model == 'res.partner' and record_id and
+                        self.env['res.partner'].sudo().browse(record_id).exists().ydental_patient_owner_id):
+                    raise AccessError(self.env._('access_denied: Use a typed clinical attachment source.'))
+        return super().write(vals)
