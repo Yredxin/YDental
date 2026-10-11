@@ -120,6 +120,7 @@ class YDentalAccessService(models.AbstractModel):
         policy = self.env['ir.config_parameter'].sudo().get_str('ydental_access.manager_policy')
         if policy != 'group_with_replacement':
             raise UserError(self.env._('Manager appointment policy has not been approved and configured.'))
+        self._check_personnel(store_id, user_id)
         self.env.cr.execute('SELECT id FROM ydental_access_store WHERE id=%s FOR UPDATE', [store_id])
         member = self._membership(user_id, store_id)
         if not member:
@@ -472,6 +473,17 @@ class YDentalAccessService(models.AbstractModel):
             raise AccessError(self.env._('access_denied: An internal target account is required.'))
         if not user.active:
             return {'result': 'already_accepted'}
+        # The configurable replacement policy covers independent administrators
+        # too. Serialize departures of different users before counting survivors.
+        policy = self.env['ir.config_parameter'].sudo().get_str('ydental_access.manager_policy')
+        if policy == 'group_with_replacement':
+            self._lock_user(0)
+            for group_xmlid in (GROUP_MANAGER, SYSTEM_MANAGER):
+                if user.has_group(group_xmlid) and not self.env['res.users'].sudo().search_count([
+                    ('id', '!=', user_id), ('active', '=', True),
+                    ('all_group_ids', 'in', self.env.ref(group_xmlid).ids),
+                ]):
+                    raise UserError(self.env._('Assign a replacement before removing the last active administrator.'))
         members = self.env['ydental.access.membership'].sudo().search([('ydental_user_id', '=', user_id)])
         if any(members.mapped('ydental_is_manager')):
             raise UserError(self.env._('Manager appointment policy must be confirmed before removing a manager.'))

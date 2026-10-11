@@ -1168,3 +1168,9 @@ msgstr "version_conflict: 权限或模板已变更，请重新预览。"
 #: code:addons/ydental_access/models/ydental_access_service.py:0
 msgid "version_conflict: The store changed. Refresh this page."
 msgstr "version_conflict: 门店已变更，请刷新页面。"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/ydental_access_service.py:0
+msgid "Assign a replacement before removing the last active administrator."
+msgstr "撤除最后一位在职管理员前，须先指定接替者。"

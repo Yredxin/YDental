@@ -80,7 +80,7 @@
 |预览模板|preview POST；对每个目标先完整鉴权|展示全部 16 项前后值、生成 receipt；不改授权；任一越权整批拒绝|
 |确认模板|apply POST；有效 preview receipt|重新核对目标/模板/现值，缺项清 none，来源 template:id；template.apply；变化后旧 receipt version_conflict；不保持模板关系|
 |修改模板|集团模型 cru|仅模板本体变化；template.create/modify；已展开授权不变|
-|店长任免|manager POST；独立集团身份且已配置政策|manager.appointment；从未发布状态拒绝；配置 group_with_replacement 时最后在职店长需先有接替者；模板不能任免|
+|店长任免|manager POST；独立集团身份、目标公司在允许公司内且已配置政策|manager.appointment；从未发布状态拒绝；配置 group_with_replacement 时最后在职店长及集团/系统管理员离职均需先有接替者；模板不能任免|
 |安全参数配置|policy POST；独立技术组；明确数值+页面确认|security.policy；只允许指定政策、密码长度、闲置及 MFA 设置；不接受任意配置 key；不自动发布建议值|
 |邀请/重置受理|invite POST；人员管理；特权账号需技术组|原生邀请服务、account.invitation；只证明受理，delivery=not_verified；不返回 token 或宣称送达|
 |源查看/修改/导出|模型与源 ACL、server Binding、门店/用途/级别|source.view/modify/export；修改只审计字段名而非正文；原生导出还校验源 read；跨店人工写受 S06 权威租约 hook 阻止|
@@ -101,7 +101,7 @@ S03 覆盖 `_get_default_store_id`、`_after_membership_removed`；S06 覆盖 `_
 
 |项|当前方案/配置|正式状态|
 |---|---|---|
-|店长任免|提供 group_with_replacement：集团任免、最后在职店长需先有接替者；未配置时拒任免|用户尚未选择，未发布；合成单测显式设置/回滚|
+|店长任免|提供 group_with_replacement：集团任免、最后在职店长及集团/系统管理员离职需先有接替者；未配置时拒任免|用户尚未选择，未发布；合成单测显式设置/回滚|
 |独立集团/技术身份|两原生独立组；初始化由用户明确人员配置；安装不自动授予 base.user_admin|正式人员名单待用户；测试仅合成角色|
 |默认岗位模板|可建集团模板；整体覆盖、缺项无、medical/exam 不隐式授予；不自动装生产默认岗位|明细待发布；合成前台模板仅测试，无医疗/检查读取|
 |密码强度|原生最小长度参数；界面接受 8—128，建议 12|建议不自动发布；隔离预览沿原生默认 8，不作为正式批准|

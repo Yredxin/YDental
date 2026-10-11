@@ -266,6 +266,8 @@ class TestS01(TransactionCase):
         self.assertEqual(self.env.ref('ydental_base.ydental_base_group_user').lock_timeout_inactivity, 15)
         with self.assertRaises(UserError):
             self.operator.password = 'short'
+        with self.assertRaises(UserError):
+            self.admin._depart(tech.id)
 
     def test_native_export_gate_and_template_stale_preview(self):
         operator = self.bound(self.operator, 'native-export', self.a)
@@ -291,3 +293,6 @@ class TestS01(TransactionCase):
             service._grant(self.operator.id, self.c.id, {'settlement': 'write'})
         with self.assertRaises(AccessError):
             service._join(self.personnel.id, self.c.id)
+        self.env['ir.config_parameter'].set_str('ydental_access.manager_policy', 'group_with_replacement')
+        with self.assertRaises(AccessError):
+            service._set_manager(self.operator.id, self.c.id, True)
