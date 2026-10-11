@@ -214,7 +214,7 @@ class TestSupply(TransactionCase):
         login = staff_access._session_for_key('new-login-today')
         self.assertEqual(login.ydental_store_id, self.stores[0])
         staff_service = staff_access._bind(login).env['ydental.supply.service']
-        record = staff_service._today()['assignments']
+        record = staff_service._today()['assignments'].filtered(lambda r: r.ydental_store_id == self.stores[0])
         hint = staff_service._workbench_suggestion(record.id)
         self.assertEqual((hint['result'], hint['execution']), ('hint_only', 'not_connected'))
         feedback = staff_service._feedback(record.id, 'Wrong suggested chair', 'feedback')
