@@ -254,7 +254,7 @@ class TestSpace(BaseCommon):
         self.assertEqual(self.item.ydental_station_id.id, identifier)
 
     def test_rework_rect_points_and_shape_switch(self):
-        invalid = [[[0, 0]] * 10001, {'nested': {'text': 'x' * 65536}}, 'not coordinates', 0]
+        invalid = [[[0, 0]] * 10001, {'nested': {'text': 'x' * 65536}}, 'not coordinates']
         for points in invalid:
             with self.assertRaises(ValidationError), self.cr.savepoint():
                 self.child.write({'ydental_points': points, 'ydental_version': self.child.ydental_version})
@@ -265,6 +265,9 @@ class TestSpace(BaseCommon):
                 self.floor.action_save_geometry(self.floor.ydental_version,
                     [{'kind': 'area', 'id': self.child.id, 'values': {'ydental_points': points}}])
         self.assertFalse(self.child.ydental_points)
+        for empty in (0, False, None, {}, [], ''):
+            self.child.write({'ydental_points': empty, 'ydental_version': self.child.ydental_version})
+            self.assertFalse(self.child.ydental_points)
         with self.assertRaises(ValidationError), self.cr.savepoint():
             self.child.write({'ydental_shape': 'polygon', 'ydental_version': self.child.ydental_version})
         self.child.write({'ydental_shape': 'polygon', 'ydental_points': [[i, i % 3] for i in range(100)],
