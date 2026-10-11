@@ -93,7 +93,8 @@ class YDentalSpaceVersion(models.AbstractModel):
             raise AccessError(self.env._('access_denied: Space ownership is immutable.'))
         for key in ('ydental_add_capability_ids', 'ydental_remove_capability_ids', 'ydental_capability_ids'):
             if key in vals:
-                capability_commands(self.env, vals[key])
+                for record in self:
+                    capability_commands(self.env, vals[key], record.with_context(active_test=False)[key].ids)
         self._check_space_change(vals)
         before = {record.id: record._space_snapshot() for record in self}
         result = super().write(dict(vals, ydental_version=expected + 1))

@@ -845,3 +845,15 @@ msgstr "version_conflict: 楼层已变更，请重新加载后保存。"
 #: code:addons/ydental_space/models/ydental_space_version.py:0
 msgid "access_denied: Derived space fields cannot be written."
 msgstr "access_denied: 不允许直接写入派生字段或系统元数据。"
+
+#. module: ydental_space
+#. odoo-python
+#: code:addons/ydental_space/models/ydental_space_area.py:0
+msgid "Rectangle areas must have empty polygon points."
+msgstr "矩形区域的多边形顶点必须为空。"
+
+#. module: ydental_space
+#. odoo-python
+#: code:addons/ydental_space/models/geometry.py:0
+msgid "New capability associations require active capabilities."
+msgstr "新增能力关联必须使用有效能力。"

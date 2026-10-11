@@ -36,7 +36,7 @@ class YDentalSpaceStation(models.Model):
             station.ydental_capability_ids = (base | station.ydental_add_capability_ids) - station.ydental_remove_capability_ids
 
     @api.constrains('ydental_area_id', 'ydental_floor_id', 'ydental_store_id', 'ydental_category',
-                    'ydental_kind', 'ydental_callable', 'ydental_x', 'ydental_y', 'ydental_width', 'ydental_height', 'ydental_angle')
+                    'active', 'ydental_kind', 'ydental_callable', 'ydental_x', 'ydental_y', 'ydental_width', 'ydental_height', 'ydental_angle')
     def _check_station(self):
         for station in self.sudo():
             check_geometry(station)

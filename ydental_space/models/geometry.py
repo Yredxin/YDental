@@ -12,7 +12,8 @@ def check_geometry(record):
         raise ValidationError(record.env._('Width and height must be positive.'))
 
 
-def capability_commands(env, commands):
+def capability_commands(env, commands, existing=()):
+    current = set(existing)
     for command in commands:
         if not isinstance(command, (list, tuple)) or not command or command[0] not in (3, 4, 5, 6):
             raise ValidationError(env._('Select existing capabilities; nested editing is forbidden.'))
@@ -22,3 +23,12 @@ def capability_commands(env, commands):
         found = env['ydental.access.capability'].sudo().with_context(active_test=False).browse(ids).exists()
         if set(found.ids) != set(ids):
             raise ValidationError(env._('Unknown capability.'))
+        if command[0] in (4, 6):
+            added = set(ids) - current
+            if any(not capability.active for capability in found if capability.id in added):
+                raise ValidationError(env._('New capability associations require active capabilities.'))
+            current = set(ids) if command[0] == 6 else current | set(ids)
+        elif command[0] == 3:
+            current.difference_update(ids)
+        else:
+            current.clear()

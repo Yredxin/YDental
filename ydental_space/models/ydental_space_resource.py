@@ -46,14 +46,20 @@ class YDentalSpaceResource(models.Model):
     def _resource_domain(self, operation):
         service = self.env['ydental.access.service']
         session = service._scope(write=operation != 'read')
+        if operation == 'unlink':
+            return fields.Domain.FALSE
+        # Group master data is independent of store business grants. A trusted
+        # internal server session is still mandatory, even with no selected store.
+        common = fields.Domain('ydental_store_id', '=', False)
+        domain = common if service._is_group_manager() else fields.Domain.FALSE
         try:
             service._check('space', 'read' if operation == 'read' else 'write', write=operation != 'read')
         except AccessError:
-            return fields.Domain.FALSE
-        domain = fields.Domain('ydental_store_id', '=', session.ydental_store_id.id)
-        if operation == 'read' or service._is_group_manager():
-            domain |= fields.Domain('ydental_store_id', '=', False)
-        return domain if operation != 'unlink' else fields.Domain.FALSE
+            return domain
+        domain |= fields.Domain('ydental_store_id', '=', session.ydental_store_id.id)
+        if operation == 'read':
+            domain |= common
+        return domain
 
     def _access_domain(self, operation):
         domain = super()._access_domain(operation)
@@ -90,15 +96,21 @@ class YDentalSpaceResource(models.Model):
 
     @api.model_create_multi
     def create(self, vals_list):
+        default_store = self.default_get(['ydental_store_id']).get('ydental_store_id', False)
+        vals_list = [dict(values) for values in vals_list]
+        for values in vals_list:
+            values.setdefault('ydental_store_id', default_store)
         if not self.env.su:
             service = self.env['ydental.access.service']
-            service._check('space', 'write', write=True)
-            store_id = service._scope().ydental_store_id.id
+            store_id = service._scope(write=True).ydental_store_id.id
             for values in vals_list:
-                if values.get('ydental_store_id') not in (False, None, store_id) or (
-                    not values.get('ydental_store_id') and not service._is_group_manager()
-                ):
-                    raise AccessError(self.env._('access_denied: Common artwork requires group administration.'))
+                if not values.get('ydental_store_id'):
+                    if not service._is_group_manager():
+                        raise AccessError(self.env._('access_denied: Common artwork requires group administration.'))
+                else:
+                    service._check('space', 'write', write=True)
+                    if values['ydental_store_id'] != store_id:
+                        raise AccessError(self.env._('access_denied: Artwork is outside the authorized space scope.'))
         records = super().create([self._prepare_svg(values) for values in vals_list])
         records._resource_audit('space.resource.create')
         return records

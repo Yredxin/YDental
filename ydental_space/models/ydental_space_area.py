@@ -78,6 +78,15 @@ class YDentalSpaceArea(models.Model):
                         for value in point) for point in points
                 ):
                     raise ValidationError(self.env._('A polygon needs 3 to 100 finite coordinate pairs.'))
+            elif area.ydental_points is not False and area.ydental_points is not None and area.ydental_points != []:
+                raise ValidationError(self.env._('Rectangle areas must have empty polygon points.'))
+
+    def write(self, vals):
+        if vals.get('ydental_shape') == 'rect':
+            # Switching shape drops invisible polygon data before persistence or
+            # audit. Points-only writes still pass through the rectangle constraint.
+            vals = dict(vals, ydental_points=[])
+        return super().write(vals)
 
     def _check_space_change(self, values):
         super()._check_space_change(values)

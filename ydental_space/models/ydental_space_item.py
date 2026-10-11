@@ -21,7 +21,7 @@ class YDentalSpaceItem(models.Model):
     ydental_angle = fields.Float(string='Direction')
 
     @api.constrains('ydental_floor_id', 'ydental_store_id', 'ydental_category', 'ydental_resource_id',
-                    'ydental_station_id', 'ydental_x', 'ydental_y', 'ydental_width', 'ydental_height', 'ydental_angle')
+                    'active', 'ydental_station_id', 'ydental_x', 'ydental_y', 'ydental_width', 'ydental_height', 'ydental_angle')
     def _check_item(self):
         for item in self.sudo():
             check_geometry(item)
