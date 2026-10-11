@@ -12,3 +12,4 @@ from . import ydental_patient_service
 from . import ydental_access_service
 from . import res_partner
 from . import ir_attachment
+from . import ir_binary

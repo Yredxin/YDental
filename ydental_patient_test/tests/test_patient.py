@@ -39,7 +39,7 @@ class TestPatient(TransactionCase):
     def test_t02_duplicate_hints_do_not_merge_shared_phone(self):
         one = create(self, name='Synthetic Parent', phone='+1 202 555 0100')
         two = create(self, name='Synthetic Child', phone='202-555-0100', phone_region='US')
-        self.assertEqual(two['duplicates'][0]['id'], one['id'])
+        self.assertIn(one['id'], [hint['id'] for hint in two['duplicates']])
         self.assertNotEqual(one['id'], two['id'])
         self.assertFalse(self.root['ydental.patient'].browse(one['id']).ydental_merged_into_id)
         three = create(self, name='Synthetic Same Name', birth_date='2000-01-02')

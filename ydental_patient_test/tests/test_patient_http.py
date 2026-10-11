@@ -3,6 +3,7 @@ import re
 import secrets
 
 from odoo.tests import HttpCase
+from odoo.tools.misc import limited_field_access_token
 
 from .common import clinical, create, merge, setup_patient
 
@@ -65,6 +66,9 @@ class TestPatientHTTP(HttpCase):
             result = self.rpc('ydental.patient.clinical', method, args)
             self.assertTrue(result.get('error') or result.get('result') == [])
         self.assertEqual(self.url_open('/web/content/%s?download=true' % attachment.id).status_code, 404)
+        token = limited_field_access_token(attachment, 'raw', scope='binary')
+        self.assertEqual(self.url_open('/web/content/%s?download=true&amp;access_token=%s' % (
+            attachment.id, token)).status_code, 404)
 
     def test_http_doctor_reads_selected_patient_cross_store_and_rejects_cross_write(self):
         person = create(self)
