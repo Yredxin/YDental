@@ -221,8 +221,15 @@ def main():
             rectangle = next(area for area in drawn['areas'] if area['id'] not in [entry['id'] for entry in after['areas']] and area['ydental_shape'] == 'rect')
             writer.locator('[data-kind=area][data-id="%s"]' % rectangle['id']).click(position={'x': 10, 'y': 10})
             chair_art = writer.locator('.o_ydental_space_resources > div').filter(has_text='牙椅')
+            require(chair_art.evaluate('(node) => node.draggable'), 'Resource library entry must be draggable')
+            require(writer.locator('[data-kind=area].o_ydental_space_selected').get_attribute('data-id') == str(rectangle['id']),
+                    'Drawn area must be selected before equipment placement')
             with writer.expect_response(response_for('create')):
-                chair_art.drag_to(canvas, target_position={'x': 700, 'y': 650})
+                chair_art.hover()
+                writer.mouse.down()
+                canvas.hover(position={'x': 700, 'y': 650})
+                canvas.hover(position={'x': 701, 'y': 651})
+                writer.mouse.up()
             writer.wait_for_timeout(300)
             drawn = rpc(writer, 'ydental.space.floor', 'action_snapshot', [[floor_id]], writer_revision)['result']
             record('F1 drag resource creates one stable workstation and linked artwork',
