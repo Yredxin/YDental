@@ -1,6 +1,7 @@
 import secrets
 
 from odoo.tools.misc import limited_field_access_token
+from odoo.tests import new_test_user
 
 from .common import bind, clinical, create
 from .test_patient_http import TestPatientHTTP
@@ -34,6 +35,14 @@ class TestPatientReworkHTTP(TestPatientHTTP):
                 result = self.rpc('res.partner', method, args)
                 self.assertIn(result.get('result'), ([], 0), result)
         self.assertEqual(self.rpc('res.partner', 'read', [[ordinary.id], ['name']])['result'][0]['name'], ordinary.name)
+        # Native Contacts for an ordinary internal account without the YDental
+        # application group or any store session retain Odoo's permissions.
+        internal = new_test_user(self.root, login='s04_plain_' + self.suffix,
+            password='s04-test-password', groups='base.group_user')
+        self.authenticate(internal.login, 's04-test-password')
+        self.assertEqual(self.rpc('res.partner', 'read', [[ordinary.id], ['name']])['result'][0]['name'], ordinary.name)
+        self.assertIn('error', self.rpc('res.partner', 'read', [partners.ids, ['name']]))
+        self.assertEqual(self.rpc('res.partner', 'search_count', [[('id', 'in', partners.ids)]])['result'], 0)
 
     def test_http_r1_revoke_next_request_and_image_token_guardian(self):
         partners = self.partners()
