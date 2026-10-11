@@ -690,7 +690,7 @@ class YDentalSupplyService(models.AbstractModel):
         members = self.env['ydental.access.membership'].sudo().search([('ydental_store_id', '=', store.id), ('active', '=', True)])
         areas = self.env['ydental.space.area'].sudo().search([('ydental_store_id', '=', store.id)])
         stations = self.env['ydental.space.station'].sudo().search([('ydental_store_id', '=', store.id), ('ydental_enabled', '=', True)])
-        slots = self._model('slot').search([('ydental_store_id', '=', store.id)], limit=100, order='ydental_start desc, id desc')
+        slots = self._model('slot').search([('ydental_store_id', '=', store.id)], order='ydental_start desc, id desc')
         return {'store': store, 'revision': access._scope().ydental_revision,
             'can_write': access._levels(access._membership(self.env.uid, store.id))['capacity'] == 'write',
             'week': week, 'previous_week': week - timedelta(days=7), 'next_week': week + timedelta(days=7),
@@ -702,10 +702,11 @@ class YDentalSupplyService(models.AbstractModel):
                 'reservation': sum(rows.mapped('ydental_reservation_free')), 'walkin': sum(rows.mapped('ydental_walkin_free'))}
                 for rows in slots.grouped(lambda r: (r.ydental_area_id.id, r.ydental_start, r.ydental_end)).values()],
             'policies': self._model('policy').search([('ydental_store_id', '=', store.id)]),
-            'feedback': self._model('feedback').search([('ydental_store_id', '=', store.id)], limit=100),
-            'dispositions': self._model('disposition').search([('ydental_store_id', '=', store.id)], limit=100),
+            'feedback': self._model('feedback').search([('ydental_store_id', '=', store.id)]),
+            'dispositions': self._model('disposition').search([('ydental_store_id', '=', store.id)]),
             'businesses': self._model('business').search([('ydental_store_id', '=', store.id), ('ydental_date', '=', self._date(store))]),
             'events': self._model('event').search([('ydental_store_id', '=', store.id)], limit=100, order='id desc'),
+            'label': lambda record, field: dict(record._fields[field]._description_selection(self.env)).get(record[field], record[field]),
             'format_time': lambda value: value.replace(tzinfo=timezone.utc).astimezone(ZoneInfo(store.ydental_timezone)).strftime('%Y-%m-%d %H:%M'),
             'replacement_candidates': lambda record: self._replacement_candidates(record),
             'groups': assignments.grouped('ydental_user_id' if group_by == 'person' else 'ydental_station_id'),

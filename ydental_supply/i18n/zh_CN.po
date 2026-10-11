@@ -1180,8 +1180,8 @@ msgstr "供给历史不可删除。"
 
 #. module: ydental_supply
 #: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
-msgid "Supply ledger"
-msgstr "供给账本"
+msgid "Recent supply ledger (100)"
+msgstr "最近100条供给账本"
 
 #. module: ydental_supply
 #. odoo-python
