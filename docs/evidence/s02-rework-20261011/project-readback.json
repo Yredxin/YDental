@@ -1,0 +1,978 @@
+{
+  "project_metadata": {
+    "node": {
+      "id": "PVT_kwHOA3_tu84BmcLJ",
+      "number": 4,
+      "title": "odoo dental",
+      "url": "https://github.com/users/Yredxin/projects/4",
+      "viewerCanUpdate": true,
+      "fields": {
+        "nodes": [
+          {
+            "__typename": "ProjectV2Field",
+            "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+            "name": "Title",
+            "dataType": "TITLE"
+          },
+          {
+            "__typename": "ProjectV2Field",
+            "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhk",
+            "name": "Assignees",
+            "dataType": "ASSIGNEES"
+          },
+          {
+            "__typename": "ProjectV2SingleSelectField",
+            "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+            "name": "Status",
+            "dataType": "SINGLE_SELECT",
+            "options": [
+              {
+                "id": "f75ad846",
+                "name": "Todo"
+              },
+              {
+                "id": "47fc9ee4",
+                "name": "In progress"
+              },
+              {
+                "id": "98236657",
+                "name": "Done"
+              }
+            ]
+          },
+          {
+            "__typename": "ProjectV2Field",
+            "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhs",
+            "name": "Labels",
+            "dataType": "LABELS"
+          },
+          {
+            "__typename": "ProjectV2Field",
+            "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhw",
+            "name": "Linked pull requests",
+            "dataType": "LINKED_PULL_REQUESTS"
+          },
+          {
+            "__typename": "ProjectV2Field",
+            "id": "PVTF_lAHOA3_tu84BmcLJzhlFOh0",
+            "name": "Milestone",
+            "dataType": "MILESTONE"
+          },
+          {
+            "__typename": "ProjectV2Field",
+            "id": "PVTF_lAHOA3_tu84BmcLJzhlFOh4",
+            "name": "Repository",
+            "dataType": "REPOSITORY"
+          },
+          {
+            "__typename": "ProjectV2Field",
+            "id": "PVTF_lAHOA3_tu84BmcLJzhlFOiA",
+            "name": "Reviewers",
+            "dataType": "REVIEWERS"
+          },
+          {
+            "__typename": "ProjectV2Field",
+            "id": "PVTF_lAHOA3_tu84BmcLJzhlFOiE",
+            "name": "Parent issue",
+            "dataType": "PARENT_ISSUE"
+          },
+          {
+            "__typename": "ProjectV2Field",
+            "id": "PVTF_lAHOA3_tu84BmcLJzhlFOiI",
+            "name": "Sub-issues progress",
+            "dataType": "SUB_ISSUES_PROGRESS"
+          },
+          {
+            "__typename": "ProjectV2Field",
+            "id": "PVTF_lAHOA3_tu84BmcLJzhlFOiM",
+            "name": "Created",
+            "dataType": "CREATED"
+          },
+          {
+            "__typename": "ProjectV2Field",
+            "id": "PVTF_lAHOA3_tu84BmcLJzhlFOiQ",
+            "name": "Updated",
+            "dataType": "UPDATED"
+          },
+          {
+            "__typename": "ProjectV2Field",
+            "id": "PVTF_lAHOA3_tu84BmcLJzhlFOiU",
+            "name": "Closed",
+            "dataType": "CLOSED"
+          },
+          {
+            "__typename": "ProjectV2SingleSelectField",
+            "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOrk",
+            "name": "Priority",
+            "dataType": "SINGLE_SELECT",
+            "options": [
+              {
+                "id": "74ba8164",
+                "name": "P0"
+              },
+              {
+                "id": "075f2968",
+                "name": "P1"
+              },
+              {
+                "id": "b5ce64b4",
+                "name": "P2"
+              }
+            ]
+          },
+          {
+            "__typename": "ProjectV2SingleSelectField",
+            "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOro",
+            "name": "Size",
+            "dataType": "SINGLE_SELECT",
+            "options": [
+              {
+                "id": "c18fb802",
+                "name": "XS"
+              },
+              {
+                "id": "dad93664",
+                "name": "S"
+              },
+              {
+                "id": "3efd5b65",
+                "name": "M"
+              },
+              {
+                "id": "2a5be4f3",
+                "name": "L"
+              },
+              {
+                "id": "5c8538d8",
+                "name": "XL"
+              }
+            ]
+          },
+          {
+            "__typename": "ProjectV2Field",
+            "id": "PVTF_lAHOA3_tu84BmcLJzhlFOrs",
+            "name": "Estimate",
+            "dataType": "NUMBER"
+          },
+          {
+            "__typename": "ProjectV2IterationField",
+            "id": "PVTIF_lAHOA3_tu84BmcLJzhlFOrw",
+            "name": "Iteration",
+            "dataType": "ITERATION"
+          },
+          {
+            "__typename": "ProjectV2Field",
+            "id": "PVTF_lAHOA3_tu84BmcLJzhlFOr0",
+            "name": "Start date",
+            "dataType": "DATE"
+          },
+          {
+            "__typename": "ProjectV2Field",
+            "id": "PVTF_lAHOA3_tu84BmcLJzhlFOr4",
+            "name": "Target date",
+            "dataType": "DATE"
+          },
+          {
+            "__typename": "ProjectV2SingleSelectField",
+            "id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVk",
+            "name": "阶段",
+            "dataType": "SINGLE_SELECT",
+            "options": [
+              {
+                "id": "e5e4c996",
+                "name": "PLAN"
+              },
+              {
+                "id": "19026368",
+                "name": "S00"
+              },
+              {
+                "id": "d78cd45e",
+                "name": "S01"
+              },
+              {
+                "id": "0d74f402",
+                "name": "S02"
+              },
+              {
+                "id": "15297359",
+                "name": "S03"
+              },
+              {
+                "id": "6fcba04c",
+                "name": "S04"
+              },
+              {
+                "id": "5919e889",
+                "name": "S05"
+              },
+              {
+                "id": "88cfae5a",
+                "name": "S06"
+              },
+              {
+                "id": "6eb0da18",
+                "name": "S07"
+              },
+              {
+                "id": "2a95fe7c",
+                "name": "S08"
+              },
+              {
+                "id": "22c82468",
+                "name": "S09"
+              },
+              {
+                "id": "2992274b",
+                "name": "S10"
+              },
+              {
+                "id": "f1cdee5a",
+                "name": "S11"
+              },
+              {
+                "id": "7463c6f6",
+                "name": "S12"
+              },
+              {
+                "id": "c17580c1",
+                "name": "S13"
+              }
+            ]
+          },
+          {
+            "__typename": "ProjectV2SingleSelectField",
+            "id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVo",
+            "name": "执行状态",
+            "dataType": "SINGLE_SELECT",
+            "options": [
+              {
+                "id": "441473f3",
+                "name": "待启用"
+              },
+              {
+                "id": "57b99552",
+                "name": "进行中"
+              },
+              {
+                "id": "99a53e6f",
+                "name": "待复核"
+              },
+              {
+                "id": "fde94571",
+                "name": "待用户验收"
+              },
+              {
+                "id": "dc2fcb03",
+                "name": "返工"
+              },
+              {
+                "id": "018aa375",
+                "name": "阻塞"
+              },
+              {
+                "id": "01f0a4f5",
+                "name": "已验收"
+              }
+            ]
+          }
+        ],
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "MjE"
+        }
+      },
+      "views": {
+        "nodes": [
+          {
+            "id": "PVTV_lAHOA3_tu84BmcLJzgL_2kI",
+            "name": "Backlog",
+            "number": 1,
+            "layout": "TABLE_LAYOUT",
+            "filter": null
+          },
+          {
+            "id": "PVTV_lAHOA3_tu84BmcLJzgL_2lI",
+            "name": "Board",
+            "number": 2,
+            "layout": "BOARD_LAYOUT",
+            "filter": null
+          },
+          {
+            "id": "PVTV_lAHOA3_tu84BmcLJzgL_2lM",
+            "name": "Current iteration",
+            "number": 3,
+            "layout": "BOARD_LAYOUT",
+            "filter": "iteration:@current"
+          },
+          {
+            "id": "PVTV_lAHOA3_tu84BmcLJzgL_2lQ",
+            "name": "Roadmap",
+            "number": 4,
+            "layout": "ROADMAP_LAYOUT",
+            "filter": null
+          },
+          {
+            "id": "PVTV_lAHOA3_tu84BmcLJzgL_2lU",
+            "name": "My items",
+            "number": 5,
+            "layout": "TABLE_LAYOUT",
+            "filter": "assignee:@me"
+          },
+          {
+            "id": "PVTV_lAHOA3_tu84BmcLJzgMAjcw",
+            "name": "当前计划",
+            "number": 6,
+            "layout": "TABLE_LAYOUT",
+            "filter": "repo:Yredxin/YDental is:issue 阶段:PLAN,S00,S01,S02,S03,S04,S05,S06,S07,S08,S09,S10,S11,S12,S13"
+          }
+        ],
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "Ng"
+        }
+      },
+      "workflows": {
+        "nodes": [
+          {
+            "id": "PWF_lAHOA3_tu84BmcLJzgdJkzk",
+            "name": "Auto-add sub-issues to project",
+            "enabled": true
+          },
+          {
+            "id": "PWF_lAHOA3_tu84BmcLJzgdJkzw",
+            "name": "Auto-add to project",
+            "enabled": true
+          },
+          {
+            "id": "PWF_lAHOA3_tu84BmcLJzgdJkzg",
+            "name": "Auto-close issue",
+            "enabled": true
+          },
+          {
+            "id": "PWF_lAHOA3_tu84BmcLJzgdJkzs",
+            "name": "Item added to project",
+            "enabled": true
+          },
+          {
+            "id": "PWF_lAHOA3_tu84BmcLJzgdJkzY",
+            "name": "Item closed",
+            "enabled": true
+          },
+          {
+            "id": "PWF_lAHOA3_tu84BmcLJzgdJkzo",
+            "name": "Pull request linked to issue",
+            "enabled": true
+          },
+          {
+            "id": "PWF_lAHOA3_tu84BmcLJzgdJkzc",
+            "name": "Pull request merged",
+            "enabled": true
+          }
+        ],
+        "pageInfo": {
+          "hasNextPage": false,
+          "endCursor": "Nw"
+        }
+      }
+    }
+  },
+  "view_and_workflow_metadata": {
+    "node": {
+      "views": {
+        "nodes": [
+          {
+            "id": "PVTV_lAHOA3_tu84BmcLJzgL_2kI",
+            "name": "Backlog",
+            "updatedAt": "2026-10-10T08:28:26Z",
+            "fields": {
+              "nodes": [
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhk",
+                  "name": "Assignees"
+                },
+                {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhw",
+                  "name": "Linked pull requests"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOiI",
+                  "name": "Sub-issues progress"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOrs",
+                  "name": "Estimate"
+                },
+                {
+                  "id": "PVTIF_lAHOA3_tu84BmcLJzhlFOrw",
+                  "name": "Iteration"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOr0",
+                  "name": "Start date"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOr4",
+                  "name": "Target date"
+                }
+              ]
+            },
+            "groupByFields": {
+              "nodes": [
+                {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status"
+                }
+              ]
+            },
+            "verticalGroupByFields": {
+              "nodes": []
+            },
+            "sortByFields": {
+              "nodes": []
+            }
+          },
+          {
+            "id": "PVTV_lAHOA3_tu84BmcLJzgL_2lI",
+            "name": "Board",
+            "updatedAt": "2026-10-10T08:28:26Z",
+            "fields": {
+              "nodes": [
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhk",
+                  "name": "Assignees"
+                },
+                {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhw",
+                  "name": "Linked pull requests"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOiI",
+                  "name": "Sub-issues progress"
+                },
+                {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOrk",
+                  "name": "Priority"
+                },
+                {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOro",
+                  "name": "Size"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOrs",
+                  "name": "Estimate"
+                },
+                {
+                  "id": "PVTIF_lAHOA3_tu84BmcLJzhlFOrw",
+                  "name": "Iteration"
+                }
+              ]
+            },
+            "groupByFields": {
+              "nodes": []
+            },
+            "verticalGroupByFields": {
+              "nodes": [
+                {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status"
+                }
+              ]
+            },
+            "sortByFields": {
+              "nodes": [
+                {
+                  "direction": "ASC",
+                  "field": {
+                    "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOrk",
+                    "name": "Priority"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "id": "PVTV_lAHOA3_tu84BmcLJzgL_2lM",
+            "name": "Current iteration",
+            "updatedAt": "2026-10-10T08:28:26Z",
+            "fields": {
+              "nodes": [
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhk",
+                  "name": "Assignees"
+                },
+                {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhw",
+                  "name": "Linked pull requests"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOiI",
+                  "name": "Sub-issues progress"
+                }
+              ]
+            },
+            "groupByFields": {
+              "nodes": [
+                {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOrk",
+                  "name": "Priority"
+                }
+              ]
+            },
+            "verticalGroupByFields": {
+              "nodes": [
+                {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status"
+                }
+              ]
+            },
+            "sortByFields": {
+              "nodes": []
+            }
+          },
+          {
+            "id": "PVTV_lAHOA3_tu84BmcLJzgL_2lQ",
+            "name": "Roadmap",
+            "updatedAt": "2026-10-10T08:28:26Z",
+            "fields": {
+              "nodes": [
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhk",
+                  "name": "Assignees"
+                },
+                {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status"
+                }
+              ]
+            },
+            "groupByFields": {
+              "nodes": []
+            },
+            "verticalGroupByFields": {
+              "nodes": []
+            },
+            "sortByFields": {
+              "nodes": []
+            }
+          },
+          {
+            "id": "PVTV_lAHOA3_tu84BmcLJzgL_2lU",
+            "name": "My items",
+            "updatedAt": "2026-10-10T08:28:26Z",
+            "fields": {
+              "nodes": [
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhw",
+                  "name": "Linked pull requests"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOiI",
+                  "name": "Sub-issues progress"
+                },
+                {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOrk",
+                  "name": "Priority"
+                },
+                {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOro",
+                  "name": "Size"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOrs",
+                  "name": "Estimate"
+                },
+                {
+                  "id": "PVTIF_lAHOA3_tu84BmcLJzhlFOrw",
+                  "name": "Iteration"
+                }
+              ]
+            },
+            "groupByFields": {
+              "nodes": []
+            },
+            "verticalGroupByFields": {
+              "nodes": []
+            },
+            "sortByFields": {
+              "nodes": []
+            }
+          },
+          {
+            "id": "PVTV_lAHOA3_tu84BmcLJzgMAjcw",
+            "name": "当前计划",
+            "updatedAt": "2026-10-11T09:04:03Z",
+            "fields": {
+              "nodes": [
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title"
+                },
+                {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVk",
+                  "name": "阶段"
+                },
+                {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVo",
+                  "name": "执行状态"
+                }
+              ]
+            },
+            "groupByFields": {
+              "nodes": []
+            },
+            "verticalGroupByFields": {
+              "nodes": []
+            },
+            "sortByFields": {
+              "nodes": []
+            }
+          }
+        ]
+      },
+      "workflows": {
+        "nodes": [
+          {
+            "id": "PWF_lAHOA3_tu84BmcLJzgdJkzk",
+            "name": "Auto-add sub-issues to project",
+            "number": 10,
+            "enabled": true,
+            "createdAt": "2026-10-10T08:28:26Z",
+            "updatedAt": "2026-10-10T08:28:26Z"
+          },
+          {
+            "id": "PWF_lAHOA3_tu84BmcLJzgdJkzw",
+            "name": "Auto-add to project",
+            "number": 13,
+            "enabled": true,
+            "createdAt": "2026-10-10T08:28:26Z",
+            "updatedAt": "2026-10-10T08:28:26Z"
+          },
+          {
+            "id": "PWF_lAHOA3_tu84BmcLJzgdJkzg",
+            "name": "Auto-close issue",
+            "number": 9,
+            "enabled": true,
+            "createdAt": "2026-10-10T08:28:26Z",
+            "updatedAt": "2026-10-10T08:28:26Z"
+          },
+          {
+            "id": "PWF_lAHOA3_tu84BmcLJzgdJkzs",
+            "name": "Item added to project",
+            "number": 12,
+            "enabled": true,
+            "createdAt": "2026-10-10T08:28:26Z",
+            "updatedAt": "2026-10-10T08:28:26Z"
+          },
+          {
+            "id": "PWF_lAHOA3_tu84BmcLJzgdJkzY",
+            "name": "Item closed",
+            "number": 7,
+            "enabled": true,
+            "createdAt": "2026-10-10T08:28:26Z",
+            "updatedAt": "2026-10-10T08:28:26Z"
+          },
+          {
+            "id": "PWF_lAHOA3_tu84BmcLJzgdJkzo",
+            "name": "Pull request linked to issue",
+            "number": 11,
+            "enabled": true,
+            "createdAt": "2026-10-10T08:28:26Z",
+            "updatedAt": "2026-10-10T08:28:26Z"
+          },
+          {
+            "id": "PWF_lAHOA3_tu84BmcLJzgdJkzc",
+            "name": "Pull request merged",
+            "number": 8,
+            "enabled": true,
+            "createdAt": "2026-10-10T08:28:26Z",
+            "updatedAt": "2026-10-10T08:28:26Z"
+          }
+        ]
+      }
+    }
+  },
+  "item_before": {
+    "repository": {
+      "issue": {
+        "id": "I_kwDOVDf2J88AAAABWZfiQA",
+        "number": 26,
+        "title": "[YD-N1][S02] 楼层平面、区域及工位能力配置",
+        "state": "OPEN",
+        "projectItems": {
+          "nodes": [
+            {
+              "id": "PVTI_lAHOA3_tu84BmcLJzg_8kWQ",
+              "project": {
+                "id": "PVT_kwHOA3_tu84BmcLJ",
+                "number": 4
+              },
+              "fieldValues": {
+                "nodes": [
+                  {
+                    "__typename": "ProjectV2ItemFieldRepositoryValue"
+                  },
+                  {
+                    "__typename": "ProjectV2ItemFieldTextValue"
+                  },
+                  {
+                    "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                    "name": "Todo",
+                    "optionId": "f75ad846",
+                    "field": {
+                      "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                      "name": "Status"
+                    }
+                  },
+                  {
+                    "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                    "name": "S02",
+                    "optionId": "0d74f402",
+                    "field": {
+                      "id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVk",
+                      "name": "阶段"
+                    }
+                  },
+                  {
+                    "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                    "name": "待启用",
+                    "optionId": "441473f3",
+                    "field": {
+                      "id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVo",
+                      "name": "执行状态"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "immediate_readback": {
+    "repository": {
+      "issue": {
+        "id": "I_kwDOVDf2J88AAAABWZfiQA",
+        "number": 26,
+        "title": "[YD-N1][S02] 楼层平面、区域及工位能力配置",
+        "state": "OPEN",
+        "projectItems": {
+          "nodes": [
+            {
+              "id": "PVTI_lAHOA3_tu84BmcLJzg_8kWQ",
+              "project": {
+                "id": "PVT_kwHOA3_tu84BmcLJ",
+                "number": 4
+              },
+              "fieldValues": {
+                "nodes": [
+                  {
+                    "__typename": "ProjectV2ItemFieldRepositoryValue"
+                  },
+                  {
+                    "__typename": "ProjectV2ItemFieldTextValue"
+                  },
+                  {
+                    "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                    "name": "Todo",
+                    "optionId": "f75ad846",
+                    "field": {
+                      "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                      "name": "Status"
+                    }
+                  },
+                  {
+                    "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                    "name": "S02",
+                    "optionId": "0d74f402",
+                    "field": {
+                      "id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVk",
+                      "name": "阶段"
+                    }
+                  },
+                  {
+                    "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                    "name": "返工",
+                    "optionId": "dc2fcb03",
+                    "field": {
+                      "id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVo",
+                      "name": "执行状态"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "second_readback": {
+    "repository": {
+      "issue": {
+        "id": "I_kwDOVDf2J88AAAABWZfiQA",
+        "number": 26,
+        "title": "[YD-N1][S02] 楼层平面、区域及工位能力配置",
+        "state": "OPEN",
+        "projectItems": {
+          "nodes": [
+            {
+              "id": "PVTI_lAHOA3_tu84BmcLJzg_8kWQ",
+              "project": {
+                "id": "PVT_kwHOA3_tu84BmcLJ",
+                "number": 4
+              },
+              "fieldValues": {
+                "nodes": [
+                  {
+                    "__typename": "ProjectV2ItemFieldRepositoryValue"
+                  },
+                  {
+                    "__typename": "ProjectV2ItemFieldTextValue"
+                  },
+                  {
+                    "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                    "name": "Todo",
+                    "optionId": "f75ad846",
+                    "field": {
+                      "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                      "name": "Status"
+                    }
+                  },
+                  {
+                    "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                    "name": "S02",
+                    "optionId": "0d74f402",
+                    "field": {
+                      "id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVk",
+                      "name": "阶段"
+                    }
+                  },
+                  {
+                    "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                    "name": "返工",
+                    "optionId": "dc2fcb03",
+                    "field": {
+                      "id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVo",
+                      "name": "执行状态"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "workflows_after": {
+    "node": {
+      "workflows": {
+        "nodes": [
+          {
+            "id": "PWF_lAHOA3_tu84BmcLJzgdJkzk",
+            "name": "Auto-add sub-issues to project",
+            "number": 10,
+            "enabled": true,
+            "createdAt": "2026-10-10T08:28:26Z",
+            "updatedAt": "2026-10-10T08:28:26Z"
+          },
+          {
+            "id": "PWF_lAHOA3_tu84BmcLJzgdJkzw",
+            "name": "Auto-add to project",
+            "number": 13,
+            "enabled": true,
+            "createdAt": "2026-10-10T08:28:26Z",
+            "updatedAt": "2026-10-10T08:28:26Z"
+          },
+          {
+            "id": "PWF_lAHOA3_tu84BmcLJzgdJkzg",
+            "name": "Auto-close issue",
+            "number": 9,
+            "enabled": true,
+            "createdAt": "2026-10-10T08:28:26Z",
+            "updatedAt": "2026-10-10T08:28:26Z"
+          },
+          {
+            "id": "PWF_lAHOA3_tu84BmcLJzgdJkzs",
+            "name": "Item added to project",
+            "number": 12,
+            "enabled": true,
+            "createdAt": "2026-10-10T08:28:26Z",
+            "updatedAt": "2026-10-10T08:28:26Z"
+          },
+          {
+            "id": "PWF_lAHOA3_tu84BmcLJzgdJkzY",
+            "name": "Item closed",
+            "number": 7,
+            "enabled": true,
+            "createdAt": "2026-10-10T08:28:26Z",
+            "updatedAt": "2026-10-10T08:28:26Z"
+          },
+          {
+            "id": "PWF_lAHOA3_tu84BmcLJzgdJkzo",
+            "name": "Pull request linked to issue",
+            "number": 11,
+            "enabled": true,
+            "createdAt": "2026-10-10T08:28:26Z",
+            "updatedAt": "2026-10-10T08:28:26Z"
+          },
+          {
+            "id": "PWF_lAHOA3_tu84BmcLJzgdJkzc",
+            "name": "Pull request merged",
+            "number": 8,
+            "enabled": true,
+            "createdAt": "2026-10-10T08:28:26Z",
+            "updatedAt": "2026-10-10T08:28:26Z"
+          }
+        ]
+      }
+    }
+  },
+  "authorization": "Current user authorizes exactly issue #26 custom 执行状态 -> 返工, no native Status/workflow writes",
+  "mutation": {
+    "projectId": "PVT_kwHOA3_tu84BmcLJ",
+    "itemId": "PVTI_lAHOA3_tu84BmcLJzg_8kWQ",
+    "fieldId": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVo",
+    "field_name": "执行状态",
+    "singleSelectOptionId": "dc2fcb03",
+    "option_name": "返工"
+  },
+  "result": "PASS; only custom execution status changed; native Status Todo, issue OPEN; workflows metadata unchanged",
+  "api_boundary": "Public GraphQL workflow metadata exposes identity/name/enabled/timestamps, not trigger/action configuration. No workflows written.",
+  "automation_documentation": "https://docs.github.com/en/issues/planning-and-tracking-with-projects/automating-your-project/using-the-built-in-automations"
+}

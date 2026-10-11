@@ -1,0 +1,138 @@
+{
+  "scope": "Only two fresh synthetic databases created in this S02 review rework; no adoption or overwrite",
+  "final_database": "ydental_s02_test_20261011141857_3745e6ce",
+  "runs": [
+    {
+      "creation_record": {
+        "database": "ydental_s02_test_20261011140720_44e1891a",
+        "oid": 191352,
+        "endpoint": {
+          "host": "127.0.0.1",
+          "port": "5432",
+          "user": "odoo"
+        },
+        "cluster": "7694897083368259627",
+        "port": 18103,
+        "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+        "created_utc": "2026-10-11T14:07:20.202586+00:00",
+        "config_sha256": "b94004c0ef9e6081afab2ff521a74a090ffc1e83b34c5ae567f705c4fcb1b4c9"
+      },
+      "actions": [
+        {
+          "action": "install",
+          "exit_code": 1,
+          "log": "install-20261011T140720203618.log",
+          "log_sha256": "6eb3fe4bfa43e43eef946dc57994d82f9c6c9db9b1852b63f27b498bacfbcd8d",
+          "time_utc": "2026-10-11T14:08:17.483806+00:00",
+          "tested_commit": "9a21b6968bf5c56d094a3a197a8ef412faa76291",
+          "tests": [
+            3,
+            0,
+            25
+          ],
+          "verification_exit": 1
+        },
+        {
+          "action": "upgrade",
+          "exit_code": 0,
+          "log": "upgrade-20261011T141044117907.log",
+          "log_sha256": "36565a124b9686b24a4060df46587e5d7e452e5c19e9fde5fe827339c3024db6",
+          "time_utc": "2026-10-11T14:10:57.220528+00:00",
+          "tested_commit": "ae80d98ab7993768f54d5638ac189f5adb0340a0",
+          "tests": [
+            0,
+            0,
+            23
+          ]
+        },
+        {
+          "action": "export",
+          "exit_code": 0,
+          "log": "export-20261011T141219590974.log",
+          "log_sha256": "77b8bee4585cad6fcade8cf4bfd6e47b3cb050321f3f2df1cf0667f8eba52f61",
+          "time_utc": "2026-10-11T14:12:21.785813+00:00",
+          "tested_commit": "ae80d98ab7993768f54d5638ac189f5adb0340a0"
+        },
+        {
+          "action": "probe",
+          "exit_code": 0,
+          "log": "probe-20261011T141252057188.log",
+          "log_sha256": "321520a129d74c4bd8c0f50593036b27382eae1f6cd2183dae3c31b90e8e2a80",
+          "time_utc": "2026-10-11T14:12:55.273600+00:00",
+          "tested_commit": "ae80d98ab7993768f54d5638ac189f5adb0340a0"
+        }
+      ]
+    },
+    {
+      "creation_record": {
+        "database": "ydental_s02_test_20261011141857_3745e6ce",
+        "oid": 199793,
+        "endpoint": {
+          "host": "127.0.0.1",
+          "port": "5432",
+          "user": "odoo"
+        },
+        "cluster": "7694897083368259627",
+        "port": 18103,
+        "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+        "created_utc": "2026-10-11T14:18:57.917013+00:00",
+        "config_sha256": "2a3cf682237962bf35888054edbab657e7d20e1fae6aefca45f22a669e3b3ff1"
+      },
+      "actions": [
+        {
+          "action": "install",
+          "exit_code": 0,
+          "log": "install-20261011T141857918214.log",
+          "log_sha256": "44d8bb24841bb90d2bf86121147ba7240d279ee43fb7e924407f03eb37557b41",
+          "time_utc": "2026-10-11T14:19:55.502312+00:00",
+          "tested_commit": "637b74d2b49d19fc80a6246652bd4628e9f3b0a9",
+          "tests": [
+            0,
+            0,
+            25
+          ]
+        },
+        {
+          "action": "upgrade",
+          "exit_code": 0,
+          "log": "upgrade-20261011T142134511380.log",
+          "log_sha256": "8562061fe90c2697272e6e00ea1042fc59715db0aa7750dd0252852e6a0ad1d0",
+          "time_utc": "2026-10-11T14:21:47.675874+00:00",
+          "tested_commit": "637b74d2b49d19fc80a6246652bd4628e9f3b0a9",
+          "tests": [
+            0,
+            0,
+            23
+          ]
+        },
+        {
+          "action": "export",
+          "exit_code": 0,
+          "log": "export-20261011T142157185323.log",
+          "log_sha256": "9816dcb8082225b7efb25d8cc729395a212babc36f94a1091428e03f33602845",
+          "time_utc": "2026-10-11T14:21:59.368360+00:00",
+          "tested_commit": "637b74d2b49d19fc80a6246652bd4628e9f3b0a9"
+        },
+        {
+          "action": "probe",
+          "exit_code": 0,
+          "log": "probe-20261011T142210900430.log",
+          "log_sha256": "afefc5c56bb192abafe4c385891e9e362864da53434aa0990723f5ab6f2d9515",
+          "time_utc": "2026-10-11T14:22:13.985228+00:00",
+          "tested_commit": "637b74d2b49d19fc80a6246652bd4628e9f3b0a9"
+        }
+      ]
+    }
+  ],
+  "preserved_original_evidence": "docs/evidence/s02/",
+  "failure_explanations": {
+    "first_install": "3 failures: native Many2many retains filtered inactive relations in model and HTTP; native Json normalizes 0 to empty rather than rejecting. Product de3cc85 fixes explicit cleanup; test ae80d98 corrects JSON expectation.",
+    "first_browser": "Original 15 checks passed; new role native Selection field uses SelectMenu instead of HTML select; locator timeout preserved. Tool 637b74d selects native menu; no product UI or grant change."
+  },
+  "current_preview": {
+    "database": "ydental_s02_test_20261011141857_3745e6ce",
+    "port": 18103,
+    "loopback_only": true,
+    "previous_18102_untouched": true
+  }
+}

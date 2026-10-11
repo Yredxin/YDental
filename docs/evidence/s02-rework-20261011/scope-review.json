@@ -1,0 +1,30 @@
+{
+  "baseline": "a4a6ae1277aa56c70d96542af60e9cbd45e0e3c6",
+  "product_commit": "de3cc85b2150ee3f9d42df6a947971607b51af74",
+  "tested_commit": "637b74d2b49d19fc80a6246652bd4628e9f3b0a9",
+  "unchanged_paths": [
+    "docs/evidence/s02",
+    "docs/s02-report.md",
+    "docs/s02-contracts.md",
+    "docs/s02-security-review.md",
+    "ydental_space/static",
+    "ydental_access",
+    "ydental_access_test"
+  ],
+  "post_product_changes": [
+    "scripts/s02_browser.py",
+    "ydental_space_test/tests/test_space.py"
+  ],
+  "security_review": "Author scoped review against previously read odoo-security/odoo-guidelines; not independent review",
+  "confirmed": [
+    "trusted internal session remains prerequisite",
+    "group common authority independent of store business grants",
+    "private business scope unchanged",
+    "active restore triggers parent constraints",
+    "rectangle nonempty JSON rejected or shape transition cleared",
+    "inactive new capability links rejected; explicit historical cleanup effective",
+    "SVG routes parser and static frontend unchanged",
+    "all final screenshot and private log hashes verified"
+  ],
+  "result": "PASS"
+}

@@ -1,0 +1,1140 @@
+{
+  "scope": "S02 synthetic UI only",
+  "tested_commit": "637b74d2b49d19fc80a6246652bd4628e9f3b0a9",
+  "database": "ydental_s02_test_20261011141857_3745e6ce",
+  "started_utc": "2026-10-11T14:22:20.309381+00:00",
+  "browser": "Firefox",
+  "sandbox": "default; no overrides",
+  "checks": [
+    {
+      "check": "F1 six stable workstation fixtures and explicit runtime state",
+      "result": "PASS"
+    },
+    {
+      "check": "Owl floor canvas renders",
+      "result": "PASS"
+    },
+    {
+      "check": "T06 two concurrent HTTP saves: one accepted, one version conflict",
+      "result": "PASS"
+    },
+    {
+      "check": "T01 T02 UI geometry save preserves workstation ID",
+      "result": "PASS"
+    },
+    {
+      "check": "T02 native configuration rename keeps ID and references",
+      "result": "PASS"
+    },
+    {
+      "check": "T01 draw rectangle through canvas",
+      "result": "PASS"
+    },
+    {
+      "check": "T01 draw polygon through canvas",
+      "result": "PASS"
+    },
+    {
+      "check": "F1 drag resource creates one stable workstation and linked artwork",
+      "result": "PASS"
+    },
+    {
+      "check": "T05 native SVG file upload retains safe XML",
+      "result": "PASS"
+    },
+    {
+      "check": "T04 readonly plan has disabled save",
+      "result": "PASS"
+    },
+    {
+      "check": "T04 readonly direct layout RPC denied",
+      "result": "PASS"
+    },
+    {
+      "check": "Store switch accepted",
+      "result": "PASS"
+    },
+    {
+      "check": "T04 private SVG denied from other store",
+      "result": "PASS"
+    },
+    {
+      "check": "Old store page cannot save layout",
+      "result": "PASS"
+    },
+    {
+      "check": "Rework group fixture has no store membership or space grants",
+      "result": "PASS"
+    },
+    {
+      "check": "BLOCKER-1 group without store creates common resource through native form",
+      "result": "PASS"
+    },
+    {
+      "check": "BLOCKER-1 group without space grant modifies common resource through native form",
+      "result": "PASS"
+    },
+    {
+      "check": "BLOCKER-1 common group authority cannot write private resource",
+      "result": "PASS"
+    },
+    {
+      "check": "BLOCKER-1 ordinary space reader can read new common resource",
+      "result": "PASS"
+    },
+    {
+      "check": "BLOCKER-1 ordinary store space writer cannot modify common resource",
+      "result": "PASS"
+    },
+    {
+      "check": "No browser JavaScript errors",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s02-rework-20261011/final-run/browser-attempts/20261011T142220309232/01-writer-floor.png",
+      "sha256": "bb2a5b451243d0793add2426319a1bdb1827a1537b55059ac4d2f1d3bac229e2"
+    },
+    {
+      "path": "docs/evidence/s02-rework-20261011/final-run/browser-attempts/20261011T142220309232/02-saved-floor.png",
+      "sha256": "d647a566750486f303610376a9bcc2584f5141de69b5d629eef5f3095858e9f6"
+    },
+    {
+      "path": "docs/evidence/s02-rework-20261011/final-run/browser-attempts/20261011T142220309232/03-drawing-and-drop.png",
+      "sha256": "0ab10aff83a73def6bd79aa1f2f81b2170d4d17145d8bc9c7d6ef35f95d3b312"
+    },
+    {
+      "path": "docs/evidence/s02-rework-20261011/final-run/browser-attempts/20261011T142220309232/04-private-resource-upload.png",
+      "sha256": "47909fdcc1131377e80fb974cae388ef7a602cbd49c8afe1533be9646e3f0f5b"
+    },
+    {
+      "path": "docs/evidence/s02-rework-20261011/final-run/browser-attempts/20261011T142220309232/05-readonly-floor.png",
+      "sha256": "e43bc248cfc65c212243d9e9b431f96aeda4363bd3404d48f6fe3f601301c753"
+    },
+    {
+      "path": "docs/evidence/s02-rework-20261011/final-run/browser-attempts/20261011T142220309232/06-group-only-common-resource.png",
+      "sha256": "af34586cab7aeefba3c53af36b0b8ab3fbd664ee3ab8b39e8c8129e02445029e"
+    }
+  ],
+  "browser_version": "155.0",
+  "fixture_before": {
+    "floor": {
+      "id": 5,
+      "name": "S02 Synthetic Second Floor",
+      "ydental_store_id": [
+        9,
+        "S02 Synthetic Store A"
+      ],
+      "ydental_version": 5,
+      "ydental_width": 1000,
+      "ydental_height": 700
+    },
+    "areas": [
+      {
+        "id": 17,
+        "name": "Treatment",
+        "active": true,
+        "ydental_version": 1,
+        "ydental_x": 20,
+        "ydental_y": 30,
+        "ydental_width": 430,
+        "ydental_height": 300,
+        "ydental_angle": 0,
+        "parent_id": false,
+        "ydental_shape": "rect",
+        "ydental_points": false,
+        "ydental_reporting": true,
+        "ydental_queue_area_id": [
+          17,
+          "Treatment"
+        ],
+        "ydental_capability_ids": [
+          17,
+          18
+        ],
+        "ydental_purpose": "care"
+      },
+      {
+        "id": 18,
+        "name": "Imaging",
+        "active": true,
+        "ydental_version": 1,
+        "ydental_x": 490,
+        "ydental_y": 30,
+        "ydental_width": 450,
+        "ydental_height": 300,
+        "ydental_angle": 0,
+        "parent_id": false,
+        "ydental_shape": "rect",
+        "ydental_points": false,
+        "ydental_reporting": true,
+        "ydental_queue_area_id": [
+          18,
+          "Imaging"
+        ],
+        "ydental_capability_ids": [
+          19,
+          20
+        ],
+        "ydental_purpose": "exam"
+      },
+      {
+        "id": 19,
+        "name": "Pharmacy",
+        "active": true,
+        "ydental_version": 1,
+        "ydental_x": 20,
+        "ydental_y": 380,
+        "ydental_width": 280,
+        "ydental_height": 240,
+        "ydental_angle": 0,
+        "parent_id": false,
+        "ydental_shape": "rect",
+        "ydental_points": false,
+        "ydental_reporting": true,
+        "ydental_queue_area_id": [
+          19,
+          "Pharmacy"
+        ],
+        "ydental_capability_ids": [],
+        "ydental_purpose": "pharmacy"
+      },
+      {
+        "id": 20,
+        "name": "Settlement",
+        "active": true,
+        "ydental_version": 1,
+        "ydental_x": 340,
+        "ydental_y": 380,
+        "ydental_width": 280,
+        "ydental_height": 240,
+        "ydental_angle": 0,
+        "parent_id": false,
+        "ydental_shape": "rect",
+        "ydental_points": false,
+        "ydental_reporting": false,
+        "ydental_queue_area_id": false,
+        "ydental_capability_ids": [],
+        "ydental_purpose": "settlement"
+      },
+      {
+        "id": 21,
+        "name": "Waiting",
+        "active": true,
+        "ydental_version": 1,
+        "ydental_x": 670,
+        "ydental_y": 380,
+        "ydental_width": 270,
+        "ydental_height": 240,
+        "ydental_angle": 0,
+        "parent_id": false,
+        "ydental_shape": "rect",
+        "ydental_points": false,
+        "ydental_reporting": false,
+        "ydental_queue_area_id": false,
+        "ydental_capability_ids": [],
+        "ydental_purpose": "waiting"
+      },
+      {
+        "id": 22,
+        "name": "Room A",
+        "active": true,
+        "ydental_version": 1,
+        "ydental_x": 45,
+        "ydental_y": 70,
+        "ydental_width": 375,
+        "ydental_height": 220,
+        "ydental_angle": 0,
+        "parent_id": [
+          17,
+          "Treatment"
+        ],
+        "ydental_shape": "rect",
+        "ydental_points": false,
+        "ydental_reporting": false,
+        "ydental_queue_area_id": [
+          17,
+          "Treatment"
+        ],
+        "ydental_capability_ids": [
+          17,
+          18
+        ],
+        "ydental_purpose": "care"
+      }
+    ],
+    "stations": [
+      {
+        "id": 7,
+        "name": "Chair 1",
+        "active": true,
+        "ydental_version": 1,
+        "ydental_x": 70,
+        "ydental_y": 110,
+        "ydental_width": 90,
+        "ydental_height": 70,
+        "ydental_angle": 0,
+        "ydental_area_id": [
+          22,
+          "Room A"
+        ],
+        "ydental_kind": "care",
+        "ydental_queue_area_id": [
+          17,
+          "Treatment"
+        ],
+        "ydental_capability_ids": [
+          17
+        ],
+        "ydental_callable": true,
+        "ydental_enabled": true
+      },
+      {
+        "id": 8,
+        "name": "Chair 2",
+        "active": true,
+        "ydental_version": 1,
+        "ydental_x": 260,
+        "ydental_y": 110,
+        "ydental_width": 90,
+        "ydental_height": 70,
+        "ydental_angle": 0,
+        "ydental_area_id": [
+          22,
+          "Room A"
+        ],
+        "ydental_kind": "care",
+        "ydental_queue_area_id": [
+          17,
+          "Treatment"
+        ],
+        "ydental_capability_ids": [
+          17,
+          18
+        ],
+        "ydental_callable": true,
+        "ydental_enabled": true
+      },
+      {
+        "id": 9,
+        "name": "Panorama",
+        "active": true,
+        "ydental_version": 1,
+        "ydental_x": 540,
+        "ydental_y": 110,
+        "ydental_width": 90,
+        "ydental_height": 70,
+        "ydental_angle": 0,
+        "ydental_area_id": [
+          18,
+          "Imaging"
+        ],
+        "ydental_kind": "exam",
+        "ydental_queue_area_id": [
+          18,
+          "Imaging"
+        ],
+        "ydental_capability_ids": [
+          19
+        ],
+        "ydental_callable": true,
+        "ydental_enabled": true
+      },
+      {
+        "id": 10,
+        "name": "CBCT",
+        "active": true,
+        "ydental_version": 1,
+        "ydental_x": 750,
+        "ydental_y": 110,
+        "ydental_width": 90,
+        "ydental_height": 70,
+        "ydental_angle": 0,
+        "ydental_area_id": [
+          18,
+          "Imaging"
+        ],
+        "ydental_kind": "exam",
+        "ydental_queue_area_id": [
+          18,
+          "Imaging"
+        ],
+        "ydental_capability_ids": [
+          20
+        ],
+        "ydental_callable": true,
+        "ydental_enabled": true
+      },
+      {
+        "id": 11,
+        "name": "Pharmacy desk",
+        "active": true,
+        "ydental_version": 1,
+        "ydental_x": 80,
+        "ydental_y": 440,
+        "ydental_width": 90,
+        "ydental_height": 70,
+        "ydental_angle": 0,
+        "ydental_area_id": [
+          19,
+          "Pharmacy"
+        ],
+        "ydental_kind": "pharmacy",
+        "ydental_queue_area_id": [
+          19,
+          "Pharmacy"
+        ],
+        "ydental_capability_ids": [],
+        "ydental_callable": true,
+        "ydental_enabled": true
+      },
+      {
+        "id": 12,
+        "name": "Settlement desk",
+        "active": true,
+        "ydental_version": 1,
+        "ydental_x": 400,
+        "ydental_y": 440,
+        "ydental_width": 90,
+        "ydental_height": 70,
+        "ydental_angle": 0,
+        "ydental_area_id": [
+          20,
+          "Settlement"
+        ],
+        "ydental_kind": "settlement",
+        "ydental_queue_area_id": false,
+        "ydental_capability_ids": [],
+        "ydental_callable": false,
+        "ydental_enabled": true
+      }
+    ],
+    "items": [
+      {
+        "id": 5,
+        "name": "Chair 1",
+        "active": true,
+        "ydental_version": 1,
+        "ydental_x": 80,
+        "ydental_y": 135,
+        "ydental_width": 65,
+        "ydental_height": 55,
+        "ydental_angle": 0,
+        "ydental_resource_id": [
+          1,
+          "Dental chair"
+        ],
+        "ydental_station_id": [
+          7,
+          "Chair 1"
+        ]
+      },
+      {
+        "id": 6,
+        "name": "Chair 2",
+        "active": true,
+        "ydental_version": 1,
+        "ydental_x": 270,
+        "ydental_y": 135,
+        "ydental_width": 65,
+        "ydental_height": 55,
+        "ydental_angle": 0,
+        "ydental_resource_id": [
+          1,
+          "Dental chair"
+        ],
+        "ydental_station_id": [
+          8,
+          "Chair 2"
+        ]
+      },
+      {
+        "id": 7,
+        "name": "Panorama",
+        "active": true,
+        "ydental_version": 1,
+        "ydental_x": 550,
+        "ydental_y": 135,
+        "ydental_width": 65,
+        "ydental_height": 55,
+        "ydental_angle": 0,
+        "ydental_resource_id": [
+          2,
+          "Imaging device"
+        ],
+        "ydental_station_id": [
+          9,
+          "Panorama"
+        ]
+      },
+      {
+        "id": 8,
+        "name": "CBCT",
+        "active": true,
+        "ydental_version": 1,
+        "ydental_x": 760,
+        "ydental_y": 135,
+        "ydental_width": 65,
+        "ydental_height": 55,
+        "ydental_angle": 0,
+        "ydental_resource_id": [
+          2,
+          "Imaging device"
+        ],
+        "ydental_station_id": [
+          10,
+          "CBCT"
+        ]
+      },
+      {
+        "id": 9,
+        "name": "Pharmacy desk",
+        "active": true,
+        "ydental_version": 1,
+        "ydental_x": 90,
+        "ydental_y": 465,
+        "ydental_width": 65,
+        "ydental_height": 55,
+        "ydental_angle": 0,
+        "ydental_resource_id": [
+          3,
+          "Pharmacy desk"
+        ],
+        "ydental_station_id": [
+          11,
+          "Pharmacy desk"
+        ]
+      },
+      {
+        "id": 10,
+        "name": "Settlement desk",
+        "active": true,
+        "ydental_version": 1,
+        "ydental_x": 410,
+        "ydental_y": 465,
+        "ydental_width": 65,
+        "ydental_height": 55,
+        "ydental_angle": 0,
+        "ydental_resource_id": [
+          4,
+          "Settlement desk"
+        ],
+        "ydental_station_id": [
+          12,
+          "Settlement desk"
+        ]
+      }
+    ],
+    "capabilities": [
+      {
+        "id": 17,
+        "name": "Cleaning"
+      },
+      {
+        "id": 18,
+        "name": "Filling"
+      },
+      {
+        "id": 19,
+        "name": "Panorama"
+      },
+      {
+        "id": 20,
+        "name": "CBCT"
+      }
+    ],
+    "resources": [
+      {
+        "id": 1,
+        "name": "Dental chair",
+        "ydental_kind": "chair"
+      },
+      {
+        "id": 2,
+        "name": "Imaging device",
+        "ydental_kind": "imaging"
+      },
+      {
+        "id": 3,
+        "name": "Pharmacy desk",
+        "ydental_kind": "pharmacy"
+      },
+      {
+        "id": 4,
+        "name": "Settlement desk",
+        "ydental_kind": "settlement"
+      },
+      {
+        "id": 5,
+        "name": "Door",
+        "ydental_kind": "door"
+      },
+      {
+        "id": 6,
+        "name": "Wall",
+        "ydental_kind": "wall"
+      },
+      {
+        "id": 7,
+        "name": "Waiting sign",
+        "ydental_kind": "waiting"
+      },
+      {
+        "id": 18,
+        "name": "A Private marker",
+        "ydental_kind": "waiting"
+      }
+    ]
+  },
+  "concurrent_saves": {
+    "same_version": 5,
+    "accepted": 1,
+    "version_conflict": 1
+  },
+  "workstation_geometry_after": {
+    "id": 7,
+    "name": "Chair 1",
+    "active": true,
+    "ydental_version": 3,
+    "ydental_x": 78,
+    "ydental_y": 110,
+    "ydental_width": 95,
+    "ydental_height": 70,
+    "ydental_angle": 0,
+    "ydental_area_id": [
+      22,
+      "Room A"
+    ],
+    "ydental_kind": "care",
+    "ydental_queue_area_id": [
+      17,
+      "Treatment"
+    ],
+    "ydental_capability_ids": [
+      17
+    ],
+    "ydental_callable": true,
+    "ydental_enabled": true
+  },
+  "workstation_rename_after": {
+    "id": 7,
+    "name": "S02 Stable Chair 309232",
+    "active": true,
+    "ydental_version": 4,
+    "ydental_x": 78,
+    "ydental_y": 110,
+    "ydental_width": 95,
+    "ydental_height": 70,
+    "ydental_angle": 0,
+    "ydental_area_id": [
+      22,
+      "Room A"
+    ],
+    "ydental_kind": "care",
+    "ydental_queue_area_id": [
+      17,
+      "Treatment"
+    ],
+    "ydental_capability_ids": [
+      17
+    ],
+    "ydental_callable": true,
+    "ydental_enabled": true
+  },
+  "drawing_after": {
+    "areas": [
+      {
+        "id": 17,
+        "name": "Treatment",
+        "active": true,
+        "ydental_version": 1,
+        "ydental_x": 20,
+        "ydental_y": 30,
+        "ydental_width": 430,
+        "ydental_height": 300,
+        "ydental_angle": 0,
+        "parent_id": false,
+        "ydental_shape": "rect",
+        "ydental_points": false,
+        "ydental_reporting": true,
+        "ydental_queue_area_id": [
+          17,
+          "Treatment"
+        ],
+        "ydental_capability_ids": [
+          17,
+          18
+        ],
+        "ydental_purpose": "care"
+      },
+      {
+        "id": 18,
+        "name": "Imaging",
+        "active": true,
+        "ydental_version": 1,
+        "ydental_x": 490,
+        "ydental_y": 30,
+        "ydental_width": 450,
+        "ydental_height": 300,
+        "ydental_angle": 0,
+        "parent_id": false,
+        "ydental_shape": "rect",
+        "ydental_points": false,
+        "ydental_reporting": true,
+        "ydental_queue_area_id": [
+          18,
+          "Imaging"
+        ],
+        "ydental_capability_ids": [
+          19,
+          20
+        ],
+        "ydental_purpose": "exam"
+      },
+      {
+        "id": 19,
+        "name": "Pharmacy",
+        "active": true,
+        "ydental_version": 1,
+        "ydental_x": 20,
+        "ydental_y": 380,
+        "ydental_width": 280,
+        "ydental_height": 240,
+        "ydental_angle": 0,
+        "parent_id": false,
+        "ydental_shape": "rect",
+        "ydental_points": false,
+        "ydental_reporting": true,
+        "ydental_queue_area_id": [
+          19,
+          "Pharmacy"
+        ],
+        "ydental_capability_ids": [],
+        "ydental_purpose": "pharmacy"
+      },
+      {
+        "id": 20,
+        "name": "Settlement",
+        "active": true,
+        "ydental_version": 1,
+        "ydental_x": 340,
+        "ydental_y": 380,
+        "ydental_width": 280,
+        "ydental_height": 240,
+        "ydental_angle": 0,
+        "parent_id": false,
+        "ydental_shape": "rect",
+        "ydental_points": false,
+        "ydental_reporting": false,
+        "ydental_queue_area_id": false,
+        "ydental_capability_ids": [],
+        "ydental_purpose": "settlement"
+      },
+      {
+        "id": 21,
+        "name": "Waiting",
+        "active": true,
+        "ydental_version": 1,
+        "ydental_x": 670,
+        "ydental_y": 380,
+        "ydental_width": 270,
+        "ydental_height": 240,
+        "ydental_angle": 0,
+        "parent_id": false,
+        "ydental_shape": "rect",
+        "ydental_points": false,
+        "ydental_reporting": false,
+        "ydental_queue_area_id": false,
+        "ydental_capability_ids": [],
+        "ydental_purpose": "waiting"
+      },
+      {
+        "id": 22,
+        "name": "Room A",
+        "active": true,
+        "ydental_version": 1,
+        "ydental_x": 45,
+        "ydental_y": 70,
+        "ydental_width": 375,
+        "ydental_height": 220,
+        "ydental_angle": 0,
+        "parent_id": [
+          17,
+          "Treatment"
+        ],
+        "ydental_shape": "rect",
+        "ydental_points": false,
+        "ydental_reporting": false,
+        "ydental_queue_area_id": [
+          17,
+          "Treatment"
+        ],
+        "ydental_capability_ids": [
+          17,
+          18
+        ],
+        "ydental_purpose": "care"
+      },
+      {
+        "id": 23,
+        "name": "新区域",
+        "active": true,
+        "ydental_version": 1,
+        "ydental_x": 640,
+        "ydental_y": 640,
+        "ydental_width": 260,
+        "ydental_height": 50,
+        "ydental_angle": 0,
+        "parent_id": false,
+        "ydental_shape": "rect",
+        "ydental_points": false,
+        "ydental_reporting": false,
+        "ydental_queue_area_id": false,
+        "ydental_capability_ids": [],
+        "ydental_purpose": "care"
+      },
+      {
+        "id": 24,
+        "name": "新区域",
+        "active": true,
+        "ydental_version": 1,
+        "ydental_x": 30,
+        "ydental_y": 640,
+        "ydental_width": 220,
+        "ydental_height": 50,
+        "ydental_angle": 0,
+        "parent_id": false,
+        "ydental_shape": "polygon",
+        "ydental_points": [
+          [
+            0,
+            0
+          ],
+          [
+            220,
+            0
+          ],
+          [
+            110,
+            50
+          ]
+        ],
+        "ydental_reporting": false,
+        "ydental_queue_area_id": false,
+        "ydental_capability_ids": [],
+        "ydental_purpose": "care"
+      }
+    ],
+    "stations": [
+      {
+        "id": 7,
+        "name": "S02 Stable Chair 309232",
+        "active": true,
+        "ydental_version": 4,
+        "ydental_x": 78,
+        "ydental_y": 110,
+        "ydental_width": 95,
+        "ydental_height": 70,
+        "ydental_angle": 0,
+        "ydental_area_id": [
+          22,
+          "Room A"
+        ],
+        "ydental_kind": "care",
+        "ydental_queue_area_id": [
+          17,
+          "Treatment"
+        ],
+        "ydental_capability_ids": [
+          17
+        ],
+        "ydental_callable": true,
+        "ydental_enabled": true
+      },
+      {
+        "id": 8,
+        "name": "Chair 2",
+        "active": true,
+        "ydental_version": 1,
+        "ydental_x": 260,
+        "ydental_y": 110,
+        "ydental_width": 90,
+        "ydental_height": 70,
+        "ydental_angle": 0,
+        "ydental_area_id": [
+          22,
+          "Room A"
+        ],
+        "ydental_kind": "care",
+        "ydental_queue_area_id": [
+          17,
+          "Treatment"
+        ],
+        "ydental_capability_ids": [
+          17,
+          18
+        ],
+        "ydental_callable": true,
+        "ydental_enabled": true
+      },
+      {
+        "id": 9,
+        "name": "Panorama",
+        "active": true,
+        "ydental_version": 1,
+        "ydental_x": 540,
+        "ydental_y": 110,
+        "ydental_width": 90,
+        "ydental_height": 70,
+        "ydental_angle": 0,
+        "ydental_area_id": [
+          18,
+          "Imaging"
+        ],
+        "ydental_kind": "exam",
+        "ydental_queue_area_id": [
+          18,
+          "Imaging"
+        ],
+        "ydental_capability_ids": [
+          19
+        ],
+        "ydental_callable": true,
+        "ydental_enabled": true
+      },
+      {
+        "id": 10,
+        "name": "CBCT",
+        "active": true,
+        "ydental_version": 1,
+        "ydental_x": 750,
+        "ydental_y": 110,
+        "ydental_width": 90,
+        "ydental_height": 70,
+        "ydental_angle": 0,
+        "ydental_area_id": [
+          18,
+          "Imaging"
+        ],
+        "ydental_kind": "exam",
+        "ydental_queue_area_id": [
+          18,
+          "Imaging"
+        ],
+        "ydental_capability_ids": [
+          20
+        ],
+        "ydental_callable": true,
+        "ydental_enabled": true
+      },
+      {
+        "id": 11,
+        "name": "Pharmacy desk",
+        "active": true,
+        "ydental_version": 1,
+        "ydental_x": 80,
+        "ydental_y": 440,
+        "ydental_width": 90,
+        "ydental_height": 70,
+        "ydental_angle": 0,
+        "ydental_area_id": [
+          19,
+          "Pharmacy"
+        ],
+        "ydental_kind": "pharmacy",
+        "ydental_queue_area_id": [
+          19,
+          "Pharmacy"
+        ],
+        "ydental_capability_ids": [],
+        "ydental_callable": true,
+        "ydental_enabled": true
+      },
+      {
+        "id": 12,
+        "name": "Settlement desk",
+        "active": true,
+        "ydental_version": 1,
+        "ydental_x": 400,
+        "ydental_y": 440,
+        "ydental_width": 90,
+        "ydental_height": 70,
+        "ydental_angle": 0,
+        "ydental_area_id": [
+          20,
+          "Settlement"
+        ],
+        "ydental_kind": "settlement",
+        "ydental_queue_area_id": false,
+        "ydental_capability_ids": [],
+        "ydental_callable": false,
+        "ydental_enabled": true
+      },
+      {
+        "id": 13,
+        "name": "牙椅",
+        "active": true,
+        "ydental_version": 1,
+        "ydental_x": 701,
+        "ydental_y": 651,
+        "ydental_width": 90,
+        "ydental_height": 70,
+        "ydental_angle": 0,
+        "ydental_area_id": [
+          23,
+          "新区域"
+        ],
+        "ydental_kind": "care",
+        "ydental_queue_area_id": false,
+        "ydental_capability_ids": [],
+        "ydental_callable": true,
+        "ydental_enabled": true
+      }
+    ],
+    "items": [
+      {
+        "id": 5,
+        "name": "Chair 1",
+        "active": true,
+        "ydental_version": 3,
+        "ydental_x": 88.55555555555556,
+        "ydental_y": 135,
+        "ydental_width": 68.61111111111111,
+        "ydental_height": 55,
+        "ydental_angle": 0,
+        "ydental_resource_id": [
+          1,
+          "Dental chair"
+        ],
+        "ydental_station_id": [
+          7,
+          "S02 Stable Chair 309232"
+        ]
+      },
+      {
+        "id": 6,
+        "name": "Chair 2",
+        "active": true,
+        "ydental_version": 1,
+        "ydental_x": 270,
+        "ydental_y": 135,
+        "ydental_width": 65,
+        "ydental_height": 55,
+        "ydental_angle": 0,
+        "ydental_resource_id": [
+          1,
+          "Dental chair"
+        ],
+        "ydental_station_id": [
+          8,
+          "Chair 2"
+        ]
+      },
+      {
+        "id": 7,
+        "name": "Panorama",
+        "active": true,
+        "ydental_version": 1,
+        "ydental_x": 550,
+        "ydental_y": 135,
+        "ydental_width": 65,
+        "ydental_height": 55,
+        "ydental_angle": 0,
+        "ydental_resource_id": [
+          2,
+          "Imaging device"
+        ],
+        "ydental_station_id": [
+          9,
+          "Panorama"
+        ]
+      },
+      {
+        "id": 8,
+        "name": "CBCT",
+        "active": true,
+        "ydental_version": 1,
+        "ydental_x": 760,
+        "ydental_y": 135,
+        "ydental_width": 65,
+        "ydental_height": 55,
+        "ydental_angle": 0,
+        "ydental_resource_id": [
+          2,
+          "Imaging device"
+        ],
+        "ydental_station_id": [
+          10,
+          "CBCT"
+        ]
+      },
+      {
+        "id": 9,
+        "name": "Pharmacy desk",
+        "active": true,
+        "ydental_version": 1,
+        "ydental_x": 90,
+        "ydental_y": 465,
+        "ydental_width": 65,
+        "ydental_height": 55,
+        "ydental_angle": 0,
+        "ydental_resource_id": [
+          3,
+          "Pharmacy desk"
+        ],
+        "ydental_station_id": [
+          11,
+          "Pharmacy desk"
+        ]
+      },
+      {
+        "id": 10,
+        "name": "Settlement desk",
+        "active": true,
+        "ydental_version": 1,
+        "ydental_x": 410,
+        "ydental_y": 465,
+        "ydental_width": 65,
+        "ydental_height": 55,
+        "ydental_angle": 0,
+        "ydental_resource_id": [
+          4,
+          "Settlement desk"
+        ],
+        "ydental_station_id": [
+          12,
+          "Settlement desk"
+        ]
+      },
+      {
+        "id": 11,
+        "name": "牙椅",
+        "active": true,
+        "ydental_version": 1,
+        "ydental_x": 701,
+        "ydental_y": 651,
+        "ydental_width": 60,
+        "ydental_height": 50,
+        "ydental_angle": 0,
+        "ydental_resource_id": [
+          1,
+          "Dental chair"
+        ],
+        "ydental_station_id": [
+          13,
+          "牙椅"
+        ]
+      }
+    ]
+  },
+  "safe_svg_output": {
+    "resource_id": 18,
+    "bytes": 140,
+    "sha256": "8ca40eab3ba22442a92f3ced95b002b3031135bda1758f20cf3c1cacb270bec8",
+    "shape": "circle",
+    "script": false
+  },
+  "group_only_resource_id": 19,
+  "result": "PASS"
+}

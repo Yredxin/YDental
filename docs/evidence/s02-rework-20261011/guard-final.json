@@ -1,0 +1,16 @@
+{
+  "tested_commit": "637b74d2b49d19fc80a6246652bd4628e9f3b0a9",
+  "command": "../.venv/bin/python scripts/test_s02_guard.py",
+  "tests": 5,
+  "failures": 0,
+  "errors": 0,
+  "exit_code": 0,
+  "network_or_database_mutation": false,
+  "checks": [
+    "reject business/historical names",
+    "reject existing-service port",
+    "reject wrong endpoint before connection",
+    "block external DNS resolution",
+    "block other loopback services"
+  ]
+}

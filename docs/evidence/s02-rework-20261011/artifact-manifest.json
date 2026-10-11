@@ -1,0 +1,152 @@
+{
+  "scope": "Only new S02 rework evidence; original evidence unchanged",
+  "files": [
+    {
+      "path": "docs/evidence/s02-rework-20261011/browser-attempts/20261011T141308112132/01-writer-floor.png",
+      "bytes": 105427,
+      "sha256": "3dc15485464ce49f4c001c29cec435de3a13be9f1227c7b3088ca534cf069ff9"
+    },
+    {
+      "path": "docs/evidence/s02-rework-20261011/browser-attempts/20261011T141308112132/02-saved-floor.png",
+      "bytes": 113073,
+      "sha256": "1321a4fffbbf0d1038997b8d7b716a40bdcfd288fe871cbe07dee90caa0c72b8"
+    },
+    {
+      "path": "docs/evidence/s02-rework-20261011/browser-attempts/20261011T141308112132/03-drawing-and-drop.png",
+      "bytes": 121519,
+      "sha256": "d9d22103ada92eae0a38fb3608b16ae98510cf56fb6deb33fd9b856887eac778"
+    },
+    {
+      "path": "docs/evidence/s02-rework-20261011/browser-attempts/20261011T141308112132/04-private-resource-upload.png",
+      "bytes": 60870,
+      "sha256": "a94acde85fd39d4cb2adb0217c2f5c1fa22d474eb2192936413a6ce32dbb624f"
+    },
+    {
+      "path": "docs/evidence/s02-rework-20261011/browser-attempts/20261011T141308112132/05-readonly-floor.png",
+      "bytes": 115755,
+      "sha256": "7c8a41fd9ad19f96017eb2f8ea03e9cbb86007c10e5f0597f6558d67a1e2e268"
+    },
+    {
+      "path": "docs/evidence/s02-rework-20261011/browser-attempts/20261011T141308112132/result.json",
+      "bytes": 26234,
+      "sha256": "8990bd01aa8e63a77c7400fe391cad6e4436880aa410cb7b38783d2eb1c0c1e2"
+    },
+    {
+      "path": "docs/evidence/s02-rework-20261011/browser-attempts/20261011T141428159258/01-writer-floor.png",
+      "bytes": 114959,
+      "sha256": "def45a06a481f04d38b00bbbcdad0babe6d59424c98d406d20fe0aeb8809a4c5"
+    },
+    {
+      "path": "docs/evidence/s02-rework-20261011/browser-attempts/20261011T141428159258/02-saved-floor.png",
+      "bytes": 121930,
+      "sha256": "f601bffe8375955d47c82e0729dc05e9c8074d4e6d7323e4374a9bddb01b3488"
+    },
+    {
+      "path": "docs/evidence/s02-rework-20261011/browser-attempts/20261011T141428159258/03-drawing-and-drop.png",
+      "bytes": 122813,
+      "sha256": "8f31727c0555eabe6253e3cfa9d3a037c4effb214bc91dc6e956aa63d4e5c26d"
+    },
+    {
+      "path": "docs/evidence/s02-rework-20261011/browser-attempts/20261011T141428159258/04-private-resource-upload.png",
+      "bytes": 60907,
+      "sha256": "4cce47249203d26447677dba0ce921432e84778632091f45422cb129f9ad301f"
+    },
+    {
+      "path": "docs/evidence/s02-rework-20261011/browser-attempts/20261011T141428159258/05-readonly-floor.png",
+      "bytes": 116158,
+      "sha256": "9c3796d08605671a0bda3387b1e49880a61337db96e9e91c6d7b29dcfb459b0c"
+    },
+    {
+      "path": "docs/evidence/s02-rework-20261011/browser-attempts/20261011T141428159258/06-group-only-common-resource.png",
+      "bytes": 61697,
+      "sha256": "9abb690d85a478bf9409f7b953a8937ed30e319c52513f38b0520d1870d43cbc"
+    },
+    {
+      "path": "docs/evidence/s02-rework-20261011/browser-attempts/20261011T141428159258/result.json",
+      "bytes": 31422,
+      "sha256": "5ae9be14fe8f72e4b51693ad79909c3f5a9c63eea790ce4e57d607fdec07a0ae"
+    },
+    {
+      "path": "docs/evidence/s02-rework-20261011/browser-final.json",
+      "bytes": 31422,
+      "sha256": "5ae9be14fe8f72e4b51693ad79909c3f5a9c63eea790ce4e57d607fdec07a0ae"
+    },
+    {
+      "path": "docs/evidence/s02-rework-20261011/final-run/browser-attempts/20261011T142220309232/01-writer-floor.png",
+      "bytes": 105422,
+      "sha256": "bb2a5b451243d0793add2426319a1bdb1827a1537b55059ac4d2f1d3bac229e2"
+    },
+    {
+      "path": "docs/evidence/s02-rework-20261011/final-run/browser-attempts/20261011T142220309232/02-saved-floor.png",
+      "bytes": 113057,
+      "sha256": "d647a566750486f303610376a9bcc2584f5141de69b5d629eef5f3095858e9f6"
+    },
+    {
+      "path": "docs/evidence/s02-rework-20261011/final-run/browser-attempts/20261011T142220309232/03-drawing-and-drop.png",
+      "bytes": 121801,
+      "sha256": "0ab10aff83a73def6bd79aa1f2f81b2170d4d17145d8bc9c7d6ef35f95d3b312"
+    },
+    {
+      "path": "docs/evidence/s02-rework-20261011/final-run/browser-attempts/20261011T142220309232/04-private-resource-upload.png",
+      "bytes": 60869,
+      "sha256": "47909fdcc1131377e80fb974cae388ef7a602cbd49c8afe1533be9646e3f0f5b"
+    },
+    {
+      "path": "docs/evidence/s02-rework-20261011/final-run/browser-attempts/20261011T142220309232/05-readonly-floor.png",
+      "bytes": 115995,
+      "sha256": "e43bc248cfc65c212243d9e9b431f96aeda4363bd3404d48f6fe3f601301c753"
+    },
+    {
+      "path": "docs/evidence/s02-rework-20261011/final-run/browser-attempts/20261011T142220309232/06-group-only-common-resource.png",
+      "bytes": 61710,
+      "sha256": "af34586cab7aeefba3c53af36b0b8ab3fbd664ee3ab8b39e8c8129e02445029e"
+    },
+    {
+      "path": "docs/evidence/s02-rework-20261011/final-run/browser-attempts/20261011T142220309232/result.json",
+      "bytes": 27217,
+      "sha256": "4a990119c40cb7c1f22220ef92041ce5927b3561fa929dc2e32316f24133032b"
+    },
+    {
+      "path": "docs/evidence/s02-rework-20261011/final-run/browser-final.json",
+      "bytes": 27217,
+      "sha256": "4a990119c40cb7c1f22220ef92041ce5927b3561fa929dc2e32316f24133032b"
+    },
+    {
+      "path": "docs/evidence/s02-rework-20261011/guard-final.json",
+      "bytes": 448,
+      "sha256": "a9ee98d0bbf4e2852b79b5effbe04ff9229e0fc0662573fa4261600cdd015b1a"
+    },
+    {
+      "path": "docs/evidence/s02-rework-20261011/project-before-delivery.json",
+      "bytes": 1733,
+      "sha256": "de9f1e483d8625b3a3403986f74cec75bd902fb5bdbffcde9579c6005c4ad2e2"
+    },
+    {
+      "path": "docs/evidence/s02-rework-20261011/project-readback.json",
+      "bytes": 29324,
+      "sha256": "25176b6979d8702b7e6696b1b9fd0d7dffa5ca980272b100e8a3464c5f765c5b"
+    },
+    {
+      "path": "docs/evidence/s02-rework-20261011/review-source.json",
+      "bytes": 10045,
+      "sha256": "738d52757f2e4e0909bf1764b5818883b78a8228594c3687931f7f9f5260732b"
+    },
+    {
+      "path": "docs/evidence/s02-rework-20261011/runtime-history.json",
+      "bytes": 5170,
+      "sha256": "da17ca83a51ae58c032d67ad4e96c44fa3fe41a1922c6e5817fa9007e6d39839"
+    },
+    {
+      "path": "docs/evidence/s02-rework-20261011/scope-review.json",
+      "bytes": 1157,
+      "sha256": "82b84c0b48300f3fd4765ea5f002b2e16071c0bd1a7a5cfc2c04718b7c84483b"
+    },
+    {
+      "path": "docs/evidence/s02-rework-20261011/translations-final.json",
+      "bytes": 186,
+      "sha256": "826905dd47b02518a57980e85b8bf8c66bb5172c5e57e697e08f6d2efb7371e4"
+    }
+  ],
+  "private_credentials_scan": "PASS (both new databases, no values disclosed)",
+  "raw_logs_committed": false
+}
