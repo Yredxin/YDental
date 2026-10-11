@@ -57,6 +57,8 @@ def main():
             'Commit implementation and browser code before verification')
     evidence = ROOT / 'docs/evidence/s01'
     evidence.mkdir(parents=True, exist_ok=True)
+    attempt = evidence / ('browser-attempts/' + datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f'))
+    attempt.mkdir(parents=True)
     result = {'scope': 'S01 synthetic UI only', 'tested_commit': commit, 'database': args.db,
               'started_utc': datetime.now(timezone.utc).isoformat(), 'browser': 'Firefox',
               'sandbox': 'default; no overrides', 'checks': [], 'screenshots': []}
@@ -72,7 +74,7 @@ def main():
         require(not any(s and s in text for s in secrets), 'Visible credential or cookie; screenshot refused')
         require(page.locator('input[type=password]:visible').count() == 0, 'Visible password input')
         require(not re.search(r'(?:csrf_token|session_id|authorization|password)\s*[:=]', text, re.I), 'Sensitive visible label')
-        path = evidence / name
+        path = attempt / name
         page.screenshot(path=str(path), full_page=True)
         require(not any(s.encode() in path.read_bytes() for s in secrets if s), 'Screenshot credential scan failed')
         result['screenshots'].append({'path': str(path.relative_to(ROOT)), 'sha256': sha(path)})
@@ -102,10 +104,39 @@ def main():
             form.locator('button').click()
             page.wait_for_url('**/ydental/access', timeout=15000)
 
+        def submit(page, operation, values):
+            form = page.locator('form').filter(has=page.locator('input[name=operation][value="%s"]' % operation))
+            for key, value in values.items():
+                element = form.locator('[name="%s"]' % key)
+                if element.evaluate('(element) => element.tagName') == 'SELECT':
+                    element.select_option(str(value))
+                else:
+                    element.fill(str(value))
+            form.locator('button[type=submit]').click()
+            page.wait_for_url('**/ydental/access', timeout=15000)
+
         try:
             ctx_a, page_a = login('operator')
             ctx_b, page_b = login('operator')
             a, b, c = preview['stores']
+            ctx_g, group = login('group')
+            switch(group, a)
+            new_name = 'S01 Browser Synthetic Staff'
+            new_login = 's01_browser_' + attempt.name.lower() + '@example.invalid'
+            submit(group, 'account', {'name': new_name, 'login': new_login})
+            row = group.locator('tbody tr').filter(has=group.locator('td', has_text=new_name))
+            record('T08 browser creates one internal staff account', row.count() == 1)
+            new_user = int(row.locator('td').nth(0).inner_text())
+            employee_a = row.locator('td').nth(2).inner_text()
+            submit(group, 'account', {'name': new_name, 'login': new_login})
+            record('T08 browser reuses the same account', row.count() == 1 and int(row.locator('td').nth(0).inner_text()) == new_user)
+            submit(group, 'grant', {'user_id': new_user, 'category': 'space', 'level': 'write'})
+            switch(group, b)
+            submit(group, 'join', {'user_id': new_user})
+            row_b = group.locator('tbody tr').filter(has=group.locator('td', has_text=new_name))
+            record('T06 browser same-company stores reuse employee', row_b.locator('td').nth(2).inner_text() == employee_a)
+            submit(group, 'grant', {'user_id': new_user, 'category': 'space', 'level': 'read'})
+            record('browser A/B permission forms accepted', 'authorization.change' in group.locator('body').inner_text())
             switch(page_a, a)
             switch(page_b, b)
             page_a.reload(wait_until='domcontentloaded')
@@ -149,6 +180,12 @@ def main():
             record('T09 template removes omitted source rights', page_a.locator('form').count() == 0)
             request_result = page_a.request.get(base + '/web/content/' + str(preview['attachment_id']))
             record('T04 revoked native attachment denied', request_result.status != 200)
+            switch(group, a)
+            submit(group, 'remove', {'user_id': preview['roles']['operator']})
+            switch(page_b, b)
+            page_b.goto(base + '/ydental/s01-synthetic', wait_until='domcontentloaded')
+            record('T05 browser A removal preserves B login and reading', 'SYNTHETIC_SPACE' in page_b.locator('body').inner_text())
+            snapshot(page_b, ctx_b, 'browser-b-after-a-removal.png')
             native = ctx_m.new_page()
             native.goto(base + '/odoo', wait_until='domcontentloaded')
             native.wait_for_selector('.o_ydental_access_store_status', timeout=30000)
