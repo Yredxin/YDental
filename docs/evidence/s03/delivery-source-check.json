@@ -1,0 +1,52 @@
+{
+  "scope": "YD-N1 R1 S03",
+  "issues": [
+    {
+      "number": 23,
+      "url": "https://github.com/Yredxin/YDental/issues/23",
+      "body_unchanged": true,
+      "state": "open"
+    },
+    {
+      "number": 27,
+      "url": "https://github.com/Yredxin/YDental/issues/27",
+      "body_unchanged": true,
+      "state": "open"
+    }
+  ],
+  "comments": [
+    {
+      "issue": 23,
+      "comments": [
+        {
+          "id": 6106072643,
+          "url": "https://github.com/Yredxin/YDental/issues/23#issuecomment-6106072643",
+          "title": "# [GPT-REVIEW] YD-N1 R1｜需求修订后复审"
+        },
+        {
+          "id": 6110178328,
+          "url": "https://github.com/Yredxin/YDental/issues/23#issuecomment-6110178328",
+          "title": "# [GPT-DECISION] YD-N1 后续验收流程调整：阶段技术通过后继续，最终统一用户验收"
+        }
+      ]
+    },
+    {
+      "issue": 27,
+      "comments": [
+        {
+          "id": 6110183188,
+          "url": "https://github.com/Yredxin/YDental/issues/27#issuecomment-6110183188",
+          "title": "# [GPT-ACTIVATE] YD-N1 R1｜S03正式启用"
+        },
+        {
+          "id": 6110252817,
+          "url": "https://github.com/Yredxin/YDental/issues/27#issuecomment-6110252817",
+          "title": "# [CODEX] S03开工条件检查"
+        }
+      ]
+    }
+  ],
+  "result": "PASS",
+  "note": "Current complete issue bodies match the initial requirement source snapshot; all comments were fetched across pages and read. No new scope decision. #27 delivery comment will be added only after final evidence is committed and pushed.",
+  "checked_utc": "2026-10-11T15:49:46.101575+00:00"
+}

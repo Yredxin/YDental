@@ -1,0 +1,8 @@
+{
+  "database": "ydental_s03_test_20261011153907_87f7ea2a",
+  "pid": 557385,
+  "action": "stop_only_own_S03_preview",
+  "config_sha256": "ab7124b36c49010a0a6a842eb5415c8ddd12762c9526f9ad55d359cf58fcf7e4",
+  "time_utc": "2026-10-11T15:45:37.971599+00:00",
+  "existing_services_modified": false
+}

@@ -1,0 +1,103 @@
+{
+  "scope": "S03 synthetic schedule and supply UI only",
+  "tested_commit": "ee2a0a2dbb58e1865c85d246c10e652c4d010be5",
+  "database": "ydental_s03_test_20261011153311_5f62005c",
+  "started_utc": "2026-10-11T15:34:53.336932+00:00",
+  "browser": "Firefox",
+  "sandbox": "default; no overrides",
+  "checks": [
+    {
+      "check": "weekly workstation view rendered",
+      "result": "PASS"
+    },
+    {
+      "check": "weekly person view rendered",
+      "result": "PASS"
+    },
+    {
+      "check": "copy previous week survives reopen",
+      "result": "PASS"
+    },
+    {
+      "check": "mismatched draft remains visible",
+      "result": "PASS"
+    },
+    {
+      "check": "batch template submitted through UI",
+      "result": "PASS"
+    },
+    {
+      "check": "integer preview Q1 Q2 Q3 Q6",
+      "result": "PASS"
+    },
+    {
+      "check": "verified slot published with shared total six",
+      "result": "PASS"
+    },
+    {
+      "check": "extra capacity visible",
+      "result": "PASS"
+    },
+    {
+      "check": "ordinary reporting stopped",
+      "result": "PASS"
+    },
+    {
+      "check": "reopening visible without new slot",
+      "result": "PASS"
+    },
+    {
+      "check": "readonly has no capacity mutation forms",
+      "result": "PASS"
+    },
+    {
+      "check": "my today shows own station arrangement",
+      "result": "PASS"
+    },
+    {
+      "check": "arrangement error accepted through UI",
+      "result": "PASS"
+    },
+    {
+      "check": "suggested workbench explicitly awaits integration",
+      "result": "PASS"
+    },
+    {
+      "check": "feedback visible to scheduling writer",
+      "result": "PASS"
+    },
+    {
+      "check": "old page rejected after store switch",
+      "result": "PASS"
+    },
+    {
+      "check": "Firefox has no unhandled page error",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s03/browser-attempts/20261011T153453336848/01-weekly-plan.png",
+      "sha256": "75910dfee922c900e19fa8c585314007e8bfa45fa65dec3e1d2e283dcdbca13d"
+    },
+    {
+      "path": "docs/evidence/s03/browser-attempts/20261011T153453336848/02-shared-capacity.png",
+      "sha256": "6f0e712ca931f66b35458a220be38763cd452f3c03de747b8c2bcce2468f9296"
+    },
+    {
+      "path": "docs/evidence/s03/browser-attempts/20261011T153453336848/03-business-day.png",
+      "sha256": "bb9f788f800964d7785354bbeb8db7081b943c415f9191dcbc618f4e3dc69a8a"
+    },
+    {
+      "path": "docs/evidence/s03/browser-attempts/20261011T153453336848/04-readonly-capacity.png",
+      "sha256": "2cc17b7515e60f6a55d54b21e4f7f68d468e66f5dc79f521c20d7236f0b0cdf6"
+    },
+    {
+      "path": "docs/evidence/s03/browser-attempts/20261011T153453336848/05-my-today-feedback.png",
+      "sha256": "4092bbf06e0f0ce37db6e98bf9602d16cb174c2d5b74279751ab9cc60c7f3cd7"
+    }
+  ],
+  "browser_version": "155.0",
+  "result": "PASS",
+  "finished_utc": "2026-10-11T15:35:08.354932+00:00"
+}

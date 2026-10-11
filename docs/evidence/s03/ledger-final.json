@@ -1,0 +1,1934 @@
+{
+  "tested_commit": "7b2fb524829d1a8e3f5e4dfad893919effe0eceb",
+  "database": "ydental_s03_test_20261011153907_87f7ea2a",
+  "oid": 261433,
+  "snapshot_utc": "2026-10-11T15:45:05.911250+00:00",
+  "scope": "Only the synthetic preview store created by the final S03 probe; fixed field allowlist; read-only PostgreSQL snapshot; not a backup or raw log. TransactionCase test records are rolled back and are evidenced separately by test assertions/results.",
+  "store_id": 11,
+  "result": "PASS",
+  "balances": [
+    {
+      "slot_id": 49,
+      "total": 3,
+      "reservation": 0,
+      "walkin": 2,
+      "unavailable": 0,
+      "used": 1
+    },
+    {
+      "slot_id": 50,
+      "total": 3,
+      "reservation": 0,
+      "walkin": 2,
+      "unavailable": 0,
+      "used": 1
+    },
+    {
+      "slot_id": 51,
+      "total": 3,
+      "reservation": 0,
+      "walkin": 3,
+      "unavailable": 0,
+      "used": 0
+    },
+    {
+      "slot_id": 52,
+      "total": 3,
+      "reservation": 0,
+      "walkin": 2,
+      "unavailable": 0,
+      "used": 1
+    },
+    {
+      "slot_id": 53,
+      "total": 3,
+      "reservation": 1,
+      "walkin": 2,
+      "unavailable": 0,
+      "used": 0
+    },
+    {
+      "slot_id": 54,
+      "total": 3,
+      "reservation": 0,
+      "walkin": 2,
+      "unavailable": 0,
+      "used": 1
+    },
+    {
+      "slot_id": 55,
+      "total": 3,
+      "reservation": 0,
+      "walkin": 2,
+      "unavailable": 0,
+      "used": 1
+    },
+    {
+      "slot_id": 56,
+      "total": 9,
+      "reservation": 3,
+      "walkin": 6,
+      "unavailable": 0,
+      "used": 0
+    }
+  ],
+  "records": {
+    "slot": [
+      {
+        "id": 49,
+        "ydental_store_id": 11,
+        "ydental_version": 3,
+        "ydental_station_id": 10,
+        "ydental_area_id": 11,
+        "ydental_start": "2026-10-13 09:00:00",
+        "ydental_end": "2026-10-13 10:00:00",
+        "ydental_policy_id": 13,
+        "ydental_total": 3,
+        "ydental_reservation_free": 0,
+        "ydental_walkin_free": 2,
+        "ydental_unavailable": 0,
+        "ydental_converted": false,
+        "state": "published",
+        "ydental_coverage": {
+          "user_ids": [
+            31
+          ],
+          "checked_at": "2026-10-11 15:40:18",
+          "checked_by": 29,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_reason": "Synthetic verified coverage"
+      },
+      {
+        "id": 50,
+        "ydental_store_id": 11,
+        "ydental_version": 4,
+        "ydental_station_id": 10,
+        "ydental_area_id": 11,
+        "ydental_start": "2026-10-14 09:00:00",
+        "ydental_end": "2026-10-14 10:00:00",
+        "ydental_policy_id": 13,
+        "ydental_total": 3,
+        "ydental_reservation_free": 0,
+        "ydental_walkin_free": 2,
+        "ydental_unavailable": 0,
+        "ydental_converted": true,
+        "state": "published",
+        "ydental_coverage": {
+          "user_ids": [
+            31
+          ],
+          "checked_at": "2026-10-11 15:40:18",
+          "checked_by": 29,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_reason": "Synthetic verified coverage"
+      },
+      {
+        "id": 51,
+        "ydental_store_id": 11,
+        "ydental_version": 3,
+        "ydental_station_id": 10,
+        "ydental_area_id": 11,
+        "ydental_start": "2026-10-15 09:00:00",
+        "ydental_end": "2026-10-15 10:00:00",
+        "ydental_policy_id": 13,
+        "ydental_total": 3,
+        "ydental_reservation_free": 0,
+        "ydental_walkin_free": 3,
+        "ydental_unavailable": 0,
+        "ydental_converted": true,
+        "state": "published",
+        "ydental_coverage": {
+          "user_ids": [
+            31
+          ],
+          "checked_at": "2026-10-11 15:40:18",
+          "checked_by": 29,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_reason": "Synthetic verified coverage"
+      },
+      {
+        "id": 52,
+        "ydental_store_id": 11,
+        "ydental_version": 3,
+        "ydental_station_id": 10,
+        "ydental_area_id": 11,
+        "ydental_start": "2026-10-16 09:00:00",
+        "ydental_end": "2026-10-16 10:00:00",
+        "ydental_policy_id": 13,
+        "ydental_total": 3,
+        "ydental_reservation_free": 0,
+        "ydental_walkin_free": 2,
+        "ydental_unavailable": 0,
+        "ydental_converted": false,
+        "state": "published",
+        "ydental_coverage": {
+          "user_ids": [
+            31
+          ],
+          "checked_at": "2026-10-11 15:40:18",
+          "checked_by": 29,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_reason": "Synthetic verified coverage"
+      },
+      {
+        "id": 53,
+        "ydental_store_id": 11,
+        "ydental_version": 4,
+        "ydental_station_id": 10,
+        "ydental_area_id": 11,
+        "ydental_start": "2026-10-17 09:00:00",
+        "ydental_end": "2026-10-17 10:00:00",
+        "ydental_policy_id": 13,
+        "ydental_total": 3,
+        "ydental_reservation_free": 1,
+        "ydental_walkin_free": 2,
+        "ydental_unavailable": 0,
+        "ydental_converted": false,
+        "state": "published",
+        "ydental_coverage": {
+          "user_ids": [
+            31
+          ],
+          "checked_at": "2026-10-11 15:40:18",
+          "checked_by": 29,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_reason": "Synthetic verified coverage"
+      },
+      {
+        "id": 54,
+        "ydental_store_id": 11,
+        "ydental_version": 3,
+        "ydental_station_id": 10,
+        "ydental_area_id": 11,
+        "ydental_start": "2026-10-18 09:00:00",
+        "ydental_end": "2026-10-18 10:00:00",
+        "ydental_policy_id": 13,
+        "ydental_total": 3,
+        "ydental_reservation_free": 0,
+        "ydental_walkin_free": 2,
+        "ydental_unavailable": 0,
+        "ydental_converted": false,
+        "state": "published",
+        "ydental_coverage": {
+          "user_ids": [
+            31
+          ],
+          "checked_at": "2026-10-11 15:40:18",
+          "checked_by": 29,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_reason": "Synthetic verified coverage"
+      },
+      {
+        "id": 55,
+        "ydental_store_id": 11,
+        "ydental_version": 3,
+        "ydental_station_id": 9,
+        "ydental_area_id": 11,
+        "ydental_start": "2026-10-18 09:00:00",
+        "ydental_end": "2026-10-18 10:00:00",
+        "ydental_policy_id": 13,
+        "ydental_total": 3,
+        "ydental_reservation_free": 0,
+        "ydental_walkin_free": 2,
+        "ydental_unavailable": 0,
+        "ydental_converted": false,
+        "state": "published",
+        "ydental_coverage": {
+          "user_ids": [
+            31
+          ],
+          "checked_at": "2026-10-11 15:40:18",
+          "checked_by": 29,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_reason": "Synthetic verified coverage"
+      },
+      {
+        "id": 56,
+        "ydental_store_id": 11,
+        "ydental_version": 3,
+        "ydental_station_id": 10,
+        "ydental_area_id": 11,
+        "ydental_start": "2026-10-31 09:00:00",
+        "ydental_end": "2026-10-31 10:00:00",
+        "ydental_policy_id": 14,
+        "ydental_total": 9,
+        "ydental_reservation_free": 3,
+        "ydental_walkin_free": 6,
+        "ydental_unavailable": 0,
+        "ydental_converted": false,
+        "state": "published",
+        "ydental_coverage": {
+          "user_ids": [
+            31
+          ],
+          "checked_at": "2026-10-11 15:43:34",
+          "checked_by": 29,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_reason": "Synthetic temporary extra capacity"
+      }
+    ],
+    "claim": [
+      {
+        "id": 35,
+        "ydental_store_id": 11,
+        "ydental_version": 2,
+        "ydental_slot_id": 52,
+        "ydental_capability_id": 9,
+        "ydental_pool": "reservation",
+        "ydental_source": "s03_synthetic",
+        "ydental_source_key": "cancel_start",
+        "state": "consumed"
+      },
+      {
+        "id": 36,
+        "ydental_store_id": 11,
+        "ydental_version": 2,
+        "ydental_slot_id": 53,
+        "ydental_capability_id": 9,
+        "ydental_pool": "reservation",
+        "ydental_source": "s03_synthetic",
+        "ydental_source_key": "repeat_cancel",
+        "state": "cancelled"
+      },
+      {
+        "id": 37,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_slot_id": 55,
+        "ydental_capability_id": 9,
+        "ydental_pool": "reservation",
+        "ydental_source": "s03_synthetic",
+        "ydental_source_key": "move-original",
+        "state": "held"
+      },
+      {
+        "id": 38,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_slot_id": 49,
+        "ydental_capability_id": 10,
+        "ydental_pool": "reservation",
+        "ydental_source": "s03_synthetic",
+        "ydental_source_key": "last_capacity-fill",
+        "state": "held"
+      },
+      {
+        "id": 39,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_slot_id": 50,
+        "ydental_capability_id": 9,
+        "ydental_pool": "reservation",
+        "ydental_source": "s03_synthetic",
+        "ydental_source_key": "race-reservation",
+        "state": "held"
+      },
+      {
+        "id": 40,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_slot_id": 54,
+        "ydental_capability_id": 10,
+        "ydental_pool": "reservation",
+        "ydental_source": "s03_synthetic",
+        "ydental_source_key": "race-fill",
+        "state": "held"
+      }
+    ],
+    "event": [
+      {
+        "id": 251,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_slot_id": null,
+        "ydental_claim_id": null,
+        "ydental_actor_id": 29,
+        "ydental_operation": "policy",
+        "ydental_reason": "Synthetic validation only",
+        "ydental_before": null,
+        "ydental_after": {
+          "mode": "demo",
+          "policy_id": 13
+        },
+        "ydental_policy_id": null
+      },
+      {
+        "id": 252,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_slot_id": 49,
+        "ydental_claim_id": null,
+        "ydental_actor_id": 29,
+        "ydental_operation": "slot",
+        "ydental_reason": "Synthetic capacity",
+        "ydental_before": null,
+        "ydental_after": {
+          "end": "2026-10-13 10:00:00",
+          "start": "2026-10-13 09:00:00",
+          "state": "draft",
+          "total": 3,
+          "walkin": 2,
+          "area_id": 11,
+          "version": 1,
+          "converted": false,
+          "policy_id": 13,
+          "station_id": 10,
+          "reservation": 1,
+          "unavailable": 0,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_policy_id": 13
+      },
+      {
+        "id": 253,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_slot_id": 49,
+        "ydental_claim_id": null,
+        "ydental_actor_id": 29,
+        "ydental_operation": "publish",
+        "ydental_reason": "Synthetic verified coverage",
+        "ydental_before": {
+          "end": "2026-10-13 10:00:00",
+          "start": "2026-10-13 09:00:00",
+          "state": "draft",
+          "total": 3,
+          "walkin": 2,
+          "area_id": 11,
+          "version": 1,
+          "converted": false,
+          "policy_id": 13,
+          "station_id": 10,
+          "reservation": 1,
+          "unavailable": 0,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_after": {
+          "end": "2026-10-13 10:00:00",
+          "start": "2026-10-13 09:00:00",
+          "state": "published",
+          "total": 3,
+          "walkin": 2,
+          "area_id": 11,
+          "version": 2,
+          "converted": false,
+          "policy_id": 13,
+          "station_id": 10,
+          "reservation": 1,
+          "unavailable": 0,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_policy_id": 13
+      },
+      {
+        "id": 254,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_slot_id": 50,
+        "ydental_claim_id": null,
+        "ydental_actor_id": 29,
+        "ydental_operation": "slot",
+        "ydental_reason": "Synthetic capacity",
+        "ydental_before": null,
+        "ydental_after": {
+          "end": "2026-10-14 10:00:00",
+          "start": "2026-10-14 09:00:00",
+          "state": "draft",
+          "total": 3,
+          "walkin": 2,
+          "area_id": 11,
+          "version": 1,
+          "converted": false,
+          "policy_id": 13,
+          "station_id": 10,
+          "reservation": 1,
+          "unavailable": 0,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_policy_id": 13
+      },
+      {
+        "id": 255,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_slot_id": 50,
+        "ydental_claim_id": null,
+        "ydental_actor_id": 29,
+        "ydental_operation": "publish",
+        "ydental_reason": "Synthetic verified coverage",
+        "ydental_before": {
+          "end": "2026-10-14 10:00:00",
+          "start": "2026-10-14 09:00:00",
+          "state": "draft",
+          "total": 3,
+          "walkin": 2,
+          "area_id": 11,
+          "version": 1,
+          "converted": false,
+          "policy_id": 13,
+          "station_id": 10,
+          "reservation": 1,
+          "unavailable": 0,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_after": {
+          "end": "2026-10-14 10:00:00",
+          "start": "2026-10-14 09:00:00",
+          "state": "published",
+          "total": 3,
+          "walkin": 2,
+          "area_id": 11,
+          "version": 2,
+          "converted": false,
+          "policy_id": 13,
+          "station_id": 10,
+          "reservation": 1,
+          "unavailable": 0,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_policy_id": 13
+      },
+      {
+        "id": 256,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_slot_id": null,
+        "ydental_claim_id": null,
+        "ydental_actor_id": 29,
+        "ydental_operation": "business",
+        "ydental_reason": "Synthetic boundary business day",
+        "ydental_before": null,
+        "ydental_after": {
+          "id": 13,
+          "date": "2026-10-14",
+          "state": "open",
+          "version": 1
+        },
+        "ydental_policy_id": null
+      },
+      {
+        "id": 257,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_slot_id": 51,
+        "ydental_claim_id": null,
+        "ydental_actor_id": 29,
+        "ydental_operation": "slot",
+        "ydental_reason": "Synthetic capacity",
+        "ydental_before": null,
+        "ydental_after": {
+          "end": "2026-10-15 10:00:00",
+          "start": "2026-10-15 09:00:00",
+          "state": "draft",
+          "total": 3,
+          "walkin": 2,
+          "area_id": 11,
+          "version": 1,
+          "converted": false,
+          "policy_id": 13,
+          "station_id": 10,
+          "reservation": 1,
+          "unavailable": 0,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_policy_id": 13
+      },
+      {
+        "id": 258,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_slot_id": 51,
+        "ydental_claim_id": null,
+        "ydental_actor_id": 29,
+        "ydental_operation": "publish",
+        "ydental_reason": "Synthetic verified coverage",
+        "ydental_before": {
+          "end": "2026-10-15 10:00:00",
+          "start": "2026-10-15 09:00:00",
+          "state": "draft",
+          "total": 3,
+          "walkin": 2,
+          "area_id": 11,
+          "version": 1,
+          "converted": false,
+          "policy_id": 13,
+          "station_id": 10,
+          "reservation": 1,
+          "unavailable": 0,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_after": {
+          "end": "2026-10-15 10:00:00",
+          "start": "2026-10-15 09:00:00",
+          "state": "published",
+          "total": 3,
+          "walkin": 2,
+          "area_id": 11,
+          "version": 2,
+          "converted": false,
+          "policy_id": 13,
+          "station_id": 10,
+          "reservation": 1,
+          "unavailable": 0,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_policy_id": 13
+      },
+      {
+        "id": 259,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_slot_id": null,
+        "ydental_claim_id": null,
+        "ydental_actor_id": 29,
+        "ydental_operation": "business",
+        "ydental_reason": "Synthetic boundary business day",
+        "ydental_before": null,
+        "ydental_after": {
+          "id": 14,
+          "date": "2026-10-15",
+          "state": "open",
+          "version": 1
+        },
+        "ydental_policy_id": null
+      },
+      {
+        "id": 260,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_slot_id": 52,
+        "ydental_claim_id": null,
+        "ydental_actor_id": 29,
+        "ydental_operation": "slot",
+        "ydental_reason": "Synthetic capacity",
+        "ydental_before": null,
+        "ydental_after": {
+          "end": "2026-10-16 10:00:00",
+          "start": "2026-10-16 09:00:00",
+          "state": "draft",
+          "total": 3,
+          "walkin": 2,
+          "area_id": 11,
+          "version": 1,
+          "converted": false,
+          "policy_id": 13,
+          "station_id": 10,
+          "reservation": 1,
+          "unavailable": 0,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_policy_id": 13
+      },
+      {
+        "id": 261,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_slot_id": 52,
+        "ydental_claim_id": null,
+        "ydental_actor_id": 29,
+        "ydental_operation": "publish",
+        "ydental_reason": "Synthetic verified coverage",
+        "ydental_before": {
+          "end": "2026-10-16 10:00:00",
+          "start": "2026-10-16 09:00:00",
+          "state": "draft",
+          "total": 3,
+          "walkin": 2,
+          "area_id": 11,
+          "version": 1,
+          "converted": false,
+          "policy_id": 13,
+          "station_id": 10,
+          "reservation": 1,
+          "unavailable": 0,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_after": {
+          "end": "2026-10-16 10:00:00",
+          "start": "2026-10-16 09:00:00",
+          "state": "published",
+          "total": 3,
+          "walkin": 2,
+          "area_id": 11,
+          "version": 2,
+          "converted": false,
+          "policy_id": 13,
+          "station_id": 10,
+          "reservation": 1,
+          "unavailable": 0,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_policy_id": 13
+      },
+      {
+        "id": 262,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_slot_id": 52,
+        "ydental_claim_id": 35,
+        "ydental_actor_id": 29,
+        "ydental_operation": "acquire",
+        "ydental_reason": "Source capacity entitlement",
+        "ydental_before": {
+          "end": "2026-10-16 10:00:00",
+          "start": "2026-10-16 09:00:00",
+          "state": "published",
+          "total": 3,
+          "walkin": 2,
+          "area_id": 11,
+          "version": 2,
+          "converted": false,
+          "policy_id": 13,
+          "station_id": 10,
+          "reservation": 1,
+          "unavailable": 0,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_after": {
+          "end": "2026-10-16 10:00:00",
+          "pool": "reservation",
+          "start": "2026-10-16 09:00:00",
+          "state": "published",
+          "total": 3,
+          "source": "s03_synthetic",
+          "walkin": 2,
+          "area_id": 11,
+          "version": 3,
+          "claim_id": 35,
+          "converted": false,
+          "policy_id": 13,
+          "source_key": "cancel_start",
+          "station_id": 10,
+          "claim_state": "held",
+          "reservation": 0,
+          "unavailable": 0,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_policy_id": 13
+      },
+      {
+        "id": 263,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_slot_id": 53,
+        "ydental_claim_id": null,
+        "ydental_actor_id": 29,
+        "ydental_operation": "slot",
+        "ydental_reason": "Synthetic capacity",
+        "ydental_before": null,
+        "ydental_after": {
+          "end": "2026-10-17 10:00:00",
+          "start": "2026-10-17 09:00:00",
+          "state": "draft",
+          "total": 3,
+          "walkin": 2,
+          "area_id": 11,
+          "version": 1,
+          "converted": false,
+          "policy_id": 13,
+          "station_id": 10,
+          "reservation": 1,
+          "unavailable": 0,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_policy_id": 13
+      },
+      {
+        "id": 264,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_slot_id": 53,
+        "ydental_claim_id": null,
+        "ydental_actor_id": 29,
+        "ydental_operation": "publish",
+        "ydental_reason": "Synthetic verified coverage",
+        "ydental_before": {
+          "end": "2026-10-17 10:00:00",
+          "start": "2026-10-17 09:00:00",
+          "state": "draft",
+          "total": 3,
+          "walkin": 2,
+          "area_id": 11,
+          "version": 1,
+          "converted": false,
+          "policy_id": 13,
+          "station_id": 10,
+          "reservation": 1,
+          "unavailable": 0,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_after": {
+          "end": "2026-10-17 10:00:00",
+          "start": "2026-10-17 09:00:00",
+          "state": "published",
+          "total": 3,
+          "walkin": 2,
+          "area_id": 11,
+          "version": 2,
+          "converted": false,
+          "policy_id": 13,
+          "station_id": 10,
+          "reservation": 1,
+          "unavailable": 0,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_policy_id": 13
+      },
+      {
+        "id": 265,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_slot_id": 53,
+        "ydental_claim_id": 36,
+        "ydental_actor_id": 29,
+        "ydental_operation": "acquire",
+        "ydental_reason": "Source capacity entitlement",
+        "ydental_before": {
+          "end": "2026-10-17 10:00:00",
+          "start": "2026-10-17 09:00:00",
+          "state": "published",
+          "total": 3,
+          "walkin": 2,
+          "area_id": 11,
+          "version": 2,
+          "converted": false,
+          "policy_id": 13,
+          "station_id": 10,
+          "reservation": 1,
+          "unavailable": 0,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_after": {
+          "end": "2026-10-17 10:00:00",
+          "pool": "reservation",
+          "start": "2026-10-17 09:00:00",
+          "state": "published",
+          "total": 3,
+          "source": "s03_synthetic",
+          "walkin": 2,
+          "area_id": 11,
+          "version": 3,
+          "claim_id": 36,
+          "converted": false,
+          "policy_id": 13,
+          "source_key": "repeat_cancel",
+          "station_id": 10,
+          "claim_state": "held",
+          "reservation": 0,
+          "unavailable": 0,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_policy_id": 13
+      },
+      {
+        "id": 266,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_slot_id": 54,
+        "ydental_claim_id": null,
+        "ydental_actor_id": 29,
+        "ydental_operation": "slot",
+        "ydental_reason": "Synthetic capacity",
+        "ydental_before": null,
+        "ydental_after": {
+          "end": "2026-10-18 10:00:00",
+          "start": "2026-10-18 09:00:00",
+          "state": "draft",
+          "total": 3,
+          "walkin": 2,
+          "area_id": 11,
+          "version": 1,
+          "converted": false,
+          "policy_id": 13,
+          "station_id": 10,
+          "reservation": 1,
+          "unavailable": 0,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_policy_id": 13
+      },
+      {
+        "id": 267,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_slot_id": 54,
+        "ydental_claim_id": null,
+        "ydental_actor_id": 29,
+        "ydental_operation": "publish",
+        "ydental_reason": "Synthetic verified coverage",
+        "ydental_before": {
+          "end": "2026-10-18 10:00:00",
+          "start": "2026-10-18 09:00:00",
+          "state": "draft",
+          "total": 3,
+          "walkin": 2,
+          "area_id": 11,
+          "version": 1,
+          "converted": false,
+          "policy_id": 13,
+          "station_id": 10,
+          "reservation": 1,
+          "unavailable": 0,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_after": {
+          "end": "2026-10-18 10:00:00",
+          "start": "2026-10-18 09:00:00",
+          "state": "published",
+          "total": 3,
+          "walkin": 2,
+          "area_id": 11,
+          "version": 2,
+          "converted": false,
+          "policy_id": 13,
+          "station_id": 10,
+          "reservation": 1,
+          "unavailable": 0,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_policy_id": 13
+      },
+      {
+        "id": 268,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_slot_id": 55,
+        "ydental_claim_id": null,
+        "ydental_actor_id": 29,
+        "ydental_operation": "slot",
+        "ydental_reason": "Synthetic capacity",
+        "ydental_before": null,
+        "ydental_after": {
+          "end": "2026-10-18 10:00:00",
+          "start": "2026-10-18 09:00:00",
+          "state": "draft",
+          "total": 3,
+          "walkin": 2,
+          "area_id": 11,
+          "version": 1,
+          "converted": false,
+          "policy_id": 13,
+          "station_id": 9,
+          "reservation": 1,
+          "unavailable": 0,
+          "capability_ids": [
+            9
+          ]
+        },
+        "ydental_policy_id": 13
+      },
+      {
+        "id": 269,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_slot_id": 55,
+        "ydental_claim_id": null,
+        "ydental_actor_id": 29,
+        "ydental_operation": "publish",
+        "ydental_reason": "Synthetic verified coverage",
+        "ydental_before": {
+          "end": "2026-10-18 10:00:00",
+          "start": "2026-10-18 09:00:00",
+          "state": "draft",
+          "total": 3,
+          "walkin": 2,
+          "area_id": 11,
+          "version": 1,
+          "converted": false,
+          "policy_id": 13,
+          "station_id": 9,
+          "reservation": 1,
+          "unavailable": 0,
+          "capability_ids": [
+            9
+          ]
+        },
+        "ydental_after": {
+          "end": "2026-10-18 10:00:00",
+          "start": "2026-10-18 09:00:00",
+          "state": "published",
+          "total": 3,
+          "walkin": 2,
+          "area_id": 11,
+          "version": 2,
+          "converted": false,
+          "policy_id": 13,
+          "station_id": 9,
+          "reservation": 1,
+          "unavailable": 0,
+          "capability_ids": [
+            9
+          ]
+        },
+        "ydental_policy_id": 13
+      },
+      {
+        "id": 270,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_slot_id": 55,
+        "ydental_claim_id": 37,
+        "ydental_actor_id": 29,
+        "ydental_operation": "acquire",
+        "ydental_reason": "Source capacity entitlement",
+        "ydental_before": {
+          "end": "2026-10-18 10:00:00",
+          "start": "2026-10-18 09:00:00",
+          "state": "published",
+          "total": 3,
+          "walkin": 2,
+          "area_id": 11,
+          "version": 2,
+          "converted": false,
+          "policy_id": 13,
+          "station_id": 9,
+          "reservation": 1,
+          "unavailable": 0,
+          "capability_ids": [
+            9
+          ]
+        },
+        "ydental_after": {
+          "end": "2026-10-18 10:00:00",
+          "pool": "reservation",
+          "start": "2026-10-18 09:00:00",
+          "state": "published",
+          "total": 3,
+          "source": "s03_synthetic",
+          "walkin": 2,
+          "area_id": 11,
+          "version": 3,
+          "claim_id": 37,
+          "converted": false,
+          "policy_id": 13,
+          "source_key": "move-original",
+          "station_id": 9,
+          "claim_state": "held",
+          "reservation": 0,
+          "unavailable": 0,
+          "capability_ids": [
+            9
+          ]
+        },
+        "ydental_policy_id": 13
+      },
+      {
+        "id": 271,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_slot_id": null,
+        "ydental_claim_id": null,
+        "ydental_actor_id": 29,
+        "ydental_operation": "assign",
+        "ydental_reason": "Default assignment",
+        "ydental_before": null,
+        "ydental_after": {
+          "end": "2026-10-11 17:40:18",
+          "start": "2026-10-11 15:35:18",
+          "state": "active",
+          "reason": "Default assignment",
+          "area_id": false,
+          "user_id": 31,
+          "version": 1,
+          "station_id": 9,
+          "employee_id": 49,
+          "assignment_id": 33
+        },
+        "ydental_policy_id": null
+      },
+      {
+        "id": 272,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_slot_id": null,
+        "ydental_claim_id": null,
+        "ydental_actor_id": 29,
+        "ydental_operation": "assign",
+        "ydental_reason": "Default assignment",
+        "ydental_before": null,
+        "ydental_after": {
+          "end": "2026-10-04 16:40:18",
+          "start": "2026-10-04 15:40:18",
+          "state": "active",
+          "reason": "Default assignment",
+          "area_id": 11,
+          "user_id": 32,
+          "version": 1,
+          "station_id": false,
+          "employee_id": 50,
+          "assignment_id": 34
+        },
+        "ydental_policy_id": null
+      },
+      {
+        "id": 273,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_slot_id": 49,
+        "ydental_claim_id": 38,
+        "ydental_actor_id": 29,
+        "ydental_operation": "acquire",
+        "ydental_reason": "Source capacity entitlement",
+        "ydental_before": {
+          "end": "2026-10-13 10:00:00",
+          "start": "2026-10-13 09:00:00",
+          "state": "published",
+          "total": 3,
+          "walkin": 2,
+          "area_id": 11,
+          "version": 2,
+          "converted": false,
+          "policy_id": 13,
+          "station_id": 10,
+          "reservation": 1,
+          "unavailable": 0,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_after": {
+          "end": "2026-10-13 10:00:00",
+          "pool": "reservation",
+          "start": "2026-10-13 09:00:00",
+          "state": "published",
+          "total": 3,
+          "source": "s03_synthetic",
+          "walkin": 2,
+          "area_id": 11,
+          "version": 3,
+          "claim_id": 38,
+          "converted": false,
+          "policy_id": 13,
+          "source_key": "last_capacity-fill",
+          "station_id": 10,
+          "claim_state": "held",
+          "reservation": 0,
+          "unavailable": 0,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_policy_id": 13
+      },
+      {
+        "id": 274,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_slot_id": 50,
+        "ydental_claim_id": 39,
+        "ydental_actor_id": 29,
+        "ydental_operation": "acquire",
+        "ydental_reason": "Source capacity entitlement",
+        "ydental_before": {
+          "end": "2026-10-14 10:00:00",
+          "start": "2026-10-14 09:00:00",
+          "state": "published",
+          "total": 3,
+          "walkin": 2,
+          "area_id": 11,
+          "version": 2,
+          "converted": false,
+          "policy_id": 13,
+          "station_id": 10,
+          "reservation": 1,
+          "unavailable": 0,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_after": {
+          "end": "2026-10-14 10:00:00",
+          "pool": "reservation",
+          "start": "2026-10-14 09:00:00",
+          "state": "published",
+          "total": 3,
+          "source": "s03_synthetic",
+          "walkin": 2,
+          "area_id": 11,
+          "version": 3,
+          "claim_id": 39,
+          "converted": false,
+          "policy_id": 13,
+          "source_key": "race-reservation",
+          "station_id": 10,
+          "claim_state": "held",
+          "reservation": 0,
+          "unavailable": 0,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_policy_id": 13
+      },
+      {
+        "id": 275,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_slot_id": 50,
+        "ydental_claim_id": null,
+        "ydental_actor_id": 29,
+        "ydental_operation": "convert",
+        "ydental_reason": "Unused reservation balance converted once",
+        "ydental_before": {
+          "end": "2026-10-14 10:00:00",
+          "start": "2026-10-14 09:00:00",
+          "state": "published",
+          "total": 3,
+          "walkin": 2,
+          "area_id": 11,
+          "version": 3,
+          "converted": false,
+          "policy_id": 13,
+          "station_id": 10,
+          "reservation": 0,
+          "unavailable": 0,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_after": {
+          "end": "2026-10-14 10:00:00",
+          "start": "2026-10-14 09:00:00",
+          "state": "published",
+          "total": 3,
+          "walkin": 2,
+          "area_id": 11,
+          "version": 4,
+          "converted": true,
+          "policy_id": 13,
+          "station_id": 10,
+          "reservation": 0,
+          "unavailable": 0,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_policy_id": 13
+      },
+      {
+        "id": 276,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_slot_id": 51,
+        "ydental_claim_id": null,
+        "ydental_actor_id": 29,
+        "ydental_operation": "convert",
+        "ydental_reason": "Unused reservation balance converted once",
+        "ydental_before": {
+          "end": "2026-10-15 10:00:00",
+          "start": "2026-10-15 09:00:00",
+          "state": "published",
+          "total": 3,
+          "walkin": 2,
+          "area_id": 11,
+          "version": 2,
+          "converted": false,
+          "policy_id": 13,
+          "station_id": 10,
+          "reservation": 1,
+          "unavailable": 0,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_after": {
+          "end": "2026-10-15 10:00:00",
+          "start": "2026-10-15 09:00:00",
+          "state": "published",
+          "total": 3,
+          "walkin": 3,
+          "area_id": 11,
+          "version": 3,
+          "converted": true,
+          "policy_id": 13,
+          "station_id": 10,
+          "reservation": 0,
+          "unavailable": 0,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_policy_id": 13
+      },
+      {
+        "id": 277,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_slot_id": 52,
+        "ydental_claim_id": 35,
+        "ydental_actor_id": 29,
+        "ydental_operation": "consume",
+        "ydental_reason": "Authorized source execution started",
+        "ydental_before": null,
+        "ydental_after": {
+          "end": "2026-10-16 10:00:00",
+          "pool": "reservation",
+          "start": "2026-10-16 09:00:00",
+          "state": "published",
+          "total": 3,
+          "source": "s03_synthetic",
+          "walkin": 2,
+          "area_id": 11,
+          "version": 3,
+          "claim_id": 35,
+          "converted": false,
+          "policy_id": 13,
+          "source_key": "cancel_start",
+          "station_id": 10,
+          "claim_state": "consumed",
+          "reservation": 0,
+          "unavailable": 0,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_policy_id": 13
+      },
+      {
+        "id": 278,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_slot_id": 53,
+        "ydental_claim_id": 36,
+        "ydental_actor_id": 29,
+        "ydental_operation": "cancel",
+        "ydental_reason": "Synthetic duplicate cancellation",
+        "ydental_before": {
+          "end": "2026-10-17 10:00:00",
+          "start": "2026-10-17 09:00:00",
+          "state": "published",
+          "total": 3,
+          "walkin": 2,
+          "area_id": 11,
+          "version": 3,
+          "converted": false,
+          "policy_id": 13,
+          "station_id": 10,
+          "reservation": 0,
+          "unavailable": 0,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_after": {
+          "end": "2026-10-17 10:00:00",
+          "pool": "reservation",
+          "start": "2026-10-17 09:00:00",
+          "state": "published",
+          "total": 3,
+          "source": "s03_synthetic",
+          "walkin": 2,
+          "area_id": 11,
+          "version": 4,
+          "claim_id": 36,
+          "converted": false,
+          "policy_id": 13,
+          "source_key": "repeat_cancel",
+          "station_id": 10,
+          "claim_state": "cancelled",
+          "reservation": 1,
+          "unavailable": 0,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_policy_id": 13
+      },
+      {
+        "id": 279,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_slot_id": 54,
+        "ydental_claim_id": 40,
+        "ydental_actor_id": 29,
+        "ydental_operation": "acquire",
+        "ydental_reason": "Source capacity entitlement",
+        "ydental_before": {
+          "end": "2026-10-18 10:00:00",
+          "start": "2026-10-18 09:00:00",
+          "state": "published",
+          "total": 3,
+          "walkin": 2,
+          "area_id": 11,
+          "version": 2,
+          "converted": false,
+          "policy_id": 13,
+          "station_id": 10,
+          "reservation": 1,
+          "unavailable": 0,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_after": {
+          "end": "2026-10-18 10:00:00",
+          "pool": "reservation",
+          "start": "2026-10-18 09:00:00",
+          "state": "published",
+          "total": 3,
+          "source": "s03_synthetic",
+          "walkin": 2,
+          "area_id": 11,
+          "version": 3,
+          "claim_id": 40,
+          "converted": false,
+          "policy_id": 13,
+          "source_key": "race-fill",
+          "station_id": 10,
+          "claim_state": "held",
+          "reservation": 0,
+          "unavailable": 0,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_policy_id": 13
+      },
+      {
+        "id": 280,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_slot_id": null,
+        "ydental_claim_id": null,
+        "ydental_actor_id": 29,
+        "ydental_operation": "assign",
+        "ydental_reason": "Copy previous week",
+        "ydental_before": null,
+        "ydental_after": {
+          "end": "2026-10-11 16:40:18",
+          "start": "2026-10-11 15:40:18",
+          "state": "active",
+          "reason": "Copy previous week",
+          "area_id": 11,
+          "user_id": 32,
+          "version": 1,
+          "station_id": false,
+          "employee_id": 50,
+          "assignment_id": 35
+        },
+        "ydental_policy_id": null
+      },
+      {
+        "id": 281,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_slot_id": null,
+        "ydental_claim_id": null,
+        "ydental_actor_id": 29,
+        "ydental_operation": "assign",
+        "ydental_reason": "Synthetic browser arrangement",
+        "ydental_before": null,
+        "ydental_after": {
+          "end": "2026-10-21 10:00:00",
+          "start": "2026-10-21 09:00:00",
+          "state": "active",
+          "reason": "Synthetic browser arrangement",
+          "area_id": false,
+          "user_id": 30,
+          "version": 1,
+          "station_id": 10,
+          "employee_id": 48,
+          "assignment_id": 36
+        },
+        "ydental_policy_id": null
+      },
+      {
+        "id": 282,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_slot_id": null,
+        "ydental_claim_id": null,
+        "ydental_actor_id": 29,
+        "ydental_operation": "assign",
+        "ydental_reason": "Synthetic browser batch",
+        "ydental_before": null,
+        "ydental_after": {
+          "end": "2026-10-22 10:00:00",
+          "start": "2026-10-22 09:00:00",
+          "state": "active",
+          "reason": "Synthetic browser batch",
+          "area_id": 11,
+          "user_id": 31,
+          "version": 1,
+          "station_id": false,
+          "employee_id": 49,
+          "assignment_id": 37
+        },
+        "ydental_policy_id": null
+      },
+      {
+        "id": 283,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_slot_id": null,
+        "ydental_claim_id": null,
+        "ydental_actor_id": 29,
+        "ydental_operation": "assign",
+        "ydental_reason": "Synthetic browser batch",
+        "ydental_before": null,
+        "ydental_after": {
+          "end": "2026-10-23 10:00:00",
+          "start": "2026-10-23 09:00:00",
+          "state": "active",
+          "reason": "Synthetic browser batch",
+          "area_id": 11,
+          "user_id": 31,
+          "version": 1,
+          "station_id": false,
+          "employee_id": 49,
+          "assignment_id": 38
+        },
+        "ydental_policy_id": null
+      },
+      {
+        "id": 284,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_slot_id": null,
+        "ydental_claim_id": null,
+        "ydental_actor_id": 29,
+        "ydental_operation": "policy",
+        "ydental_reason": "Synthetic browser policy preview",
+        "ydental_before": null,
+        "ydental_after": {
+          "mode": "demo",
+          "policy_id": 14
+        },
+        "ydental_policy_id": null
+      },
+      {
+        "id": 285,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_slot_id": 56,
+        "ydental_claim_id": null,
+        "ydental_actor_id": 29,
+        "ydental_operation": "slot",
+        "ydental_reason": "Synthetic browser temporary capacity",
+        "ydental_before": null,
+        "ydental_after": {
+          "end": "2026-10-31 10:00:00",
+          "start": "2026-10-31 09:00:00",
+          "state": "draft",
+          "total": 6,
+          "walkin": 4,
+          "area_id": 11,
+          "version": 1,
+          "converted": false,
+          "policy_id": 14,
+          "station_id": 10,
+          "reservation": 2,
+          "unavailable": 0,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_policy_id": 14
+      },
+      {
+        "id": 286,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_slot_id": 56,
+        "ydental_claim_id": null,
+        "ydental_actor_id": 29,
+        "ydental_operation": "publish",
+        "ydental_reason": "Synthetic capability coverage verification",
+        "ydental_before": {
+          "end": "2026-10-31 10:00:00",
+          "start": "2026-10-31 09:00:00",
+          "state": "draft",
+          "total": 6,
+          "walkin": 4,
+          "area_id": 11,
+          "version": 1,
+          "converted": false,
+          "policy_id": 14,
+          "station_id": 10,
+          "reservation": 2,
+          "unavailable": 0,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_after": {
+          "end": "2026-10-31 10:00:00",
+          "start": "2026-10-31 09:00:00",
+          "state": "published",
+          "total": 6,
+          "walkin": 4,
+          "area_id": 11,
+          "version": 2,
+          "converted": false,
+          "policy_id": 14,
+          "station_id": 10,
+          "reservation": 2,
+          "unavailable": 0,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_policy_id": 14
+      },
+      {
+        "id": 287,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_slot_id": 56,
+        "ydental_claim_id": null,
+        "ydental_actor_id": 29,
+        "ydental_operation": "resize",
+        "ydental_reason": "Synthetic temporary extra capacity",
+        "ydental_before": {
+          "end": "2026-10-31 10:00:00",
+          "start": "2026-10-31 09:00:00",
+          "state": "published",
+          "total": 6,
+          "walkin": 4,
+          "area_id": 11,
+          "version": 2,
+          "converted": false,
+          "policy_id": 14,
+          "station_id": 10,
+          "reservation": 2,
+          "unavailable": 0,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_after": {
+          "end": "2026-10-31 10:00:00",
+          "start": "2026-10-31 09:00:00",
+          "state": "published",
+          "total": 9,
+          "walkin": 6,
+          "area_id": 11,
+          "version": 3,
+          "converted": false,
+          "policy_id": 14,
+          "station_id": 10,
+          "reservation": 3,
+          "unavailable": 0,
+          "capability_ids": [
+            9,
+            10
+          ]
+        },
+        "ydental_policy_id": 14
+      },
+      {
+        "id": 288,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_slot_id": null,
+        "ydental_claim_id": null,
+        "ydental_actor_id": 29,
+        "ydental_operation": "business",
+        "ydental_reason": "Synthetic browser opening",
+        "ydental_before": null,
+        "ydental_after": {
+          "id": 15,
+          "date": "2026-10-11",
+          "state": "open",
+          "version": 1
+        },
+        "ydental_policy_id": null
+      },
+      {
+        "id": 289,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_slot_id": null,
+        "ydental_claim_id": null,
+        "ydental_actor_id": 29,
+        "ydental_operation": "business",
+        "ydental_reason": "Synthetic stop reporting",
+        "ydental_before": null,
+        "ydental_after": {
+          "id": 15,
+          "date": "2026-10-11",
+          "state": "draining",
+          "version": 2
+        },
+        "ydental_policy_id": null
+      },
+      {
+        "id": 290,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_slot_id": null,
+        "ydental_claim_id": null,
+        "ydental_actor_id": 29,
+        "ydental_operation": "business",
+        "ydental_reason": "Synthetic reopen",
+        "ydental_before": null,
+        "ydental_after": {
+          "id": 15,
+          "date": "2026-10-11",
+          "state": "open",
+          "version": 3
+        },
+        "ydental_policy_id": null
+      },
+      {
+        "id": 291,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_slot_id": null,
+        "ydental_claim_id": null,
+        "ydental_actor_id": 31,
+        "ydental_operation": "feedback",
+        "ydental_reason": "Synthetic browser arrangement error",
+        "ydental_before": null,
+        "ydental_after": {
+          "id": 7,
+          "recipient_ids": [
+            29,
+            33
+          ]
+        },
+        "ydental_policy_id": null
+      }
+    ],
+    "assignment": [
+      {
+        "id": 33,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_user_id": 31,
+        "ydental_employee_id": 49,
+        "ydental_station_id": 9,
+        "ydental_area_id": null,
+        "ydental_start": "2026-10-11 15:35:18",
+        "ydental_end": "2026-10-11 17:40:18",
+        "state": "active",
+        "ydental_reason": "Default assignment"
+      },
+      {
+        "id": 34,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_user_id": 32,
+        "ydental_employee_id": 50,
+        "ydental_station_id": null,
+        "ydental_area_id": 11,
+        "ydental_start": "2026-10-04 15:40:18",
+        "ydental_end": "2026-10-04 16:40:18",
+        "state": "active",
+        "ydental_reason": "Default assignment"
+      },
+      {
+        "id": 35,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_user_id": 32,
+        "ydental_employee_id": 50,
+        "ydental_station_id": null,
+        "ydental_area_id": 11,
+        "ydental_start": "2026-10-11 15:40:18",
+        "ydental_end": "2026-10-11 16:40:18",
+        "state": "active",
+        "ydental_reason": "Copy previous week"
+      },
+      {
+        "id": 36,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_user_id": 30,
+        "ydental_employee_id": 48,
+        "ydental_station_id": 10,
+        "ydental_area_id": null,
+        "ydental_start": "2026-10-21 09:00:00",
+        "ydental_end": "2026-10-21 10:00:00",
+        "state": "active",
+        "ydental_reason": "Synthetic browser arrangement"
+      },
+      {
+        "id": 37,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_user_id": 31,
+        "ydental_employee_id": 49,
+        "ydental_station_id": null,
+        "ydental_area_id": 11,
+        "ydental_start": "2026-10-22 09:00:00",
+        "ydental_end": "2026-10-22 10:00:00",
+        "state": "active",
+        "ydental_reason": "Synthetic browser batch"
+      },
+      {
+        "id": 38,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_user_id": 31,
+        "ydental_employee_id": 49,
+        "ydental_station_id": null,
+        "ydental_area_id": 11,
+        "ydental_start": "2026-10-23 09:00:00",
+        "ydental_end": "2026-10-23 10:00:00",
+        "state": "active",
+        "ydental_reason": "Synthetic browser batch"
+      }
+    ],
+    "feedback": [
+      {
+        "id": 7,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_assignment_id": 33,
+        "ydental_user_id": 31,
+        "ydental_reason": "Synthetic browser arrangement error",
+        "state": "pending",
+        "ydental_resolution": null
+      }
+    ],
+    "disposition": [],
+    "business": [
+      {
+        "id": 13,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_area_id": 11,
+        "ydental_date": "2026-10-14",
+        "ydental_timezone": "UTC",
+        "state": "open",
+        "ydental_reason": "Synthetic boundary business day"
+      },
+      {
+        "id": 14,
+        "ydental_store_id": 11,
+        "ydental_version": 1,
+        "ydental_area_id": 11,
+        "ydental_date": "2026-10-15",
+        "ydental_timezone": "UTC",
+        "state": "open",
+        "ydental_reason": "Synthetic boundary business day"
+      },
+      {
+        "id": 15,
+        "ydental_store_id": 11,
+        "ydental_version": 3,
+        "ydental_area_id": 11,
+        "ydental_date": "2026-10-11",
+        "ydental_timezone": "UTC",
+        "state": "open",
+        "ydental_reason": "Synthetic reopen"
+      }
+    ]
+  }
+}
