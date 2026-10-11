@@ -1,3 +1,5 @@
+import base64
+
 from odoo import fields
 from odoo.addons.base.tests.common import BaseCommon
 from odoo.exceptions import AccessError, UserError, ValidationError
@@ -166,7 +168,6 @@ class TestSpace(BaseCommon):
         for invalid in (float('nan'), float('inf'), 100001):
             with self.assertRaises(ValidationError), self.cr.savepoint():
                 polygon.write({'ydental_x': invalid, 'ydental_version': polygon.ydental_version})
-import base64
 
 
     def test_binary_upload_is_sanitized_and_bounded(self):

@@ -33,7 +33,7 @@ class YDentalSpaceArea(models.Model):
     ydental_y = fields.Float(default=20, string='Y coordinate')
     ydental_width = fields.Float(default=300, string='Width')
     ydental_height = fields.Float(default=200, string='Height')
-    ydental_angle = fields.Float(, string='Direction')
+    ydental_angle = fields.Float(string='Direction')
 
     @api.depends('ydental_reporting', 'parent_id.ydental_queue_area_id')
     def _compute_queue_area(self):

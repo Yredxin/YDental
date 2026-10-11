@@ -18,7 +18,7 @@ class YDentalSpaceItem(models.Model):
     ydental_y = fields.Float(default=60, string='Y coordinate')
     ydental_width = fields.Float(default=60, string='Width')
     ydental_height = fields.Float(default=50, string='Height')
-    ydental_angle = fields.Float(, string='Direction')
+    ydental_angle = fields.Float(string='Direction')
 
     @api.constrains('ydental_floor_id', 'ydental_store_id', 'ydental_category', 'ydental_resource_id',
                     'ydental_station_id', 'ydental_x', 'ydental_y', 'ydental_width', 'ydental_height', 'ydental_angle')

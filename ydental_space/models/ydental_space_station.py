@@ -26,7 +26,7 @@ class YDentalSpaceStation(models.Model):
     ydental_y = fields.Float(default=60, string='Y coordinate')
     ydental_width = fields.Float(default=90, string='Width')
     ydental_height = fields.Float(default=70, string='Height')
-    ydental_angle = fields.Float(, string='Direction')
+    ydental_angle = fields.Float(string='Direction')
 
     @api.depends('ydental_item_ids.ydental_resource_id.ydental_capability_ids', 'ydental_item_ids.active',
                  'ydental_add_capability_ids', 'ydental_remove_capability_ids')
