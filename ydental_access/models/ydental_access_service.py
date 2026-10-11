@@ -578,6 +578,12 @@ class YDentalAccessService(models.AbstractModel):
                             else row.ydental_user_id)
                         if not target or not self._user_company_ids(target) <= set(self.env.user.company_ids.ids):
                             continue
+                    targets = (row.ydental_after or {}).get('targets', [])
+                    if targets:
+                        stores = self.env['ydental.access.store'].sudo().with_context(active_test=False).browse(
+                            [target[1] for target in targets]).exists()
+                        if not set(stores.company_id.ids) <= set(self.env.user.company_ids.ids):
+                            continue
                     visible |= row
                 elif not row.ydental_store_id or row.ydental_store_id == session.ydental_store_id:
                     visible |= row
@@ -587,7 +593,8 @@ class YDentalAccessService(models.AbstractModel):
                     row.ydental_store_id != session.ydental_store_id or row.ydental_target_id != 0
                 ):
                     continue
-                source = self.env[row.ydental_target_model].browse(row.ydental_target_id)
+                source = self.env[row.ydental_target_model].browse(
+                    [] if row.ydental_category == 'query' else row.ydental_target_id)
                 try:
                     source.check_access('read')
                 except AccessError:

@@ -134,8 +134,8 @@ class YDentalDataSet(DataSet):
         session = service._existing_session_for_key(request.session.sid[:42])
         if not session:
             raise AccessError(request.env._('access_denied: Open the YDental store workspace first.'))
-        # RPC context is untrusted; only the expected numeric revision and a
-        # declared care purpose are accepted. The binding comes from the SID.
+        # RPC context is untrusted. Only the numeric revision is consumed here;
+        # a client purpose does not authorize care. Binding comes from the SID.
         bound = service._bind(session, context.get('ydental_revision'))
         context['ydental_binding'] = bound.env.context['ydental_binding']
         return dict(kwargs, context=context)
@@ -148,7 +148,7 @@ class YDentalDataSet(DataSet):
             read_methods = {
                 'read', 'search', 'search_read', 'search_fetch', 'search_count', 'fields_get',
                 'get_views', 'web_read', 'web_search_read', 'name_search', 'read_group',
-                'formatted_read_group', 'export_data',
+                'formatted_read_group', 'formatted_read_grouping_sets', 'export_data',
             }
             if method not in read_methods and type((kwargs.get('context') or {}).get('ydental_revision')) is not int:
                 raise AccessError(request.env._('access_denied: A page revision is required for writes.'))
