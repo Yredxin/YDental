@@ -186,3 +186,9 @@ class TestS01HTTP(HttpCase, TestS01):
         with mute_logger('odoo.http'):
             self.assertIn('error', self.rpc(group, 'res.users', 'write', self.operator.ids,
                 {'vals': {'ydental_job_title': 'Native forbidden profile'}}))
+        self.assertIn('result', self.rpc(group, 'res.users', 'write', self.group_admin.ids,
+            {'vals': {'ydental_job_title': 'HTTP audited self profile'}}))
+        row = self.env['ydental.access.audit'].search([('ydental_event', '=', 'profile.change'),
+            ('ydental_target_id', '=', self.group_admin.id)])
+        self.assertEqual(len(row), 1)
+        self.assertEqual(row.ydental_user_id, self.group_admin)

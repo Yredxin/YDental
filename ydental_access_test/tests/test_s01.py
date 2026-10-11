@@ -376,6 +376,14 @@ class TestS01(TransactionCase):
         with self.assertRaises(AccessError):
             self.operator.with_user(self.group_admin).write({'ydental_job_title': 'Direct common profile'})
         self.assertEqual(self.operator.ydental_job_title, before)
+        # The native self-write rule permits the group actor's own common
+        # fields; this real direct path must carry the same audit contract.
+        self.group_admin.with_user(self.group_admin).write({'ydental_job_title': 'Direct self profile'})
+        row = Audit.search([('ydental_event', '=', 'profile.change'),
+                            ('ydental_target_id', '=', self.group_admin.id)])
+        self.assertEqual(len(row), 1)
+        self.assertEqual(row.ydental_user_id, self.group_admin)
+        self.assertNotEqual(row.ydental_before['job_title'], row.ydental_after['job_title'])
         self.admin._update_profile(self.operator.id, 'Audited service profile', cap.ids)
         self.assertTrue(Audit.search([('ydental_event', '=', 'profile.change'),
                                      ('ydental_target_id', '=', self.operator.id)]))
