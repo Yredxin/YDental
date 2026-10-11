@@ -197,3 +197,28 @@ class TestS01HTTP(HttpCase, TestS01):
             ('ydental_target_id', '=', self.group_admin.id)])
         self.assertEqual(len(row), 1)
         self.assertEqual(row.ydental_user_id, native)
+
+    def test_http_rework_limited_company_actions_and_audit(self):
+        limited = new_test_user(self.env, login='s01_http_limited_company',
+            groups='ydental_access.ydental_group_manager', company_id=self.company_a.id,
+            company_ids=[fields.Command.set(self.company_a.ids)])
+        foreign = new_test_user(self.env, login='s01_http_foreign_company',
+            groups='ydental_base.ydental_base_group_user', company_id=self.company_b.id,
+            company_ids=[fields.Command.set(self.company_b.ids)])
+        self.admin._join(foreign.id, self.c.id)
+        hidden = self.admin._audit('HTTP_FOREIGN_PERSONNEL', 'personnel', foreign, self.c.id)
+        shared = self.admin._audit('HTTP_SHARED_ACCOUNT_PROFILE', 'personnel', self.operator)
+        client = self.login_session(limited)
+        for target in (foreign, self.operator):
+            response = self.action_http(client, 'profile',
+                {'user_id': target.id, 'job_title': 'HTTP forbidden global profile', 'capability_ids': []})
+            self.assertEqual(response.status_code, 403)
+            response = self.action_http(client, 'depart', {'user_id': target.id})
+            self.assertEqual(response.status_code, 403)
+            self.assertTrue(target.active)
+            self.assertNotEqual(target.ydental_job_title, 'HTTP forbidden global profile')
+        page = client.get(self.base_url() + '/ydental/access', timeout=20)
+        self.assertEqual(page.status_code, 200)
+        self.assertNotIn(hidden.ydental_event, page.text)
+        self.assertNotIn(shared.ydental_event, page.text)
+        self.assertTrue(self.admin._membership(foreign.id, self.c.id).ydental_employee_id.active)
