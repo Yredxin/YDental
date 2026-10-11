@@ -1324,3 +1324,13 @@ msgstr "version_conflict: 请刷新患者资料或合并申请。"
 #: code:addons/ydental_patient/models/ydental_patient_service.py:0
 msgid "version_conflict: This action key was used for different arguments."
 msgstr "version_conflict: 此幂等键已用于不同的动作参数。"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "Establish this store relationship"
+msgstr "建立本店患者关系"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "Confirm actual arrival now"
+msgstr "记录当前真实到店"
