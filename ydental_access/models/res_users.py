@@ -17,7 +17,23 @@ class ResUsers(models.Model):
             self.env.su or self.env.user.has_group(GROUP_MANAGER)
         ):
             raise AccessError(self.env._('Group administration is required for common staff fields.'))
-        return super().write(vals)
+        common = bool({'ydental_job_title', 'ydental_capability_ids'} & vals.keys()) and not self.env.su
+        service = self.env['ydental.access.service']
+        if common:
+            service._check_user_company_scope(self)
+            before = {user.id: user._ydental_profile_values() for user in self}
+        result = super().write(vals)
+        if common:
+            for user in self:
+                after = user._ydental_profile_values()
+                if before[user.id] != after:
+                    service._audit('profile.change', 'personnel', user, before=before[user.id], after=after,
+                                   source='model_write')
+        return result
+
+    def _ydental_profile_values(self):
+        self.ensure_one()
+        return {'job_title': self.ydental_job_title, 'capability_ids': sorted(self.ydental_capability_ids.ids)}
 
     def _after_session_login(self):
         super()._after_session_login()

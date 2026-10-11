@@ -30,12 +30,14 @@ msgstr "请求受理不代表已送达，账号邮箱按原记录处理。"
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/ydental_access_store.py:0
+#: code:ydental_access/models/ydental_access_store.py:0
 msgid "A valid IANA store timezone is required."
 msgstr "请填写有效的 IANA 门店时区。"
 
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/ydental_access_service.py:0
+#: code:ydental_access/models/ydental_access_service.py:0
 msgid "A valid store name is required."
 msgstr "请填写有效的门店名称。"
 
@@ -57,6 +59,7 @@ msgstr "账号编号"
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/controllers/access.py:0
+#: code:ydental_access/controllers/access.py:0
 msgid "Action arguments must be an object."
 msgstr "动作参数必须是对象。"
 
@@ -102,6 +105,7 @@ msgstr "任命"
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/ydental_access_service.py:0
+#: code:ydental_access/models/ydental_access_service.py:0
 msgid "Appoint a replacement before removing the last active store manager."
 msgstr "撤销最后一位在职店长前，请先任命接替者。"
 
@@ -113,6 +117,7 @@ msgstr "任免"
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/ydental_access_service.py:0
+#: code:ydental_access/models/ydental_access_service.py:0
 msgid "Assign a replacement before removing the last active administrator."
 msgstr "撤除最后一位在职管理员前，须先指定接替者。"
 
@@ -129,12 +134,14 @@ msgstr "审计"
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/ydental_access_audit.py:0
+#: code:ydental_access/models/ydental_access_audit.py:0
 msgid "Audit events cannot be changed."
 msgstr "审计事件不可修改。"
 
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/ydental_access_audit.py:0
+#: code:ydental_access/models/ydental_access_audit.py:0
 msgid "Audit events cannot be deleted."
 msgstr "审计事件不可删除。"
 
@@ -198,6 +205,7 @@ msgstr "员工公共字段"
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/hr_employee.py:0
+#: code:ydental_access/models/hr_employee.py:0
 msgid "Common staff fields must be changed on the trusted account source."
 msgstr "员工公共字段须在可信账号源上修改。"
 
@@ -352,6 +360,7 @@ msgstr "前台"
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/res_users.py:0
+#: code:ydental_access/models/res_users.py:0
 msgid "Group administration is required for common staff fields."
 msgstr "员工公共字段由集团管理员维护。"
 
@@ -453,12 +462,14 @@ msgstr "必须二步验证"
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/ydental_access_service.py:0
+#: code:ydental_access/models/ydental_access_service.py:0
 msgid "Manager appointment policy has not been approved and configured."
 msgstr "店长任免政策尚未批准和配置。"
 
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/ydental_access_service.py:0
+#: code:ydental_access/models/ydental_access_service.py:0
 msgid ""
 "Manager appointment policy must be confirmed before removing a manager."
 msgstr "移除店长前须确认任免政策并独立完成任免。"
@@ -491,12 +502,14 @@ msgstr "名称"
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/ydental_access_service.py:0
+#: code:ydental_access/models/ydental_access_service.py:0
 msgid "Name and login are required."
 msgstr "请填写姓名和登录名。"
 
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/ydental_access_service.py:0
+#: code:ydental_access/models/ydental_access_service.py:0
 msgid "Name or login is too long."
 msgstr "姓名或登录名过长。"
 
@@ -663,12 +676,14 @@ msgstr "排班容量"
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/ydental_access_service.py:0
+#: code:ydental_access/models/ydental_access_service.py:0
 msgid "Select an account and active capabilities."
 msgstr "请选择账号及有效能力。"
 
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/ydental_access_service.py:0
+#: code:ydental_access/models/ydental_access_service.py:0
 msgid "Select between one and fifty distinct account/store targets."
 msgstr "请选择一至五十个不同的账号与门店目标。"
 
@@ -713,6 +728,7 @@ msgstr "门店与员工"
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/ydental_access_store.py:0
+#: code:ydental_access/models/ydental_access_store.py:0
 msgid "Store company cannot be changed after staff assignment."
 msgstr "分配员工后不可更改门店所属公司。"
 
@@ -767,6 +783,7 @@ msgstr "时间（UTC）"
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/ydental_access_service.py:0
+#: code:ydental_access/models/ydental_access_service.py:0
 msgid "Unknown permission category or level."
 msgstr "未知业务大类或权限级别。"
 
@@ -964,78 +981,91 @@ msgstr "真实用户"
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/ydental_access_service.py:0
+#: code:ydental_access/models/ydental_access_service.py:0
 msgid "access_denied: A grant cannot exceed your own level."
 msgstr "access_denied: 不得授予超过自身级别的权限。"
 
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/controllers/access.py:0
+#: code:ydental_access/controllers/access.py:0
 msgid "access_denied: A page revision is required for actions."
 msgstr "access_denied: 操作须携带页面版本。"
 
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/controllers/access.py:0
+#: code:ydental_access/controllers/access.py:0
 msgid "access_denied: A page revision is required for writes."
 msgstr "access_denied: 写入须携带页面版本。"
 
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/controllers/access.py:0
+#: code:ydental_access/controllers/access.py:0
 msgid "access_denied: A registered source attachment is required."
 msgstr "access_denied: 仅允许已登记源记录的附件。"
 
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/ydental_access_service.py:0
+#: code:ydental_access/models/ydental_access_service.py:0
 msgid "access_denied: A server-bound login scope is required."
 msgstr "access_denied: 需要服务端绑定的登录门店范围。"
 
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/ydental_access_service.py:0
+#: code:ydental_access/models/ydental_access_service.py:0
 msgid "access_denied: Active store membership is required."
 msgstr "access_denied: 需要有效门店任职。"
 
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/ydental_access_service.py:0
+#: code:ydental_access/models/ydental_access_service.py:0
 msgid "access_denied: An active internal account and store are required."
 msgstr "access_denied: 需要有效内部账号及门店。"
 
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/ydental_access_service.py:0
+#: code:ydental_access/models/ydental_access_service.py:0
 msgid "access_denied: An active target membership is required."
 msgstr "access_denied: 目标须有有效门店任职。"
 
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/ydental_access_service.py:0
+#: code:ydental_access/models/ydental_access_service.py:0
 msgid "access_denied: An active template is required."
 msgstr "access_denied: 需要有效权限模板。"
 
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/ydental_access_service.py:0
+#: code:ydental_access/models/ydental_access_service.py:0
 msgid "access_denied: An internal target account is required."
 msgstr "access_denied: 目标须为内部账号。"
 
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/ydental_access_service.py:0
+#: code:ydental_access/models/ydental_access_service.py:0
 msgid "access_denied: Company assignment requires group administration."
 msgstr "access_denied: 公司关联由集团管理员处理。"
 
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/ydental_access_service.py:0
+#: code:ydental_access/models/ydental_access_service.py:0
 msgid "access_denied: Execution in another store blocks manual writes."
 msgstr "access_denied: 在其他门店坐诊期间，不允许此处人工写入。"
 
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/ydental_access_service.py:0
+#: code:ydental_access/models/ydental_access_service.py:0
 msgid ""
 "access_denied: Group administration and valid common fields are required."
 msgstr "access_denied: 需要集团管理身份及有效公共字段。"
@@ -1043,12 +1073,16 @@ msgstr "access_denied: 需要集团管理身份及有效公共字段。"
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/ydental_access_service.py:0
+#: code:ydental_access/models/ydental_access_capability.py:0
+#: code:ydental_access/models/ydental_access_service.py:0
 msgid "access_denied: Group administration is required."
 msgstr "access_denied: 需要集团管理身份。"
 
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/ydental_access_service.py:0
+#: code:ydental_access/models/ydental_access_store.py:0
+#: code:ydental_access/models/ydental_access_service.py:0
 msgid ""
 "access_denied: Group administration within allowed companies is required."
 msgstr "access_denied: 需要在已授权公司范围内的集团管理身份。"
@@ -1056,42 +1090,49 @@ msgstr "access_denied: 需要在已授权公司范围内的集团管理身份。
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/ydental_access_service.py:0
+#: code:ydental_access/models/ydental_access_service.py:0
 msgid "access_denied: Invalid authorization action."
 msgstr "access_denied: 无效授权动作。"
 
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/ydental_access_service.py:0
+#: code:ydental_access/models/ydental_access_service.py:0
 msgid "access_denied: Invalid login scope."
 msgstr "access_denied: 无效登录门店范围。"
 
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/ydental_access_service.py:0
+#: code:ydental_access/models/ydental_access_service.py:0
 msgid "access_denied: Manager appointments require group administration."
 msgstr "access_denied: 店长任免由集团管理员处理。"
 
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/controllers/access.py:0
+#: code:ydental_access/controllers/access.py:0
 msgid "access_denied: Open the YDental store workspace first."
 msgstr "access_denied: 请先打开 YDental 门店工作台。"
 
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/ydental_access_service.py:0
+#: code:ydental_access/models/ydental_access_service.py:0
 msgid "access_denied: Personnel administrators cannot change themselves."
 msgstr "access_denied: 普通人员管理员不能更改自身授权。"
 
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/ydental_access_service.py:0
+#: code:ydental_access/models/ydental_access_service.py:0
 msgid "access_denied: Personnel authorization is required."
 msgstr "access_denied: 需要人员授权管理权限。"
 
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/ydental_access_service.py:0
+#: code:ydental_access/models/ydental_access_service.py:0
 msgid ""
 "access_denied: Privileged account resets require technical configuration."
 msgstr "access_denied: 特权账号重置需要技术配置身份。"
@@ -1099,42 +1140,49 @@ msgstr "access_denied: 特权账号重置需要技术配置身份。"
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/ir_attachment.py:0
+#: code:ydental_access/models/ir_attachment.py:0
 msgid "access_denied: Protected attachments cannot be published or moved."
 msgstr "access_denied: 受保护附件不可公开或转移归属。"
 
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/ydental_access_service.py:0
+#: code:ydental_access/models/ydental_access_service.py:0
 msgid "access_denied: Select an active internal account."
 msgstr "access_denied: 请选择有效内部账号。"
 
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/ydental_access_service.py:0
+#: code:ydental_access/models/ydental_access_service.py:0
 msgid "access_denied: Select an active store."
 msgstr "access_denied: 请选择有效门店。"
 
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/ydental_access_source.py:0
+#: code:ydental_access/models/ydental_access_source.py:0
 msgid "access_denied: Source ownership cannot be changed."
 msgstr "access_denied: 不可更改源记录归属。"
 
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/ydental_access_source.py:0
+#: code:ydental_access/models/ydental_access_source.py:0
 msgid "access_denied: Source store must match the login scope."
 msgstr "access_denied: 源记录门店必须匹配当前登录范围。"
 
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/ydental_access_service.py:0
+#: code:ydental_access/models/ydental_access_service.py:0
 msgid "access_denied: Store manager assignments are independently protected."
 msgstr "access_denied: 店长身份由独立任免关系保护。"
 
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/ydental_access_service.py:0
+#: code:ydental_access/models/ydental_access_service.py:0
 msgid ""
 "access_denied: Technical configuration and explicit valid parameters are "
 "required."
@@ -1143,35 +1191,41 @@ msgstr "access_denied: 需要技术配置身份及明确有效的参数。"
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/ydental_access_service.py:0
+#: code:ydental_access/models/ydental_access_service.py:0
 msgid "access_denied: This business permission is required."
 msgstr "access_denied: 需要相应业务权限。"
 
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/ydental_access_source.py:0
+#: code:ydental_access/models/ydental_access_source.py:0
 msgid "access_denied: This source is outside the authorized store scope."
 msgstr "access_denied: 此源记录不在已授权门店范围内。"
 
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/controllers/access.py:0
+#: code:ydental_access/controllers/access.py:0
 msgid "access_denied: Unknown action or arguments."
 msgstr "access_denied: 未知动作或参数。"
 
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/ydental_access_service.py:0
+#: code:ydental_access/models/ydental_access_service.py:0
 msgid "access_denied: YDental internal access is required."
 msgstr "access_denied: 需要 YDental 内部访问权限。"
 
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/ydental_access_service.py:0
+#: code:ydental_access/models/ydental_access_service.py:0
 msgid "version_conflict: Permissions or the template changed. Preview again."
 msgstr "version_conflict: 权限或模板已变更，请重新预览。"
 
 #. module: ydental_access
 #. odoo-python
 #: code:addons/ydental_access/models/ydental_access_service.py:0
+#: code:ydental_access/models/ydental_access_service.py:0
 msgid "version_conflict: The store changed. Refresh this page."
 msgstr "version_conflict: 门店已变更，请刷新页面。"

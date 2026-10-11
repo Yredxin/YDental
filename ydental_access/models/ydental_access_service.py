@@ -46,6 +46,14 @@ class YDentalAccessService(models.AbstractModel):
         if not session:
             session = Session.create({'ydental_key_hash': digest, 'ydental_user_id': self.env.uid})
             self._audit('login.scope', 'personnel', session, source='authenticated_session')
+            # The hook is server code, not a request context hint. Consume it
+            # exactly once; an invalid suggestion leaves the session unselected.
+            store_id = self._get_default_store_id()
+            if type(store_id) is int and store_id > 0:
+                store = self.env['ydental.access.store'].sudo().browse(store_id).exists()
+                member = self._membership(self.env.uid, store_id)
+                if store and store.active and member and member.ydental_employee_id.active:
+                    self._bind(session)._switch(store_id)
         if session.ydental_user_id.id != self.env.uid:
             raise AccessError(self.env._('access_denied: Invalid login scope.'))
         return session
@@ -93,7 +101,6 @@ class YDentalAccessService(models.AbstractModel):
             'name': name.strip(), 'company_id': company_id, 'ydental_timezone': timezone,
         })
         self._join(self.env.uid, store.id)
-        self._audit('store.create', 'personnel', store, store.id, after={'company_id': company_id, 'timezone': timezone})
         return {'result': 'accepted', 'store_id': store.id}
 
     def _update_profile(self, user_id, job_title, capability_ids):
@@ -107,6 +114,7 @@ class YDentalAccessService(models.AbstractModel):
         capabilities = self.env['ydental.access.capability'].sudo().browse(capability_ids).exists()
         if not user or len(capabilities) != len(set(capability_ids)) or not all(capabilities.mapped('active')):
             raise ValidationError(self.env._('Select an account and active capabilities.'))
+        self._check_user_company_scope(user)
         old = {'job_title': user.ydental_job_title, 'capability_ids': user.ydental_capability_ids.ids}
         user.write({'ydental_job_title': job_title, 'ydental_capability_ids': [fields.Command.set(capability_ids)]})
         self._audit('profile.change', 'personnel', user, before=old,
@@ -248,6 +256,30 @@ class YDentalAccessService(models.AbstractModel):
         ]):
             levels[grant.ydental_category] = grant.ydental_level
         return levels
+
+    def _get_care_domain(self, model_name):
+        """Default deny. Upper modules must validate the patient/task server-side.
+
+        Never derive this domain from a client purpose, record ID or context
+        dictionary. S01 supplies no patient/task authorizer.
+        """
+        return fields.Domain.FALSE
+
+    def _user_company_ids(self, users):
+        """All companies affected by account-wide staff lifecycle changes."""
+        users = users.sudo().with_context(active_test=False)
+        employees = self.env['hr.employee'].sudo().with_context(active_test=False).search([
+            ('user_id', 'in', users.ids),
+        ])
+        members = self.env['ydental.access.membership'].sudo().with_context(active_test=False).search([
+            ('ydental_user_id', 'in', users.ids),
+        ])
+        return set(users.company_ids.ids + users.company_id.ids + employees.company_id.ids +
+                   members.ydental_store_id.company_id.ids)
+
+    def _check_user_company_scope(self, users):
+        if not self.env.su and not self._user_company_ids(users) <= set(self.env.user.company_ids.ids):
+            raise AccessError(self.env._('access_denied: Group administration within allowed companies is required.'))
 
     def _get_execution_store_id(self):
         """S06 overrides from its authoritative execution lease, never context."""
@@ -471,6 +503,7 @@ class YDentalAccessService(models.AbstractModel):
         user = self.env['res.users'].sudo().browse(user_id).exists()
         if not user or not user._is_internal():
             raise AccessError(self.env._('access_denied: An internal target account is required.'))
+        self._check_user_company_scope(user)
         if not user.active:
             return {'result': 'already_accepted'}
         # The configurable replacement policy covers independent administrators
@@ -503,7 +536,13 @@ class YDentalAccessService(models.AbstractModel):
         ])
         own = self._membership(self.env.uid, session.ydental_store_id.id)
         if self._is_group_manager():
-            domain |= fields.Domain('ydental_category', '=', 'personnel')
+            domain |= fields.Domain.AND([
+                fields.Domain('ydental_category', '=', 'personnel'),
+                fields.Domain.OR([
+                    fields.Domain('ydental_store_id', '=', False),
+                    fields.Domain('ydental_store_id.company_id', 'in', self.env.user.company_ids.ids),
+                ]),
+            ])
         if own and (own.ydental_is_manager or self._levels(own)['personnel'] in ('read', 'write')):
             domain |= fields.Domain.AND([
                 fields.Domain('ydental_store_id', '=', session.ydental_store_id.id),
@@ -515,6 +554,13 @@ class YDentalAccessService(models.AbstractModel):
                 fields.Domain('ydental_store_id', '=', session.ydental_store_id.id),
                 fields.Domain('ydental_category', 'in', categories),
             ])
+        # Query events describe a model-level operation (target ID 0), and
+        # are visible only to their actor in the same current store.
+        domain |= fields.Domain.AND([
+            fields.Domain('ydental_category', '=', 'query'),
+            fields.Domain('ydental_user_id', '=', self.env.uid),
+            fields.Domain('ydental_store_id', '=', session.ydental_store_id.id),
+        ])
         # Check the actual source even for clinical event metadata. Never use
         # an audit record as a route around source-record reading permission.
         rows = self.env['ydental.access.audit'].sudo().search(domain, limit=100)
@@ -522,10 +568,26 @@ class YDentalAccessService(models.AbstractModel):
         sources = self._get_sources().values()
         for row in rows:
             if row.ydental_category == 'personnel':
-                if self._is_group_manager() or not row.ydental_store_id or row.ydental_store_id == session.ydental_store_id:
+                if self._is_group_manager():
+                    if row.ydental_store_id:
+                        if row.ydental_store_id.company_id not in self.env.user.company_ids:
+                            continue
+                    else:
+                        target = (self.env['res.users'].sudo().with_context(active_test=False).browse(
+                            row.ydental_target_id).exists() if row.ydental_target_model == 'res.users'
+                            else row.ydental_user_id)
+                        if not target or not self._user_company_ids(target) <= set(self.env.user.company_ids.ids):
+                            continue
+                    visible |= row
+                elif not row.ydental_store_id or row.ydental_store_id == session.ydental_store_id:
                     visible |= row
             elif row.ydental_target_model in sources:
-                source = self.env[row.ydental_target_model].with_context(ydental_purpose='care').browse(row.ydental_target_id)
+                if row.ydental_category == 'query' and (
+                    row.ydental_user_id.id != self.env.uid or
+                    row.ydental_store_id != session.ydental_store_id or row.ydental_target_id != 0
+                ):
+                    continue
+                source = self.env[row.ydental_target_model].browse(row.ydental_target_id)
                 try:
                     source.check_access('read')
                 except AccessError:
