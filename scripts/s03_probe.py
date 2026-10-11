@@ -1,0 +1,139 @@
+"""Seed only a recorded fresh S03 database and verify actual two-connection races."""
+from concurrent.futures import ThreadPoolExecutor
+from contextlib import nullcontext
+from datetime import timedelta
+import json
+import os
+from pathlib import Path
+import re
+import secrets
+import threading
+from unittest.mock import patch
+
+import psycopg2
+
+from odoo import api, fields
+from odoo.exceptions import UserError
+from odoo.addons.ydental_supply_test.tests.common import setup_supply, slot, acquire, acquire_args
+
+
+run = Path(os.environ['YDENTAL_S03_RUN_DIR'])
+metadata = json.loads((run / 'database.json').read_text())
+assert re.fullmatch(r'ydental_s03_test_[0-9]{14}_[a-f0-9]{8}', metadata['database'])
+assert env.cr.dbname == metadata['database']
+assert not (run / 'access.json').exists(), 'Preview already seeded'
+registry = env.registry
+
+
+class Fixture:
+    pass
+
+
+with registry.cursor() as cr:
+    fixture = Fixture()
+    fixture.env = api.Environment(cr, api.SUPERUSER_ID, {})
+    setup_supply(fixture)
+    f = fixture
+    access = {}
+    for role in ('writer', 'reader', 'staff'):
+        user = f.root['res.users'].browse(f.__dict__[role].id)
+        login = 's03_' + secrets.token_hex(6) + '@example.invalid'
+        password = secrets.token_urlsafe(24)
+        user.write({'login': login, 'password': password, 'email': login, 'lang': 'zh_CN'})
+        access[role] = {'id': user.id, 'login': login, 'password': password}
+    sessions = []
+    for key in ('race-one', 'race-two'):
+        service = f.root['ydental.access.service'].with_user(f.writer)
+        session = service._session_for_key(key)
+        service._bind(session)._switch(f.stores[0].id)
+        sessions.append(session.id)
+    scenarios = []
+    for index, name in enumerate(('last_capacity', 'reservation_conversion', 'cancel_start', 'repeat_cancel', 'source_move')):
+        record = slot(f, start=f.start + timedelta(days=index), end=f.end + timedelta(days=index), total=3, key=name)
+        if name in ('cancel_start', 'repeat_cancel'):
+            claim = acquire(f, record, key=name)
+            pair = [('cancel', {'id': claim.id, 'reason': 'Synthetic concurrent cancellation'}),
+                    ('consume' if name == 'cancel_start' else 'cancel', {'id': claim.id} if name == 'cancel_start' else {'id': claim.id, 'reason': 'Synthetic duplicate cancellation'})]
+        elif name == 'source_move':
+            old = slot(f, station=f.stations[0], start=record.ydental_start, end=record.ydental_end, total=3, key='move-old')
+            claim = acquire(f, old, key='move-original')
+            pair = [('reassign', {'id': claim.id, 'slot_id': record.id, 'reason': 'Concurrent source move'}),
+                    ('acquire', acquire_args(f, record, 'race-fill', capability=f.capabilities[1]))]
+        elif name == 'reservation_conversion':
+            pair = [('acquire', acquire_args(f, record, 'race-reservation')), ('convert', {'id': record.id})]
+        else:
+            pair = [('acquire', acquire_args(f, record, name + '-clean')),
+                    ('acquire', acquire_args(f, record, name + '-fill', capability=f.capabilities[1]))]
+        scenarios.append({'name': name, 'slot_id': record.id, 'start': fields.Datetime.to_string(record.ydental_start), 'actions': pair})
+    now = fields.Datetime.now()
+    today = f.service._operate('assign', {'user_id': f.staff.id, 'station_id': f.stations[0].id,
+        'start': fields.Datetime.to_string(now - timedelta(minutes=5)), 'end': fields.Datetime.to_string(now + timedelta(hours=2))}, 'preview-today')
+    previous_week = now - timedelta(days=7)
+    f.service._operate('assign', {'user_id': f.replacement.id, 'area_id': f.area.id,
+        'start': fields.Datetime.to_string(previous_week), 'end': fields.Datetime.to_string(previous_week + timedelta(hours=1))}, 'preview-previous-week')
+    user_id, store_id, area_id = f.writer.id, f.stores[0].id, f.area.id
+    summary = {'database': cr.dbname, 'stores': f.stores.ids, 'station_ids': f.stations.ids,
+        'area_id': area_id, 'capability_ids': f.capabilities.ids, 'today_assignment_id': today['id'],
+        'staff_id': f.staff.id, 'replacement_id': f.replacement.id, 'synthetic_only': True}
+    cr.commit()  # Own cursor; guarded fresh S03 fixtures only.
+
+
+results = []
+for scenario in scenarios:
+    barrier = threading.Barrier(2)
+
+    def worker(index):
+        operation, payload = scenario['actions'][index]
+        attempts = []
+        for attempt in range(5):
+            try:
+                with registry.cursor() as cr:
+                    current = api.Environment(cr, user_id, {})
+                    current['ydental.access.service']._require_internal()
+                    session = current['ydental.access.session'].sudo().browse(sessions[index])
+                    service = current['ydental.access.service']._bind(session).env['ydental.supply.service']
+                    cr.execute('SELECT pg_backend_pid(), current_setting(%s)', ['transaction_isolation'])
+                    pid, isolation = cr.fetchone()
+                    attempts.append({'pid': pid, 'isolation': isolation, 'attempt': attempt + 1})
+                    if attempt == 0:
+                        barrier.wait(timeout=20)
+                    result = service._operate(operation, payload, scenario['name'] + str(index)) if operation == 'convert' else service._capacity_action(operation, payload, scenario['name'] + str(index))
+                    cr.commit()  # Own independent connection, actual transaction.
+                    return {'action': operation, 'result': 'accepted', 'receipt': result, 'attempts': attempts}
+            except psycopg2.errors.SerializationFailure:
+                attempts[-1]['result'] = 'serialization_retry'
+                continue
+            except UserError as error:
+                # Only stable public error categories, no raw exception/log upload.
+                return {'action': operation, 'result': 'rejected', 'reason': 'insufficient_balance' if 'insufficient_balance:' in str(error) else 'state_conflict', 'attempts': attempts}
+        raise AssertionError('Bounded transaction retries exhausted')
+
+    clock = patch('odoo.addons.ydental_supply.models.ydental_supply_service.fields.Datetime.now', return_value=fields.Datetime.to_datetime(scenario['start'])) if scenario['name'] == 'reservation_conversion' else nullcontext()
+    with clock, ThreadPoolExecutor(max_workers=2) as pool:
+        outcomes = list(pool.map(worker, (0, 1)))
+    with registry.cursor() as cr:
+        root = api.Environment(cr, api.SUPERUSER_ID, {})
+        record = root['ydental.supply.slot'].browse(scenario['slot_id'])
+        claims = root['ydental.supply.claim'].search([('ydental_slot_id', '=', record.id)])
+        held = len(claims.filtered(lambda r: r.state in ('held', 'consumed')))
+        counters = {'total': record.ydental_total, 'reservation': record.ydental_reservation_free,
+            'walkin': record.ydental_walkin_free, 'unavailable': record.ydental_unavailable, 'used': held,
+            'claim_states': claims.mapped('state')}
+        assert counters['total'] == sum(counters[k] for k in ('reservation', 'walkin', 'unavailable', 'used'))
+        assert len({o['attempts'][0]['pid'] for o in outcomes}) == 2
+        if scenario['name'] in ('last_capacity', 'source_move', 'cancel_start'):
+            assert sum(o['result'] == 'accepted' for o in outcomes) == 1
+        if scenario['name'] == 'repeat_cancel':
+            assert all(o['result'] == 'accepted' for o in outcomes)
+            assert root['ydental.supply.event'].search_count([('ydental_slot_id', '=', record.id), ('ydental_operation', '=', 'cancel')]) == 1
+        if scenario['name'] == 'reservation_conversion':
+            assert outcomes[0]['result'] == 'rejected' and outcomes[1]['result'] == 'accepted'
+            assert counters['reservation'] == 0 and counters['walkin'] == 3
+        results.append({'scenario': scenario['name'], 'result': 'PASS', 'outcomes': outcomes, 'after': counters})
+
+# Preserve credentials privately. Evidence contains synthetic object IDs only.
+with os.fdopen(os.open(run / 'access.json', os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600), 'w') as handle:
+    json.dump(access, handle)
+(run / 'preview.json').write_text(json.dumps(summary, indent=2) + '\n')
+(run / 'concurrency.json').write_text(json.dumps({'database': metadata['database'], 'scenarios': results}, indent=2) + '\n')
+print(json.dumps({'synthetic_preview': summary, 'concurrency': results}))

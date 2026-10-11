@@ -142,7 +142,7 @@ class TestSupply(TransactionCase):
             self.service._operate('business', {'area_id': self.area.id, 'state': 'draining', 'version': business.ydental_version, 'reason': 'Stop reporting'}, 'drain')
             with self.assertRaises(UserError):
                 self.service._operate('business', {'area_id': self.area.id, 'state': 'closed', 'version': business.ydental_version, 'reason': 'Queue unverified'}, 'close-bad')
-            self.root['ir.config_parameter'].set_param('ydental_supply_test.queue', 'synthetic_empty')
+            self.root['ir.config_parameter'].set_str('ydental_supply_test.queue', 'synthetic_empty')
             self.service._operate('business', {'area_id': self.area.id, 'state': 'closed', 'version': business.ydental_version, 'reason': 'Synthetic queue empty'}, 'close')
             self.service._operate('business', {'area_id': self.area.id, 'state': 'open', 'version': business.ydental_version, 'reason': 'Reopen'}, 'reopen')
         with patch(NOW, return_value=self.start + timedelta(days=1)):
