@@ -14,7 +14,9 @@ import psycopg2
 
 from odoo import api, fields
 from odoo.exceptions import UserError
-from odoo.addons.ydental_supply_test.tests.common import setup_supply, slot, acquire, acquire_args
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from s03_fixtures import setup_supply, slot, acquire, acquire_args
 
 
 run = Path(os.environ['YDENTAL_S03_RUN_DIR'])
