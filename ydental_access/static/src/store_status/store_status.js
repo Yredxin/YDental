@@ -1,10 +1,10 @@
-import { Component } from "@odoo/owl";
+import { Component, useProps } from "@odoo/owl";
 import { registry } from "@web/core/registry";
 import { session } from "@web/session";
 
 export class YDentalStoreStatus extends Component {
     static template = "ydental_access.StoreStatus";
-    static props = {};
+    props = useProps({});
 
     setup() {
         this.storeName = session.ydental_store_name;
