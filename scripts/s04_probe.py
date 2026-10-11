@@ -213,6 +213,25 @@ with registry.cursor() as cr:
         'patient_identities': len(patients), 'number_mappings': len(numbers),
         'no_patient_accounts': not any(p.ydental_partner_id.user_ids for p in patients)}
     result['fixture'] = {'user_id': user_id, 'group_id': group_id, 'store_id': store_id}
+    result['merge_samples'] = [{
+        'request_id': r.id, 'state': r.state, 'source_id': r.ydental_source_id.id,
+        'target_id': r.ydental_target_id.id, 'counts': r.ydental_reference_counts,
+        'conflicts': r.ydental_conflicts,
+    } for r in root['ydental.patient.merge'].search([])]
+    result['schema'] = {}
+    for model_name in ('ydental.patient', 'ydental.patient.number', 'ydental.patient.relation',
+                       'ydental.patient.contact', 'ydental.patient.clinical', 'ydental.patient.policy',
+                       'ydental.patient.merge', 'ydental.patient.operation', 'ydental.patient.mutex'):
+        model = root[model_name]
+        described = model.fields_get()
+        result['schema'][model_name] = [{
+            'name': name, 'label': details['string'], 'type': details['type'],
+            'required': details.get('required', False), 'readonly': details.get('readonly', False),
+            'relation': details.get('relation'), 'selection': details.get('selection'),
+            'groups': details.get('groups'), 'index': str(model._fields[name].index),
+            'ondelete': model._fields[name].ondelete if details['type'] == 'many2one' else None,
+            'has_default': bool(model._fields[name].default),
+        } for name, details in described.items() if name.startswith('ydental_') or name in ('name', 'active', 'state')]
     result['ended_utc'] = datetime.now(timezone.utc).isoformat()
 path = run / ('probe-' + datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f') + '.json')
 private(path, result)

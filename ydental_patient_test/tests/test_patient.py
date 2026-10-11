@@ -186,6 +186,32 @@ class TestPatient(TransactionCase):
             ('ydental_user_id', '=', self.users['doctor'].id), ('ydental_target_id', '=', person['id'])]))
         self.assertFalse(self.doctor.env['ydental.access.service']._membership(self.users['doctor'].id, self.stores[1].id))
 
+    def test_t05_default_context_attachment_relink_and_limited_token_audit(self):
+        from odoo.tools.misc import limited_field_access_token
+
+        person = create(self)
+        patient = self.root['ydental.patient'].browse(person['id'])
+        partners = self.service.env['res.partner']
+        with self.assertRaises(AccessError):
+            partners.with_context(default_ydental_patient_owner_id=patient.id).create({'name': 'Forged owner'})
+        files = self.service.env['ir.attachment']
+        with self.assertRaises(AccessError):
+            files.with_context(default_res_model='res.partner', default_res_id=patient.ydental_partner_id.id).create(
+                {'name': 'Forged default source', 'raw': b'Synthetic only'})
+        ordinary = self.root['ir.attachment'].create({'name': 'Synthetic ordinary file', 'raw': b'Synthetic only',
+            'create_uid': self.users['frontdesk'].id})
+        with self.assertRaises(AccessError):
+            files.browse(ordinary.id).write({'res_model': 'res.partner', 'res_id': patient.ydental_partner_id.id})
+        record_id = clinical(self, person['id'])['id']
+        attachment = self.root['ir.attachment'].create({'name': 'Synthetic token download',
+            'res_model': 'ydental.patient.clinical', 'res_id': record_id, 'raw': b'Synthetic only'})
+        token = limited_field_access_token(attachment, 'raw', scope='binary')
+        record = self.doctor.env['ir.binary']._find_record(res_model='ir.attachment', res_id=attachment.id,
+            access_token=token, field='raw')
+        self.assertEqual(record.id, attachment.id)
+        self.assertTrue(self.root['ydental.access.audit'].search([('ydental_event', '=', 'source.download'),
+            ('ydental_user_id', '=', self.users['doctor'].id), ('ydental_target_id', '=', record_id)]))
+
     def test_t06_context_forgery_permission_revocation_and_other_session_denied(self):
         person = create(self)
         b = clinical(self, person['id'], self.stores[1])['id']
