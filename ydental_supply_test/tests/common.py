@@ -1,4 +1,5 @@
 from datetime import timedelta
+import secrets
 
 from odoo import fields
 from odoo.tests import new_test_user
@@ -7,14 +8,15 @@ from odoo.tests import new_test_user
 def setup_supply(cls):
     cls.root = cls.env['base'].sudo().env
     root = cls.root
+    suffix = secrets.token_hex(4)
     cls.stores = root['ydental.access.store'].create([
         {'name': 'S03 Synthetic A', 'company_id': root.company.id, 'ydental_timezone': 'UTC'},
         {'name': 'S03 Synthetic B', 'company_id': root.company.id, 'ydental_timezone': 'UTC'}])
-    cls.writer = new_test_user(root, login='s03_writer', password='s03-test-password', groups='ydental_base.ydental_base_group_user')
-    cls.reader = new_test_user(root, login='s03_reader', password='s03-test-password', groups='ydental_base.ydental_base_group_user')
-    cls.staff = new_test_user(root, login='s03_staff', password='s03-test-password', groups='ydental_base.ydental_base_group_user')
-    cls.replacement = new_test_user(root, login='s03_replacement', groups='ydental_base.ydental_base_group_user')
-    cls.manager = new_test_user(root, login='s03_manager', groups='ydental_base.ydental_base_group_user,ydental_access.ydental_group_manager')
+    cls.writer = new_test_user(root, name='S03 Synthetic Writer', login='s03_writer_' + suffix, password='s03-test-password', groups='ydental_base.ydental_base_group_user')
+    cls.reader = new_test_user(root, name='S03 Synthetic Reader', login='s03_reader_' + suffix, password='s03-test-password', groups='ydental_base.ydental_base_group_user')
+    cls.staff = new_test_user(root, name='S03 Synthetic Staff', login='s03_staff_' + suffix, password='s03-test-password', groups='ydental_base.ydental_base_group_user')
+    cls.replacement = new_test_user(root, name='S03 Synthetic Replacement', login='s03_replacement_' + suffix, groups='ydental_base.ydental_base_group_user')
+    cls.manager = new_test_user(root, name='S03 Synthetic Manager', login='s03_manager_' + suffix, groups='ydental_base.ydental_base_group_user,ydental_access.ydental_group_manager')
     access = root['ydental.access.service'].with_user(cls.manager)
     cls.admin = access._bind(access._session_for_key('s03-admin'))
     for user in (cls.writer, cls.reader, cls.staff, cls.replacement, cls.manager):
@@ -25,7 +27,7 @@ def setup_supply(cls):
         cls.admin._grant(cls.writer.id, store.id, {'capacity': 'write', 'space': 'write'})
         cls.admin._grant(cls.reader.id, store.id, {'capacity': 'read'})
     cls.capabilities = root['ydental.access.capability'].create([
-        {'name': 'S03 Cleaning', 'ydental_code': 's03_clean'}, {'name': 'S03 Filling', 'ydental_code': 's03_fill'}])
+        {'name': 'S03 Cleaning', 'ydental_code': 's03_clean_' + suffix}, {'name': 'S03 Filling', 'ydental_code': 's03_fill_' + suffix}])
     for user in (cls.staff, cls.replacement, cls.writer):
         user.write({'ydental_capability_ids': [fields.Command.set(cls.capabilities.ids)]})
     cls.floor = root['ydental.space.floor'].create({'name': 'S03 Floor', 'ydental_store_id': cls.stores[0].id})

@@ -30,7 +30,7 @@ class TestSupplyHTTP(HttpCase):
             'revision': str(self.revision if revision is None else revision), 'operation': operation, 'payload': json.dumps(payload), 'output': 'json'})
 
     def test_http_week_today_forms_and_private_downstream(self):
-        self.authenticate('s03_writer', 's03-test-password')
+        self.authenticate(self.writer.login, 's03-test-password')
         self.select()
         page = self.url_open('/ydental/supply?group_by=person')
         self.assertEqual(page.status_code, 200)
@@ -49,14 +49,14 @@ class TestSupplyHTTP(HttpCase):
 
     def test_http_readonly_cross_store_stale_page_and_forged_orm(self):
         record = slot(self)
-        self.authenticate('s03_reader', 's03-test-password')
+        self.authenticate(self.reader.login, 's03-test-password')
         self.select()
         page = self.url_open('/ydental/supply')
         self.assertEqual(page.status_code, 200)
         self.assertIn('Read only', page.text)
         self.assertNotIn('name="operation" value="resize"', page.text)
         self.assertEqual(self.action('resize', {'id': record.id, 'version': record.ydental_version, 'total': 100, 'reason': 'Denied'}).status_code, 403)
-        self.authenticate('s03_writer', 's03-test-password')
+        self.authenticate(self.writer.login, 's03-test-password')
         self.select()
         stale = self.revision
         self.select(self.stores[1])
@@ -74,7 +74,7 @@ class TestSupplyHTTP(HttpCase):
         now = fields.Datetime.now()
         result = self.service._operate('assign', {'user_id': self.staff.id, 'area_id': self.area.id,
             'start': fields.Datetime.to_string(now - timedelta(minutes=1)), 'end': fields.Datetime.to_string(now + timedelta(minutes=30))}, 'today')
-        self.authenticate('s03_staff', 's03-test-password')
+        self.authenticate(self.staff.login, 's03-test-password')
         self.select()
         page = self.url_open('/ydental/supply/today')
         self.assertEqual(page.status_code, 200)
@@ -89,7 +89,7 @@ class TestSupplyHTTP(HttpCase):
 
     def test_http_policy_and_business_no_capacity_side_effect(self):
         record = slot(self)
-        self.authenticate('s03_writer', 's03-test-password')
+        self.authenticate(self.writer.login, 's03-test-password')
         self.select()
         result = self.action('policy', {'name': 'HTTP explicit demo', 'mode': 'demo', 'rounding': 'floor', 'phone_pool': 'reservation', 'cutoff_minutes': 0, 'reason': 'Synthetic HTTP'})
         self.assertEqual(result.status_code, 200)
