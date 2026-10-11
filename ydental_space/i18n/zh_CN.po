@@ -227,6 +227,7 @@ msgstr "创建时间"
 
 #. module: ydental_space
 #: model:ir.model.fields.selection,name:ydental_space.selection__ydental_space_resource__ydental_kind__chair
+#: model:ydental.space.resource,name:ydental_space.ydental_space_resource_chair
 msgid "Dental chair"
 msgstr "牙椅"
 
@@ -252,6 +253,7 @@ msgstr "显示名称"
 
 #. module: ydental_space
 #: model:ir.model.fields.selection,name:ydental_space.selection__ydental_space_resource__ydental_kind__door
+#: model:ydental.space.resource,name:ydental_space.ydental_space_resource_door
 msgid "Door"
 msgstr "门"
 
@@ -371,6 +373,7 @@ msgstr "ID"
 
 #. module: ydental_space
 #: model:ir.model.fields.selection,name:ydental_space.selection__ydental_space_resource__ydental_kind__imaging
+#: model:ydental.space.resource,name:ydental_space.ydental_space_resource_imaging
 msgid "Imaging device"
 msgstr "影像设备"
 
@@ -482,6 +485,7 @@ msgstr "药房"
 
 #. module: ydental_space
 #: model:ir.model.fields.selection,name:ydental_space.selection__ydental_space_resource__ydental_kind__pharmacy
+#: model:ydental.space.resource,name:ydental_space.ydental_space_resource_pharmacy
 msgid "Pharmacy desk"
 msgstr "发药台"
 
@@ -627,6 +631,7 @@ msgstr "结算"
 
 #. module: ydental_space
 #: model:ir.model.fields.selection,name:ydental_space.selection__ydental_space_resource__ydental_kind__settlement
+#: model:ydental.space.resource,name:ydental_space.ydental_space_resource_settlement
 msgid "Settlement desk"
 msgstr "收费台"
 
@@ -719,11 +724,13 @@ msgstr "候诊"
 
 #. module: ydental_space
 #: model:ir.model.fields.selection,name:ydental_space.selection__ydental_space_resource__ydental_kind__waiting
+#: model:ydental.space.resource,name:ydental_space.ydental_space_resource_waiting
 msgid "Waiting sign"
 msgstr "候诊标识"
 
 #. module: ydental_space
 #: model:ir.model.fields.selection,name:ydental_space.selection__ydental_space_resource__ydental_kind__wall
+#: model:ydental.space.resource,name:ydental_space.ydental_space_resource_wall
 msgid "Wall"
 msgstr "墙"
 
