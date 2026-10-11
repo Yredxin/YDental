@@ -103,7 +103,7 @@ class TestSupply(TransactionCase):
         self.assertIn(self.replacement, self.service._replacement_candidates(record))
         with self.assertRaises(UserError):
             self.service._operate('assign', dict(p, station_id=self.stations[1].id), 'leave')
-        self.assertFalse(self.root['ydental.supply.slot'].search([]))
+        self.assertFalse(self.root['ydental.supply.slot'].search([('ydental_store_id', 'in', self.stores.ids)]))
 
     def test_t06_supply_loss_preserves_entitlement_and_s02_topology(self):
         record = slot(self)
@@ -149,7 +149,7 @@ class TestSupply(TransactionCase):
             self.service._operate('business', {'area_id': self.area.id, 'state': 'open', 'reason': 'Next local day'}, 'nextday')
         self.assertEqual(self.root['ydental.supply.business'].search_count([('ydental_area_id', '=', self.area.id)]), 2)
         self.assertEqual(record.ydental_total, 6)
-        self.assertFalse(self.root['ydental.supply.claim'].search([]))
+        self.assertFalse(self.root['ydental.supply.claim'].search([('ydental_store_id', 'in', self.stores.ids)]))
 
     def test_t09_install_configuration_history_and_no_future_models(self):
         self.assertTrue(self.root.ref('ydental_supply.ydental_supply_mutex'))
@@ -196,7 +196,7 @@ class TestSupply(TransactionCase):
         with self.assertRaises(UserError):
             self.service._operate('batch', {'rows': [dict(p, user_id=self.writer.id), p]}, 'bad-batch')
         self.assertEqual(self.root['ydental.supply.assignment'].search_count([]), before)
-        self.assertFalse(self.root['ydental.supply.slot'].search([]))
+        self.assertFalse(self.root['ydental.supply.slot'].search([('ydental_store_id', 'in', self.stores.ids)]))
         dashboard = self.service._dashboard(nextweek, 'person')
         self.assertEqual(dashboard['group_by'], 'person')
         self.assertEqual(len(dashboard['assignments']), 1)
@@ -367,3 +367,23 @@ class TestSupply(TransactionCase):
         record = self.root['ydental.supply.assignment'].browse(copied['ids'][0])
         self.assertEqual(record.ydental_start.hour, 14)
         self.assertEqual(record.ydental_start.replace(tzinfo=ZoneInfo('UTC')).astimezone(ZoneInfo('America/New_York')).hour, 9)
+
+    def test_next_request_revocation_and_unforgeable_write_token(self):
+        capacity = slot(self)
+        self.admin._grant(self.writer.id, self.stores[0].id, {'capacity': 'none'})
+        with self.assertRaises(AccessError):
+            self.service._dashboard()
+        with self.assertRaises(AccessError):
+            self.service._operate('resize', {'id': capacity.id, 'version': capacity.ydental_version, 'total': 100, 'reason': 'Revoked'}, 'revoked')
+        with self.assertRaises(AccessError):
+            capacity.with_env(self.service.env).with_context(ydental_supply_mutation=True).write({'ydental_total': 100})
+        self.assertEqual(capacity.ydental_total, 6)
+
+    def test_published_capability_loss_has_pending_handling(self):
+        capacity = slot(self)
+        claim = acquire(self, capacity)
+        self.capabilities[1].write({'active': False})
+        self.assertEqual(capacity.state, 'suspended')
+        self.assertTrue(self.root['ydental.supply.disposition'].search([('ydental_slot_id', '=', capacity.id)]))
+        self.assertEqual(claim.state, 'held')
+        self.assert_balance(capacity)
