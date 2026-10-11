@@ -82,13 +82,27 @@ class YDentalSupplyService(models.AbstractModel):
     def _snapshot(self, slot):
         return {'total': slot.ydental_total, 'reservation': slot.ydental_reservation_free,
                 'walkin': slot.ydental_walkin_free, 'unavailable': slot.ydental_unavailable,
-                'version': slot.ydental_version, 'state': slot.state, 'converted': slot.ydental_converted}
+                'version': slot.ydental_version, 'state': slot.state, 'converted': slot.ydental_converted,
+                'station_id': slot.ydental_station_id.id, 'area_id': slot.ydental_area_id.id,
+                'start': fields.Datetime.to_string(slot.ydental_start), 'end': fields.Datetime.to_string(slot.ydental_end),
+                'capability_ids': slot.with_context(active_test=False).ydental_capability_ids.ids,
+                'policy_id': slot.ydental_policy_id.id}
+
+    def _assignment_snapshot(self, record):
+        return {'assignment_id': record.id, 'user_id': record.ydental_user_id.id,
+            'employee_id': record.ydental_employee_id.id, 'station_id': record.ydental_station_id.id,
+            'area_id': record.ydental_area_id.id, 'start': fields.Datetime.to_string(record.ydental_start),
+            'end': fields.Datetime.to_string(record.ydental_end), 'state': record.state,
+            'reason': record.ydental_reason, 'version': record.ydental_version}
 
     def _event(self, store, operation, reason, slot=None, claim=None, before=None, after=None):
+        after = after or (self._snapshot(slot) if slot else {})
+        if claim:
+            after = dict(after, claim_id=claim.id, claim_state=claim.state, pool=claim.ydental_pool, source=claim.ydental_source, source_key=claim.ydental_source_key)
         event = self._new('event', store, {'name': operation, 'ydental_operation': operation,
             'ydental_reason': reason, 'ydental_slot_id': slot.id if slot else False,
             'ydental_claim_id': claim.id if claim else False, 'ydental_actor_id': self.env.uid,
-            'ydental_before': before or {}, 'ydental_after': after or (self._snapshot(slot) if slot else {}),
+            'ydental_before': before or {}, 'ydental_after': after,
             'ydental_policy_id': slot.ydental_policy_id.id if slot else False})
         if not self.env.su:
             self.env['ydental.access.service']._audit('supply.' + operation, 'capacity', event, store.id,
@@ -225,7 +239,7 @@ class YDentalSupplyService(models.AbstractModel):
 
     def _assign(self, store, p):
         record = self._new('assignment', store, self._assignment_values(store, p))
-        self._event(store, 'assign', record.ydental_reason, after={'assignment_id': record.id})
+        self._event(store, 'assign', record.ydental_reason, after=self._assignment_snapshot(record))
         return {'id': record.id, 'warning': self._assignment_warning(record)}
 
     def _version(self, record, version):
@@ -238,10 +252,11 @@ class YDentalSupplyService(models.AbstractModel):
         self._version(record, p['version'])
         if record.state != 'active' or record.ydental_start <= self._now():
             raise UserError(self.env._('Only future effective assignments can be adjusted.'))
+        before = self._assignment_snapshot(record)
         old_slots = self._affected_slots(record)
         record._save(self._assignment_values(store, p['values'], excluding=record))
         self._suspend_affected(store, old_slots | self._affected_slots(record), self._reason(p['reason']), assignment=record)
-        self._event(store, 'adjust', p['reason'], after={'assignment_id': record.id})
+        self._event(store, 'adjust', p['reason'], before=before, after=self._assignment_snapshot(record))
         return {'id': record.id}
 
     def _cancel_assignment(self, store, p):
@@ -249,9 +264,10 @@ class YDentalSupplyService(models.AbstractModel):
         record = self._get('assignment', p['id'], store)
         self._version(record, p['version'])
         reason = self._reason(p['reason'])
+        before = self._assignment_snapshot(record)
         record._save({'state': 'cancelled', 'ydental_reason': reason})
         self._suspend_affected(store, self._affected_slots(record), reason, assignment=record)
-        self._event(store, 'cancel_assignment', reason, after={'assignment_id': record.id})
+        self._event(store, 'cancel_assignment', reason, before=before, after=self._assignment_snapshot(record))
         return {'id': record.id}
 
     def _batch(self, store, p):
@@ -272,7 +288,8 @@ class YDentalSupplyService(models.AbstractModel):
         rows = [{'user_id': r.ydental_user_id.id, 'station_id': r.ydental_station_id.id,
                  'area_id': r.ydental_area_id.id, 'start': fields.Datetime.to_string((r.ydental_start.replace(tzinfo=timezone.utc).astimezone(ZoneInfo(store.ydental_timezone)) + timedelta(days=7)).astimezone(timezone.utc).replace(tzinfo=None)),
                  'end': fields.Datetime.to_string((r.ydental_end.replace(tzinfo=timezone.utc).astimezone(ZoneInfo(store.ydental_timezone)) + timedelta(days=7)).astimezone(timezone.utc).replace(tzinfo=None)), 'reason': 'Copy previous week'} for r in previous]
-        return self._batch(store, {'rows': rows})
+        result = self._batch(store, {'rows': rows})
+        return dict(result, source_ids=previous.ids)
 
     def _slot(self, store, p):
         self._keys(p, ('station_id', 'start', 'end', 'total', 'capability_ids', 'reason'))
@@ -560,10 +577,11 @@ class YDentalSupplyService(models.AbstractModel):
     def _suspend_affected(self, store, slots, reason, assignment=None):
         for slot in slots:
             if not self._coverage_valid(slot) and slot.state == 'published':
+                before = self._snapshot(slot)
                 slot._save({'state': 'suspended', 'ydental_reason': reason})
                 self._new('disposition', store, {'name': slot.name, 'ydental_slot_id': slot.id,
                     'ydental_assignment_id': assignment.id if assignment else False, 'ydental_reason': reason})
-                self._event(store, 'suspend', reason, slot=slot)
+                self._event(store, 'suspend', reason, slot=slot, before=before)
 
     def _membership_removed(self, membership):
         # S01 has authorized and serialized the lifecycle operation already.
@@ -573,10 +591,11 @@ class YDentalSupplyService(models.AbstractModel):
             ('ydental_user_id', '=', membership.ydental_user_id.id), ('state', '=', 'active'),
             ('ydental_start', '>', self._now())])
         for assignment in assignments:
+            before = self._assignment_snapshot(assignment)
             assignment._save({'state': 'cancelled', 'ydental_reason': 'Store membership removed'})
             self._new('disposition', store, {'name': assignment.name, 'ydental_assignment_id': assignment.id,
                 'ydental_reason': 'Store membership removed; review replacement, migration and contact'})
-            self._event(store, 'employment_cancel', 'Store membership removed', after={'assignment_id': assignment.id})
+            self._event(store, 'employment_cancel', 'Store membership removed', before=before, after=self._assignment_snapshot(assignment))
         slots = self._model('slot').search([('ydental_store_id', '=', store.id), ('ydental_end', '>', self._now())])
         self._suspend_affected(store, slots, 'Store membership removed')
 
