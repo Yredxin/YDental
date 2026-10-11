@@ -84,8 +84,13 @@ def main():
                 urlsplit(route.request.url).hostname == '127.0.0.1' and urlsplit(route.request.url).port == args.port
             ) else route.abort())
             page = context.new_page()
-            page.on('pageerror', lambda error: errors.append(str(error)))
-            page.goto(base + '/web/login', wait_until='domcontentloaded')
+            def page_error(error):
+                errors.append(str(error))
+                # The runner captures stdout to its private log. Retain error
+                # details for diagnosis, never copy this log into evidence.
+                print(json.dumps({'private_pageerror': str(error), 'url': page.url}), flush=True)
+            page.on('pageerror', page_error)
+            page.goto(base + '/web/login?redirect=/ydental/access', wait_until='domcontentloaded')
             page.locator('input[name=login]').fill(access[role]['login'])
             page.locator('input[name=password]').fill(access[role]['password'])
             page.locator('button[type=submit]').click()
@@ -196,6 +201,7 @@ def main():
             result['error_type'] = type(error).__name__
             raise
         finally:
+            result['pageerror_count'] = len(errors)
             result['ended_utc'] = datetime.now(timezone.utc).isoformat()
             (evidence / 'summary.json').write_text(json.dumps(result, indent=2) + '\n')
             browser.close()
