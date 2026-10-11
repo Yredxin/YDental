@@ -48,7 +48,7 @@ with registry.cursor() as cr:
         service._bind(session)._switch(f.stores[0].id)
         sessions.append(session.id)
     scenarios = []
-    for index, name in enumerate(('last_capacity', 'reservation_conversion', 'cancel_start', 'repeat_cancel', 'source_move')):
+    for index, name in enumerate(('last_capacity', 'reservation_first', 'conversion_first', 'cancel_start', 'repeat_cancel', 'source_move')):
         record = slot(f, start=f.start + timedelta(days=index), end=f.end + timedelta(days=index), total=3, key=name)
         if name in ('cancel_start', 'repeat_cancel'):
             claim = acquire(f, record, key=name)
@@ -59,7 +59,7 @@ with registry.cursor() as cr:
             claim = acquire(f, old, key='move-original')
             pair = [('reassign', {'id': claim.id, 'slot_id': record.id, 'reason': 'Concurrent source move'}),
                     ('acquire', acquire_args(f, record, 'race-fill', capability=f.capabilities[1]))]
-        elif name == 'reservation_conversion':
+        elif name in ('reservation_first', 'conversion_first'):
             pair = [('acquire', acquire_args(f, record, 'race-reservation')), ('convert', {'id': record.id})]
         else:
             pair = [('acquire', acquire_args(f, record, name + '-clean')),
@@ -81,8 +81,31 @@ with registry.cursor() as cr:
 results = []
 for scenario in scenarios:
     barrier = threading.Barrier(2)
+    first_acquired = threading.Event()
+    second_waiting = threading.Event()
+    local = threading.local()
+    Supply = type(env['ydental.supply.service'])
+    original_lock, original_now = Supply._lock, Supply._now
+    ordered = scenario['name'] in ('reservation_first', 'conversion_first')
+    first_index = 0 if scenario['name'] == 'reservation_first' else 1
+
+    def ordered_lock(service):
+        if local.index != first_index:
+            assert first_acquired.wait(timeout=20)
+            second_waiting.set()
+        original_lock(service)
+        if local.index == first_index:
+            first_acquired.set()
+            assert second_waiting.wait(timeout=20)
+
+    def server_clock(service):
+        if not ordered:
+            return original_now(service)
+        boundary = fields.Datetime.to_datetime(scenario['start'])
+        return boundary - timedelta(seconds=1) if local.index == 0 else boundary
 
     def worker(index):
+        local.index = index
         operation, payload = scenario['actions'][index]
         attempts = []
         for attempt in range(5):
@@ -108,8 +131,8 @@ for scenario in scenarios:
                 return {'action': operation, 'result': 'rejected', 'reason': 'insufficient_balance' if 'insufficient_balance:' in str(error) else 'state_conflict', 'attempts': attempts}
         raise AssertionError('Bounded transaction retries exhausted')
 
-    clock = patch('odoo.addons.ydental_supply.models.ydental_supply_service.fields.Datetime.now', return_value=fields.Datetime.to_datetime(scenario['start'])) if scenario['name'] == 'reservation_conversion' else nullcontext()
-    with clock, ThreadPoolExecutor(max_workers=2) as pool:
+    lock_patch = patch.object(Supply, '_lock', ordered_lock) if ordered else nullcontext()
+    with lock_patch, patch.object(Supply, '_now', server_clock), ThreadPoolExecutor(max_workers=2) as pool:
         outcomes = list(pool.map(worker, (0, 1)))
     with registry.cursor() as cr:
         root = api.Environment(cr, api.SUPERUSER_ID, {})
@@ -126,9 +149,12 @@ for scenario in scenarios:
         if scenario['name'] == 'repeat_cancel':
             assert all(o['result'] == 'accepted' for o in outcomes)
             assert root['ydental.supply.event'].search_count([('ydental_slot_id', '=', record.id), ('ydental_operation', '=', 'cancel')]) == 1
-        if scenario['name'] == 'reservation_conversion':
+        if scenario['name'] == 'conversion_first':
             assert outcomes[0]['result'] == 'rejected' and outcomes[1]['result'] == 'accepted'
             assert counters['reservation'] == 0 and counters['walkin'] == 3
+        if scenario['name'] == 'reservation_first':
+            assert all(o['result'] == 'accepted' for o in outcomes)
+            assert counters['reservation'] == 0 and counters['walkin'] == 2 and counters['used'] == 1
         results.append({'scenario': scenario['name'], 'result': 'PASS', 'outcomes': outcomes, 'after': counters})
 
 # Preserve credentials privately. Evidence contains synthetic object IDs only.
