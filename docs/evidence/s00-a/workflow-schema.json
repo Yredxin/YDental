@@ -1,0 +1,32 @@
+{
+  "data": {
+    "__type": {
+      "fields": [
+        {
+          "name": "createdAt"
+        },
+        {
+          "name": "enabled"
+        },
+        {
+          "name": "fullDatabaseId"
+        },
+        {
+          "name": "id"
+        },
+        {
+          "name": "name"
+        },
+        {
+          "name": "number"
+        },
+        {
+          "name": "project"
+        },
+        {
+          "name": "updatedAt"
+        }
+      ]
+    }
+  }
+}

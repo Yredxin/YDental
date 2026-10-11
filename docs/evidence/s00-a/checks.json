@@ -1,0 +1,251 @@
+{
+  "checked_at_utc": "2026-10-11T06:30:48.438643+00:00",
+  "odoo_test_count": 0,
+  "project_mutations": 0,
+  "checks": [
+    {
+      "name": "changed_tracked_scope",
+      "result": "PASS",
+      "detail": [
+        "AGENTS.md",
+        "README.md",
+        "docs/acceptance.md",
+        "docs/baseline.md",
+        "docs/contracts.md"
+      ]
+    },
+    {
+      "name": "historical_body_preserved:docs/baseline.md",
+      "result": "PASS",
+      "detail": "only warning banner added"
+    },
+    {
+      "name": "historical_body_preserved:docs/acceptance.md",
+      "result": "PASS",
+      "detail": "only warning banner added"
+    },
+    {
+      "name": "asset_content_unchanged:ydental_base",
+      "result": "PASS",
+      "detail": "no business/test/runner/config edits"
+    },
+    {
+      "name": "asset_content_unchanged:scripts",
+      "result": "PASS",
+      "detail": "no business/test/runner/config edits"
+    },
+    {
+      "name": "asset_content_unchanged:config",
+      "result": "PASS",
+      "detail": "no business/test/runner/config edits"
+    },
+    {
+      "name": "relative_link:AGENTS.md:docs/contracts.md",
+      "result": "PASS",
+      "detail": "local target exists"
+    },
+    {
+      "name": "relative_link:AGENTS.md:docs/s00-a-report.md",
+      "result": "PASS",
+      "detail": "local target exists"
+    },
+    {
+      "name": "relative_link:README.md:AGENTS.md",
+      "result": "PASS",
+      "detail": "local target exists"
+    },
+    {
+      "name": "relative_link:README.md:docs/contracts.md",
+      "result": "PASS",
+      "detail": "local target exists"
+    },
+    {
+      "name": "relative_link:README.md:docs/s00-a-report.md",
+      "result": "PASS",
+      "detail": "local target exists"
+    },
+    {
+      "name": "relative_link:README.md:docs/evidence/s00-a/summary.json",
+      "result": "PASS",
+      "detail": "local target exists"
+    },
+    {
+      "name": "current_issue_index",
+      "result": "PASS",
+      "detail": [
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37
+      ]
+    },
+    {
+      "name": "contract_column_or_term:ydental_",
+      "result": "PASS",
+      "detail": "document presence; not business runtime validation"
+    },
+    {
+      "name": "contract_column_or_term:ydental.",
+      "result": "PASS",
+      "detail": "document presence; not business runtime validation"
+    },
+    {
+      "name": "contract_column_or_term:zh_CN",
+      "result": "PASS",
+      "detail": "document presence; not business runtime validation"
+    },
+    {
+      "name": "contract_column_or_term:naive UTC",
+      "result": "PASS",
+      "detail": "document presence; not business runtime validation"
+    },
+    {
+      "name": "contract_column_or_term:UoM",
+      "result": "PASS",
+      "detail": "document presence; not business runtime validation"
+    },
+    {
+      "name": "contract_column_or_term:集团唯一",
+      "result": "PASS",
+      "detail": "document presence; not business runtime validation"
+    },
+    {
+      "name": "contract_column_or_term:报到区域+业务日",
+      "result": "PASS",
+      "detail": "document presence; not business runtime validation"
+    },
+    {
+      "name": "contract_column_or_term:原子变更",
+      "result": "PASS",
+      "detail": "document presence; not business runtime validation"
+    },
+    {
+      "name": "contract_column_or_term:恢复入口",
+      "result": "PASS",
+      "detail": "document presence; not business runtime validation"
+    },
+    {
+      "name": "contract_column_or_term:物理删除",
+      "result": "PASS",
+      "detail": "document presence; not business runtime validation"
+    },
+    {
+      "name": "contract_column_or_term:30天",
+      "result": "PASS",
+      "detail": "document presence; not business runtime validation"
+    },
+    {
+      "name": "contract_column_or_term:RPO≤15分钟",
+      "result": "PASS",
+      "detail": "document presence; not business runtime validation"
+    },
+    {
+      "name": "contract_column_or_term:RTO≤4小时",
+      "result": "PASS",
+      "detail": "document presence; not business runtime validation"
+    },
+    {
+      "name": "contract_column_or_term:hint_only",
+      "result": "PASS",
+      "detail": "document presence; not business runtime validation"
+    },
+    {
+      "name": "contract_column_or_term:accepted",
+      "result": "PASS",
+      "detail": "document presence; not business runtime validation"
+    },
+    {
+      "name": "contract_column_or_term:already_accepted",
+      "result": "PASS",
+      "detail": "document presence; not business runtime validation"
+    },
+    {
+      "name": "contract_column_or_term:append_required",
+      "result": "PASS",
+      "detail": "document presence; not business runtime validation"
+    },
+    {
+      "name": "contract_column_or_term:handover_required",
+      "result": "PASS",
+      "detail": "document presence; not business runtime validation"
+    },
+    {
+      "name": "contract_column_or_term:access_denied",
+      "result": "PASS",
+      "detail": "document presence; not business runtime validation"
+    },
+    {
+      "name": "contract_column_or_term:insufficient_balance",
+      "result": "PASS",
+      "detail": "document presence; not business runtime validation"
+    },
+    {
+      "name": "contract_column_or_term:version_conflict",
+      "result": "PASS",
+      "detail": "document presence; not business runtime validation"
+    },
+    {
+      "name": "project_unchanged:project-readback.json",
+      "result": "PASS",
+      "detail": "all items/fields/views/workflow metadata identical; no writes"
+    },
+    {
+      "name": "project_unchanged:project-second-check.json",
+      "result": "PASS",
+      "detail": "all items/fields/views/workflow metadata identical; no writes"
+    },
+    {
+      "name": "current_source_body_unchanged:23",
+      "result": "PASS",
+      "detail": "current Issue body read back unchanged"
+    },
+    {
+      "name": "current_comments_unchanged:23",
+      "result": "PASS",
+      "detail": "no new effective comments before report"
+    },
+    {
+      "name": "current_source_body_unchanged:24",
+      "result": "PASS",
+      "detail": "current Issue body read back unchanged"
+    },
+    {
+      "name": "current_comments_unchanged:24",
+      "result": "PASS",
+      "detail": "no new effective comments before report"
+    },
+    {
+      "name": "core_and_private_config_protection",
+      "result": "PASS",
+      "detail": {
+        "files_checked": 50463,
+        "changed": []
+      }
+    },
+    {
+      "name": "whitespace_check",
+      "result": "PASS",
+      "detail": {
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      }
+    },
+    {
+      "name": "credential_pattern_scan",
+      "result": "PASS",
+      "detail": "no credential patterns in authored docs and sanitized evidence; manual diff review required too"
+    }
+  ]
+}

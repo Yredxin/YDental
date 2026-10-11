@@ -1,19 +1,31 @@
 # YDental
 
-## 当前状态：旧计划已撤销，等待重新定制
+当前需求 **YD-N1 R1**。唯一执行依据为 [总计划 #23](https://github.com/Yredxin/YDental/issues/23)、以下阶段当前正文及有效评论。用户逐批启用；本页仅为链接入口，不复制需求或另立计划。
 
-用户已明确要求先清除既有计划规则，不再继续修补原计划。此前总计划、阶段任务、协作协议、报告模板和待确认清单均停止作为执行依据；当前没有新的路线图或开工任务。
+|阶段|当前 Issue|
+|---|---|
+|S00|[#24](https://github.com/Yredxin/YDental/issues/24)|
+|S01|[#25](https://github.com/Yredxin/YDental/issues/25)|
+|S02|[#26](https://github.com/Yredxin/YDental/issues/26)|
+|S03|[#27](https://github.com/Yredxin/YDental/issues/27)|
+|S04|[#28](https://github.com/Yredxin/YDental/issues/28)|
+|S05|[#29](https://github.com/Yredxin/YDental/issues/29)|
+|S06|[#30](https://github.com/Yredxin/YDental/issues/30)|
+|S07|[#31](https://github.com/Yredxin/YDental/issues/31)|
+|S08|[#32](https://github.com/Yredxin/YDental/issues/32)|
+|S09|[#33](https://github.com/Yredxin/YDental/issues/33)|
+|S10|[#34](https://github.com/Yredxin/YDental/issues/34)|
+|S11|[#35](https://github.com/Yredxin/YDental/issues/35)|
+|S12|[#36](https://github.com/Yredxin/YDental/issues/36)|
+|S13|[#37](https://github.com/Yredxin/YDental/issues/37)|
 
-GitHub原计划记录 #1—#12、#14—#22 已撤销。历史文档、Issue评论、旧版AGENTS和旧PR描述不自动成为新方案要求。不要根据旧编号或历史完成声明继续原阶段。
+本次用户仅启用 **#24 / S00-A：现状核实、当前入口、工程约定**。交付后等待技术复核和用户确认；S00-B及全部业务阶段未启用。安装、升级、登录、PDF及业务数据库测试未在本批执行。
 
-## 保留的历史技术成果
+- [当前工作约束](AGENTS.md)
+- [当前工程约定与数据字典/动作模板](docs/contracts.md)
+- [S00-A实际核查、Project阻塞及复核报告](docs/s00-a-report.md)
+- [本批脱敏证据](docs/evidence/s00-a/summary.json)
 
-本分支保留 `ydental_base/` 最小应用入口、`scripts/p00.py` 隔离验证脚本及相关测试、配置样例和许可证文件。本次撤销只处理计划入口与文档，不修改这些应用和测试代码，也不运行安装、升级或数据库操作。
+本仓库为核心 checkout 内独立 sd-addons Git 仓库。ydental_base、scripts/p00.py、旧测试及配置样例是可评估的现有资产，存在不代表当前验收通过。现有入口含中文源字符串与 P00 文案，尚无 zh_CN 翻译；待获启用的 S00-B 修正和实测，本批不改代码。
 
-`docs/baseline.md`、`docs/acceptance.md`、依赖记录及既有PR讨论均为过去的环境/技术证据，其中的旧阶段安排、下一阶段建议和计划状态已经失效；不是当前部署说明或新的验收结论。
-
-计划撤销前的代码和文档快照：`5468a14e630833e9b8308dacc0ab7e125b4bb3d9`。PR #13仅保留历史成果，不自动合并，不表示继续执行获批。默认分支和Ubuntu本地工作区未由本次文档提交更新。
-
-Project #4的卡片、字段及工作流是否已实际清空，要按真实操作结果核对；Issue关闭不等于看板物理清空。
-
-已有代码、PR、Git历史、Odoo核心、odoo-12、数据库与秘密不属于本次删除范围。新计划将在后续单独制定，本页不追加替代规则。
+docs/baseline.md、docs/acceptance.md、旧依赖清单与旧 PR 是历史技术材料；旧业务规则和 PASS 不纳入当前验收。docs/reuse.md 保留撤销说明。历史实体、代码和许可证保留，不重开旧任务，不自动合并 PR。

@@ -1,3 +1,5 @@
+> 历史技术材料：本文旧计划、业务规则及验收结论不作为 YD-N1 R1 执行依据。本次只增加此提示，原记录保留。当前入口见 [README](../README.md)，当前核查见 [S00-A报告](s00-a-report.md)。
+
 # P00 实施与验收证据
 
 2026-10-10 UTC；分支 `codex/p00-baseline`；对应任务 [#2](https://github.com/Yredxin/YDental/issues/2)。本文件记录技术验证，项目负责人业务验收尚未执行。PR 和精确提交 SHA 在 #2 交付评论中记录，以免把提交 SHA 自引用写进提交。

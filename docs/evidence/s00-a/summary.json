@@ -1,0 +1,394 @@
+{
+  "plan": "YD-N1 R1",
+  "scope": "S00-A only",
+  "captured_at_utc": "2026-10-11T06:26:12.174927+00:00",
+  "authorization_comment": "https://github.com/Yredxin/YDental/issues/24#issuecomment-6106155290",
+  "initial_local_head": "5468a14e630833e9b8308dacc0ab7e125b4bb3d9",
+  "branch_base": "e9a608ab826b19637eac5b47bce42704ee935544",
+  "branch": "codex/s00-a-r1-20261011",
+  "core_head": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "core_protection": {
+    "files_hashed": 50463,
+    "manifest_sha256": "2dead5c88612df123c200205629175149f32ffdbc7f95c1c6be0ad78f9fcb902",
+    "changed_files": [],
+    "initial_untracked": [
+      "AGENTS.md",
+      "sd-addons/"
+    ],
+    "parent_agents_sha256": "bacf68d4d8d9b06dadbf1556fc8cf0fdff3f88ac285a42c71c06e8330d016f2f"
+  },
+  "safe_runtime_config": {
+    "addons_path": "addons",
+    "data_dir": "/home/redxin/code/odoo/odoo-sd/code/.local/share/odoo",
+    "db_host": "127.0.0.1",
+    "db_port": "5432",
+    "db_user": "odoo",
+    "db_name": "odoo20_dev",
+    "dbfilter": "^odoo20_dev$",
+    "http_interface": "127.0.0.1",
+    "http_port": "8069",
+    "list_db": "<unset>",
+    "workers": "<unset>",
+    "gevent_port": "<unset>"
+  },
+  "existing_isolation_markers": [
+    {
+      "database": "ydental_p00_test_20261010_baseline02",
+      "oid": 20083,
+      "endpoint": {
+        "host": "127.0.0.1",
+        "port": "5432",
+        "user": "odoo"
+      },
+      "kind": "install"
+    },
+    {
+      "database": "ydental_p00_test_20261010_native",
+      "oid": 20084,
+      "endpoint": {
+        "host": "127.0.0.1",
+        "port": "5432",
+        "user": "odoo"
+      },
+      "kind": "evaluate"
+    }
+  ],
+  "commands": [
+    {
+      "label": "python_version",
+      "command": [
+        ".venv/bin/python",
+        "--version"
+      ],
+      "cwd": "/home/redxin/code/odoo/odoo-sd/code",
+      "exit_code": 0,
+      "stdout": "Python 3.12.15",
+      "stderr": ""
+    },
+    {
+      "label": "python_dependency_check",
+      "command": [
+        "uv",
+        "pip",
+        "check",
+        "--python",
+        ".venv/bin/python"
+      ],
+      "cwd": "/home/redxin/code/odoo/odoo-sd/code",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "Checked 66 packages in 1ms\nAll installed packages are compatible"
+    },
+    {
+      "label": "package_inventory",
+      "command": [
+        ".venv/bin/python",
+        "-c",
+        "from importlib.metadata import distributions; import json; print(json.dumps(sorted([{'name':d.metadata['Name'],'version':d.version} for d in distributions()], key=lambda d:d['name'].lower())))"
+      ],
+      "cwd": "/home/redxin/code/odoo/odoo-sd/code",
+      "exit_code": 0,
+      "stdout": "66 packages; full list in python-packages.json",
+      "stderr": ""
+    },
+    {
+      "label": "wkhtmltopdf_path",
+      "command": [
+        "bash",
+        "-c",
+        "command -v wkhtmltopdf"
+      ],
+      "cwd": "/home/redxin/code/odoo/odoo-sd/code",
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "label": "chinese_font_inventory",
+      "command": [
+        "fc-list",
+        ":lang=zh",
+        "family"
+      ],
+      "cwd": "/home/redxin/code/odoo/odoo-sd/code",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "label": "database_catalog_read_only",
+      "command": [
+        "docker",
+        "exec",
+        "odoo20-db",
+        "psql",
+        "-X",
+        "-U",
+        "odoo",
+        "-d",
+        "postgres",
+        "-v",
+        "ON_ERROR_STOP=1",
+        "-c",
+        "BEGIN READ ONLY; SHOW server_version; SELECT oid, datname, datallowconn FROM pg_catalog.pg_database ORDER BY datname; COMMIT;"
+      ],
+      "cwd": "/home/redxin/code/odoo/odoo-sd/code",
+      "exit_code": 0,
+      "stdout": "BEGIN\n        server_version         \n-------------------------------\n 18.6 (Debian 18.6-1.pgdg13+2)\n(1 row)\n\n  oid  |               datname                | datallowconn \n-------+--------------------------------------+--------------\n 16388 | odoo20_dev                           | t\n     5 | postgres                             | t\n     4 | template0                            | f\n     1 | template1                            | t\n 20083 | ydental_p00_test_20261010_baseline02 | t\n 20084 | ydental_p00_test_20261010_native     | t\n(6 rows)\n\nCOMMIT",
+      "stderr": ""
+    },
+    {
+      "label": "database_container_metadata",
+      "command": [
+        "docker",
+        "inspect",
+        "odoo20-db",
+        "--format",
+        "{{json .Config.Image}} {{json .NetworkSettings.Ports}} {{json .Mounts}} {{json .HostConfig.RestartPolicy}}"
+      ],
+      "cwd": "/home/redxin/code/odoo/odoo-sd/code",
+      "exit_code": 0,
+      "stdout": "\"postgres:18\" {\"5432/tcp\":[{\"HostIp\":\"0.0.0.0\",\"HostPort\":\"5432\"},{\"HostIp\":\"::\",\"HostPort\":\"5432\"}]} [{\"Type\":\"volume\",\"Name\":\"postgresql_odoo20-db-data\",\"Source\":\"/var/lib/docker/volumes/postgresql_odoo20-db-data/_data\",\"Destination\":\"/var/lib/postgresql\",\"Driver\":\"local\",\"Mode\":\"rw\",\"RW\":true,\"Propagation\":\"\"}] {\"Name\":\"unless-stopped\",\"MaximumRetryCount\":0}",
+      "stderr": ""
+    },
+    {
+      "label": "listener_metadata",
+      "command": [
+        "ss",
+        "-ltn"
+      ],
+      "cwd": "/home/redxin/code/odoo/odoo-sd/code",
+      "exit_code": 0,
+      "stdout": "State  Recv-Q Send-Q Local Address:Port  Peer Address:Port\nLISTEN 0      4096         0.0.0.0:15432      0.0.0.0:*   \nLISTEN 0      128        127.0.0.1:45383      0.0.0.0:*   \nLISTEN 0      128        127.0.0.1:41525      0.0.0.0:*   \nLISTEN 0      4096      127.0.0.54:53         0.0.0.0:*   \nLISTEN 0      128        127.0.0.1:43289      0.0.0.0:*   \nLISTEN 0      4096         0.0.0.0:5432       0.0.0.0:*   \nLISTEN 0      4096   127.0.0.53%lo:53         0.0.0.0:*   \nLISTEN 0      4096         0.0.0.0:22         0.0.0.0:*   \nLISTEN 0      4096       127.0.0.1:3306       0.0.0.0:*   \nLISTEN 0      128        127.0.0.1:8069       0.0.0.0:*   \nLISTEN 0      4096            [::]:15432         [::]:*   \nLISTEN 0      4096            [::]:5432          [::]:*   \nLISTEN 0      4096            [::]:22            [::]:*",
+      "stderr": ""
+    },
+    {
+      "label": "remote_heads",
+      "command": [
+        "git",
+        "ls-remote",
+        "--heads",
+        "origin"
+      ],
+      "cwd": "/home/redxin/code/odoo/odoo-sd/code/sd-addons",
+      "exit_code": 0,
+      "stdout": "e9a608ab826b19637eac5b47bce42704ee935544\trefs/heads/codex/p00-baseline\ne1f6fce18a16cfc72bfa78517ae163ada7b9dd36\trefs/heads/main",
+      "stderr": ""
+    },
+    {
+      "label": "remote_core_source",
+      "command": [
+        "gh",
+        "api",
+        "repos/Yredxin/odoo",
+        "--jq",
+        "{full_name,fork,default_branch,parent:.parent.full_name,source:.source.full_name}"
+      ],
+      "cwd": "/home/redxin/code/odoo/odoo-sd/code/sd-addons",
+      "exit_code": 0,
+      "stdout": "{\"default_branch\":\"20.0\",\"fork\":true,\"full_name\":\"Yredxin/odoo\",\"parent\":\"odoo/odoo\",\"source\":\"odoo/odoo\"}",
+      "stderr": ""
+    },
+    {
+      "label": "repo_workflows",
+      "command": [
+        "gh",
+        "api",
+        "repos/Yredxin/YDental/actions/workflows",
+        "--jq",
+        "{total_count,workflows:[.workflows[]|{name,path,state}]}"
+      ],
+      "cwd": "/home/redxin/code/odoo/odoo-sd/code/sd-addons",
+      "exit_code": 0,
+      "stdout": "{\"total_count\":0,\"workflows\":[]}",
+      "stderr": ""
+    },
+    {
+      "label": "preserved_old_pr",
+      "command": [
+        "gh",
+        "api",
+        "repos/Yredxin/YDental/pulls/13",
+        "--jq",
+        "{number,state,draft,auto_merge,head:.head.sha,base:.base.ref}"
+      ],
+      "cwd": "/home/redxin/code/odoo/odoo-sd/code/sd-addons",
+      "exit_code": 0,
+      "stdout": "{\"auto_merge\":null,\"base\":\"main\",\"draft\":true,\"head\":\"e9a608ab826b19637eac5b47bce42704ee935544\",\"number\":13,\"state\":\"open\"}",
+      "stderr": ""
+    }
+  ],
+  "project": {
+    "result": "BLOCKED",
+    "reason": "ProjectV2Workflow API exposes metadata, not trigger/condition/action configuration; no authenticated UI tool is available. Complete automation read is a user-specified precondition for writes.",
+    "viewerCanUpdate": true,
+    "project_mutations": 0,
+    "before_items": 37,
+    "after_readback_items": 37,
+    "second_read_items": 37,
+    "current_stage_cards": 14,
+    "current_stage_duplicates": 0,
+    "confirmed_old_active_items": 22,
+    "unrelated_items": 0,
+    "fields": 19,
+    "views": 5,
+    "workflows": 7,
+    "all_connections_fully_paginated": true,
+    "sync_mutations": "NOT_RUN, precondition blocked"
+  },
+  "odoo_test_count": 0,
+  "database_business_tests": "NOT_RUN",
+  "install_upgrade_runtime_pdf_tests": "NOT_RUN",
+  "checks": {
+    "T01": "PASS, read-only preservation",
+    "T05": "BLOCKED, automation detail unavailable, no writes or sync",
+    "T07": "PASS, static source/config difference reported; runtime compatibility NOT_RUN",
+    "T09": "PASS, document contract only",
+    "T02": "NOT_RUN",
+    "T03": "NOT_RUN",
+    "T04": "NOT_RUN",
+    "T06": "NOT_RUN",
+    "T08": "NOT_RUN"
+  },
+  "source_reads": [
+    {
+      "number": 23,
+      "url": "https://github.com/Yredxin/YDental/issues/23",
+      "updated_at": "2026-10-11T06:03:40Z",
+      "body_sha256": "36b3744d1087b38df6970dc584f396bd9c6d3bc66de8229c61f181688353f100",
+      "comments": 1,
+      "comments_body_sha256": [
+        "08ccabbeba9965c4d6d61e3b8bd8f51dae02fb9d42e80eae82a526e1d64c0852"
+      ],
+      "role": "execution source"
+    },
+    {
+      "number": 24,
+      "url": "https://github.com/Yredxin/YDental/issues/24",
+      "updated_at": "2026-10-11T06:15:24Z",
+      "body_sha256": "0d768baa42f7f2005984a1db03f6fcfc0282812b38c5c7e33a4edba751617f98",
+      "comments": 1,
+      "comments_body_sha256": [
+        "b07051e389f2ed81296296ccf97c331b563337ad32d98275efd00ca486a4f451"
+      ],
+      "role": "execution source"
+    },
+    {
+      "number": 25,
+      "url": "https://github.com/Yredxin/YDental/issues/25",
+      "updated_at": "2026-10-11T05:43:52Z",
+      "body_sha256": "18d89962eec1648dfddb8cf133473b98b8424acc4fe77203544c39060a68f1ce",
+      "comments": 0,
+      "comments_body_sha256": [],
+      "role": "current index identity; no stage execution"
+    },
+    {
+      "number": 26,
+      "url": "https://github.com/Yredxin/YDental/issues/26",
+      "updated_at": "2026-10-11T05:44:27Z",
+      "body_sha256": "29610a35e276aa36559fb80684fc3952158cfb4e74e330c95b4d1402daa41eb1",
+      "comments": 0,
+      "comments_body_sha256": [],
+      "role": "current index identity; no stage execution"
+    },
+    {
+      "number": 27,
+      "url": "https://github.com/Yredxin/YDental/issues/27",
+      "updated_at": "2026-10-11T05:45:31Z",
+      "body_sha256": "c1a57085a76572f6b40bed55c70cdd13d86ea19fb567368fd2e7c8f316db61f4",
+      "comments": 0,
+      "comments_body_sha256": [],
+      "role": "current index identity; no stage execution"
+    },
+    {
+      "number": 28,
+      "url": "https://github.com/Yredxin/YDental/issues/28",
+      "updated_at": "2026-10-11T05:46:11Z",
+      "body_sha256": "995d2a50e159c902b2ace3dbfef7320ebfa7ebcf159735b2f7be3db76217737f",
+      "comments": 0,
+      "comments_body_sha256": [],
+      "role": "current index identity; no stage execution"
+    },
+    {
+      "number": 29,
+      "url": "https://github.com/Yredxin/YDental/issues/29",
+      "updated_at": "2026-10-11T05:47:09Z",
+      "body_sha256": "c13edf4a42bd8a0883645cd7e70293ad94f9e0fd4742508f39efc0d5f8617619",
+      "comments": 0,
+      "comments_body_sha256": [],
+      "role": "current index identity; no stage execution"
+    },
+    {
+      "number": 30,
+      "url": "https://github.com/Yredxin/YDental/issues/30",
+      "updated_at": "2026-10-11T05:48:20Z",
+      "body_sha256": "e365b3443fdc0016dd06951de65fb2d8d82ae8087880c2f6767ec995db494a05",
+      "comments": 0,
+      "comments_body_sha256": [],
+      "role": "current index identity; no stage execution"
+    },
+    {
+      "number": 31,
+      "url": "https://github.com/Yredxin/YDental/issues/31",
+      "updated_at": "2026-10-11T05:48:58Z",
+      "body_sha256": "f3aec708463942645f2bd0ef88c0db8a2858c2cc204f3c0b85960d74db79f832",
+      "comments": 0,
+      "comments_body_sha256": [],
+      "role": "current index identity; no stage execution"
+    },
+    {
+      "number": 32,
+      "url": "https://github.com/Yredxin/YDental/issues/32",
+      "updated_at": "2026-10-11T05:49:59Z",
+      "body_sha256": "4e445d9ddea91576f1393b613613862e83d6c5d8b26d1e497fed3e7ace830d13",
+      "comments": 0,
+      "comments_body_sha256": [],
+      "role": "current index identity; no stage execution"
+    },
+    {
+      "number": 33,
+      "url": "https://github.com/Yredxin/YDental/issues/33",
+      "updated_at": "2026-10-11T05:50:44Z",
+      "body_sha256": "47a09ace9a587159f0c797fc2343ac2d7f432f12b755e4b0bb8c9e3e86f071fb",
+      "comments": 0,
+      "comments_body_sha256": [],
+      "role": "current index identity; no stage execution"
+    },
+    {
+      "number": 34,
+      "url": "https://github.com/Yredxin/YDental/issues/34",
+      "updated_at": "2026-10-11T05:51:46Z",
+      "body_sha256": "80ccb3194249db74284e4391f64f075b9800730bf100c645d56fbe4a9297d6f2",
+      "comments": 0,
+      "comments_body_sha256": [],
+      "role": "current index identity; no stage execution"
+    },
+    {
+      "number": 35,
+      "url": "https://github.com/Yredxin/YDental/issues/35",
+      "updated_at": "2026-10-11T06:01:31Z",
+      "body_sha256": "a01327196c70b5dcfbb263c2f3c4060eb89868b56133d0b0ddd05ac52d6d6e53",
+      "comments": 0,
+      "comments_body_sha256": [],
+      "role": "current index identity; no stage execution"
+    },
+    {
+      "number": 36,
+      "url": "https://github.com/Yredxin/YDental/issues/36",
+      "updated_at": "2026-10-11T05:53:51Z",
+      "body_sha256": "d8e777c514074d93d95b18942fa5bd59c5b49af9d3aac539fea32f48e8c1857a",
+      "comments": 0,
+      "comments_body_sha256": [],
+      "role": "current index identity; no stage execution"
+    },
+    {
+      "number": 37,
+      "url": "https://github.com/Yredxin/YDental/issues/37",
+      "updated_at": "2026-10-11T05:54:53Z",
+      "body_sha256": "c8f44367670f35efad0e55612236195fcd12c213985ddb845782c2e9ff68f384",
+      "comments": 0,
+      "comments_body_sha256": [],
+      "role": "current index identity; no stage execution"
+    }
+  ]
+}
