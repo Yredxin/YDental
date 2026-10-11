@@ -191,13 +191,58 @@ def main():
             record('T02 native configuration rename keeps ID and references',
                    next(station for station in after['stations'] if station['id'] == first_id)['name'] == 'S02 Renamed Stable Chair')
 
+            canvas = writer.locator('.o_ydental_space_canvas')
+            bounds = canvas.bounding_box()
+            writer.get_by_role('combobox', name='绘图工具', exact=True).select_option('rect')
+            writer.mouse.move(bounds['x'] + 640, bounds['y'] + 640)
+            writer.mouse.down()
+            writer.mouse.move(bounds['x'] + 900, bounds['y'] + 690, steps=5)
+            with writer.expect_response(response_for('create')):
+                writer.mouse.up()
+            writer.wait_for_timeout(300)
+            drawn = rpc(writer, 'ydental.space.floor', 'action_snapshot', [[floor_id]], writer_revision)['result']
+            record('T01 draw rectangle through canvas', len(drawn['areas']) == len(after['areas']) + 1)
+
+            writer.get_by_role('combobox', name='绘图工具', exact=True).select_option('polygon')
+            for x, y in ((30, 640), (250, 640), (140, 690)):
+                writer.mouse.click(bounds['x'] + x, bounds['y'] + y)
+            with writer.expect_response(response_for('create')):
+                writer.get_by_role('button', name='完成多边形', exact=True).click()
+            writer.wait_for_timeout(300)
+            drawn = rpc(writer, 'ydental.space.floor', 'action_snapshot', [[floor_id]], writer_revision)['result']
+            record('T01 draw polygon through canvas', any(area['ydental_shape'] == 'polygon' and len(area['ydental_points']) == 3 for area in drawn['areas']))
+
+            rectangle = next(area for area in drawn['areas'] if area['id'] not in [entry['id'] for entry in after['areas']] and area['ydental_shape'] == 'rect')
+            writer.locator('[data-kind=area][data-id="%s"]' % rectangle['id']).click(position={'x': 10, 'y': 10})
+            chair_art = writer.locator('.o_ydental_space_resources > div').filter(has_text='牙椅')
+            with writer.expect_response(response_for('create')):
+                chair_art.drag_to(canvas, target_position={'x': 700, 'y': 650})
+            writer.wait_for_timeout(300)
+            drawn = rpc(writer, 'ydental.space.floor', 'action_snapshot', [[floor_id]], writer_revision)['result']
+            record('F1 drag resource creates one stable workstation and linked artwork',
+                   len(drawn['stations']) == 7 and len(drawn['items']) == 7)
+            snapshot(writer, writer_context, '03-drawing-and-drop.png')
+
+            action = rpc(writer, 'ir.actions.act_window', 'search_read', [
+                [['res_model', '=', 'ydental.space.resource']], ['name']], writer_revision)['result'][0]
+            writer.goto(base + '/odoo/action-%s' % action['id'], wait_until='domcontentloaded')
+            writer.get_by_text('A Private marker', exact=True).click()
+            upload = writer.locator('[name=ydental_upload] input[type=file]')
+            upload.set_input_files({'name': 'synthetic-safe.svg', 'mimeType': 'image/svg+xml',
+                'buffer': b'<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="35" fill="#456789"/></svg>'})
+            with writer.expect_response(response_for('web_save')):
+                writer.locator('.o_form_button_save').click()
+            uploaded = rpc(writer, 'ydental.space.resource', 'read', [[preview['private_resource_id']], ['ydental_svg']], writer_revision)['result'][0]
+            record('T05 native SVG file upload retains safe XML', '<circle' in uploaded['ydental_svg'] and 'script' not in uploaded['ydental_svg'])
+            snapshot(writer, writer_context, '04-private-resource-upload.png')
+
             reader_context, reader = login('reader')
             reader_revision = revision(reader)
             plan(reader)
             record('T04 readonly plan has disabled save', reader.get_by_role('button', name='保存布局', exact=True).is_disabled())
             denied = rpc(reader, 'ydental.space.floor', 'action_save_geometry', [[floor_id], after['floor']['ydental_version'], []], reader_revision)
             record('T04 readonly direct layout RPC denied', 'access_denied' in denied.get('error', {}).get('data', {}).get('message', ''))
-            snapshot(reader, reader_context, '03-readonly-floor.png')
+            snapshot(reader, reader_context, '05-readonly-floor.png')
 
             writer.goto(base + '/ydental/access', wait_until='domcontentloaded')
             # Use the current form CSRF token in-memory. Never export it.
