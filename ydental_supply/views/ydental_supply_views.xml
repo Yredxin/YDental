@@ -1,0 +1,10 @@
+<odoo>
+    <record id="ydental_supply_action" model="ir.actions.act_url">
+        <field name="name">Schedule and capacity</field><field name="url">/ydental/supply</field><field name="target">self</field>
+    </record>
+    <record id="ydental_supply_today_action" model="ir.actions.act_url">
+        <field name="name">My today</field><field name="url">/ydental/supply/today</field><field name="target">self</field>
+    </record>
+    <menuitem id="ydental_supply_menu" name="Schedule and capacity" parent="ydental_base.ydental_base_menu_root" action="ydental_supply_action" sequence="30" groups="ydental_base.ydental_base_group_user"/>
+    <menuitem id="ydental_supply_today_menu" name="My today" parent="ydental_base.ydental_base_menu_root" action="ydental_supply_today_action" sequence="31" groups="ydental_base.ydental_base_group_user"/>
+</odoo>

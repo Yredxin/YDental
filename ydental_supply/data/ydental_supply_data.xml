@@ -1,0 +1,5 @@
+<odoo noupdate="1">
+    <record id="ydental_supply_mutex" model="ydental.supply.mutex">
+        <field name="name">Supply serialization</field>
+    </record>
+</odoo>
