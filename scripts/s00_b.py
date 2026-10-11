@@ -102,6 +102,7 @@ def main():
             parser.error('Another S00-B action is running; no service stopped')
         if args.action in ('install', 'upgrade', 'serve'):
             with socket.socket() as sock:
+                sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
                 try:
                     sock.bind(('127.0.0.1', args.port))
                 except OSError:
