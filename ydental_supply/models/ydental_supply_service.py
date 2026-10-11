@@ -11,6 +11,9 @@ class YDentalSupplyService(models.AbstractModel):
     _name = 'ydental.supply.service'
     _description = 'Validated schedule and shared capacity transactions'
 
+    def _now(self):
+        return fields.Datetime.now()
+
     def _access(self, write=False):
         access = self.env['ydental.access.service']
         member = access._check('capacity', 'write' if write else 'read', write=write)
@@ -74,7 +77,7 @@ class YDentalSupplyService(models.AbstractModel):
         return start, end
 
     def _date(self, store, instant=None):
-        return (instant or fields.Datetime.now()).replace(tzinfo=timezone.utc).astimezone(ZoneInfo(store.ydental_timezone)).date()
+        return (instant or self._now()).replace(tzinfo=timezone.utc).astimezone(ZoneInfo(store.ydental_timezone)).date()
 
     def _snapshot(self, slot):
         return {'total': slot.ydental_total, 'reservation': slot.ydental_reservation_free,
@@ -232,7 +235,7 @@ class YDentalSupplyService(models.AbstractModel):
         self._keys(p, ('id', 'version', 'values', 'reason'))
         record = self._get('assignment', p['id'], store)
         self._version(record, p['version'])
-        if record.state != 'active' or record.ydental_start <= fields.Datetime.now():
+        if record.state != 'active' or record.ydental_start <= self._now():
             raise UserError(self.env._('Only future effective assignments can be adjusted.'))
         old_slots = self._affected_slots(record)
         record._save(self._assignment_values(store, p['values'], excluding=record))
@@ -313,7 +316,7 @@ class YDentalSupplyService(models.AbstractModel):
         if not set(slot.ydental_capability_ids.ids) <= covered:
             raise UserError(self.env._('Unverified capabilities cannot be published as guaranteed supply.'))
         return {'user_ids': user_ids, 'capability_ids': sorted(covered), 'checked_by': self.env.uid,
-                'checked_at': fields.Datetime.to_string(fields.Datetime.now())}
+                'checked_at': fields.Datetime.to_string(self._now())}
 
     def _publish(self, store, p):
         self._keys(p, ('id', 'version', 'user_ids', 'reason'))
@@ -355,7 +358,7 @@ class YDentalSupplyService(models.AbstractModel):
             reservation -= -delta - take
         else:
             add_r, add_w = slot.ydental_policy_id._split(delta)
-            if slot.ydental_converted or fields.Datetime.now() >= slot.ydental_start:
+            if slot.ydental_converted or self._now() >= slot.ydental_start:
                 add_w += add_r
                 add_r = 0
             reservation += add_r
@@ -383,7 +386,7 @@ class YDentalSupplyService(models.AbstractModel):
     def _convert_slot(self, store, slot):
         if slot.ydental_converted:
             return
-        if not slot.ydental_start <= fields.Datetime.now() < slot.ydental_end:
+        if not slot.ydental_start <= self._now() < slot.ydental_end:
             raise UserError(self.env._('Conversion requires a current, unexpired slot.'))
         before = self._snapshot(slot)
         slot._save({'ydental_converted': True, 'ydental_reservation_free': 0,
@@ -428,7 +431,7 @@ class YDentalSupplyService(models.AbstractModel):
         return {'id': record.id, 'version': record.ydental_version}
 
     def _saleable(self, store, slot, pool):
-        now = fields.Datetime.now()
+        now = self._now()
         business = self._business_record(store, slot.ydental_area_id.id, slot.ydental_start)
         if slot.state != 'published' or not self._coverage_valid(slot) or now >= slot.ydental_end:
             return False
@@ -458,7 +461,7 @@ class YDentalSupplyService(models.AbstractModel):
         candidates = candidates.sorted(lambda r: (len(r.ydental_capability_ids), r.ydental_station_id.id, r.id))
         for slot in candidates:
             pool = slot.ydental_policy_id.ydental_phone_pool if p['channel'] == 'phone' else p['channel']
-            if slot.ydental_start <= fields.Datetime.now() < slot.ydental_end and not slot.ydental_converted:
+            if slot.ydental_start <= self._now() < slot.ydental_end and not slot.ydental_converted:
                 self._convert_slot(store, slot)
             field = 'ydental_reservation_free' if pool == 'reservation' else 'ydental_walkin_free'
             if p['capability_id'] not in slot.ydental_capability_ids.ids or not self._saleable(store, slot, pool) or slot[field] <= 0:
@@ -479,7 +482,7 @@ class YDentalSupplyService(models.AbstractModel):
             raise UserError(self.env._('Consumed capacity cannot be returned.'))
         slot = claim.ydental_slot_id
         before = self._snapshot(slot)
-        now = fields.Datetime.now()
+        now = self._now()
         business = self._business_record(store, slot.ydental_area_id.id, slot.ydental_start)
         if now >= slot.ydental_end or slot.state != 'published' or business and business.state != 'open':
             field = 'ydental_unavailable'
@@ -547,7 +550,7 @@ class YDentalSupplyService(models.AbstractModel):
     def _affected_slots(self, assignment):
         slots = self._model('slot').search([('ydental_store_id', '=', assignment.ydental_store_id.id),
             ('ydental_start', '<', assignment.ydental_end), ('ydental_end', '>', assignment.ydental_start),
-            ('ydental_end', '>', fields.Datetime.now())])
+            ('ydental_end', '>', self._now())])
         return slots.filtered(lambda r: r.ydental_station_id == assignment.ydental_station_id or
             assignment.ydental_user_id.id in (r.ydental_coverage or {}).get('user_ids', []))
 
@@ -565,13 +568,13 @@ class YDentalSupplyService(models.AbstractModel):
         store = membership.ydental_store_id
         assignments = self._model('assignment').search([('ydental_store_id', '=', store.id),
             ('ydental_user_id', '=', membership.ydental_user_id.id), ('state', '=', 'active'),
-            ('ydental_start', '>', fields.Datetime.now())])
+            ('ydental_start', '>', self._now())])
         for assignment in assignments:
             assignment._save({'state': 'cancelled', 'ydental_reason': 'Store membership removed'})
             self._new('disposition', store, {'name': assignment.name, 'ydental_assignment_id': assignment.id,
                 'ydental_reason': 'Store membership removed; review replacement, migration and contact'})
             self._event(store, 'employment_cancel', 'Store membership removed', after={'assignment_id': assignment.id})
-        slots = self._model('slot').search([('ydental_store_id', '=', store.id), ('ydental_end', '>', fields.Datetime.now())])
+        slots = self._model('slot').search([('ydental_store_id', '=', store.id), ('ydental_end', '>', self._now())])
         self._suspend_affected(store, slots, 'Store membership removed')
 
     def _resolve(self, store, p):
@@ -624,7 +627,7 @@ class YDentalSupplyService(models.AbstractModel):
             self._date(r.ydental_store_id, r.ydental_start) == self._date(r.ydental_store_id))
 
     def _default_candidates(self):
-        now = fields.Datetime.now()
+        now = self._now()
         assignments = self._own_assignments().filtered(lambda r: r.ydental_end > now)
         current = assignments.filtered(lambda r: r.ydental_start <= now)
         if current:
@@ -705,7 +708,7 @@ class YDentalSupplyService(models.AbstractModel):
             if not self._saleable(store, slot, pool):
                 return 0
             value = slot.ydental_reservation_free if pool == 'reservation' else slot.ydental_walkin_free
-            if pool == 'walkin' and fields.Datetime.now() >= slot.ydental_start and not slot.ydental_converted:
+            if pool == 'walkin' and self._now() >= slot.ydental_start and not slot.ydental_converted:
                 value += slot.ydental_reservation_free
             return value
         return {'result': 'hint_only', 'shared_total': sum(slots.mapped('ydental_total')),
