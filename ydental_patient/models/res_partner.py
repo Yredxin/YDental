@@ -13,6 +13,36 @@ class ResPartner(models.Model):
     ydental_patient_owner_id = fields.Many2one('ydental.patient', ondelete='restrict', copy=False,
                                               groups='base.group_no_one', index=True, string='Patient owner')
 
+    def _access_domain(self, operation):
+        domain = super()._access_domain(operation)
+        if operation == 'read' and not self.env.su and not self.env[
+            'ydental.patient.service'
+        ]._can_read_patient_partners():
+            domain &= fields.Domain('ydental_patient_owner_id', '=', False)
+        return domain
+
+    def check_access(self, operation):
+        if operation == 'read' and not self.env.su and self.sudo().mapped(
+            'ydental_patient_owner_id'
+        ) and not self.env['ydental.patient.service']._can_read_patient_partners():
+            raise AccessError(self.env._('access_denied: Patient administration permission is required.'))
+        return super().check_access(operation)
+
+    def fetch(self, field_names):
+        # Recheck live grants before native fetch can reuse its access/cache.
+        self.check_access('read')
+        return super().fetch(field_names)
+
+    def export_data(self, fields_to_export):
+        self.check_access('read')
+        if not self.env.su and self.sudo().mapped('ydental_patient_owner_id'):
+            self.env['ydental.access.service']._check('export', 'write')
+        return super().export_data(fields_to_export)
+
+    def _can_return_content(self, field_name, access_token=None):
+        self.check_access('read')
+        return super()._can_return_content(field_name, access_token)
+
     @api.model_create_multi
     def create(self, vals_list):
         controlled = self.env.context.get('ydental_patient_partner_mutation') is _PARTNER_MUTATION

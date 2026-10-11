@@ -37,6 +37,28 @@ class YDentalPatientService(models.AbstractModel):
         if not self.env['ydental.access.service']._is_group_manager():
             raise AccessError(self.env._('access_denied: Group identity verification is required.'))
 
+    def _can_read_patient_partners(self):
+        """Fixed server hook for necessary administrative partner access.
+
+        No request context flag, export grant or future finance role widens it.
+        Ordinary Contacts remain available when this qualification is absent.
+        """
+        try:
+            self._access()
+        except (AccessError, UserError):
+            return False
+        return True
+
+    def _current_relation(self, patient, store, required=True):
+        patient = self._patient(patient.id)
+        relation = self.env['ydental.patient.relation'].sudo().search([
+            ('ydental_patient_id', '=', patient.id), ('ydental_store_id', '=', store.id),
+            ('ydental_superseded_by_id', '=', False),
+        ], limit=1)
+        if required and not relation:
+            raise AccessError(self.env._('access_denied: Establish the current store patient relationship first.'))
+        return relation
+
     def _lock(self):
         # Advisory locking alone does not refresh a repeatable-read snapshot.
         # Updating this fence forces a stale competing transaction to retry.
@@ -293,6 +315,7 @@ class YDentalPatientService(models.AbstractModel):
 
     def _clinical(self, store, patient_id, values, record_id=None, version=None):
         patient = self._patient(patient_id, active=True)
+        self._current_relation(patient, store)
         if not isinstance(values, dict) or set(values) - {'allergies', 'prior_history', 'medication'}:
             raise ValidationError(self.env._('Only patient safety background fields are accepted.'))
         values = {'ydental_' + key: self._text(value, 4000) for key, value in values.items()}

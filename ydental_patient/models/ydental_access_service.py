@@ -39,6 +39,7 @@ class YDentalAccessService(models.AbstractModel):
         if not any(levels[category] in ('read', 'write') for category in ('medical', 'exam')):
             raise AccessError(self.env._('access_denied: Current-store medical or examination read permission is required.'))
         patient = self.env['ydental.patient.service']._patient(patient_id)
+        self.env['ydental.patient.service']._current_relation(patient, session.ydental_store_id)
         scope = PatientCareScope(self.env.uid, session.id, session.ydental_revision,
                                  session.ydental_store_id.id, patient.id, purpose)
         self._audit('patient.care.open', 'medical', patient, session.ydental_store_id.id,
@@ -63,5 +64,7 @@ class YDentalAccessService(models.AbstractModel):
             return fields.Domain.FALSE
         patient = self.env['ydental.patient.service']._patient(scope.patient_id)
         if patient.id != scope.patient_id:
+            return fields.Domain.FALSE
+        if not self.env['ydental.patient.service']._current_relation(patient, session.ydental_store_id, required=False):
             return fields.Domain.FALSE
         return fields.Domain(mapping[model_name], '=', patient.id)

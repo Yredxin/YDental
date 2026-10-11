@@ -1334,3 +1334,8 @@ msgstr "建立本店患者关系"
 #: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
 msgid "Confirm actual arrival now"
 msgstr "记录当前真实到店"
+
+#. module: ydental_patient
+#: code:addons/ydental_patient/models/ydental_patient_service.py:0
+msgid "access_denied: Establish the current store patient relationship first."
+msgstr "access_denied: 请先建立当前门店的患者关系。"

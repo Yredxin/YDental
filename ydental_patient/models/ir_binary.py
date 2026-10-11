@@ -7,6 +7,10 @@ class IrBinary(models.AbstractModel):
 
     def _find_record(self, xmlid=None, res_model='ir.attachment', res_id=None, access_token=None, field=None):
         record = super()._find_record(xmlid, res_model, res_id, access_token, field)
+        if record._name == 'res.partner':
+            # Limited-field tokens may have returned sudo before the normal
+            # partner content hook. They never substitute for live grants.
+            record.with_env(self.env).check_access('read')
         if record._name == 'ir.attachment':
             # Core accepts a valid limited-field HMAC token before calling
             # _can_return_content. Rebind to the requester and recheck protected
