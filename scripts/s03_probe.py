@@ -44,7 +44,7 @@ with registry.cursor() as cr:
     sessions = []
     for key in ('race-one', 'race-two'):
         service = f.root['ydental.access.service'].with_user(f.writer)
-        session = service._session_for_key(key)
+        session = service._session_for_key(key + '-' + f.suffix)
         service._bind(session)._switch(f.stores[0].id)
         sessions.append(session.id)
     scenarios = []
@@ -64,6 +64,9 @@ with registry.cursor() as cr:
         else:
             pair = [('acquire', acquire_args(f, record, name + '-clean')),
                     ('acquire', acquire_args(f, record, name + '-fill', capability=f.capabilities[1]))]
+        if name in ('reservation_first', 'conversion_first'):
+            with patch.object(type(f.service), '_now', return_value=record.ydental_start - timedelta(seconds=1)):
+                f.service._operate('business', {'area_id': f.area.id, 'state': 'open', 'reason': 'Synthetic boundary business day'}, 'boundary-open-' + name)
         scenarios.append({'name': name, 'slot_id': record.id, 'start': fields.Datetime.to_string(record.ydental_start), 'actions': pair})
     now = fields.Datetime.now()
     today = f.service._operate('assign', {'user_id': f.staff.id, 'station_id': f.stations[0].id,
@@ -142,6 +145,8 @@ for scenario in scenarios:
         counters = {'total': record.ydental_total, 'reservation': record.ydental_reservation_free,
             'walkin': record.ydental_walkin_free, 'unavailable': record.ydental_unavailable, 'used': held,
             'claim_states': claims.mapped('state')}
+        progress = {'scenario': scenario['name'], 'outcomes': outcomes, 'after': counters}
+        (run / ('concurrency-progress-' + scenario['name'] + '-' + f.suffix + '.json')).write_text(json.dumps(progress, indent=2) + '\n')
         assert counters['total'] == sum(counters[k] for k in ('reservation', 'walkin', 'unavailable', 'used'))
         assert len({o['attempts'][0]['pid'] for o in outcomes}) == 2
         if scenario['name'] in ('last_capacity', 'source_move', 'cancel_start'):
