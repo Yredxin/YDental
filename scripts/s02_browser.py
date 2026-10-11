@@ -268,6 +268,14 @@ def main():
             record('T04 private SVG denied from other store', private_svg.status == 403)
             stale = rpc(writer, 'ydental.space.floor', 'action_save_geometry', [[floor_id], after['floor']['ydental_version'], []], writer_revision)
             record('Old store page cannot save layout', 'version_conflict' in stale.get('error', {}).get('data', {}).get('message', ''))
+            if errors:
+                messages = [error.splitlines()[0] for error in errors]
+                require(not any(secret in message for secret in secrets if secret for message in messages),
+                        'Sensitive browser diagnostic refused')
+                require(not any(re.search(r'(?:csrf_token|session_id|authorization|password)\s*[:=]', message, re.I)
+                                for message in messages), 'Sensitive browser diagnostic refused')
+                result['browser_errors'] = messages
+                print(json.dumps({'browser_errors': messages}, ensure_ascii=False))
             record('No browser JavaScript errors', not errors)
             result['result'] = 'PASS'
         except Exception as error:
