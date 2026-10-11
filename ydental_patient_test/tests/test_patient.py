@@ -60,6 +60,15 @@ class TestPatient(TransactionCase):
         with self.assertRaises(ValidationError):
             create(self, phone='2025550100', phone_region='ZZ')
 
+    def test_t02_contact_phone_and_email_also_hint_without_identity_merge(self):
+        a, b = create(self, name='Synthetic Family A'), create(self, name='Synthetic Family B')
+        for patient in (a, b):
+            self.service._operate('contact', {'patient_id': patient['id'], 'name': 'Synthetic Common Guardian',
+                'relation': 'guardian', 'relationship': 'Declared parent', 'phone': '+1 202 555 0198'},
+                'family-contact-' + str(patient['id']))
+        self.assertIn(a['id'], [hint['id'] for hint in self.service._duplicates(b['id'])])
+        self.assertFalse(self.root['ydental.patient'].browse(a['id']).ydental_merged_into_id)
+
     def test_t03_only_group_confirms_mapping_and_partner_is_not_merged(self):
         source, target = create(self), create(self)
         request = merge(self, source['id'], target['id'])

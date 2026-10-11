@@ -348,16 +348,25 @@ class YDentalPatientService(models.AbstractModel):
     def _duplicates(self, patient_id):
         self._access()
         patient = self._patient(patient_id)
+        contacts = self.env['ydental.patient.contact'].sudo().search([('ydental_patient_id', '=', patient.id)])
+        normalized = set(filter(None, [patient.ydental_phone_normalized] + contacts.mapped('ydental_phone_normalized')))
+        raw = set(filter(None, [patient.ydental_phone if not patient.ydental_phone_normalized else False] +
+                         contacts.filtered(lambda c: not c.ydental_phone_normalized).mapped('ydental_phone')))
+        emails = set(filter(None, [patient.ydental_email] + contacts.mapped('ydental_email')))
         candidates = fields.Domain.FALSE
         if patient.ydental_birth_date:
             candidates |= fields.Domain('name', '=ilike', patient.name) & fields.Domain(
                 'ydental_birth_date', '=', patient.ydental_birth_date)
-        if patient.ydental_phone_normalized:
-            candidates |= fields.Domain('ydental_phone_normalized', '=', patient.ydental_phone_normalized)
-        elif patient.ydental_phone:
-            candidates |= fields.Domain('ydental_phone', '=', patient.ydental_phone)
-        if patient.ydental_email:
-            candidates |= fields.Domain('ydental_email', '=', patient.ydental_email)
+        contact_domain = fields.Domain.FALSE
+        if normalized:
+            contact_domain |= fields.Domain('ydental_phone_normalized', 'in', sorted(normalized))
+        if raw:
+            contact_domain |= fields.Domain('ydental_phone', 'in', sorted(raw))
+        if emails:
+            contact_domain |= fields.Domain('ydental_email', 'in', sorted(emails))
+        candidates |= contact_domain
+        matched_contacts = self.env['ydental.patient.contact'].sudo().search(contact_domain, limit=100)
+        candidates |= fields.Domain('id', 'in', matched_contacts.ydental_patient_id.ids)
         matches = self.env['ydental.patient'].sudo().search(candidates & fields.Domain('id', '!=', patient.id) &
             fields.Domain('ydental_merged_into_id', '=', False), limit=30)
         return [{'id': p.id, 'name': p.name, 'number': p.ydental_number} for p in matches]

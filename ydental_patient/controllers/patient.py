@@ -56,7 +56,7 @@ class YDentalPatient(http.Controller):
         values.update(patient=patient, duplicates=service._duplicates(patient.id), prompts=service._prompts(patient.id),
             relations=service.env['ydental.patient.relation'].search([
                 ('ydental_patient_id', '=', patient.id), ('ydental_superseded_by_id', '=', False)]),
-            contacts=service.env['ydental.patient.contact'].search([('ydental_patient_id', '=', patient.id)]),
+            contacts=service.env['ydental.patient.contact'].with_context(active_test=False).search([('ydental_patient_id', '=', patient.id)]),
             numbers=service.env['ydental.patient.number'].search([('ydental_patient_id', '=', patient.id)]))
         return self._render('ydental_patient.ydental_patient_detail', values)
 
