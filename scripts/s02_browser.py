@@ -127,7 +127,8 @@ def main():
 
         def plan(page):
             page.goto(base + '/odoo/action-%s' % preview['plan_action_id'], wait_until='domcontentloaded')
-            page.locator('.o_ydental_space_canvas').wait_for(timeout=90000)
+            page.wait_for_function("document.querySelector('.o_ydental_space_canvas') || document.querySelector('.o_error_dialog')", timeout=30000)
+            require(page.locator('.o_ydental_space_canvas').count() > 0, 'Owl floor plan did not render')
 
         try:
             writer_context, writer = login('writer')
