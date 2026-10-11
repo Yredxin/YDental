@@ -180,18 +180,22 @@ def main():
             record('T01 T02 UI geometry save preserves workstation ID', saved['ydental_width'] == target_width)
             snapshot(writer, writer_context, '02-saved-floor.png')
 
-            # Configure through the native form; force_save transmits the version.
+            # Configure through the scoped native form; it sends the displayed version.
             writer.locator('[data-kind=station]').first.click(position={'x': 10, 'y': 10})
             writer.get_by_role('button', name='名称、区域和能力', exact=True).click()
             dialog = writer.locator('.o_dialog .o_form_view')
             dialog.wait_for()
             target_name = 'S02 Stable Chair ' + attempt.name[-6:]
             dialog.locator('[name=name] input').fill(target_name)
-            writer.locator('.o_dialog').get_by_role('button', name='保存', exact=True).click()
+            with writer.expect_response(response_for('web_save')) as rename_response:
+                writer.locator('.o_dialog').get_by_role('button', name='保存', exact=True).click()
+            require('result' in rename_response.value.json(), 'Native rename RPC failed')
             writer.locator('.o_dialog').wait_for(state='hidden')
+            writer.wait_for_timeout(300)
             after = rpc(writer, 'ydental.space.floor', 'action_snapshot', [[floor_id]], writer_revision)['result']
-            record('T02 native configuration rename keeps ID and references',
-                   next(station for station in after['stations'] if station['id'] == first_id)['name'] == target_name)
+            renamed = next(station for station in after['stations'] if station['id'] == first_id)['name']
+            require(renamed == target_name, 'Native rename readback mismatch: %s vs %s' % (renamed, target_name))
+            record('T02 native configuration rename keeps ID and references', True)
 
             canvas = writer.locator('.o_ydental_space_canvas')
             bounds = canvas.bounding_box()
