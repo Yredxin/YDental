@@ -1,0 +1,76 @@
+{
+  "files": [
+    {
+      "path": "docs/evidence/s02-final-fix-20261011/browser-attempts/20261011T143514869875/01-writer-floor.png",
+      "bytes": 105420,
+      "sha256": "68f54d85b1382e5230d3929f3f3d7bee4ec8ad55aa2d5e224af1b72d9dd67955"
+    },
+    {
+      "path": "docs/evidence/s02-final-fix-20261011/browser-attempts/20261011T143514869875/02-saved-floor.png",
+      "bytes": 113051,
+      "sha256": "f3696a28e6b35019cd09fe58be7ab71f8f8ee404ff3f22f9caea333334f355e6"
+    },
+    {
+      "path": "docs/evidence/s02-final-fix-20261011/browser-attempts/20261011T143514869875/03-drawing-and-drop.png",
+      "bytes": 121889,
+      "sha256": "28b2e2ba6f4e951eeae78042a2715795cfde01bbc867ffbafb5c986aa653844f"
+    },
+    {
+      "path": "docs/evidence/s02-final-fix-20261011/browser-attempts/20261011T143514869875/04-private-resource-upload.png",
+      "bytes": 60860,
+      "sha256": "585ed110f724a7ff5654322c3c47e6753777295a5c2bbc7bd2767df01e73c6ba"
+    },
+    {
+      "path": "docs/evidence/s02-final-fix-20261011/browser-attempts/20261011T143514869875/05-readonly-floor.png",
+      "bytes": 116054,
+      "sha256": "15f0af67506e1105ae7e461550a1584cf034a79023cab0b6b41fe0db61853201"
+    },
+    {
+      "path": "docs/evidence/s02-final-fix-20261011/browser-attempts/20261011T143514869875/06-group-only-common-resource.png",
+      "bytes": 61687,
+      "sha256": "7a0af7f93516759921e9f3c3158829ea018569b98e044d47c02e0d077eb20077"
+    },
+    {
+      "path": "docs/evidence/s02-final-fix-20261011/browser-attempts/20261011T143514869875/result.json",
+      "bytes": 27185,
+      "sha256": "6abe0c5e734944dbe6cb605e9a5690af0391638cf9b822fdcc20b33e1b5231e1"
+    },
+    {
+      "path": "docs/evidence/s02-final-fix-20261011/browser-final.json",
+      "bytes": 27185,
+      "sha256": "6abe0c5e734944dbe6cb605e9a5690af0391638cf9b822fdcc20b33e1b5231e1"
+    },
+    {
+      "path": "docs/evidence/s02-final-fix-20261011/guard-final.json",
+      "bytes": 448,
+      "sha256": "a8b008b4be4a0b018d80b1cf265be90f4bdb37414a562774c20948588272e1f6"
+    },
+    {
+      "path": "docs/evidence/s02-final-fix-20261011/project-readonly.json",
+      "bytes": 1784,
+      "sha256": "1ecc4fa4f6d8d623eee54bb8cf0f06d04205329fe37ae7fd071c33c2a3abb1e8"
+    },
+    {
+      "path": "docs/evidence/s02-final-fix-20261011/review-source.json",
+      "bytes": 8038,
+      "sha256": "e70f9ed305e96ca58d271c9b4b799d660afd31c8356f105a89bd89c62be20848"
+    },
+    {
+      "path": "docs/evidence/s02-final-fix-20261011/runtime-history.json",
+      "bytes": 5607,
+      "sha256": "47d4c195995ebabef0bd37d524dbbcd1d80b58f756021b948cae64969ed54b7f"
+    },
+    {
+      "path": "docs/evidence/s02-final-fix-20261011/scope-review.json",
+      "bytes": 1632,
+      "sha256": "1beea3f38a429f9ba02c40fd361a9981616386832a941c7b70a3cc4367db49de"
+    },
+    {
+      "path": "docs/evidence/s02-final-fix-20261011/translations-final.json",
+      "bytes": 186,
+      "sha256": "5e7d0afa05154977cbd8bae263fc7f1d81803d693034b1d82012e226d395f2a2"
+    }
+  ],
+  "private_credential_scan": "PASS; values not disclosed",
+  "raw_logs_committed": false
+}

@@ -1,0 +1,123 @@
+{
+  "creation_record": {
+    "database": "ydental_s02_test_20261011143156_035ef345",
+    "oid": 208233,
+    "endpoint": {
+      "host": "127.0.0.1",
+      "port": "5432",
+      "user": "odoo"
+    },
+    "cluster": "7694897083368259627",
+    "port": 18104,
+    "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+    "created_utc": "2026-10-11T14:31:56.930062+00:00",
+    "config_sha256": "77af227711ed928d3ba682056d2c559cb68d40f7975047c84194d8a0593cd97b"
+  },
+  "actions": [
+    {
+      "action": "install",
+      "exit_code": 0,
+      "log": "install-20261011T143156931090.log",
+      "log_sha256": "664464178a2e695a4852ccac5a460ec9ae143d02f0093113fe47f0a14a75e50e",
+      "time_utc": "2026-10-11T14:32:52.959407+00:00",
+      "tested_commit": "00c76b55f205ee032534b7a3b8cda27bd1d7764d",
+      "tests": [
+        0,
+        0,
+        27
+      ],
+      "substantive_test_methods": [
+        "TestSpace.test_binary_upload_is_sanitized_and_bounded",
+        "TestSpace.test_capability_commands_cannot_edit_dictionary",
+        "TestSpace.test_final_archived_resource_keeps_historical_geometry_editable",
+        "TestSpace.test_polygon_and_finite_geometry",
+        "TestSpace.test_rework_active_restore_rechecks_all_parents",
+        "TestSpace.test_rework_group_common_without_store_business_grants",
+        "TestSpace.test_rework_inactive_capabilities_only_keep_or_remove_history",
+        "TestSpace.test_rework_rect_points_and_shape_switch",
+        "TestSpace.test_t01_tree_and_stable_identity",
+        "TestSpace.test_t02_rename_move_preserves_reference",
+        "TestSpace.test_t03_capability_union_add_remove",
+        "TestSpace.test_t04_readonly_other_store_and_attachment",
+        "TestSpace.test_t05_svg_attack_matrix",
+        "TestSpace.test_t06_stale_versions_and_atomic_geometry",
+        "TestSpace.test_t07_archive_and_cross_floor_guards",
+        "TestSpace.test_t08_installed_dependencies_and_schema",
+        "TestSpace.test_t09_reporting_ancestor_and_in_use_hook",
+        "TestSpace.test_t10_public_private_resources_and_runtime",
+        "TestSpaceHTTP.test_http_final_archived_resource_keeps_historical_geometry_editable",
+        "TestSpaceHTTP.test_http_private_svg_and_forged_context",
+        "TestSpaceHTTP.test_http_readonly_rpc_and_source_attachment",
+        "TestSpaceHTTP.test_http_rework_group_common_without_membership_or_space_grants",
+        "TestSpaceHTTP.test_http_rework_inactive_capability_new_links_denied",
+        "TestSpaceHTTP.test_http_rework_rect_json_and_shape_switch",
+        "TestSpaceHTTP.test_http_rework_unarchive_requires_active_parent"
+      ]
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 0,
+      "log": "upgrade-20261011T143258885802.log",
+      "log_sha256": "8fb1e2089da6a2c143a45e6d0e7891088bb26941c2e5e6bc9443fe7874202de8",
+      "time_utc": "2026-10-11T14:33:12.856237+00:00",
+      "tested_commit": "00c76b55f205ee032534b7a3b8cda27bd1d7764d",
+      "tests": [
+        0,
+        0,
+        25
+      ],
+      "substantive_test_methods": [
+        "TestSpace.test_binary_upload_is_sanitized_and_bounded",
+        "TestSpace.test_capability_commands_cannot_edit_dictionary",
+        "TestSpace.test_final_archived_resource_keeps_historical_geometry_editable",
+        "TestSpace.test_polygon_and_finite_geometry",
+        "TestSpace.test_rework_active_restore_rechecks_all_parents",
+        "TestSpace.test_rework_group_common_without_store_business_grants",
+        "TestSpace.test_rework_inactive_capabilities_only_keep_or_remove_history",
+        "TestSpace.test_rework_rect_points_and_shape_switch",
+        "TestSpace.test_t01_tree_and_stable_identity",
+        "TestSpace.test_t02_rename_move_preserves_reference",
+        "TestSpace.test_t03_capability_union_add_remove",
+        "TestSpace.test_t04_readonly_other_store_and_attachment",
+        "TestSpace.test_t05_svg_attack_matrix",
+        "TestSpace.test_t06_stale_versions_and_atomic_geometry",
+        "TestSpace.test_t07_archive_and_cross_floor_guards",
+        "TestSpace.test_t08_installed_dependencies_and_schema",
+        "TestSpace.test_t09_reporting_ancestor_and_in_use_hook",
+        "TestSpace.test_t10_public_private_resources_and_runtime",
+        "TestSpaceHTTP.test_http_final_archived_resource_keeps_historical_geometry_editable",
+        "TestSpaceHTTP.test_http_private_svg_and_forged_context",
+        "TestSpaceHTTP.test_http_readonly_rpc_and_source_attachment",
+        "TestSpaceHTTP.test_http_rework_group_common_without_membership_or_space_grants",
+        "TestSpaceHTTP.test_http_rework_inactive_capability_new_links_denied",
+        "TestSpaceHTTP.test_http_rework_rect_json_and_shape_switch",
+        "TestSpaceHTTP.test_http_rework_unarchive_requires_active_parent"
+      ]
+    },
+    {
+      "action": "export",
+      "exit_code": 0,
+      "log": "export-20261011T143435771326.log",
+      "log_sha256": "c4a3f55287efa19d9c6d1376978f8ca05dc6d7d558194db44a4f8a48fc93386a",
+      "time_utc": "2026-10-11T14:34:37.280763+00:00",
+      "tested_commit": "00c76b55f205ee032534b7a3b8cda27bd1d7764d"
+    },
+    {
+      "action": "probe",
+      "exit_code": 0,
+      "log": "probe-20261011T143456832341.log",
+      "log_sha256": "3a7a6c926699aff91ace8c978d15786f698399c23aee8f6bd4ad8dc7d8e4729a",
+      "time_utc": "2026-10-11T14:34:59.818268+00:00",
+      "tested_commit": "00c76b55f205ee032534b7a3b8cda27bd1d7764d"
+    }
+  ],
+  "prior_evidence_preserved": [
+    "docs/evidence/s02/",
+    "docs/evidence/s02-rework-20261011/"
+  ],
+  "preview": {
+    "loopback_only": true,
+    "port": 18104,
+    "existing_18102_18103_untouched": true
+  }
+}

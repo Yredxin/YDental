@@ -1,0 +1,50 @@
+{
+  "baseline": "9e581b413833f356e8e868f388f04c5f9d65f5f4",
+  "product_commit": "9653ca2d25fde16ac791dd499197703c18ef18ce",
+  "tested_commit": "00c76b55f205ee032534b7a3b8cda27bd1d7764d",
+  "product_changes": [
+    "ydental_space/models/ydental_space_item.py"
+  ],
+  "test_changes": [
+    "ydental_space_test/tests/test_space.py",
+    "ydental_space_test/tests/test_space_http.py"
+  ],
+  "unchanged_paths": [
+    "docs/evidence/s02",
+    "docs/evidence/s02-rework-20261011",
+    "docs/s02-report.md",
+    "docs/s02-rework-report.md",
+    "docs/s02-contracts.md",
+    "docs/s02-rework-contracts.md",
+    "ydental_space/static",
+    "ydental_space/models/geometry.py",
+    "ydental_space/models/ydental_space_resource.py",
+    "ydental_space/models/ydental_space_station.py",
+    "ydental_space/models/ydental_space_area.py",
+    "ydental_space/models/ydental_space_version.py",
+    "ydental_space/controllers",
+    "ydental_space/security",
+    "ydental_access",
+    "ydental_access_test",
+    "scripts/s02.py",
+    "scripts/s02_browser.py",
+    "scripts/test_s02_guard.py"
+  ],
+  "author_review_not_independent": true,
+  "security_sweep": {
+    "sudo": [
+      26,
+      42
+    ],
+    "sql": [],
+    "public_api": [],
+    "routes": [],
+    "html_sinks": [],
+    "unsafe_eval": [],
+    "arbitrary_attributes": [],
+    "file_open": [],
+    "credentials": []
+  },
+  "judgment": "Only fixed resource active-reference validation reads use sudo; no caller CRUD bypass. Existing constraint sudo only reads geometry/ownership. No new routes/public API/SQL/context bypass; authorization/version/global locks unchanged.",
+  "result": "PASS"
+}
