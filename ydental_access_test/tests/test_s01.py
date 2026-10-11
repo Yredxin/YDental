@@ -239,7 +239,8 @@ class TestS01(TransactionCase):
 
     def test_t13_care_history_and_execution_hook(self):
         self.admin._grant(self.operator.id, self.a.id, {'medical': 'read'})
-        operator = self.bound(self.operator, 't13', self.a).with_context(ydental_purpose='care')
+        self.source(self.admin, self.c, 'medical').sudo().write({'ydental_test_care_target': True})
+        operator = self.bound(self.operator, 't13', self.a)._synthetic_care_scope()
         medical = self.source(operator, self.c, 'medical')
         self.assertTrue(medical.read(['ydental_text']))
         with self.assertRaises(AccessError):
@@ -305,3 +306,132 @@ class TestS01(TransactionCase):
         self.env['ir.config_parameter'].set_str('ydental_access.manager_policy', 'group_with_replacement')
         with self.assertRaises(AccessError):
             service._set_manager(self.operator.id, self.c.id, True)
+
+    def test_rework_care_scope_is_server_trusted_and_targeted(self):
+        self.admin._grant(self.operator.id, self.a.id, {'medical': 'read'})
+        service = self.bound(self.operator, 'rework-care', self.a)
+        other = self.source(service, self.c, 'medical')
+        with self.assertRaises(AccessError):
+            other.with_context(ydental_purpose='care').read(['name'])
+        forged = service.with_context(ydental_purpose='care', ydental_test_care_scope={
+            'user_id': self.operator.id, 'record_ids': other.ids,
+        })
+        self.assertEqual(forged.env[other._name].search([('ydental_store_id', '=', self.c.id)]).ids, [])
+        other.sudo().ydental_test_care_target = True
+        excluded = self.env[other._name].create({'name': 'Unrelated clinical history',
+            'ydental_text': 'SYNTHETIC_UNRELATED', 'ydental_store_id': self.c.id, 'ydental_category': 'medical'})
+        trusted = service._synthetic_care_scope()
+        self.assertEqual(trusted.env[other._name].search([('ydental_store_id', '=', self.c.id)]).ids, other.ids)
+        with self.assertRaises(AccessError):
+            excluded.with_env(trusted.env).read()
+        with self.assertRaises(AccessError):
+            other.with_env(trusted.env).write({'name': 'Cross-store mutation'})
+        with self.assertRaises(AccessError):
+            self.source(trusted, self.c, 'settlement').read()
+        changed = self.bound(self.operator, 'rework-care', self.b)
+        with self.assertRaises(AccessError):
+            other.with_env(changed.with_context(ydental_test_care_scope=trusted.env.context['ydental_test_care_scope']).env).read()
+
+    def test_rework_default_store_consumed_once_and_validated(self):
+        original = (self.operator.company_id.id, self.operator.group_ids.ids)
+        self.operator.ydental_test_default_store_id = self.b
+        first = self.service.with_user(self.operator)._session_for_key('default-first')
+        second = self.service.with_user(self.operator)._session_for_key('default-second')
+        self.assertEqual(first.ydental_store_id, self.b)
+        self.assertEqual(second.ydental_store_id, self.b)
+        self.service.with_user(self.operator)._bind(first)._switch(self.a.id)
+        self.assertEqual(self.service.with_user(self.operator)._session_for_key('default-first').ydental_store_id, self.a)
+        self.assertEqual(second.ydental_store_id, self.b)
+        self.assertEqual((self.operator.company_id.id, self.operator.group_ids.ids), original)
+        self.c.active = False
+        self.operator.ydental_test_default_store_id = self.c
+        self.assertFalse(self.service.with_user(self.operator)._session_for_key('default-inactive-store').ydental_store_id)
+        self.operator.ydental_test_default_store_id = self.b
+        self.admin._membership(self.operator.id, self.b.id).ydental_employee_id.active = False
+        self.assertFalse(self.service.with_user(self.operator)._session_for_key('default-inactive-employee').ydental_store_id)
+        unassigned = self.env['ydental.access.store'].create({'name': 'Unassigned default',
+            'company_id': self.company_a.id, 'ydental_timezone': 'UTC'})
+        self.operator.ydental_test_default_store_id = unassigned
+        self.assertFalse(self.service.with_user(self.operator)._session_for_key('default-unassigned').ydental_store_id)
+
+    def test_rework_direct_master_data_writes_are_audited(self):
+        Audit = self.env['ydental.access.audit']
+        Store = self.env['ydental.access.store'].with_user(self.group_admin)
+        store = Store.create({'name': 'Direct audited store', 'company_id': self.company_a.id, 'ydental_timezone': 'UTC'})
+        store.write({'name': 'Modified audited store'})
+        Cap = self.env['ydental.access.capability'].with_user(self.group_admin)
+        cap = Cap.create({'name': 'Direct capability', 'ydental_code': 'direct-rework'})
+        cap.write({'name': 'Modified capability'})
+        for target, event in ((store, 'store.modify'), (cap, 'capability.modify')):
+            row = Audit.search([('ydental_target_model', '=', target._name), ('ydental_target_id', '=', target.id),
+                                ('ydental_event', '=', event)])
+            self.assertEqual(len(row), 1)
+            self.assertEqual(row.ydental_user_id, self.group_admin)
+            self.assertNotEqual(row.ydental_before['name'], row.ydental_after['name'])
+        self.assertEqual(Audit.search_count([('ydental_event', '=', 'store.create'), ('ydental_target_id', '=', store.id)]), 1)
+        self.assertEqual(Audit.search_count([('ydental_event', '=', 'capability.create'), ('ydental_target_id', '=', cap.id)]), 1)
+        # Native res.users ACL remains authoritative. Our group has no native
+        # user-write permission: direct common writes must be denied, not widened.
+        before = self.operator.ydental_job_title
+        with self.assertRaises(AccessError):
+            self.operator.with_user(self.group_admin).write({'ydental_job_title': 'Direct common profile'})
+        self.assertEqual(self.operator.ydental_job_title, before)
+        self.admin._update_profile(self.operator.id, 'Audited service profile', cap.ids)
+        self.assertTrue(Audit.search([('ydental_event', '=', 'profile.change'),
+                                     ('ydental_target_id', '=', self.operator.id)]))
+        with self.assertRaises(AccessError):
+            Store.with_user(self.operator).create({'name': 'Forbidden master',
+                'company_id': self.company_a.id, 'ydental_timezone': 'UTC'})
+
+    def test_rework_query_reads_have_one_minimal_audit(self):
+        service = self.bound(self.operator, 'rework-query', self.a)
+        Source = service.env['ydental.access.test.record']
+        Audit = self.env['ydental.access.audit']
+        domain = [('ydental_text', '=', 'SYNTHETIC_SPACE')]
+        operations = (
+            lambda: Source.read_group(domain, ['ydental_category'], ['__count']),
+            lambda: Source.formatted_read_group(domain, ['ydental_category'], ['__count']),
+            lambda: Source.formatted_read_grouping_sets(domain, [['ydental_category'], []], ['__count']),
+            lambda: Source.search_count(domain),
+            lambda: Source.name_search('Synthetic', domain),
+        )
+        for operation in operations:
+            previous = Audit.search([], limit=1).id
+            self.assertTrue(operation())
+            rows = Audit.search([('id', '>', previous)])
+            self.assertEqual(len(rows), 1)
+            self.assertEqual(rows.ydental_event, 'source.query')
+            self.assertEqual(rows.ydental_target_id, 0)
+            self.assertEqual(rows.ydental_user_id, self.operator)
+            payload = json.dumps(rows.read(['ydental_before', 'ydental_after']))
+            self.assertNotIn('SYNTHETIC_SPACE', payload)
+            self.assertNotIn('ydental_text', payload)
+            self.assertIn(rows.id, [row['id'] for row in service._audit_rows()])
+        denied = self.bound(self.operator, 'rework-query-denied', self.c)
+        with self.assertRaises(AccessError):
+            denied.env[Source._name].read_group([], ['ydental_category'], ['__count'])
+
+    def test_rework_company_scope_for_account_actions_and_audits(self):
+        limited = new_test_user(self.env, login='s01_rework_limited', groups='ydental_access.ydental_group_manager',
+            company_id=self.company_a.id, company_ids=[fields.Command.set(self.company_a.ids)])
+        foreign = new_test_user(self.env, login='s01_rework_foreign', groups='ydental_base.ydental_base_group_user',
+            company_id=self.company_b.id, company_ids=[fields.Command.set(self.company_b.ids)])
+        self.admin._join(foreign.id, self.c.id)
+        service = self.bound(limited, 'rework-limited')
+        for target in (foreign, self.operator):
+            with self.assertRaises(AccessError):
+                service._update_profile(target.id, 'Forbidden global change', [])
+            with self.assertRaises(AccessError):
+                service._depart(target.id)
+            with self.assertRaises(AccessError):
+                target.with_user(limited).write({'ydental_job_title': 'Forbidden direct profile'})
+            self.assertTrue(target.active)
+            self.assertNotEqual(target.ydental_job_title, 'Forbidden global change')
+        foreign_row = self.admin._audit('foreign.personnel.fixture', 'personnel', foreign, self.c.id)
+        global_row = self.admin._audit('foreign.profile.fixture', 'personnel', foreign)
+        shared_row = self.admin._audit('shared.profile.fixture', 'personnel', self.operator)
+        allowed_row = self.admin._audit('allowed.personnel.fixture', 'personnel', self.a, self.a.id)
+        visible = {row['id'] for row in service._audit_rows()}
+        self.assertFalse({foreign_row.id, global_row.id, shared_row.id} & visible)
+        self.assertIn(allowed_row.id, visible)
+        self.assertTrue(self.admin._membership(foreign.id, self.c.id).ydental_employee_id.active)

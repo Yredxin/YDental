@@ -9,7 +9,13 @@ class YDentalSyntheticSource(YDentalAccess):
 
     @http.route('/ydental/s01-synthetic', type='http', auth='user', methods=['GET'])
     def synthetic(self, purpose=None, **kwargs):
-        service = self._service().with_context(ydental_purpose='care' if purpose == 'care' else False)
+        service = self._service().with_context(ydental_purpose=purpose)
+        return self._synthetic_page(service)
+    @http.route('/ydental/s01-synthetic/care', type='http', auth='user', methods=['GET'])
+    def synthetic_care(self, **kwargs):
+        return self._synthetic_page(self._service()._synthetic_care_scope())
+
+    def _synthetic_page(self, service):
         records = service.env['ydental.access.test.record'].search_fetch([], ['name', 'ydental_text'])
         response = request.render('ydental_access_test.ydental_synthetic_page', {
             'records': records, 'revision': service._scope().ydental_revision,

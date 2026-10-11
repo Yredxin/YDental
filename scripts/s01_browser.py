@@ -32,14 +32,17 @@ def sha(path):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--db', required=True)
+    parser.add_argument('--port', type=int, default=18089)
+    parser.add_argument('--evidence', choices=['s01', 's01-rework'], default='s01')
     args = parser.parse_args()
+    require(18000 <= args.port <= 18999, 'Isolated port refused')
     require(re.fullmatch(r'ydental_s01_test_[0-9]{14}_[a-f0-9]{8}', args.db), 'Database name refused')
     run = ROOT / '.local' / args.db
     require(not run.is_symlink(), 'Symlink run refused')
     metadata = json.loads((run / 'database.json').read_text())
     require(metadata['database'] == args.db and metadata['cluster'] == '7694897083368259627'
             and metadata['endpoint'] == {'host': '127.0.0.1', 'port': '5432', 'user': 'odoo'}
-            and metadata['port'] == 18089, 'Preview identity mismatch')
+            and metadata['port'] == args.port, 'Preview identity mismatch')
     require(sha(run / 'odoo.conf') == metadata['config_sha256'], 'Runtime configuration changed')
     pid = int((run / 'serve.pid').read_text())
     require(str(run / 'odoo.conf').encode() in Path('/proc/%s/cmdline' % pid).read_bytes().split(b'\0'), 'Preview PID mismatch')
@@ -50,12 +53,12 @@ def main():
             and credentials.stat().st_uid == os.getuid(), 'Private credential permissions mismatch')
     access = json.loads(credentials.read_text())
     preview = json.loads((run / 'preview.json').read_text())
-    base = 'http://127.0.0.1:18089'
+    base = 'http://127.0.0.1:%s' % args.port
     commit = subprocess.check_output(['git', '-C', str(ROOT), 'rev-parse', 'HEAD'], text=True).strip()
     require(not subprocess.check_output(['git', '-C', str(ROOT), 'status', '--porcelain', '--',
             'ydental_access', 'ydental_access_test', 'scripts/s01.py', 'scripts/s01_probe.py', 'scripts/s01_browser.py'], text=True),
             'Commit implementation and browser code before verification')
-    evidence = ROOT / 'docs/evidence/s01'
+    evidence = ROOT / 'docs/evidence' / args.evidence
     evidence.mkdir(parents=True, exist_ok=True)
     attempt = evidence / ('browser-attempts/' + datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f'))
     attempt.mkdir(parents=True)
@@ -86,7 +89,7 @@ def main():
         def login(role):
             context = browser.new_context(viewport={'width': 1280, 'height': 900})
             context.route('**/*', lambda route: route.continue_() if (
-                urlsplit(route.request.url).hostname == '127.0.0.1' and urlsplit(route.request.url).port == 18089
+                urlsplit(route.request.url).hostname == '127.0.0.1' and urlsplit(route.request.url).port == args.port
             ) else route.abort())
             page = context.new_page()
             page.goto(base + '/web/login', wait_until='domcontentloaded')

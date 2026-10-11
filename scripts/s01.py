@@ -95,7 +95,7 @@ def main():
         parser.error('Missing process-local PDF assets; run s00_b_deps.py first')
     # Serialize this runner, including serve, so a module update cannot race a preview.
     STATE.mkdir(exist_ok=True, mode=0o700)
-    with (STATE / 's01-runner.lock').open('a') as lock:
+    with (STATE / ('s01-runner-' + args.db + '.lock')).open('a') as lock:
         try:
             fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
         except BlockingIOError:
