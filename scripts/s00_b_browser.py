@@ -87,7 +87,8 @@ def main():
                       r'\1[REDACTED]', text)
 
     def snapshot(page, ctx, name):
-        secrets.update(c['value'] for c in ctx.cookies() if c['value'])
+        secrets.update(c['value'] for c in ctx.cookies() if c['value']
+                       and re.search(r'(?i)session|csrf|token|auth', c['name']))
         visible = page.locator('body').inner_text()
         require(not any(s and s in visible for s in secrets), 'Visible secret; screenshot refused')
         require(page.locator('input[type=password]:visible').count() == 0, 'Password field visible')
