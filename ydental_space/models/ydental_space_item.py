@@ -29,11 +29,18 @@ class YDentalSpaceItem(models.Model):
                 item.ydental_resource_id.ydental_store_id and item.ydental_resource_id.ydental_store_id != item.ydental_store_id
             ) or item.ydental_station_id and item.ydental_station_id.ydental_floor_id != item.ydental_floor_id:
                 raise ValidationError(self.env._('Artwork, workstation and floor must have compatible ownership.'))
-            if not item.ydental_floor_id.active or not item.ydental_resource_id.active:
+            if not item.ydental_floor_id.active:
                 raise ValidationError(self.env._('Select an active floor and artwork.'))
 
     def _check_space_change(self, values):
         super()._check_space_change(values)
+        # Archived definitions keep existing placements editable. Only new use,
+        # resource assignment and reactivation require an active definition.
+        if values.get('create') or values.get('active') or 'ydental_resource_id' in values:
+            resources = (self.env['ydental.space.resource'].browse(values['ydental_resource_id'])
+                         if 'ydental_resource_id' in values else self.ydental_resource_id)
+            if any(not resource.active for resource in resources.sudo()):
+                raise ValidationError(self.env._('Select an active floor and artwork.'))
         if {'ydental_resource_id', 'ydental_station_id', 'active', 'create'} & values.keys():
             self.ydental_station_id._check_space_change({'resource_change': values})
             if values.get('ydental_station_id'):
