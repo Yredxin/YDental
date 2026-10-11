@@ -236,9 +236,7 @@ def main():
                    len(drawn['stations']) == len(after['stations']) + 1 and len(drawn['items']) == len(after['items']) + 1)
             snapshot(writer, writer_context, '03-drawing-and-drop.png')
 
-            action = rpc(writer, 'ir.actions.act_window', 'search_read', [
-                [['res_model', '=', 'ydental.space.resource']], ['name']], writer_revision)['result'][0]
-            writer.goto(base + '/odoo/action-%s' % action['id'], wait_until='domcontentloaded')
+            writer.goto(base + '/odoo/action-ydental_space.ydental_space_resource_action', wait_until='domcontentloaded')
             writer.get_by_text('A Private marker', exact=True).click()
             upload = writer.locator('[name=ydental_upload] input[type=file]')
             upload.set_input_files({'name': 'synthetic-safe.svg', 'mimeType': 'image/svg+xml',
