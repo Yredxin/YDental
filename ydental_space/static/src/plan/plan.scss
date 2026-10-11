@@ -1,0 +1,92 @@
+.o_ydental_space_plan {
+    --ydental-space__area-fill: #edf3f6;
+    --ydental-space__station-fill: #ffffff;
+    --ydental-space__border-color: #657c89;
+    --ydental-space__selected-color: #1869a5;
+    --ydental-space__unconnected-color: #596875;
+
+    height: 100%;
+    padding: 16px;
+    overflow: auto;
+    color: #203746;
+}
+
+.o_ydental_space_toolbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.o_ydental_space_content {
+    display: flex;
+    gap: 16px;
+}
+
+.o_ydental_space_sidebar {
+    flex: 0 0 240px;
+    padding: 12px;
+    border: 1px solid var(--ydental-space__border-color);
+
+    label {
+        display: block;
+        margin: 8px 0;
+    }
+}
+
+.o_ydental_space_resources {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+
+    img {
+        display: block;
+        width: 48px;
+        height: 48px;
+    }
+}
+
+.o_ydental_space_canvas_scroll {
+    flex: 1;
+    overflow: auto;
+}
+
+.o_ydental_space_canvas {
+    touch-action: none;
+    background: #fafcfd;
+}
+
+.o_ydental_space_object {
+    cursor: pointer;
+
+    rect, polygon {
+        fill: var(--ydental-space__area-fill);
+        stroke: var(--ydental-space__border-color);
+    }
+
+    image, text {
+        pointer-events: none;
+    }
+
+    text {
+        fill: #203746;
+        font-size: 12px;
+    }
+}
+
+.o_ydental_space_station rect {
+    fill: var(--ydental-space__station-fill);
+    stroke-dasharray: 4 3;
+}
+
+.o_ydental_space_selected rect, .o_ydental_space_selected polygon {
+    stroke: var(--ydental-space__selected-color);
+    stroke-width: 3px;
+}
+
+.o_ydental_space_drawing {
+    pointer-events: none;
+    fill: transparent;
+    stroke: var(--ydental-space__selected-color);
+    stroke-width: 2px;
+}

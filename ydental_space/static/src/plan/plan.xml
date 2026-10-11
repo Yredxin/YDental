@@ -1,0 +1,61 @@
+<templates xml:space="preserve">
+    <t t-name="ydental_space.Plan">
+        <div class="o_ydental_space_plan">
+            <div class="o_ydental_space_toolbar">
+                <h2>Clinic floor plan</h2>
+                <select aria-label="Floor" t-on-change="changeFloor" t-att-value="state.data?.floor.id">
+                    <option t-foreach="state.floors" t-as="floor" t-key="floor.id" t-att-value="floor.id" t-out="floor.name"/>
+                </select>
+                <button class="btn btn-secondary" t-on-click="newFloor">New floor</button>
+                <t t-if="state.data">
+                    <span t-out="state.data.floor.ydental_store_id[1]"/>
+                    <strong t-if="!state.data.writable">Read only</strong>
+                    <button class="btn btn-primary" t-on-click="save" t-att-disabled="!state.data.writable || state.busy">Save layout</button>
+                    <button class="btn btn-secondary" t-on-click="() => this.run(() => this.load(state.data.floor.id))" t-att-disabled="state.busy">Reload</button>
+                    <label>Zoom <input aria-label="Zoom" type="range" min="0.4" max="2" step="0.1" t-model.number="state.zoom"/></label>
+                </t>
+            </div>
+            <p t-if="!state.data">Create a floor to begin.</p>
+            <div t-else="" class="o_ydental_space_content">
+                <aside class="o_ydental_space_sidebar">
+                    <p>Execution status not connected</p>
+                    <p>Configure areas and equipment. Runtime status will be connected in S06.</p>
+                    <select aria-label="Drawing tool" t-model="state.mode" t-att-disabled="!state.data.writable || state.busy">
+                        <option value="select">Select and move</option><option value="rect">Draw rectangle</option><option value="polygon">Draw polygon</option>
+                    </select>
+                    <button t-if="state.mode === 'polygon'" class="btn btn-secondary" t-on-click="finishPolygon">Finish polygon</button>
+                    <h3>Resource library</h3>
+                    <p>Drag equipment into a selected area. Select an existing workstation to add another resource.</p>
+                    <div class="o_ydental_space_resources">
+                        <div t-foreach="state.data.resources" t-as="resource" t-key="resource.id" t-att-draggable="state.data.writable" t-on-dragstart="(event) => this.dragResource(event, resource)">
+                            <img t-att-src="'/ydental/space/resource/' + resource.id + '.svg'" alt=""/><span t-out="resource.name"/>
+                        </div>
+                    </div>
+                    <t t-set="selected" t-value="selected()"/>
+                    <t t-if="selected">
+                        <h3 t-out="selected.name"/>
+                        <p>Stable ID: <span t-out="selected.id"/></p>
+                        <label>Width <input aria-label="Width" type="number" t-att-value="selected.ydental_width" t-on-change="(event) => this.changeGeometry(event, 'ydental_width')" t-att-disabled="!state.data.writable"/></label>
+                        <label>Height <input aria-label="Height" type="number" t-att-value="selected.ydental_height" t-on-change="(event) => this.changeGeometry(event, 'ydental_height')" t-att-disabled="!state.data.writable"/></label>
+                        <label>Direction <input aria-label="Direction" type="number" t-att-value="selected.ydental_angle" t-on-change="(event) => this.changeGeometry(event, 'ydental_angle')" t-att-disabled="!state.data.writable"/></label>
+                        <button class="btn btn-secondary" t-on-click="configure">Name, area and capabilities</button>
+                        <p t-if="selected.ydental_capability_ids">Capabilities: <span t-out="selected.ydental_capability_ids.map((id) => state.data.capabilities.find((capability) => capability.id === id)?.name).join(', ')"/></p>
+                    </t>
+                </aside>
+                <div class="o_ydental_space_canvas_scroll">
+                    <svg t-ref="canvas" class="o_ydental_space_canvas" t-att-width="state.data.floor.ydental_width * state.zoom" t-att-height="state.data.floor.ydental_height * state.zoom" t-att-viewBox="'0 0 ' + state.data.floor.ydental_width + ' ' + state.data.floor.ydental_height" t-on-pointerdown="pointerDown" t-on-pointermove="pointerMove" t-on-pointerup="pointerUp" t-on-pointercancel="() => { this.drag = null; state.drawing = null; }" t-on-dragover.prevent="() => {}" t-on-drop="dropResource">
+                        <g t-foreach="objects()" t-as="object" t-key="object.kind + ':' + object.id" t-att-transform="transform(object)" t-att-class="'o_ydental_space_object o_ydental_space_' + object.kind + (state.selected === object.kind + ':' + object.id ? ' o_ydental_space_selected' : '')" t-att-data-kind="object.kind" t-att-data-id="object.id" t-on-pointerdown="(event) => this.select(event, object)">
+                            <title t-out="object.name"/>
+                            <polygon t-if="object.kind === 'area' &amp;&amp; object.ydental_shape === 'polygon'" t-att-points="points(object)"/>
+                            <rect t-else="" t-att-width="object.ydental_width" t-att-height="object.ydental_height" rx="4"/>
+                            <image t-if="object.kind === 'item'" t-att-href="'/ydental/space/resource/' + object.ydental_resource_id[0] + '.svg'" t-att-width="object.ydental_width" t-att-height="object.ydental_height"/>
+                            <text x="6" y="18" t-out="object.name"/>
+                        </g>
+                        <rect t-if="state.drawing" class="o_ydental_space_drawing" t-att-x="Math.min(state.drawing.x, state.drawing.x + state.drawing.width)" t-att-y="Math.min(state.drawing.y, state.drawing.y + state.drawing.height)" t-att-width="Math.abs(state.drawing.width)" t-att-height="Math.abs(state.drawing.height)"/>
+                        <polyline t-if="state.polygon.length" class="o_ydental_space_drawing" t-att-points="state.polygon.map((point) => point.join(',')).join(' ')"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

@@ -1,0 +1,6 @@
+id,name,model_id,group_id/id,operation,domain
+ydental_space_floor_access,YDental floor,ydental.space.floor,ydental_base.ydental_base_group_user,cru,
+ydental_space_area_access,YDental area,ydental.space.area,ydental_base.ydental_base_group_user,cru,
+ydental_space_station_access,YDental station,ydental.space.station,ydental_base.ydental_base_group_user,cru,
+ydental_space_item_access,YDental item,ydental.space.item,ydental_base.ydental_base_group_user,cru,
+ydental_space_resource_access,YDental resource,ydental.space.resource,ydental_base.ydental_base_group_user,cru,
