@@ -446,3 +446,18 @@ class TestS01(TransactionCase):
         self.assertFalse({foreign_row.id, global_row.id, shared_row.id} & visible)
         self.assertIn(allowed_row.id, visible)
         self.assertTrue(self.admin._membership(foreign.id, self.c.id).ydental_employee_id.active)
+        native_limited = new_test_user(self.env, login='s01_rework_native_limited',
+            groups='ydental_access.ydental_group_manager,base.group_erp_manager',
+            company_id=self.company_a.id, company_ids=[fields.Command.set(self.company_a.ids)])
+        local = new_test_user(self.env, login='s01_rework_local', groups='ydental_base.ydental_base_group_user',
+            company_id=self.company_a.id, company_ids=[fields.Command.set(self.company_a.ids)])
+        for target in (local, native_limited):
+            for company_vals in (
+                {'company_ids': [fields.Command.link(self.company_b.id)]},
+                {'company_ids': [fields.Command.set([self.company_a.id, self.company_b.id])]},
+                {'company_id': self.company_b.id},
+            ):
+                with self.assertRaises(AccessError):
+                    target.with_user(native_limited).write({'ydental_job_title': 'Combined forbidden profile', **company_vals})
+                self.assertEqual(target.company_ids, self.company_a)
+                self.assertNotEqual(target.ydental_job_title, 'Combined forbidden profile')

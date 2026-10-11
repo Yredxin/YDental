@@ -222,3 +222,14 @@ class TestS01HTTP(HttpCase, TestS01):
         self.assertNotIn(hidden.ydental_event, page.text)
         self.assertNotIn(shared.ydental_event, page.text)
         self.assertTrue(self.admin._membership(foreign.id, self.c.id).ydental_employee_id.active)
+        native_limited = new_test_user(self.env, login='s01_http_native_limited',
+            groups='ydental_access.ydental_group_manager,base.group_erp_manager',
+            company_id=self.company_a.id, company_ids=[fields.Command.set(self.company_a.ids)])
+        native_client = self.login_session(native_limited)
+        with mute_logger('odoo.http'):
+            response = self.rpc(native_client, 'res.users', 'write', native_limited.ids,
+                {'vals': {'ydental_job_title': 'HTTP combined forbidden profile',
+                          'company_ids': [fields.Command.link(self.company_b.id)]}})
+        self.assertIn('error', response)
+        self.assertEqual(native_limited.company_ids, self.company_a)
+        self.assertNotEqual(native_limited.ydental_job_title, 'HTTP combined forbidden profile')
