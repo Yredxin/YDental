@@ -274,3 +274,96 @@ class TestSupply(TransactionCase):
                 acquire(self, record, 'past-cutoff')
         boundary = self.start.replace(hour=18)
         self.assertEqual(self.service._date(self.stores[0], boundary), boundary.date() + timedelta(days=1))
+
+    def test_cross_company_conflict_departure_and_retained_history(self):
+        company = self.root['res.company'].create({'name': 'S03 Second legal company'})
+        self.manager.write({'company_ids': [fields.Command.link(company.id)]})
+        store = self.root['ydental.access.store'].create({'name': 'S03 Cross-company store', 'company_id': company.id, 'ydental_timezone': 'UTC'})
+        self.admin._join(self.staff.id, store.id)
+        self.admin._join(self.manager.id, store.id)
+        self.admin._grant(self.manager.id, store.id, {'capacity': 'write', 'personnel': 'write'})
+        floor = self.root['ydental.space.floor'].create({'name': 'Cross-company floor', 'ydental_store_id': store.id})
+        area = self.root['ydental.space.area'].create({'name': 'Cross-company area', 'ydental_store_id': store.id, 'ydental_floor_id': floor.id})
+        other = bind(self, self.manager, 'cross-company-manager', store)
+        p = {'user_id': self.staff.id, 'area_id': self.area.id, 'start': fields.Datetime.to_string(self.start), 'end': fields.Datetime.to_string(self.end)}
+        first = self.service._operate('assign', p, 'first')['id']
+        with self.assertRaises(UserError):
+            other._operate('assign', dict(p, area_id=area.id), 'cross-company-conflict')
+        later = dict(p, area_id=area.id, start=fields.Datetime.to_string(self.start + timedelta(hours=3)), end=fields.Datetime.to_string(self.end + timedelta(hours=3)))
+        second = other._operate('assign', later, 'later')['id']
+        self.admin._remove(self.staff.id, self.stores[0].id)
+        self.assertEqual(self.root['ydental.supply.assignment'].browse(first).state, 'cancelled')
+        self.assertEqual(self.root['ydental.supply.assignment'].browse(second).state, 'active')
+        self.admin._depart(self.staff.id)
+        self.assertEqual(self.root['ydental.supply.assignment'].browse(second).state, 'cancelled')
+        self.assertFalse(self.staff.active)
+        self.assertTrue(self.root['ydental.supply.assignment'].browse([first, second]).exists())
+
+    def test_adjust_extend_policy_precedence_and_handling_resolution(self):
+        result = self.service._operate('assign', {'user_id': self.staff.id, 'station_id': self.stations[0].id,
+            'start': fields.Datetime.to_string(self.start), 'end': fields.Datetime.to_string(self.end)}, 'adjustable')
+        record = self.root['ydental.supply.assignment'].browse(result['id'])
+        self.service._operate('adjust', {'id': record.id, 'version': record.ydental_version, 'reason': 'Replacement',
+            'values': {'user_id': self.replacement.id, 'station_id': self.stations[0].id,
+                       'start': fields.Datetime.to_string(self.start), 'end': fields.Datetime.to_string(self.end)}}, 'adjust')
+        self.assertEqual(record.ydental_user_id, self.replacement)
+        p = {'name': 'Area override', 'mode': 'demo', 'rounding': 'nearest', 'phone_pool': 'walkin', 'cutoff_minutes': 20, 'area_id': self.area.id, 'reason': 'Area demo'}
+        area_policy = self.service._operate('policy', p, 'area-policy')['id']
+        capacity = slot(self, self.stations[0], total=2)
+        self.assertEqual(capacity.ydental_policy_id.id, area_policy)
+        self.assertEqual(capacity.ydental_reservation_free, 1)
+        self.service._operate('extend', {'id': capacity.id, 'version': capacity.ydental_version,
+            'end': fields.Datetime.to_string(self.end + timedelta(hours=1)), 'reason': 'Temporary longer opening'}, 'extend')
+        self.assertEqual(capacity.state, 'suspended')
+        self.assertEqual(capacity.ydental_total, 2)
+        self.service._operate('publish', {'id': capacity.id, 'version': capacity.ydental_version, 'user_ids': [self.staff.id], 'reason': 'Reverified extension'}, 'republish')
+        self.assertEqual(capacity.state, 'published')
+
+    def test_suspended_or_stopped_release_stays_unsaleable(self):
+        capacity = slot(self)
+        claim = acquire(self, capacity)
+        with patch(NOW, return_value=self.start - timedelta(minutes=5)):
+            opened = self.service._operate('business', {'area_id': self.area.id, 'state': 'open', 'reason': 'Open'}, 'open')
+            self.service._operate('business', {'area_id': self.area.id, 'state': 'draining', 'version': opened['version'], 'reason': 'Stop'}, 'stop')
+            self.service._capacity_action('cancel', {'id': claim.id, 'reason': 'Stopped area cancellation'}, 'cancel-stopped')
+        self.assertEqual(capacity.ydental_unavailable, 1)
+        self.service._operate('resize', {'id': capacity.id, 'version': capacity.ydental_version, 'total': 0, 'reason': 'Remove unused supply'}, 'reduce-unused')
+        self.assertEqual(capacity.ydental_total, 0)
+        self.assert_balance(capacity)
+
+    def test_capability_and_absence_changes_suspend_without_revoking_claim(self):
+        capacity = slot(self)
+        claim = acquire(self, capacity)
+        employee = self.admin._membership(self.staff.id, self.stores[0].id).ydental_employee_id
+        self.root['resource.calendar.leaves'].create({'name': 'New absence', 'resource_id': employee.resource_id.id,
+            'date_from': self.start, 'date_to': self.end})
+        self.assertEqual(capacity.state, 'suspended')
+        self.assertEqual(claim.state, 'held')
+        work = self.root['ydental.supply.disposition'].search([('ydental_slot_id', '=', capacity.id)], limit=1)
+        self.service._operate('resolve', {'entity': 'disposition', 'id': work.id, 'version': work.ydental_version, 'reason': 'Contact handled; replacement pending verification'}, 'resolve')
+        self.assertEqual(work.state, 'resolved')
+        self.assertEqual(capacity.state, 'suspended')
+        self.assert_balance(capacity)
+
+    def test_feedback_without_editor_falls_back_to_manager(self):
+        now = fields.Datetime.now()
+        record = self.service._operate('assign', {'user_id': self.staff.id, 'area_id': self.area.id,
+            'start': fields.Datetime.to_string(now), 'end': fields.Datetime.to_string(now + timedelta(minutes=30))}, 'today')
+        self.admin._grant(self.writer.id, self.stores[0].id, {'capacity': 'none'})
+        self.admin._grant(self.manager.id, self.stores[0].id, {'capacity': 'none'})
+        staff_service = bind(self, self.staff, 'staff-feedback')
+        response = staff_service._feedback(record['id'], 'No editor available', 'fallback')
+        self.assertTrue(response['manager_required'])
+        self.assertFalse(self.root['ydental.supply.feedback'].browse(response['id']).ydental_recipient_ids)
+
+    def test_week_copy_preserves_local_time_across_dst(self):
+        from datetime import datetime
+        from zoneinfo import ZoneInfo
+        self.stores[0].write({'ydental_timezone': 'America/New_York'})
+        start = datetime(2026, 10, 26, 13, 0)
+        self.service._operate('assign', {'user_id': self.staff.id, 'area_id': self.area.id,
+            'start': fields.Datetime.to_string(start), 'end': fields.Datetime.to_string(start + timedelta(hours=1))}, 'dst-original')
+        copied = self.service._operate('copy', {'week_start': '2026-11-02'}, 'dst-copy')
+        record = self.root['ydental.supply.assignment'].browse(copied['ids'][0])
+        self.assertEqual(record.ydental_start.hour, 14)
+        self.assertEqual(record.ydental_start.replace(tzinfo=ZoneInfo('UTC')).astimezone(ZoneInfo('America/New_York')).hour, 9)

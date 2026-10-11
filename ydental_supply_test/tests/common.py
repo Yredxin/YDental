@@ -9,6 +9,7 @@ def setup_supply(cls):
     cls.root = cls.env['base'].sudo().env
     root = cls.root
     suffix = secrets.token_hex(4)
+    cls.suffix = suffix
     cls.stores = root['ydental.access.store'].create([
         {'name': 'S03 Synthetic A', 'company_id': root.company.id, 'ydental_timezone': 'UTC'},
         {'name': 'S03 Synthetic B', 'company_id': root.company.id, 'ydental_timezone': 'UTC'}])
@@ -18,7 +19,7 @@ def setup_supply(cls):
     cls.replacement = new_test_user(root, name='S03 Synthetic Replacement', login='s03_replacement_' + suffix, groups='ydental_base.ydental_base_group_user')
     cls.manager = new_test_user(root, name='S03 Synthetic Manager', login='s03_manager_' + suffix, groups='ydental_base.ydental_base_group_user,ydental_access.ydental_group_manager')
     access = root['ydental.access.service'].with_user(cls.manager)
-    cls.admin = access._bind(access._session_for_key('s03-admin'))
+    cls.admin = access._bind(access._session_for_key('s03-admin-' + suffix))
     for user in (cls.writer, cls.reader, cls.staff, cls.replacement, cls.manager):
         for store in cls.stores:
             cls.admin._join(user.id, store.id)
@@ -46,7 +47,7 @@ def setup_supply(cls):
 
 def bind(cls, user, key, store=None):
     access = cls.root['ydental.access.service'].with_user(user)
-    session = access._session_for_key(key)
+    session = access._session_for_key(key + '-' + cls.suffix)
     access = access._bind(session)
     access._switch((store or cls.stores[0]).id)
     return cls.root['ydental.access.service'].with_user(user)._bind(session).env['ydental.supply.service']
