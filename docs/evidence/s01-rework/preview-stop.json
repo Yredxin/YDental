@@ -1,7 +1,17 @@
 {
-  "database": "ydental_s01_test_20261011113553_19566503",
-  "pid": 427120,
-  "config_identity_verified": true,
-  "only_this_rework_preview_stopped": true,
-  "prior_18089_preview_untouched": true
+  "stops": [
+    {
+      "database": "ydental_s01_test_20261011113553_19566503",
+      "pid": 427120,
+      "config_identity_verified": true,
+      "only_this_rework_preview_stopped": true,
+      "prior_18089_preview_untouched": true
+    },
+    {
+      "database": "ydental_s01_test_20261011114045_4ea25b6c",
+      "exact_pid_config_verified": true,
+      "only_this_rework_preview_stopped": true,
+      "prior_18089_preview_untouched": true
+    }
+  ]
 }

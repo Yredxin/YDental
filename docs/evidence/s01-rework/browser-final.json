@@ -1,8 +1,8 @@
 {
   "scope": "S01 synthetic UI only",
-  "tested_commit": "af7f975165bb28c157980d1d5b31de564f813b41",
-  "database": "ydental_s01_test_20261011114045_4ea25b6c",
-  "started_utc": "2026-10-11T11:44:26.562847+00:00",
+  "tested_commit": "f1ce22df7002e40391ce16fd59093d60c4522b2e",
+  "database": "ydental_s01_test_20261011115257_85c44f56",
+  "started_utc": "2026-10-11T11:56:28.570378+00:00",
   "browser": "Firefox",
   "sandbox": "default; no overrides",
   "checks": [
@@ -93,32 +93,32 @@
   ],
   "screenshots": [
     {
-      "path": "docs/evidence/s01-rework/browser-attempts/20261011T114426562757/browser-trusted-care-scope.png",
+      "path": "docs/evidence/s01-rework/browser-attempts/20261011T115628570285/browser-trusted-care-scope.png",
       "sha256": "f539aacc7fc9cb3a747c22d6ca60760ecc33cb08f9b3d1c3309c2d401e1e55f8"
     },
     {
-      "path": "docs/evidence/s01-rework/browser-attempts/20261011T114426562757/browser-store-a-zh.png",
-      "sha256": "fff9f1ca178ffe3132aa60d87a0db473a7cde6e5a506e72b91862c88f2a326ca"
+      "path": "docs/evidence/s01-rework/browser-attempts/20261011T115628570285/browser-store-a-zh.png",
+      "sha256": "1ea04c5c473fc96dc7d703c55a65a3bff578777b2d5082b8b41e39204179bcf5"
     },
     {
-      "path": "docs/evidence/s01-rework/browser-attempts/20261011T114426562757/browser-stale-page.png",
+      "path": "docs/evidence/s01-rework/browser-attempts/20261011T115628570285/browser-stale-page.png",
       "sha256": "07462b780f5573d2a3c6c280f95828b3ea5af6dec81f8d3355697e95f93e6677"
     },
     {
-      "path": "docs/evidence/s01-rework/browser-attempts/20261011T114426562757/browser-staff-zh.png",
-      "sha256": "5512499e5beb63b382b208b77fd016024831003b46a29fe69ea1089e0257bb94"
+      "path": "docs/evidence/s01-rework/browser-attempts/20261011T115628570285/browser-staff-zh.png",
+      "sha256": "953a17ee591ef9f6bc93e9b24b5c4ddf40a0d0e70d298d52aae10515927d5b45"
     },
     {
-      "path": "docs/evidence/s01-rework/browser-attempts/20261011T114426562757/browser-template-preview-zh.png",
-      "sha256": "9f87f7b6696ebe2e319fd22c5415c4d3a853de7809bf0702f1b0502b7f6c59a1"
+      "path": "docs/evidence/s01-rework/browser-attempts/20261011T115628570285/browser-template-preview-zh.png",
+      "sha256": "8f9b3b7a5aacc98fd72f382bb02086eba0348d8a8f1ef34494be223da0733074"
     },
     {
-      "path": "docs/evidence/s01-rework/browser-attempts/20261011T114426562757/browser-b-after-a-removal.png",
+      "path": "docs/evidence/s01-rework/browser-attempts/20261011T115628570285/browser-b-after-a-removal.png",
       "sha256": "dbef0692c33aa19ab721f715052370f44af3c52716e4b3e1408056e4be4d43f0"
     },
     {
-      "path": "docs/evidence/s01-rework/browser-attempts/20261011T114426562757/browser-global-status-zh.png",
-      "sha256": "23d1bf8aa12dca80fcb52a907a560d7b6ad64ebf1e5f1e4c4b4f2203982e0cd6"
+      "path": "docs/evidence/s01-rework/browser-attempts/20261011T115628570285/browser-global-status-zh.png",
+      "sha256": "179b32507c48fed3f947812de3554181f3d0476b5a6602883324b32da1f73bcb"
     }
   ],
   "browser_version": "155.0",

@@ -2,7 +2,7 @@
 
 仅按 [#25 最新 GPT-REVIEW](https://github.com/Yredxin/YDental/issues/25#issuecomment-6108433241) 修正 BLOCKER-1～4 和 COMPANY-SCOPE。沿用当前 S01 分支 `codex/s01-access-r1-20261011` 和同一会话，保留 e55f823 已通过能力、历史失败及补交证据。S01 仍待独立技术复核，#25 OPEN；S02 未启用，不生产发布。
 
-固定产品修正 **`05f3b56d0b7af28494c065ae659fbcfc73d92e90`**；固定产品+最终测试 **`af7f975165bb28c157980d1d5b31de564f813b41`**。两者产品 tree 同为 `3d6df4bf6f3498f85b5da1dc5df1513cc53ef295`，差异只涉及两个测试文件。最终文档/证据提交在 #25 修正交付评论中固定；测试后没有更改产品、测试或运行工具。Git 根、版本树及核心保护见 [code-receipt.json](evidence/s01-rework/code-receipt.json)。
+固定产品修正 **`740c42bbf611baa8713758fba38c1411d6b966c9`**；固定产品+最终测试 **`f1ce22df7002e40391ce16fd59093d60c4522b2e`**。两者产品 tree 同为 `0bd0670ff54b6a0a75b03453204ea2f0c21a72a8`，差异只涉及两个测试文件。最终文档/证据提交在 #25 修正交付评论中固定；测试后没有更改产品、测试或运行工具。Git 根、版本树及核心保护见 [code-receipt.json](evidence/s01-rework/code-receipt.json)。
 
 ## 定向变更
 
@@ -12,7 +12,7 @@
 |BLOCKER-2|新登录范围首次真实消费默认门店建议，校验门店/任职/员工 active；非法建议留未选店。两个真实登录初始 B、独立手工切店、既有 session 不重复选店，用户全局 company/groups 不变。|
 |BLOCKER-3|采用模型权限+审计方案。store/capability 普通 create/write 批量追加真实 actor/前后值事件；store 服务去重。公共字段直接写加入公司检查和 profile.change，原生权限仍有效；普通集团直接写拒绝，专门原生管理夹具直接写成功且一次审计。私有服务原有固定字段 sudo 路径在预先授权后单独记审计，不接受客户端抑制标记。|
 |BLOCKER-4|原生 count/name_search/read_group/formatted_read_group/grouping_sets 返回受保护信息时一次 model/query 审计。target_id=0 明确表示查询；metadata 仅固定 operation，不保存 domain、正文、分组值、统计结果。普通 context 不能伪造内部去重 object；无业务读权聚合明确拒绝，查询日志只供同店原 actor 在仍有源读权时查看。|
-|COMPANY-SCOPE|明确保留按 user.company_ids 限制集团动作。全账号 profile/depart 先核对目标允许/默认公司及全部 active/archived 员工和门店任职公司；有限 A 管理员不能改/停用另一公司或共享 A/C 账号。人员日志按门店公司或全账号涉及公司保守过滤；模板 targets 同样校验门店公司。模型及真实 HTTP 负向验证均通过，目标账号与员工保持 active。|
+|COMPANY-SCOPE|明确保留按 user.company_ids 限制集团动作。全账号 profile/depart 先核对目标允许/默认公司及全部 active/archived 员工和门店任职公司；有限 A 管理员不能改/停用另一公司或共享 A/C 账号；公共字段与原生 company_id/company_ids 同次写时也校验拟加入公司，不能靠自加公司扩大授权。人员日志按门店公司或全账号涉及公司保守过滤；模板 targets 同样校验门店公司。模型及真实 HTTP 负向验证均通过，目标账号与员工保持 active。|
 
 完整补充契约见 [s01-rework-contracts.md](s01-rework-contracts.md)。生产 ACL、角色、许可证、依赖、原生 company 默认值未扩大；静态前端资产与原通过主路径保留。没有 OCA 引入、真实患者/病历模型或后续阶段空壳。调用签名依据实际锁定 fork 源码，使用 Odoo20 的 aggregates/grouping_sets API，不冒称核对同 SHA 官方上游。
 
@@ -24,12 +24,12 @@
 
 ## 最终运行与回归
 
-最终全新隔离库 **`ydental_s01_test_20261011114045_4ea25b6c`**，loopback PostgreSQL 127.0.0.1:5432/odoo，cluster `7694897083368259627`；创建记录/OID/独立配置 SHA/data_dir/日志/精确 dbfilter/18090 端口均核对。cron=0、workers=0、SMTP 无外发；进程只允许本 PostgreSQL 和自身预览端口，浏览器只允许本预览源。核心仍 `f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb`，核心 Python 3.12.15；父目录未跟踪 AGENTS 原样保留。既有数据库、服务、核心和 odoo-12 未变。
+最终全新隔离库 **`ydental_s01_test_20261011115257_85c44f56`**，loopback PostgreSQL 127.0.0.1:5432/odoo，cluster `7694897083368259627`；创建记录/OID/独立配置 SHA/data_dir/日志/精确 dbfilter/18090 端口均核对。cron=0、workers=0、SMTP 无外发；进程只允许本 PostgreSQL 和自身预览端口，浏览器只允许本预览源。核心仍 `f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb`，核心 Python 3.12.15；父目录未跟踪 AGENTS 原样保留。既有数据库、服务、核心和 odoo-12 未变。
 
 |最终检查|结果|证据/口径|
 |---|---|---|
-|空库 install|PASS，退出0，0 failed / 0 errors / 29 tests|固定 af7f975；框架统计含安装阶段额外原生检查|
-|同库 upgrade|PASS，退出0，0 / 0 / 27 tests|固定 af7f975；21 个模型方法 + 6 个真实 HTTP 方法|
+|空库 install|PASS，退出0，0 failed / 0 errors / 29 tests|固定 f1ce22d；框架统计含安装阶段额外原生检查|
+|同库 upgrade|PASS，退出0，0 / 0 / 27 tests|固定 f1ce22d；21 个模型方法 + 6 个真实 HTTP 方法|
 |T01—T13|全部 PASS 当前/合成范围|原 13 TC 全部方法均实际启动；T13 改用受信任合成范围，旧客户端 care 用法不再作为合法证据|
 |新增模型安全方法|5 项 PASS|care 信任及目标、首次默认店、直接主数据审计、单次最小查询审计、全账号公司边界|
 |真实 HTTP|6 方法 PASS|原独立登录/旧页/RPC/原生 CSV/附件撤权/HTML 报告/模板路径；新增 forged care/aggregate 审计、默认会话/直接 master CRUD、有限公司 profile/depart/日志拒绝|
@@ -41,25 +41,26 @@
 运行各次 commit、命令对应日志 SHA256、退出码、方法名和失败方法见 [runtime-redacted.json](evidence/s01-rework/runtime-redacted.json)。原始日志、凭据、SID/cookie、患者材料均不发布。执行命令：
 
 ```bash
-../.venv/bin/python scripts/s01.py install --db ydental_s01_test_20261011114045_4ea25b6c --port 18090
-../.venv/bin/python scripts/s01.py upgrade --db ydental_s01_test_20261011114045_4ea25b6c --port 18090
+../.venv/bin/python scripts/s01.py install --db ydental_s01_test_20261011115257_85c44f56 --port 18090
+../.venv/bin/python scripts/s01.py upgrade --db ydental_s01_test_20261011115257_85c44f56 --port 18090
 ../.venv/bin/python -m unittest -v scripts.test_s01_guard
 ```
 
-browser/seed 命令及隔离限制见截图索引。Firefox 最终验证和 install/upgrade 均固定 af7f975。原生只读 HTTP 在附加审计写时继续由框架重试到写 cursor；真实 HTTP 已确认成功且单次事件，没有关闭只读保护。没有只读副本可用性声明。
+browser/seed 命令及隔离限制见截图索引。Firefox 最终验证和 install/upgrade 均固定 f1ce22d。原生只读 HTTP 在附加审计写时继续由框架重试到写 cursor；真实 HTTP 已确认成功且单次事件，没有关闭只读保护。没有只读副本可用性声明。
 
 ## 历史与失败链
 
-[原 e55f823 证据](evidence/s01/) 和原报告/契约保持完全相同 Git tree，原 PASS 与失败材料不覆盖。本次四个库全部新建，不 drop、不 reset、不接管旧库。
+[原 e55f823 证据](evidence/s01/) 和原报告/契约保持完全相同 Git tree，原 PASS 与失败材料不覆盖。本次五个库全部新建，不 drop、不 reset、不接管旧库。
 
 |本次库后缀/测试提交|实际结果|处置|
 |---|---|---|
 |113145_8a6bfd16 / 45df40c|install：2 failed / 0 errors / 28，退出1|新增无读权聚合拒绝测试暴露空结果判断；固定显式 FALSE 后补交，失败保留|
 |113326_ab887ef3 / a71d80e|install：1 failed / 1 error / 28，退出1|新增测试误认为原生自写规则可写应用公共字段；实际需要原生用户管理权限。修正为单独明确管理权限夹具，不扩大生产角色，失败保留|
 |113553_19566503 / 9702b4e|install 28、upgrade 26，均0/0，Firefox21 PASS|保留该通过链；其后只补25行 HTTP 公司边界测试，产品不变|
-|114045_4ea25b6c / af7f975|最终 install29、upgrade27，均0/0，Firefox21 PASS|最终完整交付链|
+|114045_4ea25b6c / af7f975|install29、upgrade27，均0/0，Firefox21 PASS|保留该通过链；其后在最终公司边界核对补拟加入公司预检查及26行模型/HTTP负向测试|
+|115257_85c44f56 / f1ce22d|最终 install29、upgrade27，均0/0，Firefox21 PASS|最终完整交付链|
 
-一次本轮失败诊断输出误带合成测试会话标识；两个失败运行进程结束后，已把其有效 sessions 目录移到本地私有保留位置，不记录值、不发布日志，见 [test-session-retirement.json](evidence/s01-rework/test-session-retirement.json)。仅按精确 PID/config 检查停止了本次先前新起的 18090 预览以换到最终新库，见 [preview-stop.json](evidence/s01-rework/preview-stop.json)；既有 18089 服务不停止或重配。
+一次本轮失败诊断输出误带合成测试会话标识；两个失败运行进程结束后，已把其有效 sessions 目录移到本地私有保留位置，不记录值、不发布日志，见 [test-session-retirement.json](evidence/s01-rework/test-session-retirement.json)。仅按精确 PID/config 检查停止了本批中间新起的 18090 预览以换到后续新库，见 [preview-stop.json](evidence/s01-rework/preview-stop.json)；既有 18089 服务不停止或重配。
 
 最终合成预览为 `http://127.0.0.1:18090/ydental/access`，私有测试凭据只在本机新库 run 的 0600 文件。浏览器创建/复用合成员工并撤销 operator 的 A 任职，B 登录读取保留。需要手工重复该前提时仅在本合成库通过集团受控动作重新关联/授权；不能复用为生产配置。
 

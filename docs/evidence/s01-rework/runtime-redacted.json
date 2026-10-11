@@ -386,5 +386,134 @@
       }
     ],
     "raw_logs": "private only; not published"
+  },
+  {
+    "database": {
+      "database": "ydental_s01_test_20261011115257_85c44f56",
+      "oid": 140715,
+      "endpoint": {
+        "host": "127.0.0.1",
+        "port": "5432",
+        "user": "odoo"
+      },
+      "cluster": "7694897083368259627",
+      "port": 18090,
+      "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+      "created_utc": "2026-10-11T11:53:23.487218+00:00",
+      "config_sha256": "3abd9fff0ff6cf2759209d82362c3fbf27b5805819eb49c6949621f58024243f"
+    },
+    "actions": [
+      {
+        "action": "install",
+        "exit_code": 0,
+        "log": "install-20261011T115323488367.log",
+        "log_sha256": "6bd07f23f25e647ac880ea9cbbdea4996dcecde8f3bf943e6d7e051658387f37",
+        "time_utc": "2026-10-11T11:54:17.295658+00:00",
+        "tested_commit": "f1ce22df7002e40391ce16fd59093d60c4522b2e",
+        "tests": [
+          0,
+          0,
+          29
+        ],
+        "methods_started": [
+          "TestS01.test_group_administration_stays_within_allowed_companies",
+          "TestS01.test_manager_policy_configuration_and_last_manager",
+          "TestS01.test_native_export_gate_and_template_stale_preview",
+          "TestS01.test_rework_care_scope_is_server_trusted_and_targeted",
+          "TestS01.test_rework_company_scope_for_account_actions_and_audits",
+          "TestS01.test_rework_default_store_consumed_once_and_validated",
+          "TestS01.test_rework_direct_master_data_writes_are_audited",
+          "TestS01.test_rework_query_reads_have_one_minimal_audit",
+          "TestS01.test_t01_store_levels_and_batch",
+          "TestS01.test_t02_store_manager_exception",
+          "TestS01.test_t03_scope_independence_and_old_revision",
+          "TestS01.test_t04_revocation_and_attachment",
+          "TestS01.test_t05_removal_and_departure",
+          "TestS01.test_t06_common_and_private_employee_fields",
+          "TestS01.test_t07_minimal_information",
+          "TestS01.test_t08_idempotent_membership_and_account",
+          "TestS01.test_t09_template_replace_detach_and_atomic_batch",
+          "TestS01.test_t10_personnel_ceiling_and_identity",
+          "TestS01.test_t11_events_and_immutable_audit",
+          "TestS01.test_t12_export_requires_both_permissions",
+          "TestS01.test_t13_care_history_and_execution_hook",
+          "TestS01HTTP.test_http_rework_default_login_and_direct_master_rpc",
+          "TestS01HTTP.test_http_rework_forged_care_and_query_audit",
+          "TestS01HTTP.test_http_rework_limited_company_actions_and_audit",
+          "TestS01HTTP.test_http_rpc_native_export_report_and_revoked_download",
+          "TestS01HTTP.test_http_template_preview_confirmation_and_portal_denial",
+          "TestS01HTTP.test_http_two_real_logins_and_stale_page"
+        ],
+        "failed_methods": [],
+        "contains_expected_readonly_retry": true
+      },
+      {
+        "action": "upgrade",
+        "exit_code": 0,
+        "log": "upgrade-20261011T115458345697.log",
+        "log_sha256": "dcacc794a93381f711aa6b3e4a81717f2cbf65a364c8a85507e94ecd77d71656",
+        "time_utc": "2026-10-11T11:55:12.094866+00:00",
+        "tested_commit": "f1ce22df7002e40391ce16fd59093d60c4522b2e",
+        "tests": [
+          0,
+          0,
+          27
+        ],
+        "methods_started": [
+          "TestS01.test_group_administration_stays_within_allowed_companies",
+          "TestS01.test_manager_policy_configuration_and_last_manager",
+          "TestS01.test_native_export_gate_and_template_stale_preview",
+          "TestS01.test_rework_care_scope_is_server_trusted_and_targeted",
+          "TestS01.test_rework_company_scope_for_account_actions_and_audits",
+          "TestS01.test_rework_default_store_consumed_once_and_validated",
+          "TestS01.test_rework_direct_master_data_writes_are_audited",
+          "TestS01.test_rework_query_reads_have_one_minimal_audit",
+          "TestS01.test_t01_store_levels_and_batch",
+          "TestS01.test_t02_store_manager_exception",
+          "TestS01.test_t03_scope_independence_and_old_revision",
+          "TestS01.test_t04_revocation_and_attachment",
+          "TestS01.test_t05_removal_and_departure",
+          "TestS01.test_t06_common_and_private_employee_fields",
+          "TestS01.test_t07_minimal_information",
+          "TestS01.test_t08_idempotent_membership_and_account",
+          "TestS01.test_t09_template_replace_detach_and_atomic_batch",
+          "TestS01.test_t10_personnel_ceiling_and_identity",
+          "TestS01.test_t11_events_and_immutable_audit",
+          "TestS01.test_t12_export_requires_both_permissions",
+          "TestS01.test_t13_care_history_and_execution_hook",
+          "TestS01HTTP.test_http_rework_default_login_and_direct_master_rpc",
+          "TestS01HTTP.test_http_rework_forged_care_and_query_audit",
+          "TestS01HTTP.test_http_rework_limited_company_actions_and_audit",
+          "TestS01HTTP.test_http_rpc_native_export_report_and_revoked_download",
+          "TestS01HTTP.test_http_template_preview_confirmation_and_portal_denial",
+          "TestS01HTTP.test_http_two_real_logins_and_stale_page"
+        ],
+        "failed_methods": [],
+        "contains_expected_readonly_retry": true
+      },
+      {
+        "action": "export",
+        "exit_code": 0,
+        "log": "export-20261011T115532882528.log",
+        "log_sha256": "47f6f598d76f0e0011d8ae65ec4437b29f7145ceabae128159bc2811167952b9",
+        "time_utc": "2026-10-11T11:55:34.372845+00:00",
+        "tested_commit": "f1ce22df7002e40391ce16fd59093d60c4522b2e",
+        "methods_started": [],
+        "failed_methods": [],
+        "contains_expected_readonly_retry": false
+      },
+      {
+        "action": "probe",
+        "exit_code": 0,
+        "log": "probe-20261011T115547862586.log",
+        "log_sha256": "49804da03b6a0264fc2cba24262eaa174b9468177cfddf9d6829e4a5bba044ac",
+        "time_utc": "2026-10-11T11:55:51.408194+00:00",
+        "tested_commit": "f1ce22df7002e40391ce16fd59093d60c4522b2e",
+        "methods_started": [],
+        "failed_methods": [],
+        "contains_expected_readonly_retry": false
+      }
+    ],
+    "raw_logs": "private only; not published"
   }
 ]

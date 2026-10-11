@@ -1,0 +1,10 @@
+{
+  "module": "ydental_access",
+  "language": "zh_CN",
+  "terms": 198,
+  "missing": [],
+  "missing_native_references": [],
+  "translation_sha256": "9bf23eca28e5977e72a1a111bbaa3c2d204ee84f4d898e76177aeb8bb4ec4e69",
+  "source_commit": "af7f975165bb28c157980d1d5b31de564f813b41",
+  "result": "PASS"
+}

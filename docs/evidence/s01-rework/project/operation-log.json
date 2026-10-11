@@ -97,5 +97,31 @@
     "finished_utc": "2026-10-11T11:43:27.446287+00:00",
     "status": "PASS",
     "snapshot": "project-delivery-second-check.json"
+  },
+  {
+    "sequence": 8,
+    "round": "s01-final-readonly",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T11:56:29.688008+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T11:56:31.597415+00:00",
+    "status": "PASS",
+    "snapshot": "project-final-check.json"
+  },
+  {
+    "sequence": 9,
+    "round": "s01-final-readonly",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T11:56:31.610616+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T11:56:33.502548+00:00",
+    "status": "PASS",
+    "snapshot": "project-final-second-check.json"
   }
 ]

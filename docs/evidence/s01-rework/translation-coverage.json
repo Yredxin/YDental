@@ -4,7 +4,7 @@
   "terms": 198,
   "missing": [],
   "missing_native_references": [],
-  "translation_sha256": "9bf23eca28e5977e72a1a111bbaa3c2d204ee84f4d898e76177aeb8bb4ec4e69",
-  "source_commit": "af7f975165bb28c157980d1d5b31de564f813b41",
+  "translation_sha256": "dc145cfde8c4dd94387467185fe74ce0ba01d4d87f1783e3952bb600a4697459",
+  "source_commit": "f1ce22df7002e40391ce16fd59093d60c4522b2e",
   "result": "PASS"
 }

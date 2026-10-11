@@ -12,7 +12,7 @@
 |原生资料写权限|只有应用集团组不足以直接写原生用户公共字段，本 fork 仍要求原生用户管理权限。普通集团角色继续走受控 profile 服务；测试的直接成功路径使用单独的明确原生管理权限夹具，生产角色、ACL 和字段 user_writeable 不扩大。|
 |BLOCKER-4|count/name_search/read_group/formatted_read_group/grouping_sets 产生 model/query 级 `source.query`，category=query，target_model=真实模型，target_id=0 明确表示查询，无具体成功记录。after 仅固定 operation（count/name_search/aggregate），不存 domain、正文、分组值或统计结果。嵌套调用用不可 JSON 构造的模块内 object 去重，每个顶层成功查询一次审计。|
 |查询可见性|query 事件只供原 actor、当前相同门店、仍具备源读取权限时查看；不自动扩成他人的临床查询日志。无业务读权限的聚合查询明确拒绝；普通搜索仍按原生权限域返回空集合。|
-|COMPANY-SCOPE|保留按 actor 原生 `user.company_ids` 限制集团动作的设计，不把客户端 allowed_company_ids 当授权。公共资料和集团离职影响整账号，因此要求目标默认/允许公司、全部 active/archived 员工公司、全部 active/archived 任职门店公司都在 actor 允许公司内。完整预检查发生在任何资料写、归档或停用前；共享 A/C 账号不能被仅 A 的集团管理员全局改动。|
+|COMPANY-SCOPE|保留按 actor 原生 `user.company_ids` 限制集团动作的设计，不把客户端 allowed_company_ids 当授权。公共资料和集团离职影响整账号，因此要求目标默认/允许公司、全部 active/archived 员工公司、全部 active/archived 任职门店公司都在 actor 允许公司内。公共字段与原生公司变更同次提交时，拟设 company_id、company_ids 的 LINK/SET 也必须属于写前 actor 允许公司；禁止以同次自改公司扩大授权。公司 CREATE/UPDATE/DELETE 嵌套命令不属于公共资料修改，需单独原生主数据动作。完整预检查发生在任何资料写、归档或停用前；共享 A/C 账号不能被仅 A 的集团管理员全局改动。|
 |人员审计公司范围|有门店的 personnel 行校验门店公司；无门店的全账号行校验目标账号涉及的全部公司，其他无门店事件按 actor 全部公司保守过滤；模板 targets 另校验目标门店公司。有限公司集团管理员看不到被排除公司的人员或共享账号全局资料/离职事件。|
 
 新增运行只使用本批全新 S01 库。runner 按完整数据库名持锁，阻止同库并发 install/upgrade/probe/serve；不同新库无需停止旧预览。端口继续限定 18000..18999，并核对创建记录。子进程外发策略只允许 PostgreSQL 和本创建记录指定的 HTTP 端口；浏览器只允许该预览源。没有更改系统依赖、既有配置或防火墙。

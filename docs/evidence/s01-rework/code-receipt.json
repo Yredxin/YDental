@@ -3,17 +3,17 @@
   "branch": "codex/s01-access-r1-20261011",
   "remote": "https://github.com/Yredxin/YDental.git",
   "baseline_delivery": "e55f82366973c9118cf857336bc94529c1415cbc",
-  "product_commit": "05f3b56d0b7af28494c065ae659fbcfc73d92e90",
-  "test_commit": "af7f975165bb28c157980d1d5b31de564f813b41",
+  "product_commit": "740c42bbf611baa8713758fba38c1411d6b966c9",
+  "test_commit": "f1ce22df7002e40391ce16fd59093d60c4522b2e",
   "core_commit": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
   "core_worktree": [
     "?? AGENTS.md",
     "?? sd-addons/"
   ],
-  "product_tree": "3d6df4bf6f3498f85b5da1dc5df1513cc53ef295",
-  "test_tree": "92756eb1704b065793084b04170e5402ea969228",
+  "product_tree": "0bd0670ff54b6a0a75b03453204ea2f0c21a72a8",
+  "test_tree": "99b74001c4dbaf0ce2c6fd2291eaa8b18767dfca",
   "protected_e55f823_evidence_tree": "b5fc156fe8c3840278598ee1e523fe56f26dbca3",
   "protected_history_unchanged": true,
-  "product_to_test_diff": "ydental_access_test/tests/test_s01.py      | 11 +++++----\n ydental_access_test/tests/test_s01_http.py | 38 ++++++++++++++++++++++++++----\n 2 files changed, 41 insertions(+), 8 deletions(-)",
+  "product_to_test_diff": "ydental_access_test/tests/test_s01.py      | 15 +++++++++++++++\n ydental_access_test/tests/test_s01_http.py | 11 +++++++++++\n 2 files changed, 26 insertions(+)",
   "implementation_clean": true
 }
