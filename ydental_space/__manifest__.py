@@ -13,6 +13,6 @@
         'data/ydental_space_data.xml',
         'views/ydental_space_views.xml',
     ],
-    'assets': {'web.assets_backend': ['ydental_space/static/src/plan/*']},
+    'assets': {'web.assets_backend': ['ydental_space/static/src/plan/*', 'ydental_space/static/src/config_form/*']},
     'installable': True,
 }
