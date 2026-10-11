@@ -6,7 +6,7 @@
                 <select aria-label="Floor" t-on-change="changeFloor" t-att-value="state.data?.floor.id">
                     <option t-foreach="state.floors" t-as="floor" t-key="floor.id" t-att-value="floor.id" t-out="floor.name"/>
                 </select>
-                <button class="btn btn-secondary" t-on-click="newFloor">New floor</button>
+                <button class="btn btn-secondary" t-on-click="newFloor" t-att-disabled="state.data &amp;&amp; !state.data.writable">New floor</button>
                 <t t-if="state.data">
                     <span t-out="state.data.floor.ydental_store_id[1]"/>
                     <strong t-if="!state.data.writable">Read only</strong>

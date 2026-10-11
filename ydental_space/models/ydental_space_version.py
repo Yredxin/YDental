@@ -20,6 +20,10 @@ class YDentalSpaceVersion(models.AbstractModel):
         return self if self._name == 'ydental.space.floor' else self.mapped('ydental_floor_id')
 
     def _space_lock(self):
+        # Configuration is low-frequency. One transaction lock also protects
+        # the reverse-reference set while shared artwork is edited or placed.
+        # Always authorize (and lock the login scope) before acquiring this lock.
+        self.env.cr.execute('SELECT pg_advisory_xact_lock(%s)', [26002])
         floors = self._space_floors().sudo().sorted('id')
         if floors:
             self.env.cr.execute('SELECT id FROM ydental_space_floor WHERE id IN %s ORDER BY id FOR UPDATE', [tuple(floors.ids)])
@@ -44,6 +48,8 @@ class YDentalSpaceVersion(models.AbstractModel):
 
     @api.model_create_multi
     def create(self, vals_list):
+        self._space_authorize('create')
+        self._space_lock()
         vals_list = [dict(values) for values in vals_list]
         for values in vals_list:
             if 'ydental_category' in self._fields:
