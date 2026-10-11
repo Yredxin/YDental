@@ -4,7 +4,7 @@ from odoo import fields
 from odoo.addons.base.tests.common import BaseCommon
 from odoo.exceptions import AccessError, UserError, ValidationError
 
-from .common import SVG, bound, setup_space
+from .common import SVG, bound, bound_group_only, setup_space
 
 
 class TestSpace(BaseCommon):
@@ -189,3 +189,123 @@ class TestSpace(BaseCommon):
         for raw in (b'not-valid-base64!', base64.b64encode(b'<!DOCTYPE svg>' + SVG.encode()), b'a' * 1500000):
             with self.assertRaises(ValidationError), self.cr.savepoint():
                 self.resource.write({'ydental_upload': raw, 'ydental_version': self.resource.ydental_version})
+
+    def test_rework_group_common_without_store_business_grants(self):
+        group = bound_group_only(self, 'group-only-model')
+        self.assertFalse(group._scope().ydental_store_id)
+        self.assertFalse(group._membership(self.group_only.id, self.stores[0].id))
+        self.assertFalse(self.root['ydental.access.grant'].search([
+            ('ydental_membership_id.ydental_user_id', '=', self.group_only.id)]))
+        Resource = group.env['ydental.space.resource']
+        common = Resource.create({'name': 'Group-only common', 'ydental_kind': 'chair', 'ydental_svg': SVG})
+        common.write({'name': 'Independent group authority', 'ydental_version': common.ydental_version})
+        common.action_archive()
+        common.action_unarchive()
+        self.assertTrue(common.active)
+        reader = bound(self, self.reader, 'common-read')
+        self.assertTrue(common.with_env(reader.env).read(['ydental_svg']))
+        with self.assertRaises(AccessError):
+            common.with_env(self.service.env).write({'name': 'Denied', 'ydental_version': common.ydental_version})
+        with self.assertRaises(AccessError):
+            self.resource.with_env(group.env).write({'name': 'Denied', 'ydental_version': self.resource.ydental_version})
+        for context in ({}, {'default_ydental_store_id': self.stores[1].id}):
+            with self.assertRaises(AccessError), self.cr.savepoint():
+                Resource.with_context(**context).create({'name': 'No private authority', 'ydental_kind': 'chair',
+                    'ydental_svg': SVG, **({'ydental_store_id': self.stores[0].id} if not context else {})})
+        with self.assertRaises(AccessError):
+            Resource.with_user(self.group_only).with_context(ydental_binding={}).search([])
+        with self.assertRaises(AccessError):
+            Resource.with_user(self.portal).search([])
+
+    def test_rework_active_restore_rechecks_all_parents(self):
+        identifier, placement = self.station.id, self.item.id
+        self.station.action_archive()
+        self.child.action_archive()
+        with self.assertRaises(ValidationError), self.cr.savepoint():
+            self.station.action_unarchive()
+        self.assertFalse(self.station.active)
+        self.assertEqual(self.station.id, identifier)
+        self.assertEqual(self.item.ydental_station_id.id, identifier)
+        self.child.action_unarchive()
+        self.station.action_unarchive()
+        self.assertTrue(self.station.active)
+
+        self.item.action_archive()
+        self.station.action_archive()
+        self.child.action_archive()
+        self.area.action_archive()
+        self.floor.action_archive()
+        for record in (self.area, self.child, self.station, self.item):
+            with self.assertRaises(ValidationError), self.cr.savepoint():
+                record.action_unarchive()
+            self.assertFalse(record.active)
+        self.floor.action_unarchive()
+        with self.assertRaises(ValidationError), self.cr.savepoint():
+            self.child.action_unarchive()
+        self.area.action_unarchive()
+        self.child.action_unarchive()
+        self.station.action_unarchive()
+        self.resource.action_archive()
+        with self.assertRaises(ValidationError), self.cr.savepoint():
+            self.item.action_unarchive()
+        self.resource.action_unarchive()
+        self.item.action_unarchive()
+        self.assertEqual(self.item.id, placement)
+        self.assertEqual(self.item.ydental_station_id.id, identifier)
+
+    def test_rework_rect_points_and_shape_switch(self):
+        invalid = [[[0, 0]] * 10001, {'nested': {'text': 'x' * 65536}}, 'not coordinates', 0]
+        for points in invalid:
+            with self.assertRaises(ValidationError), self.cr.savepoint():
+                self.child.write({'ydental_points': points, 'ydental_version': self.child.ydental_version})
+            with self.assertRaises(ValidationError), self.cr.savepoint():
+                self.service.env['ydental.space.area'].create({'name': 'Bad rectangle',
+                    'ydental_store_id': self.stores[0].id, 'ydental_floor_id': self.floor.id, 'ydental_points': points})
+            with self.assertRaises(ValidationError):
+                self.floor.action_save_geometry(self.floor.ydental_version,
+                    [{'kind': 'area', 'id': self.child.id, 'values': {'ydental_points': points}}])
+        self.assertFalse(self.child.ydental_points)
+        with self.assertRaises(ValidationError), self.cr.savepoint():
+            self.child.write({'ydental_shape': 'polygon', 'ydental_version': self.child.ydental_version})
+        self.child.write({'ydental_shape': 'polygon', 'ydental_points': [[i, i % 3] for i in range(100)],
+                          'ydental_version': self.child.ydental_version})
+        for points in ([[i, i] for i in range(101)], [[0, 0], [1, 1], [float('nan'), 2]],
+                       [[0, 0], [1, 1], [2, float('inf')]]):
+            with self.assertRaises(ValidationError), self.cr.savepoint():
+                self.child.write({'ydental_points': points, 'ydental_version': self.child.ydental_version})
+        self.child.write({'ydental_shape': 'rect', 'ydental_version': self.child.ydental_version})
+        data = next(area for area in self.floor.action_snapshot()['areas'] if area['id'] == self.child.id)
+        self.assertEqual(data['ydental_shape'], 'rect')
+        self.assertFalse(data['ydental_points'])
+
+    def test_rework_inactive_capabilities_only_keep_or_remove_history(self):
+        cases = [(self.resource, 'ydental_capability_ids'), (self.station, 'ydental_add_capability_ids'),
+                 (self.station, 'ydental_remove_capability_ids')]
+        inactive = self.capabilities[3]
+        inactive.sudo().write({'active': False})
+        for record, field in cases:
+            for command in (fields.Command.link(inactive.id), fields.Command.set([inactive.id])):
+                with self.assertRaises(ValidationError), self.cr.savepoint():
+                    record.write({field: [command], 'ydental_version': record.ydental_version})
+            historical = self.capabilities[0]
+            record.write({field: [fields.Command.link(historical.id)], 'ydental_version': record.ydental_version})
+        self.capabilities[0].sudo().write({'active': False})
+        for record, field in cases:
+            # Retaining a prior inactive relation is allowed, including no-op LINK.
+            record.write({field: [fields.Command.set([self.capabilities[0].id, self.capabilities[1].id])],
+                          'ydental_version': record.ydental_version})
+            record.write({field: [fields.Command.link(self.capabilities[0].id)], 'ydental_version': record.ydental_version})
+            record.write({field: [fields.Command.unlink(self.capabilities[0].id)], 'ydental_version': record.ydental_version})
+            with self.assertRaises(ValidationError), self.cr.savepoint():
+                record.write({field: [fields.Command.link(self.capabilities[0].id)], 'ydental_version': record.ydental_version})
+            record.write({field: [fields.Command.clear()], 'ydental_version': record.ydental_version})
+            self.assertFalse(record.with_context(active_test=False)[field])
+        with self.assertRaises(ValidationError), self.cr.savepoint():
+            self.service.env['ydental.space.resource'].create({'name': 'No inactive association',
+                'ydental_kind': 'chair', 'ydental_store_id': self.stores[0].id, 'ydental_svg': SVG,
+                'ydental_capability_ids': [fields.Command.link(inactive.id)]})
+        for field in ('ydental_add_capability_ids', 'ydental_remove_capability_ids'):
+            with self.assertRaises(ValidationError), self.cr.savepoint():
+                self.service.env['ydental.space.station'].create({'name': 'No inactive association',
+                    'ydental_store_id': self.stores[0].id, 'ydental_floor_id': self.floor.id,
+                    'ydental_area_id': self.child.id, field: [fields.Command.set([inactive.id])]})

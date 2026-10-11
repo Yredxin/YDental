@@ -22,11 +22,11 @@ with env.registry.cursor() as cr:
         {'name': 'S02 Synthetic Store B', 'company_id': company.id, 'ydental_timezone': 'UTC'},
     ])
     access = {}
-    for role in ('group', 'writer', 'reader'):
+    for role in ('group', 'writer', 'reader', 'group_only'):
         login = 's02_' + role + '_' + secrets.token_hex(4) + '@example.invalid'
         password = secrets.token_urlsafe(24)
         groups = ['ydental_base.ydental_base_group_user']
-        if role == 'group':
+        if role in ('group', 'group_only'):
             groups.append('ydental_access.ydental_group_manager')
         user = seed['res.users'].with_context(no_reset_password=True).create({
             'name': 'S02 Synthetic ' + role.title(), 'login': login, 'email': login, 'password': password,
@@ -37,6 +37,8 @@ with env.registry.cursor() as cr:
     service = seed['ydental.access.service'].with_user(access['group']['id'])
     service = service._bind(service._session_for_key('s02-private-seed'))
     for role in access:
+        if role == 'group_only':
+            continue
         for store in stores:
             service._join(access[role]['id'], store.id)
             service._grant(access[role]['id'], store.id, {'space': 'write' if role == 'group' or role == 'writer' and store == stores[0] else 'read'})
@@ -80,7 +82,10 @@ with env.registry.cursor() as cr:
     action = seed.ref('ydental_space.ydental_space_plan_action')
     summary = {'database': cr.dbname, 'stores': stores.ids, 'floor_id': floor.id, 'area_ids': areas.ids,
                'station_ids': stations.ids, 'item_ids': items.ids, 'private_resource_id': private.id,
-               'plan_action_id': action.id, 'synthetic_only': True}
+               'plan_action_id': action.id, 'synthetic_only': True,
+               'group_only_without_membership_or_grants': not seed['ydental.access.membership'].search_count([
+                   ('ydental_user_id', '=', access['group_only']['id'])]) and not seed['ydental.access.grant'].search_count([
+                   ('ydental_membership_id.ydental_user_id', '=', access['group_only']['id'])])}
     cr.commit()  # Own cursor, committing fixtures only in the guarded new S02 DB.
 
 with os.fdopen(os.open(run / 'access.json', os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600), 'w') as handle:

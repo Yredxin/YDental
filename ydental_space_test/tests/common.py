@@ -18,6 +18,9 @@ def setup_space(cls):
         groups='ydental_base.ydental_base_group_user')
     cls.manager = new_test_user(root, login='s02_group',
         groups='ydental_base.ydental_base_group_user,ydental_access.ydental_group_manager')
+    cls.group_only = new_test_user(root, login='s02_group_only', password='s02-test-password',
+        groups='ydental_base.ydental_base_group_user,ydental_access.ydental_group_manager')
+    cls.portal = new_test_user(root, login='s02_portal', password='s02-test-password', groups='base.group_portal')
     service = root['ydental.access.service'].with_user(cls.manager)
     cls.admin = service._bind(service._session_for_key('s02-setup'))
     for user in (cls.writer, cls.reader, cls.manager):
@@ -50,3 +53,8 @@ def bound(cls, user, key, store=None):
     service = service._bind(session)
     service._switch((store or cls.stores[0]).id)
     return cls.root['ydental.access.service'].with_user(user)._bind(session)
+
+
+def bound_group_only(cls, key):
+    service = cls.root['ydental.access.service'].with_user(cls.group_only)
+    return service._bind(service._session_for_key(key))

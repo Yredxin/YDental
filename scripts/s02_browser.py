@@ -87,7 +87,7 @@ def main():
         result['browser_version'] = browser.version
         errors = []
 
-        def login(role):
+        def login(role, select_store=True):
             context = browser.new_context(viewport={'width': 1440, 'height': 1000})
             context.route('**/*', lambda route: route.continue_() if (
                 urlsplit(route.request.url).hostname == '127.0.0.1' and urlsplit(route.request.url).port == args.port
@@ -102,6 +102,8 @@ def main():
             page.locator('.o_main_navbar').wait_for()
             page.wait_for_load_state('networkidle')
             page.goto(base + '/ydental/access', wait_until='domcontentloaded')
+            if not select_store:
+                return context, page
             selected = page.evaluate('''async (store) => {
                 const token = document.querySelector('input[name=csrf_token]').value;
                 const revision = document.querySelector('input[name=revision]').value;
@@ -278,6 +280,40 @@ def main():
             record('T04 private SVG denied from other store', private_svg.status == 403)
             stale = rpc(writer, 'ydental.space.floor', 'action_save_geometry', [[floor_id], after['floor']['ydental_version'], []], writer_revision)
             record('Old store page cannot save layout', 'version_conflict' in stale.get('error', {}).get('data', {}).get('message', ''))
+            if 'group_only' in access:
+                record('Rework group fixture has no store membership or space grants',
+                       preview['group_only_without_membership_or_grants'])
+                group_context, group_page = login('group_only', select_store=False)
+                group_revision = revision(group_page)
+                group_page.goto(base + '/odoo/action-ydental_space.ydental_space_resource_action', wait_until='domcontentloaded')
+                group_page.locator('.o_list_button_add').click()
+                group_page.locator('[name=name] input').fill('S02 Group-only Common')
+                group_page.locator('[name=ydental_kind] select').select_option('wall')
+                group_page.locator('[name=ydental_svg] textarea').fill(
+                    '<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="80" height="80" fill="#456789"/></svg>')
+                with group_page.expect_response(response_for('web_save')) as common_response:
+                    group_page.locator('.o_form_button_save').click()
+                common = common_response.value.json()
+                record('BLOCKER-1 group without store creates common resource through native form', 'result' in common)
+                common_id = common['result'][0]['id']
+                group_page.locator('[name=name] input').fill('S02 Group-only Common Updated')
+                with group_page.expect_response(response_for('web_save')) as common_response:
+                    group_page.locator('.o_form_button_save').click()
+                record('BLOCKER-1 group without space grant modifies common resource through native form',
+                       'result' in common_response.value.json())
+                denied_private = rpc(group_page, 'ydental.space.resource', 'write', [[preview['private_resource_id']],
+                    {'name': 'Denied private', 'ydental_version': 1}], group_revision)
+                record('BLOCKER-1 common group authority cannot write private resource',
+                       'access_denied' in denied_private.get('error', {}).get('data', {}).get('message', ''))
+                public_read = rpc(reader, 'ydental.space.resource', 'read', [[common_id], ['name']], reader_revision)
+                record('BLOCKER-1 ordinary space reader can read new common resource', 'result' in public_read)
+                writer_context2, writer2 = login('writer')
+                denied_common = rpc(writer2, 'ydental.space.resource', 'write', [[common_id],
+                    {'name': 'Denied common', 'ydental_version': 2}], revision(writer2))
+                record('BLOCKER-1 ordinary store space writer cannot modify common resource',
+                       'access_denied' in denied_common.get('error', {}).get('data', {}).get('message', ''))
+                result['group_only_resource_id'] = common_id
+                snapshot(group_page, group_context, '06-group-only-common-resource.png')
             if errors:
                 messages = [error.splitlines()[0] for error in errors]
                 require(not any(secret in message for secret in secrets if secret for message in messages),
