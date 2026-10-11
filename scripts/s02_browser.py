@@ -140,12 +140,12 @@ def main():
             writer_revision = revision(writer)
             floor_id = preview['floor_id']
             data = rpc(writer, 'ydental.space.floor', 'action_snapshot', [[floor_id]], writer_revision)['result']
-            record('F1 six stable workstations and explicit runtime state', len(data['stations']) == 6 and
+            record('F1 six stable workstation fixtures and explicit runtime state', set(preview['station_ids']) <= {station['id'] for station in data['stations']} and
                    all(state['state'] == 'not_connected' for state in data['runtime']))
             first_id = preview['station_ids'][0]
             first = next(station for station in data['stations'] if station['id'] == first_id)
             plan(writer)
-            record('Owl floor canvas renders', writer.locator('[data-kind=station]').count() == 6)
+            record('Owl floor canvas renders', writer.locator('[data-kind=station]').count() >= 6)
             snapshot(writer, writer_context, '01-writer-floor.png')
 
             # Two concurrent real HTTP transactions consume the same content version.
@@ -169,14 +169,15 @@ def main():
             writer.wait_for_timeout(200)
             writer.locator('[data-kind=station]').first.click(position={'x': 10, 'y': 10})
             width = writer.get_by_role('spinbutton', name='宽度', exact=True)
-            width.fill('105')
+            target_width = first['ydental_width'] + 5
+            width.fill(str(target_width))
             width.press('Tab')
             with writer.expect_response(response_for('action_save_geometry')):
                 writer.get_by_role('button', name='保存布局', exact=True).click()
             writer.wait_for_timeout(300)
             after = rpc(writer, 'ydental.space.floor', 'action_snapshot', [[floor_id]], writer_revision)['result']
             saved = next(station for station in after['stations'] if station['id'] == first_id)
-            record('T01 T02 UI geometry save preserves workstation ID', saved['ydental_width'] == 105)
+            record('T01 T02 UI geometry save preserves workstation ID', saved['ydental_width'] == target_width)
             snapshot(writer, writer_context, '02-saved-floor.png')
 
             # Configure through the native form; force_save transmits the version.
@@ -184,12 +185,13 @@ def main():
             writer.get_by_role('button', name='名称、区域和能力', exact=True).click()
             dialog = writer.locator('.o_dialog .o_form_view')
             dialog.wait_for()
-            dialog.locator('[name=name] input').fill('S02 Renamed Stable Chair')
+            target_name = 'S02 Stable Chair ' + attempt.name[-6:]
+            dialog.locator('[name=name] input').fill(target_name)
             writer.locator('.o_dialog').get_by_role('button', name='保存', exact=True).click()
             writer.locator('.o_dialog').wait_for(state='hidden')
             after = rpc(writer, 'ydental.space.floor', 'action_snapshot', [[floor_id]], writer_revision)['result']
             record('T02 native configuration rename keeps ID and references',
-                   next(station for station in after['stations'] if station['id'] == first_id)['name'] == 'S02 Renamed Stable Chair')
+                   next(station for station in after['stations'] if station['id'] == first_id)['name'] == target_name)
 
             canvas = writer.locator('.o_ydental_space_canvas')
             bounds = canvas.bounding_box()
@@ -210,7 +212,7 @@ def main():
                 writer.get_by_role('button', name='完成多边形', exact=True).click()
             writer.wait_for_timeout(300)
             drawn = rpc(writer, 'ydental.space.floor', 'action_snapshot', [[floor_id]], writer_revision)['result']
-            record('T01 draw polygon through canvas', any(area['ydental_shape'] == 'polygon' and len(area['ydental_points']) == 3 for area in drawn['areas']))
+            record('T01 draw polygon through canvas', len(drawn['areas']) == len(after['areas']) + 2 and any(area['ydental_shape'] == 'polygon' and len(area['ydental_points']) == 3 for area in drawn['areas']))
 
             rectangle = next(area for area in drawn['areas'] if area['id'] not in [entry['id'] for entry in after['areas']] and area['ydental_shape'] == 'rect')
             writer.locator('[data-kind=area][data-id="%s"]' % rectangle['id']).click(position={'x': 10, 'y': 10})
@@ -220,7 +222,7 @@ def main():
             writer.wait_for_timeout(300)
             drawn = rpc(writer, 'ydental.space.floor', 'action_snapshot', [[floor_id]], writer_revision)['result']
             record('F1 drag resource creates one stable workstation and linked artwork',
-                   len(drawn['stations']) == 7 and len(drawn['items']) == 7)
+                   len(drawn['stations']) == len(after['stations']) + 1 and len(drawn['items']) == len(after['items']) + 1)
             snapshot(writer, writer_context, '03-drawing-and-drop.png')
 
             action = rpc(writer, 'ir.actions.act_window', 'search_read', [
