@@ -7,7 +7,7 @@ only synthetic screenshots and sanitized metadata are published.
 import argparse
 from datetime import datetime, timezone
 import hashlib
-from importlib.metadata import version
+from importlib.metadata import distribution, version
 import json
 import os
 from pathlib import Path
@@ -101,8 +101,12 @@ def main():
 
     with sync_playwright() as playwright:
         browser = None
+        catalog = json.loads((Path(distribution('playwright').locate_file('playwright')) /
+                              'driver/package/browsers.json').read_text())['browsers']
         for engine in ('chromium', 'firefox', 'webkit'):
-            attempt = {'browser_type': engine, 'time_utc': utc(), 'headless': True,
+            installed = next(item for item in catalog if item['name'] == engine)
+            attempt = {'browser_type': engine, 'browser_version': installed.get('browserVersion'),
+                       'playwright_revision': installed['revision'], 'time_utc': utc(), 'headless': True,
                        'sandbox': 'explicitly enabled' if engine == 'chromium' else 'default; no security overrides'}
             try:
                 options = {'headless': True, 'timeout': 30000}
@@ -186,7 +190,11 @@ def main():
                                             download_event=True, pdf_magic=True, bytes=len(pdf), sha256=sha(destination),
                                             console_error=list(record['console_error']), pageerror=list(record['pageerror']))
                         stage = 'rendered application menu'
-                        menu_response = page.goto(base + '/odoo', wait_until='load')
+                        # /odoo auto-opens the first app (our URL action). Load a native
+                        # read-only preferences view instead, then dismiss without saving.
+                        menu_response = page.goto(base + '/odoo/action-base.action_res_users_my/'
+                                                  + str(credential['id']), wait_until='load')
+                        page.locator('.modal .btn-close').click()
                         page.locator('.o_navbar_apps_menu button').click()
                         dental = page.locator('.o_app[data-menu-xmlid="ydental_base.ydental_base_menu_root"]')
                         dental.wait_for(state='visible')
@@ -212,6 +220,8 @@ def main():
                 except Exception as error:
                     # Playwright fill/navigation exceptions may embed credentials. Never publish their message.
                     record.update(status='FAIL', failed_stage=stage, error_type=type(error).__name__)
+                    if isinstance(error, RuntimeError):
+                        record['reason'] = clean(error)
                 finally:
                     record['finished_utc'] = utc()
                     ctx.close()
