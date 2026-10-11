@@ -1,0 +1,6 @@
+{
+  "stopped_only_own_preview_pid": 315208,
+  "database": "ydental_s00b_test_20261011071740_fb7a15f9",
+  "signal": "SIGTERM",
+  "reason": "Final fresh install/upgrade at fixed implementation commit f957313; no initial business service stopped."
+}

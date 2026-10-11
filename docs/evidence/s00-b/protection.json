@@ -1,0 +1,32 @@
+{
+  "protected_files_unchanged": {
+    "/home/redxin/code/odoo/odoo-sd/code/AGENTS.md": true,
+    "/home/redxin/code/odoo/odoo-sd/code/odoo.conf": true
+  },
+  "core_status_unchanged": true,
+  "core_head": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "existing_database_names_and_oids_unchanged": true,
+  "new_recorded_databases": [
+    [
+      "ydental_s00b_test_20261011071424_475acace",
+      39137
+    ],
+    [
+      "ydental_s00b_test_20261011071740_fb7a15f9",
+      42793
+    ],
+    [
+      "ydental_s00b_test_20261011073303_8137af81",
+      46491
+    ]
+  ],
+  "new_venv_packages_visible_without_local_PYTHONPATH": {
+    "fitz": false,
+    "pymupdf": false,
+    "playwright": false
+  },
+  "existing_service_pid_42433_present": true,
+  "existing_service_config_unchanged": true,
+  "limitations": "Catalog/OID and source/config protection do not constitute a full row-level audit of existing databases. No connection to their business tables was performed.",
+  "exit_code": 0
+}

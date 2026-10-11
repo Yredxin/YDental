@@ -1,0 +1,16 @@
+{
+  "trace_sha256": "51187ad3ce9c3ec88dafad0624747dd7329532ac194da617db9d52bd4eca61f7",
+  "observed_ipv4_endpoints": [
+    [
+      "127.0.0.1",
+      5432
+    ],
+    [
+      "127.0.0.1",
+      18079
+    ]
+  ],
+  "connect_syscall_count": 36,
+  "all_observed_inet_endpoints_approved": true,
+  "limit": "Observed connect syscalls for first successful upgrade only; no claim of OS-wide egress enforcement."
+}

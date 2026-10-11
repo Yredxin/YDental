@@ -1,0 +1,11 @@
+{
+  "native_exported_terms": 24,
+  "translated_exported_terms": 24,
+  "missing": [],
+  "native_cli": "odoo-bin i18n export -c <guarded-config> -o <run>/ydental_base.pot ydental_base",
+  "export_exit": 0,
+  "po_sha256": "17851e85a011df5c0b4af0587f04272481a12412783745ac34b5d6a6e2d6ba0e",
+  "pot_sha256": "38556c6a2bb7682a4b49d4fa91ee65a932cf7bbd1f721263faa77fd3aca9e83a",
+  "old_export_failure": "Odoo20 server rejects --i18n-export; exit2 retained before source verification of current i18n subcommand.",
+  "database": "ydental_s00b_test_20261011073303_8137af81"
+}

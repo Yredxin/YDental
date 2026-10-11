@@ -1,0 +1,38 @@
+[
+  {
+    "file": "libasound2t64_1.2.15.3-1ubuntu1.1_amd64.deb",
+    "sha256": "96e20cf5c9095ef54ba46fccffea5c01cf2de17a1012c5683a67e43504a6d726",
+    "extract_exit": 0,
+    "package": "Package: libasound2t64\nVersion: 1.2.15.3-1ubuntu1.1\n"
+  },
+  {
+    "file": "libatk-bridge2.0-0t64_2.60.4-0ubuntu0.1_amd64.deb",
+    "sha256": "c634e1fd25dff5d0ff5384bf3ac9d784725e776448591283cee67deaced29c27",
+    "extract_exit": 0,
+    "package": "Package: libatk-bridge2.0-0t64\nVersion: 2.60.4-0ubuntu0.1\n"
+  },
+  {
+    "file": "libatk1.0-0t64_2.60.4-0ubuntu0.1_amd64.deb",
+    "sha256": "6308ae8c10599780f0e672a39930c07639523bf3f7406f90ee7dada6acd505a0",
+    "extract_exit": 0,
+    "package": "Package: libatk1.0-0t64\nVersion: 2.60.4-0ubuntu0.1\n"
+  },
+  {
+    "file": "libatspi2.0-0t64_2.60.4-0ubuntu0.1_amd64.deb",
+    "sha256": "6db6e1d7d40f15d38ab5ec302463ac502a057560294d9c73ede22998f733fbd8",
+    "extract_exit": 0,
+    "package": "Package: libatspi2.0-0t64\nVersion: 2.60.4-0ubuntu0.1\n"
+  },
+  {
+    "file": "libxdamage1_1%3a1.1.7-1_amd64.deb",
+    "sha256": "dd751597c6216105774a93769972d1cb6dad5fd1ba91f090197d7acc85c406cb",
+    "extract_exit": 0,
+    "package": "Package: libxdamage1\nVersion: 1:1.1.7-1\n"
+  },
+  {
+    "file": "libxres1_2%3a1.2.1-1build2_amd64.deb",
+    "sha256": "c7794a754880ef7bde4a73c0257dd48d8e3f387ee1618ba97f8e5cf5cdd7c80f",
+    "extract_exit": 0,
+    "package": "Package: libxres1\nVersion: 2:1.2.1-1build2\n"
+  }
+]

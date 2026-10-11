@@ -1,0 +1,28 @@
+[
+  {
+    "url": "https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.jammy_amd64.deb",
+    "path": ".local/s00-b-deps/downloads/wkhtmltox.deb",
+    "bytes": 17352866,
+    "sha256": "ee88d74834bdec650f7432c7d3ef1c981e42ae7a762a75a01f7f5da59abc18d5",
+    "result": "downloaded"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/notofonts/noto-cjk/Sans2.004/Sans/OTF/SimplifiedChinese/NotoSansCJKsc-Regular.otf",
+    "path": ".local/s00-b-deps/fonts/NotoSansCJKsc-Regular.otf",
+    "bytes": 16437364,
+    "sha256": "2c76254f6fc379fddfce0a7e84fb5385bb135d3e399294f6eeb6680d0365b74b",
+    "result": "downloaded"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/notofonts/noto-cjk/Sans2.004/Sans/LICENSE",
+    "result": "HTTPError",
+    "detail": "HTTP Error 404: Not Found"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/notofonts/noto-cjk/Sans2.004/LICENSE",
+    "path": ".local/s00-b-deps/fonts/OFL.txt",
+    "bytes": 4301,
+    "sha256": "6a73f9541c2de74158c0e7cf6b0a58ef774f5a780bf191f2d7ec9cc53efe2bf2",
+    "result": "downloaded after initial Sans/LICENSE 404"
+  }
+]

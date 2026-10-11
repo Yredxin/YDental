@@ -1,0 +1,203 @@
+{
+  "database": "ydental_s00b_test_20261011073303_8137af81",
+  "cases": [
+    {
+      "case": "business_name",
+      "args": [
+        "install",
+        "--db",
+        "odoo20_dev"
+      ],
+      "exit_code": 2,
+      "error": "Database must be a new ydental_s00b_test_YYYYMMDDHHMMSS_8hex database",
+      "inet_connect_syscalls": [],
+      "scope": "no INET connect syscall"
+    },
+    {
+      "case": "historical_name",
+      "args": [
+        "install",
+        "--db",
+        "ydental_p00_test_baseline02"
+      ],
+      "exit_code": 2,
+      "error": "Database must be a new ydental_s00b_test_YYYYMMDDHHMMSS_8hex database",
+      "inet_connect_syscalls": [],
+      "scope": "no INET connect syscall"
+    },
+    {
+      "case": "injection_name",
+      "args": [
+        "install",
+        "--db",
+        "ydental_s00b_test_x;DROP DATABASE x"
+      ],
+      "exit_code": 2,
+      "error": "Database must be a new ydental_s00b_test_YYYYMMDDHHMMSS_8hex database",
+      "inet_connect_syscalls": [],
+      "scope": "no INET connect syscall"
+    },
+    {
+      "case": "missing_record",
+      "args": [
+        "upgrade",
+        "--db",
+        "ydental_s00b_test_20990101000000_36626373"
+      ],
+      "exit_code": 2,
+      "error": "No local creation record; existing databases cannot be adopted",
+      "inet_connect_syscalls": [],
+      "scope": "no INET connect syscall"
+    },
+    {
+      "case": "wrong_endpoint",
+      "args": [
+        "install",
+        "--db",
+        "ydental_s00b_test_20261011073303_8137af81",
+        "--port",
+        "18079",
+        "--config",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s00b_test_20261011073303_8137af81/guards/wrong-endpoint.conf"
+      ],
+      "exit_code": 2,
+      "error": "Endpoint is not the approved 127.0.0.1:5432/odoo; no connection attempted",
+      "inet_connect_syscalls": [],
+      "scope": "no INET connect syscall"
+    },
+    {
+      "case": "protected_port",
+      "args": [
+        "install",
+        "--db",
+        "ydental_s00b_test_20261011073303_8137af81",
+        "--port",
+        "8069"
+      ],
+      "exit_code": 2,
+      "error": "S00-B HTTP port must be in the isolated range 18000..18999",
+      "inet_connect_syscalls": [],
+      "scope": "no INET connect syscall"
+    },
+    {
+      "case": "existing_run",
+      "args": [
+        "install",
+        "--db",
+        "ydental_s00b_test_20261011073303_8137af81",
+        "--port",
+        "18079"
+      ],
+      "exit_code": 2,
+      "error": "Run already exists; choose a fresh database, no overwrite",
+      "inet_connect_syscalls": [],
+      "scope": "no INET connect syscall"
+    },
+    {
+      "case": "changed_oid",
+      "args": [
+        "upgrade",
+        "--db",
+        "ydental_s00b_test_20261011073303_8137af81",
+        "--port",
+        "18079"
+      ],
+      "exit_code": 2,
+      "error": "Database OID changed or absent; refusing to operate",
+      "inet_connect_syscalls": [
+        "318611 connect(4, {sa_family=AF_INET, sin_port=htons(5432), sin_addr=inet_addr(\"127.0.0.1\")}, 16) = -1 EINPROGRESS (Operation now in progress)"
+      ],
+      "scope": "maintenance catalog only"
+    },
+    {
+      "case": "changed_cluster_record",
+      "args": [
+        "upgrade",
+        "--db",
+        "ydental_s00b_test_20261011073303_8137af81",
+        "--port",
+        "18079"
+      ],
+      "exit_code": 2,
+      "error": "Creation record identity mismatch",
+      "inet_connect_syscalls": [],
+      "scope": "no INET connect syscall"
+    },
+    {
+      "case": "changed_config",
+      "args": [
+        "upgrade",
+        "--db",
+        "ydental_s00b_test_20261011073303_8137af81",
+        "--port",
+        "18079"
+      ],
+      "exit_code": 2,
+      "error": "Runtime config changed; refusing to run",
+      "inet_connect_syscalls": [],
+      "scope": "no INET connect syscall"
+    },
+    {
+      "case": "existing_database_without_local_record",
+      "args": [
+        "install",
+        "--db",
+        "ydental_s00b_test_20261011073303_8137af81",
+        "--port",
+        "18079"
+      ],
+      "exit_code": 2,
+      "error": "Database already exists; no overwrite/adoption",
+      "inet_connect_syscalls": [
+        "318625 connect(4, {sa_family=AF_INET, sin_port=htons(5432), sin_addr=inet_addr(\"127.0.0.1\")}, 16) = -1 EINPROGRESS (Operation now in progress)"
+      ],
+      "scope": "maintenance catalog only"
+    },
+    {
+      "case": "symlink_run",
+      "args": [
+        "upgrade",
+        "--db",
+        "ydental_s00b_test_20990101000000_36626373"
+      ],
+      "exit_code": 2,
+      "error": "Symlink run directory refused",
+      "inet_connect_syscalls": [],
+      "scope": "no INET connect syscall"
+    },
+    {
+      "case": "concurrent_action_lock",
+      "args": [
+        "upgrade",
+        "--db",
+        "ydental_s00b_test_20261011073303_8137af81",
+        "--port",
+        "18079"
+      ],
+      "exit_code": 2,
+      "error": "Another S00-B action is running; no service stopped",
+      "inet_connect_syscalls": [],
+      "scope": "no INET connect syscall"
+    },
+    {
+      "case": "occupied_port",
+      "args": [
+        "install",
+        "--db",
+        "ydental_s00b_test_20990101000000_36626373",
+        "--port",
+        "18080"
+      ],
+      "exit_code": 2,
+      "error": "Port occupied; refusing to stop or reuse a service",
+      "inet_connect_syscalls": [],
+      "scope": "no INET connect syscall"
+    }
+  ],
+  "count": 14,
+  "all_rejected": true,
+  "catalog_before_equals_after": true,
+  "record_and_config_restored": true,
+  "exit_code": 0,
+  "odoo_business_tests": 0
+}

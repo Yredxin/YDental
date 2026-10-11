@@ -1,0 +1,11 @@
+{
+  "command": "PYTHONPATH=<local verify-lib> .venv/bin/python scripts/s00_b_http.py --db <recorded-db>",
+  "exit_code": 1,
+  "assertion": "('a4', '牙科合成 PDF 样张')",
+  "cause": "Qt ToUnicode maps some CJK glyphs to Unicode compatibility radicals; raw extraction differs while glyphs are visible. Verifier now records raw extraction and NFKC-normalized extraction before semantic checks. No PDF contents changed for this fix.",
+  "followup_failure": {
+    "exit_code": 1,
+    "assertion": "('a4', '虚拟患者：样例一')",
+    "cause": "NFKC also normalizes full-width punctuation; expected and actual strings must both be normalized."
+  }
+}

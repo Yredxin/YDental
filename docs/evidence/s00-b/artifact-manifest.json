@@ -1,0 +1,132 @@
+[
+  {
+    "file": "docs/evidence/s00-b/api-and-source.json",
+    "bytes": 1960,
+    "sha256": "0ccfaafcf2a307d928f3c7a57a5635c5f660dc609fd195b81af092bcb1ba9330"
+  },
+  {
+    "file": "docs/evidence/s00-b/browser-blocked.json",
+    "bytes": 690,
+    "sha256": "984cdf55c28cca0de9990f915e96313d239d6a77e08f653254a6aa81b0ca05c9"
+  },
+  {
+    "file": "docs/evidence/s00-b/browser-local-libs.json",
+    "bytes": 1447,
+    "sha256": "e3efa285a81ba7798f7d579cff51d41cca219d36372f413f567fc894382da8a5"
+  },
+  {
+    "file": "docs/evidence/s00-b/checks.json",
+    "bytes": 237,
+    "sha256": "ed85ae5ae5756eadaffa13f78b8dec890dcb437b1efb99db56e12f0563feb3de"
+  },
+  {
+    "file": "docs/evidence/s00-b/dependencies.json",
+    "bytes": 1126,
+    "sha256": "6d04942c88555484c92308a9c011f99d8001db33eddeb816a064e559d1895f57"
+  },
+  {
+    "file": "docs/evidence/s00-b/first-attempt-summary.json",
+    "bytes": 3487,
+    "sha256": "c35eb506377af2ac59265f9a7e36e483a99142e1b0f61308878371dd97000b39"
+  },
+  {
+    "file": "docs/evidence/s00-b/first-attempt.json",
+    "bytes": 678,
+    "sha256": "ac4f3492fa6b0b5dbb8fb3c2747b324b0b80c0b81e83a87228f04d27dfb4ff88"
+  },
+  {
+    "file": "docs/evidence/s00-b/guards-initial.json",
+    "bytes": 2539,
+    "sha256": "aa17c69e7912cabbe5776ff32a0df85744566e1c528d3cfd6130e6515578c1c1"
+  },
+  {
+    "file": "docs/evidence/s00-b/guards.json",
+    "bytes": 5606,
+    "sha256": "c343882655a8549a0583b0d1fb102eb1f122f357ec726f264836e30497819e19"
+  },
+  {
+    "file": "docs/evidence/s00-b/http-first-failure.json",
+    "bytes": 655,
+    "sha256": "3e1767b7368fdd58d97104879ea93d68ce11c1ebff34d5329c22ed0153e03e74"
+  },
+  {
+    "file": "docs/evidence/s00-b/http-pdf.json",
+    "bytes": 7128,
+    "sha256": "0dd3a1d06820195170923697910ff40d6fac04f7d74976364b2ac71f2fb960a6"
+  },
+  {
+    "file": "docs/evidence/s00-b/native-before.json",
+    "bytes": 3266,
+    "sha256": "07e90088724fa3886de477ad647b0d126aa003836d26c15a65dfc8b50bacf6ad"
+  },
+  {
+    "file": "docs/evidence/s00-b/preflight.json",
+    "bytes": 1149,
+    "sha256": "04e9dcf71a55935cb16d4ccc72c30f4cfcd394c850f242d9c01e1155c35a9b2d"
+  },
+  {
+    "file": "docs/evidence/s00-b/preview-replaced.json",
+    "bytes": 247,
+    "sha256": "17f5f62077e2a88c3f6226921c05ecc2fffc749d9226579d381ce6db42916de5"
+  },
+  {
+    "file": "docs/evidence/s00-b/probe-after_upgrade.json",
+    "bytes": 441,
+    "sha256": "0818cca387cdc04a533891605d2537516a089d4625c2c284d79d76be46d49a23"
+  },
+  {
+    "file": "docs/evidence/s00-b/probe-before_upgrade.json",
+    "bytes": 3789,
+    "sha256": "32ee781e9c321760f21932563782e4cd0544a358476bc6a672b96e091d299468"
+  },
+  {
+    "file": "docs/evidence/s00-b/protection.json",
+    "bytes": 982,
+    "sha256": "1b9212cb6f2a3bdab02072da460b1da0ea1fe36b885dde5dbf816f800412ea8d"
+  },
+  {
+    "file": "docs/evidence/s00-b/runtime-redacted.json",
+    "bytes": 1238,
+    "sha256": "cb1c2b54223361f23bb0ddffc172dc4dc93962ce028210f54a8f83e95f9dfd4d"
+  },
+  {
+    "file": "docs/evidence/s00-b/sample-a4.pdf",
+    "bytes": 16500,
+    "sha256": "67e6f05b3264f9d16e600144bc1e429df06e505ebe12f69af07d1c455914e1a9"
+  },
+  {
+    "file": "docs/evidence/s00-b/sample-a4.png",
+    "bytes": 41116,
+    "sha256": "5e06dba73bb3430512901cd9a674e3f788d6539c2d19473da721623d72cdb178"
+  },
+  {
+    "file": "docs/evidence/s00-b/sample-narrow.pdf",
+    "bytes": 16511,
+    "sha256": "0657e78f9479f58ec82df75ada2cfde7dcb5741ed869e9b48d994d990b246499"
+  },
+  {
+    "file": "docs/evidence/s00-b/sample-narrow.png",
+    "bytes": 15407,
+    "sha256": "40f8f43350091ee5e391fca2a7166452f891882788cc25da8d565f8a4973c921"
+  },
+  {
+    "file": "docs/evidence/s00-b/source-receipt.json",
+    "bytes": 824,
+    "sha256": "bff47b2e7d908707022f735ec2bb99e258e3848d40420b9e57d83a5ebdb887f1"
+  },
+  {
+    "file": "docs/evidence/s00-b/summary.json",
+    "bytes": 22760,
+    "sha256": "75626de4659dcaaccb32e617376141247c8c5635b92426d13575cd793efe9fed"
+  },
+  {
+    "file": "docs/evidence/s00-b/translation-coverage.json",
+    "bytes": 565,
+    "sha256": "3d8506fcbf42621cdca9a71e986ce2f7ae9acb03913355936af939b4badc9499"
+  },
+  {
+    "file": "docs/evidence/s00-b/upgrade-network.json",
+    "bytes": 405,
+    "sha256": "dbfe9801dceae39de29bfce543da9695db7f80d3bae4bd206674b53c030cb605"
+  }
+]

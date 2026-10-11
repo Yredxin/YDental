@@ -1,0 +1,297 @@
+{
+  "task": "YD-N1 R1 / #24 / S00-B",
+  "baseline_commit": "57f4838c90db8d7e3f719a5b81fc5a217e402791",
+  "implementation_commit": "f957313bf31f836965ea310ff6bcf0a18216e781",
+  "addon_tree": "79a0a1e6d207113da959f64a431c7254d442531c",
+  "branch": "codex/s00-b-r1-20261011",
+  "final_run": "ydental_s00b_test_20261011073303_8137af81",
+  "rounds": [
+    {
+      "database": "ydental_s00b_test_20261011071424_475acace",
+      "creation_record": {
+        "database": "ydental_s00b_test_20261011071424_475acace",
+        "oid": 39137,
+        "endpoint": {
+          "host": "127.0.0.1",
+          "port": "5432",
+          "user": "odoo"
+        },
+        "cluster": "7694897083368259627",
+        "port": 18079,
+        "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+        "created_utc": "2026-10-11T07:15:09.179104+00:00",
+        "config_sha256": "e7c522598d1c54237b6469bf06099a8aa1aa94d7f21ec670e3bb48dc964cbd20"
+      },
+      "actions": [
+        {
+          "action": "install",
+          "exit_code": 1,
+          "log": "install-20261011T071509179712.log",
+          "log_sha256": "cf35fac1613b5ed8b9ae39bd1710c2d1d1227e404b890b55b28d6211c96fc784",
+          "time_utc": "2026-10-11T07:15:43.304946+00:00",
+          "tests": [
+            3,
+            0,
+            11
+          ],
+          "verification_exit": 1
+        }
+      ],
+      "safe_log_extracts": [
+        "2026-10-11 07:15:35,664 309525 INFO ydental_s00b_test_20261011071424_475acace odoo.addons.web.tests.test_js: Starting WebSuite.test_unit_desktop ...",
+        "2026-10-11 07:15:35,677 309525 INFO ydental_s00b_test_20261011071424_475acace odoo.addons.web.tests.test_js: Starting MobileWebSuite.test_unit_mobile ...",
+        "2026-10-11 07:15:35,741 309525 INFO ydental_s00b_test_20261011071424_475acace odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_anonymous_requires_login ...",
+        "2026-10-11 07:15:35,830 309525 INFO ydental_s00b_test_20261011071424_475acace odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_application_entry ...",
+        "2026-10-11 07:15:35,864 309525 ERROR ydental_s00b_test_20261011071424_475acace odoo.addons.ydental_base.tests.test_baseline: FAIL: TestYDentalBaseline.test_application_entry",
+        "2026-10-11 07:15:35,865 309525 INFO ydental_s00b_test_20261011071424_475acace odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_chinese_entry ...",
+        "2026-10-11 07:15:35,910 309525 INFO ydental_s00b_test_20261011071424_475acace odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_internal_user_denied ...",
+        "2026-10-11 07:15:35,949 309525 INFO ydental_s00b_test_20261011071424_475acace odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_pdf_denied_on_custom_and_native_routes ...",
+        "2026-10-11 07:15:36,023 309525 INFO ydental_s00b_test_20261011071424_475acace odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_portal_user_denied ...",
+        "2026-10-11 07:15:36,043 309525 INFO ydental_s00b_test_20261011071424_475acace odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_real_chinese_pdf_downloads ...",
+        "2026-10-11 07:15:39,440 309525 ERROR ydental_s00b_test_20261011071424_475acace odoo.addons.ydental_base.tests.test_baseline: FAIL: Subtest TestYDentalBaseline.test_real_chinese_pdf_downloads (paper='a4')",
+        "2026-10-11 07:15:42,825 309525 ERROR ydental_s00b_test_20261011071424_475acace odoo.addons.ydental_base.tests.test_baseline: FAIL: Subtest TestYDentalBaseline.test_real_chinese_pdf_downloads (paper='narrow')",
+        "2026-10-11 07:15:42,826 309525 INFO ydental_s00b_test_20261011071424_475acace odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_revoked_group_denied_next_request ...",
+        "2026-10-11 07:15:42,868 309525 INFO ydental_s00b_test_20261011071424_475acace odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_upgrade_keeps_single_entry_and_safe_demo ...",
+        "2026-10-11 07:15:42,879 309525 INFO ydental_s00b_test_20261011071424_475acace odoo.tests.stats: web: 6 tests 0.02s 13 queries",
+        "2026-10-11 07:15:42,879 309525 INFO ydental_s00b_test_20261011071424_475acace odoo.tests.stats: ydental_base: 11 tests 7.19s 416 queries",
+        "2026-10-11 07:15:42,879 309525 ERROR ydental_s00b_test_20261011071424_475acace odoo.tests.result: 3 failed, 0 error(s) of 11 tests when loading database 'ydental_s00b_test_20261011071424_475acace'"
+      ]
+    },
+    {
+      "database": "ydental_s00b_test_20261011071740_fb7a15f9",
+      "creation_record": {
+        "database": "ydental_s00b_test_20261011071740_fb7a15f9",
+        "oid": 42793,
+        "endpoint": {
+          "host": "127.0.0.1",
+          "port": "5432",
+          "user": "odoo"
+        },
+        "cluster": "7694897083368259627",
+        "port": 18079,
+        "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+        "created_utc": "2026-10-11T07:17:41.034839+00:00",
+        "config_sha256": "abe35af1d9886f4feeee89505428b5cf0ea749f851b8ce331dbe0ad9491d1f44"
+      },
+      "actions": [
+        {
+          "action": "install",
+          "exit_code": 0,
+          "log": "install-20261011T071741035616.log",
+          "log_sha256": "fdce8e343401c1e0cedcd2b507c3f82d56e392c4739491864896bb038d97b2f1",
+          "time_utc": "2026-10-11T07:18:12.129470+00:00",
+          "tests": [
+            0,
+            0,
+            11
+          ]
+        },
+        {
+          "action": "probe",
+          "exit_code": 1,
+          "log": "probe-20261011T071842158787.log",
+          "log_sha256": "3a9497896ea0444dc97eecb270a15ab3aaa69d48263747def3a3caf164c82be5",
+          "time_utc": "2026-10-11T07:18:44.779359+00:00"
+        },
+        {
+          "action": "probe",
+          "exit_code": 0,
+          "log": "probe-20261011T071957683879.log",
+          "log_sha256": "6acae51cc58b38bdadb7ac7ec13945753a023afd0785697a70c5ed1312d026a0",
+          "time_utc": "2026-10-11T07:19:58.605767+00:00"
+        },
+        {
+          "action": "upgrade",
+          "exit_code": 0,
+          "log": "upgrade-20261011T072348576421.log",
+          "log_sha256": "2bc6b074be971351c73c1dc8af8a441989e14638995a971479955f6dae1337cf",
+          "time_utc": "2026-10-11T07:24:05.472659+00:00",
+          "tests": [
+            0,
+            0,
+            9
+          ]
+        },
+        {
+          "action": "probe",
+          "exit_code": 0,
+          "log": "probe-20261011T072425463576.log",
+          "log_sha256": "6d16e07847f5efe99a9db9dba39d0626d3601f4dcfe14dc25985e70b7998caf3",
+          "time_utc": "2026-10-11T07:24:26.365926+00:00"
+        },
+        {
+          "action": "export",
+          "exit_code": 2,
+          "log": "export-20261011T072426433755.log",
+          "log_sha256": "30fd1da67ffb4b4727d47ef91331cf9ef74b177c6e4dfc178849c0c307f41512",
+          "time_utc": "2026-10-11T07:24:26.699405+00:00"
+        },
+        {
+          "action": "export",
+          "exit_code": 0,
+          "log": "export-20261011T072547125520.log",
+          "log_sha256": "928f3f24e43016ea135ad1be05376ea0b76d89b8b19b49773d5dd0ec22d58770",
+          "time_utc": "2026-10-11T07:25:48.451258+00:00"
+        },
+        {
+          "action": "upgrade",
+          "exit_code": 0,
+          "log": "upgrade-20261011T072650693954.log",
+          "log_sha256": "5568bacab90a029a81a22fcc5461fe97dad67fdeeb28eb3267395f7f6ad56a22",
+          "time_utc": "2026-10-11T07:26:59.000945+00:00",
+          "tests": [
+            0,
+            0,
+            9
+          ]
+        },
+        {
+          "action": "probe",
+          "exit_code": 0,
+          "log": "probe-20261011T072730465033.log",
+          "log_sha256": "ce9d1d2df6af9608c23e381bf8c291b3dfd279f564f203f3c8fde4fd51b654da",
+          "time_utc": "2026-10-11T07:27:31.358407+00:00"
+        }
+      ],
+      "safe_log_extracts": [
+        "2026-10-11 07:18:07,151 310627 INFO ydental_s00b_test_20261011071740_fb7a15f9 odoo.addons.web.tests.test_js: Starting WebSuite.test_unit_desktop ...",
+        "2026-10-11 07:18:07,164 310627 INFO ydental_s00b_test_20261011071740_fb7a15f9 odoo.addons.web.tests.test_js: Starting MobileWebSuite.test_unit_mobile ...",
+        "2026-10-11 07:18:07,226 310627 INFO ydental_s00b_test_20261011071740_fb7a15f9 odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_anonymous_requires_login ...",
+        "2026-10-11 07:18:07,317 310627 INFO ydental_s00b_test_20261011071740_fb7a15f9 odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_application_entry ...",
+        "2026-10-11 07:18:07,370 310627 INFO ydental_s00b_test_20261011071740_fb7a15f9 odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_chinese_entry ...",
+        "2026-10-11 07:18:07,420 310627 INFO ydental_s00b_test_20261011071740_fb7a15f9 odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_internal_user_denied ...",
+        "2026-10-11 07:18:07,457 310627 INFO ydental_s00b_test_20261011071740_fb7a15f9 odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_pdf_denied_on_custom_and_native_routes ...",
+        "2026-10-11 07:18:07,531 310627 INFO ydental_s00b_test_20261011071740_fb7a15f9 odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_portal_user_denied ...",
+        "2026-10-11 07:18:07,552 310627 INFO ydental_s00b_test_20261011071740_fb7a15f9 odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_real_chinese_pdf_downloads ...",
+        "2026-10-11 07:18:11,694 310627 INFO ydental_s00b_test_20261011071740_fb7a15f9 odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_revoked_group_denied_next_request ...",
+        "2026-10-11 07:18:11,734 310627 INFO ydental_s00b_test_20261011071740_fb7a15f9 odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_upgrade_keeps_single_entry_and_safe_demo ...",
+        "2026-10-11 07:18:11,745 310627 INFO ydental_s00b_test_20261011071740_fb7a15f9 odoo.tests.stats: web: 6 tests 0.02s 13 queries",
+        "2026-10-11 07:18:11,745 310627 INFO ydental_s00b_test_20261011071740_fb7a15f9 odoo.tests.stats: ydental_base: 11 tests 4.57s 379 queries",
+        "2026-10-11 07:18:11,745 310627 INFO ydental_s00b_test_20261011071740_fb7a15f9 odoo.tests.result: 0 failed, 0 error(s) of 11 tests when loading database 'ydental_s00b_test_20261011071740_fb7a15f9'",
+        "2026-10-11 07:24:00,127 313292 INFO ydental_s00b_test_20261011071740_fb7a15f9 odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_anonymous_requires_login ...",
+        "2026-10-11 07:24:00,251 313292 INFO ydental_s00b_test_20261011071740_fb7a15f9 odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_application_entry ...",
+        "2026-10-11 07:24:00,318 313292 INFO ydental_s00b_test_20261011071740_fb7a15f9 odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_chinese_entry ...",
+        "2026-10-11 07:24:00,380 313292 INFO ydental_s00b_test_20261011071740_fb7a15f9 odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_internal_user_denied ...",
+        "2026-10-11 07:24:00,428 313292 INFO ydental_s00b_test_20261011071740_fb7a15f9 odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_pdf_denied_on_custom_and_native_routes ...",
+        "2026-10-11 07:24:00,548 313292 INFO ydental_s00b_test_20261011071740_fb7a15f9 odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_portal_user_denied ...",
+        "2026-10-11 07:24:00,572 313292 INFO ydental_s00b_test_20261011071740_fb7a15f9 odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_real_chinese_pdf_downloads ...",
+        "2026-10-11 07:24:04,885 313292 INFO ydental_s00b_test_20261011071740_fb7a15f9 odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_revoked_group_denied_next_request ...",
+        "2026-10-11 07:24:04,942 313292 INFO ydental_s00b_test_20261011071740_fb7a15f9 odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_upgrade_keeps_single_entry_and_safe_demo ...",
+        "2026-10-11 07:24:05,058 313292 INFO ydental_s00b_test_20261011071740_fb7a15f9 odoo.tests.stats: ydental_base: 11 tests 5.01s 360 queries",
+        "2026-10-11 07:24:05,058 313292 INFO ydental_s00b_test_20261011071740_fb7a15f9 odoo.tests.result: 0 failed, 0 error(s) of 9 tests when loading database 'ydental_s00b_test_20261011071740_fb7a15f9'",
+        "2026-10-11 07:26:54,157 314683 INFO ydental_s00b_test_20261011071740_fb7a15f9 odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_anonymous_requires_login ...",
+        "2026-10-11 07:26:54,247 314683 INFO ydental_s00b_test_20261011071740_fb7a15f9 odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_application_entry ...",
+        "2026-10-11 07:26:54,299 314683 INFO ydental_s00b_test_20261011071740_fb7a15f9 odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_chinese_entry ...",
+        "2026-10-11 07:26:54,346 314683 INFO ydental_s00b_test_20261011071740_fb7a15f9 odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_internal_user_denied ...",
+        "2026-10-11 07:26:54,382 314683 INFO ydental_s00b_test_20261011071740_fb7a15f9 odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_pdf_denied_on_custom_and_native_routes ...",
+        "2026-10-11 07:26:54,454 314683 INFO ydental_s00b_test_20261011071740_fb7a15f9 odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_portal_user_denied ...",
+        "2026-10-11 07:26:54,471 314683 INFO ydental_s00b_test_20261011071740_fb7a15f9 odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_real_chinese_pdf_downloads ...",
+        "2026-10-11 07:26:58,609 314683 INFO ydental_s00b_test_20261011071740_fb7a15f9 odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_revoked_group_denied_next_request ...",
+        "2026-10-11 07:26:58,649 314683 INFO ydental_s00b_test_20261011071740_fb7a15f9 odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_upgrade_keeps_single_entry_and_safe_demo ...",
+        "2026-10-11 07:26:58,661 314683 INFO ydental_s00b_test_20261011071740_fb7a15f9 odoo.tests.stats: ydental_base: 11 tests 4.56s 360 queries",
+        "2026-10-11 07:26:58,661 314683 INFO ydental_s00b_test_20261011071740_fb7a15f9 odoo.tests.result: 0 failed, 0 error(s) of 9 tests when loading database 'ydental_s00b_test_20261011071740_fb7a15f9'"
+      ]
+    },
+    {
+      "database": "ydental_s00b_test_20261011073303_8137af81",
+      "creation_record": {
+        "database": "ydental_s00b_test_20261011073303_8137af81",
+        "oid": 46491,
+        "endpoint": {
+          "host": "127.0.0.1",
+          "port": "5432",
+          "user": "odoo"
+        },
+        "cluster": "7694897083368259627",
+        "port": 18079,
+        "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+        "created_utc": "2026-10-11T07:33:26.687938+00:00",
+        "config_sha256": "16e78c709fd355ba74446f52c8ab0d2b586c53747e102c34cc92876977010912"
+      },
+      "actions": [
+        {
+          "action": "install",
+          "exit_code": 0,
+          "log": "install-20261011T073326688741.log",
+          "log_sha256": "30a6752b8c81dcb67d089d7ce7006f7bf47b5ed7c04aa079dfb1f30528afcae2",
+          "time_utc": "2026-10-11T07:33:57.557325+00:00",
+          "tests": [
+            0,
+            0,
+            11
+          ]
+        },
+        {
+          "action": "probe",
+          "exit_code": 0,
+          "log": "probe-20261011T073430800909.log",
+          "log_sha256": "e6fc08ad10fef07de48eda7a380126df91400c8ad84879cedeefcf0d8628e9f8",
+          "time_utc": "2026-10-11T07:34:33.307288+00:00"
+        },
+        {
+          "action": "upgrade",
+          "exit_code": 0,
+          "log": "upgrade-20261011T073433378374.log",
+          "log_sha256": "d2e4e548c81d43b3eacfb1bdf48c48d4561e71bd28915efe4fe760bd476d79c0",
+          "time_utc": "2026-10-11T07:34:41.695844+00:00",
+          "tests": [
+            0,
+            0,
+            9
+          ]
+        },
+        {
+          "action": "probe",
+          "exit_code": 0,
+          "log": "probe-20261011T073553673431.log",
+          "log_sha256": "722d1132a3c40ff84821e95eae3eb283d7c3b1c8f707bd50d9631926f7b58cb7",
+          "time_utc": "2026-10-11T07:35:54.571947+00:00"
+        },
+        {
+          "action": "export",
+          "exit_code": 0,
+          "log": "export-20261011T073554641619.log",
+          "log_sha256": "920774c77e4586762082df7c6829e6f9caf6b4e768acfb0a1129992fa8a2de70",
+          "time_utc": "2026-10-11T07:35:55.894027+00:00"
+        }
+      ],
+      "safe_log_extracts": [
+        "2026-10-11 07:33:52,578 317504 INFO ydental_s00b_test_20261011073303_8137af81 odoo.addons.web.tests.test_js: Starting WebSuite.test_unit_desktop ...",
+        "2026-10-11 07:33:52,591 317504 INFO ydental_s00b_test_20261011073303_8137af81 odoo.addons.web.tests.test_js: Starting MobileWebSuite.test_unit_mobile ...",
+        "2026-10-11 07:33:52,652 317504 INFO ydental_s00b_test_20261011073303_8137af81 odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_anonymous_requires_login ...",
+        "2026-10-11 07:33:52,743 317504 INFO ydental_s00b_test_20261011073303_8137af81 odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_application_entry ...",
+        "2026-10-11 07:33:52,797 317504 INFO ydental_s00b_test_20261011073303_8137af81 odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_chinese_entry ...",
+        "2026-10-11 07:33:52,848 317504 INFO ydental_s00b_test_20261011073303_8137af81 odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_internal_user_denied ...",
+        "2026-10-11 07:33:52,885 317504 INFO ydental_s00b_test_20261011073303_8137af81 odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_pdf_denied_on_custom_and_native_routes ...",
+        "2026-10-11 07:33:52,960 317504 INFO ydental_s00b_test_20261011073303_8137af81 odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_portal_user_denied ...",
+        "2026-10-11 07:33:52,983 317504 INFO ydental_s00b_test_20261011073303_8137af81 odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_real_chinese_pdf_downloads ...",
+        "2026-10-11 07:33:57,128 317504 INFO ydental_s00b_test_20261011073303_8137af81 odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_revoked_group_denied_next_request ...",
+        "2026-10-11 07:33:57,167 317504 INFO ydental_s00b_test_20261011073303_8137af81 odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_upgrade_keeps_single_entry_and_safe_demo ...",
+        "2026-10-11 07:33:57,178 317504 INFO ydental_s00b_test_20261011073303_8137af81 odoo.tests.stats: web: 6 tests 0.02s 13 queries",
+        "2026-10-11 07:33:57,178 317504 INFO ydental_s00b_test_20261011073303_8137af81 odoo.tests.stats: ydental_base: 11 tests 4.58s 379 queries",
+        "2026-10-11 07:33:57,178 317504 INFO ydental_s00b_test_20261011073303_8137af81 odoo.tests.result: 0 failed, 0 error(s) of 11 tests when loading database 'ydental_s00b_test_20261011073303_8137af81'",
+        "2026-10-11 07:34:36,826 317973 INFO ydental_s00b_test_20261011073303_8137af81 odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_anonymous_requires_login ...",
+        "2026-10-11 07:34:36,917 317973 INFO ydental_s00b_test_20261011073303_8137af81 odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_application_entry ...",
+        "2026-10-11 07:34:36,967 317973 INFO ydental_s00b_test_20261011073303_8137af81 odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_chinese_entry ...",
+        "2026-10-11 07:34:37,016 317973 INFO ydental_s00b_test_20261011073303_8137af81 odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_internal_user_denied ...",
+        "2026-10-11 07:34:37,052 317973 INFO ydental_s00b_test_20261011073303_8137af81 odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_pdf_denied_on_custom_and_native_routes ...",
+        "2026-10-11 07:34:37,126 317973 INFO ydental_s00b_test_20261011073303_8137af81 odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_portal_user_denied ...",
+        "2026-10-11 07:34:37,144 317973 INFO ydental_s00b_test_20261011073303_8137af81 odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_real_chinese_pdf_downloads ...",
+        "2026-10-11 07:34:41,286 317973 INFO ydental_s00b_test_20261011073303_8137af81 odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_revoked_group_denied_next_request ...",
+        "2026-10-11 07:34:41,326 317973 INFO ydental_s00b_test_20261011073303_8137af81 odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_upgrade_keeps_single_entry_and_safe_demo ...",
+        "2026-10-11 07:34:41,337 317973 INFO ydental_s00b_test_20261011073303_8137af81 odoo.tests.stats: ydental_base: 11 tests 4.57s 360 queries",
+        "2026-10-11 07:34:41,337 317973 INFO ydental_s00b_test_20261011073303_8137af81 odoo.tests.result: 0 failed, 0 error(s) of 9 tests when loading database 'ydental_s00b_test_20261011073303_8137af81'"
+      ]
+    }
+  ],
+  "final_commands": [
+    ".venv/bin/python scripts/s00_b.py install --db ydental_s00b_test_20261011073303_8137af81 --port 18079",
+    ".venv/bin/python scripts/s00_b.py probe --db ydental_s00b_test_20261011073303_8137af81 --port 18079",
+    ".venv/bin/python scripts/s00_b.py upgrade --db ydental_s00b_test_20261011073303_8137af81 --port 18079",
+    "PYTHONPATH=<repo>/.local/s00-b-deps/verify-lib .venv/bin/python scripts/s00_b_http.py --db ydental_s00b_test_20261011073303_8137af81"
+  ],
+  "counting_note": "Odoo framework counts are per invocation, not unique business tests. 14 guard cases, 22 HTTP checks and native probes are reported separately. Browser tests 0 (BLOCKED).",
+  "project_mutations": 0,
+  "pr_created": false,
+  "stop_point": "Await GPT technical review and user effect confirmation. No S01, merge, close or production publication."
+}

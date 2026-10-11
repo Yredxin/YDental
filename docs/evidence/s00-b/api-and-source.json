@@ -1,0 +1,39 @@
+{
+  "implementation_commit": "f957313bf31f836965ea310ff6bcf0a18216e781",
+  "addon_tree": "79a0a1e6d207113da959f64a431c7254d442531c",
+  "core_commit": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "pdf_engine_api": "ir.actions.report._render_qweb_pdf; base_report_wkhtmltox._run_pdf_engine",
+  "source_locations": {
+    "report_entry": "odoo/addons/base/models/ir_actions_report.py:677",
+    "report_identity": "odoo/addons/base/models/ir_actions_report.py:291",
+    "engine_selection": "odoo/addons/base/models/ir_actions_report.py:788",
+    "wkhtml_lookup": "addons/base_report_wkhtmltox/models/ir_actions_report.py:59",
+    "wkhtml_render": "addons/base_report_wkhtmltox/models/ir_actions_report.py:489",
+    "orientation_default": "odoo/addons/base/models/report_paperformat.py:178",
+    "date_today": "odoo/orm/fields_temporal.py:141",
+    "sequence": "odoo/addons/base/models/ir_sequence.py:289",
+    "translation_cli": "odoo/cli/i18n.py:85",
+    "permissions": "odoo/addons/base/models/ir_access.py:64"
+  },
+  "native_fork_limitation": "The locked fork root snapshot is not proof of exact official upstream SHA identity. No core source change or automatic upgrade performed.",
+  "python": "core .venv/bin/python 3.12.15",
+  "postgresql": "18.6",
+  "runtime_dependencies": {
+    "wkhtmltopdf": "0.12.6.1 (with patched qt)",
+    "font": "Noto Sans CJK SC / Sans2.004"
+  },
+  "local_verification_packages": {
+    "PyMuPDF": "1.28.2",
+    "playwright": "1.63.0",
+    "Chromium": "153.0.8010.12 / build1243"
+  },
+  "security_review": {
+    "status": "PASS within minimal addon scope",
+    "sudo_in_addon": 0,
+    "custom_raw_sql_in_addon": 0,
+    "untrusted_html_input": false,
+    "write_route": false,
+    "samples_have_attachments": false,
+    "notes": "auth=user, internal+entry-group check; private report identity hook protects custom/native render routes; GET generation has no attachment/database writes. Broader business audit belongs to S01."
+  }
+}

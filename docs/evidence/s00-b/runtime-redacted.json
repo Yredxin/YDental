@@ -1,0 +1,35 @@
+{
+  "creation_record": {
+    "database": "ydental_s00b_test_20261011073303_8137af81",
+    "oid": 46491,
+    "endpoint": {
+      "host": "127.0.0.1",
+      "port": "5432",
+      "user": "odoo"
+    },
+    "cluster": "7694897083368259627",
+    "port": 18079,
+    "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+    "created_utc": "2026-10-11T07:33:26.687938+00:00",
+    "config_sha256": "16e78c709fd355ba74446f52c8ab0d2b586c53747e102c34cc92876977010912"
+  },
+  "options": {
+    "db_host": "127.0.0.1",
+    "db_port": "5432",
+    "db_user": "odoo",
+    "db_name": "ydental_s00b_test_20261011073303_8137af81",
+    "dbfilter": "^ydental_s00b_test_20261011073303_8137af81$",
+    "addons_path": "/home/redxin/code/odoo/odoo-sd/code/odoo/addons,/home/redxin/code/odoo/odoo-sd/code/addons,/home/redxin/code/odoo/odoo-sd/code/sd-addons",
+    "data_dir": "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s00b_test_20261011073303_8137af81/data",
+    "http_interface": "127.0.0.1",
+    "http_port": "18079",
+    "list_db": "False",
+    "workers": "0",
+    "max_cron_threads": "0",
+    "smtp_server": "127.0.0.1",
+    "smtp_port": "1"
+  },
+  "private_config_mode": "0o600",
+  "private_access_mode": "0o600",
+  "run_dir_mode": "0o700"
+}

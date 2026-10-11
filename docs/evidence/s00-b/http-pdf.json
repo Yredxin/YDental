@@ -1,0 +1,157 @@
+{
+  "database": "ydental_s00b_test_20261011073303_8137af81",
+  "port": 18079,
+  "client": "requests + lxml + PyMuPDF",
+  "checks": [
+    {
+      "role": "authorized_zh",
+      "entry_status": 200,
+      "menu_count": 1,
+      "heading": "牙科",
+      "title": "Dental | YDental"
+    },
+    {
+      "role": "authorized_zh",
+      "paper": "a4",
+      "custom_status": 200,
+      "native_status": 200,
+      "bytes": 16500,
+      "sha256": "67e6f05b3264f9d16e600144bc1e429df06e505ebe12f69af07d1c455914e1a9",
+      "pages": 1,
+      "width_mm": 209.90277777777777,
+      "height_mm": 297.0388888888889,
+      "fonts": [
+        "NotoSansCJKsc-Regular"
+      ],
+      "all_text_blocks_inside_page": true,
+      "chinese_lines": 12,
+      "extracted_text": "牙科合成 PDF 样张\n仅用于渲染验证,不含真实患者资料。\n虚拟患者:样例一\n中文多行与标点:牙⻮、检查、处方、小票。\n样例行 1:核对中文字形与自动换行。\n样例行 2:核对中文字形与自动换行。\n样例行 3:核对中文字形与自动换行。\n样例行 4:核对中文字形与自动换行。\n样例行 5:核对中文字形与自动换行。\n样例行 6:核对中文字形与自动换行。\n样例行 7:核对中文字形与自动换行。\n样例行 8:核对中文字形与自动换行。\n样例行 9:核对中文字形与自动换行。\n样例行 10:核对中文字形与自动换行。\n样例行 11:核对中文字形与自动换行。\n样例行 12:核对中文字形与自动换行。\n合成样张结束。\n",
+      "raw_extracted_text": "⽛科合成 PDF 样张\n仅⽤于渲染验证，不含真实患者资料。\n虚拟患者：样例⼀\n中⽂多⾏与标点：⽛⻮、检查、处⽅、⼩票。\n样例⾏ 1：核对中⽂字形与⾃动换⾏。\n样例⾏ 2：核对中⽂字形与⾃动换⾏。\n样例⾏ 3：核对中⽂字形与⾃动换⾏。\n样例⾏ 4：核对中⽂字形与⾃动换⾏。\n样例⾏ 5：核对中⽂字形与⾃动换⾏。\n样例⾏ 6：核对中⽂字形与⾃动换⾏。\n样例⾏ 7：核对中⽂字形与⾃动换⾏。\n样例⾏ 8：核对中⽂字形与⾃动换⾏。\n样例⾏ 9：核对中⽂字形与⾃动换⾏。\n样例⾏ 10：核对中⽂字形与⾃动换⾏。\n样例⾏ 11：核对中⽂字形与⾃动换⾏。\n样例⾏ 12：核对中⽂字形与⾃动换⾏。\n合成样张结束。\n",
+      "normalization": "NFKC"
+    },
+    {
+      "role": "authorized_zh",
+      "paper": "narrow",
+      "custom_status": 200,
+      "native_status": 200,
+      "bytes": 16511,
+      "sha256": "0657e78f9479f58ec82df75ada2cfde7dcb5741ed869e9b48d994d990b246499",
+      "pages": 1,
+      "width_mm": 80.08055555555555,
+      "height_mm": 200.02499999999998,
+      "fonts": [
+        "NotoSansCJKsc-Regular"
+      ],
+      "all_text_blocks_inside_page": true,
+      "chinese_lines": 12,
+      "extracted_text": "牙科合成 PDF 样张\n仅用于渲染验证,不含真实患者资料。\n虚拟患者:样例一\n中文多行与标点:牙⻮、检查、处方、小票。\n样例行 1:核对中文字形与自动换行。\n样例行 2:核对中文字形与自动换行。\n样例行 3:核对中文字形与自动换行。\n样例行 4:核对中文字形与自动换行。\n样例行 5:核对中文字形与自动换行。\n样例行 6:核对中文字形与自动换行。\n样例行 7:核对中文字形与自动换行。\n样例行 8:核对中文字形与自动换行。\n样例行 9:核对中文字形与自动换行。\n样例行 10:核对中文字形与自动换行。\n样例行 11:核对中文字形与自动换行。\n样例行 12:核对中文字形与自动换行。\n合成样张结束。\n",
+      "raw_extracted_text": "⽛科合成 PDF 样张\n仅⽤于渲染验证，不含真实患者资料。\n虚拟患者：样例⼀\n中⽂多⾏与标点：⽛⻮、检查、处⽅、⼩票。\n样例⾏ 1：核对中⽂字形与⾃动换⾏。\n样例⾏ 2：核对中⽂字形与⾃动换⾏。\n样例⾏ 3：核对中⽂字形与⾃动换⾏。\n样例⾏ 4：核对中⽂字形与⾃动换⾏。\n样例⾏ 5：核对中⽂字形与⾃动换⾏。\n样例⾏ 6：核对中⽂字形与⾃动换⾏。\n样例⾏ 7：核对中⽂字形与⾃动换⾏。\n样例⾏ 8：核对中⽂字形与⾃动换⾏。\n样例⾏ 9：核对中⽂字形与⾃动换⾏。\n样例⾏ 10：核对中⽂字形与⾃动换⾏。\n样例⾏ 11：核对中⽂字形与⾃动换⾏。\n样例⾏ 12：核对中⽂字形与⾃动换⾏。\n合成样张结束。\n",
+      "normalization": "NFKC"
+    },
+    {
+      "role": "authorized_en",
+      "entry_status": 200,
+      "menu_count": 1,
+      "heading": "Dental",
+      "title": "Dental | YDental"
+    },
+    {
+      "role": "unauthorized",
+      "path": "/ydental",
+      "status": 403
+    },
+    {
+      "role": "unauthorized",
+      "path": "/ydental/sample/a4",
+      "status": 403
+    },
+    {
+      "role": "unauthorized",
+      "path": "/ydental/sample/narrow",
+      "status": 403
+    },
+    {
+      "role": "unauthorized",
+      "path": "/report/pdf/ydental_base.ydental_sample_a4",
+      "status": 403
+    },
+    {
+      "role": "unauthorized",
+      "path": "/report/pdf/ydental_base.ydental_sample_narrow",
+      "status": 403
+    },
+    {
+      "role": "unauthorized",
+      "path": "/report/html/ydental_base.ydental_sample_a4",
+      "status": 403
+    },
+    {
+      "role": "unauthorized",
+      "path": "/report/html/ydental_base.ydental_sample_narrow",
+      "status": 403
+    },
+    {
+      "role": "portal",
+      "path": "/ydental",
+      "status": 403
+    },
+    {
+      "role": "portal",
+      "path": "/ydental/sample/a4",
+      "status": 403
+    },
+    {
+      "role": "portal",
+      "path": "/ydental/sample/narrow",
+      "status": 403
+    },
+    {
+      "role": "portal",
+      "path": "/report/pdf/ydental_base.ydental_sample_a4",
+      "status": 403
+    },
+    {
+      "role": "portal",
+      "path": "/report/pdf/ydental_base.ydental_sample_narrow",
+      "status": 403
+    },
+    {
+      "role": "portal",
+      "path": "/report/html/ydental_base.ydental_sample_a4",
+      "status": 403
+    },
+    {
+      "role": "portal",
+      "path": "/report/html/ydental_base.ydental_sample_narrow",
+      "status": 403
+    },
+    {
+      "role": "anonymous",
+      "path": "/ydental",
+      "status": 303
+    },
+    {
+      "role": "anonymous",
+      "path": "/ydental/sample/a4",
+      "status": 303
+    },
+    {
+      "role": "anonymous",
+      "path": "/ydental/sample/narrow",
+      "status": 303
+    },
+    {
+      "role": "anonymous",
+      "path": "/report/pdf/ydental_base.ydental_sample_a4",
+      "status": 303
+    }
+  ],
+  "count": 22,
+  "exit_code": 0,
+  "browser_screenshots": "BLOCKED: Chromium No usable sandbox; no security control disabled",
+  "pdf_visual_review": {
+    "status": "PASS",
+    "method": "Agent viewed rasterizations of both PDFs downloaded from final database on 2026-10-11 UTC",
+    "observations": "Both titles, Chinese paragraphs, 12 rows and final line visible; no obvious missing glyphs or clipping. No browser or physical print claim."
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "syntax_xml_po": "PASS",
+  "protected_core_config_and_existing_db_identity": "PASS",
+  "public_artifact_credential_scan": "PASS",
+  "pdf_visual_review": "PASS after agent inspection of both actual rasterizations",
+  "exit_code": 0
+}

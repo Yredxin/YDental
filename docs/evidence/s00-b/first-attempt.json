@@ -1,0 +1,18 @@
+{
+  "database": "ydental_s00b_test_20261011071424_475acace",
+  "action": {
+    "action": "install",
+    "exit_code": 1,
+    "log": "install-20261011T071509179712.log",
+    "log_sha256": "cf35fac1613b5ed8b9ae39bd1710c2d1d1227e404b890b55b28d6211c96fc784",
+    "time_utc": "2026-10-11T07:15:43.304946+00:00",
+    "tests": [
+      3,
+      0,
+      11
+    ],
+    "verification_exit": 1
+  },
+  "actual_signal_sent": false,
+  "summary": "First install completed with 3 failures (English page language, A4 orientation, narrow pagination). Attempted stop found process already exited; no signal sent. Entire failed run retained. report.url now explicitly bound to HttpCase endpoint."
+}

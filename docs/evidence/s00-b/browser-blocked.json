@@ -1,0 +1,16 @@
+{
+  "status": "BLOCKED",
+  "operation": "Playwright Chromium launch(headless=True, chromium_sandbox=True)",
+  "initial_exit": 1,
+  "initial_missing_library": "libatk-1.0.so.0",
+  "local_dependency_extract_count": 6,
+  "second_missing_library": "libXRes.so.1",
+  "final_exit": 1,
+  "chromium_exit_signal": "SIGTRAP",
+  "final_error": "No usable sandbox!",
+  "reason": "Chromium sandbox startup rejected by current host environment; exact responsible host policy not proven.",
+  "scope": "Browser screenshots and visual navigation only; HTTP/installation/PDF checks continue independently.",
+  "security_control_changes": 0,
+  "no_sandbox_flag_used": false,
+  "browser_network_requests": 0
+}

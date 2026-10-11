@@ -1,0 +1,29 @@
+{
+  "plan": "YD-N1 R1",
+  "initial_required_reads": [
+    "https://github.com/Yredxin/YDental/issues/23",
+    "https://github.com/Yredxin/YDental/issues/24",
+    "https://github.com/Yredxin/YDental/issues/24#issuecomment-6106275677",
+    "https://github.com/Yredxin/YDental/issues/24#issuecomment-6106335585",
+    "https://github.com/Yredxin/YDental/issues/24#issuecomment-6106434172"
+  ],
+  "initial_comment_ids": [
+    6106155290,
+    6106275677,
+    6106335585,
+    6106434172
+  ],
+  "latest_comment_ids": [
+    6106155290,
+    6106275677,
+    6106335585,
+    6106434172,
+    6106532401,
+    6106625341
+  ],
+  "plan_and_task_bodies_unchanged_on_pre_delivery_read": true,
+  "preflight_comment_readback_matches": true,
+  "progress_comment_present_on_readback": true,
+  "project_direct_reads": 0,
+  "project_mutations": 0
+}

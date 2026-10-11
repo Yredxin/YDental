@@ -1,0 +1,72 @@
+[
+  {
+    "case": "business_db",
+    "args": [
+      "install",
+      "--db",
+      "odoo20_dev"
+    ],
+    "exit_code": 2,
+    "stderr": "usage: s00_b.py [-h] --db DB [--config CONFIG] [--port PORT]\n                {install,upgrade,probe,serve,export}\ns00_b.py: error: Database must be a new ydental_s00b_test_YYYYMMDDHHMMSS_8hex database\n",
+    "no_connection_expected": true
+  },
+  {
+    "case": "historical_db",
+    "args": [
+      "upgrade",
+      "--db",
+      "ydental_p00_test_baseline02"
+    ],
+    "exit_code": 2,
+    "stderr": "usage: s00_b.py [-h] --db DB [--config CONFIG] [--port PORT]\n                {install,upgrade,probe,serve,export}\ns00_b.py: error: Database must be a new ydental_s00b_test_YYYYMMDDHHMMSS_8hex database\n",
+    "no_connection_expected": true
+  },
+  {
+    "case": "injection_name",
+    "args": [
+      "install",
+      "--db",
+      "ydental_s00b_test_x;DROP DATABASE x"
+    ],
+    "exit_code": 2,
+    "stderr": "usage: s00_b.py [-h] --db DB [--config CONFIG] [--port PORT]\n                {install,upgrade,probe,serve,export}\ns00_b.py: error: Database must be a new ydental_s00b_test_YYYYMMDDHHMMSS_8hex database\n",
+    "no_connection_expected": true
+  },
+  {
+    "case": "unrecorded_valid",
+    "args": [
+      "upgrade",
+      "--db",
+      "ydental_s00b_test_20261011071424_475acace"
+    ],
+    "exit_code": 2,
+    "stderr": "usage: s00_b.py [-h] --db DB [--config CONFIG] [--port PORT]\n                {install,upgrade,probe,serve,export}\ns00_b.py: error: No local creation record; existing databases cannot be adopted\n",
+    "no_connection_expected": true
+  },
+  {
+    "case": "protected_http_port",
+    "args": [
+      "install",
+      "--db",
+      "ydental_s00b_test_20261011071424_475acace",
+      "--port",
+      "8069"
+    ],
+    "exit_code": 2,
+    "stderr": "usage: s00_b.py [-h] --db DB [--config CONFIG] [--port PORT]\n                {install,upgrade,probe,serve,export}\ns00_b.py: error: S00-B HTTP port must be in the isolated range 18000..18999\n",
+    "no_connection_expected": true
+  },
+  {
+    "case": "wrong_endpoint",
+    "args": [
+      "install",
+      "--db",
+      "ydental_s00b_test_20261011071424_475acace",
+      "--config",
+      ".local/s00-b-wrong-endpoint.conf"
+    ],
+    "exit_code": 2,
+    "stderr": "usage: s00_b.py [-h] --db DB [--config CONFIG] [--port PORT]\n                {install,upgrade,probe,serve,export}\ns00_b.py: error: Endpoint is not the approved 127.0.0.1:5432/odoo; no connection attempted\n",
+    "no_connection_expected": true
+  }
+]

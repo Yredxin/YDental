@@ -1,0 +1,47 @@
+{
+  "core_head": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "core_status": "?? AGENTS.md\n?? sd-addons/\n",
+  "protected_sha256": {
+    "/home/redxin/code/odoo/odoo-sd/code/AGENTS.md": "bacf68d4d8d9b06dadbf1556fc8cf0fdff3f88ac285a42c71c06e8330d016f2f",
+    "/home/redxin/code/odoo/odoo-sd/code/odoo.conf": "d5d501ae4c3b1bd9af16eae2afe5981bceca602ada518003c0d82a580bc2ae3f"
+  },
+  "existing_databases": [
+    [
+      "odoo20_dev",
+      16388
+    ],
+    [
+      "postgres",
+      5
+    ],
+    [
+      "template0",
+      4
+    ],
+    [
+      "template1",
+      1
+    ],
+    [
+      "ydental_p00_test_20261010_baseline02",
+      20083
+    ],
+    [
+      "ydental_p00_test_20261010_native",
+      20084
+    ]
+  ],
+  "preflight_comment": "https://github.com/Yredxin/YDental/issues/24#issuecomment-6106532401",
+  "permission_declaration": {
+    "sandbox_mode": "danger-full-access",
+    "approval_policy": "never"
+  },
+  "actual_write_probe": {
+    "file": ".s00-b-preflight-l4ejnz32",
+    "create_write_read_remove": "PASS",
+    "exit_code": 0
+  },
+  "codex_version": "codex-cli 0.162.1",
+  "maintenance_connection_exit": 0,
+  "tcp_connect_exit": 0
+}

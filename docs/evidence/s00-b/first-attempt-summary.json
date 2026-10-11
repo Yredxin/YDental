@@ -1,0 +1,25 @@
+{
+  "safe_log_extract": [
+    "2026-10-11 07:15:35,741 309525 INFO ydental_s00b_test_20261011071424_475acace odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_anonymous_requires_login ...",
+    "2026-10-11 07:15:35,830 309525 INFO ydental_s00b_test_20261011071424_475acace odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_application_entry ...",
+    "2026-10-11 07:15:35,864 309525 ERROR ydental_s00b_test_20261011071424_475acace odoo.addons.ydental_base.tests.test_baseline: FAIL: TestYDentalBaseline.test_application_entry",
+    "2026-10-11 07:15:35,865 309525 INFO ydental_s00b_test_20261011071424_475acace odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_chinese_entry ...",
+    "2026-10-11 07:15:35,910 309525 INFO ydental_s00b_test_20261011071424_475acace odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_internal_user_denied ...",
+    "2026-10-11 07:15:35,949 309525 INFO ydental_s00b_test_20261011071424_475acace odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_pdf_denied_on_custom_and_native_routes ...",
+    "2026-10-11 07:15:36,023 309525 INFO ydental_s00b_test_20261011071424_475acace odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_portal_user_denied ...",
+    "2026-10-11 07:15:36,043 309525 INFO ydental_s00b_test_20261011071424_475acace odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_real_chinese_pdf_downloads ...",
+    "2026-10-11 07:15:39,435 309525 WARNING ydental_s00b_test_20261011071424_475acace odoo.addons.base_report_wkhtmltox.models.ir_actions_report: wkhtmltopdf: Exit with code 1 due to network error: UnknownContentError",
+    "2026-10-11 07:15:39,440 309525 ERROR ydental_s00b_test_20261011071424_475acace odoo.addons.ydental_base.tests.test_baseline: FAIL: Subtest TestYDentalBaseline.test_real_chinese_pdf_downloads (paper='a4')",
+    "2026-10-11 07:15:42,821 309525 WARNING ydental_s00b_test_20261011071424_475acace odoo.addons.base_report_wkhtmltox.models.ir_actions_report: wkhtmltopdf: Exit with code 1 due to network error: UnknownContentError",
+    "2026-10-11 07:15:42,825 309525 ERROR ydental_s00b_test_20261011071424_475acace odoo.addons.ydental_base.tests.test_baseline: FAIL: Subtest TestYDentalBaseline.test_real_chinese_pdf_downloads (paper='narrow')",
+    "2026-10-11 07:15:42,826 309525 INFO ydental_s00b_test_20261011071424_475acace odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_revoked_group_denied_next_request ...",
+    "2026-10-11 07:15:42,868 309525 INFO ydental_s00b_test_20261011071424_475acace odoo.addons.ydental_base.tests.test_baseline: Starting TestYDentalBaseline.test_upgrade_keeps_single_entry_and_safe_demo ...",
+    "2026-10-11 07:15:42,879 309525 ERROR ydental_s00b_test_20261011071424_475acace odoo.tests.result: 3 failed, 0 error(s) of 11 tests when loading database 'ydental_s00b_test_20261011071424_475acace'"
+  ],
+  "root_causes": [
+    "Only zh_CN was activated in fresh DB; en_US fell back to Chinese",
+    "Native report.paperformat default orientation is Landscape; explicit Portrait required",
+    "Native minimal layout made asset callbacks under readonly HttpCase and received Opening a read/write test cursor from a readonly one. Synthetic layout now inline, no resource callbacks."
+  ],
+  "no_existing_service_requests_observed_in_service_log": true
+}

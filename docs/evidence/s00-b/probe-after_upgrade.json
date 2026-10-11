@@ -1,0 +1,19 @@
+{
+  "stage": "after_upgrade",
+  "old_numbers_unchanged": true,
+  "new_number": "S00B/2026/10/11/00102",
+  "old_numbers_sha256": "07e90088724fa3886de477ad647b0d126aa003836d26c15a65dfc8b50bacf6ad",
+  "translations": [
+    {
+      "role": "authorized_zh",
+      "lang": "zh_CN",
+      "action_label": "牙科"
+    },
+    {
+      "role": "authorized_en",
+      "lang": "en_US",
+      "action_label": "Dental"
+    }
+  ],
+  "assertions": "PASS"
+}
