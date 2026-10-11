@@ -1,0 +1,1496 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* ydental_supply
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 20.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-11 15:17+0000\n"
+"PO-Revision-Date: 2026-10-11 15:17+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_today
+msgid "(suggested)"
+msgstr "（建议）"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "A batch needs 1 to 50 assignment rows."
+msgstr "批量安排必须包含1至50行。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "A capacity slot must stay within one local business day."
+msgstr "容量槽必须处于门店同一营业日内。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "A reason of 1 to 300 characters is required."
+msgstr "请填写1至300字的原因。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "A reporting area is required for supply."
+msgstr "供给必须关联报到区域和可接诊工位。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_space_station.py:0
+msgid "A workstation with supply history cannot change reporting topology."
+msgstr "已有供给历史的工位不能更改报到区域归属。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "Action arguments and an idempotency key are required."
+msgstr "必须提供动作参数和幂等键。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/controllers/supply.py:0
+msgid "Action arguments must be an object."
+msgstr "动作参数必须为对象。"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Actions"
+msgstr "操作"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_event__ydental_actor_id
+msgid "Actor"
+msgstr "操作者"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Adjust"
+msgstr "调整"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_event__ydental_after
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "After"
+msgstr "操作后"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "An idempotency key is required."
+msgstr "必须提供幂等键。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "An integer record identifier is required."
+msgstr "记录标识必须为整数。"
+
+#. module: ydental_supply
+#: model:ir.model.fields.selection,name:ydental_supply.selection__ydental_supply_policy__ydental_mode__published
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Approved publication"
+msgstr "已批准正式发布"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_assignment__ydental_area_id
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_business__ydental_area_id
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_policy__ydental_area_id
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_slot__ydental_area_id
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_location
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Area"
+msgstr "区域"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Area business day"
+msgstr "区域营业日"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Area totals without capability duplication"
+msgstr "区域去重容量汇总"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_today
+msgid "Arrangement is wrong"
+msgstr "安排有误"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_today
+msgid ""
+"Arrangements are suggestions. This session keeps its selected store until "
+"you change it."
+msgstr "安排仅作建议。本会话保持当前门店，直到您主动切换。"
+
+#. module: ydental_supply
+#: model:ir.model,name:ydental_supply.model_ydental_space_item
+msgid "Artwork placement on a floor"
+msgstr "楼层图元摆放"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_disposition__ydental_assignment_id
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_feedback__ydental_assignment_id
+msgid "Assignment"
+msgstr "人员安排"
+
+#. module: ydental_supply
+#: model:ir.model,name:ydental_supply.model_ydental_supply_feedback
+msgid "Assignment error feedback"
+msgstr "安排错误反馈"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_suggestion
+msgid "Back to my today"
+msgstr "返回我的今日"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Batch template"
+msgstr "批量模板"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_event__ydental_before
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Before"
+msgstr "操作前"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_assignment__ydental_category
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_business__ydental_category
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_claim__ydental_category
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_disposition__ydental_category
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_event__ydental_category
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_feedback__ydental_category
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_operation__ydental_category
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_policy__ydental_category
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_record__ydental_category
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_slot__ydental_category
+msgid "Business category"
+msgstr "业务大类"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_business__ydental_date
+msgid "Business date"
+msgstr "营业日期"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "By employee"
+msgstr "按人员查看"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "By workstation"
+msgstr "按工位查看"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Cancel arrangement"
+msgstr "取消安排"
+
+#. module: ydental_supply
+#: model:ir.model.fields.selection,name:ydental_supply.selection__ydental_supply_assignment__state__cancelled
+#: model:ir.model.fields.selection,name:ydental_supply.selection__ydental_supply_claim__state__cancelled
+msgid "Cancelled"
+msgstr "已取消"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "Cancelled capacity cannot start execution."
+msgstr "已取消的接收资格不能开始执行。"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Capabilities"
+msgstr "能力"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_claim__ydental_capability_id
+msgid "Capability"
+msgstr "能力"
+
+#. module: ydental_supply
+#: model:ir.model.constraint,message:ydental_supply.constraint_ydental_supply_slot_nonnegative
+msgid "Capacity counters cannot be negative."
+msgstr "容量计数不能为负数。"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_event__ydental_claim_id
+msgid "Capacity entitlement"
+msgstr "容量接收资格"
+
+#. module: ydental_supply
+#: model:ir.model,name:ydental_supply.model_ydental_supply_claim
+msgid "Capacity entitlement ledger source"
+msgstr "容量接收资格账本来源"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Capacity policy"
+msgstr "容量配置策略"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_claim__ydental_slot_id
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_disposition__ydental_slot_id
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_event__ydental_slot_id
+msgid "Capacity slot"
+msgstr "容量槽"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Change total"
+msgstr "调整总额"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "Choose a store, area or workstation policy scope."
+msgstr "请选择门店、区域或工位其中一种配置范围。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "Choose active workstation capabilities."
+msgstr "请选择工位有效能力。"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_location
+msgid "Choose area or workstation"
+msgstr "请选择区域或工位"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_location
+msgid "Choose workstation or area"
+msgstr "请选择工位或区域"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "Configure an explicit demonstration or approved supply policy first."
+msgstr "请先配置明确的演示策略或已批准的正式供给策略。"
+
+#. module: ydental_supply
+#: model:ir.model.fields.selection,name:ydental_supply.selection__ydental_supply_claim__state__consumed
+msgid "Consumed"
+msgstr "已消耗"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "Consumed capacity cannot be returned."
+msgstr "已实际接诊的名额不能返还。"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_assignment__ydental_version
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_business__ydental_version
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_claim__ydental_version
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_disposition__ydental_version
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_event__ydental_version
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_feedback__ydental_version
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_operation__ydental_version
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_policy__ydental_version
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_record__ydental_version
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_slot__ydental_version
+msgid "Content version"
+msgstr "内容版本"
+
+#. module: ydental_supply
+#: model:ir.model,name:ydental_supply.model_ydental_space_resource
+msgid "Controlled common or store-private space artwork"
+msgstr "受控公共或门店私有空间图元"
+
+#. module: ydental_supply
+#: model:ir.model,name:ydental_supply.model_ydental_supply_record
+msgid "Controlled supply record"
+msgstr "受控供给记录"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "Conversion requires a current, unexpired slot."
+msgstr "转换必须在当前有效且未过期的时段内进行。"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Convert unused reservations"
+msgstr "转换未用预约余量"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_slot__ydental_converted
+msgid "Converted"
+msgstr "已转换"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Copy previous week"
+msgstr "复制上一周"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "Copy requires 1 to 50 source assignments."
+msgstr "复制必须有1至50条来源安排。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "Coverage requires active store staff without time off."
+msgstr "能力覆盖人员必须有本店有效资格且无请假冲突。"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Create capacity slot"
+msgstr "创建容量槽"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_assignment__create_uid
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_business__create_uid
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_claim__create_uid
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_disposition__create_uid
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_event__create_uid
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_feedback__create_uid
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_mutex__create_uid
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_operation__create_uid
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_policy__create_uid
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_slot__create_uid
+msgid "Created by"
+msgstr "创建人"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_assignment__create_date
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_business__create_date
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_claim__create_date
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_disposition__create_date
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_event__create_date
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_feedback__create_date
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_mutex__create_date
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_operation__create_date
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_policy__create_date
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_slot__create_date
+msgid "Created on"
+msgstr "创建时间"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_policy__ydental_cutoff_minutes
+msgid "Cutoff minutes"
+msgstr "截止提前分钟数"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Cutoff minutes before start"
+msgstr "开始前多少分钟截止新预约"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Dates, separated by commas (YYYY-MM-DD)"
+msgstr "日期，以逗号分隔（年-月-日）"
+
+#. module: ydental_supply
+#: model:ir.model,name:ydental_supply.model_ydental_supply_assignment
+msgid "Default personnel assignment"
+msgstr "人员默认安排"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid ""
+"Default reservation to walk-in ratio: 1:2. Precedence: workstation, nearest "
+"area, store. Existing slots retain their policy version."
+msgstr "默认预约与现场比例为1:2。覆盖顺序为工位、最近区域、门店。已有容量槽保留原配置版本。"
+
+#. module: ydental_supply
+#: model:ir.model.fields.selection,name:ydental_supply.selection__ydental_supply_policy__ydental_mode__demo
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Demonstration"
+msgstr "明确演示配置"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_res_users__display_name
+#: model:ir.model.fields,field_description:ydental_supply.field_resource_calendar_leaves__display_name
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_access_capability__display_name
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_access_service__display_name
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_space_item__display_name
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_space_resource__display_name
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_space_station__display_name
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_assignment__display_name
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_business__display_name
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_claim__display_name
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_disposition__display_name
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_event__display_name
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_feedback__display_name
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_mutex__display_name
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_operation__display_name
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_policy__display_name
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_record__display_name
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_service__display_name
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_slot__display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: ydental_supply
+#: model:ir.model.fields.selection,name:ydental_supply.selection__ydental_supply_slot__state__draft
+msgid "Draft"
+msgstr "草稿"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid ""
+"Each slot has one shared total across all its capabilities. An area "
+"arrangement adds no capacity."
+msgstr "同一容量槽的所有能力共用一份总额。区域人员安排不增加容量。"
+
+#. module: ydental_supply
+#: model:ir.model.fields.selection,name:ydental_supply.selection__ydental_supply_assignment__state__active
+msgid "Effective"
+msgstr "有效"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_assignment__ydental_employee_id
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_staff
+msgid "Employee"
+msgstr "员工"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_assignment__ydental_user_id
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_feedback__ydental_user_id
+msgid "Employee account"
+msgstr "员工账号"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_assignment__ydental_end
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_slot__ydental_end
+msgid "End"
+msgstr "结束时间"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_times
+msgid "End (store local time)"
+msgstr "结束时间（门店当地时间）"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "End time"
+msgstr "结束时刻"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "Enter an integer within the allowed range."
+msgstr "请输入允许范围内的整数。"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_today
+msgid "Enter suggested workbench"
+msgstr "进入建议工作台"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Event"
+msgstr "事件"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "Explicitly open the local business day first."
+msgstr "请先显式开启门店当地营业日。"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Extend and verify again"
+msgstr "延长并重新核查"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Extend slot"
+msgstr "延长时段"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "Extend within the original local business day."
+msgstr "只能在原门店营业日内延长时段。"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Feedback and future handling"
+msgstr "反馈与未来排期处置"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "Formal publication requires explicit approval."
+msgstr "正式发布必须明确确认批准。"
+
+#. module: ydental_supply
+#: model:ir.model,name:ydental_supply.model_ydental_supply_disposition
+msgid "Future supply handling work item"
+msgstr "未来供给处置待办"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_today
+msgid "Global execution store:"
+msgstr "全局实际坐诊门店："
+
+#. module: ydental_supply
+#: model:ir.model.fields.selection,name:ydental_supply.selection__ydental_supply_claim__state__held
+msgid "Held"
+msgstr "已占用"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "I confirm formal production policy approval"
+msgstr "我确认正式生产配置已获批准"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_res_users__id
+#: model:ir.model.fields,field_description:ydental_supply.field_resource_calendar_leaves__id
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_access_capability__id
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_access_service__id
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_space_item__id
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_space_resource__id
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_space_station__id
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_assignment__id
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_business__id
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_claim__id
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_disposition__id
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_event__id
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_feedback__id
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_mutex__id
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_operation__id
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_policy__id
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_record__id
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_service__id
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_slot__id
+msgid "ID"
+msgstr "标识"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_operation__ydental_key
+msgid "Idempotency key"
+msgstr "幂等键"
+
+#. module: ydental_supply
+#: model:ir.model,name:ydental_supply.model_ydental_supply_operation
+msgid "Idempotent supply action receipt"
+msgstr "供给动作幂等回执"
+
+#. module: ydental_supply
+#: model:ir.model,name:ydental_supply.model_ydental_supply_event
+msgid "Immutable supply accounting event"
+msgstr "不可改写的供给记账事件"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_assignment__write_uid
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_business__write_uid
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_claim__write_uid
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_disposition__write_uid
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_event__write_uid
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_feedback__write_uid
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_mutex__write_uid
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_operation__write_uid
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_policy__write_uid
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_slot__write_uid
+msgid "Last Updated by"
+msgstr "最后修改人"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_assignment__write_date
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_business__write_date
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_claim__write_date
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_disposition__write_date
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_event__write_date
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_feedback__write_date
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_mutex__write_date
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_operation__write_date
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_policy__write_date
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_slot__write_date
+msgid "Last Updated on"
+msgstr "最后修改时间"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_event.py:0
+msgid "Ledger events are immutable."
+msgstr "账本事件不可修改。"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Location"
+msgstr "地点"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_today
+msgid "Multiple suggested stores. Choose a store."
+msgstr "有多个建议门店，请选择。"
+
+#. module: ydental_supply
+#: model:ir.actions.act_url,name:ydental_supply.ydental_supply_today_action
+#: model:ir.ui.menu,name:ydental_supply.ydental_supply_today_menu
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_today
+msgid "My today"
+msgstr "我的今日"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_assignment__name
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_business__name
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_claim__name
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_disposition__name
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_event__name
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_feedback__name
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_mutex__name
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_operation__name
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_policy__name
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_record__name
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_slot__name
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Name"
+msgstr "名称"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "New arrangement"
+msgstr "新增安排"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "New policy version and integer preview"
+msgstr "新增配置版本与整数预览"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Next week"
+msgstr "下一周"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_today
+msgid "No effective arrangement today. Select an authorized store."
+msgstr "今日没有有效安排，请选择仍有权限的门店。"
+
+#. module: ydental_supply
+#: model:ir.model.constraint,message:ydental_supply.constraint_ydental_supply_business_day_unique
+msgid "One business record per store, area and local date is required."
+msgstr "同门店、区域和当地日期只能有一条营业记录。"
+
+#. module: ydental_supply
+#: model:ir.model.constraint,message:ydental_supply.constraint_ydental_supply_claim_source_unique
+msgid "One capacity entitlement per source is required."
+msgstr "同一来源只能有一份容量接收资格。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "Only an unused entitlement can be rescheduled."
+msgstr "只有未接诊的接收资格可以改期。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "Only future effective assignments can be adjusted."
+msgstr "只能调整未来有效安排。"
+
+#. module: ydental_supply
+#: model:ir.model.fields.selection,name:ydental_supply.selection__ydental_supply_business__state__open
+msgid "Open"
+msgstr "开诊"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Open a reporting area today"
+msgstr "开启今日报到区域"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Open local business day"
+msgstr "开启门店当地营业日"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_event__ydental_operation
+msgid "Operation"
+msgstr "操作"
+
+#. module: ydental_supply
+#: model:ir.model.fields.selection,name:ydental_supply.selection__ydental_supply_business__state__closed
+msgid "Ordinary calling stopped"
+msgstr "已停止普通叫号"
+
+#. module: ydental_supply
+#: model:ir.model.fields.selection,name:ydental_supply.selection__ydental_supply_business__state__draining
+msgid "Ordinary reporting stopped"
+msgstr "已停止普通报到"
+
+#. module: ydental_supply
+#: model:ir.model.fields.selection,name:ydental_supply.selection__ydental_supply_feedback__state__pending
+msgid "Pending"
+msgstr "待处理"
+
+#. module: ydental_supply
+#: model:ir.model.fields.selection,name:ydental_supply.selection__ydental_supply_disposition__state__pending
+msgid "Pending replacement, migration or contact"
+msgstr "待替班、迁移或联系"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid ""
+"Personnel arrangements suggest a location. Capacity belongs to workstation "
+"time slots."
+msgstr "人员安排提供默认地点建议，容量属于工位时段。"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_event__ydental_policy_id
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_slot__ydental_policy_id
+msgid "Policy version"
+msgstr "配置版本"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_claim__ydental_pool
+msgid "Pool"
+msgstr "额度池"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Previous week"
+msgstr "上一周"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Publication"
+msgstr "发布方式"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_policy__ydental_mode
+msgid "Publication mode"
+msgstr "发布方式"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Publish verified supply"
+msgstr "发布已核查供给"
+
+#. module: ydental_supply
+#: model:ir.model.fields.selection,name:ydental_supply.selection__ydental_supply_slot__state__published
+msgid "Published"
+msgstr "已发布"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_slot__ydental_capability_ids
+msgid "Published capabilities"
+msgstr "发布能力"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid ""
+"Queue integration is not connected. Ordinary calling cannot be stopped."
+msgstr "队列尚未接入，无法确认清空并停止普通叫号。"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Ratio"
+msgstr "比例"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Read only"
+msgstr "只读"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_assignment__ydental_reason
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_business__ydental_reason
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_disposition__ydental_reason
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_event__ydental_reason
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_feedback__ydental_reason
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_policy__ydental_reason
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_slot__ydental_reason
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_reason
+msgid "Reason"
+msgstr "原因"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "Reassignment requires an unused entitlement in the same area and time."
+msgstr "重配仅限同一区域、时段内的未接诊资格。"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_feedback__ydental_recipient_ids
+msgid "Recipients"
+msgstr "接收人员"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "Record actual capability coverage before publication."
+msgstr "发布前必须记录实际能力覆盖核查。"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Record handling result"
+msgstr "记录处置结果"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Reopen with reason"
+msgstr "填写原因重开"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Replacement candidates:"
+msgstr "替班候选："
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_today
+msgid "Report arrangement error"
+msgstr "提交安排有误"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_operation__ydental_fingerprint
+msgid "Request fingerprint"
+msgstr "请求指纹"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "Rescheduling requires a new revision key on the same source."
+msgstr "改期必须使用同一来源的新修订键。"
+
+#. module: ydental_supply
+#: model:ir.model.fields.selection,name:ydental_supply.selection__ydental_supply_claim__ydental_pool__reservation
+#: model:ir.model.fields.selection,name:ydental_supply.selection__ydental_supply_policy__ydental_phone_pool__reservation
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Reservation"
+msgstr "预约"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_slot__ydental_reservation_free
+msgid "Reservation free"
+msgstr "预约余量"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_policy__ydental_reservation_weight
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Reservation weight"
+msgstr "预约权重"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_disposition__ydental_resolution
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_feedback__ydental_resolution
+msgid "Resolution"
+msgstr "处置结果"
+
+#. module: ydental_supply
+#: model:ir.model.fields.selection,name:ydental_supply.selection__ydental_supply_disposition__state__resolved
+#: model:ir.model.fields.selection,name:ydental_supply.selection__ydental_supply_feedback__state__resolved
+msgid "Resolved"
+msgstr "已处理"
+
+#. module: ydental_supply
+#: model:ir.model,name:ydental_supply.model_resource_calendar_leaves
+msgid "Resource Time Off Detail"
+msgstr "原生资源请假明细"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_operation__ydental_result
+msgid "Result"
+msgstr "结果"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid ""
+"Review replacement, migration and contact without deleting existing "
+"entitlements."
+msgstr "请核查替班、迁移和联系处理，保留已有接收资格。"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_mutex__ydental_revision
+msgid "Revision"
+msgstr "修订号"
+
+#. module: ydental_supply
+#: model:ir.model.fields.selection,name:ydental_supply.selection__ydental_supply_policy__ydental_rounding__floor
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Round reservation down"
+msgstr "预约份额向下取整"
+
+#. module: ydental_supply
+#: model:ir.model.fields.selection,name:ydental_supply.selection__ydental_supply_policy__ydental_rounding__nearest
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Round reservation to nearest"
+msgstr "预约份额四舍五入"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_policy__ydental_rounding
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Rounding"
+msgstr "取整策略"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Save adjustment"
+msgstr "保存调整"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Save and preview Q=1,2,3,6"
+msgstr "保存并预览总额1、2、3、6"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Save arrangement"
+msgstr "保存安排"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Save batch"
+msgstr "保存批量安排"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Save business state"
+msgstr "保存营业状态"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Save total"
+msgstr "保存总额"
+
+#. module: ydental_supply
+#: model:ir.actions.act_url,name:ydental_supply.ydental_supply_action
+#: model:ir.ui.menu,name:ydental_supply.ydental_supply_menu
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Schedule and capacity"
+msgstr "排期与容量"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Scope"
+msgstr "范围"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "Select a feedback or future handling work item."
+msgstr "请选择安排反馈或未来处置待办。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "Select a reporting area and a valid business state."
+msgstr "请选择报到区域和有效营业状态。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "Select a supported rounding and telephone pool strategy."
+msgstr "请选择支持的取整与电话代约归池策略。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "Select an active employee qualified for this store."
+msgstr "请选择具有本门店有效资格的员工。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "Select an active location in this store."
+msgstr "请选择本门店有效地点。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "Select an enabled workstation."
+msgstr "请选择已启用工位。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "Select either a workstation or an area."
+msgstr "工位和区域必须二选一。"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_today
+msgid "Select store for this session"
+msgstr "选择本会话门店"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_today
+msgid ""
+"Sent to this store's schedule editors. If none are available, ask the store "
+"manager to handle it."
+msgstr "反馈提交给本店排班读写人员；没有接收者时请店长处理。"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Shared capacity"
+msgstr "共享容量"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_slot__ydental_total
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Shared total"
+msgstr "共享总额"
+
+#. module: ydental_supply
+#: model:ir.model,name:ydental_supply.model_ydental_supply_slot
+msgid "Shared workstation time capacity"
+msgstr "工位时段共享容量"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_claim__ydental_source
+msgid "Source"
+msgstr "来源"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_claim__ydental_source_key
+msgid "Source key"
+msgstr "来源键"
+
+#. module: ydental_supply
+#: model:ir.model,name:ydental_supply.model_ydental_space_station
+msgid "Stable clinic workstation"
+msgstr "诊所稳定工位"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid ""
+"Staff capabilities do not cover the workstation. Draft may be saved; verify "
+"supply separately."
+msgstr "员工能力未覆盖工位能力。草稿可保存，供给必须另行核查。"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_assignment__ydental_start
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_slot__ydental_start
+msgid "Start"
+msgstr "开始时间"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_times
+msgid "Start (store local time)"
+msgstr "开始时间（门店当地时间）"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Start time"
+msgstr "开始时刻"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_assignment__state
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_business__state
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_claim__state
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_disposition__state
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_feedback__state
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_slot__state
+msgid "State"
+msgstr "状态"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "State and actions"
+msgstr "状态与操作"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Status"
+msgstr "状态"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Stop ordinary calling"
+msgstr "停止普通叫号"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Stop ordinary reporting"
+msgstr "停止普通报到"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "Stop ordinary reporting before ordinary calling."
+msgstr "停止普通叫号前必须先停止普通报到。"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid ""
+"Stop ordinary reporting first. Stopping ordinary calling requires the "
+"connected queue to be empty."
+msgstr "先停止普通报到；停止普通叫号必须由已接入的队列确认清空。"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_assignment__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_business__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_claim__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_disposition__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_event__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_feedback__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_operation__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_policy__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_record__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_slot__ydental_store_id
+msgid "Store"
+msgstr "门店"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_today
+msgid "Store and access"
+msgstr "门店与权限"
+
+#. module: ydental_supply
+#: model:ir.model,name:ydental_supply.model_ydental_supply_business
+msgid "Store area local business day"
+msgstr "门店区域当地营业日"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_business__ydental_timezone
+msgid "Store timezone"
+msgstr "门店时区"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_suggestion
+msgid "Suggested workbench"
+msgstr "建议工作台"
+
+#. module: ydental_supply
+#: model:ir.model.constraint,message:ydental_supply.constraint_ydental_supply_operation_key_unique
+msgid "Supply action keys must be unique within a store."
+msgstr "同门店供给动作幂等键必须唯一。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_record.py:0
+msgid "Supply history cannot be deleted."
+msgstr "供给历史不可删除。"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Supply ledger"
+msgstr "供给账本"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "Supply serialization configuration is missing."
+msgstr "供给事务互斥配置缺失。"
+
+#. module: ydental_supply
+#: model:ir.model,name:ydental_supply.model_ydental_supply_mutex
+msgid "Supply transaction serialization point"
+msgstr "供给事务互斥对象"
+
+#. module: ydental_supply
+#: model:ir.model.fields.selection,name:ydental_supply.selection__ydental_supply_slot__state__suspended
+msgid "Suspended"
+msgstr "暂停新增供给"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_policy__ydental_phone_pool
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Telephone pool"
+msgstr "电话代约归池"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Temporary opening or new capacity slot"
+msgstr "临时开诊或新增容量槽"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "The end must follow the UTC start within seven days."
+msgstr "结束时间必须晚于UTC开始时间，且跨度不超过七天。"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Time"
+msgstr "时间"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "Time off conflicts with this assignment. Replacement is required."
+msgstr "请假与既有安排冲突，需要核查替班。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "Time off prevents a new effective assignment."
+msgstr "请假冲突，不能新增有效安排。"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Total"
+msgstr "总额"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_slot__ydental_unavailable
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Unavailable"
+msgstr "不可再售余量"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "Unknown capacity channel."
+msgstr "未知容量渠道。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "Unknown or missing action arguments."
+msgstr "动作参数未知或缺失。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "Unverified capabilities cannot be published as guaranteed supply."
+msgstr "未经核查的能力不能发布为有保障供给。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "Use valid UTC start and end times."
+msgstr "请提供有效UTC开始和结束时间。"
+
+#. module: ydental_supply
+#: model:ir.model,name:ydental_supply.model_res_users
+msgid "User"
+msgstr "用户"
+
+#. module: ydental_supply
+#: model:ir.model,name:ydental_supply.model_ydental_supply_service
+msgid "Validated schedule and shared capacity transactions"
+msgstr "受控排期与共享容量事务"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Verified capability coverage"
+msgstr "已核查能力覆盖"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_slot__ydental_coverage
+msgid "Verified coverage"
+msgstr "覆盖核查记录"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Verify and publish supply"
+msgstr "核查并发布供给"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Version"
+msgstr "版本"
+
+#. module: ydental_supply
+#: model:ir.model,name:ydental_supply.model_ydental_supply_policy
+msgid "Versioned capacity publication policy"
+msgstr "版本化容量发布策略"
+
+#. module: ydental_supply
+#: model:ir.model.fields.selection,name:ydental_supply.selection__ydental_supply_claim__ydental_pool__walkin
+#: model:ir.model.fields.selection,name:ydental_supply.selection__ydental_supply_policy__ydental_phone_pool__walkin
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Walk-in"
+msgstr "现场"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_slot__ydental_walkin_free
+msgid "Walk-in free"
+msgstr "现场余量"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_policy__ydental_walkin_weight
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Walk-in weight"
+msgstr "现场权重"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_assignment__ydental_warning
+msgid "Warning"
+msgstr "提示"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_today
+msgid "Weekly plan"
+msgstr "周排期"
+
+#. module: ydental_supply
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_assignment__ydental_station_id
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_policy__ydental_station_id
+#: model:ir.model.fields,field_description:ydental_supply.field_ydental_supply_slot__ydental_station_id
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_location
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Workstation"
+msgstr "工位"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "Workstation capabilities no longer cover this slot."
+msgstr "当前工位能力已无法覆盖该容量槽。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid ""
+"Workstation suggestion only. Execution entry awaits the S06 connection."
+msgstr "此处仅提供工位建议，实际坐诊入口等待S06接入。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "Workstation unavailable. Review the arrangement."
+msgstr "工位不可用，请核查安排。"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_today
+msgid "YDental"
+msgstr "YDental"
+
+#. module: ydental_supply
+#: model:ir.module.module,shortdesc:base.module_ydental_supply
+msgid "YDental Schedule and Supply"
+msgstr "YDental排期与供给"
+
+#. module: ydental_supply
+#: model:ir.model,name:ydental_supply.model_ydental_access_capability
+msgid "YDental common capability dictionary"
+msgstr "YDental公共能力字典"
+
+#. module: ydental_supply
+#: model:ir.model,name:ydental_supply.model_ydental_access_service
+msgid "YDental trusted authorization and lifecycle service"
+msgstr "YDental可信授权与人员生命周期服务"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "Zero reservation allocation"
+msgstr "预约份额为0"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "access_denied: Active membership is required."
+msgstr "access_denied: 必须具有有效门店资格。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "access_denied: Capacity source integration is not connected."
+msgstr "access_denied: 容量来源服务尚未接入。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "access_denied: Report only your own arrangement."
+msgstr "access_denied: 只能反馈自己的安排。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "access_denied: Select a record in the current store."
+msgstr "access_denied: 请选择当前门店的记录。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "access_denied: Select your effective arrangement today."
+msgstr "access_denied: 请选择自己的今日有效安排。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/controllers/supply.py:0
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "access_denied: Unknown supply action."
+msgstr "access_denied: 未知供给动作。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_record.py:0
+msgid "access_denied: Use a controlled supply action."
+msgstr "access_denied: 请使用受控供给操作。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "insufficient_balance: No eligible shared capacity remains."
+msgstr "insufficient_balance: 没有剩余的合格共享容量。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "insufficient_balance: Reduction would remove used capacity."
+msgstr "insufficient_balance: 减额不能低于已占用或消耗的容量。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "insufficient_balance: Target capacity is unavailable."
+msgstr "insufficient_balance: 目标容量不可用。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "version_conflict: Extension overlaps another slot."
+msgstr "version_conflict: 延长时段与其他容量槽重叠。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "version_conflict: Reload the changed record."
+msgstr "version_conflict: 记录已变化，请重新加载。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid ""
+"version_conflict: The account or workstation already has an overlapping "
+"assignment."
+msgstr "version_conflict: 同一账号或工位已有重叠安排。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "version_conflict: This key belongs to another request."
+msgstr "version_conflict: 此幂等键属于其他请求。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "version_conflict: This source already has a capacity entitlement."
+msgstr "version_conflict: 此来源已有容量接收资格。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "version_conflict: Workstation capacity slots cannot overlap."
+msgstr "version_conflict: 同一工位容量槽不能重叠。"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "· Reservation free"
+msgstr "· 预约余量"
+
+#. module: ydental_supply
+#: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
+msgid "· Walk-in free"
+msgstr "· 现场余量"
