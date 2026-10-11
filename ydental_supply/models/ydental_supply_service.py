@@ -450,7 +450,12 @@ class YDentalSupplyService(models.AbstractModel):
             'date': fields.Date.to_string(record.ydental_date), 'version': record.ydental_version})
         return {'id': record.id, 'version': record.ydental_version}
 
+    def _allow_demo_supply(self):
+        return False
+
     def _saleable(self, store, slot, pool):
+        if slot.ydental_policy_id.ydental_mode == 'demo' and not self._allow_demo_supply():
+            return False
         now = self._now()
         business = self._business_record(store, slot.ydental_area_id.id, slot.ydental_start)
         if slot.state != 'published' or not self._coverage_valid(slot) or now >= slot.ydental_end:
