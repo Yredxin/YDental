@@ -1,0 +1,52 @@
+{
+  "time_utc": "2026-10-11T23:45:03.402481+00:00",
+  "fixed_product": "887d0a9772a9ee165992ccd77af87fbb2c287d93",
+  "fixed_test": "f3dc3dcb188511b19f9f2d898f45fbfdd6280663",
+  "product_tree": "95051feeb90f3bcfd9067dc72329b158eadabca9",
+  "product_tree_unchanged_at_test": true,
+  "python_ast": {
+    "files": 38,
+    "result": "PASS"
+  },
+  "core_tracked_diff": "EMPTY",
+  "original_evidence_3b74b33": "UNCHANGED",
+  "guard": {
+    "tests": 5,
+    "result": "PASS",
+    "command": "../.venv/bin/python -m unittest discover -s scripts -p test_s04_guard.py -v",
+    "private_log_sha256": "a895f5c1135d91900e076e38782f39e89a1288a2f170c01305e79b34483c12ca"
+  },
+  "git_diff_check": "PASS",
+  "own_previews_stopped": true,
+  "final_database": "ydental_s04_test_20261011233749_c7095425",
+  "browser": {
+    "checks": 37,
+    "result": "PASS",
+    "pageerror_count": 0
+  },
+  "models": 24,
+  "http_rpc": 12,
+  "probe_races": 7,
+  "translation": {
+    "required": 225,
+    "translated": 225,
+    "result": "PASS"
+  },
+  "project": {
+    "custom_execution_state": "返工",
+    "mutations": 1,
+    "full_readback": "PASS",
+    "second_readback": "PASS",
+    "native_status_workflows_entities_unchanged": true
+  },
+  "scope": "S04 rework only; real S05/S06/S08/S09/S10/S12 integration NOT_RUN; no production release",
+  "private_value_scan": {
+    "result": "PASS",
+    "public_files": 55,
+    "known_values_compared": 79,
+    "raw_logs_copied": false
+  },
+  "screenshot_hashes": "PASS; all attempts retained",
+  "screenshots_visual_review": "10 final synthetic images reviewed; no visible credentials",
+  "relative_document_links": "PASS"
+}

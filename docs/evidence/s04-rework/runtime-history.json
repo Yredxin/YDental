@@ -1,0 +1,128 @@
+[
+  {
+    "database": "ydental_s04_test_20261011232743_1a3ed3e0",
+    "actions": [
+      {
+        "action": "install",
+        "exit_code": 1,
+        "log": "install-20261011T232743591605.log",
+        "log_sha256": "b461b131c8144fc4360ca228dea433b7edb2d412623ad2cde49094cd477f5b6f",
+        "time_utc": "2026-10-11T23:28:40.370204+00:00",
+        "tested_commit": "6c7f30d0f2dffef258672cfc4866e2aa640a7029",
+        "tests": [
+          2,
+          3,
+          38
+        ],
+        "verification_exit": 1
+      },
+      {
+        "action": "upgrade",
+        "exit_code": 0,
+        "log": "upgrade-20261011T233132689838.log",
+        "log_sha256": "a353129aa4eb095fece15646348a85ce67a78ec3920eb2dfd94c26da9f4ec918",
+        "time_utc": "2026-10-11T23:31:48.549147+00:00",
+        "tested_commit": "fbb1159615fe1c9f9ad3dc0dd767d20654968c71",
+        "tests": [
+          0,
+          0,
+          36
+        ]
+      }
+    ]
+  },
+  {
+    "database": "ydental_s04_test_20261011233210_ae64c6f0",
+    "actions": [
+      {
+        "action": "install",
+        "exit_code": 0,
+        "log": "install-20261011T233210314143.log",
+        "log_sha256": "253494f89eab9ac0950bcb38b413fe6d7828fb144767683bb5e0a912893d8030",
+        "time_utc": "2026-10-11T23:33:08.310647+00:00",
+        "tested_commit": "34a3d8fb06704026623f101883762f527ab79393",
+        "tests": [
+          0,
+          0,
+          38
+        ]
+      },
+      {
+        "action": "probe",
+        "exit_code": 0,
+        "log": "probe-20261011T233350319358.log",
+        "log_sha256": "4dc2278aaf8c48d0f934d6538e07c6ae7156744062b6796fbf845c4cabdf1132",
+        "time_utc": "2026-10-11T23:33:56.976282+00:00",
+        "tested_commit": "07c705971013e3a82417b43304fe19658a31c851"
+      },
+      {
+        "action": "upgrade",
+        "exit_code": 0,
+        "log": "upgrade-20261011T233417759208.log",
+        "log_sha256": "36bfda9af78eb49974a0069327ea1318f91a87ee79776f784c64439aa15c34ab",
+        "time_utc": "2026-10-11T23:34:33.944542+00:00",
+        "tested_commit": "07c705971013e3a82417b43304fe19658a31c851",
+        "tests": [
+          0,
+          0,
+          36
+        ]
+      },
+      {
+        "action": "export",
+        "exit_code": 0,
+        "log": "export-20261011T233437242198.log",
+        "log_sha256": "79292525b2b6b02a490c2854402f2251be0c5743c0d1e3045755604eefd81fd0",
+        "time_utc": "2026-10-11T23:34:38.839499+00:00",
+        "tested_commit": "07c705971013e3a82417b43304fe19658a31c851"
+      }
+    ]
+  },
+  {
+    "database": "ydental_s04_test_20261011233749_c7095425",
+    "actions": [
+      {
+        "action": "install",
+        "exit_code": 0,
+        "log": "install-20261011T233754167823.log",
+        "log_sha256": "97f4f3697352a67407f7c58b16b949e2334d21f17c90d23c66e21d18d1cc6c8f",
+        "time_utc": "2026-10-11T23:38:52.518570+00:00",
+        "tested_commit": "f3dc3dcb188511b19f9f2d898f45fbfdd6280663",
+        "tests": [
+          0,
+          0,
+          38
+        ]
+      },
+      {
+        "action": "probe",
+        "exit_code": 0,
+        "log": "probe-20261011T233857108573.log",
+        "log_sha256": "d67643ca98de59798f943a341abc602a498b967a12e7dabba518834b87dcfba5",
+        "time_utc": "2026-10-11T23:39:03.838049+00:00",
+        "tested_commit": "f3dc3dcb188511b19f9f2d898f45fbfdd6280663"
+      },
+      {
+        "action": "upgrade",
+        "exit_code": 0,
+        "log": "upgrade-20261011T233928049630.log",
+        "log_sha256": "9f1497c018fdaa7be881c31a172424db82953f7ca1a24a61943a318cc5626885",
+        "time_utc": "2026-10-11T23:39:44.414186+00:00",
+        "tested_commit": "f3dc3dcb188511b19f9f2d898f45fbfdd6280663",
+        "tests": [
+          0,
+          0,
+          36
+        ]
+      },
+      {
+        "action": "export",
+        "exit_code": 0,
+        "log": "export-20261011T234013652471.log",
+        "log_sha256": "7126382eabbb3da01d1dcd0f14c0b2200929a84c8443cfe34e2e726c816033a2",
+        "time_utc": "2026-10-11T23:40:15.259729+00:00",
+        "tested_commit": "f3dc3dcb188511b19f9f2d898f45fbfdd6280663"
+      }
+    ]
+  }
+]

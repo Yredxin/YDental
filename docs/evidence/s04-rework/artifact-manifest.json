@@ -1,0 +1,157 @@
+{
+  "time_utc": "2026-10-11T23:45:03.445564+00:00",
+  "artifacts": [
+    {
+      "path": "docs/evidence/s04-rework/authorization.json",
+      "sha256": "2a9410c2d03c125a565e39368a703e85b66050831dac69ab700f40f9757455b6"
+    },
+    {
+      "path": "docs/evidence/s04-rework/browser-attempts/20261011T233459910936/01-frontdesk-shared-identity.png",
+      "sha256": "98d2f00d25a1025979ed58eb7f6349320a34a03295cb93a8a9c6a8ebc15c4150"
+    },
+    {
+      "path": "docs/evidence/s04-rework/browser-attempts/20261011T233459910936/02-new-identity-guardian-policy.png",
+      "sha256": "6513830e82d7ae5c80a15ed085c09826c036b9aa18ee94900b3b9f9268119081"
+    },
+    {
+      "path": "docs/evidence/s04-rework/browser-attempts/20261011T233459910936/03-store-merge-request.png",
+      "sha256": "a3f622c479f28e573162fab8af050511309ded8c02825536ee245380f4978c4d"
+    },
+    {
+      "path": "docs/evidence/s04-rework/browser-attempts/20261011T233459910936/04-cross-store-care-readonly.png",
+      "sha256": "b81ebda0ca5aa7f1bedcd94a1e3dd9dd053d7f56f6138020e68061a86ae084ae"
+    },
+    {
+      "path": "docs/evidence/s04-rework/browser-attempts/20261011T233459910936/05-canonical-old-numbers.png",
+      "sha256": "5bd0427ebab3d99c2e22b5ebc673d67b7e59e09dde0417d37f60d22963175197"
+    },
+    {
+      "path": "docs/evidence/s04-rework/browser-attempts/20261011T233459910936/summary.json",
+      "sha256": "56f78a8c033d068af39527287dd6d0e02b65fbbc18a6f69fc6c3585dbbf546cd"
+    },
+    {
+      "path": "docs/evidence/s04-rework/browser-attempts/20261011T234119397851/01-frontdesk-shared-identity.png",
+      "sha256": "98d2f00d25a1025979ed58eb7f6349320a34a03295cb93a8a9c6a8ebc15c4150"
+    },
+    {
+      "path": "docs/evidence/s04-rework/browser-attempts/20261011T234119397851/02-new-identity-guardian-policy.png",
+      "sha256": "6513830e82d7ae5c80a15ed085c09826c036b9aa18ee94900b3b9f9268119081"
+    },
+    {
+      "path": "docs/evidence/s04-rework/browser-attempts/20261011T234119397851/03-store-merge-request.png",
+      "sha256": "d58a947736b9a68540c6a495653f4b582e95c1d16242d7485eab9ad8f1ed8153"
+    },
+    {
+      "path": "docs/evidence/s04-rework/browser-attempts/20261011T234119397851/04-cross-store-care-readonly.png",
+      "sha256": "b81ebda0ca5aa7f1bedcd94a1e3dd9dd053d7f56f6138020e68061a86ae084ae"
+    },
+    {
+      "path": "docs/evidence/s04-rework/browser-attempts/20261011T234119397851/05-canonical-old-numbers.png",
+      "sha256": "0835e796f385d3a146838af7d4b590391a782800c3402c923cc2af1cf60a76a5"
+    },
+    {
+      "path": "docs/evidence/s04-rework/browser-attempts/20261011T234119397851/06a-none-native-contacts-denied.png",
+      "sha256": "2452779c237e108f4d29cc7e49b86c8c749ba6542fff67da086d35d73e9bc97c"
+    },
+    {
+      "path": "docs/evidence/s04-rework/browser-attempts/20261011T234119397851/06b-none-native-contacts-denied.png",
+      "sha256": "d7648a7b4e08588e64be2d25f79055f4713f3b87bf174626d8f9facaa81da93f"
+    },
+    {
+      "path": "docs/evidence/s04-rework/browser-attempts/20261011T234119397851/06c-none-ordinary-contacts-allowed.png",
+      "sha256": "a67b7089062c0498f6925b53e0fcab7f4c6f0cec1caa05dd1b5d3fbe16563ec2"
+    },
+    {
+      "path": "docs/evidence/s04-rework/browser-attempts/20261011T234119397851/07-explicit-relation-no-arrival.png",
+      "sha256": "209e2cb5ac2c28f93b9eae567431d8ea592b652295c1cbbabbb602ef72da6d03"
+    },
+    {
+      "path": "docs/evidence/s04-rework/browser-attempts/20261011T234119397851/08-relation-care-and-local-write.png",
+      "sha256": "69605045b20d848f46a43c42b7da5299e59121e8894b5535d3f166a9c27cbe4a"
+    },
+    {
+      "path": "docs/evidence/s04-rework/browser-attempts/20261011T234119397851/summary.json",
+      "sha256": "538f94662cda3bdb92ac7efaae7ac7a5fe1595b5e4fc5f5cd044f4c17838c295"
+    },
+    {
+      "path": "docs/evidence/s04-rework/failures.md",
+      "sha256": "7bfbb6dd7c28d556c78f1500c3db4ada5d1dc8d958d6626b7bab095b92eb6600"
+    },
+    {
+      "path": "docs/evidence/s04-rework/final-browser.json",
+      "sha256": "538f94662cda3bdb92ac7efaae7ac7a5fe1595b5e4fc5f5cd044f4c17838c295"
+    },
+    {
+      "path": "docs/evidence/s04-rework/final-checks.json",
+      "sha256": "e17c22b46c64736e9d308a404a1260f1b49ce0c689e5b5560199f09dc76a660c"
+    },
+    {
+      "path": "docs/evidence/s04-rework/final-isolation.json",
+      "sha256": "0ff46d330f9954ff5be2ae77fe0c7b579e3e65601759c9555e69e60b5e96b845"
+    },
+    {
+      "path": "docs/evidence/s04-rework/final-probe.json",
+      "sha256": "8c1fbfccc671b41f822e7b0978219e0b3ee420163ac91aa317781c9d3a2885c9"
+    },
+    {
+      "path": "docs/evidence/s04-rework/isolation-attempts/ydental_s04_test_20261011232743_1a3ed3e0.json",
+      "sha256": "e1989070cbc6c8da57fbfb2f7bb39b9a78646fd27432581f842e06b033090afc"
+    },
+    {
+      "path": "docs/evidence/s04-rework/isolation-attempts/ydental_s04_test_20261011233210_ae64c6f0.json",
+      "sha256": "26d2780a8068a05a8aecd6a0f44b6874b29ec82794ec3d015c85806b79a170d8"
+    },
+    {
+      "path": "docs/evidence/s04-rework/isolation-attempts/ydental_s04_test_20261011233749_c7095425.json",
+      "sha256": "e9a5450d4c08812f2727b017f09052bef35803ecbf373cd1cccd17e8ed338f5b"
+    },
+    {
+      "path": "docs/evidence/s04-rework/preview-stop-1.json",
+      "sha256": "40fd30131e7913975fc80135d186530cca68052a7a5080b76ad44163c8e75b9c"
+    },
+    {
+      "path": "docs/evidence/s04-rework/preview-stop-final.json",
+      "sha256": "460ac52ed733872d99edcfddb382fdec71dfba9ebb43c1645bad508a84e21210"
+    },
+    {
+      "path": "docs/evidence/s04-rework/probe-attempts/ydental_s04_test_20261011233210_ae64c6f0-probe-20261011T233356748553.json",
+      "sha256": "7addb357f91968994d41f87e4db9e1ce9cd79e3cfe205dcf8d3bc904d62ce9f5"
+    },
+    {
+      "path": "docs/evidence/s04-rework/probe-attempts/ydental_s04_test_20261011233749_c7095425-probe-20261011T233903612868.json",
+      "sha256": "8c1fbfccc671b41f822e7b0978219e0b3ee420163ac91aa317781c9d3a2885c9"
+    },
+    {
+      "path": "docs/evidence/s04-rework/project/after.json",
+      "sha256": "9a15cf8502b27d8213ecca1ffe7a44624c35b4f96cb6056eb845cbe7ce887163"
+    },
+    {
+      "path": "docs/evidence/s04-rework/project/before.json",
+      "sha256": "19bae069fe197e7fa0f4c276bea883fe24b348816a249b2a838aa2e966e01fe3"
+    },
+    {
+      "path": "docs/evidence/s04-rework/project/mutation.json",
+      "sha256": "e6af29186f0fe93d9bf487d5ebddc87f963cb2ac5ee613d4a7ff4685ff407538"
+    },
+    {
+      "path": "docs/evidence/s04-rework/project/prewrite.json",
+      "sha256": "64feb5a9a34ec54d12205f9da91e2ef16b7acfd1a103a62d6ce0375367089eef"
+    },
+    {
+      "path": "docs/evidence/s04-rework/project/second.json",
+      "sha256": "63fff7da8c4005f3cab5fcf25fc224fc216f6f672d02287733c2c2e5d8677f90"
+    },
+    {
+      "path": "docs/evidence/s04-rework/protected-contracts.json",
+      "sha256": "3cbd4040043fa9dfda1c043311ae106f31a9ff60b456cf30e5caae9d8dbfbade"
+    },
+    {
+      "path": "docs/evidence/s04-rework/runtime-history.json",
+      "sha256": "8b2171fe5bb5f0f78e0df66017ad01034cc080363d5353fe2dfc1e41676af8c3"
+    },
+    {
+      "path": "docs/evidence/s04-rework/translation.json",
+      "sha256": "b3ffdb3b5b96cc7e5d3f64df0754fe039fa54dff07fefa404ef3e44b629eb1a1"
+    }
+  ]
+}

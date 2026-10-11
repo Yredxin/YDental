@@ -1,0 +1,8 @@
+{
+  "database": "ydental_s04_test_20261011233749_c7095425",
+  "pid_matched_config": true,
+  "signal": "SIGTERM",
+  "requested_utc": "2026-10-11T23:42:26.587847+00:00",
+  "stopped": true,
+  "verified_utc": "2026-10-11T23:45:03.362401+00:00"
+}

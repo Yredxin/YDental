@@ -1,0 +1,2142 @@
+{
+  "scope": "S04 real database concurrency with synthetic identities and active-reference adapter",
+  "database": "ydental_s04_test_20261011233210_ae64c6f0",
+  "started_utc": "2026-10-11T23:33:51.252710+00:00",
+  "races": [
+    {
+      "name": "eight_concurrent_patient_numbers",
+      "result": "PASS",
+      "connections": 8,
+      "unique_numbers": 8,
+      "attempts": [
+        3,
+        5,
+        7,
+        8,
+        2,
+        6,
+        4,
+        1
+      ]
+    },
+    {
+      "name": "same_creation_idempotency_key",
+      "result": "PASS",
+      "connections": 2,
+      "single_identity": true,
+      "attempts": [
+        2,
+        1
+      ]
+    },
+    {
+      "name": "same_merge_idempotency_key",
+      "result": "PASS",
+      "connections": 2,
+      "single_merge": true,
+      "attempts": [
+        2,
+        1
+      ]
+    },
+    {
+      "name": "same_request_distinct_keys_version_protection",
+      "result": "PASS",
+      "connections": 2,
+      "accepted": 1,
+      "rejected": 1,
+      "attempts": [
+        2,
+        1
+      ]
+    },
+    {
+      "name": "business_before_merge",
+      "result": "PASS",
+      "connections": 2,
+      "outcomes": [
+        "accepted",
+        "conflict_requires_resolution"
+      ],
+      "attempts": [
+        1,
+        2
+      ]
+    },
+    {
+      "name": "merge_before_new_business",
+      "result": "PASS",
+      "connections": 2,
+      "outcomes": [
+        "accepted",
+        "rejected"
+      ],
+      "attempts": [
+        1,
+        2
+      ]
+    },
+    {
+      "name": "opposing_merges_no_cycle",
+      "result": "PASS",
+      "connections": 2,
+      "accepted": 1,
+      "rejected": 1,
+      "attempts": [
+        2,
+        1
+      ]
+    }
+  ],
+  "invariants": {
+    "patient_numbers_unique": true,
+    "number_mappings_canonical": true,
+    "patient_identities": 22,
+    "number_mappings": 22,
+    "no_patient_accounts": true
+  },
+  "fixture": {
+    "user_id": 31,
+    "group_id": 30,
+    "store_id": 13
+  },
+  "merge_samples": [
+    {
+      "request_id": 15,
+      "state": "confirmed",
+      "source_id": 78,
+      "target_id": 79,
+      "counts": {
+        "source_after": {
+          "number": 0,
+          "contact": 0,
+          "clinical": 0,
+          "relation": 1
+        },
+        "source_before": {
+          "number": 1,
+          "contact": 0,
+          "clinical": 0,
+          "relation": 1
+        },
+        "downstream_moved": {
+          "synthetic_active_references": 0
+        }
+      },
+      "conflicts": false
+    },
+    {
+      "request_id": 16,
+      "state": "confirmed",
+      "source_id": 80,
+      "target_id": 81,
+      "counts": {
+        "source_after": {
+          "number": 0,
+          "contact": 0,
+          "clinical": 0,
+          "relation": 1
+        },
+        "source_before": {
+          "number": 1,
+          "contact": 0,
+          "clinical": 0,
+          "relation": 1
+        },
+        "downstream_moved": {
+          "synthetic_active_references": 0
+        }
+      },
+      "conflicts": false
+    },
+    {
+      "request_id": 17,
+      "state": "blocked",
+      "source_id": 82,
+      "target_id": 83,
+      "counts": false,
+      "conflicts": [
+        {
+          "kind": "queue",
+          "reference": 9,
+          "patient_id": 82
+        },
+        {
+          "kind": "queue",
+          "reference": 10,
+          "patient_id": 83
+        }
+      ]
+    },
+    {
+      "request_id": 18,
+      "state": "confirmed",
+      "source_id": 84,
+      "target_id": 85,
+      "counts": {
+        "source_after": {
+          "number": 0,
+          "contact": 0,
+          "clinical": 0,
+          "relation": 1
+        },
+        "source_before": {
+          "number": 1,
+          "contact": 0,
+          "clinical": 0,
+          "relation": 1
+        },
+        "downstream_moved": {
+          "synthetic_active_references": 1
+        }
+      },
+      "conflicts": false
+    },
+    {
+      "request_id": 19,
+      "state": "requested",
+      "source_id": 86,
+      "target_id": 87,
+      "counts": false,
+      "conflicts": false
+    },
+    {
+      "request_id": 20,
+      "state": "confirmed",
+      "source_id": 87,
+      "target_id": 86,
+      "counts": {
+        "source_after": {
+          "number": 0,
+          "contact": 0,
+          "clinical": 0,
+          "relation": 1
+        },
+        "source_before": {
+          "number": 1,
+          "contact": 0,
+          "clinical": 0,
+          "relation": 1
+        },
+        "downstream_moved": {
+          "synthetic_active_references": 0
+        }
+      },
+      "conflicts": false
+    }
+  ],
+  "schema": {
+    "ydental.patient": [
+      {
+        "name": "ydental_store_id",
+        "label": "Store",
+        "type": "many2one",
+        "required": true,
+        "readonly": false,
+        "relation": "ydental.access.store",
+        "selection": null,
+        "groups": null,
+        "index": "True",
+        "ondelete": "restrict",
+        "has_default": false
+      },
+      {
+        "name": "ydental_category",
+        "label": "Business category",
+        "type": "selection",
+        "required": true,
+        "readonly": true,
+        "relation": null,
+        "selection": [
+          [
+            "frontdesk",
+            "Front desk"
+          ],
+          [
+            "patient",
+            "Patient"
+          ],
+          [
+            "medical",
+            "Medical"
+          ],
+          [
+            "exam",
+            "Examination"
+          ],
+          [
+            "pharmacy",
+            "Pharmacy"
+          ],
+          [
+            "warehouse",
+            "Warehouse"
+          ],
+          [
+            "followup",
+            "Follow-up contact"
+          ],
+          [
+            "outsourcing",
+            "Outsourcing"
+          ],
+          [
+            "settlement",
+            "Settlement"
+          ],
+          [
+            "finance_approval",
+            "Financial approval"
+          ],
+          [
+            "personnel",
+            "Personnel authorization"
+          ],
+          [
+            "space",
+            "Space"
+          ],
+          [
+            "capacity",
+            "Schedule and capacity"
+          ],
+          [
+            "price",
+            "Price"
+          ],
+          [
+            "supplier",
+            "Supplier cooperation"
+          ],
+          [
+            "export",
+            "Report export"
+          ]
+        ],
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": true
+      },
+      {
+        "name": "name",
+        "label": "Name",
+        "type": "char",
+        "required": true,
+        "readonly": false,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "trigram",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "ydental_version",
+        "label": "Version",
+        "type": "integer",
+        "required": true,
+        "readonly": true,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": true
+      },
+      {
+        "name": "active",
+        "label": "Active",
+        "type": "boolean",
+        "required": false,
+        "readonly": false,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": true
+      },
+      {
+        "name": "ydental_number",
+        "label": "Patient number",
+        "type": "char",
+        "required": true,
+        "readonly": true,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "True",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "ydental_partner_id",
+        "label": "Administrative contact",
+        "type": "many2one",
+        "required": true,
+        "readonly": false,
+        "relation": "res.partner",
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": "restrict",
+        "has_default": false
+      },
+      {
+        "name": "ydental_birth_date",
+        "label": "Birth date",
+        "type": "date",
+        "required": false,
+        "readonly": false,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "ydental_birth_note",
+        "label": "Birth information, if uncertain",
+        "type": "char",
+        "required": false,
+        "readonly": false,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "ydental_sex",
+        "label": "Sex",
+        "type": "selection",
+        "required": true,
+        "readonly": false,
+        "relation": null,
+        "selection": [
+          [
+            "unknown",
+            "Unknown"
+          ],
+          [
+            "female",
+            "Female"
+          ],
+          [
+            "male",
+            "Male"
+          ],
+          [
+            "other",
+            "Other"
+          ]
+        ],
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": true
+      },
+      {
+        "name": "ydental_phone",
+        "label": "Phone as provided",
+        "type": "char",
+        "required": false,
+        "readonly": false,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "ydental_phone_region",
+        "label": "Explicit phone region",
+        "type": "char",
+        "required": false,
+        "readonly": false,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "ydental_phone_normalized",
+        "label": "Normalized phone",
+        "type": "char",
+        "required": false,
+        "readonly": true,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "True",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "ydental_phone_status",
+        "label": "Phone verification status",
+        "type": "selection",
+        "required": true,
+        "readonly": true,
+        "relation": null,
+        "selection": [
+          [
+            "empty",
+            "Not provided"
+          ],
+          [
+            "normalized",
+            "Normalized"
+          ],
+          [
+            "review",
+            "Manual verification required"
+          ]
+        ],
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "ydental_email",
+        "label": "Email",
+        "type": "char",
+        "required": false,
+        "readonly": false,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "True",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "ydental_merged_into_id",
+        "label": "Merged into patient",
+        "type": "many2one",
+        "required": false,
+        "readonly": true,
+        "relation": "ydental.patient",
+        "selection": null,
+        "groups": null,
+        "index": "True",
+        "ondelete": "restrict",
+        "has_default": false
+      },
+      {
+        "name": "ydental_recorded_at",
+        "label": "Recorded at",
+        "type": "datetime",
+        "required": true,
+        "readonly": true,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "ydental_business_date",
+        "label": "Business date",
+        "type": "date",
+        "required": true,
+        "readonly": true,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": false
+      }
+    ],
+    "ydental.patient.number": [
+      {
+        "name": "ydental_store_id",
+        "label": "Store",
+        "type": "many2one",
+        "required": true,
+        "readonly": false,
+        "relation": "ydental.access.store",
+        "selection": null,
+        "groups": null,
+        "index": "True",
+        "ondelete": "restrict",
+        "has_default": false
+      },
+      {
+        "name": "ydental_category",
+        "label": "Business category",
+        "type": "selection",
+        "required": true,
+        "readonly": true,
+        "relation": null,
+        "selection": [
+          [
+            "frontdesk",
+            "Front desk"
+          ],
+          [
+            "patient",
+            "Patient"
+          ],
+          [
+            "medical",
+            "Medical"
+          ],
+          [
+            "exam",
+            "Examination"
+          ],
+          [
+            "pharmacy",
+            "Pharmacy"
+          ],
+          [
+            "warehouse",
+            "Warehouse"
+          ],
+          [
+            "followup",
+            "Follow-up contact"
+          ],
+          [
+            "outsourcing",
+            "Outsourcing"
+          ],
+          [
+            "settlement",
+            "Settlement"
+          ],
+          [
+            "finance_approval",
+            "Financial approval"
+          ],
+          [
+            "personnel",
+            "Personnel authorization"
+          ],
+          [
+            "space",
+            "Space"
+          ],
+          [
+            "capacity",
+            "Schedule and capacity"
+          ],
+          [
+            "price",
+            "Price"
+          ],
+          [
+            "supplier",
+            "Supplier cooperation"
+          ],
+          [
+            "export",
+            "Report export"
+          ]
+        ],
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": true
+      },
+      {
+        "name": "name",
+        "label": "Name",
+        "type": "char",
+        "required": true,
+        "readonly": false,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "ydental_version",
+        "label": "Version",
+        "type": "integer",
+        "required": true,
+        "readonly": true,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": true
+      },
+      {
+        "name": "ydental_patient_id",
+        "label": "Canonical patient",
+        "type": "many2one",
+        "required": true,
+        "readonly": false,
+        "relation": "ydental.patient",
+        "selection": null,
+        "groups": null,
+        "index": "True",
+        "ondelete": "restrict",
+        "has_default": false
+      },
+      {
+        "name": "ydental_origin_patient_id",
+        "label": "Original patient",
+        "type": "many2one",
+        "required": true,
+        "readonly": true,
+        "relation": "ydental.patient",
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": "restrict",
+        "has_default": false
+      }
+    ],
+    "ydental.patient.relation": [
+      {
+        "name": "ydental_store_id",
+        "label": "Store",
+        "type": "many2one",
+        "required": true,
+        "readonly": false,
+        "relation": "ydental.access.store",
+        "selection": null,
+        "groups": null,
+        "index": "True",
+        "ondelete": "restrict",
+        "has_default": false
+      },
+      {
+        "name": "ydental_category",
+        "label": "Business category",
+        "type": "selection",
+        "required": true,
+        "readonly": true,
+        "relation": null,
+        "selection": [
+          [
+            "frontdesk",
+            "Front desk"
+          ],
+          [
+            "patient",
+            "Patient"
+          ],
+          [
+            "medical",
+            "Medical"
+          ],
+          [
+            "exam",
+            "Examination"
+          ],
+          [
+            "pharmacy",
+            "Pharmacy"
+          ],
+          [
+            "warehouse",
+            "Warehouse"
+          ],
+          [
+            "followup",
+            "Follow-up contact"
+          ],
+          [
+            "outsourcing",
+            "Outsourcing"
+          ],
+          [
+            "settlement",
+            "Settlement"
+          ],
+          [
+            "finance_approval",
+            "Financial approval"
+          ],
+          [
+            "personnel",
+            "Personnel authorization"
+          ],
+          [
+            "space",
+            "Space"
+          ],
+          [
+            "capacity",
+            "Schedule and capacity"
+          ],
+          [
+            "price",
+            "Price"
+          ],
+          [
+            "supplier",
+            "Supplier cooperation"
+          ],
+          [
+            "export",
+            "Report export"
+          ]
+        ],
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": true
+      },
+      {
+        "name": "name",
+        "label": "Name",
+        "type": "char",
+        "required": true,
+        "readonly": false,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "ydental_version",
+        "label": "Version",
+        "type": "integer",
+        "required": true,
+        "readonly": true,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": true
+      },
+      {
+        "name": "ydental_patient_id",
+        "label": "Canonical patient",
+        "type": "many2one",
+        "required": true,
+        "readonly": false,
+        "relation": "ydental.patient",
+        "selection": null,
+        "groups": null,
+        "index": "True",
+        "ondelete": "restrict",
+        "has_default": false
+      },
+      {
+        "name": "ydental_origin_patient_id",
+        "label": "Original patient",
+        "type": "many2one",
+        "required": true,
+        "readonly": true,
+        "relation": "ydental.patient",
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": "restrict",
+        "has_default": false
+      },
+      {
+        "name": "ydental_superseded_by_id",
+        "label": "Superseded by",
+        "type": "many2one",
+        "required": false,
+        "readonly": true,
+        "relation": "ydental.patient.relation",
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": "restrict",
+        "has_default": false
+      },
+      {
+        "name": "ydental_first_arrival",
+        "label": "First arrival",
+        "type": "datetime",
+        "required": false,
+        "readonly": true,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "ydental_first_business_date",
+        "label": "First business date",
+        "type": "date",
+        "required": false,
+        "readonly": true,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "ydental_arrival_recorded_at",
+        "label": "Arrival recorded at",
+        "type": "datetime",
+        "required": false,
+        "readonly": true,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "ydental_arrival_actor_id",
+        "label": "Arrival actor",
+        "type": "many2one",
+        "required": false,
+        "readonly": true,
+        "relation": "res.users",
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": "restrict",
+        "has_default": false
+      },
+      {
+        "name": "ydental_arrival_reason",
+        "label": "Arrival reason",
+        "type": "char",
+        "required": false,
+        "readonly": true,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "ydental_created_at",
+        "label": "Created at",
+        "type": "datetime",
+        "required": true,
+        "readonly": true,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": false
+      }
+    ],
+    "ydental.patient.contact": [
+      {
+        "name": "ydental_store_id",
+        "label": "Store",
+        "type": "many2one",
+        "required": true,
+        "readonly": false,
+        "relation": "ydental.access.store",
+        "selection": null,
+        "groups": null,
+        "index": "True",
+        "ondelete": "restrict",
+        "has_default": false
+      },
+      {
+        "name": "ydental_category",
+        "label": "Business category",
+        "type": "selection",
+        "required": true,
+        "readonly": true,
+        "relation": null,
+        "selection": [
+          [
+            "frontdesk",
+            "Front desk"
+          ],
+          [
+            "patient",
+            "Patient"
+          ],
+          [
+            "medical",
+            "Medical"
+          ],
+          [
+            "exam",
+            "Examination"
+          ],
+          [
+            "pharmacy",
+            "Pharmacy"
+          ],
+          [
+            "warehouse",
+            "Warehouse"
+          ],
+          [
+            "followup",
+            "Follow-up contact"
+          ],
+          [
+            "outsourcing",
+            "Outsourcing"
+          ],
+          [
+            "settlement",
+            "Settlement"
+          ],
+          [
+            "finance_approval",
+            "Financial approval"
+          ],
+          [
+            "personnel",
+            "Personnel authorization"
+          ],
+          [
+            "space",
+            "Space"
+          ],
+          [
+            "capacity",
+            "Schedule and capacity"
+          ],
+          [
+            "price",
+            "Price"
+          ],
+          [
+            "supplier",
+            "Supplier cooperation"
+          ],
+          [
+            "export",
+            "Report export"
+          ]
+        ],
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": true
+      },
+      {
+        "name": "name",
+        "label": "Name",
+        "type": "char",
+        "required": true,
+        "readonly": false,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "ydental_version",
+        "label": "Version",
+        "type": "integer",
+        "required": true,
+        "readonly": true,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": true
+      },
+      {
+        "name": "ydental_patient_id",
+        "label": "Canonical patient",
+        "type": "many2one",
+        "required": true,
+        "readonly": false,
+        "relation": "ydental.patient",
+        "selection": null,
+        "groups": null,
+        "index": "True",
+        "ondelete": "restrict",
+        "has_default": false
+      },
+      {
+        "name": "ydental_origin_patient_id",
+        "label": "Original patient",
+        "type": "many2one",
+        "required": true,
+        "readonly": true,
+        "relation": "ydental.patient",
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": "restrict",
+        "has_default": false
+      },
+      {
+        "name": "ydental_partner_id",
+        "label": "Administrative contact",
+        "type": "many2one",
+        "required": true,
+        "readonly": false,
+        "relation": "res.partner",
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": "restrict",
+        "has_default": false
+      },
+      {
+        "name": "ydental_relation",
+        "label": "Relation",
+        "type": "selection",
+        "required": true,
+        "readonly": false,
+        "relation": null,
+        "selection": [
+          [
+            "contact",
+            "Contact"
+          ],
+          [
+            "guardian",
+            "Declared guardian"
+          ],
+          [
+            "emergency",
+            "Emergency contact"
+          ]
+        ],
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "ydental_relationship",
+        "label": "Relationship",
+        "type": "char",
+        "required": true,
+        "readonly": false,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "ydental_phone",
+        "label": "Phone as provided",
+        "type": "char",
+        "required": false,
+        "readonly": false,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "ydental_phone_region",
+        "label": "Explicit phone region",
+        "type": "char",
+        "required": false,
+        "readonly": false,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "ydental_phone_normalized",
+        "label": "Normalized phone",
+        "type": "char",
+        "required": false,
+        "readonly": true,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "True",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "ydental_phone_status",
+        "label": "Phone verification status",
+        "type": "selection",
+        "required": true,
+        "readonly": true,
+        "relation": null,
+        "selection": [
+          [
+            "empty",
+            "Not provided"
+          ],
+          [
+            "normalized",
+            "Normalized"
+          ],
+          [
+            "review",
+            "Manual verification required"
+          ]
+        ],
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "ydental_email",
+        "label": "Email",
+        "type": "char",
+        "required": false,
+        "readonly": false,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "ydental_verified",
+        "label": "Verified",
+        "type": "boolean",
+        "required": false,
+        "readonly": true,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "ydental_verification_note",
+        "label": "Verification note",
+        "type": "char",
+        "required": false,
+        "readonly": false,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "active",
+        "label": "Active",
+        "type": "boolean",
+        "required": false,
+        "readonly": false,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": true
+      }
+    ],
+    "ydental.patient.clinical": [
+      {
+        "name": "ydental_store_id",
+        "label": "Store",
+        "type": "many2one",
+        "required": true,
+        "readonly": false,
+        "relation": "ydental.access.store",
+        "selection": null,
+        "groups": null,
+        "index": "True",
+        "ondelete": "restrict",
+        "has_default": false
+      },
+      {
+        "name": "ydental_category",
+        "label": "Business category",
+        "type": "selection",
+        "required": true,
+        "readonly": true,
+        "relation": null,
+        "selection": [
+          [
+            "frontdesk",
+            "Front desk"
+          ],
+          [
+            "patient",
+            "Patient"
+          ],
+          [
+            "medical",
+            "Medical"
+          ],
+          [
+            "exam",
+            "Examination"
+          ],
+          [
+            "pharmacy",
+            "Pharmacy"
+          ],
+          [
+            "warehouse",
+            "Warehouse"
+          ],
+          [
+            "followup",
+            "Follow-up contact"
+          ],
+          [
+            "outsourcing",
+            "Outsourcing"
+          ],
+          [
+            "settlement",
+            "Settlement"
+          ],
+          [
+            "finance_approval",
+            "Financial approval"
+          ],
+          [
+            "personnel",
+            "Personnel authorization"
+          ],
+          [
+            "space",
+            "Space"
+          ],
+          [
+            "capacity",
+            "Schedule and capacity"
+          ],
+          [
+            "price",
+            "Price"
+          ],
+          [
+            "supplier",
+            "Supplier cooperation"
+          ],
+          [
+            "export",
+            "Report export"
+          ]
+        ],
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": true
+      },
+      {
+        "name": "name",
+        "label": "Name",
+        "type": "char",
+        "required": true,
+        "readonly": false,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "ydental_version",
+        "label": "Version",
+        "type": "integer",
+        "required": true,
+        "readonly": true,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": true
+      },
+      {
+        "name": "ydental_patient_id",
+        "label": "Canonical patient",
+        "type": "many2one",
+        "required": true,
+        "readonly": false,
+        "relation": "ydental.patient",
+        "selection": null,
+        "groups": null,
+        "index": "True",
+        "ondelete": "restrict",
+        "has_default": false
+      },
+      {
+        "name": "ydental_origin_patient_id",
+        "label": "Original patient",
+        "type": "many2one",
+        "required": true,
+        "readonly": true,
+        "relation": "ydental.patient",
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": "restrict",
+        "has_default": false
+      },
+      {
+        "name": "ydental_identity_snapshot",
+        "label": "Identity snapshot",
+        "type": "json",
+        "required": true,
+        "readonly": true,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "ydental_allergies",
+        "label": "Allergies",
+        "type": "text",
+        "required": false,
+        "readonly": false,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "ydental_prior_history",
+        "label": "Prior history",
+        "type": "text",
+        "required": false,
+        "readonly": false,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "ydental_medication",
+        "label": "Medication",
+        "type": "text",
+        "required": false,
+        "readonly": false,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "ydental_recorded_at",
+        "label": "Recorded at",
+        "type": "datetime",
+        "required": true,
+        "readonly": true,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "ydental_actor_id",
+        "label": "Actor",
+        "type": "many2one",
+        "required": true,
+        "readonly": true,
+        "relation": "res.users",
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": "restrict",
+        "has_default": false
+      }
+    ],
+    "ydental.patient.policy": [
+      {
+        "name": "ydental_store_id",
+        "label": "Store",
+        "type": "many2one",
+        "required": true,
+        "readonly": false,
+        "relation": "ydental.access.store",
+        "selection": null,
+        "groups": null,
+        "index": "True",
+        "ondelete": "restrict",
+        "has_default": false
+      },
+      {
+        "name": "ydental_category",
+        "label": "Business category",
+        "type": "selection",
+        "required": true,
+        "readonly": true,
+        "relation": null,
+        "selection": [
+          [
+            "frontdesk",
+            "Front desk"
+          ],
+          [
+            "patient",
+            "Patient"
+          ],
+          [
+            "medical",
+            "Medical"
+          ],
+          [
+            "exam",
+            "Examination"
+          ],
+          [
+            "pharmacy",
+            "Pharmacy"
+          ],
+          [
+            "warehouse",
+            "Warehouse"
+          ],
+          [
+            "followup",
+            "Follow-up contact"
+          ],
+          [
+            "outsourcing",
+            "Outsourcing"
+          ],
+          [
+            "settlement",
+            "Settlement"
+          ],
+          [
+            "finance_approval",
+            "Financial approval"
+          ],
+          [
+            "personnel",
+            "Personnel authorization"
+          ],
+          [
+            "space",
+            "Space"
+          ],
+          [
+            "capacity",
+            "Schedule and capacity"
+          ],
+          [
+            "price",
+            "Price"
+          ],
+          [
+            "supplier",
+            "Supplier cooperation"
+          ],
+          [
+            "export",
+            "Report export"
+          ]
+        ],
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": true
+      },
+      {
+        "name": "name",
+        "label": "Name",
+        "type": "char",
+        "required": true,
+        "readonly": false,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "ydental_version",
+        "label": "Version",
+        "type": "integer",
+        "required": true,
+        "readonly": true,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": true
+      },
+      {
+        "name": "ydental_code",
+        "label": "Code",
+        "type": "char",
+        "required": true,
+        "readonly": false,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "ydental_body_reference",
+        "label": "Body reference",
+        "type": "char",
+        "required": false,
+        "readonly": false,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "ydental_approved",
+        "label": "Approved",
+        "type": "boolean",
+        "required": false,
+        "readonly": true,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "ydental_approved_by_id",
+        "label": "Approved by",
+        "type": "many2one",
+        "required": false,
+        "readonly": true,
+        "relation": "res.users",
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": "restrict",
+        "has_default": false
+      },
+      {
+        "name": "ydental_required",
+        "label": "Required",
+        "type": "boolean",
+        "required": false,
+        "readonly": false,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": true
+      },
+      {
+        "name": "active",
+        "label": "Active",
+        "type": "boolean",
+        "required": false,
+        "readonly": false,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": true
+      }
+    ],
+    "ydental.patient.merge": [
+      {
+        "name": "ydental_store_id",
+        "label": "Store",
+        "type": "many2one",
+        "required": true,
+        "readonly": false,
+        "relation": "ydental.access.store",
+        "selection": null,
+        "groups": null,
+        "index": "True",
+        "ondelete": "restrict",
+        "has_default": false
+      },
+      {
+        "name": "ydental_category",
+        "label": "Business category",
+        "type": "selection",
+        "required": true,
+        "readonly": true,
+        "relation": null,
+        "selection": [
+          [
+            "frontdesk",
+            "Front desk"
+          ],
+          [
+            "patient",
+            "Patient"
+          ],
+          [
+            "medical",
+            "Medical"
+          ],
+          [
+            "exam",
+            "Examination"
+          ],
+          [
+            "pharmacy",
+            "Pharmacy"
+          ],
+          [
+            "warehouse",
+            "Warehouse"
+          ],
+          [
+            "followup",
+            "Follow-up contact"
+          ],
+          [
+            "outsourcing",
+            "Outsourcing"
+          ],
+          [
+            "settlement",
+            "Settlement"
+          ],
+          [
+            "finance_approval",
+            "Financial approval"
+          ],
+          [
+            "personnel",
+            "Personnel authorization"
+          ],
+          [
+            "space",
+            "Space"
+          ],
+          [
+            "capacity",
+            "Schedule and capacity"
+          ],
+          [
+            "price",
+            "Price"
+          ],
+          [
+            "supplier",
+            "Supplier cooperation"
+          ],
+          [
+            "export",
+            "Report export"
+          ]
+        ],
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": true
+      },
+      {
+        "name": "name",
+        "label": "Name",
+        "type": "char",
+        "required": true,
+        "readonly": false,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "ydental_version",
+        "label": "Version",
+        "type": "integer",
+        "required": true,
+        "readonly": true,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": true
+      },
+      {
+        "name": "ydental_source_id",
+        "label": "Source",
+        "type": "many2one",
+        "required": true,
+        "readonly": false,
+        "relation": "ydental.patient",
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": "restrict",
+        "has_default": false
+      },
+      {
+        "name": "ydental_target_id",
+        "label": "Target",
+        "type": "many2one",
+        "required": true,
+        "readonly": false,
+        "relation": "ydental.patient",
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": "restrict",
+        "has_default": false
+      },
+      {
+        "name": "ydental_source_version",
+        "label": "Source version",
+        "type": "integer",
+        "required": true,
+        "readonly": false,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "ydental_target_version",
+        "label": "Target version",
+        "type": "integer",
+        "required": true,
+        "readonly": false,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "ydental_reason",
+        "label": "Reason",
+        "type": "char",
+        "required": true,
+        "readonly": false,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "ydental_requested_by_id",
+        "label": "Requested by",
+        "type": "many2one",
+        "required": true,
+        "readonly": false,
+        "relation": "res.users",
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": "restrict",
+        "has_default": false
+      },
+      {
+        "name": "ydental_confirmed_by_id",
+        "label": "Confirmed by",
+        "type": "many2one",
+        "required": false,
+        "readonly": true,
+        "relation": "res.users",
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": "restrict",
+        "has_default": false
+      },
+      {
+        "name": "ydental_decision_reason",
+        "label": "Decision reason",
+        "type": "char",
+        "required": false,
+        "readonly": true,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "ydental_conflicts",
+        "label": "Conflicts",
+        "type": "json",
+        "required": false,
+        "readonly": true,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "ydental_reference_counts",
+        "label": "Reference counts",
+        "type": "json",
+        "required": false,
+        "readonly": true,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "state",
+        "label": "State",
+        "type": "selection",
+        "required": true,
+        "readonly": true,
+        "relation": null,
+        "selection": [
+          [
+            "requested",
+            "Awaiting group verification"
+          ],
+          [
+            "blocked",
+            "Resolve active business conflicts"
+          ],
+          [
+            "confirmed",
+            "Confirmed"
+          ],
+          [
+            "rejected",
+            "Rejected"
+          ]
+        ],
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": true
+      }
+    ],
+    "ydental.patient.operation": [
+      {
+        "name": "ydental_store_id",
+        "label": "Store",
+        "type": "many2one",
+        "required": true,
+        "readonly": false,
+        "relation": "ydental.access.store",
+        "selection": null,
+        "groups": null,
+        "index": "True",
+        "ondelete": "restrict",
+        "has_default": false
+      },
+      {
+        "name": "ydental_category",
+        "label": "Business category",
+        "type": "selection",
+        "required": true,
+        "readonly": true,
+        "relation": null,
+        "selection": [
+          [
+            "frontdesk",
+            "Front desk"
+          ],
+          [
+            "patient",
+            "Patient"
+          ],
+          [
+            "medical",
+            "Medical"
+          ],
+          [
+            "exam",
+            "Examination"
+          ],
+          [
+            "pharmacy",
+            "Pharmacy"
+          ],
+          [
+            "warehouse",
+            "Warehouse"
+          ],
+          [
+            "followup",
+            "Follow-up contact"
+          ],
+          [
+            "outsourcing",
+            "Outsourcing"
+          ],
+          [
+            "settlement",
+            "Settlement"
+          ],
+          [
+            "finance_approval",
+            "Financial approval"
+          ],
+          [
+            "personnel",
+            "Personnel authorization"
+          ],
+          [
+            "space",
+            "Space"
+          ],
+          [
+            "capacity",
+            "Schedule and capacity"
+          ],
+          [
+            "price",
+            "Price"
+          ],
+          [
+            "supplier",
+            "Supplier cooperation"
+          ],
+          [
+            "export",
+            "Report export"
+          ]
+        ],
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": true
+      },
+      {
+        "name": "name",
+        "label": "Name",
+        "type": "char",
+        "required": true,
+        "readonly": false,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "ydental_version",
+        "label": "Version",
+        "type": "integer",
+        "required": true,
+        "readonly": true,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": true
+      },
+      {
+        "name": "ydental_actor_id",
+        "label": "Actor",
+        "type": "many2one",
+        "required": true,
+        "readonly": false,
+        "relation": "res.users",
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": "restrict",
+        "has_default": false
+      },
+      {
+        "name": "ydental_key",
+        "label": "Key",
+        "type": "char",
+        "required": true,
+        "readonly": false,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "ydental_fingerprint",
+        "label": "Fingerprint",
+        "type": "char",
+        "required": true,
+        "readonly": false,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": false
+      },
+      {
+        "name": "ydental_result",
+        "label": "Result",
+        "type": "json",
+        "required": true,
+        "readonly": false,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": false
+      }
+    ],
+    "ydental.patient.mutex": [
+      {
+        "name": "ydental_revision",
+        "label": "Revision",
+        "type": "integer",
+        "required": false,
+        "readonly": false,
+        "relation": null,
+        "selection": null,
+        "groups": null,
+        "index": "None",
+        "ondelete": null,
+        "has_default": true
+      }
+    ]
+  },
+  "ended_utc": "2026-10-11T23:33:56.748105+00:00"
+}

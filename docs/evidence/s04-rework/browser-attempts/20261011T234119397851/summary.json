@@ -1,0 +1,203 @@
+{
+  "scope": "S04 synthetic patient workflow UI",
+  "database": "ydental_s04_test_20261011233749_c7095425",
+  "tested_commit": "f3dc3dcb188511b19f9f2d898f45fbfdd6280663",
+  "browser": "Firefox",
+  "sandbox": "default, no overrides",
+  "checks": [
+    {
+      "check": "shared phone produces possible duplicate link",
+      "result": "PASS"
+    },
+    {
+      "check": "frontdesk clinical link is absent",
+      "result": "PASS"
+    },
+    {
+      "check": "frontdesk page contains no clinical background",
+      "result": "PASS"
+    },
+    {
+      "check": "this store policy prompt exists",
+      "result": "PASS"
+    },
+    {
+      "check": "store relationship action is Chinese",
+      "result": "PASS"
+    },
+    {
+      "check": "actual arrival action is Chinese",
+      "result": "PASS"
+    },
+    {
+      "check": "actual arrival recorded through UI",
+      "result": "PASS"
+    },
+    {
+      "check": "new identity has unique generated patient number",
+      "result": "PASS"
+    },
+    {
+      "check": "unknown phone region remains manual review",
+      "result": "PASS"
+    },
+    {
+      "check": "declared guardian saved without age or identity gate",
+      "result": "PASS"
+    },
+    {
+      "check": "administrative rename survives reopen",
+      "result": "PASS"
+    },
+    {
+      "check": "store request appears without direct confirm control",
+      "result": "PASS"
+    },
+    {
+      "check": "doctor reads selected patient cross-store background",
+      "result": "PASS"
+    },
+    {
+      "check": "cross-store entry has no edit form",
+      "result": "PASS"
+    },
+    {
+      "check": "browser cross-store write receives 403",
+      "result": "PASS"
+    },
+    {
+      "check": "group confirms store merge",
+      "result": "PASS"
+    },
+    {
+      "check": "merged source opens canonical patient",
+      "result": "PASS"
+    },
+    {
+      "check": "merged contact remains available",
+      "result": "PASS"
+    },
+    {
+      "check": "old number mapping retained",
+      "result": "PASS"
+    },
+    {
+      "check": "reader cannot see create form",
+      "result": "PASS"
+    },
+    {
+      "check": "reader write receives 403",
+      "result": "PASS"
+    },
+    {
+      "check": "none Contacts direct read denied 163",
+      "result": "PASS"
+    },
+    {
+      "check": "none Contacts direct read denied 166",
+      "result": "PASS"
+    },
+    {
+      "check": "none Contacts search returns no patient or guardian",
+      "result": "PASS"
+    },
+    {
+      "check": "none ordinary Contacts remain readable",
+      "result": "PASS"
+    },
+    {
+      "check": "none native Contacts form denies protected record 163",
+      "result": "PASS"
+    },
+    {
+      "check": "none native Contacts form denies protected record 166",
+      "result": "PASS"
+    },
+    {
+      "check": "none native ordinary Contacts form opens",
+      "result": "PASS"
+    },
+    {
+      "check": "none patient workspace denied",
+      "result": "PASS"
+    },
+    {
+      "check": "B-only A care denied before relation",
+      "result": "PASS"
+    },
+    {
+      "check": "B-only A clinical write denied before relation",
+      "result": "PASS"
+    },
+    {
+      "check": "clinical denial did not secretly create A relation",
+      "result": "PASS"
+    },
+    {
+      "check": "frontdesk explicitly establishes A relation without arrival",
+      "result": "PASS"
+    },
+    {
+      "check": "B-only A care succeeds after explicit relation",
+      "result": "PASS"
+    },
+    {
+      "check": "A clinical write succeeds after explicit relation",
+      "result": "PASS"
+    },
+    {
+      "check": "A record and B history coexist after explicit relation",
+      "result": "PASS"
+    },
+    {
+      "check": "no browser JavaScript errors",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s04-rework/browser-attempts/20261011T234119397851/01-frontdesk-shared-identity.png",
+      "sha256": "98d2f00d25a1025979ed58eb7f6349320a34a03295cb93a8a9c6a8ebc15c4150"
+    },
+    {
+      "path": "docs/evidence/s04-rework/browser-attempts/20261011T234119397851/02-new-identity-guardian-policy.png",
+      "sha256": "6513830e82d7ae5c80a15ed085c09826c036b9aa18ee94900b3b9f9268119081"
+    },
+    {
+      "path": "docs/evidence/s04-rework/browser-attempts/20261011T234119397851/03-store-merge-request.png",
+      "sha256": "d58a947736b9a68540c6a495653f4b582e95c1d16242d7485eab9ad8f1ed8153"
+    },
+    {
+      "path": "docs/evidence/s04-rework/browser-attempts/20261011T234119397851/04-cross-store-care-readonly.png",
+      "sha256": "b81ebda0ca5aa7f1bedcd94a1e3dd9dd053d7f56f6138020e68061a86ae084ae"
+    },
+    {
+      "path": "docs/evidence/s04-rework/browser-attempts/20261011T234119397851/05-canonical-old-numbers.png",
+      "sha256": "0835e796f385d3a146838af7d4b590391a782800c3402c923cc2af1cf60a76a5"
+    },
+    {
+      "path": "docs/evidence/s04-rework/browser-attempts/20261011T234119397851/06a-none-native-contacts-denied.png",
+      "sha256": "2452779c237e108f4d29cc7e49b86c8c749ba6542fff67da086d35d73e9bc97c"
+    },
+    {
+      "path": "docs/evidence/s04-rework/browser-attempts/20261011T234119397851/06b-none-native-contacts-denied.png",
+      "sha256": "d7648a7b4e08588e64be2d25f79055f4713f3b87bf174626d8f9facaa81da93f"
+    },
+    {
+      "path": "docs/evidence/s04-rework/browser-attempts/20261011T234119397851/06c-none-ordinary-contacts-allowed.png",
+      "sha256": "a67b7089062c0498f6925b53e0fcab7f4c6f0cec1caa05dd1b5d3fbe16563ec2"
+    },
+    {
+      "path": "docs/evidence/s04-rework/browser-attempts/20261011T234119397851/07-explicit-relation-no-arrival.png",
+      "sha256": "209e2cb5ac2c28f93b9eae567431d8ea592b652295c1cbbabbb602ef72da6d03"
+    },
+    {
+      "path": "docs/evidence/s04-rework/browser-attempts/20261011T234119397851/08-relation-care-and-local-write.png",
+      "sha256": "69605045b20d848f46a43c42b7da5299e59121e8894b5535d3f166a9c27cbe4a"
+    }
+  ],
+  "browser_version": "155.0",
+  "result": "PASS",
+  "pageerror_count": 0,
+  "ended_utc": "2026-10-11T23:41:37.474763+00:00"
+}

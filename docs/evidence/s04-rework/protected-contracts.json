@@ -1,0 +1,60 @@
+{
+  "baseline": "3b74b33987252d59033ae4b9d6757ad609818216",
+  "identical_product_files_sha256": {
+    "ydental_patient/models/ydental_patient.py": "610d963195bf9bad2cb37d744b5d8f7e1fdfbc459504581c1a96082c4e6596d2",
+    "ydental_patient/models/ydental_patient_number.py": "6e6ec345f54d9533cade0397f8efa9192959793cf8642aea0f65abb9c94fda4d",
+    "ydental_patient/models/ydental_patient_relation.py": "5011bb4d79f23ff198fec2b5bdb1d7279ca51ffcfa950b8081013f4f29d1f71a",
+    "ydental_patient/models/ydental_patient_merge.py": "a12c5366a671bf0b80b0ecb0b8d539b1857137d73edc88d124eb41420ed1f6e7",
+    "ydental_patient/models/ydental_patient_record.py": "ebda7896ea17fdcc3187afa20e2259258f4c293ebe260329a89da1a73d0552b1"
+  },
+  "service_existing_methods_changed": [
+    "_clinical"
+  ],
+  "unchanged_service_methods": [
+    "_access",
+    "_active_business",
+    "_admin_values",
+    "_archive",
+    "_arrival",
+    "_audit",
+    "_authorize",
+    "_business_patient",
+    "_confirm",
+    "_contact",
+    "_create",
+    "_date",
+    "_document_facts",
+    "_duplicates",
+    "_edit",
+    "_ensure_relation",
+    "_group",
+    "_id",
+    "_identity_ids",
+    "_identity_snapshot",
+    "_lock",
+    "_merge_conflicts",
+    "_merge_request",
+    "_migrate_business",
+    "_new_partner",
+    "_now",
+    "_operate",
+    "_patient",
+    "_phone",
+    "_policy",
+    "_prompts",
+    "_reference_counts",
+    "_refresh_merge",
+    "_reject",
+    "_relation_action",
+    "_request_merge",
+    "_search",
+    "_text",
+    "_version"
+  ],
+  "new_service_helpers": [
+    "_can_read_patient_partners",
+    "_current_relation"
+  ],
+  "original_evidence_unchanged": true,
+  "new_fields": 0
+}

@@ -1,0 +1,14 @@
+{
+  "database": "ydental_s04_test_20261011232743_1a3ed3e0",
+  "oid": 340475,
+  "endpoint": {
+    "host": "127.0.0.1",
+    "port": "5432",
+    "user": "odoo"
+  },
+  "cluster": "7694897083368259627",
+  "port": 18106,
+  "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "created_utc": "2026-10-11T23:27:43.590403+00:00",
+  "config_sha256": "88e7eda2cce91fd9346ded5f723eea324dedf22a0a1282485ba672a19c99ff12"
+}

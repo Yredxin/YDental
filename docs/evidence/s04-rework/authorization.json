@@ -1,0 +1,11 @@
+{
+  "review": "https://github.com/Yredxin/YDental/issues/28#issuecomment-6114781429",
+  "review_title": "[GPT-REVIEW] YD-N1 R1｜S04｜3b74b33｜技术复核：定向返工",
+  "predelivery_issue_state": "OPEN",
+  "predelivery_comments": 4,
+  "review_unchanged_on_predelivery_read": true,
+  "user_authorized": "Only two BLOCKERs, current S04 branch/session; #28 custom execution state to 返工 before implementation; no native Status/workflow/entity mutation; fixed commits and full isolated regression; delivery comment then STOP",
+  "branch": "codex/s04-patient-r1-20261011",
+  "project_mutations": 1,
+  "no_future_stage_work": true
+}
