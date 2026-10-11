@@ -1,0 +1,428 @@
+{
+  "scope": "S02 synthetic runs only; original logs private, failures retained",
+  "delivery_commit": "0b87c1c587a3639793124314e75c3a01747cb1ef",
+  "runs": [
+    {
+      "creation": {
+        "database": "ydental_s02_test_20261011123606_49b9a7f9",
+        "oid": 148980,
+        "endpoint": {
+          "host": "127.0.0.1",
+          "port": "5432",
+          "user": "odoo"
+        },
+        "cluster": "7694897083368259627",
+        "port": 18102,
+        "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+        "created_utc": "2026-10-11T12:36:07.085725+00:00",
+        "config_sha256": "715178a43ee0586266cf8b544b75d25a4c34f40e2ff8fd1b96817b8fc940ff85"
+      },
+      "actions": [
+        {
+          "action": "install",
+          "exit_code": 255,
+          "log": "install-20261011T123607086961.log",
+          "log_sha256": "6965a438dbd10e6f1e3be78243478395ef6e223339a925720c77e1d73944686a",
+          "time_utc": "2026-10-11T12:36:39.800849+00:00",
+          "tested_commit": "f573cbe28d94ed8cc2dfe1f527353dffc4917c79",
+          "tests": null,
+          "verification_exit": 255,
+          "failure_category": "Odoo20 configuration API mismatch: get_param"
+        }
+      ]
+    },
+    {
+      "creation": {
+        "database": "ydental_s02_test_20261011123710_b341fc87",
+        "oid": 157366,
+        "endpoint": {
+          "host": "127.0.0.1",
+          "port": "5432",
+          "user": "odoo"
+        },
+        "cluster": "7694897083368259627",
+        "port": 18102,
+        "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+        "created_utc": "2026-10-11T12:37:10.174660+00:00",
+        "config_sha256": "3e8fc1f8e300060a657e7116427f6da015082597629f3ceac7720f07c8f2e479"
+      },
+      "actions": [
+        {
+          "action": "install",
+          "exit_code": 255,
+          "log": "install-20261011T123710175681.log",
+          "log_sha256": "0539321da0edc2b2e9a217cab6f9ca77893b860d232a9a7c9da02318784fd015",
+          "time_utc": "2026-10-11T12:37:42.898625+00:00",
+          "tested_commit": "2de6f5b0f8b26178164ac7ee19aed6a165680676",
+          "tests": null,
+          "verification_exit": 255,
+          "failure_category": "Odoo20 configuration API mismatch: _get_param"
+        }
+      ]
+    },
+    {
+      "creation": {
+        "database": "ydental_s02_test_20261011123833_05ce85ea",
+        "oid": 165752,
+        "endpoint": {
+          "host": "127.0.0.1",
+          "port": "5432",
+          "user": "odoo"
+        },
+        "cluster": "7694897083368259627",
+        "port": 18102,
+        "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+        "created_utc": "2026-10-11T12:38:33.689387+00:00",
+        "config_sha256": "8efebef82601d38c3590e6f3b5a86f4f8429ecc9f6fd010289e519e6f5cd3f26"
+      },
+      "actions": [
+        {
+          "action": "install",
+          "exit_code": 1,
+          "log": "install-20261011T123833690514.log",
+          "log_sha256": "44ac0c14a46ae0a3142075dca02d37af02953b2722015292101c9ac963e0c3ce",
+          "time_utc": "2026-10-11T12:39:24.115448+00:00",
+          "tested_commit": "79ebe9c6e596afb82c4ce37baf2060ddf09eeace",
+          "tests": [
+            1,
+            21,
+            16
+          ],
+          "verification_exit": 1,
+          "failure_category": "Synthetic role rebinding, schema assertion and HTTP store selection"
+        },
+        {
+          "action": "upgrade",
+          "exit_code": 1,
+          "log": "upgrade-20261011T124120900766.log",
+          "log_sha256": "6b2695552da94e251055ede9775265daad48aa7e31d16c38f461170aeba6e035",
+          "time_utc": "2026-10-11T12:41:29.262374+00:00",
+          "tested_commit": "13aa51163428620417b05629eeb325d61efb6615",
+          "tests": [
+            0,
+            1,
+            14
+          ],
+          "verification_exit": 1,
+          "failure_category": "Ownership test expected ValidationError while access control rejects first"
+        },
+        {
+          "action": "upgrade",
+          "exit_code": 0,
+          "log": "upgrade-20261011T124216796528.log",
+          "log_sha256": "b906a5b7963aa6a9cf10dfcd5eb445f741f805ead860039e9beb94893dd721db",
+          "time_utc": "2026-10-11T12:42:24.993388+00:00",
+          "tested_commit": "5c1b04ae9df71c63eab1fdf5ac22b3af4a73482f",
+          "tests": [
+            0,
+            0,
+            14
+          ]
+        },
+        {
+          "action": "export",
+          "exit_code": 0,
+          "log": "export-20261011T124300977124.log",
+          "log_sha256": "f3b9b61ef6dc7a0ff9b2146a783a726a7ff607824bcfec1893ea825a2537bb84",
+          "time_utc": "2026-10-11T12:43:02.675791+00:00",
+          "tested_commit": "5c1b04ae9df71c63eab1fdf5ac22b3af4a73482f"
+        },
+        {
+          "action": "upgrade",
+          "exit_code": 255,
+          "log": "upgrade-20261011T124420424787.log",
+          "log_sha256": "ef772ef6a34df45eb90cb52a87883cfff8bc57793d28e48a6abb99e5f5cb9937",
+          "time_utc": "2026-10-11T12:44:23.998910+00:00",
+          "tested_commit": "10c9ee01b542b114806fc44ad76f3379e2fac659",
+          "tests": null,
+          "verification_exit": 255,
+          "failure_category": "Malformed generated field declaration/import"
+        },
+        {
+          "action": "upgrade",
+          "exit_code": 1,
+          "log": "upgrade-20261011T124449995015.log",
+          "log_sha256": "77d2cc0ff65c339abecf0be466ac6e6e4c84d07f144589c5100d778228d2b50f",
+          "time_utc": "2026-10-11T12:44:58.810724+00:00",
+          "tested_commit": "e9183b3808d0fec5a6d688e0d3211cbaa6f8ca58",
+          "tests": [
+            0,
+            2,
+            0
+          ],
+          "verification_exit": 1,
+          "failure_category": "Native BinaryValue input semantics"
+        },
+        {
+          "action": "export",
+          "exit_code": 0,
+          "log": "export-20261011T124501577690.log",
+          "log_sha256": "be2aed62dd80b418488e3f58207af02e9293b331780d6d986f332d75cc027ec5",
+          "time_utc": "2026-10-11T12:45:03.091057+00:00",
+          "tested_commit": "e9183b3808d0fec5a6d688e0d3211cbaa6f8ca58"
+        },
+        {
+          "action": "upgrade",
+          "exit_code": 0,
+          "log": "upgrade-20261011T124546841397.log",
+          "log_sha256": "41896c8c77771b3a50bcedb33f8dfdf6bc2843065058edc61d2eb3c95e20bbec",
+          "time_utc": "2026-10-11T12:45:55.211213+00:00",
+          "tested_commit": "680f478c316d05fc75087597fa8d6245472eff1d",
+          "tests": [
+            0,
+            0,
+            15
+          ]
+        },
+        {
+          "action": "export",
+          "exit_code": 0,
+          "log": "export-20261011T124637984702.log",
+          "log_sha256": "969b139cf881cc69f99d0922cd0319de9ac256e50d2137c5d6b1ed1661aea4f3",
+          "time_utc": "2026-10-11T12:46:39.470383+00:00",
+          "tested_commit": "680f478c316d05fc75087597fa8d6245472eff1d"
+        },
+        {
+          "action": "upgrade",
+          "exit_code": 255,
+          "log": "upgrade-20261011T124725421841.log",
+          "log_sha256": "2751affb4772ca0b3f974bf2a51309309417e32f4f05caa9107ccdce67fd65cb",
+          "time_utc": "2026-10-11T12:47:26.848447+00:00",
+          "tested_commit": "2c2f5a90ab63708c54facebcac1427b65291ee79",
+          "tests": null,
+          "verification_exit": 255,
+          "failure_category": "Translation source references lost line numbers"
+        },
+        {
+          "action": "probe",
+          "exit_code": 0,
+          "log": "probe-20261011T124737182844.log",
+          "log_sha256": "03b4a5b3b061ff2286c51bf2014160f59997f501a1c0918981c18e15bc8c8da5",
+          "time_utc": "2026-10-11T12:47:39.990098+00:00",
+          "tested_commit": "2c2f5a90ab63708c54facebcac1427b65291ee79"
+        },
+        {
+          "action": "upgrade",
+          "exit_code": 1,
+          "log": "upgrade-20261011T124752323823.log",
+          "log_sha256": "2fd8e8ee8910300c6532f6990ba3b924b9051ac78069052ce2b6ea43861e5994",
+          "time_utc": "2026-10-11T12:48:01.089253+00:00",
+          "tested_commit": "a549ac977cb29d5ae9eb21116fac258322d79f55",
+          "tests": [
+            0,
+            3,
+            0
+          ],
+          "verification_exit": 1,
+          "failure_category": "Synthetic preview/test dictionary code collision"
+        },
+        {
+          "action": "upgrade",
+          "exit_code": 0,
+          "log": "upgrade-20261011T124902932330.log",
+          "log_sha256": "b463c7be499578c0c4ba0662b56f4c747cf7f2e93bc2319541aafaa1caaeec18",
+          "time_utc": "2026-10-11T12:49:11.463963+00:00",
+          "tested_commit": "d7c97e6f9c603b20908e55d285ab703195028bd4",
+          "tests": [
+            0,
+            0,
+            15
+          ]
+        },
+        {
+          "action": "upgrade",
+          "exit_code": 0,
+          "log": "upgrade-20261011T125346861707.log",
+          "log_sha256": "da9e06b2f5e69d4dd81d793462e5ab65e57240482f55c1675471f35d1747da5d",
+          "time_utc": "2026-10-11T12:53:57.641730+00:00",
+          "tested_commit": "efcba68ed110bcde42e10bab3564f0a0b703f4bb",
+          "tests": [
+            0,
+            0,
+            15
+          ]
+        },
+        {
+          "action": "upgrade",
+          "exit_code": 0,
+          "log": "upgrade-20261011T125929240531.log",
+          "log_sha256": "3440f4139281804ec427a98306729cfd65b2757123a9a29f6989f95ca8fe896d",
+          "time_utc": "2026-10-11T12:59:44.649446+00:00",
+          "tested_commit": "6783a623da01bb976e4da98de131224c53a0928f",
+          "tests": [
+            0,
+            0,
+            15
+          ]
+        },
+        {
+          "action": "export",
+          "exit_code": 0,
+          "log": "export-20261011T125949167056.log",
+          "log_sha256": "e6f2ad71f254c522d9bfd654537e0906c5c471302887422b0b99f0910c0244f3",
+          "time_utc": "2026-10-11T12:59:51.051813+00:00",
+          "tested_commit": "6783a623da01bb976e4da98de131224c53a0928f"
+        },
+        {
+          "action": "upgrade",
+          "exit_code": 0,
+          "log": "upgrade-20261011T130012687654.log",
+          "log_sha256": "cbf68d32263b2a61aa4017bb970918e68f958e62625e2d748252ead8c787ef8b",
+          "time_utc": "2026-10-11T13:00:21.029244+00:00",
+          "tested_commit": "3c2c388470c32762f9ac1f325134a594c3fd1eca",
+          "tests": [
+            0,
+            0,
+            15
+          ]
+        },
+        {
+          "action": "upgrade",
+          "exit_code": 0,
+          "log": "upgrade-20261011T130330950323.log",
+          "log_sha256": "e1cdefd804dbc96895b6b84d7242d6a0501553352fad52821b6b1a71f34df0a7",
+          "time_utc": "2026-10-11T13:03:43.038496+00:00",
+          "tested_commit": "14bec1c9b533d24edfa9058d640ce5fd54c50440",
+          "tests": [
+            0,
+            0,
+            15
+          ]
+        },
+        {
+          "action": "upgrade",
+          "exit_code": 0,
+          "log": "upgrade-20261011T131016450058.log",
+          "log_sha256": "db82459f12a26ce9cbcc044734403d25ad200fa4074c93aa7d315d4263658516",
+          "time_utc": "2026-10-11T13:10:27.012020+00:00",
+          "tested_commit": "f9cf3ac0727a1f5949aba5e2631c5fd2a5c4ca17",
+          "tests": [
+            0,
+            0,
+            15
+          ]
+        }
+      ]
+    },
+    {
+      "creation": {
+        "database": "ydental_s02_test_20261011131228_e23f071c",
+        "oid": 174484,
+        "endpoint": {
+          "host": "127.0.0.1",
+          "port": "5432",
+          "user": "odoo"
+        },
+        "cluster": "7694897083368259627",
+        "port": 18102,
+        "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+        "created_utc": "2026-10-11T13:12:37.765261+00:00",
+        "config_sha256": "34ef16069d20f68da9a0c3c643e16a9430baff3373dfaa03da4ed8ab559d71bb"
+      },
+      "actions": [
+        {
+          "action": "install",
+          "exit_code": 0,
+          "log": "install-20261011T131237766166.log",
+          "log_sha256": "e454d39b1a4864385ffa4839487b26323c1168c95d604919f47b1a58bf4e3e9f",
+          "time_utc": "2026-10-11T13:13:29.580435+00:00",
+          "tested_commit": "a128ff373836a35bf1462060ec9802dac0eb1953",
+          "tests": [
+            0,
+            0,
+            17
+          ]
+        },
+        {
+          "action": "upgrade",
+          "exit_code": 0,
+          "log": "upgrade-20261011T131408206735.log",
+          "log_sha256": "8511c3246fefb57eb10ef745537e98b8b199c84e983bdffd7b0791beb4eb1c49",
+          "time_utc": "2026-10-11T13:14:16.723454+00:00",
+          "tested_commit": "a128ff373836a35bf1462060ec9802dac0eb1953",
+          "tests": [
+            0,
+            0,
+            15
+          ]
+        },
+        {
+          "action": "export",
+          "exit_code": 0,
+          "log": "export-20261011T131435276308.log",
+          "log_sha256": "92f0a0112b7e5d91ec3d3e8ae3a93b2b451559bb1d02a36b77fd5ae9fed0534a",
+          "time_utc": "2026-10-11T13:14:37.142562+00:00",
+          "tested_commit": "a128ff373836a35bf1462060ec9802dac0eb1953"
+        },
+        {
+          "action": "probe",
+          "exit_code": 0,
+          "log": "probe-20261011T131451207299.log",
+          "log_sha256": "23378d009276728be7b8a9af5a3d0b309b7ad03cb779690a1d6a49ac4b213195",
+          "time_utc": "2026-10-11T13:14:53.992296+00:00",
+          "tested_commit": "a128ff373836a35bf1462060ec9802dac0eb1953"
+        }
+      ]
+    },
+    {
+      "creation": {
+        "database": "ydental_s02_test_20261011131713_c4170b44",
+        "oid": 182918,
+        "endpoint": {
+          "host": "127.0.0.1",
+          "port": "5432",
+          "user": "odoo"
+        },
+        "cluster": "7694897083368259627",
+        "port": 18102,
+        "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+        "created_utc": "2026-10-11T13:17:20.710187+00:00",
+        "config_sha256": "dc44bd578d7ee2eb88e6a57cd5ecbe2ab9f4e863dd45e3715b138b390c14f2d8"
+      },
+      "actions": [
+        {
+          "action": "install",
+          "exit_code": 0,
+          "log": "install-20261011T131720711035.log",
+          "log_sha256": "07da79403b8540aea2ff2fd907d3ca3717ff2e63200f4363b548c56ba32b80e5",
+          "time_utc": "2026-10-11T13:18:12.867701+00:00",
+          "tested_commit": "0b87c1c587a3639793124314e75c3a01747cb1ef",
+          "tests": [
+            0,
+            0,
+            17
+          ]
+        },
+        {
+          "action": "upgrade",
+          "exit_code": 0,
+          "log": "upgrade-20261011T132021672511.log",
+          "log_sha256": "43c59920cec8bcb6d107400225d98415a9f69552925497d9684798b73fa69cbe",
+          "time_utc": "2026-10-11T13:20:30.177974+00:00",
+          "tested_commit": "0b87c1c587a3639793124314e75c3a01747cb1ef",
+          "tests": [
+            0,
+            0,
+            15
+          ]
+        },
+        {
+          "action": "probe",
+          "exit_code": 0,
+          "log": "probe-20261011T132057191761.log",
+          "log_sha256": "f2d3c7f995b8fc77b9af7fdb9f9bd89a7b8c56d716e0a44f9bc7cdfe495834f0",
+          "time_utc": "2026-10-11T13:20:59.940296+00:00",
+          "tested_commit": "0b87c1c587a3639793124314e75c3a01747cb1ef"
+        },
+        {
+          "action": "export",
+          "exit_code": 0,
+          "log": "export-20261011T132125127811.log",
+          "log_sha256": "075fe17439a0be5db77e52ddb9027391d57be02e5079549088cb0125c7ff88a1",
+          "time_utc": "2026-10-11T13:21:27.351916+00:00",
+          "tested_commit": "0b87c1c587a3639793124314e75c3a01747cb1ef"
+        }
+      ]
+    }
+  ]
+}

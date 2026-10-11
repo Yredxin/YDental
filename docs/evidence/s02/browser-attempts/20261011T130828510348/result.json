@@ -1,0 +1,51 @@
+{
+  "scope": "S02 synthetic UI only",
+  "tested_commit": "2ec46bbbfeae91d15ee41bc6926e7eb794a3c27f",
+  "database": "ydental_s02_test_20261011123833_05ce85ea",
+  "started_utc": "2026-10-11T13:08:28.510441+00:00",
+  "browser": "Firefox",
+  "sandbox": "default; no overrides",
+  "checks": [
+    {
+      "check": "F1 six stable workstation fixtures and explicit runtime state",
+      "result": "PASS"
+    },
+    {
+      "check": "Owl floor canvas renders",
+      "result": "PASS"
+    },
+    {
+      "check": "T06 two concurrent HTTP saves: one accepted, one version conflict",
+      "result": "PASS"
+    },
+    {
+      "check": "T01 T02 UI geometry save preserves workstation ID",
+      "result": "PASS"
+    },
+    {
+      "check": "T02 native configuration rename keeps ID and references",
+      "result": "PASS"
+    },
+    {
+      "check": "T01 draw rectangle through canvas",
+      "result": "PASS"
+    },
+    {
+      "check": "T01 draw polygon through canvas",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s02/browser-attempts/20261011T130828510348/01-writer-floor.png",
+      "sha256": "a75ba2227127d39b164e8c144ea9f8feb7c696c8654468237015d7a3c0e3c058"
+    },
+    {
+      "path": "docs/evidence/s02/browser-attempts/20261011T130828510348/02-saved-floor.png",
+      "sha256": "6343d0f66132152f6330ec4a84d55f6a850c87b7b69f7f3961c4ca8dd1b673ac"
+    }
+  ],
+  "browser_version": "155.0",
+  "result": "FAIL",
+  "failure": "TimeoutError"
+}

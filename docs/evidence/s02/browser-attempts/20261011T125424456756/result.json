@@ -1,0 +1,18 @@
+{
+  "scope": "S02 synthetic UI only",
+  "tested_commit": "efcba68ed110bcde42e10bab3564f0a0b703f4bb",
+  "database": "ydental_s02_test_20261011123833_05ce85ea",
+  "started_utc": "2026-10-11T12:54:24.456849+00:00",
+  "browser": "Firefox",
+  "sandbox": "default; no overrides",
+  "checks": [
+    {
+      "check": "F1 six stable workstations and explicit runtime state",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [],
+  "browser_version": "155.0",
+  "result": "FAIL",
+  "failure": "TimeoutError"
+}

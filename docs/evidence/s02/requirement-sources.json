@@ -1,0 +1,25 @@
+{
+  "requirement": "YD-N1 R1 S02",
+  "user_activation": "Current user turn explicitly enables #26 only; no S03",
+  "plan": {
+    "url": "https://github.com/Yredxin/YDental/issues/23",
+    "updated_at": "2026-10-11T06:03:40Z",
+    "body_sha256": "36b3744d1087b38df6970dc584f396bd9c6d3bc66de8229c61f181688353f100"
+  },
+  "s02": {
+    "url": "https://github.com/Yredxin/YDental/issues/26",
+    "updated_at": "2026-10-11T12:25:50Z",
+    "body_sha256": "29610a35e276aa36559fb80684fc3952158cfb4e74e330c95b4d1402daa41eb1",
+    "effective_comments_before_start": 0,
+    "recheck_comments": "only own preflight; no new requirements"
+  },
+  "s01_closeout": "https://github.com/Yredxin/YDental/issues/25#issuecomment-6108974493",
+  "preflight_readback": "https://github.com/Yredxin/YDental/issues/26#issuecomment-6108999828",
+  "baseline": "37ccd3af4c6af390506eb9229e2f1cc145e951b9",
+  "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "not_sources": [
+    "revoked plans",
+    "previous Codex chats",
+    "historical acceptance as new requirements"
+  ]
+}

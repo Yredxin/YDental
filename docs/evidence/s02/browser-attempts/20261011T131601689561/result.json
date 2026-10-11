@@ -1,0 +1,94 @@
+{
+  "scope": "S02 synthetic UI only",
+  "tested_commit": "6bce7c1d904b6935d1fdebba0c36923f9eb6c22d",
+  "database": "ydental_s02_test_20261011131228_e23f071c",
+  "started_utc": "2026-10-11T13:16:01.689681+00:00",
+  "browser": "Firefox",
+  "sandbox": "default; no overrides",
+  "checks": [
+    {
+      "check": "F1 six stable workstation fixtures and explicit runtime state",
+      "result": "PASS"
+    },
+    {
+      "check": "Owl floor canvas renders",
+      "result": "PASS"
+    },
+    {
+      "check": "T06 two concurrent HTTP saves: one accepted, one version conflict",
+      "result": "PASS"
+    },
+    {
+      "check": "T01 T02 UI geometry save preserves workstation ID",
+      "result": "PASS"
+    },
+    {
+      "check": "T02 native configuration rename keeps ID and references",
+      "result": "PASS"
+    },
+    {
+      "check": "T01 draw rectangle through canvas",
+      "result": "PASS"
+    },
+    {
+      "check": "T01 draw polygon through canvas",
+      "result": "PASS"
+    },
+    {
+      "check": "F1 drag resource creates one stable workstation and linked artwork",
+      "result": "PASS"
+    },
+    {
+      "check": "T05 native SVG file upload retains safe XML",
+      "result": "PASS"
+    },
+    {
+      "check": "T04 readonly plan has disabled save",
+      "result": "PASS"
+    },
+    {
+      "check": "T04 readonly direct layout RPC denied",
+      "result": "PASS"
+    },
+    {
+      "check": "Store switch accepted",
+      "result": "PASS"
+    },
+    {
+      "check": "T04 private SVG denied from other store",
+      "result": "PASS"
+    },
+    {
+      "check": "Old store page cannot save layout",
+      "result": "PASS"
+    },
+    {
+      "check": "No browser JavaScript errors",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s02/browser-attempts/20261011T131601689561/01-writer-floor.png",
+      "sha256": "030f3f015fb395469acce1b1511d2c0147e98fd05de2714cbab8d48f2fb016ba"
+    },
+    {
+      "path": "docs/evidence/s02/browser-attempts/20261011T131601689561/02-saved-floor.png",
+      "sha256": "ba227be635964e6474709ab6e4c3eb4bbafcaae5985141a6b59c64615fa7736a"
+    },
+    {
+      "path": "docs/evidence/s02/browser-attempts/20261011T131601689561/03-drawing-and-drop.png",
+      "sha256": "c524e91ce97d74d4e1c0c19f3bac269b81c3573018ebaca29a07efde0089ca71"
+    },
+    {
+      "path": "docs/evidence/s02/browser-attempts/20261011T131601689561/04-private-resource-upload.png",
+      "sha256": "0afa666975bb4051f7fdc2c976354224220bee4e0393de18b97d2ca9fdf38e25"
+    },
+    {
+      "path": "docs/evidence/s02/browser-attempts/20261011T131601689561/05-readonly-floor.png",
+      "sha256": "36bb11da9eed8933f8f953f32283d8c876a50debfac79eb26fddbff14462f9f6"
+    }
+  ],
+  "browser_version": "155.0",
+  "result": "PASS"
+}

@@ -1,0 +1,31 @@
+{
+  "scope": "S02 synthetic UI only",
+  "tested_commit": "f0f64ad55d1913392cae59509af3a3fb4baf5666",
+  "database": "ydental_s02_test_20261011123833_05ce85ea",
+  "started_utc": "2026-10-11T12:57:40.408167+00:00",
+  "browser": "Firefox",
+  "sandbox": "default; no overrides",
+  "checks": [
+    {
+      "check": "F1 six stable workstations and explicit runtime state",
+      "result": "PASS"
+    },
+    {
+      "check": "Owl floor canvas renders",
+      "result": "PASS"
+    },
+    {
+      "check": "T06 two concurrent HTTP saves: one accepted, one version conflict",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s02/browser-attempts/20261011T125740408055/01-writer-floor.png",
+      "sha256": "2a3ede15558b68819a0771a824f832d2b639794c5da8f928cf84b2509ad85c17"
+    }
+  ],
+  "browser_version": "155.0",
+  "result": "FAIL",
+  "failure": "RuntimeError"
+}

@@ -1,0 +1,91 @@
+{
+  "scope": "S02 synthetic UI only",
+  "tested_commit": "a128ff373836a35bf1462060ec9802dac0eb1953",
+  "database": "ydental_s02_test_20261011131228_e23f071c",
+  "started_utc": "2026-10-11T13:15:09.177537+00:00",
+  "browser": "Firefox",
+  "sandbox": "default; no overrides",
+  "checks": [
+    {
+      "check": "F1 six stable workstation fixtures and explicit runtime state",
+      "result": "PASS"
+    },
+    {
+      "check": "Owl floor canvas renders",
+      "result": "PASS"
+    },
+    {
+      "check": "T06 two concurrent HTTP saves: one accepted, one version conflict",
+      "result": "PASS"
+    },
+    {
+      "check": "T01 T02 UI geometry save preserves workstation ID",
+      "result": "PASS"
+    },
+    {
+      "check": "T02 native configuration rename keeps ID and references",
+      "result": "PASS"
+    },
+    {
+      "check": "T01 draw rectangle through canvas",
+      "result": "PASS"
+    },
+    {
+      "check": "T01 draw polygon through canvas",
+      "result": "PASS"
+    },
+    {
+      "check": "F1 drag resource creates one stable workstation and linked artwork",
+      "result": "PASS"
+    },
+    {
+      "check": "T05 native SVG file upload retains safe XML",
+      "result": "PASS"
+    },
+    {
+      "check": "T04 readonly plan has disabled save",
+      "result": "PASS"
+    },
+    {
+      "check": "T04 readonly direct layout RPC denied",
+      "result": "PASS"
+    },
+    {
+      "check": "Store switch accepted",
+      "result": "PASS"
+    },
+    {
+      "check": "T04 private SVG denied from other store",
+      "result": "PASS"
+    },
+    {
+      "check": "Old store page cannot save layout",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s02/browser-attempts/20261011T131509177424/01-writer-floor.png",
+      "sha256": "71664bdee83d75660153e4f283fc9a022960d9de3751f72a62dd21ef0d4b9a24"
+    },
+    {
+      "path": "docs/evidence/s02/browser-attempts/20261011T131509177424/02-saved-floor.png",
+      "sha256": "650858395bf1eed2d5140a6113f2e6e88e07966457877ad7d75327fb9cd2239c"
+    },
+    {
+      "path": "docs/evidence/s02/browser-attempts/20261011T131509177424/03-drawing-and-drop.png",
+      "sha256": "9b6764105457da0b56841884a48e9a8db301a39d29cf6e94149d1c054dcf4635"
+    },
+    {
+      "path": "docs/evidence/s02/browser-attempts/20261011T131509177424/04-private-resource-upload.png",
+      "sha256": "88a52f235902c877524ea89c5ecdeb2bfba663e4b21ba8622f013dca7718342d"
+    },
+    {
+      "path": "docs/evidence/s02/browser-attempts/20261011T131509177424/05-readonly-floor.png",
+      "sha256": "94d5b2fe500adcbd556b22f9957ab748268ef3f96ee91d96cdfebcfe1556f3d3"
+    }
+  ],
+  "browser_version": "155.0",
+  "result": "FAIL",
+  "failure": "RuntimeError"
+}
