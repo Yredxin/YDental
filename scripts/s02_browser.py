@@ -288,7 +288,8 @@ def main():
                 group_page.goto(base + '/odoo/action-ydental_space.ydental_space_resource_action', wait_until='domcontentloaded')
                 group_page.locator('.o_list_button_add').click()
                 group_page.locator('[name=name] input').fill('S02 Group-only Common')
-                group_page.locator('[name=ydental_kind] select').select_option('wall')
+                group_page.locator('[name=ydental_kind]').click()
+                group_page.locator('.o_field_selection_menu').get_by_text('墙', exact=True).click()
                 group_page.locator('[name=ydental_svg] textarea').fill(
                     '<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="80" height="80" fill="#456789"/></svg>')
                 with group_page.expect_response(response_for('web_save')) as common_response:
