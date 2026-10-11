@@ -27,7 +27,7 @@
                     <h3>Resource library</h3>
                     <p>Drag equipment into a selected area. Select an existing workstation to add another resource.</p>
                     <div class="o_ydental_space_resources">
-                        <div t-foreach="this.state.data.resources" t-as="resource" t-key="resource.id" t-att-draggable="this.state.data.writable" t-on-dragstart="(event) =&gt; this.dragResource(event, resource)">
+                        <div t-foreach="this.state.data.resources" t-as="resource" t-key="resource.id" t-att-draggable="this.state.data.writable ? 'true' : 'false'" t-on-dragstart="(event) =&gt; this.dragResource(event, resource)">
                             <img t-att-src="'/ydental/space/resource/' + resource.id + '.svg'" alt=""/><span t-out="resource.name"/>
                         </div>
                     </div>

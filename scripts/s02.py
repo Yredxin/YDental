@@ -62,6 +62,10 @@ def main():
         parser.error('Endpoint is not the approved 127.0.0.1:5432/odoo; no connection attempted')
     if subprocess.check_output(['git', '-C', str(CORE), 'rev-parse', 'HEAD'], text=True).strip() != CORE_SHA:
         parser.error('Core SHA changed; no version switch allowed')
+    tested_commit = subprocess.check_output(['git', '-C', str(REPO), 'rev-parse', 'HEAD'], text=True).strip()
+    if subprocess.check_output(['git', '-C', str(REPO), 'status', '--porcelain', '--',
+                               'ydental_space', 'ydental_space_test', 'scripts/s02*', 'scripts/test_s02_guard.py'], text=True):
+        parser.error('Commit S02 implementation and verification scripts before running')
     run = STATE / args.db
     if run.is_symlink():
         parser.error('Symlink run directory refused')
@@ -93,7 +97,7 @@ def main():
     if not all((deps / name).is_file() for name in (
         'fonts.conf', 'fonts/NotoSansCJKsc-Regular.otf', 'wkhtmltox/usr/local/bin/wkhtmltopdf',
     )):
-        parser.error('Missing process-local PDF assets; run s00_b_deps.py first')
+        parser.error('Missing existing process-local PDF assets; dependency installation is not authorized')
     # Serialize this runner, including serve, so a module update cannot race a preview.
     STATE.mkdir(exist_ok=True, mode=0o700)
     with (STATE / ('s02-runner-' + args.db + '.lock')).open('a') as lock:
@@ -197,7 +201,7 @@ def main():
                                     stdout=log, stderr=subprocess.STDOUT).returncode
         entry = {'action': args.action, 'exit_code': result, 'log': log_path.name,
                  'log_sha256': digest(log_path), 'time_utc': datetime.now(timezone.utc).isoformat(),
-                 'tested_commit': subprocess.check_output(['git', '-C', str(REPO), 'rev-parse', 'HEAD'], text=True).strip()}
+                 'tested_commit': tested_commit}
         if args.action in ('install', 'upgrade'):
             match = re.search(r'(\d+) failed, (\d+) error\(s\) of (\d+) tests', log_path.read_text())
             entry['tests'] = list(map(int, match.groups())) if match else None
