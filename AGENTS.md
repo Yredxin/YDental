@@ -1,7 +1,7 @@
 # YDental 当前执行入口
 
 - 当前需求 YD-N1 R1。唯一来源是 [总计划 #23](https://github.com/Yredxin/YDental/issues/23)、[S00 #24](https://github.com/Yredxin/YDental/issues/24) 至 [S13 #37](https://github.com/Yredxin/YDental/issues/37) 当前正文和有效评论。先读取 GitHub，再执行明确启用范围；代码、卡片及历史验收不授权开工。
-- 当前用户只启用 #24 / S00-T05 / Project #4 专项，边界见 [GPT-NEXT](https://github.com/Yredxin/YDental/issues/24#issuecomment-6107029151)。S00-A、S00-B及浏览器补证已技术复核，不重做；S01未启用。自动化条件/动作完整读取前不得Project写入；本轮事实与登录前置见 [docs/s00-t05-report.md](docs/s00-t05-report.md)。交付报告后停止，不称整个S00完成。
+- 当前用户只启用 #24 / S00-T05 / Project #4 专项，最新边界见 [GPT-DECISION](https://github.com/Yredxin/YDental/issues/24#issuecomment-6107161042)。S00-A、S00-B及浏览器补证已技术复核，不重做；S01未启用。不再要求GitHub浏览器登录或workflow内部配置作为最小整理前置；仅允许历史卡归档、两个自定义字段及当前计划视图，逐条mutation后立即完整读回并核对实体状态。新交付见 docs/s00-t05-minimal-report.md；旧阻塞证据保留于 [docs/s00-t05-report.md](docs/s00-t05-report.md)。交付报告后停止，不称整个S00完成。
 - 不从撤销任务、四份旧文档、旧计划、旧 AGENTS 或历史验收补业务规则。文档仅记录当前 Issue 的工程落地与证据，不另立计划。工程约定见 [docs/contracts.md](docs/contracts.md)，事实与阻塞见 [docs/s00-a-report.md](docs/s00-a-report.md)。
 
 ## 工作区和保护
@@ -17,4 +17,4 @@
 - 修改 addon 前读取适用 odoo-guidelines；static/ 使用 odoo-web-guidelines；安全审计用 odoo-security。技能不替代当前需求和授权。
 - 本批及未来获启用的运行批次仅使用全新隔离允许范围数据库与合成数据。先验证端点/唯一库名/创建记录及OID/独立配置、data_dir、日志/精确dbfilter/端口/外发禁用；拒绝业务库、历史库与错误端点。scripts/p00.py 仅为历史保留候选；本批使用 scripts/s00_b.py，证据和剩余事项见 docs/s00-b-report.md。
 - 仓库和 GitHub 只放虚拟/脱敏材料，不发布凭据、患者资料、签名、备份或原始运行日志。长期保留失败与补交证据，未执行记 NOT_RUN，能力/权限阻塞记 BLOCKED。
-- 独立分支提交；PR 如需创建用 Refs #24，不强推、不自动合并/关闭任务/启动下一阶段。Project 写前完整读取条目、字段、视图与自动化；边界不明停止相关写入，写后读回和二次同步核对。当前API仍只暴露自动化元数据，正常浏览器需GitHub登录/二次验证；不得导出token/cookie或关闭workflow绕过，不能声称看板整理完成。
+- 独立分支提交；PR 如需创建用 Refs #24，不强推、不自动合并/关闭任务/启动下一阶段。Project 写前完整读取条目、字段、视图与自动化元数据；边界不明停止相关写入，写后读回和二次同步核对。当前API仍只暴露自动化元数据；禁止修改任何workflow、原生Status或Issue/PR实体状态。发现非预期变化立即停止、不自动修复。不得导出token/cookie或关闭安全控制；没有实际同步和读回证据不能称看板整理完成。
