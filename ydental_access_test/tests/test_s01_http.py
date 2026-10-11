@@ -2,7 +2,8 @@ import json
 from unittest.mock import patch
 
 from lxml import html
-from odoo.tests import HttpCase
+from odoo import fields
+from odoo.tests import HttpCase, new_test_user
 from odoo.tests.common import Opener
 from odoo.tools import mute_logger
 
@@ -186,9 +187,13 @@ class TestS01HTTP(HttpCase, TestS01):
         with mute_logger('odoo.http'):
             self.assertIn('error', self.rpc(group, 'res.users', 'write', self.operator.ids,
                 {'vals': {'ydental_job_title': 'Native forbidden profile'}}))
-        self.assertIn('result', self.rpc(group, 'res.users', 'write', self.group_admin.ids,
-            {'vals': {'ydental_job_title': 'HTTP audited self profile'}}))
+        native = new_test_user(self.env, login='s01_http_native_group',
+            groups='ydental_access.ydental_group_manager,base.group_erp_manager',
+            company_ids=[fields.Command.set(self.group_admin.company_ids.ids)])
+        native_client = self.login_session(native)
+        self.assertIn('result', self.rpc(native_client, 'res.users', 'write', self.group_admin.ids,
+            {'vals': {'ydental_job_title': 'HTTP audited direct profile'}}))
         row = self.env['ydental.access.audit'].search([('ydental_event', '=', 'profile.change'),
             ('ydental_target_id', '=', self.group_admin.id)])
         self.assertEqual(len(row), 1)
-        self.assertEqual(row.ydental_user_id, self.group_admin)
+        self.assertEqual(row.ydental_user_id, native)
