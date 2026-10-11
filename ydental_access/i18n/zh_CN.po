@@ -1051,6 +1051,7 @@ msgstr "access_denied: 需要集团管理身份。"
 #. odoo-python
 #: code:addons/ydental_access/models/ydental_access_service.py:0
 #: code:addons/ydental_access/models/ydental_access_store.py:0
+#: code:addons/ydental_access/models/res_users.py:0
 msgid ""
 "access_denied: Group administration within allowed companies is required."
 msgstr "access_denied: 需要在已授权公司范围内的集团管理身份。"

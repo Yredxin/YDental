@@ -21,6 +21,7 @@ class ResUsers(models.Model):
         service = self.env['ydental.access.service']
         if common:
             service._check_user_company_scope(self)
+            self._ydental_check_profile_company_values(vals)
             before = {user.id: user._ydental_profile_values() for user in self}
         result = super().write(vals)
         if common:
@@ -31,6 +32,23 @@ class ResUsers(models.Model):
                 for user in self if before[user.id] != snapshots[user.id]
             ])
         return result
+
+    def _ydental_check_profile_company_values(self, vals):
+        """Check proposed companies before a combined native/profile write.
+
+        Company create/update/delete commands are separate native master-data
+        actions, not part of changing common staff fields.
+        """
+        proposed = {vals['company_id']} if 'company_id' in vals else set()
+        for command in vals.get('company_ids', []):
+            if not isinstance(command, (list, tuple)) or not command or command[0] not in (3, 4, 5, 6):
+                raise AccessError(self.env._('access_denied: Group administration within allowed companies is required.'))
+            if command[0] == fields.Command.LINK:
+                proposed.add(command[1])
+            elif command[0] == fields.Command.SET:
+                proposed.update(command[2])
+        if not proposed <= set(self.env.user.company_ids.ids):
+            raise AccessError(self.env._('access_denied: Group administration within allowed companies is required.'))
 
     def _ydental_profile_values(self):
         self.ensure_one()
