@@ -161,8 +161,9 @@ def main():
             if creating:
                 command += ['--with-demo']
         elif args.action == 'export':
-            command += ['--i18n-export', str(run / 'ydental_base.pot'), '--modules', 'ydental_base',
-                        '--stop-after-init', '--no-http']
+            command = [str(CORE / '.venv/bin/python'), str(CORE / 'odoo-bin'),
+                       'i18n', 'export', '-c', str(config), '-o', str(run / 'ydental_base.pot'),
+                       'ydental_base']
         if args.action == 'serve':
             print('Preview: http://127.0.0.1:%s/ydental; private access: %s' % (
                 args.port, run / 'access.json'), flush=True)

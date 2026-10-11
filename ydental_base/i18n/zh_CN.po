@@ -89,13 +89,13 @@ msgstr "中文多行与标点：牙齿、检查、处方、小票。"
 
 #. module: ydental_base
 #: model_terms:ir.ui.view,arch_db:ydental_base.ydental_sample_content
-msgid "Sample line"
-msgstr "样例行"
+msgid "<span>Sample line</span>"
+msgstr "<span>样例行</span>"
 
 #. module: ydental_base
 #: model_terms:ir.ui.view,arch_db:ydental_base.ydental_sample_content
-msgid "Verify Chinese glyphs and line wrapping."
-msgstr "核对中文字形与自动换行。"
+msgid ": <span>Verify Chinese glyphs and line wrapping.</span>"
+msgstr "：<span>核对中文字形与自动换行。</span>"
 
 #. module: ydental_base
 #: model_terms:ir.ui.view,arch_db:ydental_base.ydental_sample_content
@@ -126,3 +126,18 @@ msgstr "牙科合成窄纸样张"
 #: model:ir.module.module,summary:base.module_ydental_base
 msgid "YDental application entry and synthetic PDF samples"
 msgstr "牙科应用入口与合成 PDF 样张"
+
+#. module: ydental_base
+#: model:ir.model.fields,field_description:ydental_base.field_ir_actions_report__display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: ydental_base
+#: model:ir.model.fields,field_description:ydental_base.field_ir_actions_report__id
+msgid "ID"
+msgstr "ID"
+
+#. module: ydental_base
+#: model:ir.model,name:ydental_base.model_ir_actions_report
+msgid "Report Action"
+msgstr "报表动作"
