@@ -205,6 +205,11 @@ class TestSupply(TransactionCase):
         now = fields.Datetime.now()
         self.service._operate('assign', {'user_id': self.staff.id, 'station_id': self.stations[0].id,
             'start': fields.Datetime.to_string(now - timedelta(minutes=10)), 'end': fields.Datetime.to_string(now + timedelta(minutes=10))}, 'today')
+        floor_b = self.root['ydental.space.floor'].create({'name': 'F4 B floor', 'ydental_store_id': self.stores[1].id})
+        area_b = self.root['ydental.space.area'].create({'name': 'F4 B area', 'ydental_store_id': self.stores[1].id, 'ydental_floor_id': floor_b.id})
+        writer_b = bind(self, self.writer, 'f4-writer-b', self.stores[1])
+        writer_b._operate('assign', {'user_id': self.staff.id, 'area_id': area_b.id,
+            'start': fields.Datetime.to_string(now + timedelta(minutes=30)), 'end': fields.Datetime.to_string(now + timedelta(minutes=60))}, 'f4-afternoon-b')
         staff_access = self.root['ydental.access.service'].with_user(self.staff)
         login = staff_access._session_for_key('new-login-today')
         self.assertEqual(login.ydental_store_id, self.stores[0])
@@ -217,6 +222,11 @@ class TestSupply(TransactionCase):
         self.assertIn(self.writer, item.ydental_recipient_ids)
         self.assertNotIn(self.reader, item.ydental_recipient_ids)
         self.assertEqual(staff_service._feedback(record.id, 'Retry', 'feedback2')['id'], item.id)
+        with patch(NOW, return_value=now + timedelta(minutes=40)):
+            self.assertEqual(staff_service._default_candidates(), self.stores[1].ids)
+            later_login = staff_access._session_for_key('later-login-today')
+            self.assertEqual(later_login.ydental_store_id, self.stores[1])
+            self.assertEqual(login.ydental_store_id, self.stores[0])
         with patch(NOW, return_value=now + timedelta(hours=2)):
             staff_service._today()
             self.assertEqual(login.ydental_store_id, self.stores[0])
@@ -396,3 +406,12 @@ class TestSupply(TransactionCase):
             availability = self.service._availability(self.area.id, self.capabilities[0].id, self.start, self.end, 'reservation')
             self.assertEqual(availability['shared_free'], 0)
         self.assert_balance(capacity)
+
+    def test_s06_global_position_contract_blocks_other_store_write(self):
+        # Server hook only; this is explicitly not a real execution lease test.
+        Access = type(self.service.env['ydental.access.service'])
+        with patch.object(Access, '_get_execution_store_id', return_value=self.stores[1].id):
+            self.assertEqual(self.service._today()['execution_store_id'], self.stores[1].id)
+            with self.assertRaises(AccessError):
+                self.service._operate('assign', {'user_id': self.staff.id, 'area_id': self.area.id,
+                    'start': fields.Datetime.to_string(self.start), 'end': fields.Datetime.to_string(self.end)}, 'other-store-execution')
