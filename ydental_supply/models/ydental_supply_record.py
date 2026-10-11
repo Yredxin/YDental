@@ -11,8 +11,9 @@ class YDentalSupplyRecord(models.AbstractModel):
     _inherit = 'ydental.access.source'
 
     name = fields.Char(required=True)
-    ydental_category = fields.Selection(default='capacity', readonly=True)
-    ydental_version = fields.Integer(default=1, readonly=True, required=True)
+    ydental_store_id = fields.Many2one(string='Store')
+    ydental_category = fields.Selection(default='capacity', readonly=True, string='Business category')
+    ydental_version = fields.Integer(default=1, readonly=True, required=True, string='Content version')
 
     @api.model_create_multi
     def create(self, vals_list):

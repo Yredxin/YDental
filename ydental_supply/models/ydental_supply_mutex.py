@@ -6,4 +6,4 @@ class YDentalSupplyMutex(models.Model):
     _description = 'Supply transaction serialization point'
 
     name = fields.Char(required=True)
-    ydental_revision = fields.Integer(default=0)
+    ydental_revision = fields.Integer(default=0, string='Revision')

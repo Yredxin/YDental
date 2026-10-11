@@ -16,7 +16,7 @@ class YDentalSpaceStation(models.Model):
 
     def write(self, vals):
         result = super().write(vals)
-        if {'active', 'ydental_enabled', 'ydental_add_capability_ids', 'ydental_remove_capability_ids'} & vals.keys():
+        if {'active', 'ydental_enabled', 'ydental_callable', 'ydental_add_capability_ids', 'ydental_remove_capability_ids'} & vals.keys():
             service = self.env['ydental.supply.service']
             slots = self.env['ydental.supply.slot'].sudo().search([('ydental_station_id', 'in', self.ids), ('state', '=', 'published')])
             for store, records in slots.grouped('ydental_store_id').items():

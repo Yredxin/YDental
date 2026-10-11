@@ -202,6 +202,7 @@ class YDentalSupplyService(models.AbstractModel):
 
     def _assignment_values(self, store, p, excluding=None):
         self._keys(p, ('user_id', 'start', 'end'), ('station_id', 'area_id', 'reason'))
+        self._integer(p['user_id'], 1, 2147483647)
         member = self.env['ydental.access.service']._membership(p['user_id'], store.id)
         if not member or not member.ydental_employee_id.active or not member.ydental_user_id.active:
             raise ValidationError(self.env._('Select an active employee qualified for this store.'))
@@ -277,7 +278,7 @@ class YDentalSupplyService(models.AbstractModel):
         self._keys(p, ('station_id', 'start', 'end', 'total', 'capability_ids', 'reason'))
         station = self._space('station', p['station_id'], store)
         area = station.ydental_queue_area_id
-        if not area:
+        if not area or not station.ydental_callable:
             raise ValidationError(self.env._('A reporting area is required for supply.'))
         start, end = self._interval(p['start'], p['end'])
         if self._date(store, start) != self._date(store, end - timedelta(microseconds=1)):
@@ -332,7 +333,7 @@ class YDentalSupplyService(models.AbstractModel):
         return {'id': slot.id}
 
     def _coverage_valid(self, slot):
-        if not slot.ydental_station_id.active or not slot.ydental_station_id.ydental_enabled or not all(slot.with_context(active_test=False).ydental_capability_ids.mapped('active')):
+        if not slot.ydental_station_id.active or not slot.ydental_station_id.ydental_enabled or not slot.ydental_station_id.ydental_callable or not all(slot.with_context(active_test=False).ydental_capability_ids.mapped('active')):
             return False
         if not set(slot.ydental_capability_ids.ids) <= set(slot.ydental_station_id.ydental_capability_ids.filtered('active').ids):
             return False
@@ -349,13 +350,15 @@ class YDentalSupplyService(models.AbstractModel):
         total = self._integer(p['total'])
         before = self._snapshot(slot)
         delta = total - slot.ydental_total
-        reservation, walkin = slot.ydental_reservation_free, slot.ydental_walkin_free
+        reservation, walkin, unavailable = slot.ydental_reservation_free, slot.ydental_walkin_free, slot.ydental_unavailable
         if delta < 0:
-            if -delta > reservation + walkin:
-                raise UserError(self.env._('insufficient_balance: Reduction would remove used or unavailable capacity.'))
+            if -delta > reservation + walkin + unavailable:
+                raise UserError(self.env._('insufficient_balance: Reduction would remove used capacity.'))
             take = min(walkin, -delta)
             walkin -= take
-            reservation -= -delta - take
+            take_reservation = min(reservation, -delta - take)
+            reservation -= take_reservation
+            unavailable -= -delta - take - take_reservation
         else:
             add_r, add_w = slot.ydental_policy_id._split(delta)
             if slot.ydental_converted or self._now() >= slot.ydental_start:
@@ -364,7 +367,7 @@ class YDentalSupplyService(models.AbstractModel):
             reservation += add_r
             walkin += add_w
         slot._save({'ydental_total': total, 'ydental_reservation_free': reservation,
-                    'ydental_walkin_free': walkin, 'ydental_reason': self._reason(p['reason'])})
+                    'ydental_walkin_free': walkin, 'ydental_unavailable': unavailable, 'ydental_reason': self._reason(p['reason'])})
         self._event(store, 'resize', p['reason'], slot=slot, before=before)
         return {'id': slot.id}
 
@@ -621,10 +624,12 @@ class YDentalSupplyService(models.AbstractModel):
 
     def _own_assignments(self):
         self.env['ydental.access.service']._require_internal()
-        records = self._model('assignment').search([('ydental_user_id', '=', self.env.uid), ('state', '=', 'active')])
+        records = self._model('assignment').search([('ydental_user_id', '=', self.env.uid), ('state', '=', 'active'),
+            ('ydental_start', '<', self._now() + timedelta(days=2)), ('ydental_end', '>', self._now() - timedelta(days=2))])
         return records.filtered(lambda r: r.ydental_store_id.active and
             self.env['ydental.access.service']._membership(self.env.uid, r.ydental_store_id.id) and
-            self._date(r.ydental_store_id, r.ydental_start) == self._date(r.ydental_store_id))
+            self.env['ydental.access.service']._membership(self.env.uid, r.ydental_store_id.id).ydental_employee_id.active and
+            self._date(r.ydental_store_id, r.ydental_start) <= self._date(r.ydental_store_id) <= self._date(r.ydental_store_id, r.ydental_end - timedelta(microseconds=1)))
 
     def _default_candidates(self):
         now = self._now()

@@ -6,11 +6,11 @@ class YDentalSupplyClaim(models.Model):
     _description = 'Capacity entitlement ledger source'
     _inherit = 'ydental.supply.record'
 
-    ydental_slot_id = fields.Many2one('ydental.supply.slot', required=True, ondelete='restrict', index=True)
-    ydental_capability_id = fields.Many2one('ydental.access.capability', required=True, ondelete='restrict')
-    ydental_pool = fields.Selection([('reservation', 'Reservation'), ('walkin', 'Walk-in')], required=True)
-    ydental_source = fields.Char(required=True, index=True)
-    ydental_source_key = fields.Char(required=True, index=True)
+    ydental_slot_id = fields.Many2one('ydental.supply.slot', required=True, ondelete='restrict', index=True, string='Capacity slot')
+    ydental_capability_id = fields.Many2one('ydental.access.capability', required=True, ondelete='restrict', string='Capability')
+    ydental_pool = fields.Selection([('reservation', 'Reservation'), ('walkin', 'Walk-in')], required=True, string='Pool')
+    ydental_source = fields.Char(required=True, index=True, string='Source')
+    ydental_source_key = fields.Char(required=True, index=True, string='Source key')
     state = fields.Selection([('held', 'Held'), ('consumed', 'Consumed'), ('cancelled', 'Cancelled')], default='held', required=True)
 
     _source_unique = models.Constraint('UNIQUE(ydental_store_id, ydental_source, ydental_source_key)', 'One capacity entitlement per source is required.')

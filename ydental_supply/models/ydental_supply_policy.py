@@ -7,15 +7,15 @@ class YDentalSupplyPolicy(models.Model):
     _inherit = 'ydental.supply.record'
     _order = 'id desc'
 
-    ydental_area_id = fields.Many2one('ydental.space.area', ondelete='restrict')
-    ydental_station_id = fields.Many2one('ydental.space.station', ondelete='restrict')
-    ydental_mode = fields.Selection([('demo', 'Demonstration'), ('published', 'Approved publication')], required=True)
-    ydental_reservation_weight = fields.Integer(default=1, required=True)
-    ydental_walkin_weight = fields.Integer(default=2, required=True)
-    ydental_rounding = fields.Selection([('floor', 'Round reservation down'), ('nearest', 'Round reservation to nearest')], required=True)
-    ydental_phone_pool = fields.Selection([('reservation', 'Reservation'), ('walkin', 'Walk-in')], required=True)
-    ydental_cutoff_minutes = fields.Integer(default=0, required=True)
-    ydental_reason = fields.Char(required=True)
+    ydental_area_id = fields.Many2one('ydental.space.area', ondelete='restrict', string='Area')
+    ydental_station_id = fields.Many2one('ydental.space.station', ondelete='restrict', string='Workstation')
+    ydental_mode = fields.Selection([('demo', 'Demonstration'), ('published', 'Approved publication')], required=True, string='Publication mode')
+    ydental_reservation_weight = fields.Integer(default=1, required=True, string='Reservation weight')
+    ydental_walkin_weight = fields.Integer(default=2, required=True, string='Walk-in weight')
+    ydental_rounding = fields.Selection([('floor', 'Round reservation down'), ('nearest', 'Round reservation to nearest')], required=True, string='Rounding')
+    ydental_phone_pool = fields.Selection([('reservation', 'Reservation'), ('walkin', 'Walk-in')], required=True, string='Telephone pool')
+    ydental_cutoff_minutes = fields.Integer(default=0, required=True, string='Cutoff minutes')
+    ydental_reason = fields.Char(required=True, string='Reason')
 
     def _split(self, quantity):
         self.ensure_one()
