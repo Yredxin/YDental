@@ -1,0 +1,3042 @@
+{
+  "scope": "S00-T05 decision 6107161042",
+  "snapshot": "project-second-check",
+  "started_utc": "2026-10-11T09:04:20.663934+00:00",
+  "finished_utc": "2026-10-11T09:04:23.801282+00:00",
+  "code_commit": "e8f3ec76276682c9ef8623bfc1f08cb5b17117c6",
+  "viewer": "Yredxin",
+  "read_exit_code": 0,
+  "project": {
+    "id": "PVT_kwHOA3_tu84BmcLJ",
+    "title": "odoo dental",
+    "url": "https://github.com/users/Yredxin/projects/4",
+    "closed": false,
+    "viewerCanUpdate": true,
+    "shortDescription": null,
+    "readme": null,
+    "fields": {
+      "totalCount": 21,
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "MjE"
+      },
+      "nodes": [
+        {
+          "__typename": "ProjectV2Field",
+          "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+          "name": "Title",
+          "dataType": "TITLE"
+        },
+        {
+          "__typename": "ProjectV2Field",
+          "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhk",
+          "name": "Assignees",
+          "dataType": "ASSIGNEES"
+        },
+        {
+          "__typename": "ProjectV2SingleSelectField",
+          "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+          "name": "Status",
+          "dataType": "SINGLE_SELECT",
+          "options": [
+            {
+              "id": "f75ad846",
+              "name": "Todo",
+              "color": "GREEN",
+              "description": "This item hasn't been started"
+            },
+            {
+              "id": "47fc9ee4",
+              "name": "In progress",
+              "color": "YELLOW",
+              "description": "This is actively being worked on"
+            },
+            {
+              "id": "98236657",
+              "name": "Done",
+              "color": "PURPLE",
+              "description": "This has been completed"
+            }
+          ]
+        },
+        {
+          "__typename": "ProjectV2Field",
+          "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhs",
+          "name": "Labels",
+          "dataType": "LABELS"
+        },
+        {
+          "__typename": "ProjectV2Field",
+          "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhw",
+          "name": "Linked pull requests",
+          "dataType": "LINKED_PULL_REQUESTS"
+        },
+        {
+          "__typename": "ProjectV2Field",
+          "id": "PVTF_lAHOA3_tu84BmcLJzhlFOh0",
+          "name": "Milestone",
+          "dataType": "MILESTONE"
+        },
+        {
+          "__typename": "ProjectV2Field",
+          "id": "PVTF_lAHOA3_tu84BmcLJzhlFOh4",
+          "name": "Repository",
+          "dataType": "REPOSITORY"
+        },
+        {
+          "__typename": "ProjectV2Field",
+          "id": "PVTF_lAHOA3_tu84BmcLJzhlFOiA",
+          "name": "Reviewers",
+          "dataType": "REVIEWERS"
+        },
+        {
+          "__typename": "ProjectV2Field",
+          "id": "PVTF_lAHOA3_tu84BmcLJzhlFOiE",
+          "name": "Parent issue",
+          "dataType": "PARENT_ISSUE"
+        },
+        {
+          "__typename": "ProjectV2Field",
+          "id": "PVTF_lAHOA3_tu84BmcLJzhlFOiI",
+          "name": "Sub-issues progress",
+          "dataType": "SUB_ISSUES_PROGRESS"
+        },
+        {
+          "__typename": "ProjectV2Field",
+          "id": "PVTF_lAHOA3_tu84BmcLJzhlFOiM",
+          "name": "Created",
+          "dataType": "CREATED"
+        },
+        {
+          "__typename": "ProjectV2Field",
+          "id": "PVTF_lAHOA3_tu84BmcLJzhlFOiQ",
+          "name": "Updated",
+          "dataType": "UPDATED"
+        },
+        {
+          "__typename": "ProjectV2Field",
+          "id": "PVTF_lAHOA3_tu84BmcLJzhlFOiU",
+          "name": "Closed",
+          "dataType": "CLOSED"
+        },
+        {
+          "__typename": "ProjectV2SingleSelectField",
+          "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOrk",
+          "name": "Priority",
+          "dataType": "SINGLE_SELECT",
+          "options": [
+            {
+              "id": "74ba8164",
+              "name": "P0",
+              "color": "RED",
+              "description": ""
+            },
+            {
+              "id": "075f2968",
+              "name": "P1",
+              "color": "ORANGE",
+              "description": ""
+            },
+            {
+              "id": "b5ce64b4",
+              "name": "P2",
+              "color": "YELLOW",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "__typename": "ProjectV2SingleSelectField",
+          "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOro",
+          "name": "Size",
+          "dataType": "SINGLE_SELECT",
+          "options": [
+            {
+              "id": "c18fb802",
+              "name": "XS",
+              "color": "GREEN",
+              "description": ""
+            },
+            {
+              "id": "dad93664",
+              "name": "S",
+              "color": "RED",
+              "description": ""
+            },
+            {
+              "id": "3efd5b65",
+              "name": "M",
+              "color": "BLUE",
+              "description": ""
+            },
+            {
+              "id": "2a5be4f3",
+              "name": "L",
+              "color": "PURPLE",
+              "description": ""
+            },
+            {
+              "id": "5c8538d8",
+              "name": "XL",
+              "color": "YELLOW",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "__typename": "ProjectV2Field",
+          "id": "PVTF_lAHOA3_tu84BmcLJzhlFOrs",
+          "name": "Estimate",
+          "dataType": "NUMBER"
+        },
+        {
+          "__typename": "ProjectV2IterationField",
+          "id": "PVTIF_lAHOA3_tu84BmcLJzhlFOrw",
+          "name": "Iteration",
+          "dataType": "ITERATION",
+          "configuration": {
+            "duration": 14,
+            "startDay": 1,
+            "iterations": [
+              {
+                "id": "8858e1c7",
+                "title": "Iteration",
+                "startDate": "2026-10-10",
+                "duration": 14
+              },
+              {
+                "id": "d81d65aa",
+                "title": "Iteration 2",
+                "startDate": "2026-10-24",
+                "duration": 14
+              },
+              {
+                "id": "775fc511",
+                "title": "Iteration 3",
+                "startDate": "2026-11-07",
+                "duration": 14
+              }
+            ],
+            "completedIterations": []
+          }
+        },
+        {
+          "__typename": "ProjectV2Field",
+          "id": "PVTF_lAHOA3_tu84BmcLJzhlFOr0",
+          "name": "Start date",
+          "dataType": "DATE"
+        },
+        {
+          "__typename": "ProjectV2Field",
+          "id": "PVTF_lAHOA3_tu84BmcLJzhlFOr4",
+          "name": "Target date",
+          "dataType": "DATE"
+        },
+        {
+          "__typename": "ProjectV2SingleSelectField",
+          "id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVk",
+          "name": "阶段",
+          "dataType": "SINGLE_SELECT",
+          "options": [
+            {
+              "id": "e5e4c996",
+              "name": "PLAN",
+              "color": "GRAY",
+              "description": ""
+            },
+            {
+              "id": "19026368",
+              "name": "S00",
+              "color": "GRAY",
+              "description": ""
+            },
+            {
+              "id": "d78cd45e",
+              "name": "S01",
+              "color": "GRAY",
+              "description": ""
+            },
+            {
+              "id": "0d74f402",
+              "name": "S02",
+              "color": "GRAY",
+              "description": ""
+            },
+            {
+              "id": "15297359",
+              "name": "S03",
+              "color": "GRAY",
+              "description": ""
+            },
+            {
+              "id": "6fcba04c",
+              "name": "S04",
+              "color": "GRAY",
+              "description": ""
+            },
+            {
+              "id": "5919e889",
+              "name": "S05",
+              "color": "GRAY",
+              "description": ""
+            },
+            {
+              "id": "88cfae5a",
+              "name": "S06",
+              "color": "GRAY",
+              "description": ""
+            },
+            {
+              "id": "6eb0da18",
+              "name": "S07",
+              "color": "GRAY",
+              "description": ""
+            },
+            {
+              "id": "2a95fe7c",
+              "name": "S08",
+              "color": "GRAY",
+              "description": ""
+            },
+            {
+              "id": "22c82468",
+              "name": "S09",
+              "color": "GRAY",
+              "description": ""
+            },
+            {
+              "id": "2992274b",
+              "name": "S10",
+              "color": "GRAY",
+              "description": ""
+            },
+            {
+              "id": "f1cdee5a",
+              "name": "S11",
+              "color": "GRAY",
+              "description": ""
+            },
+            {
+              "id": "7463c6f6",
+              "name": "S12",
+              "color": "GRAY",
+              "description": ""
+            },
+            {
+              "id": "c17580c1",
+              "name": "S13",
+              "color": "GRAY",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "__typename": "ProjectV2SingleSelectField",
+          "id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVo",
+          "name": "执行状态",
+          "dataType": "SINGLE_SELECT",
+          "options": [
+            {
+              "id": "441473f3",
+              "name": "待启用",
+              "color": "GRAY",
+              "description": ""
+            },
+            {
+              "id": "57b99552",
+              "name": "进行中",
+              "color": "GRAY",
+              "description": ""
+            },
+            {
+              "id": "99a53e6f",
+              "name": "待复核",
+              "color": "GRAY",
+              "description": ""
+            },
+            {
+              "id": "fde94571",
+              "name": "待用户验收",
+              "color": "GRAY",
+              "description": ""
+            },
+            {
+              "id": "dc2fcb03",
+              "name": "返工",
+              "color": "GRAY",
+              "description": ""
+            },
+            {
+              "id": "018aa375",
+              "name": "阻塞",
+              "color": "GRAY",
+              "description": ""
+            },
+            {
+              "id": "01f0a4f5",
+              "name": "已验收",
+              "color": "GRAY",
+              "description": ""
+            }
+          ]
+        }
+      ],
+      "complete": true
+    },
+    "items": {
+      "totalCount": 37,
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "Y3Vyc29yOnYyOpK5MDAwMDAwMDAuMDI3MDI3MDI3MDI3MDI3MM4P_J56"
+      },
+      "nodes": [
+        {
+          "id": "PVTI_lAHOA3_tu84BmcLJzg_1od4",
+          "isArchived": true,
+          "type": "ISSUE",
+          "content": {
+            "__typename": "Issue",
+            "id": "I_kwDOVDf2J88AAAABWSfgiQ",
+            "number": 1,
+            "title": "[已撤销] 原总计划（停止执行，等待重新定制）",
+            "url": "https://github.com/Yredxin/YDental/issues/1",
+            "state": "CLOSED",
+            "comments": {
+              "totalCount": 0,
+              "nodes": []
+            },
+            "repository": {
+              "nameWithOwner": "Yredxin/YDental"
+            }
+          },
+          "fieldValues": {
+            "totalCount": 3,
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "Mw"
+            },
+            "nodes": [
+              {
+                "__typename": "ProjectV2ItemFieldRepositoryValue",
+                "repository": {
+                  "nameWithOwner": "Yredxin/YDental"
+                },
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOh4",
+                  "name": "Repository"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldTextValue",
+                "text": "[已撤销] 原总计划（停止执行，等待重新定制）",
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "Done",
+                "optionId": "98236657",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "PVTI_lAHOA3_tu84BmcLJzg_1oyo",
+          "isArchived": true,
+          "type": "ISSUE",
+          "content": {
+            "__typename": "Issue",
+            "id": "I_kwDOVDf2J88AAAABWSf-Pg",
+            "number": 2,
+            "title": "[已撤销] 原 P00 基线补齐任务",
+            "url": "https://github.com/Yredxin/YDental/issues/2",
+            "state": "CLOSED",
+            "comments": {
+              "totalCount": 2,
+              "nodes": [
+                {
+                  "id": "IC_kwDOVDf2J88AAAABa23VSg",
+                  "createdAt": "2026-10-10T12:08:26Z"
+                }
+              ]
+            },
+            "repository": {
+              "nameWithOwner": "Yredxin/YDental"
+            }
+          },
+          "fieldValues": {
+            "totalCount": 3,
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "Mw"
+            },
+            "nodes": [
+              {
+                "__typename": "ProjectV2ItemFieldRepositoryValue",
+                "repository": {
+                  "nameWithOwner": "Yredxin/YDental"
+                },
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOh4",
+                  "name": "Repository"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldTextValue",
+                "text": "[已撤销] 原 P00 基线补齐任务",
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "Done",
+                "optionId": "98236657",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "PVTI_lAHOA3_tu84BmcLJzg_1o6Y",
+          "isArchived": true,
+          "type": "ISSUE",
+          "content": {
+            "__typename": "Issue",
+            "id": "I_kwDOVDf2J88AAAABWSgJWg",
+            "number": 3,
+            "title": "[已撤销] 原 P01 员工与登录任务",
+            "url": "https://github.com/Yredxin/YDental/issues/3",
+            "state": "CLOSED",
+            "comments": {
+              "totalCount": 0,
+              "nodes": []
+            },
+            "repository": {
+              "nameWithOwner": "Yredxin/YDental"
+            }
+          },
+          "fieldValues": {
+            "totalCount": 3,
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "Mw"
+            },
+            "nodes": [
+              {
+                "__typename": "ProjectV2ItemFieldRepositoryValue",
+                "repository": {
+                  "nameWithOwner": "Yredxin/YDental"
+                },
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOh4",
+                  "name": "Repository"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldTextValue",
+                "text": "[已撤销] 原 P01 员工与登录任务",
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "Done",
+                "optionId": "98236657",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "PVTI_lAHOA3_tu84BmcLJzg_1pFE",
+          "isArchived": true,
+          "type": "ISSUE",
+          "content": {
+            "__typename": "Issue",
+            "id": "I_kwDOVDf2J88AAAABWSgU4w",
+            "number": 4,
+            "title": "[已撤销] 原 P02 空间与工位任务",
+            "url": "https://github.com/Yredxin/YDental/issues/4",
+            "state": "CLOSED",
+            "comments": {
+              "totalCount": 0,
+              "nodes": []
+            },
+            "repository": {
+              "nameWithOwner": "Yredxin/YDental"
+            }
+          },
+          "fieldValues": {
+            "totalCount": 3,
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "Mw"
+            },
+            "nodes": [
+              {
+                "__typename": "ProjectV2ItemFieldRepositoryValue",
+                "repository": {
+                  "nameWithOwner": "Yredxin/YDental"
+                },
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOh4",
+                  "name": "Repository"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldTextValue",
+                "text": "[已撤销] 原 P02 空间与工位任务",
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "Done",
+                "optionId": "98236657",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "PVTI_lAHOA3_tu84BmcLJzg_1pSY",
+          "isArchived": true,
+          "type": "ISSUE",
+          "content": {
+            "__typename": "Issue",
+            "id": "I_kwDOVDf2J88AAAABWSgfvQ",
+            "number": 5,
+            "title": "[已撤销] 原 P03 排期、名额与营业任务",
+            "url": "https://github.com/Yredxin/YDental/issues/5",
+            "state": "CLOSED",
+            "comments": {
+              "totalCount": 0,
+              "nodes": []
+            },
+            "repository": {
+              "nameWithOwner": "Yredxin/YDental"
+            }
+          },
+          "fieldValues": {
+            "totalCount": 3,
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "Mw"
+            },
+            "nodes": [
+              {
+                "__typename": "ProjectV2ItemFieldRepositoryValue",
+                "repository": {
+                  "nameWithOwner": "Yredxin/YDental"
+                },
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOh4",
+                  "name": "Repository"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldTextValue",
+                "text": "[已撤销] 原 P03 排期、名额与营业任务",
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "Done",
+                "optionId": "98236657",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "PVTI_lAHOA3_tu84BmcLJzg_1pgY",
+          "isArchived": true,
+          "type": "ISSUE",
+          "content": {
+            "__typename": "Issue",
+            "id": "I_kwDOVDf2J88AAAABWSgr1g",
+            "number": 6,
+            "title": "[已撤销] 原 P04 患者管理任务",
+            "url": "https://github.com/Yredxin/YDental/issues/6",
+            "state": "CLOSED",
+            "comments": {
+              "totalCount": 0,
+              "nodes": []
+            },
+            "repository": {
+              "nameWithOwner": "Yredxin/YDental"
+            }
+          },
+          "fieldValues": {
+            "totalCount": 3,
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "Mw"
+            },
+            "nodes": [
+              {
+                "__typename": "ProjectV2ItemFieldRepositoryValue",
+                "repository": {
+                  "nameWithOwner": "Yredxin/YDental"
+                },
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOh4",
+                  "name": "Repository"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldTextValue",
+                "text": "[已撤销] 原 P04 患者管理任务",
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "Done",
+                "optionId": "98236657",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "PVTI_lAHOA3_tu84BmcLJzg_1pxw",
+          "isArchived": true,
+          "type": "ISSUE",
+          "content": {
+            "__typename": "Issue",
+            "id": "I_kwDOVDf2J88AAAABWSg1hA",
+            "number": 7,
+            "title": "[已撤销] 原 P05 预约、报到与叫号任务",
+            "url": "https://github.com/Yredxin/YDental/issues/7",
+            "state": "CLOSED",
+            "comments": {
+              "totalCount": 0,
+              "nodes": []
+            },
+            "repository": {
+              "nameWithOwner": "Yredxin/YDental"
+            }
+          },
+          "fieldValues": {
+            "totalCount": 3,
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "Mw"
+            },
+            "nodes": [
+              {
+                "__typename": "ProjectV2ItemFieldRepositoryValue",
+                "repository": {
+                  "nameWithOwner": "Yredxin/YDental"
+                },
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOh4",
+                  "name": "Repository"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldTextValue",
+                "text": "[已撤销] 原 P05 预约、报到与叫号任务",
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "Done",
+                "optionId": "98236657",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "PVTI_lAHOA3_tu84BmcLJzg_1p8A",
+          "isArchived": true,
+          "type": "ISSUE",
+          "content": {
+            "__typename": "Issue",
+            "id": "I_kwDOVDf2J88AAAABWShBWA",
+            "number": 8,
+            "title": "[已撤销] 原 P06 仓库与库存任务",
+            "url": "https://github.com/Yredxin/YDental/issues/8",
+            "state": "CLOSED",
+            "comments": {
+              "totalCount": 0,
+              "nodes": []
+            },
+            "repository": {
+              "nameWithOwner": "Yredxin/YDental"
+            }
+          },
+          "fieldValues": {
+            "totalCount": 3,
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "Mw"
+            },
+            "nodes": [
+              {
+                "__typename": "ProjectV2ItemFieldRepositoryValue",
+                "repository": {
+                  "nameWithOwner": "Yredxin/YDental"
+                },
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOh4",
+                  "name": "Repository"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldTextValue",
+                "text": "[已撤销] 原 P06 仓库与库存任务",
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "Done",
+                "optionId": "98236657",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "PVTI_lAHOA3_tu84BmcLJzg_1qG4",
+          "isArchived": true,
+          "type": "ISSUE",
+          "content": {
+            "__typename": "Issue",
+            "id": "I_kwDOVDf2J88AAAABWShMoA",
+            "number": 9,
+            "title": "[已撤销] 原 P07 治疗、医嘱与文书任务",
+            "url": "https://github.com/Yredxin/YDental/issues/9",
+            "state": "CLOSED",
+            "comments": {
+              "totalCount": 0,
+              "nodes": []
+            },
+            "repository": {
+              "nameWithOwner": "Yredxin/YDental"
+            }
+          },
+          "fieldValues": {
+            "totalCount": 3,
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "Mw"
+            },
+            "nodes": [
+              {
+                "__typename": "ProjectV2ItemFieldRepositoryValue",
+                "repository": {
+                  "nameWithOwner": "Yredxin/YDental"
+                },
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOh4",
+                  "name": "Repository"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldTextValue",
+                "text": "[已撤销] 原 P07 治疗、医嘱与文书任务",
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "Done",
+                "optionId": "98236657",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "PVTI_lAHOA3_tu84BmcLJzg_1qOk",
+          "isArchived": true,
+          "type": "ISSUE",
+          "content": {
+            "__typename": "Issue",
+            "id": "I_kwDOVDf2J88AAAABWShXRQ",
+            "number": 10,
+            "title": "[已撤销] 原 P08 检查任务",
+            "url": "https://github.com/Yredxin/YDental/issues/10",
+            "state": "CLOSED",
+            "comments": {
+              "totalCount": 0,
+              "nodes": []
+            },
+            "repository": {
+              "nameWithOwner": "Yredxin/YDental"
+            }
+          },
+          "fieldValues": {
+            "totalCount": 3,
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "Mw"
+            },
+            "nodes": [
+              {
+                "__typename": "ProjectV2ItemFieldRepositoryValue",
+                "repository": {
+                  "nameWithOwner": "Yredxin/YDental"
+                },
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOh4",
+                  "name": "Repository"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldTextValue",
+                "text": "[已撤销] 原 P08 检查任务",
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "Done",
+                "optionId": "98236657",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "PVTI_lAHOA3_tu84BmcLJzg_1qbg",
+          "isArchived": true,
+          "type": "ISSUE",
+          "content": {
+            "__typename": "Issue",
+            "id": "I_kwDOVDf2J88AAAABWShmDg",
+            "number": 11,
+            "title": "[已撤销] 原 P09 结算与交易任务",
+            "url": "https://github.com/Yredxin/YDental/issues/11",
+            "state": "CLOSED",
+            "comments": {
+              "totalCount": 0,
+              "nodes": []
+            },
+            "repository": {
+              "nameWithOwner": "Yredxin/YDental"
+            }
+          },
+          "fieldValues": {
+            "totalCount": 3,
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "Mw"
+            },
+            "nodes": [
+              {
+                "__typename": "ProjectV2ItemFieldRepositoryValue",
+                "repository": {
+                  "nameWithOwner": "Yredxin/YDental"
+                },
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOh4",
+                  "name": "Repository"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldTextValue",
+                "text": "[已撤销] 原 P09 结算与交易任务",
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "Done",
+                "optionId": "98236657",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "PVTI_lAHOA3_tu84BmcLJzg_1qig",
+          "isArchived": true,
+          "type": "ISSUE",
+          "content": {
+            "__typename": "Issue",
+            "id": "I_kwDOVDf2J88AAAABWShwqA",
+            "number": 12,
+            "title": "[已撤销] 早期全流程验收任务（历史占位）",
+            "url": "https://github.com/Yredxin/YDental/issues/12",
+            "state": "CLOSED",
+            "comments": {
+              "totalCount": 0,
+              "nodes": []
+            },
+            "repository": {
+              "nameWithOwner": "Yredxin/YDental"
+            }
+          },
+          "fieldValues": {
+            "totalCount": 3,
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "Mw"
+            },
+            "nodes": [
+              {
+                "__typename": "ProjectV2ItemFieldRepositoryValue",
+                "repository": {
+                  "nameWithOwner": "Yredxin/YDental"
+                },
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOh4",
+                  "name": "Repository"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldTextValue",
+                "text": "[已撤销] 早期全流程验收任务（历史占位）",
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "Done",
+                "optionId": "98236657",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "PVTI_lAHOA3_tu84BmcLJzg_15as",
+          "isArchived": true,
+          "type": "PULL_REQUEST",
+          "content": {
+            "__typename": "PullRequest",
+            "id": "PR_kwDOVDf2J88AAAABHsK_0g",
+            "number": 13,
+            "title": "[历史保留/暂停] 牙科最小入口技术交付（原计划已撤销）",
+            "url": "https://github.com/Yredxin/YDental/pull/13",
+            "state": "OPEN",
+            "comments": {
+              "totalCount": 1,
+              "nodes": [
+                {
+                  "id": "IC_kwDOVDf2J88AAAABa-jqiQ",
+                  "createdAt": "2026-10-11T04:22:30Z"
+                }
+              ]
+            },
+            "isDraft": true,
+            "merged": false,
+            "autoMergeRequest": null,
+            "repository": {
+              "nameWithOwner": "Yredxin/YDental"
+            }
+          },
+          "fieldValues": {
+            "totalCount": 3,
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "Mw"
+            },
+            "nodes": [
+              {
+                "__typename": "ProjectV2ItemFieldRepositoryValue",
+                "repository": {
+                  "nameWithOwner": "Yredxin/YDental"
+                },
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOh4",
+                  "name": "Repository"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldTextValue",
+                "text": "[历史保留/暂停] 牙科最小入口技术交付（原计划已撤销）",
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "Todo",
+                "optionId": "f75ad846",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "PVTI_lAHOA3_tu84BmcLJzg_8SXc",
+          "isArchived": true,
+          "type": "ISSUE",
+          "content": {
+            "__typename": "Issue",
+            "id": "I_kwDOVDf2J88AAAABWZN7Ww",
+            "number": 14,
+            "title": "[已撤销] 原执行基线、协作协议与报告模板",
+            "url": "https://github.com/Yredxin/YDental/issues/14",
+            "state": "CLOSED",
+            "comments": {
+              "totalCount": 0,
+              "nodes": []
+            },
+            "repository": {
+              "nameWithOwner": "Yredxin/YDental"
+            }
+          },
+          "fieldValues": {
+            "totalCount": 3,
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "Mw"
+            },
+            "nodes": [
+              {
+                "__typename": "ProjectV2ItemFieldRepositoryValue",
+                "repository": {
+                  "nameWithOwner": "Yredxin/YDental"
+                },
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOh4",
+                  "name": "Repository"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldTextValue",
+                "text": "[已撤销] 原执行基线、协作协议与报告模板",
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "Done",
+                "optionId": "98236657",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "PVTI_lAHOA3_tu84BmcLJzg_8Stc",
+          "isArchived": true,
+          "type": "ISSUE",
+          "content": {
+            "__typename": "Issue",
+            "id": "I_kwDOVDf2J88AAAABWZOPmw",
+            "number": 15,
+            "title": "[已撤销] 原 Project 字段与计划同步任务",
+            "url": "https://github.com/Yredxin/YDental/issues/15",
+            "state": "CLOSED",
+            "comments": {
+              "totalCount": 0,
+              "nodes": []
+            },
+            "repository": {
+              "nameWithOwner": "Yredxin/YDental"
+            }
+          },
+          "fieldValues": {
+            "totalCount": 3,
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "Mw"
+            },
+            "nodes": [
+              {
+                "__typename": "ProjectV2ItemFieldRepositoryValue",
+                "repository": {
+                  "nameWithOwner": "Yredxin/YDental"
+                },
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOh4",
+                  "name": "Repository"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldTextValue",
+                "text": "[已撤销] 原 Project 字段与计划同步任务",
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "Done",
+                "optionId": "98236657",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "PVTI_lAHOA3_tu84BmcLJzg_8WZ4",
+          "isArchived": true,
+          "type": "ISSUE",
+          "content": {
+            "__typename": "Issue",
+            "id": "I_kwDOVDf2J88AAAABWZSu0Q",
+            "number": 16,
+            "title": "[已撤销] 原 P10 通知与复诊任务",
+            "url": "https://github.com/Yredxin/YDental/issues/16",
+            "state": "CLOSED",
+            "comments": {
+              "totalCount": 0,
+              "nodes": []
+            },
+            "repository": {
+              "nameWithOwner": "Yredxin/YDental"
+            }
+          },
+          "fieldValues": {
+            "totalCount": 3,
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "Mw"
+            },
+            "nodes": [
+              {
+                "__typename": "ProjectV2ItemFieldRepositoryValue",
+                "repository": {
+                  "nameWithOwner": "Yredxin/YDental"
+                },
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOh4",
+                  "name": "Repository"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldTextValue",
+                "text": "[已撤销] 原 P10 通知与复诊任务",
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "Done",
+                "optionId": "98236657",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "PVTI_lAHOA3_tu84BmcLJzg_8Wls",
+          "isArchived": true,
+          "type": "ISSUE",
+          "content": {
+            "__typename": "Issue",
+            "id": "I_kwDOVDf2J88AAAABWZS7fg",
+            "number": 17,
+            "title": "[已撤销] 原 P11 外加工任务",
+            "url": "https://github.com/Yredxin/YDental/issues/17",
+            "state": "CLOSED",
+            "comments": {
+              "totalCount": 0,
+              "nodes": []
+            },
+            "repository": {
+              "nameWithOwner": "Yredxin/YDental"
+            }
+          },
+          "fieldValues": {
+            "totalCount": 3,
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "Mw"
+            },
+            "nodes": [
+              {
+                "__typename": "ProjectV2ItemFieldRepositoryValue",
+                "repository": {
+                  "nameWithOwner": "Yredxin/YDental"
+                },
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOh4",
+                  "name": "Repository"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldTextValue",
+                "text": "[已撤销] 原 P11 外加工任务",
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "Done",
+                "optionId": "98236657",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "PVTI_lAHOA3_tu84BmcLJzg_8Wyc",
+          "isArchived": true,
+          "type": "ISSUE",
+          "content": {
+            "__typename": "Issue",
+            "id": "I_kwDOVDf2J88AAAABWZTLEA",
+            "number": 18,
+            "title": "[已撤销] 原 P12 打印与报表任务",
+            "url": "https://github.com/Yredxin/YDental/issues/18",
+            "state": "CLOSED",
+            "comments": {
+              "totalCount": 0,
+              "nodes": []
+            },
+            "repository": {
+              "nameWithOwner": "Yredxin/YDental"
+            }
+          },
+          "fieldValues": {
+            "totalCount": 3,
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "Mw"
+            },
+            "nodes": [
+              {
+                "__typename": "ProjectV2ItemFieldRepositoryValue",
+                "repository": {
+                  "nameWithOwner": "Yredxin/YDental"
+                },
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOh4",
+                  "name": "Repository"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldTextValue",
+                "text": "[已撤销] 原 P12 打印与报表任务",
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "Done",
+                "optionId": "98236657",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "PVTI_lAHOA3_tu84BmcLJzg_8XJw",
+          "isArchived": true,
+          "type": "ISSUE",
+          "content": {
+            "__typename": "Issue",
+            "id": "I_kwDOVDf2J88AAAABWZTkwQ",
+            "number": 19,
+            "title": "[已撤销] 原 P13 全流程与试运行验收任务",
+            "url": "https://github.com/Yredxin/YDental/issues/19",
+            "state": "CLOSED",
+            "comments": {
+              "totalCount": 0,
+              "nodes": []
+            },
+            "repository": {
+              "nameWithOwner": "Yredxin/YDental"
+            }
+          },
+          "fieldValues": {
+            "totalCount": 3,
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "Mw"
+            },
+            "nodes": [
+              {
+                "__typename": "ProjectV2ItemFieldRepositoryValue",
+                "repository": {
+                  "nameWithOwner": "Yredxin/YDental"
+                },
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOh4",
+                  "name": "Repository"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldTextValue",
+                "text": "[已撤销] 原 P13 全流程与试运行验收任务",
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "Done",
+                "optionId": "98236657",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "PVTI_lAHOA3_tu84BmcLJzg_8XbA",
+          "isArchived": true,
+          "type": "ISSUE",
+          "content": {
+            "__typename": "Issue",
+            "id": "I_kwDOVDf2J88AAAABWZT1eQ",
+            "number": 20,
+            "title": "[已撤销] 原加工厂门户延期计划",
+            "url": "https://github.com/Yredxin/YDental/issues/20",
+            "state": "CLOSED",
+            "comments": {
+              "totalCount": 0,
+              "nodes": []
+            },
+            "repository": {
+              "nameWithOwner": "Yredxin/YDental"
+            }
+          },
+          "fieldValues": {
+            "totalCount": 3,
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "Mw"
+            },
+            "nodes": [
+              {
+                "__typename": "ProjectV2ItemFieldRepositoryValue",
+                "repository": {
+                  "nameWithOwner": "Yredxin/YDental"
+                },
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOh4",
+                  "name": "Repository"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldTextValue",
+                "text": "[已撤销] 原加工厂门户延期计划",
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "Done",
+                "optionId": "98236657",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "PVTI_lAHOA3_tu84BmcLJzg_8Xio",
+          "isArchived": true,
+          "type": "ISSUE",
+          "content": {
+            "__typename": "Issue",
+            "id": "I_kwDOVDf2J88AAAABWZT95A",
+            "number": 21,
+            "title": "[已撤销] 原高级平面编辑延期计划",
+            "url": "https://github.com/Yredxin/YDental/issues/21",
+            "state": "CLOSED",
+            "comments": {
+              "totalCount": 0,
+              "nodes": []
+            },
+            "repository": {
+              "nameWithOwner": "Yredxin/YDental"
+            }
+          },
+          "fieldValues": {
+            "totalCount": 3,
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "Mw"
+            },
+            "nodes": [
+              {
+                "__typename": "ProjectV2ItemFieldRepositoryValue",
+                "repository": {
+                  "nameWithOwner": "Yredxin/YDental"
+                },
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOh4",
+                  "name": "Repository"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldTextValue",
+                "text": "[已撤销] 原高级平面编辑延期计划",
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "Done",
+                "optionId": "98236657",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "PVTI_lAHOA3_tu84BmcLJzg_8Xxw",
+          "isArchived": true,
+          "type": "ISSUE",
+          "content": {
+            "__typename": "Issue",
+            "id": "I_kwDOVDf2J88AAAABWZUK1Q",
+            "number": 22,
+            "title": "[已撤销] 原参数发布与待确认决策登记",
+            "url": "https://github.com/Yredxin/YDental/issues/22",
+            "state": "CLOSED",
+            "comments": {
+              "totalCount": 0,
+              "nodes": []
+            },
+            "repository": {
+              "nameWithOwner": "Yredxin/YDental"
+            }
+          },
+          "fieldValues": {
+            "totalCount": 3,
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "Mw"
+            },
+            "nodes": [
+              {
+                "__typename": "ProjectV2ItemFieldRepositoryValue",
+                "repository": {
+                  "nameWithOwner": "Yredxin/YDental"
+                },
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOh4",
+                  "name": "Repository"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldTextValue",
+                "text": "[已撤销] 原参数发布与待确认决策登记",
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "Done",
+                "optionId": "98236657",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "PVTI_lAHOA3_tu84BmcLJzg_8ibQ",
+          "isArchived": false,
+          "type": "ISSUE",
+          "content": {
+            "__typename": "Issue",
+            "id": "I_kwDOVDf2J88AAAABWZeuMA",
+            "number": 23,
+            "title": "[YD-N1][总计划] 牙科系统独立建设计划：背景、需求、实施、验证与成功交付",
+            "url": "https://github.com/Yredxin/YDental/issues/23",
+            "state": "OPEN",
+            "comments": {
+              "totalCount": 1,
+              "nodes": [
+                {
+                  "id": "IC_kwDOVDf2J88AAAABa_NGQw",
+                  "createdAt": "2026-10-11T06:03:40Z"
+                }
+              ]
+            },
+            "repository": {
+              "nameWithOwner": "Yredxin/YDental"
+            }
+          },
+          "fieldValues": {
+            "totalCount": 5,
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "NQ"
+            },
+            "nodes": [
+              {
+                "__typename": "ProjectV2ItemFieldRepositoryValue",
+                "repository": {
+                  "nameWithOwner": "Yredxin/YDental"
+                },
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOh4",
+                  "name": "Repository"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldTextValue",
+                "text": "[YD-N1][总计划] 牙科系统独立建设计划：背景、需求、实施、验证与成功交付",
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "Todo",
+                "optionId": "f75ad846",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "PLAN",
+                "optionId": "e5e4c996",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVk",
+                  "name": "阶段"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "进行中",
+                "optionId": "57b99552",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVo",
+                  "name": "执行状态"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "PVTI_lAHOA3_tu84BmcLJzg_8jDA",
+          "isArchived": false,
+          "type": "ISSUE",
+          "content": {
+            "__typename": "Issue",
+            "id": "I_kwDOVDf2J88AAAABWZe_nQ",
+            "number": 24,
+            "title": "[YD-N1][S00] 当前工作区核实、最小运行基线与新计划入口",
+            "url": "https://github.com/Yredxin/YDental/issues/24",
+            "state": "OPEN",
+            "comments": {
+              "totalCount": 15,
+              "nodes": [
+                {
+                  "id": "IC_kwDOVDf2J88AAAABbAPh0g",
+                  "createdAt": "2026-10-11T08:32:14Z"
+                }
+              ]
+            },
+            "repository": {
+              "nameWithOwner": "Yredxin/YDental"
+            }
+          },
+          "fieldValues": {
+            "totalCount": 5,
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "NQ"
+            },
+            "nodes": [
+              {
+                "__typename": "ProjectV2ItemFieldRepositoryValue",
+                "repository": {
+                  "nameWithOwner": "Yredxin/YDental"
+                },
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOh4",
+                  "name": "Repository"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldTextValue",
+                "text": "[YD-N1][S00] 当前工作区核实、最小运行基线与新计划入口",
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "Todo",
+                "optionId": "f75ad846",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "S00",
+                "optionId": "19026368",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVk",
+                  "name": "阶段"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "待复核",
+                "optionId": "99a53e6f",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVo",
+                  "name": "执行状态"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "PVTI_lAHOA3_tu84BmcLJzg_8jnU",
+          "isArchived": false,
+          "type": "ISSUE",
+          "content": {
+            "__typename": "Issue",
+            "id": "I_kwDOVDf2J88AAAABWZfOwA",
+            "number": 25,
+            "title": "[YD-N1][S01] 门店、员工、账号及逐门店权限",
+            "url": "https://github.com/Yredxin/YDental/issues/25",
+            "state": "OPEN",
+            "comments": {
+              "totalCount": 0,
+              "nodes": []
+            },
+            "repository": {
+              "nameWithOwner": "Yredxin/YDental"
+            }
+          },
+          "fieldValues": {
+            "totalCount": 5,
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "NQ"
+            },
+            "nodes": [
+              {
+                "__typename": "ProjectV2ItemFieldRepositoryValue",
+                "repository": {
+                  "nameWithOwner": "Yredxin/YDental"
+                },
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOh4",
+                  "name": "Repository"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldTextValue",
+                "text": "[YD-N1][S01] 门店、员工、账号及逐门店权限",
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "Todo",
+                "optionId": "f75ad846",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "S01",
+                "optionId": "d78cd45e",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVk",
+                  "name": "阶段"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "待启用",
+                "optionId": "441473f3",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVo",
+                  "name": "执行状态"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "PVTI_lAHOA3_tu84BmcLJzg_8kWQ",
+          "isArchived": false,
+          "type": "ISSUE",
+          "content": {
+            "__typename": "Issue",
+            "id": "I_kwDOVDf2J88AAAABWZfiQA",
+            "number": 26,
+            "title": "[YD-N1][S02] 楼层平面、区域及工位能力配置",
+            "url": "https://github.com/Yredxin/YDental/issues/26",
+            "state": "OPEN",
+            "comments": {
+              "totalCount": 0,
+              "nodes": []
+            },
+            "repository": {
+              "nameWithOwner": "Yredxin/YDental"
+            }
+          },
+          "fieldValues": {
+            "totalCount": 5,
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "NQ"
+            },
+            "nodes": [
+              {
+                "__typename": "ProjectV2ItemFieldRepositoryValue",
+                "repository": {
+                  "nameWithOwner": "Yredxin/YDental"
+                },
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOh4",
+                  "name": "Repository"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldTextValue",
+                "text": "[YD-N1][S02] 楼层平面、区域及工位能力配置",
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "Todo",
+                "optionId": "f75ad846",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "S02",
+                "optionId": "0d74f402",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVk",
+                  "name": "阶段"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "待启用",
+                "optionId": "441473f3",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVo",
+                  "name": "执行状态"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "PVTI_lAHOA3_tu84BmcLJzg_8kos",
+          "isArchived": false,
+          "type": "ISSUE",
+          "content": {
+            "__typename": "Issue",
+            "id": "I_kwDOVDf2J88AAAABWZfyow",
+            "number": 27,
+            "title": "[YD-N1][S03] 人员默认安排、工位共享容量与区域营业",
+            "url": "https://github.com/Yredxin/YDental/issues/27",
+            "state": "OPEN",
+            "comments": {
+              "totalCount": 0,
+              "nodes": []
+            },
+            "repository": {
+              "nameWithOwner": "Yredxin/YDental"
+            }
+          },
+          "fieldValues": {
+            "totalCount": 5,
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "NQ"
+            },
+            "nodes": [
+              {
+                "__typename": "ProjectV2ItemFieldRepositoryValue",
+                "repository": {
+                  "nameWithOwner": "Yredxin/YDental"
+                },
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOh4",
+                  "name": "Repository"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldTextValue",
+                "text": "[YD-N1][S03] 人员默认安排、工位共享容量与区域营业",
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "Todo",
+                "optionId": "f75ad846",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "S03",
+                "optionId": "15297359",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVk",
+                  "name": "阶段"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "待启用",
+                "optionId": "441473f3",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVo",
+                  "name": "执行状态"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "PVTI_lAHOA3_tu84BmcLJzg_8k7M",
+          "isArchived": false,
+          "type": "ISSUE",
+          "content": {
+            "__typename": "Issue",
+            "id": "I_kwDOVDf2J88AAAABWZgCEQ",
+            "number": 28,
+            "title": "[YD-N1][S04] 患者主档、门店关系与集团确认合并",
+            "url": "https://github.com/Yredxin/YDental/issues/28",
+            "state": "OPEN",
+            "comments": {
+              "totalCount": 0,
+              "nodes": []
+            },
+            "repository": {
+              "nameWithOwner": "Yredxin/YDental"
+            }
+          },
+          "fieldValues": {
+            "totalCount": 5,
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "NQ"
+            },
+            "nodes": [
+              {
+                "__typename": "ProjectV2ItemFieldRepositoryValue",
+                "repository": {
+                  "nameWithOwner": "Yredxin/YDental"
+                },
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOh4",
+                  "name": "Repository"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldTextValue",
+                "text": "[YD-N1][S04] 患者主档、门店关系与集团确认合并",
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "Todo",
+                "optionId": "f75ad846",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "S04",
+                "optionId": "6fcba04c",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVk",
+                  "name": "阶段"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "待启用",
+                "optionId": "441473f3",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVo",
+                  "name": "执行状态"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "PVTI_lAHOA3_tu84BmcLJzg_8lIQ",
+          "isArchived": false,
+          "type": "ISSUE",
+          "content": {
+            "__typename": "Issue",
+            "id": "I_kwDOVDf2J88AAAABWZgREw",
+            "number": 29,
+            "title": "[YD-N1][S05] 区域预约、现场登记与明确任务报到",
+            "url": "https://github.com/Yredxin/YDental/issues/29",
+            "state": "OPEN",
+            "comments": {
+              "totalCount": 0,
+              "nodes": []
+            },
+            "repository": {
+              "nameWithOwner": "Yredxin/YDental"
+            }
+          },
+          "fieldValues": {
+            "totalCount": 5,
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "NQ"
+            },
+            "nodes": [
+              {
+                "__typename": "ProjectV2ItemFieldRepositoryValue",
+                "repository": {
+                  "nameWithOwner": "Yredxin/YDental"
+                },
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOh4",
+                  "name": "Repository"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldTextValue",
+                "text": "[YD-N1][S05] 区域预约、现场登记与明确任务报到",
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "Todo",
+                "optionId": "f75ad846",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "S05",
+                "optionId": "5919e889",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVk",
+                  "name": "阶段"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "待启用",
+                "optionId": "441473f3",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVo",
+                  "name": "执行状态"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "PVTI_lAHOA3_tu84BmcLJzg_8ln0",
+          "isArchived": false,
+          "type": "ISSUE",
+          "content": {
+            "__typename": "Issue",
+            "id": "I_kwDOVDf2J88AAAABWZgo5w",
+            "number": 30,
+            "title": "[YD-N1][S06] 工位叫号、独占连接、保留直返与停叫追加",
+            "url": "https://github.com/Yredxin/YDental/issues/30",
+            "state": "OPEN",
+            "comments": {
+              "totalCount": 0,
+              "nodes": []
+            },
+            "repository": {
+              "nameWithOwner": "Yredxin/YDental"
+            }
+          },
+          "fieldValues": {
+            "totalCount": 5,
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "NQ"
+            },
+            "nodes": [
+              {
+                "__typename": "ProjectV2ItemFieldRepositoryValue",
+                "repository": {
+                  "nameWithOwner": "Yredxin/YDental"
+                },
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOh4",
+                  "name": "Repository"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldTextValue",
+                "text": "[YD-N1][S06] 工位叫号、独占连接、保留直返与停叫追加",
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "Todo",
+                "optionId": "f75ad846",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "S06",
+                "optionId": "88cfae5a",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVk",
+                  "name": "阶段"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "待启用",
+                "optionId": "441473f3",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVo",
+                  "name": "执行状态"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "PVTI_lAHOA3_tu84BmcLJzg_8l6I",
+          "isArchived": false,
+          "type": "ISSUE",
+          "content": {
+            "__typename": "Issue",
+            "id": "I_kwDOVDf2J88AAAABWZg1kA",
+            "number": 31,
+            "title": "[YD-N1][S07] 药品耗材库存、批次效期与执行恢复",
+            "url": "https://github.com/Yredxin/YDental/issues/31",
+            "state": "OPEN",
+            "comments": {
+              "totalCount": 0,
+              "nodes": []
+            },
+            "repository": {
+              "nameWithOwner": "Yredxin/YDental"
+            }
+          },
+          "fieldValues": {
+            "totalCount": 5,
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "NQ"
+            },
+            "nodes": [
+              {
+                "__typename": "ProjectV2ItemFieldRepositoryValue",
+                "repository": {
+                  "nameWithOwner": "Yredxin/YDental"
+                },
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOh4",
+                  "name": "Repository"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldTextValue",
+                "text": "[YD-N1][S07] 药品耗材库存、批次效期与执行恢复",
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "Todo",
+                "optionId": "f75ad846",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "S07",
+                "optionId": "6eb0da18",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVk",
+                  "name": "阶段"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "待启用",
+                "optionId": "441473f3",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVo",
+                  "name": "执行状态"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "PVTI_lAHOA3_tu84BmcLJzg_8mLM",
+          "isArchived": false,
+          "type": "ISSUE",
+          "content": {
+            "__typename": "Issue",
+            "id": "I_kwDOVDf2J88AAAABWZhJyA",
+            "number": 32,
+            "title": "[YD-N1][S08] 治疗工作台、独立文书、医嘱与分次发药",
+            "url": "https://github.com/Yredxin/YDental/issues/32",
+            "state": "OPEN",
+            "comments": {
+              "totalCount": 0,
+              "nodes": []
+            },
+            "repository": {
+              "nameWithOwner": "Yredxin/YDental"
+            }
+          },
+          "fieldValues": {
+            "totalCount": 5,
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "NQ"
+            },
+            "nodes": [
+              {
+                "__typename": "ProjectV2ItemFieldRepositoryValue",
+                "repository": {
+                  "nameWithOwner": "Yredxin/YDental"
+                },
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOh4",
+                  "name": "Repository"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldTextValue",
+                "text": "[YD-N1][S08] 治疗工作台、独立文书、医嘱与分次发药",
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "Todo",
+                "optionId": "f75ad846",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "S08",
+                "optionId": "2a95fe7c",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVk",
+                  "name": "阶段"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "待启用",
+                "optionId": "441473f3",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVo",
+                  "name": "执行状态"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "PVTI_lAHOA3_tu84BmcLJzg_8mdA",
+          "isArchived": false,
+          "type": "ISSUE",
+          "content": {
+            "__typename": "Issue",
+            "id": "I_kwDOVDf2J88AAAABWZhcqQ",
+            "number": 33,
+            "title": "[YD-N1][S09] 检查工作台、逐项结果、部分返回与报告",
+            "url": "https://github.com/Yredxin/YDental/issues/33",
+            "state": "OPEN",
+            "comments": {
+              "totalCount": 0,
+              "nodes": []
+            },
+            "repository": {
+              "nameWithOwner": "Yredxin/YDental"
+            }
+          },
+          "fieldValues": {
+            "totalCount": 5,
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "NQ"
+            },
+            "nodes": [
+              {
+                "__typename": "ProjectV2ItemFieldRepositoryValue",
+                "repository": {
+                  "nameWithOwner": "Yredxin/YDental"
+                },
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOh4",
+                  "name": "Repository"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldTextValue",
+                "text": "[YD-N1][S09] 检查工作台、逐项结果、部分返回与报告",
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "Todo",
+                "optionId": "f75ad846",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "S09",
+                "optionId": "22c82468",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVk",
+                  "name": "阶段"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "待启用",
+                "optionId": "441473f3",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVo",
+                  "name": "执行状态"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "PVTI_lAHOA3_tu84BmcLJzg_8mwI",
+          "isArchived": false,
+          "type": "ISSUE",
+          "content": {
+            "__typename": "Issue",
+            "id": "I_kwDOVDf2J88AAAABWZh27w",
+            "number": 34,
+            "title": "[YD-N1][S10] 结算、实际收退款、日结及费库款联调",
+            "url": "https://github.com/Yredxin/YDental/issues/34",
+            "state": "OPEN",
+            "comments": {
+              "totalCount": 0,
+              "nodes": []
+            },
+            "repository": {
+              "nameWithOwner": "Yredxin/YDental"
+            }
+          },
+          "fieldValues": {
+            "totalCount": 5,
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "NQ"
+            },
+            "nodes": [
+              {
+                "__typename": "ProjectV2ItemFieldRepositoryValue",
+                "repository": {
+                  "nameWithOwner": "Yredxin/YDental"
+                },
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOh4",
+                  "name": "Repository"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldTextValue",
+                "text": "[YD-N1][S10] 结算、实际收退款、日结及费库款联调",
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "Todo",
+                "optionId": "f75ad846",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "S10",
+                "optionId": "2992274b",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVk",
+                  "name": "阶段"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "待启用",
+                "optionId": "441473f3",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVo",
+                  "name": "执行状态"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "PVTI_lAHOA3_tu84BmcLJzg_8nCU",
+          "isArchived": false,
+          "type": "ISSUE",
+          "content": {
+            "__typename": "Issue",
+            "id": "I_kwDOVDf2J88AAAABWZiOXA",
+            "number": 35,
+            "title": "[YD-N1][S11] 复诊联系、通知可靠性与人工外加工闭环",
+            "url": "https://github.com/Yredxin/YDental/issues/35",
+            "state": "OPEN",
+            "comments": {
+              "totalCount": 0,
+              "nodes": []
+            },
+            "repository": {
+              "nameWithOwner": "Yredxin/YDental"
+            }
+          },
+          "fieldValues": {
+            "totalCount": 5,
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "NQ"
+            },
+            "nodes": [
+              {
+                "__typename": "ProjectV2ItemFieldRepositoryValue",
+                "repository": {
+                  "nameWithOwner": "Yredxin/YDental"
+                },
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOh4",
+                  "name": "Repository"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldTextValue",
+                "text": "[YD-N1][S11] 复诊联系、通知可靠性与人工外加工闭环",
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "Todo",
+                "optionId": "f75ad846",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "S11",
+                "optionId": "f1cdee5a",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVk",
+                  "name": "阶段"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "待启用",
+                "optionId": "441473f3",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVo",
+                  "name": "执行状态"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "PVTI_lAHOA3_tu84BmcLJzg_8nQw",
+          "isArchived": false,
+          "type": "ISSUE",
+          "content": {
+            "__typename": "Issue",
+            "id": "I_kwDOVDf2J88AAAABWZigpQ",
+            "number": 36,
+            "title": "[YD-N1][S12] 文书与票据PDF、原版重印及经营报表",
+            "url": "https://github.com/Yredxin/YDental/issues/36",
+            "state": "OPEN",
+            "comments": {
+              "totalCount": 0,
+              "nodes": []
+            },
+            "repository": {
+              "nameWithOwner": "Yredxin/YDental"
+            }
+          },
+          "fieldValues": {
+            "totalCount": 5,
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "NQ"
+            },
+            "nodes": [
+              {
+                "__typename": "ProjectV2ItemFieldRepositoryValue",
+                "repository": {
+                  "nameWithOwner": "Yredxin/YDental"
+                },
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOh4",
+                  "name": "Repository"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldTextValue",
+                "text": "[YD-N1][S12] 文书与票据PDF、原版重印及经营报表",
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "Todo",
+                "optionId": "f75ad846",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "S12",
+                "optionId": "7463c6f6",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVk",
+                  "name": "阶段"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "待启用",
+                "optionId": "441473f3",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVo",
+                  "name": "执行状态"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "PVTI_lAHOA3_tu84BmcLJzg_8nno",
+          "isArchived": false,
+          "type": "ISSUE",
+          "content": {
+            "__typename": "Issue",
+            "id": "I_kwDOVDf2J88AAAABWZi6Dg",
+            "number": 37,
+            "title": "[YD-N1][S13] 全流程验收、统一美化、50人负载与恢复演练",
+            "url": "https://github.com/Yredxin/YDental/issues/37",
+            "state": "OPEN",
+            "comments": {
+              "totalCount": 0,
+              "nodes": []
+            },
+            "repository": {
+              "nameWithOwner": "Yredxin/YDental"
+            }
+          },
+          "fieldValues": {
+            "totalCount": 5,
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "NQ"
+            },
+            "nodes": [
+              {
+                "__typename": "ProjectV2ItemFieldRepositoryValue",
+                "repository": {
+                  "nameWithOwner": "Yredxin/YDental"
+                },
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOh4",
+                  "name": "Repository"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldTextValue",
+                "text": "[YD-N1][S13] 全流程验收、统一美化、50人负载与恢复演练",
+                "field": {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "Todo",
+                "optionId": "f75ad846",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "S13",
+                "optionId": "c17580c1",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVk",
+                  "name": "阶段"
+                }
+              },
+              {
+                "__typename": "ProjectV2ItemFieldSingleSelectValue",
+                "name": "待启用",
+                "optionId": "441473f3",
+                "field": {
+                  "id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVo",
+                  "name": "执行状态"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "complete": true
+    },
+    "views": {
+      "totalCount": 6,
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "Ng"
+      },
+      "nodes": [
+        {
+          "id": "PVTV_lAHOA3_tu84BmcLJzgL_2kI",
+          "name": "Backlog",
+          "number": 1,
+          "layout": "TABLE_LAYOUT",
+          "filter": null,
+          "fields": {
+            "totalCount": 9,
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "OQ"
+            },
+            "nodes": [
+              {
+                "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg"
+              },
+              {
+                "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhk"
+              },
+              {
+                "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho"
+              },
+              {
+                "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhw"
+              },
+              {
+                "id": "PVTF_lAHOA3_tu84BmcLJzhlFOiI"
+              },
+              {
+                "id": "PVTF_lAHOA3_tu84BmcLJzhlFOrs"
+              },
+              {
+                "id": "PVTIF_lAHOA3_tu84BmcLJzhlFOrw"
+              },
+              {
+                "id": "PVTF_lAHOA3_tu84BmcLJzhlFOr0"
+              },
+              {
+                "id": "PVTF_lAHOA3_tu84BmcLJzhlFOr4"
+              }
+            ]
+          }
+        },
+        {
+          "id": "PVTV_lAHOA3_tu84BmcLJzgL_2lI",
+          "name": "Board",
+          "number": 2,
+          "layout": "BOARD_LAYOUT",
+          "filter": null,
+          "fields": {
+            "totalCount": 9,
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "OQ"
+            },
+            "nodes": [
+              {
+                "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg"
+              },
+              {
+                "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhk"
+              },
+              {
+                "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho"
+              },
+              {
+                "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhw"
+              },
+              {
+                "id": "PVTF_lAHOA3_tu84BmcLJzhlFOiI"
+              },
+              {
+                "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOrk"
+              },
+              {
+                "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOro"
+              },
+              {
+                "id": "PVTF_lAHOA3_tu84BmcLJzhlFOrs"
+              },
+              {
+                "id": "PVTIF_lAHOA3_tu84BmcLJzhlFOrw"
+              }
+            ]
+          }
+        },
+        {
+          "id": "PVTV_lAHOA3_tu84BmcLJzgL_2lM",
+          "name": "Current iteration",
+          "number": 3,
+          "layout": "BOARD_LAYOUT",
+          "filter": "iteration:@current",
+          "fields": {
+            "totalCount": 5,
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "NQ"
+            },
+            "nodes": [
+              {
+                "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg"
+              },
+              {
+                "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhk"
+              },
+              {
+                "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho"
+              },
+              {
+                "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhw"
+              },
+              {
+                "id": "PVTF_lAHOA3_tu84BmcLJzhlFOiI"
+              }
+            ]
+          }
+        },
+        {
+          "id": "PVTV_lAHOA3_tu84BmcLJzgL_2lQ",
+          "name": "Roadmap",
+          "number": 4,
+          "layout": "ROADMAP_LAYOUT",
+          "filter": null,
+          "fields": {
+            "totalCount": 3,
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "Mw"
+            },
+            "nodes": [
+              {
+                "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg"
+              },
+              {
+                "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhk"
+              },
+              {
+                "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOho"
+              }
+            ]
+          }
+        },
+        {
+          "id": "PVTV_lAHOA3_tu84BmcLJzgL_2lU",
+          "name": "My items",
+          "number": 5,
+          "layout": "TABLE_LAYOUT",
+          "filter": "assignee:@me",
+          "fields": {
+            "totalCount": 7,
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "Nw"
+            },
+            "nodes": [
+              {
+                "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg"
+              },
+              {
+                "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhw"
+              },
+              {
+                "id": "PVTF_lAHOA3_tu84BmcLJzhlFOiI"
+              },
+              {
+                "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOrk"
+              },
+              {
+                "id": "PVTSSF_lAHOA3_tu84BmcLJzhlFOro"
+              },
+              {
+                "id": "PVTF_lAHOA3_tu84BmcLJzhlFOrs"
+              },
+              {
+                "id": "PVTIF_lAHOA3_tu84BmcLJzhlFOrw"
+              }
+            ]
+          }
+        },
+        {
+          "id": "PVTV_lAHOA3_tu84BmcLJzgMAjcw",
+          "name": "当前计划",
+          "number": 6,
+          "layout": "TABLE_LAYOUT",
+          "filter": "repo:Yredxin/YDental is:issue 阶段:PLAN,S00,S01,S02,S03,S04,S05,S06,S07,S08,S09,S10,S11,S12,S13",
+          "fields": {
+            "totalCount": 3,
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "Mw"
+            },
+            "nodes": [
+              {
+                "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg"
+              },
+              {
+                "id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVk"
+              },
+              {
+                "id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVo"
+              }
+            ]
+          }
+        }
+      ],
+      "complete": true
+    },
+    "workflows": {
+      "totalCount": 7,
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "Nw"
+      },
+      "nodes": [
+        {
+          "id": "PWF_lAHOA3_tu84BmcLJzgdJkzk",
+          "name": "Auto-add sub-issues to project",
+          "number": 10,
+          "enabled": true,
+          "createdAt": "2026-10-10T08:28:26Z",
+          "updatedAt": "2026-10-10T08:28:26Z"
+        },
+        {
+          "id": "PWF_lAHOA3_tu84BmcLJzgdJkzw",
+          "name": "Auto-add to project",
+          "number": 13,
+          "enabled": true,
+          "createdAt": "2026-10-10T08:28:26Z",
+          "updatedAt": "2026-10-10T08:28:26Z"
+        },
+        {
+          "id": "PWF_lAHOA3_tu84BmcLJzgdJkzg",
+          "name": "Auto-close issue",
+          "number": 9,
+          "enabled": true,
+          "createdAt": "2026-10-10T08:28:26Z",
+          "updatedAt": "2026-10-10T08:28:26Z"
+        },
+        {
+          "id": "PWF_lAHOA3_tu84BmcLJzgdJkzs",
+          "name": "Item added to project",
+          "number": 12,
+          "enabled": true,
+          "createdAt": "2026-10-10T08:28:26Z",
+          "updatedAt": "2026-10-10T08:28:26Z"
+        },
+        {
+          "id": "PWF_lAHOA3_tu84BmcLJzgdJkzY",
+          "name": "Item closed",
+          "number": 7,
+          "enabled": true,
+          "createdAt": "2026-10-10T08:28:26Z",
+          "updatedAt": "2026-10-10T08:28:26Z"
+        },
+        {
+          "id": "PWF_lAHOA3_tu84BmcLJzgdJkzo",
+          "name": "Pull request linked to issue",
+          "number": 11,
+          "enabled": true,
+          "createdAt": "2026-10-10T08:28:26Z",
+          "updatedAt": "2026-10-10T08:28:26Z"
+        },
+        {
+          "id": "PWF_lAHOA3_tu84BmcLJzgdJkzc",
+          "name": "Pull request merged",
+          "number": 8,
+          "enabled": true,
+          "createdAt": "2026-10-10T08:28:26Z",
+          "updatedAt": "2026-10-10T08:28:26Z"
+        }
+      ],
+      "complete": true
+    }
+  }
+}

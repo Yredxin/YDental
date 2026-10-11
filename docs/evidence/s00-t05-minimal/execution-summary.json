@@ -1,0 +1,44 @@
+{
+  "sync_script_commit": "e8f3ec76276682c9ef8623bfc1f08cb5b17117c6",
+  "verifier_commit": "321962f9203cc8960f317685c11ce3c3241d3923",
+  "python_version": "Python 3.12.15",
+  "gh_version": "gh version 2.102.0 (2026-09-30)",
+  "first": {
+    "status": "PASS",
+    "started_utc": "2026-10-11T08:59:57.660529+00:00",
+    "finished_utc": "2026-10-11T09:04:07.735926+00:00",
+    "exit_code": 0,
+    "mutation_count": 56,
+    "same_sync_logic": true,
+    "final_readback_match": true
+  },
+  "second": {
+    "status": "PASS",
+    "started_utc": "2026-10-11T09:04:13.871461+00:00",
+    "finished_utc": "2026-10-11T09:04:23.811155+00:00",
+    "exit_code": 0,
+    "mutation_count": 0,
+    "same_sync_logic": true,
+    "final_readback_match": true
+  },
+  "api_call_count": 117,
+  "api_call_types": {
+    "query": 61,
+    "mutation": 56
+  },
+  "unit_safety_tests": {
+    "command": "../.venv/bin/python -m unittest discover -s scripts -p test_s00_t05_sync.py -v",
+    "observed_exit_code": 0,
+    "observed_test_count": 6,
+    "observed_runtime_seconds": 0.001,
+    "executed_before_first_sync": true
+  },
+  "verifier_command": "../.venv/bin/python scripts/s00_t05_verify.py",
+  "verifier_exit_code": 0,
+  "verifier_assertions": 20,
+  "script_sha256": {
+    "s00_t05_sync.py": "e17c3300d5a3ff8ee909026326e2420a990050853d72712f0ae879c312a022f6",
+    "s00_t05_verify.py": "09112a90632097be1a341061040d75fc5eba49aeda14a02df3fa99d2ff0a61b7",
+    "test_s00_t05_sync.py": "2d2a71ebebebc41ea50434a4af06257aa9931e808735503309c338ec26093a22"
+  }
+}

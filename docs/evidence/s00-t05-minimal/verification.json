@@ -1,0 +1,90 @@
+{
+  "utc": "2026-10-11T09:04:29.142695+00:00",
+  "status": "PASS",
+  "assertion_count": 20,
+  "checks": [
+    {
+      "assertion": "37 complete unique identities preserved",
+      "status": "PASS"
+    },
+    {
+      "assertion": "22 historical cards archived, both readbacks",
+      "status": "PASS"
+    },
+    {
+      "assertion": "15 current-plan cards remain active",
+      "status": "PASS"
+    },
+    {
+      "assertion": "all Issue/PR content, states, PR flags and comment counts unchanged",
+      "status": "PASS"
+    },
+    {
+      "assertion": "native Status definition/options unchanged",
+      "status": "PASS"
+    },
+    {
+      "assertion": "native Status values unchanged on all 37 cards",
+      "status": "PASS"
+    },
+    {
+      "assertion": "7 workflow enabled/metadata values unchanged",
+      "status": "PASS"
+    },
+    {
+      "assertion": "all 19 existing field definitions unchanged",
+      "status": "PASS"
+    },
+    {
+      "assertion": "only two new custom fields, unique names and exact unique options",
+      "status": "PASS"
+    },
+    {
+      "assertion": "阶段 values correct on all 15 current cards",
+      "status": "PASS"
+    },
+    {
+      "assertion": "执行状态 values correct on all 15 current cards",
+      "status": "PASS"
+    },
+    {
+      "assertion": "5 existing views preserved with fields/filter/layout",
+      "status": "PASS"
+    },
+    {
+      "assertion": "one current-plan table view with exact filter",
+      "status": "PASS"
+    },
+    {
+      "assertion": "canary archived alone with exact expected full readback",
+      "status": "PASS"
+    },
+    {
+      "assertion": "each mutation has immediate full readback and exact expected-state match",
+      "status": "PASS"
+    },
+    {
+      "assertion": "first live sync succeeded",
+      "status": "PASS"
+    },
+    {
+      "assertion": "second identical sync succeeded with 0 mutations",
+      "status": "PASS"
+    },
+    {
+      "assertion": "first and second final full snapshots semantically identical",
+      "status": "PASS"
+    },
+    {
+      "assertion": "all real synchronization API calls exited 0",
+      "status": "PASS"
+    },
+    {
+      "assertion": "server filter returns exactly #23-37, no historical cards",
+      "status": "PASS"
+    }
+  ],
+  "sync_first_mutations": 56,
+  "sync_second_mutations": 0,
+  "automatic_repair": false
+}

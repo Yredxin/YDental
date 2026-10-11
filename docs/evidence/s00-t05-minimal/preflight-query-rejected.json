@@ -1,0 +1,17 @@
+[
+  {
+    "sequence": 1,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "3df3b8a858887b79c886ae4818ed35e7d2e201687dfbaa81dbea567ad97eeffb",
+    "variables": {},
+    "started_utc": "2026-10-11T08:58:01.318718+00:00",
+    "exit_code": 1,
+    "finished_utc": "2026-10-11T08:58:03.665055+00:00",
+    "api_errors": [
+      "Something went wrong while executing your query on 2026-10-11T08:58:03Z. Please include `5923:34F23F:18D7A4C:1D5F5E3:6ACB4F99` when reporting this issue."
+    ],
+    "status": "FAIL"
+  }
+]

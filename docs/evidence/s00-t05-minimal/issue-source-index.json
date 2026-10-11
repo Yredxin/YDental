@@ -1,0 +1,137 @@
+{
+  "read_utc": "2026-10-11T09:00:55.632136+00:00",
+  "controlling_comment": 6107161042,
+  "exit_code": 0,
+  "issues": [
+    {
+      "number": 23,
+      "title": "[YD-N1][总计划] 牙科系统独立建设计划：背景、需求、实施、验证与成功交付",
+      "updatedAt": "2026-10-11T06:03:40Z",
+      "body_sha256": "36b3744d1087b38df6970dc584f396bd9c6d3bc66de8229c61f181688353f100",
+      "comment_count": 1,
+      "comments": [
+        {
+          "databaseId": 6106072643,
+          "createdAt": "2026-10-11T06:03:40Z",
+          "updatedAt": "2026-10-11T06:03:40Z",
+          "url": "https://github.com/Yredxin/YDental/issues/23#issuecomment-6106072643",
+          "body_sha256": "08ccabbeba9965c4d6d61e3b8bd8f51dae02fb9d42e80eae82a526e1d64c0852"
+        }
+      ]
+    },
+    {
+      "number": 24,
+      "title": "[YD-N1][S00] 当前工作区核实、最小运行基线与新计划入口",
+      "updatedAt": "2026-10-11T08:32:14Z",
+      "body_sha256": "0d768baa42f7f2005984a1db03f6fcfc0282812b38c5c7e33a4edba751617f98",
+      "comment_count": 15,
+      "comments": [
+        {
+          "databaseId": 6106155290,
+          "createdAt": "2026-10-11T06:15:24Z",
+          "updatedAt": "2026-10-11T06:15:24Z",
+          "url": "https://github.com/Yredxin/YDental/issues/24#issuecomment-6106155290",
+          "body_sha256": "b07051e389f2ed81296296ccf97c331b563337ad32d98275efd00ca486a4f451"
+        },
+        {
+          "databaseId": 6106275677,
+          "createdAt": "2026-10-11T06:32:34Z",
+          "updatedAt": "2026-10-11T06:32:34Z",
+          "url": "https://github.com/Yredxin/YDental/issues/24#issuecomment-6106275677",
+          "body_sha256": "70375111135728d0eab9f722aaa9dad877612269db4359d10d0fcec6811a2054"
+        },
+        {
+          "databaseId": 6106335585,
+          "createdAt": "2026-10-11T06:41:14Z",
+          "updatedAt": "2026-10-11T06:41:14Z",
+          "url": "https://github.com/Yredxin/YDental/issues/24#issuecomment-6106335585",
+          "body_sha256": "d919570484a70abc9145e464a7a9edb252c0b820df06451156e6e96bf675e4ad"
+        },
+        {
+          "databaseId": 6106434172,
+          "createdAt": "2026-10-11T06:55:18Z",
+          "updatedAt": "2026-10-11T06:55:18Z",
+          "url": "https://github.com/Yredxin/YDental/issues/24#issuecomment-6106434172",
+          "body_sha256": "04e4da620ea1a0b67df858a21379783afa04c1813a9e3c73d155c980c58c6b1e"
+        },
+        {
+          "databaseId": 6106532401,
+          "createdAt": "2026-10-11T07:08:57Z",
+          "updatedAt": "2026-10-11T07:08:57Z",
+          "url": "https://github.com/Yredxin/YDental/issues/24#issuecomment-6106532401",
+          "body_sha256": "9806df0c3d93a9d0b8ce14ac673ac371f4aaf3f25f1e739fb8c7849e32a2dfc1"
+        },
+        {
+          "databaseId": 6106625341,
+          "createdAt": "2026-10-11T07:21:15Z",
+          "updatedAt": "2026-10-11T07:21:15Z",
+          "url": "https://github.com/Yredxin/YDental/issues/24#issuecomment-6106625341",
+          "body_sha256": "c5d98ff7bfa5fec380a849a0d587e79883b85c18dbf560a343fbbfc20843a56c"
+        },
+        {
+          "databaseId": 6106787039,
+          "createdAt": "2026-10-11T07:42:44Z",
+          "updatedAt": "2026-10-11T07:42:44Z",
+          "url": "https://github.com/Yredxin/YDental/issues/24#issuecomment-6106787039",
+          "body_sha256": "585e82c0164f77b4414b2057861334f1ec43012f123bd53899fc91053d173b0b"
+        },
+        {
+          "databaseId": 6106835823,
+          "createdAt": "2026-10-11T07:49:08Z",
+          "updatedAt": "2026-10-11T07:49:08Z",
+          "url": "https://github.com/Yredxin/YDental/issues/24#issuecomment-6106835823",
+          "body_sha256": "9a42d8ccfbc2c4cc57d65e2a990c178a054e1f6c8ccba77ee9d6fb919325b041"
+        },
+        {
+          "databaseId": 6106976557,
+          "createdAt": "2026-10-11T08:07:44Z",
+          "updatedAt": "2026-10-11T08:07:44Z",
+          "url": "https://github.com/Yredxin/YDental/issues/24#issuecomment-6106976557",
+          "body_sha256": "e729a61e31cfa14550e3f814a38b82d8a8bc5a07f6ab564b4f6b65e8bb9bc37a"
+        },
+        {
+          "databaseId": 6107015018,
+          "createdAt": "2026-10-11T08:12:50Z",
+          "updatedAt": "2026-10-11T08:12:50Z",
+          "url": "https://github.com/Yredxin/YDental/issues/24#issuecomment-6107015018",
+          "body_sha256": "15e52fc7ef1fe4b8d07744d1049adb538245ba3d3a9b7603f3587f47a63bca1b"
+        },
+        {
+          "databaseId": 6107029151,
+          "createdAt": "2026-10-11T08:14:40Z",
+          "updatedAt": "2026-10-11T08:14:40Z",
+          "url": "https://github.com/Yredxin/YDental/issues/24#issuecomment-6107029151",
+          "body_sha256": "385c6217509d0629866326b650ff7cd8157f034486f20ddd8aa1e626ca225a4c"
+        },
+        {
+          "databaseId": 6107111948,
+          "createdAt": "2026-10-11T08:25:39Z",
+          "updatedAt": "2026-10-11T08:25:39Z",
+          "url": "https://github.com/Yredxin/YDental/issues/24#issuecomment-6107111948",
+          "body_sha256": "031a66fb5c19bd2c6f1f0876eec33a3a24dc4002e6eebf795c6572e6f3b35f0d"
+        },
+        {
+          "databaseId": 6107128643,
+          "createdAt": "2026-10-11T08:27:54Z",
+          "updatedAt": "2026-10-11T08:27:54Z",
+          "url": "https://github.com/Yredxin/YDental/issues/24#issuecomment-6107128643",
+          "body_sha256": "e6ea5f1a40a35bfa84c19fa9b6abcec1730a14cc400a04ae77846ab50f67b969"
+        },
+        {
+          "databaseId": 6107146993,
+          "createdAt": "2026-10-11T08:30:22Z",
+          "updatedAt": "2026-10-11T08:30:22Z",
+          "url": "https://github.com/Yredxin/YDental/issues/24#issuecomment-6107146993",
+          "body_sha256": "fdddf4140eb546ede81391b662ffff2b2808349a5be54c12f9f245160392d1b6"
+        },
+        {
+          "databaseId": 6107161042,
+          "createdAt": "2026-10-11T08:32:14Z",
+          "updatedAt": "2026-10-11T08:32:14Z",
+          "url": "https://github.com/Yredxin/YDental/issues/24#issuecomment-6107161042",
+          "body_sha256": "d5332f06987ae188ae74c85f34188b4b2f2a29e257be89ae90d7af2bb86081f7"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "utc": "2026-10-11T09:08:06.872830+00:00",
+  "files_reviewed": 80,
+  "credential_pattern_matches": 0,
+  "content_review": "New evidence contains Project metadata, public Issue/PR identifiers/titles/states, field values, query inputs and API errors only. No browser profile, password, token, cookie, patient data, signatures, backup or raw runtime log included.",
+  "status": "PASS"
+}

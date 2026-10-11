@@ -1,0 +1,202 @@
+{
+  "internal_trigger_filter_action_target": "UNKNOWN; not exposed by API, not a precondition under decision 6107161042",
+  "workflow_mutations": 0,
+  "before": {
+    "totalCount": 7,
+    "pageInfo": {
+      "hasNextPage": false,
+      "endCursor": "Nw"
+    },
+    "nodes": [
+      {
+        "id": "PWF_lAHOA3_tu84BmcLJzgdJkzk",
+        "name": "Auto-add sub-issues to project",
+        "number": 10,
+        "enabled": true,
+        "createdAt": "2026-10-10T08:28:26Z",
+        "updatedAt": "2026-10-10T08:28:26Z"
+      },
+      {
+        "id": "PWF_lAHOA3_tu84BmcLJzgdJkzw",
+        "name": "Auto-add to project",
+        "number": 13,
+        "enabled": true,
+        "createdAt": "2026-10-10T08:28:26Z",
+        "updatedAt": "2026-10-10T08:28:26Z"
+      },
+      {
+        "id": "PWF_lAHOA3_tu84BmcLJzgdJkzg",
+        "name": "Auto-close issue",
+        "number": 9,
+        "enabled": true,
+        "createdAt": "2026-10-10T08:28:26Z",
+        "updatedAt": "2026-10-10T08:28:26Z"
+      },
+      {
+        "id": "PWF_lAHOA3_tu84BmcLJzgdJkzs",
+        "name": "Item added to project",
+        "number": 12,
+        "enabled": true,
+        "createdAt": "2026-10-10T08:28:26Z",
+        "updatedAt": "2026-10-10T08:28:26Z"
+      },
+      {
+        "id": "PWF_lAHOA3_tu84BmcLJzgdJkzY",
+        "name": "Item closed",
+        "number": 7,
+        "enabled": true,
+        "createdAt": "2026-10-10T08:28:26Z",
+        "updatedAt": "2026-10-10T08:28:26Z"
+      },
+      {
+        "id": "PWF_lAHOA3_tu84BmcLJzgdJkzo",
+        "name": "Pull request linked to issue",
+        "number": 11,
+        "enabled": true,
+        "createdAt": "2026-10-10T08:28:26Z",
+        "updatedAt": "2026-10-10T08:28:26Z"
+      },
+      {
+        "id": "PWF_lAHOA3_tu84BmcLJzgdJkzc",
+        "name": "Pull request merged",
+        "number": 8,
+        "enabled": true,
+        "createdAt": "2026-10-10T08:28:26Z",
+        "updatedAt": "2026-10-10T08:28:26Z"
+      }
+    ],
+    "complete": true
+  },
+  "after": {
+    "totalCount": 7,
+    "pageInfo": {
+      "hasNextPage": false,
+      "endCursor": "Nw"
+    },
+    "nodes": [
+      {
+        "id": "PWF_lAHOA3_tu84BmcLJzgdJkzk",
+        "name": "Auto-add sub-issues to project",
+        "number": 10,
+        "enabled": true,
+        "createdAt": "2026-10-10T08:28:26Z",
+        "updatedAt": "2026-10-10T08:28:26Z"
+      },
+      {
+        "id": "PWF_lAHOA3_tu84BmcLJzgdJkzw",
+        "name": "Auto-add to project",
+        "number": 13,
+        "enabled": true,
+        "createdAt": "2026-10-10T08:28:26Z",
+        "updatedAt": "2026-10-10T08:28:26Z"
+      },
+      {
+        "id": "PWF_lAHOA3_tu84BmcLJzgdJkzg",
+        "name": "Auto-close issue",
+        "number": 9,
+        "enabled": true,
+        "createdAt": "2026-10-10T08:28:26Z",
+        "updatedAt": "2026-10-10T08:28:26Z"
+      },
+      {
+        "id": "PWF_lAHOA3_tu84BmcLJzgdJkzs",
+        "name": "Item added to project",
+        "number": 12,
+        "enabled": true,
+        "createdAt": "2026-10-10T08:28:26Z",
+        "updatedAt": "2026-10-10T08:28:26Z"
+      },
+      {
+        "id": "PWF_lAHOA3_tu84BmcLJzgdJkzY",
+        "name": "Item closed",
+        "number": 7,
+        "enabled": true,
+        "createdAt": "2026-10-10T08:28:26Z",
+        "updatedAt": "2026-10-10T08:28:26Z"
+      },
+      {
+        "id": "PWF_lAHOA3_tu84BmcLJzgdJkzo",
+        "name": "Pull request linked to issue",
+        "number": 11,
+        "enabled": true,
+        "createdAt": "2026-10-10T08:28:26Z",
+        "updatedAt": "2026-10-10T08:28:26Z"
+      },
+      {
+        "id": "PWF_lAHOA3_tu84BmcLJzgdJkzc",
+        "name": "Pull request merged",
+        "number": 8,
+        "enabled": true,
+        "createdAt": "2026-10-10T08:28:26Z",
+        "updatedAt": "2026-10-10T08:28:26Z"
+      }
+    ],
+    "complete": true
+  },
+  "second": {
+    "totalCount": 7,
+    "pageInfo": {
+      "hasNextPage": false,
+      "endCursor": "Nw"
+    },
+    "nodes": [
+      {
+        "id": "PWF_lAHOA3_tu84BmcLJzgdJkzk",
+        "name": "Auto-add sub-issues to project",
+        "number": 10,
+        "enabled": true,
+        "createdAt": "2026-10-10T08:28:26Z",
+        "updatedAt": "2026-10-10T08:28:26Z"
+      },
+      {
+        "id": "PWF_lAHOA3_tu84BmcLJzgdJkzw",
+        "name": "Auto-add to project",
+        "number": 13,
+        "enabled": true,
+        "createdAt": "2026-10-10T08:28:26Z",
+        "updatedAt": "2026-10-10T08:28:26Z"
+      },
+      {
+        "id": "PWF_lAHOA3_tu84BmcLJzgdJkzg",
+        "name": "Auto-close issue",
+        "number": 9,
+        "enabled": true,
+        "createdAt": "2026-10-10T08:28:26Z",
+        "updatedAt": "2026-10-10T08:28:26Z"
+      },
+      {
+        "id": "PWF_lAHOA3_tu84BmcLJzgdJkzs",
+        "name": "Item added to project",
+        "number": 12,
+        "enabled": true,
+        "createdAt": "2026-10-10T08:28:26Z",
+        "updatedAt": "2026-10-10T08:28:26Z"
+      },
+      {
+        "id": "PWF_lAHOA3_tu84BmcLJzgdJkzY",
+        "name": "Item closed",
+        "number": 7,
+        "enabled": true,
+        "createdAt": "2026-10-10T08:28:26Z",
+        "updatedAt": "2026-10-10T08:28:26Z"
+      },
+      {
+        "id": "PWF_lAHOA3_tu84BmcLJzgdJkzo",
+        "name": "Pull request linked to issue",
+        "number": 11,
+        "enabled": true,
+        "createdAt": "2026-10-10T08:28:26Z",
+        "updatedAt": "2026-10-10T08:28:26Z"
+      },
+      {
+        "id": "PWF_lAHOA3_tu84BmcLJzgdJkzc",
+        "name": "Pull request merged",
+        "number": 8,
+        "enabled": true,
+        "createdAt": "2026-10-10T08:28:26Z",
+        "updatedAt": "2026-10-10T08:28:26Z"
+      }
+    ],
+    "complete": true
+  }
+}

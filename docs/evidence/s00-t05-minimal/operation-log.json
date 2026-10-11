@@ -1,0 +1,2104 @@
+[
+  {
+    "sequence": 1,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T08:59:57.660556+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T08:59:59.850055+00:00",
+    "status": "PASS",
+    "snapshot": "project-before.json"
+  },
+  {
+    "sequence": 2,
+    "round": "first",
+    "kind": "mutation",
+    "action": "archiveProjectV2Item",
+    "query_sha256": "188326f08a7fe629a07960bb8283bfb844aea80f46a547c5abd3e7514fac2514",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_1od4"
+      }
+    },
+    "started_utc": "2026-10-11T08:59:59.859769+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:00:01.197164+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-001.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 3,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:00:01.197587+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:00:03.372449+00:00",
+    "status": "PASS",
+    "snapshot": "check-001.json"
+  },
+  {
+    "sequence": 4,
+    "round": "first",
+    "kind": "mutation",
+    "action": "archiveProjectV2Item",
+    "query_sha256": "188326f08a7fe629a07960bb8283bfb844aea80f46a547c5abd3e7514fac2514",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_1oyo"
+      }
+    },
+    "started_utc": "2026-10-11T09:00:03.382302+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:00:04.347068+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-002.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 5,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:00:04.347369+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:00:06.323379+00:00",
+    "status": "PASS",
+    "snapshot": "check-002.json"
+  },
+  {
+    "sequence": 6,
+    "round": "first",
+    "kind": "mutation",
+    "action": "archiveProjectV2Item",
+    "query_sha256": "188326f08a7fe629a07960bb8283bfb844aea80f46a547c5abd3e7514fac2514",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_1o6Y"
+      }
+    },
+    "started_utc": "2026-10-11T09:00:06.333229+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:00:09.965755+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-003.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 7,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:00:09.966117+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:00:12.188786+00:00",
+    "status": "PASS",
+    "snapshot": "check-003.json"
+  },
+  {
+    "sequence": 8,
+    "round": "first",
+    "kind": "mutation",
+    "action": "archiveProjectV2Item",
+    "query_sha256": "188326f08a7fe629a07960bb8283bfb844aea80f46a547c5abd3e7514fac2514",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_1pFE"
+      }
+    },
+    "started_utc": "2026-10-11T09:00:12.198120+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:00:13.232351+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-004.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 9,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:00:13.232725+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:00:15.391282+00:00",
+    "status": "PASS",
+    "snapshot": "check-004.json"
+  },
+  {
+    "sequence": 10,
+    "round": "first",
+    "kind": "mutation",
+    "action": "archiveProjectV2Item",
+    "query_sha256": "188326f08a7fe629a07960bb8283bfb844aea80f46a547c5abd3e7514fac2514",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_1pSY"
+      }
+    },
+    "started_utc": "2026-10-11T09:00:15.400779+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:00:16.465054+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-005.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 11,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:00:16.465401+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:00:18.796554+00:00",
+    "status": "PASS",
+    "snapshot": "check-005.json"
+  },
+  {
+    "sequence": 12,
+    "round": "first",
+    "kind": "mutation",
+    "action": "archiveProjectV2Item",
+    "query_sha256": "188326f08a7fe629a07960bb8283bfb844aea80f46a547c5abd3e7514fac2514",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_1pgY"
+      }
+    },
+    "started_utc": "2026-10-11T09:00:18.806401+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:00:20.032739+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-006.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 13,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:00:20.033372+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:00:21.901798+00:00",
+    "status": "PASS",
+    "snapshot": "check-006.json"
+  },
+  {
+    "sequence": 14,
+    "round": "first",
+    "kind": "mutation",
+    "action": "archiveProjectV2Item",
+    "query_sha256": "188326f08a7fe629a07960bb8283bfb844aea80f46a547c5abd3e7514fac2514",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_1pxw"
+      }
+    },
+    "started_utc": "2026-10-11T09:00:21.911853+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:00:26.667400+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-007.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 15,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:00:26.667985+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:00:29.018365+00:00",
+    "status": "PASS",
+    "snapshot": "check-007.json"
+  },
+  {
+    "sequence": 16,
+    "round": "first",
+    "kind": "mutation",
+    "action": "archiveProjectV2Item",
+    "query_sha256": "188326f08a7fe629a07960bb8283bfb844aea80f46a547c5abd3e7514fac2514",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_1p8A"
+      }
+    },
+    "started_utc": "2026-10-11T09:00:29.028982+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:00:30.293345+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-008.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 17,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:00:30.293725+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:00:32.394206+00:00",
+    "status": "PASS",
+    "snapshot": "check-008.json"
+  },
+  {
+    "sequence": 18,
+    "round": "first",
+    "kind": "mutation",
+    "action": "archiveProjectV2Item",
+    "query_sha256": "188326f08a7fe629a07960bb8283bfb844aea80f46a547c5abd3e7514fac2514",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_1qG4"
+      }
+    },
+    "started_utc": "2026-10-11T09:00:32.404547+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:00:33.394176+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-009.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 19,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:00:33.394855+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:00:35.507229+00:00",
+    "status": "PASS",
+    "snapshot": "check-009.json"
+  },
+  {
+    "sequence": 20,
+    "round": "first",
+    "kind": "mutation",
+    "action": "archiveProjectV2Item",
+    "query_sha256": "188326f08a7fe629a07960bb8283bfb844aea80f46a547c5abd3e7514fac2514",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_1qOk"
+      }
+    },
+    "started_utc": "2026-10-11T09:00:35.517052+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:00:36.520816+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-010.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 21,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:00:36.521469+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:00:38.929263+00:00",
+    "status": "PASS",
+    "snapshot": "check-010.json"
+  },
+  {
+    "sequence": 22,
+    "round": "first",
+    "kind": "mutation",
+    "action": "archiveProjectV2Item",
+    "query_sha256": "188326f08a7fe629a07960bb8283bfb844aea80f46a547c5abd3e7514fac2514",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_1qbg"
+      }
+    },
+    "started_utc": "2026-10-11T09:00:38.939513+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:00:39.926929+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-011.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 23,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:00:39.927529+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:00:42.023959+00:00",
+    "status": "PASS",
+    "snapshot": "check-011.json"
+  },
+  {
+    "sequence": 24,
+    "round": "first",
+    "kind": "mutation",
+    "action": "archiveProjectV2Item",
+    "query_sha256": "188326f08a7fe629a07960bb8283bfb844aea80f46a547c5abd3e7514fac2514",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_1qig"
+      }
+    },
+    "started_utc": "2026-10-11T09:00:42.034138+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:00:51.442101+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-012.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 25,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:00:51.442635+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:00:54.348144+00:00",
+    "status": "PASS",
+    "snapshot": "check-012.json"
+  },
+  {
+    "sequence": 26,
+    "round": "first",
+    "kind": "mutation",
+    "action": "archiveProjectV2Item",
+    "query_sha256": "188326f08a7fe629a07960bb8283bfb844aea80f46a547c5abd3e7514fac2514",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_15as"
+      }
+    },
+    "started_utc": "2026-10-11T09:00:54.358228+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:00:56.787740+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-013.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 27,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:00:56.788326+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:00:59.780689+00:00",
+    "status": "PASS",
+    "snapshot": "check-013.json"
+  },
+  {
+    "sequence": 28,
+    "round": "first",
+    "kind": "mutation",
+    "action": "archiveProjectV2Item",
+    "query_sha256": "188326f08a7fe629a07960bb8283bfb844aea80f46a547c5abd3e7514fac2514",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_8SXc"
+      }
+    },
+    "started_utc": "2026-10-11T09:00:59.790896+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:01:02.542226+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-014.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 29,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:01:02.542920+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:01:05.355904+00:00",
+    "status": "PASS",
+    "snapshot": "check-014.json"
+  },
+  {
+    "sequence": 30,
+    "round": "first",
+    "kind": "mutation",
+    "action": "archiveProjectV2Item",
+    "query_sha256": "188326f08a7fe629a07960bb8283bfb844aea80f46a547c5abd3e7514fac2514",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_8Stc"
+      }
+    },
+    "started_utc": "2026-10-11T09:01:05.365798+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:01:11.395383+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-015.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 31,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:01:11.396282+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:01:13.337174+00:00",
+    "status": "PASS",
+    "snapshot": "check-015.json"
+  },
+  {
+    "sequence": 32,
+    "round": "first",
+    "kind": "mutation",
+    "action": "archiveProjectV2Item",
+    "query_sha256": "188326f08a7fe629a07960bb8283bfb844aea80f46a547c5abd3e7514fac2514",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_8WZ4"
+      }
+    },
+    "started_utc": "2026-10-11T09:01:13.347980+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:01:14.896222+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-016.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 33,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:01:14.897027+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:01:17.145369+00:00",
+    "status": "PASS",
+    "snapshot": "check-016.json"
+  },
+  {
+    "sequence": 34,
+    "round": "first",
+    "kind": "mutation",
+    "action": "archiveProjectV2Item",
+    "query_sha256": "188326f08a7fe629a07960bb8283bfb844aea80f46a547c5abd3e7514fac2514",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_8Wls"
+      }
+    },
+    "started_utc": "2026-10-11T09:01:17.155671+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:01:18.691167+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-017.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 35,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:01:18.692035+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:01:20.909970+00:00",
+    "status": "PASS",
+    "snapshot": "check-017.json"
+  },
+  {
+    "sequence": 36,
+    "round": "first",
+    "kind": "mutation",
+    "action": "archiveProjectV2Item",
+    "query_sha256": "188326f08a7fe629a07960bb8283bfb844aea80f46a547c5abd3e7514fac2514",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_8Wyc"
+      }
+    },
+    "started_utc": "2026-10-11T09:01:20.920186+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:01:21.839126+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-018.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 37,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:01:21.839666+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:01:23.616260+00:00",
+    "status": "PASS",
+    "snapshot": "check-018.json"
+  },
+  {
+    "sequence": 38,
+    "round": "first",
+    "kind": "mutation",
+    "action": "archiveProjectV2Item",
+    "query_sha256": "188326f08a7fe629a07960bb8283bfb844aea80f46a547c5abd3e7514fac2514",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_8XJw"
+      }
+    },
+    "started_utc": "2026-10-11T09:01:23.626202+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:01:24.616070+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-019.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 39,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:01:24.616936+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:01:26.709343+00:00",
+    "status": "PASS",
+    "snapshot": "check-019.json"
+  },
+  {
+    "sequence": 40,
+    "round": "first",
+    "kind": "mutation",
+    "action": "archiveProjectV2Item",
+    "query_sha256": "188326f08a7fe629a07960bb8283bfb844aea80f46a547c5abd3e7514fac2514",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_8XbA"
+      }
+    },
+    "started_utc": "2026-10-11T09:01:26.719871+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:01:28.327965+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-020.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 41,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:01:28.329035+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:01:30.619754+00:00",
+    "status": "PASS",
+    "snapshot": "check-020.json"
+  },
+  {
+    "sequence": 42,
+    "round": "first",
+    "kind": "mutation",
+    "action": "archiveProjectV2Item",
+    "query_sha256": "188326f08a7fe629a07960bb8283bfb844aea80f46a547c5abd3e7514fac2514",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_8Xio"
+      }
+    },
+    "started_utc": "2026-10-11T09:01:30.630529+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:01:31.693684+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-021.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 43,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:01:31.694426+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:01:34.224436+00:00",
+    "status": "PASS",
+    "snapshot": "check-021.json"
+  },
+  {
+    "sequence": 44,
+    "round": "first",
+    "kind": "mutation",
+    "action": "archiveProjectV2Item",
+    "query_sha256": "188326f08a7fe629a07960bb8283bfb844aea80f46a547c5abd3e7514fac2514",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_8Xxw"
+      }
+    },
+    "started_utc": "2026-10-11T09:01:34.235261+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:01:35.268937+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-022.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 45,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:01:35.269600+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:01:37.799507+00:00",
+    "status": "PASS",
+    "snapshot": "check-022.json"
+  },
+  {
+    "sequence": 46,
+    "round": "first",
+    "kind": "mutation",
+    "action": "createProjectV2Field",
+    "query_sha256": "36c4030af22d862f8cefeeb6ed7c997349409681569641ac818febc2aa322748",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "name": "阶段",
+        "dataType": "SINGLE_SELECT",
+        "singleSelectOptions": [
+          {
+            "name": "PLAN",
+            "color": "GRAY",
+            "description": ""
+          },
+          {
+            "name": "S00",
+            "color": "GRAY",
+            "description": ""
+          },
+          {
+            "name": "S01",
+            "color": "GRAY",
+            "description": ""
+          },
+          {
+            "name": "S02",
+            "color": "GRAY",
+            "description": ""
+          },
+          {
+            "name": "S03",
+            "color": "GRAY",
+            "description": ""
+          },
+          {
+            "name": "S04",
+            "color": "GRAY",
+            "description": ""
+          },
+          {
+            "name": "S05",
+            "color": "GRAY",
+            "description": ""
+          },
+          {
+            "name": "S06",
+            "color": "GRAY",
+            "description": ""
+          },
+          {
+            "name": "S07",
+            "color": "GRAY",
+            "description": ""
+          },
+          {
+            "name": "S08",
+            "color": "GRAY",
+            "description": ""
+          },
+          {
+            "name": "S09",
+            "color": "GRAY",
+            "description": ""
+          },
+          {
+            "name": "S10",
+            "color": "GRAY",
+            "description": ""
+          },
+          {
+            "name": "S11",
+            "color": "GRAY",
+            "description": ""
+          },
+          {
+            "name": "S12",
+            "color": "GRAY",
+            "description": ""
+          },
+          {
+            "name": "S13",
+            "color": "GRAY",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "started_utc": "2026-10-11T09:01:37.809841+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:01:38.968965+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-023.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 47,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:01:38.969816+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:01:41.562979+00:00",
+    "status": "PASS",
+    "snapshot": "check-023.json"
+  },
+  {
+    "sequence": 48,
+    "round": "first",
+    "kind": "mutation",
+    "action": "createProjectV2Field",
+    "query_sha256": "36c4030af22d862f8cefeeb6ed7c997349409681569641ac818febc2aa322748",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "name": "执行状态",
+        "dataType": "SINGLE_SELECT",
+        "singleSelectOptions": [
+          {
+            "name": "待启用",
+            "color": "GRAY",
+            "description": ""
+          },
+          {
+            "name": "进行中",
+            "color": "GRAY",
+            "description": ""
+          },
+          {
+            "name": "待复核",
+            "color": "GRAY",
+            "description": ""
+          },
+          {
+            "name": "待用户验收",
+            "color": "GRAY",
+            "description": ""
+          },
+          {
+            "name": "返工",
+            "color": "GRAY",
+            "description": ""
+          },
+          {
+            "name": "阻塞",
+            "color": "GRAY",
+            "description": ""
+          },
+          {
+            "name": "已验收",
+            "color": "GRAY",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "started_utc": "2026-10-11T09:01:41.573874+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:01:42.644592+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-024.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 49,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:01:42.645510+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:01:44.806366+00:00",
+    "status": "PASS",
+    "snapshot": "check-024.json"
+  },
+  {
+    "sequence": 50,
+    "round": "first",
+    "kind": "mutation",
+    "action": "updateProjectV2ItemFieldValue",
+    "query_sha256": "e2ab0419b47359f5af9aded937ddfea1a85e121a77a3f9265da0c0afa97752d9",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_8ibQ",
+        "fieldId": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVk",
+        "value": {
+          "singleSelectOptionId": "e5e4c996"
+        }
+      }
+    },
+    "started_utc": "2026-10-11T09:01:44.817784+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:01:46.912793+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-025.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 51,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:01:46.913704+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:01:49.024850+00:00",
+    "status": "PASS",
+    "snapshot": "check-025.json"
+  },
+  {
+    "sequence": 52,
+    "round": "first",
+    "kind": "mutation",
+    "action": "updateProjectV2ItemFieldValue",
+    "query_sha256": "e2ab0419b47359f5af9aded937ddfea1a85e121a77a3f9265da0c0afa97752d9",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_8ibQ",
+        "fieldId": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVo",
+        "value": {
+          "singleSelectOptionId": "57b99552"
+        }
+      }
+    },
+    "started_utc": "2026-10-11T09:01:49.036298+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:01:50.073197+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-026.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 53,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:01:50.074331+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:01:52.342865+00:00",
+    "status": "PASS",
+    "snapshot": "check-026.json"
+  },
+  {
+    "sequence": 54,
+    "round": "first",
+    "kind": "mutation",
+    "action": "updateProjectV2ItemFieldValue",
+    "query_sha256": "e2ab0419b47359f5af9aded937ddfea1a85e121a77a3f9265da0c0afa97752d9",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_8jDA",
+        "fieldId": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVk",
+        "value": {
+          "singleSelectOptionId": "19026368"
+        }
+      }
+    },
+    "started_utc": "2026-10-11T09:01:52.354352+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:01:54.187049+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-027.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 55,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:01:54.188215+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:01:56.437032+00:00",
+    "status": "PASS",
+    "snapshot": "check-027.json"
+  },
+  {
+    "sequence": 56,
+    "round": "first",
+    "kind": "mutation",
+    "action": "updateProjectV2ItemFieldValue",
+    "query_sha256": "e2ab0419b47359f5af9aded937ddfea1a85e121a77a3f9265da0c0afa97752d9",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_8jDA",
+        "fieldId": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVo",
+        "value": {
+          "singleSelectOptionId": "99a53e6f"
+        }
+      }
+    },
+    "started_utc": "2026-10-11T09:01:56.448506+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:01:59.337210+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-028.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 57,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:01:59.338596+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:02:06.270934+00:00",
+    "status": "PASS",
+    "snapshot": "check-028.json"
+  },
+  {
+    "sequence": 58,
+    "round": "first",
+    "kind": "mutation",
+    "action": "updateProjectV2ItemFieldValue",
+    "query_sha256": "e2ab0419b47359f5af9aded937ddfea1a85e121a77a3f9265da0c0afa97752d9",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_8jnU",
+        "fieldId": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVk",
+        "value": {
+          "singleSelectOptionId": "d78cd45e"
+        }
+      }
+    },
+    "started_utc": "2026-10-11T09:02:06.283335+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:02:07.624735+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-029.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 59,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:02:07.625988+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:02:10.155138+00:00",
+    "status": "PASS",
+    "snapshot": "check-029.json"
+  },
+  {
+    "sequence": 60,
+    "round": "first",
+    "kind": "mutation",
+    "action": "updateProjectV2ItemFieldValue",
+    "query_sha256": "e2ab0419b47359f5af9aded937ddfea1a85e121a77a3f9265da0c0afa97752d9",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_8jnU",
+        "fieldId": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVo",
+        "value": {
+          "singleSelectOptionId": "441473f3"
+        }
+      }
+    },
+    "started_utc": "2026-10-11T09:02:10.167104+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:02:13.961708+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-030.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 61,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:02:13.962628+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:02:16.019883+00:00",
+    "status": "PASS",
+    "snapshot": "check-030.json"
+  },
+  {
+    "sequence": 62,
+    "round": "first",
+    "kind": "mutation",
+    "action": "updateProjectV2ItemFieldValue",
+    "query_sha256": "e2ab0419b47359f5af9aded937ddfea1a85e121a77a3f9265da0c0afa97752d9",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_8kWQ",
+        "fieldId": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVk",
+        "value": {
+          "singleSelectOptionId": "0d74f402"
+        }
+      }
+    },
+    "started_utc": "2026-10-11T09:02:16.031306+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:02:17.100689+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-031.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 63,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:02:17.101978+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:02:20.638907+00:00",
+    "status": "PASS",
+    "snapshot": "check-031.json"
+  },
+  {
+    "sequence": 64,
+    "round": "first",
+    "kind": "mutation",
+    "action": "updateProjectV2ItemFieldValue",
+    "query_sha256": "e2ab0419b47359f5af9aded937ddfea1a85e121a77a3f9265da0c0afa97752d9",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_8kWQ",
+        "fieldId": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVo",
+        "value": {
+          "singleSelectOptionId": "441473f3"
+        }
+      }
+    },
+    "started_utc": "2026-10-11T09:02:20.651514+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:02:21.690061+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-032.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 65,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:02:21.691408+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:02:24.152598+00:00",
+    "status": "PASS",
+    "snapshot": "check-032.json"
+  },
+  {
+    "sequence": 66,
+    "round": "first",
+    "kind": "mutation",
+    "action": "updateProjectV2ItemFieldValue",
+    "query_sha256": "e2ab0419b47359f5af9aded937ddfea1a85e121a77a3f9265da0c0afa97752d9",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_8kos",
+        "fieldId": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVk",
+        "value": {
+          "singleSelectOptionId": "15297359"
+        }
+      }
+    },
+    "started_utc": "2026-10-11T09:02:24.166367+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:02:25.254775+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-033.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 67,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:02:25.256143+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:02:27.192493+00:00",
+    "status": "PASS",
+    "snapshot": "check-033.json"
+  },
+  {
+    "sequence": 68,
+    "round": "first",
+    "kind": "mutation",
+    "action": "updateProjectV2ItemFieldValue",
+    "query_sha256": "e2ab0419b47359f5af9aded937ddfea1a85e121a77a3f9265da0c0afa97752d9",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_8kos",
+        "fieldId": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVo",
+        "value": {
+          "singleSelectOptionId": "441473f3"
+        }
+      }
+    },
+    "started_utc": "2026-10-11T09:02:27.204665+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:02:28.217438+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-034.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 69,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:02:28.218722+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:02:31.201845+00:00",
+    "status": "PASS",
+    "snapshot": "check-034.json"
+  },
+  {
+    "sequence": 70,
+    "round": "first",
+    "kind": "mutation",
+    "action": "updateProjectV2ItemFieldValue",
+    "query_sha256": "e2ab0419b47359f5af9aded937ddfea1a85e121a77a3f9265da0c0afa97752d9",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_8k7M",
+        "fieldId": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVk",
+        "value": {
+          "singleSelectOptionId": "6fcba04c"
+        }
+      }
+    },
+    "started_utc": "2026-10-11T09:02:31.214557+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:02:37.447311+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-035.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 71,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:02:37.448607+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:02:39.694886+00:00",
+    "status": "PASS",
+    "snapshot": "check-035.json"
+  },
+  {
+    "sequence": 72,
+    "round": "first",
+    "kind": "mutation",
+    "action": "updateProjectV2ItemFieldValue",
+    "query_sha256": "e2ab0419b47359f5af9aded937ddfea1a85e121a77a3f9265da0c0afa97752d9",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_8k7M",
+        "fieldId": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVo",
+        "value": {
+          "singleSelectOptionId": "441473f3"
+        }
+      }
+    },
+    "started_utc": "2026-10-11T09:02:39.707833+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:02:41.164713+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-036.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 73,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:02:41.166155+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:02:45.275764+00:00",
+    "status": "PASS",
+    "snapshot": "check-036.json"
+  },
+  {
+    "sequence": 74,
+    "round": "first",
+    "kind": "mutation",
+    "action": "updateProjectV2ItemFieldValue",
+    "query_sha256": "e2ab0419b47359f5af9aded937ddfea1a85e121a77a3f9265da0c0afa97752d9",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_8lIQ",
+        "fieldId": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVk",
+        "value": {
+          "singleSelectOptionId": "5919e889"
+        }
+      }
+    },
+    "started_utc": "2026-10-11T09:02:45.288212+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:02:46.793760+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-037.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 75,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:02:46.795037+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:02:49.056179+00:00",
+    "status": "PASS",
+    "snapshot": "check-037.json"
+  },
+  {
+    "sequence": 76,
+    "round": "first",
+    "kind": "mutation",
+    "action": "updateProjectV2ItemFieldValue",
+    "query_sha256": "e2ab0419b47359f5af9aded937ddfea1a85e121a77a3f9265da0c0afa97752d9",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_8lIQ",
+        "fieldId": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVo",
+        "value": {
+          "singleSelectOptionId": "441473f3"
+        }
+      }
+    },
+    "started_utc": "2026-10-11T09:02:49.068508+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:02:50.260715+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-038.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 77,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:02:50.261944+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:02:52.476431+00:00",
+    "status": "PASS",
+    "snapshot": "check-038.json"
+  },
+  {
+    "sequence": 78,
+    "round": "first",
+    "kind": "mutation",
+    "action": "updateProjectV2ItemFieldValue",
+    "query_sha256": "e2ab0419b47359f5af9aded937ddfea1a85e121a77a3f9265da0c0afa97752d9",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_8ln0",
+        "fieldId": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVk",
+        "value": {
+          "singleSelectOptionId": "88cfae5a"
+        }
+      }
+    },
+    "started_utc": "2026-10-11T09:02:52.488673+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:02:53.668187+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-039.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 79,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:02:53.669675+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:02:56.111636+00:00",
+    "status": "PASS",
+    "snapshot": "check-039.json"
+  },
+  {
+    "sequence": 80,
+    "round": "first",
+    "kind": "mutation",
+    "action": "updateProjectV2ItemFieldValue",
+    "query_sha256": "e2ab0419b47359f5af9aded937ddfea1a85e121a77a3f9265da0c0afa97752d9",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_8ln0",
+        "fieldId": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVo",
+        "value": {
+          "singleSelectOptionId": "441473f3"
+        }
+      }
+    },
+    "started_utc": "2026-10-11T09:02:56.124932+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:02:57.270632+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-040.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 81,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:02:57.272229+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:02:59.167539+00:00",
+    "status": "PASS",
+    "snapshot": "check-040.json"
+  },
+  {
+    "sequence": 82,
+    "round": "first",
+    "kind": "mutation",
+    "action": "updateProjectV2ItemFieldValue",
+    "query_sha256": "e2ab0419b47359f5af9aded937ddfea1a85e121a77a3f9265da0c0afa97752d9",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_8l6I",
+        "fieldId": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVk",
+        "value": {
+          "singleSelectOptionId": "6eb0da18"
+        }
+      }
+    },
+    "started_utc": "2026-10-11T09:02:59.180422+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:03:00.907013+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-041.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 83,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:03:00.908244+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:03:02.808302+00:00",
+    "status": "PASS",
+    "snapshot": "check-041.json"
+  },
+  {
+    "sequence": 84,
+    "round": "first",
+    "kind": "mutation",
+    "action": "updateProjectV2ItemFieldValue",
+    "query_sha256": "e2ab0419b47359f5af9aded937ddfea1a85e121a77a3f9265da0c0afa97752d9",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_8l6I",
+        "fieldId": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVo",
+        "value": {
+          "singleSelectOptionId": "441473f3"
+        }
+      }
+    },
+    "started_utc": "2026-10-11T09:03:02.822000+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:03:04.099971+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-042.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 85,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:03:04.101494+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:03:06.450119+00:00",
+    "status": "PASS",
+    "snapshot": "check-042.json"
+  },
+  {
+    "sequence": 86,
+    "round": "first",
+    "kind": "mutation",
+    "action": "updateProjectV2ItemFieldValue",
+    "query_sha256": "e2ab0419b47359f5af9aded937ddfea1a85e121a77a3f9265da0c0afa97752d9",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_8mLM",
+        "fieldId": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVk",
+        "value": {
+          "singleSelectOptionId": "2a95fe7c"
+        }
+      }
+    },
+    "started_utc": "2026-10-11T09:03:06.463223+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:03:08.022880+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-043.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 87,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:03:08.024767+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:03:09.895379+00:00",
+    "status": "PASS",
+    "snapshot": "check-043.json"
+  },
+  {
+    "sequence": 88,
+    "round": "first",
+    "kind": "mutation",
+    "action": "updateProjectV2ItemFieldValue",
+    "query_sha256": "e2ab0419b47359f5af9aded937ddfea1a85e121a77a3f9265da0c0afa97752d9",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_8mLM",
+        "fieldId": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVo",
+        "value": {
+          "singleSelectOptionId": "441473f3"
+        }
+      }
+    },
+    "started_utc": "2026-10-11T09:03:09.908463+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:03:11.015221+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-044.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 89,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:03:11.016936+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:03:13.477394+00:00",
+    "status": "PASS",
+    "snapshot": "check-044.json"
+  },
+  {
+    "sequence": 90,
+    "round": "first",
+    "kind": "mutation",
+    "action": "updateProjectV2ItemFieldValue",
+    "query_sha256": "e2ab0419b47359f5af9aded937ddfea1a85e121a77a3f9265da0c0afa97752d9",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_8mdA",
+        "fieldId": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVk",
+        "value": {
+          "singleSelectOptionId": "22c82468"
+        }
+      }
+    },
+    "started_utc": "2026-10-11T09:03:13.491314+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:03:14.825154+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-045.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 91,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:03:14.827082+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:03:16.932823+00:00",
+    "status": "PASS",
+    "snapshot": "check-045.json"
+  },
+  {
+    "sequence": 92,
+    "round": "first",
+    "kind": "mutation",
+    "action": "updateProjectV2ItemFieldValue",
+    "query_sha256": "e2ab0419b47359f5af9aded937ddfea1a85e121a77a3f9265da0c0afa97752d9",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_8mdA",
+        "fieldId": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVo",
+        "value": {
+          "singleSelectOptionId": "441473f3"
+        }
+      }
+    },
+    "started_utc": "2026-10-11T09:03:16.945863+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:03:18.549554+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-046.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 93,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:03:18.550971+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:03:20.539300+00:00",
+    "status": "PASS",
+    "snapshot": "check-046.json"
+  },
+  {
+    "sequence": 94,
+    "round": "first",
+    "kind": "mutation",
+    "action": "updateProjectV2ItemFieldValue",
+    "query_sha256": "e2ab0419b47359f5af9aded937ddfea1a85e121a77a3f9265da0c0afa97752d9",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_8mwI",
+        "fieldId": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVk",
+        "value": {
+          "singleSelectOptionId": "2992274b"
+        }
+      }
+    },
+    "started_utc": "2026-10-11T09:03:20.552626+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:03:25.272503+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-047.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 95,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:03:25.274168+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:03:27.656936+00:00",
+    "status": "PASS",
+    "snapshot": "check-047.json"
+  },
+  {
+    "sequence": 96,
+    "round": "first",
+    "kind": "mutation",
+    "action": "updateProjectV2ItemFieldValue",
+    "query_sha256": "e2ab0419b47359f5af9aded937ddfea1a85e121a77a3f9265da0c0afa97752d9",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_8mwI",
+        "fieldId": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVo",
+        "value": {
+          "singleSelectOptionId": "441473f3"
+        }
+      }
+    },
+    "started_utc": "2026-10-11T09:03:27.670952+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:03:29.347227+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-048.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 97,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:03:29.348633+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:03:31.989731+00:00",
+    "status": "PASS",
+    "snapshot": "check-048.json"
+  },
+  {
+    "sequence": 98,
+    "round": "first",
+    "kind": "mutation",
+    "action": "updateProjectV2ItemFieldValue",
+    "query_sha256": "e2ab0419b47359f5af9aded937ddfea1a85e121a77a3f9265da0c0afa97752d9",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_8nCU",
+        "fieldId": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVk",
+        "value": {
+          "singleSelectOptionId": "f1cdee5a"
+        }
+      }
+    },
+    "started_utc": "2026-10-11T09:03:32.003331+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:03:33.452093+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-049.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 99,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:03:33.453760+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:03:35.546743+00:00",
+    "status": "PASS",
+    "snapshot": "check-049.json"
+  },
+  {
+    "sequence": 100,
+    "round": "first",
+    "kind": "mutation",
+    "action": "updateProjectV2ItemFieldValue",
+    "query_sha256": "e2ab0419b47359f5af9aded937ddfea1a85e121a77a3f9265da0c0afa97752d9",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_8nCU",
+        "fieldId": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVo",
+        "value": {
+          "singleSelectOptionId": "441473f3"
+        }
+      }
+    },
+    "started_utc": "2026-10-11T09:03:35.560500+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:03:37.665842+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-050.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 101,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:03:37.667632+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:03:39.915969+00:00",
+    "status": "PASS",
+    "snapshot": "check-050.json"
+  },
+  {
+    "sequence": 102,
+    "round": "first",
+    "kind": "mutation",
+    "action": "updateProjectV2ItemFieldValue",
+    "query_sha256": "e2ab0419b47359f5af9aded937ddfea1a85e121a77a3f9265da0c0afa97752d9",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_8nQw",
+        "fieldId": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVk",
+        "value": {
+          "singleSelectOptionId": "7463c6f6"
+        }
+      }
+    },
+    "started_utc": "2026-10-11T09:03:39.929934+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:03:41.217972+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-051.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 103,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:03:41.219464+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:03:47.430518+00:00",
+    "status": "PASS",
+    "snapshot": "check-051.json"
+  },
+  {
+    "sequence": 104,
+    "round": "first",
+    "kind": "mutation",
+    "action": "updateProjectV2ItemFieldValue",
+    "query_sha256": "e2ab0419b47359f5af9aded937ddfea1a85e121a77a3f9265da0c0afa97752d9",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_8nQw",
+        "fieldId": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVo",
+        "value": {
+          "singleSelectOptionId": "441473f3"
+        }
+      }
+    },
+    "started_utc": "2026-10-11T09:03:47.444392+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:03:48.879452+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-052.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 105,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:03:48.881197+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:03:51.267435+00:00",
+    "status": "PASS",
+    "snapshot": "check-052.json"
+  },
+  {
+    "sequence": 106,
+    "round": "first",
+    "kind": "mutation",
+    "action": "updateProjectV2ItemFieldValue",
+    "query_sha256": "e2ab0419b47359f5af9aded937ddfea1a85e121a77a3f9265da0c0afa97752d9",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_8nno",
+        "fieldId": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVk",
+        "value": {
+          "singleSelectOptionId": "c17580c1"
+        }
+      }
+    },
+    "started_utc": "2026-10-11T09:03:51.281506+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:03:52.251061+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-053.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 107,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:03:52.252507+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:03:54.582703+00:00",
+    "status": "PASS",
+    "snapshot": "check-053.json"
+  },
+  {
+    "sequence": 108,
+    "round": "first",
+    "kind": "mutation",
+    "action": "updateProjectV2ItemFieldValue",
+    "query_sha256": "e2ab0419b47359f5af9aded937ddfea1a85e121a77a3f9265da0c0afa97752d9",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "itemId": "PVTI_lAHOA3_tu84BmcLJzg_8nno",
+        "fieldId": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVo",
+        "value": {
+          "singleSelectOptionId": "441473f3"
+        }
+      }
+    },
+    "started_utc": "2026-10-11T09:03:54.597407+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:03:55.984104+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-054.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 109,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:03:55.986204+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:03:58.097497+00:00",
+    "status": "PASS",
+    "snapshot": "check-054.json"
+  },
+  {
+    "sequence": 110,
+    "round": "first",
+    "kind": "mutation",
+    "action": "createProjectV2View",
+    "query_sha256": "644efe81bb58cf385176f81475a82acdc11689f41c7955aa1eef15719a92c5d7",
+    "variables": {
+      "input": {
+        "projectId": "PVT_kwHOA3_tu84BmcLJ",
+        "name": "当前计划",
+        "layout": "TABLE_LAYOUT",
+        "configuration": {
+          "visibleFieldIds": [
+            "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+            "PVTSSF_lAHOA3_tu84BmcLJzhlLbVk",
+            "PVTSSF_lAHOA3_tu84BmcLJzhlLbVo"
+          ]
+        }
+      }
+    },
+    "started_utc": "2026-10-11T09:03:58.111389+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:03:59.293876+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-055.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 111,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:03:59.296237+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:04:01.328283+00:00",
+    "status": "PASS",
+    "snapshot": "check-055.json"
+  },
+  {
+    "sequence": 112,
+    "round": "first",
+    "kind": "mutation",
+    "action": "updateProjectV2View",
+    "query_sha256": "9a3eb1a77bc5e9a16c608404562662f13c8c69847955b5c8c48ac10ffd67c33f",
+    "variables": {
+      "input": {
+        "viewId": "PVTV_lAHOA3_tu84BmcLJzgMAjcw",
+        "filter": "repo:Yredxin/YDental is:issue 阶段:PLAN,S00,S01,S02,S03,S04,S05,S06,S07,S08,S09,S10,S11,S12,S13"
+      }
+    },
+    "started_utc": "2026-10-11T09:04:01.342332+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:04:03.597589+00:00",
+    "status": "PASS",
+    "immediate_readback": "check-056.json",
+    "expected_state_match": true
+  },
+  {
+    "sequence": 113,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:04:03.599439+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:04:05.517164+00:00",
+    "status": "PASS",
+    "snapshot": "check-056.json"
+  },
+  {
+    "sequence": 114,
+    "round": "first",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:04:05.530422+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:04:07.724250+00:00",
+    "status": "PASS",
+    "snapshot": "project-after.json"
+  },
+  {
+    "sequence": 115,
+    "round": "second",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:04:13.871486+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:04:20.650779+00:00",
+    "status": "PASS",
+    "snapshot": "second-start.json"
+  },
+  {
+    "sequence": 116,
+    "round": "second",
+    "kind": "query",
+    "action": "full read / schema",
+    "query_sha256": "391c7bff0eeb156a9f6dc6281e005b638e1ae03bc08de985e8d5d16d8eead6db",
+    "variables": {},
+    "started_utc": "2026-10-11T09:04:20.663953+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:04:23.798842+00:00",
+    "status": "PASS",
+    "snapshot": "project-second-check.json"
+  },
+  {
+    "sequence": 117,
+    "round": "second",
+    "kind": "query",
+    "action": "read-only server-side current-plan filter verification",
+    "query_sha256": "b1460c4c8f703b01933991287ed4a31a709fc2f51887cf6f6fdd46aa54c1606e",
+    "variables": {
+      "filter": "repo:Yredxin/YDental is:issue 阶段:PLAN,S00,S01,S02,S03,S04,S05,S06,S07,S08,S09,S10,S11,S12,S13"
+    },
+    "started_utc": "2026-10-11T09:04:26.968169+00:00",
+    "exit_code": 0,
+    "finished_utc": "2026-10-11T09:04:29.136800+00:00",
+    "status": "PASS"
+  }
+]

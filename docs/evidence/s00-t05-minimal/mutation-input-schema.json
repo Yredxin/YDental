@@ -1,0 +1,454 @@
+[
+  {
+    "types": [
+      "ArchiveProjectV2ItemInput",
+      "CreateProjectV2FieldInput"
+    ],
+    "query": "query { t0:__type(name:\"ArchiveProjectV2ItemInput\") { inputFields { name type { kind name ofType { kind name ofType { kind name } } } } } t1:__type(name:\"CreateProjectV2FieldInput\") { inputFields { name type { kind name ofType { kind name ofType { kind name } } } } } }",
+    "data": {
+      "data": {
+        "t0": {
+          "inputFields": [
+            {
+              "name": "clientMutationId",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            {
+              "name": "projectId",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "name": "itemId",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              }
+            }
+          ]
+        },
+        "t1": {
+          "inputFields": [
+            {
+              "name": "clientMutationId",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            {
+              "name": "projectId",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "name": "dataType",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "ENUM",
+                  "name": "ProjectV2CustomFieldType",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "name": "name",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "name": "singleSelectOptions",
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "ProjectV2SingleSelectFieldOptionInput"
+                  }
+                }
+              }
+            },
+            {
+              "name": "multiSelectOptions",
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "ProjectV2MultiSelectFieldOptionInput"
+                  }
+                }
+              }
+            },
+            {
+              "name": "iterationConfiguration",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "ProjectV2IterationFieldConfigurationInput",
+                "ofType": null
+              }
+            }
+          ]
+        }
+      }
+    },
+    "exit_code": 0,
+    "utc": "2026-10-11T08:57:55.024510+00:00"
+  },
+  {
+    "types": [
+      "ProjectV2SingleSelectFieldOptionInput",
+      "UpdateProjectV2ItemFieldValueInput"
+    ],
+    "query": "query { t0:__type(name:\"ProjectV2SingleSelectFieldOptionInput\") { inputFields { name type { kind name ofType { kind name ofType { kind name } } } } } t1:__type(name:\"UpdateProjectV2ItemFieldValueInput\") { inputFields { name type { kind name ofType { kind name ofType { kind name } } } } } }",
+    "data": {
+      "data": {
+        "t0": {
+          "inputFields": [
+            {
+              "name": "id",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            {
+              "name": "name",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "name": "color",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "ENUM",
+                  "name": "ProjectV2SingleSelectFieldOptionColor",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "name": "description",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            }
+          ]
+        },
+        "t1": {
+          "inputFields": [
+            {
+              "name": "clientMutationId",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            {
+              "name": "projectId",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "name": "itemId",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "name": "fieldId",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "name": "value",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "ProjectV2FieldValue",
+                  "ofType": null
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "exit_code": 0,
+    "utc": "2026-10-11T08:57:57.303212+00:00"
+  },
+  {
+    "types": [
+      "ProjectV2FieldValue",
+      "CreateProjectV2ViewInput"
+    ],
+    "query": "query { t0:__type(name:\"ProjectV2FieldValue\") { inputFields { name type { kind name ofType { kind name ofType { kind name } } } } } t1:__type(name:\"CreateProjectV2ViewInput\") { inputFields { name type { kind name ofType { kind name ofType { kind name } } } } } }",
+    "data": {
+      "data": {
+        "t0": {
+          "inputFields": [
+            {
+              "name": "text",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            {
+              "name": "number",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Float",
+                "ofType": null
+              }
+            },
+            {
+              "name": "date",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Date",
+                "ofType": null
+              }
+            },
+            {
+              "name": "singleSelectOptionId",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            {
+              "name": "multiSelectOptionIds",
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String"
+                  }
+                }
+              }
+            },
+            {
+              "name": "iterationId",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          ]
+        },
+        "t1": {
+          "inputFields": [
+            {
+              "name": "clientMutationId",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            {
+              "name": "projectId",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "name": "name",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "name": "layout",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "ENUM",
+                  "name": "ProjectV2ViewLayout",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "name": "configuration",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "ProjectV2ViewConfigurationInput",
+                "ofType": null
+              }
+            }
+          ]
+        }
+      }
+    },
+    "exit_code": 0,
+    "utc": "2026-10-11T08:58:00.233030+00:00"
+  },
+  {
+    "types": [
+      "UpdateProjectV2ViewInput"
+    ],
+    "query": "query { t0:__type(name:\"UpdateProjectV2ViewInput\") { inputFields { name type { kind name ofType { kind name ofType { kind name } } } } } }",
+    "data": {
+      "data": {
+        "t0": {
+          "inputFields": [
+            {
+              "name": "clientMutationId",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            {
+              "name": "viewId",
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              }
+            },
+            {
+              "name": "name",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            {
+              "name": "layout",
+              "type": {
+                "kind": "ENUM",
+                "name": "ProjectV2ViewLayout",
+                "ofType": null
+              }
+            },
+            {
+              "name": "filter",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            {
+              "name": "configuration",
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "ProjectV2ViewConfigurationInput",
+                "ofType": null
+              }
+            }
+          ]
+        }
+      }
+    },
+    "exit_code": 0,
+    "utc": "2026-10-11T08:58:01.317937+00:00"
+  }
+]

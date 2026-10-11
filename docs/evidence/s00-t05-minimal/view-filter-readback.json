@@ -1,0 +1,107 @@
+{
+  "utc": "2026-10-11T09:04:29.141178+00:00",
+  "query": "query($filter:String!) { node(id:\"PVT_kwHOA3_tu84BmcLJ\") { ... on ProjectV2 { items(first:100,archivedStates:[NOT_ARCHIVED],query:$filter) { totalCount pageInfo { hasNextPage endCursor } nodes { id content { ... on Issue { number } } } } } } }",
+  "variables": {
+    "filter": "repo:Yredxin/YDental is:issue 阶段:PLAN,S00,S01,S02,S03,S04,S05,S06,S07,S08,S09,S10,S11,S12,S13"
+  },
+  "exit_code": 0,
+  "data": {
+    "totalCount": 15,
+    "pageInfo": {
+      "hasNextPage": false,
+      "endCursor": "Y3Vyc29yOnYyOpK5MDAwMDAwMDAuMDI3MDI3MDI3MDI3MDI3MM4P_J56"
+    },
+    "nodes": [
+      {
+        "id": "PVTI_lAHOA3_tu84BmcLJzg_8ibQ",
+        "content": {
+          "number": 23
+        }
+      },
+      {
+        "id": "PVTI_lAHOA3_tu84BmcLJzg_8jDA",
+        "content": {
+          "number": 24
+        }
+      },
+      {
+        "id": "PVTI_lAHOA3_tu84BmcLJzg_8jnU",
+        "content": {
+          "number": 25
+        }
+      },
+      {
+        "id": "PVTI_lAHOA3_tu84BmcLJzg_8kWQ",
+        "content": {
+          "number": 26
+        }
+      },
+      {
+        "id": "PVTI_lAHOA3_tu84BmcLJzg_8kos",
+        "content": {
+          "number": 27
+        }
+      },
+      {
+        "id": "PVTI_lAHOA3_tu84BmcLJzg_8k7M",
+        "content": {
+          "number": 28
+        }
+      },
+      {
+        "id": "PVTI_lAHOA3_tu84BmcLJzg_8lIQ",
+        "content": {
+          "number": 29
+        }
+      },
+      {
+        "id": "PVTI_lAHOA3_tu84BmcLJzg_8ln0",
+        "content": {
+          "number": 30
+        }
+      },
+      {
+        "id": "PVTI_lAHOA3_tu84BmcLJzg_8l6I",
+        "content": {
+          "number": 31
+        }
+      },
+      {
+        "id": "PVTI_lAHOA3_tu84BmcLJzg_8mLM",
+        "content": {
+          "number": 32
+        }
+      },
+      {
+        "id": "PVTI_lAHOA3_tu84BmcLJzg_8mdA",
+        "content": {
+          "number": 33
+        }
+      },
+      {
+        "id": "PVTI_lAHOA3_tu84BmcLJzg_8mwI",
+        "content": {
+          "number": 34
+        }
+      },
+      {
+        "id": "PVTI_lAHOA3_tu84BmcLJzg_8nCU",
+        "content": {
+          "number": 35
+        }
+      },
+      {
+        "id": "PVTI_lAHOA3_tu84BmcLJzg_8nQw",
+        "content": {
+          "number": 36
+        }
+      },
+      {
+        "id": "PVTI_lAHOA3_tu84BmcLJzg_8nno",
+        "content": {
+          "number": 37
+        }
+      }
+    ]
+  }
+}
