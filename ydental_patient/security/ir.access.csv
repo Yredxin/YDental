@@ -1,4 +1,4 @@
-id,name,model_id,group_id/id,operation,domain
+id,name,model_id/id,group_id/id,operation,domain
 ydental_patient_read,ydental.patient.read,model_ydental_patient,ydental_base.ydental_base_group_user,r,
 ydental_patient_number_read,ydental.patient.number.read,model_ydental_patient_number,ydental_base.ydental_base_group_user,r,
 ydental_patient_relation_read,ydental.patient.relation.read,model_ydental_patient_relation,ydental_base.ydental_base_group_user,r,
