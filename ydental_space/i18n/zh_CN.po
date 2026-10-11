@@ -674,3 +674,9 @@ msgstr "version_conflict: 新配置的初始版本必须为1。"
 #: code:addons/ydental_space/models/ydental_space_floor.py:0
 msgid "version_conflict: The floor changed. Reload before saving."
 msgstr "version_conflict: 楼层已变更，请重新加载后保存。"
+
+#. module: ydental_space
+#. odoo-python
+#: code:addons/ydental_space/models/ydental_space_version.py:0
+msgid "access_denied: Derived space fields cannot be written."
+msgstr "access_denied: 不允许直接写入派生字段或系统元数据。"

@@ -159,6 +159,10 @@ class TestSpace(BaseCommon):
             self.station.write({'ydental_add_capability_ids': [(1, self.capabilities[0].id, {'name': 'Attack'})],
                 'ydental_version': self.station.ydental_version})
         self.assertEqual(self.capabilities[0].name, original)
+        for field, value in [('ydental_capability_ids', [fields.Command.set(self.capabilities.ids)]),
+                             ('ydental_queue_area_id', self.child.id), ('write_uid', self.reader.id)]:
+            with self.assertRaises(AccessError):
+                self.station.write({field: value, 'ydental_version': self.station.ydental_version})
 
     def test_polygon_and_finite_geometry(self):
         values = {'name': 'Polygon', 'ydental_store_id': self.stores[0].id, 'ydental_floor_id': self.floor.id,

@@ -46,12 +46,20 @@ class YDentalSpaceVersion(models.AbstractModel):
         The hook runs before any change, including name/geometry and archiving.
         """
 
+    def _check_space_values(self, values):
+        protected = {'id', 'create_uid', 'create_date', 'write_uid', 'write_date'}
+        if protected & values.keys() or any(
+            key in self._fields and self._fields[key].compute for key in values
+        ):
+            raise AccessError(self.env._('access_denied: Derived space fields cannot be written.'))
+
     @api.model_create_multi
     def create(self, vals_list):
         self._space_authorize('create')
         self._space_lock()
         vals_list = [dict(values) for values in vals_list]
         for values in vals_list:
+            self._check_space_values(values)
             if 'ydental_category' in self._fields:
                 if values.get('ydental_category', 'space') != 'space':
                     raise AccessError(self.env._('access_denied: Space configuration requires space authorization.'))
@@ -75,6 +83,7 @@ class YDentalSpaceVersion(models.AbstractModel):
     def write(self, vals):
         self._space_authorize('write')
         self._space_lock()
+        self._check_space_values(vals)
         expected = vals.get('ydental_version')
         if type(expected) is not int or any(record.ydental_version != expected for record in self):
             raise UserError(self.env._('version_conflict: Configuration changed. Reload before saving.'))

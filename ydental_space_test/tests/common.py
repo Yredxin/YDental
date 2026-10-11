@@ -29,7 +29,7 @@ def setup_space(cls):
     cls.admin._grant(cls.writer.id, cls.stores[1].id, {'space': 'read'})
     cls.admin._grant(cls.reader.id, cls.stores[0].id, {'space': 'read'})
     cls.capabilities = root['ydental.access.capability'].create([
-        {'name': label, 'ydental_code': 's02_' + code}
+        {'name': label, 'ydental_code': 's02_tc_' + code}
         for code, label in [('clean', 'Cleaning'), ('fill', 'Filling'), ('panorama', 'Panorama'), ('cbct', 'CBCT')]
     ])
     cls.floor = root['ydental.space.floor'].create({'name': 'S02 Second floor', 'ydental_store_id': cls.stores[0].id})
