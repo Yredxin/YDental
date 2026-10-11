@@ -38,7 +38,7 @@ class TestPatientRework(TransactionCase):
             self.assertEqual(partners.search_read(domain, ['name', 'phone', 'email']), [])
             self.assertFalse(partners.name_search('S04 Protected', domain=domain))
             self.assertEqual(partners.search_count(domain), 0)
-            self.assertEqual(partners.read_group(domain, ['id:count'], ['id']), [])
+            self.assertEqual(partners.read_group(domain, ['id'], ['__count']), [])
             self.assertEqual(partners._read_group(domain, ['id'], ['__count']), [])
         ordinary = self.root['res.partner'].create({'name': 'S04 Ordinary Contact', 'email': 'ordinary@example.invalid'})
         self.assertEqual(partners.browse(ordinary.id).read(['name'])[0]['name'], ordinary.name)
@@ -53,7 +53,7 @@ class TestPatientRework(TransactionCase):
         self.assertEqual(len(protected.export_data(['name'])['datas']), 2)
         with self.assertRaises(AccessError):
             protected.with_env(self.reader.env).export_data(['name'])
-        self.admin._grant(self.users['frontdesk'].id, self.stores[0].id, {'export': 'write'})
+        self.admin._grant(self.users['frontdesk'].id, self.stores[0].id, {'frontdesk': 'none', 'export': 'write'})
         with self.assertRaises(AccessError):
             protected.read(['name', 'phone', 'email'])
         self.assertFalse(self.service.env['res.partner'].search([('id', 'in', protected.ids)]))

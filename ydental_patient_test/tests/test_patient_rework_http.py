@@ -30,7 +30,7 @@ class TestPatientReworkHTTP(TestPatientHTTP):
             domain = [('id', 'in', partners.ids), (field, 'ilike', value)]
             for method, args in [('search', [domain]), ('search_read', [domain, ['name', 'phone', 'email']]),
                                  ('name_search', ['S04 HTTP', domain]), ('search_count', [domain]),
-                                 ('read_group', [domain, ['id:count'], ['id']])]:
+                                 ('read_group', [domain, ['id'], ['__count']])]:
                 result = self.rpc('res.partner', method, args)
                 self.assertIn(result.get('result'), ([], 0), result)
         self.assertEqual(self.rpc('res.partner', 'read', [[ordinary.id], ['name']])['result'][0]['name'], ordinary.name)
@@ -39,7 +39,7 @@ class TestPatientReworkHTTP(TestPatientHTTP):
         partners = self.partners()
         self.select()
         self.assertEqual(len(self.rpc('res.partner', 'read', [partners.ids, ['name', 'phone', 'email']])['result']), 2)
-        self.admin._grant(self.users['frontdesk'].id, self.stores[0].id, {'export': 'write'})
+        self.admin._grant(self.users['frontdesk'].id, self.stores[0].id, {'frontdesk': 'none', 'export': 'write'})
         self.assertIn('error', self.rpc('res.partner', 'read', [partners.ids, ['name', 'phone', 'email']]))
         self.assertEqual(self.rpc('res.partner', 'search_count', [[('id', 'in', partners.ids)]])['result'], 0)
         for partner in partners:
