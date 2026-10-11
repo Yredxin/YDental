@@ -1,0 +1,8 @@
+{
+  "tested_commit": "88abd4f",
+  "status": "FAIL",
+  "exit_code": 2,
+  "reason": "Publication secret guard treated public preference cookie values as secrets and stopped safely; no browser-ui.json published. Repaired in 0787ec8 and all six checks rerun.",
+  "raw_exception": "Not published; verifier only emitted RuntimeError",
+  "screenshots": "Intermediate images superseded by a complete fresh 0787ec8 run; private runtime directories retained."
+}

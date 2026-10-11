@@ -1,0 +1,185 @@
+{
+  "scope": "S00-B browser UI supplement only",
+  "tested_commit": "8a00eb22dfca42d9179962de3e3d9f1ce27294ec",
+  "database": "ydental_s00b_test_20261011073303_8137af81",
+  "started_utc": "2026-10-11T07:58:13.643775+00:00",
+  "playwright_version": "1.63.0",
+  "viewport": {
+    "width": 1280,
+    "height": 900
+  },
+  "launch_attempts": [
+    {
+      "browser_type": "chromium",
+      "time_utc": "2026-10-11T07:58:13.943189+00:00",
+      "headless": true,
+      "sandbox": "explicitly enabled",
+      "status": "BLOCKED",
+      "error_type": "TargetClosedError",
+      "reason": "No usable sandbox",
+      "private_log_sha256": "c7ae3cd2b5bf7aa23a0411e89846c08c1a475737becebc00a4d3807aeb02ff40"
+    },
+    {
+      "browser_type": "firefox",
+      "time_utc": "2026-10-11T07:58:14.095493+00:00",
+      "headless": true,
+      "sandbox": "default; no security overrides",
+      "status": "PASS",
+      "browser_version": "155.0"
+    }
+  ],
+  "checks": [
+    {
+      "tested_commit": "8a00eb22dfca42d9179962de3e3d9f1ce27294ec",
+      "browser_type": "firefox",
+      "browser_version": "155.0",
+      "playwright_version": "1.63.0",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "case": "authorized_zh",
+      "time_utc": "2026-10-11T07:58:14.516812+00:00",
+      "status": "FAIL",
+      "console_error": [
+        "Service worker registration failed, error: JSHandle@object",
+        "[JavaScript Error: \"downloadable font: download failed (font-family: \"Material Symbols Outlined\" style:normal weight:400 width:100 src index:0): status=2152398850 source: http://127.0.0.1:18079/web/assets/ed6b35f/web.material_symbols_outlined.min.woff2\"]"
+      ],
+      "pageerror": [],
+      "url": "http://127.0.0.1:18079/ydental",
+      "http_final_status": 200,
+      "title": "Dental | YDental",
+      "screenshot": "docs/evidence/s00-b/browser-authorized-zh.png",
+      "screenshot_sha256": "888c9198e3c522a5f4417198aaaadc08aef226c1b1adbfed4d160cf71f2e0938",
+      "secret_check": "visible text, password fields and PNG byte scan passed; visual review pending",
+      "failed_stage": "rendered application menu",
+      "error_type": "TimeoutError",
+      "finished_utc": "2026-10-11T07:58:51.493339+00:00"
+    },
+    {
+      "tested_commit": "8a00eb22dfca42d9179962de3e3d9f1ce27294ec",
+      "browser_type": "firefox",
+      "browser_version": "155.0",
+      "playwright_version": "1.63.0",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "title": "Dental | YDental",
+      "screenshot": "docs/evidence/s00-b/browser-authorized-zh.png",
+      "screenshot_sha256": "888c9198e3c522a5f4417198aaaadc08aef226c1b1adbfed4d160cf71f2e0938",
+      "case": "download_a4",
+      "time_utc": "2026-10-11T07:58:16.698704+00:00",
+      "status": "PASS",
+      "url": "http://127.0.0.1:18079/ydental/sample/a4",
+      "console_error": [],
+      "pageerror": [],
+      "http_final_status": 200,
+      "download_event": true,
+      "pdf_magic": true,
+      "bytes": 16500,
+      "sha256": "693ed4b6377bb3496cbb055a0a7cd6e5064331b73517a3c3f93be9f817e76496"
+    },
+    {
+      "tested_commit": "8a00eb22dfca42d9179962de3e3d9f1ce27294ec",
+      "browser_type": "firefox",
+      "browser_version": "155.0",
+      "playwright_version": "1.63.0",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "title": "Dental | YDental",
+      "screenshot": "docs/evidence/s00-b/browser-authorized-zh.png",
+      "screenshot_sha256": "888c9198e3c522a5f4417198aaaadc08aef226c1b1adbfed4d160cf71f2e0938",
+      "case": "download_narrow",
+      "time_utc": "2026-10-11T07:58:18.835092+00:00",
+      "status": "PASS",
+      "url": "http://127.0.0.1:18079/ydental/sample/narrow",
+      "console_error": [],
+      "pageerror": [],
+      "http_final_status": 200,
+      "download_event": true,
+      "pdf_magic": true,
+      "bytes": 16511,
+      "sha256": "417c3547b60f7f25bc1832d5d85433d347833da92d8b8e1e757bd53d8021d921"
+    },
+    {
+      "tested_commit": "8a00eb22dfca42d9179962de3e3d9f1ce27294ec",
+      "browser_type": "firefox",
+      "browser_version": "155.0",
+      "playwright_version": "1.63.0",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "case": "authorized_en",
+      "time_utc": "2026-10-11T07:58:51.505195+00:00",
+      "status": "FAIL",
+      "console_error": [
+        "Service worker registration failed, error: JSHandle@object"
+      ],
+      "pageerror": [],
+      "url": "http://127.0.0.1:18079/ydental",
+      "http_final_status": 200,
+      "title": "Dental | YDental",
+      "screenshot": "docs/evidence/s00-b/browser-authorized-en.png",
+      "screenshot_sha256": "1f37a5ac20463d5b76577a03f51636c4f6bcb6e7c1ed1f7a377edbf0364d0d35",
+      "secret_check": "visible text, password fields and PNG byte scan passed; visual review pending",
+      "failed_stage": "rendered application menu",
+      "error_type": "TimeoutError",
+      "finished_utc": "2026-10-11T07:59:23.181451+00:00"
+    },
+    {
+      "tested_commit": "8a00eb22dfca42d9179962de3e3d9f1ce27294ec",
+      "browser_type": "firefox",
+      "browser_version": "155.0",
+      "playwright_version": "1.63.0",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "case": "unauthorized",
+      "time_utc": "2026-10-11T07:59:23.192055+00:00",
+      "status": "PASS",
+      "console_error": [],
+      "pageerror": [],
+      "url": "http://127.0.0.1:18079/ydental",
+      "http_final_status": 403,
+      "title": "403 Forbidden",
+      "screenshot": "docs/evidence/s00-b/browser-unauthorized.png",
+      "screenshot_sha256": "7c4d9ad74bfac2208a1032490853e2aa523e89ec1e997387f6c16c537a80945f",
+      "secret_check": "visible text, password fields and PNG byte scan passed; visual review pending",
+      "finished_utc": "2026-10-11T07:59:24.399827+00:00"
+    },
+    {
+      "tested_commit": "8a00eb22dfca42d9179962de3e3d9f1ce27294ec",
+      "browser_type": "firefox",
+      "browser_version": "155.0",
+      "playwright_version": "1.63.0",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "case": "portal",
+      "time_utc": "2026-10-11T07:59:24.408687+00:00",
+      "status": "PASS",
+      "console_error": [],
+      "pageerror": [],
+      "url": "http://127.0.0.1:18079/ydental",
+      "http_final_status": 403,
+      "title": "403 Forbidden",
+      "screenshot": "docs/evidence/s00-b/browser-portal.png",
+      "screenshot_sha256": "7c4d9ad74bfac2208a1032490853e2aa523e89ec1e997387f6c16c537a80945f",
+      "secret_check": "visible text, password fields and PNG byte scan passed; visual review pending",
+      "finished_utc": "2026-10-11T07:59:25.590304+00:00"
+    }
+  ],
+  "prior_http_pdf_install_upgrade_isolation": "unchanged; not rerun",
+  "browser_type": "firefox",
+  "browser_version": "155.0",
+  "status": "FAIL",
+  "exit_code": 1,
+  "finished_utc": "2026-10-11T07:59:25.893644+00:00",
+  "test_count": 6
+}

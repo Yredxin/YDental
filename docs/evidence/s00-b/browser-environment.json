@@ -1,0 +1,55 @@
+{
+  "time_utc": "2026-10-11T08:04:54.974359+00:00",
+  "playwright": "1.63.0",
+  "firefox_download": "https://cdn.playwright.dev/dbazure/download/playwright/builds/firefox/1543/firefox-ubuntu-24.04.zip",
+  "firefox_revision": "1543",
+  "firefox_version": "155.0",
+  "firefox_executable_sha256": "062272ac4d851eade5b75db2dc7c14569d96cb3ca38f949337cdc1b74367e35b",
+  "additional_local_packages": [
+    {
+      "file": "libepoxy0_1.5.10-2build1_amd64.deb",
+      "sha256": "2f4525535b2c7c6d61cc5c131f1cb3f5c0d70177ccf550a05f80d12016dfcfdf",
+      "metadata": "Package: libepoxy0\nVersion: 1.5.10-2build1",
+      "installation": "dpkg-deb -x into .local/s00-b-deps/browser-libs only"
+    },
+    {
+      "file": "libgtk-3-0t64_3.24.52-0ubuntu1_amd64.deb",
+      "sha256": "d03b766dd7ba2becf66cf21424bb441af4dbf62841b314af2720df74d95bda1a",
+      "metadata": "Package: libgtk-3-0t64\nVersion: 3.24.52-0ubuntu1",
+      "installation": "dpkg-deb -x into .local/s00-b-deps/browser-libs only"
+    },
+    {
+      "file": "libgtk-3-common_3.24.52-0ubuntu1_all.deb",
+      "sha256": "bd402f87b106a975272fb12cdeb49d26ff6521e4c909b37b4b091797bf2a732d",
+      "metadata": "Package: libgtk-3-common\nVersion: 3.24.52-0ubuntu1",
+      "installation": "dpkg-deb -x into .local/s00-b-deps/browser-libs only"
+    },
+    {
+      "file": "libwayland-cursor0_1.24.0-2_amd64.deb",
+      "sha256": "941affa9ef61b0cca5cfac1fab13e8e78168af306709df4adf546c76be82a1de",
+      "metadata": "Package: libwayland-cursor0\nVersion: 1.24.0-2",
+      "installation": "dpkg-deb -x into .local/s00-b-deps/browser-libs only"
+    }
+  ],
+  "font": {
+    "path": ".local/s00-b-deps/browsers/firefox-1543/firefox/fonts/NotoSansCJKsc-Regular.otf",
+    "sha256": "2c76254f6fc379fddfce0a7e84fb5385bb135d3e399294f6eeb6680d0365b74b",
+    "source": "Copy of existing S00-B Noto Sans CJK SC (OFL); no system font installation",
+    "fontconfig": "Final browser run uses system default fontconfig plus local Firefox bundled fonts; PDF process fontconfig unchanged"
+  },
+  "security": "No no-sandbox, sandbox-disabling environment/preferences, AppArmor, namespace, system package or existing-service change",
+  "preview_restore": {
+    "stale_pid": 318644,
+    "confirmed": "/proc/318644 absent before archiving own serve.pid",
+    "first_serve_exit": 2,
+    "restarted": "same existing recorded isolated database via guarded serve; no install/upgrade"
+  },
+  "final_chromium_launch": {
+    "status": "BLOCKED",
+    "reason": "No usable sandbox",
+    "process_exit_code": null,
+    "signal": "SIGTRAP",
+    "chromium_sandbox": true
+  },
+  "core_head": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb"
+}

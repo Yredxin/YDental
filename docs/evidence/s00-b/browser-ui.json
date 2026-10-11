@@ -1,0 +1,212 @@
+{
+  "scope": "S00-B browser UI supplement only",
+  "tested_commit": "0787ec848579c70b0a44895e3d6a5586ec0f4d74",
+  "database": "ydental_s00b_test_20261011073303_8137af81",
+  "started_utc": "2026-10-11T08:03:21.274434+00:00",
+  "playwright_version": "1.63.0",
+  "viewport": {
+    "width": 1280,
+    "height": 900
+  },
+  "launch_attempts": [
+    {
+      "browser_type": "chromium",
+      "browser_version": "153.0.8010.12",
+      "playwright_revision": "1243",
+      "time_utc": "2026-10-11T08:03:21.573934+00:00",
+      "headless": true,
+      "sandbox": "explicitly enabled",
+      "status": "BLOCKED",
+      "error_type": "TargetClosedError",
+      "reason": "No usable sandbox",
+      "private_log_sha256": "4bc47235c27b08f89f91157ae107ab08487d48bd4e6c9a8bc1e5d3c75703a8cd"
+    },
+    {
+      "browser_type": "firefox",
+      "browser_version": "155.0",
+      "playwright_revision": "1543",
+      "time_utc": "2026-10-11T08:03:21.712447+00:00",
+      "headless": true,
+      "sandbox": "default; no security overrides",
+      "status": "PASS"
+    }
+  ],
+  "checks": [
+    {
+      "tested_commit": "0787ec848579c70b0a44895e3d6a5586ec0f4d74",
+      "browser_type": "firefox",
+      "browser_version": "155.0",
+      "playwright_version": "1.63.0",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "case": "authorized_zh",
+      "time_utc": "2026-10-11T08:03:22.042242+00:00",
+      "status": "PASS",
+      "console_error": [
+        "Service worker registration failed, error: JSHandle@object"
+      ],
+      "pageerror": [],
+      "url": "http://127.0.0.1:18079/ydental",
+      "http_final_status": 200,
+      "title": "Dental | YDental",
+      "screenshot": "docs/evidence/s00-b/browser-authorized-zh.png",
+      "screenshot_sha256": "7a84b0f31d8cef8487ebe4d3a81c4e98ece7b2b64390d19af97722d8965a9c55",
+      "secret_check": "visible text, password fields and PNG byte scan passed; visual review pending",
+      "menu_count": 1,
+      "menu_label": "牙科",
+      "menu_http_status": 200,
+      "menu_url": "http://127.0.0.1:18079/odoo/action-base.action_res_users_my/13",
+      "menu_evidence": {
+        "screenshot": "docs/evidence/s00-b/browser-menu-zh.png",
+        "screenshot_sha256": "bedbe1395534cf28852b20fa1ff27ea5152cf71ce1abe107d3a900a51c63ff5e",
+        "secret_check": "visible text, password fields and PNG byte scan passed; visual review pending"
+      },
+      "menu_click_opened_entry": true,
+      "finished_utc": "2026-10-11T08:03:29.524834+00:00"
+    },
+    {
+      "tested_commit": "0787ec848579c70b0a44895e3d6a5586ec0f4d74",
+      "browser_type": "firefox",
+      "browser_version": "155.0",
+      "playwright_version": "1.63.0",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "title": "Dental | YDental",
+      "screenshot": "docs/evidence/s00-b/browser-authorized-zh.png",
+      "screenshot_sha256": "7a84b0f31d8cef8487ebe4d3a81c4e98ece7b2b64390d19af97722d8965a9c55",
+      "case": "download_a4",
+      "time_utc": "2026-10-11T08:03:24.133935+00:00",
+      "status": "PASS",
+      "url": "http://127.0.0.1:18079/ydental/sample/a4",
+      "console_error": [],
+      "pageerror": [],
+      "http_final_status": 200,
+      "download_event": true,
+      "pdf_magic": true,
+      "bytes": 16500,
+      "sha256": "c39f6637ef8375f0c7d740e95c0a028b5150c161fd6814ca0f0d3deb8bbed6ec"
+    },
+    {
+      "tested_commit": "0787ec848579c70b0a44895e3d6a5586ec0f4d74",
+      "browser_type": "firefox",
+      "browser_version": "155.0",
+      "playwright_version": "1.63.0",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "title": "Dental | YDental",
+      "screenshot": "docs/evidence/s00-b/browser-authorized-zh.png",
+      "screenshot_sha256": "7a84b0f31d8cef8487ebe4d3a81c4e98ece7b2b64390d19af97722d8965a9c55",
+      "case": "download_narrow",
+      "time_utc": "2026-10-11T08:03:26.246313+00:00",
+      "status": "PASS",
+      "url": "http://127.0.0.1:18079/ydental/sample/narrow",
+      "console_error": [],
+      "pageerror": [],
+      "http_final_status": 200,
+      "download_event": true,
+      "pdf_magic": true,
+      "bytes": 16511,
+      "sha256": "070eb11cdbf77142e209952a377031c5cc2c396ecbd1d8929cd145fb304fa504"
+    },
+    {
+      "tested_commit": "0787ec848579c70b0a44895e3d6a5586ec0f4d74",
+      "browser_type": "firefox",
+      "browser_version": "155.0",
+      "playwright_version": "1.63.0",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "case": "authorized_en",
+      "time_utc": "2026-10-11T08:03:29.536897+00:00",
+      "status": "PASS",
+      "console_error": [
+        "Service worker registration failed, error: JSHandle@object"
+      ],
+      "pageerror": [],
+      "url": "http://127.0.0.1:18079/ydental",
+      "http_final_status": 200,
+      "title": "Dental | YDental",
+      "screenshot": "docs/evidence/s00-b/browser-authorized-en.png",
+      "screenshot_sha256": "275078949f4429e75b17f894a15686179449322871c34a504efbb28ad7418b46",
+      "secret_check": "visible text, password fields and PNG byte scan passed; visual review pending",
+      "menu_count": 1,
+      "menu_label": "Dental",
+      "menu_http_status": 200,
+      "menu_url": "http://127.0.0.1:18079/odoo/action-base.action_res_users_my/14",
+      "menu_evidence": {
+        "screenshot": "docs/evidence/s00-b/browser-menu-en.png",
+        "screenshot_sha256": "15a248aa25a2b92508345944feba5e723ced752983d257f6c61c21012af9e012",
+        "secret_check": "visible text, password fields and PNG byte scan passed; visual review pending"
+      },
+      "menu_click_opened_entry": true,
+      "finished_utc": "2026-10-11T08:03:31.977480+00:00"
+    },
+    {
+      "tested_commit": "0787ec848579c70b0a44895e3d6a5586ec0f4d74",
+      "browser_type": "firefox",
+      "browser_version": "155.0",
+      "playwright_version": "1.63.0",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "case": "unauthorized",
+      "time_utc": "2026-10-11T08:03:31.989993+00:00",
+      "status": "PASS",
+      "console_error": [],
+      "pageerror": [],
+      "url": "http://127.0.0.1:18079/ydental",
+      "http_final_status": 403,
+      "title": "403 Forbidden",
+      "screenshot": "docs/evidence/s00-b/browser-unauthorized.png",
+      "screenshot_sha256": "91179c50d48cf6cb716f5da0e7bb0fbca9de35520827d6392df9c7f44b2569d5",
+      "secret_check": "visible text, password fields and PNG byte scan passed; visual review pending",
+      "finished_utc": "2026-10-11T08:03:33.186635+00:00"
+    },
+    {
+      "tested_commit": "0787ec848579c70b0a44895e3d6a5586ec0f4d74",
+      "browser_type": "firefox",
+      "browser_version": "155.0",
+      "playwright_version": "1.63.0",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "case": "portal",
+      "time_utc": "2026-10-11T08:03:33.194843+00:00",
+      "status": "PASS",
+      "console_error": [],
+      "pageerror": [],
+      "url": "http://127.0.0.1:18079/ydental",
+      "http_final_status": 403,
+      "title": "403 Forbidden",
+      "screenshot": "docs/evidence/s00-b/browser-portal.png",
+      "screenshot_sha256": "91179c50d48cf6cb716f5da0e7bb0fbca9de35520827d6392df9c7f44b2569d5",
+      "secret_check": "visible text, password fields and PNG byte scan passed; visual review pending",
+      "finished_utc": "2026-10-11T08:03:34.374289+00:00"
+    }
+  ],
+  "prior_http_pdf_install_upgrade_isolation": "unchanged; not rerun",
+  "browser_type": "firefox",
+  "browser_version": "155.0",
+  "status": "PASS",
+  "exit_code": 0,
+  "finished_utc": "2026-10-11T08:03:34.695897+00:00",
+  "test_count": 6,
+  "agent_visual_review": {
+    "status": "PASS",
+    "reviewed_screenshots": 6,
+    "details": "All final PNGs visually inspected: Chinese glyphs readable, English page/menu correct, actual refusal pages; no password, cookie, token, login credential or patient data visible."
+  },
+  "webkit": {
+    "status": "NOT_RUN",
+    "reason": "Firefox safe default launch and all UI checks succeeded; fallback not required"
+  }
+}
