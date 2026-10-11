@@ -24,11 +24,12 @@ class ResUsers(models.Model):
             before = {user.id: user._ydental_profile_values() for user in self}
         result = super().write(vals)
         if common:
-            for user in self:
-                after = user._ydental_profile_values()
-                if before[user.id] != after:
-                    service._audit('profile.change', 'personnel', user, before=before[user.id], after=after,
-                                   source='model_write')
+            snapshots = {user.id: user._ydental_profile_values() for user in self}
+            self.env['ydental.access.audit'].sudo().create([
+                service._audit_values('profile.change', 'personnel', user, before=before[user.id],
+                                      after=snapshots[user.id], source='model_write')
+                for user in self if before[user.id] != snapshots[user.id]
+            ])
         return result
 
     def _ydental_profile_values(self):

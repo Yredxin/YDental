@@ -29,9 +29,11 @@ class YDentalAccessCapability(models.Model):
             self._check_dictionary_manager()
         records = super().create(vals_list)
         if not self.env.su:
-            for record in records:
-                self.env['ydental.access.service']._audit('capability.create', 'personnel', record,
-                                                       after=record._audit_snapshot(), source='model_create')
+            self.env['ydental.access.audit'].sudo().create([
+                self.env['ydental.access.service']._audit_values(
+                    'capability.create', 'personnel', record, after=record._audit_snapshot(), source='model_create',
+                ) for record in records
+            ])
         return records
 
     def write(self, vals):
@@ -40,9 +42,11 @@ class YDentalAccessCapability(models.Model):
             before = {record.id: record._audit_snapshot() for record in self}
         result = super().write(vals)
         if not self.env.su:
-            for record in self:
-                after = record._audit_snapshot()
-                if before[record.id] != after:
-                    self.env['ydental.access.service']._audit('capability.modify', 'personnel', record,
-                                                           before=before[record.id], after=after, source='model_write')
+            snapshots = {record.id: record._audit_snapshot() for record in self}
+            self.env['ydental.access.audit'].sudo().create([
+                self.env['ydental.access.service']._audit_values(
+                    'capability.modify', 'personnel', record, before=before[record.id],
+                    after=snapshots[record.id], source='model_write',
+                ) for record in self if before[record.id] != snapshots[record.id]
+            ])
         return result

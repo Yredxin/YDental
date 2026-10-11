@@ -38,9 +38,12 @@ class YDentalAccessStore(models.Model):
             self._check_group_company([vals.get('company_id', self.env.company.id) for vals in vals_list])
         stores = super().create(vals_list)
         if not self.env.su:
-            for store in stores:
-                self.env['ydental.access.service']._audit('store.create', 'personnel', store, store.id,
-                                                       after=store._audit_snapshot(), source='model_create')
+            self.env['ydental.access.audit'].sudo().create([
+                self.env['ydental.access.service']._audit_values(
+                    'store.create', 'personnel', store, store.id,
+                    after=store._audit_snapshot(), source='model_create',
+                ) for store in stores
+            ])
         return stores
 
     def write(self, vals):
@@ -53,9 +56,11 @@ class YDentalAccessStore(models.Model):
             before = {store.id: store._audit_snapshot() for store in self}
         result = super().write(vals)
         if not self.env.su:
-            for store in self:
-                after = store._audit_snapshot()
-                if before[store.id] != after:
-                    self.env['ydental.access.service']._audit('store.modify', 'personnel', store, store.id,
-                                                           before=before[store.id], after=after, source='model_write')
+            snapshots = {store.id: store._audit_snapshot() for store in self}
+            self.env['ydental.access.audit'].sudo().create([
+                self.env['ydental.access.service']._audit_values(
+                    'store.modify', 'personnel', store, store.id,
+                    before=before[store.id], after=snapshots[store.id], source='model_write',
+                ) for store in self if before[store.id] != snapshots[store.id]
+            ])
         return result
