@@ -1,7 +1,7 @@
 <odoo>
     <template id="ydental_patient_shell" name="Patient workspace">
         <t t-call="web.layout">
-            <t t-set="head"><title>YDental Patients</title><style>
+            <t t-set="title">Patients</t><style>
                 .o_ydental_patient_workspace {max-width:1120px;margin:32px auto;padding:24px;font-family:Arial,sans-serif;line-height:1.5;color:#203343;background:#fff}
                 .o_ydental_patient_workspace nav {display:flex;gap:24px;margin-bottom:24px}
                 .o_ydental_patient_workspace a {color:#226585}
@@ -13,7 +13,7 @@
                 .o_ydental_patient_workspace input,.o_ydental_patient_workspace select,.o_ydental_patient_workspace textarea {padding:6px;margin:4px;border:1px solid #a9b9c4;border-radius:4px}
                 .o_ydental_patient_workspace button {padding:8px 16px;margin:8px 0;background:#226585;color:white;border:0;border-radius:4px;cursor:pointer}
                 .o_ydental_patient_workspace .alert-warning {display:inline-block;background:#fff3d7;padding:8px;border-radius:4px}
-            </style></t>
+            </style>
             <main class="container py-4 o_ydental_patient_workspace">
                 <nav class="d-flex gap-3 mb-3"><a href="/ydental">YDental</a><a href="/ydental/access">Store and permissions</a><a href="/ydental/patients">Patients</a></nav>
                 <h1>Patients</h1><p>Current store: <strong t-out="store.name"/></p>

@@ -183,6 +183,7 @@ def main():
             reader_context, reader_page = login('reader')
             reader_page.goto(base + '/ydental/patients')
             check('reader cannot see create form', reader_page.locator('#create-patient').count() == 0)
+            reader_page.goto(base + '/ydental/access')
             denied = action(reader_page, 'create', {'values': {'name': 'Forbidden browser creation'}})
             check('reader write receives 403', denied['status'] == 403)
             check('no browser JavaScript errors', not errors)

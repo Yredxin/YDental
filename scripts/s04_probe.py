@@ -56,7 +56,7 @@ with registry.cursor() as cr:
     credential_values = {}
     for role, user in fixture.users.items():
         password = secrets.token_urlsafe(24)
-        user.password = password
+        user.write({'password': password, 'lang': 'zh_CN' if role != 'reader' else 'en_US'})
         credential_values[role] = {'id': user.id, 'login': user.login, 'password': password}
     preview = {'stores': fixture.stores.ids, 'original': original, 'same_phone': same_phone,
                'clinical_id': clinical_id, 'suffix': fixture.suffix}
