@@ -129,6 +129,11 @@ def main():
             page.goto(base + '/odoo/action-%s' % preview['plan_action_id'], wait_until='domcontentloaded')
             page.wait_for_function("document.querySelector('.o_ydental_space_canvas') || document.querySelector('.o_error_dialog')", timeout=30000)
             require(page.locator('.o_ydental_space_canvas').count() > 0, 'Owl floor plan did not render')
+            page.wait_for_function("Array.from(document.querySelectorAll('.o_ydental_space_resources img')).every(image => image.complete)")
+
+        def response_for(method):
+            return lambda response: '/web/dataset/call_kw' in response.url and response.request.method == 'POST' and json.loads(
+                response.request.post_data or '{}').get('params', {}).get('method') == method
 
         try:
             writer_context, writer = login('writer')
@@ -159,13 +164,16 @@ def main():
                    sum('result' in entry for entry in concurrent) == 1 and
                    sum('version_conflict' in entry.get('error', {}).get('data', {}).get('message', '') for entry in concurrent) == 1)
 
-            writer.get_by_role('button', name='重新加载', exact=True).click()
+            with writer.expect_response(response_for('action_snapshot')):
+                writer.get_by_role('button', name='重新加载', exact=True).click()
+            writer.wait_for_timeout(200)
             writer.locator('[data-kind=station]').first.click(position={'x': 10, 'y': 10})
             width = writer.get_by_role('spinbutton', name='宽度', exact=True)
             width.fill('105')
             width.press('Tab')
-            writer.get_by_role('button', name='保存布局', exact=True).click()
-            writer.wait_for_timeout(500)
+            with writer.expect_response(response_for('action_save_geometry')):
+                writer.get_by_role('button', name='保存布局', exact=True).click()
+            writer.wait_for_timeout(300)
             after = rpc(writer, 'ydental.space.floor', 'action_snapshot', [[floor_id]], writer_revision)['result']
             saved = next(station for station in after['stations'] if station['id'] == first_id)
             record('T01 T02 UI geometry save preserves workstation ID', saved['ydental_width'] == 105)

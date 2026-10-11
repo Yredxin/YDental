@@ -49,7 +49,7 @@
                             <polygon t-if="object.kind === 'area' &amp;&amp; object.ydental_shape === 'polygon'" t-att-points="this.points(object)"/>
                             <rect t-else="" t-att-width="object.ydental_width" t-att-height="object.ydental_height" rx="4"/>
                             <image t-if="object.kind === 'item'" t-att-href="'/ydental/space/resource/' + object.ydental_resource_id[0] + '.svg'" t-att-width="object.ydental_width" t-att-height="object.ydental_height"/>
-                            <text x="6" y="18" t-out="object.name"/>
+                            <text t-if="object.kind !== 'item' || !object.ydental_station_id" x="6" y="18" t-out="object.name"/>
                         </g>
                         <rect t-if="this.state.drawing" class="o_ydental_space_drawing" t-att-x="Math.min(this.state.drawing.x, this.state.drawing.x + this.state.drawing.width)" t-att-y="Math.min(this.state.drawing.y, this.state.drawing.y + this.state.drawing.height)" t-att-width="Math.abs(this.state.drawing.width)" t-att-height="Math.abs(this.state.drawing.height)"/>
                         <polyline t-if="this.state.polygon.length" class="o_ydental_space_drawing" t-att-points="this.state.polygon.map((point) =&gt; point.join(',')).join(' ')"/>

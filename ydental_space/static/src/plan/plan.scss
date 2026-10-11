@@ -16,6 +16,22 @@
     align-items: center;
     gap: 12px;
     margin-bottom: 14px;
+
+    h2 {
+        flex: 0 0 auto;
+        margin: 0;
+        font-size: 20px;
+        white-space: nowrap;
+    }
+
+    select {
+        width: auto;
+        max-width: 280px;
+    }
+
+    button {
+        white-space: nowrap;
+    }
 }
 
 .o_ydental_space_content {

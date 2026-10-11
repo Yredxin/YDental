@@ -12,6 +12,8 @@ class YDentalSpaceResource(models.Model):
     _description = 'Controlled common or store-private space artwork'
     _inherit = 'ydental.space.version'
 
+    name = fields.Char(required=True, translate=True)
+
     ydental_store_id = fields.Many2one('ydental.access.store', ondelete='restrict', index=True,
                                      help='Empty means group-maintained common artwork.', string='Store')
     ydental_kind = fields.Selection([
