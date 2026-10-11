@@ -1,0 +1,390 @@
+[
+  {
+    "database": {
+      "database": "ydental_s01_test_20261011113145_8a6bfd16",
+      "oid": 107827,
+      "endpoint": {
+        "host": "127.0.0.1",
+        "port": "5432",
+        "user": "odoo"
+      },
+      "cluster": "7694897083368259627",
+      "port": 18090,
+      "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+      "created_utc": "2026-10-11T11:31:49.717432+00:00",
+      "config_sha256": "a2cc0d2b16341b6a660f49ab628bf64594790f732c8ba9c28ad85cd2c56ca116"
+    },
+    "actions": [
+      {
+        "action": "install",
+        "exit_code": 1,
+        "log": "install-20261011T113149718718.log",
+        "log_sha256": "f465ac1a82f554f2f9d1e5d67f24d30fbaca705398ff6ffc25b4ce2e5bf0664e",
+        "time_utc": "2026-10-11T11:32:42.131011+00:00",
+        "tested_commit": "45df40c816abfa61c1d9c13648e8e957b9aab63d",
+        "tests": [
+          2,
+          0,
+          28
+        ],
+        "verification_exit": 1,
+        "methods_started": [
+          "TestS01.test_group_administration_stays_within_allowed_companies",
+          "TestS01.test_manager_policy_configuration_and_last_manager",
+          "TestS01.test_native_export_gate_and_template_stale_preview",
+          "TestS01.test_rework_care_scope_is_server_trusted_and_targeted",
+          "TestS01.test_rework_company_scope_for_account_actions_and_audits",
+          "TestS01.test_rework_default_store_consumed_once_and_validated",
+          "TestS01.test_rework_direct_master_data_writes_are_audited",
+          "TestS01.test_rework_query_reads_have_one_minimal_audit",
+          "TestS01.test_t01_store_levels_and_batch",
+          "TestS01.test_t02_store_manager_exception",
+          "TestS01.test_t03_scope_independence_and_old_revision",
+          "TestS01.test_t04_revocation_and_attachment",
+          "TestS01.test_t05_removal_and_departure",
+          "TestS01.test_t06_common_and_private_employee_fields",
+          "TestS01.test_t07_minimal_information",
+          "TestS01.test_t08_idempotent_membership_and_account",
+          "TestS01.test_t09_template_replace_detach_and_atomic_batch",
+          "TestS01.test_t10_personnel_ceiling_and_identity",
+          "TestS01.test_t11_events_and_immutable_audit",
+          "TestS01.test_t12_export_requires_both_permissions",
+          "TestS01.test_t13_care_history_and_execution_hook",
+          "TestS01HTTP.test_http_rework_default_login_and_direct_master_rpc",
+          "TestS01HTTP.test_http_rework_forged_care_and_query_audit",
+          "TestS01HTTP.test_http_rpc_native_export_report_and_revoked_download",
+          "TestS01HTTP.test_http_template_preview_confirmation_and_portal_denial",
+          "TestS01HTTP.test_http_two_real_logins_and_stale_page"
+        ],
+        "failed_methods": [
+          "TestS01.test_rework_query_reads_have_one_minimal_audit",
+          "TestS01HTTP.test_http_rework_forged_care_and_query_audit"
+        ],
+        "contains_expected_readonly_retry": true
+      }
+    ],
+    "raw_logs": "private only; not published"
+  },
+  {
+    "database": {
+      "database": "ydental_s01_test_20261011113326_ab887ef3",
+      "oid": 116014,
+      "endpoint": {
+        "host": "127.0.0.1",
+        "port": "5432",
+        "user": "odoo"
+      },
+      "cluster": "7694897083368259627",
+      "port": 18090,
+      "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+      "created_utc": "2026-10-11T11:33:32.436489+00:00",
+      "config_sha256": "0866815d59a7dbc354bf4ecef0cd73c40e112e8e7a66ada379302a76b6cb8507"
+    },
+    "actions": [
+      {
+        "action": "install",
+        "exit_code": 1,
+        "log": "install-20261011T113332437520.log",
+        "log_sha256": "2f3e6a5b114aa7aaf09e761428b38b621c4e0d6cbc7c033e4095bf35f6b80e6b",
+        "time_utc": "2026-10-11T11:34:24.947881+00:00",
+        "tested_commit": "a71d80e9326b00b89099d4e1dd3a24023456341a",
+        "tests": [
+          1,
+          1,
+          28
+        ],
+        "verification_exit": 1,
+        "methods_started": [
+          "TestS01.test_group_administration_stays_within_allowed_companies",
+          "TestS01.test_manager_policy_configuration_and_last_manager",
+          "TestS01.test_native_export_gate_and_template_stale_preview",
+          "TestS01.test_rework_care_scope_is_server_trusted_and_targeted",
+          "TestS01.test_rework_company_scope_for_account_actions_and_audits",
+          "TestS01.test_rework_default_store_consumed_once_and_validated",
+          "TestS01.test_rework_direct_master_data_writes_are_audited",
+          "TestS01.test_rework_query_reads_have_one_minimal_audit",
+          "TestS01.test_t01_store_levels_and_batch",
+          "TestS01.test_t02_store_manager_exception",
+          "TestS01.test_t03_scope_independence_and_old_revision",
+          "TestS01.test_t04_revocation_and_attachment",
+          "TestS01.test_t05_removal_and_departure",
+          "TestS01.test_t06_common_and_private_employee_fields",
+          "TestS01.test_t07_minimal_information",
+          "TestS01.test_t08_idempotent_membership_and_account",
+          "TestS01.test_t09_template_replace_detach_and_atomic_batch",
+          "TestS01.test_t10_personnel_ceiling_and_identity",
+          "TestS01.test_t11_events_and_immutable_audit",
+          "TestS01.test_t12_export_requires_both_permissions",
+          "TestS01.test_t13_care_history_and_execution_hook",
+          "TestS01HTTP.test_http_rework_default_login_and_direct_master_rpc",
+          "TestS01HTTP.test_http_rework_forged_care_and_query_audit",
+          "TestS01HTTP.test_http_rpc_native_export_report_and_revoked_download",
+          "TestS01HTTP.test_http_template_preview_confirmation_and_portal_denial",
+          "TestS01HTTP.test_http_two_real_logins_and_stale_page"
+        ],
+        "failed_methods": [
+          "TestS01.test_rework_direct_master_data_writes_are_audited",
+          "TestS01HTTP.test_http_rework_default_login_and_direct_master_rpc"
+        ],
+        "contains_expected_readonly_retry": true
+      }
+    ],
+    "raw_logs": "private only; not published"
+  },
+  {
+    "database": {
+      "database": "ydental_s01_test_20261011113553_19566503",
+      "oid": 124201,
+      "endpoint": {
+        "host": "127.0.0.1",
+        "port": "5432",
+        "user": "odoo"
+      },
+      "cluster": "7694897083368259627",
+      "port": 18090,
+      "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+      "created_utc": "2026-10-11T11:35:59.495762+00:00",
+      "config_sha256": "a242fa4c9b0ee6d5ccaeff854ba5372365f275f9463c3a3d86196222be8cefa1"
+    },
+    "actions": [
+      {
+        "action": "install",
+        "exit_code": 0,
+        "log": "install-20261011T113559497090.log",
+        "log_sha256": "d0e09f9f5dd3dcb94f3cf1e97f985287fa98dc0c60c7a8e5ac041e89057e5d34",
+        "time_utc": "2026-10-11T11:36:52.179621+00:00",
+        "tested_commit": "9702b4ec392f937af8a0122f8b0602a2b2c8b108",
+        "tests": [
+          0,
+          0,
+          28
+        ],
+        "methods_started": [
+          "TestS01.test_group_administration_stays_within_allowed_companies",
+          "TestS01.test_manager_policy_configuration_and_last_manager",
+          "TestS01.test_native_export_gate_and_template_stale_preview",
+          "TestS01.test_rework_care_scope_is_server_trusted_and_targeted",
+          "TestS01.test_rework_company_scope_for_account_actions_and_audits",
+          "TestS01.test_rework_default_store_consumed_once_and_validated",
+          "TestS01.test_rework_direct_master_data_writes_are_audited",
+          "TestS01.test_rework_query_reads_have_one_minimal_audit",
+          "TestS01.test_t01_store_levels_and_batch",
+          "TestS01.test_t02_store_manager_exception",
+          "TestS01.test_t03_scope_independence_and_old_revision",
+          "TestS01.test_t04_revocation_and_attachment",
+          "TestS01.test_t05_removal_and_departure",
+          "TestS01.test_t06_common_and_private_employee_fields",
+          "TestS01.test_t07_minimal_information",
+          "TestS01.test_t08_idempotent_membership_and_account",
+          "TestS01.test_t09_template_replace_detach_and_atomic_batch",
+          "TestS01.test_t10_personnel_ceiling_and_identity",
+          "TestS01.test_t11_events_and_immutable_audit",
+          "TestS01.test_t12_export_requires_both_permissions",
+          "TestS01.test_t13_care_history_and_execution_hook",
+          "TestS01HTTP.test_http_rework_default_login_and_direct_master_rpc",
+          "TestS01HTTP.test_http_rework_forged_care_and_query_audit",
+          "TestS01HTTP.test_http_rpc_native_export_report_and_revoked_download",
+          "TestS01HTTP.test_http_template_preview_confirmation_and_portal_denial",
+          "TestS01HTTP.test_http_two_real_logins_and_stale_page"
+        ],
+        "failed_methods": [],
+        "contains_expected_readonly_retry": true
+      },
+      {
+        "action": "upgrade",
+        "exit_code": 0,
+        "log": "upgrade-20261011T113748881357.log",
+        "log_sha256": "b1527902b782e065530f0e851e7e503e60d96a7911f6375df98843b123813709",
+        "time_utc": "2026-10-11T11:38:01.632298+00:00",
+        "tested_commit": "9702b4ec392f937af8a0122f8b0602a2b2c8b108",
+        "tests": [
+          0,
+          0,
+          26
+        ],
+        "methods_started": [
+          "TestS01.test_group_administration_stays_within_allowed_companies",
+          "TestS01.test_manager_policy_configuration_and_last_manager",
+          "TestS01.test_native_export_gate_and_template_stale_preview",
+          "TestS01.test_rework_care_scope_is_server_trusted_and_targeted",
+          "TestS01.test_rework_company_scope_for_account_actions_and_audits",
+          "TestS01.test_rework_default_store_consumed_once_and_validated",
+          "TestS01.test_rework_direct_master_data_writes_are_audited",
+          "TestS01.test_rework_query_reads_have_one_minimal_audit",
+          "TestS01.test_t01_store_levels_and_batch",
+          "TestS01.test_t02_store_manager_exception",
+          "TestS01.test_t03_scope_independence_and_old_revision",
+          "TestS01.test_t04_revocation_and_attachment",
+          "TestS01.test_t05_removal_and_departure",
+          "TestS01.test_t06_common_and_private_employee_fields",
+          "TestS01.test_t07_minimal_information",
+          "TestS01.test_t08_idempotent_membership_and_account",
+          "TestS01.test_t09_template_replace_detach_and_atomic_batch",
+          "TestS01.test_t10_personnel_ceiling_and_identity",
+          "TestS01.test_t11_events_and_immutable_audit",
+          "TestS01.test_t12_export_requires_both_permissions",
+          "TestS01.test_t13_care_history_and_execution_hook",
+          "TestS01HTTP.test_http_rework_default_login_and_direct_master_rpc",
+          "TestS01HTTP.test_http_rework_forged_care_and_query_audit",
+          "TestS01HTTP.test_http_rpc_native_export_report_and_revoked_download",
+          "TestS01HTTP.test_http_template_preview_confirmation_and_portal_denial",
+          "TestS01HTTP.test_http_two_real_logins_and_stale_page"
+        ],
+        "failed_methods": [],
+        "contains_expected_readonly_retry": true
+      },
+      {
+        "action": "export",
+        "exit_code": 0,
+        "log": "export-20261011T113822627376.log",
+        "log_sha256": "2a7f9a973f33de390d1de93fb0cbd5fda45676d7481a792a4f7f1300f20608f6",
+        "time_utc": "2026-10-11T11:38:24.080239+00:00",
+        "tested_commit": "9702b4ec392f937af8a0122f8b0602a2b2c8b108",
+        "methods_started": [],
+        "failed_methods": [],
+        "contains_expected_readonly_retry": false
+      },
+      {
+        "action": "probe",
+        "exit_code": 0,
+        "log": "probe-20261011T113838436441.log",
+        "log_sha256": "3d09e935a7442fb44d83e1b081bf92654bb531d63031c4abd1acdc9cd329b4e8",
+        "time_utc": "2026-10-11T11:38:41.973552+00:00",
+        "tested_commit": "9702b4ec392f937af8a0122f8b0602a2b2c8b108",
+        "methods_started": [],
+        "failed_methods": [],
+        "contains_expected_readonly_retry": false
+      }
+    ],
+    "raw_logs": "private only; not published"
+  },
+  {
+    "database": {
+      "database": "ydental_s01_test_20261011114045_4ea25b6c",
+      "oid": 132456,
+      "endpoint": {
+        "host": "127.0.0.1",
+        "port": "5432",
+        "user": "odoo"
+      },
+      "cluster": "7694897083368259627",
+      "port": 18090,
+      "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+      "created_utc": "2026-10-11T11:41:06.340620+00:00",
+      "config_sha256": "495cdc06100e1351b1a00dd7cc987c9d31f023896d7da0b189c8e61835e80c14"
+    },
+    "actions": [
+      {
+        "action": "install",
+        "exit_code": 0,
+        "log": "install-20261011T114106341620.log",
+        "log_sha256": "a48bb94e7a1db45a8f43c805bfb373bcdb7b12f3aff8ab8ba02aeac7ffc582b3",
+        "time_utc": "2026-10-11T11:41:59.724098+00:00",
+        "tested_commit": "af7f975165bb28c157980d1d5b31de564f813b41",
+        "tests": [
+          0,
+          0,
+          29
+        ],
+        "methods_started": [
+          "TestS01.test_group_administration_stays_within_allowed_companies",
+          "TestS01.test_manager_policy_configuration_and_last_manager",
+          "TestS01.test_native_export_gate_and_template_stale_preview",
+          "TestS01.test_rework_care_scope_is_server_trusted_and_targeted",
+          "TestS01.test_rework_company_scope_for_account_actions_and_audits",
+          "TestS01.test_rework_default_store_consumed_once_and_validated",
+          "TestS01.test_rework_direct_master_data_writes_are_audited",
+          "TestS01.test_rework_query_reads_have_one_minimal_audit",
+          "TestS01.test_t01_store_levels_and_batch",
+          "TestS01.test_t02_store_manager_exception",
+          "TestS01.test_t03_scope_independence_and_old_revision",
+          "TestS01.test_t04_revocation_and_attachment",
+          "TestS01.test_t05_removal_and_departure",
+          "TestS01.test_t06_common_and_private_employee_fields",
+          "TestS01.test_t07_minimal_information",
+          "TestS01.test_t08_idempotent_membership_and_account",
+          "TestS01.test_t09_template_replace_detach_and_atomic_batch",
+          "TestS01.test_t10_personnel_ceiling_and_identity",
+          "TestS01.test_t11_events_and_immutable_audit",
+          "TestS01.test_t12_export_requires_both_permissions",
+          "TestS01.test_t13_care_history_and_execution_hook",
+          "TestS01HTTP.test_http_rework_default_login_and_direct_master_rpc",
+          "TestS01HTTP.test_http_rework_forged_care_and_query_audit",
+          "TestS01HTTP.test_http_rework_limited_company_actions_and_audit",
+          "TestS01HTTP.test_http_rpc_native_export_report_and_revoked_download",
+          "TestS01HTTP.test_http_template_preview_confirmation_and_portal_denial",
+          "TestS01HTTP.test_http_two_real_logins_and_stale_page"
+        ],
+        "failed_methods": [],
+        "contains_expected_readonly_retry": true
+      },
+      {
+        "action": "upgrade",
+        "exit_code": 0,
+        "log": "upgrade-20261011T114252366458.log",
+        "log_sha256": "f7c64f0241f3754a3513da3c116cd5fe2c31752b3a7cd6ad29b5cdc0b10312db",
+        "time_utc": "2026-10-11T11:43:05.645940+00:00",
+        "tested_commit": "af7f975165bb28c157980d1d5b31de564f813b41",
+        "tests": [
+          0,
+          0,
+          27
+        ],
+        "methods_started": [
+          "TestS01.test_group_administration_stays_within_allowed_companies",
+          "TestS01.test_manager_policy_configuration_and_last_manager",
+          "TestS01.test_native_export_gate_and_template_stale_preview",
+          "TestS01.test_rework_care_scope_is_server_trusted_and_targeted",
+          "TestS01.test_rework_company_scope_for_account_actions_and_audits",
+          "TestS01.test_rework_default_store_consumed_once_and_validated",
+          "TestS01.test_rework_direct_master_data_writes_are_audited",
+          "TestS01.test_rework_query_reads_have_one_minimal_audit",
+          "TestS01.test_t01_store_levels_and_batch",
+          "TestS01.test_t02_store_manager_exception",
+          "TestS01.test_t03_scope_independence_and_old_revision",
+          "TestS01.test_t04_revocation_and_attachment",
+          "TestS01.test_t05_removal_and_departure",
+          "TestS01.test_t06_common_and_private_employee_fields",
+          "TestS01.test_t07_minimal_information",
+          "TestS01.test_t08_idempotent_membership_and_account",
+          "TestS01.test_t09_template_replace_detach_and_atomic_batch",
+          "TestS01.test_t10_personnel_ceiling_and_identity",
+          "TestS01.test_t11_events_and_immutable_audit",
+          "TestS01.test_t12_export_requires_both_permissions",
+          "TestS01.test_t13_care_history_and_execution_hook",
+          "TestS01HTTP.test_http_rework_default_login_and_direct_master_rpc",
+          "TestS01HTTP.test_http_rework_forged_care_and_query_audit",
+          "TestS01HTTP.test_http_rework_limited_company_actions_and_audit",
+          "TestS01HTTP.test_http_rpc_native_export_report_and_revoked_download",
+          "TestS01HTTP.test_http_template_preview_confirmation_and_portal_denial",
+          "TestS01HTTP.test_http_two_real_logins_and_stale_page"
+        ],
+        "failed_methods": [],
+        "contains_expected_readonly_retry": true
+      },
+      {
+        "action": "export",
+        "exit_code": 0,
+        "log": "export-20261011T114337964449.log",
+        "log_sha256": "7b5a34c725f4727d41cd4d5cee08f63bcca0b062be9069a06688f15b3c63461e",
+        "time_utc": "2026-10-11T11:43:39.435325+00:00",
+        "tested_commit": "af7f975165bb28c157980d1d5b31de564f813b41",
+        "methods_started": [],
+        "failed_methods": [],
+        "contains_expected_readonly_retry": false
+      },
+      {
+        "action": "probe",
+        "exit_code": 0,
+        "log": "probe-20261011T114345625961.log",
+        "log_sha256": "a22857d5428c5d84a9d45a2c0d06ec13b86eae1f0eaee42bafb1d7dec0d2aa36",
+        "time_utc": "2026-10-11T11:43:49.155033+00:00",
+        "tested_commit": "af7f975165bb28c157980d1d5b31de564f813b41",
+        "methods_started": [],
+        "failed_methods": [],
+        "contains_expected_readonly_retry": false
+      }
+    ],
+    "raw_logs": "private only; not published"
+  }
+]

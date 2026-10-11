@@ -1,0 +1,11 @@
+{
+  "result": "PASS",
+  "issue": 25,
+  "custom_field": "执行状态",
+  "value": "返工",
+  "single_mutation": true,
+  "native_status_unchanged": true,
+  "workflows_unchanged": true,
+  "all_other_metadata_unchanged": true,
+  "complete_reads": 3
+}

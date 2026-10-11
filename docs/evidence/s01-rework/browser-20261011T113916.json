@@ -1,0 +1,126 @@
+{
+  "scope": "S01 synthetic UI only",
+  "tested_commit": "9702b4ec392f937af8a0122f8b0602a2b2c8b108",
+  "database": "ydental_s01_test_20261011113553_19566503",
+  "started_utc": "2026-10-11T11:38:57.251225+00:00",
+  "browser": "Firefox",
+  "sandbox": "default; no overrides",
+  "checks": [
+    {
+      "check": "BLOCKER-2 browser first login defaults B",
+      "result": "PASS"
+    },
+    {
+      "check": "T08 browser creates one internal staff account",
+      "result": "PASS"
+    },
+    {
+      "check": "T08 browser reuses the same account",
+      "result": "PASS"
+    },
+    {
+      "check": "T06 browser same-company stores reuse employee",
+      "result": "PASS"
+    },
+    {
+      "check": "browser A/B permission forms accepted",
+      "result": "PASS"
+    },
+    {
+      "check": "T03 independent browser login stores",
+      "result": "PASS"
+    },
+    {
+      "check": "BLOCKER-1 browser forged care RPC denied",
+      "result": "PASS"
+    },
+    {
+      "check": "BLOCKER-1 client purpose cannot enumerate C history",
+      "result": "PASS"
+    },
+    {
+      "check": "BLOCKER-1 trusted synthetic scope includes only designated history",
+      "result": "PASS"
+    },
+    {
+      "check": "BLOCKER-4 browser native aggregate RPC authorized",
+      "result": "PASS"
+    },
+    {
+      "check": "BLOCKER-4 browser actor can see model query audit",
+      "result": "PASS"
+    },
+    {
+      "check": "T01 authorized synthetic A page",
+      "result": "PASS"
+    },
+    {
+      "check": "T01 authorized browser write",
+      "result": "PASS"
+    },
+    {
+      "check": "T03 old tab write refused",
+      "result": "PASS"
+    },
+    {
+      "check": "T01 C no business permission",
+      "result": "PASS"
+    },
+    {
+      "check": "T09 explicit template preview",
+      "result": "PASS"
+    },
+    {
+      "check": "T09 template removes omitted source rights",
+      "result": "PASS"
+    },
+    {
+      "check": "T04 revoked native attachment denied",
+      "result": "PASS"
+    },
+    {
+      "check": "T05 browser A removal preserves B login and reading",
+      "result": "PASS"
+    },
+    {
+      "check": "global backend store status",
+      "result": "PASS"
+    },
+    {
+      "check": "portal workspace denied",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s01-rework/browser-attempts/20261011T113857251051/browser-trusted-care-scope.png",
+      "sha256": "f539aacc7fc9cb3a747c22d6ca60760ecc33cb08f9b3d1c3309c2d401e1e55f8"
+    },
+    {
+      "path": "docs/evidence/s01-rework/browser-attempts/20261011T113857251051/browser-store-a-zh.png",
+      "sha256": "11f80545110b67dd4f1ac33f2ca37f0f1305c0d5aaace1cd046fc4cdf7bb0af6"
+    },
+    {
+      "path": "docs/evidence/s01-rework/browser-attempts/20261011T113857251051/browser-stale-page.png",
+      "sha256": "07462b780f5573d2a3c6c280f95828b3ea5af6dec81f8d3355697e95f93e6677"
+    },
+    {
+      "path": "docs/evidence/s01-rework/browser-attempts/20261011T113857251051/browser-staff-zh.png",
+      "sha256": "9769dffc9de5cd230a61116b8bea04435c360c230064aab709c3f1cbaad472ff"
+    },
+    {
+      "path": "docs/evidence/s01-rework/browser-attempts/20261011T113857251051/browser-template-preview-zh.png",
+      "sha256": "b376ef0541e3058c4bb35d9585538a1b7f469e48e7543549f9bb0effa6f3bb86"
+    },
+    {
+      "path": "docs/evidence/s01-rework/browser-attempts/20261011T113857251051/browser-b-after-a-removal.png",
+      "sha256": "dbef0692c33aa19ab721f715052370f44af3c52716e4b3e1408056e4be4d43f0"
+    },
+    {
+      "path": "docs/evidence/s01-rework/browser-attempts/20261011T113857251051/browser-global-status-zh.png",
+      "sha256": "0ce465d083827c5e26d6b9fb1562e17b970f2679b05886511851fdba3c612fab"
+    }
+  ],
+  "browser_version": "155.0",
+  "result": "PASS"
+}

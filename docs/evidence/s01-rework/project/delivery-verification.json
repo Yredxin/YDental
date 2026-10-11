@@ -1,0 +1,10 @@
+{
+  "result": "PASS",
+  "readonly": true,
+  "full_reads": 2,
+  "execution_state": "返工",
+  "native_status": "Todo",
+  "issue_state": "OPEN",
+  "all_metadata_equal_to_postwrite_snapshot": true,
+  "total_project_mutations": 1
+}

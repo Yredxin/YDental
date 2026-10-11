@@ -1,0 +1,16 @@
+{
+  "tested_commit": "af7f975165bb28c157980d1d5b31de564f813b41",
+  "command": "../.venv/bin/python -m unittest -v scripts.test_s01_guard",
+  "tests": 5,
+  "failed": 0,
+  "errors": 0,
+  "exit_code": 0,
+  "result": "PASS",
+  "checks": [
+    "business/historical database names refused",
+    "nonisolated service port refused",
+    "wrong endpoint refused before connection",
+    "external DNS refused",
+    "other loopback service refused"
+  ]
+}

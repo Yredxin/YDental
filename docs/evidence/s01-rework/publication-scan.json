@@ -1,0 +1,7 @@
+{
+  "result": "PASS",
+  "files_scanned": 42,
+  "actual_synthetic_credentials_checked": true,
+  "values_not_recorded": true,
+  "raw_logs_not_published": true
+}
