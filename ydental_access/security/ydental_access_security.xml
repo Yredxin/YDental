@@ -1,0 +1,13 @@
+<odoo>
+    <record id="ydental_base.ydental_base_group_user" model="res.groups">
+        <field name="implied_ids" eval="[(4, ref('base.group_allow_export'))]"/>
+    </record>
+    <record id="ydental_group_manager" model="res.groups">
+        <field name="name">YDental group administration</field>
+        <field name="implied_ids" eval="[(4, ref('ydental_base.ydental_base_group_user'))]"/>
+    </record>
+    <record id="ydental_system_manager" model="res.groups">
+        <field name="name">YDental technical configuration</field>
+        <field name="implied_ids" eval="[(4, ref('ydental_base.ydental_base_group_user'))]"/>
+    </record>
+</odoo>

@@ -1,0 +1,9 @@
+<templates xml:space="preserve">
+    <t t-name="ydental_access.StoreStatus">
+        <li class="o_ydental_access_store_status">
+            <a class="px-2" href="/ydental/access" title="Store and execution position">
+                Store: <span t-out="storeName || '-'"/>; Execution: <span t-out="executionStoreId || '-'"/>
+            </a>
+        </li>
+    </t>
+</templates>

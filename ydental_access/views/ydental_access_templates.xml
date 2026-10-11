@@ -1,0 +1,168 @@
+<odoo>
+    <template id="ydental_access_page" name="YDental store and staff">
+        <t t-call="web.layout">
+            <main class="container py-4 o_ydental_access_page">
+                <h1>Store and staff</h1>
+                <p>Current store: <strong t-out="store_name or '-'"/></p>
+                <p>Current execution position: <span t-out="execution_store_id or '-'"/></p>
+                <form action="/ydental/access/action" method="post" class="mb-4">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <input type="hidden" name="revision" t-att-value="str(revision)"/>
+                    <input type="hidden" name="operation" value="switch"/>
+                    <select name="store_id" aria-label="Store">
+                        <option t-foreach="stores" t-as="store" t-att-value="store['id']" t-out="store['name']"/>
+                    </select>
+                    <button type="submit">Switch store</button>
+                </form>
+                <t t-if="is_group_manager">
+                    <h2>Create store</h2>
+                    <form action="/ydental/access/action" method="post" class="mb-4">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <input type="hidden" name="revision" t-att-value="str(revision)"/>
+                        <input type="hidden" name="operation" value="store"/>
+                        <label>Name <input name="name" required="required"/></label>
+                        <label>Company ID <input name="company_id" type="number" required="required"/></label>
+                        <label>IANA timezone <input name="timezone" required="required"/></label>
+                        <button type="submit">Create operating store</button>
+                    </form>
+                </t>
+                <t t-if="can_manage and store_id">
+                    <h2>Staff</h2>
+                    <table class="table"><thead><tr><th>Account ID</th><th>Name</th><th>Employee ID</th><th>Store manager</th></tr></thead>
+                        <tbody><tr t-foreach="roster" t-as="staff"><td t-out="staff['user_id']"/><td t-out="staff['name']"/>
+                            <td t-out="staff['employee_id']"/><td t-out="staff['manager']"/></tr></tbody>
+                    </table>
+                    <h2>Add staff</h2>
+                    <form action="/ydental/access/action" method="post" class="mb-4">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <input type="hidden" name="revision" t-att-value="str(revision)"/>
+                        <input type="hidden" name="operation" value="account"/>
+                        <label>Name <input name="name" required="required" maxlength="100"/></label>
+                        <label>Login <input name="login" required="required" maxlength="200"/></label>
+                        <button type="submit">Create or link internal account</button>
+                    </form>
+                    <h2>Link existing account to this store</h2>
+                    <form action="/ydental/access/action" method="post" class="mb-4">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <input type="hidden" name="revision" t-att-value="str(revision)"/>
+                        <input type="hidden" name="operation" value="join"/>
+                        <label>Account ID <input name="user_id" type="number" required="required"/></label>
+                        <button type="submit">Add store membership</button>
+                    </form>
+                    <h2>Initial invitation or password reset</h2>
+                    <p>A request is not proof of delivery. The account email remains unchanged.</p>
+                    <form action="/ydental/access/action" method="post" class="mb-4">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <input type="hidden" name="revision" t-att-value="str(revision)"/>
+                        <input type="hidden" name="operation" value="invite"/>
+                        <label>Account ID <input name="user_id" type="number" required="required"/></label>
+                        <button type="submit">Request invitation</button>
+                    </form>
+                    <h2>Business permission</h2>
+                    <form action="/ydental/access/action" method="post" class="mb-4">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <input type="hidden" name="revision" t-att-value="str(revision)"/>
+                        <input type="hidden" name="operation" value="grant"/>
+                        <label>Account ID <input name="user_id" type="number" required="required"/></label>
+                        <select name="category" aria-label="Business category"><option t-foreach="categories" t-as="category"
+                            t-att-value="category[0]" t-out="category[1]"/></select>
+                        <select name="level" aria-label="Permission level"><option value="none">None</option>
+                            <option value="read">Read only</option><option value="write">Read and write</option></select>
+                        <button type="submit">Save permission</button>
+                    </form>
+                    <h2>Apply template</h2>
+                    <form action="/ydental/access/action" method="post" class="mb-4">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <input type="hidden" name="revision" t-att-value="str(revision)"/>
+                        <input type="hidden" name="operation" value="preview"/>
+                        <label>Account ID <input name="user_id" type="number" required="required"/></label>
+                        <select name="template_id" aria-label="Template"><option t-foreach="templates" t-as="template"
+                            t-att-value="template['id']" t-out="template['name']"/></select>
+                        <button type="submit">Preview all changes</button>
+                    </form>
+                    <h2>Remove from this store</h2>
+                    <form action="/ydental/access/action" method="post" class="mb-4">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <input type="hidden" name="revision" t-att-value="str(revision)"/>
+                        <input type="hidden" name="operation" value="remove"/>
+                        <label>Account ID <input name="user_id" type="number" required="required"/></label>
+                        <button type="submit">Remove store membership</button>
+                    </form>
+                </t>
+                <t t-if="is_group_manager">
+                    <h2>Common staff fields</h2>
+                    <p>Capability IDs: <span t-foreach="capabilities" t-as="capability"><span t-out="capability['id']"/>: <span t-out="capability['name']"/>; </span></p>
+                    <form action="/ydental/access/action" method="post" class="mb-4">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <input type="hidden" name="revision" t-att-value="str(revision)"/>
+                        <input type="hidden" name="operation" value="profile"/>
+                        <label>Account ID <input name="user_id" type="number" required="required"/></label>
+                        <label>Common job title <input name="job_title" maxlength="100"/></label>
+                        <label>Capability IDs (comma separated) <input name="capability_ids"/></label>
+                        <button type="submit">Save common fields</button>
+                    </form>
+                    <h2>Store manager appointment</h2>
+                    <p>Requires an approved appointment policy. Appoint a replacement before removing the last manager.</p>
+                    <form action="/ydental/access/action" method="post" class="mb-4">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <input type="hidden" name="revision" t-att-value="str(revision)"/>
+                        <input type="hidden" name="operation" value="manager"/>
+                        <label>Account ID <input name="user_id" type="number" required="required"/></label>
+                        <select name="appointed" aria-label="Appointment"><option value="true">Appoint</option><option value="false">Revoke</option></select>
+                        <button type="submit">Confirm manager appointment</button>
+                    </form>
+                    <h2>Group departure</h2>
+                    <form action="/ydental/access/action" method="post" class="mb-4">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <input type="hidden" name="revision" t-att-value="str(revision)"/>
+                        <input type="hidden" name="operation" value="depart"/>
+                        <label>Account ID <input name="user_id" type="number" required="required"/></label>
+                        <button type="submit">Confirm group departure</button>
+                    </form>
+                </t>
+                <t t-if="is_system_manager">
+                    <h2>Publish security configuration</h2>
+                    <p>Enter explicitly approved values. This applies to this database.</p>
+                    <form action="/ydental/access/action" method="post" class="mb-4">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <input type="hidden" name="revision" t-att-value="str(revision)"/>
+                        <input type="hidden" name="operation" value="policy"/>
+                        <select name="manager_policy" aria-label="Manager policy"><option value="">Not published</option>
+                            <option value="group_with_replacement">Group appointment; replacement required</option></select>
+                        <label>Minimum password length <input name="password_minlength" type="number" min="8" max="128" required="required"/></label>
+                        <label>Inactivity (minutes) <input name="inactivity_minutes" type="number" min="1" max="1440" required="required"/></label>
+                        <select name="require_mfa" aria-label="Require MFA"><option value="true">MFA required</option><option value="false">MFA optional</option></select>
+                        <label><input type="checkbox" name="approved" value="yes" required="required"/> These values have been approved</label>
+                        <button type="submit">Publish to this database</button>
+                    </form>
+                </t>
+                <h2>Audit</h2>
+                <table class="table"><thead><tr><th>Time (UTC)</th><th>Event</th><th>Result</th></tr></thead>
+                    <tbody><tr t-foreach="audits" t-as="audit"><td t-out="audit['create_date']"/>
+                        <td t-out="audit['ydental_event']"/><td t-out="audit['ydental_result']"/></tr></tbody>
+                </table>
+            </main>
+        </t>
+    </template>
+    <template id="ydental_template_preview" name="Confirm template changes">
+        <t t-call="web.layout"><main class="container py-4 o_ydental_access_preview">
+            <h1>Confirm template changes</h1>
+            <p>All listed permissions will be replaced. Missing categories become None.</p>
+            <table class="table"><thead><tr><th>Account</th><th>Store</th><th>Business category</th><th>Before</th><th>After</th></tr></thead>
+                <tbody><t t-foreach="preview['rows']" t-as="row"><tr t-foreach="categories" t-as="category">
+                    <td t-out="row['user_id']"/><td t-out="row['store_id']"/><td t-out="category[1]"/>
+                    <td t-out="level_labels[row['before'][category[0]]]"/><td t-out="level_labels[row['after'][category[0]]]"/>
+                </tr></t></tbody></table>
+            <form action="/ydental/access/action" method="post">
+                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                <input type="hidden" name="revision" t-att-value="str(revision)"/>
+                <input type="hidden" name="operation" value="apply"/>
+                <input type="hidden" name="template_id" t-att-value="preview['template_id']"/>
+                <input type="hidden" name="targets" t-att-value="targets_json"/>
+                <input type="hidden" name="receipt" t-att-value="preview['receipt']"/>
+                <button type="submit">Confirm replacement</button>
+                <a href="/ydental/access">Cancel</a>
+            </form>
+        </main></t>
+    </template>
+</odoo>

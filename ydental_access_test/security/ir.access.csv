@@ -1,0 +1,2 @@
+id,name,model_id,group_id/id,operation,domain
+ydental_test_source,Synthetic source access,ydental.access.test.record,ydental_base.ydental_base_group_user,cru,[]

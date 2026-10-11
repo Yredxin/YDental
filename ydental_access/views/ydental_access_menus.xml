@@ -1,0 +1,25 @@
+<odoo>
+    <record id="ydental_access_action" model="ir.actions.act_url">
+        <field name="name">Store and staff</field>
+        <field name="url">/ydental/access</field>
+        <field name="target">self</field>
+    </record>
+    <menuitem id="ydental_access_menu" name="Store and staff" parent="ydental_base.ydental_base_menu_root"
+              action="ydental_access_action" groups="ydental_base.ydental_base_group_user" sequence="10"/>
+    <record id="ydental_template_action" model="ir.actions.act_window">
+        <field name="name">Permission templates</field><field name="res_model">ydental.access.template</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <record id="ydental_template_form" model="ir.ui.view">
+        <field name="name">ydental.access.template.form</field><field name="model">ydental.access.template</field>
+        <field name="arch" type="xml"><form><sheet><group><field name="name"/><field name="ydental_levels"/><field name="active"/></group></sheet></form></field>
+    </record>
+    <record id="ydental_capability_action" model="ir.actions.act_window">
+        <field name="name">Common capabilities</field><field name="res_model">ydental.access.capability</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <menuitem id="ydental_template_menu" name="Permission templates" parent="ydental_base.ydental_base_menu_root"
+              action="ydental_template_action" groups="ydental_group_manager" sequence="20"/>
+    <menuitem id="ydental_capability_menu" name="Common capabilities" parent="ydental_base.ydental_base_menu_root"
+              action="ydental_capability_action" groups="ydental_group_manager" sequence="30"/>
+</odoo>

@@ -1,0 +1,6 @@
+id,name,model_id,group_id/id,operation,domain
+ydental_store_read,Store read,ydental.access.store,ydental_base.ydental_base_group_user,r,[]
+ydental_store_admin,Store administration,ydental.access.store,ydental_access.ydental_group_manager,cru,[]
+ydental_store_company,Store company restriction,ydental.access.store,,crud,"[('company_id','in',company_ids)]"
+ydental_template_admin,Template administration,ydental.access.template,ydental_access.ydental_group_manager,cru,[]
+ydental_capability_admin,Capability administration,ydental.access.capability,ydental_access.ydental_group_manager,cru,[]

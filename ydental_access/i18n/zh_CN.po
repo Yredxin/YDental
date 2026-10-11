@@ -1,0 +1,1170 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* ydental_access
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 20.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-11 10:03+0000\n"
+"PO-Revision-Date: 2026-10-11 10:03+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: ydental_access
+#. odoo-javascript
+#: code:addons/ydental_access/static/src/store_status/store_status.xml:0
+msgid "; Execution:"
+msgstr "；坐诊："
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid ""
+"A request is not proof of delivery. The account email remains unchanged."
+msgstr "请求受理不代表已送达，账号邮箱按原记录处理。"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/ydental_access_store.py:0
+msgid "A valid IANA store timezone is required."
+msgstr "请填写有效的 IANA 门店时区。"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/ydental_access_service.py:0
+msgid "A valid store name is required."
+msgstr "请填写有效的门店名称。"
+
+#. module: ydental_access
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_audit__ydental_result__accepted
+msgid "Accepted"
+msgstr "已受理"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_template_preview
+msgid "Account"
+msgstr "账号"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Account ID"
+msgstr "账号编号"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/controllers/access.py:0
+msgid "Action arguments must be an object."
+msgstr "动作参数必须是对象。"
+
+#. module: ydental_access
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_capability__active
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_membership__active
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_store__active
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_template__active
+msgid "Active"
+msgstr "启用"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Add staff"
+msgstr "添加员工"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Add store membership"
+msgstr "加入门店"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_template_preview
+msgid "After"
+msgstr "变更后"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_template_preview
+msgid ""
+"All listed permissions will be replaced. Missing categories become None."
+msgstr "将整体覆盖所列权限，模板缺项设为无权限。"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Apply template"
+msgstr "应用模板"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Appoint"
+msgstr "任命"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/ydental_access_service.py:0
+msgid "Appoint a replacement before removing the last active store manager."
+msgstr "撤销最后一位在职店长前，请先任命接替者。"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Appointment"
+msgstr "任免"
+
+#. module: ydental_access
+#: model:ir.model,name:ydental_access.model_ir_attachment
+msgid "Attachment"
+msgstr "附件"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Audit"
+msgstr "审计"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/ydental_access_audit.py:0
+msgid "Audit events cannot be changed."
+msgstr "审计事件不可修改。"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/ydental_access_audit.py:0
+msgid "Audit events cannot be deleted."
+msgstr "审计事件不可删除。"
+
+#. module: ydental_access
+#: model:ir.model,name:ydental_access.model_base
+msgid "Base"
+msgstr "基础模型"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_template_preview
+msgid "Before"
+msgstr "变更前"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Business category"
+msgstr "业务大类"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Business permission"
+msgstr "业务权限"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_template_preview
+msgid "Cancel"
+msgstr "取消"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Capability IDs (comma separated)"
+msgstr "能力编号（逗号分隔）"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Capability IDs:"
+msgstr "能力编号："
+
+#. module: ydental_access
+#: model:ir.model.constraint,message:ydental_access.constraint_ydental_access_capability_code_unique
+msgid "Capability codes must be unique."
+msgstr "能力代码必须唯一。"
+
+#. module: ydental_access
+#: model:ir.actions.act_window,name:ydental_access.ydental_capability_action
+#: model:ir.ui.menu,name:ydental_access.ydental_capability_menu
+msgid "Common capabilities"
+msgstr "公共能力字典"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Common job title"
+msgstr "公共岗位名称"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Common staff fields"
+msgstr "员工公共字段"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/hr_employee.py:0
+msgid "Common staff fields must be changed on the trusted account source."
+msgstr "员工公共字段须在可信账号源上修改。"
+
+#. module: ydental_access
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_store__company_id
+msgid "Company"
+msgstr "法人公司"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Company ID"
+msgstr "公司编号"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Confirm group departure"
+msgstr "确认集团离职"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Confirm manager appointment"
+msgstr "确认店长任免"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_template_preview
+msgid "Confirm replacement"
+msgstr "确认覆盖"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_template_preview
+msgid "Confirm template changes"
+msgstr "确认模板变更"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Create operating store"
+msgstr "创建经营门店"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Create or link internal account"
+msgstr "创建或关联内部账号"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Create store"
+msgstr "创建门店"
+
+#. module: ydental_access
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_audit__create_uid
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_capability__create_uid
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_grant__create_uid
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_membership__create_uid
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_session__create_uid
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_store__create_uid
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_template__create_uid
+msgid "Created by"
+msgstr "创建人"
+
+#. module: ydental_access
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_audit__create_date
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_capability__create_date
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_grant__create_date
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_membership__create_date
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_session__create_date
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_store__create_date
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_template__create_date
+msgid "Created on"
+msgstr "创建时间"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Current execution position:"
+msgstr "当前坐诊位置："
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Current store:"
+msgstr "当前门店："
+
+#. module: ydental_access
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_audit__ydental_result__denied
+msgid "Denied"
+msgstr "已拒绝"
+
+#. module: ydental_access
+#: model:ir.model.fields,field_description:ydental_access.field_hr_employee__display_name
+#: model:ir.model.fields,field_description:ydental_access.field_ir_actions_report__display_name
+#: model:ir.model.fields,field_description:ydental_access.field_ir_attachment__display_name
+#: model:ir.model.fields,field_description:ydental_access.field_ir_http__display_name
+#: model:ir.model.fields,field_description:ydental_access.field_res_users__display_name
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_audit__display_name
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_capability__display_name
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_grant__display_name
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_membership__display_name
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_service__display_name
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_session__display_name
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_source__display_name
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_store__display_name
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_template__display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: ydental_access
+#: model:ir.model,name:ydental_access.model_hr_employee
+msgid "Employee"
+msgstr "员工"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Employee ID"
+msgstr "员工编号"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Enter explicitly approved values. This applies to this database."
+msgstr "填写已明确批准的参数，仅发布到当前数据库。"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Event"
+msgstr "事件"
+
+#. module: ydental_access
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_grant__ydental_category__exam
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_source__ydental_category__exam
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_test_record__ydental_category__exam
+msgid "Examination"
+msgstr "检查"
+
+#. module: ydental_access
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_grant__ydental_category__finance_approval
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_source__ydental_category__finance_approval
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_test_record__ydental_category__finance_approval
+msgid "Financial approval"
+msgstr "财务审批"
+
+#. module: ydental_access
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_grant__ydental_category__followup
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_source__ydental_category__followup
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_test_record__ydental_category__followup
+msgid "Follow-up contact"
+msgstr "复诊联系"
+
+#. module: ydental_access
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_grant__ydental_category__frontdesk
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_source__ydental_category__frontdesk
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_test_record__ydental_category__frontdesk
+msgid "Front desk"
+msgstr "前台"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/res_users.py:0
+msgid "Group administration is required for common staff fields."
+msgstr "员工公共字段由集团管理员维护。"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Group appointment; replacement required"
+msgstr "集团任免；最后店长须先有接替者"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Group departure"
+msgstr "集团离职"
+
+#. module: ydental_access
+#: model:ir.model,name:ydental_access.model_ir_http
+msgid "HTTP Routing"
+msgstr "HTTP 路由"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "IANA timezone"
+msgstr "IANA 时区"
+
+#. module: ydental_access
+#: model:ir.model.fields,field_description:ydental_access.field_hr_employee__id
+#: model:ir.model.fields,field_description:ydental_access.field_ir_actions_report__id
+#: model:ir.model.fields,field_description:ydental_access.field_ir_attachment__id
+#: model:ir.model.fields,field_description:ydental_access.field_ir_http__id
+#: model:ir.model.fields,field_description:ydental_access.field_res_users__id
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_audit__id
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_capability__id
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_grant__id
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_membership__id
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_service__id
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_session__id
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_source__id
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_store__id
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_template__id
+msgid "ID"
+msgstr "编号"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Inactivity (minutes)"
+msgstr "闲置时间（分钟）"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Initial invitation or password reset"
+msgstr "首次邀请或密码重置"
+
+#. module: ydental_access
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_audit__write_uid
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_capability__write_uid
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_grant__write_uid
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_membership__write_uid
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_session__write_uid
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_store__write_uid
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_template__write_uid
+msgid "Last Updated by"
+msgstr "最近更新人"
+
+#. module: ydental_access
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_audit__write_date
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_capability__write_date
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_grant__write_date
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_membership__write_date
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_session__write_date
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_store__write_date
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_template__write_date
+msgid "Last Updated on"
+msgstr "最近更新时间"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Link existing account to this store"
+msgstr "关联已有账号到本店"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Login"
+msgstr "登录名"
+
+#. module: ydental_access
+#: model:ir.model.constraint,message:ydental_access.constraint_ydental_access_session_key_unique
+msgid "Login scope must be unique."
+msgstr "登录会话范围必须唯一。"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "MFA optional"
+msgstr "二步验证可选"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "MFA required"
+msgstr "必须二步验证"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/ydental_access_service.py:0
+msgid "Manager appointment policy has not been approved and configured."
+msgstr "店长任免政策尚未批准和配置。"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/ydental_access_service.py:0
+msgid ""
+"Manager appointment policy must be confirmed before removing a manager."
+msgstr "移除店长前须确认任免政策并独立完成任免。"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Manager policy"
+msgstr "店长任免政策"
+
+#. module: ydental_access
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_grant__ydental_category__medical
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_source__ydental_category__medical
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_test_record__ydental_category__medical
+msgid "Medical"
+msgstr "医疗"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Minimum password length"
+msgstr "密码最小长度"
+
+#. module: ydental_access
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_capability__name
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_store__name
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_template__name
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Name"
+msgstr "名称"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/ydental_access_service.py:0
+msgid "Name and login are required."
+msgstr "请填写姓名和登录名。"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/ydental_access_service.py:0
+msgid "Name or login is too long."
+msgstr "姓名或登录名过长。"
+
+#. module: ydental_access
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_grant__ydental_level__none
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "None"
+msgstr "无权限"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Not published"
+msgstr "未发布"
+
+#. module: ydental_access
+#: model:ir.model.constraint,message:ydental_access.constraint_ydental_access_grant_membership_category_unique
+msgid "One level per membership and category is required."
+msgstr "同一任职和业务大类只能有一个权限级别。"
+
+#. module: ydental_access
+#: model:ir.model.constraint,message:ydental_access.constraint_ydental_access_membership_user_store_unique
+msgid "One membership per account and store is required."
+msgstr "同一账号在同一门店只能有一份任职。"
+
+#. module: ydental_access
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_grant__ydental_category__outsourcing
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_source__ydental_category__outsourcing
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_test_record__ydental_category__outsourcing
+msgid "Outsourcing"
+msgstr "外加工"
+
+#. module: ydental_access
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_grant__ydental_category__patient
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_source__ydental_category__patient
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_test_record__ydental_category__patient
+msgid "Patient"
+msgstr "患者"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Permission level"
+msgstr "权限级别"
+
+#. module: ydental_access
+#: model:ir.actions.act_window,name:ydental_access.ydental_template_action
+#: model:ir.ui.menu,name:ydental_access.ydental_template_menu
+msgid "Permission templates"
+msgstr "权限模板"
+
+#. module: ydental_access
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_grant__ydental_category__personnel
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_source__ydental_category__personnel
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_test_record__ydental_category__personnel
+msgid "Personnel authorization"
+msgstr "人员授权"
+
+#. module: ydental_access
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_grant__ydental_category__pharmacy
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_source__ydental_category__pharmacy
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_test_record__ydental_category__pharmacy
+msgid "Pharmacy"
+msgstr "药房"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Preview all changes"
+msgstr "预览全部变更"
+
+#. module: ydental_access
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_grant__ydental_category__price
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_source__ydental_category__price
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_test_record__ydental_category__price
+msgid "Price"
+msgstr "价格"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Publish security configuration"
+msgstr "发布安全配置"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Publish to this database"
+msgstr "发布到当前数据库"
+
+#. module: ydental_access
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_grant__ydental_level__write
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Read and write"
+msgstr "读写"
+
+#. module: ydental_access
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_grant__ydental_level__read
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Read only"
+msgstr "只读"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Remove from this store"
+msgstr "从本店移除"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Remove store membership"
+msgstr "移除门店任职"
+
+#. module: ydental_access
+#: model:ir.model,name:ydental_access.model_ir_actions_report
+msgid "Report Action"
+msgstr "报告动作"
+
+#. module: ydental_access
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_grant__ydental_category__export
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_source__ydental_category__export
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_test_record__ydental_category__export
+msgid "Report export"
+msgstr "报表导出"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Request invitation"
+msgstr "申请邀请"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Require MFA"
+msgstr "二步验证要求"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid ""
+"Requires an approved appointment policy. Appoint a replacement before "
+"removing the last manager."
+msgstr "须先批准任免政策，撤销最后一位店长前先任命接替者。"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Result"
+msgstr "结果"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Revoke"
+msgstr "撤销"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Save common fields"
+msgstr "保存公共字段"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Save permission"
+msgstr "保存权限"
+
+#. module: ydental_access
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_grant__ydental_category__capacity
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_source__ydental_category__capacity
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_test_record__ydental_category__capacity
+msgid "Schedule and capacity"
+msgstr "排班容量"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/ydental_access_service.py:0
+msgid "Select an account and active capabilities."
+msgstr "请选择账号及有效能力。"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/ydental_access_service.py:0
+msgid "Select between one and fifty distinct account/store targets."
+msgstr "请选择一至五十个不同的账号与门店目标。"
+
+#. module: ydental_access
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_grant__ydental_category__settlement
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_source__ydental_category__settlement
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_test_record__ydental_category__settlement
+msgid "Settlement"
+msgstr "结算"
+
+#. module: ydental_access
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_grant__ydental_category__space
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_source__ydental_category__space
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_test_record__ydental_category__space
+msgid "Space"
+msgstr "空间"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Staff"
+msgstr "员工"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_template_preview
+msgid "Store"
+msgstr "门店"
+
+#. module: ydental_access
+#. odoo-javascript
+#: code:addons/ydental_access/static/src/store_status/store_status.xml:0
+msgid "Store and execution position"
+msgstr "门店及坐诊位置"
+
+#. module: ydental_access
+#: model:ir.actions.act_url,name:ydental_access.ydental_access_action
+#: model:ir.ui.menu,name:ydental_access.ydental_access_menu
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Store and staff"
+msgstr "门店与员工"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/ydental_access_store.py:0
+msgid "Store company cannot be changed after staff assignment."
+msgstr "分配员工后不可更改门店所属公司。"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Store manager"
+msgstr "店长"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Store manager appointment"
+msgstr "店长任免"
+
+#. module: ydental_access
+#: model:ir.module.module,summary:base.module_ydental_access
+msgid "Store membership, employee lifecycle, authorization and audit"
+msgstr "门店任职、员工生命周期、授权与审计"
+
+#. module: ydental_access
+#. odoo-javascript
+#: code:addons/ydental_access/static/src/store_status/store_status.xml:0
+msgid "Store:"
+msgstr "门店："
+
+#. module: ydental_access
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_grant__ydental_category__supplier
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_source__ydental_category__supplier
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_test_record__ydental_category__supplier
+msgid "Supplier cooperation"
+msgstr "厂商合作"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Switch store"
+msgstr "切换门店"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Template"
+msgstr "模板"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "These values have been approved"
+msgstr "这些参数已经批准"
+
+#. module: ydental_access
+#: model_terms:ir.ui.view,arch_db:ydental_access.ydental_access_page
+msgid "Time (UTC)"
+msgstr "时间（UTC）"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/ydental_access_service.py:0
+msgid "Unknown permission category or level."
+msgstr "未知业务大类或权限级别。"
+
+#. module: ydental_access
+#: model:ir.model,name:ydental_access.model_res_users
+msgid "User"
+msgstr "用户"
+
+#. module: ydental_access
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_grant__ydental_category__warehouse
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_source__ydental_category__warehouse
+#: model:ir.model.fields.selection,name:ydental_access.selection__ydental_access_test_record__ydental_category__warehouse
+msgid "Warehouse"
+msgstr "仓库"
+
+#. module: ydental_access
+#: model:ir.module.module,shortdesc:base.module_ydental_access
+msgid "YDental Store Access"
+msgstr "YDental 门店授权"
+
+#. module: ydental_access
+#: model:ir.model,name:ydental_access.model_ydental_access_template
+msgid "YDental authorization template"
+msgstr "YDental 权限模板"
+
+#. module: ydental_access
+#: model:ir.model,name:ydental_access.model_ydental_access_capability
+msgid "YDental common capability dictionary"
+msgstr "YDental 公共能力字典"
+
+#. module: ydental_access
+#: model:ir.model,name:ydental_access.model_ydental_access_grant
+msgid "YDental expanded business permission"
+msgstr "YDental 展开业务权限"
+
+#. module: ydental_access
+#: model:res.groups,name:ydental_access.ydental_group_manager
+msgid "YDental group administration"
+msgstr "YDental 集团管理"
+
+#. module: ydental_access
+#: model:ir.model,name:ydental_access.model_ydental_access_audit
+msgid "YDental immutable business audit"
+msgstr "YDental 不可修改的业务审计"
+
+#. module: ydental_access
+#: model:ir.model,name:ydental_access.model_ydental_access_session
+msgid "YDental independent login store scope"
+msgstr "YDental 独立登录门店范围"
+
+#. module: ydental_access
+#: model:ir.model,name:ydental_access.model_ydental_access_store
+msgid "YDental operating store"
+msgstr "YDental 经营门店"
+
+#. module: ydental_access
+#: model:ir.model,name:ydental_access.model_ydental_access_source
+msgid "YDental source authorization contract"
+msgstr "YDental 源记录授权契约"
+
+#. module: ydental_access
+#: model:ir.model,name:ydental_access.model_ydental_access_membership
+msgid "YDental store employment"
+msgstr "YDental 门店任职"
+
+#. module: ydental_access
+#: model:res.groups,name:ydental_access.ydental_system_manager
+msgid "YDental technical configuration"
+msgstr "YDental 技术配置"
+
+#. module: ydental_access
+#: model:ir.model,name:ydental_access.model_ydental_access_service
+msgid "YDental trusted authorization and lifecycle service"
+msgstr "YDental 受控授权与生命周期服务"
+
+#. module: ydental_access
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_audit__ydental_after
+msgid "Ydental After"
+msgstr "变更后"
+
+#. module: ydental_access
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_audit__ydental_before
+msgid "Ydental Before"
+msgstr "变更前"
+
+#. module: ydental_access
+#: model:ir.model.fields,field_description:ydental_access.field_hr_employee__ydental_capability_ids
+#: model:ir.model.fields,field_description:ydental_access.field_res_users__ydental_capability_ids
+msgid "Ydental Capability"
+msgstr "公共能力"
+
+#. module: ydental_access
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_audit__ydental_category
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_grant__ydental_category
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_source__ydental_category
+msgid "Ydental Category"
+msgstr "业务大类"
+
+#. module: ydental_access
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_capability__ydental_code
+msgid "Ydental Code"
+msgstr "能力代码"
+
+#. module: ydental_access
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_membership__ydental_employee_id
+msgid "Ydental Employee"
+msgstr "员工"
+
+#. module: ydental_access
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_audit__ydental_event
+msgid "Ydental Event"
+msgstr "事件"
+
+#. module: ydental_access
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_membership__ydental_is_manager
+msgid "Ydental Is Manager"
+msgstr "店长身份"
+
+#. module: ydental_access
+#: model:ir.model.fields,field_description:ydental_access.field_hr_employee__ydental_job_title
+#: model:ir.model.fields,field_description:ydental_access.field_res_users__ydental_job_title
+msgid "Ydental Job Title"
+msgstr "公共岗位名称"
+
+#. module: ydental_access
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_session__ydental_key_hash
+msgid "Ydental Key Hash"
+msgstr "会话标识摘要"
+
+#. module: ydental_access
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_grant__ydental_level
+msgid "Ydental Level"
+msgstr "权限级别"
+
+#. module: ydental_access
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_template__ydental_levels
+msgid "Ydental Levels"
+msgstr "各类权限"
+
+#. module: ydental_access
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_grant__ydental_membership_id
+msgid "Ydental Membership"
+msgstr "门店任职"
+
+#. module: ydental_access
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_audit__ydental_reason
+msgid "Ydental Reason"
+msgstr "原因"
+
+#. module: ydental_access
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_audit__ydental_result
+msgid "Ydental Result"
+msgstr "结果"
+
+#. module: ydental_access
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_session__ydental_revision
+msgid "Ydental Revision"
+msgstr "门店版本"
+
+#. module: ydental_access
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_audit__ydental_source
+msgid "Ydental Source"
+msgstr "代执行来源"
+
+#. module: ydental_access
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_audit__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_membership__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_session__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_source__ydental_store_id
+msgid "Ydental Store"
+msgstr "门店"
+
+#. module: ydental_access
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_audit__ydental_target_id
+msgid "Ydental Target"
+msgstr "目标编号"
+
+#. module: ydental_access
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_audit__ydental_target_model
+msgid "Ydental Target Model"
+msgstr "目标模型"
+
+#. module: ydental_access
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_store__ydental_timezone
+msgid "Ydental Timezone"
+msgstr "门店时区"
+
+#. module: ydental_access
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_audit__ydental_user_id
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_membership__ydental_user_id
+#: model:ir.model.fields,field_description:ydental_access.field_ydental_access_session__ydental_user_id
+msgid "Ydental User"
+msgstr "真实用户"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/ydental_access_service.py:0
+msgid "access_denied: A grant cannot exceed your own level."
+msgstr "access_denied: 不得授予超过自身级别的权限。"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/controllers/access.py:0
+msgid "access_denied: A page revision is required for actions."
+msgstr "access_denied: 操作须携带页面版本。"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/controllers/access.py:0
+msgid "access_denied: A page revision is required for writes."
+msgstr "access_denied: 写入须携带页面版本。"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/controllers/access.py:0
+msgid "access_denied: A registered source attachment is required."
+msgstr "access_denied: 仅允许已登记源记录的附件。"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/ydental_access_service.py:0
+msgid "access_denied: A server-bound login scope is required."
+msgstr "access_denied: 需要服务端绑定的登录门店范围。"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/ydental_access_service.py:0
+msgid "access_denied: Active store membership is required."
+msgstr "access_denied: 需要有效门店任职。"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/ydental_access_service.py:0
+msgid "access_denied: An active internal account and store are required."
+msgstr "access_denied: 需要有效内部账号及门店。"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/ydental_access_service.py:0
+msgid "access_denied: An active target membership is required."
+msgstr "access_denied: 目标须有有效门店任职。"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/ydental_access_service.py:0
+msgid "access_denied: An active template is required."
+msgstr "access_denied: 需要有效权限模板。"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/ydental_access_service.py:0
+msgid "access_denied: An internal target account is required."
+msgstr "access_denied: 目标须为内部账号。"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/ydental_access_service.py:0
+msgid "access_denied: Company assignment requires group administration."
+msgstr "access_denied: 公司关联由集团管理员处理。"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/ydental_access_service.py:0
+msgid "access_denied: Execution in another store blocks manual writes."
+msgstr "access_denied: 在其他门店坐诊期间，不允许此处人工写入。"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/ydental_access_service.py:0
+msgid ""
+"access_denied: Group administration and valid common fields are required."
+msgstr "access_denied: 需要集团管理身份及有效公共字段。"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/ydental_access_service.py:0
+msgid "access_denied: Group administration is required."
+msgstr "access_denied: 需要集团管理身份。"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/ydental_access_service.py:0
+msgid ""
+"access_denied: Group administration within allowed companies is required."
+msgstr "access_denied: 需要在已授权公司范围内的集团管理身份。"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/ydental_access_service.py:0
+msgid "access_denied: Invalid authorization action."
+msgstr "access_denied: 无效授权动作。"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/ydental_access_service.py:0
+msgid "access_denied: Invalid login scope."
+msgstr "access_denied: 无效登录门店范围。"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/ydental_access_service.py:0
+msgid "access_denied: Manager appointments require group administration."
+msgstr "access_denied: 店长任免由集团管理员处理。"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/controllers/access.py:0
+msgid "access_denied: Open the YDental store workspace first."
+msgstr "access_denied: 请先打开 YDental 门店工作台。"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/ydental_access_service.py:0
+msgid "access_denied: Personnel administrators cannot change themselves."
+msgstr "access_denied: 普通人员管理员不能更改自身授权。"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/ydental_access_service.py:0
+msgid "access_denied: Personnel authorization is required."
+msgstr "access_denied: 需要人员授权管理权限。"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/ydental_access_service.py:0
+msgid ""
+"access_denied: Privileged account resets require technical configuration."
+msgstr "access_denied: 特权账号重置需要技术配置身份。"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/ir_attachment.py:0
+msgid "access_denied: Protected attachments cannot be published or moved."
+msgstr "access_denied: 受保护附件不可公开或转移归属。"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/ydental_access_service.py:0
+msgid "access_denied: Select an active internal account."
+msgstr "access_denied: 请选择有效内部账号。"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/ydental_access_service.py:0
+msgid "access_denied: Select an active store."
+msgstr "access_denied: 请选择有效门店。"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/ydental_access_source.py:0
+msgid "access_denied: Source ownership cannot be changed."
+msgstr "access_denied: 不可更改源记录归属。"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/ydental_access_source.py:0
+msgid "access_denied: Source store must match the login scope."
+msgstr "access_denied: 源记录门店必须匹配当前登录范围。"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/ydental_access_service.py:0
+msgid "access_denied: Store manager assignments are independently protected."
+msgstr "access_denied: 店长身份由独立任免关系保护。"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/ydental_access_service.py:0
+msgid ""
+"access_denied: Technical configuration and explicit valid parameters are "
+"required."
+msgstr "access_denied: 需要技术配置身份及明确有效的参数。"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/ydental_access_service.py:0
+msgid "access_denied: This business permission is required."
+msgstr "access_denied: 需要相应业务权限。"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/ydental_access_source.py:0
+msgid "access_denied: This source is outside the authorized store scope."
+msgstr "access_denied: 此源记录不在已授权门店范围内。"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/controllers/access.py:0
+msgid "access_denied: Unknown action or arguments."
+msgstr "access_denied: 未知动作或参数。"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/ydental_access_service.py:0
+msgid "access_denied: YDental internal access is required."
+msgstr "access_denied: 需要 YDental 内部访问权限。"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/ydental_access_service.py:0
+msgid "version_conflict: Permissions or the template changed. Preview again."
+msgstr "version_conflict: 权限或模板已变更，请重新预览。"
+
+#. module: ydental_access
+#. odoo-python
+#: code:addons/ydental_access/models/ydental_access_service.py:0
+msgid "version_conflict: The store changed. Refresh this page."
+msgstr "version_conflict: 门店已变更，请刷新页面。"

@@ -1,0 +1,28 @@
+<odoo>
+    <template id="ydental_synthetic_page" name="S01 synthetic authorization sources">
+        <t t-call="web.layout"><main class="container py-4">
+            <h1>S01 synthetic authorization sources</h1>
+            <p>Test fixtures only. No patient, clinical, inventory or financial implementation.</p>
+            <a href="/ydental/access">Store and staff</a>
+            <form t-foreach="records" t-as="record" action="/ydental/s01-synthetic/write" method="post" class="my-3">
+                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                <input type="hidden" name="revision" t-att-value="str(revision)"/>
+                <input type="hidden" name="record_id" t-att-value="record.id"/>
+                <label>Name <input name="name" t-att-value="record.name"/></label>
+                <span t-out="record.ydental_text"/>
+                <button type="submit">Save synthetic source</button>
+            </form>
+        </main></t>
+    </template>
+    <template id="ydental_synthetic_report">
+        <t t-call="web.html_container"><div class="page"><h1>S01 synthetic report</h1>
+            <p t-foreach="docs" t-as="doc" t-out="doc.name"/>
+        </div></t>
+    </template>
+    <record id="ydental_synthetic_report_action" model="ir.actions.report">
+        <field name="name">S01 synthetic report</field>
+        <field name="model">ydental.access.test.record</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">ydental_access_test.ydental_synthetic_report</field>
+    </record>
+</odoo>
