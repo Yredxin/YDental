@@ -190,6 +190,43 @@ class TestSpace(BaseCommon):
             with self.assertRaises(ValidationError), self.cr.savepoint():
                 self.resource.write({'ydental_upload': raw, 'ydental_version': self.resource.ydental_version})
 
+    def test_final_archived_resource_keeps_historical_geometry_editable(self):
+        Item = self.service.env['ydental.space.item']
+        Station = self.service.env['ydental.space.station']
+        item_ids = Item.with_context(active_test=False).search([]).ids
+        station_ids = Station.with_context(active_test=False).search([]).ids
+        item_id, station_id, resource_id = self.item.id, self.station.id, self.resource.id
+        self.resource.action_archive()
+        self.assertTrue(self.item.active)
+        self.station.write({'ydental_x': 80, 'ydental_y': 100, 'ydental_width': 180,
+            'ydental_height': 140, 'ydental_angle': 30, 'ydental_version': self.station.ydental_version})
+        self.assertEqual((self.item.ydental_x, self.item.ydental_y), (80, 100))
+        self.assertEqual((self.item.ydental_width, self.item.ydental_height, self.item.ydental_angle), (120, 100, 30))
+        self.item.write({'ydental_x': 95, 'ydental_y': 115, 'ydental_width': 130,
+            'ydental_height': 110, 'ydental_angle': 45, 'ydental_version': self.item.ydental_version})
+        self.assertEqual((self.item.ydental_x, self.item.ydental_y, self.item.ydental_angle), (95, 115, 45))
+        for active in (True, False):
+            with self.assertRaises(ValidationError), self.cr.savepoint():
+                Item.create({'name': 'Denied new use', 'active': active, 'ydental_store_id': self.stores[0].id,
+                    'ydental_floor_id': self.floor.id, 'ydental_resource_id': resource_id})
+        target = self.root['ydental.space.resource'].create({'name': 'Inactive target', 'active': False,
+            'ydental_kind': 'chair', 'ydental_store_id': self.stores[0].id, 'ydental_svg': SVG})
+        with self.assertRaises(ValidationError), self.cr.savepoint():
+            self.item.write({'ydental_resource_id': target.id, 'ydental_version': self.item.ydental_version})
+        self.item.action_archive()
+        with self.assertRaises(ValidationError), self.cr.savepoint():
+            self.item.action_unarchive()
+        with self.assertRaises(ValidationError), self.cr.savepoint():
+            self.item.write({'active': True, 'ydental_version': self.item.ydental_version})
+        self.assertFalse(self.item.active)
+        self.resource.action_unarchive()
+        self.item.action_unarchive()
+        self.assertTrue(self.item.active)
+        self.assertEqual((self.item.id, self.item.ydental_station_id.id, self.item.ydental_resource_id.id),
+                         (item_id, station_id, resource_id))
+        self.assertEqual(Item.with_context(active_test=False).search([]).ids, item_ids)
+        self.assertEqual(Station.with_context(active_test=False).search([]).ids, station_ids)
+
     def test_rework_group_common_without_store_business_grants(self):
         group = bound_group_only(self, 'group-only-model')
         self.assertFalse(group._scope().ydental_store_id)

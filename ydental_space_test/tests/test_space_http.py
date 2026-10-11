@@ -57,6 +57,51 @@ class TestSpaceHTTP(HttpCase):
         self.assertIn('error', result)
         self.assertEqual(self.station.name, 'S02 Chair 1')
 
+    def test_http_final_archived_resource_keeps_historical_geometry_editable(self):
+        self.authenticate('s02_writer', 's02-test-password')
+        self.select_store()
+        item_id, station_id, resource_id = self.item.id, self.station.id, self.resource.id
+        item_ids = self.root['ydental.space.item'].with_context(active_test=False).search([]).ids
+        station_ids = self.root['ydental.space.station'].with_context(active_test=False).search([]).ids
+        self.assertIn('result', self.rpc('ydental.space.resource', 'action_archive', [[resource_id]]))
+        self.assertEqual(self.url_open('/ydental/space/resource/%s.svg' % resource_id).status_code, 200)
+        self.floor.invalidate_recordset()
+        self.assertIn('result', self.rpc('ydental.space.floor', 'action_save_geometry', [[self.floor.id],
+            self.floor.ydental_version, [{'kind': 'station', 'id': station_id, 'values': {
+                'ydental_x': 80, 'ydental_y': 100, 'ydental_width': 180, 'ydental_height': 140, 'ydental_angle': 30}}]]))
+        self.item.invalidate_recordset()
+        self.assertTrue(self.item.active)
+        self.assertEqual((self.item.ydental_x, self.item.ydental_y), (80, 100))
+        self.assertEqual((self.item.ydental_width, self.item.ydental_height, self.item.ydental_angle), (120, 100, 30))
+        self.assertIn('result', self.rpc('ydental.space.item', 'write', [[item_id], {'ydental_x': 95,
+            'ydental_y': 115, 'ydental_width': 130, 'ydental_height': 110, 'ydental_angle': 45,
+            'ydental_version': self.item.ydental_version}]))
+        self.item.invalidate_recordset()
+        self.assertEqual((self.item.ydental_x, self.item.ydental_y, self.item.ydental_angle), (95, 115, 45))
+        for active in (True, False):
+            self.assertIn('error', self.rpc('ydental.space.item', 'create', [[{'name': 'Denied new use',
+                'active': active, 'ydental_store_id': self.stores[0].id, 'ydental_floor_id': self.floor.id,
+                'ydental_resource_id': resource_id}]]))
+        target = self.root['ydental.space.resource'].create({'name': 'Inactive target', 'active': False,
+            'ydental_kind': 'chair', 'ydental_store_id': self.stores[0].id, 'ydental_svg': self.resource.ydental_svg})
+        self.assertIn('error', self.rpc('ydental.space.item', 'write', [[item_id],
+            {'ydental_resource_id': target.id, 'ydental_version': self.item.ydental_version}]))
+        self.assertIn('result', self.rpc('ydental.space.item', 'action_archive', [[item_id]]))
+        self.assertIn('error', self.rpc('ydental.space.item', 'action_unarchive', [[item_id]]))
+        self.item.invalidate_recordset()
+        self.assertIn('error', self.rpc('ydental.space.item', 'write', [[item_id],
+            {'active': True, 'ydental_version': self.item.ydental_version}]))
+        self.item.invalidate_recordset()
+        self.assertFalse(self.item.active)
+        self.assertIn('result', self.rpc('ydental.space.resource', 'action_unarchive', [[resource_id]]))
+        self.assertIn('result', self.rpc('ydental.space.item', 'action_unarchive', [[item_id]]))
+        self.item.invalidate_recordset()
+        self.assertTrue(self.item.active)
+        self.assertEqual((self.item.id, self.item.ydental_station_id.id, self.item.ydental_resource_id.id),
+                         (item_id, station_id, resource_id))
+        self.assertEqual(self.root['ydental.space.item'].with_context(active_test=False).search([]).ids, item_ids)
+        self.assertEqual(self.root['ydental.space.station'].with_context(active_test=False).search([]).ids, station_ids)
+
     def test_http_rework_group_common_without_membership_or_space_grants(self):
         self.authenticate('s02_group_only', 's02-test-password')
         page = self.url_open('/ydental/access')
