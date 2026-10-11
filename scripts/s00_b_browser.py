@@ -8,8 +8,9 @@ import hashlib
 import json
 from pathlib import Path
 import re
+import unicodedata
 
-import fitz
+import pymupdf as fitz
 from playwright.sync_api import sync_playwright
 
 
@@ -89,9 +90,10 @@ def main():
                     first = doc[0]
                     assert abs(first.rect.width * 25.4 / 72 - width) < 1
                     assert abs(first.rect.height * 25.4 / 72 - height) < 1
-                    text = first.get_text()
+                    raw_text = first.get_text()
+                    text = unicodedata.normalize('NFKC', raw_text)
                     for expected in ('牙科合成 PDF 样张', '虚拟患者：样例一', '合成样张结束。'):
-                        assert expected in text, (paper, expected)
+                        assert unicodedata.normalize('NFKC', expected) in text, (paper, expected)
                     assert text.count('核对中文字形与自动换行。') == 12
                     assert '\ufffd' not in text
                     blocks = [block[:4] for block in first.get_text('blocks') if block[4].strip()]
@@ -108,7 +110,8 @@ def main():
                                     'width_mm': first.rect.width * 25.4 / 72,
                                     'height_mm': first.rect.height * 25.4 / 72,
                                     'fonts': fonts, 'all_text_blocks_inside_page': True,
-                                    'chinese_lines': 12, 'extracted_text': text})
+                                    'chinese_lines': 12, 'extracted_text': text,
+                                    'raw_extracted_text': raw_text, 'normalization': 'NFKC'})
             ctx.close()
         for role in ('unauthorized', 'portal'):
             ctx = context(role)

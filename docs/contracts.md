@@ -1,6 +1,6 @@
-# 当前工程约定｜YD-N1 R1｜S00-A
+# 当前工程约定｜YD-N1 R1｜S00
 
-来源：[总计划 #23](https://github.com/Yredxin/YDental/issues/23) 第3.1/R01、3.2、4.1、7节；[S00 #24](https://github.com/Yredxin/YDental/issues/24) 第3/F—I、4、7节。本文为当前 Issue 的工程交付，不另立需求版本。当前只发布契约，未实现业务模型、公共审计、编号服务或运行验证；生产参数按责任阶段发布。
+来源：[总计划 #23](https://github.com/Yredxin/YDental/issues/23) 第3.1/R01、3.2、4.1、7节；[S00 #24](https://github.com/Yredxin/YDental/issues/24) 第3/F—I、4、7节。本文为当前 Issue 的工程交付，不另立需求版本。S00-A发布工程契约；S00-B仅实现最小入口、翻译和合成PDF验证，实际结果见[s00-b-report.md](s00-b-report.md)。未实现业务模型、公共审计或自研编号服务；生产参数按责任阶段发布。
 
 ## 命名和现有标识映射
 
@@ -9,7 +9,7 @@
 |对象|实际标识或新命名约定|兼容处理|
 |---|---|---|
 |仓库/addons根|Yredxin/YDental；核心checkout的sd-addons|两个独立Git根，不建嵌套副本或submodule|
-|现有模块|ydental_base；20.0.1.0.0；depends web；LGPL-3|保留目录/manifest/许可证，未重新安装验收|
+|现有模块|ydental_base；20.0.1.0.1；depends web、base_report_wkhtmltox；LGPL-3|保留目录/许可证；S00-B新隔离库实测，待技术复核/用户确认|
 |新增模块|`ydental_<domain>`|职责获启用后定domain，不按阶段批量建空模块|
 |新增业务模型|`ydental.<domain>.<singular_entity>`|登记module→model映射；扩展原生保留_inherit原名，不复制主表|
 |新增自研字段|`ydental_<semantic_name>`；关系用_id/_ids|原生/Odoo必需字段不改名；字典登记原生复用，不建同义副本|
@@ -25,7 +25,7 @@
 
 ## 依赖边界和扩展钩子
 
-原生+自研，不引入OCA。当前实际只有ydental_base→web。原生hr/product/stock/account/report按责任阶段实际需要评估并声明直接依赖，历史安装不算本次验证。
+原生+自研，不引入OCA。当前实际为ydental_base→web、base_report_wkhtmltox；后者提供本批实测PDF引擎。原生hr/product/stock/account/report按责任阶段实际需要评估并声明直接依赖，历史安装不算本次验证。
 
 下层提供已需要的公共能力，上层依赖并继承；下层不引用未来业务模型，不用registry探测、ImportError或字符串查找未安装模型倒置依赖。跨职责集成由获启用的上层适配，不预建空壳。钩子只为真实扩展点拆分小方法（_get_*/_prepare_*/_check_*），记录输入/输出/权限/事务/覆盖规则，继承通过super；模型不依赖HTTP request。
 
@@ -33,7 +33,7 @@
 
 ## 翻译、时间与精度
 
-英文静态源字符串，Python用锁定源码支持的self.env._ / request.env._，插值作参数，不翻译动态拼接、状态码、标识符。XML/QWeb/JS按实际框架提取规则，各自研模块交付i18n/zh_CN.po。验证占位符、中英文切换、升级后内部码与旧编号不变。当前模块有中文源字符串且无翻译，留待运行批次处理。
+英文静态源字符串，Python用锁定源码支持的self.env._ / request.env._，插值作参数，不翻译动态拼接、状态码、标识符。XML/QWeb/JS按实际框架提取规则，各自研模块交付i18n/zh_CN.po。验证占位符、中英文切换、升级后内部码与旧编号不变。当前ydental_base已采用英文源字符串及i18n/zh_CN.po；S00-B安装/升级、HTTP双语与原生提取覆盖证据见本批报告。
 
 时间戳按Odoo ORM的naive UTC存储，外部带时区时间先规范为UTC。业务日期与显示明确采用门店IANA时区，不用服务器日期或操作者时区建业务日。业务日独立date，登记计算来源/时区版本；补录区分实际发生与录入时间。门店时区未发布，不默设全集团Asia/Shanghai。
 
@@ -50,7 +50,7 @@
 |叫号显示号|门店+报到区域+业务日唯一|门店时区分日，同范围并发唯一，跨日重号不混内部任务|
 |显示格式/门店码|可配置，不固定为示例的长度|改名/改码/格式变更不重编旧单，保存历史快照|
 
-禁止max+1、按记录数或客户端编号。序列加数据库约束、必要锁或原子更新，重试有界，冲突不留半笔状态。未新增“无间断编号”承诺；展示号不是幂等键。当前无编号业务模型，真实跨日/多连接测试NOT_RUN。
+禁止max+1、按记录数或客户端编号。序列加数据库约束、必要锁或原子更新，重试有界，冲突不留半笔状态。未新增“无间断编号”承诺；展示号不是幂等键。当前无编号业务模型，S00-B仅以原生fields时间工具及ir.sequence进行合成跨日/4连接分配、升级前后快照验证；不代表患者号、门店业务编号或叫号实现。
 
 ## 每阶段数据字典模板
 
@@ -105,4 +105,18 @@
 
 ## API核验边界
 
-只读锁定源码核实ir.access、Constraint/UniqueIndex、env._、时间API及PDF引擎拆分，定位见s00-a-report.md。源码定义不证明真实运行；安装/鉴权/翻译/并发/PDF须获启用批次实测。不照搬旧ir.model.access CSV或旧PDF调用，不改核心凑示例。
+锁定源码ir.access、Constraint/UniqueIndex、env._、时间API及PDF分层的S00-A静态定位仍见s00-a-report.md；S00-B当前API/CLI及实际最小运行证据见s00-b-report.md。原生约束/业务动作保护仍由所属批次验证，不照搬旧ir.model.access CSV或PDF调用，不改核心。
+
+
+## S00-B实际技术资产
+
+|对象|本批标识|边界|
+|---|---|---|
+|原生模型扩展|ir.actions.report，_get_report/_get_layout|无新增字段；只为本模块两份合成样张增加渲染鉴权与内联布局|
+|样张动作|ydental_base.ydental_sample_report_a4 / ydental_sample_report_narrow|model=res.company但固定模板不读取公司或患者字段，无binding/附件缓存|
+|纸张|ydental_base.ydental_sample_paper_a4 / ydental_sample_paper_narrow|A4纵向；80×200mm纵向，均为演示参数，不是生产设备发布|
+|模板|ydental_base.ydental_sample_content / ydental_sample_layout / ydental_sample_a4 / ydental_sample_narrow|固定合成中文内容；无任意HTML输入/远程资源回调|
+|下载|GET /ydental/sample/a4、/ydental/sample/narrow|内部用户且有入口组；原生/report/pdf及/report/html同样鉴权；无权403、匿名要求登录|
+|本批运行|scripts/s00_b.py；ydental_s00b_test_14位时间_8位hex|固定核心/本地端点/cluster、全新库创建记录和OID、独立配置与资源；无删除/接管旧库动作|
+
+上述标识只服务#24当前最小运行；未新增S01业务权限、审计、患者或计费能力。历史P00技术标识例外保留，不机械迁移登录名或重授权许可证。
