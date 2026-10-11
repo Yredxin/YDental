@@ -266,8 +266,8 @@ class YDentalSupplyService(models.AbstractModel):
         if not previous or len(previous) > 50:
             raise ValidationError(self.env._('Copy requires 1 to 50 source assignments.'))
         rows = [{'user_id': r.ydental_user_id.id, 'station_id': r.ydental_station_id.id,
-                 'area_id': r.ydental_area_id.id, 'start': fields.Datetime.to_string(r.ydental_start + timedelta(days=7)),
-                 'end': fields.Datetime.to_string(r.ydental_end + timedelta(days=7)), 'reason': 'Copy previous week'} for r in previous]
+                 'area_id': r.ydental_area_id.id, 'start': fields.Datetime.to_string((r.ydental_start.replace(tzinfo=timezone.utc).astimezone(ZoneInfo(store.ydental_timezone)) + timedelta(days=7)).astimezone(timezone.utc).replace(tzinfo=None)),
+                 'end': fields.Datetime.to_string((r.ydental_end.replace(tzinfo=timezone.utc).astimezone(ZoneInfo(store.ydental_timezone)) + timedelta(days=7)).astimezone(timezone.utc).replace(tzinfo=None)), 'reason': 'Copy previous week'} for r in previous]
         return self._batch(store, {'rows': rows})
 
     def _slot(self, store, p):
@@ -329,7 +329,7 @@ class YDentalSupplyService(models.AbstractModel):
         return {'id': slot.id}
 
     def _coverage_valid(self, slot):
-        if not slot.ydental_station_id.active or not slot.ydental_station_id.ydental_enabled:
+        if not slot.ydental_station_id.active or not slot.ydental_station_id.ydental_enabled or not all(slot.with_context(active_test=False).ydental_capability_ids.mapped('active')):
             return False
         if not set(slot.ydental_capability_ids.ids) <= set(slot.ydental_station_id.ydental_capability_ids.filtered('active').ids):
             return False
@@ -383,8 +383,8 @@ class YDentalSupplyService(models.AbstractModel):
     def _convert_slot(self, store, slot):
         if slot.ydental_converted:
             return
-        if fields.Datetime.now() < slot.ydental_start:
-            raise UserError(self.env._('Conversion is allowed only after slot start.'))
+        if not slot.ydental_start <= fields.Datetime.now() < slot.ydental_end:
+            raise UserError(self.env._('Conversion requires a current, unexpired slot.'))
         before = self._snapshot(slot)
         slot._save({'ydental_converted': True, 'ydental_reservation_free': 0,
                     'ydental_walkin_free': slot.ydental_walkin_free + slot.ydental_reservation_free})
@@ -458,7 +458,7 @@ class YDentalSupplyService(models.AbstractModel):
         candidates = candidates.sorted(lambda r: (len(r.ydental_capability_ids), r.ydental_station_id.id, r.id))
         for slot in candidates:
             pool = slot.ydental_policy_id.ydental_phone_pool if p['channel'] == 'phone' else p['channel']
-            if fields.Datetime.now() >= slot.ydental_start and not slot.ydental_converted:
+            if slot.ydental_start <= fields.Datetime.now() < slot.ydental_end and not slot.ydental_converted:
                 self._convert_slot(store, slot)
             field = 'ydental_reservation_free' if pool == 'reservation' else 'ydental_walkin_free'
             if p['capability_id'] not in slot.ydental_capability_ids.ids or not self._saleable(store, slot, pool) or slot[field] <= 0:
@@ -639,7 +639,7 @@ class YDentalSupplyService(models.AbstractModel):
         if not assignment:
             raise AccessError(self.env._('access_denied: Select your effective arrangement today.'))
         stations = assignment.ydental_station_id or self.env['ydental.space.station'].sudo().search([
-            ('ydental_store_id', '=', assignment.ydental_store_id.id), ('ydental_area_id', '=', assignment.ydental_area_id.id),
+            ('ydental_store_id', '=', assignment.ydental_store_id.id), ('ydental_area_id', 'child_of', assignment.ydental_area_id.id),
             ('ydental_enabled', '=', True)])
         capabilities = set(self.env.user.sudo().ydental_capability_ids.filtered('active').ids)
         stations = stations.filtered(lambda r: r.active and r.ydental_enabled and
@@ -665,6 +665,10 @@ class YDentalSupplyService(models.AbstractModel):
             'group_by': group_by if group_by in ('station', 'person') else 'station',
             'assignments': assignments, 'members': members, 'stations': stations, 'areas': areas,
             'capabilities': stations.ydental_capability_ids.filtered('active'), 'slots': slots,
+            'area_summaries': [{'area': rows[0].ydental_area_id.name, 'start': rows[0].ydental_start,
+                'end': rows[0].ydental_end, 'total': sum(rows.mapped('ydental_total')),
+                'reservation': sum(rows.mapped('ydental_reservation_free')), 'walkin': sum(rows.mapped('ydental_walkin_free'))}
+                for rows in slots.grouped(lambda r: (r.ydental_area_id.id, r.ydental_start, r.ydental_end)).values()],
             'policies': self._model('policy').search([('ydental_store_id', '=', store.id)]),
             'feedback': self._model('feedback').search([('ydental_store_id', '=', store.id)], limit=100),
             'dispositions': self._model('disposition').search([('ydental_store_id', '=', store.id)], limit=100),

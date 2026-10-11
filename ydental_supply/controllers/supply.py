@@ -49,8 +49,11 @@ class YDentalSupply(http.Controller):
         except (AccessError, UserError, ValueError, TypeError, KeyError) as error:
             return request.make_json_response({'error': str(error)}, status=403 if isinstance(error, AccessError) else 409,
                 headers=[('Cache-Control', 'no-store')])
-        if output == 'json' or operation == 'suggest':
+        if output == 'json':
             return request.make_json_response(result, headers=[('Cache-Control', 'no-store')])
+        if operation == 'suggest':
+            stations = service.env['ydental.space.station'].sudo().browse(result['station_ids'])
+            return request.render('ydental_supply.ydental_supply_suggestion', {'result': result, 'stations': stations}, headers=[('Cache-Control', 'no-store')])
         return request.redirect('/ydental/supply/today' if operation == 'feedback' else '/ydental/supply')
 
     def _form_args(self, service, operation, form):

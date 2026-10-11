@@ -15,3 +15,5 @@ from . import ydental_space_station
 from . import ydental_space_resource
 from . import resource_calendar_leaves
 from . import res_users
+from . import ydental_space_item
+from . import ydental_access_capability
