@@ -54,4 +54,8 @@ def merge(cls, source, target, service=None):
 
 def clinical(cls, patient_id, store=None, text='S04 SYNTHETIC CLINICAL ONLY'):
     service = cls.doctor if store is None else bind(cls, cls.manager, 'clinical-' + str(store.id), store)
+    if store is not None:
+        # Historical source fixtures explicitly establish their administrative
+        # store relationship; clinical writes must never do this implicitly.
+        service._operate('relation', {'patient_id': patient_id}, secrets.token_hex(8))
     return service._operate('clinical', {'patient_id': patient_id, 'values': {'allergies': text}}, secrets.token_hex(8))

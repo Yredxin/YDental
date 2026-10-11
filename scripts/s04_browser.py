@@ -51,7 +51,7 @@ def main():
     commit = subprocess.check_output(['git', '-C', str(ROOT), 'rev-parse', 'HEAD'], text=True).strip()
     require(not subprocess.check_output(['git', '-C', str(ROOT), 'status', '--porcelain', '--',
         'ydental_patient', 'ydental_patient_test', 'scripts/s04*'], text=True), 'Commit implementation and verification first')
-    evidence = ROOT / 'docs/evidence/s04/browser-attempts' / datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f')
+    evidence = ROOT / 'docs/evidence/s04-rework/browser-attempts' / datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f')
     evidence.mkdir(parents=True)
     result = {'scope': 'S04 synthetic patient workflow UI', 'database': args.db, 'tested_commit': commit,
               'browser': 'Firefox', 'sandbox': 'default, no overrides', 'checks': [], 'screenshots': []}
@@ -193,6 +193,51 @@ def main():
             reader_page.goto(base + '/ydental/access')
             denied = action(reader_page, 'create', {'values': {'name': 'Forbidden browser creation'}})
             check('reader write receives 403', denied['status'] == 403)
+            none_context, none_page = login('none')
+            # Native Contacts RPCs from a real Firefox session, with the same
+            # binding/revision as the workspace. No server-side test bypass.
+            def native_rpc(page, method, args):
+                return page.evaluate('''async input => {
+                    const response = await fetch('/web/dataset/call_kw/res.partner/'+input.method, {
+                        method:'POST', headers:{'Content-Type':'application/json'},
+                        body:JSON.stringify({jsonrpc:'2.0',method:'call',id:1,params:{model:'res.partner',
+                            method:input.method,args:input.args,kwargs:{}}})});
+                    return await response.json();
+                }''', {'method': method, 'args': args})
+            for partner_id in preview['protected_partners']:
+                blocked = native_rpc(none_page, 'read', [[partner_id], ['name','phone','email']])
+                check('none Contacts direct read denied '+str(partner_id), bool(blocked.get('error')))
+            hidden = native_rpc(none_page, 'search_read', [[['id','in',preview['protected_partners']]], ['name','phone','email']])
+            check('none Contacts search returns no patient or guardian', hidden.get('result') == [])
+            ordinary = native_rpc(none_page, 'read', [[preview['ordinary_partner']], ['name']])
+            check('none ordinary Contacts remain readable', ordinary.get('result',[{}])[0].get('name') == 'S04 Browser Ordinary Contact')
+            none_page.goto(base + '/ydental/patients')
+            check('none patient workspace denied', none_page.locator('body').inner_text().find('S04 Browser Original') < 0 and
+                  none_page.locator('#patient-identity').count() == 0)
+            screenshot(none_page, none_context, '06-none-contacts-denied.png')
+            b_patient = preview['b_only']['id']
+            b_url = base + '/ydental/patients/%s/clinical?purpose=diagnosis' % b_patient
+            response = doctor_page.goto(b_url)
+            check('B-only A care denied before relation', response.status == 403)
+            doctor_page.goto(base + '/ydental/access')
+            blocked = action(doctor_page, 'clinical', {'patient_id': b_patient, 'values': {'allergies':'Forbidden implicit relation'}})
+            check('B-only A clinical write denied before relation', blocked['status'] == 403)
+            page.goto(base + '/ydental/patients/' + str(b_patient))
+            check('clinical denial did not secretly create A relation', 'S04 Synthetic A' not in page.locator('#store-relations').inner_text())
+            form(page, 'relation').locator('button').click()
+            page.wait_for_url('**/ydental/patients/' + str(b_patient))
+            check('frontdesk explicitly establishes A relation without arrival', 'S04 Synthetic A' in page.locator('#store-relations').inner_text() and
+                  '尚未记录' in page.locator('#store-relations').inner_text())
+            screenshot(page, desk_context, '07-explicit-relation-no-arrival.png')
+            response = doctor_page.goto(b_url)
+            check('B-only A care succeeds after explicit relation', response.status == 200 and
+                  'S04 SYNTHETIC B ONLY HISTORY' in doctor_page.locator('#clinical-history').inner_text())
+            allowed = action(doctor_page, 'clinical', {'patient_id':b_patient,'values':{'allergies':'S04 SYNTHETIC A RELATION ALLOWED'}})
+            check('A clinical write succeeds after explicit relation', allowed['status'] == 200)
+            doctor_page.goto(b_url)
+            check('A record and B history coexist after explicit relation', 'S04 SYNTHETIC A RELATION ALLOWED' in doctor_page.locator('#clinical-history').inner_text() and
+                  'S04 SYNTHETIC B ONLY HISTORY' in doctor_page.locator('#clinical-history').inner_text())
+            screenshot(doctor_page, doctor_context, '08-relation-care-and-local-write.png')
             check('no browser JavaScript errors', not errors)
             result['result'] = 'PASS'
         except Exception as error:

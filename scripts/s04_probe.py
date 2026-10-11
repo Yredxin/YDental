@@ -53,13 +53,22 @@ with registry.cursor() as cr:
     original = create(fixture, name='S04 Browser Original', phone='+1 202 555 0100')
     same_phone = create(fixture, name='S04 Browser Shared Phone', phone='2025550100', phone_region='US')
     clinical_id = clinical(fixture, original['id'], fixture.stores[2], 'S04 SYNTHETIC CROSS STORE BACKGROUND')['id']
+    b_service = bind(fixture, fixture.manager, 'browser-b-only', fixture.stores[1])
+    b_only = create(fixture, service=b_service, name='S04 Browser B Only')
+    b_history = clinical(fixture, b_only['id'], fixture.stores[1], 'S04 SYNTHETIC B ONLY HISTORY')['id']
+    guardian = fixture.service._operate('contact', {'patient_id': original['id'], 'name': 'S04 Browser Protected Guardian',
+        'relation': 'guardian', 'relationship': 'Declared guardian, synthetic'}, 'browser-protected-guardian')
+    primary_partner = root['ydental.patient'].browse(original['id']).ydental_partner_id
+    guardian_partner = root['ydental.patient.contact'].browse(guardian['id']).ydental_partner_id
+    ordinary_partner = root['res.partner'].create({'name': 'S04 Browser Ordinary Contact'})
     credential_values = {}
     for role, user in fixture.users.items():
         password = secrets.token_urlsafe(24)
         user.write({'password': password, 'lang': 'zh_CN' if role != 'reader' else 'en_US'})
         credential_values[role] = {'id': user.id, 'login': user.login, 'password': password}
     preview = {'stores': fixture.stores.ids, 'original': original, 'same_phone': same_phone,
-               'clinical_id': clinical_id, 'suffix': fixture.suffix}
+               'clinical_id': clinical_id, 'suffix': fixture.suffix, 'b_only': b_only, 'b_history': b_history,
+               'protected_partners': (primary_partner | guardian_partner).ids, 'ordinary_partner': ordinary_partner.id}
     cr.commit()  # New private fixture cursor, persist only this synthetic run.
 private(run / 'access.json', credential_values)
 private(run / 'preview.json', preview)
