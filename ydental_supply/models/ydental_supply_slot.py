@@ -19,7 +19,7 @@ class YDentalSupplySlot(models.Model):
     ydental_unavailable = fields.Integer(default=0, required=True, string='Unavailable')
     ydental_converted = fields.Boolean(default=False, string='Converted')
     state = fields.Selection([('draft', 'Draft'), ('published', 'Published'), ('suspended', 'Suspended')], default='draft', required=True)
-    ydental_coverage = fields.Json(, string='Verified coverage')
+    ydental_coverage = fields.Json(string='Verified coverage')
     ydental_reason = fields.Char(required=True, string='Reason')
 
     _nonnegative = models.Constraint('CHECK(ydental_total >= 0 AND ydental_reservation_free >= 0 AND ydental_walkin_free >= 0 AND ydental_unavailable >= 0)', 'Capacity counters cannot be negative.')

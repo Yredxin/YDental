@@ -12,8 +12,8 @@ class YDentalSupplyEvent(models.Model):
     ydental_actor_id = fields.Many2one('res.users', required=True, ondelete='restrict', string='Actor')
     ydental_operation = fields.Char(required=True, string='Operation')
     ydental_reason = fields.Char(required=True, string='Reason')
-    ydental_before = fields.Json(, string='Before')
-    ydental_after = fields.Json(, string='After')
+    ydental_before = fields.Json(string='Before')
+    ydental_after = fields.Json(string='After')
     ydental_policy_id = fields.Many2one('ydental.supply.policy', ondelete='restrict', string='Policy version')
 
     def _save(self, values):

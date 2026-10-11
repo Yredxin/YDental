@@ -11,4 +11,4 @@ class YDentalSupplyFeedback(models.Model):
     ydental_recipient_ids = fields.Many2many('res.users', string='Recipients')
     ydental_reason = fields.Char(required=True, string='Reason')
     state = fields.Selection([('pending', 'Pending'), ('resolved', 'Resolved')], default='pending', required=True)
-    ydental_resolution = fields.Char(, string='Resolution')
+    ydental_resolution = fields.Char(string='Resolution')

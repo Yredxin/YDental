@@ -14,7 +14,7 @@ class YDentalSupplyAssignment(models.Model):
     ydental_start = fields.Datetime(required=True, index=True, string='Start')
     ydental_end = fields.Datetime(required=True, string='End')
     state = fields.Selection([('active', 'Effective'), ('cancelled', 'Cancelled')], default='active', required=True)
-    ydental_reason = fields.Char(, string='Reason')
+    ydental_reason = fields.Char(string='Reason')
     ydental_warning = fields.Char(compute='_compute_warning', string='Warning')
 
     def _compute_warning(self):
