@@ -1,0 +1,166 @@
+{
+  "scope": "Directed S03 rework final documents/evidence; excludes itself. Original d652026 manifest and evidence preserved separately.",
+  "tested_commit": "31d69ccaf2ef4e7ce7c49c7d8e0acce3c5f903d6",
+  "files": [
+    {
+      "path": "AGENTS.md",
+      "bytes": 6070,
+      "sha256": "8106788446a4134f295313afe9f494350b9d103f05bfb4dd4992e47ec5052db3"
+    },
+    {
+      "path": "docs/evidence/s03-rework/browser-attempts/20261011T162212262746/01-weekly-plan.png",
+      "bytes": 431627,
+      "sha256": "ba7d9781650988dcbc93614df35be59bb298f03df8c31265592029a175a81589"
+    },
+    {
+      "path": "docs/evidence/s03-rework/browser-attempts/20261011T162212262746/02-shared-capacity.png",
+      "bytes": 462107,
+      "sha256": "a73f060bd6a744c0038b336ec5403ddb21146541743e54d507b5438cbab5f891"
+    },
+    {
+      "path": "docs/evidence/s03-rework/browser-attempts/20261011T162212262746/03-business-day.png",
+      "bytes": 473077,
+      "sha256": "d922448ca6db23869e94dbd79fa8ee0810553c51df5de5eb53df264ab6fa3e7d"
+    },
+    {
+      "path": "docs/evidence/s03-rework/browser-attempts/20261011T162212262746/04-readonly-capacity.png",
+      "bytes": 330211,
+      "sha256": "3e4b4fe5ca10a364a6320fb1323b5945400e8810b8413698b86e929a53952757"
+    },
+    {
+      "path": "docs/evidence/s03-rework/browser-attempts/20261011T162212262746/05-my-today-feedback.png",
+      "bytes": 43727,
+      "sha256": "3183ad56d64d051dca4fc660e25c6f8af15d1f5298434352d63568225311b3b7"
+    },
+    {
+      "path": "docs/evidence/s03-rework/browser-attempts/20261011T162212262746/06-partial-area-suggestion.png",
+      "bytes": 24308,
+      "sha256": "c6a9338e3f9c3635896ac2a695df6041ee1dcb7fde4316966af48897a8ef553e"
+    },
+    {
+      "path": "docs/evidence/s03-rework/browser-attempts/20261011T162212262746/07-assignment-handling.png",
+      "bytes": 483828,
+      "sha256": "544d831a241bdc5307fb3f2a4829a33710267eb22f4d7495ab0548605a72fcd2"
+    },
+    {
+      "path": "docs/evidence/s03-rework/browser-attempts/20261011T162212262746/08-dst-week-copy.png",
+      "bytes": 434765,
+      "sha256": "e6b7eedacfe56b0dcd9054c94d3773e96d583ce8595450231c3bb46b03259cdb"
+    },
+    {
+      "path": "docs/evidence/s03-rework/browser-attempts/20261011T162212262746/09-dst-input-rejected.png",
+      "bytes": 13820,
+      "sha256": "ce8059ae301dbcf116426b0d25b23a90ab79c5053a3e7d67f41e679d46694aea"
+    },
+    {
+      "path": "docs/evidence/s03-rework/browser-attempts/20261011T162212262746/result.json",
+      "bytes": 4610,
+      "sha256": "f25963bbd84a1ccaef55a3bef4845164688ee0d25751aa013df50c27a91a7ba9"
+    },
+    {
+      "path": "docs/evidence/s03-rework/browser-final.json",
+      "bytes": 4610,
+      "sha256": "f25963bbd84a1ccaef55a3bef4845164688ee0d25751aa013df50c27a91a7ba9"
+    },
+    {
+      "path": "docs/evidence/s03-rework/concurrency-final.json",
+      "bytes": 7012,
+      "sha256": "9df8fc6e7615e51f7258ff38629969e29b30861220ab0bfc5d15f4eba311d340"
+    },
+    {
+      "path": "docs/evidence/s03-rework/delivery-source-check.json",
+      "bytes": 405,
+      "sha256": "1d17144f728ba8071e7df41356bd482ab60ba141aed42a6cb747f5ace90b4ab5"
+    },
+    {
+      "path": "docs/evidence/s03-rework/delivery-validation.json",
+      "bytes": 474,
+      "sha256": "e158a59ca09c33c833734557bb16b970cfc8947cd02d7d0901481028cc9135e0"
+    },
+    {
+      "path": "docs/evidence/s03-rework/guard-final.json",
+      "bytes": 212,
+      "sha256": "ffa0ebc45c2f4bff6290a350f1883aa353cec396366be1c2431cef4f8b2f7a85"
+    },
+    {
+      "path": "docs/evidence/s03-rework/ledger-final.json",
+      "bytes": 66028,
+      "sha256": "63c52190709bab349f1119b352d0490e7ac657f74a4d7ffecd3206101faa63e7"
+    },
+    {
+      "path": "docs/evidence/s03-rework/model-http-final.json",
+      "bytes": 8047,
+      "sha256": "662303cebea3191e135715ef400c9311e7b5fe596f311e96ff250ca188af2ec6"
+    },
+    {
+      "path": "docs/evidence/s03-rework/preservation.json",
+      "bytes": 3123,
+      "sha256": "1c17d32504ad24ae3731929472f87b69827fc9e09a5cb4760bd4e1c666e6b16d"
+    },
+    {
+      "path": "docs/evidence/s03-rework/preview-lifecycle.json",
+      "bytes": 347,
+      "sha256": "756bed616578a208e733d27c86bd05cd27e9fe15f4f09d61885932f9dceb23a7"
+    },
+    {
+      "path": "docs/evidence/s03-rework/project/after.json",
+      "bytes": 118214,
+      "sha256": "34a6ed7b8b712c0f9c31606ccccbdd81fb742135e29b212f9541c48372c55bb3"
+    },
+    {
+      "path": "docs/evidence/s03-rework/project/before.json",
+      "bytes": 118217,
+      "sha256": "10a117aad42acc067569d73873f62c69cc3de2ec4429cfc92598e181f9e05460"
+    },
+    {
+      "path": "docs/evidence/s03-rework/project/final.json",
+      "bytes": 118214,
+      "sha256": "f4dd84d1378e4b2b198aec5e1d9b702e8977fb955ad86ff7a0eca0f115f931b1"
+    },
+    {
+      "path": "docs/evidence/s03-rework/project/mutation.json",
+      "bytes": 509,
+      "sha256": "72afbbdd5d12d85ddb15b7f225d5158071150d69443fc77d5570d9e8d205cf41"
+    },
+    {
+      "path": "docs/evidence/s03-rework/project/prewrite.json",
+      "bytes": 118217,
+      "sha256": "10f3ea985ed24d7c1c9023985db6f5d31557071309ad200247444836e5eff84c"
+    },
+    {
+      "path": "docs/evidence/s03-rework/project/second.json",
+      "bytes": 118214,
+      "sha256": "6f6e760049feddcf69db40bc1ec2a9c6b1878552e8a44f9348c74ceb58e24df6"
+    },
+    {
+      "path": "docs/evidence/s03-rework/project/verification.json",
+      "bytes": 423,
+      "sha256": "7fd1453ddfe1bb4ef448fa0b2908cb3e9d279835c5921c5c27832e6664ab19ad"
+    },
+    {
+      "path": "docs/evidence/s03-rework/requirement-sources.json",
+      "bytes": 88532,
+      "sha256": "e249052d57c34c8f5b15dde013d950434e71b43cbbc62799414e5bee1517ad81"
+    },
+    {
+      "path": "docs/evidence/s03-rework/runtime-history.json",
+      "bytes": 3756,
+      "sha256": "8c15399b08db203c1a5d18e334f9d64e564cda81c5c0ab8677d469d4b348d371"
+    },
+    {
+      "path": "docs/evidence/s03-rework/translations-final.json",
+      "bytes": 237,
+      "sha256": "37b845c3c0828c802f01789787b57616c84976699a9286405ea6c5d38dcba5c2"
+    },
+    {
+      "path": "docs/s03-rework-contracts.md",
+      "bytes": 5645,
+      "sha256": "3be8d8a13bac3d97c3922b63f9e9d6dfa2c5cae42b380eec29f4c0256e6163db"
+    },
+    {
+      "path": "docs/s03-rework-report.md",
+      "bytes": 14826,
+      "sha256": "edbf1cc0513a624d7ffce52183100858b160769eb6a7ac78d97ee5f67873df06"
+    }
+  ]
+}

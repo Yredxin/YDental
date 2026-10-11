@@ -1,0 +1,310 @@
+{
+  "database": "ydental_s03_test_20261011162014_50ff775a",
+  "scenarios": [
+    {
+      "scenario": "last_capacity",
+      "result": "PASS",
+      "outcomes": [
+        {
+          "action": "acquire",
+          "result": "accepted",
+          "receipt": {
+            "id": 40,
+            "slot_id": 55,
+            "result": "accepted"
+          },
+          "attempts": [
+            {
+              "pid": 122787,
+              "isolation": "repeatable read",
+              "attempt": 1
+            }
+          ]
+        },
+        {
+          "action": "acquire",
+          "result": "rejected",
+          "reason": "insufficient_balance",
+          "attempts": [
+            {
+              "pid": 122791,
+              "isolation": "repeatable read",
+              "attempt": 1,
+              "result": "serialization_retry"
+            },
+            {
+              "pid": 122791,
+              "isolation": "repeatable read",
+              "attempt": 2
+            }
+          ]
+        }
+      ],
+      "after": {
+        "total": 3,
+        "reservation": 0,
+        "walkin": 2,
+        "unavailable": 0,
+        "used": 1,
+        "claim_states": [
+          "held"
+        ]
+      }
+    },
+    {
+      "scenario": "reservation_first",
+      "result": "PASS",
+      "outcomes": [
+        {
+          "action": "acquire",
+          "result": "accepted",
+          "receipt": {
+            "id": 41,
+            "slot_id": 56,
+            "result": "accepted"
+          },
+          "attempts": [
+            {
+              "pid": 122791,
+              "isolation": "repeatable read",
+              "attempt": 1
+            }
+          ]
+        },
+        {
+          "action": "convert",
+          "result": "accepted",
+          "receipt": {
+            "id": 56,
+            "result": "accepted"
+          },
+          "attempts": [
+            {
+              "pid": 122787,
+              "isolation": "repeatable read",
+              "attempt": 1,
+              "result": "serialization_retry"
+            },
+            {
+              "pid": 122787,
+              "isolation": "repeatable read",
+              "attempt": 2
+            }
+          ]
+        }
+      ],
+      "after": {
+        "total": 3,
+        "reservation": 0,
+        "walkin": 2,
+        "unavailable": 0,
+        "used": 1,
+        "claim_states": [
+          "held"
+        ]
+      }
+    },
+    {
+      "scenario": "conversion_first",
+      "result": "PASS",
+      "outcomes": [
+        {
+          "action": "acquire",
+          "result": "rejected",
+          "reason": "state_conflict",
+          "attempts": [
+            {
+              "pid": 122787,
+              "isolation": "repeatable read",
+              "attempt": 1,
+              "result": "serialization_retry"
+            },
+            {
+              "pid": 122787,
+              "isolation": "repeatable read",
+              "attempt": 2
+            }
+          ]
+        },
+        {
+          "action": "convert",
+          "result": "accepted",
+          "receipt": {
+            "id": 57,
+            "result": "accepted"
+          },
+          "attempts": [
+            {
+              "pid": 122791,
+              "isolation": "repeatable read",
+              "attempt": 1
+            }
+          ]
+        }
+      ],
+      "after": {
+        "total": 3,
+        "reservation": 0,
+        "walkin": 3,
+        "unavailable": 0,
+        "used": 0,
+        "claim_states": []
+      }
+    },
+    {
+      "scenario": "cancel_start",
+      "result": "PASS",
+      "outcomes": [
+        {
+          "action": "cancel",
+          "result": "rejected",
+          "reason": "state_conflict",
+          "attempts": [
+            {
+              "pid": 122787,
+              "isolation": "repeatable read",
+              "attempt": 1,
+              "result": "serialization_retry"
+            },
+            {
+              "pid": 122787,
+              "isolation": "repeatable read",
+              "attempt": 2
+            }
+          ]
+        },
+        {
+          "action": "consume",
+          "result": "accepted",
+          "receipt": {
+            "id": 37,
+            "state": "consumed",
+            "result": "accepted"
+          },
+          "attempts": [
+            {
+              "pid": 122791,
+              "isolation": "repeatable read",
+              "attempt": 1
+            }
+          ]
+        }
+      ],
+      "after": {
+        "total": 3,
+        "reservation": 0,
+        "walkin": 2,
+        "unavailable": 0,
+        "used": 1,
+        "claim_states": [
+          "consumed"
+        ]
+      }
+    },
+    {
+      "scenario": "repeat_cancel",
+      "result": "PASS",
+      "outcomes": [
+        {
+          "action": "cancel",
+          "result": "accepted",
+          "receipt": {
+            "id": 38,
+            "state": "cancelled",
+            "result": "accepted"
+          },
+          "attempts": [
+            {
+              "pid": 122787,
+              "isolation": "repeatable read",
+              "attempt": 1,
+              "result": "serialization_retry"
+            },
+            {
+              "pid": 122787,
+              "isolation": "repeatable read",
+              "attempt": 2
+            }
+          ]
+        },
+        {
+          "action": "cancel",
+          "result": "accepted",
+          "receipt": {
+            "id": 38,
+            "state": "cancelled",
+            "result": "accepted"
+          },
+          "attempts": [
+            {
+              "pid": 122791,
+              "isolation": "repeatable read",
+              "attempt": 1
+            }
+          ]
+        }
+      ],
+      "after": {
+        "total": 3,
+        "reservation": 1,
+        "walkin": 2,
+        "unavailable": 0,
+        "used": 0,
+        "claim_states": [
+          "cancelled"
+        ]
+      }
+    },
+    {
+      "scenario": "source_move",
+      "result": "PASS",
+      "outcomes": [
+        {
+          "action": "reassign",
+          "result": "rejected",
+          "reason": "insufficient_balance",
+          "attempts": [
+            {
+              "pid": 122787,
+              "isolation": "repeatable read",
+              "attempt": 1,
+              "result": "serialization_retry"
+            },
+            {
+              "pid": 122787,
+              "isolation": "repeatable read",
+              "attempt": 2
+            }
+          ]
+        },
+        {
+          "action": "acquire",
+          "result": "accepted",
+          "receipt": {
+            "id": 42,
+            "slot_id": 60,
+            "result": "accepted"
+          },
+          "attempts": [
+            {
+              "pid": 122791,
+              "isolation": "repeatable read",
+              "attempt": 1
+            }
+          ]
+        }
+      ],
+      "after": {
+        "total": 3,
+        "reservation": 0,
+        "walkin": 2,
+        "unavailable": 0,
+        "used": 1,
+        "claim_states": [
+          "held"
+        ]
+      }
+    }
+  ],
+  "tested_commit": "31d69ccaf2ef4e7ce7c49c7d8e0acce3c5f903d6"
+}

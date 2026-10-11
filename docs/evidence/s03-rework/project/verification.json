@@ -1,0 +1,16 @@
+{
+  "result": "PASS",
+  "only_mutation": "#27 custom 执行状态: 待启用 -> 返工",
+  "full_readback": true,
+  "second_readback": true,
+  "final_full_readback": true,
+  "final_equals_second": true,
+  "native_status_workflows_entities_unchanged": true,
+  "final_read_finished_utc": "2026-10-11T16:24:47.338165+00:00",
+  "connection_counts": {
+    "items": 37,
+    "fields": 21,
+    "views": 6,
+    "workflows": 7
+  }
+}

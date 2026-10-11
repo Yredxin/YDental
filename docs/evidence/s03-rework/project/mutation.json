@@ -1,0 +1,16 @@
+{
+  "action": "updateProjectV2ItemFieldValue",
+  "project_id": "PVT_kwHOA3_tu84BmcLJ",
+  "item_id": "PVTI_lAHOA3_tu84BmcLJzg_8kos",
+  "issue": 27,
+  "field_id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVo",
+  "before": "待启用",
+  "after": "返工",
+  "option_id": "dc2fcb03",
+  "started_utc": "2026-10-11T16:06:16.923731+00:00",
+  "mutation_count": 1,
+  "finished_utc": "2026-10-11T16:06:29.392791+00:00",
+  "full_readback": "PASS",
+  "second_readback": "PASS",
+  "native_status_workflows_entities_unchanged": true
+}

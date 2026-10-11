@@ -1,0 +1,104 @@
+{
+  "scope": "Only two new directed-rework runs; original d652026 evidence retained at docs/evidence/s03/runtime-history.json",
+  "runs": [
+    {
+      "creation": {
+        "database": "ydental_s03_test_20261011161821_41f1b887",
+        "oid": 270354,
+        "endpoint": {
+          "host": "127.0.0.1",
+          "port": "5432",
+          "user": "odoo"
+        },
+        "cluster": "7694897083368259627",
+        "port": 18105,
+        "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+        "created_utc": "2026-10-11T16:18:21.986455+00:00",
+        "config_sha256": "d7b093d94ce91dbdf8e009d68ac59abd716cd0b192e0ac4f89af2c4eac8bb34b"
+      },
+      "actions": [
+        {
+          "action": "install",
+          "exit_code": 1,
+          "log": "install-20261011T161821987768.log",
+          "log_sha256": "8beb553d519538af830a6233206de6eb4093574f1ef0c1c8eb53e8b2a0da5ca3",
+          "time_utc": "2026-10-11T16:19:16.781067+00:00",
+          "tested_commit": "fdb2e663ade2860dc1b3dafa5f2a0a44838b12b3",
+          "tests": [
+            0,
+            3,
+            46
+          ],
+          "verification_exit": 1
+        }
+      ],
+      "raw_logs": "private; not published",
+      "log_hashes_verified": true,
+      "result": "FAIL"
+    },
+    {
+      "creation": {
+        "database": "ydental_s03_test_20261011162014_50ff775a",
+        "oid": 279263,
+        "endpoint": {
+          "host": "127.0.0.1",
+          "port": "5432",
+          "user": "odoo"
+        },
+        "cluster": "7694897083368259627",
+        "port": 18105,
+        "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+        "created_utc": "2026-10-11T16:20:14.981240+00:00",
+        "config_sha256": "5ae2b06c0976cf4fbd3e1caa3c41f0f59e2d82b8d3b08fec243f098ce9f52688"
+      },
+      "actions": [
+        {
+          "action": "install",
+          "exit_code": 0,
+          "log": "install-20261011T162014982329.log",
+          "log_sha256": "f51093fcdb0cd56e1422ba622df81631c95fa43e16f61f345aede832c5bc8093",
+          "time_utc": "2026-10-11T16:21:10.103535+00:00",
+          "tested_commit": "31d69ccaf2ef4e7ce7c49c7d8e0acce3c5f903d6",
+          "tests": [
+            0,
+            0,
+            46
+          ]
+        },
+        {
+          "action": "upgrade",
+          "exit_code": 0,
+          "log": "upgrade-20261011T162110179424.log",
+          "log_sha256": "18c251086ff06ba6d293e34dd9853d0ea4b5e81205035d9b1f273ed93796400d",
+          "time_utc": "2026-10-11T16:21:23.841678+00:00",
+          "tested_commit": "31d69ccaf2ef4e7ce7c49c7d8e0acce3c5f903d6",
+          "tests": [
+            0,
+            0,
+            44
+          ]
+        },
+        {
+          "action": "probe",
+          "exit_code": 0,
+          "log": "probe-20261011T162123916249.log",
+          "log_sha256": "afb07fafc019a8f132c6c4aedd57c72e4a39de255aa1a18add45417a4867177b",
+          "time_utc": "2026-10-11T16:21:29.846441+00:00",
+          "tested_commit": "31d69ccaf2ef4e7ce7c49c7d8e0acce3c5f903d6"
+        },
+        {
+          "action": "export",
+          "exit_code": 0,
+          "log": "export-20261011T162129919398.log",
+          "log_sha256": "4be983d0b26e56c1cbe0a964b408b64bc299838c444c7815ec60719f02e642ba",
+          "time_utc": "2026-10-11T16:21:31.469322+00:00",
+          "tested_commit": "31d69ccaf2ef4e7ce7c49c7d8e0acce3c5f903d6"
+        }
+      ],
+      "raw_logs": "private; not published",
+      "log_hashes_verified": true,
+      "result": "PASS"
+    }
+  ],
+  "failed_attempt_explanation": "First run: 0 failures, 3 errors. New station fixtures omitted S02 required ydental_version in write. Fixed tests only in 31d69cc; all product and test files fixed before a new database install/upgrade. No database reset or reuse of the failed database."
+}

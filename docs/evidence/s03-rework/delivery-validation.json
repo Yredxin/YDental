@@ -1,0 +1,10 @@
+{
+  "checked_utc": "2026-10-11T16:32:41.953796+00:00",
+  "result": "PASS",
+  "private_config_and_synthetic_access_values_absent": true,
+  "raw_logs_configs_sessions_not_published": true,
+  "scanned_files": 47,
+  "relative_document_links_exist": true,
+  "product_tests_and_scripts_unmodified_since_final_test": true,
+  "scope": "Known private values scanned without printing them. This is an artifact hygiene check, not a claim that business or patient data was accessed."
+}

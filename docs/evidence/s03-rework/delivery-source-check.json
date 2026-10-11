@@ -1,0 +1,16 @@
+{
+  "read_utc": "2026-10-11T16:32:14.910Z",
+  "result": "PASS",
+  "issue27_body_unchanged": true,
+  "all_existing_comments_unchanged": true,
+  "new_comments": [],
+  "latest_review_id": 6110896380,
+  "issue27_state": "open",
+  "issue27_body_sha256": "c1a57085a76572f6b40bed55c70cdd13d86ea19fb567368fd2e7c8f316db61f4",
+  "comment_ids": [
+    6110183188,
+    6110252817,
+    6110806967,
+    6110896380
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "tested_commit": "31d69ccaf2ef4e7ce7c49c7d8e0acce3c5f903d6",
+  "command": "../.venv/bin/python scripts/test_s03_guard.py",
+  "tests": 5,
+  "exit_code": 0,
+  "result": "PASS",
+  "database_operations": false
+}

@@ -1,0 +1,9 @@
+{
+  "database": "ydental_s03_test_20261011162014_50ff775a",
+  "pid": 574775,
+  "action": "stop_only_own_S03_rework_preview",
+  "config_sha256": "5ae2b06c0976cf4fbd3e1caa3c41f0f59e2d82b8d3b08fec243f098ce9f52688",
+  "time_utc": "2026-10-11T16:29:11.806346+00:00",
+  "exact_command_and_config_verified": true,
+  "existing_services_modified": false
+}

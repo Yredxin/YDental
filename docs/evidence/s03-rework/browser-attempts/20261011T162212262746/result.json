@@ -1,0 +1,151 @@
+{
+  "scope": "S03 synthetic schedule and supply UI only",
+  "tested_commit": "31d69ccaf2ef4e7ce7c49c7d8e0acce3c5f903d6",
+  "database": "ydental_s03_test_20261011162014_50ff775a",
+  "started_utc": "2026-10-11T16:22:12.262902+00:00",
+  "browser": "Firefox",
+  "sandbox": "default; no overrides",
+  "checks": [
+    {
+      "check": "weekly workstation view rendered",
+      "result": "PASS"
+    },
+    {
+      "check": "weekly person view rendered",
+      "result": "PASS"
+    },
+    {
+      "check": "copy previous week survives reopen",
+      "result": "PASS"
+    },
+    {
+      "check": "mismatched draft remains visible",
+      "result": "PASS"
+    },
+    {
+      "check": "batch template submitted through UI",
+      "result": "PASS"
+    },
+    {
+      "check": "integer preview Q1 Q2 Q3 Q6",
+      "result": "PASS"
+    },
+    {
+      "check": "verified slot published with shared total six",
+      "result": "PASS"
+    },
+    {
+      "check": "extra capacity visible",
+      "result": "PASS"
+    },
+    {
+      "check": "ordinary reporting stopped",
+      "result": "PASS"
+    },
+    {
+      "check": "reopening visible without new slot",
+      "result": "PASS"
+    },
+    {
+      "check": "readonly has no capacity mutation forms",
+      "result": "PASS"
+    },
+    {
+      "check": "my today shows own station arrangement",
+      "result": "PASS"
+    },
+    {
+      "check": "arrangement error accepted through UI",
+      "result": "PASS"
+    },
+    {
+      "check": "suggested workbench explicitly awaits integration",
+      "result": "PASS"
+    },
+    {
+      "check": "feedback visible to scheduling writer",
+      "result": "PASS"
+    },
+    {
+      "check": "area suggestion requires complete active capabilities",
+      "result": "PASS"
+    },
+    {
+      "check": "direct assignment cannot bypass qualification filter",
+      "result": "PASS"
+    },
+    {
+      "check": "assignment handling visible without a capacity slot",
+      "result": "PASS"
+    },
+    {
+      "check": "assignment handling resolves with history retained",
+      "result": "PASS"
+    },
+    {
+      "check": "fall DST week copy includes local Monday and Sunday boundaries",
+      "result": "PASS"
+    },
+    {
+      "check": "nonexistent wall time rejected through form",
+      "result": "PASS"
+    },
+    {
+      "check": "ambiguous wall time rejected through form",
+      "result": "PASS"
+    },
+    {
+      "check": "normal wall time round trip preserves local hour",
+      "result": "PASS"
+    },
+    {
+      "check": "old page rejected after store switch",
+      "result": "PASS"
+    },
+    {
+      "check": "Firefox has no unhandled page error",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s03-rework/browser-attempts/20261011T162212262746/01-weekly-plan.png",
+      "sha256": "ba7d9781650988dcbc93614df35be59bb298f03df8c31265592029a175a81589"
+    },
+    {
+      "path": "docs/evidence/s03-rework/browser-attempts/20261011T162212262746/02-shared-capacity.png",
+      "sha256": "a73f060bd6a744c0038b336ec5403ddb21146541743e54d507b5438cbab5f891"
+    },
+    {
+      "path": "docs/evidence/s03-rework/browser-attempts/20261011T162212262746/03-business-day.png",
+      "sha256": "d922448ca6db23869e94dbd79fa8ee0810553c51df5de5eb53df264ab6fa3e7d"
+    },
+    {
+      "path": "docs/evidence/s03-rework/browser-attempts/20261011T162212262746/04-readonly-capacity.png",
+      "sha256": "3e4b4fe5ca10a364a6320fb1323b5945400e8810b8413698b86e929a53952757"
+    },
+    {
+      "path": "docs/evidence/s03-rework/browser-attempts/20261011T162212262746/05-my-today-feedback.png",
+      "sha256": "3183ad56d64d051dca4fc660e25c6f8af15d1f5298434352d63568225311b3b7"
+    },
+    {
+      "path": "docs/evidence/s03-rework/browser-attempts/20261011T162212262746/06-partial-area-suggestion.png",
+      "sha256": "c6a9338e3f9c3635896ac2a695df6041ee1dcb7fde4316966af48897a8ef553e"
+    },
+    {
+      "path": "docs/evidence/s03-rework/browser-attempts/20261011T162212262746/07-assignment-handling.png",
+      "sha256": "544d831a241bdc5307fb3f2a4829a33710267eb22f4d7495ab0548605a72fcd2"
+    },
+    {
+      "path": "docs/evidence/s03-rework/browser-attempts/20261011T162212262746/08-dst-week-copy.png",
+      "sha256": "e6b7eedacfe56b0dcd9054c94d3773e96d583ce8595450231c3bb46b03259cdb"
+    },
+    {
+      "path": "docs/evidence/s03-rework/browser-attempts/20261011T162212262746/09-dst-input-rejected.png",
+      "sha256": "ce8059ae301dbcf116426b0d25b23a90ab79c5053a3e7d67f41e679d46694aea"
+    }
+  ],
+  "browser_version": "155.0",
+  "result": "PASS",
+  "finished_utc": "2026-10-11T16:22:33.269971+00:00"
+}
