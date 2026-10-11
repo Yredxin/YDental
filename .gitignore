@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+.venv/
+.local/
+.env
+.env.*
+!.env.example
+*.conf
+!*.conf.example
+*.log
+*.dump
+*.backup
+*.sql
+.pytest_cache/
+.ruff_cache/
+.DS_Store
