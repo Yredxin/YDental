@@ -99,6 +99,8 @@ def main():
             page.locator('input[name=password]').fill(access[role]['password'])
             page.locator('button[type=submit]').click()
             page.wait_for_url(lambda url: '/web/login' not in url)
+            page.locator('.o_main_navbar').wait_for()
+            page.wait_for_load_state('networkidle')
             page.goto(base + '/ydental/access', wait_until='domcontentloaded')
             selected = page.evaluate('''async (store) => {
                 const token = document.querySelector('input[name=csrf_token]').value;
@@ -140,6 +142,7 @@ def main():
             writer_revision = revision(writer)
             floor_id = preview['floor_id']
             data = rpc(writer, 'ydental.space.floor', 'action_snapshot', [[floor_id]], writer_revision)['result']
+            result['fixture_before'] = {key: data[key] for key in ('floor', 'areas', 'stations', 'items', 'capabilities', 'resources')}
             record('F1 six stable workstation fixtures and explicit runtime state', set(preview['station_ids']) <= {station['id'] for station in data['stations']} and
                    all(state['state'] == 'not_connected' for state in data['runtime']))
             first_id = preview['station_ids'][0]
@@ -163,6 +166,7 @@ def main():
             record('T06 two concurrent HTTP saves: one accepted, one version conflict',
                    sum('result' in entry for entry in concurrent) == 1 and
                    sum('version_conflict' in entry.get('error', {}).get('data', {}).get('message', '') for entry in concurrent) == 1)
+            result['concurrent_saves'] = {'same_version': data['floor']['ydental_version'], 'accepted': 1, 'version_conflict': 1}
 
             with writer.expect_response(response_for('action_snapshot')):
                 writer.get_by_role('button', name='重新加载', exact=True).click()
@@ -178,6 +182,7 @@ def main():
             after = rpc(writer, 'ydental.space.floor', 'action_snapshot', [[floor_id]], writer_revision)['result']
             saved = next(station for station in after['stations'] if station['id'] == first_id)
             record('T01 T02 UI geometry save preserves workstation ID', saved['ydental_width'] == target_width)
+            result['workstation_geometry_after'] = saved
             snapshot(writer, writer_context, '02-saved-floor.png')
 
             # Configure through the scoped native form; it sends the displayed version.
@@ -196,6 +201,7 @@ def main():
             renamed = next(station for station in after['stations'] if station['id'] == first_id)['name']
             require(renamed == target_name, 'Native rename readback mismatch: %s vs %s' % (renamed, target_name))
             record('T02 native configuration rename keeps ID and references', True)
+            result['workstation_rename_after'] = next(station for station in after['stations'] if station['id'] == first_id)
 
             canvas = writer.locator('.o_ydental_space_canvas')
             bounds = canvas.bounding_box()
@@ -234,6 +240,7 @@ def main():
             drawn = rpc(writer, 'ydental.space.floor', 'action_snapshot', [[floor_id]], writer_revision)['result']
             record('F1 drag resource creates one stable workstation and linked artwork',
                    len(drawn['stations']) == len(after['stations']) + 1 and len(drawn['items']) == len(after['items']) + 1)
+            result['drawing_after'] = {key: drawn[key] for key in ('areas', 'stations', 'items')}
             snapshot(writer, writer_context, '03-drawing-and-drop.png')
 
             writer.goto(base + '/odoo/action-ydental_space.ydental_space_resource_action', wait_until='domcontentloaded')
@@ -245,6 +252,9 @@ def main():
                 writer.locator('.o_form_button_save').click()
             uploaded = rpc(writer, 'ydental.space.resource', 'read', [[preview['private_resource_id']], ['ydental_svg']], writer_revision)['result'][0]
             record('T05 native SVG file upload retains safe XML', '<circle' in uploaded['ydental_svg'] and 'script' not in uploaded['ydental_svg'])
+            svg_bytes = uploaded['ydental_svg'].encode('utf-8')
+            result['safe_svg_output'] = {'resource_id': preview['private_resource_id'], 'bytes': len(svg_bytes),
+                                         'sha256': hashlib.sha256(svg_bytes).hexdigest(), 'shape': 'circle', 'script': False}
             snapshot(writer, writer_context, '04-private-resource-upload.png')
 
             reader_context, reader = login('reader')
