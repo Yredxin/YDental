@@ -91,13 +91,17 @@ class YDentalSpaceVersion(models.AbstractModel):
             raise UserError(self.env._('version_conflict: Configuration changed. Reload before saving.'))
         if {'ydental_store_id', 'ydental_category', 'ydental_floor_id'} & vals.keys():
             raise AccessError(self.env._('access_denied: Space ownership is immutable.'))
-        for key in ('ydental_add_capability_ids', 'ydental_remove_capability_ids', 'ydental_capability_ids'):
-            if key in vals:
-                for record in self:
-                    capability_commands(self.env, vals[key], record.with_context(active_test=False)[key].ids)
+        capability_fields = {'ydental_add_capability_ids', 'ydental_remove_capability_ids', 'ydental_capability_ids'} & vals.keys()
+        for key in capability_fields:
+            for record in self:
+                capability_commands(self.env, vals[key], record.with_context(active_test=False)[key].ids)
         self._check_space_change(vals)
         before = {record.id: record._space_snapshot() for record in self}
-        result = super().write(dict(vals, ydental_version=expected + 1))
+        # Native Many2many writes retain filtered inactive relations. Include
+        # them only for explicit capability commands so UNLINK/CLEAR/SET can
+        # clean history. Other writes keep the original active-test semantics.
+        target = self.with_context(active_test=False) if capability_fields else self
+        result = super(YDentalSpaceVersion, target).write(dict(vals, ydental_version=expected + 1))
         self._space_touch()
         self._space_audit('space.modify', before)
         return result
@@ -114,7 +118,8 @@ class YDentalSpaceVersion(models.AbstractModel):
                     'ydental_station_id', 'ydental_capability_ids', 'ydental_add_capability_ids',
                     'ydental_remove_capability_ids'):
             if key in self._fields:
-                values[key] = self[key].ids
+                record = self if self._fields[key].compute else self.with_context(active_test=False)
+                values[key] = record[key].ids
         if 'ydental_svg' in self._fields:
             values['svg_sha256'] = hashlib.sha256(self.ydental_svg.encode('utf-8')).hexdigest()
         return values
