@@ -1,0 +1,82 @@
+[
+  {
+    "path": "docs/evidence/s00-t05/browser-access.json",
+    "bytes": 1249,
+    "sha256": "8d8cf5566f3f7c91e46db9a15533008e003148b7d49c175f3aa62ab25efca80c"
+  },
+  {
+    "path": "docs/evidence/s00-t05/field-mutation-schema.json",
+    "bytes": 2727,
+    "sha256": "e81498823811d62a3f451e38526eebc6a8baea41f73a835f30bea41b0df4abe7"
+  },
+  {
+    "path": "docs/evidence/s00-t05/identity-table.md",
+    "bytes": 3422,
+    "sha256": "6de4fd10395ccc8271e2b0693b1322dde91e441e0ae14fedffc87149425ed3f9"
+  },
+  {
+    "path": "docs/evidence/s00-t05/issue-source-index.json",
+    "bytes": 3899,
+    "sha256": "f849b99262939fdc73c397f58a3c411fc94adce97cbd78f22a0acc20112e20e4"
+  },
+  {
+    "path": "docs/evidence/s00-t05/operation-log.json",
+    "bytes": 6762,
+    "sha256": "0aa06131e7fafb2251a2882833a6d479b7dc0c69bb4db52ef237411dca221987"
+  },
+  {
+    "path": "docs/evidence/s00-t05/project-after.json",
+    "bytes": 76885,
+    "sha256": "24be2098753f332b54b236af2442c4ccf2343426aaa40960ae7a032eef446964"
+  },
+  {
+    "path": "docs/evidence/s00-t05/project-before.json",
+    "bytes": 76886,
+    "sha256": "ba22ba912491d404c7f15f3019426e7db0fd5bff41ff78ef8fe0365a7efc1b5f"
+  },
+  {
+    "path": "docs/evidence/s00-t05/project-second-check.json",
+    "bytes": 76892,
+    "sha256": "ddaa98cf628da18faa089a75c481b8f6f08769fa6a5bada4ec6479fe1c9db17a"
+  },
+  {
+    "path": "docs/evidence/s00-t05/project-workflows-login-required.png",
+    "bytes": 33392,
+    "sha256": "d356ebc92d5da649492edc17498b3694eb56825a77de83ad589b1ccdea5411b9"
+  },
+  {
+    "path": "docs/evidence/s00-t05/read-operations-after.json",
+    "bytes": 1488,
+    "sha256": "8429b0e5a0c029ee3a5e8c5d9ceaab730b26761d81b21a7b68a5040b4d75e135"
+  },
+  {
+    "path": "docs/evidence/s00-t05/read-operations-before.json",
+    "bytes": 1488,
+    "sha256": "fdce3db62c287038ac2d256f21fc588f28e9479131064af2835be102b06e732d"
+  },
+  {
+    "path": "docs/evidence/s00-t05/read-operations-second-check.json",
+    "bytes": 1488,
+    "sha256": "196378bdd0546d946ce8453c29cdcd5c20c2cb4c9e5143496cc53769a5c0da9b"
+  },
+  {
+    "path": "docs/evidence/s00-t05/schema-query-rejected.json",
+    "bytes": 171,
+    "sha256": "59719c52e5afcb1d9816c5987d1c67da2edaddb238628d1d82596eeb5a2c1231"
+  },
+  {
+    "path": "docs/evidence/s00-t05/verification.json",
+    "bytes": 1488,
+    "sha256": "11f378f8035caec0fe0cc3b21df7d8a8fcd77453d87ce56369f5ba8c878014ed"
+  },
+  {
+    "path": "docs/evidence/s00-t05/workflow-details.json",
+    "bytes": 7131,
+    "sha256": "69e48591f1ef204d7997026fb8fc22ce6c16b01e3b5445bd142ce67385ac824c"
+  },
+  {
+    "path": "docs/evidence/s00-t05/workflow-view-schema.json",
+    "bytes": 1184,
+    "sha256": "d967b56ef66d31836a2fb724cb7556886c6db4e96e39c5d8ecdf736456ee579b"
+  }
+]

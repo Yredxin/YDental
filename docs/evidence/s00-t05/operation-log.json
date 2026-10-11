@@ -1,0 +1,183 @@
+{
+  "scope": "S00-T05 only",
+  "recorded_utc": "2026-10-11T08:22:14.960665+00:00",
+  "project_mutations": [],
+  "issue_pr_mutations": [],
+  "workflow_mutations": [],
+  "archive_mutations": [],
+  "field_mutations": [],
+  "view_mutations": [],
+  "api_authentication": {
+    "command": "gh api user --jq {login:.login}",
+    "exit_code": 0,
+    "viewer": "Yredxin"
+  },
+  "schema_attempts": [
+    {
+      "operation": "Four __Type.fields selections in one read query",
+      "exit_code": 1,
+      "result": "GraphQL validation limit: at most two __Type.fields uses; no Project write attempted",
+      "evidence": "schema-query-rejected.json"
+    },
+    {
+      "operation": "Split into two valid read-only introspection queries",
+      "exit_code": 0,
+      "result": "Workflow/View/Field/Project mutation schema inspected; configuration absent from workflow schema",
+      "evidence": [
+        "workflow-view-schema.json",
+        "field-mutation-schema.json"
+      ]
+    }
+  ],
+  "browser_probe": {
+    "command": "scripts/s00_t05_browser.py",
+    "exit_code": 2,
+    "status": "BLOCKED",
+    "reason": "Normal browser login required; Project workflows404, GitHub login200",
+    "evidence": "browser-access.json"
+  },
+  "readonly_project_queries": [
+    {
+      "operation": "authenticated GraphQL query",
+      "query_sha256": "1f566573565d03d183d30ddac7020536a1e6b680065291227cc0b0f9dde47980",
+      "started_utc": "2026-10-11T08:18:50.240553+00:00",
+      "finished_utc": "2026-10-11T08:18:53.369268+00:00",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "operation": "authenticated GraphQL query",
+      "query_sha256": "9b207941908e6cdaa16a384777dfc5e10a4413e9ba88f835fec586e5001f56c2",
+      "started_utc": "2026-10-11T08:18:53.369322+00:00",
+      "finished_utc": "2026-10-11T08:18:54.428717+00:00",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "operation": "authenticated GraphQL query",
+      "query_sha256": "5fa124fd1ab86bb32d13f77716da4515b1a79687f5ecc75afd0dde9a302ea3ba",
+      "started_utc": "2026-10-11T08:18:54.428834+00:00",
+      "finished_utc": "2026-10-11T08:18:56.047822+00:00",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "operation": "authenticated GraphQL query",
+      "query_sha256": "ebd7bae92d87457c4e12d12bb33d57738653ff26677380dbb1e30303635b4e95",
+      "started_utc": "2026-10-11T08:18:56.048218+00:00",
+      "finished_utc": "2026-10-11T08:18:57.163105+00:00",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "operation": "authenticated GraphQL query",
+      "query_sha256": "1269fadd10e600cdf307abcc9dbcfb02296b66c0498484a381d7dd6cce57e52c",
+      "started_utc": "2026-10-11T08:18:57.163171+00:00",
+      "finished_utc": "2026-10-11T08:18:58.614459+00:00",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "operation": "authenticated GraphQL query",
+      "query_sha256": "1f566573565d03d183d30ddac7020536a1e6b680065291227cc0b0f9dde47980",
+      "started_utc": "2026-10-11T08:20:47.740701+00:00",
+      "finished_utc": "2026-10-11T08:20:48.802539+00:00",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "operation": "authenticated GraphQL query",
+      "query_sha256": "9b207941908e6cdaa16a384777dfc5e10a4413e9ba88f835fec586e5001f56c2",
+      "started_utc": "2026-10-11T08:20:48.802583+00:00",
+      "finished_utc": "2026-10-11T08:20:50.284810+00:00",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "operation": "authenticated GraphQL query",
+      "query_sha256": "5fa124fd1ab86bb32d13f77716da4515b1a79687f5ecc75afd0dde9a302ea3ba",
+      "started_utc": "2026-10-11T08:20:50.284887+00:00",
+      "finished_utc": "2026-10-11T08:20:52.087740+00:00",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "operation": "authenticated GraphQL query",
+      "query_sha256": "ebd7bae92d87457c4e12d12bb33d57738653ff26677380dbb1e30303635b4e95",
+      "started_utc": "2026-10-11T08:20:52.088234+00:00",
+      "finished_utc": "2026-10-11T08:20:53.159262+00:00",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "operation": "authenticated GraphQL query",
+      "query_sha256": "1269fadd10e600cdf307abcc9dbcfb02296b66c0498484a381d7dd6cce57e52c",
+      "started_utc": "2026-10-11T08:20:53.159311+00:00",
+      "finished_utc": "2026-10-11T08:20:54.162557+00:00",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "operation": "authenticated GraphQL query",
+      "query_sha256": "1f566573565d03d183d30ddac7020536a1e6b680065291227cc0b0f9dde47980",
+      "started_utc": "2026-10-11T08:20:54.199903+00:00",
+      "finished_utc": "2026-10-11T08:20:55.121835+00:00",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "operation": "authenticated GraphQL query",
+      "query_sha256": "9b207941908e6cdaa16a384777dfc5e10a4413e9ba88f835fec586e5001f56c2",
+      "started_utc": "2026-10-11T08:20:55.121875+00:00",
+      "finished_utc": "2026-10-11T08:20:56.119599+00:00",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "operation": "authenticated GraphQL query",
+      "query_sha256": "5fa124fd1ab86bb32d13f77716da4515b1a79687f5ecc75afd0dde9a302ea3ba",
+      "started_utc": "2026-10-11T08:20:56.119692+00:00",
+      "finished_utc": "2026-10-11T08:20:57.784535+00:00",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "operation": "authenticated GraphQL query",
+      "query_sha256": "ebd7bae92d87457c4e12d12bb33d57738653ff26677380dbb1e30303635b4e95",
+      "started_utc": "2026-10-11T08:20:57.784990+00:00",
+      "finished_utc": "2026-10-11T08:20:58.708106+00:00",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "operation": "authenticated GraphQL query",
+      "query_sha256": "1269fadd10e600cdf307abcc9dbcfb02296b66c0498484a381d7dd6cce57e52c",
+      "started_utc": "2026-10-11T08:20:58.708171+00:00",
+      "finished_utc": "2026-10-11T08:20:59.716192+00:00",
+      "exit_code": 0,
+      "status": "PASS"
+    }
+  ],
+  "synchronization_round_1": {
+    "status": "NOT_RUN",
+    "mutations": 0,
+    "reason": "Automation safety prerequisite unmet"
+  },
+  "synchronization_round_2": {
+    "status": "NOT_RUN",
+    "mutations": 0,
+    "reason": "Same prerequisite; no no-op sync claimed"
+  },
+  "two_readbacks": "Executed solely to confirm no observed Project drift; not mutation synchronization",
+  "not_performed": [
+    "Disable/delete workflows",
+    "Archive/delete items",
+    "Create/update fields or views",
+    "Change Issue or PR state",
+    "Read/export auth token or browser cookies",
+    "Modify core/business services/database",
+    "S00-A/S00-B rerun",
+    "S01"
+  ],
+  "mutation_count_scope": "Project mutations and Issue/PR entity state/body changes only; excludes authorized #24 reporting comments and Git pushes"
+}

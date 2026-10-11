@@ -1,0 +1,139 @@
+{
+  "data": {
+    "field": {
+      "name": "ProjectV2SingleSelectField",
+      "fields": [
+        {
+          "name": "createdAt"
+        },
+        {
+          "name": "dataType"
+        },
+        {
+          "name": "databaseId"
+        },
+        {
+          "name": "id"
+        },
+        {
+          "name": "isIssueField"
+        },
+        {
+          "name": "issueField"
+        },
+        {
+          "name": "name"
+        },
+        {
+          "name": "options"
+        },
+        {
+          "name": "project"
+        },
+        {
+          "name": "updatedAt"
+        }
+      ]
+    },
+    "mutation": {
+      "fields": [
+        {
+          "name": "addProjectV2DraftIssue"
+        },
+        {
+          "name": "addProjectV2ItemById"
+        },
+        {
+          "name": "archiveProjectV2Item"
+        },
+        {
+          "name": "clearProjectV2ItemFieldValue"
+        },
+        {
+          "name": "convertProjectV2DraftIssueItemToIssue"
+        },
+        {
+          "name": "copyProjectV2"
+        },
+        {
+          "name": "createProjectV2"
+        },
+        {
+          "name": "createProjectV2Field"
+        },
+        {
+          "name": "createProjectV2IssueField"
+        },
+        {
+          "name": "createProjectV2StatusUpdate"
+        },
+        {
+          "name": "createProjectV2View"
+        },
+        {
+          "name": "deleteProjectV2"
+        },
+        {
+          "name": "deleteProjectV2Field"
+        },
+        {
+          "name": "deleteProjectV2Item"
+        },
+        {
+          "name": "deleteProjectV2StatusUpdate"
+        },
+        {
+          "name": "deleteProjectV2View"
+        },
+        {
+          "name": "deleteProjectV2Workflow"
+        },
+        {
+          "name": "linkProjectV2ToRepository"
+        },
+        {
+          "name": "linkProjectV2ToTeam"
+        },
+        {
+          "name": "markProjectV2AsTemplate"
+        },
+        {
+          "name": "unarchiveProjectV2Item"
+        },
+        {
+          "name": "unlinkProjectV2FromRepository"
+        },
+        {
+          "name": "unlinkProjectV2FromTeam"
+        },
+        {
+          "name": "unmarkProjectV2AsTemplate"
+        },
+        {
+          "name": "updateProjectV2"
+        },
+        {
+          "name": "updateProjectV2Collaborators"
+        },
+        {
+          "name": "updateProjectV2DraftIssue"
+        },
+        {
+          "name": "updateProjectV2Field"
+        },
+        {
+          "name": "updateProjectV2ItemFieldValue"
+        },
+        {
+          "name": "updateProjectV2ItemPosition"
+        },
+        {
+          "name": "updateProjectV2StatusUpdate"
+        },
+        {
+          "name": "updateProjectV2View"
+        }
+      ]
+    }
+  }
+}

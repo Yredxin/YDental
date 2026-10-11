@@ -1,0 +1,97 @@
+{
+  "scope": "S00-T05 / Project #4",
+  "fetched_date_utc": "2026-10-11",
+  "issues": [
+    {
+      "number": 23,
+      "url": "https://github.com/Yredxin/YDental/issues/23",
+      "revision": "YD-N1 R1",
+      "body_characters": 9245,
+      "comments": [
+        {
+          "id": 6106072643,
+          "url": "https://github.com/Yredxin/YDental/issues/23#issuecomment-6106072643",
+          "title": "# [GPT-REVIEW] YD-N1 R1｜需求修订后复审",
+          "body_characters": 2150
+        }
+      ]
+    },
+    {
+      "number": 24,
+      "url": "https://github.com/Yredxin/YDental/issues/24",
+      "revision": "YD-N1 R1",
+      "body_characters": 2506,
+      "comments": [
+        {
+          "id": 6106155290,
+          "url": "https://github.com/Yredxin/YDental/issues/24#issuecomment-6106155290",
+          "title": "# [CODEX] 用户明确启用记录｜YD-N1 R1｜S00-A",
+          "body_characters": 564
+        },
+        {
+          "id": 6106275677,
+          "url": "https://github.com/Yredxin/YDental/issues/24#issuecomment-6106275677",
+          "title": "固定交付版本：[`57f4838c90db8d7e3f719a5b81fc5a217e402791`](https://github.com/Yredxin/YDental/commit/57f4838c90db8d7e3f719a5b81fc5a217e402791)  ",
+          "body_characters": 15336
+        },
+        {
+          "id": 6106335585,
+          "url": "https://github.com/Yredxin/YDental/issues/24#issuecomment-6106335585",
+          "title": "# [GPT-REVIEW] YD-N1 R1｜S00-A｜57f4838｜技术复核",
+          "body_characters": 4066
+        },
+        {
+          "id": 6106434172,
+          "url": "https://github.com/Yredxin/YDental/issues/24#issuecomment-6106434172",
+          "title": "# [GPT-RELAY] YD-N1 R1｜S00-B｜执行环境阻塞记录与恢复交接",
+          "body_characters": 2393
+        },
+        {
+          "id": 6106532401,
+          "url": "https://github.com/Yredxin/YDental/issues/24#issuecomment-6106532401",
+          "title": "# [CODEX] S00-B新会话接续与执行条件检查",
+          "body_characters": 1141
+        },
+        {
+          "id": 6106625341,
+          "url": "https://github.com/Yredxin/YDental/issues/24#issuecomment-6106625341",
+          "title": "# [CODEX] S00-B运行进度与失败补交链",
+          "body_characters": 1179
+        },
+        {
+          "id": 6106787039,
+          "url": "https://github.com/Yredxin/YDental/issues/24#issuecomment-6106787039",
+          "title": "# [CODEX] S00-B固定交付与复核申请",
+          "body_characters": 12860
+        },
+        {
+          "id": 6106835823,
+          "url": "https://github.com/Yredxin/YDental/issues/24#issuecomment-6106835823",
+          "title": "# [GPT-REVIEW] YD-N1 R1｜S00-B｜49beda1｜技术复核",
+          "body_characters": 3063
+        },
+        {
+          "id": 6106976557,
+          "url": "https://github.com/Yredxin/YDental/issues/24#issuecomment-6106976557",
+          "title": "# [CODEX] S00-B浏览器截图补交",
+          "body_characters": 5373
+        },
+        {
+          "id": 6107015018,
+          "url": "https://github.com/Yredxin/YDental/issues/24#issuecomment-6107015018",
+          "title": "# [GPT-REVIEW] YD-N1 R1｜S00-B浏览器补证｜2d352f4｜技术复核",
+          "body_characters": 2037
+        },
+        {
+          "id": 6107029151,
+          "url": "https://github.com/Yredxin/YDental/issues/24#issuecomment-6107029151",
+          "title": "# [GPT-NEXT] YD-N1 R1｜S00-T05 / Project #4专项处理",
+          "body_characters": 2885
+        }
+      ]
+    }
+  ],
+  "controlling_comment": "https://github.com/Yredxin/YDental/issues/24#issuecomment-6107029151",
+  "authorization": "User explicitly enabled only S00-T05; automation details must be confirmed before Project mutation.",
+  "stop_instruction": "若需要用户进行一次GitHub网页登录/二次验证，停止并明确告诉用户具体一步，不要猜配置。"
+}

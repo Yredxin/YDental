@@ -1,0 +1,45 @@
+{
+  "status": "BLOCKED",
+  "t05": "BLOCKED",
+  "project_identity": "PVT_kwHOA3_tu84BmcLJ",
+  "counts": {
+    "items": 37,
+    "fields": 19,
+    "views": 5,
+    "workflows": 7
+  },
+  "identity_unique": true,
+  "pagination_complete": true,
+  "first_readback_equals_before": true,
+  "second_readback_equals_first": true,
+  "project_mutation_count": 0,
+  "first_sync": "NOT_RUN",
+  "second_sync": "NOT_RUN",
+  "sync_idempotency": "NOT_RUN; read-only equality is not a synchronization result",
+  "archiving": "BLOCKED by unknown automation conditions/actions",
+  "field_view_configuration": "BLOCKED by same precondition",
+  "workflow_configuration": "BLOCKED; browser login/2FA required",
+  "issue_pr_entity_changes": 0,
+  "snapshots": [
+    {
+      "label": "before",
+      "started_utc": "2026-10-11T08:18:50.240545+00:00",
+      "finished_utc": "2026-10-11T08:18:58.614590+00:00",
+      "exit_code": 0
+    },
+    {
+      "label": "after",
+      "started_utc": "2026-10-11T08:20:47.740694+00:00",
+      "finished_utc": "2026-10-11T08:20:54.162633+00:00",
+      "exit_code": 0
+    },
+    {
+      "label": "second-check",
+      "started_utc": "2026-10-11T08:20:54.199896+00:00",
+      "finished_utc": "2026-10-11T08:20:59.716300+00:00",
+      "exit_code": 0
+    }
+  ],
+  "screenshot_visual_review": "PASS: real login page inspected; both fields empty; no token/cookie/credential visible",
+  "rollback": "No Project writes or business changes to roll back; retain failed/read-only evidence"
+}

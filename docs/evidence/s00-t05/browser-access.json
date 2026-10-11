@@ -1,0 +1,34 @@
+{
+  "scope": "S00-T05 normal browser authentication probe",
+  "requested_url": "https://github.com/users/Yredxin/projects/4/workflows",
+  "started_utc": "2026-10-11T08:20:14.882617+00:00",
+  "browser_type": "firefox",
+  "playwright_version": "1.63.0",
+  "viewport": {
+    "width": 1280,
+    "height": 900
+  },
+  "code_commit": "4d9ed4f5aac55717051f51285fd0476e23a87860",
+  "authentication": "normal persistent browser profile; no imported credentials or cookies",
+  "project_mutations": 0,
+  "browser_version": "155.0",
+  "project_page": {
+    "http_status": 404,
+    "url": "https://github.com/users/Yredxin/projects/4/workflows",
+    "title": "Page not found · GitHub · GitHub",
+    "normal_browser_authenticated": false
+  },
+  "status": "BLOCKED",
+  "reason": "Normal browser GitHub login/2FA required",
+  "login_page": {
+    "http_status": 200,
+    "url": "https://github.com/login",
+    "title": "Sign in to GitHub · GitHub",
+    "login_field_present": true,
+    "password_field_present": true
+  },
+  "screenshot": "docs/evidence/s00-t05/project-workflows-login-required.png",
+  "screenshot_sha256": "d356ebc92d5da649492edc17498b3694eb56825a77de83ad589b1ccdea5411b9",
+  "finished_utc": "2026-10-11T08:20:21.734172+00:00",
+  "exit_code": 2
+}
