@@ -21,8 +21,13 @@ class YDentalSpaceResource(models.Model):
     ydental_category = fields.Selection([('space', 'Space')], default='space', readonly=True, required=True, string='Business category')
     ydental_capability_ids = fields.Many2many('ydental.access.capability', string='Capabilities')
     ydental_svg = fields.Text(required=True, string='Safe SVG source')
-    ydental_upload = fields.Binary(string='Upload SVG', attachment=False,
+    ydental_upload = fields.Binary(string='Upload SVG', attachment=False, store=False,
+                                   compute='_compute_upload', readonly=False,
                                    help='Only the sanitized SVG is retained, never the original upload.')
+
+    def _compute_upload(self):
+        for resource in self:
+            resource.ydental_upload = False
 
     def _space_floors(self):
         # Fixed-model reverse references include archived placements.
@@ -62,6 +67,10 @@ class YDentalSpaceResource(models.Model):
     def _prepare_svg(self, values):
         values = dict(values)
         uploaded = values.pop('ydental_upload', None)
+        if isinstance(uploaded, dict):
+            if not set(uploaded) <= {'filename', 'content'} or 'content' not in uploaded:
+                raise ValidationError(self.env._('Invalid SVG upload payload.'))
+            uploaded = uploaded['content']
         if uploaded or 'ydental_svg' in values:
             setting = self.env['ir.config_parameter'].sudo().get_str('ydental_space.svg_max_bytes', '1048576')
             try:
@@ -73,7 +82,6 @@ class YDentalSpaceResource(models.Model):
                         raise ValueError('size')
                     values['ydental_svg'] = base64.b64decode(uploaded, validate=True).decode('utf-8')
                 values['ydental_svg'] = sanitize_svg(values['ydental_svg'], limit)
-                values['ydental_upload'] = base64.b64encode(values['ydental_svg'].encode('utf-8'))
             except (ValueError, binascii.Error) as error:
                 raise ValidationError(self.env._('Unsafe SVG: use bounded basic shapes with a viewBox and finite dimensions.')) from error
         return values

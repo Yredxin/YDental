@@ -171,8 +171,10 @@ class TestSpace(BaseCommon):
 
 
     def test_binary_upload_is_sanitized_and_bounded(self):
-        self.resource.write({'ydental_upload': base64.b64encode(SVG.encode()), 'ydental_version': self.resource.ydental_version})
-        self.assertEqual(base64.b64decode(self.resource.ydental_upload).decode(), self.resource.ydental_svg)
+        self.resource.write({'ydental_upload': {'filename': 'synthetic.svg', 'content': base64.b64encode(SVG.encode()).decode()},
+                             'ydental_version': self.resource.ydental_version})
+        self.assertFalse(self.resource.ydental_upload)
+        self.assertIn('viewBox', self.resource.ydental_svg)
         for raw in (b'not-valid-base64!', base64.b64encode(b'<!DOCTYPE svg>' + SVG.encode()), b'a' * 1500000):
             with self.assertRaises(ValidationError), self.cr.savepoint():
                 self.resource.write({'ydental_upload': raw, 'ydental_version': self.resource.ydental_version})
