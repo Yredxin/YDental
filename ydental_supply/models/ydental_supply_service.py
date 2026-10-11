@@ -243,10 +243,14 @@ class YDentalSupplyService(models.AbstractModel):
         if assignments is None:
             assignments = self._model('assignment').search([
                 ('state', '=', 'active'), ('ydental_end', '>', self._now())])
+        pending_ids = set(self._model('disposition').search([
+            ('ydental_assignment_id', 'in', assignments.ids), ('ydental_slot_id', '=', False),
+            ('state', '=', 'pending')]).ydental_assignment_id.ids)
         for assignment in assignments.filtered(lambda r: r.state == 'active' and r.ydental_end > self._now()):
+            if assignment.id in pending_ids:
+                continue
             warning = self._assignment_warning(assignment)
-            if not warning or self._model('disposition').search_count([
-                ('ydental_assignment_id', '=', assignment.id), ('ydental_slot_id', '=', False), ('state', '=', 'pending')]):
+            if not warning:
                 continue
             record = self._new('disposition', assignment.ydental_store_id, {
                 'name': self.env._('Assignment conflict: %s', assignment.name),
