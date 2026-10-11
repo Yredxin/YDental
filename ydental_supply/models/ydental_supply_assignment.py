@@ -17,8 +17,10 @@ class YDentalSupplyAssignment(models.Model):
     ydental_reason = fields.Char(string='Reason')
     ydental_warning = fields.Char(compute='_compute_warning', string='Warning')
 
-    @api.depends('state', 'ydental_start', 'ydental_end', 'ydental_user_id.ydental_capability_ids',
-                 'ydental_station_id.ydental_capability_ids', 'ydental_station_id.active', 'ydental_station_id.ydental_enabled')
+    @api.depends('state', 'ydental_start', 'ydental_end', 'ydental_user_id.active', 'ydental_employee_id.active',
+                 'ydental_user_id.ydental_capability_ids', 'ydental_user_id.ydental_capability_ids.active',
+                 'ydental_station_id.ydental_capability_ids', 'ydental_station_id.ydental_capability_ids.active',
+                 'ydental_station_id.active', 'ydental_station_id.ydental_enabled')
     def _compute_warning(self):
         service = self.env['ydental.supply.service']
         for record in self:

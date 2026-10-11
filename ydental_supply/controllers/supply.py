@@ -1,9 +1,7 @@
 import json
 import secrets
-from datetime import datetime, timezone
-from zoneinfo import ZoneInfo
 
-from odoo import http
+from odoo import fields, http
 from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.http import request
 
@@ -62,8 +60,7 @@ class YDentalSupply(http.Controller):
 
         def utc(name):
             store = service.env['ydental.access.service']._scope().ydental_store_id
-            value = datetime.fromisoformat(form[name]).replace(tzinfo=ZoneInfo(store.ydental_timezone))
-            return value.astimezone(timezone.utc).replace(tzinfo=None).strftime('%Y-%m-%d %H:%M:%S')
+            return fields.Datetime.to_string(service._local_to_utc(store, form[name]))
 
         if operation == 'policy':
             return {'name': form['name'], 'rounding': form['rounding'], 'phone_pool': form['phone_pool'],
@@ -78,7 +75,8 @@ class YDentalSupply(http.Controller):
             store = service.env['ydental.access.service']._scope().ydental_store_id
             rows = []
             for day in form['dates'].split(','):
-                times = [datetime.fromisoformat(day.strip() + 'T' + form[name]).replace(tzinfo=ZoneInfo(store.ydental_timezone)).astimezone(timezone.utc).replace(tzinfo=None).strftime('%Y-%m-%d %H:%M:%S') for name in ('start_time', 'end_time')]
+                times = [fields.Datetime.to_string(service._local_to_utc(store, day.strip() + 'T' + form[name]))
+                    for name in ('start_time', 'end_time')]
                 rows.append({'user_id': int(form['user_id']), 'station_id': int(form.get('station_id') or 0), 'area_id': int(form.get('area_id') or 0), 'start': times[0], 'end': times[1], 'reason': form['reason']})
             return {'rows': rows}
         if operation == 'copy':

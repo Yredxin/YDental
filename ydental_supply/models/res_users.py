@@ -9,6 +9,7 @@ class ResUsers(models.Model):
         if {'active', 'ydental_capability_ids'} & vals.keys():
             service = self.env['ydental.supply.service']
             service._lock()
+            service._handle_assignment_conflicts()
             slots = self.env['ydental.supply.slot'].sudo().search([('state', '=', 'published')])
             for store, records in slots.grouped('ydental_store_id').items():
                 service._suspend_affected(store, records, 'Staff availability or capabilities changed')

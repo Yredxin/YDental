@@ -1494,3 +1494,39 @@ msgstr "· 预约余量"
 #: model_terms:ir.ui.view,arch_db:ydental_supply.ydental_supply_page
 msgid "· Walk-in free"
 msgstr "· 现场余量"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "Enter a valid local date and time."
+msgstr "请输入有效的当地日期和时间。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "Enter a local date and time without a UTC offset."
+msgstr "请输入不带UTC偏移量的当地日期和时间。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "This local time does not exist in the store timezone. Choose another time."
+msgstr "此当地时间在门店时区中不存在，请选择其他时间。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "This local time is ambiguous in the store timezone. Choose an unambiguous time."
+msgstr "此当地时间在门店时区中对应两个时刻，请选择无歧义的时间。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "The assigned employee is inactive. Replacement is required."
+msgstr "安排的员工已停用，需要替班处理。"
+
+#. module: ydental_supply
+#. odoo-python
+#: code:addons/ydental_supply/models/ydental_supply_service.py:0
+msgid "Assignment conflict: %s"
+msgstr "排期冲突：%s"

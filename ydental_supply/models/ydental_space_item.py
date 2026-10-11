@@ -8,6 +8,7 @@ class YDentalSpaceItem(models.Model):
         stations = self.sudo().ydental_station_id | (previous_stations or self.env['ydental.space.station'].sudo())
         service = self.env['ydental.supply.service']
         service._lock()
+        service._handle_assignment_conflicts()
         slots = self.env['ydental.supply.slot'].sudo().search([('ydental_station_id', 'in', stations.ids), ('state', '=', 'published')])
         for store, records in slots.grouped('ydental_store_id').items():
             service._suspend_affected(store, records, 'Workstation resource placement changed')

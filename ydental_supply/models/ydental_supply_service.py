@@ -79,6 +79,26 @@ class YDentalSupplyService(models.AbstractModel):
     def _date(self, store, instant=None):
         return (instant or self._now()).replace(tzinfo=timezone.utc).astimezone(ZoneInfo(store.ydental_timezone)).date()
 
+    def _local_to_utc(self, store, value):
+        """Reject missing or ambiguous wall times instead of guessing a fold."""
+        try:
+            local = datetime.fromisoformat(value) if isinstance(value, str) else value
+        except ValueError as error:
+            raise ValidationError(self.env._('Enter a valid local date and time.')) from error
+        if not isinstance(local, datetime) or local.tzinfo is not None:
+            raise ValidationError(self.env._('Enter a local date and time without a UTC offset.'))
+        zone = ZoneInfo(store.ydental_timezone)
+        candidates = set()
+        for fold in (0, 1):
+            utc = local.replace(tzinfo=zone, fold=fold).astimezone(timezone.utc)
+            if utc.astimezone(zone).replace(tzinfo=None) == local:
+                candidates.add(utc.replace(tzinfo=None))
+        if not candidates:
+            raise ValidationError(self.env._('This local time does not exist in the store timezone. Choose another time.'))
+        if len(candidates) != 1:
+            raise ValidationError(self.env._('This local time is ambiguous in the store timezone. Choose an unambiguous time.'))
+        return candidates.pop()
+
     def _snapshot(self, slot):
         return {'total': slot.ydental_total, 'reservation': slot.ydental_reservation_free,
                 'walkin': slot.ydental_walkin_free, 'unavailable': slot.ydental_unavailable,
@@ -206,13 +226,33 @@ class YDentalSupplyService(models.AbstractModel):
     def _assignment_warning(self, record):
         if record.state != 'active':
             return ''
+        if not record.ydental_user_id.active or not record.ydental_employee_id.active:
+            return self.env._('The assigned employee is inactive. Replacement is required.')
         if record.ydental_station_id and (not record.ydental_station_id.active or not record.ydental_station_id.ydental_enabled):
             return self.env._('Workstation unavailable. Review the arrangement.')
         if self._leaves(record.ydental_user_id, record.ydental_start, record.ydental_end):
             return self.env._('Time off conflicts with this assignment. Replacement is required.')
-        if record.ydental_station_id and not set(record.ydental_station_id.ydental_capability_ids.ids) <= set(record.ydental_user_id.ydental_capability_ids.ids):
+        if record.ydental_station_id and not set(record.ydental_station_id.ydental_capability_ids.filtered('active').ids) <= set(record.ydental_user_id.ydental_capability_ids.filtered('active').ids):
             return self.env._('Staff capabilities do not cover the workstation. Draft may be saved; verify supply separately.')
         return ''
+
+    def _handle_assignment_conflicts(self, assignments=None):
+        # Trusted change hooks only. The common mutex serializes pending-item
+        # lookup/create, independently of whether any capacity slot exists.
+        self._lock()
+        if assignments is None:
+            assignments = self._model('assignment').search([
+                ('state', '=', 'active'), ('ydental_end', '>', self._now())])
+        for assignment in assignments.filtered(lambda r: r.state == 'active' and r.ydental_end > self._now()):
+            warning = self._assignment_warning(assignment)
+            if not warning or self._model('disposition').search_count([
+                ('ydental_assignment_id', '=', assignment.id), ('ydental_slot_id', '=', False), ('state', '=', 'pending')]):
+                continue
+            record = self._new('disposition', assignment.ydental_store_id, {
+                'name': self.env._('Assignment conflict: %s', assignment.name),
+                'ydental_assignment_id': assignment.id, 'ydental_reason': warning})
+            self._event(assignment.ydental_store_id, 'assignment_conflict', warning,
+                after={'disposition_id': record.id, **self._assignment_snapshot(assignment)})
 
     def _assignment_values(self, store, p, excluding=None):
         self._keys(p, ('user_id', 'start', 'end'), ('station_id', 'area_id', 'reason'))
@@ -255,6 +295,7 @@ class YDentalSupplyService(models.AbstractModel):
         before = self._assignment_snapshot(record)
         old_slots = self._affected_slots(record)
         record._save(self._assignment_values(store, p['values'], excluding=record))
+        self._handle_assignment_conflicts(record)
         self._suspend_affected(store, old_slots | self._affected_slots(record), self._reason(p['reason']), assignment=record)
         self._event(store, 'adjust', p['reason'], before=before, after=self._assignment_snapshot(record))
         return {'id': record.id}
@@ -279,15 +320,21 @@ class YDentalSupplyService(models.AbstractModel):
     def _copy_week(self, store, p):
         self._keys(p, ('week_start',))
         start = fields.Date.to_date(p['week_start'])
-        local = datetime.combine(start, datetime.min.time(), tzinfo=ZoneInfo(store.ydental_timezone))
-        utc = local.astimezone(timezone.utc).replace(tzinfo=None)
+        local = datetime.combine(start, datetime.min.time())
+        utc = self._local_to_utc(store, local)
+        previous_utc = self._local_to_utc(store, local - timedelta(days=7))
         previous = self._model('assignment').search([('ydental_store_id', '=', store.id), ('state', '=', 'active'),
-            ('ydental_start', '>=', utc - timedelta(days=7)), ('ydental_start', '<', utc)], limit=51)
+            ('ydental_start', '>=', previous_utc), ('ydental_start', '<', utc)], limit=51)
         if not previous or len(previous) > 50:
             raise ValidationError(self.env._('Copy requires 1 to 50 source assignments.'))
-        rows = [{'user_id': r.ydental_user_id.id, 'station_id': r.ydental_station_id.id,
-                 'area_id': r.ydental_area_id.id, 'start': fields.Datetime.to_string((r.ydental_start.replace(tzinfo=timezone.utc).astimezone(ZoneInfo(store.ydental_timezone)) + timedelta(days=7)).astimezone(timezone.utc).replace(tzinfo=None)),
-                 'end': fields.Datetime.to_string((r.ydental_end.replace(tzinfo=timezone.utc).astimezone(ZoneInfo(store.ydental_timezone)) + timedelta(days=7)).astimezone(timezone.utc).replace(tzinfo=None)), 'reason': 'Copy previous week'} for r in previous]
+        zone = ZoneInfo(store.ydental_timezone)
+        rows = []
+        for record in previous:
+            times = [self._local_to_utc(store, value.replace(tzinfo=timezone.utc).astimezone(zone).replace(tzinfo=None) + timedelta(days=7))
+                for value in (record.ydental_start, record.ydental_end)]
+            rows.append({'user_id': record.ydental_user_id.id, 'station_id': record.ydental_station_id.id,
+                'area_id': record.ydental_area_id.id, 'start': fields.Datetime.to_string(times[0]),
+                'end': fields.Datetime.to_string(times[1]), 'reason': 'Copy previous week'})
         result = self._batch(store, {'rows': rows})
         return dict(result, source_ids=previous.ids)
 
@@ -675,7 +722,7 @@ class YDentalSupplyService(models.AbstractModel):
             ('ydental_enabled', '=', True)])
         capabilities = set(self.env.user.sudo().ydental_capability_ids.filtered('active').ids)
         stations = stations.filtered(lambda r: r.active and r.ydental_enabled and
-            bool(set(r.ydental_capability_ids.filtered('active').ids) & capabilities))
+            set(r.ydental_capability_ids.filtered('active').ids) <= capabilities)
         return {'result': 'hint_only', 'station_ids': stations.ids, 'execution': 'not_connected',
                 'message': self.env._('Workstation suggestion only. Execution entry awaits the S06 connection.')}
 
@@ -684,9 +731,10 @@ class YDentalSupplyService(models.AbstractModel):
         access = self.env['ydental.access.service']
         week = fields.Date.to_date(week_start) if week_start else self._date(store)
         week -= timedelta(days=week.weekday())
-        start = datetime.combine(week, datetime.min.time(), tzinfo=ZoneInfo(store.ydental_timezone)).astimezone(timezone.utc).replace(tzinfo=None)
+        start = self._local_to_utc(store, datetime.combine(week, datetime.min.time()))
+        end = self._local_to_utc(store, datetime.combine(week + timedelta(days=7), datetime.min.time()))
         assignments = self._model('assignment').search([('ydental_store_id', '=', store.id),
-            ('ydental_start', '>=', start), ('ydental_start', '<', start + timedelta(days=7))])
+            ('ydental_start', '>=', start), ('ydental_start', '<', end)])
         members = self.env['ydental.access.membership'].sudo().search([('ydental_store_id', '=', store.id), ('active', '=', True)])
         areas = self.env['ydental.space.area'].sudo().search([('ydental_store_id', '=', store.id)])
         stations = self.env['ydental.space.station'].sudo().search([('ydental_store_id', '=', store.id), ('ydental_enabled', '=', True)])

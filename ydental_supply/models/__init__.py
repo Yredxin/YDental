@@ -17,3 +17,4 @@ from . import resource_calendar_leaves
 from . import res_users
 from . import ydental_space_item
 from . import ydental_access_capability
+from . import hr_employee

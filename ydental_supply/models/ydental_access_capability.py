@@ -9,6 +9,7 @@ class YDentalAccessCapability(models.Model):
         if 'active' in vals:
             service = self.env['ydental.supply.service']
             service._lock()
+            service._handle_assignment_conflicts()
             slots = self.env['ydental.supply.slot'].sudo().search([('state', '=', 'published')])
             for store, records in slots.grouped('ydental_store_id').items():
                 service._suspend_affected(store, records, 'Capability dictionary changed')
