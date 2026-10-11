@@ -108,6 +108,9 @@ class YDentalPatient(http.Controller):
             if service:
                 access = service.env['ydental.access.service']
                 access._denial('patient.action')
+                session = access._scope()
+                access._audit('patient.action.denied', 'patient', session, session.ydental_store_id.id,
+                              result='denied', reason='access_denied_or_invalid_action', source='http_adapter')
             return request.make_json_response({'error': str(error)}, status=403 if isinstance(error, AccessError) else 409,
                                               headers=[('Cache-Control', 'no-store')])
         if output == 'json' or operation == 'export':

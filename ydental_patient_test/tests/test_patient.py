@@ -275,6 +275,15 @@ class TestPatient(TransactionCase):
         self.assertEqual(contact.ydental_phone_status, 'review')
         self.assertFalse(contact.ydental_partner_id.comment)
         self.assertFalse(contact.ydental_partner_id.user_ids)
+        self.service._operate('contact', {'patient_id': person['id'], 'contact_id': contact.id,
+            'version': 1, 'name': 'Verified Synthetic Guardian', 'relation': 'guardian', 'relationship': 'Declared parent',
+            'verified': True, 'verification_note': 'Synthetic documents reviewed', 'phone': '+1 202 555 0100'}, 'guardian-edit')
+        self.assertEqual(contact.ydental_version, 2)
+        self.assertTrue(contact.ydental_verified)
+        self.assertEqual(contact.ydental_partner_id.name, 'Verified Synthetic Guardian')
+        with self.assertRaises(UserError):
+            self.service._operate('contact', {'patient_id': person['id'], 'contact_id': contact.id,
+                'version': 1, 'name': 'Stale', 'relation': 'contact', 'relationship': 'Other'}, 'guardian-stale')
 
     def test_relation_merge_retains_earliest_arrival_and_history(self):
         source, target = create(self), create(self)

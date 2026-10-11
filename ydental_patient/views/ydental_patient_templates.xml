@@ -1,7 +1,19 @@
 <odoo>
     <template id="ydental_patient_shell" name="Patient workspace">
         <t t-call="web.layout">
-            <t t-set="head"><title>YDental Patients</title></t>
+            <t t-set="head"><title>YDental Patients</title><style>
+                .o_ydental_patient_workspace {max-width:1120px;margin:32px auto;padding:24px;font-family:Arial,sans-serif;line-height:1.5;color:#203343;background:#fff}
+                .o_ydental_patient_workspace nav {display:flex;gap:24px;margin-bottom:24px}
+                .o_ydental_patient_workspace a {color:#226585}
+                .o_ydental_patient_workspace section {margin:24px 0}
+                .o_ydental_patient_workspace table {border-collapse:collapse;width:100%;margin:16px 0}
+                .o_ydental_patient_workspace th,.o_ydental_patient_workspace td {padding:10px;text-align:left;border-bottom:1px solid #d7e0e4}
+                .o_ydental_patient_workspace details {padding:12px;margin:12px 0;border:1px solid #d7e0e4;border-radius:6px}
+                .o_ydental_patient_workspace label {display:block;margin:8px 0}
+                .o_ydental_patient_workspace input,.o_ydental_patient_workspace select,.o_ydental_patient_workspace textarea {padding:6px;margin:4px;border:1px solid #a9b9c4;border-radius:4px}
+                .o_ydental_patient_workspace button {padding:8px 16px;margin:8px 0;background:#226585;color:white;border:0;border-radius:4px;cursor:pointer}
+                .o_ydental_patient_workspace .alert-warning {display:inline-block;background:#fff3d7;padding:8px;border-radius:4px}
+            </style></t>
             <main class="container py-4 o_ydental_patient_workspace">
                 <nav class="d-flex gap-3 mb-3"><a href="/ydental">YDental</a><a href="/ydental/access">Store and permissions</a><a href="/ydental/patients">Patients</a></nav>
                 <h1>Patients</h1><p>Current store: <strong t-out="store.name"/></p>
@@ -39,6 +51,7 @@
                 <article t-foreach="merges" t-as="merge" class="border p-3 my-2"><strong t-out="merge.name"/> <span class="merge-state" t-out="dict(merge._fields['state']._description_selection(merge.env))[merge.state]"/>
                     <p t-out="merge.ydental_reason"/>
                     <p t-if="merge.ydental_conflicts">Active business conflicts require authorized handling before retry.</p>
+                    <table t-if="merge.ydental_conflicts"><thead><tr><th>Patient ID</th><th>Conflict kind</th><th>Source reference</th></tr></thead><tbody><tr t-foreach="merge.ydental_conflicts" t-as="conflict"><td t-out="conflict['patient_id']"/><td t-out="conflict['kind']"/><td t-out="conflict['reference']"/></tr></tbody></table>
                     <t t-if="is_group and can_admin and merge.state in ('requested', 'blocked')">
                         <form t-foreach="[('confirm','Confirm verified merge'),('refresh_merge','Refresh identity versions'),('reject','Reject with reason')]" t-as="decision" method="post" action="/ydental/patients/action" class="my-2">
                             <t t-call="ydental_patient.ydental_patient_form_scope"/><input type="hidden" name="operation" t-att-value="decision[0]"/>
@@ -71,7 +84,15 @@
                     <t t-call="ydental_patient.ydental_patient_form_scope"/><input type="hidden" name="operation" t-att-value="act[0]"/><input type="hidden" name="patient_id" t-att-value="patient.id"/><button t-out="act[1]"/>
                 </form>
             </section>
-            <section id="patient-contacts" class="my-4"><h3>Contacts and declared guardians</h3><ul><li t-foreach="contacts" t-as="contact"><span t-out="contact.name"/> / <span t-out="contact.ydental_relationship"/> / <span t-out="contact.ydental_phone"/> / <span t-if="contact.ydental_verified">Verification recorded</span><span t-else="">Pending verification</span></li></ul></section>
+            <section id="patient-contacts" class="my-4"><h3>Contacts and declared guardians</h3><ul><li t-foreach="contacts" t-as="contact"><span t-out="contact.name"/> / <span t-out="contact.ydental_relationship"/> / <span t-out="contact.ydental_phone"/> / <span t-if="contact.ydental_verified">Verification recorded</span><span t-else="">Pending verification</span>
+                <details t-if="can_admin and patient.active"><summary>Maintain this contact</summary><form method="post" action="/ydental/patients/action"><t t-call="ydental_patient.ydental_patient_form_scope"/>
+                    <input type="hidden" name="operation" value="contact"/><input type="hidden" name="patient_id" t-att-value="patient.id"/><input type="hidden" name="contact_id" t-att-value="contact.id"/><input type="hidden" name="version" t-att-value="contact.ydental_version"/>
+                    <label>Name <input name="name" required="required" t-att-value="contact.name"/></label><label>Contact role <select name="relation"><option t-foreach="[('contact','Contact'),('guardian','Declared guardian'),('emergency','Emergency contact')]" t-as="role" t-att-value="role[0]" t-att-selected="role[0] == contact.ydental_relation" t-out="role[1]"/></select></label>
+                    <label>Relationship <input name="relationship" required="required" t-att-value="contact.ydental_relationship"/></label><label>Phone <input name="phone" t-att-value="contact.ydental_phone"/></label><label>Phone region, ISO code or unknown <input name="phone_region" maxlength="2" t-att-value="contact.ydental_phone_region"/></label><label>Email <input name="email" type="email" t-att-value="contact.ydental_email"/></label>
+                    <label>Verification recorded <input name="verified" type="checkbox" value="yes" t-att-checked="contact.ydental_verified"/></label><label>Verification basis <input name="verification_note" t-att-value="contact.ydental_verification_note"/></label>
+                    <label>Active contact <input name="active" type="checkbox" value="yes" t-att-checked="contact.active"/></label><button>Save contact relationship</button>
+                </form></details>
+            </li></ul></section>
             <section id="patient-numbers"><h3>Traceable patient numbers</h3><ul><li t-foreach="numbers" t-as="number" t-out="number.name"/></ul></section>
             <form t-if="can_care" method="get" t-att-action="'/ydental/patients/%s/clinical' % patient.id" id="care-open" class="my-4"><label>Clinical purpose <select name="purpose"><option value="diagnosis">Diagnosis</option><option value="history_review">History review</option></select></label> <button>Open clinical background</button></form>
             <form t-if="can_export" method="post" action="/ydental/patients/action" class="my-3"><t t-call="ydental_patient.ydental_patient_form_scope"/><input type="hidden" name="operation" value="export"/><input type="hidden" name="patient_id" t-att-value="patient.id"/><button>Export administrative fields</button></form>
