@@ -1,0 +1,29 @@
+{
+  "read_utc_initial": "2026-10-11T16:46:00Z",
+  "readback_issue_28_before_delivery": "2026-10-11 UTC, during final audit before publication",
+  "plan": {
+    "url": "https://github.com/Yredxin/YDental/issues/23",
+    "revision": "YD-N1 R1",
+    "updated_at": "2026-10-11T14:42:20Z"
+  },
+  "issue": {
+    "url": "https://github.com/Yredxin/YDental/issues/28",
+    "state": "open",
+    "updated_at": "2026-10-11T16:47:34Z"
+  },
+  "effective_comments": [
+    {
+      "id": 6111275379,
+      "url": "https://github.com/Yredxin/YDental/issues/28#issuecomment-6111275379",
+      "title": "# [GPT-ACTIVATE] YD-N1 R1｜S04正式启用"
+    },
+    {
+      "id": 6111333171,
+      "url": "https://github.com/Yredxin/YDental/issues/28#issuecomment-6111333171",
+      "title": "# [CODEX] S04开工条件检查"
+    }
+  ],
+  "s03_final_review": "https://github.com/Yredxin/YDental/issues/27#issuecomment-6111270280",
+  "s03_final_state_sync": "https://github.com/Yredxin/YDental/issues/27#issuecomment-6111303932",
+  "authorization": "User explicitly activated #28/S04; startup comment written and exact readback before implementation; no Project/Status/workflow or issue-state write authorization used."
+}

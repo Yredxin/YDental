@@ -1,0 +1,7 @@
+{
+  "database": "ydental_s04_test_20261011173847_fa641b13",
+  "pid": 612042,
+  "verified_exact_runtime_config": true,
+  "signal": "SIGTERM",
+  "only_task_owned_preview": true
+}

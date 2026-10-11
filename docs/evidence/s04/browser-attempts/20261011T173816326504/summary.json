@@ -1,0 +1,123 @@
+{
+  "scope": "S04 synthetic patient workflow UI",
+  "database": "ydental_s04_test_20261011173402_fc410608",
+  "tested_commit": "a35af92ef89465dbbf71cb6f88297e4c097b43c7",
+  "browser": "Firefox",
+  "sandbox": "default, no overrides",
+  "checks": [
+    {
+      "check": "shared phone produces possible duplicate link",
+      "result": "PASS"
+    },
+    {
+      "check": "frontdesk clinical link is absent",
+      "result": "PASS"
+    },
+    {
+      "check": "frontdesk page contains no clinical background",
+      "result": "PASS"
+    },
+    {
+      "check": "this store policy prompt exists",
+      "result": "PASS"
+    },
+    {
+      "check": "store relationship action is Chinese",
+      "result": "PASS"
+    },
+    {
+      "check": "actual arrival action is Chinese",
+      "result": "PASS"
+    },
+    {
+      "check": "actual arrival recorded through UI",
+      "result": "PASS"
+    },
+    {
+      "check": "new identity has unique generated patient number",
+      "result": "PASS"
+    },
+    {
+      "check": "unknown phone region remains manual review",
+      "result": "PASS"
+    },
+    {
+      "check": "declared guardian saved without age or identity gate",
+      "result": "PASS"
+    },
+    {
+      "check": "administrative rename survives reopen",
+      "result": "PASS"
+    },
+    {
+      "check": "store request appears without direct confirm control",
+      "result": "PASS"
+    },
+    {
+      "check": "doctor reads selected patient cross-store background",
+      "result": "PASS"
+    },
+    {
+      "check": "cross-store entry has no edit form",
+      "result": "PASS"
+    },
+    {
+      "check": "browser cross-store write receives 403",
+      "result": "PASS"
+    },
+    {
+      "check": "group confirms store merge",
+      "result": "PASS"
+    },
+    {
+      "check": "merged source opens canonical patient",
+      "result": "PASS"
+    },
+    {
+      "check": "merged contact remains available",
+      "result": "PASS"
+    },
+    {
+      "check": "old number mapping retained",
+      "result": "PASS"
+    },
+    {
+      "check": "reader cannot see create form",
+      "result": "PASS"
+    },
+    {
+      "check": "reader write receives 403",
+      "result": "PASS"
+    },
+    {
+      "check": "no browser JavaScript errors",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s04/browser-attempts/20261011T173816326504/01-frontdesk-shared-identity.png",
+      "sha256": "596446789c77803f3d035e241d4ff7bd1d55aec2de6ae882bfd8d2dcc7570efa"
+    },
+    {
+      "path": "docs/evidence/s04/browser-attempts/20261011T173816326504/02-new-identity-guardian-policy.png",
+      "sha256": "61f890fa936f7c80f3b5a82ff0963257741d4c6c18bae7449bad955b1cfea28a"
+    },
+    {
+      "path": "docs/evidence/s04/browser-attempts/20261011T173816326504/03-store-merge-request.png",
+      "sha256": "72b7bed1858e009a4bec8dd36cfa49be11e5dc32c70a94c12885bf8b0623be90"
+    },
+    {
+      "path": "docs/evidence/s04/browser-attempts/20261011T173816326504/04-cross-store-care-readonly.png",
+      "sha256": "f56de0a9109e833bce66a7f14f621d43283687d8a19e760b6ceed5a4157ff111"
+    },
+    {
+      "path": "docs/evidence/s04/browser-attempts/20261011T173816326504/05-canonical-old-numbers.png",
+      "sha256": "8dd686a45168e74989262a383b551a6ddc7dc391b533a8aea622c74c1b10b635"
+    }
+  ],
+  "browser_version": "155.0",
+  "result": "PASS",
+  "pageerror_count": 0,
+  "ended_utc": "2026-10-11T17:38:25.792827+00:00"
+}

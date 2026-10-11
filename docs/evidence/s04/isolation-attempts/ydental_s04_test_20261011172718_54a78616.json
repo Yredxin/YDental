@@ -1,0 +1,26 @@
+{
+  "database": "ydental_s04_test_20261011172718_54a78616",
+  "oid": 314341,
+  "endpoint": {
+    "host": "127.0.0.1",
+    "port": "5432",
+    "user": "odoo"
+  },
+  "cluster": "7694897083368259627",
+  "port": 18106,
+  "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "created_utc": "2026-10-11T17:27:22.401888+00:00",
+  "config_sha256": "2be30a6da12ca9e21d21f8a593de135d199246f02d7183135d812e57f9212f78",
+  "dbfilter": "^ydental_s04_test_20261011172718_54a78616$",
+  "list_db": false,
+  "cron": 0,
+  "http_interface": "127.0.0.1",
+  "data_dir": "private per-run .local/ydental_s04_test_20261011172718_54a78616/data",
+  "egress": "127.0.0.1:5432 and own HTTP 18106 only",
+  "python": "../.venv/bin/python",
+  "phonenumbers": {
+    "version": "9.0.16",
+    "wheel_sha256": "3c019f10305c311005672f3a0cea4139fef0b949319a60635ee803cfaef4a2e2",
+    "installation": "ignored process-local .local/s04-deps, core and system unchanged"
+  }
+}

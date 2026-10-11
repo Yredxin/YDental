@@ -1,0 +1,35 @@
+{
+  "time_utc": "2026-10-11T17:42:14.137838+00:00",
+  "tested_commit": "a35af92ef89465dbbf71cb6f88297e4c097b43c7",
+  "fixed_product": "eb607750a4b35885f37acfb07d504f758b877b73",
+  "product_tree": "55c3bd16b58056884aa484a6214550073244b1e1",
+  "product_tree_unchanged_at_test": true,
+  "python_ast": {
+    "result": "PASS",
+    "files": 35
+  },
+  "guard": {
+    "command": "../.venv/bin/python -m unittest discover -s scripts -p test_s04_guard.py -v",
+    "exit_code": 0,
+    "tests": 5,
+    "result": "PASS"
+  },
+  "git_diff_check": "PASS",
+  "core_tracked_diff": "EMPTY",
+  "private_value_scan": {
+    "result": "PASS",
+    "public_files": 55,
+    "known_values_compared": 56,
+    "raw_logs_copied": false
+  },
+  "screenshot_hashes": "PASS, all attempts retained",
+  "relative_document_links": "PASS",
+  "own_preview_stopped": true,
+  "final_database": "ydental_s04_test_20261011173847_fa641b13",
+  "browser": {
+    "checks": 22,
+    "pageerror_count": 0,
+    "result": "PASS"
+  },
+  "scope": "S04 only; real S05/S06/S08/S09/S10/S12 integration NOT_RUN; no Project/state/workflow writes"
+}

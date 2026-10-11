@@ -1,0 +1,282 @@
+[
+  {
+    "path": "AGENTS.md",
+    "sha256": "3656d05aaafdfb4b1caf2ee18e45d32a3586d3eff49850c0de2937daf5542a2b",
+    "bytes": 5992
+  },
+  {
+    "path": "docs/evidence/s04/authorization.json",
+    "sha256": "e769c8d380641511f6348d163065168d7e8acfc942ceafb52b290b235e910544",
+    "bytes": 1196
+  },
+  {
+    "path": "docs/evidence/s04/browser-attempts/20261011T171550988308/01-frontdesk-shared-identity.png",
+    "sha256": "dcdcad967a19a210ea6c01e5b5afb60c5d7a29dcd4d1dc29f17b81388aad0a12",
+    "bytes": 89409
+  },
+  {
+    "path": "docs/evidence/s04/browser-attempts/20261011T171550988308/02-new-identity-guardian-policy.png",
+    "sha256": "6fa87806dc58ba0635b19b89f2afea9c17c5c845d409c50380e06ff5dabf4da3",
+    "bytes": 101208
+  },
+  {
+    "path": "docs/evidence/s04/browser-attempts/20261011T171550988308/03-store-merge-request.png",
+    "sha256": "bd2efee9d1a5d2492c10a6dc25b98453e055eb9c4097a4a015fa89e9e3c23216",
+    "bytes": 158871
+  },
+  {
+    "path": "docs/evidence/s04/browser-attempts/20261011T171550988308/04-cross-store-care-readonly.png",
+    "sha256": "f036d1ef717fcb710f4441ecd32272a07b17d7579bc9dce7d2314c6713887067",
+    "bytes": 49908
+  },
+  {
+    "path": "docs/evidence/s04/browser-attempts/20261011T171550988308/05-canonical-old-numbers.png",
+    "sha256": "fe9c98fe9e476fadd5abbb7e5ea917b8159e067b9e7dc4362fa052a6efbb7141",
+    "bytes": 99603
+  },
+  {
+    "path": "docs/evidence/s04/browser-attempts/20261011T171550988308/summary.json",
+    "sha256": "e37c7732fb57c21ff609fcb291432b31e2b90252db2eb755f936cfd6c6e88c15",
+    "bytes": 3094
+  },
+  {
+    "path": "docs/evidence/s04/browser-attempts/20261011T172103810384/01-frontdesk-shared-identity.png",
+    "sha256": "99db0c95537e1e64e4a6a23979e449820de733babfec841cdb4fe6f14693f023",
+    "bytes": 119594
+  },
+  {
+    "path": "docs/evidence/s04/browser-attempts/20261011T172103810384/02-new-identity-guardian-policy.png",
+    "sha256": "09786dd2ec08469d229cc9e52752c80fed70565ea0d35207f08bd63064843916",
+    "bytes": 138769
+  },
+  {
+    "path": "docs/evidence/s04/browser-attempts/20261011T172103810384/03-store-merge-request.png",
+    "sha256": "c6a28734b1850f6fa1378e41d88d2703a957aee887d001018f619cc02baf6cde",
+    "bytes": 242926
+  },
+  {
+    "path": "docs/evidence/s04/browser-attempts/20261011T172103810384/04-cross-store-care-readonly.png",
+    "sha256": "fde93697ccb37a5db1bfe19bae171bd21afbd785e2883f4cb2b1d69e46ee71fd",
+    "bytes": 62269
+  },
+  {
+    "path": "docs/evidence/s04/browser-attempts/20261011T172103810384/05-canonical-old-numbers.png",
+    "sha256": "2878aee2fffd77d50f11de03d4f567b6ff9920780f72f6db1069b1185ff0e7c8",
+    "bytes": 133311
+  },
+  {
+    "path": "docs/evidence/s04/browser-attempts/20261011T172103810384/summary.json",
+    "sha256": "a39057eb159f89d62c85fd5aa23cce51f269ea15106f17dcf888c1a818914cf9",
+    "bytes": 3232
+  },
+  {
+    "path": "docs/evidence/s04/browser-attempts/20261011T172949751161/01-frontdesk-shared-identity.png",
+    "sha256": "bcd49d20519d5583904e201eff5f955abea936ee5b36eee39d641d5579329f37",
+    "bytes": 119377
+  },
+  {
+    "path": "docs/evidence/s04/browser-attempts/20261011T172949751161/02-new-identity-guardian-policy.png",
+    "sha256": "93495d9645198c556b811ef47443565e55a12a4fba2e43745ed3f1e600b152ee",
+    "bytes": 138279
+  },
+  {
+    "path": "docs/evidence/s04/browser-attempts/20261011T172949751161/03-store-merge-request.png",
+    "sha256": "5f2b09279f887b7468e160e8b29e216f64abc4d254cad4e36f78aa5400d51455",
+    "bytes": 242817
+  },
+  {
+    "path": "docs/evidence/s04/browser-attempts/20261011T172949751161/04-cross-store-care-readonly.png",
+    "sha256": "f56de0a9109e833bce66a7f14f621d43283687d8a19e760b6ceed5a4157ff111",
+    "bytes": 62018
+  },
+  {
+    "path": "docs/evidence/s04/browser-attempts/20261011T172949751161/05-canonical-old-numbers.png",
+    "sha256": "3838e4908cbbb70cd1013de2e40d134582b8d6063c544d6e2a96cd1334644831",
+    "bytes": 133017
+  },
+  {
+    "path": "docs/evidence/s04/browser-attempts/20261011T172949751161/summary.json",
+    "sha256": "87a5064ba2a83d4e5dde535ec186cf21c358b2800531aedbde5e1c56764e8d69",
+    "bytes": 3232
+  },
+  {
+    "path": "docs/evidence/s04/browser-attempts/20261011T173610090501/01-frontdesk-shared-identity.png",
+    "sha256": "9f7cd510dca5d0c36e901b92768e81765dcf6bca9cf3ffc3e968f125a2d673bc",
+    "bytes": 120568
+  },
+  {
+    "path": "docs/evidence/s04/browser-attempts/20261011T173610090501/02-new-identity-guardian-policy.png",
+    "sha256": "6ad742a2294369c26dfb5bdce525fc6492015b997a5af7d5e1dc12291f332f9f",
+    "bytes": 139421
+  },
+  {
+    "path": "docs/evidence/s04/browser-attempts/20261011T173610090501/03-store-merge-request.png",
+    "sha256": "0a28219726b552743c031946320ffbf2142aef6ea6ee494650df26bd9e34f01a",
+    "bytes": 242813
+  },
+  {
+    "path": "docs/evidence/s04/browser-attempts/20261011T173610090501/04-cross-store-care-readonly.png",
+    "sha256": "f56de0a9109e833bce66a7f14f621d43283687d8a19e760b6ceed5a4157ff111",
+    "bytes": 62018
+  },
+  {
+    "path": "docs/evidence/s04/browser-attempts/20261011T173610090501/05-canonical-old-numbers.png",
+    "sha256": "596446789c77803f3d035e241d4ff7bd1d55aec2de6ae882bfd8d2dcc7570efa",
+    "bytes": 134042
+  },
+  {
+    "path": "docs/evidence/s04/browser-attempts/20261011T173610090501/summary.json",
+    "sha256": "97d872975f3e385b6e691a0d5ce16ef8b84c35580b67d32dbec69299a307934a",
+    "bytes": 3359
+  },
+  {
+    "path": "docs/evidence/s04/browser-attempts/20261011T173816326504/01-frontdesk-shared-identity.png",
+    "sha256": "596446789c77803f3d035e241d4ff7bd1d55aec2de6ae882bfd8d2dcc7570efa",
+    "bytes": 134042
+  },
+  {
+    "path": "docs/evidence/s04/browser-attempts/20261011T173816326504/02-new-identity-guardian-policy.png",
+    "sha256": "61f890fa936f7c80f3b5a82ff0963257741d4c6c18bae7449bad955b1cfea28a",
+    "bytes": 139440
+  },
+  {
+    "path": "docs/evidence/s04/browser-attempts/20261011T173816326504/03-store-merge-request.png",
+    "sha256": "72b7bed1858e009a4bec8dd36cfa49be11e5dc32c70a94c12885bf8b0623be90",
+    "bytes": 259148
+  },
+  {
+    "path": "docs/evidence/s04/browser-attempts/20261011T173816326504/04-cross-store-care-readonly.png",
+    "sha256": "f56de0a9109e833bce66a7f14f621d43283687d8a19e760b6ceed5a4157ff111",
+    "bytes": 62018
+  },
+  {
+    "path": "docs/evidence/s04/browser-attempts/20261011T173816326504/05-canonical-old-numbers.png",
+    "sha256": "8dd686a45168e74989262a383b551a6ddc7dc391b533a8aea622c74c1b10b635",
+    "bytes": 146949
+  },
+  {
+    "path": "docs/evidence/s04/browser-attempts/20261011T173816326504/summary.json",
+    "sha256": "3ac354ab4f01bc404a8da3fca10a259a866599691f4a6897324ed32670dd5f61",
+    "bytes": 3434
+  },
+  {
+    "path": "docs/evidence/s04/browser-attempts/20261011T174042929332/01-frontdesk-shared-identity.png",
+    "sha256": "9f7cd510dca5d0c36e901b92768e81765dcf6bca9cf3ffc3e968f125a2d673bc",
+    "bytes": 120568
+  },
+  {
+    "path": "docs/evidence/s04/browser-attempts/20261011T174042929332/02-new-identity-guardian-policy.png",
+    "sha256": "6ad742a2294369c26dfb5bdce525fc6492015b997a5af7d5e1dc12291f332f9f",
+    "bytes": 139421
+  },
+  {
+    "path": "docs/evidence/s04/browser-attempts/20261011T174042929332/03-store-merge-request.png",
+    "sha256": "5c8b293078896ca702efca125d6ec02fb1d6a7848bc182b355d4f75106b06727",
+    "bytes": 242817
+  },
+  {
+    "path": "docs/evidence/s04/browser-attempts/20261011T174042929332/04-cross-store-care-readonly.png",
+    "sha256": "f56de0a9109e833bce66a7f14f621d43283687d8a19e760b6ceed5a4157ff111",
+    "bytes": 62018
+  },
+  {
+    "path": "docs/evidence/s04/browser-attempts/20261011T174042929332/05-canonical-old-numbers.png",
+    "sha256": "58bc71327acac7170bb6e4838d894c013dab87f189605dbdcfc1e9b07d34c7e9",
+    "bytes": 133838
+  },
+  {
+    "path": "docs/evidence/s04/browser-attempts/20261011T174042929332/summary.json",
+    "sha256": "39c27d0e05e70c78088d27f37f52525a65e166c98a1ce4a63b9e14784e215af8",
+    "bytes": 3434
+  },
+  {
+    "path": "docs/evidence/s04/failures.md",
+    "sha256": "120b477ec29384725f328fe924b24f048330feb883e373c32425ec3b1b005536",
+    "bytes": 3981
+  },
+  {
+    "path": "docs/evidence/s04/final-browser.json",
+    "sha256": "39c27d0e05e70c78088d27f37f52525a65e166c98a1ce4a63b9e14784e215af8",
+    "bytes": 3434
+  },
+  {
+    "path": "docs/evidence/s04/final-checks.json",
+    "sha256": "5d89fce2078dac64fcea90e64e53847d80d4f94ef386a4fc25ee8b621d4bc22f",
+    "bytes": 1090
+  },
+  {
+    "path": "docs/evidence/s04/final-isolation.json",
+    "sha256": "e049ff3cba7fa33e15ae5d23ba38da0158f792c454150a20931f1e706517d852",
+    "bytes": 931
+  },
+  {
+    "path": "docs/evidence/s04/final-probe.json",
+    "sha256": "6274b8287c39fcac799975036a4c8311c22dae5e20a3fe21921b6602cdb1dcec",
+    "bytes": 48899
+  },
+  {
+    "path": "docs/evidence/s04/isolation-attempts/ydental_s04_test_20261011172718_54a78616.json",
+    "sha256": "fdec4de6c7366130fa5338531a9f903ee3fbe4a05957b7a02593c4f4a847976d",
+    "bytes": 936
+  },
+  {
+    "path": "docs/evidence/s04/isolation-attempts/ydental_s04_test_20261011173402_fc410608.json",
+    "sha256": "25b620435ae078fa2de04c2cf80027035b9ce09d0e0f274e88de695437019e44",
+    "bytes": 931
+  },
+  {
+    "path": "docs/evidence/s04/preview-stop.json",
+    "sha256": "7d1d6c2d56ff47b7f3c3fa67a923c555073e57bcd31e48c49c9815b99f13dc0e",
+    "bytes": 177
+  },
+  {
+    "path": "docs/evidence/s04/probe-attempts/ydental_s04_test_20261011172718_54a78616.json",
+    "sha256": "cc0437c99d73b00f785f3abee6e9a8171247d03db981caf5defd71ce7c521ef2",
+    "bytes": 48899
+  },
+  {
+    "path": "docs/evidence/s04/probe-attempts/ydental_s04_test_20261011173402_fc410608.json",
+    "sha256": "ea7ea880ef9a8a2059dc0ac159d0f53882913d06bf5ba6f1c0af14301d9cbbf1",
+    "bytes": 48899
+  },
+  {
+    "path": "docs/evidence/s04/runtime-history.json",
+    "sha256": "bb15070ae96bc4658d47f201d9942725039d3c55e21e51729a3979a9d9a13730",
+    "bytes": 11031
+  },
+  {
+    "path": "docs/evidence/s04/translation-attempts/ydental_s04_test_20261011172718_54a78616.json",
+    "sha256": "8c03a7b0754ab8e8c63bce35dabbe349cb1c19a75109a3d052586268222ab8aa",
+    "bytes": 206
+  },
+  {
+    "path": "docs/evidence/s04/translation-attempts/ydental_s04_test_20261011173402_fc410608.json",
+    "sha256": "5956fba22706b993d7ee0d8af0703e5b0f6757782586b11ff877a9e8b2b52a53",
+    "bytes": 206
+  },
+  {
+    "path": "docs/evidence/s04/translation.json",
+    "sha256": "1fdec003d1416553255c438847bc402627317a7444e06a1164f12a5e84139c09",
+    "bytes": 206
+  },
+  {
+    "path": "docs/s04-contracts.md",
+    "sha256": "fe8e5996b44ade43a3da6910876b6a92793af2c62e0d9884e0ac55c87a3eb268",
+    "bytes": 13593
+  },
+  {
+    "path": "docs/s04-data-dictionary.md",
+    "sha256": "d6cbaba2b0944c8e3fdaf79c49103ee84f408011a6782983b6ebeb9c6c8fca76",
+    "bytes": 13254
+  },
+  {
+    "path": "docs/s04-report.md",
+    "sha256": "5f4226215999ec1827eebe1ccb6e8dfe128a12aef51da7c498c44f3f4a0c0d4a",
+    "bytes": 13235
+  },
+  {
+    "path": "docs/s04-security-review.md",
+    "sha256": "81b80bec2ab8fee6995a9ffa06eb1ce24453108d4aa5dd138fa7079a71ba1dfb",
+    "bytes": 3978
+  }
+]
