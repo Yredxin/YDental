@@ -211,10 +211,20 @@ def main():
             check('none Contacts search returns no patient or guardian', hidden.get('result') == [])
             ordinary = native_rpc(none_page, 'read', [[preview['ordinary_partner']], ['name']])
             check('none ordinary Contacts remain readable', ordinary.get('result',[{}])[0].get('name') == 'S04 Browser Ordinary Contact')
+            for index, partner_id in enumerate(preview['protected_partners']):
+                none_page.goto(base + '/odoo/action-%s/%s' % (preview['contacts_action'], partner_id))
+                dialog = none_page.locator('.o_dialog').filter(has_text='需要患者行政资料权限')
+                dialog.wait_for(state='visible')
+                check('none native Contacts form denies protected record '+str(partner_id),
+                      dialog.count() == 1 and none_page.locator('.o_form_view input[name=name]').count() == 0)
+                screenshot(none_page, none_context, '06%s-none-native-contacts-denied.png' % chr(97 + index))
+            none_page.goto(base + '/odoo/action-%s/%s' % (preview['contacts_action'], preview['ordinary_partner']))
+            none_page.locator('.o_form_view').wait_for(state='visible')
+            check('none native ordinary Contacts form opens',
+                  'S04 Browser Ordinary Contact' in none_page.locator('.o_form_view').inner_text())
             none_page.goto(base + '/ydental/patients')
             check('none patient workspace denied', none_page.locator('body').inner_text().find('S04 Browser Original') < 0 and
                   none_page.locator('#patient-identity').count() == 0)
-            screenshot(none_page, none_context, '06-none-contacts-denied.png')
             b_patient = preview['b_only']['id']
             b_url = base + '/ydental/patients/%s/clinical?purpose=diagnosis' % b_patient
             response = doctor_page.goto(b_url)

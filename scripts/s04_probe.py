@@ -68,7 +68,8 @@ with registry.cursor() as cr:
         credential_values[role] = {'id': user.id, 'login': user.login, 'password': password}
     preview = {'stores': fixture.stores.ids, 'original': original, 'same_phone': same_phone,
                'clinical_id': clinical_id, 'suffix': fixture.suffix, 'b_only': b_only, 'b_history': b_history,
-               'protected_partners': (primary_partner | guardian_partner).ids, 'ordinary_partner': ordinary_partner.id}
+               'protected_partners': (primary_partner | guardian_partner).ids, 'ordinary_partner': ordinary_partner.id,
+               'contacts_action': root.ref('base.action_partner_form').id}
     cr.commit()  # New private fixture cursor, persist only this synthetic run.
 private(run / 'access.json', credential_values)
 private(run / 'preview.json', preview)
