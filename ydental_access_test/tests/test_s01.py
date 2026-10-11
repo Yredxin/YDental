@@ -178,12 +178,21 @@ class TestS01(TransactionCase):
         self.assertEqual(levels['warehouse'], 'none')
         self.assertEqual(levels['medical'], 'none')
         self.assertEqual(levels['frontdesk'], 'write')
+        grants = self.env['ydental.access.grant'].search_count([])
+        changes = self.env['ydental.access.audit'].search_count([('ydental_event', '=', 'authorization.change')])
+        repeated = self.admin._template_preview(template.id, targets)
+        self.admin._apply_template(template.id, targets, repeated['receipt'])
+        self.assertEqual(self.admin._levels(self.admin._membership(self.operator.id, self.a.id)), levels)
+        self.assertEqual(self.env['ydental.access.grant'].search_count([]), grants)
+        self.assertEqual(self.env['ydental.access.audit'].search_count([('ydental_event', '=', 'authorization.change')]), changes)
         template.ydental_levels = {'frontdesk': 'read'}
         self.assertEqual(self.admin._levels(self.admin._membership(self.operator.id, self.a.id)), levels)
         self.assertEqual(self.admin._levels(self.admin._membership(self.operator.id, self.b.id))['space'], 'read')
         manager = self.bound(self.manager, 't09', self.a)
         with self.assertRaises(AccessError):
             manager._template_preview(template.id, [[self.operator.id, self.a.id], [self.operator.id, self.b.id]])
+        with self.assertRaises(AccessError):
+            manager._apply_template(template.id, [[self.operator.id, self.a.id], [self.operator.id, self.b.id]], preview['receipt'])
         self.assertEqual(self.admin._levels(self.admin._membership(self.operator.id, self.a.id)), levels)
 
     def test_t10_personnel_ceiling_and_identity(self):
