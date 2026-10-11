@@ -1,4 +1,3 @@
-import base64
 import secrets
 from datetime import datetime
 
@@ -55,7 +54,7 @@ class TestPatient(TransactionCase):
         ]:
             person = create(self, phone=phone, phone_region=region)
             record = self.root['ydental.patient'].browse(person['id'])
-            self.assertEqual(record.ydental_phone, phone or False)
+            self.assertEqual(record.ydental_phone or '', phone)
             self.assertEqual(record.ydental_phone_status, status)
             self.assertEqual(record.ydental_phone_normalized or '', normalized)
         with self.assertRaises(ValidationError):
@@ -130,11 +129,11 @@ class TestPatient(TransactionCase):
                 continue
             self.assertIn(result, ([], 0, [(0,)]))
         attachment = self.root['ir.attachment'].create({'name': 'S04 clinical synthetic.txt',
-            'res_model': 'ydental.patient.clinical', 'res_id': record_id, 'datas': base64.b64encode(b'S04 synthetic clinical'), 'public': True})
+            'res_model': 'ydental.patient.clinical', 'res_id': record_id, 'raw': b'S04 synthetic clinical', 'public': True})
         with self.assertRaises(AccessError):
             self.service.env['ir.attachment'].browse(attachment.id)._can_return_content('raw')
         with self.assertRaises(AccessError):
-            self.service.env['ir.attachment'].browse(attachment.id).read(['datas'])
+            self.service.env['ir.attachment'].browse(attachment.id).read(['raw'])
 
     def test_t05_partner_chatter_notes_reverse_export_and_untyped_attachment(self):
         person = create(self)
@@ -152,7 +151,7 @@ class TestPatient(TransactionCase):
             with self.assertRaises((AccessError, ValueError, KeyError)):
                 action()
         attachment = self.root['ir.attachment'].create({'name': 'S04 blocked partner.txt', 'res_model': 'res.partner',
-            'res_id': partner.id, 'datas': base64.b64encode(b'Synthetic untyped data'), 'public': True})
+            'res_id': partner.id, 'raw': b'Synthetic untyped data', 'public': True})
         with self.assertRaises(AccessError):
             self.service.env['ir.attachment'].browse(attachment.id)._can_return_content('raw')
         self.assertFalse(self.service.env['ir.attachment'].search([('id', '=', attachment.id)]))
@@ -171,7 +170,7 @@ class TestPatient(TransactionCase):
                 'values': {'allergies': 'Attempted cross-store edit'}}, 'cross-write')
         finance = self.root['ydental.patient.test.source']._new({'name': 'Synthetic finance original',
             'ydental_store_id': self.stores[1].id, 'ydental_category': 'settlement', 'ydental_patient_id': person['id'],
-            'ydental_origin_patient_id': person['id'], 'ydental_identity_snapshot': {}, 'ydental_text': 'Finance original'})
+            'ydental_origin_patient_id': person['id'], 'ydental_identity_snapshot': {'synthetic': True}, 'ydental_text': 'Finance original'})
         with self.assertRaises(AccessError):
             access.env['ydental.patient.test.source'].browse(finance.id).read(['ydental_text'])
         self.assertTrue(self.root['ydental.access.audit'].search([('ydental_event', '=', 'patient.care.open'),

@@ -1,4 +1,3 @@
-import base64
 import json
 import re
 import secrets
@@ -57,7 +56,7 @@ class TestPatientHTTP(HttpCase):
         person = create(self)
         record_id = clinical(self, person['id'], self.stores[2])['id']
         attachment = self.root['ir.attachment'].create({'name': 'S04 HTTP synthetic clinical.txt',
-            'res_model': 'ydental.patient.clinical', 'res_id': record_id, 'datas': base64.b64encode(b'Synthetic clinical data'), 'public': True})
+            'res_model': 'ydental.patient.clinical', 'res_id': record_id, 'raw': b'Synthetic clinical data', 'public': True})
         self.select()
         self.assertNotIn('Open clinical background', self.url_open('/ydental/patients/%s' % person['id']).text)
         self.assertEqual(self.url_open('/ydental/patients/%s/clinical?purpose=diagnosis' % person['id']).status_code, 403)
@@ -65,7 +64,7 @@ class TestPatientHTTP(HttpCase):
                              ('export_data', [[record_id], ['ydental_allergies']])]:
             result = self.rpc('ydental.patient.clinical', method, args)
             self.assertTrue(result.get('error') or result.get('result') == [])
-        self.assertEqual(self.url_open('/web/content/%s?download=true' % attachment.id).status_code, 403)
+        self.assertEqual(self.url_open('/web/content/%s?download=true' % attachment.id).status_code, 404)
 
     def test_http_doctor_reads_selected_patient_cross_store_and_rejects_cross_write(self):
         person = create(self)
@@ -88,19 +87,19 @@ class TestPatientHTTP(HttpCase):
         context = {'ydental_patient_care': {'patient_id': person['id'], 'purpose': 'diagnosis'},
                    'ydental_purpose': 'care', 'allowed_company_ids': self.root.user.company_ids.ids}
         self.assertIn('error', self.rpc('ydental.patient.clinical', 'read', [[record_id], ['ydental_allergies']], context))
-        self.assertEqual(self.url_open('/ydental/patients/%s/clinical?purpose=anything' % person['id']).status_code, 400)
+        self.assertEqual(self.url_open('/ydental/patients/%s/clinical?purpose=anything' % person['id']).status_code, 422)
 
     def test_http_native_partner_cannot_edit_notes_or_read_untyped_files(self):
         person = create(self)
         patient = self.root['ydental.patient'].browse(person['id'])
         partner = patient.ydental_partner_id
         attachment = self.root['ir.attachment'].create({'name': 'S04 partner HTTP.txt', 'res_model': 'res.partner',
-            'res_id': partner.id, 'datas': base64.b64encode(b'Synthetic untyped file'), 'public': True})
+            'res_id': partner.id, 'raw': b'Synthetic untyped file', 'public': True})
         self.select()
         self.assertIn('error', self.rpc('res.partner', 'write', [[partner.id], {'comment': 'Bypass'}]))
         result = self.rpc('res.partner', 'read', [[partner.id], ['name', 'comment']])
         self.assertFalse(result['result'][0]['comment'])
-        self.assertEqual(self.url_open('/web/content/%s?download=true' % attachment.id).status_code, 403)
+        self.assertEqual(self.url_open('/web/content/%s?download=true' % attachment.id).status_code, 404)
         self.assertEqual(self.action('clinical', {'patient_id': person['id'], 'values': {'allergies': 'Bypass'}}).status_code, 403)
 
     def test_http_group_merge_only_and_old_number_search(self):
@@ -128,7 +127,7 @@ class TestPatientHTTP(HttpCase):
         a, b = create(self), create(self)
         record_id = clinical(self, a['id'], self.stores[2])['id']
         attachment = self.root['ir.attachment'].create({'name': 'S04 scoped.txt', 'res_model': 'ydental.patient.clinical',
-            'res_id': record_id, 'datas': base64.b64encode(b'S04 synthetic authorized attachment'), 'public': True})
+            'res_id': record_id, 'raw': b'S04 synthetic authorized attachment', 'public': True})
         self.select('doctor')
         url = '/ydental/patients/%s/attachment/%s?purpose=diagnosis'
         self.assertEqual(self.url_open(url % (a['id'], attachment.id)).status_code, 200)

@@ -44,11 +44,11 @@ def setup_patient(cls):
 
 
 def create(cls, name='Synthetic Person', service=None, key=None, **values):
-    return (service or cls.service)._operate('create', {'values': dict(values, name=name)}, key or secrets.token_hex(8))
+    return (cls.service if service is None else service)._operate('create', {'values': dict(values, name=name)}, key or secrets.token_hex(8))
 
 
 def merge(cls, source, target, service=None):
-    return (service or cls.service)._operate('request_merge', {'source_id': source, 'target_id': target,
+    return (cls.service if service is None else service)._operate('request_merge', {'source_id': source, 'target_id': target,
         'reason': 'Synthetic identity verification request'}, secrets.token_hex(8))
 
 
