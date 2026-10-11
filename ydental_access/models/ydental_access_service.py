@@ -308,6 +308,9 @@ class YDentalAccessService(models.AbstractModel):
         if self._get_execution_store_id() not in (False, store_id):
             raise AccessError(self.env._('access_denied: Execution in another store blocks manual writes.'))
         if self._is_group_manager():
+            store = self.env['ydental.access.store'].sudo().browse(store_id).exists()
+            if not store or not self.env.su and store.company_id not in self.env.user.company_ids:
+                raise AccessError(self.env._('access_denied: Group administration within allowed companies is required.'))
             return
         own = self._membership(self.env.uid, store_id)
         if not own or not own.ydental_employee_id.active:

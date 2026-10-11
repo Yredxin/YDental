@@ -23,7 +23,10 @@ class TestS01(TransactionCase):
         cls.operator = new_test_user(cls.env, login='s01_operator', groups=groups)
         cls.manager = new_test_user(cls.env, login='s01_manager', groups=groups)
         cls.personnel = new_test_user(cls.env, login='s01_personnel', groups=groups)
-        cls.group_admin = new_test_user(cls.env, login='s01_group', groups=groups + ',ydental_access.ydental_group_manager')
+        cls.group_admin = new_test_user(
+            cls.env, login='s01_group', groups=groups + ',ydental_access.ydental_group_manager',
+            company_ids=[fields.Command.set([cls.env.company.id, cls.company_a.id, cls.company_b.id])],
+        )
         cls.service = cls.env['ydental.access.service']
         cls.admin = cls.bound(cls.group_admin, 'setup')
         for user in (cls.operator, cls.manager, cls.personnel, cls.group_admin):
@@ -277,3 +280,14 @@ class TestS01(TransactionCase):
         template.ydental_levels = {'space': 'none'}
         with self.assertRaises(UserError):
             self.admin._apply_template(template.id, targets, preview['receipt'])
+
+    def test_group_administration_stays_within_allowed_companies(self):
+        limited = new_test_user(
+            self.env, login='s01_limited_group', groups='ydental_access.ydental_group_manager',
+            company_id=self.company_a.id, company_ids=[fields.Command.set(self.company_a.ids)],
+        )
+        service = self.bound(limited, 'limited-group')
+        with self.assertRaises(AccessError):
+            service._grant(self.operator.id, self.c.id, {'settlement': 'write'})
+        with self.assertRaises(AccessError):
+            service._join(self.personnel.id, self.c.id)
