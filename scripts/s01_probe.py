@@ -65,11 +65,17 @@ with env.registry.cursor() as cr:
          'ydental_category': category, 'ydental_text': 'SYNTHETIC_' + category.upper()}
         for store in stores for category in ('space', 'medical', 'settlement')
     ])
+    care_target = records.filtered(lambda r: r.ydental_store_id == stores[2] and r.ydental_category == 'medical')
+    care_target.write({'ydental_test_care_target': True, 'ydental_text': 'SYNTHETIC_CARE_TARGET'})
+    excluded = seed['ydental.access.test.record'].create({'name': 'Unrelated synthetic clinical record',
+        'ydental_store_id': stores[2].id, 'ydental_category': 'medical', 'ydental_text': 'SYNTHETIC_CARE_EXCLUDED'})
+    seed['res.users'].browse(access['operator']['id']).ydental_test_default_store_id = stores[1]
     template = seed['ydental.access.template'].create({'name': 'S01 Synthetic Front Desk', 'ydental_levels': {'frontdesk': 'read'}})
     source_a = records.filtered(lambda r: r.ydental_store_id == stores[0] and r.ydental_category == 'space')
     attachment = seed['ir.attachment'].create({'name': 'S01 synthetic attachment', 'raw': b'SYNTHETIC_ATTACHMENT',
                                                'res_model': source_a._name, 'res_id': source_a.id})
     summary = {'database': cr.dbname, 'stores': stores.ids, 'roles': {r: a['id'] for r, a in access.items()},
+               'care_target_id': care_target.id, 'care_excluded_id': excluded.id,
                'template_id': template.id, 'source_a_id': source_a.id, 'attachment_id': attachment.id,
                'policy': 'not published; fixture manager assignment only', 'synthetic_only': True}
     cr.commit()  # Commit only the cursor opened above, for the isolated preview.

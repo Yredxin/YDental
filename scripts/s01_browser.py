@@ -122,6 +122,10 @@ def main():
             ctx_a, page_a = login('operator')
             ctx_b, page_b = login('operator')
             a, b, c = preview['stores']
+            if args.evidence == 's01-rework':
+                record('BLOCKER-2 browser first login defaults B',
+                       page_a.locator('strong').inner_text() == 'S01 Synthetic Store B'
+                       and page_b.locator('strong').inner_text() == 'S01 Synthetic Store B')
             ctx_g, group = login('group')
             switch(group, a)
             new_name = 'S01 Browser Synthetic Staff'
@@ -145,6 +149,31 @@ def main():
             page_a.reload(wait_until='domcontentloaded')
             record('T03 independent browser login stores', 'S01 Synthetic Store A' in page_a.locator('strong').inner_text()
                    and 'S01 Synthetic Store B' in page_b.locator('strong').inner_text())
+            if args.evidence == 's01-rework':
+                def rpc(page, model, method, values, kwargs):
+                    return page.request.post(base + '/web/dataset/call_kw', data={
+                        'jsonrpc': '2.0', 'method': 'call',
+                        'params': {'model': model, 'method': method, 'args': [values], 'kwargs': kwargs},
+                    }).json()
+                source_model = 'ydental.access.test.record'
+                forged = rpc(page_a, source_model, 'read', [preview['care_target_id']],
+                             {'fields': ['name'], 'context': {'ydental_purpose': 'care'}})
+                record('BLOCKER-1 browser forged care RPC denied', 'error' in forged)
+                clinical = ctx_a.new_page()
+                clinical.goto(base + '/ydental/s01-synthetic?purpose=care', wait_until='domcontentloaded')
+                record('BLOCKER-1 client purpose cannot enumerate C history',
+                       'SYNTHETIC_CARE_TARGET' not in clinical.locator('body').inner_text())
+                clinical.goto(base + '/ydental/s01-synthetic/care', wait_until='domcontentloaded')
+                record('BLOCKER-1 trusted synthetic scope includes only designated history',
+                       'SYNTHETIC_CARE_TARGET' in clinical.locator('body').inner_text()
+                       and 'SYNTHETIC_CARE_EXCLUDED' not in clinical.locator('body').inner_text())
+                snapshot(clinical, ctx_a, 'browser-trusted-care-scope.png')
+                response = rpc(page_a, source_model, 'read_group', [],
+                               {'groupby': ['ydental_category'], 'aggregates': ['__count']})
+                record('BLOCKER-4 browser native aggregate RPC authorized', bool(response.get('result')))
+                page_a.reload(wait_until='domcontentloaded')
+                record('BLOCKER-4 browser actor can see model query audit',
+                       'source.query' in page_a.locator('body').inner_text())
             snapshot(page_a, ctx_a, 'browser-store-a-zh.png')
             old = ctx_a.new_page()
             old.goto(base + '/ydental/s01-synthetic', wait_until='domcontentloaded')

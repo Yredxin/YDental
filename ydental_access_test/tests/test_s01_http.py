@@ -120,3 +120,69 @@ class TestS01HTTP(HttpCase, TestS01):
             anonymous = IndependentOpener(self)
             response = anonymous.get(self.base_url() + '/ydental/access', allow_redirects=False, timeout=20)
         self.assertEqual(response.status_code, 303)
+
+    def test_http_rework_forged_care_and_query_audit(self):
+        self.admin._grant(self.operator.id, self.a.id, {'medical': 'read'})
+        target = self.source(self.admin, self.c, 'medical').sudo()
+        target.ydental_test_care_target = True
+        excluded = self.env[target._name].create({'name': 'HTTP unrelated clinical',
+            'ydental_store_id': self.c.id, 'ydental_category': 'medical', 'ydental_text': 'SYNTHETIC_HTTP_EXCLUDED'})
+        client = self.login_session(self.operator)
+        self.action_http(client, 'switch', {'store_id': self.a.id})
+        with mute_logger('odoo.http'):
+            self.assertIn('error', self.rpc(client, target._name, 'read', target.ids,
+                {'fields': ['name'], 'context': {'ydental_purpose': 'care', 'ydental_test_care_scope': {'record_ids': target.ids}}}))
+        result = self.rpc(client, target._name, 'search_read', [('ydental_store_id', '=', self.c.id)],
+            {'fields': ['name'], 'context': {'ydental_purpose': 'care'}})
+        self.assertEqual(result['result'], [])
+        page = client.get(self.base_url() + '/ydental/s01-synthetic/care', timeout=20)
+        self.assertEqual(page.status_code, 200)
+        self.assertIn(target.ydental_text, page.text)
+        self.assertNotIn(excluded.ydental_text, page.text)
+        for method in ('read_group', 'formatted_read_group'):
+            previous = self.env['ydental.access.audit'].search([], limit=1).id
+            result = self.rpc(client, target._name, method, [('ydental_text', '=', 'SYNTHETIC_SPACE')],
+                {'groupby': ['ydental_category'], 'aggregates': ['__count'], 'context': {'ydental_query_guard': True}})
+            self.assertTrue(result.get('result'), result)
+            rows = self.env['ydental.access.audit'].search([('id', '>', previous), ('ydental_event', '=', 'source.query')])
+            self.assertEqual(len(rows), 1)
+            self.assertEqual(rows.ydental_user_id, self.operator)
+            self.assertEqual(rows.ydental_target_id, 0)
+            self.assertNotIn('SYNTHETIC_SPACE', json.dumps(rows.read(['ydental_after'])))
+        self.action_http(client, 'switch', {'store_id': self.c.id})
+        with mute_logger('odoo.http'):
+            self.assertIn('error', self.rpc(client, target._name, 'read_group', [],
+                {'groupby': ['ydental_category'], 'aggregates': ['__count']}))
+
+    def test_http_rework_default_login_and_direct_master_rpc(self):
+        self.operator.ydental_test_default_store_id = self.b
+        first = self.login_session(self.operator)
+        second = self.login_session(self.operator)
+        self.page_scope(first)
+        self.page_scope(second)
+        def current(client):
+            return html.fromstring(client.get(self.base_url() + '/ydental/access', timeout=20).content).xpath('//strong/text()')[0]
+        self.assertEqual(current(first), self.b.name)
+        self.assertEqual(current(second), self.b.name)
+        self.action_http(first, 'switch', {'store_id': self.a.id})
+        self.assertEqual(current(first), self.a.name)
+        self.assertEqual(current(second), self.b.name)
+        group = self.login_session(self.group_admin)
+        self.page_scope(group)
+        def create_rpc(model, vals):
+            response = self.rpc(group, model, 'create', [vals])
+            self.assertIn('result', response, response)
+            return response['result'][0] if isinstance(response['result'], list) else response['result']
+        store_id = create_rpc('ydental.access.store', {'name': 'HTTP direct store',
+            'company_id': self.company_a.id, 'ydental_timezone': 'UTC'})
+        cap_id = create_rpc('ydental.access.capability', {'name': 'HTTP direct capability', 'ydental_code': 'http-direct'})
+        self.assertIn('result', self.rpc(group, 'ydental.access.store', 'write', [store_id], {'vals': {'name': 'HTTP changed store'}}))
+        self.assertIn('result', self.rpc(group, 'ydental.access.capability', 'write', [cap_id], {'vals': {'name': 'HTTP changed capability'}}))
+        for event, target_id in (('store.create', store_id), ('store.modify', store_id),
+                                 ('capability.create', cap_id), ('capability.modify', cap_id)):
+            row = self.env['ydental.access.audit'].search([('ydental_event', '=', event), ('ydental_target_id', '=', target_id)])
+            self.assertEqual(len(row), 1)
+            self.assertEqual(row.ydental_user_id, self.group_admin)
+        with mute_logger('odoo.http'):
+            self.assertIn('error', self.rpc(group, 'res.users', 'write', self.operator.ids,
+                {'vals': {'ydental_job_title': 'Native forbidden profile'}}))

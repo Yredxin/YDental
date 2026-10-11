@@ -88,6 +88,7 @@ def main():
         'XDG_CACHE_HOME': str(deps / 'cache'),
         'PYTHONDONTWRITEBYTECODE': '1',
         'YDENTAL_S01_RUN_DIR': str(run),
+        'YDENTAL_S01_HTTP_PORT': str(args.port),
     })
     if not all((deps / name).is_file() for name in (
         'fonts.conf', 'fonts/NotoSansCJKsc-Regular.otf', 'wkhtmltox/usr/local/bin/wkhtmltopdf',
@@ -195,7 +196,8 @@ def main():
             result = subprocess.run(command, input=code, text=True, cwd=CORE, env=env,
                                     stdout=log, stderr=subprocess.STDOUT).returncode
         entry = {'action': args.action, 'exit_code': result, 'log': log_path.name,
-                 'log_sha256': digest(log_path), 'time_utc': datetime.now(timezone.utc).isoformat()}
+                 'log_sha256': digest(log_path), 'time_utc': datetime.now(timezone.utc).isoformat(),
+                 'tested_commit': subprocess.check_output(['git', '-C', str(REPO), 'rev-parse', 'HEAD'], text=True).strip()}
         if args.action in ('install', 'upgrade'):
             match = re.search(r'(\d+) failed, (\d+) error\(s\) of (\d+) tests', log_path.read_text())
             entry['tests'] = list(map(int, match.groups())) if match else None

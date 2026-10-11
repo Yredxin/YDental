@@ -11,6 +11,7 @@ class YDentalSyntheticSource(YDentalAccess):
     def synthetic(self, purpose=None, **kwargs):
         service = self._service().with_context(ydental_purpose=purpose)
         return self._synthetic_page(service)
+
     @http.route('/ydental/s01-synthetic/care', type='http', auth='user', methods=['GET'])
     def synthetic_care(self, **kwargs):
         return self._synthetic_page(self._service()._synthetic_care_scope())
