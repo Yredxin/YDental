@@ -144,6 +144,14 @@ assert sorted(r['value']['result'] for r in merged) == ['accepted', 'already_acc
 result['races'].append({'name': 'same_merge_idempotency_key', 'result': 'PASS', 'connections': 2,
                         'single_merge': True, 'attempts': [r['attempts'] for r in merged]})
 
+source, target, request, _ = pair('different-merge-keys')
+distinct = run_parallel([(group_id, session, lambda service, i=i: service._operate('confirm',
+    {'request_id': request['id'], 'version': 1, 'reason': 'Synthetic distinct confirmations'},
+    'different-confirm-' + str(i))) for i, session in enumerate(group_sessions)])
+assert sum('rejected' in r['value'] for r in distinct) == 1
+result['races'].append({'name': 'same_request_distinct_keys_version_protection', 'result': 'PASS',
+                        'connections': 2, 'accepted': 1, 'rejected': 1, 'attempts': [r['attempts'] for r in distinct]})
+
 
 def ordered(label, first, second):
     entered, release, ready = Event(), Event(), Event()
@@ -186,7 +194,7 @@ source, target, request, _ = pair('opposite')
 with registry.cursor() as cr:
     service = service_for(cr, user_id, sessions[0])
     opposite = service._operate('request_merge', {'source_id': target['id'], 'target_id': source['id'],
-        'reason': 'Synthetic opposing merge'}, 'opposite-request')
+        'reason': 'Synthetic opposing merge'}, 'reverse-opposite-request')
     cr.commit()  # Own fixture cursor.
 opposed = run_parallel([(group_id, group_sessions[i], lambda service, request=request, i=i: service._operate('confirm',
     {'request_id': request['id'], 'version': 1, 'reason': 'Synthetic opposing verification'}, 'opposed-' + str(i)))

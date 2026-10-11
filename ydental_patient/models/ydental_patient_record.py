@@ -12,8 +12,8 @@ class YDentalPatientRecord(models.AbstractModel):
     _ydental_global = False
 
     name = fields.Char(required=True)
-    ydental_category = fields.Selection(default='patient', readonly=True)
-    ydental_version = fields.Integer(required=True, default=1, readonly=True)
+    ydental_category = fields.Selection(default='patient', readonly=True, string='Business category')
+    ydental_version = fields.Integer(required=True, default=1, readonly=True, string='Version')
 
     def _source_domain(self, operation):
         if operation != 'read':

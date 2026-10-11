@@ -11,7 +11,7 @@ class ResPartner(models.Model):
     # This administrative back-reference exposes no clinical field or related
     # compute. It cannot be changed through ordinary imports, RPC or contacts.
     ydental_patient_owner_id = fields.Many2one('ydental.patient', ondelete='restrict', copy=False,
-                                              groups='base.group_no_one', index=True)
+                                              groups='base.group_no_one', index=True, string='Patient owner')
 
     @api.model_create_multi
     def create(self, vals_list):
