@@ -9,15 +9,16 @@ class YDentalSpaceItem(models.Model):
     _description = 'Artwork placement on a floor'
     _inherit = ['ydental.space.version', 'ydental.access.source']
 
-    ydental_category = fields.Selection(default='space', readonly=True)
-    ydental_floor_id = fields.Many2one('ydental.space.floor', required=True, ondelete='restrict', index=True)
-    ydental_resource_id = fields.Many2one('ydental.space.resource', required=True, ondelete='restrict', index=True)
-    ydental_station_id = fields.Many2one('ydental.space.station', ondelete='restrict', index=True)
-    ydental_x = fields.Float(default=40)
-    ydental_y = fields.Float(default=60)
-    ydental_width = fields.Float(default=60)
-    ydental_height = fields.Float(default=50)
-    ydental_angle = fields.Float()
+    ydental_store_id = fields.Many2one(string='Store')
+    ydental_category = fields.Selection(default='space', readonly=True, string='Business category')
+    ydental_floor_id = fields.Many2one('ydental.space.floor', required=True, ondelete='restrict', index=True, string='Floor')
+    ydental_resource_id = fields.Many2one('ydental.space.resource', required=True, ondelete='restrict', index=True, string='Resource artwork')
+    ydental_station_id = fields.Many2one('ydental.space.station', ondelete='restrict', index=True, string='Workstation')
+    ydental_x = fields.Float(default=40, string='X coordinate')
+    ydental_y = fields.Float(default=60, string='Y coordinate')
+    ydental_width = fields.Float(default=60, string='Width')
+    ydental_height = fields.Float(default=50, string='Height')
+    ydental_angle = fields.Float(, string='Direction')
 
     @api.constrains('ydental_floor_id', 'ydental_store_id', 'ydental_category', 'ydental_resource_id',
                     'ydental_station_id', 'ydental_x', 'ydental_y', 'ydental_width', 'ydental_height', 'ydental_angle')
@@ -33,4 +34,7 @@ class YDentalSpaceItem(models.Model):
 
     def _check_space_change(self, values):
         super()._check_space_change(values)
-        self.ydental_station_id._check_space_change({'resource_change': values})
+        if {'ydental_resource_id', 'ydental_station_id', 'active', 'create'} & values.keys():
+            self.ydental_station_id._check_space_change({'resource_change': values})
+            if values.get('ydental_station_id'):
+                self.env['ydental.space.station'].browse(values['ydental_station_id'])._check_space_change({'resource_change': values})

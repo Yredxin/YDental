@@ -9,12 +9,13 @@ class YDentalSpaceFloor(models.Model):
     _description = 'Clinic floor'
     _inherit = ['ydental.space.version', 'ydental.access.source']
 
-    ydental_category = fields.Selection(default='space', readonly=True)
-    ydental_width = fields.Float(default=1000, required=True)
-    ydental_height = fields.Float(default=700, required=True)
-    ydental_area_ids = fields.One2many('ydental.space.area', 'ydental_floor_id')
-    ydental_station_ids = fields.One2many('ydental.space.station', 'ydental_floor_id')
-    ydental_item_ids = fields.One2many('ydental.space.item', 'ydental_floor_id')
+    ydental_store_id = fields.Many2one(string='Store')
+    ydental_category = fields.Selection(default='space', readonly=True, string='Business category')
+    ydental_width = fields.Float(default=1000, required=True, string='Width')
+    ydental_height = fields.Float(default=700, required=True, string='Height')
+    ydental_area_ids = fields.One2many('ydental.space.area', 'ydental_floor_id', string='Areas')
+    ydental_station_ids = fields.One2many('ydental.space.station', 'ydental_floor_id', string='Workstations')
+    ydental_item_ids = fields.One2many('ydental.space.item', 'ydental_floor_id', string='Placed artwork')
 
     @api.constrains('ydental_width', 'ydental_height', 'ydental_category')
     def _check_dimensions(self):

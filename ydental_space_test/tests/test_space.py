@@ -35,11 +35,14 @@ class TestSpace(BaseCommon):
 
     def test_t02_rename_move_preserves_reference(self):
         identifier = self.station.id
+        art_x = self.item.ydental_x
+        station_x = self.station.ydental_x
         self.station.write({'name': 'Renamed chair', 'ydental_x': 315, 'ydental_version': self.station.ydental_version})
         self.station.invalidate_recordset()
         self.assertEqual(self.station.id, identifier)
         self.assertEqual(self.item.ydental_station_id.id, identifier)
         self.assertEqual(self.station.ydental_x, 315)
+        self.assertEqual(self.item.ydental_x, art_x + 315 - station_x)
         event = self.root['ydental.access.audit'].search([
             ('ydental_target_model', '=', self.station._name), ('ydental_target_id', '=', identifier),
             ('ydental_event', '=', 'space.modify')], limit=1)
@@ -163,3 +166,12 @@ class TestSpace(BaseCommon):
         for invalid in (float('nan'), float('inf'), 100001):
             with self.assertRaises(ValidationError), self.cr.savepoint():
                 polygon.write({'ydental_x': invalid, 'ydental_version': polygon.ydental_version})
+import base64
+
+
+    def test_binary_upload_is_sanitized_and_bounded(self):
+        self.resource.write({'ydental_upload': base64.b64encode(SVG.encode()), 'ydental_version': self.resource.ydental_version})
+        self.assertEqual(base64.b64decode(self.resource.ydental_upload).decode(), self.resource.ydental_svg)
+        for raw in (b'not-valid-base64!', base64.b64encode(b'<!DOCTYPE svg>' + SVG.encode()), b'a' * 1500000):
+            with self.assertRaises(ValidationError), self.cr.savepoint():
+                self.resource.write({'ydental_upload': raw, 'ydental_version': self.resource.ydental_version})

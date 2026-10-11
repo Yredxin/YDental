@@ -175,7 +175,14 @@ export class ClinicPlan extends Component {
     changeGeometry(event, field) {
         const value = Number(event.target.value);
         if (Number.isFinite(value)) {
-            this.updateGeometry(this.selected(), { [field]: value });
+            const selected = this.selected();
+            const values = { [field]: value };
+            if (selected.ydental_shape === "polygon" && ["ydental_width", "ydental_height"].includes(field)) {
+                const axis = field === "ydental_width" ? 0 : 1;
+                values.ydental_points = selected.ydental_points.map((point) => point.map((coordinate, index) =>
+                    index === axis ? coordinate * value / selected[field] : coordinate));
+            }
+            this.updateGeometry(selected, values);
         }
     }
 

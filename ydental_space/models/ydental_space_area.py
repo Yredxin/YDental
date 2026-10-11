@@ -11,28 +11,29 @@ class YDentalSpaceArea(models.Model):
     _description = 'Clinic reporting and display area'
     _inherit = ['ydental.space.version', 'ydental.access.source']
 
-    ydental_category = fields.Selection(default='space', readonly=True)
-    ydental_floor_id = fields.Many2one('ydental.space.floor', required=True, ondelete='restrict', index=True)
+    ydental_store_id = fields.Many2one(string='Store')
+    ydental_category = fields.Selection(default='space', readonly=True, string='Business category')
+    ydental_floor_id = fields.Many2one('ydental.space.floor', required=True, ondelete='restrict', index=True, string='Floor')
     parent_id = fields.Many2one('ydental.space.area', ondelete='restrict', index=True)
-    ydental_child_ids = fields.One2many('ydental.space.area', 'parent_id')
-    ydental_station_ids = fields.One2many('ydental.space.station', 'ydental_area_id')
+    ydental_child_ids = fields.One2many('ydental.space.area', 'parent_id', string='Child areas')
+    ydental_station_ids = fields.One2many('ydental.space.station', 'ydental_area_id', string='Workstations')
     ydental_purpose = fields.Selection([
         ('care', 'Treatment'), ('exam', 'Examination'), ('pharmacy', 'Pharmacy'),
         ('settlement', 'Settlement'), ('waiting', 'Waiting'), ('toilet', 'Toilet'),
         ('sterilization', 'Sterilization'), ('other', 'Other'),
-    ], default='care', required=True)
+    ], default='care', required=True, string='Area purpose')
     ydental_reporting = fields.Boolean(string='Separate reporting queue')
     ydental_prefix = fields.Char(string='Queue display prefix')
     ydental_missed_limit = fields.Integer(string='Missed calls parameter', help='Not approved for production until S06 publication.')
-    ydental_queue_area_id = fields.Many2one('ydental.space.area', compute='_compute_queue_area', recursive=True)
-    ydental_capability_ids = fields.Many2many('ydental.access.capability', compute='_compute_capabilities', recursive=True)
-    ydental_shape = fields.Selection([('rect', 'Rectangle'), ('polygon', 'Polygon')], default='rect', required=True)
-    ydental_points = fields.Json(default=list)
-    ydental_x = fields.Float(default=20)
-    ydental_y = fields.Float(default=20)
-    ydental_width = fields.Float(default=300)
-    ydental_height = fields.Float(default=200)
-    ydental_angle = fields.Float()
+    ydental_queue_area_id = fields.Many2one('ydental.space.area', compute='_compute_queue_area', recursive=True, string='Reporting area')
+    ydental_capability_ids = fields.Many2many('ydental.access.capability', compute='_compute_capabilities', recursive=True, string='Capabilities')
+    ydental_shape = fields.Selection([('rect', 'Rectangle'), ('polygon', 'Polygon')], default='rect', required=True, string='Area shape')
+    ydental_points = fields.Json(default=list, string='Polygon points')
+    ydental_x = fields.Float(default=20, string='X coordinate')
+    ydental_y = fields.Float(default=20, string='Y coordinate')
+    ydental_width = fields.Float(default=300, string='Width')
+    ydental_height = fields.Float(default=200, string='Height')
+    ydental_angle = fields.Float(, string='Direction')
 
     @api.depends('ydental_reporting', 'parent_id.ydental_queue_area_id')
     def _compute_queue_area(self):

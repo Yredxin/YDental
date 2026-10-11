@@ -11,7 +11,7 @@ class YDentalSpaceVersion(models.AbstractModel):
 
     name = fields.Char(required=True)
     active = fields.Boolean(default=True)
-    ydental_version = fields.Integer(default=1, readonly=True, copy=False, required=True)
+    ydental_version = fields.Integer(default=1, readonly=True, copy=False, required=True, string='Content version')
 
     def _space_authorize(self, operation):
         self.check_access(operation)
