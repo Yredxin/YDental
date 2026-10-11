@@ -12,6 +12,7 @@ class YDentalPatientRecord(models.AbstractModel):
     _ydental_global = False
 
     name = fields.Char(required=True)
+    ydental_store_id = fields.Many2one(string='Store')
     ydental_category = fields.Selection(default='patient', readonly=True, string='Business category')
     ydental_version = fields.Integer(required=True, default=1, readonly=True, string='Version')
 

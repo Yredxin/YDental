@@ -186,6 +186,7 @@ class TestPatient(TransactionCase):
         with self.assertRaises(AccessError):
             forged.env['ydental.patient.clinical'].browse(b).read(['ydental_allergies'])
         care = access._patient_care(person['id'], 'history_review')
+        self.assertEqual(care.env['ydental.patient.clinical'].browse(b).read(['ydental_allergies'])[0]['id'], b)
         another = bind(self, self.users['doctor'], 'another-session').env['ydental.access.service']
         with self.assertRaises(AccessError):
             another.with_context(ydental_patient_care=care.env.context['ydental_patient_care']).env['ydental.patient.clinical'].browse(b).read(['ydental_allergies'])
@@ -229,12 +230,19 @@ class TestPatient(TransactionCase):
         b = bind(self, self.manager, 'policy-b', self.stores[1])
         b._operate('policy', {'code': 'consent', 'name': 'Synthetic B policy', 'body_reference': 'synthetic-policy-b-v1',
                              'approved': True}, 'b-policy')
+        old_signed = self.root['ydental.patient.test.source']._new({'name': 'S04 synthetic B signed fact',
+            'ydental_store_id': self.stores[1].id, 'ydental_category': 'medical', 'ydental_patient_id': person['id'],
+            'ydental_origin_patient_id': person['id'], 'ydental_identity_snapshot': {'synthetic': True},
+            'ydental_signed_fact': True, 'ydental_text': 'Synthetic prior-store fact, not a signature or PDF'})
         self.assertEqual(self.service._prompts(person['id'])[0]['status'], 'pending_configuration')
         self.group._operate('policy', {'code': 'consent', 'name': 'Synthetic A policy', 'approved': True}, 'a-empty')
         self.assertEqual(self.service._prompts(person['id'])[0]['status'], 'pending_configuration')
         self.group._operate('policy', {'code': 'consent', 'name': 'Synthetic A policy', 'approved': True,
                                       'body_reference': 'synthetic-policy-a-v1'}, 'a-ready')
         self.assertEqual(self.service._prompts(person['id'])[0]['status'], 'pending_verification')
+        self.assertTrue(old_signed.ydental_signed_fact)
+        self.assertFalse(self.root['ydental.patient.test.source'].search([
+            ('ydental_store_id', '=', self.stores[0].id), ('ydental_signed_fact', '=', True)]))
         with self.assertRaises(AccessError):
             self.service._operate('policy', {'code': 'forged', 'name': 'Fake approved', 'approved': True}, 'front-policy')
         self.assertTrue(create(self)['id'])

@@ -1,0 +1,1342 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* ydental_patient
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 20.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-11 17:12+0000\n"
+"PO-Revision-Date: 2026-10-11 17:12+0000\n"
+"Last-Translator: \n"
+"Language-Team: zh_CN\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/models/ydental_patient_service.py:0
+msgid "A birth date cannot be in the future."
+msgstr "出生日期不能在未来。"
+
+#. module: ydental_patient
+#: model:ir.model.constraint,message:ydental_patient.constraint_ydental_patient_partner_unique
+msgid "A contact has only one patient identity."
+msgstr "一个联系人只能关联一个患者身份。"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/models/ydental_patient_service.py:0
+msgid "A documented action, object and idempotency key are required."
+msgstr "请提供已登记的动作、对象和幂等键。"
+
+#. module: ydental_patient
+#: model:ir.model.constraint,message:ydental_patient.constraint_ydental_patient_operation_key_unique
+msgid "A patient action key is unique per actor."
+msgstr "同一操作者的患者动作幂等键必须唯一。"
+
+#. module: ydental_patient
+#: model:ir.model.constraint,message:ydental_patient.constraint_ydental_patient_no_self_merge
+msgid "A patient cannot merge into itself."
+msgstr "患者不能合并到自身。"
+
+#. module: ydental_patient
+#: model:ir.model.constraint,message:ydental_patient.constraint_ydental_patient_number_number_unique
+msgid "A patient number mapping must be unique."
+msgstr "患者号映射必须唯一。"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/models/ydental_patient_service.py:0
+msgid "A positive integer record identifier is required."
+msgstr "记录标识必须为正整数。"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/controllers/patient.py:0
+msgid "Action arguments must be an object."
+msgstr "动作参数必须是对象。"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient__active
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_contact__active
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_policy__active
+msgid "Active"
+msgstr "有效"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_list
+msgid "Active business conflicts require authorized handling before retry."
+msgstr "请由有权人员先处理活动业务冲突，再重试合并。"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "Active contact"
+msgstr "有效联系人"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_clinical__ydental_actor_id
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_operation__ydental_actor_id
+msgid "Actor"
+msgstr "实际操作者"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/models/ydental_patient_service.py:0
+msgid "Actual arrival time cannot be in the future or contain an offset."
+msgstr "真实到店时间不能在未来，须使用不带偏移的UTC时间。"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "Add contact"
+msgstr "添加联系人"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "Add contact or declared guardian"
+msgstr "添加联系人或声明的监护人"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_clinical_page
+msgid "Add this store safety background"
+msgstr "新增本店临床安全背景"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient__ydental_partner_id
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_contact__ydental_partner_id
+msgid "Administrative contact"
+msgstr "行政联系人"
+
+#. module: ydental_patient
+#: model:ir.model,name:ydental_patient.model_ydental_patient_contact
+msgid "Administrative contact or declared guardian relationship"
+msgstr "行政联系人及声明的监护关系"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_clinical__ydental_allergies
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_clinical_page
+msgid "Allergies"
+msgstr "过敏信息"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_policy__ydental_approved
+msgid "Approved"
+msgstr "已批准"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_policy__ydental_approved_by_id
+msgid "Approved by"
+msgstr "批准人"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_list
+msgid "Approved text reference"
+msgstr "已批准正文引用"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "Archive patient"
+msgstr "归档患者"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "Archive patient identity"
+msgstr "归档患者身份"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_list
+msgid "Archived"
+msgstr "已归档"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "Archived identity"
+msgstr "已归档身份"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_relation__ydental_arrival_actor_id
+msgid "Arrival actor"
+msgstr "到店记录人"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_relation__ydental_arrival_reason
+msgid "Arrival reason"
+msgstr "到店补录原因"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_relation__ydental_arrival_recorded_at
+msgid "Arrival recorded at"
+msgstr "到店录入时间"
+
+#. module: ydental_patient
+#: model:ir.model,name:ydental_patient.model_ir_attachment
+msgid "Attachment"
+msgstr "附件"
+
+#. module: ydental_patient
+#: model:ir.model.fields.selection,name:ydental_patient.selection__ydental_patient_merge__state__requested
+msgid "Awaiting group verification"
+msgstr "待集团核实"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient__ydental_birth_date
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_admin_fields
+msgid "Birth date"
+msgstr "出生日期"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient__ydental_birth_note
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_admin_fields
+msgid "Birth information, if uncertain"
+msgstr "出生信息（不确定时填写）"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_policy__ydental_body_reference
+msgid "Body reference"
+msgstr "正文引用"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient__ydental_category
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_clinical__ydental_category
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_contact__ydental_category
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_merge__ydental_category
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_number__ydental_category
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_operation__ydental_category
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_policy__ydental_category
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_record__ydental_category
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_relation__ydental_category
+msgid "Business category"
+msgstr "业务大类"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient__ydental_business_date
+msgid "Business date"
+msgstr "业务日期"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_clinical__ydental_patient_id
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_contact__ydental_patient_id
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_number__ydental_patient_id
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_relation__ydental_patient_id
+msgid "Canonical patient"
+msgstr "统一患者主档"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "Canonical patient ID"
+msgstr "目标患者主档ID"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_clinical_page
+msgid "Clinical access is recorded for the selected patient and purpose."
+msgstr "本次读取已按所选患者和诊疗用途留痕。"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "Clinical purpose"
+msgstr "诊疗用途"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_policy__ydental_code
+msgid "Code"
+msgstr "政策代码"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/controllers/patient.py:0
+msgid "Confirm verified merge"
+msgstr "确认已核实的合并"
+
+#. module: ydental_patient
+#: model:ir.model.fields.selection,name:ydental_patient.selection__ydental_patient_merge__state__confirmed
+msgid "Confirmed"
+msgstr "已确认"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_merge__ydental_confirmed_by_id
+msgid "Confirmed by"
+msgstr "确认人"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_list
+msgid "Conflict kind"
+msgstr "冲突类型"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_merge__ydental_conflicts
+msgid "Conflicts"
+msgstr "活动业务冲突"
+
+#. module: ydental_patient
+#: model:ir.model,name:ydental_patient.model_res_partner
+#: model:ir.model.fields.selection,name:ydental_patient.selection__ydental_patient_contact__ydental_relation__contact
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "Contact"
+msgstr "普通联系人"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "Contact role"
+msgstr "联系人角色"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "Contacts and declared guardians"
+msgstr "联系人及声明的监护人"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "Content version:"
+msgstr "资料版本："
+
+#. module: ydental_patient
+#: model:ir.model,name:ydental_patient.model_ydental_patient_record
+msgid "Controlled patient identity record"
+msgstr "受控患者身份记录"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_list
+msgid "Create administrative patient identity"
+msgstr "建立患者行政档案"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_list
+msgid "Create patient"
+msgstr "建立患者主档"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_relation__ydental_created_at
+msgid "Created at"
+msgstr "建立时间"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient__create_uid
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_clinical__create_uid
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_contact__create_uid
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_merge__create_uid
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_mutex__create_uid
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_number__create_uid
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_operation__create_uid
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_policy__create_uid
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_relation__create_uid
+msgid "Created by"
+msgstr "建立人"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient__create_date
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_clinical__create_date
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_contact__create_date
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_merge__create_date
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_mutex__create_date
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_number__create_date
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_operation__create_date
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_policy__create_date
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_relation__create_date
+msgid "Created on"
+msgstr "建立时间"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_list
+msgid "Creating a record does not record arrival or sign documents."
+msgstr "建档不记录到店，也不表示文书已签署。"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_clinical_page
+msgid "Cross-store clinical history is read only."
+msgstr "跨店临床历史仅可读取。"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_list
+msgid "Current"
+msgstr "当前身份"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_shell
+msgid "Current store:"
+msgstr "当前门店："
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_merge__ydental_decision_reason
+msgid "Decision reason"
+msgstr "决定原因"
+
+#. module: ydental_patient
+#: model:ir.model.fields.selection,name:ydental_patient.selection__ydental_patient_contact__ydental_relation__guardian
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "Declared guardian"
+msgstr "声明的监护人"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "Diagnosis"
+msgstr "诊疗"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ir_attachment__display_name
+#: model:ir.model.fields,field_description:ydental_patient.field_ir_binary__display_name
+#: model:ir.model.fields,field_description:ydental_patient.field_res_partner__display_name
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_access_service__display_name
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient__display_name
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_clinical__display_name
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_contact__display_name
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_merge__display_name
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_mutex__display_name
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_number__display_name
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_operation__display_name
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_policy__display_name
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_record__display_name
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_relation__display_name
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_service__display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_list
+msgid "Document name"
+msgstr "文书名称"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "Edit administrative information"
+msgstr "维护行政资料"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient__ydental_email
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_contact__ydental_email
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_admin_fields
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "Email"
+msgstr "电子邮件"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "Email:"
+msgstr "电子邮件："
+
+#. module: ydental_patient
+#: model:ir.model.fields.selection,name:ydental_patient.selection__ydental_patient_contact__ydental_relation__emergency
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "Emergency contact"
+msgstr "紧急联系人"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/models/ydental_patient_service.py:0
+msgid "Enter valid text within the allowed length."
+msgstr "请输入长度范围内的有效文本。"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient__ydental_phone_region
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_contact__ydental_phone_region
+msgid "Explicit phone region"
+msgstr "明确指定的电话地区"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "Export administrative fields"
+msgstr "导出行政资料"
+
+#. module: ydental_patient
+#: model:ir.model.fields.selection,name:ydental_patient.selection__ydental_patient__ydental_sex__female
+msgid "Female"
+msgstr "女"
+
+#. module: ydental_patient
+#: model:ir.model,name:ydental_patient.model_ir_binary
+msgid "File streaming helper model for controllers"
+msgstr ""
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_operation__ydental_fingerprint
+msgid "Fingerprint"
+msgstr "动作参数摘要"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "First actual arrival, UTC"
+msgstr "首次真实到店时间（UTC）"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_relation__ydental_first_arrival
+msgid "First arrival"
+msgstr "首次真实到店时间"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_relation__ydental_first_business_date
+msgid "First business date"
+msgstr "首次到店业务日期"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_list
+msgid "Group approval verified"
+msgstr "已核实集团批准"
+
+#. module: ydental_patient
+#: model:ir.model,name:ydental_patient.model_ydental_patient
+msgid "Group patient identity, administrative information only"
+msgstr "集团患者身份（仅行政资料）"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "Hints only. Shared phone numbers do not authorize merging."
+msgstr "仅为疑似重复提示，共用电话不代表可以合并。"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "History review"
+msgstr "历史核查"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ir_attachment__id
+#: model:ir.model.fields,field_description:ydental_patient.field_ir_binary__id
+#: model:ir.model.fields,field_description:ydental_patient.field_res_partner__id
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_access_service__id
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient__id
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_clinical__id
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_contact__id
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_merge__id
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_mutex__id
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_number__id
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_operation__id
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_policy__id
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_record__id
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_relation__id
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_service__id
+msgid "ID"
+msgstr "ID"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_clinical__ydental_identity_snapshot
+msgid "Identity snapshot"
+msgstr "原始身份快照"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_list
+msgid "Identity status"
+msgstr "身份状态"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_operation__ydental_key
+msgid "Key"
+msgstr "幂等键"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient__write_uid
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_clinical__write_uid
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_contact__write_uid
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_merge__write_uid
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_mutex__write_uid
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_number__write_uid
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_operation__write_uid
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_policy__write_uid
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_relation__write_uid
+msgid "Last Updated by"
+msgstr "最后修改人"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient__write_date
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_clinical__write_date
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_contact__write_date
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_merge__write_date
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_mutex__write_date
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_number__write_date
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_operation__write_date
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_policy__write_date
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_relation__write_date
+msgid "Last Updated on"
+msgstr "最后修改时间"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "Local business date"
+msgstr "门店当地业务日期"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "Maintain this contact"
+msgstr "维护此联系人"
+
+#. module: ydental_patient
+#: model:ir.model.fields.selection,name:ydental_patient.selection__ydental_patient__ydental_sex__male
+msgid "Male"
+msgstr "男"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "Manual phone verification required. No country code was guessed."
+msgstr "电话需人工核实，系统未猜测国家码。"
+
+#. module: ydental_patient
+#: model:ir.model.fields.selection,name:ydental_patient.selection__ydental_patient__ydental_phone_status__review
+#: model:ir.model.fields.selection,name:ydental_patient.selection__ydental_patient_contact__ydental_phone_status__review
+msgid "Manual verification required"
+msgstr "待人工核实"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_clinical__ydental_medication
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_clinical_page
+msgid "Medication"
+msgstr "用药背景"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_list
+msgid "Merge requests"
+msgstr "患者合并申请"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient__ydental_merged_into_id
+msgid "Merged into patient"
+msgstr "合并目标患者"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_list
+msgid "Merged, open canonical patient"
+msgstr "已合并，打开统一主档"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient__name
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_clinical__name
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_contact__name
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_merge__name
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_number__name
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_operation__name
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_policy__name
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_record__name
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_relation__name
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_admin_fields
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_list
+msgid "Name"
+msgstr "姓名"
+
+#. module: ydental_patient
+#: model:ir.model.fields.selection,name:ydental_patient.selection__ydental_patient__ydental_phone_status__normalized
+#: model:ir.model.fields.selection,name:ydental_patient.selection__ydental_patient_contact__ydental_phone_status__normalized
+msgid "Normalized"
+msgstr "已规范化"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient__ydental_phone_normalized
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_contact__ydental_phone_normalized
+msgid "Normalized phone"
+msgstr "规范化电话"
+
+#. module: ydental_patient
+#: model:ir.model.fields.selection,name:ydental_patient.selection__ydental_patient__ydental_phone_status__empty
+#: model:ir.model.fields.selection,name:ydental_patient.selection__ydental_patient_contact__ydental_phone_status__empty
+msgid "Not provided"
+msgstr "未提供"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "Not yet recorded"
+msgstr "尚未记录"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/models/ydental_patient_service.py:0
+msgid "Only documented administrative patient fields are accepted."
+msgstr "仅接受字典列出的患者行政字段。"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/models/ydental_patient_service.py:0
+msgid "Only patient safety background fields are accepted."
+msgstr "仅接受患者临床安全背景字段。"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "Open clinical background"
+msgstr "打开临床背景"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_clinical_page
+msgid "Original identity:"
+msgstr "原始身份："
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_clinical__ydental_origin_patient_id
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_contact__ydental_origin_patient_id
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_number__ydental_origin_patient_id
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_relation__ydental_origin_patient_id
+msgid "Original patient"
+msgstr "原始患者身份"
+
+#. module: ydental_patient
+#: model:ir.model.fields.selection,name:ydental_patient.selection__ydental_patient__ydental_sex__other
+msgid "Other"
+msgstr "其他"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "Other stores' documents do not establish signing at this store."
+msgstr "其他门店的文书不代表本店已完成签署。"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_list
+msgid "Patient ID"
+msgstr "患者ID"
+
+#. module: ydental_patient
+#: model:ir.model,name:ydental_patient.model_ydental_patient_operation
+msgid "Patient action idempotency receipt"
+msgstr "患者动作幂等回执"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/models/res_partner.py:0
+msgid ""
+"Patient contacts and original identities cannot be deleted or merged by "
+"Contacts."
+msgstr "不能通过原生联系人删除或合并患者联系人及原始身份。"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/models/ydental_patient_service.py:0
+msgid "Patient identity changed. Submit a new merge request."
+msgstr "患者身份已变化，请重新提交合并申请。"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/models/ydental_patient_record.py:0
+msgid "Patient identity history cannot be deleted."
+msgstr "患者身份历史不能物理删除。"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/models/ydental_patient_service.py:0
+msgid "Patient identity mapping requires group review."
+msgstr "患者身份映射需要集团核查。"
+
+#. module: ydental_patient
+#: model:ir.model,name:ydental_patient.model_ydental_patient_service
+msgid "Patient identity, arrival, policy and atomic merge service"
+msgstr "患者身份、到店、文书提示及原子合并服务"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient__ydental_number
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_list
+msgid "Patient number"
+msgstr "患者号"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/models/ydental_patient_service.py:0
+msgid "Patient numbering configuration is missing."
+msgstr "缺少患者编号配置。"
+
+#. module: ydental_patient
+#: model:ir.model.constraint,message:ydental_patient.constraint_ydental_patient_number_unique
+msgid "Patient numbers must be group unique."
+msgstr "患者号必须在集团内唯一。"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_res_partner__ydental_patient_owner_id
+#: model:ir.model.fields,field_description:ydental_patient.field_res_users__ydental_patient_owner_id
+msgid "Patient owner"
+msgstr "所属患者身份"
+
+#. module: ydental_patient
+#: model:ir.model,name:ydental_patient.model_ydental_patient_relation
+msgid "Patient store relationship, independent of arrival"
+msgstr "患者门店关系（独立于到店事实）"
+
+#. module: ydental_patient
+#: model:ir.model,name:ydental_patient.model_ydental_patient_mutex
+msgid "Patient transaction snapshot serialization fence"
+msgstr "患者事务快照串行化保护"
+
+#. module: ydental_patient
+#: model:ir.actions.act_url,name:ydental_patient.ydental_patient_action
+#: model:ir.ui.menu,name:ydental_patient.ydental_patient_menu
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_shell
+msgid "Patients"
+msgstr "患者"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "Pending verification"
+msgstr "待核实"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_admin_fields
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "Phone"
+msgstr "电话"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient__ydental_phone
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_contact__ydental_phone
+msgid "Phone as provided"
+msgstr "原始电话"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_admin_fields
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "Phone region, ISO code or unknown"
+msgstr "电话地区（ISO代码或留空）"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient__ydental_phone_status
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_contact__ydental_phone_status
+msgid "Phone verification status"
+msgstr "电话核实状态"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "Phone:"
+msgstr "电话："
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/models/ydental_patient_service.py:0
+msgid "Policy approval and requirement must be explicit booleans."
+msgstr "政策批准及必需状态必须明确指定。"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_list
+msgid "Policy code"
+msgstr "政策代码"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/controllers/patient.py:0
+msgid "Policy text or approval needs completion"
+msgstr "政策正文或批准信息待完善"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "Possible duplicates"
+msgstr "疑似重复患者"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_clinical__ydental_prior_history
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_clinical_page
+msgid "Prior history"
+msgstr "既往背景"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_merge__ydental_reason
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "Reason"
+msgstr "原因"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/models/ydental_patient_service.py:0
+msgid "Record the basis of contact or guardian verification."
+msgstr "请记录联系人或监护关系的核实依据。"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient__ydental_recorded_at
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_clinical__ydental_recorded_at
+msgid "Recorded at"
+msgstr "录入时间"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_merge__ydental_reference_counts
+msgid "Reference counts"
+msgstr "引用数量核对"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/controllers/patient.py:0
+msgid "Refresh identity versions"
+msgstr "重新核实身份版本"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/controllers/patient.py:0
+msgid "Reject with reason"
+msgstr "附原因拒绝"
+
+#. module: ydental_patient
+#: model:ir.model.fields.selection,name:ydental_patient.selection__ydental_patient_merge__state__rejected
+msgid "Rejected"
+msgstr "已拒绝"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_contact__ydental_relation
+msgid "Relation"
+msgstr "关系角色"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_contact__ydental_relationship
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "Relationship"
+msgstr "具体关系"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "Request group identity merge"
+msgstr "向集团申请身份合并"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_merge__ydental_requested_by_id
+msgid "Requested by"
+msgstr "申请人"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_policy__ydental_required
+msgid "Required"
+msgstr "必需"
+
+#. module: ydental_patient
+#: model:ir.model.fields.selection,name:ydental_patient.selection__ydental_patient_merge__state__blocked
+msgid "Resolve active business conflicts"
+msgstr "待处理活动业务冲突"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/models/ydental_patient_service.py:0
+msgid "Resolve active patient business before archiving."
+msgstr "请先处理患者的活动业务，再归档。"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_operation__ydental_result
+msgid "Result"
+msgstr "结果"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_mutex__ydental_revision
+msgid "Revision"
+msgstr "串行化版本"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "Save administrative information"
+msgstr "保存行政资料"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_clinical_page
+msgid "Save clinical background"
+msgstr "保存临床背景"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "Save contact relationship"
+msgstr "保存联系人关系"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_list
+msgid "Save store policy"
+msgstr "保存本店政策"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_clinical_page
+msgid "Save this store background"
+msgstr "保存本店临床背景"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_list
+msgid "Search"
+msgstr "搜索"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_list
+msgid "Search name, patient number or contact"
+msgstr "按姓名、患者号或联系方式搜索"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/models/ydental_patient_service.py:0
+msgid "Select a contact relationship and explicit verification status."
+msgstr "请选择联系人关系并明确核实状态。"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/models/ydental_patient_service.py:0
+msgid "Select a sex value, including unknown."
+msgstr "请选择性别，也可选择未知。"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/models/ydental_patient_service.py:0
+msgid "Select a valid ISO phone region or leave it unknown."
+msgstr "请选择有效的ISO电话地区，未知时留空。"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/models/ydental_access_service.py:0
+msgid "Select an explicit clinical purpose."
+msgstr "请选择明确的诊疗用途。"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/models/ydental_patient_service.py:0
+msgid "Select two distinct current patient identities for group verification."
+msgstr "请选择两个不同的当前患者身份交集团核实。"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient__ydental_sex
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_admin_fields
+msgid "Sex"
+msgstr "性别"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_merge__ydental_source_id
+msgid "Source"
+msgstr "来源患者"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_list
+msgid "Source reference"
+msgstr "来源引用"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_merge__ydental_source_version
+msgid "Source version"
+msgstr "来源身份版本"
+
+#. module: ydental_patient
+#: model:ir.model,name:ydental_patient.model_ydental_patient_number
+msgid "Stable original and canonical patient number mapping"
+msgstr "稳定的旧号与主档映射"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_merge__state
+msgid "State"
+msgstr "状态"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "Store"
+msgstr "门店"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_shell
+msgid "Store and permissions"
+msgstr "门店及权限"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/models/ydental_patient_service.py:0
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_list
+msgid "Store document policy"
+msgstr "本店文书政策"
+
+#. module: ydental_patient
+#: model:ir.model,name:ydental_patient.model_ydental_patient_policy
+msgid "Store document policy prompt, no signature or document generation"
+msgstr "门店文书政策提示（不签署或生成文书）"
+
+#. module: ydental_patient
+#: model:ir.model,name:ydental_patient.model_ydental_patient_merge
+msgid "Store merge request and group identity verification"
+msgstr "门店合并申请及集团身份核实"
+
+#. module: ydental_patient
+#: model:ir.model,name:ydental_patient.model_ydental_patient_clinical
+msgid "Store patient safety background, not a treatment record"
+msgstr "门店患者临床安全背景（非治疗病历）"
+
+#. module: ydental_patient
+#: model:ir.model.constraint,message:ydental_patient.constraint_ydental_patient_policy_code_unique
+msgid "Store policy codes must be unique."
+msgstr "本店政策代码必须唯一。"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "Store relationships and actual first arrival"
+msgstr "门店关系及首次真实到店"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "Submit for group verification"
+msgstr "提交集团核实"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_relation__ydental_superseded_by_id
+msgid "Superseded by"
+msgstr "当前门店关系"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_merge__ydental_target_id
+msgid "Target"
+msgstr "目标患者"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_merge__ydental_target_version
+msgid "Target version"
+msgstr "目标身份版本"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/models/ydental_patient_service.py:0
+msgid "The first arrival is already recorded. Request a reviewed correction."
+msgstr "首次到店已记录，请申请审核更正。"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/models/ydental_patient_service.py:0
+msgid "This merge request already has a final decision."
+msgstr "此合并申请已有最终决定。"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/models/ydental_patient_service.py:0
+msgid "This patient is archived. Review the identity before new activity."
+msgstr "患者已归档，请先核查身份再开展新业务。"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "This store document requirements"
+msgstr "本店文书要求"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "Traceable patient numbers"
+msgstr "可追溯患者号"
+
+#. module: ydental_patient
+#: model:ir.model.fields.selection,name:ydental_patient.selection__ydental_patient__ydental_sex__unknown
+msgid "Unknown"
+msgstr "未知"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_clinical_page
+msgid "Update this store background"
+msgstr "维护本店临床背景"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/models/ydental_patient_service.py:0
+msgid "Use a valid actual arrival time in UTC."
+msgstr "请使用有效的UTC真实到店时间。"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/models/ydental_patient_service.py:0
+msgid "Use a valid birth date or leave it unknown."
+msgstr "请填写有效出生日期，未知时留空。"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/models/ydental_patient_service.py:0
+msgid "Use a valid email address or leave it blank."
+msgstr "请填写有效电子邮件，或留空。"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "Verification basis"
+msgstr "核实依据"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_contact__ydental_verification_note
+msgid "Verification note"
+msgstr "核实说明"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_list
+msgid "Verification or decision reason"
+msgstr "核实或决定原因"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_detail
+msgid "Verification recorded"
+msgstr "已记录核实依据"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_contact__ydental_verified
+msgid "Verified"
+msgstr "已核实"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/controllers/patient.py:0
+msgid "Verify this store document requirements"
+msgstr "待核验本店文书要求"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient__ydental_version
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_clinical__ydental_version
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_contact__ydental_version
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_merge__ydental_version
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_number__ydental_version
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_operation__ydental_version
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_policy__ydental_version
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_record__ydental_version
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_relation__ydental_version
+msgid "Version"
+msgstr "资料版本"
+
+#. module: ydental_patient
+#: model_terms:ir.ui.view,arch_db:ydental_patient.ydental_patient_shell
+msgid "YDental"
+msgstr "YDental"
+
+#. module: ydental_patient
+#: model:ir.module.module,shortdesc:base.module_ydental_patient
+msgid "YDental Patient Identity"
+msgstr "YDental患者身份"
+
+#. module: ydental_patient
+#: model:ir.model,name:ydental_patient.model_ydental_access_service
+msgid "YDental trusted authorization and lifecycle service"
+msgstr "YDental可信授权及生命周期服务"
+
+#. module: ydental_patient
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_clinical__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_contact__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_merge__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_number__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_operation__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_policy__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_record__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_patient.field_ydental_patient_relation__ydental_store_id
+msgid "Ydental Store"
+msgstr "门店"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/models/ydental_patient_service.py:0
+msgid ""
+"access_denied: A merge request must concern a patient related to this store."
+msgstr "access_denied: 合并申请必须涉及已与本店建立关系的患者。"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/controllers/patient.py:0
+msgid "access_denied: A typed patient clinical source is required."
+msgstr "access_denied: 必须使用受控的患者临床附件来源。"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/models/ydental_patient_service.py:0
+msgid "access_denied: Clinical writes require the current store and patient."
+msgstr "access_denied: 临床写入必须属于当前门店及所选患者。"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/models/ydental_access_service.py:0
+msgid ""
+"access_denied: Current-store medical or examination read permission is "
+"required."
+msgstr "access_denied: 需要当前门店的医疗或检查读取权限。"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/models/ydental_patient_service.py:0
+msgid "access_denied: Group identity verification is required."
+msgstr "access_denied: 需要集团身份核实权限。"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/models/ydental_patient_service.py:0
+msgid "access_denied: Group verification must cover all affected companies."
+msgstr "access_denied: 集团确认权限须覆盖全部受影响法人。"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/models/res_partner.py:0
+msgid ""
+"access_denied: Maintain patient contacts through the patient workspace."
+msgstr "access_denied: 请通过患者工作区维护患者联系人。"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/models/ydental_patient_service.py:0
+msgid "access_denied: Patient administration permission is required."
+msgstr "access_denied: 需要患者行政资料权限。"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/models/res_partner.py:0
+msgid ""
+"access_denied: Patient clinical information cannot be posted to contact "
+"chatter."
+msgstr "access_denied: 患者临床信息不能写入联系人消息区。"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/models/res_partner.py:0
+msgid "access_denied: Patient contacts require a controlled identity action."
+msgstr "access_denied: 患者联系人必须通过受控身份动作建立。"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/models/ydental_patient_service.py:0
+msgid "access_denied: Select a contact of this patient."
+msgstr "access_denied: 请选择属于此患者的联系人。"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/models/ydental_patient_service.py:0
+msgid "access_denied: Select an existing merge request."
+msgstr "access_denied: 请选择已有合并申请。"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/models/ydental_patient_service.py:0
+msgid "access_denied: Select an existing patient."
+msgstr "access_denied: 请选择已有患者。"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/controllers/patient.py:0
+msgid "access_denied: Select one patient to export."
+msgstr "access_denied: 请选择一位患者导出。"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/controllers/patient.py:0
+msgid "access_denied: The attachment belongs to another patient scope."
+msgstr "access_denied: 此附件属于另一个患者范围。"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/controllers/patient.py:0
+msgid "access_denied: Unknown patient form action."
+msgstr "access_denied: 未知患者表单动作。"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/models/ir_attachment.py:0
+msgid "access_denied: Untyped patient contact attachments are unavailable."
+msgstr "access_denied: 不提供未分型的患者行政联系人附件。"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/models/ydental_patient_record.py:0
+msgid "access_denied: Use a controlled patient action."
+msgstr "access_denied: 请使用受控患者动作。"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/models/ir_attachment.py:0
+msgid "access_denied: Use a typed clinical attachment source."
+msgstr "access_denied: 请使用已分型的临床附件来源。"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/controllers/patient.py:0
+msgid "refresh_merge"
+msgstr "refresh_merge"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/controllers/patient.py:0
+msgid "reject"
+msgstr "reject"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/models/ydental_patient_service.py:0
+msgid "version_conflict: Open the canonical patient before editing."
+msgstr "version_conflict: 请打开统一患者主档后再修改。"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/models/ydental_patient_service.py:0
+msgid "version_conflict: Refresh the patient or merge request."
+msgstr "version_conflict: 请刷新患者资料或合并申请。"
+
+#. module: ydental_patient
+#. odoo-python
+#: code:addons/ydental_patient/models/ydental_patient_service.py:0
+msgid "version_conflict: This action key was used for different arguments."
+msgstr "version_conflict: 此幂等键已用于不同的动作参数。"

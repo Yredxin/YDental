@@ -19,12 +19,13 @@ class YDentalPatient(http.Controller):
         store = service._access()
         member = access._membership(service.env.uid, store.id)
         levels = access._levels(member)
+        confirm_label = service.env._('Confirm verified merge')
+        refresh_label = service.env._('Refresh identity versions')
+        reject_label = service.env._('Reject with reason')
         return {'store': store, 'revision': session.ydental_revision, 'key': lambda: secrets.token_hex(16),
                 'sex_labels': service.env['ydental.patient']._fields['ydental_sex']._description_selection(service.env),
                 'contact_labels': service.env['ydental.patient.contact']._fields['ydental_relation']._description_selection(service.env),
-                'merge_decisions': [('confirm', service.env._('Confirm verified merge')),
-                                    ('refresh_merge', service.env._('Refresh identity versions')),
-                                    ('reject', service.env._('Reject with reason'))],
+                'merge_decisions': [('confirm', confirm_label), ('refresh_merge', refresh_label), ('reject', reject_label)],
                 'can_admin': any(levels[c] == 'write' for c in ('patient', 'frontdesk')),
                 'can_care': any(levels[c] in ('read', 'write') for c in ('medical', 'exam')),
                 'can_medical_write': levels['medical'] == 'write', 'can_export': levels['export'] == 'write',

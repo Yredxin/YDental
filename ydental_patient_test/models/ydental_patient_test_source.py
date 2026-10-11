@@ -10,3 +10,4 @@ class YDentalPatientTestSource(models.Model):
     ydental_origin_patient_id = fields.Many2one('ydental.patient', required=True, ondelete='restrict')
     ydental_identity_snapshot = fields.Json(required=True)
     ydental_text = fields.Text()
+    ydental_signed_fact = fields.Boolean(default=False)
