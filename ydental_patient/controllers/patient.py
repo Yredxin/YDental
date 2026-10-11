@@ -18,7 +18,9 @@ class YDentalPatientDataSet(YDentalDataSet):
             context = dict(kwargs.get('context') or {})
             context.pop('ydental_binding', None)
             access = request.env['ydental.access.service']
-            session = access._existing_session_for_key(request.session.sid[:42])
+            session = access._existing_session_for_key(request.session.sid[:42]) if request.env.user.has_group(
+                'ydental_base.ydental_base_group_user'
+            ) else False
             if session:
                 context['ydental_binding'] = access._bind(session).env.context['ydental_binding']
             kwargs = dict(kwargs, context=context)
