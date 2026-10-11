@@ -215,6 +215,64 @@ def main():
             record('suggested workbench explicitly awaits integration', 'S06' in staff_page.locator('body').inner_text())
             page.goto(base + '/ydental/supply', wait_until='domcontentloaded')
             record('feedback visible to scheduling writer', 'Synthetic browser arrangement error' in page.locator('#handling').inner_text())
+            rework = preview['rework']
+            partial_context, partial_page = login('partial_staff')
+            partial_page.goto(base + '/ydental/supply/today', wait_until='domcontentloaded')
+            target = partial_page.locator('form').filter(has=partial_page.locator('input[name=operation][value=suggest]')).filter(
+                has=partial_page.locator('input[name=id][value="%s"]' % rework['area_assignment_id']))
+            target.locator('button').click()
+            partial_page.wait_for_url('**/ydental/supply/action')
+            suggestions = partial_page.locator('main ul').inner_text()
+            record('area suggestion requires complete active capabilities', 'S03 Chair 1' in suggestions and 'S03 Chair 2' not in suggestions)
+            snapshot(partial_page, partial_context, '06-partial-area-suggestion.png')
+            partial_page.goto(base + '/ydental/supply/today', wait_until='domcontentloaded')
+            target = partial_page.locator('form').filter(has=partial_page.locator('input[name=operation][value=suggest]')).filter(
+                has=partial_page.locator('input[name=id][value="%s"]' % rework['direct_assignment_id']))
+            target.locator('button').click()
+            partial_page.wait_for_url('**/ydental/supply/action')
+            record('direct assignment cannot bypass qualification filter', partial_page.locator('main ul li').count() == 0)
+            page.goto(base + '/ydental/supply', wait_until='domcontentloaded')
+            target = page.locator('#handling form').filter(has=page.locator('input[name=entity][value=disposition]')).filter(
+                has=page.locator('input[name=id][value="%s"]' % rework['handling_disposition_id']))
+            record('assignment handling visible without a capacity slot', target.count() == 1)
+            snapshot(page, writer_context, '07-assignment-handling.png')
+            target.locator('input[name=reason]').fill('Synthetic browser assignment handling reviewed')
+            submit(page, target)
+            record('assignment handling resolves with history retained', 'Synthetic browser assignment handling reviewed' in page.locator('#handling').inner_text())
+            page.goto(base + '/ydental/supply?week_start=2026-11-02', wait_until='domcontentloaded')
+            copy_form = page.locator('form').filter(has=page.locator('input[name=operation][value=copy]'))
+            submit(page, copy_form)
+            page.goto(base + '/ydental/supply?week_start=2026-11-02', wait_until='domcontentloaded')
+            weekly = page.locator('#weekly-plan').inner_text()
+            record('fall DST week copy includes local Monday and Sunday boundaries',
+                '2026-11-02 00:30' in weekly and '2026-11-08 23:30' in weekly and page.locator('#weekly-plan tbody tr').count() == 2)
+            snapshot(page, writer_context, '08-dst-week-copy.png')
+            for value, end, label, text in [
+                ('2026-03-08T02:30', '2026-03-08T03:30', 'nonexistent wall time rejected through form', '不存在'),
+                ('2026-11-01T01:30', '2026-11-01T02:30', 'ambiguous wall time rejected through form', '两个时刻'),
+            ]:
+                page.goto(base + '/ydental/supply', wait_until='domcontentloaded')
+                target = form(page, 'assign')
+                target.locator('select[name=user_id]').select_option(str(access['writer']['id']))
+                target.locator('select[name=area_id]').select_option(str(preview['area_id']))
+                target.locator('input[name=start]').fill(value)
+                target.locator('input[name=end]').fill(end)
+                target.locator('input[name=reason]').fill('Synthetic DST rejection')
+                with page.expect_response(lambda response: response.url == base + '/ydental/supply/action') as rejected:
+                    target.locator('button').last.click()
+                page.wait_for_url('**/ydental/supply/action')
+                record(label, rejected.value.status == 409 and text in page.locator('body').inner_text())
+            snapshot(page, writer_context, '09-dst-input-rejected.png')
+            page.goto(base + '/ydental/supply', wait_until='domcontentloaded')
+            target = form(page, 'assign')
+            target.locator('select[name=user_id]').select_option(str(access['writer']['id']))
+            target.locator('select[name=area_id]').select_option(str(preview['area_id']))
+            target.locator('input[name=start]').fill('2026-11-10T09:30')
+            target.locator('input[name=end]').fill('2026-11-10T10:30')
+            target.locator('input[name=reason]').fill('Synthetic normal local time round trip')
+            submit(page, target)
+            page.goto(base + '/ydental/supply?week_start=2026-11-09', wait_until='domcontentloaded')
+            record('normal wall time round trip preserves local hour', '2026-11-10 09:30' in page.locator('#weekly-plan').inner_text())
             old_revision = int(page.locator('input[name=revision]').first.input_value())
             page.goto(base + '/ydental/access', wait_until='domcontentloaded')
             select_store(page, preview['stores'][1])
@@ -226,7 +284,7 @@ def main():
             }''', {'revision':old_revision,'id':slot_id})
             record('old page rejected after store switch', denied == 409)
             record('Firefox has no unhandled page error', not errors)
-            for context in (writer_context, reader_context, staff_context):
+            for context in (writer_context, reader_context, staff_context, partial_context):
                 context.close()
 
         try:

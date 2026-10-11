@@ -16,7 +16,7 @@ from odoo import api, fields
 from odoo.exceptions import UserError
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from s03_fixtures import setup_supply, slot, acquire, acquire_args
+from s03_fixtures import setup_supply, slot, acquire, acquire_args, new_test_user
 
 
 run = Path(os.environ['YDENTAL_S03_RUN_DIR'])
@@ -163,6 +163,50 @@ for scenario in scenarios:
             assert all(o['result'] == 'accepted' for o in outcomes)
             assert counters['reservation'] == 0 and counters['walkin'] == 2 and counters['used'] == 1
         results.append({'scenario': scenario['name'], 'result': 'PASS', 'outcomes': outcomes, 'after': counters})
+
+# Extra fixtures for the three directed rework boundaries. They are seeded only
+# after all six unchanged capacity races have completed.
+with registry.cursor() as cr:
+    root = api.Environment(cr, api.SUPERUSER_ID, {})
+    store = root['ydental.access.store'].browse(store_id)
+    store.write({'ydental_timezone': 'America/New_York'})
+    service = root['ydental.access.service'].with_user(user_id)._bind(
+        root['ydental.access.session'].browse(sessions[0])).env['ydental.supply.service']
+    login, password = 's03_' + secrets.token_hex(6) + '@example.invalid', secrets.token_urlsafe(24)
+    partial = new_test_user(root, name='S03 Synthetic Partial Staff', login=login, password=password,
+        groups='ydental_base.ydental_base_group_user')
+    admin = root['ydental.access.service'].with_user(f.manager.id)
+    admin._bind(admin._session_for_key('rework-preview-admin-' + f.suffix))._join(partial.id, store.id)
+    partial.write({'login': login, 'email': login, 'password': password, 'lang': 'zh_CN',
+        'ydental_capability_ids': [fields.Command.set(summary['capability_ids'][:1])]})
+    access['partial_staff'] = {'id': partial.id, 'login': login, 'password': password}
+    now = fields.Datetime.now()
+    common = {'user_id': partial.id, 'start': fields.Datetime.to_string(now),
+        'end': fields.Datetime.to_string(now + timedelta(hours=1))}
+    area_assignment = service._operate('assign', dict(common, area_id=area_id), 'rework-preview-area')
+    direct_assignment = service._operate('assign', {'user_id': partial.id, 'station_id': summary['station_ids'][1],
+        'start': fields.Datetime.to_string(now + timedelta(hours=1)),
+        'end': fields.Datetime.to_string(now + timedelta(hours=2))}, 'rework-preview-direct')
+    future = now + timedelta(days=10)
+    handling = service._operate('assign', {'user_id': user_id, 'station_id': summary['station_ids'][0],
+        'start': fields.Datetime.to_string(future), 'end': fields.Datetime.to_string(future + timedelta(hours=1))}, 'rework-preview-handling')
+    assignment = root['ydental.supply.assignment'].browse(handling['id'])
+    root['resource.calendar.leaves'].create({'name': 'Synthetic rework absence without a capacity slot',
+        'resource_id': assignment.ydental_employee_id.resource_id.id,
+        'date_from': assignment.ydental_start, 'date_to': assignment.ydental_end})
+    disposition = root['ydental.supply.disposition'].search([
+        ('ydental_assignment_id', '=', assignment.id), ('ydental_slot_id', '=', False), ('state', '=', 'pending')])
+    assert len(disposition) == 1
+    source_ids = []
+    for index, wall in enumerate(('2026-10-25T23:30', '2026-10-26T00:30', '2026-11-01T23:30')):
+        instant = service._local_to_utc(store, wall)
+        source = service._operate('assign', {'user_id': user_id, 'area_id': area_id,
+            'start': fields.Datetime.to_string(instant), 'end': fields.Datetime.to_string(instant + timedelta(minutes=15))}, 'rework-preview-dst-' + str(index))
+        source_ids.append(source['id'])
+    summary['rework'] = {'timezone': store.ydental_timezone, 'area_assignment_id': area_assignment['id'],
+        'direct_assignment_id': direct_assignment['id'], 'handling_assignment_id': assignment.id,
+        'handling_disposition_id': disposition.id, 'dst_source_ids': source_ids[1:], 'dst_excluded_id': source_ids[0]}
+    cr.commit()  # Own cursor, guarded new S03 synthetic preview only.
 
 # Preserve credentials privately. Evidence contains synthetic object IDs only.
 with os.fdopen(os.open(run / 'access.json', os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600), 'w') as handle:

@@ -1,5 +1,6 @@
-from datetime import timedelta
+from datetime import datetime, timedelta, timezone
 from unittest.mock import patch
+from zoneinfo import ZoneInfo
 
 from odoo import fields
 from odoo.exceptions import AccessError, UserError, ValidationError
@@ -21,6 +22,178 @@ class TestSupply(TransactionCase):
     def assert_balance(self, record):
         claims = self.root['ydental.supply.claim'].search([('ydental_slot_id', '=', record.id), ('state', 'in', ['held', 'consumed'])])
         self.assertEqual(record.ydental_total, record.ydental_reservation_free + record.ydental_walkin_free + record.ydental_unavailable + len(claims))
+
+    def test_rework_suggestions_require_full_active_coverage_and_direct_filter(self):
+        self.staff.write({'ydental_capability_ids': [fields.Command.set(self.capabilities[:1].ids)]})
+        now = fields.Datetime.now()
+        arranged = self.service._operate('assign', {'user_id': self.staff.id, 'area_id': self.area.id,
+            'start': fields.Datetime.to_string(now), 'end': fields.Datetime.to_string(now + timedelta(hours=1))}, 'area-clean-only')
+        staff = bind(self, self.staff, 'rework-own')
+        self.assertEqual(staff._workbench_suggestion(arranged['id'])['station_ids'], self.stations[:1].ids)
+        record = self.root['ydental.supply.assignment'].browse(arranged['id'])
+        self.service._operate('cancel_assignment', {'id': record.id, 'version': record.ydental_version, 'reason': 'Test direct suggestion'}, 'cancel-area')
+        direct = self.service._operate('assign', {'user_id': self.staff.id, 'station_id': self.stations[1].id,
+            'start': fields.Datetime.to_string(now), 'end': fields.Datetime.to_string(now + timedelta(hours=1))}, 'direct-clean-only')
+        self.assertTrue(direct['warning'])
+        self.assertEqual(staff._workbench_suggestion(direct['id'])['station_ids'], [])
+        self.staff.write({'ydental_capability_ids': [fields.Command.set(self.capabilities.ids)]})
+        self.assertEqual(staff._workbench_suggestion(direct['id'])['station_ids'], self.stations[1:].ids)
+
+    def test_rework_suggestions_empty_capabilities_and_location_bounds(self):
+        self.staff.write({'ydental_capability_ids': [fields.Command.clear()]})
+        self.stations[0].write({'ydental_add_capability_ids': [fields.Command.clear()]})
+        child = self.root['ydental.space.area'].create({'name': 'Nested suggestion area', 'parent_id': self.area.id,
+            'ydental_store_id': self.stores[0].id, 'ydental_floor_id': self.floor.id})
+        inside = self.root['ydental.space.station'].create({'name': 'No extra capability', 'ydental_area_id': child.id,
+            'ydental_store_id': self.stores[0].id, 'ydental_floor_id': self.floor.id})
+        outside = self.root['ydental.space.area'].create({'name': 'Outside suggestion area',
+            'ydental_store_id': self.stores[0].id, 'ydental_floor_id': self.floor.id})
+        self.root['ydental.space.station'].create({'name': 'Not in subtree', 'ydental_area_id': outside.id,
+            'ydental_store_id': self.stores[0].id, 'ydental_floor_id': self.floor.id})
+        now = fields.Datetime.now()
+        result = self.service._operate('assign', {'user_id': self.staff.id, 'area_id': self.area.id,
+            'start': fields.Datetime.to_string(now), 'end': fields.Datetime.to_string(now + timedelta(hours=1))}, 'empty-required')
+        staff = bind(self, self.staff, 'empty-own')
+        self.assertEqual(set(staff._workbench_suggestion(result['id'])['station_ids']), {self.stations[0].id, inside.id})
+        self.stations[0].write({'ydental_enabled': False})
+        inside.write({'active': False})
+        self.assertEqual(staff._workbench_suggestion(result['id'])['station_ids'], [])
+
+    def test_rework_assignment_leave_handling_without_slot(self):
+        result = self.service._operate('assign', {'user_id': self.staff.id, 'station_id': self.stations[1].id,
+            'start': fields.Datetime.to_string(self.start), 'end': fields.Datetime.to_string(self.end)}, 'before-leave')
+        record = self.root['ydental.supply.assignment'].browse(result['id'])
+        self.assertFalse(record.ydental_warning)
+        self.assertFalse(self.root['ydental.supply.slot'].search([('ydental_store_id', '=', self.stores[0].id)]))
+        leave = self.root['resource.calendar.leaves'].create({'name': 'Synthetic new absence',
+            'resource_id': record.ydental_employee_id.resource_id.id, 'calendar_id': record.ydental_employee_id.resource_calendar_id.id,
+            'date_from': self.start, 'date_to': self.end, 'count_as': 'absence'})
+        self.assertTrue(record.ydental_warning)
+        self.assertIn(self.replacement, self.service._replacement_candidates(record))
+        domain = [('ydental_assignment_id', '=', record.id), ('ydental_slot_id', '=', False)]
+        pending = self.root['ydental.supply.disposition'].search(domain)
+        self.assertEqual(len(pending), 1)
+        self.assertEqual(pending.state, 'pending')
+        leave.write({'name': 'Same absence again'})
+        leave._supply_timeoff_changed()
+        self.assertEqual(self.root['ydental.supply.disposition'].search(domain), pending)
+        leave.write({'date_from': self.end + timedelta(hours=1), 'date_to': self.end + timedelta(hours=2)})
+        self.assertFalse(record.ydental_warning)
+        self.assertEqual(pending.state, 'pending')
+        self.service._operate('resolve', {'entity': 'disposition', 'id': pending.id, 'version': pending.ydental_version,
+            'reason': 'Reviewed absence adjustment'}, 'resolve-absence')
+        self.assertEqual((pending.state, pending.ydental_resolution), ('resolved', 'Reviewed absence adjustment'))
+        self.assertEqual(record.state, 'active')
+        self.assertTrue(pending.exists())
+
+    def test_rework_assignment_station_staff_capability_handling(self):
+        result = self.service._operate('assign', {'user_id': self.staff.id, 'station_id': self.stations[1].id,
+            'start': fields.Datetime.to_string(self.start), 'end': fields.Datetime.to_string(self.end)}, 'before-disable')
+        record = self.root['ydental.supply.assignment'].browse(result['id'])
+        domain = [('ydental_assignment_id', '=', record.id), ('ydental_slot_id', '=', False)]
+        self.stations[1].write({'ydental_enabled': False})
+        self.assertTrue(record.ydental_warning)
+        first = self.root['ydental.supply.disposition'].search(domain)
+        self.assertEqual(len(first), 1)
+        self.stations[1].write({'ydental_enabled': False})
+        self.stations[1].write({'ydental_enabled': True})
+        self.assertEqual(first.state, 'pending')
+        self.service._operate('resolve', {'entity': 'disposition', 'id': first.id, 'version': first.ydental_version,
+            'reason': 'Reviewed workstation restoration'}, 'resolve-station')
+        self.staff.write({'ydental_capability_ids': [fields.Command.set(self.capabilities[:1].ids)]})
+        self.assertTrue(record.ydental_warning)
+        pending = self.root['ydental.supply.disposition'].search(domain + [('state', '=', 'pending')])
+        self.assertEqual(len(pending), 1)
+        self.assertNotEqual(first, pending)
+        self.staff.write({'active': False})
+        self.assertIn('inactive', record.ydental_warning)
+        record.ydental_employee_id.write({'active': False})
+        self.assertEqual(self.root['ydental.supply.disposition'].search(domain + [('state', '=', 'pending')]), pending)
+        self.assertEqual(first.state, 'resolved')
+        self.assertEqual(record.state, 'active')
+
+    def test_rework_assignment_and_slot_dispositions_have_separate_scope(self):
+        result = self.service._operate('assign', {'user_id': self.staff.id, 'station_id': self.stations[1].id,
+            'start': fields.Datetime.to_string(self.start), 'end': fields.Datetime.to_string(self.end)}, 'before-supply-absence')
+        assignment = self.root['ydental.supply.assignment'].browse(result['id'])
+        capacity = slot(self)
+        claim = acquire(self, capacity)
+        leave = self.root['resource.calendar.leaves'].create({'name': 'Synthetic assignment and supply absence',
+            'resource_id': assignment.ydental_employee_id.resource_id.id,
+            'date_from': self.start, 'date_to': self.end, 'count_as': 'absence'})
+        leave._supply_timeoff_changed()
+        assignment_items = self.root['ydental.supply.disposition'].search([('ydental_assignment_id', '=', assignment.id), ('ydental_slot_id', '=', False)])
+        slot_items = self.root['ydental.supply.disposition'].search([('ydental_slot_id', '=', capacity.id)])
+        self.assertEqual((len(assignment_items), len(slot_items)), (1, 1))
+        self.assertFalse(slot_items.ydental_assignment_id)
+        self.assertEqual((capacity.state, claim.state, assignment.state), ('suspended', 'held', 'active'))
+        self.assert_balance(capacity)
+
+    def test_rework_assignment_handling_ignores_ended_cancelled_records(self):
+        now = fields.Datetime.now()
+        self.service._operate('assign', {'user_id': self.staff.id, 'station_id': self.stations[1].id,
+            'start': fields.Datetime.to_string(now - timedelta(hours=2)), 'end': fields.Datetime.to_string(now - timedelta(hours=1))}, 'ended-history')
+        result = self.service._operate('assign', {'user_id': self.staff.id, 'station_id': self.stations[1].id,
+            'start': fields.Datetime.to_string(self.start), 'end': fields.Datetime.to_string(self.end)}, 'cancelled-future')
+        record = self.root['ydental.supply.assignment'].browse(result['id'])
+        self.service._operate('cancel_assignment', {'id': record.id, 'version': record.ydental_version, 'reason': 'Cancelled future'}, 'cancel-future')
+        self.stations[1].write({'ydental_enabled': False})
+        self.assertFalse(self.root['ydental.supply.disposition'].search([('ydental_store_id', '=', self.stores[0].id)]))
+
+    def test_rework_local_helper_dst_rejects_gap_fold_and_offsets(self):
+        store = self.stores[0]
+        store.write({'ydental_timezone': 'America/New_York'})
+        for value, message in [('2026-03-08T02:30', 'does not exist'), ('2026-11-01T01:30', 'ambiguous'),
+                               ('2026-11-02T09:30-05:00', 'without a UTC offset'), ('invalid', 'valid local')]:
+            with self.subTest(value=value), self.assertRaisesRegex(ValidationError, message):
+                self.service._local_to_utc(store, value)
+        self.assertEqual(self.service._local_to_utc(store, '2026-11-02T09:30'), datetime(2026, 11, 2, 14, 30))
+        for value in (datetime(2026, 3, 8, 1, 30), datetime(2026, 3, 8, 3, 30), datetime(2026, 11, 1, 2, 30)):
+            utc = self.service._local_to_utc(store, value)
+            self.assertEqual(utc.replace(tzinfo=timezone.utc).astimezone(ZoneInfo(store.ydental_timezone)).replace(tzinfo=None), value)
+        # Explicit private service UTC arguments retain their existing meaning,
+        # even when they identify one occurrence of an ambiguous local time.
+        result = self.service._operate('assign', {'user_id': self.staff.id, 'area_id': self.area.id,
+            'start': '2026-11-01 05:30:00', 'end': '2026-11-01 05:45:00'}, 'explicit-utc')
+        self.assertEqual(self.root['ydental.supply.assignment'].browse(result['id']).ydental_start, datetime(2026, 11, 1, 5, 30))
+
+    def test_rework_copy_fall_boundary_and_dashboard(self):
+        self._assert_rework_copy_window('2026-10-25T23:30', '2026-10-26T00:30', '2026-11-01T23:30', '2026-11-02')
+
+    def test_rework_copy_spring_boundary_and_dashboard(self):
+        self._assert_rework_copy_window('2026-03-01T23:30', '2026-03-02T00:30', '2026-03-08T23:30', '2026-03-09')
+
+    def _assert_rework_copy_window(self, outside, first, last, target):
+        store = self.stores[0]
+        store.write({'ydental_timezone': 'America/New_York'})
+        source_ids = []
+        for index, value in enumerate((outside, first, last)):
+            start = self.service._local_to_utc(store, value)
+            result = self.service._operate('assign', {'user_id': self.staff.id, 'area_id': self.area.id,
+                'start': fields.Datetime.to_string(start), 'end': fields.Datetime.to_string(start + timedelta(minutes=15))}, 'window-' + str(index))
+            source_ids.append(result['id'])
+        copied = self.service._operate('copy', {'week_start': target}, 'copy-window')
+        self.assertEqual(copied['source_ids'], source_ids[1:])
+        records = self.root['ydental.supply.assignment'].browse(copied['ids'])
+        first_target = records[0].ydental_start.replace(tzinfo=timezone.utc).astimezone(ZoneInfo(store.ydental_timezone))
+        self.assertEqual(first_target.strftime('%Y-%m-%dT%H:%M'), target + 'T00:30')
+        previous_date = fields.Date.to_date(target) - timedelta(days=7)
+        dashboard = self.service._dashboard(fields.Date.to_string(previous_date))
+        self.assertEqual(dashboard['assignments'].ids, source_ids[1:])
+
+    def test_rework_copy_rejects_invalid_target_wall_time_atomically(self):
+        store = self.stores[0]
+        store.write({'ydental_timezone': 'America/New_York'})
+        for week, values, message in [('2026-03-02', ('2026-02-23T09:00', '2026-03-01T02:30'), 'does not exist'),
+                                     ('2026-10-26', ('2026-10-19T09:00', '2026-10-25T01:30'), 'ambiguous')]:
+            for index, value in enumerate(values):
+                start = self.service._local_to_utc(store, value)
+                self.service._operate('assign', {'user_id': self.staff.id, 'area_id': self.area.id,
+                    'start': fields.Datetime.to_string(start), 'end': fields.Datetime.to_string(start + timedelta(minutes=15))}, week + str(index))
+            before = self.root['ydental.supply.assignment'].search([('ydental_store_id', '=', store.id)])
+            with self.assertRaisesRegex(ValidationError, message):
+                self.service._operate('copy', {'week_start': week}, 'invalid-copy-' + week)
+            self.assertEqual(self.root['ydental.supply.assignment'].search([('ydental_store_id', '=', store.id)]), before)
 
     def test_t01_integer_preview_and_policy_versions(self):
         self.assertEqual([(r['reservation'], r['walkin']) for r in self.policy['preview']], [(0, 1), (0, 2), (1, 2), (2, 4)])
