@@ -36,10 +36,17 @@ msgid "A workstation must belong to one store and floor."
 msgstr "工位必须属于同一门店和楼层。"
 
 #. module: ydental_space
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_area__active
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_floor__active
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_item__active
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_resource__active
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_station__active
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_version__active
 msgid "Active"
 msgstr "有效"
 
 #. module: ydental_space
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_station__ydental_add_capability_ids
 msgid "Added capabilities"
 msgstr "手动增加能力"
 
@@ -62,6 +69,7 @@ msgid "Archive space configuration to preserve stable references."
 msgstr "请归档空间配置，以保留稳定引用。"
 
 #. module: ydental_space
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_station__ydental_area_id
 msgid "Area"
 msgstr "区域"
 
@@ -78,18 +86,24 @@ msgid "Area parents must form an acyclic tree on one floor."
 msgstr "父子区域必须在同一楼层，且不能循环嵌套。"
 
 #. module: ydental_space
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_area__ydental_purpose
 msgid "Area purpose"
 msgstr "区域用途"
 
 #. module: ydental_space
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_area__ydental_shape
 msgid "Area shape"
 msgstr "区域形状"
 
 #. module: ydental_space
+#: model:ir.actions.act_window,name:ydental_space.ydental_space_area_action
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_floor__ydental_area_ids
+#: model:ir.ui.menu,name:ydental_space.ydental_space_area_menu
 msgid "Areas"
 msgstr "区域"
 
 #. module: ydental_space
+#: model:ir.model,name:ydental_space.model_ydental_space_item
 msgid "Artwork placement on a floor"
 msgstr "楼层资源图形摆放"
 
@@ -106,14 +120,23 @@ msgid "At most 500 geometry changes are allowed."
 msgstr "一次最多保存500项几何变更。"
 
 #. module: ydental_space
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_area__ydental_category
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_floor__ydental_category
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_item__ydental_category
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_resource__ydental_category
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_station__ydental_category
 msgid "Business category"
 msgstr "业务大类"
 
 #. module: ydental_space
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_station__ydental_callable
 msgid "Can call patients"
 msgstr "可叫号"
 
 #. module: ydental_space
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_area__ydental_capability_ids
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_resource__ydental_capability_ids
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_station__ydental_capability_ids
 msgid "Capabilities"
 msgstr "能力"
 
@@ -130,24 +153,29 @@ msgid "Capability identifiers must be integers."
 msgstr "能力标识必须为整数。"
 
 #. module: ydental_space
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_area__ydental_child_ids
 msgid "Child areas"
 msgstr "子区域"
 
 #. module: ydental_space
+#: model:ir.model,name:ydental_space.model_ydental_space_floor
 msgid "Clinic floor"
 msgstr "诊所楼层"
 
 #. module: ydental_space
 #. odoo-javascript
 #: code:addons/ydental_space/static/src/plan/plan.xml:0
+#: model:ir.actions.client,name:ydental_space.ydental_space_plan_action
 msgid "Clinic floor plan"
 msgstr "诊所平面图"
 
 #. module: ydental_space
+#: model:ir.model,name:ydental_space.model_ydental_space_area
 msgid "Clinic reporting and display area"
 msgstr "诊所报到与展示区域"
 
 #. module: ydental_space
+#: model:ir.ui.menu,name:ydental_space.ydental_space_menu
 msgid "Clinic space"
 msgstr "诊所空间"
 
@@ -159,10 +187,17 @@ msgid ""
 msgstr "配置区域和设备。实际坐诊状态将在S06接入。"
 
 #. module: ydental_space
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_area__ydental_version
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_floor__ydental_version
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_item__ydental_version
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_resource__ydental_version
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_station__ydental_version
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_version__ydental_version
 msgid "Content version"
 msgstr "内容版本"
 
 #. module: ydental_space
+#: model:ir.model,name:ydental_space.model_ydental_space_resource
 msgid "Controlled common or store-private space artwork"
 msgstr "受控公共或门店私有资源图形"
 
@@ -173,28 +208,50 @@ msgid "Create a floor to begin."
 msgstr "请先创建楼层。"
 
 #. module: ydental_space
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_area__create_uid
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_floor__create_uid
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_item__create_uid
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_resource__create_uid
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_station__create_uid
 msgid "Created by"
 msgstr "创建人"
 
 #. module: ydental_space
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_area__create_date
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_floor__create_date
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_item__create_date
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_resource__create_date
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_station__create_date
 msgid "Created on"
 msgstr "创建时间"
 
 #. module: ydental_space
+#: model:ir.model.fields.selection,name:ydental_space.selection__ydental_space_resource__ydental_kind__chair
 msgid "Dental chair"
 msgstr "牙椅"
 
 #. module: ydental_space
 #. odoo-javascript
 #: code:addons/ydental_space/static/src/plan/plan.xml:0
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_area__ydental_angle
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_item__ydental_angle
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_station__ydental_angle
 msgid "Direction"
 msgstr "方向"
 
 #. module: ydental_space
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_access_service__display_name
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_area__display_name
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_floor__display_name
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_item__display_name
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_resource__display_name
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_station__display_name
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_version__display_name
 msgid "Display Name"
 msgstr "显示名称"
 
 #. module: ydental_space
+#: model:ir.model.fields.selection,name:ydental_space.selection__ydental_space_resource__ydental_kind__door
 msgid "Door"
 msgstr "门"
 
@@ -225,14 +282,18 @@ msgid "Drawing tool"
 msgstr "绘图工具"
 
 #. module: ydental_space
+#: model:ir.model.fields,help:ydental_space.field_ydental_space_resource__ydental_store_id
 msgid "Empty means group-maintained common artwork."
 msgstr "留空表示由集团维护的公共资源。"
 
 #. module: ydental_space
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_station__ydental_enabled
 msgid "Enabled"
 msgstr "启用"
 
 #. module: ydental_space
+#: model:ir.model.fields.selection,name:ydental_space.selection__ydental_space_area__ydental_purpose__exam
+#: model:ir.model.fields.selection,name:ydental_space.selection__ydental_space_station__ydental_kind__exam
 msgid "Examination"
 msgstr "检查"
 
@@ -253,10 +314,14 @@ msgstr "完成多边形"
 #. module: ydental_space
 #. odoo-javascript
 #: code:addons/ydental_space/static/src/plan/plan.xml:0
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_area__ydental_floor_id
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_item__ydental_floor_id
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_station__ydental_floor_id
 msgid "Floor"
 msgstr "楼层"
 
 #. module: ydental_space
+#: model:ir.ui.menu,name:ydental_space.ydental_space_plan_menu
 msgid "Floor plan"
 msgstr "平面图"
 
@@ -267,10 +332,13 @@ msgid "Floor saved."
 msgstr "楼层已保存。"
 
 #. module: ydental_space
+#: model:ir.actions.act_window,name:ydental_space.ydental_space_floor_action
+#: model:ir.ui.menu,name:ydental_space.ydental_space_floor_menu
 msgid "Floors"
 msgstr "楼层"
 
 #. module: ydental_space
+#: model:ir.module.module,summary:base.module_ydental_space
 msgid "Floors, reporting areas, stable workstations and safe resource artwork"
 msgstr "楼层、报到区域、稳定工位及安全资源图形"
 
@@ -283,14 +351,26 @@ msgstr "几何坐标必须是有限值且在允许范围内。"
 #. module: ydental_space
 #. odoo-javascript
 #: code:addons/ydental_space/static/src/plan/plan.xml:0
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_area__ydental_height
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_floor__ydental_height
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_item__ydental_height
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_station__ydental_height
 msgid "Height"
 msgstr "高度"
 
 #. module: ydental_space
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_access_service__id
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_area__id
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_floor__id
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_item__id
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_resource__id
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_station__id
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_version__id
 msgid "ID"
 msgstr "ID"
 
 #. module: ydental_space
+#: model:ir.model.fields.selection,name:ydental_space.selection__ydental_space_resource__ydental_kind__imaging
 msgid "Imaging device"
 msgstr "影像设备"
 
@@ -307,14 +387,25 @@ msgid "Invalid geometry change."
 msgstr "几何变更格式无效。"
 
 #. module: ydental_space
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_area__write_uid
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_floor__write_uid
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_item__write_uid
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_resource__write_uid
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_station__write_uid
 msgid "Last Updated by"
 msgstr "最后修改人"
 
 #. module: ydental_space
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_area__write_date
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_floor__write_date
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_item__write_date
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_resource__write_date
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_station__write_date
 msgid "Last Updated on"
 msgstr "最后修改时间"
 
 #. module: ydental_space
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_area__ydental_missed_limit
 msgid "Missed calls parameter"
 msgstr "过号参数"
 
@@ -325,6 +416,12 @@ msgid "Missed calls parameter cannot be negative."
 msgstr "过号参数不能为负数。"
 
 #. module: ydental_space
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_area__name
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_floor__name
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_item__name
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_resource__name
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_station__name
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_version__name
 msgid "Name"
 msgstr "名称"
 
@@ -347,6 +444,7 @@ msgid "New floor"
 msgstr "新建楼层"
 
 #. module: ydental_space
+#: model:ir.model.fields,help:ydental_space.field_ydental_space_area__ydental_missed_limit
 msgid "Not approved for production until S06 publication."
 msgstr "生产值须在S06正式发布后批准。"
 
@@ -357,38 +455,51 @@ msgid "Only geometry can be saved through the plan."
 msgstr "平面图入口只能保存几何属性。"
 
 #. module: ydental_space
+#: model:ir.model.fields,help:ydental_space.field_ydental_space_resource__ydental_upload
 msgid "Only the sanitized SVG is retained, never the original upload."
 msgstr "仅保存安全处理后的SVG，不保存原始上传文件。"
 
 #. module: ydental_space
+#: model_terms:ir.ui.view,arch_db:ydental_space.ydental_space_floor_view_form
 msgid "Open floor plan"
 msgstr "打开平面图"
 
 #. module: ydental_space
+#: model:ir.model.fields.selection,name:ydental_space.selection__ydental_space_area__ydental_purpose__other
 msgid "Other"
 msgstr "其他"
 
 #. module: ydental_space
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_area__parent_id
 msgid "Parent"
 msgstr "父区域"
 
 #. module: ydental_space
+#: model:ir.model.fields.selection,name:ydental_space.selection__ydental_space_area__ydental_purpose__pharmacy
+#: model:ir.model.fields.selection,name:ydental_space.selection__ydental_space_station__ydental_kind__pharmacy
 msgid "Pharmacy"
 msgstr "药房"
 
 #. module: ydental_space
+#: model:ir.model.fields.selection,name:ydental_space.selection__ydental_space_resource__ydental_kind__pharmacy
 msgid "Pharmacy desk"
 msgstr "发药台"
 
 #. module: ydental_space
+#: model:ir.actions.act_window,name:ydental_space.ydental_space_item_action
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_floor__ydental_item_ids
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_station__ydental_item_ids
+#: model:ir.ui.menu,name:ydental_space.ydental_space_item_menu
 msgid "Placed artwork"
 msgstr "已摆放图形"
 
 #. module: ydental_space
+#: model:ir.model.fields.selection,name:ydental_space.selection__ydental_space_area__ydental_shape__polygon
 msgid "Polygon"
 msgstr "多边形"
 
 #. module: ydental_space
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_area__ydental_points
 msgid "Polygon points"
 msgstr "多边形顶点"
 
@@ -399,6 +510,7 @@ msgid "Polygon points belong to areas."
 msgstr "只有区域支持多边形顶点。"
 
 #. module: ydental_space
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_area__ydental_prefix
 msgid "Queue display prefix"
 msgstr "叫号显示前缀"
 
@@ -409,6 +521,7 @@ msgid "Read only"
 msgstr "只读"
 
 #. module: ydental_space
+#: model:ir.model.fields.selection,name:ydental_space.selection__ydental_space_area__ydental_shape__rect
 msgid "Rectangle"
 msgstr "矩形"
 
@@ -419,24 +532,31 @@ msgid "Reload"
 msgstr "重新加载"
 
 #. module: ydental_space
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_station__ydental_remove_capability_ids
 msgid "Removed capabilities"
 msgstr "手动移除能力"
 
 #. module: ydental_space
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_area__ydental_queue_area_id
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_station__ydental_queue_area_id
 msgid "Reporting area"
 msgstr "报到归属区域"
 
 #. module: ydental_space
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_item__ydental_resource_id
 msgid "Resource artwork"
 msgstr "资源图形"
 
 #. module: ydental_space
 #. odoo-javascript
 #: code:addons/ydental_space/static/src/plan/plan.xml:0
+#: model:ir.actions.act_window,name:ydental_space.ydental_space_resource_action
+#: model:ir.ui.menu,name:ydental_space.ydental_space_resource_menu
 msgid "Resource library"
 msgstr "资源库"
 
 #. module: ydental_space
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_resource__ydental_svg
 msgid "Safe SVG source"
 msgstr "安全SVG内容"
 
@@ -495,14 +615,18 @@ msgid "Select existing capabilities; nested editing is forbidden."
 msgstr "请选择已有能力，禁止通过关联字段修改能力字典。"
 
 #. module: ydental_space
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_area__ydental_reporting
 msgid "Separate reporting queue"
 msgstr "独立报到队列"
 
 #. module: ydental_space
+#: model:ir.model.fields.selection,name:ydental_space.selection__ydental_space_area__ydental_purpose__settlement
+#: model:ir.model.fields.selection,name:ydental_space.selection__ydental_space_station__ydental_kind__settlement
 msgid "Settlement"
 msgstr "结算"
 
 #. module: ydental_space
+#: model:ir.model.fields.selection,name:ydental_space.selection__ydental_space_resource__ydental_kind__settlement
 msgid "Settlement desk"
 msgstr "收费台"
 
@@ -513,6 +637,7 @@ msgid "Settlement workstations do not call patients."
 msgstr "收费工位不叫号。"
 
 #. module: ydental_space
+#: model:ir.model.fields.selection,name:ydental_space.selection__ydental_space_resource__ydental_category__space
 msgid "Space"
 msgstr "空间"
 
@@ -523,14 +648,21 @@ msgid "Stable ID:"
 msgstr "稳定ID:"
 
 #. module: ydental_space
+#: model:ir.model,name:ydental_space.model_ydental_space_station
 msgid "Stable clinic workstation"
 msgstr "稳定诊所工位"
 
 #. module: ydental_space
+#: model:ir.model.fields.selection,name:ydental_space.selection__ydental_space_area__ydental_purpose__sterilization
 msgid "Sterilization"
 msgstr "消毒室"
 
 #. module: ydental_space
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_area__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_floor__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_item__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_resource__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_station__ydental_store_id
 msgid "Store"
 msgstr "门店"
 
@@ -547,10 +679,13 @@ msgid "This display-only area cannot accept reporting."
 msgstr "此展示用途区域不能接受报到。"
 
 #. module: ydental_space
+#: model:ir.model.fields.selection,name:ydental_space.selection__ydental_space_area__ydental_purpose__toilet
 msgid "Toilet"
 msgstr "卫生间"
 
 #. module: ydental_space
+#: model:ir.model.fields.selection,name:ydental_space.selection__ydental_space_area__ydental_purpose__care
+#: model:ir.model.fields.selection,name:ydental_space.selection__ydental_space_station__ydental_kind__care
 msgid "Treatment"
 msgstr "诊疗"
 
@@ -568,28 +703,37 @@ msgid ""
 msgstr "SVG不安全。请使用基本图形、viewBox及有限尺寸，并遵守上传上限。"
 
 #. module: ydental_space
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_resource__ydental_upload
 msgid "Upload SVG"
 msgstr "上传SVG"
 
 #. module: ydental_space
+#: model:ir.model,name:ydental_space.model_ydental_space_version
 msgid "Versioned clinic space configuration"
 msgstr "带版本的诊所空间配置"
 
 #. module: ydental_space
+#: model:ir.model.fields.selection,name:ydental_space.selection__ydental_space_area__ydental_purpose__waiting
 msgid "Waiting"
 msgstr "候诊"
 
 #. module: ydental_space
+#: model:ir.model.fields.selection,name:ydental_space.selection__ydental_space_resource__ydental_kind__waiting
 msgid "Waiting sign"
 msgstr "候诊标识"
 
 #. module: ydental_space
+#: model:ir.model.fields.selection,name:ydental_space.selection__ydental_space_resource__ydental_kind__wall
 msgid "Wall"
 msgstr "墙"
 
 #. module: ydental_space
 #. odoo-javascript
 #: code:addons/ydental_space/static/src/plan/plan.xml:0
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_area__ydental_width
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_floor__ydental_width
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_item__ydental_width
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_station__ydental_width
 msgid "Width"
 msgstr "宽度"
 
@@ -600,30 +744,45 @@ msgid "Width and height must be positive."
 msgstr "宽度和高度必须为正数。"
 
 #. module: ydental_space
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_item__ydental_station_id
 msgid "Workstation"
 msgstr "工位"
 
 #. module: ydental_space
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_resource__ydental_kind
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_station__ydental_kind
 msgid "Workstation or artwork type"
 msgstr "工作台或资源类型"
 
 #. module: ydental_space
+#: model:ir.actions.act_window,name:ydental_space.ydental_space_station_action
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_area__ydental_station_ids
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_floor__ydental_station_ids
+#: model:ir.ui.menu,name:ydental_space.ydental_space_station_menu
 msgid "Workstations"
 msgstr "工位"
 
 #. module: ydental_space
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_area__ydental_x
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_item__ydental_x
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_station__ydental_x
 msgid "X coordinate"
 msgstr "X坐标"
 
 #. module: ydental_space
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_area__ydental_y
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_item__ydental_y
+#: model:ir.model.fields,field_description:ydental_space.field_ydental_space_station__ydental_y
 msgid "Y coordinate"
 msgstr "Y坐标"
 
 #. module: ydental_space
+#: model:ir.module.module,shortdesc:base.module_ydental_space
 msgid "YDental Clinic Space"
 msgstr "YDental诊所空间"
 
 #. module: ydental_space
+#: model:ir.model,name:ydental_space.model_ydental_access_service
 msgid "YDental trusted authorization and lifecycle service"
 msgstr "YDental可信授权与人员生命周期服务"
 

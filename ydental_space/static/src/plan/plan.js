@@ -1,18 +1,19 @@
-import { Component, onWillStart, useRef, useState } from "@odoo/owl";
+import { Component, onWillStart, proxy, signal, useProps } from "@odoo/owl";
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
 import { _t } from "@web/core/l10n/translation";
+import { standardActionServiceProps } from "@web/webclient/actions/action_plugin";
 
 export class ClinicPlan extends Component {
     static template = "ydental_space.Plan";
-    static props = ["*"];
+    props = useProps(standardActionServiceProps);
+    canvas = signal.ref();
 
     setup() {
         this.orm = useService("orm");
         this.action = useService("action");
         this.notification = useService("notification");
-        this.canvas = useRef("canvas");
-        this.state = useState({ floors: [], data: null, selected: null, zoom: 1,
+        this.state = proxy({ floors: [], data: null, selected: null, zoom: 1,
             mode: "select", dirty: {}, polygon: [], drawing: null, busy: false });
         this.drag = null;
         onWillStart(async () => {
@@ -54,7 +55,7 @@ export class ClinicPlan extends Component {
     }
 
     point(event) {
-        const canvas = this.canvas.el;
+        const canvas = this.canvas();
         const point = canvas.createSVGPoint();
         point.x = event.clientX;
         point.y = event.clientY;
@@ -90,7 +91,7 @@ export class ClinicPlan extends Component {
             const point = this.point(event);
             this.drag = { object, x: point.x, y: point.y,
                 startX: object.ydental_x, startY: object.ydental_y };
-            this.canvas.el.setPointerCapture(event.pointerId);
+            this.canvas().setPointerCapture(event.pointerId);
         }
     }
 
@@ -101,7 +102,7 @@ export class ClinicPlan extends Component {
         const point = this.point(event);
         if (this.state.mode === "rect") {
             this.state.drawing = { x: point.x, y: point.y, width: 1, height: 1 };
-            this.canvas.el.setPointerCapture(event.pointerId);
+            this.canvas().setPointerCapture(event.pointerId);
         } else if (this.state.mode === "polygon") {
             this.state.polygon.push([point.x, point.y]);
         } else {
