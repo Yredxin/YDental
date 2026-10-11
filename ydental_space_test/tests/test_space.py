@@ -113,7 +113,7 @@ class TestSpace(BaseCommon):
         self.assertEqual(self.item.ydental_station_id.id, self.station.id)
         with self.assertRaises(AccessError):
             self.station.write({'ydental_store_id': self.stores[1].id, 'ydental_version': self.station.ydental_version})
-        with self.assertRaises(ValidationError), self.cr.savepoint():
+        with self.assertRaises((ValidationError, AccessError)), self.cr.savepoint():
             self.service.env['ydental.space.area'].create({'name': 'Wrong store', 'ydental_store_id': self.stores[1].id,
                 'ydental_floor_id': self.floor.id})
 

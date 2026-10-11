@@ -100,6 +100,15 @@ def main():
             page.locator('button[type=submit]').click()
             page.wait_for_url(lambda url: '/web/login' not in url)
             page.goto(base + '/ydental/access', wait_until='domcontentloaded')
+            selected = page.evaluate('''async (store) => {
+                const token = document.querySelector('input[name=csrf_token]').value;
+                const revision = document.querySelector('input[name=revision]').value;
+                const data = new URLSearchParams({operation: 'switch', revision,
+                    payload: JSON.stringify({store_id: store}), output: 'json', csrf_token: token});
+                return (await fetch('/ydental/access/action', {method: 'POST', body: data})).json();
+            }''', preview['stores'][0])
+            require(type(selected.get('revision')) is int, 'Preview store selection failed')
+            page.goto(base + '/ydental/access', wait_until='domcontentloaded')
             return context, page
 
         def rpc(page, model, method, values, revision=None):
