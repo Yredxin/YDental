@@ -4,6 +4,25 @@ import secrets
 from odoo import http
 from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.http import request
+from odoo.addons.ydental_access.controllers.access import YDentalDataSet
+
+
+class YDentalPatientDataSet(YDentalDataSet):
+
+    @http.route()
+    def call_kw(self, model, method, args, kwargs, path=None):
+        if model == 'res.partner':
+            # Dataset replaces the request context with the RPC context. Bind
+            # patient Contacts reads to this login's SID, never a client flag.
+            # A login without a workspace retains ordinary Contacts access.
+            context = dict(kwargs.get('context') or {})
+            context.pop('ydental_binding', None)
+            access = request.env['ydental.access.service']
+            session = access._existing_session_for_key(request.session.sid[:42])
+            if session:
+                context['ydental_binding'] = access._bind(session).env.context['ydental_binding']
+            kwargs = dict(kwargs, context=context)
+        return super().call_kw(model, method, args, kwargs, path)
 
 
 class YDentalPatient(http.Controller):
