@@ -1,0 +1,59 @@
+<odoo>
+    <record id="ydental_sample_paper_a4" model="report.paperformat">
+        <field name="name">YDental sample A4</field>
+        <field name="format">A4</field>
+        <field name="margin_top">10</field>
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">10</field>
+        <field name="margin_right">10</field>
+        <field name="orientation">Portrait</field>
+        <field name="dpi">96</field>
+    </record>
+    <record id="ydental_sample_paper_narrow" model="report.paperformat">
+        <field name="name">YDental sample narrow paper</field>
+        <field name="format">custom</field>
+        <field name="page_width">80</field>
+        <field name="page_height">200</field>
+        <field name="margin_top">5</field>
+        <field name="margin_bottom">5</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="orientation">Portrait</field>
+        <field name="dpi">96</field>
+    </record>
+    <record id="ydental_sample_report_a4" model="ir.actions.report">
+        <field name="name">YDental synthetic A4 sample</field>
+        <field name="model">res.company</field>
+        <field name="report_type">qweb-pdf-wkhtmltopdf</field>
+        <field name="report_name">ydental_base.ydental_sample_a4</field>
+        <field name="paperformat_id" ref="ydental_sample_paper_a4"/>
+        <field name="group_ids" eval="[(4, ref('ydental_base_group_user'))]"/>
+    </record>
+    <record id="ydental_sample_report_narrow" model="ir.actions.report">
+        <field name="name">YDental synthetic narrow paper sample</field>
+        <field name="model">res.company</field>
+        <field name="report_type">qweb-pdf-wkhtmltopdf</field>
+        <field name="report_name">ydental_base.ydental_sample_narrow</field>
+        <field name="paperformat_id" ref="ydental_sample_paper_narrow"/>
+        <field name="group_ids" eval="[(4, ref('ydental_base_group_user'))]"/>
+    </record>
+    <template id="ydental_sample_layout" name="YDental sample layout">
+        <html><head><meta charset="utf-8"/></head><body><t t-out="body"/></body></html>
+    </template>
+    <template id="ydental_sample_content" name="YDental synthetic sample content">
+        <div class="article o_ydental_base_sample" style="font-family: 'Noto Sans CJK SC', sans-serif; font-size: 11px; line-height: 1.6; overflow-wrap: break-word;">
+            <h2>Synthetic dental PDF sample</h2>
+            <p>Rendering verification only. No real patient information.</p>
+            <p>Synthetic patient: Sample One</p>
+            <p>Chinese multiline text and punctuation: teeth, examination, prescription, receipt.</p>
+            <p t-foreach="range(1, 13)" t-as="line"><span>Sample line</span> <t t-out="line"/>: <span>Verify Chinese glyphs and line wrapping.</span></p>
+            <p>End of synthetic sample.</p>
+        </div>
+    </template>
+    <template id="ydental_sample_a4" name="YDental A4 sample">
+        <html><head><meta charset="utf-8"/></head><body><main><t t-call="ydental_base.ydental_sample_content"/></main></body></html>
+    </template>
+    <template id="ydental_sample_narrow" name="YDental narrow paper sample">
+        <html><head><meta charset="utf-8"/></head><body><main><t t-call="ydental_base.ydental_sample_content"/></main></body></html>
+    </template>
+</odoo>

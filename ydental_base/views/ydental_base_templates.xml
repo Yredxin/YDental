@@ -1,13 +1,15 @@
 <odoo>
-    <template id="baseline_page" name="YDental baseline">
+    <template id="baseline_page" name="YDental entry">
         <t t-call="web.layout">
-            <t t-set="title">牙科 | YDental</t>
             <main class="container py-5 o_ydental_base_home">
-                <h1>牙科</h1>
-                <p>YDental 项目基线已就绪。</p>
-                <p>P00 提供统一应用入口。后续业务功能将在对应阶段验收后逐步开放。</p>
-                <p>当前页面不存储患者、员工或诊疗资料。</p>
-                <a href="/odoo" class="btn btn-primary">返回应用列表</a>
+                <h1>Dental</h1>
+                <p>Welcome to YDental.</p>
+                <p>Business features will become available after their respective stages are accepted.</p>
+                <p>This page does not store patient, employee or clinical information.</p>
+                <p>PDF samples contain synthetic data for rendering verification.</p>
+                <a href="/ydental/sample/a4" class="btn btn-secondary">Download A4 sample</a>
+                <a href="/ydental/sample/narrow" class="btn btn-secondary">Download narrow paper sample</a>
+                <a href="/odoo" class="btn btn-primary">Back to applications</a>
             </main>
         </t>
     </template>

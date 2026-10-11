@@ -1,0 +1,128 @@
+# Translation of YDental.
+msgid ""
+msgstr ""
+"Project-Id-Version: YDental 20.0\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: ydental_base
+#: model:ir.ui.menu,name:ydental_base.ydental_base_menu_root
+#: model:ir.actions.act_url,name:ydental_base.ydental_base_action
+#: model:ir.module.module,shortdesc:base.module_ydental_base
+#: model_terms:ir.ui.view,arch_db:ydental_base.baseline_page
+msgid "Dental"
+msgstr "牙科"
+
+#. module: ydental_base
+#: code:addons/ydental_base/controllers/baseline.py:0
+msgid "Dental | YDental"
+msgstr "牙科 | YDental"
+
+#. module: ydental_base
+#: model_terms:ir.ui.view,arch_db:ydental_base.baseline_page
+msgid "Welcome to YDental."
+msgstr "欢迎使用 YDental。"
+
+#. module: ydental_base
+#: model_terms:ir.ui.view,arch_db:ydental_base.baseline_page
+msgid "Business features will become available after their respective stages are accepted."
+msgstr "业务功能将在对应阶段验收后逐步开放。"
+
+#. module: ydental_base
+#: model_terms:ir.ui.view,arch_db:ydental_base.baseline_page
+msgid "This page does not store patient, employee or clinical information."
+msgstr "当前页面不存储患者、员工或诊疗资料。"
+
+#. module: ydental_base
+#: model_terms:ir.ui.view,arch_db:ydental_base.baseline_page
+msgid "PDF samples contain synthetic data for rendering verification."
+msgstr "PDF 样张仅包含用于渲染验证的合成数据。"
+
+#. module: ydental_base
+#: model_terms:ir.ui.view,arch_db:ydental_base.baseline_page
+msgid "Download A4 sample"
+msgstr "下载 A4 样张"
+
+#. module: ydental_base
+#: model_terms:ir.ui.view,arch_db:ydental_base.baseline_page
+msgid "Download narrow paper sample"
+msgstr "下载窄纸样张"
+
+#. module: ydental_base
+#: model_terms:ir.ui.view,arch_db:ydental_base.baseline_page
+msgid "Back to applications"
+msgstr "返回应用列表"
+
+#. module: ydental_base
+#: code:addons/ydental_base/controllers/baseline.py:0
+#: code:addons/ydental_base/models/ir_actions_report.py:0
+msgid "YDental application access is required."
+msgstr "需要牙科应用访问权限。"
+
+#. module: ydental_base
+#: model:res.groups,name:ydental_base.ydental_base_group_user
+msgid "YDental application access"
+msgstr "牙科应用访问权限"
+
+#. module: ydental_base
+#: model_terms:ir.ui.view,arch_db:ydental_base.ydental_sample_content
+msgid "Synthetic dental PDF sample"
+msgstr "牙科合成 PDF 样张"
+
+#. module: ydental_base
+#: model_terms:ir.ui.view,arch_db:ydental_base.ydental_sample_content
+msgid "Rendering verification only. No real patient information."
+msgstr "仅用于渲染验证，不含真实患者资料。"
+
+#. module: ydental_base
+#: model_terms:ir.ui.view,arch_db:ydental_base.ydental_sample_content
+msgid "Synthetic patient: Sample One"
+msgstr "虚拟患者：样例一"
+
+#. module: ydental_base
+#: model_terms:ir.ui.view,arch_db:ydental_base.ydental_sample_content
+msgid "Chinese multiline text and punctuation: teeth, examination, prescription, receipt."
+msgstr "中文多行与标点：牙齿、检查、处方、小票。"
+
+#. module: ydental_base
+#: model_terms:ir.ui.view,arch_db:ydental_base.ydental_sample_content
+msgid "Sample line"
+msgstr "样例行"
+
+#. module: ydental_base
+#: model_terms:ir.ui.view,arch_db:ydental_base.ydental_sample_content
+msgid "Verify Chinese glyphs and line wrapping."
+msgstr "核对中文字形与自动换行。"
+
+#. module: ydental_base
+#: model_terms:ir.ui.view,arch_db:ydental_base.ydental_sample_content
+msgid "End of synthetic sample."
+msgstr "合成样张结束。"
+
+#. module: ydental_base
+#: model:report.paperformat,name:ydental_base.ydental_sample_paper_a4
+msgid "YDental sample A4"
+msgstr "牙科 A4 样张纸张"
+
+#. module: ydental_base
+#: model:report.paperformat,name:ydental_base.ydental_sample_paper_narrow
+msgid "YDental sample narrow paper"
+msgstr "牙科窄纸样张纸张"
+
+#. module: ydental_base
+#: model:ir.actions.report,name:ydental_base.ydental_sample_report_a4
+msgid "YDental synthetic A4 sample"
+msgstr "牙科合成 A4 样张"
+
+#. module: ydental_base
+#: model:ir.actions.report,name:ydental_base.ydental_sample_report_narrow
+msgid "YDental synthetic narrow paper sample"
+msgstr "牙科合成窄纸样张"
+
+#. module: ydental_base
+#: model:ir.module.module,summary:base.module_ydental_base
+msgid "YDental application entry and synthetic PDF samples"
+msgstr "牙科应用入口与合成 PDF 样张"
