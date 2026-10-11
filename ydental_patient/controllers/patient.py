@@ -1,0 +1,152 @@
+import json
+import secrets
+
+from odoo import http
+from odoo.exceptions import AccessError, UserError, ValidationError
+from odoo.http import request
+
+
+class YDentalPatient(http.Controller):
+
+    def _service(self, revision=None):
+        access = request.env['ydental.access.service']
+        session = access._session_for_key(request.session.sid[:42])
+        return access._bind(session, revision).env['ydental.patient.service']
+
+    def _values(self, service):
+        access = service.env['ydental.access.service']
+        session = access._scope()
+        store = service._access()
+        member = access._membership(service.env.uid, store.id)
+        levels = access._levels(member)
+        return {'store': store, 'revision': session.ydental_revision, 'key': lambda: secrets.token_hex(16),
+                'can_admin': any(levels[c] == 'write' for c in ('patient', 'frontdesk')),
+                'can_care': any(levels[c] in ('read', 'write') for c in ('medical', 'exam')),
+                'can_medical_write': levels['medical'] == 'write', 'can_export': levels['export'] == 'write',
+                'is_group': access._is_group_manager(), 'status_labels': {
+                    'pending_configuration': service.env._('Policy text or approval needs completion'),
+                    'pending_verification': service.env._('Verify this store document requirements'),
+                }}
+
+    def _render(self, template, values):
+        return request.render(template, values, headers=[('Cache-Control', 'no-store')])
+
+    @http.route('/ydental/patients', type='http', auth='user', methods=['GET'])
+    def patients(self, q='', **kwargs):
+        service = self._service()
+        values = self._values(service)
+        merges = service.env['ydental.patient.merge'].search_fetch([], [
+            'name', 'state', 'ydental_version', 'ydental_conflicts', 'ydental_reason'], limit=50, order='id desc')
+        values.update(patients=service._search(q), q=q, merges=merges)
+        return self._render('ydental_patient.ydental_patient_list', values)
+
+    @http.route('/ydental/patients/<int:patient_id>', type='http', auth='user', methods=['GET'])
+    def patient(self, patient_id, **kwargs):
+        service = self._service()
+        values = self._values(service)
+        patient = service._patient(patient_id)
+        patient = service.env['ydental.patient'].browse(patient.id)
+        patient.read(['name', 'ydental_number'])
+        values.update(patient=patient, duplicates=service._duplicates(patient.id), prompts=service._prompts(patient.id),
+            relations=service.env['ydental.patient.relation'].search([
+                ('ydental_patient_id', '=', patient.id), ('ydental_superseded_by_id', '=', False)]),
+            contacts=service.env['ydental.patient.contact'].search([('ydental_patient_id', '=', patient.id)]),
+            numbers=service.env['ydental.patient.number'].search([('ydental_patient_id', '=', patient.id)]))
+        return self._render('ydental_patient.ydental_patient_detail', values)
+
+    @http.route('/ydental/patients/<int:patient_id>/clinical', type='http', auth='user', methods=['GET'])
+    def clinical(self, patient_id, purpose=None, **kwargs):
+        service = self._service()
+        access = service.env['ydental.access.service']._patient_care(patient_id, purpose)
+        service = access.env['ydental.patient.service']
+        values = self._values(service)
+        patient = service._patient(patient_id)
+        records = service.env['ydental.patient.clinical'].search_fetch([
+            ('ydental_patient_id', '=', patient.id)], ['name', 'ydental_store_id', 'ydental_allergies',
+            'ydental_prior_history', 'ydental_medication', 'ydental_identity_snapshot', 'ydental_version'])
+        values.update(patient=patient, clinical=records, purpose=purpose)
+        return self._render('ydental_patient.ydental_patient_clinical_page', values)
+
+    @http.route('/ydental/patients/<int:patient_id>/attachment/<int:attachment_id>',
+                type='http', auth='user', methods=['GET'])
+    def attachment(self, patient_id, attachment_id, purpose=None, **kwargs):
+        service = self._service()
+        access = service.env['ydental.access.service']._patient_care(patient_id, purpose)
+        attachment = access.env['ir.attachment'].browse(attachment_id)
+        attachment_meta = attachment.sudo()
+        if attachment_meta.res_model not in access._get_patient_care_sources():
+            raise AccessError(request.env._('access_denied: A typed patient clinical source is required.'))
+        source = access.env[attachment_meta.res_model].browse(attachment_meta.res_id)
+        source.check_access('read')
+        field_name = access._get_patient_care_sources()[attachment_meta.res_model]
+        if source[field_name].id != service._patient(patient_id).id:
+            raise AccessError(request.env._('access_denied: The attachment belongs to another patient scope.'))
+        attachment._can_return_content('raw')
+        response = access.env['ir.binary']._get_stream_from(attachment).get_response(as_attachment=True)
+        response.headers['Cache-Control'] = 'no-store'
+        return response
+
+    @http.route('/ydental/patients/action', type='http', auth='user', methods=['POST'], max_content_length=32768)
+    def action(self, operation, revision, key, payload=None, output=None, **form):
+        service = None
+        try:
+            service = self._service(int(revision))
+            args = json.loads(payload) if payload is not None else self._form_arguments(operation, form)
+            if not isinstance(args, dict):
+                raise ValidationError(request.env._('Action arguments must be an object.'))
+            with request.env.cr.savepoint():
+                if operation == 'export':
+                    if set(args) != {'patient_id'}:
+                        raise AccessError(request.env._('access_denied: Select one patient to export.'))
+                    service._access()
+                    patient = service._patient(args['patient_id'])
+                    result = service.env['ydental.patient'].browse(patient.id).export_data([
+                        'ydental_number', 'name', 'ydental_birth_date', 'ydental_sex', 'ydental_phone', 'ydental_email'])
+                else:
+                    result = service._operate(operation, args, key)
+        except (AccessError, UserError, TypeError, ValueError, KeyError) as error:
+            if service:
+                access = service.env['ydental.access.service']
+                access._denial('patient.action')
+            return request.make_json_response({'error': str(error)}, status=403 if isinstance(error, AccessError) else 409,
+                                              headers=[('Cache-Control', 'no-store')])
+        if output == 'json' or operation == 'export':
+            return request.make_json_response(result, headers=[('Cache-Control', 'no-store')])
+        if operation == 'create':
+            return request.redirect('/ydental/patients/%s' % result['id'])
+        if form.get('patient_id'):
+            return request.redirect('/ydental/patients/%s' % int(form['patient_id']))
+        return request.redirect('/ydental/patients')
+
+    def _form_arguments(self, operation, form):
+        if operation in ('create', 'edit'):
+            values = {key: form.get(key, '') for key in ('name', 'birth_date', 'birth_note', 'sex', 'phone', 'phone_region', 'email')}
+            result = {'values': values}
+            if operation == 'edit':
+                result.update(patient_id=int(form['patient_id']), version=int(form['version']))
+            return result
+        if operation in ('relation', 'export'):
+            return {'patient_id': int(form['patient_id'])}
+        if operation == 'arrival':
+            return {'patient_id': int(form['patient_id']), 'reason': form.get('reason', '')}
+        if operation == 'archive':
+            return {'patient_id': int(form['patient_id']), 'version': int(form['version']), 'reason': form['reason']}
+        if operation == 'contact':
+            return {'patient_id': int(form['patient_id']), 'name': form['name'], 'relation': form['relation'],
+                'relationship': form['relationship'], 'phone': form.get('phone', ''),
+                'phone_region': form.get('phone_region', ''), 'email': form.get('email', ''),
+                'verified': form.get('verified') == 'yes', 'verification_note': form.get('verification_note', '')}
+        if operation == 'clinical':
+            result = {'patient_id': int(form['patient_id']), 'values': {
+                key: form.get(key, '') for key in ('allergies', 'prior_history', 'medication')}}
+            if form.get('record_id'):
+                result.update(record_id=int(form['record_id']), version=int(form['version']))
+            return result
+        if operation == 'policy':
+            return {'name': form['name'], 'code': form['code'], 'body_reference': form.get('body_reference', ''),
+                    'approved': form.get('approved') == 'yes', 'required': True}
+        if operation == 'request_merge':
+            return {'source_id': int(form['patient_id']), 'target_id': int(form['target_id']), 'reason': form['reason']}
+        if operation in ('confirm', 'reject', 'refresh_merge'):
+            return {'request_id': int(form['request_id']), 'version': int(form['version']), 'reason': form['reason']}
+        raise AccessError(request.env._('access_denied: Unknown patient form action.'))

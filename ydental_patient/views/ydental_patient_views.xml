@@ -1,0 +1,9 @@
+<odoo>
+    <record id="ydental_patient_action" model="ir.actions.act_url">
+        <field name="name">Patients</field>
+        <field name="url">/ydental/patients</field>
+        <field name="target">self</field>
+    </record>
+    <menuitem id="ydental_patient_menu" name="Patients" parent="ydental_base.ydental_base_menu_root"
+              action="ydental_patient_action" sequence="40" groups="ydental_base.ydental_base_group_user"/>
+</odoo>

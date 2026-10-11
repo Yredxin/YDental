@@ -1,0 +1,11 @@
+<odoo noupdate="1">
+    <record id="ydental_patient_mutex" model="ydental.patient.mutex"/>
+    <record id="ydental_patient_sequence" model="ir.sequence">
+        <field name="name">YDental group patient number</field>
+        <field name="code">ydental.patient</field>
+        <field name="prefix">P</field>
+        <field name="padding">8</field>
+        <field name="company_id" eval="False"/>
+        <field name="implementation">standard</field>
+    </record>
+</odoo>

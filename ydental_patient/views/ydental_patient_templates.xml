@@ -1,0 +1,104 @@
+<odoo>
+    <template id="ydental_patient_shell" name="Patient workspace">
+        <t t-call="web.layout">
+            <t t-set="head"><title>YDental Patients</title></t>
+            <main class="container py-4 o_ydental_patient_workspace">
+                <nav class="d-flex gap-3 mb-3"><a href="/ydental">YDental</a><a href="/ydental/access">Store and permissions</a><a href="/ydental/patients">Patients</a></nav>
+                <h1>Patients</h1><p>Current store: <strong t-out="store.name"/></p>
+                <t t-out="0"/>
+            </main>
+        </t>
+    </template>
+    <template id="ydental_patient_form_scope" name="Patient form scope">
+        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+        <input type="hidden" name="revision" t-att-value="revision"/>
+        <input type="hidden" name="key" t-att-value="key()"/>
+    </template>
+    <template id="ydental_patient_admin_fields" name="Administrative patient fields">
+        <label class="d-block">Name <input name="name" required="required" maxlength="100" t-att-value="patient.name if patient else ''"/></label>
+        <label class="d-block">Birth date <input type="date" name="birth_date" t-att-value="patient.ydental_birth_date if patient else ''"/></label>
+        <label class="d-block">Birth information, if uncertain <input name="birth_note" maxlength="100" t-att-value="patient.ydental_birth_note if patient else ''"/></label>
+        <label class="d-block">Sex <select name="sex"><option t-foreach="[('unknown','Unknown'),('female','Female'),('male','Male'),('other','Other')]" t-as="sex" t-att-value="sex[0]" t-att-selected="patient and patient.ydental_sex == sex[0]" t-out="sex[1]"/></select></label>
+        <label class="d-block">Phone <input name="phone" maxlength="100" t-att-value="patient.ydental_phone if patient else ''"/></label>
+        <label class="d-block">Phone region, ISO code or unknown <input name="phone_region" maxlength="2" t-att-value="patient.ydental_phone_region if patient else ''"/></label>
+        <label class="d-block">Email <input type="email" name="email" maxlength="200" t-att-value="patient.ydental_email if patient else ''"/></label>
+    </template>
+    <template id="ydental_patient_list" name="Patient search and group merge review">
+        <t t-call="ydental_patient.ydental_patient_shell">
+            <form method="get" action="/ydental/patients" class="my-3"><label>Search name, patient number or contact <input name="q" t-att-value="q"/></label> <button class="btn btn-primary">Search</button></form>
+            <table id="patient-list" class="table"><thead><tr><th>Patient number</th><th>Name</th><th>Identity status</th></tr></thead><tbody>
+                <tr t-foreach="patients" t-as="p"><td><a t-att-href="'/ydental/patients/%s' % p.id" t-out="p.ydental_number"/></td><td t-out="p.name"/><td><t t-if="p.ydental_merged_into_id">Merged, open canonical patient</t><t t-elif="not p.active">Archived</t><t t-else="">Current</t></td></tr>
+            </tbody></table>
+            <details t-if="can_admin" id="create-patient"><summary>Create administrative patient identity</summary>
+                <form method="post" action="/ydental/patients/action" class="my-3"><t t-call="ydental_patient.ydental_patient_form_scope"/><input type="hidden" name="operation" value="create"/>
+                    <t t-set="patient" t-value="False"/><t t-call="ydental_patient.ydental_patient_admin_fields"/>
+                    <p>Creating a record does not record arrival or sign documents.</p><button class="btn btn-primary">Create patient</button>
+                </form>
+            </details>
+            <section id="merge-requests" class="my-4"><h2>Merge requests</h2>
+                <article t-foreach="merges" t-as="merge" class="border p-3 my-2"><strong t-out="merge.name"/> <span class="merge-state" t-out="dict(merge._fields['state']._description_selection(merge.env))[merge.state]"/>
+                    <p t-out="merge.ydental_reason"/>
+                    <p t-if="merge.ydental_conflicts">Active business conflicts require authorized handling before retry.</p>
+                    <t t-if="is_group and can_admin and merge.state in ('requested', 'blocked')">
+                        <form t-foreach="[('confirm','Confirm verified merge'),('refresh_merge','Refresh identity versions'),('reject','Reject with reason')]" t-as="decision" method="post" action="/ydental/patients/action" class="my-2">
+                            <t t-call="ydental_patient.ydental_patient_form_scope"/><input type="hidden" name="operation" t-att-value="decision[0]"/>
+                            <input type="hidden" name="request_id" t-att-value="merge.id"/><input type="hidden" name="version" t-att-value="merge.ydental_version"/>
+                            <label>Verification or decision reason <input name="reason" required="required" maxlength="300"/></label> <button t-out="decision[1]"/>
+                        </form>
+                    </t>
+                </article>
+            </section>
+            <details t-if="is_group and can_admin" id="store-policy"><summary>Store document policy</summary>
+                <form method="post" action="/ydental/patients/action"><t t-call="ydental_patient.ydental_patient_form_scope"/><input type="hidden" name="operation" value="policy"/>
+                    <label class="d-block">Policy code <input name="code" required="required"/></label><label class="d-block">Document name <input name="name" required="required"/></label>
+                    <label class="d-block">Approved text reference <input name="body_reference"/></label><label class="d-block">Group approval verified <input type="checkbox" name="approved" value="yes"/></label>
+                    <button>Save store policy</button>
+                </form>
+            </details>
+        </t>
+    </template>
+    <template id="ydental_patient_detail" name="Patient administrative record">
+        <t t-call="ydental_patient.ydental_patient_shell">
+            <h2 id="patient-identity"><span t-out="patient.ydental_number"/> <span t-out="patient.name"/></h2>
+            <p t-if="not patient.active" class="alert alert-warning">Archived identity</p>
+            <p>Content version: <span t-out="patient.ydental_version"/></p>
+            <p>Phone: <span t-out="patient.ydental_phone"/> <span t-if="patient.ydental_phone_status == 'review'" class="alert alert-warning">Manual phone verification required. No country code was guessed.</span></p>
+            <p>Email: <span t-out="patient.ydental_email"/></p>
+            <section id="duplicate-hints"><h3>Possible duplicates</h3><p>Hints only. Shared phone numbers do not authorize merging.</p><ul><li t-foreach="duplicates" t-as="duplicate"><a t-att-href="'/ydental/patients/%s' % duplicate['id']"><t t-out="duplicate['number']"/> <t t-out="duplicate['name']"/></a></li></ul></section>
+            <section id="document-prompts"><h3>This store document requirements</h3><ul><li t-foreach="prompts" t-as="prompt"><span t-out="prompt['name']"/>: <span t-out="status_labels.get(prompt['status'], prompt['status'])"/></li></ul><p>Other stores' documents do not establish signing at this store.</p></section>
+            <section id="store-relations"><h3>Store relationships and actual first arrival</h3><table class="table"><thead><tr><th>Store</th><th>First actual arrival, UTC</th><th>Local business date</th></tr></thead><tbody><tr t-foreach="relations" t-as="relation"><td t-out="relation.ydental_store_id.name"/><td><span t-if="relation.ydental_first_arrival" t-out="relation.ydental_first_arrival"/><span t-else="">Not yet recorded</span></td><td t-out="relation.ydental_first_business_date"/></tr></tbody></table>
+                <form t-if="can_admin and patient.active" t-foreach="[('relation','Establish this store relationship'),('arrival','Confirm actual arrival now')]" t-as="act" method="post" action="/ydental/patients/action" class="d-inline-block me-3">
+                    <t t-call="ydental_patient.ydental_patient_form_scope"/><input type="hidden" name="operation" t-att-value="act[0]"/><input type="hidden" name="patient_id" t-att-value="patient.id"/><button t-out="act[1]"/>
+                </form>
+            </section>
+            <section id="patient-contacts" class="my-4"><h3>Contacts and declared guardians</h3><ul><li t-foreach="contacts" t-as="contact"><span t-out="contact.name"/> / <span t-out="contact.ydental_relationship"/> / <span t-out="contact.ydental_phone"/> / <span t-if="contact.ydental_verified">Verification recorded</span><span t-else="">Pending verification</span></li></ul></section>
+            <section id="patient-numbers"><h3>Traceable patient numbers</h3><ul><li t-foreach="numbers" t-as="number" t-out="number.name"/></ul></section>
+            <form t-if="can_care" method="get" t-att-action="'/ydental/patients/%s/clinical' % patient.id" id="care-open" class="my-4"><label>Clinical purpose <select name="purpose"><option value="diagnosis">Diagnosis</option><option value="history_review">History review</option></select></label> <button>Open clinical background</button></form>
+            <form t-if="can_export" method="post" action="/ydental/patients/action" class="my-3"><t t-call="ydental_patient.ydental_patient_form_scope"/><input type="hidden" name="operation" value="export"/><input type="hidden" name="patient_id" t-att-value="patient.id"/><button>Export administrative fields</button></form>
+            <t t-if="can_admin and patient.active">
+                <details id="edit-patient" class="my-3"><summary>Edit administrative information</summary><form method="post" action="/ydental/patients/action"><t t-call="ydental_patient.ydental_patient_form_scope"/><input type="hidden" name="operation" value="edit"/><input type="hidden" name="patient_id" t-att-value="patient.id"/><input type="hidden" name="version" t-att-value="patient.ydental_version"/><t t-call="ydental_patient.ydental_patient_admin_fields"/><button>Save administrative information</button></form></details>
+                <details id="add-contact" class="my-3"><summary>Add contact or declared guardian</summary><form method="post" action="/ydental/patients/action"><t t-call="ydental_patient.ydental_patient_form_scope"/><input type="hidden" name="operation" value="contact"/><input type="hidden" name="patient_id" t-att-value="patient.id"/>
+                    <label class="d-block">Name <input name="name" required="required"/></label><label class="d-block">Contact role <select name="relation"><option value="contact">Contact</option><option value="guardian">Declared guardian</option><option value="emergency">Emergency contact</option></select></label>
+                    <label class="d-block">Relationship <input name="relationship" required="required"/></label><label class="d-block">Phone <input name="phone"/></label><label class="d-block">Phone region, ISO code or unknown <input name="phone_region" maxlength="2"/></label><label class="d-block">Email <input name="email" type="email"/></label>
+                    <label class="d-block">Verification recorded <input name="verified" type="checkbox" value="yes"/></label><label class="d-block">Verification basis <input name="verification_note" maxlength="300"/></label><button>Add contact</button>
+                </form></details>
+                <details id="request-merge" class="my-3"><summary>Request group identity merge</summary><form method="post" action="/ydental/patients/action"><t t-call="ydental_patient.ydental_patient_form_scope"/><input type="hidden" name="operation" value="request_merge"/><input type="hidden" name="patient_id" t-att-value="patient.id"/><label>Canonical patient ID <input type="number" name="target_id" min="1" required="required"/></label><label>Reason <input name="reason" maxlength="300" required="required"/></label><button>Submit for group verification</button></form></details>
+                <details id="archive-patient" class="my-3"><summary>Archive patient identity</summary><form method="post" action="/ydental/patients/action"><t t-call="ydental_patient.ydental_patient_form_scope"/><input type="hidden" name="operation" value="archive"/><input type="hidden" name="patient_id" t-att-value="patient.id"/><input type="hidden" name="version" t-att-value="patient.ydental_version"/><label>Reason <input name="reason" required="required"/></label><button>Archive patient</button></form></details>
+            </t>
+        </t>
+    </template>
+    <template id="ydental_patient_clinical_page" name="Authorized patient clinical background">
+        <t t-call="ydental_patient.ydental_patient_shell">
+            <h2><span t-out="patient.ydental_number"/> <span t-out="patient.name"/></h2><p>Clinical access is recorded for the selected patient and purpose.</p>
+            <section id="clinical-history"><article t-foreach="clinical" t-as="record" class="border p-3 my-3"><h3 t-out="record.ydental_store_id.name"/><p>Original identity: <span t-out="record.ydental_identity_snapshot.get('name')"/> / <span t-out="record.ydental_identity_snapshot.get('number')"/></p>
+                <dl><dt>Allergies</dt><dd t-out="record.ydental_allergies"/><dt>Prior history</dt><dd t-out="record.ydental_prior_history"/><dt>Medication</dt><dd t-out="record.ydental_medication"/></dl><p t-if="record.ydental_store_id != store">Cross-store clinical history is read only.</p>
+                <details t-if="can_medical_write and record.ydental_store_id == store"><summary>Update this store background</summary><form method="post" action="/ydental/patients/action"><t t-call="ydental_patient.ydental_patient_form_scope"/><input type="hidden" name="operation" value="clinical"/><input type="hidden" name="patient_id" t-att-value="patient.id"/><input type="hidden" name="record_id" t-att-value="record.id"/><input type="hidden" name="version" t-att-value="record.ydental_version"/>
+                    <label class="d-block">Allergies <textarea name="allergies" t-out="record.ydental_allergies"/></label><label class="d-block">Prior history <textarea name="prior_history" t-out="record.ydental_prior_history"/></label><label class="d-block">Medication <textarea name="medication" t-out="record.ydental_medication"/></label><button>Save this store background</button>
+                </form></details>
+            </article></section>
+            <details t-if="can_medical_write and patient.active" id="add-clinical"><summary>Add this store safety background</summary><form method="post" action="/ydental/patients/action"><t t-call="ydental_patient.ydental_patient_form_scope"/><input type="hidden" name="operation" value="clinical"/><input type="hidden" name="patient_id" t-att-value="patient.id"/>
+                <label class="d-block">Allergies <textarea name="allergies" maxlength="4000"/></label><label class="d-block">Prior history <textarea name="prior_history" maxlength="4000"/></label><label class="d-block">Medication <textarea name="medication" maxlength="4000"/></label><button>Save clinical background</button>
+            </form></details>
+        </t>
+    </template>
+</odoo>
