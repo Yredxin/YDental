@@ -9,29 +9,29 @@ msgstr ""
 "POT-Creation-Date: 2026-10-11 12:46+0000\n"
 "PO-Revision-Date: 2026-10-11 12:46+0000\n"
 "Last-Translator: \n"
-"Language: zh_CN\n"
 "Language-Team: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.10.3\n"
 
 #. module: ydental_space
 #. odoo-python
-#: code:addons/ydental_space/models/ydental_space_area.py
+#: code:addons/ydental_space/models/ydental_space_area.py:0
 msgid "A polygon needs 3 to 100 finite coordinate pairs."
 msgstr "多边形需要3至100组有限坐标。"
 
 #. module: ydental_space
 #. odoo-python
-#: code:addons/ydental_space/models/ydental_space_floor.py
+#: code:addons/ydental_space/models/ydental_space_floor.py:0
 msgid "A space floor needs finite positive dimensions."
 msgstr "楼层尺寸必须是有限正数。"
 
 #. module: ydental_space
 #. odoo-python
-#: code:addons/ydental_space/models/ydental_space_station.py
+#: code:addons/ydental_space/models/ydental_space_station.py:0
 msgid "A workstation must belong to one store and floor."
 msgstr "工位必须属于同一门店和楼层。"
 
@@ -45,19 +45,19 @@ msgstr "手动增加能力"
 
 #. module: ydental_space
 #. odoo-python
-#: code:addons/ydental_space/models/ydental_space_area.py
+#: code:addons/ydental_space/models/ydental_space_area.py:0
 msgid "Archive child areas and workstations first."
 msgstr "请先归档子区域和工位。"
 
 #. module: ydental_space
 #. odoo-python
-#: code:addons/ydental_space/models/ydental_space_floor.py
+#: code:addons/ydental_space/models/ydental_space_floor.py:0
 msgid "Archive floor contents first."
 msgstr "请先归档楼层内的区域、工位和图形。"
 
 #. module: ydental_space
 #. odoo-python
-#: code:addons/ydental_space/models/ydental_space_version.py
+#: code:addons/ydental_space/models/ydental_space_version.py:0
 msgid "Archive space configuration to preserve stable references."
 msgstr "请归档空间配置，以保留稳定引用。"
 
@@ -67,13 +67,13 @@ msgstr "区域"
 
 #. module: ydental_space
 #. odoo-python
-#: code:addons/ydental_space/models/ydental_space_area.py
+#: code:addons/ydental_space/models/ydental_space_area.py:0
 msgid "Area and floor must belong to the same store."
 msgstr "区域和楼层必须属于同一门店。"
 
 #. module: ydental_space
 #. odoo-python
-#: code:addons/ydental_space/models/ydental_space_area.py
+#: code:addons/ydental_space/models/ydental_space_area.py:0
 msgid "Area parents must form an acyclic tree on one floor."
 msgstr "父子区域必须在同一楼层，且不能循环嵌套。"
 
@@ -95,13 +95,13 @@ msgstr "楼层资源图形摆放"
 
 #. module: ydental_space
 #. odoo-python
-#: code:addons/ydental_space/models/ydental_space_item.py
+#: code:addons/ydental_space/models/ydental_space_item.py:0
 msgid "Artwork, workstation and floor must have compatible ownership."
 msgstr "资源图形、工位和楼层的归属必须一致。"
 
 #. module: ydental_space
 #. odoo-python
-#: code:addons/ydental_space/models/ydental_space_floor.py
+#: code:addons/ydental_space/models/ydental_space_floor.py:0
 msgid "At most 500 geometry changes are allowed."
 msgstr "一次最多保存500项几何变更。"
 
@@ -119,13 +119,13 @@ msgstr "能力"
 
 #. module: ydental_space
 #. odoo-javascript
-#: code:addons/ydental_space/static/src/plan/plan.xml
+#: code:addons/ydental_space/static/src/plan/plan.xml:0
 msgid "Capabilities:"
 msgstr "能力:"
 
 #. module: ydental_space
 #. odoo-python
-#: code:addons/ydental_space/models/geometry.py
+#: code:addons/ydental_space/models/geometry.py:0
 msgid "Capability identifiers must be integers."
 msgstr "能力标识必须为整数。"
 
@@ -139,7 +139,7 @@ msgstr "诊所楼层"
 
 #. module: ydental_space
 #. odoo-javascript
-#: code:addons/ydental_space/static/src/plan/plan.xml
+#: code:addons/ydental_space/static/src/plan/plan.xml:0
 msgid "Clinic floor plan"
 msgstr "诊所平面图"
 
@@ -153,8 +153,9 @@ msgstr "诊所空间"
 
 #. module: ydental_space
 #. odoo-javascript
-#: code:addons/ydental_space/static/src/plan/plan.xml
-msgid "Configure areas and equipment. Runtime status will be connected in S06."
+#: code:addons/ydental_space/static/src/plan/plan.xml:0
+msgid ""
+"Configure areas and equipment. Runtime status will be connected in S06."
 msgstr "配置区域和设备。实际坐诊状态将在S06接入。"
 
 #. module: ydental_space
@@ -167,7 +168,7 @@ msgstr "受控公共或门店私有资源图形"
 
 #. module: ydental_space
 #. odoo-javascript
-#: code:addons/ydental_space/static/src/plan/plan.xml
+#: code:addons/ydental_space/static/src/plan/plan.xml:0
 msgid "Create a floor to begin."
 msgstr "请先创建楼层。"
 
@@ -185,7 +186,7 @@ msgstr "牙椅"
 
 #. module: ydental_space
 #. odoo-javascript
-#: code:addons/ydental_space/static/src/plan/plan.xml
+#: code:addons/ydental_space/static/src/plan/plan.xml:0
 msgid "Direction"
 msgstr "方向"
 
@@ -199,27 +200,27 @@ msgstr "门"
 
 #. module: ydental_space
 #. odoo-javascript
-#: code:addons/ydental_space/static/src/plan/plan.xml
+#: code:addons/ydental_space/static/src/plan/plan.xml:0
 msgid ""
-"Drag equipment into a selected area. Select an existing workstation to "
-"add another resource."
+"Drag equipment into a selected area. Select an existing workstation to add "
+"another resource."
 msgstr "将设备拖入选中的区域。选中已有工位可为其增加资源。"
 
 #. module: ydental_space
 #. odoo-javascript
-#: code:addons/ydental_space/static/src/plan/plan.xml
+#: code:addons/ydental_space/static/src/plan/plan.xml:0
 msgid "Draw polygon"
 msgstr "绘制多边形"
 
 #. module: ydental_space
 #. odoo-javascript
-#: code:addons/ydental_space/static/src/plan/plan.xml
+#: code:addons/ydental_space/static/src/plan/plan.xml:0
 msgid "Draw rectangle"
 msgstr "绘制矩形"
 
 #. module: ydental_space
 #. odoo-javascript
-#: code:addons/ydental_space/static/src/plan/plan.xml
+#: code:addons/ydental_space/static/src/plan/plan.xml:0
 msgid "Drawing tool"
 msgstr "绘图工具"
 
@@ -238,20 +239,20 @@ msgstr "检查"
 #. module: ydental_space
 #. odoo-javascript
 #. odoo-python
-#: code:addons/ydental_space/models/ydental_space_station.py
-#: code:addons/ydental_space/static/src/plan/plan.xml
+#: code:addons/ydental_space/models/ydental_space_station.py:0
+#: code:addons/ydental_space/static/src/plan/plan.xml:0
 msgid "Execution status not connected"
 msgstr "尚未接入坐诊状态"
 
 #. module: ydental_space
 #. odoo-javascript
-#: code:addons/ydental_space/static/src/plan/plan.xml
+#: code:addons/ydental_space/static/src/plan/plan.xml:0
 msgid "Finish polygon"
 msgstr "完成多边形"
 
 #. module: ydental_space
 #. odoo-javascript
-#: code:addons/ydental_space/static/src/plan/plan.xml
+#: code:addons/ydental_space/static/src/plan/plan.xml:0
 msgid "Floor"
 msgstr "楼层"
 
@@ -261,7 +262,7 @@ msgstr "平面图"
 
 #. module: ydental_space
 #. odoo-javascript
-#: code:addons/ydental_space/static/src/plan/plan.js
+#: code:addons/ydental_space/static/src/plan/plan.js:0
 msgid "Floor saved."
 msgstr "楼层已保存。"
 
@@ -275,13 +276,13 @@ msgstr "楼层、报到区域、稳定工位及安全资源图形"
 
 #. module: ydental_space
 #. odoo-python
-#: code:addons/ydental_space/models/geometry.py
+#: code:addons/ydental_space/models/geometry.py:0
 msgid "Geometry must use finite, bounded coordinates."
 msgstr "几何坐标必须是有限值且在允许范围内。"
 
 #. module: ydental_space
 #. odoo-javascript
-#: code:addons/ydental_space/static/src/plan/plan.xml
+#: code:addons/ydental_space/static/src/plan/plan.xml:0
 msgid "Height"
 msgstr "高度"
 
@@ -295,13 +296,13 @@ msgstr "影像设备"
 
 #. module: ydental_space
 #. odoo-python
-#: code:addons/ydental_space/models/ydental_space_resource.py
+#: code:addons/ydental_space/models/ydental_space_resource.py:0
 msgid "Invalid SVG upload payload."
 msgstr "SVG上传数据格式无效。"
 
 #. module: ydental_space
 #. odoo-python
-#: code:addons/ydental_space/models/ydental_space_floor.py
+#: code:addons/ydental_space/models/ydental_space_floor.py:0
 msgid "Invalid geometry change."
 msgstr "几何变更格式无效。"
 
@@ -319,7 +320,7 @@ msgstr "过号参数"
 
 #. module: ydental_space
 #. odoo-python
-#: code:addons/ydental_space/models/ydental_space_area.py
+#: code:addons/ydental_space/models/ydental_space_area.py:0
 msgid "Missed calls parameter cannot be negative."
 msgstr "过号参数不能为负数。"
 
@@ -329,19 +330,19 @@ msgstr "名称"
 
 #. module: ydental_space
 #. odoo-javascript
-#: code:addons/ydental_space/static/src/plan/plan.xml
+#: code:addons/ydental_space/static/src/plan/plan.xml:0
 msgid "Name, area and capabilities"
 msgstr "名称、区域和能力"
 
 #. module: ydental_space
 #. odoo-javascript
-#: code:addons/ydental_space/static/src/plan/plan.js
+#: code:addons/ydental_space/static/src/plan/plan.js:0
 msgid "New area"
 msgstr "新区域"
 
 #. module: ydental_space
 #. odoo-javascript
-#: code:addons/ydental_space/static/src/plan/plan.xml
+#: code:addons/ydental_space/static/src/plan/plan.xml:0
 msgid "New floor"
 msgstr "新建楼层"
 
@@ -351,7 +352,7 @@ msgstr "生产值须在S06正式发布后批准。"
 
 #. module: ydental_space
 #. odoo-python
-#: code:addons/ydental_space/models/ydental_space_floor.py
+#: code:addons/ydental_space/models/ydental_space_floor.py:0
 msgid "Only geometry can be saved through the plan."
 msgstr "平面图入口只能保存几何属性。"
 
@@ -393,7 +394,7 @@ msgstr "多边形顶点"
 
 #. module: ydental_space
 #. odoo-python
-#: code:addons/ydental_space/models/ydental_space_floor.py
+#: code:addons/ydental_space/models/ydental_space_floor.py:0
 msgid "Polygon points belong to areas."
 msgstr "只有区域支持多边形顶点。"
 
@@ -403,7 +404,7 @@ msgstr "叫号显示前缀"
 
 #. module: ydental_space
 #. odoo-javascript
-#: code:addons/ydental_space/static/src/plan/plan.xml
+#: code:addons/ydental_space/static/src/plan/plan.xml:0
 msgid "Read only"
 msgstr "只读"
 
@@ -413,7 +414,7 @@ msgstr "矩形"
 
 #. module: ydental_space
 #. odoo-javascript
-#: code:addons/ydental_space/static/src/plan/plan.xml
+#: code:addons/ydental_space/static/src/plan/plan.xml:0
 msgid "Reload"
 msgstr "重新加载"
 
@@ -431,7 +432,7 @@ msgstr "资源图形"
 
 #. module: ydental_space
 #. odoo-javascript
-#: code:addons/ydental_space/static/src/plan/plan.xml
+#: code:addons/ydental_space/static/src/plan/plan.xml:0
 msgid "Resource library"
 msgstr "资源库"
 
@@ -441,55 +442,55 @@ msgstr "安全SVG内容"
 
 #. module: ydental_space
 #. odoo-javascript
-#: code:addons/ydental_space/static/src/plan/plan.xml
+#: code:addons/ydental_space/static/src/plan/plan.xml:0
 msgid "Save layout"
 msgstr "保存布局"
 
 #. module: ydental_space
 #. odoo-javascript
-#: code:addons/ydental_space/static/src/plan/plan.js
+#: code:addons/ydental_space/static/src/plan/plan.js:0
 msgid "Save or reload the current floor before switching."
 msgstr "切换前请先保存或重新加载当前楼层。"
 
 #. module: ydental_space
 #. odoo-python
-#: code:addons/ydental_space/models/ydental_space_station.py
+#: code:addons/ydental_space/models/ydental_space_station.py:0
 msgid "Select an active floor and area."
 msgstr "请选择有效的楼层和区域。"
 
 #. module: ydental_space
 #. odoo-python
-#: code:addons/ydental_space/models/ydental_space_item.py
+#: code:addons/ydental_space/models/ydental_space_item.py:0
 msgid "Select an active floor and artwork."
 msgstr "请选择有效的楼层和资源图形。"
 
 #. module: ydental_space
 #. odoo-python
-#: code:addons/ydental_space/models/ydental_space_area.py
+#: code:addons/ydental_space/models/ydental_space_area.py:0
 msgid "Select an active floor and parent area."
 msgstr "请选择有效的楼层和父区域。"
 
 #. module: ydental_space
 #. odoo-javascript
-#: code:addons/ydental_space/static/src/plan/plan.js
+#: code:addons/ydental_space/static/src/plan/plan.js:0
 msgid "Select an area or workstation before placing equipment."
 msgstr "摆放设备前请先选中区域或工位。"
 
 #. module: ydental_space
 #. odoo-javascript
-#: code:addons/ydental_space/static/src/plan/plan.xml
+#: code:addons/ydental_space/static/src/plan/plan.xml:0
 msgid "Select and move"
 msgstr "选择和移动"
 
 #. module: ydental_space
 #. odoo-javascript
-#: code:addons/ydental_space/static/src/plan/plan.js
+#: code:addons/ydental_space/static/src/plan/plan.js:0
 msgid "Select at least three polygon corners."
 msgstr "请至少选择三个多边形顶点。"
 
 #. module: ydental_space
 #. odoo-python
-#: code:addons/ydental_space/models/geometry.py
+#: code:addons/ydental_space/models/geometry.py:0
 msgid "Select existing capabilities; nested editing is forbidden."
 msgstr "请选择已有能力，禁止通过关联字段修改能力字典。"
 
@@ -507,7 +508,7 @@ msgstr "收费台"
 
 #. module: ydental_space
 #. odoo-python
-#: code:addons/ydental_space/models/ydental_space_station.py
+#: code:addons/ydental_space/models/ydental_space_station.py:0
 msgid "Settlement workstations do not call patients."
 msgstr "收费工位不叫号。"
 
@@ -517,7 +518,7 @@ msgstr "空间"
 
 #. module: ydental_space
 #. odoo-javascript
-#: code:addons/ydental_space/static/src/plan/plan.xml
+#: code:addons/ydental_space/static/src/plan/plan.xml:0
 msgid "Stable ID:"
 msgstr "稳定ID:"
 
@@ -535,13 +536,13 @@ msgstr "门店"
 
 #. module: ydental_space
 #. odoo-python
-#: code:addons/ydental_space/models/ydental_space_floor.py
+#: code:addons/ydental_space/models/ydental_space_floor.py:0
 msgid "The object belongs to another floor."
 msgstr "此对象属于其他楼层。"
 
 #. module: ydental_space
 #. odoo-python
-#: code:addons/ydental_space/models/ydental_space_area.py
+#: code:addons/ydental_space/models/ydental_space_area.py:0
 msgid "This display-only area cannot accept reporting."
 msgstr "此展示用途区域不能接受报到。"
 
@@ -555,14 +556,15 @@ msgstr "诊疗"
 
 #. module: ydental_space
 #. odoo-python
-#: code:addons/ydental_space/models/geometry.py
+#: code:addons/ydental_space/models/geometry.py:0
 msgid "Unknown capability."
 msgstr "能力不存在。"
 
 #. module: ydental_space
 #. odoo-python
-#: code:addons/ydental_space/models/ydental_space_resource.py
-msgid "Unsafe SVG: use bounded basic shapes with a viewBox and finite dimensions."
+#: code:addons/ydental_space/models/ydental_space_resource.py:0
+msgid ""
+"Unsafe SVG: use bounded basic shapes with a viewBox and finite dimensions."
 msgstr "SVG不安全。请使用基本图形、viewBox及有限尺寸，并遵守上传上限。"
 
 #. module: ydental_space
@@ -587,13 +589,13 @@ msgstr "墙"
 
 #. module: ydental_space
 #. odoo-javascript
-#: code:addons/ydental_space/static/src/plan/plan.xml
+#: code:addons/ydental_space/static/src/plan/plan.xml:0
 msgid "Width"
 msgstr "宽度"
 
 #. module: ydental_space
 #. odoo-python
-#: code:addons/ydental_space/models/geometry.py
+#: code:addons/ydental_space/models/geometry.py:0
 msgid "Width and height must be positive."
 msgstr "宽度和高度必须为正数。"
 
@@ -627,49 +629,48 @@ msgstr "YDental可信授权与人员生命周期服务"
 
 #. module: ydental_space
 #. odoo-javascript
-#: code:addons/ydental_space/static/src/plan/plan.xml
+#: code:addons/ydental_space/static/src/plan/plan.xml:0
 msgid "Zoom"
 msgstr "缩放"
 
 #. module: ydental_space
 #. odoo-python
-#: code:addons/ydental_space/models/ydental_space_resource.py
+#: code:addons/ydental_space/models/ydental_space_resource.py:0
 msgid "access_denied: Artwork is outside the authorized space scope."
 msgstr "access_denied: 此资源图形不在获授权的空间范围内。"
 
 #. module: ydental_space
 #. odoo-python
-#: code:addons/ydental_space/models/ydental_space_resource.py
+#: code:addons/ydental_space/models/ydental_space_resource.py:0
 msgid "access_denied: Common artwork requires group administration."
 msgstr "access_denied: 公共资源图形需集团维护权限。"
 
 #. module: ydental_space
 #. odoo-python
-#: code:addons/ydental_space/models/ydental_space_version.py
+#: code:addons/ydental_space/models/ydental_space_version.py:0
 msgid "access_denied: Space configuration requires space authorization."
 msgstr "access_denied: 空间配置需要空间业务授权。"
 
 #. module: ydental_space
 #. odoo-python
-#: code:addons/ydental_space/models/ydental_space_version.py
+#: code:addons/ydental_space/models/ydental_space_version.py:0
 msgid "access_denied: Space ownership is immutable."
 msgstr "access_denied: 空间归属不能直接更改。"
 
 #. module: ydental_space
 #. odoo-python
-#: code:addons/ydental_space/models/ydental_space_version.py
+#: code:addons/ydental_space/models/ydental_space_version.py:0
 msgid "version_conflict: Configuration changed. Reload before saving."
 msgstr "version_conflict: 配置已变更，请重新加载后保存。"
 
 #. module: ydental_space
 #. odoo-python
-#: code:addons/ydental_space/models/ydental_space_version.py
+#: code:addons/ydental_space/models/ydental_space_version.py:0
 msgid "version_conflict: New configuration starts at version one."
 msgstr "version_conflict: 新配置的初始版本必须为1。"
 
 #. module: ydental_space
 #. odoo-python
-#: code:addons/ydental_space/models/ydental_space_floor.py
+#: code:addons/ydental_space/models/ydental_space_floor.py:0
 msgid "version_conflict: The floor changed. Reload before saving."
 msgstr "version_conflict: 楼层已变更，请重新加载后保存。"
-
