@@ -182,9 +182,8 @@ msgstr "诊所空间"
 #. module: ydental_space
 #. odoo-javascript
 #: code:addons/ydental_space/static/src/plan/plan.xml:0
-msgid ""
-"Configure areas and equipment. Runtime status will be connected in S06."
-msgstr "配置区域和设备。实际坐诊状态将在S06接入。"
+msgid "Configure areas and equipment. Runtime status is not connected yet."
+msgstr "配置区域和设备。实际坐诊状态尚未接入。"
 
 #. module: ydental_space
 #: model:ir.model.fields,field_description:ydental_space.field_ydental_space_area__ydental_version
@@ -448,8 +447,8 @@ msgstr "新建楼层"
 
 #. module: ydental_space
 #: model:ir.model.fields,help:ydental_space.field_ydental_space_area__ydental_missed_limit
-msgid "Not approved for production until S06 publication."
-msgstr "生产值须在S06正式发布后批准。"
+msgid "Not approved for production."
+msgstr "尚未批准用于生产。"
 
 #. module: ydental_space
 #. odoo-python

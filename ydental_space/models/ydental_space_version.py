@@ -1,3 +1,5 @@
+import hashlib
+
 from odoo import api, fields, models
 from odoo.exceptions import AccessError, UserError
 from odoo.tools import SQL
@@ -103,7 +105,8 @@ class YDentalSpaceVersion(models.AbstractModel):
         self.ensure_one()
         values = {'name': self.name, 'active': self.active, 'version': self.ydental_version}
         for key in ('ydental_x', 'ydental_y', 'ydental_width', 'ydental_height', 'ydental_angle',
-                    'ydental_reporting', 'ydental_callable', 'ydental_enabled', 'ydental_points'):
+                    'ydental_reporting', 'ydental_callable', 'ydental_enabled', 'ydental_points',
+                    'ydental_prefix', 'ydental_missed_limit', 'ydental_purpose', 'ydental_shape', 'ydental_kind'):
             if key in self._fields:
                 values[key] = self[key]
         for key in ('parent_id', 'ydental_area_id', 'ydental_floor_id', 'ydental_resource_id',
@@ -111,6 +114,8 @@ class YDentalSpaceVersion(models.AbstractModel):
                     'ydental_remove_capability_ids'):
             if key in self._fields:
                 values[key] = self[key].ids
+        if 'ydental_svg' in self._fields:
+            values['svg_sha256'] = hashlib.sha256(self.ydental_svg.encode('utf-8')).hexdigest()
         return values
 
     def _space_audit(self, event, before=None):

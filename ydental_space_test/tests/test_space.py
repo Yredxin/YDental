@@ -138,6 +138,14 @@ class TestSpace(BaseCommon):
         self.station.sudo().write({'ydental_test_in_use': False, 'ydental_version': self.station.ydental_version})
         self.child.write({'ydental_reporting': True, 'ydental_version': self.child.ydental_version})
         self.assertEqual(self.station.ydental_queue_area_id, self.child)
+        self.child.write({'ydental_prefix': 'SYN', 'ydental_missed_limit': 3,
+                          'ydental_version': self.child.ydental_version})
+        event = self.root['ydental.access.audit'].search([
+            ('ydental_target_model', '=', self.child._name), ('ydental_target_id', '=', self.child.id),
+            ('ydental_event', '=', 'space.modify')], order='id desc', limit=1)
+        self.assertEqual(event.ydental_before['ydental_missed_limit'], 0)
+        self.assertEqual(event.ydental_after['ydental_prefix'], 'SYN')
+        self.assertEqual(event.ydental_after['ydental_missed_limit'], 3)
         with self.assertRaises(ValidationError), self.cr.savepoint():
             self.area.write({'parent_id': self.child.id, 'ydental_version': self.area.ydental_version})
 
@@ -172,7 +180,6 @@ class TestSpace(BaseCommon):
         for invalid in (float('nan'), float('inf'), 100001):
             with self.assertRaises(ValidationError), self.cr.savepoint():
                 polygon.write({'ydental_x': invalid, 'ydental_version': polygon.ydental_version})
-
 
     def test_binary_upload_is_sanitized_and_bounded(self):
         self.resource.write({'ydental_upload': {'filename': 'synthetic.svg', 'content': base64.b64encode(SVG.encode()).decode()},

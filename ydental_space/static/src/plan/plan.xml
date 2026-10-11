@@ -19,7 +19,7 @@
             <div t-else="" class="o_ydental_space_content">
                 <aside class="o_ydental_space_sidebar">
                     <p>Execution status not connected</p>
-                    <p>Configure areas and equipment. Runtime status will be connected in S06.</p>
+                    <p>Configure areas and equipment. Runtime status is not connected yet.</p>
                     <select aria-label="Drawing tool" t-att-disabled="!this.state.data.writable || this.state.busy" t-att-value="this.state.mode" t-on-change="(event) =&gt; { this.state.mode = event.target.value; }">
                         <option value="select">Select and move</option><option value="rect">Draw rectangle</option><option value="polygon">Draw polygon</option>
                     </select>

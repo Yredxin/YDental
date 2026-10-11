@@ -24,7 +24,7 @@ class YDentalSpaceArea(models.Model):
     ], default='care', required=True, string='Area purpose')
     ydental_reporting = fields.Boolean(string='Separate reporting queue')
     ydental_prefix = fields.Char(string='Queue display prefix')
-    ydental_missed_limit = fields.Integer(string='Missed calls parameter', help='Not approved for production until S06 publication.')
+    ydental_missed_limit = fields.Integer(string='Missed calls parameter', help='Not approved for production.')
     ydental_queue_area_id = fields.Many2one('ydental.space.area', compute='_compute_queue_area', recursive=True, string='Reporting area')
     ydental_capability_ids = fields.Many2many('ydental.access.capability', compute='_compute_capabilities', recursive=True, string='Capabilities')
     ydental_shape = fields.Selection([('rect', 'Rectangle'), ('polygon', 'Polygon')], default='rect', required=True, string='Area shape')
