@@ -6,6 +6,9 @@ from .common import SVG, bound, setup_space
 
 
 class TestSpace(BaseCommon):
+    # Every authorization assertion uses an explicitly bound independent role.
+    # Keep BaseCommon from rebinding those recordsets to its unrelated default user.
+    _test_user_groups = ()
 
     @classmethod
     def setUpClass(cls):
@@ -117,7 +120,7 @@ class TestSpace(BaseCommon):
     def test_t08_installed_dependencies_and_schema(self):
         module = self.root['ir.module.module'].search([('name', '=', 'ydental_space')])
         self.assertIn(module.state, ('installed', 'to upgrade', 'to install'))
-        self.assertEqual(set(module.dependencies_id.name), {'ydental_access', 'web'})
+        self.assertEqual(set(module.dependencies_id.mapped('name')), {'ydental_access', 'web'})
         self.assertEqual(self.floor.ydental_category, 'space')
         self.assertTrue(self.root.ref('ydental_space.ydental_space_resource_door'))
 
