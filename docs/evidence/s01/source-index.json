@@ -1,0 +1,40 @@
+{
+  "read_utc": "2026-10-11T10:40:38.260746+00:00",
+  "requirements": [
+    {
+      "number": 23,
+      "url": "https://github.com/Yredxin/YDental/issues/23",
+      "state": "open",
+      "body_sha256": "36b3744d1087b38df6970dc584f396bd9c6d3bc66de8229c61f181688353f100",
+      "updated_at": "2026-10-11T06:03:40Z"
+    },
+    {
+      "number": 25,
+      "url": "https://github.com/Yredxin/YDental/issues/25",
+      "state": "open",
+      "body_sha256": "18d89962eec1648dfddb8cf133473b98b8424acc4fe77203544c39060a68f1ce",
+      "updated_at": "2026-10-11T09:32:17Z"
+    }
+  ],
+  "s01_all_comments": [
+    {
+      "id": 6107613041,
+      "url": "https://github.com/Yredxin/YDental/issues/25#issuecomment-6107613041",
+      "updated_at": "2026-10-11T09:32:17Z",
+      "body_sha256": "73aa6146f680419ea1ea8c802847719c1c339b70fdeaac984d6cbd1fd318e021",
+      "classification": "CODEX engineering preflight; not a new business rule"
+    }
+  ],
+  "s00_final": {
+    "id": 6107583497,
+    "url": "https://github.com/Yredxin/YDental/issues/24#issuecomment-6107583497",
+    "updated_at": "2026-10-11T09:27:50Z",
+    "body_sha256": "a6a5eb7e6576ce6f0a9717d36e9e9dd3b2956dd4d2a133c1f19b9675638e79fe"
+  },
+  "user_activation": "Current fresh session explicitly enables S01 after preflight comment/readback; no S02",
+  "preflight_readback_confirmed_before_implementation": true,
+  "excluded_sources": [
+    "revoked plans",
+    "prior Codex chat as requirements"
+  ]
+}

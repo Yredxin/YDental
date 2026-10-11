@@ -1,0 +1,10 @@
+{
+  "module": "ydental_access",
+  "language": "zh_CN",
+  "terms": 198,
+  "missing": [],
+  "translation_sha256": "f5032dd38d89568d4d33fe758b5bebff853b828a3fb75e2842f8784e565ef133",
+  "source_commit": "abf7b243b12a3717ee63cab4247ae5d5a7d5c43f",
+  "result": "PASS",
+  "native_references_checked": "Every current POT reference for each msgid present in PO; preserves native code :0 references"
+}

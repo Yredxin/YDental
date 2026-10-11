@@ -82,7 +82,7 @@
 |修改模板|集团模型 cru|仅模板本体变化；template.create/modify；已展开授权不变|
 |店长任免|manager POST；独立集团身份、目标公司在允许公司内且已配置政策|manager.appointment；从未发布状态拒绝；配置 group_with_replacement 时最后在职店长及集团/系统管理员离职均需先有接替者；模板不能任免|
 |安全参数配置|policy POST；独立技术组；明确数值+页面确认|security.policy；只允许指定政策、密码长度、闲置及 MFA 设置；不接受任意配置 key；不自动发布建议值|
-|邀请/重置受理|invite POST；人员管理；特权账号需技术组|原生邀请服务、account.invitation；只证明受理，delivery=not_verified；不返回 token 或宣称送达|
+|邀请/重置受理|invite POST；人员管理；特权账号需技术组|原生调用成功才返回受理及 account.invitation，delivery=not_verified；本批未执行真实邀请受理/送达；不返回 token 或宣称送达|
 |源查看/修改/导出|模型与源 ACL、server Binding、门店/用途/级别|source.view/modify/export；修改只审计字段名而非正文；原生导出还校验源 read；跨店人工写受 S06 权威租约 hook 阻止|
 |附件/报告|原生路径及受控附件路径；源 read|source.download/report_render；公开标记或 attachment token 不能绕过；PDF 缓存前也检查；生成不等于实体出纸|
 |审计查询|职责内受控投影|普通账号无直接 read/write/unlink；业务日志 metadata 同样核对真实源权限；失败操作 savepoint 回滚后 HTTP adapter 写 denied；直接模型拒绝另记不含目标内容的安全日志|
@@ -96,6 +96,24 @@
 S03 覆盖 `_get_default_store_id`、`_after_membership_removed`；S06 覆盖 `_get_execution_store_id` 并接真实全局坐诊信息。下层默认无实际租约，合成 mock 只证明“他店执行则拒人工写”钩子契约。S08/S09 等上层继承 source、在 `_get_sources` 登记固定模型、接业务动作和查看/更正事件，按实际文书/附件/PDF再次验。S01 不查 registry 中未安装业务，不创建未来空模型。
 
 全局原生后端 systray 显示当前门店及执行店 hook；本阶段执行值为空，不冒充工位定位。当前固定环境无只读副本；审计式读取需要主库事务，本批未验证数据库只读 replica 路由兼容，未来接入副本前必须针对该入口验证。
+
+## 下游审计事件登记
+
+这是 #25 第3.10项要求的事件映射；下列未安装业务均为 **NOT_RUN**，不把事件名称当成已实现功能。上层在固定 `_get_sources` 映射登记实际源模型，完成自身动作鉴权后调用私有审计服务；事件与业务变更同事务，原因与前后值只放最小元数据。
+
+|动作|事件码/类别|实施责任与当前状态|
+|---|---|---|
+|登录、切店|login / login.scope / store.switch；personnel|S01 实际实现并验证|
+|授权、模板|authorization.change / template.create / template.modify / template.apply；personnel|S01 实际实现并验证|
+|病历查看、修改、更正|source.view / source.modify / clinical.correct；medical|S01 验合成 view/modify；真实文书及更正 S08 NOT_RUN|
+|导出、下载、报告生成|source.export / source.download / source.report_render；源类别或 export|S01 合成模型、原生 CSV/附件/HTML 已验；真实文书/PDF及实体出纸 NOT_RUN|
+|容量变更|capacity.change；capacity|S03 NOT_RUN|
+|作废、交还|task.void / task.return；实际任务来源类别|S06/实际业务阶段 NOT_RUN|
+|工位启停|workstation.activate / workstation.deactivate；space|S02/S06 NOT_RUN|
+|实收、退款、日结|payment.receive / payment.refund / settlement.day_close；settlement|S10 NOT_RUN，实际审批资格另核对|
+|患者合并|patient.merge；patient|S04 NOT_RUN，集团确认与门店业务权限分离|
+|复诊关闭|followup.close；followup|S11 NOT_RUN|
+|外加工取消、返工|outsourcing.cancel / outsourcing.rework；outsourcing|S11 NOT_RUN|
 
 ## 参数处置
 

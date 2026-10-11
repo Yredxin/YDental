@@ -1,0 +1,87 @@
+{
+  "scope": "S01 synthetic UI only",
+  "tested_commit": "a0c02b9d653c98ccdbc7ca09f26d666c71561735",
+  "database": "ydental_s01_test_20261011102317_d4dbd320",
+  "started_utc": "2026-10-11T10:25:41.162799+00:00",
+  "browser": "Firefox",
+  "sandbox": "default; no overrides",
+  "checks": [
+    {
+      "check": "T08 browser creates one internal staff account",
+      "result": "PASS"
+    },
+    {
+      "check": "T08 browser reuses the same account",
+      "result": "PASS"
+    },
+    {
+      "check": "T06 browser same-company stores reuse employee",
+      "result": "PASS"
+    },
+    {
+      "check": "browser A/B permission forms accepted",
+      "result": "PASS"
+    },
+    {
+      "check": "T03 independent browser login stores",
+      "result": "PASS"
+    },
+    {
+      "check": "T01 authorized synthetic A page",
+      "result": "PASS"
+    },
+    {
+      "check": "T01 authorized browser write",
+      "result": "PASS"
+    },
+    {
+      "check": "T03 old tab write refused",
+      "result": "PASS"
+    },
+    {
+      "check": "T01 C no business permission",
+      "result": "PASS"
+    },
+    {
+      "check": "T09 explicit template preview",
+      "result": "PASS"
+    },
+    {
+      "check": "T09 template removes omitted source rights",
+      "result": "PASS"
+    },
+    {
+      "check": "T04 revoked native attachment denied",
+      "result": "PASS"
+    },
+    {
+      "check": "T05 browser A removal preserves B login and reading",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s01/browser-attempts/20261011T102541162654/browser-store-a-zh.png",
+      "sha256": "c5eb414a43f6fa8fdd8f29c166092b80d7a9f0110a367065df12758cfa208210"
+    },
+    {
+      "path": "docs/evidence/s01/browser-attempts/20261011T102541162654/browser-stale-page.png",
+      "sha256": "07462b780f5573d2a3c6c280f95828b3ea5af6dec81f8d3355697e95f93e6677"
+    },
+    {
+      "path": "docs/evidence/s01/browser-attempts/20261011T102541162654/browser-staff-zh.png",
+      "sha256": "ff8a1754ea454639a4184194365c77a6e6a3f6e8bad485392dfd9cb48d72dcac"
+    },
+    {
+      "path": "docs/evidence/s01/browser-attempts/20261011T102541162654/browser-template-preview-zh.png",
+      "sha256": "b06702f0d396eb04795378e036b44fab26064718f4c15febff859ce3ade6e30f"
+    },
+    {
+      "path": "docs/evidence/s01/browser-attempts/20261011T102541162654/browser-b-after-a-removal.png",
+      "sha256": "0dcdad584faf6d06e8f4a6f5ad6ff076547a2120636990ed96876946f2d042ce"
+    }
+  ],
+  "browser_version": "155.0",
+  "result": "FAIL",
+  "failure": "Page.wait_for_selector: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\".o_ydental_access_store_status\") to be visible\n"
+}

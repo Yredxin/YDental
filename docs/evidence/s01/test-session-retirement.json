@@ -1,0 +1,6 @@
+{
+  "database": "ydental_s01_test_20261011103447_2298e42e",
+  "retired_synthetic_test_session_files": 8,
+  "method": "Moved only this stopped fresh S01 run session directory out of the active session-store path before preview; no filename/token contents exported",
+  "existing_services_affected": false
+}

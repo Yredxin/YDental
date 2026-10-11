@@ -1,0 +1,279 @@
+{
+  "scope": "S01 only; unsuccessful attempts retained locally with private logs",
+  "actions": [
+    {
+      "action": "install",
+      "exit_code": 255,
+      "log": "install-20261011T094224344978.log",
+      "log_sha256": "4c4f9b87ad9107ef7de045d1ea68eaca381462f73109aa71f2872739ca1d4453",
+      "time_utc": "2026-10-11T09:42:54.855633+00:00",
+      "tests": null,
+      "verification_exit": 255,
+      "database": "ydental_s01_test_20261011094224_84fd91b1"
+    },
+    {
+      "action": "install",
+      "exit_code": 1,
+      "log": "install-20261011T094308016257.log",
+      "log_sha256": "e0fe6036fcc76f2a8f7d29264152336b507cf79c78fdd8e4cdaf96ea2999f862",
+      "time_utc": "2026-10-11T09:43:55.274709+00:00",
+      "tests": [
+        0,
+        2,
+        15
+      ],
+      "verification_exit": 1,
+      "database": "ydental_s01_test_20261011094307_06c790a9"
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 0,
+      "log": "upgrade-20261011T094503642393.log",
+      "log_sha256": "29c9cc564b44ee8d9ea4c8bcd5161c92c9dfa14cfc50993b9026851108a0f69a",
+      "time_utc": "2026-10-11T09:45:10.874803+00:00",
+      "tests": [
+        0,
+        0,
+        13
+      ],
+      "database": "ydental_s01_test_20261011094307_06c790a9"
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 0,
+      "log": "upgrade-20261011T094955383244.log",
+      "log_sha256": "3fea92a42ebfeb6129cfa4356c6d6bb47fd4ab5f29469a3792f5123029bbe505",
+      "time_utc": "2026-10-11T09:50:02.874387+00:00",
+      "tests": [
+        0,
+        0,
+        15
+      ],
+      "database": "ydental_s01_test_20261011094307_06c790a9"
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 1,
+      "log": "upgrade-20261011T095252943617.log",
+      "log_sha256": "deea868f50bd46b2a3e53ec6abb749a17d2880db19ad697d48f3cc047f112576",
+      "time_utc": "2026-10-11T09:53:04.836585+00:00",
+      "tests": [
+        0,
+        3,
+        18
+      ],
+      "verification_exit": 1,
+      "database": "ydental_s01_test_20261011094307_06c790a9"
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 1,
+      "log": "upgrade-20261011T095510533204.log",
+      "log_sha256": "6625c03fdefd3e9fd5babffe63825b751d048f9ca5311a24278b40fb869a02bd",
+      "time_utc": "2026-10-11T09:55:20.657361+00:00",
+      "tests": [
+        0,
+        3,
+        18
+      ],
+      "verification_exit": 1,
+      "database": "ydental_s01_test_20261011094307_06c790a9"
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 0,
+      "log": "upgrade-20261011T095622517597.log",
+      "log_sha256": "b71907c30213eaf414df94881330078a8fa34b2c65bad0571045faad905a22d8",
+      "time_utc": "2026-10-11T09:56:33.171846+00:00",
+      "tests": [
+        0,
+        0,
+        18
+      ],
+      "database": "ydental_s01_test_20261011094307_06c790a9"
+    },
+    {
+      "action": "export",
+      "exit_code": 0,
+      "log": "export-20261011T095851780202.log",
+      "log_sha256": "5dab2c5e15a76e4f57bb92f222cf237447edbd1dde656cdcd5326e1242408cea",
+      "time_utc": "2026-10-11T09:58:53.252985+00:00",
+      "database": "ydental_s01_test_20261011094307_06c790a9"
+    },
+    {
+      "action": "export",
+      "exit_code": 0,
+      "log": "export-20261011T100332212965.log",
+      "log_sha256": "6247c5c3cdd10a268d19c72ba7ea6f6b2efe36a7d2087dbfa7e9f1be1dac7927",
+      "time_utc": "2026-10-11T10:03:33.623286+00:00",
+      "database": "ydental_s01_test_20261011094307_06c790a9"
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 255,
+      "log": "upgrade-20261011T100504208860.log",
+      "log_sha256": "55f67f6b13c3095540a1f7c18980c8b29dc00e0f0eb7be8fd24d8de6871f49e7",
+      "time_utc": "2026-10-11T10:05:05.600746+00:00",
+      "tests": null,
+      "verification_exit": 255,
+      "database": "ydental_s01_test_20261011094307_06c790a9"
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 0,
+      "log": "upgrade-20261011T100703776775.log",
+      "log_sha256": "deaa9658259e1c662cd3f283ea28d8925263bd74313c8c18c02a8cfe58a88e2a",
+      "time_utc": "2026-10-11T10:07:14.530002+00:00",
+      "tests": [
+        0,
+        0,
+        18
+      ],
+      "database": "ydental_s01_test_20261011094307_06c790a9"
+    },
+    {
+      "action": "install",
+      "exit_code": 0,
+      "log": "install-20261011T101310262672.log",
+      "log_sha256": "cf5d98b2beee907fec4921ab1f848b98ed7fba0faf86f677b9541d33afa69858",
+      "time_utc": "2026-10-11T10:14:01.222489+00:00",
+      "tests": [
+        0,
+        0,
+        20
+      ],
+      "database": "ydental_s01_test_20261011101310_34dc46cf"
+    },
+    {
+      "action": "install",
+      "exit_code": 0,
+      "log": "install-20261011T101654843987.log",
+      "log_sha256": "e20498ab3d582e2c1252a38eb2a61df36867f2c8312f91f942ad368f7e293bbd",
+      "time_utc": "2026-10-11T10:17:45.785171+00:00",
+      "tests": [
+        0,
+        0,
+        21
+      ],
+      "database": "ydental_s01_test_20261011101654_86c744d8"
+    },
+    {
+      "action": "install",
+      "exit_code": 0,
+      "log": "install-20261011T102317766040.log",
+      "log_sha256": "717d43f47f69cb81465d08f4811b5c09892c3884e4ae6991ab6b4f18ee177cfa",
+      "time_utc": "2026-10-11T10:24:09.045343+00:00",
+      "tests": [
+        0,
+        0,
+        21
+      ],
+      "database": "ydental_s01_test_20261011102317_d4dbd320"
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 0,
+      "log": "upgrade-20261011T102417205452.log",
+      "log_sha256": "870eefd400474a4b10253a207f952c9d329aba4a3ff05a5aa2f545e27eb6f611",
+      "time_utc": "2026-10-11T10:24:28.273683+00:00",
+      "tests": [
+        0,
+        0,
+        19
+      ],
+      "database": "ydental_s01_test_20261011102317_d4dbd320"
+    },
+    {
+      "action": "probe",
+      "exit_code": 0,
+      "log": "probe-20261011T102444282986.log",
+      "log_sha256": "4753aff6018a740bfae37bf1f0c768b102bc1965e281d9749486a24bbf0a1b8f",
+      "time_utc": "2026-10-11T10:24:47.856165+00:00",
+      "database": "ydental_s01_test_20261011102317_d4dbd320"
+    },
+    {
+      "action": "install",
+      "exit_code": 0,
+      "log": "install-20261011T102920192827.log",
+      "log_sha256": "a15b57de7349ed6bd3572ef80205e82352f0e6b90ce7232635fa1e60f7e98fb8",
+      "time_utc": "2026-10-11T10:30:11.459144+00:00",
+      "tests": [
+        0,
+        0,
+        21
+      ],
+      "database": "ydental_s01_test_20261011102920_f9b829a0"
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 0,
+      "log": "upgrade-20261011T103036976304.log",
+      "log_sha256": "a8a9a6f8e43e30578680e3ef4f366c2109a592c52d414926ef8f2ef7c7ff5080",
+      "time_utc": "2026-10-11T10:30:47.864132+00:00",
+      "tests": [
+        0,
+        0,
+        19
+      ],
+      "database": "ydental_s01_test_20261011102920_f9b829a0"
+    },
+    {
+      "action": "export",
+      "exit_code": 0,
+      "log": "export-20261011T103106936204.log",
+      "log_sha256": "cf9cb573b4b5795b2f1da8e397b264ab7dac4a94838172f1f84a2931881371be",
+      "time_utc": "2026-10-11T10:31:08.385026+00:00",
+      "database": "ydental_s01_test_20261011102920_f9b829a0"
+    },
+    {
+      "action": "probe",
+      "exit_code": 0,
+      "log": "probe-20261011T103124616747.log",
+      "log_sha256": "a4aadc29369ea9ecfd3d8587062bd1d7b61834af98c06917565389c1137adde4",
+      "time_utc": "2026-10-11T10:31:28.135679+00:00",
+      "database": "ydental_s01_test_20261011102920_f9b829a0"
+    },
+    {
+      "action": "install",
+      "exit_code": 0,
+      "log": "install-20261011T103447450090.log",
+      "log_sha256": "dcdb0fb9a006962319f51c6c0083a66b3702ffb265739ca386ea2fb2d6f714da",
+      "time_utc": "2026-10-11T10:35:38.805635+00:00",
+      "tests": [
+        0,
+        0,
+        21
+      ],
+      "database": "ydental_s01_test_20261011103447_2298e42e"
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 0,
+      "log": "upgrade-20261011T103852353155.log",
+      "log_sha256": "7c90d062268bd3bbc80ca5a7da9cbf5a130fa4c24c0ffb03b08349a6605e7754",
+      "time_utc": "2026-10-11T10:39:03.287406+00:00",
+      "tests": [
+        0,
+        0,
+        19
+      ],
+      "database": "ydental_s01_test_20261011103447_2298e42e"
+    },
+    {
+      "action": "export",
+      "exit_code": 0,
+      "log": "export-20261011T103930308013.log",
+      "log_sha256": "b1a1f312d9267a1986bb2b8612016e3fdaba56137d556037bef889075b2f6e38",
+      "time_utc": "2026-10-11T10:39:31.749160+00:00",
+      "database": "ydental_s01_test_20261011103447_2298e42e"
+    },
+    {
+      "action": "probe",
+      "exit_code": 0,
+      "log": "probe-20261011T103954025445.log",
+      "log_sha256": "7323d5cc77cf34dc3d2f3268275cca2b8525fbcc672bbee2da828793f490f086",
+      "time_utc": "2026-10-11T10:39:57.521671+00:00",
+      "database": "ydental_s01_test_20261011103447_2298e42e"
+    }
+  ]
+}

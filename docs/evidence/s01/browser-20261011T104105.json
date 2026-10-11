@@ -1,0 +1,98 @@
+{
+  "scope": "S01 synthetic UI only",
+  "tested_commit": "abf7b243b12a3717ee63cab4247ae5d5a7d5c43f",
+  "database": "ydental_s01_test_20261011103447_2298e42e",
+  "started_utc": "2026-10-11T10:40:46.397412+00:00",
+  "browser": "Firefox",
+  "sandbox": "default; no overrides",
+  "checks": [
+    {
+      "check": "T08 browser creates one internal staff account",
+      "result": "PASS"
+    },
+    {
+      "check": "T08 browser reuses the same account",
+      "result": "PASS"
+    },
+    {
+      "check": "T06 browser same-company stores reuse employee",
+      "result": "PASS"
+    },
+    {
+      "check": "browser A/B permission forms accepted",
+      "result": "PASS"
+    },
+    {
+      "check": "T03 independent browser login stores",
+      "result": "PASS"
+    },
+    {
+      "check": "T01 authorized synthetic A page",
+      "result": "PASS"
+    },
+    {
+      "check": "T01 authorized browser write",
+      "result": "PASS"
+    },
+    {
+      "check": "T03 old tab write refused",
+      "result": "PASS"
+    },
+    {
+      "check": "T01 C no business permission",
+      "result": "PASS"
+    },
+    {
+      "check": "T09 explicit template preview",
+      "result": "PASS"
+    },
+    {
+      "check": "T09 template removes omitted source rights",
+      "result": "PASS"
+    },
+    {
+      "check": "T04 revoked native attachment denied",
+      "result": "PASS"
+    },
+    {
+      "check": "T05 browser A removal preserves B login and reading",
+      "result": "PASS"
+    },
+    {
+      "check": "global backend store status",
+      "result": "PASS"
+    },
+    {
+      "check": "portal workspace denied",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s01/browser-attempts/20261011T104046397328/browser-store-a-zh.png",
+      "sha256": "ee0d6e5e83ee57bba30eb442f7cf4ca81d3787244f30f1f734353311372268d4"
+    },
+    {
+      "path": "docs/evidence/s01/browser-attempts/20261011T104046397328/browser-stale-page.png",
+      "sha256": "07462b780f5573d2a3c6c280f95828b3ea5af6dec81f8d3355697e95f93e6677"
+    },
+    {
+      "path": "docs/evidence/s01/browser-attempts/20261011T104046397328/browser-staff-zh.png",
+      "sha256": "76cf1096df2104ca65bbbe9459157cc7c755f411b5b7ea52d188c6cac061c7e2"
+    },
+    {
+      "path": "docs/evidence/s01/browser-attempts/20261011T104046397328/browser-template-preview-zh.png",
+      "sha256": "78cd48e0b02504fb217893920286730bf67efcfb79225185476f889ffcc546c6"
+    },
+    {
+      "path": "docs/evidence/s01/browser-attempts/20261011T104046397328/browser-b-after-a-removal.png",
+      "sha256": "0dcdad584faf6d06e8f4a6f5ad6ff076547a2120636990ed96876946f2d042ce"
+    },
+    {
+      "path": "docs/evidence/s01/browser-attempts/20261011T104046397328/browser-global-status-zh.png",
+      "sha256": "71dcce7b62c15f4571332eb0a2435426a1c2250a0f77bf019807c78994f7e2f2"
+    }
+  ],
+  "browser_version": "155.0",
+  "result": "PASS"
+}

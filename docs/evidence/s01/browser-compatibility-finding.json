@@ -1,0 +1,10 @@
+{
+  "tested_commit": "a0c02b9d653c98ccdbc7ca09f26d666c71561735",
+  "browser_attempt": "browser-20261011T102627.json",
+  "result": "FAIL",
+  "checks_passed_before_failure": 13,
+  "finding": "Component YDentalStoreStatus defines static props, which the locked native Owl 3 rejects; native backend body remained empty.",
+  "fix_commit": "0e5ff4a92d0ac5a671ee0787836125a1ef790fea",
+  "fix": "Use native useProps({}) and this.storeName/this.executionStoreId in the Owl template.",
+  "scope": "Synthetic local Firefox diagnostic only; no credentials, cookies or raw logs published. Earlier failed attempt and screenshots retained."
+}

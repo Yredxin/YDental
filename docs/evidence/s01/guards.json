@@ -1,0 +1,15 @@
+{
+  "recorded_utc": "2026-10-11T10:40:38.223926+00:00",
+  "source_commit": "abf7b243b12a3717ee63cab4247ae5d5a7d5c43f",
+  "command": "../.venv/bin/python -m unittest -v scripts.test_s01_guard",
+  "exit_code": 0,
+  "tests": 5,
+  "checks": [
+    "business/history DB rejected",
+    "existing service port rejected",
+    "wrong endpoint rejected before connect",
+    "external DNS rejected before resolution",
+    "other loopback services rejected"
+  ],
+  "result": "PASS"
+}

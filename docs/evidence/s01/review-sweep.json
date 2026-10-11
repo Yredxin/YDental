@@ -1,0 +1,413 @@
+{
+  "code_commit": "abf7b243b12a3717ee63cab4247ae5d5a7d5c43f",
+  "reviewer": "Codex self-review, no independent GPT/user approval",
+  "pattern_hit_locations": {
+    "privilege": [
+      {
+        "file": "ydental_access/controllers/access.py",
+        "line": 121
+      },
+      {
+        "file": "ydental_access/models/base.py",
+        "line": 17
+      },
+      {
+        "file": "ydental_access/models/ir_actions_report.py",
+        "line": 15
+      },
+      {
+        "file": "ydental_access/models/ir_attachment.py",
+        "line": 10
+      },
+      {
+        "file": "ydental_access/models/ir_attachment.py",
+        "line": 15
+      },
+      {
+        "file": "ydental_access/models/ir_attachment.py",
+        "line": 17
+      },
+      {
+        "file": "ydental_access/models/ir_attachment.py",
+        "line": 25
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 42
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 55
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 66
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 71
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 106
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 107
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 120
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 130
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 151
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 155
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 182
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 192
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 203
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 204
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 210
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 212
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 223
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 242
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 246
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 265
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 289
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 296
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 312
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 341
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 363
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 372
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 408
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 409
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 421
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 424
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 435
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 452
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 471
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 478
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 482
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 487
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 492
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 520
+      },
+      {
+        "file": "ydental_access/models/ydental_access_source.py",
+        "line": 47
+      },
+      {
+        "file": "ydental_access/models/ydental_access_source.py",
+        "line": 100
+      },
+      {
+        "file": "ydental_access/models/ydental_access_source.py",
+        "line": 101
+      },
+      {
+        "file": "ydental_access/models/ydental_access_store.py",
+        "line": 25
+      },
+      {
+        "file": "ydental_access/models/ydental_access_template.py",
+        "line": 20
+      },
+      {
+        "file": "ydental_access/models/ydental_access_template.py",
+        "line": 30
+      }
+    ],
+    "sql": [
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 124
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 226
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 236
+      }
+    ],
+    "http": [
+      {
+        "file": "ydental_access/controllers/access.py",
+        "line": 17
+      },
+      {
+        "file": "ydental_access/controllers/access.py",
+        "line": 25
+      },
+      {
+        "file": "ydental_access/controllers/access.py",
+        "line": 117
+      },
+      {
+        "file": "ydental_access/controllers/access.py",
+        "line": 143
+      },
+      {
+        "file": "ydental_access/controllers/access.py",
+        "line": 158
+      }
+    ],
+    "xss": [],
+    "file_eval": [],
+    "related_secrets": [
+      {
+        "file": "ydental_access/__manifest__.py",
+        "line": 9
+      },
+      {
+        "file": "ydental_access/controllers/access.py",
+        "line": 78
+      },
+      {
+        "file": "ydental_access/controllers/access.py",
+        "line": 113
+      },
+      {
+        "file": "ydental_access/models/hr_employee.py",
+        "line": 9
+      },
+      {
+        "file": "ydental_access/models/hr_employee.py",
+        "line": 12
+      },
+      {
+        "file": "ydental_access/models/ir_attachment.py",
+        "line": 8
+      },
+      {
+        "file": "ydental_access/models/ir_attachment.py",
+        "line": 20
+      },
+      {
+        "file": "ydental_access/models/ir_attachment.py",
+        "line": 25
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 45
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 47
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 56
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 66
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 144
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 147
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 153
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 159
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 171
+      },
+      {
+        "file": "ydental_access/models/ydental_access_service.py",
+        "line": 421
+      },
+      {
+        "file": "ydental_access/models/ydental_access_session.py",
+        "line": 8
+      },
+      {
+        "file": "ydental_access/models/ydental_access_session.py",
+        "line": 13
+      },
+      {
+        "file": "ydental_access/views/ydental_access_templates.xml",
+        "line": 9
+      },
+      {
+        "file": "ydental_access/views/ydental_access_templates.xml",
+        "line": 20
+      },
+      {
+        "file": "ydental_access/views/ydental_access_templates.xml",
+        "line": 37
+      },
+      {
+        "file": "ydental_access/views/ydental_access_templates.xml",
+        "line": 46
+      },
+      {
+        "file": "ydental_access/views/ydental_access_templates.xml",
+        "line": 52
+      },
+      {
+        "file": "ydental_access/views/ydental_access_templates.xml",
+        "line": 55
+      },
+      {
+        "file": "ydental_access/views/ydental_access_templates.xml",
+        "line": 63
+      },
+      {
+        "file": "ydental_access/views/ydental_access_templates.xml",
+        "line": 75
+      },
+      {
+        "file": "ydental_access/views/ydental_access_templates.xml",
+        "line": 85
+      },
+      {
+        "file": "ydental_access/views/ydental_access_templates.xml",
+        "line": 96
+      },
+      {
+        "file": "ydental_access/views/ydental_access_templates.xml",
+        "line": 107
+      },
+      {
+        "file": "ydental_access/views/ydental_access_templates.xml",
+        "line": 116
+      },
+      {
+        "file": "ydental_access/views/ydental_access_templates.xml",
+        "line": 127
+      },
+      {
+        "file": "ydental_access/views/ydental_access_templates.xml",
+        "line": 132
+      },
+      {
+        "file": "ydental_access/views/ydental_access_templates.xml",
+        "line": 157
+      }
+    ]
+  },
+  "disposition": {
+    "privilege": "Private fixed-model lifecycle/projection/audit only after actor/company/role checks; source sudo used for metadata or domain comparison after native authorization; native superuser trusted boundary",
+    "sql": "Three parameterized locking statements only; no SQL data bypass or string formatting",
+    "http": "Authenticated GET read/download, POST CSRF with typed/whitelisted actions; inherited DataSet binds SID after untrusted context",
+    "xss": "No unsafe sink; native QWeb/Owl t-out escapes values",
+    "file_eval": "No production addon file-open/eval/exec/pickle/dynamic attribute access",
+    "related_secrets": "related_sudo=False; SID hash NO_ACCESS; no public session/audit/grant ACL; native auth handles credentials"
+  },
+  "public_model_methods": "Only framework CRUD/read/export/search/check overrides; private service not callable through RPC",
+  "fixed_findings": [
+    "Group actions restricted to allowed company_ids",
+    "Store manager appointment company restriction",
+    "Configurable last independent administrator departure protection",
+    "Native export gate retained",
+    "Hidden revision zero rendered explicitly; denied old-tab writes"
+  ],
+  "limitations": [
+    "Only registered synthetic sources installed; actual clinical/inventory/financial models require downstream review",
+    "No real PDF/physical print or read replica verification",
+    "No production MFA delivery/idle-cycle test; explicit configuration proposal only"
+  ]
+}

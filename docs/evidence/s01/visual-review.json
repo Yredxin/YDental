@@ -1,0 +1,48 @@
+{
+  "recorded_utc": "2026-10-11T10:44:40.915486+00:00",
+  "tested_commit": "abf7b243b12a3717ee63cab4247ae5d5a7d5c43f",
+  "screenshots": [
+    {
+      "path": "docs/evidence/s01/browser-attempts/20261011T104046397328/browser-store-a-zh.png",
+      "sha256": "ee0d6e5e83ee57bba30eb442f7cf4ca81d3787244f30f1f734353311372268d4",
+      "visual_review": "Codex inspected rendered screenshot; synthetic-only, no visible credentials",
+      "label": "A门店中文页面"
+    },
+    {
+      "path": "docs/evidence/s01/browser-attempts/20261011T104046397328/browser-stale-page.png",
+      "sha256": "07462b780f5573d2a3c6c280f95828b3ea5af6dec81f8d3355697e95f93e6677",
+      "visual_review": "Codex inspected rendered screenshot; synthetic-only, no visible credentials",
+      "label": "旧标签409拒写"
+    },
+    {
+      "path": "docs/evidence/s01/browser-attempts/20261011T104046397328/browser-staff-zh.png",
+      "sha256": "76cf1096df2104ca65bbbe9459157cc7c755f411b5b7ea52d188c6cac061c7e2",
+      "visual_review": "Codex inspected rendered screenshot; synthetic-only, no visible credentials",
+      "label": "店长中文人员页"
+    },
+    {
+      "path": "docs/evidence/s01/browser-attempts/20261011T104046397328/browser-template-preview-zh.png",
+      "sha256": "78cd48e0b02504fb217893920286730bf67efcfb79225185476f889ffcc546c6",
+      "visual_review": "Codex inspected rendered screenshot; synthetic-only, no visible credentials",
+      "label": "模板16项中文前后预览"
+    },
+    {
+      "path": "docs/evidence/s01/browser-attempts/20261011T104046397328/browser-b-after-a-removal.png",
+      "sha256": "0dcdad584faf6d06e8f4a6f5ad6ff076547a2120636990ed96876946f2d042ce",
+      "visual_review": "Codex inspected rendered screenshot; synthetic-only, no visible credentials",
+      "label": "撤A后B仍可读取"
+    },
+    {
+      "path": "docs/evidence/s01/browser-attempts/20261011T104046397328/browser-global-status-zh.png",
+      "sha256": "71dcce7b62c15f4571332eb0a2435426a1c2250a0f77bf019807c78994f7e2f2",
+      "visual_review": "Codex inspected rendered screenshot; synthetic-only, no visible credentials",
+      "label": "原生后端全局门店提示"
+    }
+  ],
+  "findings_resolved": [
+    "Native Owl3 props failure",
+    "Missing preview header translation reference",
+    "Low navbar text contrast"
+  ],
+  "remaining": "Minimal functional staff page; synthetic source page English only; no S13 appearance/performance claim"
+}

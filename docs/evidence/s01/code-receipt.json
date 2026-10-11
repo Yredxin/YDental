@@ -1,0 +1,27 @@
+{
+  "recorded_utc": "2026-10-11T10:40:38.260746+00:00",
+  "baseline": "6dbf0a0a8be966bee7b2250b2a77e5b4d70540d8",
+  "implementation_commit": "abf7b243b12a3717ee63cab4247ae5d5a7d5c43f",
+  "branch": "codex/s01-access-r1-20261011",
+  "trees": {
+    "ydental_access": "4939b45fb8f55675c00b4c6acec97a20f44594f2",
+    "ydental_access_test": "2dabe720638da6d7b4f0e0f7497685dbd0aebfa5",
+    "scripts": "d46cb3c2c00d7652fbbc5145ad9af164051cff5f"
+  },
+  "core": {
+    "root": "/home/redxin/code/odoo/odoo-sd/code",
+    "head": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+    "status": "?? AGENTS.md\n?? sd-addons/",
+    "tracked_diff_empty": true
+  },
+  "parent_agents_sha256": "bacf68d4d8d9b06dadbf1556fc8cf0fdff3f88ac285a42c71c06e8330d016f2f",
+  "mutations_excluded": [
+    "core",
+    "odoo-12",
+    "existing services/config/database",
+    "Project",
+    "workflow",
+    "native Status",
+    "Issue/PR state"
+  ]
+}

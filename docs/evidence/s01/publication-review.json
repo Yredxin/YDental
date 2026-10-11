@@ -1,0 +1,14 @@
+{
+  "recorded_utc": "2026-10-11T10:44:41.069499+00:00",
+  "source_commit": "abf7b243b12a3717ee63cab4247ae5d5a7d5c43f",
+  "scanned_files": 83,
+  "result": "PASS",
+  "private_literal_scan": "All recorded S01 preview login/passwords, long configuration secrets and active/retired test session identifiers absent from public/code files; no values exported",
+  "screenshots": "Latest six images visually reviewed as synthetic-only; earlier images preserved and browser visible-secret checks passed",
+  "allowed_evidence_suffixes": [
+    ".json",
+    ".md",
+    ".png"
+  ],
+  "raw_log_or_private_config_export": false
+}
