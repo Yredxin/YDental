@@ -132,10 +132,14 @@ class YDentalPatient(http.Controller):
         if operation == 'archive':
             return {'patient_id': int(form['patient_id']), 'version': int(form['version']), 'reason': form['reason']}
         if operation == 'contact':
-            return {'patient_id': int(form['patient_id']), 'name': form['name'], 'relation': form['relation'],
+            result = {'patient_id': int(form['patient_id']), 'name': form['name'], 'relation': form['relation'],
                 'relationship': form['relationship'], 'phone': form.get('phone', ''),
                 'phone_region': form.get('phone_region', ''), 'email': form.get('email', ''),
                 'verified': form.get('verified') == 'yes', 'verification_note': form.get('verification_note', '')}
+            if form.get('contact_id'):
+                result.update(contact_id=int(form['contact_id']), version=int(form['version']),
+                              active=form.get('active') == 'yes')
+            return result
         if operation == 'clinical':
             result = {'patient_id': int(form['patient_id']), 'values': {
                 key: form.get(key, '') for key in ('allergies', 'prior_history', 'medication')}}

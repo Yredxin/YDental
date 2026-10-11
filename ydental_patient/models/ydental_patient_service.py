@@ -259,9 +259,9 @@ class YDentalPatientService(models.AbstractModel):
         return {'result': 'accepted', 'id': relation.id}
 
     def _contact(self, store, patient_id, name, relation, relationship, phone='', phone_region='', email='',
-                 verified=False, verification_note=''):
+                 verified=False, verification_note='', contact_id=None, version=None, active=True):
         patient = self._patient(patient_id, active=True)
-        if relation not in ('contact', 'guardian', 'emergency') or type(verified) is not bool:
+        if relation not in ('contact', 'guardian', 'emergency') or type(verified) is not bool or type(active) is not bool:
             raise ValidationError(self.env._('Select a contact relationship and explicit verification status.'))
         name = self._text(name, 100, required=True)
         relationship = self._text(relationship, 100, required=True)
@@ -270,12 +270,20 @@ class YDentalPatientService(models.AbstractModel):
             raise ValidationError(self.env._('Record the basis of contact or guardian verification.'))
         phone, region, normalized, status = self._phone(phone, phone_region)
         email = self._admin_values({'email': email}, patient)['ydental_email']
-        partner = self._new_partner({'name': name, 'phone': phone, 'email': email}, patient)
-        contact = self.env['ydental.patient.contact'].sudo()._new({'name': name, 'ydental_store_id': store.id,
-            'ydental_patient_id': patient.id, 'ydental_origin_patient_id': patient.id, 'ydental_partner_id': partner.id,
-            'ydental_relation': relation, 'ydental_relationship': relationship, 'ydental_phone': phone,
+        values = {'name': name, 'ydental_relation': relation, 'ydental_relationship': relationship, 'ydental_phone': phone,
             'ydental_phone_region': region, 'ydental_phone_normalized': normalized, 'ydental_phone_status': status,
-            'ydental_email': email, 'ydental_verified': verified, 'ydental_verification_note': note})
+            'ydental_email': email, 'ydental_verified': verified, 'ydental_verification_note': note, 'active': active}
+        if contact_id:
+            contact = self.env['ydental.patient.contact'].sudo().with_context(active_test=False).browse(self._id(contact_id)).exists()
+            if not contact or contact.ydental_patient_id != patient:
+                raise AccessError(self.env._('access_denied: Select a contact of this patient.'))
+            self._version(contact, version)
+            contact._save(values)
+            contact.ydental_partner_id._ydental_patient_save({'name': name, 'phone': phone, 'email': email})
+        else:
+            partner = self._new_partner({'name': name, 'phone': phone, 'email': email}, patient)
+            contact = self.env['ydental.patient.contact'].sudo()._new(dict(values, ydental_store_id=store.id,
+                ydental_patient_id=patient.id, ydental_origin_patient_id=patient.id, ydental_partner_id=partner.id))
         self._audit('contact', contact, after={'patient_id': patient.id, 'version': contact.ydental_version})
         return {'result': 'accepted', 'id': contact.id}
 

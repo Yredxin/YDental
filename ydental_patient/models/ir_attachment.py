@@ -35,6 +35,16 @@ class IrAttachment(models.Model):
             self._ydental_check_source()
         return super().check_access(operation)
 
+    def read(self, fields=None, load='_classic_read'):
+        # Native binary caches can already contain sudo-loaded data. Recheck
+        # the live source before read, even when no database fetch is needed.
+        self.check_access('read')
+        return super().read(fields, load)
+
+    def fetch(self, field_names):
+        self.check_access('read')
+        return super().fetch(field_names)
+
     def _can_return_content(self, field_name, access_token=None):
         # Enforce source access even for public flags and bearer URLs.
         self._ydental_check_source()
