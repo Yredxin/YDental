@@ -14,6 +14,7 @@ import stat
 import subprocess
 
 from playwright.sync_api import sync_playwright
+from urllib.parse import urlsplit
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -82,6 +83,9 @@ def main():
 
         def login(role):
             context = browser.new_context(viewport={'width': 1280, 'height': 900})
+            context.route('**/*', lambda route: route.continue_() if (
+                urlsplit(route.request.url).hostname == '127.0.0.1' and urlsplit(route.request.url).port == 18089
+            ) else route.abort())
             page = context.new_page()
             page.goto(base + '/web/login', wait_until='domcontentloaded')
             page.locator('input[name=login]').fill(access[role]['login'])

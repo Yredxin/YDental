@@ -3,6 +3,7 @@ from pathlib import Path
 import subprocess
 import tempfile
 import unittest
+import os
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -31,6 +32,22 @@ class TestIsolationGuard(unittest.TestCase):
             result = self.run_guard('upgrade', '--db', 'ydental_s01_test_20261011000000_01234567', '--config', str(config))
         self.assertEqual(result.returncode, 2)
         self.assertIn('no connection attempted', result.stderr)
+
+    def test_process_egress_blocks_external_resolution(self):
+        with tempfile.TemporaryDirectory() as directory:
+            Path(directory, 'sitecustomize.py').write_text((ROOT / 'scripts/s01_network_policy.py').read_text())
+            result = subprocess.run([str(PYTHON), '-c', "import socket; socket.getaddrinfo('example.invalid',443)"],
+                                    capture_output=True, text=True, env=dict(os.environ, PYTHONPATH=directory))
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('external name resolution denied', result.stderr)
+
+    def test_process_egress_blocks_other_loopback_services(self):
+        with tempfile.TemporaryDirectory() as directory:
+            Path(directory, 'sitecustomize.py').write_text((ROOT / 'scripts/s01_network_policy.py').read_text())
+            result = subprocess.run([str(PYTHON), '-c', "import socket; socket.socket().connect(('127.0.0.1',8069))"],
+                                    capture_output=True, text=True, env=dict(os.environ, PYTHONPATH=directory))
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('process egress denied', result.stderr)
 
 
 if __name__ == '__main__':

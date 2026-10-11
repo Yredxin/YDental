@@ -149,6 +149,16 @@ def main():
             write_private(config, output.getvalue())
             metadata['config_sha256'] = digest(config)
             write_private(marker, json.dumps(metadata, indent=2) + '\n')
+        network_source = REPO / 'scripts/s01_network_policy.py'
+        policy_dir = run / 'network-policy'
+        if not policy_dir.exists():
+            policy_dir.mkdir(mode=0o700)
+            write_private(policy_dir / 'sitecustomize.py', network_source.read_text())
+        if policy_dir.is_symlink() or (policy_dir / 'sitecustomize.py').is_symlink() or digest(
+            policy_dir / 'sitecustomize.py'
+        ) != digest(network_source):
+            parser.error('Process egress policy differs; refusing to run')
+        env['PYTHONPATH'] = str(policy_dir) + os.pathsep + env.get('PYTHONPATH', '')
         command = [str(CORE / '.venv/bin/python'), str(CORE / 'odoo-bin')]
         if args.action == 'probe':
             command += ['shell', '-c', str(config), '--no-http']
