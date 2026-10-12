@@ -42,7 +42,7 @@ def write_private(path, value):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=['install', 'upgrade', 'probe', 'serve', 'export', 'audit', 'preview'])
+    parser.add_argument('action', choices=['install', 'upgrade', 'probe', 'probe_a', 'serve', 'export', 'audit', 'preview'])
     parser.add_argument('--db', required=True)
     parser.add_argument('--config', type=Path, default=CORE / 'odoo.conf')
     parser.add_argument('--port', type=int, default=18137)
@@ -179,9 +179,9 @@ def main():
             parser.error('Process egress policy differs; refusing to run')
         env['PYTHONPATH'] = str(policy_dir) + os.pathsep + env.get('PYTHONPATH', '')
         command = [str(CORE / '.venv/bin/python'), str(CORE / 'odoo-bin')]
-        if args.action in ('probe', 'audit', 'preview'):
+        if args.action in ('probe', 'probe_a', 'audit', 'preview'):
             command += ['shell', '-c', str(config), '--no-http']
-            code = "import runpy; runpy.run_path(%r, init_globals={'env': env, 'migration_action': %r})" % (str(REPO / ('scripts/s08b_audit.py' if args.action == 'audit' else 'scripts/s08b_preview.py' if args.action == 'preview' else 'scripts/s08b_probe.py')), args.action)
+            code = "import runpy; runpy.run_path(%r, init_globals={'env': env, 'migration_action': %r})" % (str(REPO / ('scripts/s08b_audit.py' if args.action == 'audit' else 'scripts/s08b_preview.py' if args.action == 'preview' else 'scripts/s08b_a_probe.py' if args.action == 'probe_a' else 'scripts/s08b_probe.py')), args.action)
         else:
             command += ['-c', str(config)]
             code = None
@@ -233,7 +233,7 @@ def main():
             if not match or entry['tests'][:2] != [0, 0] or entry['tests'][2] < 10:
                 result = result or 1
                 entry['verification_exit'] = result
-        if args.action == 'probe' and '"result": "PASS", "races":' not in log_path.read_text():
+        if args.action in ('probe', 'probe_a') and '"result": "PASS", "races":' not in log_path.read_text():
             result = result or 1
             entry['verification_exit'] = result
         with (run / 'actions.jsonl').open('a') as actions:
