@@ -1,5 +1,6 @@
 """Create new synthetic UI fixtures, preserving all previous inventory facts."""
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
+from unittest.mock import patch
 import json
 import os
 from pathlib import Path
@@ -7,7 +8,7 @@ import re
 import secrets
 from types import SimpleNamespace
 
-from odoo import api
+from odoo import api, fields
 from odoo.addons.ydental_inventory_test.tests.common import setup, bind, key
 from odoo.addons.ydental_inventory_test.models.adapter import SyntheticSource
 
@@ -19,12 +20,26 @@ with env.registry.cursor() as cr:
     receipt(f.lots['medicine'],10);receipt(f.lots['prosthesis'],1)
     pending=doctor._source_action(SyntheticSource(f.users['doctor'].id,f.stores[0].id,key(),'treatment',f.lots['material'],2,f.uom.id,already_performed=True))
     stock._operate('policy',{'near_days':60,'wait_days':0,'low_quantity':3,'reason':'S07 synthetic UI thresholds only'},key())
+    # Extra permission is synthetic read-only S06 comparison, not a product grant.
+    f.admin._grant(f.users['stock'].id,f.stores[0].id,{'warehouse':'write','frontdesk':'read'})
+    history=[]
+    for expired in (True,False):
+        expiration=fields.Datetime.now()+timedelta(days=-1 if expired else 45)
+        lot=stock._operate('lot',{'product_id':f.products['material'],'name':'REWORK-'+key(),
+            'expiration':fields.Datetime.to_string(expiration)},key())['id']
+        # Simulate time passage via private clock before source creation; never
+        # rewrite batch expiry to make bookkeeping succeed.
+        when=expiration-timedelta(days=1) if expired else fields.Datetime.now()
+        with patch.object(type(stock),'_now',return_value=when):
+            original=doctor._source_action(SyntheticSource(f.users['doctor'].id,f.stores[0].id,key(),'treatment',lot,2,f.uom.id,already_performed=True))
+        if not expired:stock._operate('lot_edit',{'lot_id':lot,'enabled':False,'reason':'Stopped after original actual event'},key())
+        history.append({'expired':expired,'lot':lot,'event':original['id']})
     credentials={}
     for role,user in f.users.items():
         password=secrets.token_urlsafe(24);user.write({'password':password,'lang':'zh_CN'});credentials[role]={'login':user.login,'password':password}
     preview={'store':f.stores[0].id,'other_store':f.stores[1].id,'legal_store':f.stores[2].id,
         'lot':f.lots['medicine'],'material':f.lots['material'],'pending':pending['id'],'prosthesis':f.lots['prosthesis'],
-        'unit':f.uom.id,'pack':f.pack.id,'products':f.products}
+        'unit':f.uom.id,'pack':f.pack.id,'products':f.products,'history':history}
     cr.commit() # Own fixture cursor, never a business method.
 for name,data in [('access.json',credentials),('preview.json',preview)]:
     path=run/name

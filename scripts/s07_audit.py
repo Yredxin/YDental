@@ -10,6 +10,8 @@ import re
 run=Path(os.environ['YDENTAL_S07_RUN_DIR'])
 assert run.name==env.cr.dbname and re.fullmatch(r'ydental_s07_test_[0-9]{14}_[a-f0-9]{8}',env.cr.dbname)
 queries={
+'recovery_evidence_mismatch':"SELECT count(*) FROM ydental_inventory_event e LEFT JOIN ydental_inventory_event c ON c.id=e.ydental_correction_id WHERE e.ydental_reconciled_at IS NOT NULL AND (e.state!='done' OR c.state!='done' OR c.ydental_lot_id!=e.ydental_lot_id OR c.ydental_store_id!=e.ydental_store_id OR c.ydental_to_id!=e.ydental_from_id OR c.ydental_kind NOT IN ('receipt','inventory') OR e.ydental_reconciled_at<e.ydental_actual_at OR c.id IS NULL)",
+
 'negative_internal_quant':"SELECT count(*) FROM stock_quant q JOIN stock_location l ON l.id=q.location_id WHERE l.ydental_store_id IS NOT NULL AND l.usage='internal' AND q.quantity < -0.000001",
 'duplicate_source':"SELECT count(*) FROM (SELECT ydental_store_id,ydental_source_namespace,ydental_source_key FROM ydental_inventory_event GROUP BY 1,2,3 HAVING count(*)>1) d",
 'half_event':"SELECT count(*) FROM ydental_inventory_event e LEFT JOIN stock_move m ON m.id=e.ydental_move_id WHERE (e.state='done' AND (m.id IS NULL OR m.state!='done')) OR (e.state='pending' AND (m.id IS NOT NULL OR e.ydental_responsible_id IS NULL))",
@@ -43,7 +45,7 @@ with env.registry.cursor() as audit_cr:
     audit_result['ledger_signatures']=signatures
     audit_result['tested_commit']=subprocess.check_output(['git','-C',str(Path(__file__).resolve().parents[1]),'rev-parse','HEAD'],text=True).strip()
 audit_result.update(status='PASS',database=env.cr.dbname,time_utc=datetime.now(timezone.utc).isoformat())
-path=Path(__file__).resolve().parents[1]/'docs/evidence/s07/invariants'
+path=Path(__file__).resolve().parents[1]/'docs/evidence/s07-rework/invariants'
 path.mkdir(parents=True,exist_ok=True)
 (path/(datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f')+'.json')).write_text(json.dumps(audit_result,indent=2)+'\n')
 print(json.dumps(audit_result))

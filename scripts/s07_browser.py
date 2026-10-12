@@ -60,7 +60,7 @@ def main():
     commit = subprocess.check_output(['git', '-C', str(ROOT), 'rev-parse', 'HEAD'], text=True).strip()
     require(not subprocess.check_output(['git', '-C', str(ROOT), 'status', '--porcelain', '--',
         'ydental_inventory', 'ydental_inventory_test', 'scripts/s07*'], text=True), 'Commit implementation and verification first')
-    evidence = ROOT / 'docs/evidence/s07/browser-attempts' / datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f')
+    evidence = ROOT / 'docs/evidence/s07-rework/browser-attempts' / datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f')
     evidence.mkdir(parents=True)
     result = {'scope': 'S07 native inventory workbench and security', 'database': args.db, 'tested_commit': commit,
               'browser': 'Firefox', 'sandbox': 'default, no overrides', 'checks': [], 'screenshots': []}
@@ -97,6 +97,9 @@ def main():
             page.goto(base+'/ydental/access',wait_until='domcontentloaded')
             result=page.evaluate('''async store=>{const b=new URLSearchParams({operation:'switch',revision:document.querySelector('[name=revision]').value,csrf_token:document.querySelector('[name=csrf_token]').value,output:'json',payload:JSON.stringify({store_id:store})});return (await fetch('/ydental/access/action',{method:'POST',body:b})).json()}''',preview['store'])
             require(type(result.get('revision')) is int,'select synthetic store')
+            if role=='stock':
+                response=page.goto(base+'/ydental/queue',wait_until='domcontentloaded')
+                check('S06 upstream read entry after login and store switch',response.status==200)
             page.goto(base+'/ydental/inventory',wait_until='domcontentloaded')
             return ctx,page
         def go(page):page.goto(base+'/ydental/inventory',wait_until='domcontentloaded')
@@ -165,6 +168,35 @@ def main():
             check('F3 original event confirmed once',page.locator(scope+' .event-state').get_attribute('data-state')=='done')
             check('F3 material remaining three',float(page.locator('[data-lot="%s"] .available'%preview['material']).inner_text())==3)
             shot(page,ctx,'06-original-event-recovered.png',scope)
+            # Both histories are created by the guarded private source adapter.
+            # Firefox performs the real receipt, original recovery and negatives.
+            for h in preview['history']:
+                label='expired' if h['expired'] else 'disabled'; event=h['event']; oldlot=h['lot']
+                sc='[data-event="%s"]'%event
+                go(page)
+                r=action_json(page,'recover',{'event_id':event,'reason':'No correction yet; stay pending'})
+                check('REWORK '+label+' no-stock recovery refuses',r['status']==409)
+                r=action_json(page,'receive',{'lot_id':oldlot,'quantity':5,'uom_id':u,'source_key':'firefox-historical-'+label+'-'+args.db,'reason':'Evidenced actual receipt for historical event'})
+                check('REWORK '+label+' actual receipt succeeds',r['status']==200)
+                go(page)
+                form=fill(page,'recover',{'reason':'Confirmed original fact and actual receipt'},sc);submit(page,form)
+                check('REWORK '+label+' original event done',page.locator(sc+' .event-state').get_attribute('data-state')=='done')
+                original=rpc(page,'ydental.inventory.event','read',[[event],['ydental_price_snapshot','ydental_actual_at','ydental_reconciled_at','ydental_correction_id','ydental_move_id']])['result'][0]
+                check('REWORK '+label+' original price20 and correction linked',original['ydental_price_snapshot']['unit_price']==20 and bool(original['ydental_correction_id']) and bool(original['ydental_reconciled_at']))
+                replay=action_json(page,'recover',{'event_id':event,'reason':'Repeat original reconciliation'})
+                check('REWORK '+label+' retry same move',replay['status']==200 and replay['body']['move_id']==original['ydental_move_id'][0])
+                new=action_json(page,'issue',{'lot_id':oldlot,'quantity':1,'uom_id':u,'source_key':'firefox-new-'+label+'-'+args.db,'reason':'New issue must remain blocked'})
+                check('REWORK '+label+' new issue refuses',new['status']==409 and 'lot_'+label in new['body']['error'])
+                go(page);row=page.locator('[data-lot="%s"]'%oldlot)
+                check('REWORK '+label+' remains unusable with real onhand3',float(row.locator('.available').inner_text())==0 and label in row.locator('[data-flags]').get_attribute('data-flags'))
+                shot(page,ctx,'11-historical-'+label+'.png',sc)
+            # Compare S06 read entry and new inventory entry repeatedly in the
+            # same clean server process, without S06 business mutations.
+            for cycle in range(5):
+                upstream=page.goto(base+'/ydental/queue',wait_until='domcontentloaded')
+                check('stability S06 read cycle '+str(cycle),upstream.status==200)
+                downstream=page.goto(base+'/ydental/inventory',wait_until='domcontentloaded')
+                check('stability inventory read cycle '+str(cycle),downstream.status==200)
             # Native access and patient/attachment boundaries from Firefox session.
             check('T07 native lot read denied','error' in rpc(page,'stock.lot','read',[[lot],['product_qty','quant_ids']]))
             check('T07 native quant mutation denied','error' in rpc(page,'stock.quant','create',[{'quantity':999,'product_id':preview['products']['medicine']}]))

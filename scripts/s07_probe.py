@@ -24,7 +24,7 @@ assert re.fullmatch(r'ydental_s07_test_[0-9]{14}_[a-f0-9]{8}',env.cr.dbname) and
 registry=env.registry
 result={'scope':'S07 real native inventory with isolated synthetic sources','database':env.cr.dbname,'races':[],
     'started_utc':datetime.now(timezone.utc).isoformat(),'tested_commit':__import__('subprocess').check_output(['git','-C',str(Path(__file__).resolve().parents[1]),'rev-parse','HEAD'],text=True).strip()}
-attempt=Path(__file__).resolve().parents[1]/'docs/evidence/s07/probe-attempts'/(env.cr.dbname+'-'+datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f')+'.json')
+attempt=Path(__file__).resolve().parents[1]/'docs/evidence/s07-rework/probe-attempts'/(env.cr.dbname+'-'+datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f')+'.json')
 attempt.parent.mkdir(parents=True,exist_ok=True)
 def save():
     result.setdefault('result','FAIL_OR_INTERRUPTED');attempt.write_text(json.dumps(result,indent=2)+'\n')
@@ -151,6 +151,43 @@ with registry.cursor() as cr:
     assert stock(s,lot)==before and s._native('stock.move').search_count([])==moves and s.env['ydental.access.audit'].sudo().search_count([])==audits
     cr.commit()
 result['native_rollback']={'status':'PASS','quantity_before':before,'quantity_after':before,'no_half_native_moves':True,'no_half_audit':True}
+# Rework: category negatives on distinct live database connections.
+def facts(s):
+    return {m:s.env[m].sudo().search_count([]) for m in
+        ('ydental.inventory.event','stock.move','stock.move.line','stock.quant','ydental.access.audit')}
+for kind,role,categories in [('prescription','pharmacy',('material','prosthesis')),
+        ('chairside','doctor',('material','prosthesis')),('treatment','doctor',('medicine','prosthesis'))]:
+    for category in categories:
+        lot=fixture(3,category);before=fresh(facts)
+        def mismatch(s):
+            return s._source_action(SyntheticSource(users[role],store_ids[0],key(),kind,lot,1,unit))
+        out=parallel((role,0,mismatch),(role,1,mismatch))
+        assert successes(out)==0 and fresh(facts)==before and fresh(lambda s:stock(s,lot))==3
+        record('REWORK category '+kind+' rejects '+category+' without event/move/quant/audit changes',out)
+# Temporal transition is simulated only by the private service clock, never by
+# editing expiry or enabling a stopped lot. Separate live connections still
+# perform all actual native movements and commits.
+for expired in (True,False):
+    lot=fresh(lambda s:newlot(s,'material'))
+    source=SyntheticSource(users['doctor'],store_ids[0],key(),'treatment',lot,2,unit,already_performed=True)
+    pending=fresh(lambda s:s._source_action(source),'doctor')['id']
+    if not expired:fresh(lambda s:action(s,'lot_edit',{'lot_id':lot,'enabled':False,'reason':'Stopped after actual event'}))
+    future=fields.Datetime.now()+timedelta(days=46) if expired else fields.Datetime.now()
+    with patch.object(type(env['ydental.inventory.service']),'_now',return_value=future):
+        correction=fresh(lambda s:receipt(s,lot,5))
+        before=fresh(lambda s:s._model('event').browse(pending).read(['ydental_source_key','ydental_lot_id','ydental_quantity','ydental_actual_at','ydental_responsible_id','ydental_price_snapshot']))
+        def recover_history(s):return action(s,'recover',{'event_id':pending,'reason':'Verified original fact plus evidenced stock correction'})
+        out=parallel(('stock',0,recover_history),('stock2',0,recover_history))
+        assert successes(out)==2 and out[0]['value']['move_id']==out[1]['value']['move_id'] and fresh(lambda s:stock(s,lot))==3
+        after=fresh(lambda s:s._model('event').browse(pending).read(list(before[0].keys()-{'id'})))
+        assert before==after
+        assert fresh(lambda s:s._model('event').browse(pending).ydental_correction_id.id)==correction['id']
+        record('REWORK '+('expired' if expired else 'disabled')+' original pending concurrent reconciliation one move frozen snapshot',out,correction_event=correction['id'])
+        def new_clinical(s):return s._source_action(replace(source,source_key=key(),already_performed=False))
+        negative_before=fresh(facts)
+        out=parallel(('stock',0,lambda s:issue(s,lot)),('doctor',0,new_clinical))
+        assert successes(out)==0 and fresh(facts)==negative_before and fresh(lambda s:stock(s,lot))==3
+        record('REWORK '+('expired' if expired else 'disabled')+' new ordinary and clinical requests both refuse after historical recovery',out)
 # Browser fixtures are isolated from races and contain no real patient/order.
 ui_lot=fixture(10);ui_material=fresh(lambda s:newlot(s,'material'));ui_pending= fresh(lambda s:s._source_action(SyntheticSource(users['doctor'],store_ids[0],key(),'treatment',ui_material,2,unit,already_performed=True)),'doctor')
 ui_prosthesis=fresh(lambda s:newlot(s,'prosthesis'));fresh(lambda s:receipt(s,ui_prosthesis,1))

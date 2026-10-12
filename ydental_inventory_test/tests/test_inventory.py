@@ -351,3 +351,44 @@ class TestInventory(TransactionCase):
         self.assertEqual(event.read(list(frozen[0].keys() - {'id'})), frozen)
         self.assertEqual(quantity(self, lot), 3)
         self.assertEqual(event.state, 'done')
+
+    def test_rework_recovery_requires_real_correction_not_only_existing_stock(self):
+        lot = self.lots['material']
+        receive(self, 5, lot)
+        op(self, 'lot_edit', lot_id=lot, enabled=False, reason='Stopped actual lot')
+        doctor = bind(self, self.users['doctor'])
+        source = SyntheticSource(self.users['doctor'].id, self.stores[0].id, key(), 'treatment', lot, 2, self.uom.id, already_performed=True)
+        event = doctor._source_action(source)
+        before = self._rework_facts(lot)
+        with self.assertRaisesRegex(UserError, 'recovery_evidence_required'):
+            op(self, 'recover', event_id=event['id'], reason='Unconfirmed free text is not correction evidence')
+        self.assertEqual(self._rework_facts(lot), before)
+        receive(self, 1, self.lots['medicine'])
+        with self.assertRaisesRegex(UserError, 'recovery_evidence_required'):
+            op(self, 'recover', event_id=event['id'], reason='Wrong lot receipt cannot authorize recovery')
+        correction = op(self, 'inventory', lot_id=lot, counted=6, uom_id=self.uom.id, source_key=key(), reason='Evidenced physical count six')
+        op(self, 'recover', event_id=event['id'], reason='Verified original source plus physical count')
+        original = self.root['ydental.inventory.event'].browse(event['id'])
+        self.assertEqual(original.ydental_correction_id.id, correction['id'])
+        self.assertTrue(original.ydental_reconciled_at)
+        self.assertEqual(quantity(self, lot), 4)
+
+    def test_rework_recovery_native_failure_rolls_back_original_pending(self):
+        doctor = bind(self, self.users['doctor']); lot = self.lots['material']
+        event = doctor._source_action(SyntheticSource(self.users['doctor'].id, self.stores[0].id, key(), 'treatment', lot, 2, self.uom.id, already_performed=True))
+        receive(self, 5, lot)
+        op(self, 'lot_edit', lot_id=lot, enabled=False, reason='Stopped after original performance')
+        before = self._rework_facts(lot)
+        native = type(self.stock._native('stock.move')); done = native._action_done
+        def fail(move, *args, **kwargs):
+            done(move, *args, **kwargs)
+            raise UserError('Injected after real done movement')
+        with patch.object(native, '_action_done', fail):
+            with self.assertRaises(UserError):
+                op(self, 'recover', event_id=event['id'], reason='Must fully rollback reconciliation')
+        self.assertEqual(self._rework_facts(lot), before)
+        original = self.root['ydental.inventory.event'].browse(event['id'])
+        self.assertEqual(original.state, 'pending'); self.assertFalse(original.ydental_move_id)
+        self.assertFalse(original.ydental_correction_id); self.assertFalse(original.ydental_reconciled_at)
+        op(self, 'recover', event_id=event['id'], reason='Retry after injected failure')
+        self.assertEqual(quantity(self, lot), 3)

@@ -3,7 +3,8 @@ import re
 
 from odoo.tests import HttpCase, tagged
 
-from .common import key, receive, setup
+from .common import bind, key, quantity, receive, setup
+from ..models.adapter import SyntheticSource
 
 
 @tagged('post_install', '-at_install')
@@ -113,3 +114,58 @@ class TestInventoryHTTP(HttpCase):
         self.assertEqual(rejected.status_code,409,rejected.text)
         event=self.env['ydental.inventory.event'].sudo().browse(count.json()['id'])
         self.assertEqual(event.state,'observed');self.assertFalse(event.ydental_move_id)
+
+    def test_http_rework_category_via_trusted_server_bridge_and_rpc_refusal(self):
+        from unittest.mock import patch
+        self.admin._grant(self.users['stock'].id, self.stores[0].id,
+            {'warehouse': 'write', 'pharmacy': 'write', 'medical': 'write'})
+        self.select()
+        for kind in ('prescription', 'chairside', 'treatment'):
+            categories = ('material', 'prosthesis') if kind != 'treatment' else ('medicine', 'prosthesis')
+            for category in categories:
+                lot = self.lots[category]; receive(self, 3, lot)
+                source = SyntheticSource(self.users['stock'].id, self.stores[0].id, key(), kind, lot, 1, self.uom.id)
+                # Temporary private server bridge only during this HttpCase;
+                # no installed route, RPC method or dictionary authorization.
+                def bridge(service, store, **kwargs):
+                    return service._source_action(source)
+                before = tuple(self.env[m].sudo().search_count([]) for m in ('ydental.inventory.event', 'stock.move', 'stock.quant'))
+                with patch.object(type(self.stock), '_issue', bridge):
+                    rejected = self.action('issue', {})
+                self.assertEqual(rejected.status_code, 409, rejected.text)
+                self.assertIn('source_category_mismatch', rejected.text)
+                after = tuple(self.env[m].sudo().search_count([]) for m in ('ydental.inventory.event', 'stock.move', 'stock.quant'))
+                self.assertEqual(after, before)
+                self.assertIn('error', self.rpc('ydental.inventory.service', '_source_action', [{'kind':kind,'lot_id':lot}]))
+
+    def test_http_rework_expired_pending_recovery_and_new_execution_refusal(self):
+        self._http_rework_pending(True)
+
+    def test_http_rework_disabled_pending_recovery_and_new_execution_refusal(self):
+        self._http_rework_pending(False)
+
+    def _http_rework_pending(self, expired):
+        from datetime import timedelta
+        from unittest.mock import patch
+        from odoo import fields
+        lot = self.lots['material']; doctor = bind(self, self.users['doctor'])
+        original = doctor._source_action(SyntheticSource(self.users['doctor'].id, self.stores[0].id, key(), 'treatment', lot, 2, self.uom.id, already_performed=True))
+        self.select()
+        if not expired:
+            self.assertEqual(self.action('lot_edit', {'lot_id':lot,'enabled':False,'reason':'Stopped after execution'}).status_code, 200)
+        future = fields.Datetime.now() + timedelta(days=46) if expired else fields.Datetime.now()
+        with patch.object(type(self.stock), '_now', return_value=future):
+            args = {'event_id':original['id'],'reason':'Verified original performed event'}
+            self.assertEqual(self.action('recover', args).status_code, 409)
+            receipt = self.action('receive', {'lot_id':lot,'quantity':5,'uom_id':self.uom.id,'source_key':key(),'reason':'Actual incoming stock evidence'})
+            self.assertEqual(receipt.status_code,200,receipt.text)
+            first = self.action('recover',args); retry = self.action('recover',args)
+            self.assertEqual(first.status_code,200,first.text);self.assertEqual(first.json()['move_id'],retry.json()['move_id'])
+            denied = self.action('issue', {'lot_id':lot,'quantity':1,'uom_id':self.uom.id,'source_key':key(),'reason':'New execution must refuse'})
+            self.assertEqual(denied.status_code,409,denied.text)
+            self.assertIn('lot_expired' if expired else 'lot_disabled',denied.text)
+        event = self.env['ydental.inventory.event'].sudo().browse(original['id'])
+        self.assertEqual(event.ydental_correction_id.id,receipt.json()['id']);self.assertEqual(event.ydental_price_snapshot['unit_price'],20)
+        self.assertEqual(quantity(self,lot),3)
+        self.select('reader');self.assertEqual(self.action('recover',args).status_code,403)
+        self.assertIn('error',self.rpc('ydental.inventory.event','write',[[original['id']],{'state':'pending','ydental_correction_id':False}]))
