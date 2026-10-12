@@ -209,3 +209,40 @@ class TestActualTreatment(TransactionCase):
         called=exam._operate('call',lease_args(lease))
         with self.assertRaises(AccessError):exam._operate('start',lease_args(lease)|{'entry_id':called['entry_id']})
         self.assertFalse(self.root['ydental.queue.execution'].search_count([('ydental_task_id','=',issued['task_ids'][0])]))
+
+    def test_material_only_delta_retains_original_quantity_and_price(self):
+        receive(self);price(self);s,c,q,l,e,d,a=opened_actual(self)
+        original=s._operate('execute',execute_args(self,a),key())
+        extra=s._operate('correct',a|{'event_id':original['event_id'],'delta':0,'source':key(),
+            'reason':'Verified additional physical material only','materials':execute_args(self,a)['materials']},key())
+        self.assertEqual(extra['amount'],0);self.assertEqual(len(extra['move_ids']),1)
+        self.assertEqual(s._model('event').browse(original['event_id']).ydental_quantity,1)
+        self.assertEqual(s._model('fee').browse(extra['fee_id']).ydental_unit_price,600)
+
+    def test_historical_recovery_inventory_preserves_original_actual_time(self):
+        receive(self);s,c,q,l,e,d,a=opened_actual(self)
+        result=s._operate('execute',execute_args(self,a,actual=True),key())
+        actual=s._model('event').browse(result['event_id']).ydental_actual_at
+        pricer=bind(self,self.users['price']).env['ydental.queue.service']._bind_connection(key()+key()).env[s._name]
+        pricer._operate('review_price',{'event_id':result['event_id'],'unit_price':600,'currency_id':self.currency.id,'evidence':'Original historical quote'},key())
+        with patch.object(fields.Datetime,'now',return_value=actual+timedelta(minutes=2)):
+            result=s._operate('reconcile',{'event_id':result['event_id'],'reason':'Later bookkeeping keeps original actual time'},key())
+        inventory=self.root['ydental.inventory.event'].browse(result['inventory_event_ids'])
+        self.assertEqual(inventory.ydental_actual_at,actual)
+
+    def test_next_day_remaining_requires_new_arrival_report_and_holder(self):
+        receive(self,20,'medicine');price(self,catalog=self.drug_catalog,amount=10)
+        s,c,q,l,e,d,a=opened_actual(self);issued=prescription(self,s,a);c._operate('handover',handover_args(d,l))
+        p,args=pharmacy_start(self,issued)
+        p._operate('dispense',args|{'line_id':issued['line_ids'][0],'lot_id':self.lots['medicine'],'quantity':4,'source':key(),'reason':'Actual first-day four','policy':'demo_confirmation'},key())
+        ended=p._operate('finish',args|{'reason':'End first-day dispensing'},key())
+        tomorrow=fields.Datetime.now()+timedelta(days=1)
+        with patch.object(fields.Datetime,'now',return_value=tomorrow):
+            with self.assertRaises((AccessError,UserError)):
+                p._operate('dispense',args|{'line_id':issued['line_ids'][0],'lot_id':self.lots['medicine'],'quantity':2,'source':key(),'reason':'Old holder cannot serve next day','policy':'demo_confirmation'},key())
+            supply=self.group.env['ydental.supply.service']
+            supply._operate('business',{'area_id':self.pharmacy_area.id,'state':'open','reason':'Explicit next-day pharmacy opening'},key())
+            p,args=pharmacy_start(self,issued,ended['next_task_id'])
+            last=p._operate('dispense',args|{'line_id':issued['line_ids'][0],'lot_id':self.lots['medicine'],'quantity':2,'source':key(),'reason':'Actual next-day two','policy':'demo_confirmation'},key())
+            self.assertEqual(last['remaining'],0)
+            self.assertEqual(p._operate('finish',args|{'reason':'End second-day dispensing'},key())['order_state'],'done')
