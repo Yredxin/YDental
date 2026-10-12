@@ -64,6 +64,11 @@ msgstr ""
 "id=\"readonly-message\">当前只读。请先取得此独立文书的编辑权。</span>"
 
 #. module: ydental_clinical
+#: model:ir.model.constraint,message:ydental_clinical.constraint_ydental_clinical_document_one_current_execution
+msgid "A current segment has one independent treatment document."
+msgstr "当前接诊段只能关联一份独立治疗文书。"
+
+#. module: ydental_clinical
 #: model:ir.model.constraint,message:ydental_clinical.constraint_ydental_clinical_version_request_unique
 msgid "A save request is unique."
 msgstr "同一保存请求只能受理一次。"
@@ -494,6 +499,11 @@ msgstr "编辑连接摘要"
 #: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_version__ydental_content
 msgid "Ydental Content"
 msgstr "临床内容"
+
+#. module: ydental_clinical
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_document__ydental_current_execution_id
+msgid "Ydental Current Execution"
+msgstr "当前接诊段"
 
 #. module: ydental_clinical
 #: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_version__ydental_document_id
