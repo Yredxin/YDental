@@ -185,7 +185,7 @@ class TestActualTreatment(TransactionCase):
         s,c,q,l,e,d,a=opened_actual(self);issued=prescription(self,s,a);c._operate('handover',handover_args(d,l))
         supply=self.group.env['ydental.supply.service']
         for state in ('draining','closed'):
-            supply._operate('business',{'area_id':self.pharmacy_area.id,'state':state,'reason':'Synthetic pharmacy stop ordinary admissions'},key())
+            supply._operate('business',{'area_id':self.pharmacy_area.id,'version':supply._business_record(self.stores[0],self.pharmacy_area.id).ydental_version,'state':state,'reason':'Synthetic pharmacy stop ordinary admissions'},key())
         task=self.root['ydental.intake.task'].browse(issued['task_ids'][0]);self.front._operate('arrive',{'patient_id':task.ydental_patient_id.id},key())
         with self.assertRaises(UserError):self.front._operate('report',{'task_id':task.id,'version':task.ydental_version},key())
         append=self.front.env['ydental.queue.service']._bind_connection(key()+key())._operate('append',{'task_id':task.id,'reason':'Explicit actual closed pharmacy intake'})

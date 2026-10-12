@@ -15,9 +15,9 @@ class YDentalTreatment(http.Controller):
         return access.env['ydental.treatment.service']
 
     @http.route('/ydental/treatment', type='http', auth='user', methods=['GET'])
-    def workbench(self, **kwargs):
+    def workbench(self, prices=None, **kwargs):
         service = self._service()
-        role = 'medical'
+        role = 'price' if prices == '1' else 'medical'
         try:
             store = service._access(role, write=False)
         except AccessError:
@@ -33,12 +33,15 @@ class YDentalTreatment(http.Controller):
         domain = [('ydental_store_id', '=', store.id)]
         orders = service._model('order').search(domain + ([('ydental_kind', '=', 'prescription'), ('state', 'in', ('issued', 'done'))]
             if role == 'pharmacy' else []), order='id desc', limit=100)
+        if role == 'price':
+            orders = service._model('order')
         if patient:
             orders = orders.filtered(lambda o: o.ydental_patient_id == patient)
         lines = service._model('line').search([('ydental_order_id', 'in', orders.ids)], order='id')
         segments = service._model('segment').search([('ydental_order_id', 'in', orders.ids)], order='id')
-        events = service._model('event').search(domain + [('ydental_category', '=', role)] +
+        events = service._model('event').search(domain + ([('ydental_pending_reason', '=', 'missing_price')] if role == 'price' else [('ydental_category', '=', role)]) +
             ([('ydental_patient_id', '=', patient.id)] if patient else []), order='id desc', limit=100)
+        consumptions = service._model('consumption').search([('ydental_event_id', 'in', events.ids)])
         mappings = service.env['ydental.intake.service']._model('mapping').search([('ydental_store_id', '=', store.id), ('active', '=', True)])
         target_mappings = service.env['ydental.intake.service']._model('mapping').search([
             ('ydental_store_id', '!=', store.id), ('ydental_store_id.company_id', 'in', service.env.user.sudo().company_ids.ids), ('active', '=', True)]) if role == 'medical' else []
@@ -51,6 +54,8 @@ class YDentalTreatment(http.Controller):
             service._audit('execution_view', event)
         return request.render('ydental_treatment.ydental_treatment_page', {
             'store': store, 'role': role, 'execution': execution, 'doc': doc, 'patient': patient,
+            'labels': {entity: dict(service._model(entity)._fields['state']._description_selection(service.env)) for entity in ('order', 'line', 'segment', 'event')},
+            'consumptions': consumptions, 'currency_id': store.company_id.currency_id.id,
             'orders': orders, 'lines': lines, 'segments': segments, 'events': events,
             'mappings': mappings, 'target_mappings': target_mappings, 'lots': lots, 'products': products,
             'remaining': service._remaining, 'event_result': service._event_result,

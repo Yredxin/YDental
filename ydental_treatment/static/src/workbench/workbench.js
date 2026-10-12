@@ -1,6 +1,10 @@
 const root = document.querySelector('.o_ydental_treatment');
 if (root) {
-    const connection = sessionStorage.getItem('ydental_queue_connection');
+    let connection = sessionStorage.getItem('ydental_queue_connection');
+    if (!connection) {
+        connection = Array.from(crypto.getRandomValues(new Uint8Array(32)), b => b.toString(16).padStart(2, '0')).join('');
+        sessionStorage.setItem('ydental_queue_connection', connection);
+    }
     const holder = JSON.parse(sessionStorage.getItem('ydental_queue_holder') || 'null');
     const message = root.querySelector('#treatment-result');
     const check = root.querySelector('#treatment-reconcile');
@@ -45,7 +49,9 @@ if (root) {
         if (op === 'finish') { return {...pharmacy, reason: data.reason}; }
         if (op === 'reconcile') { return {event_id: Number(event.dataset.event), reason: data.reason}; }
         if (op === 'correct') { return {...actual, event_id: Number(event.dataset.event), delta: Number(data.delta),
-            source: form.dataset.source, reason: data.reason, materials: []}; }
+            source: form.dataset.source, reason: data.reason, materials: data.lot_id ? [{lot_id: Number(data.lot_id), quantity: Number(data.material_quantity), uom_id: Number(form.querySelector('[name="lot_id"] option:checked').dataset.uom), kind: form.querySelector('[name="lot_id"] option:checked').dataset.kind}] : []}; }
+        if (op === 'review_price') { return {event_id: Number(event.dataset.event), unit_price: Number(data.unit_price), currency_id: Number(root.dataset.currency), evidence: data.evidence}; }
+        if (op === 'return_material') { return {event_id: Number(event.dataset.event), inventory_event_id: Number(form.dataset.inventoryEvent), quantity: Number(data.quantity), uom_id: Number(form.dataset.uom), source: form.dataset.source, reason: data.reason}; }
         if (op === 'refer') { return {...actual, mapping_id: Number(data.mapping_id), mode: data.mode, source: form.dataset.source,
             reason: data.reason, ...(data.mode === 'timed' ? {start: utc(data.start), end: utc(data.end)} : {valid_until: utc(data.valid_until)})}; }
         throw new Error('invalid_action');
@@ -79,7 +85,7 @@ if (root) {
                 // Keep a reviewable receipt and never replay a possibly committed
                 // execution. Reload only when the full visible form is unchanged.
                 root.querySelectorAll('input,select,button').forEach(input => { input.disabled = false; });
-                message.textContent = JSON.stringify(result);
+                message.textContent = root.querySelector('#treatment-confirm').textContent;
                 if (before !== JSON.stringify([...new FormData(form)])) {
                     uncertain = true;
                     check.hidden = false;
