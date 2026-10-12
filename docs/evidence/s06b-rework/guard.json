@@ -1,0 +1,7 @@
+{
+  "result": "PASS",
+  "checks": 5,
+  "tested_commit": "ba9eae8367cf598e7367ad439a5a5ec81be91a20",
+  "script_sha256": "63559aa7b90dca1bb6c1cdfe8523d94b7b56311193bd5b4d74ef3551cb9a3273",
+  "output_sha256": "267ada4b9536b18bf4b0c04f299ceb5f5de3897968a92df16fcdb44ae7f2867b"
+}

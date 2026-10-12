@@ -1,0 +1,6 @@
+{
+  "scripts/s06b_a_probe.py": "Original code identical except evidence destination",
+  "scripts/s06b_probe.py": "Original B12 competition source retained before rework additions",
+  "scripts/s06b_a_browser.py": "Original code identical except evidence destination",
+  "scripts/s06b_browser.py": "Original code identical except evidence destination"
+}

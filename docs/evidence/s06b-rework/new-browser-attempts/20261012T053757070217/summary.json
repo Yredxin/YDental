@@ -1,0 +1,38 @@
+{
+  "scope": "S06-B real queue, unscheduled workstation leases and actual start UI",
+  "database": "ydental_s06b_test_20261012052753_3abef9ad",
+  "tested_commit": "efcb52a9c7e03b9cbd1cd2626b36802768a541d2",
+  "browser": "Firefox",
+  "sandbox": "default, no overrides",
+  "checks": [
+    {
+      "check": "verify_execution has controlled on-site action",
+      "result": "PASS"
+    },
+    {
+      "check": "verify_execution refuses unconfirmed presence",
+      "result": "PASS"
+    },
+    {
+      "check": "verify_execution issues a bound holding lease",
+      "result": "PASS"
+    },
+    {
+      "check": "verify_execution leaves verification list",
+      "result": "PASS"
+    },
+    {
+      "check": "verify_execution rejects second handling",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s06b-rework/new-browser-attempts/20261012T053757070217/verify_execution-before.png",
+      "sha256": "cc6f68a59164e99c22aa9eb9e1b0398ebf87eff4c15492071abc32a4c4969748"
+    }
+  ],
+  "browser_version": "155.0",
+  "result": "FAIL_OR_INTERRUPTED",
+  "pageerror_count": 0
+}

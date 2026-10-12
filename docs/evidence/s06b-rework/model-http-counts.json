@@ -1,0 +1,16 @@
+{
+  "models": 62,
+  "real_http_rpc": 20,
+  "cases_by_class": {
+    "TestQueueHTTP": 6,
+    "TestQueue": 26,
+    "TestQueueReturn": 17,
+    "TestQueueReturnHTTP": 9,
+    "TestQueueReturnRework": 8,
+    "TestQueueRework": 11,
+    "TestQueueReworkHTTP": 5
+  },
+  "tested_commit": "ba9eae8367cf598e7367ad439a5a5ec81be91a20",
+  "database": "ydental_s06b_test_20261012053943_5c4370e3",
+  "result": "PASS"
+}

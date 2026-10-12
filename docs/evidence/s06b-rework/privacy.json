@@ -1,0 +1,6 @@
+{
+  "result": "PASS",
+  "private_access_and_lease_values_scanned": true,
+  "no_private_configs_or_raw_logs": true,
+  "only_json_and_synthetic_png_evidence": true
+}

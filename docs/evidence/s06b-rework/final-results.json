@@ -1,0 +1,75 @@
+{
+  "result": "PASS",
+  "product": "f0710bf89da396f580fe11564ebee4c51f655178",
+  "test": "ba9eae8367cf598e7367ad439a5a5ec81be91a20",
+  "base_final": "ebaeec101bf2df76c26f91202deba01a88220f09",
+  "database": "ydental_s06b_test_20261012053943_5c4370e3",
+  "install": {
+    "tests": 84,
+    "failed": 0,
+    "errors": 0
+  },
+  "upgrade": {
+    "tests": 82,
+    "failed": 0,
+    "errors": 0
+  },
+  "models": 62,
+  "real_http_rpc": 20,
+  "concurrency": {
+    "A_original": 21,
+    "B_original": 12,
+    "B_rework_new": 4,
+    "total": 37,
+    "deadlocks": 0
+  },
+  "firefox": {
+    "checks": 83,
+    "screenshots": 33,
+    "pageerrors": 0,
+    "batches": [
+      {
+        "artifact": "docs/evidence/s06b-rework/a-regression/browser-attempts/20261012T054648160688/summary.json",
+        "checks": 36,
+        "screenshots": 14,
+        "pageerrors": 0
+      },
+      {
+        "artifact": "docs/evidence/s06b-rework/browser-attempts/20261012T054756189883/summary.json",
+        "checks": 29,
+        "screenshots": 10,
+        "pageerrors": 0
+      },
+      {
+        "artifact": "docs/evidence/s06b-rework/new-browser-attempts/20261012T054856848893/summary.json",
+        "checks": 18,
+        "screenshots": 9,
+        "pageerrors": 0
+      }
+    ]
+  },
+  "guard": 5,
+  "translation": {
+    "exported": 230,
+    "translated": 230,
+    "invalid_code_metadata": 0
+  },
+  "migration": "A-shaped old row/lifetime constraints + actual module upgrade PASS",
+  "project": {
+    "issue30_execution": "返工",
+    "issue29_execution": "待用户验收",
+    "native_status": "Todo",
+    "phases_unchanged": true,
+    "workflows_unchanged": true,
+    "two_full_readbacks": true
+  },
+  "product_to_test_only_validation": true,
+  "original_evidence_unchanged": true,
+  "preview_stopped": true,
+  "not_run": [
+    "S06-C",
+    "S07 stock",
+    "real S08 clinical documents/orders/dispensing",
+    "production"
+  ]
+}

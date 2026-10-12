@@ -1,0 +1,87 @@
+{
+  "database": {
+    "database": "ydental_s06b_test_20261012053943_5c4370e3",
+    "oid": 669765,
+    "endpoint": {
+      "host": "127.0.0.1",
+      "port": "5432",
+      "user": "odoo"
+    },
+    "cluster": "7694897083368259627",
+    "port": 18129,
+    "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+    "created_utc": "2026-10-12T05:39:43.965691+00:00",
+    "config_sha256": "ab9e9cc5da0178482e2967d1704ee258fef41f8a3812dacb04786800a3106625"
+  },
+  "actions": [
+    {
+      "action": "install",
+      "exit_code": 0,
+      "log": "install-20261012T053943967235.log",
+      "log_sha256": "10fe96770d71299386cc0ca88e565ffe25da692370ac77bcce9426a56d3fa8a5",
+      "time_utc": "2026-10-12T05:41:47.806628+00:00",
+      "tested_commit": "ba9eae8367cf598e7367ad439a5a5ec81be91a20",
+      "tests": [
+        0,
+        0,
+        84
+      ]
+    },
+    {
+      "action": "legacy_seed",
+      "exit_code": 0,
+      "log": "legacy_seed-20261012T054152857483.log",
+      "log_sha256": "796ca7db69d9e6e5475110b275e68481f1499a66a4e8ad6c2b2a84888590d5c3",
+      "time_utc": "2026-10-12T05:41:59.741727+00:00",
+      "tested_commit": "ba9eae8367cf598e7367ad439a5a5ec81be91a20"
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 0,
+      "log": "upgrade-20261012T054159819574.log",
+      "log_sha256": "7942935d4c72488e5adb1d6968669ec17d9b92e48cbb7a22460f072c45b452d7",
+      "time_utc": "2026-10-12T05:43:11.862257+00:00",
+      "tested_commit": "ba9eae8367cf598e7367ad439a5a5ec81be91a20",
+      "tests": [
+        0,
+        0,
+        82
+      ]
+    },
+    {
+      "action": "migration_check",
+      "exit_code": 0,
+      "log": "migration_check-20261012T054336028686.log",
+      "log_sha256": "21caad0a0efb73ad456f0ca82cb85fdef5f49c5f9403eca3c12c33df7fe87d5d",
+      "time_utc": "2026-10-12T05:43:37.575732+00:00",
+      "tested_commit": "ba9eae8367cf598e7367ad439a5a5ec81be91a20"
+    },
+    {
+      "action": "probe",
+      "exit_code": 0,
+      "log": "probe-20261012T054337653295.log",
+      "log_sha256": "9d9b55f77da9d892b99522b0797dd3ce34905c59fbaa7b5dc5b382cf4caeaa2d",
+      "time_utc": "2026-10-12T05:45:48.191749+00:00",
+      "tested_commit": "ba9eae8367cf598e7367ad439a5a5ec81be91a20"
+    },
+    {
+      "action": "export",
+      "exit_code": 0,
+      "log": "export-20261012T054548268495.log",
+      "log_sha256": "9b73974af320d9c5f524bc2903a1d53a7ccd6e31086d1fdac4d511d0fce165bd",
+      "time_utc": "2026-10-12T05:45:50.185285+00:00",
+      "tested_commit": "ba9eae8367cf598e7367ad439a5a5ec81be91a20"
+    }
+  ],
+  "preview": {
+    "pid": 946789,
+    "port": 18129,
+    "exact_pid_and_config_hash_checked": true,
+    "stopped": true
+  },
+  "browser_private_log_hashes": {
+    "browser-rework.log": "23fba1907d3dbc1251ab7056b7266c443b7a5d1bab6428d4d876399f3a648cf6",
+    "browser-b.log": "ea902caaf8f72aafe9c527fe823246f8f38d8b930dd1b5898f1766bc1ec94dfd",
+    "browser-a.log": "9b0d7dc92d77db75a1b7a2cd79d5ef9420973be09a86402d5aed92b759478c88"
+  }
+}

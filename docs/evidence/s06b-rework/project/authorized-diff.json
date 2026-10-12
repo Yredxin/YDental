@@ -1,0 +1,28 @@
+{
+  "result": "PASS",
+  "exactly_two_custom_execution_fields_changed": true,
+  "full_readbacks_identical": true,
+  "structure_keys_and_lengths_equal": true,
+  "diff": [
+    [
+      "/items/nodes/6/fieldValues/nodes/4/name",
+      "返工",
+      "待用户验收"
+    ],
+    [
+      "/items/nodes/6/fieldValues/nodes/4/optionId",
+      "dc2fcb03",
+      "fde94571"
+    ],
+    [
+      "/items/nodes/7/fieldValues/nodes/4/name",
+      "进行中",
+      "返工"
+    ],
+    [
+      "/items/nodes/7/fieldValues/nodes/4/optionId",
+      "57b99552",
+      "dc2fcb03"
+    ]
+  ]
+}

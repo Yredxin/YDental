@@ -1,5 +1,17 @@
 # YDental 当前执行入口
 
+## 当前 S06-B定向返工 / #30
+
+- 用户明确只修[GPT-REVIEW6118213551](https://github.com/Yredxin/YDental/issues/30#issuecomment-6118213551)三个BLOCKER，继续当前S06-B会话/分支`codex/s06-b-continuation-r1-20261012`。原最终`ebaeec101bf2df76c26f91202deba01a88220f09`及全部历史失败证据保留。
+- 本次单独授权Project #30执行状态进行中→返工，并补执行#29旧授权返工→待用户验收。实施前完整读取21字段/15条目/6视图/7公开workflow，仅两次字段mutation后两次完整读回深差异仅两个字段四个name/optionId叶值。原生Status均Todo、阶段S06/S05、Issue OPEN及其他字段/条目/视图/workflows不变。#30保持返工，不自行转待复核。
+- 只修verify现场处理出口、active/verify hold的可信exam/pharmacy目标限制、revoked permit在open后普通资格恢复。实际verify保存后现场接手：旧段interrupted/新serving链接旧段；hold verify保存后交还续诊。旧actor/lease/history不改，新持有人新server-bound lease，两个合格人竞争只能一次成功，无管理员remote force-release；保存hook默认fail-closed，不伪造医疗完成。
+- 修正产品固定`f0710bf89da396f580fe11564ebee4c51f655178`，测试固定`ba9eae8367cf598e7367ad439a5a5ec81be91a20`；最终文档证据SHA固定于#30修正交付评论。补充docs/s06b-rework-contracts.md、docs/s06b-rework-security-review.md、docs/s06b-rework-report.md及docs/evidence/s06b-rework，原字典与新增interrupted/resolution_lease补充共同适用。
+- 最终新库`ydental_s06b_test_20261012053943_5c4370e3`，固定test install84/upgrade82（62模型+20真实HTTP/RPC），A原21+B原12+新增4真实双连接37/37、deadlock=0，Firefox A36/14图+B29/10图+新增18/9图共83项/33图、pageerror=0，guard5、翻译230/230及A形态真实upgrade迁移均Codex自测通过；不代表GPT/用户验收。新增9图已目视核对；中间模型/夹具/视觉失败链完整保留。
+- 继续scripts/s06b.py及新库/端点/cluster/OID/config/dbfilter/PID/端口/外发guard；旧库不接管、核心/既有服务/系统依赖不改。生产心跳/超时/N未批准；真实S08保存/文书、S07库存/真实发药、S06-C日终/推送均NOT_RUN。
+- #30写`[CODEX] S06-B修正交付与复核申请`并逐字读回后停止等待GPT复核，不称用户验收/生产通过，不启用C/S07、不关闭/合并/强推/生产发布。
+
+下方S06-B原交付及更早“当前/本次”均为历史记录，本次授权以本节及最新review为准。
+
 ## 当前 S06-B交付 / #30
 
 - 用户明确启用#30/S06-B，唯一业务边界为[GPT-ACTIVATE6117541343](https://github.com/Yredxin/YDental/issues/30#issuecomment-6117541343)。已完整读取#23正文/最新有效评论、#30正文/全部有效评论及S06-A最终技术PASS6117519348；[开工检查6117569945](https://github.com/Yredxin/YDental/issues/30#issuecomment-6117569945)写回逐字读回后实施。交付前重读边界未变。

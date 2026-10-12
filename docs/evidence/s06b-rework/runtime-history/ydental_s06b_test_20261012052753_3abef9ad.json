@@ -1,0 +1,89 @@
+{
+  "database": "ydental_s06b_test_20261012052753_3abef9ad",
+  "intermediate_only": true,
+  "actions": [
+    {
+      "action": "install",
+      "exit_code": 1,
+      "log": "install-20261012T052807861358.log",
+      "log_sha256": "b226d9491be294a55c049f3e149785f6a8e348bf7d46264641e83c82d991b19a",
+      "time_utc": "2026-10-12T05:30:09.072672+00:00",
+      "tested_commit": "4e302d8bf8c807823cdc687b8bbfb157d25d1dd0",
+      "tests": [
+        1,
+        0,
+        82
+      ],
+      "verification_exit": 1
+    },
+    {
+      "action": "export",
+      "exit_code": 0,
+      "log": "export-20261012T053028786002.log",
+      "log_sha256": "f805debc4cb6c64ac21a851230b8fdc48fd93d5c004e6bfa3c59f0b0138038aa",
+      "time_utc": "2026-10-12T05:30:30.686361+00:00",
+      "tested_commit": "9aaecaa7b4a82a0e168dfb411726f1c6d59296ec"
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 1,
+      "log": "upgrade-20261012T053112926284.log",
+      "log_sha256": "a70dbe9f1449b840b173315b8452bce13b8eb46244f100440aaea9df6237a97b",
+      "time_utc": "2026-10-12T05:32:21.513988+00:00",
+      "tested_commit": "7ccf3e4d12e872afc16b8fd11a3d49ce43cdaa0a",
+      "tests": [
+        0,
+        1,
+        80
+      ],
+      "verification_exit": 1
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 0,
+      "log": "upgrade-20261012T053329812630.log",
+      "log_sha256": "3ed472b5694498d33b40d7cb35a1843a4b8636aba0d5fe217b6bcf71d2bf94d4",
+      "time_utc": "2026-10-12T05:34:39.744517+00:00",
+      "tested_commit": "7c1db5e8d97f14ef0986db01faede432f9e240b2",
+      "tests": [
+        0,
+        0,
+        81
+      ]
+    },
+    {
+      "action": "probe",
+      "exit_code": 0,
+      "log": "probe-20261012T053506835984.log",
+      "log_sha256": "773c990cb4bc4b56c06a0b8baa8b40a2c49652ca326e1df06e61b6dee8123627",
+      "time_utc": "2026-10-12T05:37:15.129845+00:00",
+      "tested_commit": "a4a429efbc35d31008dbc0b8e48ca8aeb30e9397"
+    }
+  ],
+  "failures": [
+    {
+      "action": "install",
+      "cause": "M2M [] no-op in new negative capability fixture; corrected to explicit set empty"
+    },
+    {
+      "action": "upgrade",
+      "cause": "stale test entry copied original number; corrected to distinct synthetic number"
+    },
+    {
+      "action": "early probe invocation",
+      "cause": "Global runner action lock refused while upgrade running; no service stopped or database operation"
+    }
+  ],
+  "browser_logs": [
+    {
+      "name": "rework-browser-initial.log",
+      "sha256": "4eefe66cc02f55f17fa42102996b2c67cbfd1b8d4f216e73b44ea92a3f0f24db"
+    },
+    {
+      "name": "rework-browser-remaining.log",
+      "sha256": "d03bc4b7190c476027bee886da97fa2915943aa5cfb2200c74a51387bef7bd0c"
+    }
+  ],
+  "browser_failure": "First UI assertion incorrectly expected connection position state serving; now checks actual queue row; partial remaining-case diagnosis passed 12 checks / 7 screenshots",
+  "preview": "Exact recorded PID/config hash verified then own PID stopped; no existing service touched"
+}

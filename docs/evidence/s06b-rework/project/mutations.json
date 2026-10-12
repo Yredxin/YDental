@@ -1,0 +1,20 @@
+[
+  {
+    "issue": 30,
+    "field": "执行状态",
+    "from": "进行中",
+    "to": "返工",
+    "item_id": "PVTI_lAHOA3_tu84BmcLJzg_8ln0",
+    "query_sha256": "5e78bfb821732ec89ad81246453b98b5957260268abbee79a600fc5105cc4f00",
+    "result": "PASS"
+  },
+  {
+    "issue": 29,
+    "field": "执行状态",
+    "from": "返工",
+    "to": "待用户验收",
+    "item_id": "PVTI_lAHOA3_tu84BmcLJzg_8lIQ",
+    "query_sha256": "5e78bfb821732ec89ad81246453b98b5957260268abbee79a600fc5105cc4f00",
+    "result": "PASS"
+  }
+]

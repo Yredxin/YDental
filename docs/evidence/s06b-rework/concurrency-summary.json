@@ -1,0 +1,23 @@
+{
+  "result": "PASS",
+  "database": "ydental_s06b_test_20261012053943_5c4370e3",
+  "tested_commit": "ba9eae8367cf598e7367ad439a5a5ec81be91a20",
+  "A_original": 21,
+  "B_original": 12,
+  "B_rework_new": 4,
+  "deadlocks": 0,
+  "artifacts": [
+    {
+      "artifact": "docs/evidence/s06b-rework/a-regression/probe-attempts/ydental_s06b_test_20261012053943_5c4370e3-20261012T054338687386.json",
+      "sha256": "01d1599fadf521faa4a9ed70ae8b51a2ab7e5569e58f18525e879ef2d7c774d3",
+      "races": 21,
+      "rr_retries": 15
+    },
+    {
+      "artifact": "docs/evidence/s06b-rework/probe-attempts/ydental_s06b_test_20261012053943_5c4370e3-20261012T054400402059.json",
+      "sha256": "e6774056cd14af430a1beb4a3fe27b8bb6bab889d60cef688b11932def6af82c",
+      "races": 16,
+      "rr_retries": 15
+    }
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "scope": "S06-B real queue, unscheduled workstation leases and actual start UI",
+  "database": "ydental_s06b_test_20261012052753_3abef9ad",
+  "tested_commit": "ba9eae8367cf598e7367ad439a5a5ec81be91a20",
+  "browser": "Firefox",
+  "sandbox": "default, no overrides",
+  "checks": [
+    {
+      "check": "verify_hold has controlled on-site action",
+      "result": "PASS"
+    },
+    {
+      "check": "verify_hold refuses unconfirmed presence",
+      "result": "PASS"
+    },
+    {
+      "check": "verify_hold issues a bound holding lease",
+      "result": "PASS"
+    },
+    {
+      "check": "verify_hold leaves verification list",
+      "result": "PASS"
+    },
+    {
+      "check": "verify_hold rejects second handling",
+      "result": "PASS"
+    },
+    {
+      "check": "hold handover leaves unique pending continuation",
+      "result": "PASS"
+    },
+    {
+      "check": "hold rejects care",
+      "result": "PASS"
+    },
+    {
+      "check": "hold rejects untrusted",
+      "result": "PASS"
+    },
+    {
+      "check": "additional trusted external target reports",
+      "result": "PASS"
+    },
+    {
+      "check": "reopened same task reports without new append",
+      "result": "PASS"
+    },
+    {
+      "check": "revoked history does not block ordinary reopened start",
+      "result": "PASS"
+    },
+    {
+      "check": "no browser script errors",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s06b-rework/new-browser-attempts/20261012T053852984112/verify_hold-before.png",
+      "sha256": "9f5976fcdac9f7cd1aa8bef0045dba0c36ebe164b2c281aafd3d8bea5a3b0b4d"
+    },
+    {
+      "path": "docs/evidence/s06b-rework/new-browser-attempts/20261012T053852984112/verify_hold-after.png",
+      "sha256": "cc5cb1adf475aeb787bf7b12e5c5ba8d68e29f80f7572f400142a159a1f1f29d"
+    },
+    {
+      "path": "docs/evidence/s06b-rework/new-browser-attempts/20261012T053852984112/hold-denied-care.png",
+      "sha256": "38a343de9cb71ab4b8ec096d591d8be9fa31cce9a8377b732ee3629effe01b32"
+    },
+    {
+      "path": "docs/evidence/s06b-rework/new-browser-attempts/20261012T053852984112/hold-denied-untrusted.png",
+      "sha256": "99da28a01037062f6efd12beb162d65ea9fe67a3e5f8885729bffc29ae5d20d9"
+    },
+    {
+      "path": "docs/evidence/s06b-rework/new-browser-attempts/20261012T053852984112/hold-trusted-external.png",
+      "sha256": "21fc4fb5591d1107ec690ab609cbffe234c2c2c69e3c8ea504b62a6c8d8ec666"
+    },
+    {
+      "path": "docs/evidence/s06b-rework/new-browser-attempts/20261012T053852984112/revoked-reopen-ordinary-report.png",
+      "sha256": "e28e0d12dd7b23036305ad0a06d5b190b77883d59a4f3967233c28cc8f7cfdc5"
+    },
+    {
+      "path": "docs/evidence/s06b-rework/new-browser-attempts/20261012T053852984112/revoked-reopen-ordinary-start.png",
+      "sha256": "e80c24921b9252f8b5d333859aa08ba6ddd12983f987e67e73f44e5d5972bc4d"
+    }
+  ],
+  "selected_cases": [
+    "verify_hold",
+    "hold_targets",
+    "revoked_reopen"
+  ],
+  "browser_version": "155.0",
+  "result": "PASS",
+  "pageerror_count": 0
+}

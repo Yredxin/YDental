@@ -1,0 +1,14 @@
+{
+  "scope": "Only S06-B BLOCKER-1/2/3 targeted rework",
+  "review": "https://github.com/Yredxin/YDental/issues/30#issuecomment-6118213551",
+  "review_id": 6118213551,
+  "body_sha256": "4aa14b911c62783b26f452eea4b7aa8caf5612f2752e70de85e3dc0d0ec89a00",
+  "base_final": "ebaeec101bf2df76c26f91202deba01a88220f09",
+  "branch": "codex/s06-b-continuation-r1-20261012",
+  "project_scope": "#30 execution 进行中→返工; #29 execution 返工→待用户验收; Todo/stages/workflows unchanged",
+  "not_enabled": [
+    "S06-C",
+    "S07",
+    "production"
+  ]
+}

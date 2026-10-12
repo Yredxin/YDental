@@ -1,0 +1,13 @@
+{
+  "result": "PASS",
+  "tested_commit": "ba9eae8367cf598e7367ad439a5a5ec81be91a20",
+  "new_screenshots_inspected": 9,
+  "categories": [
+    "verify execution before/after, old holder/new holder and serving",
+    "verify hold before/after, pending continuation and new holder",
+    "unrelated Care denied, untrusted exam denied, additional trusted exam waiting",
+    "same reopened task ordinary report and serving"
+  ],
+  "no_visible_credentials": true,
+  "no_production_or_real_patient_claim": true
+}

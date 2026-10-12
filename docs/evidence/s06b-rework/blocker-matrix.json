@@ -1,0 +1,47 @@
+[
+  {
+    "blocker": 1,
+    "case": "verify execution save, qualification, staff, old actor release, new connection/history",
+    "models": [
+      "test_verify_takeover_save_failure_history_and_new_connection",
+      "test_verify_requires_onsite_staff_permission_capability_and_qualification",
+      "test_verify_takeover_rechecks_trusted_nonempty_qualification",
+      "test_hold_trusted_pharmacy_target_uses_same_queue_and_mutex"
+    ],
+    "http": "test_http_verify_onsite_takeover_fail_closed_then_new_lease",
+    "race": "B_REWORK_verify_execution_two_people",
+    "firefox": "verify_execution"
+  },
+  {
+    "blocker": 1,
+    "case": "verify hold save and continuation, immutable old identities",
+    "models": [
+      "test_verify_hold_save_then_continuation_no_fake_completion"
+    ],
+    "http": "test_http_verify_hold_handover_and_untrusted_targets",
+    "race": "B_REWORK_verify_hold_two_people",
+    "firefox": "verify_hold"
+  },
+  {
+    "blocker": 2,
+    "case": "active/verify hold unrelated Care report/call/start, initial and extra trusted exam/pharmacy, forged source",
+    "models": [
+      "test_hold_rejects_unrelated_care_report_call_start_and_restores_normal_rules",
+      "test_hold_multiple_external_targets_need_trusted_hook_not_client_dict",
+      "test_hold_trusted_pharmacy_target_uses_same_queue_and_mutex"
+    ],
+    "http": "test_http_verify_hold_handover_and_untrusted_targets",
+    "race": "B_REWORK_hold_unrelated_care_vs_trusted_external_report",
+    "firefox": "hold_targets"
+  },
+  {
+    "blocker": 3,
+    "case": "closed revoke retains held entitlement/claim, reopen same task ordinary report/call/start, one consume no new permit",
+    "models": [
+      "test_revoke_closed_reopen_ordinary_start_same_held_entitlement"
+    ],
+    "http": "test_http_revoked_permit_reopen_normal_report_call_start",
+    "race": "B_REWORK_revoked_reopen_vs_ordinary_report_then_start",
+    "firefox": "revoked_reopen"
+  }
+]
