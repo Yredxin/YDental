@@ -6,7 +6,7 @@ from odoo.exceptions import AccessError, UserError
 from odoo.tests import TransactionCase, tagged
 
 from .common import setup, queue_bind, enter, lease_args, accepted, qualify, arrive_report, key, bind, patient, price
-from ..models.adapter import DocumentSource
+from ..models.adapter import DocumentSource, Clock
 
 
 @tagged('post_install', '-at_install')
@@ -333,3 +333,21 @@ class TestQueue(TransactionCase):
         self.assertEqual(entitlement.ydental_claim_id, claim)
         entry = self.root['ydental.queue.entry'].browse(call['entry_id'])
         self.assertEqual((entry.state, entry.ydental_lease_id.id), ('calling', lease['lease_id']))
+
+
+    def test_t05_idle_lock_screen_heartbeat_preserves_holder(self):
+        a, lease = enter(self)
+        started = a._now()
+        a.with_context(ydental_queue_test_clock=Clock(started + timedelta(seconds=19)))._operate('heartbeat', lease_args(lease))
+        a.with_context(ydental_queue_test_clock=Clock(started + timedelta(seconds=30)))._timeout()
+        self.assertTrue(a._own().ydental_active)
+        self.assertEqual(a._own().id, lease['lease_id'])
+
+    def test_document_timeout_and_holder_exit_are_only_release_sources(self):
+        a, la = enter(self)
+        b, lb = enter(self, queue_bind(self, self.second), self.other_station)
+        a._document_lock(DocumentSource('synthetic-timeout', la['lease_id'], la['token']), 'acquire')
+        a._operate('exit', lease_args(la))
+        b._document_lock(DocumentSource('synthetic-timeout', lb['lease_id'], lb['token']), 'acquire')
+        with self.assertRaises(AccessError):
+            a._document_lock(DocumentSource('synthetic-timeout', la['lease_id'], la['token']), 'acquire')

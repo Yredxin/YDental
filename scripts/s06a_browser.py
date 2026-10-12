@@ -202,10 +202,21 @@ def main():
             check('readonly has no workstation actions', reader.locator('[data-operation]').count() == 0)
             check('readonly POST is rejected at server', qaction(reader,'enter',{'station_id':preview['stations'][1]})['status'] == 403)
             screenshot(reader, reader_context, '08-readonly-no-actions.png')
+            language = manager.evaluate("""async uid => {
+                return (await fetch('/web/dataset/call_kw/res.users/write', {method:'POST',
+                    headers:{'Content-Type':'application/json'}, body:JSON.stringify({jsonrpc:'2.0',id:1,method:'call',
+                        params:{model:'res.users',method:'write',args:[[uid],{lang:'zh_CN'}],kwargs:{}}})})).json();
+            }""", access['manager']['id'])
+            check('native own-language preference changes successfully', language.get('result') is True)
+            chinese_context, chinese = login('manager')
+            chinese.goto(base + '/ydental/queue')
+            check('Chinese workstation page uses installed translations', '工位队列' in chinese.locator('body').inner_text() and '当前门店' in chinese.locator('body').inner_text())
+            screenshot(chinese, chinese_context, '09-chinese-workstation.png')
+            chinese_context.close()
             # Real backend page also receives the workstation systray integration.
             manager.goto(base + '/odoo', wait_until='networkidle')
             check('backend global workstation systray loads', manager.locator('.o_ydental_queue_workstation_status').count() == 1)
-            screenshot(manager, manager_context, '09-global-workstation-position.png')
+            screenshot(manager, manager_context, '10-global-workstation-position.png')
             check('no browser page errors', not errors)
             result['result'] = 'PASS'
         finally:
