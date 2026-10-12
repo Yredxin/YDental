@@ -198,6 +198,7 @@ def main():
             time_step('time_midnight');vd.reload();check('0000 execution remains original serving',taskrow(vd,c).locator('.queue-state').inner_text()=='serving')
             screenshot(vd,vc,'07-midnight-serving-continues.png')
             time_step('time_cleanup');vd.reload();check('0010 actual execution not terminated',taskrow(vd,c).locator('.queue-state').inner_text()=='serving')
+            check('serving is not mislabeled as ended daily eligibility','day_closed:' not in taskrow(vd,c).inner_text())
             check('0010 yesterday calling is terminal history',vd.locator('[data-entry="%s"] .queue-state'%c['old_call']).inner_text()=='day_closed')
             check('0010 yesterday waiting is terminal history',vd.locator('[data-task="%s"] .queue-state'%c['waiting_task']).last.inner_text()=='day_closed')
             screenshot(vd,vc,'08-0010-old-queue-ended-serving-kept.png')

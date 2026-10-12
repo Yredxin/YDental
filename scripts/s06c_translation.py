@@ -1,4 +1,4 @@
-"""Check real exported S06-B terms against the shipped Simplified Chinese PO."""
+"""Check real exported S06-C terms against the shipped Simplified Chinese PO."""
 import argparse
 import hashlib
 import json
@@ -15,7 +15,7 @@ parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--db', required=True)
 args = parser.parse_args()
 if not re.fullmatch(r'ydental_s06c_test_[0-9]{14}_[a-f0-9]{8}', args.db):
-    parser.error('Recorded isolated S06-B database required')
+    parser.error('Recorded isolated S06-C database required')
 run = root / '.local' / args.db
 metadata = json.loads((run / 'database.json').read_text())
 assert metadata['database'] == args.db
@@ -38,7 +38,7 @@ result = {'database': args.db,
     'exported_terms': len(pot), 'translated_terms': len(pot) - len(missing), 'missing': missing,
     'connection_message_ids_preserved': True, 'invalid_code_metadata': invalid_metadata,
     'result': 'FAIL' if missing or invalid_metadata else 'PASS'}
-evidence = root / 'docs/evidence/s06c/b-regression'
+evidence = root / 'docs/evidence/s06c'
 evidence.mkdir(parents=True, exist_ok=True)
 (evidence / 'translation.json').write_text(json.dumps(result, indent=2) + '\n')
 print(json.dumps({'result': result['result'], 'terms': len(pot), 'missing': len(missing), 'invalid_metadata': len(invalid_metadata)}))
