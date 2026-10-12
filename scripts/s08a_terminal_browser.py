@@ -17,8 +17,19 @@ def run_terminal_races(*, page, context, front, base, d1, d2, check, screenshot,
         return int(page.evaluate('new URL(location.href).searchParams.get("document_id")'))
 
     def read(doc_id):
-        response = inspect_action(page, 'read', {'document_id': doc_id})
-        check('authorized real server read for document %s' % doc_id, response['status'] == 200)
+        # The product exposes authorized read through GET workbench, not a
+        # public action named "read". Parse the real persisted server rendering.
+        response = page.evaluate("""async doc => {
+            const response=await fetch('/ydental/clinical?document_id='+doc);
+            const fragment=new DOMParser().parseFromString(await response.text(),'text/html');
+            const root=fragment.querySelector('.o_ydental_clinical');
+            if (!response.ok || !root) return {status:response.status};
+            return {status:response.status,data:{document_id:Number(root.dataset.document),
+                version:Number(root.querySelector('#server-version').textContent),state:root.dataset.state,
+                content:Object.fromEntries([...root.querySelectorAll('textarea[name]')].map(f=>[f.name,f.value]).concat([['teeth',
+                    [...root.querySelectorAll('#tooth-summary [data-row]')].map(row=>({tooth:Number(row.dataset.row),state:row.dataset.state,surfaces:row.dataset.surfaces.split(',').filter(Boolean)}))]]))}};
+        }""",doc_id)
+        check('authorized real server read for document %s' % doc_id, response['status'] == 200 and response['data']['document_id']==doc_id)
         return response['data']
 
     def text():
