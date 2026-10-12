@@ -17,6 +17,33 @@ class ReturnSource:
     document_key: str = ''
 
 
+@dataclass(frozen=True)
+class ReturnPlan:
+    task_id: int
+    target_task_id: int
+    save_ok: bool
+
+
+class SyntheticReturnPlan(models.Model):
+    _name = 'ydental.queue.test.return.plan'
+    _description = 'Guarded synthetic source prepared before an HTTP execution'
+
+    ydental_task_id = fields.Many2one('ydental.intake.task', required=True, ondelete='restrict')
+    ydental_target_task_id = fields.Many2one('ydental.intake.task', ondelete='restrict')
+    ydental_save_ok = fields.Boolean()
+    _one_task = models.Constraint('UNIQUE(ydental_task_id)', 'One frozen synthetic plan per task.')
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        guard(self.env)
+        if self.env.context.get('ydental_return_test_source') is not MUTATION:
+            raise AccessError('Frozen test source required.')
+        return super().create(vals_list)
+
+    def write(self, vals):
+        raise AccessError('Synthetic return plans are immutable.')
+
+
 class SyntheticReturnSource(models.Model):
     _name = 'ydental.queue.test.return.source'
     _description = 'Guarded frozen external order and draft-save test source'
@@ -46,6 +73,23 @@ class SyntheticReturnSource(models.Model):
 class YDentalQueueService(models.AbstractModel):
     _inherit = 'ydental.queue.service'
 
+    def _test_return_plan(self, plan):
+        guard(self.env)
+        if type(plan) is not ReturnPlan or type(plan.save_ok) is not bool:
+            raise AccessError('Frozen test plan required.')
+        return self.env['ydental.queue.test.return.plan'].sudo().with_context(ydental_return_test_source=MUTATION).create({
+            'ydental_task_id': plan.task_id, 'ydental_target_task_id': plan.target_task_id or False, 'ydental_save_ok': plan.save_ok}).id
+
+    def _test_source_for_execution(self, execution):
+        guard(self.env)
+        Provider = self.env['ydental.queue.test.return.source'].sudo()
+        source = Provider.search([('ydental_execution_id', '=', execution.id)], limit=1)
+        if not source:
+            plan = self.env['ydental.queue.test.return.plan'].sudo().search([('ydental_task_id', '=', execution.ydental_task_id.id)], limit=1)
+            if plan:
+                source = Provider.browse(self._test_return_source(ReturnSource(execution.id, plan.ydental_target_task_id.id, plan.ydental_save_ok)))
+        return source
+
     def _test_return_source(self, source):
         guard(self.env)
         if type(source) is not ReturnSource or type(source.save_ok) is not bool:
@@ -62,13 +106,12 @@ class YDentalQueueService(models.AbstractModel):
 
     def _external_target_authorized(self, execution, target_task):
         guard(self.env)
-        source = self.env['ydental.queue.test.return.source'].sudo().search([
-            ('ydental_execution_id', '=', execution.id), ('ydental_target_task_id', '=', target_task.id)], limit=1)
-        return bool(source) or super()._external_target_authorized(execution, target_task)
+        source = self._test_source_for_execution(execution)
+        return bool(source and source.ydental_target_task_id == target_task) or super()._external_target_authorized(execution, target_task)
 
     def _save_before_handover(self, execution):
         guard(self.env)
-        source = self.env['ydental.queue.test.return.source'].sudo().search([('ydental_execution_id', '=', execution.id)], limit=1)
+        source = self._test_source_for_execution(execution)
         if not source:
             return super()._save_before_handover(execution)
         if not source.ydental_save_ok:

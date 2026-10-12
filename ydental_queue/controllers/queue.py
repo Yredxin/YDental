@@ -29,6 +29,7 @@ class YDentalQueue(http.Controller):
             qualified = set(station.ydental_capability_ids.filtered('active').ids) <= set(queue.env.user.sudo().ydental_capability_ids.filtered('active').ids)
             occupied = queue._model('lease').search_count([('ydental_station_id', '=', station.id), ('ydental_active', '=', True)])
             unresolved = queue._model('execution').search_count([('ydental_lease_id.ydental_station_id', '=', station.id), ('state', 'in', ('serving', 'verify'))])
+            unresolved += queue._model('hold').search_count([('ydental_station_id', '=', station.id), ('state', 'in', ('active', 'verify'))])
             can_enter = bool(category and levels[category] == 'write' and qualified and station.ydental_capability_ids and
                              station.active and station.ydental_enabled and station.ydental_callable and not occupied and not unresolved and not actor_execution and not actor_hold)
             station_rows.append({'id': station.id, 'name': station.name, 'area': station.ydental_queue_area_id.name,

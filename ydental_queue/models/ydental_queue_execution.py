@@ -21,6 +21,12 @@ class YDentalQueueExecution(models.Model):
     _one_entry = models.Constraint('UNIQUE(ydental_entry_id)', 'A queue entry starts once.')
     _unresolved_lease = models.UniqueIndex("(ydental_lease_id) WHERE state IN ('serving', 'verify')")
     _one_resume = models.Constraint('UNIQUE(ydental_resumed_from_id)', 'A held segment resumes once.')
+    _source_identity = models.Constraint(
+        'CHECK ((ydental_entry_id IS NOT NULL) <> (ydental_resumed_from_id IS NOT NULL))',
+        'An execution starts from one entry or resumes one historical segment.')
+    _terminal_time = models.Constraint(
+        "CHECK ((state IN ('serving', 'verify') AND ydental_ended_at IS NULL) OR (state IN ('reserved', 'handover') AND ydental_ended_at IS NOT NULL))",
+        'A terminal segment retains its end time.')
 
     def init(self):
         # A used lifetime SQL constraints. B replaces only these two constraints;

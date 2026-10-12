@@ -337,6 +337,40 @@ def invariants(q):
 
 
 result['invariants'] = fresh(invariants)
+
+# Independent browser fixtures, still synthetic and in this newly recorded DB.
+from odoo.addons.ydental_queue_test.models.return_adapter import ReturnPlan
+browser_access, browser_cases = {}, {}
+with registry.cursor() as cr:
+    for kind in ('hold', 'external_serving', 'save_failure', 'append_start', 'append_revoke', 'pharmacy'):
+        f = SimpleNamespace(env=api.Environment(cr, 1, {}))
+        setup(f)
+        root = f.root
+        if kind == 'pharmacy':
+            f.catalogs[2]._save({'ydental_kind': 'medicine'})
+            f.stations[0][2].write({'ydental_kind': 'pharmacy', 'ydental_version': f.stations[0][2].ydental_version})
+            f.admin._grant(f.users['doctor'].id, f.stores[0].id, {'medical': 'none', 'exam': 'none', 'pharmacy': 'write'})
+        task = accepted(f, mapping=f.mappings[0][2] if kind == 'pharmacy' else f.mappings[0][0])
+        target = f.front._new('task', f.stores[0], dict(f.front._identity(task.ydental_patient_id),
+            name='S06B synthetic examination task', ydental_mapping_id=f.mappings[0][2].id,
+            ydental_parent_task_id=task.id, ydental_source_kind='derived')) if kind != 'pharmacy' else False
+        f.front.env['ydental.queue.service']._test_return_plan(ReturnPlan(task.id, target.id if target else 0, kind != 'save_failure'))
+        if kind.startswith('append'):
+            close(f)
+            f.admin._grant(f.users['price'].id, f.stores[0].id, {'frontdesk': 'write'})
+            f.users['price'].write({'group_ids': [(4, root.ref('ydental_queue.ydental_group_append').id)]})
+        next_task = accepted(f) if kind == 'hold' else False
+        browser_cases[kind] = {'store': f.stores[0].id, 'station': f.stations[0][2].id if kind == 'pharmacy' else f.stations[0][0].id,
+            'other_station': f.other_station.id, 'exam_station': f.stations[0][2].id, 'task': task.id,
+            'target': target.id if target else 0, 'patient': task.ydental_patient_id.id, 'next_task': next_task.id if next_task else 0}
+        for role in ('doctor', 'frontdesk', 'second', 'manager', 'price'):
+            user = f.second if role == 'second' else f.users[role]
+            browser_access[kind + '_' + role] = {'id': user.id, 'login': user.login, 'password': 's06b-ui-synthetic-only'}
+            user.password = browser_access[kind + '_' + role]['password']
+    root['ir.config_parameter'].set_str('ydental_queue.timeout_seconds', '20')
+    cr.commit()
+private(run / 'access-b.json', browser_access)
+private(run / 'preview-b.json', browser_cases)
 result.update(result='PASS', deadlocks=0)
 save_attempt()
 print(json.dumps({'result': 'PASS', 'races': len(result['races']), 'a_regression_races': 21, 'deadlocks': 0}))

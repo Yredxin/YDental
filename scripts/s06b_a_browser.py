@@ -236,7 +236,7 @@ def main():
             manager.goto(base + '/ydental/queue')
             position = manager.locator('#position')
             check('serving timeout global queue position retains original station verify',
-                  position.get_attribute('data-state') == 'verify' and 'S06B Cleaning station' in position.inner_text())
+                  position.get_attribute('data-state') == 'verify' and 'S06A Cleaning station' in position.inner_text())
             check('verify actor sees no enter or switch buttons', manager.locator('[data-operation=enter], [data-operation=switch]').count() == 0)
             check('verify actor server refuses another empty chair', qaction(manager, 'enter', {'station_id':preview['stations'][0]})['status'] == 409)
             check('verify old token cannot revive', qaction(manager, 'heartbeat', lease_args(manager_lease))['status'] == 403)
@@ -244,7 +244,7 @@ def main():
             manager.goto(base + '/odoo', wait_until='networkidle')
             global_position = manager.locator('.o_ydental_queue_workstation_status').inner_text()
             check('serving timeout backend systray retains station and on-site verification',
-                  'S06B Cleaning station' in global_position and '待现场核实' in global_position)
+                  'S06A Cleaning station' in global_position and '待现场核实' in global_position)
             screenshot(manager, manager_context, '12-verify-global-workstation.png')
             # B2: exact capability and common reporting area do not authorize the
             # wrong execution subarea. The live UI and POST use one eligibility.
