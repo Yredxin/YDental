@@ -36,6 +36,8 @@ class YDentalIntakeSnapshot(models.Model):
     ydental_price_id = fields.Many2one('ydental.intake.price', required=True, ondelete='restrict')
     ydental_product_name = fields.Char(required=True)
     ydental_quantity = fields.Float(required=True, digits='Product Unit')
+    ydental_quantity_digits = fields.Integer(required=True)
+    ydental_currency_rounding = fields.Float(required=True, digits=(16, 8))
     ydental_uom_id = fields.Many2one('uom.uom', required=True, ondelete='restrict')
     ydental_uom_name = fields.Char(required=True)
     ydental_currency_id = fields.Many2one('res.currency', required=True, ondelete='restrict')

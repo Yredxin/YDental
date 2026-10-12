@@ -38,7 +38,6 @@ class YDentalIntakeMapping(models.Model):
     ydental_catalog_id = fields.Many2one('ydental.intake.catalog', required=True, ondelete='restrict', index=True)
     ydental_area_id = fields.Many2one('ydental.space.area', required=True, ondelete='restrict')
     ydental_execution_area_id = fields.Many2one('ydental.space.area', required=True, ondelete='restrict')
-    ydental_capacity_required = fields.Boolean(default=True)
 
     _mapping_unique = models.Constraint('UNIQUE(ydental_store_id, ydental_catalog_id, ydental_area_id)', 'A store service area mapping must be unique.')
 

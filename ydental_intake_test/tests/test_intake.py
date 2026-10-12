@@ -72,7 +72,7 @@ class TestIntake(TransactionCase):
         self.assertEqual(self.slots[0][0].ydental_reservation_free, 1)
 
     def test_t05_failed_registration_and_queue_adapter_roll_back_everything(self):
-        self.root['ir.config_parameter'].set_param('ydental_intake_test.refuse_task', 'unused')
+        self.root['ir.config_parameter'].set_str('ydental_intake_test.refuse_task', 'unused')
         counts = {e: self.root['ydental.intake.' + e].search_count([]) for e in ('task', 'entitlement', 'position', 'arrival')}
         before = self.slots[0][0].ydental_walkin_free
         with patch.object(type(self.front), '_queue_accept', side_effect=UserError('Synthetic queue acceptance failure')):

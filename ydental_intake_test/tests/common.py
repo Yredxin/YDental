@@ -95,11 +95,11 @@ def make_slot(cls, service, station, start, end, total=6):
 
 
 def patient(cls, service=None):
-    return (service or cls.front).env['ydental.patient.service']._operate('create', {'values': {'name': 'S05 Synthetic Person'}}, key())['id']
+    return (cls.front if service is None else service).env['ydental.patient.service']._operate('create', {'values': {'name': 'S05 Synthetic Person'}}, key())['id']
 
 
 def qualify(cls, patient_id=None, mapping=None, service=None, channel='reservation', start=None, end=None):
-    service = service or cls.front
+    service = cls.front if service is None else service
     return service._operate('reserve' if channel != 'walkin' else 'register', dict(
         {'patient_id': patient_id or patient(cls), 'mapping_id': (mapping or cls.mappings[0][0]).id,
          'start': fields.Datetime.to_string(start or cls.start), 'end': fields.Datetime.to_string(end or cls.end)},
@@ -107,14 +107,14 @@ def qualify(cls, patient_id=None, mapping=None, service=None, channel='reservati
 
 
 def arrive_report(cls, q, service=None):
-    service = service or cls.front
+    service = cls.front if service is None else service
     task = cls.root['ydental.intake.task'].browse(q['task_id'])
     service._operate('arrive', {'patient_id': task.ydental_patient_id.id}, key())
     return service._operate('report', {'task_id': task.id, 'version': task.ydental_version}, key())
 
 
 def price(cls, amount=600, service=None, catalog=None, start=None, end=None, replace=None):
-    service = service or cls.group
+    service = cls.group if service is None else service
     record = service._operate('price', {'catalog_id': (catalog or cls.catalogs[0]).id,
         'currency_id': cls.currency.id, 'unit_price': amount,
         'start': fields.Datetime.to_string(start or fields.Datetime.now() - timedelta(days=1)),

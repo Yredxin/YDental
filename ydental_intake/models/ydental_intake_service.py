@@ -1,12 +1,12 @@
 import hashlib
-import json
 import inspect
+import json
 import math
 from dataclasses import dataclass
 
 from odoo import fields, models
 from odoo.exceptions import AccessError, UserError, ValidationError
-from odoo.tools.float_utils import float_compare, float_round
+from odoo.tools.float_utils import float_compare
 
 from .ydental_intake_record import MUTATION
 
@@ -199,16 +199,15 @@ class YDentalIntakeService(models.AbstractModel):
         self._native('product.template').browse(record.ydental_product_id.product_tmpl_id.id).write({'name': name, 'active': active})
         return {'id': record.id, 'version': record.ydental_version}
 
-    def _mapping(self, store, catalog_id, area_id, execution_area_id, capacity_required=True):
+    def _mapping(self, store, catalog_id, area_id, execution_area_id):
         catalog = self._get('catalog', catalog_id)
         supply = self.env['ydental.supply.service']
         area = supply._space('area', area_id, store)
         execution = supply._space('area', execution_area_id, store)
-        if not catalog.active or not area.ydental_reporting or catalog.ydental_capability_id not in area.ydental_capability_ids or catalog.ydental_capability_id not in execution.ydental_capability_ids or type(capacity_required) is not bool:
+        if not catalog.active or not area.ydental_reporting or catalog.ydental_capability_id not in area.ydental_capability_ids or catalog.ydental_capability_id not in execution.ydental_capability_ids:
             raise ValidationError(self.env._('Map the exact service capability to active reporting and execution areas.'))
         record = self._new('mapping', store, {'name': catalog.name + ' / ' + area.name,
-            'ydental_catalog_id': catalog.id, 'ydental_area_id': area.id, 'ydental_execution_area_id': execution.id,
-            'ydental_capacity_required': capacity_required})
+            'ydental_catalog_id': catalog.id, 'ydental_area_id': area.id, 'ydental_execution_area_id': execution.id})
         return {'id': record.id, 'version': record.ydental_version}
 
     def _mapping_edit(self, store, record_id, version, active):
@@ -226,6 +225,8 @@ class YDentalIntakeService(models.AbstractModel):
         if not catalog.active or not currency or not currency.active or type(unit_price) not in (int, float) or not math.isfinite(unit_price) or unit_price <= 0 or start >= end:
             raise ValidationError(self.env._('Enter a positive base price, active currency and nonempty validity interval.'))
         uom = catalog.ydental_product_id.uom_id
+        if currency.compare_amounts(currency.round(unit_price), 0) <= 0:
+            raise ValidationError(self.env._('The base price must remain positive at currency precision.'))
         record = self._new('price', store, {'name': catalog.name, 'ydental_catalog_id': catalog.id,
             'ydental_currency_id': currency.id, 'ydental_uom_id': uom.id,
             'ydental_unit_price': currency.round(unit_price), 'ydental_start': start, 'ydental_end': end,
@@ -269,7 +270,7 @@ class YDentalIntakeService(models.AbstractModel):
     def _quote(self, store, catalog_id, currency_id, quantity, instant=None):
         catalog = self._get('catalog', catalog_id)
         uom = catalog.ydental_product_id.uom_id
-        if not catalog.active or type(quantity) not in (int, float) or not math.isfinite(quantity) or float_compare(quantity, 0, precision_rounding=uom.rounding) <= 0 or float_compare(quantity, float_round(quantity, precision_rounding=uom.rounding), precision_digits=8):
+        if not catalog.active or type(quantity) not in (int, float) or not math.isfinite(quantity) or uom.compare(quantity, 0) <= 0 or float_compare(quantity, uom.round(quantity), precision_digits=8):
             raise ValidationError(self.env._('Use a positive quantity aligned to the service unit rounding.'))
         instant = instant or self._now()
         versions = self._model('price').search([('ydental_store_id', '=', store.id), ('ydental_catalog_id', '=', catalog.id),
@@ -284,11 +285,17 @@ class YDentalIntakeService(models.AbstractModel):
         return version, {'ydental_catalog_id': catalog.id, 'ydental_price_id': version.id, 'ydental_product_name': catalog.name,
             'ydental_quantity': quantity, 'ydental_uom_id': uom.id, 'ydental_uom_name': uom.name,
             'ydental_currency_id': version.ydental_currency_id.id, 'ydental_unit_price': price,
-            'ydental_amount': version.ydental_currency_id.round(price * quantity), 'ydental_quoted_at': instant}
+            'ydental_amount': version.ydental_currency_id.round(price * quantity), 'ydental_quoted_at': instant,
+            'ydental_quantity_digits': self.env['decimal.precision'].precision_get('Product Unit'),
+            'ydental_currency_rounding': version.ydental_currency_id.rounding}
 
     def _snapshot(self, store, catalog_id, currency_id, quantity, source, policy):
         if policy != 'demo_confirmation':
             raise UserError(self.env._('Production price policy is unpublished. Choose the explicit demonstration policy.'))
+        self._id(catalog_id)
+        self._id(currency_id)
+        if type(quantity) not in (int, float) or not math.isfinite(quantity) or quantity <= 0:
+            raise ValidationError(self.env._('Use a positive finite quantity.'))
         source = self._text(source)
         previous = self._model('snapshot').search([('ydental_store_id', '=', store.id), ('ydental_source', '=', source)], limit=1)
         if previous:
@@ -432,6 +439,7 @@ class YDentalIntakeService(models.AbstractModel):
             self._queue_void(previous, 'Successful explicit task switch')
             previous._save({'ydental_active': False, 'ydental_reason': 'Successful explicit task switch'})
             previous.ydental_task_id._save({'state': 'pending'})
+            previous.flush_recordset(['ydental_active'])
         position = self._new('position', store, dict(self._identity(patient), name=task.name,
             ydental_task_id=task.id, ydental_accepted_at=self._now()))
         task._save({'state': 'accepted'})
@@ -445,6 +453,8 @@ class YDentalIntakeService(models.AbstractModel):
 
     def _withdraw(self, task, reason):
         self._queue_assert_idle(task)
+        if task.state == 'cancelled':
+            raise UserError(self.env._('A cancelled task cannot be revived by voiding its position.'))
         positions = self._model('position').search([('ydental_task_id', '=', task.id), ('ydental_active', '=', True)])
         for position in positions:
             self._queue_void(position, reason)
