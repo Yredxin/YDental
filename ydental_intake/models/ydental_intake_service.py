@@ -60,7 +60,7 @@ class YDentalIntakeService(models.AbstractModel):
         if operation in ('mapping', 'mapping_edit', 'price', 'review', 'publish'):
             return access._check('price', 'write', write=True).ydental_store_id
         if operation in ('snapshot',):
-            return access._check('price', 'read', write=True).ydental_store_id
+            return access._check('price', 'write', write=True).ydental_store_id
         if operation in ('refer_timed', 'refer_untimed'):
             for category in ('medical', 'exam'):
                 member = access._membership(self.env.uid, access._scope(write=True).ydental_store_id.id)
