@@ -30,9 +30,9 @@ class YDentalIntakeService(models.AbstractModel):
     def _now(self):
         return fields.Datetime.now()
 
-    def _read_access(self):
+    def _read_access(self, catalog=False):
         access = self.env['ydental.access.service']
-        if access._is_group_manager():
+        if catalog and access._is_group_manager():
             return self._catalog_access()
         session = access._scope()
         member = access._membership(self.env.uid, session.ydental_store_id.id)

@@ -14,7 +14,7 @@ class YDentalIntakeNative(models.AbstractModel):
         ordinary = fields.Domain(self._ydental_marker_path, '=', False)
         try:
             service = self.env['ydental.intake.service']
-            store = service._read_access()
+            store = service._read_access(catalog=not self._ydental_price_path)
             if self._ydental_price_path:
                 service.env['ydental.access.service']._check('price', 'read')
                 return ordinary | fields.Domain(self._ydental_price_path, '=', store.id)

@@ -24,7 +24,7 @@ class YDentalIntakeCatalog(models.Model):
     def _source_domain(self, operation):
         if operation != 'read':
             return fields.Domain.FALSE
-        self.env['ydental.intake.service']._read_access()
+        self.env['ydental.intake.service']._read_access(catalog=True)
         return fields.Domain.TRUE
 
 
