@@ -285,3 +285,12 @@ class TestIntake(TransactionCase):
             'version': business.ydental_version, 'state': 'draining', 'reason': 'Stop external reporting'}, key())
         with self.assertRaises(UserError):
             self.front._operate('report', {'task_id': derived['id'], 'version': derived['version']}, key())
+
+    def test_native_ordinary_products_and_pricelists_can_still_copy(self):
+        ordinary = self.root['product.template'].create({'name': 'S05 ordinary native service', 'type': 'service'})
+        copied = ordinary.copy({'name': 'S05 ordinary native copy'})
+        self.assertFalse(copied.ydental_intake_owned)
+        ordinary_list = self.root['product.pricelist'].create({'name': 'S05 ordinary native pricelist', 'currency_id': self.currency.id})
+        self.assertFalse(ordinary_list.copy().ydental_intake_owned)
+        with self.assertRaises(AccessError):
+            self.catalogs[0].ydental_product_id.product_tmpl_id.copy({'name': 'Protected clone'})
