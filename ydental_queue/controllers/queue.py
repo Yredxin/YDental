@@ -34,7 +34,7 @@ class YDentalQueue(http.Controller):
                              station.active and station.ydental_enabled and station.ydental_callable and not occupied and not unresolved and not actor_execution and not actor_hold)
             station_rows.append({'id': station.id, 'name': station.name, 'area': station.ydental_queue_area_id.name,
                 'capabilities': ', '.join(station.ydental_capability_ids.mapped('name')), 'can_enter': can_enter,
-                'reason': request.env._('Resolve your existing execution or on-site verification before entering another workstation.') if actor_execution else (
+                'reason': request.env._('Resolve your existing execution or on-site verification before entering another workstation.') if actor_execution or actor_hold else (
                     request.env._('Occupied or awaiting on-site verification') if occupied or unresolved else (
                         request.env._('Available for qualified authorized staff') if can_enter else request.env._('Disabled, insufficient permission or capability')))})
         # Frontdesk can see why each exact capability waits and the concrete

@@ -291,6 +291,9 @@ class YDentalQueueService(models.AbstractModel):
         if reason:
             return reason
         task = entry.ydental_task_id
+        actor_hold = self._hold(actor_id=self.env.uid if actor is None else actor.id)
+        if actor_hold and not (actor_hold.ydental_task_id == task and actor_hold.ydental_station_id == station and actor_hold.state == 'active'):
+            return self.env._('handover_required: Resolve the reserved patient or on-site verification first.')
         kind = task.ydental_mapping_id.ydental_catalog_id.ydental_kind
         expected = {'exam': 'exam', 'medicine': 'pharmacy'}.get(kind, 'medical')
         if self._category(station) != expected:
