@@ -149,7 +149,13 @@ class YDentalQueueService(models.AbstractModel):
         if not isinstance(token, str) or not 40 <= len(token) <= 128:
             raise AccessError(self.env._('access_denied: Screen credential is invalid or revoked.'))
         row = self._model('screen.token').search([('ydental_token_hash', '=', digest(token)), ('state', '=', 'active')], limit=1)
-        if not row or not row.ydental_area_id.active or not row.ydental_area_id.ydental_reporting:
+        if row:
+            # Read-only credential fence: revoke-first forces an RR retry; a
+            # snapshot-first reader finishes before revoke can commit. No later
+            # patient/supply/queue lock is acquired by the screen read path.
+            self.env.cr.execute('SELECT id FROM ydental_queue_screen_token WHERE id=%s FOR SHARE', [row.id])
+            row.invalidate_recordset()
+        if not row or row.state != 'active' or not row.ydental_area_id.active or not row.ydental_area_id.ydental_reporting:
             raise AccessError(self.env._('access_denied: Screen credential is invalid or revoked.'))
         return row
 
