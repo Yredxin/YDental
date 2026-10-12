@@ -1,4 +1,6 @@
 from unittest.mock import patch
+from datetime import timedelta
+from odoo import fields
 
 from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.tests import TransactionCase, tagged
@@ -118,3 +120,92 @@ class TestActualTreatment(TransactionCase):
         self.assertEqual(cancelled['state'],'cancelled')
         with self.assertRaises(UserError):s._operate('edit_order',a|{'order_id':draft['order_id'],'version':cancelled['order_version'],'purpose':'Cannot append','lines':lines},key())
         new=s._operate('order',a|{'kind':'exam','purpose':'Separate additional examination','lines':lines[:1]},key());self.assertNotEqual(new['order_id'],draft['order_id'])
+
+    def test_multi_material_shortage_does_not_post_partial_consumption(self):
+        price(self);receive(self,1)
+        second=self.stock._operate('lot',{'product_id':self.products['material'],'name':'S08B-empty-'+key(),
+            'expiration':fields.Datetime.to_string(fields.Datetime.now()+timedelta(days=10))},key())['id']
+        s,c,q,l,e,d,a=opened_actual(self);args=execute_args(self,a,actual=True)
+        args['materials'].append({'lot_id':second,'quantity':1,'uom_id':self.uom.id,'kind':'treatment'})
+        r=s._operate('execute',args,key());self.assertEqual(r['state'],'pending');self.assertFalse(r['move_ids']);self.assertFalse(r['fee_id'])
+        self.assertEqual(len(r['inventory_event_ids']),1)
+
+    def test_d1_handover_d2_real_project_d1_text_no_second_fee(self):
+        from .common import arrive_report, serving, save_args
+        receive(self);price(self);s,c,q,l,e,d,a=opened_actual(self)
+        first=s._operate('execute',execute_args(self,a),key())
+        hand=c._operate('handover',handover_args(d,l))
+        arrive_report(self,{'task_id':hand['continuation_task_id']})
+        task=self.root['ydental.intake.task'].browse(hand['continuation_task_id'])
+        q2,l2,e2=serving(self,user=self.second,station=self.other_station,task=task)
+        c2=q2.env['ydental.clinical.service'];d2=c2._operate('open',{'execution_id':e2.id,'lease_id':l2['lease_id'],'lease_token':l2['token']})
+        d2.update(c2._operate('save',save_args(d2,'Synthetic D2 project document')))
+        a2={'execution_id':e2.id,'lease_id':l2['lease_id'],'lease_token':l2['token'],'document_id':d2['document_id'],'document_version':d2['version']}
+        second=q2.env[s._name]._operate('execute',execute_args(self,a2),key())
+        self.assertNotEqual(first['event_id'],second['event_id']);self.assertEqual(second['amount'],600)
+        before=self.root['ydental.treatment.fee'].search_count([])
+        pending=c._operate('acquire',{'document_id':d['document_id']})
+        c._operate('confirm',save_args(pending,'Synthetic D1 completion without a new project'))
+        self.assertEqual(self.root['ydental.treatment.fee'].search_count([]),before)
+        self.assertEqual(self.root['ydental.clinical.document'].browse(d['document_id']).ydental_author_id,self.users['doctor'])
+
+    def test_real_source_referrals_timed_untimed_and_retry(self):
+        from odoo import fields
+        from datetime import timedelta
+        s,c,q,l,e,d,a=opened_actual(self)
+        timed=a|{'mode':'timed','mapping_id':self.mappings[1][0].id,'reason':'Synthetic clinician timed referral',
+            'start':fields.Datetime.to_string(self.start),'end':fields.Datetime.to_string(self.end),'source':key()}
+        r=s._operate('refer',timed,key());self.assertTrue(r['task_id']);self.assertEqual(e.state,'serving')
+        same=s._operate('refer',timed,key());self.assertEqual(r['task_id'],same['task_id'])
+        untimed=a|{'mode':'untimed','mapping_id':self.mappings[1][0].id,'reason':'Synthetic untimed referral',
+            'valid_until':fields.Datetime.to_string(fields.Datetime.now()+timedelta(days=1)),'source':key()}
+        before=self.root['ydental.supply.claim'].search_count([])
+        r=s._operate('refer',untimed,key());self.assertEqual(r['target_qualification'],'not_acquired');self.assertEqual(before,self.root['ydental.supply.claim'].search_count([]))
+        target=bind(self,self.users['frontdesk'],self.stores[1]);ref=self.root['ydental.intake.referral'].browse(r['id'])
+        accepted=target._operate('accept_referral',{'record_id':ref.id,'version':ref.ydental_version,
+            'start':fields.Datetime.to_string(self.start),'end':fields.Datetime.to_string(self.end)},key())
+        self.assertTrue(accepted['task_id']);self.assertEqual(self.root['ydental.supply.claim'].search_count([]),before+1)
+        with self.assertRaises(AccessError):s.env['ydental.clinical.document'].create({'name':'arbitrary target write','ydental_store_id':self.stores[1].id})
+
+    def test_prescription_duplicate_source_return_does_not_reopen_allowance(self):
+        receive(self,20,'medicine');price(self,catalog=self.drug_catalog,amount=10)
+        s,c,q,l,e,d,a=opened_actual(self);issued=prescription(self,s,a);c._operate('handover',handover_args(d,l))
+        p,args=pharmacy_start(self,issued)
+        dose=args|{'line_id':issued['line_ids'][0],'lot_id':self.lots['medicine'],'quantity':4,'source':key(),'reason':'Synthetic actual four','policy':'demo_confirmation'}
+        r=p._operate('dispense',dose,key());same=p._operate('dispense',dose,key());self.assertEqual(r['event_id'],same['event_id']);self.assertEqual(same['remaining'],2)
+        returned=p._operate('return_material',{'event_id':r['event_id'],'inventory_event_id':r['inventory_event_ids'][0],
+            'quantity':1,'uom_id':self.uom.id,'source':key(),'reason':'Actual physical return, quarantine'},key())
+        self.assertTrue(returned['id']);self.assertEqual(p._remaining(p._model('line').browse(issued['line_ids'][0])),2)
+        with self.assertRaises(AccessError):p.env['ydental.inventory.service']._operate('issue',{'lot_id':self.lots['medicine'],'quantity':1,'uom_id':self.uom.id,'source_key':key(),'reason':'No warehouse authority'},key())
+
+    def test_closed_pharmacy_needs_fresh_task_specific_append(self):
+        from odoo import fields
+        receive(self,20,'medicine');price(self,catalog=self.drug_catalog,amount=10)
+        self.users['frontdesk'].write({'group_ids':[fields.Command.link(self.root.ref('ydental_queue.ydental_group_append').id)]})
+        s,c,q,l,e,d,a=opened_actual(self);issued=prescription(self,s,a);c._operate('handover',handover_args(d,l))
+        supply=self.group.env['ydental.supply.service']
+        for state in ('draining','closed'):
+            supply._operate('business',{'area_id':self.pharmacy_area.id,'state':state,'reason':'Synthetic pharmacy stop ordinary admissions'},key())
+        task=self.root['ydental.intake.task'].browse(issued['task_ids'][0]);self.front._operate('arrive',{'patient_id':task.ydental_patient_id.id},key())
+        with self.assertRaises(UserError):self.front._operate('report',{'task_id':task.id,'version':task.ydental_version},key())
+        append=self.front.env['ydental.queue.service']._bind_connection(key()+key())._operate('append',{'task_id':task.id,'reason':'Explicit actual closed pharmacy intake'})
+        p,args=pharmacy_start(self,issued)
+        p._operate('dispense',args|{'line_id':issued['line_ids'][0],'lot_id':self.lots['medicine'],'quantity':4,'source':key(),'reason':'Synthetic closed actual four','policy':'demo_confirmation'},key())
+        finished=p._operate('finish',args|{'reason':'Finish first closed segment'},key())
+        next_task=self.root['ydental.intake.task'].browse(finished['next_task_id'])
+        with self.assertRaises(UserError):self.front._operate('report',{'task_id':next_task.id,'version':next_task.ydental_version},key())
+        permits=self.root['ydental.queue.append.permit'].search([('ydental_task_id','=',task.id)]);self.assertEqual(permits.state,'ended')
+        self.assertFalse(self.root['ydental.queue.append.permit'].search_count([('ydental_task_id','=',next_task.id)]))
+
+    def test_exam_actual_start_remains_fail_closed_until_s09(self):
+        from .common import queue_bind, lease_args, arrive_report
+        s,c,q,l,e,d,a=opened_actual(self)
+        lines=[{'mapping_id':self.mappings[0][2].id,'quantity':1,'uom_id':self.uom.id,'product_id':False,'specification':'','usage':'','frequency':'','course':''}]
+        draft=s._operate('order',a|{'kind':'exam','purpose':'Synthetic examination source','lines':lines},key())
+        issued=s._operate('issue',a|{'order_id':draft['order_id'],'version':draft['version']},key())
+        c._operate('handover',handover_args(d,l))
+        arrive_report(self,{'task_id':issued['task_ids'][0]})
+        exam=queue_bind(self,user=self.second);lease=exam._operate('enter',{'station_id':self.stations[0][2].id})
+        called=exam._operate('call',lease_args(lease))
+        with self.assertRaises(AccessError):exam._operate('start',lease_args(lease)|{'entry_id':called['entry_id']})
+        self.assertFalse(self.root['ydental.queue.execution'].search_count([('ydental_task_id','=',issued['task_ids'][0])]))
