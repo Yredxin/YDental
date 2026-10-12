@@ -1,0 +1,11 @@
+id,name,model_id,group_id/id,operation,domain
+ydental_intake_catalog_read,Intake catalog,model_ydental_intake_catalog,base.group_user,r,
+ydental_intake_mapping_read,Intake mapping,model_ydental_intake_mapping,base.group_user,r,
+ydental_intake_price_read,Intake price,model_ydental_intake_price,base.group_user,r,
+ydental_intake_snapshot_read,Intake snapshot,model_ydental_intake_snapshot,base.group_user,r,
+ydental_intake_entitlement_read,Intake entitlement,model_ydental_intake_entitlement,base.group_user,r,
+ydental_intake_task_read,Intake task,model_ydental_intake_task,base.group_user,r,
+ydental_intake_arrival_read,Intake arrival,model_ydental_intake_arrival,base.group_user,r,
+ydental_intake_position_read,Intake position,model_ydental_intake_position,base.group_user,r,
+ydental_intake_referral_read,Intake referral,model_ydental_intake_referral,base.group_user,r,
+ydental_intake_operation_read,Intake operation,model_ydental_intake_operation,base.group_user,r,

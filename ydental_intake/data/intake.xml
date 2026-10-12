@@ -1,0 +1,3 @@
+<odoo noupdate="1">
+    <record id="ydental_intake_mutex" model="ydental.intake.mutex"/>
+</odoo>
