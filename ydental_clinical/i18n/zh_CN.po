@@ -203,6 +203,11 @@ msgstr "草稿已保存"
 
 #. module: ydental_clinical
 #: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid "Existing service and price sources"
+msgstr "已有服务与价目来源"
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
 msgid "FDI tooth chart"
 msgstr "FDI牙位图"
 
@@ -262,6 +267,8 @@ msgid "Last Updated on"
 msgstr "最后修改时间"
 
 #. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/controllers/clinical.py:0
 #: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
 msgid "Missing"
 msgstr "缺失"
@@ -289,6 +296,8 @@ msgid ""
 msgstr "当前没有医疗接诊。可选择下方待完善文书，或从工位队列合法开始接诊。"
 
 #. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/controllers/clinical.py:0
 #: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
 msgid "Not applicable"
 msgstr "不适用"
@@ -314,9 +323,18 @@ msgid "Patient:"
 msgstr "患者："
 
 #. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/controllers/clinical.py:0
 #: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
 msgid "Present"
 msgstr "存在"
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid ""
+"Price sources require their own permission. This document does not select a "
+"price or create a fee."
+msgstr "价目来源须具备独立权限。此文书不选价、不生成费用。"
 
 #. module: ydental_clinical
 #: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
@@ -448,6 +466,8 @@ msgid "UTC."
 msgstr "UTC。"
 
 #. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/controllers/clinical.py:0
 #: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
 msgid "Unknown"
 msgstr "未知"
@@ -853,15 +873,3 @@ msgstr "version_conflict: 服务端已有更新临床版本，请刷新后再编
 #: code:addons/ydental_clinical/models/ydental_clinical_service.py:0
 msgid "version_conflict: This request key belongs to different content."
 msgstr "version_conflict: 此请求标识已用于不同内容。"
-
-#. module: ydental_clinical
-#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
-msgid "Existing service and price sources"
-msgstr "已有服务与价目来源"
-
-#. module: ydental_clinical
-#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
-msgid ""
-"Price sources require their own permission. This document does not select a "
-"price or create a fee."
-msgstr "价目来源须具备独立权限。此文书不选价、不生成费用。"
