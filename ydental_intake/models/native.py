@@ -38,7 +38,7 @@ class YDentalIntakeNative(models.AbstractModel):
         return super().fetch(field_names)
 
     def _ydental_owned_values(self, values):
-        return values.get('ydental_intake_owned') or 'ydental_intake_owned' in values or 'ydental_intake_store_id' in values
+        return bool(values.get('ydental_intake_owned') or values.get('ydental_intake_store_id'))
 
     def _ydental_guard(self, vals=None):
         if self.env.context.get('ydental_intake_mutation') is MUTATION:
