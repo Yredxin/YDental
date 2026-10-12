@@ -20,7 +20,7 @@ class YDentalQueueService(models.AbstractModel):
 
     def _save_before_handover(self, execution):
         service = self.env['ydental.clinical.service']
-        doc = service._model().search([('ydental_execution_id', '=', execution.id)], limit=1)
+        doc = service._model().search([('ydental_current_execution_id', '=', execution.id)], limit=1)
         if execution.ydental_category != 'medical' or not doc:
             raise AccessError(self.env._('save_required: Open and save the real clinical document before handover.'))
         intent = self.env.context.get('ydental_clinical_save')
@@ -44,9 +44,19 @@ class YDentalQueueService(models.AbstractModel):
     def _release_execution_documents(self, execution):
         super()._release_execution_documents(execution)
         service = self.env['ydental.clinical.service']
-        doc = service._model().search([('ydental_execution_id', '=', execution.id)], limit=1)
+        doc = service._model().search([('ydental_current_execution_id', '=', execution.id)], limit=1)
         if doc:
             service._clear_editor(doc)
             if doc.state != 'confirmed':
                 doc._save({'state': 'pending'})
             service._audit('handover_edit_release', doc, after={'version': doc.ydental_version, 'state': doc.state})
+
+    def _restore(self, lease_id, token, hold_id, confirmed):
+        result = super()._restore(lease_id, token, hold_id, confirmed)
+        hold = self._model('hold').browse(hold_id)
+        service = self.env['ydental.clinical.service']
+        doc = service._model().search([('ydental_current_execution_id', '=', hold.ydental_execution_id.id)], limit=1)
+        if doc:
+            doc._save({'ydental_current_execution_id': result['execution_id']})
+            service._audit('document_return_restored', doc, after={'execution_id': result['execution_id']})
+        return result

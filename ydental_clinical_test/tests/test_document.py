@@ -140,3 +140,34 @@ class TestClinicalDocument(TransactionCase):
         r=newq._operate('takeover_verify',{'execution_id':e.id,'confirmed':True,'reason':'Actual on-site synthetic takeover'})
         self.assertEqual(e.state,'interrupted');doc=s._model().browse(d['document_id']);self.assertEqual(doc.state,'pending');self.assertFalse(doc.ydental_editor_id)
         self.assertEqual(doc.ydental_author_id,self.users['doctor']);self.assertNotEqual(r['execution_id'],e.id)
+
+    def test_hold_restore_keeps_same_real_document_then_handover_releases_it(self):
+        s,q,l,e,d=opened(self);d.update(s._operate('save',save_args(d)))
+        target=self.front._new('task',self.stores[0],dict(self.front._identity(e.ydental_patient_id),name='Explicit synthetic external prerequisite only',ydental_mapping_id=self.mappings[0][2].id,ydental_source_kind='derived'))
+        # S09 is not installed. Only this guarded test supplies the external
+        # prerequisite; document persistence, S06 reserve/restore are real.
+        with patch.object(type(q),'_external_target_authorized',return_value=True):
+            hold=q._operate('reserve',{'lease_id':l['lease_id'],'token':l['token'],'execution_id':e.id,'target_task_id':target.id})
+        self.assertEqual(e.state,'reserved')
+        restored=q._operate('restore',{'lease_id':l['lease_id'],'token':l['token'],'hold_id':hold['hold_id'],'confirmed':True})
+        doc=s._model().browse(d['document_id']);self.assertEqual(doc.ydental_execution_id,e)
+        self.assertEqual(doc.ydental_current_execution_id.id,restored['execution_id'])
+        d.update(s._operate('save',save_args(d,'Same document after actual return')))
+        done=s._operate('handover',handover_args(d,l));self.assertEqual(done['state'],'handover')
+        self.assertFalse(doc.ydental_editor_id);self.assertEqual(doc.state,'pending')
+
+    def test_invalid_content_save_failure_does_not_hand_back(self):
+        s,q,l,e,d=opened(self);a=handover_args(d,l);a['content']['teeth']=[{'tooth':99,'state':'present','surfaces':[]}]
+        with self.assertRaises(ValidationError):s._operate('handover',a)
+        doc=s._model().browse(d['document_id']);self.assertEqual(doc.ydental_version,0);self.assertEqual(e.state,'serving');self.assertTrue(doc.ydental_editor_id)
+
+    def test_current_capability_revocation_rejects_existing_editor(self):
+        s,q,l,e,d=opened(self)
+        self.users['doctor'].write({'ydental_capability_ids':[fields.Command.clear()]})
+        with self.assertRaises(AccessError):s._operate('save',save_args(d))
+
+    def test_native_confirmed_versions_and_distinct_clinical_audit_events(self):
+        s,q,l,e,d=opened(self);d.update(s._operate('save',save_args(d)));d.update(s._operate('confirm',save_args(d)))
+        s._read(d['document_id']);d.update(s._operate('correct',save_args(d)|{'reason':'Synthetic corrected text'}))
+        events=self.root['ydental.access.audit'].search([('ydental_target_model','=','ydental.clinical.document'),('ydental_target_id','=',d['document_id'])]).mapped('ydental_event')
+        self.assertTrue({'clinical.view','clinical.save','clinical.confirm','clinical.correct'}<=set(events))

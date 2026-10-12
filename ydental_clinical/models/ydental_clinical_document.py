@@ -14,6 +14,7 @@ class YDentalClinicalDocument(models.Model):
     ydental_category = fields.Selection(default='medical', readonly=True)
     ydental_patient_id = fields.Many2one('ydental.patient', required=True, ondelete='restrict', index=True)
     ydental_execution_id = fields.Many2one('ydental.queue.execution', required=True, ondelete='restrict', index=True)
+    ydental_current_execution_id = fields.Many2one('ydental.queue.execution', ondelete='restrict', index=True)
     ydental_author_id = fields.Many2one('res.users', required=True, ondelete='restrict')
     ydental_responsible_id = fields.Many2one('res.users', required=True, ondelete='restrict')
     ydental_version = fields.Integer(required=True, default=0, readonly=True)
@@ -31,6 +32,7 @@ class YDentalClinicalDocument(models.Model):
     ydental_editor_lease_id = fields.Many2one('ydental.queue.lease', ondelete='restrict', groups=fields.NO_ACCESS)
 
     _one_execution = models.Constraint('UNIQUE(ydental_execution_id)', 'An execution has one independent treatment document.')
+    _one_current_execution = models.Constraint('UNIQUE(ydental_current_execution_id)', 'A current segment has one independent treatment document.')
     _positive_version = models.Constraint('CHECK(ydental_version >= 0)', 'Document versions cannot be negative.')
 
     def _source_domain(self, operation):
@@ -58,3 +60,8 @@ class YDentalClinicalDocument(models.Model):
 
     def _save(self, values):
         return self.with_context(ydental_clinical_mutation=_MUTATION).write(values)
+
+    def init(self):
+        # Backfill only this new clinical table from its immutable source;
+        # no queue/execution history is rewritten by the module upgrade.
+        self.env.cr.execute('UPDATE ydental_clinical_document SET ydental_current_execution_id=ydental_execution_id WHERE ydental_current_execution_id IS NULL')

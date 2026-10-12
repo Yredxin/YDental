@@ -18,7 +18,6 @@ with env.registry.cursor() as cr:
     f.admin._grant(f.users['manager'].id,f.stores[0].id,{'warehouse':'write'})
     f.admin._grant(f.users['doctor'].id,f.stores[0].id,{'export':'write'})
     f.stores[0].write({'name':'S08-A 合成演示门店甲'});f.stores[1].write({'name':'S08-A 合成演示门店乙'})
-    f.stations[0][0].write({'name':'根管合成演示诊椅甲'});f.other_station.write({'name':'根管合成演示诊椅乙'})
     task=accepted(f);task.ydental_patient_id._save({'name':'合成患者一号'})
     f.users['doctor2']=f.second
     credentials={}

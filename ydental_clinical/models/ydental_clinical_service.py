@@ -124,10 +124,11 @@ class YDentalClinicalService(models.AbstractModel):
         if execution.state != 'serving' or lease.ydental_category != 'medical' or lease.ydental_expires_at <= queue._now():
             raise AccessError(self.env._('access_denied: Start the real medical reception before creating its document.'))
         self.env['ydental.patient.service']._current_relation(execution.ydental_patient_id, self._access(True))
-        doc = self._model().search([('ydental_execution_id', '=', execution.id)], limit=1)
+        doc = self._model().search([('ydental_current_execution_id', '=', execution.id)], limit=1)
         if not doc:
             doc = self._model()._new({'name': execution.name, 'ydental_store_id': execution.ydental_store_id.id,
                 'ydental_patient_id': execution.ydental_patient_id.id, 'ydental_execution_id': execution.id,
+                'ydental_current_execution_id': execution.id,
                 'ydental_author_id': self.env.uid, 'ydental_responsible_id': self.env.uid,
                 'ydental_content': self._empty()})
             self._audit('create', doc)
@@ -136,12 +137,12 @@ class YDentalClinicalService(models.AbstractModel):
     def _eligible_responsible(self, doc, user):
         access = self.env['ydental.access.service']
         member = access._membership(user.id, doc.ydental_store_id.id)
-        snapshot = doc.ydental_execution_id.ydental_service_snapshot
+        snapshot = doc.ydental_current_execution_id.ydental_service_snapshot
         return bool(user.active and doc.ydental_store_id.company_id in user.company_ids and member and
             member.ydental_employee_id.active and access._levels(member)['medical'] == 'write' and
             snapshot['capability_id'] in user.ydental_capability_ids.filtered('active').ids and
             (not snapshot['qualification'] or self._queue()._qualification_satisfied(
-                doc.ydental_execution_id.ydental_task_id, doc.ydental_execution_id.ydental_lease_id.ydental_station_id, user)))
+                doc.ydental_current_execution_id.ydental_task_id, doc.ydental_current_execution_id.ydental_lease_id.ydental_station_id, user)))
 
     def _valid_editor(self, doc):
         queue = self._queue()
@@ -153,7 +154,7 @@ class YDentalClinicalService(models.AbstractModel):
         lease = doc.ydental_editor_lease_id
         if lease and (not lease.ydental_active or lease.ydental_expires_at <= queue._now() or
                       lease.ydental_revision != session.ydental_revision or lease.ydental_session_id != session or
-                      self._queue()._service_eligibility(self._queue()._execution_entry(doc.ydental_execution_id),
+                      self._queue()._service_eligibility(self._queue()._execution_entry(doc.ydental_current_execution_id),
                           lease.ydental_station_id, doc.ydental_editor_id)):
             return False
         return True
@@ -162,7 +163,7 @@ class YDentalClinicalService(models.AbstractModel):
         doc = self._document(document_id, True)
         queue = self._queue()
         session, connection = queue._connection()
-        execution = doc.ydental_execution_id
+        execution = doc.ydental_current_execution_id
         if execution.state in ('serving', 'reserved', 'verify'):
             lease = queue._held(lease_id, lease_token)
             if execution.state == 'verify' or execution.ydental_lease_id != lease or lease.ydental_expires_at <= queue._now():
@@ -248,22 +249,22 @@ class YDentalClinicalService(models.AbstractModel):
 
     def _handover(self, document_id, editor_token, expected_version, content, key, lease_id, lease_token, mapping_id=None, reason=''):
         doc = self._held(document_id, editor_token)
-        if doc.ydental_execution_id.ydental_lease_id.id != lease_id:
+        if doc.ydental_current_execution_id.ydental_lease_id.id != lease_id:
             raise AccessError(self.env._('access_denied: Handover must use the original reception.'))
         if doc.state == 'confirmed':
             if doc.ydental_version != expected_version or self._content(content) != doc.ydental_content:
                 raise UserError(self.env._('version_conflict: Confirmed text must be synchronized before handover.'))
         else:
             self._append(doc, expected_version, content, key, 'save')
-        intent = SaveIntent(self.env.uid, doc.ydental_execution_id.id, doc.id, doc.ydental_version)
+        intent = SaveIntent(self.env.uid, doc.ydental_current_execution_id.id, doc.id, doc.ydental_version)
         return self._queue().with_context(ydental_clinical_save=intent)._operate('handover', {
-            'lease_id': lease_id, 'token': lease_token, 'execution_id': doc.ydental_execution_id.id,
+            'lease_id': lease_id, 'token': lease_token, 'execution_id': doc.ydental_current_execution_id.id,
             'mapping_id': mapping_id, 'reason': reason}) | {'document_id': doc.id, 'version': doc.ydental_version}
 
     def _transfer(self, document_id, expected_version, user_id, reason):
         doc = self._document(document_id, True)
         member = self.env['ydental.access.service']._membership(self.env.uid, doc.ydental_store_id.id)
-        if doc.ydental_execution_id.state not in ('handover', 'interrupted') or doc.ydental_version != expected_version or (
+        if doc.ydental_current_execution_id.state not in ('handover', 'interrupted') or doc.ydental_version != expected_version or (
                 doc.ydental_responsible_id.id != self.env.uid and not member.ydental_is_manager):
             raise AccessError(self.env._('access_denied: Only its responsible person or store manager may transfer pending text.'))
         if self._valid_editor(doc):
@@ -279,7 +280,7 @@ class YDentalClinicalService(models.AbstractModel):
         return self._snapshot(doc)
 
     def _snapshot(self, doc):
-        return {'document_id': doc.id, 'execution_id': doc.ydental_execution_id.id, 'version': doc.ydental_version,
+        return {'document_id': doc.id, 'execution_id': doc.ydental_current_execution_id.id, 'version': doc.ydental_version,
             'state': doc.state, 'content': doc.ydental_content, 'template': doc.ydental_template,
             'saved_at': fields.Datetime.to_string(doc.ydental_saved_at) if doc.ydental_saved_at else False,
             'responsible_id': doc.ydental_responsible_id.id}
