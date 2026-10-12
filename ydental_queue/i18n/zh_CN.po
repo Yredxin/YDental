@@ -136,16 +136,20 @@ msgid "Controlled workstation queue source"
 msgstr "受控工位队列来源"
 
 #. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_append_permit__create_uid
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_entry__create_uid
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_execution__create_uid
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_hold__create_uid
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_lease__create_uid
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_mutex__create_uid
 msgid "Created by"
 msgstr "创建人"
 
 #. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_append_permit__create_date
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_entry__create_date
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_execution__create_date
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_hold__create_date
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_lease__create_date
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_mutex__create_date
 msgid "Created on"
@@ -180,8 +184,10 @@ msgstr "停用、权限不足或能力不符"
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_intake_service__display_name
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_intake_task__display_name
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_patient_service__display_name
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_append_permit__display_name
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_entry__display_name
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_execution__display_name
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_hold__display_name
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_lease__display_name
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_mutex__display_name
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_record__display_name
@@ -240,8 +246,10 @@ msgstr "持有人主动退出"
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_intake_service__id
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_intake_task__id
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_patient_service__id
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_append_permit__id
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_entry__id
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_execution__id
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_hold__id
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_lease__id
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_mutex__id
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_record__id
@@ -251,16 +259,20 @@ msgid "ID"
 msgstr "ID"
 
 #. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_append_permit__write_uid
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_entry__write_uid
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_execution__write_uid
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_hold__write_uid
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_lease__write_uid
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_mutex__write_uid
 msgid "Last Updated by"
 msgstr "最后修改人"
 
 #. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_append_permit__write_date
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_entry__write_date
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_execution__write_date
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_hold__write_date
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_lease__write_date
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_mutex__write_date
 msgid "Last Updated on"
@@ -277,8 +289,10 @@ msgid "My assignments"
 msgstr "我的安排"
 
 #. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_append_permit__name
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_entry__name
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_execution__name
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_hold__name
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_lease__name
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_record__name
 msgid "Name"
@@ -397,8 +411,11 @@ msgid "Start actual execution"
 msgstr "开始实际执行"
 
 #. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_intake_task__state
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_append_permit__state
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_entry__state
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_execution__state
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_hold__state
 #: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
 msgid "State"
 msgstr "状态"
@@ -425,6 +442,7 @@ msgstr "UTC。"
 
 #. module: ydental_queue
 #. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_return.py:0
 #: code:addons/ydental_queue/models/ydental_queue_service.py:0
 msgid "Unknown or missing workstation arguments."
 msgstr "工位动作参数未知或缺失。"
@@ -477,16 +495,20 @@ msgid "Ydental Active"
 msgstr "有效占用"
 
 #. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_append_permit__ydental_actor_id
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_hold__ydental_actor_id
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_lease__ydental_actor_id
 msgid "Ydental Actor"
 msgstr "实际操作者"
 
 #. module: ydental_queue
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_entry__ydental_area_id
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_hold__ydental_area_id
 msgid "Ydental Area"
 msgstr "报到区域"
 
 #. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_append_permit__ydental_business_date
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_entry__ydental_business_date
 msgid "Ydental Business Date"
 msgstr "门店营业日"
@@ -497,13 +519,16 @@ msgid "Ydental Call Used Before"
 msgstr "本次呼叫前机会已用"
 
 #. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_append_permit__ydental_capability_id
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_entry__ydental_capability_id
 msgid "Ydental Capability"
 msgstr "所需明确能力"
 
 #. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_append_permit__ydental_category
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_entry__ydental_category
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_execution__ydental_category
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_hold__ydental_category
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_lease__ydental_category
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_record__ydental_category
 msgid "Ydental Category"
@@ -532,6 +557,7 @@ msgstr "最后心跳时间"
 #. module: ydental_queue
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_entry__ydental_lease_id
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_execution__ydental_lease_id
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_hold__ydental_lease_id
 msgid "Ydental Lease"
 msgstr "工位租约"
 
@@ -551,8 +577,10 @@ msgid "Ydental Order"
 msgstr "有效排序"
 
 #. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_append_permit__ydental_patient_id
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_entry__ydental_patient_id
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_execution__ydental_patient_id
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_hold__ydental_patient_id
 msgid "Ydental Patient"
 msgstr "患者"
 
@@ -594,24 +622,31 @@ msgid "Ydental Started At"
 msgstr "实际开始时间"
 
 #. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_hold__ydental_station_id
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_lease__ydental_station_id
 msgid "Ydental Station"
 msgstr "持有工位"
 
 #. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_append_permit__ydental_store_id
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_entry__ydental_store_id
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_execution__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_hold__ydental_store_id
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_lease__ydental_store_id
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_record__ydental_store_id
 msgid "Ydental Store"
 msgstr "所属门店"
 
 #. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_append_permit__ydental_task_id
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_entry__ydental_task_id
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_execution__ydental_task_id
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_hold__ydental_task_id
 msgid "Ydental Task"
 msgstr "来源任务"
 
 #. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_append_permit__ydental_timezone
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_entry__ydental_timezone
 msgid "Ydental Timezone"
 msgstr "门店时区快照"
@@ -622,8 +657,10 @@ msgid "Ydental Token Hash"
 msgstr "租约令牌摘要"
 
 #. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_append_permit__ydental_version
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_entry__ydental_version
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_execution__ydental_version
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_hold__ydental_version
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_lease__ydental_version
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_record__ydental_version
 msgid "Ydental Version"
@@ -878,7 +915,9 @@ msgstr "qualification_required: 服务所需资质必须由可信服务器来源
 
 #. module: ydental_queue
 #. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_return.py:0
 #: code:addons/ydental_queue/models/ydental_queue_service.py:0
+#: model:ir.model.fields.selection,name:ydental_queue.selection__ydental_queue_hold__state__verify
 msgid "On-site verification required"
 msgstr "待现场核实"
 
@@ -899,3 +938,455 @@ msgstr "叫号前有效区域位置"
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_entry__ydental_call_order_before
 msgid "Pre-call order anchor"
 msgstr "叫号前排序锚点"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid ". Save must succeed on the server before handover."
+msgstr "。交还前必须由服务器保存成功。"
+
+#. module: ydental_queue
+#: model:ir.model.constraint,message:ydental_queue.constraint_ydental_queue_execution_one_resume
+msgid "A held segment resumes once."
+msgstr "每个保留执行段只能恢复一次。"
+
+#. module: ydental_queue
+#: model:ir.model.constraint,message:ydental_queue.constraint_ydental_queue_hold_one_source
+msgid "A segment reserves its workstation once."
+msgstr "每个执行段只保留原工位一次。"
+
+#. module: ydental_queue
+#: model:ir.model.constraint,message:ydental_queue.constraint_ydental_queue_execution_terminal_time
+msgid "A terminal segment retains its end time."
+msgstr "历史执行段必须保留结束时间。"
+
+#. module: ydental_queue
+#: model:ir.model.fields.selection,name:ydental_queue.selection__ydental_queue_append_permit__state__started
+msgid "Actual execution started"
+msgstr "已开始实际执行"
+
+#. module: ydental_queue
+#: model:ir.model.constraint,message:ydental_queue.constraint_ydental_queue_execution_source_identity
+msgid "An execution starts from one entry or resumes one historical segment."
+msgstr "执行必须来自一次叫号开始或一个历史保留段的恢复。"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Append reason"
+msgstr "追加原因"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Authorize task append"
+msgstr "授权追加此任务"
+
+#. module: ydental_queue
+#: model:ir.model.fields.selection,name:ydental_queue.selection__ydental_queue_append_permit__state__active
+msgid "Authorized for this segment"
+msgstr "本执行段已获追加许可"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Confirm return and resume"
+msgstr "确认实际返回并恢复"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid ""
+"Continuation keeps the outpatient service requirements. Independent services"
+" need a new qualification."
+msgstr "续诊保留原门诊服务要求。独立新服务必须重新取得资格。"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Current execution segment"
+msgstr "当前执行段"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Explicit external task"
+msgstr "明确的外检或药房任务"
+
+#. module: ydental_queue
+#: model:ir.model,name:ydental_queue.model_ydental_queue_append_permit
+msgid "Explicit task-bound stopped-area admission permit"
+msgstr "停接区域明确任务的人工追加许可"
+
+#. module: ydental_queue
+#: model:ir.model.fields.selection,name:ydental_queue.selection__ydental_queue_hold__state__handover
+msgid "Handed over"
+msgstr "已交还"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "I see the patient actually returned"
+msgstr "我已看到患者实际返回"
+
+#. module: ydental_queue
+#: model:ir.model.constraint,message:ydental_queue.constraint_ydental_intake_task_one_continuation
+msgid "One continuation per handed over segment."
+msgstr "每个交还执行段只产生一个续诊后继。"
+
+#. module: ydental_queue
+#: model:ir.model,name:ydental_queue.model_ydental_queue_hold
+msgid "Original workstation return reservation, never actual execution"
+msgstr "原工位返回保留事实"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Patient ID for return query"
+msgstr "查询返回目的地的患者编号"
+
+#. module: ydental_queue
+#: model:ir.model.fields.selection,name:ydental_queue.selection__ydental_queue_hold__state__restored
+msgid "Patient returned"
+msgstr "患者已返回"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Patient task:"
+msgstr "患者任务："
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Pending explicit tasks"
+msgstr "明确的待报到任务"
+
+#. module: ydental_queue
+#: model:ir.model.fields.selection,name:ydental_queue.selection__ydental_queue_append_permit__state__revoked
+msgid "Permit revoked"
+msgstr "许可已撤销"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid ""
+"Production heartbeat, timeout and missed displacement require explicit "
+"approval. Real treatment documents, dispensing, day close and push delivery "
+"are not enabled."
+msgstr "生产心跳、超时和过号顺延参数需要明确批准。真实治疗文书、发药、日终及推送尚未启用。"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Query return destination"
+msgstr "查询返回目的地"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Report this explicit task"
+msgstr "报到此明确任务"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Reserve workstation for external service"
+msgstr "保留工位并前往外检或药房"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Reserved return"
+msgstr "保留返回"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_return.py:0
+msgid "Return to the original workstation."
+msgstr "请返回原诊室工位。"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Revoke append permit"
+msgstr "撤销追加许可"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Revoke reason"
+msgstr "撤销原因"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Save and hand over reserved segment"
+msgstr "保存并交还保留执行段"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Save and hand over this segment"
+msgstr "保存并交还本执行段"
+
+#. module: ydental_queue
+#: model:ir.model.fields.selection,name:ydental_queue.selection__ydental_queue_append_permit__state__ended
+msgid "Segment ended"
+msgstr "执行段已结束"
+
+#. module: ydental_queue
+#: model:ir.model.fields.selection,name:ydental_queue.selection__ydental_queue_execution__state__reserved
+msgid "Segment ended for external service"
+msgstr "执行段已结束并保留外检返回"
+
+#. module: ydental_queue
+#: model:ir.model.fields.selection,name:ydental_queue.selection__ydental_intake_task__state__handed_over
+#: model:ir.model.fields.selection,name:ydental_queue.selection__ydental_queue_entry__state__handover
+#: model:ir.model.fields.selection,name:ydental_queue.selection__ydental_queue_execution__state__handover
+msgid "Segment handed over"
+msgstr "执行段已交还"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_return.py:0
+msgid "Use the explicit target task for ordinary reporting."
+msgstr "请按明确的目标任务办理普通报到。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_return.py:0
+#: model:ir.model.fields.selection,name:ydental_queue.selection__ydental_queue_hold__state__active
+msgid "Waiting for patient return"
+msgstr "等待患者返回"
+
+#. module: ydental_queue
+#: model:ir.model.fields.selection,name:ydental_queue.selection__ydental_intake_task__state__suspended
+#: model:ir.model.fields.selection,name:ydental_queue.selection__ydental_queue_entry__state__reserved
+msgid "Waiting for reserved return"
+msgstr "等待保留返回"
+
+#. module: ydental_queue
+#: model:res.groups,name:ydental_queue.ydental_group_append
+msgid "YDental explicit reception append"
+msgstr "YDental前台显式人工追加授权"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_intake_task__ydental_continuation_snapshot
+msgid "Ydental Continuation Snapshot"
+msgstr "续诊服务要求快照"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_append_permit__ydental_created_at
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_hold__ydental_created_at
+msgid "Ydental Created At"
+msgstr "创建时间"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_execution__ydental_ended_at
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_hold__ydental_ended_at
+msgid "Ydental Ended At"
+msgstr "结束时间"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_hold__ydental_execution_id
+msgid "Ydental Execution"
+msgstr "来源执行段"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_append_permit__ydental_mapping_id
+msgid "Ydental Mapping"
+msgstr "服务区域映射"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_append_permit__ydental_reason
+msgid "Ydental Reason"
+msgstr "原因"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_execution__ydental_resumed_from_id
+msgid "Ydental Resumed From"
+msgstr "恢复来源执行段"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_append_permit__ydental_revoke_reason
+msgid "Ydental Revoke Reason"
+msgstr "撤销原因"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_append_permit__ydental_revoked_at
+msgid "Ydental Revoked At"
+msgstr "撤销时间"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_append_permit__ydental_revoked_by_id
+msgid "Ydental Revoked By"
+msgstr "撤销人"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_execution__ydental_service_snapshot
+msgid "Ydental Service Snapshot"
+msgstr "服务要求快照"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_intake_task__ydental_source_execution_id
+msgid "Ydental Source Execution"
+msgstr "来源执行段"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_hold__ydental_target_task_id
+msgid "Ydental Target Task"
+msgstr "目标任务"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_return.py:0
+msgid ""
+"access_denied: Explicit append authorization and store frontdesk write are "
+"both required."
+msgstr "access_denied: 必须同时具有显式追加授权和本店前台写权限。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_return.py:0
+msgid "access_denied: Outpatient handover requires the treating workstation."
+msgstr "access_denied: 门诊交还必须由当前接诊工位办理。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_return.py:0
+msgid "access_denied: Select a permit in the current store."
+msgstr "access_denied: 请选择当前门店的追加许可。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_return.py:0
+msgid "access_denied: Select the execution held by this connection."
+msgstr "access_denied: 请选择本连接持有的执行段。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_return.py:0
+msgid "access_denied: The original holder must confirm actual patient return."
+msgstr "access_denied: 必须由原持有人确认患者实际返回。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_return.py:0
+msgid ""
+"already_started: A started segment cannot lose its permit by ordinary "
+"revoke."
+msgstr "already_started: 已开始的执行段不能通过普通撤销移除许可。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_return.py:0
+msgid ""
+"append_required: Review the expired or changed permit before a new business-"
+"day qualification."
+msgstr "append_required: 新营业日取得资格前须核对已过期或变化的追加许可。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_return.py:0
+msgid "append_required: The task append permit is no longer active."
+msgstr "append_required: 此任务追加许可已失效。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_return.py:0
+msgid ""
+"append_required: This stopped area requires an active task-bound append "
+"permit."
+msgstr "append_required: 此停接区域需要当前任务的有效追加许可。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_return.py:0
+msgid ""
+"append_unavailable: Explicit append is only for stopped ordinary reception."
+msgstr "append_unavailable: 仅在普通受理停止后才能明确人工追加。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_return.py:0
+msgid ""
+"capability_mismatch: Use the workstation business type for this explicit "
+"service task."
+msgstr "capability_mismatch: 请使用与此明确服务任务对应业务类型的工位。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_return.py:0
+msgid ""
+"handover_required: Another actual execution or on-site verification prevents"
+" return."
+msgstr "handover_required: 患者正在别处实际执行或待现场核实，不能恢复。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_return.py:0
+msgid ""
+"handover_required: Resolve the current segment in its legitimate holding "
+"context."
+msgstr "handover_required: 请在合法持有上下文处理当前执行段。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_return.py:0
+msgid ""
+"handover_required: Resolve the existing reservation or execution first."
+msgstr "handover_required: 请先处理既有保留或实际执行。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_return.py:0
+msgid ""
+"handover_required: Resolve the reserved patient or on-site verification "
+"first."
+msgstr "handover_required: 请先处理保留患者或现场核实。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_return.py:0
+msgid "handover_required: This workstation has a reserved patient."
+msgstr "handover_required: 此工位仍保留患者返回。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_return.py:0
+msgid ""
+"qualification_required: An independent service needs a new S05 "
+"qualification."
+msgstr "qualification_required: 独立新服务需要重新取得S05资格。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_return.py:0
+msgid "save_required: A trusted server document save integration is required."
+msgstr "save_required: 必须接入可信服务器文书保存来源。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_return.py:0
+msgid "save_required: Latest draft save failed; execution remains held."
+msgstr "save_required: 最新草稿保存失败，继续保留当前执行占用。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_return.py:0
+msgid ""
+"source_required: Reserve only a trusted external examination or pharmacy "
+"task."
+msgstr "source_required: 仅能为可信来源的明确外检或药房任务保留。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_intake_service.py:0
+#: code:addons/ydental_queue/models/ydental_queue_return.py:0
+msgid ""
+"version_conflict: Continuation service requirements changed; review the "
+"source."
+msgstr "version_conflict: 续诊服务要求已变更，请核对原来源。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_return.py:0
+msgid ""
+"version_conflict: The original service requirements changed; review the "
+"source."
+msgstr "version_conflict: 原服务要求已变更，请核对原来源。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_return.py:0
+msgid "version_conflict: This handover already has a continuation direction."
+msgstr "version_conflict: 此次交还已有确定的续诊方向。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_return.py:0
+msgid ""
+"version_conflict: This reservation is already resolved or has another "
+"target."
+msgstr "version_conflict: 此保留已处理或关联其他目标任务。"
