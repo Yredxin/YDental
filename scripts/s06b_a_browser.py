@@ -232,6 +232,8 @@ def main():
             chinese_context.close()
             # Real backend page also receives the workstation systray integration.
             manager.goto(base + '/odoo', wait_until='networkidle')
+            # Owl may mount after networkidle; verify the actual visible widget.
+            manager.locator('.o_ydental_queue_workstation_status').wait_for(state='visible')
             check('backend global workstation systray loads', manager.locator('.o_ydental_queue_workstation_status').count() == 1)
             screenshot(manager, manager_context, '10-global-workstation-position.png')
             # B1: close the actual serving browser, wait for connection timeout,
