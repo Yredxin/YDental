@@ -272,3 +272,31 @@ class TestInventory(TransactionCase):
     def test_t09_product_hook_default_failclosed(self):
         from odoo.addons.ydental_inventory.models.ydental_inventory_service import YDentalInventoryService
         with self.assertRaises(AccessError):YDentalInventoryService._authorize_source(self.stock,{'kind':'treatment'})
+
+    def test_t09_pharmacy_source_issue_and_physical_return_without_stock_group(self):
+        receive(self,4)
+        pharmacy=bind(self,self.users['pharmacy']);doctor=bind(self,self.users['doctor'])
+        source=SyntheticSource(self.users['pharmacy'].id,self.stores[0].id,key(),'prescription',self.lots['medicine'],2,self.uom.id)
+        self.assertFalse(self.users['pharmacy'].has_group('stock.group_stock_manager'))
+        issued=pharmacy._source_action(source);self.assertEqual(issued['state'],'done');self.assertEqual(quantity(self),2)
+        self.assertEqual(pharmacy._source_action(source)['id'],issued['id']);self.assertEqual(quantity(self),2)
+        with self.assertRaises(AccessError):pharmacy._source_action(SyntheticSource(self.users['pharmacy'].id,self.stores[0].id,key(),'chairside',self.lots['medicine'],1,self.uom.id))
+        with self.assertRaises(AccessError):doctor._source_action(SyntheticSource(self.users['doctor'].id,self.stores[0].id,key(),'prescription',self.lots['medicine'],1,self.uom.id))
+        returned=op(self,'return',event_id=issued['id'],quantity=1,uom_id=self.uom.id,source_key=key(),reason='Actual unused take-home medicine returned')
+        self.assertEqual(quantity(self),2);self.assertEqual(quantity(self,quarantine=True),1)
+        op(self,'verify',event_id=returned['id'],quantity=1,uom_id=self.uom.id,disposition='release',source_key=key(),reason='Verified unused prescription return')
+        self.assertEqual(quantity(self),3)
+
+    def test_t09_collection_uses_local_receipt_day_and_first_receipt_is_immutable(self):
+        from datetime import datetime
+        actual=datetime(2026,10,12,23,50)
+        lot=self.lots['prosthesis']
+        with patch.object(type(self.stock),'_now',return_value=actual):receive(self,1,lot)
+        op(self,'policy',near_days=60,wait_days=1,low_quantity=0,reason='Synthetic local receipt date boundary')
+        with patch.object(type(self.stock),'_now',return_value=actual+timedelta(minutes=15)):
+            row=next(r for r in self.stock._dashboard()['lots'] if r['id']==lot)
+            self.assertNotIn('collection',row['flags']);self.assertEqual(row['received_at'],actual)
+            receive(self,1,lot)
+        with patch.object(type(self.stock),'_now',return_value=datetime(2026,10,13,16,0)):
+            row=next(r for r in self.stock._dashboard()['lots'] if r['id']==lot)
+            self.assertIn('collection',row['flags']);self.assertEqual(row['received_at'],actual)
