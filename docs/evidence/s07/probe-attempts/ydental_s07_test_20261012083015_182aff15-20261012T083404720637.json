@@ -1,0 +1,430 @@
+{
+  "scope": "S07 real native inventory with isolated synthetic sources",
+  "database": "ydental_s07_test_20261012083015_182aff15",
+  "races": [
+    {
+      "name": "T02 final one unit; one actual issue; loser no half movement",
+      "status": "PASS",
+      "connections": 2,
+      "outputs": [
+        {
+          "value": {
+            "id": 112,
+            "move_id": 156,
+            "state": "done",
+            "result": "accepted"
+          },
+          "backend_pid": 227256,
+          "retry_backend_pids": [
+            227256
+          ],
+          "attempts": 1
+        },
+        {
+          "value": {
+            "rejected": "UserError",
+            "code": "insufficient_balance"
+          },
+          "backend_pid": 227278,
+          "retry_backend_pids": [
+            227278,
+            227278
+          ],
+          "attempts": 2
+        }
+      ],
+      "final_quantity": 0
+    },
+    {
+      "name": "T01 identical request retry on distinct actor connections",
+      "status": "PASS",
+      "connections": 2,
+      "outputs": [
+        {
+          "value": {
+            "id": 115,
+            "state": "done",
+            "result": "already_accepted",
+            "move_id": 158
+          },
+          "backend_pid": 227278,
+          "retry_backend_pids": [
+            227278,
+            227278
+          ],
+          "attempts": 2
+        },
+        {
+          "value": {
+            "id": 115,
+            "move_id": 158,
+            "state": "done",
+            "result": "accepted"
+          },
+          "backend_pid": 227256,
+          "retry_backend_pids": [
+            227256
+          ],
+          "attempts": 1
+        }
+      ],
+      "final_quantity": 7
+    },
+    {
+      "name": "T01 source event uniqueness with different request keys",
+      "status": "PASS",
+      "connections": 2,
+      "outputs": [
+        {
+          "value": {
+            "id": 117,
+            "move_id": 160,
+            "state": "done",
+            "result": "accepted"
+          },
+          "backend_pid": 227278,
+          "retry_backend_pids": [
+            227278,
+            227278
+          ],
+          "attempts": 2
+        },
+        {
+          "value": {
+            "id": 117,
+            "move_id": 160,
+            "state": "done",
+            "result": "accepted"
+          },
+          "backend_pid": 227256,
+          "retry_backend_pids": [
+            227256
+          ],
+          "attempts": 1
+        }
+      ]
+    },
+    {
+      "name": "T05 two returns against one issued unit",
+      "status": "PASS",
+      "connections": 2,
+      "outputs": [
+        {
+          "value": {
+            "id": 120,
+            "move_id": 163,
+            "state": "quarantine",
+            "result": "accepted"
+          },
+          "backend_pid": 227278,
+          "retry_backend_pids": [
+            227278
+          ],
+          "attempts": 1
+        },
+        {
+          "value": {
+            "rejected": "UserError",
+            "code": "return_limit"
+          },
+          "backend_pid": 227256,
+          "retry_backend_pids": [
+            227256,
+            227256
+          ],
+          "attempts": 2
+        }
+      ]
+    },
+    {
+      "name": "T05 two verifications cannot release the same return twice",
+      "status": "PASS",
+      "connections": 2,
+      "outputs": [
+        {
+          "value": {
+            "rejected": "UserError",
+            "code": "return_limit"
+          },
+          "backend_pid": 227256,
+          "retry_backend_pids": [
+            227256,
+            227256
+          ],
+          "attempts": 2
+        },
+        {
+          "value": {
+            "id": 121,
+            "move_id": 164,
+            "disposition": "release",
+            "result": "accepted"
+          },
+          "backend_pid": 227278,
+          "retry_backend_pids": [
+            227278
+          ],
+          "attempts": 1
+        }
+      ]
+    },
+    {
+      "name": "T06 identical already-performed shortage source creates one pending fact",
+      "status": "PASS",
+      "connections": 2,
+      "outputs": [
+        {
+          "value": {
+            "id": 122,
+            "state": "pending",
+            "move_id": false
+          },
+          "backend_pid": 227256,
+          "retry_backend_pids": [
+            227256
+          ],
+          "attempts": 1
+        },
+        {
+          "value": {
+            "id": 122,
+            "state": "pending",
+            "move_id": false
+          },
+          "backend_pid": 227278,
+          "retry_backend_pids": [
+            227278,
+            227278
+          ],
+          "attempts": 2
+        }
+      ]
+    },
+    {
+      "name": "T06 concurrent recovery yields one original native movement",
+      "status": "PASS",
+      "connections": 2,
+      "outputs": [
+        {
+          "value": {
+            "id": 122,
+            "move_id": 166,
+            "state": "done",
+            "result": "accepted"
+          },
+          "backend_pid": 227278,
+          "retry_backend_pids": [
+            227278,
+            227278
+          ],
+          "attempts": 2
+        },
+        {
+          "value": {
+            "id": 122,
+            "move_id": 166,
+            "state": "done",
+            "result": "accepted"
+          },
+          "backend_pid": 227256,
+          "retry_backend_pids": [
+            227256
+          ],
+          "attempts": 1
+        }
+      ]
+    },
+    {
+      "name": "T08 transfer versus issue of final one",
+      "status": "PASS",
+      "connections": 2,
+      "outputs": [
+        {
+          "value": {
+            "rejected": "UserError",
+            "code": "insufficient_balance"
+          },
+          "backend_pid": 227278,
+          "retry_backend_pids": [
+            227278,
+            227278
+          ],
+          "attempts": 2
+        },
+        {
+          "value": {
+            "id": 125,
+            "move_id": 168,
+            "state": "done",
+            "result": "accepted"
+          },
+          "backend_pid": 227256,
+          "retry_backend_pids": [
+            227256
+          ],
+          "attempts": 1
+        }
+      ]
+    },
+    {
+      "name": "T03 disable commits before issue; next execution refused",
+      "status": "PASS",
+      "connections": 2,
+      "outputs": [
+        {
+          "value": {
+            "id": 30,
+            "enabled": false,
+            "result": "accepted"
+          },
+          "backend_pid": 227278,
+          "retry_backend_pids": [
+            227278
+          ],
+          "attempts": 1
+        },
+        {
+          "value": {
+            "rejected": "UserError",
+            "code": "lot_disabled"
+          },
+          "backend_pid": 227256,
+          "retry_backend_pids": [
+            227256,
+            227256
+          ],
+          "attempts": 2
+        }
+      ]
+    },
+    {
+      "name": "T03 issue commits before disable; actual history retained",
+      "status": "PASS",
+      "connections": 2,
+      "outputs": [
+        {
+          "value": {
+            "id": 129,
+            "move_id": 171,
+            "state": "done",
+            "result": "accepted"
+          },
+          "backend_pid": 227256,
+          "retry_backend_pids": [
+            227256
+          ],
+          "attempts": 1
+        },
+        {
+          "value": {
+            "id": 31,
+            "enabled": false,
+            "result": "accepted"
+          },
+          "backend_pid": 227278,
+          "retry_backend_pids": [
+            227278,
+            227278
+          ],
+          "attempts": 2
+        }
+      ]
+    },
+    {
+      "name": "T08 actual count commits before previously unavailable issue",
+      "status": "PASS",
+      "connections": 2,
+      "outputs": [
+        {
+          "value": {
+            "id": 130,
+            "move_id": 172,
+            "counted": 1.0,
+            "result": "accepted"
+          },
+          "backend_pid": 227278,
+          "retry_backend_pids": [
+            227278
+          ],
+          "attempts": 1
+        },
+        {
+          "value": {
+            "id": 131,
+            "move_id": 173,
+            "state": "done",
+            "result": "accepted"
+          },
+          "backend_pid": 227256,
+          "retry_backend_pids": [
+            227256,
+            227256
+          ],
+          "attempts": 2
+        }
+      ]
+    },
+    {
+      "name": "T02 full transaction rollback does not consume final unit",
+      "status": "PASS",
+      "connections": 2,
+      "outputs": [
+        {
+          "value": {
+            "rolled_back": true
+          },
+          "backend_pid": 227256,
+          "retry_backend_pids": [
+            227256
+          ],
+          "attempts": 1
+        },
+        {
+          "value": {
+            "id": 134,
+            "move_id": 176,
+            "state": "done",
+            "result": "accepted"
+          },
+          "backend_pid": 227278,
+          "retry_backend_pids": [
+            227278
+          ],
+          "attempts": 1
+        }
+      ]
+    }
+  ],
+  "started_utc": "2026-10-12T08:34:04.718268+00:00",
+  "tested_commit": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "native_rollback": {
+    "status": "PASS",
+    "quantity_before": 3.0,
+    "quantity_after": 3.0,
+    "no_half_native_moves": true,
+    "no_half_audit": true
+  },
+  "invariants": {
+    "negative_internal_quant": 0,
+    "duplicate_source": 0,
+    "half_event": 0,
+    "event_move_quantity_mismatch": 0,
+    "movement_audit_mismatch": 0,
+    "quant_move_reconciliation": 0,
+    "wrong_quant_store": 0,
+    "event_count": 25,
+    "ledger_signatures": {
+      "event": "a91907c400aca9348800e6b52f5c34046b2d09990c9051770e4a12412423beb8",
+      "batch": "9c792c96e1c3218fe553e9b309a5cafe3dbf24975dd6a3b2fce2323d603af479",
+      "move": "e60a6a4d05acb706fb28d8c6e436d33697778ba9dc1266077b48163ce2168bfe",
+      "move_line": "78b537ce57447bf2e143aab7b8051eb9f4aeeb47b41f1fe76ee1c7881ef72e52",
+      "quant": "eb29c87752ed56a975a80c3c8da8cea37bc6996ea8a2576136bba24c7a744e64"
+    },
+    "tested_commit": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+    "status": "PASS",
+    "database": "ydental_s07_test_20261012083015_182aff15",
+    "time_utc": "2026-10-12T08:34:17.169927+00:00"
+  },
+  "result": "PASS",
+  "deadlocks": 0
+}

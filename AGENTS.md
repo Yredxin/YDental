@@ -1,5 +1,20 @@
 # YDental 当前执行入口
 
+## 当前 S07交付 / #31
+
+- 用户正式启用S07，唯一边界为[GPT-ACTIVATE6119956887](https://github.com/Yredxin/YDental/issues/31#issuecomment-6119956887)。已完整读取#23正文/全部有效评论、#31正文/全部有效评论、S06最终技术PASS6119723325和状态回执6119803450；[开工条件检查6120104358](https://github.com/Yredxin/YDental/issues/31#issuecomment-6120104358)写回逐字读回后实施。交付前正文/有效原评论不变，仅本次开工评论；完整Project再读深比较相同。
+- 固定S06-C基线`46833f0ac4bd37b778f3a5a80d51be430e4ebde6`；新分支`codex/s07-inventory-r1-20261012`。固定产品`916492719e5d299fa0326330ac798cd6cda237bd`、测试`be4a282dc0ebb54fc32dfafa7ac05cfa7535d939`；final完整SHA固定于#31交付评论。product→test只有原生单位修改负向测试，test→final仅文档/AGENTS/脱敏证据；原失败与中间提交全部保留。
+- 实施前完整读取Project #4的21字段/15条目/6视图/7公开workflow，仅授权一次#31自定义执行状态待启用→进行中，两次完整读回深差异仅该name/optionId。第一次TLS读超时未重复mutation。#31保持S07/进行中/Todo/OPEN，#30 S06/待用户验收/Todo/OPEN，#29待用户验收；其他条目/字段/视图/workflows不变，不自行转待复核。
+- 只交付原生product/stock/uom/product_expiry与自研受控库存：本店warehouse/三类业务库位/真实quarantine、store×native lot生命周期、单位精度/批次效期启停、实际收发/盘点/同法人调拨、来源和请求幂等、实退核查、原事件pending恢复/原价保留、最小工作台/预警/审计和扫码fail-closed。原生quant/move为数量唯一事实，无平行余额；不重写S01/S03/S04/S05/S06。
+- 最终新库`ydental_s07_test_20261012085648_03913c2a`，固定test install42/upgrade40/带已提交业务再upgrade40（S07模型29+真实HTTP/RPC11；install额外2原生资产初始化，不冒称完整JS测试）。12/12真实双连接竞争、deadlock=0，Firefox36项/10图且全部目视核验、pageerror=0，guard5、实际导出中文218/218；最终29个已提交事件及7类SQL不变量均0，event/batch/move/move_line/quant五组升级前后签名相等。均为Codex自测，非GPT或用户验收。
+- 仅`scripts/s07.py`及本次全新S07合成库；创建记录/端点/cluster/OID/config/data_dir/dbfilter/PID/端口/外发guard继续，旧库不接管/重置/删除，核心/odoo-12/既有服务/系统依赖不改。只停止匹配本次专属config/PID的预览。工程材料为docs/s07-contracts.md、docs/s07-data-dictionary.md、docs/s07-security-review.md、docs/s07-report.md及docs/evidence/s07。
+- 默认产品临床来源hook拒绝；测试适配器只认本次guard库+进程+冻结Python来源。S05真实演示价格重价99后恢复仍原20；合成费用引用不是实际费用单。真实S08文书/治疗/分次发药、S09检查、S10收费退款/跨法人交易、S11加工单、生产阈值/50会话/发布均NOT_RUN。演示near60/wait0/low3不是生产批准；采购订单/应付未建设。
+- 早期ACL/native建议行/负向及价格时间夹具/Firefox303误判、证据脚本误记核心SHA均保留；最终新库修正重跑。原生单位factor/祖先路径不可普通修改，observed盘点不得走pending执行恢复，batch是门店批次生命周期唯一权威。历史S00—S06全套UI/并发本批未重跑，不冒称全项目验收。
+- 最终Firefox首次在登录选店后、本次库存动作前遇专属预览SIGSEGV；只读仍10份、无出库事件。仅重启本次预览后36项/10图通过，原失败/runner245/恢复摘要保留；底层原因未确定，不称根因已修复或生产稳定性通过，交GPT复核裁定。
+- #31发布`[CODEX] S07交付验收申请`并逐字读回后立即停止等待GPT独立技术复核，不称已验收/生产通过，不启用S08、不关闭/合并/强推/生产部署。
+
+下方S06-C及更早“当前/本次”均为历史记录，本次授权以本节及S07启用为准。
+
 ## 当前 S06-C交付 / #30
 
 - 用户明确启用#30/S06-C，唯一边界为[GPT-ACTIVATE6118760114](https://github.com/Yredxin/YDental/issues/30#issuecomment-6118760114)。已完整读取#23当前总计划/有效评论、#30正文/全部有效评论、S06-A最终技术PASS6117519348及S06-B原复核6118213551/修正技术PASS6118669357；[开工检查6118793557](https://github.com/Yredxin/YDental/issues/30#issuecomment-6118793557)写回逐字读回后实施。交付前重读正文/原评论未变，仅新增本次开工评论。

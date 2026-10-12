@@ -1,0 +1,13 @@
+{
+  "scope": "S07 native inventory workbench and security",
+  "database": "ydental_s07_test_20261012085648_03913c2a",
+  "tested_commit": "be4a282dc0ebb54fc32dfafa7ac05cfa7535d939",
+  "browser": "Firefox",
+  "sandbox": "default, no overrides",
+  "checks": [],
+  "screenshots": [],
+  "result": "FAIL",
+  "error_type": "Error",
+  "error": "Page.goto: NS_ERROR_CONNECTION_REFUSED\nCall log:\n  - navigating to \"http://127.0.0.1:18142/ydental/inventory\", waiting until \"domcontentloaded\"\n",
+  "pageerror_count": 0
+}

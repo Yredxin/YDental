@@ -1,0 +1,21 @@
+{
+  "database": "ydental_s07_test_20261012085648_03913c2a",
+  "test": "be4a282dc0ebb54fc32dfafa7ac05cfa7535d939",
+  "failed_browser": "browser-attempts/20261012T090047835455/result.json",
+  "preview_runner_exit_code": 245,
+  "child_signal": 11,
+  "cause": "native process exited on SIGSEGV after login/store selection; no inventory action occurred; exact native cause undetermined",
+  "native_fixture_quantity_before_retry": 10.0,
+  "no_fixture_issue_event": true,
+  "raw_diagnostic_log_published": false,
+  "action": "restart only guarded S07 preview with same config/recorded DB; enable process-local Python fault handler; preserve all facts",
+  "browser_exit_code": 1,
+  "browser_command": "../.venv/bin/python scripts/s07_browser.py --db ydental_s07_test_20261012085648_03913c2a --port 18142",
+  "serve_command": "../.venv/bin/python scripts/s07.py serve --db ydental_s07_test_20261012085648_03913c2a --port 18142",
+  "retry_result": "PASS",
+  "retry_browser": "browser-attempts/20261012T090243076439/result.json",
+  "retry_checks": 36,
+  "retry_screenshots": 10,
+  "retry_pageerrors": 0,
+  "cause_fixed": false
+}

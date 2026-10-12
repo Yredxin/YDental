@@ -1,0 +1,634 @@
+{
+  "raw_logs_published": false,
+  "all_log_hashes_checked": true,
+  "attempts": [
+    {
+      "action": "install",
+      "exit_code": 255,
+      "log": "install-20261012T080824185849.log",
+      "log_sha256": "40b2b294b9ac1c277f606093cd11812d50b84fe8fc1e64bc5990588ad6af34a2",
+      "time_utc": "2026-10-12T08:09:16.036097+00:00",
+      "tested_commit": "2908fb9d465bce8e51f4c23b42c53813a5580c94",
+      "tests": null,
+      "verification_exit": 255,
+      "database": "ydental_s07_test_20261012080824_c16647a7",
+      "result": "FAIL",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s07.py",
+        "install",
+        "--db",
+        "ydental_s07_test_20261012080824_c16647a7",
+        "--port",
+        "18137"
+      ],
+      "failed_test_methods": []
+    },
+    {
+      "action": "install",
+      "exit_code": 1,
+      "log": "install-20261012T081132792111.log",
+      "log_sha256": "5a5ecdccab1b1732f26b5fa1c457cd52833b7056308545533fc45d33ccd0a7d8",
+      "time_utc": "2026-10-12T08:12:49.604698+00:00",
+      "tested_commit": "92adc723b2bad2668d7b834c5f2e58d13261dd71",
+      "tests": [
+        0,
+        22,
+        30
+      ],
+      "verification_exit": 1,
+      "database": "ydental_s07_test_20261012081132_5a9cee80",
+      "result": "FAIL",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s07.py",
+        "install",
+        "--db",
+        "ydental_s07_test_20261012081132_5a9cee80",
+        "--port",
+        "18137"
+      ],
+      "failed_test_methods": [
+        "TestInventoryHTTP.test_http_t01_issue_and_retry",
+        "TestInventoryHTTP.test_http_t05_return_verification",
+        "TestInventoryHTTP.test_http_t07_reader_and_native_rpc",
+        "TestInventoryHTTP.test_http_t07_stock_manager_native_bypass",
+        "TestInventoryHTTP.test_http_t09_catalog_does_not_read_stock",
+        "TestInventory.test_t01_f1_native_receipt_issue_retry",
+        "TestInventory.test_t01_key_collision_rolls_back",
+        "TestInventory.test_t02_shortage_has_no_half_move_or_audit",
+        "TestInventory.test_t03_expired_disabled_product_and_forged_batch",
+        "TestInventory.test_t04_pack_and_small_quantity_conserve",
+        "TestInventory.test_t04_reject_silent_rounding_invalid_unit_nonfinite",
+        "TestInventory.test_t05_f1_return_quarantine_verify_refund",
+        "TestInventory.test_t05_return_limit_discard_and_consumption_no_automatic_restock",
+        "TestInventory.test_t06_f3_actual_pending_correction_original_price_recovery",
+        "TestInventory.test_t06_source_kind_unique_chairside_no_duplicate_prescription",
+        "TestInventory.test_t07_cross_store_company_native_crud_export",
+        "TestInventory.test_t07_native_stock_manager_cannot_bypass",
+        "TestInventory.test_t07_revoke_next_request_old_tab",
+        "TestInventory.test_t08_inventory_count_transfer_no_crosslegal",
+        "TestInventory.test_t08_target_grant_required_even_same_company",
+        "TestInventory.test_t09_categories_dates_policy_scan_and_audit",
+        "TestInventory.test_t09_lifecycle_and_direct_balance_guard"
+      ]
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 1,
+      "log": "upgrade-20261012T081343805820.log",
+      "log_sha256": "f3c4b3ff0f611bd2bcb735e59d6935d0552e0766cbde5ec67075e5d1ca97bf5f",
+      "time_utc": "2026-10-12T08:14:03.334844+00:00",
+      "tested_commit": "9d2c02ec6b6664c24679039200fdcdea2b5868b5",
+      "tests": [
+        1,
+        1,
+        28
+      ],
+      "verification_exit": 1,
+      "database": "ydental_s07_test_20261012081132_5a9cee80",
+      "result": "FAIL",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s07.py",
+        "upgrade",
+        "--db",
+        "ydental_s07_test_20261012081132_5a9cee80",
+        "--port",
+        "18137"
+      ],
+      "failed_test_methods": [
+        "TestInventoryHTTP.test_http_t07_stock_manager_native_bypass",
+        "TestInventory.test_t07_native_stock_manager_cannot_bypass"
+      ]
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 0,
+      "log": "upgrade-20261012T081509679131.log",
+      "log_sha256": "63e60faa978e245099b27f8707288b064a8391d4bf417829c50e059c97c0832e",
+      "time_utc": "2026-10-12T08:15:29.037326+00:00",
+      "tested_commit": "ccdfd840f23fd4e5e6cf5c303157f0b2f72eb238",
+      "tests": [
+        0,
+        0,
+        28
+      ],
+      "database": "ydental_s07_test_20261012081132_5a9cee80",
+      "result": "PASS",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s07.py",
+        "upgrade",
+        "--db",
+        "ydental_s07_test_20261012081132_5a9cee80",
+        "--port",
+        "18137"
+      ],
+      "failed_test_methods": []
+    },
+    {
+      "action": "export",
+      "exit_code": 0,
+      "log": "export-20261012T081555829239.log",
+      "log_sha256": "99ffe8d99dc6ce49372c6f4c9a54bb2e712330fa3f71777df397a2f24a54f987",
+      "time_utc": "2026-10-12T08:15:57.863656+00:00",
+      "tested_commit": "ccdfd840f23fd4e5e6cf5c303157f0b2f72eb238",
+      "database": "ydental_s07_test_20261012081132_5a9cee80",
+      "result": "PASS",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s07.py",
+        "export",
+        "--db",
+        "ydental_s07_test_20261012081132_5a9cee80",
+        "--port",
+        "18137"
+      ],
+      "failed_test_methods": []
+    },
+    {
+      "action": "probe",
+      "exit_code": 0,
+      "log": "probe-20261012T081604306014.log",
+      "log_sha256": "319d8eaa2504c49ad415405a5a7fbbcc5cfa2f98ae2d5dbefc24028523745941",
+      "time_utc": "2026-10-12T08:16:18.031578+00:00",
+      "tested_commit": "ccdfd840f23fd4e5e6cf5c303157f0b2f72eb238",
+      "database": "ydental_s07_test_20261012081132_5a9cee80",
+      "result": "PASS",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s07.py",
+        "probe",
+        "--db",
+        "ydental_s07_test_20261012081132_5a9cee80",
+        "--port",
+        "18137"
+      ],
+      "failed_test_methods": []
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 1,
+      "log": "upgrade-20261012T081840528616.log",
+      "log_sha256": "eaac0923592ddedce820280c589531213e8f4a6150971aebf91939237457951c",
+      "time_utc": "2026-10-12T08:19:00.185167+00:00",
+      "tested_commit": "eacb77d86e550a75f29becdb7c06ff69bb5db119",
+      "tests": [
+        0,
+        1,
+        32
+      ],
+      "verification_exit": 1,
+      "database": "ydental_s07_test_20261012081132_5a9cee80",
+      "result": "FAIL",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s07.py",
+        "upgrade",
+        "--db",
+        "ydental_s07_test_20261012081132_5a9cee80",
+        "--port",
+        "18137"
+      ],
+      "failed_test_methods": [
+        "TestInventory.test_t06_real_s05_repricing_keeps_original_demo_snapshot"
+      ]
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 0,
+      "log": "upgrade-20261012T081948697672.log",
+      "log_sha256": "9331d5a3aed561cf8b7d9dd8baaff856b5050e710d83beb53327d6364b811357",
+      "time_utc": "2026-10-12T08:20:08.491349+00:00",
+      "tested_commit": "eccfb24f650c41ad0bc89f1fcd284df93cc4ea5b",
+      "tests": [
+        0,
+        0,
+        32
+      ],
+      "database": "ydental_s07_test_20261012081132_5a9cee80",
+      "result": "PASS",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s07.py",
+        "upgrade",
+        "--db",
+        "ydental_s07_test_20261012081132_5a9cee80",
+        "--port",
+        "18137"
+      ],
+      "failed_test_methods": []
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 0,
+      "log": "upgrade-20261012T082118093610.log",
+      "log_sha256": "36826a740438341881cc160190bb266edb711014cf4add18e7d3b3a46bc20104",
+      "time_utc": "2026-10-12T08:21:38.142878+00:00",
+      "tested_commit": "7d0d037b97e47ede8c423d7eb67dcf5974e16b50",
+      "tests": [
+        0,
+        0,
+        33
+      ],
+      "database": "ydental_s07_test_20261012081132_5a9cee80",
+      "result": "PASS",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s07.py",
+        "upgrade",
+        "--db",
+        "ydental_s07_test_20261012081132_5a9cee80",
+        "--port",
+        "18137"
+      ],
+      "failed_test_methods": []
+    },
+    {
+      "action": "export",
+      "exit_code": 0,
+      "log": "export-20261012T082144142696.log",
+      "log_sha256": "d819a05f0e894f8fecbf68436f2dae7b21f353a6770817ee3f618062b1d26a0f",
+      "time_utc": "2026-10-12T08:21:46.177486+00:00",
+      "tested_commit": "7d0d037b97e47ede8c423d7eb67dcf5974e16b50",
+      "database": "ydental_s07_test_20261012081132_5a9cee80",
+      "result": "PASS",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s07.py",
+        "export",
+        "--db",
+        "ydental_s07_test_20261012081132_5a9cee80",
+        "--port",
+        "18137"
+      ],
+      "failed_test_methods": []
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 0,
+      "log": "upgrade-20261012T082159401942.log",
+      "log_sha256": "28132c80740a9219bb8f006c21e24c404a8eb5b78097bba8a0e1eb7ad4c62417",
+      "time_utc": "2026-10-12T08:22:19.457669+00:00",
+      "tested_commit": "e18cc9b1653fce32789832471a14616e50068050",
+      "tests": [
+        0,
+        0,
+        33
+      ],
+      "database": "ydental_s07_test_20261012081132_5a9cee80",
+      "result": "PASS",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s07.py",
+        "upgrade",
+        "--db",
+        "ydental_s07_test_20261012081132_5a9cee80",
+        "--port",
+        "18137"
+      ],
+      "failed_test_methods": []
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 0,
+      "log": "upgrade-20261012T082436697792.log",
+      "log_sha256": "9432ab05bf3858444d1f0511fd3a743980d3cda5a08c22cb17a30696d724d9e1",
+      "time_utc": "2026-10-12T08:24:57.010240+00:00",
+      "tested_commit": "82d05ec117bae51488d7c8a8c0fa1eb21a0a2c8f",
+      "tests": [
+        0,
+        0,
+        34
+      ],
+      "database": "ydental_s07_test_20261012081132_5a9cee80",
+      "result": "PASS",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s07.py",
+        "upgrade",
+        "--db",
+        "ydental_s07_test_20261012081132_5a9cee80",
+        "--port",
+        "18137"
+      ],
+      "failed_test_methods": []
+    },
+    {
+      "action": "export",
+      "exit_code": 0,
+      "log": "export-20261012T082522302273.log",
+      "log_sha256": "68bcef628ddea2b9b30ae97be56b97b9c7e44355e2f817b03949fea66018d55b",
+      "time_utc": "2026-10-12T08:25:24.319944+00:00",
+      "tested_commit": "135bba9d566e01725b1f90fd7ade918cd2a2f5e8",
+      "database": "ydental_s07_test_20261012081132_5a9cee80",
+      "result": "PASS",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s07.py",
+        "export",
+        "--db",
+        "ydental_s07_test_20261012081132_5a9cee80",
+        "--port",
+        "18137"
+      ],
+      "failed_test_methods": []
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 0,
+      "log": "upgrade-20261012T082601221577.log",
+      "log_sha256": "8da8b20c6c723a3617d52c3027e93d032fd846fed963db964d5f82c69e1ef0a9",
+      "time_utc": "2026-10-12T08:26:21.543122+00:00",
+      "tested_commit": "172f8d84780aaec94d92c9acefafff19f7274e63",
+      "tests": [
+        0,
+        0,
+        35
+      ],
+      "database": "ydental_s07_test_20261012081132_5a9cee80",
+      "result": "PASS",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s07.py",
+        "upgrade",
+        "--db",
+        "ydental_s07_test_20261012081132_5a9cee80",
+        "--port",
+        "18137"
+      ],
+      "failed_test_methods": []
+    },
+    {
+      "action": "preview",
+      "exit_code": 0,
+      "log": "preview-20261012T082644395920.log",
+      "log_sha256": "5a6e09125ce6fd9764c3f1c17043957481a04cd569fce949fd63463767c54a34",
+      "time_utc": "2026-10-12T08:26:54.784275+00:00",
+      "tested_commit": "8dae2eecd6b76a18fed60cc907d645d2cb581aa0",
+      "database": "ydental_s07_test_20261012081132_5a9cee80",
+      "result": "PASS",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s07.py",
+        "preview",
+        "--db",
+        "ydental_s07_test_20261012081132_5a9cee80",
+        "--port",
+        "18137"
+      ],
+      "failed_test_methods": []
+    },
+    {
+      "action": "install",
+      "exit_code": 0,
+      "log": "install-20261012T083015125367.log",
+      "log_sha256": "a0681de600d002e5a00088624a9aff991f4d74a62781520e3dd2c97c3dc790c1",
+      "time_utc": "2026-10-12T08:31:38.068420+00:00",
+      "tested_commit": "71e54e71fdfd17b136ecc0158df5852fee95e927",
+      "tests": [
+        0,
+        0,
+        39
+      ],
+      "database": "ydental_s07_test_20261012083015_182aff15",
+      "result": "PASS",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s07.py",
+        "install",
+        "--db",
+        "ydental_s07_test_20261012083015_182aff15",
+        "--port",
+        "18138"
+      ],
+      "failed_test_methods": []
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 0,
+      "log": "upgrade-20261012T083341330365.log",
+      "log_sha256": "07fd07b293e17b3f77f0677e2eea6c554406a14d176bd8a00bb664bc47af02e9",
+      "time_utc": "2026-10-12T08:34:02.897847+00:00",
+      "tested_commit": "71e54e71fdfd17b136ecc0158df5852fee95e927",
+      "tests": [
+        0,
+        0,
+        37
+      ],
+      "database": "ydental_s07_test_20261012083015_182aff15",
+      "result": "PASS",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s07.py",
+        "upgrade",
+        "--db",
+        "ydental_s07_test_20261012083015_182aff15",
+        "--port",
+        "18138"
+      ],
+      "failed_test_methods": []
+    },
+    {
+      "action": "probe",
+      "exit_code": 0,
+      "log": "probe-20261012T083403588684.log",
+      "log_sha256": "5951b193eb069c95c58276e9de7ca8bb7b151dbd29d19948c9c0589a4e3545eb",
+      "time_utc": "2026-10-12T08:34:17.476435+00:00",
+      "tested_commit": "71e54e71fdfd17b136ecc0158df5852fee95e927",
+      "database": "ydental_s07_test_20261012083015_182aff15",
+      "result": "PASS",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s07.py",
+        "probe",
+        "--db",
+        "ydental_s07_test_20261012083015_182aff15",
+        "--port",
+        "18138"
+      ],
+      "failed_test_methods": []
+    },
+    {
+      "action": "install",
+      "exit_code": 0,
+      "log": "install-20261012T083751187004.log",
+      "log_sha256": "f03ab1bad6392a7aca7469be7835164e8c10edf122c3a2edbf244f629b669b9c",
+      "time_utc": "2026-10-12T08:39:14.323400+00:00",
+      "tested_commit": "688f8003e2dcadbb1e04b4b22cb3c6aa29789a99",
+      "tests": [
+        0,
+        0,
+        39
+      ],
+      "database": "ydental_s07_test_20261012083751_d0eca2da",
+      "result": "PASS",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s07.py",
+        "install",
+        "--db",
+        "ydental_s07_test_20261012083751_d0eca2da",
+        "--port",
+        "18139"
+      ],
+      "failed_test_methods": []
+    },
+    {
+      "action": "install",
+      "exit_code": 0,
+      "log": "install-20261012T083933888568.log",
+      "log_sha256": "9110ab04c79787ccd65630ec1e37577f053e07c02a7435a1f4e839629fa0a33f",
+      "time_utc": "2026-10-12T08:40:57.353688+00:00",
+      "tested_commit": "3675f1dc704daf495a278d12a95e9ccbd71ba5ed",
+      "tests": [
+        0,
+        0,
+        40
+      ],
+      "database": "ydental_s07_test_20261012083933_f1bf7ae8",
+      "result": "PASS",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s07.py",
+        "install",
+        "--db",
+        "ydental_s07_test_20261012083933_f1bf7ae8",
+        "--port",
+        "18140"
+      ],
+      "failed_test_methods": []
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 0,
+      "log": "upgrade-20261012T084110670088.log",
+      "log_sha256": "1ec4afefe73d6827edd145b34f5913f75dc7d85667633fae8573a3f8f49d3ad1",
+      "time_utc": "2026-10-12T08:41:32.593350+00:00",
+      "tested_commit": "3675f1dc704daf495a278d12a95e9ccbd71ba5ed",
+      "tests": [
+        0,
+        0,
+        38
+      ],
+      "database": "ydental_s07_test_20261012083933_f1bf7ae8",
+      "result": "PASS",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s07.py",
+        "upgrade",
+        "--db",
+        "ydental_s07_test_20261012083933_f1bf7ae8",
+        "--port",
+        "18140"
+      ],
+      "failed_test_methods": []
+    },
+    {
+      "action": "probe",
+      "exit_code": 0,
+      "log": "probe-20261012T084135227382.log",
+      "log_sha256": "f4f63b012dbf8c85ab5de466dd02993d1ce4cdffea8dbe43ca43af08117c13f1",
+      "time_utc": "2026-10-12T08:41:49.136514+00:00",
+      "tested_commit": "3675f1dc704daf495a278d12a95e9ccbd71ba5ed",
+      "database": "ydental_s07_test_20261012083933_f1bf7ae8",
+      "result": "PASS",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s07.py",
+        "probe",
+        "--db",
+        "ydental_s07_test_20261012083933_f1bf7ae8",
+        "--port",
+        "18140"
+      ],
+      "failed_test_methods": []
+    },
+    {
+      "action": "export",
+      "exit_code": 0,
+      "log": "export-20261012T084208839928.log",
+      "log_sha256": "f893e5b3ff46bd0c0b54def332402e9ad9fafaaa44110c7c411c95487f4793fe",
+      "time_utc": "2026-10-12T08:42:10.869573+00:00",
+      "tested_commit": "3675f1dc704daf495a278d12a95e9ccbd71ba5ed",
+      "database": "ydental_s07_test_20261012083933_f1bf7ae8",
+      "result": "PASS",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s07.py",
+        "export",
+        "--db",
+        "ydental_s07_test_20261012083933_f1bf7ae8",
+        "--port",
+        "18140"
+      ],
+      "failed_test_methods": []
+    },
+    {
+      "action": "audit",
+      "exit_code": 0,
+      "log": "audit-20261012T084721451381.log",
+      "log_sha256": "315859b0c95a22d6f08efcd3547960fa738e8443dcec45dc2048d9fde6a28b31",
+      "time_utc": "2026-10-12T08:47:22.783159+00:00",
+      "tested_commit": "3675f1dc704daf495a278d12a95e9ccbd71ba5ed",
+      "database": "ydental_s07_test_20261012083933_f1bf7ae8",
+      "result": "PASS",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s07.py",
+        "audit",
+        "--db",
+        "ydental_s07_test_20261012083933_f1bf7ae8",
+        "--port",
+        "18140"
+      ],
+      "failed_test_methods": []
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 0,
+      "log": "upgrade-20261012T084755723835.log",
+      "log_sha256": "2713908785f8ffdeb8b6bb087b547e5079bc740120987af7233c13375b227ff4",
+      "time_utc": "2026-10-12T08:48:16.967273+00:00",
+      "tested_commit": "3675f1dc704daf495a278d12a95e9ccbd71ba5ed",
+      "tests": [
+        0,
+        0,
+        38
+      ],
+      "database": "ydental_s07_test_20261012083933_f1bf7ae8",
+      "result": "PASS",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s07.py",
+        "upgrade",
+        "--db",
+        "ydental_s07_test_20261012083933_f1bf7ae8",
+        "--port",
+        "18140"
+      ],
+      "failed_test_methods": []
+    },
+    {
+      "action": "audit",
+      "exit_code": 0,
+      "log": "audit-20261012T084821682108.log",
+      "log_sha256": "a9a88c6038a075157c554a39fd86bf5e2c7e84c084c10b28d083ab6c559c9f74",
+      "time_utc": "2026-10-12T08:48:23.014333+00:00",
+      "tested_commit": "3675f1dc704daf495a278d12a95e9ccbd71ba5ed",
+      "database": "ydental_s07_test_20261012083933_f1bf7ae8",
+      "result": "PASS",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s07.py",
+        "audit",
+        "--db",
+        "ydental_s07_test_20261012083933_f1bf7ae8",
+        "--port",
+        "18140"
+      ],
+      "failed_test_methods": []
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "result": "PASS",
+  "test": "3675f1dc704daf495a278d12a95e9ccbd71ba5ed",
+  "database": "ydental_s07_test_20261012083933_f1bf7ae8",
+  "before": "invariants/20261012T084722538225.json",
+  "after": "invariants/20261012T084822773551.json",
+  "event_count": 29,
+  "five_ledger_signatures_equal": true,
+  "ledger_signatures": {
+    "event": "5913eb7c3147d0b633382865b0aa6e462e0cd93c8c6d681f0672ad7ddbdd6ba6",
+    "batch": "b940ad9c15d84eb750f7faf9865b9126ff43ba11e16669d154293bdc91b55a06",
+    "move": "f9ab43c1e18e352cdca8f290bd0578519b0d214f0c9442aea76fbaace2d06b47",
+    "move_line": "41902f6f2fb3a29ca1a9e8d7b01aab48ba9484845f7ce3cbf2a33ec7e6897c67",
+    "quant": "2ae61c9ba005f8c2ceb97f10c41d270304a7bd3cd7a3b6bb627890401aea6ce6"
+  },
+  "upgrade_exit_code": 0,
+  "upgrade_tests": 38
+}

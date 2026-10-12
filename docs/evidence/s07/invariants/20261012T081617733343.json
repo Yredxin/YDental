@@ -1,0 +1,13 @@
+{
+  "negative_internal_quant": 0,
+  "duplicate_source": 0,
+  "half_event": 0,
+  "event_move_quantity_mismatch": 0,
+  "movement_audit_mismatch": 0,
+  "quant_move_reconciliation": 0,
+  "wrong_quant_store": 0,
+  "event_count": 25,
+  "status": "PASS",
+  "database": "ydental_s07_test_20261012081132_5a9cee80",
+  "time_utc": "2026-10-12T08:16:17.733158+00:00"
+}

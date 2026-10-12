@@ -1,0 +1,53 @@
+{
+  "failures_preserved": true,
+  "actions": "actions-summary.json",
+  "fixes": [
+    {
+      "attempt": "2908fb9",
+      "result": "FAIL",
+      "reason": "Native ir.access CSV model_id column rejected IDs",
+      "fix": "92adc72 model_id/id"
+    },
+    {
+      "attempt": "92adc72",
+      "result": "FAIL",
+      "errors": 22,
+      "reason": "Native confirm created lot-less suggested lines alongside explicit actual batch",
+      "fix": "9d2c02e unreserve only this unfinished native suggestion before explicit picked lot line"
+    },
+    {
+      "attempt": "9d2c02e",
+      "result": "FAIL",
+      "failed": 1,
+      "errors": 1,
+      "reason": "Negative tests incorrectly expected empty/zero native access instead of raised AccessError",
+      "fix": "ccdfd84 assert denial"
+    },
+    {
+      "attempt": "eacb77d",
+      "result": "FAIL",
+      "errors": 1,
+      "reason": "S05 repricing fixture attempted to replace already-effective price start",
+      "fix": "eccfb24 publish future-effective version; evaluate at later time and retain original20 snapshot"
+    },
+    {
+      "attempt": "browser-attempts/20261012T082247135168/result.json",
+      "result": "FAIL",
+      "reason": "Normal HTTP303 after actual form issue was misclassified by browser script; issue committed",
+      "fix": "82d05ec accepts303; no reset; 8dae2ee new preview fixture after172f8d8 runner"
+    },
+    {
+      "attempt": "probe/invariants early two attempts at ccdfd84 and71e54e7",
+      "result": "FAIL",
+      "scope": "commit metadata only; original raw artifacts retained",
+      "reason": "Child cwd=core so git rev-parse reported core SHA; runner actions recorded actual addon HEAD",
+      "fix": "688f800 explicit git -C repository; final3675f1d fresh install/probe rerun"
+    },
+    {
+      "attempt": "security final inspection",
+      "result": "FAIL",
+      "scope": "observed count accepted recover path; unused redundant native lot lifecycle fields",
+      "fix": "f276fbf pending clinical kind guard and only store-batch lifecycle fields;3675f1d adds realHTTP negative test"
+    }
+  ]
+}

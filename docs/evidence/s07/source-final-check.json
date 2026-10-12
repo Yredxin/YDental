@@ -1,0 +1,24 @@
+{
+  "result": "PASS",
+  "read_utc": "2026-10-12T09:00:15.826018+00:00",
+  "bodies_unchanged": true,
+  "comment_ids": {
+    "comments23": [
+      6106072643,
+      6110178328
+    ],
+    "comments31": [
+      6119956887,
+      6120104358
+    ]
+  },
+  "project_deep_equal_to_second_readback": true,
+  "source_body_sha256": {
+    "plan23": "336891ce1fdbb297cff2f2af2c0193233ac5a8cdde21d350d7a84f5eb6c8e14b",
+    "comments23": "58d0e50db3e8b27606afb7a613c4117b163bce8c2ab04784e6e51203f4ebcd60",
+    "issue31": "a51c6d30771e9ecba7b8a32bd929238cf831e4483fcc3b6a67138ce1811f3852",
+    "comments31": "3faa519a76a39b20d766d48116d53a9b02a768732674d12b3ae8e1acc19a8ad6",
+    "s06-review": "58402212a9148165f865be36095b3b31abe2afbbe4718e8175b7d0030b184406",
+    "s06-status": "a7bc1f1f12b3bb507974c353190ad6161b686d310e5383455b49a757b54117ed"
+  }
+}

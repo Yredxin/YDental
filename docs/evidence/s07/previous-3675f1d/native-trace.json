@@ -1,0 +1,443 @@
+{
+  "database": "ydental_s07_test_20261012083933_f1bf7ae8",
+  "test": "3675f1dc704daf495a278d12a95e9ccbd71ba5ed",
+  "scope": "read-only native rows for the final Firefox synthetic fixture",
+  "preview_ids": {
+    "store": 13,
+    "other_store": 14,
+    "legal_store": 15,
+    "lot": 35,
+    "material": 36,
+    "pending": 142,
+    "prosthesis": 37,
+    "unit": 1,
+    "pack": 35,
+    "products": {
+      "medicine": 68,
+      "material": 69,
+      "prosthesis": 70
+    }
+  },
+  "events": [
+    {
+      "id": 141,
+      "ydental_source_namespace": "warehouse",
+      "ydental_source_key": "2a628a526a33d7b74c7ad0e5",
+      "ydental_kind": "receipt",
+      "state": "done",
+      "ydental_quantity": "10.00",
+      "ydental_lot_id": 35,
+      "ydental_move_id": 181,
+      "ydental_parent_id": null,
+      "ydental_price_snapshot": null,
+      "ydental_synthetic": false,
+      "ydental_actor_id": 46,
+      "ydental_responsible_id": 46
+    },
+    {
+      "id": 142,
+      "ydental_source_namespace": "s07_synthetic_execution",
+      "ydental_source_key": "3f5b06a9751bf62abdc68438",
+      "ydental_kind": "treatment",
+      "state": "done",
+      "ydental_quantity": "2.00",
+      "ydental_lot_id": 36,
+      "ydental_move_id": 187,
+      "ydental_parent_id": null,
+      "ydental_price_snapshot": {
+        "version": "S07-synthetic-price-v1",
+        "currency": 1,
+        "unit_price": 20
+      },
+      "ydental_synthetic": true,
+      "ydental_actor_id": 49,
+      "ydental_responsible_id": 49
+    },
+    {
+      "id": 143,
+      "ydental_source_namespace": "warehouse",
+      "ydental_source_key": "7facfcef664de1c4d47ab35b",
+      "ydental_kind": "receipt",
+      "state": "done",
+      "ydental_quantity": "1.00",
+      "ydental_lot_id": 37,
+      "ydental_move_id": 182,
+      "ydental_parent_id": null,
+      "ydental_price_snapshot": null,
+      "ydental_synthetic": false,
+      "ydental_actor_id": 46,
+      "ydental_responsible_id": 46
+    },
+    {
+      "id": 144,
+      "ydental_source_namespace": "warehouse",
+      "ydental_source_key": "firefox-issue-ydental_s07_test_20261012083933_f1bf7ae8",
+      "ydental_kind": "replenishment",
+      "state": "done",
+      "ydental_quantity": "3.00",
+      "ydental_lot_id": 35,
+      "ydental_move_id": 183,
+      "ydental_parent_id": null,
+      "ydental_price_snapshot": null,
+      "ydental_synthetic": false,
+      "ydental_actor_id": 46,
+      "ydental_responsible_id": 46
+    },
+    {
+      "id": 145,
+      "ydental_source_namespace": "warehouse",
+      "ydental_source_key": "firefox-return-ydental_s07_test_20261012083933_f1bf7ae8",
+      "ydental_kind": "return",
+      "state": "done",
+      "ydental_quantity": "1.00",
+      "ydental_lot_id": 35,
+      "ydental_move_id": 184,
+      "ydental_parent_id": 144,
+      "ydental_price_snapshot": null,
+      "ydental_synthetic": false,
+      "ydental_actor_id": 46,
+      "ydental_responsible_id": 46
+    },
+    {
+      "id": 146,
+      "ydental_source_namespace": "warehouse",
+      "ydental_source_key": "firefox-verify-ydental_s07_test_20261012083933_f1bf7ae8",
+      "ydental_kind": "verification",
+      "state": "done",
+      "ydental_quantity": "1.00",
+      "ydental_lot_id": 35,
+      "ydental_move_id": 185,
+      "ydental_parent_id": 145,
+      "ydental_price_snapshot": null,
+      "ydental_synthetic": false,
+      "ydental_actor_id": 46,
+      "ydental_responsible_id": 46
+    },
+    {
+      "id": 147,
+      "ydental_source_namespace": "warehouse",
+      "ydental_source_key": "firefox-correction-ydental_s07_test_20261012083933_f1bf7ae8",
+      "ydental_kind": "receipt",
+      "state": "done",
+      "ydental_quantity": "5.00",
+      "ydental_lot_id": 36,
+      "ydental_move_id": 186,
+      "ydental_parent_id": null,
+      "ydental_price_snapshot": null,
+      "ydental_synthetic": false,
+      "ydental_actor_id": 46,
+      "ydental_responsible_id": 46
+    }
+  ],
+  "moves": [
+    {
+      "id": 181,
+      "state": "done",
+      "product_id": 68,
+      "quantity": "10.00",
+      "uom_id": 1,
+      "location_id": 240,
+      "location_dest_id": 236,
+      "ydental_store_id": 13,
+      "event_id": 141
+    },
+    {
+      "id": 182,
+      "state": "done",
+      "product_id": 70,
+      "quantity": "1.00",
+      "uom_id": 1,
+      "location_id": 240,
+      "location_dest_id": 238,
+      "ydental_store_id": 13,
+      "event_id": 143
+    },
+    {
+      "id": 183,
+      "state": "done",
+      "product_id": 68,
+      "quantity": "3.00",
+      "uom_id": 1,
+      "location_id": 236,
+      "location_dest_id": 241,
+      "ydental_store_id": 13,
+      "event_id": 144
+    },
+    {
+      "id": 184,
+      "state": "done",
+      "product_id": 68,
+      "quantity": "1.00",
+      "uom_id": 1,
+      "location_id": 241,
+      "location_dest_id": 239,
+      "ydental_store_id": 13,
+      "event_id": 145
+    },
+    {
+      "id": 185,
+      "state": "done",
+      "product_id": 68,
+      "quantity": "1.00",
+      "uom_id": 1,
+      "location_id": 239,
+      "location_dest_id": 236,
+      "ydental_store_id": 13,
+      "event_id": 146
+    },
+    {
+      "id": 186,
+      "state": "done",
+      "product_id": 69,
+      "quantity": "5.00",
+      "uom_id": 1,
+      "location_id": 240,
+      "location_dest_id": 237,
+      "ydental_store_id": 13,
+      "event_id": 147
+    },
+    {
+      "id": 187,
+      "state": "done",
+      "product_id": 69,
+      "quantity": "2.00",
+      "uom_id": 1,
+      "location_id": 237,
+      "location_dest_id": 241,
+      "ydental_store_id": 13,
+      "event_id": 142
+    }
+  ],
+  "move_lines": [
+    {
+      "id": 252,
+      "move_id": 181,
+      "lot_id": 35,
+      "quantity": "10.00",
+      "location_id": 240,
+      "location_dest_id": 236,
+      "state": "done"
+    },
+    {
+      "id": 254,
+      "move_id": 182,
+      "lot_id": 37,
+      "quantity": "1.00",
+      "location_id": 240,
+      "location_dest_id": 238,
+      "state": "done"
+    },
+    {
+      "id": 255,
+      "move_id": 183,
+      "lot_id": 35,
+      "quantity": "3.00",
+      "location_id": 236,
+      "location_dest_id": 241,
+      "state": "done"
+    },
+    {
+      "id": 257,
+      "move_id": 184,
+      "lot_id": 35,
+      "quantity": "1.00",
+      "location_id": 241,
+      "location_dest_id": 239,
+      "state": "done"
+    },
+    {
+      "id": 258,
+      "move_id": 185,
+      "lot_id": 35,
+      "quantity": "1.00",
+      "location_id": 239,
+      "location_dest_id": 236,
+      "state": "done"
+    },
+    {
+      "id": 260,
+      "move_id": 186,
+      "lot_id": 36,
+      "quantity": "5.00",
+      "location_id": 240,
+      "location_dest_id": 237,
+      "state": "done"
+    },
+    {
+      "id": 261,
+      "move_id": 187,
+      "lot_id": 36,
+      "quantity": "2.00",
+      "location_id": 237,
+      "location_dest_id": 241,
+      "state": "done"
+    }
+  ],
+  "quants": [
+    {
+      "id": 243,
+      "product_id": 68,
+      "lot_id": 35,
+      "quantity": "-10.00",
+      "reserved_quantity": "0.00",
+      "location_id": 240,
+      "usage": "supplier",
+      "ydental_store_id": 13,
+      "name": "Supplier"
+    },
+    {
+      "id": 244,
+      "product_id": 68,
+      "lot_id": 35,
+      "quantity": "8.00",
+      "reserved_quantity": "0.00",
+      "location_id": 236,
+      "usage": "internal",
+      "ydental_store_id": 13,
+      "name": "Pharmacy"
+    },
+    {
+      "id": 245,
+      "product_id": 70,
+      "lot_id": 37,
+      "quantity": "-1.00",
+      "reserved_quantity": "0.00",
+      "location_id": 240,
+      "usage": "supplier",
+      "ydental_store_id": 13,
+      "name": "Supplier"
+    },
+    {
+      "id": 246,
+      "product_id": 70,
+      "lot_id": 37,
+      "quantity": "1.00",
+      "reserved_quantity": "0.00",
+      "location_id": 238,
+      "usage": "internal",
+      "ydental_store_id": 13,
+      "name": "Prosthesis awaiting collection"
+    },
+    {
+      "id": 247,
+      "product_id": 68,
+      "lot_id": 35,
+      "quantity": "2.00",
+      "reserved_quantity": "0.00",
+      "location_id": 241,
+      "usage": "customer",
+      "ydental_store_id": 13,
+      "name": "Actual issue"
+    },
+    {
+      "id": 248,
+      "product_id": 68,
+      "lot_id": 35,
+      "quantity": "0.00",
+      "reserved_quantity": "0.00",
+      "location_id": 239,
+      "usage": "internal",
+      "ydental_store_id": 13,
+      "name": "Return verification"
+    },
+    {
+      "id": 249,
+      "product_id": 69,
+      "lot_id": 36,
+      "quantity": "-5.00",
+      "reserved_quantity": "0.00",
+      "location_id": 240,
+      "usage": "supplier",
+      "ydental_store_id": 13,
+      "name": "Supplier"
+    },
+    {
+      "id": 250,
+      "product_id": 69,
+      "lot_id": 36,
+      "quantity": "3.00",
+      "reserved_quantity": "0.00",
+      "location_id": 237,
+      "usage": "internal",
+      "ydental_store_id": 13,
+      "name": "Materials"
+    },
+    {
+      "id": 251,
+      "product_id": 69,
+      "lot_id": 36,
+      "quantity": "2.00",
+      "reserved_quantity": "0.00",
+      "location_id": 241,
+      "usage": "customer",
+      "ydental_store_id": 13,
+      "name": "Actual issue"
+    }
+  ],
+  "audits": [
+    {
+      "id": 932,
+      "ydental_event": "inventory.movement",
+      "ydental_target_model": "ydental.inventory.event",
+      "ydental_target_id": 141,
+      "ydental_store_id": 13
+    },
+    {
+      "id": 935,
+      "ydental_event": "inventory.pending",
+      "ydental_target_model": "ydental.inventory.event",
+      "ydental_target_id": 142,
+      "ydental_store_id": 13
+    },
+    {
+      "id": 937,
+      "ydental_event": "inventory.movement",
+      "ydental_target_model": "ydental.inventory.event",
+      "ydental_target_id": 143,
+      "ydental_store_id": 13
+    },
+    {
+      "id": 944,
+      "ydental_event": "inventory.movement",
+      "ydental_target_model": "ydental.inventory.event",
+      "ydental_target_id": 144,
+      "ydental_store_id": 13
+    },
+    {
+      "id": 948,
+      "ydental_event": "inventory.movement",
+      "ydental_target_model": "ydental.inventory.event",
+      "ydental_target_id": 145,
+      "ydental_store_id": 13
+    },
+    {
+      "id": 951,
+      "ydental_event": "inventory.movement",
+      "ydental_target_model": "ydental.inventory.event",
+      "ydental_target_id": 146,
+      "ydental_store_id": 13
+    },
+    {
+      "id": 961,
+      "ydental_event": "inventory.movement",
+      "ydental_target_model": "ydental.inventory.event",
+      "ydental_target_id": 147,
+      "ydental_store_id": 13
+    },
+    {
+      "id": 964,
+      "ydental_event": "inventory.movement",
+      "ydental_target_model": "ydental.inventory.event",
+      "ydental_target_id": 142,
+      "ydental_store_id": 13
+    },
+    {
+      "id": 965,
+      "ydental_event": "inventory.recovery",
+      "ydental_target_model": "ydental.inventory.event",
+      "ydental_target_id": 142,
+      "ydental_store_id": 13
+    }
+  ],
+  "result": "PASS"
+}

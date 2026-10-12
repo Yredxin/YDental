@@ -1,0 +1,34 @@
+{
+  "database": "ydental_s07_test_20261012083933_f1bf7ae8",
+  "oid": 789453,
+  "endpoint": {
+    "host": "127.0.0.1",
+    "port": "5432",
+    "user": "odoo"
+  },
+  "cluster": "7694897083368259627",
+  "port": 18140,
+  "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "created_utc": "2026-10-12T08:39:33.887485+00:00",
+  "config_sha256": "f1710c32d11ae2a1edbf5d180d71abdcb57fd04d800cc24b54689efaca60da7e",
+  "repository": "/home/redxin/code/odoo/odoo-sd/code/sd-addons",
+  "origin": "https://github.com/Yredxin/YDental.git",
+  "branch": "codex/s07-inventory-r1-20261012",
+  "baseline": "46833f0ac4bd37b778f3a5a80d51be430e4ebde6",
+  "product": "f276fbf27ebbf8dc748115bece894a49e019653b",
+  "test": "3675f1dc704daf495a278d12a95e9ccbd71ba5ed",
+  "runtime_safe_options": {
+    "db_name": "ydental_s07_test_20261012083933_f1bf7ae8",
+    "dbfilter": "^ydental_s07_test_20261012083933_f1bf7ae8$",
+    "data_dir": "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s07_test_20261012083933_f1bf7ae8/data",
+    "http_interface": "127.0.0.1",
+    "http_port": "18140",
+    "list_db": "False",
+    "workers": "0",
+    "max_cron_threads": "0",
+    "smtp_server": "127.0.0.1",
+    "smtp_port": "1"
+  },
+  "raw_config_published": false,
+  "existing_process_local_assets_only": true
+}

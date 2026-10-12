@@ -1,0 +1,27 @@
+{
+  "scope": "S07 native inventory workbench and security",
+  "database": "ydental_s07_test_20261012081132_5a9cee80",
+  "tested_commit": "e18cc9b1653fce32789832471a14616e50068050",
+  "browser": "Firefox",
+  "sandbox": "default, no overrides",
+  "checks": [
+    {
+      "check": "Chinese workbench rendered",
+      "result": "PASS"
+    },
+    {
+      "check": "F1 actual native receipt ten is visible",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s07/browser-attempts/20261012T082247135168/01-chinese-stock-ten.png",
+      "sha256": "e2f68c41f9fe6fde01092f41c872ed15f2d3b6d5eb6a28475a3890ed708ed165"
+    }
+  ],
+  "result": "FAIL",
+  "error_type": "RuntimeError",
+  "error": "actual form submit issue",
+  "pageerror_count": 0
+}

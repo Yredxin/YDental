@@ -1,0 +1,70 @@
+{
+  "result": "PASS",
+  "reviewer": "Codex visual inspection with view_image",
+  "review_utc": "2026-10-12T08:49:24.350326+00:00",
+  "test": "3675f1dc704daf495a278d12a95e9ccbd71ba5ed",
+  "source": "browser-attempts/20261012T084606800834/result.json",
+  "inspected_screenshots": [
+    {
+      "path": "docs/evidence/s07/browser-attempts/20261012T084606800834/01-chinese-stock-ten.png",
+      "sha256": "c2215b4ea701cf2ece6d1ad65ea447e92d77bfca8a5e298bad81c653d994d86c",
+      "visual_result": "PASS",
+      "synthetic_only": true
+    },
+    {
+      "path": "docs/evidence/s07/browser-attempts/20261012T084606800834/02-physical-return-quarantine.png",
+      "sha256": "a0b7aff2f4604c6606d958ded50abbb10ea5cab3b2b9ae8288f9c672f23461ba",
+      "visual_result": "PASS",
+      "synthetic_only": true
+    },
+    {
+      "path": "docs/evidence/s07/browser-attempts/20261012T084606800834/03-verified-return-eight.png",
+      "sha256": "75febd5bc549e37f5b61602f76537b216b1d151daa35e4e3a59a783f15c996ef",
+      "visual_result": "PASS",
+      "synthetic_only": true
+    },
+    {
+      "path": "docs/evidence/s07/browser-attempts/20261012T084606800834/04-disabled-server-rejection.png",
+      "sha256": "2203ce093b1dee850dfb33b927e6edaeed1839aef1a33671a7530e8ba80e4dfc",
+      "visual_result": "PASS",
+      "synthetic_only": true
+    },
+    {
+      "path": "docs/evidence/s07/browser-attempts/20261012T084606800834/05-pending-original-responsible.png",
+      "sha256": "2f90379d969b58a34b4d5cd820f80d242cea5a2fe9f7709def63f8507e62d468",
+      "visual_result": "PASS",
+      "synthetic_only": true
+    },
+    {
+      "path": "docs/evidence/s07/browser-attempts/20261012T084606800834/06-original-event-recovered.png",
+      "sha256": "7adbfbee3bed81f693f59d8f98c8434b8d7d601cb75f3bce6286b28ef1fad057",
+      "visual_result": "PASS",
+      "synthetic_only": true
+    },
+    {
+      "path": "docs/evidence/s07/browser-attempts/20261012T084606800834/07-readonly-workbench.png",
+      "sha256": "93d6d83cf1d0c19ed5618883fae14c5622c5eec1752086bd12389c69886f41b4",
+      "visual_result": "PASS",
+      "synthetic_only": true
+    },
+    {
+      "path": "docs/evidence/s07/browser-attempts/20261012T084606800834/08-master-data-authority.png",
+      "sha256": "4b9d0218fd8dff3f84f6401cb33739704d60413049d7c74d34fdf629a34c62e1",
+      "visual_result": "PASS",
+      "synthetic_only": true
+    },
+    {
+      "path": "docs/evidence/s07/browser-attempts/20261012T084606800834/09-scan-failclosed.png",
+      "sha256": "7712725bffa79a971a020c3b45e62399f626203059dc8a37f44c2eea8e7ad698",
+      "visual_result": "PASS",
+      "synthetic_only": true
+    },
+    {
+      "path": "docs/evidence/s07/browser-attempts/20261012T084606800834/10-prosthesis-receipt-alert.png",
+      "sha256": "5470b6cd573ce37754f13a07579372dfd217774b7174eea13891ea8e206ddcb9",
+      "visual_result": "PASS",
+      "synthetic_only": true
+    }
+  ],
+  "checks": "Chinese visible text, stock 10/7/8 and quarantine, server refusal, original pending/recovered event and responsible, readonly/master/scan/prosthesis date; no credentials/patient material visible"
+}

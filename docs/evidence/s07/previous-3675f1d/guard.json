@@ -1,0 +1,8 @@
+{
+  "result": "PASS",
+  "test": "3675f1dc704daf495a278d12a95e9ccbd71ba5ed",
+  "command": "../.venv/bin/python scripts/test_s07_guard.py",
+  "exit_code": 0,
+  "tests": 5,
+  "output": ".....\n----------------------------------------------------------------------\nRan 5 tests in 0.353s\n\nOK\n"
+}
