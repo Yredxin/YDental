@@ -84,3 +84,23 @@ class TestInventoryHTTP(HttpCase):
         returned=self.action('return',{'event_id':issued['id'],'quantity':1,'uom_id':self.uom.id,'source_key':key(),'reason':'Physical return'});self.assertEqual(returned.status_code,200,returned.text)
         verified=self.action('verify',{'event_id':returned.json()['id'],'quantity':1,'uom_id':self.uom.id,'source_key':key(),'reason':'Inspected real return','disposition':'release'})
         self.assertEqual(verified.status_code,200,verified.text)
+
+    def test_http_t03_expired_and_disabled_lot_ids_refused(self):
+        from datetime import timedelta
+        from odoo import fields
+        self.select()
+        expired=self.action('lot',{'product_id':self.products['medicine'],'name':'S07-expired-'+key(),'expiration':fields.Datetime.to_string(fields.Datetime.now()-timedelta(days=1))})
+        self.assertEqual(expired.status_code,200,expired.text)
+        args={'lot_id':expired.json()['id'],'quantity':1,'uom_id':self.uom.id,'source_key':key(),'reason':'Actual expired batch receipt'}
+        self.assertEqual(self.action('receive',args).status_code,200)
+        args['source_key']=key();r=self.action('issue',args);self.assertEqual(r.status_code,409);self.assertIn('lot_expired',r.text)
+        self.assertEqual(self.action('lot_edit',{'lot_id':self.lots['medicine'],'enabled':False,'reason':'Stopped batch'}).status_code,200)
+        args.update(lot_id=self.lots['medicine'],source_key=key());r=self.action('issue',args)
+        self.assertEqual(r.status_code,409);self.assertIn('lot_disabled',r.text)
+
+    def test_http_t07_permission_revocation_next_request(self):
+        receive(self);self.select()
+        self.admin._grant(self.users['stock'].id,self.stores[0].id,{'warehouse':'none'})
+        self.assertEqual(self.url_open('/ydental/inventory').status_code,403)
+        self.assertEqual(self.action('issue',{}).status_code,403)
+        self.assertIn('error',self.rpc('ydental.inventory.event','search_read',[[]]))
