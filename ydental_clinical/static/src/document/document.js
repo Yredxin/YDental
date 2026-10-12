@@ -249,7 +249,10 @@ if (root) {
                 if (!response.ok) { throw new Error(message('offline-message')); }
             }
             if (token) { await action('heartbeat', {document_id: documentId, editor_token: token}); }
-        } catch (error) { failed = true; result.textContent = failureMessage(error); permissions(); }
+        } catch (error) {
+            // An earlier heartbeat must not replace the terminal reconciliation warning.
+            if (!needsReconcile) { failed = true; result.textContent = failureMessage(error); permissions(); }
+        }
     }, Number(root.dataset.heartbeat) * 1000);
     window.addEventListener('offline', () => {
         failed = true;
