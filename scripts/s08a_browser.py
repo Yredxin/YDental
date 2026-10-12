@@ -116,6 +116,7 @@ def main():
             page.goto(base+'/ydental/clinical');check('Chinese real treatment workbench','治疗接诊工作台' in page.inner_text('body'))
             check('patient and actual serving segment visible before document creation','合成患者' in page.inner_text('body') and page.locator('#execution-state').get_attribute('data-state')=='serving')
             check('existing S05 price source retains independent permission',page.locator('a[href="/ydental/intake/prices"]').count()==1 and '不生成费用' in page.inner_text('body'))
+            check('original and recovery status messages remain Chinese', all('未同步' in page.locator('#'+name).text_content() for name in ('unsynced-message','offline-message','terminal-committed-message','handover-committed-message','terminal-uncertain-message')))
             open_editor(page);d1=int(page.evaluate('new URL(location.href).searchParams.get("document_id")'))
             check('52 clickable permanent and primary teeth',page.locator('[data-tooth]').count()==52)
             for i in range(1,4):page.locator('[name=chief_complaint]').fill('合成演示主诉第%s次保存'%i);version(page,i)
