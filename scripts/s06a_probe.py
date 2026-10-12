@@ -2,6 +2,7 @@
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
 import json
+import atexit
 import os
 from pathlib import Path
 import re
@@ -22,6 +23,16 @@ assert re.fullmatch(r'ydental_s06a_test_[0-9]{14}_[a-f0-9]{8}', env.cr.dbname) a
 registry = env.registry
 result = {'scope': 'S06-A real queue/leases/execution, independent PostgreSQL RR transactions',
           'database': env.cr.dbname, 'started_utc': datetime.now(timezone.utc).isoformat(), 'races': []}
+
+
+attempt_path = Path(__file__).resolve().parents[1] / 'docs/evidence/s06a/probe-attempts' / (env.cr.dbname + '-' + datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f') + '.json')
+attempt_path.parent.mkdir(parents=True, exist_ok=True)
+
+def save_attempt():
+    result.setdefault('result', 'FAIL_OR_INTERRUPTED')
+    attempt_path.write_text(json.dumps(result, indent=2) + '\n')
+
+atexit.register(save_attempt)
 
 
 def private(path, value):
@@ -284,6 +295,6 @@ private(run / 'preview.json', preview)
 result['result'] = 'PASS'
 evidence = Path(__file__).resolve().parents[1] / 'docs/evidence/s06a/probe-attempts'
 evidence.mkdir(parents=True, exist_ok=True)
-path = evidence / (env.cr.dbname + '-' + datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f') + '.json')
+path = attempt_path
 path.write_text(json.dumps(result, indent=2) + '\n')
 print(json.dumps({'result': 'PASS', 'races': len(result['races']), 'deadlocks': 0, 'evidence': str(path)}))

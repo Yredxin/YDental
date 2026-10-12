@@ -231,3 +231,73 @@ class TestQueue(TransactionCase):
         with self.assertRaises(UserError):
             enter(self)
         self.assertFalse(self.root['ydental.queue.lease'].search_count([]))
+
+    def test_a_regression_existing_qualification_at_zero_free(self):
+        qualifications = [qualify(self) for _ in range(4)]
+        self.assertEqual(self.slots[0][0].ydental_reservation_free, 0)
+        claim_ids = [q['claim_id'] for q in qualifications]
+        for q in qualifications:
+            arrive_report(self, q)
+        self.assertEqual(self.root['ydental.queue.entry'].search_count([('state', '=', 'waiting')]), 4)
+        self.assertEqual(self.slots[0][0].ydental_reservation_free, 0)
+        self.assertEqual(self.root['ydental.supply.claim'].search([('id', 'in', claim_ids)]).ids, claim_ids)
+        with self.assertRaises(UserError):
+            qualify(self)
+
+    def test_a_regression_call_switch_failure_keeps_call_and_missed(self):
+        task = accepted(self)
+        a, lease = enter(self)
+        call = a._operate('call', lease_args(lease))
+        other = qualify(self, task.ydental_patient_id.id, self.mappings[0][1])
+        self.root['ir.config_parameter'].set_str('ydental_queue_test.refuse_task', str(other['task_id']))
+        with self.assertRaises(UserError):
+            arrive_report(self, other)
+        entry = self.root['ydental.queue.entry'].browse(call['entry_id'])
+        self.assertEqual((entry.state, entry.ydental_lease_id.id), ('calling', lease['lease_id']))
+        self.assertEqual(task.ydental_missed_count, 0)
+        self.assertEqual(self.front._position(task.ydental_patient_id).ydental_task_id, task)
+
+    def test_a_regression_future_day_report_atomic(self):
+        from .common import make_slot
+        start, end = self.start + timedelta(days=1), self.end + timedelta(days=1)
+        make_slot(self, self.group, self.stations[0][0], start, end)
+        q = qualify(self, start=start, end=end)
+        with self.assertRaises(UserError):
+            arrive_report(self, q)
+        self.assertFalse(self.root['ydental.queue.entry'].search_count([('ydental_task_id', '=', q['task_id'])]))
+        self.assertEqual(self.root['ydental.supply.claim'].browse(q['claim_id']).state, 'held')
+
+    def test_t05_fault_restores_unused_return_opportunity(self):
+        task = accepted(self)
+        entry = self.root['ydental.queue.entry'].search([('ydental_task_id', '=', task.id)])
+        entry._save({'ydental_return': True})
+        a, lease = enter(self)
+        a._operate('call', lease_args(lease))
+        self.assertTrue(entry.ydental_opportunity_used)
+        with patch.object(type(a), '_now', return_value=a._now() + timedelta(seconds=30)):
+            a._operate('heartbeat', lease_args(lease))
+        self.assertEqual(entry.state, 'waiting')
+        self.assertFalse(entry.ydental_opportunity_used)
+        self.assertFalse(task.ydental_queue_opportunity_used)
+        self.assertEqual(task.ydental_missed_count, 0)
+
+    def test_t14_inactive_employee_and_insufficient_capability(self):
+        self.users['doctor'].write({'ydental_capability_ids': [fields.Command.set(self.capabilities[3].ids)]})
+        with self.assertRaises(AccessError):
+            enter(self)
+        self.users['doctor'].write({'ydental_capability_ids': [fields.Command.set(self.capabilities.ids)]})
+        member = self.admin._membership(self.users['doctor'].id, self.stores[0].id)
+        member.ydental_employee_id.write({'active': False})
+        with self.assertRaises(AccessError):
+            enter(self)
+
+    def test_t17_full_walkin_does_not_borrow_unscheduled_station(self):
+        a, lease = enter(self)
+        for i in range(8):
+            qualify(self, channel='walkin')
+        self.assertEqual(self.slots[0][0].ydental_walkin_free, 0)
+        before = self.root['ydental.intake.task'].search_count([])
+        with self.assertRaises(UserError):
+            qualify(self, channel='walkin')
+        self.assertEqual(self.root['ydental.intake.task'].search_count([]), before)
+        self.assertTrue(a._own().ydental_active)

@@ -30,7 +30,7 @@ if (workspace) {
                     sessionStorage.removeItem(storageKey);
                     holder = null;
                 }
-                resultNode.textContent = result.error || 'Connection expired. Refresh to review queue or on-site verification.';
+                resultNode.textContent = result.error || workspace.querySelector('#expired-message').textContent;
                 return;
             }
             if (operation === 'enter' || operation === 'switch') {
@@ -42,7 +42,7 @@ if (workspace) {
                 window.location.reload();
             }
         } catch {
-            resultNode.textContent = 'Connection unavailable. No success confirmed. Refresh before retrying.';
+            resultNode.textContent = workspace.querySelector('#offline-message').textContent;
         }
     }
     for (const button of workspace.querySelectorAll('[data-operation]')) {

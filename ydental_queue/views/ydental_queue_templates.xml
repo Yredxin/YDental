@@ -14,6 +14,8 @@
                 <p t-out="config_hint"/><p t-if="shift_hint" t-out="shift_hint"/>
                 <p>Only the holding browser renews a connection. Shift end does not release it. Serving disconnection requires on-site verification.</p>
                 <p id="queue-result" role="status"/>
+                <span hidden="hidden" id="expired-message">Connection expired. Refresh to review queue or on-site verification.</span>
+                <span hidden="hidden" id="offline-message">Connection unavailable. No success confirmed. Refresh before retrying.</span>
                 <div t-if="own" t-att-data-lease="own.id" id="holding-workstation">
                     <p>Current holder: <t t-out="own.ydental_actor_id.name"/>. Connection expires: <t t-out="own.ydental_expires_at"/> UTC.</p>
                     <t t-if="can_write">

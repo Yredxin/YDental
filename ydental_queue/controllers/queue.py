@@ -73,5 +73,6 @@ class YDentalQueue(http.Controller):
             return request.make_json_response(result, status=409 if result['result'] == 'connection_expired' else 200,
                 headers=[('Cache-Control', 'no-store')])
         except (AccessError, UserError, ValueError, TypeError, KeyError) as error:
+            request.env['ydental.access.service']._denial('queue.action')
             return request.make_json_response({'error': str(error)}, status=403 if isinstance(error, AccessError) else 409,
                 headers=[('Cache-Control', 'no-store')])
