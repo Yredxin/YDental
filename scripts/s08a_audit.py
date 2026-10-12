@@ -22,7 +22,7 @@ queries={
  'document_source':'''SELECT count(*) FROM ydental_clinical_document d JOIN ydental_queue_execution e ON d.ydental_execution_id=e.id WHERE d.ydental_store_id<>e.ydental_store_id OR d.ydental_patient_id<>e.ydental_patient_id''',
  'duplicate_continuation':'''SELECT count(*) FROM (SELECT ydental_source_execution_id FROM ydental_intake_task WHERE ydental_source_execution_id IS NOT NULL GROUP BY ydental_source_execution_id HAVING count(*)>1) q''',
  'duplicate_actual_execution':'''SELECT count(*) FROM (SELECT ydental_patient_id FROM ydental_queue_execution WHERE state IN ('serving','verify') GROUP BY ydental_patient_id HAVING count(*)>1) q''',
- 'terminal_active_editor':'''SELECT count(*) FROM ydental_clinical_document d JOIN ydental_queue_execution e ON d.ydental_execution_id=e.id WHERE e.state IN ('handover','interrupted') AND d.state='draft' ''',
+ 'terminal_unmarked_draft':'''SELECT count(*) FROM ydental_clinical_document d JOIN ydental_queue_execution e ON d.ydental_current_execution_id=e.id WHERE e.state IN ('handover','interrupted') AND d.state='draft' ''',
  'negative_quant':'''SELECT count(*) FROM stock_quant WHERE quantity<0''',
 }
 for name,query in queries.items():env.cr.execute(query);result['invariants'][name]=env.cr.fetchone()[0]
