@@ -34,6 +34,7 @@ class TestQueueRework(TransactionCase):
         self.assertFalse(queue._own())
         self.assertEqual(queue._actor_execution().state, 'verify')
         self.assertEqual(queue._status()['state'], 'verify')
+        self.assertEqual(queue.with_context(lang='zh_CN')._status()['state_label'], '待现场核实')
         self.assertEqual(queue._status()['station'], self.stations[0][0].name)
         with self.assertRaisesRegex(UserError, 'handover_required'):
             queue_bind(self)._operate('enter', {'station_id': self.other_station.id})

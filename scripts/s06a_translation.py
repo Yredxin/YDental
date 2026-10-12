@@ -23,7 +23,11 @@ assert hashlib.sha256((run / 'odoo.conf').read_bytes()).hexdigest() == metadata[
 pot = polib.pofile(str(run / 'ydental_queue.pot'))
 po = polib.pofile(str(root / 'ydental_queue/i18n/zh_CN.po'))
 translated = {entry.msgid: entry.msgstr for entry in po if 'fuzzy' not in entry.flags}
+entries = {entry.msgid: entry for entry in po}
 missing = [entry.msgid for entry in pot if not translated.get(entry.msgid)]
+invalid_metadata = [entry.msgid for entry in pot if entry.msgid not in entries or any(
+    marker in entry.comment and marker not in entries[entry.msgid].comment
+    for marker in ('odoo-python', 'odoo-javascript'))]
 for entry in pot:
     if 'id="expired-message"' in entry.msgid:
         fragment = etree.fromstring(('<root>' + translated[entry.msgid] + '</root>').encode())
@@ -32,9 +36,10 @@ for entry in pot:
 result = {'database': args.db,
     'test': subprocess.check_output(['git', '-C', str(root), 'rev-parse', 'HEAD'], text=True).strip(),
     'exported_terms': len(pot), 'translated_terms': len(pot) - len(missing), 'missing': missing,
-    'connection_message_ids_preserved': True, 'result': 'FAIL' if missing else 'PASS'}
+    'connection_message_ids_preserved': True, 'invalid_code_metadata': invalid_metadata,
+    'result': 'FAIL' if missing or invalid_metadata else 'PASS'}
 evidence = root / 'docs/evidence/s06a-rework'
 evidence.mkdir(parents=True, exist_ok=True)
 (evidence / 'translation.json').write_text(json.dumps(result, indent=2) + '\n')
-print(json.dumps({'result': result['result'], 'terms': len(pot), 'missing': len(missing)}))
-raise SystemExit(bool(missing))
+print(json.dumps({'result': result['result'], 'terms': len(pot), 'missing': len(missing), 'invalid_metadata': len(invalid_metadata)}))
+raise SystemExit(bool(missing or invalid_metadata))
