@@ -254,3 +254,15 @@ class TestInventory(TransactionCase):
         e=doctor._source_action(source)
         with self.assertRaises(UserError):op(self,'return',event_id=e['id'],quantity=1,uom_id=self.uom.id,source_key=key(),reason='Consumed medicine cannot reappear')
         self.assertEqual(quantity(self),1)
+
+    def test_t09_product_low_alert_sums_usable_batches(self):
+        receive(self,2)
+        second=op(self,'lot',product_id=self.products['medicine'],name='S07-'+key(),expiration=fields.Datetime.to_string(fields.Datetime.now()+timedelta(days=30)))['id']
+        receive(self,2,second)
+        op(self,'policy',near_days=60,wait_days=0,low_quantity=3,reason='Synthetic aggregate threshold')
+        rows=[r for r in self.stock._dashboard()['lots'] if r['product_id']==self.products['medicine']]
+        self.assertTrue(all('low' not in r['flags'] for r in rows))
+        op(self,'lot_edit',lot_id=second,enabled=False,reason='Store stops second lot')
+        rows=[r for r in self.stock._dashboard()['lots'] if r['product_id']==self.products['medicine']]
+        self.assertTrue(all('low' in r['flags'] for r in rows))
+        stopped=next(r for r in rows if r['id']==second);self.assertEqual(stopped['quantity'],0);self.assertEqual(stopped['on_hand'],2)

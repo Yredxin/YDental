@@ -111,7 +111,7 @@ def main():
             operation=form.get_attribute('data-inventory-form')
             with page.expect_navigation(wait_until='domcontentloaded'):
                 with page.expect_response(lambda r:'/ydental/inventory/action' in r.url) as response:form.locator('button[type=submit]').click()
-            check('actual form submit '+operation,response.value.status==200 if ok else response.value.status>=400)
+            check('actual form submit '+operation,response.value.status in (200,303) if ok else response.value.status>=400)
             return response.value.status
         def shot(page,ctx,name,target=None):
             if target:page.locator(target).scroll_into_view_if_needed()

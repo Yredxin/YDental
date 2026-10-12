@@ -17,7 +17,10 @@ class YDentalInventoryRecord(models.AbstractModel):
         if operation != 'read':
             return fields.Domain.FALSE
         store = self.env['ydental.inventory.service']._access()
-        return fields.Domain('ydental_store_id', '=', store.id)
+        domain = fields.Domain('ydental_store_id', '=', store.id)
+        if self._name == 'ydental.inventory.event':
+            domain |= fields.Domain('ydental_target_store_id', '=', store.id) & fields.Domain('ydental_kind', '=', 'transfer')
+        return domain
 
     @api.model_create_multi
     def create(self, vals_list):

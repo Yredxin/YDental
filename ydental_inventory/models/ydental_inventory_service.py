@@ -448,27 +448,35 @@ class YDentalInventoryService(models.AbstractModel):
         rows = []
         if config:
             today = self._now().replace(tzinfo=timezone.utc).astimezone(ZoneInfo(store.ydental_timezone)).date()
+            quantities = {}
+            available_by_product = {}
+            for batch in batches:
+                lot = batch.ydental_lot_id
+                raw = self._quantity(lot, self._location(config, lot.product_id))
+                usable = bool(batch.ydental_enabled and lot.product_id.active and lot.expiration_date and lot.expiration_date > self._now())
+                quantities[lot.id] = (raw, raw if usable else 0)
+                available_by_product[lot.product_id.id] = available_by_product.get(lot.product_id.id, 0) + (raw if usable else 0)
             for batch in batches:
                 lot = batch.ydental_lot_id
                 product = lot.product_id; location = self._location(config, product)
                 flags = []
-                qty = self._quantity(lot, location)
+                on_hand, qty = quantities[lot.id]
                 if lot.expiration_date and lot.expiration_date <= self._now():
                     flags.append('expired')
                 if not batch.ydental_enabled or not product.active:
                     flags.append('disabled')
                 if config.ydental_policy_configured:
-                    if qty <= config.ydental_low_quantity: flags.append('low')
+                    if available_by_product[product.id] <= config.ydental_low_quantity: flags.append('low')
                     if lot.expiration_date and self._now() < lot.expiration_date <= self._now() + timedelta(days=config.ydental_near_days): flags.append('near')
                     if product.ydental_inventory_kind == 'prosthesis' and qty > 0 and batch.ydental_received_at:
                         received_day = batch.ydental_received_at.replace(tzinfo=timezone.utc).astimezone(ZoneInfo(store.ydental_timezone)).date()
                         if (today - received_day).days >= config.ydental_wait_days: flags.append('collection')
                 rows.append({'id': lot.id, 'product_id': product.id, 'name': lot.name, 'product': product.name,
                     'kind': product.ydental_inventory_kind, 'unit': product.uom_id.name, 'uom_id': product.uom_id.id,
-                    'quantity': qty, 'quarantine': self._quantity(lot, config.ydental_quarantine_id),
+                    'quantity': qty, 'on_hand': on_hand, 'quarantine': self._quantity(lot, config.ydental_quarantine_id),
                     'expiration': lot.expiration_date, 'received_at': batch.ydental_received_at,
                     'enabled': batch.ydental_enabled, 'flags': flags})
-        events = self._model('event').search([('ydental_store_id', '=', store.id)], order='id desc', limit=100) if not catalog else self._model('event')
+        events = self._model('event').search(fields.Domain('ydental_store_id', '=', store.id) | (fields.Domain('ydental_target_store_id', '=', store.id) & fields.Domain('ydental_kind', '=', 'transfer')), order='id desc', limit=100) if not catalog else self._model('event')
         # Project only necessary execution summary, never patient IDs/attachments.
         projected = [{'id': e.id, 'kind': e.ydental_kind, 'state': e.state, 'quantity': e.ydental_quantity,
             'product': e.ydental_product_id.name, 'lot': e.ydental_lot_id.name, 'uom_id': e.ydental_uom_id.id,
