@@ -23,7 +23,7 @@ queries={
  'duplicate_continuation':'''SELECT count(*) FROM (SELECT ydental_source_execution_id FROM ydental_intake_task WHERE ydental_source_execution_id IS NOT NULL GROUP BY ydental_source_execution_id HAVING count(*)>1) q''',
  'duplicate_actual_execution':'''SELECT count(*) FROM (SELECT ydental_patient_id FROM ydental_queue_execution WHERE state IN ('serving','verify') GROUP BY ydental_patient_id HAVING count(*)>1) q''',
  'terminal_unmarked_draft':'''SELECT count(*) FROM ydental_clinical_document d JOIN ydental_queue_execution e ON d.ydental_current_execution_id=e.id WHERE e.state IN ('handover','interrupted') AND d.state='draft' ''',
- 'negative_quant':'''SELECT count(*) FROM stock_quant WHERE quantity<0''',
+ 'negative_internal_quant':'''SELECT count(*) FROM stock_quant q JOIN stock_location l ON l.id=q.location_id WHERE l.usage='internal' AND q.quantity<0''',
 }
 for name,query in queries.items():env.cr.execute(query);result['invariants'][name]=env.cr.fetchone()[0]
 env.cr.execute("SELECT ydental_event,count(*) FROM ydental_access_audit WHERE ydental_event LIKE 'clinical.%' GROUP BY ydental_event ORDER BY ydental_event")
