@@ -7,7 +7,7 @@ from zoneinfo import ZoneInfo
 
 from odoo import fields, models
 from odoo.exceptions import AccessError, UserError, ValidationError
-from odoo.tools.float_utils import float_compare, float_round
+from odoo.tools.float_utils import float_round
 
 from .ydental_inventory_record import MUTATION
 
@@ -191,7 +191,7 @@ class YDentalInventoryService(models.AbstractModel):
         issue = self._native('uom.uom').browse(self._id(issue_uom_id)).exists()
         step = self._number(step)
         digits = self.env['decimal.precision'].sudo().precision_get('Product Unit')
-        if not stock or not issue or not stock.active or not issue.active or abs(step - float_round(step, precision_digits=digits)) > 1e-9:
+        if not stock or not issue or not stock.active or not issue.active or stock.parent_path.split('/')[0] != issue.parent_path.split('/')[0] or abs(step - float_round(step, precision_digits=digits)) > 1e-9:
             raise ValidationError(self.env._('Use active units and a representable stock step.'))
         code = self._text(code)
         if self._native('product.product').with_context(active_test=False).search_count([('default_code', '=', code)]):
@@ -245,8 +245,13 @@ class YDentalInventoryService(models.AbstractModel):
             if prior.ydental_fingerprint != digest:
                 raise UserError(self.env._('version_conflict: The source event is immutable.'))
             return prior
+        unusable = False
         if kind in ('replenishment', 'treatment', 'chairside', 'prescription', 'transfer'):
-            self._usable(lot, store)
+            try:
+                self._usable(lot, store)
+            except UserError:
+                if not actual: raise
+                unusable = True
         event = self._model('event')._new({'name': kind, 'ydental_store_id': store.id,
             'ydental_source_namespace': namespace, 'ydental_source_key': source_key, 'ydental_kind': kind,
             'ydental_fingerprint': digest, 'ydental_product_id': lot.product_id.id, 'ydental_lot_id': lot.id,
@@ -259,7 +264,7 @@ class YDentalInventoryService(models.AbstractModel):
             'state': 'pending' if actual else 'done'})
         # An already-performed trusted source can persist as pending, with no
         # half move. All other shortages fail the enclosing savepoint.
-        if source.usage == 'internal' and lot.product_id.uom_id.compare(self._quantity(lot, source), quantity_stock) < 0:
+        if unusable or source.usage == 'internal' and lot.product_id.uom_id.compare(self._quantity(lot, source), quantity_stock) < 0:
             if not actual:
                 raise UserError(self.env._('insufficient_balance: There is insufficient available stock.'))
             self._audit('pending', event, after={'event_id': event.id, 'responsible_id': event.ydental_responsible_id.id})
@@ -324,6 +329,12 @@ class YDentalInventoryService(models.AbstractModel):
     def _inventory(self, store, lot_id, counted, uom_id, source_key, reason):
         lot = self._lot(lot_id, store); config = self._config(store); location = self._location(config, lot.product_id)
         count, unit, precision = self._unit(lot.product_id, counted, uom_id, zero=True)
+        original = self._model('event').search([('ydental_store_id', '=', store.id), ('ydental_source_namespace', '=', 'warehouse'), ('ydental_source_key', '=', source_key)], limit=1)
+        count_digest = fingerprint([lot_id, counted, uom_id, reason])
+        if original:
+            if original.ydental_kind != 'inventory' or original.ydental_count_fingerprint != count_digest:
+                raise UserError(self.env._('version_conflict: The inventory count source is immutable.'))
+            return {'id': original.id, 'move_id': original.ydental_move_id.id, 'counted': count}
         quants = self._native('stock.quant').search([('lot_id', '=', lot.id), ('location_id', '=', location.id)])
         if any(q.reserved_quantity or q.owner_id or q.package_id for q in quants):
             raise UserError(self.env._('inventory_conflict: Resolve reservations and owned stock before counting.'))
@@ -332,6 +343,7 @@ class YDentalInventoryService(models.AbstractModel):
             return {'state': 'unchanged', 'counted': count}
         event = self._event(store, 'warehouse', source_key, 'inventory', lot, abs(delta), lot.product_id.uom_id.id,
             config.ydental_loss_id if delta > 0 else location, location if delta > 0 else config.ydental_loss_id, reason)
+        event._save({'ydental_count_fingerprint': count_digest})
         return {'id': event.id, 'move_id': event.ydental_move_id.id, 'counted': count}
 
     def _transfer(self, store, lot_id, quantity, uom_id, target_store_id, source_key, reason):

@@ -138,12 +138,12 @@ class TestInventory(TransactionCase):
         with self.assertRaises(AccessError): s.env['stock.quant'].search([]).write({'quantity': 999})
         with self.assertRaises(AccessError): s.env['stock.move'].create({'product_id': self.products['medicine']})
         with self.assertRaises(AccessError): s.env['stock.lot'].browse(self.lots['medicine']).read(['quant_ids', 'product_qty'])
-        self.assertFalse(s.env['stock.quant'].search([]))
+        with self.assertRaises(AccessError): s.env['stock.quant'].search([])
 
     def test_t07_patient_and_public_attachment_denied(self):
         attachment = self.root['ir.attachment'].create({'name': 'Synthetic forbidden clinical attachment', 'res_model': 'stock.lot',
-            'res_id': self.lots['medicine'], 'type': 'binary', 'datas': 'U1lOVEhFVElD', 'public': True})
-        with self.assertRaises(AccessError): attachment.with_env(self.stock.env).read(['datas'])
+            'res_id': self.lots['medicine'], 'type': 'binary', 'raw': b'SYNTHETIC', 'public': True})
+        with self.assertRaises(AccessError): attachment.with_env(self.stock.env).read(['raw'])
         with self.assertRaises(AccessError): attachment.with_env(self.stock.env)._can_return_content('raw')
         self.assertFalse(self.stock.env['ydental.patient.clinical'].search([]))
 

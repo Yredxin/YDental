@@ -47,7 +47,7 @@ class TestInventoryHTTP(HttpCase):
 
     def test_http_t07_stock_manager_native_bypass(self):
         receive(self); self.select('stock2')
-        self.assertEqual(self.rpc('stock.quant','search_count',[[]]).get('result'),0)
+        self.assertIn('error',self.rpc('stock.quant','search_count',[[]]))
         self.assertIn('error',self.rpc('stock.quant','create',[{'quantity':999,'product_id':self.products['medicine']}]))
         self.assertIn('error',self.rpc('stock.lot','export_data',[[self.lots['medicine']],['name']]))
         self.assertIn('error',self.rpc('product.product','read',[[self.products['medicine']],['qty_available']]))

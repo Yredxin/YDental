@@ -11,6 +11,7 @@ class YDentalInventoryEvent(models.Model):
         ('chairside', 'Chairside medicine'), ('prescription', 'Take home prescription'), ('inventory', 'Inventory correction'),
         ('transfer', 'Same company transfer'), ('return', 'Physical return'), ('verification', 'Return verification')], required=True, string='Source kind')
     ydental_source_namespace = fields.Char(required=True, string='Source namespace')
+    ydental_count_fingerprint = fields.Char(readonly=True, string='Original count fingerprint')
     ydental_fingerprint = fields.Char(required=True)
     ydental_product_id = fields.Many2one('product.product', required=True, ondelete='restrict', string='Product')
     ydental_lot_id = fields.Many2one('stock.lot', required=True, ondelete='restrict', string='Lot')

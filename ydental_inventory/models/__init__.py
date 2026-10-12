@@ -16,3 +16,4 @@ from . import stock_quant
 from . import product_template
 from . import product_product
 from . import ydental_inventory_batch
+from . import uom_uom
