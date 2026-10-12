@@ -189,6 +189,10 @@ class TestClinicalDocument(TransactionCase):
         with self.assertRaises(AccessError):source.read(['ydental_content'])
 
     def test_upstream_real_inventory_receive_issue_and_no_clinical_source_bypass(self):
+        # Explicit native multi-location prerequisite in this rollback-only test.
+        # Avoid res.config.settings' unrelated global pricelist archival when
+        # real committed S05 price sources already exist during upgrade tests.
+        self.root.ref('stock.group_stock_user').write({'implied_ids': [fields.Command.link(self.root.ref('stock.group_stock_multi_locations').id)]})
         self.admin._grant(self.users['manager'].id,self.stores[0].id,{'warehouse':'write'})
         stock=self.group.env['ydental.inventory.service']
         stock._operate('setup',{'code':str(self.stores[0].id)[-5:]},key())
