@@ -163,6 +163,15 @@ class TestIntakeHTTP(HttpCase):
         self.assertEqual(self.action('catalog', args).status_code, 403)
         self.assertEqual(self.url_open('/ydental/intake/prices').status_code, 403)
 
+    def test_http_rework_catalog_only_group_has_no_store_data_authority(self):
+        self.select('catalog')
+        self.assertEqual(self.url_open('/ydental/intake/prices').status_code, 200)
+        self.assertIn('result', self.rpc('ydental.intake.catalog', 'read', [[self.catalogs[0].id], ['name']]))
+        self.assertIn('result', self.rpc('product.template', 'read', [[self.catalogs[0].ydental_product_id.product_tmpl_id.id], ['name']]))
+        self.assertIn('error', self.rpc('ydental.intake.mapping', 'read', [[self.mappings[0][0].id], ['name']]))
+        for operation in ('mapping', 'price', 'snapshot'):
+            self.assertEqual(self.action(operation, {}).status_code, 403)
+
     def test_http_rework_future_reservation_rejected_same_day_early_zero_balance(self):
         from .common import make_slot
         future_start, future_end = self.start + timedelta(days=1), self.end + timedelta(days=1)
