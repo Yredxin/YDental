@@ -61,7 +61,7 @@ with registry.cursor() as cr:
     future_start, future_end = fixture.start + timedelta(days=1), fixture.end + timedelta(days=1)
     make_slot(fixture, fixture.group, fixture.stations[0][0], future_start, future_end, total=3)
     future_q = qualify(fixture, start=future_start, end=future_end)
-    early_start, early_end = fixture.start + timedelta(hours=3), fixture.end + timedelta(hours=3)
+    early_start, early_end = fixture.start + timedelta(hours=6), fixture.end + timedelta(hours=6)
     make_slot(fixture, fixture.group, fixture.stations[0][0], early_start, early_end, total=3)
     early_q = qualify(fixture, future_q['patient_id'], start=early_start, end=early_end)
     initial_price = price(fixture)
@@ -333,7 +333,7 @@ with registry.cursor() as cr:
         'live_tasks_canonical': True, 'deadlocks': 0, 'real_queue_and_clinical_execution': 'NOT_RUN'}
 result['finished_utc'] = datetime.now(timezone.utc).isoformat()
 result['tested_commit'] = __import__('subprocess').check_output(['git', '-C', str(run.parents[1]), 'rev-parse', 'HEAD'], text=True).strip()
-target = run.parents[1] / 'docs/evidence/s05/probe-attempts' / (run.name + '-' + datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f') + '.json')
+target = run.parents[1] / 'docs/evidence/s05-rework/probe-attempts' / (run.name + '-' + datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f') + '.json')
 target.parent.mkdir(parents=True, exist_ok=True)
 target.write_text(json.dumps(result, indent=2) + '\n')
 print(json.dumps({'probe': 'PASS', 'races': len(result['races']), 'evidence': str(target)}))
