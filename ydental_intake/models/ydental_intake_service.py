@@ -62,11 +62,11 @@ class YDentalIntakeService(models.AbstractModel):
             raise AccessError(self.env._('access_denied: Select an active store.'))
         return store
 
-    def _referral_access(self):
+    def _referral_access(self, source_category=None):
         access = self.env['ydental.access.service']
         member = access._membership(self.env.uid, access._scope(write=True).ydental_store_id.id)
-        for category in ('medical', 'exam'):
-            if member and access._levels(member)[category] == 'write':
+        for category in (('medical', 'exam') if source_category is None else (source_category,)):
+            if category in ('medical', 'exam') and member and access._levels(member)[category] == 'write':
                 return access._check(category, 'write', write=True).ydental_store_id, category
         raise AccessError(self.env._('access_denied: A source store clinician must authorize a referral.'))
 
@@ -152,8 +152,10 @@ class YDentalIntakeService(models.AbstractModel):
         if (operation in ('refer_timed', 'refer_untimed')) != referral:
             raise AccessError(self.env._('access_denied: Referral initiation requires a trusted clinical server source.'))
         if referral:
-            self._authorize_referral(operation, payload, permit)
-            store, category = self._referral_access()
+            category = self._authorize_referral(operation, payload, permit)
+            if category not in ('medical', 'exam'):
+                raise AccessError(self.env._('access_denied: A source store clinician must authorize a referral.'))
+            store, category = self._referral_access(category)
         else:
             store = self._authorize_downstream(operation, payload) if downstream else self._access(operation)
             category = 'price' if operation in ('catalog', 'catalog_edit', 'mapping', 'mapping_edit', 'price', 'review', 'publish', 'snapshot') else 'frontdesk'
@@ -162,8 +164,10 @@ class YDentalIntakeService(models.AbstractModel):
             self._all_locks()
             # Revalidate live grants after locks, including transaction retries.
             if referral:
-                self._authorize_referral(operation, payload, permit)
-                store, category = self._referral_access()
+                category = self._authorize_referral(operation, payload, permit)
+                if category not in ('medical', 'exam'):
+                    raise AccessError(self.env._('access_denied: A source store clinician must authorize a referral.'))
+                store, category = self._referral_access(category)
             elif not downstream:
                 self._access(operation)
             prior = self._model('operation').search([('ydental_actor_id', '=', self.env.uid), ('ydental_key', '=', key)], limit=1)
