@@ -274,6 +274,12 @@ def publish(q,rollback=False):
     return {'version':q._scope_record(store,area).ydental_version}
 
 out=parallel([('manager',0,lambda q:publish(q)),('manager',1,lambda q:publish(q,True))]);record('native bus commit versus rolled-back version',out,rollback_no_success=True)
+def full_rollback(q):
+    publish(q)
+    q.env.cr.rollback()  # execute() owns this independent test cursor.
+    return {'rolled_back': True}
+out=parallel([('manager',0,lambda q:publish(q)),('manager',1,full_rollback)])
+record('native bus commit versus full transaction rollback',out,rollback_no_success=True)
 created=fresh(lambda q:q._operate('screen_create',{'area_id':area_id}))
 # Never include credentials/payload outcomes in public evidence.
 out=ordered(('manager',0,lambda q:q._operate('screen_revoke',{'credential_id':created['credential_id']})),('reader',0,lambda q:q._screen_snapshot(created['token'])))

@@ -161,6 +161,12 @@ class YDentalQueueService(models.AbstractModel):
 
     def _area_snapshot(self, store, area):
         scope = self._scope_record(store, area)
+        if scope:
+            # Snapshot and committed version share a read fence. A request with
+            # an RR snapshot older than a completed retraction must retry rather
+            # than returning the obsolete calling together with an old version.
+            self.env.cr.execute('SELECT id FROM ydental_queue_scope WHERE id=%s FOR SHARE', [scope.id])
+            scope.invalidate_recordset()
         entries = self._model('entry').search([('ydental_store_id', '=', store.id), ('ydental_area_id', '=', area.id),
             ('state', 'in', ('waiting', 'calling'))]).filtered(lambda e: not self._queue_day_expired(e) and
                 e.ydental_task_id.ydental_mapping_id.ydental_catalog_id.ydental_kind in ('care', 'procedure', 'prosthesis', 'exam', 'medicine'))
