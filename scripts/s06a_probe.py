@@ -330,6 +330,7 @@ for first in ('timeout', 'enter'):
 
 store_b = fixture.stores[1].id
 map_b = fixture.mappings[1][0].id
+fresh(lambda q: q.env['ydental.access.service']._join(old_actor, store_b))
 fresh(lambda q: q.env['ydental.access.service']._grant(old_actor, store_b, {'frontdesk': 'write', 'medical': 'write'}))
 def cross_store_write(q):
     access = q.env['ydental.access.service']
