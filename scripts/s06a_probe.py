@@ -186,7 +186,12 @@ for first in ('heartbeat', 'timeout'):
     point = fresh(lambda q: q._now() + timedelta(seconds=10))
     fresh(lambda q: q._model('lease').browse(la['lease_id'])._save({'ydental_expires_at': point - timedelta(seconds=1)}))
     heartbeat = ('doctor', 0, lambda q: q._operate('heartbeat', args(la)))
-    timeout = ('manager', 0, lambda q: {'expired': q.with_context(ydental_queue_test_clock=Clock(point))._timeout()})
+    def timeout_reclaim(q):
+        clocked = q.with_context(ydental_queue_test_clock=Clock(point))
+        expired = clocked._timeout()
+        reclaimed = enter(clocked)
+        return {'expired': expired, 'reclaimed_lease_id': reclaimed['lease_id']}
+    timeout = ('manager', 0, timeout_reclaim)
     output = ordered(heartbeat, timeout) if first == 'heartbeat' else ordered(timeout, heartbeat)
     active = fresh(lambda q: q._model('lease').browse(la['lease_id']).ydental_active)
     assert active == (first == 'heartbeat')
@@ -236,6 +241,30 @@ output = ordered(('frontdesk', 0, void), ('doctor', 0, lambda q: q._operate('sta
 assert 'rejected' in output[1]['value']
 record('T02_void_before_start', output, no_execution=True)
 fresh(clean)
+
+def rotate_stations(q):
+    global stations
+    original = q.env['ydental.space.station'].sudo().browse(stations[0])
+    stations = q.env['ydental.space.station'].sudo().create([{
+        'name': 'S06A Race New Chair ' + key()[:6], 'ydental_store_id': original.ydental_store_id.id,
+        'ydental_floor_id': original.ydental_floor_id.id, 'ydental_area_id': original.ydental_area_id.id,
+        'ydental_add_capability_ids': [fields.Command.set(original.ydental_capability_ids.ids)]} for _ in range(2)]).ids
+
+
+for competitor in ('call', 'start'):
+    tid = fresh(accepted_task)
+    la = fresh(lambda q: enter(q), 'doctor')
+    lb = fresh(lambda q: enter(q, 1), 'second')
+    call = fresh(lambda q: q._operate('call', args(la)), 'doctor')
+    def competing(q):
+        return q._operate(competitor, args(lb) if competitor == 'call' else dict(args(lb), entry_id=call['entry_id']))
+    output = parallel([('doctor', 0, lambda q: q._operate('start', dict(args(la), entry_id=call['entry_id']))),
+                       ('second', 0, competing)])
+    assert 'rejected' not in output[0]['value'] and 'rejected' in output[1]['value']
+    record('T02_actual_start_vs_other_holder_' + competitor, output, one_execution=True, no_duplicate_call=True)
+    fresh(clean)
+    fresh(rotate_stations)
+
 
 # Actual start winners remain unresolved. Use a separate legal station pair
 # afterward; no synthetic completion endpoint is added to product code.

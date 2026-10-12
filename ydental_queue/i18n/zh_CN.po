@@ -1,0 +1,819 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* ydental_queue
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 20.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-12 02:25+0000\n"
+"PO-Revision-Date: 2026-10-12 02:25+0000\n"
+"Last-Translator: \n"
+"Language-Team: Chinese (Simplified)\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid ". Connection expires:"
+msgstr "。连接到期："
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid ". Workstation position:"
+msgstr "。当前坐诊位置："
+
+#. module: ydental_queue
+#: model:ir.model.constraint,message:ydental_queue.constraint_ydental_queue_execution_one_patient
+msgid "A patient has one unresolved actual execution."
+msgstr "患者只能有一处尚未解决的实际执行。"
+
+#. module: ydental_queue
+#: model:ir.model.constraint,message:ydental_queue.constraint_ydental_queue_execution_one_entry
+msgid "A queue entry starts once."
+msgstr "每个号位只能开始执行一次。"
+
+#. module: ydental_queue
+#: model:ir.model.constraint,message:ydental_queue.constraint_ydental_queue_entry_one_task
+msgid "A task retains one queue history."
+msgstr "每个任务保留唯一队列历史。"
+
+#. module: ydental_queue
+#: model:ir.model.constraint,message:ydental_queue.constraint_ydental_queue_execution_one_lease
+msgid "A workstation has one unresolved execution."
+msgstr "工位只能有一份尚未解决的执行。"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Accepted tasks"
+msgstr "已受理任务"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/controllers/queue.py:0
+msgid "Action arguments must be an object."
+msgstr "动作参数必须是对象。"
+
+#. module: ydental_queue
+#: model:ir.model,name:ydental_queue.model_ydental_queue_lease
+msgid "Actor session workstation connection"
+msgstr "账号会话工位连接"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Area"
+msgstr "区域"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Area / capability"
+msgstr "区域 / 能力"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Arrival and reporting"
+msgstr "到店与报到"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_service.py:0
+msgid "Assignment is a reminder, not a workstation ownership rule."
+msgstr "排班仅作提示，不决定工位占用权。"
+
+#. module: ydental_queue
+#: model:ir.model,name:ydental_queue.model_ydental_intake_service
+msgid "Atomic service pricing and capacity-backed intake"
+msgstr "服务定价与有容量支持的受理"
+
+#. module: ydental_queue
+#: model:ir.model,name:ydental_queue.model_ir_attachment
+msgid "Attachment"
+msgstr "附件"
+
+#. module: ydental_queue
+#: model:ir.model,name:ydental_queue.model_ydental_queue_execution
+msgid "Authoritative patient actual execution fence"
+msgstr "患者实际执行互斥"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Availability and action"
+msgstr "可用状态与操作"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/controllers/queue.py:0
+msgid "Available for qualified authorized staff"
+msgstr "有权且合格的人员可进入"
+
+#. module: ydental_queue
+#: model:ir.model.fields.selection,name:ydental_queue.selection__ydental_queue_entry__state__verify
+#: model:ir.model.fields.selection,name:ydental_queue.selection__ydental_queue_execution__state__verify
+msgid "Away, on-site verification required"
+msgstr "离席待现场核实"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Call next matching task"
+msgstr "叫下一位能力匹配任务"
+
+#. module: ydental_queue
+#: model:ir.model.fields.selection,name:ydental_queue.selection__ydental_queue_entry__state__calling
+msgid "Calling"
+msgstr "叫号中"
+
+#. module: ydental_queue
+#: model:ir.model.fields.selection,name:ydental_queue.selection__ydental_queue_lease__ydental_release_reason__timeout
+msgid "Connection timeout"
+msgstr "连接超时"
+
+#. module: ydental_queue
+#: model:ir.model,name:ydental_queue.model_ydental_queue_record
+msgid "Controlled workstation queue source"
+msgstr "受控工位队列来源"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_entry__create_uid
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_execution__create_uid
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_lease__create_uid
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_mutex__create_uid
+msgid "Created by"
+msgstr "创建人"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_entry__create_date
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_execution__create_date
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_lease__create_date
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_mutex__create_date
+msgid "Created on"
+msgstr "创建时间"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Current holder:"
+msgstr "当前持有人："
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Current store:"
+msgstr "当前门店："
+
+#. module: ydental_queue
+#. odoo-javascript
+#: code:addons/ydental_queue/static/src/workstation_status/workstation_status.xml:0
+msgid "Current workstation position"
+msgstr "当前坐诊位置"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/controllers/queue.py:0
+msgid "Disabled, insufficient permission or capability"
+msgstr "停用、权限不足或能力不符"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ir_attachment__display_name
+#: model:ir.model.fields,field_description:ydental_queue.field_ir_http__display_name
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_access_service__display_name
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_intake_service__display_name
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_intake_task__display_name
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_patient_service__display_name
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_entry__display_name
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_execution__display_name
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_lease__display_name
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_mutex__display_name
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_record__display_name
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_service__display_name
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_space_station__display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: ydental_queue
+#: model:ir.model,name:ydental_queue.model_ydental_queue_entry
+msgid "Durable task queue opportunity and actual call"
+msgstr "任务队列机会与真实呼叫"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Enter workstation"
+msgstr "进入工位"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Exact capabilities"
+msgstr "明确能力"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Exit / rest / logout workstation"
+msgstr "退出 / 休息 / 登出工位"
+
+#. module: ydental_queue
+#: model:ir.model,name:ydental_queue.model_ydental_intake_task
+msgid "Explicit service task, separate from qualification and queue"
+msgstr "独立服务任务"
+
+#. module: ydental_queue
+#: model:ir.model,name:ydental_queue.model_ir_http
+msgid "HTTP Routing"
+msgstr "HTTP路由"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/controllers/queue.py:0
+msgid ""
+"Heartbeat and timeout are explicitly configured. Production approval remains"
+" separate."
+msgstr "心跳与超时已有显式配置，生产批准仍需另行确认。"
+
+#. module: ydental_queue
+#: model:ir.model.fields.selection,name:ydental_queue.selection__ydental_queue_lease__ydental_release_reason__holder_exit
+msgid "Holder exit"
+msgstr "持有人主动退出"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ir_attachment__id
+#: model:ir.model.fields,field_description:ydental_queue.field_ir_http__id
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_access_service__id
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_intake_service__id
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_intake_task__id
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_patient_service__id
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_entry__id
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_execution__id
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_lease__id
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_mutex__id
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_record__id
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_service__id
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_space_station__id
+msgid "ID"
+msgstr "ID"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_entry__write_uid
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_execution__write_uid
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_lease__write_uid
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_mutex__write_uid
+msgid "Last Updated by"
+msgstr "最后修改人"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_entry__write_date
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_execution__write_date
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_lease__write_date
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_mutex__write_date
+msgid "Last Updated on"
+msgstr "最后修改时间"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Missed"
+msgstr "真实过号次数"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "My assignments"
+msgstr "我的安排"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_entry__name
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_execution__name
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_lease__name
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_record__name
+msgid "Name"
+msgstr "名称"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_service.py:0
+msgid "No assignment required. Qualified authorized staff may sit here."
+msgstr "不要求排班。有权且合格人员可坐诊。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/controllers/queue.py:0
+msgid ""
+"No connected authorized workstation covers this exact capability. Open an "
+"eligible workstation here."
+msgstr "没有有效连接且有权的工位覆盖此明确能力。请在本页进入合格工位处理。"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Number / task"
+msgstr "号码 / 任务"
+
+#. module: ydental_queue
+#: model:ir.model.fields.selection,name:ydental_queue.selection__ydental_queue_entry__state__void
+msgid "Number voided"
+msgstr "号码已作废"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/controllers/queue.py:0
+msgid "Occupied or awaiting on-site verification"
+msgstr "已占用或待现场核实"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid ""
+"Only the holding browser renews a connection. Shift end does not release it."
+" Serving disconnection requires on-site verification."
+msgstr "仅持有浏览器续租。班次结束不释放。实际执行时掉线须现场核实。"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Opportunity"
+msgstr "回诊机会"
+
+#. module: ydental_queue
+#: model:ir.model,name:ydental_queue.model_ydental_patient_service
+msgid "Patient identity, arrival, policy and atomic merge service"
+msgstr "患者身份、到店、政策与合并服务"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid ""
+"Production heartbeat, timeout and missed displacement require explicit "
+"approval. A batch does not provide treatment completion or handover."
+msgstr "生产心跳、超时和过号顺延须显式批准。A批未提供治疗完成或接手流程。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_record.py:0
+msgid "Queue and execution history cannot be deleted."
+msgstr "不能删除队列和执行历史。"
+
+#. module: ydental_queue
+#: model:ir.model.constraint,message:ydental_queue.constraint_ydental_queue_entry_number_unique
+msgid "Queue display numbers must be unique in their business scope."
+msgstr "显示号在营业范围内必须唯一。"
+
+#. module: ydental_queue
+#: model:ir.model,name:ydental_queue.model_ydental_queue_mutex
+msgid "Queue repeatable-read serialization anchor"
+msgstr "队列可重复读事务串行锚点"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Record real missed call"
+msgstr "记录真实过号"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Regular order"
+msgstr "常规排序"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Renew holding connection"
+msgstr "续持有端连接"
+
+#. module: ydental_queue
+#: model:ir.model.fields.selection,name:ydental_queue.selection__ydental_queue_entry__state__serving
+#: model:ir.model.fields.selection,name:ydental_queue.selection__ydental_queue_execution__state__serving
+msgid "Serving"
+msgstr "实际执行中"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_service.py:0
+msgid "Shift ended. Your connection and accepted queue work continue."
+msgstr "班次已结束。当前连接及合法队列工作可继续。"
+
+#. module: ydental_queue
+#: model:ir.model,name:ydental_queue.model_ydental_space_station
+msgid "Stable clinic workstation"
+msgstr "稳定诊室工位"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Staffing / action"
+msgstr "人员与操作"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Start actual execution"
+msgstr "开始实际执行"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_entry__state
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_execution__state
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "State"
+msgstr "状态"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Station"
+msgstr "工位"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Store and permissions"
+msgstr "门店与权限"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Switch to this idle workstation"
+msgstr "切换至此空闲工位"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "UTC."
+msgstr "UTC。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_service.py:0
+msgid "Unknown or missing workstation arguments."
+msgstr "工位动作参数未知或缺失。"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Unused return opportunity"
+msgstr "未使用的回诊首次机会"
+
+#. module: ydental_queue
+#: model:ir.model.fields.selection,name:ydental_queue.selection__ydental_queue_entry__state__waiting
+msgid "Waiting"
+msgstr "等待中"
+
+#. module: ydental_queue
+#: model:ir.model,name:ydental_queue.model_ydental_queue_service
+msgid "Workstation connection and patient execution authority"
+msgstr "工位连接与患者执行服务"
+
+#. module: ydental_queue
+#: model:ir.actions.act_url,name:ydental_queue.ydental_queue_action
+#: model:ir.ui.menu,name:ydental_queue.ydental_queue_menu
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Workstation queue"
+msgstr "工位队列"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Workstations"
+msgstr "工位"
+
+#. module: ydental_queue
+#: model:ir.module.module,shortdesc:base.module_ydental_queue
+msgid "YDental Workstation Queue"
+msgstr "YDental 工位队列"
+
+#. module: ydental_queue
+#: model:ir.model,name:ydental_queue.model_ydental_access_service
+msgid "YDental trusted authorization and lifecycle service"
+msgstr "YDental可信授权与生命周期服务"
+
+#. module: ydental_queue
+#: model:ir.actions.server,name:ydental_queue.ydental_queue_timeout_cron_ir_actions_server
+msgid "YDental workstation connection timeout"
+msgstr "YDental工位连接超时处理"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_lease__ydental_active
+msgid "Ydental Active"
+msgstr "有效占用"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_lease__ydental_actor_id
+msgid "Ydental Actor"
+msgstr "实际操作者"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_entry__ydental_area_id
+msgid "Ydental Area"
+msgstr "报到区域"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_entry__ydental_business_date
+msgid "Ydental Business Date"
+msgstr "门店营业日"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_entry__ydental_call_used_before
+msgid "Ydental Call Used Before"
+msgstr "本次呼叫前机会已用"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_entry__ydental_capability_id
+msgid "Ydental Capability"
+msgstr "所需明确能力"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_entry__ydental_category
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_execution__ydental_category
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_lease__ydental_category
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_record__ydental_category
+msgid "Ydental Category"
+msgstr "业务类别"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_lease__ydental_connection_hash
+msgid "Ydental Connection Hash"
+msgstr "连接摘要"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_execution__ydental_entry_id
+msgid "Ydental Entry"
+msgstr "队列号位"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_lease__ydental_expires_at
+msgid "Ydental Expires At"
+msgstr "连接到期时间"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_lease__ydental_heartbeat_at
+msgid "Ydental Heartbeat At"
+msgstr "最后心跳时间"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_entry__ydental_lease_id
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_execution__ydental_lease_id
+msgid "Ydental Lease"
+msgstr "工位租约"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_entry__ydental_number
+msgid "Ydental Number"
+msgstr "显示号码"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_entry__ydental_opportunity_used
+msgid "Ydental Opportunity Used"
+msgstr "首次机会已用"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_entry__ydental_order
+msgid "Ydental Order"
+msgstr "有效排序"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_entry__ydental_patient_id
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_execution__ydental_patient_id
+msgid "Ydental Patient"
+msgstr "患者"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_intake_task__ydental_queue_opportunity_used
+msgid "Ydental Queue Opportunity Used"
+msgstr "队列首次机会已用"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_lease__ydental_release_reason
+msgid "Ydental Release Reason"
+msgstr "释放原因"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_entry__ydental_reported_at
+msgid "Ydental Reported At"
+msgstr "首次报到时间"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_entry__ydental_return
+msgid "Ydental Return"
+msgstr "回诊标志"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_lease__ydental_revision
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_mutex__ydental_revision
+msgid "Ydental Revision"
+msgstr "会话修订"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_lease__ydental_session_id
+msgid "Ydental Session"
+msgstr "持有会话"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_entry__ydental_started_at
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_execution__ydental_started_at
+msgid "Ydental Started At"
+msgstr "实际开始时间"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_lease__ydental_station_id
+msgid "Ydental Station"
+msgstr "持有工位"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_entry__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_execution__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_lease__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_record__ydental_store_id
+msgid "Ydental Store"
+msgstr "所属门店"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_entry__ydental_task_id
+msgid "Ydental Task"
+msgstr "来源任务"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_entry__ydental_timezone
+msgid "Ydental Timezone"
+msgstr "门店时区快照"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_lease__ydental_token_hash
+msgid "Ydental Token Hash"
+msgstr "租约令牌摘要"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_entry__ydental_version
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_execution__ydental_version
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_lease__ydental_version
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_record__ydental_version
+msgid "Ydental Version"
+msgstr "记录版本"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_service.py:0
+msgid "access_denied: A holding browser connection is required."
+msgstr "access_denied: 需要持有浏览器连接。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_service.py:0
+msgid "access_denied: Actual staff capabilities must cover this workstation."
+msgstr "access_denied: 人员实际能力须覆盖工位能力。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_service.py:0
+msgid "access_denied: Real document locking is not connected."
+msgstr "access_denied: 真实文书锁尚未接入。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_service.py:0
+msgid "access_denied: Select a workstation in the current store."
+msgstr "access_denied: 请选择当前门店工位。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_intake_service.py:0
+msgid ""
+"access_denied: Start requires the current called task and holding "
+"connection."
+msgstr "access_denied: 开始执行须对应当前呼叫任务和持有连接。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_service.py:0
+msgid ""
+"access_denied: The called task capability no longer matches this "
+"workstation."
+msgstr "access_denied: 当前任务能力与工位不再匹配。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_service.py:0
+msgid "access_denied: This connection no longer holds the workstation."
+msgstr "access_denied: 此连接已不再持有工位。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_service.py:0
+msgid "access_denied: This workstation cannot call patients."
+msgstr "access_denied: 此工位不能叫号。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_service.py:0
+msgid "access_denied: Unknown workstation action."
+msgstr "access_denied: 未知工位动作。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_record.py:0
+msgid "access_denied: Use a workstation action."
+msgstr "access_denied: 请使用受控工位动作。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_service.py:0
+msgid ""
+"configuration_required: Publish an explicit positive missed-call "
+"displacement."
+msgstr "configuration_required: 请显式发布正整数过号顺延位数。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_service.py:0
+msgid ""
+"configuration_required: Publish explicit heartbeat and timeout settings."
+msgstr "configuration_required: 请显式发布心跳和超时设置。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_service.py:0
+msgid ""
+"configuration_required: Timeout must exceed the positive heartbeat interval."
+msgstr "configuration_required: 超时须大于正数心跳间隔。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_intake_service.py:0
+msgid "handover_required: An actual execution cannot be voided by reception."
+msgstr "handover_required: 前台撤号不能抹除真实执行。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_service.py:0
+msgid "handover_required: On-site handover is not enabled in this batch."
+msgstr "handover_required: 本批尚未启用现场接手流程。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_service.py:0
+msgid ""
+"handover_required: On-site verification is required before reusing this "
+"workstation."
+msgstr "handover_required: 重新使用此工位前须现场核实。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_service.py:0
+msgid ""
+"handover_required: Resolve the current patient before changing workstations."
+msgstr "handover_required: 换椅前须合法处理当前患者。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_service.py:0
+msgid "handover_required: Resolve the current patient before exiting."
+msgstr "handover_required: 退出前须合法处理当前患者。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_service.py:0
+msgid "handover_required: The account or workstation already has a holder."
+msgstr "handover_required: 此账号或工位已有持有人。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_service.py:0
+msgid ""
+"handover_required: The patient already has an unresolved actual execution."
+msgstr "handover_required: 此患者已有尚未解决的实际执行。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_service.py:0
+msgid ""
+"handover_required: The target workstation is occupied or awaiting "
+"verification."
+msgstr "handover_required: 目标工位已占用或待现场核实。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_intake_service.py:0
+msgid "handover_required: This patient has an unresolved actual execution."
+msgstr "handover_required: 此患者有尚未解决的实际执行。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_service.py:0
+msgid "handover_required: This workstation already has an unresolved patient."
+msgstr "handover_required: 此工位已有尚未解决的患者占用。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_service.py:0
+msgid ""
+"no_eligible_waiting: No waiting task matches this workstation capability."
+msgstr "no_eligible_waiting: 没有与此工位能力匹配的等待任务。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_service.py:0
+msgid "station_unavailable: The workstation or reporting area is disabled."
+msgstr "station_unavailable: 工位或报到区域已停用。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_intake_service.py:0
+msgid ""
+"version_conflict: Only an existing waiting or calling number can be voided."
+msgstr "version_conflict: 仅可作废真实等待或呼叫中的号码。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_service.py:0
+msgid ""
+"version_conflict: This call no longer belongs to the holding workstation."
+msgstr "version_conflict: 此呼叫已不再属于当前持有工位。"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Connection expired. Refresh to review queue or on-site verification."
+msgstr "连接已过期。请刷新查看回队或现场核实状态。"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Connection unavailable. No success confirmed. Refresh before retrying."
+msgstr "连接不可用，未确认成功。请刷新后重试。"

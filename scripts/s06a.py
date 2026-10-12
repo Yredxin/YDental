@@ -212,6 +212,9 @@ def main():
             if not match or entry['tests'][:2] != [0, 0] or entry['tests'][2] < 10:
                 result = result or 1
                 entry['verification_exit'] = result
+        if args.action == 'probe' and '"result": "PASS", "races":' not in log_path.read_text():
+            result = result or 1
+            entry['verification_exit'] = result
         with (run / 'actions.jsonl').open('a') as actions:
             actions.write(json.dumps(entry) + '\n')
         print(json.dumps(entry), flush=True)
