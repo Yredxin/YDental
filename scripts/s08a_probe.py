@@ -18,6 +18,11 @@ from odoo.addons.ydental_clinical_test.tests.common import setup, opened, save_a
 run=Path(os.environ['YDENTAL_S08A_RUN_DIR'])
 assert run.name==env.cr.dbname and re.fullmatch(r'ydental_s08a_test_[0-9]{14}_[a-f0-9]{8}',env.cr.dbname)
 result={'database':env.cr.dbname,'races':[],'failures':[],'deadlocks':0}
+env.cr.execute('SELECT name,setting FROM pg_settings WHERE name=ANY(%s)', [
+    ['max_parallel_workers_per_gather','max_parallel_maintenance_workers','maintenance_work_mem']])
+result['session_settings']=dict(env.cr.fetchall())
+assert result['session_settings']=={'max_parallel_workers_per_gather':'0','max_parallel_maintenance_workers':'0','maintenance_work_mem':'16384'}
+
 root=Path(__file__).resolve().parents[1]
 import subprocess
 result['tested_commit']=subprocess.check_output(['git','-C',str(root),'rev-parse','HEAD'],text=True).strip()
