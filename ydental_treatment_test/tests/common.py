@@ -23,8 +23,8 @@ def setup(cls):
     offset = 12 - fields.Datetime.now().hour
     timezone = 'Etc/GMT%+d' % -offset if offset else 'UTC'
     cls.stores = root['ydental.access.store'].create([
-        {'name': 'S06A Synthetic A', 'company_id': root.company.id, 'ydental_timezone': timezone},
-        {'name': 'S06A Synthetic B', 'company_id': root.company.id, 'ydental_timezone': timezone}])
+        {'name': 'S08B Synthetic A ' + key(), 'company_id': root.company.id, 'ydental_timezone': timezone},
+        {'name': 'S08B Synthetic B ' + key(), 'company_id': root.company.id, 'ydental_timezone': timezone}])
     cls.users = {}
     for role in ('manager', 'frontdesk', 'doctor', 'reader', 'price', 'none', 'catalog'):
         groups = 'ydental_base.ydental_base_group_user'

@@ -76,7 +76,7 @@ class TestActualTreatment(TransactionCase):
         with patch.object(type(self.stock),'_move',fail):
             with self.assertRaises(UserError):s._operate('execute',execute_args(self,a),key())
         self.assertFalse(s._model('event').search_count([('ydental_execution_id','=',e.id)]))
-        self.assertFalse(self.root['ydental.inventory.event'].search_count([('ydental_source_namespace','=','s08b-clinical')]))
+        self.assertFalse(self.root['ydental.inventory.event'].search_count([('ydental_source_namespace','=','s08b-clinical'),('ydental_store_id','=',self.stores[0].id)]))
 
     def test_rpc_context_cannot_forge_clinical_inventory_or_referral(self):
         with self.assertRaises(AccessError):self.stock._source_action({'actor_id':self.users['doctor'].id})
