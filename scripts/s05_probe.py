@@ -42,6 +42,7 @@ with registry.cursor() as cr:
             manager = bind(fixture, fixture.users['manager'], slot.ydental_store_id)
             manager.env['ydental.supply.service']._operate('resize', {'id': slot.id, 'version': slot.ydental_version,
                 'total': 90, 'reason': 'Synthetic race capacity'}, key())
+    fixture.admin._remove(fixture.users['doctor'].id, fixture.stores[1].id)
     users = {role: u.id for role, u in fixture.users.items()}
     sessions = {}
     for role in ('manager', 'frontdesk', 'doctor'):

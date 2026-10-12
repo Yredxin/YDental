@@ -332,7 +332,7 @@ class TestIntake(TransactionCase):
         from datetime import datetime
         store = self.stores[0]
         store.ydental_timezone = 'Pacific/Honolulu'
-        before = datetime(2032, 1, 1, 23)
+        before = datetime(2032, 1, 2, 5)  # Same UTC date as slot, previous Honolulu date.
         start, end = datetime(2032, 1, 2, 20), datetime(2032, 1, 2, 21)
         def clock(stack, moment):
             for name in ('ydental.intake.service', 'ydental.supply.service', 'ydental.patient.service'):

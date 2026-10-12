@@ -246,7 +246,12 @@ def main():
             check('future reservation actual arrival recorded today', action(page, 'arrive', {'patient_id':preview['future']['patient_id']})['status'] == 200)
             future = action(page, 'report', {'task_id':preview['future']['task_id'], 'version':preview['future']['task_version']})
             check('tomorrow reservation report rejected today', future['status'] == 409 and 'reporting_date_mismatch:' in future['body']['error'])
+            page.reload()
+            with page.expect_navigation() as rejected_navigation:
+                page.locator('#intake-tasks tr[data-task="' + str(preview['future']['task_id']) + '"]').get_by_role('button', name='Report this task').click()
+            check('future-day rejection is visible after real report form submit', rejected_navigation.value.status == 409 and 'reporting_date_mismatch:' in page.locator('body').inner_text())
             screenshot(page, desk_context, '10-future-day-report-rejected.png')
+            page.goto(base + '/ydental/intake')
             early = action(page, 'report', {'task_id':preview['early']['task_id'], 'version':preview['early']['task_version']})
             check('same local day several hours early zero balance report succeeds', early['status'] == 200)
             doctor_context, doctor_page = login('doctor')
