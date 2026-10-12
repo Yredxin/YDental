@@ -29,14 +29,14 @@ if (root) {
         root.querySelector('#save-document').disabled ||= state === 'confirmed';
         root.querySelector('#confirm-document').disabled ||= state === 'confirmed';
         root.querySelector('#correct-document').disabled ||= state !== 'confirmed';
-        root.querySelector('#handover-document').disabled ||= !holder || !Number(root.dataset.execution);
+        root.querySelector('#handover-document').disabled ||= !holder || root.dataset.canHandover !== 'yes';
         root.querySelector('#tooth-state').disabled = !token || selected === null;
     }
     function summary() {
         const list = root.querySelector('#tooth-summary');
         list.replaceChildren(...[...teeth.values()].sort((a,b) => a.tooth-b.tooth).map(row => {
             const li = document.createElement('li');
-            li.textContent = `${row.tooth || '-'} / ${row.state} / ${row.surfaces.join(', ')}`;
+            li.textContent = `${row.tooth || '-'} / ${root.querySelector(`#tooth-state option[value="${row.state}"]`).textContent} / ${row.surfaces.join(', ')}`;
             return li;
         }));
     }

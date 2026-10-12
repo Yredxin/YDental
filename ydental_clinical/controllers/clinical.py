@@ -45,6 +45,9 @@ class YDentalClinical(http.Controller):
         candidates = members.ydental_user_id.filtered(lambda user: doc and service._eligible_responsible(doc, user))
         return request.render('ydental_clinical.ydental_clinical_page', {
             'store': store, 'execution': execution, 'doc': doc, 'snapshot': snapshot, 'pending': pending,
+            'state_labels': dict(service._model()._fields['state']._description_selection(service.env)),
+            'kind_labels': dict(service._model('version')._fields['ydental_kind']._description_selection(service.env)),
+            'can_handover': bool(execution and execution.state == 'serving' and (not doc or doc.ydental_execution_id == execution)),
             'revision': service.env['ydental.access.service']._scope().ydental_revision,
             'fields': fields, 'teeth_rows': [[q * 10 + n for n in (range(8, 0, -1) if q in (1, 4) else range(1, 9))] for q in range(1, 5)] +
                 [[q * 10 + n for n in (range(5, 0, -1) if q in (5, 8) else range(1, 6))] for q in range(5, 9)],

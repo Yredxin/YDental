@@ -152,7 +152,9 @@ class YDentalClinicalService(models.AbstractModel):
             return False
         lease = doc.ydental_editor_lease_id
         if lease and (not lease.ydental_active or lease.ydental_expires_at <= queue._now() or
-                      lease.ydental_revision != session.ydental_revision or lease.ydental_session_id != session):
+                      lease.ydental_revision != session.ydental_revision or lease.ydental_session_id != session or
+                      self._queue()._service_eligibility(self._queue()._execution_entry(doc.ydental_execution_id),
+                          lease.ydental_station_id, doc.ydental_editor_id)):
             return False
         return True
 

@@ -1,0 +1,845 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* ydental_clinical
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 20.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-12 10:48+0000\n"
+"PO-Revision-Date: 2026-10-12 10:48+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid ". Last server save:"
+msgstr "。最近服务端保存："
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid ". Original author:"
+msgstr "。原始作者："
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid ". Reception segment:"
+msgstr "。接诊段："
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid ". Responsible person:"
+msgstr "。责任人："
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid ". Template:"
+msgstr "。模板："
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid ". Text state:"
+msgstr "。文书状态："
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid ""
+"<span hidden=\"hidden\" id=\"unsynced-message\">Unsynchronized changes. The "
+"server has not confirmed this content.</span><span hidden=\"hidden\" "
+"id=\"saved-message\">Saved on the server.</span><span hidden=\"hidden\" "
+"id=\"offline-message\">Connection unavailable. Changes remain "
+"unsynchronized. Refresh and compare the server version before "
+"retrying.</span><span hidden=\"hidden\" id=\"readonly-message\">Read only. "
+"Acquire the independent editor before changing text.</span>"
+msgstr ""
+"<span hidden=\"hidden\" id=\"unsynced-message\">内容尚未同步，服务端未确认保存。</span><span"
+" hidden=\"hidden\" id=\"saved-message\">已保存到服务端。</span><span "
+"hidden=\"hidden\" id=\"offline-"
+"message\">连接不可用，改动尚未同步。请刷新并核对服务端版本后再重试。</span><span hidden=\"hidden\" "
+"id=\"readonly-message\">当前只读。请先取得此独立文书的编辑权。</span>"
+
+#. module: ydental_clinical
+#: model:ir.model.constraint,message:ydental_clinical.constraint_ydental_clinical_version_request_unique
+msgid "A save request is unique."
+msgstr "同一保存请求只能受理一次。"
+
+#. module: ydental_clinical
+#: model:ir.model.constraint,message:ydental_clinical.constraint_ydental_clinical_document_one_execution
+msgid "An execution has one independent treatment document."
+msgstr "每个接诊段只有一份独立治疗文书。"
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid "Append text correction"
+msgstr "追加文字更正版本"
+
+#. module: ydental_clinical
+#: model:ir.model,name:ydental_clinical.model_ir_attachment
+msgid "Attachment"
+msgstr "附件"
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid "Authored version history"
+msgstr "历史作者与版本"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/controllers/clinical.py:0
+msgid "Chief complaint"
+msgstr "主诉"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/models/ydental_clinical_document.py:0
+msgid "Clinical document history cannot be deleted."
+msgstr "临床文书历史不可删除。"
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid ""
+"Clinical field draft for review. Text confirmation is separate from project "
+"execution and formal clinical signing."
+msgstr "临床字段为待审核草案。确认文字与实际项目执行、正式临床签发分别处理。"
+
+#. module: ydental_clinical
+#: model:ir.model,name:ydental_clinical.model_ydental_clinical_service
+msgid "Clinical text authorization and version transactions"
+msgstr "临床文字授权与版本事务"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/models/ydental_clinical_version.py:0
+msgid "Clinical versions are immutable."
+msgstr "临床历史版本不可改写或删除。"
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid "Confirm text only"
+msgstr "仅确认文字"
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid "Correction reason"
+msgstr "文字更正原因"
+
+#. module: ydental_clinical
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_document__create_uid
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_version__create_uid
+msgid "Created by"
+msgstr "创建人"
+
+#. module: ydental_clinical
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_document__create_date
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_version__create_date
+msgid "Created on"
+msgstr "创建时间"
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid "Current medical reception is ready for its independent document."
+msgstr "当前真实医疗接诊已就绪，可打开独立文书。"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/controllers/clinical.py:0
+msgid "Diagnosis"
+msgstr "诊断"
+
+#. module: ydental_clinical
+#: model:ir.model.fields,field_description:ydental_clinical.field_ir_attachment__display_name
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_access_service__display_name
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_document__display_name
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_service__display_name
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_version__display_name
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_queue_service__display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid "Document"
+msgstr "文书"
+
+#. module: ydental_clinical
+#: model:ir.model.fields.selection,name:ydental_clinical.selection__ydental_clinical_document__state__pending
+msgid "Document awaiting completion"
+msgstr "文书待完善"
+
+#. module: ydental_clinical
+#: model:ir.model.constraint,message:ydental_clinical.constraint_ydental_clinical_version_number_unique
+msgid "Document version is unique."
+msgstr "文书版本号必须唯一。"
+
+#. module: ydental_clinical
+#: model:ir.model.constraint,message:ydental_clinical.constraint_ydental_clinical_document_positive_version
+msgid "Document versions cannot be negative."
+msgstr "文书版本号不得为负数。"
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid "Documents awaiting completion"
+msgstr "文书待完善"
+
+#. module: ydental_clinical
+#: model:ir.model.fields.selection,name:ydental_clinical.selection__ydental_clinical_document__state__draft
+msgid "Draft"
+msgstr "草稿"
+
+#. module: ydental_clinical
+#: model:ir.model.fields.selection,name:ydental_clinical.selection__ydental_clinical_version__ydental_kind__save
+msgid "Draft saved"
+msgstr "草稿已保存"
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid "FDI tooth chart"
+msgstr "FDI牙位图"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/controllers/clinical.py:0
+msgid "Findings"
+msgstr "所见"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/controllers/clinical.py:0
+msgid "Follow-up"
+msgstr "后续建议"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/controllers/clinical.py:0
+msgid "History"
+msgstr "病史"
+
+#. module: ydental_clinical
+#: model:ir.model.fields,field_description:ydental_clinical.field_ir_attachment__id
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_access_service__id
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_document__id
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_service__id
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_version__id
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_queue_service__id
+msgid "ID"
+msgstr "ID"
+
+#. module: ydental_clinical
+#: model:ir.model,name:ydental_clinical.model_ydental_clinical_version
+msgid "Immutable authored clinical text version"
+msgstr "不可改写的临床文字作者版本"
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid "Independent document"
+msgstr "独立文书"
+
+#. module: ydental_clinical
+#: model:ir.model,name:ydental_clinical.model_ydental_clinical_document
+msgid "Independent treatment text and responsibility"
+msgstr "独立治疗文书及责任"
+
+#. module: ydental_clinical
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_document__write_uid
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_version__write_uid
+msgid "Last Updated by"
+msgstr "最后修改人"
+
+#. module: ydental_clinical
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_document__write_date
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_version__write_date
+msgid "Last Updated on"
+msgstr "最后修改时间"
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid "Missing"
+msgstr "缺失"
+
+#. module: ydental_clinical
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_document__name
+msgid "Name"
+msgstr "名称"
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid "New responsible person"
+msgstr "新责任人"
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid "No corresponding tooth"
+msgstr "无对应牙位"
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid ""
+"No current medical reception. Select a pending document below or start a "
+"legitimate reception in the workstation queue."
+msgstr "当前没有医疗接诊。可选择下方待完善文书，或从工位队列合法开始接诊。"
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid "Not applicable"
+msgstr "不适用"
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid "Open for editing"
+msgstr "取得独占编辑"
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid "Patient"
+msgstr "患者"
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid "Patient records"
+msgstr "患者档案"
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid "Patient:"
+msgstr "患者："
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid "Present"
+msgstr "存在"
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid "Read only. Acquire the independent editor before changing text."
+msgstr "当前只读。请先取得此独立文书的编辑权。"
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid ""
+"Release a valid editor first. Transfer retains every original author and "
+"version."
+msgstr "有效编辑者须先主动释放。移交保留全部原始作者和版本。"
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid "Release editing"
+msgstr "释放编辑占用"
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid "Responsibility transfer"
+msgstr "文书责任移交"
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid "Responsible person"
+msgstr "责任人"
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid "Save and hand back reception"
+msgstr "保存并交还本次接诊"
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid "Save draft"
+msgstr "保存草稿"
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid ""
+"Select a permanent or primary tooth and its explicit state. No clinical "
+"conclusion is generated."
+msgstr "选择恒牙或乳牙并明确记录状态，不自动生成临床结论。"
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid "Selected tooth <output id=\"selected-tooth\">-</output>"
+msgstr "当前牙位 <output id=\"selected-tooth\">-</output>"
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid "Server version"
+msgstr "服务端版本"
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid "Server version:"
+msgstr "服务端版本："
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid "Source service:"
+msgstr "来源服务："
+
+#. module: ydental_clinical
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_document__state
+msgid "State"
+msgstr "状态"
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid "Structured clinical draft"
+msgstr "结构化临床草稿"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/controllers/clinical.py:0
+msgid "Suggested materials"
+msgstr "建议耗材"
+
+#. module: ydental_clinical
+#: model:ir.model.fields.selection,name:ydental_clinical.selection__ydental_clinical_document__state__confirmed
+#: model:ir.model.fields.selection,name:ydental_clinical.selection__ydental_clinical_version__ydental_kind__confirm
+msgid "Text confirmed"
+msgstr "文字已确认"
+
+#. module: ydental_clinical
+#: model:ir.model.fields.selection,name:ydental_clinical.selection__ydental_clinical_version__ydental_kind__correct
+msgid "Text correction"
+msgstr "文字更正"
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid "Tooth state"
+msgstr "牙位状态"
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid "Transfer pending document"
+msgstr "移交待完善文书"
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid "Transfer reason"
+msgstr "移交原因"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/controllers/clinical.py:0
+msgid "Treatment plan"
+msgstr "治疗计划"
+
+#. module: ydental_clinical
+#: model:ir.actions.act_url,name:ydental_clinical.ydental_clinical_action
+#: model:ir.ui.menu,name:ydental_clinical.ydental_clinical_menu
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid "Treatment workbench"
+msgstr "治疗接诊工作台"
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_queue_page
+msgid "Treatment workbench and pending documents"
+msgstr "治疗工作台与待完善文书"
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid "UTC."
+msgstr "UTC。"
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid "Unknown"
+msgstr "未知"
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid "View version text"
+msgstr "查看历史版本文字"
+
+#. module: ydental_clinical
+#: model:ir.model,name:ydental_clinical.model_ydental_queue_service
+msgid "Workstation connection and patient execution authority"
+msgstr "工位连接与患者执行服务"
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid "Workstation queue"
+msgstr "工位队列"
+
+#. module: ydental_clinical
+#: model:ir.module.module,shortdesc:base.module_ydental_clinical
+msgid "YDental Clinical Documents"
+msgstr "YDental临床文书"
+
+#. module: ydental_clinical
+#: model:ir.model,name:ydental_clinical.model_ydental_access_service
+msgid "YDental trusted authorization and lifecycle service"
+msgstr "YDental可信授权与生命周期服务"
+
+#. module: ydental_clinical
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_document__ydental_author_id
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_version__ydental_author_id
+msgid "Ydental Author"
+msgstr "实际作者"
+
+#. module: ydental_clinical
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_document__ydental_category
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_version__ydental_category
+msgid "Ydental Category"
+msgstr "业务类别"
+
+#. module: ydental_clinical
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_document__ydental_connection_hash
+msgid "Ydental Connection Hash"
+msgstr "编辑连接摘要"
+
+#. module: ydental_clinical
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_document__ydental_content
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_version__ydental_content
+msgid "Ydental Content"
+msgstr "临床内容"
+
+#. module: ydental_clinical
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_version__ydental_document_id
+msgid "Ydental Document"
+msgstr "独立文书"
+
+#. module: ydental_clinical
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_document__ydental_editor_id
+msgid "Ydental Editor"
+msgstr "当前编辑者"
+
+#. module: ydental_clinical
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_document__ydental_editor_expires
+msgid "Ydental Editor Expires"
+msgstr "编辑到期时间"
+
+#. module: ydental_clinical
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_document__ydental_editor_hash
+msgid "Ydental Editor Hash"
+msgstr "编辑令牌摘要"
+
+#. module: ydental_clinical
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_document__ydental_editor_lease_id
+msgid "Ydental Editor Lease"
+msgstr "接诊工位租约"
+
+#. module: ydental_clinical
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_document__ydental_execution_id
+msgid "Ydental Execution"
+msgstr "接诊段"
+
+#. module: ydental_clinical
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_version__ydental_kind
+msgid "Ydental Kind"
+msgstr "文字动作类型"
+
+#. module: ydental_clinical
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_version__ydental_number
+msgid "Ydental Number"
+msgstr "文书版本号"
+
+#. module: ydental_clinical
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_document__ydental_patient_id
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_version__ydental_patient_id
+msgid "Ydental Patient"
+msgstr "患者"
+
+#. module: ydental_clinical
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_version__ydental_previous_id
+msgid "Ydental Previous"
+msgstr "前一历史版本"
+
+#. module: ydental_clinical
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_version__ydental_reason
+msgid "Ydental Reason"
+msgstr "原因"
+
+#. module: ydental_clinical
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_version__ydental_recorded_at
+msgid "Ydental Recorded At"
+msgstr "实际记录时间"
+
+#. module: ydental_clinical
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_version__ydental_request_digest
+msgid "Ydental Request Digest"
+msgstr "请求摘要"
+
+#. module: ydental_clinical
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_version__ydental_request_key
+msgid "Ydental Request Key"
+msgstr "请求标识"
+
+#. module: ydental_clinical
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_document__ydental_responsible_id
+msgid "Ydental Responsible"
+msgstr "责任人"
+
+#. module: ydental_clinical
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_document__ydental_saved_at
+msgid "Ydental Saved At"
+msgstr "最近保存时间"
+
+#. module: ydental_clinical
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_document__ydental_session_id
+msgid "Ydental Session"
+msgstr "门店登录会话"
+
+#. module: ydental_clinical
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_document__ydental_session_revision
+msgid "Ydental Session Revision"
+msgstr "会话门店版本"
+
+#. module: ydental_clinical
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_document__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_version__ydental_store_id
+msgid "Ydental Store"
+msgstr "所属门店"
+
+#. module: ydental_clinical
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_document__ydental_template
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_version__ydental_template
+msgid "Ydental Template"
+msgstr "字段模板版本"
+
+#. module: ydental_clinical
+#: model:ir.model.fields,field_description:ydental_clinical.field_ydental_clinical_document__ydental_version
+msgid "Ydental Version"
+msgstr "服务端版本"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/models/ydental_queue_service.py:0
+msgid "access_denied: A trusted independent clinical document is required."
+msgstr "access_denied: 须提供可信独立临床文书来源。"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/models/ydental_clinical_service.py:0
+msgid "access_denied: Handover must use the original reception."
+msgstr "access_denied: 交还须使用原接诊段。"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/models/ydental_clinical_service.py:0
+msgid ""
+"access_denied: Only its responsible person or store manager may transfer "
+"pending text."
+msgstr "access_denied: 仅当前责任人或本店店长可移交待完善文书。"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/models/ydental_clinical_service.py:0
+msgid ""
+"access_denied: Only the authorized responsible person may complete this "
+"document."
+msgstr "access_denied: 仅获授权责任人可完善此文书。"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/models/ydental_clinical_service.py:0
+msgid ""
+"access_denied: Start the real medical reception before creating its "
+"document."
+msgstr "access_denied: 须先真实开始医疗接诊，才可创建对应文书。"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/models/ydental_clinical_service.py:0
+msgid "access_denied: The current reception holder must edit this document."
+msgstr "access_denied: 此文书须由当前接诊持有人编辑。"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/models/ydental_clinical_service.py:0
+msgid ""
+"access_denied: The new responsible person needs current medical write and "
+"source qualifications."
+msgstr "access_denied: 新责任人须具备当前医疗读写权限及来源服务资格。"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/models/ydental_clinical_service.py:0
+msgid "access_denied: This clinical document is unavailable."
+msgstr "access_denied: 此临床文书不可访问。"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/models/ydental_clinical_document.py:0
+#: code:addons/ydental_clinical/models/ydental_clinical_version.py:0
+msgid "access_denied: Use a clinical document action."
+msgstr "access_denied: 请使用受控临床文书动作。"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/models/ydental_clinical_service.py:0
+msgid "access_denied: Write clinical text only in its source store."
+msgstr "access_denied: 仅可在来源门店修改临床文字。"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/models/ydental_clinical_service.py:0
+msgid "content_required: Empty clinical text cannot be confirmed."
+msgstr "content_required: 空白临床文书不可确认。"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/models/ydental_clinical_service.py:0
+msgid ""
+"correction_required: Confirmed text requires a new correction and reason."
+msgstr "correction_required: 已确认文字须通过新版本附原因更正。"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/controllers/clinical.py:0
+msgid "diagnosis"
+msgstr "诊断"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/models/ydental_clinical_service.py:0
+msgid "editor_busy: Release the valid editor before responsibility transfer."
+msgstr "editor_busy: 移交责任前须先释放有效编辑占用。"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/models/ydental_clinical_service.py:0
+msgid "editor_busy: This independent document already has a connected editor."
+msgstr "editor_busy: 此独立文书已有有效连接的编辑者。"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/models/ydental_clinical_service.py:0
+msgid "editor_expired: This connection no longer holds the document."
+msgstr "editor_expired: 此连接已不再持有文书编辑权。"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/controllers/clinical.py:0
+msgid "findings"
+msgstr "所见"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/controllers/clinical.py:0
+msgid "follow_up"
+msgstr "后续建议"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/controllers/clinical.py:0
+msgid "history"
+msgstr "病史"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/models/ydental_clinical_service.py:0
+msgid "invalid_action: Unknown clinical document action."
+msgstr "invalid_action: 未知临床文书动作。"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/models/ydental_clinical_service.py:0
+msgid "invalid_action: Unknown or missing clinical arguments."
+msgstr "invalid_action: 临床动作参数未知或缺失。"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/models/ydental_clinical_service.py:0
+msgid "invalid_content: Clinical text exceeds its allowed size."
+msgstr "invalid_content: 临床文字超出允许长度。"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/models/ydental_clinical_service.py:0
+msgid "invalid_content: Submit the complete clinical draft field set."
+msgstr "invalid_content: 请提交完整临床草稿字段。"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/models/ydental_clinical_service.py:0
+msgid "invalid_surface: Select distinct legal tooth surfaces."
+msgstr "invalid_surface: 请选择不重复的合法牙面。"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/models/ydental_clinical_service.py:0
+msgid "invalid_surface: Surfaces must match the tooth and its recorded state."
+msgstr "invalid_surface: 牙面必须与牙位及记录状态相符。"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/models/ydental_clinical_service.py:0
+msgid "invalid_tooth: Invalid FDI tooth collection."
+msgstr "invalid_tooth: FDI牙位集合不合法。"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/models/ydental_clinical_service.py:0
+msgid "invalid_tooth: Select a valid distinct FDI tooth and explicit state."
+msgstr "invalid_tooth: 请选择有效且不重复的FDI牙位及明确状态。"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/models/ydental_clinical_service.py:0
+msgid "invalid_tooth: Supply tooth, state and surfaces."
+msgstr "invalid_tooth: 请提供牙位、状态及牙面。"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/models/ydental_clinical_service.py:0
+msgid "invalid_version: Supply a server version and stable request key."
+msgstr "invalid_version: 请提供服务端版本及稳定请求标识。"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/models/ydental_queue_service.py:0
+msgid "save_required: No persisted clinical draft is available."
+msgstr "save_required: 当前没有已落库的临床草稿。"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/models/ydental_queue_service.py:0
+msgid ""
+"save_required: Open and save the real clinical document before handover."
+msgstr "save_required: 交还前须打开并保存真实临床文书。"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/models/ydental_queue_service.py:0
+msgid ""
+"save_required: Synchronize the latest document in the treatment workbench "
+"before handover."
+msgstr "save_required: 交还前请在治疗工作台同步最新文书。"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/models/ydental_queue_service.py:0
+msgid "save_required: The current draft and its immutable version must agree."
+msgstr "save_required: 当前草稿必须与不可改写的历史版本一致。"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/controllers/clinical.py:0
+msgid "suggested_materials"
+msgstr "建议耗材"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/controllers/clinical.py:0
+msgid "treatment_plan"
+msgstr "治疗计划"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/models/ydental_clinical_service.py:0
+msgid "version_conflict: Confirmed text must be synchronized before handover."
+msgstr "version_conflict: 交还前须同步已确认文字。"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/models/ydental_clinical_service.py:0
+msgid "version_conflict: Refresh before editing a newer clinical version."
+msgstr "version_conflict: 服务端已有更新临床版本，请刷新后再编辑。"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/models/ydental_clinical_service.py:0
+msgid "version_conflict: This request key belongs to different content."
+msgstr "version_conflict: 此请求标识已用于不同内容。"
