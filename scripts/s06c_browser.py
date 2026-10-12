@@ -62,7 +62,7 @@ def main():
         'ydental_queue', 'ydental_queue_test', 'scripts/s06c*'], text=True), 'Commit implementation and verification first')
     evidence = ROOT / 'docs/evidence/s06c/browser-attempts' / datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f')
     evidence.mkdir(parents=True)
-    result = {'scope': 'S06-B real queue, unscheduled workstation leases and actual start UI', 'database': args.db, 'tested_commit': commit,
+    result = {'scope': 'S06-C business day, native bus and revocable area screen UI', 'database': args.db, 'tested_commit': commit,
               'browser': 'Firefox', 'sandbox': 'default, no overrides', 'checks': [], 'screenshots': []}
     sensitive = {str(v[k]) for v in access.values() for k in ('login', 'password')}
     base = 'http://127.0.0.1:%s' % args.port
@@ -153,7 +153,16 @@ def main():
             manager.reload()
             with manager.expect_response(lambda r:'/ydental/queue/action' in r.url) as response:manager.locator('[data-business-area="%s"] [data-queue-form=screen_create] button'%c['area']).click()
             credential=response.value.json();sensitive.add(credential['token'])
-            sc=context();screen=sc.new_page();screen.goto(base+'/ydental/queue/screen?lang=zh_CN#token='+credential['token'],wait_until='domcontentloaded')
+            sc=context();screen=sc.new_page();frames=[]
+            screen.add_init_script("""const Native=window.WebSocket;window.__testSockets=[];
+                window.WebSocket=class extends Native {constructor(...args){super(...args);window.__testSockets.push(this);}};
+                window.__testSpeech=[];if(window.speechSynthesis){window.speechSynthesis.speak=u=>window.__testSpeech.push(u.text);}""")
+            def received(frame):
+                for item in json.loads(frame):
+                    if item.get('message',{}).get('type')=='ydental.queue.version':
+                        payload=item['message']['payload'];require(set(payload)=={'store','area','version'},'native WS minimum payload');frames.append(payload['version'])
+            screen.on('websocket',lambda socket:socket.on('framereceived',received))
+            screen.goto(base+'/ydental/queue/screen?lang=zh_CN#token='+credential['token'],wait_until='domcontentloaded')
             screen.wait_for_function("document.querySelector('.o_ydental_queue_screen').dataset.version !== undefined")
             screen.wait_for_function("document.querySelector('.o_ydental_queue_screen').dataset.websocket==='open'")
             check('native Odoo WebSocket connected',True)
@@ -168,12 +177,16 @@ def main():
             called=taskrow(doctor,c,'pending').get_attribute('data-entry');button(doctor,'[data-operation=missed][data-entry="%s"]'%called)
             screen.wait_for_function("!document.querySelector('tbody').textContent.includes('calling')")
             latest=int(screen.locator('.o_ydental_queue_screen').get_attribute('data-version'));check('native bus update snapshot retracts call',latest>previous)
+            screen.wait_for_timeout(300);check('actual native WebSocket delivered committed version',any(v>previous for v in frames))
+            screen.locator('[data-voice]').check()
             screen.evaluate("""v=>document.querySelector('.o_ydental_queue_screen').dispatchEvent(new CustomEvent('ydental:version',{detail:{version:v}}))""",previous)
             screen.wait_for_timeout(300);check('old version ignored without withdrawn call replay','calling' not in screen.locator('tbody').inner_text())
             screen.evaluate("""v=>document.querySelector('.o_ydental_queue_screen').dispatchEvent(new CustomEvent('ydental:version',{detail:{version:v+9}}))""",latest)
             screen.wait_for_timeout(300);check('version gap forces database snapshot','calling' not in screen.locator('tbody').inner_text())
-            screen.evaluate("document.querySelector('.o_ydental_queue_screen').dispatchEvent(new CustomEvent('ydental:reconnect'))")
-            screen.wait_for_timeout(300);check('reconnect full snapshot keeps retracted call absent','calling' not in screen.locator('tbody').inner_text())
+            screen.evaluate("window.__testSockets.at(-1).close()")
+            screen.wait_for_function("window.__testSockets.length>1 && document.querySelector('.o_ydental_queue_screen').dataset.websocket==='open'")
+            check('real socket reconnect full snapshot keeps retracted call absent','calling' not in screen.locator('tbody').inner_text())
+            check('old version gap and real reconnect never replay withdrawn voice',screen.evaluate('window.__testSpeech.length')==0)
             check('settlement never appears in queue screen','settlement' not in screen.locator('tbody').inner_text().lower())
             screenshot(screen,sc,'05-retract-old-version-reconnect.png')
             manager.reload();submit(manager,'[data-queue-form=screen_revoke]:has([name=credential_id][value="%s"])'%credential['credential_id'])
