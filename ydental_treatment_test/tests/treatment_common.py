@@ -8,6 +8,8 @@ from .common import setup as clinical_setup, bind, key, opened, save_args, queue
 
 def setup(cls):
     clinical_setup(cls)
+    for store in cls.stores:
+        store.write({'name': 'S08B Synthetic ' + key()})
     cls.root['ir.config_parameter'].set_str('ydental_queue.timeout_seconds', '600')
     cls.admin._grant(cls.users['manager'].id, cls.stores[0].id, {'warehouse': 'write'})
     cls.stock = bind(cls, cls.users['manager']).env['ydental.inventory.service']

@@ -32,7 +32,7 @@ if (root) {
                     uom_id: Number(batch.dataset.uom), kind: batch.dataset.kind}] : [],
                 teeth: [{tooth, state: tooth ? 'present' : 'not_applicable', surfaces: data.surfaces ? data.surfaces.split(',').map(s => s.trim()) : []}]};
         }
-        if (op === 'order') {
+        if (op === 'order' || op === 'edit_order') {
             const rows = [...form.querySelectorAll('.o_ydental_treatment_line')].map(row => {
                 const input = name => row.querySelector(`[name="${name}"]`).value;
                 return {mapping_id: Number(input('mapping_id')), quantity: Number(input('quantity')),
@@ -40,7 +40,7 @@ if (root) {
                     product_id: Number(input('product_id')) || false, specification: input('specification'),
                     usage: input('usage'), frequency: input('frequency'), course: input('course')};
             });
-            return {...actual, kind: data.kind, purpose: data.purpose, lines: rows};
+            return {...actual, ...(op === 'order' ? {kind: data.kind} : {order_id: pharmacy.order_id, version: pharmacy.order_version}), purpose: data.purpose, lines: rows};
         }
         if (op === 'issue') { return {...actual, order_id: pharmacy.order_id, version: pharmacy.order_version}; }
         if (op === 'cancel_exam') { return {...actual, line_id: Number(line.dataset.line), order_version: pharmacy.order_version, reason: data.reason}; }

@@ -54,6 +54,15 @@
                         <h3><t t-out="order.name"/> #<t t-out="order.id"/> / <t t-out="labels['order'][order.state]"/> / <t t-out="order.ydental_version"/></h3>
                         <p t-out="order.ydental_patient_id.name"/>
                         <form t-if="role == 'medical' and order.state == 'draft'" data-operation="issue"><button type="submit">Issue and freeze order</button></form>
+                        <form t-if="role == 'medical' and order.state == 'draft'" data-operation="edit_order">
+                            <label>Explicit purpose <input name="purpose" t-att-value="order.ydental_purpose" required="required" maxlength="240"/></label>
+                            <div class="o_ydental_treatment_lines"><div class="o_ydental_treatment_line" t-foreach="lines.filtered(lambda l: l.ydental_order_id == order and l.state == 'draft')" t-as="draft_line">
+                                <label>Exact service mapping <select name="mapping_id" required="required"><option t-foreach="mappings.filtered(lambda m: m.ydental_catalog_id.ydental_kind in ('exam','medicine'))" t-as="mapping" t-att-value="mapping.id" t-att-selected="mapping == draft_line.ydental_mapping_id" t-att-data-uom="mapping.ydental_catalog_id.ydental_product_id.uom_id.id" t-out="mapping.name"/></select></label>
+                                <label>Approved quantity <input name="quantity" type="number" min="0.01" step="any" t-att-value="draft_line.ydental_quantity" required="required"/></label>
+                                <label>Medicine <select name="product_id"><option value="">No medicine for examination</option><option t-foreach="products" t-as="product" t-att-value="product.id" t-att-selected="product == draft_line.ydental_product_id" t-out="product.name"/></select></label>
+                                <label>Specification <input name="specification" t-att-value="draft_line.ydental_specification or ''" maxlength="240"/></label><label>Usage <input name="usage" t-att-value="draft_line.ydental_usage or ''" maxlength="240"/></label><label>Frequency <input name="frequency" t-att-value="draft_line.ydental_frequency or ''" maxlength="240"/></label><label>Course <input name="course" t-att-value="draft_line.ydental_course or ''" maxlength="240"/></label>
+                            </div></div><button type="button" class="add-order-line">Add independent order line</button><button type="submit">Save changes to draft</button>
+                        </form>
                         <table class="table"><thead><tr><th>Exact service / medicine</th><th>Approved</th><th>Remaining</th><th>Instructions / state</th><th>Action</th></tr></thead><tbody>
                             <tr t-foreach="lines.filtered(lambda l: l.ydental_order_id == order)" t-as="line" t-att-data-line="line.id" t-att-data-uom="line.ydental_uom_id.id">
                                 <td><t t-out="line.name"/> / <t t-out="line.ydental_product_id.name or '-'"/></td><td t-out="line.ydental_quantity"/><td class="remaining" t-out="remaining(line) if order.ydental_kind == 'prescription' else '-'"/>

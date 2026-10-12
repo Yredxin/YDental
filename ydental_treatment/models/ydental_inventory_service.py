@@ -8,6 +8,23 @@ from .ydental_treatment_service import InventorySource
 class YDentalInventoryService(models.AbstractModel):
     _inherit = 'ydental.inventory.service'
 
+    def _source_action(self, source):
+        if type(source) is InventorySource:
+            self._authorize_source(source)
+            return super(YDentalInventoryService, self.with_context(
+                _ydental_actual_inventory_source=source))._source_action(source)
+        return super()._source_action(source)
+
+    def _event(self, store, namespace, source_key, *args, **kwargs):
+        source = self.env.context.get('_ydental_actual_inventory_source')
+        if type(source) is InventorySource:
+            payload = self._authorize_source(source)
+            if (namespace, source_key) != (payload['namespace'], payload['source_key']):
+                raise AccessError(self.env._('source_required: Inventory must retain the original clinical source.'))
+            row = self.env['ydental.treatment.service']._model('consumption').browse(source.consumption_id)
+            kwargs['actual_at'] = row.ydental_event_id.ydental_actual_at
+        return super()._event(store, namespace, source_key, *args, **kwargs)
+
     def _authorize_source(self, source):
         if type(source) is not InventorySource:
             return super()._authorize_source(source)
