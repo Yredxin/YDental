@@ -4,8 +4,8 @@
     </record>
     <menuitem id="ydental_queue_menu" name="Workstation queue" parent="ydental_base.ydental_base_menu_root" action="ydental_queue_action" sequence="60" groups="ydental_base.ydental_base_group_user"/>
     <template id="ydental_queue_page" name="Workstation queue">
-        <t t-call="web.layout">
-            <t t-set="head"><meta name="viewport" content="width=device-width, initial-scale=1"/><script type="module" src="/ydental_queue/static/src/workspace/workspace.js"/></t>
+        <t t-set="head"><meta name="viewport" content="width=device-width, initial-scale=1"/><t t-call-assets="web.assets_frontend" t-js="false"/><script type="module" src="/ydental_queue/static/src/workspace/workspace.js"/></t>
+        <t t-call="web.layout" head="head">
             <main class="container py-4 o_ydental_queue_workspace" t-att-data-revision="revision" t-att-data-can-write="'yes' if can_write else 'no'" t-att-data-heartbeat="heartbeat">
                 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                 <h1>Workstation queue</h1>
@@ -26,14 +26,14 @@
                 </div>
                 <h2>Workstations</h2>
                 <table class="table"><thead><tr><th>Station</th><th>Area</th><th>Exact capabilities</th><th>Availability and action</th></tr></thead>
-                    <tbody><tr t-foreach="stations" t-as="station" t-key="station['id']" t-att-data-station="station['id']">
+                    <tbody><tr t-foreach="stations" t-as="station" t-att-data-station="station['id']">
                         <td t-out="station['name']"/><td t-out="station['area']"/><td t-out="station['capabilities']"/>
                         <td><span t-out="station['reason']"/> <button t-if="station['can_enter']" type="button" t-att-data-operation="'switch' if own else 'enter'" t-att-data-station="station['id']"><t t-if="own">Switch to this idle workstation</t><t t-else="">Enter workstation</t></button></td>
                     </tr></tbody>
                 </table>
                 <h2>Accepted tasks</h2>
                 <table class="table"><thead><tr><th>Number / task</th><th>Area / capability</th><th>State</th><th>Missed</th><th>Opportunity</th><th>Staffing / action</th></tr></thead>
-                    <tbody><tr t-foreach="rows" t-as="row" t-key="row['entry'].id" t-att-data-entry="row['entry'].id" t-att-data-task="row['entry'].ydental_task_id.id">
+                    <tbody><tr t-foreach="rows" t-as="row" t-att-data-entry="row['entry'].id" t-att-data-task="row['entry'].ydental_task_id.id">
                         <t t-set="entry" t-value="row['entry']"/>
                         <td><t t-out="entry.ydental_number"/> / <t t-out="entry.ydental_task_id.id"/></td>
                         <td><t t-out="entry.ydental_area_id.name"/> / <t t-out="entry.ydental_capability_id.name"/></td><td class="queue-state" t-out="entry.state"/><td class="queue-missed" t-out="entry.ydental_task_id.ydental_missed_count"/>
