@@ -171,3 +171,19 @@ class TestClinicalDocument(TransactionCase):
         s._read(d['document_id']);d.update(s._operate('correct',save_args(d)|{'reason':'Synthetic corrected text'}))
         events=self.root['ydental.access.audit'].search([('ydental_target_model','=','ydental.clinical.document'),('ydental_target_id','=',d['document_id'])]).mapped('ydental_event')
         self.assertTrue({'clinical.view','clinical.save','clinical.confirm','clinical.correct'}<=set(events))
+
+    def test_shared_history_requires_purpose_current_relation_and_live_read(self):
+        s,q,l,e,d=opened(self);s._operate('save',save_args(d))
+        self.admin._grant(self.users['reader'].id,self.stores[1].id,{'medical':'read','export':'write'})
+        other=bind(self,self.users['reader'],self.stores[1]).env[s._name]
+        with self.assertRaises(AccessError):other._read(d['document_id'])
+        with self.assertRaises(AccessError):other._read(d['document_id'],'history_review')
+        front=bind(self,self.users['frontdesk'],self.stores[1])
+        front._operate('arrive',{'patient_id':e.ydental_patient_id.id},key())
+        self.assertEqual(other._read(d['document_id'],'history_review')['document_id'],d['document_id'])
+        scoped=other.env['ydental.access.service']._patient_care(e.ydental_patient_id.id,'history_review')
+        source=scoped.env['ydental.clinical.document'].browse(d['document_id'])
+        self.assertTrue(source.export_data(['ydental_content']))
+        with self.assertRaises(AccessError):other._operate('acquire',{'document_id':d['document_id']})
+        self.admin._grant(self.users['reader'].id,self.stores[1].id,{'medical':'none'})
+        with self.assertRaises(AccessError):source.read(['ydental_content'])

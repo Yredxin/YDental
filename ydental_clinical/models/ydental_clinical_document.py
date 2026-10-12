@@ -14,7 +14,7 @@ class YDentalClinicalDocument(models.Model):
     ydental_category = fields.Selection(default='medical', readonly=True)
     ydental_patient_id = fields.Many2one('ydental.patient', required=True, ondelete='restrict', index=True)
     ydental_execution_id = fields.Many2one('ydental.queue.execution', required=True, ondelete='restrict', index=True)
-    ydental_current_execution_id = fields.Many2one('ydental.queue.execution', ondelete='restrict', index=True)
+    ydental_current_execution_id = fields.Many2one('ydental.queue.execution', required=True, ondelete='restrict', index=True)
     ydental_author_id = fields.Many2one('res.users', required=True, ondelete='restrict')
     ydental_responsible_id = fields.Many2one('res.users', required=True, ondelete='restrict')
     ydental_version = fields.Integer(required=True, default=0, readonly=True)

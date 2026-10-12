@@ -280,7 +280,7 @@ class YDentalClinicalService(models.AbstractModel):
         return self._snapshot(doc)
 
     def _snapshot(self, doc):
-        return {'document_id': doc.id, 'execution_id': doc.ydental_current_execution_id.id, 'version': doc.ydental_version,
+        return {'document_id': doc.id, 'execution_id': doc.ydental_current_execution_id.id, 'source_execution_id': doc.ydental_execution_id.id, 'version': doc.ydental_version,
             'state': doc.state, 'content': doc.ydental_content, 'template': doc.ydental_template,
             'saved_at': fields.Datetime.to_string(doc.ydental_saved_at) if doc.ydental_saved_at else False,
             'responsible_id': doc.ydental_responsible_id.id}

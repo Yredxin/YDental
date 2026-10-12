@@ -192,6 +192,7 @@ if (root) {
     }
     setInterval(async () => {
         try {
+            if (saving) { return; }
             if (holder && Number(root.dataset.execution)) {
                 const response = await fetch('/ydental/queue/action', {method: 'POST', body: new URLSearchParams({
                     operation: 'heartbeat', revision: root.dataset.revision, connection,

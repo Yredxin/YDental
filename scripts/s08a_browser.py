@@ -171,7 +171,7 @@ def main():
             check('confirmed text correction appends version',int(p2.locator('#server-version').inner_text())==15)
             screenshot(p2,ctx2,'09-text-correction-new-version.png')
             p2.goto(base+'/ydental/clinical?document_id='+str(d2));check('D1 confirmation leaves D2 draft unconfirmed','草稿' in p2.locator('#text-state').inner_text())
-            check('D2 real segment continues serving','serving' in p2.inner_text('body') or '正在接诊' in p2.inner_text('body'))
+            check('D2 real segment continues serving',p2.locator('#execution-state').get_attribute('data-state')=='serving')
             readerctx,reader=login('reader');reader.goto(base+'/ydental/clinical?document_id='+str(d1));reader.locator('#open-document').click()
             reader.wait_for_function('document.querySelector("#clinical-result").textContent.includes("access_denied")')
             check('read-only medical user cannot edit',reader.locator('[name=chief_complaint]').is_disabled());screenshot(reader,readerctx,'10-readonly-medical-denied.png')
