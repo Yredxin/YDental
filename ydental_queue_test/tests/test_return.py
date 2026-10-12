@@ -225,7 +225,7 @@ class TestQueueReturn(TransactionCase):
         from odoo import fields
         catalog = self.catalogs[2]
         catalog._save({'ydental_kind': 'medicine'})
-        self.stations[0][2].write({'ydental_kind': 'pharmacy'})
+        self.stations[0][2].write({'ydental_kind': 'pharmacy', 'ydental_version': self.stations[0][2].ydental_version})
         self.admin._grant(self.users['doctor'].id, self.stores[0].id, {'pharmacy': 'write'})
         task = accepted(self, mapping=self.mappings[0][2])
         queue, lease = enter(self, station=self.stations[0][2])

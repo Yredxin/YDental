@@ -41,8 +41,13 @@ def report(cls, task):
 
 
 def close(cls, area=None):
-    cls.group.env['ydental.supply.service']._operate('business',
-        {'area_id': (area or cls.areas[0][0]).id, 'state': 'closed', 'reason': 'Synthetic B existing closed input'}, key())
+    # B consumes an existing S03 closed state. It does not test or implement C's
+    # draining/clear transition, whose lower hook remains fail-closed.
+    from ..models.adapter import guard
+    guard(cls.root)
+    supply = cls.group.env['ydental.supply.service']
+    record = supply._business_record(cls.stores[0], (area or cls.areas[0][0]).id)
+    record._save({'state': 'closed', 'ydental_reason': 'Guarded synthetic B closed input'})
 
 
 def appender(cls):
