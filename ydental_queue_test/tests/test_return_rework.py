@@ -66,7 +66,7 @@ class TestQueueReturnRework(TransactionCase):
         args['confirmed'] = True
         with self.assertRaises(AccessError):
             queue_bind(self, self.users['reader'])._operate('takeover_verify', args)
-        self.second.write({'ydental_capability_ids': []})
+        self.second.write({'ydental_capability_ids': [(6, 0, [])]})
         with self.assertRaises(AccessError):
             resolver._operate('takeover_verify', args)
         self.second.write({'ydental_capability_ids': [(6, 0, self.capabilities.ids)]})
@@ -112,6 +112,20 @@ class TestQueueReturnRework(TransactionCase):
             report(self, old.ydental_task_id)
         entry = queue._model('entry').search([('ydental_task_id', '=', old.ydental_task_id.id)])
         self.assertIn('hold_target_required', queue_bind(self, self.second)._hold_target_reason(care))
+        # A pre-existing/stale queue row must be blocked independently at call
+        # and start, even without going through today's report validation.
+        values = entry.copy_data()[0]
+        values.update(ydental_task_id=care.id, state='waiting', ydental_lease_id=False)
+        stale = queue._model('entry')._new(values)
+        other, other_lease = enter(self, queue_bind(self, self.second), self.other_station)
+        with self.assertRaises(UserError):
+            other._operate('call', lease_args(other_lease))
+        stale._save({'state': 'calling', 'ydental_lease_id': other_lease['lease_id']})
+        with self.assertRaises(AccessError):
+            other._operate('start', dict(lease_args(other_lease), entry_id=stale.id))
+        stale._save({'state': 'void', 'ydental_lease_id': False})
+        other._operate('exit', lease_args(other_lease))
+
         report(self, target)
         self.expire(queue, lease)
         with self.assertRaises(UserError):

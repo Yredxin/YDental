@@ -329,12 +329,26 @@ for held in (False, True):
         q._model('lease').browse(c['lease']['lease_id'])._save({'ydental_expires_at': q._now() - timedelta(seconds=1)})
         q._expire()
     fresh(expire_source)
-    operation = 'handover_verify_hold' if held else 'takeover_verify'
+    def resolver_employee(q):
+        root = q.env['base'].sudo().env
+        user = new_test_user(root, name='S06B onsite resolver', login='s06b_' + key(),
+                             password='s06b-synthetic-only', groups='ydental_base.ydental_base_group_user')
+        q.env['ydental.access.service']._join(user.id, store_id)
+        q.env['ydental.access.service']._grant(user.id, store_id, {'medical': 'write'})
+        user.write({'ydental_capability_ids': [fields.Command.set(root['ydental.intake.mapping'].browse(maps).ydental_catalog_id.ydental_capability_id.ids)]})
+        role = 'onsite_' + key()
+        users[role] = user.id
+        intake = bind(SimpleNamespace(root=root, stores=root['ydental.access.store'].browse(store_id)), user)
+        sessions[role] = [intake.env['ydental.access.service']._scope().id]
+        connections[role] = [key() + key()]
+        return role
+    resolver = fresh(resolver_employee)
+    operation = 'handover_verify_hold' if held else 'takeover_verify' 
     payload = {'execution_id': c['execution'], 'confirmed': True, 'reason': 'Two qualified people physically inspecting original station'}
     # The original actor and a distinct qualified employee both attempt the
     # same original station, with different server sessions/connections.
     output = parallel([(c['doctor'], 0, lambda q: q._operate(operation, payload)),
-                       ('second', 0, lambda q: q._operate(operation, payload))])
+                       (resolver, 0, lambda q: q._operate(operation, payload))])
     winners = [v['value'] for v in output if 'rejected' not in v['value']]
     assert len(winners) == 1
     new_lease = winners[0]['lease_id']
@@ -434,6 +448,47 @@ with registry.cursor() as cr:
     cr.commit()
 private(run / 'access-b.json', browser_access)
 private(run / 'preview-b.json', browser_cases)
+# Dedicated rework UI fixtures. Their source and time transitions are trusted
+# synthetic setup, never an HTTP force-release or client source declaration.
+from odoo.addons.ydental_queue_test.tests.return_common import serving as ui_serving, reserve as ui_reserve, source as ui_source, external as ui_external
+rework_access, rework_cases = {}, {}
+with registry.cursor() as cr:
+    for kind in ('verify_execution', 'verify_hold', 'hold_targets', 'revoked_reopen'):
+        f = SimpleNamespace(env=api.Environment(cr, 1, {}))
+        setup(f)
+        if kind == 'revoked_reopen':
+            task = accepted(f)
+            close(f)
+            app = appender(f)
+            permit = app._operate('append', {'task_id': task.id, 'reason': 'UI historical closed append'})
+            app._operate('revoke', {'permit_id': permit['permit_id'], 'reason': 'UI exception revoked'})
+            app.env['ydental.supply.service']._business_record(f.stores[0], f.areas[0][0].id)._save({'state': 'open'})
+            c = {'task': task.id, 'permit': permit['permit_id']}
+        else:
+            q, lease, execution = ui_serving(f)
+            ui_source(q, execution)
+            c = {'task': execution.ydental_task_id.id, 'execution': execution.id}
+            if kind != 'verify_execution':
+                hold, target = ui_reserve(f, q, lease, execution)
+                c.update(hold=hold.id, target=target.id)
+                if kind == 'hold_targets':
+                    care = ui_external(f, execution, f.mappings[0][0], independent=True)
+                    extra = ui_external(f, execution)
+                    untrusted = ui_external(f, execution)
+                    ui_source(q, execution, extra)
+                    c.update(care=care.id, extra=extra.id, untrusted=untrusted.id)
+            if kind.startswith('verify'):
+                execution.ydental_lease_id._save({'ydental_expires_at': q._now() - timedelta(seconds=1)})
+                q._timeout()
+        c.update(store=f.stores[0].id, station=f.stations[0][0].id, exam_station=f.stations[0][2].id)
+        rework_cases[kind] = c
+        for role in ('doctor', 'frontdesk', 'second'):
+            user = f.second if role == 'second' else f.users[role]
+            user.password = 's06b-ui-synthetic-only'
+            rework_access[kind + '_' + role] = {'id': user.id, 'login': user.login, 'password': 's06b-ui-synthetic-only'}
+    cr.commit()
+private(run / 'access-rework.json', rework_access)
+private(run / 'preview-rework.json', rework_cases)
 result.update(result='PASS', deadlocks=0)
 save_attempt()
 print(json.dumps({'result': 'PASS', 'races': len(result['races']), 'a_regression_races': 21, 'deadlocks': 0}))
