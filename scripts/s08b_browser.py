@@ -125,7 +125,26 @@ def main():
             def submit(form):
                 with page.expect_navigation(wait_until='domcontentloaded'):form.locator('button[type=submit]').click()
                 page.wait_for_function('document.querySelector("form").dataset.key')
-            fill_project();submit(form)
+            fill_project()
+            held=[]
+            def hold(route):
+                from urllib.parse import parse_qs
+                data=parse_qs(route.request.post_data);response=route.fetch()
+                held.append({'route':route,'response':response,'payload':json.loads(data['payload'][0])})
+            page.route('**/ydental/treatment/action',hold)
+            form.locator('button[type=submit]').click()
+            for _ in range(200):
+                page.wait_for_timeout(30)
+                if held:break
+            require(held and held[0]['response'].status==200,'real committed execute response barrier')
+            check('actual confirmation freezes every editable control while response held',page.locator('input:enabled,select:enabled,button:enabled').count()==0)
+            form.locator('[name=reason]').evaluate("el=>{el.value='响应期间程序改变的未提交内容'}")
+            held[0]['route'].fulfill(response=held[0]['response']);page.unroute('**/ydental/treatment/action',hold)
+            page.wait_for_function('!document.querySelector("#treatment-reconcile").hidden')
+            check('full form change preserves uncertain page and forbids automatic replay',form.locator('[name=reason]').input_value()=='响应期间程序改变的未提交内容' and form.locator('button').is_disabled())
+            screenshot(page,ctx,'B00-real-response-held-unsynchronized.png')
+            page.reload();page.wait_for_function('document.querySelector("form").dataset.key')
+            first_payload=held[0]['payload']
             check('F1 actual event confirmed with frozen600 and native move',page.locator('[data-event]').count()==1 and '600' in page.locator('.frozen-price').inner_text() and page.locator('.native-moves').inner_text() not in ('[]',''))
             first_event=int(page.locator('[data-event]').get_attribute('data-event'));result['first_event']=first_event
             screenshot(page,ctx,'B01-actual-project-600-native-move.png')
@@ -186,11 +205,11 @@ def main():
             check('seventh unit rejected and page retained for reconciliation',pharm.locator('#treatment-reconcile').is_visible());screenshot(pharm,pharmctx,'B10-seventh-unit-rejected.png');pharm.reload();finish()
             check('F3 complete without third pending segment',pharm.locator('article[data-order="%s"] [data-segment]'%rxid).count()==2)
             screenshot(pharm,pharmctx,'B11-prescription-complete-original-sources.png')
-            # Real response barrier: a committed order response is dropped; UI freezes and never replays.
             page.goto(base+'/ydental/clinical?document_id='+str(d1));open_editor(page);page.locator('[name=history]').fill('D1补文字不生成第二次费用');version(page,5)
-            check('posthandover actual execute denied without current serving',True)
+            denied=page.evaluate('''async payload=>{let r=await fetch('/ydental/treatment/action',{method:'POST',body:new URLSearchParams({operation:'execute',revision:document.querySelector('main').dataset.revision,connection:sessionStorage.getItem('ydental_queue_connection'),key:crypto.randomUUID(),csrf_token:odoo.csrf_token,payload:JSON.stringify(payload)})});return r.status}''',first_payload)
+            check('posthandover actual execute denied without current serving',denied in (403,409))
             readerctx,reader=login('reader');reader.goto(base+'/ydental/treatment');check('read-only workbench accessible',reader.locator('main.o_ydental_treatment').count()==1)
-            r=reader.evaluate('''async ()=>{const root=document.querySelector('main');let r=await fetch('/ydental/treatment/action',{method:'POST',body:new URLSearchParams({operation:'execute',revision:root.dataset.revision,connection:'a'.repeat(64),key:crypto.randomUUID(),csrf_token:odoo.csrf_token,payload:'{}'})});return r.status}''');check('read-only cannot execute via HTTP',r in (403,409));screenshot(reader,readerctx,'B12-readonly-boundary.png')
+            r=reader.evaluate('''async payload=>{const root=document.querySelector('main');let r=await fetch('/ydental/treatment/action',{method:'POST',body:new URLSearchParams({operation:'execute',revision:root.dataset.revision,connection:'a'.repeat(64),key:crypto.randomUUID(),csrf_token:odoo.csrf_token,payload:JSON.stringify(payload)})});return r.status}''',first_payload);check('read-only cannot execute via HTTP',r==403);screenshot(reader,readerctx,'B12-readonly-boundary.png')
             check('zero browser page errors',not errors)
             result.update(result='PASS',pageerrors=errors)
         except Exception as error:

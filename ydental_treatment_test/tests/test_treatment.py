@@ -246,3 +246,24 @@ class TestActualTreatment(TransactionCase):
             last=p._operate('dispense',args|{'line_id':issued['line_ids'][0],'lot_id':self.lots['medicine'],'quantity':2,'source':key(),'reason':'Actual next-day two','policy':'demo_confirmation'},key())
             self.assertEqual(last['remaining'],0)
             self.assertEqual(p._operate('finish',args|{'reason':'End second-day dispensing'},key())['order_state'],'done')
+
+    def test_referral_target_closed_and_expiry_preserve_source_without_capacity(self):
+        s,c,q,l,e,d,a=opened_actual(self)
+        target=bind(self,self.users['manager'],self.stores[1]);supply=target.env['ydental.supply.service']
+        for state in ('draining','closed'):
+            supply._operate('business',{'area_id':self.areas[1][0].id,'version':supply._business_record(self.stores[1],self.areas[1][0].id).ydental_version,'state':state,'reason':'Target explicitly stopped intake'},key())
+        before=self.root['ydental.supply.claim'].search_count([])
+        with self.assertRaises(UserError):s._operate('refer',a|{'mode':'timed','mapping_id':self.mappings[1][0].id,'reason':'Closed target must fail','start':str(self.start),'end':str(self.end),'source':key()},key())
+        self.assertEqual(self.root['ydental.supply.claim'].search_count([]),before);self.assertEqual(e.state,'serving')
+        with self.assertRaises(UserError):s._operate('refer',a|{'mode':'untimed','mapping_id':self.mappings[1][0].id,'reason':'Expired target must fail','valid_until':str(fields.Datetime.now()-timedelta(minutes=1)),'source':key()},key())
+        self.assertEqual(self.root['ydental.supply.claim'].search_count([]),before)
+
+    def test_cross_legal_entity_referral_needs_explicit_source_account_authority(self):
+        s,c,q,l,e,d,a=opened_actual(self)
+        company=self.root['res.company'].create({'name':'Synthetic independent B legal entity'})
+        store=self.root['ydental.access.store'].create({'name':'Synthetic independent B store '+key(),'company_id':company.id,'ydental_timezone':'UTC'})
+        floor=self.root['ydental.space.floor'].create({'name':'Synthetic B floor','ydental_store_id':store.id})
+        area=self.root['ydental.space.area'].create({'name':'Synthetic B area','ydental_store_id':store.id,'ydental_floor_id':floor.id,'ydental_purpose':'care'})
+        mapping=self.root['ydental.intake.mapping']._new({'name':'Synthetic B legal target','ydental_store_id':store.id,'ydental_category':'frontdesk','ydental_catalog_id':self.catalogs[0].id,'ydental_area_id':area.id,'ydental_execution_area_id':area.id})
+        with self.assertRaises(AccessError):s._operate('refer',a|{'mode':'untimed','mapping_id':mapping.id,'reason':'No source account legal authority','valid_until':str(fields.Datetime.now()+timedelta(days=1)),'source':key()},key())
+        self.assertFalse(self.root['ydental.intake.referral'].search_count([('ydental_target_store_id','=',store.id)]))
