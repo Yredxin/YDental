@@ -186,7 +186,8 @@ class YDentalTreatmentService(models.AbstractModel):
                already_performed=False, kind='treatment', line=None, parent=None):
         if not isinstance(source, str) or not 1 <= len(source) <= 120 or type(already_performed) is not bool:
             raise ValidationError(self.env._('invalid_source: Supply a stable source identifier and explicit fact status.'))
-        quantity = self._quantity(quantity, catalog.ydental_product_id.uom_id, signed=kind == 'correction')
+        if not (kind == 'correction' and type(quantity) in (int, float) and quantity == 0 and rows):
+            quantity = self._quantity(quantity, catalog.ydental_product_id.uom_id, signed=kind == 'correction')
         reason = self.env['ydental.intake.service']._text(reason)
         rows = self._material_rows(rows, execution.ydental_category, execution.ydental_store_id)
         digest = fingerprint([execution.id, catalog.id, quantity, reason, rows, doc.id if doc else False,
@@ -325,7 +326,8 @@ class YDentalTreatmentService(models.AbstractModel):
         if parent.ydental_patient_id != execution.ydental_patient_id or parent.ydental_kind not in ('treatment', 'chairside') or parent.state != 'confirmed':
             raise UserError(self.env._('correction_required: Select a confirmed treatment source for this patient.'))
         self._project(execution, parent.ydental_catalog_id.id)
-        self._quantity(delta, parent.ydental_uom_id, signed=True)
+        if not (type(delta) in (int, float) and delta == 0 and materials):
+            self._quantity(delta, parent.ydental_uom_id, signed=True)
         corrections = self._model('event').search([('ydental_parent_id', '=', parent.id)])
         prior = corrections.filtered(lambda e: e.ydental_source == source)
         net = parent.ydental_quantity + sum((corrections - prior).mapped('ydental_quantity')) + delta

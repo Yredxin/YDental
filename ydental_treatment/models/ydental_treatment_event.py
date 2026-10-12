@@ -28,4 +28,4 @@ class YDentalTreatmentEvent(models.Model):
     ydental_pending_reason = fields.Char()
     state = fields.Selection([('pending', 'Fact awaiting reconciliation'), ('confirmed', 'Fee and stock confirmed')], required=True, default='pending')
     _source_once = models.Constraint('UNIQUE(ydental_store_id, ydental_source)', 'A clinical source executes once.')
-    _quantity_nonzero = models.Constraint('CHECK(ydental_quantity <> 0)', 'An execution quantity cannot be zero.')
+    _quantity_nonzero = models.Constraint("CHECK(ydental_quantity <> 0 OR ydental_kind = 'correction')", 'Only a material correction may leave the project quantity unchanged.')

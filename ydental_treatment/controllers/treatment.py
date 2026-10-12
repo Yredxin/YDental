@@ -47,7 +47,8 @@ class YDentalTreatment(http.Controller):
             ('ydental_store_id', '!=', store.id), ('ydental_store_id.company_id', 'in', service.env.user.sudo().company_ids.ids), ('active', '=', True)]) if role == 'medical' else []
         batches = service.env['ydental.inventory.service']._model('batch').search(domain)
         lots = batches.ydental_lot_id
-        products = service.env['product.product'].sudo().search([('ydental_inventory_kind', '=', 'medicine'), ('active', '=', True)]) if role == 'medical' else []
+        products = service.env['product.product'].sudo().search([('ydental_inventory_kind', '=', 'medicine'),
+            ('company_id', 'in', [False, store.company_id.id]), ('active', '=', True)]) if role == 'medical' else []
         for order in orders:
             service._audit('order_view', order)
         for event in events:
