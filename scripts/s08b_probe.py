@@ -31,10 +31,21 @@ def fixture(kind):
         f=SimpleNamespace(env=api.Environment(cr,1,{}));setup(f)
         s,c,q,l,e,d,a=opened_actual(f)
         info={'patient_id':e.ydental_patient_id.id,'execution_id':e.id,'store_id':e.ydental_store_id.id,'kind':kind,'sources':[]}
-        if kind.startswith('dispense') or kind.startswith('finish') or kind=='restore_vs_pharmacy_start':
+        if kind.startswith('dispense') or kind.startswith('finish') or kind in ('restore_vs_pharmacy_start','two_pharmacy_stations_call'):
             receive(f,20,'medicine');price(f,catalog=f.drug_catalog,amount=10)
             issued=prescription(f,s,a);info.update(order_id=issued['order_id'],line_id=issued['line_ids'][0])
-            if kind=='restore_vs_pharmacy_start':
+            if kind=='two_pharmacy_stations_call':
+                from odoo.tests import new_test_user
+                c._operate('handover',handover_args(d,l))
+                task=f.root['ydental.intake.task'].browse(issued['task_ids'][0]);f.front._operate('arrive',{'patient_id':task.ydental_patient_id.id},key());f.front._operate('report',{'task_id':task.id,'version':task.ydental_version},key())
+                second=new_test_user(f.root,name='Synthetic second pharmacist',login='s08b_second_pharm_'+key(),groups='ydental_base.ydental_base_group_user')
+                f.admin._join(second.id,f.stores[0].id);f.admin._grant(second.id,f.stores[0].id,{'pharmacy':'write'})
+                second.write({'ydental_capability_ids':[fields.Command.set(f.capabilities[0].ids)]})
+                station=f.pharmacy_station.copy({'name':'Synthetic second pharmacy station'})
+                one=queue_bind(f,f.pharmacist);one_lease=one._operate('enter',{'station_id':f.pharmacy_station.id})
+                two=queue_bind(f,second);two_lease=two._operate('enter',{'station_id':station.id})
+                jobs=[job(one,'call',lease_args(one_lease)),job(two,'call',lease_args(two_lease))]
+            elif kind=='restore_vs_pharmacy_start':
                 hold=q._operate('reserve',lease_args(l)|{'execution_id':e.id,'target_task_id':issued['task_ids'][0]})
                 task=f.root['ydental.intake.task'].browse(issued['task_ids'][0]);f.front._operate('arrive',{'patient_id':task.ydental_patient_id.id},key());f.front._operate('report',{'task_id':task.id,'version':task.ydental_version},key())
                 pq=queue_bind(f,f.pharmacist);pl=pq._operate('enter',{'station_id':f.pharmacy_station.id});called=pq._operate('call',lease_args(pl))
@@ -81,6 +92,11 @@ def fixture(kind):
                 f.stock._operate('recover',{'event_id':pending['inventory_event_ids'][0],'reason':'Evidenced correction of original pending fact'},key())
                 rec={'event_id':pending['event_id'],'reason':'Concurrent recheck original clinical fact'}
                 jobs=[job(s,'reconcile',rec),job(s,'reconcile',rec)];info['event_id']=pending['event_id']
+            elif kind=='price_publish_vs_execute':
+                old=f.root['ydental.intake.price'].search([('ydental_store_id','=',f.stores[0].id),('ydental_catalog_id','=',f.catalogs[0].id),('state','=','published')],limit=1)
+                revised=f.group._operate('price',{'catalog_id':f.catalogs[0].id,'currency_id':f.currency.id,'unit_price':999,'start':fields.Datetime.to_string(fields.Datetime.now()-timedelta(days=1)),'end':fields.Datetime.to_string(fields.Datetime.now()+timedelta(days=30)),'reason':'Synthetic revised published quote'},key())
+                revised=f.group._operate('review',{'record_id':revised['id'],'version':revised['version'],'reason':'Reviewed next quote'},key())
+                jobs=[job(s,'execute',args),job(f.group,'publish',{'record_id':revised['id'],'version':revised['version'],'replace_id':old.id,'replace_version':old.ydental_version,'reason':'Publish changed price concurrently'})];info['sources']=[args['source']]
             elif kind=='revocation_vs_execute':
                 jobs=[job(s,'execute',args),job(f.admin,'grant',{'user_id':f.users['doctor'].id,'store_id':f.stores[0].id,'levels':{'medical':'read'}})];info['sources']=[args['source']]
             else:
@@ -139,17 +155,19 @@ def race(kind,round_number):
     assert all('initial_backend_pid' in o for o in outcomes),outcomes
     assert outcomes[0]['initial_backend_pid']!=outcomes[1]['initial_backend_pid'],outcomes
     states=sorted(o['result'] for o in outcomes)
-    both=('execute_same','missing_price_fact','recover_original','dispense_same_source','finish_same_key','referral_same_source')
-    assert states==(['accepted','accepted'] if kind in both else ['rejected','rejected'] if kind=='native_move_failure' else ['accepted','rejected']),(kind,states,outcomes)
+    both=('execute_same','missing_price_fact','recover_original','dispense_same_source','finish_same_key','referral_same_source','price_publish_vs_execute')
+    if kind=='revocation_vs_execute':assert states in (['accepted','accepted'],['accepted','rejected']),outcomes
+    else:assert states==(['accepted','accepted'] if kind in both else ['rejected','rejected'] if kind=='native_move_failure' else ['accepted','rejected']),(kind,states,outcomes)
     with env.registry.cursor() as cr:
         r=api.Environment(cr,1,{})
         unresolved=r['ydental.queue.execution'].search_count([('ydental_patient_id','=',info['patient_id']),('state','in',('serving','verify'))]);assert unresolved<=1
         if info['sources'] and not kind.startswith('dispense'):
             events=r['ydental.treatment.event'].search([('ydental_store_id','=',info['store_id']),('ydental_source','in',info['sources'])])
-            assert len(events)==(0 if kind=='native_move_failure' else 1),(kind,events.ids)
+            assert len(events)==(0 if kind=='native_move_failure' or kind=='revocation_vs_execute' and outcomes[0]['result']=='rejected' else 1),(kind,events.ids)
             for event in events:
                 fees=r['ydental.treatment.fee'].search([('ydental_event_id','=',event.id)])
                 assert len(fees)==(0 if kind=='missing_price_fact' else 1)
+                if kind=='price_publish_vs_execute':assert fees.ydental_unit_price in (600,999)
         if 'order_id' in info:
             segment=r['ydental.treatment.segment'].search([('ydental_order_id','=',info['order_id']),('state','in',('pending','active'))]);assert len(segment)<=1
             events=r['ydental.treatment.event'].search([('ydental_order_line_id','=',info['line_id'])]);assert sum(events.mapped('ydental_quantity'))<=6
@@ -165,7 +183,7 @@ def race(kind,round_number):
 try:
     for kind in ('execute_same','execute_changed','old_lease','shortage_last_unit','missing_price_fact','recover_original',
         'native_move_failure','dispense_distinct_four','dispense_same_source','finish_same_key','finish_distinct_keys',
-        'restore_vs_pharmacy_start','exam_cancel_vs_report','timed_last_capacity','untimed_accept','referral_same_source'):
+        'restore_vs_pharmacy_start','exam_cancel_vs_report','timed_last_capacity','untimed_accept','referral_same_source','price_publish_vs_execute','revocation_vs_execute','two_pharmacy_stations_call'):
         race(kind,1)
     result['result']='PASS'
 except Exception as error:
