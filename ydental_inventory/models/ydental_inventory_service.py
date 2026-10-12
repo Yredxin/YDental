@@ -340,7 +340,15 @@ class YDentalInventoryService(models.AbstractModel):
             raise UserError(self.env._('inventory_conflict: Resolve reservations and owned stock before counting.'))
         delta = count - sum(quants.mapped('quantity'))
         if lot.product_id.uom_id.is_zero(delta):
-            return {'state': 'unchanged', 'counted': count}
+            event = self._model('event')._new({'name': 'inventory', 'ydental_store_id': store.id,
+                'ydental_source_namespace': 'warehouse', 'ydental_source_key': self._text(source_key), 'ydental_kind': 'inventory',
+                'ydental_fingerprint': count_digest, 'ydental_count_fingerprint': count_digest,
+                'ydental_product_id': lot.product_id.id, 'ydental_lot_id': lot.id, 'ydental_quantity': 0,
+                'ydental_input_quantity': counted, 'ydental_uom_id': unit.id, 'ydental_unit_snapshot': precision,
+                'ydental_from_id': location.id, 'ydental_to_id': location.id, 'ydental_reason': self._text(reason),
+                'ydental_responsible_id': self.env.uid, 'ydental_actor_id': self.env.uid,
+                'ydental_actual_at': self._now(), 'state': 'observed'})
+            return {'id': event.id, 'state': 'observed', 'counted': count}
         event = self._event(store, 'warehouse', source_key, 'inventory', lot, abs(delta), lot.product_id.uom_id.id,
             config.ydental_loss_id if delta > 0 else location, location if delta > 0 else config.ydental_loss_id, reason)
         event._save({'ydental_count_fingerprint': count_digest})

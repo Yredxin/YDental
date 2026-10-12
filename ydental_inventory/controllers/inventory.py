@@ -13,10 +13,22 @@ class YDentalInventory(http.Controller):
         session = access._session_for_key(request.session.sid[:42])
         return access._bind(session, revision).env['ydental.inventory.service']
 
+    def _labels(self, env):
+        return {'state_labels': {'pending': env._('Pending reconciliation'), 'done': env._('Stock confirmed'),
+            'observed': env._('Count matched; no stock movement')},
+            'kind_labels': {'medicine': env._('Medicine'), 'material': env._('Material'), 'prosthesis': env._('Prosthesis'),
+                'receipt': env._('Receipt'), 'replenishment': env._('Replenishment'), 'treatment': env._('Treatment consumption'),
+                'chairside': env._('Chairside medicine'), 'prescription': env._('Take home prescription'),
+                'inventory': env._('Inventory correction'), 'transfer': env._('Same company transfer'),
+                'return': env._('Physical return'), 'verification': env._('Return verification')},
+            'flag_labels': {'expired': env._('Expired'), 'disabled': env._('Disabled'), 'low': env._('Low stock'),
+                'near': env._('Near expiry'), 'collection': env._('Awaiting collection')}}
+
     @http.route('/ydental/inventory', type='http', auth='user', methods=['GET'])
     def dashboard(self, **kwargs):
         service = self._service()
         values = service._dashboard()
+        values.update(self._labels(service.env))
         access = service.env['ydental.access.service']
         values.update(revision=access._scope().ydental_revision, key=lambda: secrets.token_hex(16),
             can_write=access._levels(access._membership(service.env.uid, values['store'].id))['warehouse'] == 'write',
@@ -29,6 +41,7 @@ class YDentalInventory(http.Controller):
     def catalog(self, **kwargs):
         service = self._service()
         values = service._dashboard(catalog=True)
+        values.update(self._labels(service.env))
         access = service.env['ydental.access.service']
         values.update(revision=access._scope().ydental_revision, key=lambda: secrets.token_hex(16), can_write=False,
             can_catalog=True, units=service.env['uom.uom'].sudo().search([('active', '=', True)], limit=200), stores=[])
@@ -41,8 +54,10 @@ class YDentalInventory(http.Controller):
             args = json.loads(payload) if payload is not None else self._form(operation, form)
             result = service._operate(operation, args, key)
         except (AccessError, UserError, ValueError, TypeError, KeyError) as error:
-            return request.make_json_response({'error': str(error)}, status=403 if isinstance(error, AccessError) else 409,
-                headers=[('Cache-Control', 'no-store')])
+            status = 403 if isinstance(error, AccessError) else 409
+            if output == 'json':
+                return request.make_json_response({'error': str(error)}, status=status, headers=[('Cache-Control', 'no-store')])
+            return request.render('ydental_inventory.ydental_inventory_error', {'message': str(error)}, status=status, headers=[('Cache-Control', 'no-store')])
         if output == 'json':
             return request.make_json_response(result, headers=[('Cache-Control', 'no-store')])
         return request.redirect('/ydental/inventory/catalog' if operation in ('product', 'product_edit') and not service.env['ydental.access.service']._levels(

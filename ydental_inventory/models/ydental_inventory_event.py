@@ -32,6 +32,6 @@ class YDentalInventoryEvent(models.Model):
     ydental_fee_reference = fields.Char(string='Original fee association')
     ydental_actual_at = fields.Datetime(required=True, string='Actual source time')
     ydental_synthetic = fields.Boolean(string='Synthetic validation source')
-    state = fields.Selection([('pending', 'Pending reconciliation'), ('done', 'Stock confirmed')], required=True, default='done')
+    state = fields.Selection([('pending', 'Pending reconciliation'), ('done', 'Stock confirmed'), ('observed', 'Count matched; no stock movement')], required=True, default='done')
 
     _source_unique = models.Constraint('UNIQUE(ydental_store_id, ydental_source_namespace, ydental_source_key)', 'An inventory source is applied once.')

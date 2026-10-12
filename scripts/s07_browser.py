@@ -158,11 +158,11 @@ def main():
             pending=preview['pending'];scope='[data-event="%s"]'%pending
             form=fill(page,'recover',{'reason':'Still missing real stock'},scope);submit(page,form,False)
             check('F3 no stock recovery refuses','insufficient_balance' in page.locator('body').inner_text())
-            go(page);check('F3 original pending source remains visible',page.locator(scope+' .event-state').inner_text()=='pending')
+            go(page);check('F3 original pending source remains visible',page.locator(scope+' .event-state').get_attribute('data-state')=='pending')
             shot(page,ctx,'05-pending-original-responsible.png',scope)
             form=fill(page,'receive',{'lot_id':preview['material'],'quantity':5,'uom_id':u,'source_key':'firefox-correction-'+args.db,'reason':'Real receipt evidence for reconciliation'});submit(page,form)
             form=fill(page,'recover',{'reason':'Recover original synthetic source after real correction'},scope);submit(page,form)
-            check('F3 original event confirmed once',page.locator(scope+' .event-state').inner_text()=='done')
+            check('F3 original event confirmed once',page.locator(scope+' .event-state').get_attribute('data-state')=='done')
             check('F3 material remaining three',float(page.locator('[data-lot="%s"] .available'%preview['material']).inner_text())==3)
             shot(page,ctx,'06-original-event-recovered.png',scope)
             # Native access and patient/attachment boundaries from Firefox session.
@@ -182,7 +182,7 @@ def main():
             check('T09 scan remains unsupported without S11','unsupported_source' in page.locator('body').inner_text() and 'false' in page.locator('body').inner_text())
             shot(page,ctx,'09-scan-failclosed.png')
             go(page);row=page.locator('[data-lot="%s"]'%preview['prosthesis'])
-            check('T09 prosthesis collection starts at actual receipt',row.inner_text().find('collection')>=0 and row.inner_text().find('2026')>=0)
+            check('T09 prosthesis collection starts at actual receipt','collection' in row.locator('[data-flags]').get_attribute('data-flags') and row.inner_text().find('2026')>=0)
             shot(page,ctx,'10-prosthesis-receipt-alert.png','table')
             result['pageerror_count']=len(errors);check('Firefox pageerror zero',not errors)
             result['result']='PASS'

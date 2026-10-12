@@ -202,3 +202,43 @@ class TestInventory(TransactionCase):
             with self.assertRaises(AccessError): rec.write({'ydental_store_id': self.stores[1].id})
             with self.assertRaises(AccessError): rec.unlink()
         with self.assertRaises(AccessError): self.stock._config(self.stores[0]).write({'ydental_low_quantity': 0})
+
+    def test_t06_real_s05_repricing_keeps_original_demo_snapshot(self):
+        intake=self.group.env['ydental.intake.service'];now=fields.Datetime.now()
+        capability=self.root['ydental.access.capability'].create({'name':'S07 synthetic treatment price','ydental_code':'s07_'+key()})
+        catalog=intake._operate('catalog',{'code':key(),'name':'S07 demo treatment catalog','kind':'care','capability_id':capability.id,'uom_id':self.uom.id},key())['id']
+        def publish(amount,previous=None):
+            p=intake._operate('price',{'catalog_id':catalog,'currency_id':self.root.company.currency_id.id,'unit_price':amount,
+                'start':fields.Datetime.to_string(now-timedelta(days=1)),'end':fields.Datetime.to_string(now+timedelta(days=30)),'reason':'S07 synthetic actual S05 price'},key())
+            p=intake._operate('review',{'record_id':p['id'],'version':p['version'],'reason':'S07 review'},key())
+            args={'record_id':p['id'],'version':p['version'],'reason':'S07 publish'}
+            if previous:
+                old=self.root['ydental.intake.price'].browse(previous);args.update(replace_id=old.id,replace_version=old.ydental_version)
+            return intake._operate('publish',args,key())['id']
+        first=publish(20)
+        snap=intake._operate('snapshot',{'catalog_id':catalog,'currency_id':self.root.company.currency_id.id,'quantity':2,'source':'S07-original-'+key(),'policy':'demo_confirmation'},key())['id']
+        doctor=bind(self,self.users['doctor'])
+        source=SyntheticSource(self.users['doctor'].id,self.stores[0].id,key(),'treatment',self.lots['material'],2,self.uom.id,already_performed=True,snapshot_id=snap)
+        event=self.root['ydental.inventory.event'].browse(doctor._source_action(source)['id'])
+        second=publish(99,first);self.assertNotEqual(second,first)
+        receive(self,5,self.lots['material']);op(self,'recover',event_id=event.id,reason='Real correction after actual S05 reprice')
+        self.assertEqual(event.ydental_price_snapshot['unit_price'],20);self.assertEqual(event.ydental_price_snapshot['version'],str(first));self.assertEqual(event.ydental_price_snapshot['snapshot_id'],snap)
+        self.assertEqual(doctor._source_action(source)['id'],event.id);self.assertEqual(quantity(self,self.lots['material']),3)
+
+    def test_t08_zero_delta_count_retains_source_and_retry(self):
+        receive(self,2);source=key()
+        args={'lot_id':self.lots['medicine'],'counted':2,'uom_id':self.uom.id,'source_key':source,'reason':'Physical count matches current stock'}
+        first=op(self,'inventory',args);retry=op(self,'inventory',args)
+        self.assertEqual(first['id'],retry['id']);event=self.root['ydental.inventory.event'].browse(first['id'])
+        self.assertEqual(event.state,'observed');self.assertFalse(event.ydental_move_id);self.assertEqual(quantity(self),2)
+
+    def test_t04_used_unit_conversion_and_unrelated_issue_unit_rejected(self):
+        with self.assertRaises(AccessError):self.pack.write({'relative_factor':12})
+        with self.assertRaises(ValidationError):op(self,'product',service=self.group,code=key(),name='Invalid dimensions',kind='medicine',stock_uom_id=self.uom.id,issue_uom_id=self.root.ref('uom.product_uom_hour').id,step=0.01,specification='Synthetic invalid unit')
+
+    def test_t06_already_performed_disabled_batch_keeps_pending_fact(self):
+        receive(self,2,self.lots['material'])
+        op(self,'lot_edit',lot_id=self.lots['material'],enabled=False,reason='Actual stop after performance')
+        doctor=bind(self,self.users['doctor']);source=SyntheticSource(self.users['doctor'].id,self.stores[0].id,key(),'treatment',self.lots['material'],1,self.uom.id,already_performed=True)
+        event=doctor._source_action(source);self.assertEqual(event['state'],'pending');self.assertFalse(event['move_id'])
+        self.assertEqual(quantity(self,self.lots['material']),2)
