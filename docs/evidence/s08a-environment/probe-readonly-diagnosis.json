@@ -93,5 +93,6 @@
     91,
     93
   ],
-  "cannot_reconstruct_full_historical_interleaving": true
+  "cannot_reconstruct_full_historical_interleaving": true,
+  "candidate_list_exhaustive": false
 }

@@ -32,5 +32,7 @@
   "hypothesis": "Final pooled backend PID reuse after serialization retry may hit line79; not confirmed",
   "current_fixed_test": "e8b2247609e51d7fbe268b94082e8fd3259db9d3",
   "current_initial_backend_barrier": true,
-  "fix_validated_by_full16": false
+  "fix_validated_by_full16": false,
+  "candidate_list_exhaustive": false,
+  "additional_helper_candidate": "ydental_clinical_test/tests/common.py:170 serving assertion; inner stack absent so helper/callee assertions cannot be completely excluded"
 }

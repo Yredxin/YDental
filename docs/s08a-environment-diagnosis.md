@@ -57,7 +57,7 @@ SQL只读连接显示3个idle client和本次1个active诊断client，后台为l
 
 失败库`ydental_s08a_test_20261012124648_038d989e`，OID1103407，commit `1bec52a970f497a1c01d5be98f1e4919bcd907d1`；原probe退出1。原[七组完整成功轨迹](evidence/s08a/probe-attempts/ydental_s08a_test_20261012124648_038d989e-20261012T124939174051.json)依次为versions×2、editors×2、handover_save×2、continuation×1。按原循环，第八组是continuation第2轮。
 
-旧source的裸断言候选为line79末次backend PID不同、line90后继≤1、line91版本条数一致、line93续诊后继/交还/编辑释放；line80有详细错误消息，与原空detail不符。原catch line103仅保存type/detail，未保留内层traceback；外层line108只报告总体失败。因此**不能恢复准确触发行或第八组双方完整竞争轨迹**。
+旧source的裸断言候选为line79末次backend PID不同、line90后继≤1、line91版本条数一致、line93续诊后继/交还/编辑释放；line80有详细错误消息，与原空detail不符。原catch line103仅保存type/detail，未保留内层traceback；外层line108只报告总体失败。候选列表不是完整调用栈：夹具`common.py:170`也有裸断言，缺失内层堆栈不能完全排除夹具或被调用代码。因此**不能恢复准确触发行或第八组双方完整竞争轨迹**。
 
 原日志SHA256 `32e2e8d6d250ae3b7d08402d1b0273c3e73dc7bc2a228ec5c1e8ca0b4d758d37`。服务器记录backend264980八次SerializationFailure，最后12:49:39.142，与失败时间相邻；只能证明重试发生，不能证明最终PID断言必然失败。[原source指纹/候选位置/时间序列](evidence/s08a-environment/probe-failure-trace.json)。
 
