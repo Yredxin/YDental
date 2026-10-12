@@ -817,3 +817,12 @@ msgstr "连接已过期。请刷新查看回队或现场核实状态。"
 #: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
 msgid "Connection unavailable. No success confirmed. Refresh before retrying."
 msgstr "连接不可用，未确认成功。请刷新后重试。"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid ""
+"<span hidden=\"hidden\" id=\"expired-message\">Connection expired. Refresh to review queue or on-site verification.</span>\n"
+"                <span hidden=\"hidden\" id=\"offline-message\">Connection unavailable. No success confirmed. Refresh before retrying.</span>"
+msgstr ""
+"<span hidden=\"hidden\" id=\"expired-message\">连接已过期。请刷新查看回队或现场核实状态。</span>\n"
+"                <span hidden=\"hidden\" id=\"offline-message\">连接不可用，未确认成功。请刷新后重试。</span>"
