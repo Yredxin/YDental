@@ -195,7 +195,14 @@ def main():
             check('zero browser page errors',not errors)
             result.update(result='PASS',pageerrors=errors,documents=result.get('documents',{'D1':d1,'D2':d2}))
         except Exception as error:
-            result.update(result='FAIL',error={'type':type(error).__name__,'detail':str(error)[:500]},pageerrors=errors)
+            import traceback
+            result.update(result='FAIL',error={'type':type(error).__name__,'detail':str(error)[:500],
+                'trace':[{'file':Path(frame.filename).name,'line':frame.lineno,'method':frame.name} for frame in traceback.extract_tb(error.__traceback__)]},pageerrors=errors)
+            if 'p2' in locals() and not p2.is_closed():
+                result['failure_ui']={'message':p2.locator('#clinical-result').inner_text(),
+                    'version':p2.locator('#server-version').inner_text(),
+                    'readonly':p2.locator('textarea[name=chief_complaint]').is_disabled()}
+                screenshot(p2,ctx2,'failure-state.png')
         finally:
             for context in contexts:context.close()
             browser.close()
