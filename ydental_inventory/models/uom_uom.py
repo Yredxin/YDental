@@ -19,7 +19,7 @@ class UomUom(models.Model):
             raise AccessError(self.env._('access_denied: Referenced inventory unit conversions are immutable.'))
 
     def write(self, vals):
-        if {'relative_factor', 'relative_uom_id', 'active'} & vals.keys():
+        if {'relative_factor', 'relative_uom_id', 'factor', 'parent_path', 'active'} & vals.keys():
             self._inventory_unit_guard()
         return super().write(vals)
 
