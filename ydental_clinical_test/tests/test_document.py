@@ -187,3 +187,21 @@ class TestClinicalDocument(TransactionCase):
         with self.assertRaises(AccessError):other._operate('acquire',{'document_id':d['document_id']})
         self.admin._grant(self.users['reader'].id,self.stores[1].id,{'medical':'none'})
         with self.assertRaises(AccessError):source.read(['ydental_content'])
+
+    def test_upstream_real_inventory_receive_issue_and_no_clinical_source_bypass(self):
+        self.admin._grant(self.users['manager'].id,self.stores[0].id,{'warehouse':'write'})
+        stock=self.group.env['ydental.inventory.service']
+        stock._operate('setup',{'code':str(self.stores[0].id)[-5:]},key())
+        product=stock._operate('product',{'code':'S08A-'+key(),'name':'Synthetic regression material','kind':'material','stock_uom_id':self.uom.id,'issue_uom_id':self.uom.id,'step':1,'specification':'Synthetic only'},key())
+        lot=stock._operate('lot',{'product_id':product['id'],'name':'S08A-'+key(),'expiration':fields.Datetime.to_string(fields.Datetime.now()+timedelta(days=30))},key())['id']
+        stock._operate('receive',{'lot_id':lot,'quantity':10,'uom_id':self.uom.id,'source_key':key(),'reason':'S08-A upstream real receipt regression'},key())
+        stock._operate('issue',{'lot_id':lot,'quantity':2,'uom_id':self.uom.id,'source_key':key(),'reason':'S08-A upstream real issue regression'},key())
+        s,q,l,e,d=opened(self);before=self.counts();d.update(s._operate('save',save_args(d)));s._operate('confirm',save_args(d))
+        self.assertEqual(before,self.counts())
+        with self.assertRaises(AccessError):stock._source_action({'kind':'treatment','lot_id':lot,'already_performed':True})
+
+    def test_no_admin_force_or_json_document_lock(self):
+        s,q,l,e,d=opened(self)
+        with self.assertRaises(AccessError):q._document_lock({'document_id':d['document_id']},'acquire')
+        with self.assertRaises(ValidationError):s._operate('force_release',{'document_id':d['document_id']})
+        with self.assertRaises(AccessError):s._model().with_context(ydental_clinical_mutation=True).create({'name':'Forged'})

@@ -198,16 +198,27 @@ def main():
                 process = subprocess.Popen(command, cwd=CORE, env=env, stdout=log, stderr=subprocess.STDOUT)
                 write_private(pid_path, str(process.pid) + '\n')
                 try:
-                    return process.wait()
+                    status = process.wait()
+                    if status < 0:
+                        write_private(run / ('crash-' + str(process.pid) + '.json'), json.dumps({
+                            'pid': process.pid, 'signal': -status, 'database': args.db, 'config_sha256': metadata['config_sha256'],
+                            'cluster': CLUSTER, 'oid': metadata['oid'], 'production': 'BLOCKED', 'action': 'serve'}))
+                    return status
                 finally:
                     if process.poll() is not None:
                         pid_path.unlink(missing_ok=True)
         log_path = run / (args.action + '-' + datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f') + '.log')
         print('Action %s; database %s; private log %s' % (args.action, args.db, log_path), flush=True)
         with log_path.open('x') as log:
-            result = subprocess.run(command, input=code, text=True, cwd=CORE, env=env,
-                                    stdout=log, stderr=subprocess.STDOUT).returncode
-        entry = {'action': args.action, 'exit_code': result, 'log': log_path.name,
+            process = subprocess.Popen(command, stdin=subprocess.PIPE if code else None, text=True, cwd=CORE, env=env,
+                                       stdout=log, stderr=subprocess.STDOUT)
+            process.communicate(code)
+            result = process.returncode
+        if result < 0:
+            write_private(run / ('crash-' + str(process.pid) + '.json'), json.dumps({
+                'pid': process.pid, 'signal': -result, 'database': args.db, 'config_sha256': metadata['config_sha256'],
+                'cluster': CLUSTER, 'oid': metadata['oid'], 'production': 'BLOCKED', 'action': args.action}))
+        entry = {'action': args.action, 'exit_code': result, 'pid': process.pid, 'log': log_path.name,
                  'log_sha256': digest(log_path), 'time_utc': datetime.now(timezone.utc).isoformat(),
                  'tested_commit': tested_commit}
         if args.action in ('install', 'upgrade'):
