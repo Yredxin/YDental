@@ -117,6 +117,14 @@ class YDentalSupplyService(models.AbstractModel):
             raise UserError(self.env._('queue_not_empty: Clear waiting and calling before closing ordinary calling.'))
 
     def _business(self, store, payload):
+        before = self._business_record(store, payload.get('area_id'))
+        state_before = before.state if before else 'absent'
+        if state_before == 'closed' and payload.get('state') == 'draining':
+            raise UserError(self.env._('business_transition_required: Explicitly reopen before stopping ordinary reporting.'))
         result = super()._business(store, payload)
+        business = self._business_record(store, payload['area_id'])
+        self.env['ydental.access.service']._audit('queue.business_state', 'capacity', business, store.id,
+            before={'state': state_before}, after={'state': business.state, 'area_id': business.ydental_area_id.id,
+                'business_date': fields.Date.to_string(business.ydental_date)}, reason=payload['reason'])
         self.env['ydental.queue.service']._publish_scope(store, self.env['ydental.space.area'].sudo().browse(payload['area_id']))
         return result
