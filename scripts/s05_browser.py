@@ -230,10 +230,11 @@ def main():
                 return response.json();
             }''', access['manager']['id'])
             check('own language preference changed through native RPC', switched.get('result') is True)
+            chinese_context, manager_page = login('manager')
             manager_page.goto(base + '/ydental/intake/prices')
             check('Chinese catalog and pricing heading', manager_page.locator('h1').inner_text() == '项目目录与价目')
             check('Chinese production policy disclaimer', '正式生产锁价政策待业务负责人批准' in manager_page.locator('body').inner_text())
-            screenshot(manager_page, manager_context, '08-chinese-catalog-and-price-policy.png')
+            screenshot(manager_page, chinese_context, '08-chinese-catalog-and-price-policy.png')
             check('no browser JavaScript errors', not errors)
             result['result'] = 'PASS'
         except Exception as error:

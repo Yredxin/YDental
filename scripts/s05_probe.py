@@ -190,7 +190,11 @@ q = fresh(lambda s: new_q(s, new_patient(s)))
 args = {'record_id': q['id'], 'version': q['version'], 'reason': 'Synthetic concurrent cancellation'}
 output = parallel([('frontdesk', lambda s: s._operate('cancel', args, key())) for _ in range(2)])
 assert sum('rejected' in r['value'] for r in output) == 1
-fresh(lambda s: (s.env['ydental.intake.entitlement'].sudo().browse(q['id']).state == 'cancelled') or (_ for _ in ()).throw(AssertionError()))
+def verify_cancel(s):
+    e = s.env['ydental.intake.entitlement'].sudo().browse(q['id'])
+    assert e.state == 'cancelled'
+    assert s.env['ydental.supply.event'].sudo().search_count([('ydental_claim_id', '=', e.ydental_claim_id.id), ('ydental_operation', '=', 'cancel')]) == 1
+fresh(verify_cancel)
 record('T06_duplicate_cancel_competition', output, returned_once=True)
 
 for first_kind in ('cancel', 'consume'):

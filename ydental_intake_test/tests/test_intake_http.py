@@ -1,6 +1,8 @@
+from datetime import timedelta
 import json
 import re
 
+from odoo import fields
 from odoo.tests import HttpCase
 
 from .common import key, patient, price, qualify, setup
@@ -110,3 +112,25 @@ class TestIntakeHTTP(HttpCase):
         self.assertEqual(self.action('reserve', {'patient_id': q['patient_id'], 'mapping_id': self.mappings[0][0].id,
             'start': '2099-01-01 09:00:00', 'end': '2099-01-01 10:00:00', 'doctor_id': self.users['manager'].id}).status_code, 409)
         self.assertEqual(self.root['ydental.intake.entitlement'].search_count([('ydental_patient_id', '=', q['patient_id'])]), 1)
+
+    def test_http_cross_store_timed_and_untimed_referral_reception(self):
+        q = qualify(self)
+        args = {'source_task_id': q['task_id'], 'version': q['task_version'], 'mapping_id': self.mappings[1][0].id,
+            'reason': 'HTTP controlled source referral'}
+        self.select('doctor')
+        timed = self.action('refer_timed', dict(args, start=fields.Datetime.to_string(self.start), end=fields.Datetime.to_string(self.end)))
+        self.assertEqual(timed.status_code, 200, timed.text)
+        self.assertEqual(self.slots[1][0].ydental_reservation_free, 1)
+        untimed = self.action('refer_untimed', dict(args, valid_until=fields.Datetime.to_string(fields.Datetime.now() + timedelta(days=7))))
+        self.assertEqual(untimed.status_code, 200, untimed.text)
+        self.assertEqual(self.slots[1][0].ydental_walkin_free, 4)
+        self.select('frontdesk', self.stores[1])
+        self.assertEqual(self.action('arrive', {'patient_id': q['patient_id']}).status_code, 200)
+        t = timed.json()
+        self.assertEqual(self.action('report', {'task_id': t['task_id'], 'version': t['task_version']}).status_code, 200)
+        self.assertEqual(self.slots[1][0].ydental_reservation_free, 1)
+        r = untimed.json()
+        reception = self.action('accept_referral', {'record_id': r['id'], 'version': r['version'],
+            'start': fields.Datetime.to_string(self.start), 'end': fields.Datetime.to_string(self.end)})
+        self.assertEqual(reception.status_code, 200, reception.text)
+        self.assertEqual(self.slots[1][0].ydental_walkin_free, 3)
