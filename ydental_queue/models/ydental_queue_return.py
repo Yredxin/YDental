@@ -159,6 +159,8 @@ class YDentalQueueService(models.AbstractModel):
         if hold.state != 'active' or self._unresolved_execution(hold.ydental_patient_id.id):
             raise UserError(self.env._('handover_required: Another actual execution or on-site verification prevents return.'))
         entry = self._model('entry').search([('ydental_task_id', '=', hold.ydental_task_id.id)], limit=1)
+        if hold.ydental_execution_id.ydental_service_snapshot != self._service_snapshot(hold.ydental_task_id):
+            raise UserError(self.env._('version_conflict: The original service requirements changed; review the source.'))
         reason = self._eligibility(entry, lease.ydental_station_id)
         if reason:
             raise AccessError(reason)
@@ -248,6 +250,8 @@ class YDentalQueueService(models.AbstractModel):
             raise UserError(self.env._('handover_required: Resolve the existing reservation or execution first.'))
         if self._permit_valid(task):
             return {'result': 'already_accepted', 'permit_id': self._active_permit(task).id}
+        if self._active_permit(task):
+            raise UserError(self.env._('append_required: Review the expired or changed permit before a new business-day qualification.'))
         mapping = intake._target(task.ydental_mapping_id.id, store)
         business = self.env['ydental.supply.service']._business_record(store, mapping.ydental_area_id.id)
         if not business or business.state == 'open':

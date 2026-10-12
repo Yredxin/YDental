@@ -31,3 +31,11 @@ class YDentalQueueExecution(models.Model):
                 drop_constraint(self.env.cr, self._table, name)
         self.env.cr.execute('''UPDATE ydental_queue_execution e SET ydental_task_id=q.ydental_task_id
             FROM ydental_queue_entry q WHERE e.ydental_entry_id=q.id AND e.ydental_task_id IS NULL''')
+        self.env.cr.execute('''UPDATE ydental_queue_execution e SET ydental_service_snapshot=jsonb_build_object(
+            'catalog_id', c.id, 'capability_id', q.ydental_capability_id,
+            'qualification', COALESCE(c.ydental_qualification, ''), 'area_id', m.ydental_area_id,
+            'execution_area_id', m.ydental_execution_area_id)
+            FROM ydental_queue_entry q JOIN ydental_intake_task t ON q.ydental_task_id=t.id
+            JOIN ydental_intake_mapping m ON t.ydental_mapping_id=m.id
+            JOIN ydental_intake_catalog c ON m.ydental_catalog_id=c.id
+            WHERE e.ydental_entry_id=q.id AND e.ydental_service_snapshot IS NULL''')
