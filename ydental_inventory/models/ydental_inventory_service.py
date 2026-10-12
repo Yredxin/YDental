@@ -202,11 +202,14 @@ class YDentalInventoryService(models.AbstractModel):
             'ydental_stock_step': step, 'ydental_suggested_quantity': self._number(suggested, True)})
         return {'id': p.product_variant_id.id}
 
-    def _edit_product(self, store, product_id, active, name):
+    def _edit_product(self, store, product_id, active, name, specification=None, suggested=None):
         if type(active) is not bool:
             raise ValidationError(self.env._('Use an explicit active choice.'))
         product = self._product(product_id)
-        product.product_tmpl_id.write({'name': self._text(name), 'active': active})
+        values = {'name': self._text(name), 'active': active}
+        if specification is not None: values['ydental_specification'] = self._text(specification)
+        if suggested is not None: values['ydental_suggested_quantity'] = self._number(suggested, True)
+        product.product_tmpl_id.write(values)
         return {'id': product.id}
 
     def _create_lot(self, store, product_id, name, expiration):
@@ -235,6 +238,8 @@ class YDentalInventoryService(models.AbstractModel):
     def _event(self, store, namespace, source_key, kind, lot, quantity, uom_id, source, target, reason,
                parent=None, target_store=None, summary='', snapshot=None, actual_at=None, synthetic=False,
                responsible=None, fee_reference='', actual=False):
+        source_key = self._text(source_key)
+        namespace = self._text(namespace)
         quantity_stock, unit, unit_snapshot = self._unit(lot.product_id, quantity, uom_id)
         reason = self._text(reason)
         digest = fingerprint([kind, lot.id, quantity, unit.id, source.id, target.id, reason,
@@ -368,7 +373,7 @@ class YDentalInventoryService(models.AbstractModel):
 
     def _return(self, store, event_id, quantity, uom_id, source_key, reason):
         parent = self._get('event', event_id, store)
-        if parent.state != 'done' or parent.ydental_kind not in ('replenishment', 'prescription', 'chairside', 'treatment'):
+        if parent.state != 'done' or parent.ydental_kind not in ('replenishment', 'prescription'):
             raise UserError(self.env._('return_invalid: Select an actual completed issue.'))
         lot = parent.ydental_lot_id; config = self._config(store)
         qty, unit, snap = self._unit(lot.product_id, quantity, uom_id)

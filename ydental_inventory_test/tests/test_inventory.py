@@ -246,3 +246,11 @@ class TestInventory(TransactionCase):
         doctor=bind(self,self.users['doctor']);source=SyntheticSource(self.users['doctor'].id,self.stores[0].id,key(),'treatment',self.lots['material'],1,self.uom.id,already_performed=True)
         event=doctor._source_action(source);self.assertEqual(event['state'],'pending');self.assertFalse(event['move_id'])
         self.assertEqual(quantity(self,self.lots['material']),2)
+
+    def test_t05_consumed_chairside_source_cannot_be_returned_as_unused(self):
+        receive(self,2)
+        doctor=bind(self,self.users['doctor'])
+        source=SyntheticSource(self.users['doctor'].id,self.stores[0].id,key(),'chairside',self.lots['medicine'],1,self.uom.id)
+        e=doctor._source_action(source)
+        with self.assertRaises(UserError):op(self,'return',event_id=e['id'],quantity=1,uom_id=self.uom.id,source_key=key(),reason='Consumed medicine cannot reappear')
+        self.assertEqual(quantity(self),1)

@@ -67,7 +67,7 @@ class YDentalInventory(http.Controller):
         schema = {
             'setup': ('code', '', ''), 'policy': ('near_days wait_days low_quantity reason', 'near_days wait_days', 'low_quantity'),
             'product': ('code name kind stock_uom_id issue_uom_id step specification suggested', 'stock_uom_id issue_uom_id', 'step suggested'),
-            'product_edit': ('product_id name active', 'product_id', ''),
+            'product_edit': ('product_id name active specification suggested', 'product_id', 'suggested'),
             'lot': ('product_id name expiration', 'product_id', ''), 'lot_edit': ('lot_id enabled reason', 'lot_id', ''),
             'receive': ('lot_id quantity uom_id source_key reason', 'lot_id uom_id', 'quantity'),
             'issue': ('lot_id quantity uom_id source_key reason', 'lot_id uom_id', 'quantity'),
