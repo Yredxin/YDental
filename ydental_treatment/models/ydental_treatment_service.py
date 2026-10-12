@@ -62,7 +62,7 @@ class YDentalTreatmentService(models.AbstractModel):
         return record
 
     def _operate(self, operation, payload, key):
-        handlers = {'execute': self._execute, 'order': self._order, 'edit_order': self._edit_order,
+        handlers = {'execute': self._execute, 'order': self._draft_order, 'edit_order': self._edit_order,
             'issue': self._issue, 'cancel_exam': self._cancel_exam, 'dispense': self._dispense,
             'finish': self._finish, 'reconcile': self._reconcile, 'review_price': self._review_price,
             'correct': self._correct, 'return_material': self._return_material, 'refer': self._refer}
@@ -362,7 +362,7 @@ class YDentalTreatmentService(models.AbstractModel):
             results.append(values)
         return results
 
-    def _order(self, execution_id, lease_id, lease_token, document_id, document_version, kind, purpose, lines):
+    def _draft_order(self, execution_id, lease_id, lease_token, document_id, document_version, kind, purpose, lines):
         execution, doc = self._medical(execution_id, lease_id, lease_token, document_id, document_version)
         if kind not in ('exam', 'prescription'):
             raise ValidationError(self.env._('invalid_order: Select an examination or take-away prescription.'))

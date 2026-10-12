@@ -52,7 +52,7 @@ class TestActualTreatment(TransactionCase):
         result=s._operate('execute',execute_args(self,a,actual=True),key());self.assertEqual(result['pending_reason'],'missing_price')
         price(self,amount=999)
         result=s._operate('reconcile',{'event_id':result['event_id'],'reason':'Do not silently reprice'},key());self.assertEqual(result['pending_reason'],'missing_price')
-        pricer=bind(self,self.users['price']).env[s._name]._queue() if False else bind(self,self.users['price']).env['ydental.queue.service']._bind_connection(key()+key()).env[s._name]
+        pricer=bind(self,self.users['price']).env['ydental.queue.service']._bind_connection(key()+key()).env[s._name]
         pricer._operate('review_price',{'event_id':result['event_id'],'unit_price':600,'currency_id':self.currency.id,'evidence':'Verified synthetic original quote'},key())
         result=s._operate('reconcile',{'event_id':result['event_id'],'reason':'Use reviewed original quote'},key());self.assertEqual(result['amount'],600)
 
