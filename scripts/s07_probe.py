@@ -61,12 +61,13 @@ def fixture(qty=1,kind='medicine'):
     lot=fresh(lambda s:newlot(s,kind));fresh(lambda s:receipt(s,lot,qty));return lot
 
 
-def execute(role,n,fn,barrier=None,entered=None,release=None,rollback=False):
+def execute(role,n,fn,barrier=None,entered=None,release=None,rollback=False,started=None):
     pids=[]
     for tries in range(1,9):
         try:
             with registry.cursor() as cr:
                 s=service(cr,role,n);cr.execute('SELECT pg_backend_pid(),ydental_revision FROM ydental_inventory_mutex');pid,_=cr.fetchone();pids.append(pid)
+                if started:started.set()
                 if tries==1 and barrier:barrier.wait(timeout=20)
                 try:value=fn(s)
                 except (AccessError,UserError) as error:value={'rejected':type(error).__name__,'code':str(error).split(':')[0]}
@@ -83,12 +84,13 @@ def parallel(a,b):
     with ThreadPoolExecutor(2) as pool:
         futures=[pool.submit(execute,*x,barrier) for x in (a,b)]
         return [x.result(timeout=60) for x in futures]
-def ordered(a,b,rollback=False):
-    entered,release=Event(),Event()
+def ordered(a,b,rollback=False,started=None):
+    entered,release,second_started=Event(),Event(),Event()
     with ThreadPoolExecutor(2) as pool:
         first=pool.submit(execute,*a,None,entered,release,rollback)
         assert entered.wait(20)
-        second=pool.submit(execute,*b)
+        second=pool.submit(execute,*b,None,None,None,False,second_started)
+        assert second_started.wait(20)
         # The second connection has begun before release; lock visibility is
         # independently recorded by the returned backend/retry PIDs.
         release.set()

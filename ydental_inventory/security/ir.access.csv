@@ -3,3 +3,7 @@ ydental_inventory_config_read,Inventory config read,model_ydental_inventory_conf
 ydental_inventory_event_read,Inventory event read,model_ydental_inventory_event,ydental_base.ydental_base_group_user,r,
 ydental_inventory_operation_read,Inventory operation read,model_ydental_inventory_operation,ydental_base.ydental_base_group_user,r,
 ydental_inventory_batch_read,Inventory batch read,model_ydental_inventory_batch,ydental_base.ydental_base_group_user,r,
+ydental_inventory_config_company,Inventory config company boundary,model_ydental_inventory_config,,crud,"[('ydental_store_id.company_id', 'in', company_ids)]"
+ydental_inventory_event_company,Inventory event company boundary,model_ydental_inventory_event,,crud,"[('ydental_store_id.company_id', 'in', company_ids)]"
+ydental_inventory_operation_company,Inventory operation company boundary,model_ydental_inventory_operation,,crud,"[('ydental_store_id.company_id', 'in', company_ids)]"
+ydental_inventory_batch_company,Inventory batch company boundary,model_ydental_inventory_batch,,crud,"[('ydental_store_id.company_id', 'in', company_ids)]"
