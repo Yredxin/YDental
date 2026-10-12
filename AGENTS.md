@@ -1,6 +1,16 @@
 # YDental 当前执行入口
 
-## 当前 S05 / #29
+## 当前 S05定向返工 / #29
+
+- 用户本次明确只修[GPT-REVIEW6115823569](https://github.com/Yredxin/YDental/issues/29#issuecomment-6115823569)三个BLOCKER；沿用当前S05会话与分支，原`76335d9902cee8e8c24173f0b01fd9ba8b606a5c`及全部原失败证据保留。
+- 用户单独授权本次Project #29自定义“执行状态”→“返工”。实施前已完整读取21字段、15条目、6视图、7公开workflow元数据，唯一字段mutation后完整读回及差异核对；原生Status=Todo、其他字段/条目/视图/workflows和Issue实体状态均未改。执行状态保持返工，不自行转待复核；未来其他Project写仍需单独授权。
+- 只修集团catalog维护与门店price-write分离、独立资格report的门店当地营业日边界、默认fail-closed可信转诊server hook/跨法人目标/真实来源审计。无新字段，不重写S03账本、S04 merge、价格快照和position事务。
+- 产品修正固定`754cc331386e8294225c6579c9b4daa555160f92`、最终测试固定`68cbcdc3c5a7c0e16a8389e89a6ba44e9086bfc2`，完整链记录于docs/s05-rework-report.md及#29修正交付评论；最终文档证据SHA固定于评论。补充契约docs/s05-rework-contracts.md、安全复核docs/s05-rework-security-review.md、证据docs/evidence/s05-rework。
+- 仅全新隔离S05库、合成permit与队列；不补来源医生目标company_ids/membership，不引入真实S08来源。修正交付写回读回后停止等GPT复核，不称用户验收/生产政策通过，不进入S06。
+
+下方“当前S05”记录为原交付基线；本次三个修正和Project唯一字段授权以本节及最新review为准。
+
+## 原S05交付 / #29
 
 - 本次用户明确启用#29/S05；唯一当前边界为[GPT-ACTIVATE6115298923](https://github.com/Yredxin/YDental/issues/29#issuecomment-6115298923)。已完整读取#23当前正文/有效评论、#29当前正文/全部有效评论、#28最终技术复核6115295633及状态同步6115318214；[开工检查6115339128](https://github.com/Yredxin/YDental/issues/29#issuecomment-6115339128)已写回并逐字读回。
 - S04修正最终`174a70df2cf8de515d0e781c59e6ce3825146313`已GPT技术PASS，#28保持OPEN/待用户验收，不重做S04。

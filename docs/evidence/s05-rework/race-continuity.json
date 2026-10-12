@@ -1,0 +1,12 @@
+{
+  "original_final": "76335d9902cee8e8c24173f0b01fd9ba8b606a5c",
+  "original_evidence": "docs/evidence/s05/probe-attempts/ydental_s05_test_20261012003654_1b657de3-20261012T003848177525.json",
+  "original_sha256": "51e6001c038916da59b4f23e0e07f5b6bc8f80890f7d34f7ea4749b668196bbc",
+  "current_evidence": "docs/evidence/s05-rework/probe-attempts/ydental_s05_test_20261012014755_f53e6686-20261012T015043612058.json",
+  "current_sha256": "a343ba17620dbff733b8aaadba535514c8c097011980425ad14dd52d8de948a5",
+  "same13_race_names_and_order": true,
+  "all_pass_with_two_real_connections": true,
+  "same_conservation_position_and_canonical_invariants": true,
+  "deadlocks": 0,
+  "race_algorithms_unchanged_T11_uses_trusted_source": true
+}

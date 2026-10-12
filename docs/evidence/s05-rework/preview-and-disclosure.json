@@ -1,0 +1,17 @@
+{
+  "database": "ydental_s05_test_20261012014755_f53e6686",
+  "tested_commit": "68cbcdc3c5a7c0e16a8389e89a6ba44e9086bfc2",
+  "own_preview_pid_config_verified": true,
+  "signal": "SIGINT",
+  "exit_code": 0,
+  "serve_log_sha256": "120cc987f0393663d1f03482810b8c1289c4885fecbda58a1662e798cd8a8436",
+  "browser_summary": "docs/evidence/s05-rework/browser-attempts/20261012T015215824296/summary.json",
+  "manual_screenshots_viewed": [
+    "09-group-catalog-without-store-price.png",
+    "10-future-day-report-rejected.png",
+    "11-doctor-no-public-referral-initiation.png"
+  ],
+  "all_private_access_values_absent": true,
+  "all_screenshot_hashes_match": true,
+  "raw_logs_configs_backups_absent": true
+}

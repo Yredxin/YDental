@@ -1,0 +1,62 @@
+{
+  "authorization": "Current user explicitly authorizes only issue29 custom execution status -> rework",
+  "project_id": "PVT_kwHOA3_tu84BmcLJ",
+  "project_url": "https://github.com/users/Yredxin/projects/4",
+  "item_id": "PVTI_lAHOA3_tu84BmcLJzg_8lIQ",
+  "issue": 29,
+  "field_id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVo",
+  "field_name": "执行状态",
+  "before": "待启用",
+  "after": "返工",
+  "option_id": "dc2fcb03",
+  "native_status": "Todo",
+  "issue_state": "OPEN",
+  "complete_metadata_read": {
+    "fields": 21,
+    "items": 15,
+    "views": 6,
+    "workflows": [
+      {
+        "id": "PWF_lAHOA3_tu84BmcLJzgdJkzk",
+        "name": "Auto-add sub-issues to project",
+        "enabled": true
+      },
+      {
+        "id": "PWF_lAHOA3_tu84BmcLJzgdJkzw",
+        "name": "Auto-add to project",
+        "enabled": true
+      },
+      {
+        "id": "PWF_lAHOA3_tu84BmcLJzgdJkzg",
+        "name": "Auto-close issue",
+        "enabled": true
+      },
+      {
+        "id": "PWF_lAHOA3_tu84BmcLJzgdJkzs",
+        "name": "Item added to project",
+        "enabled": true
+      },
+      {
+        "id": "PWF_lAHOA3_tu84BmcLJzgdJkzY",
+        "name": "Item closed",
+        "enabled": true
+      },
+      {
+        "id": "PWF_lAHOA3_tu84BmcLJzgdJkzo",
+        "name": "Pull request linked to issue",
+        "enabled": true
+      },
+      {
+        "id": "PWF_lAHOA3_tu84BmcLJzgdJkzc",
+        "name": "Pull request merged",
+        "enabled": true
+      }
+    ],
+    "all_pagination_complete": true
+  },
+  "complete_readback": true,
+  "only_authorized_field_changed": true,
+  "all_other_items_fields_views_states_workflows_unchanged": true,
+  "mutation_count": 1,
+  "readback_sha256": "3e41c9bda8cf04e9f099da0a2000a856019456a9dd036902d3845367ba5c8b83"
+}

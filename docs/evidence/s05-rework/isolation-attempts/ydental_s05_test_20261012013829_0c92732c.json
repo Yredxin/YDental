@@ -1,0 +1,38 @@
+{
+  "database": "ydental_s05_test_20261012013829_0c92732c",
+  "oid": 443416,
+  "created_utc": "2026-10-12T01:38:29.882629+00:00",
+  "endpoint": {
+    "host": "127.0.0.1",
+    "port": "5432",
+    "user": "odoo"
+  },
+  "cluster": "7694897083368259627",
+  "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "port": 18115,
+  "config_sha256": "c54f14aa880cf3ab235646b47f835c8cace5c1d0d17e8f7cc4116119efaf1084",
+  "actions": [
+    {
+      "action": "install",
+      "exit_code": 0,
+      "log_sha256": "84da7dd23b3ecb7c602ea758e2dab74c83de41ceb641b05edfe9a9de5d4d27a5",
+      "time_utc": "2026-10-12T01:39:44.695922+00:00",
+      "tested_commit": "4ea241da92a8f17035e4be20dca1fc72ca57c0e8",
+      "tests": [
+        0,
+        0,
+        34
+      ]
+    }
+  ],
+  "boundary": {
+    "new_database_only": true,
+    "exact_dbfilter": "^ydental_s05_test_20261012013829_0c92732c$",
+    "private_config_data_logs": true,
+    "cron_threads": 0,
+    "smtp": "disabled loopback sink",
+    "process_egress": "only approved loopback database and this HTTP port",
+    "existing_services_modified": false,
+    "system_dependencies_installed": false
+  }
+}

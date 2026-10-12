@@ -1,0 +1,12 @@
+{
+  "review_url": "https://github.com/Yredxin/YDental/issues/29#issuecomment-6115823569",
+  "review_id": 6115823569,
+  "review_updated_utc": "2026-10-12T00:53:08Z",
+  "body_sha256": "1e50b8f2b8a6b9747dbe5a78cea98fd7c6da1519c756ae5daf086d5d253a401f",
+  "scope": "Only BLOCKER1/2/3, retain S05 kernel and original13 races, no S06",
+  "original_final": "76335d9902cee8e8c24173f0b01fd9ba8b606a5c",
+  "closeout_read_utc": "2026-10-12T01:46:58.688672+00:00",
+  "latest_review_unchanged": true,
+  "source_recorded_utc": "2026-10-12T01:35:40.226667+00:00",
+  "initial_comments_fetch_utc": "2026-10-12T01:26:01.137083+00:00"
+}

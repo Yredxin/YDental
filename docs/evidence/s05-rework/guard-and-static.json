@@ -1,0 +1,15 @@
+{
+  "tested_commit": "68cbcdc3c5a7c0e16a8389e89a6ba44e9086bfc2",
+  "guard": {
+    "tests": 5,
+    "failures": 0,
+    "errors": 0,
+    "exit_code": 0,
+    "script_sha256": "e1edb76bb3668ac4242be363da828147ecab0ec19c4ef142cecdbf2cbf8e54ae"
+  },
+  "compileall_exit": 0,
+  "diff_check_exit": 0,
+  "security_patterns_swept": true,
+  "hits_reviewed": 44,
+  "raw_security_scan_private": true
+}

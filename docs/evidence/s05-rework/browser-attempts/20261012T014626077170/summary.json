@@ -1,0 +1,168 @@
+{
+  "scope": "S05 synthetic service intake and demonstration pricing UI",
+  "database": "ydental_s05_test_20261012014258_d02a1bc7",
+  "tested_commit": "1cd2c8da2c767f8e0aae6ae740b260bc32a8ee9a",
+  "browser": "Firefox",
+  "sandbox": "default, no overrides",
+  "checks": [
+    {
+      "check": "intake explains pending is separate from queue",
+      "result": "PASS"
+    },
+    {
+      "check": "actual arrival visible after explicit form",
+      "result": "PASS"
+    },
+    {
+      "check": "first task accepted through UI",
+      "result": "PASS"
+    },
+    {
+      "check": "switch leaves original task pending",
+      "result": "PASS"
+    },
+    {
+      "check": "switch accepts chosen implant task",
+      "result": "PASS"
+    },
+    {
+      "check": "void returns task to pending",
+      "result": "PASS"
+    },
+    {
+      "check": "void keeps unused qualification visible",
+      "result": "PASS"
+    },
+    {
+      "check": "valid qualification can report again",
+      "result": "PASS"
+    },
+    {
+      "check": "production price policy visibly unapproved",
+      "result": "PASS"
+    },
+    {
+      "check": "group catalog created through form",
+      "result": "PASS"
+    },
+    {
+      "check": "price 600 reviewed and published through UI",
+      "result": "PASS"
+    },
+    {
+      "check": "demo snapshot 600 shown",
+      "result": "PASS"
+    },
+    {
+      "check": "price 620 reviewed and published through UI",
+      "result": "PASS"
+    },
+    {
+      "check": "replacement leaves historic snapshot 600",
+      "result": "PASS"
+    },
+    {
+      "check": "unpriced group service created",
+      "result": "PASS"
+    },
+    {
+      "check": "missing effective price explicitly rejected",
+      "result": "PASS"
+    },
+    {
+      "check": "unpublished production policy refused",
+      "result": "PASS"
+    },
+    {
+      "check": "read only role has no acquisition form",
+      "result": "PASS"
+    },
+    {
+      "check": "read only HTTP action denied",
+      "result": "PASS"
+    },
+    {
+      "check": "no permission role denied intake",
+      "result": "PASS"
+    },
+    {
+      "check": "group manager price none has catalog controls",
+      "result": "PASS"
+    },
+    {
+      "check": "group manager price none has no store price or mapping controls",
+      "result": "PASS"
+    },
+    {
+      "check": "group price none creates catalog through UI",
+      "result": "PASS"
+    },
+    {
+      "check": "group price none edits and disables catalog through UI",
+      "result": "PASS"
+    },
+    {
+      "check": "group price none forged price action denied",
+      "result": "PASS"
+    },
+    {
+      "check": "future reservation actual arrival recorded today",
+      "result": "PASS"
+    },
+    {
+      "check": "tomorrow reservation report rejected today",
+      "result": "PASS"
+    },
+    {
+      "check": "future-day rejection is visible after real report form submit",
+      "result": "PASS"
+    },
+    {
+      "check": "same local day several hours early zero balance report succeeds",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s05-rework/browser-attempts/20261012T014626077170/01-qualified-before-arrival.png",
+      "sha256": "c3ae1710008bacd38c77d540dc161a64f10922a904eba58506d81fdf7ad4e162"
+    },
+    {
+      "path": "docs/evidence/s05-rework/browser-attempts/20261012T014626077170/02-arrival-and-explicit-report.png",
+      "sha256": "6355968e15dc700f03bda6741899b583f9fb56c51699982db67e76fa74a83ea6"
+    },
+    {
+      "path": "docs/evidence/s05-rework/browser-attempts/20261012T014626077170/03-switch-area-preserves-original-qualification.png",
+      "sha256": "eef3ef470a961772967f6b0bf460036a62a3b80b1918394968e9fbd5642f5358"
+    },
+    {
+      "path": "docs/evidence/s05-rework/browser-attempts/20261012T014626077170/04-void-only-keeps-qualification.png",
+      "sha256": "8875e351ad8fc849a4dcc8c352489c236a690a04cfb59f40e77101d47dde9fbc"
+    },
+    {
+      "path": "docs/evidence/s05-rework/browser-attempts/20261012T014626077170/05-price-600-frozen-demo.png",
+      "sha256": "73e9276151d151eede03b2622833bfc15559668882eb495baeb5a45c58e165ca"
+    },
+    {
+      "path": "docs/evidence/s05-rework/browser-attempts/20261012T014626077170/06-price-620-published-old-snapshot-600.png",
+      "sha256": "ccc2345a6ef5075f2f0f8debd5349b499657d84118e91ba8fdb158dfa947c85b"
+    },
+    {
+      "path": "docs/evidence/s05-rework/browser-attempts/20261012T014626077170/07-reader-no-write-controls.png",
+      "sha256": "e90b0c65b8f5e82ccd157dee4ddc904777dda336b7d862a4a9de25ace5857d17"
+    },
+    {
+      "path": "docs/evidence/s05-rework/browser-attempts/20261012T014626077170/09-group-catalog-without-store-price.png",
+      "sha256": "227251f9f3adb508980542ec0aa48fb127ca000acded97a7a36264da096d36b2"
+    },
+    {
+      "path": "docs/evidence/s05-rework/browser-attempts/20261012T014626077170/10-future-day-report-rejected.png",
+      "sha256": "edcaf109402810de47a89e3cd3a90e523dd453f75a89e31d90b1544afd903226"
+    }
+  ],
+  "browser_version": "155.0",
+  "result": "FAIL",
+  "error_type": "Error",
+  "pageerror_count": 0,
+  "ended_utc": "2026-10-12T01:46:43.987099+00:00"
+}
