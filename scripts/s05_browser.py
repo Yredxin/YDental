@@ -255,12 +255,13 @@ def main():
             early = action(page, 'report', {'task_id':preview['early']['task_id'], 'version':preview['early']['task_version']})
             check('same local day several hours early zero balance report succeeds', early['status'] == 200)
             doctor_context, doctor_page = login('doctor')
-            doctor_page.goto(base + '/ydental/intake')
+            doctor_page.goto(base + '/ydental/access')
             for op in ('refer_timed', 'refer_untimed'):
                 denied = action(doctor_page, op, {'source_task_id':preview['qualification']['task_id'],
                     'version':preview['qualification']['task_version'], 'mapping_id':preview['mappings'][1][0],
                     'permit':{'actor_id':access['doctor']['id']}})
                 check('ordinary doctor HTTP ' + op + ' denied', denied['status'] == 403)
+            doctor_page.goto(base + '/ydental/intake')
             screenshot(doctor_page, doctor_context, '11-doctor-no-public-referral-initiation.png')
             manager_page.goto(base + '/ydental/intake/prices')
             switched = manager_page.evaluate('''async uid => {
