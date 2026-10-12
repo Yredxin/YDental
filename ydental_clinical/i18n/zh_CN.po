@@ -49,19 +49,15 @@ msgstr "。文书状态："
 #. module: ydental_clinical
 #: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
 msgid ""
-"<span hidden=\"hidden\" id=\"unsynced-message\">Unsynchronized changes. The "
-"server has not confirmed this content.</span><span hidden=\"hidden\" "
-"id=\"saved-message\">Saved on the server.</span><span hidden=\"hidden\" "
-"id=\"offline-message\">Connection unavailable. Changes remain "
-"unsynchronized. Refresh and compare the server version before "
-"retrying.</span><span hidden=\"hidden\" id=\"readonly-message\">Read only. "
-"Acquire the independent editor before changing text.</span>"
+"<span hidden=\"hidden\" id=\"unsynced-message\">Unsynchronized changes. The server has not confirmed this content.</span><span hidden=\"hidden\" id=\"saved-message\">Saved on the server.</span><span hidden=\"hidden\" id=\"offline-message\">Connection unavailable. Changes remain unsynchronized. Refresh and compare the server version before retrying.</span><span hidden=\"hidden\" id=\"readonly-message\">Read only. Acquire the independent editor before changing text.</span>\n"
+"                <span hidden=\"hidden\" id=\"terminal-committed-message\">The document operation was committed. This page still has unsynchronized changes. Compare the server version before making a legitimate correction; keep the local text.</span>\n"
+"                <span hidden=\"hidden\" id=\"handover-committed-message\">Handover was committed and cannot be undone here. Local changes remain unsynchronized. Check the server version and use the pending document for legitimate supplementation.</span>\n"
+"                <span hidden=\"hidden\" id=\"terminal-uncertain-message\">The operation outcome needs verification. Local content remains unsynchronized. Do not repeat the operation; check the server version and reception state in a new tab before continuing.</span>"
 msgstr ""
-"<span hidden=\"hidden\" id=\"unsynced-message\">内容尚未同步，服务端未确认保存。</span><span"
-" hidden=\"hidden\" id=\"saved-message\">已保存到服务端。</span><span "
-"hidden=\"hidden\" id=\"offline-"
-"message\">连接不可用，改动尚未同步。请刷新并核对服务端版本后再重试。</span><span hidden=\"hidden\" "
-"id=\"readonly-message\">当前只读。请先取得此独立文书的编辑权。</span>"
+"<span hidden=\"hidden\" id=\"unsynced-message\">内容尚未同步，服务端未确认保存。</span><span hidden=\"hidden\" id=\"saved-message\">已保存到服务端。</span><span hidden=\"hidden\" id=\"offline-message\">连接不可用，改动尚未同步。请刷新并核对服务端版本后再重试。</span><span hidden=\"hidden\" id=\"readonly-message\">当前只读。请先取得此独立文书的编辑权。</span>\n"
+"                <span hidden=\"hidden\" id=\"terminal-committed-message\">文书操作已提交，本页仍有未同步内容。请保留本地文字，核对服务器版本后按合法更正规则处理。</span>\n"
+"                <span hidden=\"hidden\" id=\"handover-committed-message\">交还已提交，不能在本页撤销。本地内容仍未同步，请核对服务器版本并从待完善文书合法补记。</span>\n"
+"                <span hidden=\"hidden\" id=\"terminal-uncertain-message\">操作结果需要核对，本地内容仍未同步。请勿重复操作，先在新标签页核对服务器版本和接诊状态再继续。</span>"
 
 #. module: ydental_clinical
 #: model:ir.model.constraint,message:ydental_clinical.constraint_ydental_clinical_document_one_current_execution
@@ -885,20 +881,7 @@ msgstr "access_denied: 当前门店法人不在此账号允许的法人范围内
 
 #. module: ydental_clinical
 #: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
-msgid "Check the server version and pending document in a new tab. Keep this page to compare unsynchronized text."
+msgid ""
+"Check the server version and pending document in a new tab. Keep this page "
+"to compare unsynchronized text."
 msgstr "在新标签页核对服务器版本及待完善文书。保留本页以比较未同步文字。"
-
-#. module: ydental_clinical
-#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
-msgid "The document operation was committed. This page still has unsynchronized changes. Compare the server version before making a legitimate correction; keep the local text."
-msgstr "文书操作已提交，本页仍有未同步内容。请保留本地文字，核对服务器版本后按合法更正规则处理。"
-
-#. module: ydental_clinical
-#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
-msgid "Handover was committed and cannot be undone here. Local changes remain unsynchronized. Check the server version and use the pending document for legitimate supplementation."
-msgstr "交还已提交，不能在本页撤销。本地内容仍未同步，请核对服务器版本并从待完善文书合法补记。"
-
-#. module: ydental_clinical
-#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
-msgid "The operation outcome needs verification. Local content remains unsynchronized. Do not repeat the operation; check the server version and reception state in a new tab before continuing."
-msgstr "操作结果需要核对，本地内容仍未同步。请勿重复操作，先在新标签页核对服务器版本和接诊状态再继续。"
