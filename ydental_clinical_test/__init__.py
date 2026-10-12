@@ -12,5 +12,8 @@ def pre_init_hook(env):
         raise AccessError('Clinical synthetic verification requires a new guarded S08-A database.')
 
 
+from . import models
+
+
 if config['test_enable']:
     from . import tests

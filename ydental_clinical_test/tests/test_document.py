@@ -17,7 +17,7 @@ class TestClinicalDocument(TransactionCase):
         cls.admin._grant(cls.users['reader'].id, cls.stores[0].id, {'medical': 'read'})
 
     def counts(self):
-        return {m: self.root[m].search_count([]) for m in ('stock.move', 'stock.quant', 'ydental.inventory.event', 'ydental.intake.price.snapshot', 'ydental.supply.event')}
+        return {m: self.root[m].search_count([]) for m in ('stock.move', 'stock.quant', 'ydental.inventory.event', 'ydental.intake.snapshot', 'ydental.supply.event')}
 
     def test_three_real_saves_cas_and_economic_invariance(self):
         s,q,l,e,d = opened(self); before=self.counts()
@@ -120,10 +120,9 @@ class TestClinicalDocument(TransactionCase):
 
     def test_cross_store_write_and_old_session_revision(self):
         s,q,l,e,d=opened(self)
-        other=queue_bind(self,store=None) if False else bind(self,self.users['doctor'],self.stores[1]).env[s._name]
+        other=bind(self,self.users['doctor'],self.stores[1]).env[s._name]
         with self.assertRaises(AccessError):other._read(d['document_id'])
         # Actual relation is required before purpose-scoped shared history.
-        other.env['ydental.patient.service']._operate('arrive',{'patient_id':e.ydental_patient_id.id},key()) if False else None
         session=s.env['ydental.access.service']._scope();session.sudo().write({'ydental_revision':session.ydental_revision+1})
         with self.assertRaises(UserError):s._operate('save',save_args(d))
 
