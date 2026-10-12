@@ -1321,20 +1321,20 @@ msgid "Recovery requires an original pending execution event."
 msgstr "恢复必须关联原待核对执行事件。"
 
 #. module: ydental_inventory
+#. odoo-python
 #: code:addons/ydental_inventory/models/ydental_inventory_service.py:0
-#, python-format
 msgid "source_category_mismatch: The execution source does not match the inventory product category."
 msgstr "source_category_mismatch: 执行来源与库存物资类别不匹配。"
 
 #. module: ydental_inventory
+#. odoo-python
 #: code:addons/ydental_inventory/models/ydental_inventory_service.py:0
-#, python-format
 msgid "recovery_unconfirmed: Keep the original event pending for manual source and quantity verification."
 msgstr "recovery_unconfirmed: 保留原事件待核对，请人工核查来源真实性和数量。"
 
 #. module: ydental_inventory
+#. odoo-python
 #: code:addons/ydental_inventory/models/ydental_inventory_service.py:0
-#, python-format
 msgid "recovery_evidence_required: Keep pending until an evidenced receipt or physical count corrects this lot."
 msgstr "recovery_evidence_required: 保持待核对，须先凭证据实际入库或盘点纠正本批次。"
 
