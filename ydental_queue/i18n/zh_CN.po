@@ -788,6 +788,7 @@ msgstr "handover_required: 退出前须合法处理当前患者。"
 
 #. module: ydental_queue
 #. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_return.py:0
 #: code:addons/ydental_queue/models/ydental_queue_service.py:0
 msgid "handover_required: The account or workstation already has a holder."
 msgstr "handover_required: 此账号或工位已有持有人。"
@@ -867,6 +868,7 @@ msgstr ""
 
 #. module: ydental_queue
 #. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_return.py:0
 #: code:addons/ydental_queue/models/ydental_queue_service.py:0
 msgid ""
 "handover_required: Resolve the existing execution or on-site verification "
@@ -1395,3 +1397,73 @@ msgstr "version_conflict: 此保留已处理或关联其他目标任务。"
 #: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_execution__ydental_handed_over_at
 msgid "Ydental Handed Over At"
 msgstr "交还时间"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid ""
+"Be physically present at the original workstation. A server save must "
+"succeed before a new holding connection is issued."
+msgstr "请到原工位现场处理。服务器保存成功后，才会签发新的持有连接。"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Handle on-site verification"
+msgstr "处理现场核实"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "I am physically present at this original workstation"
+msgstr "我已到此原工位现场"
+
+#. module: ydental_queue
+#: model:ir.model.fields.selection,name:ydental_queue.selection__ydental_queue_execution__state__interrupted
+msgid "Interrupted for on-site takeover"
+msgstr "因现场接手中断的历史段"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "On-site handling reason"
+msgstr "现场处理原因"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Save and take over actual execution"
+msgstr "保存并现场接手实际执行"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Save reserved segment and create continuation"
+msgstr "保存保留段并创建续诊"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_hold__ydental_resolution_lease_id
+msgid "Ydental Resolution Lease"
+msgstr "现场处理的新持有租约"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_return.py:0
+msgid "access_denied: Select a verification in the current store."
+msgstr "access_denied：请选择当前门店的待核实记录。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_return.py:0
+msgid ""
+"hold_target_required: Only a trusted external task may proceed while a "
+"return is reserved."
+msgstr "hold_target_required：保留返回期间，只允许可信来源的外检或药房任务继续。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_return.py:0
+msgid ""
+"onsite_required: Confirm physical presence at the original workstation."
+msgstr "onsite_required：请确认您已到原工位现场。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_return.py:0
+msgid ""
+"version_conflict: This verification was already handled or is not ready."
+msgstr "version_conflict：此核实已被处理或尚不符合处理条件。"
