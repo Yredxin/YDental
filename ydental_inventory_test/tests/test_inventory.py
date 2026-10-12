@@ -240,6 +240,9 @@ class TestInventory(TransactionCase):
 
     def test_t04_used_unit_conversion_and_unrelated_issue_unit_rejected(self):
         with self.assertRaises(AccessError):self.pack.write({'relative_factor':12})
+        for vals in ({'factor':999}, {'parent_path':'999/'}, {'relative_uom_id':False}):
+            with self.assertRaises(AccessError):self.pack.write(vals)
+        self.assertEqual(self.pack.factor,10)
         with self.assertRaises(ValidationError):op(self,'product',service=self.group,code=key(),name='Invalid dimensions',kind='medicine',stock_uom_id=self.uom.id,issue_uom_id=self.root.ref('uom.product_uom_hour').id,step=0.01,specification='Synthetic invalid unit')
 
     def test_t06_already_performed_disabled_batch_keeps_pending_fact(self):
