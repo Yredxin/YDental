@@ -371,6 +371,7 @@ class TestInventory(TransactionCase):
         original = self.root['ydental.inventory.event'].browse(event['id'])
         self.assertEqual(original.ydental_correction_id.id, correction['id'])
         self.assertTrue(original.ydental_reconciled_at)
+        self.assertGreater(original.ydental_correction_id.id, original.id)
         self.assertEqual(quantity(self, lot), 4)
 
     def test_rework_recovery_native_failure_rolls_back_original_pending(self):
