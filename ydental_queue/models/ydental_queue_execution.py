@@ -16,6 +16,7 @@ class YDentalQueueExecution(models.Model):
     ydental_ended_at = fields.Datetime()
     ydental_handed_over_at = fields.Datetime()
     state = fields.Selection([('serving', 'Serving'), ('verify', 'Away, on-site verification required'),
+                              ('interrupted', 'Interrupted for on-site takeover'),
                               ('reserved', 'Segment ended for external service'), ('handover', 'Segment handed over')], required=True, default='serving')
 
     _unresolved_patient = models.UniqueIndex("(ydental_patient_id) WHERE state IN ('serving', 'verify')")
@@ -26,7 +27,7 @@ class YDentalQueueExecution(models.Model):
         'CHECK ((ydental_entry_id IS NOT NULL) <> (ydental_resumed_from_id IS NOT NULL))',
         'An execution starts from one entry or resumes one historical segment.')
     _terminal_time = models.Constraint(
-        "CHECK ((state IN ('serving', 'verify') AND ydental_ended_at IS NULL) OR (state IN ('reserved', 'handover') AND ydental_ended_at IS NOT NULL))",
+        "CHECK ((state IN ('serving', 'verify') AND ydental_ended_at IS NULL) OR (state IN ('reserved', 'handover', 'interrupted') AND ydental_ended_at IS NOT NULL))",
         'A terminal segment retains its end time.')
 
     def init(self):

@@ -14,6 +14,7 @@ class YDentalQueueHold(models.Model):
     ydental_station_id = fields.Many2one('ydental.space.station', required=True, ondelete='restrict')
     ydental_area_id = fields.Many2one('ydental.space.area', required=True, ondelete='restrict')
     ydental_actor_id = fields.Many2one('res.users', required=True, ondelete='restrict')
+    ydental_resolution_lease_id = fields.Many2one('ydental.queue.lease', ondelete='restrict')
     ydental_created_at = fields.Datetime(required=True)
     ydental_ended_at = fields.Datetime()
     state = fields.Selection([('active', 'Waiting for patient return'), ('verify', 'On-site verification required'),

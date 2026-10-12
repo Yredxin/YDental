@@ -17,7 +17,7 @@ if (workspace) {
         sessionStorage.removeItem(storageKey);
     }
     async function action(operation, extra = {}, quiet = false) {
-        const reception = ['enter', 'append', 'revoke', 'query_return', 'report'].includes(operation);
+        const reception = ['enter', 'append', 'revoke', 'query_return', 'report', 'takeover_verify', 'handover_verify_hold'].includes(operation);
         const payload = reception ? extra : {...extra, lease_id: holder?.lease_id, token: holder?.token};
         try {
             const response = await fetch(operation === 'report' ? '/ydental/intake/action' : '/ydental/queue/action', {
@@ -35,7 +35,7 @@ if (workspace) {
                 resultNode.textContent = result.error || workspace.querySelector('#expired-message').textContent;
                 return;
             }
-            if (operation === 'enter' || operation === 'switch') {
+            if (['enter', 'switch', 'takeover_verify', 'handover_verify_hold'].includes(operation)) {
                 sessionStorage.setItem(storageKey, JSON.stringify(result));
             } else if (operation === 'exit') {
                 sessionStorage.removeItem(storageKey);
@@ -61,7 +61,7 @@ if (workspace) {
     }
     for (const form of workspace.querySelectorAll('[data-queue-form]')) {
         const operation = form.dataset.queueForm;
-        if (!['append', 'revoke', 'query_return', 'report'].includes(operation) && !holder) {
+        if (!['append', 'revoke', 'query_return', 'report', 'takeover_verify', 'handover_verify_hold'].includes(operation) && !holder) {
             form.querySelector('button').disabled = true;
         }
         form.addEventListener('submit', (event) => {
@@ -70,7 +70,7 @@ if (workspace) {
             for (const [name, value] of new FormData(form)) {
                 extra[name] = name.endsWith('_id') || name === 'version' ? Number(value) : value;
             }
-            if (operation === 'restore') {
+            if (['restore', 'takeover_verify', 'handover_verify_hold'].includes(operation)) {
                 extra.confirmed = form.querySelector('[name=confirmed]').checked;
             }
             action(operation, extra);

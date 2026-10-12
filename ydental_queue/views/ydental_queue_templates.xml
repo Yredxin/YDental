@@ -49,6 +49,18 @@
                     <form data-queue-form="query_return"><label>Patient ID for return query <input type="number" name="patient_id" min="1" required="required"/></label>
                         <button type="submit">Query return destination</button></form>
                 </section>
+                <section id="onsite-verifications" t-if="verifications">
+                    <h2>Handle on-site verification</h2>
+                    <p>Be physically present at the original workstation. A server save must succeed before a new holding connection is issued.</p>
+                    <form t-foreach="verifications" t-as="verification" t-att-data-queue-form="verification['operation']" t-att-data-verify-execution="verification['execution'].id">
+                        <p><t t-out="verification['station'].name"/> / <t t-out="verification['execution'].ydental_lease_id.ydental_actor_id.name"/> / <t t-out="verification['execution'].ydental_task_id.id"/></p>
+                        <input type="hidden" name="execution_id" t-att-value="verification['execution'].id"/>
+                        <label><input type="checkbox" name="confirmed" required="required"/> I am physically present at this original workstation</label>
+                        <label>On-site handling reason <input name="reason" required="required" maxlength="1000"/></label>
+                        <button t-if="verification['operation'] == 'takeover_verify'" type="submit">Save and take over actual execution</button>
+                        <button t-else="" type="submit">Save reserved segment and create continuation</button>
+                    </form>
+                </section>
                 <section id="continuation-reception">
                     <h2>Pending explicit tasks</h2>
                     <p>Continuation keeps the outpatient service requirements. Independent services need a new qualification.</p>

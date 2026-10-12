@@ -11,7 +11,8 @@ class YDentalQueueService(models.AbstractModel):
         return super()._handlers() | {'reserve': self._reserve, 'restore': self._restore, 'handover': self._handover}
 
     def _operate(self, operation, payload):
-        handlers = {'query_return': self._query_return, 'append': self._append, 'revoke': self._revoke}
+        onsite = {'takeover_verify': self._takeover_verify, 'handover_verify_hold': self._handover_verify_hold}
+        handlers = onsite | {'query_return': self._query_return, 'append': self._append, 'revoke': self._revoke}
         if operation not in handlers:
             return super()._operate(operation, payload)
         if not isinstance(payload, dict):
@@ -21,13 +22,17 @@ class YDentalQueueService(models.AbstractModel):
         except TypeError as error:
             raise ValidationError(self.env._('Unknown or missing workstation arguments.')) from error
         self.env['ydental.access.service']._scope(write=operation != 'query_return')
+        if operation in onsite:
+            self._connection()
         with self.env.cr.savepoint():
             self._locks()
             # Query is deliberately read-only: no expiry, task, entry or audit writes.
             if operation != 'query_return':
-                self._append_access()
+                if operation not in onsite:
+                    self._append_access()
                 self._expire()
-            return handlers[operation](**payload)
+            result = handlers[operation](**payload)
+            return dict(result, result='accepted') if operation in onsite else result
 
     def _service_snapshot(self, task):
         mapping = task.ydental_mapping_id
@@ -90,6 +95,84 @@ class YDentalQueueService(models.AbstractModel):
         if not execution or execution.ydental_lease_id != lease or execution.ydental_store_id != lease.ydental_store_id:
             raise AccessError(self.env._('access_denied: Select the execution held by this connection.'))
         return execution
+
+    def _hold_target_reason(self, task):
+        hold = self._hold(patient_id=task.ydental_patient_id.id)
+        if not hold:
+            return ''
+        if task.ydental_store_id != hold.ydental_store_id or task.ydental_mapping_id.ydental_catalog_id.ydental_kind not in ('exam', 'medicine'):
+            return self.env._('hold_target_required: Only a trusted external task may proceed while a return is reserved.')
+        # The initial target was already verified by the server when reserving.
+        # Every additional target must independently pass the trusted hook.
+        if task != hold.ydental_target_task_id and self._external_target_authorized(hold.ydental_execution_id, task) is not True:
+            return self.env._('hold_target_required: Only a trusted external task may proceed while a return is reserved.')
+        return ''
+
+    def _onsite_source(self, execution_id, confirmed, reason, *, reserved=False):
+        if confirmed is not True:
+            raise AccessError(self.env._('onsite_required: Confirm physical presence at the original workstation.'))
+        intake = self.env['ydental.intake.service']
+        reason = intake._text(reason)
+        store = self.env['ydental.access.service']._scope(write=True).ydental_store_id
+        execution = self._model('execution').browse(intake._id(execution_id)).exists()
+        if not execution or execution.ydental_store_id != store:
+            raise AccessError(self.env._('access_denied: Select a verification in the current store.'))
+        hold = self._hold(patient_id=execution.ydental_patient_id.id) if reserved else self._model('hold')
+        if reserved:
+            valid = execution.state == 'reserved' and hold and hold.state == 'verify' and hold.ydental_execution_id == execution
+        else:
+            valid = execution.state == 'verify'
+        if not valid or execution.ydental_lease_id.ydental_active:
+            raise UserError(self.env._('version_conflict: This verification was already handled or is not ready.'))
+        station, member, category = self._station(execution.ydental_lease_id.ydental_station_id.id)
+        entry = self._model('entry').search([('ydental_task_id', '=', execution.ydental_task_id.id)], limit=1)
+        failure = self._service_eligibility(entry, station)
+        if failure:
+            raise AccessError(failure)
+        if execution.ydental_service_snapshot != self._service_snapshot(execution.ydental_task_id):
+            raise UserError(self.env._('version_conflict: The original service requirements changed; review the source.'))
+        actor_execution = self._actor_execution()
+        actor_hold = self._hold(actor_id=self.env.uid)
+        if self._own() or (actor_execution and actor_execution != execution) or (actor_hold and actor_hold != hold):
+            raise UserError(self.env._('handover_required: Resolve the existing execution or on-site verification before continuing.'))
+        if self._model('lease').search_count([('ydental_station_id', '=', station.id), ('ydental_active', '=', True)]):
+            raise UserError(self.env._('handover_required: The account or workstation already has a holder.'))
+        self.env['ydental.patient.service']._current_relation(execution.ydental_patient_id, store)
+        return execution, hold, station, category, reason
+
+    def _takeover_verify(self, execution_id, confirmed, reason):
+        execution, hold, station, category, reason = self._onsite_source(execution_id, confirmed, reason)
+        if self._save_before_handover(execution) is not True:
+            raise AccessError(self.env._('save_required: A trusted server document save integration is required.'))
+        self._release_execution_documents(execution)
+        execution._save({'state': 'interrupted', 'ydental_ended_at': self._now()})
+        execution.flush_recordset(['state'])
+        lease = self._new_lease(station, category)
+        resumed = self._model('execution')._new({'name': execution.name, 'ydental_store_id': execution.ydental_store_id.id,
+            'ydental_category': category, 'ydental_patient_id': execution.ydental_patient_id.id,
+            'ydental_task_id': execution.ydental_task_id.id, 'ydental_resumed_from_id': execution.id,
+            'ydental_service_snapshot': execution.ydental_service_snapshot, 'ydental_lease_id': lease['lease_id'],
+            'ydental_started_at': self._now()})
+        self._model('entry').search([('ydental_task_id', '=', execution.ydental_task_id.id)])._save({'state': 'serving'})
+        self._audit('onsite_takeover', resumed, {'old_execution_id': execution.id,
+            'old_lease_id': execution.ydental_lease_id.id, 'new_lease_id': lease['lease_id'], 'reason': reason})
+        return dict(lease, execution_id=resumed.id, state='serving')
+
+    def _handover_verify_hold(self, execution_id, confirmed, reason):
+        execution, hold, station, category, reason = self._onsite_source(execution_id, confirmed, reason, reserved=True)
+        if self._save_before_handover(execution) is not True:
+            raise AccessError(self.env._('save_required: A trusted server document save integration is required.'))
+        task = self._continuation(execution, reason=reason)
+        self._release_execution_documents(execution)
+        self._end_segment(execution, 'handover')
+        hold._save({'state': 'handover', 'ydental_ended_at': self._now()})
+        hold.flush_recordset(['state'])
+        lease = self._new_lease(station, category)
+        hold._save({'ydental_resolution_lease_id': lease['lease_id']})
+        self._audit('onsite_hold_handover', hold, {'execution_id': execution.id,
+            'old_lease_id': execution.ydental_lease_id.id, 'new_lease_id': lease['lease_id'],
+            'continuation_task_id': task.id, 'reason': reason})
+        return dict(lease, hold_id=hold.id, continuation_task_id=task.id, state='handover')
 
     def _external_target_authorized(self, execution, target_task):
         # S08/S09 must verify the actual frozen order/prescription source.
@@ -164,7 +247,7 @@ class YDentalQueueService(models.AbstractModel):
         entry = self._model('entry').search([('ydental_task_id', '=', hold.ydental_task_id.id)], limit=1)
         if hold.ydental_execution_id.ydental_service_snapshot != self._service_snapshot(hold.ydental_task_id):
             raise UserError(self.env._('version_conflict: The original service requirements changed; review the source.'))
-        reason = self._eligibility(entry, lease.ydental_station_id)
+        reason = self._service_eligibility(entry, lease.ydental_station_id)
         if reason:
             raise AccessError(reason)
         intake = self.env['ydental.intake.service']
@@ -292,7 +375,7 @@ class YDentalQueueService(models.AbstractModel):
             return reason
         task = entry.ydental_task_id
         actor_hold = self._hold(actor_id=self.env.uid if actor is None else actor.id)
-        if actor_hold and not (actor_hold.ydental_task_id == task and actor_hold.ydental_station_id == station and actor_hold.state == 'active'):
+        if actor_hold:
             return self.env._('handover_required: Resolve the reserved patient or on-site verification first.')
         kind = task.ydental_mapping_id.ydental_catalog_id.ydental_kind
         expected = {'exam': 'exam', 'medicine': 'pharmacy'}.get(kind, 'medical')
@@ -300,17 +383,12 @@ class YDentalQueueService(models.AbstractModel):
             return self.env._('capability_mismatch: Use the workstation business type for this explicit service task.')
         if task.ydental_continuation_snapshot and task.ydental_continuation_snapshot != self._service_snapshot(task):
             return self.env._('version_conflict: Continuation service requirements changed; review the source.')
-        # Restore is allowed directly to an effective hold even when stopped.
-        hold = self._hold(patient_id=entry.ydental_patient_id.id)
-        if hold and hold.ydental_task_id == task and hold.ydental_station_id == station and hold.state == 'active':
-            return ''
+        reason = self._hold_target_reason(task)
+        if reason:
+            return reason
         business = self.env['ydental.supply.service']._business_record(task.ydental_store_id, entry.ydental_area_id.id)
         if business and business.state == 'closed' and not self._permit_valid(task):
             return self.env._('append_required: This stopped area requires an active task-bound append permit.')
-        # A revoked permit keeps the task blocked even if ordinary calling opens.
-        permits = self._model('append.permit').search([('ydental_task_id', '=', task.id)], order='id desc', limit=1)
-        if permits and permits.state != 'active':
-            return self.env._('append_required: The task append permit is no longer active.')
         return ''
 
     def _start(self, lease_id, token, entry_id):

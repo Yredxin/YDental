@@ -142,7 +142,7 @@ class YDentalQueueService(models.AbstractModel):
                 self._restore_call(entry)
             executions = self._model('execution').search([('ydental_lease_id', '=', lease.id), ('state', '=', 'serving')])
             executions._save({'state': 'verify'})
-            executions.ydental_entry_id._save({'state': 'verify'})
+            self._model('entry').search([('ydental_task_id', 'in', executions.ydental_task_id.ids)])._save({'state': 'verify'})
             lease._save({'ydental_active': False, 'ydental_release_reason': 'timeout'})
             # Both scheduler and request-triggered expiration are automation,
             # never an action by the unrelated user whose request found it.
@@ -197,6 +197,9 @@ class YDentalQueueService(models.AbstractModel):
             raise UserError(self.env._('handover_required: The account or workstation already has a holder.'))
         if self._model('execution').search_count([('ydental_lease_id.ydental_station_id', '=', station.id), ('state', 'in', ('serving', 'verify'))]):
             raise UserError(self.env._('handover_required: On-site verification is required before reusing this workstation.'))
+        return self._new_lease(station, category)
+
+    def _new_lease(self, station, category):
         heartbeat, timeout = self._settings()
         session, connection = self._connection()
         token = secrets.token_urlsafe(32)
@@ -216,7 +219,7 @@ class YDentalQueueService(models.AbstractModel):
         if station == lease.ydental_station_id:
             return {'lease_id': lease.id, 'station_id': station.id, 'token': token, 'heartbeat_seconds': self._settings()[0]}
         if self._model('lease').search_count([('ydental_station_id', '=', station.id), ('ydental_active', '=', True)]) or self._model('execution').search_count([
-                ('ydental_lease_id.ydental_station_id', '=', station.id)]):
+                ('ydental_lease_id.ydental_station_id', '=', station.id), ('state', 'in', ('serving', 'verify'))]):
             raise UserError(self.env._('handover_required: The target workstation is occupied or awaiting verification.'))
         # All target checks finish first. Both writes share the outer savepoint.
         lease._save({'ydental_active': False, 'ydental_release_reason': 'holder_exit'})
@@ -258,7 +261,7 @@ class YDentalQueueService(models.AbstractModel):
         # server implementation may authorize a nonempty catalog requirement.
         return False
 
-    def _eligibility(self, entry, station, actor=None):
+    def _service_eligibility(self, entry, station, actor=None):
         actor = self.env.user.sudo() if actor is None else actor.sudo()
         access = self.env['ydental.access.service']
         member = access._membership(actor.id, station.ydental_store_id.id)
@@ -268,8 +271,6 @@ class YDentalQueueService(models.AbstractModel):
                 access._levels(member)[category] != 'write' or not caps or
                 not set(caps.ids) <= set(actor.ydental_capability_ids.filtered('active').ids)):
             return self.env._('staff_ineligible: Live store permission and all workstation capabilities are required.')
-        if self._actor_execution(actor.id):
-            return self.env._('handover_required: Resolve the existing execution or on-site verification before continuing.')
         task = entry.ydental_task_id
         mapping = task.ydental_mapping_id
         catalog = mapping.ydental_catalog_id
@@ -296,6 +297,14 @@ class YDentalQueueService(models.AbstractModel):
             return self.env._('capability_mismatch: The task service and workstation must match the exact active capability.')
         if catalog.ydental_qualification and self._qualification_satisfied(task, station, actor) is not True:
             return self.env._('qualification_required: A trusted server provider must confirm the service qualification.')
+        return ''
+
+    def _eligibility(self, entry, station, actor=None):
+        reason = self._service_eligibility(entry, station, actor)
+        if reason:
+            return reason
+        if self._actor_execution(self.env.uid if actor is None else actor.id):
+            return self.env._('handover_required: Resolve the existing execution or on-site verification before continuing.')
         if self._unresolved_execution(entry.ydental_patient_id.id):
             return self.env._('handover_required: The patient already has an unresolved actual execution.')
         return ''

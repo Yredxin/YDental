@@ -22,6 +22,9 @@ class YDentalIntakeService(models.AbstractModel):
             return self.env['ydental.access.service']._check('pharmacy', 'read').ydental_store_id
 
     def _valid_task(self, task, store):
+        reason = self.env['ydental.queue.service']._hold_target_reason(task)
+        if reason:
+            raise UserError(reason)
         service = self.with_context(ydental_queue_admission=Admission(self.env.uid, task.id))
         patient = super(YDentalIntakeService, service)._valid_task(task, store)
         if task.ydental_continuation_snapshot and task.ydental_continuation_snapshot != self.env['ydental.queue.service']._service_snapshot(task):
@@ -42,6 +45,9 @@ class YDentalIntakeService(models.AbstractModel):
 
     def _queue_assert_idle(self, task):
         super()._queue_assert_idle(task)
+        reason = self.env['ydental.queue.service']._hold_target_reason(task)
+        if reason:
+            raise UserError(reason)
         if self.env['ydental.queue.service']._unresolved_execution(task.ydental_patient_id.id):
             raise UserError(self.env._('handover_required: This patient has an unresolved actual execution.'))
 

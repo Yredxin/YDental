@@ -55,6 +55,16 @@ class YDentalQueue(http.Controller):
                     reasons.append(reason)
             waiting_rows.append({'entry': entry, 'reason': ', '.join(eligible) if eligible else ' '.join([
                 request.env._('No connected authorized workstation covers this exact capability. Open an eligible workstation here.'), *reasons])})
+        verifications = []
+        for execution in queue._model('execution').search([('ydental_store_id', '=', store.id), ('state', 'in', ('verify', 'reserved'))]):
+            hold = queue._hold(patient_id=execution.ydental_patient_id.id)
+            if execution.state != 'verify' and not (hold and hold.state == 'verify' and hold.ydental_execution_id == execution):
+                continue
+            station = execution.ydental_lease_id.ydental_station_id
+            entry = queue._model('entry').search([('ydental_task_id', '=', execution.ydental_task_id.id)], limit=1)
+            if not queue._service_eligibility(entry, station):
+                verifications.append({'execution': execution, 'station': station,
+                    'operation': 'takeover_verify' if execution.state == 'verify' else 'handover_verify_hold'})
         try:
             heartbeat, timeout = queue._settings()
             config_hint = request.env._('Heartbeat and timeout are explicitly configured. Production approval remains separate.')
@@ -67,7 +77,7 @@ class YDentalQueue(http.Controller):
             'revision': access._scope().ydental_revision, 'stations': station_rows, 'rows': waiting_rows,
             'own': own, 'shift_hint': queue._shift_hint(own), 'config_hint': config_hint,
             'can_write': any(levels[c] == 'write' for c in ('medical', 'exam', 'pharmacy')),
-            'heartbeat': heartbeat, 'can_call': can_call,
+            'heartbeat': heartbeat, 'can_call': can_call, 'verifications': verifications,
             'execution': actor_execution if actor_execution and actor_execution.state == 'serving' else False,
             'actor_hold': actor_hold, 'can_frontdesk': levels['frontdesk'] == 'write',
             'can_append': levels['frontdesk'] == 'write' and queue.env.user.has_group('ydental_queue.ydental_group_append'),
