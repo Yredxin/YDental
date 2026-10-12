@@ -219,3 +219,23 @@ class TestQueueReturnRework(TransactionCase):
         result = resolver._operate('takeover_verify', {'execution_id': actual.id, 'confirmed': True, 'reason': 'On-site pharmacy verification'})
         self.assertEqual(actual.state, 'interrupted')
         self.assertEqual(resolver._unresolved_execution(target.ydental_patient_id.id).id, result['execution_id'])
+
+    def test_verify_takeover_rechecks_trusted_nonempty_qualification(self):
+        from ..models.adapter import QualificationSource
+        self.catalogs[0]._save({'ydental_qualification': 'Synthetic current outpatient license'})
+        task = accepted(self)
+        queue = queue_bind(self)
+        queue._test_qualification(QualificationSource(self.users['doctor'].id, task.id, self.stations[0][0].id,
+            'Synthetic current outpatient license', True))
+        queue, lease, old = serving(self, task=task)
+        source(queue, old)
+        self.expire(queue, lease)
+        resolver = queue_bind(self, self.second)
+        payload = {'execution_id': old.id, 'confirmed': True, 'reason': 'On-site qualified takeover'}
+        with self.assertRaises(AccessError):
+            resolver.with_context(qualified=True)._operate('takeover_verify', payload)
+        resolver._test_qualification(QualificationSource(self.second.id, task.id, self.stations[0][0].id,
+            'Synthetic current outpatient license', True))
+        result = resolver._operate('takeover_verify', payload)
+        self.assertEqual(resolver._model('execution').browse(result['execution_id']).ydental_service_snapshot,
+                         old.ydental_service_snapshot)
