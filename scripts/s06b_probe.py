@@ -343,7 +343,7 @@ for held in (False, True):
         connections[role] = [key() + key()]
         return role
     resolver = fresh(resolver_employee)
-    operation = 'handover_verify_hold' if held else 'takeover_verify' 
+    operation = 'handover_verify_hold' if held else 'takeover_verify'
     payload = {'execution_id': c['execution'], 'confirmed': True, 'reason': 'Two qualified people physically inspecting original station'}
     # The original actor and a distinct qualified employee both attempt the
     # same original station, with different server sessions/connections.
@@ -492,4 +492,3 @@ private(run / 'preview-rework.json', rework_cases)
 result.update(result='PASS', deadlocks=0)
 save_attempt()
 print(json.dumps({'result': 'PASS', 'races': len(result['races']), 'a_regression_races': 21, 'deadlocks': 0}))
-
