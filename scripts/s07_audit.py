@@ -1,6 +1,8 @@
 """Read-only native ledger invariants, executed only by the guarded S07 runner."""
 from datetime import datetime, timezone
 import json
+import hashlib
+import subprocess
 import os
 from pathlib import Path
 import re
@@ -28,6 +30,18 @@ with env.registry.cursor() as audit_cr:
         audit_cr.execute(query);audit_result[name]=audit_cr.fetchone()[0]
     assert all(v==0 for v in audit_result.values()),audit_result
     audit_cr.execute("SELECT count(*) FROM ydental_inventory_event");audit_result['event_count']=audit_cr.fetchone()[0]
+    signatures={}
+    for table,query in {
+        'event': 'SELECT row_to_json(e) FROM ydental_inventory_event e ORDER BY id',
+        'batch': 'SELECT row_to_json(b) FROM ydental_inventory_batch b ORDER BY id',
+        'move': 'SELECT id,product_id,uom_id,product_uom_qty,quantity,state,location_id,location_dest_id,ydental_store_id FROM stock_move WHERE ydental_store_id IS NOT NULL ORDER BY id',
+        'move_line': 'SELECT id,move_id,product_id,lot_id,uom_id,quantity,location_id,location_dest_id,ydental_store_id FROM stock_move_line WHERE ydental_store_id IS NOT NULL ORDER BY id',
+        'quant': 'SELECT id,product_id,lot_id,location_id,quantity,reserved_quantity,ydental_store_id FROM stock_quant WHERE ydental_store_id IS NOT NULL ORDER BY id',
+    }.items():
+        audit_cr.execute(query)
+        signatures[table]=hashlib.sha256(json.dumps(audit_cr.fetchall(),sort_keys=True,default=str).encode()).hexdigest()
+    audit_result['ledger_signatures']=signatures
+    audit_result['tested_commit']=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
 audit_result.update(status='PASS',database=env.cr.dbname,time_utc=datetime.now(timezone.utc).isoformat())
 path=Path(__file__).resolve().parents[1]/'docs/evidence/s07/invariants'
 path.mkdir(parents=True,exist_ok=True)
