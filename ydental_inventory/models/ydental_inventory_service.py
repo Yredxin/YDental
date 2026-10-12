@@ -430,6 +430,8 @@ class YDentalInventoryService(models.AbstractModel):
         event = self._get('event', event_id, store); self._text(reason)
         if event.state == 'done':
             return {'id': event.id, 'move_id': event.ydental_move_id.id, 'state': 'done'}
+        if event.state != 'pending' or event.ydental_kind not in ('treatment', 'chairside', 'prescription'):
+            raise UserError(self.env._('Recovery requires an original pending execution event.'))
         self._usable(event.ydental_lot_id, store)
         self._move(event)
         self._audit('recovery', event, before={'state': 'pending'}, after={'state': event.state, 'move_id': event.ydental_move_id.id})

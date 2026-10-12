@@ -1313,3 +1313,9 @@ msgstr "version_conflict: 此请求键已用于另一组库存参数。"
 #: code:addons/ydental_inventory/models/ydental_inventory_service.py:0
 msgid "version_conflict: The source event is immutable."
 msgstr "version_conflict: 原库存来源事件不可改写。"
+
+#. module: ydental_inventory
+#. odoo-python
+#: code:addons/ydental_inventory/models/ydental_inventory_service.py:0
+msgid "Recovery requires an original pending execution event."
+msgstr "恢复必须关联原待核对执行事件。"

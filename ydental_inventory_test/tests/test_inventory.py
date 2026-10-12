@@ -235,6 +235,8 @@ class TestInventory(TransactionCase):
         first=op(self,'inventory',args);retry=op(self,'inventory',args)
         self.assertEqual(first['id'],retry['id']);event=self.root['ydental.inventory.event'].browse(first['id'])
         self.assertEqual(event.state,'observed');self.assertFalse(event.ydental_move_id);self.assertEqual(quantity(self),2)
+        with self.assertRaises(UserError):op(self,'recover',event_id=event.id,reason='Observed count is not pending execution')
+        self.assertFalse(event.ydental_move_id);self.assertEqual(quantity(self),2)
 
     def test_t04_used_unit_conversion_and_unrelated_issue_unit_rejected(self):
         with self.assertRaises(AccessError):self.pack.write({'relative_factor':12})
