@@ -1,0 +1,28 @@
+{
+  "review": {
+    "id": 6117074066,
+    "url": "https://github.com/Yredxin/YDental/issues/30#issuecomment-6117074066",
+    "updated_at": "2026-10-12T03:13:20Z",
+    "body_sha256": "65c142d2bfe30d00b8120d4b07b75f8f60abe31c48d2ae885efddedb8ecca2d8"
+  },
+  "original_final": "840df8921cfb5a70c601e6e8ed81fb7d03aacd5b",
+  "current_branch": "codex/s06-a-queue-r1-20261012",
+  "original_activation": 6116491783,
+  "allowed": "S06-A BLOCKER-1 through BLOCKER-4 only; current session and branch",
+  "project_authorization": "#30 custom execution status -> rework only; native Status/workflows unchanged",
+  "not_enabled": [
+    "S06-B",
+    "S06-C",
+    "S07"
+  ],
+  "issue_state": "OPEN",
+  "review_unchanged_before_delivery": true,
+  "issue_body_unchanged": true,
+  "latest_review_before_delivery": 6117074066,
+  "comment_ids_before_delivery": [
+    6116491783,
+    6116516335,
+    6116993988,
+    6117074066
+  ]
+}

@@ -1,0 +1,294 @@
+{
+  "test": "fe0df66f7ffb55f3895d192f381d9dc7448d2b50",
+  "count": 48,
+  "cases": [
+    {
+      "class": "TestQueueHTTP",
+      "method": "test_http_unscheduled_call_missed_report_start",
+      "file": "ydental_queue_test/tests/test_http.py",
+      "kind": "HTTP/RPC"
+    },
+    {
+      "class": "TestQueueHTTP",
+      "method": "test_http_readonly_csrf_state_and_secret_field_bypass",
+      "file": "ydental_queue_test/tests/test_http.py",
+      "kind": "HTTP/RPC"
+    },
+    {
+      "class": "TestQueueHTTP",
+      "method": "test_http_other_connection_old_token_and_timeout",
+      "file": "ydental_queue_test/tests/test_http.py",
+      "kind": "HTTP/RPC"
+    },
+    {
+      "class": "TestQueueHTTP",
+      "method": "test_http_switch_and_old_lease",
+      "file": "ydental_queue_test/tests/test_http.py",
+      "kind": "HTTP/RPC"
+    },
+    {
+      "class": "TestQueueHTTP",
+      "method": "test_http_revocation_next_write",
+      "file": "ydental_queue_test/tests/test_http.py",
+      "kind": "HTTP/RPC"
+    },
+    {
+      "class": "TestQueueHTTP",
+      "method": "test_http_real_s05_hook_atomic_and_no_double_claim",
+      "file": "ydental_queue_test/tests/test_http.py",
+      "kind": "HTTP/RPC"
+    },
+    {
+      "class": "TestQueue",
+      "method": "test_t01_one_actor_one_station_no_admin_force",
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "kind": "model"
+    },
+    {
+      "class": "TestQueue",
+      "method": "test_t02_real_report_call_start_capacity_once",
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "kind": "model"
+    },
+    {
+      "class": "TestQueue",
+      "method": "test_t03_panorama_never_cbct",
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "kind": "model"
+    },
+    {
+      "class": "TestQueue",
+      "method": "test_t04_missed_repeated_report_switch_and_fault",
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "kind": "model"
+    },
+    {
+      "class": "TestQueue",
+      "method": "test_t04_return_from_real_started_history_not_once_per_day",
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "kind": "model"
+    },
+    {
+      "class": "TestQueue",
+      "method": "test_t05_session_token_revision_context_and_idle",
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "kind": "model"
+    },
+    {
+      "class": "TestQueue",
+      "method": "test_t05_serving_timeout_stays_exclusive",
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "kind": "model"
+    },
+    {
+      "class": "TestQueue",
+      "method": "test_t14_revoke_employee_and_forged_store",
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "kind": "model"
+    },
+    {
+      "class": "TestQueue",
+      "method": "test_t17_unscheduled_entry_creates_no_capacity",
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "kind": "model"
+    },
+    {
+      "class": "TestQueue",
+      "method": "test_t18_switch_success_failure_busy",
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "kind": "model"
+    },
+    {
+      "class": "TestQueue",
+      "method": "test_t19_shift_end_only_hint",
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "kind": "model"
+    },
+    {
+      "class": "TestQueue",
+      "method": "test_t15_real_hook_rollback_and_s05_single_position",
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "kind": "model"
+    },
+    {
+      "class": "TestQueue",
+      "method": "test_t15_call_void_vs_start_semantics_and_cancel",
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "kind": "model"
+    },
+    {
+      "class": "TestQueue",
+      "method": "test_t15_price_snapshot_unchanged_and_qualification_cancel",
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "kind": "model"
+    },
+    {
+      "class": "TestQueue",
+      "method": "test_document_extension_independent_editors",
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "kind": "model"
+    },
+    {
+      "class": "TestQueue",
+      "method": "test_parameters_fail_closed_no_production_defaults",
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "kind": "model"
+    },
+    {
+      "class": "TestQueue",
+      "method": "test_a_regression_existing_qualification_at_zero_free",
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "kind": "model"
+    },
+    {
+      "class": "TestQueue",
+      "method": "test_a_regression_call_switch_failure_keeps_call_and_missed",
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "kind": "model"
+    },
+    {
+      "class": "TestQueue",
+      "method": "test_a_regression_future_day_report_atomic",
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "kind": "model"
+    },
+    {
+      "class": "TestQueue",
+      "method": "test_t05_fault_restores_unused_return_opportunity",
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "kind": "model"
+    },
+    {
+      "class": "TestQueue",
+      "method": "test_t14_inactive_employee_and_insufficient_capability",
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "kind": "model"
+    },
+    {
+      "class": "TestQueue",
+      "method": "test_t17_full_walkin_does_not_borrow_unscheduled_station",
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "kind": "model"
+    },
+    {
+      "class": "TestQueue",
+      "method": "test_a_regression_s04_merge_migrates_real_waiting_canonical",
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "kind": "model"
+    },
+    {
+      "class": "TestQueue",
+      "method": "test_a_regression_reschedule_failure_preserves_call_and_claim",
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "kind": "model"
+    },
+    {
+      "class": "TestQueue",
+      "method": "test_t05_idle_lock_screen_heartbeat_preserves_holder",
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "kind": "model"
+    },
+    {
+      "class": "TestQueue",
+      "method": "test_document_timeout_and_holder_exit_are_only_release_sources",
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "kind": "model"
+    },
+    {
+      "class": "TestQueueRework",
+      "method": "test_b1_verify_retains_actor_station_patient_and_status",
+      "file": "ydental_queue_test/tests/test_rework.py",
+      "kind": "model"
+    },
+    {
+      "class": "TestQueueRework",
+      "method": "test_b1_execution_store_fence_survives_new_session_and_store_switch",
+      "file": "ydental_queue_test/tests/test_rework.py",
+      "kind": "model"
+    },
+    {
+      "class": "TestQueueRework",
+      "method": "test_b2_execution_area_same_reporting_same_capability_rechecked_at_start",
+      "file": "ydental_queue_test/tests/test_rework.py",
+      "kind": "model"
+    },
+    {
+      "class": "TestQueueRework",
+      "method": "test_b2_qualification_default_closed_trusted_provider_and_revalidation",
+      "file": "ydental_queue_test/tests/test_rework.py",
+      "kind": "model"
+    },
+    {
+      "class": "TestQueueRework",
+      "method": "test_b2_catalog_capability_change_cannot_start_old_entry",
+      "file": "ydental_queue_test/tests/test_rework.py",
+      "kind": "model"
+    },
+    {
+      "class": "TestQueueRework",
+      "method": "test_b3_mixed_capability_rank_three_moves_two_not_to_head",
+      "file": "ydental_queue_test/tests/test_rework.py",
+      "kind": "model"
+    },
+    {
+      "class": "TestQueueRework",
+      "method": "test_b3_mixed_rank_four_short_tail_and_repeat_report",
+      "file": "ydental_queue_test/tests/test_rework.py",
+      "kind": "model"
+    },
+    {
+      "class": "TestQueueRework",
+      "method": "test_b3_return_missed_loses_opportunity_moves_from_priority_rank",
+      "file": "ydental_queue_test/tests/test_rework.py",
+      "kind": "model"
+    },
+    {
+      "class": "TestQueueRework",
+      "method": "test_b3_fault_restores_mixed_call_rank_order_and_opportunity",
+      "file": "ydental_queue_test/tests/test_rework.py",
+      "kind": "model"
+    },
+    {
+      "class": "TestQueueRework",
+      "method": "test_b3_n_unpublished_blocks_call_before_state_change",
+      "file": "ydental_queue_test/tests/test_rework.py",
+      "kind": "model"
+    },
+    {
+      "class": "TestQueueRework",
+      "method": "test_b4_request_and_cron_use_identical_automation_audit_semantics",
+      "file": "ydental_queue_test/tests/test_rework.py",
+      "kind": "model"
+    },
+    {
+      "class": "TestQueueReworkHTTP",
+      "method": "test_http_b1_verify_blocks_actor_new_station_and_cross_store_write",
+      "file": "ydental_queue_test/tests/test_rework_http.py",
+      "kind": "HTTP/RPC"
+    },
+    {
+      "class": "TestQueueReworkHTTP",
+      "method": "test_http_b2_wrong_execution_area_cannot_call_or_start",
+      "file": "ydental_queue_test/tests/test_rework_http.py",
+      "kind": "HTTP/RPC"
+    },
+    {
+      "class": "TestQueueReworkHTTP",
+      "method": "test_http_b2_qualification_cannot_be_forged_and_is_rechecked",
+      "file": "ydental_queue_test/tests/test_rework_http.py",
+      "kind": "HTTP/RPC"
+    },
+    {
+      "class": "TestQueueReworkHTTP",
+      "method": "test_http_b3_n_zero_blocks_call_and_mixed_missed_moves_back",
+      "file": "ydental_queue_test/tests/test_rework_http.py",
+      "kind": "HTTP/RPC"
+    },
+    {
+      "class": "TestQueueReworkHTTP",
+      "method": "test_http_b4_unrelated_request_timeout_records_automation",
+      "file": "ydental_queue_test/tests/test_rework_http.py",
+      "kind": "HTTP/RPC"
+    }
+  ]
+}

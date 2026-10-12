@@ -1,0 +1,72 @@
+{
+  "original_final": "840df8921cfb5a70c601e6e8ed81fb7d03aacd5b",
+  "product": "dfc6ff4a08e3ed80977e114042f08a0491d5ca0b",
+  "test": "fe0df66f7ffb55f3895d192f381d9dc7448d2b50",
+  "database": "ydental_s06a_test_20261012034435_fa34a4e9",
+  "actions": [
+    {
+      "action": "install",
+      "exit_code": 0,
+      "log": "install-20261012T034435485408.log",
+      "log_sha256": "2fd3355403f3fa54b76557345113620f284e61294b90c56286f1158ab4e10715",
+      "time_utc": "2026-10-12T03:46:07.205169+00:00",
+      "tested_commit": "fe0df66f7ffb55f3895d192f381d9dc7448d2b50",
+      "tests": [
+        0,
+        0,
+        50
+      ]
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 0,
+      "log": "upgrade-20261012T034607301391.log",
+      "log_sha256": "e6a46ca927b8d9f751433182de2d49cf721b70f75355d709294252266acc447b",
+      "time_utc": "2026-10-12T03:46:46.966740+00:00",
+      "tested_commit": "fe0df66f7ffb55f3895d192f381d9dc7448d2b50",
+      "tests": [
+        0,
+        0,
+        48
+      ]
+    },
+    {
+      "action": "probe",
+      "exit_code": 0,
+      "log": "probe-20261012T034647043859.log",
+      "log_sha256": "8b8888aa09ee3375c3f1f67edc5501aa8075fb159aba3fcc99ae5a5ac25c62f0",
+      "time_utc": "2026-10-12T03:47:09.360326+00:00",
+      "tested_commit": "fe0df66f7ffb55f3895d192f381d9dc7448d2b50"
+    },
+    {
+      "action": "export",
+      "exit_code": 0,
+      "log": "export-20261012T034709436416.log",
+      "log_sha256": "198413ff7150855aa1dbc51cf94ec4722b96524e3704c49880b1fde0c699b560",
+      "time_utc": "2026-10-12T03:47:11.283158+00:00",
+      "tested_commit": "fe0df66f7ffb55f3895d192f381d9dc7448d2b50"
+    }
+  ],
+  "business_methods": 48,
+  "model_methods": 37,
+  "http_methods": 11,
+  "original_methods_unchanged": 32,
+  "probe": "docs/evidence/s06a-rework/probe-attempts/ydental_s06a_test_20261012034435_fa34a4e9-20261012T034648074369.json",
+  "races": 21,
+  "original_races": 16,
+  "deadlocks": 0,
+  "browser": "docs/evidence/s06a-rework/browser-attempts/20261012T034732097030/summary.json",
+  "browser_checks": 36,
+  "browser_screenshots": 14,
+  "browser_pageerrors": 0,
+  "translation_terms": 144,
+  "guard": {
+    "passed": 5,
+    "exit_code": 0
+  },
+  "compileall": "PASS",
+  "git_diff_check": "PASS",
+  "product_tree_unchanged_after_product": true,
+  "original_evidence_unchanged": true,
+  "product_tree_sha256": "02d95dab70784c0aee143121a53155fe6158856ad0361b404f95c4a0e941184d"
+}

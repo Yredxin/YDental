@@ -1,0 +1,10 @@
+{
+  "database": "ydental_s06a_test_20261012034435_fa34a4e9",
+  "test": "fe0df66f7ffb55f3895d192f381d9dc7448d2b50",
+  "exported_terms": 144,
+  "translated_terms": 144,
+  "missing": [],
+  "connection_message_ids_preserved": true,
+  "invalid_code_metadata": [],
+  "result": "PASS"
+}

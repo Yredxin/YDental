@@ -1,5 +1,17 @@
 # YDental 当前执行入口
 
+## 当前 S06-A定向返工 / #30
+
+- 用户明确只修[GPT-REVIEW6117074066](https://github.com/Yredxin/YDental/issues/30#issuecomment-6117074066)四个BLOCKER，继续原S06-A会话及分支`codex/s06-a-queue-r1-20261012`。原`840df8921cfb5a70c601e6e8ed81fb7d03aacd5b`及全部原失败/补交证据保留。
+- 用户本次单独授权Project #30自定义“执行状态”→“返工”。实施前完整读取21字段/15条目/6视图/7公开workflow元数据，仅一次mutation将待启用改返工，两次完整读回和差异检查仅此值改变。原生Status=Todo、阶段S06、其他字段/条目/视图/workflows及Issue状态不变；保持返工，不自行转待复核，未来其他Project写仍需单独授权。
+- 只修verify未解决execution继续约束原actor/执行门店/全局位置、S05 execution area与非空qualification可信server eligibility、call前N发布与mixed missed原rank/机会、统一system timeout审计。原queue/lease/token/S05 start和position内核保留；不实现B接手/交还/追加或C日终/推送。
+- 修正产品固定`dfc6ff4a08e3ed80977e114042f08a0491d5ca0b`，测试固定`fe0df66f7ffb55f3895d192f381d9dc7448d2b50`；最终文档证据SHA固定于#30修正交付评论。补充docs/s06a-rework-contracts.md、docs/s06a-rework-security-review.md、docs/s06a-rework-report.md及docs/evidence/s06a-rework；新增两项entry排序字段，原字典及补充契约共同适用。
+- 最终全新库`ydental_s06a_test_20261012034435_fa34a4e9`，仅合成数据及受guard保护的测试资质来源。固定test安装50/升级48（37模型+11真实HTTP/RPC）、原16+新增5真实双连接竞争、Firefox36项/14图、guard5、翻译144/144及原32方法连续性均为Codex自测通过，不代表GPT或用户验收。PO metadata、跨店夹具及Firefox失败链全部保留。
+- 继续`scripts/s06a.py`及原新库/端点/cluster/OID/config/dbfilter/PID/端口/外发guard；S00—S05及原S06-A库只保留、不接管。心跳/超时/N未生产批准，S08文书hook仍默认拒绝。review提示的execution历史部分唯一和原生账号logout整合仅留后续，不提前实现。
+- 修正交付评论写回逐字读回后停止等待GPT复核，不称用户验收/生产通过，不进入S06-B、S06-C或S07，不关闭/合并/强推/生产发布。
+
+下方S06-A原交付及更早“当前/本次”均为历史记录，本次授权以本节及最新review为准。
+
 ## 当前 S06-A交付 / #30
 
 - 用户明确仅启用#30/S06-A；唯一边界为[GPT-ACTIVATE6116491783](https://github.com/Yredxin/YDental/issues/30#issuecomment-6116491783)。已完整读取#23正文/有效评论、#30正文/全部有效评论、#29最终S05技术PASS6116482005和状态同步指令6116491290；[开工检查6116516335](https://github.com/Yredxin/YDental/issues/30#issuecomment-6116516335)已写回逐字读回。交付前重读确认正文/启用未变，#29没有另一个同步完成回执，不代写Project。

@@ -1,0 +1,68 @@
+{
+  "project": "https://github.com/users/Yredxin/projects/4",
+  "item_issue": 30,
+  "authorized_change": {
+    "field": "执行状态",
+    "before": "待启用",
+    "after": "返工"
+  },
+  "native_status_before": "Todo",
+  "native_status_after": "Todo",
+  "issue_state_before": "OPEN",
+  "issue_state_after": "OPEN",
+  "complete_metadata_counts": {
+    "fields": 21,
+    "items": 15,
+    "views": 6,
+    "workflows": 7
+  },
+  "workflows": [
+    {
+      "id": "PWF_lAHOA3_tu84BmcLJzgdJkzk",
+      "name": "Auto-add sub-issues to project",
+      "enabled": true
+    },
+    {
+      "id": "PWF_lAHOA3_tu84BmcLJzgdJkzw",
+      "name": "Auto-add to project",
+      "enabled": true
+    },
+    {
+      "id": "PWF_lAHOA3_tu84BmcLJzgdJkzg",
+      "name": "Auto-close issue",
+      "enabled": true
+    },
+    {
+      "id": "PWF_lAHOA3_tu84BmcLJzgdJkzs",
+      "name": "Item added to project",
+      "enabled": true
+    },
+    {
+      "id": "PWF_lAHOA3_tu84BmcLJzgdJkzY",
+      "name": "Item closed",
+      "enabled": true
+    },
+    {
+      "id": "PWF_lAHOA3_tu84BmcLJzgdJkzo",
+      "name": "Pull request linked to issue",
+      "enabled": true
+    },
+    {
+      "id": "PWF_lAHOA3_tu84BmcLJzgdJkzc",
+      "name": "Pull request merged",
+      "enabled": true
+    }
+  ],
+  "one_custom_field_mutation": true,
+  "full_readbacks": 2,
+  "other_fields_items_views_workflows_entity_states_unchanged": true,
+  "snapshot_sha256": {
+    "before": "fcabc6489872c36042fb458e58da9de1dd6b1a288f110509718427833ae9f217",
+    "after": "131eab9e0be11f126ad7af2d085d1d97d5d3daa5ca44b83eb2439df98950e027",
+    "recheck": "131eab9e0be11f126ad7af2d085d1d97d5d3daa5ca44b83eb2439df98950e027"
+  },
+  "readback_equal": true,
+  "end_state": "返工; no later Project mutation authorized",
+  "end_readback_unchanged": true,
+  "end_readback_sha256": "dd1a090b1bb0ee6e7d29bbbe8123f9d1767e47720f7f4f6c989a1fa9239a6ab9"
+}

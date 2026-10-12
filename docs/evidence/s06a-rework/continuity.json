@@ -1,0 +1,14 @@
+{
+  "database": "ydental_s06a_test_20261012034435_fa34a4e9",
+  "original_final": "840df8921cfb5a70c601e6e8ed81fb7d03aacd5b",
+  "test": "fe0df66f7ffb55f3895d192f381d9dc7448d2b50",
+  "original_methods_unchanged": 32,
+  "business_methods": 48,
+  "model_methods": 37,
+  "http_methods": 11,
+  "original_races_preserved": 16,
+  "total_races": 21,
+  "actual_install_upgrade_methods_verified": true,
+  "probe": "docs/evidence/s06a-rework/probe-attempts/ydental_s06a_test_20261012034435_fa34a4e9-20261012T034648074369.json",
+  "result": "PASS"
+}

@@ -1,0 +1,200 @@
+{
+  "algorithm": "SHA256",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 2449,
+      "sha256": "532a615c97ff63fd88a7fc1cc60b03a01fca1217b7d9e85cdf2a6a70dbb0bb5b"
+    },
+    {
+      "path": "browser-attempts/20261012T034143941240/01-unscheduled-workstation.png",
+      "bytes": 257625,
+      "sha256": "24dc16c321e71ce6665e23e550b133ec5a66fb596854d35bff584dc7a4eca33b"
+    },
+    {
+      "path": "browser-attempts/20261012T034143941240/02-switch-failure-keeps-chair.png",
+      "bytes": 264607,
+      "sha256": "8bc542578f3d0d0b150faa562e305769adc3029a8805709f24ad23496e83fb46"
+    },
+    {
+      "path": "browser-attempts/20261012T034143941240/03-idle-switch-success.png",
+      "bytes": 258368,
+      "sha256": "2acf2f7e12f15b01a57cddcaf0af4b57b6819f4f7b18b72a8d6670deb6ee0503"
+    },
+    {
+      "path": "browser-attempts/20261012T034143941240/04-real-calling.png",
+      "bytes": 264497,
+      "sha256": "285e1cf3ddccad4e7ad355f5e6e10369bff75514c54f57cce68500462378936a"
+    },
+    {
+      "path": "browser-attempts/20261012T034143941240/05-missed-repeat-report.png",
+      "bytes": 258288,
+      "sha256": "870bb0860dacfa25e729f9b95f5c88362c363c39d5bd600a7644da56d751ec02"
+    },
+    {
+      "path": "browser-attempts/20261012T034143941240/06-timeout-requeue-old-end-rejected.png",
+      "bytes": 217742,
+      "sha256": "1e8e4bf719ed71fad69da4dc24ba06e819827d625fed4c75f7406efb2ae5a4db"
+    },
+    {
+      "path": "browser-attempts/20261012T034143941240/07-actual-serving-fence.png",
+      "bytes": 270481,
+      "sha256": "e947372ee00f2afd0defcf8f9884a033f65f6c878688be22fb0c21eef17b8c88"
+    },
+    {
+      "path": "browser-attempts/20261012T034143941240/08-readonly-no-actions.png",
+      "bytes": 213659,
+      "sha256": "a3283a0be61de63188671460deaa65eaa2e920a71e058e1ffb8684081f097ef8"
+    },
+    {
+      "path": "browser-attempts/20261012T034143941240/09-chinese-workstation.png",
+      "bytes": 272410,
+      "sha256": "18e169ad248a023e8979a0b24378581d5d8934d306cbc5b8867c6f1518095ff0"
+    },
+    {
+      "path": "browser-attempts/20261012T034143941240/10-global-workstation-position.png",
+      "bytes": 110785,
+      "sha256": "b90918a42fd322043fa562e12c9f6660cc45c33e0403d7c8e4ef89ae2882a868"
+    },
+    {
+      "path": "browser-attempts/20261012T034143941240/11-serving-timeout-actor-verify.png",
+      "bytes": 250773,
+      "sha256": "00c7c05fc9d73eeba9bb9a5dc29efcfc23b31aff4c8730bef43b26275d9e6d36"
+    },
+    {
+      "path": "browser-attempts/20261012T034143941240/summary.json",
+      "bytes": 5564,
+      "sha256": "7494a8c4f50ad44c10d8c1f01876a0b0b354887e27e64917ea181cc61938813f"
+    },
+    {
+      "path": "browser-attempts/20261012T034732097030/01-unscheduled-workstation.png",
+      "bytes": 257779,
+      "sha256": "218a04af22fa15aa876d92e765a36d006b4d9c2b9a9a7f3a79f49d7ba3a247c9"
+    },
+    {
+      "path": "browser-attempts/20261012T034732097030/02-switch-failure-keeps-chair.png",
+      "bytes": 264764,
+      "sha256": "33f16762636b64d027147f08b6de1e21ba118a8e2a77ccacd59c40a146b326fa"
+    },
+    {
+      "path": "browser-attempts/20261012T034732097030/03-idle-switch-success.png",
+      "bytes": 258492,
+      "sha256": "b56d1deef61b23f7ef39f7a56a2f74583408fe2de3fe848c28f64b4e06e34934"
+    },
+    {
+      "path": "browser-attempts/20261012T034732097030/04-real-calling.png",
+      "bytes": 264643,
+      "sha256": "2d100ff406c20dbe3e577963772e876089665b3a9d0f5e2521660d8e872b37c3"
+    },
+    {
+      "path": "browser-attempts/20261012T034732097030/05-missed-repeat-report.png",
+      "bytes": 258406,
+      "sha256": "bb5abf0b3b51c8df01cc94654e545a5f1ab6004d44aaca75422331629086b0db"
+    },
+    {
+      "path": "browser-attempts/20261012T034732097030/06-timeout-requeue-old-end-rejected.png",
+      "bytes": 217742,
+      "sha256": "1e8e4bf719ed71fad69da4dc24ba06e819827d625fed4c75f7406efb2ae5a4db"
+    },
+    {
+      "path": "browser-attempts/20261012T034732097030/07-actual-serving-fence.png",
+      "bytes": 270535,
+      "sha256": "e88fcf3a72fcdde2e44e8710cd8dbda6535d4c2245ec15d0ac9d73ae52a02cdd"
+    },
+    {
+      "path": "browser-attempts/20261012T034732097030/08-readonly-no-actions.png",
+      "bytes": 213659,
+      "sha256": "a3283a0be61de63188671460deaa65eaa2e920a71e058e1ffb8684081f097ef8"
+    },
+    {
+      "path": "browser-attempts/20261012T034732097030/09-chinese-workstation.png",
+      "bytes": 266468,
+      "sha256": "30444ac5b00d69379a889e4422095213d472d1c2ffea8355e6a12ddbf1d9f406"
+    },
+    {
+      "path": "browser-attempts/20261012T034732097030/10-global-workstation-position.png",
+      "bytes": 110949,
+      "sha256": "94a36a26082c189177181d51410188e6e6556ee0d3378b471c5c79acc3d7b047"
+    },
+    {
+      "path": "browser-attempts/20261012T034732097030/11-serving-timeout-actor-verify.png",
+      "bytes": 242936,
+      "sha256": "5e6d7d143901361a851b0ebffff1f67df6f8d346848954a4c358e96f6fe7f4df"
+    },
+    {
+      "path": "browser-attempts/20261012T034732097030/12-verify-global-workstation.png",
+      "bytes": 111282,
+      "sha256": "8a489a888b6dfe29d2cb3c51366c6bd4d46104780f4770edf3ac98ba70f5b819"
+    },
+    {
+      "path": "browser-attempts/20261012T034732097030/13-wrong-execution-area-rejected.png",
+      "bytes": 278575,
+      "sha256": "662826234fc21e822038b3f629c8183a887a3da2ad48ed999890428acd26e6d3"
+    },
+    {
+      "path": "browser-attempts/20261012T034732097030/14-unpublished-N-before-call.png",
+      "bytes": 257307,
+      "sha256": "47df9ff59693b49e290f14d83c011cd934337c8c631cda4c2bad0a00b09cc2ef"
+    },
+    {
+      "path": "browser-attempts/20261012T034732097030/summary.json",
+      "bytes": 6919,
+      "sha256": "faca754d4db4aebc8712070e99b8a2e9193938d3b0d841f95b4e93f990f5fc36"
+    },
+    {
+      "path": "continuity.json",
+      "bytes": 537,
+      "sha256": "11fa96af8cd7f77083231591bf8db6eae3d84962651bc3ffdd33eebe3d91ec29"
+    },
+    {
+      "path": "final-verification.json",
+      "bytes": 2424,
+      "sha256": "e198eb273a92cc59a697e03d94ddec5944c27bee6d4c5951a63b324ddcdd7243"
+    },
+    {
+      "path": "github-boundary.json",
+      "bytes": 911,
+      "sha256": "f98238f23b6ae29a882dbd8de76bbd5f2ca9f8142877bc6b02b425c37a052892"
+    },
+    {
+      "path": "isolation.json",
+      "bytes": 951,
+      "sha256": "bc3eb9ccbbafae856d2dc4957d724c45fa2f6f7f8873cc0805a80a79784c4e28"
+    },
+    {
+      "path": "model-http-cases.json",
+      "bytes": 9454,
+      "sha256": "c8c26973c8f8ee94fa984070d663d0c153398bfdd4244d7bb52e26e0ad0935e3"
+    },
+    {
+      "path": "probe-attempts/ydental_s06a_test_20261012033510_4c058dd4-20261012T033743602953.json",
+      "bytes": 8535,
+      "sha256": "a9a7099bee8d087254e2abc8896e5378813ae38e7646b41b361e480a345bd71c"
+    },
+    {
+      "path": "probe-attempts/ydental_s06a_test_20261012033833_e28069b1-20261012T034046076287.json",
+      "bytes": 10262,
+      "sha256": "3e1183724648130ebf90755822cc069c5b45c3181c9ab1f70e40d6a36395232d"
+    },
+    {
+      "path": "probe-attempts/ydental_s06a_test_20261012034435_fa34a4e9-20261012T034648074369.json",
+      "bytes": 10262,
+      "sha256": "b207224957fb326d64099d0ad3fe4555350936d7df3c405dfa586ffd3818200c"
+    },
+    {
+      "path": "project-state.json",
+      "bytes": 1884,
+      "sha256": "8ea8bf085c3f3931a919315f1a36f962ec7fe8fd8dad193dfe83e5759f862e3b"
+    },
+    {
+      "path": "runtime-history.json",
+      "bytes": 7699,
+      "sha256": "5f090e18a40c32da0ed87eac2a3efd26b5f2e679f8a3d8caff8b4a432fa0d196"
+    },
+    {
+      "path": "translation.json",
+      "bytes": 280,
+      "sha256": "dcded869a5356c1a76a4cb06bc9048560c4b00ea29fe499f46447cb5309ab775"
+    }
+  ]
+}
