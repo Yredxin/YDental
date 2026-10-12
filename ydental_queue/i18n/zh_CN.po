@@ -1390,3 +1390,8 @@ msgid ""
 "version_conflict: This reservation is already resolved or has another "
 "target."
 msgstr "version_conflict: 此保留已处理或关联其他目标任务。"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_execution__ydental_handed_over_at
+msgid "Ydental Handed Over At"
+msgstr "交还时间"

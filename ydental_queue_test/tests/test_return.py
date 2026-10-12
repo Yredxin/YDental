@@ -129,12 +129,15 @@ class TestQueueReturn(TransactionCase):
     def test_continuation_another_chair_preserves_only_outpatient_requirements(self):
         queue, lease, execution = serving(self)
         hold, external_task = reserve(self, queue, lease, execution)
+        ended_at = execution.ydental_ended_at
         result = queue._operate('handover', dict(lease_args(lease), execution_id=execution.id))
         task = self.root['ydental.intake.task'].browse(result['continuation_task_id'])
         self.assertEqual(task.ydental_mapping_id, self.mappings[0][0])
         self.assertEqual(task.ydental_continuation_snapshot['capability_id'], self.capabilities[0].id)
         self.assertFalse(task.ydental_entitlement_id)
         self.assertEqual(hold.state, 'handover')
+        self.assertEqual(execution.ydental_ended_at, ended_at)
+        self.assertTrue(execution.ydental_handed_over_at)
         report(self, task)
         other, other_lease = enter(self, queue_bind(self, self.second), self.other_station)
         self.assertEqual(other._operate('call', lease_args(other_lease))['task_id'], task.id)

@@ -103,7 +103,10 @@ class YDentalQueueService(models.AbstractModel):
         return None
 
     def _end_segment(self, execution, terminal):
-        execution._save({'state': terminal, 'ydental_ended_at': self._now()})
+        values = {'state': terminal, 'ydental_ended_at': execution.ydental_ended_at or self._now()}
+        if terminal == 'handover':
+            values['ydental_handed_over_at'] = self._now()
+        execution._save(values)
         execution.flush_recordset(['state'])
         task = execution.ydental_task_id
         task._save({'state': 'suspended' if terminal == 'reserved' else 'handed_over'})

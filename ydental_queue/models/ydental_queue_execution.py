@@ -14,6 +14,7 @@ class YDentalQueueExecution(models.Model):
     ydental_lease_id = fields.Many2one('ydental.queue.lease', required=True, ondelete='restrict')
     ydental_started_at = fields.Datetime(required=True)
     ydental_ended_at = fields.Datetime()
+    ydental_handed_over_at = fields.Datetime()
     state = fields.Selection([('serving', 'Serving'), ('verify', 'Away, on-site verification required'),
                               ('reserved', 'Segment ended for external service'), ('handover', 'Segment handed over')], required=True, default='serving')
 
