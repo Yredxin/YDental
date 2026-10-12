@@ -222,6 +222,41 @@ def main():
             none_context, none_page = login('none')
             response = none_page.goto(base + '/ydental/intake')
             check('no permission role denied intake', response.status == 403)
+            catalog_context, catalog_page = login('catalog')
+            catalog_page.goto(base + '/ydental/intake/prices')
+            check('group manager price none has catalog controls', catalog_page.locator('#create-catalog').count() == 1)
+            check('group manager price none has no store price or mapping controls', all(
+                catalog_page.locator('form input[name=operation][value="' + op + '"]').count() == 0
+                for op in ('mapping', 'mapping_edit', 'price', 'review', 'publish', 'snapshot')))
+            catalog_form = form(catalog_page, 'catalog')
+            catalog_form.locator('input[name=code]').fill('s05_group_only_' + datetime.now(timezone.utc).strftime('%H%M%S'))
+            catalog_form.locator('input[name=name]').fill('S05 Group Only Firefox')
+            catalog_form.locator('button').click()
+            catalog_page.wait_for_url('**/ydental/intake/prices')
+            check('group price none creates catalog through UI', 'S05 Group Only Firefox' in catalog_page.locator('body').inner_text())
+            edit = catalog_page.locator('form').filter(has=catalog_page.locator('input[name=name][value="S05 Group Only Firefox"]'))
+            edit.locator('input[name=name]').fill('S05 Group Only Renamed')
+            edit.locator('select[name=active]').select_option('no')
+            edit.locator('button').click()
+            catalog_page.wait_for_url('**/ydental/intake/prices')
+            check('group price none edits and disables catalog through UI', 'S05 Group Only Renamed' in catalog_page.locator('input[name=name]').evaluate_all('(nodes) => nodes.map(n=>n.value)'))
+            check('group price none forged price action denied', action(catalog_page, 'price', {})['status'] == 403)
+            screenshot(catalog_page, catalog_context, '09-group-catalog-without-store-price.png')
+            page.goto(base + '/ydental/intake')
+            check('future reservation actual arrival recorded today', action(page, 'arrive', {'patient_id':preview['future']['patient_id']})['status'] == 200)
+            future = action(page, 'report', {'task_id':preview['future']['task_id'], 'version':preview['future']['task_version']})
+            check('tomorrow reservation report rejected today', future['status'] == 409 and 'reporting_date_mismatch:' in future['body']['error'])
+            screenshot(page, desk_context, '10-future-day-report-rejected.png')
+            early = action(page, 'report', {'task_id':preview['early']['task_id'], 'version':preview['early']['task_version']})
+            check('same local day several hours early zero balance report succeeds', early['status'] == 200)
+            doctor_context, doctor_page = login('doctor')
+            doctor_page.goto(base + '/ydental/intake')
+            for op in ('refer_timed', 'refer_untimed'):
+                denied = action(doctor_page, op, {'source_task_id':preview['qualification']['task_id'],
+                    'version':preview['qualification']['task_version'], 'mapping_id':preview['mappings'][1][0],
+                    'permit':{'actor_id':access['doctor']['id']}})
+                check('ordinary doctor HTTP ' + op + ' denied', denied['status'] == 403)
+            screenshot(doctor_page, doctor_context, '11-doctor-no-public-referral-initiation.png')
             manager_page.goto(base + '/ydental/intake/prices')
             switched = manager_page.evaluate('''async uid => {
                 const response = await fetch('/web/dataset/call_kw/res.users/write', {method:'POST',

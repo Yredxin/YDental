@@ -58,10 +58,16 @@ with registry.cursor() as cr:
     browser_person = patient(fixture)
     browser_q = qualify(fixture, browser_person)
     browser_other = qualify(fixture, browser_person, fixture.mappings[0][1])
+    future_start, future_end = fixture.start + timedelta(days=1), fixture.end + timedelta(days=1)
+    make_slot(fixture, fixture.group, fixture.stations[0][0], future_start, future_end, total=3)
+    future_q = qualify(fixture, start=future_start, end=future_end)
+    early_start, early_end = fixture.start + timedelta(hours=3), fixture.end + timedelta(hours=3)
+    make_slot(fixture, fixture.group, fixture.stations[0][0], early_start, early_end, total=3)
+    early_q = qualify(fixture, future_q['patient_id'], start=early_start, end=early_end)
     initial_price = price(fixture)
     preview = {'stores': stores, 'patient_id': browser_person, 'qualification': browser_q, 'other': browser_other,
         'catalog_id': catalog_id, 'currency_id': currency_id, 'mappings': maps, 'start': start, 'end': end,
-        'price_id': initial_price['id']}
+        'price_id': initial_price['id'], 'future': future_q, 'early': early_q}
     access = {}
     for role, user in fixture.users.items():
         password = secrets.token_urlsafe(24)
@@ -242,6 +248,12 @@ record('T06_reschedule_vs_target_last_sale', output, original_claim_and_position
 # Two real source clinicians compete for one target reservation.
 def prepare_referral(s):
     q = new_q(s, new_patient(s))
+    s._operate('arrive', {'patient_id': q['patient_id']}, key())
+    accepted = s._operate('report', {'task_id': q['task_id'], 'version': q['task_version']}, key())
+    s._downstream_action('start', {'task_id': q['task_id'], 'version': accepted['version']}, key())
+    source = s.env['ydental.intake.task'].sudo().browse(q['task_id'])
+    source._save({'state': 'done'})
+    q['task_version'] = source.ydental_version
     target = s.env['ydental.intake.mapping'].sudo().browse(maps[1][0])
     station = s.env['ydental.space.station'].sudo().browse(stations[1][0])
     manager_b = bind(SimpleNamespace(root=s.env['base'].sudo().env), s.env.user, target.ydental_store_id)
@@ -252,7 +264,7 @@ def prepare_referral(s):
 q, ts, te, target_slot = fresh(prepare_referral)
 args = {'source_task_id': q['task_id'], 'version': q['task_version'], 'mapping_id': maps[1][0],
     'start': ts, 'end': te, 'reason': 'Synthetic cross-store target last capacity'}
-output = parallel([('doctor', lambda s: s._operate('refer_timed', args, key())) for _ in range(2)])
+output = parallel([('doctor', lambda s: s._synthetic_referral_action('refer_timed', args, key())) for _ in range(2)])
 assert sum('rejected' in r['value'] for r in output) == 1
 def check_referral(s):
     root = s.env['base'].sudo().env

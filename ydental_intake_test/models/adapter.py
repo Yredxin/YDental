@@ -1,8 +1,20 @@
+from dataclasses import dataclass
+
 import os
 import re
 
 from odoo import fields, models
 from odoo.exceptions import AccessError, UserError
+from odoo.addons.ydental_intake.models.ydental_intake_service import fingerprint
+
+
+
+@dataclass(frozen=True)
+class SyntheticReferralPermit:
+    actor_id: int
+    store_id: int
+    operation: str
+    fingerprint: str
 
 
 def guard(env):
@@ -22,6 +34,24 @@ class SyntheticQueue(models.Model):
 
 class YDentalIntakeService(models.AbstractModel):
     _inherit = 'ydental.intake.service'
+
+    def _synthetic_referral_action(self, operation, payload, key):
+        guard(self.env)
+        store, category = self._referral_access()
+        permit = SyntheticReferralPermit(self.env.uid, store.id, operation, fingerprint(payload))
+        return self._referral_action(operation, payload, key, permit=permit)
+
+    def _authorize_referral(self, operation, payload, permit):
+        guard(self.env)
+        store, category = self._referral_access()
+        if type(permit) is not SyntheticReferralPermit or (
+            permit.actor_id, permit.store_id, permit.operation, permit.fingerprint
+        ) != (self.env.uid, store.id, operation, fingerprint(payload)):
+            raise AccessError('Synthetic referral requires an exact, server-created clinical permit.')
+        task = self._get('task', payload['source_task_id'], store)
+        self._version(task, payload['version'])
+        if task.state not in ('started', 'done'):
+            raise AccessError('Synthetic referral requires a fixed actual encounter stand-in.')
 
     def _queue_accept(self, task, previous):
         guard(self.env)

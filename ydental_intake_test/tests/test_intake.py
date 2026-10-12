@@ -5,7 +5,7 @@ from odoo import fields
 from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.tests import TransactionCase
 
-from .common import arrive_report, bind, key, make_slot, patient, price, qualify, setup
+from .common import arrive_report, bind, clinical_source, key, make_slot, patient, price, qualify, setup
 
 
 class TestIntake(TransactionCase):
@@ -191,20 +191,20 @@ class TestIntake(TransactionCase):
             price(self, 620)
 
     def test_t11_timed_untimed_referral_target_scope_and_expiry(self):
-        q = qualify(self)
+        q = clinical_source(self, qualify(self))
         target = self.mappings[1][0]
         args = {'source_task_id': q['task_id'], 'version': self.task(q).ydental_version, 'mapping_id': target.id, 'reason': 'S05 synthetic referral'}
-        timed = self.doctor._operate('refer_timed', dict(args, start=fields.Datetime.to_string(self.start), end=fields.Datetime.to_string(self.end)), key())
+        timed = self.doctor._synthetic_referral_action('refer_timed', dict(args, start=fields.Datetime.to_string(self.start), end=fields.Datetime.to_string(self.end)), key())
         self.assertEqual(self.slots[1][0].ydental_reservation_free, 1)
         b = bind(self, self.users['frontdesk'], self.stores[1])
         arrive_report(self, timed, b)
         self.assertEqual(self.slots[1][0].ydental_reservation_free, 1)
-        untimed = self.doctor._operate('refer_untimed', dict(args, valid_until=fields.Datetime.to_string(fields.Datetime.now() + timedelta(days=7))), key())
+        untimed = self.doctor._synthetic_referral_action('refer_untimed', dict(args, valid_until=fields.Datetime.to_string(fields.Datetime.now() + timedelta(days=7))), key())
         self.assertEqual(self.slots[1][0].ydental_walkin_free, 4)
         b._operate('accept_referral', {'record_id': untimed['id'], 'version': untimed['version'],
             'start': fields.Datetime.to_string(self.start), 'end': fields.Datetime.to_string(self.end)}, key())
         self.assertEqual(self.slots[1][0].ydental_walkin_free, 3)
-        expired = self.doctor._operate('refer_untimed', dict(args, valid_until=fields.Datetime.to_string(fields.Datetime.now() + timedelta(seconds=1))), key())
+        expired = self.doctor._synthetic_referral_action('refer_untimed', dict(args, valid_until=fields.Datetime.to_string(fields.Datetime.now() + timedelta(seconds=1))), key())
         with patch.object(type(b), '_now', return_value=fields.Datetime.now() + timedelta(days=8)):
             with self.assertRaises(UserError):
                 b._operate('accept_referral', {'record_id': expired['id'], 'version': 1,
@@ -294,3 +294,158 @@ class TestIntake(TransactionCase):
         self.assertFalse(ordinary_list.copy().ydental_intake_owned)
         with self.assertRaises(AccessError):
             self.catalogs[0].ydental_product_id.product_tmpl_id.copy({'name': 'Protected clone'})
+
+    def test_rework_group_catalog_independent_of_store_price(self):
+        old_price = price(self)
+        self.admin._grant(self.users['manager'].id, self.stores[0].id, {'price': 'none'})
+        args = {'code': 's05_rework_' + key(), 'name': 'S05 Group Only', 'kind': 'care',
+            'capability_id': self.capabilities[0].id, 'uom_id': self.uom.id}
+        created = self.group._operate('catalog', args, key())
+        edited = self.group._operate('catalog_edit', {'record_id': created['id'], 'version': created['version'],
+            'name': 'S05 Group Shared Disabled', 'active': False}, key())
+        item = self.root['ydental.intake.catalog'].browse(created['id'])
+        self.assertEqual(item.ydental_product_id.with_context(active_test=False).name, item.name)
+        self.assertFalse(item.ydental_product_id.active)
+        for store in self.stores:
+            desk = bind(self, self.users['frontdesk'], store)
+            self.assertEqual(desk.env['ydental.intake.catalog'].with_context(active_test=False).browse(item.id).name, item.name)
+        self.assertEqual(self.root['ydental.intake.price'].browse(old_price['id']).ydental_unit_price, 600)
+        for operation in ('mapping', 'mapping_edit', 'price', 'review', 'publish', 'snapshot'):
+            with self.assertRaises(AccessError):
+                self.group._operate(operation, {}, key())
+        for role in ('price', 'frontdesk', 'doctor', 'reader'):
+            service = bind(self, self.users[role])
+            for operation, payload in [('catalog', args), ('catalog_edit', {'record_id': item.id,
+                    'version': edited['version'], 'name': 'Forbidden', 'active': True})]:
+                with self.assertRaises(AccessError):
+                    service._operate(operation, payload, key())
+        # A price writer can maintain its price/mapping, without catalog authority.
+        price(self, 700, service=self.pricer, catalog=self.catalogs[1])
+        self.pricer._operate('mapping_edit', {'record_id': self.mappings[0][1].id,
+            'version': self.mappings[0][1].ydental_version, 'active': True}, key())
+        self.users['manager'].write({'group_ids': [fields.Command.unlink(self.root.ref('ydental_access.ydental_group_manager').id)]})
+        with self.assertRaises(AccessError):
+            self.group._operate('catalog', args, key())
+
+    def test_rework_reservation_phone_local_day_and_zero_balance(self):
+        from contextlib import ExitStack
+        from datetime import datetime
+        store = self.stores[0]
+        store.ydental_timezone = 'Pacific/Honolulu'
+        before = datetime(2032, 1, 1, 23)
+        start, end = datetime(2032, 1, 2, 20), datetime(2032, 1, 2, 21)
+        def clock(stack, moment):
+            for name in ('ydental.intake.service', 'ydental.supply.service', 'ydental.patient.service'):
+                stack.enter_context(patch.object(type(self.front.env[name]), '_now', return_value=moment))
+        with ExitStack() as stack:
+            clock(stack, before)
+            slot = make_slot(self, self.group, self.stations[0][0], start, end)
+            qs = [qualify(self, channel=c, start=start, end=end) for c in ('reservation', 'phone')]
+            self.assertEqual(slot.ydental_reservation_free, 0)
+            for q in qs:
+                self.front._operate('arrive', {'patient_id': q['patient_id']}, key())
+                with self.assertRaisesRegex(UserError, 'reporting_date_mismatch'):
+                    self.report(q)
+                self.assertEqual(self.task(q).state, 'pending')
+                self.assertEqual(self.entitlement(q).state, 'held')
+                self.assertEqual(self.entitlement(q).ydental_claim_id.state, 'held')
+                self.assertFalse(self.root['ydental.intake.position'].search([('ydental_task_id', '=', q['task_id'])]))
+                self.assertFalse(self.root['ydental.intake.test.queue'].search([('ydental_task_id', '=', q['task_id'])]))
+            self.assertEqual(slot.ydental_reservation_free, 0)
+        with ExitStack() as stack:
+            clock(stack, datetime(2032, 1, 2, 11))  # Local 01:00, nine hours before the slot.
+            self.group.env['ydental.supply.service']._operate('business', {'area_id': self.areas[0][0].id,
+                'state': 'open', 'reason': 'Synthetic next local day'}, key())
+            for q in qs:
+                arrive_report(self, q)
+                self.assertEqual(self.entitlement(q).ydental_claim_id.id, q['claim_id'])
+                self.assertEqual(self.entitlement(q).ydental_claim_id.ydental_slot_id, slot)
+            self.assertEqual(slot.ydental_reservation_free, 0)
+
+    def test_rework_cross_legal_trusted_referral_scope_audit_and_failures(self):
+        from .common import cross_legal_target
+        from odoo.addons.ydental_intake.models.ydental_intake_service import YDentalIntakeService
+        store, desk, mapping, slot, manager, user = cross_legal_target(self)
+        self.assertNotIn(store.company_id, self.users['doctor'].company_ids)
+        # Source doctor's only target-independent work membership is A.
+        self.admin._remove(self.users['doctor'].id, self.stores[1].id)
+        self.assertFalse(self.doctor.env['ydental.access.service']._membership(self.users['doctor'].id, store.id))
+        q = clinical_source(self, qualify(self))
+        args = {'source_task_id': q['task_id'], 'version': q['task_version'], 'mapping_id': mapping.id,
+            'reason': 'Trusted cross-legal synthetic source'}
+        timed_args = dict(args, start=fields.Datetime.to_string(self.start), end=fields.Datetime.to_string(self.end))
+        for operation in ('refer_timed', 'refer_untimed'):
+            with self.assertRaises(AccessError):
+                self.doctor._operate(operation, timed_args, key())
+            with self.assertRaises(AccessError):
+                self.doctor.with_context(ydental_referral_permit=True)._referral_action(operation, timed_args, key(), permit={'actor_id': self.users['doctor'].id})
+        with self.assertRaises(AccessError):
+            YDentalIntakeService._authorize_referral(self.doctor, 'refer_timed', timed_args, object())
+        timed = self.doctor._synthetic_referral_action('refer_timed', timed_args, key())
+        untimed = self.doctor._synthetic_referral_action('refer_untimed', dict(args,
+            valid_until=fields.Datetime.to_string(fields.Datetime.now() + timedelta(days=7))), key())
+        self.assertEqual((slot.ydental_reservation_free, slot.ydental_walkin_free), (1, 4))
+        desk._operate('accept_referral', {'record_id': untimed['id'], 'version': untimed['version'],
+            'start': timed_args['start'], 'end': timed_args['end']}, key())
+        self.assertEqual((slot.ydental_reservation_free, slot.ydental_walkin_free), (1, 3))
+        receipt = self.root['ydental.intake.operation'].search([('name', '=', 'refer_timed'), ('ydental_actor_id', '=', self.users['doctor'].id)])
+        self.assertEqual(receipt.ydental_category, 'medical')
+        audit = self.root['ydental.access.audit'].search([('ydental_event', '=', 'intake.refer_timed'), ('ydental_target_id', '=', receipt.id)])
+        self.assertEqual((audit.ydental_category, audit.ydental_user_id.id), ('medical', self.users['doctor'].id))
+        self.assertEqual(audit.ydental_after['target_store_id'], store.id)
+        self.assertEqual(audit.ydental_after['source_task_id'], q['task_id'])
+        self.assertEqual(audit.ydental_after['target_mapping_id'], mapping.id)
+        self.assertEqual(audit.ydental_after['source_store_id'], self.stores[0].id)
+        for action, payload in [('reserve', {'patient_id': q['patient_id'], 'mapping_id': mapping.id, 'start': timed_args['start'], 'end': timed_args['end']}),
+                ('cancel', {'record_id': timed['id'], 'version': timed['version'], 'reason': 'Forbidden target cancel'}),
+                ('mapping_edit', {'record_id': mapping.id, 'version': mapping.ydental_version, 'active': False}), ('price', {})]:
+            with self.assertRaises(AccessError):
+                self.doctor._operate(action, payload, key())
+        with self.assertRaises(AccessError):
+            self.doctor.env['ydental.intake.task'].browse(timed['task_id']).write({'state': 'cancelled'})
+        with self.assertRaises(AccessError):
+            bind(self, self.users['doctor'], store)
+        for disabled in ('store', 'mapping', 'stop', 'full'):
+            counts = {m: self.root[m].search_count([]) for m in ('ydental.patient.relation', 'ydental.supply.claim', 'ydental.intake.task')}
+            source_version = self.task(q).ydental_version
+            with self.root.cr.savepoint():
+                if disabled == 'store': store.active = False
+                if disabled == 'mapping': mapping._save({'active': False})
+                if disabled == 'stop': manager.env['ydental.supply.service']._operate('business', {'area_id': mapping.ydental_area_id.id, 'state': 'draining', 'reason': 'Test stop'}, key())
+                if disabled == 'full':
+                    self.doctor._synthetic_referral_action('refer_timed', timed_args, key())
+                    counts = {m: self.root[m].search_count([]) for m in counts}
+                with self.assertRaises((AccessError, UserError)):
+                    self.doctor._synthetic_referral_action('refer_timed', timed_args, key())
+                self.assertEqual(self.task(q).ydental_version, source_version)
+                self.assertEqual({m: self.root[m].search_count([]) for m in counts}, counts)
+                # Restore the synthetic fixture for the next negative branch.
+                if disabled == 'store': store.active = True
+                if disabled == 'mapping': mapping._save({'active': True})
+                if disabled == 'stop': manager.env['ydental.supply.service']._operate('business', {'area_id': mapping.ydental_area_id.id, 'state': 'open', 'reason': 'Test reopen'}, key())
+
+    def test_rework_timed_referral_uses_target_reservation_day(self):
+        from contextlib import ExitStack
+        q = clinical_source(self, qualify(self))
+        start, end = self.start + timedelta(days=1), self.end + timedelta(days=1)
+        bmanager = bind(self, self.users['manager'], self.stores[1])
+        slot = make_slot(self, bmanager, self.stations[1][0], start, end, total=3)
+        args = {'source_task_id': q['task_id'], 'version': q['task_version'], 'mapping_id': self.mappings[1][0].id,
+            'start': fields.Datetime.to_string(start), 'end': fields.Datetime.to_string(end), 'reason': 'Synthetic timed tomorrow'}
+        timed = self.doctor._synthetic_referral_action('refer_timed', args, key())
+        b = bind(self, self.users['frontdesk'], self.stores[1])
+        b._operate('arrive', {'patient_id': timed['patient_id']}, key())
+        with self.assertRaisesRegex(UserError, 'reporting_date_mismatch'):
+            b._operate('report', {'task_id': timed['task_id'], 'version': timed['task_version']}, key())
+        self.assertFalse(self.root['ydental.intake.position'].search([('ydental_task_id', '=', timed['task_id'])]))
+        self.assertFalse(self.root['ydental.intake.test.queue'].search([('ydental_task_id', '=', timed['task_id'])]))
+        self.assertEqual((self.task(timed).state, self.entitlement(timed).state, slot.ydental_reservation_free), ('pending', 'held', 0))
+        with ExitStack() as stack:
+            moment = start.replace(hour=0, minute=1, second=0)
+            for name in ('ydental.intake.service', 'ydental.supply.service', 'ydental.patient.service'):
+                stack.enter_context(patch.object(type(b.env[name]), '_now', return_value=moment))
+            bmanager.env['ydental.supply.service']._operate('business', {'area_id': self.areas[1][0].id,
+                'state': 'open', 'reason': 'Synthetic target next local day'}, key())
+            arrive_report(self, timed, b)
+            self.assertEqual(slot.ydental_reservation_free, 0)
+            self.assertEqual(self.entitlement(timed).ydental_claim_id.id, timed['claim_id'])

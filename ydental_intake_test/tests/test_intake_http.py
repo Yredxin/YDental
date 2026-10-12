@@ -5,7 +5,7 @@ import re
 from odoo import fields
 from odoo.tests import HttpCase
 
-from .common import key, patient, price, qualify, setup
+from .common import clinical_source, key, patient, price, qualify, setup
 
 
 class TestIntakeHTTP(HttpCase):
@@ -15,8 +15,8 @@ class TestIntakeHTTP(HttpCase):
         super().setUpClass()
         setup(cls)
 
-    def select(self, role='frontdesk', store=None):
-        self.authenticate(self.users[role].login, 's05-test-password')
+    def select(self, role='frontdesk', store=None, user=None):
+        self.authenticate((user or self.users[role]).login, 's05-test-password')
         page = self.url_open('/ydental/access')
         self.token = re.search(r'name="csrf_token" value="([^"]+)"', page.text).group(1)
         rev = int(re.search(r'name="revision" value="([0-9]+)"', page.text).group(1))
@@ -117,23 +117,101 @@ class TestIntakeHTTP(HttpCase):
         self.assertEqual(self.root['ydental.intake.entitlement'].search_count([('ydental_patient_id', '=', q['patient_id'])]), 1)
 
     def test_http_cross_store_timed_and_untimed_referral_reception(self):
-        q = qualify(self)
+        q = clinical_source(self, qualify(self))
         args = {'source_task_id': q['task_id'], 'version': q['task_version'], 'mapping_id': self.mappings[1][0].id,
             'reason': 'HTTP controlled source referral'}
         self.select('doctor')
-        timed = self.action('refer_timed', dict(args, start=fields.Datetime.to_string(self.start), end=fields.Datetime.to_string(self.end)))
-        self.assertEqual(timed.status_code, 200, timed.text)
+        self.assertEqual(self.action('refer_timed', dict(args, start=fields.Datetime.to_string(self.start), end=fields.Datetime.to_string(self.end))).status_code, 403)
+        timed = self.doctor._synthetic_referral_action('refer_timed', dict(args, start=fields.Datetime.to_string(self.start), end=fields.Datetime.to_string(self.end)), key())
         self.assertEqual(self.slots[1][0].ydental_reservation_free, 1)
-        untimed = self.action('refer_untimed', dict(args, valid_until=fields.Datetime.to_string(fields.Datetime.now() + timedelta(days=7))))
-        self.assertEqual(untimed.status_code, 200, untimed.text)
+        self.assertEqual(self.action('refer_untimed', dict(args, valid_until=fields.Datetime.to_string(fields.Datetime.now() + timedelta(days=7)))).status_code, 403)
+        untimed = self.doctor._synthetic_referral_action('refer_untimed', dict(args, valid_until=fields.Datetime.to_string(fields.Datetime.now() + timedelta(days=7))), key())
         self.assertEqual(self.slots[1][0].ydental_walkin_free, 4)
         self.select('frontdesk', self.stores[1])
         self.assertEqual(self.action('arrive', {'patient_id': q['patient_id']}).status_code, 200)
-        t = timed.json()
+        t = timed
         self.assertEqual(self.action('report', {'task_id': t['task_id'], 'version': t['task_version']}).status_code, 200)
         self.assertEqual(self.slots[1][0].ydental_reservation_free, 1)
-        r = untimed.json()
+        r = untimed
         reception = self.action('accept_referral', {'record_id': r['id'], 'version': r['version'],
             'start': fields.Datetime.to_string(self.start), 'end': fields.Datetime.to_string(self.end)})
         self.assertEqual(reception.status_code, 200, reception.text)
         self.assertEqual(self.slots[1][0].ydental_walkin_free, 3)
+
+    def test_http_rework_group_without_price_and_live_group_revocation(self):
+        self.admin._grant(self.users['manager'].id, self.stores[0].id, {'price': 'none'})
+        self.select('manager')
+        page = self.url_open('/ydental/intake/prices')
+        self.assertEqual(page.status_code, 200)
+        self.assertIn('id="create-catalog"', page.text)
+        self.assertNotIn('id="demo-snapshot"', page.text)
+        self.assertNotIn('value="mapping"', page.text)
+        args = {'code': 's05_http_group_' + key(), 'name': 'S05 Group No Price', 'kind': 'care',
+            'capability_id': self.capabilities[0].id, 'uom_id': self.uom.id}
+        c = self.action('catalog', args)
+        self.assertEqual(c.status_code, 200, c.text)
+        item = c.json()
+        edit = self.action('catalog_edit', {'record_id': item['id'], 'version': item['version'], 'name': 'S05 Renamed No Price', 'active': False})
+        self.assertEqual(edit.status_code, 200, edit.text)
+        record = self.root['ydental.intake.catalog'].browse(item['id'])
+        native = self.rpc('product.template', 'read', [[record.ydental_product_id.product_tmpl_id.id], ['name', 'active']])
+        self.assertEqual(native['result'][0]['name'], 'S05 Renamed No Price')
+        self.assertFalse(native['result'][0]['active'])
+        for operation in ('mapping', 'mapping_edit', 'price', 'review', 'publish', 'snapshot'):
+            self.assertEqual(self.action(operation, {}).status_code, 403)
+        self.users['manager'].write({'group_ids': [fields.Command.unlink(self.root.ref('ydental_access.ydental_group_manager').id)]})
+        self.assertEqual(self.action('catalog', args).status_code, 403)
+        self.assertEqual(self.url_open('/ydental/intake/prices').status_code, 403)
+
+    def test_http_rework_future_reservation_rejected_same_day_early_zero_balance(self):
+        from .common import make_slot
+        future_start, future_end = self.start + timedelta(days=1), self.end + timedelta(days=1)
+        slot = make_slot(self, self.group, self.stations[0][0], future_start, future_end, total=3)
+        q = qualify(self, start=future_start, end=future_end)
+        self.select()
+        self.assertEqual(self.action('arrive', {'patient_id': q['patient_id']}).status_code, 200)
+        response = self.action('report', {'task_id': q['task_id'], 'version': q['task_version']})
+        self.assertEqual(response.status_code, 409)
+        self.assertIn('reporting_date_mismatch', response.text)
+        self.assertEqual(slot.ydental_reservation_free, 0)
+        self.assertEqual(self.root['ydental.intake.task'].browse(q['task_id']).state, 'pending')
+        for model in ('ydental.intake.position', 'ydental.intake.test.queue'):
+            self.assertFalse(self.root[model].search([('ydental_task_id', '=', q['task_id'])]))
+        start, end = self.start + timedelta(hours=3), self.end + timedelta(hours=3)
+        today = make_slot(self, self.group, self.stations[0][0], start, end, total=3)
+        same_day = qualify(self, start=start, end=end)
+        self.assertEqual(self.action('arrive', {'patient_id': same_day['patient_id']}).status_code, 200)
+        report = self.action('report', {'task_id': same_day['task_id'], 'version': same_day['task_version']})
+        self.assertEqual(report.status_code, 200, report.text)
+        self.assertEqual(today.ydental_reservation_free, 0)
+
+    def test_http_rework_cross_legal_trusted_source_and_arbitrary_target_denial(self):
+        from .common import cross_legal_target
+        store, desk, mapping, slot, manager, user = cross_legal_target(self)
+        self.admin._remove(self.users['doctor'].id, self.stores[1].id)
+        q = clinical_source(self, qualify(self))
+        args = {'source_task_id': q['task_id'], 'version': q['task_version'], 'mapping_id': mapping.id,
+            'start': fields.Datetime.to_string(self.start), 'end': fields.Datetime.to_string(self.end), 'reason': 'HTTP cross-legal stand-in'}
+        self.select('doctor')
+        for op in ('refer_timed', 'refer_untimed'):
+            self.assertEqual(self.action(op, args).status_code, 403)
+            self.assertIn('error', self.rpc('ydental.intake.service', '_referral_action', [op, args, key(), {'actor_id': self.users['doctor'].id}], {'ydental_referral_permit': True}))
+        timed = self.doctor._synthetic_referral_action('refer_timed', args, key())
+        untimed_args = {k: v for k, v in args.items() if k not in ('start', 'end')}
+        untimed = self.doctor._synthetic_referral_action('refer_untimed', dict(untimed_args,
+            valid_until=fields.Datetime.to_string(fields.Datetime.now() + timedelta(days=7))), key())
+        self.assertNotIn(store.company_id, self.users['doctor'].company_ids)
+        self.assertFalse(self.admin._membership(self.users['doctor'].id, store.id))
+        for op, payload in [('reserve', {'patient_id': q['patient_id'], 'mapping_id': mapping.id, 'start': args['start'], 'end': args['end']}),
+                ('cancel', {'record_id': timed['id'], 'version': timed['version'], 'reason': 'HTTP forbidden target'}), ('mapping_edit', {}), ('price', {})]:
+            self.assertEqual(self.action(op, payload).status_code, 403)
+        self.assertIn('error', self.rpc('ydental.intake.task', 'write', [[timed['task_id']], {'state': 'cancelled'}]))
+        switch = self.url_open('/ydental/access/action', data={'csrf_token': self.token, 'revision': self.revision,
+            'operation': 'switch', 'payload': json.dumps({'store_id': store.id}), 'output': 'json'})
+        self.assertEqual(switch.status_code, 403)
+        self.select(store=store, user=user)
+        self.assertEqual((slot.ydental_reservation_free, slot.ydental_walkin_free), (1, 4))
+        result = self.action('accept_referral', {'record_id': untimed['id'], 'version': untimed['version'],
+            'start': args['start'], 'end': args['end']})
+        self.assertEqual(result.status_code, 200, result.text)
+        self.assertEqual((slot.ydental_reservation_free, slot.ydental_walkin_free), (1, 3))

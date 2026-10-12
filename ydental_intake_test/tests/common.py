@@ -24,9 +24,9 @@ def setup(cls):
         {'name': 'S05 Synthetic A', 'company_id': root.company.id, 'ydental_timezone': 'UTC'},
         {'name': 'S05 Synthetic B', 'company_id': root.company.id, 'ydental_timezone': 'UTC'}])
     cls.users = {}
-    for role in ('manager', 'frontdesk', 'doctor', 'reader', 'price', 'none'):
+    for role in ('manager', 'frontdesk', 'doctor', 'reader', 'price', 'none', 'catalog'):
         groups = 'ydental_base.ydental_base_group_user'
-        if role == 'manager':
+        if role in ('manager', 'catalog'):
             groups += ',ydental_access.ydental_group_manager'
         cls.users[role] = new_test_user(root, name='S05 Synthetic ' + role,
             login='s05_' + role + '_' + key()[:8], password='s05-test-password', groups=groups)
@@ -124,3 +124,43 @@ def price(cls, amount=600, service=None, catalog=None, start=None, end=None, rep
     if replace:
         args.update(replace_id=replace.id, replace_version=replace.ydental_version)
     return service._operate('publish', args, key())
+
+
+def clinical_source(cls, q):
+    """Complete only a synthetic execution stand-in, never a real S08 source."""
+    arrive_report(cls, q)
+    task = cls.root['ydental.intake.task'].browse(q['task_id'])
+    cls.doctor._downstream_action('start', {'task_id': task.id, 'version': task.ydental_version}, key())
+    task._save({'state': 'done'})
+    q['task_version'] = task.ydental_version
+    return q
+
+
+def cross_legal_target(cls):
+    """Independent legal company/store; the source doctor keeps A-only access."""
+    root = cls.root
+    company = root['res.company'].create({'name': 'S05 Synthetic Legal B'})
+    cls.users['manager'].write({'company_ids': [fields.Command.link(company.id)]})
+    desk = new_test_user(root, name='S05 Legal B Desk', login='s05_legal_b_' + key(),
+        password='s05-test-password', groups='ydental_base.ydental_base_group_user',
+        company_id=company.id, company_ids=[fields.Command.set(company.ids)])
+    store = root['ydental.access.store'].create({'name': 'S05 Independent Legal B', 'company_id': company.id, 'ydental_timezone': 'UTC'})
+    for user in (cls.users['manager'], desk):
+        cls.admin._join(user.id, store.id)
+    cls.admin._grant(cls.users['manager'].id, store.id, dict.fromkeys(('price', 'capacity', 'space'), 'write'))
+    cls.admin._grant(desk.id, store.id, {'frontdesk': 'write'})
+    manager = bind(cls, cls.users['manager'], store)
+    front = bind(cls, desk, store)
+    floor = root['ydental.space.floor'].create({'name': 'S05 Legal B Floor', 'ydental_store_id': store.id})
+    area = root['ydental.space.area'].create({'name': 'S05 Legal B Cleaning', 'ydental_store_id': store.id,
+        'ydental_floor_id': floor.id, 'ydental_reporting': True, 'ydental_purpose': 'care'})
+    station = root['ydental.space.station'].create({'name': 'S05 Legal B Station', 'ydental_store_id': store.id,
+        'ydental_floor_id': floor.id, 'ydental_area_id': area.id,
+        'ydental_add_capability_ids': [fields.Command.set(cls.capabilities[0].ids)]})
+    supply = manager.env['ydental.supply.service']
+    supply._operate('policy', {'name': 'S05 legal demo', 'mode': 'demo', 'rounding': 'floor',
+        'phone_pool': 'reservation', 'cutoff_minutes': 0, 'reason': 'Synthetic cross-legal validation'}, key())
+    supply._operate('business', {'area_id': area.id, 'state': 'open', 'reason': 'Synthetic open'}, key())
+    m = manager._operate('mapping', {'catalog_id': cls.catalogs[0].id, 'area_id': area.id, 'execution_area_id': area.id}, key())
+    slot = make_slot(cls, manager, station, cls.start, cls.end)
+    return store, front, root['ydental.intake.mapping'].browse(m['id']), slot, manager, desk
