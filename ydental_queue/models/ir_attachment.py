@@ -5,4 +5,5 @@ class IrAttachment(models.Model):
     _inherit = 'ir.attachment'
 
     def _ydental_blocked_source_models(self):
-        return super()._ydental_blocked_source_models() + ('ydental.queue.entry', 'ydental.queue.lease', 'ydental.queue.execution')
+        return super()._ydental_blocked_source_models() + ('ydental.queue.entry', 'ydental.queue.lease',
+            'ydental.queue.execution', 'ydental.queue.hold', 'ydental.queue.append.permit')

@@ -24,3 +24,12 @@ class YDentalPatientService(models.AbstractModel):
             ('ydental_patient_id', 'in', source_ids), ('state', '=', 'active')])
         permits._save({'ydental_patient_id': target.id})
         return result | {'queue': len(rows)}
+
+    def _merge_conflicts(self, source, target):
+        result = super()._merge_conflicts(source, target)
+        # A waiting hold is not actual execution. It nevertheless must be
+        # resolved before merging its canonical identity and original chair.
+        holds = self.env['ydental.queue.hold'].sudo().search([
+            ('ydental_patient_id', 'in', self._identity_ids(source) + self._identity_ids(target)),
+            ('state', 'in', ('active', 'verify'))])
+        return result + [{'patient_id': r.ydental_patient_id.id, 'kind': 'hold', 'reference': r.id} for r in holds]

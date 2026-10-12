@@ -41,6 +41,8 @@ class TestQueueReturn(TransactionCase):
         self.assertEqual(before, {m: self.root[m].search_count([]) for m in before})
         self.assertFalse(queue._unresolved_execution(execution.ydental_patient_id.id))
         self.assertEqual(hold.state, 'active')
+        unrelated = self.root['ydental.patient'].browse(qualify(self)['patient_id'])
+        self.assertTrue(self.front.env['ydental.patient.service']._merge_conflicts(execution.ydental_patient_id, unrelated))
         self.assertEqual(queue._operate('reserve', dict(lease_args(lease), execution_id=execution.id, target_task_id=task.id))['hold_id'], hold.id)
         for op in ('call', 'exit'):
             with self.assertRaises(UserError):
