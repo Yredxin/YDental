@@ -136,10 +136,6 @@ def main():
         try:
             second_context, second = login('second')
             second.goto(base + '/ydental/queue')
-            with second.expect_navigation(wait_until='domcontentloaded'):
-                second.locator('tr[data-station="%s"] button' % preview['stations'][1]).click()
-            check('second authorized person enters idle target chair', holder(second)['station_id'] == preview['stations'][1])
-
             doctor_context, page = login('doctor')
             page.goto(base + '/ydental/queue')
             check('queue page shows current store and explicit staffing reason', 'Current store:' in page.locator('body').inner_text())
@@ -150,9 +146,13 @@ def main():
             check('unscheduled qualified doctor enters through real UI', original['station_id'] == preview['stations'][0])
             check('no assignment is a visible reminder', 'No assignment required' in page.locator('body').inner_text())
             screenshot(page, doctor_context, '01-unscheduled-workstation.png')
-            response = qaction(page, 'switch', dict(lease_args(original), station_id=preview['stations'][1]))
-            check('occupied target switch fails', response['status'] == 409)
-            page.reload()
+            with second.expect_navigation(wait_until='domcontentloaded'):
+                second.locator('tr[data-station="%s"] button' % preview['stations'][1]).click()
+            check('second authorized person enters idle target chair', holder(second)['station_id'] == preview['stations'][1])
+            with page.expect_response(lambda response: '/ydental/queue/action' in response.url) as failed_switch:
+                page.locator('tr[data-station="%s"] button' % preview['stations'][1]).click()
+            check('stale UI target switch fails after another holder acquires it', failed_switch.value.status == 409)
+            page.wait_for_function("document.querySelector('#queue-result').textContent.includes('handover_required')")
             check('failed switch preserves original holding lease', holder(page)['lease_id'] == original['lease_id'])
             screenshot(page, doctor_context, '02-switch-failure-keeps-chair.png')
             click_reload(second, 'Exit / rest / logout workstation')
