@@ -1,0 +1,9 @@
+id,name,model_id/id,group_id/id,operation,domain
+ydental_event_read,Treatment event read,model_ydental_treatment_event,ydental_base.ydental_base_group_user,r,
+ydental_consumption_read,Treatment consumption read,model_ydental_treatment_consumption,ydental_base.ydental_base_group_user,r,
+ydental_fee_read,Treatment fee read,model_ydental_treatment_fee,ydental_base.ydental_base_group_user,r,
+ydental_order_read,Treatment order read,model_ydental_treatment_order,ydental_base.ydental_base_group_user,r,
+ydental_line_read,Treatment line read,model_ydental_treatment_line,ydental_base.ydental_base_group_user,r,
+ydental_segment_read,Treatment segment read,model_ydental_treatment_segment,ydental_base.ydental_base_group_user,r,
+ydental_receipt_read,Treatment receipt read,model_ydental_treatment_receipt,ydental_base.ydental_base_group_user,r,
+ydental_price_review_read,Treatment price_review read,model_ydental_treatment_price_review,ydental_base.ydental_base_group_user,r,

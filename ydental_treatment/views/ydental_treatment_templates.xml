@@ -1,0 +1,85 @@
+<odoo>
+    <template id="ydental_treatment_page" name="Treatment and pharmacy workbench">
+        <t t-call="web.frontend_layout">
+            <main class="container o_ydental_treatment" t-att-data-revision="revision" t-att-data-role="role" t-att-data-execution="execution.id if execution else 0" t-att-data-document="doc.id if doc else 0" t-att-data-version="doc.ydental_version if doc else 0" t-att-data-heartbeat="heartbeat">
+                <h1>Treatment and pharmacy</h1>
+                <nav><a href="/ydental/queue">Workstation and explicit reporting</a> | <a href="/ydental/clinical" target="_blank" rel="noopener">Independent clinical document</a></nav>
+                <p class="alert alert-warning">Demonstration pricing and synthetic medication review only. Production pricing, medication policy and clinical signing await approval. These sources are not bills or payments.</p>
+                <p><strong t-out="store.name"/> / <span t-out="status['station'] or '-'"/> / <strong t-out="patient.name if patient else '-'"/> / <span t-out="execution.id if execution else '-'"/></p>
+                <p>Save the independent document before confirming an actual project. Text confirmation, actual execution and segment finish are separate actions.</p>
+                <p id="treatment-result" role="status">Review the actual action scope before confirming.</p>
+                <a id="treatment-reconcile" href="/ydental/treatment" target="_blank" rel="noopener" hidden="hidden">Check committed sources in a new tab; keep this page for comparison.</a>
+                <span id="treatment-confirm" hidden="hidden">Confirm that this action describes the actual verified project, order or dispensing. It may create immutable fee and stock sources.</span>
+                <span id="treatment-offline" hidden="hidden">Unconfirmed response. Keep this page and check the server sources before retrying. No automatic replay.</span>
+                <t t-if="role == 'medical'">
+                    <section><h2>Actual treatment confirmation</h2>
+                        <form data-operation="execute">
+                            <label>Project <select name="catalog_id" required="required"><option value="">Choose an actual project</option><option t-foreach="mappings.filtered(lambda m: m.ydental_catalog_id.ydental_kind in ('care','procedure','medicine'))" t-as="mapping" t-att-value="mapping.ydental_catalog_id.id" t-out="mapping.name"/></select></label>
+                            <label>Actual project quantity <input name="quantity" type="number" min="0.01" step="any" required="required"/></label>
+                            <label>FDI tooth (0 means not applicable) <input name="tooth" type="number" min="0" max="85" required="required"/></label>
+                            <label>Surfaces <input name="surfaces" placeholder="M,O,D,B,L or I"/></label>
+                            <label>Verified physical batch <select name="lot_id"><option value="">No physical material used</option><option t-foreach="lots" t-as="lot" t-att-value="lot.id" t-att-data-uom="lot.product_id.uom_id.id" t-att-data-kind="'treatment' if lot.product_id.ydental_inventory_kind == 'material' else 'chairside'" t-out="lot.product_id.name + ' / ' + lot.name"/></select></label>
+                            <label>Actual material quantity <input name="material_quantity" type="number" min="0.01" step="any"/></label>
+                            <label>Actual reason / source evidence <input name="reason" required="required" maxlength="240"/></label>
+                            <label><input name="already_performed" type="checkbox"/>Already physically performed; preserve fact if bookkeeping is unavailable</label>
+                            <button type="submit">Confirm actual treatment</button>
+                        </form>
+                    </section>
+                    <section><h2>Examination or take-away prescription draft</h2>
+                        <form data-operation="order">
+                            <label>Order kind <select name="kind"><option value="exam">Examination order</option><option value="prescription">Take-away prescription</option></select></label>
+                            <label>Explicit purpose <input name="purpose" maxlength="240" required="required"/></label>
+                            <div class="o_ydental_treatment_lines">
+                                <div class="o_ydental_treatment_line">
+                                    <label>Exact service mapping <select name="mapping_id" required="required"><option value="">Choose exact capability</option><option t-foreach="mappings.filtered(lambda m: m.ydental_catalog_id.ydental_kind in ('exam','medicine'))" t-as="mapping" t-att-value="mapping.id" t-att-data-uom="mapping.ydental_catalog_id.ydental_product_id.uom_id.id" t-att-data-kind="mapping.ydental_catalog_id.ydental_kind" t-out="mapping.name"/></select></label>
+                                    <label>Approved quantity <input name="quantity" type="number" min="0.01" step="any" required="required"/></label>
+                                    <label>Medicine <select name="product_id"><option value="">No medicine for examination</option><option t-foreach="products" t-as="product" t-att-value="product.id" t-out="product.name"/></select></label>
+                                    <label>Specification <input name="specification" maxlength="240"/></label><label>Usage <input name="usage" maxlength="240"/></label><label>Frequency <input name="frequency" maxlength="240"/></label><label>Course <input name="course" maxlength="240"/></label>
+                                </div>
+                            </div>
+                            <button type="button" class="add-order-line">Add independent order line</button><button type="submit">Save order draft</button>
+                        </form>
+                    </section>
+                    <section><h2>Cross-store referral</h2>
+                        <form data-operation="refer">
+                            <label>Target region and capability <select name="mapping_id" required="required"><option value="">Choose target store service</option><option t-foreach="target_mappings" t-as="mapping" t-att-value="mapping.id" t-out="mapping.ydental_store_id.name + ' / ' + mapping.name"/></select></label>
+                            <label>Referral mode <select name="mode"><option value="timed">Timed reservation</option><option value="untimed">Untimed, no capacity held</option></select></label>
+                            <label>UTC slot start <input name="start" type="datetime-local"/></label><label>UTC slot end <input name="end" type="datetime-local"/></label><label>UTC valid until <input name="valid_until" type="datetime-local"/></label>
+                            <label>Referral reason <input name="reason" maxlength="240" required="required"/></label><button type="submit">Initiate referral only</button>
+                        </form>
+                    </section>
+                </t>
+                <section><h2>Frozen orders and remaining quantities</h2>
+                    <article t-foreach="orders" t-as="order" t-att-data-order="order.id" t-att-data-order-version="order.ydental_version" t-att-data-order-kind="order.ydental_kind">
+                        <h3><t t-out="order.name"/> #<t t-out="order.id"/> / <t t-out="order.state"/> / <t t-out="order.ydental_version"/></h3>
+                        <p t-out="order.ydental_patient_id.name"/>
+                        <form t-if="role == 'medical' and order.state == 'draft'" data-operation="issue"><button type="submit">Issue and freeze order</button></form>
+                        <table class="table"><thead><tr><th>Exact service / medicine</th><th>Approved</th><th>Remaining</th><th>Instructions / state</th><th>Action</th></tr></thead><tbody>
+                            <tr t-foreach="lines.filtered(lambda l: l.ydental_order_id == order)" t-as="line" t-att-data-line="line.id" t-att-data-uom="line.ydental_uom_id.id">
+                                <td><t t-out="line.name"/> / <t t-out="line.ydental_product_id.name or '-'"/></td><td t-out="line.ydental_quantity"/><td class="remaining" t-out="remaining(line) if order.ydental_kind == 'prescription' else '-'"/>
+                                <td><t t-out="line.ydental_specification or '-'"/> / <t t-out="line.ydental_usage or '-'"/> / <t t-out="line.ydental_frequency or '-'"/> / <t t-out="line.ydental_course or '-'"/> / <t t-out="line.state"/></td>
+                                <td><form t-if="role == 'medical' and order.ydental_kind == 'exam' and line.state == 'issued'" data-operation="cancel_exam"><input name="reason" maxlength="240" required="required" placeholder="Unperformed cancellation reason"/><button type="submit">Cancel unperformed examination</button></form>
+                                <form t-if="role == 'pharmacy' and order.state == 'issued' and line.state == 'issued'" data-operation="dispense"><label>Verified batch <select name="lot_id" required="required"><option value="">Verify exact medicine batch</option><option t-foreach="lots.filtered(lambda l: l.product_id == line.ydental_product_id)" t-as="lot" t-att-value="lot.id" t-out="lot.name"/></select></label><label>Actual issue quantity <input name="quantity" type="number" step="any" min="0.01" required="required"/></label><label>Actual issue reason <input name="reason" required="required" maxlength="240"/></label><button type="submit">Confirm actual dispensing</button></form></td>
+                            </tr>
+                        </tbody></table>
+                        <ul><li t-foreach="segments.filtered(lambda s: s.ydental_order_id == order)" t-as="segment" t-att-data-segment="segment.id">Segment <t t-out="segment.ydental_sequence"/> / task <strong class="task-id" t-out="segment.ydental_task_id.id"/> / <t t-out="segment.state"/> / <t t-out="segment.ydental_task_id.state"/> / <t t-out="segment.ydental_finished_at or '-'"/></li></ul>
+                        <form t-if="role == 'pharmacy' and order.state == 'issued'" data-operation="finish"><label>End this actual dispensing segment reason <input name="reason" required="required" maxlength="240"/></label><button type="submit">Finish segment and release workstation</button></form>
+                    </article>
+                </section>
+                <section><h2>Immutable actual events, fee and native stock sources</h2>
+                    <article t-foreach="events" t-as="event" t-att-data-event="event.id" t-att-data-event-state="event.state">
+                        <t t-set="facts" t-value="event_result(event)"/>
+                        <p><strong t-out="event.name"/> #<t t-out="event.id"/> / <t t-out="event.ydental_patient_id.name"/> / <t t-out="event.ydental_quantity"/> / <t t-out="event.ydental_uom_id.name"/> / <t t-out="event.ydental_actor_id.name"/> / <t t-out="event.ydental_actual_at"/> UTC / <t t-out="event.state"/> / <t t-out="event.ydental_pending_reason or '-'"/></p>
+                        <p>Frozen original price <strong class="frozen-price" t-out="event.ydental_price_snapshot_id.ydental_unit_price if event.ydental_price_snapshot_id else '-'"/> / fee source <t t-out="facts['fee_id'] or '-'"/> / amount <t t-out="facts['amount'] if facts['amount'] is not None else '-'"/> / native stock moves <span class="native-moves" t-out="facts['move_ids']"/></p>
+                        <form t-if="event.state == 'pending'" data-operation="reconcile"><input name="reason" required="required" maxlength="240" placeholder="Reconciliation evidence"/><button type="submit">Recheck original bookkeeping</button></form>
+                        <form t-if="role == 'medical' and event.state == 'confirmed' and event.ydental_kind in ('treatment','chairside')" data-operation="correct"><label>Actual quantity difference <input name="delta" type="number" step="any" required="required"/></label><label>Correction reason <input name="reason" maxlength="240" required="required"/></label><button type="submit">Append quantity correction</button></form>
+                    </article>
+                </section>
+                <script type="module" src="/ydental_treatment/static/src/workbench/workbench.js"/>
+            </main>
+        </t>
+    </template>
+    <template id="ydental_clinical_page_inherit_treatment" inherit_id="ydental_clinical.ydental_clinical_page" name="Clinical treatment entry">
+        <xpath expr="//nav" position="inside"><span> | </span><a href="/ydental/treatment" target="_blank" rel="noopener">Actual treatment, orders and referrals</a></xpath>
+    </template>
+</odoo>
