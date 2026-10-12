@@ -132,6 +132,7 @@ if (root) {
         }
     }
     root.querySelector('#open-document').addEventListener('click', async () => {
+        if (dirty || saving) { result.textContent = message('unsynced-message'); return; }
         try {
             const stored = sessionStorage.getItem(editorKey());
             if (documentId && stored) {
@@ -182,6 +183,7 @@ if (root) {
         summary(); changed();
     }));
     root.querySelector('#transfer-document')?.addEventListener('click', async () => {
+        if (dirty || saving) { result.textContent = message('unsynced-message'); return; }
         try {
             await action('transfer', {document_id: documentId, expected_version: version,
                 user_id: Number(root.querySelector('#transfer-user').value), reason: root.querySelector('#transfer-reason').value});
