@@ -5,13 +5,16 @@ class YDentalAccessService(models.AbstractModel):
     _inherit = 'ydental.access.service'
 
     def _get_sources(self):
-        return super()._get_sources() | {'queue_' + entity: 'ydental.queue.' + entity for entity in ('lease', 'entry', 'execution')}
+        return super()._get_sources() | {'queue_' + entity: 'ydental.queue.' + entity for entity in ('lease', 'entry', 'execution', 'hold', 'append.permit')}
 
     def _get_execution_store_id(self):
         queue = self.env['ydental.queue.service']
         execution = queue._actor_execution()
         if execution:
             return execution.ydental_store_id.id
+        hold = queue._hold(actor_id=self.env.uid)
+        if hold:
+            return hold.ydental_store_id.id
         lease = queue._own()
         return lease.ydental_store_id.id if lease else super()._get_execution_store_id()
 

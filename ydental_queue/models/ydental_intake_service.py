@@ -1,11 +1,40 @@
+from dataclasses import dataclass
+
 from odoo import models
 from odoo.exceptions import AccessError, UserError
 
 from .ydental_queue_service import StartPermit
 
 
+@dataclass(frozen=True)
+class Admission:
+    actor_id: int
+    task_id: int
+
+
 class YDentalIntakeService(models.AbstractModel):
     _inherit = 'ydental.intake.service'
+
+    def _business_read_access(self):
+        try:
+            return super()._business_read_access()
+        except AccessError:
+            return self.env['ydental.access.service']._check('pharmacy', 'read').ydental_store_id
+
+    def _valid_task(self, task, store):
+        service = self.with_context(ydental_queue_admission=Admission(self.env.uid, task.id))
+        patient = super(YDentalIntakeService, service)._valid_task(task, store)
+        if task.ydental_continuation_snapshot and task.ydental_continuation_snapshot != self.env['ydental.queue.service']._service_snapshot(task):
+            raise UserError(self.env._('version_conflict: Continuation service requirements changed; review the source.'))
+        return patient
+
+    def _open(self, mapping):
+        admission = self.env.context.get('ydental_queue_admission')
+        if type(admission) is Admission and admission.actor_id == self.env.uid:
+            task = self._model('task').browse(admission.task_id)
+            if task.ydental_mapping_id == mapping and self.env['ydental.queue.service']._permit_valid(task):
+                return None
+        return super()._open(mapping)
 
     def _all_locks(self):
         super()._all_locks()
@@ -40,7 +69,7 @@ class YDentalIntakeService(models.AbstractModel):
                 ('ydental_started_at', '!=', False)]))
             number = self.env['ir.sequence'].sudo().next_by_code('ydental.queue.number')
             entry = queue._model('entry')._new({'name': task.name, 'ydental_store_id': task.ydental_store_id.id,
-                'ydental_category': 'exam' if mapping.ydental_catalog_id.ydental_kind == 'exam' else 'medical',
+                'ydental_category': {'exam': 'exam', 'medicine': 'pharmacy'}.get(mapping.ydental_catalog_id.ydental_kind, 'medical'),
                 'ydental_task_id': task.id, 'ydental_patient_id': task.ydental_patient_id.id,
                 'ydental_area_id': mapping.ydental_area_id.id,
                 'ydental_capability_id': mapping.ydental_catalog_id.ydental_capability_id.id,

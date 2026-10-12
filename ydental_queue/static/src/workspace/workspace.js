@@ -17,12 +17,14 @@ if (workspace) {
         sessionStorage.removeItem(storageKey);
     }
     async function action(operation, extra = {}, quiet = false) {
-        const payload = operation === 'enter' ? extra : {...extra, lease_id: holder?.lease_id, token: holder?.token};
+        const reception = ['enter', 'append', 'revoke', 'query_return', 'report'].includes(operation);
+        const payload = reception ? extra : {...extra, lease_id: holder?.lease_id, token: holder?.token};
         try {
-            const response = await fetch('/ydental/queue/action', {
+            const response = await fetch(operation === 'report' ? '/ydental/intake/action' : '/ydental/queue/action', {
                 method: 'POST',
                 body: new URLSearchParams({operation, revision: workspace.dataset.revision, connection,
-                    csrf_token: workspace.querySelector('[name=csrf_token]').value, payload: JSON.stringify(payload)}),
+                    csrf_token: workspace.querySelector('[name=csrf_token]').value, payload: JSON.stringify(payload),
+                    key: crypto.randomUUID(), output: 'json'}),
             });
             const result = await response.json();
             if (!response.ok) {
@@ -38,6 +40,10 @@ if (workspace) {
             } else if (operation === 'exit') {
                 sessionStorage.removeItem(storageKey);
             }
+            if (operation === 'query_return') {
+                resultNode.textContent = [result.message, result.area, result.station].filter(Boolean).join(' / ');
+                return;
+            }
             if (!quiet) {
                 window.location.reload();
             }
@@ -52,6 +58,23 @@ if (workspace) {
             ...(button.dataset.station ? {station_id: Number(button.dataset.station)} : {}),
             ...(button.dataset.entry ? {entry_id: Number(button.dataset.entry)} : {}),
         }));
+    }
+    for (const form of workspace.querySelectorAll('[data-queue-form]')) {
+        const operation = form.dataset.queueForm;
+        if (!['append', 'revoke', 'query_return', 'report'].includes(operation) && !holder) {
+            form.querySelector('button').disabled = true;
+        }
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const extra = {};
+            for (const [name, value] of new FormData(form)) {
+                extra[name] = name.endsWith('_id') || name === 'version' ? Number(value) : value;
+            }
+            if (operation === 'restore') {
+                extra.confirmed = form.querySelector('[name=confirmed]').checked;
+            }
+            action(operation, extra);
+        });
     }
     const heartbeat = Number(workspace.dataset.heartbeat);
     if (canWrite && holder && heartbeat > 0) {

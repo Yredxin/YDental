@@ -1,0 +1,6 @@
+<odoo>
+    <record id="ydental_group_append" model="res.groups">
+        <field name="name">YDental explicit reception append</field>
+        <field name="implied_ids" eval="[(4, ref('ydental_base.ydental_base_group_user'))]"/>
+    </record>
+</odoo>

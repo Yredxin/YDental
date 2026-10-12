@@ -21,15 +21,16 @@ class YDentalQueue(http.Controller):
         stations = queue.env['ydental.space.station'].sudo().search([('ydental_store_id', '=', store.id)])
         own = queue._own()
         actor_execution = queue._actor_execution()
+        actor_hold = queue._hold(actor_id=queue.env.uid)
         entries = queue._model('entry').search([('ydental_store_id', '=', store.id), ('state', '!=', 'void')])
         station_rows = []
         for station in stations:
             category = {'care': 'medical', 'exam': 'exam', 'pharmacy': 'pharmacy'}.get(station.ydental_kind)
             qualified = set(station.ydental_capability_ids.filtered('active').ids) <= set(queue.env.user.sudo().ydental_capability_ids.filtered('active').ids)
             occupied = queue._model('lease').search_count([('ydental_station_id', '=', station.id), ('ydental_active', '=', True)])
-            unresolved = queue._model('execution').search_count([('ydental_lease_id.ydental_station_id', '=', station.id)])
+            unresolved = queue._model('execution').search_count([('ydental_lease_id.ydental_station_id', '=', station.id), ('state', 'in', ('serving', 'verify'))])
             can_enter = bool(category and levels[category] == 'write' and qualified and station.ydental_capability_ids and
-                             station.active and station.ydental_enabled and station.ydental_callable and not occupied and not unresolved and not actor_execution)
+                             station.active and station.ydental_enabled and station.ydental_callable and not occupied and not unresolved and not actor_execution and not actor_hold)
             station_rows.append({'id': station.id, 'name': station.name, 'area': station.ydental_queue_area_id.name,
                 'capabilities': ', '.join(station.ydental_capability_ids.mapped('name')), 'can_enter': can_enter,
                 'reason': request.env._('Resolve your existing execution or on-site verification before entering another workstation.') if actor_execution else (
@@ -58,14 +59,24 @@ class YDentalQueue(http.Controller):
             config_hint = request.env._('Heartbeat and timeout are explicitly configured. Production approval remains separate.')
         except UserError as error:
             heartbeat, timeout, config_hint = 0, 0, str(error)
-        can_call = bool(own and not actor_execution and own.ydental_station_id.ydental_queue_area_id.ydental_missed_limit > 0)
+        can_call = bool(own and not queue._busy(own) and not actor_execution and own.ydental_station_id.ydental_queue_area_id.ydental_missed_limit > 0)
         if own and own.ydental_station_id.ydental_queue_area_id.ydental_missed_limit <= 0:
             config_hint = request.env._('configuration_required: Publish an explicit positive missed-call displacement.')
         return request.render('ydental_queue.ydental_queue_page', {'store': store, 'status': queue._status(),
             'revision': access._scope().ydental_revision, 'stations': station_rows, 'rows': waiting_rows,
             'own': own, 'shift_hint': queue._shift_hint(own), 'config_hint': config_hint,
             'can_write': any(levels[c] == 'write' for c in ('medical', 'exam', 'pharmacy')),
-            'heartbeat': heartbeat, 'can_call': can_call}, headers=[('Cache-Control', 'no-store')])
+            'heartbeat': heartbeat, 'can_call': can_call,
+            'execution': actor_execution if actor_execution and actor_execution.state == 'serving' else False,
+            'actor_hold': actor_hold, 'can_frontdesk': levels['frontdesk'] == 'write',
+            'can_append': levels['frontdesk'] == 'write' and queue.env.user.has_group('ydental_queue.ydental_group_append'),
+            'return_targets': queue.env['ydental.intake.task'].sudo().search([
+                ('ydental_store_id', '=', store.id), ('state', 'in', ('pending', 'accepted'))]).filtered(
+                    lambda task: bool(actor_execution and task.ydental_patient_id == actor_execution.ydental_patient_id and
+                                      task.ydental_mapping_id.ydental_catalog_id.ydental_kind in ('exam', 'medicine'))),
+            'pending_tasks': queue.env['ydental.intake.task'].sudo().search([
+                ('ydental_store_id', '=', store.id), ('state', 'in', ('pending', 'accepted'))]),
+            'permits': queue._model('append.permit').search([('ydental_store_id', '=', store.id), ('state', 'in', ('active', 'started'))])}, headers=[('Cache-Control', 'no-store')])
 
     @http.route('/ydental/queue/action', type='http', auth='user', methods=['POST'], max_content_length=16384)
     def action(self, operation, revision, connection, payload):

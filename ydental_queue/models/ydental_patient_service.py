@@ -10,12 +10,17 @@ class YDentalPatientService(models.AbstractModel):
 
     def _active_business(self, patient_ids):
         result = super()._active_business(patient_ids)
-        rows = self.env['ydental.queue.execution'].sudo().search([('ydental_patient_id', 'in', patient_ids)])
-        return result + [{'patient_id': r.ydental_patient_id.id, 'kind': 'execution', 'reference': r.id} for r in rows]
+        rows = self.env['ydental.queue.execution'].sudo().search([('ydental_patient_id', 'in', patient_ids), ('state', 'in', ('serving', 'verify'))])
+        holds = self.env['ydental.queue.hold'].sudo().search([('ydental_patient_id', 'in', patient_ids), ('state', 'in', ('active', 'verify'))])
+        return result + [{'patient_id': r.ydental_patient_id.id, 'kind': 'execution', 'reference': r.id} for r in rows] + [
+            {'patient_id': r.ydental_patient_id.id, 'kind': 'hold', 'reference': r.id} for r in holds]
 
     def _migrate_business(self, source_ids, target):
         result = super()._migrate_business(source_ids, target)
         rows = self.env['ydental.queue.entry'].sudo().search([
             ('ydental_patient_id', 'in', source_ids), ('state', 'in', ['waiting', 'calling'])])
         rows._save({'ydental_patient_id': target.id})
+        permits = self.env['ydental.queue.append.permit'].sudo().search([
+            ('ydental_patient_id', 'in', source_ids), ('state', '=', 'active')])
+        permits._save({'ydental_patient_id': target.id})
         return result | {'queue': len(rows)}

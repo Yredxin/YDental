@@ -104,7 +104,7 @@ class YDentalQueueService(models.AbstractModel):
         return self._model('lease').search([('ydental_actor_id', '=', self.env.uid), ('ydental_active', '=', True)], limit=1)
 
     def _actor_execution(self, user_id=None):
-        # Execution outlives its connection. A has no resolved execution states.
+        # Execution outlives its connection; resolved history is never a fence.
         return self._model('execution').search([
             ('ydental_lease_id.ydental_actor_id', '=', self.env.uid if user_id is None else user_id),
             ('state', 'in', ('serving', 'verify'))], limit=1)
@@ -127,7 +127,7 @@ class YDentalQueueService(models.AbstractModel):
 
     def _busy(self, lease):
         return bool(self._model('entry').search_count([('ydental_lease_id', '=', lease.id), ('state', '=', 'calling')]) or
-                    self._model('execution').search_count([('ydental_lease_id', '=', lease.id)]))
+                    self._model('execution').search_count([('ydental_lease_id', '=', lease.id), ('state', 'in', ('serving', 'verify'))]))
 
     def _audit(self, event, record, after=None):
         self.env['ydental.access.service']._audit('queue.' + event, record.ydental_category,
@@ -160,9 +160,12 @@ class YDentalQueueService(models.AbstractModel):
             self._locks()
             return self._expire()
 
-    def _operate(self, operation, payload):
-        handlers = {'enter': self._enter, 'switch': self._switch, 'exit': self._exit,
+    def _handlers(self):
+        return {'enter': self._enter, 'switch': self._switch, 'exit': self._exit,
                     'heartbeat': self._heartbeat, 'call': self._call, 'missed': self._missed, 'start': self._start}
+
+    def _operate(self, operation, payload):
+        handlers = self._handlers()
         if operation not in handlers or not isinstance(payload, dict):
             raise AccessError(self.env._('access_denied: Unknown workstation action.'))
         try:
@@ -184,7 +187,7 @@ class YDentalQueueService(models.AbstractModel):
                 # Return a committed expiry result. Raising would roll back the
                 # fault requeue and allow a stale call to remain authoritative.
                 return {'result': 'connection_expired', 'verification_required': bool(self._model('execution').search_count([
-                    ('ydental_lease_id', '=', payload['lease_id'])]))}
+                    ('ydental_lease_id', '=', payload['lease_id']), ('state', 'in', ('serving', 'verify'))]))}
             return dict(handlers[operation](**payload), result='accepted')
 
     def _enter(self, station_id):
@@ -192,7 +195,7 @@ class YDentalQueueService(models.AbstractModel):
         station, member, category = self._station(station_id)
         if self._own() or self._model('lease').search_count([('ydental_station_id', '=', station.id), ('ydental_active', '=', True)]):
             raise UserError(self.env._('handover_required: The account or workstation already has a holder.'))
-        if self._model('execution').search_count([('ydental_lease_id.ydental_station_id', '=', station.id)]):
+        if self._model('execution').search_count([('ydental_lease_id.ydental_station_id', '=', station.id), ('state', 'in', ('serving', 'verify'))]):
             raise UserError(self.env._('handover_required: On-site verification is required before reusing this workstation.'))
         heartbeat, timeout = self._settings()
         session, connection = self._connection()
@@ -377,12 +380,13 @@ class YDentalQueueService(models.AbstractModel):
         entry._save({'state': 'serving', 'ydental_lease_id': lease.id, 'ydental_started_at': self._now()})
         execution = self._model('execution')._new({'name': entry.name, 'ydental_store_id': entry.ydental_store_id.id,
             'ydental_category': lease.ydental_category, 'ydental_patient_id': entry.ydental_patient_id.id,
-            'ydental_entry_id': entry.id, 'ydental_lease_id': lease.id, 'ydental_started_at': self._now()})
+            'ydental_entry_id': entry.id, 'ydental_task_id': task.id, 'ydental_lease_id': lease.id,
+            'ydental_service_snapshot': self._service_snapshot(task), 'ydental_started_at': self._now()})
         self._audit('start', execution, {'entry_id': entry.id, 'task_id': task.id})
         return {'entry_id': entry.id, 'execution_id': execution.id, 'state': 'serving'}
 
     def _unresolved_execution(self, patient_id):
-        return self._model('execution').search([('ydental_patient_id', '=', patient_id)], limit=1)
+        return self._model('execution').search([('ydental_patient_id', '=', patient_id), ('state', 'in', ('serving', 'verify'))], limit=1)
 
     def _handover_contract(self, execution_id):
         # B must implement source validation, saving and a single atomic transition.

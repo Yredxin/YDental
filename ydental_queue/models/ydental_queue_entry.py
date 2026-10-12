@@ -24,7 +24,8 @@ class YDentalQueueEntry(models.Model):
     ydental_call_rank = fields.Integer(string='Effective regional rank before call')
     ydental_call_order_before = fields.Integer(string='Pre-call order anchor')
     state = fields.Selection([('waiting', 'Waiting'), ('calling', 'Calling'), ('serving', 'Serving'),
-                              ('verify', 'Away, on-site verification required'), ('void', 'Number voided')], required=True, default='waiting')
+                              ('verify', 'Away, on-site verification required'), ('reserved', 'Waiting for reserved return'),
+                              ('handover', 'Segment handed over'), ('void', 'Number voided')], required=True, default='waiting')
 
     _one_task = models.Constraint('UNIQUE(ydental_task_id)', 'A task retains one queue history.')
     _one_patient = models.UniqueIndex("(ydental_patient_id) WHERE state IN ('waiting', 'calling')")

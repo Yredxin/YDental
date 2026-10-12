@@ -7,11 +7,27 @@ class YDentalQueueExecution(models.Model):
     _inherit = 'ydental.queue.record'
 
     ydental_patient_id = fields.Many2one('ydental.patient', required=True, ondelete='restrict', index=True)
-    ydental_entry_id = fields.Many2one('ydental.queue.entry', required=True, ondelete='restrict')
+    ydental_entry_id = fields.Many2one('ydental.queue.entry', ondelete='restrict')
+    ydental_resumed_from_id = fields.Many2one('ydental.queue.execution', ondelete='restrict')
+    ydental_task_id = fields.Many2one('ydental.intake.task', ondelete='restrict', index=True)
+    ydental_service_snapshot = fields.Json()
     ydental_lease_id = fields.Many2one('ydental.queue.lease', required=True, ondelete='restrict')
     ydental_started_at = fields.Datetime(required=True)
-    state = fields.Selection([('serving', 'Serving'), ('verify', 'Away, on-site verification required')], required=True, default='serving')
+    ydental_ended_at = fields.Datetime()
+    state = fields.Selection([('serving', 'Serving'), ('verify', 'Away, on-site verification required'),
+                              ('reserved', 'Segment ended for external service'), ('handover', 'Segment handed over')], required=True, default='serving')
 
-    _one_patient = models.Constraint('UNIQUE(ydental_patient_id)', 'A patient has one unresolved actual execution.')
+    _unresolved_patient = models.UniqueIndex("(ydental_patient_id) WHERE state IN ('serving', 'verify')")
     _one_entry = models.Constraint('UNIQUE(ydental_entry_id)', 'A queue entry starts once.')
-    _one_lease = models.Constraint('UNIQUE(ydental_lease_id)', 'A workstation has one unresolved execution.')
+    _unresolved_lease = models.UniqueIndex("(ydental_lease_id) WHERE state IN ('serving', 'verify')")
+    _one_resume = models.Constraint('UNIQUE(ydental_resumed_from_id)', 'A held segment resumes once.')
+
+    def init(self):
+        # A used lifetime SQL constraints. B replaces only these two constraints;
+        # their names are fixed server identifiers. All historical rows survive.
+        from odoo.tools.sql import constraint_definition, drop_constraint
+        for name in ('ydental_queue_execution_one_patient', 'ydental_queue_execution_one_lease'):
+            if constraint_definition(self.env.cr, self._table, name):
+                drop_constraint(self.env.cr, self._table, name)
+        self.env.cr.execute('''UPDATE ydental_queue_execution e SET ydental_task_id=q.ydental_task_id
+            FROM ydental_queue_entry q WHERE e.ydental_entry_id=q.id AND e.ydental_task_id IS NULL''')
