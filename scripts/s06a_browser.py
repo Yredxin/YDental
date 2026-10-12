@@ -117,7 +117,7 @@ def main():
         def holder(page):
             return page.evaluate("JSON.parse(sessionStorage.getItem('ydental_queue_holder'))")
 
-        def args(value):
+        def lease_args(value):
             return {k:value[k] for k in ('lease_id','token')}
 
         def click_reload(page, label):
@@ -141,7 +141,7 @@ def main():
             check('unscheduled qualified doctor enters through real UI', original['station_id'] == preview['stations'][0])
             check('no assignment is a visible reminder', 'No assignment required' in page.locator('body').inner_text())
             screenshot(page, doctor_context, '01-unscheduled-workstation.png')
-            response = qaction(page, 'switch', dict(args(original), station_id=preview['stations'][1]))
+            response = qaction(page, 'switch', dict(lease_args(original), station_id=preview['stations'][1]))
             check('occupied target switch fails', response['status'] == 409)
             page.reload()
             check('failed switch preserves original holding lease', holder(page)['lease_id'] == original['lease_id'])
@@ -153,11 +153,11 @@ def main():
             moved = holder(page)
             sensitive.add(moved['token'])
             check('idle switch atomically acquires new chair', moved['station_id'] == preview['stations'][1] and moved['lease_id'] != original['lease_id'])
-            check('old switch token rejected', qaction(page, 'heartbeat', args(original))['status'] == 403)
+            check('old switch token rejected', qaction(page, 'heartbeat', lease_args(original))['status'] == 403)
             screenshot(page, doctor_context, '03-idle-switch-success.png')
             another_context, another = login('doctor')
             another.goto(base + '/ydental/queue')
-            check('another login cannot renew holding session', qaction(another, 'heartbeat', args(moved))['status'] == 403)
+            check('another login cannot renew holding session', qaction(another, 'heartbeat', lease_args(moved))['status'] == 403)
             check('another login UI is read only for held connection', another.get_by_role('button', name='Renew holding connection').is_disabled())
             another_context.close()
             click_reload(page, 'Call next matching task')
@@ -185,7 +185,7 @@ def main():
             page.goto(base + '/ydental/queue')
             check('timeout fault returns calling to waiting', row.locator('.queue-state').inner_text() == 'waiting')
             check('fault does not erase earlier real missed count', row.locator('.queue-missed').inner_text() == '1')
-            check('expired holding token cannot revive', qaction(page,'heartbeat',args(moved),old_connection)['status'] == 403)
+            check('expired holding token cannot revive', qaction(page,'heartbeat',lease_args(moved),old_connection)['status'] == 403)
             screenshot(page, doctor_context, '06-timeout-requeue-old-end-rejected.png')
             manager.reload()
             click_reload(manager, 'Call next matching task')
@@ -194,7 +194,7 @@ def main():
             check('calling becomes minimal actual serving through UI', mrow.locator('.queue-state').inner_text() == 'serving')
             check('serving preserves earlier missed history', mrow.locator('.queue-missed').inner_text() == '1')
             manager_lease = holder(manager)
-            check('serving holder cannot exit and erase patient', qaction(manager, 'exit', args(manager_lease))['status'] == 409)
+            check('serving holder cannot exit and erase patient', qaction(manager, 'exit', lease_args(manager_lease))['status'] == 409)
             screenshot(manager, manager_context, '07-actual-serving-fence.png')
             reader_context, reader = login('reader')
             reader.goto(base + '/ydental/queue')
