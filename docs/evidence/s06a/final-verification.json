@@ -1,0 +1,59 @@
+{
+  "product": "a2638afc637795a9dc148299f2075e0413b32f0e",
+  "test": "8d0b347be18574c75d96673ce1264923bd98bcec",
+  "database": "ydental_s06a_test_20261012025405_2fd04bd7",
+  "actions": [
+    {
+      "action": "install",
+      "exit_code": 0,
+      "log": "install-20261012T025405805439.log",
+      "log_sha256": "b15ebe903b4970ceb96704b3160f9b93abfd5f8ce0191ced9b9b03a76defb4e3",
+      "time_utc": "2026-10-12T02:55:19.700405+00:00",
+      "tested_commit": "8d0b347be18574c75d96673ce1264923bd98bcec",
+      "tests": [
+        0,
+        0,
+        34
+      ]
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 0,
+      "log": "upgrade-20261012T025519774348.log",
+      "log_sha256": "868fad7d9672860356ce2af83ae6ef12393a83b9e3dfd07f5819131c75567076",
+      "time_utc": "2026-10-12T02:55:41.774711+00:00",
+      "tested_commit": "8d0b347be18574c75d96673ce1264923bd98bcec",
+      "tests": [
+        0,
+        0,
+        32
+      ]
+    },
+    {
+      "action": "probe",
+      "exit_code": 0,
+      "log": "probe-20261012T025541844984.log",
+      "log_sha256": "ea286f31bbf22e5fa6a5aa216e38f0fa9f15ef4af7127f058288dfb1a58b813a",
+      "time_utc": "2026-10-12T02:55:59.567274+00:00",
+      "tested_commit": "8d0b347be18574c75d96673ce1264923bd98bcec"
+    },
+    {
+      "action": "export",
+      "exit_code": 0,
+      "log": "export-20261012T025559638540.log",
+      "log_sha256": "dc176fc7d871758e70fb7f9042e0b631365728a2e9ff134990edbcbb778c886d",
+      "time_utc": "2026-10-12T02:56:01.443152+00:00",
+      "tested_commit": "8d0b347be18574c75d96673ce1264923bd98bcec"
+    }
+  ],
+  "business_methods": 32,
+  "probe": "docs/evidence/s06a/probe-attempts/ydental_s06a_test_20261012025405_2fd04bd7-20261012T025542887339.json",
+  "browser": "docs/evidence/s06a/browser-attempts/20261012T025645576311/summary.json",
+  "guard": {
+    "passed": 5,
+    "exit_code": 0
+  },
+  "compileall": "PASS",
+  "git_diff_check": "PASS",
+  "product_tree_sha256": "df42645a54cf4a93533bf6d3404425bca8ca972f8c9754809eadb80f3d5632fe"
+}

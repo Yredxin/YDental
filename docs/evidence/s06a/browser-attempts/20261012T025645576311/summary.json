@@ -1,0 +1,158 @@
+{
+  "scope": "S06-A real queue, unscheduled workstation leases and actual start UI",
+  "database": "ydental_s06a_test_20261012025405_2fd04bd7",
+  "tested_commit": "8d0b347be18574c75d96673ce1264923bd98bcec",
+  "browser": "Firefox",
+  "sandbox": "default, no overrides",
+  "checks": [
+    {
+      "check": "queue page shows current store and explicit staffing reason",
+      "result": "PASS"
+    },
+    {
+      "check": "unscheduled qualified doctor enters through real UI",
+      "result": "PASS"
+    },
+    {
+      "check": "no assignment is a visible reminder",
+      "result": "PASS"
+    },
+    {
+      "check": "second authorized person enters idle target chair",
+      "result": "PASS"
+    },
+    {
+      "check": "stale UI target switch fails after another holder acquires it",
+      "result": "PASS"
+    },
+    {
+      "check": "failed switch preserves original holding lease",
+      "result": "PASS"
+    },
+    {
+      "check": "idle switch atomically acquires new chair",
+      "result": "PASS"
+    },
+    {
+      "check": "old switch token rejected",
+      "result": "PASS"
+    },
+    {
+      "check": "another login cannot renew holding session",
+      "result": "PASS"
+    },
+    {
+      "check": "another login UI is read only for held connection",
+      "result": "PASS"
+    },
+    {
+      "check": "waiting becomes calling via UI",
+      "result": "PASS"
+    },
+    {
+      "check": "real missed call returns waiting with count one",
+      "result": "PASS"
+    },
+    {
+      "check": "same unfinished task repeat report keeps missed count",
+      "result": "PASS"
+    },
+    {
+      "check": "timeout fault returns calling to waiting",
+      "result": "PASS"
+    },
+    {
+      "check": "fault does not erase earlier real missed count",
+      "result": "PASS"
+    },
+    {
+      "check": "expired holding token cannot revive",
+      "result": "PASS"
+    },
+    {
+      "check": "calling becomes minimal actual serving through UI",
+      "result": "PASS"
+    },
+    {
+      "check": "serving preserves earlier missed history",
+      "result": "PASS"
+    },
+    {
+      "check": "serving holder cannot exit and erase patient",
+      "result": "PASS"
+    },
+    {
+      "check": "readonly user sees accepted queue",
+      "result": "PASS"
+    },
+    {
+      "check": "readonly has no workstation actions",
+      "result": "PASS"
+    },
+    {
+      "check": "readonly POST is rejected at server",
+      "result": "PASS"
+    },
+    {
+      "check": "native own-language preference changes successfully",
+      "result": "PASS"
+    },
+    {
+      "check": "Chinese workstation page uses installed translations",
+      "result": "PASS"
+    },
+    {
+      "check": "backend global workstation systray loads",
+      "result": "PASS"
+    },
+    {
+      "check": "no browser page errors",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s06a/browser-attempts/20261012T025645576311/01-unscheduled-workstation.png",
+      "sha256": "e1ed8cd7dc2291b927be327b84ad5974c3ad039930fc92e039f5279e974ea26e"
+    },
+    {
+      "path": "docs/evidence/s06a/browser-attempts/20261012T025645576311/02-switch-failure-keeps-chair.png",
+      "sha256": "3ec9744b6bcf08b3e398b864b86fd134b04ec679a5d7b6b1cbf35e4221b86937"
+    },
+    {
+      "path": "docs/evidence/s06a/browser-attempts/20261012T025645576311/03-idle-switch-success.png",
+      "sha256": "e6c75fc9002c35f60f20a69ee3ab9537d8b301fb1848f588489a8be1468fe31b"
+    },
+    {
+      "path": "docs/evidence/s06a/browser-attempts/20261012T025645576311/04-real-calling.png",
+      "sha256": "59153883a8192e1e0344d4c44468bf03e5e36a3e14e2c3f1d329b06319580124"
+    },
+    {
+      "path": "docs/evidence/s06a/browser-attempts/20261012T025645576311/05-missed-repeat-report.png",
+      "sha256": "13c2def5ee818ae6bcf4ab1e118efd87fbb47862e1f756bdab2abf0bd40a3120"
+    },
+    {
+      "path": "docs/evidence/s06a/browser-attempts/20261012T025645576311/06-timeout-requeue-old-end-rejected.png",
+      "sha256": "792935f3955461d3bb799d61222b8136c25dd00742d5785a1899efd6475983d3"
+    },
+    {
+      "path": "docs/evidence/s06a/browser-attempts/20261012T025645576311/07-actual-serving-fence.png",
+      "sha256": "32c7e2e215d354fb6edc0135b4b63a71b76b9f144acdef1a95bd04e6a54f990d"
+    },
+    {
+      "path": "docs/evidence/s06a/browser-attempts/20261012T025645576311/08-readonly-no-actions.png",
+      "sha256": "76160ce6609572e858ef469f1a4e0c187b8c7f05831738860a979c54654b44c1"
+    },
+    {
+      "path": "docs/evidence/s06a/browser-attempts/20261012T025645576311/09-chinese-workstation.png",
+      "sha256": "b8920b557522d628e587eded9b7872b1ceddcbddebe86de8c0ffcbf2e3f5a0c5"
+    },
+    {
+      "path": "docs/evidence/s06a/browser-attempts/20261012T025645576311/10-global-workstation-position.png",
+      "sha256": "75b430b7303542dfcb62168f13559e9cd6b07da5bc2c80369a4247d9497441a6"
+    }
+  ],
+  "browser_version": "155.0",
+  "result": "PASS",
+  "pageerror_count": 0
+}

@@ -1,0 +1,23 @@
+{
+  "database": "ydental_s06a_test_20261012025405_2fd04bd7",
+  "oid": 543425,
+  "endpoint": {
+    "host": "127.0.0.1",
+    "port": "5432",
+    "user": "odoo"
+  },
+  "cluster": "7694897083368259627",
+  "port": 18116,
+  "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "created_utc": "2026-10-12T02:54:05.804185+00:00",
+  "config_sha256": "32cf23e9bce67f29029f2e9d87ecd8222d98d78582710474858cb7028bdd0890",
+  "product": "a2638afc637795a9dc148299f2075e0413b32f0e",
+  "test": "8d0b347be18574c75d96673ce1264923bd98bcec",
+  "max_cron_threads": 0,
+  "list_db": false,
+  "http_interface": "127.0.0.1",
+  "exact_dbfilter": "^ydental_s06a_test_20261012025405_2fd04bd7$",
+  "separate_data_log_config": true,
+  "smtp": "disabled loopback port 1",
+  "process_egress": "loopback only approved PostgreSQL and this isolated HTTP port"
+}

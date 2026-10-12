@@ -1,5 +1,16 @@
 # YDental 当前执行入口
 
+## 当前 S06-A交付 / #30
+
+- 用户明确仅启用#30/S06-A；唯一边界为[GPT-ACTIVATE6116491783](https://github.com/Yredxin/YDental/issues/30#issuecomment-6116491783)。已完整读取#23正文/有效评论、#30正文/全部有效评论、#29最终S05技术PASS6116482005和状态同步指令6116491290；[开工检查6116516335](https://github.com/Yredxin/YDental/issues/30#issuecomment-6116516335)已写回逐字读回。交付前重读确认正文/启用未变，#29没有另一个同步完成回执，不代写Project。
+- S05固定最终`50ac95ac368c8c53bc264d8360c9daa94c0e362b`及全部失败/补交材料保留。新分支`codex/s06-a-queue-r1-20261012`；S06-A产品固定`a2638afc637795a9dc148299f2075e0413b32f0e`、测试固定`8d0b347be18574c75d96673ce1264923bd98bcec`，最终文档证据SHA固定于#30交付评论。
+- 只交付真实S05队列hook、waiting/calling全局唯一位置、工位lease、无排班合法坐诊、空闲原子换椅、精确能力/回诊/真实过号、最小真实serving及掉线verify互斥、心跳/session/token/撤权、班次提醒和全局坐诊显示。S03/S04/S05原权威通过上层继承复用，不重写账本/merge/价格快照。
+- S08真实文书未建；产品固定server hook默认fail-closed，独立文书锁仅新库guard下合成测试。心跳/超时/过号N未生产批准；测试2秒/20秒/N=2不能当正式配置。B/C保留交还/人工追加/日终/推送、S07及真实S08/S09均NOT_RUN。
+- 仅`scripts/s06a.py`和全新`ydental_s06a_test_14位时间_8位hex`隔离合成库。最终库`ydental_s06a_test_20261012025405_2fd04bd7`安装34、升级32、真实双连接16组、Firefox26项/10图、翻译135/135全部Codex自测通过；不冒称GPT或用户验收。原S00—S05工具/数据库只保留，不接管；端点/cluster/OID/config/dbfilter/PID/端口/外发guard不能绕过。
+- 工程材料为docs/s06a-contracts.md、docs/s06a-data-dictionary.md、docs/s06a-security-review.md、docs/s06a-report.md及docs/evidence/s06a。失败链保留；product→test仅测试脚本，test→final仅文档/脱敏证据。#30交付写回读回后停止等GPT复核，不进入B/C/S07；无Project写、强推、自动合并/关闭、生产发布授权。
+
+下方S05及更早“当前/本次”均为历史授权记录，不覆盖本节的S06-A范围。
+
 ## 当前 S05定向返工 / #29
 
 - 用户本次明确只修[GPT-REVIEW6115823569](https://github.com/Yredxin/YDental/issues/29#issuecomment-6115823569)三个BLOCKER；沿用当前S05会话与分支，原`76335d9902cee8e8c24173f0b01fd9ba8b606a5c`及全部原失败证据保留。

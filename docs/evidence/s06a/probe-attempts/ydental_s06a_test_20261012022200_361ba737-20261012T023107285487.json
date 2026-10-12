@@ -1,0 +1,26 @@
+{
+  "scope": "S06-A real queue/leases/execution, independent PostgreSQL RR transactions",
+  "database": "ydental_s06a_test_20261012022200_361ba737",
+  "started_utc": "2026-10-12T02:31:07.285387+00:00",
+  "races": [
+    {
+      "name": "T01_two_people_one_station",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        180288,
+        180303
+      ],
+      "attempts": [
+        2,
+        1
+      ],
+      "outcomes": [
+        "rejected",
+        "accepted"
+      ],
+      "one_holder": true
+    }
+  ],
+  "result": "FAIL_OR_INTERRUPTED"
+}

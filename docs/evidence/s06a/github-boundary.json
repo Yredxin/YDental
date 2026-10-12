@@ -1,0 +1,37 @@
+{
+  "23": {
+    "body_unchanged": true,
+    "state": "open",
+    "body_sha256": "36b3744d1087b38df6970dc584f396bd9c6d3bc66de8229c61f181688353f100"
+  },
+  "30": {
+    "body_unchanged": true,
+    "state": "open",
+    "body_sha256": "e365b3443fdc0016dd06951de65fb2d8d82ae8087880c2f6767ec995db494a05"
+  },
+  "activation_unchanged": true,
+  "comments30": [
+    {
+      "id": 6116491783,
+      "updated_at": "2026-10-12T02:08:56Z",
+      "title": "# [GPT-ACTIVATE] YD-N1 R1｜S06-A正式启用：叫号、人员、工位与独占"
+    },
+    {
+      "id": 6116516335,
+      "updated_at": "2026-10-12T02:11:34Z",
+      "title": "# [CODEX] S06-A开工条件检查"
+    }
+  ],
+  "latest29": [
+    {
+      "id": 6116482005,
+      "updated_at": "2026-10-12T02:07:55Z",
+      "title": "# [GPT-REVIEW] YD-N1 R1｜S05修正｜50ac95a｜技术复核通过"
+    },
+    {
+      "id": 6116491290,
+      "updated_at": "2026-10-12T02:08:53Z",
+      "title": "# [GPT-TRANSITION] S05技术通过，进入最终统一验收队列"
+    }
+  ]
+}

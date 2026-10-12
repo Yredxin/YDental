@@ -1,0 +1,12 @@
+{
+  "scope": "S06-A real queue, unscheduled workstation leases and actual start UI",
+  "database": "ydental_s06a_test_20261012023210_3beb5dc8",
+  "tested_commit": "6ed5cc7c7361afb662f27ffba96a129f21e4b401",
+  "browser": "Firefox",
+  "sandbox": "default, no overrides",
+  "checks": [],
+  "screenshots": [],
+  "browser_version": "155.0",
+  "result": "FAIL_OR_INTERRUPTED",
+  "pageerror_count": 0
+}

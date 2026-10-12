@@ -1,0 +1,117 @@
+{
+  "scope": "S06-A real queue/leases/execution, independent PostgreSQL RR transactions",
+  "database": "ydental_s06a_test_20261012024420_1b4bfd09",
+  "started_utc": "2026-10-12T02:45:56.892056+00:00",
+  "races": [
+    {
+      "name": "T01_two_people_one_station",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        181927,
+        181934
+      ],
+      "attempts": [
+        2,
+        1
+      ],
+      "outcomes": [
+        "rejected",
+        "accepted"
+      ],
+      "one_holder": true
+    },
+    {
+      "name": "T01_one_account_two_stations",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        181927,
+        181934
+      ],
+      "attempts": [
+        2,
+        1
+      ],
+      "outcomes": [
+        "rejected",
+        "accepted"
+      ],
+      "one_active_lease": true
+    },
+    {
+      "name": "T18_switch_vs_target_acquisition",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        181927,
+        181934
+      ],
+      "attempts": [
+        2,
+        1
+      ],
+      "outcomes": [
+        "rejected",
+        "accepted"
+      ],
+      "target_atomic": true,
+      "failure_keeps_old_station": true
+    },
+    {
+      "name": "T05_heartbeat_before_timeout",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        181927,
+        181934
+      ],
+      "attempts": [
+        1,
+        2
+      ],
+      "outcomes": [
+        "accepted",
+        "rejected"
+      ],
+      "stale_token_never_revives": true
+    },
+    {
+      "name": "T05_timeout_before_heartbeat",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        181934,
+        181927
+      ],
+      "attempts": [
+        1,
+        2
+      ],
+      "outcomes": [
+        "accepted",
+        "rejected"
+      ],
+      "stale_token_never_revives": true
+    },
+    {
+      "name": "T14_grant_before_heartbeat",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        181927,
+        181934
+      ],
+      "attempts": [
+        1,
+        2
+      ],
+      "outcomes": [
+        "accepted",
+        "rejected"
+      ],
+      "live_grant_fence": true
+    }
+  ],
+  "result": "FAIL_OR_INTERRUPTED"
+}

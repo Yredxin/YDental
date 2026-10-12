@@ -1,0 +1,388 @@
+[
+  {
+    "isolation": {
+      "database": "ydental_s06a_test_20261012022200_361ba737",
+      "oid": 487302,
+      "endpoint": {
+        "host": "127.0.0.1",
+        "port": "5432",
+        "user": "odoo"
+      },
+      "cluster": "7694897083368259627",
+      "port": 18116,
+      "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+      "created_utc": "2026-10-12T02:22:00.154149+00:00",
+      "config_sha256": "01dfe60d385439ae3115d2ea87e7d30cfc1e870238a86d492b19b34a7ffe9c04"
+    },
+    "actions": [
+      {
+        "action": "install",
+        "exit_code": 1,
+        "log": "install-20261012T022200155473.log",
+        "log_sha256": "30ff0ee0c21274e2bd712d9e7eecd50d303c6e310a2f37bbaa30931252c8c719",
+        "time_utc": "2026-10-12T02:23:09.596320+00:00",
+        "tested_commit": "a9455d1ded722536f0219056c4d49ade4417d814",
+        "tests": [
+          3,
+          3,
+          24
+        ],
+        "verification_exit": 1
+      },
+      {
+        "action": "upgrade",
+        "exit_code": 0,
+        "log": "upgrade-20261012T022449057060.log",
+        "log_sha256": "24ae9b580facec15322fe882c8ca151d7a9e913c387b52bf6b323935eb30c0ba",
+        "time_utc": "2026-10-12T02:25:07.373997+00:00",
+        "tested_commit": "f8192535a85b46af5f9fd04f10bd42e669dec1b6",
+        "tests": [
+          0,
+          0,
+          22
+        ]
+      },
+      {
+        "action": "export",
+        "exit_code": 0,
+        "log": "export-20261012T022546315777.log",
+        "log_sha256": "43714f88d8e6975c237d71fe7f4dbbec6a8dc3c585dfa72d109bc598777f764f",
+        "time_utc": "2026-10-12T02:25:48.101579+00:00",
+        "tested_commit": "f8192535a85b46af5f9fd04f10bd42e669dec1b6"
+      },
+      {
+        "action": "probe",
+        "exit_code": 0,
+        "log": "probe-20261012T022719983458.log",
+        "log_sha256": "cc5b497e47109ac4b30b83647622387049547a715b4cc22b649d0dc0131e9dca",
+        "time_utc": "2026-10-12T02:27:36.612322+00:00",
+        "tested_commit": "618b8aaf5cd04b4917688322eaedcfa2d02dffc2"
+      },
+      {
+        "action": "upgrade",
+        "exit_code": 1,
+        "log": "upgrade-20261012T022957146167.log",
+        "log_sha256": "da5c74c54255de1030919cd3ad9484f25a64987fac64149e338bda20a69371ed",
+        "time_utc": "2026-10-12T02:30:18.293172+00:00",
+        "tested_commit": "b719aa7aea78f159966a81173f1cc7e4f7a88612",
+        "tests": [
+          2,
+          0,
+          28
+        ],
+        "verification_exit": 1
+      },
+      {
+        "action": "probe",
+        "exit_code": 1,
+        "log": "probe-20261012T023106285685.log",
+        "log_sha256": "472001b56778f0505bb46a0441f6b1289b78026cc3eadaa8499efba01f6c2248",
+        "time_utc": "2026-10-12T02:31:13.140893+00:00",
+        "tested_commit": "caba85da16eafcd908eebec9e85585b1a817a92a",
+        "verification_exit": 1
+      }
+    ],
+    "private_browser_log_hashes": []
+  },
+  {
+    "isolation": {
+      "database": "ydental_s06a_test_20261012023210_3beb5dc8",
+      "oid": 498579,
+      "endpoint": {
+        "host": "127.0.0.1",
+        "port": "5432",
+        "user": "odoo"
+      },
+      "cluster": "7694897083368259627",
+      "port": 18116,
+      "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+      "created_utc": "2026-10-12T02:32:10.809537+00:00",
+      "config_sha256": "c1deb7ff13db0e8ea4daf92443f408fd67ad30005caf89e7d4188536430ebe25"
+    },
+    "actions": [
+      {
+        "action": "install",
+        "exit_code": 0,
+        "log": "install-20261012T023210810724.log",
+        "log_sha256": "6378b72280eeaa6f0a6e6321629024e4470585fa1b18f72ad4aa38b7b9a487ba",
+        "time_utc": "2026-10-12T02:33:24.545345+00:00",
+        "tested_commit": "6ed5cc7c7361afb662f27ffba96a129f21e4b401",
+        "tests": [
+          0,
+          0,
+          32
+        ]
+      },
+      {
+        "action": "upgrade",
+        "exit_code": 0,
+        "log": "upgrade-20261012T023606291730.log",
+        "log_sha256": "e6ea7e2d5d599322888fc51e28ae8ac65b888853932b13fe1f04fe81abc5a29e",
+        "time_utc": "2026-10-12T02:36:27.811636+00:00",
+        "tested_commit": "6ed5cc7c7361afb662f27ffba96a129f21e4b401",
+        "tests": [
+          0,
+          0,
+          30
+        ]
+      },
+      {
+        "action": "probe",
+        "exit_code": 0,
+        "log": "probe-20261012T023627883269.log",
+        "log_sha256": "4ba1753356075ff77d029636cad0dd5f68cf1ee335aece1da6d825925110174f",
+        "time_utc": "2026-10-12T02:36:45.785328+00:00",
+        "tested_commit": "6ed5cc7c7361afb662f27ffba96a129f21e4b401"
+      },
+      {
+        "action": "upgrade",
+        "exit_code": 0,
+        "log": "upgrade-20261012T024656356176.log",
+        "log_sha256": "3c55fea8dbf859bc4f4cfc85e45769e1fb57be2475fdf8bc3f81c43d938d7cbc",
+        "time_utc": "2026-10-12T02:47:18.347296+00:00",
+        "tested_commit": "f6b52d3edcd25c1a4630e6fd8ece564da12025ad",
+        "tests": [
+          0,
+          0,
+          32
+        ]
+      }
+    ],
+    "private_browser_log_hashes": [
+      {
+        "name": "firefox-attempt1.log",
+        "sha256": "15e265fa7bd52119c5bde67c1248fac28d2fd5d52b92915d9383a393ee29fd14"
+      },
+      {
+        "name": "firefox-attempt2.log",
+        "sha256": "8fd7f580df6186659ab0c3d8f07fa27c6d41c31b35b4b48371da7f8c1f99689c"
+      },
+      {
+        "name": "firefox-attempt3.log",
+        "sha256": "1fbc86b1ad773e19cfaf7140de712c86d0c83c50390452547b0449e580343362"
+      },
+      {
+        "name": "firefox-attempt4.log",
+        "sha256": "05e55700dbba7ad4ab742c4da56652aefd9e392819d56ea6baa7ab1e16fa18f0"
+      }
+    ]
+  },
+  {
+    "isolation": {
+      "database": "ydental_s06a_test_20261012024203_378230aa",
+      "oid": 509800,
+      "endpoint": {
+        "host": "127.0.0.1",
+        "port": "5432",
+        "user": "odoo"
+      },
+      "cluster": "7694897083368259627",
+      "port": 18116,
+      "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+      "created_utc": "2026-10-12T02:42:04.021975+00:00",
+      "config_sha256": "5cc3d6cb36bfd75d673e6800fc04667c8a3e752b330877613a3cb455d993084d"
+    },
+    "actions": [
+      {
+        "action": "install",
+        "exit_code": 0,
+        "log": "install-20261012T024204022950.log",
+        "log_sha256": "9efa1f7ec54c64e0cf2e6dbbaeffcbfd271bb21d42693bfb4571717fc503b7e5",
+        "time_utc": "2026-10-12T02:43:17.677879+00:00",
+        "tested_commit": "96ba23e1678a84000d1cf104c114d67aa6d5fb5e",
+        "tests": [
+          0,
+          0,
+          34
+        ]
+      }
+    ],
+    "private_browser_log_hashes": []
+  },
+  {
+    "isolation": {
+      "database": "ydental_s06a_test_20261012024420_1b4bfd09",
+      "oid": 520954,
+      "endpoint": {
+        "host": "127.0.0.1",
+        "port": "5432",
+        "user": "odoo"
+      },
+      "cluster": "7694897083368259627",
+      "port": 18116,
+      "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+      "created_utc": "2026-10-12T02:44:20.151468+00:00",
+      "config_sha256": "e3da586d376f3fb15fe8664ad04ecdae95572f872b064194c934438949ab3ae9"
+    },
+    "actions": [
+      {
+        "action": "install",
+        "exit_code": 0,
+        "log": "install-20261012T024420152637.log",
+        "log_sha256": "d18f116081269b2e8f5631e0c7173da71eec8701505cb19926cb431a30dabe46",
+        "time_utc": "2026-10-12T02:45:33.955253+00:00",
+        "tested_commit": "8dcac3b3c630fb89d6d116f4451bf7c192a4854d",
+        "tests": [
+          0,
+          0,
+          34
+        ]
+      },
+      {
+        "action": "upgrade",
+        "exit_code": 0,
+        "log": "upgrade-20261012T024534041784.log",
+        "log_sha256": "49b32398591fa71bd3db61ab94d510ec4b0d8bd3cdbbd1791565063cabeabfd5",
+        "time_utc": "2026-10-12T02:45:55.811330+00:00",
+        "tested_commit": "8dcac3b3c630fb89d6d116f4451bf7c192a4854d",
+        "tests": [
+          0,
+          0,
+          32
+        ]
+      },
+      {
+        "action": "probe",
+        "exit_code": 1,
+        "log": "probe-20261012T024555882637.log",
+        "log_sha256": "7275fa7d4aa89bbfa6cefb6aa9e94273fcc6cccd6c23450c25219099041627e7",
+        "time_utc": "2026-10-12T02:46:03.261638+00:00",
+        "tested_commit": "8dcac3b3c630fb89d6d116f4451bf7c192a4854d",
+        "verification_exit": 1
+      }
+    ],
+    "private_browser_log_hashes": []
+  },
+  {
+    "isolation": {
+      "database": "ydental_s06a_test_20261012024916_5bd41763",
+      "oid": 532204,
+      "endpoint": {
+        "host": "127.0.0.1",
+        "port": "5432",
+        "user": "odoo"
+      },
+      "cluster": "7694897083368259627",
+      "port": 18116,
+      "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+      "created_utc": "2026-10-12T02:49:16.480697+00:00",
+      "config_sha256": "e0a8e2c5a22d8f430531e593bd63f338598d8326c8c81b90a690aaba24ce2572"
+    },
+    "actions": [
+      {
+        "action": "install",
+        "exit_code": 0,
+        "log": "install-20261012T024916482437.log",
+        "log_sha256": "ff42ef58892948cedcc490100f08ce77bfaf5da73e375d07f30fffcfbafc584c",
+        "time_utc": "2026-10-12T02:50:29.590313+00:00",
+        "tested_commit": "ef25bf51f1089af58d13f32d1d4ddd0fa1f23e7c",
+        "tests": [
+          0,
+          0,
+          34
+        ]
+      },
+      {
+        "action": "upgrade",
+        "exit_code": 0,
+        "log": "upgrade-20261012T025029666904.log",
+        "log_sha256": "e720de6d3caac3723604d3e8f826c5876c271699c2cfb1f9d6cf2d69b10b93ab",
+        "time_utc": "2026-10-12T02:50:51.184378+00:00",
+        "tested_commit": "ef25bf51f1089af58d13f32d1d4ddd0fa1f23e7c",
+        "tests": [
+          0,
+          0,
+          32
+        ]
+      },
+      {
+        "action": "probe",
+        "exit_code": 0,
+        "log": "probe-20261012T025051258440.log",
+        "log_sha256": "04489377cb6140b89dabb02e5d2de60a2db48a4fb85fdd4ed36fac51de0744b2",
+        "time_utc": "2026-10-12T02:51:08.787688+00:00",
+        "tested_commit": "ef25bf51f1089af58d13f32d1d4ddd0fa1f23e7c"
+      },
+      {
+        "action": "export",
+        "exit_code": 0,
+        "log": "export-20261012T025108859596.log",
+        "log_sha256": "c4bff26be133d344f9d22fc45b3f517e99f3ebf0ba2e3b92d3ec95cbcb2cdf8f",
+        "time_utc": "2026-10-12T02:51:10.676623+00:00",
+        "tested_commit": "ef25bf51f1089af58d13f32d1d4ddd0fa1f23e7c"
+      }
+    ],
+    "private_browser_log_hashes": [
+      {
+        "name": "firefox-final.log",
+        "sha256": "bb457b9bf7394a1f3d5feabb3b5eec470403017f1f5d8731d260d00840ca9085"
+      }
+    ]
+  },
+  {
+    "isolation": {
+      "database": "ydental_s06a_test_20261012025405_2fd04bd7",
+      "oid": 543425,
+      "endpoint": {
+        "host": "127.0.0.1",
+        "port": "5432",
+        "user": "odoo"
+      },
+      "cluster": "7694897083368259627",
+      "port": 18116,
+      "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+      "created_utc": "2026-10-12T02:54:05.804185+00:00",
+      "config_sha256": "32cf23e9bce67f29029f2e9d87ecd8222d98d78582710474858cb7028bdd0890"
+    },
+    "actions": [
+      {
+        "action": "install",
+        "exit_code": 0,
+        "log": "install-20261012T025405805439.log",
+        "log_sha256": "b15ebe903b4970ceb96704b3160f9b93abfd5f8ce0191ced9b9b03a76defb4e3",
+        "time_utc": "2026-10-12T02:55:19.700405+00:00",
+        "tested_commit": "8d0b347be18574c75d96673ce1264923bd98bcec",
+        "tests": [
+          0,
+          0,
+          34
+        ]
+      },
+      {
+        "action": "upgrade",
+        "exit_code": 0,
+        "log": "upgrade-20261012T025519774348.log",
+        "log_sha256": "868fad7d9672860356ce2af83ae6ef12393a83b9e3dfd07f5819131c75567076",
+        "time_utc": "2026-10-12T02:55:41.774711+00:00",
+        "tested_commit": "8d0b347be18574c75d96673ce1264923bd98bcec",
+        "tests": [
+          0,
+          0,
+          32
+        ]
+      },
+      {
+        "action": "probe",
+        "exit_code": 0,
+        "log": "probe-20261012T025541844984.log",
+        "log_sha256": "ea286f31bbf22e5fa6a5aa216e38f0fa9f15ef4af7127f058288dfb1a58b813a",
+        "time_utc": "2026-10-12T02:55:59.567274+00:00",
+        "tested_commit": "8d0b347be18574c75d96673ce1264923bd98bcec"
+      },
+      {
+        "action": "export",
+        "exit_code": 0,
+        "log": "export-20261012T025559638540.log",
+        "log_sha256": "dc176fc7d871758e70fb7f9042e0b631365728a2e9ff134990edbcbb778c886d",
+        "time_utc": "2026-10-12T02:56:01.443152+00:00",
+        "tested_commit": "8d0b347be18574c75d96673ce1264923bd98bcec"
+      }
+    ],
+    "private_browser_log_hashes": [
+      {
+        "name": "firefox-final.log",
+        "sha256": "9f9e5ec98338adeee39b438dfae3653f2f3de6e6682b9e62e01430c8daf51e81"
+      }
+    ]
+  }
+]
