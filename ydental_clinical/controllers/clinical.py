@@ -45,6 +45,8 @@ class YDentalClinical(http.Controller):
         candidates = members.ydental_user_id.filtered(lambda user: doc and service._eligible_responsible(doc, user))
         return request.render('ydental_clinical.ydental_clinical_page', {
             'store': store, 'execution': execution, 'doc': doc, 'snapshot': snapshot, 'pending': pending,
+            'tooth_labels': {'present': request.env._('Present'), 'missing': request.env._('Missing'),
+                'unknown': request.env._('Unknown'), 'not_applicable': request.env._('Not applicable')},
             'execution_labels': dict(queue._model('execution')._fields['state']._description_selection(service.env)),
             'state_labels': dict(service._model()._fields['state']._description_selection(service.env)),
             'kind_labels': dict(service._model('version')._fields['ydental_kind']._description_selection(service.env)),

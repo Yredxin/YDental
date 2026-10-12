@@ -76,3 +76,10 @@ class TestClinicalHTTP(HttpCase):
         self.begin_reception()
         self.assertIn('error',self.rpc('ir.attachment','create',[{'name':'Forgery','res_model':'ydental.clinical.document','res_id':self.doc['document_id'],'datas':'YQ=='}]))
         self.assertIn('error',self.rpc('ydental.clinical.document','export_data',[[self.doc['document_id']],['ydental_content']]))
+
+    def test_stored_clinical_text_is_escaped_in_workbench_and_history(self):
+        self.begin_reception();a=self.args();a['content']['chief_complaint']='<script>window.ydentalInjected=true</script>'
+        self.assertEqual(self.action('save',a).status_code,200)
+        page=self.url_open('/ydental/clinical?document_id='+str(self.doc['document_id']))
+        self.assertEqual(page.status_code,200);self.assertIn('&lt;script&gt;',page.text)
+        self.assertNotIn('<script>window.ydentalInjected',page.text)

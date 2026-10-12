@@ -190,6 +190,7 @@ if (root) {
     for (const li of root.querySelectorAll('#tooth-summary [data-row]')) {
         teeth.set(Number(li.dataset.row), {tooth: Number(li.dataset.row), state: li.dataset.state, surfaces: li.dataset.surfaces.split(',').filter(Boolean)});
     }
+    summary();
     setInterval(async () => {
         try {
             if (saving) { return; }

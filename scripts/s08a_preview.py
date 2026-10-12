@@ -8,7 +8,7 @@ import secrets
 from types import SimpleNamespace
 
 from odoo import api
-from odoo.addons.ydental_clinical_test.tests.common import setup, accepted
+from odoo.addons.ydental_clinical_test.tests.common import setup, accepted, price, key
 
 run=Path(os.environ['YDENTAL_S08A_RUN_DIR']);assert run.name==env.cr.dbname and re.fullmatch(r'ydental_s08a_test_[0-9]{14}_[a-f0-9]{8}',env.cr.dbname)
 with env.registry.cursor() as cr:
@@ -18,6 +18,8 @@ with env.registry.cursor() as cr:
     f.admin._grant(f.users['manager'].id,f.stores[0].id,{'warehouse':'write'})
     f.admin._grant(f.users['doctor'].id,f.stores[0].id,{'export':'write'})
     f.stores[0].write({'name':'S08-A 合成演示门店甲'});f.stores[1].write({'name':'S08-A 合成演示门店乙'})
+    price(f,amount=600)
+    original_price=f.group._operate('snapshot',{'catalog_id':f.catalogs[0].id,'currency_id':f.currency.id,'quantity':1,'source':'S08A-preexisting-demo-'+key(),'policy':'demo_confirmation'},key())
     task=accepted(f);task.ydental_patient_id._save({'name':'合成患者一号'})
     f.users['doctor2']=f.second
     credentials={}
@@ -26,6 +28,7 @@ with env.registry.cursor() as cr:
         credentials[role]={'login':user.login,'password':password}
     preview={'store':f.stores[0].id,'other_store':f.stores[1].id,'station':f.stations[0][0].id,
         'other_station':f.other_station.id,'task':task.id,'patient':task.ydental_patient_id.id,
+        'price_snapshot':original_price['id'], 'price_amount':original_price['amount'],
         'doctor':f.users['doctor'].id,'doctor2':f.second.id,'mapping':f.mappings[0][0].id}
     cr.commit() # Own fixture cursor, never a business method.
 for name,data in [('access.json',credentials),('preview.json',preview)]:
