@@ -17,20 +17,24 @@ def run_terminal_races(*, page, context, front, base, d1, d2, check, screenshot,
         return int(page.evaluate('new URL(location.href).searchParams.get("document_id")'))
 
     def read(doc_id):
-        # The product exposes authorized read through GET workbench, not a
-        # public action named "read". Parse the real persisted server rendering.
+        # Read the exact persisted JSON through the existing protected native RPC,
+        # not a lossy HTML projection or a nonexistent clinical action.
         response = page.evaluate("""async doc => {
-            const response=await fetch('/ydental/clinical?document_id='+doc);
-            const fragment=new DOMParser().parseFromString(await response.text(),'text/html');
-            const root=fragment.querySelector('.o_ydental_clinical');
-            if (!response.ok || !root) return {status:response.status};
-            return {status:response.status,data:{document_id:Number(root.dataset.document),
-                version:Number(root.querySelector('#server-version').textContent),state:root.dataset.state,
-                content:Object.fromEntries([...root.querySelectorAll('textarea[name]')].map(f=>[f.name,f.value]).concat([['teeth',
-                    [...root.querySelectorAll('#tooth-summary [data-row]')].map(row=>({tooth:Number(row.dataset.row),state:row.dataset.state,surfaces:row.dataset.surfaces.split(',').filter(Boolean)}))]]))}};
+            const response=await fetch('/web/dataset/call_kw/ydental.clinical.document/read',{
+                method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+                    jsonrpc:'2.0',id:1,method:'call',params:{model:'ydental.clinical.document',method:'read',
+                        args:[[doc],['ydental_content','ydental_version','state']],kwargs:{}}})});
+            return {status:response.status,data:await response.json()};
         }""",doc_id)
-        check('authorized real server read for document %s' % doc_id, response['status'] == 200 and response['data']['document_id']==doc_id)
-        return response['data']
+        check('authorized real server read for document %s' % doc_id, response['status']==200 and
+              not response['data'].get('error') and len(response['data'].get('result',[]))==1)
+        row=response['data']['result'][0]
+        return {'version':row['ydental_version'],'content':row['ydental_content'],'state':row['state']}
+
+    def equivalent(left,right):
+        def normalized(content):
+            return dict(content,teeth=sorted([dict(row,surfaces=sorted(row['surfaces'])) for row in content['teeth']],key=lambda row:row['tooth']))
+        return normalized(left)==normalized(right)
 
     def text():
         return page.locator('[name=chief_complaint]').input_value()
@@ -144,7 +148,7 @@ def run_terminal_races(*, page, context, front, base, d1, d2, check, screenshot,
         screenshot(page,context,('13' if operation=='confirm' else '14')+'-'+operation+'-all-inputs-locked.png')
         submitted=row['content'];finish(pending,handler,operation,navigate=True)
         latest=read(d2)
-        check(operation+' server content equals the full submitted visible scope',latest['content']==submitted)
+        check(operation+' server content equals the full submitted visible scope',equivalent(latest['content'],submitted))
 
     # A forced input event despite disabled native controls must stay for review.
     page.goto(base+'/ydental/clinical?document_id='+str(d1));open_editor(page)
@@ -154,7 +158,7 @@ def run_terminal_races(*, page, context, front, base, d1, d2, check, screenshot,
     page.locator('[name=chief_complaint]').evaluate('(f,v)=>{f.value=v;f.dispatchEvent(new Event("input",{bubbles:true}))}',late)
     finish(pending,handler,'correct-forced-input')
     reconcile(late);latest=read(d1)
-    check('forced correct preserves server submitted A and visible unsent B',latest['content']==row['content'] and text()==late)
+    check('forced correct preserves server submitted A and visible unsent B',equivalent(latest['content'],row['content']) and text()==late)
     screenshot(page,context,'15-correct-forced-input-retained.png')
     explicit_reload();page.locator('#release-document').click();page.wait_for_function('document.querySelector("textarea").disabled')
 
@@ -163,7 +167,7 @@ def run_terminal_races(*, page, context, front, base, d1, d2, check, screenshot,
     pending,handler=barrier('handover');page.locator('#handover-document').click();row=wait_pending(pending)
     native_attempts('handover');screenshot(page,context,'16-handover-all-inputs-locked.png')
     submitted=row['content'];finish(pending,handler,'handover',navigate=True)
-    check('normal handover server scope unchanged',read(d2)['content']==submitted)
+    check('normal handover server scope unchanged',equivalent(read(d2)['content'],submitted))
     front.goto(base+'/ydental/queue');check('D2 handover offers exactly one continuation',front.locator('form[data-queue-form=report]').count()==1)
     click_wait(front,'form[data-queue-form=report] button')
     page.goto(base+'/ydental/queue');click_wait(page,'button[data-operation=call]');click_wait(page,'button[data-operation=start]')
@@ -175,7 +179,7 @@ def run_terminal_races(*, page, context, front, base, d1, d2, check, screenshot,
     late='合成D3确认响应前未同步B'
     page.locator('[name=chief_complaint]').evaluate('(f,v)=>{f.value=v;f.dispatchEvent(new Event("input",{bubbles:true}))}',late)
     finish(pending,handler,'confirm-forced-input');reconcile(late)
-    check('forced confirm never includes unsent B in confirmed A',read(d3)['content']==row['content'])
+    check('forced confirm never includes unsent B in confirmed A',equivalent(read(d3)['content'],row['content']))
     screenshot(page,context,'17-confirm-forced-input-retained.png')
     explicit_reload();page.locator('[name=chief_complaint]').fill(late);page.locator('#correction-reason').fill('核对原确认后合法补记B');click_wait(page,'#correct-document')
     check('unsent confirm text can be lawfully appended with reason',read(d3)['content']['chief_complaint']==late)
@@ -185,7 +189,7 @@ def run_terminal_races(*, page, context, front, base, d1, d2, check, screenshot,
     late='合成交还响应前异步无事件文字'
     page.locator('[name=chief_complaint]').evaluate('(f,v)=>{f.value=v}',late)
     finish(pending,handler,'handover-forced-no-event');reconcile(late,handover=True)
-    check('forced handover preserves committed A and unsent B without undo',read(d3)['content']==row['content'])
+    check('forced handover preserves committed A and unsent B without undo',equivalent(read(d3)['content'],row['content']))
     screenshot(page,context,'18-handover-committed-unsent-retained.png')
     explicit_reload();page.locator('[name=chief_complaint]').fill(late);page.locator('#correction-reason').fill('交还后核对并合法补记');click_wait(page,'#correct-document')
     check('pending supplementation does not reoccupy reception',page.locator('#execution-state').get_attribute('data-state')=='handover' and read(d3)['content']['chief_complaint']==late)
