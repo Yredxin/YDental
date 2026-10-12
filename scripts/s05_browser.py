@@ -222,6 +222,18 @@ def main():
             none_context, none_page = login('none')
             response = none_page.goto(base + '/ydental/intake')
             check('no permission role denied intake', response.status == 403)
+            manager_page.goto(base + '/ydental/intake/prices')
+            switched = manager_page.evaluate('''async uid => {
+                const response = await fetch('/web/dataset/call_kw/res.users/write', {method:'POST',
+                    headers:{'Content-Type':'application/json'}, body:JSON.stringify({jsonrpc:'2.0',method:'call',id:1,
+                        params:{model:'res.users',method:'write',args:[[uid],{lang:'zh_CN'}],kwargs:{}}})});
+                return response.json();
+            }''', access['manager']['id'])
+            check('own language preference changed through native RPC', switched.get('result') is True)
+            manager_page.goto(base + '/ydental/intake/prices')
+            check('Chinese catalog and pricing heading', manager_page.locator('h1').inner_text() == '项目目录与价目')
+            check('Chinese production policy disclaimer', '正式生产锁价政策待业务负责人批准' in manager_page.locator('body').inner_text())
+            screenshot(manager_page, manager_context, '08-chinese-catalog-and-price-policy.png')
             check('no browser JavaScript errors', not errors)
             result['result'] = 'PASS'
         except Exception as error:

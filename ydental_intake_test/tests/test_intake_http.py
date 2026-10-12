@@ -100,3 +100,13 @@ class TestIntakeHTTP(HttpCase):
             'start': '2099-01-01 09:00:00', 'end': '2099-01-01 10:00:00'})
         self.assertEqual(response.status_code, 409)
         self.assertFalse(self.root['ydental.intake.task'].search([('ydental_mapping_id', '=', self.mappings[0][2].id)]))
+
+    def test_http_untyped_task_files_and_payload_field_injection_denied(self):
+        q = qualify(self)
+        attachment = self.root['ir.attachment'].create({'name': 'S05 synthetic untyped task.txt',
+            'res_model': 'ydental.intake.task', 'res_id': q['task_id'], 'raw': b'SYNTHETIC ONLY', 'public': True})
+        self.select('manager')
+        self.assertEqual(self.url_open('/web/content/%s?download=true' % attachment.id).status_code, 404)
+        self.assertEqual(self.action('reserve', {'patient_id': q['patient_id'], 'mapping_id': self.mappings[0][0].id,
+            'start': '2099-01-01 09:00:00', 'end': '2099-01-01 10:00:00', 'doctor_id': self.users['manager'].id}).status_code, 409)
+        self.assertEqual(self.root['ydental.intake.entitlement'].search_count([('ydental_patient_id', '=', q['patient_id'])]), 1)

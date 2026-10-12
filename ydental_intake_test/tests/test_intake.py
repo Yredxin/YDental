@@ -114,9 +114,10 @@ class TestIntake(TransactionCase):
 
     def test_t07_bulk_write_create_forged_context_and_cross_store(self):
         q = qualify(self)
+        other = qualify(self)
         for service in (self.front, self.reader, self.doctor):
             with self.assertRaises(AccessError):
-                service.env['ydental.intake.task'].with_context(ydental_intake_mutation=True).browse(q['task_id']).write({'state': 'started'})
+                service.env['ydental.intake.task'].with_context(ydental_intake_mutation=True).browse([q['task_id'], other['task_id']]).write({'state': 'started'})
             with self.assertRaises(AccessError):
                 service.env['ydental.intake.task'].create({'name': 'Forged', 'ydental_store_id': self.stores[0].id})
         b = bind(self, self.users['frontdesk'], self.stores[1])
