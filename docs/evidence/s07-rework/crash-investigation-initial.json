@@ -1,0 +1,33 @@
+{
+  "original_crash": {
+    "pid": 1048392,
+    "signal": 11,
+    "runner_exit": 245,
+    "source": "docs/evidence/s07/preview-recovery.json",
+    "preserved_log": {
+      "path": ".local/ydental_s07_test_20261012085648_03913c2a/serve.log",
+      "sha256": "5fc113a2524a4e383b895d8487164e71f917c2189b88ebcb380c9c85867a9e41",
+      "size": 39190
+    }
+  },
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+  "core_pattern": "|/usr/share/apport/apport -p%p -s%s -c%c -d%d -P%P -u%u -g%g -F%F -- %E",
+  "core_rlimit_this_shell": [
+    0,
+    -1
+  ],
+  "gdb_available": false,
+  "coredumpctl_available": false,
+  "faulthandler": "enabled for all new install/upgrade/preview processes",
+  "dependency_changes": false,
+  "core_changes": false,
+  "kernel_journal": {
+    "exit": 0,
+    "stdout_sha256": "7c87d9abee4f0705c0ca88bce93c8c081b0b285c7e7ce3c38d299b0ebf6fb11c",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "matching_original_pid_lines": 0,
+    "entries_available": true
+  },
+  "apport_reports_available": 0,
+  "original_trace_status": "No original Python fault handler/native core stack available; cause undetermined."
+}

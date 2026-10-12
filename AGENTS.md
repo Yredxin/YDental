@@ -1,6 +1,20 @@
 # YDental 当前执行入口
 
-## 当前 S07交付 / #31
+## 当前 S07定向返工交付 / #31
+
+- 用户仅授权[GPT-REVIEW6121445246](https://github.com/Yredxin/YDental/issues/31#issuecomment-6121445246)两项代码缺口和SIGSEGV证据。完整读取#23正文/全部有效评论、#31正文/全部有效评论，沿用原分支`codex/s07-inventory-r1-20261012`；固定baseline `f23ad62b20aa298b74adc993781863961946aec3`，原交付/失败/SIGSEGV证据保留。
+- 新product `eb826219b008e8ebdf2073fc020a813f88764ecc`、test `12730d0f69ddbbd4e21c5df76e0bc9e0c0480061`；final完整SHA固定于#31修正交付评论。product→test仅测试断言/Firefox角色隔离，test→final仅AGENTS/文档/脱敏证据，无产品漂移。
+- 只修可信临床来源类别（treatment=material、chairside/prescription=medicine）与原pending历史补账。仅已真实发生的不可普通改写来源，经当前店warehouse-write、原摘要/价格/时间/类别、足够余额及原pending之后本店同lot/目标库位的done真实入库/正向盘点证据，补原event唯一move；保留原价/责任人/实际时间，固定correction_id/reconciled_at及审计。普通issue/临床新执行/退回release继续禁过期停用，不改lot效期或假启用。
+- 最终两个全新S07库`ydental_s07_test_20261012094527_249b480f`及`ydental_s07_test_20261012094527_bbbbcece`，各install50、upgrade48及带业务再upgrade48（模型34+真实HTTP/RPC14；安装额外2资产初始化），各22/22独立双连接、deadlock0；各Firefox63项/12图/pageerror0、全部24图目视核验；中文223/223、guard5，46个committed event/8类SQL0错误，五组账本签名升级前后相同。均Codex自测，非GPT/用户验收。
+- 16aef9c先复现6个类别失败/2个恢复错误；c193bae暴露同秒旧入库误选，eb82621增加ID顺序；2535699 Firefox测试前台权限改变原仓库负向前提，12730d0分离医疗只读比较账号后另两新库重跑。全部失败保留，不冒称旧PASS为最终验证。
+- SIGSEGV原日志/故障证据保留，新干净进程完整回放无再现；原固定be4a282另提取274个addon源文件与Git字节核对，在新库/独立进程诊断install42/probe12/Firefox36项10图均PASS，未再现。根因仍未确认，环境/运行风险与正式部署BLOCKED继续，不称已修复或生产稳定性通过，不改核心/依赖。
+- 本轮Project 0 mutation，完整读回21字段/15条目/6视图/7公开workflow，交付前两次深比较无变化；#31 S07/进行中/Todo/OPEN，#30待用户验收，后续待启用，不自行转返工/待复核。
+- 继续S07端点/cluster/OID/创建marker/config/dbfilter/data_dir/PID/端口/外发guard；仅新增隔离库和自己匹配PID的预览，历史库/核心/odoo-12/既有服务/系统依赖不动。补充docs/s07-rework-{contracts,data-dictionary,security-review,report}.md及docs/evidence/s07-rework。
+- #31写`[CODEX] S07定向修正交付与复核申请`逐字读回后立即停止等待GPT。真实S08/S09/S10/S11及生产NOT_RUN；不启动S08、不关闭Issue、不改Project/workflows、不合并/强推/生产部署。
+
+下方原S07及更早“当前/本次”均为历史记录，本轮以本节及最新GPT-REVIEW为准。
+
+## 原 S07交付 / #31
 
 - 用户正式启用S07，唯一边界为[GPT-ACTIVATE6119956887](https://github.com/Yredxin/YDental/issues/31#issuecomment-6119956887)。已完整读取#23正文/全部有效评论、#31正文/全部有效评论、S06最终技术PASS6119723325和状态回执6119803450；[开工条件检查6120104358](https://github.com/Yredxin/YDental/issues/31#issuecomment-6120104358)写回逐字读回后实施。交付前正文/有效原评论不变，仅本次开工评论；完整Project再读深比较相同。
 - 固定S06-C基线`46833f0ac4bd37b778f3a5a80d51be430e4ebde6`；新分支`codex/s07-inventory-r1-20261012`。固定产品`916492719e5d299fa0326330ac798cd6cda237bd`、测试`be4a282dc0ebb54fc32dfafa7ac05cfa7535d939`；final完整SHA固定于#31交付评论。product→test只有原生单位修改负向测试，test→final仅文档/AGENTS/脱敏证据；原失败与中间提交全部保留。

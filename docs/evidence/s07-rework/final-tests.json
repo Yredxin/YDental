@@ -1,0 +1,1243 @@
+{
+  "test": "12730d0f69ddbbd4e21c5df76e0bc9e0c0480061",
+  "model_methods": 34,
+  "http_rpc_methods": 14,
+  "attempts": [
+    {
+      "database": "ydental_s07_test_20261012094527_249b480f",
+      "action": "install",
+      "log": "install-20261012T094528058717.log",
+      "log_sha256": "0ad1585f90783ccd8d059c0360dd702ffaed83825e4c73e2702922bc4fbe4977",
+      "exit_code": 0,
+      "aggregate": [
+        0,
+        0,
+        50
+      ],
+      "methods": [
+        {
+          "method": "TestInventory.test_rework_original_pending_recovers_after_disable",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_rework_original_pending_recovers_after_expiry",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_rework_recovery_native_failure_rolls_back_original_pending",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_rework_recovery_requires_real_correction_not_only_existing_stock",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_rework_source_category_rejects_without_inventory_side_effects",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t01_f1_native_receipt_issue_retry",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t01_key_collision_rolls_back",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t02_shortage_has_no_half_move_or_audit",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t03_expired_disabled_product_and_forged_batch",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t04_pack_and_small_quantity_conserve",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t04_reject_silent_rounding_invalid_unit_nonfinite",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t04_used_unit_conversion_and_unrelated_issue_unit_rejected",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t05_consumed_chairside_source_cannot_be_returned_as_unused",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t05_f1_return_quarantine_verify_refund",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t05_return_limit_discard_and_consumption_no_automatic_restock",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t06_already_performed_disabled_batch_keeps_pending_fact",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t06_f3_actual_pending_correction_original_price_recovery",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t06_real_s05_repricing_keeps_original_demo_snapshot",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t06_source_kind_unique_chairside_no_duplicate_prescription",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t06_untrusted_dict_context_and_actor_failclosed",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t07_cross_store_company_native_crud_export",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t07_native_stock_manager_cannot_bypass",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t07_patient_and_public_attachment_denied",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t07_revoke_next_request_old_tab",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t08_inventory_count_transfer_no_crosslegal",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t08_target_grant_required_even_same_company",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t08_zero_delta_count_retains_source_and_retry",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t09_categories_dates_policy_scan_and_audit",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t09_collection_uses_local_receipt_day_and_first_receipt_is_immutable",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t09_lifecycle_and_direct_balance_guard",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t09_pharmacy_source_issue_and_physical_return_without_stock_group",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t09_product_hook_default_failclosed",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t09_product_low_alert_sums_usable_batches",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t09_roles_master_price_warehouse_split",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_rework_category_via_trusted_server_bridge_and_rpc_refusal",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_rework_disabled_pending_recovery_and_new_execution_refusal",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_rework_expired_pending_recovery_and_new_execution_refusal",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t01_issue_and_retry",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t03_cross_store_and_batch_forgery",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t03_expired_and_disabled_lot_ids_refused",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t05_return_verification",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t06_recovery_rejects_observed_count",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t07_none_patient_attachment_and_export",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t07_permission_revocation_next_request",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t07_reader_and_native_rpc",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t07_stock_manager_native_bypass",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t09_catalog_does_not_read_stock",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t09_csrf_hook_and_scan_failclosed",
+          "result": "PASS"
+        }
+      ]
+    },
+    {
+      "database": "ydental_s07_test_20261012094527_249b480f",
+      "action": "upgrade",
+      "log": "upgrade-20261012T094752743542.log",
+      "log_sha256": "3327dea4c00c78236dc4c02a7ccec22e80b2ec1bce22355c100811d5edde69c3",
+      "exit_code": 0,
+      "aggregate": [
+        0,
+        0,
+        48
+      ],
+      "methods": [
+        {
+          "method": "TestInventory.test_rework_original_pending_recovers_after_disable",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_rework_original_pending_recovers_after_expiry",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_rework_recovery_native_failure_rolls_back_original_pending",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_rework_recovery_requires_real_correction_not_only_existing_stock",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_rework_source_category_rejects_without_inventory_side_effects",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t01_f1_native_receipt_issue_retry",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t01_key_collision_rolls_back",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t02_shortage_has_no_half_move_or_audit",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t03_expired_disabled_product_and_forged_batch",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t04_pack_and_small_quantity_conserve",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t04_reject_silent_rounding_invalid_unit_nonfinite",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t04_used_unit_conversion_and_unrelated_issue_unit_rejected",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t05_consumed_chairside_source_cannot_be_returned_as_unused",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t05_f1_return_quarantine_verify_refund",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t05_return_limit_discard_and_consumption_no_automatic_restock",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t06_already_performed_disabled_batch_keeps_pending_fact",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t06_f3_actual_pending_correction_original_price_recovery",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t06_real_s05_repricing_keeps_original_demo_snapshot",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t06_source_kind_unique_chairside_no_duplicate_prescription",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t06_untrusted_dict_context_and_actor_failclosed",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t07_cross_store_company_native_crud_export",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t07_native_stock_manager_cannot_bypass",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t07_patient_and_public_attachment_denied",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t07_revoke_next_request_old_tab",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t08_inventory_count_transfer_no_crosslegal",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t08_target_grant_required_even_same_company",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t08_zero_delta_count_retains_source_and_retry",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t09_categories_dates_policy_scan_and_audit",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t09_collection_uses_local_receipt_day_and_first_receipt_is_immutable",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t09_lifecycle_and_direct_balance_guard",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t09_pharmacy_source_issue_and_physical_return_without_stock_group",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t09_product_hook_default_failclosed",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t09_product_low_alert_sums_usable_batches",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t09_roles_master_price_warehouse_split",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_rework_category_via_trusted_server_bridge_and_rpc_refusal",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_rework_disabled_pending_recovery_and_new_execution_refusal",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_rework_expired_pending_recovery_and_new_execution_refusal",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t01_issue_and_retry",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t03_cross_store_and_batch_forgery",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t03_expired_and_disabled_lot_ids_refused",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t05_return_verification",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t06_recovery_rejects_observed_count",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t07_none_patient_attachment_and_export",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t07_permission_revocation_next_request",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t07_reader_and_native_rpc",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t07_stock_manager_native_bypass",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t09_catalog_does_not_read_stock",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t09_csrf_hook_and_scan_failclosed",
+          "result": "PASS"
+        }
+      ]
+    },
+    {
+      "database": "ydental_s07_test_20261012094527_249b480f",
+      "action": "upgrade",
+      "log": "upgrade-20261012T095201131762.log",
+      "log_sha256": "b3ed7c8a4df537c0f403028f6a1b59a0c576b6bbc7b2e3706c87af36d09c3775",
+      "exit_code": 0,
+      "aggregate": [
+        0,
+        0,
+        48
+      ],
+      "methods": [
+        {
+          "method": "TestInventory.test_rework_original_pending_recovers_after_disable",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_rework_original_pending_recovers_after_expiry",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_rework_recovery_native_failure_rolls_back_original_pending",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_rework_recovery_requires_real_correction_not_only_existing_stock",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_rework_source_category_rejects_without_inventory_side_effects",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t01_f1_native_receipt_issue_retry",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t01_key_collision_rolls_back",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t02_shortage_has_no_half_move_or_audit",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t03_expired_disabled_product_and_forged_batch",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t04_pack_and_small_quantity_conserve",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t04_reject_silent_rounding_invalid_unit_nonfinite",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t04_used_unit_conversion_and_unrelated_issue_unit_rejected",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t05_consumed_chairside_source_cannot_be_returned_as_unused",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t05_f1_return_quarantine_verify_refund",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t05_return_limit_discard_and_consumption_no_automatic_restock",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t06_already_performed_disabled_batch_keeps_pending_fact",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t06_f3_actual_pending_correction_original_price_recovery",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t06_real_s05_repricing_keeps_original_demo_snapshot",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t06_source_kind_unique_chairside_no_duplicate_prescription",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t06_untrusted_dict_context_and_actor_failclosed",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t07_cross_store_company_native_crud_export",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t07_native_stock_manager_cannot_bypass",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t07_patient_and_public_attachment_denied",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t07_revoke_next_request_old_tab",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t08_inventory_count_transfer_no_crosslegal",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t08_target_grant_required_even_same_company",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t08_zero_delta_count_retains_source_and_retry",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t09_categories_dates_policy_scan_and_audit",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t09_collection_uses_local_receipt_day_and_first_receipt_is_immutable",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t09_lifecycle_and_direct_balance_guard",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t09_pharmacy_source_issue_and_physical_return_without_stock_group",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t09_product_hook_default_failclosed",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t09_product_low_alert_sums_usable_batches",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t09_roles_master_price_warehouse_split",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_rework_category_via_trusted_server_bridge_and_rpc_refusal",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_rework_disabled_pending_recovery_and_new_execution_refusal",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_rework_expired_pending_recovery_and_new_execution_refusal",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t01_issue_and_retry",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t03_cross_store_and_batch_forgery",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t03_expired_and_disabled_lot_ids_refused",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t05_return_verification",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t06_recovery_rejects_observed_count",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t07_none_patient_attachment_and_export",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t07_permission_revocation_next_request",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t07_reader_and_native_rpc",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t07_stock_manager_native_bypass",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t09_catalog_does_not_read_stock",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t09_csrf_hook_and_scan_failclosed",
+          "result": "PASS"
+        }
+      ]
+    },
+    {
+      "database": "ydental_s07_test_20261012094527_bbbbcece",
+      "action": "install",
+      "log": "install-20261012T094528059005.log",
+      "log_sha256": "239d136ef6b2e9e80a538bc9365310c86f231d98ca4081c4fc571484c02a4d32",
+      "exit_code": 0,
+      "aggregate": [
+        0,
+        0,
+        50
+      ],
+      "methods": [
+        {
+          "method": "TestInventory.test_rework_original_pending_recovers_after_disable",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_rework_original_pending_recovers_after_expiry",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_rework_recovery_native_failure_rolls_back_original_pending",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_rework_recovery_requires_real_correction_not_only_existing_stock",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_rework_source_category_rejects_without_inventory_side_effects",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t01_f1_native_receipt_issue_retry",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t01_key_collision_rolls_back",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t02_shortage_has_no_half_move_or_audit",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t03_expired_disabled_product_and_forged_batch",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t04_pack_and_small_quantity_conserve",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t04_reject_silent_rounding_invalid_unit_nonfinite",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t04_used_unit_conversion_and_unrelated_issue_unit_rejected",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t05_consumed_chairside_source_cannot_be_returned_as_unused",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t05_f1_return_quarantine_verify_refund",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t05_return_limit_discard_and_consumption_no_automatic_restock",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t06_already_performed_disabled_batch_keeps_pending_fact",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t06_f3_actual_pending_correction_original_price_recovery",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t06_real_s05_repricing_keeps_original_demo_snapshot",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t06_source_kind_unique_chairside_no_duplicate_prescription",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t06_untrusted_dict_context_and_actor_failclosed",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t07_cross_store_company_native_crud_export",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t07_native_stock_manager_cannot_bypass",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t07_patient_and_public_attachment_denied",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t07_revoke_next_request_old_tab",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t08_inventory_count_transfer_no_crosslegal",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t08_target_grant_required_even_same_company",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t08_zero_delta_count_retains_source_and_retry",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t09_categories_dates_policy_scan_and_audit",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t09_collection_uses_local_receipt_day_and_first_receipt_is_immutable",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t09_lifecycle_and_direct_balance_guard",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t09_pharmacy_source_issue_and_physical_return_without_stock_group",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t09_product_hook_default_failclosed",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t09_product_low_alert_sums_usable_batches",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t09_roles_master_price_warehouse_split",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_rework_category_via_trusted_server_bridge_and_rpc_refusal",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_rework_disabled_pending_recovery_and_new_execution_refusal",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_rework_expired_pending_recovery_and_new_execution_refusal",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t01_issue_and_retry",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t03_cross_store_and_batch_forgery",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t03_expired_and_disabled_lot_ids_refused",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t05_return_verification",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t06_recovery_rejects_observed_count",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t07_none_patient_attachment_and_export",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t07_permission_revocation_next_request",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t07_reader_and_native_rpc",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t07_stock_manager_native_bypass",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t09_catalog_does_not_read_stock",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t09_csrf_hook_and_scan_failclosed",
+          "result": "PASS"
+        }
+      ]
+    },
+    {
+      "database": "ydental_s07_test_20261012094527_bbbbcece",
+      "action": "upgrade",
+      "log": "upgrade-20261012T094752745615.log",
+      "log_sha256": "7f0de19f2c46e5925bdf7db4accf631de72acdb33b862a4bc0a0c67a96f8c823",
+      "exit_code": 0,
+      "aggregate": [
+        0,
+        0,
+        48
+      ],
+      "methods": [
+        {
+          "method": "TestInventory.test_rework_original_pending_recovers_after_disable",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_rework_original_pending_recovers_after_expiry",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_rework_recovery_native_failure_rolls_back_original_pending",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_rework_recovery_requires_real_correction_not_only_existing_stock",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_rework_source_category_rejects_without_inventory_side_effects",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t01_f1_native_receipt_issue_retry",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t01_key_collision_rolls_back",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t02_shortage_has_no_half_move_or_audit",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t03_expired_disabled_product_and_forged_batch",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t04_pack_and_small_quantity_conserve",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t04_reject_silent_rounding_invalid_unit_nonfinite",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t04_used_unit_conversion_and_unrelated_issue_unit_rejected",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t05_consumed_chairside_source_cannot_be_returned_as_unused",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t05_f1_return_quarantine_verify_refund",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t05_return_limit_discard_and_consumption_no_automatic_restock",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t06_already_performed_disabled_batch_keeps_pending_fact",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t06_f3_actual_pending_correction_original_price_recovery",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t06_real_s05_repricing_keeps_original_demo_snapshot",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t06_source_kind_unique_chairside_no_duplicate_prescription",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t06_untrusted_dict_context_and_actor_failclosed",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t07_cross_store_company_native_crud_export",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t07_native_stock_manager_cannot_bypass",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t07_patient_and_public_attachment_denied",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t07_revoke_next_request_old_tab",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t08_inventory_count_transfer_no_crosslegal",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t08_target_grant_required_even_same_company",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t08_zero_delta_count_retains_source_and_retry",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t09_categories_dates_policy_scan_and_audit",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t09_collection_uses_local_receipt_day_and_first_receipt_is_immutable",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t09_lifecycle_and_direct_balance_guard",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t09_pharmacy_source_issue_and_physical_return_without_stock_group",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t09_product_hook_default_failclosed",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t09_product_low_alert_sums_usable_batches",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t09_roles_master_price_warehouse_split",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_rework_category_via_trusted_server_bridge_and_rpc_refusal",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_rework_disabled_pending_recovery_and_new_execution_refusal",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_rework_expired_pending_recovery_and_new_execution_refusal",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t01_issue_and_retry",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t03_cross_store_and_batch_forgery",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t03_expired_and_disabled_lot_ids_refused",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t05_return_verification",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t06_recovery_rejects_observed_count",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t07_none_patient_attachment_and_export",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t07_permission_revocation_next_request",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t07_reader_and_native_rpc",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t07_stock_manager_native_bypass",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t09_catalog_does_not_read_stock",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t09_csrf_hook_and_scan_failclosed",
+          "result": "PASS"
+        }
+      ]
+    },
+    {
+      "database": "ydental_s07_test_20261012094527_bbbbcece",
+      "action": "upgrade",
+      "log": "upgrade-20261012T095201131764.log",
+      "log_sha256": "f451c6c909dfd0219aa57b8930c16de21ea147b12d584c8a672887b08c064d8c",
+      "exit_code": 0,
+      "aggregate": [
+        0,
+        0,
+        48
+      ],
+      "methods": [
+        {
+          "method": "TestInventory.test_rework_original_pending_recovers_after_disable",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_rework_original_pending_recovers_after_expiry",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_rework_recovery_native_failure_rolls_back_original_pending",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_rework_recovery_requires_real_correction_not_only_existing_stock",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_rework_source_category_rejects_without_inventory_side_effects",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t01_f1_native_receipt_issue_retry",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t01_key_collision_rolls_back",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t02_shortage_has_no_half_move_or_audit",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t03_expired_disabled_product_and_forged_batch",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t04_pack_and_small_quantity_conserve",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t04_reject_silent_rounding_invalid_unit_nonfinite",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t04_used_unit_conversion_and_unrelated_issue_unit_rejected",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t05_consumed_chairside_source_cannot_be_returned_as_unused",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t05_f1_return_quarantine_verify_refund",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t05_return_limit_discard_and_consumption_no_automatic_restock",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t06_already_performed_disabled_batch_keeps_pending_fact",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t06_f3_actual_pending_correction_original_price_recovery",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t06_real_s05_repricing_keeps_original_demo_snapshot",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t06_source_kind_unique_chairside_no_duplicate_prescription",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t06_untrusted_dict_context_and_actor_failclosed",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t07_cross_store_company_native_crud_export",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t07_native_stock_manager_cannot_bypass",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t07_patient_and_public_attachment_denied",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t07_revoke_next_request_old_tab",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t08_inventory_count_transfer_no_crosslegal",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t08_target_grant_required_even_same_company",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t08_zero_delta_count_retains_source_and_retry",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t09_categories_dates_policy_scan_and_audit",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t09_collection_uses_local_receipt_day_and_first_receipt_is_immutable",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t09_lifecycle_and_direct_balance_guard",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t09_pharmacy_source_issue_and_physical_return_without_stock_group",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t09_product_hook_default_failclosed",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t09_product_low_alert_sums_usable_batches",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventory.test_t09_roles_master_price_warehouse_split",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_rework_category_via_trusted_server_bridge_and_rpc_refusal",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_rework_disabled_pending_recovery_and_new_execution_refusal",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_rework_expired_pending_recovery_and_new_execution_refusal",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t01_issue_and_retry",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t03_cross_store_and_batch_forgery",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t03_expired_and_disabled_lot_ids_refused",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t05_return_verification",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t06_recovery_rejects_observed_count",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t07_none_patient_attachment_and_export",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t07_permission_revocation_next_request",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t07_reader_and_native_rpc",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t07_stock_manager_native_bypass",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t09_catalog_does_not_read_stock",
+          "result": "PASS"
+        },
+        {
+          "method": "TestInventoryHTTP.test_http_t09_csrf_hook_and_scan_failclosed",
+          "result": "PASS"
+        }
+      ]
+    }
+  ]
+}

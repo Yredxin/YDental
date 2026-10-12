@@ -1,0 +1,66 @@
+{
+  "test": "12730d0f69ddbbd4e21c5df76e0bc9e0c0480061",
+  "baseline": "f23ad62b20aa298b74adc993781863961946aec3",
+  "product": "eb826219b008e8ebdf2073fc020a813f88764ecc",
+  "branch": "codex/s07-inventory-r1-20261012",
+  "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "final_databases": [
+    {
+      "database": "ydental_s07_test_20261012094527_249b480f",
+      "oid": 893403,
+      "endpoint": {
+        "host": "127.0.0.1",
+        "port": "5432",
+        "user": "odoo"
+      },
+      "cluster": "7694897083368259627",
+      "port": 18144,
+      "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+      "created_utc": "2026-10-12T09:45:28.057706+00:00",
+      "config_sha256": "3747445a640d4837cd216062edfb2911b1b56a0ca7ac6f55370f7267a4375415",
+      "runtime_safe_options": {
+        "db_name": "ydental_s07_test_20261012094527_249b480f",
+        "dbfilter": "^ydental_s07_test_20261012094527_249b480f$",
+        "data_dir": "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s07_test_20261012094527_249b480f/data",
+        "http_interface": "127.0.0.1",
+        "http_port": "18144",
+        "list_db": "False",
+        "workers": "0",
+        "max_cron_threads": "0",
+        "smtp_server": "127.0.0.1",
+        "smtp_port": "1"
+      },
+      "raw_config_published": false
+    },
+    {
+      "database": "ydental_s07_test_20261012094527_bbbbcece",
+      "oid": 893402,
+      "endpoint": {
+        "host": "127.0.0.1",
+        "port": "5432",
+        "user": "odoo"
+      },
+      "cluster": "7694897083368259627",
+      "port": 18145,
+      "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+      "created_utc": "2026-10-12T09:45:28.058033+00:00",
+      "config_sha256": "018c80e6a36c20ad1583a5bbbbbc18422a0d1c8ad65097ab0baccb34d402d826",
+      "runtime_safe_options": {
+        "db_name": "ydental_s07_test_20261012094527_bbbbcece",
+        "dbfilter": "^ydental_s07_test_20261012094527_bbbbcece$",
+        "data_dir": "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s07_test_20261012094527_bbbbcece/data",
+        "http_interface": "127.0.0.1",
+        "http_port": "18145",
+        "list_db": "False",
+        "workers": "0",
+        "max_cron_threads": "0",
+        "smtp_server": "127.0.0.1",
+        "smtp_port": "1"
+      },
+      "raw_config_published": false
+    }
+  ],
+  "historic_databases_preserved": true,
+  "existing_services_not_modified": true,
+  "new_dependencies_installed": false
+}

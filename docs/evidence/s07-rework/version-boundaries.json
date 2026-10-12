@@ -1,0 +1,27 @@
+{
+  "result": "PASS",
+  "baseline": "f23ad62b20aa298b74adc993781863961946aec3",
+  "product": "eb826219b008e8ebdf2073fc020a813f88764ecc",
+  "test": "12730d0f69ddbbd4e21c5df76e0bc9e0c0480061",
+  "baseline_ancestor": true,
+  "product_tree_identical_at_test": true,
+  "changed_paths": [
+    "scripts/s07_audit.py",
+    "scripts/s07_browser.py",
+    "scripts/s07_preview.py",
+    "scripts/s07_probe.py",
+    "scripts/s07_translation.py",
+    "ydental_inventory/i18n/zh_CN.po",
+    "ydental_inventory/models/ydental_inventory_event.py",
+    "ydental_inventory/models/ydental_inventory_service.py",
+    "ydental_inventory_test/tests/test_http.py",
+    "ydental_inventory_test/tests/test_inventory.py"
+  ],
+  "product_to_test_paths": [
+    "scripts/s07_browser.py",
+    "scripts/s07_preview.py",
+    "ydental_inventory_test/tests/test_inventory.py"
+  ],
+  "protected_existing_stage_sources_unchanged": true,
+  "original_evidence_unchanged": true
+}

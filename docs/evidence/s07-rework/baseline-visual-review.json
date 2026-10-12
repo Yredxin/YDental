@@ -1,0 +1,58 @@
+{
+  "result": "PASS",
+  "reviewer": "Codex; individually opened ten baseline diagnostic screenshots with view_image",
+  "source": "baseline-browser-attempts/20261012T100015746378/result.json",
+  "screenshots": [
+    {
+      "path": "docs/evidence/s07-rework/baseline-browser-attempts/20261012T100015746378/01-chinese-stock-ten.png",
+      "sha256": "82f8869bbdcb3ddd74ebca385a34a4bb8ca95de78b5b54b826f89e502e973309",
+      "visual_result": "PASS"
+    },
+    {
+      "path": "docs/evidence/s07-rework/baseline-browser-attempts/20261012T100015746378/02-physical-return-quarantine.png",
+      "sha256": "0ee3840cb5a21c2cbb23c885f0d3a304c13f82e77a52b77b89a877d224c9d10a",
+      "visual_result": "PASS"
+    },
+    {
+      "path": "docs/evidence/s07-rework/baseline-browser-attempts/20261012T100015746378/03-verified-return-eight.png",
+      "sha256": "8ac1da307904f24ff8e38e30904ff59d0b9964a2a87731f8546197b2ac55a119",
+      "visual_result": "PASS"
+    },
+    {
+      "path": "docs/evidence/s07-rework/baseline-browser-attempts/20261012T100015746378/04-disabled-server-rejection.png",
+      "sha256": "2203ce093b1dee850dfb33b927e6edaeed1839aef1a33671a7530e8ba80e4dfc",
+      "visual_result": "PASS"
+    },
+    {
+      "path": "docs/evidence/s07-rework/baseline-browser-attempts/20261012T100015746378/05-pending-original-responsible.png",
+      "sha256": "2e99f5fd3eea8f150964a7907fc0551b4fe3cd61fcca2739d9b2222857ee3e3e",
+      "visual_result": "PASS"
+    },
+    {
+      "path": "docs/evidence/s07-rework/baseline-browser-attempts/20261012T100015746378/06-original-event-recovered.png",
+      "sha256": "8d48fc5b112d5fd96263467cb1298fe1199e74ece05917e6722cda5c7f12f664",
+      "visual_result": "PASS"
+    },
+    {
+      "path": "docs/evidence/s07-rework/baseline-browser-attempts/20261012T100015746378/07-readonly-workbench.png",
+      "sha256": "707f45779d5dcd1162099563405e21030aece954fa33c3024c58ef6879b0728c",
+      "visual_result": "PASS"
+    },
+    {
+      "path": "docs/evidence/s07-rework/baseline-browser-attempts/20261012T100015746378/08-master-data-authority.png",
+      "sha256": "483a9f17684c7b534901d703eb8f064bd6c1be33e1f8c1c23d7cc57d79dbb82a",
+      "visual_result": "PASS"
+    },
+    {
+      "path": "docs/evidence/s07-rework/baseline-browser-attempts/20261012T100015746378/09-scan-failclosed.png",
+      "sha256": "7712725bffa79a971a020c3b45e62399f626203059dc8a37f44c2eea8e7ad698",
+      "visual_result": "PASS"
+    },
+    {
+      "path": "docs/evidence/s07-rework/baseline-browser-attempts/20261012T100015746378/10-prosthesis-receipt-alert.png",
+      "sha256": "a137e60e6f3ed6cc8ad47d9d66ff01f2e5e00dd46d0583ef779056e6ac2c451c",
+      "visual_result": "PASS"
+    }
+  ],
+  "scope": "Original fixed be4a282 diagnostic only; not counted as rework tests"
+}

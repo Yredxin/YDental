@@ -1,0 +1,7 @@
+{
+  "command": "../.venv/bin/python -m unittest scripts/test_s07_guard.py",
+  "commit": "c193bae9f215adea7a65feea8d0f315138fa7dda",
+  "exit": 0,
+  "output": ".....\n----------------------------------------------------------------------\nRan 5 tests in 0.294s\n\nOK\n",
+  "result": "PASS"
+}

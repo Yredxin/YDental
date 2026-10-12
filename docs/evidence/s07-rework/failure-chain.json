@@ -1,0 +1,47 @@
+{
+  "failures_preserved": true,
+  "original_s07_delivery_and_crash_evidence": "../s07/README.md",
+  "reproduction": "reproduction.json",
+  "runner_attempts": "actions-summary.json",
+  "chain": [
+    {
+      "commit": "16aef9c63b8283f439667cc85e61530eadb0c6e4",
+      "result": "FAIL",
+      "kind": "expected defect reproduction on unchanged baseline product",
+      "install_tests": [
+        6,
+        2,
+        45
+      ],
+      "reason": "Six category mismatches accepted; expired/disabled original pending cannot recover",
+      "fix": "cadd317 category boundary plus evidence-controlled historical reconciliation;5b699a3 Chinese code metadata"
+    },
+    {
+      "commit": "c193bae9f215adea7a65feea8d0f315138fa7dda",
+      "result": "FAIL",
+      "install_tests": [
+        1,
+        0,
+        50
+      ],
+      "reason": "Original pre-pending receipt shares create timestamp second and incorrectly qualifies as later correction",
+      "fix": "eb82621 also requires correction ID > original ID;2535699 adds explicit ordering assertion"
+    },
+    {
+      "commit": "2535699fdef27219dcc584a509a84d372a64bc26",
+      "result": "FAIL",
+      "scope": "two Firefox runs; models/HTTP/upgrade/probe passed on this earlier commit only",
+      "reason": "S06 comparison fixture added frontdesk-read to stock actor, invalidating original patient-denial premise",
+      "partial_browser_checks_each": 55,
+      "partial_screenshots_each": 8,
+      "native_crash": false,
+      "fix": "12730d0 separate medical account reads S06; stock role keeps original warehouse-only permission; two new databases rerun complete suite"
+    },
+    {
+      "commit": "12730d0f69ddbbd4e21c5df76e0bc9e0c0480061",
+      "result": "PASS",
+      "scope": "final two fresh databases; install50/upgrade48/committed upgrade48, probe22, Firefox63/12 each, translation223 and guard5",
+      "root_cause_SIGSEGV": "UNDETERMINED; not claimed fixed; formal deployment BLOCKED"
+    }
+  ]
+}

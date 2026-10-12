@@ -1,0 +1,21 @@
+{
+  "source_commit": "be4a282dc0ebb54fc32dfafa7ac05cfa7535d939",
+  "source_path": "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/s07-diagnostic-be4a282",
+  "archive_sha256": "f6ca3aa677e0771e285b1cd9cf23336e24f047745f563917d692b39038aeb5b3",
+  "installed_addon_files_byte_compared_to_git": 274,
+  "installed_addons_unchanged": true,
+  "current_development_branch_unchanged": true,
+  "runner_adaptations": [
+    "absolute real REPO/CORE and separate fixed-source addon path",
+    "explicit installed source SHA metadata",
+    "original probe path from SOURCE"
+  ],
+  "browser_adaptations": [
+    "existing real local Firefox assets/runtime path",
+    "explicit installed source SHA metadata",
+    "separate evidence destination"
+  ],
+  "no_business_or_system_dependency_changes": true,
+  "after_replay_addon_files_byte_compared": 274,
+  "after_replay_addons_unchanged": true
+}

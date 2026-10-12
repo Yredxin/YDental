@@ -1,0 +1,8 @@
+{
+  "events": "SELECT id,ydental_source_namespace,ydental_source_key,ydental_kind,state,ydental_quantity,ydental_lot_id,ydental_move_id,ydental_parent_id,ydental_price_snapshot,ydental_synthetic,ydental_actor_id,ydental_responsible_id,ydental_actual_at,ydental_reconciled_at,ydental_correction_id FROM ydental_inventory_event WHERE ydental_lot_id=ANY(%s) ORDER BY id",
+  "moves": "SELECT m.id,m.state,m.product_id,m.quantity,m.uom_id,m.location_id,m.location_dest_id,m.ydental_store_id,e.id event_id FROM stock_move m JOIN ydental_inventory_event e ON e.ydental_move_id=m.id WHERE e.ydental_lot_id=ANY(%s) ORDER BY m.id",
+  "move_lines": "SELECT ml.id,ml.move_id,ml.lot_id,ml.quantity,ml.location_id,ml.location_dest_id,m.state FROM stock_move_line ml JOIN stock_move m ON m.id=ml.move_id WHERE ml.lot_id=ANY(%s) ORDER BY ml.id",
+  "quants": "SELECT q.id,q.product_id,q.lot_id,q.quantity,q.reserved_quantity,q.location_id,l.usage,l.ydental_store_id,l.name FROM stock_quant q JOIN stock_location l ON l.id=q.location_id WHERE q.lot_id=ANY(%s) ORDER BY q.id",
+  "audits": "SELECT a.id,a.ydental_event,a.ydental_target_model,a.ydental_target_id,a.ydental_store_id,a.ydental_user_id,a.ydental_before,a.ydental_after FROM ydental_access_audit a JOIN ydental_inventory_event e ON e.id=a.ydental_target_id AND a.ydental_target_model='ydental.inventory.event' WHERE e.ydental_lot_id=ANY(%s) ORDER BY a.id",
+  "batches": "SELECT b.id,b.ydental_store_id,b.ydental_lot_id,b.ydental_enabled,l.expiration_date FROM ydental_inventory_batch b JOIN stock_lot l ON l.id=b.ydental_lot_id WHERE l.id=ANY(%s) ORDER BY b.id"
+}

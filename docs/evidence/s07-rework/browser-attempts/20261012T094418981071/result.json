@@ -1,0 +1,267 @@
+{
+  "scope": "S07 native inventory workbench and security",
+  "database": "ydental_s07_test_20261012093958_fce3e0cf",
+  "tested_commit": "2535699fdef27219dcc584a509a84d372a64bc26",
+  "browser": "Firefox",
+  "sandbox": "default, no overrides",
+  "checks": [
+    {
+      "check": "S06 upstream read entry after login and store switch",
+      "result": "PASS"
+    },
+    {
+      "check": "Chinese workbench rendered",
+      "result": "PASS"
+    },
+    {
+      "check": "F1 actual native receipt ten is visible",
+      "result": "PASS"
+    },
+    {
+      "check": "actual form submit issue",
+      "result": "PASS"
+    },
+    {
+      "check": "F1 actual issue three leaves seven",
+      "result": "PASS"
+    },
+    {
+      "check": "F1 same request returns original receipt",
+      "result": "PASS"
+    },
+    {
+      "check": "F1 replay leaves seven",
+      "result": "PASS"
+    },
+    {
+      "check": "actual form submit return",
+      "result": "PASS"
+    },
+    {
+      "check": "F1 physical return does not increase issuable seven",
+      "result": "PASS"
+    },
+    {
+      "check": "F1 quarantine one",
+      "result": "PASS"
+    },
+    {
+      "check": "actual form submit verify",
+      "result": "PASS"
+    },
+    {
+      "check": "F1 verified return increases stock to eight",
+      "result": "PASS"
+    },
+    {
+      "check": "T05 independent refund has no inventory action",
+      "result": "PASS"
+    },
+    {
+      "check": "T05 refund refusal leaves eight",
+      "result": "PASS"
+    },
+    {
+      "check": "actual form submit lot_edit",
+      "result": "PASS"
+    },
+    {
+      "check": "actual form submit issue",
+      "result": "PASS"
+    },
+    {
+      "check": "T03 disabled batch rejected by server",
+      "result": "PASS"
+    },
+    {
+      "check": "actual form submit lot_edit",
+      "result": "PASS"
+    },
+    {
+      "check": "actual form submit recover",
+      "result": "PASS"
+    },
+    {
+      "check": "F3 no stock recovery refuses",
+      "result": "PASS"
+    },
+    {
+      "check": "F3 original pending source remains visible",
+      "result": "PASS"
+    },
+    {
+      "check": "actual form submit receive",
+      "result": "PASS"
+    },
+    {
+      "check": "actual form submit recover",
+      "result": "PASS"
+    },
+    {
+      "check": "F3 original event confirmed once",
+      "result": "PASS"
+    },
+    {
+      "check": "F3 material remaining three",
+      "result": "PASS"
+    },
+    {
+      "check": "REWORK expired no-stock recovery refuses",
+      "result": "PASS"
+    },
+    {
+      "check": "REWORK expired actual receipt succeeds",
+      "result": "PASS"
+    },
+    {
+      "check": "actual form submit recover",
+      "result": "PASS"
+    },
+    {
+      "check": "REWORK expired original event done",
+      "result": "PASS"
+    },
+    {
+      "check": "REWORK expired original price20 and correction linked",
+      "result": "PASS"
+    },
+    {
+      "check": "REWORK expired retry same move",
+      "result": "PASS"
+    },
+    {
+      "check": "REWORK expired new issue refuses",
+      "result": "PASS"
+    },
+    {
+      "check": "REWORK expired remains unusable with real onhand3",
+      "result": "PASS"
+    },
+    {
+      "check": "REWORK disabled no-stock recovery refuses",
+      "result": "PASS"
+    },
+    {
+      "check": "REWORK disabled actual receipt succeeds",
+      "result": "PASS"
+    },
+    {
+      "check": "actual form submit recover",
+      "result": "PASS"
+    },
+    {
+      "check": "REWORK disabled original event done",
+      "result": "PASS"
+    },
+    {
+      "check": "REWORK disabled original price20 and correction linked",
+      "result": "PASS"
+    },
+    {
+      "check": "REWORK disabled retry same move",
+      "result": "PASS"
+    },
+    {
+      "check": "REWORK disabled new issue refuses",
+      "result": "PASS"
+    },
+    {
+      "check": "REWORK disabled remains unusable with real onhand3",
+      "result": "PASS"
+    },
+    {
+      "check": "stability S06 read cycle 0",
+      "result": "PASS"
+    },
+    {
+      "check": "stability inventory read cycle 0",
+      "result": "PASS"
+    },
+    {
+      "check": "stability S06 read cycle 1",
+      "result": "PASS"
+    },
+    {
+      "check": "stability inventory read cycle 1",
+      "result": "PASS"
+    },
+    {
+      "check": "stability S06 read cycle 2",
+      "result": "PASS"
+    },
+    {
+      "check": "stability inventory read cycle 2",
+      "result": "PASS"
+    },
+    {
+      "check": "stability S06 read cycle 3",
+      "result": "PASS"
+    },
+    {
+      "check": "stability inventory read cycle 3",
+      "result": "PASS"
+    },
+    {
+      "check": "stability S06 read cycle 4",
+      "result": "PASS"
+    },
+    {
+      "check": "stability inventory read cycle 4",
+      "result": "PASS"
+    },
+    {
+      "check": "T07 native lot read denied",
+      "result": "PASS"
+    },
+    {
+      "check": "T07 native quant mutation denied",
+      "result": "PASS"
+    },
+    {
+      "check": "T07 source method cannot be forged over RPC",
+      "result": "PASS"
+    },
+    {
+      "check": "T07 export requires separate export permission",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s07-rework/browser-attempts/20261012T094418981071/01-chinese-stock-ten.png",
+      "sha256": "f6958a32a6f3f361ac13ab2210a112548ecdbc956265e04d0e2519d32f84f42c"
+    },
+    {
+      "path": "docs/evidence/s07-rework/browser-attempts/20261012T094418981071/02-physical-return-quarantine.png",
+      "sha256": "ebefeb07360f6f90ed46e90d821f119ee8bdaee7fc88a4e34b62a0d0ca097251"
+    },
+    {
+      "path": "docs/evidence/s07-rework/browser-attempts/20261012T094418981071/03-verified-return-eight.png",
+      "sha256": "4c70bacd45abbb1b8dd14e92b637fa4241ce999165ca5ba38cf5655ce353397e"
+    },
+    {
+      "path": "docs/evidence/s07-rework/browser-attempts/20261012T094418981071/04-disabled-server-rejection.png",
+      "sha256": "2203ce093b1dee850dfb33b927e6edaeed1839aef1a33671a7530e8ba80e4dfc"
+    },
+    {
+      "path": "docs/evidence/s07-rework/browser-attempts/20261012T094418981071/05-pending-original-responsible.png",
+      "sha256": "34d4aacdc573d206fa2c46fe2d540ad310be570ba57dd123966f9365d2010511"
+    },
+    {
+      "path": "docs/evidence/s07-rework/browser-attempts/20261012T094418981071/06-original-event-recovered.png",
+      "sha256": "c84f059fba84a79b0fa100ad995f87f9ffd3cc93389ed5d01fffbc5ff5d8a5d9"
+    },
+    {
+      "path": "docs/evidence/s07-rework/browser-attempts/20261012T094418981071/11-historical-expired.png",
+      "sha256": "f9346c2cf4ad8650645cb995af4aa073d25673bfd700b50651b4f861b40f045c"
+    },
+    {
+      "path": "docs/evidence/s07-rework/browser-attempts/20261012T094418981071/11-historical-disabled.png",
+      "sha256": "732c33eb7d3add48e8113c0b28da83da2c2b9c33269f383b8647bb85f62df15c"
+    }
+  ],
+  "result": "FAIL",
+  "error_type": "RuntimeError",
+  "error": "T07 stock role cannot read patient history",
+  "pageerror_count": 0
+}

@@ -1,0 +1,11 @@
+{
+  "result": "PASS",
+  "test": "12730d0f69ddbbd4e21c5df76e0bc9e0c0480061",
+  "artifact_files_scanned": 124,
+  "runtime_secret_scan": "No recorded private S07 password/admin/db secret of length>=8 in artifacts",
+  "product_and_test_clean": true,
+  "core_tracked_diff_empty": true,
+  "core_sha": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "original_s07_evidence_unchanged": true,
+  "no_s07_preview_pid_remains": true
+}

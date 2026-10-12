@@ -1,0 +1,22 @@
+{
+  "database": "ydental_s07_test_20261012094527_bbbbcece",
+  "port": 18145,
+  "pid": 1074949,
+  "started_utc": "2026-10-12T09:50:43.842241+00:00",
+  "commit": "12730d0f69ddbbd4e21c5df76e0bc9e0c0480061",
+  "config_sha256": "018c80e6a36c20ad1583a5bbbbbc18422a0d1c8ad65097ab0baccb34d402d826",
+  "faulthandler": true,
+  "process_start_ticks": "27463067",
+  "clean_process": true,
+  "controlled_stop_signal": 15,
+  "stop_requested_utc": "2026-10-12T09:51:22.932122+00:00",
+  "log_sha256": "6b18a7090231c081139e54b596e319574c1551f4db328bcf73e2e5655c144df6",
+  "log_size": 45352,
+  "finished_utc": "2026-10-12T09:51:23.492698+00:00",
+  "fatal_python_lines": 0,
+  "segmentation_fault_lines": 0,
+  "runner_exit_code": 0,
+  "unexpected_signal": null,
+  "browser_exit_code": 0,
+  "status": "PASS"
+}

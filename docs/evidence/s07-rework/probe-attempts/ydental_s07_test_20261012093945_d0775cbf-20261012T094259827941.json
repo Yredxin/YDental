@@ -1,0 +1,733 @@
+{
+  "scope": "S07 real native inventory with isolated synthetic sources",
+  "database": "ydental_s07_test_20261012093945_d0775cbf",
+  "races": [
+    {
+      "name": "T02 final one unit; one actual issue; loser no half movement",
+      "status": "PASS",
+      "connections": 2,
+      "outputs": [
+        {
+          "value": {
+            "rejected": "UserError",
+            "code": "insufficient_balance"
+          },
+          "backend_pid": 236549,
+          "retry_backend_pids": [
+            236549,
+            236549
+          ],
+          "attempts": 2
+        },
+        {
+          "value": {
+            "id": 180,
+            "move_id": 224,
+            "state": "done",
+            "result": "accepted"
+          },
+          "backend_pid": 236575,
+          "retry_backend_pids": [
+            236575
+          ],
+          "attempts": 1
+        }
+      ],
+      "final_quantity": 0
+    },
+    {
+      "name": "T01 identical request retry on distinct actor connections",
+      "status": "PASS",
+      "connections": 2,
+      "outputs": [
+        {
+          "value": {
+            "id": 183,
+            "state": "done",
+            "result": "already_accepted",
+            "move_id": 226
+          },
+          "backend_pid": 236549,
+          "retry_backend_pids": [
+            236549,
+            236549
+          ],
+          "attempts": 2
+        },
+        {
+          "value": {
+            "id": 183,
+            "move_id": 226,
+            "state": "done",
+            "result": "accepted"
+          },
+          "backend_pid": 236575,
+          "retry_backend_pids": [
+            236575
+          ],
+          "attempts": 1
+        }
+      ],
+      "final_quantity": 7
+    },
+    {
+      "name": "T01 source event uniqueness with different request keys",
+      "status": "PASS",
+      "connections": 2,
+      "outputs": [
+        {
+          "value": {
+            "id": 185,
+            "move_id": 228,
+            "state": "done",
+            "result": "accepted"
+          },
+          "backend_pid": 236549,
+          "retry_backend_pids": [
+            236549,
+            236549
+          ],
+          "attempts": 2
+        },
+        {
+          "value": {
+            "id": 185,
+            "move_id": 228,
+            "state": "done",
+            "result": "accepted"
+          },
+          "backend_pid": 236575,
+          "retry_backend_pids": [
+            236575
+          ],
+          "attempts": 1
+        }
+      ]
+    },
+    {
+      "name": "T05 two returns against one issued unit",
+      "status": "PASS",
+      "connections": 2,
+      "outputs": [
+        {
+          "value": {
+            "id": 188,
+            "move_id": 231,
+            "state": "quarantine",
+            "result": "accepted"
+          },
+          "backend_pid": 236549,
+          "retry_backend_pids": [
+            236549
+          ],
+          "attempts": 1
+        },
+        {
+          "value": {
+            "rejected": "UserError",
+            "code": "return_limit"
+          },
+          "backend_pid": 236575,
+          "retry_backend_pids": [
+            236575,
+            236575
+          ],
+          "attempts": 2
+        }
+      ]
+    },
+    {
+      "name": "T05 two verifications cannot release the same return twice",
+      "status": "PASS",
+      "connections": 2,
+      "outputs": [
+        {
+          "value": {
+            "id": 189,
+            "move_id": 232,
+            "disposition": "release",
+            "result": "accepted"
+          },
+          "backend_pid": 236575,
+          "retry_backend_pids": [
+            236575
+          ],
+          "attempts": 1
+        },
+        {
+          "value": {
+            "rejected": "UserError",
+            "code": "return_limit"
+          },
+          "backend_pid": 236549,
+          "retry_backend_pids": [
+            236549,
+            236549
+          ],
+          "attempts": 2
+        }
+      ]
+    },
+    {
+      "name": "T06 identical already-performed shortage source creates one pending fact",
+      "status": "PASS",
+      "connections": 2,
+      "outputs": [
+        {
+          "value": {
+            "id": 190,
+            "state": "pending",
+            "move_id": false
+          },
+          "backend_pid": 236549,
+          "retry_backend_pids": [
+            236549
+          ],
+          "attempts": 1
+        },
+        {
+          "value": {
+            "id": 190,
+            "state": "pending",
+            "move_id": false
+          },
+          "backend_pid": 236575,
+          "retry_backend_pids": [
+            236575,
+            236575
+          ],
+          "attempts": 2
+        }
+      ]
+    },
+    {
+      "name": "T06 concurrent recovery yields one original native movement",
+      "status": "PASS",
+      "connections": 2,
+      "outputs": [
+        {
+          "value": {
+            "id": 190,
+            "move_id": 234,
+            "state": "done",
+            "result": "accepted"
+          },
+          "backend_pid": 236575,
+          "retry_backend_pids": [
+            236575
+          ],
+          "attempts": 1
+        },
+        {
+          "value": {
+            "id": 190,
+            "move_id": 234,
+            "state": "done",
+            "result": "accepted"
+          },
+          "backend_pid": 236549,
+          "retry_backend_pids": [
+            236549,
+            236549
+          ],
+          "attempts": 2
+        }
+      ]
+    },
+    {
+      "name": "T08 transfer versus issue of final one",
+      "status": "PASS",
+      "connections": 2,
+      "outputs": [
+        {
+          "value": {
+            "id": 193,
+            "move_id": 236,
+            "target_store_id": 14,
+            "result": "accepted"
+          },
+          "backend_pid": 236549,
+          "retry_backend_pids": [
+            236549
+          ],
+          "attempts": 1
+        },
+        {
+          "value": {
+            "rejected": "UserError",
+            "code": "insufficient_balance"
+          },
+          "backend_pid": 236575,
+          "retry_backend_pids": [
+            236575,
+            236575
+          ],
+          "attempts": 2
+        }
+      ]
+    },
+    {
+      "name": "T03 disable commits before issue; next execution refused",
+      "status": "PASS",
+      "connections": 2,
+      "outputs": [
+        {
+          "value": {
+            "id": 30,
+            "enabled": false,
+            "result": "accepted"
+          },
+          "backend_pid": 236575,
+          "retry_backend_pids": [
+            236575
+          ],
+          "attempts": 1
+        },
+        {
+          "value": {
+            "rejected": "UserError",
+            "code": "lot_disabled"
+          },
+          "backend_pid": 236549,
+          "retry_backend_pids": [
+            236549,
+            236549
+          ],
+          "attempts": 2
+        }
+      ]
+    },
+    {
+      "name": "T03 issue commits before disable; actual history retained",
+      "status": "PASS",
+      "connections": 2,
+      "outputs": [
+        {
+          "value": {
+            "id": 197,
+            "move_id": 239,
+            "state": "done",
+            "result": "accepted"
+          },
+          "backend_pid": 236549,
+          "retry_backend_pids": [
+            236549
+          ],
+          "attempts": 1
+        },
+        {
+          "value": {
+            "id": 31,
+            "enabled": false,
+            "result": "accepted"
+          },
+          "backend_pid": 236575,
+          "retry_backend_pids": [
+            236575,
+            236575
+          ],
+          "attempts": 2
+        }
+      ]
+    },
+    {
+      "name": "T08 actual count commits before previously unavailable issue",
+      "status": "PASS",
+      "connections": 2,
+      "outputs": [
+        {
+          "value": {
+            "id": 198,
+            "move_id": 240,
+            "counted": 1.0,
+            "result": "accepted"
+          },
+          "backend_pid": 236575,
+          "retry_backend_pids": [
+            236575
+          ],
+          "attempts": 1
+        },
+        {
+          "value": {
+            "id": 199,
+            "move_id": 241,
+            "state": "done",
+            "result": "accepted"
+          },
+          "backend_pid": 236549,
+          "retry_backend_pids": [
+            236549,
+            236549
+          ],
+          "attempts": 2
+        }
+      ]
+    },
+    {
+      "name": "T02 full transaction rollback does not consume final unit",
+      "status": "PASS",
+      "connections": 2,
+      "outputs": [
+        {
+          "value": {
+            "rolled_back": true
+          },
+          "backend_pid": 236549,
+          "retry_backend_pids": [
+            236549
+          ],
+          "attempts": 1
+        },
+        {
+          "value": {
+            "id": 202,
+            "move_id": 244,
+            "state": "done",
+            "result": "accepted"
+          },
+          "backend_pid": 236575,
+          "retry_backend_pids": [
+            236575
+          ],
+          "attempts": 1
+        }
+      ]
+    },
+    {
+      "name": "REWORK category prescription rejects material without event/move/quant/audit changes",
+      "status": "PASS",
+      "connections": 2,
+      "outputs": [
+        {
+          "value": {
+            "rejected": "ValidationError",
+            "code": "source_category_mismatch"
+          },
+          "backend_pid": 236575,
+          "retry_backend_pids": [
+            236575
+          ],
+          "attempts": 1
+        },
+        {
+          "value": {
+            "rejected": "ValidationError",
+            "code": "source_category_mismatch"
+          },
+          "backend_pid": 236549,
+          "retry_backend_pids": [
+            236549
+          ],
+          "attempts": 1
+        }
+      ]
+    },
+    {
+      "name": "REWORK category prescription rejects prosthesis without event/move/quant/audit changes",
+      "status": "PASS",
+      "connections": 2,
+      "outputs": [
+        {
+          "value": {
+            "rejected": "ValidationError",
+            "code": "source_category_mismatch"
+          },
+          "backend_pid": 236575,
+          "retry_backend_pids": [
+            236575
+          ],
+          "attempts": 1
+        },
+        {
+          "value": {
+            "rejected": "ValidationError",
+            "code": "source_category_mismatch"
+          },
+          "backend_pid": 236549,
+          "retry_backend_pids": [
+            236549
+          ],
+          "attempts": 1
+        }
+      ]
+    },
+    {
+      "name": "REWORK category chairside rejects material without event/move/quant/audit changes",
+      "status": "PASS",
+      "connections": 2,
+      "outputs": [
+        {
+          "value": {
+            "rejected": "ValidationError",
+            "code": "source_category_mismatch"
+          },
+          "backend_pid": 236549,
+          "retry_backend_pids": [
+            236549
+          ],
+          "attempts": 1
+        },
+        {
+          "value": {
+            "rejected": "ValidationError",
+            "code": "source_category_mismatch"
+          },
+          "backend_pid": 236575,
+          "retry_backend_pids": [
+            236575
+          ],
+          "attempts": 1
+        }
+      ]
+    },
+    {
+      "name": "REWORK category chairside rejects prosthesis without event/move/quant/audit changes",
+      "status": "PASS",
+      "connections": 2,
+      "outputs": [
+        {
+          "value": {
+            "rejected": "ValidationError",
+            "code": "source_category_mismatch"
+          },
+          "backend_pid": 236549,
+          "retry_backend_pids": [
+            236549
+          ],
+          "attempts": 1
+        },
+        {
+          "value": {
+            "rejected": "ValidationError",
+            "code": "source_category_mismatch"
+          },
+          "backend_pid": 236575,
+          "retry_backend_pids": [
+            236575
+          ],
+          "attempts": 1
+        }
+      ]
+    },
+    {
+      "name": "REWORK category treatment rejects medicine without event/move/quant/audit changes",
+      "status": "PASS",
+      "connections": 2,
+      "outputs": [
+        {
+          "value": {
+            "rejected": "ValidationError",
+            "code": "source_category_mismatch"
+          },
+          "backend_pid": 236549,
+          "retry_backend_pids": [
+            236549
+          ],
+          "attempts": 1
+        },
+        {
+          "value": {
+            "rejected": "ValidationError",
+            "code": "source_category_mismatch"
+          },
+          "backend_pid": 236575,
+          "retry_backend_pids": [
+            236575
+          ],
+          "attempts": 1
+        }
+      ]
+    },
+    {
+      "name": "REWORK category treatment rejects prosthesis without event/move/quant/audit changes",
+      "status": "PASS",
+      "connections": 2,
+      "outputs": [
+        {
+          "value": {
+            "rejected": "ValidationError",
+            "code": "source_category_mismatch"
+          },
+          "backend_pid": 236549,
+          "retry_backend_pids": [
+            236549
+          ],
+          "attempts": 1
+        },
+        {
+          "value": {
+            "rejected": "ValidationError",
+            "code": "source_category_mismatch"
+          },
+          "backend_pid": 236575,
+          "retry_backend_pids": [
+            236575
+          ],
+          "attempts": 1
+        }
+      ]
+    },
+    {
+      "name": "REWORK expired original pending concurrent reconciliation one move frozen snapshot",
+      "status": "PASS",
+      "connections": 2,
+      "outputs": [
+        {
+          "value": {
+            "id": 211,
+            "move_id": 254,
+            "state": "done",
+            "result": "accepted"
+          },
+          "backend_pid": 236575,
+          "retry_backend_pids": [
+            236575
+          ],
+          "attempts": 1
+        },
+        {
+          "value": {
+            "id": 211,
+            "move_id": 254,
+            "state": "done",
+            "result": "accepted"
+          },
+          "backend_pid": 236549,
+          "retry_backend_pids": [
+            236549,
+            236549
+          ],
+          "attempts": 2
+        }
+      ],
+      "correction_event": 212
+    },
+    {
+      "name": "REWORK expired new ordinary and clinical requests both refuse after historical recovery",
+      "status": "PASS",
+      "connections": 2,
+      "outputs": [
+        {
+          "value": {
+            "rejected": "UserError",
+            "code": "lot_expired"
+          },
+          "backend_pid": 236549,
+          "retry_backend_pids": [
+            236549
+          ],
+          "attempts": 1
+        },
+        {
+          "value": {
+            "rejected": "UserError",
+            "code": "lot_expired"
+          },
+          "backend_pid": 236575,
+          "retry_backend_pids": [
+            236575
+          ],
+          "attempts": 1
+        }
+      ]
+    },
+    {
+      "name": "REWORK disabled original pending concurrent reconciliation one move frozen snapshot",
+      "status": "PASS",
+      "connections": 2,
+      "outputs": [
+        {
+          "value": {
+            "id": 213,
+            "move_id": 256,
+            "state": "done",
+            "result": "accepted"
+          },
+          "backend_pid": 236549,
+          "retry_backend_pids": [
+            236549
+          ],
+          "attempts": 1
+        },
+        {
+          "value": {
+            "id": 213,
+            "move_id": 256,
+            "state": "done",
+            "result": "accepted"
+          },
+          "backend_pid": 236575,
+          "retry_backend_pids": [
+            236575,
+            236575
+          ],
+          "attempts": 2
+        }
+      ],
+      "correction_event": 214
+    },
+    {
+      "name": "REWORK disabled new ordinary and clinical requests both refuse after historical recovery",
+      "status": "PASS",
+      "connections": 2,
+      "outputs": [
+        {
+          "value": {
+            "rejected": "UserError",
+            "code": "lot_disabled"
+          },
+          "backend_pid": 236575,
+          "retry_backend_pids": [
+            236575
+          ],
+          "attempts": 1
+        },
+        {
+          "value": {
+            "rejected": "UserError",
+            "code": "lot_disabled"
+          },
+          "backend_pid": 236549,
+          "retry_backend_pids": [
+            236549
+          ],
+          "attempts": 1
+        }
+      ]
+    }
+  ],
+  "started_utc": "2026-10-12T09:42:59.824770+00:00",
+  "tested_commit": "2535699fdef27219dcc584a509a84d372a64bc26",
+  "native_rollback": {
+    "status": "PASS",
+    "quantity_before": 3.0,
+    "quantity_after": 3.0,
+    "no_half_native_moves": true,
+    "no_half_audit": true
+  },
+  "invariants": {
+    "recovery_evidence_mismatch": 0,
+    "negative_internal_quant": 0,
+    "duplicate_source": 0,
+    "half_event": 0,
+    "event_move_quantity_mismatch": 0,
+    "movement_audit_mismatch": 0,
+    "quant_move_reconciliation": 0,
+    "wrong_quant_store": 0,
+    "event_count": 35,
+    "ledger_signatures": {
+      "event": "bd859155488509f179a47193f655a2dd4d7371e848991aaea9a19ed63c6d201d",
+      "batch": "31e51acc377f260d4ec5fed7326acf2e2c0138c3ea83be0827090475f4e66647",
+      "move": "17c81f21f8bf8fc30c26bf9ee359b38fce2e164e9e81c6b6213fb6fd9aa52b2f",
+      "move_line": "b8cb24919a9008dfaee1a031639448bc00025d5b9ed9417c55c426aa89684db8",
+      "quant": "9335710f088ad2375792728eeb917107c1c08e6303ca6cf4462b1515a0a0b93a"
+    },
+    "tested_commit": "2535699fdef27219dcc584a509a84d372a64bc26",
+    "status": "PASS",
+    "database": "ydental_s07_test_20261012093945_d0775cbf",
+    "time_utc": "2026-10-12T09:43:16.810342+00:00"
+  },
+  "result": "PASS",
+  "deadlocks": 0
+}

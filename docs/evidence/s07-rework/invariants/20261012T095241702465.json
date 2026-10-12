@@ -1,0 +1,22 @@
+{
+  "recovery_evidence_mismatch": 0,
+  "negative_internal_quant": 0,
+  "duplicate_source": 0,
+  "half_event": 0,
+  "event_move_quantity_mismatch": 0,
+  "movement_audit_mismatch": 0,
+  "quant_move_reconciliation": 0,
+  "wrong_quant_store": 0,
+  "event_count": 46,
+  "ledger_signatures": {
+    "event": "51ec3f53ce64239d6b5d0be75e22a93a66da12bd74c9b480014f3d21fdd20935",
+    "batch": "d16ac948d3c98eaaa925c525a1d539040047a76cdc11a6d58a31f82de37f1746",
+    "move": "47191090b8e090896edb72fa623cf60d4d5854a1279fa37fa50bb8c7ed62d2ef",
+    "move_line": "31fb12af15c05e8fef56ad64fe1b3c0cc7cfc9edf737440134d4c4efc69e425d",
+    "quant": "2f906277078ebdc88017fff16e7391c87f1e395f762759b9110883ad83004304"
+  },
+  "tested_commit": "12730d0f69ddbbd4e21c5df76e0bc9e0c0480061",
+  "status": "PASS",
+  "database": "ydental_s07_test_20261012094527_bbbbcece",
+  "time_utc": "2026-10-12T09:52:41.702313+00:00"
+}

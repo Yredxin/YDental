@@ -1,0 +1,153 @@
+{
+  "result": "PASS",
+  "test": "12730d0f69ddbbd4e21c5df76e0bc9e0c0480061",
+  "reviewer": "Codex; individually opened all 24 images with view_image",
+  "review_utc": "2026-10-12T09:52:33.646134+00:00",
+  "inspected_screenshots": [
+    {
+      "path": "docs/evidence/s07-rework/browser-attempts/20261012T095043967041/01-chinese-stock-ten.png",
+      "sha256": "0702f651268e7ea7c290630220a4ddee58bd993245194e92003cea3cd9c9d6f6",
+      "visual_result": "PASS",
+      "synthetic_only": true
+    },
+    {
+      "path": "docs/evidence/s07-rework/browser-attempts/20261012T095043967041/02-physical-return-quarantine.png",
+      "sha256": "598f96b09c512569cd136cec9453c9659b4c36f36b7267dd427705cddea75f96",
+      "visual_result": "PASS",
+      "synthetic_only": true
+    },
+    {
+      "path": "docs/evidence/s07-rework/browser-attempts/20261012T095043967041/03-verified-return-eight.png",
+      "sha256": "4da8ba33a50ec1c346a387a8f7b831843cf7db755243ad06a3efb89208d0400d",
+      "visual_result": "PASS",
+      "synthetic_only": true
+    },
+    {
+      "path": "docs/evidence/s07-rework/browser-attempts/20261012T095043967041/04-disabled-server-rejection.png",
+      "sha256": "2203ce093b1dee850dfb33b927e6edaeed1839aef1a33671a7530e8ba80e4dfc",
+      "visual_result": "PASS",
+      "synthetic_only": true
+    },
+    {
+      "path": "docs/evidence/s07-rework/browser-attempts/20261012T095043967041/05-pending-original-responsible.png",
+      "sha256": "98dbe9e77cafd52cfbb85494a29f85795b12338691983f470b4649c349832118",
+      "visual_result": "PASS",
+      "synthetic_only": true
+    },
+    {
+      "path": "docs/evidence/s07-rework/browser-attempts/20261012T095043967041/06-original-event-recovered.png",
+      "sha256": "22cf96f9f87fc7712bedd82858ad683653459159aa3e077ea91d4593ef6ce92b",
+      "visual_result": "PASS",
+      "synthetic_only": true
+    },
+    {
+      "path": "docs/evidence/s07-rework/browser-attempts/20261012T095043967041/11-historical-expired.png",
+      "sha256": "674fbddb62fad75ae3e645ef0a70e75c88dd0c6c78a81ec9363a67ceb34a95f7",
+      "visual_result": "PASS",
+      "synthetic_only": true
+    },
+    {
+      "path": "docs/evidence/s07-rework/browser-attempts/20261012T095043967041/11-historical-disabled.png",
+      "sha256": "c2f9cb4fb6bf32d59e2a0bba1e5a2e95e92304f97cf7c524d5b0f949d7fafb27",
+      "visual_result": "PASS",
+      "synthetic_only": true
+    },
+    {
+      "path": "docs/evidence/s07-rework/browser-attempts/20261012T095043967041/07-readonly-workbench.png",
+      "sha256": "0ba8f1db000c3b4011080c1401a6fb08e638f69f66a6a281bd0742d8e9f7f1de",
+      "visual_result": "PASS",
+      "synthetic_only": true
+    },
+    {
+      "path": "docs/evidence/s07-rework/browser-attempts/20261012T095043967041/08-master-data-authority.png",
+      "sha256": "a39365c719f62be0c51eb853cd5a54ed3b9bc1d97842d77d69ec593269b1ad99",
+      "visual_result": "PASS",
+      "synthetic_only": true
+    },
+    {
+      "path": "docs/evidence/s07-rework/browser-attempts/20261012T095043967041/09-scan-failclosed.png",
+      "sha256": "7712725bffa79a971a020c3b45e62399f626203059dc8a37f44c2eea8e7ad698",
+      "visual_result": "PASS",
+      "synthetic_only": true
+    },
+    {
+      "path": "docs/evidence/s07-rework/browser-attempts/20261012T095043967041/10-prosthesis-receipt-alert.png",
+      "sha256": "8281466887a39d27d7d5ac0eddbe55702bafcac21d89f71cf32a213ea87a7842",
+      "visual_result": "PASS",
+      "synthetic_only": true
+    },
+    {
+      "path": "docs/evidence/s07-rework/browser-attempts/20261012T095043967359/01-chinese-stock-ten.png",
+      "sha256": "a3a26d5e8e314a8e6818a5f84f7edf1718152c5fc046d9bbcb762eb89bde2151",
+      "visual_result": "PASS",
+      "synthetic_only": true
+    },
+    {
+      "path": "docs/evidence/s07-rework/browser-attempts/20261012T095043967359/02-physical-return-quarantine.png",
+      "sha256": "f991823b0652561a7774e89b951471775cf83e4172a31760e9e4643d0920a86d",
+      "visual_result": "PASS",
+      "synthetic_only": true
+    },
+    {
+      "path": "docs/evidence/s07-rework/browser-attempts/20261012T095043967359/03-verified-return-eight.png",
+      "sha256": "48aedcae3fee624b5063164ecd179c071cb81fe39c45b4ac8916459f31637980",
+      "visual_result": "PASS",
+      "synthetic_only": true
+    },
+    {
+      "path": "docs/evidence/s07-rework/browser-attempts/20261012T095043967359/04-disabled-server-rejection.png",
+      "sha256": "2203ce093b1dee850dfb33b927e6edaeed1839aef1a33671a7530e8ba80e4dfc",
+      "visual_result": "PASS",
+      "synthetic_only": true
+    },
+    {
+      "path": "docs/evidence/s07-rework/browser-attempts/20261012T095043967359/05-pending-original-responsible.png",
+      "sha256": "4513f87da76a931d4dd5baa4c2ecc58334ddd08c757081a536810cd1d9997fc8",
+      "visual_result": "PASS",
+      "synthetic_only": true
+    },
+    {
+      "path": "docs/evidence/s07-rework/browser-attempts/20261012T095043967359/06-original-event-recovered.png",
+      "sha256": "b400fc9987714b143ad3882e643f37f8c3d25018716effbbad5dd4bce6815e31",
+      "visual_result": "PASS",
+      "synthetic_only": true
+    },
+    {
+      "path": "docs/evidence/s07-rework/browser-attempts/20261012T095043967359/11-historical-expired.png",
+      "sha256": "1061b8095ab957c7245aec445d5f6a480077ab72f762ad11c831c944e0308c28",
+      "visual_result": "PASS",
+      "synthetic_only": true
+    },
+    {
+      "path": "docs/evidence/s07-rework/browser-attempts/20261012T095043967359/11-historical-disabled.png",
+      "sha256": "9bebf0cc1a066fd450874f1fad15ce46f5c1a3255f933903859df4b13696a358",
+      "visual_result": "PASS",
+      "synthetic_only": true
+    },
+    {
+      "path": "docs/evidence/s07-rework/browser-attempts/20261012T095043967359/07-readonly-workbench.png",
+      "sha256": "dcb5f68f4e901bf575af1bcaf6b7b812f74a39a2b55f99fb90eb07f3386cfe64",
+      "visual_result": "PASS",
+      "synthetic_only": true
+    },
+    {
+      "path": "docs/evidence/s07-rework/browser-attempts/20261012T095043967359/08-master-data-authority.png",
+      "sha256": "da1a336f4d9d42023e068fd56d89d919e1d3bd71385c476a79acabbd2f72c433",
+      "visual_result": "PASS",
+      "synthetic_only": true
+    },
+    {
+      "path": "docs/evidence/s07-rework/browser-attempts/20261012T095043967359/09-scan-failclosed.png",
+      "sha256": "7712725bffa79a971a020c3b45e62399f626203059dc8a37f44c2eea8e7ad698",
+      "visual_result": "PASS",
+      "synthetic_only": true
+    },
+    {
+      "path": "docs/evidence/s07-rework/browser-attempts/20261012T095043967359/10-prosthesis-receipt-alert.png",
+      "sha256": "80389cf08d8244a3e09ca89e0e7a2db7ec65e3febb70a712e2eff0d8c875c945",
+      "visual_result": "PASS",
+      "synthetic_only": true
+    }
+  ],
+  "observations": "Chinese stock 10/7/8, quarantine1, refused disabled issue, original pending/responsible to same done event, expired/disabled history done, reader sees physical3/issuable0 and original flags; group-only catalog, scan unsupported, prosthesis receipt/collection; no credentials or real patient data visible."
+}
