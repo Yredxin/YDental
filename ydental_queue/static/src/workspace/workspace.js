@@ -35,7 +35,7 @@ if (workspace) {
                 resultNode.textContent = result.error || workspace.querySelector('#expired-message').textContent;
                 return;
             }
-            if (['enter', 'switch', 'takeover_verify', 'handover_verify_hold', 'business', 'screen_create', 'screen_revoke'].includes(operation)) {
+            if (['enter', 'switch', 'takeover_verify', 'handover_verify_hold'].includes(operation)) {
                 sessionStorage.setItem(storageKey, JSON.stringify(result));
             } else if (operation === 'exit') {
                 sessionStorage.removeItem(storageKey);
@@ -77,7 +77,7 @@ if (workspace) {
             for (const [name, value] of new FormData(form)) {
                 extra[name] = name.endsWith('_id') || name === 'version' ? Number(value) : value;
             }
-            if (['restore', 'takeover_verify', 'handover_verify_hold', 'business', 'screen_create', 'screen_revoke'].includes(operation)) {
+            if (['restore', 'takeover_verify', 'handover_verify_hold'].includes(operation)) {
                 extra.confirmed = form.querySelector('[name=confirmed]').checked;
             }
             action(operation, extra);
