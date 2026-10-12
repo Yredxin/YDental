@@ -280,6 +280,7 @@ class YDentalInventoryService(models.AbstractModel):
             'ydental_store_id': event.ydental_store_id.id, 'origin': 'YDental inventory event %s' % event.id,
             'is_inventory': event.ydental_kind == 'inventory'})
         move._action_confirm(merge=False, create_proc=False)
+        move._do_unreserve()
         self._native('stock.move.line').with_company(event.ydental_store_id.company_id).create({'move_id': move.id,
             'product_id': lot.product_id.id, 'uom_id': lot.product_id.uom_id.id, 'quantity': event.ydental_quantity,
             'lot_id': lot.id, 'location_id': source.id, 'location_dest_id': target.id,
