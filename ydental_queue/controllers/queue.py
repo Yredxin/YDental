@@ -61,7 +61,7 @@ class YDentalQueue(http.Controller):
             if execution.state != 'verify' and not (hold and hold.state == 'verify' and hold.ydental_execution_id == execution):
                 continue
             station = execution.ydental_lease_id.ydental_station_id
-            entry = queue._model('entry').search([('ydental_task_id', '=', execution.ydental_task_id.id)], limit=1)
+            entry = queue._execution_entry(execution)
             if not queue._service_eligibility(entry, station):
                 verifications.append({'execution': execution, 'station': station,
                     'operation': 'takeover_verify' if execution.state == 'verify' else 'handover_verify_hold'})
@@ -73,7 +73,9 @@ class YDentalQueue(http.Controller):
         can_call = bool(own and not queue._busy(own) and not actor_execution and own.ydental_station_id.ydental_queue_area_id.ydental_missed_limit > 0)
         if own and own.ydental_station_id.ydental_queue_area_id.ydental_missed_limit <= 0:
             config_hint = request.env._('configuration_required: Publish an explicit positive missed-call displacement.')
-        return request.render('ydental_queue.ydental_queue_page', {'store': store, 'status': queue._status(),
+        areas = queue.env['ydental.space.area'].sudo().search([('ydental_store_id', '=', store.id), ('ydental_reporting', '=', True)])
+        business_rows = [{'area': a, 'business': queue.env['ydental.supply.service']._business_record(store, a.id)} for a in areas]
+        return request.render('ydental_queue.ydental_queue_page' , {'store': store, 'status': queue._status(),
             'revision': access._scope().ydental_revision, 'stations': station_rows, 'rows': waiting_rows,
             'own': own, 'shift_hint': queue._shift_hint(own), 'config_hint': config_hint,
             'can_write': any(levels[c] == 'write' for c in ('medical', 'exam', 'pharmacy')),
@@ -87,6 +89,8 @@ class YDentalQueue(http.Controller):
                                       task.ydental_mapping_id.ydental_catalog_id.ydental_kind in ('exam', 'medicine'))),
             'pending_tasks': queue.env['ydental.intake.task'].sudo().search([
                 ('ydental_store_id', '=', store.id), ('state', 'in', ('pending', 'accepted'))]),
+            'business_rows': business_rows, 'can_capacity': levels['capacity'] == 'write',
+            'screen_credentials': queue._model('screen.token').search([('ydental_store_id', '=', store.id)]) if levels['capacity'] == 'write' else [],
             'permits': queue._model('append.permit').search([('ydental_store_id', '=', store.id), ('state', 'in', ('active', 'started'))])}, headers=[('Cache-Control', 'no-store')])
 
     @http.route('/ydental/queue/action', type='http', auth='user', methods=['POST'], max_content_length=16384)
@@ -96,7 +100,10 @@ class YDentalQueue(http.Controller):
             args = json.loads(payload)
             if not isinstance(args, dict):
                 raise ValidationError(request.env._('Action arguments must be an object.'))
-            result = queue._operate(operation, args)
+            if operation == 'business':
+                result = queue.env['ydental.supply.service']._operate('business', args, __import__('secrets').token_hex(16))
+            else:
+                result = queue._operate(operation, args)
             return request.make_json_response(result, status=409 if result['result'] == 'connection_expired' else 200,
                 headers=[('Cache-Control', 'no-store')])
         except (AccessError, UserError, ValueError, TypeError, KeyError) as error:

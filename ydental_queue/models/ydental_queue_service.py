@@ -142,7 +142,7 @@ class YDentalQueueService(models.AbstractModel):
                 self._restore_call(entry)
             executions = self._model('execution').search([('ydental_lease_id', '=', lease.id), ('state', '=', 'serving')])
             executions._save({'state': 'verify'})
-            self._model('entry').search([('ydental_task_id', 'in', executions.ydental_task_id.ids)])._save({'state': 'verify'})
+            self._model('entry').search([('ydental_task_id', 'in', executions.ydental_task_id.ids), ('state', '=', 'serving')])._save({'state': 'verify'})
             lease._save({'ydental_active': False, 'ydental_release_reason': 'timeout'})
             # Both scheduler and request-triggered expiration are automation,
             # never an action by the unrelated user whose request found it.
@@ -351,7 +351,8 @@ class YDentalQueueService(models.AbstractModel):
         if count <= 0:
             raise UserError(self.env._('configuration_required: Publish an explicit positive missed-call displacement.'))
         task = entry.ydental_task_id
-        task._save({'ydental_missed_count': task.ydental_missed_count + 1})
+        entry._save({'ydental_missed_count': entry.ydental_missed_count + 1})
+        task._save({'ydental_missed_count': entry.ydental_missed_count})
         # Move from the call's effective regional rank, not from the queue head.
         # Retain other live calls as anchors, including other capabilities.
         ordered = list(self._ranked_area(entry.ydental_area_id.id))

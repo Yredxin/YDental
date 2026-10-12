@@ -24,6 +24,25 @@
                         <button type="button" data-operation="exit">Exit / rest / logout workstation</button>
                     </t>
                 </div>
+                <span hidden="hidden" id="screen-open-message">Open this read-only area screen</span>
+                <section id="business-management">
+                    <h2>Local business day and area reception</h2>
+                    <div t-foreach="business_rows" t-as="b" t-att-data-business-area="b['area'].id">
+                        <strong t-out="b['area'].name"/> / <span class="business-state" t-out="b['business'].state if b['business'] else 'closed'"/>
+                        <t t-if="can_capacity">
+                            <form data-queue-form="business">
+                                <input type="hidden" name="area_id" t-att-value="b['area'].id"/>
+                                <input t-if="b['business']" type="hidden" name="version" t-att-value="b['business'].ydental_version"/>
+                                <select name="state"><option value="open">Open / reopen</option><option value="draining">Stop ordinary reporting</option><option value="closed">Close after clearing waiting and calling</option></select>
+                                <label>Business reason <input name="reason" required="required" maxlength="300"/></label><button type="submit">Apply area business state</button>
+                            </form>
+                            <form data-queue-form="screen_create"><input type="hidden" name="area_id" t-att-value="b['area'].id"/><button type="submit">Create read-only screen credential</button></form>
+                        </t>
+                    </div>
+                    <form t-foreach="screen_credentials" t-as="credential" t-if="credential.state == 'active'" data-queue-form="screen_revoke">
+                        <span t-out="credential.ydental_area_id.name"/><input type="hidden" name="credential_id" t-att-value="credential.id"/><button type="submit">Revoke screen credential</button>
+                    </form>
+                </section>
                 <section id="patient-return-actions">
                     <div t-if="execution and own and can_write" t-att-data-execution="execution.id">
                         <h2>Current execution segment</h2>
@@ -88,7 +107,7 @@
                     <tbody><tr t-foreach="rows" t-as="row" t-att-data-entry="row['entry'].id" t-att-data-task="row['entry'].ydental_task_id.id">
                         <t t-set="entry" t-value="row['entry']"/>
                         <td><t t-out="entry.ydental_number"/> / <t t-out="entry.ydental_task_id.id"/></td>
-                        <td><t t-out="entry.ydental_area_id.name"/> / <t t-out="entry.ydental_capability_id.name"/></td><td class="queue-state" t-out="entry.state"/><td class="queue-missed" t-out="entry.ydental_task_id.ydental_missed_count"/>
+                        <td><t t-out="entry.ydental_area_id.name"/> / <t t-out="entry.ydental_capability_id.name"/></td><td class="queue-state" t-out="entry.state"/><td class="queue-missed" t-out="entry.ydental_missed_count"/>
                         <td><t t-if="entry.ydental_return and not entry.ydental_opportunity_used">Unused return opportunity</t><t t-else="">Regular order</t></td>
                         <td><span t-out="row['reason']"/><t t-if="can_write and own and entry.state == 'calling' and entry.ydental_lease_id == own">
                             <button type="button" data-operation="missed" t-att-data-entry="entry.id">Record real missed call</button>
@@ -96,8 +115,18 @@
                         </t></td>
                     </tr></tbody>
                 </table>
-                <p>Production heartbeat, timeout and missed displacement require explicit approval. Real treatment documents, dispensing, day close and push delivery are not enabled.</p>
+                <p>Production heartbeat, timeout and missed displacement require explicit approval. Real treatment documents and dispensing are not enabled. Queue changes are committed before minimal version notifications.</p>
             </main>
         </t>
+    </template>
+    <template id="ydental_queue_screen" name="Read-only area queue screen">
+        <t t-set="head"><meta name="viewport" content="width=device-width, initial-scale=1"/><script type="module" src="/ydental_queue/static/src/screen/screen.js"/></t>
+        <t t-call="web.layout" head="head"><main class="container py-4 o_ydental_queue_screen">
+            <h1>Area queue screen</h1><p><span data-day=""/> / <span data-business=""/></p>
+            <span hidden="hidden" data-label-open="">Open</span><span hidden="hidden" data-label-draining="">Ordinary reporting stopped</span><span hidden="hidden" data-label-closed="">Ordinary calling stopped</span>
+            <span hidden="hidden" data-unavailable="">Screen unavailable or credential revoked. No call is confirmed.</span>
+            <p role="status" data-status=""/><label><input type="checkbox" data-voice=""/> Enable call voice</label>
+            <table class="table"><thead><tr><th>Queue number</th><th>Masked name</th><th>Current state</th><th>Actual calling workstation</th></tr></thead><tbody/></table>
+        </main></t>
     </template>
 </odoo>

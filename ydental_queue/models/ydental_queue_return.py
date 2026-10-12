@@ -125,7 +125,7 @@ class YDentalQueueService(models.AbstractModel):
         if not valid or execution.ydental_lease_id.ydental_active:
             raise UserError(self.env._('version_conflict: This verification was already handled or is not ready.'))
         station, member, category = self._station(execution.ydental_lease_id.ydental_station_id.id)
-        entry = self._model('entry').search([('ydental_task_id', '=', execution.ydental_task_id.id)], limit=1)
+        entry = self._execution_entry(execution)
         failure = self._service_eligibility(entry, station)
         if failure:
             raise AccessError(failure)
@@ -153,7 +153,7 @@ class YDentalQueueService(models.AbstractModel):
             'ydental_task_id': execution.ydental_task_id.id, 'ydental_resumed_from_id': execution.id,
             'ydental_service_snapshot': execution.ydental_service_snapshot, 'ydental_lease_id': lease['lease_id'],
             'ydental_started_at': self._now()})
-        self._model('entry').search([('ydental_task_id', '=', execution.ydental_task_id.id)])._save({'state': 'serving'})
+        self._execution_entry(execution)._save({'state': 'serving'})
         self._audit('onsite_takeover', resumed, {'old_execution_id': execution.id,
             'old_lease_id': execution.ydental_lease_id.id, 'new_lease_id': lease['lease_id'], 'reason': reason})
         return dict(lease, execution_id=resumed.id, state='serving')
@@ -193,7 +193,7 @@ class YDentalQueueService(models.AbstractModel):
         execution.flush_recordset(['state'])
         task = execution.ydental_task_id
         task._save({'state': 'suspended' if terminal == 'reserved' else 'handed_over'})
-        self._model('entry').search([('ydental_task_id', '=', task.id)])._save({'state': terminal})
+        self._execution_entry(execution)._save({'state': terminal})
         self._model('append.permit').search([('ydental_task_id', '=', task.id), ('state', '=', 'started')])._save({'state': 'ended'})
 
     def _reserve(self, lease_id, token, execution_id, target_task_id):
@@ -244,7 +244,7 @@ class YDentalQueueService(models.AbstractModel):
             return {'hold_id': hold.id, 'execution_id': resumed.id, 'state': resumed.state}
         if hold.state != 'active' or self._unresolved_execution(hold.ydental_patient_id.id):
             raise UserError(self.env._('handover_required: Another actual execution or on-site verification prevents return.'))
-        entry = self._model('entry').search([('ydental_task_id', '=', hold.ydental_task_id.id)], limit=1)
+        entry = self._execution_entry(hold.ydental_execution_id)
         if hold.ydental_execution_id.ydental_service_snapshot != self._service_snapshot(hold.ydental_task_id):
             raise UserError(self.env._('version_conflict: The original service requirements changed; review the source.'))
         reason = self._service_eligibility(entry, lease.ydental_station_id)
@@ -336,6 +336,9 @@ class YDentalQueueService(models.AbstractModel):
             raise UserError(self.env._('handover_required: Resolve the existing reservation or execution first.'))
         if self._permit_valid(task):
             return {'result': 'already_accepted', 'permit_id': self._active_permit(task).id}
+        expired = self._active_permit(task)
+        if expired and expired.ydental_business_date < self.env['ydental.supply.service']._date(store):
+            expired._save({'state': 'expired'})
         if self._active_permit(task):
             raise UserError(self.env._('append_required: Review the expired or changed permit before a new business-day qualification.'))
         mapping = intake._target(task.ydental_mapping_id.id, store)

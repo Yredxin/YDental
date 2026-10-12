@@ -43,6 +43,6 @@ class YDentalQueueAppendPermit(models.Model):
     ydental_revoked_at = fields.Datetime()
     ydental_revoke_reason = fields.Char()
     state = fields.Selection([('active', 'Authorized for this segment'), ('started', 'Actual execution started'),
-                              ('ended', 'Segment ended'), ('revoked', 'Permit revoked')], required=True, default='active')
+                              ('ended', 'Segment ended'), ('expired', 'Business day permit expired'), ('revoked', 'Permit revoked')], required=True, default='active')
 
     _one_task = models.UniqueIndex("(ydental_task_id) WHERE state IN ('active', 'started')")

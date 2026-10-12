@@ -17,7 +17,7 @@ if (workspace) {
         sessionStorage.removeItem(storageKey);
     }
     async function action(operation, extra = {}, quiet = false) {
-        const reception = ['enter', 'append', 'revoke', 'query_return', 'report', 'takeover_verify', 'handover_verify_hold'].includes(operation);
+        const reception = ['enter', 'append', 'revoke', 'query_return', 'report', 'takeover_verify', 'handover_verify_hold', 'business', 'screen_create', 'screen_revoke'].includes(operation);
         const payload = reception ? extra : {...extra, lease_id: holder?.lease_id, token: holder?.token};
         try {
             const response = await fetch(operation === 'report' ? '/ydental/intake/action' : '/ydental/queue/action', {
@@ -35,10 +35,17 @@ if (workspace) {
                 resultNode.textContent = result.error || workspace.querySelector('#expired-message').textContent;
                 return;
             }
-            if (['enter', 'switch', 'takeover_verify', 'handover_verify_hold'].includes(operation)) {
+            if (['enter', 'switch', 'takeover_verify', 'handover_verify_hold', 'business', 'screen_create', 'screen_revoke'].includes(operation)) {
                 sessionStorage.setItem(storageKey, JSON.stringify(result));
             } else if (operation === 'exit') {
                 sessionStorage.removeItem(storageKey);
+            }
+            if (operation === 'screen_create') {
+                const link = document.createElement('a');
+                link.href = '/ydental/queue/screen#token=' + encodeURIComponent(result.token);
+                link.textContent = workspace.querySelector('#screen-open-message').textContent;
+                resultNode.replaceChildren(link);
+                return;
             }
             if (operation === 'query_return') {
                 resultNode.textContent = [result.message, result.area, result.station].filter(Boolean).join(' / ');
@@ -61,7 +68,7 @@ if (workspace) {
     }
     for (const form of workspace.querySelectorAll('[data-queue-form]')) {
         const operation = form.dataset.queueForm;
-        if (!['append', 'revoke', 'query_return', 'report', 'takeover_verify', 'handover_verify_hold'].includes(operation) && !holder) {
+        if (!['append', 'revoke', 'query_return', 'report', 'takeover_verify', 'handover_verify_hold', 'business', 'screen_create', 'screen_revoke'].includes(operation) && !holder) {
             form.querySelector('button').disabled = true;
         }
         form.addEventListener('submit', (event) => {
@@ -70,7 +77,7 @@ if (workspace) {
             for (const [name, value] of new FormData(form)) {
                 extra[name] = name.endsWith('_id') || name === 'version' ? Number(value) : value;
             }
-            if (['restore', 'takeover_verify', 'handover_verify_hold'].includes(operation)) {
+            if (['restore', 'takeover_verify', 'handover_verify_hold', 'business', 'screen_create', 'screen_revoke'].includes(operation)) {
                 extra.confirmed = form.querySelector('[name=confirmed]').checked;
             }
             action(operation, extra);

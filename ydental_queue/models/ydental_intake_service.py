@@ -25,6 +25,24 @@ class YDentalIntakeService(models.AbstractModel):
         reason = self.env['ydental.queue.service']._hold_target_reason(task)
         if reason:
             raise UserError(reason)
+        start = self.env.context.get('ydental_queue_start')
+        queue = self.env['ydental.queue.service']
+        if type(start) is StartPermit and (start.actor_id, start.task_id) == (self.env.uid, task.id):
+            self._authorize_downstream('start', {'task_id': task.id})
+            entry = queue._model('entry').search([('ydental_task_id', '=', task.id), ('state', '=', 'calling'),
+                ('ydental_lease_id', '=', start.lease_id)], limit=1)
+            if not entry or queue._queue_day_expired(entry):
+                raise UserError(self.env._('day_closed: This business-day queue segment is terminal.'))
+            patient = self.env['ydental.patient.service']._business_patient(task.ydental_patient_id.id)
+            if task.ydental_patient_id != patient:
+                raise UserError(self.env._('version_conflict: Refresh the canonical task identity.'))
+            self.env['ydental.patient.service']._current_relation(patient, store)
+            self._target(task.ydental_mapping_id.id, store)
+            if task.ydental_entitlement_id and (task.ydental_entitlement_id.state != 'held' or
+                    task.ydental_entitlement_id.ydental_claim_id.state != 'held' or
+                    task.ydental_entitlement_id.ydental_claim_id.ydental_slot_id.state != 'published'):
+                raise UserError(self.env._('qualification_required: Review the original held qualification.'))
+            return patient
         service = self.with_context(ydental_queue_admission=Admission(self.env.uid, task.id))
         patient = super(YDentalIntakeService, service)._valid_task(task, store)
         if task.ydental_continuation_snapshot and task.ydental_continuation_snapshot != self.env['ydental.queue.service']._service_snapshot(task):
@@ -62,13 +80,16 @@ class YDentalIntakeService(models.AbstractModel):
             # Target validation already succeeded. Withdraw under this savepoint
             # before inserting the new unique patient position; failure rolls back.
             self._queue_void(previous, 'Successful explicit task switch')
-        entry = queue._model('entry').search([('ydental_task_id', '=', task.id)], limit=1)
+        date = self.env['ydental.supply.service']._date(task.ydental_store_id)
+        entry = queue._model('entry').search([('ydental_task_id', '=', task.id), ('ydental_business_date', '=', date)], limit=1)
+        if entry and entry.state == 'day_closed':
+            raise UserError(self.env._('day_closed: This business-day queue segment is terminal.'))
         if entry:
             # A durable task retains its rank, date, return classification and
             # genuine missed count through re-report/area-switch-away-and-back.
             entry._save({'state': 'waiting', 'ydental_lease_id': False})
         else:
-            date = self.env['ydental.supply.service']._date(task.ydental_store_id)
+            task._save({'ydental_missed_count': 0, 'ydental_queue_opportunity_used': False})
             returned = bool(queue._model('entry').search_count([
                 ('ydental_patient_id', '=', task.ydental_patient_id.id),
                 ('ydental_store_id', '=', task.ydental_store_id.id), ('ydental_business_date', '=', date),
@@ -82,7 +103,7 @@ class YDentalIntakeService(models.AbstractModel):
                 'ydental_business_date': date, 'ydental_timezone': task.ydental_store_id.ydental_timezone,
                 'ydental_reported_at': queue._now(), 'ydental_number': (mapping.ydental_area_id.ydental_prefix or '') + number,
                 'ydental_order': int(number) * 1000, 'ydental_return': returned,
-                'ydental_opportunity_used': task.ydental_queue_opportunity_used})
+                'ydental_opportunity_used': False})
         queue._audit('report', entry, {'task_id': task.id, 'return_opportunity': entry.ydental_return})
         return {'queue_id': entry.id, 'queue_status': 'waiting', 'queue_contract': 's06_real_queue'}
 

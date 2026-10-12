@@ -8,7 +8,7 @@ from odoo.exceptions import AccessError, UserError
 
 
 def guard(env):
-    if not re.fullmatch(r'ydental_s06[ab]_test_[0-9]{14}_[a-f0-9]{8}', env.cr.dbname) or not os.environ.get('YDENTAL_S06' + ('B' if env.cr.dbname.startswith('ydental_s06b_') else 'A') + '_RUN_DIR'):
+    if not re.fullmatch(r'ydental_s06[abc]_test_[0-9]{14}_[a-f0-9]{8}', env.cr.dbname) or not os.environ.get('YDENTAL_S06' + env.cr.dbname[len('ydental_s06')].upper() + '_RUN_DIR'):
         raise AccessError('S06-A synthetic adapter refused outside the isolated validation run.')
 
 
