@@ -300,7 +300,7 @@ def bus_check(q):
     assert versions and set(versions)==set(committed)
     return {'messages':len(versions),'minimal_payload':True,'outbox_exact':True}
 result['bus']=fresh(bus_check)
-result.update(result='PASS',deadlocks=0);save_attempt();print(json.dumps({'result':'PASS','races':len(result['races']),'deadlocks':0}))
+result.update(deadlocks=0)
 # Separate immutable browser fixtures; all credentials remain in the private run.
 from odoo.addons.ydental_queue_test.tests.common import patient as make_patient
 from odoo.addons.ydental_queue_test.tests.return_common import serving as ui_serving, source as ui_source
@@ -316,18 +316,19 @@ with registry.cursor() as cr:
         f.group.env['ydental.patient.service']._operate('edit', {'patient_id':t2.ydental_patient_id.id,'version':t2.ydental_patient_id.ydental_version,'values':{'name':'李合成患者'}},key())
         q=f.group.env['ydental.queue.service']
         q._test_return_plan(__import__('odoo.addons.ydental_queue_test.models.return_adapter',fromlist=['ReturnPlan']).ReturnPlan(t1.id,0,True))
+        if kind=='midnight':
+            t3=accepted(f);t4=accepted(f)
         clock_id=q._test_day_clock(DaySource(f.stores[0].id,base_now if kind=='business' else base_now.replace(hour=23,minute=55,second=0)))
         c={'store':f.stores[0].id,'area':f.areas[0][0].id,'station':f.other_station.id,
             'source_station':f.stations[0][0].id,'task':t1.id,'pending':t2.id,'clock_id':clock_id,
             'day':str(base_now.date()),'manager':f.users['manager'].id,'entry':f.root['ydental.queue.entry'].search([('ydental_task_id','=',t1.id)]).id}
         if kind=='midnight':
             q0,lease,execution=ui_serving(f,station=f.stations[0][0],task=t1)
-            t3=accepted(f)
             q2=queue_bind(f,f.second);l2=q2._operate('enter',{'station_id':f.other_station.id});call=q2._operate('call',lease_args(l2))
             q0._test_return_plan(__import__('odoo.addons.ydental_queue_test.models.return_adapter',fromlist=['ReturnPlan']).ReturnPlan(t3.id,0,True))
             c.update(execution=execution.id,old_call=call['entry_id'],waiting_task=t3.id)
             # A third unstarted queue ensures both waiting and calling cleanup.
-            t4=accepted(f);c['waiting_task']=t4.id
+            c['waiting_task']=t4.id
         for role in ('manager','frontdesk','doctor','second'):
             user=f.second if role=='second' else f.users[role]
             user.password='s06c-ui-synthetic-only'
@@ -336,3 +337,5 @@ with registry.cursor() as cr:
         browser_cases[kind]=c
     cr.commit()
 private(run/'access-c.json',browser_access);private(run/'preview-c.json',browser_cases)
+
+result.update(result='PASS',deadlocks=0);save_attempt();print(json.dumps({'result':'PASS','races':len(result['races']),'deadlocks':0}))
