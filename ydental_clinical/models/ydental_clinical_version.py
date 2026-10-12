@@ -29,6 +29,8 @@ class YDentalClinicalVersion(models.Model):
     _request_unique = models.Constraint('UNIQUE(ydental_document_id, ydental_request_key)', 'A save request is unique.')
 
     def _source_domain(self, operation):
+        if operation == 'read':
+            self.env['ydental.clinical.service']._access()
         return super()._source_domain(operation) if operation == 'read' else fields.Domain.FALSE
 
     @api.model_create_multi

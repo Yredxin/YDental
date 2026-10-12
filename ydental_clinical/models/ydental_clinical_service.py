@@ -51,7 +51,10 @@ class YDentalClinicalService(models.AbstractModel):
                              before=before, after=after, reason=reason, source='clinical_document')
 
     def _access(self, write=False):
-        return self.env['ydental.access.service']._check('medical', 'write' if write else 'read', write=write).ydental_store_id
+        store = self.env['ydental.access.service']._check('medical', 'write' if write else 'read', write=write).ydental_store_id
+        if store.company_id not in self.env.user.sudo().company_ids:
+            raise AccessError(self.env._('access_denied: The current store company is outside this account\'s allowed companies.'))
+        return store
 
     def _document(self, document_id, write=False):
         store = self._access(write)

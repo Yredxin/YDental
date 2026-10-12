@@ -873,3 +873,12 @@ msgstr "version_conflict: 服务端已有更新临床版本，请刷新后再编
 #: code:addons/ydental_clinical/models/ydental_clinical_service.py:0
 msgid "version_conflict: This request key belongs to different content."
 msgstr "version_conflict: 此请求标识已用于不同内容。"
+
+#. module: ydental_clinical
+#. odoo-python
+#: code:addons/ydental_clinical/models/ydental_clinical_service.py:0
+#, python-format
+msgid ""
+"access_denied: The current store company is outside this account's allowed "
+"companies."
+msgstr "access_denied: 当前门店法人不在此账号允许的法人范围内。"

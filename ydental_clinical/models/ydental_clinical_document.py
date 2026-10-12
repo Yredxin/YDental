@@ -38,6 +38,7 @@ class YDentalClinicalDocument(models.Model):
     def _source_domain(self, operation):
         if operation != 'read':
             return fields.Domain.FALSE
+        self.env['ydental.clinical.service']._access()
         return super()._source_domain(operation)
 
     @api.model_create_multi
