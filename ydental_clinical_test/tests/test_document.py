@@ -126,12 +126,14 @@ class TestClinicalDocument(TransactionCase):
         session=s.env['ydental.access.service']._scope();session.sudo().write({'ydental_revision':session.ydental_revision+1})
         with self.assertRaises(UserError):s._operate('save',save_args(d))
 
-    def test_lost_company_access_invalidates_editor_and_new_store_selection(self):
+    def test_lost_company_access_invalidates_editor_actions_and_native_reads(self):
         s,q,l,e,d=opened(self)
         company=self.root['res.company'].create({'name':'S08A isolated synthetic legal entity '+key()})
         self.users['doctor'].write({'company_id':company.id,'company_ids':[fields.Command.set(company.ids)]})
         with self.assertRaises((AccessError,UserError)):s._operate('save',save_args(d))
-        with self.assertRaises(AccessError):bind(self,self.users['doctor'],self.stores[0])
+        rebound=bind(self,self.users['doctor'],self.stores[0]).env[s._name]
+        with self.assertRaises(AccessError):rebound._read(d['document_id'])
+        with self.assertRaises(AccessError):rebound.env['ydental.clinical.document'].browse(d['document_id']).read(['ydental_content'])
 
     def test_external_reserve_remains_fail_closed(self):
         s,q,l,e,d=opened(self)
