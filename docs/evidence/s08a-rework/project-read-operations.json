@@ -1,0 +1,120 @@
+{
+  "before_failed": [
+    {
+      "operation": "authenticated GraphQL query",
+      "query_sha256": "1f566573565d03d183d30ddac7020536a1e6b680065291227cc0b0f9dde47980",
+      "started_utc": "2026-10-12T13:05:31.209910+00:00",
+      "finished_utc": "2026-10-12T13:05:32.416224+00:00",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "operation": "authenticated GraphQL query",
+      "query_sha256": "9b207941908e6cdaa16a384777dfc5e10a4413e9ba88f835fec586e5001f56c2",
+      "started_utc": "2026-10-12T13:05:32.416274+00:00",
+      "finished_utc": "2026-10-12T13:05:38.899598+00:00",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "operation": "authenticated GraphQL query",
+      "query_sha256": "5fa124fd1ab86bb32d13f77716da4515b1a79687f5ecc75afd0dde9a302ea3ba",
+      "started_utc": "2026-10-12T13:05:38.899692+00:00",
+      "finished_utc": "2026-10-12T13:05:40.492534+00:00",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "operation": "authenticated GraphQL query",
+      "query_sha256": "157f021880dbdca59ef077d5ae2a97b857b1ab3d9a104662fde8c3460a3a098d",
+      "started_utc": "2026-10-12T13:05:40.492791+00:00",
+      "finished_utc": "2026-10-12T13:05:50.558884+00:00",
+      "exit_code": 1,
+      "status": "FAIL"
+    }
+  ],
+  "before_retry": [
+    {
+      "operation": "authenticated GraphQL query",
+      "query_sha256": "1f566573565d03d183d30ddac7020536a1e6b680065291227cc0b0f9dde47980",
+      "started_utc": "2026-10-12T13:07:09.366651+00:00",
+      "finished_utc": "2026-10-12T13:07:10.393917+00:00",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "operation": "authenticated GraphQL query",
+      "query_sha256": "9b207941908e6cdaa16a384777dfc5e10a4413e9ba88f835fec586e5001f56c2",
+      "started_utc": "2026-10-12T13:07:10.393963+00:00",
+      "finished_utc": "2026-10-12T13:07:11.840531+00:00",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "operation": "authenticated GraphQL query",
+      "query_sha256": "5fa124fd1ab86bb32d13f77716da4515b1a79687f5ecc75afd0dde9a302ea3ba",
+      "started_utc": "2026-10-12T13:07:11.840674+00:00",
+      "finished_utc": "2026-10-12T13:07:14.343270+00:00",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "operation": "authenticated GraphQL query",
+      "query_sha256": "157f021880dbdca59ef077d5ae2a97b857b1ab3d9a104662fde8c3460a3a098d",
+      "started_utc": "2026-10-12T13:07:14.343463+00:00",
+      "finished_utc": "2026-10-12T13:07:15.557190+00:00",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "operation": "authenticated GraphQL query",
+      "query_sha256": "1269fadd10e600cdf307abcc9dbcfb02296b66c0498484a381d7dd6cce57e52c",
+      "started_utc": "2026-10-12T13:07:15.557320+00:00",
+      "finished_utc": "2026-10-12T13:07:16.971889+00:00",
+      "exit_code": 0,
+      "status": "PASS"
+    }
+  ],
+  "after": [
+    {
+      "operation": "authenticated GraphQL query",
+      "query_sha256": "1f566573565d03d183d30ddac7020536a1e6b680065291227cc0b0f9dde47980",
+      "started_utc": "2026-10-12T13:09:21.476233+00:00",
+      "finished_utc": "2026-10-12T13:09:26.079808+00:00",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "operation": "authenticated GraphQL query",
+      "query_sha256": "9b207941908e6cdaa16a384777dfc5e10a4413e9ba88f835fec586e5001f56c2",
+      "started_utc": "2026-10-12T13:09:26.079851+00:00",
+      "finished_utc": "2026-10-12T13:09:27.538855+00:00",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "operation": "authenticated GraphQL query",
+      "query_sha256": "5fa124fd1ab86bb32d13f77716da4515b1a79687f5ecc75afd0dde9a302ea3ba",
+      "started_utc": "2026-10-12T13:09:27.538950+00:00",
+      "finished_utc": "2026-10-12T13:09:30.086298+00:00",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "operation": "authenticated GraphQL query",
+      "query_sha256": "157f021880dbdca59ef077d5ae2a97b857b1ab3d9a104662fde8c3460a3a098d",
+      "started_utc": "2026-10-12T13:09:30.086522+00:00",
+      "finished_utc": "2026-10-12T13:09:33.488018+00:00",
+      "exit_code": 0,
+      "status": "PASS"
+    },
+    {
+      "operation": "authenticated GraphQL query",
+      "query_sha256": "1269fadd10e600cdf307abcc9dbcfb02296b66c0498484a381d7dd6cce57e52c",
+      "started_utc": "2026-10-12T13:09:33.488125+00:00",
+      "finished_utc": "2026-10-12T13:09:34.984044+00:00",
+      "exit_code": 0,
+      "status": "PASS"
+    }
+  ]
+}

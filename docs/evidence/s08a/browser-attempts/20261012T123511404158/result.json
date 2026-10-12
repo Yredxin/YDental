@@ -1,0 +1,227 @@
+{
+  "scope": "S08-A real reception, teeth, authored text, handover and pending responsibility",
+  "database": "ydental_s08a_test_20261012123045_d399a600",
+  "tested_commit": "a0014c590e27ce1dc6812e36124b0bfa7282e22c",
+  "browser": "Firefox",
+  "sandbox": "default, no overrides",
+  "checks": [
+    {
+      "check": "real S06 chair entered",
+      "result": "PASS"
+    },
+    {
+      "check": "real S06 execution serving",
+      "result": "PASS"
+    },
+    {
+      "check": "Chinese real treatment workbench",
+      "result": "PASS"
+    },
+    {
+      "check": "patient and actual serving segment visible before document creation",
+      "result": "PASS"
+    },
+    {
+      "check": "existing S05 price source retains independent permission",
+      "result": "PASS"
+    },
+    {
+      "check": "original and recovery status messages remain Chinese",
+      "result": "PASS"
+    },
+    {
+      "check": "52 clickable permanent and primary teeth",
+      "result": "PASS"
+    },
+    {
+      "check": "three real server autosaves",
+      "result": "PASS"
+    },
+    {
+      "check": "anterior I enabled and O refused",
+      "result": "PASS"
+    },
+    {
+      "check": "primary posterior O enabled I refused",
+      "result": "PASS"
+    },
+    {
+      "check": "missing tooth cannot select surfaces",
+      "result": "PASS"
+    },
+    {
+      "check": "stale version server rejects",
+      "result": "PASS"
+    },
+    {
+      "check": "invalid FDI server rejects",
+      "result": "PASS"
+    },
+    {
+      "check": "D1 pending after real handover",
+      "result": "PASS"
+    },
+    {
+      "check": "pending document cannot handover again",
+      "result": "PASS"
+    },
+    {
+      "check": "D1 supplementation does not occupy a chair",
+      "result": "PASS"
+    },
+    {
+      "check": "one pending continuation offered",
+      "result": "PASS"
+    },
+    {
+      "check": "D2 new independent document",
+      "result": "PASS"
+    },
+    {
+      "check": "responsibility transfer refuses valid editor",
+      "result": "PASS"
+    },
+    {
+      "check": "D1 responsible person legally transferred",
+      "result": "PASS"
+    },
+    {
+      "check": "D1 text confirmed by new contributor",
+      "result": "PASS"
+    },
+    {
+      "check": "confirmed text correction appends version",
+      "result": "PASS"
+    },
+    {
+      "check": "D1 confirmation leaves D2 draft unconfirmed",
+      "result": "PASS"
+    },
+    {
+      "check": "D2 real segment continues serving",
+      "result": "PASS"
+    },
+    {
+      "check": "read-only medical user cannot edit",
+      "result": "PASS"
+    },
+    {
+      "check": "offline never claims success",
+      "result": "PASS"
+    },
+    {
+      "check": "reacquire cannot mark unsent local text saved",
+      "result": "PASS"
+    },
+    {
+      "check": "refresh restores committed server text",
+      "result": "PASS"
+    },
+    {
+      "check": "ordinary in-flight autosave permits clinical input",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T123511404158/01-permanent-anterior-autosave.png",
+      "sha256": "e983f5c1bde4c5c5eae6a13dfa91c13ddc27f074d1604fe6ed26f4e2e6bf9f10"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T123511404158/02-primary-missing-unknown.png",
+      "sha256": "faf9e78fda6d8a5648ae337fa0dea60b110001da1815d7c9bfaa86f384207e05"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T123511404158/03-structured-draft.png",
+      "sha256": "bc694cdc9e7e0e7b0f94e166d13a90c34cf5b34e174d4e2825a715404faac7ac"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T123511404158/04-D1-pending-after-handover.png",
+      "sha256": "ed0ec02362059fe6453b331a2d5aa8067af09d8e36b194f2bb30bd023ed6c2d8"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T123511404158/05-D1-pending-independent-editor.png",
+      "sha256": "4b7d11ce3964a4cf87725a0b5bc7e781844d6021ae24d4f3ae7af6c037fbd03f"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T123511404158/06-D2-new-reception.png",
+      "sha256": "2e07eba4cf7489e6008fc264410a2f2d1b5a263168dc6cc7a232e8aefed2ca55"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T123511404158/07-valid-editor-transfer-denied.png",
+      "sha256": "c3b2d7656d1efc1461fd6122dfaeb9708d9a0fb968f6b30baf5221469752ed2a"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T123511404158/08-D1-confirmed-author-history.png",
+      "sha256": "ab2da1dd0970ca62d6109ba12f8bf7207384308ffc970ae2da11846c888f6da0"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T123511404158/09-text-correction-new-version.png",
+      "sha256": "9b02f7dd6b3e1c36cc2da2d09aa1466bfe5d61a6e712ac3de8d385237eb93d44"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T123511404158/10-readonly-medical-denied.png",
+      "sha256": "dfabbeafd373192a8f11f072bff60bc38fb82085f889a3765cbdbcdf7d769809"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T123511404158/11-offline-unsynchronized.png",
+      "sha256": "4cdfb92ecce4666cd6e9ed38d83f9d1c800ef801f9314ba3e853ea90a4215fe8"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T123511404158/failure-state.png",
+      "sha256": "21cbf2ff14735624a725de5b8b40bf211a2fc431968a9650c4b0a706854bf5e9"
+    }
+  ],
+  "documents": {
+    "D1": 71,
+    "D2": 72
+  },
+  "terminal_response_barriers": [
+    {
+      "operation": "save-catch-up",
+      "response_status": 200,
+      "response_held_seconds": 1.27,
+      "real_request_sent": true,
+      "response_dropped": false,
+      "navigated_on_success": false
+    }
+  ],
+  "result": "FAIL",
+  "error": {
+    "type": "RuntimeError",
+    "detail": "authorized real server read for document 72",
+    "trace": [
+      {
+        "file": "s08a_browser.py",
+        "line": 193,
+        "method": "main"
+      },
+      {
+        "file": "s08a_terminal_browser.py",
+        "line": 122,
+        "method": "run_terminal_races"
+      },
+      {
+        "file": "s08a_terminal_browser.py",
+        "line": 21,
+        "method": "read"
+      },
+      {
+        "file": "s08a_browser.py",
+        "line": 72,
+        "method": "check"
+      },
+      {
+        "file": "s08a_browser.py",
+        "line": 30,
+        "method": "require"
+      }
+    ]
+  },
+  "pageerrors": [],
+  "failure_ui": {
+    "message": "已保存到服务端。",
+    "version": "3",
+    "readonly": false
+  }
+}

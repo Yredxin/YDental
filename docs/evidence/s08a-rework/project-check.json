@@ -1,0 +1,44 @@
+{
+  "result": "PASS",
+  "mutation_count": 0,
+  "differences": [],
+  "counts": {
+    "fields": 21,
+    "items": 15,
+    "views": 6,
+    "workflows": 7
+  },
+  "view_fields_complete": true,
+  "snapshots": [
+    {
+      "phase": "ydental-s08a-rework-start/before",
+      "finished_utc": "2026-10-12T12:21:55.685203+00:00",
+      "sha256": "67cfb5e64bdccb17092500e6b33c0c759c8940d4b2640bb61e375da9b1461cc3"
+    },
+    {
+      "phase": "ydental-s08a-rework-start/after",
+      "finished_utc": "2026-10-12T12:34:27.324053+00:00",
+      "sha256": "a32498dc8e44712e1bfff67e4adc2c67e9831f5adfe88bce71643e4e6bafedcc"
+    },
+    {
+      "phase": "ydental-s08a-rework-start/second-check",
+      "finished_utc": "2026-10-12T12:34:42.781652+00:00",
+      "sha256": "87c8d91b150440648a291ccd86b44b7bb55ba24dd22c18df9b397c1dfd318b3a"
+    },
+    {
+      "phase": "ydental-s08a-rework-delivery/before",
+      "finished_utc": "2026-10-12T13:07:16.971952+00:00",
+      "sha256": "002b1031b09387a67e5042f4b2009905a5909100ba9e32c2d34e6dc32d0bf1ee"
+    },
+    {
+      "phase": "ydental-s08a-rework-delivery/after",
+      "finished_utc": "2026-10-12T13:09:34.984160+00:00",
+      "sha256": "db3ce718edc7f31bae14aa4356a303587b230932a29700646d61c15d8eef006d"
+    }
+  ],
+  "issue32": "S08/进行中/Todo/OPEN",
+  "issue31": "S07/待用户验收/Todo/OPEN",
+  "issue33_to_37": "待启用",
+  "read_failure": "one delivery read failed; zero writes; read-only retry completed",
+  "unpublished_workflow_internals": "NOT_CLAIMED"
+}

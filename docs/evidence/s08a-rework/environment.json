@@ -1,0 +1,19 @@
+{
+  "baseline": "f0f17e633a3421386d0a0bdf2b63a5f9709bde96",
+  "remote_baseline_verified": true,
+  "worktree_at_start": "clean",
+  "branch": "codex/s08-a-clinical-doc-r1-20261012",
+  "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "core_tracked_diff_empty": true,
+  "project_matches_original_delivery": true,
+  "project_mutations": 0,
+  "counts": {
+    "fields": 21,
+    "items": 15,
+    "views": 6,
+    "workflows": 7
+  },
+  "python": "3.12.15",
+  "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+  "history": "All original delivery and failures retained; no existing service changed"
+}

@@ -1,0 +1,536 @@
+{
+  "scope": "S08-A real reception, teeth, authored text, handover and pending responsibility",
+  "database": "ydental_s08a_test_20261012123045_d399a600",
+  "tested_commit": "1bec52a970f497a1c01d5be98f1e4919bcd907d1",
+  "browser": "Firefox",
+  "sandbox": "default, no overrides",
+  "checks": [
+    {
+      "check": "real S06 chair entered",
+      "result": "PASS"
+    },
+    {
+      "check": "real S06 execution serving",
+      "result": "PASS"
+    },
+    {
+      "check": "Chinese real treatment workbench",
+      "result": "PASS"
+    },
+    {
+      "check": "patient and actual serving segment visible before document creation",
+      "result": "PASS"
+    },
+    {
+      "check": "existing S05 price source retains independent permission",
+      "result": "PASS"
+    },
+    {
+      "check": "original and recovery status messages remain Chinese",
+      "result": "PASS"
+    },
+    {
+      "check": "52 clickable permanent and primary teeth",
+      "result": "PASS"
+    },
+    {
+      "check": "three real server autosaves",
+      "result": "PASS"
+    },
+    {
+      "check": "anterior I enabled and O refused",
+      "result": "PASS"
+    },
+    {
+      "check": "primary posterior O enabled I refused",
+      "result": "PASS"
+    },
+    {
+      "check": "missing tooth cannot select surfaces",
+      "result": "PASS"
+    },
+    {
+      "check": "stale version server rejects",
+      "result": "PASS"
+    },
+    {
+      "check": "invalid FDI server rejects",
+      "result": "PASS"
+    },
+    {
+      "check": "D1 pending after real handover",
+      "result": "PASS"
+    },
+    {
+      "check": "pending document cannot handover again",
+      "result": "PASS"
+    },
+    {
+      "check": "D1 supplementation does not occupy a chair",
+      "result": "PASS"
+    },
+    {
+      "check": "one pending continuation offered",
+      "result": "PASS"
+    },
+    {
+      "check": "D2 new independent document",
+      "result": "PASS"
+    },
+    {
+      "check": "responsibility transfer refuses valid editor",
+      "result": "PASS"
+    },
+    {
+      "check": "D1 responsible person legally transferred",
+      "result": "PASS"
+    },
+    {
+      "check": "D1 text confirmed by new contributor",
+      "result": "PASS"
+    },
+    {
+      "check": "confirmed text correction appends version",
+      "result": "PASS"
+    },
+    {
+      "check": "D1 confirmation leaves D2 draft unconfirmed",
+      "result": "PASS"
+    },
+    {
+      "check": "D2 real segment continues serving",
+      "result": "PASS"
+    },
+    {
+      "check": "read-only medical user cannot edit",
+      "result": "PASS"
+    },
+    {
+      "check": "offline never claims success",
+      "result": "PASS"
+    },
+    {
+      "check": "reacquire cannot mark unsent local text saved",
+      "result": "PASS"
+    },
+    {
+      "check": "refresh restores committed server text",
+      "result": "PASS"
+    },
+    {
+      "check": "ordinary in-flight autosave permits clinical input",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized real server read for document 76",
+      "result": "PASS"
+    },
+    {
+      "check": "ordinary autosave catches up latest text and tooth on real server",
+      "result": "PASS"
+    },
+    {
+      "check": "confirm freezes all seven clinical textareas",
+      "result": "PASS"
+    },
+    {
+      "check": "confirm freezes 52 teeth, state, surfaces and no-tooth",
+      "result": "PASS"
+    },
+    {
+      "check": "confirm physical text and FDI attempts cannot alter submission",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized real server read for document 76",
+      "result": "PASS"
+    },
+    {
+      "check": "confirm server content equals the full submitted visible scope",
+      "result": "PASS"
+    },
+    {
+      "check": "correct freezes all seven clinical textareas",
+      "result": "PASS"
+    },
+    {
+      "check": "correct freezes 52 teeth, state, surfaces and no-tooth",
+      "result": "PASS"
+    },
+    {
+      "check": "correct physical text and FDI attempts cannot alter submission",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized real server read for document 76",
+      "result": "PASS"
+    },
+    {
+      "check": "correct server content equals the full submitted visible scope",
+      "result": "PASS"
+    },
+    {
+      "check": "reconciliation keeps local text and never claims saved",
+      "result": "PASS"
+    },
+    {
+      "check": "reconciliation freezes repeat submit and permits text comparison",
+      "result": "PASS"
+    },
+    {
+      "check": "new tab shows real server version without leaving unsent local page",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized real server read for document 75",
+      "result": "PASS"
+    },
+    {
+      "check": "forced correct preserves server submitted A and visible unsent B",
+      "result": "PASS"
+    },
+    {
+      "check": "handover freezes all seven clinical textareas",
+      "result": "PASS"
+    },
+    {
+      "check": "handover freezes 52 teeth, state, surfaces and no-tooth",
+      "result": "PASS"
+    },
+    {
+      "check": "handover physical text and FDI attempts cannot alter submission",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized real server read for document 76",
+      "result": "PASS"
+    },
+    {
+      "check": "normal handover server scope unchanged",
+      "result": "PASS"
+    },
+    {
+      "check": "D2 handover offers exactly one continuation",
+      "result": "PASS"
+    },
+    {
+      "check": "new D3 lawful reception has independent document",
+      "result": "PASS"
+    },
+    {
+      "check": "reconciliation keeps local text and never claims saved",
+      "result": "PASS"
+    },
+    {
+      "check": "reconciliation freezes repeat submit and permits text comparison",
+      "result": "PASS"
+    },
+    {
+      "check": "new tab shows real server version without leaving unsent local page",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized real server read for document 77",
+      "result": "PASS"
+    },
+    {
+      "check": "forced confirm never includes unsent B in confirmed A",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized real server read for document 77",
+      "result": "PASS"
+    },
+    {
+      "check": "unsent confirm text can be lawfully appended with reason",
+      "result": "PASS"
+    },
+    {
+      "check": "reconciliation keeps local text and never claims saved",
+      "result": "PASS"
+    },
+    {
+      "check": "reconciliation freezes repeat submit and permits text comparison",
+      "result": "PASS"
+    },
+    {
+      "check": "committed handover is explicitly irreversible here",
+      "result": "PASS"
+    },
+    {
+      "check": "new tab shows real server version without leaving unsent local page",
+      "result": "PASS"
+    },
+    {
+      "check": "recovery exposes actual handed-over reception",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized real server read for document 77",
+      "result": "PASS"
+    },
+    {
+      "check": "forced handover preserves committed A and unsent B without undo",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized real server read for document 77",
+      "result": "PASS"
+    },
+    {
+      "check": "pending supplementation does not reoccupy reception",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized real server read for document 77",
+      "result": "PASS"
+    },
+    {
+      "check": "reconciliation keeps local text and never claims saved",
+      "result": "PASS"
+    },
+    {
+      "check": "reconciliation freezes repeat submit and permits text comparison",
+      "result": "PASS"
+    },
+    {
+      "check": "new tab shows real server version without leaving unsent local page",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized real server read for document 77",
+      "result": "PASS"
+    },
+    {
+      "check": "response-lost real server outcome matches request and is never retried",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized real server read for document 77",
+      "result": "PASS"
+    },
+    {
+      "check": "reconciliation keeps local text and never claims saved",
+      "result": "PASS"
+    },
+    {
+      "check": "reconciliation freezes repeat submit and permits text comparison",
+      "result": "PASS"
+    },
+    {
+      "check": "new tab shows real server version without leaving unsent local page",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized real server read for document 77",
+      "result": "PASS"
+    },
+    {
+      "check": "request-not-sent real server outcome matches request and is never retried",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized real server read for document 77",
+      "result": "PASS"
+    },
+    {
+      "check": "reconciliation keeps local text and never claims saved",
+      "result": "PASS"
+    },
+    {
+      "check": "reconciliation freezes repeat submit and permits text comparison",
+      "result": "PASS"
+    },
+    {
+      "check": "new tab shows real server version without leaving unsent local page",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized real server read for document 77",
+      "result": "PASS"
+    },
+    {
+      "check": "stale-version real server outcome matches request and is never retried",
+      "result": "PASS"
+    },
+    {
+      "check": "zero browser page errors",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T124510748577/01-permanent-anterior-autosave.png",
+      "sha256": "f01f0de676a6725f0e83443ed33a5fa1fc62c569a3acd6c0679473df9e185958"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T124510748577/02-primary-missing-unknown.png",
+      "sha256": "f4971a18f1950f7f40c7caac9bf837553e192889c024024d5b6cf66f88daa51b"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T124510748577/03-structured-draft.png",
+      "sha256": "f3dc0265059efa303eced5ae8730521aba9238d27853c18902765db4e38a570a"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T124510748577/04-D1-pending-after-handover.png",
+      "sha256": "fa5da569ede40ecf7e8e7a86986bd07c16e9e9c3c9b7cea66fb87a47ce3a54ab"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T124510748577/05-D1-pending-independent-editor.png",
+      "sha256": "1d851b92b6b27973c3b2fd09011cab069e415f900cd926f64b5bc2b68a73d036"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T124510748577/06-D2-new-reception.png",
+      "sha256": "9c8227cf30ff0f2e04f2a0a7e7cfbb3bdb6e2f129504ec48b5ff5e337f005802"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T124510748577/07-valid-editor-transfer-denied.png",
+      "sha256": "812638737b8c23a2d6a3d08f46b404f8ceea9576625c8bcca33aab5ac0b1afb8"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T124510748577/08-D1-confirmed-author-history.png",
+      "sha256": "74b0b3e13f5da4f8b1ce6fe3266d15ac82c72761393a367e74565d58f1a35aa3"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T124510748577/09-text-correction-new-version.png",
+      "sha256": "bfa10c06cbc98d8033aff770dd831215e576a43b0e7df377374d7e988ef96ae8"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T124510748577/10-readonly-medical-denied.png",
+      "sha256": "381c25e58a995622724bda3b9538add5fd3b45d89b37b8dbe88d776bfabc5b4a"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T124510748577/11-offline-unsynchronized.png",
+      "sha256": "a83733ebeae81dffcfb1b5fd3cb6994a58cce09507dbf6cfb1286fbda69bec29"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T124510748577/12-ordinary-inflight-autosave-catchup.png",
+      "sha256": "ce27b076e6994d37a48652bd13e16652a683b91b67f70783936019c841651619"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T124510748577/13-confirm-all-inputs-locked.png",
+      "sha256": "ddafb4199baf4debe563d44344a1f2811d5db29c7e6ceae469f0b1140049bc12"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T124510748577/14-correct-all-inputs-locked.png",
+      "sha256": "2df24f313cbadf753dabd5771e4d0ce854eaea0ae7d8e4b91d546193a1228cf1"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T124510748577/15-correct-forced-input-retained.png",
+      "sha256": "7eba690efbac14fdb60b21cf6dc4799674befd9dd205a037ff53151476260a75"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T124510748577/16-handover-all-inputs-locked.png",
+      "sha256": "c3c2cbfbbb23a117b5ab7e57916b666a6a4dec40504fb1a4d07dbcb6a788bd84"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T124510748577/17-confirm-forced-input-retained.png",
+      "sha256": "c01ac3f605656effdc44188911bbce6cd9f84123b20554726549544bce7863fd"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T124510748577/18-handover-committed-unsent-retained.png",
+      "sha256": "04eccebe7285944ba9945c0d1a6b7b2be5cfc8b2985242fa27f7792366a1ef2b"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T124510748577/19-response-lost-reconcile.png",
+      "sha256": "d79d64ae78ed949accdd9cd8c4efcbe5d1bdda4622c659781cf09d704d100403"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T124510748577/20-request-not-sent-reconcile.png",
+      "sha256": "194c44ced7a79dffd8288a2780c478a687e8ae76c515a9cb90b7dc6dde448fd4"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T124510748577/21-stale-version-reconcile.png",
+      "sha256": "6fc988bd2a1a08d437e46e43252bf6f2d1900cf100c2edabd0d42e3021df40a0"
+    }
+  ],
+  "documents": {
+    "D1": 75,
+    "D2": 76,
+    "D3": 77
+  },
+  "terminal_response_barriers": [
+    {
+      "operation": "save-catch-up",
+      "response_status": 200,
+      "response_held_seconds": 1.246,
+      "real_request_sent": true,
+      "response_dropped": false,
+      "navigated_on_success": false
+    },
+    {
+      "operation": "confirm",
+      "response_status": 200,
+      "response_held_seconds": 0.907,
+      "real_request_sent": true,
+      "response_dropped": false,
+      "navigated_on_success": true
+    },
+    {
+      "operation": "correct",
+      "response_status": 200,
+      "response_held_seconds": 0.879,
+      "real_request_sent": true,
+      "response_dropped": false,
+      "navigated_on_success": true
+    },
+    {
+      "operation": "correct-forced-input",
+      "response_status": 200,
+      "response_held_seconds": 0.041,
+      "real_request_sent": true,
+      "response_dropped": false,
+      "navigated_on_success": false
+    },
+    {
+      "operation": "handover",
+      "response_status": 200,
+      "response_held_seconds": 0.671,
+      "real_request_sent": true,
+      "response_dropped": false,
+      "navigated_on_success": true
+    },
+    {
+      "operation": "confirm-forced-input",
+      "response_status": 200,
+      "response_held_seconds": 0.037,
+      "real_request_sent": true,
+      "response_dropped": false,
+      "navigated_on_success": false
+    },
+    {
+      "operation": "handover-forced-no-event",
+      "response_status": 200,
+      "response_held_seconds": 0.021,
+      "real_request_sent": true,
+      "response_dropped": false,
+      "navigated_on_success": false
+    },
+    {
+      "operation": "correct-response-lost",
+      "response_status": 200,
+      "response_held_seconds": 0.686,
+      "real_request_sent": true,
+      "response_dropped": true,
+      "navigated_on_success": false
+    },
+    {
+      "operation": "correct-request-not-sent",
+      "response_status": null,
+      "response_held_seconds": 0.694,
+      "real_request_sent": false,
+      "response_dropped": true,
+      "navigated_on_success": false
+    },
+    {
+      "operation": "correct-stale-version",
+      "response_status": 409,
+      "response_held_seconds": 0.684,
+      "real_request_sent": true,
+      "response_dropped": false,
+      "navigated_on_success": false
+    }
+  ],
+  "result": "PASS",
+  "pageerrors": []
+}

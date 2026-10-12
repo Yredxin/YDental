@@ -1,0 +1,8 @@
+{
+  "command": "../.venv/bin/python -m unittest scripts/test_s08a_guard.py",
+  "tested_commit": "e8b2247609e51d7fbe268b94082e8fd3259db9d3",
+  "time_utc": "2026-10-12T13:05:14.520443+00:00",
+  "exit_code": 0,
+  "output": ".....\n----------------------------------------------------------------------\nRan 5 tests in 0.301s\n\nOK\n",
+  "count": 5
+}

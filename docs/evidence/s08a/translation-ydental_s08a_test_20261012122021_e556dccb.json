@@ -1,0 +1,14 @@
+{
+  "database": "ydental_s08a_test_20261012122021_e556dccb",
+  "test": "3246877240f78d5cd1c08d82ea4767a82aa1bff3",
+  "exported_terms": 151,
+  "translated_terms": 150,
+  "missing": [
+    "<span hidden=\"hidden\" id=\"unsynced-message\">Unsynchronized changes. The server has not confirmed this content.</span><span hidden=\"hidden\" id=\"saved-message\">Saved on the server.</span><span hidden=\"hidden\" id=\"offline-message\">Connection unavailable. Changes remain unsynchronized. Refresh and compare the server version before retrying.</span><span hidden=\"hidden\" id=\"readonly-message\">Read only. Acquire the independent editor before changing text.</span>\n                <span hidden=\"hidden\" id=\"terminal-committed-message\">The document operation was committed. This page still has unsynchronized changes. Compare the server version before making a legitimate correction; keep the local text.</span>\n                <span hidden=\"hidden\" id=\"handover-committed-message\">Handover was committed and cannot be undone here. Local changes remain unsynchronized. Check the server version and use the pending document for legitimate supplementation.</span>\n                <span hidden=\"hidden\" id=\"terminal-uncertain-message\">The operation outcome needs verification. Local content remains unsynchronized. Do not repeat the operation; check the server version and reception state in a new tab before continuing.</span>"
+  ],
+  "source_codes_preserved": true,
+  "invalid_code_metadata": [
+    "<span hidden=\"hidden\" id=\"unsynced-message\">Unsynchronized changes. The server has not confirmed this content.</span><span hidden=\"hidden\" id=\"saved-message\">Saved on the server.</span><span hidden=\"hidden\" id=\"offline-message\">Connection unavailable. Changes remain unsynchronized. Refresh and compare the server version before retrying.</span><span hidden=\"hidden\" id=\"readonly-message\">Read only. Acquire the independent editor before changing text.</span>\n                <span hidden=\"hidden\" id=\"terminal-committed-message\">The document operation was committed. This page still has unsynchronized changes. Compare the server version before making a legitimate correction; keep the local text.</span>\n                <span hidden=\"hidden\" id=\"handover-committed-message\">Handover was committed and cannot be undone here. Local changes remain unsynchronized. Check the server version and use the pending document for legitimate supplementation.</span>\n                <span hidden=\"hidden\" id=\"terminal-uncertain-message\">The operation outcome needs verification. Local content remains unsynchronized. Do not repeat the operation; check the server version and reception state in a new tab before continuing.</span>"
+  ],
+  "result": "FAIL"
+}

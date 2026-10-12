@@ -1,0 +1,64 @@
+{
+  "database": "ydental_s08a_test_20261012124648_038d989e",
+  "tested_commit": "1bec52a970f497a1c01d5be98f1e4919bcd907d1",
+  "signatures": {
+    "ydental_clinical_document": {
+      "count": 8,
+      "sha256": "d8f4c80222d9cb1ffd02588a0474172f36a84ff2c05d68de11064c94435ad0a3"
+    },
+    "ydental_clinical_version": {
+      "count": 8,
+      "sha256": "5660e7857eddfcad9ea7367e864b7fa8780b46823ac6d0520a722afdc2b7da11"
+    },
+    "ydental_queue_execution": {
+      "count": 8,
+      "sha256": "cec0ba8129bdc1ef30a6605404c149ef296b595d47555af2625106427ac608de"
+    },
+    "ydental_intake_task": {
+      "count": 12,
+      "sha256": "2f49eaa104cfbd5512ce0aee5d8ba0e75ca8c4866f337b76a8257ada8c89dd16"
+    },
+    "ydental_inventory_event": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "ydental_inventory_batch": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stock_move": {
+      "count": 50,
+      "sha256": "678314792b04557533136c37e2b1f6055cb220ee4f8b41b583456c82b76e8a63"
+    },
+    "stock_move_line": {
+      "count": 36,
+      "sha256": "6a13544fa0c7f54cbc6f33b35378231b8c394c654c4890ae5cbf720dd4afed31"
+    },
+    "stock_quant": {
+      "count": 40,
+      "sha256": "4288b54be0e2783ea0298eba02fb581b475478704fdd7d8aeb16858ac5c6bc78"
+    },
+    "ydental_intake_snapshot": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "invariants": {
+    "version_count": 0,
+    "latest_content": 0,
+    "version_source": 0,
+    "document_source": 0,
+    "duplicate_continuation": 0,
+    "duplicate_actual_execution": 0,
+    "terminal_unmarked_draft": 0,
+    "negative_internal_quant": 0
+  },
+  "audit_events": {
+    "clinical.create": 8,
+    "clinical.edit_acquire": 10,
+    "clinical.handover_edit_release": 4,
+    "clinical.handover_save_verified": 4,
+    "clinical.save": 8
+  },
+  "result": "PASS"
+}

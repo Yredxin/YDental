@@ -1,0 +1,8 @@
+{
+  "result": "NOT_RUN/BLOCKED",
+  "test": "e8b2247609e51d7fbe268b94082e8fd3259db9d3",
+  "database": "ydental_s08a_test_20261012125922_18e705b1",
+  "upgrade_groups": 10,
+  "economic_groups": 6,
+  "reason": "No final browser/business upgrade/audit reached; intermediate single snapshots cannot establish invariance."
+}

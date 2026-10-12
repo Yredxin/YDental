@@ -1,0 +1,62 @@
+{
+  "result": "BLOCKED: full fixed-test regression incomplete; not technical PASS",
+  "baseline": "f0f17e633a3421386d0a0bdf2b63a5f9709bde96",
+  "product": "a28b364691791214becf4909e9ecf1bc0be3555c",
+  "test": "e8b2247609e51d7fbe268b94082e8fd3259db9d3",
+  "database": "ydental_s08a_test_20261012125922_18e705b1",
+  "identity": {
+    "database": "ydental_s08a_test_20261012125922_18e705b1",
+    "oid": 1130035,
+    "endpoint": {
+      "host": "127.0.0.1",
+      "port": "5432",
+      "user": "odoo"
+    },
+    "cluster": "7694897083368259627",
+    "port": 18165,
+    "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+    "created_utc": "2026-10-12T12:59:22.254627+00:00",
+    "pg_session_options": "-c max_parallel_workers_per_gather=0 -c max_parallel_maintenance_workers=0 -c maintenance_work_mem=16384",
+    "config_sha256": "110c2fc6c2b293c857ff5235befba8d317fed46a45c796fe47d4c5ab9cfd2ae3"
+  },
+  "actions": [
+    {
+      "action": "install",
+      "exit_code": 255,
+      "pid": 1179142,
+      "log": "install-20261012T125922255623.log",
+      "log_sha256": "eae040b004fd149966812af15d3bfae068c57e36eec33d1401b273a2f5966cc6",
+      "time_utc": "2026-10-12T12:59:24.111932+00:00",
+      "tested_commit": "e8b2247609e51d7fbe268b94082e8fd3259db9d3",
+      "tests": null,
+      "verification_exit": 255
+    }
+  ],
+  "gates": {
+    "upgrade": "NOT_RUN: latest fixed-test database install failed before addon/test initialization",
+    "model21": "NOT_RUN: latest fixed-test database install failed before addon/test initialization",
+    "HTTP_RPC7": "NOT_RUN: latest fixed-test database install failed before addon/test initialization",
+    "races16": "NOT_RUN: latest fixed-test database install failed before addon/test initialization",
+    "Firefox88": "NOT_RUN: latest fixed-test database install failed before addon/test initialization",
+    "translation151": "NOT_RUN: latest fixed-test database install failed before addon/test initialization",
+    "business_upgrade": "NOT_RUN: latest fixed-test database install failed before addon/test initialization",
+    "SQL_invariants8": "NOT_RUN: latest fixed-test database install failed before addon/test initialization",
+    "upgrade_signatures10": "NOT_RUN: latest fixed-test database install failed before addon/test initialization",
+    "economic_signatures6": "NOT_RUN: latest fixed-test database install failed before addon/test initialization",
+    "PGOPTIONS_SHOW": "NOT_RUN: latest fixed-test database install failed before addon/test initialization",
+    "install": "FAIL: exit255 PostgreSQL shared-memory allocation",
+    "guard": "PASS:5",
+    "security": "static review only; runtime permission regression BLOCKED"
+  },
+  "debug_browser": {
+    "path": "docs/evidence/s08a/browser-attempts/20261012T124510748577/result.json",
+    "tested_commit": "1bec52a970f497a1c01d5be98f1e4919bcd907d1",
+    "product_tree_identical_to_fixed_product": true,
+    "result": "PASS88/21/pageerror0/10 barriers, debugging evidence only; install/probe at another test commit",
+    "visually_reviewed_all_21_screenshots": true
+  },
+  "unexpected_native_crashes_this_rework": 0,
+  "production": "BLOCKED: S07 historical SIGSEGV root cause unknown",
+  "future": "S08-B/C and S09-S13 NOT_RUN",
+  "recorded_utc": "2026-10-12T13:06:56.728890+00:00"
+}

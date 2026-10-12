@@ -1,0 +1,32 @@
+{
+  "result": "PASS",
+  "issues": [
+    {
+      "issue": 23,
+      "comments": 2,
+      "state": "open",
+      "original_body_and_all_comments_unchanged": true,
+      "snapshot_sha256": "bd36a001d6d6f97ca88ae4988e7e59c677cabfefdb7c505fda499f94e987ec74",
+      "body_sha256": "36b3744d1087b38df6970dc584f396bd9c6d3bc66de8229c61f181688353f100",
+      "comment_ids": [
+        6106072643,
+        6110178328
+      ]
+    },
+    {
+      "issue": 32,
+      "comments": 4,
+      "state": "open",
+      "original_body_and_all_comments_unchanged": true,
+      "snapshot_sha256": "06a3925b4daba14a833670da6a0ffd857a3aa7b203c68049ba79900beec48dff",
+      "body_sha256": "4e445d9ddea91576f1393b613613862e83d6c5d8b26d1e497fed3e7ace830d13",
+      "comment_ids": [
+        6122378640,
+        6122503237,
+        6123830363,
+        6123972548
+      ]
+    }
+  ],
+  "mutation_count_before_delivery": 0
+}

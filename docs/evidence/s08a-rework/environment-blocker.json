@@ -1,0 +1,74 @@
+{
+  "result": "BLOCKED",
+  "failure_attempts": [
+    {
+      "database": "ydental_s08a_test_20261012125331_e66dbaaf",
+      "tested_commit": "a39dbd58e293297eece66186905b103a7ec8d225",
+      "exit_code": 255,
+      "tests": null,
+      "failure": "psycopg2.errors.DiskFull: could not resize shared memory segment to 33554432 bytes: No space left on device",
+      "log": "install-20261012T125331281310.log",
+      "log_sha256": "e9286917f8dff51a34ca74b9dfa9495dbb74c1ae169af09937c5df1866e13433",
+      "native_crash": false,
+      "later_actions": "NOT_RUN"
+    },
+    {
+      "database": "ydental_s08a_test_20261012125922_18e705b1",
+      "tested_commit": "e8b2247609e51d7fbe268b94082e8fd3259db9d3",
+      "exit_code": 255,
+      "tests": null,
+      "failure": "psycopg2.errors.DiskFull: could not resize shared memory segment to 33554432 bytes: No space left on device",
+      "log": "install-20261012T125922255623.log",
+      "log_sha256": "eae040b004fd149966812af15d3bfae068c57e36eec33d1401b273a2f5966cc6",
+      "native_crash": false,
+      "later_actions": "NOT_RUN"
+    }
+  ],
+  "readonly_first_diagnosis": {
+    "database": "ydental_s08a_test_20261012125331_e66dbaaf",
+    "oid": 1118351,
+    "cluster": "7694897083368259627",
+    "exit_code": 255,
+    "failure": "psycopg2.errors.DiskFull: could not resize shared memory segment to 33554432 bytes: No space left on device",
+    "settings": [
+      [
+        "dynamic_shared_memory_type",
+        "posix",
+        null
+      ],
+      [
+        "maintenance_work_mem",
+        "65536",
+        "kB"
+      ],
+      [
+        "max_parallel_maintenance_workers",
+        "2",
+        null
+      ],
+      [
+        "max_parallel_workers_per_gather",
+        "2",
+        null
+      ],
+      [
+        "min_dynamic_shared_memory",
+        "0",
+        "MB"
+      ],
+      [
+        "shared_memory_type",
+        "mmap",
+        null
+      ]
+    ],
+    "native_crash": false,
+    "core_or_service_modified": false,
+    "host_dev_shm": "3.7G available; endpoint may have separate namespace; not claimed to be PostgreSQL actual mount"
+  },
+  "bounded_session_mitigation": "-c max_parallel_workers_per_gather=0 -c max_parallel_maintenance_workers=0 -c maintenance_work_mem=16384",
+  "mitigation_result": "install still fails; not a fix; no probe/audit SHOW verification reached",
+  "root_cause": "unconfirmed PostgreSQL endpoint resource/namespace condition; host free /dev/shm does not establish endpoint available space",
+  "stopped_further_database_runs": true,
+  "changes_to_services_core_dependencies_historical_databases": false
+}

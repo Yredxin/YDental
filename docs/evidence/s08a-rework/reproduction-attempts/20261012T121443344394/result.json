@@ -1,0 +1,244 @@
+{
+  "scope": "S08-A real reception, teeth, authored text, handover and pending responsibility",
+  "database": "ydental_s08a_test_20261012121209_305ee956",
+  "tested_commit": "f0f17e633a3421386d0a0bdf2b63a5f9709bde96",
+  "browser": "Firefox",
+  "sandbox": "default, no overrides",
+  "checks": [
+    {
+      "check": "real S06 chair entered",
+      "result": "PASS"
+    },
+    {
+      "check": "real S06 execution serving",
+      "result": "PASS"
+    },
+    {
+      "check": "Chinese real treatment workbench",
+      "result": "PASS"
+    },
+    {
+      "check": "patient and actual serving segment visible before document creation",
+      "result": "PASS"
+    },
+    {
+      "check": "existing S05 price source retains independent permission",
+      "result": "PASS"
+    },
+    {
+      "check": "52 clickable permanent and primary teeth",
+      "result": "PASS"
+    },
+    {
+      "check": "three real server autosaves",
+      "result": "PASS"
+    },
+    {
+      "check": "anterior I enabled and O refused",
+      "result": "PASS"
+    },
+    {
+      "check": "primary posterior O enabled I refused",
+      "result": "PASS"
+    },
+    {
+      "check": "missing tooth cannot select surfaces",
+      "result": "PASS"
+    },
+    {
+      "check": "stale version server rejects",
+      "result": "PASS"
+    },
+    {
+      "check": "invalid FDI server rejects",
+      "result": "PASS"
+    },
+    {
+      "check": "D1 pending after real handover",
+      "result": "PASS"
+    },
+    {
+      "check": "pending document cannot handover again",
+      "result": "PASS"
+    },
+    {
+      "check": "D1 supplementation does not occupy a chair",
+      "result": "PASS"
+    },
+    {
+      "check": "one pending continuation offered",
+      "result": "PASS"
+    },
+    {
+      "check": "D2 new independent document",
+      "result": "PASS"
+    },
+    {
+      "check": "responsibility transfer refuses valid editor",
+      "result": "PASS"
+    },
+    {
+      "check": "D1 responsible person legally transferred",
+      "result": "PASS"
+    },
+    {
+      "check": "D1 text confirmed by new contributor",
+      "result": "PASS"
+    },
+    {
+      "check": "confirmed text correction appends version",
+      "result": "PASS"
+    },
+    {
+      "check": "D1 confirmation leaves D2 draft unconfirmed",
+      "result": "PASS"
+    },
+    {
+      "check": "D2 real segment continues serving",
+      "result": "PASS"
+    },
+    {
+      "check": "read-only medical user cannot edit",
+      "result": "PASS"
+    },
+    {
+      "check": "offline never claims success",
+      "result": "PASS"
+    },
+    {
+      "check": "reacquire cannot mark unsent local text saved",
+      "result": "PASS"
+    },
+    {
+      "check": "refresh restores committed server text",
+      "result": "PASS"
+    },
+    {
+      "check": "zero browser page errors",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s08a-rework/reproduction-attempts/20261012T121443344394/01-permanent-anterior-autosave.png",
+      "sha256": "3e5b9a25581c48bb161c4d3a680650bb6be169fc2d2c73fe5e0beb6e3776d1db"
+    },
+    {
+      "path": "docs/evidence/s08a-rework/reproduction-attempts/20261012T121443344394/02-primary-missing-unknown.png",
+      "sha256": "8d501d32f79a640876be766b217142fb3e53e9c949568d7531bfa0fd2e5aa6e3"
+    },
+    {
+      "path": "docs/evidence/s08a-rework/reproduction-attempts/20261012T121443344394/03-structured-draft.png",
+      "sha256": "37352eac7d03da33996893478043174f73b1acf44744e42a9e328f33a8f105d5"
+    },
+    {
+      "path": "docs/evidence/s08a-rework/reproduction-attempts/20261012T121443344394/handover-before-response.png",
+      "sha256": "9fbf6752e6d72e6c85c44027cc4867dc68e2266373ce2f655e93cc43ccea333a"
+    },
+    {
+      "path": "docs/evidence/s08a-rework/reproduction-attempts/20261012T121443344394/handover-server-after-navigation.png",
+      "sha256": "cd60d356ed1927713b5d236065e3d93c44772ba4e64698bcc690d03ec695edf1"
+    },
+    {
+      "path": "docs/evidence/s08a-rework/reproduction-attempts/20261012T121443344394/04-D1-pending-after-handover.png",
+      "sha256": "cd60d356ed1927713b5d236065e3d93c44772ba4e64698bcc690d03ec695edf1"
+    },
+    {
+      "path": "docs/evidence/s08a-rework/reproduction-attempts/20261012T121443344394/05-D1-pending-independent-editor.png",
+      "sha256": "ba1542ef661ff5a6dad1209a11aaf5f5c42e7d4e20035d3d7f9fec56a9dc8b63"
+    },
+    {
+      "path": "docs/evidence/s08a-rework/reproduction-attempts/20261012T121443344394/06-D2-new-reception.png",
+      "sha256": "eda4cc566f47dcfba6ed092531bf0f5d34df3e9b3abf185f6b57f63b118cfc72"
+    },
+    {
+      "path": "docs/evidence/s08a-rework/reproduction-attempts/20261012T121443344394/07-valid-editor-transfer-denied.png",
+      "sha256": "ffb5fda46e5289c598a249c06d3aa86db52c44996ba0f819e3f65ed7485c0474"
+    },
+    {
+      "path": "docs/evidence/s08a-rework/reproduction-attempts/20261012T121443344394/confirm-before-response.png",
+      "sha256": "0adad67055d9c18cad8446e54ca02f6157baab5ebac2e8a85c87d2ac6a71659e"
+    },
+    {
+      "path": "docs/evidence/s08a-rework/reproduction-attempts/20261012T121443344394/confirm-server-after-navigation.png",
+      "sha256": "627ef1deabc7cb67af6fbee27396bd0d1d295678b46e571feaee3d6fb12b13ed"
+    },
+    {
+      "path": "docs/evidence/s08a-rework/reproduction-attempts/20261012T121443344394/08-D1-confirmed-author-history.png",
+      "sha256": "627ef1deabc7cb67af6fbee27396bd0d1d295678b46e571feaee3d6fb12b13ed"
+    },
+    {
+      "path": "docs/evidence/s08a-rework/reproduction-attempts/20261012T121443344394/correct-before-response.png",
+      "sha256": "73c81fba7b793607f21b322d087517320c199e081bfb2aab5968454dc0775cee"
+    },
+    {
+      "path": "docs/evidence/s08a-rework/reproduction-attempts/20261012T121443344394/correct-server-after-navigation.png",
+      "sha256": "a44cd76c3df543d6f5ccbacb2b92f0b9b6d51a36f54a72a14c69232e01706679"
+    },
+    {
+      "path": "docs/evidence/s08a-rework/reproduction-attempts/20261012T121443344394/09-text-correction-new-version.png",
+      "sha256": "a44cd76c3df543d6f5ccbacb2b92f0b9b6d51a36f54a72a14c69232e01706679"
+    },
+    {
+      "path": "docs/evidence/s08a-rework/reproduction-attempts/20261012T121443344394/10-readonly-medical-denied.png",
+      "sha256": "621ff3571c3c78359fd453ce970258fbe8d337be78c9737ebc091be21ed50466"
+    },
+    {
+      "path": "docs/evidence/s08a-rework/reproduction-attempts/20261012T121443344394/11-offline-unsynchronized.png",
+      "sha256": "4127d5ba2be07a331141e3cdb7bd6608c01d103cfd3e1cadfb2551dcf19389c8"
+    }
+  ],
+  "result": "REPRODUCED",
+  "pageerrors": [],
+  "documents": {
+    "D1": 29,
+    "D2": 30
+  },
+  "reproductions": [
+    {
+      "operation": "handover",
+      "server_response_status": 200,
+      "late_text_accepted": true,
+      "late_tooth_accepted": true,
+      "late_text_absent_from_server": true,
+      "late_tooth_absent_from_server": true,
+      "navigation_dialogs": [
+        {
+          "type": "beforeunload",
+          "message": "This page is asking you to confirm that you want to leave — information you’ve entered may not be saved."
+        }
+      ],
+      "review_issue": "REPRODUCED"
+    },
+    {
+      "operation": "confirm",
+      "server_response_status": 200,
+      "late_text_accepted": true,
+      "late_tooth_accepted": true,
+      "late_text_absent_from_server": true,
+      "late_tooth_absent_from_server": true,
+      "navigation_dialogs": [
+        {
+          "type": "beforeunload",
+          "message": "This page is asking you to confirm that you want to leave — information you’ve entered may not be saved."
+        }
+      ],
+      "review_issue": "REPRODUCED"
+    },
+    {
+      "operation": "correct",
+      "server_response_status": 200,
+      "late_text_accepted": true,
+      "late_tooth_accepted": true,
+      "late_text_absent_from_server": true,
+      "late_tooth_absent_from_server": true,
+      "navigation_dialogs": [
+        {
+          "type": "beforeunload",
+          "message": "This page is asking you to confirm that you want to leave — information you’ve entered may not be saved."
+        }
+      ],
+      "review_issue": "REPRODUCED"
+    }
+  ]
+}

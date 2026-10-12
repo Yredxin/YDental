@@ -1,0 +1,154 @@
+{
+  "result": "21 debugging screenshots individually reviewed",
+  "reproduction_six_terminal_before_after_images_also_reviewed": true,
+  "images": [
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T124510748577/01-permanent-anterior-autosave.png",
+      "sha256": "f01f0de676a6725f0e83443ed33a5fa1fc62c569a3acd6c0679473df9e185958",
+      "review": "Codex individually viewed original image; Chinese status and synthetic clinical scope consistent",
+      "tested_commit": "1bec52a970f497a1c01d5be98f1e4919bcd907d1",
+      "final_fixed_test_pass": false
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T124510748577/02-primary-missing-unknown.png",
+      "sha256": "f4971a18f1950f7f40c7caac9bf837553e192889c024024d5b6cf66f88daa51b",
+      "review": "Codex individually viewed original image; Chinese status and synthetic clinical scope consistent",
+      "tested_commit": "1bec52a970f497a1c01d5be98f1e4919bcd907d1",
+      "final_fixed_test_pass": false
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T124510748577/03-structured-draft.png",
+      "sha256": "f3dc0265059efa303eced5ae8730521aba9238d27853c18902765db4e38a570a",
+      "review": "Codex individually viewed original image; Chinese status and synthetic clinical scope consistent",
+      "tested_commit": "1bec52a970f497a1c01d5be98f1e4919bcd907d1",
+      "final_fixed_test_pass": false
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T124510748577/04-D1-pending-after-handover.png",
+      "sha256": "fa5da569ede40ecf7e8e7a86986bd07c16e9e9c3c9b7cea66fb87a47ce3a54ab",
+      "review": "Codex individually viewed original image; Chinese status and synthetic clinical scope consistent",
+      "tested_commit": "1bec52a970f497a1c01d5be98f1e4919bcd907d1",
+      "final_fixed_test_pass": false
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T124510748577/05-D1-pending-independent-editor.png",
+      "sha256": "1d851b92b6b27973c3b2fd09011cab069e415f900cd926f64b5bc2b68a73d036",
+      "review": "Codex individually viewed original image; Chinese status and synthetic clinical scope consistent",
+      "tested_commit": "1bec52a970f497a1c01d5be98f1e4919bcd907d1",
+      "final_fixed_test_pass": false
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T124510748577/06-D2-new-reception.png",
+      "sha256": "9c8227cf30ff0f2e04f2a0a7e7cfbb3bdb6e2f129504ec48b5ff5e337f005802",
+      "review": "Codex individually viewed original image; Chinese status and synthetic clinical scope consistent",
+      "tested_commit": "1bec52a970f497a1c01d5be98f1e4919bcd907d1",
+      "final_fixed_test_pass": false
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T124510748577/07-valid-editor-transfer-denied.png",
+      "sha256": "812638737b8c23a2d6a3d08f46b404f8ceea9576625c8bcca33aab5ac0b1afb8",
+      "review": "Codex individually viewed original image; Chinese status and synthetic clinical scope consistent",
+      "tested_commit": "1bec52a970f497a1c01d5be98f1e4919bcd907d1",
+      "final_fixed_test_pass": false
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T124510748577/08-D1-confirmed-author-history.png",
+      "sha256": "74b0b3e13f5da4f8b1ce6fe3266d15ac82c72761393a367e74565d58f1a35aa3",
+      "review": "Codex individually viewed original image; Chinese status and synthetic clinical scope consistent",
+      "tested_commit": "1bec52a970f497a1c01d5be98f1e4919bcd907d1",
+      "final_fixed_test_pass": false
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T124510748577/09-text-correction-new-version.png",
+      "sha256": "bfa10c06cbc98d8033aff770dd831215e576a43b0e7df377374d7e988ef96ae8",
+      "review": "Codex individually viewed original image; Chinese status and synthetic clinical scope consistent",
+      "tested_commit": "1bec52a970f497a1c01d5be98f1e4919bcd907d1",
+      "final_fixed_test_pass": false
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T124510748577/10-readonly-medical-denied.png",
+      "sha256": "381c25e58a995622724bda3b9538add5fd3b45d89b37b8dbe88d776bfabc5b4a",
+      "review": "Codex individually viewed original image; Chinese status and synthetic clinical scope consistent",
+      "tested_commit": "1bec52a970f497a1c01d5be98f1e4919bcd907d1",
+      "final_fixed_test_pass": false
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T124510748577/11-offline-unsynchronized.png",
+      "sha256": "a83733ebeae81dffcfb1b5fd3cb6994a58cce09507dbf6cfb1286fbda69bec29",
+      "review": "Codex individually viewed original image; Chinese status and synthetic clinical scope consistent",
+      "tested_commit": "1bec52a970f497a1c01d5be98f1e4919bcd907d1",
+      "final_fixed_test_pass": false
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T124510748577/12-ordinary-inflight-autosave-catchup.png",
+      "sha256": "ce27b076e6994d37a48652bd13e16652a683b91b67f70783936019c841651619",
+      "review": "Codex individually viewed original image; Chinese status and synthetic clinical scope consistent",
+      "tested_commit": "1bec52a970f497a1c01d5be98f1e4919bcd907d1",
+      "final_fixed_test_pass": false
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T124510748577/13-confirm-all-inputs-locked.png",
+      "sha256": "ddafb4199baf4debe563d44344a1f2811d5db29c7e6ceae469f0b1140049bc12",
+      "review": "Codex individually viewed original image; Chinese status and synthetic clinical scope consistent",
+      "tested_commit": "1bec52a970f497a1c01d5be98f1e4919bcd907d1",
+      "final_fixed_test_pass": false
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T124510748577/14-correct-all-inputs-locked.png",
+      "sha256": "2df24f313cbadf753dabd5771e4d0ce854eaea0ae7d8e4b91d546193a1228cf1",
+      "review": "Codex individually viewed original image; Chinese status and synthetic clinical scope consistent",
+      "tested_commit": "1bec52a970f497a1c01d5be98f1e4919bcd907d1",
+      "final_fixed_test_pass": false
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T124510748577/15-correct-forced-input-retained.png",
+      "sha256": "7eba690efbac14fdb60b21cf6dc4799674befd9dd205a037ff53151476260a75",
+      "review": "Codex individually viewed original image; Chinese status and synthetic clinical scope consistent",
+      "tested_commit": "1bec52a970f497a1c01d5be98f1e4919bcd907d1",
+      "final_fixed_test_pass": false
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T124510748577/16-handover-all-inputs-locked.png",
+      "sha256": "c3c2cbfbbb23a117b5ab7e57916b666a6a4dec40504fb1a4d07dbcb6a788bd84",
+      "review": "Codex individually viewed original image; Chinese status and synthetic clinical scope consistent",
+      "tested_commit": "1bec52a970f497a1c01d5be98f1e4919bcd907d1",
+      "final_fixed_test_pass": false
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T124510748577/17-confirm-forced-input-retained.png",
+      "sha256": "c01ac3f605656effdc44188911bbce6cd9f84123b20554726549544bce7863fd",
+      "review": "Codex individually viewed original image; Chinese status and synthetic clinical scope consistent",
+      "tested_commit": "1bec52a970f497a1c01d5be98f1e4919bcd907d1",
+      "final_fixed_test_pass": false
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T124510748577/18-handover-committed-unsent-retained.png",
+      "sha256": "04eccebe7285944ba9945c0d1a6b7b2be5cfc8b2985242fa27f7792366a1ef2b",
+      "review": "Codex individually viewed original image; Chinese status and synthetic clinical scope consistent",
+      "tested_commit": "1bec52a970f497a1c01d5be98f1e4919bcd907d1",
+      "final_fixed_test_pass": false
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T124510748577/19-response-lost-reconcile.png",
+      "sha256": "d79d64ae78ed949accdd9cd8c4efcbe5d1bdda4622c659781cf09d704d100403",
+      "review": "Codex individually viewed original image; Chinese status and synthetic clinical scope consistent",
+      "tested_commit": "1bec52a970f497a1c01d5be98f1e4919bcd907d1",
+      "final_fixed_test_pass": false
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T124510748577/20-request-not-sent-reconcile.png",
+      "sha256": "194c44ced7a79dffd8288a2780c478a687e8ae76c515a9cb90b7dc6dde448fd4",
+      "review": "Codex individually viewed original image; Chinese status and synthetic clinical scope consistent",
+      "tested_commit": "1bec52a970f497a1c01d5be98f1e4919bcd907d1",
+      "final_fixed_test_pass": false
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T124510748577/21-stale-version-reconcile.png",
+      "sha256": "6fc988bd2a1a08d437e46e43252bf6f2d1900cf100c2edabd0d42e3021df40a0",
+      "review": "Codex individually viewed original image; Chinese status and synthetic clinical scope consistent",
+      "tested_commit": "1bec52a970f497a1c01d5be98f1e4919bcd907d1",
+      "final_fixed_test_pass": false
+    }
+  ],
+  "note": "Screenshots corroborate actual debug run; runtime evidence is not final fixed-test full regression."
+}

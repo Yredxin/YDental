@@ -1,0 +1,35 @@
+{
+  "tested_commit": "e8b2247609e51d7fbe268b94082e8fd3259db9d3",
+  "result": "PASS: repository/static/privacy checks only, runtime regression remains BLOCKED",
+  "changed_product_files": [
+    "ydental_clinical/i18n/zh_CN.po",
+    "ydental_clinical/static/src/document/document.js",
+    "ydental_clinical/views/ydental_clinical_templates.xml"
+  ],
+  "product_to_test_files": [
+    "scripts/s08a.py",
+    "scripts/s08a_audit.py",
+    "scripts/s08a_browser.py",
+    "scripts/s08a_probe.py",
+    "scripts/s08a_terminal_browser.py"
+  ],
+  "core_tracked_diff": [],
+  "project_mutations": 0,
+  "public_files_scanned": 114,
+  "bytes_scanned": 22911990,
+  "private_values_checked": 24,
+  "private_values_found": 0,
+  "json_parse": "PASS",
+  "python_parse": "PASS",
+  "git_diff_check": "separately exit0",
+  "timestamp": "2026-10-12T13:11:12.788478+00:00",
+  "node_check": {
+    "command": "node --check ydental_clinical/static/src/document/document.js",
+    "exit_code": 0
+  },
+  "new_document_relative_links": "PASS",
+  "core_preexisting_untracked_preserved": [
+    "?? AGENTS.md",
+    "?? sd-addons/"
+  ]
+}

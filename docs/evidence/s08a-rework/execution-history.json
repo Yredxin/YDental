@@ -1,0 +1,431 @@
+{
+  "result": "BLOCKED; every attempt retained, no intermediate PASS promoted to final",
+  "runs": [
+    {
+      "database": "ydental_s08a_test_20261012121209_305ee956",
+      "identity": {
+        "database": "ydental_s08a_test_20261012121209_305ee956",
+        "oid": 1058498,
+        "endpoint": {
+          "host": "127.0.0.1",
+          "port": "5432",
+          "user": "odoo"
+        },
+        "cluster": "7694897083368259627",
+        "port": 18160,
+        "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+        "created_utc": "2026-10-12T12:12:19.929583+00:00",
+        "config_sha256": "90403996e03a1960f0b88b786af4d147232f8feb9ddf4adba8dc5895532fe9c8"
+      },
+      "creation_marker_sha256": "76e76f0b7ad98c5ffa9692937438d7588d5ffcb723aa78eba09938ee94522455",
+      "config_hash_matches": true,
+      "actions": [
+        {
+          "action": "install",
+          "exit_code": 0,
+          "pid": 1152880,
+          "log": "install-20261012T121219930694.log",
+          "log_sha256": "bdc8748774f55dc1593c88a30a240fc1abf75386573b56725274aaaf354b5146",
+          "time_utc": "2026-10-12T12:13:50.447663+00:00",
+          "tested_commit": "f0f17e633a3421386d0a0bdf2b63a5f9709bde96",
+          "tests": [
+            0,
+            0,
+            30
+          ]
+        },
+        {
+          "action": "preview",
+          "exit_code": 0,
+          "pid": 1153831,
+          "log": "preview-20261012T121408928410.log",
+          "log_sha256": "799a09fbb3a1df8955874a113826cb0625f537162c63888806ba26300b5c9e38",
+          "time_utc": "2026-10-12T12:14:18.517632+00:00",
+          "tested_commit": "f0f17e633a3421386d0a0bdf2b63a5f9709bde96"
+        }
+      ],
+      "serve_log_sha256": "167eee75c9a1cddcd2f1e946bddf4bfca649a681253fccc311b6085076da9dd8",
+      "serve_pid_present": false,
+      "crashes": []
+    },
+    {
+      "database": "ydental_s08a_test_20261012122021_e556dccb",
+      "identity": {
+        "database": "ydental_s08a_test_20261012122021_e556dccb",
+        "oid": 1073311,
+        "endpoint": {
+          "host": "127.0.0.1",
+          "port": "5432",
+          "user": "odoo"
+        },
+        "cluster": "7694897083368259627",
+        "port": 18161,
+        "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+        "created_utc": "2026-10-12T12:20:30.280715+00:00",
+        "config_sha256": "ad14f7d25f84ab3985f22dd1b3e2d594bdf2e71d03e0de4c37930d3cbb5b3d6d"
+      },
+      "creation_marker_sha256": "2da90f57f65a3c867d5f6e745ba5a3b875864983d34b24e862375a3d7a51db81",
+      "config_hash_matches": true,
+      "actions": [
+        {
+          "action": "install",
+          "exit_code": 0,
+          "pid": 1157336,
+          "log": "install-20261012T122030281720.log",
+          "log_sha256": "c46eef45daf7682a6696c18f6040fb8cb2e99e1fa0e59b73fa8492f40937c2d9",
+          "time_utc": "2026-10-12T12:22:00.726166+00:00",
+          "tested_commit": "d717c8dd27af4ce4d197eea37b5c5a605b9d6acc",
+          "tests": [
+            0,
+            0,
+            30
+          ]
+        },
+        {
+          "action": "upgrade",
+          "exit_code": 0,
+          "pid": 1158354,
+          "log": "upgrade-20261012T122222894588.log",
+          "log_sha256": "38138aaaf63454e3f3c096bc12e693d90fcfa50d4d08a0d722afbe7c7688241a",
+          "time_utc": "2026-10-12T12:22:53.050955+00:00",
+          "tested_commit": "d717c8dd27af4ce4d197eea37b5c5a605b9d6acc",
+          "tests": [
+            0,
+            0,
+            28
+          ]
+        },
+        {
+          "action": "probe",
+          "exit_code": 0,
+          "pid": 1158625,
+          "log": "probe-20261012T122253124307.log",
+          "log_sha256": "c723b5926e85c03caaf8432b5907d35182c6da595af7e65f7a9ac6be9b9f045f",
+          "time_utc": "2026-10-12T12:24:35.504395+00:00",
+          "tested_commit": "d717c8dd27af4ce4d197eea37b5c5a605b9d6acc"
+        },
+        {
+          "action": "preview",
+          "exit_code": 0,
+          "pid": 1159514,
+          "log": "preview-20261012T122435576035.log",
+          "log_sha256": "2508d33eae1efa661ecc3df6dd192a3c2a62e130400b23a6abfd4acffdf03d9d",
+          "time_utc": "2026-10-12T12:24:46.425817+00:00",
+          "tested_commit": "d717c8dd27af4ce4d197eea37b5c5a605b9d6acc"
+        },
+        {
+          "action": "audit",
+          "exit_code": 0,
+          "pid": 1159612,
+          "log": "audit-20261012T122446498643.log",
+          "log_sha256": "920fbe0936dec800a60d4cce08ce6fc2e9e84ba982ed1a671d7a55538784777f",
+          "time_utc": "2026-10-12T12:24:47.821147+00:00",
+          "tested_commit": "d717c8dd27af4ce4d197eea37b5c5a605b9d6acc"
+        },
+        {
+          "action": "export",
+          "exit_code": 0,
+          "pid": 1162496,
+          "log": "export-20261012T122922708306.log",
+          "log_sha256": "85b47d8b060ef1bdd932227cb03d71da7905ce1998d71892f9d75f087b81feec",
+          "time_utc": "2026-10-12T12:29:24.812941+00:00",
+          "tested_commit": "3246877240f78d5cd1c08d82ea4767a82aa1bff3"
+        }
+      ],
+      "serve_log_sha256": "874e6944f02cd48f4906a2ce299e010d4d4ae616e1275f91e4ee6353e015f144",
+      "serve_pid_present": false,
+      "crashes": []
+    },
+    {
+      "database": "ydental_s08a_test_20261012123045_d399a600",
+      "identity": {
+        "database": "ydental_s08a_test_20261012123045_d399a600",
+        "oid": 1088348,
+        "endpoint": {
+          "host": "127.0.0.1",
+          "port": "5432",
+          "user": "odoo"
+        },
+        "cluster": "7694897083368259627",
+        "port": 18162,
+        "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+        "created_utc": "2026-10-12T12:30:45.580981+00:00",
+        "config_sha256": "f5ac81852d2993f39aeb68e483c60010118666e25c335d536ed6892c29976913"
+      },
+      "creation_marker_sha256": "52a5fc0dff7bc4dfbd017f9113fcb45284ac826ef6925978f135ee419eb2ffb7",
+      "config_hash_matches": true,
+      "actions": [
+        {
+          "action": "install",
+          "exit_code": 0,
+          "pid": 1163259,
+          "log": "install-20261012T123045582117.log",
+          "log_sha256": "39f618250a21419824cf917a6d3718da74b962b1282a731ad950e7dd0de303c5",
+          "time_utc": "2026-10-12T12:32:15.825391+00:00",
+          "tested_commit": "a0014c590e27ce1dc6812e36124b0bfa7282e22c",
+          "tests": [
+            0,
+            0,
+            30
+          ]
+        },
+        {
+          "action": "upgrade",
+          "exit_code": 0,
+          "pid": 1164016,
+          "log": "upgrade-20261012T123215899742.log",
+          "log_sha256": "bea72d41abc6cd1ee6a075247c9aed9a3ce47c0a30bf509a62d779a67066e023",
+          "time_utc": "2026-10-12T12:32:46.338797+00:00",
+          "tested_commit": "a0014c590e27ce1dc6812e36124b0bfa7282e22c",
+          "tests": [
+            0,
+            0,
+            28
+          ]
+        },
+        {
+          "action": "probe",
+          "exit_code": 0,
+          "pid": 1164289,
+          "log": "probe-20261012T123246409270.log",
+          "log_sha256": "c96369d18a0bb010c495e48522af3f9e9dbfd807858355b282a11b230b8c3704",
+          "time_utc": "2026-10-12T12:34:28.809462+00:00",
+          "tested_commit": "a0014c590e27ce1dc6812e36124b0bfa7282e22c"
+        },
+        {
+          "action": "preview",
+          "exit_code": 0,
+          "pid": 1165277,
+          "log": "preview-20261012T123428882089.log",
+          "log_sha256": "c5fb9a81d03330a114abc147cf7fee95c83b4a02a595eab9967ba35dcd57eaa0",
+          "time_utc": "2026-10-12T12:34:39.847298+00:00",
+          "tested_commit": "a0014c590e27ce1dc6812e36124b0bfa7282e22c"
+        },
+        {
+          "action": "audit",
+          "exit_code": 0,
+          "pid": 1165387,
+          "log": "audit-20261012T123439918942.log",
+          "log_sha256": "2f44de44783a42f5ea8cfbf374cd54c068ab1c844e063c1a07e09928a5b66f06",
+          "time_utc": "2026-10-12T12:34:41.252674+00:00",
+          "tested_commit": "a0014c590e27ce1dc6812e36124b0bfa7282e22c"
+        },
+        {
+          "action": "preview",
+          "exit_code": 0,
+          "pid": 1167242,
+          "log": "preview-20261012T123733498221.log",
+          "log_sha256": "d2570a75de668a5ecc4051c4643a81c001e4b84d743dd0fd01f3f63af2d9300b",
+          "time_utc": "2026-10-12T12:37:44.388833+00:00",
+          "tested_commit": "3a4a5be827c3215a755ecd7343dda39fdfec94b4"
+        },
+        {
+          "action": "preview",
+          "exit_code": 0,
+          "pid": 1171180,
+          "log": "preview-20261012T124420023431.log",
+          "log_sha256": "2eb4199a1b6c7de1da691c41c1ca62f7267769e68a0661313e12b66ddcad2c69",
+          "time_utc": "2026-10-12T12:44:31.013015+00:00",
+          "tested_commit": "1bec52a970f497a1c01d5be98f1e4919bcd907d1"
+        }
+      ],
+      "serve_log_sha256": "79d06176522be910c02b858f52d6d53132305a9783d0d2ddebf1204db6fd8e12",
+      "serve_pid_present": false,
+      "crashes": []
+    },
+    {
+      "database": "ydental_s08a_test_20261012124648_038d989e",
+      "identity": {
+        "database": "ydental_s08a_test_20261012124648_038d989e",
+        "oid": 1103407,
+        "endpoint": {
+          "host": "127.0.0.1",
+          "port": "5432",
+          "user": "odoo"
+        },
+        "cluster": "7694897083368259627",
+        "port": 18163,
+        "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+        "created_utc": "2026-10-12T12:46:48.976547+00:00",
+        "config_sha256": "37896ebaa8543650376ce2d4d2b1bcee288d17e64efd8ba5e0c8388f8c180d2b"
+      },
+      "creation_marker_sha256": "849d1ca915c7fbbe8b290d8c009017a5e8d7482e5c148e16436c0a99aef464dd",
+      "config_hash_matches": true,
+      "actions": [
+        {
+          "action": "install",
+          "exit_code": 0,
+          "pid": 1172772,
+          "log": "install-20261012T124648977846.log",
+          "log_sha256": "1867aaa92f546cdf7693f0f24d676d55f800768ea54fcbbde7266c6630be986d",
+          "time_utc": "2026-10-12T12:48:19.431556+00:00",
+          "tested_commit": "1bec52a970f497a1c01d5be98f1e4919bcd907d1",
+          "tests": [
+            0,
+            0,
+            30
+          ]
+        },
+        {
+          "action": "upgrade",
+          "exit_code": 0,
+          "pid": 1173521,
+          "log": "upgrade-20261012T124819505927.log",
+          "log_sha256": "88b008e679fd65a8be324fbf256c4efeed881f17c19b7d67e7036b73e1d59ea8",
+          "time_utc": "2026-10-12T12:48:49.669384+00:00",
+          "tested_commit": "1bec52a970f497a1c01d5be98f1e4919bcd907d1",
+          "tests": [
+            0,
+            0,
+            28
+          ]
+        },
+        {
+          "action": "probe",
+          "exit_code": 1,
+          "pid": 1173797,
+          "log": "probe-20261012T124849757737.log",
+          "log_sha256": "32e2e8d6d250ae3b7d08402d1b0273c3e73dc7bc2a228ec5c1e8ca0b4d758d37",
+          "time_utc": "2026-10-12T12:49:39.442617+00:00",
+          "tested_commit": "1bec52a970f497a1c01d5be98f1e4919bcd907d1",
+          "verification_exit": 1
+        },
+        {
+          "action": "audit",
+          "exit_code": 0,
+          "pid": 1175407,
+          "log": "audit-20261012T125204362340.log",
+          "log_sha256": "858893058ddb299c3cc0f94c5d2fbd3c02aea6b1597eff64c2dd3af1d69be2e8",
+          "time_utc": "2026-10-12T12:52:05.673534+00:00",
+          "tested_commit": "1bec52a970f497a1c01d5be98f1e4919bcd907d1"
+        }
+      ],
+      "serve_log_sha256": null,
+      "serve_pid_present": false,
+      "crashes": []
+    },
+    {
+      "database": "ydental_s08a_test_20261012125331_e66dbaaf",
+      "identity": {
+        "database": "ydental_s08a_test_20261012125331_e66dbaaf",
+        "oid": 1118351,
+        "endpoint": {
+          "host": "127.0.0.1",
+          "port": "5432",
+          "user": "odoo"
+        },
+        "cluster": "7694897083368259627",
+        "port": 18164,
+        "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+        "created_utc": "2026-10-12T12:53:31.280211+00:00",
+        "config_sha256": "e18e08425bd477c744314091394b824596d17ee3d6cee264bf33daa23bad3872"
+      },
+      "creation_marker_sha256": "767ac2880dc35a27e4dc9b3d2b65b3bae7b95800593e41350fad64368adf1c2a",
+      "config_hash_matches": true,
+      "actions": [
+        {
+          "action": "install",
+          "exit_code": 255,
+          "pid": 1176212,
+          "log": "install-20261012T125331281310.log",
+          "log_sha256": "e9286917f8dff51a34ca74b9dfa9495dbb74c1ae169af09937c5df1866e13433",
+          "time_utc": "2026-10-12T12:54:17.749773+00:00",
+          "tested_commit": "a39dbd58e293297eece66186905b103a7ec8d225",
+          "tests": null,
+          "verification_exit": 255
+        }
+      ],
+      "serve_log_sha256": null,
+      "serve_pid_present": false,
+      "crashes": []
+    },
+    {
+      "database": "ydental_s08a_test_20261012125922_18e705b1",
+      "identity": {
+        "database": "ydental_s08a_test_20261012125922_18e705b1",
+        "oid": 1130035,
+        "endpoint": {
+          "host": "127.0.0.1",
+          "port": "5432",
+          "user": "odoo"
+        },
+        "cluster": "7694897083368259627",
+        "port": 18165,
+        "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+        "created_utc": "2026-10-12T12:59:22.254627+00:00",
+        "pg_session_options": "-c max_parallel_workers_per_gather=0 -c max_parallel_maintenance_workers=0 -c maintenance_work_mem=16384",
+        "config_sha256": "110c2fc6c2b293c857ff5235befba8d317fed46a45c796fe47d4c5ab9cfd2ae3"
+      },
+      "creation_marker_sha256": "c662ba0f376fbfa86759d58fea3a98d464d023e46bfa19aff1594dc6c0d5f31d",
+      "config_hash_matches": true,
+      "actions": [
+        {
+          "action": "install",
+          "exit_code": 255,
+          "pid": 1179142,
+          "log": "install-20261012T125922255623.log",
+          "log_sha256": "eae040b004fd149966812af15d3bfae068c57e36eec33d1401b273a2f5966cc6",
+          "time_utc": "2026-10-12T12:59:24.111932+00:00",
+          "tested_commit": "e8b2247609e51d7fbe268b94082e8fd3259db9d3",
+          "tests": null,
+          "verification_exit": 255
+        }
+      ],
+      "serve_log_sha256": null,
+      "serve_pid_present": false,
+      "crashes": []
+    }
+  ],
+  "reproduction_source_sha256": "ec814724e5336044a3591f5d71d8a49ea5e8ee2b502ca32748d81a2d9784a34c",
+  "relocated_reproduction_script": "scripts/s08a_reproduce_terminal.py",
+  "relocated_reproduction_script_sha256": "226190f532838d95e6b4665f231bd7739f9556ef8d77dea4736944894c6c19eb",
+  "reproduction_exit": 0,
+  "reproduction_semantics": "REPRODUCED, not product PASS",
+  "browser_attempts": [
+    {
+      "path": "docs/evidence/s08a-rework/reproduction-attempts/20261012T121443344394/result.json",
+      "database": "ydental_s08a_test_20261012121209_305ee956",
+      "tested_commit": "f0f17e633a3421386d0a0bdf2b63a5f9709bde96",
+      "result": "REPRODUCED",
+      "checks": 28,
+      "screenshots": 17,
+      "pageerrors": []
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T122605519409/result.json",
+      "database": "ydental_s08a_test_20261012122021_e556dccb",
+      "tested_commit": "d717c8dd27af4ce4d197eea37b5c5a605b9d6acc",
+      "result": "FAIL",
+      "checks": 24,
+      "screenshots": 10,
+      "pageerrors": []
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T123511404158/result.json",
+      "database": "ydental_s08a_test_20261012123045_d399a600",
+      "tested_commit": "a0014c590e27ce1dc6812e36124b0bfa7282e22c",
+      "result": "FAIL",
+      "checks": 29,
+      "screenshots": 12,
+      "pageerrors": []
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T123830648056/result.json",
+      "database": "ydental_s08a_test_20261012123045_d399a600",
+      "tested_commit": "3a4a5be827c3215a755ecd7343dda39fdfec94b4",
+      "result": "FAIL",
+      "checks": 45,
+      "screenshots": 15,
+      "pageerrors": []
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T124510748577/result.json",
+      "database": "ydental_s08a_test_20261012123045_d399a600",
+      "tested_commit": "1bec52a970f497a1c01d5be98f1e4919bcd907d1",
+      "result": "PASS",
+      "checks": 88,
+      "screenshots": 21,
+      "pageerrors": []
+    }
+  ]
+}

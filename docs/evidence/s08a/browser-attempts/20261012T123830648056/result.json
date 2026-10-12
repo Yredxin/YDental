@@ -1,0 +1,322 @@
+{
+  "scope": "S08-A real reception, teeth, authored text, handover and pending responsibility",
+  "database": "ydental_s08a_test_20261012123045_d399a600",
+  "tested_commit": "3a4a5be827c3215a755ecd7343dda39fdfec94b4",
+  "browser": "Firefox",
+  "sandbox": "default, no overrides",
+  "checks": [
+    {
+      "check": "real S06 chair entered",
+      "result": "PASS"
+    },
+    {
+      "check": "real S06 execution serving",
+      "result": "PASS"
+    },
+    {
+      "check": "Chinese real treatment workbench",
+      "result": "PASS"
+    },
+    {
+      "check": "patient and actual serving segment visible before document creation",
+      "result": "PASS"
+    },
+    {
+      "check": "existing S05 price source retains independent permission",
+      "result": "PASS"
+    },
+    {
+      "check": "original and recovery status messages remain Chinese",
+      "result": "PASS"
+    },
+    {
+      "check": "52 clickable permanent and primary teeth",
+      "result": "PASS"
+    },
+    {
+      "check": "three real server autosaves",
+      "result": "PASS"
+    },
+    {
+      "check": "anterior I enabled and O refused",
+      "result": "PASS"
+    },
+    {
+      "check": "primary posterior O enabled I refused",
+      "result": "PASS"
+    },
+    {
+      "check": "missing tooth cannot select surfaces",
+      "result": "PASS"
+    },
+    {
+      "check": "stale version server rejects",
+      "result": "PASS"
+    },
+    {
+      "check": "invalid FDI server rejects",
+      "result": "PASS"
+    },
+    {
+      "check": "D1 pending after real handover",
+      "result": "PASS"
+    },
+    {
+      "check": "pending document cannot handover again",
+      "result": "PASS"
+    },
+    {
+      "check": "D1 supplementation does not occupy a chair",
+      "result": "PASS"
+    },
+    {
+      "check": "one pending continuation offered",
+      "result": "PASS"
+    },
+    {
+      "check": "D2 new independent document",
+      "result": "PASS"
+    },
+    {
+      "check": "responsibility transfer refuses valid editor",
+      "result": "PASS"
+    },
+    {
+      "check": "D1 responsible person legally transferred",
+      "result": "PASS"
+    },
+    {
+      "check": "D1 text confirmed by new contributor",
+      "result": "PASS"
+    },
+    {
+      "check": "confirmed text correction appends version",
+      "result": "PASS"
+    },
+    {
+      "check": "D1 confirmation leaves D2 draft unconfirmed",
+      "result": "PASS"
+    },
+    {
+      "check": "D2 real segment continues serving",
+      "result": "PASS"
+    },
+    {
+      "check": "read-only medical user cannot edit",
+      "result": "PASS"
+    },
+    {
+      "check": "offline never claims success",
+      "result": "PASS"
+    },
+    {
+      "check": "reacquire cannot mark unsent local text saved",
+      "result": "PASS"
+    },
+    {
+      "check": "refresh restores committed server text",
+      "result": "PASS"
+    },
+    {
+      "check": "ordinary in-flight autosave permits clinical input",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized real server read for document 74",
+      "result": "PASS"
+    },
+    {
+      "check": "ordinary autosave catches up latest text and tooth on real server",
+      "result": "PASS"
+    },
+    {
+      "check": "confirm freezes all seven clinical textareas",
+      "result": "PASS"
+    },
+    {
+      "check": "confirm freezes 52 teeth, state, surfaces and no-tooth",
+      "result": "PASS"
+    },
+    {
+      "check": "confirm physical text and FDI attempts cannot alter submission",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized real server read for document 74",
+      "result": "PASS"
+    },
+    {
+      "check": "confirm server content equals the full submitted visible scope",
+      "result": "PASS"
+    },
+    {
+      "check": "correct freezes all seven clinical textareas",
+      "result": "PASS"
+    },
+    {
+      "check": "correct freezes 52 teeth, state, surfaces and no-tooth",
+      "result": "PASS"
+    },
+    {
+      "check": "correct physical text and FDI attempts cannot alter submission",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized real server read for document 74",
+      "result": "PASS"
+    },
+    {
+      "check": "correct server content equals the full submitted visible scope",
+      "result": "PASS"
+    },
+    {
+      "check": "reconciliation keeps local text and never claims saved",
+      "result": "PASS"
+    },
+    {
+      "check": "reconciliation freezes repeat submit and permits text comparison",
+      "result": "PASS"
+    },
+    {
+      "check": "new tab shows real server version without leaving unsent local page",
+      "result": "PASS"
+    },
+    {
+      "check": "authorized real server read for document 73",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T123830648056/01-permanent-anterior-autosave.png",
+      "sha256": "9ee7e57b20fe8c338756157f7deac4daf9cbb1756adb14e281377385327b8693"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T123830648056/02-primary-missing-unknown.png",
+      "sha256": "12cdc764801538355e08b05c373b8360c5613510f645c1a248ebe5f3c27a2195"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T123830648056/03-structured-draft.png",
+      "sha256": "5f2766f87c5c9ac9226cc4ad0cdd5a83447be1b852e96d396b202bf22d272c5b"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T123830648056/04-D1-pending-after-handover.png",
+      "sha256": "536dab5bec26bc1dfcd005d7b2a3663790ee57415a9d1f5f6db124445f26fd8a"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T123830648056/05-D1-pending-independent-editor.png",
+      "sha256": "0d7bf806eeb4e8244ff1ad0edf7c49d9ba03532dd0955409724ded557f6dac3b"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T123830648056/06-D2-new-reception.png",
+      "sha256": "e7d9761a82e0a12044af1e2cfcaa1ce8a97d70d8f1420839a12e4f72f4d56947"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T123830648056/07-valid-editor-transfer-denied.png",
+      "sha256": "5585a094d321971f380f06e5935eeb8af696f692b6df84ddbb39cd31e38cbcef"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T123830648056/08-D1-confirmed-author-history.png",
+      "sha256": "56b5490cdd69c35c009f7b0be79193b17172c73d6ba2645b5fbd71b7c3e387ef"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T123830648056/09-text-correction-new-version.png",
+      "sha256": "fa7b30727a43b7ad3de503c2b29fd15d0e06c25f73b2d8ee3dd6b3cd40c4cf2b"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T123830648056/10-readonly-medical-denied.png",
+      "sha256": "e24284f4fcc45402a129e8af48ab20982d6d466e9dd796e2c563fa63afe3a81f"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T123830648056/11-offline-unsynchronized.png",
+      "sha256": "bf0df53aace8ac756c5b30d094e80618e74a2564c0b78c791b986713d7e6052e"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T123830648056/12-ordinary-inflight-autosave-catchup.png",
+      "sha256": "b62d3f22405c327bc7d76ba03ef4f998d6b4629899db62165da8441452017eea"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T123830648056/13-confirm-all-inputs-locked.png",
+      "sha256": "cd253f5a2aa1b6390f5c296847881e2f5b5272a00618bfce94f3ca1c0ce01614"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T123830648056/14-correct-all-inputs-locked.png",
+      "sha256": "89203b1aa2c6d020d15ff7e8a42045e6a8690776806c0b3dc0a225736e16f38a"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T123830648056/failure-state.png",
+      "sha256": "17ee9a06e600338f2ae1e25c02e368e1b932e20073cfc81f686dc2940a368854"
+    }
+  ],
+  "documents": {
+    "D1": 73,
+    "D2": 74
+  },
+  "terminal_response_barriers": [
+    {
+      "operation": "save-catch-up",
+      "response_status": 200,
+      "response_held_seconds": 1.259,
+      "real_request_sent": true,
+      "response_dropped": false,
+      "navigated_on_success": false
+    },
+    {
+      "operation": "confirm",
+      "response_status": 200,
+      "response_held_seconds": 0.747,
+      "real_request_sent": true,
+      "response_dropped": false,
+      "navigated_on_success": true
+    },
+    {
+      "operation": "correct",
+      "response_status": 200,
+      "response_held_seconds": 0.762,
+      "real_request_sent": true,
+      "response_dropped": false,
+      "navigated_on_success": true
+    },
+    {
+      "operation": "correct-forced-input",
+      "response_status": 200,
+      "response_held_seconds": 0.048,
+      "real_request_sent": true,
+      "response_dropped": false,
+      "navigated_on_success": false
+    }
+  ],
+  "result": "FAIL",
+  "error": {
+    "type": "RuntimeError",
+    "detail": "forced correct preserves server submitted A and visible unsent B",
+    "trace": [
+      {
+        "file": "s08a_browser.py",
+        "line": 193,
+        "method": "main"
+      },
+      {
+        "file": "s08a_terminal_browser.py",
+        "line": 157,
+        "method": "run_terminal_races"
+      },
+      {
+        "file": "s08a_browser.py",
+        "line": 72,
+        "method": "check"
+      },
+      {
+        "file": "s08a_browser.py",
+        "line": 30,
+        "method": "require"
+      }
+    ]
+  },
+  "pageerrors": [],
+  "failure_ui": {
+    "message": "文书操作已提交，本页仍有未同步内容。请保留本地文字，核对服务器版本后按合法更正规则处理。",
+    "version": "16",
+    "readonly": false
+  }
+}

@@ -1,5 +1,19 @@
 # YDental 当前执行入口
 
+## 当前 S08-A定向返工 / #32（环境BLOCKED）
+
+- 本轮仅依据[GPT-REVIEW6123972548](https://github.com/Yredxin/YDental/issues/32#issuecomment-6123972548)，已完整读取#23/#32正文及全部2/4条有效评论；不重做后端。沿用`codex/s08-a-clinical-doc-r1-20261012`及baseline `f0f17e633a3421386d0a0bdf2b63a5f9709bde96`，原代码/提交/失败/证据全保留。
+- 固定rework product `a28b364691791214becf4909e9ecf1bc0be3555c`，test `e8b2247609e51d7fbe268b94082e8fd3259db9d3`，final完整SHA固定于#32本次评论。baseline→product产品仅document.js/QWeb/zh_CN PO；product→test仅验证脚本，test→final仅AGENTS/文档/脱敏证据。
+- 先在本轮新库305ee956基线真实Firefox复现confirm/correct/handover响应期间可新增B、交还/确认只持久A；原beforeunload有通用警告，明确接受后核查，不称原版完全无提示。终态冻结7文本/52牙/牙面/状态/0不适用及动作；generation+完整内容比较，未同步原页保留、同源新标签核对、已交还明确不可撤销；普通自动save追赶保留。无Python产品/模型/ACL/S06事务、独占、作者或D1/D2规则修改。
+- 本轮调试库d399a600在`1bec52a970f497a1c01d5be98f1e4919bcd907d1`真实Firefox88项/21图/10屏障/pageerror0通过，21图逐张目视核验，产品树与product相同。该库安装/升级/probe在较早a001提交，不能拼成最终PASS；原失败调用不存在read动作、GET投影比较、QWeb合并翻译及探针AssertionError全部保留。
+- **最终全量回归BLOCKED，不能申请技术PASS。** 候选e66dbaaf及最终新库`ydental_s08a_test_20261012125922_18e705b1`（端口18165、test e8b2247）安装先后因PostgreSQL32MiB共享内存分配No space left on device退出255/tests null；无SIGSEGV。仅尝试本轮libpq会话串行/维护16MiB，未解决；probe/audit SHOW断言未运行，不称设置已实测。停止数据库重跑，不改服务/核心/系统依赖。
+- 中间d717/a001各install30/upgrade28/probe16通过；1bec另新候选install30/upgrade28后probe7项再AssertionError退出1（确切根因未确认），审计8项0。最终固定test仅guard5及静态安全审查完成；模型/HTTP/16并发/Firefox/151翻译/带业务升级/10签名/6经济签名均NOT_RUN或BLOCKED。原交付PASS不作本轮最终证据，所有数字是Codex自测。
+- 本轮Project零mutation，完整21字段/15条目/6视图及字段/7公开workflow读回深比较；#32仍S08/进行中/Todo/OPEN，#31待用户验收、后续待启用，不改任何workflow。交付前正文/有效原评论无变化。
+- 仅本轮六个全新隔离S08A合成库；端点/cluster/OID/marker/config/dbfilter/data_dir/PID/外发guard继续，不接管历史库。预览仅停止精确匹配本次config/PID，均退出0；原日志/凭据本机保留，仓库仅合成截图/脱敏摘要/hash。
+- 工程材料docs/s08a-rework-{contracts,security-review,report}.md及docs/evidence/s08a-rework；原字典继续适用。S08-B/C、S09—S13、生产NOT_RUN；S07历史SIGSEGV根因未知，生产部署继续BLOCKED。以`[CODEX] S08-A定向修正交付与复核申请`如实报告环境BLOCKED，逐字读回后停止等待GPT，不关闭/合并/强推/部署。
+
+下方S08-A原交付及更早“当前/本次”均为历史记录，本轮以本节及最新定向返工授权为准。
+
 ## 当前 S08-A交付 / #32
 
 - 用户正式启用S08-A，唯一边界为[GPT-ACTIVATE6122378640](https://github.com/Yredxin/YDental/issues/32#issuecomment-6122378640)。完整读取#23/#32正文及全部有效评论、S07最终技术PASS6122197570与状态同步6122311778；[开工检查6122503237](https://github.com/Yredxin/YDental/issues/32#issuecomment-6122503237)写回逐字读回后实施。交付前再读原正文/有效评论无变，仅本次开工评论。

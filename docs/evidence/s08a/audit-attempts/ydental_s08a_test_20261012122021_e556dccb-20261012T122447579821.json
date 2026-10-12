@@ -1,0 +1,66 @@
+{
+  "database": "ydental_s08a_test_20261012122021_e556dccb",
+  "tested_commit": "d717c8dd27af4ce4d197eea37b5c5a605b9d6acc",
+  "signatures": {
+    "ydental_clinical_document": {
+      "count": 14,
+      "sha256": "c3d242ce7a18aa8258bc9324fb8b7cff0ba1ad26b77ff84a23dc2d6c65a2af92"
+    },
+    "ydental_clinical_version": {
+      "count": 12,
+      "sha256": "09467c65e75531421ddfaf4d9f1e53a8decd944eb08b03c88f1ef25413f723d3"
+    },
+    "ydental_queue_execution": {
+      "count": 16,
+      "sha256": "9e2e2bbbde5ce1a17d43f86235ed4c94ea0e29cef385ba4ea4523b17fc5237c7"
+    },
+    "ydental_intake_task": {
+      "count": 23,
+      "sha256": "53c23eb3c0238b275f86f35daa75c6d73320f70cbb33c39d1ae009373c11e333"
+    },
+    "ydental_inventory_event": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "ydental_inventory_batch": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stock_move": {
+      "count": 50,
+      "sha256": "a27f979af75ffd89533225806c7c27b363230b3b7a30a57229e0c368efe0c0c6"
+    },
+    "stock_move_line": {
+      "count": 36,
+      "sha256": "ca716700db252fa8984af528f6f14ce5f78b4f545bdc057adb0559dedf2bacbc"
+    },
+    "stock_quant": {
+      "count": 40,
+      "sha256": "795e7475242ab02e668cdf33e908abd25d9628fbd06cb4e8f9ed2120dc4e3c64"
+    },
+    "ydental_intake_snapshot": {
+      "count": 1,
+      "sha256": "13c71064550e2ab256297e0bf394e7a50ecb569322afabea64166692b2194ad2"
+    }
+  },
+  "invariants": {
+    "version_count": 0,
+    "latest_content": 0,
+    "version_source": 0,
+    "document_source": 0,
+    "duplicate_continuation": 0,
+    "duplicate_actual_execution": 0,
+    "terminal_unmarked_draft": 0,
+    "negative_internal_quant": 0
+  },
+  "audit_events": {
+    "clinical.create": 14,
+    "clinical.edit_acquire": 18,
+    "clinical.edit_release": 2,
+    "clinical.handover_edit_release": 6,
+    "clinical.handover_save_verified": 6,
+    "clinical.responsibility_transfer": 2,
+    "clinical.save": 12
+  },
+  "result": "PASS"
+}
