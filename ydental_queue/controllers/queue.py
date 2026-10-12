@@ -42,6 +42,11 @@ class YDentalQueue(http.Controller):
         # workstation page to resolve staffing, without hiding the waiting task.
         waiting_rows = []
         for entry in entries:
+            if entry.state not in ('waiting', 'calling'):
+                # Execution/history rows keep their own state; call eligibility
+                # must not label an ongoing serving segment as day_closed.
+                waiting_rows.append({'entry': entry, 'reason': ''})
+                continue
             holders = queue._model('lease').search([('ydental_store_id', '=', store.id), ('ydental_active', '=', True),
                 ('ydental_expires_at', '>', queue._now())]).filtered(
                     lambda lease: lease.ydental_station_id.ydental_queue_area_id == entry.ydental_area_id)
