@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 20.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-12 08:21+0000\n"
-"PO-Revision-Date: 2026-10-12 08:21+0000\n"
+"POT-Creation-Date: 2026-10-12 08:25+0000\n"
+"PO-Revision-Date: 2026-10-12 08:25+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -443,6 +443,8 @@ msgid "Inventory warehouses cannot be shared between stores."
 msgstr "库存仓库不能由多个门店共用。"
 
 #. module: ydental_inventory
+#: model:ir.actions.act_url,name:ydental_inventory.ydental_inventory_action
+#: model:ir.ui.menu,name:ydental_inventory.ydental_inventory_menu
 #: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
 msgid "Inventory workbench"
 msgstr "库存工作台"
@@ -599,6 +601,11 @@ msgstr "执行必要摘要"
 #: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
 msgid "No"
 msgstr "否"
+
+#. module: ydental_inventory
+#: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
+msgid "On hand"
+msgstr "账面实存"
 
 #. module: ydental_inventory
 #: model:ir.model.fields,field_description:ydental_inventory.field_ydental_inventory_event__ydental_count_fingerprint

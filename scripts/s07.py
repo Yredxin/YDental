@@ -42,7 +42,7 @@ def write_private(path, value):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=['install', 'upgrade', 'probe', 'serve', 'export', 'audit'])
+    parser.add_argument('action', choices=['install', 'upgrade', 'probe', 'serve', 'export', 'audit', 'preview'])
     parser.add_argument('--db', required=True)
     parser.add_argument('--config', type=Path, default=CORE / 'odoo.conf')
     parser.add_argument('--port', type=int, default=18137)
@@ -173,9 +173,9 @@ def main():
             parser.error('Process egress policy differs; refusing to run')
         env['PYTHONPATH'] = str(policy_dir) + os.pathsep + env.get('PYTHONPATH', '')
         command = [str(CORE / '.venv/bin/python'), str(CORE / 'odoo-bin')]
-        if args.action in ('probe', 'audit'):
+        if args.action in ('probe', 'audit', 'preview'):
             command += ['shell', '-c', str(config), '--no-http']
-            code = "import runpy; runpy.run_path(%r, init_globals={'env': env, 'migration_action': %r})" % (str(REPO / ('scripts/s07_audit.py' if args.action == 'audit' else 'scripts/s07_probe.py')), args.action)
+            code = "import runpy; runpy.run_path(%r, init_globals={'env': env, 'migration_action': %r})" % (str(REPO / ('scripts/s07_audit.py' if args.action == 'audit' else 'scripts/s07_preview.py' if args.action == 'preview' else 'scripts/s07_probe.py')), args.action)
         else:
             command += ['-c', str(config)]
             code = None
