@@ -82,12 +82,14 @@ def fresh(callback, role='manager'):
 
 
 def execute(callback, role, n, barrier=None, hold=None, ready=None):
+    backend_pids = []
     for attempt in range(1, 13):
         try:
             with registry.cursor() as cr:
                 q = service(cr, role, n)
                 cr.execute('SELECT pg_backend_pid(), ydental_revision FROM ydental_queue_mutex')
                 pid, revision = cr.fetchone()  # Establish independent RR snapshots.
+                backend_pids.append(pid)
                 if attempt == 1 and ready:
                     ready.set()
                 if attempt == 1 and barrier:
@@ -100,7 +102,7 @@ def execute(callback, role, n, barrier=None, hold=None, ready=None):
                     hold[0].set()
                     assert hold[1].wait(timeout=20)
                 cr.commit()
-                return {'value': value, 'attempts': attempt, 'pid': pid}
+                return {'value': value, 'attempts': attempt, 'pid': pid, 'initial_pid': backend_pids[0], 'attempt_pids': backend_pids}
         except psycopg2.errors.SerializationFailure:
             if attempt == 12:
                 raise
@@ -125,9 +127,9 @@ def ordered(first, second):
 
 
 def record(name, output, **checks):
-    assert len({v['pid'] for v in output}) == 2
+    assert len({v['initial_pid'] for v in output}) == 2
     result['races'].append({'name': name, 'result': 'PASS', 'connections': 2,
-        'backend_pids': [v['pid'] for v in output], 'attempts': [v['attempts'] for v in output],
+        'backend_pids': [v['initial_pid'] for v in output], 'retry_backend_pids': [v['attempt_pids'] for v in output], 'attempts': [v['attempts'] for v in output],
         'outcomes': ['rejected' if 'rejected' in v['value'] else v['value'].get('result', 'accepted') for v in output], **checks})
 
 
