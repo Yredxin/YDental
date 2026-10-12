@@ -27,6 +27,12 @@ root=Path(__file__).resolve().parents[1]
 import subprocess
 result['tested_commit']=subprocess.check_output(['git','-C',str(root),'rev-parse','HEAD'],text=True).strip()
 
+def legacy_final_pid_assertion(outcomes):
+    # Re-execute only the old diagnostic predicate (1bec52a script line 79).
+    # Its failure is evidence of an invalid pool-identity check, not permission
+    # to ignore any business invariant or the initial two-backend barrier.
+    assert outcomes[0]['backend_pid']!=outcomes[1]['backend_pid']
+
 def fixture(kind):
     with env.registry.cursor() as cr:
         f=SimpleNamespace(env=api.Environment(cr,1,{}));setup(f)
@@ -62,30 +68,53 @@ def fixture(kind):
         return uid,contexts,jobs,d['document_id'],e.id
 
 def race(kind,round_number):
+    record={'case':kind,'round':round_number,'result':'RUNNING','worker_traces':[[],[]]}
+    result['races'].append(record) # Preserve the failed case, not only completed races.
     uid,contexts,jobs,doc_id,execution_id=fixture(kind)
+    record.update(document_id=doc_id,execution_id=execution_id)
     barrier=threading.Barrier(2,timeout=20)
     def worker(index):
         attempts=[];pid=None;initial_pid=None;backend_trace=[]
+        def trace(event):
+            record['worker_traces'][index].append({'event':event,'attempt':attempt,'backend_pid':pid,'monotonic_ns':time.monotonic_ns()})
         for attempt in range(6):
             with env.registry.cursor() as cr:
                 cr.execute('SET LOCAL lock_timeout = %s',['12s']);cr.execute('SELECT pg_backend_pid()');pid=cr.fetchone()[0]
                 backend_trace.append(pid)
                 if attempt==0:initial_pid=pid
+                trace('backend_connected')
                 try:
-                    if attempt==0:barrier.wait()
+                    if attempt==0:
+                        trace('barrier_enter');barrier.wait();trace('barrier_exit')
                     s=api.Environment(cr,uid,contexts[index])['ydental.queue.service' if kind=='queue_start' else 'ydental.clinical.service']
+                    trace('operate_begin')
                     data=s._operate(*jobs[index]);cr.commit()
+                    trace('accepted_commit')
                     return {'result':'accepted','backend_pid':pid,'initial_backend_pid':initial_pid,'backend_pid_trace':backend_trace,'attempts':attempts,'version':data.get('version')}
                 except psycopg2.errors.SerializationFailure:
+                    trace('serialization_retry')
                     attempts.append('serialization_retry');cr.rollback()
                     time.sleep(0.01*(attempt+1))
                 except psycopg2.errors.DeadlockDetected:
+                    trace('deadlock')
+                    result['deadlocks']+=1
                     return {'result':'deadlock','backend_pid':pid,'initial_backend_pid':initial_pid,'backend_pid_trace':backend_trace,'attempts':attempts}
                 except (AccessError,UserError,ValidationError) as error:
+                    trace('business_rejected')
                     cr.rollback();return {'result':'rejected','backend_pid':pid,'initial_backend_pid':initial_pid,'backend_pid_trace':backend_trace,'attempts':attempts,'code':str(error).split(':')[0]}
         return {'result':'retry_exhausted','backend_pid':pid,'initial_backend_pid':initial_pid,'backend_pid_trace':backend_trace,'attempts':attempts}
     with ThreadPoolExecutor(max_workers=2) as pool:
         futures=[pool.submit(worker,i) for i in range(2)]; outcomes=[f.result(timeout=100) for f in futures]
+    record['outcomes']=outcomes
+    record['legacy_final_pid_distinct']=outcomes[0]['backend_pid']!=outcomes[1]['backend_pid']
+    try:
+        legacy_final_pid_assertion(outcomes)
+        record['legacy_predicate_diagnostic']={'result':'PASS'}
+    except AssertionError as error:
+        record['legacy_predicate_diagnostic']={'result':'FAIL_REPRODUCED',
+            'original_predicate':'1bec52a:scripts/s08a_probe.py:79',
+            'trace':[{'file':Path(frame.filename).name,'line':frame.lineno,'method':frame.name}
+                     for frame in traceback.extract_tb(error.__traceback__)]}
     # The first cursors overlap at the barrier. A retry may legitimately borrow
     # the winner's now-idle pooled backend; comparing final PIDs is insufficient.
     assert outcomes[0]['initial_backend_pid']!=outcomes[1]['initial_backend_pid'],(kind,outcomes)
@@ -94,7 +123,7 @@ def race(kind,round_number):
         r=api.Environment(cr,1,{})
         if kind=='queue_start':
             assert r['ydental.queue.execution'].search_count([('ydental_task_id','=',execution_id)])==1
-            result['races'].append({'case':kind,'round':round_number,'outcomes':outcomes,'result':'PASS'})
+            record['result']='PASS'
             return
         doc=r['ydental.clinical.document'].browse(doc_id);e=r['ydental.queue.execution'].browse(execution_id)
         versions=r['ydental.clinical.version'].search([('ydental_document_id','=',doc_id)])
@@ -105,7 +134,7 @@ def race(kind,round_number):
         if kind=='continuation':assert successors==1 and e.state=='handover' and not doc.ydental_editor_id
         if kind=='versions':assert doc.ydental_version==1
         if kind=='transfer':assert doc.ydental_responsible_id.id!=uid
-    result['races'].append({'case':kind,'round':round_number,'outcomes':outcomes,'result':'PASS','single_continuation':successors})
+    record.update(result='PASS',single_continuation=successors)
 
 try:
     for kind in ('versions','editors','handover_save','continuation','old_new_editor','rollback','transfer','queue_start'):
