@@ -113,6 +113,7 @@ def main():
             click_wait(page,'button[data-operation=call]');click_wait(page,'button[data-operation=start]')
             check('real S06 execution serving',page.locator('[data-execution]').count()>0)
             page.goto(base+'/ydental/clinical');check('Chinese real treatment workbench','治疗接诊工作台' in page.inner_text('body'))
+            check('existing S05 price source retains independent permission',page.locator('a[href="/ydental/intake/prices"]').count()==1 and '不生成费用' in page.inner_text('body'))
             open_editor(page);d1=int(page.evaluate('new URL(location.href).searchParams.get("document_id")'))
             check('52 clickable permanent and primary teeth',page.locator('[data-tooth]').count()==52)
             for i in range(1,4):page.locator('[name=chief_complaint]').fill('合成演示主诉第%s次保存'%i);version(page,i)
@@ -177,7 +178,7 @@ def main():
             check('read-only medical user cannot edit',reader.locator('[name=chief_complaint]').is_disabled());screenshot(reader,readerctx,'10-readonly-medical-denied.png')
             # Genuine browser offline leaves content visibly unsynchronized.
             open_editor(p2);ctx2.set_offline(True);p2.locator('[name=history]').fill('未同步合成文本')
-            p2.wait_for_timeout(1100);check('offline never claims success','未同步' in p2.locator('#clinical-result').inner_text() or '连接' in p2.locator('#clinical-result').inner_text())
+            p2.wait_for_function('document.querySelector("#clinical-result").textContent.includes("未同步") || document.querySelector("#clinical-result").textContent.includes("连接")');check('offline never claims success','已保存' not in p2.locator('#clinical-result').inner_text())
             screenshot(p2,ctx2,'11-offline-unsynchronized.png');ctx2.set_offline(False)
             # Drop only this page's unsent demonstration text by explicit navigation.
             p2.on('dialog',lambda dialog:dialog.accept());p2.reload();check('refresh restores committed server text',p2.locator('[name=history]').input_value()!='未同步合成文本')
