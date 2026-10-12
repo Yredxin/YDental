@@ -1,0 +1,1575 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* ydental_treatment
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 20.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-12 23:56+0000\n"
+"PO-Revision-Date: 2026-10-13 00:00+0000\n"
+"Last-Translator: YDental development\n"
+"Language-Team: YDental\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "/ amount"
+msgstr "/ 金额"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "/ fee source"
+msgstr "/ 费用来源"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "/ native stock moves"
+msgstr "/ 原生库存移动"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "/ task"
+msgstr "/ 任务"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "; prescription allowance will remain unchanged."
+msgstr "；处方可领总量保持不变。"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid ""
+"<span id=\"treatment-confirm\" hidden=\"hidden\">Confirm that this action describes the actual verified project, order or dispensing. It may create immutable fee and stock sources.</span>\n"
+"                <span id=\"treatment-offline\" hidden=\"hidden\">Unconfirmed response. Keep this page and check the server sources before retrying. No automatic replay.</span>"
+msgstr ""
+"<span id=\"treatment-confirm\" hidden=\"hidden\">请确认本次是已核实的实际项目、医嘱或发药，可能建立不可变费用及库存来源。</span>\n"
+"                <span id=\"treatment-offline\" hidden=\"hidden\">响应未确认。请保留本页并核对服务器来源后再决定操作，不自动重放。</span>"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_clinical_page_inherit_treatment
+msgid "<span> | </span>"
+msgstr "<span> | </span>"
+
+#. module: ydental_treatment
+#: model:ir.model.constraint,message:ydental_treatment.constraint_ydental_treatment_event_source_once
+msgid "A clinical source executes once."
+msgstr "一个临床来源只能执行一次。"
+
+#. module: ydental_treatment
+#: model:ir.model.constraint,message:ydental_treatment.constraint_ydental_treatment_fee_price_positive
+msgid "A fee source requires a verified nonzero price."
+msgstr "费用来源必须有已核实的非零单价。"
+
+#. module: ydental_treatment
+#: model:ir.model.constraint,message:ydental_treatment.constraint_ydental_treatment_price_review_event_once
+msgid "A missing historical price is reviewed once."
+msgstr "一份历史缺价事实只能核价一次。"
+
+#. module: ydental_treatment
+#: model:ir.model.constraint,message:ydental_treatment.constraint_ydental_treatment_segment_task_once
+msgid "A pharmacy task belongs to one prescription segment."
+msgstr "一个药房任务只属于一个处方发药段。"
+
+#. module: ydental_treatment
+#: model:ir.model.constraint,message:ydental_treatment.constraint_ydental_queue_execution_terminal_time
+msgid "A terminal segment retains its end time."
+msgstr "终态执行段必须保留结束时间。"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Action"
+msgstr "操作"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Actual additional material quantity"
+msgstr "实际追加材料数量"
+
+#. module: ydental_treatment
+#: model:ir.model.fields.selection,name:ydental_treatment.selection__ydental_treatment_event__ydental_kind__prescription
+msgid "Actual dispensing"
+msgstr "实际发药"
+
+#. module: ydental_treatment
+#: model:ir.model.fields.selection,name:ydental_treatment.selection__ydental_treatment_segment__state__active
+msgid "Actual dispensing segment"
+msgstr "实际发药段"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Actual issue quantity"
+msgstr "实际发出数量"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Actual issue reason"
+msgstr "实际发药原因"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Actual material quantity"
+msgstr "实际材料数量"
+
+#. module: ydental_treatment
+#: model:ir.model.fields.selection,name:ydental_treatment.selection__ydental_queue_entry__state__completed
+#: model:ir.model.fields.selection,name:ydental_treatment.selection__ydental_queue_execution__state__completed
+msgid "Actual pharmacy segment completed"
+msgstr "本次药房执行段已完成"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Actual project quantity"
+msgstr "实际项目数量"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Actual quantity difference"
+msgstr "实际数量差额"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Actual reason / source evidence"
+msgstr "实际原因与来源凭据"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Actual return quantity"
+msgstr "实际退回数量"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Actual treatment confirmation"
+msgstr "实际治疗确认"
+
+#. module: ydental_treatment
+#: model:ir.model,name:ydental_treatment.model_ydental_treatment_service
+msgid "Actual treatment, frozen orders and pharmacy transactions"
+msgstr "真实治疗、冻结医嘱与药房事务"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_clinical_page_inherit_treatment
+msgid "Actual treatment, orders and referrals"
+msgstr "实际治疗、医嘱与转诊"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Add independent order line"
+msgstr "增加独立医嘱项目"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Additional verified batch"
+msgstr "追加核实批次"
+
+#. module: ydental_treatment
+#: model:ir.model.fields.selection,name:ydental_treatment.selection__ydental_treatment_order__state__done
+msgid "All approved quantities dispensed"
+msgstr "批准总量已全部发出"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid ""
+"Already physically performed; preserve fact if bookkeeping is unavailable"
+msgstr "已真实发生；账务未就绪时保留事实待核对"
+
+#. module: ydental_treatment
+#: model:ir.model.constraint,message:ydental_treatment.constraint_ydental_treatment_receipt_key_once
+msgid "An action key has one stable result."
+msgstr "一个操作键只有一个稳定结果。"
+
+#. module: ydental_treatment
+#: model:ir.model.constraint,message:ydental_treatment.constraint_ydental_treatment_fee_one_event
+msgid "An execution creates one immutable fee source."
+msgstr "一次执行只建立一个不可变费用来源。"
+
+#. module: ydental_treatment
+#: model:ir.model.constraint,message:ydental_treatment.constraint_ydental_treatment_consumption_one_lot
+msgid "An execution records each batch once."
+msgstr "一次执行每个批次只记一次。"
+
+#. module: ydental_treatment
+#: model:ir.model.constraint,message:ydental_treatment.constraint_ydental_treatment_line_positive
+msgid "An order quantity must be positive."
+msgstr "医嘱数量必须为正。"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Append quantity correction"
+msgstr "追加数量更正"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Approved"
+msgstr "批准总量"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Approved quantity"
+msgstr "批准数量"
+
+#. module: ydental_treatment
+#: model:ir.model,name:ydental_treatment.model_ydental_inventory_service
+msgid "Atomic native inventory and trusted execution source service"
+msgstr "原生库存与可信执行来源原子服务"
+
+#. module: ydental_treatment
+#: model:ir.model,name:ydental_treatment.model_ydental_intake_service
+msgid "Atomic service pricing and capacity-backed intake"
+msgstr "原子服务取价与容量受理"
+
+#. module: ydental_treatment
+#: model:ir.model,name:ydental_treatment.model_ir_attachment
+msgid "Attachment"
+msgstr "附件"
+
+#. module: ydental_treatment
+#: model:ir.model,name:ydental_treatment.model_ydental_queue_execution
+msgid "Authoritative patient actual execution fence"
+msgstr "患者实际执行权威互斥"
+
+#. module: ydental_treatment
+#: model:ir.model.fields.selection,name:ydental_treatment.selection__ydental_treatment_line__state__issued
+msgid "Awaiting execution"
+msgstr "待执行"
+
+#. module: ydental_treatment
+#: model:ir.model.fields.selection,name:ydental_treatment.selection__ydental_treatment_segment__state__pending
+msgid "Awaiting explicit reporting"
+msgstr "待明确报到"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Cancel unperformed examination"
+msgstr "取消未执行检查"
+
+#. module: ydental_treatment
+#: model:ir.model.fields.selection,name:ydental_treatment.selection__ydental_treatment_event__ydental_kind__chairside
+msgid "Chairside medication"
+msgstr "椅旁用药"
+
+#. module: ydental_treatment
+#: model:ir.model.fields.selection,name:ydental_treatment.selection__ydental_treatment_consumption__ydental_kind__chairside
+msgid "Chairside medicine"
+msgstr "椅旁药品"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Check committed sources in a new tab; keep this page for comparison."
+msgstr "在新标签核对服务器来源；保留本页用于比较。"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Choose an actual project"
+msgstr "选择实际项目"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Choose exact capability"
+msgstr "选择精确能力"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Choose target store service"
+msgstr "选择目标门店服务"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Confirm actual dispensing"
+msgstr "确认实际发药"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Confirm actual treatment"
+msgstr "确认实际治疗"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Correction reason"
+msgstr "更正原因"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Course"
+msgstr "疗程"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_consumption__create_uid
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_event__create_uid
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_fee__create_uid
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_line__create_uid
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_order__create_uid
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_price_review__create_uid
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_receipt__create_uid
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_segment__create_uid
+msgid "Created by"
+msgstr "创建人"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_consumption__create_date
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_event__create_date
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_fee__create_date
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_line__create_date
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_order__create_date
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_price_review__create_date
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_receipt__create_date
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_segment__create_date
+msgid "Created on"
+msgstr "创建时间"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Cross-store referral"
+msgstr "跨店转诊"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid ""
+"Demonstration pricing and synthetic medication review only. Production "
+"pricing, medication policy and clinical signing await approval. These "
+"sources are not bills or payments."
+msgstr "仅供演示取价及合成用药审核。正式价格、用药政策与临床签发待批准。费用来源不是账单或收款。"
+
+#. module: ydental_treatment
+#: model:ir.model.fields.selection,name:ydental_treatment.selection__ydental_treatment_fee__ydental_policy__demo_confirmation
+msgid "Demonstration; production pricing policy awaits approval"
+msgstr "演示；正式价格政策待批准"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ir_attachment__display_name
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_intake_service__display_name
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_inventory_service__display_name
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_queue_entry__display_name
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_queue_execution__display_name
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_queue_service__display_name
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_consumption__display_name
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_event__display_name
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_fee__display_name
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_line__display_name
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_order__display_name
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_price_review__display_name
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_receipt__display_name
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_record__display_name
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_segment__display_name
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_service__display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: ydental_treatment
+#: model:ir.model.fields.selection,name:ydental_treatment.selection__ydental_treatment_line__state__draft
+#: model:ir.model.fields.selection,name:ydental_treatment.selection__ydental_treatment_order__state__draft
+msgid "Draft"
+msgstr "草稿"
+
+#. module: ydental_treatment
+#: model:ir.model,name:ydental_treatment.model_ydental_queue_entry
+msgid "Durable task queue opportunity and actual call"
+msgstr "持久任务排队机会与真实叫号"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "End this actual dispensing segment reason"
+msgstr "结束本次实际发药段原因"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Evidenced historical price review"
+msgstr "有据历史核价"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Exact service / medicine"
+msgstr "精确服务与药品"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Exact service mapping"
+msgstr "精确服务映射"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Examination or take-away prescription draft"
+msgstr "检查或带走处方草稿"
+
+#. module: ydental_treatment
+#: model:ir.model.fields.selection,name:ydental_treatment.selection__ydental_treatment_order__ydental_kind__exam
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Examination order"
+msgstr "检查医嘱"
+
+#. module: ydental_treatment
+#: model:ir.model.fields.selection,name:ydental_treatment.selection__ydental_treatment_line__state__done
+msgid "Execution completed"
+msgstr "执行已完成"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Explicit purpose"
+msgstr "明确目的"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "FDI tooth (0 means not applicable)"
+msgstr "FDI牙位（0为不适用）"
+
+#. module: ydental_treatment
+#: model:ir.model.fields.selection,name:ydental_treatment.selection__ydental_treatment_event__state__pending
+msgid "Fact awaiting reconciliation"
+msgstr "事实待核对"
+
+#. module: ydental_treatment
+#: model:ir.model.fields.selection,name:ydental_treatment.selection__ydental_treatment_event__state__confirmed
+msgid "Fee and stock confirmed"
+msgstr "费用与库存已确认"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Finish segment and release workstation"
+msgstr "结束本段并释放工位"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Frequency"
+msgstr "频次"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Frozen orders and remaining quantities"
+msgstr "冻结医嘱与剩余数量"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Frozen original price"
+msgstr "冻结原价"
+
+#. module: ydental_treatment
+#: model:ir.model.constraint,message:ydental_treatment.constraint_ydental_treatment_price_review_positive
+msgid "Historical review requires a positive evidenced price."
+msgstr "历史核价必须有据且单价为正。"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ir_attachment__id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_intake_service__id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_inventory_service__id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_queue_entry__id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_queue_execution__id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_queue_service__id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_consumption__id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_event__id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_fee__id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_line__id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_order__id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_price_review__id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_receipt__id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_record__id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_segment__id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_service__id
+msgid "ID"
+msgstr "编号"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Immutable actual events, fee and native stock sources"
+msgstr "不可变实际事件、费用与原生库存来源"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Independent clinical document"
+msgstr "独立临床文书"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Initiate referral only"
+msgstr "仅发起转诊"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Instructions / state"
+msgstr "用药指示与状态"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Issue and freeze order"
+msgstr "开立并冻结医嘱"
+
+#. module: ydental_treatment
+#: model:ir.model.fields.selection,name:ydental_treatment.selection__ydental_treatment_order__state__issued
+msgid "Issued, frozen"
+msgstr "已开立并冻结"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_consumption__write_uid
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_event__write_uid
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_fee__write_uid
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_line__write_uid
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_order__write_uid
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_price_review__write_uid
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_receipt__write_uid
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_segment__write_uid
+msgid "Last Updated by"
+msgstr "最后更新人"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_consumption__write_date
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_event__write_date
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_fee__write_date
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_line__write_date
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_order__write_date
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_price_review__write_date
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_receipt__write_date
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_segment__write_date
+msgid "Last Updated on"
+msgstr "最后更新时间"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "M,O,D,B,L or I"
+msgstr "M、O、D、B、L或I"
+
+#. module: ydental_treatment
+#: model:ir.model.fields.selection,name:ydental_treatment.selection__ydental_treatment_consumption__ydental_kind__treatment
+msgid "Material"
+msgstr "耗材"
+
+#. module: ydental_treatment
+#: model:ir.model.constraint,message:ydental_treatment.constraint_ydental_treatment_consumption_positive
+msgid "Material quantity must be positive."
+msgstr "材料数量必须为正。"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Medicine"
+msgstr "药品"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_consumption__name
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_event__name
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_fee__name
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_line__name
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_order__name
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_price_review__name
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_receipt__name
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_record__name
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_segment__name
+msgid "Name"
+msgstr "名称"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "No additional physical material"
+msgstr "无追加实物材料"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "No medicine for examination"
+msgstr "检查无药品"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "No physical material used"
+msgstr "未使用实物材料"
+
+#. module: ydental_treatment
+#: model:ir.model.constraint,message:ydental_treatment.constraint_ydental_treatment_event_quantity_nonzero
+msgid "Only a material correction may leave the project quantity unchanged."
+msgstr "仅材料更正允许项目数量不变。"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Order kind"
+msgstr "医嘱类别"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Original quote evidence"
+msgstr "原报价凭据"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Physical return evidence"
+msgstr "实物退回凭据"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Physically returned batch"
+msgstr "实际退回批次"
+
+#. module: ydental_treatment
+#: model:ir.model.constraint,message:ydental_treatment.constraint_ydental_treatment_segment_sequence_once
+msgid "Prescription segments have stable consecutive identities."
+msgstr "处方各段使用稳定连续标识。"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Project"
+msgstr "项目"
+
+#. module: ydental_treatment
+#: model:ir.model,name:ydental_treatment.model_ydental_treatment_record
+msgid "Protected clinical execution source"
+msgstr "受保护的临床执行来源"
+
+#. module: ydental_treatment
+#: model:ir.model.fields.selection,name:ydental_treatment.selection__ydental_treatment_event__ydental_kind__correction
+msgid "Quantity correction"
+msgstr "数量更正"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Receive physical return into quarantine"
+msgstr "接收实物退回至隔离区"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Recheck original bookkeeping"
+msgstr "重新核对原事件账务"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Reconciliation evidence"
+msgstr "核对凭据"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Record historical price review only"
+msgstr "仅记录历史核价"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Referral mode"
+msgstr "转诊方式"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Referral reason"
+msgstr "转诊原因"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Remaining"
+msgstr "剩余量"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Review the actual action scope before confirming."
+msgstr "确认前核对本次实际操作范围。"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Save changes to draft"
+msgstr "保存草稿修改"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Save order draft"
+msgstr "保存医嘱草稿"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid ""
+"Save the independent document before confirming an actual project. Text "
+"confirmation, actual execution and segment finish are separate actions."
+msgstr "确认实际项目前先保存独立文书。文字确认、实际执行与结束本段为独立动作。"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Segment"
+msgstr "发药段"
+
+#. module: ydental_treatment
+#: model:ir.model.fields.selection,name:ydental_treatment.selection__ydental_treatment_segment__state__done
+msgid "Segment finished"
+msgstr "本段已结束"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Specification"
+msgstr "规格"
+
+#. module: ydental_treatment
+#: model:ir.model.fields.selection,name:ydental_treatment.selection__ydental_treatment_line__state__started
+msgid "Started by examination service"
+msgstr "由检查服务开始"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_queue_entry__state
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_queue_execution__state
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_event__state
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_line__state
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_order__state
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_segment__state
+msgid "State"
+msgstr "状态"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Surfaces"
+msgstr "牙面"
+
+#. module: ydental_treatment
+#: model:ir.model.fields.selection,name:ydental_treatment.selection__ydental_treatment_consumption__ydental_kind__prescription
+msgid "Take-away medicine"
+msgstr "带走药品"
+
+#. module: ydental_treatment
+#: model:ir.model.fields.selection,name:ydental_treatment.selection__ydental_treatment_order__ydental_kind__prescription
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Take-away prescription"
+msgstr "带走处方"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Target region and capability"
+msgstr "目标区域与能力"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Timed reservation"
+msgstr "定时预约"
+
+#. module: ydental_treatment
+#: model:ir.model.fields.selection,name:ydental_treatment.selection__ydental_treatment_event__ydental_kind__treatment
+msgid "Treatment"
+msgstr "治疗"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Treatment and pharmacy"
+msgstr "治疗与药房"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "UTC /"
+msgstr "UTC /"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "UTC slot end"
+msgstr "UTC时段结束"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "UTC slot start"
+msgstr "UTC时段开始"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "UTC valid until"
+msgstr "UTC有效期截止"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Unperformed cancellation reason"
+msgstr "未执行取消原因"
+
+#. module: ydental_treatment
+#: model:ir.model.fields.selection,name:ydental_treatment.selection__ydental_treatment_line__state__cancelled
+msgid "Unperformed item cancelled"
+msgstr "未执行项目已取消"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Untimed, no capacity held"
+msgstr "不定时，不预占名额"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Usage"
+msgstr "用法"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Verified batch"
+msgstr "核实批次"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Verified original historical unit price"
+msgstr "核实的历史原单价"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Verified physical batch"
+msgstr "核实实物批次"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Verify exact medicine batch"
+msgstr "核对处方对应药品批次"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Workstation and explicit reporting"
+msgstr "工位与明确报到"
+
+#. module: ydental_treatment
+#: model:ir.model,name:ydental_treatment.model_ydental_queue_service
+msgid "Workstation connection and patient execution authority"
+msgstr "工位连接与患者执行权威"
+
+#. module: ydental_treatment
+#: model:ir.module.module,shortdesc:base.module_ydental_treatment
+msgid "YDental Treatment and Pharmacy"
+msgstr "YDental治疗与药房"
+
+#. module: ydental_treatment
+#: model:ir.model,name:ydental_treatment.model_ydental_treatment_consumption
+msgid "YDentalTreatmentConsumption"
+msgstr "临床实物耗用来源"
+
+#. module: ydental_treatment
+#: model:ir.model,name:ydental_treatment.model_ydental_treatment_event
+msgid "YDentalTreatmentEvent"
+msgstr "实际治疗事件"
+
+#. module: ydental_treatment
+#: model:ir.model,name:ydental_treatment.model_ydental_treatment_fee
+msgid "YDentalTreatmentFee"
+msgstr "不可变费用来源"
+
+#. module: ydental_treatment
+#: model:ir.model,name:ydental_treatment.model_ydental_treatment_line
+msgid "YDentalTreatmentLine"
+msgstr "冻结医嘱行"
+
+#. module: ydental_treatment
+#: model:ir.model,name:ydental_treatment.model_ydental_treatment_order
+msgid "YDentalTreatmentOrder"
+msgstr "临床医嘱"
+
+#. module: ydental_treatment
+#: model:ir.model,name:ydental_treatment.model_ydental_treatment_price_review
+msgid "YDentalTreatmentPriceReview"
+msgstr "历史核价记录"
+
+#. module: ydental_treatment
+#: model:ir.model,name:ydental_treatment.model_ydental_treatment_receipt
+msgid "YDentalTreatmentReceipt"
+msgstr "操作回执"
+
+#. module: ydental_treatment
+#: model:ir.model,name:ydental_treatment.model_ydental_treatment_segment
+msgid "YDentalTreatmentSegment"
+msgstr "处方发药段"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_consumption__ydental_actor_id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_event__ydental_actor_id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_fee__ydental_actor_id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_line__ydental_actor_id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_order__ydental_actor_id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_price_review__ydental_actor_id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_receipt__ydental_actor_id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_record__ydental_actor_id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_segment__ydental_actor_id
+msgid "Ydental Actor"
+msgstr "实际操作者"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_event__ydental_actual_at
+msgid "Ydental Actual At"
+msgstr "实际发生时间"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_event__ydental_already_performed
+msgid "Ydental Already Performed"
+msgstr "已真实发生"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_fee__ydental_amount
+msgid "Ydental Amount"
+msgstr "金额"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_event__ydental_business_date
+msgid "Ydental Business Date"
+msgstr "门店业务日期"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_event__ydental_catalog_id
+msgid "Ydental Catalog"
+msgstr "项目目录"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_consumption__ydental_category
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_event__ydental_category
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_fee__ydental_category
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_line__ydental_category
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_order__ydental_category
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_price_review__ydental_category
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_receipt__ydental_category
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_record__ydental_category
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_segment__ydental_category
+msgid "Ydental Category"
+msgstr "业务大类"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_line__ydental_course
+msgid "Ydental Course"
+msgstr "疗程"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_fee__ydental_currency_id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_price_review__ydental_currency_id
+msgid "Ydental Currency"
+msgstr "币种"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_event__ydental_document_id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_order__ydental_document_id
+msgid "Ydental Document"
+msgstr "独立文书"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_event__ydental_document_version
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_order__ydental_document_version
+msgid "Ydental Document Version"
+msgstr "文书版本"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_consumption__ydental_event_id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_fee__ydental_event_id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_price_review__ydental_event_id
+msgid "Ydental Event"
+msgstr "实际事件"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_price_review__ydental_evidence
+msgid "Ydental Evidence"
+msgstr "凭据"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_event__ydental_execution_id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_order__ydental_execution_id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_segment__ydental_execution_id
+msgid "Ydental Execution"
+msgstr "来源执行段"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_event__ydental_fingerprint
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_receipt__ydental_fingerprint
+msgid "Ydental Fingerprint"
+msgstr "来源摘要"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_segment__ydental_finished_at
+msgid "Ydental Finished At"
+msgstr "结束时间"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_line__ydental_frequency
+msgid "Ydental Frequency"
+msgstr "频次"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_consumption__ydental_inventory_event_id
+msgid "Ydental Inventory Event"
+msgstr "库存原事件"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_receipt__ydental_key
+msgid "Ydental Key"
+msgstr "请求键"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_consumption__ydental_kind
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_event__ydental_kind
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_order__ydental_kind
+msgid "Ydental Kind"
+msgstr "类别"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_consumption__ydental_lot_id
+msgid "Ydental Lot"
+msgstr "真实批次"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_line__ydental_mapping_id
+msgid "Ydental Mapping"
+msgstr "服务映射"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_line__ydental_order_id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_segment__ydental_order_id
+msgid "Ydental Order"
+msgstr "医嘱"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_event__ydental_order_line_id
+msgid "Ydental Order Line"
+msgstr "医嘱行"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_event__ydental_parent_id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_fee__ydental_parent_id
+msgid "Ydental Parent"
+msgstr "原来源"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_consumption__ydental_patient_id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_event__ydental_patient_id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_fee__ydental_patient_id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_line__ydental_patient_id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_order__ydental_patient_id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_price_review__ydental_patient_id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_receipt__ydental_patient_id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_record__ydental_patient_id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_segment__ydental_patient_id
+msgid "Ydental Patient"
+msgstr "患者"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_event__ydental_pending_reason
+msgid "Ydental Pending Reason"
+msgstr "待核对原因"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_fee__ydental_policy
+msgid "Ydental Policy"
+msgstr "演示取价策略"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_event__ydental_price_review_id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_fee__ydental_price_review_id
+msgid "Ydental Price Review"
+msgstr "历史核价"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_event__ydental_price_snapshot_id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_fee__ydental_price_snapshot_id
+msgid "Ydental Price Snapshot"
+msgstr "冻结价格快照"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_line__ydental_product_id
+msgid "Ydental Product"
+msgstr "原生产品"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_order__ydental_purpose
+msgid "Ydental Purpose"
+msgstr "明确目的"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_consumption__ydental_quantity
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_event__ydental_quantity
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_fee__ydental_quantity
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_line__ydental_quantity
+msgid "Ydental Quantity"
+msgstr "实际数量"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_event__ydental_reason
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_line__ydental_reason
+msgid "Ydental Reason"
+msgstr "原因"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_receipt__ydental_result
+msgid "Ydental Result"
+msgstr "操作结果"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_price_review__ydental_reviewed_at
+msgid "Ydental Reviewed At"
+msgstr "核价时间"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_segment__ydental_sequence
+msgid "Ydental Sequence"
+msgstr "段顺序"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_event__ydental_source
+msgid "Ydental Source"
+msgstr "稳定来源标识"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_line__ydental_specification
+msgid "Ydental Specification"
+msgstr "规格"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_event__ydental_station_id
+msgid "Ydental Station"
+msgstr "实际工位"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_consumption__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_event__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_fee__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_line__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_order__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_price_review__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_receipt__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_record__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_segment__ydental_store_id
+msgid "Ydental Store"
+msgstr "来源门店"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_line__ydental_task_id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_segment__ydental_task_id
+msgid "Ydental Task"
+msgstr "派生任务"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_event__ydental_teeth
+msgid "Ydental Teeth"
+msgstr "牙位牙面"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_fee__ydental_unit_price
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_price_review__ydental_unit_price
+msgid "Ydental Unit Price"
+msgstr "冻结单价"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_consumption__ydental_uom_id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_event__ydental_uom_id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_line__ydental_uom_id
+msgid "Ydental Uom"
+msgstr "原生单位"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_line__ydental_usage
+msgid "Ydental Usage"
+msgstr "用法"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_order__ydental_version
+msgid "Ydental Version"
+msgstr "内容版本"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid ""
+"access_denied: Cross-legal-entity referral requires explicit account company"
+" authorization."
+msgstr "access_denied: 跨法人转诊需要明确的账号公司授权。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_queue_service.py:0
+msgid ""
+"access_denied: Only the real pharmacy segment holder can finish its "
+"execution."
+msgstr "access_denied: 仅实际药房段持有人可结束执行。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid "access_denied: Select a source in the current store."
+msgstr "access_denied: 请选择当前门店来源。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid "access_denied: The source company is outside the account scope."
+msgstr "access_denied: 来源法人不在账号授权范围。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid "access_denied: This clinical event is unavailable."
+msgstr "access_denied: 该临床事件不可访问。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_record.py:0
+msgid "access_denied: Use the controlled treatment action."
+msgstr "access_denied: 请使用受控治疗动作。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid ""
+"already_started: An examination that has started cannot be cancelled as "
+"unperformed."
+msgstr "already_started: 已开始的检查不能作为未做取消。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid ""
+"correction_required: Select a confirmed treatment source for this patient."
+msgstr "correction_required: 请选择本患者已确认的治疗来源。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_queue_service.py:0
+msgid ""
+"exam_integration_required: Real examination execution and results remain "
+"unavailable until S09 is authorized and installed."
+msgstr "exam_integration_required: S09授权并安装前，真实检查执行与结果保持不可用。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_inventory_service.py:0
+msgid ""
+"execution_required: Current actual execution and holding connection are "
+"required."
+msgstr "execution_required: 需要当前真实执行与持有连接。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid "execution_required: The current holder must start the actual service."
+msgstr "execution_required: 当前持有人必须先开始实际服务。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_record.py:0
+msgid "history_immutable: Clinical source history cannot be deleted."
+msgstr "history_immutable: 临床来源历史不可删除。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_record.py:0
+msgid "history_immutable: Clinical sources cannot be overwritten."
+msgstr "history_immutable: 临床来源不可覆盖。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_queue_entry.py:0
+msgid ""
+"history_immutable: Preserve completed pharmacy queue history before module "
+"removal."
+msgstr "history_immutable: 卸载模块前必须保留已完成药房排队历史。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_queue_execution.py:0
+msgid ""
+"history_immutable: Preserve completed pharmacy segments before removing "
+"their module."
+msgstr "history_immutable: 卸载模块前必须保留已完成药房段历史。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid "invalid_action: Supply a documented action and stable request key."
+msgstr "invalid_action: 请提供约定操作与稳定请求键。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid "invalid_action: Unknown or missing execution arguments."
+msgstr "invalid_action: 执行参数未知或缺失。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid "invalid_material: Record each physical batch once."
+msgstr "invalid_material: 每个实物批次只记录一次。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid "invalid_material: Supply at most sixteen explicitly verified batches."
+msgstr "invalid_material: 请提供最多十六个明确核实批次。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid ""
+"invalid_material: Supply batch, real quantity, native unit and source kind."
+msgstr "invalid_material: 请提供批次、实际数量、原生单位与来源类别。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid "invalid_order: An order needs at least one explicit line."
+msgstr "invalid_order: 医嘱至少需要一项明确项目。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid ""
+"invalid_order: Examination lines use their exact service unit and no "
+"medication fields."
+msgstr "invalid_order: 检查项目使用精确服务单位，不含用药字段。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid ""
+"invalid_order: One prescription must have one exact pharmacy service "
+"direction."
+msgstr "invalid_order: 同一处方必须使用同一个精确药房服务方向。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid ""
+"invalid_order: Select a real active S07 medicine and matching native stock "
+"and service units."
+msgstr "invalid_order: 请选择真实有效S07药品及一致的原生库存与服务单位。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid "invalid_order: Select an examination or take-away prescription."
+msgstr "invalid_order: 请选择检查或带走处方。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid "invalid_order: Supply one to sixteen explicit order lines."
+msgstr "invalid_order: 请提供一至十六项明确医嘱。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid "invalid_order: Supply the complete reviewed order field set."
+msgstr "invalid_order: 请提供完整审核医嘱字段。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid ""
+"invalid_quantity: A correction cannot exceed the original quantity; physical"
+" returns require a separate verified return."
+msgstr "invalid_quantity: 更正不能超出原项目数量；实物退回必须独立核实。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid "invalid_quantity: Select an existing native unit."
+msgstr "invalid_quantity: 请选择已有原生单位。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid "invalid_quantity: Use a finite quantity aligned to the native unit."
+msgstr "invalid_quantity: 数量必须有限且符合原生单位精度。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid "invalid_referral: A timed referral requires one explicit slot."
+msgstr "invalid_referral: 定时转诊需要一个明确时段。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid ""
+"invalid_referral: An untimed referral requires only its explicit UTC expiry."
+msgstr "invalid_referral: 不定时转诊仅使用明确UTC有效期。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid "invalid_referral: Select an exact target service in another store."
+msgstr "invalid_referral: 请选择其他门店精确目标服务。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid "invalid_source: Supply a stable referral source identifier."
+msgstr "invalid_source: 请提供稳定转诊来源标识。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid ""
+"invalid_source: Supply a stable source identifier and explicit fact status."
+msgstr "invalid_source: 请提供稳定来源标识与明确事实状态。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid ""
+"missing_price: An evidenced positive historical price and source currency "
+"are required."
+msgstr "missing_price: 需要有据的历史正单价及来源币种。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_inventory_service.py:0
+msgid ""
+"missing_price: Verify the original historical price before inventory "
+"bookkeeping."
+msgstr "missing_price: 库存补账前请核实历史原价。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid "order_frozen: Issue only this encounter draft at its current version."
+msgstr "order_frozen: 仅能按当前版本开立本接诊草稿。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid ""
+"order_frozen: Only the original draft can be edited at its current version."
+msgstr "order_frozen: 仅原草稿可按当前版本修改。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid "order_frozen: Select a current examination source for this patient."
+msgstr "order_frozen: 请选择本患者当前检查来源。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid ""
+"order_frozen: Select the issued prescription version bound to this actual "
+"pharmacy segment."
+msgstr "order_frozen: 请选择与当前实际药房段绑定的已开立处方版本。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_intake_service.py:0
+msgid "order_frozen: This examination order line is no longer available."
+msgstr "order_frozen: 该检查医嘱项目已不可用。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid ""
+"overdispense: The actual issue would exceed the remaining approved quantity."
+msgstr "overdispense: 本次实发将超过批准剩余量。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_intake_service.py:0
+msgid ""
+"overdispense: The pharmacy segment has ended or has no approved remaining "
+"quantity."
+msgstr "overdispense: 药房段已结束或无批准剩余量。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid "policy_unpublished: Production price policy awaits approval."
+msgstr "policy_unpublished: 正式价格政策待批准。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid ""
+"qualification_required: The project needs an approved store mapping, "
+"workstation capability and actual practitioner qualification."
+msgstr "qualification_required: 项目需要已批准本店映射、工位能力与执行人员资质。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid ""
+"reconcile_required: Reconcile this actual dispensing segment before "
+"finishing."
+msgstr "reconcile_required: 结束前先核对本次实际发药段账务。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid ""
+"save_required: Save and verify the current document version before the "
+"clinical action."
+msgstr "save_required: 临床动作前先保存并核对当前文书版本。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid ""
+"source_category_mismatch: Examination and pharmacy order mappings are "
+"separate."
+msgstr "source_category_mismatch: 检查与药房医嘱映射必须分开。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid ""
+"source_category_mismatch: Select material or chairside use for treatment."
+msgstr "source_category_mismatch: 治疗请选择耗材或椅旁用药来源。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid ""
+"source_category_mismatch: The batch must contain the exact prescribed "
+"medicine."
+msgstr "source_category_mismatch: 批次必须与处方药品完全一致。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_queue_service.py:0
+msgid "source_required: Finish only a real prescription dispensing segment."
+msgstr "source_required: 仅可结束真实处方发药段。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_inventory_service.py:0
+msgid "source_required: Inventory must retain the original clinical source."
+msgstr "source_required: 库存必须保留原临床来源。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_inventory_service.py:0
+msgid ""
+"source_required: Only the immutable actual clinical source can derive "
+"inventory."
+msgstr "source_required: 仅不可变真实临床来源可派生库存。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_intake_service.py:0
+msgid ""
+"source_required: Referral parameters must match the real current clinical "
+"source."
+msgstr "source_required: 转诊参数必须与当前真实临床来源一致。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid ""
+"source_required: Select a completed physical issue from this clinical event."
+msgstr "source_required: 请选择本临床事件已完成的实物出库。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid "source_required: Select an issued line of the called prescription."
+msgstr "source_required: 请选择被叫号处方的已开立项目。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid ""
+"version_conflict: Only an unpriced historical fact can receive an evidenced "
+"manual review."
+msgstr "version_conflict: 仅历史缺价事实可接受有据人工核价。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid "version_conflict: The actual service source changed."
+msgstr "version_conflict: 实际服务来源已变化。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid ""
+"version_conflict: This clinical source already has immutable execution "
+"parameters."
+msgstr "version_conflict: 该临床来源已有不可变执行参数。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid "version_conflict: This key belongs to another action."
+msgstr "version_conflict: 该请求键属于其他动作。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid ""
+"version_conflict: This prescription segment is bound to another execution."
+msgstr "version_conflict: 该处方段已绑定另一执行。"
