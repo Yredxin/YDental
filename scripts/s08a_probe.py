@@ -73,40 +73,61 @@ def race(kind,round_number):
     uid,contexts,jobs,doc_id,execution_id=fixture(kind)
     record.update(document_id=doc_id,execution_id=execution_id)
     barrier=threading.Barrier(2,timeout=20)
+    # Reproduce the legal LIFO pool reuse after the original eighth race.
+    # Initial business requests still overlap on two independent backends.
+    reuse_probe=kind=='continuation' and round_number==2
+    loser_released=threading.Event();winner_released=threading.Event()
+    record['controlled_retry_pool_reuse']=reuse_probe
     def worker(index):
         attempts=[];pid=None;initial_pid=None;backend_trace=[]
         def trace(event):
             record['worker_traces'][index].append({'event':event,'attempt':attempt,'backend_pid':pid,'monotonic_ns':time.monotonic_ns()})
         for attempt in range(6):
-            with env.registry.cursor() as cr:
-                cr.execute('SET LOCAL lock_timeout = %s',['12s']);cr.execute('SELECT pg_backend_pid()');pid=cr.fetchone()[0]
-                backend_trace.append(pid)
-                if attempt==0:initial_pid=pid
-                trace('backend_connected')
-                try:
-                    if attempt==0:
-                        trace('barrier_enter');barrier.wait();trace('barrier_exit')
-                    s=api.Environment(cr,uid,contexts[index])['ydental.queue.service' if kind=='queue_start' else 'ydental.clinical.service']
-                    trace('operate_begin')
-                    data=s._operate(*jobs[index]);cr.commit()
-                    trace('accepted_commit')
-                    return {'result':'accepted','backend_pid':pid,'initial_backend_pid':initial_pid,'backend_pid_trace':backend_trace,'attempts':attempts,'version':data.get('version')}
-                except psycopg2.errors.SerializationFailure:
-                    trace('serialization_retry')
-                    attempts.append('serialization_retry');cr.rollback()
-                    time.sleep(0.01*(attempt+1))
-                except psycopg2.errors.DeadlockDetected:
-                    trace('deadlock')
-                    result['deadlocks']+=1
-                    return {'result':'deadlock','backend_pid':pid,'initial_backend_pid':initial_pid,'backend_pid_trace':backend_trace,'attempts':attempts}
-                except (AccessError,UserError,ValidationError) as error:
-                    trace('business_rejected')
-                    cr.rollback();return {'result':'rejected','backend_pid':pid,'initial_backend_pid':initial_pid,'backend_pid_trace':backend_trace,'attempts':attempts,'code':str(error).split(':')[0]}
+            accepted_attempt=False;retry_attempt=False
+            try:
+                with env.registry.cursor() as cr:
+                    cr.execute('SET LOCAL lock_timeout = %s',['12s']);cr.execute('SELECT pg_backend_pid()');pid=cr.fetchone()[0]
+                    backend_trace.append(pid)
+                    if attempt==0:initial_pid=pid
+                    trace('backend_connected')
+                    try:
+                        if attempt==0:
+                            trace('barrier_enter');barrier.wait();trace('barrier_exit')
+                        s=api.Environment(cr,uid,contexts[index])['ydental.queue.service' if kind=='queue_start' else 'ydental.clinical.service']
+                        trace('operate_begin')
+                        data=s._operate(*jobs[index]);cr.commit()
+                        trace('accepted_commit')
+                        accepted_attempt=True
+                        if reuse_probe:
+                            assert loser_released.wait(20),'Loser cursor did not release'
+                        return {'result':'accepted','backend_pid':pid,'initial_backend_pid':initial_pid,'backend_pid_trace':backend_trace,'attempts':attempts,'version':data.get('version')}
+                    except psycopg2.errors.SerializationFailure:
+                        trace('serialization_retry')
+                        retry_attempt=True
+                        attempts.append('serialization_retry');cr.rollback()
+                        time.sleep(0.01*(attempt+1))
+                    except psycopg2.errors.DeadlockDetected:
+                        trace('deadlock')
+                        result['deadlocks']+=1
+                        return {'result':'deadlock','backend_pid':pid,'initial_backend_pid':initial_pid,'backend_pid_trace':backend_trace,'attempts':attempts}
+                    except (AccessError,UserError,ValidationError) as error:
+                        trace('business_rejected')
+                        cr.rollback();return {'result':'rejected','backend_pid':pid,'initial_backend_pid':initial_pid,'backend_pid_trace':backend_trace,'attempts':attempts,'code':str(error).split(':')[0]}
+            finally:
+                trace('cursor_released')
+                if reuse_probe and accepted_attempt:
+                    winner_released.set()
+                elif reuse_probe and retry_attempt:
+                    loser_released.set()
+                    assert winner_released.wait(20),'Winner cursor did not release'
         return {'result':'retry_exhausted','backend_pid':pid,'initial_backend_pid':initial_pid,'backend_pid_trace':backend_trace,'attempts':attempts}
     with ThreadPoolExecutor(max_workers=2) as pool:
         futures=[pool.submit(worker,i) for i in range(2)]; outcomes=[f.result(timeout=100) for f in futures]
     record['outcomes']=outcomes
     record['legacy_final_pid_distinct']=outcomes[0]['backend_pid']!=outcomes[1]['backend_pid']
+    if reuse_probe:
+        assert not record['legacy_final_pid_distinct'],('Controlled reuse was not reproduced',outcomes)
+        assert any('serialization_retry' in x['attempts'] for x in outcomes),outcomes
     try:
         legacy_final_pid_assertion(outcomes)
         record['legacy_predicate_diagnostic']={'result':'PASS'}
