@@ -97,7 +97,12 @@ def main():
         'PYTHONPATH': str(STATE / 's04-deps'),
         'YDENTAL_S08A_RUN_DIR': str(run),
         'YDENTAL_S08A_HTTP_PORT': str(args.port),
+        # Own libpq sessions only: do not resize endpoint shared memory or alter
+        # the existing PostgreSQL service. User transactions still race normally.
+        'PGOPTIONS': '-c max_parallel_workers_per_gather=0 -c max_parallel_maintenance_workers=0 -c maintenance_work_mem=16384',
     })
+    if metadata and metadata.get('pg_session_options') != env['PGOPTIONS']:
+        parser.error('Recorded database uses another session profile; choose a fresh database')
     if not all((deps / name).is_file() for name in (
         'fonts.conf', 'fonts/NotoSansCJKsc-Regular.otf', 'wkhtmltox/usr/local/bin/wkhtmltopdf',
     )):
@@ -136,6 +141,7 @@ def main():
                         'database': args.db, 'oid': cursor.fetchone()[0], 'endpoint': ENDPOINT,
                         'cluster': CLUSTER, 'port': args.port, 'core': CORE_SHA,
                         'created_utc': datetime.now(timezone.utc).isoformat(),
+                        'pg_session_options': env['PGOPTIONS'],
                     }
                 elif not existing or existing[0] != metadata['oid']:
                     parser.error('Database OID changed or absent; refusing to operate')
