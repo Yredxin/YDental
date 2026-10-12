@@ -23,7 +23,7 @@ run=Path(os.environ['YDENTAL_S07_RUN_DIR'])
 assert re.fullmatch(r'ydental_s07_test_[0-9]{14}_[a-f0-9]{8}',env.cr.dbname) and run.name==env.cr.dbname
 registry=env.registry
 result={'scope':'S07 real native inventory with isolated synthetic sources','database':env.cr.dbname,'races':[],
-    'started_utc':datetime.now(timezone.utc).isoformat(),'tested_commit':__import__('subprocess').check_output(['git','rev-parse','HEAD'],text=True).strip()}
+    'started_utc':datetime.now(timezone.utc).isoformat(),'tested_commit':__import__('subprocess').check_output(['git','-C',str(Path(__file__).resolve().parents[1]),'rev-parse','HEAD'],text=True).strip()}
 attempt=Path(__file__).resolve().parents[1]/'docs/evidence/s07/probe-attempts'/(env.cr.dbname+'-'+datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f')+'.json')
 attempt.parent.mkdir(parents=True,exist_ok=True)
 def save():

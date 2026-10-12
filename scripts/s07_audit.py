@@ -41,7 +41,7 @@ with env.registry.cursor() as audit_cr:
         audit_cr.execute(query)
         signatures[table]=hashlib.sha256(json.dumps(audit_cr.fetchall(),sort_keys=True,default=str).encode()).hexdigest()
     audit_result['ledger_signatures']=signatures
-    audit_result['tested_commit']=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+    audit_result['tested_commit']=subprocess.check_output(['git','-C',str(Path(__file__).resolve().parents[1]),'rev-parse','HEAD'],text=True).strip()
 audit_result.update(status='PASS',database=env.cr.dbname,time_utc=datetime.now(timezone.utc).isoformat())
 path=Path(__file__).resolve().parents[1]/'docs/evidence/s07/invariants'
 path.mkdir(parents=True,exist_ok=True)
