@@ -104,3 +104,12 @@ class TestInventoryHTTP(HttpCase):
         self.assertEqual(self.url_open('/ydental/inventory').status_code,403)
         self.assertEqual(self.action('issue',{}).status_code,403)
         self.assertIn('error',self.rpc('ydental.inventory.event','search_read',[[]]))
+
+    def test_http_t06_recovery_rejects_observed_count(self):
+        receive(self,2);self.select()
+        count=self.action('inventory',{'lot_id':self.lots['medicine'],'counted':2,'uom_id':self.uom.id,'source_key':key(),'reason':'Actual count agrees with ledger'})
+        self.assertEqual(count.status_code,200,count.text);self.assertEqual(count.json()['state'],'observed')
+        rejected=self.action('recover',{'event_id':count.json()['id'],'reason':'Only pending execution may recover'})
+        self.assertEqual(rejected.status_code,409,rejected.text)
+        event=self.env['ydental.inventory.event'].sudo().browse(count.json()['id'])
+        self.assertEqual(event.state,'observed');self.assertFalse(event.ydental_move_id)
