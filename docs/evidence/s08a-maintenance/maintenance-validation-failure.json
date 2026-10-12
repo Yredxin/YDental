@@ -1,0 +1,8 @@
+{
+  "compose_validation_exit": 0,
+  "normalized_shm_value": "268435456",
+  "normalized_shm_type": "str",
+  "all_other_normalized_config_equal": true,
+  "recreation_executed": false,
+  "failure": "strict int assertion; Compose emits string bytes"
+}

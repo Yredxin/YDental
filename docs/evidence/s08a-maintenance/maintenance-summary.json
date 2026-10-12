@@ -1,0 +1,17 @@
+{
+  "authorization": [
+    "https://github.com/Yredxin/YDental/issues/32#issuecomment-6125823343",
+    "https://github.com/Yredxin/YDental/issues/23#issuecomment-6125774169"
+  ],
+  "kickoff": "https://github.com/Yredxin/YDental/issues/32#issuecomment-6125893718",
+  "exact_readback": true,
+  "maintenance_status": "PASS",
+  "original_106_database_oid_names_equal": true,
+  "original_volume_identity_equal": true,
+  "original_cluster_equal": true,
+  "odoo12_full_selected_identity_equal": true,
+  "additional_tuning": [],
+  "backup_private": "/tmp/ydental-s08a-maintenance/compose-original.yaml (mode600; directory700)",
+  "backup_sha256": "3d0baa673b19f2582f8dc2c6d22e94a87743c224b9359e52d5a51b28f9f48cf2",
+  "test_status": "NOT_RUN pending fixed verification version; no product changes"
+}

@@ -1,0 +1,22 @@
+{
+  "utc": "2026-10-12T14:06:40.049886+00:00",
+  "existing_odoo_health_status": 200,
+  "existing_odoo_health_body_sha256": "6d84903ceab7b10fc6859ebd774dd6331778dd34a1eaf492f2dce258d78bd719",
+  "existing_odoo_pid42433_present": true,
+  "server_logs_exit_code": 0,
+  "server_log_sha256": "a6d5f15ddc9ac6888b003b3990a879c11c9280c2aa9de571ba21566ac7383880",
+  "ready_messages": [
+    "2026-10-12 14:06:20.158 UTC [1] LOG:  database system is ready to accept connections"
+  ],
+  "shutdown_messages": [
+    "2026-10-12 14:06:20.057 UTC [32] LOG:  database system was shut down at 2026-10-12 14:06:16 UTC"
+  ],
+  "error_lines": [
+    "2026-10-12 14:06:39.577 UTC [117] FATAL:  role \"postgres\" does not exist"
+  ],
+  "existing_odoo_database_reconnection_health": {
+    "status": "pass",
+    "db_server_status": true
+  },
+  "readiness_probe_note": "Initial pg_isready ran as OS postgres without -U and logged role postgres does not exist; server was ready. Rechecked -U odoo -d postgres exit0."
+}

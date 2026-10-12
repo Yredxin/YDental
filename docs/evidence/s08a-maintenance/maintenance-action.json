@@ -1,0 +1,32 @@
+{
+  "started_utc": "2026-10-12T14:06:16.618366+00:00",
+  "finished_utc": "2026-10-12T14:06:17.496036+00:00",
+  "command": [
+    "docker",
+    "compose",
+    "-f",
+    "/home/redxin/code/odoo/odoo-sd/postgresql/docker-compose.yaml",
+    "up",
+    "-d",
+    "--no-deps",
+    "--pull",
+    "never",
+    "--force-recreate",
+    "db20"
+  ],
+  "exit_code": 0,
+  "stdout": "",
+  "stderr": "time=\"2026-10-12T14:06:16Z\" level=warning msg=\"Found orphan containers (odoo12-db) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up.\"\n Container odoo20-db Recreate \n Container odoo20-db Recreated \n Container odoo20-db Starting \n Container odoo20-db Started \n",
+  "compose_config_exit": 0,
+  "normalized_diff_only_db20_shm": true,
+  "before_sha256": "3d0baa673b19f2582f8dc2c6d22e94a87743c224b9359e52d5a51b28f9f48cf2",
+  "after_sha256": "acebac7adac4b2e677715a953ef43b26fef80be496be86064f5ca918f8cb884a",
+  "actual_changes": [
+    {
+      "service": "db20",
+      "field": "shm_size",
+      "before": "absent/default64MiB",
+      "after": "256m"
+    }
+  ]
+}
