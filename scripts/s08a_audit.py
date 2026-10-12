@@ -10,7 +10,7 @@ import subprocess
 from psycopg2 import sql
 
 run=Path(os.environ['YDENTAL_S08A_RUN_DIR']);assert run.name==env.cr.dbname and re.fullmatch(r'ydental_s08a_test_[0-9]{14}_[a-f0-9]{8}',env.cr.dbname)
-result={'database':env.cr.dbname,'tested_commit':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),'signatures':{},'invariants':{}}
+result={'database':env.cr.dbname,'tested_commit':subprocess.check_output(['git','-C',str(Path(__file__).resolve().parents[1]),'rev-parse','HEAD'],text=True).strip(),'signatures':{},'invariants':{}}
 # Fixed server identifiers, never supplied by a client.
 for table in ('ydental_clinical_document','ydental_clinical_version','ydental_queue_execution','ydental_intake_task','ydental_inventory_event','ydental_inventory_batch','stock_move','stock_move_line','stock_quant','ydental_intake_snapshot'):
     env.cr.execute(sql.SQL('SELECT row_to_json(t)::text FROM {} t ORDER BY id').format(sql.Identifier(table)))
