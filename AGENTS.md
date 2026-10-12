@@ -1,5 +1,18 @@
 # YDental 当前执行入口
 
+## 当前 S08-A授权环境维护与固定测试恢复 / #32（等待GPT独立复核）
+
+- 唯一最新授权[#32 GPT-AUTHORIZE6125823343](https://github.com/Yredxin/YDental/issues/32#issuecomment-6125823343)及[#23持续开发环境授权6125774169](https://github.com/Yredxin/YDental/issues/23#issuecomment-6125774169)；本机项目专用开发参数/必要服务重启已明确授权，普通调参不需重复请示。完整读取#23/#32正文及3/9有效评论；交付前3/11重读仅新增本轮两回执，原边界未变。
+- 沿用原S08-A分支及起点f9a8ff237da89838bac839a277e290008d74d56c。原产品a28b364691791214becf4909e9ecf1bc0be3555c字节不变；新固定test **a7b023d26812fd4d722b2d185dd6571bb6d27611**只修scripts/s08a_probe.py取证/原第八组PID判据复现；test→final只AGENTS/报告/脱敏证据，finalSHA固定于#32评论。
+- [维护开工6125893718](https://github.com/Yredxin/YDental/issues/32#issuecomment-6125893718)逐字读回后，仅Compose db20加shm_size256m，config/单字段diff通过，以授权--no-deps --pull never --force-recreate db20退出0。原镜像/卷postgresql_odoo20-db-data/cluster7694897083368259627/端口5432不变，106原库OID名称全保留、odoo12身份完全相同。实际shm268435456总/64004096用/204431360余，OOM0，既有Odoo42433重连健康；未再调参。[维护结果6125962901](https://github.com/Yredxin/YDental/issues/32#issuecomment-6125962901)逐字读回。
+- 最终全新guard库ydental_s08a_test_20261012141720_8e252c8e，OID1145535、端口18167，固定a7b install30/upgrade28/带committed业务upgrade28（21模型+7真实HTTP；安装额外2资产初始化），16/16初始独立backend真实barrier、deadlock0，Firefox88项/10响应屏障/21图全部实际目视核验/pageerror0，中文151/151、guard5、8SQL错误0、10升级签名与6经济签名相等。全部Codex自测，不是GPT或用户验收；中间7d/aa1ddac6结果不拼为最终PASS。
+- 第八组continuation第二轮：初始2369/2381真实竞争；败方serialization后合法复用2381，单独旧末次PID判据真实AssertionError/frame已取证，业务版本1/交还/编辑释放/唯一后继均正确。确认这一验证缺陷机制，保留全部业务和初始双连接断言；**历史原运行内层堆栈已丢失，准确原行仍UNKNOWN**，不冒称恢复旧frame或完整旧脚本重放。
+- 保留所有旧失败库/日志/hash/截图及本轮Compose类型校验失败、audit误碰upgrade锁exit2、只读资源helper遇本轮export退出1；安全拒绝均未改库/环境，正确顺序重读通过。仅新增两个合成库，无删除/重置。当前新库所有最终PASS来自同一a7b；预览仅精确匹配本次PID/config停止exit0，核心/odoo-12/其它服务未动。S07历史SIGSEGV及DSM增长/allocator根因未明，不称生产稳定性修复。
+- 本轮Project零mutation；完整21字段/15条目/6视图/7公开workflow，三次快照深比较一致；#32 S08/进行中/Todo/OPEN、#31待用户验收、后续待启用。文书/牙位字典与权限契约不改；B/C/S09—S13及生产均NOT_RUN，生产部署继续BLOCKED。
+- 报告docs/s08a-maintenance-report.md及docs/evidence/s08a-maintenance，所有新截图/探针/audit原JSON亦保留docs/evidence/s08a。#32发布`[CODEX] S08-A环境恢复与固定test完整回归申请`，写回逐字读回后立即停止等待GPT独立技术复核，不关闭/合并/强推/部署/自动启用后续。
+
+下方“等待环境授权”等均为历史；本轮以本节及6125823343明确维护授权为准。
+
 ## 当前 S08-A环境诊断 / #32（等待单独环境授权）
 
 - 仅依据[GPT-REVIEW6125132411](https://github.com/Yredxin/YDental/issues/32#issuecomment-6125132411)，完整读取#23/#32正文及全部2/6条评论。沿用原分支，起点`e1f0c98bd74caf414377e44cd10b182fba0a899c`；product `a28b364691791214becf4909e9ecf1bc0be3555c`、test `e8b2247609e51d7fbe268b94082e8fd3259db9d3`均不变，仅文档/脱敏证据更新。

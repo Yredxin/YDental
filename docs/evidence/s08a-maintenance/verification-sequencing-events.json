@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "action": "audit during business upgrade",
+      "exit_code": 2,
+      "effect": "Runner lock rejected action before database work; retry after upgrade exit0 passed",
+      "output_sha256": "0f03ba0a4df2681c015049ce7cc0b86800ca9207ad34c868ea631e5bfbf96bf7"
+    },
+    {
+      "action": "read-only environment helper during export",
+      "exit_code": 1,
+      "effect": "Snapshot saved; pre-maintenance active-client assertion saw controlled export. No maintenance action invoked; final quiet snapshot repeated",
+      "nonidle_other_client_count": 1
+    }
+  ]
+}

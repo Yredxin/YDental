@@ -1,0 +1,40 @@
+{
+  "tested_commit": "a7b023d26812fd4d722b2d185dd6571bb6d27611",
+  "tool": "odoo-security skill",
+  "static_review": "COMPLETE no new finding",
+  "runtime_review": "PASS: all21 model+7HTTP executed on install and both upgrades; negative capability/company/store/token/RPC/CSRF/attachment/export tests; browser read-only denial. See test-methods.json and browser result.",
+  "pattern_sweep_sha256": "479ae5bcfb9a40fa4f56468a90ad04e5288064eb4fa1b922c1067c28611a9700",
+  "product_files": {
+    "ydental_clinical/__init__.py": "ccd4f636f19c123c1080e56c6af9292e21dedb8d886ce9dc558e040b49aa8709",
+    "ydental_clinical/__manifest__.py": "c4769efb93ef7e63f2f1029c04ef50792b40ccf154a2dce67339b267c81b9864",
+    "ydental_clinical/controllers/__init__.py": "cea14b1fe8f27665339761697c92440a33b00e19c3e7eef05b6b894db48ff2dd",
+    "ydental_clinical/controllers/clinical.py": "7b0f3a5f628de9cba389ea7ea8d261a6e999761dea8d645bde75dc5f9d6291bd",
+    "ydental_clinical/views/ydental_clinical_templates.xml": "f485aad62fb2b731358a94f86f9eeac41904df9a8564eb2bdb0dea2407ea8400",
+    "ydental_clinical/i18n/zh_CN.po": "359e1245c4c2b900f847dfcf0696bed8e913c7b4c44feb0d2c2c277dbde4f128",
+    "ydental_clinical/models/__init__.py": "1592c656338169d41f78b96d5fdd54d2bda42b187b062bfc618020a7385ec6b3",
+    "ydental_clinical/models/ydental_clinical_version.py": "a15652869e4d8c1b6d0ad70c1d5e0e744dad39b1f38fdae5ab10f7fc1f9e1717",
+    "ydental_clinical/models/ydental_clinical_document.py": "963354107c1e5eae7a33ecaf7757ff772bca0f15889365a5d0d9cb4d8632280a",
+    "ydental_clinical/models/ydental_access_service.py": "1e53d5c24d8d2d8b93754a6afd25dce54a0bd48497ca9a553bf89f863760f359",
+    "ydental_clinical/models/ir_attachment.py": "3f09070c792bf97ed9693f65df53e6e0ee048a6779591b85ff1a2d3b83947ce1",
+    "ydental_clinical/models/ydental_clinical_service.py": "bb601a4d231585281cf569def652f78205993cf2d73f8273ae2cf50d620f6709",
+    "ydental_clinical/models/ydental_queue_service.py": "9ecb43c22963db4dd59ef451e6a5fae3443ca1194930baffdc771aa18d8eb606",
+    "ydental_clinical/security/ir.access.csv": "a992b8d7dd8106560994d65a7f844923fddea21e622a7453ac4caeb8ac875e8f",
+    "ydental_clinical/static/src/document/document.css": "0de7a0cc30e6a9e53b4be43955d7283060e6d7cd4d426f9e90113f3e633ad6ba",
+    "ydental_clinical/static/src/document/document.js": "98c862a13ca0586cf038e01139258bb2aca7edfd20dc8785ecf85812adb67a30"
+  },
+  "judgments": {
+    "ACL/source rules": "clinical/version grant read only; source-domain current medical/company/patient-purpose checks; mutation object cannot be forged via JSON/RPC; protected fields NO_ACCESS",
+    "sudo/identity switches": "fixed private clinical models; _access/_document/_held guarded write and immutable source; responsible user validated current same-store membership/company/capability; controller candidates same-store filtered. No with_user/with_company added",
+    "SQL": "one fixed init backfill of clinical current source execution only; no caller SQL identifiers/values",
+    "routes/CSRF": "GET workbench reads protected sources and writes view audit only; state actions authenticated POST + native CSRF + size cap + allowlisted signatures",
+    "HTML sinks": "textContent, escaped QWeb; no innerHTML/Markup/t-raw/unsafe HTML constructors",
+    "secrets/related": "editor/session/connection/hash/expiry fields NO_ACCESS; consteq for secret hashes; no related privilege crossing",
+    "files/eval/pickle/dynamic attributes": "no file-open/eval/exec/pickle/getattr/setattr in product; inspect.signature only fixed action allowlist",
+    "public methods/complex objects": "create/write reject without server sentinel; unlink rejects history mutation; service methods private; returned snapshots primitives only",
+    "transactions/locks": "original S06 fence and same-transaction SaveIntent/release/continuation retained; no commit in product",
+    "browser terminal safety": "terminalPending freezes text/FDI/surfaces/states; generation+content compare before navigation; uncertain response reconciles without replay; no token/content in verification URL",
+    "probe changes": "synthetic new DB guard unchanged; traces only case/IDs/timing/PID/outcome/error code; preserves fail frames; legacy predicate diagnostic separate from original business and initial barrier assertions"
+  },
+  "limitations": "Codex self-review, not independent GPT review, S08-B/C and production outside scope",
+  "revalidated_at_final_test": "product byte diff from initial scan empty; probe handoff reviewed: only bounded retry release ordering after committed winner; initial barrier + business invariants preserved"
+}

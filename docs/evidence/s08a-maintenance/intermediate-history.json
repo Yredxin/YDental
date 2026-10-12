@@ -1,0 +1,80 @@
+{
+  "usage": "Historical intermediate diagnosis only; no result used as final PASS",
+  "run": {
+    "database": "ydental_s08a_test_20261012141042_aa1ddac6",
+    "port": 18166,
+    "test": "7d600af6fcfdfa7169a7245a44b942cceddd2a68"
+  },
+  "commands": [
+    {
+      "action": "install",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08a.py",
+        "install",
+        "--db",
+        "ydental_s08a_test_20261012141042_aa1ddac6",
+        "--port",
+        "18166"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-12T14:10:42.568762+00:00",
+      "finished_utc": "2026-10-12T14:12:12.866554+00:00",
+      "tested_commit": "7d600af6fcfdfa7169a7245a44b942cceddd2a68",
+      "output_sha256": "66410d9c2802665727d2793b561c8f662cc7809ee322ba5e9d13ff0c87dd3a95"
+    },
+    {
+      "action": "upgrade",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08a.py",
+        "upgrade",
+        "--db",
+        "ydental_s08a_test_20261012141042_aa1ddac6",
+        "--port",
+        "18166"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-12T14:12:47.168830+00:00",
+      "finished_utc": "2026-10-12T14:13:17.153175+00:00",
+      "tested_commit": "7d600af6fcfdfa7169a7245a44b942cceddd2a68",
+      "output_sha256": "4f339e3f8a341b840b46138c3fae87f093b470dc49621f5cade0aa56b86ba957"
+    },
+    {
+      "action": "probe",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08a.py",
+        "probe",
+        "--db",
+        "ydental_s08a_test_20261012141042_aa1ddac6",
+        "--port",
+        "18166"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-12T14:13:20.310367+00:00",
+      "finished_utc": "2026-10-12T14:15:02.257396+00:00",
+      "tested_commit": "7d600af6fcfdfa7169a7245a44b942cceddd2a68",
+      "output_sha256": "05664bd19e55124e983e25e08b15bca719f6c71e6516e85ee794fd9a3d3b2b48"
+    },
+    {
+      "action": "preview",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08a.py",
+        "preview",
+        "--db",
+        "ydental_s08a_test_20261012141042_aa1ddac6",
+        "--port",
+        "18166"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-12T14:15:33.553331+00:00",
+      "finished_utc": "2026-10-12T14:15:44.390609+00:00",
+      "tested_commit": "7d600af6fcfdfa7169a7245a44b942cceddd2a68",
+      "output_sha256": "d636c0cf7667deee6fa38fcc9b7cfa745660c0212c6e62b6610be12356698a40"
+    }
+  ],
+  "reason_next_test": "Natural pool scheduling did not trigger final PID equality; added bounded post-commit cursor return order for original8th race, fixed a7b and ran entirely new database",
+  "old_versions": "All e1/f9 historical failures/logs/DBs untouched; original discarded stack cannot be reconstructed"
+}

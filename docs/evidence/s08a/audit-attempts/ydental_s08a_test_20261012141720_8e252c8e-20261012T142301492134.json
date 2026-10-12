@@ -1,0 +1,71 @@
+{
+  "database": "ydental_s08a_test_20261012141720_8e252c8e",
+  "tested_commit": "a7b023d26812fd4d722b2d185dd6571bb6d27611",
+  "signatures": {
+    "ydental_clinical_document": {
+      "count": 14,
+      "sha256": "7b25177812a15bc586b16f3508541efdf2919e453119bca35be3021b85782ad5"
+    },
+    "ydental_clinical_version": {
+      "count": 12,
+      "sha256": "89fea8a966f36dbaf354d62a35d2e638b938e73621c97764cca37bfbc6844d8f"
+    },
+    "ydental_queue_execution": {
+      "count": 16,
+      "sha256": "40c3014e7e62006e8bf266fcc542d4f5d6e4536ed2f400b1c4b26da4f27edb0e"
+    },
+    "ydental_intake_task": {
+      "count": 23,
+      "sha256": "ccf35efad86d5f75e73164c0081261b1604094726f093ac7b4b1751ed72adf28"
+    },
+    "ydental_inventory_event": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "ydental_inventory_batch": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stock_move": {
+      "count": 50,
+      "sha256": "2c77326ab468b7a5a50a30f99bf2318aab4271edb57370cdcbb505626a35c773"
+    },
+    "stock_move_line": {
+      "count": 36,
+      "sha256": "fcc908481d7614cf06b3fa7fae8a6944287bed8eae6e1b22b75eb3748f6cb5de"
+    },
+    "stock_quant": {
+      "count": 40,
+      "sha256": "08ba922cb8624af58dc8b1c48af89acb1176352f0b93840f8efc0d1bb0badcc0"
+    },
+    "ydental_intake_snapshot": {
+      "count": 1,
+      "sha256": "a1bfaa52257c5b130671affcabee729a6cb179dd9966b07410a54096b42eb54f"
+    }
+  },
+  "invariants": {
+    "version_count": 0,
+    "latest_content": 0,
+    "version_source": 0,
+    "document_source": 0,
+    "duplicate_continuation": 0,
+    "duplicate_actual_execution": 0,
+    "terminal_unmarked_draft": 0,
+    "negative_internal_quant": 0
+  },
+  "session_settings": {
+    "maintenance_work_mem": "16384",
+    "max_parallel_maintenance_workers": "0",
+    "max_parallel_workers_per_gather": "0"
+  },
+  "audit_events": {
+    "clinical.create": 14,
+    "clinical.edit_acquire": 18,
+    "clinical.edit_release": 2,
+    "clinical.handover_edit_release": 6,
+    "clinical.handover_save_verified": 6,
+    "clinical.responsibility_transfer": 2,
+    "clinical.save": 12
+  },
+  "result": "PASS"
+}

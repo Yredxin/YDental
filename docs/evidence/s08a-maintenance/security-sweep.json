@@ -1,0 +1,708 @@
+{
+  "tested_commit": "a7b023d26812fd4d722b2d185dd6571bb6d27611",
+  "scope": "fresh full clinical addon scan at current fixed test, Codex self-review",
+  "patterns": {
+    "sudo": {
+      "pattern": "\\b(sudo|with_user|with_company)\\(",
+      "hits": [
+        {
+          "file": "ydental_clinical/controllers/clinical.py",
+          "line": 43
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 46
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 55
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 176
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 275
+        }
+      ],
+      "judgment": "Fixed service models and current source/store checks; baseline security review still applies. No new sudo."
+    },
+    "sql": {
+      "pattern": "cr\\.execute|\\bSQL\\(",
+      "hits": [
+        {
+          "file": "ydental_clinical/models/ydental_clinical_document.py",
+          "line": 68
+        }
+      ],
+      "judgment": "Static new-table migration only; unchanged. No client interpolation."
+    },
+    "domain": {
+      "pattern": "\\bsearch\\(|\\bsearch_count\\(|\\bdomain\\b",
+      "hits": [
+        {
+          "file": "ydental_clinical/controllers/clinical.py",
+          "line": 34
+        },
+        {
+          "file": "ydental_clinical/controllers/clinical.py",
+          "line": 37
+        },
+        {
+          "file": "ydental_clinical/controllers/clinical.py",
+          "line": 43
+        },
+        {
+          "file": "ydental_clinical/controllers/clinical.py",
+          "line": 57
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 130
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 219
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 230
+        },
+        {
+          "file": "ydental_clinical/models/ydental_queue_service.py",
+          "line": 23
+        },
+        {
+          "file": "ydental_clinical/models/ydental_queue_service.py",
+          "line": 36
+        },
+        {
+          "file": "ydental_clinical/models/ydental_queue_service.py",
+          "line": 47
+        },
+        {
+          "file": "ydental_clinical/models/ydental_queue_service.py",
+          "line": 58
+        },
+        {
+          "file": "ydental_clinical/security/ir.access.csv",
+          "line": 1
+        }
+      ],
+      "judgment": "Fixed server constraints and authorization; unchanged."
+    },
+    "public_methods": {
+      "pattern": "^\\s*def [a-zA-Z][a-zA-Z0-9_]*\\(",
+      "hits": [
+        {
+          "file": "ydental_clinical/controllers/clinical.py",
+          "line": 21
+        },
+        {
+          "file": "ydental_clinical/controllers/clinical.py",
+          "line": 63
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_version.py",
+          "line": 37
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_version.py",
+          "line": 42
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_version.py",
+          "line": 45
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_document.py",
+          "line": 45
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_document.py",
+          "line": 50
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_document.py",
+          "line": 55
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_document.py",
+          "line": 65
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 17
+        }
+      ],
+      "judgment": "Protected CRUD and private services; unchanged."
+    },
+    "routes": {
+      "pattern": "@(?:http\\.)?route\\(",
+      "hits": [
+        {
+          "file": "ydental_clinical/controllers/clinical.py",
+          "line": 20
+        },
+        {
+          "file": "ydental_clinical/controllers/clinical.py",
+          "line": 62
+        }
+      ],
+      "judgment": "auth=user POST with native CSRF, no-store; unchanged."
+    },
+    "html_sinks": {
+      "pattern": "innerHTML|insertAdjacentHTML|\\bmarkup\\(|\\bMarkup\\(|t-raw",
+      "hits": [],
+      "judgment": "No dangerous HTML sink; new status uses textContent; recovery href is numeric document ID on same origin."
+    },
+    "secret_fields": {
+      "pattern": "password|token|secret",
+      "hits": [
+        {
+          "file": "ydental_clinical/views/ydental_clinical_templates.xml",
+          "line": 15
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 4
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 24
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 26
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 123
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 125
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 138
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 165
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 171
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 182
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 185
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 188
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 190
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 193
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 197
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 198
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 207
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 208
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 242
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 243
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 245
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 246
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 249
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 251
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 253
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 254
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 264
+        },
+        {
+          "file": "ydental_clinical/models/ydental_queue_service.py",
+          "line": 16
+        },
+        {
+          "file": "ydental_clinical/models/ydental_queue_service.py",
+          "line": 18
+        },
+        {
+          "file": "ydental_clinical/models/ydental_queue_service.py",
+          "line": 54
+        },
+        {
+          "file": "ydental_clinical/models/ydental_queue_service.py",
+          "line": 55
+        },
+        {
+          "file": "ydental_clinical/static/src/document/document.js",
+          "line": 6
+        },
+        {
+          "file": "ydental_clinical/static/src/document/document.js",
+          "line": 30
+        },
+        {
+          "file": "ydental_clinical/static/src/document/document.js",
+          "line": 34
+        },
+        {
+          "file": "ydental_clinical/static/src/document/document.js",
+          "line": 39
+        },
+        {
+          "file": "ydental_clinical/static/src/document/document.js",
+          "line": 45
+        },
+        {
+          "file": "ydental_clinical/static/src/document/document.js",
+          "line": 49
+        },
+        {
+          "file": "ydental_clinical/static/src/document/document.js",
+          "line": 72
+        },
+        {
+          "file": "ydental_clinical/static/src/document/document.js",
+          "line": 96
+        },
+        {
+          "file": "ydental_clinical/static/src/document/document.js",
+          "line": 103
+        },
+        {
+          "file": "ydental_clinical/static/src/document/document.js",
+          "line": 121
+        },
+        {
+          "file": "ydental_clinical/static/src/document/document.js",
+          "line": 128
+        },
+        {
+          "file": "ydental_clinical/static/src/document/document.js",
+          "line": 134
+        },
+        {
+          "file": "ydental_clinical/static/src/document/document.js",
+          "line": 147
+        },
+        {
+          "file": "ydental_clinical/static/src/document/document.js",
+          "line": 149
+        },
+        {
+          "file": "ydental_clinical/static/src/document/document.js",
+          "line": 183
+        },
+        {
+          "file": "ydental_clinical/static/src/document/document.js",
+          "line": 184
+        },
+        {
+          "file": "ydental_clinical/static/src/document/document.js",
+          "line": 187
+        },
+        {
+          "file": "ydental_clinical/static/src/document/document.js",
+          "line": 188
+        },
+        {
+          "file": "ydental_clinical/static/src/document/document.js",
+          "line": 190
+        },
+        {
+          "file": "ydental_clinical/static/src/document/document.js",
+          "line": 191
+        },
+        {
+          "file": "ydental_clinical/static/src/document/document.js",
+          "line": 203
+        },
+        {
+          "file": "ydental_clinical/static/src/document/document.js",
+          "line": 204
+        },
+        {
+          "file": "ydental_clinical/static/src/document/document.js",
+          "line": 217
+        },
+        {
+          "file": "ydental_clinical/static/src/document/document.js",
+          "line": 220
+        },
+        {
+          "file": "ydental_clinical/static/src/document/document.js",
+          "line": 225
+        },
+        {
+          "file": "ydental_clinical/static/src/document/document.js",
+          "line": 247
+        },
+        {
+          "file": "ydental_clinical/static/src/document/document.js",
+          "line": 251
+        }
+      ],
+      "judgment": "Existing NO_ACCESS/digests/consteq; recovery link carries no credential/token/text."
+    },
+    "related": {
+      "pattern": "\\brelated\\s*=",
+      "hits": [],
+      "judgment": "No related fields."
+    },
+    "file_io": {
+      "pattern": "\\bopen\\(",
+      "hits": [],
+      "judgment": "No product file IO."
+    },
+    "eval": {
+      "pattern": "\\beval\\(|\\bexec\\(|safe_eval",
+      "hits": [],
+      "judgment": "No eval/exec."
+    },
+    "pickle": {
+      "pattern": "\\bpickle\\b",
+      "hits": [],
+      "judgment": "No pickle."
+    },
+    "dynamic_attributes": {
+      "pattern": "\\bgetattr\\(|\\bsetattr\\(",
+      "hits": [],
+      "judgment": "No record getattr/setattr."
+    },
+    "secret_comparison": {
+      "pattern": "(token|secret|password).*==|==.*(token|secret|password)",
+      "hits": [
+        {
+          "file": "ydental_clinical/static/src/document/document.js",
+          "line": 45
+        },
+        {
+          "file": "ydental_clinical/static/src/document/document.js",
+          "line": 49
+        },
+        {
+          "file": "ydental_clinical/static/src/document/document.js",
+          "line": 72
+        },
+        {
+          "file": "ydental_clinical/static/src/document/document.js",
+          "line": 220
+        },
+        {
+          "file": "ydental_clinical/static/src/document/document.js",
+          "line": 225
+        }
+      ],
+      "judgment": "Secret digest comparison remains consteq; no new comparisons."
+    },
+    "mutable_defaults": {
+      "pattern": "def .*\\b\\w+\\s*=\\s*(\\[\\]|\\{\\})",
+      "hits": [],
+      "judgment": "No mutable defaults."
+    },
+    "complex_return": {
+      "pattern": "\\breturn\\b",
+      "hits": [
+        {
+          "file": "ydental_clinical/controllers/clinical.py",
+          "line": 18
+        },
+        {
+          "file": "ydental_clinical/controllers/clinical.py",
+          "line": 46
+        },
+        {
+          "file": "ydental_clinical/controllers/clinical.py",
+          "line": 68
+        },
+        {
+          "file": "ydental_clinical/controllers/clinical.py",
+          "line": 71
+        },
+        {
+          "file": "ydental_clinical/views/ydental_clinical_templates.xml",
+          "line": 7
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_version.py",
+          "line": 34
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_version.py",
+          "line": 40
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_version.py",
+          "line": 50
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_document.py",
+          "line": 40
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_document.py",
+          "line": 42
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_document.py",
+          "line": 48
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_document.py",
+          "line": 53
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_document.py",
+          "line": 60
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_document.py",
+          "line": 63
+        },
+        {
+          "file": "ydental_clinical/models/ydental_access_service.py",
+          "line": 8
+        },
+        {
+          "file": "ydental_clinical/models/ydental_access_service.py",
+          "line": 12
+        },
+        {
+          "file": "ydental_clinical/models/ir_attachment.py",
+          "line": 8
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 18
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 42
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 46
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 50
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 57
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 69
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 99
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 102
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 121
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 138
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 144
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 153
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 156
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 162
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 163
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 188
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 195
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 200
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 211
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 223
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 240
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 243
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 247
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 251
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 263
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 283
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 286
+        },
+        {
+          "file": "ydental_clinical/models/ydental_clinical_service.py",
+          "line": 299
+        },
+        {
+          "file": "ydental_clinical/models/ydental_queue_service.py",
+          "line": 19
+        },
+        {
+          "file": "ydental_clinical/models/ydental_queue_service.py",
+          "line": 42
+        },
+        {
+          "file": "ydental_clinical/models/ydental_queue_service.py",
+          "line": 62
+        },
+        {
+          "file": "ydental_clinical/static/src/document/document.js",
+          "line": 57
+        },
+        {
+          "file": "ydental_clinical/static/src/document/document.js",
+          "line": 61
+        },
+        {
+          "file": "ydental_clinical/static/src/document/document.js",
+          "line": 78
+        },
+        {
+          "file": "ydental_clinical/static/src/document/document.js",
+          "line": 100
+        },
+        {
+          "file": "ydental_clinical/static/src/document/document.js",
+          "line": 103
+        },
+        {
+          "file": "ydental_clinical/static/src/document/document.js",
+          "line": 121
+        },
+        {
+          "file": "ydental_clinical/static/src/document/document.js",
+          "line": 154
+        },
+        {
+          "file": "ydental_clinical/static/src/document/document.js",
+          "line": 179
+        },
+        {
+          "file": "ydental_clinical/static/src/document/document.js",
+          "line": 201
+        },
+        {
+          "file": "ydental_clinical/static/src/document/document.js",
+          "line": 220
+        },
+        {
+          "file": "ydental_clinical/static/src/document/document.js",
+          "line": 225
+        },
+        {
+          "file": "ydental_clinical/static/src/document/document.js",
+          "line": 230
+        },
+        {
+          "file": "ydental_clinical/static/src/document/document.js",
+          "line": 243
+        }
+      ],
+      "judgment": "Existing private ORM/JSON contracts unchanged; no new endpoint."
+    }
+  },
+  "findings": [],
+  "runtime_status": "Final report must link actual current run, not old results",
+  "revalidated_at_final_test": "product byte diff from initial scan empty; probe handoff reviewed: only bounded retry release ordering after committed winner; initial barrier + business invariants preserved"
+}

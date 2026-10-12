@@ -1,0 +1,344 @@
+{
+  "utc": "2026-10-12T14:30:57.737635+00:00",
+  "phase": "final",
+  "compose_source_sha256": "acebac7adac4b2e677715a953ef43b26fef80be496be86064f5ca918f8cb884a",
+  "compose_services": [
+    "db20"
+  ],
+  "db20_dependencies": {},
+  "db20_normalized_shm": "268435456",
+  "containers": {
+    "odoo20-db": {
+      "Id": "23fbbde2b361e362c68e265ff7a52adaf0669a71d1b454a177cd0a7e8ae0b083",
+      "Image": "sha256:74935e72241653ca55e0414067e6d8763aceb8a810eb51b452253ec3dcfc4336",
+      "running": true,
+      "pid": 1214144,
+      "started": "2026-10-12T14:06:17.353878695Z",
+      "oom_killed": false,
+      "shm_size": 268435456,
+      "mounts": [
+        {
+          "Type": "volume",
+          "Name": "postgresql_odoo20-db-data",
+          "Destination": "/var/lib/postgresql",
+          "RW": true
+        }
+      ],
+      "ports": {
+        "5432/tcp": [
+          {
+            "HostIp": "0.0.0.0",
+            "HostPort": "5432"
+          },
+          {
+            "HostIp": "::",
+            "HostPort": "5432"
+          }
+        ]
+      },
+      "labels": {
+        "com.docker.compose.config-hash": "383f4e84ede52e64a47ff7be2a52d4524dfe201e0cd0dd02402625cc54d5d029",
+        "com.docker.compose.container-number": "1",
+        "com.docker.compose.depends_on": "",
+        "com.docker.compose.image": "sha256:885953109528ad3dfc90362b1a6f50a78620b5315be19f187753d267e484dc5b",
+        "com.docker.compose.oneoff": "False",
+        "com.docker.compose.project": "postgresql",
+        "com.docker.compose.project.config_files": "/home/redxin/code/odoo/odoo-sd/postgresql/docker-compose.yaml",
+        "com.docker.compose.project.working_dir": "/home/redxin/code/odoo/odoo-sd/postgresql",
+        "com.docker.compose.replace": "odoo20-db",
+        "com.docker.compose.service": "db20",
+        "com.docker.compose.version": "5.6.0"
+      }
+    },
+    "odoo12-db": {
+      "Id": "97c245575b7a136937cdc0cd392c0b3e60aca1823148d00f7dccc65f7ab7fe5e",
+      "Image": "sha256:b2baf8998630663d21370da06387c950e587071bdd307ee34e661cdcc7442bcc",
+      "running": true,
+      "pid": 27374,
+      "started": "2026-10-10T04:52:51.4407282Z",
+      "oom_killed": false,
+      "shm_size": 67108864,
+      "mounts": [
+        {
+          "Type": "volume",
+          "Name": "postgresql_odoo12-db-data",
+          "Destination": "/var/lib/postgresql/data",
+          "RW": true
+        }
+      ],
+      "ports": {
+        "5432/tcp": [
+          {
+            "HostIp": "0.0.0.0",
+            "HostPort": "15432"
+          },
+          {
+            "HostIp": "::",
+            "HostPort": "15432"
+          }
+        ]
+      },
+      "labels": {
+        "com.docker.compose.config-hash": "dae65a9c7cd2f992d4f5d18cf9e35f194ef94b3847092239632a0b52a5a77fd2",
+        "com.docker.compose.container-number": "1",
+        "com.docker.compose.depends_on": "",
+        "com.docker.compose.image": "sha256:7a484b11fcabd39596b1bf08780cdb61fa9b0d8bfad0844dbdce3a6922df95d1",
+        "com.docker.compose.oneoff": "False",
+        "com.docker.compose.project": "postgresql",
+        "com.docker.compose.project.config_files": "/home/redxin/code/odoo/odoo-12/postgresql/docker-compose.yaml",
+        "com.docker.compose.project.working_dir": "/home/redxin/code/odoo/odoo-12/postgresql",
+        "com.docker.compose.service": "db",
+        "com.docker.compose.version": "5.6.0"
+      }
+    }
+  },
+  "volume": {
+    "Name": "postgresql_odoo20-db-data",
+    "Driver": "local",
+    "Mountpoint": "/var/lib/docker/volumes/postgresql_odoo20-db-data/_data",
+    "CreatedAt": "2026-10-10T04:50:39Z"
+  },
+  "cluster": "7694897083368259627",
+  "database_count": 108,
+  "database_inventory_sha256": "8ba4f9e3a495272e47ade18bbead2e54014ec248ab2c5023c20c2b7df63e9881",
+  "activity": [
+    [
+      "autovacuum launcher",
+      null,
+      1
+    ],
+    [
+      "background writer",
+      null,
+      1
+    ],
+    [
+      "checkpointer",
+      null,
+      1
+    ],
+    [
+      "client backend",
+      "active",
+      1
+    ],
+    [
+      "client backend",
+      "idle",
+      3
+    ],
+    [
+      "io worker",
+      null,
+      3
+    ],
+    [
+      "logical replication launcher",
+      null,
+      1
+    ],
+    [
+      "walwriter",
+      null,
+      1
+    ]
+  ],
+  "nonidle_other_client_count": 0,
+  "server": [
+    "2026-10-12 14:06:20.053772+00:00",
+    "PostgreSQL 18.6 (Debian 18.6-1.pgdg13+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit"
+  ],
+  "dynamic_shared_memory_type": "posix",
+  "resources": {
+    "shm_bytes": "Filesystem     1B-blocks     Used Available Use% Mounted on\nshm            268435456 64004096 204431360  24% /dev/shm\n",
+    "shm_inodes": "Filesystem     Inodes IUsed  IFree IUse% Mounted on\nshm            950272    11 950261    1% /dev/shm\n",
+    "volume_bytes": "Filesystem                          1B-blocks        Used   Available Use% Mounted on\n/dev/mapper/ubuntu--vg-ubuntu--lv 66257006592 35598540800 27259613184  57% /var/lib/postgresql\n",
+    "readiness": "127.0.0.1:5432 - accepting connections\n",
+    "cgroup": "max\n409022464\nlow 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0\n",
+    "namespace": "mnt:[4026532352]\nipc:[4026532354]\n",
+    "host_memory": "               total        used        free      shared  buff/cache   available\nMem:      7784628224  2379530240  1369849856   234647552  4590084096  5405097984\nSwap:     4294963200  1551056896  2743906304\n",
+    "listening_ports": "State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                                     \nLISTEN 0      4096         0.0.0.0:15432      0.0.0.0:*                                               \nLISTEN 0      4096      127.0.0.54:53         0.0.0.0:*                                               \nLISTEN 0      128        127.0.0.1:43289      0.0.0.0:*    users:((\"code-2a59476c9b\",pid=2513,fd=11)) \nLISTEN 0      4096         0.0.0.0:5432       0.0.0.0:*                                               \nLISTEN 0      4096   127.0.0.53%lo:53         0.0.0.0:*                                               \nLISTEN 0      128        127.0.0.1:39991      0.0.0.0:*    users:((\"code-2a59476c9b\",pid=988360,fd=9))\nLISTEN 0      4096         0.0.0.0:22         0.0.0.0:*                                               \nLISTEN 0      4096       127.0.0.1:3306       0.0.0.0:*                                               \nLISTEN 0      511        127.0.0.1:44815      0.0.0.0:*    users:((\"MainThread\",pid=989388,fd=45))    \nLISTEN 0      128        127.0.0.1:8069       0.0.0.0:*    users:((\"python\",pid=42433,fd=4))          \nLISTEN 0      4096            [::]:15432         [::]:*                                               \nLISTEN 0      4096            [::]:5432          [::]:*                                               \nLISTEN 0      4096            [::]:22            [::]:*                                               \n"
+  },
+  "commands": [
+    {
+      "label": "compose config",
+      "argv": [
+        "docker",
+        "compose",
+        "-f",
+        "/home/redxin/code/odoo/odoo-sd/postgresql/docker-compose.yaml",
+        "config",
+        "--format",
+        "json"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "8c572dbac8942b680e6d810eef443887b6e58667603aa4917f9ad2de8b172b46",
+      "stderr": ""
+    },
+    {
+      "label": "inspect odoo20-db",
+      "argv": [
+        "docker",
+        "inspect",
+        "odoo20-db"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e2a29079cb0e11a7fbbde92e55ab4e75e7d6b644289d80568584d575861ba24b",
+      "stderr": ""
+    },
+    {
+      "label": "inspect odoo12-db",
+      "argv": [
+        "docker",
+        "inspect",
+        "odoo12-db"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "c1d263c47e707bc80f18d462c9f3404f8c919f8f397a120f4ef16ea942137200",
+      "stderr": ""
+    },
+    {
+      "label": "local image",
+      "argv": [
+        "docker",
+        "image",
+        "inspect",
+        "--format",
+        "{{.Id}}",
+        "postgres:18"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "dd53ff50756719a8451fc732f3609ce21d685702adfec6f62556c34d5d95e49d",
+      "stderr": ""
+    },
+    {
+      "label": "volume inspect",
+      "argv": [
+        "docker",
+        "volume",
+        "inspect",
+        "postgresql_odoo20-db-data"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "2d57f51ae2d3c1467c672b711f199d956ca382d8ad55a664ab30b30ff525efaf",
+      "stderr": ""
+    },
+    {
+      "label": "shm_bytes",
+      "argv": [
+        "docker",
+        "exec",
+        "--user",
+        "999:999",
+        "odoo20-db",
+        "sh",
+        "-c",
+        "df -B1 /dev/shm"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "7a4167ff88a2691a8114036d7c3beeac9e470d80ca3c928d271e39a234b94464",
+      "stderr": ""
+    },
+    {
+      "label": "shm_inodes",
+      "argv": [
+        "docker",
+        "exec",
+        "--user",
+        "999:999",
+        "odoo20-db",
+        "sh",
+        "-c",
+        "df -i /dev/shm"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "663a1c45bd5c6a62e38c476e032cd238591bd507e27ef476b02675843b2ce4d7",
+      "stderr": ""
+    },
+    {
+      "label": "volume_bytes",
+      "argv": [
+        "docker",
+        "exec",
+        "--user",
+        "999:999",
+        "odoo20-db",
+        "sh",
+        "-c",
+        "df -B1 /var/lib/postgresql"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "b5be486130e9b6e218ce5d6d11f2a22f51b030455685faee376dd2fe18b46ac1",
+      "stderr": ""
+    },
+    {
+      "label": "readiness",
+      "argv": [
+        "docker",
+        "exec",
+        "--user",
+        "999:999",
+        "odoo20-db",
+        "sh",
+        "-c",
+        "pg_isready -h 127.0.0.1 -p 5432"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "f65a06d12c78be4ce11dc662c4ebf525a1da13786331065f0fe973c6df5ddd29",
+      "stderr": ""
+    },
+    {
+      "label": "cgroup",
+      "argv": [
+        "docker",
+        "exec",
+        "--user",
+        "999:999",
+        "odoo20-db",
+        "sh",
+        "-c",
+        "cat /sys/fs/cgroup/memory.max /sys/fs/cgroup/memory.current /sys/fs/cgroup/memory.events"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "d7077ccbc6162fdf4db3259a313d7f1991eb79f874fe19651601119589d6e3ee",
+      "stderr": ""
+    },
+    {
+      "label": "namespace",
+      "argv": [
+        "docker",
+        "exec",
+        "--user",
+        "999:999",
+        "odoo20-db",
+        "sh",
+        "-c",
+        "readlink /proc/1/ns/mnt /proc/1/ns/ipc"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "72a8ae48497f7d0d1f6323eb1660836188e69faaa58a442b37334052db7f0e36",
+      "stderr": ""
+    },
+    {
+      "label": "host memory",
+      "argv": [
+        "free",
+        "-b"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e06227be6d120e5b48edbc394004827bbac47eaae7e151fe88d7ee0617c6bb3b",
+      "stderr": ""
+    },
+    {
+      "label": "listening ports",
+      "argv": [
+        "ss",
+        "-ltnp"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "f979f8c3da703dbcc43a23b650531a8ddb353689bc62ba887cc89ffda4e64f4f",
+      "stderr": ""
+    }
+  ],
+  "recovery": "original compose private backup + existing local image and original named volume; no deletion/reset; reverting shm requires recreation and downtime"
+}

@@ -1,0 +1,16 @@
+{
+  "command": [
+    "../.venv/bin/python",
+    "scripts/s08a_browser.py",
+    "--db",
+    "ydental_s08a_test_20261012141720_8e252c8e",
+    "--port",
+    "18167",
+    "--terminal-races"
+  ],
+  "exit_code": 0,
+  "tested_commit": "a7b023d26812fd4d722b2d185dd6571bb6d27611",
+  "started_utc": "2026-10-12T14:23:45.943342+00:00",
+  "finished_utc": "2026-10-12T14:24:33.655447+00:00",
+  "output_sha256": "44f9bfea64f4f297ace72e1cb37932204109fd94037524dd7a4067c251e4d7f9"
+}

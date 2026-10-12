@@ -1,0 +1,72 @@
+{
+  "scope": "Codex self-tests only; full S08-A applicable regression, no independent GPT/user acceptance",
+  "product": "a28b364691791214becf4909e9ecf1bc0be3555c",
+  "test": "a7b023d26812fd4d722b2d185dd6571bb6d27611",
+  "database": "ydental_s08a_test_20261012141720_8e252c8e",
+  "port": 18167,
+  "cluster": "7694897083368259627",
+  "result": "PASS",
+  "install": {
+    "exit_code": 0,
+    "total_tests": 30,
+    "clinical_model": 21,
+    "clinical_HTTP_RPC": 7,
+    "native_asset_initialization_extra": 2,
+    "full_JS_suite": false
+  },
+  "upgrade": {
+    "exit_code": 0,
+    "tests": 28
+  },
+  "business_upgrade": {
+    "exit_code": 0,
+    "tests": 28,
+    "10_signatures_equal": true
+  },
+  "probe": {
+    "exit_code": 0,
+    "races": 16,
+    "initial_independent_backends": 16,
+    "barrier_overlap_pairs": 16,
+    "serialization_retries": 14,
+    "deadlocks": 0,
+    "eighth_case_legacy_predicate": "FAIL_REPRODUCED diagnostic; original business invariants PASS; historical exact original frame UNKNOWN"
+  },
+  "Firefox": {
+    "exit_code": 0,
+    "checks": 88,
+    "response_barriers": 10,
+    "screenshots": 21,
+    "visually_reviewed": 21,
+    "pageerrors": 0,
+    "source": "docs/evidence/s08a/browser-attempts/20261012T142346031387/result.json"
+  },
+  "translation": {
+    "exit_code": 0,
+    "translated": 151,
+    "exported": 151,
+    "metadata_missing": 0,
+    "source_codes_preserved": true
+  },
+  "guard": {
+    "exit_code": 0,
+    "tests": 5
+  },
+  "permissions_security": "PASS current real model/HTTP/browser negatives + static review",
+  "SQL_invariant_classes": 8,
+  "SQL_invariant_errors": 0,
+  "browser_6_economic_signatures_equal": true,
+  "test_product_drift": false,
+  "Project_mutations": 0,
+  "future_B_C_S09_to_S13": "NOT_RUN",
+  "production": "BLOCKED historical S07 SIGSEGV root cause UNKNOWN; no recurrence this run",
+  "failures_retained": [
+    "original shared-memory install failures",
+    "original discarded-inner-stack AssertionError",
+    "initial Compose validation type assertion before mutation",
+    "audit guard exit2 during upgrade",
+    "read-only environment preflight assertion during controlled export",
+    "bounded legacy predicate diagnostic expected AssertionError; recorded frames and both traces"
+  ],
+  "all_final_passes_same_code_and_new_database": true
+}

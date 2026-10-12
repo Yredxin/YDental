@@ -1,0 +1,12 @@
+{
+  "tested_commit": "a7b023d26812fd4d722b2d185dd6571bb6d27611",
+  "command": [
+    "../.venv/bin/python",
+    "-m",
+    "unittest",
+    "scripts/test_s08a_guard.py"
+  ],
+  "exit_code": 0,
+  "count": 5,
+  "log_sha256": "ec20e26c577e82f1094098c10070fc14808da267800355819a86b29c92ed0f5a"
+}

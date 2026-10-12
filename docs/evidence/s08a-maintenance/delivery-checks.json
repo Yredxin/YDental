@@ -1,0 +1,16 @@
+{
+  "utc": "2026-10-12T14:43:17.404671+00:00",
+  "test": "a7b023d26812fd4d722b2d185dd6571bb6d27611",
+  "documentation_links_checked": 44,
+  "broken_links": [],
+  "JSON_parse_errors": 0,
+  "private_access_values_scanned": 34,
+  "private_value_matches": 0,
+  "synthetic_screenshots_visually_checked": 21,
+  "staged_scope": "AGENTS/report/sanitized evidence only; scripts/addons unchanged since fixed test",
+  "git_diff_check_exit": 0,
+  "all_final_tests_single_commit_and_database": true,
+  "no_old_PASS_reused": true,
+  "original_failure_evidence_preserved": true,
+  "comment_delivery_policy": "Publish one final authorized application, exact readback then stop"
+}

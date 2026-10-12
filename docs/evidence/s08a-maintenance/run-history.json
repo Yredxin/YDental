@@ -1,0 +1,292 @@
+{
+  "test": "a7b023d26812fd4d722b2d185dd6571bb6d27611",
+  "database": "ydental_s08a_test_20261012141720_8e252c8e",
+  "runner_actions": [
+    {
+      "action": "install",
+      "exit_code": 0,
+      "pid": 1220633,
+      "log": "install-20261012T141720654090.log",
+      "log_sha256": "84c0a4d3eb25f13c0359245fe0f487cba235e3efc74eb71f87e417236ab01da3",
+      "time_utc": "2026-10-12T14:18:50.879554+00:00",
+      "tested_commit": "a7b023d26812fd4d722b2d185dd6571bb6d27611",
+      "tests": [
+        0,
+        0,
+        30
+      ]
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 0,
+      "pid": 1221688,
+      "log": "upgrade-20261012T141919746726.log",
+      "log_sha256": "c48e5f0de9a4d20951aa6d04d01bb5424352e517d384d091345b457bc2cf2ad8",
+      "time_utc": "2026-10-12T14:19:49.925046+00:00",
+      "tested_commit": "a7b023d26812fd4d722b2d185dd6571bb6d27611",
+      "tests": [
+        0,
+        0,
+        28
+      ]
+    },
+    {
+      "action": "probe",
+      "exit_code": 0,
+      "pid": 1222117,
+      "log": "probe-20261012T142007856139.log",
+      "log_sha256": "d64caad434bb58bb0a4ea544c4b24746f7f42b353c847f76bc5eb2b63cb39e13",
+      "time_utc": "2026-10-12T14:21:49.955139+00:00",
+      "tested_commit": "a7b023d26812fd4d722b2d185dd6571bb6d27611"
+    },
+    {
+      "action": "preview",
+      "exit_code": 0,
+      "pid": 1223182,
+      "log": "preview-20261012T142205123298.log",
+      "log_sha256": "be2127b293c5545a80f93a012a982c77bed9a736be7b756a03141c77d6ff0337",
+      "time_utc": "2026-10-12T14:22:15.985127+00:00",
+      "tested_commit": "a7b023d26812fd4d722b2d185dd6571bb6d27611"
+    },
+    {
+      "action": "audit",
+      "exit_code": 0,
+      "pid": 1223660,
+      "log": "audit-20261012T142300404181.log",
+      "log_sha256": "2d1ff5ef15e6ccf067e937b5a89c27531d88d2541db0ca47eee41e6d34606f7e",
+      "time_utc": "2026-10-12T14:23:01.732216+00:00",
+      "tested_commit": "a7b023d26812fd4d722b2d185dd6571bb6d27611"
+    },
+    {
+      "action": "audit",
+      "exit_code": 0,
+      "pid": 1226959,
+      "log": "audit-20261012T142855116965.log",
+      "log_sha256": "1dfa0971e08eea98caec3854c43e15d5e521ef913115f4f8fa91b5c0fa324e9d",
+      "time_utc": "2026-10-12T14:28:56.521276+00:00",
+      "tested_commit": "a7b023d26812fd4d722b2d185dd6571bb6d27611"
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 0,
+      "pid": 1227147,
+      "log": "upgrade-20261012T142918299307.log",
+      "log_sha256": "47e27eb036a54df7ee9907d70951ec94009020d5cd02109df56f06ba0c922693",
+      "time_utc": "2026-10-12T14:29:51.383550+00:00",
+      "tested_commit": "a7b023d26812fd4d722b2d185dd6571bb6d27611",
+      "tests": [
+        0,
+        0,
+        28
+      ]
+    },
+    {
+      "action": "audit",
+      "exit_code": 0,
+      "pid": 1227671,
+      "log": "audit-20261012T143009309853.log",
+      "log_sha256": "657ed0790127502a49862d7cb1707035304ad81c1e594555c31cdd860809af4e",
+      "time_utc": "2026-10-12T14:30:10.648591+00:00",
+      "tested_commit": "a7b023d26812fd4d722b2d185dd6571bb6d27611"
+    },
+    {
+      "action": "export",
+      "exit_code": 0,
+      "pid": 1227832,
+      "log": "export-20261012T143026138594.log",
+      "log_sha256": "75ce6e5f8678499a87c51d6c84d3cc317fcb9a0d6ea80224513585095f887814",
+      "time_utc": "2026-10-12T14:30:28.412185+00:00",
+      "tested_commit": "a7b023d26812fd4d722b2d185dd6571bb6d27611"
+    }
+  ],
+  "all_wrapper_invocations_including_guard_rejection": [
+    {
+      "action": "install",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08a.py",
+        "install",
+        "--db",
+        "ydental_s08a_test_20261012141720_8e252c8e",
+        "--port",
+        "18167"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-12T14:17:20.536299+00:00",
+      "finished_utc": "2026-10-12T14:18:50.895590+00:00",
+      "tested_commit": "a7b023d26812fd4d722b2d185dd6571bb6d27611",
+      "output_sha256": "77a47f197a50bb52bcf027a513ef06e44eb3b27743c8a52752f68a0847a5152e"
+    },
+    {
+      "action": "upgrade",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08a.py",
+        "upgrade",
+        "--db",
+        "ydental_s08a_test_20261012141720_8e252c8e",
+        "--port",
+        "18167"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-12T14:19:19.684507+00:00",
+      "finished_utc": "2026-10-12T14:19:49.935749+00:00",
+      "tested_commit": "a7b023d26812fd4d722b2d185dd6571bb6d27611",
+      "output_sha256": "36f885a48d295fc116cf243c085148fb7555eb53f252e42a3ca8bd10f18aec60"
+    },
+    {
+      "action": "probe",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08a.py",
+        "probe",
+        "--db",
+        "ydental_s08a_test_20261012141720_8e252c8e",
+        "--port",
+        "18167"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-12T14:20:07.794732+00:00",
+      "finished_utc": "2026-10-12T14:21:49.964956+00:00",
+      "tested_commit": "a7b023d26812fd4d722b2d185dd6571bb6d27611",
+      "output_sha256": "e87c0679ef9e990dbf0417aab8d2d78aeaa3a9b3dcfc8a7df202c506940f6858"
+    },
+    {
+      "action": "preview",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08a.py",
+        "preview",
+        "--db",
+        "ydental_s08a_test_20261012141720_8e252c8e",
+        "--port",
+        "18167"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-12T14:22:05.062759+00:00",
+      "finished_utc": "2026-10-12T14:22:15.996800+00:00",
+      "tested_commit": "a7b023d26812fd4d722b2d185dd6571bb6d27611",
+      "output_sha256": "4a412cc473a640fdca96087ea2d0790c28dac5af4aa72965c265946d527fa095"
+    },
+    {
+      "action": "audit",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08a.py",
+        "audit",
+        "--db",
+        "ydental_s08a_test_20261012141720_8e252c8e",
+        "--port",
+        "18167"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-12T14:23:00.342007+00:00",
+      "finished_utc": "2026-10-12T14:23:01.741375+00:00",
+      "tested_commit": "a7b023d26812fd4d722b2d185dd6571bb6d27611",
+      "output_sha256": "da21a7e1bd530cf08374cde53225108fcfe99a957bebafd4c4fff65423b21ce7"
+    },
+    {
+      "action": "serve",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08a.py",
+        "serve",
+        "--db",
+        "ydental_s08a_test_20261012141720_8e252c8e",
+        "--port",
+        "18167"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-12T14:23:24.122958+00:00",
+      "finished_utc": "2026-10-12T14:28:47.640348+00:00",
+      "tested_commit": "a7b023d26812fd4d722b2d185dd6571bb6d27611",
+      "output_sha256": "033aeb2749697cc2050d681e21f4522594eed4075a35fb5a0cbf6667a56816f6"
+    },
+    {
+      "action": "audit",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08a.py",
+        "audit",
+        "--db",
+        "ydental_s08a_test_20261012141720_8e252c8e",
+        "--port",
+        "18167"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-12T14:28:55.048007+00:00",
+      "finished_utc": "2026-10-12T14:28:56.531727+00:00",
+      "tested_commit": "a7b023d26812fd4d722b2d185dd6571bb6d27611",
+      "output_sha256": "386daade3ed516a158d19481edb1a8308a16ac9d1f82ad8896f526ce8737fdcb"
+    },
+    {
+      "action": "audit",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08a.py",
+        "audit",
+        "--db",
+        "ydental_s08a_test_20261012141720_8e252c8e",
+        "--port",
+        "18167"
+      ],
+      "exit_code": 2,
+      "started_utc": "2026-10-12T14:29:46.507068+00:00",
+      "finished_utc": "2026-10-12T14:29:46.582420+00:00",
+      "tested_commit": "a7b023d26812fd4d722b2d185dd6571bb6d27611",
+      "output_sha256": "0f03ba0a4df2681c015049ce7cc0b86800ca9207ad34c868ea631e5bfbf96bf7"
+    },
+    {
+      "action": "upgrade",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08a.py",
+        "upgrade",
+        "--db",
+        "ydental_s08a_test_20261012141720_8e252c8e",
+        "--port",
+        "18167"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-12T14:29:18.240093+00:00",
+      "finished_utc": "2026-10-12T14:29:51.393841+00:00",
+      "tested_commit": "a7b023d26812fd4d722b2d185dd6571bb6d27611",
+      "output_sha256": "15708a3974db725a30790ea7a77f0e555d9b3901d21af9e11a19b6c52f6b56de"
+    },
+    {
+      "action": "audit",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08a.py",
+        "audit",
+        "--db",
+        "ydental_s08a_test_20261012141720_8e252c8e",
+        "--port",
+        "18167"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-12T14:30:09.249887+00:00",
+      "finished_utc": "2026-10-12T14:30:10.657567+00:00",
+      "tested_commit": "a7b023d26812fd4d722b2d185dd6571bb6d27611",
+      "output_sha256": "824d2a0b993dba36b165735fc6a8acf85d5f08da52d2358ac26aede0c2a01ec9"
+    },
+    {
+      "action": "export",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08a.py",
+        "export",
+        "--db",
+        "ydental_s08a_test_20261012141720_8e252c8e",
+        "--port",
+        "18167"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-12T14:30:26.077822+00:00",
+      "finished_utc": "2026-10-12T14:30:28.421501+00:00",
+      "tested_commit": "a7b023d26812fd4d722b2d185dd6571bb6d27611",
+      "output_sha256": "ec78bf1781a667b4086f8b83e2cf81be6f30f1dd9aa8e2739c2047013b1a3d17"
+    }
+  ],
+  "guard_rejection": "One audit attempt exit2 during upgrade; no DB work; sequenced retry exit0. Failure retained, not a test failure or crash."
+}

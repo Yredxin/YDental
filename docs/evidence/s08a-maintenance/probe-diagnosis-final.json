@@ -1,0 +1,166 @@
+{
+  "tested_commit": "a7b023d26812fd4d722b2d185dd6571bb6d27611",
+  "database": "ydental_s08a_test_20261012141720_8e252c8e",
+  "source": "docs/evidence/s08a/probe-attempts/ydental_s08a_test_20261012141720_8e252c8e-20261012T142149695799.json",
+  "result": "PASS",
+  "original_races": 16,
+  "initial_backend_pairs_distinct": 16,
+  "true_barrier_overlap_pairs": 16,
+  "serialization_retries": 14,
+  "deadlocks": 0,
+  "eighth_race": {
+    "case": "continuation",
+    "round": 2,
+    "result": "PASS",
+    "worker_traces": [
+      [
+        {
+          "event": "backend_connected",
+          "attempt": 0,
+          "backend_pid": 2369,
+          "monotonic_ns": 290848564925289
+        },
+        {
+          "event": "barrier_enter",
+          "attempt": 0,
+          "backend_pid": 2369,
+          "monotonic_ns": 290848564926982
+        },
+        {
+          "event": "barrier_exit",
+          "attempt": 0,
+          "backend_pid": 2369,
+          "monotonic_ns": 290848565178109
+        },
+        {
+          "event": "operate_begin",
+          "attempt": 0,
+          "backend_pid": 2369,
+          "monotonic_ns": 290848566400918
+        },
+        {
+          "event": "serialization_retry",
+          "attempt": 0,
+          "backend_pid": 2369,
+          "monotonic_ns": 290848666349767
+        },
+        {
+          "event": "cursor_released",
+          "attempt": 0,
+          "backend_pid": 2369,
+          "monotonic_ns": 290848677872127
+        },
+        {
+          "event": "backend_connected",
+          "attempt": 1,
+          "backend_pid": 2381,
+          "monotonic_ns": 290848678721038
+        },
+        {
+          "event": "operate_begin",
+          "attempt": 1,
+          "backend_pid": 2381,
+          "monotonic_ns": 290848679133890
+        },
+        {
+          "event": "business_rejected",
+          "attempt": 1,
+          "backend_pid": 2381,
+          "monotonic_ns": 290848705534356
+        },
+        {
+          "event": "cursor_released",
+          "attempt": 1,
+          "backend_pid": 2381,
+          "monotonic_ns": 290848706627080
+        }
+      ],
+      [
+        {
+          "event": "backend_connected",
+          "attempt": 0,
+          "backend_pid": 2381,
+          "monotonic_ns": 290848565023535
+        },
+        {
+          "event": "barrier_enter",
+          "attempt": 0,
+          "backend_pid": 2381,
+          "monotonic_ns": 290848565024667
+        },
+        {
+          "event": "barrier_exit",
+          "attempt": 0,
+          "backend_pid": 2381,
+          "monotonic_ns": 290848565038123
+        },
+        {
+          "event": "operate_begin",
+          "attempt": 0,
+          "backend_pid": 2381,
+          "monotonic_ns": 290848565686644
+        },
+        {
+          "event": "accepted_commit",
+          "attempt": 0,
+          "backend_pid": 2381,
+          "monotonic_ns": 290848666263343
+        },
+        {
+          "event": "cursor_released",
+          "attempt": 0,
+          "backend_pid": 2381,
+          "monotonic_ns": 290848678309377
+        }
+      ]
+    ],
+    "document_id": 64,
+    "execution_id": 68,
+    "controlled_retry_pool_reuse": true,
+    "outcomes": [
+      {
+        "result": "rejected",
+        "backend_pid": 2381,
+        "initial_backend_pid": 2369,
+        "backend_pid_trace": [
+          2369,
+          2381
+        ],
+        "attempts": [
+          "serialization_retry"
+        ],
+        "code": "editor_expired"
+      },
+      {
+        "result": "accepted",
+        "backend_pid": 2381,
+        "initial_backend_pid": 2381,
+        "backend_pid_trace": [
+          2381
+        ],
+        "attempts": [],
+        "version": 1
+      }
+    ],
+    "legacy_final_pid_distinct": false,
+    "legacy_predicate_diagnostic": {
+      "result": "FAIL_REPRODUCED",
+      "original_predicate": "1bec52a:scripts/s08a_probe.py:79",
+      "trace": [
+        {
+          "file": "s08a_probe.py",
+          "line": 132,
+          "method": "race"
+        },
+        {
+          "file": "s08a_probe.py",
+          "line": 34,
+          "method": "legacy_final_pid_assertion"
+        }
+      ]
+    },
+    "single_continuation": 1
+  },
+  "confirmed_mechanism": "original final-PID predicate fails after legal LIFO backend reuse; initial backends differ and business invariants pass",
+  "historical_exact_frame": "UNKNOWN: original catch lost inner traceback; controlled same-case mechanism reproduction does not recover old missing frame"
+}

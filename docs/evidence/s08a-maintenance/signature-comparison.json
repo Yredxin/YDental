@@ -1,0 +1,150 @@
+{
+  "database": "ydental_s08a_test_20261012141720_8e252c8e",
+  "test": "a7b023d26812fd4d722b2d185dd6571bb6d27611",
+  "business_upgrade_10_signatures_equal": true,
+  "browser_6_economic_signatures_equal": true,
+  "economic_tables": [
+    "ydental_inventory_event",
+    "ydental_inventory_batch",
+    "stock_move",
+    "stock_move_line",
+    "stock_quant",
+    "ydental_intake_snapshot"
+  ],
+  "before_browser": {
+    "ydental_clinical_document": {
+      "count": 14,
+      "sha256": "7b25177812a15bc586b16f3508541efdf2919e453119bca35be3021b85782ad5"
+    },
+    "ydental_clinical_version": {
+      "count": 12,
+      "sha256": "89fea8a966f36dbaf354d62a35d2e638b938e73621c97764cca37bfbc6844d8f"
+    },
+    "ydental_queue_execution": {
+      "count": 16,
+      "sha256": "40c3014e7e62006e8bf266fcc542d4f5d6e4536ed2f400b1c4b26da4f27edb0e"
+    },
+    "ydental_intake_task": {
+      "count": 23,
+      "sha256": "ccf35efad86d5f75e73164c0081261b1604094726f093ac7b4b1751ed72adf28"
+    },
+    "ydental_inventory_event": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "ydental_inventory_batch": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stock_move": {
+      "count": 50,
+      "sha256": "2c77326ab468b7a5a50a30f99bf2318aab4271edb57370cdcbb505626a35c773"
+    },
+    "stock_move_line": {
+      "count": 36,
+      "sha256": "fcc908481d7614cf06b3fa7fae8a6944287bed8eae6e1b22b75eb3748f6cb5de"
+    },
+    "stock_quant": {
+      "count": 40,
+      "sha256": "08ba922cb8624af58dc8b1c48af89acb1176352f0b93840f8efc0d1bb0badcc0"
+    },
+    "ydental_intake_snapshot": {
+      "count": 1,
+      "sha256": "a1bfaa52257c5b130671affcabee729a6cb179dd9966b07410a54096b42eb54f"
+    }
+  },
+  "after_browser": {
+    "ydental_clinical_document": {
+      "count": 17,
+      "sha256": "98bcb9d4688cb435935942d4287aa5b8464412024844cc572df7ad2226be25c6"
+    },
+    "ydental_clinical_version": {
+      "count": 38,
+      "sha256": "3a345033612e9d2e4aa019d9c1ed7e3b603d883b83b9f6f09df4663072567462"
+    },
+    "ydental_queue_execution": {
+      "count": 19,
+      "sha256": "c5b78c23b96f9e9050e5b3ac7ca2ee1b77576858f90c954c0186f8d3966ae3d0"
+    },
+    "ydental_intake_task": {
+      "count": 26,
+      "sha256": "1d049460fe8914977eea07371ff4513ecd618917c5f901246f450cf81841a817"
+    },
+    "ydental_inventory_event": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "ydental_inventory_batch": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stock_move": {
+      "count": 50,
+      "sha256": "2c77326ab468b7a5a50a30f99bf2318aab4271edb57370cdcbb505626a35c773"
+    },
+    "stock_move_line": {
+      "count": 36,
+      "sha256": "fcc908481d7614cf06b3fa7fae8a6944287bed8eae6e1b22b75eb3748f6cb5de"
+    },
+    "stock_quant": {
+      "count": 40,
+      "sha256": "08ba922cb8624af58dc8b1c48af89acb1176352f0b93840f8efc0d1bb0badcc0"
+    },
+    "ydental_intake_snapshot": {
+      "count": 1,
+      "sha256": "a1bfaa52257c5b130671affcabee729a6cb179dd9966b07410a54096b42eb54f"
+    }
+  },
+  "after_upgrade": {
+    "ydental_clinical_document": {
+      "count": 17,
+      "sha256": "98bcb9d4688cb435935942d4287aa5b8464412024844cc572df7ad2226be25c6"
+    },
+    "ydental_clinical_version": {
+      "count": 38,
+      "sha256": "3a345033612e9d2e4aa019d9c1ed7e3b603d883b83b9f6f09df4663072567462"
+    },
+    "ydental_queue_execution": {
+      "count": 19,
+      "sha256": "c5b78c23b96f9e9050e5b3ac7ca2ee1b77576858f90c954c0186f8d3966ae3d0"
+    },
+    "ydental_intake_task": {
+      "count": 26,
+      "sha256": "1d049460fe8914977eea07371ff4513ecd618917c5f901246f450cf81841a817"
+    },
+    "ydental_inventory_event": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "ydental_inventory_batch": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stock_move": {
+      "count": 50,
+      "sha256": "2c77326ab468b7a5a50a30f99bf2318aab4271edb57370cdcbb505626a35c773"
+    },
+    "stock_move_line": {
+      "count": 36,
+      "sha256": "fcc908481d7614cf06b3fa7fae8a6944287bed8eae6e1b22b75eb3748f6cb5de"
+    },
+    "stock_quant": {
+      "count": 40,
+      "sha256": "08ba922cb8624af58dc8b1c48af89acb1176352f0b93840f8efc0d1bb0badcc0"
+    },
+    "ydental_intake_snapshot": {
+      "count": 1,
+      "sha256": "a1bfaa52257c5b130671affcabee729a6cb179dd9966b07410a54096b42eb54f"
+    }
+  },
+  "invariants_after_upgrade": {
+    "version_count": 0,
+    "latest_content": 0,
+    "version_source": 0,
+    "document_source": 0,
+    "duplicate_continuation": 0,
+    "duplicate_actual_execution": 0,
+    "terminal_unmarked_draft": 0,
+    "negative_internal_quant": 0
+  }
+}

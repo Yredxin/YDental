@@ -13,5 +13,11 @@
   "additional_tuning": [],
   "backup_private": "/tmp/ydental-s08a-maintenance/compose-original.yaml (mode600; directory700)",
   "backup_sha256": "3d0baa673b19f2582f8dc2c6d22e94a87743c224b9359e52d5a51b28f9f48cf2",
-  "test_status": "NOT_RUN pending fixed verification version; no product changes"
+  "test_status": "NOT_RUN pending fixed verification version; no product changes",
+  "scope": "Maintenance receipt snapshot before regression; test_status is historical at that point",
+  "latest_fixed_test_result": {
+    "test": "a7b023d26812fd4d722b2d185dd6571bb6d27611",
+    "result": "PASS",
+    "source": "final-tests.json"
+  }
 }

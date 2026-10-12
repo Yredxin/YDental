@@ -1,0 +1,483 @@
+{
+  "tested_commit": "a7b023d26812fd4d722b2d185dd6571bb6d27611",
+  "database": "ydental_s08a_test_20261012141720_8e252c8e",
+  "model": 21,
+  "HTTP_RPC": 7,
+  "methods": [
+    {
+      "test": "TestClinicalDocument.test_three_real_saves_cas_and_economic_invariance",
+      "file": "ydental_clinical_test/tests/test_document.py",
+      "line": 22,
+      "layer": "model",
+      "file_sha256": "d7202de9c042e6b59ba84c7ff8285292ffb735e2b7268c56a29fef413f2a7a7c",
+      "fixed_test_status": "PASS",
+      "executed_in": [
+        "install-20261012T141720654090.log",
+        "upgrade-20261012T141919746726.log",
+        "upgrade-20261012T142918299307.log"
+      ]
+    },
+    {
+      "test": "TestClinicalDocument.test_independent_locks_and_old_connection",
+      "file": "ydental_clinical_test/tests/test_document.py",
+      "line": 31,
+      "layer": "model",
+      "file_sha256": "d7202de9c042e6b59ba84c7ff8285292ffb735e2b7268c56a29fef413f2a7a7c",
+      "fixed_test_status": "PASS",
+      "executed_in": [
+        "install-20261012T141720654090.log",
+        "upgrade-20261012T141919746726.log",
+        "upgrade-20261012T142918299307.log"
+      ]
+    },
+    {
+      "test": "TestClinicalDocument.test_expiry_and_revocation_reject_cached_editor",
+      "file": "ydental_clinical_test/tests/test_document.py",
+      "line": 41,
+      "layer": "model",
+      "file_sha256": "d7202de9c042e6b59ba84c7ff8285292ffb735e2b7268c56a29fef413f2a7a7c",
+      "fixed_test_status": "PASS",
+      "executed_in": [
+        "install-20261012T141720654090.log",
+        "upgrade-20261012T141919746726.log",
+        "upgrade-20261012T142918299307.log"
+      ]
+    },
+    {
+      "test": "TestClinicalDocument.test_fdi_permanent_primary_and_anterior_surfaces",
+      "file": "ydental_clinical_test/tests/test_document.py",
+      "line": 49,
+      "layer": "model",
+      "file_sha256": "d7202de9c042e6b59ba84c7ff8285292ffb735e2b7268c56a29fef413f2a7a7c",
+      "fixed_test_status": "PASS",
+      "executed_in": [
+        "install-20261012T141720654090.log",
+        "upgrade-20261012T141919746726.log",
+        "upgrade-20261012T142918299307.log"
+      ]
+    },
+    {
+      "test": "TestClinicalDocument.test_unknown_missing_not_applicable_and_invalid_surfaces",
+      "file": "ydental_clinical_test/tests/test_document.py",
+      "line": 58,
+      "layer": "model",
+      "file_sha256": "d7202de9c042e6b59ba84c7ff8285292ffb735e2b7268c56a29fef413f2a7a7c",
+      "fixed_test_status": "PASS",
+      "executed_in": [
+        "install-20261012T141720654090.log",
+        "upgrade-20261012T141919746726.log",
+        "upgrade-20261012T142918299307.log"
+      ]
+    },
+    {
+      "test": "TestClinicalDocument.test_confirmation_correction_preserves_authors_and_economics",
+      "file": "ydental_clinical_test/tests/test_document.py",
+      "line": 66,
+      "layer": "model",
+      "file_sha256": "d7202de9c042e6b59ba84c7ff8285292ffb735e2b7268c56a29fef413f2a7a7c",
+      "fixed_test_status": "PASS",
+      "executed_in": [
+        "install-20261012T141720654090.log",
+        "upgrade-20261012T141919746726.log",
+        "upgrade-20261012T142918299307.log"
+      ]
+    },
+    {
+      "test": "TestClinicalDocument.test_handover_real_save_pending_and_unique_continuation",
+      "file": "ydental_clinical_test/tests/test_document.py",
+      "line": 79,
+      "layer": "model",
+      "file_sha256": "d7202de9c042e6b59ba84c7ff8285292ffb735e2b7268c56a29fef413f2a7a7c",
+      "fixed_test_status": "PASS",
+      "executed_in": [
+        "install-20261012T141720654090.log",
+        "upgrade-20261012T141919746726.log",
+        "upgrade-20261012T142918299307.log"
+      ]
+    },
+    {
+      "test": "TestClinicalDocument.test_handover_save_and_continuation_failure_roll_back",
+      "file": "ydental_clinical_test/tests/test_document.py",
+      "line": 88,
+      "layer": "model",
+      "file_sha256": "d7202de9c042e6b59ba84c7ff8285292ffb735e2b7268c56a29fef413f2a7a7c",
+      "fixed_test_status": "PASS",
+      "executed_in": [
+        "install-20261012T141720654090.log",
+        "upgrade-20261012T141919746726.log",
+        "upgrade-20261012T142918299307.log"
+      ]
+    },
+    {
+      "test": "TestClinicalDocument.test_d1_pending_d2_independent_and_responsibility_transfer",
+      "file": "ydental_clinical_test/tests/test_document.py",
+      "line": 96,
+      "layer": "model",
+      "file_sha256": "d7202de9c042e6b59ba84c7ff8285292ffb735e2b7268c56a29fef413f2a7a7c",
+      "fixed_test_status": "PASS",
+      "executed_in": [
+        "install-20261012T141720654090.log",
+        "upgrade-20261012T141919746726.log",
+        "upgrade-20261012T142918299307.log"
+      ]
+    },
+    {
+      "test": "TestClinicalDocument.test_native_rpc_read_export_and_attachments",
+      "file": "ydental_clinical_test/tests/test_document.py",
+      "line": 110,
+      "layer": "model",
+      "file_sha256": "d7202de9c042e6b59ba84c7ff8285292ffb735e2b7268c56a29fef413f2a7a7c",
+      "fixed_test_status": "PASS",
+      "executed_in": [
+        "install-20261012T141720654090.log",
+        "upgrade-20261012T141919746726.log",
+        "upgrade-20261012T142918299307.log"
+      ]
+    },
+    {
+      "test": "TestClinicalDocument.test_cross_store_write_and_old_session_revision",
+      "file": "ydental_clinical_test/tests/test_document.py",
+      "line": 123,
+      "layer": "model",
+      "file_sha256": "d7202de9c042e6b59ba84c7ff8285292ffb735e2b7268c56a29fef413f2a7a7c",
+      "fixed_test_status": "PASS",
+      "executed_in": [
+        "install-20261012T141720654090.log",
+        "upgrade-20261012T141919746726.log",
+        "upgrade-20261012T142918299307.log"
+      ]
+    },
+    {
+      "test": "TestClinicalDocument.test_lost_company_access_invalidates_editor_actions_and_native_reads",
+      "file": "ydental_clinical_test/tests/test_document.py",
+      "line": 131,
+      "layer": "model",
+      "file_sha256": "d7202de9c042e6b59ba84c7ff8285292ffb735e2b7268c56a29fef413f2a7a7c",
+      "fixed_test_status": "PASS",
+      "executed_in": [
+        "install-20261012T141720654090.log",
+        "upgrade-20261012T141919746726.log",
+        "upgrade-20261012T142918299307.log"
+      ]
+    },
+    {
+      "test": "TestClinicalDocument.test_external_reserve_remains_fail_closed",
+      "file": "ydental_clinical_test/tests/test_document.py",
+      "line": 140,
+      "layer": "model",
+      "file_sha256": "d7202de9c042e6b59ba84c7ff8285292ffb735e2b7268c56a29fef413f2a7a7c",
+      "fixed_test_status": "PASS",
+      "executed_in": [
+        "install-20261012T141720654090.log",
+        "upgrade-20261012T141919746726.log",
+        "upgrade-20261012T142918299307.log"
+      ]
+    },
+    {
+      "test": "TestClinicalDocument.test_onsite_verify_uses_persisted_draft_no_false_author",
+      "file": "ydental_clinical_test/tests/test_document.py",
+      "line": 146,
+      "layer": "model",
+      "file_sha256": "d7202de9c042e6b59ba84c7ff8285292ffb735e2b7268c56a29fef413f2a7a7c",
+      "fixed_test_status": "PASS",
+      "executed_in": [
+        "install-20261012T141720654090.log",
+        "upgrade-20261012T141919746726.log",
+        "upgrade-20261012T142918299307.log"
+      ]
+    },
+    {
+      "test": "TestClinicalDocument.test_hold_restore_keeps_same_real_document_then_handover_releases_it",
+      "file": "ydental_clinical_test/tests/test_document.py",
+      "line": 155,
+      "layer": "model",
+      "file_sha256": "d7202de9c042e6b59ba84c7ff8285292ffb735e2b7268c56a29fef413f2a7a7c",
+      "fixed_test_status": "PASS",
+      "executed_in": [
+        "install-20261012T141720654090.log",
+        "upgrade-20261012T141919746726.log",
+        "upgrade-20261012T142918299307.log"
+      ]
+    },
+    {
+      "test": "TestClinicalDocument.test_invalid_content_save_failure_does_not_hand_back",
+      "file": "ydental_clinical_test/tests/test_document.py",
+      "line": 170,
+      "layer": "model",
+      "file_sha256": "d7202de9c042e6b59ba84c7ff8285292ffb735e2b7268c56a29fef413f2a7a7c",
+      "fixed_test_status": "PASS",
+      "executed_in": [
+        "install-20261012T141720654090.log",
+        "upgrade-20261012T141919746726.log",
+        "upgrade-20261012T142918299307.log"
+      ]
+    },
+    {
+      "test": "TestClinicalDocument.test_current_capability_revocation_rejects_existing_editor",
+      "file": "ydental_clinical_test/tests/test_document.py",
+      "line": 175,
+      "layer": "model",
+      "file_sha256": "d7202de9c042e6b59ba84c7ff8285292ffb735e2b7268c56a29fef413f2a7a7c",
+      "fixed_test_status": "PASS",
+      "executed_in": [
+        "install-20261012T141720654090.log",
+        "upgrade-20261012T141919746726.log",
+        "upgrade-20261012T142918299307.log"
+      ]
+    },
+    {
+      "test": "TestClinicalDocument.test_native_confirmed_versions_and_distinct_clinical_audit_events",
+      "file": "ydental_clinical_test/tests/test_document.py",
+      "line": 180,
+      "layer": "model",
+      "file_sha256": "d7202de9c042e6b59ba84c7ff8285292ffb735e2b7268c56a29fef413f2a7a7c",
+      "fixed_test_status": "PASS",
+      "executed_in": [
+        "install-20261012T141720654090.log",
+        "upgrade-20261012T141919746726.log",
+        "upgrade-20261012T142918299307.log"
+      ]
+    },
+    {
+      "test": "TestClinicalDocument.test_shared_history_requires_purpose_current_relation_and_live_read",
+      "file": "ydental_clinical_test/tests/test_document.py",
+      "line": 186,
+      "layer": "model",
+      "file_sha256": "d7202de9c042e6b59ba84c7ff8285292ffb735e2b7268c56a29fef413f2a7a7c",
+      "fixed_test_status": "PASS",
+      "executed_in": [
+        "install-20261012T141720654090.log",
+        "upgrade-20261012T141919746726.log",
+        "upgrade-20261012T142918299307.log"
+      ]
+    },
+    {
+      "test": "TestClinicalDocument.test_upstream_real_inventory_receive_issue_and_no_clinical_source_bypass",
+      "file": "ydental_clinical_test/tests/test_document.py",
+      "line": 202,
+      "layer": "model",
+      "file_sha256": "d7202de9c042e6b59ba84c7ff8285292ffb735e2b7268c56a29fef413f2a7a7c",
+      "fixed_test_status": "PASS",
+      "executed_in": [
+        "install-20261012T141720654090.log",
+        "upgrade-20261012T141919746726.log",
+        "upgrade-20261012T142918299307.log"
+      ]
+    },
+    {
+      "test": "TestClinicalDocument.test_no_admin_force_or_json_document_lock",
+      "file": "ydental_clinical_test/tests/test_document.py",
+      "line": 218,
+      "layer": "model",
+      "file_sha256": "d7202de9c042e6b59ba84c7ff8285292ffb735e2b7268c56a29fef413f2a7a7c",
+      "fixed_test_status": "PASS",
+      "executed_in": [
+        "install-20261012T141720654090.log",
+        "upgrade-20261012T141919746726.log",
+        "upgrade-20261012T142918299307.log"
+      ]
+    },
+    {
+      "test": "TestClinicalHTTP.test_real_workbench_open_autosave_cas_handover",
+      "file": "ydental_clinical_test/tests/test_http.py",
+      "line": 42,
+      "layer": "HTTP_RPC",
+      "file_sha256": "2c80077feae9876e3231081b4afc0758c6890105482d911218b95e240e038396",
+      "fixed_test_status": "PASS",
+      "executed_in": [
+        "install-20261012T141720654090.log",
+        "upgrade-20261012T141919746726.log",
+        "upgrade-20261012T142918299307.log"
+      ]
+    },
+    {
+      "test": "TestClinicalHTTP.test_rpc_private_and_mutation_forgery",
+      "file": "ydental_clinical_test/tests/test_http.py",
+      "line": 52,
+      "layer": "HTTP_RPC",
+      "file_sha256": "2c80077feae9876e3231081b4afc0758c6890105482d911218b95e240e038396",
+      "fixed_test_status": "PASS",
+      "executed_in": [
+        "install-20261012T141720654090.log",
+        "upgrade-20261012T141919746726.log",
+        "upgrade-20261012T142918299307.log"
+      ]
+    },
+    {
+      "test": "TestClinicalHTTP.test_readonly_and_no_access_denials",
+      "file": "ydental_clinical_test/tests/test_http.py",
+      "line": 59,
+      "layer": "HTTP_RPC",
+      "file_sha256": "2c80077feae9876e3231081b4afc0758c6890105482d911218b95e240e038396",
+      "fixed_test_status": "PASS",
+      "executed_in": [
+        "install-20261012T141720654090.log",
+        "upgrade-20261012T141919746726.log",
+        "upgrade-20261012T142918299307.log"
+      ]
+    },
+    {
+      "test": "TestClinicalHTTP.test_csrf_unknown_and_fdi_backend",
+      "file": "ydental_clinical_test/tests/test_http.py",
+      "line": 65,
+      "layer": "HTTP_RPC",
+      "file_sha256": "2c80077feae9876e3231081b4afc0758c6890105482d911218b95e240e038396",
+      "fixed_test_status": "PASS",
+      "executed_in": [
+        "install-20261012T141720654090.log",
+        "upgrade-20261012T141919746726.log",
+        "upgrade-20261012T142918299307.log"
+      ]
+    },
+    {
+      "test": "TestClinicalHTTP.test_old_connection_and_shared_token_rejected",
+      "file": "ydental_clinical_test/tests/test_http.py",
+      "line": 72,
+      "layer": "HTTP_RPC",
+      "file_sha256": "2c80077feae9876e3231081b4afc0758c6890105482d911218b95e240e038396",
+      "fixed_test_status": "PASS",
+      "executed_in": [
+        "install-20261012T141720654090.log",
+        "upgrade-20261012T141919746726.log",
+        "upgrade-20261012T142918299307.log"
+      ]
+    },
+    {
+      "test": "TestClinicalHTTP.test_attachments_and_export_cannot_bypass_scope",
+      "file": "ydental_clinical_test/tests/test_http.py",
+      "line": 75,
+      "layer": "HTTP_RPC",
+      "file_sha256": "2c80077feae9876e3231081b4afc0758c6890105482d911218b95e240e038396",
+      "fixed_test_status": "PASS",
+      "executed_in": [
+        "install-20261012T141720654090.log",
+        "upgrade-20261012T141919746726.log",
+        "upgrade-20261012T142918299307.log"
+      ]
+    },
+    {
+      "test": "TestClinicalHTTP.test_stored_clinical_text_is_escaped_in_workbench_and_history",
+      "file": "ydental_clinical_test/tests/test_http.py",
+      "line": 80,
+      "layer": "HTTP_RPC",
+      "file_sha256": "2c80077feae9876e3231081b4afc0758c6890105482d911218b95e240e038396",
+      "fixed_test_status": "PASS",
+      "executed_in": [
+        "install-20261012T141720654090.log",
+        "upgrade-20261012T141919746726.log",
+        "upgrade-20261012T142918299307.log"
+      ]
+    }
+  ],
+  "all_methods_executed_at_fixed_test": true,
+  "runs": {
+    "install-20261012T141720654090.log": {
+      "methods": [
+        "TestClinicalDocument.test_confirmation_correction_preserves_authors_and_economics",
+        "TestClinicalDocument.test_cross_store_write_and_old_session_revision",
+        "TestClinicalDocument.test_current_capability_revocation_rejects_existing_editor",
+        "TestClinicalDocument.test_d1_pending_d2_independent_and_responsibility_transfer",
+        "TestClinicalDocument.test_expiry_and_revocation_reject_cached_editor",
+        "TestClinicalDocument.test_external_reserve_remains_fail_closed",
+        "TestClinicalDocument.test_fdi_permanent_primary_and_anterior_surfaces",
+        "TestClinicalDocument.test_handover_real_save_pending_and_unique_continuation",
+        "TestClinicalDocument.test_handover_save_and_continuation_failure_roll_back",
+        "TestClinicalDocument.test_hold_restore_keeps_same_real_document_then_handover_releases_it",
+        "TestClinicalDocument.test_independent_locks_and_old_connection",
+        "TestClinicalDocument.test_invalid_content_save_failure_does_not_hand_back",
+        "TestClinicalDocument.test_lost_company_access_invalidates_editor_actions_and_native_reads",
+        "TestClinicalDocument.test_native_confirmed_versions_and_distinct_clinical_audit_events",
+        "TestClinicalDocument.test_native_rpc_read_export_and_attachments",
+        "TestClinicalDocument.test_no_admin_force_or_json_document_lock",
+        "TestClinicalDocument.test_onsite_verify_uses_persisted_draft_no_false_author",
+        "TestClinicalDocument.test_shared_history_requires_purpose_current_relation_and_live_read",
+        "TestClinicalDocument.test_three_real_saves_cas_and_economic_invariance",
+        "TestClinicalDocument.test_unknown_missing_not_applicable_and_invalid_surfaces",
+        "TestClinicalDocument.test_upstream_real_inventory_receive_issue_and_no_clinical_source_bypass",
+        "TestClinicalHTTP.test_attachments_and_export_cannot_bypass_scope",
+        "TestClinicalHTTP.test_csrf_unknown_and_fdi_backend",
+        "TestClinicalHTTP.test_old_connection_and_shared_token_rejected",
+        "TestClinicalHTTP.test_readonly_and_no_access_denials",
+        "TestClinicalHTTP.test_real_workbench_open_autosave_cas_handover",
+        "TestClinicalHTTP.test_rpc_private_and_mutation_forgery",
+        "TestClinicalHTTP.test_stored_clinical_text_is_escaped_in_workbench_and_history"
+      ],
+      "count": 28,
+      "log_sha256": "84c0a4d3eb25f13c0359245fe0f487cba235e3efc74eb71f87e417236ab01da3",
+      "exit_code": 0,
+      "native_tests_total": 30
+    },
+    "upgrade-20261012T141919746726.log": {
+      "methods": [
+        "TestClinicalDocument.test_confirmation_correction_preserves_authors_and_economics",
+        "TestClinicalDocument.test_cross_store_write_and_old_session_revision",
+        "TestClinicalDocument.test_current_capability_revocation_rejects_existing_editor",
+        "TestClinicalDocument.test_d1_pending_d2_independent_and_responsibility_transfer",
+        "TestClinicalDocument.test_expiry_and_revocation_reject_cached_editor",
+        "TestClinicalDocument.test_external_reserve_remains_fail_closed",
+        "TestClinicalDocument.test_fdi_permanent_primary_and_anterior_surfaces",
+        "TestClinicalDocument.test_handover_real_save_pending_and_unique_continuation",
+        "TestClinicalDocument.test_handover_save_and_continuation_failure_roll_back",
+        "TestClinicalDocument.test_hold_restore_keeps_same_real_document_then_handover_releases_it",
+        "TestClinicalDocument.test_independent_locks_and_old_connection",
+        "TestClinicalDocument.test_invalid_content_save_failure_does_not_hand_back",
+        "TestClinicalDocument.test_lost_company_access_invalidates_editor_actions_and_native_reads",
+        "TestClinicalDocument.test_native_confirmed_versions_and_distinct_clinical_audit_events",
+        "TestClinicalDocument.test_native_rpc_read_export_and_attachments",
+        "TestClinicalDocument.test_no_admin_force_or_json_document_lock",
+        "TestClinicalDocument.test_onsite_verify_uses_persisted_draft_no_false_author",
+        "TestClinicalDocument.test_shared_history_requires_purpose_current_relation_and_live_read",
+        "TestClinicalDocument.test_three_real_saves_cas_and_economic_invariance",
+        "TestClinicalDocument.test_unknown_missing_not_applicable_and_invalid_surfaces",
+        "TestClinicalDocument.test_upstream_real_inventory_receive_issue_and_no_clinical_source_bypass",
+        "TestClinicalHTTP.test_attachments_and_export_cannot_bypass_scope",
+        "TestClinicalHTTP.test_csrf_unknown_and_fdi_backend",
+        "TestClinicalHTTP.test_old_connection_and_shared_token_rejected",
+        "TestClinicalHTTP.test_readonly_and_no_access_denials",
+        "TestClinicalHTTP.test_real_workbench_open_autosave_cas_handover",
+        "TestClinicalHTTP.test_rpc_private_and_mutation_forgery",
+        "TestClinicalHTTP.test_stored_clinical_text_is_escaped_in_workbench_and_history"
+      ],
+      "count": 28,
+      "log_sha256": "c48e5f0de9a4d20951aa6d04d01bb5424352e517d384d091345b457bc2cf2ad8",
+      "exit_code": 0,
+      "native_tests_total": 28
+    },
+    "upgrade-20261012T142918299307.log": {
+      "methods": [
+        "TestClinicalDocument.test_confirmation_correction_preserves_authors_and_economics",
+        "TestClinicalDocument.test_cross_store_write_and_old_session_revision",
+        "TestClinicalDocument.test_current_capability_revocation_rejects_existing_editor",
+        "TestClinicalDocument.test_d1_pending_d2_independent_and_responsibility_transfer",
+        "TestClinicalDocument.test_expiry_and_revocation_reject_cached_editor",
+        "TestClinicalDocument.test_external_reserve_remains_fail_closed",
+        "TestClinicalDocument.test_fdi_permanent_primary_and_anterior_surfaces",
+        "TestClinicalDocument.test_handover_real_save_pending_and_unique_continuation",
+        "TestClinicalDocument.test_handover_save_and_continuation_failure_roll_back",
+        "TestClinicalDocument.test_hold_restore_keeps_same_real_document_then_handover_releases_it",
+        "TestClinicalDocument.test_independent_locks_and_old_connection",
+        "TestClinicalDocument.test_invalid_content_save_failure_does_not_hand_back",
+        "TestClinicalDocument.test_lost_company_access_invalidates_editor_actions_and_native_reads",
+        "TestClinicalDocument.test_native_confirmed_versions_and_distinct_clinical_audit_events",
+        "TestClinicalDocument.test_native_rpc_read_export_and_attachments",
+        "TestClinicalDocument.test_no_admin_force_or_json_document_lock",
+        "TestClinicalDocument.test_onsite_verify_uses_persisted_draft_no_false_author",
+        "TestClinicalDocument.test_shared_history_requires_purpose_current_relation_and_live_read",
+        "TestClinicalDocument.test_three_real_saves_cas_and_economic_invariance",
+        "TestClinicalDocument.test_unknown_missing_not_applicable_and_invalid_surfaces",
+        "TestClinicalDocument.test_upstream_real_inventory_receive_issue_and_no_clinical_source_bypass",
+        "TestClinicalHTTP.test_attachments_and_export_cannot_bypass_scope",
+        "TestClinicalHTTP.test_csrf_unknown_and_fdi_backend",
+        "TestClinicalHTTP.test_old_connection_and_shared_token_rejected",
+        "TestClinicalHTTP.test_readonly_and_no_access_denials",
+        "TestClinicalHTTP.test_real_workbench_open_autosave_cas_handover",
+        "TestClinicalHTTP.test_rpc_private_and_mutation_forgery",
+        "TestClinicalHTTP.test_stored_clinical_text_is_escaped_in_workbench_and_history"
+      ],
+      "count": 28,
+      "log_sha256": "47e27eb036a54df7ee9907d70951ec94009020d5cd02109df56f06ba0c922693",
+      "exit_code": 0,
+      "native_tests_total": 28
+    }
+  }
+}

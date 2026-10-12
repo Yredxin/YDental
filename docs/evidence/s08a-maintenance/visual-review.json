@@ -1,0 +1,197 @@
+{
+  "reviewer": "Codex actual view_image review of each of 21 files; not independent GPT or user acceptance",
+  "test": "a7b023d26812fd4d722b2d185dd6571bb6d27611",
+  "database": "ydental_s08a_test_20261012141720_8e252c8e",
+  "screenshots": [
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T142346031387/01-permanent-anterior-autosave.png",
+      "sha256": "c3af99d657011729fadfefc583ae655deb36e82e11324ae1af3efbc209198a30",
+      "review": "PASS",
+      "observation": "前牙11的M/I已记录；版本与自动保存反馈可见",
+      "Chinese_glyphs_readable": true,
+      "synthetic_patient_only": true,
+      "visible_credentials": false
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T142346031387/02-primary-missing-unknown.png",
+      "sha256": "b5fb9c67e82a0897a9af5588634444ab77593ec1dcf67e8c07c71c47c504d0b6",
+      "review": "PASS",
+      "observation": "乳牙55/O、48缺失、51未知、0不适用可见",
+      "Chinese_glyphs_readable": true,
+      "synthetic_patient_only": true,
+      "visible_credentials": false
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T142346031387/03-structured-draft.png",
+      "sha256": "d24d369154b080a8aaaa49388342dcf880b683e380bbce7d3cb04a2aba456da9",
+      "review": "PASS",
+      "observation": "七项结构化合成临床草稿、中文入口可读",
+      "Chinese_glyphs_readable": true,
+      "synthetic_patient_only": true,
+      "visible_credentials": false
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T142346031387/04-D1-pending-after-handover.png",
+      "sha256": "9ad4ca59d9ee4dc84d8962754dbe376351b176beb88267d140b827a3f87f72b6",
+      "review": "PASS",
+      "observation": "D1交还后的待完善及作者历史可见",
+      "Chinese_glyphs_readable": true,
+      "synthetic_patient_only": true,
+      "visible_credentials": false
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T142346031387/05-D1-pending-independent-editor.png",
+      "sha256": "c0c50b3e38e0740eba8ef499ed544db6b3ee0551ff1e8c88f3aad5c9590a99cf",
+      "review": "PASS",
+      "observation": "D1独立补记及空闲工位提示可见",
+      "Chinese_glyphs_readable": true,
+      "synthetic_patient_only": true,
+      "visible_credentials": false
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T142346031387/06-D2-new-reception.png",
+      "sha256": "6418ba0eb24a2bf4da7bd6f63fceccd40bd9a9f1ded644b4ee23ef3d3bb5790b",
+      "review": "PASS",
+      "observation": "D2真实新接诊与独立草稿可见",
+      "Chinese_glyphs_readable": true,
+      "synthetic_patient_only": true,
+      "visible_credentials": false
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T142346031387/07-valid-editor-transfer-denied.png",
+      "sha256": "6dce6986c3c65a715876a04a1e32fe2e6798ae5093078d90532fe34e44e8c2a7",
+      "review": "PASS",
+      "observation": "有效编辑者存在时移交拒绝提示可见",
+      "Chinese_glyphs_readable": true,
+      "synthetic_patient_only": true,
+      "visible_credentials": false
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T142346031387/08-D1-confirmed-author-history.png",
+      "sha256": "4c6126dadfdeadb52a31f01b6c8b442f709bdddda2c86c2c5c82a51cbd51885b",
+      "review": "PASS",
+      "observation": "新责任人确认D1；原作者保留",
+      "Chinese_glyphs_readable": true,
+      "synthetic_patient_only": true,
+      "visible_credentials": false
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T142346031387/09-text-correction-new-version.png",
+      "sha256": "517198531993606001ee6db495f1082e865ffd4be9da67694f8ac467509b26e4",
+      "review": "PASS",
+      "observation": "附原因文字更正追加版本；历史保留",
+      "Chinese_glyphs_readable": true,
+      "synthetic_patient_only": true,
+      "visible_credentials": false
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T142346031387/10-readonly-medical-denied.png",
+      "sha256": "8f24fc7d29b3bb1516a199f6cd39931536b51598ecb5a349643cce0954bb7c93",
+      "review": "PASS",
+      "observation": "医疗只读账号编辑被拒绝",
+      "Chinese_glyphs_readable": true,
+      "synthetic_patient_only": true,
+      "visible_credentials": false
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T142346031387/11-offline-unsynchronized.png",
+      "sha256": "c7d14b533313b5d9c210f162d0af7d2970b20e00f831b26263e2449e64a56249",
+      "review": "PASS",
+      "observation": "离线明确未同步；本地文本保留",
+      "Chinese_glyphs_readable": true,
+      "synthetic_patient_only": true,
+      "visible_credentials": false
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T142346031387/12-ordinary-inflight-autosave-catchup.png",
+      "sha256": "7ebbc6581f59ee208e94e996a0c7403856d55467a2cfc01475d9d722a7d8860e",
+      "review": "PASS",
+      "observation": "普通保存追赶后的最新文本及36/O可见",
+      "Chinese_glyphs_readable": true,
+      "synthetic_patient_only": true,
+      "visible_credentials": false
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T142346031387/13-confirm-all-inputs-locked.png",
+      "sha256": "dbaf1ba06374fad5be4137e72a3898b1303c8cf94f20d4d8aaca491b59dc2d61",
+      "review": "PASS",
+      "observation": "确认响应前全部临床输入与牙位控件灰显",
+      "Chinese_glyphs_readable": true,
+      "synthetic_patient_only": true,
+      "visible_credentials": false
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T142346031387/14-correct-all-inputs-locked.png",
+      "sha256": "a775066975024575364b8cfeec43ebc841319ec3b10cd2ce04a5f7ad760d93a7",
+      "review": "PASS",
+      "observation": "更正响应前全部临床输入与牙位控件灰显",
+      "Chinese_glyphs_readable": true,
+      "synthetic_patient_only": true,
+      "visible_credentials": false
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T142346031387/15-correct-forced-input-retained.png",
+      "sha256": "a6a70200736ca6056634ac47df9ae8169bb960b23a3d63a03079a034e2fcc45f",
+      "review": "PASS",
+      "observation": "强制更正新输入保留原页；新标签核对入口可见",
+      "Chinese_glyphs_readable": true,
+      "synthetic_patient_only": true,
+      "visible_credentials": false
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T142346031387/16-handover-all-inputs-locked.png",
+      "sha256": "213d316c89bac4f850ba043883b527a04eb912a3f109e5c461f2f6ca8ef71765",
+      "review": "PASS",
+      "observation": "交还响应前全部临床输入与牙位控件灰显",
+      "Chinese_glyphs_readable": true,
+      "synthetic_patient_only": true,
+      "visible_credentials": false
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T142346031387/17-confirm-forced-input-retained.png",
+      "sha256": "5292596752a3fffd6b575eef15e9f1e18054a9f926320ea69cbfc91c88ece3cf",
+      "review": "PASS",
+      "observation": "强制确认新输入保留原页；未同步提示可见",
+      "Chinese_glyphs_readable": true,
+      "synthetic_patient_only": true,
+      "visible_credentials": false
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T142346031387/18-handover-committed-unsent-retained.png",
+      "sha256": "38fb59ecb884347b60493133ae03a1b20fddfcb7ea9959788d913d73c4ccf609",
+      "review": "PASS",
+      "observation": "已交还明确不可本页撤销；未同步内容及核对入口保留",
+      "Chinese_glyphs_readable": true,
+      "synthetic_patient_only": true,
+      "visible_credentials": false
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T142346031387/19-response-lost-reconcile.png",
+      "sha256": "44b6393bd5406581cafe6e85ddab60ea7c2743eece7569c683c0d20aac39bd9b",
+      "review": "PASS",
+      "observation": "响应丢失时要求核对；本地内容保留",
+      "Chinese_glyphs_readable": true,
+      "synthetic_patient_only": true,
+      "visible_credentials": false
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T142346031387/20-request-not-sent-reconcile.png",
+      "sha256": "62ebec3fcd01e50c3d57335afce08e9e1cfc5ac0cb80b5139f0dd3d9f7149fc6",
+      "review": "PASS",
+      "observation": "请求未发送时要求核对；本地内容保留",
+      "Chinese_glyphs_readable": true,
+      "synthetic_patient_only": true,
+      "visible_credentials": false
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T142346031387/21-stale-version-reconcile.png",
+      "sha256": "ed1bf4f8780344811fb1c4dae0c0936e2e5e65d80e4f359df30d9f9b69594651",
+      "review": "PASS",
+      "observation": "版本冲突提示核对；本地内容保留",
+      "Chinese_glyphs_readable": true,
+      "synthetic_patient_only": true,
+      "visible_credentials": false
+    }
+  ],
+  "layout": "Plain native HTML controls; disabled styling visible; full-page captures; no production design or printing acceptance claimed"
+}

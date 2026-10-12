@@ -1,0 +1,75 @@
+{
+  "mutation_count": 0,
+  "full_snapshots": 3,
+  "counts": {
+    "fields": 21,
+    "items": 15,
+    "views": 6,
+    "public_workflows": 7
+  },
+  "complete_pagination": true,
+  "deep_diff_before_after_second": [],
+  "protected_statuses": {
+    "31": {
+      "state": "OPEN",
+      "values": {
+        "Status": "Todo",
+        "阶段": "S07",
+        "执行状态": "待用户验收"
+      }
+    },
+    "32": {
+      "state": "OPEN",
+      "values": {
+        "Status": "Todo",
+        "阶段": "S08",
+        "执行状态": "进行中"
+      }
+    },
+    "33": {
+      "state": "OPEN",
+      "values": {
+        "Status": "Todo",
+        "阶段": "S09",
+        "执行状态": "待启用"
+      }
+    },
+    "34": {
+      "state": "OPEN",
+      "values": {
+        "Status": "Todo",
+        "阶段": "S10",
+        "执行状态": "待启用"
+      }
+    },
+    "35": {
+      "state": "OPEN",
+      "values": {
+        "Status": "Todo",
+        "阶段": "S11",
+        "执行状态": "待启用"
+      }
+    },
+    "36": {
+      "state": "OPEN",
+      "values": {
+        "Status": "Todo",
+        "阶段": "S12",
+        "执行状态": "待启用"
+      }
+    },
+    "37": {
+      "state": "OPEN",
+      "values": {
+        "Status": "Todo",
+        "阶段": "S13",
+        "执行状态": "待启用"
+      }
+    }
+  },
+  "snapshot_commits": [
+    "7d600af6fcfdfa7169a7245a44b942cceddd2a68",
+    "a7b023d26812fd4d722b2d185dd6571bb6d27611",
+    "a7b023d26812fd4d722b2d185dd6571bb6d27611"
+  ]
+}
