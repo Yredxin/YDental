@@ -187,7 +187,7 @@ class YDentalIntakeService(models.AbstractModel):
             raise UserError(self.env._('version_conflict: This group service code already exists.'))
         product = self._native('product.template').create({'name': self._text(name), 'default_code': self._text(code),
             'type': 'service', 'uom_id': uom.id, 'ydental_intake_owned': True})
-        record = self._model('catalog')._new({'name': name, 'ydental_code': code, 'ydental_kind': kind,
+        record = self._model('catalog')._new({'name': self._text(name), 'ydental_code': self._text(code), 'ydental_kind': kind,
             'ydental_product_id': product.product_variant_id.id, 'ydental_capability_id': capability.id,
             'ydental_qualification': self.env['ydental.patient.service']._text(qualification)})
         return {'id': record.id, 'version': record.ydental_version}
