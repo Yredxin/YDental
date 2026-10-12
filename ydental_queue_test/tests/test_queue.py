@@ -230,7 +230,7 @@ class TestQueue(TransactionCase):
         self.root['ir.config_parameter'].set_str('ydental_queue.timeout_seconds', '')
         with self.assertRaises(UserError):
             enter(self)
-        self.assertFalse(self.root['ydental.queue.lease'].search_count([]))
+        self.assertFalse(self.root['ydental.queue.lease'].search_count([('ydental_store_id', '=', self.stores[0].id)]))
 
     def test_a_regression_existing_qualification_at_zero_free(self):
         qualifications = [qualify(self) for _ in range(4)]
@@ -238,7 +238,7 @@ class TestQueue(TransactionCase):
         claim_ids = [q['claim_id'] for q in qualifications]
         for q in qualifications:
             arrive_report(self, q)
-        self.assertEqual(self.root['ydental.queue.entry'].search_count([('state', '=', 'waiting')]), 4)
+        self.assertEqual(self.root['ydental.queue.entry'].search_count([('state', '=', 'waiting'), ('ydental_store_id', '=', self.stores[0].id)]), 4)
         self.assertEqual(self.slots[0][0].ydental_reservation_free, 0)
         self.assertEqual(self.root['ydental.supply.claim'].search([('id', 'in', claim_ids)]).ids, claim_ids)
         with self.assertRaises(UserError):
@@ -301,3 +301,35 @@ class TestQueue(TransactionCase):
             qualify(self, channel='walkin')
         self.assertEqual(self.root['ydental.intake.task'].search_count([]), before)
         self.assertTrue(a._own().ydental_active)
+
+    def test_a_regression_s04_merge_migrates_real_waiting_canonical(self):
+        source, target = patient(self), patient(self)
+        q = qualify(self, source)
+        arrive_report(self, q)
+        task = self.root['ydental.intake.task'].browse(q['task_id'])
+        original = task.ydental_identity_snapshot
+        request = self.front.env['ydental.patient.service']._operate('request_merge',
+            {'source_id': source, 'target_id': target, 'reason': 'Synthetic queue merge'}, key())
+        result = self.group.env['ydental.patient.service']._operate('confirm',
+            {'request_id': request['id'], 'version': request['version'], 'reason': 'Verified synthetic identity'}, key())
+        self.assertEqual(result['result'], 'accepted')
+        row = self.root['ydental.queue.entry'].search([('ydental_task_id', '=', task.id)])
+        self.assertEqual((row.ydental_patient_id.id, task.ydental_patient_id.id), (target, target))
+        self.assertEqual(task.ydental_identity_snapshot, original)
+        a, lease = enter(self)
+        call = a._operate('call', lease_args(lease))
+        self.assertEqual(a._operate('start', dict(lease_args(lease), entry_id=call['entry_id']))['state'], 'serving')
+
+    def test_a_regression_reschedule_failure_preserves_call_and_claim(self):
+        task = accepted(self)
+        a, lease = enter(self)
+        call = a._operate('call', lease_args(lease))
+        entitlement = task.ydental_entitlement_id
+        claim = entitlement.ydental_claim_id
+        with self.assertRaises(UserError):
+            self.front._operate('reschedule', {'record_id': entitlement.id, 'version': entitlement.ydental_version,
+                'mapping_id': self.mappings[0][0].id, 'start': fields.Datetime.to_string(self.start + timedelta(days=10)),
+                'end': fields.Datetime.to_string(self.end + timedelta(days=10)), 'reason': 'Synthetic unavailable target'}, key())
+        self.assertEqual(entitlement.ydental_claim_id, claim)
+        entry = self.root['ydental.queue.entry'].browse(call['entry_id'])
+        self.assertEqual((entry.state, entry.ydental_lease_id.id), ('calling', lease['lease_id']))

@@ -142,11 +142,11 @@ def enter(q, station=0):
 def clean(q):
     # Test teardown uses the actual fault path, preserving history and missed.
     q._locks()
-    q._model('lease').search([('ydental_active', '=', True)])._save({'ydental_expires_at': q._now() - timedelta(seconds=1)})
+    q._model('lease').search([('ydental_active', '=', True), ('ydental_store_id', '=', store_id)])._save({'ydental_expires_at': q._now() - timedelta(seconds=1)})
     q._expire()
     # Voiding queue numbers is a genuine reception action, not a test state reset.
     intake = q.env['ydental.intake.service']
-    for row in q._model('entry').search([('state', 'in', ['waiting', 'calling'])]):
+    for row in q._model('entry').search([('state', 'in', ['waiting', 'calling']), ('ydental_store_id', '=', store_id)]):
         t = row.ydental_task_id
         intake._operate('void', {'task_id': t.id, 'version': t.ydental_version, 'reason': 'Synthetic race teardown'}, key())
 
