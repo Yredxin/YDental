@@ -223,7 +223,7 @@ class YDentalClinicalService(models.AbstractModel):
             return self._snapshot(doc) | {'saved_version': prior.ydental_number, 'duplicate': True}
         if doc.ydental_version != expected_version:
             raise UserError(self.env._('version_conflict: Refresh before editing a newer clinical version.'))
-        if kind == 'save' and doc.state == 'confirmed' or kind == 'correct' and doc.state != 'confirmed':
+        if (kind in ('save', 'confirm') and doc.state == 'confirmed') or (kind == 'correct' and doc.state != 'confirmed'):
             raise UserError(self.env._('correction_required: Confirmed text requires a new correction and reason.'))
         if kind in ('confirm', 'correct') and not any(content[name].strip() for name in TEXT_FIELDS) and not content['teeth']:
             raise ValidationError(self.env._('content_required: Empty clinical text cannot be confirmed.'))
