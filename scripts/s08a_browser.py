@@ -38,6 +38,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--db', required=True)
     parser.add_argument('--port', type=int, default=18137)
+    parser.add_argument('--terminal-races', action='store_true', help='Run real held-response terminal and autosave regressions')
     args = parser.parse_args()
     require(re.fullmatch(r'ydental_s08a_test_[0-9]{14}_[a-f0-9]{8}', args.db), 'Database name refused')
     require(18000 <= args.port <= 18999, 'Isolated port refused')
@@ -185,8 +186,14 @@ def main():
             screenshot(p2,ctx2,'11-offline-unsynchronized.png')
             # Drop only this page's unsent demonstration text by explicit navigation.
             p2.on('dialog',lambda dialog:dialog.accept());p2.reload();check('refresh restores committed server text',p2.locator('[name=history]').input_value()!='未同步合成文本')
+            if args.terminal_races:
+                from s08a_terminal_browser import run_terminal_races
+                result['documents']={'D1':d1,'D2':d2}
+                run_terminal_races(page=p2,context=ctx2,front=front,base=base,d1=d1,d2=d2,
+                    check=check,screenshot=screenshot,open_editor=open_editor,version=version,
+                    click_wait=click_wait,inspect_action=inspect_action,result=result)
             check('zero browser page errors',not errors)
-            result.update(result='PASS',pageerrors=errors,documents={'D1':d1,'D2':d2})
+            result.update(result='PASS',pageerrors=errors,documents=result.get('documents',{'D1':d1,'D2':d2}))
         except Exception as error:
             result.update(result='FAIL',error={'type':type(error).__name__,'detail':str(error)[:500]},pageerrors=errors)
         finally:
