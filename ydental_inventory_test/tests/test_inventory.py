@@ -303,3 +303,51 @@ class TestInventory(TransactionCase):
         with patch.object(type(self.stock),'_now',return_value=datetime(2026,10,13,16,0)):
             row=next(r for r in self.stock._dashboard()['lots'] if r['id']==lot)
             self.assertIn('collection',row['flags']);self.assertEqual(row['received_at'],actual)
+
+    def test_rework_source_category_rejects_without_inventory_side_effects(self):
+        for kind, role, categories in [('prescription', 'pharmacy', ('material', 'prosthesis')),
+                                      ('chairside', 'doctor', ('material', 'prosthesis')),
+                                      ('treatment', 'doctor', ('medicine', 'prosthesis'))]:
+            for category in categories:
+                with self.subTest(kind=kind, category=category):
+                    lot = self.lots[category]
+                    receive(self, 3, lot)
+                    service = bind(self, self.users[role])
+                    before = self._rework_facts(lot)
+                    source = SyntheticSource(self.users[role].id, self.stores[0].id, key(), kind, lot, 1, self.uom.id)
+                    with self.assertRaises(ValidationError):
+                        service._source_action(source)
+                    self.assertEqual(self._rework_facts(lot), before)
+
+    def _rework_facts(self, lot):
+        return (quantity(self, lot), *(self.root[m].search_count([]) for m in
+            ('ydental.inventory.event', 'stock.move', 'stock.move.line', 'ydental.access.audit')))
+
+    def test_rework_original_pending_recovers_after_expiry(self):
+        self._rework_historical_recovery(expired=True)
+
+    def test_rework_original_pending_recovers_after_disable(self):
+        self._rework_historical_recovery(expired=False)
+
+    def _rework_historical_recovery(self, expired):
+        lot = self.lots['material']
+        doctor = bind(self, self.users['doctor'])
+        source = SyntheticSource(self.users['doctor'].id, self.stores[0].id, key(), 'treatment', lot, 2, self.uom.id, already_performed=True)
+        event = self.root['ydental.inventory.event'].browse(doctor._source_action(source)['id'])
+        self.assertEqual(event.state, 'pending')
+        frozen = event.read(['ydental_lot_id', 'ydental_quantity', 'ydental_price_snapshot', 'ydental_responsible_id', 'ydental_actual_at', 'ydental_source_key'])
+        if not expired:
+            op(self, 'lot_edit', lot_id=lot, enabled=False, reason='Stopped after actual clinical event')
+        future = fields.Datetime.now() + timedelta(days=46) if expired else fields.Datetime.now()
+        with patch.object(type(self.stock), '_now', return_value=future):
+            receive(self, 5, lot)
+            recovered = op(self, 'recover', event_id=event.id, reason='Physical receipt evidence; original actual event')
+            retry = op(self, 'recover', event_id=event.id, reason='Reconcile original event retry')
+            self.assertEqual(recovered['move_id'], retry['move_id'])
+            with self.assertRaises(UserError):
+                issue(self, 1, lot)
+            with self.assertRaises(UserError):
+                doctor._source_action(SyntheticSource(self.users['doctor'].id, self.stores[0].id, key(), 'treatment', lot, 1, self.uom.id))
+        self.assertEqual(event.read(list(frozen[0].keys() - {'id'})), frozen)
+        self.assertEqual(quantity(self, lot), 3)
+        self.assertEqual(event.state, 'done')
