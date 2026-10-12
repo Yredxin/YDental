@@ -237,6 +237,17 @@ class TestQueueReturn(TransactionCase):
         call = queue._operate('call', lease_args(lease))
         self.front._operate('void', {'task_id': task.id, 'version': task.ydental_version, 'reason': 'number only'}, key())
         self.assertEqual(task.ydental_entitlement_id.ydental_claim_id.state, 'held')
+        cancelled = accepted(self, mapping=self.mappings[0][2])
+        claim = cancelled.ydental_entitlement_id.ydental_claim_id
+        slot = claim.ydental_slot_id
+        free_before = slot.ydental_reservation_free
+        self.front._operate('void', {'task_id': cancelled.id, 'version': cancelled.ydental_version,
+            'reason': 'Explicit unused pharmacy qualification cancellation', 'cancel_qualification': True}, key())
+        self.assertEqual(cancelled.state, 'cancelled')
+        self.assertEqual(claim.state, 'cancelled')
+        self.assertEqual(slot.ydental_reservation_free, free_before + 1)
+        with self.assertRaises(UserError):
+            report(self, cancelled)
         report(self, task)
         call = queue._operate('call', lease_args(lease))
         self.assertEqual(queue._operate('start', dict(lease_args(lease), entry_id=call['entry_id']))['state'], 'serving')

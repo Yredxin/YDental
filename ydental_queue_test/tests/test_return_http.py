@@ -104,6 +104,18 @@ class TestQueueReturnHTTP(TestQueueHTTP):
         self.stations[0][2].write({'ydental_kind': 'pharmacy', 'ydental_version': self.stations[0][2].ydental_version})
         self.admin._grant(self.users['doctor'].id, self.stores[0].id, {'medical': 'none', 'exam': 'none', 'pharmacy': 'write'})
         task = accepted(self, mapping=self.mappings[0][2])
+        cancelled = accepted(self, mapping=self.mappings[0][2])
+        self.select('frontdesk')
+        claim = cancelled.ydental_entitlement_id.ydental_claim_id
+        free_before = claim.ydental_slot_id.ydental_reservation_free
+        response = self.url_open('/ydental/intake/action', data={'csrf_token': self.csrf,
+            'revision': self.revision, 'operation': 'void', 'output': 'json', 'key': key(),
+            'payload': json.dumps({'task_id': cancelled.id, 'version': cancelled.ydental_version,
+                'reason': 'Explicit synthetic unused pharmacy qualification cancellation', 'cancel_qualification': True})})
+        self.assertEqual(response.status_code, 200, response.text)
+        self.assertTrue(response.json()['qualification_cancelled'])
+        self.assertEqual(claim.state, 'cancelled')
+        self.assertEqual(claim.ydental_slot_id.ydental_reservation_free, free_before + 1)
         self.select()
         self.assertEqual(self.url_open('/ydental/queue').status_code, 200)
         lease = self.action('enter', {'station_id': self.stations[0][2].id})
