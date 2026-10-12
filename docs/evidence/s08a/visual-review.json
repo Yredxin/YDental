@@ -1,0 +1,87 @@
+{
+  "database": "ydental_s08a_test_20261012113731_3d646c4f",
+  "tested_commit": "be5f28ef336295633fd0d753c3e97051a2dc457d",
+  "reviewer": "Codex visual inspection via view_image of each full-page image",
+  "reviewed_utc": "2026-10-12T11:47:31.535262+00:00",
+  "count": 11,
+  "shared_observation": "合成数据、中文主要操作与草稿审核提示可见；无凭据或真实患者资料、无遮挡。原生连接状态和合成资源英文名不是新增临床状态译文。",
+  "screenshots": [
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T114410131012/01-permanent-anterior-autosave.png",
+      "sha256": "f422b00515df8c46b45c731c9232831126dd620d244f1570d667e6bc22d6a3bf",
+      "visually_reviewed": true,
+      "result": "PASS",
+      "observation": "52颗牙可读，11的M/I选中、O禁用；真实患者/接诊状态、服务器版本4及中文保存提示清楚"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T114410131012/02-primary-missing-unknown.png",
+      "sha256": "8cf686d279e1bc1d3da6a2e2f1f1d65793d08d3d89df2ca877633a26934f54ac",
+      "visually_reviewed": true,
+      "result": "PASS",
+      "observation": "乳牙55/O、48缺失、51未知及0不适用摘要正确，未知/缺失没有牙面"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T114410131012/03-structured-draft.png",
+      "sha256": "db3346245a01551f3e7552481cd5f6fb2e1144262d307032c71a6be733e85921",
+      "visually_reviewed": true,
+      "result": "PASS",
+      "observation": "7项文字草稿入口清楚；合成所见/诊断，不自动填写其他临床结论"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T114410131012/04-D1-pending-after-handover.png",
+      "sha256": "4b6bb35408f4c84c7c1b19cdf6e0faffaccac76ee79f202bbe0d43dfa5d01937",
+      "visually_reviewed": true,
+      "result": "PASS",
+      "observation": "D1原段交还，文书待完善，版本11/原作者责任及历史可见；字段只读"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T114410131012/05-D1-pending-independent-editor.png",
+      "sha256": "75ea87504ecbbf22aebeef3bf6ba38cdc3bea172107e8cbbbfb3eded501ccac4",
+      "visually_reviewed": true,
+      "result": "PASS",
+      "observation": "D1在idle无椅环境补记，服务器版本12；交还按钮禁用"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T114410131012/06-D2-new-reception.png",
+      "sha256": "61c5d980af8fa4a16998340a67c7ac6b1b383c7307e8ede9bf5e43a055eaa28f",
+      "visually_reviewed": true,
+      "result": "PASS",
+      "observation": "另一合格诊椅真实D2接诊，新文书版本1；D1待完善仍独立"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T114410131012/07-valid-editor-transfer-denied.png",
+      "sha256": "2d221f841ce0333c235900b59da12491bd16b058cf27fc21180903579814dc7d",
+      "visually_reviewed": true,
+      "result": "PASS",
+      "observation": "有效D1编辑时转派返回editor_busy中文提示，原责任与版本保留"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T114410131012/08-D1-confirmed-author-history.png",
+      "sha256": "930a1cbe1b72ee523bb749188a3a3a61917b8340b0fd1000c6feb62336051dd4",
+      "visually_reviewed": true,
+      "result": "PASS",
+      "observation": "D1文字已确认版本14，新责任doctor2，原作者doctor及所有贡献版本保留"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T114410131012/09-text-correction-new-version.png",
+      "sha256": "edce59ea7ba2686272d87c61c901b2c3f9676ccb454e58d7df005c8187d79462",
+      "visually_reviewed": true,
+      "result": "PASS",
+      "observation": "版本15为文字更正，原因可读；旧confirm14和原作者版本仍在"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T114410131012/10-readonly-medical-denied.png",
+      "sha256": "968cb9abd6019189751222d6535e4dd29fbb4eedfb999f9522591ba19b5b50e8",
+      "visually_reviewed": true,
+      "result": "PASS",
+      "observation": "medical-read编辑尝试显示access_denied中文提示，正文只读"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T114410131012/11-offline-unsynchronized.png",
+      "sha256": "c3276f45bdee3bca03b777ae4bc317c4033151ce3ead536b1d4866a4bffb09a1",
+      "visually_reviewed": true,
+      "result": "PASS",
+      "observation": "D2仍草稿/实际执行中，未同步合成文本清楚可见，服务端仍版本1，无假保存成功"
+    }
+  ]
+}

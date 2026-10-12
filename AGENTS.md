@@ -1,5 +1,21 @@
 # YDental 当前执行入口
 
+## 当前 S08-A交付 / #32
+
+- 用户正式启用S08-A，唯一边界为[GPT-ACTIVATE6122378640](https://github.com/Yredxin/YDental/issues/32#issuecomment-6122378640)。完整读取#23/#32正文及全部有效评论、S07最终技术PASS6122197570与状态同步6122311778；[开工检查6122503237](https://github.com/Yredxin/YDental/issues/32#issuecomment-6122503237)写回逐字读回后实施。交付前再读原正文/有效评论无变，仅本次开工评论。
+- 固定S07 baseline `a5f53ac72d6d43901932adedc64c56cf6f97c675`，全新分支`codex/s08-a-clinical-doc-r1-20261012`。固定product `a69ac8bc431adb412341cd2fbff508d69ca0b84a`、test `be5f28ef336295633fd0d753c3e97051a2dc457d`；final完整SHA固定于#32交付评论。product→test仅模型/HTTP测试和审计验证，test→final仅AGENTS/文档/脱敏证据，无产品漂移；全部中间提交/失败证据保留。
+- 实施前完整读取Project #4的21字段/15条目/6视图及字段/7公开workflow，唯一一次mutation #32执行状态待启用→进行中；两次读回仅name/optionId两叶差异。交付前两次全读回深比较无变化。#32保持S08/进行中/Todo/OPEN，#31待用户验收，其他阶段/workflows不变，不自行转待复核。
+- 只交付真实medical接诊工作台、独立document/version、52恒乳FDI/牙面/缺失未知与0不适用、7项结构化草稿、真实自动保存/CAS/独占编辑/断线未同步、文字确认和附原因更正、作者历史、S06真实同事务保存交还/编辑释放/唯一续诊、D1待完善责任交接与D2合法新接诊。保存/确认/补记不生成治疗事实/费用/库存；确认后不能再用confirm绕过原因。
+- 仅新增ydental_clinical及guard测试/脚本；S01—S07核心事实/锁序沿用，无反向依赖。临床无测试替身；测试模块仅允许本批新库的S03演示capacity前提，一个reserve/restore场景显式补合成外检前提，真实S09入口继续fail-closed。S07临床库存来源仍默认拒绝；正式字段/签发/阈值未批准。
+- 最终全新合成库`ydental_s08a_test_20261012113731_3d646c4f`，固定test install30/upgrade28/带业务upgrade28（21模型+7真实HTTP/RPC，安装额外2原生资产初始化），16/16真实双连接、deadlock0，Firefox28项/11图全部目视核验/pageerror0、中文150/150、guard5，8类SQL0、10组升级签名及6组纯文书经济签名相同。完整结果见docs/s08a-report.md与docs/evidence/s08a/final-tests.json。全部均Codex自测，不代表GPT亲测或用户验收。
+- 仅scripts/s08a.py及本批全新隔离S08A库，端点/cluster/OID/创建marker/configSHA/dbfilter/data_dir/PID/端口/外发guard继续。未改历史/业务库、Odoo核心、odoo-12、既有服务/未提交内容/系统依赖；预览只停止精确匹配本次config/PID的进程。原始日志/凭据本机受控保留，仓库仅合成截图/脱敏摘要/hash。
+- 初始夹具/HTTP方法名、工位native版本保护、D2展示断言、离线英文错误、原生库存多库位测试前提、4项翻译Python标记、公司负向前提等失败链保留。最终加入文书当前公司范围、未同步重开不伪成功、确认后必须更正等保护；早期PASS不得当最终固定验证。
+- S07历史SIGSEGV根因仍未知，生产稳定性/部署继续BLOCKED。本批再次崩溃须立即留证停止，不重装/改核心或掩盖重跑。S08-B实际治疗/经济/药房/4+2/正式转诊、S08-C PDF打印及S09—S13/生产均NOT_RUN；D2实际项目完成未模拟。
+- 工程材料docs/s08a-contracts.md、s08a-data-dictionary.md、s08a-security-review.md、s08a-report.md及docs/evidence/s08a。#32发布`[CODEX] S08-A交付验收申请`逐字读回后立即停止等待GPT独立技术复核；不自动启用B/C、不关闭Issue、不改Project/workflow、不合并/强推/生产部署。
+
+下方S07及更早“当前/本次”均为历史记录，本轮以本节及最新S08-A GPT-ACTIVATE为准。
+
+
 ## 当前 S07定向返工交付 / #31
 
 - 用户仅授权[GPT-REVIEW6121445246](https://github.com/Yredxin/YDental/issues/31#issuecomment-6121445246)两项代码缺口和SIGSEGV证据。完整读取#23正文/全部有效评论、#31正文/全部有效评论，沿用原分支`codex/s07-inventory-r1-20261012`；固定baseline `f23ad62b20aa298b74adc993781863961946aec3`，原交付/失败/SIGSEGV证据保留。

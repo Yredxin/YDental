@@ -1,0 +1,173 @@
+{
+  "scope": "S08-A real reception, teeth, authored text, handover and pending responsibility",
+  "database": "ydental_s08a_test_20261012112857_79d14812",
+  "tested_commit": "50a1a6f11b32756daf7b5e034a9fc9e3347615c4",
+  "browser": "Firefox",
+  "sandbox": "default, no overrides",
+  "checks": [
+    {
+      "check": "real S06 chair entered",
+      "result": "PASS"
+    },
+    {
+      "check": "real S06 execution serving",
+      "result": "PASS"
+    },
+    {
+      "check": "Chinese real treatment workbench",
+      "result": "PASS"
+    },
+    {
+      "check": "patient and actual serving segment visible before document creation",
+      "result": "PASS"
+    },
+    {
+      "check": "existing S05 price source retains independent permission",
+      "result": "PASS"
+    },
+    {
+      "check": "52 clickable permanent and primary teeth",
+      "result": "PASS"
+    },
+    {
+      "check": "three real server autosaves",
+      "result": "PASS"
+    },
+    {
+      "check": "anterior I enabled and O refused",
+      "result": "PASS"
+    },
+    {
+      "check": "primary posterior O enabled I refused",
+      "result": "PASS"
+    },
+    {
+      "check": "missing tooth cannot select surfaces",
+      "result": "PASS"
+    },
+    {
+      "check": "stale version server rejects",
+      "result": "PASS"
+    },
+    {
+      "check": "invalid FDI server rejects",
+      "result": "PASS"
+    },
+    {
+      "check": "D1 pending after real handover",
+      "result": "PASS"
+    },
+    {
+      "check": "pending document cannot handover again",
+      "result": "PASS"
+    },
+    {
+      "check": "D1 supplementation does not occupy a chair",
+      "result": "PASS"
+    },
+    {
+      "check": "one pending continuation offered",
+      "result": "PASS"
+    },
+    {
+      "check": "D2 new independent document",
+      "result": "PASS"
+    },
+    {
+      "check": "responsibility transfer refuses valid editor",
+      "result": "PASS"
+    },
+    {
+      "check": "D1 responsible person legally transferred",
+      "result": "PASS"
+    },
+    {
+      "check": "D1 text confirmed by new contributor",
+      "result": "PASS"
+    },
+    {
+      "check": "confirmed text correction appends version",
+      "result": "PASS"
+    },
+    {
+      "check": "D1 confirmation leaves D2 draft unconfirmed",
+      "result": "PASS"
+    },
+    {
+      "check": "D2 real segment continues serving",
+      "result": "PASS"
+    },
+    {
+      "check": "read-only medical user cannot edit",
+      "result": "PASS"
+    },
+    {
+      "check": "offline never claims success",
+      "result": "PASS"
+    },
+    {
+      "check": "reacquire cannot mark unsent local text saved",
+      "result": "PASS"
+    },
+    {
+      "check": "refresh restores committed server text",
+      "result": "PASS"
+    },
+    {
+      "check": "zero browser page errors",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T113622844193/01-permanent-anterior-autosave.png",
+      "sha256": "9381235d8d4c6ce0bcbbdbd6fb55c8f280be1f718b4a966f2510b67e21b9f4e3"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T113622844193/02-primary-missing-unknown.png",
+      "sha256": "c71e98daa803a8e3a95a3f4c28fd72dfe19eb9819c172430ad6d40c4f31f49de"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T113622844193/03-structured-draft.png",
+      "sha256": "84d4f894bfc6a8982027ce45e5d50d4ca0f69bdce5ac3d6ff851624cb71fedc1"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T113622844193/04-D1-pending-after-handover.png",
+      "sha256": "58e280fa088b5116b2b84033724cb1c0f1431046b6e2fca0d3876f3420d10595"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T113622844193/05-D1-pending-independent-editor.png",
+      "sha256": "2172771a06e56582368d0651b5ea3335a13ccd6f34cc51601d182aa949c3e624"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T113622844193/06-D2-new-reception.png",
+      "sha256": "25e146802bef0c8ef1b88e76f7d29105be60c57734eee9898f0fa5e50e46b505"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T113622844193/07-valid-editor-transfer-denied.png",
+      "sha256": "95234438b38c9ecf38a01e93c050924f7a7055c521aefe6baae5d2692d1af686"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T113622844193/08-D1-confirmed-author-history.png",
+      "sha256": "f90ef2f016d146444ecc7739144e39d5e466756a9d09a505d54142e9d6010e0e"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T113622844193/09-text-correction-new-version.png",
+      "sha256": "726d7672e0951a806af29f193909087ba326697122b473dc435976953a4e29c5"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T113622844193/10-readonly-medical-denied.png",
+      "sha256": "71f6f0ef736b0fc77d8afabc90c678f9bdce489d21b0a200a0c992ff4a2f107b"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T113622844193/11-offline-unsynchronized.png",
+      "sha256": "9dca193d89d8846b788a16b1dd1cc4a6fa8521286a3e1e1670411fe943c2b2ea"
+    }
+  ],
+  "result": "PASS",
+  "pageerrors": [],
+  "documents": {
+    "D1": 71,
+    "D2": 72
+  }
+}

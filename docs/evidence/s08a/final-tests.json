@@ -1,0 +1,232 @@
+{
+  "result": "PASS: Codex self-test only; independent GPT/user acceptance pending",
+  "baseline": "a5f53ac72d6d43901932adedc64c56cf6f97c675",
+  "product": "a69ac8bc431adb412341cd2fbff508d69ca0b84a",
+  "test": "be5f28ef336295633fd0d753c3e97051a2dc457d",
+  "identity": {
+    "database": "ydental_s08a_test_20261012113731_3d646c4f",
+    "oid": 1043393,
+    "endpoint": {
+      "host": "127.0.0.1",
+      "port": "5432",
+      "user": "odoo"
+    },
+    "cluster": "7694897083368259627",
+    "port": 18155,
+    "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+    "created_utc": "2026-10-12T11:37:51.382430+00:00",
+    "config_sha256": "fb232011da86d6bab871c1b20c9982f808b1abc41e3c050110c4233d43d9a598"
+  },
+  "config_path": "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s08a_test_20261012113731_3d646c4f/odoo.conf",
+  "data_dir": "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s08a_test_20261012113731_3d646c4f/data",
+  "dbfilter": "^ydental_s08a_test_20261012113731_3d646c4f$",
+  "actions": [
+    {
+      "action": "install",
+      "exit_code": 0,
+      "pid": 1134534,
+      "log": "install-20261012T113751383386.log",
+      "log_sha256": "92df6b35c6cc9255ad095c158440b109243401877c4565c2ac5b59f43307dc15",
+      "time_utc": "2026-10-12T11:39:21.379544+00:00",
+      "tested_commit": "be5f28ef336295633fd0d753c3e97051a2dc457d",
+      "tests": [
+        0,
+        0,
+        30
+      ]
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 0,
+      "pid": 1135501,
+      "log": "upgrade-20261012T113945154239.log",
+      "log_sha256": "975f89402469f20aeb8655011780507cf3fae85749003cc97b0940cbfca38fba",
+      "time_utc": "2026-10-12T11:40:15.436283+00:00",
+      "tested_commit": "be5f28ef336295633fd0d753c3e97051a2dc457d",
+      "tests": [
+        0,
+        0,
+        28
+      ]
+    },
+    {
+      "action": "probe",
+      "exit_code": 0,
+      "pid": 1136036,
+      "log": "probe-20261012T114045848850.log",
+      "log_sha256": "ffc0f361f974f25f6f41a6ad535f980915f74cad423f107d799f88a846ee7a69",
+      "time_utc": "2026-10-12T11:42:27.548278+00:00",
+      "tested_commit": "be5f28ef336295633fd0d753c3e97051a2dc457d"
+    },
+    {
+      "action": "preview",
+      "exit_code": 0,
+      "pid": 1136994,
+      "log": "preview-20261012T114240615475.log",
+      "log_sha256": "32f49122cff19eec371a0afaea7f08496e1224274ae2c743d448250b1930b88d",
+      "time_utc": "2026-10-12T11:42:51.449655+00:00",
+      "tested_commit": "be5f28ef336295633fd0d753c3e97051a2dc457d"
+    },
+    {
+      "action": "audit",
+      "exit_code": 0,
+      "pid": 1137604,
+      "log": "audit-20261012T114355932028.log",
+      "log_sha256": "895e2f8ac2311bb869dd879154e810569d5e6fd15884c967c617877b35583ce6",
+      "time_utc": "2026-10-12T11:43:57.268714+00:00",
+      "tested_commit": "be5f28ef336295633fd0d753c3e97051a2dc457d"
+    },
+    {
+      "action": "audit",
+      "exit_code": 0,
+      "pid": 1139030,
+      "log": "audit-20261012T114555950717.log",
+      "log_sha256": "1966744d6dfb00c103bdd8e2f25b57f6c618ebabfa7e77bc2c2e91bb2d522ecf",
+      "time_utc": "2026-10-12T11:45:57.297614+00:00",
+      "tested_commit": "be5f28ef336295633fd0d753c3e97051a2dc457d"
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 0,
+      "pid": 1139185,
+      "log": "upgrade-20261012T114612997801.log",
+      "log_sha256": "867cf59d9f055befeb826063cdf319db8a32f4075dccf8c72d3665765d806c86",
+      "time_utc": "2026-10-12T11:46:46.347694+00:00",
+      "tested_commit": "be5f28ef336295633fd0d753c3e97051a2dc457d",
+      "tests": [
+        0,
+        0,
+        28
+      ]
+    },
+    {
+      "action": "audit",
+      "exit_code": 0,
+      "pid": 1140057,
+      "log": "audit-20261012T114730405660.log",
+      "log_sha256": "f2750e324223802c519d2db8922389c4f7915aec871207929ac412490d9e9eb3",
+      "time_utc": "2026-10-12T11:47:31.744038+00:00",
+      "tested_commit": "be5f28ef336295633fd0d753c3e97051a2dc457d"
+    },
+    {
+      "action": "export",
+      "exit_code": 0,
+      "pid": 1140242,
+      "log": "export-20261012T114745260597.log",
+      "log_sha256": "3206dfe3f318258318f001c04de12a61dcaca9a452059760b4e5473531d3ee4a",
+      "time_utc": "2026-10-12T11:47:47.372263+00:00",
+      "tested_commit": "be5f28ef336295633fd0d753c3e97051a2dc457d"
+    }
+  ],
+  "counts": {
+    "install": 30,
+    "upgrade": 28,
+    "upgrade_after_committed_business": 28,
+    "model_methods": 21,
+    "real_HTTP_RPC_methods": 7,
+    "extra_native_asset_initialization_on_install": 2,
+    "independent_two_backend_races": 16,
+    "serialization_retries": 14,
+    "deadlocks": 0,
+    "Firefox_checks": 28,
+    "Firefox_screenshots": 11,
+    "pageerrors": 0,
+    "guard": 5,
+    "translation": 150,
+    "SQL_invariant_types": 8,
+    "SQL_errors": 0,
+    "upgrade_equal_signature_groups": 10,
+    "economic_equal_signature_groups": 6
+  },
+  "browser_result": "docs/evidence/s08a/browser-attempts/20261012T114410131012/result.json",
+  "probe_result": "docs/evidence/s08a/probe-attempts/ydental_s08a_test_20261012113731_3d646c4f-20261012T114227282670.json",
+  "roles": [
+    "doctor",
+    "doctor2",
+    "reader",
+    "frontdesk",
+    "manager",
+    "none"
+  ],
+  "production": "BLOCKED: S07 SIGSEGV root cause unknown",
+  "unexpected_crashes_this_batch": 0,
+  "future": "S08-B/C and S09-S13 NOT_RUN",
+  "recorded_utc": "2026-10-12T11:49:01.974828+00:00",
+  "commands": [
+    {
+      "action": "install",
+      "command": "../.venv/bin/python scripts/s08a.py install --db ydental_s08a_test_20261012113731_3d646c4f --port 18155",
+      "log": "install-20261012T113751383386.log",
+      "exit_code": 0
+    },
+    {
+      "action": "upgrade",
+      "command": "../.venv/bin/python scripts/s08a.py upgrade --db ydental_s08a_test_20261012113731_3d646c4f --port 18155",
+      "log": "upgrade-20261012T113945154239.log",
+      "exit_code": 0
+    },
+    {
+      "action": "probe",
+      "command": "../.venv/bin/python scripts/s08a.py probe --db ydental_s08a_test_20261012113731_3d646c4f --port 18155",
+      "log": "probe-20261012T114045848850.log",
+      "exit_code": 0
+    },
+    {
+      "action": "preview",
+      "command": "../.venv/bin/python scripts/s08a.py preview --db ydental_s08a_test_20261012113731_3d646c4f --port 18155",
+      "log": "preview-20261012T114240615475.log",
+      "exit_code": 0
+    },
+    {
+      "action": "audit",
+      "command": "../.venv/bin/python scripts/s08a.py audit --db ydental_s08a_test_20261012113731_3d646c4f --port 18155",
+      "log": "audit-20261012T114355932028.log",
+      "exit_code": 0
+    },
+    {
+      "action": "audit",
+      "command": "../.venv/bin/python scripts/s08a.py audit --db ydental_s08a_test_20261012113731_3d646c4f --port 18155",
+      "log": "audit-20261012T114555950717.log",
+      "exit_code": 0
+    },
+    {
+      "action": "upgrade",
+      "command": "../.venv/bin/python scripts/s08a.py upgrade --db ydental_s08a_test_20261012113731_3d646c4f --port 18155",
+      "log": "upgrade-20261012T114612997801.log",
+      "exit_code": 0
+    },
+    {
+      "action": "audit",
+      "command": "../.venv/bin/python scripts/s08a.py audit --db ydental_s08a_test_20261012113731_3d646c4f --port 18155",
+      "log": "audit-20261012T114730405660.log",
+      "exit_code": 0
+    },
+    {
+      "action": "export",
+      "command": "../.venv/bin/python scripts/s08a.py export --db ydental_s08a_test_20261012113731_3d646c4f --port 18155",
+      "log": "export-20261012T114745260597.log",
+      "exit_code": 0
+    },
+    {
+      "action": "Firefox",
+      "command": "../.venv/bin/python scripts/s08a_browser.py --db ydental_s08a_test_20261012113731_3d646c4f --port 18155",
+      "exit_code": 0
+    },
+    {
+      "action": "translation",
+      "command": "PYTHONPATH=.local/s00-b-deps/verify-lib ../.venv/bin/python scripts/s08a_translation.py --db ydental_s08a_test_20261012113731_3d646c4f",
+      "exit_code": 0
+    },
+    {
+      "action": "guard",
+      "command": "../.venv/bin/python -m unittest scripts/test_s08a_guard.py",
+      "exit_code": 0
+    }
+  ],
+  "creation_marker": {
+    "file": "database.json",
+    "sha256": "e61c46c976413d5a42c1b1bd7948b65994a5ad77c834b1fccb1a58c3782db1c5",
+    "mode": "0o600"
+  },
+  "private_config_mode": "0o600"
+}

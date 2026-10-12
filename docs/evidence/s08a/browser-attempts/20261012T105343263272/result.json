@@ -1,0 +1,133 @@
+{
+  "scope": "S08-A real reception, teeth, authored text, handover and pending responsibility",
+  "database": "ydental_s08a_test_20261012110000_9ccfaa01",
+  "tested_commit": "388f9c5ed575136aed20cb0ee70271dd833ccbdf",
+  "browser": "Firefox",
+  "sandbox": "default, no overrides",
+  "checks": [
+    {
+      "check": "real S06 chair entered",
+      "result": "PASS"
+    },
+    {
+      "check": "real S06 execution serving",
+      "result": "PASS"
+    },
+    {
+      "check": "Chinese real treatment workbench",
+      "result": "PASS"
+    },
+    {
+      "check": "52 clickable permanent and primary teeth",
+      "result": "PASS"
+    },
+    {
+      "check": "three real server autosaves",
+      "result": "PASS"
+    },
+    {
+      "check": "anterior I enabled and O refused",
+      "result": "PASS"
+    },
+    {
+      "check": "primary posterior O enabled I refused",
+      "result": "PASS"
+    },
+    {
+      "check": "missing tooth cannot select surfaces",
+      "result": "PASS"
+    },
+    {
+      "check": "stale version server rejects",
+      "result": "PASS"
+    },
+    {
+      "check": "invalid FDI server rejects",
+      "result": "PASS"
+    },
+    {
+      "check": "D1 pending after real handover",
+      "result": "PASS"
+    },
+    {
+      "check": "pending document cannot handover again",
+      "result": "PASS"
+    },
+    {
+      "check": "D1 supplementation does not occupy a chair",
+      "result": "PASS"
+    },
+    {
+      "check": "one pending continuation offered",
+      "result": "PASS"
+    },
+    {
+      "check": "D2 new independent document",
+      "result": "PASS"
+    },
+    {
+      "check": "responsibility transfer refuses valid editor",
+      "result": "PASS"
+    },
+    {
+      "check": "D1 responsible person legally transferred",
+      "result": "PASS"
+    },
+    {
+      "check": "D1 text confirmed by new contributor",
+      "result": "PASS"
+    },
+    {
+      "check": "confirmed text correction appends version",
+      "result": "PASS"
+    },
+    {
+      "check": "D1 confirmation leaves D2 draft unconfirmed",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T105343263272/01-permanent-anterior-autosave.png",
+      "sha256": "6d5c1d0262707006960cf7d6938fdfa282219977b1ce46133c68e4097b4ae383"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T105343263272/02-primary-missing-unknown.png",
+      "sha256": "0cd96bdf05fe9866c66b9b1c50ec89bb61c26adf02a000ac7f0e8aea3aaef72f"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T105343263272/03-structured-draft.png",
+      "sha256": "91be0836be21eb06fa9af8af89b838b1afc164abec2d8baef7a4ff328507476c"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T105343263272/04-D1-pending-after-handover.png",
+      "sha256": "9e1fc29b78e022f8ed451dad56d9b3b8d2648aa53665acac0bfc2c5e60893b86"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T105343263272/05-D1-pending-independent-editor.png",
+      "sha256": "0c74c8d2c937ff32a1639e20ed3e227e24e90b5194d687c20a7a1a5a4621ee97"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T105343263272/06-D2-new-reception.png",
+      "sha256": "291908ef6921a916633d55afc83337d6054c6a373866ae20e709c9f2d6b8076c"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T105343263272/07-valid-editor-transfer-denied.png",
+      "sha256": "fea2c633499b78eab597f8e35884ad28ccb734da72103f562306fc78b49f2139"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T105343263272/08-D1-confirmed-author-history.png",
+      "sha256": "c72ccd5a083a586e6b20f1d78adfe2756045aaef74c86112919ac97e9ed4ac33"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T105343263272/09-text-correction-new-version.png",
+      "sha256": "e2c90349c0da82e37ba0afa886bcc9f0e811f1d324979cc43477eec6a47b5cf6"
+    }
+  ],
+  "result": "FAIL",
+  "error": {
+    "type": "RuntimeError",
+    "detail": "D2 real segment continues serving"
+  },
+  "pageerrors": []
+}

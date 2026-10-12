@@ -1,0 +1,72 @@
+{
+  "result": "PASS",
+  "issues": [
+    {
+      "issue": 23,
+      "body_unchanged": true,
+      "original_comments_unchanged": true,
+      "original_comments": 2,
+      "current_comments": 2,
+      "added_comment_ids": [],
+      "state": "open",
+      "full_read_sha256": "2a8ac30673bd93cf267674c7dd99562deb8da3b63ab9e0edac6230af4686a848"
+    },
+    {
+      "issue": 32,
+      "body_unchanged": true,
+      "original_comments_unchanged": true,
+      "original_comments": 1,
+      "current_comments": 2,
+      "added_comment_ids": [
+        6122503237
+      ],
+      "state": "open",
+      "full_read_sha256": "531f148ac4bae6ee1771caa4ece1c90956fa5487e49dc26f092883a51b511bd5"
+    },
+    {
+      "issue": 31,
+      "body_unchanged": true,
+      "original_comments_unchanged": true,
+      "original_comments": 8,
+      "current_comments": 8,
+      "added_comment_ids": [],
+      "state": "open",
+      "full_read_sha256": "3f7cd9544beebf5674f6274d8eda909d261c62ce0b1406944454ab309b818a91"
+    }
+  ],
+  "scope": "all current bodies and all comments, unchanged original evidence; only our start comment added",
+  "final_pre_delivery_read": [
+    {
+      "issue": 23,
+      "read_utc": "2026-10-12T11:45:40.042625+00:00",
+      "current_comments": 2,
+      "body_unchanged": true,
+      "original_comments_unchanged": true,
+      "added_comment_ids": [],
+      "state": "open",
+      "full_read_sha256": "bd36a001d6d6f97ca88ae4988e7e59c677cabfefdb7c505fda499f94e987ec74"
+    },
+    {
+      "issue": 32,
+      "read_utc": "2026-10-12T11:45:39.412945+00:00",
+      "current_comments": 2,
+      "body_unchanged": true,
+      "original_comments_unchanged": true,
+      "added_comment_ids": [
+        6122503237
+      ],
+      "state": "open",
+      "full_read_sha256": "1d2aec34be75d5bcdb499a2fa430d5fd4209a0829e1a5fe8feb19be38beb2389"
+    },
+    {
+      "issue": 31,
+      "read_utc": "2026-10-12T11:45:39.522786+00:00",
+      "current_comments": 8,
+      "body_unchanged": true,
+      "original_comments_unchanged": true,
+      "added_comment_ids": [],
+      "state": "open",
+      "full_read_sha256": "6cc35ebfb9698cd2b0c8cd8825d19fe6376c25085b0934df075f4ba433593484"
+    }
+  ]
+}

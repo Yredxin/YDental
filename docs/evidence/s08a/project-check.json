@@ -1,0 +1,63 @@
+{
+  "result": "PASS",
+  "counts": {
+    "fields": 21,
+    "items": 15,
+    "views": 6,
+    "workflows": 7
+  },
+  "mutation_count": 1,
+  "only_item": 32,
+  "start_difference": [
+    {
+      "path": "/items/nodes/9/fieldValues/nodes/4/name",
+      "before": "待启用",
+      "after": "进行中"
+    },
+    {
+      "path": "/items/nodes/9/fieldValues/nodes/4/optionId",
+      "before": "441473f3",
+      "after": "57b99552"
+    }
+  ],
+  "delivery_difference": [],
+  "snapshots": [
+    {
+      "phase": "/tmp/ydental-s08a-start/project-before.json",
+      "sha256": "2eafb0d080ac3cb028b348d1b20400717e497eb939332a19782e499b29255445",
+      "finished_utc": "2026-10-12T10:31:25.697654+00:00"
+    },
+    {
+      "phase": "/tmp/ydental-s08a-start/project-after.json",
+      "sha256": "6c0652829a4e7a91f3fc36f266a9a48eb8701e7b849e4e41be9ec3f4269cf371",
+      "finished_utc": "2026-10-12T10:32:33.781131+00:00"
+    },
+    {
+      "phase": "/tmp/ydental-s08a-start/project-second-check.json",
+      "sha256": "57ee1543c4c0a9b3138a999da4d3530e528e5e43a566d1663768921ca296b2fd",
+      "finished_utc": "2026-10-12T10:32:38.940539+00:00"
+    },
+    {
+      "phase": "/tmp/ydental-s08a-delivery/project-before.json",
+      "sha256": "ff8e4caa20932b5bfa75937c2664920f115db31f847710b02ef802c0d829af4c",
+      "finished_utc": "2026-10-12T11:19:53.478430+00:00"
+    },
+    {
+      "phase": "/tmp/ydental-s08a-delivery/project-second-check.json",
+      "sha256": "cadfbc98848dfe9fe9c596d086b0b9fdb96c6ef99b47d2bd648afcac533bce91",
+      "finished_utc": "2026-10-12T11:20:51.366595+00:00"
+    },
+    {
+      "phase": "/tmp/ydental-s08a-release/project-before.json",
+      "sha256": "e13ea104d539265988ff583e1b1728fa938c340c30f3b91be5384374208f1175",
+      "finished_utc": "2026-10-12T11:45:41.804331+00:00"
+    },
+    {
+      "phase": "/tmp/ydental-s08a-release/project-second-check.json",
+      "sha256": "27e200ab891d025242bcb69e785a8e4273cdb5db0df12e7b6e70369ca5b73e7c",
+      "finished_utc": "2026-10-12T11:46:21.444157+00:00"
+    }
+  ],
+  "unpublished_workflow_trigger_actions": "not exposed; NOT_CLAIMED",
+  "final_pre_delivery_difference": []
+}

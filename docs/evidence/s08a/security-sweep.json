@@ -1,0 +1,40 @@
+{
+  "product": "a69ac8bc431adb412341cd2fbff508d69ca0b84a",
+  "result": "Codex self-review completed; no unresolved S08-A finding identified",
+  "patterns_reviewed": [
+    "sudo/with_user/with_company",
+    "raw SQL and interpolation",
+    "untrusted domain",
+    "public ORM/RPC",
+    "routes/auth/CSRF",
+    "XSS HTML sinks and template escaping",
+    "secret/token field groups",
+    "related fields",
+    "file IO",
+    "eval/exec/safe_eval",
+    "pickle",
+    "dynamic getattr/setattr",
+    "secret equality/timing",
+    "mutable defaults",
+    "rich public return objects"
+  ],
+  "hits": {
+    "sudo": [
+      "models/ydental_clinical_service.py:46 fixed private entities after source gate",
+      "models/ydental_clinical_service.py:55 read current account company IDs; deny outside current company",
+      "models/ydental_clinical_service.py:176 read eligibility only",
+      "models/ydental_clinical_service.py:275 checked candidate ID/eligibility",
+      "controllers/clinical.py:43 current-store active candidate membership filtered by source qualification"
+    ],
+    "SQL": [
+      "models/ydental_clinical_document.py:68 static own-table backfill, core init MRO api.private"
+    ],
+    "public": [
+      "document/version create/write/unlink private sentinel/immutability",
+      "controller GET auth user read only",
+      "controller POST auth user CSRF, signature whitelist, 100000 bytes"
+    ]
+  },
+  "evidence": "s08a-security-review.md and actual model/HTTP negative tests",
+  "production": "BLOCKED: historical unknown SIGSEGV root cause"
+}

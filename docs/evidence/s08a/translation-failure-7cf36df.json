@@ -1,0 +1,15 @@
+{
+  "database": "ydental_s08a_test_20261012110000_9ccfaa01",
+  "test": "7cf36df442d3f6b564b6ab16d6b62c70d3b04d6a",
+  "exported_terms": 149,
+  "translated_terms": 149,
+  "missing": [],
+  "source_codes_preserved": true,
+  "invalid_code_metadata": [
+    "Missing",
+    "Not applicable",
+    "Present",
+    "Unknown"
+  ],
+  "result": "FAIL"
+}

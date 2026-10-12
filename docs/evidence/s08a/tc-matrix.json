@@ -1,0 +1,384 @@
+{
+  "scope": "A applicable subsets only; overall S08 is not PASS",
+  "tested_commit": "be5f28ef336295633fd0d753c3e97051a2dc457d",
+  "TC": [
+    {
+      "TC": "S08-T01",
+      "A_applicable_status": "PASS",
+      "precondition_and_action": "真实medical接诊、连续3次自动保存",
+      "expected": "版本连续、费库/原价格不变",
+      "actual": "三次及后续真实保存、CAS拒绝；6组经济签名相同",
+      "database": "ydental_s08a_test_20261012113731_3d646c4f",
+      "test_commit": "be5f28ef336295633fd0d753c3e97051a2dc457d",
+      "roles": [
+        "doctor",
+        "doctor2",
+        "reader",
+        "frontdesk",
+        "manager",
+        "none"
+      ],
+      "method_evidence": [
+        "TestClinicalDocument.test_three_real_saves_cas_and_economic_invariance",
+        "TestClinicalHTTP.test_real_workbench_open_autosave_cas_handover"
+      ],
+      "commands": [
+        "scripts/s08a.py install/upgrade",
+        "scripts/s08a.py probe",
+        "scripts/s08a_browser.py"
+      ],
+      "run_counts_and_exits": "final-tests.json: install30/upgrade28/upgrade28; all exit0, model21+HTTP7, race16, Firefox28",
+      "remaining_scope": null
+    },
+    {
+      "TC": "S08-T02",
+      "A_applicable_status": "PASS",
+      "precondition_and_action": "同一文书双编辑、旧连接/版本；独立D1/D2",
+      "expected": "只一个有效编辑/提交；不同文书互不偷锁",
+      "actual": "16组不同backend PID竞争及旧端负向、Firefox双文书通过",
+      "database": "ydental_s08a_test_20261012113731_3d646c4f",
+      "test_commit": "be5f28ef336295633fd0d753c3e97051a2dc457d",
+      "roles": [
+        "doctor",
+        "doctor2",
+        "reader",
+        "frontdesk",
+        "manager",
+        "none"
+      ],
+      "method_evidence": [
+        "TestClinicalDocument.test_independent_locks_and_old_connection",
+        "TestClinicalDocument.test_expiry_and_revocation_reject_cached_editor",
+        "TestClinicalDocument.test_cross_store_write_and_old_session_revision",
+        "TestClinicalHTTP.test_old_connection_and_shared_token_rejected"
+      ],
+      "commands": [
+        "scripts/s08a.py install/upgrade",
+        "scripts/s08a.py probe",
+        "scripts/s08a_browser.py"
+      ],
+      "run_counts_and_exits": "final-tests.json: install30/upgrade28/upgrade28; all exit0, model21+HTTP7, race16, Firefox28",
+      "remaining_scope": null
+    },
+    {
+      "TC": "S08-T03",
+      "A_applicable_status": "NOT_RUN",
+      "precondition_and_action": "真实项目确认并发/重复",
+      "expected": "实际事件、费用、耗用各一次",
+      "actual": "B未启用",
+      "database": null,
+      "test_commit": "be5f28ef336295633fd0d753c3e97051a2dc457d",
+      "roles": [],
+      "method_evidence": [],
+      "commands": [],
+      "run_counts_and_exits": "NOT_RUN; no test count or successful exit claimed",
+      "remaining_scope": "B实际项目/经济"
+    },
+    {
+      "TC": "S08-T04",
+      "A_applicable_status": "NOT_RUN",
+      "precondition_and_action": "真实已做缺料后核对恢复并调价",
+      "expected": "保留原事实/价格、补原事件",
+      "actual": "B/S10未启用；未移用S07合成来源PASS",
+      "database": null,
+      "test_commit": "be5f28ef336295633fd0d753c3e97051a2dc457d",
+      "roles": [],
+      "method_evidence": [],
+      "commands": [],
+      "run_counts_and_exits": "NOT_RUN; no test count or successful exit claimed",
+      "remaining_scope": "B/S10"
+    },
+    {
+      "TC": "S08-T05",
+      "A_applicable_status": "PASS",
+      "precondition_and_action": "真实交还、保存/续诊故障、reserve/restore与verify",
+      "expected": "原子持久化、唯一后继/正确释放；失败完整回滚",
+      "actual": "真实hook通过；S09外检前提仅单个guard合成用例",
+      "database": "ydental_s08a_test_20261012113731_3d646c4f",
+      "test_commit": "be5f28ef336295633fd0d753c3e97051a2dc457d",
+      "roles": [
+        "doctor",
+        "doctor2",
+        "reader",
+        "frontdesk",
+        "manager",
+        "none"
+      ],
+      "method_evidence": [
+        "TestClinicalDocument.test_handover_real_save_pending_and_unique_continuation",
+        "TestClinicalDocument.test_handover_save_and_continuation_failure_roll_back",
+        "TestClinicalDocument.test_external_reserve_remains_fail_closed",
+        "TestClinicalDocument.test_onsite_verify_uses_persisted_draft_no_false_author",
+        "TestClinicalDocument.test_hold_restore_keeps_same_real_document_then_handover_releases_it",
+        "TestClinicalDocument.test_invalid_content_save_failure_does_not_hand_back",
+        "TestClinicalHTTP.test_real_workbench_open_autosave_cas_handover"
+      ],
+      "commands": [
+        "scripts/s08a.py install/upgrade",
+        "scripts/s08a.py probe",
+        "scripts/s08a_browser.py"
+      ],
+      "run_counts_and_exits": "final-tests.json: install30/upgrade28/upgrade28; all exit0, model21+HTTP7, race16, Firefox28",
+      "remaining_scope": "真实S09 NOT_RUN"
+    },
+    {
+      "TC": "S08-T06",
+      "A_applicable_status": "PASS",
+      "precondition_and_action": "D1交还、D2其他医生/椅真实start，D1独立补记及移交",
+      "expected": "责任/贡献版本保留，不占原椅、不重费、不自动确认另一文书",
+      "actual": "D1确认/更正，D2仍draft/serving；有效锁移交拒绝",
+      "database": "ydental_s08a_test_20261012113731_3d646c4f",
+      "test_commit": "be5f28ef336295633fd0d753c3e97051a2dc457d",
+      "roles": [
+        "doctor",
+        "doctor2",
+        "reader",
+        "frontdesk",
+        "manager",
+        "none"
+      ],
+      "method_evidence": [
+        "TestClinicalDocument.test_d1_pending_d2_independent_and_responsibility_transfer"
+      ],
+      "commands": [
+        "scripts/s08a.py install/upgrade",
+        "scripts/s08a.py probe",
+        "scripts/s08a_browser.py"
+      ],
+      "run_counts_and_exits": "final-tests.json: install30/upgrade28/upgrade28; all exit0, model21+HTTP7, race16, Firefox28",
+      "remaining_scope": "D2真实治疗完成归B NOT_RUN"
+    },
+    {
+      "TC": "S08-T07",
+      "A_applicable_status": "NOT_RUN",
+      "precondition_and_action": "检查原单增项/删已做/取消未做",
+      "expected": "前二拒绝，合法取消留原因",
+      "actual": "未建真实检查单",
+      "database": null,
+      "test_commit": "be5f28ef336295633fd0d753c3e97051a2dc457d",
+      "roles": [],
+      "method_evidence": [],
+      "commands": [],
+      "run_counts_and_exits": "NOT_RUN; no test count or successful exit claimed",
+      "remaining_scope": "B/S09"
+    },
+    {
+      "TC": "S08-T08",
+      "A_applicable_status": "NOT_RUN",
+      "precondition_and_action": "实际发4+2、超量/重复/椅旁用药",
+      "expected": "累计不超6、实际费库一致",
+      "actual": "未建药房/处方空壳",
+      "database": null,
+      "test_commit": "be5f28ef336295633fd0d753c3e97051a2dc457d",
+      "roles": [],
+      "method_evidence": [],
+      "commands": [],
+      "run_counts_and_exits": "NOT_RUN; no test count or successful exit claimed",
+      "remaining_scope": "B药房"
+    },
+    {
+      "TC": "S08-T09",
+      "A_applicable_status": "PASS",
+      "precondition_and_action": "read/none/跨店/公司丢失、附件/RPC/export、假来源；目的性共享历史",
+      "expected": "当前授权和来源不旁路，合法共享/导出仍可用，撤权拒绝",
+      "actual": "模型/HTTP与Firefox负向及正向通过",
+      "database": "ydental_s08a_test_20261012113731_3d646c4f",
+      "test_commit": "be5f28ef336295633fd0d753c3e97051a2dc457d",
+      "roles": [
+        "doctor",
+        "doctor2",
+        "reader",
+        "frontdesk",
+        "manager",
+        "none"
+      ],
+      "method_evidence": [
+        "TestClinicalDocument.test_native_rpc_read_export_and_attachments",
+        "TestClinicalDocument.test_cross_store_write_and_old_session_revision",
+        "TestClinicalDocument.test_lost_company_access_invalidates_editor_actions_and_native_reads",
+        "TestClinicalDocument.test_current_capability_revocation_rejects_existing_editor",
+        "TestClinicalDocument.test_shared_history_requires_purpose_current_relation_and_live_read",
+        "TestClinicalDocument.test_no_admin_force_or_json_document_lock",
+        "TestClinicalHTTP.test_rpc_private_and_mutation_forgery",
+        "TestClinicalHTTP.test_readonly_and_no_access_denials",
+        "TestClinicalHTTP.test_csrf_unknown_and_fdi_backend",
+        "TestClinicalHTTP.test_attachments_and_export_cannot_bypass_scope"
+      ],
+      "commands": [
+        "scripts/s08a.py install/upgrade",
+        "scripts/s08a.py probe",
+        "scripts/s08a_browser.py"
+      ],
+      "run_counts_and_exits": "final-tests.json: install30/upgrade28/upgrade28; all exit0, model21+HTTP7, race16, Firefox28",
+      "remaining_scope": null
+    },
+    {
+      "TC": "S08-T10",
+      "A_applicable_status": "PASS",
+      "precondition_and_action": "文字确认后更正、新confirm绕过尝试",
+      "expected": "关联新版本/原因/作者保留，经济不变",
+      "actual": "原确认请求幂等；新confirm拒绝，correct附原因通过",
+      "database": "ydental_s08a_test_20261012113731_3d646c4f",
+      "test_commit": "be5f28ef336295633fd0d753c3e97051a2dc457d",
+      "roles": [
+        "doctor",
+        "doctor2",
+        "reader",
+        "frontdesk",
+        "manager",
+        "none"
+      ],
+      "method_evidence": [
+        "TestClinicalDocument.test_confirmation_correction_preserves_authors_and_economics",
+        "TestClinicalHTTP.test_stored_clinical_text_is_escaped_in_workbench_and_history"
+      ],
+      "commands": [
+        "scripts/s08a.py install/upgrade",
+        "scripts/s08a.py probe",
+        "scripts/s08a_browser.py"
+      ],
+      "run_counts_and_exits": "final-tests.json: install30/upgrade28/upgrade28; all exit0, model21+HTTP7, race16, Firefox28",
+      "remaining_scope": "实际数量/经济更正归B/S10 NOT_RUN"
+    },
+    {
+      "TC": "S08-T11",
+      "A_applicable_status": "NOT_RUN",
+      "precondition_and_action": "三类中文PDF/正式配置审核",
+      "expected": "草稿明确，不假签/假完整",
+      "actual": "未启用PDF/打印",
+      "database": null,
+      "test_commit": "be5f28ef336295633fd0d753c3e97051a2dc457d",
+      "roles": [],
+      "method_evidence": [],
+      "commands": [],
+      "run_counts_and_exits": "NOT_RUN; no test count or successful exit claimed",
+      "remaining_scope": "C"
+    },
+    {
+      "TC": "S08-T12",
+      "A_applicable_status": "PASS",
+      "precondition_and_action": "固定test新库install/upgrade/带committed数据upgrade，上游关键动作",
+      "expected": "无反向依赖，历史/经济事实不漂移",
+      "actual": "30/28/28退出0；10组签名相同，真实上游关键动作回归",
+      "database": "ydental_s08a_test_20261012113731_3d646c4f",
+      "test_commit": "be5f28ef336295633fd0d753c3e97051a2dc457d",
+      "roles": [
+        "doctor",
+        "doctor2",
+        "reader",
+        "frontdesk",
+        "manager",
+        "none"
+      ],
+      "method_evidence": [
+        "TestClinicalDocument.test_upstream_real_inventory_receive_issue_and_no_clinical_source_bypass"
+      ],
+      "commands": [
+        "scripts/s08a.py install/upgrade",
+        "scripts/s08a.py probe",
+        "scripts/s08a_browser.py"
+      ],
+      "run_counts_and_exits": "final-tests.json: install30/upgrade28/upgrade28; all exit0, model21+HTTP7, race16, Firefox28",
+      "remaining_scope": "不是S00—S07全套重跑；S09/S10未装"
+    },
+    {
+      "TC": "S08-T13",
+      "A_applicable_status": "NOT_RUN",
+      "precondition_and_action": "处方→药房报到叫号→4+2→次日/closed续领",
+      "expected": "统一唯一队列/余量/许可与权限完整",
+      "actual": "未启用真实药房",
+      "database": null,
+      "test_commit": "be5f28ef336295633fd0d753c3e97051a2dc457d",
+      "roles": [],
+      "method_evidence": [],
+      "commands": [],
+      "run_counts_and_exits": "NOT_RUN; no test count or successful exit claimed",
+      "remaining_scope": "B"
+    },
+    {
+      "TC": "S08-T14",
+      "A_applicable_status": "PASS",
+      "precondition_and_action": "原care方向续诊、其他合格工位/医生领取",
+      "expected": "后继不复制检查设备、不指定原医生",
+      "actual": "真实S06后继/领取/start以及FirefoxD2通过",
+      "database": "ydental_s08a_test_20261012113731_3d646c4f",
+      "test_commit": "be5f28ef336295633fd0d753c3e97051a2dc457d",
+      "roles": [
+        "doctor",
+        "doctor2",
+        "reader",
+        "frontdesk",
+        "manager",
+        "none"
+      ],
+      "method_evidence": [
+        "TestClinicalDocument.test_handover_real_save_pending_and_unique_continuation",
+        "TestClinicalDocument.test_d1_pending_d2_independent_and_responsibility_transfer"
+      ],
+      "commands": [
+        "scripts/s08a.py install/upgrade",
+        "scripts/s08a.py probe",
+        "scripts/s08a_browser.py"
+      ],
+      "run_counts_and_exits": "final-tests.json: install30/upgrade28/upgrade28; all exit0, model21+HTTP7, race16, Firefox28",
+      "remaining_scope": "定时/不定时跨店转诊正式入口归B NOT_RUN"
+    },
+    {
+      "TC": "S08-T15",
+      "A_applicable_status": "PASS",
+      "precondition_and_action": "52恒乳FDI、I/O、缺失/未知/0/非法结构/模板/中文",
+      "expected": "UI和字典一致，后端拒绝非法值，不自动临床结论",
+      "actual": "模型/HTTP及Firefox01–03通过，中文150/150",
+      "database": "ydental_s08a_test_20261012113731_3d646c4f",
+      "test_commit": "be5f28ef336295633fd0d753c3e97051a2dc457d",
+      "roles": [
+        "doctor",
+        "doctor2",
+        "reader",
+        "frontdesk",
+        "manager",
+        "none"
+      ],
+      "method_evidence": [
+        "TestClinicalDocument.test_fdi_permanent_primary_and_anterior_surfaces",
+        "TestClinicalDocument.test_unknown_missing_not_applicable_and_invalid_surfaces",
+        "TestClinicalHTTP.test_csrf_unknown_and_fdi_backend"
+      ],
+      "commands": [
+        "scripts/s08a.py install/upgrade",
+        "scripts/s08a.py probe",
+        "scripts/s08a_browser.py"
+      ],
+      "run_counts_and_exits": "final-tests.json: install30/upgrade28/upgrade28; all exit0, model21+HTTP7, race16, Firefox28",
+      "remaining_scope": "正式临床字段/签发仍待业务审核"
+    },
+    {
+      "TC": "S08-T16",
+      "A_applicable_status": "PASS",
+      "precondition_and_action": "查看/保存/确认/更正/导出与纯文字补记",
+      "expected": "审计区分、当前授权有效、原价格/库存不变",
+      "actual": "模型原生source.export/撤权及临床审计通过；6组经济签名相同",
+      "database": "ydental_s08a_test_20261012113731_3d646c4f",
+      "test_commit": "be5f28ef336295633fd0d753c3e97051a2dc457d",
+      "roles": [
+        "doctor",
+        "doctor2",
+        "reader",
+        "frontdesk",
+        "manager",
+        "none"
+      ],
+      "method_evidence": [
+        "TestClinicalDocument.test_native_rpc_read_export_and_attachments",
+        "TestClinicalDocument.test_native_confirmed_versions_and_distinct_clinical_audit_events"
+      ],
+      "commands": [
+        "scripts/s08a.py install/upgrade",
+        "scripts/s08a.py probe",
+        "scripts/s08a_browser.py"
+      ],
+      "run_counts_and_exits": "final-tests.json: install30/upgrade28/upgrade28; all exit0, model21+HTTP7, race16, Firefox28",
+      "remaining_scope": "真实费用/调价经济联调及打印归B/C/S10 NOT_RUN"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "tested_commit": "be5f28ef336295633fd0d753c3e97051a2dc457d",
+  "command": "../.venv/bin/python -m unittest scripts/test_s08a_guard.py",
+  "tests": 5,
+  "exit_code": 0,
+  "result": "PASS",
+  "output": ".....\n----------------------------------------------------------------------\nRan 5 tests in 0.364s\n\nOK\n"
+}

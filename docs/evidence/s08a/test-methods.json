@@ -1,0 +1,288 @@
+{
+  "tested_commit": "be5f28ef336295633fd0d753c3e97051a2dc457d",
+  "total": 28,
+  "model": 21,
+  "HTTP_RPC": 7,
+  "methods": [
+    {
+      "test": "TestClinicalDocument.test_three_real_saves_cas_and_economic_invariance",
+      "layer": "model",
+      "file": "ydental_clinical_test/tests/test_document.py",
+      "line": 22,
+      "actual_operations_and_assertions": "def test_three_real_saves_cas_and_economic_invariance(self):\n        s,q,l,e,d = opened(self); before=self.counts()\n        for i in range(3):\n            a=save_args(d, 'Synthetic version '+str(i)); r=s._operate('save',a); d.update(r)\n        self.assertEqual(d['version'],3); self.assertEqual(before,self.counts())\n        self.assertEqual(s._operate('save',a)['version'],3)\n        with self.assertRaises(UserError): s._operate('save',a | {'key':key()})\n        self.assertEqual(s._model('version').search_count([('ydental_document_id','=',d['document_id'])]),3)",
+      "roles": "doctor/doctor2/reader/manager/frontdesk/none, actual bindings in code",
+      "command": "../.venv/bin/python scripts/s08a.py install|upgrade --db ydental_s08a_test_20261012113731_3d646c4f --port 18155",
+      "result": "see final-tests.json, only zero-failure final run counts as PASS"
+    },
+    {
+      "test": "TestClinicalDocument.test_independent_locks_and_old_connection",
+      "layer": "model",
+      "file": "ydental_clinical_test/tests/test_document.py",
+      "line": 31,
+      "actual_operations_and_assertions": "def test_independent_locks_and_old_connection(self):\n        s,q,l,e,d=opened(self)\n        with self.assertRaises(UserError): s._operate('acquire',{'document_id':d['document_id'],'lease_id':l['lease_id'],'lease_token':l['token']})\n        other=q._bind_connection(key()+key()).env[s._name]\n        with self.assertRaises(AccessError): other._operate('save',save_args(d))\n        s._operate('release',{'document_id':d['document_id'],'editor_token':d['editor_token']})\n        new=s._operate('acquire',{'document_id':d['document_id'],'lease_id':l['lease_id'],'lease_token':l['token']})\n        with self.assertRaises(AccessError): s._operate('save',save_args(d))\n        self.assertNotEqual(new['editor_token'],d['editor_token'])",
+      "roles": "doctor/doctor2/reader/manager/frontdesk/none, actual bindings in code",
+      "command": "../.venv/bin/python scripts/s08a.py install|upgrade --db ydental_s08a_test_20261012113731_3d646c4f --port 18155",
+      "result": "see final-tests.json, only zero-failure final run counts as PASS"
+    },
+    {
+      "test": "TestClinicalDocument.test_expiry_and_revocation_reject_cached_editor",
+      "layer": "model",
+      "file": "ydental_clinical_test/tests/test_document.py",
+      "line": 41,
+      "actual_operations_and_assertions": "def test_expiry_and_revocation_reject_cached_editor(self):\n        s,q,l,e,d=opened(self)\n        doc=s._model().browse(d['document_id']); doc._save({'ydental_editor_expires':q._now()-timedelta(seconds=1)})\n        with self.assertRaises(AccessError): s._operate('save',save_args(d))\n        doc._save({'ydental_editor_expires':q._now()+timedelta(seconds=20)})\n        self.admin._grant(self.users['doctor'].id,self.stores[0].id,{'medical':'read'})\n        with self.assertRaises(AccessError): s._operate('save',save_args(d))",
+      "roles": "doctor/doctor2/reader/manager/frontdesk/none, actual bindings in code",
+      "command": "../.venv/bin/python scripts/s08a.py install|upgrade --db ydental_s08a_test_20261012113731_3d646c4f --port 18155",
+      "result": "see final-tests.json, only zero-failure final run counts as PASS"
+    },
+    {
+      "test": "TestClinicalDocument.test_fdi_permanent_primary_and_anterior_surfaces",
+      "layer": "model",
+      "file": "ydental_clinical_test/tests/test_document.py",
+      "line": 49,
+      "actual_operations_and_assertions": "def test_fdi_permanent_primary_and_anterior_surfaces(self):\n        s,q,l,e,d=opened(self)\n        for tooth in (11,18,21,28,31,38,41,48,51,55,61,65,71,75,81,85):\n            a=save_args(d); a['content']['teeth']=[{'tooth':tooth,'state':'present','surfaces':['M','I' if tooth%10<=3 else 'O','L']}]\n            d.update(s._operate('save',a))\n        for tooth in (10,19,49,50,56,86,99,True,'11'):\n            a=save_args(d);a['content']['teeth']=[{'tooth':tooth,'state':'present','surfaces':[]}]\n            with self.assertRaises(ValidationError):s._operate('save',a)",
+      "roles": "doctor/doctor2/reader/manager/frontdesk/none, actual bindings in code",
+      "command": "../.venv/bin/python scripts/s08a.py install|upgrade --db ydental_s08a_test_20261012113731_3d646c4f --port 18155",
+      "result": "see final-tests.json, only zero-failure final run counts as PASS"
+    },
+    {
+      "test": "TestClinicalDocument.test_unknown_missing_not_applicable_and_invalid_surfaces",
+      "layer": "model",
+      "file": "ydental_clinical_test/tests/test_document.py",
+      "line": 58,
+      "actual_operations_and_assertions": "def test_unknown_missing_not_applicable_and_invalid_surfaces(self):\n        s,q,l,e,d=opened(self)\n        for tooth,state,surfaces in [(11,'unknown',[]),(18,'missing',[]),(0,'not_applicable',[])]:\n            a=save_args(d);a['content']['teeth']=[{'tooth':tooth,'state':state,'surfaces':surfaces}];d.update(s._operate('save',a))\n        for row in [(11,'present',['O']),(18,'present',['I']),(18,'missing',['M']),(0,'present',[]),(11,'not_applicable',[]),(11,'normal',[]),(11,'present',['M','M'])]:\n            a=save_args(d);a['content']['teeth']=[dict(zip(('tooth','state','surfaces'),row))]\n            with self.assertRaises(ValidationError):s._operate('save',a)",
+      "roles": "doctor/doctor2/reader/manager/frontdesk/none, actual bindings in code",
+      "command": "../.venv/bin/python scripts/s08a.py install|upgrade --db ydental_s08a_test_20261012113731_3d646c4f --port 18155",
+      "result": "see final-tests.json, only zero-failure final run counts as PASS"
+    },
+    {
+      "test": "TestClinicalDocument.test_confirmation_correction_preserves_authors_and_economics",
+      "layer": "model",
+      "file": "ydental_clinical_test/tests/test_document.py",
+      "line": 66,
+      "actual_operations_and_assertions": "def test_confirmation_correction_preserves_authors_and_economics(self):\n        s,q,l,e,d=opened(self); before=self.counts()\n        a=save_args(d);d.update(s._operate('confirm',a)); old=s._model('version').search([('ydental_document_id','=',d['document_id'])])\n        self.assertTrue(s._operate('confirm',a)['duplicate'])\n        with self.assertRaises(UserError):s._operate('confirm',save_args(d,'Unreasoned replacement refused'))\n        with self.assertRaises(UserError):s._operate('save',save_args(d))\n        with self.assertRaises((ValidationError,UserError)):s._operate('correct',save_args(d)|{'reason':''})\n        r=s._operate('correct',save_args(d,'Correction synthetic text')|{'reason':'Correct transcription only'})\n        self.assertEqual(r['version'],2);self.assertEqual(old.ydental_content['chief_complaint'],'Synthetic complaint')\n        self.assertEqual(old.ydental_author_id,self.users['doctor']);self.assertEqual(before,self.counts())\n        with self.assertRaises(AccessError):old.write({'ydental_author_id':self.second.id})\n        with self.assertRaises(AccessError):old.unlink()",
+      "roles": "doctor/doctor2/reader/manager/frontdesk/none, actual bindings in code",
+      "command": "../.venv/bin/python scripts/s08a.py install|upgrade --db ydental_s08a_test_20261012113731_3d646c4f --port 18155",
+      "result": "see final-tests.json, only zero-failure final run counts as PASS"
+    },
+    {
+      "test": "TestClinicalDocument.test_handover_real_save_pending_and_unique_continuation",
+      "layer": "model",
+      "file": "ydental_clinical_test/tests/test_document.py",
+      "line": 79,
+      "actual_operations_and_assertions": "def test_handover_real_save_pending_and_unique_continuation(self):\n        s,q,l,e,d=opened(self); before=self.counts()\n        r=s._operate('handover',handover_args(d,l)); doc=s._model().browse(d['document_id'])\n        self.assertEqual(doc.state,'pending');self.assertFalse(doc.ydental_editor_id);self.assertEqual(e.state,'handover')\n        self.assertEqual(doc.ydental_version,1);self.assertEqual(doc.ydental_content['chief_complaint'],'Synthetic complaint')\n        retry=q._operate('handover',{'lease_id':l['lease_id'],'token':l['token'],'execution_id':e.id})\n        self.assertEqual(retry['continuation_task_id'],r['continuation_task_id']);self.assertEqual(before,self.counts())\n        self.assertFalse(q._busy(q._model('lease').browse(l['lease_id'])))",
+      "roles": "doctor/doctor2/reader/manager/frontdesk/none, actual bindings in code",
+      "command": "../.venv/bin/python scripts/s08a.py install|upgrade --db ydental_s08a_test_20261012113731_3d646c4f --port 18155",
+      "result": "see final-tests.json, only zero-failure final run counts as PASS"
+    },
+    {
+      "test": "TestClinicalDocument.test_handover_save_and_continuation_failure_roll_back",
+      "layer": "model",
+      "file": "ydental_clinical_test/tests/test_document.py",
+      "line": 88,
+      "actual_operations_and_assertions": "def test_handover_save_and_continuation_failure_roll_back(self):\n        s,q,l,e,d=opened(self); a=handover_args(d,l)\n        with patch.object(type(q),'_continuation',side_effect=UserError('Injected continuation failure')):\n            with self.assertRaises(UserError):s._operate('handover',a)\n        doc=s._model().browse(d['document_id']); self.assertEqual(doc.ydental_version,0);self.assertTrue(doc.ydental_editor_id);self.assertEqual(e.state,'serving')\n        with self.assertRaises(UserError):q._operate('handover',{'lease_id':l['lease_id'],'token':l['token'],'execution_id':e.id})\n        self.assertEqual(s._operate('handover',a)['state'],'handover')",
+      "roles": "doctor/doctor2/reader/manager/frontdesk/none, actual bindings in code",
+      "command": "../.venv/bin/python scripts/s08a.py install|upgrade --db ydental_s08a_test_20261012113731_3d646c4f --port 18155",
+      "result": "see final-tests.json, only zero-failure final run counts as PASS"
+    },
+    {
+      "test": "TestClinicalDocument.test_d1_pending_d2_independent_and_responsibility_transfer",
+      "layer": "model",
+      "file": "ydental_clinical_test/tests/test_document.py",
+      "line": 96,
+      "actual_operations_and_assertions": "def test_d1_pending_d2_independent_and_responsibility_transfer(self):\n        s,q,l,e,d=opened(self);r=s._operate('handover',handover_args(d,l))\n        task=self.root['ydental.intake.task'].browse(r['continuation_task_id']);self.front._operate('report',{'task_id':task.id,'version':task.ydental_version},key())\n        q2,l2,e2=serving(self,self.second,self.other_station,task)\n        s2=q2.env[s._name];d2=s2._operate('open',{'execution_id':e2.id,'lease_id':l2['lease_id'],'lease_token':l2['token']})\n        d1=s._operate('acquire',{'document_id':d['document_id']})\n        self.assertNotEqual(d1['document_id'],d2['document_id']);self.assertEqual(q._unresolved_execution(e.ydental_patient_id.id),e2)\n        with self.assertRaises(UserError):s._operate('transfer',{'document_id':d1['document_id'],'expected_version':d1['version'],'user_id':self.second.id,'reason':'Transfer responsibility'})\n        s._operate('release',{'document_id':d1['document_id'],'editor_token':d1['editor_token']})\n        s._operate('transfer',{'document_id':d1['document_id'],'expected_version':d1['version'],'user_id':self.second.id,'reason':'Transfer responsibility'})\n        received=s2._operate('acquire',{'document_id':d1['document_id']});s2._operate('confirm',save_args(received))\n        self.assertEqual(e2.state,'serving');self.assertEqual(s2._model().browse(d2['document_id']).state,'draft')\n        self.assertEqual(s2._model().browse(d1['document_id']).ydental_author_id,self.users['doctor'])",
+      "roles": "doctor/doctor2/reader/manager/frontdesk/none, actual bindings in code",
+      "command": "../.venv/bin/python scripts/s08a.py install|upgrade --db ydental_s08a_test_20261012113731_3d646c4f --port 18155",
+      "result": "see final-tests.json, only zero-failure final run counts as PASS"
+    },
+    {
+      "test": "TestClinicalDocument.test_native_rpc_read_export_and_attachments",
+      "layer": "model",
+      "file": "ydental_clinical_test/tests/test_document.py",
+      "line": 110,
+      "actual_operations_and_assertions": "def test_native_rpc_read_export_and_attachments(self):\n        s,q,l,e,d=opened(self);s._operate('save',save_args(d))\n        reader=bind(self,self.users['reader']).env['ydental.clinical.document'].browse(d['document_id'])\n        self.assertTrue(reader.read(['ydental_content']))\n        with self.assertRaises(AccessError):reader.read(['ydental_editor_hash'])\n        with self.assertRaises(AccessError):reader.export_data(['ydental_content'])\n        with self.assertRaises(AccessError):reader.with_context(ydental_clinical_mutation=True).write({'state':'confirmed'})\n        with self.assertRaises(AccessError):reader.env['ir.attachment'].create({'name':'forged','res_model':'ydental.clinical.document','res_id':reader.id,'datas':b'YQ=='})\n        self.admin._grant(self.users['reader'].id,self.stores[0].id,{'export':'write'})\n        self.assertTrue(reader.export_data(['ydental_content']))\n        self.admin._grant(self.users['reader'].id,self.stores[0].id,{'medical':'none'})\n        with self.assertRaises(AccessError):reader.read(['ydental_content'])",
+      "roles": "doctor/doctor2/reader/manager/frontdesk/none, actual bindings in code",
+      "command": "../.venv/bin/python scripts/s08a.py install|upgrade --db ydental_s08a_test_20261012113731_3d646c4f --port 18155",
+      "result": "see final-tests.json, only zero-failure final run counts as PASS"
+    },
+    {
+      "test": "TestClinicalDocument.test_cross_store_write_and_old_session_revision",
+      "layer": "model",
+      "file": "ydental_clinical_test/tests/test_document.py",
+      "line": 123,
+      "actual_operations_and_assertions": "def test_cross_store_write_and_old_session_revision(self):\n        s,q,l,e,d=opened(self)\n        other=bind(self,self.users['doctor'],self.stores[1]).env[s._name]\n        with self.assertRaises(AccessError):other._read(d['document_id'])\n        # Actual relation is required before purpose-scoped shared history.\n        session=s.env['ydental.access.service']._scope();session.sudo().write({'ydental_revision':session.ydental_revision+1})\n        with self.assertRaises(UserError):s._operate('save',save_args(d))",
+      "roles": "doctor/doctor2/reader/manager/frontdesk/none, actual bindings in code",
+      "command": "../.venv/bin/python scripts/s08a.py install|upgrade --db ydental_s08a_test_20261012113731_3d646c4f --port 18155",
+      "result": "see final-tests.json, only zero-failure final run counts as PASS"
+    },
+    {
+      "test": "TestClinicalDocument.test_lost_company_access_invalidates_editor_actions_and_native_reads",
+      "layer": "model",
+      "file": "ydental_clinical_test/tests/test_document.py",
+      "line": 131,
+      "actual_operations_and_assertions": "def test_lost_company_access_invalidates_editor_actions_and_native_reads(self):\n        s,q,l,e,d=opened(self)\n        company=self.root['res.company'].create({'name':'S08A isolated synthetic legal entity '+key()})\n        self.users['doctor'].write({'company_id':company.id,'company_ids':[fields.Command.set(company.ids)]})\n        with self.assertRaises((AccessError,UserError)):s._operate('save',save_args(d))\n        rebound=bind(self,self.users['doctor'],self.stores[0]).env[s._name]\n        with self.assertRaises(AccessError):rebound._read(d['document_id'])\n        with self.assertRaises(AccessError):rebound.env['ydental.clinical.document'].browse(d['document_id']).read(['ydental_content'])",
+      "roles": "doctor/doctor2/reader/manager/frontdesk/none, actual bindings in code",
+      "command": "../.venv/bin/python scripts/s08a.py install|upgrade --db ydental_s08a_test_20261012113731_3d646c4f --port 18155",
+      "result": "see final-tests.json, only zero-failure final run counts as PASS"
+    },
+    {
+      "test": "TestClinicalDocument.test_external_reserve_remains_fail_closed",
+      "layer": "model",
+      "file": "ydental_clinical_test/tests/test_document.py",
+      "line": 140,
+      "actual_operations_and_assertions": "def test_external_reserve_remains_fail_closed(self):\n        s,q,l,e,d=opened(self)\n        target=self.front._new('task',self.stores[0],dict(self.front._identity(e.ydental_patient_id),name='Synthetic untrusted external',ydental_mapping_id=self.mappings[0][2].id,ydental_source_kind='derived'))\n        with self.assertRaises(AccessError):q._operate('reserve',{'lease_id':l['lease_id'],'token':l['token'],'execution_id':e.id,'target_task_id':target.id})\n        self.assertEqual(e.state,'serving')",
+      "roles": "doctor/doctor2/reader/manager/frontdesk/none, actual bindings in code",
+      "command": "../.venv/bin/python scripts/s08a.py install|upgrade --db ydental_s08a_test_20261012113731_3d646c4f --port 18155",
+      "result": "see final-tests.json, only zero-failure final run counts as PASS"
+    },
+    {
+      "test": "TestClinicalDocument.test_onsite_verify_uses_persisted_draft_no_false_author",
+      "layer": "model",
+      "file": "ydental_clinical_test/tests/test_document.py",
+      "line": 146,
+      "actual_operations_and_assertions": "def test_onsite_verify_uses_persisted_draft_no_false_author(self):\n        s,q,l,e,d=opened(self);s._operate('save',save_args(d))\n        q._model('lease').browse(l['lease_id'])._save({'ydental_expires_at':q._now()-timedelta(seconds=1)})\n        q._timeout();self.assertEqual(e.state,'verify')\n        newq=queue_bind(self,self.second)\n        r=newq._operate('takeover_verify',{'execution_id':e.id,'confirmed':True,'reason':'Actual on-site synthetic takeover'})\n        self.assertEqual(e.state,'interrupted');doc=s._model().browse(d['document_id']);self.assertEqual(doc.state,'pending');self.assertFalse(doc.ydental_editor_id)\n        self.assertEqual(doc.ydental_author_id,self.users['doctor']);self.assertNotEqual(r['execution_id'],e.id)",
+      "roles": "doctor/doctor2/reader/manager/frontdesk/none, actual bindings in code",
+      "command": "../.venv/bin/python scripts/s08a.py install|upgrade --db ydental_s08a_test_20261012113731_3d646c4f --port 18155",
+      "result": "see final-tests.json, only zero-failure final run counts as PASS"
+    },
+    {
+      "test": "TestClinicalDocument.test_hold_restore_keeps_same_real_document_then_handover_releases_it",
+      "layer": "model",
+      "file": "ydental_clinical_test/tests/test_document.py",
+      "line": 155,
+      "actual_operations_and_assertions": "def test_hold_restore_keeps_same_real_document_then_handover_releases_it(self):\n        s,q,l,e,d=opened(self);d.update(s._operate('save',save_args(d)))\n        target=self.front._new('task',self.stores[0],dict(self.front._identity(e.ydental_patient_id),name='Explicit synthetic external prerequisite only',ydental_mapping_id=self.mappings[0][2].id,ydental_source_kind='derived'))\n        # S09 is not installed. Only this guarded test supplies the external\n        # prerequisite; document persistence, S06 reserve/restore are real.\n        with patch.object(type(q),'_external_target_authorized',return_value=True):\n            hold=q._operate('reserve',{'lease_id':l['lease_id'],'token':l['token'],'execution_id':e.id,'target_task_id':target.id})\n        self.assertEqual(e.state,'reserved')\n        restored=q._operate('restore',{'lease_id':l['lease_id'],'token':l['token'],'hold_id':hold['hold_id'],'confirmed':True})\n        doc=s._model().browse(d['document_id']);self.assertEqual(doc.ydental_execution_id,e)\n        self.assertEqual(doc.ydental_current_execution_id.id,restored['execution_id'])\n        d.update(s._operate('save',save_args(d,'Same document after actual return')))\n        done=s._operate('handover',handover_args(d,l));self.assertEqual(done['state'],'handover')\n        self.assertFalse(doc.ydental_editor_id);self.assertEqual(doc.state,'pending')",
+      "roles": "doctor/doctor2/reader/manager/frontdesk/none, actual bindings in code",
+      "command": "../.venv/bin/python scripts/s08a.py install|upgrade --db ydental_s08a_test_20261012113731_3d646c4f --port 18155",
+      "result": "see final-tests.json, only zero-failure final run counts as PASS"
+    },
+    {
+      "test": "TestClinicalDocument.test_invalid_content_save_failure_does_not_hand_back",
+      "layer": "model",
+      "file": "ydental_clinical_test/tests/test_document.py",
+      "line": 170,
+      "actual_operations_and_assertions": "def test_invalid_content_save_failure_does_not_hand_back(self):\n        s,q,l,e,d=opened(self);a=handover_args(d,l);a['content']['teeth']=[{'tooth':99,'state':'present','surfaces':[]}]\n        with self.assertRaises(ValidationError):s._operate('handover',a)\n        doc=s._model().browse(d['document_id']);self.assertEqual(doc.ydental_version,0);self.assertEqual(e.state,'serving');self.assertTrue(doc.ydental_editor_id)",
+      "roles": "doctor/doctor2/reader/manager/frontdesk/none, actual bindings in code",
+      "command": "../.venv/bin/python scripts/s08a.py install|upgrade --db ydental_s08a_test_20261012113731_3d646c4f --port 18155",
+      "result": "see final-tests.json, only zero-failure final run counts as PASS"
+    },
+    {
+      "test": "TestClinicalDocument.test_current_capability_revocation_rejects_existing_editor",
+      "layer": "model",
+      "file": "ydental_clinical_test/tests/test_document.py",
+      "line": 175,
+      "actual_operations_and_assertions": "def test_current_capability_revocation_rejects_existing_editor(self):\n        s,q,l,e,d=opened(self)\n        self.users['doctor'].write({'ydental_capability_ids':[fields.Command.clear()]})\n        with self.assertRaises(AccessError):s._operate('save',save_args(d))",
+      "roles": "doctor/doctor2/reader/manager/frontdesk/none, actual bindings in code",
+      "command": "../.venv/bin/python scripts/s08a.py install|upgrade --db ydental_s08a_test_20261012113731_3d646c4f --port 18155",
+      "result": "see final-tests.json, only zero-failure final run counts as PASS"
+    },
+    {
+      "test": "TestClinicalDocument.test_native_confirmed_versions_and_distinct_clinical_audit_events",
+      "layer": "model",
+      "file": "ydental_clinical_test/tests/test_document.py",
+      "line": 180,
+      "actual_operations_and_assertions": "def test_native_confirmed_versions_and_distinct_clinical_audit_events(self):\n        s,q,l,e,d=opened(self);d.update(s._operate('save',save_args(d)));d.update(s._operate('confirm',save_args(d)))\n        s._read(d['document_id']);d.update(s._operate('correct',save_args(d)|{'reason':'Synthetic corrected text'}))\n        events=self.root['ydental.access.audit'].search([('ydental_target_model','=','ydental.clinical.document'),('ydental_target_id','=',d['document_id'])]).mapped('ydental_event')\n        self.assertTrue({'clinical.view','clinical.save','clinical.confirm','clinical.correct'}<=set(events))",
+      "roles": "doctor/doctor2/reader/manager/frontdesk/none, actual bindings in code",
+      "command": "../.venv/bin/python scripts/s08a.py install|upgrade --db ydental_s08a_test_20261012113731_3d646c4f --port 18155",
+      "result": "see final-tests.json, only zero-failure final run counts as PASS"
+    },
+    {
+      "test": "TestClinicalDocument.test_shared_history_requires_purpose_current_relation_and_live_read",
+      "layer": "model",
+      "file": "ydental_clinical_test/tests/test_document.py",
+      "line": 186,
+      "actual_operations_and_assertions": "def test_shared_history_requires_purpose_current_relation_and_live_read(self):\n        s,q,l,e,d=opened(self);s._operate('save',save_args(d))\n        self.admin._grant(self.users['reader'].id,self.stores[1].id,{'medical':'read','export':'write'})\n        other=bind(self,self.users['reader'],self.stores[1]).env[s._name]\n        with self.assertRaises(AccessError):other._read(d['document_id'])\n        with self.assertRaises(AccessError):other._read(d['document_id'],'history_review')\n        front=bind(self,self.users['frontdesk'],self.stores[1])\n        front._operate('arrive',{'patient_id':e.ydental_patient_id.id},key())\n        self.assertEqual(other._read(d['document_id'],'history_review')['document_id'],d['document_id'])\n        scoped=other.env['ydental.access.service']._patient_care(e.ydental_patient_id.id,'history_review')\n        source=scoped.env['ydental.clinical.document'].browse(d['document_id'])\n        self.assertTrue(source.export_data(['ydental_content']))\n        with self.assertRaises(AccessError):other._operate('acquire',{'document_id':d['document_id']})\n        self.admin._grant(self.users['reader'].id,self.stores[1].id,{'medical':'none'})\n        with self.assertRaises(AccessError):source.read(['ydental_content'])",
+      "roles": "doctor/doctor2/reader/manager/frontdesk/none, actual bindings in code",
+      "command": "../.venv/bin/python scripts/s08a.py install|upgrade --db ydental_s08a_test_20261012113731_3d646c4f --port 18155",
+      "result": "see final-tests.json, only zero-failure final run counts as PASS"
+    },
+    {
+      "test": "TestClinicalDocument.test_upstream_real_inventory_receive_issue_and_no_clinical_source_bypass",
+      "layer": "model",
+      "file": "ydental_clinical_test/tests/test_document.py",
+      "line": 202,
+      "actual_operations_and_assertions": "def test_upstream_real_inventory_receive_issue_and_no_clinical_source_bypass(self):\n        # Explicit native multi-location prerequisite in this rollback-only test.\n        # Avoid res.config.settings' unrelated global pricelist archival when\n        # real committed S05 price sources already exist during upgrade tests.\n        self.root.ref('base.group_user').write({'implied_ids': [fields.Command.link(self.root.ref('stock.group_stock_multi_locations').id)]})\n        self.admin._grant(self.users['manager'].id,self.stores[0].id,{'warehouse':'write'})\n        stock=self.group.env['ydental.inventory.service']\n        stock._operate('setup',{'code':str(self.stores[0].id)[-5:]},key())\n        product=stock._operate('product',{'code':'S08A-'+key(),'name':'Synthetic regression material','kind':'material','stock_uom_id':self.uom.id,'issue_uom_id':self.uom.id,'step':1,'specification':'Synthetic only'},key())\n        lot=stock._operate('lot',{'product_id':product['id'],'name':'S08A-'+key(),'expiration':fields.Datetime.to_string(fields.Datetime.now()+timedelta(days=30))},key())['id']\n        stock._operate('receive',{'lot_id':lot,'quantity':10,'uom_id':self.uom.id,'source_key':key(),'reason':'S08-A upstream real receipt regression'},key())\n        stock._operate('issue',{'lot_id':lot,'quantity':2,'uom_id':self.uom.id,'source_key':key(),'reason':'S08-A upstream real issue regression'},key())\n        s,q,l,e,d=opened(self);before=self.counts();d.update(s._operate('save',save_args(d)));s._operate('confirm',save_args(d))\n        self.assertEqual(before,self.counts())\n        with self.assertRaises(AccessError):stock._source_action({'kind':'treatment','lot_id':lot,'already_performed':True})",
+      "roles": "doctor/doctor2/reader/manager/frontdesk/none, actual bindings in code",
+      "command": "../.venv/bin/python scripts/s08a.py install|upgrade --db ydental_s08a_test_20261012113731_3d646c4f --port 18155",
+      "result": "see final-tests.json, only zero-failure final run counts as PASS"
+    },
+    {
+      "test": "TestClinicalDocument.test_no_admin_force_or_json_document_lock",
+      "layer": "model",
+      "file": "ydental_clinical_test/tests/test_document.py",
+      "line": 218,
+      "actual_operations_and_assertions": "def test_no_admin_force_or_json_document_lock(self):\n        s,q,l,e,d=opened(self)\n        with self.assertRaises(AccessError):q._document_lock({'document_id':d['document_id']},'acquire')\n        with self.assertRaises(ValidationError):s._operate('force_release',{'document_id':d['document_id']})\n        with self.assertRaises(AccessError):s._model().with_context(ydental_clinical_mutation=True).create({'name':'Forged'})",
+      "roles": "doctor/doctor2/reader/manager/frontdesk/none, actual bindings in code",
+      "command": "../.venv/bin/python scripts/s08a.py install|upgrade --db ydental_s08a_test_20261012113731_3d646c4f --port 18155",
+      "result": "see final-tests.json, only zero-failure final run counts as PASS"
+    },
+    {
+      "test": "TestClinicalHTTP.test_real_workbench_open_autosave_cas_handover",
+      "layer": "real HTTP/RPC",
+      "file": "ydental_clinical_test/tests/test_http.py",
+      "line": 42,
+      "actual_operations_and_assertions": "def test_real_workbench_open_autosave_cas_handover(self):\n        self.begin_reception()\n        for i in range(3):\n            r=self.action('save',self.args());self.assertEqual(r.status_code,200,r.text);self.doc.update(r.json())\n        page=self.url_open('/ydental/clinical?document_id='+str(self.doc['document_id']));self.assertEqual(page.status_code,200,page.text);self.assertIn('data-tooth=\"85\"',page.text)\n        stale=self.args();stale['expected_version']=0;self.assertEqual(self.action('save',stale).status_code,409)\n        a=self.args()|{'lease_id':self.lease['lease_id'],'lease_token':self.lease['token']}\n        r=self.action('handover',a);self.assertEqual(r.status_code,200,r.text)\n        page=self.url_open('/ydental/clinical?document_id='+str(self.doc['document_id']));self.assertIn('pending',page.text)",
+      "roles": "doctor/doctor2/reader/manager/frontdesk/none, actual bindings in code",
+      "command": "../.venv/bin/python scripts/s08a.py install|upgrade --db ydental_s08a_test_20261012113731_3d646c4f --port 18155",
+      "result": "see final-tests.json, only zero-failure final run counts as PASS"
+    },
+    {
+      "test": "TestClinicalHTTP.test_rpc_private_and_mutation_forgery",
+      "layer": "real HTTP/RPC",
+      "file": "ydental_clinical_test/tests/test_http.py",
+      "line": 52,
+      "actual_operations_and_assertions": "def test_rpc_private_and_mutation_forgery(self):\n        self.begin_reception()\n        self.assertIn('error',self.rpc('ydental.clinical.service','_operate',['save',self.args()]))\n        self.assertIn('error',self.rpc('ydental.clinical.document','write',[[self.doc['document_id']],{'state':'confirmed'}],{'ydental_clinical_mutation':True}))\n        self.assertIn('error',self.rpc('ydental.clinical.version','create',[{'ydental_number':999}]))\n        self.assertIn('error',self.rpc('ydental.clinical.document','read',[[self.doc['document_id']],['ydental_editor_hash']]))",
+      "roles": "doctor/doctor2/reader/manager/frontdesk/none, actual bindings in code",
+      "command": "../.venv/bin/python scripts/s08a.py install|upgrade --db ydental_s08a_test_20261012113731_3d646c4f --port 18155",
+      "result": "see final-tests.json, only zero-failure final run counts as PASS"
+    },
+    {
+      "test": "TestClinicalHTTP.test_readonly_and_no_access_denials",
+      "layer": "real HTTP/RPC",
+      "file": "ydental_clinical_test/tests/test_http.py",
+      "line": 59,
+      "actual_operations_and_assertions": "def test_readonly_and_no_access_denials(self):\n        self.select('reader');self.assertEqual(self.url_open('/ydental/clinical').status_code,200)\n        self.assertEqual(self.action('open',{'execution_id':1,'lease_id':1,'lease_token':'invalid'}).status_code,403)\n        self.select('none');self.assertEqual(self.url_open('/ydental/clinical').status_code,403)\n        self.assertIn('error',self.rpc('ydental.clinical.document','search_read',[[]]))",
+      "roles": "doctor/doctor2/reader/manager/frontdesk/none, actual bindings in code",
+      "command": "../.venv/bin/python scripts/s08a.py install|upgrade --db ydental_s08a_test_20261012113731_3d646c4f --port 18155",
+      "result": "see final-tests.json, only zero-failure final run counts as PASS"
+    },
+    {
+      "test": "TestClinicalHTTP.test_csrf_unknown_and_fdi_backend",
+      "layer": "real HTTP/RPC",
+      "file": "ydental_clinical_test/tests/test_http.py",
+      "line": 65,
+      "actual_operations_and_assertions": "def test_csrf_unknown_and_fdi_backend(self):\n        self.begin_reception();a=self.args();a['content']['teeth']=[{'tooth':99,'state':'present','surfaces':['M']}]\n        self.assertEqual(self.action('save',a).status_code,409)\n        self.assertEqual(self.action('invented',{}).status_code,409)\n        r=self.url_open('/ydental/clinical/action',data={'operation':'save','revision':self.revision,'connection':self.connection,'payload':'{}'})\n        self.assertEqual(r.status_code,400)",
+      "roles": "doctor/doctor2/reader/manager/frontdesk/none, actual bindings in code",
+      "command": "../.venv/bin/python scripts/s08a.py install|upgrade --db ydental_s08a_test_20261012113731_3d646c4f --port 18155",
+      "result": "see final-tests.json, only zero-failure final run counts as PASS"
+    },
+    {
+      "test": "TestClinicalHTTP.test_old_connection_and_shared_token_rejected",
+      "layer": "real HTTP/RPC",
+      "file": "ydental_clinical_test/tests/test_http.py",
+      "line": 72,
+      "actual_operations_and_assertions": "def test_old_connection_and_shared_token_rejected(self):\n        self.begin_reception();a=self.args();self.connection=key()+key();self.assertEqual(self.action('save',a).status_code,403)",
+      "roles": "doctor/doctor2/reader/manager/frontdesk/none, actual bindings in code",
+      "command": "../.venv/bin/python scripts/s08a.py install|upgrade --db ydental_s08a_test_20261012113731_3d646c4f --port 18155",
+      "result": "see final-tests.json, only zero-failure final run counts as PASS"
+    },
+    {
+      "test": "TestClinicalHTTP.test_attachments_and_export_cannot_bypass_scope",
+      "layer": "real HTTP/RPC",
+      "file": "ydental_clinical_test/tests/test_http.py",
+      "line": 75,
+      "actual_operations_and_assertions": "def test_attachments_and_export_cannot_bypass_scope(self):\n        self.begin_reception()\n        self.assertIn('error',self.rpc('ir.attachment','create',[{'name':'Forgery','res_model':'ydental.clinical.document','res_id':self.doc['document_id'],'datas':'YQ=='}]))\n        self.assertIn('error',self.rpc('ydental.clinical.document','export_data',[[self.doc['document_id']],['ydental_content']]))",
+      "roles": "doctor/doctor2/reader/manager/frontdesk/none, actual bindings in code",
+      "command": "../.venv/bin/python scripts/s08a.py install|upgrade --db ydental_s08a_test_20261012113731_3d646c4f --port 18155",
+      "result": "see final-tests.json, only zero-failure final run counts as PASS"
+    },
+    {
+      "test": "TestClinicalHTTP.test_stored_clinical_text_is_escaped_in_workbench_and_history",
+      "layer": "real HTTP/RPC",
+      "file": "ydental_clinical_test/tests/test_http.py",
+      "line": 80,
+      "actual_operations_and_assertions": "def test_stored_clinical_text_is_escaped_in_workbench_and_history(self):\n        self.begin_reception();a=self.args();a['content']['chief_complaint']='<script>window.ydentalInjected=true</script>'\n        self.assertEqual(self.action('save',a).status_code,200)\n        page=self.url_open('/ydental/clinical?document_id='+str(self.doc['document_id']))\n        self.assertEqual(page.status_code,200);self.assertIn('&lt;script&gt;',page.text)\n        self.assertNotIn('<script>window.ydentalInjected',page.text)\n        self.doc['version']=1\n        confirmed=self.action('confirm',self.args());self.assertEqual(confirmed.status_code,200)\n        self.doc['version']=2\n        denied=self.action('confirm',self.args());self.assertEqual(denied.status_code,409)\n        self.assertIn('correction_required',denied.text)",
+      "roles": "doctor/doctor2/reader/manager/frontdesk/none, actual bindings in code",
+      "command": "../.venv/bin/python scripts/s08a.py install|upgrade --db ydental_s08a_test_20261012113731_3d646c4f --port 18155",
+      "result": "see final-tests.json, only zero-failure final run counts as PASS"
+    }
+  ]
+}

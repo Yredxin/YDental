@@ -1,0 +1,9 @@
+{
+  "result": "PASS",
+  "files_checked": 90,
+  "actual_private_credentials_checked": 80,
+  "credential_matches": 0,
+  "raw_logs_configs_backups_in_evidence": false,
+  "screenshot_visible_text_scan": "performed in each browser capture; final 11 also visually inspected",
+  "committed_material": "synthetic screenshots, metadata, assertions and hashes only"
+}

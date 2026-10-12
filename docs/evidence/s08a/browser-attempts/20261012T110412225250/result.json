@@ -1,0 +1,145 @@
+{
+  "scope": "S08-A real reception, teeth, authored text, handover and pending responsibility",
+  "database": "ydental_s08a_test_20261012110000_9ccfaa01",
+  "tested_commit": "059dab902d2203a6a26bfdc005ef70dbcd9cdc61",
+  "browser": "Firefox",
+  "sandbox": "default, no overrides",
+  "checks": [
+    {
+      "check": "real S06 chair entered",
+      "result": "PASS"
+    },
+    {
+      "check": "real S06 execution serving",
+      "result": "PASS"
+    },
+    {
+      "check": "Chinese real treatment workbench",
+      "result": "PASS"
+    },
+    {
+      "check": "52 clickable permanent and primary teeth",
+      "result": "PASS"
+    },
+    {
+      "check": "three real server autosaves",
+      "result": "PASS"
+    },
+    {
+      "check": "anterior I enabled and O refused",
+      "result": "PASS"
+    },
+    {
+      "check": "primary posterior O enabled I refused",
+      "result": "PASS"
+    },
+    {
+      "check": "missing tooth cannot select surfaces",
+      "result": "PASS"
+    },
+    {
+      "check": "stale version server rejects",
+      "result": "PASS"
+    },
+    {
+      "check": "invalid FDI server rejects",
+      "result": "PASS"
+    },
+    {
+      "check": "D1 pending after real handover",
+      "result": "PASS"
+    },
+    {
+      "check": "pending document cannot handover again",
+      "result": "PASS"
+    },
+    {
+      "check": "D1 supplementation does not occupy a chair",
+      "result": "PASS"
+    },
+    {
+      "check": "one pending continuation offered",
+      "result": "PASS"
+    },
+    {
+      "check": "D2 new independent document",
+      "result": "PASS"
+    },
+    {
+      "check": "responsibility transfer refuses valid editor",
+      "result": "PASS"
+    },
+    {
+      "check": "D1 responsible person legally transferred",
+      "result": "PASS"
+    },
+    {
+      "check": "D1 text confirmed by new contributor",
+      "result": "PASS"
+    },
+    {
+      "check": "confirmed text correction appends version",
+      "result": "PASS"
+    },
+    {
+      "check": "D1 confirmation leaves D2 draft unconfirmed",
+      "result": "PASS"
+    },
+    {
+      "check": "D2 real segment continues serving",
+      "result": "PASS"
+    },
+    {
+      "check": "read-only medical user cannot edit",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T110412225250/01-permanent-anterior-autosave.png",
+      "sha256": "bdeb3db0dee15c5646daa802ba654d63734bca7260734d87798502ca6ddaad7e"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T110412225250/02-primary-missing-unknown.png",
+      "sha256": "822d3d4c73af6072edb0308d40bd71db9cd6f4dc70cea70b1b8f1eae24298584"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T110412225250/03-structured-draft.png",
+      "sha256": "95de8c2ef1defdc1da14d212f186f65d4d4c19979a976fe2a51245727d8c4216"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T110412225250/04-D1-pending-after-handover.png",
+      "sha256": "77806a01bf3479f944edfef7828b5b068e125170abd14252e0439f0c71276706"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T110412225250/05-D1-pending-independent-editor.png",
+      "sha256": "310c604bf81aa944dcf8e53fdb852acb165f1a4d189dc3241c695f20d35e0cf4"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T110412225250/06-D2-new-reception.png",
+      "sha256": "a4bebaa5e64c87126dca3d0465d2b2b02de267cca416ccffa70a431090c06c40"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T110412225250/07-valid-editor-transfer-denied.png",
+      "sha256": "703bfb051b24cf48e8443eaf89849d6bdafa333cd5fce9d119619d0441372185"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T110412225250/08-D1-confirmed-author-history.png",
+      "sha256": "e4fd4550c82ebc43c36f7ca68de88c144792593822e637974a5588cd8cf8b612"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T110412225250/09-text-correction-new-version.png",
+      "sha256": "59cbcdee397301a48cd3c29856af4cee9b8ad52611248c878bc62fa480ba4ace"
+    },
+    {
+      "path": "docs/evidence/s08a/browser-attempts/20261012T110412225250/10-readonly-medical-denied.png",
+      "sha256": "584c5d83fc01604235587040d748deb28672283154fa0410d0c979e4d8598578"
+    }
+  ],
+  "result": "FAIL",
+  "error": {
+    "type": "RuntimeError",
+    "detail": "offline never claims success"
+  },
+  "pageerrors": []
+}

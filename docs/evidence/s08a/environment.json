@@ -1,0 +1,18 @@
+{
+  "workspace": "/home/redxin/code/odoo/odoo-sd/code/sd-addons",
+  "branch": "codex/s08-a-clinical-doc-r1-20261012",
+  "test": "be5f28ef336295633fd0d753c3e97051a2dc457d",
+  "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "core_tracked_diff_empty": true,
+  "parent_preexisting_untracked": [
+    "AGENTS.md",
+    "sd-addons/"
+  ],
+  "python": "3.12.15",
+  "system": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+  "upstream_official_same_sha_verified": false,
+  "system_dependencies_installed": false,
+  "historical_business_databases_touched": false,
+  "existing_services_changed": false,
+  "historical_SIGSEGV_root_cause": "unknown; production BLOCKED"
+}

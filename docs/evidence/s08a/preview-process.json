@@ -1,0 +1,22 @@
+{
+  "database": "ydental_s08a_test_20261012113731_3d646c4f",
+  "oid": 1043393,
+  "endpoint": {
+    "host": "127.0.0.1",
+    "port": "5432",
+    "user": "odoo"
+  },
+  "cluster": "7694897083368259627",
+  "port": 18155,
+  "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "created_utc": "2026-10-12T11:37:51.382430+00:00",
+  "config_sha256": "fb232011da86d6bab871c1b20c9982f808b1abc41e3c050110c4233d43d9a598",
+  "pid": 1137744,
+  "pid_config_match": true,
+  "serve_start_recorded_utc": "2026-10-12T11:44:11.242535+00:00",
+  "matched_pid_stopped": true,
+  "exit_code": 0,
+  "stop_signal": "SIGTERM",
+  "stop_requested_utc": "2026-10-12T11:45:55.402921+00:00",
+  "serve_log_sha256": "d7ed096fc2150d2cc41df65f9f820846f3e03685efd7929b00caa3e7eefdbb70"
+}

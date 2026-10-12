@@ -1,0 +1,317 @@
+{
+  "database": "ydental_s08a_test_20261012110000_9ccfaa01",
+  "races": [
+    {
+      "case": "versions",
+      "round": 1,
+      "outcomes": [
+        {
+          "result": "accepted",
+          "backend_pid": 245534,
+          "attempts": [],
+          "version": 1
+        },
+        {
+          "result": "rejected",
+          "backend_pid": 245553,
+          "attempts": [
+            "serialization_retry"
+          ],
+          "code": "version_conflict"
+        }
+      ],
+      "result": "PASS",
+      "single_continuation": 0
+    },
+    {
+      "case": "versions",
+      "round": 2,
+      "outcomes": [
+        {
+          "result": "rejected",
+          "backend_pid": 245553,
+          "attempts": [
+            "serialization_retry"
+          ],
+          "code": "version_conflict"
+        },
+        {
+          "result": "accepted",
+          "backend_pid": 245534,
+          "attempts": [],
+          "version": 1
+        }
+      ],
+      "result": "PASS",
+      "single_continuation": 0
+    },
+    {
+      "case": "editors",
+      "round": 1,
+      "outcomes": [
+        {
+          "result": "accepted",
+          "backend_pid": 245553,
+          "attempts": [],
+          "version": 1
+        },
+        {
+          "result": "rejected",
+          "backend_pid": 245534,
+          "attempts": [
+            "serialization_retry"
+          ],
+          "code": "editor_busy"
+        }
+      ],
+      "result": "PASS",
+      "single_continuation": 1
+    },
+    {
+      "case": "editors",
+      "round": 2,
+      "outcomes": [
+        {
+          "result": "rejected",
+          "backend_pid": 245534,
+          "attempts": [
+            "serialization_retry"
+          ],
+          "code": "editor_busy"
+        },
+        {
+          "result": "accepted",
+          "backend_pid": 245553,
+          "attempts": [],
+          "version": 1
+        }
+      ],
+      "result": "PASS",
+      "single_continuation": 1
+    },
+    {
+      "case": "handover_save",
+      "round": 1,
+      "outcomes": [
+        {
+          "result": "rejected",
+          "backend_pid": 245534,
+          "attempts": [
+            "serialization_retry"
+          ],
+          "code": "version_conflict"
+        },
+        {
+          "result": "accepted",
+          "backend_pid": 245553,
+          "attempts": [],
+          "version": 1
+        }
+      ],
+      "result": "PASS",
+      "single_continuation": 0
+    },
+    {
+      "case": "handover_save",
+      "round": 2,
+      "outcomes": [
+        {
+          "result": "rejected",
+          "backend_pid": 245534,
+          "attempts": [
+            "serialization_retry"
+          ],
+          "code": "version_conflict"
+        },
+        {
+          "result": "accepted",
+          "backend_pid": 245553,
+          "attempts": [],
+          "version": 1
+        }
+      ],
+      "result": "PASS",
+      "single_continuation": 0
+    },
+    {
+      "case": "continuation",
+      "round": 1,
+      "outcomes": [
+        {
+          "result": "rejected",
+          "backend_pid": 245534,
+          "attempts": [
+            "serialization_retry"
+          ],
+          "code": "editor_expired"
+        },
+        {
+          "result": "accepted",
+          "backend_pid": 245553,
+          "attempts": [],
+          "version": 1
+        }
+      ],
+      "result": "PASS",
+      "single_continuation": 1
+    },
+    {
+      "case": "continuation",
+      "round": 2,
+      "outcomes": [
+        {
+          "result": "accepted",
+          "backend_pid": 245534,
+          "attempts": [],
+          "version": 1
+        },
+        {
+          "result": "rejected",
+          "backend_pid": 245553,
+          "attempts": [
+            "serialization_retry"
+          ],
+          "code": "editor_expired"
+        }
+      ],
+      "result": "PASS",
+      "single_continuation": 1
+    },
+    {
+      "case": "old_new_editor",
+      "round": 1,
+      "outcomes": [
+        {
+          "result": "rejected",
+          "backend_pid": 245553,
+          "attempts": [
+            "serialization_retry"
+          ],
+          "code": "editor_expired"
+        },
+        {
+          "result": "accepted",
+          "backend_pid": 245534,
+          "attempts": [],
+          "version": 0
+        }
+      ],
+      "result": "PASS",
+      "single_continuation": 0
+    },
+    {
+      "case": "old_new_editor",
+      "round": 2,
+      "outcomes": [
+        {
+          "result": "rejected",
+          "backend_pid": 245553,
+          "attempts": [
+            "serialization_retry"
+          ],
+          "code": "editor_expired"
+        },
+        {
+          "result": "accepted",
+          "backend_pid": 245534,
+          "attempts": [],
+          "version": 0
+        }
+      ],
+      "result": "PASS",
+      "single_continuation": 0
+    },
+    {
+      "case": "rollback",
+      "round": 1,
+      "outcomes": [
+        {
+          "result": "rejected",
+          "backend_pid": 245553,
+          "attempts": [
+            "serialization_retry"
+          ],
+          "code": "version_conflict"
+        },
+        {
+          "result": "accepted",
+          "backend_pid": 245534,
+          "attempts": [],
+          "version": 1
+        }
+      ],
+      "result": "PASS",
+      "single_continuation": 0
+    },
+    {
+      "case": "rollback",
+      "round": 2,
+      "outcomes": [
+        {
+          "result": "rejected",
+          "backend_pid": 245553,
+          "attempts": [
+            "serialization_retry"
+          ],
+          "code": "version_conflict"
+        },
+        {
+          "result": "accepted",
+          "backend_pid": 245534,
+          "attempts": [],
+          "version": 1
+        }
+      ],
+      "result": "PASS",
+      "single_continuation": 0
+    },
+    {
+      "case": "transfer",
+      "round": 1,
+      "outcomes": [
+        {
+          "result": "rejected",
+          "backend_pid": 245553,
+          "attempts": [
+            "serialization_retry"
+          ],
+          "code": "access_denied"
+        },
+        {
+          "result": "accepted",
+          "backend_pid": 245534,
+          "attempts": [],
+          "version": 1
+        }
+      ],
+      "result": "PASS",
+      "single_continuation": 1
+    },
+    {
+      "case": "transfer",
+      "round": 2,
+      "outcomes": [
+        {
+          "result": "rejected",
+          "backend_pid": 245553,
+          "attempts": [
+            "serialization_retry"
+          ],
+          "code": "access_denied"
+        },
+        {
+          "result": "accepted",
+          "backend_pid": 245534,
+          "attempts": [],
+          "version": 1
+        }
+      ],
+      "result": "PASS",
+      "single_continuation": 1
+    }
+  ],
+  "failures": [],
+  "deadlocks": 0,
+  "tested_commit": "05226d03782418c5230534c0b3769e0c012a4948",
+  "result": "PASS"
+}
