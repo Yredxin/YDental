@@ -4,6 +4,7 @@ import secrets
 from odoo import http
 from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.http import request
+from odoo.addons.ydental_patient.controllers.patient import YDentalPatientDataSet
 
 
 class YDentalIntake(http.Controller):
@@ -111,3 +112,20 @@ class YDentalIntake(http.Controller):
             if name in result:
                 result[name] = result[name].replace('T', ' ')
         return result
+
+
+class YDentalIntakeDataSet(YDentalPatientDataSet):
+
+    @http.route()
+    def call_kw(self, model, method, args, kwargs, path=None):
+        if model in ('product.template', 'product.product', 'product.pricelist', 'product.pricelist.item'):
+            context = dict(kwargs.get('context') or {})
+            context.pop('ydental_binding', None)
+            access = request.env['ydental.access.service']
+            session = access._existing_session_for_key(request.session.sid[:42]) if request.env.user.has_group(
+                'ydental_base.ydental_base_group_user'
+            ) else False
+            if session:
+                context['ydental_binding'] = access._bind(session, context.get('ydental_revision')).env.context['ydental_binding']
+            kwargs = dict(kwargs, context=context)
+        return super().call_kw(model, method, args, kwargs, path)

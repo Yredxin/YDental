@@ -61,3 +61,28 @@ class YDentalPatientService(models.AbstractModel):
         # Arrival facts remain historical; a canonical lookup includes all old
         # identities rather than collapsing facts or overwriting local dates.
         return counts
+
+
+class YDentalAccessService(models.AbstractModel):
+    _inherit = 'ydental.access.service'
+
+    def _get_sources(self):
+        return super()._get_sources() | {
+            'intake_catalog': 'ydental.intake.catalog', 'intake_mapping': 'ydental.intake.mapping',
+            'intake_price': 'ydental.intake.price', 'intake_snapshot': 'ydental.intake.snapshot',
+            'intake_entitlement': 'ydental.intake.entitlement', 'intake_task': 'ydental.intake.task',
+            'intake_arrival': 'ydental.intake.arrival', 'intake_position': 'ydental.intake.position',
+            'intake_referral': 'ydental.intake.referral', 'intake_operation': 'ydental.intake.operation',
+        }
+
+
+class IrAttachment(models.Model):
+    _inherit = 'ir.attachment'
+
+    def _ydental_blocked_source_models(self):
+        # S05 has no typed clinical/document attachment business. Do not let
+        # arbitrary patient files hitchhike on an administrative task source.
+        return super()._ydental_blocked_source_models() + (
+            'ydental.intake.entitlement', 'ydental.intake.task', 'ydental.intake.arrival',
+            'ydental.intake.position', 'ydental.intake.referral', 'ydental.intake.operation',
+        )

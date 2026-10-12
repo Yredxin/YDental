@@ -38,6 +38,7 @@ class TestIntakeHTTP(HttpCase):
         q = qualify(self)
         self.select()
         self.assertEqual(self.url_open('/ydental/intake').status_code, 200)
+        self.assertEqual(self.rpc('ydental.intake.task', 'read', [[q['task_id']], ['name']])['result'][0]['name'], self.root['ydental.intake.task'].browse(q['task_id']).name)
         self.assertEqual(self.action('arrive', {'patient_id': q['patient_id']}).status_code, 200)
         args = {'task_id': q['task_id'], 'version': q['task_version']}
         response = self.action('report', args, 'http-report')

@@ -131,7 +131,7 @@ class YDentalIntakeService(models.AbstractModel):
         handlers = {'catalog': self._catalog, 'catalog_edit': self._catalog_edit,
             'mapping': self._mapping, 'mapping_edit': self._mapping_edit,
             'price': self._price, 'review': self._review, 'publish': self._publish,
-            'snapshot': self._snapshot, 'reserve': self._reserve, 'register': self._register,
+            'snapshot': self._snapshot, 'reserve': self._reserve, 'register': self._register_walkin,
             'arrive': self._arrive, 'report': self._report, 'walkin_report': self._walkin_report,
             'void': self._void, 'cancel': self._cancel, 'reschedule': self._reschedule,
             'refer_timed': self._refer_timed, 'refer_untimed': self._refer_untimed,
@@ -357,7 +357,7 @@ class YDentalIntakeService(models.AbstractModel):
             raise ValidationError(self.env._('Use the reservation or published telephone channel.'))
         return self._qualify(store, patient_id, mapping_id, start, end, channel)
 
-    def _register(self, store, patient_id, mapping_id, start, end):
+    def _register_walkin(self, store, patient_id, mapping_id, start, end):
         return self._qualify(store, patient_id, mapping_id, start, end, 'walkin')
 
     def _arrive(self, store, patient_id):
@@ -446,7 +446,7 @@ class YDentalIntakeService(models.AbstractModel):
         return dict(contract, id=position.id, task_id=task.id, version=task.ydental_version)
 
     def _walkin_report(self, store, patient_id, mapping_id, start, end):
-        result = self._register(store, patient_id, mapping_id, start, end)
+        result = self._register_walkin(store, patient_id, mapping_id, start, end)
         self._arrive(store, patient_id)
         position = self._report(store, result['task_id'], result['task_version'])
         return dict(result, position_id=position['id'], task_version=position['version'], queue_status=position['queue_status'])
