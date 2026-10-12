@@ -695,6 +695,7 @@ msgstr "access_denied: 请使用受控工位动作。"
 
 #. module: ydental_queue
 #. odoo-python
+#: code:addons/ydental_queue/controllers/queue.py:0
 #: code:addons/ydental_queue/models/ydental_queue_service.py:0
 msgid ""
 "configuration_required: Publish an explicit positive missed-call "
@@ -828,6 +829,7 @@ msgstr ""
 "                <span hidden=\"hidden\" id=\"offline-message\">连接不可用，未确认成功。请刷新后重试。</span>"
 
 #. module: ydental_queue
+#. odoo-python
 #: code:addons/ydental_queue/models/ydental_queue_service.py:0
 msgid ""
 "handover_required: Resolve the existing execution or on-site verification "
@@ -835,6 +837,7 @@ msgid ""
 msgstr "handover_required: 请先处理既有执行或完成现场核实后再继续。"
 
 #. module: ydental_queue
+#. odoo-python
 #: code:addons/ydental_queue/models/ydental_queue_service.py:0
 msgid ""
 "staff_ineligible: Live store permission and all workstation capabilities are"
@@ -842,6 +845,7 @@ msgid ""
 msgstr "staff_ineligible: 需要当前有效门店权限及工位全部能力。"
 
 #. module: ydental_queue
+#. odoo-python
 #: code:addons/ydental_queue/models/ydental_queue_service.py:0
 msgid ""
 "reporting_area_mismatch: An active task and its exact reporting area are "
@@ -849,6 +853,7 @@ msgid ""
 msgstr "reporting_area_mismatch: 需要有效任务及精确匹配的报到区域。"
 
 #. module: ydental_queue
+#. odoo-python
 #: code:addons/ydental_queue/models/ydental_queue_service.py:0
 msgid ""
 "execution_area_mismatch: The workstation must be inside the service "
@@ -856,6 +861,7 @@ msgid ""
 msgstr "execution_area_mismatch: 工位必须位于服务指定执行区域或其合法下级区域。"
 
 #. module: ydental_queue
+#. odoo-python
 #: code:addons/ydental_queue/models/ydental_queue_service.py:0
 msgid ""
 "capability_mismatch: The task service and workstation must match the exact "
@@ -863,6 +869,7 @@ msgid ""
 msgstr "capability_mismatch: 任务服务与工位必须精确匹配有效能力。"
 
 #. module: ydental_queue
+#. odoo-python
 #: code:addons/ydental_queue/models/ydental_queue_service.py:0
 msgid ""
 "qualification_required: A trusted server provider must confirm the service "
@@ -870,12 +877,14 @@ msgid ""
 msgstr "qualification_required: 服务所需资质必须由可信服务器来源确认。"
 
 #. module: ydental_queue
+#. odoo-python
 #: code:addons/ydental_queue/models/ydental_queue_service.py:0
 msgid "On-site verification required"
 msgstr "待现场核实"
 
 #. module: ydental_queue
-#: code:addons/ydental_queue/models/ydental_queue_service.py:0
+#. odoo-python
+#: code:addons/ydental_queue/controllers/queue.py:0
 msgid ""
 "Resolve your existing execution or on-site verification before entering "
 "another workstation."
