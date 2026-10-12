@@ -157,7 +157,7 @@ class YDentalQueueService(models.AbstractModel):
         scope = self._scope_record(store, area)
         entries = self._model('entry').search([('ydental_store_id', '=', store.id), ('ydental_area_id', '=', area.id),
             ('state', 'in', ('waiting', 'calling'))]).filtered(lambda e: not self._queue_day_expired(e) and
-                e.ydental_task_id.ydental_mapping_id.ydental_catalog_id.ydental_kind in ('care', 'procedure', 'exam', 'medicine'))
+                e.ydental_task_id.ydental_mapping_id.ydental_catalog_id.ydental_kind in ('care', 'procedure', 'prosthesis', 'exam', 'medicine'))
         rows = []
         for entry in entries:
             calling = entry.state == 'calling' and entry.ydental_lease_id.ydental_active and entry.ydental_lease_id.ydental_expires_at > self._now()

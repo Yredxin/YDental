@@ -7,3 +7,4 @@ from . import test_return_http
 
 from . import test_return_rework
 from . import test_day
+from . import test_day_http

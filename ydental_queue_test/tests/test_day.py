@@ -158,7 +158,7 @@ class TestQueueDay(TransactionCase):
 
     def test_delayed_cleanup_today_untouched_and_disabled_station(self):
         task=accepted(self);queue=at(queue_bind(self),self.midnight+timedelta(minutes=30))
-        self.stations[0][0].write({'ydental_enabled':False})
+        self.stations[0][0].write({'ydental_version':self.stations[0][0].ydental_version,'ydental_enabled':False})
         queue._cleanup_day(self.stores[0],self.day.date())
         self.assertFalse(self.stations[0][0].ydental_enabled)
         with self.assertRaises(UserError):queue._cleanup_day(self.stores[0],self.midnight.date())
@@ -185,7 +185,7 @@ class TestQueueDay(TransactionCase):
         with self.assertRaises(AccessError):queue_bind(self)._screen_snapshot('x'*43)
         self.assertRaises(AccessError,queue_bind(self)._category,self.root['ydental.space.station'].create({
             'name':'C settlement','ydental_store_id':self.stores[0].id,'ydental_floor_id':self.stations[0][0].ydental_floor_id.id,
-            'ydental_area_id':self.areas[0][0].id,'ydental_kind':'settlement'}))
+            'ydental_area_id':self.areas[0][0].id,'ydental_kind':'settlement','ydental_callable':False}))
 
     def test_bus_commit_preparation_and_savepoint_rollback(self):
         queue=self.group.env['ydental.queue.service'];scope=queue._scope_record(self.stores[0],self.areas[0][0])

@@ -61,6 +61,27 @@ class YDentalIntakeService(models.AbstractModel):
         super()._all_locks()
         self.env['ydental.queue.service']._lock()
 
+    def _report(self, store, task_id, version):
+        task = self._get('task', task_id, store)
+        queue = self.env['ydental.queue.service']
+        date = self.env['ydental.supply.service']._date(store)
+        old = queue._model('entry').search([('ydental_task_id', '=', task.id),
+            ('ydental_business_date', '<', date), ('state', 'in', ('waiting', 'calling'))])
+        if old:
+            self._version(task, version)
+            patient = self._valid_task(task, store)
+            if not self._model('arrival').search_count([('ydental_store_id', '=', store.id),
+                    ('ydental_patient_id', 'in', self.env['ydental.patient.service']._identity_ids(patient)), ('ydental_date', '=', date)]):
+                raise UserError(self.env._('Record actual arrival before service reporting.'))
+            # Explicit new-day report ends the old daily position, never changes
+            # its date/number or copies its missed/return/permit opportunity.
+            old._save({'state': 'day_closed', 'ydental_lease_id': False})
+            self._model('position').search([('ydental_task_id', '=', task.id), ('ydental_active', '=', True)])._save({
+                'ydental_active': False, 'ydental_reason': 'Explicit new business day report'})
+            for entry in old:
+                queue._audit('day_closed', entry, {'reason': 'Explicit new business day report'})
+        return super()._report(store, task_id, version)
+
     def _queue_assert_idle(self, task):
         super()._queue_assert_idle(task)
         reason = self.env['ydental.queue.service']._hold_target_reason(task)
