@@ -1,0 +1,23 @@
+{
+  "full_read_counts": {
+    "fields": 21,
+    "items": 15,
+    "views": 6,
+    "public_workflows": 7
+  },
+  "mutation_count": 0,
+  "full_readback_identical": true,
+  "issue30": [
+    "S06",
+    "进行中",
+    "Todo",
+    "OPEN"
+  ],
+  "issue29": [
+    "S05",
+    "待用户验收",
+    "Todo",
+    "OPEN"
+  ],
+  "start_comment": 6118793557
+}

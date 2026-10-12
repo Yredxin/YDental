@@ -1,0 +1,7 @@
+{
+  "test": "cce0aa2ec04ac590fc182f7279b36812e4e4760a",
+  "command": "../.venv/bin/python scripts/test_s06c_guard.py",
+  "tests": 5,
+  "result": "PASS",
+  "purpose": "endpoint/prefix/identity and process egress fail-closed checks"
+}

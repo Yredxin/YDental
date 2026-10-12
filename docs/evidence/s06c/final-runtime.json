@@ -1,0 +1,79 @@
+{
+  "database": "ydental_s06c_test_20261012070143_6a254bfc",
+  "creation_record": {
+    "database": "ydental_s06c_test_20261012070143_6a254bfc",
+    "oid": 717388,
+    "endpoint": {
+      "host": "127.0.0.1",
+      "port": "5432",
+      "user": "odoo"
+    },
+    "cluster": "7694897083368259627",
+    "port": 18136,
+    "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+    "created_utc": "2026-10-12T07:01:43.850630+00:00",
+    "config_sha256": "938a97fa64e8911d34e88075dab326c82469e192542f9ada42a4a79e7e5e862b"
+  },
+  "actions": [
+    {
+      "action": "install",
+      "exit_code": 0,
+      "log": "install-20261012T070143851820.log",
+      "log_sha256": "4dae61baf944114ad14f30031fec3db54bc677455d3e9c166e05a4f2e24c1f12",
+      "time_utc": "2026-10-12T07:04:42.798533+00:00",
+      "tested_commit": "cce0aa2ec04ac590fc182f7279b36812e4e4760a",
+      "tests": [
+        0,
+        0,
+        103
+      ]
+    },
+    {
+      "action": "legacy_seed",
+      "exit_code": 0,
+      "log": "legacy_seed-20261012T070540249627.log",
+      "log_sha256": "8fd24e40d53b2896f23925c753faa54d9ced90433595ef56d0b8acd087ad42be",
+      "time_utc": "2026-10-12T07:05:47.155301+00:00",
+      "tested_commit": "cce0aa2ec04ac590fc182f7279b36812e4e4760a"
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 0,
+      "log": "upgrade-20261012T070547231165.log",
+      "log_sha256": "fdcf8cb6c83a219749958d3b0a440258ae04a4aae1fbe51cb2e1cc3385af6cf8",
+      "time_utc": "2026-10-12T07:07:18.425148+00:00",
+      "tested_commit": "cce0aa2ec04ac590fc182f7279b36812e4e4760a",
+      "tests": [
+        0,
+        0,
+        101
+      ]
+    },
+    {
+      "action": "migration_check",
+      "exit_code": 0,
+      "log": "migration_check-20261012T070718505231.log",
+      "log_sha256": "66699472f4dbf2092b3d65f205cdb5f9b10580e12c30db2ad6c1fb9671637957",
+      "time_utc": "2026-10-12T07:07:19.792301+00:00",
+      "tested_commit": "cce0aa2ec04ac590fc182f7279b36812e4e4760a"
+    },
+    {
+      "action": "probe",
+      "exit_code": 0,
+      "log": "probe-20261012T070719863118.log",
+      "log_sha256": "0a216e470929dddbc6e76adaa9506ae76bdb568b11d4e8dfc1f7f3bd738a4a54",
+      "time_utc": "2026-10-12T07:10:08.652652+00:00",
+      "tested_commit": "cce0aa2ec04ac590fc182f7279b36812e4e4760a"
+    },
+    {
+      "action": "export",
+      "exit_code": 0,
+      "log": "export-20261012T071008732892.log",
+      "log_sha256": "96aeab6a99261c934b30d2e64979f51f4c38ccdee2ef80548a222e1b5f666c88",
+      "time_utc": "2026-10-12T07:10:10.754235+00:00",
+      "tested_commit": "cce0aa2ec04ac590fc182f7279b36812e4e4760a"
+    }
+  ],
+  "production": false,
+  "synthetic_only": true
+}

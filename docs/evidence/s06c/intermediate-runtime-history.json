@@ -1,0 +1,248 @@
+{
+  "result": "HISTORICAL_ATTEMPTS_NOT_FINAL",
+  "actions": [
+    {
+      "database": "ydental_s06c_test_20261012062128_75ee73f6",
+      "action": "install",
+      "exit_code": 1,
+      "log": "install-20261012T062128491851.log",
+      "log_sha256": "65c390e0b41f474e35373d0d401a2a1e24e5ca23dd40fa007a0ecd3a2b20acc6",
+      "time_utc": "2026-10-12T06:23:42.510355+00:00",
+      "tested_commit": "c8f5eaa8d12e90006544bd4057f62f1a3d9f441b",
+      "tests": [
+        0,
+        2,
+        99
+      ],
+      "verification_exit": 1
+    },
+    {
+      "database": "ydental_s06c_test_20261012062128_75ee73f6",
+      "action": "upgrade",
+      "exit_code": 0,
+      "log": "upgrade-20261012T062438543297.log",
+      "log_sha256": "27ef4da60a059a4c3891f04d1c7ce0bdaa5960db53c33b34e93a38a14b3cf121",
+      "time_utc": "2026-10-12T06:26:06.756560+00:00",
+      "tested_commit": "6ecc144f3366203833aafc6e554954de2c701949",
+      "tests": [
+        0,
+        0,
+        100
+      ]
+    },
+    {
+      "database": "ydental_s06c_test_20261012062128_75ee73f6",
+      "action": "probe",
+      "exit_code": 1,
+      "log": "probe-20261012T062840678831.log",
+      "log_sha256": "67ea462539a363b1cf2545c80cc3cde5e9450d8f2c54e4845d1c572bde0c8fed",
+      "time_utc": "2026-10-12T06:31:03.116011+00:00",
+      "tested_commit": "7012cbd97da0a0b1404313a21520d9de4e4b55ff"
+    },
+    {
+      "database": "ydental_s06c_test_20261012062128_75ee73f6",
+      "action": "day_probe",
+      "exit_code": 1,
+      "log": "day_probe-20261012T063218537022.log",
+      "log_sha256": "c0993a6410d61f3a5d41e4b6e39637d6c1b7d88bebc9863360f2a2626d0a7196",
+      "time_utc": "2026-10-12T06:32:31.911854+00:00",
+      "tested_commit": "866d8916ba9b423224f5dd8d1d347dca03ff910b"
+    },
+    {
+      "database": "ydental_s06c_test_20261012062128_75ee73f6",
+      "action": "day_probe",
+      "exit_code": 1,
+      "log": "day_probe-20261012T063453210874.log",
+      "log_sha256": "2fbd5b75d2a6afea61e330966d1969ad14e629b73f39deaf0bc1e9302470425e",
+      "time_utc": "2026-10-12T06:35:06.893257+00:00",
+      "tested_commit": "b479ef7c15f29d898ecea478ffba189d324b8c3d"
+    },
+    {
+      "database": "ydental_s06c_test_20261012062128_75ee73f6",
+      "action": "day_probe",
+      "exit_code": 1,
+      "log": "day_probe-20261012T063552449472.log",
+      "log_sha256": "56c92a7326bd5b90067ddd4949e85407abb42f09a643e82d0d892e00934c07af",
+      "time_utc": "2026-10-12T06:36:21.954898+00:00",
+      "tested_commit": "3bbecb0fcc4d90b52f14f8a4d35ac39d4c232c41"
+    },
+    {
+      "database": "ydental_s06c_test_20261012062128_75ee73f6",
+      "action": "export",
+      "exit_code": 0,
+      "log": "export-20261012T063653605548.log",
+      "log_sha256": "c4177a700867a0227e7e659078692b9e773b4904bc4a3d1c8c0191bcd45fb585",
+      "time_utc": "2026-10-12T06:36:55.581369+00:00",
+      "tested_commit": "30c7cb4f7d2ddcae8087dfe69b4947a16e2035d8"
+    },
+    {
+      "database": "ydental_s06c_test_20261012062128_75ee73f6",
+      "action": "day_probe",
+      "exit_code": 1,
+      "log": "day_probe-20261012T063911955679.log",
+      "log_sha256": "058ccca0c509eb176f283ec25c8852ac2207e67f4aa06a4fe5850f506b73a903",
+      "time_utc": "2026-10-12T06:39:41.804958+00:00",
+      "tested_commit": "b0b6afa86adffa7aefe604585f937da7cfe0a28d"
+    },
+    {
+      "database": "ydental_s06c_test_20261012062128_75ee73f6",
+      "action": "upgrade",
+      "exit_code": 0,
+      "log": "upgrade-20261012T064000081791.log",
+      "log_sha256": "cc1a54300ad3757962c41ffca5dc63698cc188b4704d0fdcd033d9c0458904f8",
+      "time_utc": "2026-10-12T06:41:43.745965+00:00",
+      "tested_commit": "10c357e4a483c5140277245ca5d3d859fa14f413",
+      "tests": [
+        0,
+        0,
+        100
+      ]
+    },
+    {
+      "database": "ydental_s06c_test_20261012062128_75ee73f6",
+      "action": "day_probe",
+      "exit_code": 0,
+      "log": "day_probe-20261012T064247776719.log",
+      "log_sha256": "56cae28ddc542aa1d5ca6f28d2f7d229dd86e77fc86d38b9aa1a9834336bd79a",
+      "time_utc": "2026-10-12T06:43:19.360882+00:00",
+      "tested_commit": "10c357e4a483c5140277245ca5d3d859fa14f413"
+    },
+    {
+      "database": "ydental_s06c_test_20261012062128_75ee73f6",
+      "action": "day_probe",
+      "exit_code": 0,
+      "log": "day_probe-20261012T064623610353.log",
+      "log_sha256": "a8bbf4eda6fa3c5533178362d163c946965b09d82e2b302367bb0234896ad4a9",
+      "time_utc": "2026-10-12T06:46:55.956705+00:00",
+      "tested_commit": "e57be8432e97b943892db6c6aa5bdb3215850ca4"
+    },
+    {
+      "database": "ydental_s06c_test_20261012062128_75ee73f6",
+      "action": "time_midnight",
+      "exit_code": 0,
+      "log": "time_midnight-20261012T064818832472.log",
+      "log_sha256": "5e375c253bafa7871b73483d91ead95a97a4728c394a75645cdd9260a8e8104c",
+      "time_utc": "2026-10-12T06:48:20.174904+00:00",
+      "tested_commit": "e57be8432e97b943892db6c6aa5bdb3215850ca4"
+    },
+    {
+      "database": "ydental_s06c_test_20261012062128_75ee73f6",
+      "action": "time_cleanup",
+      "exit_code": 0,
+      "log": "time_cleanup-20261012T064820516863.log",
+      "log_sha256": "d613f98c82fddaf47749dcb1c5bf362faf17e2d7e61c0c5e98f32bab0f61de07",
+      "time_utc": "2026-10-12T06:48:21.876304+00:00",
+      "tested_commit": "e57be8432e97b943892db6c6aa5bdb3215850ca4"
+    },
+    {
+      "database": "ydental_s06c_test_20261012062128_75ee73f6",
+      "action": "time_delayed",
+      "exit_code": 0,
+      "log": "time_delayed-20261012T064822979494.log",
+      "log_sha256": "70b699d2a2be51f47dd9d6e47de8bdddf62c92b400926f635c70521f7f440d92",
+      "time_utc": "2026-10-12T06:48:24.342460+00:00",
+      "tested_commit": "e57be8432e97b943892db6c6aa5bdb3215850ca4"
+    },
+    {
+      "database": "ydental_s06c_test_20261012062128_75ee73f6",
+      "action": "export",
+      "exit_code": 0,
+      "log": "export-20261012T065047023590.log",
+      "log_sha256": "e1cf36027e9dbd6a54da1e82e30c45372f7dda01bb6d836e62db948a6c945517",
+      "time_utc": "2026-10-12T06:50:48.950770+00:00",
+      "tested_commit": "776d4dfb67ccdb61d4fa98f7dbf09ac943b091d9"
+    },
+    {
+      "database": "ydental_s06c_test_20261012065103_2492cb94",
+      "action": "install",
+      "exit_code": 0,
+      "log": "install-20261012T065104010603.log",
+      "log_sha256": "a0fa04cf6cc2bd08f3dce26b40e50410935a5e7d1f425fbd4fe320533970a273",
+      "time_utc": "2026-10-12T06:53:25.809839+00:00",
+      "tested_commit": "19a62a12df3d9583d124dfd0abc1e6bf47f47368",
+      "tests": [
+        0,
+        0,
+        102
+      ]
+    },
+    {
+      "database": "ydental_s06c_test_20261012065103_2492cb94",
+      "action": "legacy_seed",
+      "exit_code": 0,
+      "log": "legacy_seed-20261012T065348516120.log",
+      "log_sha256": "dcf1c1104062a7eb04aaf53340c4c15a2790274394fb5e2fc1337ed6fe3f4f77",
+      "time_utc": "2026-10-12T06:53:55.352143+00:00",
+      "tested_commit": "e641a342992c01bcc3e9e5982c2f6f6b01cb53ad"
+    },
+    {
+      "database": "ydental_s06c_test_20261012065103_2492cb94",
+      "action": "upgrade",
+      "exit_code": 0,
+      "log": "upgrade-20261012T065426686481.log",
+      "log_sha256": "eb1f3228ea876ee7daf50b2c9257337d9f95ff1f4427385c585e247113c2c1c3",
+      "time_utc": "2026-10-12T06:55:56.957521+00:00",
+      "tested_commit": "d5271b4ce53366af2e25720006724540f7bf7d26",
+      "tests": [
+        0,
+        0,
+        101
+      ]
+    },
+    {
+      "database": "ydental_s06c_test_20261012065103_2492cb94",
+      "action": "migration_check",
+      "exit_code": 0,
+      "log": "migration_check-20261012T065626972400.log",
+      "log_sha256": "59a711e11085af59ead6c43d74a9869b7c8e05ab996e3cd689a7b274a5c742fb",
+      "time_utc": "2026-10-12T06:56:28.504183+00:00",
+      "tested_commit": "d5271b4ce53366af2e25720006724540f7bf7d26"
+    },
+    {
+      "database": "ydental_s06c_test_20261012065617_162f8ff7",
+      "action": "install",
+      "exit_code": 0,
+      "log": "install-20261012T065617890052.log",
+      "log_sha256": "18db0cfa9232744be1b68adf6a2803b7960e46c310a4efce2dc488da7b969196",
+      "time_utc": "2026-10-12T06:58:42.055567+00:00",
+      "tested_commit": "d5271b4ce53366af2e25720006724540f7bf7d26",
+      "tests": [
+        0,
+        0,
+        103
+      ]
+    },
+    {
+      "database": "ydental_s06c_test_20261012065617_162f8ff7",
+      "action": "legacy_seed",
+      "exit_code": 0,
+      "log": "legacy_seed-20261012T065851729557.log",
+      "log_sha256": "a7ed23afc5916968d5275995cbf06f0ed01883eb0d0247d5532367c587f7a5f0",
+      "time_utc": "2026-10-12T06:58:58.615152+00:00",
+      "tested_commit": "d5271b4ce53366af2e25720006724540f7bf7d26"
+    },
+    {
+      "database": "ydental_s06c_test_20261012065617_162f8ff7",
+      "action": "upgrade",
+      "exit_code": 0,
+      "log": "upgrade-20261012T065952449428.log",
+      "log_sha256": "5f90b0b2e9014d25c3908aeda8a9e68fd6e0ad49e34559c2aea4d9fb04b43ac5",
+      "time_utc": "2026-10-12T07:01:22.579944+00:00",
+      "tested_commit": "d5271b4ce53366af2e25720006724540f7bf7d26",
+      "tests": [
+        0,
+        0,
+        101
+      ]
+    },
+    {
+      "database": "ydental_s06c_test_20261012065617_162f8ff7",
+      "action": "probe",
+      "exit_code": 0,
+      "log": "probe-20261012T070144992940.log",
+      "log_sha256": "ff48138b8d041bf855eab443bf009430e7f6d8b8ad509a49a817120c3b9115c3",
+      "time_utc": "2026-10-12T07:05:11.875009+00:00",
+      "tested_commit": "cce0aa2ec04ac590fc182f7279b36812e4e4760a"
+    }
+  ]
+}

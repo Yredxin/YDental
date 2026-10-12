@@ -1,0 +1,26 @@
+{
+  "database": "ydental_s06c_test_20261012070143_6a254bfc",
+  "result": "PASS",
+  "read_only": true,
+  "checks": {
+    "deadlocks": 0,
+    "duplicate_live_patient": 0,
+    "duplicate_unresolved_execution": 0,
+    "duplicate_watermark": 0,
+    "duplicate_cleanup_audit": 0,
+    "outbox_bus_not_exactly_once": 0,
+    "invalid_digest": 0
+  },
+  "entry_states": {
+    "waiting": 15,
+    "verify": 8,
+    "handover": 8,
+    "serving": 11,
+    "reserved": 6,
+    "calling": 1,
+    "day_closed": 6,
+    "void": 15
+  },
+  "watermarks": 6,
+  "committed_outboxes": 682
+}

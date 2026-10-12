@@ -1,0 +1,28 @@
+{
+  "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "actual_api_files": [
+    {
+      "path": "addons/bus/models/bus.py",
+      "sha256": "700a220504f55f236a8e83688e8e8ddb9d7394362ddb319c46dac3e8a0099532"
+    },
+    {
+      "path": "addons/bus/websocket.py",
+      "sha256": "e63a1bdd142053f196fa316e729b761c5c75d92a5939a55a951bdbc626e0b80b"
+    },
+    {
+      "path": "addons/bus/models/ir_websocket.py",
+      "sha256": "d8a977ffd3fb1ae15dc9c95fe411ef1c2c83e044db26b0c725a4c94b9e7f11a7"
+    },
+    {
+      "path": "odoo/addons/base/models/ir_cron.py",
+      "sha256": "032ad7fa1f6f8f4c018ee2a8db1650a261c938dc2dc7e6f013ca9e748162c679"
+    }
+  ],
+  "native_websocket_version": "saas-19.5-1",
+  "payload_keys": [
+    "store",
+    "area",
+    "version"
+  ],
+  "authority": "database snapshot; native precommit bus rows and postcommit notification"
+}

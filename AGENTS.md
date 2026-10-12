@@ -1,5 +1,18 @@
 # YDental 当前执行入口
 
+## 当前 S06-C交付 / #30
+
+- 用户明确启用#30/S06-C，唯一边界为[GPT-ACTIVATE6118760114](https://github.com/Yredxin/YDental/issues/30#issuecomment-6118760114)。已完整读取#23当前总计划/有效评论、#30正文/全部有效评论、S06-A最终技术PASS6117519348及S06-B原复核6118213551/修正技术PASS6118669357；[开工检查6118793557](https://github.com/Yredxin/YDental/issues/30#issuecomment-6118793557)写回逐字读回后实施。交付前重读正文/原评论未变，仅新增本次开工评论。
+- 固定B基线`a32ab4c6bab76aaabc45e1917ad06444d6a2b71c`；全新分支`codex/s06-c-day-push-r1-20261012`。固定C产品`776d4dfb67ccdb61d4fa98f7dbf09ac943b091d9`、测试`cce0aa2ec04ac590fc182f7279b36812e4e4760a`；最终文档证据SHA固定于#30交付评论。product→test仅测试；test→final仅文档/AGENTS/脱敏证据。原A/B及本次失败链全部保留。
+- 实施前完整读取Project #4的21字段/15条目/6视图/7公开workflow。#30已是S06/进行中/Todo/OPEN，按本次条件授权0 mutation；#29保持S05/待用户验收/Todo/OPEN。实施前及交付前完整读回深比较无差异，不改workflows/其他条目，不自行转待复核。
+- 只交付复用S03 capacity-write的open→draining→closed、合法已受理清队、closed append/hold例外、门店当地00:00/00:10与幂等水位/延迟补跑、跨日历史queue segment真实升级兼容、原生bus事务最小scope/version、DB snapshot校准及可撤高熵摘要token区域屏。serving/verify/hold不强终止，旧号/日期/missed/permit不复活，不退款/返容量/标完成/删除。保存hook继续默认fail-closed，无管理员remote force-release。
+- 最终全新库`ydental_s06c_test_20261012070143_6a254bfc`。固定test install103/upgrade101（78模型+23真实HTTP/RPC）；原A21+B16+新增C16=53/53真实双连接、deadlock=0。Firefox A36/14图+B29/10图+B返工18/9图+C34/9图共117项/42图，pageerror=0；新增最终9图已目视核验。guard5、翻译282/282、B形态约束/行夹具+真实-u迁移均Codex自测通过，不代表完整旧B源码树安装升级、GPT或用户验收。最终只读核对682个committed outbox各恰有一条实际原生bus消息，live互斥/水位/清理审计无重复。
+- 仅`scripts/s06c.py`及本次全新C隔离合成库；创建记录/端点/cluster/OID/config/data_dir/dbfilter/PID/端口/外发guard继续。旧库不接管，核心/既有服务/系统依赖不改；只停止了匹配config/PID的本次预览。工程材料为docs/s06c-contracts.md、docs/s06c-data-dictionary.md、docs/s06c-security-review.md、docs/s06c-report.md及docs/evidence/s06c。
+- 心跳/超时/N未生产批准，00:00/00:10按确认业务语义实现；cron频率/worker/WebSocket代理部署/50会话性能仍待责任阶段验证。S07库存、真实S08文书/保存/发药、S09结果、S10收费、生产发布均NOT_RUN。
+- #30写`[CODEX] S06-C交付验收申请`并逐字读回后停止等待GPT技术复核，不称用户验收或生产通过，不启用S07、不关闭/合并/强推/生产发布。
+
+下方S06-B及更早“当前/本次”均为历史记录，本次授权以本节及最新C启用为准。
+
 ## 当前 S06-B定向返工 / #30
 
 - 用户明确只修[GPT-REVIEW6118213551](https://github.com/Yredxin/YDental/issues/30#issuecomment-6118213551)三个BLOCKER，继续当前S06-B会话/分支`codex/s06-b-continuation-r1-20261012`。原最终`ebaeec101bf2df76c26f91202deba01a88220f09`及全部历史失败证据保留。

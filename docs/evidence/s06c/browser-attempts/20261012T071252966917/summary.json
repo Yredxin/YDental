@@ -1,0 +1,204 @@
+{
+  "scope": "S06-C business day, native bus and revocable area screen UI",
+  "database": "ydental_s06c_test_20261012070143_6a254bfc",
+  "tested_commit": "cce0aa2ec04ac590fc182f7279b36812e4e4760a",
+  "browser": "Firefox",
+  "sandbox": "default, no overrides",
+  "checks": [
+    {
+      "check": "open existing ordinary report is waiting",
+      "result": "PASS"
+    },
+    {
+      "check": "stop ordinary reporting UI becomes draining",
+      "result": "PASS"
+    },
+    {
+      "check": "draining rejects new ordinary report",
+      "result": "PASS"
+    },
+    {
+      "check": "nonempty close rejected",
+      "result": "PASS"
+    },
+    {
+      "check": "draining existing task can call",
+      "result": "PASS"
+    },
+    {
+      "check": "draining existing call can start",
+      "result": "PASS"
+    },
+    {
+      "check": "cleared waiting and calling allows closed despite serving",
+      "result": "PASS"
+    },
+    {
+      "check": "B save handover continues under closed",
+      "result": "PASS"
+    },
+    {
+      "check": "closed ordinary call denied",
+      "result": "PASS"
+    },
+    {
+      "check": "closed valid append can report and call",
+      "result": "PASS"
+    },
+    {
+      "check": "native Odoo WebSocket connected",
+      "result": "PASS"
+    },
+    {
+      "check": "screen only masked name and actual calling station",
+      "result": "PASS"
+    },
+    {
+      "check": "screen has no raw task patient phone clinical or money fields",
+      "result": "PASS"
+    },
+    {
+      "check": "voice text points at actual calling station",
+      "result": "PASS"
+    },
+    {
+      "check": "native bus update snapshot retracts call",
+      "result": "PASS"
+    },
+    {
+      "check": "actual native WebSocket delivered committed version",
+      "result": "PASS"
+    },
+    {
+      "check": "old version ignored without withdrawn call replay",
+      "result": "PASS"
+    },
+    {
+      "check": "version gap forces database snapshot",
+      "result": "PASS"
+    },
+    {
+      "check": "real socket reconnect full snapshot keeps retracted call absent",
+      "result": "PASS"
+    },
+    {
+      "check": "old version gap and real reconnect never replay withdrawn voice",
+      "result": "PASS"
+    },
+    {
+      "check": "settlement never appears in queue screen",
+      "result": "PASS"
+    },
+    {
+      "check": "credential revoked next request empties and rejects screen",
+      "result": "PASS"
+    },
+    {
+      "check": "2355 real execution visible serving",
+      "result": "PASS"
+    },
+    {
+      "check": "0000 execution remains original serving",
+      "result": "PASS"
+    },
+    {
+      "check": "0010 actual execution not terminated",
+      "result": "PASS"
+    },
+    {
+      "check": "serving is not mislabeled as ended daily eligibility",
+      "result": "PASS"
+    },
+    {
+      "check": "0010 yesterday calling is terminal history",
+      "result": "PASS"
+    },
+    {
+      "check": "0010 yesterday waiting is terminal history",
+      "result": "PASS"
+    },
+    {
+      "check": "today open does not resurrect yesterday queue",
+      "result": "PASS"
+    },
+    {
+      "check": "today open does not revive yesterday permit",
+      "result": "PASS"
+    },
+    {
+      "check": "yesterday missed remains on its original terminal segment",
+      "result": "PASS"
+    },
+    {
+      "check": "0030 idempotent rerun keeps yesterday terminal",
+      "result": "PASS"
+    },
+    {
+      "check": "Chinese workspace readable",
+      "result": "PASS"
+    },
+    {
+      "check": "zero Firefox pageerrors",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s06c/browser-attempts/20261012T071252966917/01-draining-nonempty-close-refused.png",
+      "sha256": "7c28517431556e82435b485242c001418e8099511a7e7840d9571a32043961b5"
+    },
+    {
+      "path": "docs/evidence/s06c/browser-attempts/20261012T071252966917/02-closed-serving-continues.png",
+      "sha256": "279a132ceef64577f73f016a293ceeb0ea938202012d1f78388c07f5b36279c1"
+    },
+    {
+      "path": "docs/evidence/s06c/browser-attempts/20261012T071252966917/03-closed-append-calling.png",
+      "sha256": "918b806195e9acb28b10b51bb965d70b7af2505cd646e4b5d1df13cd282d5b9e"
+    },
+    {
+      "path": "docs/evidence/s06c/browser-attempts/20261012T071252966917/04-area-screen-masked-actual-station.png",
+      "sha256": "a3b061b5e40e5472ef010c8f02357243399f7540df43d0137b4a0e85466e2d2b"
+    },
+    {
+      "path": "docs/evidence/s06c/browser-attempts/20261012T071252966917/05-retract-old-version-reconnect.png",
+      "sha256": "a33b80e3c0450fab5ddec26a65e12b51e79a5c9ac69e5a45493d9e899d1283fe"
+    },
+    {
+      "path": "docs/evidence/s06c/browser-attempts/20261012T071252966917/06-token-revoked.png",
+      "sha256": "f170f682d1350edc4d7e13e8b776ea44eb71565789cfcd8ade8c3098f6c3f721"
+    },
+    {
+      "path": "docs/evidence/s06c/browser-attempts/20261012T071252966917/07-midnight-serving-continues.png",
+      "sha256": "65096abdbc24a395ab5bd4a4377df5780b90c464d601f8fc9bbd77f36d799ab5"
+    },
+    {
+      "path": "docs/evidence/s06c/browser-attempts/20261012T071252966917/08-0010-old-queue-ended-serving-kept.png",
+      "sha256": "b690027388ead61717757031a8c0e73538092c6e13aeb78a190cdd7098796bc6"
+    },
+    {
+      "path": "docs/evidence/s06c/browser-attempts/20261012T071252966917/09-today-open-delayed-cleanup.png",
+      "sha256": "07814d04467b4138110ae65835d37a27e0283c12c7acfa6d45d8dce43b576f78"
+    }
+  ],
+  "browser_version": "155.0",
+  "clock_commands": [
+    {
+      "step": "time_midnight",
+      "exit_code": 0,
+      "log_sha256": "49eb23232aa665e3cd15b12faf268cd7e3919898b5f588961039d01f4b65353f"
+    },
+    {
+      "step": "time_cleanup",
+      "exit_code": 0,
+      "log_sha256": "73cce64fb13cc181d5d80469160eff841d5979f2811375152a1fcbd6bf957e73"
+    },
+    {
+      "step": "time_delayed",
+      "exit_code": 0,
+      "log_sha256": "d355a04b150f12d2be479fcb6d25e3d27bc366af0193ba801f7e86c8b0fb35be"
+    }
+  ],
+  "result": "PASS",
+  "pageerror_count": 0,
+  "errors": []
+}

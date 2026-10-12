@@ -1,0 +1,586 @@
+{
+  "scope": "S06-B real queue/leases/execution, independent PostgreSQL RR transactions",
+  "database": "ydental_s06c_test_20261012070143_6a254bfc",
+  "started_utc": "2026-10-12T07:07:47.394198+00:00",
+  "races": [
+    {
+      "name": "T01_two_people_one_station",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        215647,
+        215658
+      ],
+      "retry_backend_pids": [
+        [
+          215647,
+          215647
+        ],
+        [
+          215658
+        ]
+      ],
+      "attempts": [
+        2,
+        1
+      ],
+      "outcomes": [
+        "rejected",
+        "accepted"
+      ],
+      "one_holder": true
+    },
+    {
+      "name": "T01_one_account_two_stations",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        215647,
+        215658
+      ],
+      "retry_backend_pids": [
+        [
+          215647,
+          215647
+        ],
+        [
+          215658
+        ]
+      ],
+      "attempts": [
+        2,
+        1
+      ],
+      "outcomes": [
+        "rejected",
+        "accepted"
+      ],
+      "one_active_lease": true
+    },
+    {
+      "name": "T18_switch_vs_target_acquisition",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        215647,
+        215658
+      ],
+      "retry_backend_pids": [
+        [
+          215647,
+          215647
+        ],
+        [
+          215658
+        ]
+      ],
+      "attempts": [
+        2,
+        1
+      ],
+      "outcomes": [
+        "rejected",
+        "accepted"
+      ],
+      "target_atomic": true,
+      "failure_keeps_old_station": true
+    },
+    {
+      "name": "T05_heartbeat_before_timeout",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        215647,
+        215658
+      ],
+      "retry_backend_pids": [
+        [
+          215647
+        ],
+        [
+          215658,
+          215658
+        ]
+      ],
+      "attempts": [
+        1,
+        2
+      ],
+      "outcomes": [
+        "accepted",
+        "rejected"
+      ],
+      "stale_token_never_revives": true
+    },
+    {
+      "name": "T05_timeout_before_heartbeat",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        215658,
+        215647
+      ],
+      "retry_backend_pids": [
+        [
+          215658
+        ],
+        [
+          215647,
+          215647
+        ]
+      ],
+      "attempts": [
+        1,
+        2
+      ],
+      "outcomes": [
+        "accepted",
+        "rejected"
+      ],
+      "stale_token_never_revives": true
+    },
+    {
+      "name": "T14_grant_before_heartbeat",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        215647,
+        215658
+      ],
+      "retry_backend_pids": [
+        [
+          215647
+        ],
+        [
+          215658,
+          215658
+        ]
+      ],
+      "attempts": [
+        1,
+        2
+      ],
+      "outcomes": [
+        "accepted",
+        "rejected"
+      ],
+      "live_grant_fence": true
+    },
+    {
+      "name": "T14_heartbeat_before_grant",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        215658,
+        215647
+      ],
+      "retry_backend_pids": [
+        [
+          215658
+        ],
+        [
+          215647,
+          215658
+        ]
+      ],
+      "attempts": [
+        1,
+        2
+      ],
+      "outcomes": [
+        "accepted",
+        "accepted"
+      ],
+      "live_grant_fence": true
+    },
+    {
+      "name": "T02_two_equal_capability_stations_one_patient",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        215658,
+        215647
+      ],
+      "retry_backend_pids": [
+        [
+          215658,
+          215658
+        ],
+        [
+          215647
+        ]
+      ],
+      "attempts": [
+        2,
+        1
+      ],
+      "outcomes": [
+        "rejected",
+        "accepted"
+      ],
+      "one_calling": true
+    },
+    {
+      "name": "T02_call_before_void",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        215658,
+        215647
+      ],
+      "retry_backend_pids": [
+        [
+          215658
+        ],
+        [
+          215647,
+          215647
+        ]
+      ],
+      "attempts": [
+        1,
+        2
+      ],
+      "outcomes": [
+        "accepted",
+        "accepted"
+      ],
+      "no_stale_call": true
+    },
+    {
+      "name": "T02_void_before_call",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        215647,
+        215658
+      ],
+      "retry_backend_pids": [
+        [
+          215647
+        ],
+        [
+          215658,
+          215658
+        ]
+      ],
+      "attempts": [
+        1,
+        2
+      ],
+      "outcomes": [
+        "accepted",
+        "rejected"
+      ],
+      "no_stale_call": true
+    },
+    {
+      "name": "T02_void_before_start",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        215658,
+        215647
+      ],
+      "retry_backend_pids": [
+        [
+          215658
+        ],
+        [
+          215647,
+          215647
+        ]
+      ],
+      "attempts": [
+        1,
+        2
+      ],
+      "outcomes": [
+        "accepted",
+        "rejected"
+      ],
+      "no_execution": true
+    },
+    {
+      "name": "T02_actual_start_vs_other_holder_call",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        215647,
+        215658
+      ],
+      "retry_backend_pids": [
+        [
+          215647
+        ],
+        [
+          215658
+        ]
+      ],
+      "attempts": [
+        1,
+        1
+      ],
+      "outcomes": [
+        "accepted",
+        "rejected"
+      ],
+      "one_execution": true,
+      "no_duplicate_call": true
+    },
+    {
+      "name": "T02_actual_start_vs_other_holder_start",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        215647,
+        215658
+      ],
+      "retry_backend_pids": [
+        [
+          215647
+        ],
+        [
+          215658
+        ]
+      ],
+      "attempts": [
+        1,
+        1
+      ],
+      "outcomes": [
+        "accepted",
+        "rejected"
+      ],
+      "one_execution": true,
+      "no_duplicate_call": true
+    },
+    {
+      "name": "T02_start_before_void",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        215647,
+        215658
+      ],
+      "retry_backend_pids": [
+        [
+          215647
+        ],
+        [
+          215658,
+          215658
+        ]
+      ],
+      "attempts": [
+        1,
+        2
+      ],
+      "outcomes": [
+        "accepted",
+        "rejected"
+      ],
+      "serving_cannot_be_erased": true
+    },
+    {
+      "name": "T02_repeat_start_vs_another_holder_start",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        215658,
+        215647
+      ],
+      "retry_backend_pids": [
+        [
+          215658
+        ],
+        [
+          215647
+        ]
+      ],
+      "attempts": [
+        1,
+        1
+      ],
+      "outcomes": [
+        "rejected",
+        "rejected"
+      ],
+      "one_actual_execution": true
+    },
+    {
+      "name": "T02_start_vs_another_station_call",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        215658,
+        215647
+      ],
+      "retry_backend_pids": [
+        [
+          215658
+        ],
+        [
+          215647
+        ]
+      ],
+      "attempts": [
+        1,
+        1
+      ],
+      "outcomes": [
+        "rejected",
+        "rejected"
+      ],
+      "serving_patient_not_callable": true
+    },
+    {
+      "name": "B1_serving_timeout_before_actor_enter",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        215658,
+        215647
+      ],
+      "retry_backend_pids": [
+        [
+          215658
+        ],
+        [
+          215647,
+          215647
+        ]
+      ],
+      "attempts": [
+        1,
+        2
+      ],
+      "outcomes": [
+        "accepted",
+        "rejected"
+      ],
+      "actor_still_fenced": true,
+      "old_position_verify": true
+    },
+    {
+      "name": "B1_existing_verify_actor_enter_vs_sweep",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        215647,
+        215658
+      ],
+      "retry_backend_pids": [
+        [
+          215647
+        ],
+        [
+          215658
+        ]
+      ],
+      "attempts": [
+        1,
+        1
+      ],
+      "outcomes": [
+        "rejected",
+        "accepted"
+      ],
+      "actor_still_fenced": true,
+      "old_position_verify": true
+    },
+    {
+      "name": "B1_execution_store_fence_vs_cross_store_write",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        215658,
+        215647
+      ],
+      "retry_backend_pids": [
+        [
+          215658
+        ],
+        [
+          215647
+        ]
+      ],
+      "attempts": [
+        1,
+        1
+      ],
+      "outcomes": [
+        "accepted",
+        "rejected"
+      ],
+      "unresolved_store_fence": true,
+      "no_cross_store_task": true
+    },
+    {
+      "name": "B4_unrelated_request_cleanup_vs_cron_timeout_audit",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        215647,
+        215658
+      ],
+      "retry_backend_pids": [
+        [
+          215647,
+          215647
+        ],
+        [
+          215658
+        ]
+      ],
+      "attempts": [
+        2,
+        1
+      ],
+      "outcomes": [
+        "accepted",
+        "accepted"
+      ],
+      "one_automation_event": true,
+      "holder_preserved": true
+    },
+    {
+      "name": "B3_mixed_capability_missed_vs_other_capability_call",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        215647,
+        215658
+      ],
+      "retry_backend_pids": [
+        [
+          215647,
+          215647
+        ],
+        [
+          215658
+        ]
+      ],
+      "attempts": [
+        2,
+        1
+      ],
+      "outcomes": [
+        "accepted",
+        "accepted"
+      ],
+      "call_rank_before": 3,
+      "rank_after": 5,
+      "never_promoted": true,
+      "unrelated_call_anchor_preserved": true
+    }
+  ],
+  "invariants": {
+    "one_actor_station": true,
+    "one_waiting_calling": true,
+    "one_actual_execution": true,
+    "s03_conservation": true
+  },
+  "deadlocks": 0,
+  "result": "PASS"
+}

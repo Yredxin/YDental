@@ -1,0 +1,18 @@
+{
+  "scope": "S06-B real queue, unscheduled workstation leases and actual start UI",
+  "database": "ydental_s06c_test_20261012062128_75ee73f6",
+  "tested_commit": "7eef1d65c6574573228f2548161ac795ee5016ed",
+  "browser": "Firefox",
+  "sandbox": "default, no overrides",
+  "checks": [
+    {
+      "check": "open existing ordinary report is waiting",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [],
+  "browser_version": "155.0",
+  "result": "FAIL_OR_INTERRUPTED",
+  "pageerror_count": 0,
+  "errors": []
+}

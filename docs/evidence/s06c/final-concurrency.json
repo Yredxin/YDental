@@ -1,0 +1,15 @@
+{
+  "database": "ydental_s06c_test_20261012070143_6a254bfc",
+  "test": "cce0aa2ec04ac590fc182f7279b36812e4e4760a",
+  "result": "PASS",
+  "races": 53,
+  "A": 21,
+  "B": 16,
+  "C": 16,
+  "deadlocks": 0,
+  "evidence": [
+    "docs/evidence/s06c/probe-attempts/ydental_s06c_test_20261012070143_6a254bfc-20261012T070720913562.json",
+    "docs/evidence/s06c/b-regression/a-regression/probe-attempts/ydental_s06c_test_20261012070143_6a254bfc-20261012T070747394290.json",
+    "docs/evidence/s06c/b-regression/probe-attempts/ydental_s06c_test_20261012070143_6a254bfc-20261012T070811379561.json"
+  ]
+}

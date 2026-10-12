@@ -1,0 +1,7 @@
+{
+  "result": "PASS",
+  "scope": "B-shaped old constraint/row plus real C module upgrade; not full B source install",
+  "history_identity_preserved": true,
+  "missed_backfill": true,
+  "new_task_day_unique": true
+}

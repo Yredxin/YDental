@@ -1,0 +1,170 @@
+{
+  "scope": "S06-B real queue, unscheduled workstation leases and actual start UI",
+  "database": "ydental_s06c_test_20261012070143_6a254bfc",
+  "tested_commit": "cce0aa2ec04ac590fc182f7279b36812e4e4760a",
+  "browser": "Firefox",
+  "sandbox": "default, no overrides",
+  "checks": [
+    {
+      "check": "serving becomes historical segment with independent waiting hold",
+      "result": "PASS"
+    },
+    {
+      "check": "holding doctor cannot call next in UI",
+      "result": "PASS"
+    },
+    {
+      "check": "holding doctor direct call is rejected",
+      "result": "PASS"
+    },
+    {
+      "check": "external explicit task reports while original hold exists",
+      "result": "PASS"
+    },
+    {
+      "check": "return query only hints original workstation and retains external queue",
+      "result": "PASS"
+    },
+    {
+      "check": "original doctor confirms return and resumes actual execution",
+      "result": "PASS"
+    },
+    {
+      "check": "external calling withdrawn and other holder remains connected",
+      "result": "PASS"
+    },
+    {
+      "check": "handover retains doctor lease and clears patient execution",
+      "result": "PASS"
+    },
+    {
+      "check": "continuation can be called by another outpatient chair",
+      "result": "PASS"
+    },
+    {
+      "check": "original doctor can call next patient after saved handover",
+      "result": "PASS"
+    },
+    {
+      "check": "external actual serving prevents restore",
+      "result": "PASS"
+    },
+    {
+      "check": "failed latest draft save leaves actual execution held",
+      "result": "PASS"
+    },
+    {
+      "check": "failed save creates no continuation",
+      "result": "PASS"
+    },
+    {
+      "check": "append_start: ordinary frontdesk has no append UI",
+      "result": "PASS"
+    },
+    {
+      "check": "append_start: ordinary frontdesk POST append rejected",
+      "result": "PASS"
+    },
+    {
+      "check": "append_start: explicitly authorized desk creates single permit in closed input",
+      "result": "PASS"
+    },
+    {
+      "check": "append repeat report retains missed count",
+      "result": "PASS"
+    },
+    {
+      "check": "append call fault preserves missed and same permit",
+      "result": "PASS"
+    },
+    {
+      "check": "start first prevents ordinary permit revoke",
+      "result": "PASS"
+    },
+    {
+      "check": "permit UI agrees started and only one permit exists",
+      "result": "PASS"
+    },
+    {
+      "check": "append_revoke: ordinary frontdesk has no append UI",
+      "result": "PASS"
+    },
+    {
+      "check": "append_revoke: ordinary frontdesk POST append rejected",
+      "result": "PASS"
+    },
+    {
+      "check": "append_revoke: explicitly authorized desk creates single permit in closed input",
+      "result": "PASS"
+    },
+    {
+      "check": "revoke first prevents stale start",
+      "result": "PASS"
+    },
+    {
+      "check": "revoked calling no longer appears as active queue",
+      "result": "PASS"
+    },
+    {
+      "check": "pharmacy-only authorized workstation uses same actual execution queue",
+      "result": "PASS"
+    },
+    {
+      "check": "own Chinese language preference accepted",
+      "result": "PASS"
+    },
+    {
+      "check": "B actions and source instructions are Chinese readable",
+      "result": "PASS"
+    },
+    {
+      "check": "no browser page errors",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s06c/b-regression/browser-attempts/20261012T071137328782/01-reserved-workstation.png",
+      "sha256": "2700f7abe4e1d49a730799ffdeaeef0d7f9802dc6ae5b32d1d1982c4d05bae0e"
+    },
+    {
+      "path": "docs/evidence/s06c/b-regression/browser-attempts/20261012T071137328782/02-return-hint-external-waiting.png",
+      "sha256": "ed955dadbddb03c216d67e73d107f208aa03322a05df83f2f8a31e8eaf54be6e"
+    },
+    {
+      "path": "docs/evidence/s06c/b-regression/browser-attempts/20261012T071137328782/03-restored-after-external-call.png",
+      "sha256": "eed12fe918f148af7bf73e962a07f671b603fb290b2550eefd9d735f9786d939"
+    },
+    {
+      "path": "docs/evidence/s06c/b-regression/browser-attempts/20261012T071137328782/04-continuation-other-chair.png",
+      "sha256": "15561a9e23688b03ebdd0d2e6cc8f3f22bb160aa6ca6e4ef02589c2af847fe7d"
+    },
+    {
+      "path": "docs/evidence/s06c/b-regression/browser-attempts/20261012T071137328782/05-external-serving-refuses-return.png",
+      "sha256": "bd413dde7506349efd6b2188bbffa153d687a5d7eae3ab65cf973e21df4a3fd6"
+    },
+    {
+      "path": "docs/evidence/s06c/b-regression/browser-attempts/20261012T071137328782/06-save-failure-no-half-handover.png",
+      "sha256": "a5f3fc64b7ba85010bae68c49ec6b4ec45bb48670cdf672840c837bb1f8e1d10"
+    },
+    {
+      "path": "docs/evidence/s06c/b-regression/browser-attempts/20261012T071137328782/07-appended-segment-serving.png",
+      "sha256": "93a210b5014dfd96c9cc44bcbd57730af838630022dd31fc2df2c2f62ec35f88"
+    },
+    {
+      "path": "docs/evidence/s06c/b-regression/browser-attempts/20261012T071137328782/08-revoked-number-no-serving.png",
+      "sha256": "25804a806460eb15ce917e826626af8926d73a0e8ba3bdcbac5d49bb42c3c45c"
+    },
+    {
+      "path": "docs/evidence/s06c/b-regression/browser-attempts/20261012T071137328782/09-pharmacy-queue-only.png",
+      "sha256": "651aa4495d10b3103e9fd4fb44b68d2bbcf53fb6cf3f29c5f9b1daa874c70d7b"
+    },
+    {
+      "path": "docs/evidence/s06c/b-regression/browser-attempts/20261012T071137328782/10-chinese-b-workstation.png",
+      "sha256": "fa260afb169be17c5d75e51ae5391a41bb344515d73ef8382a67845dff63d4e9"
+    }
+  ],
+  "browser_version": "155.0",
+  "result": "PASS",
+  "pageerror_count": 0
+}

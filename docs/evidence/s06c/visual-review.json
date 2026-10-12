@@ -1,0 +1,50 @@
+{
+  "result": "PASS",
+  "reviewer": "Codex visual inspection, not GPT/user acceptance",
+  "screenshots": [
+    {
+      "path": "docs/evidence/s06c/browser-attempts/20261012T071252966917/01-draining-nonempty-close-refused.png",
+      "sha256": "7c28517431556e82435b485242c001418e8099511a7e7840d9571a32043961b5"
+    },
+    {
+      "path": "docs/evidence/s06c/browser-attempts/20261012T071252966917/02-closed-serving-continues.png",
+      "sha256": "279a132ceef64577f73f016a293ceeb0ea938202012d1f78388c07f5b36279c1"
+    },
+    {
+      "path": "docs/evidence/s06c/browser-attempts/20261012T071252966917/03-closed-append-calling.png",
+      "sha256": "918b806195e9acb28b10b51bb965d70b7af2505cd646e4b5d1df13cd282d5b9e"
+    },
+    {
+      "path": "docs/evidence/s06c/browser-attempts/20261012T071252966917/04-area-screen-masked-actual-station.png",
+      "sha256": "a3b061b5e40e5472ef010c8f02357243399f7540df43d0137b4a0e85466e2d2b"
+    },
+    {
+      "path": "docs/evidence/s06c/browser-attempts/20261012T071252966917/05-retract-old-version-reconnect.png",
+      "sha256": "a33b80e3c0450fab5ddec26a65e12b51e79a5c9ac69e5a45493d9e899d1283fe"
+    },
+    {
+      "path": "docs/evidence/s06c/browser-attempts/20261012T071252966917/06-token-revoked.png",
+      "sha256": "f170f682d1350edc4d7e13e8b776ea44eb71565789cfcd8ade8c3098f6c3f721"
+    },
+    {
+      "path": "docs/evidence/s06c/browser-attempts/20261012T071252966917/07-midnight-serving-continues.png",
+      "sha256": "65096abdbc24a395ab5bd4a4377df5780b90c464d601f8fc9bbd77f36d799ab5"
+    },
+    {
+      "path": "docs/evidence/s06c/browser-attempts/20261012T071252966917/08-0010-old-queue-ended-serving-kept.png",
+      "sha256": "b690027388ead61717757031a8c0e73538092c6e13aeb78a190cdd7098796bc6"
+    },
+    {
+      "path": "docs/evidence/s06c/browser-attempts/20261012T071252966917/09-today-open-delayed-cleanup.png",
+      "sha256": "07814d04467b4138110ae65835d37a27e0283c12c7acfa6d45d8dce43b576f78"
+    }
+  ],
+  "checks": [
+    "Chinese text readable",
+    "masked name only on area screen",
+    "actual calling station differs from capacity station",
+    "revoked screen empty",
+    "serving retains serving without ended eligibility hint",
+    "yesterday number/missed terminal retained at 00:10 and after today open"
+  ]
+}

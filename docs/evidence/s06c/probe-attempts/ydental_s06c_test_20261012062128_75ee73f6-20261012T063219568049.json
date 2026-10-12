@@ -1,0 +1,356 @@
+{
+  "scope": "S06-C business day, push and credential concurrency",
+  "database": "ydental_s06c_test_20261012062128_75ee73f6",
+  "started_utc": "2026-10-12T06:32:19.567940+00:00",
+  "races": [
+    {
+      "name": "report commits before draining; accepted waiting retained",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        210133,
+        210152
+      ],
+      "retry_backend_pids": [
+        [
+          210133
+        ],
+        [
+          210152,
+          210152
+        ]
+      ],
+      "attempts": [
+        1,
+        2
+      ],
+      "outcomes": [
+        "accepted",
+        "accepted"
+      ],
+      "waiting_retained": true
+    },
+    {
+      "name": "draining commits before report; no half position",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        210152,
+        210133
+      ],
+      "retry_backend_pids": [
+        [
+          210152
+        ],
+        [
+          210133,
+          210133
+        ]
+      ],
+      "attempts": [
+        1,
+        2
+      ],
+      "outcomes": [
+        "accepted",
+        "rejected"
+      ],
+      "no_half_position": true
+    },
+    {
+      "name": "close sees waiting; draining call continues",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        210133,
+        210152
+      ],
+      "retry_backend_pids": [
+        [
+          210133
+        ],
+        [
+          210152
+        ]
+      ],
+      "attempts": [
+        1,
+        1
+      ],
+      "outcomes": [
+        "rejected",
+        "accepted"
+      ],
+      "close_refused": true
+    },
+    {
+      "name": "draining start clears last calling before close",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        210152,
+        210133
+      ],
+      "retry_backend_pids": [
+        [
+          210152
+        ],
+        [
+          210133,
+          210133
+        ]
+      ],
+      "attempts": [
+        1,
+        2
+      ],
+      "outcomes": [
+        "accepted",
+        "accepted"
+      ],
+      "serving_survives_closed": true
+    },
+    {
+      "name": "close versus concurrent ordinary report",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        210133,
+        210152
+      ],
+      "retry_backend_pids": [
+        [
+          210133
+        ],
+        [
+          210152
+        ]
+      ],
+      "attempts": [
+        1,
+        1
+      ],
+      "outcomes": [
+        "accepted",
+        "rejected"
+      ],
+      "ordinary_report_refused": true
+    },
+    {
+      "name": "closed append report and call versus ordinary report",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        210133,
+        210152
+      ],
+      "retry_backend_pids": [
+        [
+          210133
+        ],
+        [
+          210152
+        ]
+      ],
+      "attempts": [
+        1,
+        1
+      ],
+      "outcomes": [
+        "accepted",
+        "rejected"
+      ],
+      "area_stays_closed": true
+    },
+    {
+      "name": "cleanup commits before old-day call",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        210133,
+        210152
+      ],
+      "retry_backend_pids": [
+        [
+          210133
+        ],
+        [
+          210152,
+          210152
+        ]
+      ],
+      "attempts": [
+        1,
+        2
+      ],
+      "outcomes": [
+        "accepted",
+        "rejected"
+      ],
+      "terminal_not_called": true
+    },
+    {
+      "name": "cleanup commits before old-day start",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        210152,
+        210133
+      ],
+      "retry_backend_pids": [
+        [
+          210152
+        ],
+        [
+          210133,
+          210133
+        ]
+      ],
+      "attempts": [
+        1,
+        2
+      ],
+      "outcomes": [
+        "accepted",
+        "rejected"
+      ],
+      "claim_not_consumed": true
+    },
+    {
+      "name": "old-day start commits before cleanup; actual survives",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        210133,
+        210152
+      ],
+      "retry_backend_pids": [
+        [
+          210133
+        ],
+        [
+          210152,
+          210152
+        ]
+      ],
+      "attempts": [
+        1,
+        2
+      ],
+      "outcomes": [
+        "accepted",
+        "accepted"
+      ],
+      "serving_preserved": true
+    },
+    {
+      "name": "two cleanup workers; one final watermark",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        210152,
+        210133
+      ],
+      "retry_backend_pids": [
+        [
+          210152,
+          210152
+        ],
+        [
+          210133
+        ]
+      ],
+      "attempts": [
+        2,
+        1
+      ],
+      "outcomes": [
+        "already_accepted",
+        "accepted"
+      ],
+      "one_watermark": true
+    },
+    {
+      "name": "delayed cleanup versus today new report",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        210152,
+        210133
+      ],
+      "retry_backend_pids": [
+        [
+          210152
+        ],
+        [
+          210133,
+          210133
+        ]
+      ],
+      "attempts": [
+        1,
+        2
+      ],
+      "outcomes": [
+        "accepted",
+        "accepted"
+      ],
+      "today_untouched": true
+    },
+    {
+      "name": "today open versus yesterday terminal history",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        210133,
+        210152
+      ],
+      "retry_backend_pids": [
+        [
+          210133,
+          210133
+        ],
+        [
+          210152
+        ]
+      ],
+      "attempts": [
+        2,
+        1
+      ],
+      "outcomes": [
+        "accepted",
+        "already_accepted"
+      ],
+      "no_resurrection": true
+    },
+    {
+      "name": "native bus commit versus rolled-back version",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        210133,
+        210152
+      ],
+      "retry_backend_pids": [
+        [
+          210133,
+          210133
+        ],
+        [
+          210152
+        ]
+      ],
+      "attempts": [
+        2,
+        1
+      ],
+      "outcomes": [
+        "accepted",
+        "accepted"
+      ],
+      "rollback_no_success": true
+    }
+  ],
+  "result": "FAIL_OR_INTERRUPTED"
+}

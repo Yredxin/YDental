@@ -1,0 +1,56 @@
+{
+  "database": "ydental_s06c_test_20261012070143_6a254bfc",
+  "test": "cce0aa2ec04ac590fc182f7279b36812e4e4760a",
+  "result": "PASS",
+  "checks": 117,
+  "screenshots": 42,
+  "pageerrors": 0,
+  "groups": [
+    {
+      "summary": "docs/evidence/s06c/b-regression/new-browser-attempts/20261012T071240751445/summary.json",
+      "checks": 18,
+      "screenshots": 9,
+      "pageerrors": 0
+    },
+    {
+      "summary": "docs/evidence/s06c/b-regression/a-regression/browser-attempts/20261012T071028266005/summary.json",
+      "checks": 36,
+      "screenshots": 14,
+      "pageerrors": 0
+    },
+    {
+      "summary": "docs/evidence/s06c/b-regression/browser-attempts/20261012T071137328782/summary.json",
+      "checks": 29,
+      "screenshots": 10,
+      "pageerrors": 0
+    },
+    {
+      "summary": "docs/evidence/s06c/browser-attempts/20261012T071252966917/summary.json",
+      "checks": 34,
+      "screenshots": 9,
+      "pageerrors": 0
+    }
+  ],
+  "private_log_hashes": [
+    {
+      "file": "s06c_a_browser-final.log",
+      "exit_code": 0,
+      "sha256": "a8f242bb97d3806d46171cca96d1eaf4a18a14ff7c8288d05ced2633672f229e"
+    },
+    {
+      "file": "s06c_b_browser-final.log",
+      "exit_code": 0,
+      "sha256": "2ce53e8f74f28684c12ed30822f282bac806399e894da47b6248f51e95461aa8"
+    },
+    {
+      "file": "s06c_browser-final.log",
+      "exit_code": 0,
+      "sha256": "0db5896a4ffe6901249666c8a4c5f94d8158652be50b402f973c4e054ae2f177"
+    },
+    {
+      "file": "s06c_b_rework_browser-final.log",
+      "exit_code": 0,
+      "sha256": "5ca57845bef8a4a0314c3f7bfff1fb199d12b3286a662a832c25df851e187eea"
+    }
+  ]
+}
