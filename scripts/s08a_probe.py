@@ -11,7 +11,7 @@ from types import SimpleNamespace
 import psycopg2
 from odoo import api
 from odoo.exceptions import AccessError, UserError, ValidationError
-from odoo.addons.ydental_clinical_test.tests.common import setup, opened, save_args, handover_args, key
+from odoo.addons.ydental_clinical_test.tests.common import setup, opened, save_args, handover_args, key, accepted, queue_bind, lease_args
 
 run=Path(os.environ['YDENTAL_S08A_RUN_DIR'])
 assert run.name==env.cr.dbname and re.fullmatch(r'ydental_s08a_test_[0-9]{14}_[a-f0-9]{8}',env.cr.dbname)
@@ -25,6 +25,11 @@ def fixture(kind):
         f=SimpleNamespace(env=api.Environment(cr,1,{}));setup(f)
         # Explicit synthetic values only; long enough for thread/barrier orchestration.
         f.root['ir.config_parameter'].set_str('ydental_queue.timeout_seconds','600')
+        if kind=='queue_start':
+            task=accepted(f);q=queue_bind(f);l=q._operate('enter',{'station_id':f.stations[0][0].id})
+            called=q._operate('call',lease_args(l));a=lease_args(l)|{'entry_id':called['entry_id']}
+            cr.commit()
+            return q.env.uid,[dict(q.env.context)]*2,[('start',a)]*2,0,task.id
         s,q,l,e,d=opened(f)
         if kind in ('editors','transfer'):
             r=s._operate('handover',handover_args(d,l));d.update(version=r['version'])
@@ -59,7 +64,7 @@ def race(kind,round_number):
                 cr.execute('SET LOCAL lock_timeout = %s',['12s']);cr.execute('SELECT pg_backend_pid()');pid=cr.fetchone()[0]
                 try:
                     if attempt==0:barrier.wait()
-                    s=api.Environment(cr,uid,contexts[index])['ydental.clinical.service']
+                    s=api.Environment(cr,uid,contexts[index])['ydental.queue.service' if kind=='queue_start' else 'ydental.clinical.service']
                     data=s._operate(*jobs[index]);cr.commit()
                     return {'result':'accepted','backend_pid':pid,'attempts':attempts,'version':data.get('version')}
                 except psycopg2.errors.SerializationFailure:
@@ -75,6 +80,10 @@ def race(kind,round_number):
     assert sorted(x['result'] for x in outcomes)==['accepted','rejected'],(kind,outcomes)
     with env.registry.cursor() as cr:
         r=api.Environment(cr,1,{})
+        if kind=='queue_start':
+            assert r['ydental.queue.execution'].search_count([('ydental_task_id','=',execution_id)])==1
+            result['races'].append({'case':kind,'round':round_number,'outcomes':outcomes,'result':'PASS'})
+            return
         doc=r['ydental.clinical.document'].browse(doc_id);e=r['ydental.queue.execution'].browse(execution_id)
         versions=r['ydental.clinical.version'].search([('ydental_document_id','=',doc_id)])
         successors=r['ydental.intake.task'].search_count([('ydental_source_execution_id','=',execution_id)])
@@ -87,7 +96,7 @@ def race(kind,round_number):
     result['races'].append({'case':kind,'round':round_number,'outcomes':outcomes,'result':'PASS','single_continuation':successors})
 
 try:
-    for kind in ('versions','editors','handover_save','continuation','old_new_editor','rollback','transfer'):
+    for kind in ('versions','editors','handover_save','continuation','old_new_editor','rollback','transfer','queue_start'):
         for round_number in range(2):race(kind,round_number+1)
     result['result']='PASS'
 except Exception as error:
