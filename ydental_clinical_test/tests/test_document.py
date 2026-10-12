@@ -126,6 +126,13 @@ class TestClinicalDocument(TransactionCase):
         session=s.env['ydental.access.service']._scope();session.sudo().write({'ydental_revision':session.ydental_revision+1})
         with self.assertRaises(UserError):s._operate('save',save_args(d))
 
+    def test_lost_company_access_invalidates_editor_and_new_store_selection(self):
+        s,q,l,e,d=opened(self)
+        company=self.root['res.company'].create({'name':'S08A isolated synthetic legal entity '+key()})
+        self.users['doctor'].write({'company_id':company.id,'company_ids':[fields.Command.set(company.ids)]})
+        with self.assertRaises((AccessError,UserError)):s._operate('save',save_args(d))
+        with self.assertRaises(AccessError):bind(self,self.users['doctor'],self.stores[0])
+
     def test_external_reserve_remains_fail_closed(self):
         s,q,l,e,d=opened(self)
         target=self.front._new('task',self.stores[0],dict(self.front._identity(e.ydental_patient_id),name='Synthetic untrusted external',ydental_mapping_id=self.mappings[0][2].id,ydental_source_kind='derived'))
@@ -192,7 +199,7 @@ class TestClinicalDocument(TransactionCase):
         # Explicit native multi-location prerequisite in this rollback-only test.
         # Avoid res.config.settings' unrelated global pricelist archival when
         # real committed S05 price sources already exist during upgrade tests.
-        self.root.ref('stock.group_stock_user').write({'implied_ids': [fields.Command.link(self.root.ref('stock.group_stock_multi_locations').id)]})
+        self.root.ref('base.group_user').write({'implied_ids': [fields.Command.link(self.root.ref('stock.group_stock_multi_locations').id)]})
         self.admin._grant(self.users['manager'].id,self.stores[0].id,{'warehouse':'write'})
         stock=self.group.env['ydental.inventory.service']
         stock._operate('setup',{'code':str(self.stores[0].id)[-5:]},key())
