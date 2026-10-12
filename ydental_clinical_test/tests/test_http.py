@@ -83,3 +83,8 @@ class TestClinicalHTTP(HttpCase):
         page=self.url_open('/ydental/clinical?document_id='+str(self.doc['document_id']))
         self.assertEqual(page.status_code,200);self.assertIn('&lt;script&gt;',page.text)
         self.assertNotIn('<script>window.ydentalInjected',page.text)
+        self.doc['version']=1
+        confirmed=self.action('confirm',self.args());self.assertEqual(confirmed.status_code,200)
+        self.doc['version']=2
+        denied=self.action('confirm',self.args());self.assertEqual(denied.status_code,409)
+        self.assertIn('correction_required',denied.text)

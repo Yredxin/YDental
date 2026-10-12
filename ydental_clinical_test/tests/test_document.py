@@ -66,6 +66,8 @@ class TestClinicalDocument(TransactionCase):
     def test_confirmation_correction_preserves_authors_and_economics(self):
         s,q,l,e,d=opened(self); before=self.counts()
         a=save_args(d);d.update(s._operate('confirm',a)); old=s._model('version').search([('ydental_document_id','=',d['document_id'])])
+        self.assertTrue(s._operate('confirm',a)['duplicate'])
+        with self.assertRaises(UserError):s._operate('confirm',save_args(d,'Unreasoned replacement refused'))
         with self.assertRaises(UserError):s._operate('save',save_args(d))
         with self.assertRaises((ValidationError,UserError)):s._operate('correct',save_args(d)|{'reason':''})
         r=s._operate('correct',save_args(d,'Correction synthetic text')|{'reason':'Correct transcription only'})
