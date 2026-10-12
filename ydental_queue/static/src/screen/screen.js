@@ -14,6 +14,7 @@ export class QueueScreen {
         if (!response.ok) {
             this.root.querySelector('tbody').replaceChildren();
             this.root.dataset.denied = 'yes';
+            this.ws?.close();
             throw new Error('screen_denied');
         }
         return response.json();
@@ -40,8 +41,12 @@ export class QueueScreen {
         }
         // Voice is opt-in. Initial/reconnect/gap snapshots never replay calls.
         this.rows = data.rows;
+        this.transport = data.transport;
+        this.store = data.store; this.area = data.area;
+        this.connect();
     }
     async notice(event) {
+        if (event.store !== undefined && (event.store !== this.store || event.area !== this.area)) { return; }
         if (!Number.isInteger(event.version) || event.version <= this.version) { return; }
         const contiguous = this.connected && event.version === this.version + 1;
         const previous = new Set((this.rows || []).filter(r => r.state === 'calling').map(r => r.number + '/' + r.station));
@@ -53,6 +58,29 @@ export class QueueScreen {
                 }
             }
         }
+    }
+    connect() {
+        if (!this.transport || this.root.dataset.denied === 'yes' || this.ws && this.ws.readyState < 2) { return; }
+        const scheme = location.protocol === 'https:' ? 'wss:' : 'ws:';
+        const ws = new WebSocket(scheme + '//' + location.host + '/websocket?version=' + encodeURIComponent(this.transport.version));
+        this.ws = ws;
+        ws.addEventListener('open', async () => {
+            try {
+                await this.reconnect();
+                ws.send(JSON.stringify({event_name: 'subscribe', data: {channels: [this.transport.channel], last: this.lastId, check_outdated: true}}));
+                this.root.dataset.websocket = 'open';
+            } catch { ws.close(); }
+        });
+        ws.addEventListener('message', async message => {
+            try {
+                for (const notice of JSON.parse(message.data)) {
+                    if (notice.internal) { await this.reconnect(); }
+                    else if (notice.message?.type === 'ydental.queue.version') { await this.notice(notice.message.payload); }
+                }
+            } catch { this.connected = false; }
+        });
+        ws.addEventListener('close', () => { this.root.dataset.websocket = 'closed'; this.connected = false; });
+        ws.addEventListener('error', () => { this.connected = false; });
     }
     voiceText(row) { return row.number + ' / ' + row.station; }
     async reconnect() { this.connected = false; await this.snapshot(); }

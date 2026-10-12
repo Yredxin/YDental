@@ -6,6 +6,7 @@ from odoo import api, fields, models
 from odoo.exceptions import AccessError, ValidationError
 
 from odoo.addons.bus.models.bus import SKIP_NOTIFICATION, channel_with_db
+from odoo.addons.bus.websocket import WebsocketConnectionHandler
 
 from .ydental_queue_service import digest
 
@@ -184,7 +185,12 @@ class YDentalQueueService(models.AbstractModel):
 
     def _screen_snapshot(self, token):
         credential = self._screen_credential(token)
-        return self._area_snapshot(credential.ydental_store_id, credential.ydental_area_id)
+        data = self._area_snapshot(credential.ydental_store_id, credential.ydental_area_id)
+        scope = self._scope_record(credential.ydental_store_id, credential.ydental_area_id)
+        # The random transport channel conveys only minimal versions. Possession
+        # cannot read queue data or replace the revocable snapshot credential.
+        data['transport'] = {'channel': scope.ydental_channel, 'version': WebsocketConnectionHandler._VERSION} if scope else None
+        return data
 
     def _screen_events(self, token, last_id):
         credential = self._screen_credential(token)

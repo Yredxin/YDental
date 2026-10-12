@@ -1467,3 +1467,300 @@ msgstr "onsite_required：请确认您已到原工位现场。"
 msgid ""
 "version_conflict: This verification was already handled or is not ready."
 msgstr "version_conflict：此核实已被处理或尚不符合处理条件。"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_screen
+msgid "<span data-day=\"\"/> / <span data-business=\"\"/>"
+msgstr "<span data-day=\"\"/> / <span data-business=\"\"/>"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_screen
+msgid ""
+"<span hidden=\"hidden\" data-label-open=\"\">Open</span><span hidden=\"hidden\" data-label-draining=\"\">Ordinary reporting stopped</span><span hidden=\"hidden\" data-label-closed=\"\">Ordinary calling stopped</span>\n"
+"            <span hidden=\"hidden\" data-unavailable=\"\">Screen unavailable or credential revoked. No call is confirmed.</span>"
+msgstr ""
+"<span hidden=\"hidden\" data-label-open=\"\">开放</span><span hidden=\"hidden\" data-label-draining=\"\">已停止普通报到</span><span hidden=\"hidden\" data-label-closed=\"\">已停止普通叫号</span>\n"
+"            <span hidden=\"hidden\" data-unavailable=\"\">屏幕不可用或凭证已撤销，未确认任何叫号。</span>"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid ""
+"<span hidden=\"hidden\" id=\"screen-open-message\">Open this read-only area "
+"screen</span>"
+msgstr "<span hidden=\"hidden\" id=\"screen-open-message\">打开此只读区域屏幕</span>"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_push.py:0
+msgid "A nonnegative bus cursor is required."
+msgstr "需要非负的消息游标。"
+
+#. module: ydental_queue
+#: model:ir.model.constraint,message:ydental_queue.constraint_ydental_queue_outbox_one_version
+msgid "A scope version is published once."
+msgstr "同一区域版本仅发布一次。"
+
+#. module: ydental_queue
+#: model:ir.model.constraint,message:ydental_queue.constraint_ydental_queue_cleanup_one_day
+msgid "A store business day has one final cleanup fact."
+msgstr "每个门店业务日只有一条最终清理事实。"
+
+#. module: ydental_queue
+#: model:ir.model.constraint,message:ydental_queue.constraint_ydental_queue_entry_one_task_day
+msgid "A task retains one queue segment per business day."
+msgstr "每个任务每天保留一个独立队列段。"
+
+#. module: ydental_queue
+#: model:ir.model.fields.selection,name:ydental_queue.selection__ydental_queue_screen_token__state__active
+msgid "Active"
+msgstr "有效"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_screen
+msgid "Actual calling workstation"
+msgstr "实际叫号工位"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Apply area business state"
+msgstr "应用区域营业状态"
+
+#. module: ydental_queue
+#: model:ir.model,name:ydental_queue.model_ydental_queue_scope
+msgid "Area committed snapshot version"
+msgstr "区域已提交快照版本"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_screen
+msgid "Area queue screen"
+msgstr "区域排队屏幕"
+
+#. module: ydental_queue
+#: model:ir.model.fields.selection,name:ydental_queue.selection__ydental_queue_append_permit__state__expired
+msgid "Business day permit expired"
+msgstr "业务日追加许可已到期"
+
+#. module: ydental_queue
+#: model:ir.model.fields.selection,name:ydental_queue.selection__ydental_queue_entry__state__day_closed
+msgid "Business day queue ended"
+msgstr "当日排队资格已结束"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Business reason"
+msgstr "营业操作原因"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Close after clearing waiting and calling"
+msgstr "等候及叫号清空后关区"
+
+#. module: ydental_queue
+#: model:ir.model,name:ydental_queue.model_ydental_queue_cleanup
+msgid "Committed local business day cleanup watermark"
+msgstr "已提交的当地业务日日终水位"
+
+#. module: ydental_queue
+#: model:ir.model,name:ydental_queue.model_bus_bus
+msgid "Communication Bus"
+msgstr "消息总线"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Create read-only screen credential"
+msgstr "创建只读区域屏凭证"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_screen
+msgid "Current state"
+msgstr "当前状态"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_screen
+msgid "Enable call voice"
+msgstr "启用叫号语音"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Local business day and area reception"
+msgstr "当地业务日与区域受理"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_screen
+msgid "Masked name"
+msgstr "脱敏姓名"
+
+#. module: ydental_queue
+#: model:ir.model.constraint,message:ydental_queue.constraint_ydental_queue_scope_one_area
+msgid "One version scope per store area."
+msgstr "每个门店区域只有一个版本范围。"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Open / reopen"
+msgstr "开诊／重新开诊"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid ""
+"Production heartbeat, timeout and missed displacement require explicit "
+"approval. Real treatment documents and dispensing are not enabled. Queue "
+"changes are committed before minimal version notifications."
+msgstr "生产心跳、超时和过号顺延参数须明确批准。真实治疗文书和发药尚未启用。队列变更提交后才发送最小版本通知。"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_screen
+msgid "Queue number"
+msgstr "排队号码"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_intake_service.py:0
+msgid "Record actual arrival before service reporting."
+msgstr "请先记录真实到店，再报到服务。"
+
+#. module: ydental_queue
+#: model:ir.model,name:ydental_queue.model_ydental_queue_screen_token
+msgid "Revocable read-only area screen credential digest"
+msgstr "可撤销的只读区域屏凭证摘要"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Revoke screen credential"
+msgstr "撤销屏幕凭证"
+
+#. module: ydental_queue
+#: model:ir.model.fields.selection,name:ydental_queue.selection__ydental_queue_screen_token__state__revoked
+msgid "Revoked"
+msgstr "已撤销"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/controllers/screen.py:0
+msgid "Screen access denied."
+msgstr "屏幕访问被拒绝。"
+
+#. module: ydental_queue
+#: model:ir.model.constraint,message:ydental_queue.constraint_ydental_queue_screen_token_one_digest
+msgid "Screen credential digests must be unique."
+msgstr "屏幕凭证摘要必须唯一。"
+
+#. module: ydental_queue
+#: model_terms:ir.ui.view,arch_db:ydental_queue.ydental_queue_page
+msgid "Stop ordinary reporting"
+msgstr "停止普通报到"
+
+#. module: ydental_queue
+#: model:ir.model,name:ydental_queue.model_ydental_queue_outbox
+msgid "Transactional minimal queue version notification"
+msgstr "事务内最小队列版本通知"
+
+#. module: ydental_queue
+#: model:ir.model,name:ydental_queue.model_ydental_supply_service
+msgid "Validated schedule and shared capacity transactions"
+msgstr "经过校验的排班与共享容量事务"
+
+#. module: ydental_queue
+#: model:ir.actions.server,name:ydental_queue.ydental_queue_cleanup_cron_ir_actions_server
+msgid "YDental local business day queue cleanup"
+msgstr "YDental 当地业务日队列清理"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_scope__ydental_channel
+msgid "Ydental Channel"
+msgstr "消息通道"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_cleanup__ydental_cleanup_type
+msgid "Ydental Cleanup Type"
+msgstr "清理类型"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_cleanup__ydental_completed_at
+msgid "Ydental Completed At"
+msgstr "清理完成时间"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_entry__ydental_missed_count
+msgid "Ydental Missed Count"
+msgstr "真实过号次数"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_outbox__ydental_scope_id
+msgid "Ydental Scope"
+msgstr "区域版本范围"
+
+#. module: ydental_queue
+#: model:ir.model.fields,field_description:ydental_queue.field_ydental_queue_outbox__ydental_scope_version
+msgid "Ydental Scope Version"
+msgstr "区域版本号"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_push.py:0
+msgid "access_denied: Screen credential is invalid or revoked."
+msgstr "access_denied: 屏幕凭证无效或已撤销。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_push.py:0
+msgid "access_denied: Select a screen credential in the current store."
+msgstr "access_denied: 请选择当前门店的屏幕凭证。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_day.py:0
+msgid "business_closed: Explicitly open the current local business day."
+msgstr "business_closed: 请明确开启当前当地业务日。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_day.py:0
+msgid ""
+"business_transition_required: Explicitly reopen before stopping ordinary "
+"reporting."
+msgstr "business_transition_required: 请先明确重新开诊，再停止普通报到。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_day.py:0
+msgid "cleanup_not_due: Wait until the store local 00:10 boundary."
+msgstr "cleanup_not_due: 请等待门店当地 00:10 日终边界。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_intake_service.py:0
+#: code:addons/ydental_queue/models/ydental_queue_day.py:0
+msgid "day_closed: This business-day queue segment is terminal."
+msgstr "day_closed: 此业务日的队列段已结束。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_entry.py:0
+msgid "history_immutable: Queue identity, day and number cannot be rewritten."
+msgstr "history_immutable: 不得改写历史队列的任务、日期和号码。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_intake_service.py:0
+msgid "qualification_required: Review the original held qualification."
+msgstr "qualification_required: 请核对原有有效资格。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_day.py:0
+msgid ""
+"queue_not_empty: Clear waiting and calling before closing ordinary calling."
+msgstr "queue_not_empty: 请先清空等候及叫号，再关闭普通叫号。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_queue_push.py:0
+msgid "screen_area_required: Select a clinical reporting area."
+msgstr "screen_area_required: 请选择医疗业务报到区域。"
+
+#. module: ydental_queue
+#. odoo-python
+#: code:addons/ydental_queue/models/ydental_intake_service.py:0
+msgid "version_conflict: Refresh the canonical task identity."
+msgstr "version_conflict: 请刷新当前患者的任务身份。"
