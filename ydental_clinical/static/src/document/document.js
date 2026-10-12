@@ -7,6 +7,8 @@ if (root) {
     let dirty = false;
     let saving = false;
     let failed = false;
+    let terminalPending = false;
+    let needsReconcile = false;
     let selected = null;
     let generation = 0;
     let timer;
@@ -23,7 +25,16 @@ if (root) {
     const failureMessage = error => error instanceof TypeError || !navigator.onLine ? message('offline-message') : error.message || message('offline-message');
     const editorKey = () => 'ydental_clinical_editor_' + documentId;
     function permissions() {
-        textFields.forEach(field => { field.disabled = !token; });
+        const locked = terminalPending || needsReconcile;
+        textFields.forEach(field => {
+            field.disabled = terminalPending || (!token && !needsReconcile);
+            field.readOnly = needsReconcile;
+        });
+        root.querySelectorAll('[data-tooth]').forEach(button => { button.disabled = locked; });
+        root.querySelector('#no-tooth').disabled = !token || locked;
+        root.querySelector('#correction-reason').disabled = locked;
+        root.querySelector('#open-document').disabled = saving || needsReconcile || (!documentId && !Number(root.dataset.execution));
+        if (root.querySelector('#transfer-document')) { root.querySelector('#transfer-document').disabled = saving || needsReconcile; }
         for (const id of ['save-document', 'confirm-document', 'correct-document', 'handover-document', 'release-document']) {
             root.querySelector('#' + id).disabled = !token || saving || failed;
         }
@@ -31,7 +42,12 @@ if (root) {
         root.querySelector('#confirm-document').disabled ||= state === 'confirmed';
         root.querySelector('#correct-document').disabled ||= state !== 'confirmed';
         root.querySelector('#handover-document').disabled ||= !holder || root.dataset.canHandover !== 'yes';
-        root.querySelector('#tooth-state').disabled = !token || selected === null;
+        root.querySelector('#tooth-state').disabled = !token || locked || selected === null;
+        const row = teeth.get(selected);
+        const allowed = ['M', 'D', 'B', 'L', selected % 10 <= 3 ? 'I' : 'O'];
+        root.querySelectorAll('#surfaces input').forEach(box => {
+            box.disabled = !token || locked || !selected || row?.state !== 'present' || !allowed.includes(box.value);
+        });
     }
     function summary() {
         const list = root.querySelector('#tooth-summary');
@@ -42,6 +58,7 @@ if (root) {
         }));
     }
     function select(tooth) {
+        if (terminalPending || needsReconcile) { return; }
         selected = tooth;
         root.querySelector('#selected-tooth').textContent = tooth || '-';
         const row = teeth.get(tooth) || {tooth, state: tooth ? 'unknown' : 'not_applicable', surfaces: []};
@@ -83,21 +100,34 @@ if (root) {
         return data;
     }
     function changed() {
-        if (!token) { return; }
+        if (!token && !terminalPending) { return; }
         dirty = true;
         generation++;
         result.textContent = message('unsynced-message');
         clearTimeout(timer);
-        if (state !== 'confirmed' && !failed) { timer = setTimeout(() => save('save'), 900); }
+        if (!terminalPending && state !== 'confirmed' && !failed) { timer = setTimeout(() => save('save'), 900); }
+    }
+    function reconcile(messageId) {
+        needsReconcile = true;
+        failed = true;
+        dirty = true;
+        result.textContent = message(messageId);
+        const recovery = root.querySelector('#reconcile-document');
+        recovery.hidden = false;
+        recovery.href = '/ydental/clinical?document_id=' + documentId;
+        permissions();
     }
     async function save(operation) {
         if (!token || saving || failed) { return; }
         clearTimeout(timer);
         saving = true;
+        terminalPending = operation !== 'save';
+        let committed = false;
         permissions();
         const captured = generation;
         const payload = {document_id: documentId, editor_token: token, expected_version: version,
             content: content(), key: crypto.randomUUID()};
+        const submitted = JSON.stringify(payload.content);
         if (operation === 'correct') { payload.reason = root.querySelector('#correction-reason').value; }
         if (operation === 'handover') {
             payload.lease_id = holder?.lease_id;
@@ -105,34 +135,48 @@ if (root) {
         }
         try {
             const data = await action(operation, payload);
+            committed = true;
             version = data.version;
             state = data.state === 'handover' ? state : data.state;
             root.querySelector('#server-version').textContent = version;
             root.querySelector('#server-save').textContent = data.saved_at || root.querySelector('#server-save').textContent;
-            dirty = captured !== generation;
-            result.textContent = message(dirty ? 'unsynced-message' : 'saved-message');
-            if (operation === 'handover') {
+            dirty = captured !== generation || submitted !== JSON.stringify(content());
+            if (terminalPending) {
+                // The server operation is committed. Never retry or undo it from this page.
+                if (operation !== 'handover') {
+                    await action('release', {document_id: documentId, editor_token: token});
+                }
                 token = null;
                 sessionStorage.removeItem(editorKey());
+                dirty ||= captured !== generation || submitted !== JSON.stringify(content());
+                if (dirty || failed || needsReconcile) {
+                    reconcile(operation === 'handover' ? 'handover-committed-message' : 'terminal-committed-message');
+                    return;
+                }
+                terminalPending = false;
+                result.textContent = message('saved-message');
                 window.location.assign('/ydental/clinical?document_id=' + documentId);
-            } else if (operation !== 'save') {
-                sessionStorage.removeItem(editorKey());
-                await action('release', {document_id: documentId, editor_token: token});
-                token = null;
-                window.location.assign('/ydental/clinical?document_id=' + documentId);
+            } else {
+                result.textContent = message(dirty ? 'unsynced-message' : 'saved-message');
             }
         } catch (error) {
-            failed = true;
-            dirty = true;
-            result.textContent = failureMessage(error);
+            if (terminalPending) {
+                reconcile(committed ? (operation === 'handover' ? 'handover-committed-message' : 'terminal-committed-message') : 'terminal-uncertain-message');
+                result.textContent += ' ' + failureMessage(error);
+            } else {
+                failed = true;
+                dirty = true;
+                result.textContent = failureMessage(error);
+            }
         } finally {
             saving = false;
+            terminalPending = false;
             permissions();
-            if (dirty && !failed && state !== 'confirmed') { timer = setTimeout(() => save('save'), 900); }
+            if (dirty && !failed && !needsReconcile && state !== 'confirmed') { timer = setTimeout(() => save('save'), 900); }
         }
     }
     root.querySelector('#open-document').addEventListener('click', async () => {
-        if (dirty || saving) { result.textContent = message('unsynced-message'); return; }
+        if (dirty || saving || needsReconcile) { result.textContent = message('unsynced-message'); return; }
         try {
             const stored = sessionStorage.getItem(editorKey());
             if (documentId && stored) {
@@ -154,7 +198,7 @@ if (root) {
         } catch (error) { result.textContent = failureMessage(error); }
     });
     root.querySelector('#release-document').addEventListener('click', async () => {
-        if (dirty || saving) { result.textContent = message('unsynced-message'); return; }
+        if (dirty || saving || needsReconcile) { result.textContent = message('unsynced-message'); return; }
         try {
             await action('release', {document_id: documentId, editor_token: token});
             token = null;
@@ -170,20 +214,20 @@ if (root) {
     root.querySelectorAll('[data-tooth]').forEach(button => button.addEventListener('click', () => select(Number(button.dataset.tooth))));
     root.querySelector('#no-tooth').addEventListener('click', () => {
         select(0);
-        if (token) { teeth.set(0, {tooth: 0, state: 'not_applicable', surfaces: []}); summary(); changed(); }
+        if (token && !terminalPending && !needsReconcile) { teeth.set(0, {tooth: 0, state: 'not_applicable', surfaces: []}); summary(); changed(); }
     });
     root.querySelector('#tooth-state').addEventListener('change', event => {
-        if (!token || selected === null) { return; }
+        if (!token || terminalPending || needsReconcile || selected === null) { return; }
         teeth.set(selected, {tooth: selected, state: event.target.value, surfaces: []});
         select(selected); summary(); changed();
     });
     root.querySelectorAll('#surfaces input').forEach(box => box.addEventListener('change', () => {
-        if (!token || selected === null) { return; }
+        if (!token || terminalPending || needsReconcile || selected === null) { return; }
         teeth.set(selected, {tooth: selected, state: 'present', surfaces: [...root.querySelectorAll('#surfaces input:checked')].map(b => b.value)});
         summary(); changed();
     }));
     root.querySelector('#transfer-document')?.addEventListener('click', async () => {
-        if (dirty || saving) { result.textContent = message('unsynced-message'); return; }
+        if (dirty || saving || needsReconcile) { result.textContent = message('unsynced-message'); return; }
         try {
             await action('transfer', {document_id: documentId, expected_version: version,
                 user_id: Number(root.querySelector('#transfer-user').value), reason: root.querySelector('#transfer-reason').value});
@@ -196,7 +240,7 @@ if (root) {
     summary();
     setInterval(async () => {
         try {
-            if (saving) { return; }
+            if (saving || needsReconcile) { return; }
             if (holder && Number(root.dataset.execution)) {
                 const response = await fetch('/ydental/queue/action', {method: 'POST', body: new URLSearchParams({
                     operation: 'heartbeat', revision: root.dataset.revision, connection,
@@ -207,7 +251,12 @@ if (root) {
             if (token) { await action('heartbeat', {document_id: documentId, editor_token: token}); }
         } catch (error) { failed = true; result.textContent = failureMessage(error); permissions(); }
     }, Number(root.dataset.heartbeat) * 1000);
-    window.addEventListener('offline', () => { failed = true; result.textContent = message('offline-message'); permissions(); });
-    window.addEventListener('beforeunload', event => { if (dirty) { event.preventDefault(); event.returnValue = ''; } });
+    window.addEventListener('offline', () => {
+        failed = true;
+        if (terminalPending) { reconcile('terminal-uncertain-message'); }
+        else if (!needsReconcile) { result.textContent = message('offline-message'); }
+        permissions();
+    });
+    window.addEventListener('beforeunload', event => { if (dirty || terminalPending || needsReconcile) { event.preventDefault(); event.returnValue = ''; } });
     permissions();
 }

@@ -27,6 +27,7 @@
                     <button id="release-document" type="button" disabled="disabled">Release editing</button>
                     <p>Server version: <strong id="server-version" t-out="doc.ydental_version if doc else 0"/>. Last server save: <span id="server-save" t-out="doc.ydental_saved_at if doc else '-'"/> UTC.</p>
                     <p id="clinical-result" role="status">Read only. Acquire the independent editor before changing text.</p>
+                    <a id="reconcile-document" hidden="hidden" target="_blank" rel="noopener noreferrer">Check the server version and pending document in a new tab. Keep this page to compare unsynchronized text.</a>
                 </section>
                 <div id="clinical-editor">
                     <section><h2>FDI tooth chart</h2><p>Select a permanent or primary tooth and its explicit state. No clinical conclusion is generated.</p>
@@ -45,6 +46,9 @@
                 </section>
                 <section><h2>Documents awaiting completion</h2><table class="table"><thead><tr><th>Document</th><th>Patient</th><th>Responsible person</th><th>Server version</th></tr></thead><tbody><tr t-foreach="pending" t-as="item"><td><a t-att-href="'/ydental/clinical?document_id=%s' % item.id" t-out="item.id"/></td><td t-out="item.ydental_patient_id.name"/><td t-out="item.ydental_responsible_id.name"/><td t-out="item.ydental_version"/></tr></tbody></table></section>
                 <span hidden="hidden" id="unsynced-message">Unsynchronized changes. The server has not confirmed this content.</span><span hidden="hidden" id="saved-message">Saved on the server.</span><span hidden="hidden" id="offline-message">Connection unavailable. Changes remain unsynchronized. Refresh and compare the server version before retrying.</span><span hidden="hidden" id="readonly-message">Read only. Acquire the independent editor before changing text.</span>
+                <span hidden="hidden" id="terminal-committed-message">The document operation was committed. This page still has unsynchronized changes. Compare the server version before making a legitimate correction; keep the local text.</span>
+                <span hidden="hidden" id="handover-committed-message">Handover was committed and cannot be undone here. Local changes remain unsynchronized. Check the server version and use the pending document for legitimate supplementation.</span>
+                <span hidden="hidden" id="terminal-uncertain-message">The operation outcome needs verification. Local content remains unsynchronized. Do not repeat the operation; check the server version and reception state in a new tab before continuing.</span>
                 <span hidden="hidden" t-foreach="state_labels" t-as="label" t-att-data-text-state="label" t-out="state_labels[label]"/>
             </main>
         </t>
