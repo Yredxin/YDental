@@ -145,7 +145,7 @@ class TestInventory(TransactionCase):
             'res_id': self.lots['medicine'], 'type': 'binary', 'datas': 'U1lOVEhFVElD', 'public': True})
         with self.assertRaises(AccessError): attachment.with_env(self.stock.env).read(['datas'])
         with self.assertRaises(AccessError): attachment.with_env(self.stock.env)._can_return_content('raw')
-        self.assertFalse(self.stock.env['ydental.patient.care.medical'].search([]))
+        self.assertFalse(self.stock.env['ydental.patient.clinical'].search([]))
 
     def test_t07_revoke_next_request_old_tab(self):
         receive(self)

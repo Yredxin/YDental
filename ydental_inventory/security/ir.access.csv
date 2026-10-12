@@ -1,4 +1,4 @@
-id,name,model_id,group_id/id,operation,domain
+id,name,model_id/id,group_id/id,operation,domain
 ydental_inventory_config_read,Inventory config read,model_ydental_inventory_config,ydental_base.ydental_base_group_user,r,
 ydental_inventory_event_read,Inventory event read,model_ydental_inventory_event,ydental_base.ydental_base_group_user,r,
 ydental_inventory_operation_read,Inventory operation read,model_ydental_inventory_operation,ydental_base.ydental_base_group_user,r,
