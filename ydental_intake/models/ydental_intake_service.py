@@ -183,6 +183,8 @@ class YDentalIntakeService(models.AbstractModel):
         uom = self.env['uom.uom'].sudo().browse(self._id(uom_id)).exists()
         if not capability or not capability.active or not uom:
             raise ValidationError(self.env._('Select an active capability and native unit.'))
+        if self._model('catalog').with_context(active_test=False).search_count([('ydental_code', '=', self._text(code))]):
+            raise UserError(self.env._('version_conflict: This group service code already exists.'))
         product = self._native('product.template').create({'name': self._text(name), 'default_code': self._text(code),
             'type': 'service', 'uom_id': uom.id, 'ydental_intake_owned': True})
         record = self._model('catalog')._new({'name': name, 'ydental_code': code, 'ydental_kind': kind,
@@ -206,6 +208,9 @@ class YDentalIntakeService(models.AbstractModel):
         execution = supply._space('area', execution_area_id, store)
         if not catalog.active or not area.ydental_reporting or catalog.ydental_capability_id not in area.ydental_capability_ids or catalog.ydental_capability_id not in execution.ydental_capability_ids:
             raise ValidationError(self.env._('Map the exact service capability to active reporting and execution areas.'))
+        if self._model('mapping').with_context(active_test=False).search_count([('ydental_store_id', '=', store.id),
+                ('ydental_catalog_id', '=', catalog.id), ('ydental_area_id', '=', area.id)]):
+            raise UserError(self.env._('version_conflict: This store service area is already mapped.'))
         record = self._new('mapping', store, {'name': catalog.name + ' / ' + area.name,
             'ydental_catalog_id': catalog.id, 'ydental_area_id': area.id, 'ydental_execution_area_id': execution.id})
         return {'id': record.id, 'version': record.ydental_version}

@@ -34,7 +34,7 @@ class YDentalPatientService(models.AbstractModel):
             'entitlement': [('state', 'in', ['held', 'started'])],
             'task': [('state', 'in', ['pending', 'accepted', 'started'])],
             'position': [('ydental_active', '=', True)],
-            'referral': [('state', '=', 'pending')],
+            'referral': [('state', '=', 'pending'), ('ydental_valid_until', '>', self._now())],
         }
         for entity, domain in domains.items():
             records = self.env['ydental.intake.' + entity].sudo().search([('ydental_patient_id', 'in', patient_ids)] + domain)
@@ -52,7 +52,7 @@ class YDentalPatientService(models.AbstractModel):
             'entitlement': [('state', 'in', ['held', 'started'])],
             'task': [('state', 'in', ['pending', 'accepted', 'started'])],
             'position': [('ydental_active', '=', True)],
-            'referral': [('state', '=', 'pending')],
+            'referral': [('state', '=', 'pending'), ('ydental_valid_until', '>', self._now())],
         }
         for entity, domain in domains.items():
             records = self.env['ydental.intake.' + entity].sudo().search([('ydental_patient_id', 'in', source_ids)] + domain)

@@ -81,7 +81,7 @@ class YDentalIntake(http.Controller):
             'mapping_edit': ('record_id version active', 'record_id version'),
             'price': ('catalog_id currency_id unit_price start end reason', 'catalog_id currency_id'),
             'review': ('record_id version reason', 'record_id version'),
-            'publish': ('record_id version reason replace_id replace_version', 'record_id version replace_id replace_version'),
+            'publish': ('record_id version reason', 'record_id version'),
             'snapshot': ('catalog_id currency_id quantity source policy', 'catalog_id currency_id'),
             'reserve': ('patient_id mapping_id start end channel', 'patient_id mapping_id'),
             'register': ('patient_id mapping_id start end', 'patient_id mapping_id'),
@@ -99,6 +99,9 @@ class YDentalIntake(http.Controller):
             raise AccessError(request.env._('access_denied: Unknown intake form action.'))
         names, integers = schemas[operation]
         result = {name: form[name] for name in names.split() if name in form and form[name] != ''}
+        if operation == 'publish' and form.get('replace_choice'):
+            replacement_id, replacement_version = form['replace_choice'].split(':')
+            result.update(replace_id=int(replacement_id), replace_version=int(replacement_version))
         for name in integers.split():
             if name in result:
                 result[name] = int(result[name])
