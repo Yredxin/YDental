@@ -180,7 +180,9 @@ def main():
             # Genuine browser offline leaves content visibly unsynchronized.
             open_editor(p2);ctx2.set_offline(True);p2.locator('[name=history]').fill('未同步合成文本')
             p2.wait_for_function('document.querySelector("#clinical-result").textContent.includes("未同步") || document.querySelector("#clinical-result").textContent.includes("连接")');check('offline never claims success','已保存' not in p2.locator('#clinical-result').inner_text())
-            screenshot(p2,ctx2,'11-offline-unsynchronized.png');ctx2.set_offline(False)
+            ctx2.set_offline(False);p2.locator('#open-document').click()
+            check('reacquire cannot mark unsent local text saved','未同步' in p2.locator('#clinical-result').inner_text() and '已保存' not in p2.locator('#clinical-result').inner_text())
+            screenshot(p2,ctx2,'11-offline-unsynchronized.png')
             # Drop only this page's unsent demonstration text by explicit navigation.
             p2.on('dialog',lambda dialog:dialog.accept());p2.reload();check('refresh restores committed server text',p2.locator('[name=history]').input_value()!='未同步合成文本')
             check('zero browser page errors',not errors)
