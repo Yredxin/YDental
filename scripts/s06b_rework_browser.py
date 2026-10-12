@@ -38,6 +38,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--db', required=True)
     parser.add_argument('--port', type=int, default=18126)
+    parser.add_argument('--cases', nargs='+', choices=['verify_execution', 'verify_hold', 'hold_targets', 'revoked_reopen'],
+                        default=['verify_execution', 'verify_hold', 'hold_targets', 'revoked_reopen'])
     args = parser.parse_args()
     require(re.fullmatch(r'ydental_s06b_test_[0-9]{14}_[a-f0-9]{8}', args.db), 'Database name refused')
     require(18000 <= args.port <= 18999, 'Isolated port refused')
@@ -63,7 +65,7 @@ def main():
     evidence = ROOT / 'docs/evidence/s06b-rework/new-browser-attempts' / datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f')
     evidence.mkdir(parents=True)
     result = {'scope': 'S06-B real queue, unscheduled workstation leases and actual start UI', 'database': args.db, 'tested_commit': commit,
-              'browser': 'Firefox', 'sandbox': 'default, no overrides', 'checks': [], 'screenshots': []}
+              'browser': 'Firefox', 'sandbox': 'default, no overrides', 'checks': [], 'screenshots': [], 'selected_cases': args.cases}
     sensitive = {str(v[k]) for v in access.values() for k in ('login', 'password')}
     base = 'http://127.0.0.1:%s' % args.port
 
@@ -174,6 +176,8 @@ def main():
             for kind, operation, label in (
                     ('verify_execution', 'takeover_verify', 'Save and take over actual execution'),
                     ('verify_hold', 'handover_verify_hold', 'Save reserved segment and create continuation')):
+                if kind not in args.cases:
+                    continue
                 c = preview[kind]
                 context, page = open_case(kind, 'second')
                 form = page.locator('form[data-queue-form="%s"]' % operation)
@@ -191,46 +195,48 @@ def main():
                 check(kind + ' leaves verification list', page.locator('form[data-verify-execution="%s"]' % c['execution']).count() == 0)
                 check(kind + ' rejects second handling', qaction(page, operation, {'execution_id': c['execution'], 'confirmed': True, 'reason': 'duplicate onsite handling'})['status'] == 409)
                 if kind == 'verify_execution':
-                    check('actual takeover remains serving', page.locator('#position').get_attribute('data-state') == 'serving')
+                    check('actual takeover remains serving', row(page, c['task']).locator('.queue-state').inner_text() == 'serving')
                 else:
                     check('hold handover leaves unique pending continuation', page.locator('[data-pending-task]').count() >= 1)
                 screenshot(page, context, kind + '-after.png')
                 context.close()
 
-            c = preview['hold_targets']
-            context, page = open_case('hold_targets', 'frontdesk')
-            for target, trusted in (('care', False), ('untrusted', False), ('extra', True)):
-                form = page.locator('[data-pending-task="%s"] form[data-queue-form=report]' % c[target])
-                form.wait_for(state='visible')
-                if trusted:
-                    with page.expect_navigation(wait_until='domcontentloaded'):
-                        form.get_by_role('button').click()
-                    check('additional trusted external target reports', row(page, c[target]).locator('.queue-state').inner_text() == 'waiting')
-                    screenshot(page, context, 'hold-trusted-external.png')
-                else:
-                    with page.expect_response(lambda r: '/ydental/intake/action' in r.url) as response:
-                        form.get_by_role('button').click()
-                    check('hold rejects ' + target, response.value.status == 409)
-                    page.locator('#queue-result').filter(has_text='hold_target_required').wait_for(state='visible')
-                    screenshot(page, context, 'hold-denied-' + target + '.png')
-            context.close()
+            if 'hold_targets' in args.cases:
+                c = preview['hold_targets']
+                context, page = open_case('hold_targets', 'frontdesk')
+                for target, trusted in (('care', False), ('untrusted', False), ('extra', True)):
+                    form = page.locator('[data-pending-task="%s"] form[data-queue-form=report]' % c[target])
+                    form.wait_for(state='visible')
+                    if trusted:
+                        with page.expect_navigation(wait_until='domcontentloaded'):
+                            form.get_by_role('button').click()
+                        check('additional trusted external target reports', row(page, c[target]).locator('.queue-state').inner_text() == 'waiting')
+                        screenshot(page, context, 'hold-trusted-external.png')
+                    else:
+                        with page.expect_response(lambda r: '/ydental/intake/action' in r.url) as response:
+                            form.get_by_role('button').click()
+                        check('hold rejects ' + target, response.value.status == 409)
+                        page.locator('#queue-result').filter(has_text='hold_target_required').wait_for(state='visible')
+                        screenshot(page, context, 'hold-denied-' + target + '.png')
+                context.close()
 
-            c = preview['revoked_reopen']
-            context, page = open_case('revoked_reopen', 'frontdesk')
-            form = page.locator('[data-pending-task="%s"] form[data-queue-form=report]' % c['task'])
-            form.wait_for(state='visible')
-            with page.expect_navigation(wait_until='domcontentloaded'):
-                form.get_by_role('button').click()
-            check('reopened same task reports without new append', row(page, c['task']).locator('.queue-state').inner_text() == 'waiting')
-            screenshot(page, context, 'revoked-reopen-ordinary-report.png')
-            context.close()
-            context, page = open_case('revoked_reopen')
-            sit(page, c['station'])
-            click_reload(page, 'Call next matching task')
-            click_reload(page, 'Start actual execution')
-            check('revoked history does not block ordinary reopened start', row(page, c['task']).locator('.queue-state').inner_text() == 'serving')
-            screenshot(page, context, 'revoked-reopen-ordinary-start.png')
-            context.close()
+            if 'revoked_reopen' in args.cases:
+                c = preview['revoked_reopen']
+                context, page = open_case('revoked_reopen', 'frontdesk')
+                form = page.locator('[data-pending-task="%s"] form[data-queue-form=report]' % c['task'])
+                form.wait_for(state='visible')
+                with page.expect_navigation(wait_until='domcontentloaded'):
+                    form.get_by_role('button').click()
+                check('reopened same task reports without new append', row(page, c['task']).locator('.queue-state').inner_text() == 'waiting')
+                screenshot(page, context, 'revoked-reopen-ordinary-report.png')
+                context.close()
+                context, page = open_case('revoked_reopen')
+                sit(page, c['station'])
+                click_reload(page, 'Call next matching task')
+                click_reload(page, 'Start actual execution')
+                check('revoked history does not block ordinary reopened start', row(page, c['task']).locator('.queue-state').inner_text() == 'serving')
+                screenshot(page, context, 'revoked-reopen-ordinary-start.png')
+                context.close()
             check('no browser script errors', not errors)
             result['result'] = 'PASS'
         finally:
