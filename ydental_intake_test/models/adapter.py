@@ -55,3 +55,15 @@ class YDentalSupplyService(models.AbstractModel):
             ('ydental_task_id.ydental_mapping_id.ydental_area_id', '=', business.ydental_area_id.id),
             ('ydental_active', '=', True)]):
             raise UserError('Synthetic waiting/calling remains in target area.')
+
+
+class YDentalPatientService(models.AbstractModel):
+    _inherit = 'ydental.patient.service'
+
+    def _migrate_business(self, source_ids, target):
+        guard(self.env)
+        counts = super()._migrate_business(source_ids, target)
+        rows = self.env['ydental.intake.test.queue'].sudo().search([
+            ('ydental_patient_id', 'in', source_ids), ('ydental_active', '=', True)])
+        rows.write({'ydental_patient_id': target.id})
+        return counts | {'synthetic_queue': len(rows)}
