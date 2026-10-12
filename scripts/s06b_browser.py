@@ -60,7 +60,7 @@ def main():
     commit = subprocess.check_output(['git', '-C', str(ROOT), 'rev-parse', 'HEAD'], text=True).strip()
     require(not subprocess.check_output(['git', '-C', str(ROOT), 'status', '--porcelain', '--',
         'ydental_queue', 'ydental_queue_test', 'scripts/s06b*'], text=True), 'Commit implementation and verification first')
-    evidence = ROOT / 'docs/evidence/s06b/browser-attempts' / datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f')
+    evidence = ROOT / 'docs/evidence/s06b-rework/browser-attempts' / datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f')
     evidence.mkdir(parents=True)
     result = {'scope': 'S06-B real queue, unscheduled workstation leases and actual start UI', 'database': args.db, 'tested_commit': commit,
               'browser': 'Firefox', 'sandbox': 'default, no overrides', 'checks': [], 'screenshots': []}

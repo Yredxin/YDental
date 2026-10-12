@@ -4,3 +4,5 @@ from . import test_rework
 from . import test_rework_http
 from . import test_return
 from . import test_return_http
+
+from . import test_return_rework

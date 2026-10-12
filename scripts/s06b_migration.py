@@ -70,6 +70,6 @@ with env.registry.cursor() as cr:
             'actual_module_upgrade': True, 'historical_execution_retained': True, 'task_and_snapshot_backfilled': True,
             'new_execution_same_patient_and_lease': True, 'entry_start_unique_retained': True, 'history_rows': 2}
         cr.commit()
-        target = Path(__file__).resolve().parents[1] / 'docs/evidence/s06b/migration.json'
+        target = Path(__file__).resolve().parents[1] / 'docs/evidence/s06b-rework/migration.json'
         target.write_text(json.dumps(evidence, indent=2) + '\n')
         print(json.dumps(evidence))

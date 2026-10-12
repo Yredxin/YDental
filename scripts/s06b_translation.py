@@ -38,7 +38,7 @@ result = {'database': args.db,
     'exported_terms': len(pot), 'translated_terms': len(pot) - len(missing), 'missing': missing,
     'connection_message_ids_preserved': True, 'invalid_code_metadata': invalid_metadata,
     'result': 'FAIL' if missing or invalid_metadata else 'PASS'}
-evidence = root / 'docs/evidence/s06b'
+evidence = root / 'docs/evidence/s06b-rework'
 evidence.mkdir(parents=True, exist_ok=True)
 (evidence / 'translation.json').write_text(json.dumps(result, indent=2) + '\n')
 print(json.dumps({'result': result['result'], 'terms': len(pot), 'missing': len(missing), 'invalid_metadata': len(invalid_metadata)}))

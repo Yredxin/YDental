@@ -27,7 +27,7 @@ result = {'scope': 'S06-B real queue/leases/execution, independent PostgreSQL RR
           'database': env.cr.dbname, 'started_utc': datetime.now(timezone.utc).isoformat(), 'races': []}
 
 
-attempt_path = Path(__file__).resolve().parents[1] / 'docs/evidence/s06b/a-regression/probe-attempts' / (env.cr.dbname + '-' + datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f') + '.json')
+attempt_path = Path(__file__).resolve().parents[1] / 'docs/evidence/s06b-rework/a-regression/probe-attempts' / (env.cr.dbname + '-' + datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f') + '.json')
 attempt_path.parent.mkdir(parents=True, exist_ok=True)
 
 def save_attempt():
@@ -439,7 +439,7 @@ with registry.cursor() as cr:
 private(run / 'access.json', access)
 private(run / 'preview.json', preview)
 result['result'] = 'PASS'
-evidence = Path(__file__).resolve().parents[1] / 'docs/evidence/s06b/a-regression/probe-attempts'
+evidence = Path(__file__).resolve().parents[1] / 'docs/evidence/s06b-rework/a-regression/probe-attempts'
 evidence.mkdir(parents=True, exist_ok=True)
 path = attempt_path
 path.write_text(json.dumps(result, indent=2) + '\n')

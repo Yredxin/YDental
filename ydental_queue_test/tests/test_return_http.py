@@ -124,3 +124,65 @@ class TestQueueReturnHTTP(TestQueueHTTP):
         call = self.action('call', args)
         self.assertEqual(call.status_code, 200, call.text)
         self.assertEqual(self.action('start', dict(args, entry_id=call.json()['entry_id'])).status_code, 200)
+
+    def test_http_verify_onsite_takeover_fail_closed_then_new_lease(self):
+        from datetime import timedelta
+        args, old = self.start_http()
+        queue = self.front.env['ydental.queue.service']
+        old.ydental_lease_id._save({'ydental_expires_at': queue._now() - timedelta(seconds=1)})
+        queue._timeout()
+        payload = {'execution_id': old.id, 'confirmed': True, 'reason': 'HTTP on-site confirmation'}
+        self.assertEqual(self.action('takeover_verify', payload).status_code, 403)
+        self.assertEqual(self.action('takeover_verify', dict(payload, confirmed=False)).status_code, 403)
+        source(queue, old)
+        response = self.action('takeover_verify', payload)
+        self.assertEqual(response.status_code, 200, response.text)
+        self.assertNotEqual(response.json()['lease_id'], args['lease_id'])
+        self.assertEqual(old.state, 'interrupted')
+        self.assertEqual(self.action('takeover_verify', payload).status_code, 409)
+        self.assertEqual(self.action('heartbeat', args).status_code, 403)
+        self.assertIn('error', self.rpc('ydental.queue.service', '_onsite_source', [old.id, True, 'remote RPC']))
+
+    def test_http_verify_hold_handover_and_untrusted_targets(self):
+        from datetime import timedelta
+        args, old = self.start_http()
+        queue = self.front.env['ydental.queue.service']
+        target = external(self, old)
+        source(queue, old, target)
+        held = self.action('reserve', dict(args, execution_id=old.id, target_task_id=target.id))
+        self.assertEqual(held.status_code, 200, held.text)
+        unrelated = external(self, old, self.mappings[0][0], independent=True)
+        untrusted = external(self, old)
+        self.select('frontdesk')
+        for task in (unrelated, untrusted):
+            response = self.url_open('/ydental/intake/action', data={'csrf_token': self.csrf,
+                'revision': self.revision, 'operation': 'report', 'output': 'json', 'key': key(),
+                'payload': json.dumps({'task_id': task.id, 'version': task.ydental_version})})
+            self.assertEqual(response.status_code, 409, response.text)
+        report(self, target)
+        old.ydental_lease_id._save({'ydental_expires_at': queue._now() - timedelta(seconds=1)})
+        queue._timeout()
+        self.select()
+        response = self.action('handover_verify_hold', {'execution_id': old.id, 'confirmed': True, 'reason': 'HTTP on-site hold handover'})
+        self.assertEqual(response.status_code, 200, response.text)
+        self.assertEqual(queue._model('hold').browse(held.json()['hold_id']).state, 'handover')
+        self.assertEqual(self.root['ydental.intake.task'].browse(response.json()['continuation_task_id']).state, 'pending')
+
+    def test_http_revoked_permit_reopen_normal_report_call_start(self):
+        task = accepted(self)
+        close(self)
+        appender(self)
+        self.select('frontdesk')
+        permit = self.action('append', {'task_id': task.id, 'reason': 'HTTP append before revoke'}).json()
+        self.assertEqual(self.action('revoke', {'permit_id': permit['permit_id'], 'reason': 'HTTP revoke'}).status_code, 200)
+        self.root['ydental.supply.service']._business_record(self.stores[0], self.areas[0][0].id)._save({'state': 'open'})
+        response = self.url_open('/ydental/intake/action', data={'csrf_token': self.csrf,
+            'revision': self.revision, 'operation': 'report', 'output': 'json', 'key': key(),
+            'payload': json.dumps({'task_id': task.id, 'version': task.ydental_version})})
+        self.assertEqual(response.status_code, 200, response.text)
+        self.select()
+        args = self.lease()
+        call = self.action('call', args).json()
+        response = self.action('start', dict(args, entry_id=call['entry_id']))
+        self.assertEqual(response.status_code, 200, response.text)
+        self.assertEqual(self.root['ydental.queue.append.permit'].browse(permit['permit_id']).state, 'revoked')

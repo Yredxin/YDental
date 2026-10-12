@@ -29,7 +29,7 @@ result = {'scope': 'S06-B hold, restore, handover, continuation and append concu
           'database': env.cr.dbname, 'started_utc': datetime.now(timezone.utc).isoformat(), 'races': []}
 
 
-attempt_path = Path(__file__).resolve().parents[1] / 'docs/evidence/s06b/probe-attempts' / (env.cr.dbname + '-' + datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f') + '.json')
+attempt_path = Path(__file__).resolve().parents[1] / 'docs/evidence/s06b-rework/probe-attempts' / (env.cr.dbname + '-' + datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f') + '.json')
 attempt_path.parent.mkdir(parents=True, exist_ok=True)
 
 def save_attempt():
@@ -319,6 +319,69 @@ c = fresh(lambda q: case(q))
 output = parallel([(c['doctor'], 0, lambda q: q._operate('call', args(c['lease']))), (c['exam'], 0, lambda q: start_exam(q, c))])
 assert 'rejected' in output[0]['value'] and assert_patient(c) == [c['target']]
 record('T06_holding_doctor_call_vs_external_start', output, holding_doctor_cannot_call=True, external_serving_allowed=True)
+
+
+# Rework additions: original A21/B12 above are retained intact.
+for held in (False, True):
+    c = fresh(lambda q: case(q, 'calling' if held else 'handover'))
+    def expire_source(q):
+        q._locks()
+        q._model('lease').browse(c['lease']['lease_id'])._save({'ydental_expires_at': q._now() - timedelta(seconds=1)})
+        q._expire()
+    fresh(expire_source)
+    operation = 'handover_verify_hold' if held else 'takeover_verify'
+    payload = {'execution_id': c['execution'], 'confirmed': True, 'reason': 'Two qualified people physically inspecting original station'}
+    # The original actor and a distinct qualified employee both attempt the
+    # same original station, with different server sessions/connections.
+    output = parallel([(c['doctor'], 0, lambda q: q._operate(operation, payload)),
+                       ('second', 0, lambda q: q._operate(operation, payload))])
+    winners = [v['value'] for v in output if 'rejected' not in v['value']]
+    assert len(winners) == 1
+    new_lease = winners[0]['lease_id']
+    assert new_lease != c['lease']['lease_id']
+    assert fresh(lambda q: q._model('execution').browse(c['execution']).state) == ('handover' if held else 'interrupted')
+    if held:
+        assert fresh(lambda q: q._model('hold').browse(c['hold']).ydental_resolution_lease_id.id) == new_lease
+        assert not assert_patient(c)
+    else:
+        assert assert_patient(c) == [c['task']]
+    record('B_REWORK_verify_' + ('hold' if held else 'execution') + '_two_people', output,
+           exactly_one_success=True, new_bound_lease=True, old_identity_preserved=True, no_treatment_completion=True)
+
+c = fresh(lambda q: case(q, 'calling'))
+def care_target(q):
+    front = service(q.env.cr, 'frontdesk').env['ydental.intake.service']
+    task = front._model('task').browse(c['task'])
+    return front._new('task', task.ydental_store_id, dict(front._identity(task.ydental_patient_id),
+        name='Unrelated synthetic Care task', ydental_mapping_id=maps[0], ydental_parent_task_id=task.id,
+        ydental_source_kind='derived')).id
+care_id = fresh(care_target)
+def report_task(q, task_id):
+    intake = q.env['ydental.intake.service']
+    task = intake._model('task').browse(task_id)
+    return intake._operate('report', {'task_id': task.id, 'version': task.ydental_version}, key())
+output = parallel([('frontdesk', 0, lambda q: report_task(q, care_id)),
+                   ('frontdesk', 1, lambda q: report_task(q, c['target']))])
+assert 'rejected' in output[0]['value'] and 'rejected' not in output[1]['value']
+record('B_REWORK_hold_unrelated_care_vs_trusted_external_report', output, care_denied=True, trusted_exam_allowed=True)
+
+c = fresh(lambda q: case(q, 'append'))
+permit = fresh(lambda q: q._operate('append', {'task_id': c['task'], 'reason': 'Rework reopen qualification'}), 'frontdesk')
+call = fresh(lambda q: q._operate('call', args(c['lease'])), c['doctor'])
+fresh(lambda q: q._operate('revoke', {'permit_id': permit['permit_id'], 'reason': 'Rework revoke stopped exception'}), 'frontdesk')
+def reopen(q):
+    q._locks()
+    store = q.env['ydental.access.store'].sudo().browse(store_id)
+    business = q.env['ydental.supply.service']._business_record(store, q.env['ydental.intake.mapping'].sudo().browse(maps[0]).ydental_area_id.id)
+    business._save({'state': 'open'})  # guarded synthetic S03 input, not C
+    return {'result': 'open'}
+output = ordered(('manager', 0, reopen), ('frontdesk', 0, lambda q: report_task(q, c['task'])))
+assert all('rejected' not in v['value'] for v in output)
+call = fresh(lambda q: q._operate('call', args(c['lease'])), c['doctor'])
+fresh(lambda q: q._operate('start', dict(args(c['lease']), entry_id=call['entry_id'])), c['doctor'])
+assert assert_patient(c) == [c['task']]
+assert fresh(lambda q: q._model('append.permit').browse(permit['permit_id']).state) == 'revoked'
+record('B_REWORK_revoked_reopen_vs_ordinary_report_then_start', output, same_task=True, historical_revoke_retained=True, no_new_permit=True)
 
 
 def invariants(q):
