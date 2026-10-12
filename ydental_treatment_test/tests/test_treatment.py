@@ -107,7 +107,7 @@ class TestActualTreatment(TransactionCase):
         end=p._operate('finish',args|{'reason':'Prescription fully dispensed'},key());self.assertFalse(end['next_task_id']);self.assertEqual(end['order_state'],'done')
         member=self.root['ydental.access.membership'].search([('ydental_user_id','=',self.pharmacist.id),('ydental_store_id','=',self.stores[0].id)])
         levels=self.admin._levels(member);self.assertEqual(levels['pharmacy'],'write')
-        for category in ('warehouse','price','billing'):self.assertEqual(levels[category],'none')
+        for category in ('warehouse','price','settlement'):self.assertEqual(levels[category],'none')
 
     def test_frozen_exam_cancel_unperformed_and_new_order(self):
         s,c,q,l,e,d,a=opened_actual(self)

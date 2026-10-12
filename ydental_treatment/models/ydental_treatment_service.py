@@ -228,7 +228,28 @@ class YDentalTreatmentService(models.AbstractModel):
             event._save({'ydental_pending_reason': 'missing_price'})
             return
         pending = []
-        for row in self._model('consumption').search([('ydental_event_id', '=', event.id)]):
+        rows = self._model('consumption').search([('ydental_event_id', '=', event.id)])
+        inventory = self.env['ydental.inventory.service']
+        # If a real historical project is short in any batch, persist its S07
+        # pending fact first and defer every other issue. No partial native
+        # consumption is posted merely because another material was available.
+        unavailable = rows.filtered(lambda row: row.ydental_inventory_event_id and row.ydental_inventory_event_id.state != 'done')
+        for row in rows.filtered(lambda row: not row.ydental_inventory_event_id):
+            lot = row.ydental_lot_id
+            config = inventory._config(event.ydental_store_id)
+            stock_quantity, unit, unit_snapshot = inventory._unit(lot.product_id, row.ydental_quantity, row.ydental_uom_id.id)
+            batch = inventory._batch(lot, event.ydental_store_id)
+            unusable = not batch.ydental_enabled or not lot.product_id.active or not lot.expiration_date or lot.expiration_date <= fields.Datetime.now()
+            short = lot.product_id.uom_id.compare(inventory._quantity(lot, inventory._location(config, lot.product_id)), stock_quantity) < 0
+            if unusable or short:
+                unavailable |= row
+        if unavailable:
+            for row in unavailable.filtered(lambda row: not row.ydental_inventory_event_id):
+                result = inventory._source_action(InventorySource(self.env.uid, event.ydental_store_id.id, row.id))
+                row._save({'ydental_inventory_event_id': result['id']})
+            event._save({'ydental_pending_reason': 'inventory_pending'})
+            return
+        for row in rows:
             if not row.ydental_inventory_event_id:
                 result = self.env['ydental.inventory.service']._source_action(InventorySource(self.env.uid, event.ydental_store_id.id, row.id))
                 row._save({'ydental_inventory_event_id': result['id']})
@@ -441,7 +462,9 @@ class YDentalTreatmentService(models.AbstractModel):
         if line.state != 'issued' or task.state not in ('pending', 'accepted') or self.env['ydental.queue.service']._model('execution').search_count([('ydental_task_id', '=', task.id)]):
             raise UserError(self.env._('already_started: An examination that has started cannot be cancelled as unperformed.'))
         reason = self.env['ydental.intake.service']._text(reason)
-        self.env['ydental.intake.service']._withdraw(task, reason)
+        intake = self.env['ydental.intake.service']
+        if intake._model('position').search_count([('ydental_task_id', '=', task.id), ('ydental_active', '=', True)]):
+            intake._withdraw(task, reason)
         task._save({'state': 'cancelled', 'ydental_reason': reason})
         line._save({'state': 'cancelled', 'ydental_reason': reason})
         order._save({'ydental_version': order.ydental_version + 1})
