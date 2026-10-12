@@ -8,7 +8,16 @@ from pathlib import Path
 import re
 import stat
 import subprocess
+import sys
 from urllib.parse import urlsplit
+
+# Reuse only the already provisioned process-local browser assets. No install.
+_BROWSER_DEPS = Path(__file__).resolve().parents[1] / '.local/s00-b-deps'
+if (_BROWSER_DEPS / 'verify-lib/playwright/__init__.py').is_file():
+    sys.path.insert(0, str(_BROWSER_DEPS / 'verify-lib'))
+    os.environ.setdefault('PLAYWRIGHT_BROWSERS_PATH', str(_BROWSER_DEPS / 'browsers'))
+    os.environ.setdefault('LD_LIBRARY_PATH', str(_BROWSER_DEPS / 'browser-libs/usr/lib/x86_64-linux-gnu'))
+    os.environ.setdefault('FONTCONFIG_FILE', str(_BROWSER_DEPS / 'browser-fonts.conf'))
 
 from playwright.sync_api import sync_playwright
 
