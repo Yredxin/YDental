@@ -339,6 +339,8 @@ class TestIntake(TransactionCase):
                 stack.enter_context(patch.object(type(self.front.env[name]), '_now', return_value=moment))
         with ExitStack() as stack:
             clock(stack, before)
+            self.group.env['ydental.supply.service']._operate('business', {'area_id': self.areas[0][0].id,
+                'state': 'open', 'reason': 'Synthetic current local day'}, key())
             slot = make_slot(self, self.group, self.stations[0][0], start, end)
             qs = [qualify(self, channel=c, start=start, end=end) for c in ('reservation', 'phone')]
             self.assertEqual(slot.ydental_reservation_free, 0)
@@ -411,7 +413,7 @@ class TestIntake(TransactionCase):
             with self.root.cr.savepoint():
                 if disabled == 'store': store.active = False
                 if disabled == 'mapping': mapping._save({'active': False})
-                if disabled == 'stop': manager.env['ydental.supply.service']._operate('business', {'area_id': mapping.ydental_area_id.id, 'state': 'draining', 'reason': 'Test stop'}, key())
+                if disabled == 'stop': manager.env['ydental.supply.service']._operate('business', {'area_id': mapping.ydental_area_id.id, 'state': 'draining', 'version': manager.env['ydental.supply.service']._business_record(store, mapping.ydental_area_id.id).ydental_version, 'reason': 'Test stop'}, key())
                 if disabled == 'full':
                     self.doctor._synthetic_referral_action('refer_timed', timed_args, key())
                     counts = {m: self.root[m].search_count([]) for m in counts}
@@ -422,7 +424,29 @@ class TestIntake(TransactionCase):
                 # Restore the synthetic fixture for the next negative branch.
                 if disabled == 'store': store.active = True
                 if disabled == 'mapping': mapping._save({'active': True})
-                if disabled == 'stop': manager.env['ydental.supply.service']._operate('business', {'area_id': mapping.ydental_area_id.id, 'state': 'open', 'reason': 'Test reopen'}, key())
+                if disabled == 'stop': manager.env['ydental.supply.service']._operate('business', {'area_id': mapping.ydental_area_id.id, 'state': 'open', 'version': manager.env['ydental.supply.service']._business_record(store, mapping.ydental_area_id.id).ydental_version, 'reason': 'Test reopen'}, key())
+
+        # An untimed source does not pre-acquire capacity; target reception must
+        # still reject a full walk-in pool without half-built target business.
+        pending = self.doctor._synthetic_referral_action('refer_untimed', dict(args,
+            valid_until=fields.Datetime.to_string(fields.Datetime.now() + timedelta(days=7))), key())
+        for _ in range(slot.ydental_walkin_free):
+            qualify(self, mapping=mapping, service=desk, channel='walkin')
+        counts = {m: self.root[m].search_count([]) for m in ('ydental.patient.relation', 'ydental.supply.claim', 'ydental.intake.task')}
+        with self.assertRaises(UserError):
+            desk._operate('accept_referral', {'record_id': pending['id'], 'version': pending['version'],
+                'start': timed_args['start'], 'end': timed_args['end']}, key())
+        self.assertEqual({m: self.root[m].search_count([]) for m in counts}, counts)
+        self.assertEqual(self.root['ydental.intake.referral'].browse(pending['id']).state, 'pending')
+        exam = clinical_source(self, qualify(self, mapping=self.mappings[0][2]))
+        self.admin._grant(self.users['doctor'].id, self.stores[0].id, {'medical': 'none', 'exam': 'write'})
+        exam_args = dict(args, source_task_id=exam['task_id'], version=exam['task_version'],
+            valid_until=fields.Datetime.to_string(fields.Datetime.now() + timedelta(days=7)))
+        self.doctor._synthetic_referral_action('refer_untimed', exam_args, 's05-exam-source-audit')
+        exam_receipt = self.root['ydental.intake.operation'].search([('ydental_key', '=', 's05-exam-source-audit')])
+        self.assertEqual(exam_receipt.ydental_category, 'exam')
+        exam_audit = self.root['ydental.access.audit'].search([('ydental_event', '=', 'intake.refer_untimed'), ('ydental_target_id', '=', exam_receipt.id)])
+        self.assertEqual(exam_audit.ydental_category, 'exam')
 
     def test_rework_timed_referral_uses_target_reservation_day(self):
         from contextlib import ExitStack

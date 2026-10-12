@@ -15,6 +15,7 @@ class SyntheticReferralPermit:
     store_id: int
     operation: str
     fingerprint: str
+    category: str
 
 
 def guard(env):
@@ -38,13 +39,18 @@ class YDentalIntakeService(models.AbstractModel):
     def _synthetic_referral_action(self, operation, payload, key):
         guard(self.env)
         store, category = self._referral_access()
-        permit = SyntheticReferralPermit(self.env.uid, store.id, operation, fingerprint(payload))
+        task = self._get('task', payload['source_task_id'], store)
+        category = 'exam' if task.ydental_mapping_id.ydental_catalog_id.ydental_kind == 'exam' else 'medical'
+        self._referral_access(category)
+        permit = SyntheticReferralPermit(self.env.uid, store.id, operation, fingerprint(payload), category)
         return self._referral_action(operation, payload, key, permit=permit)
 
     def _authorize_referral(self, operation, payload, permit):
         guard(self.env)
-        store, category = self._referral_access()
-        if type(permit) is not SyntheticReferralPermit or (
+        if type(permit) is not SyntheticReferralPermit:
+            raise AccessError('Synthetic referral requires an exact, server-created clinical permit.')
+        store, category = self._referral_access(permit.category)
+        if (
             permit.actor_id, permit.store_id, permit.operation, permit.fingerprint
         ) != (self.env.uid, store.id, operation, fingerprint(payload)):
             raise AccessError('Synthetic referral requires an exact, server-created clinical permit.')
@@ -52,6 +58,10 @@ class YDentalIntakeService(models.AbstractModel):
         self._version(task, payload['version'])
         if task.state not in ('started', 'done'):
             raise AccessError('Synthetic referral requires a fixed actual encounter stand-in.')
+        expected = 'exam' if task.ydental_mapping_id.ydental_catalog_id.ydental_kind == 'exam' else 'medical'
+        if category != expected:
+            raise AccessError('Synthetic source category does not match the encounter stand-in.')
+        return category
 
     def _queue_accept(self, task, previous):
         guard(self.env)
