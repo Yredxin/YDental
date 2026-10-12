@@ -266,3 +266,7 @@ class TestInventory(TransactionCase):
         rows=[r for r in self.stock._dashboard()['lots'] if r['product_id']==self.products['medicine']]
         self.assertTrue(all('low' in r['flags'] for r in rows))
         stopped=next(r for r in rows if r['id']==second);self.assertEqual(stopped['quantity'],0);self.assertEqual(stopped['on_hand'],2)
+
+    def test_t09_product_hook_default_failclosed(self):
+        from odoo.addons.ydental_inventory.models.ydental_inventory_service import YDentalInventoryService
+        with self.assertRaises(AccessError):YDentalInventoryService._authorize_source(self.stock,{'kind':'treatment'})
