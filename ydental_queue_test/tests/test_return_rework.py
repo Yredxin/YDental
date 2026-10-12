@@ -64,6 +64,12 @@ class TestQueueReturnRework(TransactionCase):
         with self.assertRaises(AccessError):
             resolver._operate('takeover_verify', args)
         args['confirmed'] = True
+        self.admin._join(self.second.id, self.stores[1].id)
+        self.admin._grant(self.second.id, self.stores[1].id, {'medical': 'write'})
+        from .common import bind
+        elsewhere = bind(self, self.second, self.stores[1]).env['ydental.queue.service']._bind_connection(key() + key())
+        with self.assertRaises(AccessError):
+            elsewhere._operate('takeover_verify', args)
         with self.assertRaises(AccessError):
             queue_bind(self, self.users['reader'])._operate('takeover_verify', args)
         self.second.write({'ydental_capability_ids': [(6, 0, [])]})
@@ -106,8 +112,11 @@ class TestQueueReturnRework(TransactionCase):
         queue, lease, old = serving(self)
         care = external(self, old, self.mappings[0][0], independent=True)
         hold, target = reserve(self, queue, lease, old)
+        before = {model: self.root[model].search_count([]) for model in
+                  ('ydental.intake.position', 'ydental.queue.entry', 'ydental.supply.event')}
         with self.assertRaises(UserError):
             report(self, care)
+        self.assertEqual(before, {model: self.root[model].search_count([]) for model in before})
         with self.assertRaises(UserError):
             report(self, old.ydental_task_id)
         entry = queue._model('entry').search([('ydental_task_id', '=', old.ydental_task_id.id)])
@@ -115,7 +124,8 @@ class TestQueueReturnRework(TransactionCase):
         # A pre-existing/stale queue row must be blocked independently at call
         # and start, even without going through today's report validation.
         values = entry.copy_data()[0]
-        values.update(ydental_task_id=care.id, state='waiting', ydental_lease_id=False)
+        values.update(ydental_task_id=care.id, ydental_number='REWORK-' + key(),
+                      state='waiting', ydental_lease_id=False, ydental_started_at=False)
         stale = queue._model('entry')._new(values)
         other, other_lease = enter(self, queue_bind(self, self.second), self.other_station)
         with self.assertRaises(UserError):
@@ -148,6 +158,12 @@ class TestQueueReturnRework(TransactionCase):
         report(self, target)
         self.assertFalse(queue._hold_target_reason(extra))
         self.assertFalse(queue._hold_target_reason(target))
+        self.front._withdraw(target, 'Switch to the second trusted examination')
+        report(self, extra)
+        exam, held, actual = serving(self, self.second, self.stations[0][2], extra)
+        self.assertEqual(actual.ydental_task_id, extra)
+        self.assertEqual(hold.state, 'active')
+
 
     def test_revoke_closed_reopen_ordinary_start_same_held_entitlement(self):
         task = accepted(self)
@@ -176,3 +192,23 @@ class TestQueueReturnRework(TransactionCase):
         self.assertEqual(queue._model('append.permit').browse(permit['permit_id']).state, 'revoked')
         self.assertEqual(queue._model('append.permit').search_count([('ydental_task_id', '=', task.id)]), 1)
         self.assertEqual(self.root['ydental.supply.event'].search_count([]), before + 1)
+
+    def test_hold_trusted_pharmacy_target_uses_same_queue_and_mutex(self):
+        self.catalogs[2]._save({'ydental_kind': 'medicine'})
+        self.stations[0][2].write({'ydental_kind': 'pharmacy', 'ydental_version': self.stations[0][2].ydental_version})
+        self.admin._grant(self.second.id, self.stores[0].id, {'pharmacy': 'write'})
+        queue, lease, old = serving(self)
+        hold, target = reserve(self, queue, lease, old)
+        report(self, target)
+        pharmacy, pharmacy_lease, actual = serving(self, self.second, self.stations[0][2], target)
+        self.assertEqual(actual.ydental_category, 'pharmacy')
+        with self.assertRaises(UserError):
+            queue._operate('restore', dict(lease_args(lease), hold_id=hold.id, confirmed=True))
+        self.expire(pharmacy, pharmacy_lease)
+        # Pharmacy verification also has an explicit controlled takeover exit.
+        source(pharmacy, actual)
+        self.admin._grant(self.users['manager'].id, self.stores[0].id, {'pharmacy': 'write'})
+        resolver = queue_bind(self, self.users['manager'])
+        result = resolver._operate('takeover_verify', {'execution_id': actual.id, 'confirmed': True, 'reason': 'On-site pharmacy verification'})
+        self.assertEqual(actual.state, 'interrupted')
+        self.assertEqual(resolver._unresolved_execution(target.ydental_patient_id.id).id, result['execution_id'])
