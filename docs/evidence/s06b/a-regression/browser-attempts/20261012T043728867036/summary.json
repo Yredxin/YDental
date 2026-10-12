@@ -1,0 +1,46 @@
+{
+  "scope": "S06-B real queue, unscheduled workstation leases and actual start UI",
+  "database": "ydental_s06b_test_20261012042920_01f4a828",
+  "tested_commit": "7816d8ab5872f7e6e56edcc366b461049ae9ac9d",
+  "browser": "Firefox",
+  "sandbox": "default, no overrides",
+  "checks": [
+    {
+      "check": "queue page shows current store and explicit staffing reason",
+      "result": "PASS"
+    },
+    {
+      "check": "unscheduled qualified doctor enters through real UI",
+      "result": "PASS"
+    },
+    {
+      "check": "no assignment is a visible reminder",
+      "result": "PASS"
+    },
+    {
+      "check": "second authorized person enters idle target chair",
+      "result": "PASS"
+    },
+    {
+      "check": "stale UI target switch fails after another holder acquires it",
+      "result": "PASS"
+    },
+    {
+      "check": "failed switch preserves original holding lease",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s06b/a-regression/browser-attempts/20261012T043728867036/01-unscheduled-workstation.png",
+      "sha256": "6f17c557ccf0ae76285a88c4a396cce3aa5c732e7e12ae8c4a9ec6ad76c69327"
+    },
+    {
+      "path": "docs/evidence/s06b/a-regression/browser-attempts/20261012T043728867036/02-switch-failure-keeps-chair.png",
+      "sha256": "81e0d6f79b27296935e2612055835cb6db4a8a2e0c6bd3b3815a4f791c17c581"
+    }
+  ],
+  "browser_version": "155.0",
+  "result": "FAIL_OR_INTERRUPTED",
+  "pageerror_count": 0
+}

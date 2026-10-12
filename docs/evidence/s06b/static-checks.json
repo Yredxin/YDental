@@ -1,0 +1,22 @@
+{
+  "test_commit": "a9bcf1c426274ad75e14dc6bada3e6cf333727d9",
+  "guard_tests": 5,
+  "guard_result": "PASS",
+  "parsed": {
+    "python": 33,
+    "xml": 2
+  },
+  "diff_check": "PASS",
+  "result": "PASS",
+  "attempts": [
+    {
+      "interpreter": "system python3",
+      "result": "BLOCKED",
+      "reason": "lxml absent; no dependency installed"
+    },
+    {
+      "interpreter": "core .venv/bin/python",
+      "result": "PASS"
+    }
+  ]
+}

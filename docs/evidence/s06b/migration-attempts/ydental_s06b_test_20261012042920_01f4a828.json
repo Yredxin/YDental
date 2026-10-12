@@ -1,0 +1,11 @@
+{
+  "result": "PASS",
+  "database": "ydental_s06b_test_20261012042920_01f4a828",
+  "legacy_fixture": "A lifetime patient/lease constraints and old row shape",
+  "actual_module_upgrade": true,
+  "historical_execution_retained": true,
+  "task_and_snapshot_backfilled": true,
+  "new_execution_same_patient_and_lease": true,
+  "entry_start_unique_retained": true,
+  "history_rows": 2
+}

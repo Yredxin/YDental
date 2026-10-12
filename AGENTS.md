@@ -1,5 +1,18 @@
 # YDental 当前执行入口
 
+## 当前 S06-B交付 / #30
+
+- 用户明确启用#30/S06-B，唯一业务边界为[GPT-ACTIVATE6117541343](https://github.com/Yredxin/YDental/issues/30#issuecomment-6117541343)。已完整读取#23正文/最新有效评论、#30正文/全部有效评论及S06-A最终技术PASS6117519348；[开工检查6117569945](https://github.com/Yredxin/YDental/issues/30#issuecomment-6117569945)写回逐字读回后实施。交付前重读边界未变。
+- S06-A最终`e13eaa2d48f11dd1193080a40ae2f31f58ddfa15`及全部失败/补交证据保留。新分支`codex/s06-b-continuation-r1-20261012`；固定产品`7816d8ab5872f7e6e56edcc366b461049ae9ac9d`、测试`a9bcf1c426274ad75e14dc6bada3e6cf333727d9`，最终文档证据SHA固定于#30交付评论。
+- 本次单独授权Project #30自定义执行状态返工→进行中；已完整读取21字段/15条目/6视图/7公开workflow元数据，仅一次mutation后两次完整读回深比较仅此值改变。原生Todo、阶段S06、其他字段/条目/视图/workflows及Issue状态不变；保持进行中，不自行转待复核。
+- 只交付历史execution保留/未解决部分唯一、外检独立hold、查询提示/原医生确认恢复、默认fail-closed保存前置交还、唯一门诊continuation及显式双权限task-bound追加permit/撤销与start原子竞争。S03/S04/S05/S06-A内核沿用；不删除历史，不把hold当actual execution，不复制外检能力到门诊。
+- 仅`scripts/s06b.py`及全新`ydental_s06b_test_14位时间_8位hex`隔离合成库，端点/cluster/OID/config/dbfilter/PID/端口/外发guard继续成立。S00—S06-A工具/库只历史保留、不接管；核心及既有服务/系统依赖未改。迁移验证仅新B库A形态约束/行夹具+真实-u，不冒称完整旧A源码树升级。
+- 最终全新库`ydental_s06b_test_20261012045322_4fb99b9b`，固定test安装73/升级71（54模型+17真实HTTP/RPC）、A21+B12真实双连接、Firefox A36项/14图+B29项/10图均0 pageerror、guard5及翻译219/219全部Codex自测通过，不代表GPT或用户验收。
+- 工程材料为docs/s06b-contracts.md、docs/s06b-data-dictionary.md、docs/s06b-security-review.md、docs/s06b-report.md及docs/evidence/s06b；失败链全部保留。产品目标来源/保存hook默认拒绝；合成文书和来源受新库guard保护，心跳/超时/N未生产批准。
+- 交付评论写回逐字读回后停止等GPT技术复核。Codex自测不代表GPT或用户验收。S06-C/S07/真实S08/S09及生产发布NOT_RUN；不关闭/合并/强推，不自动启用下一批。
+
+下方S06-A及更早“当前/本次”均为历史记录，本次授权以本节及最新B启用为准。
+
 ## 当前 S06-A定向返工 / #30
 
 - 用户明确只修[GPT-REVIEW6117074066](https://github.com/Yredxin/YDental/issues/30#issuecomment-6117074066)四个BLOCKER，继续原S06-A会话及分支`codex/s06-a-queue-r1-20261012`。原`840df8921cfb5a70c601e6e8ed81fb7d03aacd5b`及全部原失败/补交证据保留。

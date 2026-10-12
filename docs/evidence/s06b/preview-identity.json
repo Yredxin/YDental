@@ -1,0 +1,20 @@
+{
+  "database": "ydental_s06b_test_20261012045322_4fb99b9b",
+  "test_commit": "a9bcf1c426274ad75e14dc6bada3e6cf333727d9",
+  "port": 18127,
+  "pid": 922587,
+  "exact_config_in_proc_cmdline": true,
+  "config_sha256": "604c8c06168e25f825f25434b44fbf45791180924180648ffb4c056e24df7838",
+  "isolated_data_dir": true,
+  "dbfilter": "^ydental_s06b_test_20261012045322_4fb99b9b$",
+  "max_cron_threads": 0,
+  "smtp": "127.0.0.1:1",
+  "raw_config_published": false,
+  "external_egress_guard": true,
+  "safe_runtime_options_verified": true,
+  "egress_policy_sha256": "904682947b8651d92fe8cc01fdc090a80740b83fa13ed2ebb8409cd98be4e02a",
+  "process_environment_guard_verified": true,
+  "own_preview_stop_requested_utc": "2026-10-12T05:03:31.956698+00:00",
+  "own_preview_stopped_verified_utc": "2026-10-12T05:04:24.386587+00:00",
+  "own_port_released": true
+}

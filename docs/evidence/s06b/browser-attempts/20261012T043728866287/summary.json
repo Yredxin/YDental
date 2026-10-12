@@ -1,0 +1,78 @@
+{
+  "scope": "S06-B real queue, unscheduled workstation leases and actual start UI",
+  "database": "ydental_s06b_test_20261012042920_01f4a828",
+  "tested_commit": "7816d8ab5872f7e6e56edcc366b461049ae9ac9d",
+  "browser": "Firefox",
+  "sandbox": "default, no overrides",
+  "checks": [
+    {
+      "check": "serving becomes historical segment with independent waiting hold",
+      "result": "PASS"
+    },
+    {
+      "check": "holding doctor cannot call next in UI",
+      "result": "PASS"
+    },
+    {
+      "check": "holding doctor direct call is rejected",
+      "result": "PASS"
+    },
+    {
+      "check": "external explicit task reports while original hold exists",
+      "result": "PASS"
+    },
+    {
+      "check": "return query only hints original workstation and retains external queue",
+      "result": "PASS"
+    },
+    {
+      "check": "original doctor confirms return and resumes actual execution",
+      "result": "PASS"
+    },
+    {
+      "check": "external calling withdrawn and other holder remains connected",
+      "result": "PASS"
+    },
+    {
+      "check": "handover retains doctor lease and clears patient execution",
+      "result": "PASS"
+    },
+    {
+      "check": "continuation can be called by another outpatient chair",
+      "result": "PASS"
+    },
+    {
+      "check": "original doctor can call next patient after saved handover",
+      "result": "PASS"
+    },
+    {
+      "check": "external actual serving prevents restore",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s06b/browser-attempts/20261012T043728866287/01-reserved-workstation.png",
+      "sha256": "045832da11553c91e8a7ed66f449bb5158524777a568f22b026fee7261708253"
+    },
+    {
+      "path": "docs/evidence/s06b/browser-attempts/20261012T043728866287/02-return-hint-external-waiting.png",
+      "sha256": "05443a56506360cb391a1d7fe6fc97cc7b2db89234095910c99e56419f287589"
+    },
+    {
+      "path": "docs/evidence/s06b/browser-attempts/20261012T043728866287/03-restored-after-external-call.png",
+      "sha256": "9ecf4c123e03697da236c597e414a1bd1b133592dd8fe4d685a33074a7e03af2"
+    },
+    {
+      "path": "docs/evidence/s06b/browser-attempts/20261012T043728866287/04-continuation-other-chair.png",
+      "sha256": "444a3bd2cb958cceecd891b32683f9d73f5ea24907d0c4e5ddd41a90f00eb874"
+    },
+    {
+      "path": "docs/evidence/s06b/browser-attempts/20261012T043728866287/05-external-serving-refuses-return.png",
+      "sha256": "b782edb5753681a44c015e3911974a685e927999935e4512a24beb02b2c48a9e"
+    }
+  ],
+  "browser_version": "155.0",
+  "result": "FAIL_OR_INTERRUPTED",
+  "pageerror_count": 0
+}

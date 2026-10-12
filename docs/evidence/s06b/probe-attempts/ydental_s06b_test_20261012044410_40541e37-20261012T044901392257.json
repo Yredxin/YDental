@@ -1,0 +1,346 @@
+{
+  "scope": "S06-B hold, restore, handover, continuation and append concurrency",
+  "database": "ydental_s06b_test_20261012044410_40541e37",
+  "started_utc": "2026-10-12T04:49:01.392152+00:00",
+  "races": [
+    {
+      "name": "T07_restore_commits_first",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        196486,
+        196470
+      ],
+      "retry_backend_pids": [
+        [
+          196486
+        ],
+        [
+          196470,
+          196470
+        ]
+      ],
+      "attempts": [
+        1,
+        2
+      ],
+      "outcomes": [
+        "accepted",
+        "rejected"
+      ],
+      "one_actual_execution": true,
+      "atomic_withdraw": true
+    },
+    {
+      "name": "T07_exam_start_commits_first",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        196470,
+        196486
+      ],
+      "retry_backend_pids": [
+        [
+          196470
+        ],
+        [
+          196486,
+          196486
+        ]
+      ],
+      "attempts": [
+        1,
+        2
+      ],
+      "outcomes": [
+        "accepted",
+        "rejected"
+      ],
+      "one_actual_execution": true,
+      "atomic_withdraw": true
+    },
+    {
+      "name": "T07_restore_vs_external_call",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        196486,
+        196470
+      ],
+      "retry_backend_pids": [
+        [
+          196486,
+          196486
+        ],
+        [
+          196470
+        ]
+      ],
+      "attempts": [
+        2,
+        1
+      ],
+      "outcomes": [
+        "accepted",
+        "accepted"
+      ],
+      "other_call_released": true
+    },
+    {
+      "name": "T08_duplicate_handover",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        196486,
+        196470
+      ],
+      "retry_backend_pids": [
+        [
+          196486,
+          196486
+        ],
+        [
+          196470
+        ]
+      ],
+      "attempts": [
+        2,
+        1
+      ],
+      "outcomes": [
+        "accepted",
+        "accepted"
+      ],
+      "one_continuation": true,
+      "lease_retained": true
+    },
+    {
+      "name": "T08_save_failure_vs_trusted_retry",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        196486,
+        196470
+      ],
+      "retry_backend_pids": [
+        [
+          196486
+        ],
+        [
+          196470
+        ]
+      ],
+      "attempts": [
+        1,
+        1
+      ],
+      "outcomes": [
+        "rejected",
+        "accepted"
+      ],
+      "no_half_handover": true,
+      "one_successful_save": true
+    },
+    {
+      "name": "T08_two_result_notifications_reuse_continuation",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        196470,
+        196486
+      ],
+      "retry_backend_pids": [
+        [
+          196470,
+          196470
+        ],
+        [
+          196486
+        ]
+      ],
+      "attempts": [
+        2,
+        1
+      ],
+      "outcomes": [
+        "accepted",
+        "accepted"
+      ],
+      "one_pending_continuation": true
+    },
+    {
+      "name": "T09_duplicate_append_same_task",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        196470,
+        196486
+      ],
+      "retry_backend_pids": [
+        [
+          196470
+        ],
+        [
+          196486,
+          196486
+        ]
+      ],
+      "attempts": [
+        1,
+        2
+      ],
+      "outcomes": [
+        "accepted",
+        "already_accepted"
+      ],
+      "one_active_permit": true,
+      "no_capacity_added": true
+    },
+    {
+      "name": "T10_revoke_commits_first",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        196486,
+        196470
+      ],
+      "retry_backend_pids": [
+        [
+          196486
+        ],
+        [
+          196470,
+          196470
+        ]
+      ],
+      "attempts": [
+        1,
+        2
+      ],
+      "outcomes": [
+        "accepted",
+        "rejected"
+      ],
+      "no_capacity_returned": true,
+      "no_started_fact_erased": true
+    },
+    {
+      "name": "T10_start_commits_first",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        196470,
+        196486
+      ],
+      "retry_backend_pids": [
+        [
+          196470
+        ],
+        [
+          196486,
+          196486
+        ]
+      ],
+      "attempts": [
+        1,
+        2
+      ],
+      "outcomes": [
+        "accepted",
+        "rejected"
+      ],
+      "no_capacity_returned": true,
+      "no_started_fact_erased": true
+    },
+    {
+      "name": "T06_hold_timeout_commits_first",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        196486,
+        196470
+      ],
+      "retry_backend_pids": [
+        [
+          196486
+        ],
+        [
+          196470,
+          196470
+        ]
+      ],
+      "attempts": [
+        1,
+        2
+      ],
+      "outcomes": [
+        "accepted",
+        "rejected"
+      ],
+      "no_automatic_completion": true
+    },
+    {
+      "name": "T06_hold_restore_commits_first",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        196470,
+        196486
+      ],
+      "retry_backend_pids": [
+        [
+          196470
+        ],
+        [
+          196486,
+          196486
+        ]
+      ],
+      "attempts": [
+        1,
+        2
+      ],
+      "outcomes": [
+        "accepted",
+        "accepted"
+      ],
+      "no_automatic_completion": true
+    },
+    {
+      "name": "T06_holding_doctor_call_vs_external_start",
+      "result": "PASS",
+      "connections": 2,
+      "backend_pids": [
+        196486,
+        196470
+      ],
+      "retry_backend_pids": [
+        [
+          196486,
+          196486
+        ],
+        [
+          196470
+        ]
+      ],
+      "attempts": [
+        2,
+        1
+      ],
+      "outcomes": [
+        "rejected",
+        "accepted"
+      ],
+      "holding_doctor_cannot_call": true,
+      "external_serving_allowed": true
+    }
+  ],
+  "invariants": {
+    "one_actual_execution": true,
+    "one_entry_start": true,
+    "one_hold": true,
+    "one_permit": true
+  },
+  "result": "PASS",
+  "deadlocks": 0
+}

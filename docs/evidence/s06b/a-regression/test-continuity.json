@@ -1,0 +1,311 @@
+{
+  "baseline": "e13eaa2d48f11dd1193080a40ae2f31f58ddfa15",
+  "checked_head": "a9bcf1c426274ad75e14dc6bada3e6cf333727d9",
+  "original_test_methods": 48,
+  "all_present": true,
+  "changed_methods": [
+    {
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "method": "test_t01_one_actor_one_station_no_admin_force",
+      "present": true,
+      "unchanged_ast": false
+    },
+    {
+      "file": "ydental_queue_test/tests/test_rework.py",
+      "method": "test_b1_verify_retains_actor_station_patient_and_status",
+      "present": true,
+      "unchanged_ast": false
+    }
+  ],
+  "reason": "Only two global fixture counts are scoped to their test store so B and migration fixtures can coexist; no A assertion removed.",
+  "methods": [
+    {
+      "file": "ydental_queue_test/tests/test_http.py",
+      "method": "test_http_unscheduled_call_missed_report_start",
+      "present": true,
+      "unchanged_ast": true
+    },
+    {
+      "file": "ydental_queue_test/tests/test_http.py",
+      "method": "test_http_readonly_csrf_state_and_secret_field_bypass",
+      "present": true,
+      "unchanged_ast": true
+    },
+    {
+      "file": "ydental_queue_test/tests/test_http.py",
+      "method": "test_http_other_connection_old_token_and_timeout",
+      "present": true,
+      "unchanged_ast": true
+    },
+    {
+      "file": "ydental_queue_test/tests/test_http.py",
+      "method": "test_http_switch_and_old_lease",
+      "present": true,
+      "unchanged_ast": true
+    },
+    {
+      "file": "ydental_queue_test/tests/test_http.py",
+      "method": "test_http_revocation_next_write",
+      "present": true,
+      "unchanged_ast": true
+    },
+    {
+      "file": "ydental_queue_test/tests/test_http.py",
+      "method": "test_http_real_s05_hook_atomic_and_no_double_claim",
+      "present": true,
+      "unchanged_ast": true
+    },
+    {
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "method": "test_t01_one_actor_one_station_no_admin_force",
+      "present": true,
+      "unchanged_ast": false
+    },
+    {
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "method": "test_t02_real_report_call_start_capacity_once",
+      "present": true,
+      "unchanged_ast": true
+    },
+    {
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "method": "test_t03_panorama_never_cbct",
+      "present": true,
+      "unchanged_ast": true
+    },
+    {
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "method": "test_t04_missed_repeated_report_switch_and_fault",
+      "present": true,
+      "unchanged_ast": true
+    },
+    {
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "method": "test_t04_return_from_real_started_history_not_once_per_day",
+      "present": true,
+      "unchanged_ast": true
+    },
+    {
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "method": "test_t05_session_token_revision_context_and_idle",
+      "present": true,
+      "unchanged_ast": true
+    },
+    {
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "method": "test_t05_serving_timeout_stays_exclusive",
+      "present": true,
+      "unchanged_ast": true
+    },
+    {
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "method": "test_t14_revoke_employee_and_forged_store",
+      "present": true,
+      "unchanged_ast": true
+    },
+    {
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "method": "test_t17_unscheduled_entry_creates_no_capacity",
+      "present": true,
+      "unchanged_ast": true
+    },
+    {
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "method": "test_t18_switch_success_failure_busy",
+      "present": true,
+      "unchanged_ast": true
+    },
+    {
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "method": "test_t19_shift_end_only_hint",
+      "present": true,
+      "unchanged_ast": true
+    },
+    {
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "method": "test_t15_real_hook_rollback_and_s05_single_position",
+      "present": true,
+      "unchanged_ast": true
+    },
+    {
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "method": "test_t15_call_void_vs_start_semantics_and_cancel",
+      "present": true,
+      "unchanged_ast": true
+    },
+    {
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "method": "test_t15_price_snapshot_unchanged_and_qualification_cancel",
+      "present": true,
+      "unchanged_ast": true
+    },
+    {
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "method": "test_document_extension_independent_editors",
+      "present": true,
+      "unchanged_ast": true
+    },
+    {
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "method": "test_parameters_fail_closed_no_production_defaults",
+      "present": true,
+      "unchanged_ast": true
+    },
+    {
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "method": "test_a_regression_existing_qualification_at_zero_free",
+      "present": true,
+      "unchanged_ast": true
+    },
+    {
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "method": "test_a_regression_call_switch_failure_keeps_call_and_missed",
+      "present": true,
+      "unchanged_ast": true
+    },
+    {
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "method": "test_a_regression_future_day_report_atomic",
+      "present": true,
+      "unchanged_ast": true
+    },
+    {
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "method": "test_t05_fault_restores_unused_return_opportunity",
+      "present": true,
+      "unchanged_ast": true
+    },
+    {
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "method": "test_t14_inactive_employee_and_insufficient_capability",
+      "present": true,
+      "unchanged_ast": true
+    },
+    {
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "method": "test_t17_full_walkin_does_not_borrow_unscheduled_station",
+      "present": true,
+      "unchanged_ast": true
+    },
+    {
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "method": "test_a_regression_s04_merge_migrates_real_waiting_canonical",
+      "present": true,
+      "unchanged_ast": true
+    },
+    {
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "method": "test_a_regression_reschedule_failure_preserves_call_and_claim",
+      "present": true,
+      "unchanged_ast": true
+    },
+    {
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "method": "test_t05_idle_lock_screen_heartbeat_preserves_holder",
+      "present": true,
+      "unchanged_ast": true
+    },
+    {
+      "file": "ydental_queue_test/tests/test_queue.py",
+      "method": "test_document_timeout_and_holder_exit_are_only_release_sources",
+      "present": true,
+      "unchanged_ast": true
+    },
+    {
+      "file": "ydental_queue_test/tests/test_rework.py",
+      "method": "test_b1_verify_retains_actor_station_patient_and_status",
+      "present": true,
+      "unchanged_ast": false
+    },
+    {
+      "file": "ydental_queue_test/tests/test_rework.py",
+      "method": "test_b1_execution_store_fence_survives_new_session_and_store_switch",
+      "present": true,
+      "unchanged_ast": true
+    },
+    {
+      "file": "ydental_queue_test/tests/test_rework.py",
+      "method": "test_b2_execution_area_same_reporting_same_capability_rechecked_at_start",
+      "present": true,
+      "unchanged_ast": true
+    },
+    {
+      "file": "ydental_queue_test/tests/test_rework.py",
+      "method": "test_b2_qualification_default_closed_trusted_provider_and_revalidation",
+      "present": true,
+      "unchanged_ast": true
+    },
+    {
+      "file": "ydental_queue_test/tests/test_rework.py",
+      "method": "test_b2_catalog_capability_change_cannot_start_old_entry",
+      "present": true,
+      "unchanged_ast": true
+    },
+    {
+      "file": "ydental_queue_test/tests/test_rework.py",
+      "method": "test_b3_mixed_capability_rank_three_moves_two_not_to_head",
+      "present": true,
+      "unchanged_ast": true
+    },
+    {
+      "file": "ydental_queue_test/tests/test_rework.py",
+      "method": "test_b3_mixed_rank_four_short_tail_and_repeat_report",
+      "present": true,
+      "unchanged_ast": true
+    },
+    {
+      "file": "ydental_queue_test/tests/test_rework.py",
+      "method": "test_b3_return_missed_loses_opportunity_moves_from_priority_rank",
+      "present": true,
+      "unchanged_ast": true
+    },
+    {
+      "file": "ydental_queue_test/tests/test_rework.py",
+      "method": "test_b3_fault_restores_mixed_call_rank_order_and_opportunity",
+      "present": true,
+      "unchanged_ast": true
+    },
+    {
+      "file": "ydental_queue_test/tests/test_rework.py",
+      "method": "test_b3_n_unpublished_blocks_call_before_state_change",
+      "present": true,
+      "unchanged_ast": true
+    },
+    {
+      "file": "ydental_queue_test/tests/test_rework.py",
+      "method": "test_b4_request_and_cron_use_identical_automation_audit_semantics",
+      "present": true,
+      "unchanged_ast": true
+    },
+    {
+      "file": "ydental_queue_test/tests/test_rework_http.py",
+      "method": "test_http_b1_verify_blocks_actor_new_station_and_cross_store_write",
+      "present": true,
+      "unchanged_ast": true
+    },
+    {
+      "file": "ydental_queue_test/tests/test_rework_http.py",
+      "method": "test_http_b2_wrong_execution_area_cannot_call_or_start",
+      "present": true,
+      "unchanged_ast": true
+    },
+    {
+      "file": "ydental_queue_test/tests/test_rework_http.py",
+      "method": "test_http_b2_qualification_cannot_be_forged_and_is_rechecked",
+      "present": true,
+      "unchanged_ast": true
+    },
+    {
+      "file": "ydental_queue_test/tests/test_rework_http.py",
+      "method": "test_http_b3_n_zero_blocks_call_and_mixed_missed_moves_back",
+      "present": true,
+      "unchanged_ast": true
+    },
+    {
+      "file": "ydental_queue_test/tests/test_rework_http.py",
+      "method": "test_http_b4_unrelated_request_timeout_records_automation",
+      "present": true,
+      "unchanged_ast": true
+    }
+  ]
+}

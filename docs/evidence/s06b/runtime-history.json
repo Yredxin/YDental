@@ -1,0 +1,451 @@
+{
+  "test_commit": "a9bcf1c426274ad75e14dc6bada3e6cf333727d9",
+  "runs": [
+    {
+      "database": "ydental_s06b_test_20261012041650_48b35ef5",
+      "identity": {
+        "database": "ydental_s06b_test_20261012041650_48b35ef5",
+        "oid": 599621,
+        "endpoint": {
+          "host": "127.0.0.1",
+          "port": "5432",
+          "user": "odoo"
+        },
+        "cluster": "7694897083368259627",
+        "port": 18126,
+        "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+        "created_utc": "2026-10-12T04:16:50.442140+00:00",
+        "config_sha256": "271e02a8c96730e43601270689d7a2452afa18dd62212311254a0922f51eac97"
+      },
+      "actions": [
+        {
+          "action": "install",
+          "exit_code": 1,
+          "log": "install-20261012T041650443280.log",
+          "log_sha256": "86d54a6b593b9666bc6211f7fcd5351a988c404348dea2d378952975e29c6eb7",
+          "time_utc": "2026-10-12T04:18:31.277815+00:00",
+          "tested_commit": "468f2499e92e40328b3fd6b54cd2c50e582f7b12",
+          "tests": [
+            0,
+            6,
+            64
+          ],
+          "verification_exit": 1
+        },
+        {
+          "action": "upgrade",
+          "exit_code": 0,
+          "log": "upgrade-20261012T041902518309.log",
+          "log_sha256": "c7ca65ff2d5532ab8a8a2e54931e30903efd6119e3c6a053720896d5abd0801f",
+          "time_utc": "2026-10-12T04:19:59.691815+00:00",
+          "tested_commit": "e44f8460aa22f6326ad84ee46aa686af525e6966",
+          "tests": [
+            0,
+            0,
+            68
+          ]
+        },
+        {
+          "action": "probe",
+          "exit_code": 0,
+          "log": "probe-20261012T042212756173.log",
+          "log_sha256": "359b5035d054da50c66973faf4bd15e913d0a86db3ac7f8b9d8ab85f0f6ec794",
+          "time_utc": "2026-10-12T04:23:00.015302+00:00",
+          "tested_commit": "94cc799589701f933c7f74ebcf474ebfeeea559d"
+        },
+        {
+          "action": "upgrade",
+          "exit_code": 1,
+          "log": "upgrade-20261012T042702954500.log",
+          "log_sha256": "ebeee26b3c6bb611f907273ba3034a809f88e8ffed996954505c9991388027df",
+          "time_utc": "2026-10-12T04:28:02.934392+00:00",
+          "tested_commit": "da1b6db31fdb3bc6495bcc7ced56b70a2496c8b0",
+          "tests": [
+            2,
+            0,
+            68
+          ],
+          "verification_exit": 1
+        },
+        {
+          "action": "export",
+          "exit_code": 0,
+          "log": "export-20261012T042829040876.log",
+          "log_sha256": "3b8fb868ed43702eeed09c382554538e029429a3bece839122f02ec2b8f80856",
+          "time_utc": "2026-10-12T04:28:30.894684+00:00",
+          "tested_commit": "a6729367e413d586feaf19f95dbca1ecb03668a5"
+        }
+      ],
+      "raw_logs_published": false
+    },
+    {
+      "database": "ydental_s06b_test_20261012042920_01f4a828",
+      "identity": {
+        "database": "ydental_s06b_test_20261012042920_01f4a828",
+        "oid": 611280,
+        "endpoint": {
+          "host": "127.0.0.1",
+          "port": "5432",
+          "user": "odoo"
+        },
+        "cluster": "7694897083368259627",
+        "port": 18126,
+        "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+        "created_utc": "2026-10-12T04:29:21.033551+00:00",
+        "config_sha256": "314c32fdda7341fbca1bd6b472b839acea6d4df4b53d5c82a58f5834280d24f5"
+      },
+      "actions": [
+        {
+          "action": "install",
+          "exit_code": 0,
+          "log": "install-20261012T042921034806.log",
+          "log_sha256": "3250b41fc764f04243862125784df976770cebae0e05fbd7ca877ac6ab580615",
+          "time_utc": "2026-10-12T04:31:13.228143+00:00",
+          "tested_commit": "abbe2b1521a91457c3cfe75bf74a2f8c7d46f08b",
+          "tests": [
+            0,
+            0,
+            73
+          ]
+        },
+        {
+          "action": "legacy_seed",
+          "exit_code": 0,
+          "log": "legacy_seed-20261012T043120869510.log",
+          "log_sha256": "00621f90f349c977a1f6542b8e43c3b102104d3d46fcd896fb01cdcbab33ed65",
+          "time_utc": "2026-10-12T04:31:27.739011+00:00",
+          "tested_commit": "8d3fc97fff327cbb0640fb78881d866b66217349"
+        },
+        {
+          "action": "upgrade",
+          "exit_code": 0,
+          "log": "upgrade-20261012T043127814279.log",
+          "log_sha256": "843d20b42f34e50f5e72735bfc7dfdd9625df2e5a88c2103f0798b5d1a6b789b",
+          "time_utc": "2026-10-12T04:32:28.120946+00:00",
+          "tested_commit": "8d3fc97fff327cbb0640fb78881d866b66217349",
+          "tests": [
+            0,
+            0,
+            71
+          ]
+        },
+        {
+          "action": "migration_check",
+          "exit_code": 0,
+          "log": "migration_check-20261012T043228198624.log",
+          "log_sha256": "1b694f9303b6cfebb73117f5dc0e2220c16ffeeb5c97c0fb9edb0ac82fb9e305",
+          "time_utc": "2026-10-12T04:32:29.734618+00:00",
+          "tested_commit": "8d3fc97fff327cbb0640fb78881d866b66217349"
+        },
+        {
+          "action": "probe",
+          "exit_code": 0,
+          "log": "probe-20261012T043229813483.log",
+          "log_sha256": "71ebd1ab69f97fcb28403b9ed72a2c2da99988c48a06758348fd8494d47d50a2",
+          "time_utc": "2026-10-12T04:34:02.332143+00:00",
+          "tested_commit": "8d3fc97fff327cbb0640fb78881d866b66217349"
+        },
+        {
+          "action": "upgrade",
+          "exit_code": 0,
+          "log": "upgrade-20261012T043516841746.log",
+          "log_sha256": "db7958aa8503ab56b7488c0e7d4dca49a610924019b293ee712dc8f292305be2",
+          "time_utc": "2026-10-12T04:36:22.621234+00:00",
+          "tested_commit": "024a44ca9687c79caf56cc833e1da5b3a4e77eef",
+          "tests": [
+            0,
+            0,
+            71
+          ]
+        }
+      ],
+      "raw_logs_published": false
+    },
+    {
+      "database": "ydental_s06b_test_20261012044410_40541e37",
+      "identity": {
+        "database": "ydental_s06b_test_20261012044410_40541e37",
+        "oid": 623028,
+        "endpoint": {
+          "host": "127.0.0.1",
+          "port": "5432",
+          "user": "odoo"
+        },
+        "cluster": "7694897083368259627",
+        "port": 18126,
+        "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+        "created_utc": "2026-10-12T04:44:10.465029+00:00",
+        "config_sha256": "f0a7cd519d26053be36623e571344199cad9d8e00c10c8f28612827f1649a810"
+      },
+      "actions": [
+        {
+          "action": "install",
+          "exit_code": 0,
+          "log": "install-20261012T044410466366.log",
+          "log_sha256": "88440ca96b48968e53fbac99cc10d0116566d49f89bb7e7589c76dd88cd1066a",
+          "time_utc": "2026-10-12T04:46:02.646259+00:00",
+          "tested_commit": "98c9784ee60c445dad5296bd7a97909bd1cb362d",
+          "tests": [
+            0,
+            0,
+            73
+          ]
+        },
+        {
+          "action": "legacy_seed",
+          "exit_code": 0,
+          "log": "legacy_seed-20261012T044634852326.log",
+          "log_sha256": "8bf82d4f0c6f53dbc342250e427462de05d252aa35dc7b295389186b621d1ede",
+          "time_utc": "2026-10-12T04:46:41.596126+00:00",
+          "tested_commit": "98c9784ee60c445dad5296bd7a97909bd1cb362d"
+        },
+        {
+          "action": "upgrade",
+          "exit_code": 0,
+          "log": "upgrade-20261012T044650099216.log",
+          "log_sha256": "e2edabf02c15849e788a195662f9a5fc0c548ce8c923fedc845c7e2eb4e36e4f",
+          "time_utc": "2026-10-12T04:47:50.248773+00:00",
+          "tested_commit": "98c9784ee60c445dad5296bd7a97909bd1cb362d",
+          "tests": [
+            0,
+            0,
+            71
+          ]
+        },
+        {
+          "action": "migration_check",
+          "exit_code": 0,
+          "log": "migration_check-20261012T044806089392.log",
+          "log_sha256": "a82c16b086bba85d622dfd6c1ce1096650a94a053fec4c0ed2f09acb5de325b3",
+          "time_utc": "2026-10-12T04:48:07.631709+00:00",
+          "tested_commit": "98c9784ee60c445dad5296bd7a97909bd1cb362d"
+        },
+        {
+          "action": "probe",
+          "exit_code": 0,
+          "log": "probe-20261012T044836576230.log",
+          "log_sha256": "d29b39c992883e79a403afc3cc58296e2aa2bcd330db1b182f89416637900db4",
+          "time_utc": "2026-10-12T04:50:26.396407+00:00",
+          "tested_commit": "46bbf0c75c04f176153dae198759575e317dc1be"
+        }
+      ],
+      "raw_logs_published": false
+    },
+    {
+      "database": "ydental_s06b_test_20261012044847_117a8185",
+      "identity": {
+        "database": "ydental_s06b_test_20261012044847_117a8185",
+        "oid": 634592,
+        "endpoint": {
+          "host": "127.0.0.1",
+          "port": "5432",
+          "user": "odoo"
+        },
+        "cluster": "7694897083368259627",
+        "port": 18127,
+        "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+        "created_utc": "2026-10-12T04:48:47.811982+00:00",
+        "config_sha256": "45987a6cd98f665f01bbb83d480935e8c53f1a778d133d18f90e25464b4eea1c"
+      },
+      "actions": [
+        {
+          "action": "install",
+          "exit_code": 0,
+          "log": "install-20261012T044847813182.log",
+          "log_sha256": "4da4eb119959dae1a72b0b757d64f20f469e59b73e69a9cf0ae0f4f5c2a1f463",
+          "time_utc": "2026-10-12T04:50:58.362432+00:00",
+          "tested_commit": "46bbf0c75c04f176153dae198759575e317dc1be",
+          "tests": [
+            0,
+            0,
+            73
+          ]
+        },
+        {
+          "action": "legacy_seed",
+          "exit_code": 0,
+          "log": "legacy_seed-20261012T045113742881.log",
+          "log_sha256": "52b49e085b914a2eb9b06af836432328aa1947e6c74ea15470236e162bf8d71b",
+          "time_utc": "2026-10-12T04:51:20.598220+00:00",
+          "tested_commit": "46bbf0c75c04f176153dae198759575e317dc1be"
+        },
+        {
+          "action": "upgrade",
+          "exit_code": 0,
+          "log": "upgrade-20261012T045129029021.log",
+          "log_sha256": "9045d029d68c9241354f1286317d1b39288f345b450d0646edd0266f95c13404",
+          "time_utc": "2026-10-12T04:52:44.039628+00:00",
+          "tested_commit": "46bbf0c75c04f176153dae198759575e317dc1be",
+          "tests": [
+            0,
+            0,
+            71
+          ]
+        }
+      ],
+      "raw_logs_published": false
+    },
+    {
+      "database": "ydental_s06b_test_20261012045322_4fb99b9b",
+      "identity": {
+        "database": "ydental_s06b_test_20261012045322_4fb99b9b",
+        "oid": 646265,
+        "endpoint": {
+          "host": "127.0.0.1",
+          "port": "5432",
+          "user": "odoo"
+        },
+        "cluster": "7694897083368259627",
+        "port": 18127,
+        "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+        "created_utc": "2026-10-12T04:53:22.239513+00:00",
+        "config_sha256": "604c8c06168e25f825f25434b44fbf45791180924180648ffb4c056e24df7838"
+      },
+      "actions": [
+        {
+          "action": "install",
+          "exit_code": 0,
+          "log": "install-20261012T045322240689.log",
+          "log_sha256": "ac5653f6987836597d8ea9018a4a10e35b66e05169062917e01df1567f38e747",
+          "time_utc": "2026-10-12T04:55:15.976405+00:00",
+          "tested_commit": "a9bcf1c426274ad75e14dc6bada3e6cf333727d9",
+          "tests": [
+            0,
+            0,
+            73
+          ]
+        },
+        {
+          "action": "legacy_seed",
+          "exit_code": 0,
+          "log": "legacy_seed-20261012T045532211236.log",
+          "log_sha256": "461740425b373c829138ea33e0114021f79bbc3541b61fcd770a08fccf9ad71e",
+          "time_utc": "2026-10-12T04:55:39.079287+00:00",
+          "tested_commit": "a9bcf1c426274ad75e14dc6bada3e6cf333727d9"
+        },
+        {
+          "action": "upgrade",
+          "exit_code": 0,
+          "log": "upgrade-20261012T045604819757.log",
+          "log_sha256": "36c9dc6c181ba884462abd8f0ff59aea43f668654b84d86a2369d1ec0c73b303",
+          "time_utc": "2026-10-12T04:57:05.611361+00:00",
+          "tested_commit": "a9bcf1c426274ad75e14dc6bada3e6cf333727d9",
+          "tests": [
+            0,
+            0,
+            71
+          ]
+        },
+        {
+          "action": "migration_check",
+          "exit_code": 0,
+          "log": "migration_check-20261012T045734092523.log",
+          "log_sha256": "12b9e0c1b155a9891e7b9bddc13cb6a517206582acb3efdc66d0ddda2313e66a",
+          "time_utc": "2026-10-12T04:57:35.638043+00:00",
+          "tested_commit": "a9bcf1c426274ad75e14dc6bada3e6cf333727d9"
+        },
+        {
+          "action": "probe",
+          "exit_code": 0,
+          "log": "probe-20261012T045806685763.log",
+          "log_sha256": "dab731bd9a99f4e491633991b28d8f8b615d6d07b85f3eb981bde962c9cf6e24",
+          "time_utc": "2026-10-12T04:59:39.059019+00:00",
+          "tested_commit": "a9bcf1c426274ad75e14dc6bada3e6cf333727d9"
+        },
+        {
+          "action": "export",
+          "exit_code": 0,
+          "log": "export-20261012T045944442265.log",
+          "log_sha256": "2e6d92adac3288fbffd744a2c57299420caefbc965b3337f968728788fa41d3f",
+          "time_utc": "2026-10-12T04:59:46.367953+00:00",
+          "tested_commit": "a9bcf1c426274ad75e14dc6bada3e6cf333727d9"
+        }
+      ],
+      "raw_logs_published": false
+    }
+  ],
+  "browsers": [
+    {
+      "summary": "docs/evidence/s06b/browser-attempts/20261012T043728866287/summary.json",
+      "database": "ydental_s06b_test_20261012042920_01f4a828",
+      "tested_commit": "7816d8ab5872f7e6e56edcc366b461049ae9ac9d",
+      "result": "FAIL_OR_INTERRUPTED",
+      "checks": 11,
+      "screenshots": 5,
+      "pageerror_count": 0
+    },
+    {
+      "summary": "docs/evidence/s06b/browser-attempts/20261012T045158307305/summary.json",
+      "database": "ydental_s06b_test_20261012044410_40541e37",
+      "tested_commit": "46bbf0c75c04f176153dae198759575e317dc1be",
+      "result": "PASS",
+      "checks": 29,
+      "screenshots": 10,
+      "pageerror_count": 0
+    },
+    {
+      "summary": "docs/evidence/s06b/browser-attempts/20261012T050146891831/summary.json",
+      "database": "ydental_s06b_test_20261012045322_4fb99b9b",
+      "tested_commit": "a9bcf1c426274ad75e14dc6bada3e6cf333727d9",
+      "result": "PASS",
+      "checks": 29,
+      "screenshots": 10,
+      "pageerror_count": 0
+    },
+    {
+      "summary": "docs/evidence/s06b/a-regression/browser-attempts/20261012T043728867036/summary.json",
+      "database": "ydental_s06b_test_20261012042920_01f4a828",
+      "tested_commit": "7816d8ab5872f7e6e56edcc366b461049ae9ac9d",
+      "result": "FAIL_OR_INTERRUPTED",
+      "checks": 6,
+      "screenshots": 2,
+      "pageerror_count": 0
+    },
+    {
+      "summary": "docs/evidence/s06b/a-regression/browser-attempts/20261012T045057968350/summary.json",
+      "database": "ydental_s06b_test_20261012044410_40541e37",
+      "tested_commit": "46bbf0c75c04f176153dae198759575e317dc1be",
+      "result": "FAIL_OR_INTERRUPTED",
+      "checks": 24,
+      "screenshots": 9,
+      "pageerror_count": 0
+    },
+    {
+      "summary": "docs/evidence/s06b/a-regression/browser-attempts/20261012T045958860354/summary.json",
+      "database": "ydental_s06b_test_20261012045322_4fb99b9b",
+      "tested_commit": "a9bcf1c426274ad75e14dc6bada3e6cf333727d9",
+      "result": "PASS",
+      "checks": 36,
+      "screenshots": 14,
+      "pageerror_count": 0
+    }
+  ],
+  "failure_and_supplement_chain": [
+    {
+      "event": "Initial B installation",
+      "result": "FAIL",
+      "reason": "Synthetic close/station fixture omitted existing S03/space optimistic version; six B test errors. Corrected only verification fixtures."
+    },
+    {
+      "event": "A upgrade after B probe data",
+      "result": "FAIL",
+      "reason": "Two existing A assertions counted all databases current rows rather than the current synthetic store; two failures. Scoped counts, retained assertions and all 48 A methods."
+    },
+    {
+      "event": "First parallel A/B Firefox attempts",
+      "result": "FAIL",
+      "reason": "A switch navigation timeout; B later call navigation timeout. Both summaries and screenshots retained; 0 pageerror. Same B legal enter/call succeeded in separate diagnosis; root cause not established. Subsequent suites run sequentially with completed contexts closed."
+    },
+    {
+      "event": "Sequential A Firefox backend widget assertion",
+      "result": "FAIL",
+      "reason": "Immediate count after networkidle was zero. Separate real Firefox diagnosis observed initial zero followed by visible expected widget, 0 pageerror; script now waits for actual visible Owl widget."
+    },
+    {
+      "event": "Pharmacy cancellation coverage",
+      "result": "SUPPLEMENT",
+      "reason": "Added model and real HTTP explicit unused qualification cancellation with capacity return; number-only void remains capacity-preserving."
+    }
+  ],
+  "policy": "Only synthetic identities, safe metadata, counts and hashes; raw logs/access/config/tokens remain private."
+}

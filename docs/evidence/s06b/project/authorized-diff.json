@@ -1,0 +1,18 @@
+{
+  "result": "PASS",
+  "mutation_count": 1,
+  "complete_readback_count": 2,
+  "changes": [
+    {
+      "path": "project.items.nodes[7].fieldValues.nodes[4].name",
+      "before": "返工",
+      "after": "进行中"
+    },
+    {
+      "path": "project.items.nodes[7].fieldValues.nodes[4].optionId",
+      "before": "dc2fcb03",
+      "after": "57b99552"
+    }
+  ],
+  "all_other_project_metadata_unchanged": true
+}

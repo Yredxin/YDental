@@ -1,0 +1,42 @@
+{
+  "result": "PASS",
+  "scope": "Codex self-test only; awaiting GPT technical review and user acceptance",
+  "product": "7816d8ab5872f7e6e56edcc366b461049ae9ac9d",
+  "test": "a9bcf1c426274ad75e14dc6bada3e6cf333727d9",
+  "database": "ydental_s06b_test_20261012045322_4fb99b9b",
+  "install_tests": 73,
+  "upgrade_business_tests": 71,
+  "model_tests": 54,
+  "real_http_rpc_tests": 17,
+  "a_races": 21,
+  "b_races": 12,
+  "a_browser_checks": 36,
+  "a_screenshots": 14,
+  "b_browser_checks": 29,
+  "b_screenshots": 10,
+  "pageerrors": 0,
+  "guard_tests": 5,
+  "translation_terms": 219,
+  "migration": "A-shaped legacy row and constraints + actual module upgrade, never an old A database",
+  "evidence": {
+    "a_races": "docs/evidence/s06b/a-regression/probe-attempts/ydental_s06b_test_20261012045322_4fb99b9b-20261012T045807709866.json",
+    "b_races": "docs/evidence/s06b/probe-attempts/ydental_s06b_test_20261012045322_4fb99b9b-20261012T045829258058.json",
+    "a_browser": "docs/evidence/s06b/a-regression/browser-attempts/20261012T045958860354/summary.json",
+    "b_browser": "docs/evidence/s06b/browser-attempts/20261012T050146891831/summary.json"
+  },
+  "product_to_test_only_verification": [
+    "scripts/s06b_a_browser.py",
+    "scripts/s06b_browser.py",
+    "ydental_queue_test/tests/test_return.py",
+    "ydental_queue_test/tests/test_return_http.py"
+  ],
+  "native_status": "Todo",
+  "execution_status": "进行中",
+  "stage": "S06",
+  "not_run": [
+    "S06-C",
+    "S07",
+    "real S08/S09 integration",
+    "production release"
+  ]
+}

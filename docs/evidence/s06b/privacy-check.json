@@ -1,0 +1,12 @@
+{
+  "result": "PASS",
+  "checked_files": 91,
+  "scope": "Exact private config passwords/admin keys, generated access login/password and migration holding tokens; browser runners separately scan visible text and screenshot bytes with held tokens and session cookies.",
+  "minimum_exact_match_length": 8,
+  "raw_logs_config_credentials_published": false,
+  "test_commit": "a9bcf1c426274ad75e14dc6bada3e6cf333727d9",
+  "manual_visual_checks": [
+    "B reserved return, restored actual execution, Chinese pharmacy; A verify global position"
+  ],
+  "checked_utc": "2026-10-12T05:04:24.885816+00:00"
+}
