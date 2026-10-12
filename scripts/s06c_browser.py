@@ -203,6 +203,8 @@ def main():
             check('0010 yesterday waiting is terminal history',vd.locator('[data-task="%s"] .queue-state'%c['waiting_task']).last.inner_text()=='day_closed')
             screenshot(vd,vc,'08-0010-old-queue-ended-serving-kept.png')
             tm.reload();business(tm,c,'open');vd.reload();check('today open does not resurrect yesterday queue',vd.locator('[data-entry="%s"] .queue-state'%c['old_call']).inner_text()=='day_closed')
+            check('today open does not revive yesterday permit',vd.locator('[data-permit="%s"]'%c['old_permit']).count()==0)
+            check('yesterday missed remains on its original terminal segment',vd.locator('[data-entry="%s"]'%c['old_waiting_entry']).count()==1 and vd.locator('[data-entry="%s"] td'%c['old_waiting_entry']).nth(3).inner_text()=='3')
             time_step('time_delayed');vd.reload();check('0030 idempotent rerun keeps yesterday terminal',vd.locator('[data-entry="%s"] .queue-state'%c['old_call']).inner_text()=='day_closed')
             check('Chinese workspace readable', '工位' in vd.locator('body').inner_text())
             screenshot(vd,vc,'09-today-open-delayed-cleanup.png')

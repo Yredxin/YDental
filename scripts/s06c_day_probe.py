@@ -318,6 +318,9 @@ with registry.cursor() as cr:
         q._test_return_plan(__import__('odoo.addons.ydental_queue_test.models.return_adapter',fromlist=['ReturnPlan']).ReturnPlan(t1.id,0,True))
         if kind=='midnight':
             t3=accepted(f);t4=accepted(f)
+            supply=f.group.env['ydental.supply.service'];b=supply._business_record(f.stores[0],f.areas[0][0].id)
+            supply._operate('business',{'area_id':f.areas[0][0].id,'state':'draining','version':b.ydental_version,'reason':'C midnight history fixture'},key())
+            old_permit=f.front.env['ydental.queue.service']._operate('append',{'task_id':t4.id,'reason':'C yesterday explicit permit'})
         clock_id=q._test_day_clock(DaySource(f.stores[0].id,base_now if kind=='business' else base_now.replace(hour=23,minute=55,second=0)))
         c={'store':f.stores[0].id,'area':f.areas[0][0].id,'station':f.other_station.id,
             'source_station':f.stations[0][0].id,'task':t1.id,'pending':t2.id,'clock_id':clock_id,
@@ -329,6 +332,9 @@ with registry.cursor() as cr:
             c.update(execution=execution.id,old_call=call['entry_id'],waiting_task=t3.id)
             # A third unstarted queue ensures both waiting and calling cleanup.
             c['waiting_task']=t4.id
+            history=f.root['ydental.queue.entry'].search([('ydental_task_id','=',t4.id)])
+            history._save({'ydental_missed_count':3,'ydental_return':True,'ydental_opportunity_used':True})
+            c.update(old_permit=old_permit['permit_id'],old_waiting_entry=history.id)
         for role in ('manager','frontdesk','doctor','second'):
             user=f.second if role=='second' else f.users[role]
             user.password='s06c-ui-synthetic-only'
