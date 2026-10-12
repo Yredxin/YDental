@@ -853,3 +853,15 @@ msgstr "version_conflict: 服务端已有更新临床版本，请刷新后再编
 #: code:addons/ydental_clinical/models/ydental_clinical_service.py:0
 msgid "version_conflict: This request key belongs to different content."
 msgstr "version_conflict: 此请求标识已用于不同内容。"
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid "Existing service and price sources"
+msgstr "已有服务与价目来源"
+
+#. module: ydental_clinical
+#: model_terms:ir.ui.view,arch_db:ydental_clinical.ydental_clinical_page
+msgid ""
+"Price sources require their own permission. This document does not select a "
+"price or create a fee."
+msgstr "价目来源须具备独立权限。此文书不选价、不生成费用。"

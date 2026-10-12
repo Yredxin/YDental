@@ -14,7 +14,8 @@
             <main class="container py-4 o_ydental_clinical" t-att-data-revision="revision" t-att-data-document="doc.id if doc else 0" t-att-data-execution="execution.id if execution else 0" t-att-data-version="doc.ydental_version if doc else 0" t-att-data-state="doc.state if doc else 'draft'" t-att-data-heartbeat="heartbeat" t-att-data-can-handover="'yes' if can_handover else 'no'">
                 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                 <h1>Treatment workbench</h1>
-                <nav><a href="/ydental/queue">Workstation queue</a> | <a href="/ydental/patients">Patient records</a></nav>
+                <nav><a href="/ydental/queue">Workstation queue</a> | <a href="/ydental/patients">Patient records</a> | <a href="/ydental/intake/prices">Existing service and price sources</a></nav>
+                <p>Price sources require their own permission. This document does not select a price or create a fee.</p>
                 <p><strong t-out="store.name"/> / <t t-out="status['station'] or '-'"/> / <t t-out="status.get('state_label', status['state'])"/></p>
                 <p class="alert alert-warning">Clinical field draft for review. Text confirmation is separate from project execution and formal clinical signing.</p>
                 <section class="o_ydental_clinical_summary">
@@ -44,6 +45,7 @@
                 </section>
                 <section><h2>Documents awaiting completion</h2><table class="table"><thead><tr><th>Document</th><th>Patient</th><th>Responsible person</th><th>Server version</th></tr></thead><tbody><tr t-foreach="pending" t-as="item"><td><a t-att-href="'/ydental/clinical?document_id=%s' % item.id" t-out="item.id"/></td><td t-out="item.ydental_patient_id.name"/><td t-out="item.ydental_responsible_id.name"/><td t-out="item.ydental_version"/></tr></tbody></table></section>
                 <span hidden="hidden" id="unsynced-message">Unsynchronized changes. The server has not confirmed this content.</span><span hidden="hidden" id="saved-message">Saved on the server.</span><span hidden="hidden" id="offline-message">Connection unavailable. Changes remain unsynchronized. Refresh and compare the server version before retrying.</span><span hidden="hidden" id="readonly-message">Read only. Acquire the independent editor before changing text.</span>
+                <span hidden="hidden" t-foreach="state_labels" t-as="label" t-att-data-text-state="label" t-out="state_labels[label]"/>
             </main>
         </t>
     </template>

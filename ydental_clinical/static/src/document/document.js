@@ -20,6 +20,7 @@ if (root) {
     }
     const holder = JSON.parse(sessionStorage.getItem('ydental_queue_holder') || 'null');
     const message = id => root.querySelector('#' + id).textContent;
+    const failureMessage = error => error instanceof TypeError || !navigator.onLine ? message('offline-message') : error.message || message('offline-message');
     const editorKey = () => 'ydental_clinical_editor_' + documentId;
     function permissions() {
         textFields.forEach(field => { field.disabled = !token; });
@@ -65,7 +66,7 @@ if (root) {
         state = data.state;
         root.querySelector('#server-version').textContent = version;
         root.querySelector('#server-save').textContent = data.saved_at || '-';
-        if (root.querySelector('#text-state')) { root.querySelector('#text-state').textContent = state; }
+        if (root.querySelector('#text-state')) { root.querySelector('#text-state').textContent = root.querySelector('[data-text-state="' + state + '"]').textContent; }
         textFields.forEach(field => { field.value = data.content[field.name]; });
         teeth.clear();
         data.content.teeth.forEach(row => teeth.set(row.tooth, row));
@@ -123,7 +124,7 @@ if (root) {
         } catch (error) {
             failed = true;
             dirty = true;
-            result.textContent = error.message || message('offline-message');
+            result.textContent = failureMessage(error);
         } finally {
             saving = false;
             permissions();
@@ -149,7 +150,7 @@ if (root) {
             failed = false;
             result.textContent = message('saved-message');
             permissions();
-        } catch (error) { result.textContent = error.message || message('offline-message'); }
+        } catch (error) { result.textContent = failureMessage(error); }
     });
     root.querySelector('#release-document').addEventListener('click', async () => {
         if (dirty || saving) { result.textContent = message('unsynced-message'); return; }
@@ -159,7 +160,7 @@ if (root) {
             sessionStorage.removeItem(editorKey());
             permissions();
             result.textContent = message('readonly-message');
-        } catch (error) { result.textContent = error.message || message('offline-message'); }
+        } catch (error) { result.textContent = failureMessage(error); }
     });
     for (const [id, operation] of [['save-document', 'save'], ['confirm-document', 'confirm'], ['correct-document', 'correct'], ['handover-document', 'handover']]) {
         root.querySelector('#' + id).addEventListener('click', () => save(operation));
@@ -185,7 +186,7 @@ if (root) {
             await action('transfer', {document_id: documentId, expected_version: version,
                 user_id: Number(root.querySelector('#transfer-user').value), reason: root.querySelector('#transfer-reason').value});
             window.location.reload();
-        } catch (error) { result.textContent = error.message || message('offline-message'); }
+        } catch (error) { result.textContent = failureMessage(error); }
     });
     for (const li of root.querySelectorAll('#tooth-summary [data-row]')) {
         teeth.set(Number(li.dataset.row), {tooth: Number(li.dataset.row), state: li.dataset.state, surfaces: li.dataset.surfaces.split(',').filter(Boolean)});
@@ -202,7 +203,7 @@ if (root) {
                 if (!response.ok) { throw new Error(message('offline-message')); }
             }
             if (token) { await action('heartbeat', {document_id: documentId, editor_token: token}); }
-        } catch (error) { failed = true; result.textContent = error.message || message('offline-message'); permissions(); }
+        } catch (error) { failed = true; result.textContent = failureMessage(error); permissions(); }
     }, Number(root.dataset.heartbeat) * 1000);
     window.addEventListener('offline', () => { failed = true; result.textContent = message('offline-message'); permissions(); });
     window.addEventListener('beforeunload', event => { if (dirty) { event.preventDefault(); event.returnValue = ''; } });
