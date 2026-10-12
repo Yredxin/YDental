@@ -669,6 +669,11 @@ msgid "Protect native objects owned by versioned service catalog"
 msgstr "保护版本化服务目录持有的原生对象"
 
 #. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_price_page
+msgid "Publish"
+msgstr "发布"
+
+#. module: ydental_intake
 #: model:ir.model.fields.selection,name:ydental_intake.selection__ydental_intake_price__state__published
 msgid "Published"
 msgstr "已发布"
@@ -763,6 +768,11 @@ msgstr "改期必须保留已选服务；新服务需要独立资格。"
 #: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_page
 msgid "Reservation"
 msgstr "预约"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_price_page
+msgid "Review"
+msgstr "审核"
 
 #. module: ydental_intake
 #. odoo-python
