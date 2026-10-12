@@ -33,7 +33,7 @@ result = {'database': args.db,
     'test': subprocess.check_output(['git', '-C', str(root), 'rev-parse', 'HEAD'], text=True).strip(),
     'exported_terms': len(pot), 'translated_terms': len(pot) - len(missing), 'missing': missing,
     'connection_message_ids_preserved': True, 'result': 'FAIL' if missing else 'PASS'}
-evidence = root / 'docs/evidence/s06a'
+evidence = root / 'docs/evidence/s06a-rework'
 evidence.mkdir(parents=True, exist_ok=True)
 (evidence / 'translation.json').write_text(json.dumps(result, indent=2) + '\n')
 print(json.dumps({'result': result['result'], 'terms': len(pot), 'missing': len(missing)}))

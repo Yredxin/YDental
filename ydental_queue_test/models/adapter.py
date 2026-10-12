@@ -3,7 +3,7 @@ from datetime import datetime
 import os
 import re
 
-from odoo import fields, models
+from odoo import api, fields, models
 from odoo.exceptions import AccessError, UserError
 
 
@@ -24,6 +24,45 @@ class DocumentSource:
     token: str
 
 
+@dataclass(frozen=True)
+class QualificationSource:
+    actor_id: int
+    task_id: int
+    station_id: int
+    requirement: str
+    satisfied: bool
+
+
+QUALIFICATION_MUTATION = object()
+
+
+class SyntheticQualification(models.Model):
+    _name = 'ydental.queue.test.qualification'
+    _description = 'Guarded synthetic service qualification provider, not staff qualification business'
+
+    ydental_actor_id = fields.Many2one('res.users', required=True, ondelete='restrict')
+    ydental_task_id = fields.Many2one('ydental.intake.task', required=True, ondelete='restrict')
+    ydental_station_id = fields.Many2one('ydental.space.station', required=True, ondelete='restrict')
+    ydental_requirement = fields.Char(required=True)
+    ydental_satisfied = fields.Boolean()
+
+    _one_source = models.Constraint('UNIQUE(ydental_actor_id, ydental_task_id, ydental_station_id, ydental_requirement)',
+                                   'One synthetic qualification fact per fixed source.')
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        guard(self.env)
+        if self.env.context.get('ydental_queue_test_qualification') is not QUALIFICATION_MUTATION:
+            raise AccessError('A frozen server qualification source is required.')
+        return super().create(vals_list)
+
+    def write(self, vals):
+        guard(self.env)
+        if self.env.context.get('ydental_queue_test_qualification') is not QUALIFICATION_MUTATION:
+            raise AccessError('A frozen server qualification source is required.')
+        return super().write(vals)
+
+
 class SyntheticDocumentLock(models.Model):
     _name = 'ydental.queue.test.document'
     _description = 'Synthetic independent document lock source, never a clinical document'
@@ -37,6 +76,28 @@ class SyntheticDocumentLock(models.Model):
 
 class YDentalQueueService(models.AbstractModel):
     _inherit = 'ydental.queue.service'
+
+    def _test_qualification(self, source):
+        guard(self.env)
+        if type(source) is not QualificationSource or type(source.satisfied) is not bool:
+            raise AccessError('A frozen server qualification source is required.')
+        Provider = self.env['ydental.queue.test.qualification'].sudo().with_context(
+            ydental_queue_test_qualification=QUALIFICATION_MUTATION)
+        values = {'ydental_actor_id': source.actor_id, 'ydental_task_id': source.task_id,
+                  'ydental_station_id': source.station_id, 'ydental_requirement': source.requirement}
+        fact = Provider.search(list((key, '=', value) for key, value in values.items()), limit=1)
+        if fact:
+            fact.write({'ydental_satisfied': source.satisfied})
+        else:
+            Provider.create(dict(values, ydental_satisfied=source.satisfied))
+
+    def _qualification_satisfied(self, task, station, actor):
+        guard(self.env)
+        fact = self.env['ydental.queue.test.qualification'].sudo().search([
+            ('ydental_actor_id', '=', actor.id), ('ydental_task_id', '=', task.id),
+            ('ydental_station_id', '=', station.id),
+            ('ydental_requirement', '=', task.ydental_mapping_id.ydental_catalog_id.ydental_qualification)], limit=1)
+        return bool(fact and fact.ydental_satisfied) or super()._qualification_satisfied(task, station, actor)
 
     def _now(self):
         clock = self.env.context.get('ydental_queue_test_clock')

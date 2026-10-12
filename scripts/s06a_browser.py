@@ -60,7 +60,7 @@ def main():
     commit = subprocess.check_output(['git', '-C', str(ROOT), 'rev-parse', 'HEAD'], text=True).strip()
     require(not subprocess.check_output(['git', '-C', str(ROOT), 'status', '--porcelain', '--',
         'ydental_queue', 'ydental_queue_test', 'scripts/s06a*'], text=True), 'Commit implementation and verification first')
-    evidence = ROOT / 'docs/evidence/s06a/browser-attempts' / datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f')
+    evidence = ROOT / 'docs/evidence/s06a-rework/browser-attempts' / datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f')
     evidence.mkdir(parents=True)
     result = {'scope': 'S06-A real queue, unscheduled workstation leases and actual start UI', 'database': args.db, 'tested_commit': commit,
               'browser': 'Firefox', 'sandbox': 'default, no overrides', 'checks': [], 'screenshots': []}
@@ -226,6 +226,47 @@ def main():
             manager.goto(base + '/odoo', wait_until='networkidle')
             check('backend global workstation systray loads', manager.locator('.o_ydental_queue_workstation_status').count() == 1)
             screenshot(manager, manager_context, '10-global-workstation-position.png')
+            # B1: close the actual serving browser, wait for connection timeout,
+            # and use an unrelated qualified person's legitimate action to sweep.
+            manager.goto('about:blank')
+            manager.wait_for_timeout(21000)
+            page.goto(base + '/ydental/queue')
+            with page.expect_navigation(wait_until='domcontentloaded'):
+                page.locator('tr[data-station="%s"] button' % preview['stations'][1]).click()
+            manager.goto(base + '/ydental/queue')
+            position = manager.locator('#position')
+            check('serving timeout global queue position retains original station verify',
+                  position.get_attribute('data-state') == 'verify' and 'S06A Cleaning station' in position.inner_text())
+            check('verify actor sees no enter or switch buttons', manager.locator('[data-operation=enter], [data-operation=switch]').count() == 0)
+            check('verify actor server refuses another empty chair', qaction(manager, 'enter', {'station_id':preview['stations'][0]})['status'] == 409)
+            check('verify old token cannot revive', qaction(manager, 'heartbeat', lease_args(manager_lease))['status'] == 403)
+            screenshot(manager, manager_context, '11-serving-timeout-actor-verify.png')
+            manager.goto(base + '/odoo', wait_until='networkidle')
+            global_position = manager.locator('.o_ydental_queue_workstation_status').inner_text()
+            check('serving timeout backend systray retains station and on-site verification',
+                  'S06A Cleaning station' in global_position and '待现场核实' in global_position)
+            screenshot(manager, manager_context, '12-verify-global-workstation.png')
+            # B2: exact capability and common reporting area do not authorize the
+            # wrong execution subarea. The live UI and POST use one eligibility.
+            second.goto(base + '/ydental/queue')
+            with second.expect_navigation(wait_until='domcontentloaded'):
+                second.locator('tr[data-station="%s"] button' % preview['wrong_execution_station']).click()
+            with second.expect_response(lambda response: '/ydental/queue/action' in response.url) as wrong_call:
+                second.get_by_role('button',name='Call next matching task',exact=True).click()
+            check('wrong execution area UI call is rejected despite exact capability', wrong_call.value.status == 409)
+            check('wrong execution area reason and task waiting agree',
+                  'execution_area_mismatch' in second.locator('tr[data-task="%s"]' % preview['mixed_task_id']).inner_text() and
+                  second.locator('tr[data-task="%s"] .queue-state' % preview['mixed_task_id']).inner_text() == 'waiting')
+            screenshot(second, second_context, '13-wrong-execution-area-rejected.png')
+            click_reload(second, 'Exit / rest / logout workstation')
+            # B3: unpublished N blocks before calling and keeps an idle lease.
+            with second.expect_navigation(wait_until='domcontentloaded'):
+                second.locator('tr[data-station="%s"] button' % preview['nzero_station']).click()
+            check('unpublished missed N disables call before any calling', second.get_by_role('button',name='Call next matching task',exact=True).is_disabled())
+            zero_call = qaction(second,'call',lease_args(holder(second)))
+            check('unpublished missed N rejects direct POST before call', zero_call['status'] == 409 and 'configuration_required' in zero_call['body']['error'])
+            check('unpublished N task remains waiting', second.locator('tr[data-task="%s"] .queue-state' % preview['nzero_task_id']).inner_text() == 'waiting')
+            screenshot(second, second_context, '14-unpublished-N-before-call.png')
             check('no browser page errors', not errors)
             result['result'] = 'PASS'
         finally:

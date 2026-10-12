@@ -14,8 +14,10 @@ import psycopg2
 
 from odoo import api, fields
 from odoo.exceptions import UserError
+from odoo.tests import new_test_user
 from odoo.addons.ydental_queue_test.tests.common import setup, key, bind, accepted, qualify, arrive_report
 from odoo.addons.ydental_queue_test.models.adapter import Clock
+from odoo.addons.ydental_queue_test.tests.rework_common import mixed_fixture
 
 
 run = Path(os.environ['YDENTAL_S06A_RUN_DIR'])
@@ -25,7 +27,7 @@ result = {'scope': 'S06-A real queue/leases/execution, independent PostgreSQL RR
           'database': env.cr.dbname, 'started_utc': datetime.now(timezone.utc).isoformat(), 'races': []}
 
 
-attempt_path = Path(__file__).resolve().parents[1] / 'docs/evidence/s06a/probe-attempts' / (env.cr.dbname + '-' + datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f') + '.json')
+attempt_path = Path(__file__).resolve().parents[1] / 'docs/evidence/s06a-rework/probe-attempts' / (env.cr.dbname + '-' + datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f') + '.json')
 attempt_path.parent.mkdir(parents=True, exist_ok=True)
 
 def save_attempt():
@@ -251,6 +253,23 @@ def rotate_stations(q):
         'name': 'S06A Race New Chair ' + key()[:6], 'ydental_store_id': original.ydental_store_id.id,
         'ydental_floor_id': original.ydental_floor_id.id, 'ydental_area_id': original.ydental_area_id.id,
         'ydental_add_capability_ids': [fields.Command.set(original.ydental_capability_ids.ids)]} for _ in range(2)]).ids
+    # Prior actors keep their unresolved executions. Subsequent independent
+    # cases use a new qualified person instead of bypassing the new actor fence.
+    root = q.env['base'].sudo().env
+    doctor = new_test_user(root, name='S06A Race New Qualified Doctor', login='s06ar_' + key(),
+        groups='ydental_base.ydental_base_group_user')
+    access = q.env['ydental.access.service']
+    access._join(doctor.id, store_id)
+    access._grant(doctor.id, store_id, {'medical': 'write', 'exam': 'write'})
+    doctor.write({'ydental_capability_ids': [fields.Command.set(fixture.capabilities.ids)]})
+    users['doctor'] = doctor.id
+    sessions['doctor'], connections['doctor'] = [], []
+    for n in range(2):
+        a = root['ydental.access.service'].with_user(doctor)
+        session = a._session_for_key(key())
+        a._bind(session)._switch(store_id)
+        sessions['doctor'].append(session.id)
+        connections['doctor'].append(key() + key())
 
 
 for competitor in ('call', 'start'):
@@ -286,6 +305,94 @@ output = parallel([('doctor', 0, lambda q: q._operate('start', dict(args(la), en
 assert all('rejected' in v['value'] for v in output)
 record('T02_start_vs_another_station_call', output, serving_patient_not_callable=True)
 
+# New B1 races retain the original successful execution and its original actor.
+old_actor = users['doctor']
+old_lease = la
+old_station = stations[0]
+fresh(lambda q: q._model('lease').browse(old_lease['lease_id'])._save({'ydental_expires_at': q._now() - timedelta(seconds=1)}))
+target = fresh(lambda q: q.env['ydental.space.station'].sudo().create({
+    'name': 'S06A Verify Actor Forbidden New Chair', 'ydental_store_id': store_id,
+    'ydental_floor_id': q.env['ydental.space.station'].sudo().browse(old_station).ydental_floor_id.id,
+    'ydental_area_id': q.env['ydental.space.station'].sudo().browse(old_station).ydental_area_id.id,
+    'ydental_add_capability_ids': [fields.Command.set(fixture.capabilities[0].ids)]}).id)
+for first in ('timeout', 'enter'):
+    timeout = ('manager', 0, lambda q: {'expired': q._timeout()})
+    admission = ('doctor', 0, lambda q: q._operate('enter', {'station_id': target}))
+    output = ordered(timeout, admission) if first == 'timeout' else ordered(admission, timeout)
+    rejected = output[1 if first == 'timeout' else 0]['value']
+    assert 'rejected' in rejected
+    assert fresh(lambda q: q._actor_execution(old_actor).state) == 'verify'
+    assert fresh(lambda q: q._model('lease').search_count([('ydental_actor_id', '=', old_actor), ('ydental_active', '=', True)])) == 0
+    status = fresh(lambda q: q._status(), 'doctor')
+    assert status['state'] == 'verify' and status['station'] == fresh(lambda q: q.env['ydental.space.station'].sudo().browse(old_station).name)
+    name = 'B1_serving_timeout_before_actor_enter' if first == 'timeout' else 'B1_existing_verify_actor_enter_vs_sweep'
+    record(name, output, actor_still_fenced=True, old_position_verify=True)
+
+store_b = fixture.stores[1].id
+map_b = fixture.mappings[1][0].id
+fresh(lambda q: q.env['ydental.access.service']._grant(old_actor, store_b, {'frontdesk': 'write', 'medical': 'write'}))
+def cross_store_write(q):
+    access = q.env['ydental.access.service']
+    session = access._scope()
+    access._switch(store_b)
+    intake = access._bind(session).env['ydental.intake.service']
+    assert intake.env['ydental.access.service']._get_execution_store_id() == store_id
+    return intake._operate('reserve', {'patient_id': fresh_patient, 'mapping_id': map_b,
+        'start': start, 'end': end, 'channel': 'reservation'}, key())
+fresh_patient = fresh(lambda q: q.env['ydental.patient.service']._operate('create',
+    {'values': {'name': 'S06A Cross Store Fence Synthetic'}}, key())['id'])
+output = parallel([('manager', 0, lambda q: {'expired': q._timeout()}), ('doctor', 1, cross_store_write)])
+assert 'rejected' in output[1]['value'] and 'another store' in output[1]['value']['rejected']
+record('B1_execution_store_fence_vs_cross_store_write', output, unresolved_store_fence=True, no_cross_store_task=True)
+
+# New B4: unrelated request and scheduler contend over the same expiration.
+fresh(clean)
+fresh(rotate_stations)
+la = fresh(lambda q: enter(q), 'doctor')
+fresh(lambda q: q._model('lease').browse(la['lease_id'])._save({'ydental_expires_at': q._now() - timedelta(seconds=1)}))
+output = parallel([('second', 0, lambda q: enter(q, 1)), ('manager', 0, lambda q: {'expired': q._timeout()})])
+def timeout_audit(q):
+    rows = q.env['ydental.access.audit'].sudo().search([('ydental_event', '=', 'queue.connection_timeout'), ('ydental_target_id', '=', la['lease_id'])])
+    assert len(rows) == 1 and rows.ydental_user_id == q.env.ref('base.user_root')
+    assert rows.ydental_source == 'workstation_timeout_automation'
+    assert rows.ydental_after['holder_user_id'] == users['doctor'] and rows.ydental_after['station_id'] == stations[0]
+    return True
+assert fresh(timeout_audit)
+record('B4_unrelated_request_cleanup_vs_cron_timeout_audit', output, one_automation_event=True, holder_preserved=True)
+fresh(clean)
+
+# New B3: mixed-capability missed competes with a different capability call.
+with registry.cursor() as cr:
+    fixture.root = api.Environment(cr, 1, {})
+    fixture.group = service(cr, 'manager').env['ydental.intake.service']
+    fixture.stores = fixture.root['ydental.access.store'].browse([store_id, store_b])
+    fixture.stations = [[fixture.root['ydental.space.station'].browse(stations[0])]]
+    fixture.capabilities = fixture.root['ydental.access.capability'].browse(fixture.capabilities.ids)
+    fixture.catalogs = [fixture.root['ydental.intake.catalog'].browse(c.id) for c in fixture.catalogs]
+    fixture.users = {role: fixture.root['res.users'].browse(uid) for role, uid in users.items()}
+    mixed = mixed_fixture(fixture)
+    mixed_ids = {'area': mixed.area.id, 'stations': [s.id for s in mixed.stations], 'maps': [m.id for m in mixed.mappings]}
+    cr.commit()
+def mixed_accept(q, index):
+    intake = q.env['ydental.intake.service']
+    pid = q.env['ydental.patient.service']._operate('create', {'values': {'name': 'S06A Mixed Race Synthetic'}}, key())['id']
+    value = intake._operate('reserve', {'patient_id': pid, 'mapping_id': mixed_ids['maps'][index], 'start': start, 'end': end}, key())
+    intake._operate('arrive', {'patient_id': pid}, key())
+    intake._operate('report', {'task_id': value['task_id'], 'version': value['task_version']}, key())
+    return value['task_id']
+mixed_tasks = [fresh(lambda q, i=i: mixed_accept(q, i)) for i in (0, 1, 2, 2, 2, 2)]
+la = fresh(lambda q: q._operate('enter', {'station_id': mixed_ids['stations'][2]}), 'doctor')
+lb = fresh(lambda q: q._operate('enter', {'station_id': mixed_ids['stations'][0]}), 'second')
+called = fresh(lambda q: q._operate('call', args(la)), 'doctor')
+assert called['task_id'] == mixed_tasks[2]
+output = parallel([('doctor', 0, lambda q: q._operate('missed', dict(args(la), entry_id=called['entry_id']))),
+                   ('second', 0, lambda q: q._operate('call', args(lb)))])
+assert all('rejected' not in v['value'] for v in output)
+actual_order = fresh(lambda q: q._ranked_area(mixed_ids['area']).ydental_task_id.ids)
+assert actual_order == [mixed_tasks[i] for i in (0, 1, 3, 4, 2, 5)]
+record('B3_mixed_capability_missed_vs_other_capability_call', output, call_rank_before=3,
+       rank_after=5, never_promoted=True, unrelated_call_anchor_preserved=True)
+
 # Global invariants over genuine committed records.
 def invariants(q):
     e = q.env['base'].sudo().env
@@ -313,8 +420,15 @@ with registry.cursor() as cr:
     browser_fixture = SimpleNamespace(env=api.Environment(cr, 1, {}))
     setup(browser_fixture)
     browser_task = accepted(browser_fixture)
+    browser_mixed = mixed_fixture(browser_fixture)
+    browser_mixed_task = accepted(browser_fixture, browser_mixed.mappings[2])
+    browser_nzero_task = accepted(browser_fixture, browser_fixture.mappings[0][1])
+    zero_area = browser_fixture.areas[0][1]
+    zero_area.write({'ydental_version': zero_area.ydental_version, 'ydental_missed_limit': 0})
     preview = {'stores': browser_fixture.stores.ids, 'stations': [browser_fixture.stations[0][0].id, browser_fixture.other_station.id],
-               'task_id': browser_task.id, 'task_version': browser_task.ydental_version}
+               'task_id': browser_task.id, 'task_version': browser_task.ydental_version,
+               'wrong_execution_station': browser_mixed.wrong.id, 'mixed_task_id': browser_mixed_task.id,
+               'nzero_station': browser_fixture.stations[0][1].id, 'nzero_task_id': browser_nzero_task.id}
     access = {}
     for role, user in (list(browser_fixture.users.items()) + [('second', browser_fixture.second)]):
         password = secrets.token_urlsafe(24)
@@ -324,7 +438,7 @@ with registry.cursor() as cr:
 private(run / 'access.json', access)
 private(run / 'preview.json', preview)
 result['result'] = 'PASS'
-evidence = Path(__file__).resolve().parents[1] / 'docs/evidence/s06a/probe-attempts'
+evidence = Path(__file__).resolve().parents[1] / 'docs/evidence/s06a-rework/probe-attempts'
 evidence.mkdir(parents=True, exist_ok=True)
 path = attempt_path
 path.write_text(json.dumps(result, indent=2) + '\n')
