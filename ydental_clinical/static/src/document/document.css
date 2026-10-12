@@ -1,0 +1,10 @@
+.o_ydental_clinical { max-width: 1200px; }
+.o_ydental_clinical_summary { padding: 1rem; background: #eef5f5; border-radius: .5rem; margin: 1rem 0; }
+.o_ydental_clinical_tooth_row { display: flex; gap: .3rem; margin: .4rem 0; }
+.o_ydental_clinical_tooth { min-width: 2.6rem; min-height: 2.7rem; border: 1px solid #537a83; border-radius: .6rem; background: white; }
+.o_ydental_clinical_tooth:focus { outline: 3px solid #168276; }
+.o_ydental_clinical_field { display: block; margin: 1rem 0; }
+.o_ydental_clinical_field span { display: block; font-weight: 600; }
+.o_ydental_clinical_field textarea { width: 100%; padding: .6rem; }
+.o_ydental_clinical_actions { display: flex; flex-wrap: wrap; gap: .8rem; margin: 1rem 0; }
+.o_ydental_clinical pre { white-space: pre-wrap; overflow-wrap: anywhere; }

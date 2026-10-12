@@ -1,0 +1,50 @@
+<odoo>
+    <record id="ydental_clinical_action" model="ir.actions.act_url">
+        <field name="name">Treatment workbench</field><field name="url">/ydental/clinical</field><field name="target">self</field>
+    </record>
+    <menuitem id="ydental_clinical_menu" name="Treatment workbench" parent="ydental_base.ydental_base_menu_root" action="ydental_clinical_action" sequence="80" groups="ydental_base.ydental_base_group_user"/>
+    <template id="ydental_queue_page" inherit_id="ydental_queue.ydental_queue_page" name="Workstation queue inherit clinical">
+        <xpath expr="//section[@id='patient-return-actions']" position="before">
+            <p><a href="/ydental/clinical">Treatment workbench and pending documents</a></p>
+        </xpath>
+    </template>
+    <template id="ydental_clinical_page" name="Treatment workbench">
+        <t t-set="head"><meta name="viewport" content="width=device-width, initial-scale=1"/><t t-call-assets="web.assets_frontend" t-js="false"/><script type="module" src="/ydental_clinical/static/src/document/document.js"/><link rel="stylesheet" href="/ydental_clinical/static/src/document/document.css"/></t>
+        <t t-call="web.layout" head="head">
+            <main class="container py-4 o_ydental_clinical" t-att-data-revision="revision" t-att-data-document="doc.id if doc else 0" t-att-data-execution="execution.id if execution else 0" t-att-data-version="doc.ydental_version if doc else 0" t-att-data-state="doc.state if doc else 'draft'" t-att-data-heartbeat="heartbeat">
+                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                <h1>Treatment workbench</h1>
+                <nav><a href="/ydental/queue">Workstation queue</a> | <a href="/ydental/patients">Patient records</a></nav>
+                <p><strong t-out="store.name"/> / <t t-out="status['station'] or '-'"/> / <t t-out="status.get('state_label', status['state'])"/></p>
+                <p class="alert alert-warning">Clinical field draft for review. Text confirmation is separate from project execution and formal clinical signing.</p>
+                <section class="o_ydental_clinical_summary">
+                    <h2>Independent document</h2>
+                    <t t-if="doc"><p>Patient: <strong t-out="doc.ydental_patient_id.name"/> / <t t-out="doc.ydental_patient_id.ydental_number"/>. Reception segment: <t t-out="doc.ydental_execution_id.id"/>. Original author: <t t-out="doc.ydental_author_id.name"/>. Responsible person: <strong t-out="doc.ydental_responsible_id.name"/>.</p><p>Source service: <t t-out="doc.ydental_execution_id.ydental_task_id.name"/>. Text state: <span id="text-state" t-out="doc.state"/>. Template: <t t-out="doc.ydental_template"/>.</p></t>
+                    <p t-elif="execution">Current medical reception is ready for its independent document.</p>
+                    <p t-else="">No current medical reception. Select a pending document below or start a legitimate reception in the workstation queue.</p>
+                    <button id="open-document" type="button" t-att-disabled="not doc and not execution or None">Open for editing</button>
+                    <button id="release-document" type="button" disabled="disabled">Release editing</button>
+                    <p>Server version: <strong id="server-version" t-out="doc.ydental_version if doc else 0"/>. Last server save: <span id="server-save" t-out="doc.ydental_saved_at if doc else '-'"/> UTC.</p>
+                    <p id="clinical-result" role="status">Read only. Acquire the independent editor before changing text.</p>
+                </section>
+                <div id="clinical-editor">
+                    <section><h2>FDI tooth chart</h2><p>Select a permanent or primary tooth and its explicit state. No clinical conclusion is generated.</p>
+                        <div class="o_ydental_clinical_teeth"><div t-foreach="teeth_rows" t-as="row" class="o_ydental_clinical_tooth_row"><button t-foreach="row" t-as="tooth" type="button" t-att-data-tooth="tooth" class="o_ydental_clinical_tooth" t-out="tooth"/></div></div>
+                        <label>Selected tooth <output id="selected-tooth">-</output></label>
+                        <label>Tooth state <select id="tooth-state" disabled="disabled"><option value="unknown">Unknown</option><option value="present">Present</option><option value="missing">Missing</option><option value="not_applicable">Not applicable</option></select></label>
+                        <button type="button" id="no-tooth">No corresponding tooth</button>
+                        <div id="surfaces"><label t-foreach="['M','O','I','D','B','L']" t-as="surface"><input type="checkbox" t-att-value="surface" disabled="disabled"/><t t-out="surface"/></label></div>
+                        <ul id="tooth-summary"><li t-foreach="content['teeth']" t-as="row" t-att-data-row="row['tooth']" t-att-data-state="row['state']" t-att-data-surfaces="','.join(row['surfaces'])"><t t-out="row['tooth']"/> / <t t-out="row['state']"/> / <t t-out="', '.join(row['surfaces'])"/></li></ul>
+                    </section>
+                    <section><h2>Structured clinical draft</h2><label t-foreach="fields" t-as="field" class="o_ydental_clinical_field"><span t-out="field[1]"/><textarea t-att-name="field[0]" maxlength="10000" rows="3" disabled="disabled" t-out="content[field[0]]"/></label></section>
+                    <div class="o_ydental_clinical_actions"><button id="save-document" disabled="disabled" type="button">Save draft</button><button id="confirm-document" disabled="disabled" type="button">Confirm text only</button><label>Correction reason <input id="correction-reason" maxlength="300"/></label><button id="correct-document" disabled="disabled" type="button">Append text correction</button><button id="handover-document" disabled="disabled" type="button">Save and hand back reception</button></div>
+                </div>
+                <section t-if="doc"><h2>Responsibility transfer</h2><p>Release a valid editor first. Transfer retains every original author and version.</p><label>New responsible person <select id="transfer-user"><option t-foreach="candidates" t-as="user" t-att-value="user.id" t-out="user.name"/></select></label><label>Transfer reason <input id="transfer-reason" maxlength="300"/></label><button type="button" id="transfer-document">Transfer pending document</button>
+                    <h2>Authored version history</h2><ol id="version-history"><li t-foreach="versions" t-as="version"><strong t-out="version.ydental_number"/> / <t t-out="version.ydental_kind"/> / <t t-out="version.ydental_author_id.name"/> / <t t-out="version.ydental_recorded_at"/> / <t t-out="version.ydental_reason or '-'"/><details><summary>View version text</summary><pre t-out="version.ydental_content"/></details></li></ol>
+                </section>
+                <section><h2>Documents awaiting completion</h2><table class="table"><thead><tr><th>Document</th><th>Patient</th><th>Responsible person</th><th>Server version</th></tr></thead><tbody><tr t-foreach="pending" t-as="item"><td><a t-att-href="'/ydental/clinical?document_id=%s' % item.id" t-out="item.id"/></td><td t-out="item.ydental_patient_id.name"/><td t-out="item.ydental_responsible_id.name"/><td t-out="item.ydental_version"/></tr></tbody></table></section>
+                <span hidden="hidden" id="unsynced-message">Unsynchronized changes. The server has not confirmed this content.</span><span hidden="hidden" id="saved-message">Saved on the server.</span><span hidden="hidden" id="offline-message">Connection unavailable. Changes remain unsynchronized. Refresh and compare the server version before retrying.</span><span hidden="hidden" id="readonly-message">Read only. Acquire the independent editor before changing text.</span>
+            </main>
+        </t>
+    </template>
+</odoo>

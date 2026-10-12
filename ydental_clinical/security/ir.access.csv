@@ -1,0 +1,3 @@
+id,name,model_id/id,group_id/id,operation,domain
+ydental_document_read,Clinical document read,model_ydental_clinical_document,ydental_base.ydental_base_group_user,r,
+ydental_version_read,Clinical version read,model_ydental_clinical_version,ydental_base.ydental_base_group_user,r,
