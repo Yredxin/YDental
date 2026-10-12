@@ -456,7 +456,8 @@ class YDentalInventoryService(models.AbstractModel):
         corrections = self._model('event').search([
             ('ydental_store_id', '=', store.id), ('ydental_lot_id', '=', event.ydental_lot_id.id),
             ('ydental_kind', 'in', ('receipt', 'inventory')), ('state', '=', 'done'),
-            ('ydental_to_id', '=', event.ydental_from_id.id), ('create_date', '>=', event.create_date),
+            ('ydental_to_id', '=', event.ydental_from_id.id), ('id', '>', event.id),
+            ('create_date', '>=', event.create_date),
         ], order='id desc')
         correction = corrections.filtered(lambda c: c.ydental_quantity > 0
             and c.ydental_move_id.state == 'done' and c.ydental_from_id.usage != 'internal')[:1]
