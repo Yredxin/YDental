@@ -38,7 +38,8 @@ class YDentalQueue(http.Controller):
         waiting_rows = []
         for entry in entries:
             holders = queue._model('lease').search([('ydental_store_id', '=', store.id), ('ydental_active', '=', True),
-                ('ydental_expires_at', '>', queue._now()), ('ydental_station_id.ydental_queue_area_id', '=', entry.ydental_area_id.id)])
+                ('ydental_expires_at', '>', queue._now())]).filtered(
+                    lambda lease: lease.ydental_station_id.ydental_queue_area_id == entry.ydental_area_id)
             eligible = []
             for lease in holders:
                 member = access._membership(lease.ydental_actor_id.id, store.id)

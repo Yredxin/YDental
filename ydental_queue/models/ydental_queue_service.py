@@ -283,7 +283,7 @@ class YDentalQueueService(models.AbstractModel):
         permit = StartPermit(self.env.uid, task.id, lease.id)
         intake = self.env['ydental.intake.service'].with_context(ydental_queue_start=permit)
         intake._downstream_action('start', {'task_id': task.id, 'version': task.ydental_version}, 'queue-start-' + str(entry.id))
-        entry._save({'state': 'serving', 'ydental_started_at': self._now()})
+        entry._save({'state': 'serving', 'ydental_lease_id': lease.id, 'ydental_started_at': self._now()})
         execution = self._model('execution')._new({'name': entry.name, 'ydental_store_id': entry.ydental_store_id.id,
             'ydental_category': lease.ydental_category, 'ydental_patient_id': entry.ydental_patient_id.id,
             'ydental_entry_id': entry.id, 'ydental_lease_id': lease.id, 'ydental_started_at': self._now()})

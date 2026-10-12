@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from datetime import datetime
 import os
 import re
 
@@ -9,6 +10,11 @@ from odoo.exceptions import AccessError, UserError
 def guard(env):
     if not re.fullmatch(r'ydental_s06a_test_[0-9]{14}_[a-f0-9]{8}', env.cr.dbname) or not os.environ.get('YDENTAL_S06A_RUN_DIR'):
         raise AccessError('S06-A synthetic adapter refused outside the isolated validation run.')
+
+
+@dataclass(frozen=True)
+class Clock:
+    now: datetime
 
 
 @dataclass(frozen=True)
@@ -31,6 +37,13 @@ class SyntheticDocumentLock(models.Model):
 
 class YDentalQueueService(models.AbstractModel):
     _inherit = 'ydental.queue.service'
+
+    def _now(self):
+        clock = self.env.context.get('ydental_queue_test_clock')
+        if type(clock) is Clock:
+            guard(self.env)
+            return clock.now
+        return super()._now()
 
     def _document_lock(self, source, operation):
         guard(self.env)

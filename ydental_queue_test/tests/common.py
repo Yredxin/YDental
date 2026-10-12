@@ -99,7 +99,7 @@ def setup(cls):
 
 
 
-def make_slot(cls, service, station, start, end, total=6):
+def make_slot(cls, service, station, start, end, total=12):
     supply = service.env['ydental.supply.service']
     result = supply._operate('slot', {'station_id': station.id, 'start': fields.Datetime.to_string(start),
         'end': fields.Datetime.to_string(end), 'total': total, 'capability_ids': station.ydental_capability_ids.ids,

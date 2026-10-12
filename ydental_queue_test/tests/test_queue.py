@@ -63,7 +63,7 @@ class TestQueue(TransactionCase):
         self.assertEqual(tasks[2].ydental_missed_count, 1)
         self.assertEqual(a._operate('call', lease_args(lease))['task_id'], tasks[0].id)
         expired_at = a._now() + timedelta(seconds=30)
-        with patch(type(a), '_now', return_value=expired_at):
+        with patch.object(type(a), '_now', return_value=expired_at):
             result = a._operate('heartbeat', lease_args(lease))
         self.assertEqual(result['result'], 'connection_expired')
         self.assertEqual(tasks[2].ydental_missed_count, 1)
@@ -79,7 +79,7 @@ class TestQueue(TransactionCase):
         p._save({'ydental_active': False})
         historic._save({'state': 'done'})
         for i in range(2):
-            q = qualify(self, historic.ydental_patient_id)
+            q = qualify(self, historic.ydental_patient_id.id)
             arrive_report(self, q)
             row = self.root['ydental.queue.entry'].search([('ydental_task_id', '=', q['task_id'])])
             self.assertTrue(row.ydental_return)
@@ -107,7 +107,7 @@ class TestQueue(TransactionCase):
         a, lease = enter(self)
         call = a._operate('call', lease_args(lease))
         a._operate('start', dict(lease_args(lease), entry_id=call['entry_id']))
-        with patch(type(a), '_now', return_value=a._now() + timedelta(seconds=30)):
+        with patch.object(type(a), '_now', return_value=a._now() + timedelta(seconds=30)):
             result = a._operate('heartbeat', lease_args(lease))
         self.assertTrue(result['verification_required'])
         execution = self.root['ydental.queue.execution'].search([('ydental_patient_id', '=', task.ydental_patient_id.id)])
@@ -138,7 +138,7 @@ class TestQueue(TransactionCase):
         self.assertEqual(before, {m: self.root[m].search_count([]) for m in before})
         slot = self.slots[0][0]
         # Existing capacity is explicit; entering a station never manufactures it.
-        self.assertEqual(slot.ydental_total, 6)
+        self.assertEqual(slot.ydental_total, 12)
 
     def test_t18_switch_success_failure_busy(self):
         a, lease = enter(self)
