@@ -84,7 +84,7 @@ def main():
     if metadata and (not (run / 'odoo.conf').is_file() or (run / 'odoo.conf').is_symlink()
                      or digest(run / 'odoo.conf') != metadata.get('config_sha256')):
         parser.error('Runtime config changed; refusing to run')
-    phone_dependency = STATE / 's05-deps/phonenumbers/__init__.py'
+    phone_dependency = STATE / 's04-deps/phonenumbers/__init__.py'
     if not phone_dependency.is_file():
         parser.error('Missing process-local phonenumbers dependency')
     deps = STATE / 's00-b-deps'
