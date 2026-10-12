@@ -369,6 +369,19 @@ class YDentalQueueService(models.AbstractModel):
         self._audit('append_revoke', permit, {'task_id': permit.ydental_task_id.id, 'qualification_cancelled': False})
         return {'result': 'accepted', 'permit_id': permit.id, 'state': permit.state}
 
+    def _service_eligibility(self, entry, station, actor=None):
+        reason = super()._service_eligibility(entry, station, actor)
+        if reason:
+            return reason
+        task = entry.ydental_task_id
+        kind = task.ydental_mapping_id.ydental_catalog_id.ydental_kind
+        expected = {'exam': 'exam', 'medicine': 'pharmacy'}.get(kind, 'medical')
+        if self._category(station) != expected:
+            return self.env._('capability_mismatch: Use the workstation business type for this explicit service task.')
+        if task.ydental_continuation_snapshot and task.ydental_continuation_snapshot != self._service_snapshot(task):
+            return self.env._('version_conflict: Continuation service requirements changed; review the source.')
+        return ''
+
     def _eligibility(self, entry, station, actor=None):
         reason = super()._eligibility(entry, station, actor)
         if reason:
@@ -377,12 +390,6 @@ class YDentalQueueService(models.AbstractModel):
         actor_hold = self._hold(actor_id=self.env.uid if actor is None else actor.id)
         if actor_hold:
             return self.env._('handover_required: Resolve the reserved patient or on-site verification first.')
-        kind = task.ydental_mapping_id.ydental_catalog_id.ydental_kind
-        expected = {'exam': 'exam', 'medicine': 'pharmacy'}.get(kind, 'medical')
-        if self._category(station) != expected:
-            return self.env._('capability_mismatch: Use the workstation business type for this explicit service task.')
-        if task.ydental_continuation_snapshot and task.ydental_continuation_snapshot != self._service_snapshot(task):
-            return self.env._('version_conflict: Continuation service requirements changed; review the source.')
         reason = self._hold_target_reason(task)
         if reason:
             return reason
