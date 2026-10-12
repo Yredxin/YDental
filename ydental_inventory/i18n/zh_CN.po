@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 20.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-12 08:15+0000\n"
-"PO-Revision-Date: 2026-10-12 08:15+0000\n"
+"POT-Creation-Date: 2026-10-12 08:21+0000\n"
+"PO-Revision-Date: 2026-10-12 08:21+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -122,7 +122,13 @@ msgstr "附件"
 #. module: ydental_inventory
 #: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
 msgid "Available"
-msgstr ""
+msgstr "可发数量"
+
+#. module: ydental_inventory
+#. odoo-python
+#: code:addons/ydental_inventory/controllers/inventory.py:0
+msgid "Awaiting collection"
+msgstr "等待领取"
 
 #. module: ydental_inventory
 #: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
@@ -130,6 +136,8 @@ msgid "Business location"
 msgstr "业务库位"
 
 #. module: ydental_inventory
+#. odoo-python
+#: code:addons/ydental_inventory/controllers/inventory.py:0
 #: model:ir.model.fields.selection,name:ydental_inventory.selection__ydental_inventory_event__ydental_kind__chairside
 msgid "Chairside medicine"
 msgstr "椅旁用药"
@@ -153,7 +161,7 @@ msgstr "配置门店仓库"
 #. module: ydental_inventory
 #: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
 msgid "Confirm"
-msgstr ""
+msgstr "确认"
 
 #. module: ydental_inventory
 #: model:ir.model.fields,field_description:ydental_inventory.field_ydental_inventory_event__ydental_input_quantity
@@ -186,6 +194,13 @@ msgid "Count actual stock"
 msgstr "实物盘点"
 
 #. module: ydental_inventory
+#. odoo-python
+#: code:addons/ydental_inventory/controllers/inventory.py:0
+#: model:ir.model.fields.selection,name:ydental_inventory.selection__ydental_inventory_event__state__observed
+msgid "Count matched; no stock movement"
+msgstr "盘点相符，无库存移动"
+
+#. module: ydental_inventory
 #: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
 msgid "Create manufacturer lot"
 msgstr "创建厂家批次"
@@ -207,6 +222,12 @@ msgstr "创建人"
 #: model:ir.model.fields,field_description:ydental_inventory.field_ydental_inventory_operation__create_date
 msgid "Created on"
 msgstr "创建时间"
+
+#. module: ydental_inventory
+#. odoo-python
+#: code:addons/ydental_inventory/controllers/inventory.py:0
+msgid "Disabled"
+msgstr "已停用"
 
 #. module: ydental_inventory
 #: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
@@ -266,6 +287,12 @@ msgstr "已启用批次"
 #: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
 msgid "Evidence and reason"
 msgstr "证据与原因"
+
+#. module: ydental_inventory
+#. odoo-python
+#: code:addons/ydental_inventory/controllers/inventory.py:0
+msgid "Expired"
+msgstr "已过期"
 
 #. module: ydental_inventory
 #: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
@@ -356,6 +383,13 @@ msgid "Inventory action idempotency receipt"
 msgstr "库存动作幂等回执"
 
 #. module: ydental_inventory
+#: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_error
+msgid "Inventory action refused"
+msgstr "库存动作被拒绝"
+
+#. module: ydental_inventory
+#. odoo-python
+#: code:addons/ydental_inventory/controllers/inventory.py:0
 #: model:ir.model.fields.selection,name:ydental_inventory.selection__ydental_inventory_event__ydental_kind__inventory
 msgid "Inventory correction"
 msgstr "盘点修正"
@@ -447,17 +481,23 @@ msgstr "损失去向"
 #: model:ir.model.fields,field_description:ydental_inventory.field_ydental_inventory_event__ydental_lot_id
 #: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
 msgid "Lot"
-msgstr ""
+msgstr "批次"
 
 #. module: ydental_inventory
 #: model:ir.model,name:ydental_inventory.model_stock_lot
 msgid "Lot/Serial"
-msgstr ""
+msgstr "批次/序列号"
 
 #. module: ydental_inventory
 #: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
 msgid "Lots and alerts"
 msgstr "批次与预警"
+
+#. module: ydental_inventory
+#. odoo-python
+#: code:addons/ydental_inventory/controllers/inventory.py:0
+msgid "Low stock"
+msgstr "低库存"
 
 #. module: ydental_inventory
 #: model:ir.model.fields,field_description:ydental_inventory.field_ydental_inventory_config__ydental_low_quantity
@@ -471,6 +511,8 @@ msgid "Manufacturer batch label"
 msgstr "厂家批次标识"
 
 #. module: ydental_inventory
+#. odoo-python
+#: code:addons/ydental_inventory/controllers/inventory.py:0
 #: model:ir.model.fields.selection,name:ydental_inventory.selection__product_template__ydental_inventory_kind__material
 msgid "Material"
 msgstr "耗材"
@@ -488,6 +530,8 @@ msgid "Materials"
 msgstr "耗材"
 
 #. module: ydental_inventory
+#. odoo-python
+#: code:addons/ydental_inventory/controllers/inventory.py:0
 #: model:ir.model.fields.selection,name:ydental_inventory.selection__product_template__ydental_inventory_kind__medicine
 msgid "Medicine"
 msgstr "药品"
@@ -535,6 +579,12 @@ msgid ""
 msgstr "原生库存移动为唯一账本。建议数量需由执行人员确认实际批次与用量。"
 
 #. module: ydental_inventory
+#. odoo-python
+#: code:addons/ydental_inventory/controllers/inventory.py:0
+msgid "Near expiry"
+msgstr "近效期"
+
+#. module: ydental_inventory
 #: model:ir.model.fields,field_description:ydental_inventory.field_ydental_inventory_config__ydental_near_days
 #: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
 msgid "Near expiry days"
@@ -548,7 +598,7 @@ msgstr "执行必要摘要"
 #. module: ydental_inventory
 #: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
 msgid "No"
-msgstr ""
+msgstr "否"
 
 #. module: ydental_inventory
 #: model:ir.model.fields,field_description:ydental_inventory.field_ydental_inventory_event__ydental_count_fingerprint
@@ -571,6 +621,8 @@ msgid "Original price snapshot"
 msgstr "原价格快照"
 
 #. module: ydental_inventory
+#. odoo-python
+#: code:addons/ydental_inventory/controllers/inventory.py:0
 #: model:ir.model.fields.selection,name:ydental_inventory.selection__ydental_inventory_event__state__pending
 msgid "Pending reconciliation"
 msgstr "待核对"
@@ -588,6 +640,8 @@ msgid "Pharmacy location"
 msgstr "药房库位"
 
 #. module: ydental_inventory
+#. odoo-python
+#: code:addons/ydental_inventory/controllers/inventory.py:0
 #: model:ir.model.fields.selection,name:ydental_inventory.selection__ydental_inventory_event__ydental_kind__return
 msgid "Physical return"
 msgstr "实物退回"
@@ -607,12 +661,12 @@ msgstr "产品"
 #. module: ydental_inventory
 #: model:ir.model,name:ydental_inventory.model_stock_move_line
 msgid "Product Moves (Stock Move Line)"
-msgstr ""
+msgstr "产品移动明细"
 
 #. module: ydental_inventory
 #: model:ir.model,name:ydental_inventory.model_uom_uom
 msgid "Product Unit of Measure"
-msgstr ""
+msgstr "产品计量单位"
 
 #. module: ydental_inventory
 #: model:ir.model,name:ydental_inventory.model_product_product
@@ -622,7 +676,7 @@ msgstr "产品变体"
 #. module: ydental_inventory
 #: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
 msgid "Product code"
-msgstr ""
+msgstr "产品代码"
 
 #. module: ydental_inventory
 #: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
@@ -632,9 +686,11 @@ msgstr "产品启停"
 #. module: ydental_inventory
 #: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
 msgid "Product name"
-msgstr ""
+msgstr "产品名称"
 
 #. module: ydental_inventory
+#. odoo-python
+#: code:addons/ydental_inventory/controllers/inventory.py:0
 #: model:ir.model.fields.selection,name:ydental_inventory.selection__product_template__ydental_inventory_kind__prosthesis
 msgid "Prosthesis"
 msgstr "义齿"
@@ -650,7 +706,7 @@ msgstr "义齿待取"
 #. module: ydental_inventory
 #: model:ir.model,name:ydental_inventory.model_stock_quant
 msgid "Quant"
-msgstr ""
+msgstr "原生库存数量"
 
 #. module: ydental_inventory
 #: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
@@ -658,6 +714,8 @@ msgid "Quarantine"
 msgstr "待核查"
 
 #. module: ydental_inventory
+#. odoo-python
+#: code:addons/ydental_inventory/controllers/inventory.py:0
 #: model:ir.model.fields.selection,name:ydental_inventory.selection__ydental_inventory_event__ydental_kind__receipt
 msgid "Receipt"
 msgstr "入库"
@@ -678,6 +736,8 @@ msgid "Release to issuable stock"
 msgstr "核验后转可发库存"
 
 #. module: ydental_inventory
+#. odoo-python
+#: code:addons/ydental_inventory/controllers/inventory.py:0
 #: model:ir.model.fields.selection,name:ydental_inventory.selection__ydental_inventory_event__ydental_kind__replenishment
 msgid "Replenishment"
 msgstr "补货领用"
@@ -688,7 +748,13 @@ msgid "Responsible user"
 msgstr "责任人"
 
 #. module: ydental_inventory
+#: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_error
+msgid "Return to inventory workbench"
+msgstr "返回库存工作台"
+
+#. module: ydental_inventory
 #. odoo-python
+#: code:addons/ydental_inventory/controllers/inventory.py:0
 #: code:addons/ydental_inventory/models/ydental_inventory_service.py:0
 #: model:ir.model.fields.selection,name:ydental_inventory.selection__ydental_inventory_event__ydental_kind__verification
 msgid "Return verification"
@@ -700,6 +766,8 @@ msgid "Return verification location"
 msgstr "退回待核查库位"
 
 #. module: ydental_inventory
+#. odoo-python
+#: code:addons/ydental_inventory/controllers/inventory.py:0
 #: model:ir.model.fields.selection,name:ydental_inventory.selection__ydental_inventory_event__ydental_kind__transfer
 #: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
 msgid "Same company transfer"
@@ -768,7 +836,7 @@ msgstr "来源命名空间"
 #: model:ir.model.fields,field_description:ydental_inventory.field_product_template__ydental_specification
 #: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
 msgid "Specification"
-msgstr ""
+msgstr "规格"
 
 #. module: ydental_inventory
 #: model:ir.model.fields,field_description:ydental_inventory.field_stock_lot__ydental_processing_reference
@@ -784,9 +852,11 @@ msgstr "状态"
 #. module: ydental_inventory
 #: model:ir.model,name:ydental_inventory.model_stock_move
 msgid "Stock Move"
-msgstr ""
+msgstr "原生库存移动"
 
 #. module: ydental_inventory
+#. odoo-python
+#: code:addons/ydental_inventory/controllers/inventory.py:0
 #: model:ir.model.fields.selection,name:ydental_inventory.selection__ydental_inventory_event__state__done
 msgid "Stock confirmed"
 msgstr "库存已确认"
@@ -832,7 +902,7 @@ msgstr "仅建议数量"
 #. odoo-python
 #: code:addons/ydental_inventory/models/ydental_inventory_service.py:0
 msgid "Supplier"
-msgstr ""
+msgstr "供应商"
 
 #. module: ydental_inventory
 #: model:ir.model.fields,field_description:ydental_inventory.field_ydental_inventory_config__ydental_supplier_id
@@ -851,6 +921,8 @@ msgid ""
 msgstr "合成验证来源，尚未连接真实临床业务。"
 
 #. module: ydental_inventory
+#. odoo-python
+#: code:addons/ydental_inventory/controllers/inventory.py:0
 #: model:ir.model.fields.selection,name:ydental_inventory.selection__ydental_inventory_event__ydental_kind__prescription
 msgid "Take home prescription"
 msgstr "带走处方药"
@@ -871,6 +943,8 @@ msgid "Transfer target"
 msgstr "调拨目标门店"
 
 #. module: ydental_inventory
+#. odoo-python
+#: code:addons/ydental_inventory/controllers/inventory.py:0
 #: model:ir.model.fields.selection,name:ydental_inventory.selection__ydental_inventory_event__ydental_kind__treatment
 msgid "Treatment consumption"
 msgstr "治疗耗用"
@@ -960,7 +1034,7 @@ msgstr "仓库"
 #. module: ydental_inventory
 #: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
 msgid "Warehouse code"
-msgstr ""
+msgstr "仓库代码"
 
 #. module: ydental_inventory
 #. odoo-python
@@ -1025,7 +1099,7 @@ msgstr "所属门店"
 #. module: ydental_inventory
 #: model_terms:ir.ui.view,arch_db:ydental_inventory.ydental_inventory_page
 msgid "Yes"
-msgstr ""
+msgstr "是"
 
 #. module: ydental_inventory
 #. odoo-python
