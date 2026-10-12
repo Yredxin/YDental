@@ -103,6 +103,16 @@ class YDentalQueueService(models.AbstractModel):
     def _own(self):
         return self._model('lease').search([('ydental_actor_id', '=', self.env.uid), ('ydental_active', '=', True)], limit=1)
 
+    def _actor_execution(self, user_id=None):
+        # Execution outlives its connection. A has no resolved execution states.
+        return self._model('execution').search([
+            ('ydental_lease_id.ydental_actor_id', '=', self.env.uid if user_id is None else user_id),
+            ('state', 'in', ('serving', 'verify'))], limit=1)
+
+    def _assert_actor_idle(self):
+        if self._actor_execution():
+            raise UserError(self.env._('handover_required: Resolve the existing execution or on-site verification before continuing.'))
+
     def _held(self, lease_id, token, admission=False):
         session, connection = self._connection()
         lease = self._model('lease').browse(self.env['ydental.intake.service']._id(lease_id)).exists()
@@ -134,7 +144,14 @@ class YDentalQueueService(models.AbstractModel):
             executions._save({'state': 'verify'})
             executions.ydental_entry_id._save({'state': 'verify'})
             lease._save({'ydental_active': False, 'ydental_release_reason': 'timeout'})
-            self._audit('connection_timeout', lease, {'calling_returned': calls.ids, 'verification_required': executions.ids})
+            # Both scheduler and request-triggered expiration are automation,
+            # never an action by the unrelated user whose request found it.
+            self.env['ydental.access.service'].with_user(self.env.ref('base.user_root'))._audit(
+                'queue.connection_timeout', lease.ydental_category, lease, lease.ydental_store_id.id,
+                after={'holder_user_id': lease.ydental_actor_id.id, 'lease_id': lease.id,
+                       'station_id': lease.ydental_station_id.id, 'release_reason': 'timeout',
+                       'calling_returned': calls.ids, 'verification_required': executions.ids},
+                source='workstation_timeout_automation')
         return expired.ids
 
     def _timeout(self):
@@ -171,6 +188,7 @@ class YDentalQueueService(models.AbstractModel):
             return dict(handlers[operation](**payload), result='accepted')
 
     def _enter(self, station_id):
+        self._assert_actor_idle()
         station, member, category = self._station(station_id)
         if self._own() or self._model('lease').search_count([('ydental_station_id', '=', station.id), ('ydental_active', '=', True)]):
             raise UserError(self.env._('handover_required: The account or workstation already has a holder.'))
@@ -222,22 +240,83 @@ class YDentalQueueService(models.AbstractModel):
         return entries.sorted(lambda e: (not (e.ydental_return and not e.ydental_opportunity_used),
                                         e.ydental_order, e.ydental_reported_at, e.id))
 
+    def _ranked_area(self, area_id):
+        # Calling entries retain their pre-call position as server-side anchors.
+        # Genuine movement of another entry preserves those anchors as well.
+        rows = self._model('entry').search([
+            ('ydental_area_id', '=', area_id), ('state', 'in', ('waiting', 'calling'))])
+        return rows.sorted(lambda e: (
+            not (e.ydental_return and not (e.ydental_call_used_before if e.state == 'calling' else e.ydental_opportunity_used)),
+            e.ydental_call_order_before if e.state == 'calling' else e.ydental_order,
+            e.ydental_reported_at, e.id))
+
+    def _qualification_satisfied(self, task, station, actor):
+        # No real staff-qualification authority exists yet. Only a trusted
+        # server implementation may authorize a nonempty catalog requirement.
+        return False
+
+    def _eligibility(self, entry, station, actor=None):
+        actor = self.env.user.sudo() if actor is None else actor.sudo()
+        access = self.env['ydental.access.service']
+        member = access._membership(actor.id, station.ydental_store_id.id)
+        category = self._category(station)
+        caps = station.ydental_capability_ids.filtered('active')
+        if not actor.active or not member or not member.ydental_employee_id.active or (
+                access._levels(member)[category] != 'write' or not caps or
+                not set(caps.ids) <= set(actor.ydental_capability_ids.filtered('active').ids)):
+            return self.env._('staff_ineligible: Live store permission and all workstation capabilities are required.')
+        if self._actor_execution(actor.id):
+            return self.env._('handover_required: Resolve the existing execution or on-site verification before continuing.')
+        task = entry.ydental_task_id
+        mapping = task.ydental_mapping_id
+        catalog = mapping.ydental_catalog_id
+        if not mapping.active or not catalog.active or not station.active or not station.ydental_enabled or (
+                not station.ydental_callable or not station.ydental_floor_id.active or
+                not entry.ydental_area_id.active or not entry.ydental_area_id.ydental_reporting or
+                task.ydental_store_id != station.ydental_store_id or entry.ydental_store_id != task.ydental_store_id or
+                entry.ydental_area_id != mapping.ydental_area_id or entry.ydental_area_id != station.ydental_queue_area_id):
+            return self.env._('reporting_area_mismatch: An active task and its exact reporting area are required.')
+        area = station.ydental_area_id
+        execution_area = mapping.ydental_execution_area_id
+        if not execution_area.active:
+            return self.env._('execution_area_mismatch: The workstation must be inside the service execution area.')
+        matched = False
+        while area:
+            if not area.active or area.ydental_store_id != task.ydental_store_id:
+                return self.env._('execution_area_mismatch: The workstation must be inside the service execution area.')
+            matched = matched or area == execution_area
+            area = area.parent_id
+        if not matched:
+            return self.env._('execution_area_mismatch: The workstation must be inside the service execution area.')
+        if not entry.ydental_capability_id.active or entry.ydental_capability_id != catalog.ydental_capability_id or (
+                entry.ydental_capability_id not in caps):
+            return self.env._('capability_mismatch: The task service and workstation must match the exact active capability.')
+        if catalog.ydental_qualification and self._qualification_satisfied(task, station, actor) is not True:
+            return self.env._('qualification_required: A trusted server provider must confirm the service qualification.')
+        if self._unresolved_execution(entry.ydental_patient_id.id):
+            return self.env._('handover_required: The patient already has an unresolved actual execution.')
+        return ''
+
     def _call(self, lease_id, token):
         lease = self._held(lease_id, token, admission=True)
+        self._assert_actor_idle()
         if self._busy(lease):
             raise UserError(self.env._('handover_required: This workstation already has an unresolved patient.'))
         station = lease.ydental_station_id
+        if station.ydental_queue_area_id.ydental_missed_limit <= 0:
+            raise UserError(self.env._('configuration_required: Publish an explicit positive missed-call displacement.'))
         candidates = self._ordered(station.ydental_queue_area_id.id).filtered(
-            lambda e: e.ydental_capability_id.active and e.ydental_capability_id in station.ydental_capability_ids and
-            not self._model('execution').search_count([('ydental_patient_id', '=', e.ydental_patient_id.id)]))
+            lambda e: not self._eligibility(e, station))
         if not candidates:
             raise UserError(self.env._('no_eligible_waiting: No waiting task matches this workstation capability.'))
         entry = candidates[0]
+        rank = self._ranked_area(entry.ydental_area_id.id).ids.index(entry.id) + 1
         self.env['ydental.patient.service']._current_relation(entry.ydental_patient_id, entry.ydental_store_id)
         entry._save({'state': 'calling', 'ydental_lease_id': lease.id,
+                     'ydental_call_rank': rank, 'ydental_call_order_before': entry.ydental_order,
                      'ydental_call_used_before': entry.ydental_opportunity_used, 'ydental_opportunity_used': True})
         entry.ydental_task_id._save({'ydental_queue_opportunity_used': True})
-        self._audit('call', entry, {'lease_id': lease.id, 'station_id': station.id})
+        self._audit('call', entry, {'lease_id': lease.id, 'station_id': station.id, 'rank_before': rank})
         return {'entry_id': entry.id, 'task_id': entry.ydental_task_id.id, 'state': entry.state}
 
     def _calling(self, lease, entry_id):
@@ -248,7 +327,8 @@ class YDentalQueueService(models.AbstractModel):
 
     def _restore_call(self, entry):
         used = entry.ydental_call_used_before
-        entry._save({'state': 'waiting', 'ydental_lease_id': False, 'ydental_opportunity_used': used})
+        entry._save({'state': 'waiting', 'ydental_lease_id': False, 'ydental_opportunity_used': used,
+                     'ydental_order': entry.ydental_call_order_before})
         entry.ydental_task_id._save({'ydental_queue_opportunity_used': used})
         # Original rank and all earlier genuine missed calls remain unchanged.
 
@@ -260,25 +340,36 @@ class YDentalQueueService(models.AbstractModel):
             raise UserError(self.env._('configuration_required: Publish an explicit positive missed-call displacement.'))
         task = entry.ydental_task_id
         task._save({'ydental_missed_count': task.ydental_missed_count + 1})
-        # Normalize the current effective order, inserting after N real waiting
-        # positions (or at the tail), including candidates of other capabilities.
-        others = self._ordered(entry.ydental_area_id.id)
-        ordered = list(others)
-        ordered.insert(min(count, len(ordered)), entry)
+        # Move from the call's effective regional rank, not from the queue head.
+        # Retain other live calls as anchors, including other capabilities.
+        ordered = list(self._ranked_area(entry.ydental_area_id.id))
+        current = ordered.index(entry)
+        ordered.remove(entry)
+        destination = min(max(entry.ydental_call_rank - 1, current) + count, len(ordered))
+        # Consuming a return opportunity cannot overtake another unused return.
+        destination = max(destination, sum(row.ydental_return and not (
+            row.ydental_call_used_before if row.state == 'calling' else row.ydental_opportunity_used) for row in ordered))
+        ordered.insert(destination, entry)
         for rank, row in enumerate(ordered, 1):
-            row._save({'ydental_order': rank})
+            values = {'ydental_order': rank * 1000}
+            if row.state == 'calling' and row != entry:
+                # Coordinate normalization preserves this call's relative anchor
+                # so a later fault restores it without applying missed N.
+                values['ydental_call_order_before'] = rank * 1000
+            row._save(values)
         entry._save({'state': 'waiting', 'ydental_lease_id': False, 'ydental_opportunity_used': True})
-        self._audit('missed', entry, {'missed': task.ydental_missed_count, 'displacement': count})
+        self._audit('missed', entry, {'missed': task.ydental_missed_count, 'displacement': count,
+                                    'call_rank_before': entry.ydental_call_rank, 'rank_after': destination + 1})
         return {'entry_id': entry.id, 'missed': task.ydental_missed_count, 'state': entry.state}
 
     def _start(self, lease_id, token, entry_id):
         lease = self._held(lease_id, token, admission=True)
+        self._assert_actor_idle()
         entry = self._calling(lease, entry_id)
-        if self._model('execution').search_count([('ydental_patient_id', '=', entry.ydental_patient_id.id)]):
-            raise UserError(self.env._('handover_required: The patient already has an unresolved actual execution.'))
         station = lease.ydental_station_id
-        if entry.ydental_area_id != station.ydental_queue_area_id or entry.ydental_capability_id not in station.ydental_capability_ids:
-            raise AccessError(self.env._('access_denied: The called task capability no longer matches this workstation.'))
+        reason = self._eligibility(entry, station)
+        if reason:
+            raise AccessError(reason)
         task = entry.ydental_task_id
         permit = StartPermit(self.env.uid, task.id, lease.id)
         intake = self.env['ydental.intake.service'].with_context(ydental_queue_start=permit)
@@ -304,6 +395,12 @@ class YDentalQueueService(models.AbstractModel):
     def _status(self):
         self.env['ydental.access.service']._require_internal()
         lease = self._own()
+        execution = self._actor_execution()
+        if execution and (not lease or execution.state == 'verify'):
+            old = execution.ydental_lease_id
+            return {'store': execution.ydental_store_id.name, 'area': old.ydental_station_id.ydental_queue_area_id.name,
+                    'station': old.ydental_station_id.name, 'state': execution.state,
+                    'state_label': self.env._('On-site verification required')}
         if not lease:
             return {'store': '', 'area': '', 'station': '', 'state': 'idle'}
         return {'store': lease.ydental_store_id.name, 'area': lease.ydental_station_id.ydental_queue_area_id.name,

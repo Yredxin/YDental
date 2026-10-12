@@ -20,6 +20,7 @@ class YDentalQueue(http.Controller):
         levels = access._levels(access._membership(queue.env.uid, store.id))
         stations = queue.env['ydental.space.station'].sudo().search([('ydental_store_id', '=', store.id)])
         own = queue._own()
+        actor_execution = queue._actor_execution()
         entries = queue._model('entry').search([('ydental_store_id', '=', store.id), ('state', '!=', 'void')])
         station_rows = []
         for station in stations:
@@ -28,11 +29,12 @@ class YDentalQueue(http.Controller):
             occupied = queue._model('lease').search_count([('ydental_station_id', '=', station.id), ('ydental_active', '=', True)])
             unresolved = queue._model('execution').search_count([('ydental_lease_id.ydental_station_id', '=', station.id)])
             can_enter = bool(category and levels[category] == 'write' and qualified and station.ydental_capability_ids and
-                             station.active and station.ydental_enabled and station.ydental_callable and not occupied and not unresolved)
+                             station.active and station.ydental_enabled and station.ydental_callable and not occupied and not unresolved and not actor_execution)
             station_rows.append({'id': station.id, 'name': station.name, 'area': station.ydental_queue_area_id.name,
                 'capabilities': ', '.join(station.ydental_capability_ids.mapped('name')), 'can_enter': can_enter,
-                'reason': request.env._('Occupied or awaiting on-site verification') if occupied or unresolved else (
-                    request.env._('Available for qualified authorized staff') if can_enter else request.env._('Disabled, insufficient permission or capability'))})
+                'reason': request.env._('Resolve your existing execution or on-site verification before entering another workstation.') if actor_execution else (
+                    request.env._('Occupied or awaiting on-site verification') if occupied or unresolved else (
+                        request.env._('Available for qualified authorized staff') if can_enter else request.env._('Disabled, insufficient permission or capability')))})
         # Frontdesk can see why each exact capability waits and the concrete
         # workstation page to resolve staffing, without hiding the waiting task.
         waiting_rows = []
@@ -41,26 +43,29 @@ class YDentalQueue(http.Controller):
                 ('ydental_expires_at', '>', queue._now())]).filtered(
                     lambda lease: lease.ydental_station_id.ydental_queue_area_id == entry.ydental_area_id)
             eligible = []
+            reasons = []
             for lease in holders:
-                member = access._membership(lease.ydental_actor_id.id, store.id)
                 station = lease.ydental_station_id
-                category = {'care': 'medical', 'exam': 'exam', 'pharmacy': 'pharmacy'}.get(station.ydental_kind)
-                if category and member and member.ydental_employee_id.active and lease.ydental_actor_id.active and (
-                    access._levels(member)[category] == 'write' and station.active and station.ydental_enabled and station.ydental_callable and
-                    entry.ydental_capability_id in station.ydental_capability_ids and
-                    set(station.ydental_capability_ids.filtered('active').ids) <= set(lease.ydental_actor_id.ydental_capability_ids.filtered('active').ids)):
+                reason = queue._eligibility(entry, station, lease.ydental_actor_id)
+                if not reason:
                     eligible.append(station.name)
-            waiting_rows.append({'entry': entry, 'reason': ', '.join(eligible) if eligible else request.env._('No connected authorized workstation covers this exact capability. Open an eligible workstation here.')})
+                elif reason not in reasons:
+                    reasons.append(reason)
+            waiting_rows.append({'entry': entry, 'reason': ', '.join(eligible) if eligible else ' '.join([
+                request.env._('No connected authorized workstation covers this exact capability. Open an eligible workstation here.'), *reasons])})
         try:
             heartbeat, timeout = queue._settings()
             config_hint = request.env._('Heartbeat and timeout are explicitly configured. Production approval remains separate.')
         except UserError as error:
             heartbeat, timeout, config_hint = 0, 0, str(error)
+        can_call = bool(own and not actor_execution and own.ydental_station_id.ydental_queue_area_id.ydental_missed_limit > 0)
+        if own and own.ydental_station_id.ydental_queue_area_id.ydental_missed_limit <= 0:
+            config_hint = request.env._('configuration_required: Publish an explicit positive missed-call displacement.')
         return request.render('ydental_queue.ydental_queue_page', {'store': store, 'status': queue._status(),
             'revision': access._scope().ydental_revision, 'stations': station_rows, 'rows': waiting_rows,
             'own': own, 'shift_hint': queue._shift_hint(own), 'config_hint': config_hint,
             'can_write': any(levels[c] == 'write' for c in ('medical', 'exam', 'pharmacy')),
-            'heartbeat': heartbeat}, headers=[('Cache-Control', 'no-store')])
+            'heartbeat': heartbeat, 'can_call': can_call}, headers=[('Cache-Control', 'no-store')])
 
     @http.route('/ydental/queue/action', type='http', auth='user', methods=['POST'], max_content_length=16384)
     def action(self, operation, revision, connection, payload):

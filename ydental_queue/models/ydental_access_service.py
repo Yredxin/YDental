@@ -8,7 +8,11 @@ class YDentalAccessService(models.AbstractModel):
         return super()._get_sources() | {'queue_' + entity: 'ydental.queue.' + entity for entity in ('lease', 'entry', 'execution')}
 
     def _get_execution_store_id(self):
-        lease = self.env['ydental.queue.service']._own()
+        queue = self.env['ydental.queue.service']
+        execution = queue._actor_execution()
+        if execution:
+            return execution.ydental_store_id.id
+        lease = queue._own()
         return lease.ydental_store_id.id if lease else super()._get_execution_store_id()
 
     def _grant(self, user_id, store_id, levels, source='manual'):

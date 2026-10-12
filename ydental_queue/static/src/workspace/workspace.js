@@ -47,7 +47,7 @@ if (workspace) {
     }
     for (const button of workspace.querySelectorAll('[data-operation]')) {
         const operation = button.dataset.operation;
-        button.disabled = operation !== 'enter' && !holder;
+        button.disabled = button.disabled || (operation !== 'enter' && !holder);
         button.addEventListener('click', () => action(operation, {
             ...(button.dataset.station ? {station_id: Number(button.dataset.station)} : {}),
             ...(button.dataset.entry ? {entry_id: Number(button.dataset.entry)} : {}),

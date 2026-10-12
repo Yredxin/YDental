@@ -21,6 +21,8 @@ class YDentalQueueEntry(models.Model):
     ydental_return = fields.Boolean()
     ydental_opportunity_used = fields.Boolean()
     ydental_call_used_before = fields.Boolean()
+    ydental_call_rank = fields.Integer(string='Effective regional rank before call')
+    ydental_call_order_before = fields.Integer(string='Pre-call order anchor')
     state = fields.Selection([('waiting', 'Waiting'), ('calling', 'Calling'), ('serving', 'Serving'),
                               ('verify', 'Away, on-site verification required'), ('void', 'Number voided')], required=True, default='waiting')
 

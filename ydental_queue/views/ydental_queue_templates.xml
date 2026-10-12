@@ -10,7 +10,7 @@
                 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                 <h1>Workstation queue</h1>
                 <nav><a href="/ydental/access">Store and permissions</a> | <a href="/ydental/intake">Arrival and reporting</a> | <a href="/ydental/supply/today">My assignments</a></nav>
-                <p>Current store: <strong t-out="store.name"/>. Workstation position: <span id="position"><t t-out="status['store'] or '-'"/> / <t t-out="status['area'] or '-'"/> / <t t-out="status['station'] or '-'"/> (<t t-out="status['state']"/>)</span></p>
+                <p>Current store: <strong t-out="store.name"/>. Workstation position: <span id="position" t-att-data-state="status['state']"><t t-out="status['store'] or '-'"/> / <t t-out="status['area'] or '-'"/> / <t t-out="status['station'] or '-'"/> (<t t-out="status.get('state_label', status['state'])"/>)</span></p>
                 <p t-out="config_hint"/><p t-if="shift_hint" t-out="shift_hint"/>
                 <p>Only the holding browser renews a connection. Shift end does not release it. Serving disconnection requires on-site verification.</p>
                 <p id="queue-result" role="status"/>
@@ -20,7 +20,7 @@
                     <p>Current holder: <t t-out="own.ydental_actor_id.name"/>. Connection expires: <t t-out="own.ydental_expires_at"/> UTC.</p>
                     <t t-if="can_write">
                         <button type="button" data-operation="heartbeat">Renew holding connection</button>
-                        <button type="button" data-operation="call">Call next matching task</button>
+                        <button type="button" data-operation="call" t-att-disabled="not can_call or None">Call next matching task</button>
                         <button type="button" data-operation="exit">Exit / rest / logout workstation</button>
                     </t>
                 </div>
