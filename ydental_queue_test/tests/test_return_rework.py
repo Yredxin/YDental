@@ -45,6 +45,8 @@ class TestQueueReturnRework(TransactionCase):
         self.assertNotEqual(result['lease_id'], lease['lease_id'])
         self.assertNotEqual(result['token'], lease['token'])
         self.assertFalse(queue._actor_execution())
+        free_lease = queue._operate('enter', {'station_id': self.other_station.id})
+        queue._operate('exit', lease_args(free_lease))
         self.assertEqual(events, self.root['ydental.supply.event'].search_count([]))
         with self.assertRaises(UserError):
             resolver._operate('takeover_verify', args)
@@ -72,6 +74,11 @@ class TestQueueReturnRework(TransactionCase):
             elsewhere._operate('takeover_verify', args)
         with self.assertRaises(AccessError):
             queue_bind(self, self.users['reader'])._operate('takeover_verify', args)
+        employee = resolver.env['ydental.access.service']._membership(self.second.id, self.stores[0].id).ydental_employee_id
+        employee.active = False
+        with self.assertRaises(AccessError):
+            resolver._operate('takeover_verify', args)
+        employee.active = True
         self.second.write({'ydental_capability_ids': [(6, 0, [])]})
         with self.assertRaises(AccessError):
             resolver._operate('takeover_verify', args)
