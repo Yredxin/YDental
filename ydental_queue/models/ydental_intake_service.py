@@ -1,0 +1,83 @@
+from odoo import models
+from odoo.exceptions import AccessError, UserError
+
+from .ydental_queue_service import StartPermit
+
+
+class YDentalIntakeService(models.AbstractModel):
+    _inherit = 'ydental.intake.service'
+
+    def _all_locks(self):
+        super()._all_locks()
+        self.env['ydental.queue.service']._lock()
+
+    def _queue_assert_idle(self, task):
+        super()._queue_assert_idle(task)
+        if self.env['ydental.queue.service']._unresolved_execution(task.ydental_patient_id.id):
+            raise UserError(self.env._('handover_required: This patient has an unresolved actual execution.'))
+
+    def _queue_accept(self, task, previous):
+        queue = self.env['ydental.queue.service']
+        queue._lock()
+        queue._expire()
+        queue._settings()
+        self._queue_assert_idle(task)
+        mapping = task.ydental_mapping_id
+        if previous:
+            # Target validation already succeeded. Withdraw under this savepoint
+            # before inserting the new unique patient position; failure rolls back.
+            self._queue_void(previous, 'Successful explicit task switch')
+        entry = queue._model('entry').search([('ydental_task_id', '=', task.id)], limit=1)
+        if entry:
+            # A durable task retains its rank, date, return classification and
+            # genuine missed count through re-report/area-switch-away-and-back.
+            entry._save({'state': 'waiting', 'ydental_lease_id': False})
+        else:
+            date = self.env['ydental.supply.service']._date(task.ydental_store_id)
+            returned = bool(queue._model('entry').search_count([
+                ('ydental_patient_id', '=', task.ydental_patient_id.id),
+                ('ydental_store_id', '=', task.ydental_store_id.id), ('ydental_business_date', '=', date),
+                ('ydental_started_at', '!=', False)]))
+            number = self.env['ir.sequence'].sudo().next_by_code('ydental.queue.number')
+            entry = queue._model('entry')._new({'name': task.name, 'ydental_store_id': task.ydental_store_id.id,
+                'ydental_category': 'exam' if mapping.ydental_catalog_id.ydental_kind == 'exam' else 'medical',
+                'ydental_task_id': task.id, 'ydental_patient_id': task.ydental_patient_id.id,
+                'ydental_area_id': mapping.ydental_area_id.id,
+                'ydental_capability_id': mapping.ydental_catalog_id.ydental_capability_id.id,
+                'ydental_business_date': date, 'ydental_timezone': task.ydental_store_id.ydental_timezone,
+                'ydental_reported_at': queue._now(), 'ydental_number': (mapping.ydental_area_id.ydental_prefix or '') + number,
+                'ydental_order': int(number) * 1000, 'ydental_return': returned,
+                'ydental_opportunity_used': task.ydental_queue_opportunity_used})
+        queue._audit('report', entry, {'task_id': task.id, 'return_opportunity': entry.ydental_return})
+        return {'queue_id': entry.id, 'queue_status': 'waiting', 'queue_contract': 's06_real_queue'}
+
+    def _queue_void(self, position, reason):
+        queue = self.env['ydental.queue.service']
+        queue._lock()
+        rows = queue._model('entry').search([('ydental_task_id', '=', position.ydental_task_id.id)])
+        if rows.filtered(lambda e: e.state in ('serving', 'verify')) or queue._unresolved_execution(position.ydental_patient_id.id):
+            raise UserError(self.env._('handover_required: An actual execution cannot be voided by reception.'))
+        for row in rows.filtered(lambda e: e.state in ('waiting', 'calling')):
+            row._save({'state': 'void', 'ydental_lease_id': False})
+            row.flush_recordset(['state'])
+            queue._audit('void', row, {'reason': reason})
+
+    def _void(self, store, task_id, version, reason, cancel_qualification=False):
+        task = self._get('task', task_id, store)
+        if not self.env['ydental.queue.service']._model('entry').search_count([
+                ('ydental_task_id', '=', task.id), ('state', 'in', ['waiting', 'calling'])]):
+            raise UserError(self.env._('version_conflict: Only an existing waiting or calling number can be voided.'))
+        return super()._void(store, task_id, version, reason, cancel_qualification)
+
+    def _authorize_downstream(self, operation, payload):
+        permit = self.env.context.get('ydental_queue_start')
+        if operation != 'start' or type(permit) is not StartPermit or (permit.actor_id, permit.task_id) != (
+                self.env.uid, payload.get('task_id')):
+            return super()._authorize_downstream(operation, payload)
+        queue = self.env['ydental.queue.service']
+        lease = queue._model('lease').browse(permit.lease_id)
+        station, member, category = queue._station(lease.ydental_station_id.id)
+        if not lease.ydental_active or lease.ydental_actor_id.id != self.env.uid or lease.ydental_expires_at <= queue._now() or not queue._model('entry').search_count([
+                ('ydental_task_id', '=', permit.task_id), ('ydental_lease_id', '=', lease.id), ('state', '=', 'calling')]):
+            raise AccessError(self.env._('access_denied: Start requires the current called task and holding connection.'))
+        return station.ydental_store_id

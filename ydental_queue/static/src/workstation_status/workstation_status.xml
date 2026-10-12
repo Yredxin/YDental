@@ -1,0 +1,7 @@
+<templates xml:space="preserve">
+    <t t-name="ydental_queue.WorkstationStatus">
+        <a class="o_nav_entry o_ydental_queue_workstation_status" href="/ydental/queue" title="Current workstation position">
+            <t t-out="this.position.store || '-'"/> / <t t-out="this.position.area || '-'"/> / <t t-out="this.position.station || '-'"/> (<t t-out="this.position.state"/>)
+        </a>
+    </t>
+</templates>

@@ -1,0 +1,16 @@
+<odoo noupdate="1">
+    <record id="ydental_queue_mutex" model="ydental.queue.mutex"/>
+    <record id="ydental_queue_sequence" model="ir.sequence">
+        <field name="name">YDental queue internal display sequence</field>
+        <field name="code">ydental.queue.number</field>
+        <field name="padding">1</field>
+    </record>
+    <record id="ydental_queue_timeout_cron" model="ir.cron">
+        <field name="name">YDental workstation connection timeout</field>
+        <field name="model_id" ref="model_ydental_queue_service"/>
+        <field name="state">code</field>
+        <field name="code">model._timeout()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">minutes</field>
+    </record>
+</odoo>

@@ -1,0 +1,21 @@
+from odoo import models
+
+
+class YDentalPatientService(models.AbstractModel):
+    _inherit = 'ydental.patient.service'
+
+    def _intake_merge_lock(self):
+        super()._intake_merge_lock()
+        self.env['ydental.queue.service']._lock()
+
+    def _active_business(self, patient_ids):
+        result = super()._active_business(patient_ids)
+        rows = self.env['ydental.queue.execution'].sudo().search([('ydental_patient_id', 'in', patient_ids)])
+        return result + [{'patient_id': r.ydental_patient_id.id, 'kind': 'execution', 'reference': r.id} for r in rows]
+
+    def _migrate_business(self, source_ids, target):
+        result = super()._migrate_business(source_ids, target)
+        rows = self.env['ydental.queue.entry'].sudo().search([
+            ('ydental_patient_id', 'in', source_ids), ('state', 'in', ['waiting', 'calling'])])
+        rows._save({'ydental_patient_id': target.id})
+        return result | {'queue': len(rows)}

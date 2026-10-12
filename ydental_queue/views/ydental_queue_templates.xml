@@ -1,0 +1,49 @@
+<odoo>
+    <record id="ydental_queue_action" model="ir.actions.act_url">
+        <field name="name">Workstation queue</field><field name="url">/ydental/queue</field><field name="target">self</field>
+    </record>
+    <menuitem id="ydental_queue_menu" name="Workstation queue" parent="ydental_base.ydental_base_menu_root" action="ydental_queue_action" sequence="60" groups="ydental_base.ydental_base_group_user"/>
+    <template id="ydental_queue_page" name="Workstation queue">
+        <t t-call="web.layout">
+            <t t-set="head"><meta name="viewport" content="width=device-width, initial-scale=1"/><script type="module" src="/ydental_queue/static/src/workspace/workspace.js"/></t>
+            <main class="container py-4 o_ydental_queue_workspace" t-att-data-revision="revision" t-att-data-can-write="'yes' if can_write else 'no'" t-att-data-heartbeat="heartbeat">
+                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                <h1>Workstation queue</h1>
+                <nav><a href="/ydental/access">Store and permissions</a> | <a href="/ydental/intake">Arrival and reporting</a> | <a href="/ydental/supply/mine">My assignments</a></nav>
+                <p>Current store: <strong t-out="store.name"/>. Workstation position: <span id="position"><t t-out="status['store'] or '-'"/> / <t t-out="status['area'] or '-'"/> / <t t-out="status['station'] or '-'"/> (<t t-out="status['state']"/>)</span></p>
+                <p t-out="config_hint"/><p t-if="shift_hint" t-out="shift_hint"/>
+                <p>Only the holding browser renews a connection. Shift end does not release it. Serving disconnection requires on-site verification.</p>
+                <p id="queue-result" role="status"/>
+                <div t-if="own" t-att-data-lease="own.id" id="holding-workstation">
+                    <p>Current holder: <t t-out="own.ydental_actor_id.name"/>. Connection expires: <t t-out="own.ydental_expires_at"/> UTC.</p>
+                    <t t-if="can_write">
+                        <button type="button" data-operation="heartbeat">Renew holding connection</button>
+                        <button type="button" data-operation="call">Call next matching task</button>
+                        <button type="button" data-operation="exit">Exit / rest / logout workstation</button>
+                    </t>
+                </div>
+                <h2>Workstations</h2>
+                <table class="table"><thead><tr><th>Station</th><th>Area</th><th>Exact capabilities</th><th>Availability and action</th></tr></thead>
+                    <tbody><tr t-foreach="stations" t-as="station" t-key="station['id']" t-att-data-station="station['id']">
+                        <td t-out="station['name']"/><td t-out="station['area']"/><td t-out="station['capabilities']"/>
+                        <td><span t-out="station['reason']"/> <button t-if="station['can_enter']" type="button" t-att-data-operation="'switch' if own else 'enter'" t-att-data-station="station['id']"><t t-if="own">Switch to this idle workstation</t><t t-else="">Enter workstation</t></button></td>
+                    </tr></tbody>
+                </table>
+                <h2>Accepted tasks</h2>
+                <table class="table"><thead><tr><th>Number / task</th><th>Area / capability</th><th>State</th><th>Missed</th><th>Opportunity</th><th>Staffing / action</th></tr></thead>
+                    <tbody><tr t-foreach="rows" t-as="row" t-key="row['entry'].id" t-att-data-entry="row['entry'].id" t-att-data-task="row['entry'].ydental_task_id.id">
+                        <t t-set="entry" t-value="row['entry']"/>
+                        <td><t t-out="entry.ydental_number"/> / <t t-out="entry.ydental_task_id.id"/></td>
+                        <td><t t-out="entry.ydental_area_id.name"/> / <t t-out="entry.ydental_capability_id.name"/></td><td class="queue-state" t-out="entry.state"/><td class="queue-missed" t-out="entry.ydental_task_id.ydental_missed_count"/>
+                        <td><t t-if="entry.ydental_return and not entry.ydental_opportunity_used">Unused return opportunity</t><t t-else="">Regular order</t></td>
+                        <td><span t-out="row['reason']"/><t t-if="can_write and own and entry.state == 'calling' and entry.ydental_lease_id == own">
+                            <button type="button" data-operation="missed" t-att-data-entry="entry.id">Record real missed call</button>
+                            <button type="button" data-operation="start" t-att-data-entry="entry.id">Start actual execution</button>
+                        </t></td>
+                    </tr></tbody>
+                </table>
+                <p>Production heartbeat, timeout and missed displacement require explicit approval. A batch does not provide treatment completion or handover.</p>
+            </main>
+        </t>
+    </template>
+</odoo>

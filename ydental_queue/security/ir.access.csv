@@ -1,0 +1,4 @@
+id,name,model_id/id,group_id/id,operation,domain
+ydental_queue_lease_read,Queue lease,model_ydental_queue_lease,ydental_base.ydental_base_group_user,r,
+ydental_queue_entry_read,Queue entry,model_ydental_queue_entry,ydental_base.ydental_base_group_user,r,
+ydental_queue_execution_read,Queue execution,model_ydental_queue_execution,ydental_base.ydental_base_group_user,r,
