@@ -1,0 +1,205 @@
+{
+  "scope": "S05 real multi-connection database races, S03/S04 real integration, queue synthetic only",
+  "database": "ydental_s05_test_20261012002704_4794be6c",
+  "started_utc": "2026-10-12T00:31:34.150323+00:00",
+  "races": [
+    {
+      "name": "T04_same_patient_different_areas",
+      "result": "PASS",
+      "connections": 2,
+      "attempts": [
+        1,
+        2
+      ],
+      "outcomes": [
+        "accepted",
+        "accepted"
+      ],
+      "one_position": true,
+      "one_synthetic_waiting": true
+    },
+    {
+      "name": "T05_report_before_stop",
+      "result": "PASS",
+      "connections": 2,
+      "attempts": [
+        1,
+        2
+      ],
+      "outcomes": [
+        "accepted",
+        "accepted"
+      ],
+      "no_half_intake": true
+    },
+    {
+      "name": "T05_stop_before_report",
+      "result": "PASS",
+      "connections": 2,
+      "attempts": [
+        1,
+        2
+      ],
+      "outcomes": [
+        "accepted",
+        "rejected"
+      ],
+      "no_half_intake": true
+    },
+    {
+      "name": "T06_duplicate_cancel_competition",
+      "result": "PASS",
+      "connections": 2,
+      "attempts": [
+        2,
+        1
+      ],
+      "outcomes": [
+        "rejected",
+        "accepted"
+      ],
+      "returned_once": true
+    },
+    {
+      "name": "T06_cancel_before_consume",
+      "result": "PASS",
+      "connections": 2,
+      "attempts": [
+        1,
+        2
+      ],
+      "outcomes": [
+        "accepted",
+        "rejected"
+      ],
+      "no_double_return": true
+    },
+    {
+      "name": "T06_consume_before_cancel",
+      "result": "PASS",
+      "connections": 2,
+      "attempts": [
+        1,
+        2
+      ],
+      "outcomes": [
+        "accepted",
+        "rejected"
+      ],
+      "no_double_return": true
+    },
+    {
+      "name": "T06_reschedule_vs_target_last_sale",
+      "result": "PASS",
+      "connections": 2,
+      "attempts": [
+        1,
+        2
+      ],
+      "outcomes": [
+        "accepted",
+        "rejected"
+      ],
+      "original_claim_and_position_preserved": true
+    },
+    {
+      "name": "T11_timed_referral_target_last_capacity",
+      "result": "PASS",
+      "connections": 2,
+      "attempts": [
+        2,
+        1
+      ],
+      "outcomes": [
+        "rejected",
+        "accepted"
+      ],
+      "one_target_claim": true,
+      "no_half_referral": true
+    },
+    {
+      "name": "T09_business_before_reservation_merge_race",
+      "result": "PASS",
+      "connections": 2,
+      "attempts": [
+        1,
+        2
+      ],
+      "outcomes": [
+        "accepted",
+        "conflict_requires_resolution"
+      ],
+      "real_s05_objects": true,
+      "canonical_references": true
+    },
+    {
+      "name": "T09_merge_before_reservation_merge_race",
+      "result": "PASS",
+      "connections": 2,
+      "attempts": [
+        1,
+        2
+      ],
+      "outcomes": [
+        "accepted",
+        "accepted"
+      ],
+      "real_s05_objects": true,
+      "canonical_references": true
+    },
+    {
+      "name": "T09_business_before_walkin_merge_race",
+      "result": "PASS",
+      "connections": 2,
+      "attempts": [
+        1,
+        2
+      ],
+      "outcomes": [
+        "accepted",
+        "conflict_requires_resolution"
+      ],
+      "real_s05_objects": true,
+      "canonical_references": true
+    },
+    {
+      "name": "T09_merge_before_walkin_merge_race",
+      "result": "PASS",
+      "connections": 2,
+      "attempts": [
+        1,
+        2
+      ],
+      "outcomes": [
+        "accepted",
+        "accepted"
+      ],
+      "real_s05_objects": true,
+      "canonical_references": true
+    },
+    {
+      "name": "T13_price_publication_vs_snapshot_and_recovery",
+      "result": "PASS",
+      "connections": 2,
+      "attempts": [
+        2,
+        1
+      ],
+      "outcomes": [
+        "accepted",
+        "accepted"
+      ],
+      "frozen_version": 15,
+      "amount": 600
+    }
+  ],
+  "invariants": {
+    "single_position": true,
+    "s03_capacity_conservation": true,
+    "live_tasks_canonical": true,
+    "deadlocks": 0,
+    "real_queue_and_clinical_execution": "NOT_RUN"
+  },
+  "finished_utc": "2026-10-12T00:31:43.006965+00:00",
+  "tested_commit": "e7b9610f78d18b1ce2e95a8da9cb336a7072821c"
+}

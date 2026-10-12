@@ -1,0 +1,22 @@
+{
+  "database": "ydental_s05_test_20261012003654_1b657de3",
+  "tested_commit": "90d1a41f8559542aed36f4fc0ff22897c17fb392",
+  "own_preview": {
+    "endpoint": "http://127.0.0.1:18115",
+    "guarded_config_and_pid_checked": true,
+    "signal": "SIGINT",
+    "exit_code": 0,
+    "serve_log_sha256": "e97630d92201b12d2fba031e3dacb75eeac0e1490b6a0031e031a51198d3c488"
+  },
+  "final_browser_summary": "browser-attempts/20261012T003922681586/summary.json",
+  "manual_screenshots_viewed": [
+    "03-switch-area-preserves-original-qualification.png",
+    "06-price-620-published-old-snapshot-600.png",
+    "08-chinese-catalog-and-price-policy.png"
+  ],
+  "disclosure_check": {
+    "all_s05_private_access_values_absent": true,
+    "all_browser_screenshot_hashes_match": true,
+    "raw_runtime_logs_configs_backups_absent": true
+  }
+}

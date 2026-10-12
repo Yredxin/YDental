@@ -1,0 +1,23 @@
+{
+  "tested_commit": "90d1a41f8559542aed36f4fc0ff22897c17fb392",
+  "guard": {
+    "command": "../.venv/bin/python scripts/test_s05_guard.py",
+    "tests": 5,
+    "failures": 0,
+    "errors": 0,
+    "exit_code": 0,
+    "script_sha256": "e1edb76bb3668ac4242be363da828147ecab0ec19c4ef142cecdbf2cbf8e54ae"
+  },
+  "compileall": {
+    "paths": [
+      "ydental_intake",
+      "ydental_intake_test",
+      "scripts/s05*.py",
+      "scripts/test_s05_guard.py"
+    ],
+    "exit_code": 0
+  },
+  "git_diff_check": {
+    "exit_code": 0
+  }
+}

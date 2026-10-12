@@ -1,0 +1,116 @@
+{
+  "database": "ydental_s05_test_20261012001114_32136cf7",
+  "oid": 377547,
+  "created_utc": "2026-10-12T00:11:14.191832+00:00",
+  "endpoint": {
+    "host": "127.0.0.1",
+    "port": "5432",
+    "user": "odoo"
+  },
+  "cluster": "7694897083368259627",
+  "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "port": 18115,
+  "config_sha256": "3a757ec37c531149898b44c3c6c4eae198c8d6612a31ae5021fcd557812eceda",
+  "actions": [
+    {
+      "action": "install",
+      "exit_code": 1,
+      "log_sha256": "fe726ac08c2abaf340e438d748511a0641d9b88d30daa097603995ecc634bc1f",
+      "time_utc": "2026-10-12T00:12:19.170122+00:00",
+      "tested_commit": "3ab7b040a94e4afa4cbce98b859734a41493bffb",
+      "tests": [
+        1,
+        5,
+        24
+      ],
+      "verification_exit": 1
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 1,
+      "log_sha256": "28e5e244844ec20aec41d91eeffa202e356fb69cd78d7af0dacdee3b4db866e1",
+      "time_utc": "2026-10-12T00:13:24.589873+00:00",
+      "tested_commit": "85bacf11cbcdcdd2deb4db1c7d8474c93fd8dc6e",
+      "tests": [
+        0,
+        1,
+        22
+      ],
+      "verification_exit": 1
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 0,
+      "log_sha256": "dde9d5c5385da06dccca24cbbd7d6d9d128cc37c5b06d251277eba24e2fa1f49",
+      "time_utc": "2026-10-12T00:14:13.986660+00:00",
+      "tested_commit": "69796130dda42123f3f7bbef5d17141498a404e3",
+      "tests": [
+        0,
+        0,
+        22
+      ]
+    },
+    {
+      "action": "probe",
+      "exit_code": 0,
+      "log_sha256": "75610f24bcde11697ab5d150aaf74216fdb2dc01a0d079041b8624e540370d0a",
+      "time_utc": "2026-10-12T00:14:57.915003+00:00",
+      "tested_commit": "69796130dda42123f3f7bbef5d17141498a404e3"
+    },
+    {
+      "action": "export",
+      "exit_code": 0,
+      "log_sha256": "8f3443ed319f4dffe9becd0524d3fa85f52b0e4bf3351a3caa41a389633c80aa",
+      "time_utc": "2026-10-12T00:15:35.675564+00:00",
+      "tested_commit": "69796130dda42123f3f7bbef5d17141498a404e3"
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 0,
+      "log_sha256": "97f4c75f6044f8acd72b53ce459b4380c3df9fe7f3df1c92b09217db2b169c72",
+      "time_utc": "2026-10-12T00:16:29.160997+00:00",
+      "tested_commit": "0d0eeebb195306f0a9a310c64a1dfb325fd5bc13",
+      "tests": [
+        0,
+        0,
+        22
+      ]
+    },
+    {
+      "action": "export",
+      "exit_code": 0,
+      "log_sha256": "c06c01f133c4fedb15a2bd34b85edd15c24d7dfab50ee09a7ded637ab1154b6b",
+      "time_utc": "2026-10-12T00:18:14.979180+00:00",
+      "tested_commit": "f40d64870af6fa0ebd52a77b7f7db57a326edf4d"
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 0,
+      "log_sha256": "b4d56d538b4cc677cb68df9fc4dd4d2bdd42d80892af9f0c6742c9488443a0dd",
+      "time_utc": "2026-10-12T00:20:11.330109+00:00",
+      "tested_commit": "cb6711c7967b431ec585b5ab0120f784e519d505",
+      "tests": [
+        0,
+        0,
+        22
+      ]
+    },
+    {
+      "action": "export",
+      "exit_code": 0,
+      "log_sha256": "1ac4b2e913d2778379d22fcd7cafd1c8f4254f94893828b13bb1d8b8a6a140b9",
+      "time_utc": "2026-10-12T00:20:38.723436+00:00",
+      "tested_commit": "15cf0d6d94110c34da132fdd60d38e8d84473dac"
+    }
+  ],
+  "boundary": {
+    "new_database_only": true,
+    "exact_dbfilter": "^ydental_s05_test_20261012001114_32136cf7$",
+    "private_config_data_logs": true,
+    "cron_threads": 0,
+    "smtp": "disabled loopback sink",
+    "process_egress": "only approved loopback database and this HTTP port",
+    "existing_services_modified": false,
+    "system_dependencies_installed": false
+  }
+}

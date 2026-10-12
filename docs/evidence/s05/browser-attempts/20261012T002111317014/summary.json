@@ -1,0 +1,128 @@
+{
+  "scope": "S05 synthetic service intake and demonstration pricing UI",
+  "database": "ydental_s05_test_20261012001114_32136cf7",
+  "tested_commit": "8f1e2b2d8ce52242713795774fc880934814cf83",
+  "browser": "Firefox",
+  "sandbox": "default, no overrides",
+  "checks": [
+    {
+      "check": "intake explains pending is separate from queue",
+      "result": "PASS"
+    },
+    {
+      "check": "actual arrival visible after explicit form",
+      "result": "PASS"
+    },
+    {
+      "check": "first task accepted through UI",
+      "result": "PASS"
+    },
+    {
+      "check": "switch leaves original task pending",
+      "result": "PASS"
+    },
+    {
+      "check": "switch accepts chosen implant task",
+      "result": "PASS"
+    },
+    {
+      "check": "void returns task to pending",
+      "result": "PASS"
+    },
+    {
+      "check": "void keeps unused qualification visible",
+      "result": "PASS"
+    },
+    {
+      "check": "valid qualification can report again",
+      "result": "PASS"
+    },
+    {
+      "check": "production price policy visibly unapproved",
+      "result": "PASS"
+    },
+    {
+      "check": "group catalog created through form",
+      "result": "PASS"
+    },
+    {
+      "check": "price 600 reviewed and published through UI",
+      "result": "PASS"
+    },
+    {
+      "check": "demo snapshot 600 shown",
+      "result": "PASS"
+    },
+    {
+      "check": "price 620 reviewed and published through UI",
+      "result": "PASS"
+    },
+    {
+      "check": "replacement leaves historic snapshot 600",
+      "result": "PASS"
+    },
+    {
+      "check": "unpriced group service created",
+      "result": "PASS"
+    },
+    {
+      "check": "missing effective price explicitly rejected",
+      "result": "PASS"
+    },
+    {
+      "check": "unpublished production policy refused",
+      "result": "PASS"
+    },
+    {
+      "check": "read only role has no acquisition form",
+      "result": "PASS"
+    },
+    {
+      "check": "read only HTTP action denied",
+      "result": "PASS"
+    },
+    {
+      "check": "no permission role denied intake",
+      "result": "PASS"
+    },
+    {
+      "check": "own language preference changed through native RPC",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s05/browser-attempts/20261012T002111317014/01-qualified-before-arrival.png",
+      "sha256": "84c22fe778d091e42ea592522d5ae32c3e42e7014f9db6c7d08eb4877616b70b"
+    },
+    {
+      "path": "docs/evidence/s05/browser-attempts/20261012T002111317014/02-arrival-and-explicit-report.png",
+      "sha256": "887bf5cc8b93ab12b0abbc7282390d17dcc46a0cd1c8803b5981556275d1478a"
+    },
+    {
+      "path": "docs/evidence/s05/browser-attempts/20261012T002111317014/03-switch-area-preserves-original-qualification.png",
+      "sha256": "48ccbdb26a675ef12fada943fca77fdcec58b6e3ddc135cb229c4933dcb30caf"
+    },
+    {
+      "path": "docs/evidence/s05/browser-attempts/20261012T002111317014/04-void-only-keeps-qualification.png",
+      "sha256": "d3dd0740ccf77e731f9d1e997284831fee2c8e6c1131ce74b2d779ed556a61e2"
+    },
+    {
+      "path": "docs/evidence/s05/browser-attempts/20261012T002111317014/05-price-600-frozen-demo.png",
+      "sha256": "2745ca611dee683529c867c7a89143c13ed1dc2d785c0f78f8da1ac29dc815e5"
+    },
+    {
+      "path": "docs/evidence/s05/browser-attempts/20261012T002111317014/06-price-620-published-old-snapshot-600.png",
+      "sha256": "c0af1a6cd19a890ff03587cff8b94065081b917761472586ee15eb8f674dadd1"
+    },
+    {
+      "path": "docs/evidence/s05/browser-attempts/20261012T002111317014/07-reader-no-write-controls.png",
+      "sha256": "7811d5588e37a5e35919fc73abd49e0267844f3d88630d026f1f256f2b78bdb2"
+    }
+  ],
+  "browser_version": "155.0",
+  "result": "FAIL",
+  "error_type": "RuntimeError",
+  "pageerror_count": 0,
+  "ended_utc": "2026-10-12T00:21:24.826768+00:00"
+}

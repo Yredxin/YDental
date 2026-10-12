@@ -1,0 +1,143 @@
+{
+  "scope": "S05 synthetic service intake and demonstration pricing UI",
+  "database": "ydental_s05_test_20261012002704_4794be6c",
+  "tested_commit": "e7b9610f78d18b1ce2e95a8da9cb336a7072821c",
+  "browser": "Firefox",
+  "sandbox": "default, no overrides",
+  "checks": [
+    {
+      "check": "intake explains pending is separate from queue",
+      "result": "PASS"
+    },
+    {
+      "check": "actual arrival visible after explicit form",
+      "result": "PASS"
+    },
+    {
+      "check": "first task accepted through UI",
+      "result": "PASS"
+    },
+    {
+      "check": "switch leaves original task pending",
+      "result": "PASS"
+    },
+    {
+      "check": "switch accepts chosen implant task",
+      "result": "PASS"
+    },
+    {
+      "check": "void returns task to pending",
+      "result": "PASS"
+    },
+    {
+      "check": "void keeps unused qualification visible",
+      "result": "PASS"
+    },
+    {
+      "check": "valid qualification can report again",
+      "result": "PASS"
+    },
+    {
+      "check": "production price policy visibly unapproved",
+      "result": "PASS"
+    },
+    {
+      "check": "group catalog created through form",
+      "result": "PASS"
+    },
+    {
+      "check": "price 600 reviewed and published through UI",
+      "result": "PASS"
+    },
+    {
+      "check": "demo snapshot 600 shown",
+      "result": "PASS"
+    },
+    {
+      "check": "price 620 reviewed and published through UI",
+      "result": "PASS"
+    },
+    {
+      "check": "replacement leaves historic snapshot 600",
+      "result": "PASS"
+    },
+    {
+      "check": "unpriced group service created",
+      "result": "PASS"
+    },
+    {
+      "check": "missing effective price explicitly rejected",
+      "result": "PASS"
+    },
+    {
+      "check": "unpublished production policy refused",
+      "result": "PASS"
+    },
+    {
+      "check": "read only role has no acquisition form",
+      "result": "PASS"
+    },
+    {
+      "check": "read only HTTP action denied",
+      "result": "PASS"
+    },
+    {
+      "check": "no permission role denied intake",
+      "result": "PASS"
+    },
+    {
+      "check": "own language preference changed through native RPC",
+      "result": "PASS"
+    },
+    {
+      "check": "Chinese catalog and pricing heading",
+      "result": "PASS"
+    },
+    {
+      "check": "Chinese production policy disclaimer",
+      "result": "PASS"
+    },
+    {
+      "check": "no browser JavaScript errors",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s05/browser-attempts/20261012T003324225250/01-qualified-before-arrival.png",
+      "sha256": "bb7977954ed50c6856ca4223da611e3cf6b6fcefc944456f305edab233527778"
+    },
+    {
+      "path": "docs/evidence/s05/browser-attempts/20261012T003324225250/02-arrival-and-explicit-report.png",
+      "sha256": "f524b982d2fadcef80e5670f72d5d99d0187a3752de695a2a83d9dd146ee0a3d"
+    },
+    {
+      "path": "docs/evidence/s05/browser-attempts/20261012T003324225250/03-switch-area-preserves-original-qualification.png",
+      "sha256": "ba75bfe423d6e456582da18bcfd8723ffb789cf779691a345aa45ec779a7a0d1"
+    },
+    {
+      "path": "docs/evidence/s05/browser-attempts/20261012T003324225250/04-void-only-keeps-qualification.png",
+      "sha256": "c9b4fd328828ee0c9f756a899621312e593eeceff0397213def99854e792343a"
+    },
+    {
+      "path": "docs/evidence/s05/browser-attempts/20261012T003324225250/05-price-600-frozen-demo.png",
+      "sha256": "145f72a1cc97db593c01e5d954d66e94bcd056d79fb3a65f339576dc42176116"
+    },
+    {
+      "path": "docs/evidence/s05/browser-attempts/20261012T003324225250/06-price-620-published-old-snapshot-600.png",
+      "sha256": "d1eb0d498868777fcf699f2b47d441e084796bd85400e487fe65daf59193d4f3"
+    },
+    {
+      "path": "docs/evidence/s05/browser-attempts/20261012T003324225250/07-reader-no-write-controls.png",
+      "sha256": "86e8c0de4d62122b47775a5df43a6a1e5ca9dcdbba189d16f4c332c6af4d3b02"
+    },
+    {
+      "path": "docs/evidence/s05/browser-attempts/20261012T003324225250/08-chinese-catalog-and-price-policy.png",
+      "sha256": "a4537731212b34f099d0d146376170459a8a16b1e42eeeb88549384fafb61892"
+    }
+  ],
+  "browser_version": "155.0",
+  "result": "PASS",
+  "pageerror_count": 0,
+  "ended_utc": "2026-10-12T00:33:40.188100+00:00"
+}

@@ -1,0 +1,35 @@
+{
+  "revision": "YD-N1 R1",
+  "initial_read_utc": "2026-10-11T23:56:09Z",
+  "closeout_read_utc": "2026-10-12T00:38:04.037548+00:00",
+  "sources": [
+    {
+      "issue": 23,
+      "body_sha256": "36b3744d1087b38df6970dc584f396bd9c6d3bc66de8229c61f181688353f100",
+      "effective_comment_ids": [
+        6106072643,
+        6110178328
+      ],
+      "unchanged_since_initial_read": true,
+      "state": "open"
+    },
+    {
+      "issue": 29,
+      "body_sha256": "c13edf4a42bd8a0883645cd7e70293ad94f9e0fd4742508f39efc0d5f8617619",
+      "effective_comment_ids": [
+        6115298923,
+        6115339128
+      ],
+      "unchanged_since_initial_read": true,
+      "state": "open"
+    }
+  ],
+  "s04_review": 6115295633,
+  "s04_status_sync": 6115318214,
+  "activation": 6115298923,
+  "preflight": {
+    "comment": 6115339128,
+    "exact_readback": true,
+    "body_sha256": "73a0dcb04ccda338fd804632500e134e1cfb1d534477161eb99ca5f349286136"
+  }
+}

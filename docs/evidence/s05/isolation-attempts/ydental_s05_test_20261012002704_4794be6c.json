@@ -1,0 +1,64 @@
+{
+  "database": "ydental_s05_test_20261012002704_4794be6c",
+  "oid": 399601,
+  "created_utc": "2026-10-12T00:27:04.596856+00:00",
+  "endpoint": {
+    "host": "127.0.0.1",
+    "port": "5432",
+    "user": "odoo"
+  },
+  "cluster": "7694897083368259627",
+  "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "port": 18115,
+  "config_sha256": "b69ca23d6d146a6abbbd3a3c68509ebd1cac795ca3fa3e5ca0c9c5dd4c1ccd2c",
+  "actions": [
+    {
+      "action": "install",
+      "exit_code": 0,
+      "log_sha256": "21c9507d3c2f356376b75ccee302c0019176beb3e83e875add513f4025751698",
+      "time_utc": "2026-10-12T00:28:11.564506+00:00",
+      "tested_commit": "e7b9610f78d18b1ce2e95a8da9cb336a7072821c",
+      "tests": [
+        0,
+        0,
+        27
+      ]
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 0,
+      "log_sha256": "fc6f1aa81ff4c26933c912848a5c6f5c001d0a75e4d9319c156abb76535c13e3",
+      "time_utc": "2026-10-12T00:29:31.894063+00:00",
+      "tested_commit": "e7b9610f78d18b1ce2e95a8da9cb336a7072821c",
+      "tests": [
+        0,
+        0,
+        25
+      ]
+    },
+    {
+      "action": "probe",
+      "exit_code": 0,
+      "log_sha256": "d835a3afb0cc7337b289bf4803398eb332061999509d2d1ae542a265b3337504",
+      "time_utc": "2026-10-12T00:31:43.265861+00:00",
+      "tested_commit": "e7b9610f78d18b1ce2e95a8da9cb336a7072821c"
+    },
+    {
+      "action": "export",
+      "exit_code": 0,
+      "log_sha256": "fe6a3c0a0104ad0486276d3d81de49519d1fa55a458c329ade166727062a0b7b",
+      "time_utc": "2026-10-12T00:32:19.168899+00:00",
+      "tested_commit": "e7b9610f78d18b1ce2e95a8da9cb336a7072821c"
+    }
+  ],
+  "boundary": {
+    "new_database_only": true,
+    "exact_dbfilter": "^ydental_s05_test_20261012002704_4794be6c$",
+    "private_config_data_logs": true,
+    "cron_threads": 0,
+    "smtp": "disabled loopback sink",
+    "process_egress": "only approved loopback database and this HTTP port",
+    "existing_services_modified": false,
+    "system_dependencies_installed": false
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "result": "FAIL",
+  "phase": "browser startup before UI",
+  "database": "ydental_s05_test_20261012001114_32136cf7",
+  "tested_commit": "8f1e2b2",
+  "checks": 0,
+  "reason": "Existing process-local GTK library path was missing from launch environment. No sandbox override or system installation used.",
+  "private_log_sha256": "10f5343bc77e3d30645136dd70cda99d096a41d9fddcbcbb79c557a596a24ffc"
+}

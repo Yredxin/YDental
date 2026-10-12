@@ -1,5 +1,19 @@
 # YDental 当前执行入口
 
+## 当前 S05 / #29
+
+- 本次用户明确启用#29/S05；唯一当前边界为[GPT-ACTIVATE6115298923](https://github.com/Yredxin/YDental/issues/29#issuecomment-6115298923)。已完整读取#23当前正文/有效评论、#29当前正文/全部有效评论、#28最终技术复核6115295633及状态同步6115318214；[开工检查6115339128](https://github.com/Yredxin/YDental/issues/29#issuecomment-6115339128)已写回并逐字读回。
+- S04修正最终`174a70df2cf8de515d0e781c59e6ce3825146313`已GPT技术PASS，#28保持OPEN/待用户验收，不重做S04。
+- S05独立分支`codex/s05-intake-r1-20261011`；固定产品`6818bc35c35e030976df71558b188844d4de1082`、最终测试`90d1a41f8559542aed36f4fc0ff22897c17fb392`，完整SHA及最终文档证据固定于#29交付评论。交付后停止等待GPT技术复核，不能冒称GPT或用户验收通过。
+- 当前只实现目录/服务区域、版本化价目与演示不可变快照、预约/现场资格、真实到店、任务/受理位置、资格复用/取消返池/改期/换区、转诊双分支和S03/S04真实联动。容量只有S03账本，患者canonical/current relation和merge fence只有S04；统一锁序patient→supply→intake。
+- S05受理位置不是正式队列；S06真实waiting/calling、叫号、号序、租约及真实下游临床/检查/费用仍NOT_RUN。仅固定server hooks和受新库guard保护的合成队列契约。生产锁价/承诺价政策未批准，只有明确demo_confirmation，缺有效价失败，不能默认为0或冒称生产收费。
+- 当前运行仅`scripts/s05.py`及全新`ydental_s05_test_14位时间_8位hex`、合成数据；端点/cluster/OID/配置哈希/dbfilter/端口/进程外发保护均必须通过。S00—S04工具和数据库只历史保留，不接管。依赖仅复用已存在进程本地资产；不改核心/odoo-12/业务库/既有服务或系统依赖。
+- 工程交付见docs/s05-contracts.md、docs/s05-data-dictionary.md、docs/s05-security-review.md、docs/s05-report.md和docs/evidence/s05。保留失败与补交链；product→test只有测试变更，test→final仅文档/脱敏证据。无Project写授权，不改字段/workflows，不关闭Issue、不强推/自动合并/生产发布、不进入S06。
+
+## 已完成阶段与历史会话记录
+
+以下原S04“本次/本批”指其历史会话，不覆盖上方当前S05授权与运行边界。
+
 - 当前需求 YD-N1 R1。唯一来源是 [总计划 #23](https://github.com/Yredxin/YDental/issues/23)、[S00 #24](https://github.com/Yredxin/YDental/issues/24) 至 [S13 #37](https://github.com/Yredxin/YDental/issues/37) 当前正文和有效评论。先读取 GitHub，再执行明确启用范围；代码、卡片及历史验收不授权开工。
 - S00 已按 [GPT-CLOSEOUT](https://github.com/Yredxin/YDental/issues/24#issuecomment-6107583497) 最终收口，#24 CLOSED/completed；固定技术交付 `6dbf0a0a8be966bee7b2250b2a77e5b4d70540d8`。历史失败和补交证据保留，不重做 S00。
 - S01 已按 [CODEX 收口完成](https://github.com/Yredxin/YDental/issues/25#issuecomment-6108974493) 收口，#25 CLOSED/completed。固定产品修正 `740c42bbf611baa8713758fba38c1411d6b966c9`，产品与最终测试 `f1ce22df7002e40391ce16fd59093d60c4522b2e`，最终文档证据 `37ccd3af4c6af390506eb9229e2f1cc145e951b9`；原证据与失败链保留，不重做 S01。
@@ -14,7 +28,7 @@
 ## 工作区和保护
 
 - 核心 Git 根 `/home/redxin/code/odoo/odoo-sd/code`；本仓库为其独立 Git 根 `sd-addons/`，远端 Yredxin/YDental。每次仍核实实际路径、远端、分支、HEAD 和未提交改动。
-- 不改 Odoo 核心、odoo-12、既有未提交内容、既有业务库，不停止/重配既有服务。本批只实现和验证 #28；新增运行只在全新隔离 S04 库中使用合成数据。系统依赖安装和既有服务变更需具体授权。
+- 不改 Odoo 核心、odoo-12、既有未提交内容、既有业务库，不停止/重配既有服务。当前批次只实现和验证 #29；新增运行只在全新隔离 S05 库中使用合成数据。系统依赖安装和既有服务变更需具体授权。
 - 父目录 AGENTS.md 是既有未跟踪文件，保留原样；其中 sd-addons 为空、仅本机数据库映射等描述已陈旧，不作为实际现状或本批运行授权。
 - 底座锁定 Yredxin/odoo@f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb，本地声明20.0；Python 用核心 .venv/bin/python。此为 fork 无父根快照，不能冒称已核对同 SHA 官方上游。调用 API 前查实际源码；兼容性需所属批次实测。
 
