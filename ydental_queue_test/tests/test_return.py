@@ -235,3 +235,49 @@ class TestQueueReturn(TransactionCase):
         report(self, task)
         call = queue._operate('call', lease_args(lease))
         self.assertEqual(queue._operate('start', dict(lease_args(lease), entry_id=call['entry_id']))['state'], 'serving')
+
+    def test_continuation_qualification_is_inherited_and_rechecked(self):
+        from ..models.adapter import QualificationSource
+        task = accepted(self)
+        task.ydental_mapping_id.ydental_catalog_id._save({'ydental_qualification': 'synthetic outpatient license'})
+        queue = queue_bind(self)
+        queue._test_qualification(QualificationSource(self.users['doctor'].id, task.id, self.stations[0][0].id, 'synthetic outpatient license', True))
+        queue, lease, execution = serving(self, task=task)
+        source(queue, execution)
+        result = queue._operate('handover', dict(lease_args(lease), execution_id=execution.id))
+        continuation = self.root['ydental.intake.task'].browse(result['continuation_task_id'])
+        self.assertEqual(continuation.ydental_continuation_snapshot['qualification'], 'synthetic outpatient license')
+        report(self, continuation)
+        other, held = enter(self, queue_bind(self, self.second), self.other_station)
+        with self.assertRaises(UserError):
+            other._operate('call', lease_args(held))
+        other._test_qualification(QualificationSource(self.second.id, continuation.id, self.other_station.id, 'synthetic outpatient license', True))
+        called = other._operate('call', lease_args(held))
+        other._test_qualification(QualificationSource(self.second.id, continuation.id, self.other_station.id, 'synthetic outpatient license', False))
+        with self.assertRaises(AccessError):
+            other._operate('start', dict(lease_args(held), entry_id=called['entry_id']))
+
+    def test_hold_wrong_patient_target_and_restore_service_drift_refused(self):
+        queue, lease, execution = serving(self)
+        wrong = self.root['ydental.intake.task'].browse(qualify(self, mapping=self.mappings[0][2])['task_id'])
+        source(queue, execution, wrong)
+        with self.assertRaises(AccessError):
+            queue._operate('reserve', dict(lease_args(lease), execution_id=execution.id, target_task_id=wrong.id))
+        self.assertEqual(execution.state, 'serving')
+        hold, task = reserve(self, queue, lease, execution)
+        execution.ydental_task_id.ydental_mapping_id.ydental_catalog_id._save({'ydental_qualification': 'changed after original execution'})
+        with self.assertRaises(UserError):
+            queue._operate('restore', dict(lease_args(lease), hold_id=hold.id, confirmed=True))
+        self.assertEqual(hold.state, 'active')
+
+    def test_ordinary_closed_report_requires_permit_and_open_append_refused(self):
+        task = accepted(self)
+        app = appender(self)
+        with self.assertRaises(UserError):
+            app._operate('append', {'task_id': task.id, 'reason': 'area still open'})
+        close(self)
+        with self.assertRaises(UserError):
+            report(self, task)
+        queue, lease = enter(self)
+        with self.assertRaises(UserError):
+            queue._operate('call', lease_args(lease))

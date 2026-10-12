@@ -26,7 +26,7 @@ class TestQueue(TransactionCase):
             queue_bind(self, self.users['manager'])._operate('force_release', {'lease_id': lease['lease_id']})
         with self.assertRaises(AccessError):
             self.root['ydental.queue.lease'].browse(lease['lease_id']).write({'ydental_active': False})
-        self.assertEqual(self.root['ydental.queue.lease'].search_count([('ydental_active', '=', True)]), 1)
+        self.assertEqual(self.root['ydental.queue.lease'].search_count([('ydental_active', '=', True), ('ydental_store_id', 'in', self.stores.ids)]), 1)
 
     def test_t02_real_report_call_start_capacity_once(self):
         task = accepted(self)

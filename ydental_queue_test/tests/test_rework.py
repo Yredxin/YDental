@@ -50,7 +50,7 @@ class TestQueueRework(TransactionCase):
         self.assertEqual(call['task_id'], another.id)
         other._operate('start', dict(lease_args(other_lease), entry_id=call['entry_id']))
         self.assertEqual(self.entry(task).state, 'verify')
-        self.assertEqual(self.root['ydental.queue.execution'].search_count([]), 2)
+        self.assertEqual(self.root['ydental.queue.execution'].search_count([('ydental_store_id', 'in', self.stores.ids)]), 2)
 
     def test_b1_execution_store_fence_survives_new_session_and_store_switch(self):
         task, queue, lease = self.serving()

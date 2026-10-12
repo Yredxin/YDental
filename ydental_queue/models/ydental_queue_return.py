@@ -288,6 +288,10 @@ class YDentalQueueService(models.AbstractModel):
         if reason:
             return reason
         task = entry.ydental_task_id
+        kind = task.ydental_mapping_id.ydental_catalog_id.ydental_kind
+        expected = {'exam': 'exam', 'medicine': 'pharmacy'}.get(kind, 'medical')
+        if self._category(station) != expected:
+            return self.env._('capability_mismatch: Use the workstation business type for this explicit service task.')
         if task.ydental_continuation_snapshot and task.ydental_continuation_snapshot != self._service_snapshot(task):
             return self.env._('version_conflict: Continuation service requirements changed; review the source.')
         # Restore is allowed directly to an effective hold even when stopped.
