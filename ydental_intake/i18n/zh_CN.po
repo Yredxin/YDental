@@ -1,0 +1,1610 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* ydental_intake
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 20.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-12 00:18+0000\n"
+"PO-Revision-Date: 2026-10-12 00:18+0000\n"
+"Last-Translator: YDental\n"
+"Language-Team: YDental\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "A cancelled task cannot be revived by voiding its position."
+msgstr "已取消任务不能通过作废位置恢复。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "A cancelled task cannot originate a referral."
+msgstr "已取消任务不能发起转诊。"
+
+#. module: ydental_intake
+#: model:ir.model.constraint,message:ydental_intake.constraint_ydental_intake_entitlement_claim_unique
+msgid "A claim belongs to one current qualification."
+msgstr "一个容量权益只能属于一份当前资格。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid ""
+"A continuation must preserve its outpatient service direction and "
+"capability."
+msgstr "同次续诊必须保留原门诊服务方向和能力。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "A documented action, arguments and idempotency key are required."
+msgstr "需要有效动作、参数和幂等键。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "A fixed actual encounter source is required for a derived task."
+msgstr "派生任务必须关联可信的真实接诊来源。"
+
+#. module: ydental_intake
+#: model:ir.model.constraint,message:ydental_intake.constraint_ydental_intake_catalog_product_unique
+msgid "A native product belongs to one service."
+msgstr "一个原生产品只能对应一个服务。"
+
+#. module: ydental_intake
+#: model:ir.model.constraint,message:ydental_intake.constraint_ydental_intake_snapshot_source_unique
+msgid "A price source can only be snapshotted once."
+msgstr "一个价格来源只能生成一份快照。"
+
+#. module: ydental_intake
+#: model:ir.model.constraint,message:ydental_intake.constraint_ydental_intake_price_positive
+msgid ""
+"A published base price must be positive. Free service requires an explicit "
+"discount."
+msgstr "发布基础价必须大于零；免费服务需要明确折扣。"
+
+#. module: ydental_intake
+#: model:ir.model.constraint,message:ydental_intake.constraint_ydental_intake_mapping_mapping_unique
+msgid "A store service area mapping must be unique."
+msgstr "门店服务与区域映射必须唯一。"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_page
+msgid "Accepted positions"
+msgstr "已受理位置"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_page
+msgid "Acquire new slot and release old"
+msgstr "取得新时段并释放原资格"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_page
+msgid "Acquire qualification"
+msgstr "取得接收资格"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_page
+msgid "Acquire target walk-in qualification"
+msgstr "取得目标店现场资格"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_price_page
+msgid "Action"
+msgstr "动作"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/controllers/intake.py:0
+msgid "Action arguments must be an object."
+msgstr "动作参数必须为对象。"
+
+#. module: ydental_intake
+#: model:ir.model.constraint,message:ydental_intake.constraint_ydental_intake_operation_key_unique
+msgid "Action keys must be unique per actor."
+msgstr "每位操作者的动作幂等键必须唯一。"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_page
+msgid "Actions"
+msgstr "操作"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_catalog__active
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_mapping__active
+msgid "Active"
+msgstr "启用"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_page
+msgid "Actual arrivals"
+msgstr "真实到店记录"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_price_page
+msgid "Actual quantity"
+msgstr "实际数量"
+
+#. module: ydental_intake
+#: model:ir.model,name:ydental_intake.model_ydental_intake_arrival
+msgid "Actual store arrival, separate from service reporting"
+msgstr "独立于报到的真实门店到店记录"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_price_page
+msgid "Add group service"
+msgstr "新增集团服务"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_price_page
+msgid "Add service"
+msgstr "新增服务"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_page
+msgid "Also cancel unused qualification"
+msgstr "同时取消未使用资格"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "An independent service requires its own qualification."
+msgstr "独立新服务需要独立接收资格。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "An untimed referral requires an explicit future expiry."
+msgstr "不定时转诊必须指定未来有效期。"
+
+#. module: ydental_intake
+#: model:ir.model,name:ydental_intake.model_ydental_intake_operation
+msgid "Atomic intake action receipt"
+msgstr "受理动作原子回执"
+
+#. module: ydental_intake
+#: model:ir.model,name:ydental_intake.model_ydental_intake_service
+msgid "Atomic service pricing and capacity-backed intake"
+msgstr "服务定价与容量受理事务"
+
+#. module: ydental_intake
+#: model:ir.model,name:ydental_intake.model_ir_attachment
+msgid "Attachment"
+msgstr "附件"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_arrival__ydental_category
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_catalog__ydental_category
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_entitlement__ydental_category
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_mapping__ydental_category
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_operation__ydental_category
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_position__ydental_category
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_price__ydental_category
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_record__ydental_category
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_referral__ydental_category
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_snapshot__ydental_category
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_task__ydental_category
+msgid "Business category"
+msgstr "业务大类"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_page
+msgid "Cancel and return capacity once"
+msgstr "取消资格并按规则返额一次"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_page
+msgid "Cancel qualification"
+msgstr "取消接收资格"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_price_page
+msgid "Capability"
+msgstr "能力"
+
+#. module: ydental_intake
+#: model:ir.model,name:ydental_intake.model_ydental_intake_entitlement
+msgid "Capacity-backed reservation or walk-in qualification"
+msgstr "容量支持的预约或现场资格"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_nav
+msgid "Catalog and prices"
+msgstr "项目目录与价目"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_price_page
+msgid "Category"
+msgstr "类别"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_page
+msgid "Changes"
+msgstr "变更"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_price_page
+msgid "Code"
+msgstr "政策代码"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_page
+msgid "Confirm actual arrival"
+msgstr "确认真实到店"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_price_page
+msgid "Confirm demonstration snapshot"
+msgstr "确认演示价格快照"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_page
+msgid "Confirm void"
+msgstr "确认作废位置"
+
+#. module: ydental_intake
+#: model:ir.model,name:ydental_intake.model_ydental_intake_record
+msgid "Controlled service intake record"
+msgstr "受控服务受理记录"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_price_page
+msgid "Create draft price"
+msgstr "建立价格草稿"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_price_page
+msgid "Create price version"
+msgstr "建立价目版本"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_arrival__create_uid
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_catalog__create_uid
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_entitlement__create_uid
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_mapping__create_uid
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_mutex__create_uid
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_operation__create_uid
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_position__create_uid
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_price__create_uid
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_referral__create_uid
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_snapshot__create_uid
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_task__create_uid
+msgid "Created by"
+msgstr "创建人"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_arrival__create_date
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_catalog__create_date
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_entitlement__create_date
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_mapping__create_date
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_mutex__create_date
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_operation__create_date
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_position__create_date
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_price__create_date
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_referral__create_date
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_snapshot__create_date
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_task__create_date
+msgid "Created on"
+msgstr "创建时间"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_currency_select
+msgid "Currency"
+msgstr "币别"
+
+#. module: ydental_intake
+#: model:ir.model.fields.selection,name:ydental_intake.selection__ydental_intake_snapshot__ydental_policy__demo_confirmation
+msgid "Demonstration confirmation time price, not production policy"
+msgstr "演示确认时取价，非生产政策"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_price_page
+msgid "Demonstration reference"
+msgstr "演示来源标识"
+
+#. module: ydental_intake
+#: model:ir.model.fields.selection,name:ydental_intake.selection__ydental_intake_task__ydental_source_kind__derived
+msgid "Derived external service"
+msgstr "派生外部服务任务"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_price_page
+msgid "Disabled"
+msgstr "已停用"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ir_attachment__display_name
+#: model:ir.model.fields,field_description:ydental_intake.field_product_pricelist__display_name
+#: model:ir.model.fields,field_description:ydental_intake.field_product_pricelist_item__display_name
+#: model:ir.model.fields,field_description:ydental_intake.field_product_product__display_name
+#: model:ir.model.fields,field_description:ydental_intake.field_product_template__display_name
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_access_service__display_name
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_arrival__display_name
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_catalog__display_name
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_entitlement__display_name
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_mapping__display_name
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_mutex__display_name
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_native__display_name
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_operation__display_name
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_position__display_name
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_price__display_name
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_record__display_name
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_referral__display_name
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_service__display_name
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_snapshot__display_name
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_task__display_name
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_patient_service__display_name
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_supply_service__display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: ydental_intake
+#: model:ir.model.fields.selection,name:ydental_intake.selection__ydental_intake_price__state__draft
+msgid "Draft"
+msgstr "草稿"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_price_page
+msgid "Enabled"
+msgstr "启用"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid ""
+"Enter a positive base price, active currency and nonempty validity interval."
+msgstr "请输入正基础价、启用币种和有效生效区间。"
+
+#. module: ydental_intake
+#: model:ir.model.fields.selection,name:ydental_intake.selection__ydental_intake_catalog__ydental_kind__exam
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_price_page
+msgid "Examination"
+msgstr "检查"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_price_page
+msgid "Execution area"
+msgstr "执行区域"
+
+#. module: ydental_intake
+#: model:ir.model,name:ydental_intake.model_ydental_intake_task
+msgid "Explicit service task, separate from qualification and queue"
+msgstr "独立于接收资格和队列的明确服务任务"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "Explicitly choose whether to cancel qualification."
+msgstr "请明确选择是否同时取消资格。"
+
+#. module: ydental_intake
+#: model:ir.model.fields.selection,name:ydental_intake.selection__ydental_intake_task__state__done
+msgid "Finished by downstream server"
+msgstr "下游服务已结束"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_price_page
+msgid "Group catalog"
+msgstr "集团项目目录"
+
+#. module: ydental_intake
+#: model:ir.model,name:ydental_intake.model_ydental_intake_catalog
+msgid "Group service catalog with native product identity"
+msgstr "关联原生产品的集团服务目录"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ir_attachment__id
+#: model:ir.model.fields,field_description:ydental_intake.field_product_pricelist__id
+#: model:ir.model.fields,field_description:ydental_intake.field_product_pricelist_item__id
+#: model:ir.model.fields,field_description:ydental_intake.field_product_product__id
+#: model:ir.model.fields,field_description:ydental_intake.field_product_template__id
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_access_service__id
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_arrival__id
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_catalog__id
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_entitlement__id
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_mapping__id
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_mutex__id
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_native__id
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_operation__id
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_position__id
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_price__id
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_record__id
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_referral__id
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_service__id
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_snapshot__id
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_task__id
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_patient_service__id
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_supply_service__id
+msgid "ID"
+msgstr "ID"
+
+#. module: ydental_intake
+#: model:ir.model,name:ydental_intake.model_ydental_intake_snapshot
+msgid "Immutable demonstration price snapshot, not a fee"
+msgstr "不可变演示价格快照，不是费用"
+
+#. module: ydental_intake
+#: model:ir.model.fields.selection,name:ydental_intake.selection__ydental_intake_task__ydental_source_kind__independent
+msgid "Independent service"
+msgstr "独立服务"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_record.py:0
+msgid "Intake and pricing history cannot be deleted."
+msgstr "受理与价格历史不可删除。"
+
+#. module: ydental_intake
+#: model:ir.model.fields.selection,name:ydental_intake.selection__ydental_intake_task__state__accepted
+msgid "Intake position accepted"
+msgstr "已受理报到位置"
+
+#. module: ydental_intake
+#: model:ir.model,name:ydental_intake.model_ydental_intake_mutex
+msgid "Intake repeatable-read serialization fence"
+msgstr "受理事务快照串行栅栏"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_page
+msgid "Keep valid qualification"
+msgstr "保留有效资格"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_arrival__write_uid
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_catalog__write_uid
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_entitlement__write_uid
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_mapping__write_uid
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_mutex__write_uid
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_operation__write_uid
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_position__write_uid
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_price__write_uid
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_referral__write_uid
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_snapshot__write_uid
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_task__write_uid
+msgid "Last Updated by"
+msgstr "最后修改人"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_arrival__write_date
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_catalog__write_date
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_entitlement__write_date
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_mapping__write_date
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_mutex__write_date
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_operation__write_date
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_position__write_date
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_price__write_date
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_referral__write_date
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_snapshot__write_date
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_task__write_date
+msgid "Last Updated on"
+msgstr "最后修改时间"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_price_page
+msgid "Map service"
+msgstr "保存服务映射"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_price_page
+msgid "Map store service areas"
+msgstr "设置本店服务区域"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid ""
+"Map the exact service capability to active reporting and execution areas."
+msgstr "请把明确的服务能力映射到启用的报到和执行区域。"
+
+#. module: ydental_intake
+#: model:ir.model.fields.selection,name:ydental_intake.selection__ydental_intake_catalog__ydental_kind__medicine
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_price_page
+msgid "Medicine"
+msgstr "药品"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_arrival__name
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_catalog__name
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_entitlement__name
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_mapping__name
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_operation__name
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_position__name
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_price__name
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_record__name
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_referral__name
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_snapshot__name
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_task__name
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_price_page
+msgid "Name"
+msgstr "名称"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_page
+msgid "New qualification"
+msgstr "新建接收资格"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_price_page
+msgid "No replacement"
+msgstr "不替换已有价格"
+
+#. module: ydental_intake
+#: model:ir.model.constraint,message:ydental_intake.constraint_ydental_intake_arrival_arrival_unique
+msgid "One arrival fact per patient, store and local date."
+msgstr "同患者同门店同当地日期只记一份到店事实。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "Only a draft price can be reviewed."
+msgstr "仅价格草稿可以审核。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "Only an unused qualification can be rescheduled."
+msgstr "仅未使用资格可以改期。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "Only the accepted source task can start."
+msgstr "仅当前已受理来源任务可以开始。"
+
+#. module: ydental_intake
+#: model:ir.model.fields.selection,name:ydental_intake.selection__ydental_intake_catalog__ydental_kind__care
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_price_page
+msgid "Outpatient"
+msgstr "门诊"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_page
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_patient_select
+msgid "Patient"
+msgstr "患者"
+
+#. module: ydental_intake
+#: model:ir.model,name:ydental_intake.model_ydental_patient_service
+msgid "Patient identity, arrival, policy and atomic merge service"
+msgstr "患者身份、到店、文书提示及原子合并服务"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_nav
+msgid "Patients"
+msgstr "患者"
+
+#. module: ydental_intake
+#: model:ir.model.fields.selection,name:ydental_intake.selection__ydental_intake_task__state__pending
+msgid "Pending reporting"
+msgstr "待报到"
+
+#. module: ydental_intake
+#: model:ir.model.fields.selection,name:ydental_intake.selection__ydental_intake_referral__state__pending
+msgid "Pending target walk-in qualification"
+msgstr "待取得目标店现场资格"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_price_page
+msgid "Preview and freeze demonstration price"
+msgstr "预览并冻结演示价格"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_price_page
+msgid "Price"
+msgstr "价格"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_price.py:0
+msgid "Price snapshots are immutable. Recover the original source snapshot."
+msgstr "价格快照不可修改；恢复时使用原来源快照。"
+
+#. module: ydental_intake
+#: model:ir.model.constraint,message:ydental_intake.constraint_ydental_intake_price_interval
+msgid "Price validity must have positive duration."
+msgstr "价格生效区间必须为正时长。"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_price_page
+msgid "Price versions"
+msgstr "价目版本"
+
+#. module: ydental_intake
+#: model:ir.model,name:ydental_intake.model_product_pricelist
+msgid "Pricelist"
+msgstr "价格表"
+
+#. module: ydental_intake
+#: model:ir.model,name:ydental_intake.model_product_pricelist_item
+msgid "Pricelist Rule"
+msgstr "价格表规则"
+
+#. module: ydental_intake
+#: model:ir.model.fields.selection,name:ydental_intake.selection__ydental_intake_catalog__ydental_kind__procedure
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_price_page
+msgid "Procedure"
+msgstr "处置"
+
+#. module: ydental_intake
+#: model:ir.model,name:ydental_intake.model_product_template
+msgid "Product"
+msgstr "产品"
+
+#. module: ydental_intake
+#: model:ir.model,name:ydental_intake.model_product_product
+msgid "Product Variant"
+msgstr "产品变体"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_price_page
+msgid ""
+"Production price locking policy is awaiting business approval. Demonstration"
+" snapshots are not confirmed fees."
+msgstr "正式生产锁价政策待业务负责人批准。演示快照不是已确认费用。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid ""
+"Production price policy is unpublished. Choose the explicit demonstration "
+"policy."
+msgstr "生产定价政策尚未发布；请选择明确的演示策略。"
+
+#. module: ydental_intake
+#: model:ir.model.fields.selection,name:ydental_intake.selection__ydental_intake_catalog__ydental_kind__prosthesis
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_price_page
+msgid "Prosthesis"
+msgstr "义齿"
+
+#. module: ydental_intake
+#: model:ir.model,name:ydental_intake.model_ydental_intake_native
+msgid "Protect native objects owned by versioned service catalog"
+msgstr "保护版本化服务目录持有的原生对象"
+
+#. module: ydental_intake
+#: model:ir.model.fields.selection,name:ydental_intake.selection__ydental_intake_price__state__published
+msgid "Published"
+msgstr "已发布"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_page
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_price_page
+msgid "Qualification"
+msgstr "接收资格"
+
+#. module: ydental_intake
+#: model:ir.model.fields.selection,name:ydental_intake.selection__ydental_intake_entitlement__state__cancelled
+#: model:ir.model.fields.selection,name:ydental_intake.selection__ydental_intake_task__state__cancelled
+msgid "Qualification cancelled"
+msgstr "资格已取消"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_page
+msgid ""
+"Qualification, actual arrival and reporting are separate. A pending task has"
+" no queue number. Calling is awaiting the next phase."
+msgstr "接收资格、真实到店和报到相互独立。待报到任务没有队列号码。叫号尚待后续阶段启用。"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_page
+msgid "Qualifications"
+msgstr "接收资格"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_reason
+msgid "Reason"
+msgstr "原因"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_page
+msgid "Reception type"
+msgstr "受理类型"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_page
+msgid "Record actual arrival"
+msgstr "记录真实到店"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "Record actual arrival before service reporting."
+msgstr "请先记录真实到店，再报到服务任务。"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_price_page
+msgid "Replace effective price (optional)"
+msgstr "替换有效价目（可选）"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid ""
+"Replacement must close an overlapping matching price from now or later."
+msgstr "替换价格必须从当前或未来时点结束同条件的重叠旧价。"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_page
+msgid "Report this task"
+msgstr "报到本次任务"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_price_page
+msgid "Reporting area"
+msgstr "报到归属区域"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_catalog__ydental_qualification
+msgid "Required qualification"
+msgstr "所需资质"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_page
+msgid "Reschedule"
+msgstr "改期"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid ""
+"Rescheduling must preserve the selected service. New services require "
+"independent qualification."
+msgstr "改期必须保留已选服务；新服务需要独立资格。"
+
+#. module: ydental_intake
+#: model:ir.model.fields.selection,name:ydental_intake.selection__ydental_intake_entitlement__ydental_channel__reservation
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_page
+msgid "Reservation"
+msgstr "预约"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "Review a price before publication."
+msgstr "请先审核价格再发布。"
+
+#. module: ydental_intake
+#: model:ir.model.fields.selection,name:ydental_intake.selection__ydental_intake_price__state__reviewed
+msgid "Reviewed"
+msgstr "已审核"
+
+#. module: ydental_intake
+#: model:ir.model,name:ydental_intake.model_ydental_intake_price
+msgid "Reviewed store price version"
+msgstr "已审核门店价目版本"
+
+#. module: ydental_intake
+#: model:ir.model,name:ydental_intake.model_ydental_intake_position
+msgid "S05 accepted position contract, no queue number or calling state"
+msgstr "S05受理位置契约，不含号序或叫号状态"
+
+#. module: ydental_intake
+#: model:ir.model.fields.selection,name:ydental_intake.selection__ydental_intake_task__ydental_source_kind__continuation
+msgid "Same encounter continuation"
+msgstr "同次接诊续诊"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_price_page
+msgid "Save catalog"
+msgstr "保存目录"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_price_page
+msgid "Save mapping"
+msgstr "保存映射"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "Select a supported service category."
+msgstr "请选择支持的服务类别。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "Select an active capability and native unit."
+msgstr "请选择启用能力和原生单位。"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_catalog_select
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_page
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_price_page
+msgid "Service"
+msgstr "服务"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_page
+msgid "Service and area"
+msgstr "服务与区域"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_mapping_select
+msgid "Service and reporting area"
+msgstr "服务及报到区域"
+
+#. module: ydental_intake
+#: model:ir.actions.act_url,name:ydental_intake.ydental_intake_price_action
+#: model:ir.ui.menu,name:ydental_intake.ydental_intake_price_menu
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_price_page
+msgid "Service catalog and prices"
+msgstr "项目目录与价目"
+
+#. module: ydental_intake
+#: model:ir.model.constraint,message:ydental_intake.constraint_ydental_intake_catalog_code_unique
+msgid "Service codes must be unique across the group."
+msgstr "项目编码必须集团唯一。"
+
+#. module: ydental_intake
+#: model:ir.actions.act_url,name:ydental_intake.ydental_intake_action
+#: model:ir.ui.menu,name:ydental_intake.ydental_intake_menu
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_nav
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_page
+msgid "Service intake"
+msgstr "服务受理"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_page
+msgid "Service tasks"
+msgstr "服务任务"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_times
+msgid "Slot end (UTC)"
+msgstr "时段结束（UTC）"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_times
+msgid "Slot start (UTC)"
+msgstr "时段开始（UTC）"
+
+#. module: ydental_intake
+#: model:ir.model.fields.selection,name:ydental_intake.selection__ydental_intake_task__state__started
+msgid "Started by downstream server"
+msgstr "下游服务已开始"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "Started qualification cannot return capacity."
+msgstr "已开始接诊的资格不能返额。"
+
+#. module: ydental_intake
+#: model:ir.model.fields.selection,name:ydental_intake.selection__ydental_intake_entitlement__state__started
+msgid "Started, cannot return capacity"
+msgstr "已开始，不可返额"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_entitlement__state
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_price__state
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_referral__state
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_task__state
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_page
+msgid "State"
+msgstr "状态"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_page
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_price_page
+msgid "Status"
+msgstr "状态"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_arrival__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_catalog__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_entitlement__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_mapping__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_operation__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_position__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_price__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_record__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_referral__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_snapshot__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_task__ydental_store_id
+msgid "Store"
+msgstr "门店"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_nav
+msgid "Store and access"
+msgstr "门店与权限"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_price_page
+msgid "Store service mappings"
+msgstr "本店服务映射"
+
+#. module: ydental_intake
+#: model:ir.model,name:ydental_intake.model_ydental_intake_mapping
+msgid "Store service reporting and execution mapping"
+msgstr "门店服务报到与执行区域映射"
+
+#. module: ydental_intake
+#: model:ir.model.fields.selection,name:ydental_intake.selection__ydental_intake_referral__state__accepted
+msgid "Target qualification acquired"
+msgstr "已取得目标资格"
+
+#. module: ydental_intake
+#: model:ir.model.fields.selection,name:ydental_intake.selection__ydental_intake_entitlement__ydental_channel__phone
+msgid "Telephone"
+msgstr "电话代约"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "The base price must remain positive at currency precision."
+msgstr "基础价在币种精度下也必须大于零。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "The exact selected service capability is unavailable in this area."
+msgstr "本区没有所选服务的明确能力。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "The original qualification requires supply review."
+msgstr "原资格需要核对供给安排。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "The selected area cannot accept reporting."
+msgstr "所选区域不接受报到。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "The selected store service is disabled."
+msgstr "所选门店服务已停用。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "The task no longer owns the accepted position."
+msgstr "该任务已不持有当前受理位置。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "This derived task has no independent qualification to cancel."
+msgstr "此派生任务没有可单独取消的接收资格。"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_page
+msgid ""
+"This does not cancel orders, record clinical completion or refund fees."
+msgstr "此操作不会取消医嘱、记录临床完成或退费。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid ""
+"This qualification is cancelled, expired or already started. Acquire or "
+"review it explicitly."
+msgstr "此资格已取消、已过期或已开始；请明确重新受理或核查。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "This qualification was cancelled. Acquire a new qualification."
+msgstr "此资格已取消，请重新取得接收资格。"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_price_page
+msgid "Unit"
+msgstr "单位"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_price_page
+msgid "Unit price"
+msgstr "单价"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "Unknown or missing action arguments."
+msgstr "动作参数未知或缺失。"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_page
+msgid "Untimed referrals for this store"
+msgstr "转至本店的不定时转诊"
+
+#. module: ydental_intake
+#: model:ir.model,name:ydental_intake.model_ydental_intake_referral
+msgid "Untimed target service request with explicit expiry"
+msgstr "有明确有效期的不定时目标服务请求"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "Use a positive finite quantity."
+msgstr "请输入有限正数数量。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "Use a positive quantity aligned to the service unit rounding."
+msgstr "请输入符合服务单位精度的正数数量。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "Use a valid UTC time without an offset."
+msgstr "请输入不带时区偏移的有效UTC时间。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "Use an explicit enabled value."
+msgstr "请明确选择启用或停用。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "Use the reservation or published telephone channel."
+msgstr "请使用预约或已发布的电话代约渠道。"
+
+#. module: ydental_intake
+#: model:ir.model.fields.selection,name:ydental_intake.selection__ydental_intake_entitlement__state__held
+msgid "Valid unused qualification"
+msgstr "有效未使用资格"
+
+#. module: ydental_intake
+#: model:ir.model,name:ydental_intake.model_ydental_supply_service
+msgid "Validated schedule and shared capacity transactions"
+msgstr "受控排期与共享容量事务"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_price_page
+msgid "Validity UTC"
+msgstr "生效区间（UTC）"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_arrival__ydental_version
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_catalog__ydental_version
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_entitlement__ydental_version
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_mapping__ydental_version
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_operation__ydental_version
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_position__ydental_version
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_price__ydental_version
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_record__ydental_version
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_referral__ydental_version
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_snapshot__ydental_version
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_task__ydental_version
+msgid "Version"
+msgstr "版本"
+
+#. module: ydental_intake
+#: model:ir.module.module,summary:base.module_ydental_intake
+msgid "Versioned service prices and capacity-backed patient intake"
+msgstr "版本化服务价格与容量支持的患者受理"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_page
+msgid "Void position"
+msgstr "作废受理位置"
+
+#. module: ydental_intake
+#: model:ir.model.fields.selection,name:ydental_intake.selection__ydental_intake_entitlement__ydental_channel__walkin
+msgid "Walk-in"
+msgstr "现场"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid ""
+"Walk-in qualification is restricted to the current store business date."
+msgstr "现场资格仅限本店当前营业日期。"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_page
+msgid "Walk-in registration and reporting"
+msgstr "现场登记并报到"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_page
+msgid "Walk-in registration only"
+msgstr "仅现场登记"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "Walk-in rescheduling must remain on the current store business date."
+msgstr "现场资格改期必须仍在本店当前营业日期。"
+
+#. module: ydental_intake
+#: model_terms:ir.ui.view,arch_db:ydental_intake.ydental_intake_nav
+msgid "YDental"
+msgstr "YDental"
+
+#. module: ydental_intake
+#: model:ir.module.module,shortdesc:base.module_ydental_intake
+msgid "YDental Service Intake"
+msgstr "YDental服务受理"
+
+#. module: ydental_intake
+#: model:ir.model,name:ydental_intake.model_ydental_access_service
+msgid "YDental trusted authorization and lifecycle service"
+msgstr "YDental可信授权与人员生命周期服务"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_position__ydental_accepted_at
+msgid "Ydental Accepted At"
+msgstr "受理时间"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_position__ydental_active
+msgid "Ydental Active"
+msgstr "有效"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_arrival__ydental_actor_id
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_operation__ydental_actor_id
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_snapshot__ydental_actor_id
+msgid "Ydental Actor"
+msgstr "操作者"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_snapshot__ydental_amount
+msgid "Ydental Amount"
+msgstr "金额"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_mapping__ydental_area_id
+msgid "Ydental Area"
+msgstr "区域"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_catalog__ydental_capability_id
+msgid "Ydental Capability"
+msgstr "能力"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_mapping__ydental_catalog_id
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_price__ydental_catalog_id
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_snapshot__ydental_catalog_id
+msgid "Ydental Catalog"
+msgstr "服务目录"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_entitlement__ydental_channel
+msgid "Ydental Channel"
+msgstr "渠道"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_entitlement__ydental_claim_id
+msgid "Ydental Claim"
+msgstr "容量权益"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_catalog__ydental_code
+msgid "Ydental Code"
+msgstr "编码"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_price__ydental_currency_id
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_snapshot__ydental_currency_id
+msgid "Ydental Currency"
+msgstr "币种"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_snapshot__ydental_currency_rounding
+msgid "Ydental Currency Rounding"
+msgstr "币种舍入精度"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_arrival__ydental_date
+msgid "Ydental Date"
+msgstr "营业日期"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_price__ydental_end
+msgid "Ydental End"
+msgstr "结束时间"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_task__ydental_entitlement_id
+msgid "Ydental Entitlement"
+msgstr "接收资格"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_mapping__ydental_execution_area_id
+msgid "Ydental Execution Area"
+msgstr "执行区域"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_operation__ydental_fingerprint
+msgid "Ydental Fingerprint"
+msgstr "请求摘要"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_arrival__ydental_identity_snapshot
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_entitlement__ydental_identity_snapshot
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_position__ydental_identity_snapshot
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_referral__ydental_identity_snapshot
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_task__ydental_identity_snapshot
+msgid "Ydental Identity Snapshot"
+msgstr "身份快照"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_product_pricelist__ydental_intake_owned
+#: model:ir.model.fields,field_description:ydental_intake.field_product_product__ydental_intake_owned
+#: model:ir.model.fields,field_description:ydental_intake.field_product_template__ydental_intake_owned
+msgid "Ydental Intake Owned"
+msgstr "受理模块持有"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_product_pricelist__ydental_intake_store_id
+msgid "Ydental Intake Store"
+msgstr "受理所属门店"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_operation__ydental_key
+msgid "Ydental Key"
+msgstr "幂等键"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_catalog__ydental_kind
+msgid "Ydental Kind"
+msgstr "类别"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_entitlement__ydental_mapping_id
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_referral__ydental_mapping_id
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_task__ydental_mapping_id
+msgid "Ydental Mapping"
+msgstr "服务区域映射"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_task__ydental_missed_count
+msgid "Ydental Missed Count"
+msgstr "真实过号次数"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_arrival__ydental_occurred_at
+msgid "Ydental Occurred At"
+msgstr "实际发生时间"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_arrival__ydental_origin_patient_id
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_entitlement__ydental_origin_patient_id
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_position__ydental_origin_patient_id
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_referral__ydental_origin_patient_id
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_task__ydental_origin_patient_id
+msgid "Ydental Origin Patient"
+msgstr "原始患者身份"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_task__ydental_parent_task_id
+msgid "Ydental Parent Task"
+msgstr "来源任务"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_arrival__ydental_patient_id
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_entitlement__ydental_patient_id
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_position__ydental_patient_id
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_referral__ydental_patient_id
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_task__ydental_patient_id
+msgid "Ydental Patient"
+msgstr "统一患者"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_snapshot__ydental_policy
+msgid "Ydental Policy"
+msgstr "策略"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_snapshot__ydental_price_id
+msgid "Ydental Price"
+msgstr "价目版本"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_price__ydental_pricelist_id
+msgid "Ydental Pricelist"
+msgstr "原生价目"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_catalog__ydental_product_id
+msgid "Ydental Product"
+msgstr "原生产品"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_snapshot__ydental_product_name
+msgid "Ydental Product Name"
+msgstr "项目名称快照"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_price__ydental_published_at
+msgid "Ydental Published At"
+msgstr "发布时间"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_price__ydental_published_by_id
+msgid "Ydental Published By"
+msgstr "发布人"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_snapshot__ydental_quantity
+msgid "Ydental Quantity"
+msgstr "实际数量"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_snapshot__ydental_quantity_digits
+msgid "Ydental Quantity Digits"
+msgstr "数量精度快照"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_snapshot__ydental_quoted_at
+msgid "Ydental Quoted At"
+msgstr "取价时间"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_entitlement__ydental_reason
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_position__ydental_reason
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_price__ydental_reason
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_referral__ydental_reason
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_task__ydental_reason
+msgid "Ydental Reason"
+msgstr "原因"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_operation__ydental_result
+msgid "Ydental Result"
+msgstr "动作结果"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_price__ydental_reviewed_by_id
+msgid "Ydental Reviewed By"
+msgstr "审核人"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_mutex__ydental_revision
+msgid "Ydental Revision"
+msgstr "栅栏版本"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_price__ydental_rule_id
+msgid "Ydental Rule"
+msgstr "原生价格规则"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_snapshot__ydental_source
+msgid "Ydental Source"
+msgstr "来源"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_task__ydental_source_kind
+msgid "Ydental Source Kind"
+msgstr "来源类型"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_entitlement__ydental_source_task_id
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_referral__ydental_source_task_id
+msgid "Ydental Source Task"
+msgstr "转出来源任务"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_price__ydental_start
+msgid "Ydental Start"
+msgstr "开始时间"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_position__ydental_task_id
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_referral__ydental_task_id
+msgid "Ydental Task"
+msgstr "服务任务"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_arrival__ydental_timezone
+msgid "Ydental Timezone"
+msgstr "门店时区"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_price__ydental_unit_price
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_snapshot__ydental_unit_price
+msgid "Ydental Unit Price"
+msgstr "单价"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_price__ydental_uom_id
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_snapshot__ydental_uom_id
+msgid "Ydental Uom"
+msgstr "单位"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_snapshot__ydental_uom_name
+msgid "Ydental Uom Name"
+msgstr "单位名称快照"
+
+#. module: ydental_intake
+#: model:ir.model.fields,field_description:ydental_intake.field_ydental_intake_referral__ydental_valid_until
+msgid "Ydental Valid Until"
+msgstr "有效期截止"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "access_denied: A source store clinician must authorize a referral."
+msgstr "access_denied: 转诊须由来源门店有权临床人员发起。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/integration.py:0
+msgid "access_denied: Capacity permit does not match the validated source."
+msgstr "access_denied: 容量授权与已校验来源不匹配。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/integration.py:0
+msgid "access_denied: Capacity target is unavailable."
+msgstr "access_denied: 容量目标不可用。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "access_denied: Clinical source integration is not connected."
+msgstr "access_denied: 真实临床来源尚未接入。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "access_denied: Group master data authority is required."
+msgstr "access_denied: 需要集团主数据权限。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/native.py:0
+msgid ""
+"access_denied: Native service data must use the controlled catalog or price "
+"action."
+msgstr "access_denied: 原生服务数据必须通过受控目录或价目动作维护。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "access_denied: Patient intake read permission is required."
+msgstr "access_denied: 需要患者受理读取权限。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid ""
+"access_denied: Referral target company is outside the authorized group."
+msgstr "access_denied: 转诊目标法人超出已授权范围。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "access_denied: Select a source in the authorized store."
+msgstr "access_denied: 请选择授权门店内的来源对象。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "access_denied: Service intake read permission is required."
+msgstr "access_denied: 需要服务受理读取权限。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "access_denied: This action requires the fixed downstream server hook."
+msgstr "access_denied: 此动作需要固定下游服务器钩子。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/native.py:0
+msgid ""
+"access_denied: This native service source is outside the current scope."
+msgstr "access_denied: 此原生服务来源超出当前权限范围。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/controllers/intake.py:0
+msgid "access_denied: Unknown intake form action."
+msgstr "access_denied: 未知受理表单动作。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_record.py:0
+msgid "access_denied: Use a controlled intake action."
+msgstr "access_denied: 请使用受控受理动作。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid ""
+"handover_required: A started task requires downstream clinical handling."
+msgstr "handover_required: 已开始任务需通过下游临床流程处理。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid ""
+"handover_required: Resolve the existing position in its own store first."
+msgstr "handover_required: 请先在原位置所属门店处理现有位置。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "handover_required: This patient has an active execution segment."
+msgstr "handover_required: 此患者仍有实际执行中的接诊段。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid ""
+"missing_price: Exactly one effective published price is required. Configure "
+"the store price."
+msgstr "missing_price: 必须有唯一有效发布价，请配置本店价格。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid ""
+"referral_expired: Reconfirm the referral explicitly; expiry cannot be "
+"extended silently."
+msgstr "referral_expired: 请明确重新确认转诊，不能静默延期。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "reporting_closed: The target area is not accepting ordinary reporting."
+msgstr "reporting_closed: 目标区域已停止普通报到。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "version_conflict: Native price rule differs from the reviewed version."
+msgstr "version_conflict: 原生价格规则与已审核版本不一致。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "version_conflict: Published price intervals must not overlap."
+msgstr "version_conflict: 已发布价目生效区间不能重叠。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "version_conflict: Refresh the canonical task identity."
+msgstr "version_conflict: 请刷新任务的统一患者身份。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "version_conflict: Refresh the service source before retrying."
+msgstr "version_conflict: 请刷新服务来源后重试。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid ""
+"version_conflict: Snapshot recovery requires the original source arguments."
+msgstr "version_conflict: 恢复快照须使用原来源参数。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "version_conflict: This group service code already exists."
+msgstr "version_conflict: 此集团服务编码已经存在。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "version_conflict: This key belongs to another action."
+msgstr "version_conflict: 此幂等键已用于另一动作。"
+
+#. module: ydental_intake
+#. odoo-python
+#: code:addons/ydental_intake/models/ydental_intake_service.py:0
+msgid "version_conflict: This store service area is already mapped."
+msgstr "version_conflict: 此门店服务区域映射已存在。"
