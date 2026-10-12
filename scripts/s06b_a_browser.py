@@ -99,6 +99,11 @@ def main():
                 # details for diagnosis, never copy this log into evidence.
                 print(json.dumps({'private_pageerror': str(error), 'url': page.url}), flush=True)
             page.on('pageerror', page_error)
+            def action_response(response):
+                if '/ydental/queue/action' in response.url and response.status >= 400:
+                    body = response.json()
+                    print(json.dumps({'private_action_error': body.get('error', body.get('result')), 'status': response.status}), flush=True)
+            page.on('response', action_response)
             page.goto(base + '/web/login?redirect=/ydental/access', wait_until='domcontentloaded')
             page.locator('input[name=login]').fill(access[role]['login'])
             page.locator('input[name=password]').fill(access[role]['password'])
@@ -131,7 +136,10 @@ def main():
 
         def click_reload(page, label):
             with page.expect_navigation(wait_until='domcontentloaded'):
-                page.get_by_role('button', name=label, exact=True).click()
+                with page.expect_response(lambda response: '/ydental/queue/action' in response.url) as action_response:
+                    page.get_by_role('button', name=label, exact=True).click()
+                response = action_response.value
+                require(response.status == 200, 'UI action failed: ' + str(response.status) + ' ' + response.json().get('error', response.json().get('result', '')))
 
         try:
             second_context, second = login('second')

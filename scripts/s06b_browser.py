@@ -99,6 +99,11 @@ def main():
                 # details for diagnosis, never copy this log into evidence.
                 print(json.dumps({'private_pageerror': str(error), 'url': page.url}), flush=True)
             page.on('pageerror', page_error)
+            def action_response(response):
+                if '/ydental/queue/action' in response.url and response.status >= 400:
+                    body = response.json()
+                    print(json.dumps({'private_action_error': body.get('error', body.get('result')), 'status': response.status}), flush=True)
+            page.on('response', action_response)
             page.goto(base + '/web/login?redirect=/ydental/access', wait_until='domcontentloaded')
             page.locator('input[name=login]').fill(access[role]['login'])
             page.locator('input[name=password]').fill(access[role]['password'])
@@ -131,7 +136,10 @@ def main():
 
         def click_reload(page, label):
             with page.expect_navigation(wait_until='domcontentloaded'):
-                page.get_by_role('button', name=label, exact=True).click()
+                with page.expect_response(lambda response: '/ydental/queue/action' in response.url) as action_response:
+                    page.get_by_role('button', name=label, exact=True).click()
+                response = action_response.value
+                require(response.status == 200, 'UI action failed: ' + str(response.status) + ' ' + response.json().get('error', response.json().get('result', '')))
 
         def open_case(kind, role='doctor'):
             context, page = login(kind + '_' + role)
@@ -202,9 +210,10 @@ def main():
             check('original doctor can call next patient after saved handover', row(page, c['next_task']).locator('.queue-state').inner_text() == 'calling')
             screenshot(second, second_context, '04-continuation-other-chair.png')
 
+            doctor_context.close(); desk_context.close(); second_context.close()
             context, actual = begin('external_serving')
             form_reload(actual, 'form[data-queue-form=reserve]')
-            _, external_desk = target_report('external_serving')
+            external_desk_context, external_desk = target_report('external_serving')
             ex_context, ex = open_case('external_serving', 'second')
             sit(ex, preview['external_serving']['exam_station'])
             click_reload(ex, 'Call next matching task')
@@ -216,6 +225,7 @@ def main():
             check('external actual serving prevents restore', refused.value.status == 409 and actual.locator('[data-hold]').count() == 1)
             screenshot(actual, context, '05-external-serving-refuses-return.png')
 
+            context.close(); ex_context.close(); external_desk_context.close()
             fail_context, failed = begin('save_failure')
             with failed.expect_response(lambda r: '/ydental/queue/action' in r.url) as refused:
                 failed.locator('form[data-queue-form=handover] button').click()
@@ -223,6 +233,7 @@ def main():
             check('failed save creates no continuation', failed.locator('[data-pending-task]').count() == 1)
             screenshot(failed, fail_context, '06-save-failure-no-half-handover.png')
 
+            fail_context.close()
             for kind in ('append_start', 'append_revoke'):
                 c = preview[kind]
                 ordinary_context, ordinary = open_case(kind, 'frontdesk')
@@ -246,8 +257,9 @@ def main():
                     old = holder(doc)
                     doc.goto('about:blank')
                     doc.wait_for_timeout(21000)
-                    _, sweep = open_case(kind, 'manager')
+                    sweep_context, sweep = open_case(kind, 'manager')
                     sit(sweep, c['other_station'])
+                    sweep_context.close()
                     doc.goto(base + '/ydental/queue')
                     check('append call fault preserves missed and same permit', row(doc, c['task']).locator('.queue-state').inner_text() == 'waiting' and row(doc, c['task']).locator('.queue-missed').inner_text() == '1')
                     sit(doc, c['station'])
@@ -270,6 +282,7 @@ def main():
                     check('revoked calling no longer appears as active queue', row(doc, c['task']).count() == 0)
                     screenshot(doc, doc_context, '08-revoked-number-no-serving.png')
 
+                ordinary_context.close(); app_context.close(); doc_context.close()
             pharmacy_context, pharmacy = begin('pharmacy')
             check('pharmacy-only authorized workstation uses same actual execution queue', row(pharmacy, preview['pharmacy']['task']).locator('.queue-state').inner_text() == 'serving')
             screenshot(pharmacy, pharmacy_context, '09-pharmacy-queue-only.png')
