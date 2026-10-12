@@ -6,6 +6,8 @@ import os
 from pathlib import Path
 import re
 import threading
+import time
+import traceback
 from types import SimpleNamespace
 
 import psycopg2
@@ -58,25 +60,30 @@ def race(kind,round_number):
     uid,contexts,jobs,doc_id,execution_id=fixture(kind)
     barrier=threading.Barrier(2,timeout=20)
     def worker(index):
-        attempts=[];pid=None
+        attempts=[];pid=None;initial_pid=None;backend_trace=[]
         for attempt in range(6):
             with env.registry.cursor() as cr:
                 cr.execute('SET LOCAL lock_timeout = %s',['12s']);cr.execute('SELECT pg_backend_pid()');pid=cr.fetchone()[0]
+                backend_trace.append(pid)
+                if attempt==0:initial_pid=pid
                 try:
                     if attempt==0:barrier.wait()
                     s=api.Environment(cr,uid,contexts[index])['ydental.queue.service' if kind=='queue_start' else 'ydental.clinical.service']
                     data=s._operate(*jobs[index]);cr.commit()
-                    return {'result':'accepted','backend_pid':pid,'attempts':attempts,'version':data.get('version')}
+                    return {'result':'accepted','backend_pid':pid,'initial_backend_pid':initial_pid,'backend_pid_trace':backend_trace,'attempts':attempts,'version':data.get('version')}
                 except psycopg2.errors.SerializationFailure:
                     attempts.append('serialization_retry');cr.rollback()
+                    time.sleep(0.01*(attempt+1))
                 except psycopg2.errors.DeadlockDetected:
-                    return {'result':'deadlock','backend_pid':pid,'attempts':attempts}
+                    return {'result':'deadlock','backend_pid':pid,'initial_backend_pid':initial_pid,'backend_pid_trace':backend_trace,'attempts':attempts}
                 except (AccessError,UserError,ValidationError) as error:
-                    cr.rollback();return {'result':'rejected','backend_pid':pid,'attempts':attempts,'code':str(error).split(':')[0]}
-        return {'result':'retry_exhausted','backend_pid':pid,'attempts':attempts}
+                    cr.rollback();return {'result':'rejected','backend_pid':pid,'initial_backend_pid':initial_pid,'backend_pid_trace':backend_trace,'attempts':attempts,'code':str(error).split(':')[0]}
+        return {'result':'retry_exhausted','backend_pid':pid,'initial_backend_pid':initial_pid,'backend_pid_trace':backend_trace,'attempts':attempts}
     with ThreadPoolExecutor(max_workers=2) as pool:
         futures=[pool.submit(worker,i) for i in range(2)]; outcomes=[f.result(timeout=100) for f in futures]
-    assert outcomes[0]['backend_pid']!=outcomes[1]['backend_pid']
+    # The first cursors overlap at the barrier. A retry may legitimately borrow
+    # the winner's now-idle pooled backend; comparing final PIDs is insufficient.
+    assert outcomes[0]['initial_backend_pid']!=outcomes[1]['initial_backend_pid'],(kind,outcomes)
     assert sorted(x['result'] for x in outcomes)==['accepted','rejected'],(kind,outcomes)
     with env.registry.cursor() as cr:
         r=api.Environment(cr,1,{})
@@ -100,7 +107,7 @@ try:
         for round_number in range(2):race(kind,round_number+1)
     result['result']='PASS'
 except Exception as error:
-    result['result']='FAIL';result['failures'].append({'type':type(error).__name__,'detail':str(error)[:1000]})
+    result['result']='FAIL';result['failures'].append({'type':type(error).__name__,'detail':str(error)[:1000],'trace':[{'file':Path(frame.filename).name,'line':frame.lineno,'method':frame.name} for frame in traceback.extract_tb(error.__traceback__)]})
 finally:
     target=root/'docs/evidence/s08a/probe-attempts';target.mkdir(parents=True,exist_ok=True)
     (target/(run.name+'-'+datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f')+'.json')).write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
