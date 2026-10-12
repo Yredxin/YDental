@@ -9,7 +9,7 @@
             <main class="container py-4 o_ydental_queue_workspace" t-att-data-revision="revision" t-att-data-can-write="'yes' if can_write else 'no'" t-att-data-heartbeat="heartbeat">
                 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                 <h1>Workstation queue</h1>
-                <nav><a href="/ydental/access">Store and permissions</a> | <a href="/ydental/intake">Arrival and reporting</a> | <a href="/ydental/supply/mine">My assignments</a></nav>
+                <nav><a href="/ydental/access">Store and permissions</a> | <a href="/ydental/intake">Arrival and reporting</a> | <a href="/ydental/supply/today">My assignments</a></nav>
                 <p>Current store: <strong t-out="store.name"/>. Workstation position: <span id="position"><t t-out="status['store'] or '-'"/> / <t t-out="status['area'] or '-'"/> / <t t-out="status['station'] or '-'"/> (<t t-out="status['state']"/>)</span></p>
                 <p t-out="config_hint"/><p t-if="shift_hint" t-out="shift_hint"/>
                 <p>Only the holding browser renews a connection. Shift end does not release it. Serving disconnection requires on-site verification.</p>
