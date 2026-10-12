@@ -6,7 +6,7 @@
     <template id="ydental_queue_page" name="Workstation queue">
         <t t-set="head"><meta name="viewport" content="width=device-width, initial-scale=1"/><t t-call-assets="web.assets_frontend" t-js="false"/><script type="module" src="/ydental_queue/static/src/workspace/workspace.js"/></t>
         <t t-call="web.layout" head="head">
-            <main class="container py-4 o_ydental_queue_workspace" t-att-data-revision="revision" t-att-data-can-write="'yes' if can_write else 'no'" t-att-data-heartbeat="heartbeat">
+            <main class="container py-4 o_ydental_queue_workspace" t-att-data-lang="screen_lang" t-att-data-revision="revision" t-att-data-can-write="'yes' if can_write else 'no'" t-att-data-heartbeat="heartbeat">
                 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                 <h1>Workstation queue</h1>
                 <nav><a href="/ydental/access">Store and permissions</a> | <a href="/ydental/intake">Arrival and reporting</a> | <a href="/ydental/supply/today">My assignments</a></nav>

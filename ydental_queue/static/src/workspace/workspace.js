@@ -42,7 +42,7 @@ if (workspace) {
             }
             if (operation === 'screen_create') {
                 const link = document.createElement('a');
-                link.href = '/ydental/queue/screen#token=' + encodeURIComponent(result.token);
+                link.href = '/ydental/queue/screen?lang=' + encodeURIComponent(workspace.dataset.lang) + '#token=' + encodeURIComponent(result.token);
                 link.textContent = workspace.querySelector('#screen-open-message').textContent;
                 resultNode.replaceChildren(link);
                 return;

@@ -5,9 +5,11 @@ from odoo.http import request
 
 class YDentalQueueScreen(http.Controller):
     @http.route('/ydental/queue/screen', type='http', auth='public', methods=['GET'])
-    def screen(self):
+    def screen(self, lang=None):
         # Credential is held in the URL fragment/sessionStorage, never query,
         # server page HTML, access logs or a third-party Referer.
+        if lang in ('en_US', 'zh_CN'):
+            request.update_context(lang=lang)
         return request.render('ydental_queue.ydental_queue_screen', {}, headers=[
             ('Cache-Control', 'no-store'), ('Referrer-Policy', 'no-referrer')])
 

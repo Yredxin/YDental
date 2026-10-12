@@ -14,7 +14,7 @@ import psycopg2
 from odoo import api, fields
 from odoo.exceptions import AccessError, UserError
 from odoo.tests import new_test_user
-from odoo.addons.ydental_queue_test.tests.common import setup, key, bind, accepted, qualify, arrive_report
+from odoo.addons.ydental_queue_test.tests.common import setup, key, bind, accepted, qualify, arrive_report, queue_bind, lease_args
 from odoo.addons.ydental_queue_test.models.adapter import Clock
 from odoo.addons.ydental_queue_test.tests.rework_common import mixed_fixture
 

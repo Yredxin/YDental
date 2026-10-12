@@ -1,4 +1,5 @@
 import json
+import secrets
 
 from odoo import http
 from odoo.exceptions import AccessError, UserError, ValidationError
@@ -76,7 +77,7 @@ class YDentalQueue(http.Controller):
         areas = queue.env['ydental.space.area'].sudo().search([('ydental_store_id', '=', store.id), ('ydental_reporting', '=', True)])
         business_rows = [{'area': a, 'business': queue.env['ydental.supply.service']._business_record(store, a.id)} for a in areas]
         return request.render('ydental_queue.ydental_queue_page' , {'store': store, 'status': queue._status(),
-            'revision': access._scope().ydental_revision, 'stations': station_rows, 'rows': waiting_rows,
+            'revision': access._scope().ydental_revision, 'screen_lang': queue.env.user.lang or 'en_US', 'stations': station_rows, 'rows': waiting_rows,
             'own': own, 'shift_hint': queue._shift_hint(own), 'config_hint': config_hint,
             'can_write': any(levels[c] == 'write' for c in ('medical', 'exam', 'pharmacy')),
             'heartbeat': heartbeat, 'can_call': can_call, 'verifications': verifications,
@@ -101,7 +102,7 @@ class YDentalQueue(http.Controller):
             if not isinstance(args, dict):
                 raise ValidationError(request.env._('Action arguments must be an object.'))
             if operation == 'business':
-                result = queue.env['ydental.supply.service']._operate('business', args, __import__('secrets').token_hex(16))
+                result = queue.env['ydental.supply.service']._operate('business', args, secrets.token_hex(16))
             else:
                 result = queue._operate(operation, args)
             return request.make_json_response(result, status=409 if result['result'] == 'connection_expired' else 200,
