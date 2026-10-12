@@ -20,8 +20,6 @@ with env.registry.cursor() as cr:
     receipt(f.lots['medicine'],10);receipt(f.lots['prosthesis'],1)
     pending=doctor._source_action(SyntheticSource(f.users['doctor'].id,f.stores[0].id,key(),'treatment',f.lots['material'],2,f.uom.id,already_performed=True))
     stock._operate('policy',{'near_days':60,'wait_days':0,'low_quantity':3,'reason':'S07 synthetic UI thresholds only'},key())
-    # Extra permission is synthetic read-only S06 comparison, not a product grant.
-    f.admin._grant(f.users['stock'].id,f.stores[0].id,{'warehouse':'write','frontdesk':'read'})
     history=[]
     for expired in (True,False):
         expiration=fields.Datetime.now()+timedelta(days=-1 if expired else 45)

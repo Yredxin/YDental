@@ -85,7 +85,7 @@ def main():
     with sync_playwright() as p:
         browser=p.firefox.launch(headless=True)
         contexts=[];errors=[]
-        def login(role='stock'):
+        def login(role='stock',upstream=False):
             ctx=browser.new_context(viewport={'width':1440,'height':1050},locale='zh-CN')
             contexts.append(ctx)
             ctx.route('**/*',lambda route:route.continue_() if urlsplit(route.request.url).hostname=='127.0.0.1' and urlsplit(route.request.url).port==args.port else route.abort())
@@ -97,9 +97,10 @@ def main():
             page.goto(base+'/ydental/access',wait_until='domcontentloaded')
             result=page.evaluate('''async store=>{const b=new URLSearchParams({operation:'switch',revision:document.querySelector('[name=revision]').value,csrf_token:document.querySelector('[name=csrf_token]').value,output:'json',payload:JSON.stringify({store_id:store})});return (await fetch('/ydental/access/action',{method:'POST',body:b})).json()}''',preview['store'])
             require(type(result.get('revision')) is int,'select synthetic store')
-            if role=='stock':
+            if upstream:
                 response=page.goto(base+'/ydental/queue',wait_until='domcontentloaded')
-                check('S06 upstream read entry after login and store switch',response.status==200)
+                check('S06 upstream medical read entry after login and store switch',response.status==200)
+                return ctx,page
             page.goto(base+'/ydental/inventory',wait_until='domcontentloaded')
             return ctx,page
         def go(page):page.goto(base+'/ydental/inventory',wait_until='domcontentloaded')
@@ -192,8 +193,9 @@ def main():
                 shot(page,ctx,'11-historical-'+label+'.png',sc)
             # Compare S06 read entry and new inventory entry repeatedly in the
             # same clean server process, without S06 business mutations.
+            dc,doctor_page=login('doctor',upstream=True)
             for cycle in range(5):
-                upstream=page.goto(base+'/ydental/queue',wait_until='domcontentloaded')
+                upstream=doctor_page.goto(base+'/ydental/queue',wait_until='domcontentloaded')
                 check('stability S06 read cycle '+str(cycle),upstream.status==200)
                 downstream=page.goto(base+'/ydental/inventory',wait_until='domcontentloaded')
                 check('stability inventory read cycle '+str(cycle),downstream.status==200)
