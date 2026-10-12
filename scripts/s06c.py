@@ -42,7 +42,7 @@ def write_private(path, value):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=['install', 'upgrade', 'probe', 'serve', 'export', 'legacy_seed', 'migration_check'])
+    parser.add_argument('action', choices=['install', 'upgrade', 'probe', 'serve', 'export', 'legacy_seed', 'migration_check', 'day_probe', 'time_midnight', 'time_cleanup', 'time_delayed'])
     parser.add_argument('--db', required=True)
     parser.add_argument('--config', type=Path, default=CORE / 'odoo.conf')
     parser.add_argument('--port', type=int, default=18136)
@@ -104,7 +104,7 @@ def main():
         parser.error('Missing existing process-local PDF assets; dependency installation is not authorized')
     # Serialize this runner, including serve, so a module update cannot race a preview.
     STATE.mkdir(exist_ok=True, mode=0o700)
-    with (STATE / ('s06c-runner-' + args.db + '.lock')).open('a') as lock:
+    with (STATE / (('s06c-clock-' if args.action.startswith('time_') else 's06c-runner-') + args.db + '.lock')).open('a') as lock:
         try:
             fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
         except BlockingIOError:
@@ -158,6 +158,10 @@ def main():
             write_private(config, output.getvalue())
             metadata['config_sha256'] = digest(config)
             write_private(marker, json.dumps(metadata, indent=2) + '\n')
+        if args.action.startswith('time_'):
+            pid = int((run / 'serve.pid').read_text())
+            if str(config).encode() not in Path('/proc/%s/cmdline' % pid).read_bytes().split(b'\0'):
+                parser.error('Clock fixture requires the matching C preview PID/config')
         network_source = REPO / 'scripts/s06c_network_policy.py'
         policy_dir = run / 'network-policy'
         if not policy_dir.exists():
@@ -169,9 +173,9 @@ def main():
             parser.error('Process egress policy differs; refusing to run')
         env['PYTHONPATH'] = str(policy_dir) + os.pathsep + env.get('PYTHONPATH', '')
         command = [str(CORE / '.venv/bin/python'), str(CORE / 'odoo-bin')]
-        if args.action in ('probe', 'legacy_seed', 'migration_check'):
+        if args.action in ('probe', 'day_probe', 'legacy_seed', 'migration_check') or args.action.startswith('time_'):
             command += ['shell', '-c', str(config), '--no-http']
-            code = "import runpy; runpy.run_path(%r, init_globals={'env': env, 'migration_action': %r})" % (str(REPO / ('scripts/s06c_probe.py' if args.action == 'probe' else 'scripts/s06c_migration.py')), args.action)
+            code = "import runpy; runpy.run_path(%r, init_globals={'env': env, 'migration_action': %r})" % (str(REPO / ('scripts/s06c_probe.py' if args.action == 'probe' else 'scripts/s06c_day_probe.py' if args.action == 'day_probe' else 'scripts/s06c_time.py' if args.action.startswith('time_') else 'scripts/s06c_migration.py')), args.action)
         else:
             command += ['-c', str(config)]
             code = None
