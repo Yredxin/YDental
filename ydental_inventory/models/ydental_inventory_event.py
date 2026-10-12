@@ -23,6 +23,8 @@ class YDentalInventoryEvent(models.Model):
     ydental_to_id = fields.Many2one('stock.location', required=True, ondelete='restrict', string='To location')
     ydental_target_store_id = fields.Many2one('ydental.access.store', ondelete='restrict', string='Transfer target')
     ydental_move_id = fields.Many2one('stock.move', ondelete='restrict', string='Native movement')
+    ydental_correction_id = fields.Many2one('ydental.inventory.event', ondelete='restrict', readonly=True, string='Reconciliation stock evidence')
+    ydental_reconciled_at = fields.Datetime(readonly=True, string='Historical stock recorded at')
     ydental_parent_id = fields.Many2one('ydental.inventory.event', ondelete='restrict', string='Original issue or return')
     ydental_responsible_id = fields.Many2one('res.users', required=True, ondelete='restrict', string='Responsible user')
     ydental_actor_id = fields.Many2one('res.users', required=True, ondelete='restrict', string='Actual source actor')

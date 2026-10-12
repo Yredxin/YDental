@@ -405,6 +405,11 @@ class YDentalInventoryService(models.AbstractModel):
         # actual actor/store/order/batch/price. HTTP/context dictionaries fail.
         raise AccessError(self.env._('access_denied: Clinical inventory source integration is not connected.'))
 
+    def _check_source_product(self, kind, lot):
+        expected = {'treatment': 'material', 'chairside': 'medicine', 'prescription': 'medicine'}
+        if lot.product_id.ydental_inventory_kind != expected.get(kind):
+            raise ValidationError(self.env._('source_category_mismatch: The execution source does not match the inventory product category.'))
+
     def _source_action(self, source):
         payload = self._authorize_source(source)
         with self.env.cr.savepoint():
@@ -417,6 +422,7 @@ class YDentalInventoryService(models.AbstractModel):
                 raise ValidationError(self.env._('Select a supported execution source kind.'))
             access._check('pharmacy' if kind == 'prescription' else 'medical', 'write', write=True)
             lot = self._lot(payload['lot_id'], store); config = self._config(store)
+            self._check_source_product(kind, lot)
             snapshot = payload['price_snapshot']
             if not isinstance(snapshot, dict) or not snapshot.get('version') or not snapshot.get('currency') or 'unit_price' not in snapshot:
                 raise ValidationError(self.env._('A frozen original source price snapshot is required.'))
@@ -432,9 +438,38 @@ class YDentalInventoryService(models.AbstractModel):
             return {'id': event.id, 'move_id': event.ydental_move_id.id, 'state': 'done'}
         if event.state != 'pending' or event.ydental_kind not in ('treatment', 'chairside', 'prescription'):
             raise UserError(self.env._('Recovery requires an original pending execution event.'))
-        self._usable(event.ydental_lot_id, store)
+        # Pending is created only for an already-performed, trusted private
+        # source. Ordinary actions cannot create or alter this historical fact.
+        snapshot = event.ydental_price_snapshot
+        if (event.ydental_source_namespace == 'warehouse' or not event.ydental_summary
+                or not isinstance(snapshot, dict) or not snapshot.get('version')
+                or not snapshot.get('currency') or 'unit_price' not in snapshot
+                or event.ydental_actual_at > self._now()):
+            raise UserError(self.env._('recovery_unconfirmed: Keep the original event pending for manual source and quantity verification.'))
+        self._check_source_product(event.ydental_kind, event.ydental_lot_id)
+        if event.ydental_lot_id.product_id.uom_id.compare(
+                self._quantity(event.ydental_lot_id, event.ydental_from_id), event.ydental_quantity) < 0:
+            raise UserError(self.env._('insufficient_balance: There is insufficient available stock.'))
+        # Require a real, completed incoming correction after the pending fact,
+        # for this store, lot and physical source location. A free-text reason
+        # alone never creates stock or authorizes historical bookkeeping.
+        corrections = self._model('event').search([
+            ('ydental_store_id', '=', store.id), ('ydental_lot_id', '=', event.ydental_lot_id.id),
+            ('ydental_kind', 'in', ('receipt', 'inventory')), ('state', '=', 'done'),
+            ('ydental_to_id', '=', event.ydental_from_id.id), ('create_date', '>=', event.create_date),
+        ], order='id desc')
+        correction = corrections.filtered(lambda c: c.ydental_quantity > 0
+            and c.ydental_move_id.state == 'done' and c.ydental_from_id.usage != 'internal')[:1]
+        if not correction:
+            raise UserError(self.env._('recovery_evidence_required: Keep pending until an evidenced receipt or physical count corrects this lot.'))
+        # Only this original pending reconciliation bypasses current usability.
+        # New issue, clinical execution and return release still use _usable.
         self._move(event)
-        self._audit('recovery', event, before={'state': 'pending'}, after={'state': event.state, 'move_id': event.ydental_move_id.id})
+        event._save({'ydental_correction_id': correction.id, 'ydental_reconciled_at': self._now()})
+        self._audit('recovery', event, before={'state': 'pending'}, after={
+            'state': event.state, 'move_id': event.ydental_move_id.id, 'correction_id': correction.id,
+            'actual_at': fields.Datetime.to_string(event.ydental_actual_at),
+            'reconciled_at': fields.Datetime.to_string(event.ydental_reconciled_at)})
         return {'id': event.id, 'move_id': event.ydental_move_id.id, 'state': event.state}
 
     def _scan(self, code):
