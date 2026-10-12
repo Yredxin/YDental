@@ -1618,3 +1618,15 @@ msgstr "version_conflict: 此幂等键已用于另一动作。"
 #: code:addons/ydental_intake/models/ydental_intake_service.py:0
 msgid "version_conflict: This store service area is already mapped."
 msgstr "version_conflict: 此门店服务区域映射已存在。"
+
+msgid "access_denied: Select an active store."
+msgstr "access_denied: 请选择启用的门店。"
+
+msgid ""
+"access_denied: Referral initiation requires a trusted clinical server "
+"source."
+msgstr "access_denied: 转诊发起需要可信临床服务器来源。"
+
+msgid ""
+"reporting_date_mismatch: Report on the reservation store business date."
+msgstr "reporting_date_mismatch: 请在预约门店的预约营业日报到。"

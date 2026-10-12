@@ -32,6 +32,8 @@ class YDentalIntakeService(models.AbstractModel):
 
     def _read_access(self):
         access = self.env['ydental.access.service']
+        if access._is_group_manager():
+            return self._catalog_access()
         session = access._scope()
         member = access._membership(self.env.uid, session.ydental_store_id.id)
         if member:
@@ -50,23 +52,30 @@ class YDentalIntakeService(models.AbstractModel):
                     return access._check(category, 'read').ydental_store_id
         raise AccessError(self.env._('access_denied: Patient intake read permission is required.'))
 
+    def _catalog_access(self, write=False):
+        access = self.env['ydental.access.service']
+        session = access._scope(write=write)
+        if not access._is_group_manager():
+            raise AccessError(self.env._('access_denied: Group master data authority is required.'))
+        store = session.ydental_store_id
+        if not store or not store.active:
+            raise AccessError(self.env._('access_denied: Select an active store.'))
+        return store
+
+    def _referral_access(self):
+        access = self.env['ydental.access.service']
+        member = access._membership(self.env.uid, access._scope(write=True).ydental_store_id.id)
+        for category in ('medical', 'exam'):
+            if member and access._levels(member)[category] == 'write':
+                return access._check(category, 'write', write=True).ydental_store_id, category
+        raise AccessError(self.env._('access_denied: A source store clinician must authorize a referral.'))
+
     def _access(self, operation):
         access = self.env['ydental.access.service']
         if operation in ('catalog', 'catalog_edit'):
-            member = access._check('price', 'write', write=True)
-            if not access._is_group_manager():
-                raise AccessError(self.env._('access_denied: Group master data authority is required.'))
-            return member.ydental_store_id
-        if operation in ('mapping', 'mapping_edit', 'price', 'review', 'publish'):
+            return self._catalog_access(write=True)
+        if operation in ('mapping', 'mapping_edit', 'price', 'review', 'publish', 'snapshot'):
             return access._check('price', 'write', write=True).ydental_store_id
-        if operation in ('snapshot',):
-            return access._check('price', 'write', write=True).ydental_store_id
-        if operation in ('refer_timed', 'refer_untimed'):
-            for category in ('medical', 'exam'):
-                member = access._membership(self.env.uid, access._scope(write=True).ydental_store_id.id)
-                if member and access._levels(member)[category] == 'write':
-                    return access._check(category, 'write', write=True).ydental_store_id
-            raise AccessError(self.env._('access_denied: A source store clinician must authorize a referral.'))
         return access._check('frontdesk', 'write', write=True).ydental_store_id
 
     def _lock(self):
@@ -127,7 +136,7 @@ class YDentalIntakeService(models.AbstractModel):
     def _operate(self, operation, payload, key):
         return self._run(operation, payload, key)
 
-    def _run(self, operation, payload, key, downstream=False):
+    def _run(self, operation, payload, key, downstream=False, referral=False, permit=None):
         handlers = {'catalog': self._catalog, 'catalog_edit': self._catalog_edit,
             'mapping': self._mapping, 'mapping_edit': self._mapping_edit,
             'price': self._price, 'review': self._review, 'publish': self._publish,
@@ -140,12 +149,22 @@ class YDentalIntakeService(models.AbstractModel):
             raise ValidationError(self.env._('A documented action, arguments and idempotency key are required.'))
         if (operation in ('start', 'derived')) != downstream:
             raise AccessError(self.env._('access_denied: This action requires the fixed downstream server hook.'))
-        store = self._authorize_downstream(operation, payload) if downstream else self._access(operation)
+        if (operation in ('refer_timed', 'refer_untimed')) != referral:
+            raise AccessError(self.env._('access_denied: Referral initiation requires a trusted clinical server source.'))
+        if referral:
+            self._authorize_referral(operation, payload, permit)
+            store, category = self._referral_access()
+        else:
+            store = self._authorize_downstream(operation, payload) if downstream else self._access(operation)
+            category = 'price' if operation in ('catalog', 'catalog_edit', 'mapping', 'mapping_edit', 'price', 'review', 'publish', 'snapshot') else 'frontdesk'
         digest = fingerprint([operation, store.id, payload])
         with self.env.cr.savepoint():
             self._all_locks()
             # Revalidate live grants after locks, including transaction retries.
-            if not downstream:
+            if referral:
+                self._authorize_referral(operation, payload, permit)
+                store, category = self._referral_access()
+            elif not downstream:
                 self._access(operation)
             prior = self._model('operation').search([('ydental_actor_id', '=', self.env.uid), ('ydental_key', '=', key)], limit=1)
             if prior:
@@ -157,14 +176,28 @@ class YDentalIntakeService(models.AbstractModel):
             except TypeError as error:
                 raise ValidationError(self.env._('Unknown or missing action arguments.')) from error
             result = dict(handlers[operation](store, **payload), result='accepted')
+            if referral:
+                result.update(source_store_id=store.id, target_store_id=self._get('mapping', payload['mapping_id']).ydental_store_id.id,
+                    source_task_id=payload['source_task_id'], target_mapping_id=payload['mapping_id'])
             self._new('operation', store, {'name': operation, 'ydental_actor_id': self.env.uid,
-                'ydental_category': 'price' if operation in ('catalog', 'catalog_edit', 'mapping', 'mapping_edit', 'price', 'review', 'publish', 'snapshot') else 'frontdesk',
+                'ydental_category': category,
                 'ydental_key': key, 'ydental_fingerprint': digest, 'ydental_result': result})
             self.env['ydental.access.service']._audit('intake.' + operation,
-                'price' if operation in ('catalog', 'catalog_edit', 'mapping', 'mapping_edit', 'price', 'review', 'publish', 'snapshot') else 'frontdesk',
+                category,
                 self._model('operation').search([('ydental_actor_id', '=', self.env.uid), ('ydental_key', '=', key)]),
                 store.id, after=result, source='intake_service')
             return result
+
+    def _authorize_referral(self, operation, payload, permit):
+        """S08 must validate a real treatment/order/execution source here.
+
+        No HTTP/context value can connect this fail-closed server contract.
+        The caller remains the source clinician throughout controlled target writes.
+        """
+        raise AccessError(self.env._('access_denied: Clinical source integration is not connected.'))
+
+    def _referral_action(self, operation, payload, key, permit=None):
+        return self._run(operation, payload, key, referral=True, permit=permit)
 
     def _authorize_downstream(self, operation, payload):
         raise AccessError(self.env._('access_denied: Clinical source integration is not connected.'))
@@ -416,6 +449,9 @@ class YDentalIntakeService(models.AbstractModel):
                 raise UserError(self.env._('This qualification is cancelled, expired or already started. Acquire or review it explicitly.'))
             if slot.state != 'published' or not self.env['ydental.supply.service']._coverage_valid(slot):
                 raise UserError(self.env._('The original qualification requires supply review.'))
+            supply = self.env['ydental.supply.service']
+            if supply._date(store, slot.ydental_start) != supply._date(store, self._now()):
+                raise UserError(self.env._('reporting_date_mismatch: Report on the reservation store business date.'))
             # No saleability/free-balance test here: existing valid qualifications
             # retain their original slot and never acquire capacity again.
         elif task.ydental_source_kind == 'independent' or not task.ydental_parent_task_id:
@@ -528,8 +564,7 @@ class YDentalIntakeService(models.AbstractModel):
         patient = self.env['ydental.patient.service']._business_patient(source.ydental_patient_id.id)
         self.env['ydental.patient.service']._current_relation(patient, store)
         mapping = self._target(mapping_id)
-        if mapping.ydental_store_id.company_id.id not in self.env.user.company_ids.ids:
-            raise AccessError(self.env._('access_denied: Referral target company is outside the authorized group.'))
+        self._open(mapping)
         return source, patient, mapping
 
     def _refer_timed(self, store, source_task_id, version, mapping_id, start, end, reason):

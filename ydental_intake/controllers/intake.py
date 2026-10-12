@@ -36,15 +36,16 @@ class YDentalIntake(http.Controller):
     def prices(self, **kwargs):
         service = self._service()
         access = service.env['ydental.access.service']
-        store = access._check('price', 'read').ydental_store_id
+        store = service._catalog_access() if access._is_group_manager() else access._check('price', 'read').ydental_store_id
         levels = access._levels(access._membership(service.env.uid, store.id))
         env = service.env
+        can_read_price = levels['price'] in ('read', 'write')
         values = {'store': store, 'revision': access._scope().ydental_revision, 'key': lambda: secrets.token_hex(16),
-            'can_price': levels['price'] == 'write', 'can_catalog': levels['price'] == 'write' and access._is_group_manager(),
+            'can_price': levels['price'] == 'write', 'can_catalog': access._is_group_manager(),
             'catalogs': env['ydental.intake.catalog'].with_context(active_test=False).search([]),
-            'mappings': env['ydental.intake.mapping'].with_context(active_test=False).search([]),
-            'prices': env['ydental.intake.price'].search([], order='id desc'),
-            'snapshots': env['ydental.intake.snapshot'].search([], order='id desc', limit=30),
+            'mappings': env['ydental.intake.mapping'].with_context(active_test=False).search([]) if can_read_price else env['ydental.intake.mapping'],
+            'prices': env['ydental.intake.price'].search([], order='id desc') if can_read_price else env['ydental.intake.price'],
+            'snapshots': env['ydental.intake.snapshot'].search([], order='id desc', limit=30) if can_read_price else env['ydental.intake.snapshot'],
             'capabilities': env['ydental.access.capability'].sudo().search([('active', '=', True)]),
             'uoms': env['uom.uom'].sudo().search([], limit=100), 'currencies': env['res.currency'].sudo().search([('active', '=', True)]),
             'areas': env['ydental.space.area'].sudo().search([('ydental_store_id', '=', store.id), ('active', '=', True)])}
@@ -91,8 +92,6 @@ class YDentalIntake(http.Controller):
             'void': ('task_id version reason cancel_qualification', 'task_id version'),
             'cancel': ('record_id version reason', 'record_id version'),
             'reschedule': ('record_id version mapping_id start end reason', 'record_id version mapping_id'),
-            'refer_timed': ('source_task_id version mapping_id start end reason', 'source_task_id version mapping_id'),
-            'refer_untimed': ('source_task_id version mapping_id valid_until reason', 'source_task_id version mapping_id'),
             'accept_referral': ('record_id version start end', 'record_id version'),
         }
         if operation not in schemas:
