@@ -1,0 +1,10 @@
+[
+  {
+    "pid": 42433,
+    "argv_executables": [
+      "/home/redxin/code/odoo/odoo-sd/code/odoo-bin"
+    ],
+    "s08a_config": [],
+    "cmdline_sha256": "300d8dca5a0dc55fd5133925945a7623835531456c953bf5f99c2db0ecdc0632"
+  }
+]

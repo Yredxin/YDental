@@ -1,0 +1,32 @@
+{
+  "status": "BLOCKED / no technical PASS request",
+  "code_commit": "e1f0c98bd74caf414377e44cd10b182fba0a899c",
+  "product": "a28b364691791214becf4909e9ecf1bc0be3555c",
+  "test": "e8b2247609e51d7fbe268b94082e8fd3259db9d3",
+  "phase": "readonly_environment_diagnosis",
+  "new_database_count": 0,
+  "installation_attempt_count": 0,
+  "service_changes": 0,
+  "production": "BLOCKED historical S07 SIGSEGV cause unknown",
+  "gates": {
+    "fresh_install": "NOT_RUN_ENVIRONMENT_BLOCKED",
+    "upgrade": "NOT_RUN_ENVIRONMENT_BLOCKED",
+    "21_model": "NOT_RUN_ENVIRONMENT_BLOCKED",
+    "7_http_rpc": "NOT_RUN_ENVIRONMENT_BLOCKED",
+    "16_real_connection_races_and_old_failure": "NOT_RUN_ENVIRONMENT_BLOCKED",
+    "firefox_terminal_delay_autosave_D1_D2": "NOT_RUN_ENVIRONMENT_BLOCKED",
+    "actual_151_translation_metadata": "NOT_RUN_ENVIRONMENT_BLOCKED",
+    "guard5": "NOT_RUN_ENVIRONMENT_BLOCKED",
+    "permission_negative_attachments_export": "NOT_RUN_ENVIRONMENT_BLOCKED",
+    "security_runtime": "NOT_RUN_ENVIRONMENT_BLOCKED",
+    "8_sql_audits": "NOT_RUN_ENVIRONMENT_BLOCKED",
+    "business_upgrade_10_signatures": "NOT_RUN_ENVIRONMENT_BLOCKED",
+    "economic_6_signatures": "NOT_RUN_ENVIRONMENT_BLOCKED"
+  },
+  "diagnostics": {
+    "readonly_commands": "15 exit0 / host direct namespace read exit1; same-server-UID Docker read exit0",
+    "PGOPTIONS_three_readonly_sessions": "PASS current nonpersistent settings only, not resource recovery",
+    "old_probe_database_readonly": "PASS read transaction; not race replay"
+  },
+  "new_test_commit": null
+}

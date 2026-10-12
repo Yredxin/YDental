@@ -1,0 +1,65 @@
+{
+  "read_complete": true,
+  "source": "gh api issue + all paginated comments; body and all comments read",
+  "issues": [
+    {
+      "issue": 23,
+      "state": "open",
+      "updated_at": "2026-10-11T14:42:20Z",
+      "body_sha256": "36b3744d1087b38df6970dc584f396bd9c6d3bc66de8229c61f181688353f100",
+      "comment_count": 2,
+      "comments": [
+        {
+          "id": 6106072643,
+          "updated_at": "2026-10-11T06:03:40Z",
+          "body_sha256": "08ccabbeba9965c4d6d61e3b8bd8f51dae02fb9d42e80eae82a526e1d64c0852"
+        },
+        {
+          "id": 6110178328,
+          "updated_at": "2026-10-11T14:42:20Z",
+          "body_sha256": "6bf3b024c1447780ed46f57ea9f20ef5226ef9b295b9bd8df1a93dce8e24158f"
+        }
+      ]
+    },
+    {
+      "issue": 32,
+      "state": "open",
+      "updated_at": "2026-10-12T13:21:20Z",
+      "body_sha256": "4e445d9ddea91576f1393b613613862e83d6c5d8b26d1e497fed3e7ace830d13",
+      "comment_count": 6,
+      "comments": [
+        {
+          "id": 6122378640,
+          "updated_at": "2026-10-12T10:25:40Z",
+          "body_sha256": "ad4fa341fae1db3bcc7202604d71b2d4cc74947373ddc6c5c97ec1ede8e71456"
+        },
+        {
+          "id": 6122503237,
+          "updated_at": "2026-10-12T10:33:18Z",
+          "body_sha256": "84653ca7c997623c2276f3947bda429c7ccc11adb1c945eaa969ddc745a44460"
+        },
+        {
+          "id": 6123830363,
+          "updated_at": "2026-10-12T12:00:02Z",
+          "body_sha256": "a6961692039bd39d292f89864262902213984e4037ca6db7f1964fb4e8f7983b"
+        },
+        {
+          "id": 6123972548,
+          "updated_at": "2026-10-12T12:08:57Z",
+          "body_sha256": "8ee9c58733379bd1f85c12a0d019df6b169563cf1a05e6029d8644305dc99309"
+        },
+        {
+          "id": 6125036244,
+          "updated_at": "2026-10-12T13:15:51Z",
+          "body_sha256": "b63c375af4e0e419370fb3803c199f91fb83a4e7adfd764f88c3cc965bc437e8"
+        },
+        {
+          "id": 6125132411,
+          "updated_at": "2026-10-12T13:21:20Z",
+          "body_sha256": "586e40d9203f2e0f75509ac4100f992cdf4e328e3f40fc319af75190d8b29067"
+        }
+      ]
+    }
+  ],
+  "latest_boundary": "https://github.com/Yredxin/YDental/issues/32#issuecomment-6125132411"
+}

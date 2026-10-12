@@ -1,0 +1,22 @@
+{
+  "json_parse": "PASS",
+  "diff_whitespace": "PASS",
+  "credentials_structured_keys_and_DSN": "PASS",
+  "compose_source_hash_unchanged": "PASS",
+  "review_only_proposal_single_indented_field_text_delta": "PASS",
+  "yaml_parser_validation": "NOT_RUN: existing venv has no PyYAML; no dependencies installed; proposal is unapplied and single field text checked",
+  "existing_local_image_id": "PASS",
+  "initial_check_failures": [
+    {
+      "check": "blanket configured-password substring scan",
+      "result": "false positive: short value collides with ordinary environment identifiers; replaced by structured credential/DSN checks and manual safe-field review",
+      "credential_value_recorded": false
+    },
+    {
+      "check": "optional proposal YAML parse",
+      "result": "ModuleNotFoundError yaml; replaced with exact single indented field byte delta check, no dependency installation"
+    }
+  ],
+  "product_or_test_changes": false,
+  "product_regression": "NOT_RUN environment BLOCKED"
+}

@@ -1,0 +1,19 @@
+{
+  "docs/evidence/s08a-environment/compose-proposal.json": "cf1e49476c032cf845879e5d47c49b1789390b6cf4aac594062d790b0b8ce3a0",
+  "docs/evidence/s08a-environment/container-managed-identity.json": "ab98a6f75bd5dbd19782f0de72e39fe375094488f758d68f447fb77483ea8ae1",
+  "docs/evidence/s08a-environment/current-results.json": "021aba244f20425782180ff2c96547cd5ebbcb1e4e898efba0fae519dd74352b",
+  "docs/evidence/s08a-environment/documentation-checks.json": "d13e316f3a13f168035373c2947857a107594ce57b9809b59fc41c30ba0e88fe",
+  "docs/evidence/s08a-environment/environment-conclusion.json": "df873e20a718ce1c338ae0fbbb512e2eb74d6dc5847c3427e5e35471bf2c8841",
+  "docs/evidence/s08a-environment/github-delivery-check.json": "c9d883ff5c7ddfba50f6aaeac44ba3955571e5c9e914c601b4b10c3528ac1c59",
+  "docs/evidence/s08a-environment/github-read.json": "649a0dd631a9bc2edc0a5318c2c1d695037ff37e565789c908603e4b07a0caa3",
+  "docs/evidence/s08a-environment/pgoptions-check.json": "03524e509a268cf3b1a8643ee7c1b3486cf7da280c77694706c72065a7df3a58",
+  "docs/evidence/s08a-environment/probe-failure-trace.json": "5e72ac1b588c30d6bd548e845664f9e63f45c01973ea89c8f7e78dcd18b93da5",
+  "docs/evidence/s08a-environment/probe-readonly-diagnosis.json": "f29b6d02d60ad1c69e43bbf49c64d86e2b6f2d38072b906c02b9e24a6e15793a",
+  "docs/evidence/s08a-environment/processes-exact.json": "ea60373bf022736207ac8260a4b6c0245961e4d5202404d7e000c8a8c344bb2b",
+  "docs/evidence/s08a-environment/project-preservation.json": "6480aec67e796ed0d0324678565a58a293f7fdb63286f3aef1b300cb08c68f9f",
+  "docs/evidence/s08a-environment/proposed-adjustment.diff": "cfac3f187bfd3348cc13e27d487fda9d0ba28a6481b67635af0bbf513331ca25",
+  "docs/evidence/s08a-environment/readonly-commands.json": "3a94b1fb180db89bf24670c09259fcb80241dde79e0566309305e5944dbbd521",
+  "docs/evidence/s08a-environment/server-log-summary.json": "28d52a0c30db5d543bba464aa9ec1f3440c7666197a0f355a455567b381b8bac",
+  "docs/evidence/s08a-environment/sql-read.json": "ff7c980b0922d6cf8b962a41c745284fcc6256219f4421d2aaaad50ad4f884ef",
+  "docs/s08a-environment-diagnosis.md": "2d4d163e7464cb216760e1b612344e89ec659a833cca795b5f296acd1c85fbac"
+}

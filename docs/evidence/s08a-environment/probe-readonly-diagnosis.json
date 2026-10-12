@@ -1,0 +1,97 @@
+{
+  "database": "ydental_s08a_test_20261012124648_038d989e",
+  "oid": 1103407,
+  "readonly": true,
+  "columns": [
+    "document_id",
+    "execution_id",
+    "version",
+    "editor_id",
+    "execution_state",
+    "version_count",
+    "successor_count"
+  ],
+  "rows": [
+    [
+      57,
+      61,
+      1,
+      43,
+      "serving",
+      1,
+      0
+    ],
+    [
+      58,
+      62,
+      1,
+      51,
+      "serving",
+      1,
+      0
+    ],
+    [
+      59,
+      63,
+      1,
+      59,
+      "handover",
+      1,
+      1
+    ],
+    [
+      60,
+      64,
+      1,
+      67,
+      "handover",
+      1,
+      1
+    ],
+    [
+      61,
+      65,
+      1,
+      75,
+      "serving",
+      1,
+      0
+    ],
+    [
+      62,
+      66,
+      1,
+      83,
+      "serving",
+      1,
+      0
+    ],
+    [
+      63,
+      67,
+      1,
+      null,
+      "handover",
+      1,
+      1
+    ],
+    [
+      64,
+      68,
+      1,
+      null,
+      "handover",
+      1,
+      1
+    ]
+  ],
+  "historical_frame": "original catch discarded traceback; exact triggering line and failed outcomes UNKNOWN",
+  "next_case_by_original_loop_order": "continuation round2 (eighth case)",
+  "candidate_source_lines": [
+    79,
+    90,
+    91,
+    93
+  ],
+  "cannot_reconstruct_full_historical_interleaving": true
+}

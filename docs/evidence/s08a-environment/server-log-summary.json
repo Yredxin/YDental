@@ -1,0 +1,20 @@
+{
+  "command": [
+    "docker",
+    "logs",
+    "--since",
+    "2026-10-12T12:46:00Z",
+    "--until",
+    "2026-10-12T13:00:30Z",
+    "odoo20-db"
+  ],
+  "exit_code": 0,
+  "private_log_sha256": "c95106e380ff55a02b952c8cf86f0bfe168be00b4247df3005c76e3b718e8071",
+  "lines": 25,
+  "matching_errors": [
+    "2026-10-12 12:54:17.212 UTC [265687] ERROR:  could not resize shared memory segment \"/PostgreSQL.2514803540\" to 33554432 bytes: No space left on device",
+    "2026-10-12 12:59:14.972 UTC [266568] FATAL:  could not resize shared memory segment \"/PostgreSQL.318966338\" to 33554432 bytes: No space left on device",
+    "2026-10-12 12:59:14.974 UTC [266568] FATAL:  could not resize shared memory segment \"/PostgreSQL.1733297978\" to 33554432 bytes: No space left on device",
+    "2026-10-12 12:59:23.935 UTC [266585] ERROR:  could not resize shared memory segment \"/PostgreSQL.97251930\" to 33554432 bytes: No space left on device"
+  ]
+}

@@ -1,0 +1,234 @@
+[
+  {
+    "label": "host namespaces",
+    "argv": [
+      "readlink",
+      "/proc/self/ns/mnt",
+      "/proc/self/ns/ipc",
+      "/proc/self/ns/pid"
+    ],
+    "utc": "2026-10-12T13:34:37.926684+00:00",
+    "exit_code": 0,
+    "stdout": "mnt:[4026531832]\nipc:[4026531839]\npid:[4026531836]\n",
+    "stderr": ""
+  },
+  {
+    "label": "host shm bytes",
+    "argv": [
+      "df",
+      "-B1",
+      "/dev/shm"
+    ],
+    "utc": "2026-10-12T13:34:37.929649+00:00",
+    "exit_code": 0,
+    "stdout": "Filesystem      1B-blocks  Used  Available Use% Mounted on\ntmpfs          3892314112     0 3892314112   0% /dev/shm\n",
+    "stderr": ""
+  },
+  {
+    "label": "host shm inodes",
+    "argv": [
+      "df",
+      "-i",
+      "/dev/shm"
+    ],
+    "utc": "2026-10-12T13:34:37.931043+00:00",
+    "exit_code": 0,
+    "stdout": "Filesystem     Inodes IUsed  IFree IUse% Mounted on\ntmpfs          950272     1 950271    1% /dev/shm\n",
+    "stderr": ""
+  },
+  {
+    "label": "host memory",
+    "argv": [
+      "free",
+      "-b"
+    ],
+    "utc": "2026-10-12T13:34:37.932296+00:00",
+    "exit_code": 0,
+    "stdout": "               total        used        free      shared  buff/cache   available\nMem:      7784628224  2449907712  1087123456   230641664  4819390464  5334720512\nSwap:     4294963200  1410691072  2884272128\n",
+    "stderr": ""
+  },
+  {
+    "label": "server namespace direct host permission",
+    "argv": [
+      "readlink",
+      "/proc/27070/ns/mnt",
+      "/proc/27070/ns/ipc"
+    ],
+    "utc": "2026-10-12T13:34:37.933590+00:00",
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "label": "server host status",
+    "argv": [
+      "cat",
+      "/proc/27070/status"
+    ],
+    "utc": "2026-10-12T13:34:37.936232+00:00",
+    "exit_code": 0,
+    "stdout": "Name:\tpostgres\nUmask:\t0077\nState:\tS (sleeping)\nTgid:\t27070\nNgid:\t0\nPid:\t27070\nPPid:\t27044\nTracerPid:\t0\nUid:\t999\t999\t999\t999\nGid:\t999\t999\t999\t999\nFDSize:\t1024\nGroups:\t101 \nNStgid:\t27070\t1\nNSpid:\t27070\t1\nNSpgid:\t27070\t1\nNSsid:\t27070\t1\nKthread:\t0\nVmPeak:\t  225104 kB\nVmSize:\t  225104 kB\nVmLck:\t       0 kB\nVmPin:\t       0 kB\nVmHWM:\t   31520 kB\nVmRSS:\t   21288 kB\nRssAnon:\t     468 kB\nRssFile:\t   11900 kB\nRssShmem:\t    8920 kB\nVmData:\t    1556 kB\nVmStk:\t     132 kB\nVmExe:\t    6128 kB\nVmLib:\t   14916 kB\nVmPTE:\t     164 kB\nVmSwap:\t    1800 kB\nHugetlbPages:\t       0 kB\nCoreDumping:\t0\nTHP_enabled:\t1\nuntag_mask:\t0xffffffffffffffff\nThreads:\t1\nSigQ:\t0/20730\nSigPnd:\t0000000000000000\nShdPnd:\t0000000000000000\nSigBlk:\t0000000000400000\nSigIgn:\t0000000001303000\nSigCgt:\t0000000000014a07\nCapInh:\t0000000000000000\nCapPrm:\t0000000000000000\nCapEff:\t0000000000000000\nCapBnd:\t00000000a80425fb\nCapAmb:\t0000000000000000\nNoNewPrivs:\t0\nSeccomp:\t2\nSeccomp_filters:\t1\nSpeculation_Store_Bypass:\tthread vulnerable\nSpeculationIndirectBranch:\tconditional enabled\nCpus_allowed:\tf\nCpus_allowed_list:\t0-3\nMems_allowed:\t00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001\nMems_allowed_list:\t0\nvoluntary_ctxt_switches:\t259214\nnonvoluntary_ctxt_switches:\t4581\nx86_Thread_features:\t\nx86_Thread_features_locked:\t\n",
+    "stderr": ""
+  },
+  {
+    "label": "server host limits",
+    "argv": [
+      "cat",
+      "/proc/27070/limits"
+    ],
+    "utc": "2026-10-12T13:34:37.938971+00:00",
+    "exit_code": 0,
+    "stdout": "Limit                     Soft Limit           Hard Limit           Units     \nMax cpu time              unlimited            unlimited            seconds   \nMax file size             unlimited            unlimited            bytes     \nMax data size             unlimited            unlimited            bytes     \nMax stack size            8388608              unlimited            bytes     \nMax core file size        unlimited            unlimited            bytes     \nMax resident set          unlimited            unlimited            bytes     \nMax processes             unlimited            unlimited            processes \nMax open files            1024                 524288               files     \nMax locked memory         8388608              8388608              bytes     \nMax address space         unlimited            unlimited            bytes     \nMax file locks            unlimited            unlimited            locks     \nMax pending signals       20730                20730                signals   \nMax msgqueue size         819200               819200               bytes     \nMax nice priority         0                    0                    \nMax realtime priority     0                    0                    \nMax realtime timeout      unlimited            unlimited            us        \n",
+    "stderr": ""
+  },
+  {
+    "label": "container resource config",
+    "argv": [
+      "docker",
+      "inspect",
+      "--format",
+      "{{json .HostConfig.ShmSize}} {{json .HostConfig.IpcMode}} {{json .HostConfig.Memory}} {{json .HostConfig.MemorySwap}} {{json .HostConfig.PidsLimit}} {{json .State.Pid}} {{json .State.OOMKilled}}",
+      "odoo20-db"
+    ],
+    "utc": "2026-10-12T13:34:37.941886+00:00",
+    "exit_code": 0,
+    "stdout": "67108864 \"private\" 0 0 null 27070 false\n",
+    "stderr": ""
+  },
+  {
+    "label": "server namespaces",
+    "argv": [
+      "docker",
+      "exec",
+      "--user",
+      "999:999",
+      "odoo20-db",
+      "sh",
+      "-c",
+      "id; readlink /proc/1/ns/mnt /proc/self/ns/mnt /proc/1/ns/ipc /proc/self/ns/ipc; cat /proc/1/mountinfo | sed -n \"/\\/dev\\/shm /p\""
+    ],
+    "utc": "2026-10-12T13:34:37.964101+00:00",
+    "exit_code": 0,
+    "stdout": "uid=999(postgres) gid=999(postgres) groups=999(postgres)\nmnt:[4026532352]\nmnt:[4026532352]\nipc:[4026532354]\nipc:[4026532354]\n483 478 0:74 / /dev/shm rw,nosuid,nodev,noexec,relatime - tmpfs shm rw,size=65536k,inode64\n",
+    "stderr": ""
+  },
+  {
+    "label": "server shm bytes",
+    "argv": [
+      "docker",
+      "exec",
+      "--user",
+      "999:999",
+      "odoo20-db",
+      "sh",
+      "-c",
+      "df -B1 /dev/shm"
+    ],
+    "utc": "2026-10-12T13:34:38.028984+00:00",
+    "exit_code": 0,
+    "stdout": "Filesystem     1B-blocks     Used Available Use% Mounted on\nshm             67108864 63995904   3112960  96% /dev/shm\n",
+    "stderr": ""
+  },
+  {
+    "label": "server shm inodes",
+    "argv": [
+      "docker",
+      "exec",
+      "--user",
+      "999:999",
+      "odoo20-db",
+      "sh",
+      "-c",
+      "df -i /dev/shm"
+    ],
+    "utc": "2026-10-12T13:34:38.086801+00:00",
+    "exit_code": 0,
+    "stdout": "Filesystem     Inodes IUsed  IFree IUse% Mounted on\nshm            950272    11 950261    1% /dev/shm\n",
+    "stderr": ""
+  },
+  {
+    "label": "server data volume bytes",
+    "argv": [
+      "docker",
+      "exec",
+      "--user",
+      "999:999",
+      "odoo20-db",
+      "sh",
+      "-c",
+      "df -B1 /var/lib/postgresql"
+    ],
+    "utc": "2026-10-12T13:34:38.146014+00:00",
+    "exit_code": 0,
+    "stdout": "Filesystem                          1B-blocks        Used   Available Use% Mounted on\n/dev/mapper/ubuntu--vg-ubuntu--lv 66257006592 35403792384 27454361600  57% /var/lib/postgresql\n",
+    "stderr": ""
+  },
+  {
+    "label": "server shm file metadata",
+    "argv": [
+      "docker",
+      "exec",
+      "--user",
+      "999:999",
+      "odoo20-db",
+      "sh",
+      "-c",
+      "ls -ln --time-style=long-iso /dev/shm"
+    ],
+    "utc": "2026-10-12T13:34:38.201715+00:00",
+    "exit_code": 0,
+    "stdout": "total 62496\n-rw------- 1 999 999  2097152 2026-10-12 02:50 PostgreSQL.1016423652\n-rw------- 1 999 999  2097152 2026-10-11 15:39 PostgreSQL.190238430\n-rw------- 1 999 999  8388608 2026-10-12 08:57 PostgreSQL.1919022550\n-rw------- 1 999 999    29776 2026-10-10 04:52 PostgreSQL.2012883550\n-rw------- 1 999 999 16777216 2026-10-12 12:47 PostgreSQL.2394140216\n-rw------- 1 999 999  4194304 2026-10-12 03:33 PostgreSQL.2549228492\n-rw------- 1 999 999 16777216 2026-10-12 12:59 PostgreSQL.2676581492\n-rw------- 1 999 999  4194304 2026-10-12 09:51 PostgreSQL.3200392168\n-rw------- 1 999 999  1048576 2026-10-12 12:59 PostgreSQL.4212328652\n-rw------- 1 999 999  8388608 2026-10-12 11:22 PostgreSQL.927821700\n",
+    "stderr": ""
+  },
+  {
+    "label": "server mapped files",
+    "argv": [
+      "docker",
+      "exec",
+      "--user",
+      "999:999",
+      "odoo20-db",
+      "sh",
+      "-c",
+      "for p in /proc/[0-9]*/maps; do if test -r \"$p\"; then sed -n \"\\|/dev/shm/PostgreSQL\\.|{s|.* /dev/shm/|/dev/shm/|;p;}\" \"$p\" | sort -u | sed \"s|^|$p |\"; fi; done"
+    ],
+    "utc": "2026-10-12T13:34:38.258787+00:00",
+    "exit_code": 0,
+    "stdout": "/proc/1/maps /dev/shm/PostgreSQL.2012883550\n/proc/27/maps /dev/shm/PostgreSQL.2012883550\n/proc/28/maps /dev/shm/PostgreSQL.2012883550\n/proc/29/maps /dev/shm/PostgreSQL.2012883550\n/proc/30/maps /dev/shm/PostgreSQL.2012883550\n/proc/31/maps /dev/shm/PostgreSQL.2012883550\n/proc/33/maps /dev/shm/PostgreSQL.2012883550\n/proc/34/maps /dev/shm/PostgreSQL.1016423652\n/proc/34/maps /dev/shm/PostgreSQL.190238430\n/proc/34/maps /dev/shm/PostgreSQL.1919022550\n/proc/34/maps /dev/shm/PostgreSQL.2012883550\n/proc/34/maps /dev/shm/PostgreSQL.2394140216\n/proc/34/maps /dev/shm/PostgreSQL.2549228492\n/proc/34/maps /dev/shm/PostgreSQL.2676581492\n/proc/34/maps /dev/shm/PostgreSQL.3200392168\n/proc/34/maps /dev/shm/PostgreSQL.4212328652\n/proc/34/maps /dev/shm/PostgreSQL.927821700\n/proc/35/maps /dev/shm/PostgreSQL.2012883550\n/proc/35/maps /dev/shm/PostgreSQL.4212328652\n/proc/4743/maps /dev/shm/PostgreSQL.2012883550\n/proc/4743/maps /dev/shm/PostgreSQL.4212328652\n/proc/4744/maps /dev/shm/PostgreSQL.2012883550\n/proc/4744/maps /dev/shm/PostgreSQL.4212328652\n/proc/4745/maps /dev/shm/PostgreSQL.2012883550\n/proc/4745/maps /dev/shm/PostgreSQL.4212328652\n",
+    "stderr": ""
+  },
+  {
+    "label": "server cgroup limits",
+    "argv": [
+      "docker",
+      "exec",
+      "--user",
+      "999:999",
+      "odoo20-db",
+      "sh",
+      "-c",
+      "for f in memory.max memory.current memory.events pids.max pids.current; do printf \"%s\\n\" \"$f\"; cat \"/sys/fs/cgroup/$f\"; done"
+    ],
+    "utc": "2026-10-12T13:34:38.343307+00:00",
+    "exit_code": 0,
+    "stdout": "memory.max\nmax\nmemory.current\n964882432\nmemory.events\nlow 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 140\npids.max\n6219\npids.current\n14\n",
+    "stderr": ""
+  },
+  {
+    "label": "server sysv shm limits",
+    "argv": [
+      "docker",
+      "exec",
+      "--user",
+      "999:999",
+      "odoo20-db",
+      "sh",
+      "-c",
+      "for f in shmmax shmall shmmni; do printf \"%s\\n\" \"$f\"; cat \"/proc/sys/kernel/$f\"; done"
+    ],
+    "utc": "2026-10-12T13:34:38.403510+00:00",
+    "exit_code": 0,
+    "stdout": "shmmax\n18446744073692774399\nshmall\n18446744073692774399\nshmmni\n4096\n",
+    "stderr": ""
+  }
+]

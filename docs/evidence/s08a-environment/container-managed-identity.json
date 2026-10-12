@@ -1,0 +1,22 @@
+{
+  "image_name": "postgres:18",
+  "image_id": "sha256:74935e72241653ca55e0414067e6d8763aceb8a810eb51b452253ec3dcfc4336",
+  "restart_policy": {
+    "Name": "unless-stopped",
+    "MaximumRetryCount": 0
+  },
+  "data_mounts": [
+    {
+      "type": "volume",
+      "name": "postgresql_odoo20-db-data",
+      "destination": "/var/lib/postgresql",
+      "rw": true
+    }
+  ],
+  "compose_labels": {
+    "com.docker.compose.project": "postgresql",
+    "com.docker.compose.project.config_files": "/home/redxin/code/odoo/odoo-sd/postgresql/docker-compose.yaml",
+    "com.docker.compose.project.working_dir": "/home/redxin/code/odoo/odoo-sd/postgresql",
+    "com.docker.compose.service": "db20"
+  }
+}

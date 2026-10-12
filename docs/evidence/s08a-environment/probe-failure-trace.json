@@ -1,0 +1,36 @@
+{
+  "commit": "1bec52a970f497a1c01d5be98f1e4919bcd907d1",
+  "private_log": ".local/ydental_s08a_test_20261012124648_038d989e/probe-20261012T124849757737.log",
+  "private_log_sha256": "32e2e8d6d250ae3b7d08402d1b0273c3e73dc7bc2a228ec5c1e8ca0b4d758d37",
+  "source_sha256": "33f44a64483ed18b831a1c2a4ab3b9b6f1da8cd96dafba583a4494ad6563d8c2",
+  "process_exit_code": 1,
+  "original_successful_races": 7,
+  "next_case": "continuation round 2",
+  "original_exception": {
+    "type": "AssertionError",
+    "detail": "",
+    "inner_traceback": "NOT_CAPTURED; historical exact line UNKNOWN",
+    "failed_pair_outcomes": "NOT_CAPTURED; full historical interleaving UNKNOWN"
+  },
+  "candidate_assertion_lines": [
+    79,
+    90,
+    91,
+    93
+  ],
+  "server_serialization_times_utc": [
+    "12:48:56.723",
+    "12:49:02.575",
+    "12:49:08.509",
+    "12:49:14.512",
+    "12:49:20.521",
+    "12:49:26.665",
+    "12:49:32.894",
+    "12:49:39.142"
+  ],
+  "server_serializing_backend": 264980,
+  "hypothesis": "Final pooled backend PID reuse after serialization retry may hit line79; not confirmed",
+  "current_fixed_test": "e8b2247609e51d7fbe268b94082e8fd3259db9d3",
+  "current_initial_backend_barrier": true,
+  "fix_validated_by_full16": false
+}

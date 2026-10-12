@@ -1,0 +1,25 @@
+{
+  "mutations": 0,
+  "counts": {
+    "fields": 21,
+    "items": 15,
+    "views": 6,
+    "public_workflows": 7
+  },
+  "full_project_equal_before_after": true,
+  "full_project_equal_previous_delivery": true,
+  "read_exit_codes": [
+    0,
+    0
+  ],
+  "item32": {
+    "stage": "S08",
+    "execution_status": "进行中",
+    "native_status": "Todo",
+    "issue_state": "OPEN"
+  },
+  "snapshots_sha256": {
+    "before": "f2cd8ed6961d79038216355e427fd0481fa18acafde909c5a99a93eb0b781004",
+    "after": "dcaa217b5e48bf8354dac798791eae38c07dc592bff2fe93386aa85b5336a4d4"
+  }
+}

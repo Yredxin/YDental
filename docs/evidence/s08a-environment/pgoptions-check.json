@@ -1,0 +1,82 @@
+{
+  "result": "PASS: three readonly sessions; nonpersistent original profile works now",
+  "sessions": [
+    {
+      "profile": "baseline",
+      "PGOPTIONS": null,
+      "settings": [
+        [
+          "maintenance_work_mem",
+          "65536",
+          "default",
+          "user"
+        ],
+        [
+          "max_parallel_maintenance_workers",
+          "2",
+          "default",
+          "user"
+        ],
+        [
+          "max_parallel_workers_per_gather",
+          "2",
+          "default",
+          "user"
+        ]
+      ],
+      "transaction_read_only": "on"
+    },
+    {
+      "profile": "same_runner_PGOPTIONS",
+      "PGOPTIONS": "-c max_parallel_workers_per_gather=0 -c max_parallel_maintenance_workers=0 -c maintenance_work_mem=16384",
+      "settings": [
+        [
+          "maintenance_work_mem",
+          "16384",
+          "client",
+          "user"
+        ],
+        [
+          "max_parallel_maintenance_workers",
+          "0",
+          "client",
+          "user"
+        ],
+        [
+          "max_parallel_workers_per_gather",
+          "0",
+          "client",
+          "user"
+        ]
+      ],
+      "transaction_read_only": "on"
+    },
+    {
+      "profile": "after_closed_baseline",
+      "PGOPTIONS": null,
+      "settings": [
+        [
+          "maintenance_work_mem",
+          "65536",
+          "default",
+          "user"
+        ],
+        [
+          "max_parallel_maintenance_workers",
+          "2",
+          "default",
+          "user"
+        ],
+        [
+          "max_parallel_workers_per_gather",
+          "2",
+          "default",
+          "user"
+        ]
+      ],
+      "transaction_read_only": "on"
+    }
+  ],
+  "historical_failed_backend_settings": "UNKNOWN: past processes gone and no SHOW record; source intended same profile, cannot retroactively certify",
+  "allocation_failure_not_removed_by_this_profile": true
+}

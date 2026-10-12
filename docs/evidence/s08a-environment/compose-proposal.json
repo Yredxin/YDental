@@ -1,0 +1,9 @@
+{
+  "source_path": "/home/redxin/code/odoo/odoo-sd/postgresql/docker-compose.yaml",
+  "source_sha256": "3d0baa673b19f2582f8dc2c6d22e94a87743c224b9359e52d5a51b28f9f48cf2",
+  "service": "db20",
+  "existing_shm_size": "absent (Docker default64MiB)",
+  "proposed_shm_size": "256m",
+  "applied": false,
+  "source_unchanged": true
+}

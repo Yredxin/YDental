@@ -1,5 +1,17 @@
 # YDental 当前执行入口
 
+## 当前 S08-A环境诊断 / #32（等待单独环境授权）
+
+- 仅依据[GPT-REVIEW6125132411](https://github.com/Yredxin/YDental/issues/32#issuecomment-6125132411)，完整读取#23/#32正文及全部2/6条评论。沿用原分支，起点`e1f0c98bd74caf414377e44cd10b182fba0a899c`；product `a28b364691791214becf4909e9ecf1bc0be3555c`、test `e8b2247609e51d7fbe268b94082e8fd3259db9d3`均不变，仅文档/脱敏证据更新。
+- **环境BLOCKED。** 127.0.0.1:5432实际为Docker `odoo20-db`，master宿主27070/容器1，独立mount/IPC；服务端/dev/shm总64MiB、用63,995,904、余3,112,960字节，inode充足、数据卷余27GB。10个共享文件仍被活进程映射，不得清理。未见本轮测试连接/进程或parallel worker残留；现有服务PID42433未动。
+- 三个只读连接已验证原PGOPTIONS维护16MiB/关闭并行实际生效且非持久化，但不扩大POSIX共享内存；过去失败后端无SHOW记录仍UNKNOWN。32MiB分配的确切allocator/累计增长原因未确认，不称已证实泄漏。无无特权恢复办法获验证，**本轮新库0、安装0、服务变更0，所有固定test回归NOT_RUN**。
+- 旧探针定位至第八组continuation第二轮，原catch丢弃内层堆栈/失败双方结果，准确行仍UNKNOWN；旧库仅SQL只读核查doc64已交还、版本1、编辑空、唯一后继1。末次连接池PID复用是候选解释，不是已确认根因；e8b2247的初始PID/barrier修正仍需完整16组真实验证，不降断言。
+- 报告[docs/s08a-environment-diagnosis.md](docs/s08a-environment-diagnosis.md)及docs/evidence/s08a-environment；仅供审批单字段diff建议Compose db20 shm_size256m，保留本地镜像/卷/全部库。重建会中断5432全部客户端，**未修改配置、未执行，须用户单独授权维护窗口**；不得在此授权前继续安装或环境调整。
+- Project零mutation，两次完整21字段/15条目/6视图/7公开workflow读回与前交付相同；#32 S08/进行中/Todo/OPEN。全部历史失败库/日志/hash/截图保留；未改核心/odoo-12/服务/依赖。S07历史SIGSEGV及生产部署BLOCKED继续，B/C及后续NOT_RUN。
+- #32发布`[CODEX] S08-A环境阻断诊断与授权申请`，固定诊断提交SHA并逐字读回后停止，等待用户单独环境授权及GPT独立复核。不合并、不关闭、不强推、不修改Project/workflows。
+
+下方S08-A定向返工及更早记录均为历史，本轮以本节及最新诊断授权为准。
+
 ## 当前 S08-A定向返工 / #32（环境BLOCKED）
 
 - 本轮仅依据[GPT-REVIEW6123972548](https://github.com/Yredxin/YDental/issues/32#issuecomment-6123972548)，已完整读取#23/#32正文及全部2/4条有效评论；不重做后端。沿用`codex/s08-a-clinical-doc-r1-20261012`及baseline `f0f17e633a3421386d0a0bdf2b63a5f9709bde96`，原代码/提交/失败/证据全保留。

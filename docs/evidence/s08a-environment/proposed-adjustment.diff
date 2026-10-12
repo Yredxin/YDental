@@ -1,0 +1,4 @@
+--- a/docker-compose.yaml
++++ b/docker-compose.yaml
+@@ -2,0 +3 @@
++    shm_size: 256m
