@@ -48,6 +48,8 @@ function start() {
     });
     async function operate(operation) {
         if (busy) { return; }
+        const controller = new AbortController();
+        const deadline = setTimeout(() => controller.abort(), 45000);
         const printWindow = operation === 'print_request' ? window.open('about:blank', '_blank') : null;
         const submitted = JSON.stringify(selection());
         const selected = selection();
@@ -56,7 +58,7 @@ function start() {
         permissions();
         field('result').textContent = messages.busy;
         try {
-            const response = await fetch('/ydental/print/action', {method: 'POST', body: new URLSearchParams({operation, revision: root.dataset.revision, csrf_token: root.querySelector('[name=csrf_token]').value, payload: JSON.stringify(payload)})});
+            const response = await fetch('/ydental/print/action', {method: 'POST', signal: controller.signal, body: new URLSearchParams({operation, revision: root.dataset.revision, csrf_token: root.querySelector('[name=csrf_token]').value, payload: JSON.stringify(payload)})});
             if (!response.ok) { throw new Error('request_failed'); }
             if (submitted !== JSON.stringify(selection())) { throw new Error('selection_changed'); }
             if (operation === 'preview') {
@@ -105,6 +107,7 @@ function start() {
             invalidate();
             field('result').textContent = messages.failed;
         } finally {
+            clearTimeout(deadline);
             busy = false;
             permissions();
         }
