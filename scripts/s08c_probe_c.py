@@ -193,8 +193,12 @@ try:
   long_rows=[]
   for number in range(16):
    values=dict(row)
+   values['product_id']=[f.products['medicine'],product2,product3][number%3]
    for name in ('specification','usage','frequency','course'):
     marker='S08C-%s-%02d-END'%(name,number);values[name]=('合成长字段，仅供排版测试，不代表医学意见。'*20)[:240-len(marker)]+marker
+   if number==7:
+    marker='S08C-specification-07-END'
+    values['specification']=('UNBROKENENGLISHABCDEFGH1234567890'*20)[:240-len(marker)]+marker
    long_rows.append(values)
   long_draft=s._operate('order',a|{'kind':'prescription','purpose':'合成十六行最长字段排版草稿','lines':long_rows},key())
   pdf(p,{'kind':'prescription','source_id':long_draft['order_id'],'version':long_draft['version']},'prescription-long-sixteen-lines')

@@ -124,12 +124,14 @@ class TestPrintHTTP(TestTreatmentHTTP):
     def test_http_render_failure_audited_without_job_or_business_mutation(self):
         from unittest.mock import patch
         from odoo.exceptions import UserError
-        from odoo.addons.ydental_print.models.ir_actions_report import IrActionsReport
         source = self.selection()
         preview = self.p_action('preview', source)
         self.assertEqual(preview.status_code, 200, preview.text)
         counts = {m: self.root[m].search_count([]) for m in ('ydental.print.job', 'ydental.clinical.version', 'ydental.treatment.event', 'ydental.treatment.fee', 'stock.move', 'ydental.intake.snapshot')}
-        with patch.object(IrActionsReport, '_run_wkhtmltopdf', side_effect=UserError('render_failed: synthetic engine failure')):
+        # HTTP requests use the registry-composed model class, not the addon
+        # extension class imported from ydental_print.
+        report_class = type(self.root['ir.actions.report'])
+        with patch.object(report_class, '_run_wkhtmltopdf', side_effect=UserError('render_failed: synthetic engine failure')):
             response = self.p_action('generate', source | {'expected_digest': preview.json()['source_digest'], 'key': key()})
         self.assertEqual(response.status_code, 409, response.text)
         self.assertNotIn('Synthetic HTTP content', response.text)
