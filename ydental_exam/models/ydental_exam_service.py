@@ -449,7 +449,7 @@ class YDentalExamService(models.AbstractModel):
         if not result or not record or record.res_model != 'ydental.exam.result' or record.res_id != result.id or record.public:
             raise AccessError(self.env._('access_denied: This examination attachment is unavailable.'))
         self.env['ydental.access.service']._check('export', 'write')
-        raw = record.raw
+        raw = bytes(record.raw)
         self._audit('attachment_download', result, {'attachment_id': record.id,
             'sha256': hashlib.sha256(raw).hexdigest()})
         return raw, record.mimetype, record.name
