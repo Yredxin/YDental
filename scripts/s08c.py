@@ -46,7 +46,10 @@ def main():
     parser.add_argument('--db', required=True)
     parser.add_argument('--config', type=Path, default=CORE / 'odoo.conf')
     parser.add_argument('--port', type=int, default=18137)
+    parser.add_argument('--print-only', action='store_true', help='Candidate upgrade diagnostics only; not final A/B regression')
     args = parser.parse_args()
+    if args.print_only and args.action != 'upgrade':
+        parser.error('Print-only diagnostic requires upgrade')
     if not re.fullmatch(r'ydental_s08c_test_[0-9]{14}_[a-f0-9]{8}', args.db):
         parser.error('Database must be a new ydental_s08c_test_YYYYMMDDHHMMSS_8hex database')
     if not 18000 <= args.port <= 18999:
@@ -187,7 +190,7 @@ def main():
             code = None
         if args.action in ('install', 'upgrade'):
             command += ['-i' if creating else '-u', 'ydental_inventory,ydental_clinical,ydental_treatment,ydental_treatment_test,ydental_print,ydental_print_test', '--load-language', 'en_US,zh_CN',
-                        '--test-enable', '--test-tags', '/ydental_treatment_test,/ydental_print_test', '--stop-after-init']
+                        '--test-enable', '--test-tags', '/ydental_print_test' if args.print_only else '/ydental_treatment_test,/ydental_print_test', '--stop-after-init']
             if creating:
                 command += ['--with-demo']
         elif args.action == 'export':
@@ -226,7 +229,7 @@ def main():
                 'cluster': CLUSTER, 'oid': metadata['oid'], 'production': 'BLOCKED', 'action': args.action}))
         entry = {'action': args.action, 'exit_code': result, 'pid': process.pid, 'log': log_path.name,
                  'log_sha256': digest(log_path), 'time_utc': datetime.now(timezone.utc).isoformat(),
-                 'tested_commit': tested_commit}
+                 'tested_commit': tested_commit, 'print_only': args.print_only}
         if args.action in ('install', 'upgrade'):
             match = re.search(r'(\d+) failed, (\d+) error\(s\) of (\d+) tests', log_path.read_text())
             entry['tests'] = list(map(int, match.groups())) if match else None

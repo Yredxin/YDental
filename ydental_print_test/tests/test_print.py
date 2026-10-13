@@ -76,7 +76,6 @@ class TestControlledPrint(TransactionCase):
         self.d.update(self.c._operate('acquire', {'document_id': self.d['document_id']}))
         self.d.update(self.c._operate('confirm', save_args(self.d, 'D1明确核对确认')))
         confirmed = self.d['version']
-        self.d.update(self.c._operate('acquire', {'document_id': self.d['document_id']}))
         self.d.update(self.c._operate('correct', save_args(self.d, '附原因新版本') | {'reason': '合成文字更正'}))
         old = self.p._source(**(selected | {'version': confirmed}))[3]
         new = self.p._source(**(selected | {'version': self.d['version']}))[3]
