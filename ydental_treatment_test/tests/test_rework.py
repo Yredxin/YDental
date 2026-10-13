@@ -221,3 +221,30 @@ class TestReworkBoundaries(TransactionCase):
         mapping._save({'active':False})
         with self.assertRaises(UserError):s._operate('refer',untimed|{'source':key()},key())
         self.assertEqual(e.state,'serving')
+
+    def test_rework_legacy_confirmed_history_preserved_without_automatic_sku_rewrite(self):
+        receive(self,20,'medicine');price(self,catalog=self.drug_catalog,amount=10)
+        s,c,q,l,e,d,a=opened_actual(self)
+        rows=[{'lot_id':self.lots['medicine'],'quantity':2,'uom_id':self.uom.id,'kind':'chairside'}]
+        r=s._operate('execute',self.chairside(a,rows),key());event=s._model('event').browse(r['event_id']);fee=s._model('fee').browse(r['fee_id'])
+        # Explicit old-schema defaults fixture, after actual product execution.
+        # No test stand-in creates clinical, inventory or pricing facts.
+        event._save({'ydental_medicine_link_id':False,'ydental_product_id':False,'ydental_reported_materials':False})
+        fee._save({'ydental_medicine_link_id':False,'ydental_product_id':False})
+        immutable=(event.ydental_actual_at,event.ydental_actor_id.id,event.ydental_quantity,event.ydental_price_snapshot_id.id,fee.ydental_amount,r['move_ids'])
+        same=s._operate('reconcile',{'event_id':event.id,'reason':'Read old confirmed source, do not infer SKU or reprice'},key())
+        self.assertFalse(event.ydental_medicine_link_id);self.assertFalse(fee.ydental_medicine_link_id)
+        self.assertEqual(immutable,(event.ydental_actual_at,event.ydental_actor_id.id,event.ydental_quantity,event.ydental_price_snapshot_id.id,fee.ydental_amount,same['move_ids']))
+        with self.assertRaises(UserError):s._operate('correct',a|{'event_id':event.id,'delta':1,'source':key(),'reason':'Unproved legacy SKU cannot create new fee','materials':rows},key())
+
+    def test_rework_historical_wrong_batch_preserves_original_report_and_requires_explicit_verification(self):
+        receive(self,20,'medicine');price(self,catalog=self.drug_catalog,amount=10)
+        product,lot,catalog=self.second_medicine()
+        s,c,q,l,e,d,a=opened_actual(self);wrong=[{'lot_id':lot,'quantity':2,'uom_id':self.uom.id,'kind':'chairside'}]
+        r=s._operate('execute',self.chairside(a,wrong,actual=True),key());event=s._model('event').browse(r['event_id'])
+        self.assertEqual(r['pending_reason'],'medicine_evidence_missing');self.assertFalse(r['fee_id']);self.assertFalse(r['move_ids'])
+        self.assertEqual(event.ydental_reported_materials['rows'],wrong)
+        with self.assertRaises(UserError):s._operate('verify_medicine',{'event_id':event.id,'materials':wrong,'evidence':'Still wrong SKU, must reject'},key())
+        correct=[dict(wrong[0],lot_id=self.lots['medicine'])]
+        r=s._operate('verify_medicine',{'event_id':event.id,'materials':correct,'evidence':'Original operator verified original A batch; previous batch selection was a reporting mistake'},key())
+        self.assertEqual(r['amount'],20);self.assertEqual(event.ydental_reported_materials['rows'],wrong)

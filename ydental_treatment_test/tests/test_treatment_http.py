@@ -123,3 +123,14 @@ class TestTreatmentHTTP(TestClinicalHTTP):
         self.assertIn('error',self.rpc('ydental.intake.mapping','write',[[mapping.id],{'name':'Forbidden target write'}]))
         self.assertIn('error',self.rpc('ydental.intake.mapping','read',[[mapping.id],['name']]))
         self.assertEqual(self.url_open('/ydental/treatment').status_code,200)
+
+    def test_http_rework_medicine_association_rpc_crud_export_attachment_denied(self):
+        price(self,catalog=self.drug_catalog,amount=10);args=self.medical()
+        link=self.root['ydental.treatment.medicine.link'].search([('ydental_store_id','=',self.stores[0].id)])
+        self.assertTrue(link)
+        self.assertIn('error',self.rpc('ydental.treatment.service','_publish_medicine',[self.products['medicine'],self.drug_catalog.id,self.uom.id,'Forged','demo_confirmation']))
+        self.assertIn('error',self.rpc('ydental.treatment.medicine.link','create',[{'name':'forged'}],{'ydental_treatment_mutation':True}))
+        self.assertIn('error',self.rpc('ydental.treatment.medicine.link','write',[[link.id],{'ydental_product_id':False}]))
+        self.assertIn('error',self.rpc('ydental.treatment.medicine.link','unlink',[[link.id]]))
+        self.assertIn('error',self.rpc('ydental.treatment.medicine.link','export_data',[[link.id],['ydental_evidence']]))
+        self.assertIn('error',self.rpc('ir.attachment','create',[{'name':'blocked','res_model':'ydental.treatment.medicine.link','res_id':link.id,'datas':'YQ=='}]))

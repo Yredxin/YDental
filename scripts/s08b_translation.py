@@ -31,10 +31,10 @@ invalid_metadata = [entry.msgid for entry in pot if entry.msgid not in entries o
 result = {'database': args.db,
     'test': subprocess.check_output(['git', '-C', str(root), 'rev-parse', 'HEAD'], text=True).strip(),
     'exported_terms': len(pot), 'translated_terms': len(pot) - len(missing), 'missing': missing,
-    'source_codes_preserved': all(not e.msgid.startswith(('access_denied:', 'version_conflict:', 'lot_', 'return_', 'precision_error:', 'insufficient_balance:')) or e.msgstr.startswith(e.msgid.split(':')[0]+':') for e in po), 'invalid_code_metadata': invalid_metadata,
-    'result': 'FAIL' if missing or invalid_metadata else 'PASS'}
+    'source_codes_preserved': all(not re.match(r'^[a-z_]+:', e.msgid) or e.msgstr.startswith(e.msgid.split(':')[0]+':') for e in po), 'invalid_code_metadata': invalid_metadata,
+    'result': 'FAIL' if missing or invalid_metadata or any(re.match(r'^[a-z_]+:', e.msgid) and not e.msgstr.startswith(e.msgid.split(':')[0]+':') for e in po) else 'PASS'}
 evidence = root / 'docs/evidence/s08b-rework'
 evidence.mkdir(parents=True, exist_ok=True)
 (evidence / ('translation-' + args.db + '.json')).write_text(json.dumps(result, indent=2) + '\n')
 print(json.dumps({'result': result['result'], 'terms': len(pot), 'missing': len(missing), 'invalid_metadata': len(invalid_metadata)}))
-raise SystemExit(bool(missing or invalid_metadata))
+raise SystemExit(result['result'] != 'PASS')
