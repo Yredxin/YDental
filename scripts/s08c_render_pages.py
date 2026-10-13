@@ -22,6 +22,8 @@ def line_matrix(artifact,pages):
  lines=artifact['fields'].get('lines',[])
  if artifact['fields']['kind']!='prescription':return []
  whole=normalized(''.join(page['text'] for page in pages))
+ for label in ('SKU／药品／规格','用法／频次／疗程','开立数量／实际已发／未领数量','状态／原因'):
+  assert normalized(label) in whole,('untranslated prescription label',label)
  headings=list(re.finditer(r'(?:明细编号|LineID):(\d+)',whole))
  actual=[int(match.group(1)) for match in headings]
  expected=[line['id'] for line in lines]
