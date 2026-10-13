@@ -1,0 +1,257 @@
+{
+  "database": "ydental_s08c_test_20261013063042_4e7a1d2c",
+  "tested_commit": "141301e473e83c9429335b5127e76b7c0e4cc8a7",
+  "browser": "Firefox headed, native print dialog, default sandbox",
+  "checks": [
+    {
+      "check": "doctor selects current store",
+      "result": "PASS"
+    },
+    {
+      "check": "preview HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "check": "clinical visible preview equals actual server response",
+      "result": "PASS"
+    },
+    {
+      "check": "clinical real Chinese source preview",
+      "result": "PASS"
+    },
+    {
+      "check": "generate HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "check": "pdf_view HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "check": "clinical true PDF binary",
+      "result": "PASS"
+    },
+    {
+      "check": "download HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "check": "clinical downloaded true binary",
+      "result": "PASS"
+    },
+    {
+      "check": "print_request HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "check": "clinical opened real PDF viewer",
+      "result": "PASS"
+    },
+    {
+      "check": "clinical request distinct from physical paper",
+      "result": "PASS"
+    },
+    {
+      "check": "preview HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "check": "prescription visible preview equals actual server response",
+      "result": "PASS"
+    },
+    {
+      "check": "prescription real Chinese source preview",
+      "result": "PASS"
+    },
+    {
+      "check": "generate HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "check": "pdf_view HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "check": "prescription true PDF binary",
+      "result": "PASS"
+    },
+    {
+      "check": "download HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "check": "prescription downloaded true binary",
+      "result": "PASS"
+    },
+    {
+      "check": "print_request HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "check": "prescription opened real PDF viewer",
+      "result": "PASS"
+    },
+    {
+      "check": "prescription request distinct from physical paper",
+      "result": "PASS"
+    },
+    {
+      "check": "preview HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "check": "consent visible preview equals actual server response",
+      "result": "PASS"
+    },
+    {
+      "check": "consent real Chinese source preview",
+      "result": "PASS"
+    },
+    {
+      "check": "generate HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "check": "pdf_view HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "check": "consent true PDF binary",
+      "result": "PASS"
+    },
+    {
+      "check": "download HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "check": "consent downloaded true binary",
+      "result": "PASS"
+    },
+    {
+      "check": "print_request HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "check": "consent opened real PDF viewer",
+      "result": "PASS"
+    },
+    {
+      "check": "consent request distinct from physical paper",
+      "result": "PASS"
+    },
+    {
+      "check": "preview HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "check": "held generation response freezes source",
+      "result": "PASS"
+    },
+    {
+      "check": "preview HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "check": "lost response disables actions without fake success",
+      "result": "PASS"
+    },
+    {
+      "check": "offline clears qualification without false success",
+      "result": "PASS"
+    },
+    {
+      "check": "online requires explicit source review",
+      "result": "PASS"
+    },
+    {
+      "check": "reader selects current store",
+      "result": "PASS"
+    },
+    {
+      "check": "reader without export denied by server",
+      "result": "PASS"
+    },
+    {
+      "check": "no Firefox pageerror",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T065003754217/01-entry.png",
+      "sha256": "7911613d901717337e2d3ecd1cadb88a24248ee0fa40faf56219e90c3e040cb3",
+      "kind": "Firefox page"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T065003754217/clinical-review.png",
+      "sha256": "5a0a77c3ceb6aa65f5b7a88d6b181df06f71a4a608867ee150371da9ec447bcc",
+      "kind": "Firefox page"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T065003754217/clinical-pdf-view.png",
+      "sha256": "934349d67d72541e482122c184477948db73e3ac7a8dedd826818082c72f4dd3",
+      "kind": "Firefox page"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T065003754217/clinical-native-print-dialog.png",
+      "sha256": "552782ecb50f8a1bea53b25ad9692c81b51d9a50f0c3c6aa5ef24cfd5fa98cad",
+      "kind": "native print dialog desktop"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T065003754217/prescription-review.png",
+      "sha256": "06a236cb2e2e3d67c95b369d30e6b55214db0adb2be82baf098c49b9ef939c04",
+      "kind": "Firefox page"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T065003754217/prescription-pdf-view.png",
+      "sha256": "6692876a7484b7cc05fbd364179eee01998f828773947a2c1490cff5fd595f5b",
+      "kind": "Firefox page"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T065003754217/prescription-native-print-dialog.png",
+      "sha256": "d522585ee30d8eecae1c46550a19eb8cadb5e2ac9689773ef421d6a43c12e716",
+      "kind": "native print dialog desktop"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T065003754217/consent-review.png",
+      "sha256": "c386cac05a8e4fdccf4be1c285f802219d1b0fd3c452a8320f90ae557c8251eb",
+      "kind": "Firefox page"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T065003754217/consent-pdf-view.png",
+      "sha256": "22d378483287bdb4e23ba722ac4b0758f4aa0df9669b40e398c8b63dbbc1f3ef",
+      "kind": "Firefox page"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T065003754217/consent-native-print-dialog.png",
+      "sha256": "ef500c57eb19ed7ae587bafc4756ba29188ec3ce025673e39d41daf8a95c1e95",
+      "kind": "native print dialog desktop"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T065003754217/held-generation.png",
+      "sha256": "329f6427cd50e90361b6484ecfaf2fdd7e30697410f445acaa542f6b50abaf28",
+      "kind": "Firefox page"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T065003754217/lost-generation-response.png",
+      "sha256": "b0771daa583ac0a2eb94f7f511ce526cb5f98437bcb58702606f24797c2ac3d6",
+      "kind": "Firefox page"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T065003754217/offline-failure.png",
+      "sha256": "8ae851521dc86a8823a4da7d3edba6a1bdef0a61806a31eb8144b0c090ec0fea",
+      "kind": "Firefox page"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T065003754217/reader-export-denied.png",
+      "sha256": "19d342109a01001a6538b36ac1e9923a9424eef2417cbf21dc3511efa35358b8",
+      "kind": "Firefox page"
+    }
+  ],
+  "pageerrors": [],
+  "physical_paper": "UNKNOWN",
+  "lost_response_status": 200,
+  "result": "PASS",
+  "native_dialog_visual_review": "PENDING",
+  "xvfb_exit": -15
+}

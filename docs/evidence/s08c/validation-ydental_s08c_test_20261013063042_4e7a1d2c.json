@@ -1,0 +1,515 @@
+{
+  "database": "ydental_s08c_test_20261013063042_4e7a1d2c",
+  "port": 18182,
+  "tested_commit": "141301e473e83c9429335b5127e76b7c0e4cc8a7",
+  "started_utc": "2026-10-13T06:30:47.108812+00:00",
+  "commands": [
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "install",
+        "--db",
+        "ydental_s08c_test_20261013063042_4e7a1d2c",
+        "--port",
+        "18182"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T06:30:47.110510+00:00"
+    },
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "upgrade",
+        "--db",
+        "ydental_s08c_test_20261013063042_4e7a1d2c",
+        "--port",
+        "18182"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T06:34:23.422679+00:00",
+      "log_sha256": "49ec412e87fc196a6581f969f1e1269a1f4fd018356602b3c3882c8baa1dad5b",
+      "log": "validation-s08c-20261013T063423422703.log"
+    },
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/test_s08c_guard.py"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T06:36:58.046280+00:00",
+      "log_sha256": "55253b339af866b6cbab614327c6b64ebd71dde58950eaa1157f4547f183b04d",
+      "log": "validation-test_s08c_guard-20261013T063658046301.log"
+    },
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "probe_a",
+        "--db",
+        "ydental_s08c_test_20261013063042_4e7a1d2c",
+        "--port",
+        "18182"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T06:36:58.402591+00:00",
+      "log_sha256": "52416a28f382f24034a71a1af61a93fa6bccc2887487f0c60d6915913006a770",
+      "log": "validation-s08c-20261013T063658402611.log"
+    },
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "probe",
+        "--db",
+        "ydental_s08c_test_20261013063042_4e7a1d2c",
+        "--port",
+        "18182"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T06:38:44.709359+00:00",
+      "log_sha256": "351656423c0d07e22d5064a18e098201d150f84f4410f86c53e1d2d9d4d00dd2",
+      "log": "validation-s08c-20261013T063844709382.log"
+    },
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "probe_c",
+        "--db",
+        "ydental_s08c_test_20261013063042_4e7a1d2c",
+        "--port",
+        "18182"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T06:43:03.095403+00:00",
+      "log_sha256": "a259f63ea8db9ac739f8a6d7d9ab6efb4fa3cbd059883666a5c72a77c9ed8d33",
+      "log": "validation-s08c-20261013T064303095424.log"
+    },
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08c_render_pages.py",
+        "docs/evidence/s08c/probe-attempts/20261013T064304331872/result.json"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T06:44:56.231563+00:00",
+      "log_sha256": "2aca71853b230e83cbe4cf3e71ac53e9f3c94bc2b04f9ab1c66ba4781d67b932",
+      "log": "validation-s08c_render_pages-20261013T064456231582.log"
+    },
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "export",
+        "--db",
+        "ydental_s08c_test_20261013063042_4e7a1d2c",
+        "--port",
+        "18182"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T06:44:59.346538+00:00",
+      "log_sha256": "4c8b3d6c299ac33f6f6ab7d2101a4a76c407485687b7c3ebfb1254ba70bf1b45",
+      "log": "validation-s08c-20261013T064459346559.log"
+    },
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08c_translation.py",
+        "--db",
+        "ydental_s08c_test_20261013063042_4e7a1d2c"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T06:45:01.790952+00:00",
+      "log_sha256": "6a53733a291b0b84b6911d162426501dc75890402b92c2b3e0292e6e6b44ca0b",
+      "log": "validation-s08c_translation-20261013T064501790972.log"
+    },
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "preview",
+        "--db",
+        "ydental_s08c_test_20261013063042_4e7a1d2c",
+        "--port",
+        "18182"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T06:45:01.850833+00:00",
+      "log_sha256": "ae3245028f3bd4dce03a9adc4effb4f1cb5a3c9101ddc03bbd86496946f23f95",
+      "log": "validation-s08c-20261013T064501850853.log"
+    },
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "audit",
+        "--db",
+        "ydental_s08c_test_20261013063042_4e7a1d2c",
+        "--port",
+        "18182"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T06:45:19.487114+00:00",
+      "log_sha256": "50a2fa4c73efde2d73c032a7fc025f617a5e94d0c279dc3073e87981aa8fa01b",
+      "log": "validation-s08c-20261013T064519487138.log"
+    },
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08c_a_browser.py",
+        "--db",
+        "ydental_s08c_test_20261013063042_4e7a1d2c",
+        "--port",
+        "18182",
+        "--terminal-races"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T06:45:35.978034+00:00",
+      "log_sha256": "44f9bfea64f4f297ace72e1cb37932204109fd94037524dd7a4067c251e4d7f9",
+      "log": "validation-s08c_a_browser-20261013T064535978056.log"
+    },
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "audit",
+        "--db",
+        "ydental_s08c_test_20261013063042_4e7a1d2c",
+        "--port",
+        "18182"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T06:46:33.706847+00:00",
+      "log_sha256": "6bb8fdfc899c431d42fd60e436eef0c73dbc2eabcb6b621127580186eda01a77",
+      "log": "validation-s08c-20261013T064633706871.log"
+    },
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "preview",
+        "--db",
+        "ydental_s08c_test_20261013063042_4e7a1d2c",
+        "--port",
+        "18182"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T06:46:49.373496+00:00",
+      "log_sha256": "db633a0a9e28f98336d47ea388c7e67bf5264dd998a24760aa4c6c4d9aca32dd",
+      "log": "validation-s08c-20261013T064649373518.log"
+    },
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "audit",
+        "--db",
+        "ydental_s08c_test_20261013063042_4e7a1d2c",
+        "--port",
+        "18182"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T06:47:07.189805+00:00",
+      "log_sha256": "67d7e59a9c684886515148d5abc0fc8d4edce18528e7551beb7f88c68f1b9947",
+      "log": "validation-s08c-20261013T064707189829.log"
+    },
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08c_browser.py",
+        "--db",
+        "ydental_s08c_test_20261013063042_4e7a1d2c",
+        "--port",
+        "18182"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T06:47:24.431853+00:00",
+      "log_sha256": "5e755978dc14cd0269242fd1491501790c3aa8890eaf4284680d98185c64b80f",
+      "log": "validation-s08c_browser-20261013T064724431872.log"
+    },
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "audit",
+        "--db",
+        "ydental_s08c_test_20261013063042_4e7a1d2c",
+        "--port",
+        "18182"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T06:48:01.054705+00:00",
+      "log_sha256": "5ec8513e5db9084a1c68f8f3d7847e87e67b8eb4f6a5bfabe2470652009b081d",
+      "log": "validation-s08c-20261013T064801054723.log"
+    },
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "preview",
+        "--db",
+        "ydental_s08c_test_20261013063042_4e7a1d2c",
+        "--port",
+        "18182"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T06:48:17.449763+00:00",
+      "log_sha256": "d68aba2ab403209f27f4ee26485f4a1a855b04ec9196cdfdabb33c9131f24c30",
+      "log": "validation-s08c-20261013T064817449784.log"
+    },
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "audit",
+        "--db",
+        "ydental_s08c_test_20261013063042_4e7a1d2c",
+        "--port",
+        "18182"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T06:48:35.295613+00:00",
+      "log_sha256": "6e3a35e121ac679a477e93c4e02d766bb73012b9929f87a59a0596634f1b366c",
+      "log": "validation-s08c-20261013T064835295645.log"
+    },
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08c_rework_browser.py",
+        "--db",
+        "ydental_s08c_test_20261013063042_4e7a1d2c",
+        "--port",
+        "18182"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T06:48:53.491725+00:00",
+      "log_sha256": "192e9a8f57e1cd51557780d43fc59be0338a1c0ef5ffd128175fd024cb71b1d2",
+      "log": "validation-s08c_rework_browser-20261013T064853491749.log"
+    },
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "audit",
+        "--db",
+        "ydental_s08c_test_20261013063042_4e7a1d2c",
+        "--port",
+        "18182"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T06:49:27.690707+00:00",
+      "log_sha256": "07a975b81a5bfcbfee269d12cbdf376ca919dc66f3593b229b926c1eb79f883e",
+      "log": "validation-s08c-20261013T064927690726.log"
+    },
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "audit",
+        "--db",
+        "ydental_s08c_test_20261013063042_4e7a1d2c",
+        "--port",
+        "18182"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T06:49:45.024868+00:00",
+      "log_sha256": "5d3f94402c675e9ca536c529634c770ecc35cdbdd5d4935ebaffad7403004210",
+      "log": "validation-s08c-20261013T064945024889.log"
+    },
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08c_print_browser.py",
+        "--db",
+        "ydental_s08c_test_20261013063042_4e7a1d2c",
+        "--port",
+        "18182"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T06:50:03.650229+00:00",
+      "log_sha256": "d47a5a9796e9c59568030bbefbf94a835fb7272f596e9f7ed7b8bde5bafdc627",
+      "log": "validation-s08c_print_browser-20261013T065003650249.log"
+    },
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "audit",
+        "--db",
+        "ydental_s08c_test_20261013063042_4e7a1d2c",
+        "--port",
+        "18182"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T06:50:54.328719+00:00",
+      "log_sha256": "06548f110e58d10536727475622b51040bdacf8200640bc6888fa9d8101c2c51",
+      "log": "validation-s08c-20261013T065054328745.log"
+    },
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "audit",
+        "--db",
+        "ydental_s08c_test_20261013063042_4e7a1d2c",
+        "--port",
+        "18182"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T06:51:11.544883+00:00",
+      "log_sha256": "98050ad3fd233d4f6ed5cab0d99ad7fae546cf332903919b83f0fa7441d0c428",
+      "log": "validation-s08c-20261013T065111544902.log"
+    },
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "upgrade",
+        "--db",
+        "ydental_s08c_test_20261013063042_4e7a1d2c",
+        "--port",
+        "18182"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T06:51:28.854417+00:00",
+      "log_sha256": "99413c12b37bc8a2f02dc13d43474a41532b1c3a1f32b9030be5dd93999e355a",
+      "log": "validation-s08c-20261013T065128854438.log"
+    },
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "audit",
+        "--db",
+        "ydental_s08c_test_20261013063042_4e7a1d2c",
+        "--port",
+        "18182"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T06:54:37.864305+00:00",
+      "log_sha256": "c11dbdc61dbb788f4b177013a3c653b1cedde80e3c4cda21e74d372d68ce06b2",
+      "log": "validation-s08c-20261013T065437864326.log"
+    }
+  ],
+  "preview_stops": [
+    {
+      "phase": "A",
+      "config_sha256": "68daefb740a580efca59e734df5007a7eaf78d86ad2e0eb98516196de1211cea",
+      "pid": 1735874,
+      "exit_code": 0
+    },
+    {
+      "phase": "B",
+      "config_sha256": "68daefb740a580efca59e734df5007a7eaf78d86ad2e0eb98516196de1211cea",
+      "pid": 1737515,
+      "exit_code": 0
+    },
+    {
+      "phase": "R",
+      "config_sha256": "68daefb740a580efca59e734df5007a7eaf78d86ad2e0eb98516196de1211cea",
+      "pid": 1738703,
+      "exit_code": 0
+    },
+    {
+      "phase": "C",
+      "config_sha256": "68daefb740a580efca59e734df5007a7eaf78d86ad2e0eb98516196de1211cea",
+      "pid": 1739816,
+      "exit_code": 0
+    }
+  ],
+  "result": "PASS",
+  "pure_A_signatures": {
+    "result": "PASS",
+    "tables": [
+      "ydental_inventory_event",
+      "ydental_inventory_batch",
+      "stock_move",
+      "stock_move_line",
+      "stock_quant",
+      "ydental_intake_snapshot",
+      "ydental_treatment_event",
+      "ydental_treatment_fee",
+      "ydental_treatment_order",
+      "ydental_treatment_line",
+      "ydental_treatment_segment",
+      "ydental_treatment_consumption",
+      "ydental_treatment_price_review",
+      "ydental_treatment_medicine_link",
+      "ydental_print_job",
+      "ydental_supply_slot",
+      "ydental_intake_referral",
+      "ydental_intake_price"
+    ],
+    "before": "before-browser-A-ydental_s08c_test_20261013063042_4e7a1d2c.json",
+    "after": "after-browser-A-ydental_s08c_test_20261013063042_4e7a1d2c.json"
+  },
+  "pure_C_signatures": {
+    "result": "PASS",
+    "tables": [
+      "ydental_clinical_document",
+      "ydental_clinical_version",
+      "ydental_queue_execution",
+      "ydental_intake_task",
+      "ydental_inventory_event",
+      "ydental_inventory_batch",
+      "stock_move",
+      "stock_move_line",
+      "stock_quant",
+      "ydental_intake_snapshot",
+      "ydental_treatment_event",
+      "ydental_treatment_fee",
+      "ydental_treatment_order",
+      "ydental_treatment_line",
+      "ydental_treatment_segment",
+      "ydental_treatment_consumption",
+      "ydental_treatment_price_review",
+      "ydental_queue_entry",
+      "ydental_queue_lease",
+      "ydental_supply_claim",
+      "ydental_treatment_medicine_link",
+      "ydental_queue_outbox",
+      "bus_bus",
+      "ydental_supply_slot",
+      "ydental_intake_referral",
+      "ydental_intake_price"
+    ],
+    "before": "before-browser-C-ydental_s08c_test_20261013063042_4e7a1d2c.json",
+    "after": "after-browser-C-ydental_s08c_test_20261013063042_4e7a1d2c.json"
+  },
+  "business_upgrade": {
+    "result": "PASS",
+    "tables": [
+      "ydental_clinical_document",
+      "ydental_clinical_version",
+      "ydental_queue_execution",
+      "ydental_intake_task",
+      "ydental_inventory_event",
+      "ydental_inventory_batch",
+      "stock_move",
+      "stock_move_line",
+      "stock_quant",
+      "ydental_intake_snapshot",
+      "ydental_treatment_event",
+      "ydental_treatment_fee",
+      "ydental_treatment_order",
+      "ydental_treatment_line",
+      "ydental_treatment_segment",
+      "ydental_treatment_consumption",
+      "ydental_treatment_price_review",
+      "ydental_queue_entry",
+      "ydental_queue_lease",
+      "ydental_supply_claim",
+      "ydental_treatment_medicine_link",
+      "ydental_queue_outbox",
+      "bus_bus",
+      "ydental_print_job",
+      "ydental_supply_slot",
+      "ydental_intake_referral",
+      "ydental_intake_price"
+    ],
+    "all_equal": true
+  },
+  "finished_utc": "2026-10-13T06:54:55.164490+00:00"
+}

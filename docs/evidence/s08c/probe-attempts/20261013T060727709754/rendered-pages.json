@@ -1,0 +1,877 @@
+{
+  "database": "ydental_s08c_test_20261013055509_9cb7482e",
+  "tested_commit": "860bb30672255d318d94cb1866cbbf99226fdb8f",
+  "pdfs": [
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/race-generate-during-source-save.pdf",
+      "sha256": "9b3cfd34aa9bd636a4a13c27fb5fd4dcba55372ac54124b588d7934e4eb63386",
+      "pages": [
+        {
+          "number": 1,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/race-generate-during-source-save-page-01.png",
+          "sha256": "c47ff7ba0edb17871cba43dcfe997a6e17891abe0b3b91b5ad535b1976af04f6",
+          "characters": 591,
+          "business_characters": 501,
+          "body_dark_pixels": 64587,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 2,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/race-generate-during-source-save-page-02.png",
+          "sha256": "8665ba4715858f3a583f730e4d42de991cab173a2346c5977ced9dcacb9ca063",
+          "characters": 565,
+          "business_characters": 494,
+          "body_dark_pixels": 26569,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        }
+      ],
+      "fonts": [
+        "NotoSansCJKsc-Regular"
+      ],
+      "source_line_matrix": [],
+      "text": "docs/evidence/s08c/probe-attempts/20261013T060727709754/race-generate-during-source-save.txt",
+      "result": "AUTOMATED_PASS_VISUAL_PENDING"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/clinical-d1-long-draft.pdf",
+      "sha256": "b041c0f5c652359b7fcca51fa317474a045ef17858e80655a8c0cbedb732b7bf",
+      "pages": [
+        {
+          "number": 1,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/clinical-d1-long-draft-page-01.png",
+          "sha256": "d7c34af5c714009c1aa327c9090dc40aeff220cd60b4a1a4ee2a12db10af3956",
+          "characters": 492,
+          "business_characters": 410,
+          "body_dark_pixels": 63455,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 2,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/clinical-d1-long-draft-page-02.png",
+          "sha256": "04299dd3a8fcd974e8f6cca23b2c0fb765694693f4efbd0b58937f65e8c678f4",
+          "characters": 2513,
+          "business_characters": 2450,
+          "body_dark_pixels": 212170,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 3,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/clinical-d1-long-draft-page-03.png",
+          "sha256": "5d73525a030be42758f016da54b23bc7b4f88ec94a1ef12948b3dfa3563a8dca",
+          "characters": 2513,
+          "business_characters": 2450,
+          "body_dark_pixels": 212170,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 4,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/clinical-d1-long-draft-page-04.png",
+          "sha256": "48a719263685568916072dea932dcdae0818bb5de16228bdca3900a1a876c929",
+          "characters": 2513,
+          "business_characters": 2450,
+          "body_dark_pixels": 212170,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 5,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/clinical-d1-long-draft-page-05.png",
+          "sha256": "3ded19a5b84ecf77ae312094436e8a27ae878f735980c5dc9223c2c16d54f355",
+          "characters": 938,
+          "business_characters": 856,
+          "body_dark_pixels": 88762,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 6,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/clinical-d1-long-draft-page-06.png",
+          "sha256": "9c0465620ca7ccbeca8a5982c08d25d696ca9cc99b1b21624ffc4f95fa792906",
+          "characters": 373,
+          "business_characters": 253,
+          "body_dark_pixels": 57540,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 7,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/clinical-d1-long-draft-page-07.png",
+          "sha256": "7235ac158749eb0b0aba827490b2c5df8c9e99db05acde500cf3c3a1f1f7ed89",
+          "characters": 494,
+          "business_characters": 418,
+          "body_dark_pixels": 27337,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        }
+      ],
+      "fonts": [
+        "NotoSansCJKsc-Regular"
+      ],
+      "source_line_matrix": [],
+      "text": "docs/evidence/s08c/probe-attempts/20261013T060727709754/clinical-d1-long-draft.txt",
+      "result": "AUTOMATED_PASS_VISUAL_PENDING"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/consent-unsigned-unreviewed.pdf",
+      "sha256": "4c04198b540c225a8fe5e5538376f04f68dc2c9e1401a7759330d2686be40458",
+      "pages": [
+        {
+          "number": 1,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/consent-unsigned-unreviewed-page-01.png",
+          "sha256": "386811ee70bd5d2b6287845898bfd69b7d0bd1a97751ef472a7df184b6ecb878",
+          "characters": 529,
+          "business_characters": 446,
+          "body_dark_pixels": 67978,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 2,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/consent-unsigned-unreviewed-page-02.png",
+          "sha256": "ee4d9c06e1d60b5822caddb148ddffd92d4cf6468892a115adeadbc51b6e88ad",
+          "characters": 538,
+          "business_characters": 475,
+          "body_dark_pixels": 30589,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        }
+      ],
+      "fonts": [
+        "NotoSansCJKsc-Regular"
+      ],
+      "source_line_matrix": [],
+      "text": "docs/evidence/s08c/probe-attempts/20261013T060727709754/consent-unsigned-unreviewed.txt",
+      "result": "AUTOMATED_PASS_VISUAL_PENDING"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/prescription-incomplete-draft.pdf",
+      "sha256": "3c896cf75441083cdf82583559c18100899093f2c4ab11a82c975b2465776151",
+      "pages": [
+        {
+          "number": 1,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/prescription-incomplete-draft-page-01.png",
+          "sha256": "01ff1e0f51894e05f9ecb733b1d048629fc4e77df4636d01ef52f1de6262412b",
+          "characters": 516,
+          "business_characters": 424,
+          "body_dark_pixels": 48742,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 2,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/prescription-incomplete-draft-page-02.png",
+          "sha256": "84c8fcf4817049891d43c105da15ebda09e6a379357cc494b46a2b7a62ec8db0",
+          "characters": 437,
+          "business_characters": 382,
+          "body_dark_pixels": 19742,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        }
+      ],
+      "fonts": [
+        "NotoSansCJKsc-Regular"
+      ],
+      "source_line_matrix": [
+        {
+          "line_id": 113,
+          "source_fields": {
+            "sku": true,
+            "name": true,
+            "product_specification": true,
+            "specification": true,
+            "usage": true,
+            "frequency": true,
+            "course": true,
+            "unit": true,
+            "state": true,
+            "reason": true,
+            "approved": true,
+            "dispensed": true,
+            "remaining": true
+          },
+          "end_marker_pages": {}
+        }
+      ],
+      "text": "docs/evidence/s08c/probe-attempts/20261013T060727709754/prescription-incomplete-draft.txt",
+      "result": "AUTOMATED_PASS_VISUAL_PENDING"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/prescription-six-uncollected.pdf",
+      "sha256": "c0c08f2a8349695fb43dd42cde11fff279e252a21b81fdd1bb81a433b25ad989",
+      "pages": [
+        {
+          "number": 1,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/prescription-six-uncollected-page-01.png",
+          "sha256": "2e70b180bbb2b242e893c060368cd1fcb0587c2aeea2f8037d3c950c90f5e679",
+          "characters": 593,
+          "business_characters": 496,
+          "body_dark_pixels": 50532,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 2,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/prescription-six-uncollected-page-02.png",
+          "sha256": "83de803920d22ad99d47f3b4f503dc9d239507cc72a990dc5322663eb5492830",
+          "characters": 439,
+          "business_characters": 384,
+          "body_dark_pixels": 19750,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        }
+      ],
+      "fonts": [
+        "NotoSansCJKsc-Regular"
+      ],
+      "source_line_matrix": [
+        {
+          "line_id": 114,
+          "source_fields": {
+            "sku": true,
+            "name": true,
+            "product_specification": true,
+            "specification": true,
+            "usage": true,
+            "frequency": true,
+            "course": true,
+            "unit": true,
+            "state": true,
+            "reason": true,
+            "approved": true,
+            "dispensed": true,
+            "remaining": true
+          },
+          "end_marker_pages": {}
+        }
+      ],
+      "text": "docs/evidence/s08c/probe-attempts/20261013T060727709754/prescription-six-uncollected.txt",
+      "result": "AUTOMATED_PASS_VISUAL_PENDING"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/clinical-d1-pending.pdf",
+      "sha256": "ec1ba1b81b13535712c2b125c0f838eefc825cf213cf8aac21105077ea204527",
+      "pages": [
+        {
+          "number": 1,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/clinical-d1-pending-page-01.png",
+          "sha256": "18cb13ce597a9e21c290f320be27cdd55c473df9fab352184b1f230e0a004b16",
+          "characters": 498,
+          "business_characters": 416,
+          "body_dark_pixels": 63906,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 2,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/clinical-d1-pending-page-02.png",
+          "sha256": "04299dd3a8fcd974e8f6cca23b2c0fb765694693f4efbd0b58937f65e8c678f4",
+          "characters": 2513,
+          "business_characters": 2450,
+          "body_dark_pixels": 212170,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 3,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/clinical-d1-pending-page-03.png",
+          "sha256": "5d73525a030be42758f016da54b23bc7b4f88ec94a1ef12948b3dfa3563a8dca",
+          "characters": 2513,
+          "business_characters": 2450,
+          "body_dark_pixels": 212170,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 4,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/clinical-d1-pending-page-04.png",
+          "sha256": "48a719263685568916072dea932dcdae0818bb5de16228bdca3900a1a876c929",
+          "characters": 2513,
+          "business_characters": 2450,
+          "body_dark_pixels": 212170,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 5,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/clinical-d1-pending-page-05.png",
+          "sha256": "3ded19a5b84ecf77ae312094436e8a27ae878f735980c5dc9223c2c16d54f355",
+          "characters": 938,
+          "business_characters": 856,
+          "body_dark_pixels": 88762,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 6,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/clinical-d1-pending-page-06.png",
+          "sha256": "9c0465620ca7ccbeca8a5982c08d25d696ca9cc99b1b21624ffc4f95fa792906",
+          "characters": 373,
+          "business_characters": 253,
+          "body_dark_pixels": 57540,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 7,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/clinical-d1-pending-page-07.png",
+          "sha256": "a5800f2356bd7b6f7fa2cb5ab7b9b06b6bb98f2725f8783f9eee4b5c7abb9fbd",
+          "characters": 496,
+          "business_characters": 420,
+          "body_dark_pixels": 27422,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        }
+      ],
+      "fonts": [
+        "NotoSansCJKsc-Regular"
+      ],
+      "source_line_matrix": [],
+      "text": "docs/evidence/s08c/probe-attempts/20261013T060727709754/clinical-d1-pending.txt",
+      "result": "AUTOMATED_PASS_VISUAL_PENDING"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/prescription-four-dispensed-two-left.pdf",
+      "sha256": "a4d6fe14d06daf97b0e50695f4e8e9c50750f26dce4eca699b0eed8d3bddb5c4",
+      "pages": [
+        {
+          "number": 1,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/prescription-four-dispensed-two-left-page-01.png",
+          "sha256": "2b118b11c75a3b999279a7578e11d331fdf486ba35ec061d8bf0c01f06042fab",
+          "characters": 595,
+          "business_characters": 498,
+          "body_dark_pixels": 50565,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 2,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/prescription-four-dispensed-two-left-page-02.png",
+          "sha256": "45f853b6acae8780f1d44e431ee15250b086f5aeb91a9e08ebe816124ca6a2b5",
+          "characters": 529,
+          "business_characters": 456,
+          "body_dark_pixels": 23788,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        }
+      ],
+      "fonts": [
+        "NotoSansCJKsc-Regular"
+      ],
+      "source_line_matrix": [
+        {
+          "line_id": 114,
+          "source_fields": {
+            "sku": true,
+            "name": true,
+            "product_specification": true,
+            "specification": true,
+            "usage": true,
+            "frequency": true,
+            "course": true,
+            "unit": true,
+            "state": true,
+            "reason": true,
+            "approved": true,
+            "dispensed": true,
+            "remaining": true
+          },
+          "end_marker_pages": {}
+        }
+      ],
+      "text": "docs/evidence/s08c/probe-attempts/20261013T060727709754/prescription-four-dispensed-two-left.txt",
+      "result": "AUTOMATED_PASS_VISUAL_PENDING"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/prescription-six-dispensed-zero-left.pdf",
+      "sha256": "c1fdac18c31b32a44aa8b0426d4261fc2b244e93caf6101b9fffb271dc846575",
+      "pages": [
+        {
+          "number": 1,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/prescription-six-dispensed-zero-left-page-01.png",
+          "sha256": "b313b48aad7ce4d9afc6e9059520b700cacefeb1d5565f5685ade9dcd5ed191a",
+          "characters": 600,
+          "business_characters": 503,
+          "body_dark_pixels": 51207,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 2,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/prescription-six-dispensed-zero-left-page-02.png",
+          "sha256": "4b8b3085dc009921343cb0cba12262ba4568f834e7a00b81d6f7a15c8076afcd",
+          "characters": 627,
+          "business_characters": 534,
+          "body_dark_pixels": 28448,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        }
+      ],
+      "fonts": [
+        "NotoSansCJKsc-Regular"
+      ],
+      "source_line_matrix": [
+        {
+          "line_id": 114,
+          "source_fields": {
+            "sku": true,
+            "name": true,
+            "product_specification": true,
+            "specification": true,
+            "usage": true,
+            "frequency": true,
+            "course": true,
+            "unit": true,
+            "state": true,
+            "reason": true,
+            "approved": true,
+            "dispensed": true,
+            "remaining": true
+          },
+          "end_marker_pages": {}
+        }
+      ],
+      "text": "docs/evidence/s08c/probe-attempts/20261013T060727709754/prescription-six-dispensed-zero-left.txt",
+      "result": "AUTOMATED_PASS_VISUAL_PENDING"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/clinical-d2-confirmed-independent.pdf",
+      "sha256": "1488db33bd869840ee20c11b645e0680585061a96f2946779186a0ef24cd1383",
+      "pages": [
+        {
+          "number": 1,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/clinical-d2-confirmed-independent-page-01.png",
+          "sha256": "3ab80a5027c56bd8e20820e94a5801a7ddeb491720d525a97aa55e46131debec",
+          "characters": 532,
+          "business_characters": 447,
+          "body_dark_pixels": 66010,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 2,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/clinical-d2-confirmed-independent-page-02.png",
+          "sha256": "3aed9f27dccd7ad484a647aeaadac8768e80d3c6afc6557e6fc9a857d98ef4bc",
+          "characters": 559,
+          "business_characters": 489,
+          "body_dark_pixels": 26675,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        }
+      ],
+      "fonts": [
+        "NotoSansCJKsc-Regular"
+      ],
+      "source_line_matrix": [],
+      "text": "docs/evidence/s08c/probe-attempts/20261013T060727709754/clinical-d2-confirmed-independent.txt",
+      "result": "AUTOMATED_PASS_VISUAL_PENDING"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/clinical-d2-historical-confirmed.pdf",
+      "sha256": "c500abca4ec3ca54fc0f5b0a79ffca5fbc6bad77c817c8381a7f40374812ac34",
+      "pages": [
+        {
+          "number": 1,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/clinical-d2-historical-confirmed-page-01.png",
+          "sha256": "17d7ed89160d5f2563d44bfc17c6e825fd5aa3515a008e439ab6569edca551d2",
+          "characters": 532,
+          "business_characters": 447,
+          "body_dark_pixels": 66013,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 2,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/clinical-d2-historical-confirmed-page-02.png",
+          "sha256": "a05049ab97c62a205245caf8afab4b027670c8196f2bfe9c0866d7c371f39a46",
+          "characters": 559,
+          "business_characters": 489,
+          "body_dark_pixels": 26796,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        }
+      ],
+      "fonts": [
+        "NotoSansCJKsc-Regular"
+      ],
+      "source_line_matrix": [],
+      "text": "docs/evidence/s08c/probe-attempts/20261013T060727709754/clinical-d2-historical-confirmed.txt",
+      "result": "AUTOMATED_PASS_VISUAL_PENDING"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/clinical-d2-corrected.pdf",
+      "sha256": "d314debe1972aab19cc44ac091378db1ec49004230d7c96193b06452cbe58e5b",
+      "pages": [
+        {
+          "number": 1,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/clinical-d2-corrected-page-01.png",
+          "sha256": "348ce8a987108833dfa052df5519f8b01922b5231489fbd9e69ac90e8a69a5db",
+          "characters": 529,
+          "business_characters": 444,
+          "body_dark_pixels": 65688,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 2,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/clinical-d2-corrected-page-02.png",
+          "sha256": "28418682e14933d44cce7fff599a23adfdb48d05fbb32945138caa14008accde",
+          "characters": 559,
+          "business_characters": 489,
+          "body_dark_pixels": 26735,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        }
+      ],
+      "fonts": [
+        "NotoSansCJKsc-Regular"
+      ],
+      "source_line_matrix": [],
+      "text": "docs/evidence/s08c/probe-attempts/20261013T060727709754/clinical-d2-corrected.txt",
+      "result": "AUTOMATED_PASS_VISUAL_PENDING"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/prescription-long-sixteen-lines.pdf",
+      "sha256": "56158434dd68f87f0054346232438b41fd84341b0ee7c6108c4c0e4a566d13b7",
+      "pages": [
+        {
+          "number": 1,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/prescription-long-sixteen-lines-page-01.png",
+          "sha256": "66c4b5f1867beb6655f4ecdeab94e9a959720fa94152f4930a13037cbb327c2f",
+          "characters": 1237,
+          "business_characters": 1148,
+          "body_dark_pixels": 100658,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 2,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/prescription-long-sixteen-lines-page-02.png",
+          "sha256": "29ea807c3f5c7ce485d35de4d6fe2f0ac8da6d5f0243628d10b1527b463d6b6f",
+          "characters": 1540,
+          "business_characters": 1445,
+          "body_dark_pixels": 105971,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 3,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/prescription-long-sixteen-lines-page-03.png",
+          "sha256": "02759ca35c1da22b43c2ceb9fd803c7383021a7d9859064bb39a4b1cab0859a5",
+          "characters": 1642,
+          "business_characters": 1545,
+          "body_dark_pixels": 111101,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 4,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/prescription-long-sixteen-lines-page-04.png",
+          "sha256": "db1a2171e164a832d224014e1d863e2c66a602194ab959ef4f2491d8c3209862",
+          "characters": 1902,
+          "business_characters": 1816,
+          "body_dark_pixels": 138676,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 5,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/prescription-long-sixteen-lines-page-05.png",
+          "sha256": "88e286324e4fc1a67acfa3f85f27ec13b3c974455aad98d5a5547c02afa2b53c",
+          "characters": 1443,
+          "business_characters": 1349,
+          "body_dark_pixels": 98285,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 6,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/prescription-long-sixteen-lines-page-06.png",
+          "sha256": "71a19f343906af9a83a15051fd7ce55c96d544e2c1ed101e33565915589b9b4a",
+          "characters": 1852,
+          "business_characters": 1753,
+          "body_dark_pixels": 115558,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 7,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/prescription-long-sixteen-lines-page-07.png",
+          "sha256": "501843170dac41c47ed175395762cbb7acde32accc95bc9ff653d8378c52a5e4",
+          "characters": 1830,
+          "business_characters": 1738,
+          "body_dark_pixels": 128855,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 8,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/prescription-long-sixteen-lines-page-08.png",
+          "sha256": "a703a9abd60609ed00e98de17fbd13880a2ef02fa5547eafaad94345d69d8b9e",
+          "characters": 1378,
+          "business_characters": 1284,
+          "body_dark_pixels": 92969,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 9,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/prescription-long-sixteen-lines-page-09.png",
+          "sha256": "bc6acc9775ebb5630f336a3e21b78aa8d0a38bebf81624d3d9f2556e522b2192",
+          "characters": 1856,
+          "business_characters": 1764,
+          "body_dark_pixels": 127018,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 10,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/prescription-long-sixteen-lines-page-10.png",
+          "sha256": "5933934f6a5311c86e67ea88bae5257c401a4de7156d4704c2792dde0661cd89",
+          "characters": 1742,
+          "business_characters": 1648,
+          "body_dark_pixels": 123086,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 11,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/prescription-long-sixteen-lines-page-11.png",
+          "sha256": "bc6b59ae0a5fb90c835191c588956445468addb9f4d2746257d6c74d2637d722",
+          "characters": 1468,
+          "business_characters": 1372,
+          "body_dark_pixels": 96184,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 12,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/prescription-long-sixteen-lines-page-12.png",
+          "sha256": "f71bc974d251705dd78bb99ccf5fa1b9637428c2637637db999fa67ce8235354",
+          "characters": 1858,
+          "business_characters": 1768,
+          "body_dark_pixels": 130380,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 13,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T060727709754/prescription-long-sixteen-lines-page-13.png",
+          "sha256": "38e48ed169cc25fa55898df599520a38d58d30adc6e26430baabad329fc4758d",
+          "characters": 1119,
+          "business_characters": 1005,
+          "body_dark_pixels": 53928,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        }
+      ],
+      "fonts": [
+        "NotoSansCJKsc-Regular",
+        "NotoSansCJKsc-Regular",
+        "NotoSansCJKsc-Regular",
+        "NotoSansCJKsc-Regular",
+        "NotoSansCJKsc-Regular",
+        "NotoSansCJKsc-Regular",
+        "NotoSansCJKsc-Regular",
+        "NotoSansCJKsc-Regular",
+        "NotoSansCJKsc-Regular",
+        "NotoSansCJKsc-Regular",
+        "NotoSansCJKsc-Regular",
+        "NotoSansCJKsc-Regular",
+        "NotoSansCJKsc-Regular"
+      ]
+    }
+  ],
+  "visual_review": "PENDING",
+  "validator_commit": "860bb30672255d318d94cb1866cbbf99226fdb8f",
+  "renderer_version": "1.28.2",
+  "result": "FAIL",
+  "failure": {
+    "type": "AssertionError",
+    "detail": "('missing, duplicated or reordered lines', [115, 116, 117, 118, 119, 120, 121, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130], [115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130])"
+  }
+}

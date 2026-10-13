@@ -1,0 +1,82 @@
+病历文字演示 PDF
+演示样张∕未经正式审核∕无正式签署
+草稿
+仅包含明确选择的独立来源。本件不是完整正式病历。
+所选文字为草稿;待完善或待确认。
+患者
+S06A Synthetic Person
+患者编号
+P00000253
+归并患者编号
+253
+来源患者编号
+253
+来源⻔店
+S08B Synthetic a5c82c4d316715695c9d5f88
+来源⻔店编号
+123
+查看⻔店编号
+123
+独立文书编号
+243
+所选文字版本
+1
+文书当前版本
+1
+文书当前状态
+草稿
+原始作者
+S06A Synthetic doctor
+当前责任人
+S06A Synthetic doctor
+所选版本作者
+S06A Synthetic doctor
+所选版本动作
+草稿已保存
+所选版本记录时间(UTC)
+2026-10-13 06:43:28
+所选版本的前序编号
+未记录
+文字更正原因
+未记录
+来源接诊分段
+281
+当前接诊分段
+281
+原接诊操作人
+S06A Synthetic doctor
+原工位
+S06A Cleaning station
+原接诊开始时间(UTC)
+2026-10-13 06:43:27
+临床字段模板
+clinical-draft-v1
+主诉
+Synthetic complaint
+病史
+未记录;不推断医学结论。
+检查所⻅
+YDental | 1/2
+未记录;不推断医学结论。
+诊断
+未记录;不推断医学结论。
+治疗计划
+未记录;不推断医学结论。
+建议材料
+未记录;不推断医学结论。
+随访
+未记录;不推断医学结论。
+已记录 FDI 牙位与牙面
+未列出的牙位无已记录结论。0 表示无对应牙位。
+FDI 牙位
+已记录状态
+已记录牙面
+未记录牙位所⻅。
+演示来源与版本
+模板: S08C-CLINICAL-1 / 来源编号∕所选版本: 243 / 1
+生成人: S06A Synthetic reader / 生成与提取时间(UTC): 2026-10-13 06:43:28
+规范化来源 SHA256: cd62a71ef0feac1eb6163cab5eca71b5ff67275c7d96dc573f1dcdf951ed17d6
+来源版本集合: {'canonical_patient': 253, 'current_segment': 281, 'document': [243, 1, 'draft'], 'selected_version': [325, 1, 'save'], 'sourc
+e_patient': 253, 'source_segment': 281}
+未核验签署或打印机实际出纸。本件为临时演示副本;不提供正式归档或原件重印。
+YDental | 2/2

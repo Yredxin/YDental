@@ -1,0 +1,37 @@
+{
+  "scope": "Read-only PostgreSQL pg_database OID/name inventory; no database mutation",
+  "checked_utc": "2026-10-13T07:15:54.656400+00:00",
+  "cluster": "7694897083368259627",
+  "baseline_catalog_sha256": "cf508fbb59d9bad70d0e7bfefb38ab6061a6309fe4527045dd9095521f307e61",
+  "baseline_oid_name_count": 117,
+  "current_oid_name_count": 123,
+  "all_baseline_pairs_preserved": true,
+  "new_c_databases": [
+    {
+      "oid": 1304322,
+      "name": "ydental_s08c_test_20261013100400_a31e9b72"
+    },
+    {
+      "oid": 1319789,
+      "name": "ydental_s08c_test_20261013031800_b81ae5c3"
+    },
+    {
+      "oid": 1337165,
+      "name": "ydental_s08c_test_20261013054544_d143b812"
+    },
+    {
+      "oid": 1352932,
+      "name": "ydental_s08c_test_20261013055509_9cb7482e"
+    },
+    {
+      "oid": 1369677,
+      "name": "ydental_s08c_test_20261013061151_2f19ad4b"
+    },
+    {
+      "oid": 1386445,
+      "name": "ydental_s08c_test_20261013063042_4e7a1d2c"
+    }
+  ],
+  "deleted_or_replaced_baseline_pairs": [],
+  "historical_database_mutations_by_this_rework": 0
+}

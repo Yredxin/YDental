@@ -1,0 +1,204 @@
+{
+  "database": "ydental_s08c_test_20261013061151_2f19ad4b",
+  "port": 18181,
+  "tested_commit": "697cacae4ac7fd6c5b7b8eb46c27a50677876cf5",
+  "started_utc": "2026-10-13T06:11:59.970249+00:00",
+  "commands": [
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "install",
+        "--db",
+        "ydental_s08c_test_20261013061151_2f19ad4b",
+        "--port",
+        "18181"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T06:11:59.971999+00:00"
+    },
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "upgrade",
+        "--db",
+        "ydental_s08c_test_20261013061151_2f19ad4b",
+        "--port",
+        "18181"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T06:15:36.448276+00:00",
+      "log_sha256": "5ca52eb4ee5ee1bf28969b0c4f4a3b043e25c080fb8c70f1927e5bec74bc7465",
+      "log": "validation-s08c-20261013T061536448298.log"
+    },
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/test_s08c_guard.py"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T06:18:09.472883+00:00",
+      "log_sha256": "aaaf26e798b19f21709c2587fb4e989ee95bb328699a8d4d2e5866d6ffa1f26e",
+      "log": "validation-test_s08c_guard-20261013T061809472909.log"
+    },
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "probe_a",
+        "--db",
+        "ydental_s08c_test_20261013061151_2f19ad4b",
+        "--port",
+        "18181"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T06:18:09.837334+00:00",
+      "log_sha256": "1c9029390ad1768bf27c6e517c753faa8d574ecf2a3980a200665e6fe5b1068f",
+      "log": "validation-s08c-20261013T061809837355.log"
+    },
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "probe",
+        "--db",
+        "ydental_s08c_test_20261013061151_2f19ad4b",
+        "--port",
+        "18181"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T06:19:55.386566+00:00",
+      "log_sha256": "9f74b17d80e8122a5b806bea281c0b0787249ce608f6e4d387536a47ba404ec1",
+      "log": "validation-s08c-20261013T061955386586.log"
+    },
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "probe_c",
+        "--db",
+        "ydental_s08c_test_20261013061151_2f19ad4b",
+        "--port",
+        "18181"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T06:24:11.363140+00:00",
+      "log_sha256": "3c1d0b0696ee91c0607aaf12447cafe3321570df6e078f92a4aca98ea8c751ea",
+      "log": "validation-s08c-20261013T062411363162.log"
+    },
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08c_render_pages.py",
+        "docs/evidence/s08c/probe-attempts/20261013T062412591554/result.json"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T06:26:04.396683+00:00",
+      "log_sha256": "2aca71853b230e83cbe4cf3e71ac53e9f3c94bc2b04f9ab1c66ba4781d67b932",
+      "log": "validation-s08c_render_pages-20261013T062604396705.log"
+    },
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "export",
+        "--db",
+        "ydental_s08c_test_20261013061151_2f19ad4b",
+        "--port",
+        "18181"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T06:26:07.551144+00:00",
+      "log_sha256": "afaf7e31dccbd484daa0904d45496b48e16c20be467d0343d84bad7dde009226",
+      "log": "validation-s08c-20261013T062607551166.log"
+    },
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08c_translation.py",
+        "--db",
+        "ydental_s08c_test_20261013061151_2f19ad4b"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T06:26:09.992627+00:00",
+      "log_sha256": "6a53733a291b0b84b6911d162426501dc75890402b92c2b3e0292e6e6b44ca0b",
+      "log": "validation-s08c_translation-20261013T062609992648.log"
+    },
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "preview",
+        "--db",
+        "ydental_s08c_test_20261013061151_2f19ad4b",
+        "--port",
+        "18181"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T06:26:10.051276+00:00",
+      "log_sha256": "7a9687d76b8a5777858041e19919ed42ae10d77f3db42c372ad892b6543186a3",
+      "log": "validation-s08c-20261013T062610051296.log"
+    },
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "audit",
+        "--db",
+        "ydental_s08c_test_20261013061151_2f19ad4b",
+        "--port",
+        "18181"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T06:26:27.606964+00:00",
+      "log_sha256": "417a58aeeda8583fd53e0078d68cc7b2c2050a54705b1e4c9d5f8f665e431ed7",
+      "log": "validation-s08c-20261013T062627606984.log"
+    },
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08c_a_browser.py",
+        "--db",
+        "ydental_s08c_test_20261013061151_2f19ad4b",
+        "--port",
+        "18181",
+        "--terminal-races"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T06:26:44.641961+00:00",
+      "log_sha256": "44f9bfea64f4f297ace72e1cb37932204109fd94037524dd7a4067c251e4d7f9",
+      "log": "validation-s08c_a_browser-20261013T062644641981.log"
+    },
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "audit",
+        "--db",
+        "ydental_s08c_test_20261013061151_2f19ad4b",
+        "--port",
+        "18181"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T06:27:33.619108+00:00",
+      "log_sha256": "faedae7fae495c9c807e5ed09d6c74ea8e071b685875df54af812c1f1030c500",
+      "log": "validation-s08c-20261013T062733619127.log"
+    }
+  ],
+  "preview_stops": [
+    {
+      "phase": "A",
+      "config_sha256": "d58d904797b24b967da73761cebb7fe80859a49fbf838ec6f59caa18698f8420",
+      "pid": 1724755,
+      "exit_code": 0
+    }
+  ],
+  "result": "FAIL",
+  "failure": {
+    "type": "AssertionError",
+    "detail": "('A', 'economic or source mutation')",
+    "trace": "Traceback (most recent call last):\n  File \"/home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s08c_validate.py\", line 87, in <module>\n    for phase in ('A','B','R','C'):last=browser(phase)\n                                        ^^^^^^^^^^^^^^\n  File \"/home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s08c_validate.py\", line 76, in browser\n    assert all(before['signatures'][t]==after['signatures'][t] for t in tables),(phase,'economic or source mutation')\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: ('A', 'economic or source mutation')\n"
+  },
+  "finished_utc": "2026-10-13T06:27:49.158888+00:00"
+}

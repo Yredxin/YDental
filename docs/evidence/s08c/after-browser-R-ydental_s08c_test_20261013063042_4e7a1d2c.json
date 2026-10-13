@@ -1,0 +1,204 @@
+{
+  "database": "ydental_s08c_test_20261013063042_4e7a1d2c",
+  "tested_commit": "141301e473e83c9429335b5127e76b7c0e4cc8a7",
+  "signatures": {
+    "ydental_clinical_document": {
+      "count": 52,
+      "sha256": "a66fae4bf59888578645bfe4dc2d11ff95cb87b601fd7d737a23fcce6df02c8c"
+    },
+    "ydental_clinical_version": {
+      "count": 91,
+      "sha256": "296b19e6b5288c11e7f7823d4050faaf94d7fdc52d200881d4890c3ab5620907"
+    },
+    "ydental_queue_execution": {
+      "count": 68,
+      "sha256": "419235dceff996247dd0aa58886787d04e50a13db126c79772107f824473c770"
+    },
+    "ydental_intake_task": {
+      "count": 104,
+      "sha256": "99f87947dd21c9018742bbbda376b1b232aad0f7413d2424516b3b29b9d626a7"
+    },
+    "ydental_inventory_event": {
+      "count": 66,
+      "sha256": "339e837a2f3ba27a12abc636613399445aea6e0bdd7229d30b0f6107de6cfe2b"
+    },
+    "ydental_inventory_batch": {
+      "count": 80,
+      "sha256": "39c7ec2a72bf09efef4eb3df68974de35bdbf5476e6b496a0b2f057556343721"
+    },
+    "stock_move": {
+      "count": 115,
+      "sha256": "4f01031404bcd0fdf8f747b0a969ec4322ef2204d22cb024ecb253e8c371caae"
+    },
+    "stock_move_line": {
+      "count": 101,
+      "sha256": "b9158643954eed281982e4fc495251934c16a906313351521330cef82a539447"
+    },
+    "stock_quant": {
+      "count": 134,
+      "sha256": "4732b861628b3c758f3de3a36f223c4c79ccbc9b4534f8597e6ec60c8c5f9f33"
+    },
+    "ydental_intake_snapshot": {
+      "count": 31,
+      "sha256": "3688b245f7379706473e22502fa340ebbaf4d61b0dbc61a8ad45b1249f3d582a"
+    },
+    "ydental_treatment_event": {
+      "count": 30,
+      "sha256": "ef99d879ffbd3d5612eab3f120f92c09c985dd12adfc63207e2a24fa65ea0c44"
+    },
+    "ydental_treatment_fee": {
+      "count": 28,
+      "sha256": "da9947dc8f43f7aa81db1a945655b3855bf7d3280f8413b9f3386669599a33de"
+    },
+    "ydental_treatment_order": {
+      "count": 15,
+      "sha256": "a98b05b469fef2703f076946eed6fbb77ee3d1c45433b55420addd7931aabe74"
+    },
+    "ydental_treatment_line": {
+      "count": 39,
+      "sha256": "5d3cec6c2d82f211afab56b9c80aef33f0e4fd0db70b8a94157e280ad90a5e9d"
+    },
+    "ydental_treatment_segment": {
+      "count": 18,
+      "sha256": "04c4e774070c392ea43a837285032541d7423c048334223f62eb53227c967c70"
+    },
+    "ydental_treatment_consumption": {
+      "count": 30,
+      "sha256": "fa31530a4c9d7f3eba2b54c7fedddce4872440a633d0837f3a7730bcdce1f88e"
+    },
+    "ydental_treatment_price_review": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "ydental_queue_entry": {
+      "count": 69,
+      "sha256": "8d3e983b6e94ccad7b62b400d60b13f5103b8f3e2962a4b3877f59d119164716"
+    },
+    "ydental_queue_lease": {
+      "count": 70,
+      "sha256": "6f7f35c2530e883df5219fb50de0ea37d2bc7648da235f9278d8f2deaa588d5e"
+    },
+    "ydental_supply_claim": {
+      "count": 63,
+      "sha256": "68c7a62c03565f93d1d58ed427598fd99d8cc72851b1d39fd30d66d1a11d1445"
+    },
+    "ydental_treatment_medicine_link": {
+      "count": 22,
+      "sha256": "f302f62487f089e115cff838a99dcfbc9a95a0100077ade91f034affdd433947"
+    },
+    "ydental_queue_outbox": {
+      "count": 1071,
+      "sha256": "39b6461d9f417cfebee59ad16c9eaedfbf869780acb9dd538e930ebbdd4a2617"
+    },
+    "bus_bus": {
+      "count": 1535,
+      "sha256": "114b2255fe53c758d54bbb353979d801e6dde9b3ba297c9c6ed9f7189573d1fb"
+    },
+    "ydental_print_job": {
+      "count": 19,
+      "sha256": "6999d8f7aba78519eee9953230ff52560d5960b8b248e2d24c5714a8323bbb1a"
+    },
+    "ydental_supply_slot": {
+      "count": 413,
+      "sha256": "834ad16580eabd9ba66d5d7ab909265edac82bd4e06cf77ba22fe1b146155054"
+    },
+    "ydental_intake_referral": {
+      "count": 4,
+      "sha256": "20d11f53f6448497e08b6234296831b9e380b2c1b16665c93a61400559ef2aff"
+    },
+    "ydental_intake_price": {
+      "count": 36,
+      "sha256": "e3331d7fd93949733d61dcd603f0fe90f0288210a80f795d3a180f3fd976e973"
+    }
+  },
+  "invariants": {
+    "version_count": 0,
+    "latest_content": 0,
+    "version_source": 0,
+    "document_source": 0,
+    "duplicate_continuation": 0,
+    "duplicate_actual_execution": 0,
+    "terminal_unmarked_draft": 0,
+    "negative_internal_quant": 0,
+    "recovery_evidence_mismatch": 0,
+    "duplicate_source": 0,
+    "half_event": 0,
+    "event_move_quantity_mismatch": 0,
+    "movement_audit_mismatch": 0,
+    "quant_move_reconciliation": 0,
+    "wrong_quant_store": 0,
+    "confirmed_fee_unique": 0,
+    "confirmed_stock_complete": 0,
+    "source_identity": 0,
+    "fee_math_original": 0,
+    "clinical_inventory_source": 0,
+    "prescription_overdispense": 0,
+    "duplicate_live_segment": 0,
+    "finished_segment_history": 0,
+    "pending_segment_not_enqueued": 0,
+    "immutable_delta_price": 0,
+    "event_audit_once": 0,
+    "outbox_native_bus_once": 0,
+    "bus_minimal_payload": 0,
+    "confirmed_medicine_sku_quantity": 0,
+    "medicine_consumption_exact_sku": 0,
+    "medicine_fee_snapshot_source": 0,
+    "unverified_medication_zero_bookkeeping": 0,
+    "issued_prescription_required_fields": 0,
+    "medicine_publication_audit": 0,
+    "native_medicine_lot_product": 0,
+    "print_source_version_exists": 0,
+    "print_no_source_attachment": 0,
+    "print_generation_audit_once": 0,
+    "print_no_physical_paper_claim": 0,
+    "print_digest_shape": 0,
+    "negative_capacity": 0
+  },
+  "session_settings": {
+    "maintenance_work_mem": "16384",
+    "max_parallel_maintenance_workers": "0",
+    "max_parallel_workers_per_gather": "0"
+  },
+  "capacity_totals": {
+    "total": 4929,
+    "reservation_free": 1581,
+    "walkin_free": 3285,
+    "unavailable": 0
+  },
+  "financial_tables": {
+    "account_move": "NOT_INSTALLED",
+    "account_payment": "NOT_INSTALLED"
+  },
+  "audit_events": {
+    "clinical.confirm": 4,
+    "clinical.correct": 7,
+    "clinical.create": 52,
+    "clinical.edit_acquire": 71,
+    "clinical.edit_release": 16,
+    "clinical.handover_edit_release": 20,
+    "clinical.handover_save_verified": 20,
+    "clinical.responsibility_transfer": 3,
+    "clinical.save": 80,
+    "clinical.view": 33,
+    "print.download": 15,
+    "print.generate": 19,
+    "print.generate_repeat": 1,
+    "print.pdf_view": 15,
+    "print.print_requested": 17,
+    "print.view": 21,
+    "treatment.actual_dispense": 18,
+    "treatment.actual_execution": 30,
+    "treatment.exam_unperformed_cancel": 2,
+    "treatment.execution_view": 64,
+    "treatment.medicine_evidence_verified": 2,
+    "treatment.medicine_price_published": 22,
+    "treatment.order_draft": 15,
+    "treatment.order_draft_edit": 3,
+    "treatment.order_issued": 13,
+    "treatment.order_view": 42,
+    "treatment.pharmacy_segment_finished": 11,
+    "treatment.reconcile": 2,
+    "treatment.referral_initiated": 11
+  },
+  "result": "PASS"
+}

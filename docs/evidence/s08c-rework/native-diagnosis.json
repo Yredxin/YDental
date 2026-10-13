@@ -1,0 +1,52 @@
+{
+  "scope": "S08-C read-only native diagnosis plus exactly two bounded diagnostic Odoo child calls; not a root-cause proof",
+  "original_evidence": "docs/evidence/s08c/native-crash.json",
+  "original_pid": 1670701,
+  "original_signal": 11,
+  "original_native_exit": -11,
+  "original_root_cause": "UNKNOWN",
+  "original_instruction_symbol": "dict_dealloc (symbol only, no C stack/core)",
+  "kernel_event_utc": "2026-10-13T04:46:06Z",
+  "original_core_available": false,
+  "core_reason": "Original process core limit 0; apport ignored unpackaged Python interpreter",
+  "post_tests_boundary": "Registry loaded, post-tests begun, CSS asset bundles generated; no first test result",
+  "bounded_database": "ydental_s08c_test_20261013054544_d143b812",
+  "bounded_oid": 1337165,
+  "bounded_cluster": "7694897083368259627",
+  "bounded_config_sha256": "080cf898c0f8a555c4d04f65b2eeb8c85d2cdfd59ed19ca4f6c2ef37ff4b0e9e",
+  "bounded_calls": [
+    {
+      "action": "install",
+      "command": "PYTHONFAULTHANDLER=1 ../.venv/bin/python scripts/s08c.py install --db ydental_s08c_test_20261013054544_d143b812 --port 18179",
+      "pid": 1701874,
+      "exit_code": 1,
+      "tests": [
+        1,
+        0,
+        103
+      ],
+      "private_log_sha256": "1935b4b0a8b73f67be0d7ee8620e5497bf7b3a6435e9c970b192e925b5248a15",
+      "failure": "Synthetic HTTP renderer fault-injection assertion: expected 409, got 200; runtime registry class patch was missing in old fixed test",
+      "sigsegv_observed": false
+    },
+    {
+      "action": "upgrade",
+      "command": "PYTHONFAULTHANDLER=1 ../.venv/bin/python scripts/s08c.py upgrade --db ydental_s08c_test_20261013054544_d143b812 --port 18179 --print-only",
+      "pid": 1704123,
+      "exit_code": 1,
+      "tests": [
+        1,
+        0,
+        23
+      ],
+      "private_log_sha256": "46989b1ace0970894f33c35d4f4186390d64ab31f841bc7105ac610d5505cf3e",
+      "failure": "Synthetic HTTP renderer fault-injection assertion: expected 409, got 200; runtime registry class patch was missing in old fixed test",
+      "sigsegv_observed": false
+    }
+  ],
+  "further_uncontrolled_native_retries": 0,
+  "later_fixed_test": "141301e473e83c9429335b5127e76b7c0e4cc8a7",
+  "later_fixed_validation": "docs/evidence/s08c/validation-ydental_s08c_test_20261013063042_4e7a1d2c.json",
+  "later_new_sigsegv_observed": false,
+  "production_stability": "BLOCKED: original S07/C native crash and B Firefox failure/retry root causes unknown"
+}

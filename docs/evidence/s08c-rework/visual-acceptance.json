@@ -1,0 +1,635 @@
+{
+  "scope": "Synthetic S08-C rework fixed-test PDF, actual page-by-page visual inspection of all original PNGs and 15 contact sheets",
+  "database": "ydental_s08c_test_20261013063042_4e7a1d2c",
+  "tested_commit": "141301e473e83c9429335b5127e76b7c0e4cc8a7",
+  "automatic_manifest": "docs/evidence/s08c/probe-attempts/20261013T064304331872/rendered-pages.json",
+  "reviewer": "Codex implementation self-review; not independent GPT or user acceptance",
+  "reviewed_utc": "2026-10-13T07:08:41.978677+00:00",
+  "pdf_count": 16,
+  "page_count": 57,
+  "visual_verdict": "PASS",
+  "limits": "No physical printer output; original PID 1670701 native root remains unknown. Contact sheet 15 contains only one actual page; grey cells are montage background.",
+  "observations": [
+    "No blank/footer-only page, missing medical fields, obvious clipping, or overlapping text was seen in the 57 final rendered pages.",
+    "The longest 16-line prescription spans 13 pages, with three SKU sources and uninterrupted English sample text. Some blocks legitimately continue at page boundaries; page 12 ends with a field label whose content resumes on page 13.",
+    "Older RX-2 candidate FAIL records and hash-identical PNG description conflict were preserved without rewriting."
+  ],
+  "pdfs": [
+    {
+      "pdf": "docs/evidence/s08c/probe-attempts/20261013T064304331872/race-generate-during-source-save.pdf",
+      "pdf_sha256": "84868e770067d60e5a4fcba12a6118fb6dc039e5e85e2e164aca052e515c733e",
+      "page_count": 2,
+      "pages": [
+        {
+          "number": 1,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/race-generate-during-source-save-page-01.png",
+          "sha256": "57b439e73f5d77f2e4ce9f3de041619c21eb68d50cee07e022fdfa71d2bdc5e5",
+          "business_characters": 501,
+          "body_dark_pixels": 64572,
+          "visual_verdict": "PASS"
+        },
+        {
+          "number": 2,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/race-generate-during-source-save-page-02.png",
+          "sha256": "3e3295889c684dd2c260c3105785b0ff12e065f461cc52d7be74303f693c0ce0",
+          "business_characters": 494,
+          "body_dark_pixels": 26470,
+          "visual_verdict": "PASS"
+        }
+      ],
+      "source_line_count": 0,
+      "source_field_matrix_complete": true,
+      "visual_verdict": "PASS"
+    },
+    {
+      "pdf": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d1-long-draft.pdf",
+      "pdf_sha256": "a6a8aecd0db17d49125d671c3237a1fd1f24bf0943ffb6939562d408b6615af8",
+      "page_count": 7,
+      "pages": [
+        {
+          "number": 1,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d1-long-draft-page-01.png",
+          "sha256": "a3d4f4a472511628e5455ab4a854857eb21f4d52ae92d918288b6fe6b54c1855",
+          "business_characters": 410,
+          "body_dark_pixels": 63399,
+          "visual_verdict": "PASS"
+        },
+        {
+          "number": 2,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d1-long-draft-page-02.png",
+          "sha256": "04299dd3a8fcd974e8f6cca23b2c0fb765694693f4efbd0b58937f65e8c678f4",
+          "business_characters": 2450,
+          "body_dark_pixels": 212170,
+          "visual_verdict": "PASS"
+        },
+        {
+          "number": 3,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d1-long-draft-page-03.png",
+          "sha256": "5d73525a030be42758f016da54b23bc7b4f88ec94a1ef12948b3dfa3563a8dca",
+          "business_characters": 2450,
+          "body_dark_pixels": 212170,
+          "visual_verdict": "PASS"
+        },
+        {
+          "number": 4,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d1-long-draft-page-04.png",
+          "sha256": "48a719263685568916072dea932dcdae0818bb5de16228bdca3900a1a876c929",
+          "business_characters": 2450,
+          "body_dark_pixels": 212170,
+          "visual_verdict": "PASS"
+        },
+        {
+          "number": 5,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d1-long-draft-page-05.png",
+          "sha256": "3ded19a5b84ecf77ae312094436e8a27ae878f735980c5dc9223c2c16d54f355",
+          "business_characters": 856,
+          "body_dark_pixels": 88762,
+          "visual_verdict": "PASS"
+        },
+        {
+          "number": 6,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d1-long-draft-page-06.png",
+          "sha256": "9c0465620ca7ccbeca8a5982c08d25d696ca9cc99b1b21624ffc4f95fa792906",
+          "business_characters": 253,
+          "body_dark_pixels": 57540,
+          "visual_verdict": "PASS"
+        },
+        {
+          "number": 7,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d1-long-draft-page-07.png",
+          "sha256": "c086831f6f11706f4bf6c618608754f6f2835525c7efe3968ba4b4d3cddd821e",
+          "business_characters": 418,
+          "body_dark_pixels": 27245,
+          "visual_verdict": "PASS"
+        }
+      ],
+      "source_line_count": 0,
+      "source_field_matrix_complete": true,
+      "visual_verdict": "PASS"
+    },
+    {
+      "pdf": "docs/evidence/s08c/probe-attempts/20261013T064304331872/consent-unsigned-unreviewed.pdf",
+      "pdf_sha256": "8ff9dacdd1c244a7bb115389a67c78aa87099623c31c1025b5d5b9d3b3600df9",
+      "page_count": 2,
+      "pages": [
+        {
+          "number": 1,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/consent-unsigned-unreviewed-page-01.png",
+          "sha256": "e2208566fd22d8444f682fca91c4cd8958edf46aafcbd70e3ee67dcf0182ef53",
+          "business_characters": 446,
+          "body_dark_pixels": 67922,
+          "visual_verdict": "PASS"
+        },
+        {
+          "number": 2,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/consent-unsigned-unreviewed-page-02.png",
+          "sha256": "05540de5e18a762cf820156d0fe993614ff7e55142146c9ec38f5d909216c958",
+          "business_characters": 475,
+          "body_dark_pixels": 30604,
+          "visual_verdict": "PASS"
+        }
+      ],
+      "source_line_count": 0,
+      "source_field_matrix_complete": true,
+      "visual_verdict": "PASS"
+    },
+    {
+      "pdf": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-incomplete-draft.pdf",
+      "pdf_sha256": "ec4b271ed59359e012610c49d23257b3af458cb98c562e51cd6577a5ed3e5bb4",
+      "page_count": 2,
+      "pages": [
+        {
+          "number": 1,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-incomplete-draft-page-01.png",
+          "sha256": "76137ff5c150b40c5c632c782479f3d3cd7ade2afb5d0cfaaf229028329c4e45",
+          "business_characters": 362,
+          "body_dark_pixels": 48309,
+          "visual_verdict": "PASS"
+        },
+        {
+          "number": 2,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-incomplete-draft-page-02.png",
+          "sha256": "74e0c5b884531e6d4524a58b5f966cf8f4b563641d91cfda54563d9f89f43bc8",
+          "business_characters": 382,
+          "body_dark_pixels": 19648,
+          "visual_verdict": "PASS"
+        }
+      ],
+      "source_line_count": 1,
+      "source_field_matrix_complete": true,
+      "visual_verdict": "PASS"
+    },
+    {
+      "pdf": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-six-uncollected.pdf",
+      "pdf_sha256": "9b788dd8ec2aea63d64799e502af950e3f6dd532c52bce929c9df6e07a5f19ba",
+      "page_count": 2,
+      "pages": [
+        {
+          "number": 1,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-six-uncollected-page-01.png",
+          "sha256": "cb6bd03e8bdf5ecb0f417af0fcada998ddfd6491bc406d6d397dd527dc778935",
+          "business_characters": 434,
+          "body_dark_pixels": 50099,
+          "visual_verdict": "PASS"
+        },
+        {
+          "number": 2,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-six-uncollected-page-02.png",
+          "sha256": "78f38560c11ddbaa089eb69a53c5bdfe8e98a43394384a73c4e91f20da264761",
+          "business_characters": 384,
+          "body_dark_pixels": 19815,
+          "visual_verdict": "PASS"
+        }
+      ],
+      "source_line_count": 1,
+      "source_field_matrix_complete": true,
+      "visual_verdict": "PASS"
+    },
+    {
+      "pdf": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d1-pending.pdf",
+      "pdf_sha256": "48d068d2dfedba3497bdb945dad16bef36c35db8268f6a2bacf6f8463f0ce470",
+      "page_count": 7,
+      "pages": [
+        {
+          "number": 1,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d1-pending-page-01.png",
+          "sha256": "a012479fd83f0d9d26074d9856a337cbbd4c587db6432d7e44b80907c14e811f",
+          "business_characters": 416,
+          "body_dark_pixels": 63861,
+          "visual_verdict": "PASS"
+        },
+        {
+          "number": 2,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d1-pending-page-02.png",
+          "sha256": "04299dd3a8fcd974e8f6cca23b2c0fb765694693f4efbd0b58937f65e8c678f4",
+          "business_characters": 2450,
+          "body_dark_pixels": 212170,
+          "visual_verdict": "PASS"
+        },
+        {
+          "number": 3,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d1-pending-page-03.png",
+          "sha256": "5d73525a030be42758f016da54b23bc7b4f88ec94a1ef12948b3dfa3563a8dca",
+          "business_characters": 2450,
+          "body_dark_pixels": 212170,
+          "visual_verdict": "PASS"
+        },
+        {
+          "number": 4,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d1-pending-page-04.png",
+          "sha256": "48a719263685568916072dea932dcdae0818bb5de16228bdca3900a1a876c929",
+          "business_characters": 2450,
+          "body_dark_pixels": 212170,
+          "visual_verdict": "PASS"
+        },
+        {
+          "number": 5,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d1-pending-page-05.png",
+          "sha256": "3ded19a5b84ecf77ae312094436e8a27ae878f735980c5dc9223c2c16d54f355",
+          "business_characters": 856,
+          "body_dark_pixels": 88762,
+          "visual_verdict": "PASS"
+        },
+        {
+          "number": 6,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d1-pending-page-06.png",
+          "sha256": "9c0465620ca7ccbeca8a5982c08d25d696ca9cc99b1b21624ffc4f95fa792906",
+          "business_characters": 253,
+          "body_dark_pixels": 57540,
+          "visual_verdict": "PASS"
+        },
+        {
+          "number": 7,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d1-pending-page-07.png",
+          "sha256": "05a8a7084e5b3a4195ca199c017a8c256755a74d70c18fa2f871e43d5ff379f2",
+          "business_characters": 420,
+          "body_dark_pixels": 27424,
+          "visual_verdict": "PASS"
+        }
+      ],
+      "source_line_count": 0,
+      "source_field_matrix_complete": true,
+      "visual_verdict": "PASS"
+    },
+    {
+      "pdf": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-four-dispensed-two-left.pdf",
+      "pdf_sha256": "ddfe0fbbfd73db4e5aec2120887d555c07641d34501ea2f63b0f8d3e16ed14bc",
+      "page_count": 2,
+      "pages": [
+        {
+          "number": 1,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-four-dispensed-two-left-page-01.png",
+          "sha256": "33f53724759cefed053a00242fe93758d9a27bf1f9e8c73708b870bf3f0990a2",
+          "business_characters": 436,
+          "body_dark_pixels": 50132,
+          "visual_verdict": "PASS"
+        },
+        {
+          "number": 2,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-four-dispensed-two-left-page-02.png",
+          "sha256": "a17691411d692c83a0b05d78a057f28089b0cf47f7900c424ca61930be01f963",
+          "business_characters": 456,
+          "body_dark_pixels": 23670,
+          "visual_verdict": "PASS"
+        }
+      ],
+      "source_line_count": 1,
+      "source_field_matrix_complete": true,
+      "visual_verdict": "PASS"
+    },
+    {
+      "pdf": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-six-dispensed-zero-left.pdf",
+      "pdf_sha256": "c26dbb07a9c6ef65ccc30a0c977b7d8e171f0fa481ad86d8fbeebca1059b1115",
+      "page_count": 2,
+      "pages": [
+        {
+          "number": 1,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-six-dispensed-zero-left-page-01.png",
+          "sha256": "d8eb8154a1648538072515254826dd02bd4af376033f9f65086423d1c94a2653",
+          "business_characters": 441,
+          "body_dark_pixels": 50774,
+          "visual_verdict": "PASS"
+        },
+        {
+          "number": 2,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-six-dispensed-zero-left-page-02.png",
+          "sha256": "620a10ad9fac5975d46d941283167a14b1e0a61b091e8204cb2b7511c4fca39d",
+          "business_characters": 534,
+          "body_dark_pixels": 28354,
+          "visual_verdict": "PASS"
+        }
+      ],
+      "source_line_count": 1,
+      "source_field_matrix_complete": true,
+      "visual_verdict": "PASS"
+    },
+    {
+      "pdf": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d2-confirmed-independent.pdf",
+      "pdf_sha256": "e3a075f8b143878e07bfdfcc380211fc85f573f8f48ab56f85f5b4d197e452cd",
+      "page_count": 2,
+      "pages": [
+        {
+          "number": 1,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d2-confirmed-independent-page-01.png",
+          "sha256": "dcda344d3add60db8a07c9616165cb8c85ea1247cdaa25fe4bca66f0914f48de",
+          "business_characters": 447,
+          "body_dark_pixels": 66042,
+          "visual_verdict": "PASS"
+        },
+        {
+          "number": 2,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d2-confirmed-independent-page-02.png",
+          "sha256": "aaf37b54f203061a871edd52275363e21cdbe0ae0b932a612d1ad3409c14a2f0",
+          "business_characters": 489,
+          "body_dark_pixels": 26589,
+          "visual_verdict": "PASS"
+        }
+      ],
+      "source_line_count": 0,
+      "source_field_matrix_complete": true,
+      "visual_verdict": "PASS"
+    },
+    {
+      "pdf": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d2-historical-confirmed.pdf",
+      "pdf_sha256": "b18461f924a9a184c204acb0ac1f1ab17660320bae656262d56071156ae9d780",
+      "page_count": 2,
+      "pages": [
+        {
+          "number": 1,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d2-historical-confirmed-page-01.png",
+          "sha256": "22706957f87fdc66399ab9399f4055bf2d4a2e992856dc6aaa6495fe8c5beabe",
+          "business_characters": 447,
+          "body_dark_pixels": 66045,
+          "visual_verdict": "PASS"
+        },
+        {
+          "number": 2,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d2-historical-confirmed-page-02.png",
+          "sha256": "455c3e2e45285e27a47f3c34f56152bc9d36788e04aa7293c7062bb18b2b9765",
+          "business_characters": 489,
+          "body_dark_pixels": 26742,
+          "visual_verdict": "PASS"
+        }
+      ],
+      "source_line_count": 0,
+      "source_field_matrix_complete": true,
+      "visual_verdict": "PASS"
+    },
+    {
+      "pdf": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d2-corrected.pdf",
+      "pdf_sha256": "0c9729b072655140681126b1b45b8f683de694f0acddecd6f504cea2118d329b",
+      "page_count": 2,
+      "pages": [
+        {
+          "number": 1,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d2-corrected-page-01.png",
+          "sha256": "f693ac293e36871b1a146be821b359f2bdcbc2ac17e792b85c1b1b3d5459261f",
+          "business_characters": 444,
+          "body_dark_pixels": 65709,
+          "visual_verdict": "PASS"
+        },
+        {
+          "number": 2,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d2-corrected-page-02.png",
+          "sha256": "ba263fc51b82949306ee2f7982946f0abdfcaa1a1e687959636c121e750c42f7",
+          "business_characters": 489,
+          "body_dark_pixels": 26701,
+          "visual_verdict": "PASS"
+        }
+      ],
+      "source_line_count": 0,
+      "source_field_matrix_complete": true,
+      "visual_verdict": "PASS"
+    },
+    {
+      "pdf": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-long-sixteen-lines.pdf",
+      "pdf_sha256": "de93019b0436ce25f6f8bb99592722ec81fc10125ce458389cfe9b96fe937638",
+      "page_count": 13,
+      "pages": [
+        {
+          "number": 1,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-long-sixteen-lines-page-01.png",
+          "sha256": "ca2873b76d323d3be2a761f71bb074c1c19f5784eb8c04133f20d858d93faa48",
+          "business_characters": 1117,
+          "body_dark_pixels": 100308,
+          "visual_verdict": "PASS"
+        },
+        {
+          "number": 2,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-long-sixteen-lines-page-02.png",
+          "sha256": "5bc5ffb73a32645620559af76a2682edad15f17ab3828e7ddc14be7ab7da5cca",
+          "business_characters": 1352,
+          "body_dark_pixels": 105490,
+          "visual_verdict": "PASS"
+        },
+        {
+          "number": 3,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-long-sixteen-lines-page-03.png",
+          "sha256": "d0720cf6c4fb8233e60c99f7db4587771697f906be120c34f5275a20bbdeab54",
+          "business_characters": 1452,
+          "body_dark_pixels": 110420,
+          "visual_verdict": "PASS"
+        },
+        {
+          "number": 4,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-long-sixteen-lines-page-04.png",
+          "sha256": "e9fbb77b306215b51c46b674bbbcde1b87d7a6bf9c50802265ed04d20598e96d",
+          "business_characters": 1754,
+          "body_dark_pixels": 138212,
+          "visual_verdict": "PASS"
+        },
+        {
+          "number": 5,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-long-sixteen-lines-page-05.png",
+          "sha256": "ae8ab21b42e14d2ca2bb66ac5316c9d6337b1d07f97ea66580d59b047d307a21",
+          "business_characters": 1248,
+          "body_dark_pixels": 97819,
+          "visual_verdict": "PASS"
+        },
+        {
+          "number": 6,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-long-sixteen-lines-page-06.png",
+          "sha256": "b09ef215d5e91e9b8a73c310c55d7d7ce3baaf27a56f57177bfdb8747fe2c52e",
+          "business_characters": 1556,
+          "body_dark_pixels": 107966,
+          "visual_verdict": "PASS"
+        },
+        {
+          "number": 7,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-long-sixteen-lines-page-07.png",
+          "sha256": "908aaee8f404f3b4a3192dafe8b120aae9a1b890816de8ef10b07f6a5c3c5d0f",
+          "business_characters": 1734,
+          "body_dark_pixels": 135677,
+          "visual_verdict": "PASS"
+        },
+        {
+          "number": 8,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-long-sixteen-lines-page-08.png",
+          "sha256": "126b1b4c82a584ece00664839d0f2a3189660e62ffe47b902e2acb01ffc765cb",
+          "business_characters": 1146,
+          "body_dark_pixels": 91186,
+          "visual_verdict": "PASS"
+        },
+        {
+          "number": 9,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-long-sixteen-lines-page-09.png",
+          "sha256": "9783a6c2a6a0e114dea5a4e8f9be942130310fc07a7963c759e7b93dc71d4fcd",
+          "business_characters": 1470,
+          "body_dark_pixels": 110506,
+          "visual_verdict": "PASS"
+        },
+        {
+          "number": 10,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-long-sixteen-lines-page-10.png",
+          "sha256": "efccdbc18dfc6f6057fae2c498f371bedf36500296d43ef7454b40173625adcc",
+          "business_characters": 1736,
+          "body_dark_pixels": 137612,
+          "visual_verdict": "PASS"
+        },
+        {
+          "number": 11,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-long-sixteen-lines-page-11.png",
+          "sha256": "24b525626d75e62fcf54f639a109a5e6466bd57f536368e09d8ffabf9aa33fd0",
+          "business_characters": 1248,
+          "body_dark_pixels": 97795,
+          "visual_verdict": "PASS"
+        },
+        {
+          "number": 12,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-long-sixteen-lines-page-12.png",
+          "sha256": "08529a4a00adee0eed621bfd50d765271c8e0c0238f6baf8a4ce2213b937f9af",
+          "business_characters": 1452,
+          "body_dark_pixels": 110052,
+          "visual_verdict": "PASS"
+        },
+        {
+          "number": 13,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-long-sixteen-lines-page-13.png",
+          "sha256": "c24cfb121f01e4dc8f64e3e536773f581a0671f99dd895610e2beab175b56e04",
+          "business_characters": 1370,
+          "body_dark_pixels": 86241,
+          "visual_verdict": "PASS"
+        }
+      ],
+      "source_line_count": 16,
+      "source_field_matrix_complete": true,
+      "visual_verdict": "PASS"
+    },
+    {
+      "pdf": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-edited-draft-cancelled-history.pdf",
+      "pdf_sha256": "d1266519f542f7a3b7235da51ba8fe86fb92b7ef4848a20ded66855d126a627f",
+      "page_count": 3,
+      "pages": [
+        {
+          "number": 1,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-edited-draft-cancelled-history-page-01.png",
+          "sha256": "eab94a28e486bd0914544e1a0222426bcb975711fd07005cb75392862aa4cdf1",
+          "business_characters": 438,
+          "body_dark_pixels": 51125,
+          "visual_verdict": "PASS"
+        },
+        {
+          "number": 2,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-edited-draft-cancelled-history-page-02.png",
+          "sha256": "0fc393dfbad247a198c5d42757e073860e59da76255df41ad013b90e7bd0c228",
+          "business_characters": 344,
+          "body_dark_pixels": 24361,
+          "visual_verdict": "PASS"
+        },
+        {
+          "number": 3,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-edited-draft-cancelled-history-page-03.png",
+          "sha256": "8c1deb065cae4c9708dc5b006052815635ff3da1b6c32791f0029f2567e95cac",
+          "business_characters": 621,
+          "body_dark_pixels": 33807,
+          "visual_verdict": "PASS"
+        }
+      ],
+      "source_line_count": 4,
+      "source_field_matrix_complete": true,
+      "visual_verdict": "PASS"
+    },
+    {
+      "pdf": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-three-skus-issued.pdf",
+      "pdf_sha256": "3121ca4cfbb78458c0e7043043cbd6e447eb9796f9b9d86803c67857d3dd8dbe",
+      "page_count": 3,
+      "pages": [
+        {
+          "number": 1,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-three-skus-issued-page-01.png",
+          "sha256": "cb80aebfc522dfcc00fca1525cf0da5998f7da8ee9b0ea68f823bc49df86c456",
+          "business_characters": 442,
+          "body_dark_pixels": 51400,
+          "visual_verdict": "PASS"
+        },
+        {
+          "number": 2,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-three-skus-issued-page-02.png",
+          "sha256": "0ad4b6bd513eb83b0abed36f1dbfd24aff1f29894ca540abdfe94011fdd7eb85",
+          "business_characters": 350,
+          "body_dark_pixels": 24490,
+          "visual_verdict": "PASS"
+        },
+        {
+          "number": 3,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-three-skus-issued-page-03.png",
+          "sha256": "4ef4b352b926d1f62f250193d213b324324dde51abdb5e902fa7b3a5efbd4136",
+          "business_characters": 628,
+          "body_dark_pixels": 33945,
+          "visual_verdict": "PASS"
+        }
+      ],
+      "source_line_count": 4,
+      "source_field_matrix_complete": true,
+      "visual_verdict": "PASS"
+    },
+    {
+      "pdf": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-three-skus-ten-twentyseven-fortythree.pdf",
+      "pdf_sha256": "c2e459d9ada98c2df39ae0ac1950a3bdea501645f06175ae06e76be3d01155f8",
+      "page_count": 3,
+      "pages": [
+        {
+          "number": 1,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-three-skus-ten-twentyseven-fortythree-page-01.png",
+          "sha256": "cb80aebfc522dfcc00fca1525cf0da5998f7da8ee9b0ea68f823bc49df86c456",
+          "business_characters": 442,
+          "body_dark_pixels": 51400,
+          "visual_verdict": "PASS"
+        },
+        {
+          "number": 2,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-three-skus-ten-twentyseven-fortythree-page-02.png",
+          "sha256": "803cbe5527d754fd5a18b7f1a6129182e090465f478aaa71268a19ec37928e5c",
+          "business_characters": 354,
+          "body_dark_pixels": 24574,
+          "visual_verdict": "PASS"
+        },
+        {
+          "number": 3,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-three-skus-ten-twentyseven-fortythree-page-03.png",
+          "sha256": "2a00e3bb1a3e5ae81898bfab7467bef8b8e715d376db5b695f3afb9e17ca1e96",
+          "business_characters": 872,
+          "body_dark_pixels": 45117,
+          "visual_verdict": "PASS"
+        }
+      ],
+      "source_line_count": 4,
+      "source_field_matrix_complete": true,
+      "visual_verdict": "PASS"
+    },
+    {
+      "pdf": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-next-day-three-skus-done.pdf",
+      "pdf_sha256": "8670a8fcdd927927e24b93a6b2e882ede71b2de11169dba6630e0d550acdf3b9",
+      "page_count": 3,
+      "pages": [
+        {
+          "number": 1,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-next-day-three-skus-done-page-01.png",
+          "sha256": "dbc29bddfeec6a65c7db1adbfab41fd863f99c147e47c707f2a57b92714a0d68",
+          "business_characters": 445,
+          "body_dark_pixels": 51818,
+          "visual_verdict": "PASS"
+        },
+        {
+          "number": 2,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-next-day-three-skus-done-page-02.png",
+          "sha256": "960503c2f53c68fb3005708f8449fc3bc5e5236dfd2982ba3fcdfd60dd6550c4",
+          "business_characters": 358,
+          "body_dark_pixels": 25004,
+          "visual_verdict": "PASS"
+        },
+        {
+          "number": 3,
+          "png": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-next-day-three-skus-done-page-03.png",
+          "sha256": "a97f6bdca8224ec868d3e3eb88c8004d49f173e60eca3061eebf52eb71bffe53",
+          "business_characters": 950,
+          "body_dark_pixels": 49355,
+          "visual_verdict": "PASS"
+        }
+      ],
+      "source_line_count": 4,
+      "source_field_matrix_complete": true,
+      "visual_verdict": "PASS"
+    }
+  ]
+}

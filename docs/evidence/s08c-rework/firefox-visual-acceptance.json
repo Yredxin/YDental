@@ -1,0 +1,412 @@
+{
+  "scope": "Fixed-test synthetic Firefox screenshots, inspected by Codex in contact sheets; C native print dialogs also opened at native resolution",
+  "database": "ydental_s08c_test_20261013063042_4e7a1d2c",
+  "tested_commit": "141301e473e83c9429335b5127e76b7c0e4cc8a7",
+  "reviewer": "Codex implementation self-review",
+  "reviewed_utc": "2026-10-13T07:08:50.467328+00:00",
+  "groups": {
+    "A": {
+      "result": "PASS",
+      "checks": 88,
+      "pageerrors": 0,
+      "screenshots": [
+        {
+          "path": "docs/evidence/s08c/browser-attempts/20261013T064536068104/01-permanent-anterior-autosave.png",
+          "sha256": "e86bd5719789e04c411d647c90d5d107f8a99d4c5f8af42e420cf1b6d9d104d1",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/browser-attempts/20261013T064536068104/02-primary-missing-unknown.png",
+          "sha256": "249febba4cb7d02d9fc2b1bb4a5ba15963673349e7c31077b4cf1bed299f679b",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/browser-attempts/20261013T064536068104/03-structured-draft.png",
+          "sha256": "68f65e425a3c1a93b20e0ed24248b00f513955ef774fe7bcf90a30bcb739de22",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/browser-attempts/20261013T064536068104/04-D1-pending-after-handover.png",
+          "sha256": "63ddc6461a80bb2df073fe01860fe9c68b0a5c00849a03a93e597e8b303b8f2f",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/browser-attempts/20261013T064536068104/05-D1-pending-independent-editor.png",
+          "sha256": "aa882910cbf132730a33910dad2cc694cb0ec415ea9becdb55393eb49b64c47f",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/browser-attempts/20261013T064536068104/06-D2-new-reception.png",
+          "sha256": "a7eb93ccae383a07e9a03e078e34aa29071dd6dac7a78bdd5b4382378d98996a",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/browser-attempts/20261013T064536068104/07-valid-editor-transfer-denied.png",
+          "sha256": "0b500040257878cf52ef1462419798f5ad9866da0a279012e0f28c6047de65d0",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/browser-attempts/20261013T064536068104/08-D1-confirmed-author-history.png",
+          "sha256": "106c197fb010b1b054a57f46df6fa836f979f707e8c42019a4bec94d244294d5",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/browser-attempts/20261013T064536068104/09-text-correction-new-version.png",
+          "sha256": "04372521281f84fdd992e290a4297bb7ff94777a568468b67db1a5eb958e9b82",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/browser-attempts/20261013T064536068104/10-readonly-medical-denied.png",
+          "sha256": "68fbb239abc8bcfc4767b69a6c2755e90034bc08ac1aa393c6a6048a2c13de62",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/browser-attempts/20261013T064536068104/11-offline-unsynchronized.png",
+          "sha256": "57f919dec17f5bea03f95139bf43b0e7af84dbdb234e96e3bd1daee1c282568e",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/browser-attempts/20261013T064536068104/12-ordinary-inflight-autosave-catchup.png",
+          "sha256": "93b003965ba9567dc851ea6f66e81fcaee4ef027436b6966239867df2eb6576e",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/browser-attempts/20261013T064536068104/13-confirm-all-inputs-locked.png",
+          "sha256": "556c5848a83d8cd28a5d8dcb113d8c9a956d3b2f1ab8da6574ac7c2efea027d3",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/browser-attempts/20261013T064536068104/14-correct-all-inputs-locked.png",
+          "sha256": "bb8c0e948e21681f31e227ebec1255f41621fc6602e4fbbd5e3a8b246b7c833b",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/browser-attempts/20261013T064536068104/15-correct-forced-input-retained.png",
+          "sha256": "4858155db0a6f32a182582f491a522cbedc816f085d77ba9576909ee1c8511f5",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/browser-attempts/20261013T064536068104/16-handover-all-inputs-locked.png",
+          "sha256": "17ade756f4c9ad82946d59eda7306ad80dc438ad547c467fdab89ea1f0c5c840",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/browser-attempts/20261013T064536068104/17-confirm-forced-input-retained.png",
+          "sha256": "74f10cc820d3efbfc33e464b47eb264981e531a9aa4446a0230d2e865c1060f3",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/browser-attempts/20261013T064536068104/18-handover-committed-unsent-retained.png",
+          "sha256": "d941ae4654e16dd0c308ed68f21921060e0ac97042da45cf6b7efb15f376eb65",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/browser-attempts/20261013T064536068104/19-response-lost-reconcile.png",
+          "sha256": "a0610c9a8a8189d605ade226f2356af5137eeb4a2f40e943bfd2bed9cf2cd0c5",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/browser-attempts/20261013T064536068104/20-request-not-sent-reconcile.png",
+          "sha256": "6e3d3811ea02988499cddf391bde6c5caf25a534002d9d545c9747b47ad84959",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/browser-attempts/20261013T064536068104/21-stale-version-reconcile.png",
+          "sha256": "907d0d02aaab5f91137b95c93d8e3ed32c0f5435a26707d91b7b30a32c5b657f",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        }
+      ]
+    },
+    "B": {
+      "result": "PASS",
+      "checks": 24,
+      "pageerrors": 0,
+      "screenshots": [
+        {
+          "path": "docs/evidence/s08c/b-browser-attempts/20261013T064724527956/B00-real-response-held-unsynchronized.png",
+          "sha256": "f4b81a8ff63b6dfe65694f0b8f11be8605223647d2b293f288a50f8c605ef2f9",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/b-browser-attempts/20261013T064724527956/B01-actual-project-600-native-move.png",
+          "sha256": "d65b185f52ff73a6ee884fd00b7238d06142ba8c809646ca325e3740735ab537",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/b-browser-attempts/20261013T064724527956/B02-material-delta-original-preserved.png",
+          "sha256": "3a895abadae3f05d59195b1bc9a5439ba81fddb4bfdf1747617e1715f8ccc0b6",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/b-browser-attempts/20261013T064724527956/B03-frozen-exam-cbct-cancelled.png",
+          "sha256": "5496e761ae950b6c50458816071bc2cbb6f77cfe7a10b64cf7791e1abcf320fc",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/b-browser-attempts/20261013T064724527956/B04-six-unit-prescription-awaiting-report.png",
+          "sha256": "5ce9ca74092835714d8a0da52ac325188f893dfddcc73986dbcd6a939852855a",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/b-browser-attempts/20261013T064724527956/B05-referral-source-independent.png",
+          "sha256": "2435500e1f50801338e2a630d23f7d1533b293660218fa2b6f481e94fe8e978c",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/b-browser-attempts/20261013T064724527956/B06-shortage-fact-awaiting-recovery.png",
+          "sha256": "e9ef2e757471dc99df40c55fa2e686ef234245098cea9ee99909df72325c2eea",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/b-browser-attempts/20261013T064724527956/B07-real-pharmacy-four-of-six.png",
+          "sha256": "b4ef9fa3773b09d6f2cddadf5768218a7b33f6d20543bfc9601c883c9c307137",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/b-browser-attempts/20261013T064724527956/B08-finished-four-remainder-awaits-report.png",
+          "sha256": "91d27bb37c157852fcad75461998345cd6f8615a237772656067995a9670a9a3",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/b-browser-attempts/20261013T064724527956/B09-second-report-real-two-of-six.png",
+          "sha256": "d5218a224a0cc3d54e8b126195389a01c3dfe17d68e7f0171b5a0507499559e8",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/b-browser-attempts/20261013T064724527956/B10-seventh-unit-rejected.png",
+          "sha256": "8ef4180cb17bb2aec4be00a1e64f26d130645d6b2bc9cb9e5ad7e2806abd8362",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/b-browser-attempts/20261013T064724527956/B11-prescription-complete-original-sources.png",
+          "sha256": "e683216ba810c7654548d6ce7aacbb2b6214b6c6da137f096ff71962f5a9d27e",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/b-browser-attempts/20261013T064724527956/B12-readonly-boundary.png",
+          "sha256": "54ec0d80321e4ed572904eec815d4308dc4651596d2bf1be630b932498131265",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        }
+      ]
+    },
+    "R": {
+      "result": "PASS",
+      "checks": 23,
+      "pageerrors": 0,
+      "screenshots": [
+        {
+          "path": "docs/evidence/s08c/rework-browser-attempts/20261013T064853588939/R01-chairside-empty-batch-rejected.png",
+          "sha256": "232933e89923dd4e6249aeb59ad8ec826f2bf32479db4721160b9edf43f4f05f",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/rework-browser-attempts/20261013T064853588939/R02-chairside-mismatched-quantity-rejected.png",
+          "sha256": "f959c49349c7a74f8eea6d18f280e5c15381a2cc438acb248f5c608b2426e476",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/rework-browser-attempts/20261013T064853588939/R03-historical-fact-pending-no-false-fee.png",
+          "sha256": "aba4f4e1d850ae21e23effbb26d1ea2d081c353c7609e14720a7900f4924df05",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/rework-browser-attempts/20261013T064853588939/R04-original-medication-evidence-recovered.png",
+          "sha256": "553f92d3bab2312408b5fd475946c65ca25905dc0089525c966f44625b5a0ab1",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/rework-browser-attempts/20261013T064853588939/R05-incomplete-prescription-issue-rejected.png",
+          "sha256": "f3fff50f14f235af8116b9f273feb6aacf182dce1d45e87a154e7db6dff81bd5",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/rework-browser-attempts/20261013T064853588939/R06-complete-multi-sku-prescription.png",
+          "sha256": "c11837afe97574f6c6c085d35d385ee5c2fc84c615b6196a1e52ccb354820eeb",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/rework-browser-attempts/20261013T064853588939/R07-source-only-cross-legal-referrals.png",
+          "sha256": "dcacd9cffd8912db1af99ca18715b3424627025f0fbe86abfcfe8d55e30a224e",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/rework-browser-attempts/20261013T064853588939/R12-cross-legal-full-capacity-rejected.png",
+          "sha256": "52ed647f48646b2bd2760f893787337eec503ddc6f7a788e891bd5f701ec01f4",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/rework-browser-attempts/20261013T064853588939/R13-cross-legal-stopped-target-rejected.png",
+          "sha256": "b2f3de090875ede85b58aebd7d2951afee40fd5baf5075dc38b5ecf4cce70f1f",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/rework-browser-attempts/20261013T064853588939/R14-illegal-target-keeps-original-source.png",
+          "sha256": "df9ffbdc57fe3e4429bcb8b11594538a68010f9eb96b0df8815c4d1b72c5fa0a",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/rework-browser-attempts/20261013T064853588939/R08-unlinked-sku-dispense-rejected.png",
+          "sha256": "91ddd02c48e03f58becda3bd9c5981dd059a0253d4e9809167d71c6ee602e0dc",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/rework-browser-attempts/20261013T064853588939/R09-distinct-sku-price-sources-10-and-27.png",
+          "sha256": "341dd75aa6017f5f44ee983eb4ff32fd6680973a6649b9e0a344327eb76082c2",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/rework-browser-attempts/20261013T064853588939/R10-explicit-price-authority-sku-publication.png",
+          "sha256": "2114d595c68b7a0bb847c3ba913f2972ccbb22468086d7dcb52b9d33c470de03",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/rework-browser-attempts/20261013T064853588939/R11-multi-sku-complete-original-sources.png",
+          "sha256": "d7a65680caca40ba8b97dfd712031875c8fa89705c0fceed76a4a8d0594518fb",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        }
+      ]
+    },
+    "C": {
+      "result": "PASS",
+      "checks": 43,
+      "pageerrors": 0,
+      "screenshots": [
+        {
+          "path": "docs/evidence/s08c/print-browser-attempts/20261013T065003754217/01-entry.png",
+          "sha256": "7911613d901717337e2d3ecd1cadb88a24248ee0fa40faf56219e90c3e040cb3",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/print-browser-attempts/20261013T065003754217/clinical-review.png",
+          "sha256": "5a0a77c3ceb6aa65f5b7a88d6b181df06f71a4a608867ee150371da9ec447bcc",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/print-browser-attempts/20261013T065003754217/clinical-pdf-view.png",
+          "sha256": "934349d67d72541e482122c184477948db73e3ac7a8dedd826818082c72f4dd3",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/print-browser-attempts/20261013T065003754217/clinical-native-print-dialog.png",
+          "sha256": "552782ecb50f8a1bea53b25ad9692c81b51d9a50f0c3c6aa5ef24cfd5fa98cad",
+          "kind": "native print dialog desktop",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/print-browser-attempts/20261013T065003754217/prescription-review.png",
+          "sha256": "06a236cb2e2e3d67c95b369d30e6b55214db0adb2be82baf098c49b9ef939c04",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/print-browser-attempts/20261013T065003754217/prescription-pdf-view.png",
+          "sha256": "6692876a7484b7cc05fbd364179eee01998f828773947a2c1490cff5fd595f5b",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/print-browser-attempts/20261013T065003754217/prescription-native-print-dialog.png",
+          "sha256": "d522585ee30d8eecae1c46550a19eb8cadb5e2ac9689773ef421d6a43c12e716",
+          "kind": "native print dialog desktop",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/print-browser-attempts/20261013T065003754217/consent-review.png",
+          "sha256": "c386cac05a8e4fdccf4be1c285f802219d1b0fd3c452a8320f90ae557c8251eb",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/print-browser-attempts/20261013T065003754217/consent-pdf-view.png",
+          "sha256": "22d378483287bdb4e23ba722ac4b0758f4aa0df9669b40e398c8b63dbbc1f3ef",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/print-browser-attempts/20261013T065003754217/consent-native-print-dialog.png",
+          "sha256": "ef500c57eb19ed7ae587bafc4756ba29188ec3ce025673e39d41daf8a95c1e95",
+          "kind": "native print dialog desktop",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/print-browser-attempts/20261013T065003754217/held-generation.png",
+          "sha256": "329f6427cd50e90361b6484ecfaf2fdd7e30697410f445acaa542f6b50abaf28",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/print-browser-attempts/20261013T065003754217/lost-generation-response.png",
+          "sha256": "b0771daa583ac0a2eb94f7f511ce526cb5f98437bcb58702606f24797c2ac3d6",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/print-browser-attempts/20261013T065003754217/offline-failure.png",
+          "sha256": "8ae851521dc86a8823a4da7d3edba6a1bdef0a61806a31eb8144b0c090ec0fea",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        },
+        {
+          "path": "docs/evidence/s08c/print-browser-attempts/20261013T065003754217/reader-export-denied.png",
+          "sha256": "19d342109a01001a6538b36ac1e9923a9424eef2417cbf21dc3511efa35358b8",
+          "kind": "Firefox page",
+          "visual_verdict": "PASS"
+        }
+      ]
+    }
+  },
+  "total_screenshots": 62,
+  "visual_verdict": "PASS",
+  "physical_paper": "UNKNOWN"
+}

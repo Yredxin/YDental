@@ -1,0 +1,1773 @@
+{
+  "database": "ydental_s08c_test_20261013063042_4e7a1d2c",
+  "tested_commit": "141301e473e83c9429335b5127e76b7c0e4cc8a7",
+  "pdfs": [
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/race-generate-during-source-save.pdf",
+      "sha256": "84868e770067d60e5a4fcba12a6118fb6dc039e5e85e2e164aca052e515c733e",
+      "pages": [
+        {
+          "number": 1,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/race-generate-during-source-save-page-01.png",
+          "sha256": "57b439e73f5d77f2e4ce9f3de041619c21eb68d50cee07e022fdfa71d2bdc5e5",
+          "characters": 591,
+          "business_characters": 501,
+          "body_dark_pixels": 64572,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 2,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/race-generate-during-source-save-page-02.png",
+          "sha256": "3e3295889c684dd2c260c3105785b0ff12e065f461cc52d7be74303f693c0ce0",
+          "characters": 565,
+          "business_characters": 494,
+          "body_dark_pixels": 26470,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        }
+      ],
+      "fonts": [
+        "NotoSansCJKsc-Regular"
+      ],
+      "source_line_matrix": [],
+      "text": "docs/evidence/s08c/probe-attempts/20261013T064304331872/race-generate-during-source-save.txt",
+      "result": "AUTOMATED_PASS_VISUAL_PENDING"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d1-long-draft.pdf",
+      "sha256": "a6a8aecd0db17d49125d671c3237a1fd1f24bf0943ffb6939562d408b6615af8",
+      "pages": [
+        {
+          "number": 1,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d1-long-draft-page-01.png",
+          "sha256": "a3d4f4a472511628e5455ab4a854857eb21f4d52ae92d918288b6fe6b54c1855",
+          "characters": 492,
+          "business_characters": 410,
+          "body_dark_pixels": 63399,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 2,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d1-long-draft-page-02.png",
+          "sha256": "04299dd3a8fcd974e8f6cca23b2c0fb765694693f4efbd0b58937f65e8c678f4",
+          "characters": 2513,
+          "business_characters": 2450,
+          "body_dark_pixels": 212170,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 3,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d1-long-draft-page-03.png",
+          "sha256": "5d73525a030be42758f016da54b23bc7b4f88ec94a1ef12948b3dfa3563a8dca",
+          "characters": 2513,
+          "business_characters": 2450,
+          "body_dark_pixels": 212170,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 4,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d1-long-draft-page-04.png",
+          "sha256": "48a719263685568916072dea932dcdae0818bb5de16228bdca3900a1a876c929",
+          "characters": 2513,
+          "business_characters": 2450,
+          "body_dark_pixels": 212170,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 5,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d1-long-draft-page-05.png",
+          "sha256": "3ded19a5b84ecf77ae312094436e8a27ae878f735980c5dc9223c2c16d54f355",
+          "characters": 938,
+          "business_characters": 856,
+          "body_dark_pixels": 88762,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 6,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d1-long-draft-page-06.png",
+          "sha256": "9c0465620ca7ccbeca8a5982c08d25d696ca9cc99b1b21624ffc4f95fa792906",
+          "characters": 373,
+          "business_characters": 253,
+          "body_dark_pixels": 57540,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 7,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d1-long-draft-page-07.png",
+          "sha256": "c086831f6f11706f4bf6c618608754f6f2835525c7efe3968ba4b4d3cddd821e",
+          "characters": 494,
+          "business_characters": 418,
+          "body_dark_pixels": 27245,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        }
+      ],
+      "fonts": [
+        "NotoSansCJKsc-Regular"
+      ],
+      "source_line_matrix": [],
+      "text": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d1-long-draft.txt",
+      "result": "AUTOMATED_PASS_VISUAL_PENDING"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/consent-unsigned-unreviewed.pdf",
+      "sha256": "8ff9dacdd1c244a7bb115389a67c78aa87099623c31c1025b5d5b9d3b3600df9",
+      "pages": [
+        {
+          "number": 1,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/consent-unsigned-unreviewed-page-01.png",
+          "sha256": "e2208566fd22d8444f682fca91c4cd8958edf46aafcbd70e3ee67dcf0182ef53",
+          "characters": 529,
+          "business_characters": 446,
+          "body_dark_pixels": 67922,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 2,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/consent-unsigned-unreviewed-page-02.png",
+          "sha256": "05540de5e18a762cf820156d0fe993614ff7e55142146c9ec38f5d909216c958",
+          "characters": 538,
+          "business_characters": 475,
+          "body_dark_pixels": 30604,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        }
+      ],
+      "fonts": [
+        "NotoSansCJKsc-Regular"
+      ],
+      "source_line_matrix": [],
+      "text": "docs/evidence/s08c/probe-attempts/20261013T064304331872/consent-unsigned-unreviewed.txt",
+      "result": "AUTOMATED_PASS_VISUAL_PENDING"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-incomplete-draft.pdf",
+      "sha256": "ec4b271ed59359e012610c49d23257b3af458cb98c562e51cd6577a5ed3e5bb4",
+      "pages": [
+        {
+          "number": 1,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-incomplete-draft-page-01.png",
+          "sha256": "76137ff5c150b40c5c632c782479f3d3cd7ade2afb5d0cfaaf229028329c4e45",
+          "characters": 439,
+          "business_characters": 362,
+          "body_dark_pixels": 48309,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 2,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-incomplete-draft-page-02.png",
+          "sha256": "74e0c5b884531e6d4524a58b5f966cf8f4b563641d91cfda54563d9f89f43bc8",
+          "characters": 437,
+          "business_characters": 382,
+          "body_dark_pixels": 19648,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        }
+      ],
+      "fonts": [
+        "NotoSansCJKsc-Regular"
+      ],
+      "source_line_matrix": [
+        {
+          "line_id": 113,
+          "source_fields": {
+            "sku": true,
+            "name": true,
+            "product_specification": true,
+            "specification": true,
+            "usage": true,
+            "frequency": true,
+            "course": true,
+            "unit": true,
+            "state": true,
+            "reason": true,
+            "approved": true,
+            "dispensed": true,
+            "remaining": true
+          },
+          "end_marker_pages": {}
+        }
+      ],
+      "text": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-incomplete-draft.txt",
+      "result": "AUTOMATED_PASS_VISUAL_PENDING"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-six-uncollected.pdf",
+      "sha256": "9b788dd8ec2aea63d64799e502af950e3f6dd532c52bce929c9df6e07a5f19ba",
+      "pages": [
+        {
+          "number": 1,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-six-uncollected-page-01.png",
+          "sha256": "cb6bd03e8bdf5ecb0f417af0fcada998ddfd6491bc406d6d397dd527dc778935",
+          "characters": 516,
+          "business_characters": 434,
+          "body_dark_pixels": 50099,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 2,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-six-uncollected-page-02.png",
+          "sha256": "78f38560c11ddbaa089eb69a53c5bdfe8e98a43394384a73c4e91f20da264761",
+          "characters": 439,
+          "business_characters": 384,
+          "body_dark_pixels": 19815,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        }
+      ],
+      "fonts": [
+        "NotoSansCJKsc-Regular"
+      ],
+      "source_line_matrix": [
+        {
+          "line_id": 114,
+          "source_fields": {
+            "sku": true,
+            "name": true,
+            "product_specification": true,
+            "specification": true,
+            "usage": true,
+            "frequency": true,
+            "course": true,
+            "unit": true,
+            "state": true,
+            "reason": true,
+            "approved": true,
+            "dispensed": true,
+            "remaining": true
+          },
+          "end_marker_pages": {}
+        }
+      ],
+      "text": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-six-uncollected.txt",
+      "result": "AUTOMATED_PASS_VISUAL_PENDING"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d1-pending.pdf",
+      "sha256": "48d068d2dfedba3497bdb945dad16bef36c35db8268f6a2bacf6f8463f0ce470",
+      "pages": [
+        {
+          "number": 1,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d1-pending-page-01.png",
+          "sha256": "a012479fd83f0d9d26074d9856a337cbbd4c587db6432d7e44b80907c14e811f",
+          "characters": 498,
+          "business_characters": 416,
+          "body_dark_pixels": 63861,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 2,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d1-pending-page-02.png",
+          "sha256": "04299dd3a8fcd974e8f6cca23b2c0fb765694693f4efbd0b58937f65e8c678f4",
+          "characters": 2513,
+          "business_characters": 2450,
+          "body_dark_pixels": 212170,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 3,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d1-pending-page-03.png",
+          "sha256": "5d73525a030be42758f016da54b23bc7b4f88ec94a1ef12948b3dfa3563a8dca",
+          "characters": 2513,
+          "business_characters": 2450,
+          "body_dark_pixels": 212170,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 4,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d1-pending-page-04.png",
+          "sha256": "48a719263685568916072dea932dcdae0818bb5de16228bdca3900a1a876c929",
+          "characters": 2513,
+          "business_characters": 2450,
+          "body_dark_pixels": 212170,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 5,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d1-pending-page-05.png",
+          "sha256": "3ded19a5b84ecf77ae312094436e8a27ae878f735980c5dc9223c2c16d54f355",
+          "characters": 938,
+          "business_characters": 856,
+          "body_dark_pixels": 88762,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 6,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d1-pending-page-06.png",
+          "sha256": "9c0465620ca7ccbeca8a5982c08d25d696ca9cc99b1b21624ffc4f95fa792906",
+          "characters": 373,
+          "business_characters": 253,
+          "body_dark_pixels": 57540,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 7,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d1-pending-page-07.png",
+          "sha256": "05a8a7084e5b3a4195ca199c017a8c256755a74d70c18fa2f871e43d5ff379f2",
+          "characters": 496,
+          "business_characters": 420,
+          "body_dark_pixels": 27424,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        }
+      ],
+      "fonts": [
+        "NotoSansCJKsc-Regular"
+      ],
+      "source_line_matrix": [],
+      "text": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d1-pending.txt",
+      "result": "AUTOMATED_PASS_VISUAL_PENDING"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-four-dispensed-two-left.pdf",
+      "sha256": "ddfe0fbbfd73db4e5aec2120887d555c07641d34501ea2f63b0f8d3e16ed14bc",
+      "pages": [
+        {
+          "number": 1,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-four-dispensed-two-left-page-01.png",
+          "sha256": "33f53724759cefed053a00242fe93758d9a27bf1f9e8c73708b870bf3f0990a2",
+          "characters": 518,
+          "business_characters": 436,
+          "body_dark_pixels": 50132,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 2,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-four-dispensed-two-left-page-02.png",
+          "sha256": "a17691411d692c83a0b05d78a057f28089b0cf47f7900c424ca61930be01f963",
+          "characters": 529,
+          "business_characters": 456,
+          "body_dark_pixels": 23670,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        }
+      ],
+      "fonts": [
+        "NotoSansCJKsc-Regular"
+      ],
+      "source_line_matrix": [
+        {
+          "line_id": 114,
+          "source_fields": {
+            "sku": true,
+            "name": true,
+            "product_specification": true,
+            "specification": true,
+            "usage": true,
+            "frequency": true,
+            "course": true,
+            "unit": true,
+            "state": true,
+            "reason": true,
+            "approved": true,
+            "dispensed": true,
+            "remaining": true
+          },
+          "end_marker_pages": {}
+        }
+      ],
+      "text": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-four-dispensed-two-left.txt",
+      "result": "AUTOMATED_PASS_VISUAL_PENDING"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-six-dispensed-zero-left.pdf",
+      "sha256": "c26dbb07a9c6ef65ccc30a0c977b7d8e171f0fa481ad86d8fbeebca1059b1115",
+      "pages": [
+        {
+          "number": 1,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-six-dispensed-zero-left-page-01.png",
+          "sha256": "d8eb8154a1648538072515254826dd02bd4af376033f9f65086423d1c94a2653",
+          "characters": 523,
+          "business_characters": 441,
+          "body_dark_pixels": 50774,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 2,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-six-dispensed-zero-left-page-02.png",
+          "sha256": "620a10ad9fac5975d46d941283167a14b1e0a61b091e8204cb2b7511c4fca39d",
+          "characters": 627,
+          "business_characters": 534,
+          "body_dark_pixels": 28354,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        }
+      ],
+      "fonts": [
+        "NotoSansCJKsc-Regular"
+      ],
+      "source_line_matrix": [
+        {
+          "line_id": 114,
+          "source_fields": {
+            "sku": true,
+            "name": true,
+            "product_specification": true,
+            "specification": true,
+            "usage": true,
+            "frequency": true,
+            "course": true,
+            "unit": true,
+            "state": true,
+            "reason": true,
+            "approved": true,
+            "dispensed": true,
+            "remaining": true
+          },
+          "end_marker_pages": {}
+        }
+      ],
+      "text": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-six-dispensed-zero-left.txt",
+      "result": "AUTOMATED_PASS_VISUAL_PENDING"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d2-confirmed-independent.pdf",
+      "sha256": "e3a075f8b143878e07bfdfcc380211fc85f573f8f48ab56f85f5b4d197e452cd",
+      "pages": [
+        {
+          "number": 1,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d2-confirmed-independent-page-01.png",
+          "sha256": "dcda344d3add60db8a07c9616165cb8c85ea1247cdaa25fe4bca66f0914f48de",
+          "characters": 532,
+          "business_characters": 447,
+          "body_dark_pixels": 66042,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 2,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d2-confirmed-independent-page-02.png",
+          "sha256": "aaf37b54f203061a871edd52275363e21cdbe0ae0b932a612d1ad3409c14a2f0",
+          "characters": 559,
+          "business_characters": 489,
+          "body_dark_pixels": 26589,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        }
+      ],
+      "fonts": [
+        "NotoSansCJKsc-Regular"
+      ],
+      "source_line_matrix": [],
+      "text": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d2-confirmed-independent.txt",
+      "result": "AUTOMATED_PASS_VISUAL_PENDING"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d2-historical-confirmed.pdf",
+      "sha256": "b18461f924a9a184c204acb0ac1f1ab17660320bae656262d56071156ae9d780",
+      "pages": [
+        {
+          "number": 1,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d2-historical-confirmed-page-01.png",
+          "sha256": "22706957f87fdc66399ab9399f4055bf2d4a2e992856dc6aaa6495fe8c5beabe",
+          "characters": 532,
+          "business_characters": 447,
+          "body_dark_pixels": 66045,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 2,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d2-historical-confirmed-page-02.png",
+          "sha256": "455c3e2e45285e27a47f3c34f56152bc9d36788e04aa7293c7062bb18b2b9765",
+          "characters": 559,
+          "business_characters": 489,
+          "body_dark_pixels": 26742,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        }
+      ],
+      "fonts": [
+        "NotoSansCJKsc-Regular"
+      ],
+      "source_line_matrix": [],
+      "text": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d2-historical-confirmed.txt",
+      "result": "AUTOMATED_PASS_VISUAL_PENDING"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d2-corrected.pdf",
+      "sha256": "0c9729b072655140681126b1b45b8f683de694f0acddecd6f504cea2118d329b",
+      "pages": [
+        {
+          "number": 1,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d2-corrected-page-01.png",
+          "sha256": "f693ac293e36871b1a146be821b359f2bdcbc2ac17e792b85c1b1b3d5459261f",
+          "characters": 529,
+          "business_characters": 444,
+          "body_dark_pixels": 65709,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 2,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d2-corrected-page-02.png",
+          "sha256": "ba263fc51b82949306ee2f7982946f0abdfcaa1a1e687959636c121e750c42f7",
+          "characters": 559,
+          "business_characters": 489,
+          "body_dark_pixels": 26701,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        }
+      ],
+      "fonts": [
+        "NotoSansCJKsc-Regular"
+      ],
+      "source_line_matrix": [],
+      "text": "docs/evidence/s08c/probe-attempts/20261013T064304331872/clinical-d2-corrected.txt",
+      "result": "AUTOMATED_PASS_VISUAL_PENDING"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-long-sixteen-lines.pdf",
+      "sha256": "de93019b0436ce25f6f8bb99592722ec81fc10125ce458389cfe9b96fe937638",
+      "pages": [
+        {
+          "number": 1,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-long-sixteen-lines-page-01.png",
+          "sha256": "ca2873b76d323d3be2a761f71bb074c1c19f5784eb8c04133f20d858d93faa48",
+          "characters": 1198,
+          "business_characters": 1117,
+          "body_dark_pixels": 100308,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 2,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-long-sixteen-lines-page-02.png",
+          "sha256": "5bc5ffb73a32645620559af76a2682edad15f17ab3828e7ddc14be7ab7da5cca",
+          "characters": 1425,
+          "business_characters": 1352,
+          "body_dark_pixels": 105490,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 3,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-long-sixteen-lines-page-03.png",
+          "sha256": "d0720cf6c4fb8233e60c99f7db4587771697f906be120c34f5275a20bbdeab54",
+          "characters": 1526,
+          "business_characters": 1452,
+          "body_dark_pixels": 110420,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 4,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-long-sixteen-lines-page-04.png",
+          "sha256": "e9fbb77b306215b51c46b674bbbcde1b87d7a6bf9c50802265ed04d20598e96d",
+          "characters": 1825,
+          "business_characters": 1754,
+          "body_dark_pixels": 138212,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 5,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-long-sixteen-lines-page-05.png",
+          "sha256": "ae8ab21b42e14d2ca2bb66ac5316c9d6337b1d07f97ea66580d59b047d307a21",
+          "characters": 1319,
+          "business_characters": 1248,
+          "body_dark_pixels": 97819,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 6,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-long-sixteen-lines-page-06.png",
+          "sha256": "b09ef215d5e91e9b8a73c310c55d7d7ce3baaf27a56f57177bfdb8747fe2c52e",
+          "characters": 1630,
+          "business_characters": 1556,
+          "body_dark_pixels": 107966,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 7,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-long-sixteen-lines-page-07.png",
+          "sha256": "908aaee8f404f3b4a3192dafe8b120aae9a1b890816de8ef10b07f6a5c3c5d0f",
+          "characters": 1805,
+          "business_characters": 1734,
+          "body_dark_pixels": 135677,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 8,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-long-sixteen-lines-page-08.png",
+          "sha256": "126b1b4c82a584ece00664839d0f2a3189660e62ffe47b902e2acb01ffc765cb",
+          "characters": 1214,
+          "business_characters": 1146,
+          "body_dark_pixels": 91186,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 9,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-long-sixteen-lines-page-09.png",
+          "sha256": "9783a6c2a6a0e114dea5a4e8f9be942130310fc07a7963c759e7b93dc71d4fcd",
+          "characters": 1545,
+          "business_characters": 1470,
+          "body_dark_pixels": 110506,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 10,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-long-sixteen-lines-page-10.png",
+          "sha256": "efccdbc18dfc6f6057fae2c498f371bedf36500296d43ef7454b40173625adcc",
+          "characters": 1807,
+          "business_characters": 1736,
+          "body_dark_pixels": 137612,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 11,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-long-sixteen-lines-page-11.png",
+          "sha256": "24b525626d75e62fcf54f639a109a5e6466bd57f536368e09d8ffabf9aa33fd0",
+          "characters": 1320,
+          "business_characters": 1248,
+          "body_dark_pixels": 97795,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 12,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-long-sixteen-lines-page-12.png",
+          "sha256": "08529a4a00adee0eed621bfd50d765271c8e0c0238f6baf8a4ce2213b937f9af",
+          "characters": 1527,
+          "business_characters": 1452,
+          "body_dark_pixels": 110052,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 13,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-long-sixteen-lines-page-13.png",
+          "sha256": "c24cfb121f01e4dc8f64e3e536773f581a0671f99dd895610e2beab175b56e04",
+          "characters": 1485,
+          "business_characters": 1370,
+          "body_dark_pixels": 86241,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        }
+      ],
+      "fonts": [
+        "NotoSansCJKsc-Regular"
+      ],
+      "source_line_matrix": [
+        {
+          "line_id": 115,
+          "source_fields": {
+            "sku": true,
+            "name": true,
+            "product_specification": true,
+            "specification": true,
+            "usage": true,
+            "frequency": true,
+            "course": true,
+            "unit": true,
+            "state": true,
+            "reason": true,
+            "approved": true,
+            "dispensed": true,
+            "remaining": true
+          },
+          "end_marker_pages": {
+            "specification": 1,
+            "usage": 1,
+            "frequency": 1,
+            "course": 2
+          }
+        },
+        {
+          "line_id": 116,
+          "source_fields": {
+            "sku": true,
+            "name": true,
+            "product_specification": true,
+            "specification": true,
+            "usage": true,
+            "frequency": true,
+            "course": true,
+            "unit": true,
+            "state": true,
+            "reason": true,
+            "approved": true,
+            "dispensed": true,
+            "remaining": true
+          },
+          "end_marker_pages": {
+            "specification": 2,
+            "usage": 2,
+            "frequency": 2,
+            "course": 2
+          }
+        },
+        {
+          "line_id": 117,
+          "source_fields": {
+            "sku": true,
+            "name": true,
+            "product_specification": true,
+            "specification": true,
+            "usage": true,
+            "frequency": true,
+            "course": true,
+            "unit": true,
+            "state": true,
+            "reason": true,
+            "approved": true,
+            "dispensed": true,
+            "remaining": true
+          },
+          "end_marker_pages": {
+            "specification": 3,
+            "usage": 3,
+            "frequency": 3,
+            "course": 3
+          }
+        },
+        {
+          "line_id": 118,
+          "source_fields": {
+            "sku": true,
+            "name": true,
+            "product_specification": true,
+            "specification": true,
+            "usage": true,
+            "frequency": true,
+            "course": true,
+            "unit": true,
+            "state": true,
+            "reason": true,
+            "approved": true,
+            "dispensed": true,
+            "remaining": true
+          },
+          "end_marker_pages": {
+            "specification": 3,
+            "usage": 4,
+            "frequency": 4,
+            "course": 4
+          }
+        },
+        {
+          "line_id": 119,
+          "source_fields": {
+            "sku": true,
+            "name": true,
+            "product_specification": true,
+            "specification": true,
+            "usage": true,
+            "frequency": true,
+            "course": true,
+            "unit": true,
+            "state": true,
+            "reason": true,
+            "approved": true,
+            "dispensed": true,
+            "remaining": true
+          },
+          "end_marker_pages": {
+            "specification": 4,
+            "usage": 4,
+            "frequency": 4,
+            "course": 5
+          }
+        },
+        {
+          "line_id": 120,
+          "source_fields": {
+            "sku": true,
+            "name": true,
+            "product_specification": true,
+            "specification": true,
+            "usage": true,
+            "frequency": true,
+            "course": true,
+            "unit": true,
+            "state": true,
+            "reason": true,
+            "approved": true,
+            "dispensed": true,
+            "remaining": true
+          },
+          "end_marker_pages": {
+            "specification": 5,
+            "usage": 5,
+            "frequency": 5,
+            "course": 5
+          }
+        },
+        {
+          "line_id": 121,
+          "source_fields": {
+            "sku": true,
+            "name": true,
+            "product_specification": true,
+            "specification": true,
+            "usage": true,
+            "frequency": true,
+            "course": true,
+            "unit": true,
+            "state": true,
+            "reason": true,
+            "approved": true,
+            "dispensed": true,
+            "remaining": true
+          },
+          "end_marker_pages": {
+            "specification": 6,
+            "usage": 6,
+            "frequency": 6,
+            "course": 6
+          }
+        },
+        {
+          "line_id": 122,
+          "source_fields": {
+            "sku": true,
+            "name": true,
+            "product_specification": true,
+            "specification": true,
+            "usage": true,
+            "frequency": true,
+            "course": true,
+            "unit": true,
+            "state": true,
+            "reason": true,
+            "approved": true,
+            "dispensed": true,
+            "remaining": true
+          },
+          "end_marker_pages": {
+            "specification": 6,
+            "usage": 7,
+            "frequency": 7,
+            "course": 7
+          }
+        },
+        {
+          "line_id": 123,
+          "source_fields": {
+            "sku": true,
+            "name": true,
+            "product_specification": true,
+            "specification": true,
+            "usage": true,
+            "frequency": true,
+            "course": true,
+            "unit": true,
+            "state": true,
+            "reason": true,
+            "approved": true,
+            "dispensed": true,
+            "remaining": true
+          },
+          "end_marker_pages": {
+            "specification": 7,
+            "usage": 7,
+            "frequency": 7,
+            "course": 7
+          }
+        },
+        {
+          "line_id": 124,
+          "source_fields": {
+            "sku": true,
+            "name": true,
+            "product_specification": true,
+            "specification": true,
+            "usage": true,
+            "frequency": true,
+            "course": true,
+            "unit": true,
+            "state": true,
+            "reason": true,
+            "approved": true,
+            "dispensed": true,
+            "remaining": true
+          },
+          "end_marker_pages": {
+            "specification": 8,
+            "usage": 8,
+            "frequency": 8,
+            "course": 8
+          }
+        },
+        {
+          "line_id": 125,
+          "source_fields": {
+            "sku": true,
+            "name": true,
+            "product_specification": true,
+            "specification": true,
+            "usage": true,
+            "frequency": true,
+            "course": true,
+            "unit": true,
+            "state": true,
+            "reason": true,
+            "approved": true,
+            "dispensed": true,
+            "remaining": true
+          },
+          "end_marker_pages": {
+            "specification": 9,
+            "usage": 9,
+            "frequency": 9,
+            "course": 9
+          }
+        },
+        {
+          "line_id": 126,
+          "source_fields": {
+            "sku": true,
+            "name": true,
+            "product_specification": true,
+            "specification": true,
+            "usage": true,
+            "frequency": true,
+            "course": true,
+            "unit": true,
+            "state": true,
+            "reason": true,
+            "approved": true,
+            "dispensed": true,
+            "remaining": true
+          },
+          "end_marker_pages": {
+            "specification": 9,
+            "usage": 10,
+            "frequency": 10,
+            "course": 10
+          }
+        },
+        {
+          "line_id": 127,
+          "source_fields": {
+            "sku": true,
+            "name": true,
+            "product_specification": true,
+            "specification": true,
+            "usage": true,
+            "frequency": true,
+            "course": true,
+            "unit": true,
+            "state": true,
+            "reason": true,
+            "approved": true,
+            "dispensed": true,
+            "remaining": true
+          },
+          "end_marker_pages": {
+            "specification": 10,
+            "usage": 10,
+            "frequency": 10,
+            "course": 11
+          }
+        },
+        {
+          "line_id": 128,
+          "source_fields": {
+            "sku": true,
+            "name": true,
+            "product_specification": true,
+            "specification": true,
+            "usage": true,
+            "frequency": true,
+            "course": true,
+            "unit": true,
+            "state": true,
+            "reason": true,
+            "approved": true,
+            "dispensed": true,
+            "remaining": true
+          },
+          "end_marker_pages": {
+            "specification": 11,
+            "usage": 11,
+            "frequency": 11,
+            "course": 11
+          }
+        },
+        {
+          "line_id": 129,
+          "source_fields": {
+            "sku": true,
+            "name": true,
+            "product_specification": true,
+            "specification": true,
+            "usage": true,
+            "frequency": true,
+            "course": true,
+            "unit": true,
+            "state": true,
+            "reason": true,
+            "approved": true,
+            "dispensed": true,
+            "remaining": true
+          },
+          "end_marker_pages": {
+            "specification": 12,
+            "usage": 12,
+            "frequency": 12,
+            "course": 12
+          }
+        },
+        {
+          "line_id": 130,
+          "source_fields": {
+            "sku": true,
+            "name": true,
+            "product_specification": true,
+            "specification": true,
+            "usage": true,
+            "frequency": true,
+            "course": true,
+            "unit": true,
+            "state": true,
+            "reason": true,
+            "approved": true,
+            "dispensed": true,
+            "remaining": true
+          },
+          "end_marker_pages": {
+            "specification": 12,
+            "usage": 13,
+            "frequency": 13,
+            "course": 13
+          }
+        }
+      ],
+      "text": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-long-sixteen-lines.txt",
+      "result": "AUTOMATED_PASS_VISUAL_PENDING"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-edited-draft-cancelled-history.pdf",
+      "sha256": "d1266519f542f7a3b7235da51ba8fe86fb92b7ef4848a20ded66855d126a627f",
+      "pages": [
+        {
+          "number": 1,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-edited-draft-cancelled-history-page-01.png",
+          "sha256": "eab94a28e486bd0914544e1a0222426bcb975711fd07005cb75392862aa4cdf1",
+          "characters": 519,
+          "business_characters": 438,
+          "body_dark_pixels": 51125,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 2,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-edited-draft-cancelled-history-page-02.png",
+          "sha256": "0fc393dfbad247a198c5d42757e073860e59da76255df41ad013b90e7bd0c228",
+          "characters": 411,
+          "business_characters": 344,
+          "body_dark_pixels": 24361,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 3,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-edited-draft-cancelled-history-page-03.png",
+          "sha256": "8c1deb065cae4c9708dc5b006052815635ff3da1b6c32791f0029f2567e95cac",
+          "characters": 710,
+          "business_characters": 621,
+          "body_dark_pixels": 33807,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        }
+      ],
+      "fonts": [
+        "NotoSansCJKsc-Regular"
+      ],
+      "source_line_matrix": [
+        {
+          "line_id": 131,
+          "source_fields": {
+            "sku": true,
+            "name": true,
+            "product_specification": true,
+            "specification": true,
+            "usage": true,
+            "frequency": true,
+            "course": true,
+            "unit": true,
+            "state": true,
+            "reason": true,
+            "approved": true,
+            "dispensed": true,
+            "remaining": true
+          },
+          "end_marker_pages": {}
+        },
+        {
+          "line_id": 132,
+          "source_fields": {
+            "sku": true,
+            "name": true,
+            "product_specification": true,
+            "specification": true,
+            "usage": true,
+            "frequency": true,
+            "course": true,
+            "unit": true,
+            "state": true,
+            "reason": true,
+            "approved": true,
+            "dispensed": true,
+            "remaining": true
+          },
+          "end_marker_pages": {}
+        },
+        {
+          "line_id": 133,
+          "source_fields": {
+            "sku": true,
+            "name": true,
+            "product_specification": true,
+            "specification": true,
+            "usage": true,
+            "frequency": true,
+            "course": true,
+            "unit": true,
+            "state": true,
+            "reason": true,
+            "approved": true,
+            "dispensed": true,
+            "remaining": true
+          },
+          "end_marker_pages": {}
+        },
+        {
+          "line_id": 134,
+          "source_fields": {
+            "sku": true,
+            "name": true,
+            "product_specification": true,
+            "specification": true,
+            "usage": true,
+            "frequency": true,
+            "course": true,
+            "unit": true,
+            "state": true,
+            "reason": true,
+            "approved": true,
+            "dispensed": true,
+            "remaining": true
+          },
+          "end_marker_pages": {}
+        }
+      ],
+      "text": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-edited-draft-cancelled-history.txt",
+      "result": "AUTOMATED_PASS_VISUAL_PENDING"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-three-skus-issued.pdf",
+      "sha256": "3121ca4cfbb78458c0e7043043cbd6e447eb9796f9b9d86803c67857d3dd8dbe",
+      "pages": [
+        {
+          "number": 1,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-three-skus-issued-page-01.png",
+          "sha256": "cb80aebfc522dfcc00fca1525cf0da5998f7da8ee9b0ea68f823bc49df86c456",
+          "characters": 523,
+          "business_characters": 442,
+          "body_dark_pixels": 51400,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 2,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-three-skus-issued-page-02.png",
+          "sha256": "0ad4b6bd513eb83b0abed36f1dbfd24aff1f29894ca540abdfe94011fdd7eb85",
+          "characters": 417,
+          "business_characters": 350,
+          "body_dark_pixels": 24490,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 3,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-three-skus-issued-page-03.png",
+          "sha256": "4ef4b352b926d1f62f250193d213b324324dde51abdb5e902fa7b3a5efbd4136",
+          "characters": 717,
+          "business_characters": 628,
+          "body_dark_pixels": 33945,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        }
+      ],
+      "fonts": [
+        "NotoSansCJKsc-Regular"
+      ],
+      "source_line_matrix": [
+        {
+          "line_id": 131,
+          "source_fields": {
+            "sku": true,
+            "name": true,
+            "product_specification": true,
+            "specification": true,
+            "usage": true,
+            "frequency": true,
+            "course": true,
+            "unit": true,
+            "state": true,
+            "reason": true,
+            "approved": true,
+            "dispensed": true,
+            "remaining": true
+          },
+          "end_marker_pages": {}
+        },
+        {
+          "line_id": 132,
+          "source_fields": {
+            "sku": true,
+            "name": true,
+            "product_specification": true,
+            "specification": true,
+            "usage": true,
+            "frequency": true,
+            "course": true,
+            "unit": true,
+            "state": true,
+            "reason": true,
+            "approved": true,
+            "dispensed": true,
+            "remaining": true
+          },
+          "end_marker_pages": {}
+        },
+        {
+          "line_id": 133,
+          "source_fields": {
+            "sku": true,
+            "name": true,
+            "product_specification": true,
+            "specification": true,
+            "usage": true,
+            "frequency": true,
+            "course": true,
+            "unit": true,
+            "state": true,
+            "reason": true,
+            "approved": true,
+            "dispensed": true,
+            "remaining": true
+          },
+          "end_marker_pages": {}
+        },
+        {
+          "line_id": 134,
+          "source_fields": {
+            "sku": true,
+            "name": true,
+            "product_specification": true,
+            "specification": true,
+            "usage": true,
+            "frequency": true,
+            "course": true,
+            "unit": true,
+            "state": true,
+            "reason": true,
+            "approved": true,
+            "dispensed": true,
+            "remaining": true
+          },
+          "end_marker_pages": {}
+        }
+      ],
+      "text": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-three-skus-issued.txt",
+      "result": "AUTOMATED_PASS_VISUAL_PENDING"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-three-skus-ten-twentyseven-fortythree.pdf",
+      "sha256": "c2e459d9ada98c2df39ae0ac1950a3bdea501645f06175ae06e76be3d01155f8",
+      "pages": [
+        {
+          "number": 1,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-three-skus-ten-twentyseven-fortythree-page-01.png",
+          "sha256": "cb80aebfc522dfcc00fca1525cf0da5998f7da8ee9b0ea68f823bc49df86c456",
+          "characters": 523,
+          "business_characters": 442,
+          "body_dark_pixels": 51400,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 2,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-three-skus-ten-twentyseven-fortythree-page-02.png",
+          "sha256": "803cbe5527d754fd5a18b7f1a6129182e090465f478aaa71268a19ec37928e5c",
+          "characters": 421,
+          "business_characters": 354,
+          "body_dark_pixels": 24574,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 3,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-three-skus-ten-twentyseven-fortythree-page-03.png",
+          "sha256": "2a00e3bb1a3e5ae81898bfab7467bef8b8e715d376db5b695f3afb9e17ca1e96",
+          "characters": 1019,
+          "business_characters": 872,
+          "body_dark_pixels": 45117,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        }
+      ],
+      "fonts": [
+        "NotoSansCJKsc-Regular"
+      ],
+      "source_line_matrix": [
+        {
+          "line_id": 131,
+          "source_fields": {
+            "sku": true,
+            "name": true,
+            "product_specification": true,
+            "specification": true,
+            "usage": true,
+            "frequency": true,
+            "course": true,
+            "unit": true,
+            "state": true,
+            "reason": true,
+            "approved": true,
+            "dispensed": true,
+            "remaining": true
+          },
+          "end_marker_pages": {}
+        },
+        {
+          "line_id": 132,
+          "source_fields": {
+            "sku": true,
+            "name": true,
+            "product_specification": true,
+            "specification": true,
+            "usage": true,
+            "frequency": true,
+            "course": true,
+            "unit": true,
+            "state": true,
+            "reason": true,
+            "approved": true,
+            "dispensed": true,
+            "remaining": true
+          },
+          "end_marker_pages": {}
+        },
+        {
+          "line_id": 133,
+          "source_fields": {
+            "sku": true,
+            "name": true,
+            "product_specification": true,
+            "specification": true,
+            "usage": true,
+            "frequency": true,
+            "course": true,
+            "unit": true,
+            "state": true,
+            "reason": true,
+            "approved": true,
+            "dispensed": true,
+            "remaining": true
+          },
+          "end_marker_pages": {}
+        },
+        {
+          "line_id": 134,
+          "source_fields": {
+            "sku": true,
+            "name": true,
+            "product_specification": true,
+            "specification": true,
+            "usage": true,
+            "frequency": true,
+            "course": true,
+            "unit": true,
+            "state": true,
+            "reason": true,
+            "approved": true,
+            "dispensed": true,
+            "remaining": true
+          },
+          "end_marker_pages": {}
+        }
+      ],
+      "text": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-three-skus-ten-twentyseven-fortythree.txt",
+      "result": "AUTOMATED_PASS_VISUAL_PENDING"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-next-day-three-skus-done.pdf",
+      "sha256": "8670a8fcdd927927e24b93a6b2e882ede71b2de11169dba6630e0d550acdf3b9",
+      "pages": [
+        {
+          "number": 1,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-next-day-three-skus-done-page-01.png",
+          "sha256": "dbc29bddfeec6a65c7db1adbfab41fd863f99c147e47c707f2a57b92714a0d68",
+          "characters": 526,
+          "business_characters": 445,
+          "body_dark_pixels": 51818,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 2,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-next-day-three-skus-done-page-02.png",
+          "sha256": "960503c2f53c68fb3005708f8449fc3bc5e5236dfd2982ba3fcdfd60dd6550c4",
+          "characters": 425,
+          "business_characters": 358,
+          "body_dark_pixels": 25004,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 3,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-next-day-three-skus-done-page-03.png",
+          "sha256": "a97f6bdca8224ec868d3e3eb88c8004d49f173e60eca3061eebf52eb71bffe53",
+          "characters": 1117,
+          "business_characters": 950,
+          "body_dark_pixels": 49355,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        }
+      ],
+      "fonts": [
+        "NotoSansCJKsc-Regular"
+      ],
+      "source_line_matrix": [
+        {
+          "line_id": 131,
+          "source_fields": {
+            "sku": true,
+            "name": true,
+            "product_specification": true,
+            "specification": true,
+            "usage": true,
+            "frequency": true,
+            "course": true,
+            "unit": true,
+            "state": true,
+            "reason": true,
+            "approved": true,
+            "dispensed": true,
+            "remaining": true
+          },
+          "end_marker_pages": {}
+        },
+        {
+          "line_id": 132,
+          "source_fields": {
+            "sku": true,
+            "name": true,
+            "product_specification": true,
+            "specification": true,
+            "usage": true,
+            "frequency": true,
+            "course": true,
+            "unit": true,
+            "state": true,
+            "reason": true,
+            "approved": true,
+            "dispensed": true,
+            "remaining": true
+          },
+          "end_marker_pages": {}
+        },
+        {
+          "line_id": 133,
+          "source_fields": {
+            "sku": true,
+            "name": true,
+            "product_specification": true,
+            "specification": true,
+            "usage": true,
+            "frequency": true,
+            "course": true,
+            "unit": true,
+            "state": true,
+            "reason": true,
+            "approved": true,
+            "dispensed": true,
+            "remaining": true
+          },
+          "end_marker_pages": {}
+        },
+        {
+          "line_id": 134,
+          "source_fields": {
+            "sku": true,
+            "name": true,
+            "product_specification": true,
+            "specification": true,
+            "usage": true,
+            "frequency": true,
+            "course": true,
+            "unit": true,
+            "state": true,
+            "reason": true,
+            "approved": true,
+            "dispensed": true,
+            "remaining": true
+          },
+          "end_marker_pages": {}
+        }
+      ],
+      "text": "docs/evidence/s08c/probe-attempts/20261013T064304331872/prescription-next-day-three-skus-done.txt",
+      "result": "AUTOMATED_PASS_VISUAL_PENDING"
+    }
+  ],
+  "visual_review": "PENDING",
+  "validator_commit": "141301e473e83c9429335b5127e76b7c0e4cc8a7",
+  "renderer_version": "1.28.2",
+  "result": "AUTOMATED_PASS_VISUAL_PENDING"
+}

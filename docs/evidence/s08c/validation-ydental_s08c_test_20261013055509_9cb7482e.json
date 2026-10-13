@@ -1,0 +1,110 @@
+{
+  "database": "ydental_s08c_test_20261013055509_9cb7482e",
+  "port": 18180,
+  "tested_commit": "860bb30672255d318d94cb1866cbbf99226fdb8f",
+  "started_utc": "2026-10-13T05:55:19.690321+00:00",
+  "commands": [
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "install",
+        "--db",
+        "ydental_s08c_test_20261013055509_9cb7482e",
+        "--port",
+        "18180"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T05:55:19.691993+00:00"
+    },
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "upgrade",
+        "--db",
+        "ydental_s08c_test_20261013055509_9cb7482e",
+        "--port",
+        "18180"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T05:58:52.910570+00:00",
+      "log_sha256": "e72fba86134452bc50c7c391d5fcd215b402384fadf883c7daf69798bfc6682b",
+      "log": "validation-s08c-20261013T055852910595.log"
+    },
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/test_s08c_guard.py"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T06:01:25.299353+00:00",
+      "log_sha256": "edd648dfbedcc0b8094c7073057f3e9cbb2643f3a93e4d1a183025ec6959b87d",
+      "log": "validation-test_s08c_guard-20261013T060125299376.log"
+    },
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "probe_a",
+        "--db",
+        "ydental_s08c_test_20261013055509_9cb7482e",
+        "--port",
+        "18180"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T06:01:25.653718+00:00",
+      "log_sha256": "32e1afc09954f6e2fa5a2f90daa807aa9a24e1b9451c91000069f9d0529c0187",
+      "log": "validation-s08c-20261013T060125653738.log"
+    },
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "probe",
+        "--db",
+        "ydental_s08c_test_20261013055509_9cb7482e",
+        "--port",
+        "18180"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T06:03:11.168008+00:00",
+      "log_sha256": "ec2115ee310de079f69803d8863e294cfc7adc51110a9206b32e57b4eb246298",
+      "log": "validation-s08c-20261013T060311168028.log"
+    },
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "probe_c",
+        "--db",
+        "ydental_s08c_test_20261013055509_9cb7482e",
+        "--port",
+        "18180"
+      ],
+      "exit_code": 0,
+      "started_utc": "2026-10-13T06:07:26.470095+00:00",
+      "log_sha256": "7f9666528e6f45d153e210fe0df96d7c8305d38445503cbc45652c6ec6c42d51",
+      "log": "validation-s08c-20261013T060726470117.log"
+    },
+    {
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08c_render_pages.py",
+        "docs/evidence/s08c/probe-attempts/20261013T060727709754/result.json"
+      ],
+      "exit_code": 1,
+      "started_utc": "2026-10-13T06:09:18.891283+00:00",
+      "log_sha256": "93af6016acb85b1bc4ba8a348a56a3c042fd9087e8436bbf73d93ffd5c54e24b",
+      "log": "validation-s08c_render_pages-20261013T060918891302.log"
+    }
+  ],
+  "preview_stops": [],
+  "result": "FAIL",
+  "failure": {
+    "type": "AssertionError",
+    "detail": "{'command': ['../.venv/bin/python', 'scripts/s08c_render_pages.py', 'docs/evidence/s08c/probe-attempts/20261013T060727709754/result.json'], 'exit_code': 1, 'started_utc': '2026-10-13T06:09:18.891283+00:00', 'log_sha256': '93af6016acb85b1bc4ba8a348a56a3c042fd9087e8436bbf73d93ffd5c54e24b', 'log': 'validation-s08c_render_pages-20261013T060918891302.log'}",
+    "trace": "Traceback (most recent call last):\n  File \"/home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s08c_validate.py\", line 85, in <module>\n    command('s08c_render_pages.py',probe_file.relative_to(ROOT))\n  File \"/home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s08c_validate.py\", line 36, in command\n    assert status==0,item\n           ^^^^^^^^^\nAssertionError: {'command': ['../.venv/bin/python', 'scripts/s08c_render_pages.py', 'docs/evidence/s08c/probe-attempts/20261013T060727709754/result.json'], 'exit_code': 1, 'started_utc': '2026-10-13T06:09:18.891283+00:00', 'log_sha256': '93af6016acb85b1bc4ba8a348a56a3c042fd9087e8436bbf73d93ffd5c54e24b', 'log': 'validation-s08c_render_pages-20261013T060918891302.log'}\n"
+  },
+  "finished_utc": "2026-10-13T06:09:21.343558+00:00"
+}

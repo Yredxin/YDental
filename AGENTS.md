@@ -1,5 +1,17 @@
 # YDental 当前执行入口
 
+## 当前 S08-C原生诊断与RX-2分页定向返工 / #32（等待GPT独立技术复核）
+
+- 唯一最新授权为[GPT-REVIEW6138991636](https://github.com/Yredxin/YDental/issues/32#issuecomment-6138991636)。完整读取#23/#32正文及全部有效评论；[先行只读取证与有界恢复计划6139121593](https://github.com/Yredxin/YDental/issues/32#issuecomment-6139121593)已逐字读回。原分支`codex/s08-c-pdf-print-r1-20261013`、旧final`1f5bae007d466f4f6dc932fde435a41f59a9b79f`与旧test`87b2c8588ac3012abce7d9db5f26dc5682dc4e7d`及所有失败/数据库/PDF/PNG不改写。
+- 本轮最新product`51b5b6df900b58ee925619ecea45c9cc9b826480`、固定test`141301e473e83c9429335b5127e76b7c0e4cc8a7`；final SHA 固定于#32本轮交付评论。产品仅处方 QWeb 长字段可分页、行首同页及四个中文标签；runtime 合成 report 类故障注入、源行/PDF 每页可见验证和A合法claim状态判据属于测试/runner。product→test仅测试文件，test→final仅本说明、报告与合成/脱敏证据。
+- 原PID1670701 signal11 指令定位Python `dict_dealloc`，事故core limit0、apport忽略、无native stack；根因UNKNOWN。阶段一只读后仅新库d143b812以`PYTHONFAULTHANDLER=1`有界两次Odoo子进程，install1/[1,0,103]、print-only upgrade1/[1,0,23]为HTTP故障注入测试缺陷，均无新SIGSEGV；没有无限重跑或声称native根因修复。
+- 最终唯一固定test新库`ydental_s08c_test_20261013063042_4e7a1d2c`、OID1386445、端口18182、cluster7694897083368259627：外层exit0/27命令；install103、upgrade101、带持久业务再次upgrade101均exit0；A16+B25+C5共46组真实独立PG backend/barrier、deadlock0；16真实PDF/57页（16行三SKU最长Rx 13页）自动源字段/页面检查加逐页人工目视PASS；Firefox A88+B24+R23+C43=178项/62图全部查看、pageerror0、三类原生打印对话框可见但纸张UNKNOWN；中文导出176/176、guard/权限审计、41类SQL不变量错误0与27升级表、C纯PDF26表签名相等。均Codex自测，不是GPT/用户验收。
+- 旧RX-2 17页候选人工FAIL描述与哈希相同的原PNG第7/9页实际画面冲突，保留双方；本轮首候选行标题跨页裁切、次候选A SQL误把合法supply claim状态变化当副作用，所有新旧失败库/日志/hash/样张不覆盖。四座新C隔离库仅新增，原119库保全；Odoo20 core/odoo-12/db20镜像卷/服务/系统依赖未改。专属预览四次仅精确PID/config停止且exit0。
+- 临时PDF访问窗口15分钟，但`ydental_pdf`数据库二进制无清理生命周期，隐私/保留策略待另行批准；本轮不删除旧文件、不扩张S12。原S07/C SIGSEGV、B Firefox崩溃及重试稳定性根因未知，生产继续BLOCKED。Project完整双读21字段/15条目/6视图及字段/7公开workflow与旧final相同，0mutation；#32 S08/进行中/Todo/OPEN。详见[本轮报告](docs/s08c-rework-report.md)和docs/evidence/s08c-rework。
+- 正常推送后在#32发布`[CODEX] S08-C SIGSEGV与RX-2分页修正交付复核申请`并逐字读回，立即停止等待GPT；不关Issue、不改Project/工作流、不启用S09/S10/S12、不合并/强推/生产部署。
+
+下方原S08-C阻断交付及更早“当前/本次”为历史，本轮以本节及最新GPT-REVIEW为准。
+
 ## 当前 S08-C阻断交付 / #32（等待GPT独立技术复核）
 
 - 唯一授权[GPT-ACTIVATE6137113212](https://github.com/Yredxin/YDental/issues/32#issuecomment-6137113212)。完整读取#23/#32正文及初始3/20评论，交付3/21重读原内容不变，仅本批[开工6137191852](https://github.com/Yredxin/YDental/issues/32#issuecomment-6137191852)新增且已逐字读回。固定B baseline e95b77d1ebd2ff55331e777adedf32efe81fdfbc，新分支codex/s08-c-pdf-print-r1-20261013。
