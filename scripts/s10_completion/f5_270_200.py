@@ -26,6 +26,7 @@ with env.registry.cursor() as cr:
             'settlement': 'write', 'finance_approval': 'write', 'export': 'write'})
         f.admin._grant(f.users['frontdesk'].id, f.stores[0].id, {
             'settlement': 'write', 'finance_approval': 'write', 'export': 'write'})
+        f.admin._grant(f.users['manager'].id, f.stores[1].id, {'settlement': 'write'})
         root = f.root['base'].with_company(company).env
         income = root['account.account'].search([('account_type', '=', 'income'),
             ('company_ids', 'in', company.id)], limit=1)
@@ -135,7 +136,8 @@ with env.registry.cursor() as cr:
         else:
             raise AssertionError('Overpayment accepted')
     (run / 'f5.json').write_text(json.dumps({'patient_id': patient_id,
-        'store_id': f.stores[0].id, 'manager_id': f.users['manager'].id,
+        'store_id': f.stores[0].id, 'other_store_id': f.stores[1].id,
+        'manager_id': f.users['manager'].id,
         'frontdesk_id': f.users['frontdesk'].id,
         'old_invoice_id': prior_a['invoice_id'], 'new_invoice_id': new_bills[0]['invoice_id'],
         'payment_id': selected['payment_id'],

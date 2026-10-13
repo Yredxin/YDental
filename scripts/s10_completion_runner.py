@@ -131,7 +131,7 @@ def main(action):
     else:
         assert len(sys.argv) == 3
         name = sys.argv[2]
-        assert name in ('f1_740', 'f5_270_200', 'f2_f3_refund_close', 'pending_board', 't09_trade', 'same_company_transfer', 'discount_waive', 'partial_refund', 'concurrency_prepare', 'quantity_correction', 'history_205')
+        assert name in ('f1_740', 'f5_270_200', 'f2_f3_refund_close', 'pending_board', 't09_trade', 'same_company_transfer', 'discount_waive', 'partial_refund', 'concurrency_prepare', 'quantity_correction', 'history_205', 'f6_cross_store')
         probe = ROOT / 'scripts/s10_completion' / (name + '.py')
         assert probe.is_file()
         command += ['shell', '-c', str(RUN / 'odoo.conf'), '--no-http']
