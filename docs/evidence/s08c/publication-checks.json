@@ -15,5 +15,32 @@
       "exit_code": 1,
       "reason": "ModuleNotFoundError; no package install; existing pymupdf replacement0"
     }
-  ]
+  ],
+  "git_diff_check_exit_scope": "unstaged tracked files at pre-staging time only",
+  "staged_full_check": {
+    "wrapper_exit_code": 1,
+    "git_findings": 9,
+    "scope": "PDF extracted text has original trailing spaces; preserved verbatim",
+    "preserved_commit": "d420d8616891776df2073d4cbea906a40d1386e4",
+    "commit_exit_code": 0
+  },
+  "artifact_text_preservation_check": {
+    "command": [
+      "git",
+      "diff",
+      "--check",
+      "87b2c8588ac3012abce7d9db5f26dc5682dc4e7d",
+      "HEAD",
+      "--",
+      "AGENTS.md",
+      "docs/s08c-report.md",
+      "docs/s08c-contracts.md",
+      "docs/s08c-data-dictionary.md",
+      "docs/s08c-security-review.md",
+      "docs/evidence/s08c",
+      ":(exclude)docs/evidence/s08c/probe-attempts/*/*.txt"
+    ],
+    "exit_code": 0,
+    "reason": "only raw extracted PDF text excluded; source PDF/PNG and extracted text kept exact"
+  }
 }

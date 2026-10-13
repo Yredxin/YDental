@@ -65,7 +65,7 @@ PID1670701，原生退出 -11/signal11，外层shell245，tests=null；日志 up
 
 原候选失败链全部保留：初始翻译provenance元数据导致install255/testsnull；第二库install1/[6,8,99]（旧A/B78方法未失败，新增C失败，安装另2原生资产初始化，不能称全JS）；之后C参数/ACL/报告scope/字体UTF8、价fixture导入、RR重复key唯一冲突、FOR UPDATE与用户外键阻塞、兼容汉字抽取NFKC、空页/重叠、Firefox工具缺失/旧iframe定位器超时、离线前提等逐步诊断与修正。原日志、原SHA、原错误和不同候选库不删不覆盖；诊断脚本PASS只表示相应诊断完成。最新fault handler未完成验证。脱敏证据整理脚本曾选错两库列表末条日志exit1，定位后按精确PID取记录exit0；这是文件整理错误，不是Odoo测试重跑。
 
-离线证据完整性检查首次误用未安装的pypdf导入exit1；改用本地既有pymupdf后exit0，无安装/环境调整。23份原日志hash、最后候选16PDF/61PNG hash、83份PDF元数据和报告相对链接核查通过，见[完整性记录](evidence/s08c/artifact-integrity-check.json)。这些是文件保全检查，不是重新运行PDF渲染或产品测试。
+离线证据完整性检查首次误用未安装的pypdf导入exit1；改用本地既有pymupdf后exit0，无安装/环境调整。23份原日志hash、最后候选16PDF/61PNG hash、83份PDF元数据和报告相对链接核查通过，见[完整性记录](evidence/s08c/artifact-integrity-check.json)。这些是文件保全检查，不是重新运行PDF渲染或产品测试。暂存全量空白检查报告9处原生PDF抽取文本尾空格，包装脚本exit1；证据原样保留，随后仅排除原始抽取文本的文档检查exit0。首次文档提交d420d861仍保留，未改写历史；完整记录见publication-checks.json。
 
 尚未执行的固定全量入口 scripts/s08c_validate.py：拟新库install103、upgrade101（原A/B78+C23，安装另2原生资产初始化），带业务再升级101、46组真实竞争、A88+B24+返工23+C43 Firefox、翻译/guard/签名。这些是脚本断言目标，**实际均NOT_RUN**；最终新库未创建。
 

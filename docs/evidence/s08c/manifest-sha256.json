@@ -2057,8 +2057,8 @@
     },
     {
       "path": "docs/evidence/s08c/publication-checks.json",
-      "bytes": 715,
-      "sha256": "56544ba512664d5e5aab17d7860a289951d91c293359a3146dd7d86119614041"
+      "bytes": 1608,
+      "sha256": "686afd95b0fb3d5d4fe4ad7710c2697518a9a523f8f587698470dbbcbdbf37bf"
     },
     {
       "path": "docs/evidence/s08c/publication-redaction.json",
