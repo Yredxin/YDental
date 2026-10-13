@@ -17,15 +17,26 @@ class YDentalTreatment(http.Controller):
     @http.route('/ydental/treatment', type='http', auth='user', methods=['GET'])
     def workbench(self, prices=None, **kwargs):
         service = self._service()
-        role = 'price' if prices == '1' else 'medical'
-        try:
-            store = service._access(role, write=False)
-        except AccessError:
-            role = 'pharmacy'
-            store = service._access(role, write=False)
         queue = service.env['ydental.queue.service']
         execution = queue._actor_execution()
-        if execution and execution.ydental_category != role:
+        current_store = service.env['ydental.access.service']._scope().ydental_store_id
+        lease = queue._own()
+        category = execution.ydental_category if execution and execution.ydental_store_id == current_store else (
+            lease.ydental_category if lease and lease.ydental_store_id == current_store else False)
+        if prices == '1':
+            role = 'price'
+            store = service._access(role, write=False)
+        elif category in ('medical', 'pharmacy'):
+            role = category
+            store = service._access(role, write=False)
+        else:
+            role = 'medical'
+            try:
+                store = service._access(role, write=False)
+            except AccessError:
+                role = 'pharmacy'
+                store = service._access(role, write=False)
+        if execution and (execution.ydental_category != role or execution.ydental_store_id != store):
             execution = False
         patient = execution.ydental_patient_id if execution else False
         doc = service.env['ydental.clinical.service']._model().search([

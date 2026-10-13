@@ -1640,3 +1640,8 @@ msgstr "未知"
 #: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
 msgid "Not applicable"
 msgstr "不适用"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "UTC"
+msgstr "UTC"
