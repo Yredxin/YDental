@@ -1,0 +1,884 @@
+{
+  "authorization_comment": 6147246260,
+  "precheck_comment": 6147335402,
+  "base_sha": "a73bcd7d198b5ee9c372c3c658a34053e61be048",
+  "product_sha": "a5d0307da427e393dddc303fdef7f83fe362ea30",
+  "test_sha": "3b7e159b2332dd85dd43241810954fa993103f0a",
+  "d1": {
+    "marker": {
+      "database": "ydental_s10_test_20261013140300_d11a5e73",
+      "oid": 1641937,
+      "cluster": "7694897083368259627",
+      "port": 18212,
+      "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+      "source_commit": "a73bcd7d198b5ee9c372c3c658a34053e61be048",
+      "config_sha256": "ddf402269248d1da0a820ed8935e7006b3c0832e0976b6fcea58338e4ac97c71",
+      "canary_sha256": "6613a7eb6f545a3336258f7d74b1d8c23ad0ef2bc695e38490e3b3e957909b68",
+      "created_utc": "2026-10-13T14:03:05.626967+00:00"
+    },
+    "actions": [
+      {
+        "action": "install",
+        "pid": 1990449,
+        "exit_code": 0,
+        "signal": null,
+        "database": "ydental_s10_test_20261013140300_d11a5e73",
+        "oid": 1641937,
+        "port": 18212,
+        "config_sha256": "ddf402269248d1da0a820ed8935e7006b3c0832e0976b6fcea58338e4ac97c71",
+        "probe_sha256": null,
+        "log_sha256": "bbf2f1bd8df75e977797cadbe7875b9c0c4c59f951efe819ff9b564aee389b48",
+        "log_bytes": 245126,
+        "time_utc": "2026-10-13T14:04:11.168940+00:00"
+      },
+      {
+        "action": "shell",
+        "pid": 1991188,
+        "exit_code": 0,
+        "signal": null,
+        "database": "ydental_s10_test_20261013140300_d11a5e73",
+        "oid": 1641937,
+        "port": 18212,
+        "config_sha256": "ddf402269248d1da0a820ed8935e7006b3c0832e0976b6fcea58338e4ac97c71",
+        "probe_sha256": null,
+        "log_sha256": "5d7b97673cfc67585558b058433a7ba9886bf4aa08fc5b0a31d08fe3fc4ce5c8",
+        "log_bytes": 2221,
+        "time_utc": "2026-10-13T14:04:20.780629+00:00"
+      }
+    ],
+    "precheck": {
+      "status": "PASS",
+      "authorizing_comment": 6147246260,
+      "base_sha": "a73bcd7d198b5ee9c372c3c658a34053e61be048",
+      "diagnostic_db": "ydental_s10_test_20261013140300_d11a5e73",
+      "port": 18212,
+      "cluster": "7694897083368259627",
+      "install_modules": [
+        "ydental_settlement"
+      ],
+      "recursive_manifest_closure_count": 51,
+      "recursive_test_modules": [],
+      "shell_injected_env_source": "../odoo/cli/shell.py: local_vars[env] and exec stdin",
+      "canary_ast": "PASS: json import only; no mutation calls",
+      "runner_sha256": "ee6127abc40af5c2f94c946071facd3d6e32a73ab8bea4bcee6427e98de92591",
+      "canary_sha256": "6613a7eb6f545a3336258f7d74b1d8c23ad0ef2bc695e38490e3b3e957909b68",
+      "commands": [
+        "../.venv/bin/python .local/s10-d11/runner.py create",
+        "../.venv/bin/python .local/s10-d11/runner.py install",
+        "../.venv/bin/python .local/s10-d11/runner.py shell"
+      ],
+      "expected": [
+        "create: marker with unique OID/config SHA",
+        "install: child exit0, ydental_settlement installed via read-only SQL",
+        "shell: child exit0, S10_D11_READONLY_CANARY with DB/model metadata and source_count"
+      ],
+      "no_odoo_started": true,
+      "no_database_created": true
+    }
+  },
+  "d2": {
+    "marker": {
+      "database": "ydental_s10_test_20261013152000_f60a5e7d",
+      "oid": 1837936,
+      "cluster": "7694897083368259627",
+      "port": 18221,
+      "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+      "source_commit": "3b7e159b2332dd85dd43241810954fa993103f0a",
+      "config_sha256": "84a74cc07586b728844490acdcdb754358bbd0aeea27a55cfadc119437a78d45",
+      "canary_sha256": "89d879bf30b24847a43d8f6af6d722a7145d7f9770ab9cd6987e14f9b2868d6d",
+      "created_utc": "2026-10-13T15:05:12.019095+00:00"
+    },
+    "actions": [
+      {
+        "action": "install",
+        "pid": 2027263,
+        "exit_code": 0,
+        "signal": null,
+        "database": "ydental_s10_test_20261013152000_f60a5e7d",
+        "oid": 1837936,
+        "port": 18221,
+        "config_sha256": "84a74cc07586b728844490acdcdb754358bbd0aeea27a55cfadc119437a78d45",
+        "probe_sha256": null,
+        "log_sha256": "5fb88db33389b700a88f5719d5fb6973f704c430dc780fd4b585e4b108e2ba7d",
+        "log_bytes": 249091,
+        "time_utc": "2026-10-13T15:06:15.200872+00:00"
+      },
+      {
+        "action": "upgrade",
+        "pid": 2027847,
+        "exit_code": 0,
+        "signal": null,
+        "database": "ydental_s10_test_20261013152000_f60a5e7d",
+        "oid": 1837936,
+        "port": 18221,
+        "config_sha256": "84a74cc07586b728844490acdcdb754358bbd0aeea27a55cfadc119437a78d45",
+        "probe_sha256": null,
+        "log_sha256": "2dcb1ab6eaef53e7ca426f5c173a68fd8d71101599db9f84e77e726ef57bdf67",
+        "log_bytes": 41450,
+        "time_utc": "2026-10-13T15:06:22.251182+00:00"
+      },
+      {
+        "action": "shell",
+        "pid": 2027916,
+        "exit_code": 0,
+        "signal": null,
+        "database": "ydental_s10_test_20261013152000_f60a5e7d",
+        "oid": 1837936,
+        "port": 18221,
+        "config_sha256": "84a74cc07586b728844490acdcdb754358bbd0aeea27a55cfadc119437a78d45",
+        "probe_sha256": "89d879bf30b24847a43d8f6af6d722a7145d7f9770ab9cd6987e14f9b2868d6d",
+        "log_sha256": "857cbabba886f6115ab5b4f02765e44da44633ac6504767c494d053abe9bcff9",
+        "log_bytes": 6086,
+        "time_utc": "2026-10-13T15:06:35.175310+00:00"
+      },
+      {
+        "action": "shell",
+        "pid": 2028052,
+        "exit_code": 0,
+        "signal": null,
+        "database": "ydental_s10_test_20261013152000_f60a5e7d",
+        "oid": 1837936,
+        "port": 18221,
+        "config_sha256": "84a74cc07586b728844490acdcdb754358bbd0aeea27a55cfadc119437a78d45",
+        "probe_sha256": "fa7298594f748bb953809cb024e04c63f3b9cdbb107ca1278ed1043ead207543",
+        "log_sha256": "7abaf73ebe821d7bf1ed98b39e22991db70d372552b494fd22110fc520f333d1",
+        "log_bytes": 6021,
+        "time_utc": "2026-10-13T15:06:46.710579+00:00"
+      },
+      {
+        "action": "shell",
+        "pid": 2028173,
+        "exit_code": 0,
+        "signal": null,
+        "database": "ydental_s10_test_20261013152000_f60a5e7d",
+        "oid": 1837936,
+        "port": 18221,
+        "config_sha256": "84a74cc07586b728844490acdcdb754358bbd0aeea27a55cfadc119437a78d45",
+        "probe_sha256": "fb8324d604a3b90ec0c291c0c8cdf20b0ce72e038997f553426e1e62ab1b1262",
+        "log_sha256": "36258d407796939eb10ff88c599951e186e80a94f600b24e532ed43c9b75128a",
+        "log_bytes": 8232,
+        "time_utc": "2026-10-13T15:06:55.970471+00:00"
+      },
+      {
+        "action": "shell",
+        "pid": 2028287,
+        "exit_code": 0,
+        "signal": null,
+        "database": "ydental_s10_test_20261013152000_f60a5e7d",
+        "oid": 1837936,
+        "port": 18221,
+        "config_sha256": "84a74cc07586b728844490acdcdb754358bbd0aeea27a55cfadc119437a78d45",
+        "probe_sha256": "c28c268ab67df741c3df21620a53fe3944d464bccca20a7b1df37e6fda4e7f34",
+        "log_sha256": "a94f9dbbdd0bd4ed7373b26c1559da9c7b1a58c15078d860e85bc278f409e54d",
+        "log_bytes": 5487,
+        "time_utc": "2026-10-13T15:07:05.238167+00:00"
+      },
+      {
+        "action": "shell",
+        "pid": 2028381,
+        "exit_code": 0,
+        "signal": null,
+        "database": "ydental_s10_test_20261013152000_f60a5e7d",
+        "oid": 1837936,
+        "port": 18221,
+        "config_sha256": "84a74cc07586b728844490acdcdb754358bbd0aeea27a55cfadc119437a78d45",
+        "probe_sha256": "11d290dd3e2b862f468f485a0ab1d817e8cfdd68e9336bae16c2ce5ee730ba7c",
+        "log_sha256": "eb85961695b3929891e3aa18f838acf439594abce76f01b1cdc859795bf33335",
+        "log_bytes": 6380,
+        "time_utc": "2026-10-13T15:07:17.669672+00:00"
+      },
+      {
+        "action": "shell",
+        "pid": 2028489,
+        "exit_code": 0,
+        "signal": null,
+        "database": "ydental_s10_test_20261013152000_f60a5e7d",
+        "oid": 1837936,
+        "port": 18221,
+        "config_sha256": "84a74cc07586b728844490acdcdb754358bbd0aeea27a55cfadc119437a78d45",
+        "probe_sha256": "8f96cd23fa399be9e3b7888055bfbb3611f9ee176478a3c73962e05868de6e27",
+        "log_sha256": "f7131be57e99e432363fa8c3dc0b37e7e62b4e10727cae0f772bf995eef5ad04",
+        "log_bytes": 5511,
+        "time_utc": "2026-10-13T15:07:27.043673+00:00"
+      },
+      {
+        "action": "shell",
+        "pid": 2028600,
+        "exit_code": 0,
+        "signal": null,
+        "database": "ydental_s10_test_20261013152000_f60a5e7d",
+        "oid": 1837936,
+        "port": 18221,
+        "config_sha256": "84a74cc07586b728844490acdcdb754358bbd0aeea27a55cfadc119437a78d45",
+        "probe_sha256": "77a8e9b0046921c17d5c70489d1581cbddde4771751c8cb504352be55054e530",
+        "log_sha256": "d286a043d3ee6aa952afeac81576ccc36c64c1e81b9a242b3994b2c1f2deb5cb",
+        "log_bytes": 5622,
+        "time_utc": "2026-10-13T15:07:38.239532+00:00"
+      },
+      {
+        "action": "shell",
+        "pid": 2028703,
+        "exit_code": 0,
+        "signal": null,
+        "database": "ydental_s10_test_20261013152000_f60a5e7d",
+        "oid": 1837936,
+        "port": 18221,
+        "config_sha256": "84a74cc07586b728844490acdcdb754358bbd0aeea27a55cfadc119437a78d45",
+        "probe_sha256": "70245b0d2853baf59351fecdaf917fb602aa7a53c152bec33360daa0ee589def",
+        "log_sha256": "c6388cc4162da321083d2137131590b4e412f00fc1a2318519c48976b819f6c6",
+        "log_bytes": 5019,
+        "time_utc": "2026-10-13T15:07:40.879721+00:00"
+      },
+      {
+        "action": "shell",
+        "pid": 2028761,
+        "exit_code": 0,
+        "signal": null,
+        "database": "ydental_s10_test_20261013152000_f60a5e7d",
+        "oid": 1837936,
+        "port": 18221,
+        "config_sha256": "84a74cc07586b728844490acdcdb754358bbd0aeea27a55cfadc119437a78d45",
+        "probe_sha256": "67ed2990c28a021f0e4c66e66c0520540478e6a91ce9cc0d58bf396a46103206",
+        "log_sha256": "1859300f53067ebfc15623784b9bb4e76b3bf482a96a5edbe128bccd0b2269e5",
+        "log_bytes": 5555,
+        "time_utc": "2026-10-13T15:07:52.170676+00:00"
+      },
+      {
+        "action": "shell",
+        "pid": 2028863,
+        "exit_code": 0,
+        "signal": null,
+        "database": "ydental_s10_test_20261013152000_f60a5e7d",
+        "oid": 1837936,
+        "port": 18221,
+        "config_sha256": "84a74cc07586b728844490acdcdb754358bbd0aeea27a55cfadc119437a78d45",
+        "probe_sha256": "441befdfb841644c65517af6a60ea3084fbcea9e983dfd8a1e0307edf561c9aa",
+        "log_sha256": "9c8256b378c16d1462a6cfda63c628eb37823e42c77ba579fe7007d2f292777b",
+        "log_bytes": 5413,
+        "time_utc": "2026-10-13T15:08:02.675763+00:00"
+      },
+      {
+        "action": "upgrade",
+        "pid": 2030813,
+        "exit_code": 0,
+        "signal": null,
+        "database": "ydental_s10_test_20261013152000_f60a5e7d",
+        "oid": 1837936,
+        "port": 18221,
+        "config_sha256": "84a74cc07586b728844490acdcdb754358bbd0aeea27a55cfadc119437a78d45",
+        "probe_sha256": null,
+        "log_sha256": "398f473cb4b563707f56523bce2a4c3e7edc0d882d7c942e6f25082ece35f0b6",
+        "log_bytes": 41450,
+        "time_utc": "2026-10-13T15:10:28.718810+00:00"
+      }
+    ],
+    "parallel": [
+      {
+        "actor": "a",
+        "pid": 2028993,
+        "exit_code": 0,
+        "signal": null,
+        "command": [
+          "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+          "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+          "shell",
+          "-c",
+          "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261013152000_f60a5e7d/odoo.conf",
+          "--no-http"
+        ],
+        "script_sha256": "b6093bca1ea3031a2550787f04e6c4972cc01a102d5b94a1d3c0d1a7d4168fbe",
+        "log_sha256": "b2379ed0e0d2878d13af4cdb76b3a39e906b668141c1e308dddde4380d960d45",
+        "database": "ydental_s10_test_20261013152000_f60a5e7d",
+        "oid": 1837936
+      },
+      {
+        "actor": "b",
+        "pid": 2028994,
+        "exit_code": 0,
+        "signal": null,
+        "command": [
+          "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+          "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+          "shell",
+          "-c",
+          "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261013152000_f60a5e7d/odoo.conf",
+          "--no-http"
+        ],
+        "script_sha256": "b6093bca1ea3031a2550787f04e6c4972cc01a102d5b94a1d3c0d1a7d4168fbe",
+        "log_sha256": "a8f7d34169de1cc4e125609b20e1697f61409833fb5253a1f9afbb4372cc17df",
+        "database": "ydental_s10_test_20261013152000_f60a5e7d",
+        "oid": 1837936
+      }
+    ],
+    "parallel_results": [
+      {
+        "actor": "a",
+        "backend_pid": 256593,
+        "attempt": 1,
+        "outcome": "accepted",
+        "invoice_id": 18,
+        "amount": 100.0
+      },
+      {
+        "actor": "b",
+        "backend_pid": 256592,
+        "attempt": 2,
+        "outcome": "accepted",
+        "invoice_id": 18,
+        "amount": 100.0
+      }
+    ],
+    "before": {
+      "ydental_treatment_event": {
+        "count": 10,
+        "sha256": "2bfaa8903bb55214c7883f5593feeed8161613970f42fbe67cdd2a56eb9b06c2"
+      },
+      "ydental_treatment_fee": {
+        "count": 9,
+        "sha256": "8578f29d4f21dc7666511668a326acf1f2f6c14575f9cf5f13ff4693134d2c61"
+      },
+      "ydental_settlement_source": {
+        "count": 9,
+        "sha256": "24ffcc0241c8851c7c9699d7e1c7340e811005030492e96b71bd5f8c57b6408b"
+      },
+      "ydental_settlement_payment": {
+        "count": 4,
+        "sha256": "d7ab2fc9db385c7d0832649d7b52cd27c2be9857973279f7350fd1a874073a0e"
+      },
+      "ydental_settlement_refund": {
+        "count": 4,
+        "sha256": "1c597e86926e03ad49369fe16b5a12e7da684219873b5453df68beb0b6c8b05a"
+      },
+      "ydental_settlement_close": {
+        "count": 2,
+        "sha256": "c38ece43705b7fc5fd43553dffd7bb11fc794b279c42470642dab2f80f2998ec"
+      },
+      "ydental_settlement_correction": {
+        "count": 1,
+        "sha256": "cedeb02add0013e8a33abfa170d7d3041ba4352364b5bf9c3b4af2e5cbecf10c"
+      },
+      "ydental_settlement_trade": {
+        "count": 1,
+        "sha256": "bf0f28c60332a65eb8928d856051db22a07713b027c9b37ee3ffbcd53cbf03b9"
+      },
+      "account_move": {
+        "count": 19,
+        "sha256": "26c1df59c3ff18d66b786e521d20444a3663783fc74fd5a7d38d8bcad6c054be"
+      },
+      "account_payment": {
+        "count": 6,
+        "sha256": "dee434f3c84d05b38d1a5432b6e43da748c2aca21e0274a261301600fac83bef"
+      },
+      "account_partial_reconcile": {
+        "count": 9,
+        "sha256": "c848752c2d8c097ffee9756493582d08553e1b2e0e477fc5542209798e160c22"
+      },
+      "stock_move": {
+        "count": 20,
+        "sha256": "3c1385c7e570ab63da577e98e2b49080fb90bab36aac7d802576060d5af65ffa"
+      },
+      "stock_move_line": {
+        "count": 20,
+        "sha256": "f0854b0e3a03dcd4856b18049e0ccf4c2a222daf1163d43d4d164a27ff4bba99"
+      },
+      "stock_quant": {
+        "count": 31,
+        "sha256": "216eb947b63223911cd0fb13376bf2b3789d642a6c6a766fe0c3da078c316e61"
+      },
+      "sale_order": {
+        "count": 1,
+        "sha256": "3d87eb84a0bc8fd8843e5073cd3404191df9300507b514ce26f35c7320ddd796"
+      },
+      "purchase_order": {
+        "count": 1,
+        "sha256": "f06124becbd222a1c8db30c0166470d4ef1f7e56e3eb97ab29119ab1b66e121a"
+      },
+      "native_partials": {
+        "count": 9
+      },
+      "posted_company_null": 0,
+      "posted_payment_moves": 6,
+      "source_without_posted_invoice": 0,
+      "valid_trade_count": 1,
+      "deadlock_database_rows": 0
+    },
+    "after": {
+      "ydental_treatment_event": {
+        "count": 10,
+        "sha256": "2bfaa8903bb55214c7883f5593feeed8161613970f42fbe67cdd2a56eb9b06c2"
+      },
+      "ydental_treatment_fee": {
+        "count": 9,
+        "sha256": "8578f29d4f21dc7666511668a326acf1f2f6c14575f9cf5f13ff4693134d2c61"
+      },
+      "ydental_settlement_source": {
+        "count": 9,
+        "sha256": "24ffcc0241c8851c7c9699d7e1c7340e811005030492e96b71bd5f8c57b6408b"
+      },
+      "ydental_settlement_payment": {
+        "count": 4,
+        "sha256": "d7ab2fc9db385c7d0832649d7b52cd27c2be9857973279f7350fd1a874073a0e"
+      },
+      "ydental_settlement_refund": {
+        "count": 4,
+        "sha256": "1c597e86926e03ad49369fe16b5a12e7da684219873b5453df68beb0b6c8b05a"
+      },
+      "ydental_settlement_close": {
+        "count": 2,
+        "sha256": "c38ece43705b7fc5fd43553dffd7bb11fc794b279c42470642dab2f80f2998ec"
+      },
+      "ydental_settlement_correction": {
+        "count": 1,
+        "sha256": "cedeb02add0013e8a33abfa170d7d3041ba4352364b5bf9c3b4af2e5cbecf10c"
+      },
+      "ydental_settlement_trade": {
+        "count": 1,
+        "sha256": "bf0f28c60332a65eb8928d856051db22a07713b027c9b37ee3ffbcd53cbf03b9"
+      },
+      "account_move": {
+        "count": 19,
+        "sha256": "26c1df59c3ff18d66b786e521d20444a3663783fc74fd5a7d38d8bcad6c054be"
+      },
+      "account_payment": {
+        "count": 6,
+        "sha256": "dee434f3c84d05b38d1a5432b6e43da748c2aca21e0274a261301600fac83bef"
+      },
+      "account_partial_reconcile": {
+        "count": 9,
+        "sha256": "c848752c2d8c097ffee9756493582d08553e1b2e0e477fc5542209798e160c22"
+      },
+      "stock_move": {
+        "count": 20,
+        "sha256": "3c1385c7e570ab63da577e98e2b49080fb90bab36aac7d802576060d5af65ffa"
+      },
+      "stock_move_line": {
+        "count": 20,
+        "sha256": "f0854b0e3a03dcd4856b18049e0ccf4c2a222daf1163d43d4d164a27ff4bba99"
+      },
+      "stock_quant": {
+        "count": 31,
+        "sha256": "216eb947b63223911cd0fb13376bf2b3789d642a6c6a766fe0c3da078c316e61"
+      },
+      "sale_order": {
+        "count": 1,
+        "sha256": "3d87eb84a0bc8fd8843e5073cd3404191df9300507b514ce26f35c7320ddd796"
+      },
+      "purchase_order": {
+        "count": 1,
+        "sha256": "f06124becbd222a1c8db30c0166470d4ef1f7e56e3eb97ab29119ab1b66e121a"
+      },
+      "native_partials": {
+        "count": 9
+      },
+      "posted_company_null": 0,
+      "posted_payment_moves": 6,
+      "source_without_posted_invoice": 0,
+      "valid_trade_count": 1,
+      "deadlock_database_rows": 0
+    },
+    "final": {
+      "ydental_treatment_event": {
+        "count": 10,
+        "sha256": "2bfaa8903bb55214c7883f5593feeed8161613970f42fbe67cdd2a56eb9b06c2"
+      },
+      "ydental_treatment_fee": {
+        "count": 9,
+        "sha256": "8578f29d4f21dc7666511668a326acf1f2f6c14575f9cf5f13ff4693134d2c61"
+      },
+      "ydental_settlement_source": {
+        "count": 9,
+        "sha256": "24ffcc0241c8851c7c9699d7e1c7340e811005030492e96b71bd5f8c57b6408b"
+      },
+      "ydental_settlement_payment": {
+        "count": 5,
+        "sha256": "649ae9c91a8966fa81057b11258772a519b36a8094c900e891739704c320089f"
+      },
+      "ydental_settlement_refund": {
+        "count": 4,
+        "sha256": "1c597e86926e03ad49369fe16b5a12e7da684219873b5453df68beb0b6c8b05a"
+      },
+      "ydental_settlement_close": {
+        "count": 2,
+        "sha256": "c38ece43705b7fc5fd43553dffd7bb11fc794b279c42470642dab2f80f2998ec"
+      },
+      "ydental_settlement_correction": {
+        "count": 1,
+        "sha256": "cedeb02add0013e8a33abfa170d7d3041ba4352364b5bf9c3b4af2e5cbecf10c"
+      },
+      "ydental_settlement_trade": {
+        "count": 1,
+        "sha256": "bf0f28c60332a65eb8928d856051db22a07713b027c9b37ee3ffbcd53cbf03b9"
+      },
+      "account_move": {
+        "count": 20,
+        "sha256": "6c3d61a5a4a3d4f24b53b0469231524bdcb783bf9251e735dae75087f0e40d76"
+      },
+      "account_payment": {
+        "count": 7,
+        "sha256": "a0a8bbc7194d903b5bdc697da9aaae5e496d65d12cd6754cf694bb8bc654a7e9"
+      },
+      "account_partial_reconcile": {
+        "count": 10,
+        "sha256": "0a5574b680009e53ef6b517df7e01382213b7533c90c52c364060ecb48f967df"
+      },
+      "stock_move": {
+        "count": 20,
+        "sha256": "3c1385c7e570ab63da577e98e2b49080fb90bab36aac7d802576060d5af65ffa"
+      },
+      "stock_move_line": {
+        "count": 20,
+        "sha256": "f0854b0e3a03dcd4856b18049e0ccf4c2a222daf1163d43d4d164a27ff4bba99"
+      },
+      "stock_quant": {
+        "count": 31,
+        "sha256": "216eb947b63223911cd0fb13376bf2b3789d642a6c6a766fe0c3da078c316e61"
+      },
+      "sale_order": {
+        "count": 1,
+        "sha256": "3d87eb84a0bc8fd8843e5073cd3404191df9300507b514ce26f35c7320ddd796"
+      },
+      "purchase_order": {
+        "count": 1,
+        "sha256": "f06124becbd222a1c8db30c0166470d4ef1f7e56e3eb97ab29119ab1b66e121a"
+      },
+      "native_partials": {
+        "count": 10
+      },
+      "posted_company_null": 0,
+      "posted_payment_moves": 7,
+      "source_without_posted_invoice": 0,
+      "valid_trade_count": 1,
+      "deadlock_database_rows": 0
+    },
+    "ledger_before_frontdesk": {
+      "f1_invoice": {
+        "columns": [
+          "id",
+          "state",
+          "move_type",
+          "amount_total",
+          "amount_residual",
+          "company_id"
+        ],
+        "rows": [
+          [
+            1,
+            "posted",
+            "out_invoice",
+            "740.00",
+            "0.00",
+            1
+          ]
+        ]
+      },
+      "f5_invoices": {
+        "columns": [
+          "id",
+          "state",
+          "move_type",
+          "amount_total",
+          "amount_residual",
+          "company_id"
+        ],
+        "rows": [
+          [
+            4,
+            "posted",
+            "out_invoice",
+            "270.00",
+            "0.00",
+            1
+          ],
+          [
+            5,
+            "posted",
+            "out_invoice",
+            "200.00",
+            "160.00",
+            1
+          ]
+        ]
+      },
+      "native_payments": {
+        "columns": [
+          "id",
+          "state",
+          "amount",
+          "payment_type",
+          "company_id",
+          "move_id"
+        ],
+        "rows": [
+          [
+            1,
+            "reconciled",
+            "500.00",
+            "inbound",
+            1,
+            2
+          ],
+          [
+            2,
+            "reconciled",
+            "240.00",
+            "inbound",
+            1,
+            3
+          ],
+          [
+            3,
+            "paid",
+            "300.00",
+            "inbound",
+            1,
+            6
+          ],
+          [
+            4,
+            "reconciled",
+            "100.00",
+            "outbound",
+            1,
+            8
+          ],
+          [
+            5,
+            "reconciled",
+            "20.00",
+            "outbound",
+            1,
+            15
+          ],
+          [
+            6,
+            "paid",
+            "10.00",
+            "inbound",
+            1,
+            20
+          ]
+        ]
+      },
+      "f1_partials": {
+        "columns": [
+          "id",
+          "amount",
+          "debit_invoice",
+          "credit_move"
+        ],
+        "rows": [
+          [
+            1,
+            "500.00",
+            1,
+            2
+          ],
+          [
+            2,
+            "240.00",
+            1,
+            3
+          ]
+        ]
+      },
+      "f5_partials": {
+        "columns": [
+          "id",
+          "amount",
+          "debit_invoice",
+          "credit_move"
+        ],
+        "rows": [
+          [
+            3,
+            "270.00",
+            4,
+            6
+          ],
+          [
+            4,
+            "30.00",
+            5,
+            6
+          ]
+        ]
+      },
+      "refunds": {
+        "columns": [
+          "id",
+          "ydental_state",
+          "ydental_amount",
+          "ydental_native_payment_id",
+          "ydental_credit_note_id",
+          "ydental_approver_id",
+          "ydental_requester_id"
+        ],
+        "rows": [
+          [
+            1,
+            "done",
+            "100.00",
+            4,
+            7,
+            6,
+            5
+          ],
+          [
+            2,
+            "rejected",
+            "50.00",
+            null,
+            null,
+            6,
+            5
+          ],
+          [
+            3,
+            "cancelled",
+            "80.00",
+            null,
+            null,
+            6,
+            5
+          ],
+          [
+            4,
+            "done",
+            "20.00",
+            5,
+            14,
+            15,
+            14
+          ]
+        ]
+      },
+      "trade": {
+        "columns": [
+          "id",
+          "company_id",
+          "company_id",
+          "state",
+          "state",
+          "state",
+          "state"
+        ],
+        "rows": [
+          [
+            1,
+            1,
+            2,
+            "posted",
+            "posted",
+            "done",
+            "done"
+          ]
+        ]
+      },
+      "deadlocks": 0
+    },
+    "pdf_pages": [
+      {
+        "kind": "bill",
+        "pages": 1,
+        "pdf_sha256": "e9a22af3f464b0090d8b390d90f55406add1b63de894138e071152c04766d99e",
+        "chinese_chars": 97
+      },
+      {
+        "kind": "receipt",
+        "pages": 1,
+        "pdf_sha256": "1e9e364f2f08d27f96132ed906d2bb8cae95a185247d60279ef5816151eef03b",
+        "chinese_chars": 123
+      },
+      {
+        "kind": "refund",
+        "pages": 1,
+        "pdf_sha256": "36e21d08c675a919114c588f939db39cb61eadfd589013b62b8b75e04790f00f",
+        "chinese_chars": 100
+      }
+    ],
+    "firefox": {
+      "manager": {
+        "status": "PASS",
+        "native_payment_id": 6,
+        "amount": 10,
+        "residual_before": 170,
+        "residual_after": 160,
+        "page_errors": 0
+      },
+      "frontdesk": {
+        "status": "PASS",
+        "native_payment_id": 7,
+        "amount": 10,
+        "residual_before": 160,
+        "residual_after": 150,
+        "page_errors": 0
+      },
+      "unauthorized": {
+        "workbench_http": 403,
+        "pdf_http": 403
+      }
+    },
+    "extra_negative": {
+      "script_sha256": "47bd3bb1dddb1d707f9d177290ef99197f96ea610673b3102ef0aac42e7dd907",
+      "log_sha256": "c6cba5e967d4b798f06dc918303712f245db99318c8e5d0d10cb074378c1d383",
+      "exit_code": 0,
+      "cross_store_payment": "denied",
+      "source_write": "denied",
+      "source_delete": "denied",
+      "pdf_reprint_pages": [
+        1,
+        1
+      ],
+      "residual_after": 150
+    }
+  },
+  "evidence_files": {
+    "firefox-front-after.png": {
+      "sha256": "51c7d37a993014fd84f3bf21d2e79a47b09253bbaa70918b536fec57938b8d67",
+      "bytes": 192347
+    },
+    "refund-page-1.png": {
+      "sha256": "4541d170c0037955b58388e95e813f3c27386f5a875957dfa4ba99dbf53ce562",
+      "bytes": 84884
+    },
+    "firefox-after.png": {
+      "sha256": "6d809d305428c170a70c76458e470e16386d9e9c2f200685b845e836c48196cf",
+      "bytes": 213033
+    },
+    "refund-f2.pdf": {
+      "sha256": "36e21d08c675a919114c588f939db39cb61eadfd589013b62b8b75e04790f00f",
+      "bytes": 25386
+    },
+    "bill-f2.pdf": {
+      "sha256": "e9a22af3f464b0090d8b390d90f55406add1b63de894138e071152c04766d99e",
+      "bytes": 27556
+    },
+    "firefox-before.png": {
+      "sha256": "53c18fe7fcd02ba9a1291ebda3ca42f2135c1a648beace2320d848d6f28b21c7",
+      "bytes": 193922
+    },
+    "receipt-f2.pdf": {
+      "sha256": "1e9e364f2f08d27f96132ed906d2bb8cae95a185247d60279ef5816151eef03b",
+      "bytes": 27921
+    },
+    "bill-page-1.png": {
+      "sha256": "8e946e598f1704145d988384a17d2fbb8f7ff75aa6692ab1d92635bcd3f49a0d",
+      "bytes": 89472
+    },
+    "receipt-page-1.png": {
+      "sha256": "916f5c92dff8a294762bb5e27617709a8ccec699cf1d4fcb97b30e6e999dcbef",
+      "bytes": 98906
+    },
+    "firefox-front-before.png": {
+      "sha256": "5c5b0f6c78db6dd77fad080eb1b97cc7b7621b90d8f297756aaf0acb5a2bf537",
+      "bytes": 173417
+    },
+    "databases-preserved.json": {
+      "sha256": "bb5b725f95c00460acbe7ab6b33928cc484c967f1e0546ad21563c9f6341f832",
+      "bytes": 298
+    }
+  },
+  "production": "BLOCKED",
+  "native_sigsegv_root": "UNKNOWN",
+  "project_mutations": 0
+}

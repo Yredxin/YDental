@@ -1,5 +1,11 @@
 # YDental 当前执行入口
 
+## 当前 S10 D1恢复与D2定向返工持续BLOCKED / #34（等待GPT独立复核）
+
+- 唯一最新授权为[#34 GPT-REVIEW/AUTHORIZE6147246260](https://github.com/Yredxin/YDental/issues/34#issuecomment-6147246260)。沿原分支从固定`a73bcd7d198b5ee9c372c3c658a34053e61be048`前进，原native SIGSEGV根因UNKNOWN。D1.0离线预检回执[#34评论6147335402](https://github.com/Yredxin/YDental/issues/34#issuecomment-6147335402)已发布并逐字读回；D1.1新库`ydental_s10_test_20261013140300_d11a5e73`/OID1641937，两个Odoo子进程install PID1990449、只读shell PID1991188均exit0、signal0，额度未超。生产仍BLOCKED。
+- D2返工product`a5d0307da427e393dddc303fdef7f83fe362ea30`、固定test`3b7e159b2332dd85dd43241810954fa993103f0a`，最终证据提交SHA见#34回执。固定新库`ydental_s10_test_20261013152000_f60a5e7d`/OID1837936/18221：install、upgrade、带已提交业务再upgrade全exit0；740/500/240及270+200/300=270+30原生invoice/payment/partial核销、100实退和80未知撤销额度恢复、日结解锁更正、同/跨法人原生交易、pending看板均实际验证。两PG backend屏障/一次有限序列化重试，同一费源唯一账单，deadlock0；16表业务再升级逐行哈希相等；三类中文PDF各1页逐页目视，Firefox经理与前台各实际点收款10、无权入口403；原候选及失败日志全保留。详见[报告](docs/s10-rework-blocked-report.md)和[脱敏机器证据](docs/evidence/s10-rework/verification.json)。
+- **S10仍BLOCKED，不能称技术PASS。** F1—F6/T01—T16多项只有部分覆盖，尤其仅选新账、并发退款额度/失败恢复、跨店摘要、文字/实物更正、补录与审计篡改、Firefox全按钮及S08/S09回归未完成；生产财务配置/税/支付政策未批，原生崩溃根因未知。Project零修改、#34保持OPEN/进行中/Todo，旧库/卷/核心/odoo-12不动。正常push后在#34发`[CODEX] S10持续BLOCKED与技术复核申请`，逐字读回立即停止等待GPT；不启S11、不合并/强推/部署。
+
 ## 当前 S10 D0/D1 有界诊断阻断 / #34（等待 GPT 独立复核）
 
 - 新授权为 [#34 GPT-REVIEW/AUTHORIZE6146845983](https://github.com/Yredxin/YDental/issues/34#issuecomment-6146845983)。原分支、失败 final `87bad3b14a67a70ded6215cd9f3c324a30037936` 不改写。D0 只读原事故 PID1965906、原日志/脚本SHA、Python 3.12.15 Build ID、core/内核可见性、原库 OID/cluster、资源；根因 UNKNOWN。[D0 回执6146948301](https://github.com/Yredxin/YDental/issues/34#issuecomment-6146948301)已先发布并逐字读回。
