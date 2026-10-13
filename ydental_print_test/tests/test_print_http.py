@@ -87,7 +87,7 @@ class TestPrintHTTP(TestTreatmentHTTP):
     def test_http_attachment_public_and_token_bypass_no_sensitive_error(self):
         source = self.selection();job = self.generated(source)
         self.assertIn('error', self.rpc('ir.attachment', 'create', [{'name': 'forged', 'res_model': 'ydental.print.job', 'res_id': job['job_id'], 'datas': 'YQ==', 'public': True}]))
-        attachment = self.root['ir.attachment'].create({'name': 'synthetic administrative test', 'res_model': 'ydental.print.job', 'res_id': job['job_id'], 'datas': base64.b64encode(b'fake-private-pdf'), 'public': True, 'access_token': key()})
+        attachment = self.root['ir.attachment'].create({'name': 'synthetic administrative test', 'res_model': 'ydental.print.job', 'res_id': job['job_id'], 'raw': b'fake-private-pdf', 'public': True, 'access_token': key()})
         response = self.url_open('/web/content/' + str(attachment.id) + '?download=1&access_token=' + attachment.access_token)
         self.assertNotEqual(response.status_code, 200);self.assertNotIn('fake-private-pdf', response.text)
         response = self.p_action('preview', source | {'source_id': 999999999})

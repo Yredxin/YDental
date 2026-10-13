@@ -1,4 +1,3 @@
-import base64
 import hashlib
 import inspect
 import io
@@ -10,6 +9,7 @@ from datetime import timedelta
 from odoo import fields, models
 from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.tools.pdf import PdfFileReader
+from odoo.tools.binary import BinaryBytes
 
 from odoo.addons.ydental_clinical.models.ydental_clinical_service import TEXT_FIELDS
 
@@ -292,7 +292,7 @@ class YDentalPrintService(models.AbstractModel):
                 'ydental_source_digest': signature, 'ydental_pdf_digest': hashlib.sha256(pdf).hexdigest(),
                 'ydental_template': TEMPLATES[kind], 'ydental_versions': payload['versions'],
                 'ydental_expires_at': fields.Datetime.now() + timedelta(minutes=15), 'ydental_key': key,
-                'ydental_pdf': base64.b64encode(pdf)})
+                'ydental_pdf': BinaryBytes(pdf, filename='ydental-demonstration.pdf')})
             self._audit('generate', source, category, payload, signature, job)
         return {'job_id': job.id, 'pdf_digest': job.ydental_pdf_digest, 'source_digest': signature, 'versions': job.ydental_versions,
                 'expires_at': str(job.ydental_expires_at), 'paper_output': 'unknown'}
@@ -301,7 +301,7 @@ class YDentalPrintService(models.AbstractModel):
         if operation not in ('pdf_view', 'download', 'print_request'):
             raise ValidationError(self.env._('invalid_action: Select a documented PDF operation.'))
         job, source, category, payload, signature = self._job(job_id)
-        pdf = base64.b64decode(job.ydental_pdf)
+        pdf = job.ydental_pdf.content
         if hashlib.sha256(pdf).hexdigest() != job.ydental_pdf_digest:
             raise UserError(self.env._('render_failed: Temporary PDF integrity verification failed.'))
         self._audit('print_requested' if operation == 'print_request' else operation, source, category, payload, signature, job)
