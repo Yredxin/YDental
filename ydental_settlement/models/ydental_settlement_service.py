@@ -6,6 +6,8 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 
+from psycopg2.errors import UniqueViolation
+
 from odoo import Command, fields, models
 from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.tools.pdf import PdfFileReader, PdfReadError
@@ -226,17 +228,25 @@ class YDentalSettlementService(models.AbstractModel):
                 raise UserError(self.env._('accounting_mismatch: Native source line differs from its frozen fee.'))
             snapshot = fee.ydental_price_snapshot_id
             version = 'S05:' + str(snapshot.ydental_price_id.id) if snapshot else 'review:' + str(fee.ydental_price_review_id.id)
-            self._model('source')._new({
-                'ydental_fee_id': fee.id, 'ydental_store_id': store.id,
-                'ydental_patient_id': fee.ydental_patient_id.id,
-                'ydental_invoice_id': invoice.id, 'ydental_line_id': line.id,
-                'ydental_original_amount': fee.ydental_amount, 'ydental_currency_id': currency.id,
-                'ydental_discount': discount if fee == fees[0] else 0,
-                'ydental_discount_reason': reason if discount and fee == fees[0] else False,
-                'ydental_source_business_date': fee.ydental_event_id.ydental_business_date,
-                'ydental_source_actual_at': fee.ydental_event_id.ydental_actual_at,
-                'ydental_price_version': version,
-            })
+            try:
+                with self.env.cr.savepoint():
+                    self._model('source')._new({
+                        'ydental_fee_id': fee.id, 'ydental_store_id': store.id,
+                        'ydental_patient_id': fee.ydental_patient_id.id,
+                        'ydental_invoice_id': invoice.id, 'ydental_line_id': line.id,
+                        'ydental_original_amount': fee.ydental_amount, 'ydental_currency_id': currency.id,
+                        'ydental_discount': discount if fee == fees[0] else 0,
+                        'ydental_discount_reason': reason if discount and fee == fees[0] else False,
+                        'ydental_source_business_date': fee.ydental_event_id.ydental_business_date,
+                        'ydental_source_actual_at': fee.ydental_event_id.ydental_actual_at,
+                        'ydental_price_version': version,
+                    })
+            except UniqueViolation as error:
+                if error.diag.constraint_name != 'ydental_settlement_source_fee_once':
+                    raise
+                # A competing REPEATABLE READ transaction cannot see the winner's
+                # new source. Abort this invoice instead of leaking a SQL error.
+                raise UserError(self.env._('concurrent_bill: This fee was billed by another request. Refresh and review its invoice.')) from error
         self._audit('bill', invoice, store, after={'fee_ids': fee_ids, 'amount': invoice.amount_total,
                                                    'discount': discount}, reason=reason)
         return {'invoice_id': invoice.id, 'amount': invoice.amount_total, 'residual': invoice.amount_residual}
