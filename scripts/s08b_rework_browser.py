@@ -205,7 +205,8 @@ def main():
             reject(page,invalid,None,'server rejects modified non-cross-store target mapping')
             screenshot(page,ctx,'R14-illegal-target-keeps-original-source.png');page.reload();ready(page)
             check('three cross-legal failures preserve source serving and exactly two original receipts',int(page.locator('main.o_ydental_treatment').get_attribute('data-execution') or 0)>0 and page.locator('[data-referral-receipt]').count()==2)
-            page.goto(base+'/ydental/clinical?document_id='+str(d1));open_editor(page);click_wait(page,'#handover-document');page.goto(base+'/ydental/queue');click_wait(page,'button[data-operation=exit]')
+            managerctx.close()  # Completed target role; keep active-role browser resources bounded.
+            page.goto(base+'/ydental/clinical?document_id='+str(d1));open_editor(page);click_wait(page,'#handover-document');page.goto(base+'/ydental/queue');click_wait(page,'button[data-operation=exit]');ctx.close()
             frontctx,front=login('frontdesk')
             def report(task):
                 front.goto(base+'/ydental/queue');form=front.locator('form[data-queue-form=report]').filter(has=front.locator('input[name=task_id][value="%s"]'%task))
@@ -230,6 +231,7 @@ def main():
             publish=pricer.locator('form[data-operation=publish_medicine]');publish.locator('[name=product_id]').select_option(str(preview['medicine3']));publish.locator('[name=catalog_id]').select_option(str(preview['medicine3_catalog']));publish.locator('[name=evidence]').fill('价格责任人明确审核合成第三SKU与43元目录对应');submit(pricer,publish)
             check('price-write publishes explicit SKU association through real UI',pricer.locator('[data-medicine-link]').count()==3)
             screenshot(pricer,pricectx,'R10-explicit-price-authority-sku-publication.png')
+            pricectx.close()  # Publication has completed and its evidence is captured.
             report(next_task);start_pharm();submit(pharm,dose_form(0,preview['medicine_lot'],2));submit(pharm,dose_form(2,preview['medicine3_lot'],1));finish()
             check('original six remains actual4+2 while other SKUs retain independent prices',pharm.locator('article[data-order="%s"] form[data-operation=finish]'%rxid).count()==0 and pharm.locator('article[data-order="%s"] [data-segment]'%rxid).count()==2)
             screenshot(pharm,pharmctx,'R11-multi-sku-complete-original-sources.png')
