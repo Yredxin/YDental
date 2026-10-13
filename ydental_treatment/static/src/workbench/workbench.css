@@ -11,3 +11,5 @@
 .o_ydental_treatment_line { display: flex; flex-wrap: wrap; gap: .8rem; padding: .8rem 0; border-bottom: 1px dashed #c5d0d8; }
 .o_ydental_treatment table { display: block; overflow-x: auto; }
 .o_ydental_treatment [data-event-state=pending] { border-left: .4rem solid #c78622; }
+.o_ydental_treatment th:nth-child(2), .o_ydental_treatment th:nth-child(3) { min-width: 4rem; }
+.o_ydental_treatment td { vertical-align: top; }

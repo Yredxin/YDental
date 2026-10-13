@@ -30,7 +30,7 @@ if (root) {
                 reason: data.reason, ...(data.actual_at ? {actual_at: utc(data.actual_at)} : {}), already_performed: data.already_performed === 'on', policy: 'demo_confirmation',
                 materials: data.lot_id ? [{lot_id: Number(data.lot_id), quantity: Number(data.material_quantity),
                     uom_id: Number(batch.dataset.uom), kind: batch.dataset.kind}] : [],
-                teeth: [{tooth, state: tooth ? 'present' : 'not_applicable', surfaces: data.surfaces ? data.surfaces.split(',').map(s => s.trim()) : []}]};
+                teeth: [{tooth, state: data.tooth_state, surfaces: data.surfaces ? data.surfaces.split(',').map(s => s.trim()) : []}]};
         }
         if (op === 'order' || op === 'edit_order') {
             const rows = [...form.querySelectorAll('.o_ydental_treatment_line')].map(row => {

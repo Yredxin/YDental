@@ -1610,3 +1610,33 @@ msgstr "定时目标预约资格任务"
 #: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
 msgid "Untimed source awaiting target acceptance at initiation"
 msgstr "不定时来源：发起时待目标受理"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Verified tooth state"
+msgstr "核实牙位状态"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Choose verified tooth state"
+msgstr "明确选择核实状态"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Present"
+msgstr "存在"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Missing"
+msgstr "缺失"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Unknown"
+msgstr "未知"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Not applicable"
+msgstr "不适用"
