@@ -1,0 +1,34 @@
+<odoo>
+    <record id="ydental_print_action" model="ir.actions.act_url"><field name="name">Controlled demonstration PDFs</field><field name="url">/ydental/print</field><field name="target">self</field></record>
+    <menuitem id="ydental_print_menu" name="Controlled demonstration PDFs" parent="ydental_base.ydental_base_menu_root" action="ydental_print_action" sequence="85" groups="ydental_base.ydental_base_group_user"/>
+    <template id="ydental_clinical_print_link" inherit_id="ydental_clinical.ydental_clinical_page" name="Clinical PDF entry"><xpath expr="//nav" position="inside"> | <a href="/ydental/print">Controlled demonstration PDFs</a></xpath></template>
+    <template id="ydental_treatment_print_link" inherit_id="ydental_treatment.ydental_treatment_page" name="Prescription PDF entry"><xpath expr="//nav" position="inside"> | <a href="/ydental/print">Controlled demonstration PDFs</a></xpath></template>
+    <template id="ydental_print_page" name="Controlled demonstration PDFs">
+        <t t-call="web.frontend_layout"><main class="container o_ydental_print" t-att-data-revision="revision">
+            <h1>Controlled demonstration PDFs</h1>
+            <nav><a href="/ydental/clinical">Clinical workbench</a> | <a href="/ydental/treatment">Treatment and pharmacy</a> | <a href="/ydental/access">Current store and permissions</a></nav>
+            <p class="alert alert-warning">Unreviewed demonstration templates. Generation is separate from clinical confirmation, signing and physical paper output. Download and print require source read plus export permission.</p>
+            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+            <label>PDF type <select id="print-kind"><option value="clinical">Clinical text</option><option value="prescription">Prescription</option><option value="consent">Unsigned consent sample</option></select></label>
+            <label>Current local sources <select id="print-choice"><option value="">Select an independent source</option><option t-foreach="choices" t-as="choice" t-att-data-kind="choice['kind']" t-att-data-version="choice['version']" t-att-value="choice['id']"><t t-out="choice['kind']"/> #<t t-out="choice['id']"/> / v<t t-out="choice['version']"/> / <t t-out="choice['state']"/></option></select></label>
+            <label>Explicit source ID <input id="print-source" type="number" min="1"/></label>
+            <label>Selected immutable text or current order version <input id="print-version" type="number" min="0"/></label>
+            <label>Historical clinical purpose <select id="print-purpose"><option value="">Current store source</option><option value="diagnosis">Diagnosis</option><option value="history_review">History review</option></select></label>
+            <div class="o_ydental_print_actions"><button id="print-preview" type="button">Review selected source</button><button id="print-generate" type="button" disabled="disabled">Generate Chinese PDF</button><button id="print-view" type="button" disabled="disabled">View generated PDF</button><button id="print-download" type="button" disabled="disabled">Download PDF</button><button id="print-request" type="button" disabled="disabled">Request browser printing</button></div>
+            <p id="print-result" role="status">Select and review one source. Unsaved local edits are not included.</p>
+            <p id="print-provenance"/>
+            <iframe id="print-html" title="Selected source review" sandbox="" hidden="hidden"/>
+            <iframe id="print-pdf" title="Generated demonstration PDF" hidden="hidden"/>
+            <div id="print-messages" hidden="hidden">
+                <span data-message="busy">Processing the selected source. Keep this page open.</span>
+                <span data-message="reviewed">Source reviewed. Generate the selected demonstration PDF.</span>
+                <span data-message="generated">PDF generated. Physical paper output is unknown.</span>
+                <span data-message="viewed">PDF view request succeeded. Physical paper output is unknown.</span>
+                <span data-message="downloaded">Download request succeeded. Physical paper output is unknown.</span>
+                <span data-message="print_requested">Print request recorded. Use the browser dialog; physical paper output is unknown.</span>
+                <span data-message="failed">Unconfirmed or failed response. Refresh and review the source before retrying. No automatic replay; physical paper output is unknown.</span>
+                <span data-message="dialog_failed">Print request recorded, but the browser dialog could not be opened. Physical paper output is unknown.</span>
+            </div>
+        </main></t>
+    </template>
+</odoo>
