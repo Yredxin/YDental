@@ -38,7 +38,7 @@ base='http://127.0.0.1:'+str(args.port)
 tools=ROOT/'.local/s08c-tools/root/usr/bin';lib=ROOT/'.local/s08c-tools/root/usr/lib/x86_64-linux-gnu'
 display=':107';require(not Path('/tmp/.X107-lock').exists(),'display already occupied; do not reuse')
 xenv=os.environ|{'LD_LIBRARY_PATH':str(lib)+':'+os.environ['LD_LIBRARY_PATH'],'DISPLAY':display}
-log=(run/'xvfb.log').open('a');xvfb=subprocess.Popen([str(tools/'Xvfb'),display,'-screen','0','1600x1200x24','-nolisten','tcp','-ac','-noreset'],env=xenv,stdout=log,stderr=log)
+log=(run/'xvfb.log').open('a');xvfb=subprocess.Popen(['bwrap','--die-with-parent','--ro-bind','/','/','--bind','/tmp','/tmp','--tmpfs','/usr/bin','--ro-bind','/usr/bin/dash','/usr/bin/sh','--ro-bind',str(tools/'xkbcomp'),'/usr/bin/xkbcomp',str(tools/'Xvfb'),display,'-screen','0','1600x1200x24','-nolisten','tcp','-ac','-noreset'],env=xenv,stdout=log,stderr=log)
 def check(name,value):require(value,name);result['checks'].append({'check':name,'result':'PASS'})
 def screenshot(page,name,desktop=False):
  if not desktop:
