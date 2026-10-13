@@ -1,0 +1,23 @@
+from pathlib import Path
+import hashlib,json
+root=Path('<WORKSPACE>');out={'issues':{},'project_mutations':0}
+for number in (23,32):
+ old=json.loads(Path('/tmp/ydental-s08c-issue%s.json'%number).read_text());new=json.loads(Path('/tmp/ydental-s08c-final-issue%s.json'%number).read_text())
+ a=json.loads(Path('/tmp/ydental-s08c-comments%s.json'%number).read_text());b=json.loads(Path('/tmp/ydental-s08c-final-comments%s.json'%number).read_text())
+ a=[x for page in a for x in page] if a and isinstance(a[0],list) else a;b=[x for page in b for x in page] if b and isinstance(b[0],list) else b
+ before={x['id']:x['body'] for x in a};after={x['id']:x['body'] for x in b}
+ assert old['body']==new['body'] and all(after.get(k)==v for k,v in before.items())
+ added=[k for k in after if k not in before];assert added==([6137191852] if number==32 else [])
+ out['issues'][number]={'body_unchanged':True,'original_comment_count':len(a),'current_comment_count':len(b),'original_comments_unchanged':True,'added_comments':added,'state':new['state'],'title':new['title'],'body_sha256':hashlib.sha256(new['body'].encode()).hexdigest(),'comment_body_hashes':{str(k):hashlib.sha256(v.encode()).hexdigest() for k,v in after.items()},'full_paginated_read':True}
+project0=json.loads(Path('/tmp/ydental-s08c-project/project-before.json').read_text())['project'];project1=json.loads(Path('/tmp/ydental-s08c-project-final/project-after.json').read_text())['project'];project2=json.loads(Path('/tmp/ydental-s08c-project-final/project-second-check.json').read_text())['project']
+assert project0==project1==project2
+v0=json.loads(Path('/tmp/ydental-s08c-project/view-fields-before.json').read_text());v1=json.loads(Path('/tmp/ydental-s08c-project-final/view-fields-after.json').read_text());v2=json.loads(Path('/tmp/ydental-s08c-project-final/view-fields-second-check.json').read_text());assert v0==v1==v2
+out['project']={'initial_final_dual_deep_equal':True,'fields':project2['fields']['totalCount'],'items':project2['items']['totalCount'],'views':project2['views']['totalCount'],'workflows':project2['workflows']['totalCount'],'view_fields_deep_equal':True,'items_summary':{}}
+for item in project2['items']['nodes']:
+ content=item.get('content') or {};num=content.get('number')
+ if num:
+  values={v['field']['name']:v.get('name',v.get('text')) for v in item['fieldValues']['nodes'] if v.get('field') and (v.get('name') is not None or v.get('text') is not None)}
+  out['project']['items_summary'][num]={'state':content.get('state'),'fields':values}
+assert out['project']['items_summary'][32]['state']=='OPEN'
+(root/'docs/evidence/s08c/authority-and-project-final.json').write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n')
+print(json.dumps({'result':'PASS','issue_comment_counts':{k:v['current_comment_count'] for k,v in out['issues'].items()},'project':{k:v for k,v in out['project'].items() if k!='items_summary'},'issue32':out['project']['items_summary'][32]},ensure_ascii=False))

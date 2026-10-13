@@ -1,0 +1,42 @@
+import configparser
+from datetime import datetime,timezone
+import hashlib
+import json
+import os
+from pathlib import Path
+import re
+import runpy
+import subprocess
+from types import SimpleNamespace
+
+import psycopg2
+from psycopg2 import sql
+root=Path('<WORKSPACE>');run=root/'.local/ydental_s08c_test_20261013031800_b81ae5c3';m=json.loads((run/'database.json').read_text())
+assert hashlib.sha256((run/'odoo.conf').read_bytes()).hexdigest()==m['config_sha256']
+config=configparser.ConfigParser(interpolation=None);config.read(run/'odoo.conf');c=config['options']
+assert c['db_name']==run.name and c['dbfilter']=='^'+run.name+'$' and Path(c['data_dir'])==run/'data'
+assert {k:c['db_'+k] for k in ('host','port','user')}==m['endpoint']
+os.environ['PGOPTIONS']=m['pg_session_options'];os.environ['YDENTAL_S08C_RUN_DIR']=str(run)
+conn=psycopg2.connect(dbname=run.name,host=c['db_host'],port=c['db_port'],user=c['db_user'],password=c['db_password'],connect_timeout=3);conn.set_session(readonly=True)
+cr=conn.cursor();cr.execute('SHOW transaction_read_only');assert cr.fetchone()[0]=='on'
+cr.execute('SELECT system_identifier::text FROM pg_control_system()');assert cr.fetchone()[0]==m['cluster']
+cr.execute('SELECT oid FROM pg_database WHERE datname=current_database()');assert cr.fetchone()[0]==m['oid']
+class Cursor:
+ dbname=run.name
+ def execute(self,*args,**kwargs):return cr.execute(*args,**kwargs)
+ def fetchone(self):return cr.fetchone()
+ def fetchall(self):return cr.fetchall()
+ns=runpy.run_path(str(root/'scripts/s08c_audit.py'),init_globals={'env':SimpleNamespace(cr=Cursor())})
+out=ns['result'];out['scope']='Post-SIGSEGV direct libpq read-only audit; no Odoo process or tests restarted';out['transaction_read_only']=True;out['time_utc']=datetime.now(timezone.utc).isoformat()
+last=json.loads((root/'docs/evidence/s08c/probe-attempts/20261013T043822532357/result.json').read_text())['artifacts'][-1]
+expected=last['economic_signatures'];actual={}
+for table in expected:
+ cr.execute(sql.SQL("SELECT COALESCE(jsonb_agg(to_jsonb(t) ORDER BY id),'[]'::jsonb)::text FROM {} t").format(sql.Identifier(table)))
+ actual[table]=hashlib.sha256(cr.fetchone()[0].encode()).hexdigest()
+out['committed_business_since_last_candidate_pdf']={'expected_source':'probe-attempts/20261013T043822532357/result.json: final artifact economic_signatures','table_count':len(expected),'all_equal':expected==actual,'expected':expected,'actual':actual}
+assert expected==actual
+cr.execute('SELECT oid,datname FROM pg_database ORDER BY oid');catalog=[{'oid':o,'name':n} for o,n in cr.fetchall()]
+original=json.loads(Path('/tmp/ydental-s08c-environment/catalog-before.json').read_text());print('catalog original schema',type(original).__name__)
+Path('/tmp/ydental-s08c-environment/catalog-after.json').write_text(json.dumps(catalog,indent=2)+'\n')
+(root/'docs/evidence/s08c/post-crash-readonly-audit.json').write_text(json.dumps(out,indent=2)+'\n')
+conn.rollback();conn.close();print(json.dumps({'result':out['result'],'invariants':len(out['invariants']),'nonzero':sum(out['invariants'].values()),'business_tables_unchanged':len(expected),'database_count':len(catalog),'scope':'read-only libpq; no Odoo restart'}))

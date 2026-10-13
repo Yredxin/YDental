@@ -1,0 +1,118 @@
+处方演示 PDF
+演示样张∕未经正式审核∕无正式签署
+草稿
+仅包含明确选择的独立来源。本件不是完整正式病历。
+正式处方签发尚未批准。本件不是收据、发票或付款凭证。
+患者
+S06A Synthetic Person
+患者编号
+P00000314
+归并患者编号
+314
+来源患者编号
+314
+来源⻔店
+S08B Synthetic 9f80ffccdaa6ff1f4ab9c3e2
+来源⻔店编号
+127
+查看⻔店编号
+127
+医嘱编号
+86
+医嘱版本
+2
+原开立医师
+S06A Synthetic doctor
+来源文书与版本
+318 / 1
+来源接诊分段
+361
+真实处方药品明细
+明细编号: 158
+SKU∕药品∕规格
+S08B-409451d9b0f703a2e6f8e1de
+S08B Synthetic medicine
+Synthetic review only
+合成规格一
+用法∕频次∕疗程
+合成明确用法
+合成明确频次
+合成明确疗程
+开立数量∕实际已发∕未领数量
+开立数量: 6.0
+实际已发: 0
+未领数量: 0
+单位
+状态∕原因
+未执行项目已取消
+Superseded before issue
+明细编号: 159
+YDental | 1/3
+SKU∕药品∕规格
+S08B-409451d9b0f703a2e6f8e1de
+S08B Synthetic medicine
+Synthetic review only
+合成规格一
+用法∕频次∕疗程
+合成明确用法
+合成明确频次
+合成明确疗程
+开立数量∕实际已发∕未领数量
+开立数量: 6.0
+实际已发: 0
+未领数量: 0
+单位
+状态∕原因
+草稿
+未记录
+明细编号: 160
+SKU∕药品∕规格
+R-efa21846100ce7270901c3fd
+Distinct synthetic medicine 2f5aba
+Synthetic distinct specification
+合成规格二
+用法∕频次∕疗程
+合成明确用法
+合成明确频次
+合成明确疗程
+开立数量∕实际已发∕未领数量
+开立数量: 2.0
+实际已发: 0
+未领数量: 0
+单位
+状态∕原因
+草稿
+未记录
+明细编号: 161
+SKU∕药品∕规格
+R-e67f8ccbcfc75916ea71a33b
+Distinct synthetic medicine efe534
+Synthetic distinct specification
+合成规格三
+用法∕频次∕疗程
+合成明确用法
+合成明确频次
+合成明确疗程
+YDental | 2/3
+开立数量∕实际已发∕未领数量
+开立数量: 1.0
+实际已发: 0
+未领数量: 0
+单位
+状态∕原因
+草稿
+未记录
+实际发药事实(非付款凭证)
+事件∕明细∕药品 SKU
+实际数量∕操作人
+UTC∕⻔店业务日期
+核对状态∕价格来源编号
+尚无实际发药记录。
+演示来源与版本
+模板: S08C-RX-2 / 来源编号∕所选版本: 86 / 2
+生成人: S06A Synthetic doctor / 生成与提取时间(UTC): 2026-10-13 04:39:57
+规范化来源 SHA256: f645a4da6dcd52e639f238715fb1ef7846b11cec7e2bea6e229e9dfdcf26db2e
+来源版本集合: {'actual_dispensing_events': [], 'canonical_patient': 314, 'lines': [[158, 'cancelled'], [159, 'draft'], [160, 'draft'], [161, 'draf
+t']], 'order': [86, 2, 'draft'], 'source_patient': 314}
+未核验签署或打印机实际出纸。本件为临时演示副本;不提供正式归档或原件重印。
+YDental | 3/3

@@ -1,0 +1,154 @@
+[
+  {
+    "id": "C-T01",
+    "status": "FAIL",
+    "detail": "Real binary/download candidate evidence; RX-2 maximum-length prescription visible blank/body loss. Fixed chain BLOCKED.",
+    "fixed_test_runtime": "BLOCKED",
+    "old_AB_results_used_as_current_PASS": false
+  },
+  {
+    "id": "C-T02",
+    "status": "BLOCKED",
+    "detail": "Candidate D1/D2/old-version sample and assertions passed; fixed full run NOT_RUN.",
+    "fixed_test_runtime": "BLOCKED",
+    "old_AB_results_used_as_current_PASS": false
+  },
+  {
+    "id": "C-T03",
+    "status": "FAIL",
+    "detail": "Candidate real 6→4→2/multi-SKU/status assertions passed; maximum-length layout FAIL; fixed full run BLOCKED.",
+    "fixed_test_runtime": "BLOCKED",
+    "old_AB_results_used_as_current_PASS": false
+  },
+  {
+    "id": "C-T04",
+    "status": "BLOCKED",
+    "detail": "Candidate true unsigned PDF and empty fields passed; fixed run not completed. Formal signing NOT_RUN.",
+    "fixed_test_runtime": "BLOCKED",
+    "old_AB_results_used_as_current_PASS": false
+  },
+  {
+    "id": "C-T05",
+    "status": "BLOCKED",
+    "detail": "Candidate 22 methods include model and HTTP negative checks. Fixed 23-method run crashed before tests; latest HTTP failure audit NOT_RUN.",
+    "fixed_test_runtime": "BLOCKED",
+    "old_AB_results_used_as_current_PASS": false
+  },
+  {
+    "id": "C-T06",
+    "status": "BLOCKED",
+    "detail": "Candidate five genuine distinct initial PG backend/barrier races passed, deadlock0. Fixed native SIGSEGV and newest corrupt output checks unvalidated.",
+    "fixed_test_runtime": "BLOCKED",
+    "old_AB_results_used_as_current_PASS": false
+  },
+  {
+    "id": "C-T07",
+    "status": "BLOCKED",
+    "detail": "No single fixed-test fresh install/upgrade/persistent-business upgrade or A/B concurrency/Firefox regression chain completed.",
+    "fixed_test_runtime": "BLOCKED",
+    "old_AB_results_used_as_current_PASS": false
+  },
+  {
+    "id": "C-T08",
+    "status": "FAIL",
+    "detail": "Candidate export0/POT176 and PO176 mapped, full translation CLI NOT_RUN; actual visual layout FAIL.",
+    "fixed_test_runtime": "BLOCKED",
+    "old_AB_results_used_as_current_PASS": false
+  },
+  {
+    "id": "S08-T01",
+    "status": "BLOCKED",
+    "scope": "draft/save persistence and economic invariance",
+    "detail": "Candidate source replay/negative checks only where present; full fixed C+A/B validation incomplete. S09 actual results and S10 paid correction NOT_RUN."
+  },
+  {
+    "id": "S08-T02",
+    "status": "BLOCKED",
+    "scope": "exclusive source versions and stale clients",
+    "detail": "Candidate source replay/negative checks only where present; full fixed C+A/B validation incomplete. S09 actual results and S10 paid correction NOT_RUN."
+  },
+  {
+    "id": "S08-T03",
+    "status": "BLOCKED",
+    "scope": "minimal real treatment/fee/stock source replay",
+    "detail": "Candidate source replay/negative checks only where present; full fixed C+A/B validation incomplete. S09 actual results and S10 paid correction NOT_RUN."
+  },
+  {
+    "id": "S08-T04",
+    "status": "BLOCKED",
+    "scope": "minimal pending recovery and old-price source regression",
+    "detail": "Candidate source replay/negative checks only where present; full fixed C+A/B validation incomplete. S09 actual results and S10 paid correction NOT_RUN."
+  },
+  {
+    "id": "S08-T05",
+    "status": "BLOCKED",
+    "scope": "source handover/save failure",
+    "detail": "Candidate source replay/negative checks only where present; full fixed C+A/B validation incomplete. S09 actual results and S10 paid correction NOT_RUN."
+  },
+  {
+    "id": "S08-T06",
+    "status": "BLOCKED",
+    "scope": "independent D1/D2 responsibility and additions",
+    "detail": "Candidate source replay/negative checks only where present; full fixed C+A/B validation incomplete. S09 actual results and S10 paid correction NOT_RUN."
+  },
+  {
+    "id": "S08-T07",
+    "status": "BLOCKED",
+    "scope": "minimal frozen order/cancel source replay",
+    "detail": "Candidate source replay/negative checks only where present; full fixed C+A/B validation incomplete. S09 actual results and S10 paid correction NOT_RUN."
+  },
+  {
+    "id": "S08-T08",
+    "status": "BLOCKED",
+    "scope": "real prescription4+2 and no repeat dispense",
+    "detail": "Candidate source replay/negative checks only where present; full fixed C+A/B validation incomplete. S09 actual results and S10 paid correction NOT_RUN."
+  },
+  {
+    "id": "S08-T09",
+    "status": "BLOCKED",
+    "scope": "source/export permission, attachment and cross-store",
+    "detail": "Candidate source replay/negative checks only where present; full fixed C+A/B validation incomplete. S09 actual results and S10 paid correction NOT_RUN."
+  },
+  {
+    "id": "S08-T10",
+    "status": "BLOCKED",
+    "scope": "immutable text correction and economic signatures",
+    "detail": "Candidate source replay/negative checks only where present; full fixed C+A/B validation incomplete. S09 actual results and S10 paid correction NOT_RUN."
+  },
+  {
+    "id": "S08-T11",
+    "status": "FAIL",
+    "scope": "three actual Chinese PDFs and unsigned/unapproved state",
+    "detail": "Candidate source replay/negative checks only where present; full fixed C+A/B validation incomplete. S09 actual results and S10 paid correction NOT_RUN."
+  },
+  {
+    "id": "S08-T12",
+    "status": "BLOCKED",
+    "scope": "installation/upgrade and upstream regression",
+    "detail": "Candidate source replay/negative checks only where present; full fixed C+A/B validation incomplete. S09 actual results and S10 paid correction NOT_RUN."
+  },
+  {
+    "id": "S08-T13",
+    "status": "BLOCKED",
+    "scope": "4+2 pharmacy task and cross-day continuation",
+    "detail": "Candidate source replay/negative checks only where present; full fixed C+A/B validation incomplete. S09 actual results and S10 paid correction NOT_RUN."
+  },
+  {
+    "id": "S08-T14",
+    "status": "BLOCKED",
+    "scope": "minimal real referral source regression",
+    "detail": "Candidate source replay/negative checks only where present; full fixed C+A/B validation incomplete. S09 actual results and S10 paid correction NOT_RUN."
+  },
+  {
+    "id": "S08-T15",
+    "status": "BLOCKED",
+    "scope": "FDI/tooth surfaces/0 and template source",
+    "detail": "Candidate source replay/negative checks only where present; full fixed C+A/B validation incomplete. S09 actual results and S10 paid correction NOT_RUN."
+  },
+  {
+    "id": "S08-T16",
+    "status": "BLOCKED",
+    "scope": "separate audit actions/version and economic snapshots",
+    "detail": "Candidate source replay/negative checks only where present; full fixed C+A/B validation incomplete. S09 actual results and S10 paid correction NOT_RUN."
+  }
+]

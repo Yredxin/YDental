@@ -1,0 +1,62 @@
+{
+  "time_utc": "2026-10-13T05:00:58.030002+00:00",
+  "original_databases": 117,
+  "current_databases": 119,
+  "all_original_oid_name_pairs_preserved": true,
+  "original_catalog_sha256": "cf508fbb59d9bad70d0e7bfefb38ab6061a6309fe4527045dd9095521f307e61",
+  "new_databases": [
+    {
+      "oid": 1304322,
+      "name": "ydental_s08c_test_20261013100400_a31e9b72"
+    },
+    {
+      "oid": 1319789,
+      "name": "ydental_s08c_test_20261013031800_b81ae5c3"
+    }
+  ],
+  "containers": {
+    "odoo20-db": {
+      "id": "23fbbde2b361e362c68e265ff7a52adaf0669a71d1b454a177cd0a7e8ae0b083",
+      "image": "sha256:74935e72241653ca55e0414067e6d8763aceb8a810eb51b452253ec3dcfc4336",
+      "started_at": "2026-10-12T14:06:17.353878695Z",
+      "oom_killed": false,
+      "shm_size": 268435456,
+      "volumes": [
+        {
+          "name": "postgresql_odoo20-db-data",
+          "destination": "/var/lib/postgresql",
+          "rw": true
+        }
+      ]
+    },
+    "odoo12-db": {
+      "id": "97c245575b7a136937cdc0cd392c0b3e60aca1823148d00f7dccc65f7ab7fe5e",
+      "image": "sha256:b2baf8998630663d21370da06387c950e587071bdd307ee34e661cdcc7442bcc",
+      "started_at": "2026-10-10T04:52:51.4407282Z",
+      "oom_killed": false,
+      "shm_size": 67108864,
+      "volumes": [
+        {
+          "name": "postgresql_odoo12-db-data",
+          "destination": "/var/lib/postgresql/data",
+          "rw": true
+        }
+      ]
+    }
+  },
+  "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "core_tracked_unchanged": true,
+  "original_odoo_pid": 42433,
+  "original_odoo_health_http": 200,
+  "original_odoo_health": {
+    "status": "pass"
+  },
+  "cluster": "7694897083368259627",
+  "own_previews_and_displays_stopped": true,
+  "historical_database_mutations": 0,
+  "global_service_or_parameter_mutations": 0,
+  "process_local_tools": "Seven Ubuntu packages extracted under .local/s08c-tools, private Xvfb and bwrap namespace only; no global installation",
+  "session_only_pg_profile": "parallel gather/maintenance=0, maintenance_work_mem=16MiB",
+  "shm": "Filesystem     1B-blocks     Used Available Use% Mounted on\nshm            268435456 97558528 170876928  37% /dev/shm\n",
+  "segv_root": "UNKNOWN; native Odoo PID 1670701 signal11; production and C regression BLOCKED"
+}

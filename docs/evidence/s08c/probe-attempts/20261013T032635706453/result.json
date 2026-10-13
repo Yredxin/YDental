@@ -1,0 +1,55 @@
+{
+  "database": "ydental_s08c_test_20261013031800_b81ae5c3",
+  "tested_commit": "8741e600a9611ad0f186b0ad75ca46c1d9d6a8ad",
+  "races": [
+    {
+      "case": "generate_same_key",
+      "trace": [
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 128661,
+            "time_ns": 337994568878358
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 337994568879991
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 337994576533020
+          },
+          {
+            "event": "commit",
+            "time_ns": 337995787635277
+          }
+        ],
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 128676,
+            "time_ns": 337994576389928
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 337994576391100
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 337994576406490
+          }
+        ]
+      ]
+    }
+  ],
+  "deadlocks": 0,
+  "artifacts": [],
+  "result": "FAIL",
+  "failure": {
+    "type": "UniqueViolation",
+    "detail": "duplicate key value violates unique constraint \"ydental_print_job_request_once\"\nDETAIL:  Key (ydental_session_id, ydental_revision, ydental_key)=(295, 1, <REDACTED_REQUEST_KEY>) already exists.\n",
+    "trace": "Traceback (most recent call last):\n  File \"<WORKSPACE>/scripts/s08c_probe_c.py\", line 128, in <module>\n    for name in ('generate_same_key','generate_during_source_save','generate_vs_revoke','preview_vs_handover','repeated_print'):race(name)\n                                                                                                                                ^^^^^^^^^^\n  File \"<WORKSPACE>/scripts/s08c_probe_c.py\", line 108, in race\n    tasks=[pool.submit(worker,i) for i in range(2)];outcomes=[t.result(timeout=65) for t in tasks]\n                                                              ^^^^^^^^^^^^^^^^^^^^\n  File \"<USER_HOME>/code/odoo/odoo-sd/code/.python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/concurrent/futures/_base.py\", line 456, in result\n    return self.__get_result()\n           ^^^^^^^^^^^^^^^^^^^\n  File \"<USER_HOME>/code/odoo/odoo-sd/code/.python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/concurrent/futures/_base.py\", line 401, in __get_result\n    raise self._exception\n  File \"<USER_HOME>/code/odoo/odoo-sd/code/.python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/concurrent/futures/thread.py\", line 59, in run\n    result = self.fn(*self.args, **self.kwargs)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<WORKSPACE>/scripts/s08c_probe_c.py\", line 95, in worker\n    value=service._operate('preview' if kind=='preview_vs_handover' else 'generate',args if kind!='preview_vs_handover' else sel)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<WORKSPACE>/ydental_print/models/ydental_print_service.py\", line 327, in _operate\n    return handlers[operation](**payload)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<WORKSPACE>/ydental_print/models/ydental_print_service.py\", line 289, in _generate\n    job = jobs._new({'ydental_actor_id': self.env.uid, 'ydental_store_id': session.ydental_store_id.id,\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<WORKSPACE>/ydental_print/models/ydental_print_job.py\", line 45, in _new\n    return self.with_context(ydental_print_mutation=_MUTATION).create(values)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<USER_HOME>/code/odoo/odoo-sd/code/odoo/orm/decorators.py\", line 330, in create\n    return method(self, vals_list)\n           ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<WORKSPACE>/ydental_print/models/ydental_print_job.py\", line 35, in create\n    return super().create(vals_list)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<USER_HOME>/code/odoo/odoo-sd/code/odoo/orm/decorators.py\", line 330, in create\n    return method(self, vals_list)\n           ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<USER_HOME>/code/odoo/odoo-sd/code/odoo/orm/models.py\", line 4192, in create\n    records = self._create(data_list)\n              ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<USER_HOME>/code/odoo/odoo-sd/code/odoo/orm/models.py\", line 4387, in _create\n    cr.execute(SQL(\n  File \"<USER_HOME>/code/odoo/odoo-sd/code/odoo/sql_db.py\", line 418, in execute\n    self._obj.execute(query, params)\npsycopg2.errors.UniqueViolation: duplicate key value violates unique constraint \"ydental_print_job_request_once\"\nDETAIL:  Key (ydental_session_id, ydental_revision, ydental_key)=(295, 1, <REDACTED_REQUEST_KEY>) already exists.\n\n"
+  }
+}

@@ -1,0 +1,192 @@
+[
+  {
+    "path": "docs/evidence/s08c/print-browser-attempts/20261013T034516810171/result.json",
+    "tested_commit": "a531679d72548a64a1259c9628e7d21acb5b3f14",
+    "reported_result": "FAIL",
+    "scope": "candidate replay, not fixed final validation",
+    "pdf_artifacts": 0,
+    "browser_checks": 0,
+    "outer_exit_code": "UNKNOWN (not stored in result JSON); use native action-history for managed Odoo commands",
+    "visual_acceptance": "earlier artifact/partial/failure; not final acceptance"
+  },
+  {
+    "path": "docs/evidence/s08c/print-browser-attempts/20261013T035132320894/result.json",
+    "tested_commit": "e6b941e4b715ba537d321e4bd18aca796b597a03",
+    "reported_result": "FAIL",
+    "scope": "candidate replay, not fixed final validation",
+    "pdf_artifacts": 0,
+    "browser_checks": 11,
+    "outer_exit_code": "UNKNOWN (not stored in result JSON); use native action-history for managed Odoo commands",
+    "visual_acceptance": "earlier artifact/partial/failure; not final acceptance"
+  },
+  {
+    "path": "docs/evidence/s08c/print-browser-attempts/20261013T035525672149/result.json",
+    "tested_commit": "354eb4d87d0a126c6a1ef30a75e6eff4f0dc8bbf",
+    "reported_result": "PASS",
+    "scope": "diagnostic script only",
+    "pdf_artifacts": 0,
+    "browser_checks": 4,
+    "outer_exit_code": "UNKNOWN (not stored in result JSON); use native action-history for managed Odoo commands",
+    "visual_acceptance": "earlier artifact/partial/failure; not final acceptance"
+  },
+  {
+    "path": "docs/evidence/s08c/print-browser-attempts/20261013T035704219613/result.json",
+    "tested_commit": "354eb4d87d0a126c6a1ef30a75e6eff4f0dc8bbf",
+    "reported_result": "PASS",
+    "scope": "diagnostic script only",
+    "pdf_artifacts": 0,
+    "browser_checks": 4,
+    "outer_exit_code": "UNKNOWN (not stored in result JSON); use native action-history for managed Odoo commands",
+    "visual_acceptance": "earlier artifact/partial/failure; not final acceptance"
+  },
+  {
+    "path": "docs/evidence/s08c/print-browser-attempts/20261013T040139375538/result.json",
+    "tested_commit": "8cbdacf8c526e7ed9171c66358f3db58a6122d57",
+    "reported_result": "FAIL",
+    "scope": "candidate replay, not fixed final validation",
+    "pdf_artifacts": 0,
+    "browser_checks": 12,
+    "outer_exit_code": "UNKNOWN (not stored in result JSON); use native action-history for managed Odoo commands",
+    "visual_acceptance": "earlier artifact/partial/failure; not final acceptance"
+  },
+  {
+    "path": "docs/evidence/s08c/print-browser-attempts/20261013T040433964944/result.json",
+    "tested_commit": "8cbdacf8c526e7ed9171c66358f3db58a6122d57",
+    "reported_result": "FAIL",
+    "scope": "candidate replay, not fixed final validation",
+    "pdf_artifacts": 0,
+    "browser_checks": 12,
+    "outer_exit_code": "UNKNOWN (not stored in result JSON); use native action-history for managed Odoo commands",
+    "visual_acceptance": "earlier artifact/partial/failure; not final acceptance"
+  },
+  {
+    "path": "docs/evidence/s08c/print-browser-attempts/20261013T040555513392/result.json",
+    "tested_commit": "8cbdacf8c526e7ed9171c66358f3db58a6122d57",
+    "reported_result": "FAIL",
+    "scope": "candidate replay, not fixed final validation",
+    "pdf_artifacts": 0,
+    "browser_checks": 12,
+    "outer_exit_code": "UNKNOWN (not stored in result JSON); use native action-history for managed Odoo commands",
+    "visual_acceptance": "earlier artifact/partial/failure; not final acceptance"
+  },
+  {
+    "path": "docs/evidence/s08c/print-browser-attempts/20261013T040746413138/result.json",
+    "tested_commit": "0ef3ee00a7ed3c2751efc55c0bcf82aed3dff1df",
+    "reported_result": "FAIL",
+    "scope": "candidate replay, not fixed final validation",
+    "pdf_artifacts": 0,
+    "browser_checks": 18,
+    "outer_exit_code": "UNKNOWN (not stored in result JSON); use native action-history for managed Odoo commands",
+    "visual_acceptance": "earlier artifact/partial/failure; not final acceptance"
+  },
+  {
+    "path": "docs/evidence/s08c/print-browser-attempts/20261013T041243172235/result.json",
+    "tested_commit": "03e92494476d3dd3e0fd1fcb2c03e06a9132e53f",
+    "reported_result": "FAIL",
+    "scope": "candidate replay, not fixed final validation",
+    "pdf_artifacts": 0,
+    "browser_checks": 38,
+    "outer_exit_code": "UNKNOWN (not stored in result JSON); use native action-history for managed Odoo commands",
+    "visual_acceptance": "earlier artifact/partial/failure; not final acceptance"
+  },
+  {
+    "path": "docs/evidence/s08c/print-browser-attempts/20261013T041835426640/result.json",
+    "tested_commit": "bfb4282f9a6b0803371a746e853c690d849ea482",
+    "reported_result": "FAIL",
+    "scope": "candidate replay, not fixed final validation",
+    "pdf_artifacts": 0,
+    "browser_checks": 38,
+    "outer_exit_code": "UNKNOWN (not stored in result JSON); use native action-history for managed Odoo commands",
+    "visual_acceptance": "earlier artifact/partial/failure; not final acceptance"
+  },
+  {
+    "path": "docs/evidence/s08c/print-browser-attempts/20261013T042328139294/result.json",
+    "tested_commit": "bfb4282f9a6b0803371a746e853c690d849ea482",
+    "reported_result": "PASS",
+    "scope": "diagnostic script only",
+    "pdf_artifacts": 0,
+    "browser_checks": 2,
+    "outer_exit_code": "UNKNOWN (not stored in result JSON); use native action-history for managed Odoo commands",
+    "visual_acceptance": "earlier artifact/partial/failure; not final acceptance"
+  },
+  {
+    "path": "docs/evidence/s08c/print-browser-attempts/20261013T043328099034/result.json",
+    "tested_commit": "fa8377b0b528f386cf565e4b70da50fd2c92a667",
+    "reported_result": "PASS",
+    "scope": "candidate replay, not fixed final validation",
+    "pdf_artifacts": 0,
+    "browser_checks": 43,
+    "outer_exit_code": "UNKNOWN (not stored in result JSON); use native action-history for managed Odoo commands",
+    "visual_acceptance": "earlier artifact/partial/failure; not final acceptance"
+  },
+  {
+    "path": "docs/evidence/s08c/probe-attempts/20261013T032635706453/result.json",
+    "tested_commit": "8741e600a9611ad0f186b0ad75ca46c1d9d6a8ad",
+    "reported_result": "FAIL",
+    "scope": "candidate replay, not fixed final validation",
+    "pdf_artifacts": 0,
+    "browser_checks": 0,
+    "outer_exit_code": "UNKNOWN (not stored in result JSON); use native action-history for managed Odoo commands",
+    "visual_acceptance": "earlier artifact/partial/failure; not final acceptance"
+  },
+  {
+    "path": "docs/evidence/s08c/probe-attempts/20261013T033031391111/result.json",
+    "tested_commit": "ba1a498cbdc6718d33cea18bc4176c19282f80b4",
+    "reported_result": "FAIL",
+    "scope": "candidate replay, not fixed final validation",
+    "pdf_artifacts": 0,
+    "browser_checks": 0,
+    "outer_exit_code": "UNKNOWN (not stored in result JSON); use native action-history for managed Odoo commands",
+    "visual_acceptance": "earlier artifact/partial/failure; not final acceptance"
+  },
+  {
+    "path": "docs/evidence/s08c/probe-attempts/20261013T033225551576/result.json",
+    "tested_commit": "5c9e48b77ed0286e93ae291b18912e4f56699f97",
+    "reported_result": "PASS",
+    "scope": "candidate replay, not fixed final validation",
+    "pdf_artifacts": 10,
+    "browser_checks": 0,
+    "outer_exit_code": "UNKNOWN (not stored in result JSON); use native action-history for managed Odoo commands",
+    "visual_acceptance": "earlier artifact/partial/failure; not final acceptance"
+  },
+  {
+    "path": "docs/evidence/s08c/probe-attempts/20261013T033656599499/result.json",
+    "tested_commit": "a531679d72548a64a1259c9628e7d21acb5b3f14",
+    "reported_result": "PASS",
+    "scope": "candidate replay, not fixed final validation",
+    "pdf_artifacts": 14,
+    "browser_checks": 0,
+    "outer_exit_code": "UNKNOWN (not stored in result JSON); use native action-history for managed Odoo commands",
+    "visual_acceptance": "earlier artifact/partial/failure; not final acceptance"
+  },
+  {
+    "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/result.json",
+    "tested_commit": "e6b941e4b715ba537d321e4bd18aca796b597a03",
+    "reported_result": "PASS",
+    "scope": "candidate replay, not fixed final validation",
+    "pdf_artifacts": 14,
+    "browser_checks": 0,
+    "outer_exit_code": "UNKNOWN (not stored in result JSON); use native action-history for managed Odoo commands",
+    "visual_acceptance": "earlier artifact/partial/failure; not final acceptance"
+  },
+  {
+    "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/result.json",
+    "tested_commit": "fa8377b0b528f386cf565e4b70da50fd2c92a667",
+    "reported_result": "PASS",
+    "scope": "candidate replay, not fixed final validation",
+    "pdf_artifacts": 15,
+    "browser_checks": 0,
+    "outer_exit_code": "UNKNOWN (not stored in result JSON); use native action-history for managed Odoo commands",
+    "visual_acceptance": "earlier artifact/partial/failure; not final acceptance"
+  },
+  {
+    "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/result.json",
+    "tested_commit": "a94e68e4d6302d63b90588179ff756044f35059b",
+    "reported_result": "PASS",
+    "scope": "candidate replay, not fixed final validation",
+    "pdf_artifacts": 16,
+    "browser_checks": 0,
+    "outer_exit_code": "UNKNOWN (not stored in result JSON); use native action-history for managed Odoo commands",
+    "visual_acceptance": "FAIL see candidate-page-visual-review"
+  }
+]

@@ -1,0 +1,142 @@
+处方演示 PDF
+演示样张∕未经正式审核∕无正式签署
+核定数量已全部发放
+仅包含明确选择的独立来源。本件不是完整正式病历。
+正式处方签发尚未批准。本件不是收据、发票或付款凭证。
+患者
+S06A Synthetic Person
+患者编号
+P00000285
+归并患者编号
+285
+来源患者编号
+285
+来源⻔店
+S08B Synthetic 461cf8c0aae1e032be63a3b0
+来源⻔店编号
+109
+查看⻔店编号
+109
+医嘱编号
+76
+医嘱版本
+3
+原开立医师
+S06A Synthetic doctor
+来源文书与版本
+288 / 1
+来源接诊分段
+325
+真实处方药品明细
+SKU∕药品∕规格
+用法∕频次∕疗程
+开立数量∕实际已发∕未领数
+量
+状态∕原因
+S08B-f318d6edd11bb36cef6
+ff1e4
+S08B Synthetic medicine
+Synthetic review only
+合成规格一
+明细编号: 115
+合成明确用法
+合成明确频次
+合成明确疗程
+开立数量: 6.0
+实际已发: 0
+未领数量: 0
+单位
+未执行项目已取消
+Superseded before issue
+S08B-f318d6edd11bb36cef6
+ff1e4
+S08B Synthetic medicine
+Synthetic review only
+合成规格一
+明细编号: 116
+合成明确用法
+合成明确频次
+合成明确疗程
+开立数量: 6.0
+实际已发: 6.0
+未领数量: 0.0
+单位
+执行已完成
+未记录
+YDental | 1/2
+R-2daf621f7a787fb90cb800
+0d
+Distinct synthetic medicine 
+9d2bf1
+Synthetic distinct specificati
+on
+合成规格二
+明细编号: 117
+合成明确用法
+合成明确频次
+合成明确疗程
+开立数量: 2.0
+实际已发: 2.0
+未领数量: 0.0
+单位
+执行已完成
+未记录
+R-9afad50e7a31d2ef8ba38d
+df
+Distinct synthetic medicine 
+cb90ae
+Synthetic distinct specificati
+on
+合成规格三
+明细编号: 118
+合成明确用法
+合成明确频次
+合成明确疗程
+开立数量: 1.0
+实际已发: 1.0
+未领数量: 0.0
+单位
+执行已完成
+未记录
+SKU∕药品∕规格
+用法∕频次∕疗程
+开立数量∕实际已发∕未领数
+量
+状态∕原因
+实际发药事实(非付款凭证)
+事件∕明细∕药品 SKU
+实际数量∕操作人
+UTC∕⻔店业务日期
+核对状态∕价格来源编号
+67 / 116 / 436
+4.0 / S08B Synthetic Pharm
+acist
+2026-10-13 04:31:04
+2026-10-13
+费用与库存已确认 / 61 / 44
+68 / 117 / 439
+2.0 / S08B Synthetic Pharm
+acist
+2026-10-13 04:31:04
+2026-10-13
+费用与库存已确认 / 62 / 45
+69 / 118 / 441
+1.0 / S08B Synthetic Pharm
+acist
+2026-10-13 04:31:04
+2026-10-13
+费用与库存已确认 / 63 / 46
+70 / 116 / 436
+2.0 / S08B Synthetic Pharm
+acist
+2026-10-14 04:31:05
+2026-10-14
+费用与库存已确认 / 64 / 44
+演示来源与版本
+模板: S08C-RX-1 / 来源编号∕所选版本: 76 / 3
+生成人: S06A Synthetic doctor / 生成与提取时间(UTC): 2026-10-14 04:31:05
+规范化来源 SHA256: 99c5b7a6bd48d8e7330a127c444391ac704f19b9941fd084ea658f38551e332d
+来源版本集合: {'actual_dispensing_events': [67, 68, 69, 70], 'canonical_patient': 285, 'lines': [[115, 'cancelled'], [116, 'done'], [117, 'don
+e'], [118, 'done']], 'order': [76, 3, 'done'], 'source_patient': 285}
+未核验签署或打印机实际出纸。本件为临时演示副本;不提供正式归档或原件重印。
+YDental | 2/2

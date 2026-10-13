@@ -1,0 +1,42 @@
+{
+  "purpose": "Real native Firefox print dialog in an independent display",
+  "global_install": false,
+  "historical_services_changed": false,
+  "packages": [
+    {
+      "package": "libxdo3_1%3a3.20160805.1-5.1build1_amd64.deb",
+      "sha256": "b4edfb3fcb5a3b6bd2b407dbb6f7071c975db611e86774d8a3026a28133e96e5",
+      "identity": "Package: libxdo3\nVersion: 1:3.20160805.1-5.1build1\nArchitecture: amd64"
+    },
+    {
+      "package": "libfontenc1_1%3a1.1.8-1build2_amd64.deb",
+      "sha256": "1fab0e125d793da45d91b346c334c496776d69709a7ea78c3b34d5db6db69eab",
+      "identity": "Package: libfontenc1\nVersion: 1:1.1.8-1build2\nArchitecture: amd64"
+    },
+    {
+      "package": "xserver-common_2%3a21.1.22-1ubuntu1.2_all.deb",
+      "sha256": "b8c4c5c7d10d3662dd9e1bf65191c35e057adcd4d0d8ed6d76653dbc064eef0e",
+      "identity": "Package: xserver-common\nVersion: 2:21.1.22-1ubuntu1.2\nArchitecture: all"
+    },
+    {
+      "package": "xdotool_1%3a3.20160805.1-5.1build1_amd64.deb",
+      "sha256": "fda12b12adf99fa7d93cbc89baf53def35449e9ea04ec0f34dc5a92042a6a68f",
+      "identity": "Package: xdotool\nVersion: 1:3.20160805.1-5.1build1\nArchitecture: amd64"
+    },
+    {
+      "package": "libxfont2_1%3a2.0.6-2ubuntu0.2_amd64.deb",
+      "sha256": "eeca46a661876466a8f96469054427f0b18a10a758c4c69d2c5f20b290f6f056",
+      "identity": "Package: libxfont2\nVersion: 1:2.0.6-2ubuntu0.2\nArchitecture: amd64"
+    },
+    {
+      "package": "x11-xkb-utils_7.7+9build1_amd64.deb",
+      "sha256": "f17d61317a9f0db99db7a2c7b81d462a35008c85089fb573d2175ed504f6157b",
+      "identity": "Package: x11-xkb-utils\nVersion: 7.7+9build1\nArchitecture: amd64"
+    },
+    {
+      "package": "xvfb_2%3a21.1.22-1ubuntu1.2_amd64.deb",
+      "sha256": "fac5e03c7a40668d475178efb85dc63b4b391b020e0e9f499a729d2b62466fe8",
+      "identity": "Package: xvfb\nVersion: 2:21.1.22-1ubuntu1.2\nArchitecture: amd64"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "database": "ydental_s08c_test_20261013031800_b81ae5c3",
+  "tested_commit": "a531679d72548a64a1259c9628e7d21acb5b3f14",
+  "browser": "Firefox headed, native print dialog, default sandbox",
+  "checks": [],
+  "screenshots": [],
+  "pageerrors": [],
+  "physical_paper": "UNKNOWN",
+  "result": "FAIL",
+  "failure": {
+    "type": "AssertionError",
+    "detail": "independent Xvfb display",
+    "trace": "Traceback (most recent call last):\n  File \"<WORKSPACE>/scripts/s08c_print_browser.py\", line 56, in <module>\n    require(xvfb.poll() is None and Path('/tmp/.X11-unix/X107').exists(),'independent Xvfb display')\n  File \"<WORKSPACE>/scripts/s08c_print_browser.py\", line 23, in require\n    if not value:raise AssertionError(message)\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: independent Xvfb display\n"
+  },
+  "xvfb_exit": 127
+}

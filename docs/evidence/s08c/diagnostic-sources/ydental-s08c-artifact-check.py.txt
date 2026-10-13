@@ -1,0 +1,33 @@
+from pathlib import Path
+import json,hashlib,re,sys
+ROOT=Path('<WORKSPACE>');E=ROOT/'docs/evidence/s08c'
+sys.path.insert(0,str(ROOT/'.local/s00-b-deps/verify-lib'))
+import pymupdf
+checks={};errors=[]
+h=json.load(open(E/'attempt-history.json'))
+for a in h['actions']:
+ p=ROOT/'.local'/a['database']/a['log']
+ if hashlib.sha256(p.read_bytes()).hexdigest()!=a['log_sha256']:errors.append(str(p))
+checks['action_log_hashes']=len(h['actions'])
+p=json.load(open(E/'probe-attempts/20261013T043822532357/rendered-pages.json'))
+for pdf in p['pdfs']:
+ f=ROOT/pdf['path'];assert hashlib.sha256(f.read_bytes()).hexdigest()==pdf['sha256']
+ for page in pdf['pages']:
+  f=ROOT/page['path'];assert hashlib.sha256(f.read_bytes()).hexdigest()==page['sha256']
+checks['candidate_PDF_page_hashes']='16 PDFs /61 PNG exact'
+meta=[]
+for f in E.rglob('*.pdf'):
+ with pymupdf.open(f) as doc:meta.append({'path':str(f.relative_to(ROOT)),'metadata':doc.metadata})
+checks['PDF_metadata_files_inspected']=len(meta)
+for f in [ROOT/'docs/s08c-report.md',ROOT/'docs/s08c-contracts.md',ROOT/'docs/s08c-data-dictionary.md',ROOT/'docs/s08c-security-review.md',E/'README.md']:
+ for target in re.findall(r'\]\(([^)]+)\)',f.read_text()):
+  if '://' not in target and not (f.parent/target.split('#')[0]).exists():errors.append(str(f.relative_to(ROOT))+':'+target)
+checks['broken_links_or_hashes']=errors
+metadata_private=[]
+for d in meta:
+ for k,v in d['metadata'].items():
+  if v and (re.search(r'password|session|cookie|/home/|token',v,re.I) or k in ('author','subject','keywords') and v):metadata_private.append({'path':d['path'],'key':k})
+checks['sensitive_PDF_metadata_fields']=metadata_private;assert not metadata_private
+(E/'artifact-integrity-check.json').write_text(json.dumps({'scope':'read-only artifact verification, no Odoo/test execution','result':'PASS' if not errors else 'FAIL','checks':checks,'PDF_metadata':meta},ensure_ascii=False,indent=2)+'\n')
+assert not errors,errors
+print(json.dumps(checks))

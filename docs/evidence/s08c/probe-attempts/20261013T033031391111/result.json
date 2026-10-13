@@ -1,0 +1,169 @@
+{
+  "database": "ydental_s08c_test_20261013031800_b81ae5c3",
+  "tested_commit": "ba1a498cbdc6718d33cea18bc4176c19282f80b4",
+  "races": [
+    {
+      "case": "generate_same_key",
+      "trace": [
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 129313,
+            "time_ns": 338230168107724
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 338230168109498
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 338230175398195
+          },
+          {
+            "event": "commit",
+            "time_ns": 338231386777929
+          }
+        ],
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 129337,
+            "time_ns": 338230175214627
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 338230175216300
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 338230175236319
+          },
+          {
+            "event": "serialization_retry",
+            "time_ns": 338231389995243
+          },
+          {
+            "event": "connected",
+            "attempt": 1,
+            "pid": 129337,
+            "time_ns": 338231400925039
+          },
+          {
+            "event": "commit",
+            "time_ns": 338231449803328
+          }
+        ]
+      ],
+      "outcomes": [
+        {
+          "result": "accepted",
+          "initial_backend_pid": 129313,
+          "final_backend_pid": 129313,
+          "retries": [],
+          "data": {
+            "job_id": 22,
+            "pdf_digest": "50c8362b70a88f0af6d357158259296f8d3637251ebe7c43bd89f6780f90f6e1",
+            "source_digest": "595cfcd57cae0d6ef0e179dcdfc4e7b15217099f9fe9bb4fa3e03a5492bbe247",
+            "versions": {
+              "document": [
+                137,
+                1,
+                "draft"
+              ],
+              "selected_version": [
+                188,
+                1,
+                "save"
+              ],
+              "source_segment": 152,
+              "current_segment": 152,
+              "canonical_patient": 138,
+              "source_patient": 138
+            },
+            "expires_at": "2026-10-13 03:45:39",
+            "paper_output": "unknown"
+          }
+        },
+        {
+          "result": "accepted",
+          "initial_backend_pid": 129337,
+          "final_backend_pid": 129337,
+          "retries": [
+            "serialization_retry"
+          ],
+          "data": {
+            "job_id": 22,
+            "pdf_digest": "50c8362b70a88f0af6d357158259296f8d3637251ebe7c43bd89f6780f90f6e1",
+            "source_digest": "595cfcd57cae0d6ef0e179dcdfc4e7b15217099f9fe9bb4fa3e03a5492bbe247",
+            "versions": {
+              "document": [
+                137,
+                1,
+                "draft"
+              ],
+              "source_patient": 138,
+              "source_segment": 152,
+              "current_segment": 152,
+              "selected_version": [
+                188,
+                1,
+                "save"
+              ],
+              "canonical_patient": 138
+            },
+            "expires_at": "2026-10-13 03:45:39",
+            "paper_output": "unknown"
+          }
+        }
+      ],
+      "result": "PASS"
+    },
+    {
+      "case": "generate_during_source_save",
+      "trace": [
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 129337,
+            "time_ns": 338238437056964
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 338238437058477
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 338238438045791
+          }
+        ],
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 129313,
+            "time_ns": 338238437907969
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 338238437908801
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 338238437922526
+          }
+        ]
+      ]
+    }
+  ],
+  "deadlocks": 0,
+  "artifacts": [],
+  "result": "FAIL",
+  "failure": {
+    "type": "AssertionError",
+    "detail": "source writer did not commit during render",
+    "trace": "Traceback (most recent call last):\n  File \"<WORKSPACE>/scripts/s08c_probe_c.py\", line 133, in <module>\n    for name in ('generate_same_key','generate_during_source_save','generate_vs_revoke','preview_vs_handover','repeated_print'):race(name)\n                                                                                                                                ^^^^^^^^^^\n  File \"<WORKSPACE>/scripts/s08c_probe_c.py\", line 113, in race\n    tasks=[pool.submit(worker,i) for i in range(2)];outcomes=[t.result(timeout=65) for t in tasks]\n                                                              ^^^^^^^^^^^^^^^^^^^^\n  File \"<USER_HOME>/code/odoo/odoo-sd/code/.python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/concurrent/futures/_base.py\", line 456, in result\n    return self.__get_result()\n           ^^^^^^^^^^^^^^^^^^^\n  File \"<USER_HOME>/code/odoo/odoo-sd/code/.python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/concurrent/futures/_base.py\", line 401, in __get_result\n    raise self._exception\n  File \"<USER_HOME>/code/odoo/odoo-sd/code/.python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/concurrent/futures/thread.py\", line 59, in run\n    result = self.fn(*self.args, **self.kwargs)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<WORKSPACE>/scripts/s08c_probe_c.py\", line 100, in worker\n    value=service._operate('preview' if kind=='preview_vs_handover' else 'generate',args if kind!='preview_vs_handover' else sel)\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<WORKSPACE>/ydental_print/models/ydental_print_service.py\", line 337, in _operate\n    return handlers[operation](**payload)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<WORKSPACE>/ydental_print/models/ydental_print_service.py\", line 284, in _generate\n    pdf, output_type = reports._render_qweb_pdf(REPORT, [source.id])\n                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<WORKSPACE>/ydental_access/models/ir_actions_report.py\", line 25, in _render_qweb_pdf\n    return super()._render_qweb_pdf(report_ref, res_ids, data)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<USER_HOME>/code/odoo/odoo-sd/code/addons/stock/models/ir_actions_report.py\", line 19, in _render_qweb_pdf\n    result = super()._render_qweb_pdf(report_ref, res_ids=res_ids, data=data)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<USER_HOME>/code/odoo/odoo-sd/code/odoo/addons/base/models/ir_actions_report.py\", line 684, in _render_qweb_pdf\n    collected_streams, report_type = self._pre_render_qweb_pdf(report_ref, res_ids=res_ids, data=data)\n                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<USER_HOME>/code/odoo/odoo-sd/code/odoo/addons/base/models/ir_actions_report.py\", line 675, in _pre_render_qweb_pdf\n    return self._render_qweb_pdf_prepare_streams(report_ref, data, res_ids=res_ids), 'pdf'\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<USER_HOME>/code/odoo/odoo-sd/code/odoo/addons/base/models/ir_actions_report.py\", line 536, in _render_qweb_pdf_prepare_streams\n    pdf_content, html_ids = self._run_pdf_engine(engine_name, html, report_ref=report_ref, landscape=self.env.context.get('landscape'))\n                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<USER_HOME>/code/odoo/odoo-sd/code/addons/base_report_wkhtmltox/models/ir_actions_report.py\", line 500, in _run_pdf_engine\n    content = self._run_pdf_engine_without_processing(\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<USER_HOME>/code/odoo/odoo-sd/code/addons/base_report_wkhtmltox/models/ir_actions_report.py\", line 455, in _run_pdf_engine_without_processing\n    process = self._run_wkhtmltopdf(command_args + files_command_args + paths + [pdf_report_path])\n              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<WORKSPACE>/scripts/s08c_probe_c.py\", line 76, in render\n    render_enter.set();assert writer_commit.wait(20),'source writer did not commit during render'\n                              ^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: source writer did not commit during render\n"
+  }
+}

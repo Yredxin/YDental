@@ -1,0 +1,10 @@
+import json,runpy,subprocess,sys
+from pathlib import Path
+root=Path('<WORKSPACE>');folder=Path('/tmp/ydental-s08c-project-final');folder.mkdir(exist_ok=True)
+ns=runpy.run_path(str(root/'scripts/s00_t05_project_snapshot.py'));ns['main'].__globals__['EVIDENCE']=folder
+for label in ('after','second-check'):
+ sys.argv=['snapshot','--snapshot',label];assert ns['main']()==0
+ query='query { node(id:"PVT_kwHOA3_tu84BmcLJ") { ... on ProjectV2 { views(first:100) { nodes { id name visibleFields(first:100) { totalCount nodes { id name dataType } pageInfo { hasNextPage endCursor } } } } } } }'
+ result=subprocess.run(['gh','api','graphql','--input','-'],input=json.dumps({'query':query}),text=True,capture_output=True,check=True)
+ payload=json.loads(result.stdout);assert not payload.get('errors');(folder/('view-fields-'+label+'.json')).write_text(json.dumps(payload,ensure_ascii=False,indent=2)+'\n')
+print('Full final Project dual read complete; 0 mutation')

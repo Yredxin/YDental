@@ -1,0 +1,202 @@
+{
+  "issues": {
+    "23": {
+      "body_unchanged": true,
+      "original_comment_count": 3,
+      "current_comment_count": 3,
+      "original_comments_unchanged": true,
+      "added_comments": [],
+      "state": "open",
+      "title": "[YD-N1][总计划] 牙科系统独立建设计划：背景、需求、实施、验证与成功交付",
+      "body_sha256": "36b3744d1087b38df6970dc584f396bd9c6d3bc66de8229c61f181688353f100",
+      "comment_body_hashes": {
+        "6106072643": "08ccabbeba9965c4d6d61e3b8bd8f51dae02fb9d42e80eae82a526e1d64c0852",
+        "6110178328": "6bf3b024c1447780ed46f57ea9f20ef5226ef9b295b9bd8df1a93dce8e24158f",
+        "6125774169": "873f82d998811c29cc15e82792d78a315e808a64cfe439116c6c772ccc18b063"
+      },
+      "full_paginated_read": true
+    },
+    "32": {
+      "body_unchanged": true,
+      "original_comment_count": 20,
+      "current_comment_count": 21,
+      "original_comments_unchanged": true,
+      "added_comments": [
+        6137191852
+      ],
+      "state": "open",
+      "title": "[YD-N1][S08] 治疗工作台、独立文书、医嘱与分次发药",
+      "body_sha256": "4e445d9ddea91576f1393b613613862e83d6c5d8b26d1e497fed3e7ace830d13",
+      "comment_body_hashes": {
+        "6122378640": "ad4fa341fae1db3bcc7202604d71b2d4cc74947373ddc6c5c97ec1ede8e71456",
+        "6122503237": "84653ca7c997623c2276f3947bda429c7ccc11adb1c945eaa969ddc745a44460",
+        "6123830363": "a6961692039bd39d292f89864262902213984e4037ca6db7f1964fb4e8f7983b",
+        "6123972548": "8ee9c58733379bd1f85c12a0d019df6b169563cf1a05e6029d8644305dc99309",
+        "6125036244": "b63c375af4e0e419370fb3803c199f91fb83a4e7adfd764f88c3cc965bc437e8",
+        "6125132411": "586e40d9203f2e0f75509ac4100f992cdf4e328e3f40fc319af75190d8b29067",
+        "6125505034": "b742969e6bd0a69e05dd0b096d73fd73618eb4264d67e9ff399caede089f5852",
+        "6125600687": "2208aa1e572d7527485f1df1a56a617cedc71d54e898d1e8606132a5635e5bef",
+        "6125823343": "a63b506aa5e1047078244cf5138015897775ae774da4cfb32488d492a60bbed0",
+        "6125893718": "afa3a838b58f028933752d2663fd80c7169298d9999bfb1aee68b86b4914e4fb",
+        "6125962901": "9c0628e7061b4d55381cead1779309ceb00cf731d9435e5a5e67371023325e54",
+        "6126603704": "90c8f7bb5b1439d51c3c6a92e340310347824c84406822f496167a232710d0c7",
+        "6134425442": "d5cfa56a10f4141c9bf3a694fee811df55ac9cd4ad19e2306b3cbc9be2ddab3a",
+        "6134476918": "c9826f326aff5c62d1b7e1965c89ab43b51a005d09f2fbbd85af8230cf40cc95",
+        "6134535111": "3f835fb99ba1b194027be6bbbaae5bca969d9dfd5c8db263dc905331f29bfe61",
+        "6135827096": "4ad57efa0924e34e7b3ce372d6b88364193531a3ce7fbf8ef41ec4715fe7b5dc",
+        "6135903692": "2fbcfeb3555def13cb0c5d24f2a9bec9d722b21d9d73f93b28ffab6cb1f632d7",
+        "6136894111": "d6954ba0608c33127114d7e3c5ff443bfc9053e67d489d38e77d6b8aeac7d0ce",
+        "6137049013": "c1e2ab65c068f8c402765dc64e3700a5d96b9a882022ed36df7ae96d10fbc100",
+        "6137113212": "494f0616ece9739eabb2e8312fdae46ce5816f98847a5729b456a9c57682b5c6",
+        "6137191852": "fbfe0409247bae1b42d245e3f5982ccfa4398887e646fcc8225d362cdfbf23d1"
+      },
+      "full_paginated_read": true
+    }
+  },
+  "project_mutations": 0,
+  "project": {
+    "initial_final_dual_deep_equal": true,
+    "fields": 21,
+    "items": 15,
+    "views": 6,
+    "workflows": 7,
+    "view_fields_deep_equal": true,
+    "items_summary": {
+      "23": {
+        "state": "OPEN",
+        "fields": {
+          "Title": "[YD-N1][总计划] 牙科系统独立建设计划：背景、需求、实施、验证与成功交付",
+          "Status": "Todo",
+          "阶段": "PLAN",
+          "执行状态": "进行中"
+        }
+      },
+      "24": {
+        "state": "CLOSED",
+        "fields": {
+          "Title": "[YD-N1][S00] 当前工作区核实、最小运行基线与新计划入口",
+          "Status": "Done",
+          "阶段": "S00",
+          "执行状态": "已验收"
+        }
+      },
+      "25": {
+        "state": "CLOSED",
+        "fields": {
+          "Title": "[YD-N1][S01] 门店、员工、账号及逐门店权限",
+          "Status": "Done",
+          "阶段": "S01",
+          "执行状态": "已验收"
+        }
+      },
+      "26": {
+        "state": "OPEN",
+        "fields": {
+          "Title": "[YD-N1][S02] 楼层平面、区域及工位能力配置",
+          "Status": "Todo",
+          "阶段": "S02",
+          "执行状态": "待用户验收"
+        }
+      },
+      "27": {
+        "state": "OPEN",
+        "fields": {
+          "Title": "[YD-N1][S03] 人员默认安排、工位共享容量与区域营业",
+          "Status": "Todo",
+          "阶段": "S03",
+          "执行状态": "待用户验收"
+        }
+      },
+      "28": {
+        "state": "OPEN",
+        "fields": {
+          "Title": "[YD-N1][S04] 患者主档、门店关系与集团确认合并",
+          "Status": "Todo",
+          "阶段": "S04",
+          "执行状态": "待用户验收"
+        }
+      },
+      "29": {
+        "state": "OPEN",
+        "fields": {
+          "Title": "[YD-N1][S05] 区域预约、现场登记与明确任务报到",
+          "Status": "Todo",
+          "阶段": "S05",
+          "执行状态": "待用户验收"
+        }
+      },
+      "30": {
+        "state": "OPEN",
+        "fields": {
+          "Title": "[YD-N1][S06] 工位叫号、独占连接、保留直返与停叫追加",
+          "Status": "Todo",
+          "阶段": "S06",
+          "执行状态": "待用户验收"
+        }
+      },
+      "31": {
+        "state": "OPEN",
+        "fields": {
+          "Title": "[YD-N1][S07] 药品耗材库存、批次效期与执行恢复",
+          "Status": "Todo",
+          "阶段": "S07",
+          "执行状态": "待用户验收"
+        }
+      },
+      "32": {
+        "state": "OPEN",
+        "fields": {
+          "Title": "[YD-N1][S08] 治疗工作台、独立文书、医嘱与分次发药",
+          "Status": "Todo",
+          "阶段": "S08",
+          "执行状态": "进行中"
+        }
+      },
+      "33": {
+        "state": "OPEN",
+        "fields": {
+          "Title": "[YD-N1][S09] 检查工作台、逐项结果、部分返回与报告",
+          "Status": "Todo",
+          "阶段": "S09",
+          "执行状态": "待启用"
+        }
+      },
+      "34": {
+        "state": "OPEN",
+        "fields": {
+          "Title": "[YD-N1][S10] 结算、实际收退款、日结及费库款联调",
+          "Status": "Todo",
+          "阶段": "S10",
+          "执行状态": "待启用"
+        }
+      },
+      "35": {
+        "state": "OPEN",
+        "fields": {
+          "Title": "[YD-N1][S11] 复诊联系、通知可靠性与人工外加工闭环",
+          "Status": "Todo",
+          "阶段": "S11",
+          "执行状态": "待启用"
+        }
+      },
+      "36": {
+        "state": "OPEN",
+        "fields": {
+          "Title": "[YD-N1][S12] 文书与票据PDF、原版重印及经营报表",
+          "Status": "Todo",
+          "阶段": "S12",
+          "执行状态": "待启用"
+        }
+      },
+      "37": {
+        "state": "OPEN",
+        "fields": {
+          "Title": "[YD-N1][S13] 全流程验收、统一美化、50人负载与恢复演练",
+          "Status": "Todo",
+          "阶段": "S13",
+          "执行状态": "待启用"
+        }
+      }
+    }
+  }
+}

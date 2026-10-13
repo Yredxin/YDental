@@ -1,0 +1,22 @@
+2026-10-13 04:46:05,126 1670701 INFO ydental_s08c_test_20261013031800_b81ae5c3 odoo.modules.loading: Module ydental_treatment_test loaded in 0.06s, 25 queries (+25 other)
+2026-10-13 04:46:05,126 1670701 INFO ydental_s08c_test_20261013031800_b81ae5c3 odoo.modules.loading: Loading module ydental_print_test (65/65)
+2026-10-13 04:46:05,167 1670701 WARNING ydental_s08c_test_20261013031800_b81ae5c3 py.warnings: <USER_HOME>/code/odoo/odoo-sd/code/odoo/orm/fields.py:967: UserWarning: Field 'ydental.space.station.ydental_capability_ids' in dependency of ydental.supply.assignment.ydental_warning should be searchable. This is necessary to determine which records to recompute when ydental.access.capability.active is modified. You should either make the field searchable, or simplify the field dependency.
+2026-10-13 04:46:05,172 1670701 INFO ydental_s08c_test_20261013031800_b81ae5c3 odoo.addons.base.models.ir_module: module ydental_print_test: no translation for language zh_CN
+2026-10-13 04:46:05,173 1670701 INFO ydental_s08c_test_20261013031800_b81ae5c3 odoo.registry: Caches invalidated, signaling through the database: ['default', 'stable']
+2026-10-13 04:46:05,175 1670701 INFO ydental_s08c_test_20261013031800_b81ae5c3 odoo.modules.loading: Module ydental_print_test loaded in 0.05s, 13 queries (+13 other)
+2026-10-13 04:46:05,175 1670701 INFO ydental_s08c_test_20261013031800_b81ae5c3 odoo.modules.loading: 65 modules loaded in 1.70s, 1147 queries (+1147 extra)
+2026-10-13 04:46:05,901 1670701 INFO ydental_s08c_test_20261013031800_b81ae5c3 odoo.modules.loading: Modules loaded.
+2026-10-13 04:46:05,914 1670701 INFO ydental_s08c_test_20261013031800_b81ae5c3 odoo.registry: Registry changed, signaling through the database
+2026-10-13 04:46:05,918 1670701 INFO ydental_s08c_test_20261013031800_b81ae5c3 odoo.registry: Registry loaded in 5.480s
+2026-10-13 04:46:05,919 1670701 INFO ydental_s08c_test_20261013031800_b81ae5c3 odoo.service.server: Starting post tests
+2026-10-13 04:46:05,921 1670701 INFO ydental_s08c_test_20261013031800_b81ae5c3 odoo.registry: Reloading the model registry after database signaling.
+2026-10-13 04:46:05,937 1670701 INFO ydental_s08c_test_20261013031800_b81ae5c3 odoo.modules.loading: loading 1 modules...
+2026-10-13 04:46:05,940 1670701 INFO ydental_s08c_test_20261013031800_b81ae5c3 odoo.modules.loading: 1 modules loaded in 0.00s, 0 queries (+0 extra)
+2026-10-13 04:46:05,942 1670701 INFO ydental_s08c_test_20261013031800_b81ae5c3 odoo.modules.loading: loading 65 modules...
+2026-10-13 04:46:05,973 1670701 INFO ydental_s08c_test_20261013031800_b81ae5c3 odoo.modules.loading: 65 modules loaded in 0.03s, 0 queries (+0 extra)
+2026-10-13 04:46:06,087 1670701 INFO ydental_s08c_test_20261013031800_b81ae5c3 odoo.modules.loading: Modules loaded.
+2026-10-13 04:46:06,102 1670701 INFO ydental_s08c_test_20261013031800_b81ae5c3 odoo.registry: Registry loaded in 0.181s
+2026-10-13 04:46:06,102 1670701 INFO ydental_s08c_test_20261013031800_b81ae5c3 odoo.addons.base.models.ir_qweb: Pregenerating assets bundles
+2026-10-13 04:46:06,696 1670701 INFO ydental_s08c_test_20261013031800_b81ae5c3 odoo.addons.base.models.ir_qweb: JS Assets bundles generated in 0.41228413581848145 seconds
+2026-10-13 04:46:06,697 1670701 INFO ydental_s08c_test_20261013031800_b81ae5c3 odoo.addons.base.models.ir_qweb: Binary Assets bundles generated in 0.0007109642028808594 seconds
+2026-10-13 04:46:06,955 1670701 INFO ydental_s08c_test_20261013031800_b81ae5c3 odoo.addons.base.models.ir_qweb: CSS Assets bundles generated in 0.25832676887512207 seconds

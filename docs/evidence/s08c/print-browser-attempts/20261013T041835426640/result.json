@@ -1,0 +1,231 @@
+{
+  "database": "ydental_s08c_test_20261013031800_b81ae5c3",
+  "tested_commit": "bfb4282f9a6b0803371a746e853c690d849ea482",
+  "browser": "Firefox headed, native print dialog, default sandbox",
+  "checks": [
+    {
+      "check": "doctor selects current store",
+      "result": "PASS"
+    },
+    {
+      "check": "preview HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "check": "clinical visible preview equals actual server response",
+      "result": "PASS"
+    },
+    {
+      "check": "clinical real Chinese source preview",
+      "result": "PASS"
+    },
+    {
+      "check": "generate HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "check": "pdf_view HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "check": "clinical true PDF binary",
+      "result": "PASS"
+    },
+    {
+      "check": "download HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "check": "clinical downloaded true binary",
+      "result": "PASS"
+    },
+    {
+      "check": "print_request HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "check": "clinical opened real PDF viewer",
+      "result": "PASS"
+    },
+    {
+      "check": "clinical request distinct from physical paper",
+      "result": "PASS"
+    },
+    {
+      "check": "preview HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "check": "prescription visible preview equals actual server response",
+      "result": "PASS"
+    },
+    {
+      "check": "prescription real Chinese source preview",
+      "result": "PASS"
+    },
+    {
+      "check": "generate HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "check": "pdf_view HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "check": "prescription true PDF binary",
+      "result": "PASS"
+    },
+    {
+      "check": "download HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "check": "prescription downloaded true binary",
+      "result": "PASS"
+    },
+    {
+      "check": "print_request HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "check": "prescription opened real PDF viewer",
+      "result": "PASS"
+    },
+    {
+      "check": "prescription request distinct from physical paper",
+      "result": "PASS"
+    },
+    {
+      "check": "preview HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "check": "consent visible preview equals actual server response",
+      "result": "PASS"
+    },
+    {
+      "check": "consent real Chinese source preview",
+      "result": "PASS"
+    },
+    {
+      "check": "generate HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "check": "pdf_view HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "check": "consent true PDF binary",
+      "result": "PASS"
+    },
+    {
+      "check": "download HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "check": "consent downloaded true binary",
+      "result": "PASS"
+    },
+    {
+      "check": "print_request HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "check": "consent opened real PDF viewer",
+      "result": "PASS"
+    },
+    {
+      "check": "consent request distinct from physical paper",
+      "result": "PASS"
+    },
+    {
+      "check": "preview HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "check": "held generation response freezes source",
+      "result": "PASS"
+    },
+    {
+      "check": "preview HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "check": "lost response disables actions without fake success",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041835426640/01-entry.png",
+      "sha256": "7911613d901717337e2d3ecd1cadb88a24248ee0fa40faf56219e90c3e040cb3",
+      "kind": "Firefox page"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041835426640/clinical-review.png",
+      "sha256": "62f954d218b8ab971c72a952dc6bb0637f359fdc4884a40734310497d51db44b",
+      "kind": "Firefox page"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041835426640/clinical-pdf-view.png",
+      "sha256": "936c43305163cf399f124d4ae77f5e7c3d2c8d83f7c103bfb2e590452b15d89a",
+      "kind": "Firefox page"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041835426640/clinical-native-print-dialog.png",
+      "sha256": "57071d42ec6b22ee8febd3e01d4f4c2fc0c2d4599074bfa01d04b57832b1c06d",
+      "kind": "native print dialog desktop"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041835426640/prescription-review.png",
+      "sha256": "36fda7ca587c0867c3c0f15225f95bc8f56038394da92289ff63bd670b92bda6",
+      "kind": "Firefox page"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041835426640/prescription-pdf-view.png",
+      "sha256": "b03f8e633864510121c521189a0e498e5e2fe825abf575a7743a3e3e540f3493",
+      "kind": "Firefox page"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041835426640/prescription-native-print-dialog.png",
+      "sha256": "f646492222b56902ee7ece550e0e2d797a1dd042ce53da4f30f228ba182ce490",
+      "kind": "native print dialog desktop"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041835426640/consent-review.png",
+      "sha256": "1be534ca76dcc9efe227e9bdf3708c42ad6c524de2d636a519344e09a77e89e5",
+      "kind": "Firefox page"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041835426640/consent-pdf-view.png",
+      "sha256": "f7e01ec728223359a78dd751f2fa4f307fe63d8ebcfbcb3c8029a6360eb6f2bd",
+      "kind": "Firefox page"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041835426640/consent-native-print-dialog.png",
+      "sha256": "6c23b57736f616196aba16a7715869582b833b172feedfa60f5df90723a99f2e",
+      "kind": "native print dialog desktop"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041835426640/held-generation.png",
+      "sha256": "c4195f4bdee2325bd4ac4c2caf42141e34e4f12d99e78b9d0c853ec2a3814177",
+      "kind": "Firefox page"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041835426640/lost-generation-response.png",
+      "sha256": "67d5b310d32d4ec41569cce6e0116e49d3703c0d324d488700dfe762443eab58",
+      "kind": "Firefox page"
+    }
+  ],
+  "pageerrors": [],
+  "physical_paper": "UNKNOWN",
+  "lost_response_status": 200,
+  "result": "FAIL",
+  "failure": {
+    "type": "TimeoutError",
+    "detail": "Page.wait_for_function: Timeout 60000ms exceeded.",
+    "trace": "Traceback (most recent call last):\n  File \"<WORKSPACE>/scripts/s08c_print_browser.py\", line 104, in <module>\n    page.wait_for_function(\"!document.querySelector('#print-preview').disabled\");context.set_offline(True);page.locator('#print-preview').press('Enter',timeout=5000);page.wait_for_function(\"document.querySelector('#print-result').textContent.includes('响应未确认') && !document.querySelector('#print-preview').disabled\",timeout=60000);check('offline no false PDF success',page.locator('#print-generate').is_disabled());screenshot(page,'offline-failure');context.set_offline(False);context.close()\n                                                                                                                                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<WORKSPACE>/.local/s00-b-deps/verify-lib/playwright/sync_api/_generated.py\", line 12809, in wait_for_function\n    self._sync(\n  File \"<WORKSPACE>/.local/s00-b-deps/verify-lib/playwright/_impl/_sync_base.py\", line 115, in _sync\n    return task.result()\n           ^^^^^^^^^^^^^\n  File \"<WORKSPACE>/.local/s00-b-deps/verify-lib/playwright/_impl/_page.py\", line 1153, in wait_for_function\n    return await self._main_frame.wait_for_function(**locals_to_params(locals()))\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<WORKSPACE>/.local/s00-b-deps/verify-lib/playwright/_impl/_frame.py\", line 941, in wait_for_function\n    await self._channel.send(\"waitForFunction\", self._timeout, params)\n  File \"<WORKSPACE>/.local/s00-b-deps/verify-lib/playwright/_impl/_connection.py\", line 76, in send\n    return await self._connection.wrap_api_call(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<WORKSPACE>/.local/s00-b-deps/verify-lib/playwright/_impl/_connection.py\", line 632, in wrap_api_call\n    raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nplaywright._impl._errors.TimeoutError: Page.wait_for_function: Timeout 60000ms exceeded.\n"
+  },
+  "xvfb_exit": -15
+}

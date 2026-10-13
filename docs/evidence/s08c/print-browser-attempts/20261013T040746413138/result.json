@@ -1,0 +1,115 @@
+{
+  "database": "ydental_s08c_test_20261013031800_b81ae5c3",
+  "tested_commit": "0ef3ee00a7ed3c2751efc55c0bcf82aed3dff1df",
+  "browser": "Firefox headed, native print dialog, default sandbox",
+  "checks": [
+    {
+      "check": "doctor selects current store",
+      "result": "PASS"
+    },
+    {
+      "check": "preview HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "check": "clinical visible preview equals actual server response",
+      "result": "PASS"
+    },
+    {
+      "check": "clinical real Chinese source preview",
+      "result": "PASS"
+    },
+    {
+      "check": "generate HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "check": "pdf_view HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "check": "clinical true PDF binary",
+      "result": "PASS"
+    },
+    {
+      "check": "download HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "check": "clinical downloaded true binary",
+      "result": "PASS"
+    },
+    {
+      "check": "print_request HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "check": "clinical opened real PDF viewer",
+      "result": "PASS"
+    },
+    {
+      "check": "clinical request distinct from physical paper",
+      "result": "PASS"
+    },
+    {
+      "check": "preview HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "check": "prescription visible preview equals actual server response",
+      "result": "PASS"
+    },
+    {
+      "check": "prescription real Chinese source preview",
+      "result": "PASS"
+    },
+    {
+      "check": "generate HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "check": "pdf_view HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "check": "prescription true PDF binary",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T040746413138/01-entry.png",
+      "sha256": "7911613d901717337e2d3ecd1cadb88a24248ee0fa40faf56219e90c3e040cb3",
+      "kind": "Firefox page"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T040746413138/clinical-review.png",
+      "sha256": "620c038db1585f8d71816c208b1fa6dcf60856e3a3707a0f65659c6b08fe8ac8",
+      "kind": "Firefox page"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T040746413138/clinical-pdf-view.png",
+      "sha256": "b65a7b44304bfdc108237220b70cf02bab38a2348f14136253f3fd53d094cc36",
+      "kind": "Firefox page"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T040746413138/clinical-native-print-dialog.png",
+      "sha256": "1c9aa8873fff419c1cdec47465276a08fb9ba10ce8d8aee4715a2cf1c3a90462",
+      "kind": "native print dialog desktop"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T040746413138/prescription-review.png",
+      "sha256": "36fda7ca587c0867c3c0f15225f95bc8f56038394da92289ff63bd670b92bda6",
+      "kind": "Firefox page"
+    }
+  ],
+  "pageerrors": [],
+  "physical_paper": "UNKNOWN",
+  "result": "FAIL",
+  "failure": {
+    "type": "TimeoutError",
+    "detail": "Locator.wait_for: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"#print-pdf\").content_frame.locator(\"#viewer .page\").first to be visible\n",
+    "trace": "Traceback (most recent call last):\n  File \"<WORKSPACE>/scripts/s08c_print_browser.py\", line 80, in <module>\n    page.frame_locator('#print-pdf').locator('#viewer .page').first.wait_for();page.wait_for_timeout(1200);screenshot(page,name+'-pdf-view')\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<WORKSPACE>/.local/s00-b-deps/verify-lib/playwright/sync_api/_generated.py\", line 20696, in wait_for\n    self._sync(\n  File \"<WORKSPACE>/.local/s00-b-deps/verify-lib/playwright/_impl/_sync_base.py\", line 115, in _sync\n    return task.result()\n           ^^^^^^^^^^^^^\n  File \"<WORKSPACE>/.local/s00-b-deps/verify-lib/playwright/_impl/_locator.py\", line 752, in wait_for\n    await self._frame.wait_for_selector(\n  File \"<WORKSPACE>/.local/s00-b-deps/verify-lib/playwright/_impl/_frame.py\", line 395, in wait_for_selector\n    await self._channel.send(\n  File \"<WORKSPACE>/.local/s00-b-deps/verify-lib/playwright/_impl/_connection.py\", line 76, in send\n    return await self._connection.wrap_api_call(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<WORKSPACE>/.local/s00-b-deps/verify-lib/playwright/_impl/_connection.py\", line 632, in wrap_api_call\n    raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nplaywright._impl._errors.TimeoutError: Locator.wait_for: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"#print-pdf\").content_frame.locator(\"#viewer .page\").first to be visible\n\n"
+  },
+  "xvfb_exit": -15
+}

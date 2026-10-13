@@ -1,0 +1,578 @@
+{
+  "scope": "candidate attempts; none establishes fixed-test full PASS",
+  "actions": [
+    {
+      "action": "install",
+      "exit_code": 1,
+      "pid": 1620423,
+      "log": "install-20261013T031822382685.log",
+      "log_sha256": "ef13d56a69f7500a9517294ee900e832761b713809feeed421817ff9d219f082",
+      "time_utc": "2026-10-13T03:21:22.449608+00:00",
+      "tested_commit": "af2cc8e7667b841da5e985e0584ec5b332ab428f",
+      "tests": [
+        6,
+        8,
+        99
+      ],
+      "verification_exit": 1,
+      "database": "ydental_s08c_test_20261013031800_b81ae5c3",
+      "entry_command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "install",
+        "--db",
+        "ydental_s08c_test_20261013031800_b81ae5c3",
+        "--port",
+        "18178"
+      ],
+      "command_provenance": "runner action record + fixed runner argument reconstruction; inner native command is in scripts/s08c.py",
+      "log_retained_locally": true
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 1,
+      "pid": 1622570,
+      "log": "upgrade-20261013T032220170484.log",
+      "log_sha256": "f174297b08aff88d89a20d6771c85249e93d343a046e73cf888bd1d1c02015d0",
+      "time_utc": "2026-10-13T03:23:03.050429+00:00",
+      "tested_commit": "956c07c0a0c68e1bba6bc29549d1e1136454fd17",
+      "print_only": true,
+      "tests": [
+        5,
+        8,
+        19
+      ],
+      "verification_exit": 1,
+      "database": "ydental_s08c_test_20261013031800_b81ae5c3",
+      "entry_command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "upgrade",
+        "--db",
+        "ydental_s08c_test_20261013031800_b81ae5c3",
+        "--port",
+        "18178",
+        "--print-only"
+      ],
+      "command_provenance": "runner action record + fixed runner argument reconstruction; inner native command is in scripts/s08c.py",
+      "log_retained_locally": true
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 0,
+      "pid": 1623479,
+      "log": "upgrade-20261013T032351491842.log",
+      "log_sha256": "5bfb890c18d66411085c8668bf5c5c33ffea7e99648218dde3517716920b5374",
+      "time_utc": "2026-10-13T03:24:44.545983+00:00",
+      "tested_commit": "33177fd2ff1bd7f31ea93abc678c9eba3d585ab8",
+      "print_only": true,
+      "tests": [
+        0,
+        0,
+        19
+      ],
+      "database": "ydental_s08c_test_20261013031800_b81ae5c3",
+      "entry_command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "upgrade",
+        "--db",
+        "ydental_s08c_test_20261013031800_b81ae5c3",
+        "--port",
+        "18178",
+        "--print-only"
+      ],
+      "command_provenance": "runner action record + fixed runner argument reconstruction; inner native command is in scripts/s08c.py",
+      "log_retained_locally": true
+    },
+    {
+      "action": "probe_c",
+      "exit_code": 1,
+      "pid": 1624285,
+      "log": "probe_c-20261013T032508821042.log",
+      "log_sha256": "39ac50e16d31a8b81ace31b5d3ccd42e18fd3ae993a3e45bda5a818080af131f",
+      "time_utc": "2026-10-13T03:25:10.192697+00:00",
+      "tested_commit": "33177fd2ff1bd7f31ea93abc678c9eba3d585ab8",
+      "print_only": false,
+      "database": "ydental_s08c_test_20261013031800_b81ae5c3",
+      "entry_command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "probe_c",
+        "--db",
+        "ydental_s08c_test_20261013031800_b81ae5c3",
+        "--port",
+        "18178"
+      ],
+      "command_provenance": "runner action record + fixed runner argument reconstruction; inner native command is in scripts/s08c.py",
+      "log_retained_locally": true
+    },
+    {
+      "action": "export",
+      "exit_code": 0,
+      "pid": 1624625,
+      "log": "export-20261013T032538321622.log",
+      "log_sha256": "a9484621e8c4b8db2b22b90e64c7cf1237aa9044d875932ded98f7ac89b36a98",
+      "time_utc": "2026-10-13T03:25:40.546768+00:00",
+      "tested_commit": "3c74b5a3d33b91ad61362e22c595f003110cee20",
+      "print_only": false,
+      "database": "ydental_s08c_test_20261013031800_b81ae5c3",
+      "entry_command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "export",
+        "--db",
+        "ydental_s08c_test_20261013031800_b81ae5c3",
+        "--port",
+        "18178"
+      ],
+      "command_provenance": "runner action record + fixed runner argument reconstruction; inner native command is in scripts/s08c.py",
+      "log_retained_locally": true
+    },
+    {
+      "action": "probe_c",
+      "exit_code": 1,
+      "pid": 1625133,
+      "log": "probe_c-20261013T032634572774.log",
+      "log_sha256": "5f961c235977cbd7274af3dd92a3284132f64d134e62e4935b55e91ec3ca2cb7",
+      "time_utc": "2026-10-13T03:26:45.433315+00:00",
+      "tested_commit": "8741e600a9611ad0f186b0ad75ca46c1d9d6a8ad",
+      "print_only": false,
+      "verification_exit": 1,
+      "database": "ydental_s08c_test_20261013031800_b81ae5c3",
+      "entry_command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "probe_c",
+        "--db",
+        "ydental_s08c_test_20261013031800_b81ae5c3",
+        "--port",
+        "18178"
+      ],
+      "command_provenance": "runner action record + fixed runner argument reconstruction; inner native command is in scripts/s08c.py",
+      "log_retained_locally": true
+    },
+    {
+      "action": "probe_c",
+      "exit_code": 1,
+      "pid": 1627160,
+      "log": "probe_c-20261013T033030281960.log",
+      "log_sha256": "ba7dfd27a551255cd1d6b2463ee65ba1d2cbbed4de3d54c373064e6bd11a175e",
+      "time_utc": "2026-10-13T03:31:06.987280+00:00",
+      "tested_commit": "ba1a498cbdc6718d33cea18bc4176c19282f80b4",
+      "print_only": false,
+      "verification_exit": 1,
+      "database": "ydental_s08c_test_20261013031800_b81ae5c3",
+      "entry_command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "probe_c",
+        "--db",
+        "ydental_s08c_test_20261013031800_b81ae5c3",
+        "--port",
+        "18178"
+      ],
+      "command_provenance": "runner action record + fixed runner argument reconstruction; inner native command is in scripts/s08c.py",
+      "log_retained_locally": true
+    },
+    {
+      "action": "probe_c",
+      "exit_code": 0,
+      "pid": 1628187,
+      "log": "probe_c-20261013T033224406785.log",
+      "log_sha256": "ebcc0233b1695a8682d53890d59d0c237b7b2351cf6b359538f9dbf0412c8076",
+      "time_utc": "2026-10-13T03:33:31.109733+00:00",
+      "tested_commit": "5c9e48b77ed0286e93ae291b18912e4f56699f97",
+      "print_only": false,
+      "database": "ydental_s08c_test_20261013031800_b81ae5c3",
+      "entry_command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "probe_c",
+        "--db",
+        "ydental_s08c_test_20261013031800_b81ae5c3",
+        "--port",
+        "18178"
+      ],
+      "command_provenance": "runner action record + fixed runner argument reconstruction; inner native command is in scripts/s08c.py",
+      "log_retained_locally": true
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 0,
+      "pid": 1629039,
+      "log": "upgrade-20261013T033349932702.log",
+      "log_sha256": "27082ba7941d33a7206866fad2a419fee2ae228b2fd101bb8ea495b3680a5bc1",
+      "time_utc": "2026-10-13T03:34:45.189312+00:00",
+      "tested_commit": "e8fa2b85f112f6adb0f6d6ba91b9a961a8a5d37b",
+      "print_only": true,
+      "tests": [
+        0,
+        0,
+        19
+      ],
+      "database": "ydental_s08c_test_20261013031800_b81ae5c3",
+      "entry_command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "upgrade",
+        "--db",
+        "ydental_s08c_test_20261013031800_b81ae5c3",
+        "--port",
+        "18178",
+        "--print-only"
+      ],
+      "command_provenance": "runner action record + fixed runner argument reconstruction; inner native command is in scripts/s08c.py",
+      "log_retained_locally": true
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 1,
+      "pid": 1630030,
+      "log": "upgrade-20261013T033528920020.log",
+      "log_sha256": "402f210328875809137e9213dd2ac0dfbc65031aa3f149a5c92dcca3962a9920",
+      "time_utc": "2026-10-13T03:36:18.763700+00:00",
+      "tested_commit": "266dbece0ce7f79de56f82aba7118de049b03ee8",
+      "print_only": true,
+      "tests": [
+        7,
+        0,
+        19
+      ],
+      "verification_exit": 1,
+      "database": "ydental_s08c_test_20261013031800_b81ae5c3",
+      "entry_command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "upgrade",
+        "--db",
+        "ydental_s08c_test_20261013031800_b81ae5c3",
+        "--port",
+        "18178",
+        "--print-only"
+      ],
+      "command_provenance": "runner action record + fixed runner argument reconstruction; inner native command is in scripts/s08c.py",
+      "log_retained_locally": true
+    },
+    {
+      "action": "probe_c",
+      "exit_code": 0,
+      "pid": 1630879,
+      "log": "probe_c-20261013T033655457365.log",
+      "log_sha256": "d033edd97022e6cb3e237a4269259daa9ea5e66ee5683d8b750d675b714a7de0",
+      "time_utc": "2026-10-13T03:38:21.457268+00:00",
+      "tested_commit": "a531679d72548a64a1259c9628e7d21acb5b3f14",
+      "print_only": false,
+      "database": "ydental_s08c_test_20261013031800_b81ae5c3",
+      "entry_command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "probe_c",
+        "--db",
+        "ydental_s08c_test_20261013031800_b81ae5c3",
+        "--port",
+        "18178"
+      ],
+      "command_provenance": "runner action record + fixed runner argument reconstruction; inner native command is in scripts/s08c.py",
+      "log_retained_locally": true
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 0,
+      "pid": 1636328,
+      "log": "upgrade-20261013T034715936469.log",
+      "log_sha256": "c89c755bd856530ba5c4362930a0dd4834e573858fec6112a08c6b6d8b21afa8",
+      "time_utc": "2026-10-13T03:48:13.214907+00:00",
+      "tested_commit": "aeba278c346f9323a23859ed1e3818f16897febb",
+      "print_only": true,
+      "tests": [
+        0,
+        0,
+        19
+      ],
+      "database": "ydental_s08c_test_20261013031800_b81ae5c3",
+      "entry_command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "upgrade",
+        "--db",
+        "ydental_s08c_test_20261013031800_b81ae5c3",
+        "--port",
+        "18178",
+        "--print-only"
+      ],
+      "command_provenance": "runner action record + fixed runner argument reconstruction; inner native command is in scripts/s08c.py",
+      "log_retained_locally": true
+    },
+    {
+      "action": "probe_c",
+      "exit_code": 0,
+      "pid": 1637134,
+      "log": "probe_c-20261013T034834176304.log",
+      "log_sha256": "6565ca8453fa33153da3b6917354aca27a444bb79c57eb54d9c6501022368b0b",
+      "time_utc": "2026-10-13T03:50:05.771252+00:00",
+      "tested_commit": "e6b941e4b715ba537d321e4bd18aca796b597a03",
+      "print_only": false,
+      "database": "ydental_s08c_test_20261013031800_b81ae5c3",
+      "entry_command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "probe_c",
+        "--db",
+        "ydental_s08c_test_20261013031800_b81ae5c3",
+        "--port",
+        "18178"
+      ],
+      "command_provenance": "runner action record + fixed runner argument reconstruction; inner native command is in scripts/s08c.py",
+      "log_retained_locally": true
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 0,
+      "pid": 1644147,
+      "log": "upgrade-20261013T040001817912.log",
+      "log_sha256": "b713fe16d6c13bf9be7c74616c525761ae1c8dc71534f3e3d7b4d34aceaf1946",
+      "time_utc": "2026-10-13T04:01:01.132620+00:00",
+      "tested_commit": "6b3c6e34d0ef5bf050779de35fbf4c5fbbb31ec5",
+      "print_only": true,
+      "tests": [
+        0,
+        0,
+        19
+      ],
+      "database": "ydental_s08c_test_20261013031800_b81ae5c3",
+      "entry_command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "upgrade",
+        "--db",
+        "ydental_s08c_test_20261013031800_b81ae5c3",
+        "--port",
+        "18178",
+        "--print-only"
+      ],
+      "command_provenance": "runner action record + fixed runner argument reconstruction; inner native command is in scripts/s08c.py",
+      "log_retained_locally": true
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 0,
+      "pid": 1650445,
+      "log": "upgrade-20261013T040955643212.log",
+      "log_sha256": "fe644ed02c9f70f68239b01560b7ab2f6adcd3cacb93692da2ddda7b397b0147",
+      "time_utc": "2026-10-13T04:10:59.170363+00:00",
+      "tested_commit": "593a53476167c47923b2469070074f2fab59428c",
+      "print_only": true,
+      "tests": [
+        0,
+        0,
+        21
+      ],
+      "database": "ydental_s08c_test_20261013031800_b81ae5c3",
+      "entry_command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "upgrade",
+        "--db",
+        "ydental_s08c_test_20261013031800_b81ae5c3",
+        "--port",
+        "18178",
+        "--print-only"
+      ],
+      "command_provenance": "runner action record + fixed runner argument reconstruction; inner native command is in scripts/s08c.py",
+      "log_retained_locally": true
+    },
+    {
+      "action": "export",
+      "exit_code": 0,
+      "pid": 1651580,
+      "log": "export-20261013T041154402522.log",
+      "log_sha256": "6f9759d8315af5786bec1db9d01af06c4e480e3ca464d44619556e03e9a70dd2",
+      "time_utc": "2026-10-13T04:11:56.732537+00:00",
+      "tested_commit": "593a53476167c47923b2469070074f2fab59428c",
+      "print_only": false,
+      "database": "ydental_s08c_test_20261013031800_b81ae5c3",
+      "entry_command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "export",
+        "--db",
+        "ydental_s08c_test_20261013031800_b81ae5c3",
+        "--port",
+        "18178"
+      ],
+      "command_provenance": "runner action record + fixed runner argument reconstruction; inner native command is in scripts/s08c.py",
+      "log_retained_locally": true
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 0,
+      "pid": 1660154,
+      "log": "upgrade-20261013T042652568830.log",
+      "log_sha256": "d7994e00a9212882a11b5f76ff5624790c17c7b6b4c29fc58afb71559203e762",
+      "time_utc": "2026-10-13T04:27:58.853247+00:00",
+      "tested_commit": "5502f311530795208b353940e65414d7022abd51",
+      "print_only": true,
+      "tests": [
+        0,
+        0,
+        22
+      ],
+      "database": "ydental_s08c_test_20261013031800_b81ae5c3",
+      "entry_command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "upgrade",
+        "--db",
+        "ydental_s08c_test_20261013031800_b81ae5c3",
+        "--port",
+        "18178",
+        "--print-only"
+      ],
+      "command_provenance": "runner action record + fixed runner argument reconstruction; inner native command is in scripts/s08c.py",
+      "log_retained_locally": true
+    },
+    {
+      "action": "probe_c",
+      "exit_code": 0,
+      "pid": 1661605,
+      "log": "probe_c-20261013T042930378338.log",
+      "log_sha256": "3dbf67ecd13400f4a9ecdca899bc6c6130033aa5e4c3d3b9c804d531fd284f1e",
+      "time_utc": "2026-10-13T04:31:08.109324+00:00",
+      "tested_commit": "fa8377b0b528f386cf565e4b70da50fd2c92a667",
+      "print_only": false,
+      "database": "ydental_s08c_test_20261013031800_b81ae5c3",
+      "entry_command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "probe_c",
+        "--db",
+        "ydental_s08c_test_20261013031800_b81ae5c3",
+        "--port",
+        "18178"
+      ],
+      "command_provenance": "runner action record + fixed runner argument reconstruction; inner native command is in scripts/s08c.py",
+      "log_retained_locally": true
+    },
+    {
+      "action": "audit",
+      "exit_code": 0,
+      "pid": 1663464,
+      "log": "audit-20261013T043304619198.log",
+      "log_sha256": "bb8977c16e84684b49fbe3d587927bfc288ccea295932cfa931755381d44553d",
+      "time_utc": "2026-10-13T04:33:12.695458+00:00",
+      "tested_commit": "fa8377b0b528f386cf565e4b70da50fd2c92a667",
+      "print_only": false,
+      "database": "ydental_s08c_test_20261013031800_b81ae5c3",
+      "entry_command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "audit",
+        "--db",
+        "ydental_s08c_test_20261013031800_b81ae5c3",
+        "--port",
+        "18178"
+      ],
+      "command_provenance": "runner action record + fixed runner argument reconstruction; inner native command is in scripts/s08c.py",
+      "log_retained_locally": true
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 0,
+      "pid": 1665886,
+      "log": "upgrade-20261013T043702393066.log",
+      "log_sha256": "2be3d9c4d231a0fe65421cbcd1e5d6479f369d01badedbd2ac03de672b4bcc62",
+      "time_utc": "2026-10-13T04:38:09.669175+00:00",
+      "tested_commit": "6b1e7d0cbed561ef7603221dcd3a9bf64f17a128",
+      "print_only": true,
+      "tests": [
+        0,
+        0,
+        22
+      ],
+      "database": "ydental_s08c_test_20261013031800_b81ae5c3",
+      "entry_command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "upgrade",
+        "--db",
+        "ydental_s08c_test_20261013031800_b81ae5c3",
+        "--port",
+        "18178",
+        "--print-only"
+      ],
+      "command_provenance": "runner action record + fixed runner argument reconstruction; inner native command is in scripts/s08c.py",
+      "log_retained_locally": true
+    },
+    {
+      "action": "probe_c",
+      "exit_code": 0,
+      "pid": 1666703,
+      "log": "probe_c-20261013T043821393823.log",
+      "log_sha256": "76793f186fba39b15998f9294dd1c9ba7f2a52a6d12979d8e0f79e05c8777de9",
+      "time_utc": "2026-10-13T04:40:04.172549+00:00",
+      "tested_commit": "a94e68e4d6302d63b90588179ff756044f35059b",
+      "print_only": false,
+      "database": "ydental_s08c_test_20261013031800_b81ae5c3",
+      "entry_command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "probe_c",
+        "--db",
+        "ydental_s08c_test_20261013031800_b81ae5c3",
+        "--port",
+        "18178"
+      ],
+      "command_provenance": "runner action record + fixed runner argument reconstruction; inner native command is in scripts/s08c.py",
+      "log_retained_locally": true
+    },
+    {
+      "action": "upgrade",
+      "exit_code": -11,
+      "pid": 1670701,
+      "log": "upgrade-20261013T044559893521.log",
+      "log_sha256": "07e23e987e415a50255789fbe9721b1d10e8931977d77fe4761ec7b1819f6909",
+      "time_utc": "2026-10-13T04:46:08.090461+00:00",
+      "tested_commit": "87b2c8588ac3012abce7d9db5f26dc5682dc4e7d",
+      "print_only": true,
+      "tests": null,
+      "verification_exit": -11,
+      "database": "ydental_s08c_test_20261013031800_b81ae5c3",
+      "entry_command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "upgrade",
+        "--db",
+        "ydental_s08c_test_20261013031800_b81ae5c3",
+        "--port",
+        "18178",
+        "--print-only"
+      ],
+      "command_provenance": "runner action record + fixed runner argument reconstruction; inner native command is in scripts/s08c.py",
+      "log_retained_locally": true
+    },
+    {
+      "action": "install",
+      "exit_code": 255,
+      "pid": 1619531,
+      "log": "install-20261013T031641451928.log",
+      "log_sha256": "e89f6a3355f863855ed0a5b79550ffd03fdebfcc66deee1b2000e4c837599830",
+      "time_utc": "2026-10-13T03:17:34.148151+00:00",
+      "tested_commit": "b768cc89f5dbe0c5bcb42d1be8716406c3272a38",
+      "tests": null,
+      "verification_exit": 255,
+      "database": "ydental_s08c_test_20261013100400_a31e9b72",
+      "entry_command": [
+        "../.venv/bin/python",
+        "scripts/s08c.py",
+        "install",
+        "--db",
+        "ydental_s08c_test_20261013100400_a31e9b72",
+        "--port",
+        "18177"
+      ],
+      "command_provenance": "runner action record + fixed runner argument reconstruction; inner native command is in scripts/s08c.py",
+      "log_retained_locally": true
+    }
+  ]
+}

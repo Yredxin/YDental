@@ -1,0 +1,15 @@
+{
+  "baseline": "e95b77d1ebd2ff55331e777adedf32efe81fdfbc",
+  "product": "8794f1c6d6d7f4a8e76c64edddfb0c49c85e3fe2",
+  "test": "87b2c8588ac3012abce7d9db5f26dc5682dc4e7d",
+  "old_product_files_changed": [],
+  "product_tree_sha": "0fec032935e1e7dc1927429de6a97889d5e8cf75",
+  "test_product_tree_sha": "0fec032935e1e7dc1927429de6a97889d5e8cf75",
+  "product_to_test_files": [
+    "scripts/s08c_render_pages.py",
+    "scripts/s08c_validate.py",
+    "ydental_print_test/tests/test_print.py",
+    "ydental_print_test/tests/test_print_http.py"
+  ],
+  "test_to_final_policy": "AGENTS/docs/evidence only; verify before final commit"
+}

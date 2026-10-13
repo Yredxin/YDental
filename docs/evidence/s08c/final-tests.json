@@ -1,0 +1,82 @@
+{
+  "overall": "BLOCKED",
+  "baseline": "e95b77d1ebd2ff55331e777adedf32efe81fdfbc",
+  "product": "8794f1c6d6d7f4a8e76c64edddfb0c49c85e3fe2",
+  "test": "87b2c8588ac3012abce7d9db5f26dc5682dc4e7d",
+  "fixed_test": {
+    "fresh_final_database": "NOT_CREATED",
+    "install": "NOT_RUN",
+    "upgrade": "BLOCKED signal11/native-11/outer245/testsnull",
+    "persistent_business_upgrade": "NOT_RUN",
+    "AB_model_HTTP_full": "NOT_RUN",
+    "A16_B25_C5_barriers": "NOT_RUN",
+    "A_B_rework_C_Firefox": "NOT_RUN",
+    "full_translation": "NOT_RUN",
+    "guard": "NOT_RUN",
+    "latest_fault_handling": "NOT_RUN"
+  },
+  "planned_only": {
+    "install_methods": 103,
+    "upgrade_methods": 101,
+    "original_AB": 78,
+    "new_C_models": 15,
+    "new_C_HTTP": 8,
+    "barrier_groups": 46,
+    "A_Firefox": 88,
+    "B_Firefox": 24,
+    "B_rework_Firefox": 23,
+    "C_Firefox": 43
+  },
+  "candidate_only": {
+    "C_upgrade22": {
+      "commit": "6b1e7d0cbed561ef7603221dcd3a9bf64f17a128",
+      "exit_code": 0,
+      "tests": [
+        0,
+        0,
+        22
+      ]
+    },
+    "probe5": {
+      "commit": "a94e68e4d6302d63b90588179ff756044f35059b",
+      "exit_code": 0,
+      "races": 5,
+      "deadlocks": 0,
+      "PDFs": 16,
+      "actual_rendered_pages": 61,
+      "visual_result": "FAIL"
+    },
+    "Firefox43": {
+      "commit": "fa8377b0b528f386cf565e4b70da50fd2c92a667",
+      "result": "PASS",
+      "screenshots": 14,
+      "pageerror": 0,
+      "actual_native_dialogs": 3,
+      "paper": "UNKNOWN",
+      "template": "RX-1"
+    },
+    "guard5": {
+      "commit": "e6b941e4b715ba537d321e4bd18aca796b597a03",
+      "result": "PASS",
+      "evidence_limit": "terminal observation; no separately retained stdout log"
+    },
+    "translation_export": {
+      "commit": "593a53476167c47923b2469070074f2fab59428c",
+      "exit_code": 0,
+      "native_POT": 176,
+      "manual_PO_mapping": 176,
+      "full_translation_CLI": "NOT_RUN"
+    }
+  },
+  "post_crash_readonly": {
+    "invariants": 41,
+    "violations": 0,
+    "business_source_signatures_equal": 17,
+    "result": "PASS preservation only, not upgrade/full test"
+  },
+  "authority_project": "PASS read-only comparison, 0 mutation",
+  "production": "BLOCKED",
+  "physical_print": "UNKNOWN",
+  "all_self_tests": "Codex, not GPT or user acceptance",
+  "stop": "No Odoo/browser/test runs or product/test edits after signal11; only existing artifact inspection, read-only preservation and documentation/GitHub delivery."
+}

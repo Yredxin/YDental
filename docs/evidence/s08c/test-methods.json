@@ -1,0 +1,140 @@
+[
+  {
+    "file": "ydental_print_test/tests/test_print.py",
+    "line": 42,
+    "method": "test_three_actual_pdf_binaries_no_attachment_and_audit_distinct",
+    "fixed_execution": "BLOCKED before method execution"
+  },
+  {
+    "file": "ydental_print_test/tests/test_print.py",
+    "line": 56,
+    "method": "test_long_chinese_52_teeth_zero_unknown_missing_and_injection",
+    "fixed_execution": "BLOCKED before method execution"
+  },
+  {
+    "file": "ydental_print_test/tests/test_print.py",
+    "line": 70,
+    "method": "test_pending_and_confirmed_independent_author_and_old_correction_version",
+    "fixed_execution": "BLOCKED before method execution"
+  },
+  {
+    "file": "ydental_print_test/tests/test_print.py",
+    "line": 88,
+    "method": "test_consent_does_not_copy_medical_content_or_signature",
+    "fixed_execution": "BLOCKED before method execution"
+  },
+  {
+    "file": "ydental_print_test/tests/test_print.py",
+    "line": 96,
+    "method": "test_source_read_and_export_both_required_revocation_next_request",
+    "fixed_execution": "BLOCKED before method execution"
+  },
+  {
+    "file": "ydental_print_test/tests/test_print.py",
+    "line": 107,
+    "method": "test_pharmacy_minimal_rx_and_no_clinical_or_draft",
+    "fixed_execution": "BLOCKED before method execution"
+  },
+  {
+    "file": "ydental_print_test/tests/test_print.py",
+    "line": 116,
+    "method": "test_prescription_real_four_plus_two_and_stale_generated_copy",
+    "fixed_execution": "BLOCKED before method execution"
+  },
+  {
+    "file": "ydental_print_test/tests/test_print.py",
+    "line": 138,
+    "method": "test_generation_key_idempotent_and_model_immutable",
+    "fixed_execution": "BLOCKED before method execution"
+  },
+  {
+    "file": "ydental_print_test/tests/test_print.py",
+    "line": 152,
+    "method": "test_report_direct_bypass_even_with_fake_context_and_data",
+    "fixed_execution": "BLOCKED before method execution"
+  },
+  {
+    "file": "ydental_print_test/tests/test_print.py",
+    "line": 159,
+    "method": "test_source_digest_change_unknown_version_type_and_payload_fail_closed",
+    "fixed_execution": "BLOCKED before method execution"
+  },
+  {
+    "file": "ydental_print_test/tests/test_print.py",
+    "line": 166,
+    "method": "test_source_relation_and_cross_store_purpose",
+    "fixed_execution": "BLOCKED before method execution"
+  },
+  {
+    "file": "ydental_print_test/tests/test_print.py",
+    "line": 178,
+    "method": "test_expiry_other_actor_session_and_source_attachment_rejected",
+    "fixed_execution": "BLOCKED before method execution"
+  },
+  {
+    "file": "ydental_print_test/tests/test_print.py",
+    "line": 187,
+    "method": "test_engine_failure_timeout_font_missing_leave_no_job_or_business_mutation",
+    "fixed_execution": "BLOCKED before method execution"
+  },
+  {
+    "file": "ydental_print_test/tests/test_print.py",
+    "line": 208,
+    "method": "test_company_removed_and_audit_never_copies_clinical_body",
+    "fixed_execution": "BLOCKED before method execution"
+  },
+  {
+    "file": "ydental_print_test/tests/test_print.py",
+    "line": 219,
+    "method": "test_sixteen_long_chinese_prescription_rows_retain_every_field",
+    "fixed_execution": "BLOCKED before method execution"
+  },
+  {
+    "file": "ydental_print_test/tests/test_print_http.py",
+    "line": 32,
+    "method": "test_http_three_pdf_types_binary_headers_and_request_audits",
+    "fixed_execution": "BLOCKED before method execution"
+  },
+  {
+    "file": "ydental_print_test/tests/test_print_http.py",
+    "line": 51,
+    "method": "test_http_private_rpc_fake_binding_binary_and_report_route_denied",
+    "fixed_execution": "BLOCKED before method execution"
+  },
+  {
+    "file": "ydental_print_test/tests/test_print_http.py",
+    "line": 68,
+    "method": "test_http_csrf_unknown_extra_fields_and_stale_revision",
+    "fixed_execution": "BLOCKED before method execution"
+  },
+  {
+    "file": "ydental_print_test/tests/test_print_http.py",
+    "line": 79,
+    "method": "test_http_revocation_old_job_other_user_and_no_source_read",
+    "fixed_execution": "BLOCKED before method execution"
+  },
+  {
+    "file": "ydental_print_test/tests/test_print_http.py",
+    "line": 87,
+    "method": "test_http_attachment_public_and_token_bypass_no_sensitive_error",
+    "fixed_execution": "BLOCKED before method execution"
+  },
+  {
+    "file": "ydental_print_test/tests/test_print_http.py",
+    "line": 97,
+    "method": "test_http_download_repeat_does_not_create_versions_events_fees",
+    "fixed_execution": "BLOCKED before method execution"
+  },
+  {
+    "file": "ydental_print_test/tests/test_print_http.py",
+    "line": 103,
+    "method": "test_http_pharmacy_only_real_rx_source_and_export_revocation",
+    "fixed_execution": "BLOCKED before method execution"
+  },
+  {
+    "file": "ydental_print_test/tests/test_print_http.py",
+    "line": 124,
+    "method": "test_http_render_failure_audited_without_job_or_business_mutation",
+    "fixed_execution": "BLOCKED before method execution"
+  }
+]

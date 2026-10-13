@@ -1,5 +1,18 @@
 # YDental 当前执行入口
 
+## 当前 S08-C阻断交付 / #32（等待GPT独立技术复核）
+
+- 唯一授权[GPT-ACTIVATE6137113212](https://github.com/Yredxin/YDental/issues/32#issuecomment-6137113212)。完整读取#23/#32正文及初始3/20评论，交付3/21重读原内容不变，仅本批[开工6137191852](https://github.com/Yredxin/YDental/issues/32#issuecomment-6137191852)新增且已逐字读回。固定B baseline e95b77d1ebd2ff55331e777adedf32efe81fdfbc，新分支codex/s08-c-pdf-print-r1-20261013。
+- 固定C product **8794f1c6d6d7f4a8e76c64edddfb0c49c85e3fe2**、test **87b2c8588ac3012abce7d9db5f26dc5682dc4e7d**；final完整SHA固定在#32阻断交付评论。product→test仅四个验证文件，test→final仅AGENTS/文档/脱敏证据；原S01—S08-B产品零修改。新增ydental_print复用真实A/B来源及原生QWeb/wkhtml，临时演示PDF不是S12永久原件/正式签署。
+- **C当前BLOCKED，禁止继续Odoo/浏览器/测试重跑或产品改动。** 固定test执行print-only upgrade，Odoo PID1670701在post-tests原生资产初始化后signal11，native exit-11/outer245/testsnull，日志SHA07e23e987e415a50255789fbe9721b1d10e8931977d77fe4761ec7b1819f6909。无匹配core/原生stack，根因UNKNOWN。停止后仅只读SQL/环境/Project、既有文件人工核对与交付，未重启。
+- 候选不同SHA：6b1e7d C升级22项PASS；a94e68e 5真实初始不同backend/barrier、deadlock0、16PDF/61页；fa8377b Firefox43项/14图/pageerror0及3原生打印对话框（取消、paperUNKNOWN、旧RX-1）。全部Codex自测，不合并成fixed PASS。固定新库install103/upgrade101/持久业务再升级、A16+B25+C5共46竞争、A/B/返工/C Firefox与完整翻译均NOT_RUN/BLOCKED，最终新库未创建；最新corruptPDF/QWeb fault handler未验证。
+- **61页逐张人工核对FAIL**：RX-2最长16行处方第7页只有页脚，第9/10/12/13/15/16页正文严重缺失；自动文本/字体/overlap PASS漏检，人工FAIL覆盖验收结论，原自动结果保留。旧RX-1第3页重叠和所有候选失败保留。崩溃后未修产品或重跑；需GPT复核给后续诊断/修正边界。
+- 只新增2新C合成库：a31e9b72/OID1304322/18177安装失败；b81ae5c3/OID1319789/18178候选+崩溃。原117库OID名称全保留，总119，无重置/删除；db20/odoo12容器镜像/卷/身份/shm256MiB、核心tracked、原Odoo42433健康200不变。7Ubuntu包仅解包.local工具，独立Xvfb/bwrap，无global install/service变更；首次自有Xvfb遗留按精确PID停止，全部自有预览/display已停。崩溃后41SQL错误0，17业务来源表签名等于最后候选，仅保全PASS，不是升级PASS。
+- Project开工/交付各完整双读21字段/15条目/6视图及字段/7公开workflow深比较相同，0mutation。#32仍S08/进行中/Todo/OPEN，#31待用户验收，#33—37待启用。旧S07 SIGSEGV、B浏览器崩溃/serialization重试耗尽及新SIGSEGV均UNKNOWN，生产继续BLOCKED。
+- 材料docs/s08c-{report,contracts,data-dictionary,security-review}.md及docs/evidence/s08c。正常push后#32发布`[CODEX] S08-C BLOCKED与技术复核申请`并逐字读回，立即停止等待GPT。不关Issue、不改Project、不启S09、不合并/强推/部署；不得以用户普通“继续”绕过本次已触发停止条件。
+
+下方B及更早“当前/本次”为历史，以本节及S08-C最新授权、阻断证据为准。
+
 ## 当前 S08-B定向返工交付 / #32（等待GPT独立技术复核）
 
 - 唯一最新返工[GPT-REVIEW6135903692](https://github.com/Yredxin/YDental/issues/32#issuecomment-6135903692)；完整读取#23/#32正文及3/17全部有效评论。沿用原分支及baseline7ccb25cf6a54732caf7007c39498d393b6a96929，原product/test/final、旧库与全部失败证据不变。先test-only abbe2bc新库实测复现B1/B3/B4；B2原intake._text默认required=True，空白原在draft拒绝，明确反证不冒称原可issued。

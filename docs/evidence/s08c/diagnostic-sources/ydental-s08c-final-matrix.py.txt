@@ -1,0 +1,55 @@
+from pathlib import Path
+import json, hashlib, re, subprocess
+ROOT=Path('<WORKSPACE>');E=ROOT/'docs/evidence/s08c'
+def write(name,v):(E/name).write_text(json.dumps(v,ensure_ascii=False,indent=2)+'\n')
+tests=[
+ ('C-T01','FAIL','Real binary/download candidate evidence; RX-2 maximum-length prescription visible blank/body loss. Fixed chain BLOCKED.'),
+ ('C-T02','BLOCKED','Candidate D1/D2/old-version sample and assertions passed; fixed full run NOT_RUN.'),
+ ('C-T03','FAIL','Candidate real 6→4→2/multi-SKU/status assertions passed; maximum-length layout FAIL; fixed full run BLOCKED.'),
+ ('C-T04','BLOCKED','Candidate true unsigned PDF and empty fields passed; fixed run not completed. Formal signing NOT_RUN.'),
+ ('C-T05','BLOCKED','Candidate 22 methods include model and HTTP negative checks. Fixed 23-method run crashed before tests; latest HTTP failure audit NOT_RUN.'),
+ ('C-T06','BLOCKED','Candidate five genuine distinct initial PG backend/barrier races passed, deadlock0. Fixed native SIGSEGV and newest corrupt output checks unvalidated.'),
+ ('C-T07','BLOCKED','No single fixed-test fresh install/upgrade/persistent-business upgrade or A/B concurrency/Firefox regression chain completed.'),
+ ('C-T08','FAIL','Candidate export0/POT176 and PO176 mapped, full translation CLI NOT_RUN; actual visual layout FAIL.')]
+matrix=[{'id':i,'status':s,'detail':d,'fixed_test_runtime':'BLOCKED','old_AB_results_used_as_current_PASS':False} for i,s,d in tests]
+descriptions={1:'draft/save persistence and economic invariance',2:'exclusive source versions and stale clients',3:'minimal real treatment/fee/stock source replay',4:'minimal pending recovery and old-price source regression',5:'source handover/save failure',6:'independent D1/D2 responsibility and additions',7:'minimal frozen order/cancel source replay',8:'real prescription4+2 and no repeat dispense',9:'source/export permission, attachment and cross-store',10:'immutable text correction and economic signatures',11:'three actual Chinese PDFs and unsigned/unapproved state',12:'installation/upgrade and upstream regression',13:'4+2 pharmacy task and cross-day continuation',14:'minimal real referral source regression',15:'FDI/tooth surfaces/0 and template source',16:'separate audit actions/version and economic snapshots'}
+for n in range(1,17):
+ matrix.append({'id':f'S08-T{n:02d}','status':'FAIL' if n==11 else 'BLOCKED','scope':descriptions[n],
+ 'detail':'Candidate source replay/negative checks only where present; full fixed C+A/B validation incomplete. S09 actual results and S10 paid correction NOT_RUN.'})
+write('tc-matrix.json',matrix)
+write('final-tests.json',{
+ 'overall':'BLOCKED','baseline':'e95b77d1ebd2ff55331e777adedf32efe81fdfbc',
+ 'product':'8794f1c6d6d7f4a8e76c64edddfb0c49c85e3fe2','test':'87b2c8588ac3012abce7d9db5f26dc5682dc4e7d',
+ 'fixed_test':{'fresh_final_database':'NOT_CREATED','install':'NOT_RUN','upgrade':'BLOCKED signal11/native-11/outer245/testsnull','persistent_business_upgrade':'NOT_RUN',
+ 'AB_model_HTTP_full':'NOT_RUN','A16_B25_C5_barriers':'NOT_RUN','A_B_rework_C_Firefox':'NOT_RUN','full_translation':'NOT_RUN','guard':'NOT_RUN','latest_fault_handling':'NOT_RUN'},
+ 'planned_only':{'install_methods':103,'upgrade_methods':101,'original_AB':78,'new_C_models':15,'new_C_HTTP':8,'barrier_groups':46,'A_Firefox':88,'B_Firefox':24,'B_rework_Firefox':23,'C_Firefox':43},
+ 'candidate_only':{'C_upgrade22':{'commit':'6b1e7d0cbed561ef7603221dcd3a9bf64f17a128','exit_code':0,'tests':[0,0,22]},
+ 'probe5':{'commit':'a94e68e4d6302d63b90588179ff756044f35059b','exit_code':0,'races':5,'deadlocks':0,'PDFs':16,'actual_rendered_pages':61,'visual_result':'FAIL'},
+ 'Firefox43':{'commit':'fa8377b0b528f386cf565e4b70da50fd2c92a667','result':'PASS','screenshots':14,'pageerror':0,'actual_native_dialogs':3,'paper':'UNKNOWN','template':'RX-1'},
+ 'guard5':{'commit':'e6b941e4b715ba537d321e4bd18aca796b597a03','result':'PASS','evidence_limit':'terminal observation; no separately retained stdout log'},
+ 'translation_export':{'commit':'593a53476167c47923b2469070074f2fab59428c','exit_code':0,'native_POT':176,'manual_PO_mapping':176,'full_translation_CLI':'NOT_RUN'}},
+ 'post_crash_readonly':{'invariants':41,'violations':0,'business_source_signatures_equal':17,'result':'PASS preservation only, not upgrade/full test'},
+ 'authority_project':'PASS read-only comparison, 0 mutation','production':'BLOCKED','physical_print':'UNKNOWN','all_self_tests':'Codex, not GPT or user acceptance',
+ 'stop':'No Odoo/browser/test runs or product/test edits after signal11; only existing artifact inspection, read-only preservation and documentation/GitHub delivery.'})
+
+index=[]
+for p in sorted(E.glob('*-attempts/*/result.json')):
+ d=json.loads(p.read_text());stamp=p.parent.name
+ diagnostic=stamp in ['20261013T035525672149','20261013T035704219613','20261013T042328139294']
+ index.append({'path':str(p.relative_to(ROOT)),'tested_commit':d.get('tested_commit'),'reported_result':d.get('result'),
+ 'scope':'diagnostic script only' if diagnostic else 'candidate replay, not fixed final validation',
+ 'pdf_artifacts':len(d.get('artifacts',[])),'browser_checks':len(d.get('checks',[])),
+ 'outer_exit_code':'UNKNOWN (not stored in result JSON); use native action-history for managed Odoo commands',
+ 'visual_acceptance':'FAIL see candidate-page-visual-review' if stamp=='20261013T043822532357' else 'earlier artifact/partial/failure; not final acceptance'})
+write('artifact-attempt-index.json',index)
+
+fixed='8794f1c6d6d7f4a8e76c64edddfb0c49c85e3fe2';test='87b2c8588ac3012abce7d9db5f26dc5682dc4e7d';base='e95b77d1ebd2ff55331e777adedf32efe81fdfbc'
+oldprod=[p.name for p in ROOT.glob('ydental_*') if p.is_dir() and not p.name.endswith('_test') and p.name!='ydental_print']
+unchanged=subprocess.check_output(['git','diff','--name-only',base,test,'--',*oldprod],cwd=ROOT,text=True).splitlines()
+assert not unchanged
+files=subprocess.check_output(['git','diff','--name-only',fixed,test],cwd=ROOT,text=True).splitlines()
+write('fixed-tree-contract.json',{'baseline':base,'product':fixed,'test':test,'old_product_files_changed':unchanged,
+ 'product_tree_sha':subprocess.check_output(['git','rev-parse',fixed+':ydental_print'],cwd=ROOT,text=True).strip(),
+ 'test_product_tree_sha':subprocess.check_output(['git','rev-parse',test+':ydental_print'],cwd=ROOT,text=True).strip(),
+ 'product_to_test_files':files,'test_to_final_policy':'AGENTS/docs/evidence only; verify before final commit'})
+print(json.dumps({'matrix':len(matrix),'attempt_indices':len(index),'old_product_changes':unchanged}))

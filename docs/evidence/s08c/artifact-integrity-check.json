@@ -1,0 +1,1341 @@
+{
+  "scope": "read-only artifact verification, no Odoo/test execution",
+  "result": "PASS",
+  "checks": {
+    "action_log_hashes": 23,
+    "candidate_PDF_page_hashes": "16 PDFs /61 PNG exact",
+    "PDF_metadata_files_inspected": 83,
+    "broken_links_or_hashes": [],
+    "sensitive_PDF_metadata_fields": []
+  },
+  "PDF_metadata": [
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T040139375538/clinical-firefox-download.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013040146Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T040555513392/clinical-firefox-download.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013040601Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T040433964944/clinical-firefox-download.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013040439Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T043328099034/consent-firefox-download.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013043400Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T043328099034/clinical-firefox-download.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013043334Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T043328099034/prescription-firefox-download.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013043347Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041835426640/consent-firefox-download.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013041907Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041835426640/clinical-firefox-download.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013041842Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041835426640/prescription-firefox-download.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013041855Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T040746413138/clinical-firefox-download.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013040752Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041243172235/consent-firefox-download.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013041315Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041243172235/clinical-firefox-download.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013041249Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041243172235/prescription-firefox-download.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013041302Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T035132320894/clinical-firefox-download.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013035139Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033225551576/clinical-d1-long-draft.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013033315Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033225551576/prescription-four-dispensed-two-left.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013033323Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033225551576/prescription-six-dispensed-zero-left.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013033324Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033225551576/clinical-d1-pending.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013033321Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033225551576/consent-unsigned-unreviewed.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013033316Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033225551576/prescription-six-uncollected.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013033319Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033225551576/clinical-d2-confirmed-independent.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013033326Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033225551576/clinical-d2-historical-confirmed.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013033327Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033225551576/clinical-d2-corrected.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013033329Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033225551576/prescription-incomplete-draft.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013033318Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d1-long-draft.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013043033Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-next-day-three-skus-done.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013043107Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-four-dispensed-two-left.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013043041Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-six-dispensed-zero-left.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013043043Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d1-pending.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013043039Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/consent-unsigned-unreviewed.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013043034Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-three-skus-issued.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013043103Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-six-uncollected.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013043037Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d2-confirmed-independent.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013043044Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-long-sixteen-lines.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013043100Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d2-historical-confirmed.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013043046Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-three-skus-ten-twentyseven-fortythree.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013043105Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d2-corrected.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013043047Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-edited-draft-cancelled-history.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013043102Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-incomplete-draft.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013043036Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d1-long-draft.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013043928Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-next-day-three-skus-done.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013044003Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-four-dispensed-two-left.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013043936Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-six-dispensed-zero-left.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013043938Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d1-pending.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013043934Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/consent-unsigned-unreviewed.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013043930Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/race-generate-during-source-save.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013043844Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-three-skus-issued.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013043959Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-six-uncollected.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013043933Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d2-confirmed-independent.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013043939Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-long-sixteen-lines.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013043956Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d2-historical-confirmed.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013043941Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-three-skus-ten-twentyseven-fortythree.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013044001Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d2-corrected.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013043942Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-edited-draft-cancelled-history.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013043958Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-incomplete-draft.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013043931Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/clinical-d1-long-draft.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013034933Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/prescription-next-day-three-skus-done.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013035005Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/prescription-four-dispensed-two-left.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013034940Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/prescription-six-dispensed-zero-left.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013034942Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/clinical-d1-pending.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013034939Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/consent-unsigned-unreviewed.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013034934Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/prescription-three-skus-issued.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013035001Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/prescription-six-uncollected.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013034937Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/clinical-d2-confirmed-independent.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013034944Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/clinical-d2-historical-confirmed.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013034945Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/prescription-three-skus-ten-twentyseven-fortythree.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013035003Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/clinical-d2-corrected.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013034947Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/prescription-edited-draft-cancelled-history.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013034959Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/prescription-incomplete-draft.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013034936Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033656599499/clinical-d1-long-draft.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013033750Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033656599499/prescription-next-day-three-skus-done.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013033821Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033656599499/prescription-four-dispensed-two-left.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013033757Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033656599499/prescription-six-dispensed-zero-left.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013033759Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033656599499/clinical-d1-pending.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013033755Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033656599499/consent-unsigned-unreviewed.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013033751Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033656599499/prescription-three-skus-issued.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013033816Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033656599499/prescription-six-uncollected.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013033754Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033656599499/clinical-d2-confirmed-independent.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013033800Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033656599499/clinical-d2-historical-confirmed.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013033802Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033656599499/prescription-three-skus-ten-twentyseven-fortythree.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013033819Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033656599499/clinical-d2-corrected.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013033803Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033656599499/prescription-edited-draft-cancelled-history.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013033815Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033656599499/prescription-incomplete-draft.pdf",
+      "metadata": {
+        "format": "PDF 1.4",
+        "title": "",
+        "author": "",
+        "subject": "",
+        "keywords": "",
+        "creator": "wkhtmltopdf 0.12.6.1",
+        "producer": "Qt 4.8.7",
+        "creationDate": "D:20261013033752Z",
+        "modDate": "",
+        "trapped": "",
+        "encryption": null
+      }
+    }
+  ]
+}

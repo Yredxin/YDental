@@ -1,0 +1,123 @@
+from pathlib import Path
+import json, hashlib, shutil, re, subprocess
+from datetime import datetime, timezone
+
+ROOT=Path('<WORKSPACE>')
+E=ROOT/'docs/evidence/s08c'
+P=ROOT/'.local/s08c-private-evidence'
+P.mkdir(exist_ok=True,mode=0o700)
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+def write(name,value):
+ p=E/name;p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(value,ensure_ascii=False,indent=2)+'\n')
+
+# Copy original JSON/text evidence before publication redaction. Synthetic PDFs/PNGs are unchanged.
+raw=[]
+for p in sorted(E.rglob('*')):
+ if p.is_file() and p.suffix in ('.json','.txt'):
+  q=P/'original-evidence'/p.relative_to(E);q.parent.mkdir(parents=True,exist_ok=True)
+  if not q.exists():shutil.copyfile(p,q)
+  raw.append({'path':str(p.relative_to(ROOT)),'original_sha256':sha(q)})
+
+hist=[]
+for run in sorted((ROOT/'.local').glob('ydental_s08c_test_*')):
+ if not run.is_dir():continue
+ p=run/'actions.jsonl'
+ if not p.exists():continue
+ for line in p.read_text().splitlines():
+  d=json.loads(line);d['database']=run.name
+  cmd=['../.venv/bin/python','scripts/s08c.py',d['action'],'--db',run.name,'--port','18177' if 'a31e9b72' in run.name else '18178']
+  if d.get('print_only'):cmd.append('--print-only')
+  d['entry_command']=cmd
+  d['command_provenance']='runner action record + fixed runner argument reconstruction; inner native command is in scripts/s08c.py'
+  d['log_retained_locally']=True
+  hist.append(d)
+write('attempt-history.json',{'scope':'candidate attempts; none establishes fixed-test full PASS','actions':hist})
+
+crashrun=ROOT/'.local/ydental_s08c_test_20261013031800_b81ae5c3'
+crashitem=next(d for d in hist if d['pid']==1670701)
+crash=json.loads((crashrun/'crash-1670701.json').read_text())
+crash.update({'tested_commit':'87b2c8588ac3012abce7d9db5f26dc5682dc4e7d','outer_shell_exit_code':245,'native_exit_code':-11,'tests':None,
+ 'entry_command':crashitem['entry_command'],'log':crashitem['log'],'log_sha256':crashitem['log_sha256'],
+ 'last_log_time_utc':'2026-10-13T04:46:06.955Z','exit_record_time_utc':'2026-10-13T04:46:08.090461Z',
+ 'last_observation':'registry reloaded; native QWeb asset pre-generation logged JS/binary/CSS completion; no current test method or test summary logged',
+ 'root_cause':'UNKNOWN','native_stack':'UNAVAILABLE','core_dump':'NO_MATCH_FOUND','coredumpctl':'NOT_INSTALLED',
+ 'core_pattern':'apport pipe','journal_pid_interval':'NO_ENTRIES','var_crash':'no matching dump; old kexec_cmd only',
+ 'response':'STOP all Odoo/browser/test reruns and development; preserve exact failed process/config/db/log, perform read-only SQL/catalog/container evidence and existing artifact review only',
+ 'observations_not_root_cause':['PostgreSQL container OOM=false','shared memory 37% used','original Odoo health HTTP200'],
+ 'no_restart_after_crash':True})
+write('native-crash.json',crash)
+log=crashrun/crashitem['log']
+lines=[s for s in log.read_text().splitlines() if s.startswith('2026-10-13 04:46:0')][-22:]
+(E/'native-crash-log-excerpt.txt').write_text('\n'.join(lines)+'\n')
+
+# Public Project snapshots include every field/item/view/workflow and visible view fields.
+for d,label in [('/tmp/ydental-s08c-project','initial'),('/tmp/ydental-s08c-project-final','final')]:
+ for p in Path(d).glob('*.json'):
+  target=E/'authority-project'/label/p.name;target.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(p,target)
+shutil.copyfile(ROOT/'.local/s08c-tools/manifest.json',E/'local-tools-manifest.json')
+for name in ['ydental-s08c-postcrash-readonly.py','ydental-s08c-environment-final.py','ydental-s08c-authority-comparison.py','ydental-s08c-project-final.py','s08c_diag_browser.py','s08c_offline_diag.py','s08c_repeat_diag.py','s08c_repeat_diag2.py']:
+ p=Path('/tmp')/name
+ if p.exists():
+  target=E/'diagnostic-sources'/(name+'.txt');target.parent.mkdir(parents=True,exist_ok=True)
+  target.write_text(p.read_text().replace(str(ROOT),'<WORKSPACE>').replace('<USER_HOME>','<USER_HOME>'))
+
+probe=E/'probe-attempts/20261013T043822532357'
+render=json.loads((probe/'rendered-pages.json').read_text())
+reviews=[]
+bad=[7,9,10,12,13,15,16]
+for pdf in render['pdfs']:
+ pages=[]
+ for pg in pdf['pages']:
+  fail='prescription-long-sixteen-lines' in pdf['path'] and pg['number'] in bad
+  pages.append({'page':pg['number'],'screenshot':pg['path'],'screenshot_sha256':pg['sha256'],'reviewed_by':'Codex actual image inspection',
+   'result':'FAIL' if fail else 'PASS','finding':('footer-only blank body' if pg['number']==7 else 'severely incomplete body, isolated clipped tail text/line number') if fail else 'Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed'})
+ reviews.append({'pdf':pdf['path'],'pdf_sha256':pdf['sha256'],'pages':pages,'result':'FAIL' if any(p['result']=='FAIL' for p in pages) else 'PASS'})
+write('candidate-page-visual-review.json',{'tested_commit':render['tested_commit'],'scope':'pre-crash existing candidate images; not fixed product/test validation',
+ 'pdf_count':len(reviews),'pages_reviewed':sum(len(p['pages']) for p in reviews),'result':'FAIL','automatic_PASS_overridden':True,
+ 'finding':'RX-2 long sixteen-line PDF page7 footer only; pages9/10/12/13/15/16 severely incomplete; page17 provenance and last line present. Exact rendering/pagination cause UNKNOWN. Existing automated text/font/overlap checks missed visible defects.',
+ 'earlier_RX1_failure':'20261013T042931520774 longest prescription page3 text overlap; preserve prior automatic PASS and later failing recheck',
+ 'product_fix_after_crash':'NOT_DONE stop condition','pdfs':reviews})
+b=E/'print-browser-attempts/20261013T043328099034'
+screens=[{'path':str(p.relative_to(ROOT)),'sha256':sha(p),'visual_review':'PASS','reviewed_by':'Codex actual image inspection'} for p in sorted(b.glob('*.png'))]
+write('candidate-firefox-visual-review.json',{'tested_commit':'fa8377b0b528f386cf565e4b70da50fd2c92a667','scope':'earlier RX-1 candidate only; no fixed-test Firefox run',
+ 'browser_checks':43,'pageerrors':0,'screenshots':screens,'native_dialogs':3,'paper_output':'UNKNOWN','dialog_action':'Cancel; no actual device print',
+ 'result':'PASS','caveat':'Real visible Firefox/native print evidence does not establish RX-2 pagination or newest fault handler/full A/B regression PASS'})
+
+methods=[]
+for p in sorted((ROOT/'ydental_print_test/tests').glob('test_*.py')):
+ for n,line in enumerate(p.read_text().splitlines(),1):
+  m=re.match(r'    def (test_\w+)\(',line)
+  if m:methods.append({'file':str(p.relative_to(ROOT)),'line':n,'method':m.group(1),'fixed_execution':'BLOCKED before method execution'})
+write('test-methods.json',methods)
+
+# Mask actual credentials from private access/config material without printing them.
+secrets=set()
+def collect(v,k=''):
+ if isinstance(v,dict):
+  for key,value in v.items():collect(value,key)
+ elif isinstance(v,list):
+  for x in v:collect(x,k)
+ elif isinstance(v,str) and len(v)>=12 and re.search(r'password|secret|token|sid|session_key|cookie',k,re.I):secrets.add(v)
+for run in (ROOT/'.local').glob('ydental_s08c_test_*'):
+ if not run.is_dir():continue
+ for p in run.glob('*access*.json*'):
+  try:collect(json.loads(p.read_text()))
+  except (ValueError,UnicodeError):pass
+ conf=run/'odoo.conf'
+ if conf.exists():
+  for line in conf.read_text().splitlines():
+   if re.match(r'\s*(db_password|admin_passwd)\s*=',line):
+    value=line.split('=',1)[1].strip()
+    if len(value)>=12:secrets.add(value)
+redactions=[]
+for p in sorted(E.rglob('*')):
+ if not p.is_file() or p.suffix not in ('.json','.txt'):continue
+ old=p.read_text();new=old.replace(str(ROOT),'<WORKSPACE>').replace('<USER_HOME>','<USER_HOME>')
+ for s in sorted(secrets,key=len,reverse=True):new=new.replace(s,'<REDACTED_CREDENTIAL>')
+ if new!=old:
+  q=P/'pre-redaction'/p.relative_to(E);q.parent.mkdir(parents=True,exist_ok=True)
+  if not q.exists():q.write_text(old)
+  p.write_text(new);redactions.append({'path':str(p.relative_to(ROOT)),'raw_sha256':hashlib.sha256(old.encode()).hexdigest(),'published_sha256':sha(p)})
+write('publication-redaction.json',{'raw_originals_preserved_locally':True,'raw_hashes':raw,'redactions':redactions,'pdf_png_bytes_unchanged':True,
+ 'policy':'synthetic only; no raw logs/config/access files/cookies/credentials/core dumps uploaded'})
+print(json.dumps({'evidence_written':True,'page_visual_result':'FAIL','pages':61,'browser_images':len(screens),'redacted_files':len(redactions)}))

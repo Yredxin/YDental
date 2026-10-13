@@ -1,0 +1,43 @@
+{
+  "pid": 1670701,
+  "signal": 11,
+  "database": "ydental_s08c_test_20261013031800_b81ae5c3",
+  "config_sha256": "3b3d578bb0c8539d5865b07929ab0c0abe6278ccd1236076b351f5b7e606f182",
+  "cluster": "7694897083368259627",
+  "oid": 1319789,
+  "production": "BLOCKED",
+  "action": "upgrade",
+  "tested_commit": "87b2c8588ac3012abce7d9db5f26dc5682dc4e7d",
+  "outer_shell_exit_code": 245,
+  "native_exit_code": -11,
+  "tests": null,
+  "entry_command": [
+    "../.venv/bin/python",
+    "scripts/s08c.py",
+    "upgrade",
+    "--db",
+    "ydental_s08c_test_20261013031800_b81ae5c3",
+    "--port",
+    "18178",
+    "--print-only"
+  ],
+  "log": "upgrade-20261013T044559893521.log",
+  "log_sha256": "07e23e987e415a50255789fbe9721b1d10e8931977d77fe4761ec7b1819f6909",
+  "last_log_time_utc": "2026-10-13T04:46:06.955Z",
+  "exit_record_time_utc": "2026-10-13T04:46:08.090461Z",
+  "last_observation": "registry reloaded; native QWeb asset pre-generation logged JS/binary/CSS completion; no current test method or test summary logged",
+  "root_cause": "UNKNOWN",
+  "native_stack": "UNAVAILABLE",
+  "core_dump": "NO_MATCH_FOUND",
+  "coredumpctl": "NOT_INSTALLED",
+  "core_pattern": "apport pipe",
+  "journal_pid_interval": "NO_ENTRIES",
+  "var_crash": "no matching dump; old kexec_cmd only",
+  "response": "STOP all Odoo/browser/test reruns and development; preserve exact failed process/config/db/log, perform read-only SQL/catalog/container evidence and existing artifact review only",
+  "observations_not_root_cause": [
+    "PostgreSQL container OOM=false",
+    "shared memory 37% used",
+    "original Odoo health HTTP200"
+  ],
+  "no_restart_after_crash": true
+}

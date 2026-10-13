@@ -1,0 +1,50 @@
+{
+  "database": "ydental_s08c_test_20261013031800_b81ae5c3",
+  "tested_commit": "354eb4d87d0a126c6a1ef30a75e6eff4f0dc8bbf",
+  "browser": "Firefox headed, native print dialog, default sandbox",
+  "checks": [
+    {
+      "check": "doctor selects current store",
+      "result": "PASS"
+    },
+    {
+      "check": "preview HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "check": "generate HTTP 200",
+      "result": "PASS"
+    },
+    {
+      "check": "pdf_view HTTP 200",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T035704219613/01-entry.png",
+      "sha256": "c8dcbed4dde94a96f6e309a0b13c21c52fab34007c96f9f5fbb6461ed19c99ba",
+      "kind": "Firefox page"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T035704219613/diag-pdf-view.png",
+      "sha256": "4071977167bd3d839e982ea44a7998ff6d71e89688c730bbd432ea72de1a0368",
+      "kind": "native print dialog desktop"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T035704219613/diag-top-pdf.png",
+      "sha256": "615150694905e4445c4a857a7da248965607c30a361988bf4a3c8efba7a63a11",
+      "kind": "native print dialog desktop"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T035704219613/diag-top-print.png",
+      "sha256": "74bb0547264d3b31e67dc72dad41482e8f57f2c5234883e4aaec4a212da2fe0d",
+      "kind": "native print dialog desktop"
+    }
+  ],
+  "pageerrors": [],
+  "physical_paper": "UNKNOWN",
+  "result": "PASS",
+  "native_dialog_visual_review": "PENDING",
+  "xvfb_exit": -15
+}

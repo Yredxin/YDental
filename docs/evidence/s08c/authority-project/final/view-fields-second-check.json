@@ -1,0 +1,268 @@
+{
+  "data": {
+    "node": {
+      "views": {
+        "nodes": [
+          {
+            "id": "PVTV_lAHOA3_tu84BmcLJzgL_2kI",
+            "name": "Backlog",
+            "visibleFields": {
+              "totalCount": 9,
+              "nodes": [
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title",
+                  "dataType": "TITLE"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhk",
+                  "name": "Assignees",
+                  "dataType": "ASSIGNEES"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status",
+                  "dataType": "SINGLE_SELECT"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhw",
+                  "name": "Linked pull requests",
+                  "dataType": "LINKED_PULL_REQUESTS"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOiI",
+                  "name": "Sub-issues progress",
+                  "dataType": "SUB_ISSUES_PROGRESS"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOrs",
+                  "name": "Estimate",
+                  "dataType": "NUMBER"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOrw",
+                  "name": "Iteration",
+                  "dataType": "ITERATION"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOr0",
+                  "name": "Start date",
+                  "dataType": "DATE"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOr4",
+                  "name": "Target date",
+                  "dataType": "DATE"
+                }
+              ],
+              "pageInfo": {
+                "hasNextPage": false,
+                "endCursor": "OQ"
+              }
+            }
+          },
+          {
+            "id": "PVTV_lAHOA3_tu84BmcLJzgL_2lI",
+            "name": "Board",
+            "visibleFields": {
+              "totalCount": 9,
+              "nodes": [
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title",
+                  "dataType": "TITLE"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhk",
+                  "name": "Assignees",
+                  "dataType": "ASSIGNEES"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status",
+                  "dataType": "SINGLE_SELECT"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhw",
+                  "name": "Linked pull requests",
+                  "dataType": "LINKED_PULL_REQUESTS"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOiI",
+                  "name": "Sub-issues progress",
+                  "dataType": "SUB_ISSUES_PROGRESS"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOrk",
+                  "name": "Priority",
+                  "dataType": "SINGLE_SELECT"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOro",
+                  "name": "Size",
+                  "dataType": "SINGLE_SELECT"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOrs",
+                  "name": "Estimate",
+                  "dataType": "NUMBER"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOrw",
+                  "name": "Iteration",
+                  "dataType": "ITERATION"
+                }
+              ],
+              "pageInfo": {
+                "hasNextPage": false,
+                "endCursor": "OQ"
+              }
+            }
+          },
+          {
+            "id": "PVTV_lAHOA3_tu84BmcLJzgL_2lM",
+            "name": "Current iteration",
+            "visibleFields": {
+              "totalCount": 5,
+              "nodes": [
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title",
+                  "dataType": "TITLE"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhk",
+                  "name": "Assignees",
+                  "dataType": "ASSIGNEES"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status",
+                  "dataType": "SINGLE_SELECT"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhw",
+                  "name": "Linked pull requests",
+                  "dataType": "LINKED_PULL_REQUESTS"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOiI",
+                  "name": "Sub-issues progress",
+                  "dataType": "SUB_ISSUES_PROGRESS"
+                }
+              ],
+              "pageInfo": {
+                "hasNextPage": false,
+                "endCursor": "NQ"
+              }
+            }
+          },
+          {
+            "id": "PVTV_lAHOA3_tu84BmcLJzgL_2lQ",
+            "name": "Roadmap",
+            "visibleFields": {
+              "totalCount": 3,
+              "nodes": [
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title",
+                  "dataType": "TITLE"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhk",
+                  "name": "Assignees",
+                  "dataType": "ASSIGNEES"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOho",
+                  "name": "Status",
+                  "dataType": "SINGLE_SELECT"
+                }
+              ],
+              "pageInfo": {
+                "hasNextPage": false,
+                "endCursor": "Mw"
+              }
+            }
+          },
+          {
+            "id": "PVTV_lAHOA3_tu84BmcLJzgL_2lU",
+            "name": "My items",
+            "visibleFields": {
+              "totalCount": 7,
+              "nodes": [
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title",
+                  "dataType": "TITLE"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhw",
+                  "name": "Linked pull requests",
+                  "dataType": "LINKED_PULL_REQUESTS"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOiI",
+                  "name": "Sub-issues progress",
+                  "dataType": "SUB_ISSUES_PROGRESS"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOrk",
+                  "name": "Priority",
+                  "dataType": "SINGLE_SELECT"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOro",
+                  "name": "Size",
+                  "dataType": "SINGLE_SELECT"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOrs",
+                  "name": "Estimate",
+                  "dataType": "NUMBER"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOrw",
+                  "name": "Iteration",
+                  "dataType": "ITERATION"
+                }
+              ],
+              "pageInfo": {
+                "hasNextPage": false,
+                "endCursor": "Nw"
+              }
+            }
+          },
+          {
+            "id": "PVTV_lAHOA3_tu84BmcLJzgMAjcw",
+            "name": "当前计划",
+            "visibleFields": {
+              "totalCount": 3,
+              "nodes": [
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlFOhg",
+                  "name": "Title",
+                  "dataType": "TITLE"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlLbVk",
+                  "name": "阶段",
+                  "dataType": "SINGLE_SELECT"
+                },
+                {
+                  "id": "PVTF_lAHOA3_tu84BmcLJzhlLbVo",
+                  "name": "执行状态",
+                  "dataType": "SINGLE_SELECT"
+                }
+              ],
+              "pageInfo": {
+                "hasNextPage": false,
+                "endCursor": "Mw"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "tested_commit": "fa8377b0b528f386cf565e4b70da50fd2c92a667",
+  "scope": "earlier RX-1 candidate only; no fixed-test Firefox run",
+  "browser_checks": 43,
+  "pageerrors": 0,
+  "screenshots": [
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T043328099034/01-entry.png",
+      "sha256": "7911613d901717337e2d3ecd1cadb88a24248ee0fa40faf56219e90c3e040cb3",
+      "visual_review": "PASS",
+      "reviewed_by": "Codex actual image inspection"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T043328099034/clinical-native-print-dialog.png",
+      "sha256": "ed2f4edb05f1ce1fe558c5ffd6c8c93b1ce4aa13cd61baaf4da903bbab529904",
+      "visual_review": "PASS",
+      "reviewed_by": "Codex actual image inspection"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T043328099034/clinical-pdf-view.png",
+      "sha256": "638e55dfa1afda95238e294221cebfcee5406f48789efd7984b07ce4f1e52d3c",
+      "visual_review": "PASS",
+      "reviewed_by": "Codex actual image inspection"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T043328099034/clinical-review.png",
+      "sha256": "d4d3d4cf40605ee4b5713954cd3565932c1bdd721c54e7ef75687f2c64962d9a",
+      "visual_review": "PASS",
+      "reviewed_by": "Codex actual image inspection"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T043328099034/consent-native-print-dialog.png",
+      "sha256": "c9cae370a919962b3b718f352bf5107d303ad9d37dc3a9749663206aa77d5071",
+      "visual_review": "PASS",
+      "reviewed_by": "Codex actual image inspection"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T043328099034/consent-pdf-view.png",
+      "sha256": "2eadbe950cb8510fb8ba2bee0b890d0a980b5c9acdadda8bccfb5071dd340ce1",
+      "visual_review": "PASS",
+      "reviewed_by": "Codex actual image inspection"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T043328099034/consent-review.png",
+      "sha256": "58a8187ed53e99fc8d0281ceb46a68343dbc6b8e22f52e4a3dfd977a8990c0dd",
+      "visual_review": "PASS",
+      "reviewed_by": "Codex actual image inspection"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T043328099034/held-generation.png",
+      "sha256": "6695071cfa332db18411968b2ef780600a58ce7094e0c9147504d654af9f2114",
+      "visual_review": "PASS",
+      "reviewed_by": "Codex actual image inspection"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T043328099034/lost-generation-response.png",
+      "sha256": "0e18cbbb4289a78e3d92c9c28d7634bb950cb07286b32370c76813a016479127",
+      "visual_review": "PASS",
+      "reviewed_by": "Codex actual image inspection"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T043328099034/offline-failure.png",
+      "sha256": "cc8ce4f8c631c095d65300bfdd0233840882afdff5e6c545fcb2c958098e1255",
+      "visual_review": "PASS",
+      "reviewed_by": "Codex actual image inspection"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T043328099034/prescription-native-print-dialog.png",
+      "sha256": "8b0f06f8aa4fccb438823b1a3d47a74b2fe490c2b0482aa91aabfc73bd98bc72",
+      "visual_review": "PASS",
+      "reviewed_by": "Codex actual image inspection"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T043328099034/prescription-pdf-view.png",
+      "sha256": "dcd916449f80042f0f56b88fb4f90f4f0bb67ada5835307840d1a7dd06d595cb",
+      "visual_review": "PASS",
+      "reviewed_by": "Codex actual image inspection"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T043328099034/prescription-review.png",
+      "sha256": "d58bade983ff952a23283bb67458600a36498d0dc4b62a1443b0a6760b8ef5d3",
+      "visual_review": "PASS",
+      "reviewed_by": "Codex actual image inspection"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T043328099034/reader-export-denied.png",
+      "sha256": "58ec19de6af0adaa44c0df54259b9de95f9b59190253d98b2de31457a1154fb7",
+      "visual_review": "PASS",
+      "reviewed_by": "Codex actual image inspection"
+    }
+  ],
+  "native_dialogs": 3,
+  "paper_output": "UNKNOWN",
+  "dialog_action": "Cancel; no actual device print",
+  "result": "PASS",
+  "caveat": "Real visible Firefox/native print evidence does not establish RX-2 pagination or newest fault handler/full A/B regression PASS"
+}

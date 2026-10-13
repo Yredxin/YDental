@@ -1,0 +1,32 @@
+{
+  "database": "ydental_s08c_test_20261013031800_b81ae5c3",
+  "tested_commit": "bfb4282f9a6b0803371a746e853c690d849ea482",
+  "browser": "Firefox headed, native print dialog, default sandbox",
+  "checks": [
+    {
+      "check": "doctor selects current store",
+      "result": "PASS"
+    },
+    {
+      "check": "preview HTTP 200",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T042328139294/01-entry.png",
+      "sha256": "7911613d901717337e2d3ecd1cadb88a24248ee0fa40faf56219e90c3e040cb3",
+      "kind": "Firefox page"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T042328139294/offline-diagnostic.png",
+      "sha256": "574656796e97fd6f9d11ea08e5df2496494aa23fe188abbc9954b0ed8fce44e3",
+      "kind": "Firefox page"
+    }
+  ],
+  "pageerrors": [],
+  "physical_paper": "UNKNOWN",
+  "result": "PASS",
+  "native_dialog_visual_review": "PENDING",
+  "xvfb_exit": -15
+}

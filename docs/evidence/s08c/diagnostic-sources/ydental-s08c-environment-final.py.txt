@@ -1,0 +1,26 @@
+from pathlib import Path
+from datetime import datetime,timezone
+import hashlib,json,subprocess,os
+root=Path('<WORKSPACE>');e=root/'docs/evidence/s08c'
+old=[tuple(x) for x in json.loads(Path('/tmp/ydental-s08c-environment/catalog-before.json').read_text())]
+new=[(x['oid'],x['name']) for x in json.loads(Path('/tmp/ydental-s08c-environment/catalog-after.json').read_text())]
+assert set(old).issubset(set(new));added=sorted(set(new)-set(old));assert len(added)==2 and all(n.startswith('ydental_s08c_test_') for o,n in added)
+before=json.loads(Path('/tmp/ydental-s08c-environment/container-before.json').read_text());raw=json.loads(subprocess.check_output(['docker','inspect','odoo20-db','odoo12-db'],text=True));containers={}
+for c in raw:
+ name=c['Name'].lstrip('/');o=before[name]
+ for k in ('Id','Image','Mounts'):assert c[k]==o[k],(name,k)
+ assert c['State']['StartedAt']==o['StartedAt'] if 'StartedAt' in o else c['State']['StartedAt']==o['State']['StartedAt']
+ assert c['HostConfig']['ShmSize']==o['ShmSize'] if 'ShmSize' in o else c['HostConfig']['ShmSize']==o['HostConfig']['ShmSize']
+ containers[name]={'id':c['Id'],'image':c['Image'],'started_at':c['State']['StartedAt'],'oom_killed':c['State']['OOMKilled'],'shm_size':c['HostConfig']['ShmSize'],'volumes':[{'name':v.get('Name'),'destination':v['Destination'],'rw':v['RW']} for v in c['Mounts']]}
+core=subprocess.check_output(['git','-C',str(root.parent),'rev-parse','HEAD'],text=True).strip();assert core=='f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb';assert not subprocess.check_output(['git','-C',str(root.parent),'diff','--name-only'],text=True)
+processes=[]
+for p in Path('/proc').iterdir():
+ if not p.name.isdigit():continue
+ try:cmd=p.joinpath('cmdline').read_bytes().split(b'\0')
+ except OSError:continue
+ if any(str(root/'.local').encode()+b'/ydental_s08c_test_' in a for a in cmd) and (b'odoo-bin' in b' '.join(cmd)):processes.append(int(p.name))
+ assert not (cmd and cmd[0].endswith(b'/s08c-tools/root/usr/bin/Xvfb')),('owned Xvfb still alive',p.name)
+assert not processes
+assert Path('/proc/42433').exists();health=json.loads(Path('/tmp/ydental-s08c-existing-health.json').read_text());assert health['status']=='pass'
+out={'time_utc':datetime.now(timezone.utc).isoformat(),'original_databases':len(old),'current_databases':len(new),'all_original_oid_name_pairs_preserved':True,'original_catalog_sha256':hashlib.sha256(Path('/tmp/ydental-s08c-environment/catalog-before.json').read_bytes()).hexdigest(),'new_databases':[{'oid':o,'name':n} for o,n in added],'containers':containers,'core':core,'core_tracked_unchanged':True,'original_odoo_pid':42433,'original_odoo_health_http':200,'original_odoo_health':health,'cluster':'7694897083368259627','own_previews_and_displays_stopped':True,'historical_database_mutations':0,'global_service_or_parameter_mutations':0,'process_local_tools':'Seven Ubuntu packages extracted under .local/s08c-tools, private Xvfb and bwrap namespace only; no global installation','session_only_pg_profile':'parallel gather/maintenance=0, maintenance_work_mem=16MiB','shm':subprocess.check_output(['docker','exec','odoo20-db','df','-B1','/dev/shm'],text=True),'segv_root':'UNKNOWN; native Odoo PID 1670701 signal11; production and C regression BLOCKED'}
+(e/'environment-preservation.json').write_text(json.dumps(out,indent=2)+'\n');print(json.dumps({'result':'PASS','old':len(old),'new':len(new),'added':len(added),'global_changes':0,'previews_stopped':True}))

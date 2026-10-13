@@ -1,0 +1,613 @@
+{
+  "tested_commit": "a94e68e4d6302d63b90588179ff756044f35059b",
+  "scope": "pre-crash existing candidate images; not fixed product/test validation",
+  "pdf_count": 16,
+  "pages_reviewed": 61,
+  "result": "FAIL",
+  "automatic_PASS_overridden": true,
+  "finding": "RX-2 long sixteen-line PDF page7 footer only; pages9/10/12/13/15/16 severely incomplete; page17 provenance and last line present. Exact rendering/pagination cause UNKNOWN. Existing automated text/font/overlap checks missed visible defects.",
+  "earlier_RX1_failure": "20261013T042931520774 longest prescription page3 text overlap; preserve prior automatic PASS and later failing recheck",
+  "product_fix_after_crash": "NOT_DONE stop condition",
+  "pdfs": [
+    {
+      "pdf": "docs/evidence/s08c/probe-attempts/20261013T043822532357/race-generate-during-source-save.pdf",
+      "pdf_sha256": "6ac9f82ee18a15015c5a34faf252b2bcad09a8bdcbb48d8518076a931301a4f2",
+      "pages": [
+        {
+          "page": 1,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/race-generate-during-source-save-page-01.png",
+          "screenshot_sha256": "4891041a36e9efaa5c2493473a8873d571b521e0caf7b28eeb99f04890cd3bce",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        },
+        {
+          "page": 2,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/race-generate-during-source-save-page-02.png",
+          "screenshot_sha256": "326a8ff266954aac25bc7186aa17cac09f8acda9ed5338b97681715ed70059a9",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        }
+      ],
+      "result": "PASS"
+    },
+    {
+      "pdf": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d1-long-draft.pdf",
+      "pdf_sha256": "a678b44d27a78f7647cdbb0903cf3cfb88b008c0051c85e1ba18bf8d18d23301",
+      "pages": [
+        {
+          "page": 1,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d1-long-draft-page-01.png",
+          "screenshot_sha256": "757d6501464ea3d2ef0593e0215dc69825980742521521a6458dd50d8e190e45",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        },
+        {
+          "page": 2,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d1-long-draft-page-02.png",
+          "screenshot_sha256": "04299dd3a8fcd974e8f6cca23b2c0fb765694693f4efbd0b58937f65e8c678f4",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        },
+        {
+          "page": 3,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d1-long-draft-page-03.png",
+          "screenshot_sha256": "5d73525a030be42758f016da54b23bc7b4f88ec94a1ef12948b3dfa3563a8dca",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        },
+        {
+          "page": 4,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d1-long-draft-page-04.png",
+          "screenshot_sha256": "48a719263685568916072dea932dcdae0818bb5de16228bdca3900a1a876c929",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        },
+        {
+          "page": 5,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d1-long-draft-page-05.png",
+          "screenshot_sha256": "3ded19a5b84ecf77ae312094436e8a27ae878f735980c5dc9223c2c16d54f355",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        },
+        {
+          "page": 6,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d1-long-draft-page-06.png",
+          "screenshot_sha256": "9c0465620ca7ccbeca8a5982c08d25d696ca9cc99b1b21624ffc4f95fa792906",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        },
+        {
+          "page": 7,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d1-long-draft-page-07.png",
+          "screenshot_sha256": "b187a8dfa302f37fb5f0b4b5fcbb70db3aff29cfe29637bcb69f9bec3e48f03e",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        }
+      ],
+      "result": "PASS"
+    },
+    {
+      "pdf": "docs/evidence/s08c/probe-attempts/20261013T043822532357/consent-unsigned-unreviewed.pdf",
+      "pdf_sha256": "f0f00e878c2902b9a2893b002ef2fdb5033e04220a97fe4e25f5b6ab185363b6",
+      "pages": [
+        {
+          "page": 1,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/consent-unsigned-unreviewed-page-01.png",
+          "screenshot_sha256": "8fd6bc7667854bff42488f8d0fa033711cd3602f38ee60643c847587bbb2f06b",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        },
+        {
+          "page": 2,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/consent-unsigned-unreviewed-page-02.png",
+          "screenshot_sha256": "a9bd434ae2a14fbe045db9edf44f4021230547485144957d2e8e889488e734a8",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        }
+      ],
+      "result": "PASS"
+    },
+    {
+      "pdf": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-incomplete-draft.pdf",
+      "pdf_sha256": "79a663c445b0d8d89cc4c25d28a5763da3b0b97414d4981dfea463ee63436a24",
+      "pages": [
+        {
+          "page": 1,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-incomplete-draft-page-01.png",
+          "screenshot_sha256": "6b9c607572468a10418865a0f868f7d9d82100b5c4f76d76e13135b15108bacf",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        },
+        {
+          "page": 2,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-incomplete-draft-page-02.png",
+          "screenshot_sha256": "d65491b0a631daea63442d41952fbb2fca5647f74626219d4ced41396380e9bf",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        }
+      ],
+      "result": "PASS"
+    },
+    {
+      "pdf": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-six-uncollected.pdf",
+      "pdf_sha256": "ec090dc050c6489747ccd0be855a6b740638e7a969ecfcea698341df6b365ff4",
+      "pages": [
+        {
+          "page": 1,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-six-uncollected-page-01.png",
+          "screenshot_sha256": "d6a7a059b88250089497742bf2f9f31bbf276dfd53359178c933c94145eba4b8",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        },
+        {
+          "page": 2,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-six-uncollected-page-02.png",
+          "screenshot_sha256": "6d0f53c2b210a529ee18dbea71d52854c74899ef1e6627ce0a9f940047631825",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        }
+      ],
+      "result": "PASS"
+    },
+    {
+      "pdf": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d1-pending.pdf",
+      "pdf_sha256": "f639e39c9a9b7f3394081a8fed28d5b464fd26b63a55d1aa89341bd4d04d97b4",
+      "pages": [
+        {
+          "page": 1,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d1-pending-page-01.png",
+          "screenshot_sha256": "0ec29bb438eca666fa6fc7ab7a769454ccb69c86030c4cc7b0bd2813e3001577",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        },
+        {
+          "page": 2,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d1-pending-page-02.png",
+          "screenshot_sha256": "04299dd3a8fcd974e8f6cca23b2c0fb765694693f4efbd0b58937f65e8c678f4",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        },
+        {
+          "page": 3,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d1-pending-page-03.png",
+          "screenshot_sha256": "5d73525a030be42758f016da54b23bc7b4f88ec94a1ef12948b3dfa3563a8dca",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        },
+        {
+          "page": 4,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d1-pending-page-04.png",
+          "screenshot_sha256": "48a719263685568916072dea932dcdae0818bb5de16228bdca3900a1a876c929",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        },
+        {
+          "page": 5,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d1-pending-page-05.png",
+          "screenshot_sha256": "3ded19a5b84ecf77ae312094436e8a27ae878f735980c5dc9223c2c16d54f355",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        },
+        {
+          "page": 6,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d1-pending-page-06.png",
+          "screenshot_sha256": "9c0465620ca7ccbeca8a5982c08d25d696ca9cc99b1b21624ffc4f95fa792906",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        },
+        {
+          "page": 7,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d1-pending-page-07.png",
+          "screenshot_sha256": "0f8c2869580c345b93099028c40b79598c02d1962432732034cc8603f13ecbe0",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        }
+      ],
+      "result": "PASS"
+    },
+    {
+      "pdf": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-four-dispensed-two-left.pdf",
+      "pdf_sha256": "d70a7ab97a875e7802c760e033d8f9f2a509f65c3393f0b6b604fda740c5a81c",
+      "pages": [
+        {
+          "page": 1,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-four-dispensed-two-left-page-01.png",
+          "screenshot_sha256": "45e7b6408818798e7a4bb830044ee0b2e520ecc9565a2951020546f764439dbe",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        },
+        {
+          "page": 2,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-four-dispensed-two-left-page-02.png",
+          "screenshot_sha256": "22cbd988eb296dac7165615be3a42460c729505ce9c5fed75efd4c94a510e93b",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        }
+      ],
+      "result": "PASS"
+    },
+    {
+      "pdf": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-six-dispensed-zero-left.pdf",
+      "pdf_sha256": "e9a5a99d1c8bccde1416c055ca5f1c12a020b9c004adf68fdcd70e7c6d600c6f",
+      "pages": [
+        {
+          "page": 1,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-six-dispensed-zero-left-page-01.png",
+          "screenshot_sha256": "b73a1b4929b9b31305dd2d1b79e10676bf617219eecdbbc0ffc609a7d286dd30",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        },
+        {
+          "page": 2,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-six-dispensed-zero-left-page-02.png",
+          "screenshot_sha256": "1d4f42ab852c1d39a28b1ea7b91e12845458d33b4a0d3e5801aedd69d408d015",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        }
+      ],
+      "result": "PASS"
+    },
+    {
+      "pdf": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d2-confirmed-independent.pdf",
+      "pdf_sha256": "9fb9a587ece25d56535c8a77ca2d6c9038385f5c8360c531bba3ac312d814d8e",
+      "pages": [
+        {
+          "page": 1,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d2-confirmed-independent-page-01.png",
+          "screenshot_sha256": "d6d575f5133489502076d5ac5b2328974c56c17a65ae0ec5f9a1e6ab2c64de37",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        },
+        {
+          "page": 2,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d2-confirmed-independent-page-02.png",
+          "screenshot_sha256": "23479fe43f4d2197971ad573512f44d2fbafd67cb340c6027517679f11706eb5",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        }
+      ],
+      "result": "PASS"
+    },
+    {
+      "pdf": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d2-historical-confirmed.pdf",
+      "pdf_sha256": "f600e2cfd3db2c82d6dddb39b0b3cebe4526833a6ec934d408da17e25fb94b7c",
+      "pages": [
+        {
+          "page": 1,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d2-historical-confirmed-page-01.png",
+          "screenshot_sha256": "077f0e20f3b05fec41756f70c081839787c27818a960da2241edcebcc353c8c6",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        },
+        {
+          "page": 2,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d2-historical-confirmed-page-02.png",
+          "screenshot_sha256": "06b9793520241e1adbac3448ddf9957540a84930968b72e37763fc461a12ec03",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        }
+      ],
+      "result": "PASS"
+    },
+    {
+      "pdf": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d2-corrected.pdf",
+      "pdf_sha256": "63a5b61e98469e5a8640bdba307c0d718983c81809e15be376b8ba8ee6aad053",
+      "pages": [
+        {
+          "page": 1,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d2-corrected-page-01.png",
+          "screenshot_sha256": "03a7f0248efae9f5ae5c1500252cf343e1d94e8a0758877e198e8dc2a687b89f",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        },
+        {
+          "page": 2,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d2-corrected-page-02.png",
+          "screenshot_sha256": "2b0cc15972b04767ade2fbd6aaa82618e592ce5d0d3f8c4b43b127fa9b5d3169",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        }
+      ],
+      "result": "PASS"
+    },
+    {
+      "pdf": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-long-sixteen-lines.pdf",
+      "pdf_sha256": "8038a9afbbcd19881451e42019e9b341ecb4d535d766834ab9d5b4f9ad7611d8",
+      "pages": [
+        {
+          "page": 1,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-long-sixteen-lines-page-01.png",
+          "screenshot_sha256": "665b7222050ae8f1dd40f4cf140f6232a81d7ac7896c7410e82d61e2db302cd1",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        },
+        {
+          "page": 2,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-long-sixteen-lines-page-02.png",
+          "screenshot_sha256": "bb38ee60ca328ea2d9249f4990d5858b9d762e1aa205c628984c71323a7ff605",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        },
+        {
+          "page": 3,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-long-sixteen-lines-page-03.png",
+          "screenshot_sha256": "56e0ec2aa3fd238a4688e49338ef60ceb20ccf1eab69254e8074f524cfd6a0c6",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        },
+        {
+          "page": 4,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-long-sixteen-lines-page-04.png",
+          "screenshot_sha256": "3e37063e64a768bae47747a20c109e9c66c8e77ff7d5ccec1364bcf34dd1099a",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        },
+        {
+          "page": 5,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-long-sixteen-lines-page-05.png",
+          "screenshot_sha256": "f7576ae665155f88f5059b0cc061a4b0b024a369447e553086794b2de52f8097",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        },
+        {
+          "page": 6,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-long-sixteen-lines-page-06.png",
+          "screenshot_sha256": "bc0db698efdc81db30aafcc7ad086cfe23a4e2de5596e47815be45b325ac01eb",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        },
+        {
+          "page": 7,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-long-sixteen-lines-page-07.png",
+          "screenshot_sha256": "4bc2946a0c580f9937e1aaac60a328764fba28dd42c88b594e165e24048caf91",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "FAIL",
+          "finding": "footer-only blank body"
+        },
+        {
+          "page": 8,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-long-sixteen-lines-page-08.png",
+          "screenshot_sha256": "6e9d1e7f92326fdb80f466dcfef5b9721b34396b308853a8f240bebda4b418df",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        },
+        {
+          "page": 9,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-long-sixteen-lines-page-09.png",
+          "screenshot_sha256": "3aa707144e4b1da4f4ed00619cb59a67566cd238c1e0312ecf3f955b0700df3b",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "FAIL",
+          "finding": "severely incomplete body, isolated clipped tail text/line number"
+        },
+        {
+          "page": 10,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-long-sixteen-lines-page-10.png",
+          "screenshot_sha256": "3fd091b3f21981cf3757c1a201dee9ba8fcb8ec7785f99cb10e0e15b19145bd0",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "FAIL",
+          "finding": "severely incomplete body, isolated clipped tail text/line number"
+        },
+        {
+          "page": 11,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-long-sixteen-lines-page-11.png",
+          "screenshot_sha256": "89839ecedf62cdd69b359eed2cff189c5a4ae4b3e68ff7c97fb3f67b1b851efa",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        },
+        {
+          "page": 12,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-long-sixteen-lines-page-12.png",
+          "screenshot_sha256": "86074a638f5faad2cd54be60a1e92250427a3a94c6c5a25ecb1e1242f178a0b7",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "FAIL",
+          "finding": "severely incomplete body, isolated clipped tail text/line number"
+        },
+        {
+          "page": 13,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-long-sixteen-lines-page-13.png",
+          "screenshot_sha256": "9a4b728702c1249362903c8b656da3c1f39c0d53289b093c8404d3ba6f21ed18",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "FAIL",
+          "finding": "severely incomplete body, isolated clipped tail text/line number"
+        },
+        {
+          "page": 14,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-long-sixteen-lines-page-14.png",
+          "screenshot_sha256": "b6aba617128d0d080eed8845879e9a8e15b531aa836ad96d329585ad8bb27266",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        },
+        {
+          "page": 15,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-long-sixteen-lines-page-15.png",
+          "screenshot_sha256": "dab2ab8d4b14637ed47d7cbcaa50df0d34c2c5e7fb3f0ae3a3460b62925e2f17",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "FAIL",
+          "finding": "severely incomplete body, isolated clipped tail text/line number"
+        },
+        {
+          "page": 16,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-long-sixteen-lines-page-16.png",
+          "screenshot_sha256": "e8315f7cc97b7cd6b411a6ec4abb76c9a0617df7c989abcdfa4131f0ee3a8cd9",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "FAIL",
+          "finding": "severely incomplete body, isolated clipped tail text/line number"
+        },
+        {
+          "page": 17,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-long-sixteen-lines-page-17.png",
+          "screenshot_sha256": "8ffd048f23f526047f18a7bf63146b072cad42d3188a592f8e7a1e3d85ba15b4",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        }
+      ],
+      "result": "FAIL"
+    },
+    {
+      "pdf": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-edited-draft-cancelled-history.pdf",
+      "pdf_sha256": "05269e642132e8b8e4bdc77b73399aebca59565a7d1138d944bacaa8e9713c90",
+      "pages": [
+        {
+          "page": 1,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-edited-draft-cancelled-history-page-01.png",
+          "screenshot_sha256": "80d850e60552fe7c33ebecbca0c5cd93480f72f31d2ed2f9eba8ed5b674d9300",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        },
+        {
+          "page": 2,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-edited-draft-cancelled-history-page-02.png",
+          "screenshot_sha256": "a448b8725dfdf007f068158b0b40c37e7a63a1fb09cad05712b72cacefa75cd4",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        },
+        {
+          "page": 3,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-edited-draft-cancelled-history-page-03.png",
+          "screenshot_sha256": "66a6642ec1a417eca7622c19a9d2a54d2ec88cd918f32cfa9849db680dedea91",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        }
+      ],
+      "result": "PASS"
+    },
+    {
+      "pdf": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-three-skus-issued.pdf",
+      "pdf_sha256": "f161dac3032bc9c52ad0907ca634532a880aeb55bb9a520c02642e7d072cb437",
+      "pages": [
+        {
+          "page": 1,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-three-skus-issued-page-01.png",
+          "screenshot_sha256": "3106eed3b5d9b6022c06d6ea059cfb39b98c7f471445cf9fb054dde609c898f1",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        },
+        {
+          "page": 2,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-three-skus-issued-page-02.png",
+          "screenshot_sha256": "6b13cbb2b72d44dfb6e677a984857f15be8b173c9bea97401c5a782247081652",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        },
+        {
+          "page": 3,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-three-skus-issued-page-03.png",
+          "screenshot_sha256": "2d299591d812d4dfaf7d52bb72bc079cd93663150401e9b67c5a971ac0cbf770",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        }
+      ],
+      "result": "PASS"
+    },
+    {
+      "pdf": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-three-skus-ten-twentyseven-fortythree.pdf",
+      "pdf_sha256": "7c3f12f7e6b9aae7dd208125a3198a219861d3df7f8e9ce8888e7ccf1f9e0214",
+      "pages": [
+        {
+          "page": 1,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-three-skus-ten-twentyseven-fortythree-page-01.png",
+          "screenshot_sha256": "3106eed3b5d9b6022c06d6ea059cfb39b98c7f471445cf9fb054dde609c898f1",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        },
+        {
+          "page": 2,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-three-skus-ten-twentyseven-fortythree-page-02.png",
+          "screenshot_sha256": "0d3d29bb78d4dc1558b4ea386df21d277057af19a03b7414dc3c6cbbc79809ed",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        },
+        {
+          "page": 3,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-three-skus-ten-twentyseven-fortythree-page-03.png",
+          "screenshot_sha256": "8b6ba0e10e31d96b3d2973b76dc1b4421be7e5598a4bb9c7a864aaa569786b27",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        }
+      ],
+      "result": "PASS"
+    },
+    {
+      "pdf": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-next-day-three-skus-done.pdf",
+      "pdf_sha256": "adb22a4e149d503f56dbf28ac7fdd9d98a2d846b9b3a0c9fa4832a280758e7de",
+      "pages": [
+        {
+          "page": 1,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-next-day-three-skus-done-page-01.png",
+          "screenshot_sha256": "64bf21590507b5d147278bf55266bdb1a759baf25c73a24665ad16d2581f6d8a",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        },
+        {
+          "page": 2,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-next-day-three-skus-done-page-02.png",
+          "screenshot_sha256": "b3307fd22db1705b31b3ebe10df8825526bcd0dae18a2df3e9f34ca0ca4b6966",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        },
+        {
+          "page": 3,
+          "screenshot": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-next-day-three-skus-done-page-03.png",
+          "screenshot_sha256": "ffe8d8c5d97ffe929afcf2bc2edefd7219131b6b3d2b808fbe3073d90c7b7d28",
+          "reviewed_by": "Codex actual image inspection",
+          "result": "PASS",
+          "finding": "Chinese and status/source fields legible; no visible replacement glyph, overlap or clipping observed"
+        }
+      ],
+      "result": "PASS"
+    }
+  ]
+}

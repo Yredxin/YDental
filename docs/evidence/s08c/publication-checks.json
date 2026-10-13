@@ -1,0 +1,19 @@
+{
+  "scope": "publication only, no Odoo runtime/test executions",
+  "known_private_credential_values_found": 0,
+  "git_diff_check_exit": 0,
+  "original_evidence_untouched_locally": true,
+  "raw_logs_access_configs_not_published": true,
+  "documentation_preparation_failures": [
+    {
+      "command": "../.venv/bin/python /tmp/ydental-s08c-delivery-evidence.py",
+      "exit_code": 1,
+      "reason": "selected last record from second DB rather than exact crash PID; corrected file-only lookup; retry0"
+    },
+    {
+      "command": "inline artifact-only PDF metadata check importing pypdf",
+      "exit_code": 1,
+      "reason": "ModuleNotFoundError; no package install; existing pymupdf replacement0"
+    }
+  ]
+}

@@ -1,0 +1,2079 @@
+{
+  "files": [
+    {
+      "path": "docs/evidence/s08c/README.md",
+      "bytes": 2908,
+      "sha256": "d6de6ebb25dc9ee1ed57a7393f631f5bfdb8336da3550b735b6d5052914f2a13"
+    },
+    {
+      "path": "docs/evidence/s08c/artifact-attempt-index.json",
+      "bytes": 9434,
+      "sha256": "313671f6eb8ab76ba06de6f8150bb750c27d90ed1136f66e5ee910c51b0b8300"
+    },
+    {
+      "path": "docs/evidence/s08c/artifact-integrity-check.json",
+      "bytes": 38730,
+      "sha256": "952b20e9452318b0c0c51d643738152fc383d70e83e4d0b49d6809e442a0851e"
+    },
+    {
+      "path": "docs/evidence/s08c/attempt-history.json",
+      "bytes": 19899,
+      "sha256": "f0e0ac9b512e583e0383c76ee34ea1cbfa1173d393a2120af9b72d7e60452f22"
+    },
+    {
+      "path": "docs/evidence/s08c/audit-attempts/ydental_s08c_test_20261013031800_b81ae5c3-20261013T043312445244.json",
+      "bytes": 6416,
+      "sha256": "bd3337e7e6693f205e738cf339801c8a04ecede2eab7cb1635331d47af5e7c7b"
+    },
+    {
+      "path": "docs/evidence/s08c/audit-attempts/ydental_s08c_test_20261013031800_b81ae5c3-20261013T045517011179.json",
+      "bytes": 6444,
+      "sha256": "da510d285fae9ad5a763099b4e9b4e52537624c89d9d84316873577b92ad158e"
+    },
+    {
+      "path": "docs/evidence/s08c/authority-and-project-final.json",
+      "bytes": 7338,
+      "sha256": "e8a7314afa201f2bddb501e76b21a8f0d2a04fcb3a4646c16514c3b7c6ac46d7"
+    },
+    {
+      "path": "docs/evidence/s08c/authority-project/final/project-after.json",
+      "bytes": 52349,
+      "sha256": "ad9afe552bafe8ca7c35a42bb61ebd828fe9e17ef07b1a249f2bb5bb811321c5"
+    },
+    {
+      "path": "docs/evidence/s08c/authority-project/final/project-second-check.json",
+      "bytes": 52356,
+      "sha256": "f77360c18be0d04b9009c7ee06b338e0aa0fa137f65dff16e4be5a4732de2675"
+    },
+    {
+      "path": "docs/evidence/s08c/authority-project/final/read-operations-after.json",
+      "bytes": 1488,
+      "sha256": "f89ebb4791d49f682d265220eb06fed3483ff6167760e0dc623cd5ba38037689"
+    },
+    {
+      "path": "docs/evidence/s08c/authority-project/final/read-operations-second-check.json",
+      "bytes": 1488,
+      "sha256": "c780cedbe995e018b99449b3a551f676db5e736e126a60edd7efb84b60a00723"
+    },
+    {
+      "path": "docs/evidence/s08c/authority-project/final/view-fields-after.json",
+      "bytes": 8522,
+      "sha256": "38f95eaea39a135eeee271e08ab8901d62b048c4ef79530fb6558abea3960fbb"
+    },
+    {
+      "path": "docs/evidence/s08c/authority-project/final/view-fields-second-check.json",
+      "bytes": 8522,
+      "sha256": "38f95eaea39a135eeee271e08ab8901d62b048c4ef79530fb6558abea3960fbb"
+    },
+    {
+      "path": "docs/evidence/s08c/authority-project/initial/project-before.json",
+      "bytes": 52350,
+      "sha256": "1c51bf5a6fee1f268ec737fac80731f3ff282bddf9d61dca5f8f95d31ed4a993"
+    },
+    {
+      "path": "docs/evidence/s08c/authority-project/initial/project-second-check.json",
+      "bytes": 52356,
+      "sha256": "604498ee4a765c0674565d2eed1f0650cfea3fcb73072edcb9d8b474f310c216"
+    },
+    {
+      "path": "docs/evidence/s08c/authority-project/initial/read-operations-before.json",
+      "bytes": 1488,
+      "sha256": "e6e02dfa43f1a447a3913051068184fc02eec6b2a79d1986199fcee783d6702f"
+    },
+    {
+      "path": "docs/evidence/s08c/authority-project/initial/read-operations-second-check.json",
+      "bytes": 1488,
+      "sha256": "bd3335e68bedc946a98a1304d1d17943af86c60bab975783898cbbdc76a3aa39"
+    },
+    {
+      "path": "docs/evidence/s08c/authority-project/initial/view-fields-before.json",
+      "bytes": 3938,
+      "sha256": "0bb234c76e0f63ab1865c55ff31de8964f1fa0a391b8be3ba569ecdec16dc7d2"
+    },
+    {
+      "path": "docs/evidence/s08c/authority-project/initial/view-fields-second-check.json",
+      "bytes": 3938,
+      "sha256": "0bb234c76e0f63ab1865c55ff31de8964f1fa0a391b8be3ba569ecdec16dc7d2"
+    },
+    {
+      "path": "docs/evidence/s08c/candidate-firefox-visual-review.json",
+      "bytes": 4477,
+      "sha256": "ba8e866cac2bd3a2b94ba49637b046cb0d4b2f41af9752afda74831c84fe830e"
+    },
+    {
+      "path": "docs/evidence/s08c/candidate-page-visual-review.json",
+      "bytes": 33671,
+      "sha256": "1be1ad20dfc4bcd1326d8cd34b850508c03dbec19ffc70f43b58464ca1fbe0a0"
+    },
+    {
+      "path": "docs/evidence/s08c/diagnostic-sources/s08c_diag_browser.py.txt",
+      "bytes": 8250,
+      "sha256": "2fb186a64b71b7f7df8ceea280131849f4201712bcbc23f996e03af46291d449"
+    },
+    {
+      "path": "docs/evidence/s08c/diagnostic-sources/s08c_offline_diag.py.txt",
+      "bytes": 7846,
+      "sha256": "8fcf650c83ad1a9baec991d072ba163490e2b9e32be062787cb8811e7d26b1c1"
+    },
+    {
+      "path": "docs/evidence/s08c/diagnostic-sources/s08c_repeat_diag.py.txt",
+      "bytes": 11789,
+      "sha256": "6a8695c788d7cb9dfb996554af738999c05b9c5c5665bd2d0a0b72225d9ffa82"
+    },
+    {
+      "path": "docs/evidence/s08c/diagnostic-sources/s08c_repeat_diag2.py.txt",
+      "bytes": 12011,
+      "sha256": "a40352ee52b276a76b1eaef107716e7e89505104416b3bc538afb7ddd30f95d3"
+    },
+    {
+      "path": "docs/evidence/s08c/diagnostic-sources/ydental-s08c-artifact-check.py.txt",
+      "bytes": 1978,
+      "sha256": "897aa2fac944f4253facf01d765095d5f1c45e66bb50b252e474de235f342f34"
+    },
+    {
+      "path": "docs/evidence/s08c/diagnostic-sources/ydental-s08c-authority-comparison.py.txt",
+      "bytes": 2965,
+      "sha256": "02134fe65bb36ae97c29ee6b8bf9cc8c8490630a0a3ee049813f5f8941f2b0b6"
+    },
+    {
+      "path": "docs/evidence/s08c/diagnostic-sources/ydental-s08c-delivery-evidence.py.txt",
+      "bytes": 8428,
+      "sha256": "24f0aa61dd70d55df67714dd498891e381db8ab4133760a0a629a7484a709c9b"
+    },
+    {
+      "path": "docs/evidence/s08c/diagnostic-sources/ydental-s08c-environment-final.py.txt",
+      "bytes": 3449,
+      "sha256": "8ceae3c44f97616085f3465ef8afb95a78a4dbd3af2d85043d96519db57051db"
+    },
+    {
+      "path": "docs/evidence/s08c/diagnostic-sources/ydental-s08c-final-matrix.py.txt",
+      "bytes": 6542,
+      "sha256": "ccf17661942bdc9ae60dd8f0c960562f3416f5e885e1509b9279dd9d553de99f"
+    },
+    {
+      "path": "docs/evidence/s08c/diagnostic-sources/ydental-s08c-postcrash-readonly.py.txt",
+      "bytes": 3185,
+      "sha256": "2ce0c89d7851c433d06cf2bcdfbee93c84ac10578fea5ea9a9903aeec4735e1e"
+    },
+    {
+      "path": "docs/evidence/s08c/diagnostic-sources/ydental-s08c-project-final.py.txt",
+      "bytes": 956,
+      "sha256": "7b65d0291b1aec4ca13633d90b2904693b16c554f2938edc6c3cc3f796daab24"
+    },
+    {
+      "path": "docs/evidence/s08c/environment-preservation.json",
+      "bytes": 2269,
+      "sha256": "089cdab4d1f13324e6cb10e382b230af3b2965f7de12299cda1218f5ac88b4a3"
+    },
+    {
+      "path": "docs/evidence/s08c/final-tests.json",
+      "bytes": 2472,
+      "sha256": "da49f23281b713f8ea1070add61730b39aa656ae37463b519b7c4662ebc3cb0c"
+    },
+    {
+      "path": "docs/evidence/s08c/fixed-tree-contract.json",
+      "bytes": 625,
+      "sha256": "2ea09ab7c1c327e128da875b8e06f6f1a63b4864aa18c1344eada7f5d6f9b656"
+    },
+    {
+      "path": "docs/evidence/s08c/local-tools-manifest.json",
+      "bytes": 1904,
+      "sha256": "5f9487b969811740deb6775a91190ecc9f9ddfe93d792d6f35434771b7617865"
+    },
+    {
+      "path": "docs/evidence/s08c/native-crash-log-excerpt.txt",
+      "bytes": 3560,
+      "sha256": "c77d8366356dfc7becceeb1b4cbb276bc2a362e77f2c8e722aa104e6fa01740d"
+    },
+    {
+      "path": "docs/evidence/s08c/native-crash.json",
+      "bytes": 1646,
+      "sha256": "39cd381b6b87401e086d061b49b31cda3684047a4f64a3809d29efbdfc3622af"
+    },
+    {
+      "path": "docs/evidence/s08c/post-crash-readonly-audit.json",
+      "bytes": 10227,
+      "sha256": "617a58b45846bfa0d83f284a84300c7fdc055327e62a14447f75d477398409cb"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T034516810171/result.json",
+      "bytes": 857,
+      "sha256": "08466023c8ade3ee79ed9319804291920a8564f6d095096013328507bd89b071"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T035132320894/01-entry.png",
+      "bytes": 87735,
+      "sha256": "c8dcbed4dde94a96f6e309a0b13c21c52fab34007c96f9f5fbb6461ed19c99ba"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T035132320894/clinical-firefox-download.pdf",
+      "bytes": 55834,
+      "sha256": "bd0f75789f1d7c8ec148f2596bd4508f71155becf5e5c523e1b2434adf82b004"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T035132320894/clinical-native-print-dialog.png",
+      "bytes": 186614,
+      "sha256": "c75bb6e962cbc757820e145aa9e5955ef924ea0beed23bdbc2e6835eaa0cecf8"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T035132320894/clinical-pdf-view.png",
+      "bytes": 219234,
+      "sha256": "01e4887eb61f8e709d1bd4c6afa0b0df2f1b81084c242debf8e8273f0f29f1b5"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T035132320894/clinical-review.png",
+      "bytes": 201831,
+      "sha256": "1d766e18d52423f6f1c08f65e10a4be4997363cff094ce9fe4233be35771e946"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T035132320894/result.json",
+      "bytes": 4069,
+      "sha256": "590745b7b97512dbe1d1afa236df457f363733e1ed5a07827d4556a6bb96f6a6"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T035525672149/01-entry.png",
+      "bytes": 87735,
+      "sha256": "c8dcbed4dde94a96f6e309a0b13c21c52fab34007c96f9f5fbb6461ed19c99ba"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T035525672149/diag-pdf-view.png",
+      "bytes": 191234,
+      "sha256": "38efa430a7575dd3d0066f8671ff7e6c78d05e1c22614bb14cc2589ddad0da89"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T035525672149/diag-top-pdf.png",
+      "bytes": 165613,
+      "sha256": "3624afc5d349ad01ed941cb5b5681ae25e9771d617e673f71f9df133e0327584"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T035525672149/diag-top-print.png",
+      "bytes": 165613,
+      "sha256": "3624afc5d349ad01ed941cb5b5681ae25e9771d617e673f71f9df133e0327584"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T035525672149/result.json",
+      "bytes": 1608,
+      "sha256": "ee3656fe6195e9f460408086472cf0704babe2207b21d0d190dcf5ac7bb48412"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T035704219613/01-entry.png",
+      "bytes": 87735,
+      "sha256": "c8dcbed4dde94a96f6e309a0b13c21c52fab34007c96f9f5fbb6461ed19c99ba"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T035704219613/diag-pdf-view.png",
+      "bytes": 192050,
+      "sha256": "4071977167bd3d839e982ea44a7998ff6d71e89688c730bbd432ea72de1a0368"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T035704219613/diag-top-pdf.png",
+      "bytes": 166003,
+      "sha256": "615150694905e4445c4a857a7da248965607c30a361988bf4a3c8efba7a63a11"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T035704219613/diag-top-print.png",
+      "bytes": 179567,
+      "sha256": "74bb0547264d3b31e67dc72dad41482e8f57f2c5234883e4aaec4a212da2fe0d"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T035704219613/result.json",
+      "bytes": 1608,
+      "sha256": "8f061560e2fb91fabfa97e03ff99349f4ec71f3a1b7b60bdeb14b33d4635339f"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T040139375538/01-entry.png",
+      "bytes": 88286,
+      "sha256": "7911613d901717337e2d3ecd1cadb88a24248ee0fa40faf56219e90c3e040cb3"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T040139375538/clinical-firefox-download.pdf",
+      "bytes": 55982,
+      "sha256": "4a3956b7645d8e497bde3889c03a06aa2b6c447d039642f7565c0729378f8473"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T040139375538/clinical-native-print-dialog.png",
+      "bytes": 159186,
+      "sha256": "b81b132c40620e8cba1652ac613722de552776e09645438b36ce5dde9df72875"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T040139375538/clinical-pdf-view.png",
+      "bytes": 233579,
+      "sha256": "f5bfb63c6708455afeaf2f700cc04ab6d0c38a823eeaf8daf508f2dd22a883d5"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T040139375538/clinical-review.png",
+      "bytes": 202390,
+      "sha256": "7ba95fe7778d435dd54cacca9677789562f303d4236e574fcda727afe42b2e2f"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T040139375538/result.json",
+      "bytes": 4155,
+      "sha256": "aea298149a778614dd825ae52ccc7758f923ca2f85d322c28d8e0c27cbf95b83"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T040433964944/01-entry.png",
+      "bytes": 88286,
+      "sha256": "7911613d901717337e2d3ecd1cadb88a24248ee0fa40faf56219e90c3e040cb3"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T040433964944/clinical-firefox-download.pdf",
+      "bytes": 55984,
+      "sha256": "3a2d1ebab7226a1f55e62a4de4f9e25ec0798da345319694a8d5777c53db2901"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T040433964944/clinical-native-print-dialog.png",
+      "bytes": 159339,
+      "sha256": "101e610192c85c5f54cd744b10441ce1273101a4d73efa3334771738095bd6ff"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T040433964944/clinical-pdf-view.png",
+      "bytes": 233377,
+      "sha256": "d790ac0535a588251c0bcc2afe6bc3cff581ac228cbc67f2c9b0ef265fa4f8d1"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T040433964944/clinical-review.png",
+      "bytes": 202389,
+      "sha256": "8abb0cb3504a42fa5cfacf1f556f472b0f7f07edc2ffac082b50222acc93d7c0"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T040433964944/result.json",
+      "bytes": 4138,
+      "sha256": "c960391822b1223874b87b69402c5066845a95c01c9d4fb8029ae370d825bdf9"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T040555513392/01-entry.png",
+      "bytes": 88286,
+      "sha256": "7911613d901717337e2d3ecd1cadb88a24248ee0fa40faf56219e90c3e040cb3"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T040555513392/clinical-before-body.png",
+      "bytes": 202382,
+      "sha256": "65fa6d6ae3e9523f28308a1625afadb8b60c4744d6cd98caaa83e06828a8a068"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T040555513392/clinical-firefox-download.pdf",
+      "bytes": 55984,
+      "sha256": "39bc45b5b03b4c367fa67421bdcadd0881063d57f6fd38f0b0882445b3c514d7"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T040555513392/clinical-native-print-dialog.png",
+      "bytes": 158611,
+      "sha256": "211d44ab69a1d450e1945dc06ceeae6330064e00ace2a2ab919d07fdf401478a"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T040555513392/clinical-pdf-view.png",
+      "bytes": 233748,
+      "sha256": "17825fd644ab5bdada676aaf9183ff69597e0d48922be93bca6c81a811851a50"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T040555513392/clinical-review.png",
+      "bytes": 202391,
+      "sha256": "e70bbc25bd545665b3d11c5ffa7c7dd174c44b2bed57c121b4d3b8a657a9117d"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T040555513392/prescription-before-body.png",
+      "bytes": 232856,
+      "sha256": "53cf508a447ea2b3e169d38081b8e5edaa4369d94649d717d3bf974a88f38381"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T040555513392/result.json",
+      "bytes": 4607,
+      "sha256": "0cee711c14dfbcd4069fee7409b5f193b0e436413dec1ed5892ca2914153fb4b"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T040746413138/01-entry.png",
+      "bytes": 88286,
+      "sha256": "7911613d901717337e2d3ecd1cadb88a24248ee0fa40faf56219e90c3e040cb3"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T040746413138/clinical-firefox-download.pdf",
+      "bytes": 55986,
+      "sha256": "4c34d61b8a6eaaad8bed89a77fcd7cfbba8eccd8fec00c90b20322aade6c00b0"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T040746413138/clinical-native-print-dialog.png",
+      "bytes": 159441,
+      "sha256": "1c9aa8873fff419c1cdec47465276a08fb9ba10ce8d8aee4715a2cf1c3a90462"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T040746413138/clinical-pdf-view.png",
+      "bytes": 233472,
+      "sha256": "b65a7b44304bfdc108237220b70cf02bab38a2348f14136253f3fd53d094cc36"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T040746413138/clinical-review.png",
+      "bytes": 202383,
+      "sha256": "620c038db1585f8d71816c208b1fa6dcf60856e3a3707a0f65659c6b08fe8ac8"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T040746413138/prescription-review.png",
+      "bytes": 232850,
+      "sha256": "36fda7ca587c0867c3c0f15225f95bc8f56038394da92289ff63bd670b92bda6"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T040746413138/result.json",
+      "bytes": 4736,
+      "sha256": "c9a064474eebe86baf8fcdd66a19691c377898897b9d3757a6fd652b635589d3"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041243172235/01-entry.png",
+      "bytes": 88286,
+      "sha256": "7911613d901717337e2d3ecd1cadb88a24248ee0fa40faf56219e90c3e040cb3"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041243172235/clinical-firefox-download.pdf",
+      "bytes": 55987,
+      "sha256": "6785ebf49edf6213666fbd1f469b97de41efddb5d759a6973ab40f49c917d9f1"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041243172235/clinical-native-print-dialog.png",
+      "bytes": 159668,
+      "sha256": "edb3118e1c6873ae9478cc79d00c3e6e3c1d26fe1957a6fd4e09b49e7c891fcf"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041243172235/clinical-pdf-view.png",
+      "bytes": 232717,
+      "sha256": "3bf18b5bdd5628c8f589be552c6e36fef99ed40a43eb2b5a0858f0241184d32d"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041243172235/clinical-review.png",
+      "bytes": 202384,
+      "sha256": "220721dffe2819de513cdbe5ffdb75fb911665a61edb2e3d1178377adcd42b0e"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041243172235/consent-firefox-download.pdf",
+      "bytes": 46027,
+      "sha256": "b5fa8738a32402c5c05a78f1b154dfa279bf0e52dfc9ef6cf4b44d03cb0f4e6f"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041243172235/consent-native-print-dialog.png",
+      "bytes": 180716,
+      "sha256": "2640468f1ffe8243b7371f3af238659994b78edd191359aba6b17afb6448a9fe"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041243172235/consent-pdf-view.png",
+      "bytes": 249236,
+      "sha256": "3a2c33c14d0d4d0e68257ac789a65797852dcec9abd74fd83d8d82fbf0e3883c"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041243172235/consent-review.png",
+      "bytes": 208029,
+      "sha256": "1be534ca76dcc9efe227e9bdf3708c42ad6c524de2d636a519344e09a77e89e5"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041243172235/held-generation.png",
+      "bytes": 206698,
+      "sha256": "12aed9ff4955efb80d9a435d5a98faa80211c33406e062ca6a695663caf5611e"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041243172235/lost-generation-response.png",
+      "bytes": 93699,
+      "sha256": "67d5b310d32d4ec41569cce6e0116e49d3703c0d324d488700dfe762443eab58"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041243172235/prescription-firefox-download.pdf",
+      "bytes": 44114,
+      "sha256": "0a28b6ebb3260795bf93b148691d8bc3224671f2f817f2ecc905adbd46cfdf04"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041243172235/prescription-native-print-dialog.png",
+      "bytes": 188300,
+      "sha256": "42dcf96cdcdd2971b5de0665c30fc89f46774f06c0a89e32dfd90bd3ba479bcb"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041243172235/prescription-pdf-view.png",
+      "bytes": 237550,
+      "sha256": "b720eecd2389ff92fe036b546c9fbe41d8b137c9aac76ba1276724d586dd6ae4"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041243172235/prescription-review.png",
+      "bytes": 232856,
+      "sha256": "53cf508a447ea2b3e169d38081b8e5edaa4369d94649d717d3bf974a88f38381"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041243172235/result.json",
+      "bytes": 9477,
+      "sha256": "55c9208ea92b8b24f57ff135270823ffb080cae6bbce06cd9446d57a2ba931ee"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041835426640/01-entry.png",
+      "bytes": 88286,
+      "sha256": "7911613d901717337e2d3ecd1cadb88a24248ee0fa40faf56219e90c3e040cb3"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041835426640/clinical-firefox-download.pdf",
+      "bytes": 55987,
+      "sha256": "0b6f77b41d38b46c1b0e0320864b11894b0fa4d25ff93f7150698ddd6d9b30f5"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041835426640/clinical-native-print-dialog.png",
+      "bytes": 158861,
+      "sha256": "57071d42ec6b22ee8febd3e01d4f4c2fc0c2d4599074bfa01d04b57832b1c06d"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041835426640/clinical-pdf-view.png",
+      "bytes": 233696,
+      "sha256": "936c43305163cf399f124d4ae77f5e7c3d2c8d83f7c103bfb2e590452b15d89a"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041835426640/clinical-review.png",
+      "bytes": 202388,
+      "sha256": "62f954d218b8ab971c72a952dc6bb0637f359fdc4884a40734310497d51db44b"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041835426640/consent-firefox-download.pdf",
+      "bytes": 46032,
+      "sha256": "d9248dd1915a4c29d072733ad6c69e84ca6e501a36e069e42e5f76cbcfcd15dc"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041835426640/consent-native-print-dialog.png",
+      "bytes": 180894,
+      "sha256": "6c23b57736f616196aba16a7715869582b833b172feedfa60f5df90723a99f2e"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041835426640/consent-pdf-view.png",
+      "bytes": 248324,
+      "sha256": "f7e01ec728223359a78dd751f2fa4f307fe63d8ebcfbcb3c8029a6360eb6f2bd"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041835426640/consent-review.png",
+      "bytes": 208029,
+      "sha256": "1be534ca76dcc9efe227e9bdf3708c42ad6c524de2d636a519344e09a77e89e5"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041835426640/held-generation.png",
+      "bytes": 206734,
+      "sha256": "c4195f4bdee2325bd4ac4c2caf42141e34e4f12d99e78b9d0c853ec2a3814177"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041835426640/lost-generation-response.png",
+      "bytes": 93699,
+      "sha256": "67d5b310d32d4ec41569cce6e0116e49d3703c0d324d488700dfe762443eab58"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041835426640/prescription-firefox-download.pdf",
+      "bytes": 44117,
+      "sha256": "14edda0b05f2dbd8afb8453c052790c4e1bbf8fbe707769f3fd775cf2c5cc402"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041835426640/prescription-native-print-dialog.png",
+      "bytes": 187536,
+      "sha256": "f646492222b56902ee7ece550e0e2d797a1dd042ce53da4f30f228ba182ce490"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041835426640/prescription-pdf-view.png",
+      "bytes": 237147,
+      "sha256": "b03f8e633864510121c521189a0e498e5e2fe825abf575a7743a3e3e540f3493"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041835426640/prescription-review.png",
+      "bytes": 232850,
+      "sha256": "36fda7ca587c0867c3c0f15225f95bc8f56038394da92289ff63bd670b92bda6"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T041835426640/result.json",
+      "bytes": 8701,
+      "sha256": "72e779eb6f8c5105d38e9909d04b7ae678346f6e345962a5da5cba67998288df"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T042328139294/01-entry.png",
+      "bytes": 88286,
+      "sha256": "7911613d901717337e2d3ecd1cadb88a24248ee0fa40faf56219e90c3e040cb3"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T042328139294/offline-diagnostic.png",
+      "bytes": 207183,
+      "sha256": "574656796e97fd6f9d11ea08e5df2496494aa23fe188abbc9954b0ed8fce44e3"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T042328139294/result.json",
+      "bytes": 974,
+      "sha256": "3ab5ec9c30e6812a16b5e38d27c1e760960a14d8fe247dc2728a06862d5e9114"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T043328099034/01-entry.png",
+      "bytes": 88286,
+      "sha256": "7911613d901717337e2d3ecd1cadb88a24248ee0fa40faf56219e90c3e040cb3"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T043328099034/clinical-firefox-download.pdf",
+      "bytes": 55859,
+      "sha256": "fe389d583c74276d9f65ac6536deeab0276574652669d226c65b25c4602c0925"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T043328099034/clinical-native-print-dialog.png",
+      "bytes": 162695,
+      "sha256": "ed2f4edb05f1ce1fe558c5ffd6c8c93b1ce4aa13cd61baaf4da903bbab529904"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T043328099034/clinical-pdf-view.png",
+      "bytes": 234250,
+      "sha256": "638e55dfa1afda95238e294221cebfcee5406f48789efd7984b07ce4f1e52d3c"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T043328099034/clinical-review.png",
+      "bytes": 203285,
+      "sha256": "d4d3d4cf40605ee4b5713954cd3565932c1bdd721c54e7ef75687f2c64962d9a"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T043328099034/consent-firefox-download.pdf",
+      "bytes": 46022,
+      "sha256": "a34c3f62e4ffe9ac88695fc97500fcd72766759b75eb1138af2915c4f43e996b"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T043328099034/consent-native-print-dialog.png",
+      "bytes": 180596,
+      "sha256": "c9cae370a919962b3b718f352bf5107d303ad9d37dc3a9749663206aa77d5071"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T043328099034/consent-pdf-view.png",
+      "bytes": 249200,
+      "sha256": "2eadbe950cb8510fb8ba2bee0b890d0a980b5c9acdadda8bccfb5071dd340ce1"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T043328099034/consent-review.png",
+      "bytes": 208350,
+      "sha256": "58a8187ed53e99fc8d0281ceb46a68343dbc6b8e22f52e4a3dfd977a8990c0dd"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T043328099034/held-generation.png",
+      "bytes": 207011,
+      "sha256": "6695071cfa332db18411968b2ef780600a58ce7094e0c9147504d654af9f2114"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T043328099034/lost-generation-response.png",
+      "bytes": 93818,
+      "sha256": "0e18cbbb4289a78e3d92c9c28d7634bb950cb07286b32370c76813a016479127"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T043328099034/offline-failure.png",
+      "bytes": 92902,
+      "sha256": "cc8ce4f8c631c095d65300bfdd0233840882afdff5e6c545fcb2c958098e1255"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T043328099034/prescription-firefox-download.pdf",
+      "bytes": 44095,
+      "sha256": "c6debf75017330833847bd956253f740e8a6005aa72a16e405f67f84bcca1fd2"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T043328099034/prescription-native-print-dialog.png",
+      "bytes": 187538,
+      "sha256": "8b0f06f8aa4fccb438823b1a3d47a74b2fe490c2b0482aa91aabfc73bd98bc72"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T043328099034/prescription-pdf-view.png",
+      "bytes": 237275,
+      "sha256": "dcd916449f80042f0f56b88fb4f90f4f0bb67ada5835307840d1a7dd06d595cb"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T043328099034/prescription-review.png",
+      "bytes": 232943,
+      "sha256": "d58bade983ff952a23283bb67458600a36498d0dc4b62a1443b0a6760b8ef5d3"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T043328099034/reader-export-denied.png",
+      "bytes": 93892,
+      "sha256": "58ec19de6af0adaa44c0df54259b9de95f9b59190253d98b2de31457a1154fb7"
+    },
+    {
+      "path": "docs/evidence/s08c/print-browser-attempts/20261013T043328099034/result.json",
+      "bytes": 7322,
+      "sha256": "baa59e45e03f1a31fafd6d59a02d31c0e772cad2b9f940bad555210cce79c7e7"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T032635706453/result.json",
+      "bytes": 4857,
+      "sha256": "280f1dcb665f7e890a80371246e85a3e36ebbd66c2931f6b31df9a8d7a53ffd5"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033031391111/result.json",
+      "bytes": 8802,
+      "sha256": "b7987418c34d3b5f1beae6b9633606e3acdc20bfc499131301cbaea8a1680615"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033225551576/clinical-d1-long-draft-page-01.png",
+      "bytes": 136973,
+      "sha256": "2b6506fcbcb34e9299ac14e81e032e92eb6f359fdef404332fd2bc0f57cf9651"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033225551576/clinical-d1-long-draft-page-02.png",
+      "bytes": 367552,
+      "sha256": "076f6897bd198e1af312a0c1102930516fb1ee478a2cdf1143d70bd2b2c8318c"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033225551576/clinical-d1-long-draft-page-03.png",
+      "bytes": 358446,
+      "sha256": "9e8a213d203032abeb4777ceef22b67ee096331aa6d2876ffdfbb105b3e68639"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033225551576/clinical-d1-long-draft-page-04.png",
+      "bytes": 367856,
+      "sha256": "b899a1a46a2867acfdd8a9bd50128b9aba2ae8bef3b6eaabd228c7bfb9638740"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033225551576/clinical-d1-long-draft-page-05.png",
+      "bytes": 358368,
+      "sha256": "b6d52280b985863392a72d1aae94aad9add3490ff730b4241fdc6cb009d42089"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033225551576/clinical-d1-long-draft-page-06.png",
+      "bytes": 367807,
+      "sha256": "c1537233ef72ad0c15a67271634e09a5a45fdfb66b6589c9072649c6b7a87038"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033225551576/clinical-d1-long-draft-page-07.png",
+      "bytes": 358414,
+      "sha256": "161e4a6489cc63785ea4013d1c449cfc9bfea08904ea6014e7e7beda5d005ce8"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033225551576/clinical-d1-long-draft-page-08.png",
+      "bytes": 235386,
+      "sha256": "c4c145cbe2e9496c2e730333ca3bda54f5dbb0bacd25a6908024fa4967b5dfe1"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033225551576/clinical-d1-long-draft-page-09.png",
+      "bytes": 111495,
+      "sha256": "cfea16be1568feeaa4de13d1de464fd131321881a14620455f8b49bb8bcb0fff"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033225551576/clinical-d1-long-draft-page-10.png",
+      "bytes": 98307,
+      "sha256": "a7da685b4037570487a6d51fe4311913c8dd20dfca06f1fd8680a42eb7f33da3"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033225551576/clinical-d1-long-draft.pdf",
+      "bytes": 39014,
+      "sha256": "be528c8990cd911e9e3c599b068f4140fa5f89b4e267ad79b876bfbde1ee60f4"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033225551576/clinical-d1-pending.pdf",
+      "bytes": 39077,
+      "sha256": "27bef691d64880e43651a35fe5dbdc7d109b2f44e80bd13874f4ad750b059698"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033225551576/clinical-d2-confirmed-independent.pdf",
+      "bytes": 22322,
+      "sha256": "a77e5bd1d3b221ab7d0252085b77b71089a029cef8903f8f11cab58bf8bf9a36"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033225551576/clinical-d2-corrected.pdf",
+      "bytes": 22255,
+      "sha256": "a58c4c984117b29f64be219508662d60134472ecc5cdfbd191a404a421c7fc20"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033225551576/clinical-d2-historical-confirmed.pdf",
+      "bytes": 22315,
+      "sha256": "3d5ab3f8d121e69348e09ad4449a72a36ff7deb7710336b1b1922b8212d744a8"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033225551576/consent-unsigned-unreviewed.pdf",
+      "bytes": 22556,
+      "sha256": "77781ac09644408983acd495e9475dce0f184927c21ab3c685f831301b7e3417"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033225551576/prescription-four-dispensed-two-left.pdf",
+      "bytes": 21316,
+      "sha256": "3b13b51a9ce3361806ad5740462ef42d3f419c011a9f318e4e396c4ec449f188"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033225551576/prescription-incomplete-draft.pdf",
+      "bytes": 21116,
+      "sha256": "e181bf3b12b896fb6f6c68132180dcef2d2631bc1bbf9c00a03b71c6eb44f09e"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033225551576/prescription-six-dispensed-zero-left.pdf",
+      "bytes": 21543,
+      "sha256": "8d6f53f683f6bd56b139ec059a3118180f1ca45c7ec030aaf3dd548b558f15f9"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033225551576/prescription-six-uncollected.pdf",
+      "bytes": 21140,
+      "sha256": "782329d410911c09cdfbace8150e6d767543ad036e9b6dce21aa9e2834824182"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033225551576/result.json",
+      "bytes": 133521,
+      "sha256": "3747fbed399dd970a301be89e9147b45a6781c7fc26d6106a7a2acef4b5e146c"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033656599499/clinical-d1-long-draft-page-01.png",
+      "bytes": 123810,
+      "sha256": "1b1f0b01dc255bebeab4e46cd2236b4d17f3773bbb4ea868d5201b762c2d4bdb"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033656599499/clinical-d1-long-draft-page-02.png",
+      "bytes": 504837,
+      "sha256": "8e63e14b2368b560c8c291a233cc98da05874752b55c4a73af739dbc98e2bf98"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033656599499/clinical-d1-long-draft-page-03.png",
+      "bytes": 504872,
+      "sha256": "0bdad1fb38f5b167ffbe21e0ec09b54e3a889da26cdc1cdff04feddd199f59d1"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033656599499/clinical-d1-long-draft-page-04.png",
+      "bytes": 504819,
+      "sha256": "c7a6e12cd7083209b7b1a08333a9583313fcc3213e99f526a27d3c14635a9b0b"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033656599499/clinical-d1-long-draft-page-05.png",
+      "bytes": 174881,
+      "sha256": "121618f1f936adf83f2e846582efec093bb3a7e7657aeb3d8f1f32a854710b6d"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033656599499/clinical-d1-long-draft-page-06.png",
+      "bytes": 76764,
+      "sha256": "0d7b851de9439870dce946e7ea28dbea4c052297e8c6ece758419763adc397c5"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033656599499/clinical-d1-long-draft-page-07.png",
+      "bytes": 60604,
+      "sha256": "7d0e3500b0141a3ef7b28c9df84e193dc6f04ae3d27feae61b2651734aa2bc8a"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033656599499/clinical-d1-long-draft.pdf",
+      "bytes": 55930,
+      "sha256": "7d191ea143626e43b59834a951ef2f0fc2e4066daf540138f86a2d62b2510384"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033656599499/clinical-d1-long-draft.txt",
+      "bytes": 26038,
+      "sha256": "efbbd519e36b370b38705e4d5ba0a3b1e20f864afbb142f6eaf9b6d2f3ffcad6"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033656599499/clinical-d1-pending.pdf",
+      "bytes": 56114,
+      "sha256": "436e4fdf2489d6b3e2d85af4fe0fdbff5fe26d2690446ccaa9130d49487c3a1b"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033656599499/clinical-d2-confirmed-independent.pdf",
+      "bytes": 43767,
+      "sha256": "eb2e1def0158ee40411b2d45fe244844e70ff521b9d277f327b12efc93445385"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033656599499/clinical-d2-corrected.pdf",
+      "bytes": 43827,
+      "sha256": "385d9187ed72d041aade84b37293c154107dc2557d940cc3a767b35488ee6863"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033656599499/clinical-d2-historical-confirmed.pdf",
+      "bytes": 43763,
+      "sha256": "1ced270c9982313f67e8f90a2ed698b3d615b66e075a63f2d4add6db8b3a47e6"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033656599499/consent-unsigned-unreviewed-page-01.png",
+      "bytes": 110285,
+      "sha256": "a594ba94d19958203040a39959341adc4f483f5f0c1e3bb79bc0bf80e05c1560"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033656599499/consent-unsigned-unreviewed-page-02.png",
+      "bytes": 84418,
+      "sha256": "1095c9d7da40f5469590e5a5196f7f181a4f8ac901276cacef44735774b00858"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033656599499/consent-unsigned-unreviewed.pdf",
+      "bytes": 45779,
+      "sha256": "276b53b494cde0d615451e5bd64e8b9091816862f86e65630fd4a8029b1c2723"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033656599499/consent-unsigned-unreviewed.txt",
+      "bytes": 2059,
+      "sha256": "bb2d7fb0ad42b752e53f88cd2dc9d82712e81f8a9a4471b0f5f82904605e3bae"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033656599499/prescription-edited-draft-cancelled-history.pdf",
+      "bytes": 44105,
+      "sha256": "22a6aa133c41d7048122f4e6edb7e1421a9af5fedafb84accb6b49d561ad9cb0"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033656599499/prescription-four-dispensed-two-left.pdf",
+      "bytes": 43827,
+      "sha256": "14821fdc698a17ccd74d12631df47704bd85b0cbd89d9279bf92e7d3779aeb4d"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033656599499/prescription-incomplete-draft-page-01.png",
+      "bytes": 135642,
+      "sha256": "43d68d42ecc5da8d6c90f7ca921b892d8666b70bdb1193ee3e73015db4779899"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033656599499/prescription-incomplete-draft.pdf",
+      "bytes": 41816,
+      "sha256": "9f1d884be4d17aef3859c3bcf2e1a7dfc5f8cf24d5127a80d986796080c1635a"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033656599499/prescription-next-day-three-skus-done.pdf",
+      "bytes": 46077,
+      "sha256": "beb82344eadb640a29dda6331861ef910456b1fee1c34d8113571116a3b0e106"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033656599499/prescription-six-dispensed-zero-left.pdf",
+      "bytes": 44174,
+      "sha256": "9c726c9bedf3003389b75e4b788917969bf18c530984a2e8658fd75953750127"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033656599499/prescription-six-uncollected.pdf",
+      "bytes": 42774,
+      "sha256": "48be0f7d5f9515f4e3dcd94ed6b1ca59bc0ce68dfbc402fe094afdeffb1ab5a8"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033656599499/prescription-three-skus-issued.pdf",
+      "bytes": 44470,
+      "sha256": "1ca1bea65f5ba86c77954f6ce155db9199e23a406c936f8098d298ff3c21b427"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033656599499/prescription-three-skus-ten-twentyseven-fortythree.pdf",
+      "bytes": 45789,
+      "sha256": "b5e39afea74c3c56c98b021050e89de4173e3423da27e83cb517461d0e4771fe"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T033656599499/result.json",
+      "bytes": 165762,
+      "sha256": "7a56c35a702229575c7e3a94059c638a7acdf4db9bcd67d6b8ceb3a64de8e2b4"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/clinical-d1-long-draft-page-01.png",
+      "bytes": 133654,
+      "sha256": "8cf8fd994c1a401c9ec5f89b4dc40bb0631785b9ac66a72ad9575e428d10e55e"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/clinical-d1-long-draft-page-02.png",
+      "bytes": 534005,
+      "sha256": "ad0f71603ca7a0f347c825fca48b7c51d77b582ac90e8b863b19c05237acdcd8"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/clinical-d1-long-draft-page-03.png",
+      "bytes": 521513,
+      "sha256": "489fcd5c54a80c3e50e268a8c3b00db7f61d6792a1d806abc851cb244caabe90"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/clinical-d1-long-draft-page-04.png",
+      "bytes": 534094,
+      "sha256": "a0e6c607774657045bfe3d4247f91c9561042d87c34ab0d90232b11785f7104c"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/clinical-d1-long-draft-page-05.png",
+      "bytes": 97768,
+      "sha256": "897c529590ab684640bed607233b4432d0f719dfba56145184e2a0b4bda31fc6"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/clinical-d1-long-draft-page-06.png",
+      "bytes": 74370,
+      "sha256": "28d20272399d7063569628e750c5cd0517e0a2c8982dd8cfadcd7db2c47b6881"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/clinical-d1-long-draft-page-07.png",
+      "bytes": 44399,
+      "sha256": "6dfd63d2e610f7d4c337f6060cd17593c7db2152dbbb98f995497faad6ef58b8"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/clinical-d1-long-draft.pdf",
+      "bytes": 55690,
+      "sha256": "c6d07ad68738c53f22f49b226e76d2ca671910e86842b82d15af262a14f2b078"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/clinical-d1-long-draft.txt",
+      "bytes": 25995,
+      "sha256": "263eaca65e56bc74cb338f1958d71a359b1580c730a768bc9af9df7d3ac0c4e5"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/clinical-d1-pending-page-01.png",
+      "bytes": 132545,
+      "sha256": "8a190ffa29dc7b26256f7e475da9db4141a895094d088c307dc823e546263283"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/clinical-d1-pending-page-02.png",
+      "bytes": 534005,
+      "sha256": "ad0f71603ca7a0f347c825fca48b7c51d77b582ac90e8b863b19c05237acdcd8"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/clinical-d1-pending-page-03.png",
+      "bytes": 521513,
+      "sha256": "489fcd5c54a80c3e50e268a8c3b00db7f61d6792a1d806abc851cb244caabe90"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/clinical-d1-pending-page-04.png",
+      "bytes": 534094,
+      "sha256": "a0e6c607774657045bfe3d4247f91c9561042d87c34ab0d90232b11785f7104c"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/clinical-d1-pending-page-05.png",
+      "bytes": 97768,
+      "sha256": "897c529590ab684640bed607233b4432d0f719dfba56145184e2a0b4bda31fc6"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/clinical-d1-pending-page-06.png",
+      "bytes": 74370,
+      "sha256": "28d20272399d7063569628e750c5cd0517e0a2c8982dd8cfadcd7db2c47b6881"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/clinical-d1-pending-page-07.png",
+      "bytes": 44066,
+      "sha256": "13d89d8f22deb97ed26533aab92e027d85964efaf7ca726936123bbafdfe1b4a"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/clinical-d1-pending.pdf",
+      "bytes": 55835,
+      "sha256": "fa8e6d18779bbcad26fa3a7613a28fcd55f800409a7583a1dce9e86a5844aca0"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/clinical-d1-pending.txt",
+      "bytes": 25980,
+      "sha256": "f997bbc5bf68cc5485aab594dfb86024eff003dfa34f13a6f36ee367b45324f1"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/clinical-d2-confirmed-independent.pdf",
+      "bytes": 43710,
+      "sha256": "1ff235dbef378aade1de6b3442e54002e01077aa86df363f8b40afa301ec7805"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/clinical-d2-corrected.pdf",
+      "bytes": 43750,
+      "sha256": "5204bf911664c8d687072207570518a882c40dc3e1ae36a45f98870259803b7d"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/clinical-d2-historical-confirmed.pdf",
+      "bytes": 43711,
+      "sha256": "d66bfb7c52d3999dba37b59ecfd11f1baaa8e791c6e9326d6445e90ae13f259e"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/consent-unsigned-unreviewed-page-01.png",
+      "bytes": 112383,
+      "sha256": "81e32e5d6c15bdb9a317bc168673827242aacf376cbd824788ef4cf57a3e5ec7"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/consent-unsigned-unreviewed-page-02.png",
+      "bytes": 79992,
+      "sha256": "a8a26fe393b5fed72ebb09bdea1a225ec2c07167b17fd84d66552ec91e81e199"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/consent-unsigned-unreviewed.pdf",
+      "bytes": 45835,
+      "sha256": "ba758847c6931a2fb5764eaff93775573be66d4124e2e9412977de7a22701cf4"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/consent-unsigned-unreviewed.txt",
+      "bytes": 2059,
+      "sha256": "e97f197b56ccb3f9c42eb365ba210de38f5899190fa360194f1989c188151213"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/prescription-edited-draft-cancelled-history.pdf",
+      "bytes": 44139,
+      "sha256": "ec4fd89222ff6fd3a67baba20e126b51b43384700bae9eeb502549a5ebf1dcec"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/prescription-four-dispensed-two-left-page-01.png",
+      "bytes": 145942,
+      "sha256": "0ad683fdbe81df6df94652a5a344c6cb78fa0dce2d55156561ba381da9f852bb"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/prescription-four-dispensed-two-left.pdf",
+      "bytes": 43023,
+      "sha256": "c97b28c2de3ed899a147c81012b83e4e2eccb5053295b6512db04df492056261"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/prescription-four-dispensed-two-left.txt",
+      "bytes": 1734,
+      "sha256": "3118ba064014276559ec216cb75d914f041ff420ae7d65446bc203b2a0727a08"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/prescription-incomplete-draft-page-01.png",
+      "bytes": 134238,
+      "sha256": "74537a9b7d40f7241c038fedd96caef9c2c86bef96f5f7ee66968ca9f9b8bc2b"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/prescription-incomplete-draft.pdf",
+      "bytes": 40980,
+      "sha256": "037eeee5876cf8bcd3d06a06867cf0eb9cee7fb2709cb85e3eecbc929bc423c9"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/prescription-incomplete-draft.txt",
+      "bytes": 1580,
+      "sha256": "ee3e97ee4918b6d0b1a70881fbcaaa47d65d3522cc782653e87ea5ce1c0bc401"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/prescription-next-day-three-skus-done.pdf",
+      "bytes": 46094,
+      "sha256": "60a47f5be5201eb98414b052bd053892ce0624bae8e82c0a91be112ea21c138e"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/prescription-six-dispensed-zero-left-page-01.png",
+      "bytes": 148236,
+      "sha256": "22466ebf17e45371372d447b62a9eb34228381d32f0d975f7fab67c7182751b0"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/prescription-six-dispensed-zero-left.pdf",
+      "bytes": 44163,
+      "sha256": "a309f5580ad0f0c2a32cf0a0fa68552577b2e212dd0cd25b58b2fa72dfee7003"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/prescription-six-uncollected-page-01.png",
+      "bytes": 140116,
+      "sha256": "f91ab3ee3f76c6888d938dc34984c5727d4158357abdfbfd07ffbe9eb3fdb161"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/prescription-six-uncollected.pdf",
+      "bytes": 42002,
+      "sha256": "61a04347cd196eb2209d86b949ca7451bef2ebd34b9aa5ace7791b97498a927d"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/prescription-six-uncollected.txt",
+      "bytes": 1644,
+      "sha256": "6eb1a4d473da4f18ef932ad0cea7e43907b0c92dbd8126780be1df76122f066f"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/prescription-three-skus-issued.pdf",
+      "bytes": 44520,
+      "sha256": "dacb1571d12fdc818bae22bdaba1fe875745a7a8235ea45f054293931a7df5e4"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/prescription-three-skus-ten-twentyseven-fortythree.pdf",
+      "bytes": 45848,
+      "sha256": "378545c6dc9d58bcf39ba7a5cf75e99db2303f2cc8f6683a3b6d5dafe6bee018"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T034835313837/result.json",
+      "bytes": 165476,
+      "sha256": "c9e52bbf1b422fa65e899f9952c70aff838b9b8596580c01699b65b580e9730a"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d1-long-draft-page-01.png",
+      "bytes": 101802,
+      "sha256": "b619cb3111b178771205eb654efac091fd923e9e16923897d9ba4e7490f84c0a"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d1-long-draft-page-02.png",
+      "bytes": 503075,
+      "sha256": "04299dd3a8fcd974e8f6cca23b2c0fb765694693f4efbd0b58937f65e8c678f4"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d1-long-draft-page-03.png",
+      "bytes": 503108,
+      "sha256": "5d73525a030be42758f016da54b23bc7b4f88ec94a1ef12948b3dfa3563a8dca"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d1-long-draft-page-04.png",
+      "bytes": 503055,
+      "sha256": "48a719263685568916072dea932dcdae0818bb5de16228bdca3900a1a876c929"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d1-long-draft-page-05.png",
+      "bytes": 195019,
+      "sha256": "3ded19a5b84ecf77ae312094436e8a27ae878f735980c5dc9223c2c16d54f355"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d1-long-draft-page-06.png",
+      "bytes": 76227,
+      "sha256": "9c0465620ca7ccbeca8a5982c08d25d696ca9cc99b1b21624ffc4f95fa792906"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d1-long-draft-page-07.png",
+      "bytes": 60595,
+      "sha256": "5ac34c75473c3c11adaff011ab6ec5ce389a055640fd5449c6c2e2f948421bae"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d1-long-draft.pdf",
+      "bytes": 55855,
+      "sha256": "a93fe4267299123c8447fae168007f0e300379a17db41f16f20184ea73532670"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d1-long-draft.txt",
+      "bytes": 26040,
+      "sha256": "227240c340ea67fae59db27edbd26fed21548246ea605b967258dba4937e06e8"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d1-pending-page-01.png",
+      "bytes": 102998,
+      "sha256": "11d4a106f35690b979c850ccdef28f691850ed39ab4a45d9f92a07bf52d270fc"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d1-pending-page-02.png",
+      "bytes": 503075,
+      "sha256": "04299dd3a8fcd974e8f6cca23b2c0fb765694693f4efbd0b58937f65e8c678f4"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d1-pending-page-03.png",
+      "bytes": 503108,
+      "sha256": "5d73525a030be42758f016da54b23bc7b4f88ec94a1ef12948b3dfa3563a8dca"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d1-pending-page-04.png",
+      "bytes": 503055,
+      "sha256": "48a719263685568916072dea932dcdae0818bb5de16228bdca3900a1a876c929"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d1-pending-page-05.png",
+      "bytes": 195019,
+      "sha256": "3ded19a5b84ecf77ae312094436e8a27ae878f735980c5dc9223c2c16d54f355"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d1-pending-page-06.png",
+      "bytes": 76227,
+      "sha256": "9c0465620ca7ccbeca8a5982c08d25d696ca9cc99b1b21624ffc4f95fa792906"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d1-pending-page-07.png",
+      "bytes": 60500,
+      "sha256": "060068624ec0e7cccb5c6714a2000bcdf1fb3112d992b59362cc2b4c99d18e9e"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d1-pending.pdf",
+      "bytes": 55859,
+      "sha256": "e9868648129b2c781727dee4f7034893aaefb0fd7287cced1f1e03b64b3d8e80"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d1-pending.txt",
+      "bytes": 26060,
+      "sha256": "e0f5dcd70845a731560edb50057293f32764cfb1c194f45ff07a8e4fc410f185"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d2-confirmed-independent-page-01.png",
+      "bytes": 109908,
+      "sha256": "77e6cc7138a607cecead4d2ea2b6822920077af5d182e5194cdfa7ed953c716a"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d2-confirmed-independent-page-02.png",
+      "bytes": 76391,
+      "sha256": "b6b11c7dae0dc370b58dd4757a100c6b694f304d3b8f382f7942bf76075bf2ec"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d2-confirmed-independent.pdf",
+      "bytes": 43703,
+      "sha256": "6c884b5b80b2f0d6902f07f5a1b1182f54fd569fef905fe51b144192cee39c75"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d2-confirmed-independent.txt",
+      "bytes": 2075,
+      "sha256": "b1283dae61fa6d28b3eb7de9e6e1255ea27fd1244ecd0809edd8f6d05a4f6692"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d2-corrected-page-01.png",
+      "bytes": 108974,
+      "sha256": "9c90610d2a58a437ca436405c8b779bb0914c835f8d9174180fbcb4ec65bc59c"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d2-corrected-page-02.png",
+      "bytes": 76852,
+      "sha256": "d146d836961aa3bc146b5b607f55c5f9cc38d1720a2a29d8c42ba40cff2ea3bc"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d2-corrected.pdf",
+      "bytes": 43744,
+      "sha256": "a319695cc2de5aed4198e0376ffc5a150324b5fc1a8b72a246a0feca127ab0a3"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d2-corrected.txt",
+      "bytes": 2062,
+      "sha256": "1dd0c7d35e9496744fed256778eab268e15bee9fc68a29885b75ed9a8953706a"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d2-historical-confirmed-page-01.png",
+      "bytes": 110002,
+      "sha256": "0cb4b2458c39fcd741575050e42194e0b2920f4b1a634788d4d7bb22645ef3ac"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d2-historical-confirmed-page-02.png",
+      "bytes": 76794,
+      "sha256": "8791d6ceb4094e2c9d6f62e78fccbfd513d89c8135b352380f1443d1aecb952c"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d2-historical-confirmed.pdf",
+      "bytes": 43711,
+      "sha256": "ff468a6176f5d163169b61b5e108394d90da137178020a9eb58d268f5e0e0040"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d2-historical-confirmed.txt",
+      "bytes": 2075,
+      "sha256": "f23544d24d65984314d983a37e23375272c6222ab6ae8564bfdb982f4dea29b9"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/consent-unsigned-unreviewed-page-01.png",
+      "bytes": 112894,
+      "sha256": "f132b1509f30be7487b2c4fcb111e87f748a0c264d277f13f983918e7194c47b"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/consent-unsigned-unreviewed-page-02.png",
+      "bytes": 80572,
+      "sha256": "19ab13e9140c5fb2b086857b994c9b8bc34a86f67912865f96cbd2e82ac2cb63"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/consent-unsigned-unreviewed.pdf",
+      "bytes": 45849,
+      "sha256": "3ff27dfc8834100dea04c1598169501bf541572d2b5bfdb3b3410c0d94c5f841"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/consent-unsigned-unreviewed.txt",
+      "bytes": 2061,
+      "sha256": "c738853e57d8b1728e01a79de8fbe6b6e5b1c211a5bf13dce963d703c06c663c"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-edited-draft-cancelled-history-page-01.png",
+      "bytes": 116796,
+      "sha256": "88329db1330218dcd60169ce2ab8935305fad150300a3d45860d23f4f4c27319"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-edited-draft-cancelled-history-page-02.png",
+      "bytes": 114178,
+      "sha256": "b7e4505f2cef42a455592154a731cfaea2bf0f697cbe3d7ad1cfd54782f3951a"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-edited-draft-cancelled-history.pdf",
+      "bytes": 44152,
+      "sha256": "c73f19dacc61dc4b10196dd808421de1694f75ddbb86021fef9c8b475c12181c"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-edited-draft-cancelled-history.txt",
+      "bytes": 2602,
+      "sha256": "83daf9f837987b84b0326d66071120695dd57d48a143d7f746c386dbe4c74135"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-four-dispensed-two-left-page-01.png",
+      "bytes": 146505,
+      "sha256": "26f9ff2f86058b2dfc19eb8a552ed7a2bcd7f74180f113a21066690e49d720c5"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-four-dispensed-two-left.pdf",
+      "bytes": 43014,
+      "sha256": "f6005391fe19e744af9b9432d24672ff846c7e3263c471b7d61beea1a8c1099b"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-four-dispensed-two-left.txt",
+      "bytes": 1736,
+      "sha256": "da0dd334956f3320b8a7b39f198d9ee9c08747c5438cc4888b31d7ad25317e5e"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-incomplete-draft-page-01.png",
+      "bytes": 134621,
+      "sha256": "f0b8c4c73af214bf0b28dd414bcf7b96b5d419dfdba0f477a76cbd6f156f1acc"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-incomplete-draft.pdf",
+      "bytes": 41032,
+      "sha256": "ff93ea74b9757100f2de7093f918c9036d66a5473dd0e14ecb42af14b93468a0"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-incomplete-draft.txt",
+      "bytes": 1582,
+      "sha256": "20881a6403db14e9fc300ce39ea03c78e9e357e4b35621846a5fe21d0072e918"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-long-sixteen-lines-page-01.png",
+      "bytes": 63824,
+      "sha256": "3f33340437661230619ccafc77a83da8e8584cb12e6e5b8c2b856e469cc8f90d"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-long-sixteen-lines-page-02.png",
+      "bytes": 187122,
+      "sha256": "130689c7d5e17d0b6197a935e09590d2c160729edd90784fc0d57725f88a9056"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-long-sixteen-lines-page-03.png",
+      "bytes": 233083,
+      "sha256": "7994980fc91f97aa9077886093edcfa33aa64df8079a52e76d202341b095b996"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-long-sixteen-lines-page-04.png",
+      "bytes": 239356,
+      "sha256": "7f325340ce4b380eca44076de1189bde0f24862a6ed757cd1cfc097715ab7969"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-long-sixteen-lines-page-05.png",
+      "bytes": 239535,
+      "sha256": "f42313f2d47416ede96e1a949428c76485e54d1905a60029d93f73e08cd07613"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-long-sixteen-lines-page-06.png",
+      "bytes": 143210,
+      "sha256": "77f0c76a19ccd87d60b99899c49c6ad780e00afb4405d5002e07284118c56675"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-long-sixteen-lines-page-07.png",
+      "bytes": 185256,
+      "sha256": "194269cf47015f46f3c584ebbde4f29e5306eb20ebf0dc2d3e1ce3a34a07aca2"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-long-sixteen-lines-page-08.png",
+      "bytes": 235212,
+      "sha256": "9da8f1a5e96b822f08546fbf63bdf8b63e5fbbca01c09a6111aee37ea9acec58"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-long-sixteen-lines-page-09.png",
+      "bytes": 235478,
+      "sha256": "b0ad062ee788fdd98e4d37b3ff55f7fe006c4f4f56826a39e967616dc44633fc"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-long-sixteen-lines-page-10.png",
+      "bytes": 224140,
+      "sha256": "856b4b1c73aef23760643f26bb662af6fe9b9785e9f5bfd8253a78e9afe37a00"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-long-sixteen-lines-page-11.png",
+      "bytes": 187939,
+      "sha256": "be0783a9064118f3085d27fa3b760bde50291b3270b75f3a1c2b2f0372180dd1"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-long-sixteen-lines-page-12.png",
+      "bytes": 237449,
+      "sha256": "2f2f683f5ea6914c4ff6ee6680b9294afdc32e8d25de910fb870b003d5a7afdb"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-long-sixteen-lines-page-13.png",
+      "bytes": 72055,
+      "sha256": "ca54aebf98c9a4b651de166203379bdab22efca1e10995643c23bdc98b92def1"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-long-sixteen-lines-page-14.png",
+      "bytes": 187423,
+      "sha256": "d4a9a98427cd2816cd44d16a9cb9b3d9ee876ca827b9099e23c6a7cb00672222"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-long-sixteen-lines-page-15.png",
+      "bytes": 217943,
+      "sha256": "291840a87ce4de41572b3651e9c5ad2c8df2a23b76f35dce417ea51ea4148647"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-long-sixteen-lines-page-16.png",
+      "bytes": 238230,
+      "sha256": "6ad2efe96ff0f2250e514b07eb3d8fbbfe9a8099eac47c72d04f62fddf0f7a02"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-long-sixteen-lines-page-17.png",
+      "bytes": 189602,
+      "sha256": "f0b349160163e0a31c06a85b461a5107d22eb16d82225def222e4d4e13d9ba7a"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-long-sixteen-lines-page-18.png",
+      "bytes": 125619,
+      "sha256": "eaab3143b85f451d38edd2d1fe1ef7bd7263b79c17736cb0a57a07bd785fb49f"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-long-sixteen-lines-page-19.png",
+      "bytes": 187141,
+      "sha256": "e4bea5127448e204b73745cc7a802599daf53b28b9b35ee49031acb987bbbc5b"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-long-sixteen-lines-page-20.png",
+      "bytes": 220319,
+      "sha256": "d63ef51a08d8ed5e3120df3759a34c91703da419c31c285c58549173ac0843d4"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-long-sixteen-lines-page-21.png",
+      "bytes": 125526,
+      "sha256": "601054bbb8006a17e08d4ccf70faa5a879cc8c22644dfb44f87797c2ac553add"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-long-sixteen-lines.pdf",
+      "bytes": 84673,
+      "sha256": "2bb4d5fe788412399642f5d387e5e1e04d4b3994475e9315108be6372bf4a9ad"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-long-sixteen-lines.txt",
+      "bytes": 48628,
+      "sha256": "5cb32dcc0eac42267b61f479353f1c3fb8bd1034797cb262f14335ea147a59c0"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-next-day-three-skus-done-page-01.png",
+      "bytes": 119297,
+      "sha256": "1b59951bb06b0e270262a066e520769eca82c099edd0c0052f7216e664a2a15a"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-next-day-three-skus-done-page-02.png",
+      "bytes": 149503,
+      "sha256": "b85d0216b24254b0d0e89f701b5e4dd893ba42ac8aeebaf185cfa5936ec3c331"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-next-day-three-skus-done.pdf",
+      "bytes": 46124,
+      "sha256": "3d92ba091a8b16ca8d50d94f7edef852d1d28f1c3ab944f3f2381fbb9be44284"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-next-day-three-skus-done.txt",
+      "bytes": 3100,
+      "sha256": "b0b3f7847194865dc7fb473013b229f5cb1e29d025b6511173b2214d3c1fd506"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-six-dispensed-zero-left-page-01.png",
+      "bytes": 123708,
+      "sha256": "fb88687091791a44bed3f48a2fd9265537a511922b02f9d93a880b13ccc0c569"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-six-dispensed-zero-left-page-02.png",
+      "bytes": 42256,
+      "sha256": "de8d6a3c9a79c8e40c78d9bb3ce47ce000e7e666272014e4d0c5ae36bbd7dbfd"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-six-dispensed-zero-left.pdf",
+      "bytes": 44096,
+      "sha256": "1be3b5c6a673415825f960ea7374b0d37ebdc3b48423351b217836aaf9c6af9a"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-six-dispensed-zero-left.txt",
+      "bytes": 1878,
+      "sha256": "7419f0c7c4ddc38297a05ca911e23aeb100585d4e7627f7e71c4f0349021c877"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-six-uncollected-page-01.png",
+      "bytes": 139968,
+      "sha256": "54cee5ea65577979b411573d57562ecc731f746830714e60cbb2dd595c214540"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-six-uncollected.pdf",
+      "bytes": 41988,
+      "sha256": "75c326dd9cca3c78cdb43d3903270e7efe9fac9cef0a881938d0a2030b5a094e"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-six-uncollected.txt",
+      "bytes": 1646,
+      "sha256": "728e729150c1448c18735df53894113976b7069d3063d4f196e56d93a2f74b9a"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-three-skus-issued-page-01.png",
+      "bytes": 117942,
+      "sha256": "722312759c2f669036f477340f50db81e0edbfea7d661a2b07623beb790544c2"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-three-skus-issued-page-02.png",
+      "bytes": 115716,
+      "sha256": "622c6fb6360e0cd4fbb1fbae45ad5d11a9d66672f521daab0f1dbbc171ed213d"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-three-skus-issued.pdf",
+      "bytes": 44514,
+      "sha256": "fe56b44114c051c867ffd0c0c26ee97cbb8d30ab52c3f1fd726f1078695f60b8"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-three-skus-issued.txt",
+      "bytes": 2633,
+      "sha256": "b44eee3f84ed4457637a13ffaf9508674ace98cb98e53d5374fd9486f771be34"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-three-skus-ten-twentyseven-fortythree-page-01.png",
+      "bytes": 118020,
+      "sha256": "cf7aeb4148e70b550d2df9dfa2e61dcee1020a8f96c6fe08f7c12c0035ce3e20"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-three-skus-ten-twentyseven-fortythree-page-02.png",
+      "bytes": 140035,
+      "sha256": "39f4fa947bb025e4262a2e09cbef29e04d3f28eef3d018ba07db3cb94ecfce5e"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-three-skus-ten-twentyseven-fortythree.pdf",
+      "bytes": 45854,
+      "sha256": "42b6f98d03411dbd3caa50a973f23d6a594c3bcaaee914e0841942000b614f43"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-three-skus-ten-twentyseven-fortythree.txt",
+      "bytes": 2963,
+      "sha256": "c81496174735d5611e1f4a5574d45363d6c7564a99b2b456bfa0dcd047ec903b"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/rendered-pages-recheck-20261013T043745613757.json",
+      "bytes": 19893,
+      "sha256": "9f972c15a11a55b7806c2312babf833e2ffb98bc506365999c2b5f9265e86dd7"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/rendered-pages.json",
+      "bytes": 27356,
+      "sha256": "aa2377597fd5608eb58338802c696165960912a49686a0f8811ef1890fa348ce"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/result.json",
+      "bytes": 224242,
+      "sha256": "f373cdbb6f16569039845daeb48f23027481cc0496b35e6096a0252c4a9ceadb"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d1-long-draft-page-01.png",
+      "bytes": 101613,
+      "sha256": "757d6501464ea3d2ef0593e0215dc69825980742521521a6458dd50d8e190e45"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d1-long-draft-page-02.png",
+      "bytes": 503075,
+      "sha256": "04299dd3a8fcd974e8f6cca23b2c0fb765694693f4efbd0b58937f65e8c678f4"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d1-long-draft-page-03.png",
+      "bytes": 503108,
+      "sha256": "5d73525a030be42758f016da54b23bc7b4f88ec94a1ef12948b3dfa3563a8dca"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d1-long-draft-page-04.png",
+      "bytes": 503055,
+      "sha256": "48a719263685568916072dea932dcdae0818bb5de16228bdca3900a1a876c929"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d1-long-draft-page-05.png",
+      "bytes": 195019,
+      "sha256": "3ded19a5b84ecf77ae312094436e8a27ae878f735980c5dc9223c2c16d54f355"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d1-long-draft-page-06.png",
+      "bytes": 76227,
+      "sha256": "9c0465620ca7ccbeca8a5982c08d25d696ca9cc99b1b21624ffc4f95fa792906"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d1-long-draft-page-07.png",
+      "bytes": 60544,
+      "sha256": "b187a8dfa302f37fb5f0b4b5fcbb70db3aff29cfe29637bcb69f9bec3e48f03e"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d1-long-draft.pdf",
+      "bytes": 55859,
+      "sha256": "a678b44d27a78f7647cdbb0903cf3cfb88b008c0051c85e1ba18bf8d18d23301"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d1-long-draft.txt",
+      "bytes": 26040,
+      "sha256": "f321f8ec857ba11070bc6131ebd2da5357bb0dc765a39e8bfbbad4155ce91e1e"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d1-pending-page-01.png",
+      "bytes": 102921,
+      "sha256": "0ec29bb438eca666fa6fc7ab7a769454ccb69c86030c4cc7b0bd2813e3001577"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d1-pending-page-02.png",
+      "bytes": 503075,
+      "sha256": "04299dd3a8fcd974e8f6cca23b2c0fb765694693f4efbd0b58937f65e8c678f4"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d1-pending-page-03.png",
+      "bytes": 503108,
+      "sha256": "5d73525a030be42758f016da54b23bc7b4f88ec94a1ef12948b3dfa3563a8dca"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d1-pending-page-04.png",
+      "bytes": 503055,
+      "sha256": "48a719263685568916072dea932dcdae0818bb5de16228bdca3900a1a876c929"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d1-pending-page-05.png",
+      "bytes": 195019,
+      "sha256": "3ded19a5b84ecf77ae312094436e8a27ae878f735980c5dc9223c2c16d54f355"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d1-pending-page-06.png",
+      "bytes": 76227,
+      "sha256": "9c0465620ca7ccbeca8a5982c08d25d696ca9cc99b1b21624ffc4f95fa792906"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d1-pending-page-07.png",
+      "bytes": 60323,
+      "sha256": "0f8c2869580c345b93099028c40b79598c02d1962432732034cc8603f13ecbe0"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d1-pending.pdf",
+      "bytes": 55887,
+      "sha256": "f639e39c9a9b7f3394081a8fed28d5b464fd26b63a55d1aa89341bd4d04d97b4"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d1-pending.txt",
+      "bytes": 26060,
+      "sha256": "078f2d62953fabbc00e56f66cfcd6ef1bffab963ba976621d7ccc15847e18443"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d2-confirmed-independent-page-01.png",
+      "bytes": 110482,
+      "sha256": "d6d575f5133489502076d5ac5b2328974c56c17a65ae0ec5f9a1e6ab2c64de37"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d2-confirmed-independent-page-02.png",
+      "bytes": 76761,
+      "sha256": "23479fe43f4d2197971ad573512f44d2fbafd67cb340c6027517679f11706eb5"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d2-confirmed-independent.pdf",
+      "bytes": 43718,
+      "sha256": "9fb9a587ece25d56535c8a77ca2d6c9038385f5c8360c531bba3ac312d814d8e"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d2-confirmed-independent.txt",
+      "bytes": 2075,
+      "sha256": "3be45e15880576f589616a47a16210c1812cf86a202056a6237f274e8c9368e2"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d2-corrected-page-01.png",
+      "bytes": 109465,
+      "sha256": "03a7f0248efae9f5ae5c1500252cf343e1d94e8a0758877e198e8dc2a687b89f"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d2-corrected-page-02.png",
+      "bytes": 77533,
+      "sha256": "2b0cc15972b04767ade2fbd6aaa82618e592ce5d0d3f8c4b43b127fa9b5d3169"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d2-corrected.pdf",
+      "bytes": 43775,
+      "sha256": "63a5b61e98469e5a8640bdba307c0d718983c81809e15be376b8ba8ee6aad053"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d2-corrected.txt",
+      "bytes": 2062,
+      "sha256": "7a20bd27f28d862e6585183bbb738a10d8211271c39a261b39ed5f209663fd12"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d2-historical-confirmed-page-01.png",
+      "bytes": 110574,
+      "sha256": "077f0e20f3b05fec41756f70c081839787c27818a960da2241edcebcc353c8c6"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d2-historical-confirmed-page-02.png",
+      "bytes": 76953,
+      "sha256": "06b9793520241e1adbac3448ddf9957540a84930968b72e37763fc461a12ec03"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d2-historical-confirmed.pdf",
+      "bytes": 43713,
+      "sha256": "f600e2cfd3db2c82d6dddb39b0b3cebe4526833a6ec934d408da17e25fb94b7c"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/clinical-d2-historical-confirmed.txt",
+      "bytes": 2075,
+      "sha256": "bb387f8ef41486e5d256f39e7f97fe15cde866aa4b726a14a4aea1d83c3c1f80"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/consent-unsigned-unreviewed-page-01.png",
+      "bytes": 112683,
+      "sha256": "8fd6bc7667854bff42488f8d0fa033711cd3602f38ee60643c847587bbb2f06b"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/consent-unsigned-unreviewed-page-02.png",
+      "bytes": 80162,
+      "sha256": "a9bd434ae2a14fbe045db9edf44f4021230547485144957d2e8e889488e734a8"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/consent-unsigned-unreviewed.pdf",
+      "bytes": 45816,
+      "sha256": "f0f00e878c2902b9a2893b002ef2fdb5033e04220a97fe4e25f5b6ab185363b6"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/consent-unsigned-unreviewed.txt",
+      "bytes": 2061,
+      "sha256": "f50575f27b87960a050cb6c287851ac65fff64307f04ff1e5f287ce521b04317"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-edited-draft-cancelled-history-page-01.png",
+      "bytes": 100241,
+      "sha256": "80d850e60552fe7c33ebecbca0c5cd93480f72f31d2ed2f9eba8ed5b674d9300"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-edited-draft-cancelled-history-page-02.png",
+      "bytes": 94316,
+      "sha256": "a448b8725dfdf007f068158b0b40c37e7a63a1fb09cad05712b72cacefa75cd4"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-edited-draft-cancelled-history-page-03.png",
+      "bytes": 71793,
+      "sha256": "66a6642ec1a417eca7622c19a9d2a54d2ec88cd918f32cfa9849db680dedea91"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-edited-draft-cancelled-history.pdf",
+      "bytes": 46169,
+      "sha256": "05269e642132e8b8e4bdc77b73399aebca59565a7d1138d944bacaa8e9713c90"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-edited-draft-cancelled-history.txt",
+      "bytes": 2818,
+      "sha256": "9f264657c7caec12a7ed2632da627ba65f06d70788f041e5796322dfc3e96140"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-four-dispensed-two-left-page-01.png",
+      "bytes": 107975,
+      "sha256": "45e7b6408818798e7a4bb830044ee0b2e520ecc9565a2951020546f764439dbe"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-four-dispensed-two-left-page-02.png",
+      "bytes": 58081,
+      "sha256": "22cbd988eb296dac7165615be3a42460c729505ce9c5fed75efd4c94a510e93b"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-four-dispensed-two-left.pdf",
+      "bytes": 44422,
+      "sha256": "d70a7ab97a875e7802c760e033d8f9f2a509f65c3393f0b6b604fda740c5a81c"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-four-dispensed-two-left.txt",
+      "bytes": 1864,
+      "sha256": "c23e23a6cc99a8c4d55fe38d437bd10b18658d60a99d02f72154093094d28d5a"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-incomplete-draft-page-01.png",
+      "bytes": 104698,
+      "sha256": "6b9c607572468a10418865a0f868f7d9d82100b5c4f76d76e13135b15108bacf"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-incomplete-draft-page-02.png",
+      "bytes": 41586,
+      "sha256": "d65491b0a631daea63442d41952fbb2fca5647f74626219d4ced41396380e9bf"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-incomplete-draft.pdf",
+      "bytes": 42002,
+      "sha256": "79a663c445b0d8d89cc4c25d28a5763da3b0b97414d4981dfea463ee63436a24"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-incomplete-draft.txt",
+      "bytes": 1596,
+      "sha256": "16ecd16fe414a89bbaf802f7c4f0b7463b6710db70e2efe177e1d62270b74752"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-long-sixteen-lines-page-01.png",
+      "bytes": 118875,
+      "sha256": "665b7222050ae8f1dd40f4cf140f6232a81d7ac7896c7410e82d61e2db302cd1"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-long-sixteen-lines-page-02.png",
+      "bytes": 209203,
+      "sha256": "bb38ee60ca328ea2d9249f4990d5858b9d762e1aa205c628984c71323a7ff605"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-long-sixteen-lines-page-03.png",
+      "bytes": 209024,
+      "sha256": "56e0ec2aa3fd238a4688e49338ef60ceb20ccf1eab69254e8074f524cfd6a0c6"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-long-sixteen-lines-page-04.png",
+      "bytes": 209161,
+      "sha256": "3e37063e64a768bae47747a20c109e9c66c8e77ff7d5ccec1364bcf34dd1099a"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-long-sixteen-lines-page-05.png",
+      "bytes": 209269,
+      "sha256": "f7576ae665155f88f5059b0cc061a4b0b024a369447e553086794b2de52f8097"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-long-sixteen-lines-page-06.png",
+      "bytes": 209138,
+      "sha256": "bc0db698efdc81db30aafcc7ad086cfe23a4e2de5596e47815be45b325ac01eb"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-long-sixteen-lines-page-07.png",
+      "bytes": 209149,
+      "sha256": "4bc2946a0c580f9937e1aaac60a328764fba28dd42c88b594e165e24048caf91"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-long-sixteen-lines-page-08.png",
+      "bytes": 209305,
+      "sha256": "6e9d1e7f92326fdb80f466dcfef5b9721b34396b308853a8f240bebda4b418df"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-long-sixteen-lines-page-09.png",
+      "bytes": 209236,
+      "sha256": "3aa707144e4b1da4f4ed00619cb59a67566cd238c1e0312ecf3f955b0700df3b"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-long-sixteen-lines-page-10.png",
+      "bytes": 209186,
+      "sha256": "3fd091b3f21981cf3757c1a201dee9ba8fcb8ec7785f99cb10e0e15b19145bd0"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-long-sixteen-lines-page-11.png",
+      "bytes": 209167,
+      "sha256": "89839ecedf62cdd69b359eed2cff189c5a4ae4b3e68ff7c97fb3f67b1b851efa"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-long-sixteen-lines-page-12.png",
+      "bytes": 209037,
+      "sha256": "86074a638f5faad2cd54be60a1e92250427a3a94c6c5a25ecb1e1242f178a0b7"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-long-sixteen-lines-page-13.png",
+      "bytes": 208863,
+      "sha256": "9a4b728702c1249362903c8b656da3c1f39c0d53289b093c8404d3ba6f21ed18"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-long-sixteen-lines-page-14.png",
+      "bytes": 209040,
+      "sha256": "b6aba617128d0d080eed8845879e9a8e15b531aa836ad96d329585ad8bb27266"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-long-sixteen-lines-page-15.png",
+      "bytes": 209124,
+      "sha256": "dab2ab8d4b14637ed47d7cbcaa50df0d34c2c5e7fb3f0ae3a3460b62925e2f17"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-long-sixteen-lines-page-16.png",
+      "bytes": 209003,
+      "sha256": "e8315f7cc97b7cd6b411a6ec4abb76c9a0617df7c989abcdfa4131f0ee3a8cd9"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-long-sixteen-lines-page-17.png",
+      "bytes": 209689,
+      "sha256": "8ffd048f23f526047f18a7bf63146b072cad42d3188a592f8e7a1e3d85ba15b4"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-long-sixteen-lines.pdf",
+      "bytes": 76534,
+      "sha256": "8038a9afbbcd19881451e42019e9b341ecb4d535d766834ab9d5b4f9ad7611d8"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-long-sixteen-lines.txt",
+      "bytes": 47338,
+      "sha256": "59d16ad1e15df4faa6ea557b81c0014af9b676b11bffde96b968c24cc34a5479"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-next-day-three-skus-done-page-01.png",
+      "bytes": 102341,
+      "sha256": "64bf21590507b5d147278bf55266bdb1a759baf25c73a24665ad16d2581f6d8a"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-next-day-three-skus-done-page-02.png",
+      "bytes": 96296,
+      "sha256": "b3307fd22db1705b31b3ebe10df8825526bcd0dae18a2df3e9f34ca0ca4b6966"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-next-day-three-skus-done-page-03.png",
+      "bytes": 103549,
+      "sha256": "ffe8d8c5d97ffe929afcf2bc2edefd7219131b6b3d2b808fbe3073d90c7b7d28"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-next-day-three-skus-done.pdf",
+      "bytes": 48176,
+      "sha256": "adb22a4e149d503f56dbf28ac7fdd9d98a2d846b9b3a0c9fa4832a280758e7de"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-next-day-three-skus-done.txt",
+      "bytes": 3316,
+      "sha256": "d1e75b7c46568b8b7c46a7ca8d48bf9b0b4ec0c1b706d69087a5a9cc7c6df40e"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-six-dispensed-zero-left-page-01.png",
+      "bytes": 109731,
+      "sha256": "b73a1b4929b9b31305dd2d1b79e10676bf617219eecdbbc0ffc609a7d286dd30"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-six-dispensed-zero-left-page-02.png",
+      "bytes": 67488,
+      "sha256": "1d4f42ab852c1d39a28b1ea7b91e12845458d33b4a0d3e5801aedd69d408d015"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-six-dispensed-zero-left.pdf",
+      "bytes": 44696,
+      "sha256": "e9a5a99d1c8bccde1416c055ca5f1c12a020b9c004adf68fdcd70e7c6d600c6f"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-six-dispensed-zero-left.txt",
+      "bytes": 1993,
+      "sha256": "c2eaaeef69c7ad040f149e116023f2e1b96ceaa4b49ab66ce233d6fda58b179f"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-six-uncollected-page-01.png",
+      "bytes": 110306,
+      "sha256": "d6a7a059b88250089497742bf2f9f31bbf276dfd53359178c933c94145eba4b8"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-six-uncollected-page-02.png",
+      "bytes": 41940,
+      "sha256": "6d0f53c2b210a529ee18dbea71d52854c74899ef1e6627ce0a9f940047631825"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-six-uncollected.pdf",
+      "bytes": 43039,
+      "sha256": "ec090dc050c6489747ccd0be855a6b740638e7a969ecfcea698341df6b365ff4"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-six-uncollected.txt",
+      "bytes": 1661,
+      "sha256": "4a6999d93dfab5abc6a68d3eb46f6f6a47c0df54795356a86897b34595433f0b"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-three-skus-issued-page-01.png",
+      "bytes": 101079,
+      "sha256": "3106eed3b5d9b6022c06d6ea059cfb39b98c7f471445cf9fb054dde609c898f1"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-three-skus-issued-page-02.png",
+      "bytes": 95103,
+      "sha256": "6b13cbb2b72d44dfb6e677a984857f15be8b173c9bea97401c5a782247081652"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-three-skus-issued-page-03.png",
+      "bytes": 72264,
+      "sha256": "2d299591d812d4dfaf7d52bb72bc079cd93663150401e9b67c5a971ac0cbf770"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-three-skus-issued.pdf",
+      "bytes": 46538,
+      "sha256": "f161dac3032bc9c52ad0907ca634532a880aeb55bb9a520c02642e7d072cb437"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-three-skus-issued.txt",
+      "bytes": 2849,
+      "sha256": "1263d399725bc47c9b7c67039138bb5d27f400b9d9c6776f12f989ec43c4172c"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-three-skus-ten-twentyseven-fortythree-page-01.png",
+      "bytes": 101079,
+      "sha256": "3106eed3b5d9b6022c06d6ea059cfb39b98c7f471445cf9fb054dde609c898f1"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-three-skus-ten-twentyseven-fortythree-page-02.png",
+      "bytes": 95368,
+      "sha256": "0d3d29bb78d4dc1558b4ea386df21d277057af19a03b7414dc3c6cbbc79809ed"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-three-skus-ten-twentyseven-fortythree-page-03.png",
+      "bytes": 96885,
+      "sha256": "8b6ba0e10e31d96b3d2973b76dc1b4421be7e5598a4bb9c7a864aaa569786b27"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-three-skus-ten-twentyseven-fortythree.pdf",
+      "bytes": 47889,
+      "sha256": "7c3f12f7e6b9aae7dd208125a3198a219861d3df7f8e9ce8888e7ccf1f9e0214"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/prescription-three-skus-ten-twentyseven-fortythree.txt",
+      "bytes": 3179,
+      "sha256": "dc93d57325694642690ffc6bb54d7b5ad13ddf3e8641f38dc9440c5ecbb992ad"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/race-generate-during-source-save-page-01.png",
+      "bytes": 107675,
+      "sha256": "4891041a36e9efaa5c2493473a8873d571b521e0caf7b28eeb99f04890cd3bce"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/race-generate-during-source-save-page-02.png",
+      "bytes": 77519,
+      "sha256": "326a8ff266954aac25bc7186aa17cac09f8acda9ed5338b97681715ed70059a9"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/race-generate-during-source-save.pdf",
+      "bytes": 43740,
+      "sha256": "6ac9f82ee18a15015c5a34faf252b2bcad09a8bdcbb48d8518076a931301a4f2"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/race-generate-during-source-save.txt",
+      "bytes": 2002,
+      "sha256": "416038df8de336d5f8160fdf1eff555f1fd7cbe3ac198c3e7fc468b4af129961"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/rendered-pages.json",
+      "bytes": 31572,
+      "sha256": "af19287cf4e43b0cdb411038ce11fae5ed0ab5c177077a85263f67935888fd77"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T043822532357/result.json",
+      "bytes": 229961,
+      "sha256": "f9cad774a8e749225afd0ce05731bac9db7a84aaf144315b781bc9b7b9f8443c"
+    },
+    {
+      "path": "docs/evidence/s08c/publication-checks.json",
+      "bytes": 715,
+      "sha256": "56544ba512664d5e5aab17d7860a289951d91c293359a3146dd7d86119614041"
+    },
+    {
+      "path": "docs/evidence/s08c/publication-redaction.json",
+      "bytes": 22706,
+      "sha256": "84b7c2e60cc7305673beaad340b56cf9b56ba297b3914bae55141c456d823a44"
+    },
+    {
+      "path": "docs/evidence/s08c/tc-matrix.json",
+      "bytes": 6736,
+      "sha256": "acc7825d6401a2937e02e0a2cdb637789ef5e2d5acf8d72ebf618de624998a8d"
+    },
+    {
+      "path": "docs/evidence/s08c/test-methods.json",
+      "bytes": 4985,
+      "sha256": "4cc1146c18d9093e615b29c34aa219ef29c06851237876d499ef75be0ea39306"
+    }
+  ]
+}

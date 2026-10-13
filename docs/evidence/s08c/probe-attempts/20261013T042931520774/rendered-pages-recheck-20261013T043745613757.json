@@ -1,0 +1,613 @@
+{
+  "database": "ydental_s08c_test_20261013031800_b81ae5c3",
+  "tested_commit": "fa8377b0b528f386cf565e4b70da50fd2c92a667",
+  "pdfs": [
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d1-long-draft.pdf",
+      "sha256": "a93fe4267299123c8447fae168007f0e300379a17db41f16f20184ea73532670",
+      "pages": [
+        {
+          "number": 1,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d1-long-draft-page-01.png",
+          "sha256": "b619cb3111b178771205eb654efac091fd923e9e16923897d9ba4e7490f84c0a",
+          "characters": 492,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 2,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d1-long-draft-page-02.png",
+          "sha256": "04299dd3a8fcd974e8f6cca23b2c0fb765694693f4efbd0b58937f65e8c678f4",
+          "characters": 2513,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 3,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d1-long-draft-page-03.png",
+          "sha256": "5d73525a030be42758f016da54b23bc7b4f88ec94a1ef12948b3dfa3563a8dca",
+          "characters": 2513,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 4,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d1-long-draft-page-04.png",
+          "sha256": "48a719263685568916072dea932dcdae0818bb5de16228bdca3900a1a876c929",
+          "characters": 2513,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 5,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d1-long-draft-page-05.png",
+          "sha256": "3ded19a5b84ecf77ae312094436e8a27ae878f735980c5dc9223c2c16d54f355",
+          "characters": 938,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 6,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d1-long-draft-page-06.png",
+          "sha256": "9c0465620ca7ccbeca8a5982c08d25d696ca9cc99b1b21624ffc4f95fa792906",
+          "characters": 373,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 7,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d1-long-draft-page-07.png",
+          "sha256": "5ac34c75473c3c11adaff011ab6ec5ce389a055640fd5449c6c2e2f948421bae",
+          "characters": 494,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        }
+      ],
+      "fonts": [
+        "NotoSansCJKsc-Regular"
+      ],
+      "text": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d1-long-draft.txt",
+      "result": "PASS"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/consent-unsigned-unreviewed.pdf",
+      "sha256": "3ff27dfc8834100dea04c1598169501bf541572d2b5bfdb3b3410c0d94c5f841",
+      "pages": [
+        {
+          "number": 1,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/consent-unsigned-unreviewed-page-01.png",
+          "sha256": "f132b1509f30be7487b2c4fcb111e87f748a0c264d277f13f983918e7194c47b",
+          "characters": 529,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 2,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/consent-unsigned-unreviewed-page-02.png",
+          "sha256": "19ab13e9140c5fb2b086857b994c9b8bc34a86f67912865f96cbd2e82ac2cb63",
+          "characters": 538,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        }
+      ],
+      "fonts": [
+        "NotoSansCJKsc-Regular"
+      ],
+      "text": "docs/evidence/s08c/probe-attempts/20261013T042931520774/consent-unsigned-unreviewed.txt",
+      "result": "PASS"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-incomplete-draft.pdf",
+      "sha256": "ff93ea74b9757100f2de7093f918c9036d66a5473dd0e14ecb42af14b93468a0",
+      "pages": [
+        {
+          "number": 1,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-incomplete-draft-page-01.png",
+          "sha256": "f0b8c4c73af214bf0b28dd414bcf7b96b5d419dfdba0f477a76cbd6f156f1acc",
+          "characters": 862,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        }
+      ],
+      "fonts": [
+        "NotoSansCJKsc-Regular"
+      ],
+      "text": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-incomplete-draft.txt",
+      "result": "PASS"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-six-uncollected.pdf",
+      "sha256": "75c326dd9cca3c78cdb43d3903270e7efe9fac9cef0a881938d0a2030b5a094e",
+      "pages": [
+        {
+          "number": 1,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-six-uncollected-page-01.png",
+          "sha256": "54cee5ea65577979b411573d57562ecc731f746830714e60cbb2dd595c214540",
+          "characters": 940,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        }
+      ],
+      "fonts": [
+        "NotoSansCJKsc-Regular"
+      ],
+      "text": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-six-uncollected.txt",
+      "result": "PASS"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d1-pending.pdf",
+      "sha256": "e9868648129b2c781727dee4f7034893aaefb0fd7287cced1f1e03b64b3d8e80",
+      "pages": [
+        {
+          "number": 1,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d1-pending-page-01.png",
+          "sha256": "11d4a106f35690b979c850ccdef28f691850ed39ab4a45d9f92a07bf52d270fc",
+          "characters": 498,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 2,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d1-pending-page-02.png",
+          "sha256": "04299dd3a8fcd974e8f6cca23b2c0fb765694693f4efbd0b58937f65e8c678f4",
+          "characters": 2513,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 3,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d1-pending-page-03.png",
+          "sha256": "5d73525a030be42758f016da54b23bc7b4f88ec94a1ef12948b3dfa3563a8dca",
+          "characters": 2513,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 4,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d1-pending-page-04.png",
+          "sha256": "48a719263685568916072dea932dcdae0818bb5de16228bdca3900a1a876c929",
+          "characters": 2513,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 5,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d1-pending-page-05.png",
+          "sha256": "3ded19a5b84ecf77ae312094436e8a27ae878f735980c5dc9223c2c16d54f355",
+          "characters": 938,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 6,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d1-pending-page-06.png",
+          "sha256": "9c0465620ca7ccbeca8a5982c08d25d696ca9cc99b1b21624ffc4f95fa792906",
+          "characters": 373,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 7,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d1-pending-page-07.png",
+          "sha256": "060068624ec0e7cccb5c6714a2000bcdf1fb3112d992b59362cc2b4c99d18e9e",
+          "characters": 496,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        }
+      ],
+      "fonts": [
+        "NotoSansCJKsc-Regular"
+      ],
+      "text": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d1-pending.txt",
+      "result": "PASS"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-four-dispensed-two-left.pdf",
+      "sha256": "f6005391fe19e744af9b9432d24672ff846c7e3263c471b7d61beea1a8c1099b",
+      "pages": [
+        {
+          "number": 1,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-four-dispensed-two-left-page-01.png",
+          "sha256": "26f9ff2f86058b2dfc19eb8a552ed7a2bcd7f74180f113a21066690e49d720c5",
+          "characters": 1032,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        }
+      ],
+      "fonts": [
+        "NotoSansCJKsc-Regular"
+      ],
+      "text": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-four-dispensed-two-left.txt",
+      "result": "PASS"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-six-dispensed-zero-left.pdf",
+      "sha256": "1be3b5c6a673415825f960ea7374b0d37ebdc3b48423351b217836aaf9c6af9a",
+      "pages": [
+        {
+          "number": 1,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-six-dispensed-zero-left-page-01.png",
+          "sha256": "fb88687091791a44bed3f48a2fd9265537a511922b02f9d93a880b13ccc0c569",
+          "characters": 777,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 2,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-six-dispensed-zero-left-page-02.png",
+          "sha256": "de8d6a3c9a79c8e40c78d9bb3ce47ce000e7e666272014e4d0c5ae36bbd7dbfd",
+          "characters": 371,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        }
+      ],
+      "fonts": [
+        "NotoSansCJKsc-Regular"
+      ],
+      "text": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-six-dispensed-zero-left.txt",
+      "result": "PASS"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d2-confirmed-independent.pdf",
+      "sha256": "6c884b5b80b2f0d6902f07f5a1b1182f54fd569fef905fe51b144192cee39c75",
+      "pages": [
+        {
+          "number": 1,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d2-confirmed-independent-page-01.png",
+          "sha256": "77e6cc7138a607cecead4d2ea2b6822920077af5d182e5194cdfa7ed953c716a",
+          "characters": 532,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 2,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d2-confirmed-independent-page-02.png",
+          "sha256": "b6b11c7dae0dc370b58dd4757a100c6b694f304d3b8f382f7942bf76075bf2ec",
+          "characters": 559,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        }
+      ],
+      "fonts": [
+        "NotoSansCJKsc-Regular"
+      ],
+      "text": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d2-confirmed-independent.txt",
+      "result": "PASS"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d2-historical-confirmed.pdf",
+      "sha256": "ff468a6176f5d163169b61b5e108394d90da137178020a9eb58d268f5e0e0040",
+      "pages": [
+        {
+          "number": 1,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d2-historical-confirmed-page-01.png",
+          "sha256": "0cb4b2458c39fcd741575050e42194e0b2920f4b1a634788d4d7bb22645ef3ac",
+          "characters": 532,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 2,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d2-historical-confirmed-page-02.png",
+          "sha256": "8791d6ceb4094e2c9d6f62e78fccbfd513d89c8135b352380f1443d1aecb952c",
+          "characters": 559,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        }
+      ],
+      "fonts": [
+        "NotoSansCJKsc-Regular"
+      ],
+      "text": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d2-historical-confirmed.txt",
+      "result": "PASS"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d2-corrected.pdf",
+      "sha256": "a319695cc2de5aed4198e0376ffc5a150324b5fc1a8b72a246a0feca127ab0a3",
+      "pages": [
+        {
+          "number": 1,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d2-corrected-page-01.png",
+          "sha256": "9c90610d2a58a437ca436405c8b779bb0914c835f8d9174180fbcb4ec65bc59c",
+          "characters": 529,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 2,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d2-corrected-page-02.png",
+          "sha256": "d146d836961aa3bc146b5b607f55c5f9cc38d1720a2a29d8c42ba40cff2ea3bc",
+          "characters": 559,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        }
+      ],
+      "fonts": [
+        "NotoSansCJKsc-Regular"
+      ],
+      "text": "docs/evidence/s08c/probe-attempts/20261013T042931520774/clinical-d2-corrected.txt",
+      "result": "PASS"
+    },
+    {
+      "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-long-sixteen-lines.pdf",
+      "sha256": "2bb4d5fe788412399642f5d387e5e1e04d4b3994475e9315108be6372bf4a9ad",
+      "pages": [
+        {
+          "number": 1,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-long-sixteen-lines-page-01.png",
+          "sha256": "3f33340437661230619ccafc77a83da8e8584cb12e6e5b8c2b856e469cc8f90d",
+          "characters": 305,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 2,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-long-sixteen-lines-page-02.png",
+          "sha256": "130689c7d5e17d0b6197a935e09590d2c160729edd90784fc0d57725f88a9056",
+          "characters": 952,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": []
+        },
+        {
+          "number": 3,
+          "path": "docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-long-sixteen-lines-page-03.png",
+          "sha256": "7994980fc91f97aa9077886093edcfa33aa64df8079a52e76d202341b095b996",
+          "characters": 1211,
+          "a4": true,
+          "size": [
+            595.0,
+            842.0
+          ],
+          "overlap_pairs": [
+            {
+              "word_indices": [
+                0,
+                92
+              ],
+              "bounds": [
+                [
+                  172.5,
+                  33.810001373291016,
+                  289.4280090332031,
+                  46.84199905395508
+                ],
+                [
+                  196.5,
+                  38.310001373291016,
+                  268.4280090332031,
+                  51.34199905395508
+                ]
+              ]
+            },
+            {
+              "word_indices": [
+                13,
+                46
+              ],
+              "bounds": [
+                [
+                  172.5,
+                  209.30999755859375,
+                  289.4280090332031,
+                  222.3419952392578
+                ],
+                [
+                  172.5,
+                  210.05999755859375,
+                  289.4280090332031,
+                  223.0919952392578
+                ]
+              ]
+            },
+            {
+              "word_indices": [
+                14,
+                47
+              ],
+              "bounds": [
+                [
+                  172.5,
+                  222.80999755859375,
+                  289.4280090332031,
+                  235.8419952392578
+                ],
+                [
+                  172.5,
+                  223.55999755859375,
+                  289.4280090332031,
+                  236.5919952392578
+                ]
+              ]
+            },
+            {
+              "word_indices": [
+                15,
+                48
+              ],
+              "bounds": [
+                [
+                  172.5,
+                  236.30999755859375,
+                  289.4280090332031,
+                  249.3419952392578
+                ],
+                [
+                  172.5,
+                  237.05999755859375,
+                  289.4280090332031,
+                  250.0919952392578
+                ]
+              ]
+            },
+            {
+              "word_indices": [
+                16,
+                49
+              ],
+              "bounds": [
+                [
+                  172.5,
+                  249.80999755859375,
+                  289.4280090332031,
+                  262.8420104980469
+                ],
+                [
+                  172.5,
+                  250.55999755859375,
+                  289.4280090332031,
+                  263.5920104980469
+                ]
+              ]
+            },
+            {
+              "word_indices": [
+                17,
+                50
+              ],
+              "bounds": [
+                [
+                  172.5,
+                  263.30999755859375,
+                  269.38800048828125,
+                  276.3420104980469
+                ],
+                [
+                  172.5,
+                  264.05999755859375,
+                  289.4280090332031,
+                  277.0920104980469
+                ]
+              ]
+            }
+          ]
+        }
+      ],
+      "fonts": [
+        "NotoSansCJKsc-Regular",
+        "NotoSansCJKsc-Regular"
+      ]
+    }
+  ],
+  "visual_review": "PENDING",
+  "result": "FAIL",
+  "failure": {
+    "type": "AssertionError",
+    "detail": "(PosixPath('<WORKSPACE>/docs/evidence/s08c/probe-attempts/20261013T042931520774/prescription-long-sixteen-lines.pdf'), 2, 'overlapping PDF text positions')"
+  }
+}
