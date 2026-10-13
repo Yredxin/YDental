@@ -436,7 +436,7 @@ class YDentalExamService(models.AbstractModel):
                 binary.startswith(b'\x89PNG\r\n\x1a\n') if mimetype == 'image/png' else binary.startswith(b'%PDF-')):
             raise ValidationError(self.env._('invalid_attachment: File signature or size is invalid.'))
         record = self.env['ir.attachment'].sudo().create({'name': filename, 'type': 'binary',
-            'datas': encoded, 'mimetype': mimetype, 'res_model': 'ydental.exam.result', 'res_id': result.id,
+            'raw': binary, 'mimetype': mimetype, 'res_model': 'ydental.exam.result', 'res_id': result.id,
             'public': False})
         self._audit('attachment_added', result, {'attachment_id': record.id,
             'sha256': hashlib.sha256(binary).hexdigest()})
@@ -449,7 +449,7 @@ class YDentalExamService(models.AbstractModel):
         if not result or not record or record.res_model != 'ydental.exam.result' or record.res_id != result.id or record.public:
             raise AccessError(self.env._('access_denied: This examination attachment is unavailable.'))
         self.env['ydental.access.service']._check('export', 'write')
-        raw = base64.b64decode(record.datas)
+        raw = record.raw
         self._audit('attachment_download', result, {'attachment_id': record.id,
             'sha256': hashlib.sha256(raw).hexdigest()})
         return raw, record.mimetype, record.name
