@@ -153,7 +153,7 @@ class YDentalPrintService(models.AbstractModel):
                 self._pair(self.env._('Original author'), doc.ydental_author_id.name),
                 self._pair(self.env._('Current responsible person'), doc.ydental_responsible_id.name),
                 self._pair(self.env._('Selected version contributor'), selected.ydental_author_id.name if selected else False),
-                self._pair(self.env._('Selected version action'), selected.ydental_kind if selected else 'unsaved'),
+                self._pair(self.env._('Selected version action'), dict(selected._fields['ydental_kind']._description_selection(self.env))[selected.ydental_kind] if selected else self.env._('Not recorded')),
                 self._pair(self.env._('Selected version recorded at (UTC)'), str(selected.ydental_recorded_at) if selected else False),
                 self._pair(self.env._('Selected version previous ID'), selected.ydental_previous_id.id if selected else False),
                 self._pair(self.env._('Text correction reason'), selected.ydental_reason if selected else False),
@@ -213,7 +213,7 @@ class YDentalPrintService(models.AbstractModel):
                     'reason': line.ydental_reason or self.env._('Not recorded')})
             payload['events'] = [{'id': e.id, 'line_id': e.ydental_order_line_id.id, 'product_id': e.ydental_product_id.id,
                 'quantity': e.ydental_quantity, 'actor': e.ydental_actor_id.name, 'time': str(e.ydental_actual_at),
-                'business_date': str(e.ydental_business_date), 'state': e.state,
+                'business_date': str(e.ydental_business_date), 'state': dict(e._fields['state']._description_selection(self.env))[e.state],
                 'price_source': e.ydental_price_snapshot_id.id, 'medicine_link': e.ydental_medicine_link_id.id} for e in events]
             version_set = {'order': [order.id, order.ydental_version, order.state],
                 'lines': [[l.id, l.state] for l in lines], 'actual_dispensing_events': events.ids,
