@@ -18,8 +18,8 @@ from unittest.mock import patch
 import psycopg2
 from odoo import api
 from odoo.exceptions import AccessError, UserError, ValidationError
-from odoo.addons.ydental_treatment_test.tests.common import bind, key, save_args, handover_args, lease_args, serving
-from odoo.addons.ydental_treatment_test.tests.treatment_common import setup, opened_actual, prescription, receive, pharmacy_start, price, distinct_medicine
+from odoo.addons.ydental_treatment_test.tests.common import bind, key, save_args, handover_args, lease_args, serving, price
+from odoo.addons.ydental_treatment_test.tests.treatment_common import setup, opened_actual, prescription, receive, pharmacy_start, distinct_medicine
 from odoo.addons.ydental_clinical.models.ydental_clinical_service import TEETH
 
 run=Path(os.environ['YDENTAL_S08C_RUN_DIR']);root=Path(__file__).resolve().parents[1]
