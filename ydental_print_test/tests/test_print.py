@@ -213,3 +213,19 @@ class TestControlledPrint(TransactionCase):
         company = self.root['res.company'].create({'name': 'S08C isolated synthetic company'})
         self.users['doctor'].write({'company_id': company.id, 'company_ids': [fields.Command.set(company.ids)]})
         with self.assertRaises(AccessError):self.p._operate('download', {'job_id': job['job_id']})
+
+    def test_sixteen_long_chinese_prescription_rows_retain_every_field(self):
+        selection = self.source()
+        rows = []
+        for number in range(16):
+            values = {'mapping_id': self.drug_mapping.id, 'quantity': 6, 'uom_id': self.uom.id, 'product_id': self.products['medicine']}
+            for name in ('specification', 'usage', 'frequency', 'course'):
+                marker = 'S08C-%s-%02d-END' % (name, number)
+                values[name] = ('合成长字段，仅供排版测试，不代表医学意见。' * 20)[:240 - len(marker)] + marker
+            rows.append(values)
+        draft = self.s._operate('order', self.a | {'kind': 'prescription', 'purpose': '合成长表草稿', 'lines': rows}, key())
+        _, pdf = self.generate({'kind': 'prescription', 'source_id': draft['order_id'], 'version': draft['version']})
+        text = unicodedata.normalize('NFKC', ''.join(page.extract_text() for page in PdfFileReader(io.BytesIO(pdf)).pages))
+        for number in range(16):
+            for name in ('specification', 'usage', 'frequency', 'course'):
+                self.assertIn('S08C-%s-%02d-END' % (name, number), text.replace('\n', ''))

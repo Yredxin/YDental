@@ -101,7 +101,10 @@ try:
    response=route.fetch();result['lost_response_status']=response.status;route.abort()
   page.route('**/ydental/print/action',lose);page.locator('#print-generate').click();page.wait_for_function("document.querySelector('#print-result').textContent.includes('响应未确认')")
   check('lost response disables actions without fake success',page.locator('#print-request').is_disabled() and result['lost_response_status']==200);screenshot(page,'lost-generation-response');page.unroute('**/ydental/print/action',lose)
-  page.wait_for_function("!document.querySelector('#print-preview').disabled");context.set_offline(True);page.locator('#print-preview').press('Enter',timeout=5000);page.wait_for_function("document.querySelector('#print-result').textContent.includes('响应未确认') && !document.querySelector('#print-preview').disabled",timeout=60000);check('offline no false PDF success',page.locator('#print-generate').is_disabled());screenshot(page,'offline-failure');context.set_offline(False);context.close()
+  page.wait_for_function("!document.querySelector('#print-preview').disabled");context.set_offline(True)
+  page.wait_for_function("!navigator.onLine && document.querySelector('#print-result').textContent.includes('响应未确认') && document.querySelector('#print-preview').disabled",polling=100)
+  check('offline clears qualification without false success',page.locator('#print-generate').is_disabled() and page.locator('#print-request').is_disabled());screenshot(page,'offline-failure');context.set_offline(False)
+  page.wait_for_function("!document.querySelector('#print-preview').disabled",polling=100);check('online requires explicit source review',page.locator('#print-generate').is_disabled());context.close()
   denied_context,denied=login('reader');select_source=preview['clinical']
   denied.locator('#print-source').fill(str(select_source['source_id']));denied.locator('#print-version').fill(str(select_source['version']))
   with denied.expect_response(lambda r:r.url==base+'/ydental/print/action') as response:denied.locator('#print-preview').click()

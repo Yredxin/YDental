@@ -181,6 +181,14 @@ try:
   f,s,c,q,l,e,d,a,p=fixtures(cr);receive(f,20,'medicine');price(f,catalog=f.drug_catalog,amount=10)
   product2,lot2,catalog2=distinct_medicine(f);product3,lot3,catalog3=distinct_medicine(f,amount=43)
   row={'mapping_id':f.drug_mapping.id,'quantity':6,'uom_id':f.uom.id,'product_id':f.products['medicine'],'specification':'合成规格一','usage':'合成明确用法','frequency':'合成明确频次','course':'合成明确疗程'}
+  long_rows=[]
+  for number in range(16):
+   values=dict(row)
+   for name in ('specification','usage','frequency','course'):
+    marker='S08C-%s-%02d-END'%(name,number);values[name]=('合成长字段，仅供排版测试，不代表医学意见。'*20)[:240-len(marker)]+marker
+   long_rows.append(values)
+  long_draft=s._operate('order',a|{'kind':'prescription','purpose':'合成十六行最长字段排版草稿','lines':long_rows},key())
+  pdf(p,{'kind':'prescription','source_id':long_draft['order_id'],'version':long_draft['version']},'prescription-long-sixteen-lines')
   draft=s._operate('order',a|{'kind':'prescription','purpose':'合成草稿取消未做行','lines':[row]},key())
   edited=s._operate('edit_order',a|{'order_id':draft['order_id'],'version':draft['version'],'purpose':'合成三药独立来源','lines':[row,row|{'product_id':product2,'quantity':2,'specification':'合成规格二'},row|{'product_id':product3,'quantity':1,'specification':'合成规格三'}]},key())
   rx={'kind':'prescription','source_id':edited['order_id'],'version':edited['version']};pdf(p,rx,'prescription-edited-draft-cancelled-history')

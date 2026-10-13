@@ -38,7 +38,7 @@ def command(script,*arguments):
 def action(name):
  command('s08c.py',name,'--db',args.db,'--port',args.port)
  if name in ('install','upgrade'):
-  entry=json.loads((run/'actions.jsonl').read_text().splitlines()[-1]);assert entry['tests']==[0,0,101 if name=='install' else 99],entry
+  entry=json.loads((run/'actions.jsonl').read_text().splitlines()[-1]);assert entry['tests']==[0,0,102 if name=='install' else 100],entry
 
 def audit(name):
  action('audit');path=sorted((evidence/'audit-attempts').glob(args.db+'-*.json'))[-1];value=json.loads(path.read_text())
@@ -81,7 +81,7 @@ def browser(phase):
 try:
  action('install');action('upgrade');command('test_s08c_guard.py')
  action('probe_a');action('probe');action('probe_c')
- probe_file=sorted((evidence/'probe-attempts').glob('*/result.json'))[-1];probe=json.loads(probe_file.read_text());assert probe['database']==args.db and probe['result']=='PASS' and len(probe['races'])==5 and len(probe['artifacts'])==14
+ probe_file=sorted((evidence/'probe-attempts').glob('*/result.json'))[-1];probe=json.loads(probe_file.read_text());assert probe['database']==args.db and probe['result']=='PASS' and len(probe['races'])==5 and len(probe['artifacts'])==15
  command('s08c_render_pages.py',probe_file.relative_to(ROOT))
  action('export');command('s08c_translation.py','--db',args.db)
  for phase in ('A','B','R','C'):last=browser(phase)
