@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 import re
 import sys
+import unicodedata
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'.local/s00-b-deps/verify-lib'))
@@ -18,7 +19,7 @@ for artifact in source['artifacts']:
  text=''
  for i,page in enumerate(doc):
   words=page.get_text('words');assert len(words)>10,(path,i,'empty page')
-  txt=page.get_text();text+=txt
+  txt=unicodedata.normalize('NFKC',page.get_text());text+=txt
   assert '\ufffd' not in txt,(path,i,'replacement glyph')
   assert all(w[0]>=0 and w[1]>=0 and w[2]<=page.rect.width+1 and w[3]<=page.rect.height+1 for w in words),(path,i,'clipped words')
   png=path.with_name(path.stem+'-page-%02d.png'%(i+1));page.get_pixmap(matrix=fitz.Matrix(1.5,1.5),alpha=False).save(png)

@@ -2,6 +2,7 @@ import base64
 import io
 import json
 import subprocess
+import unicodedata
 from unittest.mock import patch
 
 from odoo import fields
@@ -35,7 +36,7 @@ class TestControlledPrint(TransactionCase):
         pdf, signature = self.p._operate('download', {'job_id': job['job_id']})
         self.assertTrue(pdf.startswith(b'%PDF-'));self.assertGreater(len(pdf), 5000)
         reader = PdfFileReader(io.BytesIO(pdf));self.assertGreaterEqual(len(reader.pages), 1)
-        self.assertIn('演示', ''.join(page.extract_text() for page in reader.pages))
+        self.assertIn('演示', unicodedata.normalize('NFKC', ''.join(page.extract_text() for page in reader.pages)))
         return job, pdf
 
     def test_three_actual_pdf_binaries_no_attachment_and_audit_distinct(self):
