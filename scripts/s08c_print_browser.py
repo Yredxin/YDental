@@ -55,7 +55,7 @@ try:
   time.sleep(.1)
  require(xvfb.poll() is None and Path('/tmp/.X11-unix/X107').exists(),'independent Xvfb display')
  with sync_playwright() as engine:
-  browser=engine.firefox.launch(headless=False,env=os.environ|{'DISPLAY':display})
+  browser=engine.firefox.launch(headless=False,env=os.environ|{'DISPLAY':display},firefox_user_prefs={'pdfjs.disabled':False,'print.always_print_silent':False})
   def login(role):
    context=browser.new_context(viewport={'width':1440,'height':1000},locale='zh-CN',accept_downloads=True)
    context.route('**/*',lambda route:route.continue_() if urlsplit(route.request.url).hostname=='127.0.0.1' and urlsplit(route.request.url).port==args.port or route.request.url.startswith('blob:') else route.abort())
@@ -75,13 +75,16 @@ try:
    text=page.frame_locator('#print-html').locator('body').inner_text();check(name+' real Chinese source preview','演示' in text and ('待完善' in text if name=='clinical' else '未签署' in text if name=='consent' else '未领数量' in text))
    screenshot(page,name+'-review');click('generate');page.wait_for_function("!document.querySelector('#print-view').disabled")
    view=click('pdf_view');check(name+' true PDF binary',view.body().startswith(b'%PDF-'))
-   page.wait_for_timeout(1200);screenshot(page,name+'-pdf-view')
+   page.frame_locator('#print-pdf').locator('#viewer .page').first.wait_for();page.wait_for_timeout(1200);screenshot(page,name+'-pdf-view')
    with page.expect_download() as downloaded:click('download')
    target=evidence/(name+'-firefox-download.pdf');downloaded.value.save_as(target);check(name+' downloaded true binary',target.read_bytes().startswith(b'%PDF-'))
-   click('print_request');page.wait_for_timeout(3000);screenshot(page,name+'-native-print-dialog',desktop=True)
+   with context.expect_page() as opened:click('print_request')
+   pdf_page=opened.value;pdf_page.wait_for_url('blob:**');pdf_page.locator('#viewer .page').first.wait_for();pdf_page.wait_for_timeout(1500)
+   check(name+' opened real PDF viewer',pdf_page.evaluate('document.contentType')=='application/pdf')
+   pdf_page.bring_to_front();key('ctrl+p');pdf_page.wait_for_timeout(6000);screenshot(pdf_page,name+'-native-print-dialog',desktop=True)
    # A person inspects the captured native dialog. Cancel without submitting
    # a printer/file output; there is no device receipt or printed claim.
-   key('Escape');page.wait_for_timeout(800)
+   key('Escape');pdf_page.wait_for_timeout(500);pdf_page.close();page.bring_to_front();page.wait_for_timeout(500)
    check(name+' request distinct from physical paper','实际出纸' in page.locator('#print-result').inner_text() or '出纸状态未知' in page.locator('#print-result').inner_text())
   # Hold a real generated HTTP response: inputs stay frozen while in flight.
   select(preview['consent']);click('preview');page.wait_for_function("!document.querySelector('#print-generate').disabled")
