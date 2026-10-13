@@ -8,7 +8,8 @@ from datetime import timedelta
 
 from odoo import fields, models
 from odoo.exceptions import AccessError, UserError, ValidationError
-from odoo.tools.pdf import PdfFileReader
+from odoo.tools.pdf import PdfFileReader, PdfReadError
+from odoo.addons.base.models.ir_qweb import QWebError
 from odoo.tools.binary import BinaryBytes
 
 from odoo.addons.ydental_clinical.models.ydental_clinical_service import TEXT_FIELDS
@@ -250,7 +251,10 @@ class YDentalPrintService(models.AbstractModel):
     def _preview(self, kind, source_id, version, purpose=None):
         service, source, category, payload, signature = self._source(kind, source_id, version, purpose)
         scope = service._render_scope(payload, signature, purpose)
-        html, _ = service.env['ir.actions.report'].with_context(ydental_print_scope=scope, lang='zh_CN')._render_qweb_html(REPORT, [source.id])
+        try:
+            html, _ = service.env['ir.actions.report'].with_context(ydental_print_scope=scope, lang='zh_CN')._render_qweb_html(REPORT, [source.id])
+        except (QWebError, OSError) as error:
+            raise UserError(self.env._('render_failed: The PDF engine did not produce a valid bounded PDF.')) from error
         self._audit('view', source, category, payload, signature)
         return {'html': html.decode() if isinstance(html, bytes) else str(html), 'source_digest': signature, 'versions': payload['versions'], 'template': payload['template']}
 
@@ -283,11 +287,14 @@ class YDentalPrintService(models.AbstractModel):
         else:
             scope = service._render_scope(payload, signature, purpose)
             reports = service.env['ir.actions.report'].with_context(ydental_print_scope=scope, lang='zh_CN', force_report_rendering=True, report_pdf_no_attachment=True)
-            pdf, output_type = reports._render_qweb_pdf(REPORT, [source.id])
-            if output_type != 'pdf' or not pdf.startswith(b'%PDF-') or len(pdf) > 10000000:
-                raise UserError(self.env._('render_failed: The PDF engine did not produce a valid bounded PDF.'))
-            if len(PdfFileReader(io.BytesIO(pdf)).pages) > 80:
-                raise UserError(self.env._('size_limit: This PDF exceeds the demonstration page limit.'))
+            try:
+                pdf, output_type = reports._render_qweb_pdf(REPORT, [source.id])
+                if output_type != 'pdf' or not isinstance(pdf, bytes) or not pdf.startswith(b'%PDF-') or len(pdf) > 10000000:
+                    raise UserError(self.env._('render_failed: The PDF engine did not produce a valid bounded PDF.'))
+                if len(PdfFileReader(io.BytesIO(pdf)).pages) > 80:
+                    raise UserError(self.env._('size_limit: This PDF exceeds the demonstration page limit.'))
+            except (QWebError, PdfReadError, OSError, ValueError) as error:
+                raise UserError(self.env._('render_failed: The PDF engine did not produce a valid bounded PDF.')) from error
             job = jobs._new({'ydental_actor_id': self.env.uid, 'ydental_store_id': session.ydental_store_id.id,
                 'ydental_session_id': session.id, 'ydental_revision': session.ydental_revision, 'ydental_kind': kind,
                 'ydental_source_id': source_id, 'ydental_version': version, 'ydental_purpose': purpose,
