@@ -55,11 +55,11 @@ class YDentalTreatment(http.Controller):
         consumptions = service._model('consumption').search([('ydental_event_id', 'in', events.ids)])
         mappings = service.env['ydental.intake.service']._model('mapping').search([('ydental_store_id', '=', store.id), ('active', '=', True)])
         target_mappings = service.env['ydental.intake.service']._model('mapping').search([
-            ('ydental_store_id', '!=', store.id), ('ydental_store_id.company_id', 'in', service.env.user.sudo().company_ids.ids), ('active', '=', True)]) if role == 'medical' else []
+            ('ydental_store_id', '!=', store.id), ('active', '=', True)]) if role == 'medical' else []
         batches = service.env['ydental.inventory.service']._model('batch').search(domain)
         lots = batches.ydental_lot_id
         products = service.env['product.product'].sudo().search([('ydental_inventory_kind', '=', 'medicine'),
-            ('company_id', 'in', [False, store.company_id.id]), ('active', '=', True)]) if role == 'medical' else []
+            ('company_id', 'in', [False, store.company_id.id]), ('active', '=', True)]) if role in ('medical', 'price') else []
         for order in orders:
             service._audit('order_view', order)
         for event in events:
@@ -71,6 +71,7 @@ class YDentalTreatment(http.Controller):
             'referral_receipts': service._model('receipt').search([('ydental_store_id', '=', store.id), ('ydental_actor_id', '=', service.env.uid), ('name', '=', 'refer')], order='id desc', limit=20) if role == 'medical' else service._model('receipt'),
             'consumptions': consumptions, 'currency_id': store.company_id.currency_id.id,
             'orders': orders, 'lines': lines, 'segments': segments, 'events': events,
+            'medicine_links': service._model('medicine.link').search(domain),
             'mappings': mappings, 'target_mappings': target_mappings, 'lots': lots, 'products': products,
             'remaining': service._remaining, 'event_result': service._event_result,
             'revision': service.env['ydental.access.service']._scope().ydental_revision,

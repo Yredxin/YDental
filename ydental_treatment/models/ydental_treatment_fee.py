@@ -10,6 +10,8 @@ class YDentalTreatmentFee(models.Model):
     ydental_parent_id = fields.Many2one('ydental.treatment.fee', ondelete='restrict')
     ydental_price_snapshot_id = fields.Many2one('ydental.intake.snapshot', ondelete='restrict')
     ydental_price_review_id = fields.Many2one('ydental.treatment.price.review', ondelete='restrict')
+    ydental_medicine_link_id = fields.Many2one('ydental.treatment.medicine.link', ondelete='restrict')
+    ydental_product_id = fields.Many2one('product.product', ondelete='restrict')
     ydental_quantity = fields.Float(required=True, digits='Product Unit')
     ydental_unit_price = fields.Float(required=True, digits=(16, 6))
     ydental_currency_id = fields.Many2one('res.currency', required=True, ondelete='restrict')

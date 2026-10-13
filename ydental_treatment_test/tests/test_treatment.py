@@ -269,7 +269,7 @@ class TestActualTreatment(TransactionCase):
         with self.assertRaises(UserError):s._operate('refer',a|{'mode':'untimed','mapping_id':self.mappings[1][0].id,'reason':'Expired target must fail','valid_until':str(fields.Datetime.now()-timedelta(minutes=1)),'source':key()},key())
         self.assertEqual(self.root['ydental.supply.claim'].search_count([]),before)
 
-    def test_cross_legal_entity_referral_needs_explicit_source_account_authority(self):
+    def test_cross_legal_entity_referral_uses_trusted_source_without_target_account_authority(self):
         s,c,q,l,e,d,a=opened_actual(self)
         company=self.root['res.company'].create({'name':'Synthetic independent B legal entity'})
         store=self.root['ydental.access.store'].create({'name':'Synthetic independent B store '+key(),'company_id':company.id,'ydental_timezone':'UTC'})
@@ -277,8 +277,9 @@ class TestActualTreatment(TransactionCase):
         area=self.root['ydental.space.area'].create({'name':'Synthetic B area','ydental_store_id':store.id,'ydental_floor_id':floor.id,'ydental_purpose':'care','ydental_reporting':True})
         self.root['ydental.space.station'].create({'name':'Synthetic target chair','ydental_store_id':store.id,'ydental_floor_id':floor.id,'ydental_area_id':area.id,'ydental_add_capability_ids':[fields.Command.set(self.capabilities[0].ids)]})
         mapping=self.root['ydental.intake.mapping']._new({'name':'Synthetic B legal target','ydental_store_id':store.id,'ydental_category':'frontdesk','ydental_catalog_id':self.catalogs[0].id,'ydental_area_id':area.id,'ydental_execution_area_id':area.id})
-        with self.assertRaises(AccessError):s._operate('refer',a|{'mode':'untimed','mapping_id':mapping.id,'reason':'No source account legal authority','valid_until':str(fields.Datetime.now()+timedelta(days=1)),'source':key()},key())
-        self.assertFalse(self.root['ydental.intake.referral'].search_count([('ydental_mapping_id','=',mapping.id)]))
+        result=s._operate('refer',a|{'mode':'untimed','mapping_id':mapping.id,'reason':'Trusted S05 source authority only','valid_until':str(fields.Datetime.now()+timedelta(days=1)),'source':key()},key())
+        self.assertTrue(result['id'])
+        with self.assertRaises(AccessError):s.env['ydental.intake.mapping'].browse(mapping.id).write({'name':'Arbitrary target mutation'})
 
     def test_actual_chairside_medicine_has_no_takeaway_task(self):
         receive(self,20,'medicine');price(self,catalog=self.drug_catalog,amount=10)

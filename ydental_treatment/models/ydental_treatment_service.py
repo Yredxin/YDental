@@ -65,6 +65,7 @@ class YDentalTreatmentService(models.AbstractModel):
         handlers = {'execute': self._execute, 'order': self._draft_order, 'edit_order': self._edit_order,
             'issue': self._issue, 'cancel_exam': self._cancel_exam, 'dispense': self._dispense,
             'finish': self._finish, 'reconcile': self._reconcile, 'review_price': self._review_price,
+            'publish_medicine': self._publish_medicine, 'verify_medicine': self._verify_medicine,
             'correct': self._correct, 'return_material': self._return_material, 'refer': self._refer}
         if operation not in handlers or not isinstance(payload, dict) or not isinstance(key, str) or not 1 <= len(key) <= 120:
             raise ValidationError(self.env._('invalid_action: Supply a documented action and stable request key.'))
@@ -72,8 +73,8 @@ class YDentalTreatmentService(models.AbstractModel):
             inspect.signature(handlers[operation]).bind(**payload)
         except TypeError as error:
             raise ValidationError(self.env._('invalid_action: Unknown or missing execution arguments.')) from error
-        category = 'pharmacy' if operation in ('dispense', 'finish') else 'price' if operation == 'review_price' else 'medical'
-        if operation in ('reconcile', 'return_material'):
+        category = 'pharmacy' if operation in ('dispense', 'finish') else 'price' if operation in ('review_price', 'publish_medicine') else 'medical'
+        if operation in ('reconcile', 'return_material', 'verify_medicine'):
             event = self._model('event').browse(self.env['ydental.intake.service']._id(payload.get('event_id'))).exists()
             if event and event.ydental_kind == 'prescription':
                 category = 'pharmacy'
@@ -142,6 +143,105 @@ class YDentalTreatmentService(models.AbstractModel):
             raise AccessError(self.env._('qualification_required: The project needs an approved store mapping, workstation capability and actual practitioner qualification.'))
         return catalog
 
+    def _medicine_link(self, store, *, product=None, catalog=None, required=True):
+        domain = fields.Domain('ydental_store_id', '=', store.id)
+        if product:
+            domain &= fields.Domain('ydental_product_id', '=', product.id)
+        if catalog:
+            domain &= fields.Domain('ydental_catalog_id', '=', catalog.id)
+        links = self._model('medicine.link').search(domain)
+        if len(links) != 1:
+            if required:
+                raise UserError(self.env._('medicine_price_unverified: Publish an evidenced store SKU and fee catalog association before new medication execution.'))
+            return self._model('medicine.link')
+        return links
+
+    def _publish_medicine(self, product_id, catalog_id, uom_id, evidence, policy):
+        store = self._access('price')
+        if policy != 'demo_confirmation':
+            raise UserError(self.env._('policy_unpublished: Production price policy awaits approval.'))
+        intake = self.env['ydental.intake.service']
+        product = self.env['product.product'].sudo().browse(intake._id(product_id)).exists()
+        catalog = intake._get('catalog', catalog_id)
+        if not product or not product.active or product.ydental_inventory_kind != 'medicine' or (
+                product.company_id and product.company_id != store.company_id) or not catalog.active or catalog.ydental_kind != 'medicine' or (
+                product.uom_id.id != intake._id(uom_id) or product.uom_id != catalog.ydental_product_id.uom_id):
+            raise ValidationError(self.env._('medicine_price_unverified: Associate one real medicine SKU with its exact native unit and medicine fee catalog.'))
+        if not intake._model('mapping').search_count([('ydental_store_id', '=', store.id),
+                ('ydental_catalog_id', '=', catalog.id), ('active', '=', True)]):
+            raise AccessError(self.env._('medicine_price_unverified: The fee catalog needs an approved mapping in this store.'))
+        evidence = intake._text(evidence)
+        prior = self._model('medicine.link').search(fields.Domain('ydental_store_id', '=', store.id) & (
+            fields.Domain('ydental_product_id', '=', product.id) | fields.Domain('ydental_catalog_id', '=', catalog.id)))
+        if prior:
+            raise UserError(self.env._('medicine_price_unverified: A published SKU association is immutable; shared generic medicine pricing has no approved policy.'))
+        version, values = intake._quote(store, catalog.id, store.company_id.currency_id.id, 1)
+        link = self._model('medicine.link')._new({'name': product.name, 'ydental_store_id': store.id,
+            'ydental_category': 'price', 'ydental_actor_id': self.env.uid, 'ydental_product_id': product.id,
+            'ydental_catalog_id': catalog.id, 'ydental_uom_id': product.uom_id.id,
+            'ydental_price_id': version.id, 'ydental_currency_id': version.ydental_currency_id.id,
+            'ydental_product_name': product.name, 'ydental_evidence': evidence,
+            'ydental_published_at': fields.Datetime.now(), 'ydental_policy': policy})
+        self._audit('medicine_price_published', link, {'product_id': product.id, 'catalog_id': catalog.id, 'price_id': version.id}, evidence)
+        return {'link_id': link.id, 'product_id': product.id, 'catalog_id': catalog.id, 'price_id': version.id}
+
+    def _check_medication(self, link, rows, quantity, expected_product=None, correction=False):
+        if not link or (expected_product and link.ydental_product_id != expected_product):
+            raise UserError(self.env._('medicine_price_unverified: The actual SKU has no matching published fee source.'))
+        if correction and quantity < 0 and not rows:
+            return
+        if not rows or any(self.env['stock.lot'].sudo().browse(row['lot_id']).product_id != link.ydental_product_id or
+                row['uom_id'] != link.ydental_uom_id.id or row['kind'] not in ('chairside', 'prescription') for row in rows) or (
+                link.ydental_uom_id.compare(sum(row['quantity'] for row in rows), quantity) != 0):
+            raise UserError(self.env._('medicine_evidence_missing: Verify exact medicine SKU, native unit, batches and total actual quantity before confirming fee and stock.'))
+
+    def _validate_prescription(self, lines):
+        intake = self.env['ydental.intake.service']
+        for line in lines:
+            product = line.ydental_product_id
+            mapping = line.ydental_mapping_id
+            if not product or not product.active or product.ydental_inventory_kind != 'medicine' or (
+                    product.company_id and product.company_id != line.ydental_store_id.company_id) or (
+                    not mapping.active or not mapping.ydental_catalog_id.active or mapping.ydental_catalog_id.ydental_kind != 'medicine' or
+                    mapping.ydental_store_id != line.ydental_store_id or line.ydental_uom_id != product.uom_id or
+                    line.ydental_uom_id != mapping.ydental_catalog_id.ydental_product_id.uom_id):
+                raise ValidationError(self.env._('invalid_order: Verify the actual active medicine, native unit and pharmacy direction before issue.'))
+            self._quantity(line.ydental_quantity, line.ydental_uom_id)
+            for field in ('specification', 'usage', 'frequency', 'course'):
+                self.env['ydental.patient.service']._text(line['ydental_' + field], maximum=240, required=True)
+
+    def _verify_medicine(self, event_id, materials, evidence):
+        event = self._model('event').browse(self.env['ydental.intake.service']._id(event_id)).exists()
+        category = 'pharmacy' if event and event.ydental_kind == 'prescription' else 'medical'
+        event = self._get('event', event_id, category)
+        evidence = self.env['ydental.intake.service']._text(evidence)
+        if event.ydental_actor_id.id != self.env.uid or not event.ydental_already_performed or event.state != 'pending' or (
+                event.ydental_pending_reason != 'medicine_evidence_missing' or self._model('consumption').search_count([('ydental_event_id', '=', event.id)])):
+            raise AccessError(self.env._('medicine_evidence_missing: Only the original operator may append batch evidence to this unresolved actual medication fact.'))
+        rows = self._material_rows(materials, category, event.ydental_store_id)
+        link = self._medicine_link(event.ydental_store_id, product=event.ydental_product_id) if event.ydental_kind == 'prescription' else self._medicine_link(event.ydental_store_id, catalog=event.ydental_catalog_id)
+        self._check_medication(link, rows, event.ydental_quantity, event.ydental_product_id)
+        if not event.ydental_price_snapshot_id and not event.ydental_price_review_id:
+            event._save({'ydental_catalog_id': link.ydental_catalog_id.id})
+        elif event.ydental_catalog_id != link.ydental_catalog_id:
+            raise UserError(self.env._('medicine_price_unverified: The verified SKU must retain the original fee catalog and historical price.'))
+        event._save({'ydental_medicine_link_id': link.id, 'ydental_product_id': link.ydental_product_id.id,
+            'ydental_medication_review': evidence, 'ydental_pending_reason': False})
+        if not self._price_values(event):
+            try:
+                self._quote(event)
+            except UserError as error:
+                if not str(error).startswith('missing_price:'):
+                    raise
+                event._save({'ydental_pending_reason': 'missing_price'})
+        for row in rows:
+            self._new('consumption', event, {'name': event.ydental_source, 'ydental_event_id': event.id,
+                'ydental_lot_id': row['lot_id'], 'ydental_quantity': row['quantity'],
+                'ydental_uom_id': row['uom_id'], 'ydental_kind': row['kind']})
+        self._bookkeep(event)
+        self._audit('medicine_evidence_verified', event, {'link_id': link.id, 'materials': rows}, evidence)
+        return self._event_result(event)
+
     def _quote(self, event):
         intake = self.env['ydental.intake.service']
         # Freeze at the actual event time. A future replacement is never used
@@ -183,7 +283,7 @@ class YDentalTreatmentService(models.AbstractModel):
         return result
 
     def _event(self, execution, catalog, quantity, source, reason, rows, *, doc=None, teeth=None,
-               already_performed=False, kind='treatment', line=None, parent=None, actual_at=None):
+               already_performed=False, kind='treatment', line=None, parent=None, actual_at=None, medicine_link=None, expected_product=None):
         if not isinstance(source, str) or not 1 <= len(source) <= 120 or type(already_performed) is not bool:
             raise ValidationError(self.env._('invalid_source: Supply a stable source identifier and explicit fact status.'))
         if not (kind == 'correction' and type(quantity) in (int, float) and quantity == 0 and rows):
@@ -202,10 +302,25 @@ class YDentalTreatmentService(models.AbstractModel):
             if prior.ydental_fingerprint != digest or prior.ydental_actor_id.id != self.env.uid:
                 raise UserError(self.env._('version_conflict: This clinical source already has immutable execution parameters.'))
             return self._event_result(prior)
+        medication = kind in ('chairside', 'prescription') or bool(parent and parent.ydental_medicine_link_id)
+        evidence_missing = False
+        if medication:
+            medicine_link = medicine_link or (parent.ydental_medicine_link_id if parent else self._medicine_link(execution.ydental_store_id, catalog=catalog, required=False))
+            if expected_product and medicine_link and medicine_link.ydental_product_id != expected_product:
+                medicine_link = self._model('medicine.link')
+            try:
+                self._check_medication(medicine_link, rows, quantity, expected_product, correction=bool(parent))
+            except UserError:
+                if not already_performed:
+                    raise
+                evidence_missing = True
         event = self._new('event', execution, {'name': catalog.name, 'ydental_execution_id': execution.id,
             'ydental_document_id': doc.id if doc else False, 'ydental_document_version': doc.ydental_version if doc else 0,
             'ydental_order_line_id': line.id if line else False, 'ydental_source': source, 'ydental_fingerprint': digest,
-            'ydental_kind': kind, 'ydental_catalog_id': catalog.id, 'ydental_quantity': quantity,
+            'ydental_kind': kind, 'ydental_catalog_id': catalog.id,
+            'ydental_medicine_link_id': medicine_link.id if medicine_link else False,
+            'ydental_product_id': expected_product.id if expected_product else medicine_link.ydental_product_id.id if medicine_link else False,
+            'ydental_reported_materials': rows, 'ydental_quantity': quantity,
             'ydental_uom_id': catalog.ydental_product_id.uom_id.id, 'ydental_teeth': teeth,
             'ydental_actual_at': moment, 'ydental_business_date': self.env['ydental.supply.service']._date(execution.ydental_store_id, moment),
             'ydental_station_id': execution.ydental_lease_id.ydental_station_id.id, 'ydental_reason': reason,
@@ -213,13 +328,16 @@ class YDentalTreatmentService(models.AbstractModel):
         if parent:
             event._save({'ydental_price_snapshot_id': parent.ydental_price_snapshot_id.id,
                 'ydental_price_review_id': parent.ydental_price_review_id.id})
-        else:
+        elif not medication or medicine_link:
             try:
                 self._quote(event)
             except UserError as error:
                 if not already_performed or not str(error).startswith('missing_price:'):
                     raise
                 event._save({'ydental_pending_reason': 'missing_price'})
+        if evidence_missing:
+            event._save({'ydental_pending_reason': 'medicine_evidence_missing'})
+            rows = []
         for row in rows:
             self._new('consumption', event, {'name': source, 'ydental_event_id': event.id,
                 'ydental_lot_id': row['lot_id'], 'ydental_quantity': row['quantity'],
@@ -245,6 +363,8 @@ class YDentalTreatmentService(models.AbstractModel):
             self._audit('bookkeeping_pending', event, {'failure_code': str(error).split(':')[0][:120]})
 
     def _settle(self, event):
+        if event.ydental_pending_reason == 'medicine_evidence_missing':
+            return
         price = self._price_values(event)
         if not price:
             event._save({'ydental_pending_reason': 'missing_price'})
@@ -252,6 +372,10 @@ class YDentalTreatmentService(models.AbstractModel):
         pending = []
         rows = self._model('consumption').search([('ydental_event_id', '=', event.id)])
         inventory = self.env['ydental.inventory.service']
+        if event.ydental_kind in ('chairside', 'prescription') or event.ydental_medicine_link_id:
+            self._check_medication(event.ydental_medicine_link_id, [
+                {'lot_id': r.ydental_lot_id.id, 'quantity': r.ydental_quantity, 'uom_id': r.ydental_uom_id.id, 'kind': r.ydental_kind}
+                for r in rows], event.ydental_quantity, event.ydental_product_id, correction=bool(event.ydental_parent_id))
         # If a real historical project is short in any batch, persist its S07
         # pending fact first and defer every other issue. No partial native
         # consumption is posted merely because another material was available.
@@ -285,6 +409,7 @@ class YDentalTreatmentService(models.AbstractModel):
             parent_fee = self._model('fee').search([('ydental_event_id', '=', event.ydental_parent_id.id)], limit=1) if event.ydental_parent_id else False
             self._new('fee', event, {'name': event.name, 'ydental_event_id': event.id,
                 'ydental_parent_id': parent_fee.id if parent_fee else False,
+                'ydental_medicine_link_id': event.ydental_medicine_link_id.id, 'ydental_product_id': event.ydental_product_id.id,
                 'ydental_price_snapshot_id': event.ydental_price_snapshot_id.id,
                 'ydental_price_review_id': event.ydental_price_review_id.id,
                 'ydental_quantity': event.ydental_quantity, 'ydental_unit_price': price['unit_price'],
@@ -349,6 +474,8 @@ class YDentalTreatmentService(models.AbstractModel):
         if parent.ydental_patient_id != execution.ydental_patient_id or parent.ydental_kind not in ('treatment', 'chairside') or parent.state != 'confirmed':
             raise UserError(self.env._('correction_required: Select a confirmed treatment source for this patient.'))
         self._project(execution, parent.ydental_catalog_id.id)
+        if parent.ydental_kind == 'chairside' and not parent.ydental_medicine_link_id:
+            raise UserError(self.env._('medicine_evidence_missing: Historical medication needs a separately evidenced review before new corrections.'))
         if not (type(delta) in (int, float) and delta == 0 and materials):
             self._quantity(delta, parent.ydental_uom_id, signed=True)
         corrections = self._model('event').search([('ydental_parent_id', '=', parent.id)])
@@ -397,7 +524,7 @@ class YDentalTreatmentService(models.AbstractModel):
                     raise ValidationError(self.env._('invalid_order: Select a real active S07 medicine and matching native stock and service units.'))
                 values['ydental_product_id'] = product.id
                 for field in ('specification', 'usage', 'frequency', 'course'):
-                    values['ydental_' + field] = intake._text(row[field])
+                    values['ydental_' + field] = self.env['ydental.patient.service']._text(row[field], maximum=240)
                 # One pharmacy task has one exact service mapping. Multiple
                 # medicines may share it; different service directions require
                 # independent prescriptions and explicit reporting.
@@ -462,6 +589,8 @@ class YDentalTreatmentService(models.AbstractModel):
         lines = self._model('line').search([('ydental_order_id', '=', order.id), ('state', '=', 'draft')])
         if not lines:
             raise ValidationError(self.env._('invalid_order: An order needs at least one explicit line.'))
+        if order.ydental_kind == 'prescription':
+            self._validate_prescription(lines)
         order._save({'state': 'issued', 'ydental_version': version + 1})
         lines._save({'state': 'issued'})
         if order.ydental_kind == 'prescription':
@@ -530,8 +659,10 @@ class YDentalTreatmentService(models.AbstractModel):
         lot = self.env['ydental.inventory.service']._lot(lot_id, order.ydental_store_id)
         if lot.product_id != line.ydental_product_id:
             raise ValidationError(self.env._('source_category_mismatch: The batch must contain the exact prescribed medicine.'))
-        result = self._event(execution, line.ydental_mapping_id.ydental_catalog_id, quantity, source, reason,
-            [{'lot_id': lot.id, 'quantity': quantity, 'uom_id': line.ydental_uom_id.id, 'kind': 'prescription'}], kind='prescription', line=line, already_performed=already_performed)
+        self._validate_prescription(line)
+        link = self._medicine_link(order.ydental_store_id, product=line.ydental_product_id, required=not already_performed)
+        result = self._event(execution, link.ydental_catalog_id if link else line.ydental_mapping_id.ydental_catalog_id, quantity, source, reason,
+            [{'lot_id': lot.id, 'quantity': quantity, 'uom_id': line.ydental_uom_id.id, 'kind': 'prescription'}], kind='prescription', line=line, already_performed=already_performed, medicine_link=link, expected_product=line.ydental_product_id)
         self._audit('actual_dispense', order, dict(result, line_id=line.id, remaining=self._remaining(line)))
         return dict(result, line_id=line.id, remaining=self._remaining(line))
 
@@ -562,8 +693,6 @@ class YDentalTreatmentService(models.AbstractModel):
         mapping = intake._target(mapping_id)
         if mapping.ydental_store_id == execution.ydental_store_id or mode not in ('timed', 'untimed'):
             raise ValidationError(self.env._('invalid_referral: Select an exact target service in another store.'))
-        if mapping.ydental_store_id.company_id not in self.env.user.sudo().company_ids:
-            raise AccessError(self.env._('access_denied: Cross-legal-entity referral requires explicit account company authorization.'))
         args = {'source_task_id': execution.ydental_task_id.id, 'version': execution.ydental_task_id.ydental_version,
             'mapping_id': mapping.id, 'reason': intake._text(reason)}
         if mode == 'timed':

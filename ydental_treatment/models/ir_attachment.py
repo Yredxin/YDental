@@ -8,4 +8,4 @@ class IrAttachment(models.Model):
         return super()._ydental_blocked_source_models() + (
             'ydental.treatment.event', 'ydental.treatment.fee', 'ydental.treatment.order',
             'ydental.treatment.line', 'ydental.treatment.segment', 'ydental.treatment.consumption',
-            'ydental.treatment.price.review', 'ydental.treatment.receipt')
+            'ydental.treatment.medicine.link', 'ydental.treatment.price.review', 'ydental.treatment.receipt')

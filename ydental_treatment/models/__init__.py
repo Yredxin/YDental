@@ -14,3 +14,4 @@ from . import ydental_queue_execution
 from . import ydental_queue_entry
 from . import ydental_queue_service
 from . import ir_attachment
+from . import ydental_treatment_medicine_link

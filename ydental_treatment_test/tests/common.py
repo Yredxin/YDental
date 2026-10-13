@@ -141,7 +141,14 @@ def price(cls, amount=600, service=None, catalog=None, start=None, end=None, rep
     args = {'record_id': record['id'], 'version': record['version'], 'reason': 'S06A publish'}
     if replace:
         args.update(replace_id=replace.id, replace_version=replace.ydental_version)
-    return service._operate('publish', args, key())
+    published = service._operate('publish', args, key())
+    if hasattr(cls, 'drug_catalog') and catalog == cls.drug_catalog:
+        controlled = service.env['ydental.queue.service']._bind_connection(key() + key()).env['ydental.treatment.service']
+        if not controlled._medicine_link(cls.stores[0], product=cls.root['product.product'].browse(cls.products['medicine']), required=False):
+            controlled._operate('publish_medicine', {'catalog_id': cls.drug_catalog.id,
+                'product_id': cls.products['medicine'], 'uom_id': cls.uom.id,
+                'evidence': 'Explicit synthetic SKU to reviewed service price association', 'policy': 'demo_confirmation'}, key())
+    return published
 
 
 

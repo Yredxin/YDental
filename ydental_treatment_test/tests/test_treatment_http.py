@@ -84,3 +84,27 @@ class TestTreatmentHTTP(TestClinicalHTTP):
             'line_id':order['line_ids'][0],'lot_id':self.lots['medicine'],'quantity':4,
             'source':key(),'reason':'Synthetic actual four','already_performed':False,'policy':'demo_confirmation'})
         self.assertEqual(dispense.status_code,200,dispense.text)
+
+    def test_http_rework_blank_rx_draft_issue_reject_then_complete(self):
+        args=self.medical()
+        line={'mapping_id':self.drug_mapping.id,'quantity':6,'uom_id':self.uom.id,'product_id':self.products['medicine'],
+            'specification':'','usage':'  ','frequency':'','course':''}
+        draft=self.t_action('order',args|{'kind':'prescription','purpose':'Incomplete HTTP draft','lines':[line]})
+        self.assertEqual(draft.status_code,200,draft.text)
+        issue=self.t_action('issue',args|{'order_id':draft.json()['order_id'],'version':draft.json()['version']})
+        self.assertEqual(issue.status_code,409,issue.text)
+        self.assertEqual(self.root['ydental.treatment.order'].browse(draft.json()['order_id']).state,'draft')
+        line.update(specification='Synthetic reviewed specification',usage='Explicit usage',frequency='Explicit frequency',course='Explicit course')
+        edit=self.t_action('edit_order',args|{'order_id':draft.json()['order_id'],'version':draft.json()['version'],'purpose':'Completed HTTP draft','lines':[line]})
+        self.assertEqual(edit.status_code,200,edit.text)
+        issue=self.t_action('issue',args|{'order_id':edit.json()['order_id'],'version':edit.json()['version']})
+        self.assertEqual(issue.status_code,200,issue.text);self.assertTrue(issue.json()['task_ids'])
+
+    def test_http_rework_empty_chairside_and_price_publish_denied(self):
+        price(self,catalog=self.drug_catalog,amount=10);args=self.medical()
+        dose=self.dose(args)|{'catalog_id':self.drug_catalog.id,'materials':[]}
+        response=self.t_action('execute',dose);self.assertEqual(response.status_code,409,response.text)
+        self.assertFalse(self.root['ydental.treatment.event'].search_count([('ydental_execution_id','=',args['execution_id'])]))
+        response=self.t_action('publish_medicine',{'catalog_id':self.drug_catalog.id,'product_id':self.products['medicine'],
+            'uom_id':self.uom.id,'evidence':'Medical role has no price publication authority','policy':'demo_confirmation'})
+        self.assertEqual(response.status_code,403,response.text)

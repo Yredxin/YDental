@@ -50,6 +50,8 @@ if (root) {
         if (op === 'reconcile') { return {event_id: Number(event.dataset.event), reason: data.reason}; }
         if (op === 'correct') { return {...actual, event_id: Number(event.dataset.event), delta: Number(data.delta),
             source: form.dataset.source, reason: data.reason, materials: data.lot_id ? [{lot_id: Number(data.lot_id), quantity: Number(data.material_quantity), uom_id: Number(form.querySelector('[name="lot_id"] option:checked').dataset.uom), kind: form.querySelector('[name="lot_id"] option:checked').dataset.kind}] : []}; }
+        if (op === 'publish_medicine') { return {product_id: Number(data.product_id), catalog_id: Number(data.catalog_id), uom_id: Number(form.querySelector('[name="product_id"] option:checked').dataset.uom), evidence: data.evidence, policy: 'demo_confirmation'}; }
+        if (op === 'verify_medicine') { const batch = form.querySelector('[name="lot_id"] option:checked'); return {event_id: Number(event.dataset.event), evidence: data.evidence, materials: [{lot_id: Number(data.lot_id), quantity: Number(data.quantity), uom_id: Number(batch.dataset.uom), kind: batch.dataset.kind}]}; }
         if (op === 'review_price') { return {event_id: Number(event.dataset.event), unit_price: Number(data.unit_price), currency_id: Number(root.dataset.currency), evidence: data.evidence}; }
         if (op === 'return_material') { return {event_id: Number(event.dataset.event), inventory_event_id: Number(form.dataset.inventoryEvent), quantity: Number(data.quantity), uom_id: Number(form.dataset.uom), source: form.dataset.source, reason: data.reason}; }
         if (op === 'refer') { return {...actual, mapping_id: Number(data.mapping_id), mode: data.mode, source: form.dataset.source,

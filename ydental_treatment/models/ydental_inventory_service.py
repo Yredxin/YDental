@@ -38,6 +38,13 @@ class YDentalInventoryService(models.AbstractModel):
                 event.ydental_category != category or not event.ydental_source or
                 not event.ydental_execution_id or not event.ydental_reason):
             raise AccessError(self.env._('source_required: Only the immutable actual clinical source can derive inventory.'))
+        if event.ydental_kind in ('chairside', 'prescription') or event.ydental_medicine_link_id:
+            rows = service._model('consumption').search([('ydental_event_id', '=', event.id)])
+            service._check_medication(event.ydental_medicine_link_id, [
+                {'lot_id': r.ydental_lot_id.id, 'quantity': r.ydental_quantity, 'uom_id': r.ydental_uom_id.id, 'kind': r.ydental_kind}
+                for r in rows], event.ydental_quantity, event.ydental_product_id, correction=bool(event.ydental_parent_id))
+            if event.ydental_catalog_id != event.ydental_medicine_link_id.ydental_catalog_id:
+                raise AccessError(self.env._('medicine_price_unverified: Inventory and fees must use the exact published SKU price source.'))
         price = service._price_values(event)
         if not price:
             raise AccessError(self.env._('missing_price: Verify the original historical price before inventory bookkeeping.'))
