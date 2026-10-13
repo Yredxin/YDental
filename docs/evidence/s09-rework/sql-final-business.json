@@ -1,0 +1,118 @@
+{
+  "database": "ydental_s09_test_20261013112825_b6d907e2",
+  "lines": [
+    {
+      "id": 226,
+      "state": "done",
+      "ydental_task_id": 712
+    },
+    {
+      "id": 227,
+      "state": "done",
+      "ydental_task_id": 713
+    }
+  ],
+  "events": [
+    {
+      "id": 101,
+      "ydental_order_line_id": 147,
+      "state": "confirmed",
+      "ydental_pending_reason": null,
+      "ydental_price_snapshot_id": 87,
+      "ydental_already_performed": true
+    },
+    {
+      "id": 152,
+      "ydental_order_line_id": 225,
+      "state": "pending",
+      "ydental_pending_reason": "missing_price",
+      "ydental_price_snapshot_id": null,
+      "ydental_already_performed": true
+    },
+    {
+      "id": 153,
+      "ydental_order_line_id": 226,
+      "state": "confirmed",
+      "ydental_pending_reason": null,
+      "ydental_price_snapshot_id": 131,
+      "ydental_already_performed": true
+    },
+    {
+      "id": 154,
+      "ydental_order_line_id": 227,
+      "state": "confirmed",
+      "ydental_pending_reason": null,
+      "ydental_price_snapshot_id": 132,
+      "ydental_already_performed": true
+    }
+  ],
+  "fees": [
+    {
+      "id": 83,
+      "ydental_event_id": 101,
+      "ydental_amount": "80.00",
+      "ydental_price_snapshot_id": 87
+    },
+    {
+      "id": 125,
+      "ydental_event_id": 153,
+      "ydental_amount": "80.00",
+      "ydental_price_snapshot_id": 131
+    },
+    {
+      "id": 126,
+      "ydental_event_id": 154,
+      "ydental_amount": "120.00",
+      "ydental_price_snapshot_id": 132
+    }
+  ],
+  "consumptions": [
+    {
+      "id": 118,
+      "ydental_event_id": 153,
+      "ydental_quantity": "1.00",
+      "ydental_inventory_event_id": 248
+    }
+  ],
+  "native_moves": [
+    {
+      "inventory_event": 248,
+      "ydental_move_id": 286,
+      "state": "done",
+      "quantity": "1.00"
+    }
+  ],
+  "results": [
+    {
+      "ydental_line_id": 226,
+      "ydental_version": 3,
+      "state": "confirmed",
+      "ydental_measurements": {
+        "length_mm": {
+          "unit": "mm",
+          "value": 13,
+          "status": "known"
+        }
+      }
+    },
+    {
+      "ydental_line_id": 227,
+      "ydental_version": 2,
+      "state": "confirmed",
+      "ydental_measurements": {
+        "length_mm": {
+          "unit": "mm",
+          "value": null,
+          "status": "unknown"
+        }
+      }
+    }
+  ],
+  "pending_departure": {
+    "pending_execution": 534,
+    "state": "completed",
+    "ended_at": "2026-10-13 11:40:51",
+    "lease_active": false,
+    "lease_release_reason": "holder_exit"
+  }
+}

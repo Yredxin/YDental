@@ -1,0 +1,105 @@
+{
+  "database": "ydental_s09_test_20261013112825_b6d907e2",
+  "checks": [
+    "frontdesk store switch",
+    "panorama S06 pending task visible",
+    "panorama report clicked",
+    "examiner store switch",
+    "panorama station enter button",
+    "real S06 station held",
+    "panorama call clicked",
+    "real panorama service started",
+    "actual panorama draft form",
+    "actual draft button enabled",
+    "known measurement restored in real form",
+    "attachment button present",
+    "attachment download link visible",
+    "attachment downloaded exact bytes",
+    "real material batch offered in examination form",
+    "actual event fee source visible",
+    "confirmed result form visible",
+    "correction created distinct version and measurement",
+    "exam station released",
+    "one S06 continuation visible",
+    "continuation reported by real button",
+    "doctor store switch",
+    "area shared task uses S06 continuation",
+    "partial panorama and unfinished CBCT both visible",
+    "continuation doctor enters existing medical station",
+    "one continuation called to new doctor",
+    "new doctor sees current confirmed result",
+    "new doctor opens own independent clinical document",
+    "new doctor saves the current medical source",
+    "prior-day unfinished CBCT has doctor revalidation button",
+    "doctor revalidation stored; no repeat button",
+    "current doctor reopens saved clinical document",
+    "current doctor hands over saved continuation",
+    "doctor station released after handover",
+    "revalidated CBCT remains one original S06 task",
+    "CBCT called separately from panorama",
+    "CBCT original line completed once",
+    "area keeps both confirmed results for one S06 continuation",
+    "reader store switch",
+    "read only user has no examination write button",
+    "read only Firefox RPC write denied",
+    "none store switch",
+    "ungranted Firefox workbench denied",
+    "Firefox page errors zero"
+  ],
+  "screenshots": [
+    {
+      "file": "docs/evidence/s09-rework/browser-actions/20261013T114152656340/01-frontdesk-report.png",
+      "sha256": "792a717a51e8647470b1190e5d7f302c1d152a27fc2440c6ebccf94ea684b759"
+    },
+    {
+      "file": "docs/evidence/s09-rework/browser-actions/20261013T114152656340/02-queue-call-start.png",
+      "sha256": "dd2ea8fc2428910001d35a3231203372e71ab1d155e162df15863b69299458b5"
+    },
+    {
+      "file": "docs/evidence/s09-rework/browser-actions/20261013T114152656340/03-measurement-saved.png",
+      "sha256": "3d9977da8c6937cd11dda7a2e4ca95e28aafa2fb458f142c026cc7c89bccbaaa"
+    },
+    {
+      "file": "docs/evidence/s09-rework/browser-actions/20261013T114152656340/04-attachment.png",
+      "sha256": "200aa222ee00695747d731fd8e15a97b70cfaed951bef42a55c6c2242ef34c20"
+    },
+    {
+      "file": "docs/evidence/s09-rework/browser-actions/20261013T114152656340/05-finished-partial.png",
+      "sha256": "6ca3b2f8aa437471a5e95c34260446838648e817e26be0d0e381b1f81eba21bb"
+    },
+    {
+      "file": "docs/evidence/s09-rework/browser-actions/20261013T114152656340/06-partial-return-report.png",
+      "sha256": "9a7899c7fddcc5ffeedd129793ffeea9685ac02984f3510bc24d4539c9e4fa3c"
+    },
+    {
+      "file": "docs/evidence/s09-rework/browser-actions/20261013T114152656340/07-area-shared-partial-result.png",
+      "sha256": "d435bbc12c8bdab8f2194fd462ce3155d15e7b9ce0892f9203ab783cd3001cce"
+    },
+    {
+      "file": "docs/evidence/s09-rework/browser-actions/20261013T114152656340/08-new-doctor-current-result.png",
+      "sha256": "0ad24e36842f8f429e5510ebce797d696982f2f55e0a821467d60a2f651313fc"
+    },
+    {
+      "file": "docs/evidence/s09-rework/browser-actions/20261013T114152656340/09-prior-day-doctor-revalidated.png",
+      "sha256": "0ad24e36842f8f429e5510ebce797d696982f2f55e0a821467d60a2f651313fc"
+    },
+    {
+      "file": "docs/evidence/s09-rework/browser-actions/20261013T114152656340/10-cbct-next-day-report.png",
+      "sha256": "a68a3f1634cefedc5f605c6c1305b3842b6be3d45f999a5121e72a2d0dc1c19e"
+    },
+    {
+      "file": "docs/evidence/s09-rework/browser-actions/20261013T114152656340/11-cbct-completed.png",
+      "sha256": "53d3db812d930efd4a1356bab56cd0e6eec882280e17f868a78349972f75be70"
+    },
+    {
+      "file": "docs/evidence/s09-rework/browser-actions/20261013T114152656340/12-area-both-results.png",
+      "sha256": "c3bba672eb756de4a5fbc31dc54f7adecadbe99ec5dc9a2607c815cc78ff975a"
+    },
+    {
+      "file": "docs/evidence/s09-rework/browser-actions/20261013T114152656340/13-reader-denied.png",
+      "sha256": "b0c2e1edcc6870990acfebc4b288ad163bcde3335fcfb73c4c5c87b4b2bb4924"
+    }
+  ],
+  "pageerrors": [],
+  "fixture_line": 226
+}

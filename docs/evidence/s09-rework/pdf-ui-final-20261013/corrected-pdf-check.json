@@ -1,0 +1,18 @@
+{
+  "result": "PASS",
+  "database": "ydental_s09_test_20261013112825_b6d907e2",
+  "source_commit": "9f91420a91ee51e667f46ad56a8e35cc6f936bbb",
+  "pages": 1,
+  "pdf_sha256": "1b7b70b4ddfccbbe1166daa32f7bf524a2626641e200dae292994782faff03d2",
+  "checked_pdf_extracted_strings": [
+    "检查结果演示报告",
+    "未审核签发",
+    "已更正",
+    "Firefox更正所⻅:真实人工核对",
+    "length_mm:13 mm(known)"
+  ],
+  "page_image": "examination-page-01.png",
+  "manual_visual_review": "PASS: one page, corrected version 3, 13 mm visible, no clipping or mojibake",
+  "generic_checker_exit": 1,
+  "generic_checker_reason": "It requires 已确认; a corrected document correctly renders 已更正."
+}

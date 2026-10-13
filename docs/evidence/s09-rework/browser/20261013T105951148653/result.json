@@ -1,0 +1,41 @@
+{
+  "database": "ydental_s09_test_20261013105632_cab4f92a",
+  "source_commit": "c77b997644f8144b06e8d6370a0ecca22b433e2c",
+  "checks": [
+    "doctor switched to synthetic store",
+    "doctor sees committed panorama result",
+    "doctor opens independent authored findings and versions",
+    "doctor sees original fee source and frozen price",
+    "CBCT remains unfinished",
+    "doctor without export cannot download PDF",
+    "examiner switched to synthetic store",
+    "examiner sees own confirmed result",
+    "authorized Firefox downloads genuine PDF",
+    "reader switched to synthetic store",
+    "read only user sees workbench",
+    "read only user cannot export",
+    "none switched to synthetic store",
+    "ungranted user workbench denied",
+    "Firefox page errors zero"
+  ],
+  "screenshots": [
+    {
+      "file": "docs/evidence/s09-rework/browser/20261013T105951148653/doctor-partial-result.png",
+      "sha256": "82f4b97e34134dbc0556f67b1f0965c40d6473f840dcafbb191d63c9687ba15c"
+    },
+    {
+      "file": "docs/evidence/s09-rework/browser/20261013T105951148653/examiner-result.png",
+      "sha256": "0cd60c08c776ff571005c9e5cc2977f47d5b39606b88cfe5737366b0ef7acb9a"
+    },
+    {
+      "file": "docs/evidence/s09-rework/browser/20261013T105951148653/reader-workbench.png",
+      "sha256": "1ae3791bb84c291ca953fd197498efbd89d0f898bad1bf4df19b342c385e87b3"
+    }
+  ],
+  "pageerrors": [],
+  "pdf": {
+    "file": "docs/evidence/s09-rework/browser/20261013T105951148653/synthetic-examination-demo.pdf",
+    "sha256": "bd53f1ccbcb2862b25eb9f71e235ad271d0a1bfafee7fdd23e2b77d14652af22",
+    "bytes": 26611
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "database": "ydental_s09_test_20261013112825_b6d907e2",
+  "oid": 1566298,
+  "cluster": "7694897083368259627",
+  "signatures": {
+    "ydental_exam_result": {
+      "count": 4,
+      "sha256": "fd4a90d536c85454bb1b7ca69d952afacbb43868f07da7f25892866c18c7f394"
+    },
+    "ydental_exam_version": {
+      "count": 9,
+      "sha256": "6dc737d739aaad6fd628be3e6b1e630ded8a903961c6c0117bad5c8bb5338708"
+    },
+    "ydental_exam_receipt": {
+      "count": 33,
+      "sha256": "216fb91ed8e1e29f67d29c51d64ab33bb8d8e56b68a0a54334ab8a51e4ff20bc"
+    },
+    "ydental_exam_template": {
+      "count": 7,
+      "sha256": "ca8d1c70026d0e53cfea7ae96f45ed6d74f1bd6ab31e125b284add6c77ce3b11"
+    },
+    "ydental_exam_qualification": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "ydental_treatment_order": {
+      "count": 6,
+      "sha256": "4e8de1d3fbd56be16289b8aeb0a41a35dccdeb420aba79216668714f268d964a"
+    },
+    "ydental_treatment_line": {
+      "count": 8,
+      "sha256": "b0ece9909335a446d72d0cb614c38da741ec74b7a4f59da99bce160bdb3907c4"
+    },
+    "ydental_treatment_event": {
+      "count": 4,
+      "sha256": "240bee781a88d12d84e4f5e000603a6e5ebd2548783dd15f5c70349084983063"
+    },
+    "ydental_treatment_fee": {
+      "count": 3,
+      "sha256": "638a83f6c7b980ad56013f62cb1db9cc08dee308e441c549eedb3754363eb6d0"
+    },
+    "ydental_treatment_consumption": {
+      "count": 1,
+      "sha256": "5a19e4528eed852a2a8cab017e19e93a0fe4f9f0615a1d1d113d1f09669df845"
+    },
+    "ydental_intake_snapshot": {
+      "count": 3,
+      "sha256": "486acab6219345f3acf9f501650de85c5e6f5162ac477701faebc3150ecb01da"
+    },
+    "ydental_intake_task": {
+      "count": 19,
+      "sha256": "071fb68f79be30fb77ae3574b499b4c7fb7bc43af9489acc7058e21d37853766"
+    },
+    "ydental_queue_execution": {
+      "count": 13,
+      "sha256": "f679a87b6e581f1e72bac14b64bb7e074faf5f3a48b443b687de07a263a825aa"
+    },
+    "ydental_queue_entry": {
+      "count": 13,
+      "sha256": "0bdc89481b7808e1d1fecb316f101752e4f2fe3f56e1908cb2ebfddc6c6f4728"
+    },
+    "ydental_clinical_document": {
+      "count": 7,
+      "sha256": "30acf514912b31d894a0c2ee9024ee0fcfa5a2db44d36159a860fab9dfa12133"
+    },
+    "ydental_inventory_event": {
+      "count": 2,
+      "sha256": "2e85082edc6f0721876aee507ac1704c3cf3f8f135090c33d2182a7f70e46550"
+    },
+    "stock_move": {
+      "count": 52,
+      "sha256": "f5cbf2bc3173e99d4864316f360df0615ce8c7bd09135ea9235968c5b435fc07"
+    },
+    "stock_move_line": {
+      "count": 38,
+      "sha256": "d560048a1cb6bd60dac78b8a0dac74c3697bf5d48567990e07132a4364a982a7"
+    },
+    "stock_quant": {
+      "count": 43,
+      "sha256": "24db1210214c237bc6f8b4009182a56e0f92ba430645ca8cec85d8316f6d66f2"
+    }
+  },
+  "invariants": {
+    "exam_result_source": 0,
+    "exam_event_source": 0,
+    "exam_event_unique": 0,
+    "exam_version_count": 0,
+    "exam_version_source": 0,
+    "exam_version_latest": 0,
+    "confirmed_fee_unique": 0,
+    "exam_fee_snapshot": 0,
+    "unperformed_exam_fee": 0,
+    "duplicate_active_execution": 0,
+    "duplicate_continuation": 0,
+    "negative_internal_quant": 0
+  },
+  "audit_events": {
+    "exam.actual_performed": 4,
+    "exam.attachment_added": 1,
+    "exam.attachment_download": 1,
+    "exam.capability_reviewed": 7,
+    "exam.confirm": 3,
+    "exam.correction": 1,
+    "exam.draft": 5,
+    "exam.next_day_revalidated": 1,
+    "exam.pending_departure": 1,
+    "exam.report_download": 3,
+    "exam.started": 5,
+    "exam.template_bound": 7,
+    "exam.view": 32
+  },
+  "result": "PASS"
+}

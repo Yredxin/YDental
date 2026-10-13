@@ -1,0 +1,68 @@
+{
+  "database": "ydental_s09_test_20261013105632_cab4f92a",
+  "checks": [
+    "frontdesk store switch",
+    "panorama S06 pending task visible",
+    "panorama report clicked",
+    "examiner store switch",
+    "panorama station enter button",
+    "real S06 station held",
+    "panorama call clicked",
+    "real panorama service started",
+    "actual panorama draft form",
+    "actual draft button enabled",
+    "known measurement restored in real form",
+    "attachment button present",
+    "attachment download link visible",
+    "attachment downloaded exact bytes",
+    "actual event fee source visible",
+    "confirmed result form visible",
+    "correction created distinct version and measurement",
+    "exam station released",
+    "one S06 continuation visible",
+    "continuation reported by real button",
+    "doctor store switch",
+    "area shared task uses S06 continuation",
+    "partial panorama and unfinished CBCT both visible",
+    "continuation doctor enters existing medical station",
+    "one continuation called to new doctor",
+    "new doctor sees current confirmed result",
+    "Firefox page errors zero"
+  ],
+  "screenshots": [
+    {
+      "file": "docs/evidence/s09-rework/browser-actions/20261013T111552693241/01-frontdesk-report.png",
+      "sha256": "110c4d1247e1091443f96a77fc92278fb262b5b8305a28b1263c784a2c498a2f"
+    },
+    {
+      "file": "docs/evidence/s09-rework/browser-actions/20261013T111552693241/02-queue-call-start.png",
+      "sha256": "758fd64b07b6d01695fb76f519b039df40e426669ded980e2b0433ae9fef4727"
+    },
+    {
+      "file": "docs/evidence/s09-rework/browser-actions/20261013T111552693241/03-measurement-saved.png",
+      "sha256": "19dd61c916a665d99ed485f5d5d3b56991b1ec3022b252912eab629c65655dbd"
+    },
+    {
+      "file": "docs/evidence/s09-rework/browser-actions/20261013T111552693241/04-attachment.png",
+      "sha256": "bc5e95a635856450da4e9e6307721e375939d9800ab774a57ecaab6ad7a472c0"
+    },
+    {
+      "file": "docs/evidence/s09-rework/browser-actions/20261013T111552693241/05-finished-partial.png",
+      "sha256": "ff7dde69eaec4ca08ba667aeba7ba283299ed02b1d25bc8fe4d44290fa04b0db"
+    },
+    {
+      "file": "docs/evidence/s09-rework/browser-actions/20261013T111552693241/06-partial-return-report.png",
+      "sha256": "fc07f4192e381d65cd321537263b26a9fe222f4abb7a10282f2198954f6f28cf"
+    },
+    {
+      "file": "docs/evidence/s09-rework/browser-actions/20261013T111552693241/07-area-shared-partial-result.png",
+      "sha256": "7a424f3a2678cc656f6c2dcf91a1ef2265d5750c3c408cf48b423e6e55474985"
+    },
+    {
+      "file": "docs/evidence/s09-rework/browser-actions/20261013T111552693241/08-new-doctor-current-result.png",
+      "sha256": "e2675d42cb30ee11ad0690b8f07f5497d35c5d6c207cf225044732d9d60d29ab"
+    }
+  ],
+  "pageerrors": [],
+  "fixture_line": 49
+}

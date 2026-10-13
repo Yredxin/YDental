@@ -1,0 +1,245 @@
+{
+  "reproduction_commit": "c77b997644f8144b06e8d6370a0ecca22b433e2c",
+  "candidate_databases": [
+    {
+      "name": "ydental_s09_test_20261013104800_a8c42d7e",
+      "log_count": 1,
+      "logs": [
+        {
+          "name": "install-20261013T104759625531.log",
+          "sha256": "b5bd6dc7eb0f96f20d0e0a6343632ffeb8df4490cc38bf16001c8b5cda888a7b",
+          "test_result": [
+            2,
+            1,
+            18
+          ],
+          "sigsegv": false
+        }
+      ]
+    },
+    {
+      "name": "ydental_s09_test_20261013105632_cab4f92a",
+      "log_count": 35,
+      "logs": [
+        {
+          "name": "export-20261013T112415540708.log",
+          "sha256": "ecfcd644907c741f1e50c265adfdb61ebe28e75fbe2c31f4f1a07f6659909cad",
+          "test_result": null,
+          "sigsegv": false
+        },
+        {
+          "name": "install-20261013T105635851249.log",
+          "sha256": "78c0d6d91c6b0e10f3cad780624c477c8cb302aa68e9be902ba31a977fe651e4",
+          "test_result": [
+            0,
+            0,
+            18
+          ],
+          "sigsegv": false
+        },
+        {
+          "name": "probe-20261013T105921294717.log",
+          "sha256": "3523d836edd9124b5c15393743b4ff578989a47108aa243754aab1d940a36bb3",
+          "test_result": null,
+          "sigsegv": false
+        },
+        {
+          "name": "race-20261013T112238574890.log",
+          "sha256": "a255b1a22f116386bd0d164a941eebd70a26fbe5ade73103ffe09f2877e730e0",
+          "test_result": null,
+          "sigsegv": false
+        },
+        {
+          "name": "race-20261013T112320163615.log",
+          "sha256": "01f33a5bea804a15757bf2a8bd6868863ca2b974ef2e29397cfa28dd4075840a",
+          "test_result": null,
+          "sigsegv": false
+        },
+        {
+          "name": "serve-20261013T105935223177.log",
+          "sha256": "197ff8184403ae2d31e3dc816a97a3ac78491f42a6c08a11578cbed666ed68c4",
+          "test_result": null,
+          "sigsegv": false
+        },
+        {
+          "name": "serve-20261013T110500033350.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "test_result": null,
+          "sigsegv": false
+        },
+        {
+          "name": "serve-20261013T110515481266.log",
+          "sha256": "522b1396ce557fc9c3bc94b92c459f91c17cea2880f51a49b4ce0c65b90efd44",
+          "test_result": null,
+          "sigsegv": false
+        },
+        {
+          "name": "serve-20261013T110720500475.log",
+          "sha256": "0deeee933970f098c668449d880a9a1d620017b8c5726631f1292afe6ce093fc",
+          "test_result": null,
+          "sigsegv": false
+        },
+        {
+          "name": "serve-20261013T111137559571.log",
+          "sha256": "3266ad949b21690f0cd8834f88c5b1dd2b126826b9a55fd53ab2472984e484bf",
+          "test_result": null,
+          "sigsegv": false
+        },
+        {
+          "name": "serve-20261013T112037523918.log",
+          "sha256": "85661e094272ea7917afadde583d979fefabf108033547b11885757b49c2e2bb",
+          "test_result": null,
+          "sigsegv": false
+        },
+        {
+          "name": "serve-20261013T112547186163.log",
+          "sha256": "0e0e56b1de89053d1cb9b811133a9f06803039174d5466d0c1ce2731a4b5fe11",
+          "test_result": null,
+          "sigsegv": false
+        },
+        {
+          "name": "ui_seed-20261013T110112096175.log",
+          "sha256": "c6589f985f5d77862bdbcde2d8e54fca643d8d967baf59ecfcbade611f210c27",
+          "test_result": null,
+          "sigsegv": false
+        },
+        {
+          "name": "ui_seed-20261013T110455642595.log",
+          "sha256": "02a0054a82dea1e889471d7e248e0da3774a47be16a04d881248fc0b414fe953",
+          "test_result": null,
+          "sigsegv": false
+        },
+        {
+          "name": "ui_seed-20261013T110655269459.log",
+          "sha256": "08d185c30f1a5f7fdcfcab7a7d0140188a93663c8ca101b139deb123d613f3d3",
+          "test_result": null,
+          "sigsegv": false
+        },
+        {
+          "name": "ui_seed-20261013T110821526100.log",
+          "sha256": "681a826a0e76c508d2db226d781074f16e2dd5622901f1f10fbdc6f9784a2088",
+          "test_result": null,
+          "sigsegv": false
+        },
+        {
+          "name": "ui_seed-20261013T110850607881.log",
+          "sha256": "c8a05ff5f5c12f06ab76f555d2225fd9731f888df0823f926138b85921a7a097",
+          "test_result": null,
+          "sigsegv": false
+        },
+        {
+          "name": "ui_seed-20261013T110944150735.log",
+          "sha256": "3cae4e3f312b6a10b68c679e090c74c40716fce878d89f34bd4383fd5a4fb53d",
+          "test_result": null,
+          "sigsegv": false
+        },
+        {
+          "name": "ui_seed-20261013T111025959128.log",
+          "sha256": "d479367864113459889b202ecda587cf14aaf504ca70f20f2602e07922255bf9",
+          "test_result": null,
+          "sigsegv": false
+        },
+        {
+          "name": "ui_seed-20261013T111123800230.log",
+          "sha256": "59dab4681581ebb5b305f07315357d93991b67bfcae43f47e649fc23b0e92f08",
+          "test_result": null,
+          "sigsegv": false
+        },
+        {
+          "name": "ui_seed-20261013T111212595428.log",
+          "sha256": "7ce8e354e62802c3bb7b919e1b40c22175f11cc370656aac0b41d01e5702ae10",
+          "test_result": null,
+          "sigsegv": false
+        },
+        {
+          "name": "ui_seed-20261013T111301522059.log",
+          "sha256": "e332dbf5948907e353e87bc95110c2142d9511928ae7b52f1321025d795c59b3",
+          "test_result": null,
+          "sigsegv": false
+        },
+        {
+          "name": "ui_seed-20261013T111409102162.log",
+          "sha256": "3d6130f4ff443e2cc1d8ec10c037c69ce77667ce9c5e0294a727c6c972ac93ae",
+          "test_result": null,
+          "sigsegv": false
+        },
+        {
+          "name": "ui_seed-20261013T111443293978.log",
+          "sha256": "74d8bdf01929dea3176af55f03439bacd6400d26773e04950d413987e23a756f",
+          "test_result": null,
+          "sigsegv": false
+        },
+        {
+          "name": "ui_seed-20261013T111524540988.log",
+          "sha256": "975765a372cdbf927b98906ea715ffe9c806c05200bee6051ef4d8ce55ecd57f",
+          "test_result": null,
+          "sigsegv": false
+        },
+        {
+          "name": "ui_seed-20261013T111748762396.log",
+          "sha256": "d3a4f534ef6b384b9969eb80f9c02847d69e9f6ce353d62317dd694572c9b6a7",
+          "test_result": null,
+          "sigsegv": false
+        },
+        {
+          "name": "ui_seed-20261013T112023756761.log",
+          "sha256": "01b70c040dc51521ab2ea393367d63b5c06ce0e3f6788d6aefbe2883aa621599",
+          "test_result": null,
+          "sigsegv": false
+        },
+        {
+          "name": "ui_seed-20261013T112532602956.log",
+          "sha256": "e0bad3daefc921f742c280d7527e0e125cf7de544d90182edceb60c70720c440",
+          "test_result": null,
+          "sigsegv": false
+        },
+        {
+          "name": "ui_seed-20261013T112702798621.log",
+          "sha256": "cd574b56c94b520c38332ffb392805d6fcdca89f2aabc1b1b798c2fe357b6826",
+          "test_result": null,
+          "sigsegv": false
+        },
+        {
+          "name": "upgrade-20261013T105822685771.log",
+          "sha256": "e7c2d404ee2dbb2b2e735b7b8df3fb04bc2be0bdedc9e7c3c5702bc5a50a1421",
+          "test_result": [
+            0,
+            0,
+            1
+          ],
+          "sigsegv": false
+        },
+        {
+          "name": "upgrade-20261013T110407349439.log",
+          "sha256": "d7d9916c920550f7e02b7e787bae9cab5fbc5c8ad5d35f12c5abaea3c2b5456c",
+          "test_result": null,
+          "sigsegv": false
+        },
+        {
+          "name": "upgrade-20261013T110647440142.log",
+          "sha256": "4aba57a382eab821af68274b3ff11f3c300e4f3467672477d26212ce52420504",
+          "test_result": null,
+          "sigsegv": false
+        },
+        {
+          "name": "upgrade-20261013T111114716423.log",
+          "sha256": "9b6266bd396346d3e44dfaf892cb45cf0ba45a7a292110823eb1727a5bdead21",
+          "test_result": null,
+          "sigsegv": false
+        },
+        {
+          "name": "upgrade-20261013T112010075192.log",
+          "sha256": "280397ca18840e97070a2d5cbc8dfec5cb5fe310a4b33a3386b09bb5962277ea",
+          "test_result": null,
+          "sigsegv": false
+        },
+        {
+          "name": "upgrade-20261013T112509866173.log",
+          "sha256": "9f0ea86b7bbb36876c8cde4b0393d5ede48676b4b2afe57af65de00f53fc9a10",
+          "test_result": null,
+          "sigsegv": false
+        }
+      ]
+    }
+  ]
+}

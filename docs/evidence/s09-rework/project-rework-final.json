@@ -1,0 +1,85 @@
+{
+  "project_id": "PVT_kwHOA3_tu84BmcLJ",
+  "project_url": "https://github.com/users/Yredxin/projects/4",
+  "first_read_counts": {
+    "fields": 21,
+    "items": 15,
+    "views": 6,
+    "workflows": 7
+  },
+  "second_read_counts": {
+    "fields": 21,
+    "items": 15,
+    "views": 6,
+    "workflows": 7
+  },
+  "two_reads_identical": true,
+  "previous_stage_start_items": 37,
+  "current_items": 15,
+  "missing_vs_start": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22
+  ],
+  "retained_items_equal_to_start": true,
+  "fields_views_workflows_equal_to_start": true,
+  "status": {
+    "32": {
+      "issue_state": "OPEN",
+      "stage": "S08",
+      "execution": "待用户验收",
+      "native_status": "Todo"
+    },
+    "33": {
+      "issue_state": "OPEN",
+      "stage": "S09",
+      "execution": "进行中",
+      "native_status": "Todo"
+    },
+    "34": {
+      "issue_state": "OPEN",
+      "stage": "S10",
+      "execution": "待启用",
+      "native_status": "Todo"
+    },
+    "35": {
+      "issue_state": "OPEN",
+      "stage": "S11",
+      "execution": "待启用",
+      "native_status": "Todo"
+    },
+    "36": {
+      "issue_state": "OPEN",
+      "stage": "S12",
+      "execution": "待启用",
+      "native_status": "Todo"
+    },
+    "37": {
+      "issue_state": "OPEN",
+      "stage": "S13",
+      "execution": "待启用",
+      "native_status": "Todo"
+    }
+  },
+  "own_project_mutations": 0,
+  "limitation": "Project API now returns only items 23-37; items 1-22 present in S09 start snapshot but absent now. Cause not determined; no restoration attempted."
+}

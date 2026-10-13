@@ -1,5 +1,13 @@
 # YDental 当前执行入口
 
+## 当前 S09工作台/待核对安全边界定向返工 / #33（等待GPT独立技术复核）
+
+- 唯一最新指令为[#33 GPT-REVIEW6143776424](https://github.com/Yredxin/YDental/issues/33#issuecomment-6143776424)；已重读#23/#33当前正文及有效评论。沿原分支`codex/s09-exam-workbench-r1-20261013`从旧final`6f7087f49e2f7bbd9c00d8b94500b1ee003e6c2d`线性追加。失败复现`c77b997644f8144b06e8d6370a0ecca22b433e2c`、固定rework product`f7f6b231f0768eef5de4c19d2f789c32e5684853`、固定test`9f91420a91ee51e667f46ad56a8e35cc6f936bbb`，final SHA见#33本轮交付评论。product→test仅测试/runner，test→final仅AGENTS/报告/合成脱敏证据。旧历史与失败库均保留。
+- 修复已做检查event pending仍可附原因完成临床段并释放S06工位，原pending actor/time/原因/责任与待核对审计保留，不生成假费/库存或重复检查；全景/CBCT模板family经明确能力审核服务端对应。工作台实际测量known/unknown/不适用/0、附件受控存取、耗材lot/qty与S07原生move；文字保存不清空未编辑测量。当前医生和区域复用唯一S06后继待办读到已做/余项。
+- 最终新库`ydental_s09_test_20261013112825_b6d907e2`/OID1566298/18200，同一固定test安装148、升级146、带F1业务再升级146均exit0/0 fail/0 error；七组双PG初始backend/barrier、deadlock0，Firefox真实按钮44项/13图及旧读屏15项/3图、pageerror0，中文276/276、PDF确认版/更正版各1页逐页人工核验，SQL12类不变量0。另全新无S09的S08-B库`ydental_s08b_test_20261013114700_d10b5fa2`80项exit0、检查启动fail-closed原测试执行。Codex自测，非GPT/用户验收。详见[本轮报告](docs/s09-workbench-rework-report.md)和[机器索引](docs/evidence/s09-rework/rework-final-tests.json)。
+- 原PID1792405/S07/S08-C SIGSEGV根因UNKNOWN，本批无新崩溃不代表根治；生产BLOCKED。Project本批0写、末次双读21字段/15项/6视图/7workflow同值，#33 S09/进行中/Todo/OPEN、#32 S08/待用户验收/Todo/OPEN；但S09启动快照37项、当前仅#23—37共15项，#1—22未返回，原因未知，不自行恢复或宣称全条目相同。报告已明确记录。
+- 正常推送后#33发布`[CODEX] S09工作台/待核对安全边界定向修正交付与再次技术复核申请`并逐字读回后停止；不关Issue、不改Project、不启S10、不合并/强推/生产部署。下方历史记录以本节及最新GPT-REVIEW为准。
+
 ## 当前 S09原生诊断与F1合同返工交付 / #33（等待GPT独立技术复核）
 
 - 唯一续作授权为[#33 GPT-REVIEW6141720532](https://github.com/Yredxin/YDental/issues/33#issuecomment-6141720532)；完整重读#23/#33正文及有效评论，[只读取证与F1诊断6141807213](https://github.com/Yredxin/YDental/issues/33#issuecomment-6141807213)已逐字读回。沿用原分支`codex/s09-exam-workbench-r1-20261013`与旧final`17cd02bf120fa9446af8d4e0effe9d0203570348`，不改写旧提交、旧库或失败证据。

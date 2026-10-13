@@ -1,0 +1,495 @@
+{
+  "database": "ydental_s09_test_20261013112825_b6d907e2",
+  "cases": [
+    {
+      "case": "T01_two_panorama_stations_one_task",
+      "initial_backend_pids": [
+        217270,
+        217296
+      ],
+      "outcomes": [
+        {
+          "result": "accepted",
+          "first_pid": 217270,
+          "pid": 217270,
+          "answer": {
+            "entry_id": 523,
+            "task_id": 702,
+            "state": "calling",
+            "result": "accepted"
+          }
+        },
+        {
+          "result": "rejected",
+          "first_pid": 217296,
+          "pid": 217296,
+          "code": "no_eligible_waiting"
+        }
+      ],
+      "trace": [
+        [
+          {
+            "attempt": 0,
+            "pid": 217270,
+            "phase": "connected",
+            "time_ns": 367614246680905
+          },
+          {
+            "attempt": 0,
+            "pid": 217270,
+            "phase": "barrier_released",
+            "time_ns": 367614253462752
+          }
+        ],
+        [
+          {
+            "attempt": 0,
+            "pid": 217296,
+            "phase": "connected",
+            "time_ns": 367614253341823
+          },
+          {
+            "attempt": 0,
+            "pid": 217296,
+            "phase": "barrier_released",
+            "time_ns": 367614253357202
+          },
+          {
+            "attempt": 0,
+            "pid": 217296,
+            "phase": "serialization_retry",
+            "time_ns": 367614307283217
+          },
+          {
+            "attempt": 1,
+            "pid": 217296,
+            "phase": "connected",
+            "time_ns": 367614312390255
+          }
+        ]
+      ]
+    },
+    {
+      "case": "T01_same_called_entry_two_backends",
+      "initial_backend_pids": [
+        217296,
+        217270
+      ],
+      "outcomes": [
+        {
+          "result": "accepted",
+          "first_pid": 217296,
+          "pid": 217296,
+          "answer": {
+            "entry_id": 523,
+            "execution_id": 529,
+            "state": "serving",
+            "result": "accepted"
+          }
+        },
+        {
+          "result": "rejected",
+          "first_pid": 217270,
+          "pid": 217270,
+          "code": "handover_required"
+        }
+      ],
+      "trace": [
+        [
+          {
+            "attempt": 0,
+            "pid": 217296,
+            "phase": "connected",
+            "time_ns": 367614352033544
+          },
+          {
+            "attempt": 0,
+            "pid": 217296,
+            "phase": "barrier_released",
+            "time_ns": 367614352047310
+          }
+        ],
+        [
+          {
+            "attempt": 0,
+            "pid": 217270,
+            "phase": "connected",
+            "time_ns": 367614351885293
+          },
+          {
+            "attempt": 0,
+            "pid": 217270,
+            "phase": "barrier_released",
+            "time_ns": 367614352167348
+          },
+          {
+            "attempt": 0,
+            "pid": 217270,
+            "phase": "serialization_retry",
+            "time_ns": 367614462816594
+          },
+          {
+            "attempt": 1,
+            "pid": 217270,
+            "phase": "connected",
+            "time_ns": 367614468252307
+          }
+        ]
+      ]
+    },
+    {
+      "case": "T07_restore_versus_exam_start",
+      "initial_backend_pids": [
+        217270,
+        217296
+      ],
+      "outcomes": [
+        {
+          "result": "accepted",
+          "first_pid": 217270,
+          "pid": 217270,
+          "answer": {
+            "hold_id": 10,
+            "execution_id": 531,
+            "state": "serving",
+            "result": "accepted"
+          }
+        },
+        {
+          "result": "rejected",
+          "first_pid": 217296,
+          "pid": 217296,
+          "code": "version_conflict"
+        }
+      ],
+      "trace": [
+        [
+          {
+            "attempt": 0,
+            "pid": 217270,
+            "phase": "connected",
+            "time_ns": 367621531725993
+          },
+          {
+            "attempt": 0,
+            "pid": 217270,
+            "phase": "barrier_released",
+            "time_ns": 367621532182991
+          }
+        ],
+        [
+          {
+            "attempt": 0,
+            "pid": 217296,
+            "phase": "connected",
+            "time_ns": 367621532039759
+          },
+          {
+            "attempt": 0,
+            "pid": 217296,
+            "phase": "barrier_released",
+            "time_ns": 367621532054296
+          },
+          {
+            "attempt": 0,
+            "pid": 217296,
+            "phase": "serialization_retry",
+            "time_ns": 367621614800097
+          },
+          {
+            "attempt": 1,
+            "pid": 217296,
+            "phase": "connected",
+            "time_ns": 367621623673330
+          }
+        ]
+      ]
+    },
+    {
+      "case": "T05_unperformed_cancel_versus_inline_actual",
+      "initial_backend_pids": [
+        217296,
+        217270
+      ],
+      "outcomes": [
+        {
+          "result": "rejected",
+          "first_pid": 217296,
+          "pid": 217296,
+          "code": "qualification_required"
+        },
+        {
+          "result": "accepted",
+          "first_pid": 217270,
+          "pid": 217270,
+          "answer": {
+            "line_id": 224,
+            "state": "cancelled",
+            "order_version": 3,
+            "result": "accepted"
+          }
+        }
+      ],
+      "trace": [
+        [
+          {
+            "attempt": 0,
+            "pid": 217296,
+            "phase": "connected",
+            "time_ns": 367628870198120
+          },
+          {
+            "attempt": 0,
+            "pid": 217296,
+            "phase": "barrier_released",
+            "time_ns": 367628871517714
+          },
+          {
+            "attempt": 0,
+            "pid": 217296,
+            "phase": "serialization_retry",
+            "time_ns": 367628938231989
+          },
+          {
+            "attempt": 1,
+            "pid": 217296,
+            "phase": "connected",
+            "time_ns": 367628939133791
+          }
+        ],
+        [
+          {
+            "attempt": 0,
+            "pid": 217270,
+            "phase": "connected",
+            "time_ns": 367628871391925
+          },
+          {
+            "attempt": 0,
+            "pid": 217270,
+            "phase": "barrier_released",
+            "time_ns": 367628871403066
+          }
+        ]
+      ]
+    },
+    {
+      "case": "S09_wrong_template_concurrent_binding",
+      "initial_backend_pids": [
+        217296,
+        217270
+      ],
+      "outcomes": [
+        {
+          "result": "accepted",
+          "first_pid": 217296,
+          "pid": 217296,
+          "answer": {
+            "template_id": 85,
+            "code": "panorama-demo-1",
+            "result": "accepted"
+          }
+        },
+        {
+          "result": "rejected",
+          "first_pid": 217270,
+          "pid": 217270,
+          "code": "template_capability_mismatch"
+        }
+      ],
+      "trace": [
+        [
+          {
+            "attempt": 0,
+            "pid": 217296,
+            "phase": "connected",
+            "time_ns": 367635579331576
+          },
+          {
+            "attempt": 0,
+            "pid": 217296,
+            "phase": "barrier_released",
+            "time_ns": 367635579735943
+          }
+        ],
+        [
+          {
+            "attempt": 0,
+            "pid": 217270,
+            "phase": "connected",
+            "time_ns": 367635579593263
+          },
+          {
+            "attempt": 0,
+            "pid": 217270,
+            "phase": "barrier_released",
+            "time_ns": 367635579607530
+          },
+          {
+            "attempt": 0,
+            "pid": 217270,
+            "phase": "serialization_retry",
+            "time_ns": 367635605754735
+          },
+          {
+            "attempt": 1,
+            "pid": 217270,
+            "phase": "connected",
+            "time_ns": 367635606681212
+          }
+        ]
+      ]
+    },
+    {
+      "case": "S09_measurement_edit_same_version",
+      "initial_backend_pids": [
+        217270,
+        217296
+      ],
+      "outcomes": [
+        {
+          "result": "rejected",
+          "first_pid": 217270,
+          "pid": 217270,
+          "code": "version_conflict"
+        },
+        {
+          "result": "accepted",
+          "first_pid": 217296,
+          "pid": 217296,
+          "answer": {
+            "result_id": 47,
+            "version": 2,
+            "state": "draft",
+            "result": "accepted"
+          }
+        }
+      ],
+      "trace": [
+        [
+          {
+            "attempt": 0,
+            "pid": 217270,
+            "phase": "connected",
+            "time_ns": 367643277492862
+          },
+          {
+            "attempt": 0,
+            "pid": 217270,
+            "phase": "barrier_released",
+            "time_ns": 367643277895646
+          },
+          {
+            "attempt": 0,
+            "pid": 217270,
+            "phase": "serialization_retry",
+            "time_ns": 367643342709887
+          },
+          {
+            "attempt": 1,
+            "pid": 217270,
+            "phase": "connected",
+            "time_ns": 367643343591480
+          }
+        ],
+        [
+          {
+            "attempt": 0,
+            "pid": 217296,
+            "phase": "connected",
+            "time_ns": 367643277774646
+          },
+          {
+            "attempt": 0,
+            "pid": 217296,
+            "phase": "barrier_released",
+            "time_ns": 367643277787941
+          }
+        ]
+      ]
+    },
+    {
+      "case": "S09_pending_departure_two_backends",
+      "initial_backend_pids": [
+        217270,
+        217296
+      ],
+      "outcomes": [
+        {
+          "result": "rejected",
+          "first_pid": 217270,
+          "pid": 217270,
+          "code": "access_denied"
+        },
+        {
+          "result": "accepted",
+          "first_pid": 217296,
+          "pid": 217296,
+          "answer": {
+            "execution_id": 534,
+            "state": "completed_pending_reconciliation",
+            "line_id": 225,
+            "pending_event_id": 152,
+            "result": "accepted"
+          }
+        }
+      ],
+      "trace": [
+        [
+          {
+            "attempt": 0,
+            "pid": 217270,
+            "phase": "connected",
+            "time_ns": 367643463941771
+          },
+          {
+            "attempt": 0,
+            "pid": 217270,
+            "phase": "barrier_released",
+            "time_ns": 367643464230749
+          },
+          {
+            "attempt": 0,
+            "pid": 217270,
+            "phase": "serialization_retry",
+            "time_ns": 367643550513579
+          },
+          {
+            "attempt": 1,
+            "pid": 217270,
+            "phase": "connected",
+            "time_ns": 367643551810659
+          }
+        ],
+        [
+          {
+            "attempt": 0,
+            "pid": 217296,
+            "phase": "connected",
+            "time_ns": 367643464116421
+          },
+          {
+            "attempt": 0,
+            "pid": 217296,
+            "phase": "barrier_released",
+            "time_ns": 367643464129206
+          }
+        ]
+      ]
+    }
+  ],
+  "deadlocks": 0,
+  "patient_id": 431,
+  "execution_ids": [
+    529
+  ],
+  "line_id": 222,
+  "T07_patient_id": 432,
+  "T07_active_execution": [
+    531
+  ],
+  "T05_before_race": "both_actions_eligible",
+  "T05_final_line_state": "cancelled",
+  "T05_event_ids": [],
+  "T05_fee_ids": []
+}

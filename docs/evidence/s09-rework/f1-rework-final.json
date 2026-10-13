@@ -1,0 +1,23 @@
+{
+  "result": "PASS",
+  "medical_execution": 351,
+  "exam_execution": 352,
+  "order": 99,
+  "line": 147,
+  "other_line": 148,
+  "event": 101,
+  "event_state": "confirmed",
+  "result_document_state_after_perform": "pending",
+  "order_line_state": "done",
+  "fee_source_state": "recorded",
+  "price_version": 107,
+  "price_snapshot": 87,
+  "fee": 83,
+  "amount": 80.0,
+  "result_id": 31,
+  "version": 2,
+  "pdf_bytes": 26576,
+  "pdf_digest": "8cbf62d48b067d4949b7ae4a1021200db3c46600383e8f16d0407804d48f00cd",
+  "pdf_file": "f1-report-101.pdf",
+  "finished": "completed"
+}

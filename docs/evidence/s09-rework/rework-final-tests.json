@@ -1,0 +1,273 @@
+{
+  "baseline": "6f7087f49e2f7bbd9c00d8b94500b1ee003e6c2d",
+  "repro": "c77b997644f8144b06e8d6370a0ecca22b433e2c",
+  "product": "f7f6b231f0768eef5de4c19d2f789c32e5684853",
+  "test": "9f91420a91ee51e667f46ad56a8e35cc6f936bbb",
+  "final": "published in #33 delivery comment",
+  "database": "ydental_s09_test_20261013112825_b6d907e2",
+  "oid": 1566298,
+  "port": 18200,
+  "cluster": "7694897083368259627",
+  "config_sha256": "74d8f9cb9a827ffc43a858ce96e8e2cca29a608a0d964740b3154ca81779dc13",
+  "model_http_runs": [
+    {
+      "action": "install",
+      "tests": 148,
+      "fail": 0,
+      "error": 0,
+      "exit": 0,
+      "pid": 1903510,
+      "log_sha256": "3ef446c83064e0c44a2f295bea83e77359d9f2da246c90bbbc5cb0948ce5ad56"
+    },
+    {
+      "action": "upgrade",
+      "tests": 146,
+      "fail": 0,
+      "error": 0,
+      "exit": 0,
+      "pid": 1906147,
+      "log_sha256": "e14fc1d9c999e11a11e75b008362eab237b6879d56166edbdccb167d121f0401"
+    },
+    {
+      "action": "upgrade",
+      "tests": 146,
+      "fail": 0,
+      "error": 0,
+      "exit": 0,
+      "pid": 1908350,
+      "log_sha256": "40ffe66079748f67dedadd89cdfa18597d64d9b5142501e8b95d7ec0854544f8"
+    }
+  ],
+  "other_actions": [
+    {
+      "action": "probe",
+      "database": "ydental_s09_test_20261013112825_b6d907e2",
+      "oid": 1566298,
+      "port": 18200,
+      "pid": 1908148,
+      "exit_code": 0,
+      "signal": null,
+      "log": "probe-20261013T113626251374.log",
+      "sha256": "2402f9a80f967a03475852d4164035cc880e973e9b774f1253914a10cb741421",
+      "commit": "9f91420a91ee51e667f46ad56a8e35cc6f936bbb",
+      "time_utc": "2026-10-13T11:36:36.782861+00:00"
+    },
+    {
+      "action": "audit",
+      "database": "ydental_s09_test_20261013112825_b6d907e2",
+      "oid": 1566298,
+      "port": 18200,
+      "pid": 1908304,
+      "exit_code": 0,
+      "signal": null,
+      "log": "audit-20261013T113639690072.log",
+      "sha256": "16b5d9d0f20c09266b073f5fe7a5c7c19fcc6c7619b1a441620cedfd4918ee8f",
+      "commit": "9f91420a91ee51e667f46ad56a8e35cc6f936bbb",
+      "time_utc": "2026-10-13T11:36:41.083633+00:00"
+    },
+    {
+      "action": "race",
+      "database": "ydental_s09_test_20261013112825_b6d907e2",
+      "oid": 1566298,
+      "port": 18200,
+      "pid": 1910371,
+      "exit_code": 0,
+      "signal": null,
+      "log": "race-20261013T114014030573.log",
+      "sha256": "e3c9a98f337d8d789b740ca3f6cbb3b36a913aec0380941437c6c6d3632f018d",
+      "commit": "9f91420a91ee51e667f46ad56a8e35cc6f936bbb",
+      "time_utc": "2026-10-13T11:40:52.048675+00:00"
+    },
+    {
+      "action": "audit",
+      "database": "ydental_s09_test_20261013112825_b6d907e2",
+      "oid": 1566298,
+      "port": 18200,
+      "pid": 1910795,
+      "exit_code": 0,
+      "signal": null,
+      "log": "audit-20261013T114059801666.log",
+      "sha256": "875469b844868c86ac8a8ba729de8835d7ef7ac60fabd26e69cd0dcdf9905253",
+      "commit": "9f91420a91ee51e667f46ad56a8e35cc6f936bbb",
+      "time_utc": "2026-10-13T11:41:01.206722+00:00"
+    },
+    {
+      "action": "export",
+      "database": "ydental_s09_test_20261013112825_b6d907e2",
+      "oid": 1566298,
+      "port": 18200,
+      "pid": 1910941,
+      "exit_code": 0,
+      "signal": null,
+      "log": "export-20261013T114113917200.log",
+      "sha256": "ba4098ab60e68cb6b4b7b1140e4df9e7d0aa27b1dbdeaa32fc74db823352806c",
+      "commit": "9f91420a91ee51e667f46ad56a8e35cc6f936bbb",
+      "time_utc": "2026-10-13T11:41:16.310894+00:00"
+    },
+    {
+      "action": "ui_seed",
+      "database": "ydental_s09_test_20261013112825_b6d907e2",
+      "oid": 1566298,
+      "port": 18200,
+      "pid": 1911045,
+      "exit_code": 0,
+      "signal": null,
+      "log": "ui_seed-20261013T114126547603.log",
+      "sha256": "a4ddabc54f7b21b7a9f2bcba36ddf2931b2fae57820002610a512587d1b68f87",
+      "commit": "9f91420a91ee51e667f46ad56a8e35cc6f936bbb",
+      "time_utc": "2026-10-13T11:41:35.948947+00:00"
+    },
+    {
+      "action": "serve",
+      "database": "ydental_s09_test_20261013112825_b6d907e2",
+      "oid": 1566298,
+      "port": 18200,
+      "pid": 1911167,
+      "exit_code": 0,
+      "signal": null,
+      "log": "serve-20261013T114138364444.log",
+      "sha256": "cc080f849bea6bd4918418ba912d6284f40d81b5863f0fd04cc0b319ead92e87",
+      "commit": "9f91420a91ee51e667f46ad56a8e35cc6f936bbb",
+      "time_utc": "2026-10-13T11:44:19.316927+00:00"
+    },
+    {
+      "action": "audit",
+      "database": "ydental_s09_test_20261013112825_b6d907e2",
+      "oid": 1566298,
+      "port": 18200,
+      "pid": 1913594,
+      "exit_code": 0,
+      "signal": null,
+      "log": "audit-20261013T114427328046.log",
+      "sha256": "63903ed3134ed366171c3d2e361e054593ee2008a9356b721683ddba0541fa93",
+      "commit": "9f91420a91ee51e667f46ad56a8e35cc6f936bbb",
+      "time_utc": "2026-10-13T11:44:28.723583+00:00"
+    }
+  ],
+  "race": {
+    "cases": 7,
+    "initial_pids_distinct_all": true,
+    "deadlocks": 0,
+    "case_names": [
+      "T01_two_panorama_stations_one_task",
+      "T01_same_called_entry_two_backends",
+      "T07_restore_versus_exam_start",
+      "T05_unperformed_cancel_versus_inline_actual",
+      "S09_wrong_template_concurrent_binding",
+      "S09_measurement_edit_same_version",
+      "S09_pending_departure_two_backends"
+    ]
+  },
+  "firefox": {
+    "actual_buttons": 44,
+    "screenshots_visually_reviewed": 13,
+    "pageerrors": 0,
+    "read_download_checks": 15,
+    "read_download_screenshots": 3
+  },
+  "translation": {
+    "result": "PASS",
+    "terms": 276,
+    "translated": 276
+  },
+  "pdf": {
+    "confirmed_probe_pages": 1,
+    "corrected_ui_pages": 1,
+    "corrected_ui_visual": "PASS: one page, corrected version 3, 13 mm visible, no clipping or mojibake",
+    "generic_checker_exit": 1
+  },
+  "sql": {
+    "result": "PASS",
+    "signature_tables": 19,
+    "invariants": {
+      "exam_result_source": 0,
+      "exam_event_source": 0,
+      "exam_event_unique": 0,
+      "exam_version_count": 0,
+      "exam_version_source": 0,
+      "exam_version_latest": 0,
+      "confirmed_fee_unique": 0,
+      "exam_fee_snapshot": 0,
+      "unperformed_exam_fee": 0,
+      "duplicate_active_execution": 0,
+      "duplicate_continuation": 0,
+      "negative_internal_quant": 0
+    }
+  },
+  "s08_without_s09": {
+    "database": "ydental_s08b_test_20261013114700_d10b5fa2",
+    "tests": 80,
+    "exit": 0,
+    "log_sha256": "2900ee7f5b2a7dac67d9b6c7003fafe7c9dadaae4234c8c0d6d8d0923a0c0dc4",
+    "fail_closed_test_executed": true
+  },
+  "project": {
+    "own_mutations": 0,
+    "current_items": 15,
+    "missing_vs_start": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22
+    ],
+    "critical_status": {
+      "32": {
+        "issue_state": "OPEN",
+        "stage": "S08",
+        "execution": "待用户验收",
+        "native_status": "Todo"
+      },
+      "33": {
+        "issue_state": "OPEN",
+        "stage": "S09",
+        "execution": "进行中",
+        "native_status": "Todo"
+      },
+      "34": {
+        "issue_state": "OPEN",
+        "stage": "S10",
+        "execution": "待启用",
+        "native_status": "Todo"
+      },
+      "35": {
+        "issue_state": "OPEN",
+        "stage": "S11",
+        "execution": "待启用",
+        "native_status": "Todo"
+      },
+      "36": {
+        "issue_state": "OPEN",
+        "stage": "S12",
+        "execution": "待启用",
+        "native_status": "Todo"
+      },
+      "37": {
+        "issue_state": "OPEN",
+        "stage": "S13",
+        "execution": "待启用",
+        "native_status": "Todo"
+      }
+    }
+  },
+  "new_sigsegv": false,
+  "native_root_cause": "UNKNOWN",
+  "production_deployment": "BLOCKED"
+}
