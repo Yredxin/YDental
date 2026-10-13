@@ -1,0 +1,53 @@
+import json
+import os
+from datetime import datetime, timedelta, timezone
+from pathlib import Path
+from types import SimpleNamespace
+
+from odoo import api
+from odoo.exceptions import UserError
+from odoo.addons.ydental_treatment_test.tests.common import key, bind
+
+run = Path(os.environ['YDENTAL_S10_RUN_DIR'])
+assert run.name == env.cr.dbname
+fixture = json.loads((run / 'f5.json').read_text())
+with env.registry.cursor() as cr:
+    root = api.Environment(cr, 1, {})
+    store = root['ydental.access.store'].browse(fixture['store_id'])
+    manager = root['res.users'].browse(fixture['manager_id'])
+    reviewer = root['res.users'].browse(fixture['frontdesk_id'])
+    holder = SimpleNamespace(root=root, stores=[store])
+    service = bind(holder, manager).env['ydental.settlement.service']
+    review = bind(holder, reviewer).env['ydental.settlement.service']
+    yesterday = (datetime.now(timezone.utc) - timedelta(days=1)).isoformat()
+    invoice_id = fixture['old_invoice_ids'][1]
+    payment = service._operate('pay', {'invoice_ids': [invoice_id], 'amount': 10,
+        'channel': 'cash', 'actual_utc': yesterday,
+        'proof': 'Actual prior-day cash confirmed and entered next day'}, key())
+    source = root['ydental.settlement.payment'].browse(payment['payment_id'])
+    assert source.ydental_actual_at < source.ydental_entered_at
+    assert source.ydental_business_date < source.ydental_entered_at.date()
+    close = service._operate('close', {'business_date': str(source.ydental_business_date),
+        'channel': 'cash'}, key())
+    assert close['gross'] == 10
+    with cr.savepoint():
+        try:
+            service._operate('pay', {'invoice_ids': [invoice_id], 'amount': 1,
+                'channel': 'cash', 'actual_utc': yesterday,
+                'proof': 'Forbidden late posting after close'}, key())
+        except UserError as error:
+            assert 'day_closed:' in str(error)
+        else:
+            raise AssertionError('Late payment bypassed locked close')
+    review._operate('unlock', {'close_id': close['close_id'],
+        'reason': 'Independent finance review of prior-day evidence'}, key())
+    supplement = service._operate('pay', {'invoice_ids': [invoice_id], 'amount': 1,
+        'channel': 'cash', 'actual_utc': yesterday,
+        'proof': 'Actual prior-day one unit confirmed after finance unlock'}, key())
+    second = service._operate('close', {'business_date': str(source.ydental_business_date),
+        'channel': 'cash'}, key())
+    assert second['gross'] == 11 and root['account.move'].browse(invoice_id).amount_residual == 259
+    print('S10_LATE_CLOSE', json.dumps({'first_payment': payment['payment_id'],
+        'actual_at': str(source.ydental_actual_at), 'entered_at': str(source.ydental_entered_at),
+        'close': close, 'supplement': supplement, 'reclose': second}), flush=True)
+    cr.commit()

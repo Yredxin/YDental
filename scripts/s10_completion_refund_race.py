@@ -78,4 +78,5 @@ with psycopg2.connect(host='127.0.0.1', port=5432, user='odoo',
 print('S10_REFUND_RACE_RESULT', json.dumps({'backend_pids': [a['backend_pid'], b['backend_pid']],
     'outcomes': [a['outcome'], b['outcome']], 'reserved': float(reserved),
     'count': count, 'deadlocks': deadlocks}), flush=True)
-assert reserved <= 500 and deadlocks == 0
+assert sorted((a['outcome'], b['outcome'])) == ['accepted', 'rejected']
+assert reserved == 400 and deadlocks == 0

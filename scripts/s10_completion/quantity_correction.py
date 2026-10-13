@@ -3,7 +3,7 @@ from pathlib import Path
 from types import SimpleNamespace
 from odoo import api,Command,fields
 from odoo.exceptions import UserError,ValidationError
-from odoo.addons.ydental_treatment_test.tests.common import key,price,bind
+from odoo.addons.ydental_treatment_test.tests.common import key,price,bind,save_args
 from odoo.addons.ydental_treatment_test.tests.treatment_common import setup,receive,opened_actual,execute_args
 run=Path(os.environ['YDENTAL_S10_RUN_DIR']);assert run.name==env.cr.dbname
 with env.registry.cursor() as cr:
@@ -32,6 +32,15 @@ with env.registry.cursor() as cr:
  billing=bind(f,f.users['manager']).env['ydental.settlement.service']
  bill=billing._operate('bill',{'fee_ids':[actual['fee_id']],'discount':0,'reason':''},key())
  assert bill['amount']==600
+ before=(root['ydental.treatment.fee'].search_count([]),root['stock.move'].search_count([]))
+ doc.update(clinical._operate('save',save_args(doc,'Corrected synthetic clinical text only')))
+ args['document_version']=doc['version']
+ assert (root['ydental.treatment.fee'].search_count([]),root['stock.move'].search_count([]))==before
+ returned=treatment._operate('return_material',{'event_id':actual['event_id'],
+     'inventory_event_id':actual['inventory_event_ids'][0],'quantity':1,'uom_id':f.uom.id,
+     'source':key(),'reason':'Actual physical material return to quarantine'},key())
+ native_return=root['stock.move'].browse(returned['move_id'])
+ assert native_return.state=='done' and root['ydental.treatment.fee'].search_count([])==before[0]
  corrected=treatment._operate('correct',args|{'event_id':actual['event_id'],'delta':-1,'source':key(),'reason':'Synthetic verified quantity correction','materials':[]},key())
  assert corrected['amount']==-600
  credit=billing._operate('bill',{'fee_ids':[corrected['fee_id']],'discount':0,'reason':''},key())
@@ -39,5 +48,5 @@ with env.registry.cursor() as cr:
  note=root['account.move'].browse(credit['credit_note_id'])
  assert invoice.amount_residual==0 and note.state=='posted' and credit['unpaid_reduced']==600
  assert not root['account.payment'].search([('partner_id','=',invoice.partner_id.id)])
- print('S10_T08_T15',json.dumps({'original_fee':actual['fee_id'],'frozen_amount':600,'new_price':620,'invoice':invoice.id,'correction_fee':corrected['fee_id'],'credit_note':note.id,'residual':invoice.amount_residual,'actual_refunded':0}),flush=True)
+ print('S10_T08_T15',json.dumps({'original_fee':actual['fee_id'],'frozen_amount':600,'new_price':620,'invoice':invoice.id,'corrected_text_version':doc['version'],'physical_return':returned['id'],'native_return_move':native_return.id,'correction_fee':corrected['fee_id'],'credit_note':note.id,'residual':invoice.amount_residual,'actual_refunded':0}),flush=True)
  cr.commit()
