@@ -76,7 +76,16 @@
                         <tbody><tr t-foreach="invoices" t-as="invoice">
                             <td t-out="invoice.name"/><td t-out="invoice.invoice_date"/>
                             <td t-out="invoice.amount_total"/><td t-out="invoice.amount_residual"/>
-                            <td><a t-att-href="'/ydental/settlement/pdf/bill/%s' % invoice.id">下载中文 PDF</a></td>
+                            <td><a t-att-href="'/ydental/settlement/pdf/bill/%s' % invoice.id">下载中文 PDF</a>
+                                <form t-if="can_write" method="post" action="/ydental/settlement/action">
+                                    <t t-call="ydental_settlement.ydental_settlement_tokens"/>
+                                    <input type="hidden" name="operation" value="waive"/>
+                                    <input type="hidden" name="invoice_id" t-att-value="invoice.id"/>
+                                    <label>未收款免单额 <input type="number" name="amount" min="0.01" step="0.01" required="required"/></label>
+                                    <label>有据免单原因 <input type="text" name="reason" maxlength="300" required="required"/></label>
+                                    <button type="submit">原生贷项冲减未收应收</button>
+                                </form>
+                            </td>
                         </tr></tbody></table>
                     <t t-set="page_kind" t-value="'invoices'"/><t t-call="ydental_settlement.ydental_settlement_page_links"/>
                 </section>
@@ -134,6 +143,24 @@
                             <label>实际退款 UTC <input type="text" name="actual_utc" t-att-value="now_utc()" required="required"/></label>
                             <label>实际线下退款凭据 <input type="text" name="proof" maxlength="200" required="required"/></label>
                             <button type="submit">确认已实际退款</button>
+                        </form>
+                        <form t-if="can_write and refund.ydental_state == 'approved'" method="post" action="/ydental/settlement/action">
+                            <t t-call="ydental_settlement.ydental_settlement_tokens"/>
+                            <input type="hidden" name="operation" value="refund_uncertain"/>
+                            <input type="hidden" name="refund_id" t-att-value="refund.id"/>
+                            <label>线下核查状态 <select name="outcome"><option value="unknown">未知</option>
+                                <option value="failed">失败</option></select></label>
+                            <label>核查原因 <input type="text" name="reason" maxlength="300" required="required"/></label>
+                            <button type="submit">标记未知或失败，继续占用额度</button>
+                        </form>
+                        <form t-if="can_approve and refund.ydental_state in ('failed', 'unknown') and refund.ydental_requester_id.id != request.env.uid"
+                              method="post" action="/ydental/settlement/action">
+                            <t t-call="ydental_settlement.ydental_settlement_tokens"/>
+                            <input type="hidden" name="operation" value="refund_recover"/>
+                            <input type="hidden" name="refund_id" t-att-value="refund.id"/>
+                            <label>已核实未付款 <input type="checkbox" name="verified_not_paid" value="1" required="required"/></label>
+                            <label>恢复原因 <input type="text" name="reason" maxlength="300" required="required"/></label>
+                            <button type="submit">财务核查后恢复执行</button>
                         </form>
                         <form t-if="(can_write and refund.ydental_state == 'requested' and refund.ydental_requester_id.id == request.env.uid) or (can_approve and refund.ydental_state in ('requested', 'approved', 'failed', 'unknown') and refund.ydental_requester_id.id != request.env.uid)"
                               method="post" action="/ydental/settlement/action">
