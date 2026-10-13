@@ -1600,3 +1600,13 @@ msgstr "version_conflict: 该请求键属于其他动作。"
 msgid ""
 "version_conflict: This prescription segment is bound to another execution."
 msgstr "version_conflict: 该处方段已绑定另一执行。"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Timed target qualification task"
+msgstr "定时目标预约资格任务"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Untimed source awaiting target acceptance at initiation"
+msgstr "不定时来源：发起时待目标受理"
