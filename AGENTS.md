@@ -1,5 +1,12 @@
 # YDental 当前执行入口
 
+## 当前 S10 D0/D1 有界诊断阻断 / #34（等待 GPT 独立复核）
+
+- 新授权为 [#34 GPT-REVIEW/AUTHORIZE6146845983](https://github.com/Yredxin/YDental/issues/34#issuecomment-6146845983)。原分支、失败 final `87bad3b14a67a70ded6215cd9f3c324a30037936` 不改写。D0 只读原事故 PID1965906、原日志/脚本SHA、Python 3.12.15 Build ID、core/内核可见性、原库 OID/cluster、资源；根因 UNKNOWN。[D0 回执6146948301](https://github.com/Yredxin/YDental/issues/34#issuecomment-6146948301)已先发布并逐字读回。
+- D1 新库 `ydental_s10_test_20261013134700_d10a5e72` / OID1620922 / 18211，原 cluster/configSHA 保留；最多2个 Odoo 子进程已耗尽：安装 PID1980614 exit255，因 `ydental_treatment_test` 的 S08-B 命名 guard；shell PID1982238 exit1，registry加载92模块后诊断 stdin 首行错误 import。两次均无 signal11，但没有完成候选安装或上游业务入口，**D1安全恢复条件未通过，D2未启动，禁止继续 Odoo/Firefox 重跑**。原新旧库、失败日志/目录均保留，生产 BLOCKED。详见 [报告](docs/s10-d1-blocked-report.md) 和 [机器证据](docs/evidence/s10-d1-blocked/diagnostic.json)。
+- 本批只有文档/脱敏证据提交，没有新的 product/test/final 三提交；F1—F6/T01—T16、T09、原生财务与Firefox均 NOT_RUN/BLOCKED。#34继续 OPEN/进行中/Todo，Project 0 mutation，不启S11。按授权在#34发布 `[CODEX] S10持续BLOCKED与技术复核申请` 并逐字读回后停止等待 GPT。
+
+
 ## 当前 S10 原生崩溃阻断 / #34（等待 GPT 独立技术复核）
 
 - 唯一 S10 授权为 [#34 GPT-ACTIVATE6145995580](https://github.com/Yredxin/YDental/issues/34#issuecomment-6145995580)，用户本轮确认完整实施。已读取 #23/#33/#34 正文和有效评论、S09 技术 PASS 6145205127 与 Project 同步复核 6145793236。固定 S09 final `d06b1056700c4fcf899deb68a32e8496e3f8195e`，新分支 `codex/s10-settlement-finance-r1-20261013`，候选 product `47258e3763666cc37f8d0afe7092c65919e1062b`，失败探针 test `9bc86841619824627bfe03e97da43ce856b5ec28`，final SHA 见 #34 BLOCKED 评论。product→test 仅保存实际失败探针源码；test→final 仅 AGENTS、报告、脱敏证据。

@@ -1,0 +1,115 @@
+{
+  "authorization_comment": 6146845983,
+  "d0_comment": 6146948301,
+  "fixed_failed_baseline": "87bad3b14a67a70ded6215cd9f3c324a30037936",
+  "d0": {
+    "original_db": "ydental_s10_test_20261013125916_2b3e556e",
+    "original_oid": 1598603,
+    "cluster": "7694897083368259627",
+    "pid": 1965906,
+    "exit_code": 139,
+    "original_log_sha256": "9c62be35195a765bacf11f57629dd67c6d6156f5591c1d42dd2bc8a3e2cb47ef",
+    "original_script_sha256": "eb4a22badeffd2bb33fd232527f47d89dec454adbeb103a20702ff22441766ac",
+    "python": "3.12.15",
+    "python_elf_build_id": "7713d416ece8f53a2b37e61dd06defd7bf795954",
+    "native_stack": "UNKNOWN",
+    "root_cause": "UNKNOWN",
+    "core": "none; original soft limit 0; apport pipe",
+    "kernel_window": "no accessible PID1965906 line in journal/syslog/kern.log; journal-k empty, sudo -n denied",
+    "resource_read": "PG shm 256MiB total, about 163MiB free; host 5.9GB available RAM and 21GB free disk at D0"
+  },
+  "d1": {
+    "marker": {
+      "database": "ydental_s10_test_20261013134700_d10a5e72",
+      "oid": 1620922,
+      "cluster": "7694897083368259627",
+      "endpoint": {
+        "host": "127.0.0.1",
+        "port": "5432",
+        "user": "odoo"
+      },
+      "port": 18211,
+      "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+      "commit": "87bad3b14a67a70ded6215cd9f3c324a30037936",
+      "config_sha256": "123dd939503d37113ad85e83fe1d345b9d95400349a7f2a33853657ce08a2389",
+      "created_utc": "2026-10-13T13:46:20.726249+00:00"
+    },
+    "attempted_db_without_creation": "ydental_s10_test_20261013134500_d10a5e71",
+    "precreate_failure": "CREATE DATABASE inside transaction, no database; directory retained",
+    "actions": [
+      {
+        "phase": "install",
+        "pid": 1980614,
+        "exit_code": 255,
+        "signal": null,
+        "command": [
+          "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+          "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+          "-c",
+          "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261013134700_d10a5e72/odoo.conf",
+          "-i",
+          "ydental_settlement,ydental_treatment_test,l10n_cn,sale,purchase",
+          "--load-language",
+          "en_US,zh_CN",
+          "--stop-after-init",
+          "--with-demo"
+        ],
+        "database": "ydental_s10_test_20261013134700_d10a5e72",
+        "oid": 1620922,
+        "config_sha256": "123dd939503d37113ad85e83fe1d345b9d95400349a7f2a33853657ce08a2389",
+        "log_sha256": "94c23b42e7ef830eb75b121553f08a02c3635b6d7bf6021f16e03d5e1b4df53a",
+        "log_bytes": 259643,
+        "timestamp": "2026-10-13T13:48:11.205233+00:00"
+      },
+      {
+        "phase": "shell",
+        "pid": 1982238,
+        "exit_code": 1,
+        "signal": null,
+        "command": [
+          "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+          "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+          "shell",
+          "-c",
+          "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261013134700_d10a5e72/odoo.conf",
+          "--no-http"
+        ],
+        "database": "ydental_s10_test_20261013134700_d10a5e72",
+        "oid": 1620922,
+        "config_sha256": "123dd939503d37113ad85e83fe1d345b9d95400349a7f2a33853657ce08a2389",
+        "log_sha256": "aa06546e7744270a5ae3602cfb8ed93fc0056a8a5f34810975d5f30a79213287",
+        "log_bytes": 2703,
+        "timestamp": "2026-10-13T13:49:21.216697+00:00"
+      }
+    ],
+    "odoo_subprocess_count": 2,
+    "signal11_count": 0,
+    "installed": {
+      "account": "installed",
+      "sale": "installed",
+      "purchase": "installed",
+      "stock": "installed",
+      "ydental_settlement": "uninstalled",
+      "ydental_treatment_test": "uninstalled"
+    },
+    "event_count": 0,
+    "account_payment_count": 0,
+    "partial_reconcile_count": 0,
+    "synthetic_db_count_after": 133,
+    "failure_details": [
+      "install exit255: ydental_treatment_test pre_init_hook requires S08-B guarded database name",
+      "shell exit1: ImportError cannot import registry from odoo at first stdin line; registry itself loaded 92 modules, no module install or upstream business entry executed"
+    ]
+  },
+  "gates": {
+    "D0": "DONE",
+    "D1": "FAILED_WITHOUT_SIGNAL11",
+    "D2": "NOT_STARTED",
+    "S10_F1_F6": "NOT_RUN",
+    "S10_T01_T16": "NOT_RUN",
+    "native_root_cause": "UNKNOWN",
+    "production": "BLOCKED"
+  },
+  "project_mutations": 0,
+  "database_deleted": 0
+}
