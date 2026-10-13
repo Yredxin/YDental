@@ -4,14 +4,14 @@
     </template>
     <template id="ydental_document_pdf" name="Controlled demonstration PDF">
         <html><head><meta charset="utf-8"/></head><body><main><style>
-            body {font-family: 'Noto Sans CJK SC', sans-serif; font-size: 10pt; line-height: 1.6; color: #18252e;}
+            body {margin: 0; font-family: 'Noto Sans CJK SC', sans-serif; font-size: 9.5pt; line-height: 1.5; color: #18252e;}
             h1 {font-size: 19pt; margin: 0 0 8px;} h2 {font-size: 12pt; margin: 14px 0 4px; page-break-after: avoid;}
-            p {margin: 5px 0; white-space: pre-wrap; word-wrap: break-word; word-break: break-all;}
+            p {margin: 4px 0; white-space: pre-wrap; word-wrap: break-word; word-break: break-all;}
             .warning {border: 2px solid #9a3b27; padding: 8px; font-weight: bold; color: #8b2e18;}
             table {width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 9pt;}
             td, th {padding: 5px; border: 1px solid #bdc5cb; vertical-align: top; word-wrap: break-word; word-break: break-all;}
             th {background: #e8edf0;} tr {page-break-inside: avoid;} thead {display: table-header-group;}
-            .label {width: 30%;} .meta {font-size: 8pt; color: #394e60;} .blank {min-height: 35px; border-bottom: 1px solid #c6cbd0;}
+            p:last-child {margin-bottom: 0;} .label {width: 30%;} .meta {font-size: 8pt; color: #394e60;} .blank {min-height: 35px; border-bottom: 1px solid #c6cbd0;}
         </style>
             <h1 t-out="p['title']"/>
             <div class="warning"><span>DEMONSTRATION / UNREVIEWED / NO FORMAL SIGNATURE</span><br/><t t-out="p['status']"/></div>
