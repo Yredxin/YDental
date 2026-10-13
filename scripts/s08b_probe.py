@@ -205,7 +205,7 @@ except Exception as error:
     result['result']='FAIL';result['failures'].append({'type':type(error).__name__,'detail':str(error)[:1500],
         'trace':[{'file':Path(f.filename).name,'line':f.lineno,'method':f.name} for f in traceback.extract_tb(error.__traceback__)]})
 finally:
-    directory=root/'docs/evidence/s08b/probe-attempts';directory.mkdir(parents=True,exist_ok=True)
+    directory=root/'docs/evidence/s08b-rework/probe-attempts';directory.mkdir(parents=True,exist_ok=True)
     (directory/(run.name+'-'+datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f')+'.json')).write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
     print(json.dumps({'result':result['result'],'races':len(result['races']),'deadlocks':result['deadlocks']}))
 assert result['result']=='PASS',result['failures']

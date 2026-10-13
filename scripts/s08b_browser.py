@@ -61,7 +61,7 @@ def main():
     commit = subprocess.check_output(['git', '-C', str(ROOT), 'rev-parse', 'HEAD'], text=True).strip()
     require(not subprocess.check_output(['git', '-C', str(ROOT), 'status', '--porcelain', '--',
         'ydental_clinical', 'ydental_treatment', 'ydental_treatment_test', 'scripts/s08b*'], text=True), 'Commit implementation and verification first')
-    evidence = ROOT / 'docs/evidence/s08b/b-browser-attempts' / datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f')
+    evidence = ROOT / 'docs/evidence/s08b-rework/b-browser-attempts' / datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f')
     evidence.mkdir(parents=True)
     result = {'scope': 'S08-B real reception, teeth, authored text, handover and pending responsibility', 'database': args.db, 'tested_commit': commit,
               'browser': 'Firefox', 'sandbox': 'default, no overrides', 'checks': [], 'screenshots': []}

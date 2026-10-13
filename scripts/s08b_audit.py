@@ -44,7 +44,7 @@ for table in ('account_move','account_payment'):
     else:result['financial_tables'][table]='NOT_INSTALLED'
 env.cr.execute("SELECT ydental_event,count(*) FROM ydental_access_audit WHERE ydental_event LIKE 'clinical.%' OR ydental_event LIKE 'treatment.%' GROUP BY ydental_event ORDER BY ydental_event")
 result['audit_events']=dict(env.cr.fetchall());result['result']='PASS' if not any(result['invariants'].values()) else 'FAIL'
-root=Path(__file__).resolve().parents[1];out=root/'docs/evidence/s08b/audit-attempts';out.mkdir(parents=True,exist_ok=True)
+root=Path(__file__).resolve().parents[1];out=root/'docs/evidence/s08b-rework/audit-attempts';out.mkdir(parents=True,exist_ok=True)
 (out/(run.name+'-'+datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f')+'.json')).write_text(json.dumps(result,indent=2)+'\n')
 print(json.dumps({'result':result['result'],'invariants':result['invariants']}))
 assert result['result']=='PASS'
