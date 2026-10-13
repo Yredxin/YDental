@@ -477,7 +477,8 @@ class YDentalExamService(models.AbstractModel):
             'station': result.ydental_station_id.name if result.ydental_station_id else '',
             'actual_at': str(event.ydental_actual_at) if event else '',
             'business_date': str(event.ydental_business_date) if event else '',
-            'event_id': event.id if event else 0, 'state': selected.ydental_kind,
+            'event_id': event.id if event else 0,
+            'state': {'draft': '草稿', 'confirm': '已确认', 'correction': '已更正'}[selected.ydental_kind],
             'findings': selected.ydental_findings or '', 'conclusion': selected.ydental_conclusion or '',
             'measurements': [{'name': k, 'value': v['value'] if v['value'] is not None else '',
                 'unit': v['unit'], 'status': v['status']} for k, v in sorted(measurements.items())]}
