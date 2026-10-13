@@ -71,7 +71,11 @@ def browser(phase):
  if phase in ('A','C'):
   tables=list(before['signatures'])
   if phase=='A':
-   tables=[t for t in tables if t not in ('ydental_clinical_document','ydental_clinical_version','ydental_queue_execution','ydental_intake_task','ydental_queue_entry','ydental_queue_lease','ydental_queue_outbox','bus_bus')]
+   # The real A browser starts an intake execution, consuming its S03
+   # entitlement claim. Its count and capacity must stay constant; the
+   # clinical/queue workflow may update the claim's state and version.
+   assert before['signatures']['ydental_supply_claim']['count']==after['signatures']['ydental_supply_claim']['count']
+   tables=[t for t in tables if t not in ('ydental_clinical_document','ydental_clinical_version','ydental_queue_execution','ydental_intake_task','ydental_queue_entry','ydental_queue_lease','ydental_supply_claim','ydental_queue_outbox','bus_bus')]
   else:tables.remove('ydental_print_job')
   assert all(before['signatures'][t]==after['signatures'][t] for t in tables),(phase,'economic or source mutation')
   assert before['capacity_totals']==after['capacity_totals']
