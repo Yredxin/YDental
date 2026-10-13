@@ -17,6 +17,7 @@ ROOT=Path(__file__).resolve().parents[1];deps=ROOT/'.local/s00-b-deps';sys.path.
 os.environ['PLAYWRIGHT_BROWSERS_PATH']=str(deps/'browsers');os.environ['LD_LIBRARY_PATH']=str(deps/'browser-libs/usr/lib/x86_64-linux-gnu');os.environ['FONTCONFIG_FILE']=str(deps/'browser-fonts.conf')
 from playwright.sync_api import sync_playwright
 from PIL import ImageGrab
+from lxml import html as lxml_html
 
 def sha(path):return hashlib.sha256(path.read_bytes()).hexdigest()
 def require(value,message):
@@ -71,8 +72,9 @@ try:
    with page.expect_response(lambda r:r.url==base+'/ydental/print/action' and r.request.post_data and 'operation='+operation in r.request.post_data) as response:page.locator('#print-'+selectors[operation]).click()
    response=response.value;check(operation+' HTTP '+str(status),response.status==status);return response
   for name in ('clinical','prescription','consent'):
-   select(preview[name]);click('preview');page.wait_for_function("!document.querySelector('#print-generate').disabled")
-   text=page.frame_locator('#print-html').locator('body').inner_text();check(name+' real Chinese source preview','演示' in text and ('待完善' in text if name=='clinical' else '未签署' in text if name=='consent' else '未领数量' in text))
+   select(preview[name]);review_response=click('preview');page.wait_for_function("!document.querySelector('#print-generate').disabled")
+   srcdoc=page.locator('#print-html').get_attribute('srcdoc');check(name+' visible preview equals actual server response',page.locator('#print-html').is_visible() and srcdoc==review_response.json()['html'])
+   text=lxml_html.fromstring(srcdoc).text_content();check(name+' real Chinese source preview','演示' in text and ('待完善' in text if name=='clinical' else '未签署' in text if name=='consent' else '未领数量' in text))
    screenshot(page,name+'-review');click('generate');page.wait_for_function("!document.querySelector('#print-view').disabled")
    view=click('pdf_view');check(name+' true PDF binary',view.body().startswith(b'%PDF-'))
    page.frame_locator('#print-pdf').locator('#viewer .page').first.wait_for();page.wait_for_timeout(1200);screenshot(page,name+'-pdf-view')
