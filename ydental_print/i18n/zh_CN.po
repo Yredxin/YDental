@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 20.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-13 03:25+0000\n"
-"PO-Revision-Date: 2026-10-13 03:25+0000\n"
+"POT-Creation-Date: 2026-10-13 04:11+0000\n"
+"PO-Revision-Date: 2026-10-13 04:11+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -158,6 +158,8 @@ msgid "Clinical field template"
 msgstr "临床字段模板"
 
 #. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_service.py:0
 #: model:ir.model.fields.selection,name:ydental_print.selection__ydental_print_job__ydental_kind__clinical
 #: model_terms:ir.ui.view,arch_db:ydental_print.ydental_print_page
 msgid "Clinical text"
@@ -524,6 +526,8 @@ msgid "Patient signature"
 msgstr "患者签署栏"
 
 #. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_service.py:0
 #: model:ir.model.fields.selection,name:ydental_print.selection__ydental_print_job__ydental_kind__prescription
 #: model_terms:ir.ui.view,arch_db:ydental_print.ydental_print_page
 msgid "Prescription"
@@ -767,6 +771,8 @@ msgid "Unsigned consent demonstration PDF"
 msgstr "未签署知情同意书演示 PDF"
 
 #. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_service.py:0
 #: model:ir.model.fields.selection,name:ydental_print.selection__ydental_print_job__ydental_kind__consent
 #: model_terms:ir.ui.view,arch_db:ydental_print.ydental_print_page
 msgid "Unsigned consent sample"
