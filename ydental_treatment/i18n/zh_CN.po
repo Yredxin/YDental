@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 20.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-12 23:56+0000\n"
+"POT-Creation-Date: 2026-10-13 00:07+0000\n"
 "PO-Revision-Date: 2026-10-13 00:00+0000\n"
 "Last-Translator: YDental development\n"
 "Language-Team: YDental\n"
@@ -748,6 +748,11 @@ msgstr "UTC /"
 
 #. module: ydental_treatment
 #: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "UTC actual time (blank means confirmation time)"
+msgstr "UTC实际发生时间（留空使用确认时间）"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
 msgid "UTC slot end"
 msgstr "UTC时段结束"
 
@@ -1155,6 +1160,14 @@ msgstr "access_denied: 跨法人转诊需要明确的账号公司授权。"
 
 #. module: ydental_treatment
 #. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid ""
+"access_denied: Only the original responsible operator can reconcile this "
+"clinical fact."
+msgstr "access_denied: 仅原责任操作者可核对本临床事实。"
+
+#. module: ydental_treatment
+#. odoo-python
 #: code:addons/ydental_treatment/models/ydental_queue_service.py:0
 msgid ""
 "access_denied: Only the real pharmacy segment holder can finish its "
@@ -1380,6 +1393,20 @@ msgstr "invalid_source: 请提供稳定转诊来源标识。"
 msgid ""
 "invalid_source: Supply a stable source identifier and explicit fact status."
 msgstr "invalid_source: 请提供稳定来源标识与明确事实状态。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid ""
+"invalid_time: Actual time must fall within this started service and cannot "
+"be in the future."
+msgstr "invalid_time: 实际时间必须在本次已开始服务内，不能为未来。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid "invalid_time: Supply an explicit UTC date and time with seconds."
+msgstr "invalid_time: 请提供精确到秒的UTC日期时间。"
 
 #. module: ydental_treatment
 #. odoo-python
