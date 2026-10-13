@@ -99,3 +99,23 @@ class TestPrintHTTP(TestTreatmentHTTP):
         counts = {m: self.root[m].search_count([]) for m in ('ydental.clinical.version', 'ydental.treatment.event', 'ydental.treatment.fee', 'stock.move', 'ydental.intake.snapshot')}
         for _ in range(3):self.assertEqual(self.p_action('download', {'job_id': job['job_id']}).status_code, 200)
         self.assertEqual(counts, {m: self.root[m].search_count([]) for m in counts})
+
+    def test_http_pharmacy_only_real_rx_source_and_export_revocation(self):
+        args = self.medical()
+        line = {'mapping_id': self.drug_mapping.id, 'quantity': 6, 'uom_id': self.uom.id,
+            'product_id': self.products['medicine'], 'specification': '合成规格',
+            'usage': '合成明确用法', 'frequency': '合成明确频次', 'course': '合成明确疗程'}
+        draft = self.t_action('order', args | {'kind': 'prescription', 'purpose': '合成药房只读打印', 'lines': [line]})
+        self.assertEqual(draft.status_code, 200, draft.text)
+        issued = self.t_action('issue', args | {'order_id': draft.json()['order_id'], 'version': draft.json()['version']})
+        self.assertEqual(issued.status_code, 200, issued.text)
+        source = {'kind': 'prescription', 'source_id': issued.json()['order_id'], 'version': issued.json()['version']}
+        self.admin._grant(self.pharmacist.id, self.stores[0].id, {'export': 'write'})
+        self.users = self.users | {'pharmacy': self.pharmacist}
+        self.select('pharmacy')
+        job = self.generated(source)
+        self.assertTrue(self.p_action('download', {'job_id': job['job_id']}).content.startswith(b'%PDF-'))
+        for kind in ('clinical', 'consent'):
+            self.assertEqual(self.p_action('preview', {'kind': kind, 'source_id': args['document_id'], 'version': args['document_version']}).status_code, 403)
+        self.admin._grant(self.pharmacist.id, self.stores[0].id, {'export': 'none'})
+        self.assertEqual(self.p_action('print_request', {'job_id': job['job_id']}).status_code, 403)

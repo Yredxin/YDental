@@ -202,3 +202,14 @@ class TestControlledPrint(TransactionCase):
         self.assertEqual(self.root['ydental.print.job'].search_count([]), before)
         self.assertEqual(self.root['ydental.clinical.document'].browse(self.d['document_id']).ydental_version, self.d['version'])
         self.assertFalse(self.root['ydental.treatment.event'].search_count([('ydental_execution_id', '=', self.e.id)]))
+
+    def test_company_removed_and_audit_never_copies_clinical_body(self):
+        selection = self.source()
+        args = save_args(self.d, 'S08C-SYNTHETIC-PRIVATE-BODY-MUST-NOT-BE-IN-AUDIT')
+        self.d.update(self.c._operate('save', args));selection['version'] = self.d['version']
+        job, _ = self.generate(selection)
+        audits = self.root['ydental.access.audit'].search([('ydental_event', 'like', 'print.%')])
+        self.assertNotIn('S08C-SYNTHETIC-PRIVATE-BODY-MUST-NOT-BE-IN-AUDIT', json.dumps(audits.mapped('ydental_after')))
+        company = self.root['res.company'].create({'name': 'S08C isolated synthetic company'})
+        self.users['doctor'].write({'company_id': company.id, 'company_ids': [fields.Command.set(company.ids)]})
+        with self.assertRaises(AccessError):self.p._operate('download', {'job_id': job['job_id']})
