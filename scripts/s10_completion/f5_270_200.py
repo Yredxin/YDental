@@ -22,7 +22,10 @@ with env.registry.cursor() as cr:
     with patch.object(fields.Datetime, 'now', return_value=old_clock):
         setup(f)
         company = f.stores[0].company_id
-        f.admin._grant(f.users['manager'].id, f.stores[0].id, {'settlement': 'write'})
+        f.admin._grant(f.users['manager'].id, f.stores[0].id, {
+            'settlement': 'write', 'finance_approval': 'write', 'export': 'write'})
+        f.admin._grant(f.users['frontdesk'].id, f.stores[0].id, {
+            'settlement': 'write', 'finance_approval': 'write', 'export': 'write'})
         root = f.root['base'].with_company(company).env
         income = root['account.account'].search([('account_type', '=', 'income'),
             ('company_ids', 'in', company.id)], limit=1)
