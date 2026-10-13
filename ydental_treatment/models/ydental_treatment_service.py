@@ -377,7 +377,7 @@ class YDentalTreatmentService(models.AbstractModel):
                 'ydental_quantity': row['quantity'], 'ydental_uom_id': unit.id}
             if order.ydental_kind == 'prescription':
                 product = self.env['product.product'].sudo().browse(intake._id(row['product_id'])).exists()
-                if not product or not product.active or product.ydental_inventory_kind != 'medicine' or unit != product.uom_id or unit != mapping.ydental_catalog_id.ydental_product_id.uom_id:
+                if not product or not product.active or (product.company_id and product.company_id != order.ydental_store_id.company_id) or product.ydental_inventory_kind != 'medicine' or unit != product.uom_id or unit != mapping.ydental_catalog_id.ydental_product_id.uom_id:
                     raise ValidationError(self.env._('invalid_order: Select a real active S07 medicine and matching native stock and service units.'))
                 values['ydental_product_id'] = product.id
                 for field in ('specification', 'usage', 'frequency', 'course'):
