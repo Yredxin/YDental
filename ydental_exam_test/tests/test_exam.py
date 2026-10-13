@@ -315,13 +315,42 @@ class TestExamination(TransactionCase):
         self.assertFalse(actual['fee_id'])
         self.assertIsNone(actual['amount'])
         self.assertFalse(event.ydental_price_snapshot_id)
-        with self.assertRaises(UserError):
-            service._operate('finish', action | {'reason': '不能把未核价事实当已结算'}, key())
+        departed = service._operate('finish', action | {'reason': '临床离场，原价待核对责任继续保留'}, key())
+        self.assertEqual(departed['state'], 'completed_pending_reconciliation')
+        self.assertEqual(event.state, 'pending')
+        self.assertEqual(self.root['ydental.queue.execution'].browse(action['execution_id']).state, 'completed')
+        self.assertFalse(self.root['ydental.queue.lease'].browse(action['lease_id']).ydental_active)
         price(self, 999, catalog=self.catalogs[2])
         retry = service._operate('reconcile', {'line_id': action['line_id'],
             'reason': '后价不能替代原价'}, key())
         self.assertEqual((retry['state'], retry['pending_reason'], retry['fee_id']),
                          ('pending', 'missing_price', False))
+
+    def test_wrong_template_type_cannot_bind_to_other_capability(self):
+        service = self.doctor.env['ydental.exam.service']
+        with self.assertRaises(ValidationError):
+            service._operate('bind_template', {'catalog_id': self.catalogs[2].id,
+                'code': 'cbct-demo-1', 'reason': 'Synthetic wrong capability must be rejected'}, key())
+        self.assertFalse(self.root['ydental.exam.template'].search([
+            ('ydental_catalog_id', '=', self.catalogs[2].id)]))
+        with self.assertRaises(ValidationError):
+            service._operate('bind_template', {'catalog_id': self.catalogs[3].id,
+                'code': 'panorama-demo-1', 'reason': 'Synthetic reverse mismatch must be rejected'}, key())
+
+    def test_text_only_save_does_not_clear_known_measurement(self):
+        self._bind_templates()
+        with patch.object(type(self.group.env['ydental.supply.service']), '_allow_demo_supply', return_value=True):
+            treatment, clinical, _queue, lease, _medical, document, args = opened_actual(self)
+        issued = self._order(treatment, args, indexes=(2,))
+        clinical._operate('handover', handover_args(document, lease))
+        service, action = self._external_start(issued)
+        known = {'length_mm': {'status': 'known', 'value': 12, 'unit': 'mm'}}
+        draft = service._operate('draft', action | {'version': 0, 'findings': '初次所见',
+            'measurements': known, 'conclusion': ''}, key())
+        saved = service._operate('draft', action | {'version': draft['version'],
+            'findings': '仅修改所见', 'measurements': {}, 'conclusion': ''}, key())
+        self.assertEqual(saved['version'], draft['version'] + 1)
+        self.assertEqual(service._view(action['line_id'])['measurements'], known)
 
     def test_panorama_task_cannot_be_called_from_idle_cbct_station(self):
         self._bind_templates()
