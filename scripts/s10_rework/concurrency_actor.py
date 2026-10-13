@@ -2,6 +2,7 @@ import json,os,time
 from pathlib import Path
 from types import SimpleNamespace
 from odoo import api
+from odoo.exceptions import UserError
 from odoo.addons.ydental_treatment_test.tests.common import key,bind
 run=Path(os.environ['YDENTAL_S10_RUN_DIR']);assert run.name==env.cr.dbname
 actor=os.environ['YDENTAL_S10_ACTOR'];assert actor in ('a','b')
@@ -19,7 +20,12 @@ with env.registry.cursor() as cr:
   time.sleep(.05)
  else:raise AssertionError('second PostgreSQL backend did not reach barrier')
  service=bind(SimpleNamespace(root=root,stores=[store]),manager).env['ydental.settlement.service']
- result=service._operate('bill',{'fee_ids':[fixture['fee_id']],'discount':0,'reason':''},key())
+ try:
+  result=service._operate('bill',{'fee_ids':[fixture['fee_id']],'discount':0,'reason':''},key())
+  evidence={'actor':actor,'backend_pid':pid,'outcome':'accepted','invoice_id':result['invoice_id'],'amount':result['amount']}
+ except UserError as error:
+  assert 'concurrent_bill:' in str(error),str(error)
+  evidence={'actor':actor,'backend_pid':pid,'outcome':'conflict','code':'concurrent_bill'}
  cr.commit()
- (run/('concurrent-'+actor+'.json')).write_text(json.dumps({'actor':actor,'backend_pid':pid,'invoice_id':result['invoice_id'],'amount':result['amount'],'result':result['result']})+'\n')
- print('S10_CONCURRENT_BILL',actor,pid,result,flush=True)
+ (run/('concurrent-'+actor+'.json')).write_text(json.dumps(evidence)+'\n')
+ print('S10_CONCURRENT_BILL',evidence,flush=True)

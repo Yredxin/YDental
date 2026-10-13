@@ -47,10 +47,13 @@ for actor,proc,stream,log,cmd in children:
  print(json.dumps(record),flush=True)
 assert all(proc.returncode==0 for _,proc,*_ in children)
 a=json.loads((run/'concurrent-a.json').read_text());b=json.loads((run/'concurrent-b.json').read_text())
-assert a['backend_pid']!=b['backend_pid'] and a['invoice_id']==b['invoice_id'] and a['amount']==b['amount']==100
+assert a['backend_pid']!=b['backend_pid']
+assert sorted([a['outcome'],b['outcome']])==['accepted','conflict']
+accepted=a if a['outcome']=='accepted' else b
+assert accepted['amount']==100
 with psycopg2.connect(host='127.0.0.1',port=5432,user='odoo',password=config['options']['db_password'],dbname=args.db) as conn:
  conn.set_session(readonly=True)
  with conn.cursor() as cr:
   cr.execute('select count(*) from ydental_settlement_source where ydental_fee_id=%s',(fixture['fee_id'],));assert cr.fetchone()[0]==1
   cr.execute('select deadlocks from pg_stat_database where datname=%s',(args.db,));assert cr.fetchone()[0]==0
-print('S10_TWO_BACKEND_BILL_PASS',json.dumps({'backend_pids':[a['backend_pid'],b['backend_pid']],'invoice_id':a['invoice_id'],'fee_id':fixture['fee_id'],'source_count':1}),flush=True)
+print('S10_TWO_BACKEND_BILL_PASS',json.dumps({'backend_pids':[a['backend_pid'],b['backend_pid']],'invoice_id':accepted['invoice_id'],'fee_id':fixture['fee_id'],'source_count':1,'outcomes':[a['outcome'],b['outcome']]}),flush=True)
