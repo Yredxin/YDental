@@ -81,7 +81,7 @@ def browser(phase):
 try:
  action('install');action('upgrade');command('test_s08c_guard.py')
  action('probe_a');action('probe');action('probe_c')
- probe_file=sorted((evidence/'probe-attempts').glob('*/result.json'))[-1];probe=json.loads(probe_file.read_text());assert probe['database']==args.db and probe['result']=='PASS' and len(probe['races'])==5 and len(probe['artifacts'])==15
+ probe_file=sorted((evidence/'probe-attempts').glob('*/result.json'))[-1];probe=json.loads(probe_file.read_text());assert probe['database']==args.db and probe['result']=='PASS' and len(probe['races'])==5 and len(probe['artifacts'])==16
  command('s08c_render_pages.py',probe_file.relative_to(ROOT))
  action('export');command('s08c_translation.py','--db',args.db)
  for phase in ('A','B','R','C'):last=browser(phase)

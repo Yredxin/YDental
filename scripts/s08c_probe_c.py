@@ -3,6 +3,8 @@ import base64
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone, timedelta
 import hashlib
+import io
+import unicodedata
 import json
 import os
 from pathlib import Path
@@ -18,6 +20,7 @@ from unittest.mock import patch
 import psycopg2
 from odoo import api, fields
 from odoo.exceptions import AccessError, UserError, ValidationError
+from odoo.tools.pdf import PdfFileReader
 from odoo.addons.ydental_treatment_test.tests.common import bind, key, save_args, handover_args, lease_args, serving, price
 from odoo.addons.ydental_treatment_test.tests.treatment_common import setup, opened_actual, prescription, receive, pharmacy_start, distinct_medicine
 from odoo.addons.ydental_clinical.models.ydental_clinical_service import TEETH
@@ -62,6 +65,7 @@ def race(kind):
   if kind=='generate_during_source_save':
    f.admin._grant(f.users['reader'].id,f.stores[0].id,{'medical':'read','export':'write'})
    p=bind(f,f.users['reader']).env['ydental.print.service'].with_context(lang='zh_CN')
+  old_payload=p._source(**sel)[3]
   preview=p._operate('preview',sel);args=sel|{'expected_digest':preview['source_digest'],'key':key()}
   context=dict(p.env.context);uid=p.env.uid;admin_context=dict(f.admin.env.context);admin_uid=f.admin.env.uid
   save=save_args(d,'并发来源新版本正文');docid=d['document_id'];oldversion=d['version'];f.env.flush_all();before=economy(cr)
@@ -128,6 +132,11 @@ def race(kind):
   if kind=='generate_during_source_save':
    assert r['ydental.clinical.document'].browse(docid).ydental_version==oldversion+1
    job=r['ydental.print.job'].browse(outcomes[0]['data']['job_id']);assert job.ydental_versions['document'][1]==oldversion
+   binary=job.ydental_pdf.content;text=unicodedata.normalize('NFKC',''.join(page.extract_text() for page in PdfFileReader(io.BytesIO(binary)).pages))
+   assert 'Synthetic complaint' in text and '并发来源新版本正文' not in text
+   snapshot=folder/'race-generate-during-source-save.pdf';snapshot.write_bytes(binary)
+   result['artifacts'].append({'path':str(snapshot.relative_to(root)),'sha256':job.ydental_pdf_digest,'job_id':job.id,'source':sel,'versions':job.ydental_versions,'source_digest':job.ydental_source_digest,'fields':old_payload,'economic_signatures':before})
+
    try:api.Environment(cr,uid,context)['ydental.print.service']._operate('download',{'job_id':job.id})
    except UserError:pass
    else:raise AssertionError('changed source job was delivered')
