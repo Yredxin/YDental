@@ -18,6 +18,26 @@ msgstr ""
 
 #. module: ydental_print
 #: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+msgid "<strong>SKU / medicine / specification</strong>"
+msgstr "<strong>SKU／药品／规格</strong>"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+msgid "<strong>Usage / frequency / course</strong>"
+msgstr "<strong>用法／频次／疗程</strong>"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+msgid "<strong>Approved / actually dispensed / uncollected</strong>"
+msgstr "<strong>开立数量／实际已发／未领数量</strong>"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+msgid "<strong>State / reason</strong>"
+msgstr "<strong>状态／原因</strong>"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
 msgid "/ <span>Generation and extraction time (UTC):</span>"
 msgstr "/ <span>生成与提取时间（UTC）：</span>"
 
