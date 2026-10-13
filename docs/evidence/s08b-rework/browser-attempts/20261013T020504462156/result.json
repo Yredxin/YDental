@@ -1,0 +1,111 @@
+{
+  "scope": "S08-B real reception, teeth, authored text, handover and pending responsibility",
+  "database": "ydental_s08b_test_20261013015317_e72d1fca",
+  "tested_commit": "f887d828da292d0da0513e667469b9df28ee4f05",
+  "browser": "Firefox",
+  "sandbox": "default, no overrides",
+  "checks": [
+    {
+      "check": "real S06 chair entered",
+      "result": "PASS"
+    },
+    {
+      "check": "real S06 execution serving",
+      "result": "PASS"
+    },
+    {
+      "check": "Chinese real treatment workbench",
+      "result": "PASS"
+    },
+    {
+      "check": "patient and actual serving segment visible before document creation",
+      "result": "PASS"
+    },
+    {
+      "check": "existing S05 price source retains independent permission",
+      "result": "PASS"
+    },
+    {
+      "check": "original and recovery status messages remain Chinese",
+      "result": "PASS"
+    },
+    {
+      "check": "52 clickable permanent and primary teeth",
+      "result": "PASS"
+    },
+    {
+      "check": "three real server autosaves",
+      "result": "PASS"
+    },
+    {
+      "check": "anterior I enabled and O refused",
+      "result": "PASS"
+    },
+    {
+      "check": "primary posterior O enabled I refused",
+      "result": "PASS"
+    },
+    {
+      "check": "missing tooth cannot select surfaces",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s08b-rework/browser-attempts/20261013T020504462156/01-permanent-anterior-autosave.png",
+      "sha256": "13f0a3fba0fd94c092bdd99183d49bf364ee8fc1c2eae7128cab5ea4052c23c3"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/browser-attempts/20261013T020504462156/02-primary-missing-unknown.png",
+      "sha256": "8d9361202bb8c56f0caf30beb228cd0dc6a18e0f2a863ed7723080c14aeaa767"
+    }
+  ],
+  "result": "FAIL",
+  "error": {
+    "type": "Error",
+    "detail": "Page.evaluate: JSON.parse: unexpected character at line 1 column 1 of the JSON data",
+    "trace": [
+      {
+        "file": "s08b_a_browser.py",
+        "line": 137,
+        "method": "main"
+      },
+      {
+        "file": "s08b_a_browser.py",
+        "line": 105,
+        "method": "inspect_action"
+      },
+      {
+        "file": "_generated.py",
+        "line": 9413,
+        "method": "evaluate"
+      },
+      {
+        "file": "_sync_base.py",
+        "line": 115,
+        "method": "_sync"
+      },
+      {
+        "file": "_page.py",
+        "line": 474,
+        "method": "evaluate"
+      },
+      {
+        "file": "_frame.py",
+        "line": 346,
+        "method": "evaluate"
+      },
+      {
+        "file": "_connection.py",
+        "line": 76,
+        "method": "send"
+      },
+      {
+        "file": "_connection.py",
+        "line": 632,
+        "method": "wrap_api_call"
+      }
+    ]
+  },
+  "pageerrors": []
+}

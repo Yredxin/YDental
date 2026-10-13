@@ -1,0 +1,163 @@
+{
+  "scope": "S08-B real reception, teeth, authored text, handover and pending responsibility",
+  "database": "ydental_s08b_test_20261013015317_e72d1fca",
+  "tested_commit": "f887d828da292d0da0513e667469b9df28ee4f05",
+  "browser": "Firefox",
+  "sandbox": "default, no overrides",
+  "checks": [
+    {
+      "check": "three actual A autosaves before B action",
+      "result": "PASS"
+    },
+    {
+      "check": "Chinese treatment UI and demonstration boundary",
+      "result": "PASS"
+    },
+    {
+      "check": "autosaves create no actual events",
+      "result": "PASS"
+    },
+    {
+      "check": "actual confirmation freezes every editable control while response held",
+      "result": "PASS"
+    },
+    {
+      "check": "full form change preserves uncertain page and forbids automatic replay",
+      "result": "PASS"
+    },
+    {
+      "check": "F1 actual event confirmed with frozen600 and native move",
+      "result": "PASS"
+    },
+    {
+      "check": "material delta appends immutable event",
+      "result": "PASS"
+    },
+    {
+      "check": "draft edit increments server version and preserves superseded rows",
+      "result": "PASS"
+    },
+    {
+      "check": "issued examination set freezes editing",
+      "result": "PASS"
+    },
+    {
+      "check": "F4 unperformed cancellation retained with other exam issued",
+      "result": "PASS"
+    },
+    {
+      "check": "F3 prescription has one explicit pending-report task",
+      "result": "PASS"
+    },
+    {
+      "check": "F5 timed referral leaves original medical execution serving",
+      "result": "PASS"
+    },
+    {
+      "check": "F4 physically performed shortage preserved pending",
+      "result": "PASS"
+    },
+    {
+      "check": "medical handover independent of project and referral",
+      "result": "PASS"
+    },
+    {
+      "check": "F3 actual four remaining two",
+      "result": "PASS"
+    },
+    {
+      "check": "F3 finish releases actual execution",
+      "result": "PASS"
+    },
+    {
+      "check": "F3 remainder uses a new task",
+      "result": "PASS"
+    },
+    {
+      "check": "F3 cumulative six remaining zero",
+      "result": "PASS"
+    },
+    {
+      "check": "seventh unit rejected and page retained for reconciliation",
+      "result": "PASS"
+    },
+    {
+      "check": "F3 complete without third pending segment",
+      "result": "PASS"
+    },
+    {
+      "check": "posthandover actual execute denied without current serving",
+      "result": "PASS"
+    },
+    {
+      "check": "read-only workbench accessible",
+      "result": "PASS"
+    },
+    {
+      "check": "read-only cannot execute via HTTP",
+      "result": "PASS"
+    },
+    {
+      "check": "zero browser page errors",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s08b-rework/b-browser-attempts/20261013T021010009585/B00-real-response-held-unsynchronized.png",
+      "sha256": "ee45b29c2e40b11f3c0d032d3bd70ddb67734403b03ebeae30c954a40c3cdd1d"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/b-browser-attempts/20261013T021010009585/B01-actual-project-600-native-move.png",
+      "sha256": "88d829b741bee2cdba085a2e86bb3fcbd8417ca3ee4fbf53dabb4e5ce50e10c0"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/b-browser-attempts/20261013T021010009585/B02-material-delta-original-preserved.png",
+      "sha256": "64b0020c5677f4087997e50fea86ca5ea4669b985c039d21e1999f69afc3af3c"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/b-browser-attempts/20261013T021010009585/B03-frozen-exam-cbct-cancelled.png",
+      "sha256": "560a7fc85698126d93e81834c98b33b6f862d618d10c11ae33e57b6aba4f7b73"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/b-browser-attempts/20261013T021010009585/B04-six-unit-prescription-awaiting-report.png",
+      "sha256": "61e35e2766a175826c576ff3756d5d35cc0887e12ffe71519ea6763edc1e7ade"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/b-browser-attempts/20261013T021010009585/B05-referral-source-independent.png",
+      "sha256": "0f3eb7dd507891e09e9404cb5282918f0f5a539e145f9be721935059463686aa"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/b-browser-attempts/20261013T021010009585/B06-shortage-fact-awaiting-recovery.png",
+      "sha256": "2b611d88c523eddf22f573daad39355198768469f7851fab9928b8b93bdf3e0e"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/b-browser-attempts/20261013T021010009585/B07-real-pharmacy-four-of-six.png",
+      "sha256": "adb2586d1e90cbba338d7d2e1b53cda7a9f5e0a05838808b7ecbe3df42cc60ff"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/b-browser-attempts/20261013T021010009585/B08-finished-four-remainder-awaits-report.png",
+      "sha256": "5152ea4a3c38bfbcd348a4253724dc188ac35101a58de9e3ccba811b2dbf7fb5"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/b-browser-attempts/20261013T021010009585/B09-second-report-real-two-of-six.png",
+      "sha256": "54cd98ce9d2f5a14c097e04e3add4a2a247329bb38098fadd05195f6c9a21a93"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/b-browser-attempts/20261013T021010009585/B10-seventh-unit-rejected.png",
+      "sha256": "ba9e69b5d1af4460b02035e6371bc5e1cb459e309fe9c504ffc0741ec60d8bc6"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/b-browser-attempts/20261013T021010009585/B11-prescription-complete-original-sources.png",
+      "sha256": "6b5999ee42a9781077091d4b8b5e055c8a151f5c4296530e8194173a2ff5fed2"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/b-browser-attempts/20261013T021010009585/B12-readonly-boundary.png",
+      "sha256": "79f6450e1e19fc67f75128e67146c3669da209e687fd376c67df8c25fd9de255"
+    }
+  ],
+  "first_event": 94,
+  "prescription": 66,
+  "result": "PASS",
+  "pageerrors": []
+}

@@ -1,0 +1,399 @@
+{
+  "result": "PASS",
+  "tested_commit": "f887d828da292d0da0513e667469b9df28ee4f05",
+  "database": "ydental_s08b_test_20261013015317_e72d1fca",
+  "time_utc": "2026-10-13T02:20:34.800622+00:00",
+  "method": "All 48 final original PNG files individually opened using tools.view_image; assertions requiring HTTP/SQL are explicitly distinguished from visible content",
+  "counts": {
+    "A": 21,
+    "B": 13,
+    "R": 14
+  },
+  "screenshots": [
+    {
+      "path": "docs/evidence/s08b-rework/browser-attempts/20261013T020834420026/01-permanent-anterior-autosave.png",
+      "sha256": "928557b2bae63e3134208d11ec202c4f33d788ba89d7774906d851028f7c40a2",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "牙11 M/I已保存版本4，52恒乳牙图与七文本",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/browser-attempts/20261013T020834420026/02-primary-missing-unknown.png",
+      "sha256": "28dcc6eaa38b7f3452b02e1e121bc6910652d3294f0f648fe84e50f0610c28cc",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "乳55/O、48缺失、51未知及0不适用同页明确，版本8",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/browser-attempts/20261013T020834420026/03-structured-draft.png",
+      "sha256": "026eb4256375643a221ef689a69d57d2926b30ea462b4682ba933299973f486a",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "所见/诊断合成草稿、版本10、原牙位内容保留",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/browser-attempts/20261013T020834420026/04-D1-pending-after-handover.png",
+      "sha256": "fef44228cf5e463043d5c141eb0da050e067b4b38b596e43a96420bc422907fc",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "D1执行交还、待完善、作者责任及版本11历史",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/browser-attempts/20261013T020834420026/05-D1-pending-independent-editor.png",
+      "sha256": "b58ad53a63b8e7f5903dc7357d40d0d81bb9b02cd1dfbc9a1b8469248abdb006",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "D1交还后独立编辑补记，原接诊已交还",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/browser-attempts/20261013T020834420026/06-D2-new-reception.png",
+      "sha256": "5a91b65782e110b5859d2713a0b068b8c847ec72158535e958837ac2eaa7cf0c",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "D2第二椅真实serving、独立草稿版本1",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/browser-attempts/20261013T020834420026/07-valid-editor-transfer-denied.png",
+      "sha256": "10b5024c8eb3592d3c4800865ce8eea7d8351758078fce3f00140be6e7aee6d1",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "有效编辑占用下责任移交editor_busy拒绝",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/browser-attempts/20261013T020834420026/08-D1-confirmed-author-history.png",
+      "sha256": "4a3d7dd18b830b001e8bb7a92cf889c153281f529b686f8267b48d75f4af5415",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "D1责任doctor2、原author保留、文字确认版本14",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/browser-attempts/20261013T020834420026/09-text-correction-new-version.png",
+      "sha256": "85a09420905b6b96b1d5b951ed85b04202aa39f4571f0265a04c518312529731",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "附原因文字更正版本15、原版本历史保留",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/browser-attempts/20261013T020834420026/10-readonly-medical-denied.png",
+      "sha256": "8e3be3b0fca0aa24910ab616ec02cbc930e0e27591bcd6e6432f27d1b668c0d7",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "只读用户access_denied，全部内容控件不可编辑",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/browser-attempts/20261013T020834420026/11-offline-unsynchronized.png",
+      "sha256": "6599b36d600f564e8d9166a4ebc00f4e81e59f6975e536b5e79c8f5e6d455f71",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "离线未同步警示、未发送病史保留，未声称保存",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/browser-attempts/20261013T020834420026/12-ordinary-inflight-autosave-catchup.png",
+      "sha256": "98828fae64cc791440c061b2ebc99d26675fa8354d7314e71f14f0c470b6dc01",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "普通在途autosave后追赶B新文字/病史、版本3及牙36/O",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/browser-attempts/20261013T020834420026/13-confirm-all-inputs-locked.png",
+      "sha256": "9b998bf4004fc892084e2efb28920e9f88f9523e3162d0ced3b1f4106c61cf1d",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "确认请求期间牙位/文本/原因/动作全部禁用",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/browser-attempts/20261013T020834420026/14-correct-all-inputs-locked.png",
+      "sha256": "5e9e44a6608b547debf2b029412a36d8c2014e31699e57d74f8e0c22fe6a71ed",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "更正请求期间完整内容禁用，临床已确认状态",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/browser-attempts/20261013T020834420026/15-correct-forced-input-retained.png",
+      "sha256": "dcd6ae2dbae5d6deff193f561a219f21f8c0c8ffdb40b561d3498aa6d1463145",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "强制输入B未同步保留，新标签核对入口，原服务器版本16",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/browser-attempts/20261013T020834420026/16-handover-all-inputs-locked.png",
+      "sha256": "6ca146ad100adbb297c0a13a7531d125fb7a7a7274fe0b57ee378cebe1cecdf2",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "交还请求期间完整控件禁用，原内容可见",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/browser-attempts/20261013T020834420026/17-confirm-forced-input-retained.png",
+      "sha256": "6ce6675130253b774a6fcfdd2cd199483cb4e6191d7869a32c15f8a766da8f3e",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "确认已提交、本页未同步B保留，核对入口",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/browser-attempts/20261013T020834420026/18-handover-committed-unsent-retained.png",
+      "sha256": "131e5e986c5a54e8f995c9c991a86a831ed63f808390a6d6104884873a77a31a",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "交还已提交且不可本页撤销，未同步文字保留",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/browser-attempts/20261013T020834420026/19-response-lost-reconcile.png",
+      "sha256": "91f14a593b865fa68d82c7f2eea0f218478065d1fa2eaca4ead5e6e2fdc51207",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "响应丢失结果待核对，不自动重放，原内容保留",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/browser-attempts/20261013T020834420026/20-request-not-sent-reconcile.png",
+      "sha256": "72420c7ad3eedd3905def7336047811e79a2b3130a5a3f9155c475705b158626",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "请求未发同样明确结果待核对/连接不可用",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/browser-attempts/20261013T020834420026/21-stale-version-reconcile.png",
+      "sha256": "e59a68240096a718997c13bb299c93dab2c308956173fab49f7d9bab298db298",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "stale version_conflict明确核对，原输入保留",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/b-browser-attempts/20261013T021010009585/B00-real-response-held-unsynchronized.png",
+      "sha256": "ee45b29c2e40b11f3c0d032d3bd70ddb67734403b03ebeae30c954a40c3cdd1d",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "实际请求响应未确认、保留本页核对入口与冻结表单",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/b-browser-attempts/20261013T021010009585/B01-actual-project-600-native-move.png",
+      "sha256": "88d829b741bee2cdba085a2e86bb3fcbd8417ca3ee4fbf53dabb4e5ce50e10c0",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "事件94费用74/600及native move241",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/b-browser-attempts/20261013T021010009585/B02-material-delta-original-preserved.png",
+      "sha256": "64b0020c5677f4087997e50fea86ca5ea4669b985c039d21e1999f69afc3af3c",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "材料零数量差额事件95/move242，原94/600来源保留",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/b-browser-attempts/20261013T021010009585/B03-frozen-exam-cbct-cancelled.png",
+      "sha256": "560a7fc85698126d93e81834c98b33b6f862d618d10c11ae33e57b6aba4f7b73",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "冻结检查单65、原草稿取消历史及未做CBCT取消，全景仍待执行",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/b-browser-attempts/20261013T021010009585/B04-six-unit-prescription-awaiting-report.png",
+      "sha256": "61e35e2766a175826c576ff3756d5d35cc0887e12ffe71519ea6763edc1e7ade",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "处方66批准6余6，必需临床文本明确，任务329待报到",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/b-browser-attempts/20261013T021010009585/B05-referral-source-independent.png",
+      "sha256": "0f3eb7dd507891e09e9404cb5282918f0f5a539e145f9be721935059463686aa",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "定时目标任务330及不定时来源13独立，原处方任务不变",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/b-browser-attempts/20261013T021010009585/B06-shortage-fact-awaiting-recovery.png",
+      "sha256": "2b611d88c523eddf22f573daad39355198768469f7851fab9928b8b93bdf3e0e",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "事件96真实已发生库存pending，原600保留无fee/native move",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/b-browser-attempts/20261013T021010009585/B07-real-pharmacy-four-of-six.png",
+      "sha256": "adb2586d1e90cbba338d7d2e1b53cda7a9f5e0a05838808b7ecbe3df42cc60ff",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "处方66实发4余2，fee76金额40/native move243、SKU关联64",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/b-browser-attempts/20261013T021010009585/B08-finished-four-remainder-awaits-report.png",
+      "sha256": "5152ea4a3c38bfbcd348a4253724dc188ac35101a58de9e3ccba811b2dbf7fb5",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "段1done任务329、唯一段2待报到任务332，余2",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/b-browser-attempts/20261013T021010009585/B09-second-report-real-two-of-six.png",
+      "sha256": "54cd98ce9d2f5a14c097e04e3add4a2a247329bb38098fadd05195f6c9a21a93",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "后来报到实发2，余0、fee77金额20/native move244，段2started",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/b-browser-attempts/20261013T021010009585/B10-seventh-unit-rejected.png",
+      "sha256": "ba9e69b5d1af4460b02035e6371bc5e1cb459e309fe9c504ffc0741ec60d8bc6",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "第7份1已输入且表单冻结待核对；HTTP409见result，错误条在本截图视口外",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/b-browser-attempts/20261013T021010009585/B11-prescription-complete-original-sources.png",
+      "sha256": "6b5999ee42a9781077091d4b8b5e055c8a151f5c4296530e8194173a2ff5fed2",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "处方66done、两段done、原40/20费用及move243/244保留",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/b-browser-attempts/20261013T021010009585/B12-readonly-boundary.png",
+      "sha256": "79f6450e1e19fc67f75128e67146c3669da209e687fd376c67df8c25fd9de255",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "reader工作台表单禁用，未获取当前执行来源",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T021358627598/R01-chairside-empty-batch-rejected.png",
+      "sha256": "bc2560f601f0b02de0babbe03441319bc34bce7bc8d62ee93ef9dff5d1220182",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "medicine_evidence_missing，实量2无批次，表单冻结待核对；零事件由HTTP/SQL核实",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T021358627598/R02-chairside-mismatched-quantity-rejected.png",
+      "sha256": "6d945fc719f069c9153f4d8d150689746ac59d32982b06fc52dca16072e2fbcc",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "medicine_evidence_missing，项目2/材料1及真实A批次可见，拒绝后冻结",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T021358627598/R03-historical-fact-pending-no-false-fee.png",
+      "sha256": "173230449f865a24578d3e25b7a3d6a7351773c3b25fb96d81c2ec55ae21f1e5",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "原事实99实量2、时间02:14:07、pending medicine_evidence_missing、价10但fee-/move[]，人工核对出口",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T021358627598/R04-original-medication-evidence-recovered.png",
+      "sha256": "4991b6a5f2c9e0156d81ba6183221d487ec2959d952de5adb1500232cf92c418",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "原事实99/原时间/原责任人保留，核对后fee78金额20/native249，附核对证据",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T021358627598/R05-incomplete-prescription-issue-rejected.png",
+      "sha256": "147a1bf5a12767ca8ce14fb58c6c51d9bab92a13d20edd2b16856aed427034ea",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "处方67草稿版本1，规格/用法/频次/疗程空，开立拒绝后控件冻结；HTTP409在result，错误条视口外",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T021358627598/R06-complete-multi-sku-prescription.png",
+      "sha256": "2aa05dd798406b8d3cda479c53f40d754c3dfecdd72590fc379c9dfe2c248200",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "处方67已开立版本3、取消草稿历史保留，A6/B2/C1明确四文本、唯一任务334待报到",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T021358627598/R07-source-only-cross-legal-referrals.png",
+      "sha256": "a0c0f3ed4798ef6fda95e3eeed40dcecec179c431b8ba9307097e5c9312bd20b",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "定时任务335及不定时来源14，原处方任务334保留；A-only范围由SQL核实",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T021358627598/R12-cross-legal-full-capacity-rejected.png",
+      "sha256": "5fed838ea1bd4b2bbbc289a6c0e41fe36e228e897ad4f6b6fa02bb7905701df0",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "insufficient_balance明确剩余容量不足，原页内容保留且不自动重放",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T021358627598/R13-cross-legal-stopped-target-rejected.png",
+      "sha256": "548733deec3fe75e9750fa2649a63be11e3c65c18d06dabab78a50331b22f51d",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "reporting_closed明确目标停止普通报到，原页保留核对",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T021358627598/R14-illegal-target-keeps-original-source.png",
+      "sha256": "e43b3c18aff08bd9a836a7afb8288a2db0bcceafe1565a2996c2c7f14a458fdc",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "invalid_referral明确必须其他门店合法服务，原页保留核对",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T021358627598/R08-unlinked-sku-dispense-rejected.png",
+      "sha256": "448874870f7055762151c09ecff72417bff7218a241f242188756df9f5ea78d4",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "C1真实批次已选仍余1，拒绝后所有表单冻结；关联缺失代码/HTTP409见result，错误条视口外",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T021358627598/R09-distinct-sku-price-sources-10-and-27.png",
+      "sha256": "e8e3f599ce87ce6d68aa907ba9a8c97a27a633abaceff02db275d3c69c51590e",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "第一段A余2、B余0、C余1；两种药40/54对应native250/251及SKU/版本由同响应投影与SQL验证",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T021358627598/R10-explicit-price-authority-sku-publication.png",
+      "sha256": "4cf538879a7af3f57699a780ca336c4b9f4ecf95c3f11cc7de1c1d82567cf13c",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "price角色独立发布第三SKU↔43目录/已发布版本120，三款关联分开且留明确证据",
+      "credential_or_real_patient_content_visible": false
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T021358627598/R11-multi-sku-complete-original-sources.png",
+      "sha256": "220efec2c87d771b1b70850d53ffc72629a590bc1ceaaa5853e67358e4974b57",
+      "visual_inspected": true,
+      "method": "Opened each original PNG with tools.view_image",
+      "observation": "处方67完成、三药余0、两段done；新事件103金额43/native253和102金额20/native252清楚保留",
+      "credential_or_real_patient_content_visible": false
+    }
+  ],
+  "candidate_and_failed_screenshots": "Retained separately; not included in these 48 final visually inspected screenshots"
+}

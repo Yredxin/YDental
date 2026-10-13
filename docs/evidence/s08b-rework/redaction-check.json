@@ -1,0 +1,8 @@
+{
+  "time_utc": "2026-10-13T02:24:26.503867+00:00",
+  "result": "PASS",
+  "scanned_files": 189,
+  "private_values_checked": 83,
+  "hits": [],
+  "scope": "New delivery artifacts only; exact private access history login/password, DB password and admin password values checked without disclosure; screenshot visible-content guards and individual final-image visual review separately recorded"
+}

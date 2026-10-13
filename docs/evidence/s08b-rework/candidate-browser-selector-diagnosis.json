@@ -1,0 +1,35 @@
+{
+  "database": "ydental_s08b_test_20261013012642_caeebdcc",
+  "rows": [
+    [
+      102,
+      "cancelled",
+      354,
+      6,
+      0
+    ],
+    [
+      103,
+      "issued",
+      354,
+      6,
+      0
+    ],
+    [
+      104,
+      "issued",
+      357,
+      2,
+      0
+    ],
+    [
+      105,
+      "issued",
+      359,
+      1,
+      0
+    ]
+  ],
+  "reason": "Superseded cancelled draft retained. Selector must count only issued dispensing rows. Actual unlinked SKU cumulative issue zero, approved remaining one.",
+  "helper_failure": "First readonly JSON serialization rejected Decimal; no database mutation; normalized values saved."
+}

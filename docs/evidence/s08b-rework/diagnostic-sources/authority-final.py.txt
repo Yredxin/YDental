@@ -1,0 +1,17 @@
+import datetime,hashlib,importlib.util,json,subprocess,sys
+from pathlib import Path
+out=Path('docs/evidence/s08b-rework');result={'checked_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'issues':{},'project_mutations':0}
+for n in ('23','32'):
+ old=json.load(open('/tmp/ydental-s08br-'+n+'.json'));oldcomments=[c for page in json.load(open('/tmp/ydental-s08br-'+n+'-comments-pages.json')) for c in page]
+ new=json.loads(subprocess.check_output(['gh','api','repos/Yredxin/YDental/issues/'+n],text=True));pages=json.loads(subprocess.check_output(['gh','api','--paginate','--slurp','repos/Yredxin/YDental/issues/'+n+'/comments?per_page=100'],text=True));comments=[c for page in pages for c in page]
+ assert new['body']==old['body'] and new['state']==old['state']=='open'
+ assert [(c['id'],c['body']) for c in oldcomments]==[(c['id'],c['body']) for c in comments]
+ Path('/tmp/ydental-s08br-final-'+n+'.json').write_text(json.dumps(new));Path('/tmp/ydental-s08br-final-'+n+'-comments.json').write_text(json.dumps(comments))
+ result['issues'][n]={'state':new['state'],'comments':len(comments),'body_sha256':hashlib.sha256(new['body'].encode()).hexdigest(),'comment_bodies_sha256':hashlib.sha256(json.dumps([(c['id'],c['body']) for c in comments],ensure_ascii=False).encode()).hexdigest(),'body_and_all_comments_unchanged':True}
+spec=importlib.util.spec_from_file_location('s','scripts/s00_t05_project_snapshot.py');s=importlib.util.module_from_spec(spec);spec.loader.exec_module(s);s.EVIDENCE=out/'project-final'
+s.SELECTIONS['views']+=' fields(first:100) { totalCount pageInfo { hasNextPage endCursor } nodes { ... on ProjectV2Field { id name } ... on ProjectV2SingleSelectField { id name } ... on ProjectV2IterationField { id name } } }'
+initial=json.loads((out/'project-initial/project-before.json').read_text())['project']
+for name in ('before','second-check'):
+ sys.argv=['snapshot','--snapshot',name];assert s.main()==0;current=json.loads((s.EVIDENCE/('project-'+name+'.json')).read_text())['project'];assert initial==current
+result.update(result='PASS',project_full_deep_equal=True,project_fields=21,project_items=15,project_views=6,project_public_workflows=7,issue32='S08/进行中/Todo/OPEN',issue31='待用户验收',later='待启用')
+(out/'authority-and-project-final.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n');print(json.dumps(result,ensure_ascii=False))

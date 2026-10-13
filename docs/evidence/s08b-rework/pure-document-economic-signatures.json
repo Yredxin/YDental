@@ -1,0 +1,23 @@
+{
+  "database": "ydental_s08b_test_20261013015317_e72d1fca",
+  "tested_commit": "f887d828da292d0da0513e667469b9df28ee4f05",
+  "result": "PASS",
+  "tables": [
+    "ydental_inventory_event",
+    "stock_move",
+    "stock_move_line",
+    "stock_quant",
+    "ydental_intake_snapshot",
+    "ydental_treatment_event",
+    "ydental_treatment_fee",
+    "ydental_treatment_order",
+    "ydental_treatment_line",
+    "ydental_treatment_segment",
+    "ydental_treatment_consumption",
+    "ydental_treatment_price_review",
+    "ydental_treatment_medicine_link"
+  ],
+  "before": "audit-before-browser-A.json",
+  "after": "audit-after-browser-A.json",
+  "all_equal": true
+}

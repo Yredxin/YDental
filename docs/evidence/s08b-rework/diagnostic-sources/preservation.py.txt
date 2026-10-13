@@ -1,0 +1,33 @@
+import configparser,datetime,hashlib,json,subprocess,urllib.request
+from pathlib import Path
+import psycopg2
+c=configparser.ConfigParser();c.read('../odoo.conf');c=c['options'];conn=psycopg2.connect(dbname='postgres',host=c['db_host'],port=c['db_port'],user=c['db_user'],password=c['db_password']);conn.set_session(readonly=True)
+with conn.cursor() as cr:
+ cr.execute('SELECT oid,datname FROM pg_database ORDER BY oid');actual=cr.fetchall()
+ cr.execute('SELECT system_identifier::text FROM pg_control_system()');cluster=cr.fetchone()[0]
+ cr.execute('SHOW server_version');version=cr.fetchone()[0]
+conn.close();original=json.load(open('/tmp/ydental-s08br-database-catalog.json'));assert set(map(tuple,original))<=set(actual);new=sorted(set(actual)-set(map(tuple,original)));assert all(n.startswith('ydental_s08b_test_') for _,n in new)
+containers={}
+for name in ('odoo20-db','odoo12-db','restful-api-demo-mysql-test'):
+ v=json.loads(subprocess.check_output(['docker','inspect',name],text=True))[0]
+ containers[name]={'id':v['Id'],'image':v['Image'],'started':v['State']['StartedAt'],'pid':v['State']['Pid'],'running':v['State']['Running'],'oom_killed':v['State']['OOMKilled'],'shm_size':v['HostConfig']['ShmSize'],'mounts':[{k:m.get(k) for k in ('Type','Name','Destination','RW')} for m in v['Mounts']],'ports':v['NetworkSettings']['Ports']}
+ assert v['State']['Running'] and not v['State']['OOMKilled']
+a=json.load(open('docs/evidence/s08b-rework/environment-before.json'))['containers']
+for name in ('odoo20-db','odoo12-db'):
+ for key in ('image','id'):
+  assert containers[name][key]==a[name][key]
+ assert containers[name]['started']==a[name]['started']
+ for key,value in a[name].items():assert containers[name][key]==value
+assert cluster=='7694897083368259627';assert Path('/proc/42433').exists();core=subprocess.check_output(['git','-C','..','rev-parse','HEAD'],text=True).strip();assert core=='f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb';assert not subprocess.check_output(['git','-C','..','status','--porcelain','--untracked-files=no'],text=True)
+response=urllib.request.urlopen('http://127.0.0.1:8069/web/health',timeout=8);health=json.load(response);assert response.status==200 and health['status']=='pass'
+private_logs=[];crashes=[]
+for run in sorted(Path('.local').glob('ydental_s08b_test_*')):
+ if run.name in {n for _,n in original}:continue
+ assert not (run/'serve.pid').exists()
+ for f in run.glob('*.log'):
+  text=f.read_text(errors='replace');private_logs.append({'path':str(f),'sha256':hashlib.sha256(f.read_bytes()).hexdigest(),'bytes':f.stat().st_size})
+  if any(x in text for x in ('Segmentation fault','SIGSEGV','could not resize shared memory')):crashes.append(str(f))
+ assert not list(run.glob('crash-*.json'))
+for key,value in a['restful-api-demo-mysql-test'].items():assert containers['restful-api-demo-mysql-test'][key]==value
+out={'time_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'original_count':len(original),'current_count':len(actual),'all_original_oid_name_pairs_preserved':True,'original_catalog_sha256':hashlib.sha256(Path('/tmp/ydental-s08br-database-catalog.json').read_bytes()).hexdigest(),'new_databases':new,'cluster':cluster,'postgresql':version,'containers':containers,'original_odoo_pid':42433,'original_odoo_health':health,'core':core,'core_tracked_unchanged':True,'odoo12_and_db20_identity_unchanged_since_A_final':True,'environment_mutations':0,'own_previews_all_stopped':True,'shm_df':subprocess.check_output(['docker','exec','odoo20-db','df','-B1','/dev/shm'],text=True),'new_odoo_segv_or_shm_failure_matches':crashes,'private_log_hashes':private_logs,'historical_S07_and_browser_root':'UNKNOWN; production BLOCKED'}
+assert not crashes;Path('docs/evidence/s08b-rework/environment-preservation.json').write_text(json.dumps(out,indent=2)+'\n');print(json.dumps({k:out[k] for k in ('original_count','current_count','all_original_oid_name_pairs_preserved','new_odoo_segv_or_shm_failure_matches')}))

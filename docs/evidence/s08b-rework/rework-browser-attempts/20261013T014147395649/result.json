@@ -1,0 +1,129 @@
+{
+  "scope": "S08-B real reception, teeth, authored text, handover and pending responsibility",
+  "database": "ydental_s08b_test_20261013012642_caeebdcc",
+  "tested_commit": "9501652429c64cf4457aaef276a9d0af25777be8",
+  "browser": "Firefox",
+  "sandbox": "default, no overrides",
+  "checks": [
+    {
+      "check": "new chairside without batch rejected with zero fee or stock",
+      "result": "PASS"
+    },
+    {
+      "check": "empty-batch rejection leaves zero actual events",
+      "result": "PASS"
+    },
+    {
+      "check": "chairside wrong SKU rejected",
+      "result": "PASS"
+    },
+    {
+      "check": "chairside quantity mismatch rejected",
+      "result": "PASS"
+    },
+    {
+      "check": "three invalid new medication attempts leave zero events",
+      "result": "PASS"
+    },
+    {
+      "check": "already performed missing-batch fact preserved pending without native move",
+      "result": "PASS"
+    },
+    {
+      "check": "historical evidence recovery confirms original two units and one native move",
+      "result": "PASS"
+    },
+    {
+      "check": "incomplete prescription freeze rejected by server",
+      "result": "PASS"
+    },
+    {
+      "check": "invalid issue keeps draft and creates no pharmacy segment",
+      "result": "PASS"
+    },
+    {
+      "check": "completed multi-SKU order freezes one exact pharmacy direction",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T014147395649/R01-chairside-empty-batch-rejected.png",
+      "sha256": "f8a2428d8f3729fac4be3a61d9b6c4b33667de49dfc23beabeefc6ea1843f5c6"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T014147395649/R02-chairside-mismatched-quantity-rejected.png",
+      "sha256": "2fdacf0cec942f51a8965856f7be2eecc510403c59e8be365f780ae7342b73ea"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T014147395649/R03-historical-fact-pending-no-false-fee.png",
+      "sha256": "e0efa511d54feccd6988db1733ee18f302789e64d043f3f8509e813520cc324c"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T014147395649/R04-original-medication-evidence-recovered.png",
+      "sha256": "5de4a0f7e7b4a962a516821e63df359ca07de411fe24984f98d7a51c1d16585f"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T014147395649/R05-incomplete-prescription-issue-rejected.png",
+      "sha256": "27a09139fa989861dadfdf941c86348613f4b014c4fec6abe27ba5862f77b4d6"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T014147395649/R06-complete-multi-sku-prescription.png",
+      "sha256": "6b957692103231ad825d089177105fba377e448800baed954a3ce387adfc7a3c"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T014147395649/failure-state.png",
+      "sha256": "80965f16434fd8ed362b9eb58ce718881f9f24ff1e64cf71b18966d90041d04d"
+    }
+  ],
+  "historical_event": 127,
+  "prescription": 94,
+  "result": "FAIL",
+  "error": {
+    "type": "Error",
+    "detail": "Locator.fill: Error: Malformed value\nCall log:\n  - waiting for locator(\"form[data-operation=refer]\").locator(\"[name=valid_until]\")\n    - locator resolved to <input step=\"1\" name=\"valid_until\" type=\"datetime-local\"/>\n    - fill(\"2026-10-14T01:42:00\")\n  - attempting fill action\n    - waiting for element to be visible, enabled and editable\n",
+    "trace": [
+      {
+        "file": "s08b_rework_browser.py",
+        "line": 179,
+        "method": "main"
+      },
+      {
+        "file": "_generated.py",
+        "line": 18398,
+        "method": "fill"
+      },
+      {
+        "file": "_sync_base.py",
+        "line": 115,
+        "method": "_sync"
+      },
+      {
+        "file": "_locator.py",
+        "line": 219,
+        "method": "fill"
+      },
+      {
+        "file": "_frame.py",
+        "line": 637,
+        "method": "fill"
+      },
+      {
+        "file": "_frame.py",
+        "line": 649,
+        "method": "_fill"
+      },
+      {
+        "file": "_connection.py",
+        "line": 76,
+        "method": "send"
+      },
+      {
+        "file": "_connection.py",
+        "line": 632,
+        "method": "wrap_api_call"
+      }
+    ]
+  },
+  "pageerrors": []
+}

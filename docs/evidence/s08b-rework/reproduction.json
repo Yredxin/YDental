@@ -1,0 +1,55 @@
+{
+  "database": "ydental_s08b_test_20261013011924_a38efec0",
+  "port": 18174,
+  "fixed_test": "abbe2bc01ddf6dbc6f3cd08a2e1d5206518a9ee0",
+  "product_unchanged_from": "7ccb25cf6a54732caf7007c39498d393b6a96929",
+  "action": {
+    "action": "install",
+    "exit_code": 1,
+    "pid": 1553993,
+    "log": "install-20261013T011924991857.log",
+    "log_sha256": "4f4e98de7d7b354059081e716ed91074422f3d03e24bb3e422db5e46a4c9a86f",
+    "time_utc": "2026-10-13T01:21:44.406115+00:00",
+    "tested_commit": "abbe2bc01ddf6dbc6f3cd08a2e1d5206518a9ee0",
+    "tests": [
+      3,
+      2,
+      67
+    ],
+    "verification_exit": 1
+  },
+  "negative_results": [
+    {
+      "test": "TestReworkBoundaries.test_rework_chairside_empty_batch_must_not_confirm_fee",
+      "status": "FAIL",
+      "trace": "Traceback (most recent call last):\n  File \"<workspace>/sd-addons/ydental_treatment_test/tests/test_rework.py\", line 32, in test_rework_chairside_empty_batch_must_not_confirm_fee\n    with self.assertRaises(UserError):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<workspace>/.python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/contextlib.py\", line 144, in __exit__\n    next(self.gen)\n  File \"<workspace>/odoo/tests/common.py\", line 805, in _raisesContext\n    with ExitStack() as inner:\n         ^^^^^^^^^^^\n  File \"<workspace>/.python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/contextlib.py\", line 610, in __exit__\n    raise exc_details[1]\n  File \"<workspace>/.python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/contextlib.py\", line 595, in __exit__\n    if cb(*exc_details):\n       ^^^^^^^^^^^^^^^^\nAssertionError: UserError not raised\n"
+    },
+    {
+      "test": "TestReworkBoundaries.test_rework_chairside_quantity_mismatch_must_not_confirm_fee",
+      "status": "FAIL",
+      "trace": "Traceback (most recent call last):\n  File \"<workspace>/sd-addons/ydental_treatment_test/tests/test_rework.py\", line 40, in test_rework_chairside_quantity_mismatch_must_not_confirm_fee\n    with self.assertRaises(UserError):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<workspace>/.python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/contextlib.py\", line 144, in __exit__\n    next(self.gen)\n  File \"<workspace>/odoo/tests/common.py\", line 805, in _raisesContext\n    with ExitStack() as inner:\n         ^^^^^^^^^^^\n  File \"<workspace>/.python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/contextlib.py\", line 610, in __exit__\n    raise exc_details[1]\n  File \"<workspace>/.python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/contextlib.py\", line 595, in __exit__\n    if cb(*exc_details):\n       ^^^^^^^^^^^^^^^^\nAssertionError: UserError not raised\n"
+    },
+    {
+      "test": "TestReworkBoundaries.test_rework_incomplete_rx_draft_allowed_but_issue_rejected",
+      "status": "ERROR",
+      "trace": "Traceback (most recent call last):\n  File \"<workspace>/sd-addons/ydental_treatment_test/tests/test_rework.py\", line 47, in test_rework_incomplete_rx_draft_allowed_but_issue_rejected\n    draft = s._operate('order', a | {'kind': 'prescription', 'purpose': 'Incomplete synthetic draft', 'lines': [line]}, key())\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<workspace>/sd-addons/ydental_treatment/models/ydental_treatment_service.py\", line 98, in _operate\n    result = handlers[operation](**payload)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<workspace>/sd-addons/ydental_treatment/models/ydental_treatment_service.py\", line 418, in _draft_order\n    for values in self._order_lines(order, lines):\n                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<workspace>/sd-addons/ydental_treatment/models/ydental_treatment_service.py\", line 400, in _order_lines\n    values['ydental_' + field] = intake._text(row[field])\n                                 ^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<workspace>/sd-addons/ydental_intake/models/ydental_intake_service.py\", line 110, in _text\n    return self.env['ydental.patient.service']._text(value, required=True)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<workspace>/sd-addons/ydental_patient/models/ydental_patient_service.py\", line 80, in _text\n    raise ValidationError(self.env._('Enter valid text within the allowed length.'))\nodoo.exceptions.ValidationError: Enter valid text within the allowed length.\n"
+    },
+    {
+      "test": "TestReworkBoundaries.test_rework_second_sku_cannot_borrow_generic_service_price",
+      "status": "FAIL",
+      "trace": "Traceback (most recent call last):\n  File \"<workspace>/sd-addons/ydental_treatment_test/tests/test_rework.py\", line 68, in test_rework_second_sku_cannot_borrow_generic_service_price\n    with self.assertRaises(UserError):\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<workspace>/.python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/contextlib.py\", line 144, in __exit__\n    next(self.gen)\n  File \"<workspace>/odoo/tests/common.py\", line 805, in _raisesContext\n    with ExitStack() as inner:\n         ^^^^^^^^^^^\n  File \"<workspace>/.python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/contextlib.py\", line 610, in __exit__\n    raise exc_details[1]\n  File \"<workspace>/.python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/contextlib.py\", line 595, in __exit__\n    if cb(*exc_details):\n       ^^^^^^^^^^^^^^^^\nAssertionError: UserError not raised\n"
+    },
+    {
+      "test": "TestReworkBoundaries.test_rework_source_only_company_can_initiate_controlled_cross_legal_referral",
+      "status": "ERROR",
+      "trace": "Traceback (most recent call last):\n  File \"<workspace>/sd-addons/ydental_treatment_test/tests/test_rework.py\", line 86, in test_rework_source_only_company_can_initiate_controlled_cross_legal_referral\n    result = s._operate('refer', a | {'mode': 'untimed', 'mapping_id': mapping.id,\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<workspace>/sd-addons/ydental_treatment/models/ydental_treatment_service.py\", line 98, in _operate\n    result = handlers[operation](**payload)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<workspace>/sd-addons/ydental_treatment/models/ydental_treatment_service.py\", line 566, in _refer\n    raise AccessError(self.env._('access_denied: Cross-legal-entity referral requires explicit account company authorization.'))\nodoo.exceptions.AccessError: access_denied: Cross-legal-entity referral requires explicit account company authorization.\n"
+    }
+  ],
+  "interpretation": {
+    "B1": "REPRODUCED: empty batch and mismatch UserError not raised",
+    "B2": "REFUTED direct blank issue claim: intake._text calls patient._text(required=True), rejected at draft. Requested incomplete draft and issue-time revalidation still added.",
+    "B3": "REPRODUCED: distinct SKU accepted generic price",
+    "B4": "REPRODUCED: explicit extra company_ids rejection; subsequent target business/capacity prerequisites separately exercised"
+  },
+  "log_sha256": "4f4e98de7d7b354059081e716ed91074422f3d03e24bb3e422db5e46a4c9a86f"
+}

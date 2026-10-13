@@ -1,0 +1,124 @@
+{
+  "scope": "S08-B real reception, teeth, authored text, handover and pending responsibility",
+  "database": "ydental_s08b_test_20261013012642_caeebdcc",
+  "tested_commit": "0a49fac432bcac0197eeddae9675b8cddb46e631",
+  "browser": "Firefox",
+  "sandbox": "default, no overrides",
+  "checks": [
+    {
+      "check": "new chairside without batch rejected with zero fee or stock",
+      "result": "PASS"
+    },
+    {
+      "check": "empty-batch rejection leaves zero actual events",
+      "result": "PASS"
+    },
+    {
+      "check": "chairside wrong SKU rejected",
+      "result": "PASS"
+    },
+    {
+      "check": "chairside quantity mismatch rejected",
+      "result": "PASS"
+    },
+    {
+      "check": "three invalid new medication attempts leave zero events",
+      "result": "PASS"
+    },
+    {
+      "check": "already performed missing-batch fact preserved pending without native move",
+      "result": "PASS"
+    },
+    {
+      "check": "historical evidence recovery confirms original two units and one native move",
+      "result": "PASS"
+    },
+    {
+      "check": "incomplete prescription freeze rejected by server",
+      "result": "PASS"
+    },
+    {
+      "check": "invalid issue keeps draft and creates no pharmacy segment",
+      "result": "PASS"
+    },
+    {
+      "check": "completed multi-SKU order freezes one exact pharmacy direction",
+      "result": "PASS"
+    },
+    {
+      "check": "source-only account can initiate both controlled cross-legal referral modes",
+      "result": "PASS"
+    },
+    {
+      "check": "cross-legal controlled referral grants no target ordinary RPC write",
+      "result": "PASS"
+    },
+    {
+      "check": "unlinked SKU cannot borrow another medicine price",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T013924541449/R01-chairside-empty-batch-rejected.png",
+      "sha256": "03148ffe2551560ddf49bd9b493b9f5bc9d4d97e7daa8e936c55e5f545a99764"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T013924541449/R02-chairside-mismatched-quantity-rejected.png",
+      "sha256": "ad0a92d4cebd39e02784245be266c8ee89af6957e4e5817f3c258bf687eb5e4b"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T013924541449/R03-historical-fact-pending-no-false-fee.png",
+      "sha256": "163a9acdc36e87ea27b2a3a5e91a4b9515248cce536dda67ccb006bcad071aac"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T013924541449/R04-original-medication-evidence-recovered.png",
+      "sha256": "3808db997769e206a79bf53ccff07274a896979c1f1181b99f124c580eee2aec"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T013924541449/R05-incomplete-prescription-issue-rejected.png",
+      "sha256": "531ec8e122af91a23080aa910c46b06aa018c388267d215cba09d0e7ec4d4072"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T013924541449/R06-complete-multi-sku-prescription.png",
+      "sha256": "ef2ae4fb3dba060a5062c3a5151fa55ba87029faba63b4537f6893fc29d72f35"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T013924541449/R07-source-only-cross-legal-referrals.png",
+      "sha256": "2e0d5359356468eb53a158601c4c9d60d60cb2b146c6d5c5ffee091101dff490"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T013924541449/R08-unlinked-sku-dispense-rejected.png",
+      "sha256": "a4b91ee26a791faa566e17b169ab2dc2b0c06e5e1b1abe1027d1ca5a4d1a62cd"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T013924541449/failure-state.png",
+      "sha256": "1d511d1c5787fd83cbe99a242bb65f2750f0a763ca2b45aeb2e84a3eba5eb574"
+    }
+  ],
+  "historical_event": 126,
+  "prescription": 93,
+  "result": "FAIL",
+  "error": {
+    "type": "RuntimeError",
+    "detail": "unlinked rejected dispense preserves approved remaining one",
+    "trace": [
+      {
+        "file": "s08b_rework_browser.py",
+        "line": 200,
+        "method": "main"
+      },
+      {
+        "file": "s08b_rework_browser.py",
+        "line": 72,
+        "method": "check"
+      },
+      {
+        "file": "s08b_rework_browser.py",
+        "line": 30,
+        "method": "require"
+      }
+    ]
+  },
+  "pageerrors": []
+}

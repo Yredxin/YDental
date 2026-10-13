@@ -1,0 +1,10 @@
+{
+  "tested_commit": "f887d828da292d0da0513e667469b9df28ee4f05",
+  "result": "PASS",
+  "parsed_changed_files": {
+    "python": 22,
+    "xml": 1
+  },
+  "product_tree": "0c86b43fd98444e7015b4919b7bcc224190413d3",
+  "source_checks": "AST and XML; actual JS behavior exercised by Firefox"
+}

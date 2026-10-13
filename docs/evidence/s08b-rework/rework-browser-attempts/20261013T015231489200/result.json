@@ -1,0 +1,174 @@
+{
+  "scope": "S08-B real reception, teeth, authored text, handover and pending responsibility",
+  "database": "ydental_s08b_test_20261013012642_caeebdcc",
+  "tested_commit": "f887d828da292d0da0513e667469b9df28ee4f05",
+  "browser": "Firefox",
+  "sandbox": "default, no overrides",
+  "checks": [
+    {
+      "check": "new chairside without batch rejected with zero fee or stock",
+      "result": "PASS"
+    },
+    {
+      "check": "empty-batch rejection leaves zero actual events",
+      "result": "PASS"
+    },
+    {
+      "check": "chairside wrong SKU rejected",
+      "result": "PASS"
+    },
+    {
+      "check": "chairside quantity mismatch rejected",
+      "result": "PASS"
+    },
+    {
+      "check": "three invalid new medication attempts leave zero events",
+      "result": "PASS"
+    },
+    {
+      "check": "already performed missing-batch fact preserved pending without native move",
+      "result": "PASS"
+    },
+    {
+      "check": "historical evidence recovery confirms original two units and one native move",
+      "result": "PASS"
+    },
+    {
+      "check": "incomplete prescription freeze rejected by server",
+      "result": "PASS"
+    },
+    {
+      "check": "invalid issue keeps draft and creates no pharmacy segment",
+      "result": "PASS"
+    },
+    {
+      "check": "completed multi-SKU order freezes one exact pharmacy direction",
+      "result": "PASS"
+    },
+    {
+      "check": "source-only account can initiate both controlled cross-legal referral modes",
+      "result": "PASS"
+    },
+    {
+      "check": "cross-legal controlled referral grants no target ordinary RPC write",
+      "result": "PASS"
+    },
+    {
+      "check": "full cross-legal target refuses another timed claim",
+      "result": "PASS"
+    },
+    {
+      "check": "stopped cross-legal target refuses untimed referral",
+      "result": "PASS"
+    },
+    {
+      "check": "server rejects modified non-cross-store target mapping",
+      "result": "PASS"
+    },
+    {
+      "check": "three cross-legal failures preserve source serving and exactly two original receipts",
+      "result": "PASS"
+    },
+    {
+      "check": "unlinked SKU cannot borrow another medicine price",
+      "result": "PASS"
+    },
+    {
+      "check": "unlinked rejected dispense preserves approved remaining one",
+      "result": "PASS"
+    },
+    {
+      "check": "two SKUs dispense independently through one task with 4 and 2 actual quantities",
+      "result": "PASS"
+    },
+    {
+      "check": "multi-SKU remainder is one pending-report task and holder released",
+      "result": "PASS"
+    },
+    {
+      "check": "price-write publishes explicit SKU association through real UI",
+      "result": "PASS"
+    },
+    {
+      "check": "original six remains actual4+2 while other SKUs retain independent prices",
+      "result": "PASS"
+    },
+    {
+      "check": "zero browser page errors",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T015231489200/R01-chairside-empty-batch-rejected.png",
+      "sha256": "ff877a381b0a3a74c9330e8d8c7c2e846ab854f94d67b6d51e7127a8e38657d7"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T015231489200/R02-chairside-mismatched-quantity-rejected.png",
+      "sha256": "221d85758c98c285f848abf6f083e4c81e379acf582fa82cdc52d647cd5b22a7"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T015231489200/R03-historical-fact-pending-no-false-fee.png",
+      "sha256": "0cd8bd683dca3f2f7828bfedb2a12a5ad05dacbfa40af0fefd39c1b52813208b"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T015231489200/R04-original-medication-evidence-recovered.png",
+      "sha256": "67d4306a0db41bc96f537fb116c3ef3f90e7537539ad36607af9227719f91185"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T015231489200/R05-incomplete-prescription-issue-rejected.png",
+      "sha256": "ec0208725dc0e33d34ba1c937dd9492fe7b395685e9f354b9aefffa43147dbc8"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T015231489200/R06-complete-multi-sku-prescription.png",
+      "sha256": "76f761534048292a7c5dd3414b9bc5049284457c064134561b050a1c2ead32e2"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T015231489200/R07-source-only-cross-legal-referrals.png",
+      "sha256": "ffc508f8e3361e9d9d243debd7241abbbc056f8647e81cd8b106a4389d76746a"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T015231489200/R12-cross-legal-full-capacity-rejected.png",
+      "sha256": "b8dbc42323480c8e350e6a07456d2e50c9e3f46a6b6b0301ee1320d292bc0780"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T015231489200/R13-cross-legal-stopped-target-rejected.png",
+      "sha256": "834e5094d219a2a4128bf0ac6901de8db32682fbb70c60c28244746f2a2ad1c8"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T015231489200/R14-illegal-target-keeps-original-source.png",
+      "sha256": "62347cc12adbf2a8f462fd23eaf63c7f0b3f065f356b7b480d802ed20b71b301"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T015231489200/R08-unlinked-sku-dispense-rejected.png",
+      "sha256": "9b04836e30148ea10536930c96f5ea1d2c796e46603a3c7b17e0a170f6bb220d"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T015231489200/R09-distinct-sku-price-sources-10-and-27.png",
+      "sha256": "690cb14c10b015ce053df3259e381829c79118ba64a68caff205278775939b19"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T015231489200/R10-explicit-price-authority-sku-publication.png",
+      "sha256": "fd6a615ad6760ec1c1d1787874c524aa596110b773c94921ebedfae4474d9dcf"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T015231489200/R11-multi-sku-complete-original-sources.png",
+      "sha256": "8575ea05562053b23669a2e0d3d97efb3929d832658dff82ca3f738da3e6f65a"
+    }
+  ],
+  "historical_event": 174,
+  "prescription": 125,
+  "result": "PASS",
+  "pageerrors": [],
+  "preview_ids": {
+    "medicine": 439,
+    "medicine2": 442,
+    "medicine3": 444,
+    "medicine_catalog": 269,
+    "medicine2_catalog": 270,
+    "medicine3_catalog": 271,
+    "legal_mapping": 492,
+    "legal_store": 121,
+    "legal_company": 27
+  }
+}

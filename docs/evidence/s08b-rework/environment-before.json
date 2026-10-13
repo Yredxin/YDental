@@ -1,0 +1,66 @@
+{
+  "time": "2026-10-13T01:18:07.299545+00:00",
+  "baseline": "7ccb25cf6a54732caf7007c39498d393b6a96929",
+  "database_count": 114,
+  "catalog_sha256": "2142171b8e6f91c6942a1c9875b0dbbc5f74e64a3850ca6ea8d55f81abfbc90f",
+  "containers": {
+    "odoo20-db": {
+      "id": "23fbbde2b361e362c68e265ff7a52adaf0669a71d1b454a177cd0a7e8ae0b083",
+      "image": "sha256:74935e72241653ca55e0414067e6d8763aceb8a810eb51b452253ec3dcfc4336",
+      "started": "2026-10-12T14:06:17.353878695Z",
+      "pid": 1214144,
+      "running": true,
+      "oom_killed": false,
+      "shm_size": 268435456,
+      "mounts": [
+        {
+          "Type": "volume",
+          "Name": "postgresql_odoo20-db-data",
+          "Destination": "/var/lib/postgresql",
+          "RW": true
+        }
+      ]
+    },
+    "odoo12-db": {
+      "id": "97c245575b7a136937cdc0cd392c0b3e60aca1823148d00f7dccc65f7ab7fe5e",
+      "image": "sha256:b2baf8998630663d21370da06387c950e587071bdd307ee34e661cdcc7442bcc",
+      "started": "2026-10-10T04:52:51.4407282Z",
+      "pid": 27374,
+      "running": true,
+      "oom_killed": false,
+      "shm_size": 67108864,
+      "mounts": [
+        {
+          "Type": "volume",
+          "Name": "postgresql_odoo12-db-data",
+          "Destination": "/var/lib/postgresql/data",
+          "RW": true
+        }
+      ]
+    },
+    "restful-api-demo-mysql-test": {
+      "id": "1397b815bd0130a20b9e96a3627ec346ec4fa95b611490d1e6a64d4d325de20c",
+      "image": "sha256:9d48c42f8341068f199116dfccb919b607c99765b5c61e549a548a43033471a4",
+      "started": "2026-10-11T04:49:18.163528345Z",
+      "pid": 245707,
+      "running": true,
+      "oom_killed": false,
+      "shm_size": 67108864,
+      "mounts": [
+        {
+          "Type": "bind",
+          "Name": null,
+          "Destination": "/docker-entrypoint-initdb.d/01-tables.sql",
+          "RW": false
+        },
+        {
+          "Type": "volume",
+          "Name": "restful-api-demo-mysql-test-data",
+          "Destination": "/var/lib/mysql",
+          "RW": true
+        }
+      ]
+    }
+  },
+  "shm_df": "Filesystem     1B-blocks     Used Available Use% Mounted on\nshm            268435456 97558528 170876928  37% /dev/shm\n"
+}

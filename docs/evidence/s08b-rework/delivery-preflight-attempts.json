@@ -1,0 +1,24 @@
+{
+  "redaction_initial": {
+    "time_utc": "2026-10-13T02:23:03.013546+00:00",
+    "result": "FAIL",
+    "scanned_files": 187,
+    "private_values_checked": 83,
+    "hits": [
+      {
+        "path": "docs/evidence/s08b-rework/final-tests.json",
+        "category": "quoted short private credential value"
+      }
+    ],
+    "scope": "New delivery artifacts only; exact private access history login/password, DB password and admin password values checked without disclosure; screenshot visible-content guards and individual final-image visual review separately recorded"
+  },
+  "correction": "Before any staging/push, private endpoint account value removed from public metadata; credentials remain solely in private configuration. Scan assertion is preserved here.",
+  "github_read_initial": {
+    "result": "FAIL",
+    "operation": "Read-only pre-delivery issue32 GET",
+    "error": "TLS handshake timeout",
+    "exit": 1,
+    "mutation": false
+  },
+  "scope": "Delivery preflight only; no product/test/environment/database changes"
+}

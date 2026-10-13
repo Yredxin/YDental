@@ -1,0 +1,36 @@
+import hashlib,json,os,signal,subprocess,time,urllib.request
+from pathlib import Path
+p=json.load(open('/tmp/ydental-s08br-final.json'));run=Path('.local')/p['db'];e=Path('docs/evidence/s08b-rework');stops=[]
+def action(a):subprocess.check_call(['../.venv/bin/python','scripts/s08b.py',a,'--db',p['db'],'--port',str(p['port'])])
+def audit(name):
+ action('audit');files=sorted((e/'audit-attempts').glob(p['db']+'-*.json'));out=json.loads(files[-1].read_text());(e/(name+'.json')).write_text(json.dumps(out,indent=2)+'\n');return out
+for kind in ('A','B','R'):
+ action('preview');before=audit('audit-before-browser-'+kind)
+ if kind=='A':subprocess.check_call(['../.venv/bin/python','/tmp/ydental-s08br-supplement.py','before-browser-A'])
+ proc=subprocess.Popen(['../.venv/bin/python','scripts/s08b.py','serve','--db',p['db'],'--port',str(p['port'])])
+ try:
+  for _ in range(120):
+   if proc.poll() is not None:raise RuntimeError('Preview exited before ready')
+   try:
+    urllib.request.urlopen('http://127.0.0.1:'+str(p['port'])+'/web/login',timeout=1).close();break
+   except (OSError,TimeoutError):time.sleep(.25)
+  else:raise RuntimeError('Preview readiness timeout')
+  cmd=['../.venv/bin/python','scripts/s08b_a_browser.py' if kind=='A' else 'scripts/s08b_browser.py' if kind=='B' else 'scripts/s08b_rework_browser.py','--db',p['db'],'--port',str(p['port'])]
+  if kind=='A':cmd+=['--terminal-races']
+  subprocess.check_call(cmd)
+ finally:
+  metadata=json.loads((run/'database.json').read_text());conf=(run/'odoo.conf').resolve()
+  assert hashlib.sha256(conf.read_bytes()).hexdigest()==metadata['config_sha256']
+  pid=int((run/'serve.pid').read_text());assert str(conf).encode() in Path('/proc/'+str(pid)+'/cmdline').read_bytes().split(b'\0')
+  os.kill(pid,signal.SIGTERM);code=proc.wait(timeout=30);stops.append({'phase':kind,'pid':pid,'config_sha256':metadata['config_sha256'],'exit_code':code,'scope':'Only exact config/hash/PID owned preview'});(e/'preview-stops.json').write_text(json.dumps(stops,indent=2)+'\n');assert code==0
+ after=audit('audit-after-browser-'+kind)
+ if kind=='A':
+  subprocess.check_call(['../.venv/bin/python','/tmp/ydental-s08br-supplement.py','after-browser-A'])
+  tables=['ydental_inventory_event','stock_move','stock_move_line','stock_quant','ydental_intake_snapshot','ydental_treatment_event','ydental_treatment_fee','ydental_treatment_order','ydental_treatment_line','ydental_treatment_segment','ydental_treatment_consumption','ydental_treatment_price_review','ydental_treatment_medicine_link']
+  assert all(before['signatures'][t]==after['signatures'][t] for t in tables)
+  (e/'pure-document-economic-signatures.json').write_text(json.dumps({'database':p['db'],'tested_commit':after['tested_commit'],'result':'PASS','tables':tables,'before':'audit-before-browser-A.json','after':'audit-after-browser-A.json','all_equal':True},indent=2)+'\n')
+subprocess.check_call(['../.venv/bin/python','/tmp/ydental-s08br-supplement.py','before-business-upgrade']);action('upgrade');post=audit('audit-after-business-upgrade');subprocess.check_call(['../.venv/bin/python','/tmp/ydental-s08br-supplement.py','after-business-upgrade'])
+pre=json.loads((e/'audit-after-browser-R.json').read_text());assert pre['signatures']==post['signatures']
+a=json.loads((e/'supplemental-before-business-upgrade.json').read_text());b=json.loads((e/'supplemental-after-business-upgrade.json').read_text());assert a['signatures']==b['signatures'] and a['capacity_totals']==b['capacity_totals']
+(e/'business-upgrade-signatures.json').write_text(json.dumps({'database':p['db'],'tested_commit':post['tested_commit'],'result':'PASS','all_equal':True,'tables':list(post['signatures'])+list(b['signatures']),'before':'audit-after-browser-R.json','after':'audit-after-business-upgrade.json','supplemental_before':'supplemental-before-business-upgrade.json','supplemental_after':'supplemental-after-business-upgrade.json'},indent=2)+'\n')
+print('A/B/R Firefox, economic signatures and committed-business upgrade: PASS',flush=True)

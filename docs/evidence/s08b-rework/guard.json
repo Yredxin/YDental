@@ -1,0 +1,14 @@
+{
+  "command": [
+    "../.venv/bin/python",
+    "-m",
+    "unittest",
+    "scripts/test_s08b_guard.py"
+  ],
+  "tested_commit": "f887d828da292d0da0513e667469b9df28ee4f05",
+  "exit_code": 0,
+  "tests": 5,
+  "result": "PASS",
+  "output": ".....\n----------------------------------------------------------------------\nRan 5 tests in 0.304s\n\nOK\n",
+  "sha256": "6bda19c7ac1978bcee9070225426f87eec02dc6f97bed578eea3f23ab02de87f"
+}

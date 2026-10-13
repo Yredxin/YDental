@@ -1,5 +1,19 @@
 # YDental 当前执行入口
 
+## 当前 S08-B定向返工交付 / #32（等待GPT独立技术复核）
+
+- 唯一最新返工[GPT-REVIEW6135903692](https://github.com/Yredxin/YDental/issues/32#issuecomment-6135903692)；完整读取#23/#32正文及3/17全部有效评论。沿用原分支及baseline7ccb25cf6a54732caf7007c39498d393b6a96929，原product/test/final、旧库与全部失败证据不变。先test-only abbe2bc新库实测复现B1/B3/B4；B2原intake._text默认required=True，空白原在draft拒绝，明确反证不冒称原可issued。
+- 固定rework product `0a49fac432bcac0197eeddae9675b8cddb46e631`、test `f887d828da292d0da0513e667469b9df28ee4f05`；final完整SHA固定于#32本次评论。product→test仅测试/runner，test→final仅AGENTS/文档/脱敏证据，原S01—S08-A产品零修改。
+- 只修真实药品SKU/单位/qty/lot/价源对应；price-write有据发布唯一SKU↔S05 medicine目录关联，实际仍按原时间S05 quote/snapshot；新非法药品执行零事件费库，已发生证据不足原事实pending、原actor/time/原始材料保留，原责任人有据核对才真实move/fee。旧已确认记录不自动绑定重价，不能用旧无关联来源新更正。
+- 允许不完整Rx草稿，issue/dispense服务端逐字段真实校验，无自动医学值；药房单权、多SKU同direction各自10/27/43价源、原4+2/余量唯一/原价规则保留。移除无依据目标company_ids硬拦截，来源A-only经原S05受控转B，目标普通读写/RPC/切店拒绝，满额/停接/非法目标回滚且原来源保留。
+- 最终全新`ydental_s08b_test_20261013015317_e72d1fca`，OID1287669、18176；固定test install80/upgrade78/带committed业务upgrade78（63模型+15真实HTTP；安装额外2原生资产初始化）；A16+B原20+新5=41首轮独立backend/barrier、deadlock0；Firefox88+24+23=135项/48图均逐张实际目视核验/A10+B1响应屏障/pageerror0；中文307/307、guard5、35SQL0、24升级表及13纯文书经济签名相等。均Codex自测，不是GPT/用户验收。
+- 原114库OID/名称保留，只新增3个隔离B合成库；db20/odoo12/卷/cluster/shm256MiB、核心、依赖、原Odoo42433健康均不动，环境0修改，仅自己的libpq profile。专属预览只处理configSHA/PID；A/R/候选正常exit0，最终B浏览器PASS后外层SIGTERM143中断、子进程exitUNKNOWN，确认精确PID/config已不存在才删自有失效marker，独立证据保留，不称全程exit0。候选失败与日志/hash/截图全部保留。最终库A首次stale-version检查曾耗尽Odoo原生5次serialization重试返回500（11检查/2图FAIL），只读35不变量0；同代码/同参数/新合成UI完整重放后通过，原失败单独保留，不称修复或所有尝试均PASS。
+- 本轮候选Firefox第二次pharmacy导航page crash根因UNKNOWN，独立诊断保留；预览正常停止、未记录Odoo SIGSEGV、PG OOM=false不当作浏览器根因证明。关闭已完成角色context限制测试资源，后续PASS不称修复。原B候选崩溃/S07历史SIGSEGV/DSM根因UNKNOWN，生产继续BLOCKED。
+- Project完整初/末各双读回21字段/15条目/6视图及字段/7公开workflow深比较相等，0mutation；#32S08/进行中/Todo/OPEN、#31待用户验收、后续待启用。正式用药/签发/税币种/生产价与共价政策未批准；S08-C/S09/S10真实出账收付款及S11—S13/生产NOT_RUN或BLOCKED；完整旧源码树迁移/生产回滚NOT_RUN，仅旧默认字段夹具不重写回归。
+- 材料docs/s08b-rework-{contracts,data-dictionary,security-review,report}.md及docs/evidence/s08b-rework。正常push，#32发布`[CODEX] S08-B定向修正交付与再次技术复核申请`逐字读回后立即停止等待GPT，不关闭/合并/强推/部署/改Project或启用后续。
+
+下方原B及更早“当前/本次”为历史，本轮以本节及6135903692为准。
+
 ## 当前 S08-B交付 / #32（等待GPT独立技术复核）
 
 - 唯一启用为[GPT-ACTIVATE6134476918](https://github.com/Yredxin/YDental/issues/32#issuecomment-6134476918)；完整读取#23/#32正文及3/14条有效评论、A最终PASS6134425442；[开工检查6134535111](https://github.com/Yredxin/YDental/issues/32#issuecomment-6134535111)逐字读回后开发。交付前重读3/15条，原正文/评论字节不变，仅本批开工新增。没有沿用A维护会话启用后续。

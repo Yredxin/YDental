@@ -1,0 +1,16 @@
+import configparser,datetime,hashlib,json,subprocess,sys
+from pathlib import Path
+import psycopg2
+from psycopg2 import sql
+p=json.load(open('/tmp/ydental-s08br-final.json'));r=Path('.local')/p['db'];m=json.loads((r/'database.json').read_text())
+assert hashlib.sha256((r/'odoo.conf').read_bytes()).hexdigest()==m['config_sha256']
+c=configparser.ConfigParser();c.read(r/'odoo.conf');c=c['options'];conn=psycopg2.connect(dbname=p['db'],host=c['db_host'],port=c['db_port'],user=c['db_user'],password=c['db_password']);conn.set_session(readonly=True)
+out={'database':p['db'],'tested_commit':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),'time_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'signatures':{}}
+with conn.cursor() as cr:
+ cr.execute('SELECT system_identifier::text FROM pg_control_system()');assert cr.fetchone()[0]==m['cluster']
+ cr.execute('SELECT oid FROM pg_database WHERE datname=current_database()');assert cr.fetchone()[0]==m['oid']
+ for table in ('ydental_supply_slot','ydental_intake_referral','ydental_intake_price'):
+  cr.execute(sql.SQL('SELECT row_to_json(t)::text FROM {} t ORDER BY id').format(sql.Identifier(table)));rows=cr.fetchall();out['signatures'][table]={'count':len(rows),'sha256':hashlib.sha256('\n'.join(x[0] for x in rows).encode()).hexdigest()}
+ cr.execute('SELECT count(*) FROM ydental_supply_slot WHERE ydental_total<0 OR ydental_reservation_free<0 OR ydental_walkin_free<0 OR ydental_unavailable<0');out['negative_capacity']=cr.fetchone()[0];assert out['negative_capacity']==0
+ cr.execute('SELECT sum(ydental_total),sum(ydental_reservation_free),sum(ydental_walkin_free),sum(ydental_unavailable) FROM ydental_supply_slot');out['capacity_totals']=dict(zip(('total','reservation_free','walkin_free','unavailable'),cr.fetchone()))
+conn.close();out['result']='PASS';Path('docs/evidence/s08b-rework/supplemental-'+sys.argv[1]+'.json').write_text(json.dumps(out,indent=2)+'\n');print(json.dumps(out))

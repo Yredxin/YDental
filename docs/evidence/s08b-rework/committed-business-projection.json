@@ -1,0 +1,905 @@
+{
+  "database": "ydental_s08b_test_20261013015317_e72d1fca",
+  "tested_commit": "f887d828da292d0da0513e667469b9df28ee4f05",
+  "read_only": true,
+  "sql_and_rows": {
+    "actual_events_fees": {
+      "sql": "SELECT e.id event_id,e.ydental_store_id store_id,e.ydental_kind kind,e.ydental_execution_id execution_id,e.ydental_actor_id actor_id,e.ydental_station_id station_id,e.ydental_quantity quantity,e.ydental_actual_at actual_at,e.state,e.ydental_pending_reason pending_reason,e.ydental_catalog_id catalog_id,e.ydental_product_id sku,e.ydental_reported_materials reported_materials,e.ydental_medication_review medication_review,f.id fee_id,f.ydental_unit_price unit_price,f.ydental_amount amount,f.ydental_product_id fee_sku,f.ydental_medicine_link_id link_id,f.ydental_price_snapshot_id snapshot_id,s.ydental_price_id price_version,s.ydental_catalog_id snapshot_catalog,s.ydental_currency_id snapshot_currency,f.ydental_currency_id fee_currency FROM ydental_treatment_event e LEFT JOIN ydental_treatment_fee f ON f.ydental_event_id=e.id LEFT JOIN ydental_intake_snapshot s ON s.id=f.ydental_price_snapshot_id WHERE e.ydental_store_id=ANY(%s) ORDER BY e.id",
+      "parameters": [
+        [
+          119,
+          122
+        ]
+      ],
+      "rows": [
+        {
+          "event_id": 94,
+          "store_id": 119,
+          "kind": "treatment",
+          "execution_id": 234,
+          "actor_id": 469,
+          "station_id": 524,
+          "quantity": "1.00",
+          "actual_at": "2026-10-13 02:10:19",
+          "state": "confirmed",
+          "pending_reason": null,
+          "catalog_id": 262,
+          "sku": null,
+          "reported_materials": {
+            "rows": [
+              {
+                "kind": "treatment",
+                "lot_id": 94,
+                "uom_id": 1,
+                "quantity": 1
+              }
+            ],
+            "catalog_id": 262
+          },
+          "medication_review": null,
+          "fee_id": 74,
+          "unit_price": "600.000000",
+          "amount": "600.00",
+          "fee_sku": null,
+          "link_id": null,
+          "snapshot_id": 84,
+          "price_version": 113,
+          "snapshot_catalog": 262,
+          "snapshot_currency": 1,
+          "fee_currency": 1
+        },
+        {
+          "event_id": 95,
+          "store_id": 119,
+          "kind": "correction",
+          "execution_id": 234,
+          "actor_id": 469,
+          "station_id": 524,
+          "quantity": "0.00",
+          "actual_at": "2026-10-13 02:10:20",
+          "state": "confirmed",
+          "pending_reason": null,
+          "catalog_id": 262,
+          "sku": null,
+          "reported_materials": {
+            "rows": [
+              {
+                "kind": "treatment",
+                "lot_id": 94,
+                "uom_id": 1,
+                "quantity": 1
+              }
+            ],
+            "catalog_id": 262
+          },
+          "medication_review": null,
+          "fee_id": 75,
+          "unit_price": "600.000000",
+          "amount": "0.00",
+          "fee_sku": null,
+          "link_id": null,
+          "snapshot_id": 84,
+          "price_version": 113,
+          "snapshot_catalog": 262,
+          "snapshot_currency": 1,
+          "fee_currency": 1
+        },
+        {
+          "event_id": 96,
+          "store_id": 119,
+          "kind": "treatment",
+          "execution_id": 234,
+          "actor_id": 469,
+          "station_id": 524,
+          "quantity": "1.00",
+          "actual_at": "2026-10-13 02:10:26",
+          "state": "pending",
+          "pending_reason": "inventory_pending",
+          "catalog_id": 262,
+          "sku": null,
+          "reported_materials": {
+            "rows": [
+              {
+                "kind": "treatment",
+                "lot_id": 94,
+                "uom_id": 1,
+                "quantity": 99
+              }
+            ],
+            "catalog_id": 262
+          },
+          "medication_review": null,
+          "fee_id": null,
+          "unit_price": null,
+          "amount": null,
+          "fee_sku": null,
+          "link_id": null,
+          "snapshot_id": null,
+          "price_version": null,
+          "snapshot_catalog": null,
+          "snapshot_currency": null,
+          "fee_currency": null
+        },
+        {
+          "event_id": 97,
+          "store_id": 119,
+          "kind": "prescription",
+          "execution_id": 235,
+          "actor_id": 475,
+          "station_id": 533,
+          "quantity": "4.00",
+          "actual_at": "2026-10-13 02:10:32",
+          "state": "confirmed",
+          "pending_reason": null,
+          "catalog_id": 266,
+          "sku": 405,
+          "reported_materials": {
+            "rows": [
+              {
+                "kind": "prescription",
+                "lot_id": 93,
+                "uom_id": 1,
+                "quantity": 4
+              }
+            ],
+            "catalog_id": 266
+          },
+          "medication_review": null,
+          "fee_id": 76,
+          "unit_price": "10.000000",
+          "amount": "40.00",
+          "fee_sku": 405,
+          "link_id": 64,
+          "snapshot_id": 86,
+          "price_version": 114,
+          "snapshot_catalog": 266,
+          "snapshot_currency": 1,
+          "fee_currency": 1
+        },
+        {
+          "event_id": 98,
+          "store_id": 119,
+          "kind": "prescription",
+          "execution_id": 236,
+          "actor_id": 475,
+          "station_id": 533,
+          "quantity": "2.00",
+          "actual_at": "2026-10-13 02:10:35",
+          "state": "confirmed",
+          "pending_reason": null,
+          "catalog_id": 266,
+          "sku": 405,
+          "reported_materials": {
+            "rows": [
+              {
+                "kind": "prescription",
+                "lot_id": 93,
+                "uom_id": 1,
+                "quantity": 2
+              }
+            ],
+            "catalog_id": 266
+          },
+          "medication_review": null,
+          "fee_id": 77,
+          "unit_price": "10.000000",
+          "amount": "20.00",
+          "fee_sku": 405,
+          "link_id": 64,
+          "snapshot_id": 87,
+          "price_version": 114,
+          "snapshot_catalog": 266,
+          "snapshot_currency": 1,
+          "fee_currency": 1
+        },
+        {
+          "event_id": 99,
+          "store_id": 122,
+          "kind": "chairside",
+          "execution_id": 237,
+          "actor_id": 478,
+          "station_id": 535,
+          "quantity": "2.00",
+          "actual_at": "2026-10-13 02:14:07",
+          "state": "confirmed",
+          "pending_reason": null,
+          "catalog_id": 273,
+          "sku": 416,
+          "reported_materials": {
+            "rows": [],
+            "catalog_id": 273
+          },
+          "medication_review": "原责任人核对原实际用药批次与数量，合成证据",
+          "fee_id": 78,
+          "unit_price": "10.000000",
+          "amount": "20.00",
+          "fee_sku": 416,
+          "link_id": 66,
+          "snapshot_id": 89,
+          "price_version": 118,
+          "snapshot_catalog": 273,
+          "snapshot_currency": 1,
+          "fee_currency": 1
+        },
+        {
+          "event_id": 100,
+          "store_id": 122,
+          "kind": "prescription",
+          "execution_id": 238,
+          "actor_id": 484,
+          "station_id": 544,
+          "quantity": "4.00",
+          "actual_at": "2026-10-13 02:14:23",
+          "state": "confirmed",
+          "pending_reason": null,
+          "catalog_id": 273,
+          "sku": 416,
+          "reported_materials": {
+            "rows": [
+              {
+                "kind": "prescription",
+                "lot_id": 97,
+                "uom_id": 1,
+                "quantity": 4
+              }
+            ],
+            "catalog_id": 273
+          },
+          "medication_review": null,
+          "fee_id": 79,
+          "unit_price": "10.000000",
+          "amount": "40.00",
+          "fee_sku": 416,
+          "link_id": 66,
+          "snapshot_id": 90,
+          "price_version": 118,
+          "snapshot_catalog": 273,
+          "snapshot_currency": 1,
+          "fee_currency": 1
+        },
+        {
+          "event_id": 101,
+          "store_id": 122,
+          "kind": "prescription",
+          "execution_id": 238,
+          "actor_id": 484,
+          "station_id": 544,
+          "quantity": "2.00",
+          "actual_at": "2026-10-13 02:14:24",
+          "state": "confirmed",
+          "pending_reason": null,
+          "catalog_id": 274,
+          "sku": 419,
+          "reported_materials": {
+            "rows": [
+              {
+                "kind": "prescription",
+                "lot_id": 99,
+                "uom_id": 1,
+                "quantity": 2
+              }
+            ],
+            "catalog_id": 274
+          },
+          "medication_review": null,
+          "fee_id": 80,
+          "unit_price": "27.000000",
+          "amount": "54.00",
+          "fee_sku": 419,
+          "link_id": 67,
+          "snapshot_id": 91,
+          "price_version": 119,
+          "snapshot_catalog": 274,
+          "snapshot_currency": 1,
+          "fee_currency": 1
+        },
+        {
+          "event_id": 102,
+          "store_id": 122,
+          "kind": "prescription",
+          "execution_id": 239,
+          "actor_id": 484,
+          "station_id": 544,
+          "quantity": "2.00",
+          "actual_at": "2026-10-13 02:14:29",
+          "state": "confirmed",
+          "pending_reason": null,
+          "catalog_id": 273,
+          "sku": 416,
+          "reported_materials": {
+            "rows": [
+              {
+                "kind": "prescription",
+                "lot_id": 97,
+                "uom_id": 1,
+                "quantity": 2
+              }
+            ],
+            "catalog_id": 273
+          },
+          "medication_review": null,
+          "fee_id": 81,
+          "unit_price": "10.000000",
+          "amount": "20.00",
+          "fee_sku": 416,
+          "link_id": 66,
+          "snapshot_id": 92,
+          "price_version": 118,
+          "snapshot_catalog": 273,
+          "snapshot_currency": 1,
+          "fee_currency": 1
+        },
+        {
+          "event_id": 103,
+          "store_id": 122,
+          "kind": "prescription",
+          "execution_id": 239,
+          "actor_id": 484,
+          "station_id": 544,
+          "quantity": "1.00",
+          "actual_at": "2026-10-13 02:14:29",
+          "state": "confirmed",
+          "pending_reason": null,
+          "catalog_id": 275,
+          "sku": 421,
+          "reported_materials": {
+            "rows": [
+              {
+                "kind": "prescription",
+                "lot_id": 100,
+                "uom_id": 1,
+                "quantity": 1
+              }
+            ],
+            "catalog_id": 275
+          },
+          "medication_review": null,
+          "fee_id": 82,
+          "unit_price": "43.000000",
+          "amount": "43.00",
+          "fee_sku": 421,
+          "link_id": 68,
+          "snapshot_id": 93,
+          "price_version": 120,
+          "snapshot_catalog": 275,
+          "snapshot_currency": 1,
+          "fee_currency": 1
+        }
+      ]
+    },
+    "native_moves": {
+      "sql": "SELECT e.id event_id,c.ydental_quantity actual_quantity,c.ydental_kind kind,c.ydental_lot_id lot_id,lot.product_id lot_sku,i.id inventory_event_id,i.state inventory_state,i.ydental_actual_at inventory_actual_at,i.ydental_responsible_id inventory_actor,m.id move_id,m.state move_state,m.quantity move_quantity,m.product_id move_sku FROM ydental_treatment_consumption c JOIN ydental_treatment_event e ON e.id=c.ydental_event_id JOIN stock_lot lot ON lot.id=c.ydental_lot_id LEFT JOIN ydental_inventory_event i ON i.id=c.ydental_inventory_event_id LEFT JOIN stock_move m ON m.id=i.ydental_move_id WHERE e.ydental_store_id=ANY(%s) ORDER BY e.id,c.id",
+      "parameters": [
+        [
+          119,
+          122
+        ]
+      ],
+      "rows": [
+        {
+          "event_id": 94,
+          "actual_quantity": "1.00",
+          "kind": "treatment",
+          "lot_id": 94,
+          "lot_sku": 406,
+          "inventory_event_id": 200,
+          "inventory_state": "done",
+          "inventory_actual_at": "2026-10-13 02:10:19",
+          "inventory_actor": 469,
+          "move_id": 241,
+          "move_state": "done",
+          "move_quantity": "1.00",
+          "move_sku": 406
+        },
+        {
+          "event_id": 95,
+          "actual_quantity": "1.00",
+          "kind": "treatment",
+          "lot_id": 94,
+          "lot_sku": 406,
+          "inventory_event_id": 201,
+          "inventory_state": "done",
+          "inventory_actual_at": "2026-10-13 02:10:20",
+          "inventory_actor": 469,
+          "move_id": 242,
+          "move_state": "done",
+          "move_quantity": "1.00",
+          "move_sku": 406
+        },
+        {
+          "event_id": 96,
+          "actual_quantity": "99.00",
+          "kind": "treatment",
+          "lot_id": 94,
+          "lot_sku": 406,
+          "inventory_event_id": 202,
+          "inventory_state": "pending",
+          "inventory_actual_at": "2026-10-13 02:10:26",
+          "inventory_actor": 469,
+          "move_id": null,
+          "move_state": null,
+          "move_quantity": null,
+          "move_sku": null
+        },
+        {
+          "event_id": 97,
+          "actual_quantity": "4.00",
+          "kind": "prescription",
+          "lot_id": 93,
+          "lot_sku": 405,
+          "inventory_event_id": 203,
+          "inventory_state": "done",
+          "inventory_actual_at": "2026-10-13 02:10:32",
+          "inventory_actor": 475,
+          "move_id": 243,
+          "move_state": "done",
+          "move_quantity": "4.00",
+          "move_sku": 405
+        },
+        {
+          "event_id": 98,
+          "actual_quantity": "2.00",
+          "kind": "prescription",
+          "lot_id": 93,
+          "lot_sku": 405,
+          "inventory_event_id": 204,
+          "inventory_state": "done",
+          "inventory_actual_at": "2026-10-13 02:10:35",
+          "inventory_actor": 475,
+          "move_id": 244,
+          "move_state": "done",
+          "move_quantity": "2.00",
+          "move_sku": 405
+        },
+        {
+          "event_id": 99,
+          "actual_quantity": "2.00",
+          "kind": "chairside",
+          "lot_id": 97,
+          "lot_sku": 416,
+          "inventory_event_id": 209,
+          "inventory_state": "done",
+          "inventory_actual_at": "2026-10-13 02:14:07",
+          "inventory_actor": 478,
+          "move_id": 249,
+          "move_state": "done",
+          "move_quantity": "2.00",
+          "move_sku": 416
+        },
+        {
+          "event_id": 100,
+          "actual_quantity": "4.00",
+          "kind": "prescription",
+          "lot_id": 97,
+          "lot_sku": 416,
+          "inventory_event_id": 210,
+          "inventory_state": "done",
+          "inventory_actual_at": "2026-10-13 02:14:23",
+          "inventory_actor": 484,
+          "move_id": 250,
+          "move_state": "done",
+          "move_quantity": "4.00",
+          "move_sku": 416
+        },
+        {
+          "event_id": 101,
+          "actual_quantity": "2.00",
+          "kind": "prescription",
+          "lot_id": 99,
+          "lot_sku": 419,
+          "inventory_event_id": 211,
+          "inventory_state": "done",
+          "inventory_actual_at": "2026-10-13 02:14:24",
+          "inventory_actor": 484,
+          "move_id": 251,
+          "move_state": "done",
+          "move_quantity": "2.00",
+          "move_sku": 419
+        },
+        {
+          "event_id": 102,
+          "actual_quantity": "2.00",
+          "kind": "prescription",
+          "lot_id": 97,
+          "lot_sku": 416,
+          "inventory_event_id": 212,
+          "inventory_state": "done",
+          "inventory_actual_at": "2026-10-13 02:14:29",
+          "inventory_actor": 484,
+          "move_id": 252,
+          "move_state": "done",
+          "move_quantity": "2.00",
+          "move_sku": 416
+        },
+        {
+          "event_id": 103,
+          "actual_quantity": "1.00",
+          "kind": "prescription",
+          "lot_id": 100,
+          "lot_sku": 421,
+          "inventory_event_id": 213,
+          "inventory_state": "done",
+          "inventory_actual_at": "2026-10-13 02:14:29",
+          "inventory_actor": 484,
+          "move_id": 253,
+          "move_state": "done",
+          "move_quantity": "1.00",
+          "move_sku": 421
+        }
+      ]
+    },
+    "pharmacy_history": {
+      "sql": "SELECT s.ydental_order_id order_id,s.id segment_id,s.ydental_sequence sequence,s.state segment_state,s.ydental_task_id task_id,t.state task_state,s.ydental_execution_id execution_id,x.state execution_state,x.ydental_started_at started_at,x.ydental_ended_at ended_at,l.ydental_actor_id actor_id,l.ydental_active lease_active,q.state entry_state FROM ydental_treatment_segment s JOIN ydental_intake_task t ON t.id=s.ydental_task_id JOIN ydental_queue_execution x ON x.id=s.ydental_execution_id JOIN ydental_queue_lease l ON l.id=x.ydental_lease_id JOIN ydental_queue_entry q ON q.id=x.ydental_entry_id WHERE s.ydental_order_id=ANY(%s) ORDER BY s.ydental_order_id,s.ydental_sequence",
+      "parameters": [
+        [
+          66,
+          67
+        ]
+      ],
+      "rows": [
+        {
+          "order_id": 66,
+          "segment_id": 41,
+          "sequence": 1,
+          "segment_state": "done",
+          "task_id": 329,
+          "task_state": "done",
+          "execution_id": 235,
+          "execution_state": "completed",
+          "started_at": "2026-10-13 02:10:32",
+          "ended_at": "2026-10-13 02:10:33",
+          "actor_id": 475,
+          "lease_active": false,
+          "entry_state": "completed"
+        },
+        {
+          "order_id": 66,
+          "segment_id": 42,
+          "sequence": 2,
+          "segment_state": "done",
+          "task_id": 332,
+          "task_state": "done",
+          "execution_id": 236,
+          "execution_state": "completed",
+          "started_at": "2026-10-13 02:10:35",
+          "ended_at": "2026-10-13 02:10:37",
+          "actor_id": 475,
+          "lease_active": false,
+          "entry_state": "completed"
+        },
+        {
+          "order_id": 67,
+          "segment_id": 43,
+          "sequence": 1,
+          "segment_state": "done",
+          "task_id": 334,
+          "task_state": "done",
+          "execution_id": 238,
+          "execution_state": "completed",
+          "started_at": "2026-10-13 02:14:22",
+          "ended_at": "2026-10-13 02:14:24",
+          "actor_id": 484,
+          "lease_active": false,
+          "entry_state": "completed"
+        },
+        {
+          "order_id": 67,
+          "segment_id": 44,
+          "sequence": 2,
+          "segment_state": "done",
+          "task_id": 338,
+          "task_state": "done",
+          "execution_id": 239,
+          "execution_state": "completed",
+          "started_at": "2026-10-13 02:14:28",
+          "ended_at": "2026-10-13 02:14:30",
+          "actor_id": 484,
+          "lease_active": false,
+          "entry_state": "completed"
+        }
+      ]
+    },
+    "prescription_approved": {
+      "sql": "SELECT o.id order_id,o.state order_state,l.id line_id,l.ydental_product_id sku,l.ydental_quantity approved,(SELECT sum(e.ydental_quantity) FROM ydental_treatment_event e WHERE e.ydental_order_line_id=l.id AND e.ydental_kind='prescription') actual_total FROM ydental_treatment_order o JOIN ydental_treatment_line l ON l.ydental_order_id=o.id WHERE o.id=ANY(%s) AND l.state='done' ORDER BY o.id,l.id",
+      "parameters": [
+        [
+          66,
+          67
+        ]
+      ],
+      "rows": [
+        {
+          "order_id": 66,
+          "order_state": "done",
+          "line_id": 75,
+          "sku": 405,
+          "approved": "6.00",
+          "actual_total": "6.00"
+        },
+        {
+          "order_id": 67,
+          "order_state": "done",
+          "line_id": 77,
+          "sku": 416,
+          "approved": "6.00",
+          "actual_total": "6.00"
+        },
+        {
+          "order_id": 67,
+          "order_state": "done",
+          "line_id": 78,
+          "sku": 419,
+          "approved": "2.00",
+          "actual_total": "2.00"
+        },
+        {
+          "order_id": 67,
+          "order_state": "done",
+          "line_id": 79,
+          "sku": 421,
+          "approved": "1.00",
+          "actual_total": "1.00"
+        }
+      ]
+    },
+    "published_medicine_sources": {
+      "sql": "SELECT id,ydental_store_id store_id,ydental_product_id sku,ydental_catalog_id catalog_id,ydental_uom_id uom_id,ydental_price_id published_version,ydental_currency_id currency_id,ydental_actor_id publisher,state FROM ydental_treatment_medicine_link WHERE ydental_store_id=ANY(%s) ORDER BY id",
+      "parameters": [
+        [
+          119,
+          122
+        ]
+      ],
+      "rows": [
+        {
+          "id": 64,
+          "store_id": 119,
+          "sku": 405,
+          "catalog_id": 266,
+          "uom_id": 1,
+          "published_version": 114,
+          "currency_id": 1,
+          "publisher": 467,
+          "state": "published"
+        },
+        {
+          "id": 65,
+          "store_id": 119,
+          "sku": 408,
+          "catalog_id": 267,
+          "uom_id": 1,
+          "published_version": 115,
+          "currency_id": 1,
+          "publisher": 471,
+          "state": "published"
+        },
+        {
+          "id": 66,
+          "store_id": 122,
+          "sku": 416,
+          "catalog_id": 273,
+          "uom_id": 1,
+          "published_version": 118,
+          "currency_id": 1,
+          "publisher": 476,
+          "state": "published"
+        },
+        {
+          "id": 67,
+          "store_id": 122,
+          "sku": 419,
+          "catalog_id": 274,
+          "uom_id": 1,
+          "published_version": 119,
+          "currency_id": 1,
+          "publisher": 480,
+          "state": "published"
+        },
+        {
+          "id": 68,
+          "store_id": 122,
+          "sku": 421,
+          "catalog_id": 275,
+          "uom_id": 1,
+          "published_version": 120,
+          "currency_id": 1,
+          "publisher": 480,
+          "state": "published"
+        }
+      ]
+    },
+    "native_internal_quants": {
+      "sql": "SELECT q.product_id,q.lot_id,l.id location_id,l.ydental_store_id store_id,q.quantity FROM stock_quant q JOIN stock_location l ON l.id=q.location_id WHERE l.ydental_store_id=ANY(%s) AND l.usage='internal' ORDER BY q.id",
+      "parameters": [
+        [
+          119,
+          122
+        ]
+      ],
+      "rows": [
+        {
+          "product_id": 406,
+          "lot_id": 94,
+          "location_id": 608,
+          "store_id": 119,
+          "quantity": "18.00"
+        },
+        {
+          "product_id": 405,
+          "lot_id": 93,
+          "location_id": 607,
+          "store_id": 119,
+          "quantity": "14.00"
+        },
+        {
+          "product_id": 408,
+          "lot_id": 95,
+          "location_id": 607,
+          "store_id": 119,
+          "quantity": "20.00"
+        },
+        {
+          "product_id": 410,
+          "lot_id": 96,
+          "location_id": 607,
+          "store_id": 119,
+          "quantity": "20.00"
+        },
+        {
+          "product_id": 417,
+          "lot_id": 98,
+          "location_id": 625,
+          "store_id": 122,
+          "quantity": "20.00"
+        },
+        {
+          "product_id": 416,
+          "lot_id": 97,
+          "location_id": 624,
+          "store_id": 122,
+          "quantity": "12.00"
+        },
+        {
+          "product_id": 419,
+          "lot_id": 99,
+          "location_id": 624,
+          "store_id": 122,
+          "quantity": "18.00"
+        },
+        {
+          "product_id": 421,
+          "lot_id": 100,
+          "location_id": 624,
+          "store_id": 122,
+          "quantity": "19.00"
+        }
+      ]
+    },
+    "referral_receipts": {
+      "sql": "SELECT id,ydental_store_id store_id,ydental_actor_id actor_id,ydental_result result FROM ydental_treatment_receipt WHERE ydental_store_id=ANY(%s) AND name='refer' ORDER BY id",
+      "parameters": [
+        [
+          119,
+          122
+        ]
+      ],
+      "rows": [
+        {
+          "id": 339,
+          "store_id": 119,
+          "actor_id": 469,
+          "result": {
+            "id": 223,
+            "result": "accepted",
+            "task_id": 330,
+            "version": 1,
+            "claim_id": 223,
+            "patient_id": 208,
+            "task_version": 2,
+            "source_task_id": 326,
+            "source_store_id": 119,
+            "target_store_id": 120,
+            "target_mapping_id": 490
+          }
+        },
+        {
+          "id": 340,
+          "store_id": 119,
+          "actor_id": 469,
+          "result": {
+            "id": 13,
+            "result": "accepted",
+            "version": 1,
+            "source_task_id": 326,
+            "source_store_id": 119,
+            "target_store_id": 120,
+            "target_mapping_id": 490,
+            "target_qualification": "not_acquired"
+          }
+        },
+        {
+          "id": 353,
+          "store_id": 122,
+          "actor_id": 478,
+          "result": {
+            "id": 225,
+            "result": "accepted",
+            "task_id": 335,
+            "version": 1,
+            "claim_id": 225,
+            "patient_id": 209,
+            "task_version": 2,
+            "source_task_id": 333,
+            "source_store_id": 122,
+            "target_store_id": 124,
+            "target_mapping_id": 509
+          }
+        },
+        {
+          "id": 354,
+          "store_id": 122,
+          "actor_id": 478,
+          "result": {
+            "id": 14,
+            "result": "accepted",
+            "version": 1,
+            "source_task_id": 333,
+            "source_store_id": 122,
+            "target_store_id": 124,
+            "target_mapping_id": 509,
+            "target_qualification": "not_acquired"
+          }
+        }
+      ]
+    },
+    "source_company_ids": {
+      "sql": "SELECT cid company_id FROM res_company_users_rel WHERE user_id=%s ORDER BY cid",
+      "parameters": [
+        478
+      ],
+      "rows": [
+        {
+          "company_id": 1
+        }
+      ]
+    },
+    "source_target_membership": {
+      "sql": "SELECT id FROM ydental_access_membership WHERE ydental_user_id=%s AND ydental_store_id=%s",
+      "parameters": [
+        478,
+        124
+      ],
+      "rows": []
+    }
+  },
+  "result": "PASS",
+  "proof": {
+    "B_store": 119,
+    "R_store": 122,
+    "original_prescription": 66,
+    "multi_sku_prescription": 67,
+    "historical_fact": 99,
+    "new_failed_medication_event_count": 0,
+    "cross_legal_failed_new_receipts": 0,
+    "original_4_plus_2_amounts": [
+      40,
+      20
+    ],
+    "multi_sku_actual_quantities": [
+      4,
+      2,
+      2,
+      1
+    ],
+    "multi_sku_actual_amounts": [
+      40,
+      54,
+      20,
+      43
+    ],
+    "source_doctor_id": 478,
+    "target_company": 18,
+    "target_store": 124,
+    "source_target_scope_expanded": false
+  }
+}

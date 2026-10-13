@@ -1,0 +1,586 @@
+{
+  "baseline": "7ccb25cf6a54732caf7007c39498d393b6a96929",
+  "product": "0a49fac432bcac0197eeddae9675b8cddb46e631",
+  "tested_commit": "f887d828da292d0da0513e667469b9df28ee4f05",
+  "changed_product_files": [
+    "ydental_treatment/controllers/treatment.py",
+    "ydental_treatment/i18n/zh_CN.po",
+    "ydental_treatment/models/__init__.py",
+    "ydental_treatment/models/ir_attachment.py",
+    "ydental_treatment/models/ydental_inventory_service.py",
+    "ydental_treatment/models/ydental_treatment_event.py",
+    "ydental_treatment/models/ydental_treatment_fee.py",
+    "ydental_treatment/models/ydental_treatment_medicine_link.py",
+    "ydental_treatment/models/ydental_treatment_service.py",
+    "ydental_treatment/security/ir.access.csv",
+    "ydental_treatment/static/src/workbench/workbench.js",
+    "ydental_treatment/views/ydental_treatment_templates.xml"
+  ],
+  "original_S01_to_S08A_product_changes": [],
+  "findings": {
+    "sudo": [
+      {
+        "file": "ydental_treatment/controllers/treatment.py",
+        "line": 61,
+        "source": "products = service.env['product.product'].sudo().search([('ydental_inventory_kind', '=', 'medicine'),"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 41,
+        "source": "return self.env['ydental.treatment.' + entity].sudo()"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 45,
+        "source": "if store.company_id not in self.env.user.sudo().company_ids:"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 164,
+        "source": "product = self.env['product.product'].sudo().browse(intake._id(product_id)).exists()"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 193,
+        "source": "if not rows or any(self.env['stock.lot'].sudo().browse(row['lot_id']).product_id != link.ydental_product_id or"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 515,
+        "source": "unit = self.env['uom.uom'].sudo().browse(intake._id(row['uom_id'])).exists()"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 522,
+        "source": "product = self.env['product.product'].sudo().browse(intake._id(row['product_id'])).exists()"
+      }
+    ],
+    "raw_sql": [
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 91,
+        "source": "self.env.cr.execute('SELECT pg_advisory_xact_lock(%s)', [32008])"
+      }
+    ],
+    "dynamic": [],
+    "public_routes": [
+      {
+        "file": "ydental_treatment/controllers/treatment.py",
+        "line": 17,
+        "source": "@http.route('/ydental/treatment', type='http', auth='user', methods=['GET'])"
+      },
+      {
+        "file": "ydental_treatment/controllers/treatment.py",
+        "line": 81,
+        "source": "@http.route('/ydental/treatment/action', type='http', auth='user', methods=['POST'], max_content_length=100000)"
+      }
+    ],
+    "file_io": [],
+    "xss": [],
+    "field_security": [
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 24,
+        "source": "lease_token: str"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 40,
+        "source": "# endpoint accepts a model, domain, arbitrary values or mutation token."
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 104,
+        "source": "def _serving(self, execution_id, lease_id, lease_token, category):"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 106,
+        "source": "lease = queue._held(lease_id, lease_token)"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 119,
+        "source": "def _medical(self, execution_id, lease_id, lease_token, document_id, document_version):"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 120,
+        "source": "execution = self._serving(execution_id, lease_id, lease_token, 'medical')"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 429,
+        "source": "def _execute(self, execution_id, lease_id, lease_token, document_id, document_version, catalog_id,"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 433,
+        "source": "execution, doc = self._medical(execution_id, lease_id, lease_token, document_id, document_version)"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 470,
+        "source": "def _correct(self, event_id, execution_id, lease_id, lease_token, document_id, document_version,"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 472,
+        "source": "execution, doc = self._medical(execution_id, lease_id, lease_token, document_id, document_version)"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 538,
+        "source": "def _draft_order(self, execution_id, lease_id, lease_token, document_id, document_version, kind, purpose, lines):"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 539,
+        "source": "execution, doc = self._medical(execution_id, lease_id, lease_token, document_id, document_version)"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 550,
+        "source": "def _edit_order(self, order_id, version, execution_id, lease_id, lease_token, document_id, document_version, purpose, lines):"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 551,
+        "source": "execution, doc = self._medical(execution_id, lease_id, lease_token, document_id, document_version)"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 584,
+        "source": "def _issue(self, order_id, version, execution_id, lease_id, lease_token, document_id, document_version):"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 585,
+        "source": "execution, doc = self._medical(execution_id, lease_id, lease_token, document_id, document_version)"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 609,
+        "source": "def _cancel_exam(self, line_id, order_version, execution_id, lease_id, lease_token, document_id, document_version, reason):"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 610,
+        "source": "execution, doc = self._medical(execution_id, lease_id, lease_token, document_id, document_version)"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 634,
+        "source": "def _pharmacy(self, execution_id, lease_id, lease_token, order_id, order_version):"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 635,
+        "source": "execution = self._serving(execution_id, lease_id, lease_token, 'pharmacy')"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 646,
+        "source": "def _dispense(self, execution_id, lease_id, lease_token, order_id, order_version, line_id,"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 650,
+        "source": "execution, order, segment = self._pharmacy(execution_id, lease_id, lease_token, order_id, order_version)"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 669,
+        "source": "def _finish(self, execution_id, lease_id, lease_token, order_id, order_version, reason):"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 670,
+        "source": "execution, order, segment = self._pharmacy(execution_id, lease_id, lease_token, order_id, order_version)"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 683,
+        "source": "queue._exit(lease_id, lease_token)"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 689,
+        "source": "def _refer(self, execution_id, lease_id, lease_token, document_id, document_version,"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 691,
+        "source": "execution, doc = self._medical(execution_id, lease_id, lease_token, document_id, document_version)"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 710,
+        "source": "lease_token, doc.id, doc.ydental_version, fingerprint([operation, args]))"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_intake_service.py",
+        "line": 14,
+        "source": "execution, doc = service._medical(permit.execution_id, permit.lease_id, permit.lease_token,"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_queue_service.py",
+        "line": 41,
+        "source": "def _start(self, lease_id, token, entry_id):"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_queue_service.py",
+        "line": 48,
+        "source": "return super()._start(lease_id, token, entry_id)"
+      },
+      {
+        "file": "ydental_treatment/static/src/workbench/workbench.js",
+        "line": 15,
+        "source": "lease_token: holder?.token, document_id: Number(root.dataset.document), document_version: Number(root.dataset.version)});"
+      },
+      {
+        "file": "ydental_treatment/static/src/workbench/workbench.js",
+        "line": 24,
+        "source": "const pharmacy = {execution_id: actual.execution_id, lease_id: actual.lease_id, lease_token: actual.lease_token,"
+      },
+      {
+        "file": "ydental_treatment/static/src/workbench/workbench.js",
+        "line": 91,
+        "source": "key: form.dataset.key, payload: JSON.stringify(args), csrf_token: odoo.csrf_token})});"
+      },
+      {
+        "file": "ydental_treatment/static/src/workbench/workbench.js",
+        "line": 122,
+        "source": "payload: JSON.stringify({lease_id: holder.lease_id, token: holder.token}), csrf_token: odoo.csrf_token})});"
+      }
+    ],
+    "public_methods": [
+      {
+        "file": "ydental_treatment/controllers/treatment.py",
+        "line": 18,
+        "source": "def workbench(self, prices=None, **kwargs):"
+      },
+      {
+        "file": "ydental_treatment/controllers/treatment.py",
+        "line": 82,
+        "source": "def action(self, operation, revision, connection, payload, key):"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_record.py",
+        "line": 26,
+        "source": "def create(self, vals_list):"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_record.py",
+        "line": 31,
+        "source": "def write(self, vals):"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_record.py",
+        "line": 36,
+        "source": "def unlink(self):"
+      }
+    ],
+    "mutable_defaults": [],
+    "domains": [
+      {
+        "file": "ydental_treatment/controllers/treatment.py",
+        "line": 42,
+        "source": "doc = service.env['ydental.clinical.service']._model().search(["
+      },
+      {
+        "file": "ydental_treatment/controllers/treatment.py",
+        "line": 44,
+        "source": "domain = [('ydental_store_id', '=', store.id)]"
+      },
+      {
+        "file": "ydental_treatment/controllers/treatment.py",
+        "line": 45,
+        "source": "orders = service._model('order').search(domain + ([('ydental_kind', '=', 'prescription'), ('state', 'in', ('issued', 'done'))]"
+      },
+      {
+        "file": "ydental_treatment/controllers/treatment.py",
+        "line": 51,
+        "source": "lines = service._model('line').search([('ydental_order_id', 'in', orders.ids)], order='id')"
+      },
+      {
+        "file": "ydental_treatment/controllers/treatment.py",
+        "line": 52,
+        "source": "segments = service._model('segment').search([('ydental_order_id', 'in', orders.ids)], order='id')"
+      },
+      {
+        "file": "ydental_treatment/controllers/treatment.py",
+        "line": 53,
+        "source": "events = service._model('event').search(domain + ([('ydental_pending_reason', '=', 'missing_price')] if role == 'price' else [('ydental_category', '=', role)]) +"
+      },
+      {
+        "file": "ydental_treatment/controllers/treatment.py",
+        "line": 55,
+        "source": "consumptions = service._model('consumption').search([('ydental_event_id', 'in', events.ids)])"
+      },
+      {
+        "file": "ydental_treatment/controllers/treatment.py",
+        "line": 56,
+        "source": "mappings = service.env['ydental.intake.service']._model('mapping').search([('ydental_store_id', '=', store.id), ('active', '=', True)])"
+      },
+      {
+        "file": "ydental_treatment/controllers/treatment.py",
+        "line": 57,
+        "source": "target_mappings = service.env['ydental.intake.service']._model('mapping').search(["
+      },
+      {
+        "file": "ydental_treatment/controllers/treatment.py",
+        "line": 59,
+        "source": "batches = service.env['ydental.inventory.service']._model('batch').search(domain)"
+      },
+      {
+        "file": "ydental_treatment/controllers/treatment.py",
+        "line": 61,
+        "source": "products = service.env['product.product'].sudo().search([('ydental_inventory_kind', '=', 'medicine'),"
+      },
+      {
+        "file": "ydental_treatment/controllers/treatment.py",
+        "line": 71,
+        "source": "'referral_receipts': service._model('receipt').search([('ydental_store_id', '=', store.id), ('ydental_actor_id', '=', service.env.uid), ('name', '=', 'refer')], order='id desc', limit=20) if role == 'medical' else service._model('receipt'),"
+      },
+      {
+        "file": "ydental_treatment/controllers/treatment.py",
+        "line": 74,
+        "source": "'medicine_links': service._model('medicine.link').search(domain),"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 40,
+        "source": "# endpoint accepts a model, domain, arbitrary values or mutation token."
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 94,
+        "source": "prior = self._model('receipt').search([('ydental_actor_id', '=', self.env.uid), ('ydental_key', '=', key)], limit=1)"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 136,
+        "source": "mapping = intake._model('mapping').search([('ydental_store_id', '=', execution.ydental_store_id.id),"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 147,
+        "source": "domain = fields.Domain('ydental_store_id', '=', store.id)"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 149,
+        "source": "domain &= fields.Domain('ydental_product_id', '=', product.id)"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 151,
+        "source": "domain &= fields.Domain('ydental_catalog_id', '=', catalog.id)"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 152,
+        "source": "links = self._model('medicine.link').search(domain)"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 174,
+        "source": "prior = self._model('medicine.link').search(fields.Domain('ydental_store_id', '=', store.id) & ("
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 175,
+        "source": "fields.Domain('ydental_product_id', '=', product.id) | fields.Domain('ydental_catalog_id', '=', catalog.id)))"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 300,
+        "source": "prior = self._model('event').search([('ydental_store_id', '=', execution.ydental_store_id.id), ('ydental_source', '=', source)], limit=1)"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 373,
+        "source": "rows = self._model('consumption').search([('ydental_event_id', '=', event.id)])"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 409,
+        "source": "parent_fee = self._model('fee').search([('ydental_event_id', '=', event.ydental_parent_id.id)], limit=1) if event.ydental_parent_id else False"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 421,
+        "source": "fee = self._model('fee').search([('ydental_event_id', '=', event.id)], limit=1)"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 422,
+        "source": "rows = self._model('consumption').search([('ydental_event_id', '=', event.id)])"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 481,
+        "source": "corrections = self._model('event').search([('ydental_parent_id', '=', parent.id)])"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 493,
+        "source": "row = self._model('consumption').search([('ydental_event_id', '=', event.id),"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 556,
+        "source": "self._model('line').search([('ydental_order_id', '=', order.id), ('state', '=', 'draft')])._save({"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 573,
+        "source": "prior = self._model('segment').search([('ydental_order_id', '=', order.id), ('state', 'in', ('pending', 'active'))], limit=1)"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 576,
+        "source": "lines = self._model('line').search([('ydental_order_id', '=', order.id), ('state', '!=', 'cancelled')])"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 589,
+        "source": "lines = self._model('line').search([('ydental_order_id', '=', order.id), ('state', '=', 'draft')])"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 631,
+        "source": "events = self._model('event').search([('ydental_order_line_id', '=', line.id), ('ydental_kind', '=', 'prescription')])"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 637,
+        "source": "segment = self._model('segment').search([('ydental_task_id', '=', execution.ydental_task_id.id),"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 655,
+        "source": "prior = self._model('event').search([('ydental_store_id', '=', order.ydental_store_id.id), ('ydental_source', '=', source)], limit=1)"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 672,
+        "source": "events = self._model('event').search([('ydental_execution_id', '=', execution.id)])"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_service.py",
+        "line": 682,
+        "source": "self._model('line').search([('ydental_order_id', '=', order.id), ('state', '=', 'issued')])._save({'state': 'done'})"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_intake_service.py",
+        "line": 24,
+        "source": "segments = service._model('segment').search([('ydental_task_id', '=', task.id)], limit=1)"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_intake_service.py",
+        "line": 25,
+        "source": "lines = service._model('line').search([('ydental_task_id', '=', task.id)], limit=1)"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_intake_service.py",
+        "line": 27,
+        "source": "service._remaining(line) > 0 for line in service._model('line').search(["
+      },
+      {
+        "file": "ydental_treatment/models/ydental_inventory_service.py",
+        "line": 42,
+        "source": "rows = service._model('consumption').search([('ydental_event_id', '=', event.id)])"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_record.py",
+        "line": 16,
+        "source": "def _source_domain(self, operation):"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_treatment_record.py",
+        "line": 23,
+        "source": "return super()._source_domain(operation) & fields.Domain('ydental_store_id', '=', store.id)"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_queue_service.py",
+        "line": 19,
+        "source": "segment = service._model('segment').search([('ydental_execution_id', '=', execution.id), ('state', '=', 'active')], limit=1)"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_queue_service.py",
+        "line": 28,
+        "source": "self._model('append.permit').search([('ydental_task_id', '=', execution.ydental_task_id.id),"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_queue_service.py",
+        "line": 34,
+        "source": "order = service._model('order').search([('ydental_execution_id', '=', execution.id), ('state', '=', 'issued')])"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_queue_service.py",
+        "line": 44,
+        "source": "line = self.env['ydental.treatment.service']._model('line').search(["
+      },
+      {
+        "file": "ydental_treatment/security/ir.access.csv",
+        "line": 1,
+        "source": "id,name,model_id/id,group_id/id,operation,domain"
+      }
+    ],
+    "secret_comparison": [
+      {
+        "file": "ydental_treatment/models/ydental_inventory_service.py",
+        "line": 2,
+        "source": "from odoo.tools import consteq"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_inventory_service.py",
+        "line": 57,
+        "source": "not consteq(lease.ydental_connection_hash, connection.key_hash) or lease.ydental_expires_at <= self._now()):"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_queue_service.py",
+        "line": 2,
+        "source": "from odoo.tools import consteq"
+      },
+      {
+        "file": "ydental_treatment/models/ydental_queue_service.py",
+        "line": 15,
+        "source": "lease.ydental_revision != session.ydental_revision or not consteq(lease.ydental_connection_hash, connection.key_hash)):"
+      }
+    ]
+  },
+  "judgments": {
+    "sudo": "Private closed-entity source reads and protected mutations only after current source store/category/account/connection and ordered lock recheck. No public model/domain/arbitrary CRUD selector. Controller exposes only limited target mapping metadata already required by S05 referral contract.",
+    "raw_sql": "Parameterized fixed transaction advisory lock; native stock quantity/move authority unchanged.",
+    "dynamic": "inspect.signature validates only fixed whitelist handlers; no untrusted eval/getattr/file/deserialization or HTML trust.",
+    "routes": "auth=user; POST CSRF default active, bounded request, fixed signature keys, action receipt CAS, no-store; plain JSON primitives.",
+    "protected_models": "medicine.link inherits source CRUD/export denial, zero direct ACL writes; attachments denied. Unique store/catalog and store/SKU/unit constraints plus transaction locks.",
+    "authority": "Only price-write publishes SKU link; original operator only verifies occurred medication; pharmacy-write derives own stock/fees via fixed source adapter without warehouse or price elevation. B target normal read/write/RPC/store switch remains denied.",
+    "history": "No migration infers old SKU or rewrites old fee/price/native move; explicit old-schema-default fixture tests immutable confirmed history. Positive delta revalidates, economic negative correction does not fake a physical return.",
+    "residual": "Formal production medication/signature/shared pricing policies unapproved; inherited global transaction serialization and production performance unvalidated; historical S07 SIGSEGV and B browser crash root UNKNOWN; production BLOCKED.",
+    "xss": "Zero trust-HTML hits; QWeb t-out and JS textContent only.",
+    "field_security": "All 35 hits are pre-existing lease-token parameter transfer, local sessionStorage transport, exact route connection bind or consteq checks; no new plaintext token/password/related field. Metadata exports select only IDs/counts/state, never lease hash/token.",
+    "public_methods": "Five hits: two authenticated controller routes (GET scoped workbench and POST action, judged under routes), three ORM overrides create/write/unlink. Mutations require exact internal unforgeable object; unlink always denied. Attachment deny-list includes new medicine.link. No new public model service method.",
+    "mutable_defaults": "No mutable default hit.",
+    "domains": "All 49 domain/search hits built by fixed server fields and validated positive IDs/current source store. Private _model uses fixed literals only. Caller cannot supply model/domain. Product catalogue list scopes active real medicine to current company/global; transfer target mapping list is intentional minimal source contract metadata, not arbitrary target source read.",
+    "secret_comparison": "Four matches: two consteq imports and two existing constant-time lease connection comparisons. No ordinary secret equality."
+  },
+  "result": "PASS: author static review, not independent GPT review",
+  "source_hashes": {
+    "ydental_treatment/controllers/treatment.py": "cabe959a17e221dfd2855b22fff31e7b3f3c079441353ed22d047f36f96c454d",
+    "ydental_treatment/i18n/zh_CN.po": "a149ea040225152c7d5f7d2e3ad8083ab65b472f03ecdf4689ab632f1e12f89a",
+    "ydental_treatment/models/__init__.py": "c33965ff66d46711be0f5dcd379edea94bd014834895b7ea2388510f73993928",
+    "ydental_treatment/models/ir_attachment.py": "3dae541a4a850e5c7895c3c495a29bea046d10a7cd3ae4edff2af782e5269153",
+    "ydental_treatment/models/ydental_inventory_service.py": "ab9ebb5a700c7744249f0c5e790dc4d4141bd1e626e09ec308b755ead5767d9c",
+    "ydental_treatment/models/ydental_treatment_event.py": "fe68d5869cb8d710466223589debbaf5d094c01ab87f4e08bc831b358925c4b3",
+    "ydental_treatment/models/ydental_treatment_fee.py": "f54016d09713fe4792d2e553f1a08b3e31e9177033008d49465745b21e948636",
+    "ydental_treatment/models/ydental_treatment_medicine_link.py": "3e5babc17e593d5445f1b2f6e6af8ff0c6a3f109eb80b1ea815d029e10d4c506",
+    "ydental_treatment/models/ydental_treatment_service.py": "538af7641531393e1f090b3747906930c517ac83b41de703a2506bc7372fc159",
+    "ydental_treatment/security/ir.access.csv": "c3bf1b3f6277d44fdccf5ed33b4ab7010cded85a6075440342fcddd160328c9b",
+    "ydental_treatment/static/src/workbench/workbench.js": "0d4d95458b2276a2d7087a8c6e9f6601a927332e990f721431df08bccd9e05a3",
+    "ydental_treatment/views/ydental_treatment_templates.xml": "dd305b76cece5eaeca180c0eb1f58e2ed822c528c6d31c554903f281af05ea59"
+  }
+}

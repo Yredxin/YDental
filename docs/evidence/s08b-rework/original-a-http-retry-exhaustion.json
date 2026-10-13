@@ -1,0 +1,260 @@
+{
+  "database": "ydental_s08b_test_20261013015317_e72d1fca",
+  "tested_commit": "f887d828da292d0da0513e667469b9df28ee4f05",
+  "result": "FAIL",
+  "browser_result": "docs/evidence/s08b-rework/browser-attempts/20261013T020504462156/result.json",
+  "failed_gate": "A original stale-version save expected409, got non-JSON HTTP500",
+  "server_evidence": "PostgreSQL patient-mutex SerializationFailure, Odoo MAX_TRIES_ON_CONCURRENCY_FAILURE=5 exhausted; concurrent queue/clinical heartbeat HTTP200 requests recorded. Exact scheduler mechanism not inferred.",
+  "server_frames": [
+    {
+      "file": "router.py",
+      "line": 279,
+      "method": "__call__"
+    },
+    {
+      "file": "router.py",
+      "line": 446,
+      "method": "serve_db"
+    },
+    {
+      "file": "retrying.py",
+      "line": 56,
+      "method": "retrying"
+    },
+    {
+      "file": "router.py",
+      "line": 593,
+      "method": "serve_ir_http"
+    },
+    {
+      "file": "dispatcher.py",
+      "line": 264,
+      "method": "dispatch"
+    },
+    {
+      "file": "ir_http.py",
+      "line": 473,
+      "method": "_dispatch"
+    },
+    {
+      "file": "routing_map.py",
+      "line": 218,
+      "method": "route_wrapper"
+    },
+    {
+      "file": "main.py",
+      "line": 29,
+      "method": "web_login"
+    },
+    {
+      "file": "routing_map.py",
+      "line": 218,
+      "method": "route_wrapper"
+    },
+    {
+      "file": "home.py",
+      "line": 139,
+      "method": "web_login"
+    },
+    {
+      "file": "session.py",
+      "line": 246,
+      "method": "authenticate"
+    },
+    {
+      "file": "res_users.py",
+      "line": 46,
+      "method": "authenticate"
+    },
+    {
+      "file": "res_users.py",
+      "line": 914,
+      "method": "authenticate"
+    },
+    {
+      "file": "res_users.py",
+      "line": 50,
+      "method": "_login"
+    },
+    {
+      "file": "res_users.py",
+      "line": 876,
+      "method": "_login"
+    },
+    {
+      "file": "fields.py",
+      "line": 2019,
+      "method": "__set__"
+    },
+    {
+      "file": "res_users.py",
+      "line": 8,
+      "method": "write"
+    },
+    {
+      "file": "res_users.py",
+      "line": 26,
+      "method": "write"
+    },
+    {
+      "file": "res_users.py",
+      "line": 243,
+      "method": "write"
+    },
+    {
+      "file": "res_users.py",
+      "line": 22,
+      "method": "write"
+    },
+    {
+      "file": "res_users.py",
+      "line": 319,
+      "method": "write"
+    },
+    {
+      "file": "res_users.py",
+      "line": 20,
+      "method": "write"
+    },
+    {
+      "file": "res_users.py",
+      "line": 226,
+      "method": "write"
+    },
+    {
+      "file": "mail_thread.py",
+      "line": 416,
+      "method": "write"
+    },
+    {
+      "file": "res_users.py",
+      "line": 1454,
+      "method": "write"
+    },
+    {
+      "file": "res_users.py",
+      "line": 701,
+      "method": "write"
+    },
+    {
+      "file": "mail_track_mixin.py",
+      "line": 32,
+      "method": "write"
+    },
+    {
+      "file": "models.py",
+      "line": 3887,
+      "method": "write"
+    },
+    {
+      "file": "registry.py",
+      "line": 766,
+      "method": "is_modifying_relations"
+    },
+    {
+      "file": "functools.py",
+      "line": 998,
+      "method": "__get__"
+    },
+    {
+      "file": "registry.py",
+      "line": 743,
+      "method": "_field_triggers"
+    },
+    {
+      "file": "fields.py",
+      "line": 967,
+      "method": "resolve_depends"
+    },
+    {
+      "file": "router.py",
+      "line": 279,
+      "method": "__call__"
+    },
+    {
+      "file": "router.py",
+      "line": 448,
+      "method": "serve_db"
+    },
+    {
+      "file": "router.py",
+      "line": 446,
+      "method": "serve_db"
+    },
+    {
+      "file": "retrying.py",
+      "line": 56,
+      "method": "retrying"
+    },
+    {
+      "file": "router.py",
+      "line": 593,
+      "method": "serve_ir_http"
+    },
+    {
+      "file": "dispatcher.py",
+      "line": 264,
+      "method": "dispatch"
+    },
+    {
+      "file": "ir_http.py",
+      "line": 473,
+      "method": "_dispatch"
+    },
+    {
+      "file": "routing_map.py",
+      "line": 218,
+      "method": "route_wrapper"
+    },
+    {
+      "file": "clinical.py",
+      "line": 67,
+      "method": "action"
+    },
+    {
+      "file": "ydental_clinical_service.py",
+      "line": 119,
+      "method": "_operate"
+    },
+    {
+      "file": "ydental_queue_service.py",
+      "line": 49,
+      "method": "_locks"
+    },
+    {
+      "file": "ydental_intake_service.py",
+      "line": 61,
+      "method": "_all_locks"
+    },
+    {
+      "file": "ydental_intake_service.py",
+      "line": 88,
+      "method": "_all_locks"
+    },
+    {
+      "file": "ydental_patient_service.py",
+      "line": 67,
+      "method": "_lock"
+    },
+    {
+      "file": "sql_db.py",
+      "line": 418,
+      "method": "execute"
+    }
+  ],
+  "serve_log_sha256_at_failure": "5660cd438da3eea41ac9de2098d28b2de46850f7894926fc6b397138a5045b00",
+  "serve_log_bytes_at_failure": 29925,
+  "own_preview_shutdown": [
+    {
+      "phase": "A",
+      "pid": 1579987,
+      "config_sha256": "60fdf586cd745c444c6eeb2c49875fb24db96d1dd2438935388c3af3d59a1895",
+      "exit_code": 0,
+      "scope": "Only exact config/hash/PID owned preview"
+    }
+  ],
+  "product_changes": 0,
+  "test_changes": 0,
+  "next": "Read-only invariants, then one clean same-code/same-parameter replay with new synthetic UI inputs; preserve failed attempt regardless of later outcome",
+  "risk": "Production contention/performance unvalidated; no claim of native retry or product root fix."
+}

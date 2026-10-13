@@ -1,0 +1,5 @@
+import json,subprocess
+p=json.load(open('/tmp/ydental-s08br-final.json'))
+for action in ('upgrade','probe','probe_a','export','audit'):
+ subprocess.check_call(['../.venv/bin/python','scripts/s08b.py',action,'--db',p['db'],'--port',str(p['port'])])
+subprocess.check_call(['../.venv/bin/python','scripts/s08b_translation.py','--db',p['db']])

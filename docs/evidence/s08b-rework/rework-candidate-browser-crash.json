@@ -1,0 +1,28 @@
+{
+  "time_utc": "2026-10-13T01:52:00.457039+00:00",
+  "browser_result": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T015032726346/result.json",
+  "browser_result_sha256": "2c42f848eea8556d1cb575c75d3ac2ac7194c755d16a5fcf96af6f9d25461b9d",
+  "classification": "Firefox page crash on second pharmacy start navigation; not a recorded Odoo SIGSEGV",
+  "root": "UNKNOWN",
+  "preview_shutdown": {
+    "pid": 1571243,
+    "exit_code": 0,
+    "config_sha256": "239b8d70f2d63b84e4a68e0ea6148931595d4f7a1b3f2e13168f12002382e23b"
+  },
+  "serve_log_sha256": "2448cd1b3ef0ec1a1a3d4654d6eccb2a64241b4a6894da6caf255a0be9cf1846",
+  "serve_log_bytes": 324271,
+  "odoo_crash_record": [],
+  "odoo_segv_or_shm_failure_in_log": false,
+  "database_container_running": true,
+  "database_container_oom": false,
+  "container_started": "2026-10-12T14:06:17.353878695Z",
+  "current_memory": [
+    "MemTotal:        7602176 kB",
+    "MemFree:         1779876 kB",
+    "MemAvailable:    5382876 kB",
+    "Buffers:          358640 kB",
+    "Cached:          3145696 kB"
+  ],
+  "interpretation": "Post-incident observations only; not proof of incident-time browser memory, allocator or cause. Browser harness retains six contexts at this point; close completed role contexts to bound resources without removing assertions. Do not claim that this diagnoses or fixes root.",
+  "production": "BLOCKED"
+}

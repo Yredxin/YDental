@@ -1,0 +1,19 @@
+{
+  "time_utc": "2026-10-13T02:12:45.640388+00:00",
+  "database": "ydental_s08b_test_20261013015317_e72d1fca",
+  "tested_commit": "f887d828da292d0da0513e667469b9df28ee4f05",
+  "phase": "B",
+  "outer_command_exit": 143,
+  "outer_signal": 15,
+  "root": "UNKNOWN",
+  "browser_result": "PASS 24/13/pageerror0 already returned before outer command exit",
+  "owned_preview_pid": 1583342,
+  "owned_preview_exit": "UNKNOWN: wrapper interrupted before wait/record",
+  "pid_absent": true,
+  "matching_config_processes_absent": true,
+  "config_sha256": "60fdf586cd745c444c6eeb2c49875fb24db96d1dd2438935388c3af3d59a1895",
+  "crash_records": [],
+  "marker_action": "Remove only this proven-dead owned serve.pid marker; no signal or service restart; retain all DB/log/filestore/evidence",
+  "serve_log_bytes": 220027,
+  "serve_log_sha256": "686723c408d20ccd851e846e1ccff64941e873eaeea426afdf7387f2c53a9697"
+}

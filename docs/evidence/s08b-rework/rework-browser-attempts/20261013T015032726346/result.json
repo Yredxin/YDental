@@ -1,0 +1,191 @@
+{
+  "scope": "S08-B real reception, teeth, authored text, handover and pending responsibility",
+  "database": "ydental_s08b_test_20261013012642_caeebdcc",
+  "tested_commit": "c7907e81fc1cf65ad67371607a446dfbc126d178",
+  "browser": "Firefox",
+  "sandbox": "default, no overrides",
+  "checks": [
+    {
+      "check": "new chairside without batch rejected with zero fee or stock",
+      "result": "PASS"
+    },
+    {
+      "check": "empty-batch rejection leaves zero actual events",
+      "result": "PASS"
+    },
+    {
+      "check": "chairside wrong SKU rejected",
+      "result": "PASS"
+    },
+    {
+      "check": "chairside quantity mismatch rejected",
+      "result": "PASS"
+    },
+    {
+      "check": "three invalid new medication attempts leave zero events",
+      "result": "PASS"
+    },
+    {
+      "check": "already performed missing-batch fact preserved pending without native move",
+      "result": "PASS"
+    },
+    {
+      "check": "historical evidence recovery confirms original two units and one native move",
+      "result": "PASS"
+    },
+    {
+      "check": "incomplete prescription freeze rejected by server",
+      "result": "PASS"
+    },
+    {
+      "check": "invalid issue keeps draft and creates no pharmacy segment",
+      "result": "PASS"
+    },
+    {
+      "check": "completed multi-SKU order freezes one exact pharmacy direction",
+      "result": "PASS"
+    },
+    {
+      "check": "source-only account can initiate both controlled cross-legal referral modes",
+      "result": "PASS"
+    },
+    {
+      "check": "cross-legal controlled referral grants no target ordinary RPC write",
+      "result": "PASS"
+    },
+    {
+      "check": "full cross-legal target refuses another timed claim",
+      "result": "PASS"
+    },
+    {
+      "check": "stopped cross-legal target refuses untimed referral",
+      "result": "PASS"
+    },
+    {
+      "check": "server rejects modified non-cross-store target mapping",
+      "result": "PASS"
+    },
+    {
+      "check": "three cross-legal failures preserve source serving and exactly two original receipts",
+      "result": "PASS"
+    },
+    {
+      "check": "unlinked SKU cannot borrow another medicine price",
+      "result": "PASS"
+    },
+    {
+      "check": "unlinked rejected dispense preserves approved remaining one",
+      "result": "PASS"
+    },
+    {
+      "check": "two SKUs dispense independently through one task with 4 and 2 actual quantities",
+      "result": "PASS"
+    },
+    {
+      "check": "multi-SKU remainder is one pending-report task and holder released",
+      "result": "PASS"
+    },
+    {
+      "check": "price-write publishes explicit SKU association through real UI",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T015032726346/R01-chairside-empty-batch-rejected.png",
+      "sha256": "51b5366045a12a404d3f1c8ec3643319d291cbdb4320acd944e29073da17a9ec"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T015032726346/R02-chairside-mismatched-quantity-rejected.png",
+      "sha256": "06ef7e81540cf0c181407b6e14038b89ae293972cf6900f623b4f6b1d71baa38"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T015032726346/R03-historical-fact-pending-no-false-fee.png",
+      "sha256": "10bd30a0dc3c801fed2a2856d5b952915d999a6fe5d0f8d1941ef7c956d3e914"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T015032726346/R04-original-medication-evidence-recovered.png",
+      "sha256": "a85d65b6bfba0837221f7bea29c5f7750a1e43c38b43fc53e11d79f82653abdc"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T015032726346/R05-incomplete-prescription-issue-rejected.png",
+      "sha256": "518d60c405db97b64bf3f059cdcb7568affd50eb59d42afd2081c6aa1f3dd3bb"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T015032726346/R06-complete-multi-sku-prescription.png",
+      "sha256": "aa68b20547057684f70cb97ec1d895f71e4788dbf447225d90cc1335959bc4a4"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T015032726346/R07-source-only-cross-legal-referrals.png",
+      "sha256": "6373484962e6d5c0568eba865defccb428cdeb548199c092d68a775b01547da7"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T015032726346/R12-cross-legal-full-capacity-rejected.png",
+      "sha256": "ddb788e8db3bae07b2270d529940840fa5e0678e0e534f9f7583d85da13dd38d"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T015032726346/R13-cross-legal-stopped-target-rejected.png",
+      "sha256": "fe53b66128dd39a117396ac4532f8c2a653618173d7c58fc22de143ab8a2c16b"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T015032726346/R14-illegal-target-keeps-original-source.png",
+      "sha256": "287972c561a85a1002e2ca570b8de5d84b1e52f9a2bf049ec34d455ab7a71471"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T015032726346/R08-unlinked-sku-dispense-rejected.png",
+      "sha256": "e2953e86b7a8ad0be912f51cc32f1d4e429c930d82dca91930a562c07e986ef0"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T015032726346/R09-distinct-sku-price-sources-10-and-27.png",
+      "sha256": "7c6a2596f5deff7cc573cb886fb4d56dc235b4a973595f74bca29a669e75d441"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T015032726346/R10-explicit-price-authority-sku-publication.png",
+      "sha256": "958d376fa8f2cccff5099a7053830b92dbb8b77d1a3e921b9c7efb159a3caae8"
+    },
+    {
+      "path": "docs/evidence/s08b-rework/rework-browser-attempts/20261013T015032726346/failure-state.png",
+      "sha256": "9354ddea5248e88280136220d89a24cd8d8d4707e7358263c27e61020102b0e8"
+    }
+  ],
+  "historical_event": 171,
+  "prescription": 124,
+  "result": "FAIL",
+  "error": {
+    "type": "Error",
+    "detail": "Navigation failed because page crashed!\n=========================== logs ===========================\nwaiting for navigation until 'domcontentloaded'\n============================================================",
+    "trace": [
+      {
+        "file": "s08b_rework_browser.py",
+        "line": 233,
+        "method": "main"
+      },
+      {
+        "file": "s08b_rework_browser.py",
+        "line": 215,
+        "method": "start_pharm"
+      },
+      {
+        "file": "s08b_rework_browser.py",
+        "line": 108,
+        "method": "click_wait"
+      },
+      {
+        "file": "_sync_base.py",
+        "line": 85,
+        "method": "__exit__"
+      },
+      {
+        "file": "_sync_base.py",
+        "line": 59,
+        "method": "value"
+      },
+      {
+        "file": "_frame.py",
+        "line": 265,
+        "method": "continuation"
+      }
+    ]
+  },
+  "pageerrors": []
+}

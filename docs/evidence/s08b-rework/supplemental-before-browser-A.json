@@ -1,0 +1,27 @@
+{
+  "database": "ydental_s08b_test_20261013015317_e72d1fca",
+  "tested_commit": "f887d828da292d0da0513e667469b9df28ee4f05",
+  "time_utc": "2026-10-13T02:08:32.933597+00:00",
+  "signatures": {
+    "ydental_supply_slot": {
+      "count": 348,
+      "sha256": "0ec2ca3c63ac5c33bf8ce154483c04a9cb5cb961e36e914d56da5aaf736c778b"
+    },
+    "ydental_intake_referral": {
+      "count": 2,
+      "sha256": "9a9cc011c599108d5d121b0592887426d4deddcfecfa1d3b9764108760b1802b"
+    },
+    "ydental_intake_price": {
+      "count": 28,
+      "sha256": "72a8c2d184b37508e4ad9fdd6627304ced329bb312e2fc1224217f6bcfaddd5e"
+    }
+  },
+  "negative_capacity": 0,
+  "capacity_totals": {
+    "total": 4158,
+    "reservation_free": 1334,
+    "walkin_free": 2771,
+    "unavailable": 0
+  },
+  "result": "PASS"
+}
