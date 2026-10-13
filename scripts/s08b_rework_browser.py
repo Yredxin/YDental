@@ -175,8 +175,8 @@ def main():
             for mode in ('timed','untimed'):
                 form=page.locator('form[data-operation=refer]');form.locator('[name=mapping_id]').select_option(str(preview['legal_mapping']));form.locator('[name=mode]').select_option(mode);form.locator('[name=reason]').fill('来源仅甲公司权限，受控跨法人转诊 '+mode)
                 if mode=='timed':
-                    form.locator('[name=start]').fill(preview['start'].replace(' ','T'));form.locator('[name=end]').fill(preview['end'].replace(' ','T'))
-                else:form.locator('[name=valid_until]').fill((datetime.now(timezone.utc).replace(tzinfo=None)+__import__('datetime').timedelta(days=1)).strftime('%Y-%m-%dT%H:%M:%S'))
+                    form.locator('[name=start]').fill(preview['start'].replace(' ','T').removesuffix(':00'));form.locator('[name=end]').fill(preview['end'].replace(' ','T').removesuffix(':00'))
+                else:form.locator('[name=valid_until]').fill((datetime.now(timezone.utc).replace(tzinfo=None)+__import__('datetime').timedelta(days=1)).strftime('%Y-%m-%dT%H:%M'))
                 submit(page,form)
             check('source-only account can initiate both controlled cross-legal referral modes',page.locator('[data-referral-receipt]').count()==2)
             screenshot(page,ctx,'R07-source-only-cross-legal-referrals.png')
