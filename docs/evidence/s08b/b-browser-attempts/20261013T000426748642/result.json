@@ -1,0 +1,114 @@
+{
+  "scope": "S08-B real reception, teeth, authored text, handover and pending responsibility",
+  "database": "ydental_s08b_test_20261012233634_eb9556fd",
+  "tested_commit": "eb30cb49b29b398e5ffa145eb07718bdc79c53ca",
+  "browser": "Firefox",
+  "sandbox": "default, no overrides",
+  "checks": [
+    {
+      "check": "three actual A autosaves before B action",
+      "result": "PASS"
+    },
+    {
+      "check": "Chinese treatment UI and demonstration boundary",
+      "result": "PASS"
+    },
+    {
+      "check": "autosaves create no actual events",
+      "result": "PASS"
+    },
+    {
+      "check": "actual confirmation freezes every editable control while response held",
+      "result": "PASS"
+    },
+    {
+      "check": "full form change preserves uncertain page and forbids automatic replay",
+      "result": "PASS"
+    },
+    {
+      "check": "F1 actual event confirmed with frozen600 and native move",
+      "result": "PASS"
+    },
+    {
+      "check": "material delta appends immutable event",
+      "result": "PASS"
+    },
+    {
+      "check": "draft edit increments server version and preserves superseded rows",
+      "result": "PASS"
+    },
+    {
+      "check": "issued examination set freezes editing",
+      "result": "PASS"
+    },
+    {
+      "check": "F4 unperformed cancellation retained with other exam issued",
+      "result": "PASS"
+    },
+    {
+      "check": "F3 prescription has one explicit pending-report task",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s08b/b-browser-attempts/20261013T000426748642/B00-real-response-held-unsynchronized.png",
+      "sha256": "9efb2c2c3939573d5f70c06080973eb4110afe777a47302eba1793b42cc9ff79"
+    },
+    {
+      "path": "docs/evidence/s08b/b-browser-attempts/20261013T000426748642/B01-actual-project-600-native-move.png",
+      "sha256": "82ddeb37be78d64170d156cf3433de6cdb5a35370cf4d8b7c071dcfac4eda866"
+    },
+    {
+      "path": "docs/evidence/s08b/b-browser-attempts/20261013T000426748642/B02-material-delta-original-preserved.png",
+      "sha256": "2c01b8b315917f7cf8fd6b48088dd5fe36da7994a9d1de3607a9029adb5d1819"
+    },
+    {
+      "path": "docs/evidence/s08b/b-browser-attempts/20261013T000426748642/B03-frozen-exam-cbct-cancelled.png",
+      "sha256": "1097e85a5293feb541eaccc9f5efaf7c9cc9003a8af05ec60bb3421fa64642a0"
+    },
+    {
+      "path": "docs/evidence/s08b/b-browser-attempts/20261013T000426748642/B04-six-unit-prescription-awaiting-report.png",
+      "sha256": "1e7cf5aa0066f53a1b6c815865420bcb833ec1ed2057aab3dbaca41d8bd5c10f"
+    },
+    {
+      "path": "docs/evidence/s08b/b-browser-attempts/20261013T000426748642/failure-state.png",
+      "sha256": "72360d59c87402d0e6ba5ce31f397990a9f7644f87814759183f7ed19be6ab26"
+    }
+  ],
+  "first_event": 145,
+  "prescription": 49,
+  "result": "FAIL",
+  "error": {
+    "type": "TimeoutError",
+    "detail": "Timeout 30000ms exceeded.\n=========================== logs ===========================\nwaiting for navigation until 'domcontentloaded'\n============================================================",
+    "trace": [
+      {
+        "file": "s08b_browser.py",
+        "line": 175,
+        "method": "main"
+      },
+      {
+        "file": "s08b_browser.py",
+        "line": 126,
+        "method": "submit"
+      },
+      {
+        "file": "_sync_base.py",
+        "line": 85,
+        "method": "__exit__"
+      },
+      {
+        "file": "_sync_base.py",
+        "line": 59,
+        "method": "value"
+      },
+      {
+        "file": "_frame.py",
+        "line": 265,
+        "method": "continuation"
+      }
+    ]
+  },
+  "pageerrors": []
+}

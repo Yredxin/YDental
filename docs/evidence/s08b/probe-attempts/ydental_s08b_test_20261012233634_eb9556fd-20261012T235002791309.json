@@ -1,0 +1,65 @@
+{
+  "database": "ydental_s08b_test_20261012233634_eb9556fd",
+  "tested_commit": "38a3434977191b07efd8229042e7abf2ca822ed6",
+  "races": [],
+  "deadlocks": 0,
+  "failures": [
+    {
+      "type": "ValidationError",
+      "detail": "A capacity slot must stay within one local business day.",
+      "trace": [
+        {
+          "file": "s08b_probe.py",
+          "line": 169,
+          "method": "<module>"
+        },
+        {
+          "file": "s08b_probe.py",
+          "line": 95,
+          "method": "race"
+        },
+        {
+          "file": "s08b_probe.py",
+          "line": 31,
+          "method": "fixture"
+        },
+        {
+          "file": "treatment_common.py",
+          "line": 10,
+          "method": "setup"
+        },
+        {
+          "file": "common.py",
+          "line": 81,
+          "method": "setup"
+        },
+        {
+          "file": "common.py",
+          "line": 104,
+          "method": "make_slot"
+        },
+        {
+          "file": "ydental_supply_service.py",
+          "line": 161,
+          "method": "_operate"
+        },
+        {
+          "file": "ydental_queue_day.py",
+          "line": 105,
+          "method": "_run"
+        },
+        {
+          "file": "ydental_supply_service.py",
+          "line": 155,
+          "method": "_run"
+        },
+        {
+          "file": "ydental_supply_service.py",
+          "line": 353,
+          "method": "_slot"
+        }
+      ]
+    }
+  ],
+  "result": "FAIL"
+}

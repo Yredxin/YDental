@@ -1,0 +1,298 @@
+{
+  "database": "ydental_s08b_test_20261013004116_3fd605cd",
+  "tested_commit": "d976c6a1fdc7e09fb534bf5552bf4964459f3400",
+  "read_only": true,
+  "sql_and_rows": {
+    "actual_events_fees": {
+      "sql": "SELECT e.id event_id,e.ydental_kind kind,e.ydental_execution_id execution_id,e.ydental_actor_id actor_id,e.ydental_station_id station_id,e.ydental_document_version document_version,e.ydental_quantity quantity,e.ydental_actual_at actual_at,e.ydental_business_date business_date,e.state,e.ydental_pending_reason pending_reason,f.id fee_id,f.ydental_unit_price unit_price,f.ydental_amount amount,f.ydental_price_snapshot_id snapshot_id FROM ydental_treatment_event e LEFT JOIN ydental_treatment_fee f ON f.ydental_event_id=e.id WHERE e.ydental_store_id=%s ORDER BY e.id",
+      "parameters": [
+        93
+      ],
+      "rows": [
+        {
+          "event_id": 78,
+          "kind": "treatment",
+          "execution_id": 186,
+          "actor_id": 397,
+          "station_id": 434,
+          "document_version": 3,
+          "quantity": "1.00",
+          "actual_at": "2026-10-13 00:53:07",
+          "business_date": "2026-10-13",
+          "state": "confirmed",
+          "pending_reason": null,
+          "fee_id": 60,
+          "unit_price": "600.000000",
+          "amount": "600.00",
+          "snapshot_id": 67
+        },
+        {
+          "event_id": 79,
+          "kind": "correction",
+          "execution_id": 186,
+          "actor_id": 397,
+          "station_id": 434,
+          "document_version": 3,
+          "quantity": "0.00",
+          "actual_at": "2026-10-13 00:53:08",
+          "business_date": "2026-10-13",
+          "state": "confirmed",
+          "pending_reason": null,
+          "fee_id": 61,
+          "unit_price": "600.000000",
+          "amount": "0.00",
+          "snapshot_id": 67
+        },
+        {
+          "event_id": 80,
+          "kind": "treatment",
+          "execution_id": 186,
+          "actor_id": 397,
+          "station_id": 434,
+          "document_version": 3,
+          "quantity": "1.00",
+          "actual_at": "2026-10-13 00:53:14",
+          "business_date": "2026-10-13",
+          "state": "pending",
+          "pending_reason": "inventory_pending",
+          "fee_id": null,
+          "unit_price": null,
+          "amount": null,
+          "snapshot_id": null
+        },
+        {
+          "event_id": 81,
+          "kind": "prescription",
+          "execution_id": 187,
+          "actor_id": 403,
+          "station_id": 443,
+          "document_version": 0,
+          "quantity": "4.00",
+          "actual_at": "2026-10-13 00:53:20",
+          "business_date": "2026-10-13",
+          "state": "confirmed",
+          "pending_reason": null,
+          "fee_id": 62,
+          "unit_price": "10.000000",
+          "amount": "40.00",
+          "snapshot_id": 69
+        },
+        {
+          "event_id": 82,
+          "kind": "prescription",
+          "execution_id": 188,
+          "actor_id": 403,
+          "station_id": 443,
+          "document_version": 0,
+          "quantity": "2.00",
+          "actual_at": "2026-10-13 00:53:23",
+          "business_date": "2026-10-13",
+          "state": "confirmed",
+          "pending_reason": null,
+          "fee_id": 63,
+          "unit_price": "10.000000",
+          "amount": "20.00",
+          "snapshot_id": 70
+        }
+      ]
+    },
+    "native_moves": {
+      "sql": "SELECT e.id event_id,c.ydental_quantity actual_material_quantity,c.ydental_kind kind,c.ydental_lot_id lot_id,i.id inventory_event_id,i.state inventory_state,i.ydental_actual_at inventory_actual_at,m.id move_id,m.state move_state,m.quantity move_quantity,m.product_id,m.location_id,m.location_dest_id FROM ydental_treatment_consumption c JOIN ydental_treatment_event e ON e.id=c.ydental_event_id LEFT JOIN ydental_inventory_event i ON i.id=c.ydental_inventory_event_id LEFT JOIN stock_move m ON m.id=i.ydental_move_id WHERE e.ydental_store_id=%s ORDER BY e.id,c.id",
+      "parameters": [
+        93
+      ],
+      "rows": [
+        {
+          "event_id": 78,
+          "actual_material_quantity": "1.00",
+          "kind": "treatment",
+          "lot_id": 60,
+          "inventory_event_id": 146,
+          "inventory_state": "done",
+          "inventory_actual_at": "2026-10-13 00:53:07",
+          "move_id": 189,
+          "move_state": "done",
+          "move_quantity": "1.00",
+          "product_id": 316,
+          "location_id": 428,
+          "location_dest_id": 432
+        },
+        {
+          "event_id": 79,
+          "actual_material_quantity": "1.00",
+          "kind": "treatment",
+          "lot_id": 60,
+          "inventory_event_id": 147,
+          "inventory_state": "done",
+          "inventory_actual_at": "2026-10-13 00:53:08",
+          "move_id": 190,
+          "move_state": "done",
+          "move_quantity": "1.00",
+          "product_id": 316,
+          "location_id": 428,
+          "location_dest_id": 432
+        },
+        {
+          "event_id": 80,
+          "actual_material_quantity": "99.00",
+          "kind": "treatment",
+          "lot_id": 60,
+          "inventory_event_id": 148,
+          "inventory_state": "pending",
+          "inventory_actual_at": "2026-10-13 00:53:14",
+          "move_id": null,
+          "move_state": null,
+          "move_quantity": null,
+          "product_id": null,
+          "location_id": null,
+          "location_dest_id": null
+        },
+        {
+          "event_id": 81,
+          "actual_material_quantity": "4.00",
+          "kind": "prescription",
+          "lot_id": 59,
+          "inventory_event_id": 149,
+          "inventory_state": "done",
+          "inventory_actual_at": "2026-10-13 00:53:20",
+          "move_id": 191,
+          "move_state": "done",
+          "move_quantity": "4.00",
+          "product_id": 315,
+          "location_id": 427,
+          "location_dest_id": 432
+        },
+        {
+          "event_id": 82,
+          "actual_material_quantity": "2.00",
+          "kind": "prescription",
+          "lot_id": 59,
+          "inventory_event_id": 150,
+          "inventory_state": "done",
+          "inventory_actual_at": "2026-10-13 00:53:23",
+          "move_id": 192,
+          "move_state": "done",
+          "move_quantity": "2.00",
+          "product_id": 315,
+          "location_id": 427,
+          "location_dest_id": 432
+        }
+      ]
+    },
+    "pharmacy_history": {
+      "sql": "SELECT s.id segment_id,s.ydental_sequence sequence,s.state segment_state,s.ydental_task_id task_id,t.state task_state,t.ydental_entitlement_id qualification_id,s.ydental_execution_id execution_id,x.state execution_state,x.ydental_started_at started_at,x.ydental_ended_at ended_at,l.ydental_actor_id actor_id,l.ydental_active lease_active,q.state entry_state FROM ydental_treatment_segment s JOIN ydental_intake_task t ON t.id=s.ydental_task_id JOIN ydental_queue_execution x ON x.id=s.ydental_execution_id JOIN ydental_queue_lease l ON l.id=x.ydental_lease_id JOIN ydental_queue_entry q ON q.id=x.ydental_entry_id WHERE s.ydental_order_id=%s ORDER BY s.ydental_sequence",
+      "parameters": [
+        30
+      ],
+      "rows": [
+        {
+          "segment_id": 31,
+          "sequence": 1,
+          "segment_state": "done",
+          "task_id": 253,
+          "task_state": "done",
+          "qualification_id": null,
+          "execution_id": 187,
+          "execution_state": "completed",
+          "started_at": "2026-10-13 00:53:19",
+          "ended_at": "2026-10-13 00:53:21",
+          "actor_id": 403,
+          "lease_active": false,
+          "entry_state": "completed"
+        },
+        {
+          "segment_id": 32,
+          "sequence": 2,
+          "segment_state": "done",
+          "task_id": 256,
+          "task_state": "done",
+          "qualification_id": null,
+          "execution_id": 188,
+          "execution_state": "completed",
+          "started_at": "2026-10-13 00:53:22",
+          "ended_at": "2026-10-13 00:53:24",
+          "actor_id": 403,
+          "lease_active": false,
+          "entry_state": "completed"
+        }
+      ]
+    },
+    "prescription_approved": {
+      "sql": "SELECT o.id order_id,o.state order_state,l.id line_id,l.ydental_quantity approved,(SELECT sum(e.ydental_quantity) FROM ydental_treatment_event e WHERE e.ydental_order_line_id=l.id AND e.ydental_kind='prescription') actual_total FROM ydental_treatment_order o JOIN ydental_treatment_line l ON l.ydental_order_id=o.id WHERE o.id=%s AND l.state='done' ",
+      "parameters": [
+        30
+      ],
+      "rows": [
+        {
+          "order_id": 30,
+          "order_state": "done",
+          "line_id": 35,
+          "approved": "6.00",
+          "actual_total": "6.00"
+        }
+      ]
+    },
+    "native_internal_quants": {
+      "sql": "SELECT q.product_id,q.lot_id,l.id location_id,l.ydental_store_id store_id,l.usage,q.quantity FROM stock_quant q JOIN stock_location l ON l.id=q.location_id WHERE l.ydental_store_id=%s AND l.usage='internal' ORDER BY q.id",
+      "parameters": [
+        93
+      ],
+      "rows": [
+        {
+          "product_id": 316,
+          "lot_id": 60,
+          "location_id": 428,
+          "store_id": 93,
+          "usage": "internal",
+          "quantity": "18.00"
+        },
+        {
+          "product_id": 315,
+          "lot_id": 59,
+          "location_id": 427,
+          "store_id": 93,
+          "usage": "internal",
+          "quantity": "14.00"
+        }
+      ]
+    },
+    "referral_receipts": {
+      "sql": "SELECT id,ydental_result result FROM ydental_treatment_receipt WHERE ydental_store_id=%s AND name='refer' ORDER BY id",
+      "parameters": [
+        93
+      ],
+      "rows": [
+        {
+          "id": 184,
+          "result": {
+            "id": 165,
+            "result": "accepted",
+            "task_id": 254,
+            "version": 1,
+            "claim_id": 165,
+            "patient_id": 157,
+            "task_version": 2,
+            "source_task_id": 250,
+            "source_store_id": 93,
+            "target_store_id": 94,
+            "target_mapping_id": 392
+          }
+        },
+        {
+          "id": 185,
+          "result": {
+            "id": 4,
+            "result": "accepted",
+            "version": 1,
+            "source_task_id": 250,
+            "source_store_id": 93,
+            "target_store_id": 94,
+            "target_mapping_id": 392,
+            "target_qualification": "not_acquired"
+          }
+        }
+      ]
+    }
+  },
+  "result": "PASS"
+}

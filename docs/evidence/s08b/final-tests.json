@@ -1,0 +1,588 @@
+{
+  "generated_utc": "2026-10-13T00:58:53.906654+00:00",
+  "scope": "Codex self-tests only; no GPT or user acceptance",
+  "baseline": "234f5bfb6b929457533286f0956924557fc68ace",
+  "product": "0b0901a2c50b95b110eb89ab792db26c91396940",
+  "test": "d976c6a1fdc7e09fb534bf5552bf4964459f3400",
+  "final": "Pinned in GitHub delivery comment; documentation-only commit",
+  "branch": "codex/s08-b-clinical-pharmacy-r1-20261013",
+  "database": {
+    "database": "ydental_s08b_test_20261013004116_3fd605cd",
+    "oid": 1239388,
+    "endpoint": {
+      "host": "127.0.0.1",
+      "port": "5432",
+      "user": "odoo"
+    },
+    "cluster": "7694897083368259627",
+    "port": 18173,
+    "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+    "created_utc": "2026-10-13T00:41:16.132263+00:00",
+    "pg_session_options": "-c max_parallel_workers_per_gather=0 -c max_parallel_maintenance_workers=0 -c maintenance_work_mem=16384",
+    "config_sha256": "7f4bc834343ff561a99ef19be697cbf6a9c359a078849d847d8f72ef0d1799c2"
+  },
+  "result": "PASS",
+  "actions": [
+    {
+      "action": "install",
+      "exit_code": 0,
+      "pid": 1532738,
+      "log": "install-20261013T004116133403.log",
+      "log_sha256": "899863ea6a7ebf559c68bdebec172139c92c8b38723a0bd8ba569203fd03b4a2",
+      "time_utc": "2026-10-13T00:43:29.194826+00:00",
+      "tested_commit": "d976c6a1fdc7e09fb534bf5552bf4964459f3400",
+      "tests": [
+        0,
+        0,
+        62
+      ],
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08b.py",
+        "install",
+        "--db",
+        "ydental_s08b_test_20261013004116_3fd605cd",
+        "--port",
+        "18173"
+      ]
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 0,
+      "pid": 1534376,
+      "log": "upgrade-20261013T004422439487.log",
+      "log_sha256": "a99a3fdd47f77306965069658876510dedb0f3a9d632671a8b8f787e41561875",
+      "time_utc": "2026-10-13T00:45:33.216497+00:00",
+      "tested_commit": "d976c6a1fdc7e09fb534bf5552bf4964459f3400",
+      "tests": [
+        0,
+        0,
+        60
+      ],
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08b.py",
+        "upgrade",
+        "--db",
+        "ydental_s08b_test_20261013004116_3fd605cd",
+        "--port",
+        "18173"
+      ]
+    },
+    {
+      "action": "probe",
+      "exit_code": 0,
+      "pid": 1535124,
+      "log": "probe-20261013T004533290583.log",
+      "log_sha256": "75c4e68961d832b76b381391b49c953a8bb598333b48f22bae127c1d058d60fb",
+      "time_utc": "2026-10-13T00:48:20.708246+00:00",
+      "tested_commit": "d976c6a1fdc7e09fb534bf5552bf4964459f3400",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08b.py",
+        "probe",
+        "--db",
+        "ydental_s08b_test_20261013004116_3fd605cd",
+        "--port",
+        "18173"
+      ]
+    },
+    {
+      "action": "probe_a",
+      "exit_code": 0,
+      "pid": 1536634,
+      "log": "probe_a-20261013T004820784947.log",
+      "log_sha256": "4727a2713f36281c2e4b0ecadef23c6eb5f775b33a70a2be273ba09064938f90",
+      "time_utc": "2026-10-13T00:50:30.955248+00:00",
+      "tested_commit": "d976c6a1fdc7e09fb534bf5552bf4964459f3400",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08b.py",
+        "probe_a",
+        "--db",
+        "ydental_s08b_test_20261013004116_3fd605cd",
+        "--port",
+        "18173"
+      ]
+    },
+    {
+      "action": "export",
+      "exit_code": 0,
+      "pid": 1537863,
+      "log": "export-20261013T005031028749.log",
+      "log_sha256": "abf11f66a2c717a3a5e02f1a16a18d20f63e4e886e1be6b2c7be46bf563fab88",
+      "time_utc": "2026-10-13T00:50:33.300192+00:00",
+      "tested_commit": "d976c6a1fdc7e09fb534bf5552bf4964459f3400",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08b.py",
+        "export",
+        "--db",
+        "ydental_s08b_test_20261013004116_3fd605cd",
+        "--port",
+        "18173"
+      ]
+    },
+    {
+      "action": "audit",
+      "exit_code": 0,
+      "pid": 1537902,
+      "log": "audit-20261013T005033370528.log",
+      "log_sha256": "ae459a5bee1c56054f74e66de77f1ed1d5cf2a570d08c2e4ee11df3ab7d489d8",
+      "time_utc": "2026-10-13T00:50:40.725870+00:00",
+      "tested_commit": "d976c6a1fdc7e09fb534bf5552bf4964459f3400",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08b.py",
+        "audit",
+        "--db",
+        "ydental_s08b_test_20261013004116_3fd605cd",
+        "--port",
+        "18173"
+      ]
+    },
+    {
+      "action": "preview",
+      "exit_code": 0,
+      "pid": 1538194,
+      "log": "preview-20261013T005105022168.log",
+      "log_sha256": "bfa98348c530b6c49edf99b4d366957426ebbdb82ed00c52da998e2e3750d5ae",
+      "time_utc": "2026-10-13T00:51:19.996853+00:00",
+      "tested_commit": "d976c6a1fdc7e09fb534bf5552bf4964459f3400",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08b.py",
+        "preview",
+        "--db",
+        "ydental_s08b_test_20261013004116_3fd605cd",
+        "--port",
+        "18173"
+      ]
+    },
+    {
+      "action": "audit",
+      "exit_code": 0,
+      "pid": 1538346,
+      "log": "audit-20261013T005120068947.log",
+      "log_sha256": "4aad5e9c6a39f227ba858b72220bbe555d6a28bfddb3638fdb4fbab7b8dfe339",
+      "time_utc": "2026-10-13T00:51:27.660268+00:00",
+      "tested_commit": "d976c6a1fdc7e09fb534bf5552bf4964459f3400",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08b.py",
+        "audit",
+        "--db",
+        "ydental_s08b_test_20261013004116_3fd605cd",
+        "--port",
+        "18173"
+      ]
+    },
+    {
+      "action": "audit",
+      "exit_code": 0,
+      "pid": 1539307,
+      "log": "audit-20261013T005225770160.log",
+      "log_sha256": "9880bc8a1ae77c103c737ce4e948cc7155fd30e410bd1c5c3501341b79ee387a",
+      "time_utc": "2026-10-13T00:52:33.679211+00:00",
+      "tested_commit": "d976c6a1fdc7e09fb534bf5552bf4964459f3400",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08b.py",
+        "audit",
+        "--db",
+        "ydental_s08b_test_20261013004116_3fd605cd",
+        "--port",
+        "18173"
+      ]
+    },
+    {
+      "action": "preview",
+      "exit_code": 0,
+      "pid": 1539381,
+      "log": "preview-20261013T005233818855.log",
+      "log_sha256": "1fdf5d2be965346f967ee379b98c3433e046d9112ba4d1c260d0c20e1bb193ce",
+      "time_utc": "2026-10-13T00:52:48.906196+00:00",
+      "tested_commit": "d976c6a1fdc7e09fb534bf5552bf4964459f3400",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08b.py",
+        "preview",
+        "--db",
+        "ydental_s08b_test_20261013004116_3fd605cd",
+        "--port",
+        "18173"
+      ]
+    },
+    {
+      "action": "audit",
+      "exit_code": 0,
+      "pid": 1539505,
+      "log": "audit-20261013T005248981233.log",
+      "log_sha256": "3cb729a95a21389cef681bd75680352e79f644497f99b7bbbb0df6337646c1b1",
+      "time_utc": "2026-10-13T00:52:57.254288+00:00",
+      "tested_commit": "d976c6a1fdc7e09fb534bf5552bf4964459f3400",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08b.py",
+        "audit",
+        "--db",
+        "ydental_s08b_test_20261013004116_3fd605cd",
+        "--port",
+        "18173"
+      ]
+    },
+    {
+      "action": "audit",
+      "exit_code": 0,
+      "pid": 1540308,
+      "log": "audit-20261013T005329456753.log",
+      "log_sha256": "0590faf57eaec1b8ed147b549159a2b47be641f5fbf715cc498e7b860fcead65",
+      "time_utc": "2026-10-13T00:53:38.020052+00:00",
+      "tested_commit": "d976c6a1fdc7e09fb534bf5552bf4964459f3400",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08b.py",
+        "audit",
+        "--db",
+        "ydental_s08b_test_20261013004116_3fd605cd",
+        "--port",
+        "18173"
+      ]
+    },
+    {
+      "action": "upgrade",
+      "exit_code": 0,
+      "pid": 1540405,
+      "log": "upgrade-20261013T005338158474.log",
+      "log_sha256": "ac4148e1357e1d7ab25b86215af1e73070071ed6af8ea2814dc358f29f859331",
+      "time_utc": "2026-10-13T00:55:03.564062+00:00",
+      "tested_commit": "d976c6a1fdc7e09fb534bf5552bf4964459f3400",
+      "tests": [
+        0,
+        0,
+        60
+      ],
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08b.py",
+        "upgrade",
+        "--db",
+        "ydental_s08b_test_20261013004116_3fd605cd",
+        "--port",
+        "18173"
+      ]
+    },
+    {
+      "action": "audit",
+      "exit_code": 0,
+      "pid": 1541176,
+      "log": "audit-20261013T005503639968.log",
+      "log_sha256": "d12955814765daf142eb3989e36c9c3bb898d507ced25acc6b729ed0b0a8966d",
+      "time_utc": "2026-10-13T00:55:12.146057+00:00",
+      "tested_commit": "d976c6a1fdc7e09fb534bf5552bf4964459f3400",
+      "command": [
+        "../.venv/bin/python",
+        "scripts/s08b.py",
+        "audit",
+        "--db",
+        "ydental_s08b_test_20261013004116_3fd605cd",
+        "--port",
+        "18173"
+      ]
+    }
+  ],
+  "actual_tests": {
+    "model": 49,
+    "real_http_rpc": 11,
+    "install_total": 62,
+    "upgrade_total": 60,
+    "committed_business_upgrade_total": 60,
+    "install_extra": "2 native asset initialization tests; not JS unit tests",
+    "names": [
+      "TestClinicalDocument.test_confirmation_correction_preserves_authors_and_economics",
+      "TestClinicalDocument.test_cross_store_write_and_old_session_revision",
+      "TestClinicalDocument.test_current_capability_revocation_rejects_existing_editor",
+      "TestClinicalDocument.test_d1_pending_d2_independent_and_responsibility_transfer",
+      "TestClinicalDocument.test_expiry_and_revocation_reject_cached_editor",
+      "TestClinicalDocument.test_external_reserve_remains_fail_closed",
+      "TestClinicalDocument.test_fdi_permanent_primary_and_anterior_surfaces",
+      "TestClinicalDocument.test_handover_real_save_pending_and_unique_continuation",
+      "TestClinicalDocument.test_handover_save_and_continuation_failure_roll_back",
+      "TestClinicalDocument.test_hold_restore_keeps_same_real_document_then_handover_releases_it",
+      "TestClinicalDocument.test_independent_locks_and_old_connection",
+      "TestClinicalDocument.test_invalid_content_save_failure_does_not_hand_back",
+      "TestClinicalDocument.test_lost_company_access_invalidates_editor_actions_and_native_reads",
+      "TestClinicalDocument.test_native_confirmed_versions_and_distinct_clinical_audit_events",
+      "TestClinicalDocument.test_native_rpc_read_export_and_attachments",
+      "TestClinicalDocument.test_no_admin_force_or_json_document_lock",
+      "TestClinicalDocument.test_onsite_verify_uses_persisted_draft_no_false_author",
+      "TestClinicalDocument.test_shared_history_requires_purpose_current_relation_and_live_read",
+      "TestClinicalDocument.test_three_real_saves_cas_and_economic_invariance",
+      "TestClinicalDocument.test_unknown_missing_not_applicable_and_invalid_surfaces",
+      "TestClinicalDocument.test_upstream_real_inventory_receive_issue_and_no_clinical_source_bypass",
+      "TestClinicalHTTP.test_attachments_and_export_cannot_bypass_scope",
+      "TestClinicalHTTP.test_csrf_unknown_and_fdi_backend",
+      "TestClinicalHTTP.test_old_connection_and_shared_token_rejected",
+      "TestClinicalHTTP.test_readonly_and_no_access_denials",
+      "TestClinicalHTTP.test_real_workbench_open_autosave_cas_handover",
+      "TestClinicalHTTP.test_rpc_private_and_mutation_forgery",
+      "TestClinicalHTTP.test_stored_clinical_text_is_escaped_in_workbench_and_history",
+      "TestActualTreatment.test_actual_chairside_medicine_has_no_takeaway_task",
+      "TestActualTreatment.test_actual_pharmacy_shortage_preserves_allowance_and_prevents_early_finish",
+      "TestActualTreatment.test_actual_time_is_frozen_in_current_service_and_rejects_future",
+      "TestActualTreatment.test_already_performed_native_business_failure_retains_fact_zero_half_bookkeeping",
+      "TestActualTreatment.test_closed_pharmacy_needs_fresh_task_specific_append",
+      "TestActualTreatment.test_cross_legal_entity_referral_needs_explicit_source_account_authority",
+      "TestActualTreatment.test_d1_handover_d2_real_project_d1_text_no_second_fee",
+      "TestActualTreatment.test_disabled_batch_new_execution_rejected_original_fact_recovery_no_fake_activation",
+      "TestActualTreatment.test_exam_actual_start_remains_fail_closed_until_s09",
+      "TestActualTreatment.test_f1_actual_event_price_native_stock_exactly_once",
+      "TestActualTreatment.test_f3_prescription_six_dispense_four_then_two_real_finish",
+      "TestActualTreatment.test_f4_already_performed_shortage_original_pending_recovery",
+      "TestActualTreatment.test_frozen_exam_cancel_unperformed_and_new_order",
+      "TestActualTreatment.test_historical_recovery_inventory_preserves_original_actual_time",
+      "TestActualTreatment.test_material_only_delta_retains_original_quantity_and_price",
+      "TestActualTreatment.test_missing_price_before_execution_rolls_back",
+      "TestActualTreatment.test_multi_material_shortage_does_not_post_partial_consumption",
+      "TestActualTreatment.test_next_day_remaining_requires_new_arrival_report_and_holder",
+      "TestActualTreatment.test_old_document_version_and_lease_rejected",
+      "TestActualTreatment.test_other_operator_cannot_reconcile_original_responsibility",
+      "TestActualTreatment.test_prescription_duplicate_source_return_does_not_reopen_allowance",
+      "TestActualTreatment.test_quantity_correction_is_linked_delta_not_overwrite",
+      "TestActualTreatment.test_real_source_referrals_timed_untimed_and_retry",
+      "TestActualTreatment.test_referral_target_closed_and_expiry_preserve_source_without_capacity",
+      "TestActualTreatment.test_rpc_context_cannot_forge_clinical_inventory_or_referral",
+      "TestActualTreatment.test_shortage_before_execution_no_fact_or_fee",
+      "TestActualTreatment.test_stock_failure_after_native_move_rolls_back_every_source",
+      "TestActualTreatment.test_unpriced_fact_manual_review_no_later_price_substitution",
+      "TestTreatmentHTTP.test_http_csrf_unknown_arguments_oldtab_and_no_price",
+      "TestTreatmentHTTP.test_http_multi_role_actual_pharmacy_execution_selects_pharmacy_workbench",
+      "TestTreatmentHTTP.test_http_real_project_receipt_fee_stock_and_workbench",
+      "TestTreatmentHTTP.test_http_rpc_attachment_export_and_readonly_boundaries"
+    ]
+  },
+  "concurrency": {
+    "B": 20,
+    "A": 16,
+    "initial_independent_backends": true,
+    "initial_barrier_exits": 72,
+    "deadlocks": 0,
+    "bounded_serialization_retries": 6,
+    "B_cases": [
+      "execute_same",
+      "execute_changed",
+      "old_lease",
+      "shortage_last_unit",
+      "missing_price_fact",
+      "recover_original",
+      "native_move_failure",
+      "dispense_distinct_four",
+      "dispense_same_source",
+      "finish_same_key",
+      "finish_distinct_keys",
+      "restore_vs_pharmacy_start",
+      "exam_cancel_vs_report",
+      "timed_last_capacity",
+      "untimed_accept",
+      "referral_same_source",
+      "price_publish_vs_execute",
+      "revocation_vs_execute",
+      "two_pharmacy_stations_call",
+      "finish_vs_medical_start"
+    ],
+    "A_cases": [
+      "versions",
+      "versions",
+      "editors",
+      "editors",
+      "handover_save",
+      "handover_save",
+      "continuation",
+      "continuation",
+      "old_new_editor",
+      "old_new_editor",
+      "rollback",
+      "rollback",
+      "transfer",
+      "transfer",
+      "queue_start",
+      "queue_start"
+    ]
+  },
+  "firefox": {
+    "A_checks": 88,
+    "B_checks": 24,
+    "total_checks": 112,
+    "screenshots": 34,
+    "individually_visually_inspected": 34,
+    "A_held_response_barriers": 10,
+    "B_real_held_response_barriers": 1,
+    "pageerrors": 0,
+    "sandbox": "default/no overrides",
+    "commands": [
+      [
+        "../.venv/bin/python",
+        "scripts/s08b_a_browser.py",
+        "--db",
+        "ydental_s08b_test_20261013004116_3fd605cd",
+        "--port",
+        "18173",
+        "--terminal-races"
+      ],
+      [
+        "../.venv/bin/python",
+        "scripts/s08b_browser.py",
+        "--db",
+        "ydental_s08b_test_20261013004116_3fd605cd",
+        "--port",
+        "18173"
+      ]
+    ]
+  },
+  "translation": {
+    "real_exported_terms": 273,
+    "translated": 273,
+    "command": [
+      "../.venv/bin/python",
+      "scripts/s08b_translation.py",
+      "--db",
+      "ydental_s08b_test_20261013004116_3fd605cd"
+    ],
+    "exit_code": 0
+  },
+  "guard": {
+    "command": [
+      "../.venv/bin/python",
+      "-m",
+      "unittest",
+      "scripts/test_s08b_guard.py"
+    ],
+    "tests": 5,
+    "exit_code": 0
+  },
+  "audit": {
+    "invariant_errors": {
+      "version_count": 0,
+      "latest_content": 0,
+      "version_source": 0,
+      "document_source": 0,
+      "duplicate_continuation": 0,
+      "duplicate_actual_execution": 0,
+      "terminal_unmarked_draft": 0,
+      "negative_internal_quant": 0,
+      "recovery_evidence_mismatch": 0,
+      "duplicate_source": 0,
+      "half_event": 0,
+      "event_move_quantity_mismatch": 0,
+      "movement_audit_mismatch": 0,
+      "quant_move_reconciliation": 0,
+      "wrong_quant_store": 0,
+      "confirmed_fee_unique": 0,
+      "confirmed_stock_complete": 0,
+      "source_identity": 0,
+      "fee_math_original": 0,
+      "clinical_inventory_source": 0,
+      "prescription_overdispense": 0,
+      "duplicate_live_segment": 0,
+      "finished_segment_history": 0,
+      "pending_segment_not_enqueued": 0,
+      "immutable_delta_price": 0,
+      "event_audit_once": 0,
+      "outbox_native_bus_once": 0,
+      "bus_minimal_payload": 0
+    },
+    "business_upgrade_equal_tables": 23,
+    "pure_document_equal_economic_tables": 12,
+    "financial_tables": {
+      "account_move": "NOT_INSTALLED",
+      "account_payment": "NOT_INSTALLED"
+    }
+  },
+  "TC": {
+    "S08-T01": "PASS in activated A-regression/B scope; see report detailed assertions",
+    "S08-T02": "PASS in activated A-regression/B scope; see report detailed assertions",
+    "S08-T03": "PASS in activated A-regression/B scope; see report detailed assertions",
+    "S08-T04": "PASS in activated A-regression/B scope; see report detailed assertions",
+    "S08-T05": "PASS in activated A-regression/B scope; see report detailed assertions",
+    "S08-T06": "PASS in activated A-regression/B scope; see report detailed assertions",
+    "S08-T07": "PASS in activated A-regression/B scope; see report detailed assertions",
+    "S08-T08": "PASS in activated A-regression/B scope; see report detailed assertions",
+    "S08-T09": "PASS in activated A-regression/B scope; see report detailed assertions",
+    "S08-T10": "PASS in activated A-regression/B scope; see report detailed assertions",
+    "S08-T11": "NOT_RUN: S08-C PDF/signature/print not activated",
+    "S08-T12": "PASS in activated A-regression/B scope; see report detailed assertions",
+    "S08-T13": "PASS in activated A-regression/B scope; see report detailed assertions",
+    "S08-T14": "PASS in activated A-regression/B scope; see report detailed assertions",
+    "S08-T15": "PASS in activated A-regression/B scope; see report detailed assertions",
+    "S08-T16": "PASS in activated A-regression/B scope; see report detailed assertions"
+  },
+  "not_run": [
+    "S08-C PDF/signature/print",
+    "S09 real examination execution/results/equipment",
+    "S10 posted invoices/payments/refunds and already-billed correction",
+    "S11",
+    "50 active sessions/production stability validation"
+  ],
+  "production": "BLOCKED: historical S07 SIGSEGV and long-term shared-memory growth root UNKNOWN",
+  "project_mutations": 0,
+  "primary_evidence": [
+    {
+      "path": "docs/evidence/s08b/probe-attempts/ydental_s08b_test_20261013004116_3fd605cd-20261013T004820398910.json",
+      "sha256": "b4e44c795df068cf23407f4734775f0396f1eb3c5884aa989506f0a5c15fbf98"
+    },
+    {
+      "path": "docs/evidence/s08b/probe-attempts/ydental_s08b_test_20261013004116_3fd605cd-20261013T005030666271.json",
+      "sha256": "8e7560604335d691ab3f37bfab6349938f97907b340c692dd043d1eb1d4e5d17"
+    },
+    {
+      "path": "docs/evidence/s08b/browser-attempts/20261013T005129182089/result.json",
+      "sha256": "8773370f43857c4f506a96f117d55631ecd7da2ba44f4c57cc496b2e8e9e5565"
+    },
+    {
+      "path": "docs/evidence/s08b/b-browser-attempts/20261013T005258697359/result.json",
+      "sha256": "878343803ff7a05ed24660cbaf206375cd86ad482faad51b646302bce90aeb45"
+    },
+    {
+      "path": "docs/evidence/s08b/audit-before-browser-A.json",
+      "sha256": "b6b6a56744329553fe3d2620551fadfbe287adfeb1d8677e2343cf9baf80805d"
+    },
+    {
+      "path": "docs/evidence/s08b/audit-after-browser-A.json",
+      "sha256": "2eb87e67be7958577e0103e1b1ee5d28f3da68720491c9bb194954f60d1e0dbb"
+    },
+    {
+      "path": "docs/evidence/s08b/audit-before-browser-B.json",
+      "sha256": "36a8c2cae675f9b56031367d079569eea2e51dbe77f455f64384b18a49749168"
+    },
+    {
+      "path": "docs/evidence/s08b/audit-after-browser-B.json",
+      "sha256": "4e2613b6c8c32e20a1c795c1d546cf22400c8ed2212d370619e07f15a043991e"
+    },
+    {
+      "path": "docs/evidence/s08b/audit-after-business-upgrade.json",
+      "sha256": "4e2613b6c8c32e20a1c795c1d546cf22400c8ed2212d370619e07f15a043991e"
+    },
+    {
+      "path": "docs/evidence/s08b/translation-ydental_s08b_test_20261013004116_3fd605cd.json",
+      "sha256": "486f1d31ab67e4530c8621609db35b520c0772c554bfc449f97056bbd8b0e691"
+    },
+    {
+      "path": "docs/evidence/s08b/pure-document-economic-signatures.json",
+      "sha256": "e89989d8bbf7d597368f56d4b1762a04cd5b5aa43b7c0d86620ca244baf0fae0"
+    },
+    {
+      "path": "docs/evidence/s08b/business-upgrade-signatures.json",
+      "sha256": "06e6d890b3a889c7fd8f2b0aa24c347c3304ab9ca52e076be60abec201efba99"
+    },
+    {
+      "path": "docs/evidence/s08b/committed-business-projection.json",
+      "sha256": "400f457479d1c94f370338be503c2a78b83ab0156cc778dc1b0da13c5a69a1bd"
+    },
+    {
+      "path": "docs/evidence/s08b/visual-review.json",
+      "sha256": "9e434594583cecf5448b000d1651ce3dce32f8a195369888b2642a846cdff5af"
+    }
+  ],
+  "environment_evidence": "docs/evidence/s08b/environment-preservation.json",
+  "attempt_history": "docs/evidence/s08b/attempt-history.json"
+}

@@ -1,0 +1,182 @@
+{
+  "reviewed_utc": "2026-10-13T00:54:38.459919+00:00",
+  "reviewer": "Codex visual inspection, not GPT or user acceptance",
+  "tested_commit": "d976c6a1fdc7e09fb534bf5552bf4964459f3400",
+  "count": 34,
+  "A": 21,
+  "B": 13,
+  "result": "PASS",
+  "notes": "A full-page authored text/teeth/terminal protections; B viewport captures focused business panels. B10 error text assertion is in browser result while screenshot shows retained quantity/disabled controls. No claim that intermediate failure images were all manually reviewed.",
+  "screenshots": [
+    {
+      "path": "docs/evidence/s08b/browser-attempts/20261013T005129182089/01-permanent-anterior-autosave.png",
+      "sha256": "041d0c6b3b8cdb9d43558152c09fca66eb1567db90ba28ecb0655488a3b5403b",
+      "review": "Viewed individually with view_image; synthetic business state and Chinese labels inspected; no visible credentials"
+    },
+    {
+      "path": "docs/evidence/s08b/browser-attempts/20261013T005129182089/02-primary-missing-unknown.png",
+      "sha256": "a3028702a279e7d78bb8dc96a1a7f0ef8a1065950a5f46d92897389cb4f0e834",
+      "review": "Viewed individually with view_image; synthetic business state and Chinese labels inspected; no visible credentials"
+    },
+    {
+      "path": "docs/evidence/s08b/browser-attempts/20261013T005129182089/03-structured-draft.png",
+      "sha256": "d8bdd8d6c0a2d0b352db2b7f9e2a3f77ff6de8c1efca8ff29577bc38fedcf85c",
+      "review": "Viewed individually with view_image; synthetic business state and Chinese labels inspected; no visible credentials"
+    },
+    {
+      "path": "docs/evidence/s08b/browser-attempts/20261013T005129182089/04-D1-pending-after-handover.png",
+      "sha256": "120680621f099a44d0009ac8e9c1c36faaf3aaa68364467ca57d970a09379289",
+      "review": "Viewed individually with view_image; synthetic business state and Chinese labels inspected; no visible credentials"
+    },
+    {
+      "path": "docs/evidence/s08b/browser-attempts/20261013T005129182089/05-D1-pending-independent-editor.png",
+      "sha256": "52f825e63b57f2dc67b5288c805a66cb5b08cccededbad3a9bdaa4829986ddd3",
+      "review": "Viewed individually with view_image; synthetic business state and Chinese labels inspected; no visible credentials"
+    },
+    {
+      "path": "docs/evidence/s08b/browser-attempts/20261013T005129182089/06-D2-new-reception.png",
+      "sha256": "a6b9e7d04ddf8dc5c898482518384ab7bf4ff43702a7ad06a2ae9761329aff38",
+      "review": "Viewed individually with view_image; synthetic business state and Chinese labels inspected; no visible credentials"
+    },
+    {
+      "path": "docs/evidence/s08b/browser-attempts/20261013T005129182089/07-valid-editor-transfer-denied.png",
+      "sha256": "f513e9c8e1f3794f412dcca7bea1b43a9c5e24b945cc6a3d41911d361193b6ec",
+      "review": "Viewed individually with view_image; synthetic business state and Chinese labels inspected; no visible credentials"
+    },
+    {
+      "path": "docs/evidence/s08b/browser-attempts/20261013T005129182089/08-D1-confirmed-author-history.png",
+      "sha256": "e4ae6362d7bcfdcd0f641e3f80098af1ca8d781ea6baca9a0e6fe0838447e939",
+      "review": "Viewed individually with view_image; synthetic business state and Chinese labels inspected; no visible credentials"
+    },
+    {
+      "path": "docs/evidence/s08b/browser-attempts/20261013T005129182089/09-text-correction-new-version.png",
+      "sha256": "b9330253c44b9d7354716d769f10388c395c5cdcc01f86d4d70d174f3e54cddb",
+      "review": "Viewed individually with view_image; synthetic business state and Chinese labels inspected; no visible credentials"
+    },
+    {
+      "path": "docs/evidence/s08b/browser-attempts/20261013T005129182089/10-readonly-medical-denied.png",
+      "sha256": "4c684f49b2847b5390e1f42796cebe2e6b1b03cd0ccbeed76bbd1047f7fac50e",
+      "review": "Viewed individually with view_image; synthetic business state and Chinese labels inspected; no visible credentials"
+    },
+    {
+      "path": "docs/evidence/s08b/browser-attempts/20261013T005129182089/11-offline-unsynchronized.png",
+      "sha256": "414b5ab1726f270177297848c4be6586358490e75c8c76c527a9afd93721d4f5",
+      "review": "Viewed individually with view_image; synthetic business state and Chinese labels inspected; no visible credentials"
+    },
+    {
+      "path": "docs/evidence/s08b/browser-attempts/20261013T005129182089/12-ordinary-inflight-autosave-catchup.png",
+      "sha256": "295fce50debc099485b917cd90869cae105013554c1b97ad63a56863953e150d",
+      "review": "Viewed individually with view_image; synthetic business state and Chinese labels inspected; no visible credentials"
+    },
+    {
+      "path": "docs/evidence/s08b/browser-attempts/20261013T005129182089/13-confirm-all-inputs-locked.png",
+      "sha256": "ce4e32172d5a4e865ae209387a68ca2df181863757b8987372fc63eaacfd4b64",
+      "review": "Viewed individually with view_image; synthetic business state and Chinese labels inspected; no visible credentials"
+    },
+    {
+      "path": "docs/evidence/s08b/browser-attempts/20261013T005129182089/14-correct-all-inputs-locked.png",
+      "sha256": "ea403dd8fee6ee9323261ca66a4319c64f3e6e1023baeca312208b7ac816a51a",
+      "review": "Viewed individually with view_image; synthetic business state and Chinese labels inspected; no visible credentials"
+    },
+    {
+      "path": "docs/evidence/s08b/browser-attempts/20261013T005129182089/15-correct-forced-input-retained.png",
+      "sha256": "9c7d459d7310cf465b0ab42703234e2e9afb6d4f423f2dfa69b7e64c0339fb74",
+      "review": "Viewed individually with view_image; synthetic business state and Chinese labels inspected; no visible credentials"
+    },
+    {
+      "path": "docs/evidence/s08b/browser-attempts/20261013T005129182089/16-handover-all-inputs-locked.png",
+      "sha256": "82e819c1ba81dfe8dd669795dd873ff576579004be8bb9601b33a98f39200a30",
+      "review": "Viewed individually with view_image; synthetic business state and Chinese labels inspected; no visible credentials"
+    },
+    {
+      "path": "docs/evidence/s08b/browser-attempts/20261013T005129182089/17-confirm-forced-input-retained.png",
+      "sha256": "c3cbead9524ffe423a77d25002ecab1132a8b920e0fd4f4434d50533a49b5c13",
+      "review": "Viewed individually with view_image; synthetic business state and Chinese labels inspected; no visible credentials"
+    },
+    {
+      "path": "docs/evidence/s08b/browser-attempts/20261013T005129182089/18-handover-committed-unsent-retained.png",
+      "sha256": "960de2923915c8eadc54e5f4c192566ba1d243140c198f4ea3be320e7d7836d1",
+      "review": "Viewed individually with view_image; synthetic business state and Chinese labels inspected; no visible credentials"
+    },
+    {
+      "path": "docs/evidence/s08b/browser-attempts/20261013T005129182089/19-response-lost-reconcile.png",
+      "sha256": "874590b8cfd6f8e33b67445d7f4493c8cbeb0abe5d1c18b1b093bb1c3f81f709",
+      "review": "Viewed individually with view_image; synthetic business state and Chinese labels inspected; no visible credentials"
+    },
+    {
+      "path": "docs/evidence/s08b/browser-attempts/20261013T005129182089/20-request-not-sent-reconcile.png",
+      "sha256": "7064c7057740e24b101b88e222fbf12cfc2597d0011caa69513020d88b2125d7",
+      "review": "Viewed individually with view_image; synthetic business state and Chinese labels inspected; no visible credentials"
+    },
+    {
+      "path": "docs/evidence/s08b/browser-attempts/20261013T005129182089/21-stale-version-reconcile.png",
+      "sha256": "1506350cad6d0a7d519c617f7b3aa373b7f43800fe379170575d3673fba05b76",
+      "review": "Viewed individually with view_image; synthetic business state and Chinese labels inspected; no visible credentials"
+    },
+    {
+      "path": "docs/evidence/s08b/b-browser-attempts/20261013T005258697359/B00-real-response-held-unsynchronized.png",
+      "sha256": "7e9409bdec26d88fafa79e8969559759d8902a26b3146783c3e3bb1820267c47",
+      "review": "Viewed individually with view_image; synthetic business state and Chinese labels inspected; no visible credentials"
+    },
+    {
+      "path": "docs/evidence/s08b/b-browser-attempts/20261013T005258697359/B01-actual-project-600-native-move.png",
+      "sha256": "93a9e707e41deaa1e9cca056010e0689ee038d057a193b8257a60e915ea5651c",
+      "review": "Viewed individually with view_image; synthetic business state and Chinese labels inspected; no visible credentials"
+    },
+    {
+      "path": "docs/evidence/s08b/b-browser-attempts/20261013T005258697359/B02-material-delta-original-preserved.png",
+      "sha256": "e1483f07fa05ad76c876d7775e7519158f30dd66e04622018e79812b5edfdd46",
+      "review": "Viewed individually with view_image; synthetic business state and Chinese labels inspected; no visible credentials"
+    },
+    {
+      "path": "docs/evidence/s08b/b-browser-attempts/20261013T005258697359/B03-frozen-exam-cbct-cancelled.png",
+      "sha256": "b85eccd77c3bf437a5c7c3434f8b4ecbdc8c47ea1cf71d7a3e4d84d6fb390d3e",
+      "review": "Viewed individually with view_image; synthetic business state and Chinese labels inspected; no visible credentials"
+    },
+    {
+      "path": "docs/evidence/s08b/b-browser-attempts/20261013T005258697359/B04-six-unit-prescription-awaiting-report.png",
+      "sha256": "22290e59022adfae4157cd5d95316e56c75de7f5cedda41a6404ef07e966ce9d",
+      "review": "Viewed individually with view_image; synthetic business state and Chinese labels inspected; no visible credentials"
+    },
+    {
+      "path": "docs/evidence/s08b/b-browser-attempts/20261013T005258697359/B05-referral-source-independent.png",
+      "sha256": "d4e314c5633a6b2a5f7ab2f561e90b322ba17d6328669627b04db78846ccda7f",
+      "review": "Viewed individually with view_image; synthetic business state and Chinese labels inspected; no visible credentials"
+    },
+    {
+      "path": "docs/evidence/s08b/b-browser-attempts/20261013T005258697359/B06-shortage-fact-awaiting-recovery.png",
+      "sha256": "8bd32f4aa212e7114aae3ef0c6cad42de50132a0a7268dd5d2e58d0b91d8c011",
+      "review": "Viewed individually with view_image; synthetic business state and Chinese labels inspected; no visible credentials"
+    },
+    {
+      "path": "docs/evidence/s08b/b-browser-attempts/20261013T005258697359/B07-real-pharmacy-four-of-six.png",
+      "sha256": "46529f055be2d17a56c6afe7511f3b59de565ef66d1d4575bbc7f83e32fbdfb4",
+      "review": "Viewed individually with view_image; synthetic business state and Chinese labels inspected; no visible credentials"
+    },
+    {
+      "path": "docs/evidence/s08b/b-browser-attempts/20261013T005258697359/B08-finished-four-remainder-awaits-report.png",
+      "sha256": "6bf4bbbbe48fe9f3decefb6a20603aae517eacce36562d0b8bd46f3259fa88ed",
+      "review": "Viewed individually with view_image; synthetic business state and Chinese labels inspected; no visible credentials"
+    },
+    {
+      "path": "docs/evidence/s08b/b-browser-attempts/20261013T005258697359/B09-second-report-real-two-of-six.png",
+      "sha256": "c36f435b2c8356b0744f13014c7b0284ffc14d9649f3346dccddf11a50356efe",
+      "review": "Viewed individually with view_image; synthetic business state and Chinese labels inspected; no visible credentials"
+    },
+    {
+      "path": "docs/evidence/s08b/b-browser-attempts/20261013T005258697359/B10-seventh-unit-rejected.png",
+      "sha256": "8387e0b0607949ac7bff0976159033986fcacc687397ddc4e8a7d6df5af161ef",
+      "review": "Viewed individually with view_image; synthetic business state and Chinese labels inspected; no visible credentials"
+    },
+    {
+      "path": "docs/evidence/s08b/b-browser-attempts/20261013T005258697359/B11-prescription-complete-original-sources.png",
+      "sha256": "20d2fef3921091f21a9dc923fe2716fe1343930a45b1ba92dfedb332ab3d3b24",
+      "review": "Viewed individually with view_image; synthetic business state and Chinese labels inspected; no visible credentials"
+    },
+    {
+      "path": "docs/evidence/s08b/b-browser-attempts/20261013T005258697359/B12-readonly-boundary.png",
+      "sha256": "e3275dda604a34600ec336aedebf570df3191549a19525b4e772f8b3309014ba",
+      "review": "Viewed individually with view_image; synthetic business state and Chinese labels inspected; no visible credentials"
+    }
+  ]
+}

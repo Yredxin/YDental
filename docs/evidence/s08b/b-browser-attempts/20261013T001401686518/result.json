@@ -1,0 +1,101 @@
+{
+  "scope": "S08-B real reception, teeth, authored text, handover and pending responsibility",
+  "database": "ydental_s08b_test_20261012233634_eb9556fd",
+  "tested_commit": "95bd2bac5e3b8a84e994274ba982ac5cc16fef7f",
+  "browser": "Firefox",
+  "sandbox": "default, no overrides",
+  "checks": [
+    {
+      "check": "three actual A autosaves before B action",
+      "result": "PASS"
+    },
+    {
+      "check": "Chinese treatment UI and demonstration boundary",
+      "result": "PASS"
+    },
+    {
+      "check": "autosaves create no actual events",
+      "result": "PASS"
+    },
+    {
+      "check": "actual confirmation freezes every editable control while response held",
+      "result": "PASS"
+    },
+    {
+      "check": "full form change preserves uncertain page and forbids automatic replay",
+      "result": "PASS"
+    },
+    {
+      "check": "F1 actual event confirmed with frozen600 and native move",
+      "result": "PASS"
+    },
+    {
+      "check": "material delta appends immutable event",
+      "result": "PASS"
+    },
+    {
+      "check": "draft edit increments server version and preserves superseded rows",
+      "result": "PASS"
+    },
+    {
+      "check": "issued examination set freezes editing",
+      "result": "PASS"
+    },
+    {
+      "check": "F4 unperformed cancellation retained with other exam issued",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s08b/b-browser-attempts/20261013T001401686518/B00-real-response-held-unsynchronized.png",
+      "sha256": "300600210e1af72ed68d47283b6615f410cbf44d32a0ee4cad68b9583420d567"
+    },
+    {
+      "path": "docs/evidence/s08b/b-browser-attempts/20261013T001401686518/B01-actual-project-600-native-move.png",
+      "sha256": "ba8f3b6bb49183afbd3c14cd8f76baee565cf9e57c3566f04469035a91fc2722"
+    },
+    {
+      "path": "docs/evidence/s08b/b-browser-attempts/20261013T001401686518/B02-material-delta-original-preserved.png",
+      "sha256": "f2081ee311248c31cac94dbdb3c2cec7fbbe3552fee77f526b4d7e2c99e62249"
+    },
+    {
+      "path": "docs/evidence/s08b/b-browser-attempts/20261013T001401686518/B03-frozen-exam-cbct-cancelled.png",
+      "sha256": "90cdee18e74f8d3b5a62997a9674b8682f3c87da512d470f7ab5401f0f10cec6"
+    }
+  ],
+  "first_event": 224,
+  "result": "FAIL",
+  "error": {
+    "type": "Error",
+    "detail": "Navigation failed because page crashed!\n=========================== logs ===========================\nwaiting for navigation until 'domcontentloaded'\n============================================================",
+    "trace": [
+      {
+        "file": "s08b_browser.py",
+        "line": 171,
+        "method": "main"
+      },
+      {
+        "file": "s08b_browser.py",
+        "line": 126,
+        "method": "submit"
+      },
+      {
+        "file": "_sync_base.py",
+        "line": 85,
+        "method": "__exit__"
+      },
+      {
+        "file": "_sync_base.py",
+        "line": 59,
+        "method": "value"
+      },
+      {
+        "file": "_frame.py",
+        "line": 265,
+        "method": "continuation"
+      }
+    ]
+  },
+  "pageerrors": []
+}

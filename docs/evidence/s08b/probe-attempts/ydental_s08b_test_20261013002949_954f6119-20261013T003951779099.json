@@ -1,0 +1,2184 @@
+{
+  "database": "ydental_s08b_test_20261013002949_954f6119",
+  "races": [
+    {
+      "case": "versions",
+      "round": 1,
+      "result": "PASS",
+      "worker_traces": [
+        [
+          {
+            "event": "backend_connected",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327863237409696
+          },
+          {
+            "event": "barrier_enter",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327863237412442
+          },
+          {
+            "event": "barrier_exit",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327863246658413
+          },
+          {
+            "event": "operate_begin",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327863247182397
+          },
+          {
+            "event": "accepted_commit",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327863292780964
+          },
+          {
+            "event": "cursor_released",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327863293453851
+          }
+        ],
+        [
+          {
+            "event": "backend_connected",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327863246539026
+          },
+          {
+            "event": "barrier_enter",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327863246539908
+          },
+          {
+            "event": "barrier_exit",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327863246555378
+          },
+          {
+            "event": "operate_begin",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327863249528708
+          },
+          {
+            "event": "serialization_retry",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327863305768483
+          },
+          {
+            "event": "cursor_released",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327863317300401
+          },
+          {
+            "event": "backend_connected",
+            "attempt": 1,
+            "backend_pid": 99582,
+            "monotonic_ns": 327863317727792
+          },
+          {
+            "event": "operate_begin",
+            "attempt": 1,
+            "backend_pid": 99582,
+            "monotonic_ns": 327863318188235
+          },
+          {
+            "event": "business_rejected",
+            "attempt": 1,
+            "backend_pid": 99582,
+            "monotonic_ns": 327863355642933
+          },
+          {
+            "event": "cursor_released",
+            "attempt": 1,
+            "backend_pid": 99582,
+            "monotonic_ns": 327863357036557
+          }
+        ]
+      ],
+      "document_id": 139,
+      "execution_id": 163,
+      "controlled_retry_pool_reuse": false,
+      "outcomes": [
+        {
+          "result": "accepted",
+          "backend_pid": 99559,
+          "initial_backend_pid": 99559,
+          "backend_pid_trace": [
+            99559
+          ],
+          "attempts": [],
+          "version": 1
+        },
+        {
+          "result": "rejected",
+          "backend_pid": 99582,
+          "initial_backend_pid": 99582,
+          "backend_pid_trace": [
+            99582,
+            99582
+          ],
+          "attempts": [
+            "serialization_retry"
+          ],
+          "code": "version_conflict"
+        }
+      ],
+      "legacy_final_pid_distinct": true,
+      "legacy_predicate_diagnostic": {
+        "result": "PASS"
+      },
+      "single_continuation": 0
+    },
+    {
+      "case": "versions",
+      "round": 2,
+      "result": "PASS",
+      "worker_traces": [
+        [
+          {
+            "event": "backend_connected",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327870735762168
+          },
+          {
+            "event": "barrier_enter",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327870735764403
+          },
+          {
+            "event": "barrier_exit",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327870736120318
+          },
+          {
+            "event": "operate_begin",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327870737675008
+          },
+          {
+            "event": "serialization_retry",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327870787892368
+          },
+          {
+            "event": "cursor_released",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327870799299729
+          },
+          {
+            "event": "backend_connected",
+            "attempt": 1,
+            "backend_pid": 99582,
+            "monotonic_ns": 327870799704627
+          },
+          {
+            "event": "operate_begin",
+            "attempt": 1,
+            "backend_pid": 99582,
+            "monotonic_ns": 327870800213382
+          },
+          {
+            "event": "business_rejected",
+            "attempt": 1,
+            "backend_pid": 99582,
+            "monotonic_ns": 327870834251257
+          },
+          {
+            "event": "cursor_released",
+            "attempt": 1,
+            "backend_pid": 99582,
+            "monotonic_ns": 327870835512320
+          }
+        ],
+        [
+          {
+            "event": "backend_connected",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327870735946238
+          },
+          {
+            "event": "barrier_enter",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327870735947079
+          },
+          {
+            "event": "barrier_exit",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327870735961858
+          },
+          {
+            "event": "operate_begin",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327870736913653
+          },
+          {
+            "event": "accepted_commit",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327870779900967
+          },
+          {
+            "event": "cursor_released",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327870780835660
+          }
+        ]
+      ],
+      "document_id": 140,
+      "execution_id": 164,
+      "controlled_retry_pool_reuse": false,
+      "outcomes": [
+        {
+          "result": "rejected",
+          "backend_pid": 99582,
+          "initial_backend_pid": 99582,
+          "backend_pid_trace": [
+            99582,
+            99582
+          ],
+          "attempts": [
+            "serialization_retry"
+          ],
+          "code": "version_conflict"
+        },
+        {
+          "result": "accepted",
+          "backend_pid": 99559,
+          "initial_backend_pid": 99559,
+          "backend_pid_trace": [
+            99559
+          ],
+          "attempts": [],
+          "version": 1
+        }
+      ],
+      "legacy_final_pid_distinct": true,
+      "legacy_predicate_diagnostic": {
+        "result": "PASS"
+      },
+      "single_continuation": 0
+    },
+    {
+      "case": "editors",
+      "round": 1,
+      "result": "PASS",
+      "worker_traces": [
+        [
+          {
+            "event": "backend_connected",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327878369955971
+          },
+          {
+            "event": "barrier_enter",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327878369957474
+          },
+          {
+            "event": "barrier_exit",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327878370447003
+          },
+          {
+            "event": "operate_begin",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327878371880653
+          },
+          {
+            "event": "serialization_retry",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327878416853834
+          },
+          {
+            "event": "cursor_released",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327878428688135
+          },
+          {
+            "event": "backend_connected",
+            "attempt": 1,
+            "backend_pid": 99582,
+            "monotonic_ns": 327878429214044
+          },
+          {
+            "event": "operate_begin",
+            "attempt": 1,
+            "backend_pid": 99582,
+            "monotonic_ns": 327878429648698
+          },
+          {
+            "event": "business_rejected",
+            "attempt": 1,
+            "backend_pid": 99582,
+            "monotonic_ns": 327878459589349
+          },
+          {
+            "event": "cursor_released",
+            "attempt": 1,
+            "backend_pid": 99582,
+            "monotonic_ns": 327878460776201
+          }
+        ],
+        [
+          {
+            "event": "backend_connected",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327878370317988
+          },
+          {
+            "event": "barrier_enter",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327878370319090
+          },
+          {
+            "event": "barrier_exit",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327878370331565
+          },
+          {
+            "event": "operate_begin",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327878371182379
+          },
+          {
+            "event": "accepted_commit",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327878407608695
+          },
+          {
+            "event": "cursor_released",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327878408680728
+          }
+        ]
+      ],
+      "document_id": 141,
+      "execution_id": 165,
+      "controlled_retry_pool_reuse": false,
+      "outcomes": [
+        {
+          "result": "rejected",
+          "backend_pid": 99582,
+          "initial_backend_pid": 99582,
+          "backend_pid_trace": [
+            99582,
+            99582
+          ],
+          "attempts": [
+            "serialization_retry"
+          ],
+          "code": "editor_busy"
+        },
+        {
+          "result": "accepted",
+          "backend_pid": 99559,
+          "initial_backend_pid": 99559,
+          "backend_pid_trace": [
+            99559
+          ],
+          "attempts": [],
+          "version": 1
+        }
+      ],
+      "legacy_final_pid_distinct": true,
+      "legacy_predicate_diagnostic": {
+        "result": "PASS"
+      },
+      "single_continuation": 1
+    },
+    {
+      "case": "editors",
+      "round": 2,
+      "result": "PASS",
+      "worker_traces": [
+        [
+          {
+            "event": "backend_connected",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327886031918847
+          },
+          {
+            "event": "barrier_enter",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327886031920190
+          },
+          {
+            "event": "barrier_exit",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327886032400831
+          },
+          {
+            "event": "operate_begin",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327886033747457
+          },
+          {
+            "event": "serialization_retry",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327886078157900
+          },
+          {
+            "event": "cursor_released",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327886089958567
+          },
+          {
+            "event": "backend_connected",
+            "attempt": 1,
+            "backend_pid": 99582,
+            "monotonic_ns": 327886090849698
+          },
+          {
+            "event": "operate_begin",
+            "attempt": 1,
+            "backend_pid": 99582,
+            "monotonic_ns": 327886091362841
+          },
+          {
+            "event": "business_rejected",
+            "attempt": 1,
+            "backend_pid": 99582,
+            "monotonic_ns": 327886123013998
+          },
+          {
+            "event": "cursor_released",
+            "attempt": 1,
+            "backend_pid": 99582,
+            "monotonic_ns": 327886124468056
+          }
+        ],
+        [
+          {
+            "event": "backend_connected",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327886032251248
+          },
+          {
+            "event": "barrier_enter",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327886032252550
+          },
+          {
+            "event": "barrier_exit",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327886032267328
+          },
+          {
+            "event": "operate_begin",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327886033032991
+          },
+          {
+            "event": "accepted_commit",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327886069265760
+          },
+          {
+            "event": "cursor_released",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327886069831984
+          }
+        ]
+      ],
+      "document_id": 142,
+      "execution_id": 166,
+      "controlled_retry_pool_reuse": false,
+      "outcomes": [
+        {
+          "result": "rejected",
+          "backend_pid": 99582,
+          "initial_backend_pid": 99582,
+          "backend_pid_trace": [
+            99582,
+            99582
+          ],
+          "attempts": [
+            "serialization_retry"
+          ],
+          "code": "editor_busy"
+        },
+        {
+          "result": "accepted",
+          "backend_pid": 99559,
+          "initial_backend_pid": 99559,
+          "backend_pid_trace": [
+            99559
+          ],
+          "attempts": [],
+          "version": 1
+        }
+      ],
+      "legacy_final_pid_distinct": true,
+      "legacy_predicate_diagnostic": {
+        "result": "PASS"
+      },
+      "single_continuation": 1
+    },
+    {
+      "case": "handover_save",
+      "round": 1,
+      "result": "PASS",
+      "worker_traces": [
+        [
+          {
+            "event": "backend_connected",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327893712660038
+          },
+          {
+            "event": "barrier_enter",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327893712661240
+          },
+          {
+            "event": "barrier_exit",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327893712923337
+          },
+          {
+            "event": "operate_begin",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327893714287175
+          },
+          {
+            "event": "serialization_retry",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327893762886054
+          },
+          {
+            "event": "cursor_released",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327893774658037
+          },
+          {
+            "event": "backend_connected",
+            "attempt": 1,
+            "backend_pid": 99582,
+            "monotonic_ns": 327893775060510
+          },
+          {
+            "event": "operate_begin",
+            "attempt": 1,
+            "backend_pid": 99582,
+            "monotonic_ns": 327893775531474
+          },
+          {
+            "event": "business_rejected",
+            "attempt": 1,
+            "backend_pid": 99582,
+            "monotonic_ns": 327893810461952
+          },
+          {
+            "event": "cursor_released",
+            "attempt": 1,
+            "backend_pid": 99582,
+            "monotonic_ns": 327893811749986
+          }
+        ],
+        [
+          {
+            "event": "backend_connected",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327893712798240
+          },
+          {
+            "event": "barrier_enter",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327893712799052
+          },
+          {
+            "event": "barrier_exit",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327893712811415
+          },
+          {
+            "event": "operate_begin",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327893713577599
+          },
+          {
+            "event": "accepted_commit",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327893754471551
+          },
+          {
+            "event": "cursor_released",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327893755299612
+          }
+        ]
+      ],
+      "document_id": 143,
+      "execution_id": 167,
+      "controlled_retry_pool_reuse": false,
+      "outcomes": [
+        {
+          "result": "rejected",
+          "backend_pid": 99582,
+          "initial_backend_pid": 99582,
+          "backend_pid_trace": [
+            99582,
+            99582
+          ],
+          "attempts": [
+            "serialization_retry"
+          ],
+          "code": "version_conflict"
+        },
+        {
+          "result": "accepted",
+          "backend_pid": 99559,
+          "initial_backend_pid": 99559,
+          "backend_pid_trace": [
+            99559
+          ],
+          "attempts": [],
+          "version": 1
+        }
+      ],
+      "legacy_final_pid_distinct": true,
+      "legacy_predicate_diagnostic": {
+        "result": "PASS"
+      },
+      "single_continuation": 0
+    },
+    {
+      "case": "handover_save",
+      "round": 2,
+      "result": "PASS",
+      "worker_traces": [
+        [
+          {
+            "event": "backend_connected",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327901408113650
+          },
+          {
+            "event": "barrier_enter",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327901408115113
+          },
+          {
+            "event": "barrier_exit",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327901408584944
+          },
+          {
+            "event": "operate_begin",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327901410125767
+          },
+          {
+            "event": "serialization_retry",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327901458100843
+          },
+          {
+            "event": "cursor_released",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327901469687524
+          },
+          {
+            "event": "backend_connected",
+            "attempt": 1,
+            "backend_pid": 99582,
+            "monotonic_ns": 327901470513982
+          },
+          {
+            "event": "operate_begin",
+            "attempt": 1,
+            "backend_pid": 99582,
+            "monotonic_ns": 327901470883113
+          },
+          {
+            "event": "business_rejected",
+            "attempt": 1,
+            "backend_pid": 99582,
+            "monotonic_ns": 327901505655801
+          },
+          {
+            "event": "cursor_released",
+            "attempt": 1,
+            "backend_pid": 99582,
+            "monotonic_ns": 327901506987258
+          }
+        ],
+        [
+          {
+            "event": "backend_connected",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327901408384083
+          },
+          {
+            "event": "barrier_enter",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327901408385316
+          },
+          {
+            "event": "barrier_exit",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327901408400955
+          },
+          {
+            "event": "operate_begin",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327901409402866
+          },
+          {
+            "event": "accepted_commit",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327901450704682
+          },
+          {
+            "event": "cursor_released",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327901451544134
+          }
+        ]
+      ],
+      "document_id": 144,
+      "execution_id": 168,
+      "controlled_retry_pool_reuse": false,
+      "outcomes": [
+        {
+          "result": "rejected",
+          "backend_pid": 99582,
+          "initial_backend_pid": 99582,
+          "backend_pid_trace": [
+            99582,
+            99582
+          ],
+          "attempts": [
+            "serialization_retry"
+          ],
+          "code": "version_conflict"
+        },
+        {
+          "result": "accepted",
+          "backend_pid": 99559,
+          "initial_backend_pid": 99559,
+          "backend_pid_trace": [
+            99559
+          ],
+          "attempts": [],
+          "version": 1
+        }
+      ],
+      "legacy_final_pid_distinct": true,
+      "legacy_predicate_diagnostic": {
+        "result": "PASS"
+      },
+      "single_continuation": 0
+    },
+    {
+      "case": "continuation",
+      "round": 1,
+      "result": "PASS",
+      "worker_traces": [
+        [
+          {
+            "event": "backend_connected",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327909233370067
+          },
+          {
+            "event": "barrier_enter",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327909233371300
+          },
+          {
+            "event": "barrier_exit",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327909233746251
+          },
+          {
+            "event": "operate_begin",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327909235188707
+          },
+          {
+            "event": "serialization_retry",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327909336370023
+          },
+          {
+            "event": "cursor_released",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327909347966504
+          },
+          {
+            "event": "backend_connected",
+            "attempt": 1,
+            "backend_pid": 99582,
+            "monotonic_ns": 327909348326767
+          },
+          {
+            "event": "operate_begin",
+            "attempt": 1,
+            "backend_pid": 99582,
+            "monotonic_ns": 327909348694985
+          },
+          {
+            "event": "business_rejected",
+            "attempt": 1,
+            "backend_pid": 99582,
+            "monotonic_ns": 327909376592983
+          },
+          {
+            "event": "cursor_released",
+            "attempt": 1,
+            "backend_pid": 99582,
+            "monotonic_ns": 327909377714360
+          }
+        ],
+        [
+          {
+            "event": "backend_connected",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327909233609030
+          },
+          {
+            "event": "barrier_enter",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327909233610112
+          },
+          {
+            "event": "barrier_exit",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327909233624230
+          },
+          {
+            "event": "operate_begin",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327909234442772
+          },
+          {
+            "event": "accepted_commit",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327909336799678
+          },
+          {
+            "event": "cursor_released",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327909337265874
+          }
+        ]
+      ],
+      "document_id": 145,
+      "execution_id": 169,
+      "controlled_retry_pool_reuse": false,
+      "outcomes": [
+        {
+          "result": "rejected",
+          "backend_pid": 99582,
+          "initial_backend_pid": 99582,
+          "backend_pid_trace": [
+            99582,
+            99582
+          ],
+          "attempts": [
+            "serialization_retry"
+          ],
+          "code": "editor_expired"
+        },
+        {
+          "result": "accepted",
+          "backend_pid": 99559,
+          "initial_backend_pid": 99559,
+          "backend_pid_trace": [
+            99559
+          ],
+          "attempts": [],
+          "version": 1
+        }
+      ],
+      "legacy_final_pid_distinct": true,
+      "legacy_predicate_diagnostic": {
+        "result": "PASS"
+      },
+      "single_continuation": 1
+    },
+    {
+      "case": "continuation",
+      "round": 2,
+      "result": "PASS",
+      "worker_traces": [
+        [
+          {
+            "event": "backend_connected",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327917167681809
+          },
+          {
+            "event": "barrier_enter",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327917167683122
+          },
+          {
+            "event": "barrier_exit",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327917168010122
+          },
+          {
+            "event": "operate_begin",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327917169165955
+          },
+          {
+            "event": "serialization_retry",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327917286984533
+          },
+          {
+            "event": "cursor_released",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327917298740426
+          },
+          {
+            "event": "backend_connected",
+            "attempt": 1,
+            "backend_pid": 99559,
+            "monotonic_ns": 327917299844962
+          },
+          {
+            "event": "operate_begin",
+            "attempt": 1,
+            "backend_pid": 99559,
+            "monotonic_ns": 327917300388784
+          },
+          {
+            "event": "business_rejected",
+            "attempt": 1,
+            "backend_pid": 99559,
+            "monotonic_ns": 327917327555484
+          },
+          {
+            "event": "cursor_released",
+            "attempt": 1,
+            "backend_pid": 99559,
+            "monotonic_ns": 327917328838717
+          }
+        ],
+        [
+          {
+            "event": "backend_connected",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327917167884804
+          },
+          {
+            "event": "barrier_enter",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327917167885635
+          },
+          {
+            "event": "barrier_exit",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327917167896496
+          },
+          {
+            "event": "operate_begin",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327917168522163
+          },
+          {
+            "event": "accepted_commit",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327917287318738
+          },
+          {
+            "event": "cursor_released",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327917299394077
+          }
+        ]
+      ],
+      "document_id": 146,
+      "execution_id": 170,
+      "controlled_retry_pool_reuse": true,
+      "outcomes": [
+        {
+          "result": "rejected",
+          "backend_pid": 99559,
+          "initial_backend_pid": 99582,
+          "backend_pid_trace": [
+            99582,
+            99559
+          ],
+          "attempts": [
+            "serialization_retry"
+          ],
+          "code": "editor_expired"
+        },
+        {
+          "result": "accepted",
+          "backend_pid": 99559,
+          "initial_backend_pid": 99559,
+          "backend_pid_trace": [
+            99559
+          ],
+          "attempts": [],
+          "version": 1
+        }
+      ],
+      "legacy_final_pid_distinct": false,
+      "legacy_predicate_diagnostic": {
+        "result": "FAIL_REPRODUCED",
+        "original_predicate": "1bec52a:scripts/s08b_probe.py:79",
+        "trace": [
+          {
+            "file": "s08b_a_probe.py",
+            "line": 132,
+            "method": "race"
+          },
+          {
+            "file": "s08b_a_probe.py",
+            "line": 34,
+            "method": "legacy_final_pid_assertion"
+          }
+        ]
+      },
+      "single_continuation": 1
+    },
+    {
+      "case": "old_new_editor",
+      "round": 1,
+      "result": "PASS",
+      "worker_traces": [
+        [
+          {
+            "event": "backend_connected",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327925299709517
+          },
+          {
+            "event": "barrier_enter",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327925299710589
+          },
+          {
+            "event": "barrier_exit",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327925301624681
+          },
+          {
+            "event": "operate_begin",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327925302917393
+          },
+          {
+            "event": "business_rejected",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327925328194217
+          },
+          {
+            "event": "cursor_released",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327925329953364
+          }
+        ],
+        [
+          {
+            "event": "backend_connected",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327925301500074
+          },
+          {
+            "event": "barrier_enter",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327925301500986
+          },
+          {
+            "event": "barrier_exit",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327925301512638
+          },
+          {
+            "event": "operate_begin",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327925302199231
+          },
+          {
+            "event": "accepted_commit",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327925366051348
+          },
+          {
+            "event": "cursor_released",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327925366459011
+          }
+        ]
+      ],
+      "document_id": 147,
+      "execution_id": 171,
+      "controlled_retry_pool_reuse": false,
+      "outcomes": [
+        {
+          "result": "rejected",
+          "backend_pid": 99559,
+          "initial_backend_pid": 99559,
+          "backend_pid_trace": [
+            99559
+          ],
+          "attempts": [],
+          "code": "editor_expired"
+        },
+        {
+          "result": "accepted",
+          "backend_pid": 99582,
+          "initial_backend_pid": 99582,
+          "backend_pid_trace": [
+            99582
+          ],
+          "attempts": [],
+          "version": 0
+        }
+      ],
+      "legacy_final_pid_distinct": true,
+      "legacy_predicate_diagnostic": {
+        "result": "PASS"
+      },
+      "single_continuation": 0
+    },
+    {
+      "case": "old_new_editor",
+      "round": 2,
+      "result": "PASS",
+      "worker_traces": [
+        [
+          {
+            "event": "backend_connected",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327933419316351
+          },
+          {
+            "event": "barrier_enter",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327933419317664
+          },
+          {
+            "event": "barrier_exit",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327933419674962
+          },
+          {
+            "event": "operate_begin",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327933420167185
+          },
+          {
+            "event": "business_rejected",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327933445892961
+          },
+          {
+            "event": "cursor_released",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327933447578198
+          }
+        ],
+        [
+          {
+            "event": "backend_connected",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327933419539976
+          },
+          {
+            "event": "barrier_enter",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327933419541128
+          },
+          {
+            "event": "barrier_exit",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327933419555114
+          },
+          {
+            "event": "operate_begin",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327933420805927
+          },
+          {
+            "event": "accepted_commit",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327933482322083
+          },
+          {
+            "event": "cursor_released",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327933482735768
+          }
+        ]
+      ],
+      "document_id": 148,
+      "execution_id": 172,
+      "controlled_retry_pool_reuse": false,
+      "outcomes": [
+        {
+          "result": "rejected",
+          "backend_pid": 99582,
+          "initial_backend_pid": 99582,
+          "backend_pid_trace": [
+            99582
+          ],
+          "attempts": [],
+          "code": "editor_expired"
+        },
+        {
+          "result": "accepted",
+          "backend_pid": 99559,
+          "initial_backend_pid": 99559,
+          "backend_pid_trace": [
+            99559
+          ],
+          "attempts": [],
+          "version": 0
+        }
+      ],
+      "legacy_final_pid_distinct": true,
+      "legacy_predicate_diagnostic": {
+        "result": "PASS"
+      },
+      "single_continuation": 0
+    },
+    {
+      "case": "rollback",
+      "round": 1,
+      "result": "PASS",
+      "worker_traces": [
+        [
+          {
+            "event": "backend_connected",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327941528452231
+          },
+          {
+            "event": "barrier_enter",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327941528453473
+          },
+          {
+            "event": "barrier_exit",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327941528765534
+          },
+          {
+            "event": "operate_begin",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327941529858538
+          },
+          {
+            "event": "serialization_retry",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327941578093587
+          },
+          {
+            "event": "cursor_released",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327941589710246
+          },
+          {
+            "event": "backend_connected",
+            "attempt": 1,
+            "backend_pid": 99559,
+            "monotonic_ns": 327941590406607
+          },
+          {
+            "event": "operate_begin",
+            "attempt": 1,
+            "backend_pid": 99559,
+            "monotonic_ns": 327941590847714
+          },
+          {
+            "event": "business_rejected",
+            "attempt": 1,
+            "backend_pid": 99559,
+            "monotonic_ns": 327941622496025
+          },
+          {
+            "event": "cursor_released",
+            "attempt": 1,
+            "backend_pid": 99559,
+            "monotonic_ns": 327941623673299
+          }
+        ],
+        [
+          {
+            "event": "backend_connected",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327941528653933
+          },
+          {
+            "event": "barrier_enter",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327941528654825
+          },
+          {
+            "event": "barrier_exit",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327941528665555
+          },
+          {
+            "event": "operate_begin",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327941529228853
+          },
+          {
+            "event": "accepted_commit",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327941570336241
+          },
+          {
+            "event": "cursor_released",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327941571382366
+          }
+        ]
+      ],
+      "document_id": 149,
+      "execution_id": 173,
+      "controlled_retry_pool_reuse": false,
+      "outcomes": [
+        {
+          "result": "rejected",
+          "backend_pid": 99559,
+          "initial_backend_pid": 99559,
+          "backend_pid_trace": [
+            99559,
+            99559
+          ],
+          "attempts": [
+            "serialization_retry"
+          ],
+          "code": "version_conflict"
+        },
+        {
+          "result": "accepted",
+          "backend_pid": 99582,
+          "initial_backend_pid": 99582,
+          "backend_pid_trace": [
+            99582
+          ],
+          "attempts": [],
+          "version": 1
+        }
+      ],
+      "legacy_final_pid_distinct": true,
+      "legacy_predicate_diagnostic": {
+        "result": "PASS"
+      },
+      "single_continuation": 0
+    },
+    {
+      "case": "rollback",
+      "round": 2,
+      "result": "PASS",
+      "worker_traces": [
+        [
+          {
+            "event": "backend_connected",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327949727466202
+          },
+          {
+            "event": "barrier_enter",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327949727467885
+          },
+          {
+            "event": "barrier_exit",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327949727871481
+          },
+          {
+            "event": "operate_begin",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327949728354036
+          },
+          {
+            "event": "business_rejected",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327949803646567
+          },
+          {
+            "event": "cursor_released",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327949805477060
+          }
+        ],
+        [
+          {
+            "event": "backend_connected",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327949727742306
+          },
+          {
+            "event": "barrier_enter",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327949727743468
+          },
+          {
+            "event": "barrier_exit",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327949727755781
+          },
+          {
+            "event": "operate_begin",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327949729023797
+          },
+          {
+            "event": "accepted_commit",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327949845437190
+          },
+          {
+            "event": "cursor_released",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327949845865884
+          }
+        ]
+      ],
+      "document_id": 150,
+      "execution_id": 174,
+      "controlled_retry_pool_reuse": false,
+      "outcomes": [
+        {
+          "result": "rejected",
+          "backend_pid": 99559,
+          "initial_backend_pid": 99559,
+          "backend_pid_trace": [
+            99559
+          ],
+          "attempts": [],
+          "code": "qualification_required"
+        },
+        {
+          "result": "accepted",
+          "backend_pid": 99582,
+          "initial_backend_pid": 99582,
+          "backend_pid_trace": [
+            99582
+          ],
+          "attempts": [],
+          "version": 1
+        }
+      ],
+      "legacy_final_pid_distinct": true,
+      "legacy_predicate_diagnostic": {
+        "result": "PASS"
+      },
+      "single_continuation": 0
+    },
+    {
+      "case": "transfer",
+      "round": 1,
+      "result": "PASS",
+      "worker_traces": [
+        [
+          {
+            "event": "backend_connected",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327958105751477
+          },
+          {
+            "event": "barrier_enter",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327958105752689
+          },
+          {
+            "event": "barrier_exit",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327958106289137
+          },
+          {
+            "event": "operate_begin",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327958107715634
+          },
+          {
+            "event": "serialization_retry",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327958152842777
+          },
+          {
+            "event": "cursor_released",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327958164397998
+          },
+          {
+            "event": "backend_connected",
+            "attempt": 1,
+            "backend_pid": 99582,
+            "monotonic_ns": 327958164876026
+          },
+          {
+            "event": "operate_begin",
+            "attempt": 1,
+            "backend_pid": 99582,
+            "monotonic_ns": 327958165317833
+          },
+          {
+            "event": "business_rejected",
+            "attempt": 1,
+            "backend_pid": 99582,
+            "monotonic_ns": 327958190885429
+          },
+          {
+            "event": "cursor_released",
+            "attempt": 1,
+            "backend_pid": 99582,
+            "monotonic_ns": 327958192024480
+          }
+        ],
+        [
+          {
+            "event": "backend_connected",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327958106151136
+          },
+          {
+            "event": "barrier_enter",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327958106151957
+          },
+          {
+            "event": "barrier_exit",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327958106164721
+          },
+          {
+            "event": "operate_begin",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327958106944380
+          },
+          {
+            "event": "accepted_commit",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327958144087537
+          },
+          {
+            "event": "cursor_released",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327958144961425
+          }
+        ]
+      ],
+      "document_id": 151,
+      "execution_id": 175,
+      "controlled_retry_pool_reuse": false,
+      "outcomes": [
+        {
+          "result": "rejected",
+          "backend_pid": 99582,
+          "initial_backend_pid": 99582,
+          "backend_pid_trace": [
+            99582,
+            99582
+          ],
+          "attempts": [
+            "serialization_retry"
+          ],
+          "code": "access_denied"
+        },
+        {
+          "result": "accepted",
+          "backend_pid": 99559,
+          "initial_backend_pid": 99559,
+          "backend_pid_trace": [
+            99559
+          ],
+          "attempts": [],
+          "version": 1
+        }
+      ],
+      "legacy_final_pid_distinct": true,
+      "legacy_predicate_diagnostic": {
+        "result": "PASS"
+      },
+      "single_continuation": 1
+    },
+    {
+      "case": "transfer",
+      "round": 2,
+      "result": "PASS",
+      "worker_traces": [
+        [
+          {
+            "event": "backend_connected",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327966608093116
+          },
+          {
+            "event": "barrier_enter",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327966608094859
+          },
+          {
+            "event": "barrier_exit",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327966608351526
+          },
+          {
+            "event": "operate_begin",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327966609751943
+          },
+          {
+            "event": "serialization_retry",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327966655515784
+          },
+          {
+            "event": "cursor_released",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327966667207375
+          },
+          {
+            "event": "backend_connected",
+            "attempt": 1,
+            "backend_pid": 99582,
+            "monotonic_ns": 327966667953691
+          },
+          {
+            "event": "operate_begin",
+            "attempt": 1,
+            "backend_pid": 99582,
+            "monotonic_ns": 327966668327620
+          },
+          {
+            "event": "business_rejected",
+            "attempt": 1,
+            "backend_pid": 99582,
+            "monotonic_ns": 327966694831051
+          },
+          {
+            "event": "cursor_released",
+            "attempt": 1,
+            "backend_pid": 99582,
+            "monotonic_ns": 327966696115258
+          }
+        ],
+        [
+          {
+            "event": "backend_connected",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327966608187906
+          },
+          {
+            "event": "barrier_enter",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327966608188708
+          },
+          {
+            "event": "barrier_exit",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327966608201482
+          },
+          {
+            "event": "operate_begin",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327966608971754
+          },
+          {
+            "event": "accepted_commit",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327966647294968
+          },
+          {
+            "event": "cursor_released",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327966648326104
+          }
+        ]
+      ],
+      "document_id": 152,
+      "execution_id": 176,
+      "controlled_retry_pool_reuse": false,
+      "outcomes": [
+        {
+          "result": "rejected",
+          "backend_pid": 99582,
+          "initial_backend_pid": 99582,
+          "backend_pid_trace": [
+            99582,
+            99582
+          ],
+          "attempts": [
+            "serialization_retry"
+          ],
+          "code": "access_denied"
+        },
+        {
+          "result": "accepted",
+          "backend_pid": 99559,
+          "initial_backend_pid": 99559,
+          "backend_pid_trace": [
+            99559
+          ],
+          "attempts": [],
+          "version": 1
+        }
+      ],
+      "legacy_final_pid_distinct": true,
+      "legacy_predicate_diagnostic": {
+        "result": "PASS"
+      },
+      "single_continuation": 1
+    },
+    {
+      "case": "queue_start",
+      "round": 1,
+      "result": "PASS",
+      "worker_traces": [
+        [
+          {
+            "event": "backend_connected",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327974938203096
+          },
+          {
+            "event": "barrier_enter",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327974938204378
+          },
+          {
+            "event": "barrier_exit",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327974938581183
+          },
+          {
+            "event": "operate_begin",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327974940155560
+          },
+          {
+            "event": "serialization_retry",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327975054411321
+          },
+          {
+            "event": "cursor_released",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327975065896860
+          },
+          {
+            "event": "backend_connected",
+            "attempt": 1,
+            "backend_pid": 99582,
+            "monotonic_ns": 327975066396238
+          },
+          {
+            "event": "operate_begin",
+            "attempt": 1,
+            "backend_pid": 99582,
+            "monotonic_ns": 327975066907197
+          },
+          {
+            "event": "business_rejected",
+            "attempt": 1,
+            "backend_pid": 99582,
+            "monotonic_ns": 327975098429960
+          },
+          {
+            "event": "cursor_released",
+            "attempt": 1,
+            "backend_pid": 99582,
+            "monotonic_ns": 327975099685192
+          }
+        ],
+        [
+          {
+            "event": "backend_connected",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327974938434094
+          },
+          {
+            "event": "barrier_enter",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327974938435226
+          },
+          {
+            "event": "barrier_exit",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327974938447489
+          },
+          {
+            "event": "operate_begin",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327974939387503
+          },
+          {
+            "event": "accepted_commit",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327975062241735
+          },
+          {
+            "event": "cursor_released",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327975062774827
+          }
+        ]
+      ],
+      "document_id": 0,
+      "execution_id": 237,
+      "controlled_retry_pool_reuse": false,
+      "outcomes": [
+        {
+          "result": "rejected",
+          "backend_pid": 99582,
+          "initial_backend_pid": 99582,
+          "backend_pid_trace": [
+            99582,
+            99582
+          ],
+          "attempts": [
+            "serialization_retry"
+          ],
+          "code": "handover_required"
+        },
+        {
+          "result": "accepted",
+          "backend_pid": 99559,
+          "initial_backend_pid": 99559,
+          "backend_pid_trace": [
+            99559
+          ],
+          "attempts": [],
+          "version": null
+        }
+      ],
+      "legacy_final_pid_distinct": true,
+      "legacy_predicate_diagnostic": {
+        "result": "PASS"
+      }
+    },
+    {
+      "case": "queue_start",
+      "round": 2,
+      "result": "PASS",
+      "worker_traces": [
+        [
+          {
+            "event": "backend_connected",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327983429305262
+          },
+          {
+            "event": "barrier_enter",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327983429306595
+          },
+          {
+            "event": "barrier_exit",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327983430013255
+          },
+          {
+            "event": "operate_begin",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327983430653881
+          },
+          {
+            "event": "accepted_commit",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327983575434641
+          },
+          {
+            "event": "cursor_released",
+            "attempt": 0,
+            "backend_pid": 99582,
+            "monotonic_ns": 327983578707651
+          }
+        ],
+        [
+          {
+            "event": "backend_connected",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327983429869102
+          },
+          {
+            "event": "barrier_enter",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327983429870254
+          },
+          {
+            "event": "barrier_exit",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327983429883369
+          },
+          {
+            "event": "operate_begin",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327983431348639
+          },
+          {
+            "event": "serialization_retry",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327983569362181
+          },
+          {
+            "event": "cursor_released",
+            "attempt": 0,
+            "backend_pid": 99559,
+            "monotonic_ns": 327983581196783
+          },
+          {
+            "event": "backend_connected",
+            "attempt": 1,
+            "backend_pid": 99559,
+            "monotonic_ns": 327983581744813
+          },
+          {
+            "event": "operate_begin",
+            "attempt": 1,
+            "backend_pid": 99559,
+            "monotonic_ns": 327983582316477
+          },
+          {
+            "event": "business_rejected",
+            "attempt": 1,
+            "backend_pid": 99559,
+            "monotonic_ns": 327983621893441
+          },
+          {
+            "event": "cursor_released",
+            "attempt": 1,
+            "backend_pid": 99559,
+            "monotonic_ns": 327983623242961
+          }
+        ]
+      ],
+      "document_id": 0,
+      "execution_id": 238,
+      "controlled_retry_pool_reuse": false,
+      "outcomes": [
+        {
+          "result": "accepted",
+          "backend_pid": 99582,
+          "initial_backend_pid": 99582,
+          "backend_pid_trace": [
+            99582
+          ],
+          "attempts": [],
+          "version": null
+        },
+        {
+          "result": "rejected",
+          "backend_pid": 99559,
+          "initial_backend_pid": 99559,
+          "backend_pid_trace": [
+            99559,
+            99559
+          ],
+          "attempts": [
+            "serialization_retry"
+          ],
+          "code": "handover_required"
+        }
+      ],
+      "legacy_final_pid_distinct": true,
+      "legacy_predicate_diagnostic": {
+        "result": "PASS"
+      }
+    }
+  ],
+  "failures": [],
+  "deadlocks": 0,
+  "session_settings": {
+    "maintenance_work_mem": "16384",
+    "max_parallel_maintenance_workers": "0",
+    "max_parallel_workers_per_gather": "0"
+  },
+  "tested_commit": "7fca51c7846c9d70e22a4ecf894ceffd0f66ba6a",
+  "result": "PASS"
+}

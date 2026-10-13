@@ -1,0 +1,1878 @@
+{
+  "database": "ydental_s08b_test_20261013002949_954f6119",
+  "tested_commit": "7fca51c7846c9d70e22a4ecf894ceffd0f66ba6a",
+  "races": [
+    {
+      "case": "execute_same",
+      "round": 1,
+      "result": "PASS",
+      "trace": [
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 99090,
+            "time_ns": 327696584118131
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 327696584120125
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 327696591788001
+          },
+          {
+            "event": "commit",
+            "time_ns": 327696764380415
+          }
+        ],
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 99113,
+            "time_ns": 327696591607329
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 327696591608851
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 327696591628419
+          },
+          {
+            "event": "serialization_retry",
+            "time_ns": 327696776426969
+          },
+          {
+            "event": "connected",
+            "attempt": 1,
+            "pid": 99113,
+            "time_ns": 327696787843859
+          },
+          {
+            "event": "commit",
+            "time_ns": 327696853141598
+          }
+        ]
+      ],
+      "identities": {
+        "patient_id": 115,
+        "execution_id": 137,
+        "store_id": 19,
+        "kind": "execute_same",
+        "sources": [
+          "1c5a5568c6c9d43767c4a340",
+          "1c5a5568c6c9d43767c4a340"
+        ]
+      },
+      "outcomes": [
+        {
+          "result": "accepted",
+          "initial_backend_pid": 99090,
+          "final_backend_pid": 99090,
+          "attempts": [],
+          "data": {
+            "event_id": 61,
+            "state": "confirmed",
+            "pending_reason": "",
+            "fee_id": 47,
+            "amount": 600.0,
+            "inventory_event_ids": [
+              108
+            ],
+            "move_ids": [
+              152
+            ],
+            "policy": "demo_confirmation",
+            "result": "accepted"
+          }
+        },
+        {
+          "result": "accepted",
+          "initial_backend_pid": 99113,
+          "final_backend_pid": 99113,
+          "attempts": [
+            "serialization_retry"
+          ],
+          "data": {
+            "event_id": 61,
+            "state": "confirmed",
+            "pending_reason": "",
+            "fee_id": 47,
+            "amount": 600.0,
+            "inventory_event_ids": [
+              108
+            ],
+            "move_ids": [
+              152
+            ],
+            "policy": "demo_confirmation",
+            "result": "accepted"
+          }
+        }
+      ]
+    },
+    {
+      "case": "execute_changed",
+      "round": 1,
+      "result": "PASS",
+      "trace": [
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 99113,
+            "time_ns": 327703824209693
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 327703824210845
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 327703824647143
+          },
+          {
+            "event": "serialization_retry",
+            "time_ns": 327703991202734
+          },
+          {
+            "event": "connected",
+            "attempt": 1,
+            "pid": 99113,
+            "time_ns": 327704002612119
+          }
+        ],
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 99090,
+            "time_ns": 327703824509692
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 327703824510524
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 327703824523709
+          },
+          {
+            "event": "commit",
+            "time_ns": 327703983191836
+          }
+        ]
+      ],
+      "identities": {
+        "patient_id": 116,
+        "execution_id": 138,
+        "store_id": 21,
+        "kind": "execute_changed",
+        "sources": [
+          "772ff7cce1a807f54a318046",
+          "772ff7cce1a807f54a318046"
+        ]
+      },
+      "outcomes": [
+        {
+          "result": "rejected",
+          "initial_backend_pid": 99113,
+          "final_backend_pid": 99113,
+          "attempts": [
+            "serialization_retry"
+          ],
+          "code": "version_conflict"
+        },
+        {
+          "result": "accepted",
+          "initial_backend_pid": 99090,
+          "final_backend_pid": 99090,
+          "attempts": [],
+          "data": {
+            "event_id": 62,
+            "state": "confirmed",
+            "pending_reason": "",
+            "fee_id": 48,
+            "amount": 1200.0,
+            "inventory_event_ids": [
+              110
+            ],
+            "move_ids": [
+              154
+            ],
+            "policy": "demo_confirmation",
+            "result": "accepted"
+          }
+        }
+      ]
+    },
+    {
+      "case": "old_lease",
+      "round": 1,
+      "result": "PASS",
+      "trace": [
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 99113,
+            "time_ns": 327711139396563
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 327711139398496
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 327711140034904
+          },
+          {
+            "event": "commit",
+            "time_ns": 327711299097389
+          }
+        ],
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 99090,
+            "time_ns": 327711139848921
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 327711139850073
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 327711139866264
+          },
+          {
+            "event": "serialization_retry",
+            "time_ns": 327711308069570
+          },
+          {
+            "event": "connected",
+            "attempt": 1,
+            "pid": 99090,
+            "time_ns": 327711319394185
+          }
+        ]
+      ],
+      "identities": {
+        "patient_id": 117,
+        "execution_id": 139,
+        "store_id": 23,
+        "kind": "old_lease",
+        "sources": [
+          "19824403c815216ddbe33c9c",
+          "19824403c815216ddbe33c9c"
+        ]
+      },
+      "outcomes": [
+        {
+          "result": "accepted",
+          "initial_backend_pid": 99113,
+          "final_backend_pid": 99113,
+          "attempts": [],
+          "data": {
+            "event_id": 63,
+            "state": "confirmed",
+            "pending_reason": "",
+            "fee_id": 49,
+            "amount": 600.0,
+            "inventory_event_ids": [
+              112
+            ],
+            "move_ids": [
+              156
+            ],
+            "policy": "demo_confirmation",
+            "result": "accepted"
+          }
+        },
+        {
+          "result": "rejected",
+          "initial_backend_pid": 99090,
+          "final_backend_pid": 99090,
+          "attempts": [
+            "serialization_retry"
+          ],
+          "code": "access_denied"
+        }
+      ]
+    },
+    {
+      "case": "shortage_last_unit",
+      "round": 1,
+      "result": "PASS",
+      "trace": [
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 99090,
+            "time_ns": 327718484762507
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 327718484764140
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 327718485073937
+          },
+          {
+            "event": "serialization_retry",
+            "time_ns": 327718651863282
+          },
+          {
+            "event": "connected",
+            "attempt": 1,
+            "pid": 99090,
+            "time_ns": 327718663332330
+          }
+        ],
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 99113,
+            "time_ns": 327718484930194
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 327718484931006
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 327718484942267
+          },
+          {
+            "event": "commit",
+            "time_ns": 327718643339440
+          }
+        ]
+      ],
+      "identities": {
+        "patient_id": 118,
+        "execution_id": 140,
+        "store_id": 25,
+        "kind": "shortage_last_unit",
+        "sources": [
+          "75d9f111fa2bb65c737d6780",
+          "f36a1647aae27a1673a6c50c"
+        ]
+      },
+      "outcomes": [
+        {
+          "result": "rejected",
+          "initial_backend_pid": 99090,
+          "final_backend_pid": 99090,
+          "attempts": [
+            "serialization_retry"
+          ],
+          "code": "insufficient_balance"
+        },
+        {
+          "result": "accepted",
+          "initial_backend_pid": 99113,
+          "final_backend_pid": 99113,
+          "attempts": [],
+          "data": {
+            "event_id": 64,
+            "state": "confirmed",
+            "pending_reason": "",
+            "fee_id": 50,
+            "amount": 600.0,
+            "inventory_event_ids": [
+              114
+            ],
+            "move_ids": [
+              158
+            ],
+            "policy": "demo_confirmation",
+            "result": "accepted"
+          }
+        }
+      ]
+    },
+    {
+      "case": "missing_price_fact",
+      "round": 1,
+      "result": "PASS",
+      "trace": [
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 99090,
+            "time_ns": 327725976634194
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 327725976635236
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 327725977254590
+          },
+          {
+            "event": "serialization_retry",
+            "time_ns": 327726054440463
+          },
+          {
+            "event": "connected",
+            "attempt": 1,
+            "pid": 99090,
+            "time_ns": 327726065857814
+          },
+          {
+            "event": "commit",
+            "time_ns": 327726119379653
+          }
+        ],
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 99113,
+            "time_ns": 327725977096010
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 327725977097082
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 327725977111318
+          },
+          {
+            "event": "commit",
+            "time_ns": 327726045464405
+          }
+        ]
+      ],
+      "identities": {
+        "patient_id": 119,
+        "execution_id": 141,
+        "store_id": 27,
+        "kind": "missing_price_fact",
+        "sources": [
+          "7f2f67357ebf8f9ef7a633df",
+          "7f2f67357ebf8f9ef7a633df"
+        ]
+      },
+      "outcomes": [
+        {
+          "result": "accepted",
+          "initial_backend_pid": 99090,
+          "final_backend_pid": 99090,
+          "attempts": [
+            "serialization_retry"
+          ],
+          "data": {
+            "event_id": 66,
+            "state": "pending",
+            "pending_reason": "missing_price",
+            "fee_id": false,
+            "amount": null,
+            "inventory_event_ids": [],
+            "move_ids": [],
+            "policy": "demo_confirmation",
+            "result": "accepted"
+          }
+        },
+        {
+          "result": "accepted",
+          "initial_backend_pid": 99113,
+          "final_backend_pid": 99113,
+          "attempts": [],
+          "data": {
+            "event_id": 66,
+            "state": "pending",
+            "pending_reason": "missing_price",
+            "fee_id": false,
+            "amount": null,
+            "inventory_event_ids": [],
+            "move_ids": [],
+            "policy": "demo_confirmation",
+            "result": "accepted"
+          }
+        }
+      ]
+    },
+    {
+      "case": "recover_original",
+      "round": 1,
+      "result": "PASS",
+      "trace": [
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 99090,
+            "time_ns": 327733761666319
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 327733761667381
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 327733762182429
+          },
+          {
+            "event": "commit",
+            "time_ns": 327733801759452
+          }
+        ],
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 99113,
+            "time_ns": 327733762039187
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 327733762040349
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 327733762053063
+          },
+          {
+            "event": "serialization_retry",
+            "time_ns": 327733810316316
+          },
+          {
+            "event": "connected",
+            "attempt": 1,
+            "pid": 99113,
+            "time_ns": 327733821708288
+          },
+          {
+            "event": "commit",
+            "time_ns": 327733851047699
+          }
+        ]
+      ],
+      "identities": {
+        "patient_id": 120,
+        "execution_id": 142,
+        "store_id": 29,
+        "kind": "recover_original",
+        "sources": [],
+        "event_id": 67
+      },
+      "outcomes": [
+        {
+          "result": "accepted",
+          "initial_backend_pid": 99090,
+          "final_backend_pid": 99090,
+          "attempts": [],
+          "data": {
+            "event_id": 67,
+            "state": "confirmed",
+            "pending_reason": "",
+            "fee_id": 51,
+            "amount": 600.0,
+            "inventory_event_ids": [
+              118
+            ],
+            "move_ids": [
+              162
+            ],
+            "policy": "demo_confirmation",
+            "result": "accepted"
+          }
+        },
+        {
+          "result": "accepted",
+          "initial_backend_pid": 99113,
+          "final_backend_pid": 99113,
+          "attempts": [
+            "serialization_retry"
+          ],
+          "data": {
+            "event_id": 67,
+            "state": "confirmed",
+            "pending_reason": "",
+            "fee_id": 51,
+            "amount": 600.0,
+            "inventory_event_ids": [
+              118
+            ],
+            "move_ids": [
+              162
+            ],
+            "policy": "demo_confirmation",
+            "result": "accepted"
+          }
+        }
+      ]
+    },
+    {
+      "case": "native_move_failure",
+      "round": 1,
+      "result": "PASS",
+      "trace": [
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 99113,
+            "time_ns": 327741273497112
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 327741273498795
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 327741273922739
+          }
+        ],
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 99090,
+            "time_ns": 327741273784357
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 327741273785429
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 327741273797772
+          }
+        ]
+      ],
+      "identities": {
+        "patient_id": 121,
+        "execution_id": 143,
+        "store_id": 31,
+        "kind": "native_move_failure",
+        "sources": [
+          "da5da2ba7194e4128895e653",
+          "da5da2ba7194e4128895e653"
+        ]
+      },
+      "outcomes": [
+        {
+          "result": "rejected",
+          "initial_backend_pid": 99113,
+          "final_backend_pid": 99113,
+          "attempts": [],
+          "code": "native_move_failure"
+        },
+        {
+          "result": "rejected",
+          "initial_backend_pid": 99090,
+          "final_backend_pid": 99090,
+          "attempts": [],
+          "code": "native_move_failure"
+        }
+      ]
+    },
+    {
+      "case": "dispense_distinct_four",
+      "round": 1,
+      "result": "PASS",
+      "trace": [
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 99090,
+            "time_ns": 327749605548875
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 327749605549987
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 327749606111853
+          },
+          {
+            "event": "commit",
+            "time_ns": 327749770980815
+          }
+        ],
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 99113,
+            "time_ns": 327749605988880
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 327749605989752
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 327749606015500
+          },
+          {
+            "event": "serialization_retry",
+            "time_ns": 327749780870296
+          },
+          {
+            "event": "connected",
+            "attempt": 1,
+            "pid": 99113,
+            "time_ns": 327749792315820
+          }
+        ]
+      ],
+      "identities": {
+        "patient_id": 122,
+        "execution_id": 144,
+        "store_id": 33,
+        "kind": "dispense_distinct_four",
+        "sources": [
+          "67e985851a404626e6f4a4e3",
+          "606d7944428a7e839e68da34"
+        ],
+        "order_id": 19,
+        "line_id": 21
+      },
+      "outcomes": [
+        {
+          "result": "accepted",
+          "initial_backend_pid": 99090,
+          "final_backend_pid": 99090,
+          "attempts": [],
+          "data": {
+            "event_id": 70,
+            "state": "confirmed",
+            "pending_reason": "",
+            "fee_id": 52,
+            "amount": 40.0,
+            "inventory_event_ids": [
+              124
+            ],
+            "move_ids": [
+              167
+            ],
+            "policy": "demo_confirmation",
+            "line_id": 21,
+            "remaining": 2.0,
+            "result": "accepted"
+          }
+        },
+        {
+          "result": "rejected",
+          "initial_backend_pid": 99113,
+          "final_backend_pid": 99113,
+          "attempts": [
+            "serialization_retry"
+          ],
+          "code": "overdispense"
+        }
+      ]
+    },
+    {
+      "case": "dispense_same_source",
+      "round": 1,
+      "result": "PASS",
+      "trace": [
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 99113,
+            "time_ns": 327758052023096
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 327758052024709
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 327758052531039
+          },
+          {
+            "event": "serialization_retry",
+            "time_ns": 327758231468460
+          },
+          {
+            "event": "connected",
+            "attempt": 1,
+            "pid": 99113,
+            "time_ns": 327758242880391
+          },
+          {
+            "event": "commit",
+            "time_ns": 327758308617042
+          }
+        ],
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 99090,
+            "time_ns": 327758052375064
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 327758052376336
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 327758052387767
+          },
+          {
+            "event": "commit",
+            "time_ns": 327758222313021
+          }
+        ]
+      ],
+      "identities": {
+        "patient_id": 123,
+        "execution_id": 146,
+        "store_id": 35,
+        "kind": "dispense_same_source",
+        "sources": [
+          "c319873e7ca85b23e3ceb594",
+          "c319873e7ca85b23e3ceb594"
+        ],
+        "order_id": 20,
+        "line_id": 22
+      },
+      "outcomes": [
+        {
+          "result": "accepted",
+          "initial_backend_pid": 99113,
+          "final_backend_pid": 99113,
+          "attempts": [
+            "serialization_retry"
+          ],
+          "data": {
+            "event_id": 71,
+            "state": "confirmed",
+            "pending_reason": "",
+            "fee_id": 53,
+            "amount": 40.0,
+            "inventory_event_ids": [
+              126
+            ],
+            "move_ids": [
+              169
+            ],
+            "policy": "demo_confirmation",
+            "line_id": 22,
+            "remaining": 2.0,
+            "result": "accepted"
+          }
+        },
+        {
+          "result": "accepted",
+          "initial_backend_pid": 99090,
+          "final_backend_pid": 99090,
+          "attempts": [],
+          "data": {
+            "event_id": 71,
+            "state": "confirmed",
+            "pending_reason": "",
+            "fee_id": 53,
+            "amount": 40.0,
+            "inventory_event_ids": [
+              126
+            ],
+            "move_ids": [
+              169
+            ],
+            "policy": "demo_confirmation",
+            "line_id": 22,
+            "remaining": 2.0,
+            "result": "accepted"
+          }
+        }
+      ]
+    },
+    {
+      "case": "finish_same_key",
+      "round": 1,
+      "result": "PASS",
+      "trace": [
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 99113,
+            "time_ns": 327766704541663
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 327766704543476
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 327766704786437
+          },
+          {
+            "event": "serialization_retry",
+            "time_ns": 327766793845285
+          },
+          {
+            "event": "connected",
+            "attempt": 1,
+            "pid": 99113,
+            "time_ns": 327766805339100
+          },
+          {
+            "event": "commit",
+            "time_ns": 327766829333912
+          }
+        ],
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 99090,
+            "time_ns": 327766704679074
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 327766704679915
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 327766704690635
+          },
+          {
+            "event": "commit",
+            "time_ns": 327766792048897
+          }
+        ]
+      ],
+      "identities": {
+        "patient_id": 124,
+        "execution_id": 148,
+        "store_id": 37,
+        "kind": "finish_same_key",
+        "sources": [],
+        "order_id": 21,
+        "line_id": 23
+      },
+      "outcomes": [
+        {
+          "result": "accepted",
+          "initial_backend_pid": 99113,
+          "final_backend_pid": 99113,
+          "attempts": [
+            "serialization_retry"
+          ],
+          "data": {
+            "state": "completed",
+            "order_state": "issued",
+            "execution_id": 149,
+            "next_task_id": 189,
+            "next_segment_id": 22,
+            "result": "already_accepted"
+          }
+        },
+        {
+          "result": "accepted",
+          "initial_backend_pid": 99090,
+          "final_backend_pid": 99090,
+          "attempts": [],
+          "data": {
+            "execution_id": 149,
+            "state": "completed",
+            "order_state": "issued",
+            "next_task_id": 189,
+            "next_segment_id": 22,
+            "result": "accepted"
+          }
+        }
+      ]
+    },
+    {
+      "case": "finish_distinct_keys",
+      "round": 1,
+      "result": "PASS",
+      "trace": [
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 99113,
+            "time_ns": 327775334852328
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 327775334853621
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 327775335235094
+          },
+          {
+            "event": "serialization_retry",
+            "time_ns": 327775437977121
+          },
+          {
+            "event": "connected",
+            "attempt": 1,
+            "pid": 99113,
+            "time_ns": 327775449203850
+          }
+        ],
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 99090,
+            "time_ns": 327775335124263
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 327775335125045
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 327775335135876
+          },
+          {
+            "event": "commit",
+            "time_ns": 327775431288852
+          }
+        ]
+      ],
+      "identities": {
+        "patient_id": 125,
+        "execution_id": 150,
+        "store_id": 39,
+        "kind": "finish_distinct_keys",
+        "sources": [],
+        "order_id": 22,
+        "line_id": 24
+      },
+      "outcomes": [
+        {
+          "result": "rejected",
+          "initial_backend_pid": 99113,
+          "final_backend_pid": 99113,
+          "attempts": [
+            "serialization_retry"
+          ],
+          "code": "access_denied"
+        },
+        {
+          "result": "accepted",
+          "initial_backend_pid": 99090,
+          "final_backend_pid": 99090,
+          "attempts": [],
+          "data": {
+            "execution_id": 151,
+            "state": "completed",
+            "order_state": "issued",
+            "next_task_id": 193,
+            "next_segment_id": 24,
+            "result": "accepted"
+          }
+        }
+      ]
+    },
+    {
+      "case": "restore_vs_pharmacy_start",
+      "round": 1,
+      "result": "PASS",
+      "trace": [
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 99113,
+            "time_ns": 327783821538225
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 327783821539197
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 327783822965253
+          },
+          {
+            "event": "serialization_retry",
+            "time_ns": 327783930274525
+          },
+          {
+            "event": "connected",
+            "attempt": 1,
+            "pid": 99090,
+            "time_ns": 327783946985377
+          }
+        ],
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 99090,
+            "time_ns": 327783822842040
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 327783822842931
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 327783822856106
+          },
+          {
+            "event": "commit",
+            "time_ns": 327783936802248
+          }
+        ]
+      ],
+      "identities": {
+        "patient_id": 126,
+        "execution_id": 152,
+        "store_id": 41,
+        "kind": "restore_vs_pharmacy_start",
+        "sources": [],
+        "order_id": 23,
+        "line_id": 25
+      },
+      "outcomes": [
+        {
+          "result": "rejected",
+          "initial_backend_pid": 99113,
+          "final_backend_pid": 99090,
+          "attempts": [
+            "serialization_retry"
+          ],
+          "code": "handover_required"
+        },
+        {
+          "result": "accepted",
+          "initial_backend_pid": 99090,
+          "final_backend_pid": 99090,
+          "attempts": [],
+          "data": {
+            "entry_id": 151,
+            "execution_id": 153,
+            "state": "serving",
+            "result": "accepted"
+          }
+        }
+      ]
+    },
+    {
+      "case": "exam_cancel_vs_report",
+      "round": 1,
+      "result": "PASS",
+      "trace": [
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 99090,
+            "time_ns": 327791960936386
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 327791960937358
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 327791961536515
+          },
+          {
+            "event": "commit",
+            "time_ns": 327792040422163
+          }
+        ],
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 99113,
+            "time_ns": 327791961370521
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 327791961371753
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 327791961386000
+          }
+        ]
+      ],
+      "identities": {
+        "patient_id": 127,
+        "execution_id": 154,
+        "store_id": 43,
+        "kind": "exam_cancel_vs_report",
+        "sources": [],
+        "line_id": 26
+      },
+      "outcomes": [
+        {
+          "result": "accepted",
+          "initial_backend_pid": 99090,
+          "final_backend_pid": 99090,
+          "attempts": [],
+          "data": {
+            "line_id": 26,
+            "state": "cancelled",
+            "order_version": 3,
+            "result": "accepted"
+          }
+        },
+        {
+          "result": "rejected",
+          "initial_backend_pid": 99113,
+          "final_backend_pid": 99113,
+          "attempts": [],
+          "code": "handover_required"
+        }
+      ]
+    },
+    {
+      "case": "timed_last_capacity",
+      "round": 1,
+      "result": "PASS",
+      "trace": [
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 99090,
+            "time_ns": 327800301552328
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 327800301553550
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 327800302062636
+          },
+          {
+            "event": "serialization_retry",
+            "time_ns": 327800467327348
+          },
+          {
+            "event": "connected",
+            "attempt": 1,
+            "pid": 99090,
+            "time_ns": 327800478937844
+          }
+        ],
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 99113,
+            "time_ns": 327800301923863
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 327800301925015
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 327800301936777
+          },
+          {
+            "event": "commit",
+            "time_ns": 327800458166589
+          }
+        ]
+      ],
+      "identities": {
+        "patient_id": 128,
+        "execution_id": 155,
+        "store_id": 45,
+        "kind": "timed_last_capacity",
+        "sources": [],
+        "target_mapping_id": 192
+      },
+      "outcomes": [
+        {
+          "result": "rejected",
+          "initial_backend_pid": 99090,
+          "final_backend_pid": 99090,
+          "attempts": [
+            "serialization_retry"
+          ],
+          "code": "insufficient_balance"
+        },
+        {
+          "result": "accepted",
+          "initial_backend_pid": 99113,
+          "final_backend_pid": 99113,
+          "attempts": [],
+          "data": {
+            "id": 136,
+            "task_id": 202,
+            "claim_id": 136,
+            "version": 1,
+            "task_version": 2,
+            "patient_id": 128,
+            "result": "accepted",
+            "source_store_id": 45,
+            "target_store_id": 46,
+            "source_task_id": 198,
+            "target_mapping_id": 192
+          }
+        }
+      ]
+    },
+    {
+      "case": "untimed_accept",
+      "round": 1,
+      "result": "PASS",
+      "trace": [
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 99090,
+            "time_ns": 327808957168442
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 327808957169474
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 327808957413106
+          },
+          {
+            "event": "commit",
+            "time_ns": 327809033925562
+          }
+        ],
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 99113,
+            "time_ns": 327808957294610
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 327808957295352
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 327808957305602
+          },
+          {
+            "event": "serialization_retry",
+            "time_ns": 327809042310518
+          },
+          {
+            "event": "connected",
+            "attempt": 1,
+            "pid": 99113,
+            "time_ns": 327809053614244
+          }
+        ]
+      ],
+      "identities": {
+        "patient_id": 132,
+        "execution_id": 156,
+        "store_id": 47,
+        "kind": "untimed_accept",
+        "sources": [],
+        "target_mapping_id": 201
+      },
+      "outcomes": [
+        {
+          "result": "accepted",
+          "initial_backend_pid": 99090,
+          "final_backend_pid": 99090,
+          "attempts": [],
+          "data": {
+            "id": 138,
+            "task_id": 205,
+            "claim_id": 138,
+            "version": 1,
+            "task_version": 2,
+            "patient_id": 132,
+            "referral_id": 3,
+            "referral_version": 2,
+            "result": "accepted"
+          }
+        },
+        {
+          "result": "rejected",
+          "initial_backend_pid": 99113,
+          "final_backend_pid": 99113,
+          "attempts": [
+            "serialization_retry"
+          ],
+          "code": "version_conflict"
+        }
+      ]
+    },
+    {
+      "case": "referral_same_source",
+      "round": 1,
+      "result": "PASS",
+      "trace": [
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 99113,
+            "time_ns": 327817244223650
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 327817244225023
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 327817244617397
+          },
+          {
+            "event": "serialization_retry",
+            "time_ns": 327817436135025
+          },
+          {
+            "event": "connected",
+            "attempt": 1,
+            "pid": 99113,
+            "time_ns": 327817447212370
+          },
+          {
+            "event": "commit",
+            "time_ns": 327817562297032
+          }
+        ],
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 99090,
+            "time_ns": 327817244474727
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 327817244475668
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 327817244498361
+          },
+          {
+            "event": "commit",
+            "time_ns": 327817427201957
+          }
+        ]
+      ],
+      "identities": {
+        "patient_id": 133,
+        "execution_id": 157,
+        "store_id": 49,
+        "kind": "referral_same_source",
+        "sources": [],
+        "target_mapping_id": 210
+      },
+      "outcomes": [
+        {
+          "result": "accepted",
+          "initial_backend_pid": 99113,
+          "final_backend_pid": 99113,
+          "attempts": [
+            "serialization_retry"
+          ],
+          "data": {
+            "id": 140,
+            "result": "accepted",
+            "task_id": 207,
+            "version": 1,
+            "claim_id": 140,
+            "patient_id": 133,
+            "task_version": 2,
+            "source_task_id": 206,
+            "source_store_id": 49,
+            "target_store_id": 50,
+            "target_mapping_id": 210
+          }
+        },
+        {
+          "result": "accepted",
+          "initial_backend_pid": 99090,
+          "final_backend_pid": 99090,
+          "attempts": [],
+          "data": {
+            "id": 140,
+            "task_id": 207,
+            "claim_id": 140,
+            "version": 1,
+            "task_version": 2,
+            "patient_id": 133,
+            "result": "accepted",
+            "source_store_id": 49,
+            "target_store_id": 50,
+            "source_task_id": 206,
+            "target_mapping_id": 210
+          }
+        }
+      ]
+    },
+    {
+      "case": "price_publish_vs_execute",
+      "round": 1,
+      "result": "PASS",
+      "trace": [
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 99113,
+            "time_ns": 327825969963819
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 327825969964981
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 327825970303102
+          },
+          {
+            "event": "serialization_retry",
+            "time_ns": 327826002566221
+          },
+          {
+            "event": "connected",
+            "attempt": 1,
+            "pid": 99113,
+            "time_ns": 327826014204339
+          },
+          {
+            "event": "commit",
+            "time_ns": 327826183742790
+          }
+        ],
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 99090,
+            "time_ns": 327825970175210
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 327825970176282
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 327825970189197
+          },
+          {
+            "event": "commit",
+            "time_ns": 327826000827963
+          }
+        ]
+      ],
+      "identities": {
+        "patient_id": 134,
+        "execution_id": 158,
+        "store_id": 51,
+        "kind": "price_publish_vs_execute",
+        "sources": [
+          "ffb301d1277bbc0b3f5ae990"
+        ],
+        "clock_utc": "2026-10-13 00:37:34"
+      },
+      "outcomes": [
+        {
+          "result": "accepted",
+          "initial_backend_pid": 99113,
+          "final_backend_pid": 99113,
+          "attempts": [
+            "serialization_retry"
+          ],
+          "data": {
+            "event_id": 74,
+            "state": "confirmed",
+            "pending_reason": "",
+            "fee_id": 56,
+            "amount": 999.0,
+            "inventory_event_ids": [
+              133
+            ],
+            "move_ids": [
+              176
+            ],
+            "policy": "demo_confirmation",
+            "result": "accepted"
+          }
+        },
+        {
+          "result": "accepted",
+          "initial_backend_pid": 99090,
+          "final_backend_pid": 99090,
+          "attempts": [],
+          "data": {
+            "id": 59,
+            "version": 4,
+            "result": "accepted"
+          }
+        }
+      ]
+    },
+    {
+      "case": "revocation_vs_execute",
+      "round": 1,
+      "result": "PASS",
+      "trace": [
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 99113,
+            "time_ns": 327834703931437
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 327834703932809
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 327834704260621
+          },
+          {
+            "event": "serialization_retry",
+            "time_ns": 327834727086595
+          },
+          {
+            "event": "connected",
+            "attempt": 1,
+            "pid": 99113,
+            "time_ns": 327834738611179
+          }
+        ],
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 99090,
+            "time_ns": 327834704112641
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 327834704113633
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 327834704128080
+          },
+          {
+            "event": "commit",
+            "time_ns": 327834725632628
+          }
+        ]
+      ],
+      "identities": {
+        "patient_id": 135,
+        "execution_id": 159,
+        "store_id": 53,
+        "kind": "revocation_vs_execute",
+        "sources": [
+          "a7ea54fe389ee2b2dbb0a949"
+        ]
+      },
+      "outcomes": [
+        {
+          "result": "rejected",
+          "initial_backend_pid": 99113,
+          "final_backend_pid": 99113,
+          "attempts": [
+            "serialization_retry"
+          ],
+          "code": "access_denied"
+        },
+        {
+          "result": "accepted",
+          "initial_backend_pid": 99090,
+          "final_backend_pid": 99090,
+          "attempts": [],
+          "data": {}
+        }
+      ]
+    },
+    {
+      "case": "two_pharmacy_stations_call",
+      "round": 1,
+      "result": "PASS",
+      "trace": [
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 99113,
+            "time_ns": 327844654392454
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 327844654393827
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 327844654876081
+          },
+          {
+            "event": "commit",
+            "time_ns": 327844711397681
+          }
+        ],
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 99090,
+            "time_ns": 327844654751235
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 327844654752047
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 327844654764310
+          },
+          {
+            "event": "serialization_retry",
+            "time_ns": 327844704918730
+          },
+          {
+            "event": "connected",
+            "attempt": 1,
+            "pid": 99113,
+            "time_ns": 327844721710306
+          }
+        ]
+      ],
+      "identities": {
+        "patient_id": 136,
+        "execution_id": 160,
+        "store_id": 55,
+        "kind": "two_pharmacy_stations_call",
+        "sources": [],
+        "order_id": 25,
+        "line_id": 27
+      },
+      "outcomes": [
+        {
+          "result": "accepted",
+          "initial_backend_pid": 99113,
+          "final_backend_pid": 99113,
+          "attempts": [],
+          "data": {
+            "entry_id": 159,
+            "task_id": 211,
+            "state": "calling",
+            "result": "accepted"
+          }
+        },
+        {
+          "result": "rejected",
+          "initial_backend_pid": 99090,
+          "final_backend_pid": 99113,
+          "attempts": [
+            "serialization_retry"
+          ],
+          "code": "no_eligible_waiting"
+        }
+      ]
+    },
+    {
+      "case": "finish_vs_medical_start",
+      "round": 1,
+      "result": "PASS",
+      "trace": [
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 99113,
+            "time_ns": 327854152341268
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 327854152342401
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 327854152868618
+          },
+          {
+            "event": "commit",
+            "time_ns": 327854265755572
+          }
+        ],
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 99090,
+            "time_ns": 327854152739854
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 327854152740936
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 327854152753100
+          }
+        ]
+      ],
+      "identities": {
+        "patient_id": 137,
+        "execution_id": 161,
+        "store_id": 57,
+        "kind": "finish_vs_medical_start",
+        "sources": [],
+        "order_id": 26,
+        "line_id": 28
+      },
+      "outcomes": [
+        {
+          "result": "accepted",
+          "initial_backend_pid": 99113,
+          "final_backend_pid": 99113,
+          "attempts": [],
+          "data": {
+            "execution_id": 162,
+            "state": "completed",
+            "order_state": "issued",
+            "next_task_id": 216,
+            "next_segment_id": 28,
+            "result": "accepted"
+          }
+        },
+        {
+          "result": "rejected",
+          "initial_backend_pid": 99090,
+          "final_backend_pid": 99090,
+          "attempts": [],
+          "code": "handover_required"
+        }
+      ]
+    }
+  ],
+  "deadlocks": 0,
+  "failures": [],
+  "result": "PASS"
+}

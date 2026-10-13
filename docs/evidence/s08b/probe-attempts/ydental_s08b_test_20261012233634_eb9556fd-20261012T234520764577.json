@@ -1,0 +1,199 @@
+{
+  "database": "ydental_s08b_test_20261012233634_eb9556fd",
+  "tested_commit": "232a46d5a9a503573d386e67275fc2eb81904958",
+  "races": [
+    {
+      "case": "execute_same",
+      "round": 1,
+      "result": "PASS",
+      "trace": [
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 90581,
+            "time_ns": 324707098363221
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 324707098364804
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 324707105101775
+          },
+          {
+            "event": "commit",
+            "time_ns": 324707258769996
+          }
+        ],
+        [
+          {
+            "event": "connected",
+            "attempt": 0,
+            "pid": 90605,
+            "time_ns": 324707104935479
+          },
+          {
+            "event": "barrier_enter",
+            "time_ns": 324707104936992
+          },
+          {
+            "event": "barrier_exit",
+            "time_ns": 324707104954997
+          },
+          {
+            "event": "serialization_retry",
+            "time_ns": 324707271030516
+          },
+          {
+            "event": "connected",
+            "attempt": 1,
+            "pid": 90605,
+            "time_ns": 324707282297922
+          },
+          {
+            "event": "commit",
+            "time_ns": 324707348017802
+          }
+        ]
+      ],
+      "identities": {
+        "patient_id": 127,
+        "execution_id": 147,
+        "store_id": 21,
+        "kind": "execute_same",
+        "sources": [
+          "a55ea6f6d28338b9a606de58",
+          "a55ea6f6d28338b9a606de58"
+        ]
+      },
+      "outcomes": [
+        {
+          "result": "accepted",
+          "initial_backend_pid": 90581,
+          "final_backend_pid": 90581,
+          "attempts": [],
+          "data": {
+            "event_id": 43,
+            "state": "confirmed",
+            "pending_reason": "",
+            "fee_id": 31,
+            "amount": 600.0,
+            "inventory_event_ids": [
+              79
+            ],
+            "move_ids": [
+              124
+            ],
+            "policy": "demo_confirmation",
+            "result": "accepted"
+          }
+        },
+        {
+          "result": "accepted",
+          "initial_backend_pid": 90605,
+          "final_backend_pid": 90605,
+          "attempts": [
+            "serialization_retry"
+          ],
+          "data": {
+            "event_id": 43,
+            "state": "confirmed",
+            "pending_reason": "",
+            "fee_id": 31,
+            "amount": 600.0,
+            "inventory_event_ids": [
+              79
+            ],
+            "move_ids": [
+              124
+            ],
+            "policy": "demo_confirmation",
+            "result": "accepted"
+          }
+        }
+      ]
+    }
+  ],
+  "deadlocks": 0,
+  "failures": [
+    {
+      "type": "UniqueViolation",
+      "detail": "duplicate key value violates unique constraint \"stock_warehouse_warehouse_name_uniq\"\nDETAIL:  Key (name, company_id)=(S06A Synthetic A, 1) already exists.\n",
+      "trace": [
+        {
+          "file": "s08b_probe.py",
+          "line": 169,
+          "method": "<module>"
+        },
+        {
+          "file": "s08b_probe.py",
+          "line": 95,
+          "method": "race"
+        },
+        {
+          "file": "s08b_probe.py",
+          "line": 31,
+          "method": "fixture"
+        },
+        {
+          "file": "treatment_common.py",
+          "line": 14,
+          "method": "setup"
+        },
+        {
+          "file": "ydental_inventory_service.py",
+          "line": 151,
+          "method": "_operate"
+        },
+        {
+          "file": "ydental_inventory_service.py",
+          "line": 164,
+          "method": "_setup"
+        },
+        {
+          "file": "decorators.py",
+          "line": 330,
+          "method": "create"
+        },
+        {
+          "file": "stock_warehouse.py",
+          "line": 138,
+          "method": "create"
+        },
+        {
+          "file": "decorators.py",
+          "line": 330,
+          "method": "create"
+        },
+        {
+          "file": "ydental_inventory_native.py",
+          "line": 55,
+          "method": "create"
+        },
+        {
+          "file": "decorators.py",
+          "line": 330,
+          "method": "create"
+        },
+        {
+          "file": "models.py",
+          "line": 4192,
+          "method": "create"
+        },
+        {
+          "file": "models.py",
+          "line": 4387,
+          "method": "_create"
+        },
+        {
+          "file": "sql_db.py",
+          "line": 418,
+          "method": "execute"
+        }
+      ]
+    }
+  ],
+  "result": "FAIL"
+}

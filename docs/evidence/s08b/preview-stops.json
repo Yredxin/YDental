@@ -1,0 +1,16 @@
+[
+  {
+    "phase": "A",
+    "pid": 1538422,
+    "config_sha256": "7f4bc834343ff561a99ef19be697cbf6a9c359a078849d847d8f72ef0d1799c2",
+    "exit_code": 0,
+    "scope": "Only exact config/hash/PID owned preview"
+  },
+  {
+    "phase": "B",
+    "pid": 1539592,
+    "config_sha256": "7f4bc834343ff561a99ef19be697cbf6a9c359a078849d847d8f72ef0d1799c2",
+    "exit_code": 0,
+    "scope": "Only exact config/hash/PID owned preview"
+  }
+]

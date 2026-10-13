@@ -1,0 +1,132 @@
+{
+  "scope": "S08-B real reception, teeth, authored text, handover and pending responsibility",
+  "database": "ydental_s08b_test_20261012233634_eb9556fd",
+  "tested_commit": "7b74d5a14355f9817150d38b753f71469ba7ae5f",
+  "browser": "Firefox",
+  "sandbox": "default, no overrides",
+  "checks": [
+    {
+      "check": "three actual A autosaves before B action",
+      "result": "PASS"
+    },
+    {
+      "check": "Chinese treatment UI and demonstration boundary",
+      "result": "PASS"
+    },
+    {
+      "check": "autosaves create no actual events",
+      "result": "PASS"
+    },
+    {
+      "check": "actual confirmation freezes every editable control while response held",
+      "result": "PASS"
+    },
+    {
+      "check": "full form change preserves uncertain page and forbids automatic replay",
+      "result": "PASS"
+    },
+    {
+      "check": "F1 actual event confirmed with frozen600 and native move",
+      "result": "PASS"
+    },
+    {
+      "check": "material delta appends immutable event",
+      "result": "PASS"
+    },
+    {
+      "check": "draft edit increments server version and preserves superseded rows",
+      "result": "PASS"
+    },
+    {
+      "check": "issued examination set freezes editing",
+      "result": "PASS"
+    },
+    {
+      "check": "F4 unperformed cancellation retained with other exam issued",
+      "result": "PASS"
+    },
+    {
+      "check": "F3 prescription has one explicit pending-report task",
+      "result": "PASS"
+    },
+    {
+      "check": "F5 timed referral leaves original medical execution serving",
+      "result": "PASS"
+    },
+    {
+      "check": "F4 physically performed shortage preserved pending",
+      "result": "PASS"
+    },
+    {
+      "check": "medical handover independent of project and referral",
+      "result": "PASS"
+    },
+    {
+      "check": "F3 actual four remaining two",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s08b/b-browser-attempts/20261013T001841513727/B00-real-response-held-unsynchronized.png",
+      "sha256": "4e5d71aab444ae2de13be19228b873e2f3e7a9233c31c5d6c36819e3c37771c5"
+    },
+    {
+      "path": "docs/evidence/s08b/b-browser-attempts/20261013T001841513727/B01-actual-project-600-native-move.png",
+      "sha256": "5cd4694762fd59685b7845f4e388d7f940117791f292cd59c40e88d87c1d7eed"
+    },
+    {
+      "path": "docs/evidence/s08b/b-browser-attempts/20261013T001841513727/B02-material-delta-original-preserved.png",
+      "sha256": "30084acc19d5dba14260434d0c091d4c3a732029cacf833c4272bc4054443ed2"
+    },
+    {
+      "path": "docs/evidence/s08b/b-browser-attempts/20261013T001841513727/B03-frozen-exam-cbct-cancelled.png",
+      "sha256": "d3c11b10c541f49537b28c06ff9803e7130316a1c3c1dcd704890aac86393fc7"
+    },
+    {
+      "path": "docs/evidence/s08b/b-browser-attempts/20261013T001841513727/B04-six-unit-prescription-awaiting-report.png",
+      "sha256": "8e56949e56c8091e39009382c3b9d15418aa84783477fae8b4f458131828eba6"
+    },
+    {
+      "path": "docs/evidence/s08b/b-browser-attempts/20261013T001841513727/B05-referral-source-independent.png",
+      "sha256": "dd74792e4767a4ed9eba843fd03fef0573407fc315c58d281e1f9b4a65a2529f"
+    },
+    {
+      "path": "docs/evidence/s08b/b-browser-attempts/20261013T001841513727/B06-shortage-fact-awaiting-recovery.png",
+      "sha256": "3fe7a504f13387b47333bd8534c494c7c0a14367fd79f63d0b0773113db20dce"
+    },
+    {
+      "path": "docs/evidence/s08b/b-browser-attempts/20261013T001841513727/B07-real-pharmacy-four-of-six.png",
+      "sha256": "f82496dbe0d493cf8860401ae92bef284746b83cc3e6d3bcde24deef351c4cd7"
+    },
+    {
+      "path": "docs/evidence/s08b/b-browser-attempts/20261013T001841513727/failure-state.png",
+      "sha256": "c6b43cbc83a04c82502e1f9caa213e38aff07fcddc8a67adee5e0adb9a5bfde5"
+    }
+  ],
+  "first_event": 253,
+  "prescription": 85,
+  "result": "FAIL",
+  "error": {
+    "type": "RuntimeError",
+    "detail": "F3 finish releases actual execution",
+    "trace": [
+      {
+        "file": "s08b_browser.py",
+        "line": 204,
+        "method": "main"
+      },
+      {
+        "file": "s08b_browser.py",
+        "line": 72,
+        "method": "check"
+      },
+      {
+        "file": "s08b_browser.py",
+        "line": 30,
+        "method": "require"
+      }
+    ]
+  },
+  "pageerrors": []
+}

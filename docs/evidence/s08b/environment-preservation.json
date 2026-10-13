@@ -1,0 +1,386 @@
+{
+  "time_utc": "2026-10-13T00:55:17.748105+00:00",
+  "original_count": 108,
+  "current_count": 114,
+  "all_original_oid_name_pairs_preserved": true,
+  "original_catalog_sha256": "8ba4f9e3a495272e47ade18bbead2e54014ec248ab2c5023c20c2b7df63e9881",
+  "new_databases": [
+    [
+      1160648,
+      "ydental_s08b_test_20261012233527_b4f85a61"
+    ],
+    [
+      1175582,
+      "ydental_s08b_test_20261012233634_eb9556fd"
+    ],
+    [
+      1192501,
+      "ydental_s08b_test_20261013002255_5797e7cf"
+    ],
+    [
+      1207902,
+      "ydental_s08b_test_20261013002614_10e55495"
+    ],
+    [
+      1223304,
+      "ydental_s08b_test_20261013002949_954f6119"
+    ],
+    [
+      1239388,
+      "ydental_s08b_test_20261013004116_3fd605cd"
+    ]
+  ],
+  "cluster": "7694897083368259627",
+  "postgresql": "18.6 (Debian 18.6-1.pgdg13+2)",
+  "containers": {
+    "odoo20-db": {
+      "id": "23fbbde2b361e362c68e265ff7a52adaf0669a71d1b454a177cd0a7e8ae0b083",
+      "image": "sha256:74935e72241653ca55e0414067e6d8763aceb8a810eb51b452253ec3dcfc4336",
+      "started": "2026-10-12T14:06:17.353878695Z",
+      "pid": 1214144,
+      "running": true,
+      "oom_killed": false,
+      "shm_size": 268435456,
+      "mounts": [
+        {
+          "Type": "volume",
+          "Name": "postgresql_odoo20-db-data",
+          "Destination": "/var/lib/postgresql",
+          "RW": true
+        }
+      ],
+      "ports": {
+        "5432/tcp": [
+          {
+            "HostIp": "0.0.0.0",
+            "HostPort": "5432"
+          },
+          {
+            "HostIp": "::",
+            "HostPort": "5432"
+          }
+        ]
+      }
+    },
+    "odoo12-db": {
+      "id": "97c245575b7a136937cdc0cd392c0b3e60aca1823148d00f7dccc65f7ab7fe5e",
+      "image": "sha256:b2baf8998630663d21370da06387c950e587071bdd307ee34e661cdcc7442bcc",
+      "started": "2026-10-10T04:52:51.4407282Z",
+      "pid": 27374,
+      "running": true,
+      "oom_killed": false,
+      "shm_size": 67108864,
+      "mounts": [
+        {
+          "Type": "volume",
+          "Name": "postgresql_odoo12-db-data",
+          "Destination": "/var/lib/postgresql/data",
+          "RW": true
+        }
+      ],
+      "ports": {
+        "5432/tcp": [
+          {
+            "HostIp": "0.0.0.0",
+            "HostPort": "15432"
+          },
+          {
+            "HostIp": "::",
+            "HostPort": "15432"
+          }
+        ]
+      }
+    },
+    "restful-api-demo-mysql-test": {
+      "id": "1397b815bd0130a20b9e96a3627ec346ec4fa95b611490d1e6a64d4d325de20c",
+      "image": "sha256:9d48c42f8341068f199116dfccb919b607c99765b5c61e549a548a43033471a4",
+      "started": "2026-10-11T04:49:18.163528345Z",
+      "pid": 245707,
+      "running": true,
+      "oom_killed": false,
+      "shm_size": 67108864,
+      "mounts": [
+        {
+          "Type": "bind",
+          "Name": null,
+          "Destination": "/docker-entrypoint-initdb.d/01-tables.sql",
+          "RW": false
+        },
+        {
+          "Type": "volume",
+          "Name": "restful-api-demo-mysql-test-data",
+          "Destination": "/var/lib/mysql",
+          "RW": true
+        }
+      ],
+      "ports": {
+        "3306/tcp": [
+          {
+            "HostIp": "127.0.0.1",
+            "HostPort": "3306"
+          }
+        ],
+        "33060/tcp": null
+      }
+    }
+  },
+  "original_odoo_pid": 42433,
+  "original_odoo_health": {
+    "status": "pass"
+  },
+  "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "core_tracked_unchanged": true,
+  "odoo12_and_db20_identity_unchanged_since_A_final": true,
+  "environment_mutations": 0,
+  "own_previews_all_stopped": true,
+  "shm_df": "Filesystem     1B-blocks     Used Available Use% Mounted on\nshm            268435456 97558528 170876928  37% /dev/shm\n",
+  "new_odoo_segv_or_shm_failure_matches": [],
+  "private_log_hashes": [
+    {
+      "path": ".local/ydental_s08b_test_20261012233527_b4f85a61/install-20261012T233527356343.log",
+      "sha256": "2b5cf5db49cf24a75faa88e15da0a926e02ca8c2e37ed065b376fbe2aeb28cf7",
+      "bytes": 170171
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261012233634_eb9556fd/preview-20261013T002036172472.log",
+      "sha256": "0dddbd293a79df089d8ca0d07be438a3561830debccf9529d729635b1b02ffb3",
+      "bytes": 5947
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261012233634_eb9556fd/upgrade-20261012T235053990179.log",
+      "sha256": "7054ea86c9667d5817ccd4b70dcc8bf968d805d007a1eb6d2cd1353a66b8da22",
+      "bytes": 110471
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261012233634_eb9556fd/export-20261013T000748164402.log",
+      "sha256": "cdd9219a2c40096455b90fccad15abb75684a726b5ac3006b2e2c2d7d551acea",
+      "bytes": 1380
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261012233634_eb9556fd/preview-20261013T000941334724.log",
+      "sha256": "2c874bba4ea70facfa67538f2d575f8394702a957b3eb33aa6292d3b8c8d8a7c",
+      "bytes": 5947
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261012233634_eb9556fd/upgrade-20261012T235825941297.log",
+      "sha256": "4cdb2e28764236a16224c28935b51a517c61c3aee02582c02f8e2379bd5e0fd3",
+      "bytes": 106652
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261012233634_eb9556fd/preview-20261013T000246291454.log",
+      "sha256": "80439a9e8e624e739e131f5b538f8a020d5b2e4143a70154651c53444f649d7f",
+      "bytes": 5947
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261012233634_eb9556fd/preview-20261012T235809112712.log",
+      "sha256": "838642c05277c7e283530aa425d67ce93d3a10982d2f637ae817c63b9848539e",
+      "bytes": 6308
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261012233634_eb9556fd/install-20261012T233634280548.log",
+      "sha256": "77388085aca75ba33d0952985d950aebacf7db00ad3bf49c39db42407bde2621",
+      "bytes": 241876
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261012233634_eb9556fd/upgrade-20261013T001655751814.log",
+      "sha256": "680dadaa958a9575a54ac4a0d03a847c6a5e48d4f8a578b544b7de415be03319",
+      "bytes": 107629
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261012233634_eb9556fd/export-20261012T235622399023.log",
+      "sha256": "b2ec3b35eb50256d5c6311077dc76865d744134c52980d085afb8bebc8805a4d",
+      "bytes": 1741
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261012233634_eb9556fd/serve.log",
+      "sha256": "beb61bb47bf38e84921ce975f62574f6d61176a5004278f4b740b42d4681947f",
+      "bytes": 333568
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261012233634_eb9556fd/upgrade-20261013T000116360474.log",
+      "sha256": "fddea39fa8743bc33c2ead88d9815ad65761741788921a5ed235db2ea49bdab0",
+      "bytes": 108758
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261012233634_eb9556fd/probe-20261012T234957971018.log",
+      "sha256": "063e1387ac01ae4c6e65908af4771e9c55a1ef633079c51b45bedaf0fae959a9",
+      "bytes": 7882
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261012233634_eb9556fd/upgrade-20261013T000548674367.log",
+      "sha256": "118bb5cbefe7611c06ebcf4a315c7135039169c3c2babb81c852de0cb8dab1b6",
+      "bytes": 108200
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261012233634_eb9556fd/probe-20261012T234507276187.log",
+      "sha256": "d8ef1341aebbdef19eb73e060ad51677cf06860904a968917aad2eb37302336a",
+      "bytes": 9668
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261012233634_eb9556fd/upgrade-20261012T234018707496.log",
+      "sha256": "f6820fec00f803831d302feed63dbfba3a30579c19280cef499dd1cc1370b389",
+      "bytes": 88172
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261012233634_eb9556fd/preview-20261013T001826476319.log",
+      "sha256": "67a06fa4d687478bb465ac7fa9118d2d0c96a5e7f02f9c044f66718541159a25",
+      "bytes": 5947
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261012233634_eb9556fd/preview-20261013T001347268931.log",
+      "sha256": "5b2294ea4e5b7af6b0178ce2b8eacee4cdec1b16809406c7befe2518a2352575",
+      "bytes": 5947
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261012233634_eb9556fd/preview-20261013T000343491559.log",
+      "sha256": "cc8bdbf22d9143175ba485d4e203c0c9c1b1db2525ade7ac36860d9ded4ab349",
+      "bytes": 5947
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261012233634_eb9556fd/probe-20261012T235157531651.log",
+      "sha256": "4df1baf222df85a2451d280900f09b494895722e613bfb44e301201e2bd6be2f",
+      "bytes": 14348
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261012233634_eb9556fd/upgrade-20261012T235454984849.log",
+      "sha256": "78d365f0f3daeaac63d6d83fb0dff72b88df92f82158e0d1c2203668ceeb8065",
+      "bytes": 106297
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261012233634_eb9556fd/upgrade-20261013T000819059357.log",
+      "sha256": "4304a4b6f76d2da362456926257a188c0fb950a229fe072e5ebd44acff810a62",
+      "bytes": 110452
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261012233634_eb9556fd/upgrade-20261013T001154616089.log",
+      "sha256": "d65d4a2d5940109f1b7a190bebcf484d0cf2482ce66e79334d565cce546ce7f1",
+      "bytes": 107639
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261012233634_eb9556fd/upgrade-20261012T234249362326.log",
+      "sha256": "bfddac9f9f8ec0fb7cc12c62d6eb22bed0c171029654f128c930d18f56815f8f",
+      "bytes": 105580
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261012233634_eb9556fd/export-20261013T001634809888.log",
+      "sha256": "db420ed54d0fd97531c045b40e216a6dc8c38f1c447a95a278132d9ebd426fb2",
+      "bytes": 1380
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261013002255_5797e7cf/install-20261013T002255399925.log",
+      "sha256": "336c2b74465b9b5f8d9e1346c09fea4b4e1528a96114d16430d5de8b5dd59a6e",
+      "bytes": 258873
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261013002614_10e55495/install-20261013T002614224940.log",
+      "sha256": "b94b659c2486b1b18f07b5b7ec3603a693d2496d93d9e69d7590f02b8bc45a9d",
+      "bytes": 257002
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261013002949_954f6119/install-20261013T002949166302.log",
+      "sha256": "57969989f9b948d17ff185b6066355ad67e081e0a1b493901b67ffbe2aca8ad3",
+      "bytes": 256998
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261013002949_954f6119/upgrade-20261013T003347394651.log",
+      "sha256": "83d14705a6583f9ac925fb360cef0bebe4d394d483a3454d81810aec6a948b27",
+      "bytes": 108355
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261013002949_954f6119/export-20261013T003952143812.log",
+      "sha256": "0b35c8cec6c9f6634a88d6bc0d42da2e7fc2995478937a16e8d070346ab597e6",
+      "bytes": 1380
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261013002949_954f6119/audit-20261013T003954516166.log",
+      "sha256": "90de6a826cbaf00f3e43a6a367c73d9ddede57c94478318a17df079f1589bca3",
+      "bytes": 2823
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261013002949_954f6119/probe_a-20261013T003742786778.log",
+      "sha256": "8b6eaf3afb391d1e695994b09f4514838b0b7c7af19d9862a27686d54cc7f859",
+      "bytes": 11502
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261013002949_954f6119/probe-20261013T003456424801.log",
+      "sha256": "58823e6d5163f48a84eee842ba56b449184f6f734485ce67a0c684005922c470",
+      "bytes": 16049
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261013004116_3fd605cd/probe-20261013T004533290583.log",
+      "sha256": "75c4e68961d832b76b381391b49c953a8bb598333b48f22bae127c1d058d60fb",
+      "bytes": 16049
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261013004116_3fd605cd/audit-20261013T005248981233.log",
+      "sha256": "3cb729a95a21389cef681bd75680352e79f644497f99b7bbbb0df6337646c1b1",
+      "bytes": 2823
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261013004116_3fd605cd/audit-20261013T005225770160.log",
+      "sha256": "9880bc8a1ae77c103c737ce4e948cc7155fd30e410bd1c5c3501341b79ee387a",
+      "bytes": 2823
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261013004116_3fd605cd/audit-20261013T005120068947.log",
+      "sha256": "4aad5e9c6a39f227ba858b72220bbe555d6a28bfddb3638fdb4fbab7b8dfe339",
+      "bytes": 2823
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261013004116_3fd605cd/install-20261013T004116133403.log",
+      "sha256": "899863ea6a7ebf559c68bdebec172139c92c8b38723a0bd8ba569203fd03b4a2",
+      "bytes": 261016
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261013004116_3fd605cd/serve.log",
+      "sha256": "f30520d5822d7ab8699e269c7f9c230a96c0928ad99c0de9b3e2682c29fbb889",
+      "bytes": 189052
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261013004116_3fd605cd/export-20261013T005031028749.log",
+      "sha256": "abf11f66a2c717a3a5e02f1a16a18d20f63e4e886e1be6b2c7be46bf563fab88",
+      "bytes": 1380
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261013004116_3fd605cd/preview-20261013T005105022168.log",
+      "sha256": "bfa98348c530b6c49edf99b4d366957426ebbdb82ed00c52da998e2e3750d5ae",
+      "bytes": 5947
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261013004116_3fd605cd/audit-20261013T005329456753.log",
+      "sha256": "0590faf57eaec1b8ed147b549159a2b47be641f5fbf715cc498e7b860fcead65",
+      "bytes": 2823
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261013004116_3fd605cd/probe_a-20261013T004820784947.log",
+      "sha256": "4727a2713f36281c2e4b0ecadef23c6eb5f775b33a70a2be273ba09064938f90",
+      "bytes": 11749
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261013004116_3fd605cd/audit-20261013T005503639968.log",
+      "sha256": "d12955814765daf142eb3989e36c9c3bb898d507ced25acc6b729ed0b0a8966d",
+      "bytes": 2823
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261013004116_3fd605cd/upgrade-20261013T004422439487.log",
+      "sha256": "a99a3fdd47f77306965069658876510dedb0f3a9d632671a8b8f787e41561875",
+      "bytes": 112376
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261013004116_3fd605cd/upgrade-20261013T005338158474.log",
+      "sha256": "ac4148e1357e1d7ab25b86215af1e73070071ed6af8ea2814dc358f29f859331",
+      "bytes": 112441
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261013004116_3fd605cd/preview-20261013T005233818855.log",
+      "sha256": "1fdf5d2be965346f967ee379b98c3433e046d9112ba4d1c260d0c20e1bb193ce",
+      "bytes": 5947
+    },
+    {
+      "path": ".local/ydental_s08b_test_20261013004116_3fd605cd/audit-20261013T005033370528.log",
+      "sha256": "ae459a5bee1c56054f74e66de77f1ed1d5cf2a570d08c2e4ee11df3ab7d489d8",
+      "bytes": 2823
+    }
+  ],
+  "historical_S07_root": "UNKNOWN; production BLOCKED"
+}

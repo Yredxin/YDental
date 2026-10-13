@@ -1,5 +1,20 @@
 # YDental 当前执行入口
 
+## 当前 S08-B交付 / #32（等待GPT独立技术复核）
+
+- 唯一启用为[GPT-ACTIVATE6134476918](https://github.com/Yredxin/YDental/issues/32#issuecomment-6134476918)；完整读取#23/#32正文及3/14条有效评论、A最终PASS6134425442；[开工检查6134535111](https://github.com/Yredxin/YDental/issues/32#issuecomment-6134535111)逐字读回后开发。交付前重读3/15条，原正文/评论字节不变，仅本批开工新增。没有沿用A维护会话启用后续。
+- 固定A基线`234f5bfb6b929457533286f0956924557fc68ace`，全新分支`codex/s08-b-clinical-pharmacy-r1-20261013`；最终product `0b0901a2c50b95b110eb89ab792db26c91396940`、test `d976c6a1fdc7e09fb534bf5552bf4964459f3400`；final完整SHA固定于#32交付评论。product→test仅真实双角色HTTP测试，test→final仅AGENTS/契约/报告/脱敏证据。所有候选/失败保留，原S01—S08-A模块字节不变。
+- 新`ydental_treatment`真实event/order/line/fee/consumption/segment/review/receipt；文书保存与实际治疗分离、S05演示确认时点冻结原价、S07真实typed来源/native move/quant、已发生缺料/缺价/原生业务异常保留事实及受控恢复、数量/材料差额及实退quarantine、冻结检查医嘱/未做取消/新增另单、真实处方药房4+2及唯一余量、跨店定时/不定时转诊。无第二套患者/队列/库存余额或财务账本。
+- 药房仅pharmacy-write即可合法封闭派生费库；原S06 execution/entry completed、task done、append ended、lease释放的最少上层扩展，原actor/station/time保留，同原处方余2唯一待报到，不自动入队/新造原门诊资格。新日/closed许可不能转借。椅旁药不再造带走处方，退药不自动恢复可领或退款。真实S09开始继续fail-closed。
+- 最终新库`ydental_s08b_test_20261013004116_3fd605cd`，OID1239388、18173；固定test install62/upgrade60/带committed业务upgrade60（49模型+11真实HTTP，安装额外2原生资产初始化），A16+B20=36组首轮独立backend/barrier、deadlock0，Firefox A88+B24=112项/34图全部实际目视核验/A10+B1响应屏障/pageerror0，中文273/273、guard5、28SQL错误0、23升级签名及12纯文书经济签名相等。全是Codex自测，不是GPT亲测或用户验收。
+- F1真实event78/fee60/600/native move189；F3原处方30，发药event81/82、fee62/63金额40/20、native move191/192数量4/2，任务253/256原执行/entry completed/task done/lease inactive；无第7份。两有意保留pending事实无假费用。D1/D2同患者真实项目模型验证，旧全景仍保留，不以A旧PASS代本批。
+- 六个全新隔离合成B库全部保留，原108库OID/名称全保留；既有db20镜像/卷/cluster/shm256MiB与odoo12身份不变、原Odoo42433健康、核心/系统依赖/环境0变更。仅自己的libpq会话关闭并行/维护16MiB；端点/OID/marker/configSHA/data_dir/dbfilter/PID/外发guard继续。专属预览仅精确config/PID停止exit0。
+- 初始ORM保留名、附件tuple、S05取消/价日期/午夜/仓库唯一及断言范围、Firefox选择器/秒精度/双角色/POT漏UTC失败全保留。一次候选Firefox page crash原因UNKNOWN，当时Odoo存活/PG OOM=false；后续浏览器PASS不声称根因已修复。本批无Odoo SIGSEGV；S07历史SIGSEGV及长期DSM增长根因UNKNOWN，生产继续BLOCKED。
+- Project开工/交付各完整双读回21字段/15条目/6视图及字段/7公开workflow深比较一致，本批0 mutation；#32 S08/进行中/Todo/OPEN、#31待用户验收、后续待启用。正式字段/签发/用药审核/税币种与生产取价政策未批准；S08-C/S09真实结果/S10实际账单收退款/S11/生产NOT_RUN或BLOCKED。
+- 工程材料docs/s08b-{contracts,data-dictionary,security-review,report}.md及docs/evidence/s08b。#32发布`[CODEX] S08-B交付验收申请`，固定SHA与正常推送远端哈希读回，最终评论逐字读回后立即停止等待GPT独立技术复核；不关闭、合并、强推、部署、改Project或自动启用C/S09。
+
+下方A维护及更早“当前/本次”为历史，以本节及最新B授权为准。
+
 ## 当前 S08-A授权环境维护与固定测试恢复 / #32（等待GPT独立复核）
 
 - 唯一最新授权[#32 GPT-AUTHORIZE6125823343](https://github.com/Yredxin/YDental/issues/32#issuecomment-6125823343)及[#23持续开发环境授权6125774169](https://github.com/Yredxin/YDental/issues/23#issuecomment-6125774169)；本机项目专用开发参数/必要服务重启已明确授权，普通调参不需重复请示。完整读取#23/#32正文及3/9有效评论；交付前3/11重读仅新增本轮两回执，原边界未变。

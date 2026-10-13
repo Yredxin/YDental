@@ -1,0 +1,50 @@
+{
+  "scope": "S08-B real reception, teeth, authored text, handover and pending responsibility",
+  "database": "ydental_s08b_test_20261012233634_eb9556fd",
+  "tested_commit": "f26bb59414d0b6ee2a373a5e21bff67d4100ce3a",
+  "browser": "Firefox",
+  "sandbox": "default, no overrides",
+  "checks": [
+    {
+      "check": "three actual A autosaves before B action",
+      "result": "PASS"
+    },
+    {
+      "check": "Chinese treatment UI and demonstration boundary",
+      "result": "PASS"
+    },
+    {
+      "check": "autosaves create no actual events",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s08b/b-browser-attempts/20261013T000308742946/failure-state.png",
+      "sha256": "e03241a79a7abed33ef2513bf663e4f503e93216eebbbadfb321dd5ba4ea26f7"
+    }
+  ],
+  "result": "FAIL",
+  "error": {
+    "type": "RuntimeError",
+    "detail": "actual confirmation freezes every editable control while response held",
+    "trace": [
+      {
+        "file": "s08b_browser.py",
+        "line": 140,
+        "method": "main"
+      },
+      {
+        "file": "s08b_browser.py",
+        "line": 72,
+        "method": "check"
+      },
+      {
+        "file": "s08b_browser.py",
+        "line": 30,
+        "method": "require"
+      }
+    ]
+  },
+  "pageerrors": []
+}

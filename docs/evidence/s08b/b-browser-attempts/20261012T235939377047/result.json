@@ -1,0 +1,62 @@
+{
+  "scope": "S08-B real reception, teeth, authored text, handover and pending responsibility",
+  "database": "ydental_s08b_test_20261012233634_eb9556fd",
+  "tested_commit": "ff10917ff36b0fe1cbd9c0db5d7e7c3edfd5883e",
+  "browser": "Firefox",
+  "sandbox": "default, no overrides",
+  "checks": [
+    {
+      "check": "three actual A autosaves before B action",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s08b/b-browser-attempts/20261012T235939377047/failure-state.png",
+      "sha256": "3494f48acb190d35747bf29ba60436a339e974514dd7077c5efc9704b6265056"
+    }
+  ],
+  "result": "FAIL",
+  "error": {
+    "type": "TimeoutError",
+    "detail": "Page.wait_for_function: Timeout 30000ms exceeded.",
+    "trace": [
+      {
+        "file": "s08b_browser.py",
+        "line": 117,
+        "method": "main"
+      },
+      {
+        "file": "_generated.py",
+        "line": 12809,
+        "method": "wait_for_function"
+      },
+      {
+        "file": "_sync_base.py",
+        "line": 115,
+        "method": "_sync"
+      },
+      {
+        "file": "_page.py",
+        "line": 1153,
+        "method": "wait_for_function"
+      },
+      {
+        "file": "_frame.py",
+        "line": 941,
+        "method": "wait_for_function"
+      },
+      {
+        "file": "_connection.py",
+        "line": 76,
+        "method": "send"
+      },
+      {
+        "file": "_connection.py",
+        "line": 632,
+        "method": "wrap_api_call"
+      }
+    ]
+  },
+  "pageerrors": []
+}

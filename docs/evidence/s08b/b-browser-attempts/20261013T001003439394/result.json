@@ -1,0 +1,124 @@
+{
+  "scope": "S08-B real reception, teeth, authored text, handover and pending responsibility",
+  "database": "ydental_s08b_test_20261012233634_eb9556fd",
+  "tested_commit": "237c19fbc7b5aee1953a4a9fd38e035868e6f68e",
+  "browser": "Firefox",
+  "sandbox": "default, no overrides",
+  "checks": [
+    {
+      "check": "three actual A autosaves before B action",
+      "result": "PASS"
+    },
+    {
+      "check": "Chinese treatment UI and demonstration boundary",
+      "result": "PASS"
+    },
+    {
+      "check": "autosaves create no actual events",
+      "result": "PASS"
+    },
+    {
+      "check": "actual confirmation freezes every editable control while response held",
+      "result": "PASS"
+    },
+    {
+      "check": "full form change preserves uncertain page and forbids automatic replay",
+      "result": "PASS"
+    },
+    {
+      "check": "F1 actual event confirmed with frozen600 and native move",
+      "result": "PASS"
+    },
+    {
+      "check": "material delta appends immutable event",
+      "result": "PASS"
+    },
+    {
+      "check": "draft edit increments server version and preserves superseded rows",
+      "result": "PASS"
+    },
+    {
+      "check": "issued examination set freezes editing",
+      "result": "PASS"
+    },
+    {
+      "check": "F4 unperformed cancellation retained with other exam issued",
+      "result": "PASS"
+    },
+    {
+      "check": "F3 prescription has one explicit pending-report task",
+      "result": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/evidence/s08b/b-browser-attempts/20261013T001003439394/B00-real-response-held-unsynchronized.png",
+      "sha256": "56a57c98abe57da0214fb27a55345d6efe2f2aab38edd1c6741b2072c5b2d68b"
+    },
+    {
+      "path": "docs/evidence/s08b/b-browser-attempts/20261013T001003439394/B01-actual-project-600-native-move.png",
+      "sha256": "9db571fd4afbfb5f1ab7602b0d2d822fa10bd53f03ae686c5fd4a0deb098e4d5"
+    },
+    {
+      "path": "docs/evidence/s08b/b-browser-attempts/20261013T001003439394/B02-material-delta-original-preserved.png",
+      "sha256": "80f8cad946203d1242694a0726a8980f2381f52b5babab582a7bfbf4ff7ab482"
+    },
+    {
+      "path": "docs/evidence/s08b/b-browser-attempts/20261013T001003439394/B03-frozen-exam-cbct-cancelled.png",
+      "sha256": "07c78367ec2d3c818cea1c16844004f3595eeecc2659046c319381e43b09745f"
+    },
+    {
+      "path": "docs/evidence/s08b/b-browser-attempts/20261013T001003439394/B04-six-unit-prescription-awaiting-report.png",
+      "sha256": "86887eb5ecc5d03966ebbdc6ecdec0d926a5ba53cd5003c35ca37753270b9f28"
+    },
+    {
+      "path": "docs/evidence/s08b/b-browser-attempts/20261013T001003439394/failure-state.png",
+      "sha256": "86887eb5ecc5d03966ebbdc6ecdec0d926a5ba53cd5003c35ca37753270b9f28"
+    }
+  ],
+  "first_event": 195,
+  "prescription": 65,
+  "result": "FAIL",
+  "error": {
+    "type": "Error",
+    "detail": "Locator.get_attribute: Error: strict mode violation: locator(\"main\") resolved to 2 elements:\n    1) <main>…</main> aka get_by_role(\"main\").first\n    2) <main data-write=\"1\" data-version=\"3\" data-revision=\"1\" data-currency=\"1\" data-heartbeat=\"2\" data-role=\"medical\" data-document=\"462\" data-execution=\"528\" class=\"container o_ydental_treatment\">…</main> aka get_by_text(\"治疗与药房 工位与明确报到 | 独立临床文书 | 有据历史核价 仅供演示取价及合成用药审核。正式价格、用药政策与临床签发待批准。费用来源不是账单或收款。\")\n\nCall log:\n  - waiting for locator(\"main\")\n",
+    "trace": [
+      {
+        "file": "s08b_browser.py",
+        "line": 176,
+        "method": "main"
+      },
+      {
+        "file": "_generated.py",
+        "line": 19470,
+        "method": "get_attribute"
+      },
+      {
+        "file": "_sync_base.py",
+        "line": 115,
+        "method": "_sync"
+      },
+      {
+        "file": "_locator.py",
+        "line": 469,
+        "method": "get_attribute"
+      },
+      {
+        "file": "_frame.py",
+        "line": 758,
+        "method": "get_attribute"
+      },
+      {
+        "file": "_connection.py",
+        "line": 76,
+        "method": "send"
+      },
+      {
+        "file": "_connection.py",
+        "line": 632,
+        "method": "wrap_api_call"
+      }
+    ]
+  },
+  "pageerrors": []
+}
