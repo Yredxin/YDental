@@ -1,0 +1,6 @@
+Fatal Python error: Segmentation fault
+  Garbage-collecting
+  File "/home/redxin/code/odoo/odoo-sd/code/.python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/contextlib.py", line 595 in __exit__
+  File "/home/redxin/code/odoo/odoo-sd/code/odoo/orm/registry.py", line 176 in new
+  File "/home/redxin/code/odoo/odoo-sd/code/odoo/orm/registry.py", line 111 in __new__
+Extension modules: markupsafe._speedups, lxml._elementpath, lxml.etree, lxml.objectify, psycopg2._psycopg, lxml.builder, psutil._psutil_linux, psutil._psutil_posix, maxminddb.extension, _rjsmin, charset_normalizer.md, charset_normalizer.cd, PIL._imaging, PIL._imagingmath, _cffi_backend, _cbor2, PIL._imagingft (total: 17)

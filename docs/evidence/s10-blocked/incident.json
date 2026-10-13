@@ -1,0 +1,192 @@
+{
+  "authorization_comment": 6145995580,
+  "start_comment": 6146104902,
+  "branch": "codex/s10-settlement-finance-r1-20261013",
+  "baseline": "d06b1056700c4fcf899deb68a32e8496e3f8195e",
+  "product_candidate": "47258e3763666cc37f8d0afe7092c65919e1062b",
+  "test_source_commit": "9bc86841619824627bfe03e97da43ce856b5ec28",
+  "database": {
+    "database": "ydental_s10_test_20261013125916_2b3e556e",
+    "oid": 1598603,
+    "cluster": "7694897083368259627",
+    "endpoint": {
+      "host": "127.0.0.1",
+      "port": "5432",
+      "user": "odoo"
+    },
+    "port": 18210,
+    "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+    "created_utc": "2026-10-13T12:59:16.407020+00:00",
+    "config_sha256": "680c975afba34f3f5224cfdedf05572ecd91a1bcce669198b8ae3b44b9ab2a6a"
+  },
+  "test_source_sha256": "eb4a22badeffd2bb33fd232527f47d89dec454adbeb103a20702ff22441766ac",
+  "commands": [
+    {
+      "step": "native-prerequisite-install",
+      "exit_code": 0,
+      "log_sha256": "fcd80a2dc5296db6ca5faa5a38978787e428630a1df446f3a89a4961f8abc7e0",
+      "log_bytes": 161188,
+      "private_raw_log": ".local/ydental_s10_test_20261013125916_2b3e556e/native-prerequisite-install.log"
+    },
+    {
+      "step": "product-install-1",
+      "exit_code": 255,
+      "log_sha256": "55286093cf088f97359a3fe10f64370d700151c103a522b825f25d2fc1fe4663",
+      "log_bytes": 23824,
+      "private_raw_log": ".local/ydental_s10_test_20261013125916_2b3e556e/product-install-1.log"
+    },
+    {
+      "step": "product-install-2",
+      "exit_code": 255,
+      "log_sha256": "2388e9e449c6931b5379a8cde47a5323082e5925bdec571206c0c96ce037fd08",
+      "log_bytes": 128067,
+      "private_raw_log": ".local/ydental_s10_test_20261013125916_2b3e556e/product-install-2.log"
+    },
+    {
+      "step": "product-install-3",
+      "exit_code": 0,
+      "log_sha256": "d4d7e84e3373e3a593daee03312deac9efe095247a1119ee9074f3410357a89d",
+      "log_bytes": 36209,
+      "private_raw_log": ".local/ydental_s10_test_20261013125916_2b3e556e/product-install-3.log"
+    },
+    {
+      "step": "product-upgrade-1",
+      "exit_code": 0,
+      "log_sha256": "e4c8302eecf5637e9a58ea80aaf5533655a27e09b42a8e357c155cd1f1395582",
+      "log_bytes": 37685,
+      "private_raw_log": ".local/ydental_s10_test_20261013125916_2b3e556e/product-upgrade-1.log"
+    },
+    {
+      "step": "probe-600-attempt1",
+      "exit_code": 1,
+      "log_sha256": "1e5c0972fd948d0026eb5de112a8eac93656643981b1e8704f58e227ebcb0f85",
+      "log_bytes": 9609,
+      "private_raw_log": ".local/ydental_s10_test_20261013125916_2b3e556e/probe-600-attempt1.log"
+    },
+    {
+      "step": "probe-600-attempt2",
+      "exit_code": 139,
+      "log_sha256": "9c62be35195a765bacf11f57629dd67c6d6156f5591c1d42dd2bc8a3e2cb47ef",
+      "log_bytes": 3044,
+      "private_raw_log": ".local/ydental_s10_test_20261013125916_2b3e556e/probe-600-attempt2.log"
+    }
+  ],
+  "native_crash": {
+    "pid": 1965906,
+    "exit_code": 139,
+    "signal": 11,
+    "phase": "odoo registry initialization, before probe script execution",
+    "python_stack": [
+      "garbage-collecting",
+      "contextlib.__exit__",
+      "odoo.orm.registry.Registry.new",
+      "odoo.cli.shell"
+    ],
+    "native_stack": "UNKNOWN",
+    "core_file": "none identified; core limit 0 and apport handler",
+    "root_cause": "UNKNOWN",
+    "further_odoo_browser_pg_reruns": 0
+  },
+  "post_crash_sql": {
+    "marker": {
+      "database": "ydental_s10_test_20261013125916_2b3e556e",
+      "oid": 1598603,
+      "cluster": "7694897083368259627",
+      "endpoint": {
+        "host": "127.0.0.1",
+        "port": "5432",
+        "user": "odoo"
+      },
+      "port": 18210,
+      "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+      "created_utc": "2026-10-13T12:59:16.407020+00:00",
+      "config_sha256": "680c975afba34f3f5224cfdedf05572ecd91a1bcce669198b8ae3b44b9ab2a6a"
+    },
+    "oid_readback": 1598603,
+    "synthetic_db_count": 132,
+    "modules": [
+      [
+        "account",
+        "installed"
+      ],
+      [
+        "purchase",
+        "installed"
+      ],
+      [
+        "sale",
+        "installed"
+      ],
+      [
+        "stock",
+        "installed"
+      ],
+      [
+        "ydental_exam",
+        "installed"
+      ],
+      [
+        "ydental_settlement",
+        "installed"
+      ],
+      [
+        "ydental_treatment",
+        "installed"
+      ]
+    ],
+    "ydental_treatment_event": 0,
+    "ydental_treatment_fee": 0,
+    "ydental_settlement_source": 0,
+    "ydental_settlement_payment": 0,
+    "ydental_settlement_refund": 0,
+    "ydental_settlement_close": 0,
+    "account_payment": 0,
+    "account_partial_reconcile": 0,
+    "deadlocks": 0
+  },
+  "status": "BLOCKED",
+  "other_operations": [
+    {
+      "step": "first DB create attempt: CREATE DATABASE inside transaction",
+      "exit_code": 1,
+      "database_created": false
+    },
+    {
+      "step": "corrected guarded DB create with autocommit",
+      "exit_code": 0,
+      "oid": 1598603
+    },
+    {
+      "step": "first native prerequisite command: shell log path relative to wrong cwd",
+      "exit_code": 1,
+      "odoo_started": false
+    },
+    {
+      "step": "read-only account chart and journal shell inspections before crash",
+      "exit_code": 0
+    },
+    {
+      "step": "four start Project snapshots and two final Project snapshots",
+      "graphql_calls": 66,
+      "exit_code": 0
+    },
+    {
+      "step": "single #34 Project mutation",
+      "exit_code": 0,
+      "count": 1
+    },
+    {
+      "step": "start GitHub comment and readback",
+      "exit_code": 0
+    },
+    {
+      "step": "post-crash SQL read-only",
+      "exit_code": 0
+    },
+    {
+      "step": "post-crash original Odoo HTTP health read",
+      "exit_code": 0,
+      "http_status": 200
+    }
+  ]
+}

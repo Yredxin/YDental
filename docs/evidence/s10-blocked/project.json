@@ -1,0 +1,49 @@
+{
+  "project_id": "PVT_kwHOA3_tu84BmcLJ",
+  "counts": {
+    "active": 15,
+    "archived": 22,
+    "fields": 21,
+    "views": 6,
+    "visible_fields": [
+      9,
+      9,
+      5,
+      3,
+      7,
+      3
+    ],
+    "public_workflows": 7
+  },
+  "snapshot_sha256": {
+    "pre1": "e9ca4bd28ef71dadf5a56ec7e20e4bad22d5bba0f1c228e47e410f33c3e988e6",
+    "pre2": "4699546b16051a545016b6d00a562ad1ee9e2043eefc2e730f3df703ace482cf",
+    "post1": "5d7b53baa71fe3b4f16013c59dd08bc0faace23f691311c6c32cd721df5bed85",
+    "post2": "d5ef57d245a2285b67f274736ee82a9175faf9c59b4de788850176a8f90a6bda",
+    "final1": "cc39a370a62a8f76e19d500cf5ec44330286549ccb2dfc67e04e44fc0e9e42b0",
+    "final2": "a31c38b2987f20230ab61d9176c8355d90a81fec2540dff1e69458122cbc7642"
+  },
+  "only_mutation": {
+    "item": "PVTI_lAHOA3_tu84BmcLJzg_8mwI",
+    "field": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVo",
+    "from": {
+      "name": "待启用",
+      "optionId": "441473f3"
+    },
+    "to": {
+      "name": "进行中",
+      "optionId": "57b99552"
+    },
+    "count": 1,
+    "exit_code": 0,
+    "errors": []
+  },
+  "pre1_equals_pre2": true,
+  "post1_equals_post2": true,
+  "post2_equals_final1_equals_final2": true,
+  "pre2_to_post1_only_two_target_leaves": true,
+  "issue34": "OPEN",
+  "native_status": "Todo",
+  "other_project_mutations": 0,
+  "private_raw_snapshots": ".local/s10-start/ and .local/s10-final/"
+}

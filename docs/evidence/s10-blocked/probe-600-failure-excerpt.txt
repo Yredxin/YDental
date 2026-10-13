@@ -1,0 +1,4 @@
+  File "/home/redxin/code/odoo/odoo-sd/code/odoo/orm/registry.py", line 649, in get_trigger_tree
+  File "/home/redxin/code/odoo/odoo-sd/code/odoo/orm/registry.py", line 743, in _field_triggers
+    raise UserError(self.env._('insufficient_balance: No eligible shared capacity remains.'))
+odoo.exceptions.UserError: insufficient_balance: No eligible shared capacity remains.

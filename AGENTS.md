@@ -1,5 +1,15 @@
 # YDental 当前执行入口
 
+## 当前 S10 原生崩溃阻断 / #34（等待 GPT 独立技术复核）
+
+- 唯一 S10 授权为 [#34 GPT-ACTIVATE6145995580](https://github.com/Yredxin/YDental/issues/34#issuecomment-6145995580)，用户本轮确认完整实施。已读取 #23/#33/#34 正文和有效评论、S09 技术 PASS 6145205127 与 Project 同步复核 6145793236。固定 S09 final `d06b1056700c4fcf899deb68a32e8496e3f8195e`，新分支 `codex/s10-settlement-finance-r1-20261013`，候选 product `47258e3763666cc37f8d0afe7092c65919e1062b`，失败探针 test `9bc86841619824627bfe03e97da43ce856b5ec28`，final SHA 见 #34 BLOCKED 评论。product→test 仅保存实际失败探针源码；test→final 仅 AGENTS、报告、脱敏证据。
+- Project #4 开工前/修改后/交付前各双读完整 15 当前＋22 归档、21 字段选项、6 视图及 visibleFields、7 公开 workflow。仅一次 #34 自定义执行状态 `待启用→进行中`，前后仅该字段 name/optionId 两叶变化；#34 仍 S10/Todo/OPEN，#32/#33 待用户验收，#35—#37 待启用。[开工回执6146104902](https://github.com/Yredxin/YDental/issues/34#issuecomment-6146104902)已发布并逐字核对。
+- 唯一新隔离合成库 `ydental_s10_test_20261013125916_2b3e556e` / OID1598603 / 18210 / 原 cluster。原生 Community account/l10n_cn/sale/purchase 安装 exit0；S10 早期候选安装/升级 exit0，但**固定 product 最终代码未再次安装**。首次 S10 600 治疗探针因合成预约容量不足 exit1，事务回滚；修正后的探针 PID1965906 在 Odoo registry 初始化 GC→contextlib 时 **SIGSEGV/exit139**，业务脚本未执行。无 native stack/core，根因 UNKNOWN；立即停止后续 Odoo/Firefox/业务数据库重跑和产品更改，只做只读取证/保全/交付。
+- 崩溃后只读 SQL：S08/S09 event/fee、S10 source/payment/refund/close、原生 account.payment/partial.reconcile 全0，deadlock0；原 Odoo HTTP200。F1—F6、T01—T16、固定 test 安装/升级/带已提交交易再升级、双 PG 竞争、Firefox、真实中文 PDF、翻译、跨法人 T09 **均 NOT_RUN/BLOCKED**，不能称 S10 技术 PASS。产品候选缺跨法人原生交易实现且未经完整安全/原生会计验证。详见 [本轮报告](docs/s10-blocked-report.md) 和 [机器索引](docs/evidence/s10-blocked/incident.json)。新旧库/卷/失败日志保留，生产继续 BLOCKED。
+- 正常推送后仅在 #34 发布 `[CODEX] S10 BLOCKED与技术复核申请`，逐字读回立即停止等待 GPT。不得再自行重跑或修产品、关 Issue、改 Project 其它内容、自动启 S11、合并/强推/生产部署。
+
+下方 S09 及更早“当前/本次”是历史，本轮以上节与 #34 最新授权为准。
+
 ## 当前 S09工作台/待核对安全边界定向返工 / #33（等待GPT独立技术复核）
 
 - 唯一最新指令为[#33 GPT-REVIEW6143776424](https://github.com/Yredxin/YDental/issues/33#issuecomment-6143776424)；已重读#23/#33当前正文及有效评论。沿原分支`codex/s09-exam-workbench-r1-20261013`从旧final`6f7087f49e2f7bbd9c00d8b94500b1ee003e6c2d`线性追加。失败复现`c77b997644f8144b06e8d6370a0ecca22b433e2c`、固定rework product`f7f6b231f0768eef5de4c19d2f789c32e5684853`、固定test`9f91420a91ee51e667f46ad56a8e35cc6f936bbb`，final SHA见#33本轮交付评论。product→test仅测试/runner，test→final仅AGENTS/报告/合成脱敏证据。旧历史与失败库均保留。
