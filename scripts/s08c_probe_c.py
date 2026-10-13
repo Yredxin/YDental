@@ -1,7 +1,7 @@
 """Real independent PostgreSQL print races and committed Chinese demo PDFs."""
 import base64
 from concurrent.futures import ThreadPoolExecutor
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 import hashlib
 import json
 import os
@@ -16,7 +16,7 @@ from types import SimpleNamespace
 from unittest.mock import patch
 
 import psycopg2
-from odoo import api
+from odoo import api, fields
 from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.addons.ydental_treatment_test.tests.common import bind, key, save_args, handover_args, lease_args, serving, price
 from odoo.addons.ydental_treatment_test.tests.treatment_common import setup, opened_actual, prescription, receive, pharmacy_start, distinct_medicine
@@ -143,7 +143,7 @@ try:
   payload=save_args(d,'D1合成主诉：独立原始作者与待完善责任。')
   payload['content']['history']='合成长病史段落，中文换页核对；不代表真实医学结论。'*320
   payload['content']['teeth']=[{'tooth':t,'state':'unknown' if t==51 else 'missing' if t==48 else 'present','surfaces':['O'] if t==16 else []} for t in TEETH]+[{'tooth':0,'state':'not_applicable','surfaces':[]}]
-  d.update(c._operate('save',payload));a['document_version']=d['version']
+  d.update(c._operate('save',payload));payload=save_args(d,payload['content']['chief_complaint'])|{'content':payload['content']};d.update(c._operate('save',payload));a['document_version']=d['version']
   sel={'kind':'clinical','source_id':d['document_id'],'version':d['version']};pdf(p,sel,'clinical-d1-long-draft')
   pdf(p,sel|{'kind':'consent'},'consent-unsigned-unreviewed')
   # Incomplete prescriptions stay honest drafts, never issue without real fields.
@@ -173,7 +173,27 @@ try:
   ui={'store':f.stores[0].id,'other_store':f.stores[1].id,'clinical':{'kind':'clinical','source_id':d['document_id'],'version':d['version']},'d2':{'kind':'clinical','source_id':d2['document_id'],'version':d2['version']},'prescription':rx,'consent':sel|{'kind':'consent'},'doctor':f.users['doctor'].id}
   cr.commit()
   for filename,value in [('print-access.json',creds),('print-preview.json',ui)]:
-   with os.fdopen(os.open(run/filename,os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600),'w') as handle:json.dump(value,handle)
+   destination=run/filename
+   if destination.exists():destination.rename(run/(filename+'.preserved-'+datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f')))
+   with os.fdopen(os.open(destination,os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600),'w') as handle:json.dump(value,handle)
+
+ with env.registry.cursor() as cr:
+  f,s,c,q,l,e,d,a,p=fixtures(cr);receive(f,20,'medicine');price(f,catalog=f.drug_catalog,amount=10)
+  product2,lot2,catalog2=distinct_medicine(f);product3,lot3,catalog3=distinct_medicine(f,amount=43)
+  row={'mapping_id':f.drug_mapping.id,'quantity':6,'uom_id':f.uom.id,'product_id':f.products['medicine'],'specification':'合成规格一','usage':'合成明确用法','frequency':'合成明确频次','course':'合成明确疗程'}
+  draft=s._operate('order',a|{'kind':'prescription','purpose':'合成草稿取消未做行','lines':[row]},key())
+  edited=s._operate('edit_order',a|{'order_id':draft['order_id'],'version':draft['version'],'purpose':'合成三药独立来源','lines':[row,row|{'product_id':product2,'quantity':2,'specification':'合成规格二'},row|{'product_id':product3,'quantity':1,'specification':'合成规格三'}]},key())
+  rx={'kind':'prescription','source_id':edited['order_id'],'version':edited['version']};pdf(p,rx,'prescription-edited-draft-cancelled-history')
+  issued=s._operate('issue',a|{'order_id':edited['order_id'],'version':edited['version']},key());rx['version']=issued['version'];pdf(p,rx,'prescription-three-skus-issued')
+  c._operate('handover',handover_args(d,l));q._operate('exit',lease_args(l));pharm,pa=pharmacy_start(f,issued)
+  for line_id,lot,qty,price_amount in zip(issued['line_ids'],[f.lots['medicine'],lot2,lot3],[4,2,1],[10,27,43]):
+   value=pharm._operate('dispense',pa|{'line_id':line_id,'lot_id':lot,'quantity':qty,'source':key(),'reason':'合成三药真实独立发放','policy':'demo_confirmation'},key());assert value['amount']==qty*price_amount
+  pdf(p,rx,'prescription-three-skus-ten-twentyseven-fortythree')
+  ended=pharm._operate('finish',pa|{'reason':'合成第一日发药结束'},key());tomorrow=fields.Datetime.now()+timedelta(days=1)
+  with patch.object(fields.Datetime,'now',return_value=tomorrow):
+   f.group.env['ydental.supply.service']._operate('business',{'area_id':f.pharmacy_area.id,'state':'open','reason':'合成第二日明确开药房'},key())
+   pharm,pa2=pharmacy_start(f,issued,ended['next_task_id']);pharm._operate('dispense',pa2|{'line_id':issued['line_ids'][0],'lot_id':f.lots['medicine'],'quantity':2,'source':key(),'reason':'合成第二日真实两份','policy':'demo_confirmation'},key());pharm._operate('finish',pa2|{'reason':'合成第二日结束'},key());pdf(p,rx,'prescription-next-day-three-skus-done')
+  cr.commit()
  result['result']='PASS'
 except Exception as error:
  result['result']='FAIL';result['failure']={'type':type(error).__name__,'detail':str(error)[:1500],'trace':traceback.format_exc()}

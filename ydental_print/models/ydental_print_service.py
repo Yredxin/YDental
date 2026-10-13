@@ -208,7 +208,7 @@ class YDentalPrintService(models.AbstractModel):
                     'product_specification': line.ydental_product_id.ydental_specification or self.env._('Not recorded'),
                     'specification': line.ydental_specification or self.env._('Not recorded'), 'usage': line.ydental_usage or self.env._('Not recorded'),
                     'frequency': line.ydental_frequency or self.env._('Not recorded'), 'course': line.ydental_course or self.env._('Not recorded'),
-                    'approved': line.ydental_quantity, 'dispensed': dispensed, 'remaining': line.ydental_quantity - dispensed,
+                    'approved': line.ydental_quantity, 'dispensed': dispensed, 'remaining': line.ydental_quantity - dispensed if line.state in ('issued', 'done') else 0,
                     'unit': line.ydental_uom_id.name, 'unit_id': line.ydental_uom_id.id, 'state': line_labels[line.state],
                     'reason': line.ydental_reason or self.env._('Not recorded')})
             payload['events'] = [{'id': e.id, 'line_id': e.ydental_order_line_id.id, 'product_id': e.ydental_product_id.id,
