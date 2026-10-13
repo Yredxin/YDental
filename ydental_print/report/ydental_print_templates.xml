@@ -12,6 +12,10 @@
             td, th {padding: 5px; border: 1px solid #bdc5cb; vertical-align: top; word-wrap: break-word; word-break: break-all;}
             th {background: #e8edf0;} tr {page-break-inside: avoid;} thead {display: table-header-group;}
             p:last-child {margin-bottom: 0;} .provenance {page-break-inside: avoid;} p {page-break-inside: avoid;} .label {width: 30%;} .meta {font-size: 8pt; color: #394e60;} .blank {min-height: 35px; border-bottom: 1px solid #c6cbd0;}
+            .o_ydental_print_rx_line {border-bottom: 1px solid #bdc5cb; padding-bottom: 8px; page-break-inside: auto;}
+            .o_ydental_print_rx_field {margin: 5px 0; page-break-inside: auto;}
+            .o_ydental_print_rx_field strong {display: block; background: #e8edf0; padding: 3px 5px; page-break-after: avoid;}
+            .o_ydental_print_rx_field p {margin: 2px 5px; page-break-inside: auto;}
         </style>
             <h1 t-out="p['title']"/>
             <div class="warning"><span>DEMONSTRATION / UNREVIEWED / NO FORMAL SIGNATURE</span><br/><t t-out="p['status']"/></div>
@@ -30,15 +34,13 @@
             </t>
             <t t-if="p['kind'] == 'prescription'">
                 <h2>Actual prescribed medicine lines</h2>
-                <section t-foreach="p['lines']" t-as="line">
+                <article t-foreach="p['lines']" t-as="line" class="o_ydental_print_rx_line">
                     <h2><span>Line ID:</span> <t t-out="line['id']"/></h2>
-                    <table><tbody>
-                        <tr><td class="label">SKU / medicine / specification</td><td><p t-out="line['sku']"/><p t-out="line['name']"/><p t-out="line['product_specification']"/><p t-out="line['specification']"/></td></tr>
-                        <tr><td class="label">Usage / frequency / course</td><td><p t-out="line['usage']"/><p t-out="line['frequency']"/><p t-out="line['course']"/></td></tr>
-                        <tr><td class="label">Approved / actually dispensed / uncollected</td><td><p><span>Approved:</span> <t t-out="line['approved']"/></p><p><span>Actually dispensed:</span> <t t-out="line['dispensed']"/></p><p><span>Uncollected:</span> <t t-out="line['remaining']"/></p><p t-out="line['unit']"/></td></tr>
-                        <tr><td class="label">State / reason</td><td><p t-out="line['state']"/><p t-out="line['reason']"/></td></tr>
-                    </tbody></table>
-                </section>
+                    <div class="o_ydental_print_rx_field"><strong>SKU / medicine / specification</strong><p t-out="line['sku']"/><p t-out="line['name']"/><p t-out="line['product_specification']"/><p t-out="line['specification']"/></div>
+                    <div class="o_ydental_print_rx_field"><strong>Usage / frequency / course</strong><p t-out="line['usage']"/><p t-out="line['frequency']"/><p t-out="line['course']"/></div>
+                    <div class="o_ydental_print_rx_field"><strong>Approved / actually dispensed / uncollected</strong><p><span>Approved:</span> <t t-out="line['approved']"/></p><p><span>Actually dispensed:</span> <t t-out="line['dispensed']"/></p><p><span>Uncollected:</span> <t t-out="line['remaining']"/></p><p t-out="line['unit']"/></div>
+                    <div class="o_ydental_print_rx_field"><strong>State / reason</strong><p t-out="line['state']"/><p t-out="line['reason']"/></div>
+                </article>
                 <h2>Actual dispensing facts (not payment)</h2>
                 <table><thead><tr><th>Event / line / SKU</th><th>Actual quantity / operator</th><th>UTC / store business date</th><th>Reconciliation / price source ID</th></tr></thead><tbody>
                     <tr t-foreach="p['events']" t-as="event"><td><t t-out="event['id']"/> / <t t-out="event['line_id']"/> / <t t-out="event['product_id']"/></td><td><t t-out="event['quantity']"/> / <t t-out="event['actor']"/></td><td><t t-out="event['time']"/><br/><t t-out="event['business_date']"/></td><td><t t-out="event['state']"/> / <t t-out="event['price_source']"/> / <t t-out="event['medicine_link']"/></td></tr>
