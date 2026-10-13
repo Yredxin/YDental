@@ -79,7 +79,11 @@ def main():
         require(page.locator('input[type=password]:visible').count() == 0, 'Visible password field')
         require(not re.search(r'(?:csrf_token|session_id|authorization|password)\s*[:=]', visible, re.I), 'Visible sensitive label')
         target = evidence / name
-        page.screenshot(path=str(target), full_page=True)
+        # B captures the relevant business panel at readable viewport resolution.
+        scope = 'article[data-order-kind=prescription]' if re.match(r'B(0[4789]|1[01])', name) else 'article[data-order-kind=exam]' if name.startswith('B03') else '[data-event-state=pending]' if name.startswith('B06') else 'form[data-operation=refer]' if name.startswith('B05') else '[data-event]' if name.startswith(('B01','B02')) else '.o_ydental_treatment'
+        panel = page.locator(scope).first
+        if panel.count(): panel.evaluate('el=>window.scrollTo(0,el.getBoundingClientRect().top+window.scrollY-30)')
+        page.screenshot(path=str(target), full_page=False)
         require(not any(s.encode() in target.read_bytes() for s in sensitive if s), 'Screenshot credential scan failed')
         result['screenshots'].append({'path': str(target.relative_to(ROOT)), 'sha256': sha(target)})
 
@@ -173,7 +177,7 @@ def main():
             check('F3 prescription has one explicit pending-report task',page.locator('article[data-order="%s"] [data-segment]'%rxid).count()==1)
             screenshot(page,ctx,'B04-six-unit-prescription-awaiting-report.png')
             referral=page.locator('form[data-operation=refer]');referral.locator('[name=mapping_id]').select_option(str(preview['target_mapping']));referral.locator('[name=mode]').select_option('timed');referral.locator('[name=start]').fill(preview['start'].replace(' ','T'));referral.locator('[name=end]').fill(preview['end'].replace(' ','T'));referral.locator('[name=reason]').fill('合成医生明确目标门店时段转诊');submit(referral)
-            check('F5 timed referral leaves original medical execution serving',int(page.locator('main.o_ydental_treatment').get_attribute('data-execution'))>0)
+            check('F5 timed referral leaves original medical execution serving',int(page.locator('main.o_ydental_treatment').get_attribute('data-execution'))>0 and page.locator('[data-referral-receipt]').count()==1)
             referral=page.locator('form[data-operation=refer]');referral.locator('[name=mapping_id]').select_option(str(preview['target_mapping']));referral.locator('[name=mode]').select_option('untimed');referral.locator('[name=valid_until]').fill((datetime.now(timezone.utc).replace(tzinfo=None)+__import__('datetime').timedelta(days=1)).strftime('%Y-%m-%dT%H:%M'));referral.locator('[name=reason]').fill('合成医生不定时转诊，不预占目标额度');submit(referral);screenshot(page,ctx,'B05-referral-source-independent.png')
             form=page.locator('form[data-operation=execute]');fill_project(material=99,actual=True);submit(form)
             check('F4 physically performed shortage preserved pending',page.locator('[data-event-state=pending]').count()==1 and 'inventory_pending' in page.inner_text('body'));screenshot(page,ctx,'B06-shortage-fact-awaiting-recovery.png')
@@ -216,7 +220,10 @@ def main():
             import traceback
             result.update(result='FAIL',error={'type':type(error).__name__,'detail':str(error)[:500],
                 'trace':[{'file':Path(frame.filename).name,'line':frame.lineno,'method':frame.name} for frame in traceback.extract_tb(error.__traceback__)]},pageerrors=errors)
-            if 'page' in locals() and not page.is_closed() and page.locator('input[type=password]:visible').count()==0:screenshot(page,ctx,'failure-state.png')
+            try:
+                if 'page' in locals() and not page.is_closed() and page.locator('input[type=password]:visible').count()==0:screenshot(page,ctx,'failure-state.png')
+            except Exception as capture_error:
+                result['failure_capture_error']={'type':type(capture_error).__name__,'detail':str(capture_error)[:200]}
         finally:
             for context in contexts:context.close()
             browser.close()

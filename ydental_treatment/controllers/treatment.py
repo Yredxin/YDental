@@ -57,6 +57,7 @@ class YDentalTreatment(http.Controller):
             'can_write': service.env['ydental.access.service']._levels(service.env['ydental.access.service']._membership(service.env.uid, store.id))[role] == 'write',
             'store': store, 'role': role, 'execution': execution, 'doc': doc, 'patient': patient,
             'labels': {entity: dict(service._model(entity)._fields['state']._description_selection(service.env)) for entity in ('order', 'line', 'segment', 'event')},
+            'referral_receipts': service._model('receipt').search([('ydental_store_id', '=', store.id), ('ydental_actor_id', '=', service.env.uid), ('name', '=', 'refer')], order='id desc', limit=20) if role == 'medical' else service._model('receipt'),
             'consumptions': consumptions, 'currency_id': store.company_id.currency_id.id,
             'orders': orders, 'lines': lines, 'segments': segments, 'events': events,
             'mappings': mappings, 'target_mappings': target_mappings, 'lots': lots, 'products': products,

@@ -49,6 +49,7 @@
                             <label>UTC slot start <input name="start" type="datetime-local" step="1"/></label><label>UTC slot end <input name="end" type="datetime-local" step="1"/></label><label>UTC valid until <input name="valid_until" type="datetime-local" step="1"/></label>
                             <label>Referral reason <input name="reason" maxlength="240" required="required"/></label><button type="submit">Initiate referral only</button>
                         </form>
+                        <ul><li t-foreach="referral_receipts" t-as="receipt" data-referral-receipt="1"><t t-if="receipt.ydental_result.get('task_id')">Timed target qualification task <strong t-out="receipt.ydental_result['task_id']"/></t><t t-else="">Untimed source awaiting target acceptance at initiation <strong t-out="receipt.ydental_result.get('id')"/></t> / <time t-out="receipt.create_date"/> UTC</li></ul>
                     </section>
                 </t>
                 <section><h2>Frozen orders and remaining quantities</h2>

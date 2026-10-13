@@ -237,11 +237,12 @@ class YDentalTreatmentService(models.AbstractModel):
                 self._settle(event)
         except (AccessError, ValidationError):
             raise
-        except UserError:
+        except UserError as error:
             # A verified physical fact survives a known native business failure;
             # its economic savepoint rolls back every move and fee. Database
             # serialization/deadlock errors still reach the framework unchanged.
             event._save({'state': 'pending', 'ydental_pending_reason': 'bookkeeping_failed'})
+            self._audit('bookkeeping_pending', event, {'failure_code': str(error).split(':')[0][:120]})
 
     def _settle(self, event):
         price = self._price_values(event)
