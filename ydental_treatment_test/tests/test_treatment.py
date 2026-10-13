@@ -44,10 +44,13 @@ class TestActualTreatment(TransactionCase):
         self.assertEqual(result['state'],'pending');self.assertFalse(result['fee_id']);self.assertFalse(result['move_ids'])
         stock_event=self.root['ydental.inventory.event'].browse(result['inventory_event_ids']);self.assertEqual(stock_event.state,'pending')
         original_price=self.root['ydental.intake.price'].search([('ydental_store_id','=',self.stores[0].id),('ydental_catalog_id','=',self.catalogs[0].id),('state','=','published')],limit=1)
-        price(self,amount=999,replace=original_price)
-        receive(self)
-        self.stock._operate('recover',{'event_id':stock_event.id,'reason':'S08B physical correction verified'},key())
-        result=s._operate('reconcile',{'event_id':result['event_id'],'reason':'Original event reconciliation'},key())
+        revised_at=fields.Datetime.now()+timedelta(seconds=10)
+        price(self,amount=999,start=revised_at,replace=original_price)
+        with patch.object(fields.Datetime,'now',return_value=revised_at+timedelta(seconds=1)):
+            self.assertEqual(self.group._quote(self.stores[0],self.catalogs[0].id,self.currency.id,1)[1]['ydental_unit_price'],999)
+            receive(self)
+            self.stock._operate('recover',{'event_id':stock_event.id,'reason':'S08B physical correction verified'},key())
+            result=s._operate('reconcile',{'event_id':result['event_id'],'reason':'Original event reconciliation'},key())
         self.assertEqual(result['state'],'confirmed');self.assertEqual(result['amount'],600)
         self.assertEqual(len(result['move_ids']),1)
 

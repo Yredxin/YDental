@@ -94,7 +94,8 @@ def fixture(kind):
                 jobs=[job(s,'reconcile',rec),job(s,'reconcile',rec)];info['event_id']=pending['event_id']
             elif kind=='price_publish_vs_execute':
                 old=f.root['ydental.intake.price'].search([('ydental_store_id','=',f.stores[0].id),('ydental_catalog_id','=',f.catalogs[0].id),('state','=','published')],limit=1)
-                revised=f.group._operate('price',{'catalog_id':f.catalogs[0].id,'currency_id':f.currency.id,'unit_price':999,'start':fields.Datetime.to_string(fields.Datetime.now()-timedelta(days=1)),'end':fields.Datetime.to_string(fields.Datetime.now()+timedelta(days=30)),'reason':'Synthetic revised published quote'},key())
+                revised_at=fields.Datetime.now()+timedelta(seconds=20);info['clock_utc']=str(revised_at)
+                revised=f.group._operate('price',{'catalog_id':f.catalogs[0].id,'currency_id':f.currency.id,'unit_price':999,'start':fields.Datetime.to_string(revised_at),'end':fields.Datetime.to_string(fields.Datetime.now()+timedelta(days=30)),'reason':'Synthetic revised published quote'},key())
                 revised=f.group._operate('review',{'record_id':revised['id'],'version':revised['version'],'reason':'Reviewed next quote'},key())
                 jobs=[job(s,'execute',args),job(f.group,'publish',{'record_id':revised['id'],'version':revised['version'],'replace_id':old.id,'replace_version':old.ydental_version,'reason':'Publish changed price concurrently'})];info['sources']=[args['source']]
             elif kind=='revocation_vs_execute':
@@ -141,6 +142,8 @@ def race(kind,round_number):
         def fail(service,event):
             original(service,event);raise UserError('native_move_failure: Injected after completed native move')
         context=patch.object(type(env['ydental.inventory.service']),'_move',fail)
+    elif kind=='price_publish_vs_execute':
+        context=patch.object(fields.Datetime,'now',return_value=fields.Datetime.to_datetime(info['clock_utc']))
     else:
         from contextlib import nullcontext
         context=nullcontext()

@@ -123,7 +123,7 @@ def main():
             check('autosaves create no actual events',page.locator('[data-event]').count()==0)
             form=page.locator('form[data-operation=execute]')
             def fill_project(quantity=1,material=1,actual=False):
-                form.locator('[name=catalog_id]').select_option(str(preview['catalog']));form.locator('[name=quantity]').fill(str(quantity));form.locator('[name=tooth]').fill('16');form.locator('[name=surfaces]').fill('O')
+                form.locator('[name=catalog_id]').select_option(str(preview['catalog']));form.locator('[name=quantity]').fill(str(quantity));form.locator('[name=tooth]').fill('16');form.locator('[name=tooth_state]').select_option('present');form.locator('[name=surfaces]').fill('O')
                 form.locator('[name=lot_id]').select_option(str(preview['material_lot']));form.locator('[name=material_quantity]').fill(str(material));form.locator('[name=reason]').fill('合成人员核实实际项目与批次用量')
                 form.locator('[name=already_performed]').set_checked(actual)
             def submit(form):
