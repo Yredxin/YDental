@@ -1,5 +1,6 @@
 """Committed synthetic examination queue races on independent PostgreSQL backends."""
 from concurrent.futures import ThreadPoolExecutor
+from datetime import datetime, timezone
 from pathlib import Path
 from threading import Barrier
 from types import SimpleNamespace
@@ -13,7 +14,7 @@ import psycopg2
 from odoo import api, fields
 from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.addons.ydental_treatment_test.tests.common import (
-    key, handover_args, lease_args, make_slot, queue_bind,
+    key, handover_args, lease_args, make_slot, queue_bind, price, save_args, serving,
 )
 from odoo.addons.ydental_treatment_test.tests.treatment_common import setup, opened_actual
 
@@ -24,7 +25,7 @@ record = {'database': env.cr.dbname, 'cases': [], 'deadlocks': 0}
 
 def job(service, operation, payload):
     return {'uid': service.env.uid, 'context': dict(service.env.context),
-            'operation': operation, 'payload': payload}
+            'model': service._name, 'operation': operation, 'payload': payload, 'key': key()}
 
 
 def race(name, jobs):
@@ -48,9 +49,11 @@ def race(name, jobs):
                         trace[index].append({'attempt': attempt, 'pid': pid, 'phase': 'barrier_released',
                                              'time_ns': time.monotonic_ns()})
                     request = jobs[index]
-                    service = api.Environment(cr, request['uid'], request['context'])['ydental.queue.service']
+                    service = api.Environment(cr, request['uid'], request['context'])[request['model']]
                     try:
-                        answer = service._operate(request['operation'], request['payload'])
+                        answer = service._operate(request['operation'], request['payload'], request['key']) if (
+                            request['model'] != 'ydental.queue.service') else service._operate(
+                                request['operation'], request['payload'])
                         cr.commit()
                         return {'result': 'accepted', 'first_pid': first_pid, 'pid': pid,
                                 'answer': answer}
@@ -131,5 +134,104 @@ with env.registry.cursor() as cr:
     assert root['ydental.treatment.line'].browse(issued['line_ids'][0]).state == 'started'
     record['execution_ids'] = executions.ids
     record['line_id'] = issued['line_ids'][0]
-run.joinpath('race-result.json').write_text(json.dumps(record, ensure_ascii=False, indent=2) + '\n')
+
+with env.registry.cursor() as cr:
+    fixture = SimpleNamespace(env=api.Environment(cr, 1, {}))
+    setup(fixture)
+    with patch.object(type(fixture.group.env['ydental.supply.service']),
+                      '_allow_demo_supply', return_value=True):
+        treatment, clinical, doctor_queue, doctor_lease, medical, document, args = opened_actual(fixture)
+    line = {'mapping_id': fixture.mappings[0][2].id, 'quantity': 1,
+            'uom_id': fixture.uom.id, 'product_id': False, 'specification': '',
+            'usage': '', 'frequency': '', 'course': ''}
+    order = treatment._operate('order', args | {'kind': 'exam',
+        'purpose': 'Synthetic restore versus real examination start', 'lines': [line]}, key())
+    issued = treatment._operate('issue', args | {'order_id': order['order_id'],
+        'version': order['version']}, key())
+    held = doctor_queue._operate('reserve', lease_args(doctor_lease) | {
+        'execution_id': medical.id, 'target_task_id': issued['task_ids'][0]})
+    task_id = issued['task_ids'][0]
+    task = fixture.root['ydental.intake.task'].browse(task_id)
+    fixture.front._operate('report', {'task_id': task_id, 'version': task.ydental_version}, key())
+    examiner = queue_bind(fixture, fixture.second)
+    exam_lease = examiner._operate('enter', {'station_id': fixture.stations[0][2].id})
+    called = examiner._operate('call', lease_args(exam_lease))
+    assert called['task_id'] == task_id
+    restore_job = job(doctor_queue, 'restore', lease_args(doctor_lease) | {
+        'hold_id': held['hold_id'], 'confirmed': True})
+    start_job = job(examiner, 'start', lease_args(exam_lease) | {'entry_id': called['entry_id']})
+    record['T07_patient_id'] = medical.ydental_patient_id.id
+    cr.commit()
+
+restored = race('T07_restore_versus_exam_start', [restore_job, start_job])
+assert sum(row['result'] == 'accepted' for row in restored['outcomes']) == 1, restored
+with env.registry.cursor() as cr:
+    root = api.Environment(cr, 1, {})
+    active = root['ydental.queue.execution'].search([
+        ('ydental_patient_id', '=', record['T07_patient_id']),
+        ('state', 'in', ('serving', 'verify'))])
+    assert len(active) == 1, active.ids
+    record['T07_active_execution'] = active.ids
+
+with env.registry.cursor() as cr:
+    fixture = SimpleNamespace(env=api.Environment(cr, 1, {}))
+    setup(fixture)
+    original = fixture.stations[0][0]
+    chair = fixture.root['ydental.space.station'].create({
+        'name': 'Synthetic inline cancel-start race chair',
+        'ydental_store_id': fixture.stores[0].id,
+        'ydental_floor_id': original.ydental_floor_id.id,
+        'ydental_area_id': original.ydental_area_id.id, 'ydental_kind': 'care',
+        'ydental_add_capability_ids': [fields.Command.set(
+            fixture.capabilities[0].ids + fixture.capabilities[2].ids)],
+    })
+    make_slot(fixture, fixture.group, chair, fixture.start, fixture.end)
+    price(fixture, 80, catalog=fixture.catalogs[2])
+    with patch.object(type(fixture.group.env['ydental.supply.service']),
+                      '_allow_demo_supply', return_value=True):
+        doctor_queue, lease, medical = serving(fixture, station=chair)
+    clinical = doctor_queue.env['ydental.clinical.service']
+    document = clinical._operate('open', {'execution_id': medical.id,
+        'lease_id': lease['lease_id'], 'lease_token': lease['token']})
+    document.update(clinical._operate('save', save_args(document)))
+    treatment = doctor_queue.env['ydental.treatment.service']
+    args = {'execution_id': medical.id, 'lease_id': lease['lease_id'],
+        'lease_token': lease['token'], 'document_id': document['document_id'],
+        'document_version': document['version']}
+    line = {'mapping_id': fixture.mappings[0][2].id, 'quantity': 1,
+            'uom_id': fixture.uom.id, 'product_id': False, 'specification': '',
+            'usage': '', 'frequency': '', 'course': ''}
+    order = treatment._operate('order', args | {'kind': 'exam',
+        'purpose': 'Synthetic unperformed cancel versus actual inline exam', 'lines': [line]}, key())
+    issued = treatment._operate('issue', args | {'order_id': order['order_id'],
+        'version': order['version']}, key())
+    exam = doctor_queue.env['ydental.exam.service']
+    exam._operate('bind_template', {'catalog_id': fixture.catalogs[2].id,
+        'code': 'panorama-demo-1', 'reason': 'Explicit synthetic reviewed template'}, key())
+    line_id = issued['line_ids'][0]
+    assert exam._actual(fixture.root['ydental.treatment.line'].browse(line_id), medical.id,
+                        lease['lease_id'], lease['token'], True).id == medical.id
+    record['T05_before_race'] = 'both_actions_eligible'
+    perform_job = job(exam, 'perform', {'line_id': line_id, 'execution_id': medical.id,
+        'lease_id': lease['lease_id'], 'lease_token': lease['token'], 'inline': True,
+        'reason': 'Actual synthetic inline examination', 'materials': []})
+    cancel_job = job(treatment, 'cancel_exam', args | {'line_id': line_id,
+        'order_version': issued['version'], 'reason': 'Cancel only if still unperformed'})
+    cr.commit()
+
+cancelled = race('T05_unperformed_cancel_versus_inline_actual', [perform_job, cancel_job])
+assert sum(row['result'] == 'accepted' for row in cancelled['outcomes']) == 1, cancelled
+with env.registry.cursor() as cr:
+    root = api.Environment(cr, 1, {})
+    line = root['ydental.treatment.line'].browse(line_id)
+    events = root['ydental.treatment.event'].search([('ydental_order_line_id', '=', line_id)])
+    fees = root['ydental.treatment.fee'].search([('ydental_event_id', 'in', events.ids)])
+    assert (line.state == 'cancelled' and not events and not fees) or (
+        line.state == 'done' and len(events) == 1 and len(fees) == 1)
+    record['T05_final_line_state'] = line.state
+    record['T05_event_ids'] = events.ids
+    record['T05_fee_ids'] = fees.ids
+
+run.joinpath('race-result-' + datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f') + '.json').write_text(
+    json.dumps(record, ensure_ascii=False, indent=2) + '\n')
 print('S09_RACE_RESULT', json.dumps(record, ensure_ascii=False))
