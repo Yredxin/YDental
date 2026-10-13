@@ -120,7 +120,9 @@ class YDentalPrintService(models.AbstractModel):
         for order in orders:
             if self.env['ydental.patient.service']._current_relation(order.ydental_patient_id, store, required=False):
                 choices.append({'kind': 'prescription', 'id': order.id, 'version': order.ydental_version, 'state': order.state})
-        return choices
+        labels = {'clinical': self.env._('Clinical text'), 'prescription': self.env._('Prescription'), 'consent': self.env._('Unsigned consent sample')}
+        states = {'draft': self.env._('Draft'), 'pending': self.env._('Document awaiting completion'), 'confirmed': self.env._('Text confirmed, not a formal medical signature'), 'unsigned': self.env._('Demonstration / unreviewed / unsigned'), 'issued': self.env._('Issued, frozen'), 'done': self.env._('All approved quantities dispensed')}
+        return [choice | {'kind_label': labels[choice['kind']], 'state_label': states[choice['state']]} for choice in choices]
 
     def _pair(self, label, value):
         return [label, str(value) if value is not False and value is not None and value != '' else self.env._('Not recorded')]

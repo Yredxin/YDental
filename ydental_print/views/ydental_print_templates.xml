@@ -10,7 +10,7 @@
             <p class="alert alert-warning">Unreviewed demonstration templates. Generation is separate from clinical confirmation, signing and physical paper output. Download and print require source read plus export permission.</p>
             <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
             <label>PDF type <select id="print-kind"><option value="clinical">Clinical text</option><option value="prescription">Prescription</option><option value="consent">Unsigned consent sample</option></select></label>
-            <label>Current local sources <select id="print-choice"><option value="">Select an independent source</option><option t-foreach="choices" t-as="choice" t-att-data-kind="choice['kind']" t-att-data-version="choice['version']" t-att-value="choice['id']"><t t-out="choice['kind']"/> #<t t-out="choice['id']"/> / v<t t-out="choice['version']"/> / <t t-out="choice['state']"/></option></select></label>
+            <label>Current local sources <select id="print-choice"><option value="">Select an independent source</option><option t-foreach="choices" t-as="choice" t-att-data-kind="choice['kind']" t-att-data-version="choice['version']" t-att-value="choice['id']"><t t-out="choice['kind_label']"/> #<t t-out="choice['id']"/> / v<t t-out="choice['version']"/> / <t t-out="choice['state_label']"/></option></select></label>
             <label>Explicit source ID <input id="print-source" type="number" min="1"/></label>
             <label>Selected immutable text or current order version <input id="print-version" type="number" min="0"/></label>
             <label>Historical clinical purpose <select id="print-purpose"><option value="">Current store source</option><option value="diagnosis">Diagnosis</option><option value="history_review">History review</option></select></label>
@@ -25,9 +25,9 @@
                 <span data-message="generated">PDF generated. Physical paper output is unknown.</span>
                 <span data-message="viewed">PDF view request succeeded. Physical paper output is unknown.</span>
                 <span data-message="downloaded">Download request succeeded. Physical paper output is unknown.</span>
-                <span data-message="print_requested">Print request recorded. Use the browser dialog; physical paper output is unknown.</span>
+                <span data-message="print_requested">Print request recorded. In the opened PDF viewer, use its print button or the browser print dialog. Physical paper output is unknown.</span>
                 <span data-message="failed">Unconfirmed or failed response. Refresh and review the source before retrying. No automatic replay; physical paper output is unknown.</span>
-                <span data-message="dialog_failed">Print request recorded, but the browser dialog could not be opened. Physical paper output is unknown.</span>
+                <span data-message="dialog_failed">Print request recorded, but the PDF viewer could not be opened. Allow popups and request again. Physical paper output is unknown.</span>
             </div>
         </main></t>
     </template>

@@ -39,6 +39,7 @@ function start() {
     });
     async function operate(operation) {
         if (busy) { return; }
+        const printWindow = operation === 'print_request' ? window.open('about:blank', '_blank') : null;
         const submitted = JSON.stringify(selection());
         const selected = selection();
         const payload = operation === 'preview' ? selected : operation === 'generate' ? {...selected, expected_digest: reviewed.source_digest, key: generationKey} : {job_id: job.job_id};
@@ -72,18 +73,25 @@ function start() {
                     a.download = 'ydental-demonstration.pdf';
                     a.click();
                     field('result').textContent = messages.downloaded;
+                } else if (operation === 'print_request') {
+                    if (printWindow) {
+                        printWindow.opener = null;
+                        printWindow.location.replace(blobUrl);
+                        field('result').textContent = messages.print_requested;
+                    } else {
+                        field('result').textContent = messages.dialog_failed;
+                    }
                 } else {
+                    field('html').hidden = true;
                     const frame = field('pdf');
                     frame.hidden = false;
-                    frame.onload = operation === 'print_request' ? () => {
-                        try { frame.contentWindow.focus(); frame.contentWindow.print(); }
-                        catch { field('result').textContent = messages.dialog_failed; }
-                    } : null;
                     frame.src = blobUrl;
-                    field('result').textContent = operation === 'print_request' ? messages.print_requested : messages.viewed;
+                    frame.scrollIntoView({block: 'start'});
+                    field('result').textContent = messages.viewed;
                 }
             }
         } catch {
+            if (printWindow) { printWindow.close(); }
             invalidate();
             field('result').textContent = messages.failed;
         } finally {
