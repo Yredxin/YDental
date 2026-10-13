@@ -109,9 +109,13 @@ class YDentalSettlementService(models.AbstractModel):
         return instant.astimezone(ZoneInfo(store.ydental_timezone)).date()
 
     def _lock(self):
-        # A single S10 transaction fence fixes lock order across fee, payment,
-        # refund and close paths. Native accounting locks are taken afterwards.
+        # The advisory lock fixes order; the row update rejects an older
+        # REPEATABLE READ snapshot before it can over-reserve refund capacity.
         self.env.cr.execute('SELECT pg_advisory_xact_lock(%s)', [32010])
+        mutex = self.env.ref('ydental_settlement.ydental_settlement_mutex')
+        self.env.cr.execute('UPDATE ydental_settlement_mutex '
+                            'SET ydental_revision=ydental_revision+1 WHERE id=%s', [mutex.id])
+        self.env.invalidate_all()
 
     def _operate(self, operation, payload, key):
         handlers = {

@@ -5,6 +5,7 @@
     'author': 'YDental',
     'depends': ['ydental_exam', 'ydental_print', 'account', 'sale_stock', 'purchase_stock'],
     'data': [
+        'data/ydental_settlement_mutex.xml',
         'security/ir.access.csv',
         'report/ydental_settlement_reports.xml',
         'report/ydental_settlement_templates.xml',
