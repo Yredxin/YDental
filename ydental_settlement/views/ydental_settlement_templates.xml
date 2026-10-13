@@ -1,0 +1,149 @@
+<odoo>
+    <record id="ydental_settlement_action" model="ir.actions.act_url">
+        <field name="name">Offline settlement workbench</field>
+        <field name="url">/ydental/settlement</field>
+        <field name="target">self</field>
+    </record>
+    <menuitem id="ydental_settlement_menu" name="Offline settlement" parent="ydental_base.ydental_base_menu_root"
+              action="ydental_settlement_action" sequence="84" groups="ydental_base.ydental_base_group_user"/>
+
+    <template id="ydental_settlement_tokens">
+        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+        <input type="hidden" name="revision" t-att-value="revision"/>
+        <input type="hidden" name="key" t-att-value="new_key()"/>
+    </template>
+
+    <template id="ydental_settlement_page" name="Offline settlement workbench">
+        <t t-set="head"><meta name="viewport" content="width=device-width, initial-scale=1"/>
+            <t t-call-assets="web.assets_frontend" t-js="false"/></t>
+        <t t-call="web.layout" head="head">
+            <main class="container py-4 o_ydental_settlement" t-att-data-revision="revision">
+                <h1>线下结算工作台</h1>
+                <p>当前门店：<strong t-out="store.name"/>；仅记录人工确认实际发生的线下资金。本页为演示，不是税务发票或平台到账证明。</p>
+                <nav><a href="/ydental/queue">前台与候诊</a> | <a href="/ydental/access">门店与权限</a></nav>
+                <form method="get" action="/ydental/settlement">
+                    <label>患者 ID <input type="number" name="patient_id" min="1" t-att-value="patient.id if patient else ''"/></label>
+                    <button type="submit">筛选</button>
+                </form>
+                <p t-if="patient">患者编号：<strong t-out="patient.ydental_number"/></p>
+                <p t-if="patient"><a t-att-href="'/ydental/settlement/other-stores/%s' % patient.id">查看其他门店欠款最小摘要</a></p>
+                <section>
+                    <h2>今日未出账费用</h2>
+                    <p t-if="not today">无</p>
+                    <table t-if="today" class="table"><thead><tr><th>费用</th><th>来源</th><th>确认金额</th><th>业务日</th></tr></thead>
+                        <tbody><tr t-foreach="today" t-as="fee"><td t-out="fee.id"/><td t-out="fee.name"/>
+                            <td t-out="fee.ydental_amount"/><td t-out="fee.ydental_event_id.ydental_business_date"/></tr></tbody>
+                    </table>
+                </section>
+                <section><h2>历史未出账费用</h2><p t-if="not history">无</p>
+                    <table t-if="history" class="table"><tbody><tr t-foreach="history" t-as="fee">
+                        <td t-out="fee.id"/><td t-out="fee.name"/><td t-out="fee.ydental_amount"/>
+                        <td t-out="fee.ydental_event_id.ydental_business_date"/></tr></tbody></table>
+                </section>
+                <section><h2>待核对，禁止出账</h2><p t-if="not pending">无</p>
+                    <table t-if="pending" class="table"><tbody><tr t-foreach="pending" t-as="fee">
+                        <td t-out="fee.id"/><td t-out="fee.ydental_event_id.ydental_pending_reason or '待核对'"/></tr></tbody></table>
+                </section>
+                <form t-if="can_write and (today or history)" method="post" action="/ydental/settlement/action">
+                    <t t-call="ydental_settlement.ydental_settlement_tokens"/>
+                    <input type="hidden" name="operation" value="bill"/>
+                    <h3>选择本店已确认费用出账</h3>
+                    <label t-foreach="today | history" t-as="fee" style="display:block">
+                        <input type="checkbox" name="fee_ids" t-att-value="fee.id"/>
+                        <span t-out="fee.id"/> — <span t-out="fee.name"/>：<span t-out="fee.ydental_amount"/>
+                    </label>
+                    <label>明确折扣金额 <input type="number" name="discount" min="0" step="0.01" value="0"/></label>
+                    <label>折扣原因 <input type="text" name="reason" maxlength="300"/></label>
+                    <button type="submit">生成原生过账账单</button>
+                </form>
+                <section><h2>已出账未付清</h2><p t-if="not invoices">无</p>
+                    <table t-if="invoices" class="table"><thead><tr><th>原生单号</th><th>业务日</th><th>原金额</th><th>应收余额</th><th>内部账单</th></tr></thead>
+                        <tbody><tr t-foreach="invoices" t-as="invoice">
+                            <td t-out="invoice.name"/><td t-out="invoice.invoice_date"/>
+                            <td t-out="invoice.amount_total"/><td t-out="invoice.amount_residual"/>
+                            <td><a t-att-href="'/ydental/settlement/pdf/bill/%s' % invoice.id">下载中文 PDF</a></td>
+                        </tr></tbody></table>
+                </section>
+                <form t-if="can_write and invoices" method="post" action="/ydental/settlement/action">
+                    <t t-call="ydental_settlement.ydental_settlement_tokens"/>
+                    <input type="hidden" name="operation" value="pay"/>
+                    <h3>仅选择本次付款核销的账单</h3>
+                    <label t-foreach="invoices" t-as="invoice" style="display:block"><input type="checkbox" name="invoice_ids" t-att-value="invoice.id"/>
+                        <span t-out="invoice.name"/>，应收 <span t-out="invoice.amount_residual"/></label>
+                    <label>实际收款 <input type="number" name="amount" min="0.01" step="0.01" required="required"/></label>
+                    <label>线下方式 <select name="channel"><option value="cash">现金</option><option value="wechat">微信线下</option>
+                        <option value="alipay">支付宝线下</option><option value="card">银行卡线下</option></select></label>
+                    <label>实际发生 UTC <input type="text" name="actual_utc" t-att-value="now_utc()" required="required"/></label>
+                    <label>真实线下凭据说明 <input type="text" name="proof" maxlength="200" required="required"/></label>
+                    <button type="submit">确认实际收款并原生核销</button>
+                </form>
+                <section><h2>线下付款与退款</h2>
+                    <div t-foreach="payments" t-as="payment">
+                        <p>付款 <span t-out="payment.id"/> / <span t-out="payment.ydental_payment_id.name"/>：
+                            <span t-out="payment.ydental_amount"/>，<span t-out="payment.ydental_channel"/>，
+                            <a t-att-href="'/ydental/settlement/pdf/receipt/%s' % payment.id">下载小票 PDF</a></p>
+                        <form t-if="can_write" method="post" action="/ydental/settlement/action">
+                            <t t-call="ydental_settlement.ydental_settlement_tokens"/>
+                            <input type="hidden" name="operation" value="refund_request"/>
+                            <input type="hidden" name="payment_id" t-att-value="payment.id"/>
+                            <label>申请退款额 <input type="number" name="amount" min="0.01" step="0.01" required="required"/></label>
+                            <label>原因 <input type="text" name="reason" maxlength="300" required="required"/></label>
+                            <button type="submit">申请退款</button>
+                        </form>
+                        <form t-if="can_write" method="post" action="/ydental/settlement/action">
+                            <t t-call="ydental_settlement.ydental_settlement_tokens"/>
+                            <input type="hidden" name="operation" value="reclassify"/>
+                            <input type="hidden" name="payment_id" t-att-value="payment.id"/>
+                            <label>更正线下方式 <select name="new_channel"><option value="cash">现金</option>
+                                <option value="wechat">微信线下</option><option value="alipay">支付宝线下</option>
+                                <option value="card">银行卡线下</option></select></label>
+                            <label>更正原因 <input type="text" name="reason" maxlength="300" required="required"/></label>
+                            <button type="submit">原生重分类更正</button>
+                        </form>
+                    </div>
+                    <div t-foreach="refunds" t-as="refund">
+                        <p>退款 <span t-out="refund.id"/>：<span t-out="refund.ydental_amount"/>，状态 <span t-out="refund.ydental_state"/>
+                            <a t-att-href="'/ydental/settlement/pdf/refund/%s' % refund.id">下载退款凭据 PDF</a></p>
+                        <form t-if="can_approve and refund.ydental_state == 'requested'" method="post" action="/ydental/settlement/action">
+                            <t t-call="ydental_settlement.ydental_settlement_tokens"/>
+                            <input type="hidden" name="refund_id" t-att-value="refund.id"/>
+                            <label>审批原因 <input type="text" name="reason" maxlength="300" required="required"/></label>
+                            <button name="operation" value="refund_approve">另一人批准，在途</button>
+                            <button name="operation" value="refund_reject">驳回，不退款</button>
+                        </form>
+                        <form t-if="can_write and refund.ydental_state == 'approved'" method="post" action="/ydental/settlement/action">
+                            <t t-call="ydental_settlement.ydental_settlement_tokens"/>
+                            <input type="hidden" name="operation" value="refund_execute"/>
+                            <input type="hidden" name="refund_id" t-att-value="refund.id"/>
+                            <label>实际退款 UTC <input type="text" name="actual_utc" t-att-value="now_utc()" required="required"/></label>
+                            <label>实际线下退款凭据 <input type="text" name="proof" maxlength="200" required="required"/></label>
+                            <button type="submit">确认已实际退款</button>
+                        </form>
+                    </div>
+                </section>
+                <section><h2>收费员日结</h2>
+                    <form t-if="can_write" method="post" action="/ydental/settlement/action">
+                        <t t-call="ydental_settlement.ydental_settlement_tokens"/>
+                        <input type="hidden" name="operation" value="close"/>
+                        <label>门店业务日 <input type="date" name="business_date" required="required"/></label>
+                        <label>方式 <select name="channel"><option value="cash">现金</option><option value="wechat">微信线下</option>
+                            <option value="alipay">支付宝线下</option><option value="card">银行卡线下</option></select></label>
+                        <button type="submit">确认日结并锁定</button>
+                    </form>
+                    <div t-foreach="closes" t-as="close">
+                        <p>日结 <span t-out="close.id"/> / <span t-out="close.ydental_business_date"/> /
+                            <span t-out="close.ydental_channel"/> / <span t-out="close.ydental_state"/>：
+                            收 <span t-out="close.ydental_gross"/>、实退 <span t-out="close.ydental_refunded"/>、在途 <span t-out="close.ydental_pending"/></p>
+                        <form t-if="can_approve and close.ydental_state == 'confirmed'" method="post" action="/ydental/settlement/action">
+                            <t t-call="ydental_settlement.ydental_settlement_tokens"/>
+                            <input type="hidden" name="operation" value="unlock"/>
+                            <input type="hidden" name="close_id" t-att-value="close.id"/>
+                            <label>财务解锁原因 <input type="text" name="reason" maxlength="300" required="required"/></label>
+                            <button type="submit">财务解锁</button>
+                        </form>
+                    </div>
+                </section>
+            </main>
+        </t>
+    </template>
+</odoo>

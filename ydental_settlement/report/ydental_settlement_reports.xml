@@ -1,0 +1,10 @@
+<odoo>
+    <record id="ydental_settlement_pdf_report" model="ir.actions.report">
+        <field name="name">YDental synthetic settlement document</field>
+        <field name="model">ydental.settlement.receipt</field>
+        <field name="report_type">qweb-pdf-wkhtmltopdf</field>
+        <field name="report_name">ydental_settlement.ydental_settlement_pdf</field>
+        <field name="paperformat_id" ref="ydental_print.ydental_pdf_a4"/>
+        <field name="group_ids" eval="[(4, ref('ydental_base.ydental_base_group_user'))]"/>
+    </record>
+</odoo>

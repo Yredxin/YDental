@@ -1,0 +1,45 @@
+<odoo>
+    <template id="ydental_settlement_pdf">
+        <html><head><meta charset="utf-8"/></head><body>
+            <main class="page" style="font-family:'Noto Sans CJK SC',sans-serif;font-size:12px;line-height:1.6">
+                <h1 t-if="p['kind'] == 'bill'">内部结算账单</h1>
+                <h1 t-if="p['kind'] == 'receipt'">实际线下收款小票</h1>
+                <h1 t-if="p['kind'] == 'refund'">退款申请与实际退款凭据</h1>
+                <p style="color:#a00;font-weight:bold" t-out="p['demo']"/>
+                <p>法人：<span t-out="p['company']"/>　门店：<span t-out="p['store']"/></p>
+                <p>患者编号：<span t-out="p['patient']"/>　经办人：<span t-out="p['operator']"/></p>
+                <p>原生单号：<span t-out="p['number']"/>　门店业务日：<span t-out="p['business_date']"/></p>
+                <div t-if="p['kind'] == 'bill'">
+                    <table style="width:100%;border-collapse:collapse">
+                        <thead><tr><th>费用来源</th><th>项目</th><th>原价格版本</th><th>金额</th></tr></thead>
+                        <tbody><tr t-foreach="p['lines']" t-as="line">
+                            <td t-out="line['fee_id']"/><td t-out="line['name']"/>
+                            <td t-out="line['price_version']"/><td t-out="line['amount']"/>
+                        </tr></tbody>
+                    </table>
+                    <p>明确折扣：<span t-out="p['discount']"/>　账单总额：<span t-out="p['total']"/> <span t-out="p['currency']"/></p>
+                    <p>原生实收核销：<span t-out="p['received']"/>　当前应收余额：<span t-out="p['residual']"/></p>
+                </div>
+                <div t-if="p['kind'] == 'receipt'">
+                    <p>实际发生 UTC：<span t-out="p['actual_utc']"/>　录入 UTC：<span t-out="p['recorded_utc']"/></p>
+                    <p>线下登记方式：<span t-out="p['channel']"/>；无支付接口自动到账。</p>
+                    <table style="width:100%"><thead><tr><th>已选原账单</th><th>本次原生核销</th></tr></thead>
+                        <tbody><tr t-foreach="p['allocations']" t-as="line">
+                            <td t-out="line['invoice']"/><td t-out="line['amount']"/>
+                        </tr></tbody>
+                    </table>
+                    <p>本次实际收款：<span t-out="p['received']"/> <span t-out="p['currency']"/></p>
+                    <p>已实际退款：<span t-out="p['refunded']"/>　批准或核查在途：<span t-out="p['pending']"/></p>
+                    <p>净实际收款：<span t-out="p['net']"/>　已选账单目前应收：<span t-out="p['residual']"/></p>
+                </div>
+                <div t-if="p['kind'] == 'refund'">
+                    <p>状态：<span t-out="p['state']"/>　原申请额：<span t-out="p['requested']"/> <span t-out="p['currency']"/></p>
+                    <p>批准／核查在途：<span t-out="p['pending']"/>　已实际退款：<span t-out="p['refunded']"/></p>
+                    <p>实际退款 UTC：<span t-out="p['actual_utc']"/>　原生付款号：<span t-out="p['native_payment']"/></p>
+                    <p>原因：<span t-out="p['reason']"/></p>
+                </div>
+                <p>此为隔离合成数据库中的演示初版，不代表正式税务开票或纸张出纸。</p>
+            </main>
+        </body></html>
+    </template>
+</odoo>

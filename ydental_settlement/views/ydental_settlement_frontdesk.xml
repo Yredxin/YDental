@@ -1,0 +1,10 @@
+<odoo>
+    <template id="ydental_queue_page" inherit_id="ydental_queue.ydental_queue_page"
+              name="ydental.queue.page.inherit.settlement">
+        <xpath expr="//nav/a[@href='/ydental/access']" position="after">
+            <t t-if="request.env['ydental.access.service']._levels(request.env['ydental.access.service']._membership(request.env.uid, store.id))['settlement'] == 'write'">
+                <span> | </span><a href="/ydental/settlement">线下结算</a>
+            </t>
+        </xpath>
+    </template>
+</odoo>
