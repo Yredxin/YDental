@@ -1,7 +1,7 @@
 <odoo>
     <template id="ydental_exam_pdf">
-        <t t-call="web.html_container">
-            <div class="page" style="font-family:'Noto Sans CJK SC',sans-serif;font-size:12px;line-height:1.6">
+        <html><head><meta charset="utf-8"/></head><body>
+            <main class="page" style="font-family:'Noto Sans CJK SC',sans-serif;font-size:12px;line-height:1.6">
                 <h1>检查结果演示报告</h1>
                 <p style="color:#a00;font-weight:bold">演示草案 / 未审核签发 / 非正式医疗报告</p>
                 <p>患者编号：<span t-out="p['patient_number']"/>　门店：<span t-out="p['store']"/></p>
@@ -16,7 +16,7 @@
                 <p t-foreach="p['measurements']" t-as="m"><span t-out="m['name']"/>：<span t-out="m['value']"/> <span t-out="m['unit']"/>（<span t-out="m['status']"/>）</p>
                 <h2>人工结论</h2><div style="white-space:pre-wrap" t-out="p['conclusion'] or '未记录'"/>
                 <p>本文件没有电子签名、设备接通或专业阅片认证。</p>
-            </div>
-        </t>
+            </main>
+        </body></html>
     </template>
 </odoo>
