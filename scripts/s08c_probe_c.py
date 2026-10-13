@@ -151,7 +151,7 @@ try:
   rx={'kind':'prescription','source_id':draft['order_id'],'version':draft['version']};pdf(p,rx,'prescription-incomplete-draft')
   receive(f,20,'medicine');price(f,catalog=f.drug_catalog,amount=10)
   order=prescription(f,s,a);rx={'kind':'prescription','source_id':order['order_id'],'version':order['version']};pdf(p,rx,'prescription-six-uncollected')
-  hand=c._operate('handover',handover_args(d,l));d.update(hand);sel['version']=d['version'];pdf(p,sel,'clinical-d1-pending')
+  hand=c._operate('handover',handover_args(d,l)|{'content':d['content']});d.update(hand);sel['version']=d['version'];pdf(p,sel,'clinical-d1-pending')
   q._operate('exit',lease_args(l))
   pharm,pa=pharmacy_start(f,order)
   dose=pa|{'line_id':order['line_ids'][0],'lot_id':f.lots['medicine'],'quantity':4,'source':key(),'reason':'合成四份真实发放','policy':'demo_confirmation'}
