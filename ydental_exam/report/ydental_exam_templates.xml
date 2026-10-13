@@ -1,0 +1,22 @@
+<odoo>
+    <template id="ydental_exam_pdf">
+        <t t-call="web.html_container">
+            <div class="page" style="font-family:'Noto Sans CJK SC',sans-serif;font-size:12px;line-height:1.6">
+                <h1>检查结果演示报告</h1>
+                <p style="color:#a00;font-weight:bold">演示草案 / 未审核签发 / 非正式医疗报告</p>
+                <p>患者编号：<span t-out="p['patient_number']"/>　门店：<span t-out="p['store']"/></p>
+                <p>医嘱行：<span t-out="p['line_id']"/>　项目：<span t-out="p['catalog']"/></p>
+                <p>报告版本：<span t-out="p['version']"/>　模板版本：<span t-out="p['template_version']"/></p>
+                <p>原作者：<span t-out="p['original_author']"/>　该版记录者：<span t-out="p['version_author']"/></p>
+                <p>实际执行人：<span t-out="p['operator']"/>　工位：<span t-out="p['station']"/></p>
+                <p>实际执行时间 UTC：<span t-out="p['actual_at']"/>　门店业务日：<span t-out="p['business_date']"/></p>
+                <p>来源事件：<span t-out="p['event_id']"/>　结果状态：<span t-out="p['state']"/></p>
+                <h2>所见</h2><div style="white-space:pre-wrap" t-out="p['findings'] or '未记录'"/>
+                <h2>测量</h2>
+                <p t-foreach="p['measurements']" t-as="m"><span t-out="m['name']"/>：<span t-out="m['value']"/> <span t-out="m['unit']"/>（<span t-out="m['status']"/>）</p>
+                <h2>人工结论</h2><div style="white-space:pre-wrap" t-out="p['conclusion'] or '未记录'"/>
+                <p>本文件没有电子签名、设备接通或专业阅片认证。</p>
+            </div>
+        </t>
+    </template>
+</odoo>

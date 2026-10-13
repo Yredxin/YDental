@@ -1,0 +1,61 @@
+<odoo>
+    <record id="ydental_exam_action" model="ir.actions.act_url">
+        <field name="name">Examination workbench</field><field name="url">/ydental/exam</field><field name="target">self</field>
+    </record>
+    <menuitem id="ydental_exam_menu" name="Examination workbench" parent="ydental_base.ydental_base_menu_root"
+              action="ydental_exam_action" sequence="75" groups="ydental_base.ydental_base_group_user"/>
+    <template id="ydental_exam_page" name="Examination workbench">
+        <t t-call="web.frontend_layout">
+            <main class="container py-4 o_ydental_exam" t-att-data-revision="revision"
+                  t-att-data-execution="execution.id if execution else 0"
+                  t-att-data-category="execution.ydental_category if execution else ''"
+                  t-att-data-write="'1' if can_write else '0'">
+                <h1>检查工作台</h1>
+                <nav><a href="/ydental/queue">工位叫号</a> | <a href="/ydental/treatment">医疗医嘱</a></nav>
+                <p class="alert alert-warning">演示字段与报告未审核签发；实际检查、结果文字、费用和附件分别确认。专业影像设备与PACS未连接。</p>
+                <p>门店 <strong t-out="store.name"/> / 实际服务 <strong t-out="execution.id if execution else '-'"/> / 工位 <strong t-out="execution.ydental_lease_id.ydental_station_id.name if execution else '-'"/></p>
+                <p id="exam-message" role="status">请核对真实医嘱行和当前工位后操作。</p>
+                <a id="exam-reconcile" href="/ydental/exam" target="_blank" rel="noopener" hidden="hidden">响应未知：在新页核对真实记录，勿自动重放。</a>
+                <section t-foreach="lines" t-as="line" t-att-data-line="line.id" class="border rounded p-3 my-3">
+                    <t t-set="row" t-value="results.filtered(lambda r: r.ydental_line_id == line)[:1]"/>
+                    <t t-set="event" t-value="row.ydental_event_id if row else False"/>
+                    <h2><t t-out="line.name"/> #<t t-out="line.id"/> / <t t-out="line_labels[line.state]"/></h2>
+                    <p>患者 <t t-out="line.ydental_patient_id.name"/> / 冻结医嘱 <t t-out="line.ydental_order_id.id"/> / 全景或CBCT任务 <t t-out="line.ydental_task_id.id"/> / 方向 <t t-out="line.ydental_mapping_id.ydental_catalog_id.name"/></p>
+                    <p>原开单人 <t t-out="line.ydental_order_id.ydental_actor_id.name"/> / 真实执行 <t t-out="event.ydental_actor_id.name if event else '-'"/> / 费用来源 <t t-out="event.id if event else '-'"/> / 状态 <t t-out="result_labels[row.state] if row else '未填写'"/></p>
+                    <p t-if="event">价格快照 <t t-out="event.ydental_price_snapshot_id.id or '-'"/> / 待核对 <t t-out="event.ydental_pending_reason or '-'"/> / 费源状态 <t t-out="event.state"/></p>
+                    <p><a t-att-href="'/ydental/exam/result/%s' % line.id" target="_blank" rel="noopener">查看独立结果与版本</a>
+                       <a t-if="row and row.ydental_version" t-att-href="'/ydental/exam/report/%s/%s' % (line.id,row.ydental_version)">下载未签演示PDF</a></p>
+                    <t t-if="can_write and execution and (execution.ydental_task_id == line.ydental_task_id or execution == line.ydental_order_id.ydental_execution_id)">
+                        <form data-operation="draft" t-att-data-line="line.id" t-att-data-version="row.ydental_version if row else 0">
+                            <label>所见 <textarea name="findings" maxlength="12000" t-out="row.ydental_findings or ''"/></label>
+                            <label>人工结论（可空） <textarea name="conclusion" maxlength="12000" t-out="row.ydental_conclusion or ''"/></label>
+                            <button type="submit">保存独立结果草稿</button>
+                        </form>
+                        <form t-if="line.state in ('issued','started')" data-operation="perform" t-att-data-line="line.id">
+                            <label>实际实施说明 <input name="reason" required="required" maxlength="240"/></label>
+                            <button type="submit">确认真实执行一次并取价</button>
+                        </form>
+                        <form t-if="line.state == 'started' or line.state == 'done'" data-operation="abort" t-att-data-line="line.id">
+                            <label>实际中止/部分完成原因 <input name="reason" required="required" maxlength="240"/></label>
+                            <button type="submit">记录实际中止或部分完成</button>
+                        </form>
+                        <form t-if="line.state in ('started','done','partial','aborted') and execution.ydental_category == 'exam'" data-operation="finish" t-att-data-line="line.id">
+                            <label>结束检查段说明 <input name="reason" required="required" maxlength="240"/></label><button type="submit">结束检查段并释放工位</button>
+                        </form>
+                    </t>
+                    <form t-if="can_write and row and row.state in ('pending','partial')" data-operation="confirm" t-att-data-line="line.id" t-att-data-version="row.ydental_version">
+                        <label>人工结果审核说明 <input name="reason" required="required" maxlength="240"/></label><button type="submit">确认结果文字（不代表正式签发）</button>
+                    </form>
+                    <form t-if="can_write and row and row.state == 'confirmed'" data-operation="correct" t-att-data-line="line.id" t-att-data-version="row.ydental_version">
+                        <label>更正原因 <input name="reason" required="required" maxlength="240"/></label>
+                        <label>所见 <textarea name="findings" maxlength="12000" t-out="row.ydental_findings or ''"/></label>
+                        <label>结论 <textarea name="conclusion" maxlength="12000" t-out="row.ydental_conclusion or ''"/></label><button type="submit">追加更正版本</button>
+                    </form>
+                    <form t-if="can_write and event and event.state == 'pending'" data-operation="reconcile" t-att-data-line="line.id">
+                        <label>原执行事实核对说明 <input name="reason" required="required" maxlength="240"/></label><button type="submit">原执行人核对费库</button>
+                    </form>
+                </section>
+            </main>
+        </t>
+    </template>
+</odoo>

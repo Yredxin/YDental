@@ -43,6 +43,10 @@ class YDentalQueueService(models.AbstractModel):
         if entry:
             line = self.env['ydental.treatment.service']._model('line').search([
                 ('ydental_task_id', '=', entry.ydental_task_id.id), ('state', '=', 'issued')], limit=1)
-            if line and line.ydental_order_id.ydental_kind == 'exam':
+            if line and line.ydental_order_id.ydental_kind == 'exam' and not self._exam_start_authorized(line):
                 raise AccessError(self.env._('exam_integration_required: Real examination execution and results remain unavailable until S09 is authorized and installed.'))
         return super()._start(lease_id, token, entry_id)
+
+    def _exam_start_authorized(self, line):
+        # An installed upper module must validate the frozen examination source.
+        return False

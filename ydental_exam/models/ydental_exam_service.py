@@ -1,0 +1,416 @@
+import base64
+import hashlib
+import inspect
+import json
+from datetime import timedelta
+from dataclasses import dataclass
+import io
+
+from odoo import fields, models
+from odoo.exceptions import AccessError, UserError, ValidationError
+from odoo.tools.pdf import PdfFileReader, PdfReadError
+from odoo.addons.base.models.ir_qweb import QWebError
+
+
+TEMPLATES = {
+    'oral-demo-1': {'capability': 'oral', 'measurements': {'count': 'count'}},
+    'periodontal-demo-1': {'capability': 'periodontal', 'measurements': {'depth_mm': 'mm'}},
+    'panorama-demo-1': {'capability': 'panorama', 'measurements': {'length_mm': 'mm'}},
+    'cbct-demo-1': {'capability': 'cbct', 'measurements': {'length_mm': 'mm'}},
+}
+
+
+def fingerprint(value):
+    return hashlib.sha256(json.dumps(value, ensure_ascii=True, sort_keys=True).encode()).hexdigest()
+
+
+@dataclass(frozen=True)
+class ExamPdfScope:
+    actor_id: int
+    session_id: int
+    revision: int
+    result_id: int
+    version: int
+    digest: str
+
+
+class YDentalExamService(models.AbstractModel):
+    _name = 'ydental.exam.service'
+    _description = 'Frozen examination line, actual execution and independent result authority'
+
+    def _model(self, name):
+        return self.env['ydental.exam.' + name].sudo()
+
+    def _store(self, write=False):
+        access = self.env['ydental.access.service']
+        level = 'write' if write else 'read'
+        try:
+            member = access._check('exam', level, write=write)
+        except AccessError:
+            if write:
+                raise
+            member = access._check('medical', 'read')
+        store = member.ydental_store_id
+        if store.company_id not in self.env.user.sudo().company_ids:
+            raise AccessError(self.env._('access_denied: The source company is outside the account scope.'))
+        return store
+
+    def _line(self, line_id, write=False):
+        store = self._store(write)
+        line = self.env['ydental.treatment.line'].sudo().browse(self.env['ydental.intake.service']._id(line_id)).exists()
+        if not line or line.ydental_order_id.ydental_kind != 'exam' or line.ydental_store_id != store or (
+                line.ydental_order_id.ydental_patient_id != line.ydental_patient_id or
+                line.ydental_task_id.ydental_mapping_id != line.ydental_mapping_id):
+            raise AccessError(self.env._('source_required: Select a real frozen examination line in this store.'))
+        self.env['ydental.patient.service']._current_relation(line.ydental_patient_id, store)
+        return line
+
+    def _result(self, line, create=False, execution=None):
+        result = self._model('result').search([('ydental_line_id', '=', line.id)], limit=1)
+        if not result and create:
+            result = self._model('result')._new({'name': line.name, 'ydental_store_id': line.ydental_store_id.id,
+                'ydental_category': 'exam', 'ydental_patient_id': line.ydental_patient_id.id,
+                'ydental_actor_id': self.env.uid, 'ydental_original_author_id': self.env.uid,
+                'ydental_line_id': line.id, 'ydental_execution_id': execution.id if execution else False,
+                'ydental_template_code': 'panorama-demo-1' if 'pan' in (line.ydental_mapping_id.ydental_catalog_id.ydental_code or '').lower() else 'cbct-demo-1' if 'cbct' in (line.ydental_mapping_id.ydental_catalog_id.ydental_code or '').lower() else 'oral-demo-1',
+                'ydental_template_version': 'S09-DRAFT-1'})
+        return result
+
+    def _audit(self, action, record, after=None, reason=False):
+        self.env['ydental.access.service']._audit('exam.' + action, 'exam', record, record.ydental_store_id.id,
+            after=after, reason=reason, source='examination_service')
+
+    def _actual(self, line, execution_id, lease_id, lease_token, inline=False):
+        self._store(write=True)
+        treatment = self.env['ydental.treatment.service']
+        queue = self.env['ydental.queue.service']
+        execution = treatment._serving(execution_id, lease_id, lease_token, 'medical' if inline else 'exam')
+        if execution.ydental_patient_id != line.ydental_patient_id or execution.ydental_store_id != line.ydental_store_id:
+            raise AccessError(self.env._('source_required: The patient and examination source must match.'))
+        if inline:
+            if execution != line.ydental_order_id.ydental_execution_id or line.state != 'issued' or (
+                    line.ydental_mapping_id.ydental_catalog_id.ydental_capability_id not in
+                    execution.ydental_lease_id.ydental_station_id.ydental_capability_ids.filtered('active') or
+                    line.ydental_mapping_id.ydental_catalog_id.ydental_capability_id not in
+                    self.env.user.sudo().ydental_capability_ids.filtered('active')):
+                raise AccessError(self.env._('qualification_required: Inline examination needs its original serving segment and exact capability.'))
+            code = line.ydental_mapping_id.ydental_catalog_id.ydental_qualification
+            if code and not self._qualification(code, line.ydental_store_id, self.env.uid):
+                raise AccessError(self.env._('qualification_required: A reviewed live staff qualification is required.'))
+        elif execution.ydental_task_id != line.ydental_task_id or line.state not in ('started', 'done', 'aborted', 'partial'):
+            raise AccessError(self.env._('source_required: The real examination task must be serving.'))
+        return execution
+
+    def _qualification(self, code, store, user_id):
+        now = fields.Datetime.now()
+        return bool(self._model('qualification').search_count([
+            ('ydental_code', '=', code), ('ydental_store_id', '=', store.id),
+            ('ydental_user_id', '=', user_id), ('ydental_revoked', '=', False),
+            ('ydental_valid_from', '<=', now), ('ydental_valid_until', '>', now)]))
+
+    def _editor(self, result, version):
+        session, connection = self.env['ydental.queue.service']._connection()
+        if type(version) is not int or result.ydental_version != version:
+            raise UserError(self.env._('version_conflict: Refresh the examination result before editing.'))
+        if result.ydental_current_editor_id and result.ydental_edit_until > fields.Datetime.now() and (
+                result.ydental_current_editor_id.id != self.env.uid or result.ydental_edit_session_id != session or
+                result.ydental_edit_revision != session.ydental_revision or
+                result.ydental_edit_connection_hash != connection.key_hash):
+            raise AccessError(self.env._('editor_busy: This result is held by another live editor.'))
+        result._save({'ydental_current_editor_id': self.env.uid, 'ydental_edit_session_id': session.id,
+            'ydental_edit_revision': session.ydental_revision, 'ydental_edit_connection_hash': connection.key_hash,
+            'ydental_edit_until': fields.Datetime.now() + timedelta(minutes=5)})
+
+    def _content(self, findings, measurements, conclusion, template_code):
+        if template_code not in TEMPLATES or not isinstance(findings, str) or len(findings) > 12000 or (
+                not isinstance(conclusion, str) or len(conclusion) > 12000 or not isinstance(measurements, dict)):
+            raise ValidationError(self.env._('invalid_result: Use a reviewed demonstration template and bounded text.'))
+        allowed = TEMPLATES[template_code]['measurements']
+        if set(measurements) - set(allowed):
+            raise ValidationError(self.env._('invalid_result: Unknown measurement field.'))
+        for key, row in measurements.items():
+            if not isinstance(row, dict) or set(row) != {'status', 'value', 'unit'} or (
+                    row['status'] not in ('known', 'unknown', 'not_applicable') or row['unit'] != allowed[key] or
+                    row['status'] == 'known' and (type(row['value']) not in (int, float) or row['value'] < 0 or row['value'] > 10000) or
+                    row['status'] != 'known' and row['value'] is not None):
+                raise ValidationError(self.env._('invalid_result: Provide a value with its native unit, or explicit unknown/not applicable.'))
+        return findings.strip(), measurements, conclusion.strip()
+
+    def _version(self, result, kind, reason=''):
+        previous = self._model('version').search([('ydental_result_id', '=', result.id)], order='ydental_number desc', limit=1)
+        version = self._model('version')._new({'name': result.name, 'ydental_store_id': result.ydental_store_id.id,
+            'ydental_category': 'exam', 'ydental_patient_id': result.ydental_patient_id.id, 'ydental_actor_id': self.env.uid,
+            'ydental_result_id': result.id, 'ydental_number': result.ydental_version,
+            'ydental_kind': kind, 'ydental_findings': result.ydental_findings,
+            'ydental_measurements': result.ydental_measurements, 'ydental_conclusion': result.ydental_conclusion,
+            'ydental_reason': reason, 'ydental_recorded_at': fields.Datetime.now(),
+            'ydental_previous_id': previous.id if previous else False})
+        self._audit(kind, version, {'result_id': result.id, 'version': result.ydental_version}, reason)
+        return version
+
+    def _grant_qualification(self, user_id, code, valid_from, valid_until, evidence):
+        access = self.env['ydental.access.service']
+        store = access._scope(write=True).ydental_store_id
+        access._check_personnel(store.id, user_id)
+        user = self.env['res.users'].sudo().browse(self.env['ydental.intake.service']._id(user_id)).exists()
+        member = access._membership(user.id, store.id) if user else False
+        if not user or not user.active or not member or not member.ydental_employee_id.active or user.id == self.env.uid:
+            raise AccessError(self.env._('access_denied: A different active store employee is required.'))
+        if not isinstance(code, str) or not code.strip() or len(code) > 120 or not isinstance(evidence, str) or not evidence.strip():
+            raise ValidationError(self.env._('qualification_required: Record an exact qualification code and reviewed evidence.'))
+        start, end = fields.Datetime.to_datetime(valid_from), fields.Datetime.to_datetime(valid_until)
+        if not start or not end or end <= start:
+            raise ValidationError(self.env._('invalid_time: Qualification validity must have ordered UTC bounds.'))
+        row = self._model('qualification')._new({'name': code, 'ydental_store_id': store.id, 'ydental_category': 'exam',
+            'ydental_patient_id': False, 'ydental_actor_id': self.env.uid, 'ydental_user_id': user.id,
+            'ydental_code': code.strip(), 'ydental_valid_from': start, 'ydental_valid_until': end,
+            'ydental_evidence': evidence.strip()[:240]})
+        self._audit('qualification_granted', row, {'user_id': user.id, 'code': code.strip()})
+        return {'qualification_id': row.id}
+
+    def _draft(self, line_id, execution_id, lease_id, lease_token, inline, version, findings, measurements, conclusion):
+        line = self._line(line_id, write=True)
+        execution = self._actual(line, execution_id, lease_id, lease_token, inline)
+        result = self._result(line, create=True, execution=execution)
+        if result.state in ('confirmed', 'aborted'):
+            raise UserError(self.env._('version_conflict: A confirmed or aborted result needs its own controlled action.'))
+        self._editor(result, version)
+        findings, measurements, conclusion = self._content(findings, measurements, conclusion, result.ydental_template_code)
+        result._save({'ydental_findings': findings, 'ydental_measurements': measurements,
+            'ydental_conclusion': conclusion, 'ydental_version': version + 1})
+        self._version(result, 'draft')
+        return {'result_id': result.id, 'version': result.ydental_version, 'state': result.state}
+
+    def _perform(self, line_id, execution_id, lease_id, lease_token, inline, reason, materials, actual_at=None):
+        line = self._line(line_id, write=True)
+        execution = self._actual(line, execution_id, lease_id, lease_token, inline)
+        if line.state not in ('issued', 'started') or self._model('result').search([('ydental_line_id', '=', line.id), ('ydental_event_id', '!=', False)], limit=1):
+            raise UserError(self.env._('already_started: This line already has an actual execution fact.'))
+        result = self._result(line, create=True, execution=execution)
+        if result.state not in ('draft', 'started'):
+            raise UserError(self.env._('version_conflict: This result cannot be performed again.'))
+        catalog = line.ydental_mapping_id.ydental_catalog_id
+        event = self.env['ydental.treatment.service']._event(execution, catalog, line.ydental_quantity,
+            's09-exam-line-' + str(line.id), reason, materials, already_performed=True,
+            kind='exam', line=line, actual_at=actual_at)
+        result._save({'ydental_execution_id': execution.id, 'ydental_event_id': event['event_id'],
+            'ydental_started_at': fields.Datetime.now(), 'ydental_business_date': self.env['ydental.supply.service']._date(line.ydental_store_id),
+            'ydental_station_id': execution.ydental_lease_id.ydental_station_id.id, 'state': 'pending'})
+        line._save({'state': 'done'})
+        self._audit('actual_performed', result, dict(event, line_id=line.id), reason)
+        return dict(event, result_id=result.id, line_id=line.id, state='pending')
+
+    def _confirm(self, line_id, version, reason):
+        line = self._line(line_id, write=True)
+        result = self._result(line)
+        if not result or not result.ydental_event_id or result.state not in ('pending', 'partial') or not result.ydental_findings:
+            raise UserError(self.env._('result_required: Actual execution and reviewed findings are required.'))
+        self._editor(result, version)
+        reason = self.env['ydental.intake.service']._text(reason)
+        result._save({'state': 'confirmed', 'ydental_completed_at': fields.Datetime.now(), 'ydental_version': version + 1})
+        self._version(result, 'confirm', reason)
+        return {'result_id': result.id, 'version': result.ydental_version, 'state': result.state}
+
+    def _correct(self, line_id, version, findings, measurements, conclusion, reason):
+        line = self._line(line_id, write=True)
+        result = self._result(line)
+        if not result or result.state != 'confirmed':
+            raise UserError(self.env._('result_required: Correct only a confirmed result.'))
+        self._editor(result, version)
+        reason = self.env['ydental.intake.service']._text(reason)
+        findings, measurements, conclusion = self._content(findings, measurements, conclusion, result.ydental_template_code)
+        if not findings:
+            raise ValidationError(self.env._('result_required: Confirmed findings cannot be blank.'))
+        result._save({'ydental_findings': findings, 'ydental_measurements': measurements,
+            'ydental_conclusion': conclusion, 'ydental_version': version + 1})
+        self._version(result, 'correction', reason)
+        return {'result_id': result.id, 'version': result.ydental_version, 'state': result.state}
+
+    def _abort(self, line_id, execution_id, lease_id, lease_token, reason):
+        line = self._line(line_id, write=True)
+        execution = self._actual(line, execution_id, lease_id, lease_token)
+        reason = self.env['ydental.intake.service']._text(reason)
+        result = self._result(line, create=True, execution=execution)
+        if result.state in ('aborted', 'partial', 'confirmed'):
+            raise UserError(self.env._('version_conflict: This actual examination is already resolved.'))
+        if result.ydental_event_id:
+            result._save({'state': 'partial', 'ydental_completed_at': fields.Datetime.now()})
+            line._save({'state': 'partial'})
+            state = 'partial'
+        else:
+            result._save({'state': 'aborted', 'ydental_started_at': execution.ydental_started_at,
+                'ydental_completed_at': fields.Datetime.now()})
+            line._save({'state': 'aborted'})
+            state = 'aborted'
+        self._audit('actual_aborted', result, {'state': state, 'execution_id': execution.id}, reason)
+        return {'result_id': result.id, 'state': state}
+
+    def _finish(self, line_id, execution_id, lease_id, lease_token, reason):
+        line = self._line(line_id, write=True)
+        execution = self._actual(line, execution_id, lease_id, lease_token)
+        result = self._result(line)
+        if line.state not in ('done', 'aborted', 'partial') or not result or (
+                result.ydental_event_id and result.ydental_event_id.state != 'confirmed'):
+            raise UserError(self.env._('reconcile_required: Resolve the actual examination fact before leaving.'))
+        reason = self.env['ydental.intake.service']._text(reason)
+        queue = self.env['ydental.queue.service']
+        queue._finish_exam_segment(execution, reason)
+        queue._exit(lease_id, lease_token)
+        return {'execution_id': execution.id, 'state': 'completed', 'line_id': line.id}
+
+    def _reconcile(self, line_id, reason):
+        line = self._line(line_id, write=True)
+        result = self._result(line)
+        if not result or not result.ydental_event_id or result.ydental_event_id.ydental_actor_id.id != self.env.uid:
+            raise AccessError(self.env._('access_denied: Only the original examination operator may reconcile this fact.'))
+        reason = self.env['ydental.intake.service']._text(reason)
+        event = result.ydental_event_id
+        self.env['ydental.treatment.service']._bookkeep(event)
+        response = self.env['ydental.treatment.service']._event_result(event)
+        self._audit('reconciled', result, response, reason)
+        return response
+
+    def _operate(self, operation, payload, key):
+        handlers = {'grant_qualification': self._grant_qualification, 'draft': self._draft,
+            'perform': self._perform, 'confirm': self._confirm, 'correct': self._correct,
+            'abort': self._abort, 'finish': self._finish, 'reconcile': self._reconcile,
+            'attach': self._attachment}
+        if operation not in handlers or not isinstance(payload, dict) or not isinstance(key, str) or not 1 <= len(key) <= 120:
+            raise ValidationError(self.env._('invalid_action: Select a documented examination action and stable key.'))
+        try:
+            inspect.signature(handlers[operation]).bind(**payload)
+        except TypeError as error:
+            raise ValidationError(self.env._('invalid_action: Unknown or missing examination arguments.')) from error
+        queue = self.env['ydental.queue.service']
+        if operation != 'grant_qualification':
+            self._store(write=True)
+            queue._connection()
+        digest = fingerprint([operation, payload])
+        with self.env.cr.savepoint():
+            queue._locks()
+            self.env['ydental.inventory.service']._lock()
+            self.env.cr.execute('SELECT pg_advisory_xact_lock(%s)', [32008])
+            self.env.cr.execute('SELECT pg_advisory_xact_lock(%s)', [33009])
+            if operation != 'grant_qualification':
+                self._store(write=True)
+                queue._connection()
+            prior = self._model('receipt').search([('ydental_actor_id', '=', self.env.uid), ('ydental_key', '=', key)], limit=1)
+            if prior:
+                if prior.ydental_fingerprint != digest:
+                    raise UserError(self.env._('version_conflict: This examination key belongs to another action.'))
+                return dict(prior.ydental_result, result='already_accepted')
+            response = handlers[operation](**payload)
+            store = self.env['ydental.access.service']._scope().ydental_store_id
+            self._model('receipt')._new({'name': operation, 'ydental_store_id': store.id, 'ydental_category': 'exam',
+                'ydental_patient_id': False, 'ydental_actor_id': self.env.uid,
+                'ydental_key': key, 'ydental_fingerprint': digest, 'ydental_result': response})
+            return dict(response, result='accepted')
+
+    def _view(self, line_id):
+        line = self._line(line_id)
+        result = self._result(line)
+        versions = self._model('version').search([('ydental_result_id', '=', result.id)], order='ydental_number') if result else []
+        self._audit('view', line, {'result_id': result.id if result else 0})
+        return {'line_id': line.id, 'line_state': line.state, 'result_id': result.id if result else 0,
+            'result_state': result.state if result else 'unwritten', 'version': result.ydental_version if result else 0,
+            'template': result.ydental_template_code if result else '', 'findings': result.ydental_findings if result else '',
+            'conclusion': result.ydental_conclusion if result else '',
+            'measurements': result.ydental_measurements if result else {},
+            'versions': [{'number': v.ydental_number, 'kind': v.ydental_kind, 'author': v.ydental_actor_id.name,
+                          'recorded_at': str(v.ydental_recorded_at), 'reason': v.ydental_reason or ''} for v in versions]}
+
+    def _attachment(self, line_id, version, filename, mimetype, encoded):
+        line = self._line(line_id, write=True)
+        result = self._result(line)
+        if not result or result.ydental_version != version or result.state in ('aborted', 'confirmed'):
+            raise UserError(self.env._('version_conflict: Save a current editable result before attaching evidence.'))
+        if not isinstance(filename, str) or not 1 <= len(filename) <= 120 or '/' in filename or '\\' in filename or (
+                mimetype not in ('image/jpeg', 'image/png', 'application/pdf') or not isinstance(encoded, str)):
+            raise ValidationError(self.env._('invalid_attachment: Select a bounded JPEG, PNG or PDF evidence file.'))
+        try:
+            binary = base64.b64decode(encoded, validate=True)
+        except (ValueError, TypeError) as error:
+            raise ValidationError(self.env._('invalid_attachment: Invalid file encoding.')) from error
+        if not 1 <= len(binary) <= 5000000 or not (binary.startswith(b'\xff\xd8') if mimetype == 'image/jpeg' else
+                binary.startswith(b'\x89PNG\r\n\x1a\n') if mimetype == 'image/png' else binary.startswith(b'%PDF-')):
+            raise ValidationError(self.env._('invalid_attachment: File signature or size is invalid.'))
+        record = self.env['ir.attachment'].sudo().create({'name': filename, 'type': 'binary',
+            'datas': encoded, 'mimetype': mimetype, 'res_model': 'ydental.exam.result', 'res_id': result.id,
+            'public': False})
+        self._audit('attachment_added', result, {'attachment_id': record.id,
+            'sha256': hashlib.sha256(binary).hexdigest()})
+        return {'attachment_id': record.id, 'sha256': hashlib.sha256(binary).hexdigest()}
+
+    def _attachment_download(self, line_id, attachment_id):
+        line = self._line(line_id)
+        result = self._result(line)
+        record = self.env['ir.attachment'].sudo().browse(self.env['ydental.intake.service']._id(attachment_id)).exists()
+        if not result or not record or record.res_model != 'ydental.exam.result' or record.res_id != result.id or record.public:
+            raise AccessError(self.env._('access_denied: This examination attachment is unavailable.'))
+        self.env['ydental.access.service']._check('export', 'write')
+        raw = base64.b64decode(record.datas)
+        self._audit('attachment_download', result, {'attachment_id': record.id,
+            'sha256': hashlib.sha256(raw).hexdigest()})
+        return raw, record.mimetype, record.name
+
+    def _pdf_payload(self, line_id, version):
+        line = self._line(line_id)
+        result = self._result(line)
+        if not result or type(version) is not int or version < 1:
+            raise AccessError(self.env._('access_denied: A saved examination result is required.'))
+        selected = self._model('version').search([('ydental_result_id', '=', result.id),
+            ('ydental_number', '=', version)], limit=1)
+        if not selected:
+            raise UserError(self.env._('version_conflict: The requested result version is unavailable.'))
+        self.env['ydental.access.service']._check('export', 'write')
+        event = result.ydental_event_id
+        patient = self.env['ydental.patient.service']._patient(line.ydental_patient_id.id)
+        measurements = selected.ydental_measurements or {}
+        payload = {'result_id': result.id, 'line_id': line.id, 'version': version,
+            'patient_number': patient.ydental_number, 'store': line.ydental_store_id.name,
+            'catalog': line.ydental_mapping_id.ydental_catalog_id.name,
+            'template_version': result.ydental_template_version,
+            'original_author': result.ydental_original_author_id.name,
+            'version_author': selected.ydental_actor_id.name,
+            'operator': event.ydental_actor_id.name if event else '',
+            'station': result.ydental_station_id.name if result.ydental_station_id else '',
+            'actual_at': str(event.ydental_actual_at) if event else '',
+            'business_date': str(event.ydental_business_date) if event else '',
+            'event_id': event.id if event else 0, 'state': selected.ydental_kind,
+            'findings': selected.ydental_findings or '', 'conclusion': selected.ydental_conclusion or '',
+            'measurements': [{'name': k, 'value': v['value'] if v['value'] is not None else '',
+                'unit': v['unit'], 'status': v['status']} for k, v in sorted(measurements.items())]}
+        return result, payload
+
+    def _validate_pdf_scope(self):
+        scope = self.env.context.get('ydental_exam_pdf_scope')
+        session = self.env['ydental.access.service']._scope()
+        if type(scope) is not ExamPdfScope or (scope.actor_id, scope.session_id, scope.revision) != (
+                self.env.uid, session.id, session.ydental_revision):
+            raise AccessError(self.env._('access_denied: A controlled examination report request is required.'))
+        result = self._model('result').browse(scope.result_id).exists()
+        if not result:
+            raise AccessError(self.env._('access_denied: Examination result is unavailable.'))
+        source, payload = self._pdf_payload(result.ydental_line_id.id, scope.version)
+        if fingerprint(payload) != scope.digest:
+            raise UserError(self.env._('version_conflict: Report source changed during rendering.'))
+        return payload
+
+    def _pdf(self, line_id, version):
+        result, payload = self._pdf_payload(line_id, version)
+        session = self.env['ydental.access.service']._scope()
+        scope = ExamPdfScope(self.env.uid, session.id, session.ydental_revision,
+                             result.id, version, fingerprint(payload))
+        reports = self.env['ir.actions.report'].with_context(
+            ydental_exam_pdf_scope=scope, lang='zh_CN', force_report_rendering=True,
+            report_pdf_no_attachment=True)
+        try:
+            pdf, kind = reports._render_qweb_pdf('ydental_exam.ydental_exam_pdf', [result.id])
+            if kind != 'pdf' or not isinstance(pdf, bytes) or not pdf.startswith(b'%PDF-') or len(pdf) > 10000000 or (
+                    len(PdfFileReader(io.BytesIO(pdf)).pages) > 20):
+                raise UserError(self.env._('render_failed: The examination PDF is invalid or exceeds the page limit.'))
+        except (QWebError, PdfReadError, OSError, ValueError) as error:
+            raise UserError(self.env._('render_failed: The examination PDF could not be generated.')) from error
+        digest = hashlib.sha256(pdf).hexdigest()
+        self._audit('report_download', result, {'version': version, 'pdf_sha256': digest})
+        return pdf, digest

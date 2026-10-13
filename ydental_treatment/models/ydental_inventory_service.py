@@ -31,7 +31,7 @@ class YDentalInventoryService(models.AbstractModel):
         service = self.env['ydental.treatment.service']
         row = service._model('consumption').browse(source.consumption_id).exists()
         event = row.ydental_event_id
-        category = 'pharmacy' if row.ydental_kind == 'prescription' else 'medical'
+        category = 'pharmacy' if row.ydental_kind == 'prescription' else 'exam' if event.ydental_kind == 'exam' else 'medical'
         store = service._access(category)
         if not row or (source.actor_id, source.store_id) != (self.env.uid, store.id) or (
                 event.ydental_store_id != store or event.ydental_actor_id.id != self.env.uid or
