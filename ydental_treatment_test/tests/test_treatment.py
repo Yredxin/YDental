@@ -263,8 +263,28 @@ class TestActualTreatment(TransactionCase):
         company=self.root['res.company'].create({'name':'Synthetic independent B legal entity'})
         store=self.root['ydental.access.store'].create({'name':'Synthetic independent B store '+key(),'company_id':company.id,'ydental_timezone':'UTC'})
         floor=self.root['ydental.space.floor'].create({'name':'Synthetic B floor','ydental_store_id':store.id})
-        area=self.root['ydental.space.area'].create({'name':'Synthetic B area','ydental_store_id':store.id,'ydental_floor_id':floor.id,'ydental_purpose':'care'})
+        area=self.root['ydental.space.area'].create({'name':'Synthetic B area','ydental_store_id':store.id,'ydental_floor_id':floor.id,'ydental_purpose':'care','ydental_reporting':True})
         self.root['ydental.space.station'].create({'name':'Synthetic target chair','ydental_store_id':store.id,'ydental_floor_id':floor.id,'ydental_area_id':area.id,'ydental_add_capability_ids':[fields.Command.set(self.capabilities[0].ids)]})
         mapping=self.root['ydental.intake.mapping']._new({'name':'Synthetic B legal target','ydental_store_id':store.id,'ydental_category':'frontdesk','ydental_catalog_id':self.catalogs[0].id,'ydental_area_id':area.id,'ydental_execution_area_id':area.id})
         with self.assertRaises(AccessError):s._operate('refer',a|{'mode':'untimed','mapping_id':mapping.id,'reason':'No source account legal authority','valid_until':str(fields.Datetime.now()+timedelta(days=1)),'source':key()},key())
         self.assertFalse(self.root['ydental.intake.referral'].search_count([('ydental_target_store_id','=',store.id)]))
+
+    def test_actual_chairside_medicine_has_no_takeaway_task(self):
+        receive(self,20,'medicine');price(self,catalog=self.drug_catalog,amount=10)
+        s,c,q,l,e,d,a=opened_actual(self)
+        result=s._operate('execute',a|{'catalog_id':self.drug_catalog.id,'quantity':2,'source':key(),'reason':'Verified actual chairside medicine',
+            'materials':[{'lot_id':self.lots['medicine'],'quantity':2,'uom_id':self.uom.id,'kind':'chairside'}],
+            'teeth':[],'already_performed':False,'policy':'demo_confirmation'},key())
+        self.assertEqual(result['amount'],20);self.assertEqual(self.root['stock.move'].browse(result['move_ids']).quantity,2)
+        self.assertFalse(self.root['ydental.treatment.segment'].search_count([('ydental_patient_id','=',e.ydental_patient_id.id)]))
+
+    def test_actual_time_is_frozen_in_current_service_and_rejects_future(self):
+        receive(self);price(self);s,c,q,l,e,d,a=opened_actual(self)
+        args=execute_args(self,a)
+        with self.assertRaises(ValidationError):s._operate('execute',args|{'actual_at':str(e.ydental_started_at-timedelta(seconds=1))},key())
+        with self.assertRaises(ValidationError):s._operate('execute',args|{'actual_at':str(fields.Datetime.now()+timedelta(minutes=1))},key())
+        original=e.ydental_started_at+timedelta(seconds=1)
+        with patch.object(fields.Datetime,'now',return_value=original+timedelta(seconds=10)):
+            result=s._operate('execute',args|{'actual_at':str(original)},key())
+        self.assertEqual(s._model('event').browse(result['event_id']).ydental_actual_at,original)
+        self.assertEqual(self.root['ydental.inventory.event'].browse(result['inventory_event_ids']).ydental_actual_at,original)

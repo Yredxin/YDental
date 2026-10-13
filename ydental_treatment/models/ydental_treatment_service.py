@@ -190,6 +190,8 @@ class YDentalTreatmentService(models.AbstractModel):
             quantity = self._quantity(quantity, catalog.ydental_product_id.uom_id, signed=kind == 'correction')
         reason = self.env['ydental.intake.service']._text(reason)
         rows = self._material_rows(rows, execution.ydental_category, execution.ydental_store_id)
+        if actual_at is not None and (not isinstance(actual_at, str) or len(actual_at) != 19):
+            raise ValidationError(self.env._('invalid_time: Supply an explicit UTC date and time with seconds.'))
         moment = fields.Datetime.to_datetime(actual_at) if actual_at else fields.Datetime.now()
         if moment < execution.ydental_started_at or moment > fields.Datetime.now():
             raise ValidationError(self.env._('invalid_time: Actual time must fall within this started service and cannot be in the future.'))
@@ -301,6 +303,8 @@ class YDentalTreatmentService(models.AbstractModel):
             raise AccessError(self.env._('access_denied: This clinical event is unavailable.'))
         self._get('event', event.id, 'pharmacy' if event.ydental_kind == 'prescription' else 'medical')
         reason = self.env['ydental.intake.service']._text(reason)
+        if event.ydental_actor_id.id != self.env.uid:
+            raise AccessError(self.env._('access_denied: Only the original responsible operator can reconcile this clinical fact.'))
         if event.state != 'confirmed':
             # Warehouse staff reconcile the original S07 pending record using
             # S07's evidence-only recovery. This action only reads that outcome.
