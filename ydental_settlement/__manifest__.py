@@ -3,7 +3,7 @@
     'version': '20.0.1.0.0',
     'license': 'GPL-3',
     'author': 'YDental',
-    'depends': ['ydental_exam', 'ydental_print', 'account', 'sale', 'purchase'],
+    'depends': ['ydental_exam', 'ydental_print', 'account', 'sale_stock', 'purchase_stock'],
     'data': [
         'security/ir.access.csv',
         'report/ydental_settlement_reports.xml',

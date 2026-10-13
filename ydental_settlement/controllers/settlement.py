@@ -27,6 +27,9 @@ class YDentalSettlement(http.Controller):
         context.update({'revision': access._scope().ydental_revision,
                         'can_write': access._levels(member)['settlement'] == 'write',
                         'can_approve': access._levels(member)['finance_approval'] == 'write',
+                        'can_trade': (access._levels(member)['settlement'] == 'write' and
+                                      access._levels(member)['finance_approval'] == 'write' and
+                                      access._levels(member)['warehouse'] == 'write'),
                         'new_key': lambda: uuid.uuid4().hex,
                         'now_utc': lambda: datetime.now(timezone.utc).isoformat()})
         return request.render('ydental_settlement.ydental_settlement_page', context, headers=HEADERS)
@@ -55,12 +58,21 @@ class YDentalSettlement(http.Controller):
                 'refund_recover': lambda: {'refund_id': int(post['refund_id']),
                                            'verified_not_paid': post.get('verified_not_paid') == '1',
                                            'reason': post['reason']},
+                'refund_cancel': lambda: {'refund_id': int(post['refund_id']),
+                                          'verified_not_paid': post.get('verified_not_paid') == '1',
+                                          'evidence': post['evidence'], 'reason': post['reason']},
                 'close': lambda: {'business_date': post['business_date'], 'channel': post['channel']},
                 'unlock': lambda: {'close_id': int(post['close_id']), 'reason': post['reason']},
                 'reclassify': lambda: {'payment_id': int(post['payment_id']),
                                        'new_channel': post['new_channel'], 'reason': post['reason']},
                 'waive': lambda: {'invoice_id': int(post['invoice_id']),
                                   'amount': float(post['amount']), 'reason': post['reason']},
+                'trade': lambda: {'target_store_id': int(post['target_store_id']),
+                                  'source_lot_id': int(post['source_lot_id']),
+                                  'target_lot_id': int(post['target_lot_id']),
+                                  'quantity': float(post['quantity']), 'uom_id': int(post['uom_id']),
+                                  'unit_price': float(post['unit_price']),
+                                  'source_key': post['source_key'], 'reason': post['reason']},
             }
             if operation not in payloads:
                 raise ValidationError(request.env._('Unknown settlement operation.'))

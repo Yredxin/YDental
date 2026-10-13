@@ -41,8 +41,11 @@
                         <td t-out="fee.ydental_event_id.ydental_business_date"/></tr></tbody></table>
                 </section>
                 <section><h2>待核对，禁止出账</h2><p t-if="not pending">无</p>
-                    <table t-if="pending" class="table"><tbody><tr t-foreach="pending" t-as="fee">
-                        <td t-out="fee.id"/><td t-out="fee.ydental_event_id.ydental_pending_reason or '待核对'"/></tr></tbody></table>
+                    <table t-if="pending" class="table"><thead><tr><th>事件</th><th>患者</th><th>业务日</th><th>实际执行人</th><th>待核对原因</th></tr></thead>
+                        <tbody><tr t-foreach="pending" t-as="event">
+                            <td t-out="event.id"/><td t-out="event.ydental_patient_id.ydental_number"/>
+                            <td t-out="event.ydental_business_date"/><td t-out="event.ydental_actor_id.name"/>
+                            <td t-out="event.ydental_pending_reason or '待核对'"/></tr></tbody></table>
                 </section>
                 <form t-if="can_write and (today or history)" method="post" action="/ydental/settlement/action">
                     <t t-call="ydental_settlement.ydental_settlement_tokens"/>
@@ -119,6 +122,16 @@
                             <label>实际线下退款凭据 <input type="text" name="proof" maxlength="200" required="required"/></label>
                             <button type="submit">确认已实际退款</button>
                         </form>
+                        <form t-if="(can_write and refund.ydental_state == 'requested' and refund.ydental_requester_id.id == request.env.uid) or (can_approve and refund.ydental_state in ('requested', 'approved', 'failed', 'unknown') and refund.ydental_requester_id.id != request.env.uid)"
+                              method="post" action="/ydental/settlement/action">
+                            <t t-call="ydental_settlement.ydental_settlement_tokens"/>
+                            <input type="hidden" name="operation" value="refund_cancel"/>
+                            <input type="hidden" name="refund_id" t-att-value="refund.id"/>
+                            <label>已核实未实际退款 <input type="checkbox" name="verified_not_paid" value="1" required="required"/></label>
+                            <label>线下核查证据 <input type="text" name="evidence" maxlength="200" required="required"/></label>
+                            <label>撤销原因 <input type="text" name="reason" maxlength="300" required="required"/></label>
+                            <button type="submit">撤销申请并释放受保护额度</button>
+                        </form>
                     </div>
                 </section>
                 <section><h2>收费员日结</h2>
@@ -142,6 +155,22 @@
                             <button type="submit">财务解锁</button>
                         </form>
                     </div>
+                </section>
+                <section t-if="can_trade"><h2>跨法人真实销售与采购</h2>
+                    <p>仅在双方门店均有仓库及财务审批权、已配置原生科目与两批次时确认。</p>
+                    <form method="post" action="/ydental/settlement/action">
+                        <t t-call="ydental_settlement.ydental_settlement_tokens"/>
+                        <input type="hidden" name="operation" value="trade"/>
+                        <label>目标门店 ID <input type="number" name="target_store_id" min="1" required="required"/></label>
+                        <label>源批次 ID <input type="number" name="source_lot_id" min="1" required="required"/></label>
+                        <label>目标批次 ID <input type="number" name="target_lot_id" min="1" required="required"/></label>
+                        <label>数量 <input type="number" name="quantity" min="0.001" step="0.001" required="required"/></label>
+                        <label>单位 ID <input type="number" name="uom_id" min="1" required="required"/></label>
+                        <label>双方同币种演示单价 <input type="number" name="unit_price" min="0.01" step="0.01" required="required"/></label>
+                        <label>不可重复来源 <input type="text" name="source_key" maxlength="120" required="required"/></label>
+                        <label>双方审批与实物交易原因 <input type="text" name="reason" maxlength="300" required="required"/></label>
+                        <button type="submit">确认双法人原生订单、收发与凭证</button>
+                    </form>
                 </section>
             </main>
         </t>

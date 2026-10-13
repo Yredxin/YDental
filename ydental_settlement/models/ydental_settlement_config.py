@@ -18,5 +18,7 @@ class YDentalSettlementConfig(models.Model):
     ydental_wechat_journal_id = fields.Many2one('account.journal', required=True, ondelete='restrict')
     ydental_alipay_journal_id = fields.Many2one('account.journal', required=True, ondelete='restrict')
     ydental_card_journal_id = fields.Many2one('account.journal', required=True, ondelete='restrict')
+    ydental_purchase_journal_id = fields.Many2one('account.journal', ondelete='restrict')
+    ydental_expense_account_id = fields.Many2one('account.account', ondelete='restrict')
 
     _store_unique = models.Constraint('UNIQUE(ydental_store_id)', 'One accounting policy per store.')

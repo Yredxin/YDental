@@ -1,7 +1,7 @@
 <odoo>
     <template id="ydental_settlement_pdf">
         <html><head><meta charset="utf-8"/></head><body>
-            <main class="page" style="font-family:'Noto Sans CJK SC',sans-serif;font-size:12px;line-height:1.6">
+            <main><div class="article page" style="font-family:'Noto Sans CJK SC',sans-serif;font-size:12px;line-height:1.6">
                 <h1 t-if="p['kind'] == 'bill'">内部结算账单</h1>
                 <h1 t-if="p['kind'] == 'receipt'">实际线下收款小票</h1>
                 <h1 t-if="p['kind'] == 'refund'">退款申请与实际退款凭据</h1>
@@ -39,7 +39,7 @@
                     <p>原因：<span t-out="p['reason']"/></p>
                 </div>
                 <p>此为隔离合成数据库中的演示初版，不代表正式税务开票或纸张出纸。</p>
-            </main>
+            </div></main>
         </body></html>
     </template>
 </odoo>

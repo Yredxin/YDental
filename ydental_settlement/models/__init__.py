@@ -6,5 +6,7 @@ from . import ydental_settlement_refund
 from . import ydental_settlement_close
 from . import ydental_settlement_correction
 from . import ydental_settlement_receipt
+from . import ydental_settlement_trade
+from . import res_partner
 from . import ydental_settlement_service
 from . import report_ydental_settlement_pdf

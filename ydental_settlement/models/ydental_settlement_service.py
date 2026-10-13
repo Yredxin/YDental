@@ -10,6 +10,7 @@ from odoo import Command, fields, models
 from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.tools.pdf import PdfFileReader, PdfReadError
 from odoo.addons.base.models.ir_qweb import QWebError
+from odoo.addons.ydental_inventory.models.ydental_inventory_record import MUTATION as INVENTORY_MUTATION
 
 
 CHANNELS = {'cash', 'wechat', 'alipay', 'card'}
@@ -115,9 +116,10 @@ class YDentalSettlementService(models.AbstractModel):
             'bill': self._bill, 'pay': self._pay, 'refund_request': self._refund_request,
             'refund_approve': self._refund_approve, 'refund_reject': self._refund_reject,
             'refund_execute': self._refund_execute, 'refund_uncertain': self._refund_uncertain,
-            'refund_recover': self._refund_recover, 'close': self._close,
+            'refund_recover': self._refund_recover, 'refund_cancel': self._refund_cancel,
+            'close': self._close,
             'unlock': self._unlock, 'reclassify': self._reclassify,
-            'waive': self._waive,
+            'waive': self._waive, 'trade': self._trade,
         }
         if operation not in handlers or not isinstance(payload, dict) or not isinstance(key, str) or not 1 <= len(key) <= 120:
             raise ValidationError(self.env._('invalid_action: Supply a documented operation and key.'))
@@ -253,7 +255,7 @@ class YDentalSettlementService(models.AbstractModel):
         credit = self.env['account.move'].sudo().with_company(store.company_id).create({
             'move_type': 'out_refund', 'company_id': store.company_id.id,
             'journal_id': config.ydental_sales_journal_id.id,
-            'partner_id': original.partner_id.id, 'reversed_entry_id': original.id,
+            'partner_id': original.partner_id.id,
             'invoice_date': date, 'date': date, 'currency_id': currency.id,
             'invoice_origin': original.name,
             'invoice_line_ids': [Command.create({
@@ -468,6 +470,34 @@ class YDentalSettlementService(models.AbstractModel):
         self._audit('refund.recover', refund, store, after={'verified_not_paid': True}, reason=reason)
         return {'refund_id': refund.id, 'state': 'approved', 'actually_refunded': 0}
 
+    def _refund_cancel(self, refund_id, verified_not_paid, evidence, reason):
+        """Release protected capacity only after an explicit no-payment review."""
+        store = self._access(write=True)
+        refund = self._refund(refund_id, store)
+        if refund.ydental_state not in ('requested', 'approved', 'failed', 'unknown'):
+            raise UserError(self.env._('refund_state_invalid: Only an unexecuted refund may be cancelled.'))
+        if refund.ydental_state != 'requested' or refund.ydental_requester_id.id != self.env.uid:
+            self._access(write=True, finance=True)
+            if refund.ydental_requester_id.id == self.env.uid:
+                raise AccessError(self.env._('access_denied: A distinct finance reviewer must release this refund.'))
+        if verified_not_paid is not True or refund.ydental_native_payment_id or refund.ydental_credit_note_ids:
+            raise UserError(self.env._('refund_recovery_required: Verify no offline refund or native reversal occurred.'))
+        payment = refund.ydental_payment_id
+        self._close_guard(store, payment.ydental_cashier_id.id,
+                          payment.ydental_business_date, self._effective_channel(payment))
+        evidence = self._text(evidence, 200)
+        reason = self._text(reason)
+        refund._save({'ydental_state': 'cancelled', 'ydental_cancelled_by_id': self.env.uid,
+                      'ydental_cancelled_at': fields.Datetime.now(),
+                      'ydental_cancel_reason': reason, 'ydental_cancel_evidence': evidence,
+                      'ydental_release_verified': True})
+        available = self._refund_capacity(payment)
+        self._audit('refund.cancel', refund, store,
+            after={'state': 'cancelled', 'verified_not_paid': True,
+                   'released': refund.ydental_amount, 'available': available}, reason=reason)
+        return {'refund_id': refund.id, 'state': 'cancelled', 'actually_refunded': 0,
+                'released': refund.ydental_amount, 'available': available}
+
     def _refund_execute(self, refund_id, actual_utc, proof):
         store = self._access(write=True)
         config = self._config(store)
@@ -502,7 +532,6 @@ class YDentalSettlementService(models.AbstractModel):
                 'move_type': 'out_refund', 'company_id': store.company_id.id,
                 'journal_id': config.ydental_sales_journal_id.id,
                 'partner_id': invoice.partner_id.id,
-                'reversed_entry_id': invoice.id,
                 'invoice_date': business_date, 'date': business_date,
                 'currency_id': currency.id,
                 'invoice_origin': invoice.name,
@@ -561,7 +590,7 @@ class YDentalSettlementService(models.AbstractModel):
         credit = self.env['account.move'].sudo().with_company(store.company_id).create({
             'move_type': 'out_refund', 'company_id': store.company_id.id,
             'journal_id': config.ydental_sales_journal_id.id,
-            'partner_id': invoice.partner_id.id, 'reversed_entry_id': invoice.id,
+            'partner_id': invoice.partner_id.id,
             'invoice_date': fields.Date.context_today(self), 'currency_id': currency.id,
             'invoice_origin': invoice.name,
             'invoice_line_ids': [Command.create({
@@ -695,6 +724,160 @@ class YDentalSettlementService(models.AbstractModel):
                 'old_channel': old_channel, 'new_channel': new_channel,
                 'actual_cash_refunded': 0}
 
+    def _trade(self, target_store_id, source_lot_id, target_lot_id, quantity,
+               uom_id, unit_price, source_key, reason):
+        """Confirm a dual-authorized native sale and purchase with actual stock."""
+        source = self._access(write=True)
+        access = self.env['ydental.access.service']
+        target = self.env['ydental.access.store'].sudo().browse(self._positive_id(target_store_id)).exists()
+        if not target or not target.active or target == source or target.company_id == source.company_id:
+            raise AccessError(self.env._('access_denied: Select another active legal entity.'))
+        for store in (source, target):
+            if store.company_id not in self.env.user.sudo().company_ids:
+                raise AccessError(self.env._('access_denied: Both legal entities must be in the user company scope.'))
+            access._check('warehouse', 'write', store_id=store.id, write=True)
+            access._check('finance_approval', 'write', store_id=store.id, write=True)
+        source_config = self._config(source)
+        target_config = self._config(target)
+        currency = source.company_id.currency_id
+        if target.company_id.currency_id != currency:
+            raise UserError(self.env._('trade_currency_unapproved: Both synthetic companies must share a currency.'))
+        if (target_config.ydental_purchase_journal_id.company_id != target.company_id or
+                target_config.ydental_purchase_journal_id.type != 'purchase' or
+                target.company_id not in target_config.ydental_expense_account_id.company_ids or
+                target_config.ydental_expense_account_id.account_type not in ('expense', 'expense_direct_cost')):
+            raise UserError(self.env._('trade_policy_missing: Configure the target purchase journal and expense account.'))
+        source_key = self._text(source_key, 120)
+        reason = self._text(reason)
+        price = self._money(unit_price, currency)
+        inventory = self.env['ydental.inventory.service']
+        source_lot = inventory._lot(source_lot_id, source)
+        target_lot = inventory._lot(target_lot_id, target)
+        product = source_lot.product_id
+        if (target_lot.product_id != product or target_lot.name != source_lot.name or
+                not product.is_storable or not product.sale_ok or not product.purchase_ok):
+            raise UserError(self.env._('trade_source_invalid: The two approved company lots must represent one stock product.'))
+        inventory._usable(source_lot, source)
+        inventory._usable(target_lot, target)
+        qty, unit, _snapshot = inventory._unit(product, quantity, uom_id)
+        prior = self._model('trade').search([
+            ('ydental_source_store_id', '=', source.id), ('ydental_source_key', '=', source_key)], limit=1)
+        if prior:
+            if (prior.ydental_target_store_id != target or prior.ydental_source_lot_id != source_lot or
+                    prior.ydental_target_lot_id != target_lot or abs(prior.ydental_quantity - qty) > 1e-8 or
+                    currency.compare_amounts(prior.ydental_unit_price, price) or prior.ydental_reason != reason):
+                raise UserError(self.env._('version_conflict: The intercompany source key is immutable.'))
+            return {'trade_id': prior.id, 'sale_order_id': prior.ydental_sale_order_id.id,
+                    'purchase_order_id': prior.ydental_purchase_order_id.id,
+                    'sale_invoice_id': prior.ydental_sale_invoice_id.id,
+                    'purchase_bill_id': prior.ydental_purchase_bill_id.id,
+                    'out_move_id': prior.ydental_out_move_id.id,
+                    'in_move_id': prior.ydental_in_move_id.id}
+        source_stock = inventory._config(source)
+        target_stock = inventory._config(target)
+        source_location = inventory._location(source_stock, product)
+        target_location = inventory._location(target_stock, product)
+        if product.uom_id.compare(inventory._quantity(source_lot, source_location), qty) < 0:
+            raise UserError(self.env._('insufficient_balance: Source lot has no actual available quantity.'))
+        income = product.with_company(source.company_id).property_account_income_id or product.categ_id.with_company(
+            source.company_id).property_account_income_categ_id
+        expense = product.with_company(target.company_id).property_account_expense_id or product.categ_id.with_company(
+            target.company_id).property_account_expense_categ_id
+        if income != source_config.ydental_income_account_id or expense != target_config.ydental_expense_account_id:
+            raise UserError(self.env._('trade_policy_missing: Product accounts must match the two explicit company policies.'))
+        context = {'ydental_inventory_mutation': INVENTORY_MUTATION,
+                   'tracking_disable': True, 'mail_create_nosubscribe': True}
+        sale = self.env['sale.order'].sudo().with_company(source.company_id).with_context(**context).create({
+            'company_id': source.company_id.id, 'partner_id': target.company_id.partner_id.id,
+            'warehouse_id': source_stock.ydental_warehouse_id.id,
+            'order_line': [Command.create({'product_id': product.id, 'product_uom_qty': qty,
+                'product_uom_id': product.uom_id.id, 'price_unit': price, 'tax_ids': [Command.clear()]})],
+        })
+        sale.action_confirm()
+        purchase = self.env['purchase.order'].sudo().with_company(target.company_id).with_context(**context).create({
+            'company_id': target.company_id.id, 'partner_id': source.company_id.partner_id.id,
+            'picking_type_id': target_stock.ydental_warehouse_id.in_type_id.id,
+            'origin': sale.name, 'partner_ref': sale.name,
+            'order_line': [Command.create({'product_id': product.id, 'product_qty': qty,
+                'uom_id': product.uom_id.id, 'price_unit': price,
+                'date_planned': fields.Datetime.now(), 'tax_ids': [Command.clear()]})],
+        })
+        purchase.button_confirm()
+        if sale.state != 'sale' or purchase.state != 'purchase':
+            raise UserError(self.env._('trade_approval_required: Both native orders must be confirmed.'))
+        out_pickings = sale.picking_ids.filtered(lambda picking: picking.picking_type_id.code == 'outgoing')
+        in_pickings = purchase.picking_ids.filtered(lambda picking: picking.picking_type_id.code == 'incoming')
+        if len(out_pickings) != 1 or len(in_pickings) != 1:
+            raise UserError(self.env._('trade_stock_mismatch: Expected one native delivery and one receipt.'))
+        out_move = self._trade_finish_move(out_pickings, product, source_lot, qty,
+                                           source_location, source, outgoing=True)
+        in_move = self._trade_finish_move(in_pickings, product, target_lot, qty,
+                                          target_location, target, outgoing=False)
+        sale_invoice = sale.with_context(default_journal_id=source_config.ydental_sales_journal_id.id)._create_invoices()
+        purchase.with_context(default_journal_id=target_config.ydental_purchase_journal_id.id).action_create_invoice()
+        purchase_bill = purchase.invoice_ids.filtered(lambda bill: bill.move_type == 'in_invoice')
+        if len(sale_invoice) != 1 or len(purchase_bill) != 1:
+            raise UserError(self.env._('trade_account_mismatch: Expected one native invoice and one vendor bill.'))
+        purchase_bill.write({'invoice_date': fields.Date.context_today(self)})
+        sale_invoice.action_post()
+        purchase_bill.action_post()
+        expected = currency.round(qty * price)
+        if (sale_invoice.state != 'posted' or purchase_bill.state != 'posted' or
+                sale_invoice.company_id != source.company_id or purchase_bill.company_id != target.company_id or
+                sale_invoice.journal_id != source_config.ydental_sales_journal_id or
+                purchase_bill.journal_id != target_config.ydental_purchase_journal_id or
+                currency.compare_amounts(sale_invoice.amount_total, expected) or
+                currency.compare_amounts(purchase_bill.amount_total, expected) or
+                not sale_invoice.invoice_line_ids.filtered(lambda line: sale.order_line & line.sale_line_ids) or
+                not purchase_bill.invoice_line_ids.filtered(lambda line: line.purchase_line_id in purchase.order_line)):
+            raise UserError(self.env._('trade_account_mismatch: Native company invoices must match linked orders.'))
+        trade = self._model('trade')._new({
+            'ydental_source_store_id': source.id, 'ydental_target_store_id': target.id,
+            'ydental_source_key': source_key, 'ydental_actor_id': self.env.uid,
+            'ydental_product_id': product.id, 'ydental_source_lot_id': source_lot.id,
+            'ydental_target_lot_id': target_lot.id, 'ydental_quantity': qty,
+            'ydental_unit_id': product.uom_id.id, 'ydental_unit_price': price,
+            'ydental_currency_id': currency.id, 'ydental_reason': reason,
+            'ydental_sale_order_id': sale.id, 'ydental_purchase_order_id': purchase.id,
+            'ydental_out_move_id': out_move.id, 'ydental_in_move_id': in_move.id,
+            'ydental_sale_invoice_id': sale_invoice.id, 'ydental_purchase_bill_id': purchase_bill.id,
+        })
+        self._audit('trade', trade, source, after={'target_store_id': target.id,
+            'sale_order_id': sale.id, 'purchase_order_id': purchase.id,
+            'sale_invoice_id': sale_invoice.id, 'purchase_bill_id': purchase_bill.id,
+            'out_move_id': out_move.id, 'in_move_id': in_move.id}, reason=reason)
+        access._audit('settlement.trade_receive', 'finance_approval', trade, target.id,
+            after={'source_store_id': source.id, 'purchase_bill_id': purchase_bill.id,
+                   'in_move_id': in_move.id}, reason=reason, source='confirmed_intercompany_trade')
+        return {'trade_id': trade.id, 'sale_order_id': sale.id,
+                'purchase_order_id': purchase.id, 'sale_invoice_id': sale_invoice.id,
+                'purchase_bill_id': purchase_bill.id, 'out_move_id': out_move.id,
+                'in_move_id': in_move.id, 'amount': expected}
+
+    def _trade_finish_move(self, picking, product, lot, quantity, location, store, outgoing):
+        move = picking.move_ids.filtered(lambda row: row.product_id == product)
+        if len(move) != 1 or move.company_id != store.company_id or move.state == 'done':
+            raise UserError(self.env._('trade_stock_mismatch: Native order movement is ambiguous.'))
+        move = move.with_context(ydental_inventory_mutation=INVENTORY_MUTATION)
+        move._do_unreserve()
+        move.write({'ydental_store_id': store.id,
+                    'location_id' if outgoing else 'location_dest_id': location.id})
+        source = location if outgoing else move.location_id
+        target = move.location_dest_id if outgoing else location
+        self.env['stock.move.line'].sudo().with_company(store.company_id).with_context(
+            ydental_inventory_mutation=INVENTORY_MUTATION).create({
+                'move_id': move.id, 'picking_id': picking.id, 'product_id': product.id,
+                'uom_id': product.uom_id.id, 'quantity': quantity, 'lot_id': lot.id,
+                'location_id': source.id, 'location_dest_id': target.id,
+                'company_id': store.company_id.id, 'ydental_store_id': store.id,
+                'picked': True,
+            })
+        move.write({'picked': True})
+        picking.with_context(ydental_inventory_mutation=INVENTORY_MUTATION)._action_done()
+        if picking.state != 'done' or move.state != 'done':
+            raise UserError(self.env._('trade_stock_mismatch: Native company movement was not completed.'))
+        return move
+
     def _workbench(self, patient_id=None):
         store = self._access()
         patient = self._patient(patient_id) if patient_id else False
@@ -709,10 +892,18 @@ class YDentalSettlementService(models.AbstractModel):
             links = links.filtered(lambda link: self._patient(link.ydental_patient_id.id) == patient)
         today = fields.Date.context_today(self.with_context(tz=store.ydental_timezone))
         ready = fees.filtered(lambda fee: fee.id not in billed_ids and fee.ydental_event_id.state == 'confirmed')
-        pending = fees.filtered(lambda fee: fee.id not in billed_ids and fee.ydental_event_id.state != 'confirmed')
+        pending = self.env['ydental.treatment.event'].sudo().search([
+            ('ydental_store_id', '=', store.id), ('state', '=', 'pending'),
+        ], order='id desc', limit=200)
+        if patient:
+            pending = pending.filtered(lambda event: event.ydental_patient_id and
+                self._patient(event.ydental_patient_id.id) == patient)
         invoices = links.ydental_invoice_id.filtered(lambda move: move.amount_residual > 0)
         for fee in fees:
             self._audit('source_view', fee, store)
+        for event in pending:
+            self._audit('pending_event_view', event, store,
+                        after={'state': event.state, 'reason': event.ydental_pending_reason})
         for invoice in invoices:
             self._audit('invoice_view', invoice, store)
         return {'store': store, 'patient': patient,

@@ -25,5 +25,10 @@ class YDentalSettlementRefund(models.Model):
                                                 column1='refund_id', column2='move_id')
     ydental_actual_at = fields.Datetime()
     ydental_key = fields.Char(required=True)
+    ydental_cancelled_by_id = fields.Many2one('res.users', ondelete='restrict')
+    ydental_cancelled_at = fields.Datetime()
+    ydental_cancel_reason = fields.Char()
+    ydental_cancel_evidence = fields.Char()
+    ydental_release_verified = fields.Boolean()
 
     _key_once = models.Constraint('UNIQUE(ydental_payment_id, ydental_key)', 'Refund request key must be unique.')
