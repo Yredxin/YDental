@@ -54,6 +54,7 @@ class YDentalTreatment(http.Controller):
         for event in events:
             service._audit('execution_view', event)
         return request.render('ydental_treatment.ydental_treatment_page', {
+            'can_write': service.env['ydental.access.service']._levels(service.env['ydental.access.service']._membership(service.env.uid, store.id))[role] == 'write',
             'store': store, 'role': role, 'execution': execution, 'doc': doc, 'patient': patient,
             'labels': {entity: dict(service._model(entity)._fields['state']._description_selection(service.env)) for entity in ('order', 'line', 'segment', 'event')},
             'consumptions': consumptions, 'currency_id': store.company_id.currency_id.id,

@@ -27,7 +27,7 @@ if (root) {
             const batch = form.querySelector('[name="lot_id"] option:checked');
             const tooth = Number(data.tooth);
             return {...actual, catalog_id: Number(data.catalog_id), quantity: Number(data.quantity), source: form.dataset.source,
-                reason: data.reason, already_performed: data.already_performed === 'on', policy: 'demo_confirmation',
+                reason: data.reason, ...(data.actual_at ? {actual_at: utc(data.actual_at)} : {}), already_performed: data.already_performed === 'on', policy: 'demo_confirmation',
                 materials: data.lot_id ? [{lot_id: Number(data.lot_id), quantity: Number(data.material_quantity),
                     uom_id: Number(batch.dataset.uom), kind: batch.dataset.kind}] : [],
                 teeth: [{tooth, state: tooth ? 'present' : 'not_applicable', surfaces: data.surfaces ? data.surfaces.split(',').map(s => s.trim()) : []}]};
@@ -66,11 +66,18 @@ if (root) {
         });
     }
     for (const form of root.querySelectorAll('form[data-operation]')) {
+        const operation = form.dataset.operation;
+        const medicalReady = root.dataset.role === 'medical' && Number(root.dataset.execution) > 0 && Number(root.dataset.version) > 0;
+        const pharmacyReady = root.dataset.role === 'pharmacy' && Number(root.dataset.execution) > 0;
+        const medicalActions = ['execute', 'order', 'edit_order', 'issue', 'cancel_exam', 'correct', 'refer'];
+        form.dataset.allowed = String(root.dataset.write === '1' &&
+            (medicalActions.includes(operation) ? medicalReady : ['dispense', 'finish'].includes(operation) ? pharmacyReady : true));
+        form.querySelectorAll('button,input,select').forEach(control => { control.disabled = form.dataset.allowed !== 'true'; });
         form.dataset.key = random();
         form.dataset.source = random();
         form.addEventListener('submit', async event => {
             event.preventDefault();
-            if (pending || uncertain || !connection) { return; }
+            if (pending || uncertain || !connection || form.dataset.allowed !== 'true') { return; }
             const args = payload(form);
             if (!window.confirm(root.querySelector('#treatment-confirm').textContent)) { return; }
             const before = JSON.stringify([...new FormData(form)]);
@@ -84,7 +91,7 @@ if (root) {
                 if (!response.ok) { throw new Error(result.error); }
                 // Keep a reviewable receipt and never replay a possibly committed
                 // execution. Reload only when the full visible form is unchanged.
-                root.querySelectorAll('input,select,button').forEach(input => { input.disabled = false; });
+                root.querySelectorAll('input,select,button').forEach(input => { input.disabled = input.closest('form')?.dataset.allowed !== 'true'; });
                 message.textContent = root.querySelector('#treatment-confirm').textContent;
                 if (before !== JSON.stringify([...new FormData(form)])) {
                     uncertain = true;
@@ -100,7 +107,7 @@ if (root) {
                 message.textContent = (error.message || '') + ' / ' + root.querySelector('#treatment-offline').textContent;
             } finally {
                 pending = false;
-                root.querySelectorAll('input,select,button').forEach(input => { input.disabled = uncertain; });
+                root.querySelectorAll('input,select,button').forEach(input => { input.disabled = uncertain || input.closest('form')?.dataset.allowed !== 'true'; });
             }
         });
     }

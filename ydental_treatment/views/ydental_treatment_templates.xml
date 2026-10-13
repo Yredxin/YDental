@@ -1,7 +1,7 @@
 <odoo>
     <template id="ydental_treatment_page" name="Treatment and pharmacy workbench">
         <t t-call="web.frontend_layout">
-            <main class="container o_ydental_treatment" t-att-data-revision="revision" t-att-data-role="role" t-att-data-execution="execution.id if execution else 0" t-att-data-document="doc.id if doc else 0" t-att-data-version="doc.ydental_version if doc else 0" t-att-data-heartbeat="heartbeat" t-att-data-currency="currency_id">
+            <main class="container o_ydental_treatment" t-att-data-write="1 if can_write else 0" t-att-data-revision="revision" t-att-data-role="role" t-att-data-execution="execution.id if execution else 0" t-att-data-document="doc.id if doc else 0" t-att-data-version="doc.ydental_version if doc else 0" t-att-data-heartbeat="heartbeat" t-att-data-currency="currency_id">
                 <link rel="stylesheet" href="/ydental_treatment/static/src/workbench/workbench.css"/>
                 <h1>Treatment and pharmacy</h1>
                 <nav><a href="/ydental/queue">Workstation and explicit reporting</a> | <a href="/ydental/clinical" target="_blank" rel="noopener">Independent clinical document</a> | <a href="/ydental/treatment?prices=1">Evidenced historical price review</a></nav>
@@ -21,6 +21,7 @@
                             <label>Surfaces <input name="surfaces" placeholder="M,O,D,B,L or I"/></label>
                             <label>Verified physical batch <select name="lot_id"><option value="">No physical material used</option><option t-foreach="lots" t-as="lot" t-att-value="lot.id" t-att-data-uom="lot.product_id.uom_id.id" t-att-data-kind="'treatment' if lot.product_id.ydental_inventory_kind == 'material' else 'chairside'" t-out="lot.product_id.name + ' / ' + lot.name"/></select></label>
                             <label>Actual material quantity <input name="material_quantity" type="number" min="0.01" step="any"/></label>
+                            <label>UTC actual time (blank means confirmation time) <input name="actual_at" type="datetime-local" step="1"/></label>
                             <label>Actual reason / source evidence <input name="reason" required="required" maxlength="240"/></label>
                             <label><input name="already_performed" type="checkbox"/>Already physically performed; preserve fact if bookkeeping is unavailable</label>
                             <button type="submit">Confirm actual treatment</button>
@@ -45,7 +46,7 @@
                         <form data-operation="refer">
                             <label>Target region and capability <select name="mapping_id" required="required"><option value="">Choose target store service</option><option t-foreach="target_mappings" t-as="mapping" t-att-value="mapping.id" t-out="mapping.ydental_store_id.name + ' / ' + mapping.name"/></select></label>
                             <label>Referral mode <select name="mode"><option value="timed">Timed reservation</option><option value="untimed">Untimed, no capacity held</option></select></label>
-                            <label>UTC slot start <input name="start" type="datetime-local"/></label><label>UTC slot end <input name="end" type="datetime-local"/></label><label>UTC valid until <input name="valid_until" type="datetime-local"/></label>
+                            <label>UTC slot start <input name="start" type="datetime-local" step="1"/></label><label>UTC slot end <input name="end" type="datetime-local" step="1"/></label><label>UTC valid until <input name="valid_until" type="datetime-local" step="1"/></label>
                             <label>Referral reason <input name="reason" maxlength="240" required="required"/></label><button type="submit">Initiate referral only</button>
                         </form>
                     </section>

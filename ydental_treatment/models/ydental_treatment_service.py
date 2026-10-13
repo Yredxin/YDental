@@ -183,14 +183,17 @@ class YDentalTreatmentService(models.AbstractModel):
         return result
 
     def _event(self, execution, catalog, quantity, source, reason, rows, *, doc=None, teeth=None,
-               already_performed=False, kind='treatment', line=None, parent=None):
+               already_performed=False, kind='treatment', line=None, parent=None, actual_at=None):
         if not isinstance(source, str) or not 1 <= len(source) <= 120 or type(already_performed) is not bool:
             raise ValidationError(self.env._('invalid_source: Supply a stable source identifier and explicit fact status.'))
         if not (kind == 'correction' and type(quantity) in (int, float) and quantity == 0 and rows):
             quantity = self._quantity(quantity, catalog.ydental_product_id.uom_id, signed=kind == 'correction')
         reason = self.env['ydental.intake.service']._text(reason)
         rows = self._material_rows(rows, execution.ydental_category, execution.ydental_store_id)
-        digest = fingerprint([execution.id, catalog.id, quantity, reason, rows, doc.id if doc else False,
+        moment = fields.Datetime.to_datetime(actual_at) if actual_at else fields.Datetime.now()
+        if moment < execution.ydental_started_at or moment > fields.Datetime.now():
+            raise ValidationError(self.env._('invalid_time: Actual time must fall within this started service and cannot be in the future.'))
+        digest = fingerprint([actual_at, execution.id, catalog.id, quantity, reason, rows, doc.id if doc else False,
             doc.ydental_version if doc else 0, teeth, already_performed, kind, line.id if line else False, parent.id if parent else False])
         prior = self._model('event').search([('ydental_store_id', '=', execution.ydental_store_id.id), ('ydental_source', '=', source)], limit=1)
         if prior:
@@ -202,7 +205,7 @@ class YDentalTreatmentService(models.AbstractModel):
             'ydental_order_line_id': line.id if line else False, 'ydental_source': source, 'ydental_fingerprint': digest,
             'ydental_kind': kind, 'ydental_catalog_id': catalog.id, 'ydental_quantity': quantity,
             'ydental_uom_id': catalog.ydental_product_id.uom_id.id, 'ydental_teeth': teeth,
-            'ydental_actual_at': fields.Datetime.now(), 'ydental_business_date': self.env['ydental.supply.service']._date(execution.ydental_store_id),
+            'ydental_actual_at': moment, 'ydental_business_date': self.env['ydental.supply.service']._date(execution.ydental_store_id, moment),
             'ydental_station_id': execution.ydental_lease_id.ydental_station_id.id, 'ydental_reason': reason,
             'ydental_already_performed': already_performed, 'ydental_parent_id': parent.id if parent else False})
         if parent:
@@ -281,7 +284,7 @@ class YDentalTreatmentService(models.AbstractModel):
             'policy': 'demo_confirmation'}
 
     def _execute(self, execution_id, lease_id, lease_token, document_id, document_version, catalog_id,
-                 quantity, source, reason, materials, teeth, already_performed, policy):
+                 quantity, source, reason, materials, teeth, already_performed, policy, actual_at=None):
         if policy != 'demo_confirmation':
             raise UserError(self.env._('policy_unpublished: Production price policy awaits approval.'))
         execution, doc = self._medical(execution_id, lease_id, lease_token, document_id, document_version)
@@ -290,7 +293,7 @@ class YDentalTreatmentService(models.AbstractModel):
         teeth = self.env['ydental.clinical.service']._content(content)['teeth']
         kind = 'chairside' if catalog.ydental_kind == 'medicine' else 'treatment'
         return self._event(execution, catalog, quantity, source, reason, materials, doc=doc,
-            teeth=teeth, already_performed=already_performed, kind=kind)
+            teeth=teeth, already_performed=already_performed, kind=kind, actual_at=actual_at)
 
     def _reconcile(self, event_id, reason):
         event = self._model('event').browse(self.env['ydental.intake.service']._id(event_id)).exists()
