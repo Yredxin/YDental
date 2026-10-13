@@ -10,6 +10,7 @@ class YDentalExamResult(models.Model):
     ydental_execution_id = fields.Many2one('ydental.queue.execution', ondelete='restrict')
     ydental_event_id = fields.Many2one('ydental.treatment.event', ondelete='restrict')
     ydental_original_author_id = fields.Many2one('res.users', required=True, ondelete='restrict')
+    ydental_responsible_id = fields.Many2one('res.users', required=True, ondelete='restrict')
     ydental_template_code = fields.Char(required=True)
     ydental_template_version = fields.Char(required=True)
     ydental_version = fields.Integer(required=True, default=0)

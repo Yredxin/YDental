@@ -1,5 +1,6 @@
 id,name,model_id/id,group_id/id,operation,domain
 exam_qualification_read,Examination qualification read,model_ydental_exam_qualification,ydental_base.ydental_base_group_user,r,
+exam_template_read,Examination template read,model_ydental_exam_template,ydental_base.ydental_base_group_user,r,
 exam_result_read,Examination result read,model_ydental_exam_result,ydental_base.ydental_base_group_user,r,
 exam_version_read,Examination version read,model_ydental_exam_version,ydental_base.ydental_base_group_user,r,
 exam_receipt_read,Examination receipt read,model_ydental_exam_receipt,ydental_base.ydental_base_group_user,r,

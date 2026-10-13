@@ -1,0 +1,1242 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* ydental_exam
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 20.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-13 09:16+0000\n"
+"PO-Revision-Date: 2026-10-13 09:16+0000\n"
+"Last-Translator: \n"
+"Language-Team: YDental\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "/ 全景或CBCT任务"
+msgstr "/ 全景或CBCT任务"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "/ 冻结医嘱"
+msgstr "/ 冻结医嘱"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "/ 实际服务"
+msgstr "/ 实际服务"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "/ 工位"
+msgstr "/ 工位"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "/ 当前文书责任人"
+msgstr "/ 当前文书责任人"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "/ 待核对"
+msgstr "/ 待核对"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "/ 方向"
+msgstr "/ 方向"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "/ 状态"
+msgstr "/ 状态"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "/ 真实执行"
+msgstr "/ 真实执行"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "/ 费源状态"
+msgstr "/ 费源状态"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "/ 费用来源"
+msgstr "/ 费用来源"
+
+#. module: ydental_exam
+#: model:ir.model.constraint,message:ydental_exam.constraint_ydental_exam_qualification_unique
+msgid "A reviewed qualification version is unique."
+msgstr "已审核的资质版本必须唯一。"
+
+#. module: ydental_exam
+#: model:ir.model.fields.selection,name:ydental_exam.selection__ydental_treatment_event__ydental_kind__exam
+msgid "Actual examination"
+msgstr "实际检查"
+
+#. module: ydental_exam
+#: model:ir.model.fields.selection,name:ydental_exam.selection__ydental_exam_result__state__aborted
+#: model:ir.model.fields.selection,name:ydental_exam.selection__ydental_treatment_line__state__aborted
+msgid "Actual examination aborted"
+msgstr "实际检查已中止"
+
+#. module: ydental_exam
+#: model:ir.model.fields.selection,name:ydental_exam.selection__ydental_exam_result__state__started
+msgid "Actual examination started"
+msgstr "实际检查已开始"
+
+#. module: ydental_exam
+#: model:ir.model.fields.selection,name:ydental_exam.selection__ydental_exam_result__state__pending
+msgid "Actual examination; result pending"
+msgstr "检查已实施，结果待完善"
+
+#. module: ydental_exam
+#: model:ir.model,name:ydental_exam.model_ydental_treatment_service
+msgid "Actual treatment, frozen orders and pharmacy transactions"
+msgstr "真实治疗、冻结医嘱与药房事务"
+
+#. module: ydental_exam
+#: model:ir.model.constraint,message:ydental_exam.constraint_ydental_exam_receipt_key
+msgid "An actor action key is unique."
+msgstr "每名操作人的动作键必须唯一。"
+
+#. module: ydental_exam
+#: model:ir.model.constraint,message:ydental_exam.constraint_ydental_exam_template_one_catalog
+msgid "An examination catalog has one reviewed template per store."
+msgstr "每门店的每个检查目录只能绑定一个已审核模板。"
+
+#. module: ydental_exam
+#: model:ir.model,name:ydental_exam.model_ydental_intake_service
+msgid "Atomic service pricing and capacity-backed intake"
+msgstr "原子服务取价与容量受理"
+
+#. module: ydental_exam
+#: model:ir.model,name:ydental_exam.model_ir_attachment
+msgid "Attachment"
+msgstr "附件"
+
+#. module: ydental_exam
+#: model:ir.model.fields.selection,name:ydental_exam.selection__ydental_exam_template__ydental_code__cbct-demo-1
+msgid "CBCT demonstration"
+msgstr "CBCT演示模板"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "CBCT检查演示"
+msgstr "CBCT检查演示"
+
+#. module: ydental_exam
+#: model:ir.model,name:ydental_exam.model_report_ydental_exam_ydental_exam_pdf
+msgid "Controlled unsigned examination result PDF"
+msgstr "受控下载的未签发检查结果PDF"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_qualification__create_uid
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_receipt__create_uid
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_result__create_uid
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_template__create_uid
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_version__create_uid
+msgid "Created by"
+msgstr "创建人"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_qualification__create_date
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_receipt__create_date
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_result__create_date
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_template__create_date
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_version__create_date
+msgid "Created on"
+msgstr "创建时间"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ir_actions_report__display_name
+#: model:ir.model.fields,field_description:ydental_exam.field_ir_attachment__display_name
+#: model:ir.model.fields,field_description:ydental_exam.field_report_ydental_exam_ydental_exam_pdf__display_name
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_qualification__display_name
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_receipt__display_name
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_result__display_name
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_service__display_name
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_template__display_name
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_version__display_name
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_intake_service__display_name
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_queue_service__display_name
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_treatment_event__display_name
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_treatment_line__display_name
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_treatment_service__display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: ydental_exam
+#: model:ir.model.fields.selection,name:ydental_exam.selection__ydental_exam_result__state__draft
+msgid "Draft"
+msgstr "草稿"
+
+#. module: ydental_exam
+#: model:ir.model.fields.selection,name:ydental_exam.selection__ydental_exam_version__ydental_kind__draft
+msgid "Draft save"
+msgstr "草稿保存"
+
+#. module: ydental_exam
+#: model:ir.model.constraint,message:ydental_exam.constraint_ydental_exam_result_one_line
+msgid "Each frozen examination line has one result history."
+msgstr "每条已冻结检查医嘱行只能有一份结果历史。"
+
+#. module: ydental_exam
+#: model:ir.model.fields.selection,name:ydental_exam.selection__ydental_exam_version__ydental_kind__correction
+msgid "Evidenced correction"
+msgstr "有据更正"
+
+#. module: ydental_exam
+#: model:ir.actions.act_url,name:ydental_exam.ydental_exam_action
+#: model:ir.ui.menu,name:ydental_exam.ydental_exam_menu
+msgid "Examination workbench"
+msgstr "检查工作台"
+
+#. module: ydental_exam
+#: model:ir.model,name:ydental_exam.model_ydental_exam_service
+msgid ""
+"Frozen examination line, actual execution and independent result authority"
+msgstr "冻结医嘱行、实际检查执行与独立结果权限"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ir_actions_report__id
+#: model:ir.model.fields,field_description:ydental_exam.field_ir_attachment__id
+#: model:ir.model.fields,field_description:ydental_exam.field_report_ydental_exam_ydental_exam_pdf__id
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_qualification__id
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_receipt__id
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_result__id
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_service__id
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_template__id
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_version__id
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_intake_service__id
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_queue_service__id
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_treatment_event__id
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_treatment_line__id
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_treatment_service__id
+msgid "ID"
+msgstr "ID"
+
+#. module: ydental_exam
+#: model:ir.model,name:ydental_exam.model_ydental_exam_receipt
+msgid "Idempotent examination action receipt"
+msgstr "检查动作幂等回执"
+
+#. module: ydental_exam
+#: model:ir.model,name:ydental_exam.model_ydental_exam_version
+msgid "Immutable examination result text version"
+msgstr "不可改写的检查结果文字版本"
+
+#. module: ydental_exam
+#: model:ir.model,name:ydental_exam.model_ydental_exam_result
+msgid "Independent examination result for one frozen order line"
+msgstr "单条冻结医嘱行的独立检查结果"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_qualification__write_uid
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_receipt__write_uid
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_result__write_uid
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_template__write_uid
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_version__write_uid
+msgid "Last Updated by"
+msgstr "最后修改人"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_qualification__write_date
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_receipt__write_date
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_result__write_date
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_template__write_date
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_version__write_date
+msgid "Last Updated on"
+msgstr "最后修改时间"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_qualification__name
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_receipt__name
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_result__name
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_template__name
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_version__name
+msgid "Name"
+msgstr "名称"
+
+#. module: ydental_exam
+#: model:ir.model.fields.selection,name:ydental_exam.selection__ydental_exam_template__ydental_code__oral-demo-1
+msgid "Oral demonstration"
+msgstr "口腔检查演示模板"
+
+#. module: ydental_exam
+#: model:ir.model.fields.selection,name:ydental_exam.selection__ydental_exam_template__ydental_code__panorama-demo-1
+msgid "Panorama demonstration"
+msgstr "全景检查演示模板"
+
+#. module: ydental_exam
+#: model:ir.model.fields.selection,name:ydental_exam.selection__ydental_exam_result__state__partial
+msgid "Partially completed"
+msgstr "部分完成"
+
+#. module: ydental_exam
+#: model:ir.model.fields.selection,name:ydental_exam.selection__ydental_treatment_line__state__partial
+msgid "Partially completed examination"
+msgstr "检查部分完成"
+
+#. module: ydental_exam
+#: model:ir.model.fields.selection,name:ydental_exam.selection__ydental_exam_template__ydental_code__periodontal-demo-1
+msgid "Periodontal demonstration"
+msgstr "牙周检查演示模板"
+
+#. module: ydental_exam
+#: model:ir.model.constraint,message:ydental_exam.constraint_ydental_exam_qualification_dates
+msgid "Qualification expiry must follow its start."
+msgstr "资质有效期终点必须晚于起点。"
+
+#. module: ydental_exam
+#: model:ir.model,name:ydental_exam.model_ir_actions_report
+msgid "Report Action"
+msgstr "报告动作"
+
+#. module: ydental_exam
+#: model:ir.model.fields.selection,name:ydental_exam.selection__ydental_exam_version__ydental_kind__confirm
+msgid "Result confirmation"
+msgstr "结果确认"
+
+#. module: ydental_exam
+#: model:ir.model.fields.selection,name:ydental_exam.selection__ydental_exam_result__state__confirmed
+msgid "Result confirmed"
+msgstr "结果已确认"
+
+#. module: ydental_exam
+#: model:ir.model.constraint,message:ydental_exam.constraint_ydental_exam_version_number
+msgid "Result versions are strictly numbered."
+msgstr "结果版本号必须唯一且连续。"
+
+#. module: ydental_exam
+#: model:ir.model,name:ydental_exam.model_ydental_exam_template
+msgid "Reviewed demonstration template bound to one store catalog"
+msgstr "绑定门店检查目录的已审核演示模板"
+
+#. module: ydental_exam
+#: model:ir.model,name:ydental_exam.model_ydental_exam_qualification
+msgid "Reviewed staff examination qualification"
+msgstr "已审核的工作人员检查资质"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_result__state
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_treatment_line__state
+msgid "State"
+msgstr "状态"
+
+#. module: ydental_exam
+#: model:ir.actions.report,name:ydental_exam.ydental_exam_pdf_report
+msgid "Unsigned examination demonstration PDF"
+msgstr "未签发检查演示PDF"
+
+#. module: ydental_exam
+#: model:ir.model,name:ydental_exam.model_ydental_queue_service
+msgid "Workstation connection and patient execution authority"
+msgstr "工位连接与患者执行权威"
+
+#. module: ydental_exam
+#: model:ir.module.module,shortdesc:base.module_ydental_exam
+msgid "YDental Examination Workbench"
+msgstr "YDental检查工作台"
+
+#. module: ydental_exam
+#: model:ir.model,name:ydental_exam.model_ydental_treatment_event
+msgid "YDentalTreatmentEvent"
+msgstr "实际治疗事件"
+
+#. module: ydental_exam
+#: model:ir.model,name:ydental_exam.model_ydental_treatment_line
+msgid "YDentalTreatmentLine"
+msgstr "冻结医嘱行"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_template__ydental_active
+msgid "Ydental Active"
+msgstr "有效"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_qualification__ydental_actor_id
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_receipt__ydental_actor_id
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_result__ydental_actor_id
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_template__ydental_actor_id
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_version__ydental_actor_id
+msgid "Ydental Actor"
+msgstr "实际操作者"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_result__ydental_business_date
+msgid "Ydental Business Date"
+msgstr "门店业务日期"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_template__ydental_catalog_id
+msgid "Ydental Catalog"
+msgstr "项目目录"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_qualification__ydental_category
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_receipt__ydental_category
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_result__ydental_category
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_template__ydental_category
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_version__ydental_category
+msgid "Ydental Category"
+msgstr "业务大类"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_qualification__ydental_code
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_template__ydental_code
+msgid "Ydental Code"
+msgstr "编码"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_result__ydental_completed_at
+msgid "Ydental Completed At"
+msgstr "清理完成时间"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_result__ydental_conclusion
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_version__ydental_conclusion
+msgid "Ydental Conclusion"
+msgstr "人工结论"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_result__ydental_current_editor_id
+msgid "Ydental Current Editor"
+msgstr "当前编辑者"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_result__ydental_edit_connection_hash
+msgid "Ydental Edit Connection Hash"
+msgstr "编辑连接摘要"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_result__ydental_edit_revision
+msgid "Ydental Edit Revision"
+msgstr "编辑会话修订号"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_result__ydental_edit_session_id
+msgid "Ydental Edit Session"
+msgstr "编辑会话"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_result__ydental_edit_until
+msgid "Ydental Edit Until"
+msgstr "编辑有效截止时间"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_result__ydental_event_id
+msgid "Ydental Event"
+msgstr "实际事件"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_qualification__ydental_evidence
+msgid "Ydental Evidence"
+msgstr "凭据"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_treatment_line__ydental_exam_validated_date
+msgid "Ydental Exam Validated Date"
+msgstr "检查医嘱当日确认日期"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_result__ydental_execution_id
+msgid "Ydental Execution"
+msgstr "来源执行段"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_result__ydental_findings
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_version__ydental_findings
+msgid "Ydental Findings"
+msgstr "检查所见"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_receipt__ydental_fingerprint
+msgid "Ydental Fingerprint"
+msgstr "来源摘要"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_receipt__ydental_key
+msgid "Ydental Key"
+msgstr "请求键"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_version__ydental_kind
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_treatment_event__ydental_kind
+msgid "Ydental Kind"
+msgstr "类别"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_result__ydental_line_id
+msgid "Ydental Line"
+msgstr "检查医嘱行"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_result__ydental_measurements
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_version__ydental_measurements
+msgid "Ydental Measurements"
+msgstr "检查测量"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_version__ydental_number
+msgid "Ydental Number"
+msgstr "文书版本号"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_result__ydental_original_author_id
+msgid "Ydental Original Author"
+msgstr "原结果作者"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_qualification__ydental_patient_id
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_receipt__ydental_patient_id
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_result__ydental_patient_id
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_template__ydental_patient_id
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_version__ydental_patient_id
+msgid "Ydental Patient"
+msgstr "患者"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_version__ydental_previous_id
+msgid "Ydental Previous"
+msgstr "前一历史版本"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_template__ydental_reason
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_version__ydental_reason
+msgid "Ydental Reason"
+msgstr "原因"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_version__ydental_recorded_at
+msgid "Ydental Recorded At"
+msgstr "实际记录时间"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_result__ydental_responsible_id
+msgid "Ydental Responsible"
+msgstr "责任人"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_receipt__ydental_result
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_version__ydental_result_id
+msgid "Ydental Result"
+msgstr "操作结果"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_qualification__ydental_revoked
+msgid "Ydental Revoked"
+msgstr "已撤销"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_result__ydental_started_at
+msgid "Ydental Started At"
+msgstr "实际开始时间"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_result__ydental_station_id
+msgid "Ydental Station"
+msgstr "实际工位"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_qualification__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_receipt__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_result__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_template__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_version__ydental_store_id
+msgid "Ydental Store"
+msgstr "来源门店"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_result__ydental_template_code
+msgid "Ydental Template Code"
+msgstr "模板编码"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_result__ydental_template_version
+msgid "Ydental Template Version"
+msgstr "模板版本"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_qualification__ydental_user_id
+msgid "Ydental User"
+msgstr "真实用户"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_qualification__ydental_valid_from
+msgid "Ydental Valid From"
+msgstr "有效期起点"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_qualification__ydental_valid_until
+msgid "Ydental Valid Until"
+msgstr "有效期截止"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_result__ydental_version
+msgid "Ydental Version"
+msgstr "内容版本"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid "access_denied: A controlled examination report request is required."
+msgstr "access_denied: 必须通过受控检查报告请求。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid "access_denied: A different active store employee is required."
+msgstr "access_denied: 必须选择另一名在本门店任职的有效员工。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid "access_denied: A saved examination result is required."
+msgstr "access_denied: 必须先保存检查结果。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/report_ydental_exam_pdf.py:0
+msgid "access_denied: Arbitrary report arguments are unavailable."
+msgstr "access_denied: 不允许任意报告参数。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid "access_denied: Examination result is unavailable."
+msgstr "access_denied: 检查结果不可访问。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_queue_service.py:0
+msgid "access_denied: Only the actual examination holder may finish."
+msgstr "access_denied: 仅实际检查工位持有人可以结束。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid ""
+"access_denied: Only the original examination operator may reconcile this "
+"fact."
+msgstr "access_denied: 仅原检查执行人可以核对该事实。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid "access_denied: The source company is outside the account scope."
+msgstr "access_denied: 来源法人不在账号授权范围。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid "access_denied: This examination attachment is unavailable."
+msgstr "access_denied: 检查附件不可访问。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid "already_started: This line already has an actual execution fact."
+msgstr "already_started: 此医嘱行已有实际执行事实。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid "editor_busy: The current editor must release or expire first."
+msgstr "editor_busy: 当前编辑者必须先释放，或等待其编辑租约到期。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid "editor_busy: This result is held by another live editor."
+msgstr "editor_busy: 此结果正由另一名有效编辑者持有。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_intake_service.py:0
+msgid ""
+"exam_revalidation_required: A doctor must confirm this unfinished order line"
+" for the current local day."
+msgstr "exam_revalidation_required: 医生必须确认此未完成医嘱行在本门店今日仍有效。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_queue_service.py:0
+msgid ""
+"exam_revalidation_required: Unstarted examination queue positions cannot "
+"cross the local day boundary."
+msgstr "exam_revalidation_required: 未开始的检查号位不能跨本门店业务日使用。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid ""
+"history_immutable: Create a new catalog for a different result template."
+msgstr "history_immutable: 不同结果模板必须另建目录，不能覆盖历史绑定。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_treatment_event.py:0
+msgid ""
+"history_immutable: Preserve actual examination fee history before removing "
+"its module."
+msgstr "history_immutable: 移除模块前必须保留实际检查费用历史。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_treatment_line.py:0
+msgid ""
+"history_immutable: Preserve actual examination history before removing its "
+"module."
+msgstr "history_immutable: 移除模块前必须保留实际检查历史。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid "invalid_action: Select a documented examination action and stable key."
+msgstr "invalid_action: 请选择受支持的检查动作和稳定动作键。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid "invalid_action: Unknown or missing examination arguments."
+msgstr "invalid_action: 检查动作参数未知或缺失。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid "invalid_attachment: File signature or size is invalid."
+msgstr "invalid_attachment: 附件签名或大小无效。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid "invalid_attachment: Invalid file encoding."
+msgstr "invalid_attachment: 附件编码无效。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid "invalid_attachment: Select a bounded JPEG, PNG or PDF evidence file."
+msgstr "invalid_attachment: 请选择大小受限的JPEG、PNG或PDF证据文件。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid ""
+"invalid_result: Provide a value with its native unit, or explicit "
+"unknown/not applicable."
+msgstr "invalid_result: 请填写带原单位的数值，或明确选择未知/不适用。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid "invalid_result: Unknown measurement field."
+msgstr "invalid_result: 测量字段不在模板内。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid ""
+"invalid_result: Use a reviewed demonstration template and bounded text."
+msgstr "invalid_result: 请使用已审核的演示模板及长度受限的文字。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid "invalid_time: Qualification validity must have ordered UTC bounds."
+msgstr "invalid_time: 资质有效期必须有先后正确的UTC边界。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid ""
+"qualification_required: A reviewed live staff qualification is required."
+msgstr "qualification_required: 必须有已审核且当前有效的工作人员资质。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid ""
+"qualification_required: Inline examination needs its original serving "
+"segment and exact capability."
+msgstr "qualification_required: 内嵌检查必须匹配原正在服务的诊疗段及准确能力。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid ""
+"qualification_required: Record an exact qualification code and reviewed "
+"evidence."
+msgstr "qualification_required: 请记录准确资质编码及已审核凭据。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid ""
+"reconcile_required: Resolve the actual examination fact before leaving."
+msgstr "reconcile_required: 离开工位前必须核清实际检查事实。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid "render_failed: The examination PDF could not be generated."
+msgstr "render_failed: 检查PDF生成失败。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid ""
+"render_failed: The examination PDF is invalid or exceeds the page limit."
+msgstr "render_failed: 检查PDF无效或超出页数限制。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid "responsibility_required: Release only your current result version."
+msgstr "responsibility_required: 只能释放自己负责的当前结果版本。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid ""
+"responsibility_required: Take over this result with an explicit reason "
+"before editing."
+msgstr "responsibility_required: 编辑前须附原因接手该结果责任。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid "result_required: Actual execution and reviewed findings are required."
+msgstr "result_required: 必须有实际执行事实和已审核所见。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid "result_required: Confirmed findings cannot be blank."
+msgstr "result_required: 已确认所见不能为空。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid "result_required: Correct only a confirmed result."
+msgstr "result_required: 只能更正已确认结果。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid ""
+"source_required: Revalidate only a real unfinished order line for this "
+"patient."
+msgstr "source_required: 只能为当前患者真实未完成的检查医嘱行复核。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid "source_required: Select a real frozen examination line in this store."
+msgstr "source_required: 请选择本门店真实已冻结的检查医嘱行。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_queue_service.py:0
+msgid "source_required: The actual examination source changed."
+msgstr "source_required: 实际检查来源已变化。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid "source_required: The patient and examination source must match."
+msgstr "source_required: 患者与检查来源必须一致。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid "source_required: The real examination task must be serving."
+msgstr "source_required: 真实检查任务必须正在服务。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid "source_required: This catalog has no current mapping in this store."
+msgstr "source_required: 此目录在本门店没有当前映射。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid ""
+"template_required: Bind a reviewed demonstration template to this exact "
+"examination catalog."
+msgstr "template_required: 请为此检查目录明确绑定已审核的演示模板。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid ""
+"template_required: Select an active examination catalog and a reviewed "
+"demonstration template."
+msgstr "template_required: 请选择有效检查目录及已审核的演示模板。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid ""
+"version_conflict: A confirmed or aborted result needs its own controlled "
+"action."
+msgstr "version_conflict: 已确认或已中止结果必须使用对应受控动作。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid "version_conflict: Refresh the examination result before editing."
+msgstr "version_conflict: 编辑前请刷新检查结果。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid "version_conflict: Report source changed during rendering."
+msgstr "version_conflict: 报告生成期间来源已变化。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid ""
+"version_conflict: Save a current editable result before attaching evidence."
+msgstr "version_conflict: 添加证据前请先保存当前可编辑结果。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid "version_conflict: Select another operator current result version."
+msgstr "version_conflict: 请选择另一操作人负责的当前结果版本。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid "version_conflict: The requested result version is unavailable."
+msgstr "version_conflict: 所请求的结果版本不可用。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid "version_conflict: This actual examination is already resolved."
+msgstr "version_conflict: 此实际检查已处理完成。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid "version_conflict: This examination key belongs to another action."
+msgstr "version_conflict: 此检查动作键已用于另一动作。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid "version_conflict: This result cannot be performed again."
+msgstr "version_conflict: 此结果不能重复执行。"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "下载未签演示PDF"
+msgstr "下载未签演示PDF"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "人工结果审核说明"
+msgstr "人工结果审核说明"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_pdf
+msgid "人工结论"
+msgstr "人工结论"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "人工结论（可空）"
+msgstr "人工结论（可空）"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "今日医嘱有效性确认原因"
+msgstr "今日医嘱有效性确认原因"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "价格快照"
+msgstr "价格快照"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "保存独立结果草稿"
+msgstr "保存独立结果草稿"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "全景检查演示"
+msgstr "全景检查演示"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_pdf
+msgid "医嘱行："
+msgstr "医嘱行："
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "医生确认今日续检"
+msgstr "医生确认今日续检"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "医疗医嘱"
+msgstr "医疗医嘱"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_pdf
+msgid "原作者："
+msgstr "原作者："
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "原开单人"
+msgstr "原开单人"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "原执行事实核对说明"
+msgstr "原执行事实核对说明"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "原执行人核对费库"
+msgstr "原执行人核对费库"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "原结果作者"
+msgstr "原结果作者"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "口腔检查演示"
+msgstr "口腔检查演示"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "响应未知：在新页核对真实记录，勿自动重放。"
+msgstr "响应未知：在新页核对真实记录，勿自动重放。"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "实际中止/部分完成原因"
+msgstr "实际中止/部分完成原因"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "实际实施说明"
+msgstr "实际实施说明"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_pdf
+msgid "实际执行人："
+msgstr "实际执行人："
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_pdf
+msgid "实际执行时间 UTC："
+msgstr "实际执行时间 UTC："
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "审核依据"
+msgstr "审核依据"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "工位叫号"
+msgstr "工位叫号"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_pdf
+msgid "工位："
+msgstr "工位："
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "患者"
+msgstr "患者"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_pdf
+msgid "患者编号："
+msgstr "患者编号："
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_pdf
+msgid "所见"
+msgstr "所见"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_pdf
+msgid "报告版本："
+msgstr "报告版本："
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "接手该结果责任"
+msgstr "接手该结果责任"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "更正原因"
+msgstr "更正原因"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_pdf
+msgid "本文件没有电子签名、设备接通或专业阅片认证。"
+msgstr "本文件没有电子签名、设备接通或专业阅片认证。"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_pdf
+msgid "来源事件："
+msgstr "来源事件："
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "查看独立结果与版本"
+msgstr "查看独立结果与版本"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "检查工作台"
+msgstr "检查工作台"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "检查目录演示模板审核绑定"
+msgstr "检查目录演示模板审核绑定"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_pdf
+msgid "检查结果演示报告"
+msgstr "检查结果演示报告"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_pdf
+msgid "模板版本："
+msgstr "模板版本："
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_pdf
+msgid "测量"
+msgstr "测量"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "演示字段与报告未审核签发；实际检查、结果文字、费用和附件分别确认。专业影像设备与PACS未连接。"
+msgstr "演示字段与报告未审核签发；实际检查、结果文字、费用和附件分别确认。专业影像设备与PACS未连接。"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_pdf
+msgid "演示草案 / 未审核签发 / 非正式医疗报告"
+msgstr "演示草案 / 未审核签发 / 非正式医疗报告"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "牙周检查演示"
+msgstr "牙周检查演示"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "确认真实执行一次并取价"
+msgstr "确认真实执行一次并取价"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "确认结果文字（不代表正式签发）"
+msgstr "确认结果文字（不代表正式签发）"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "绑定此目录"
+msgstr "绑定此目录"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "结束检查段并释放工位"
+msgstr "结束检查段并释放工位"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "结束检查段说明"
+msgstr "结束检查段说明"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_pdf
+msgid "结果状态："
+msgstr "结果状态："
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "结论"
+msgstr "结论"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "记录实际中止或部分完成"
+msgstr "记录实际中止或部分完成"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_pdf
+msgid "该版记录者："
+msgstr "该版记录者："
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "请核对真实医嘱行和当前工位后操作。"
+msgstr "请核对真实医嘱行和当前工位后操作。"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "请选择已由门诊审核的准确项目模板；不同模板应建立新目录，不覆盖已有结果。"
+msgstr "请选择已由门诊审核的准确项目模板；不同模板应建立新目录，不覆盖已有结果。"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "责任接手原因"
+msgstr "责任接手原因"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "追加更正版本"
+msgstr "追加更正版本"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "释放检查结果编辑"
+msgstr "释放检查结果编辑"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "门店"
+msgstr "门店"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_pdf
+msgid "门店业务日："
+msgstr "门店业务日："
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_pdf
+msgid "门店："
+msgstr "门店："
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_pdf
+msgid "项目："
+msgstr "项目："

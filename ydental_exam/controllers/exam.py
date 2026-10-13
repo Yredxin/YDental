@@ -42,11 +42,23 @@ class YDentalExam(http.Controller):
             service._audit('view', result, {'version': result.ydental_version})
         access = service.env['ydental.access.service']
         member = access._membership(service.env.uid, store.id)
+        medical_document = service.env['ydental.clinical.document'].sudo().search([
+            ('ydental_current_execution_id', '=', execution.id)], limit=1) if (
+                execution and execution.ydental_category == 'medical' and execution.state == 'serving') else False
+        mappings = service.env['ydental.intake.mapping'].sudo().search([
+            ('ydental_store_id', '=', store.id), ('ydental_catalog_id.ydental_kind', '=', 'exam')])
+        bound_catalogs = service._model('template').search([
+            ('ydental_store_id', '=', store.id)]).ydental_catalog_id.ids
         return request.render('ydental_exam.ydental_exam_page', {
             'store': store, 'revision': access._scope().ydental_revision,
             'execution': execution if execution and execution.state == 'serving' else False,
             'lines': lines, 'results': results, 'events': events,
             'can_write': access._levels(member)['exam'] == 'write',
+            'can_medical_write': access._levels(member)['medical'] == 'write',
+            'actor_id': service.env.uid,
+            'medical_document': medical_document,
+            'business_date': service.env['ydental.supply.service']._date(store),
+            'unbound_mappings': mappings.filtered(lambda mapping: mapping.ydental_catalog_id.id not in bound_catalogs),
             'line_labels': dict(lines._fields['state']._description_selection(service.env)),
             'result_labels': dict(results._fields['state']._description_selection(service.env)),
         }, headers=HEADERS)

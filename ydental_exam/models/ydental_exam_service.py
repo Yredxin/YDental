@@ -1,13 +1,16 @@
 import base64
+import binascii
 import hashlib
 import inspect
 import json
 from datetime import timedelta
 from dataclasses import dataclass
 import io
+import math
 
 from odoo import fields, models
 from odoo.exceptions import AccessError, UserError, ValidationError
+from odoo.tools import consteq
 from odoo.tools.pdf import PdfFileReader, PdfReadError
 from odoo.addons.base.models.ir_qweb import QWebError
 
@@ -68,13 +71,62 @@ class YDentalExamService(models.AbstractModel):
     def _result(self, line, create=False, execution=None):
         result = self._model('result').search([('ydental_line_id', '=', line.id)], limit=1)
         if not result and create:
+            catalog = line.ydental_mapping_id.ydental_catalog_id
+            template = self._model('template').search([
+                ('ydental_store_id', '=', line.ydental_store_id.id),
+                ('ydental_catalog_id', '=', catalog.id), ('ydental_active', '=', True)], limit=1)
+            if not template or template.ydental_code not in TEMPLATES:
+                raise UserError(self.env._('template_required: Bind a reviewed demonstration template to this exact examination catalog.'))
             result = self._model('result')._new({'name': line.name, 'ydental_store_id': line.ydental_store_id.id,
                 'ydental_category': 'exam', 'ydental_patient_id': line.ydental_patient_id.id,
                 'ydental_actor_id': self.env.uid, 'ydental_original_author_id': self.env.uid,
+                'ydental_responsible_id': self.env.uid,
                 'ydental_line_id': line.id, 'ydental_execution_id': execution.id if execution else False,
-                'ydental_template_code': 'panorama-demo-1' if 'pan' in (line.ydental_mapping_id.ydental_catalog_id.ydental_code or '').lower() else 'cbct-demo-1' if 'cbct' in (line.ydental_mapping_id.ydental_catalog_id.ydental_code or '').lower() else 'oral-demo-1',
+                'ydental_template_code': template.ydental_code,
                 'ydental_template_version': 'S09-DRAFT-1'})
         return result
+
+    def _bind_template(self, catalog_id, code, reason):
+        store = self._store(write=True)
+        self.env['ydental.access.service']._check('medical', 'write', write=True)
+        catalog = self.env['ydental.intake.catalog'].sudo().browse(self.env['ydental.intake.service']._id(catalog_id)).exists()
+        if not catalog or catalog.ydental_kind != 'exam' or code not in TEMPLATES or (
+                not catalog.ydental_capability_id.active):
+            raise ValidationError(self.env._('template_required: Select an active examination catalog and a reviewed demonstration template.'))
+        reason = self.env['ydental.intake.service']._text(reason)
+        mapping = self.env['ydental.intake.mapping'].sudo().search([
+            ('ydental_catalog_id', '=', catalog.id), ('ydental_store_id', '=', store.id)], limit=1)
+        if not mapping:
+            raise AccessError(self.env._('source_required: This catalog has no current mapping in this store.'))
+        previous = self._model('template').search([
+            ('ydental_catalog_id', '=', catalog.id), ('ydental_store_id', '=', store.id)], limit=1)
+        if previous:
+            if previous.ydental_code != code:
+                raise UserError(self.env._('history_immutable: Create a new catalog for a different result template.'))
+            return {'template_id': previous.id, 'code': previous.ydental_code}
+        template = self._model('template')._new({'name': catalog.name, 'ydental_store_id': store.id,
+            'ydental_category': 'exam', 'ydental_patient_id': False, 'ydental_actor_id': self.env.uid,
+            'ydental_catalog_id': catalog.id, 'ydental_code': code, 'ydental_active': True,
+            'ydental_reason': reason})
+        self._audit('template_bound', template, {'catalog_id': catalog.id, 'code': code}, reason)
+        return {'template_id': template.id, 'code': code}
+
+    def _revalidate(self, line_id, execution_id, lease_id, lease_token, document_id, document_version, reason):
+        treatment = self.env['ydental.treatment.service']
+        execution, _document = treatment._medical(execution_id, lease_id, lease_token,
+            document_id, document_version)
+        line = treatment._get('line', line_id, 'medical')
+        if line.ydental_order_id.ydental_kind != 'exam' or line.state != 'issued' or (
+                line.ydental_patient_id != execution.ydental_patient_id or
+                line.ydental_store_id != execution.ydental_store_id or
+                line.ydental_task_id.state not in ('pending', 'accepted')):
+            raise AccessError(self.env._('source_required: Revalidate only a real unfinished order line for this patient.'))
+        reason = self.env['ydental.intake.service']._text(reason)
+        today = self.env['ydental.supply.service']._date(line.ydental_store_id)
+        if line.ydental_exam_validated_date != today:
+            line._save({'ydental_exam_validated_date': today})
+            self._audit('next_day_revalidated', line, {'date': str(today), 'execution_id': execution.id}, reason)
+        return {'line_id': line.id, 'validated_date': str(today), 'state': line.state}
 
     def _audit(self, action, record, after=None, reason=False):
         self.env['ydental.access.service']._audit('exam.' + action, 'exam', record, record.ydental_store_id.id,
@@ -88,7 +140,7 @@ class YDentalExamService(models.AbstractModel):
         if execution.ydental_patient_id != line.ydental_patient_id or execution.ydental_store_id != line.ydental_store_id:
             raise AccessError(self.env._('source_required: The patient and examination source must match.'))
         if inline:
-            if execution != line.ydental_order_id.ydental_execution_id or line.state != 'issued' or (
+            if execution != line.ydental_order_id.ydental_execution_id or line.state not in ('issued', 'done', 'partial', 'aborted') or (
                     line.ydental_mapping_id.ydental_catalog_id.ydental_capability_id not in
                     execution.ydental_lease_id.ydental_station_id.ydental_capability_ids.filtered('active') or
                     line.ydental_mapping_id.ydental_catalog_id.ydental_capability_id not in
@@ -110,16 +162,48 @@ class YDentalExamService(models.AbstractModel):
 
     def _editor(self, result, version):
         session, connection = self.env['ydental.queue.service']._connection()
+        if result.ydental_responsible_id.id != self.env.uid:
+            raise AccessError(self.env._('responsibility_required: Take over this result with an explicit reason before editing.'))
         if type(version) is not int or result.ydental_version != version:
             raise UserError(self.env._('version_conflict: Refresh the examination result before editing.'))
         if result.ydental_current_editor_id and result.ydental_edit_until > fields.Datetime.now() and (
                 result.ydental_current_editor_id.id != self.env.uid or result.ydental_edit_session_id != session or
                 result.ydental_edit_revision != session.ydental_revision or
-                result.ydental_edit_connection_hash != connection.key_hash):
+                not consteq(result.ydental_edit_connection_hash, connection.key_hash)):
             raise AccessError(self.env._('editor_busy: This result is held by another live editor.'))
         result._save({'ydental_current_editor_id': self.env.uid, 'ydental_edit_session_id': session.id,
             'ydental_edit_revision': session.ydental_revision, 'ydental_edit_connection_hash': connection.key_hash,
             'ydental_edit_until': fields.Datetime.now() + timedelta(minutes=5)})
+
+    def _release_editor(self, line_id, version):
+        line = self._line(line_id, write=True)
+        result = self._result(line)
+        if not result or result.ydental_responsible_id.id != self.env.uid or result.ydental_version != version:
+            raise AccessError(self.env._('responsibility_required: Release only your current result version.'))
+        session, connection = self.env['ydental.queue.service']._connection()
+        if result.ydental_current_editor_id and (
+                result.ydental_edit_session_id != session or
+                not consteq(result.ydental_edit_connection_hash or '', connection.key_hash)):
+            raise AccessError(self.env._('editor_busy: This result is held by another live editor.'))
+        result._save({'ydental_current_editor_id': False, 'ydental_edit_session_id': False,
+            'ydental_edit_revision': 0, 'ydental_edit_connection_hash': False, 'ydental_edit_until': False})
+        self._audit('editor_released', result, {'version': version})
+        return {'result_id': result.id, 'version': version, 'state': result.state}
+
+    def _takeover(self, line_id, version, reason):
+        line = self._line(line_id, write=True)
+        result = self._result(line)
+        if not result or result.ydental_version != version or result.ydental_responsible_id.id == self.env.uid:
+            raise UserError(self.env._('version_conflict: Select another operator current result version.'))
+        if result.ydental_current_editor_id and result.ydental_edit_until > fields.Datetime.now():
+            raise AccessError(self.env._('editor_busy: The current editor must release or expire first.'))
+        reason = self.env['ydental.intake.service']._text(reason)
+        previous = result.ydental_responsible_id.id
+        result._save({'ydental_responsible_id': self.env.uid,
+            'ydental_current_editor_id': False, 'ydental_edit_session_id': False,
+            'ydental_edit_revision': 0, 'ydental_edit_connection_hash': False, 'ydental_edit_until': False})
+        self._audit('responsibility_taken', result, {'from_user_id': previous, 'to_user_id': self.env.uid}, reason)
+        return {'result_id': result.id, 'version': version, 'state': result.state}
 
     def _content(self, findings, measurements, conclusion, template_code):
         if template_code not in TEMPLATES or not isinstance(findings, str) or len(findings) > 12000 or (
@@ -131,7 +215,8 @@ class YDentalExamService(models.AbstractModel):
         for key, row in measurements.items():
             if not isinstance(row, dict) or set(row) != {'status', 'value', 'unit'} or (
                     row['status'] not in ('known', 'unknown', 'not_applicable') or row['unit'] != allowed[key] or
-                    row['status'] == 'known' and (type(row['value']) not in (int, float) or row['value'] < 0 or row['value'] > 10000) or
+                    row['status'] == 'known' and (type(row['value']) not in (int, float) or
+                        row['value'] < 0 or row['value'] > 10000 or not math.isfinite(row['value'])) or
                     row['status'] != 'known' and row['value'] is not None):
                 raise ValidationError(self.env._('invalid_result: Provide a value with its native unit, or explicit unknown/not applicable.'))
         return findings.strip(), measurements, conclusion.strip()
@@ -197,8 +282,11 @@ class YDentalExamService(models.AbstractModel):
             'ydental_started_at': fields.Datetime.now(), 'ydental_business_date': self.env['ydental.supply.service']._date(line.ydental_store_id),
             'ydental_station_id': execution.ydental_lease_id.ydental_station_id.id, 'state': 'pending'})
         line._save({'state': 'done'})
-        self._audit('actual_performed', result, dict(event, line_id=line.id), reason)
-        return dict(event, result_id=result.id, line_id=line.id, state='pending')
+        response = dict(event, result_id=result.id, line_id=line.id,
+            event_state=event['state'], result_document_state=result.state,
+            order_line_state=line.state, fee_source_state='recorded' if event['fee_id'] else 'absent')
+        self._audit('actual_performed', result, response, reason)
+        return response
 
     def _confirm(self, line_id, version, reason):
         line = self._line(line_id, write=True)
@@ -226,9 +314,9 @@ class YDentalExamService(models.AbstractModel):
         self._version(result, 'correction', reason)
         return {'result_id': result.id, 'version': result.ydental_version, 'state': result.state}
 
-    def _abort(self, line_id, execution_id, lease_id, lease_token, reason):
+    def _abort(self, line_id, execution_id, lease_id, lease_token, reason, inline=False):
         line = self._line(line_id, write=True)
-        execution = self._actual(line, execution_id, lease_id, lease_token)
+        execution = self._actual(line, execution_id, lease_id, lease_token, inline)
         reason = self.env['ydental.intake.service']._text(reason)
         result = self._result(line, create=True, execution=execution)
         if result.state in ('aborted', 'partial', 'confirmed'):
@@ -245,14 +333,17 @@ class YDentalExamService(models.AbstractModel):
         self._audit('actual_aborted', result, {'state': state, 'execution_id': execution.id}, reason)
         return {'result_id': result.id, 'state': state}
 
-    def _finish(self, line_id, execution_id, lease_id, lease_token, reason):
+    def _finish(self, line_id, execution_id, lease_id, lease_token, reason, inline=False):
         line = self._line(line_id, write=True)
-        execution = self._actual(line, execution_id, lease_id, lease_token)
+        execution = self._actual(line, execution_id, lease_id, lease_token, inline)
         result = self._result(line)
         if line.state not in ('done', 'aborted', 'partial') or not result or (
                 result.ydental_event_id and result.ydental_event_id.state != 'confirmed'):
             raise UserError(self.env._('reconcile_required: Resolve the actual examination fact before leaving.'))
         reason = self.env['ydental.intake.service']._text(reason)
+        if inline:
+            self._audit('inline_exam_resolved', result, {'execution_id': execution.id, 'line_id': line.id}, reason)
+            return {'execution_id': execution.id, 'state': 'medical_continues', 'line_id': line.id}
         queue = self.env['ydental.queue.service']
         queue._finish_exam_segment(execution, reason)
         queue._exit(lease_id, lease_token)
@@ -271,7 +362,10 @@ class YDentalExamService(models.AbstractModel):
         return response
 
     def _operate(self, operation, payload, key):
-        handlers = {'grant_qualification': self._grant_qualification, 'draft': self._draft,
+        handlers = {'grant_qualification': self._grant_qualification,
+            'bind_template': self._bind_template, 'revalidate': self._revalidate,
+            'release_editor': self._release_editor, 'takeover': self._takeover,
+            'draft': self._draft,
             'perform': self._perform, 'confirm': self._confirm, 'correct': self._correct,
             'abort': self._abort, 'finish': self._finish, 'reconcile': self._reconcile,
             'attach': self._attachment}
@@ -282,8 +376,11 @@ class YDentalExamService(models.AbstractModel):
         except TypeError as error:
             raise ValidationError(self.env._('invalid_action: Unknown or missing examination arguments.')) from error
         queue = self.env['ydental.queue.service']
-        if operation != 'grant_qualification':
-            self._store(write=True)
+        if operation not in ('grant_qualification', 'bind_template'):
+            if operation == 'revalidate':
+                self.env['ydental.access.service']._check('medical', 'write', write=True)
+            else:
+                self._store(write=True)
             queue._connection()
         digest = fingerprint([operation, payload])
         with self.env.cr.savepoint():
@@ -291,8 +388,11 @@ class YDentalExamService(models.AbstractModel):
             self.env['ydental.inventory.service']._lock()
             self.env.cr.execute('SELECT pg_advisory_xact_lock(%s)', [32008])
             self.env.cr.execute('SELECT pg_advisory_xact_lock(%s)', [33009])
-            if operation != 'grant_qualification':
-                self._store(write=True)
+            if operation not in ('grant_qualification', 'bind_template'):
+                if operation == 'revalidate':
+                    self.env['ydental.access.service']._check('medical', 'write', write=True)
+                else:
+                    self._store(write=True)
                 queue._connection()
             prior = self._model('receipt').search([('ydental_actor_id', '=', self.env.uid), ('ydental_key', '=', key)], limit=1)
             if prior:
@@ -324,12 +424,13 @@ class YDentalExamService(models.AbstractModel):
         result = self._result(line)
         if not result or result.ydental_version != version or result.state in ('aborted', 'confirmed'):
             raise UserError(self.env._('version_conflict: Save a current editable result before attaching evidence.'))
+        self._editor(result, version)
         if not isinstance(filename, str) or not 1 <= len(filename) <= 120 or '/' in filename or '\\' in filename or (
                 mimetype not in ('image/jpeg', 'image/png', 'application/pdf') or not isinstance(encoded, str)):
             raise ValidationError(self.env._('invalid_attachment: Select a bounded JPEG, PNG or PDF evidence file.'))
         try:
             binary = base64.b64decode(encoded, validate=True)
-        except (ValueError, TypeError) as error:
+        except (ValueError, TypeError, binascii.Error) as error:
             raise ValidationError(self.env._('invalid_attachment: Invalid file encoding.')) from error
         if not 1 <= len(binary) <= 5000000 or not (binary.startswith(b'\xff\xd8') if mimetype == 'image/jpeg' else
                 binary.startswith(b'\x89PNG\r\n\x1a\n') if mimetype == 'image/png' else binary.startswith(b'%PDF-')):

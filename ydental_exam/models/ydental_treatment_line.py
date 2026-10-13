@@ -5,6 +5,8 @@ from odoo.exceptions import UserError
 class YDentalTreatmentLine(models.Model):
     _inherit = 'ydental.treatment.line'
 
+    ydental_exam_validated_date = fields.Date(readonly=True)
+
     state = fields.Selection(selection_add=[('aborted', 'Actual examination aborted'),
         ('partial', 'Partially completed examination')], ondelete={
         'aborted': lambda rows: rows._preserve_exam_history(),

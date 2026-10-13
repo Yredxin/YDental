@@ -1,9 +1,21 @@
 from odoo import fields, models
 from odoo.exceptions import AccessError, UserError
+from odoo.tools import consteq
 
 
 class YDentalQueueService(models.AbstractModel):
     _inherit = 'ydental.queue.service'
+
+    def _eligibility(self, entry, station, actor=None):
+        if entry.ydental_category == 'exam':
+            line = self.env['ydental.treatment.line'].sudo().search([
+                ('ydental_task_id', '=', entry.ydental_task_id.id),
+                ('ydental_order_id.ydental_kind', '=', 'exam')], limit=1)
+            if line:
+                today = self.env['ydental.supply.service']._date(entry.ydental_store_id)
+                if entry.ydental_business_date != today or line.ydental_exam_validated_date != today:
+                    return self.env._('exam_revalidation_required: Unstarted examination queue positions cannot cross the local day boundary.')
+        return super()._eligibility(entry, station, actor)
 
     def _qualification_satisfied(self, task, station, actor):
         code = task.ydental_mapping_id.ydental_catalog_id.ydental_qualification
@@ -42,7 +54,8 @@ class YDentalQueueService(models.AbstractModel):
         if execution.state != 'serving' or execution.ydental_category != 'exam' or (
                 not lease.ydental_active or lease.ydental_actor_id.id != self.env.uid or
                 lease.ydental_session_id != session or lease.ydental_revision != session.ydental_revision or
-                lease.ydental_connection_hash != connection.key_hash or lease.ydental_expires_at <= self._now()):
+                not consteq(lease.ydental_connection_hash, connection.key_hash) or
+                lease.ydental_expires_at <= self._now()):
             raise AccessError(self.env._('access_denied: Only the actual examination holder may finish.'))
         entry = self._execution_entry(execution)
         execution._save({'state': 'completed', 'ydental_ended_at': self._now()})

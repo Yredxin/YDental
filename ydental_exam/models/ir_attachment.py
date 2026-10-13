@@ -6,4 +6,5 @@ class IrAttachment(models.Model):
 
     def _ydental_blocked_source_models(self):
         return super()._ydental_blocked_source_models() + (
-            'ydental.exam.result', 'ydental.exam.version', 'ydental.exam.qualification', 'ydental.exam.receipt')
+            'ydental.exam.result', 'ydental.exam.version', 'ydental.exam.qualification',
+            'ydental.exam.template', 'ydental.exam.receipt')

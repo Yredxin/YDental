@@ -13,6 +13,9 @@ if (root) {
     function payload(form) {
         const data = Object.fromEntries(new FormData(form));
         const operation = form.dataset.operation;
+        if (operation === 'bind_template') {
+            return {catalog_id: Number(form.dataset.catalog), code: data.code, reason: data.reason};
+        }
         const line_id = Number(form.dataset.line);
         const version = Number(form.dataset.version);
         const actual = {line_id, execution_id: Number(root.dataset.execution), lease_id: holder?.lease_id,
@@ -25,19 +28,22 @@ if (root) {
             return {...external, inline, reason: data.reason, materials: []};
         }
         if (operation === 'abort' || operation === 'finish') {
-            const {inline, ...external} = actual;
-            return {...external, reason: data.reason};
+            return {...actual, reason: data.reason};
         }
         if (operation === 'confirm') { return {line_id, version, reason: data.reason}; }
         if (operation === 'correct') { return {line_id, version, findings: data.findings,
             measurements: {}, conclusion: data.conclusion, reason: data.reason}; }
         if (operation === 'reconcile') { return {line_id, reason: data.reason}; }
+        if (operation === 'release_editor') { return {line_id, version}; }
+        if (operation === 'takeover') { return {line_id, version, reason: data.reason}; }
+        if (operation === 'revalidate') { const {inline, ...medical} = actual; return {...medical, document_id: Number(root.dataset.document),
+            document_version: Number(root.dataset.documentVersion), reason: data.reason}; }
         throw new Error('invalid_action');
     }
     for (const form of root.querySelectorAll('form[data-operation]')) {
         const operation = form.dataset.operation;
-        const needsExecution = ['draft', 'perform', 'abort', 'finish'].includes(operation);
-        form.dataset.allowed = String(root.dataset.write === '1' && (!needsExecution ||
+        const needsExecution = ['draft', 'perform', 'abort', 'finish', 'revalidate'].includes(operation);
+        form.dataset.allowed = String((operation === 'revalidate' || root.dataset.write === '1') && (!needsExecution ||
             (Number(root.dataset.execution) > 0 && holder?.lease_id && holder?.token)));
         form.querySelectorAll('input,textarea,button').forEach(control => { control.disabled = form.dataset.allowed !== 'true'; });
         form.dataset.key = random();
@@ -64,7 +70,9 @@ if (root) {
                     message.textContent = '表单在响应期间变化，请核对原始记录。';
                     return;
                 }
-                if (operation === 'finish') { sessionStorage.removeItem('ydental_queue_holder'); }
+                if (operation === 'finish' && root.dataset.category === 'exam') {
+                    sessionStorage.removeItem('ydental_queue_holder');
+                }
                 window.location.reload();
             } catch (error) {
                 message.textContent = error.message || '结果未知，请核对服务端原始记录。';
