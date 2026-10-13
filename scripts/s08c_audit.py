@@ -17,7 +17,7 @@ result['session_settings']=dict(env.cr.fetchall())
 assert result['session_settings']=={'max_parallel_workers_per_gather':'0','max_parallel_maintenance_workers':'0','maintenance_work_mem':'16384'}
 
 # Fixed server identifiers, never supplied by a client.
-for table in ('ydental_clinical_document','ydental_clinical_version','ydental_queue_execution','ydental_intake_task','ydental_inventory_event','ydental_inventory_batch','stock_move','stock_move_line','stock_quant','ydental_intake_snapshot','ydental_treatment_event','ydental_treatment_fee','ydental_treatment_order','ydental_treatment_line','ydental_treatment_segment','ydental_treatment_consumption','ydental_treatment_price_review','ydental_queue_entry','ydental_queue_lease','ydental_supply_claim','ydental_treatment_medicine_link','ydental_queue_outbox','bus_bus','ydental_print_job'):
+for table in ('ydental_clinical_document','ydental_clinical_version','ydental_queue_execution','ydental_intake_task','ydental_inventory_event','ydental_inventory_batch','stock_move','stock_move_line','stock_quant','ydental_intake_snapshot','ydental_treatment_event','ydental_treatment_fee','ydental_treatment_order','ydental_treatment_line','ydental_treatment_segment','ydental_treatment_consumption','ydental_treatment_price_review','ydental_queue_entry','ydental_queue_lease','ydental_supply_claim','ydental_treatment_medicine_link','ydental_queue_outbox','bus_bus','ydental_print_job','ydental_supply_slot','ydental_intake_referral','ydental_intake_price'):
     env.cr.execute(sql.SQL('SELECT row_to_json(t)::text FROM {} t ORDER BY id').format(sql.Identifier(table)))
     rows=env.cr.fetchall();result['signatures'][table]={'count':len(rows),'sha256':hashlib.sha256('\n'.join(r[0] for r in rows).encode()).hexdigest()}
 queries={
@@ -52,6 +52,10 @@ queries.update({
  'print_digest_shape': "SELECT count(*) FROM ydental_print_job WHERE ydental_source_digest !~ '^[a-f0-9]{64}$' OR ydental_pdf_digest !~ '^[a-f0-9]{64}$'",
 })
 for name,query in queries.items():env.cr.execute(query);result['invariants'][name]=env.cr.fetchone()[0]
+env.cr.execute('SELECT count(*) FROM ydental_supply_slot WHERE ydental_total<0 OR ydental_reservation_free<0 OR ydental_walkin_free<0 OR ydental_unavailable<0')
+result['invariants']['negative_capacity']=env.cr.fetchone()[0]
+env.cr.execute('SELECT sum(ydental_total),sum(ydental_reservation_free),sum(ydental_walkin_free),sum(ydental_unavailable) FROM ydental_supply_slot')
+result['capacity_totals']=dict(zip(('total','reservation_free','walkin_free','unavailable'),env.cr.fetchone()))
 result['financial_tables']={}
 for table in ('account_move','account_payment'):
     env.cr.execute('SELECT to_regclass(%s)',[table])
@@ -60,7 +64,7 @@ for table in ('account_move','account_payment'):
     else:result['financial_tables'][table]='NOT_INSTALLED'
 env.cr.execute("SELECT ydental_event,count(*) FROM ydental_access_audit WHERE ydental_event LIKE 'clinical.%' OR ydental_event LIKE 'treatment.%' OR ydental_event LIKE 'print.%' GROUP BY ydental_event ORDER BY ydental_event")
 result['audit_events']=dict(env.cr.fetchall());result['result']='PASS' if not any(result['invariants'].values()) else 'FAIL'
-root=Path(__file__).resolve().parents[1];out=root/'docs/evidence/s08c-rework/audit-attempts';out.mkdir(parents=True,exist_ok=True)
+root=Path(__file__).resolve().parents[1];out=root/'docs/evidence/s08c/audit-attempts';out.mkdir(parents=True,exist_ok=True)
 (out/(run.name+'-'+datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f')+'.json')).write_text(json.dumps(result,indent=2)+'\n')
 print(json.dumps({'result':result['result'],'invariants':result['invariants']}))
 assert result['result']=='PASS'

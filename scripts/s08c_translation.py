@@ -33,7 +33,7 @@ result = {'database': args.db,
     'exported_terms': len(pot), 'translated_terms': len(pot) - len(missing), 'missing': missing,
     'source_codes_preserved': all(not re.match(r'^[a-z_]+:', e.msgid) or e.msgstr.startswith(e.msgid.split(':')[0]+':') for e in po), 'invalid_code_metadata': invalid_metadata,
     'result': 'FAIL' if missing or invalid_metadata or any(re.match(r'^[a-z_]+:', e.msgid) and not e.msgstr.startswith(e.msgid.split(':')[0]+':') for e in po) else 'PASS'}
-evidence = root / 'docs/evidence/s08c-rework'
+evidence = root / 'docs/evidence/s08c'
 evidence.mkdir(parents=True, exist_ok=True)
 (evidence / ('translation-' + args.db + '.json')).write_text(json.dumps(result, indent=2) + '\n')
 print(json.dumps({'result': result['result'], 'terms': len(pot), 'missing': len(missing), 'invalid_metadata': len(invalid_metadata)}))

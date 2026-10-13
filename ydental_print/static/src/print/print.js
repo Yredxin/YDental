@@ -16,12 +16,21 @@ function start() {
     function selection() {
         return {kind: field('kind').value, source_id: Number(field('source').value), version: Number(field('version').value), purpose: field('purpose').value || null};
     }
+    function resetFrame(id) {
+        const previous = field(id);
+        const fresh = previous.cloneNode(false);
+        fresh.removeAttribute('src');
+        fresh.removeAttribute('srcdoc');
+        fresh.hidden = true;
+        previous.replaceWith(fresh);
+        return fresh;
+    }
     function invalidate() {
         reviewed = null;
         job = null;
         generationKey = null;
-        field('html').hidden = true;
-        field('pdf').hidden = true;
+        resetFrame('html');
+        resetFrame('pdf');
         field('provenance').textContent = '';
         if (blobUrl) { URL.revokeObjectURL(blobUrl); blobUrl = null; }
         permissions();
@@ -53,8 +62,9 @@ function start() {
             if (operation === 'preview') {
                 reviewed = await response.json();
                 generationKey = crypto.randomUUID();
-                field('html').srcdoc = reviewed.html;
-                field('html').hidden = false;
+                const frame = resetFrame('html');
+                frame.srcdoc = reviewed.html;
+                frame.hidden = false;
                 field('provenance').textContent = `${reviewed.template} / SHA256 ${reviewed.source_digest} / ${JSON.stringify(reviewed.versions)}`;
                 field('result').textContent = messages.reviewed;
             } else if (operation === 'generate') {
@@ -82,8 +92,8 @@ function start() {
                         field('result').textContent = messages.dialog_failed;
                     }
                 } else {
-                    field('html').hidden = true;
-                    const frame = field('pdf');
+                    resetFrame('html');
+                    const frame = resetFrame('pdf');
                     frame.hidden = false;
                     frame.src = blobUrl;
                     frame.scrollIntoView({block: 'start'});

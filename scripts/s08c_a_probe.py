@@ -164,7 +164,7 @@ try:
 except Exception as error:
     result['result']='FAIL';result['failures'].append({'type':type(error).__name__,'detail':str(error)[:1000],'trace':[{'file':Path(frame.filename).name,'line':frame.lineno,'method':frame.name} for frame in traceback.extract_tb(error.__traceback__)]})
 finally:
-    target=root/'docs/evidence/s08c-rework/probe-attempts';target.mkdir(parents=True,exist_ok=True)
+    target=root/'docs/evidence/s08c/probe-attempts';target.mkdir(parents=True,exist_ok=True)
     (target/(run.name+'-'+datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f')+'.json')).write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
     print(json.dumps({'result':result['result'],'races':len(result['races']),'deadlocks':result['deadlocks']}))
 assert result['result']=='PASS',result['failures']
