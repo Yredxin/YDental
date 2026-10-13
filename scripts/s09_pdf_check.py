@@ -30,7 +30,7 @@ def main():
                       'image': image.name, 'image_sha256': hashlib.sha256(image.read_bytes()).hexdigest()})
     all_text = ''.join(unicodedata.normalize('NFKC', document[index].get_textpage().get_text_range())
                        for index in range(len(document)))
-    for required in ('检查结果演示报告', '未审核签发', '患者编号', '来源事件', '人工结论'):
+    for required in ('检查结果演示报告', '未审核签发', '患者编号', '来源事件', '人工结论', '已确认'):
         assert required in all_text, required
     result = {'result': 'PASS', 'pdf_sha256': hashlib.sha256(raw).hexdigest(),
               'pdf_bytes': len(raw), 'page_count': len(document), 'pages': pages,

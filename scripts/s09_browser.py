@@ -56,7 +56,7 @@ def main():
     evidence = ROOT / 'docs/evidence/s09-rework/browser' / datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f')
     evidence.mkdir(parents=True)
     base = f'http://127.0.0.1:{args.port}'
-    result = {'database': args.db, 'product_sha': '92a32bf5eb70c85eca4e020df1920d28c1908b50',
+    result = {'database': args.db, 'product_sha': '739a473948b014c7a31c2bda23c62f3b79e7336d',
               'checks': [], 'screenshots': [], 'pageerrors': [], 'pdf': {}}
 
     def check(name, condition):
