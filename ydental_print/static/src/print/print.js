@@ -8,10 +8,12 @@ function start() {
     let busy = false;
     let blobUrl = null;
     let generationKey = null;
+    let networkOffline = !navigator.onLine;
+    let activeController = null;
     function permissions() {
-        for (const el of root.querySelectorAll('input:not([type=hidden]),select,button')) { el.disabled = busy; }
-        field('generate').disabled = busy || !reviewed;
-        for (const id of ['view', 'download', 'request']) { field(id).disabled = busy || !job; }
+        for (const el of root.querySelectorAll('input:not([type=hidden]),select,button')) { el.disabled = busy || networkOffline; }
+        field('generate').disabled = busy || networkOffline || !reviewed;
+        for (const id of ['view', 'download', 'request']) { field(id).disabled = busy || networkOffline || !job; }
     }
     function selection() {
         return {kind: field('kind').value, source_id: Number(field('source').value), version: Number(field('version').value), purpose: field('purpose').value || null};
@@ -47,8 +49,9 @@ function start() {
         invalidate();
     });
     async function operate(operation) {
-        if (busy) { return; }
+        if (busy || networkOffline) { return; }
         const controller = new AbortController();
+        activeController = controller;
         const deadline = setTimeout(() => controller.abort(), 45000);
         const printWindow = operation === 'print_request' ? window.open('about:blank', '_blank') : null;
         const submitted = JSON.stringify(selection());
@@ -60,9 +63,11 @@ function start() {
         try {
             const response = await fetch('/ydental/print/action', {method: 'POST', signal: controller.signal, body: new URLSearchParams({operation, revision: root.dataset.revision, csrf_token: root.querySelector('[name=csrf_token]').value, payload: JSON.stringify(payload)})});
             if (!response.ok) { throw new Error('request_failed'); }
-            if (submitted !== JSON.stringify(selection())) { throw new Error('selection_changed'); }
+            if (networkOffline || controller.signal.aborted || submitted !== JSON.stringify(selection())) { throw new Error('selection_changed'); }
             if (operation === 'preview') {
-                reviewed = await response.json();
+                const data = await response.json();
+                if (networkOffline || controller.signal.aborted) { throw new Error('request_unconfirmed'); }
+                reviewed = data;
                 generationKey = crypto.randomUUID();
                 const frame = resetFrame('html');
                 frame.srcdoc = reviewed.html;
@@ -70,12 +75,15 @@ function start() {
                 field('provenance').textContent = `${reviewed.template} / SHA256 ${reviewed.source_digest} / ${JSON.stringify(reviewed.versions)}`;
                 field('result').textContent = messages.reviewed;
             } else if (operation === 'generate') {
-                job = await response.json();
+                const data = await response.json();
+                if (networkOffline || controller.signal.aborted) { throw new Error('request_unconfirmed'); }
+                job = data;
                 field('result').textContent = messages.generated;
                 field('provenance').textContent += ` / PDF SHA256 ${job.pdf_digest}`;
             } else {
                 if (!response.headers.get('Content-Type')?.startsWith('application/pdf')) { throw new Error('invalid_pdf'); }
                 const bytes = new Uint8Array(await response.arrayBuffer());
+                if (networkOffline || controller.signal.aborted) { throw new Error('request_unconfirmed'); }
                 if (new TextDecoder().decode(bytes.slice(0, 5)) !== '%PDF-') { throw new Error('invalid_pdf'); }
                 if (blobUrl) { URL.revokeObjectURL(blobUrl); }
                 blobUrl = URL.createObjectURL(new Blob([bytes], {type: 'application/pdf'}));
@@ -108,6 +116,7 @@ function start() {
             field('result').textContent = messages.failed;
         } finally {
             clearTimeout(deadline);
+            if (activeController === controller) { activeController = null; }
             busy = false;
             permissions();
         }
@@ -115,6 +124,17 @@ function start() {
     for (const [id, operation] of [['preview', 'preview'], ['generate', 'generate'], ['view', 'pdf_view'], ['download', 'download'], ['request', 'print_request']]) {
         field(id).addEventListener('click', () => operate(operation));
     }
+    window.addEventListener('offline', () => {
+        networkOffline = true;
+        if (activeController) { activeController.abort(); }
+        invalidate();
+        field('result').textContent = messages.failed;
+    });
+    window.addEventListener('online', () => {
+        networkOffline = false;
+        permissions();
+    });
+    if (networkOffline) { field('result').textContent = messages.failed; }
     window.addEventListener('pagehide', () => { if (blobUrl) { URL.revokeObjectURL(blobUrl); } });
     permissions();
 }
