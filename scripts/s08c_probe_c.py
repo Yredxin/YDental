@@ -110,8 +110,12 @@ def race(kind):
     result['deadlocks']+=1;raise
   raise AssertionError('bounded retries exhausted')
  with patch.object(type(env['ir.actions.report']),'_run_wkhtmltopdf',render),ThreadPoolExecutor(max_workers=2) as pool:
-  tasks=[pool.submit(worker,i) for i in range(2)];outcomes=[t.result(timeout=65) for t in tasks]
+  tasks=[pool.submit(worker,i) for i in range(2)];outcomes=[]
+  for task in tasks:
+   try:outcomes.append(task.result(timeout=65))
+   except Exception as error:outcomes.append({'result':'unexpected','type':type(error).__name__,'detail':str(error)[:700],'trace':traceback.format_exc()})
  record['outcomes']=outcomes
+ assert all('initial_backend_pid' in o for o in outcomes),outcomes
  assert outcomes[0]['initial_backend_pid']!=outcomes[1]['initial_backend_pid']
  states=[o['result'] for o in outcomes]
  if kind in ('generate_same_key','repeated_print','generate_during_source_save'):assert states==['accepted','accepted'],outcomes
