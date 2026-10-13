@@ -51,11 +51,17 @@ def fixture(kind):
                 pq=queue_bind(f,f.pharmacist);pl=pq._operate('enter',{'station_id':f.pharmacy_station.id});called=pq._operate('call',lease_args(pl))
                 jobs=[job(q,'restore',lease_args(l)|{'hold_id':hold['hold_id'],'confirmed':True}),job(pq,'start',lease_args(pl)|{'entry_id':called['entry_id']})]
             else:
-                c._operate('handover',handover_args(d,l));p,pa=pharmacy_start(f,issued)
+                hand=c._operate('handover',handover_args(d,l));p,pa=pharmacy_start(f,issued)
                 dose=pa|{'line_id':issued['line_ids'][0],'lot_id':f.lots['medicine'],'quantity':4,'source':key(),'reason':'Synthetic competing actual issue','policy':'demo_confirmation'}
                 if kind.startswith('finish'):
                     p._operate('dispense',dose,key());finish=pa|{'reason':'Actual dispensing segment ended'}
                     k=key();jobs=[job(p,'finish',finish,k),job(p,'finish',finish,k if kind=='finish_same_key' else None)]
+                    if kind=='finish_vs_medical_start':
+                        medical=queue_bind(f,f.second);ml=medical._operate('enter',{'station_id':f.other_station.id})
+                        task=f.root['ydental.intake.task'].browse(hand['continuation_task_id'])
+                        second_job=job(medical,'medical_start',lease_args(ml)|{'task_id':task.id,'version':task.ydental_version})
+                        second_job.update(front_uid=f.front.env.uid,front_context=dict(f.front.env.context));jobs[1]=second_job
+
                 else:
                     second=dict(dose)
                     if kind=='dispense_distinct_four':second['source']=key()
@@ -123,7 +129,13 @@ def race(kind,round_number):
                         trace.append({'event':'barrier_enter','time_ns':time.monotonic_ns()});barrier.wait();trace.append({'event':'barrier_exit','time_ns':time.monotonic_ns()})
                     j=jobs[index];service=api.Environment(cr,j['uid'],j['context'])[j['model']]
                     try:
-                        if kind=='revocation_vs_execute' and index==1:data=service._grant(**j['payload']) or {}
+                        if kind=='finish_vs_medical_start' and index==1:
+                            front=api.Environment(cr,j['front_uid'],j['front_context'])['ydental.intake.service']
+                            front._operate('report',{'task_id':j['payload']['task_id'],'version':j['payload']['version']},j['key']);cr.commit();trace.append({'event':'real_report_commit','time_ns':time.monotonic_ns()})
+                            held={'lease_id':j['payload']['lease_id'],'token':j['payload']['token']}
+                            called=service._operate('call',held);cr.commit();trace.append({'event':'real_call_commit','time_ns':time.monotonic_ns()})
+                            data=service._operate('start',held|{'entry_id':called['entry_id']})
+                        elif kind=='revocation_vs_execute' and index==1:data=service._grant(**j['payload']) or {}
                         elif j['model']=='ydental.queue.service':data=service._operate(j['operation'],j['payload'])
                         else:data=service._operate(j['operation'],j['payload'],j['key'])
                         cr.commit();trace.append({'event':'commit','time_ns':time.monotonic_ns()})
@@ -159,7 +171,7 @@ def race(kind,round_number):
     assert outcomes[0]['initial_backend_pid']!=outcomes[1]['initial_backend_pid'],outcomes
     states=sorted(o['result'] for o in outcomes)
     both=('execute_same','missing_price_fact','recover_original','dispense_same_source','finish_same_key','referral_same_source','price_publish_vs_execute')
-    if kind=='revocation_vs_execute':assert states in (['accepted','accepted'],['accepted','rejected']),outcomes
+    if kind in ('revocation_vs_execute','finish_vs_medical_start'):assert states in (['accepted','accepted'],['accepted','rejected']),outcomes
     else:assert states==(['accepted','accepted'] if kind in both else ['rejected','rejected'] if kind=='native_move_failure' else ['accepted','rejected']),(kind,states,outcomes)
     with env.registry.cursor() as cr:
         r=api.Environment(cr,1,{})
@@ -186,7 +198,7 @@ def race(kind,round_number):
 try:
     for kind in ('execute_same','execute_changed','old_lease','shortage_last_unit','missing_price_fact','recover_original',
         'native_move_failure','dispense_distinct_four','dispense_same_source','finish_same_key','finish_distinct_keys',
-        'restore_vs_pharmacy_start','exam_cancel_vs_report','timed_last_capacity','untimed_accept','referral_same_source','price_publish_vs_execute','revocation_vs_execute','two_pharmacy_stations_call'):
+        'restore_vs_pharmacy_start','exam_cancel_vs_report','timed_last_capacity','untimed_accept','referral_same_source','price_publish_vs_execute','revocation_vs_execute','two_pharmacy_stations_call','finish_vs_medical_start'):
         race(kind,1)
     result['result']='PASS'
 except Exception as error:

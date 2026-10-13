@@ -139,6 +139,9 @@ class TestActualTreatment(TransactionCase):
         from .common import arrive_report, serving, save_args
         receive(self);price(self);s,c,q,l,e,d,a=opened_actual(self)
         first=s._operate('execute',execute_args(self,a),key())
+        exam_lines=[{'mapping_id':self.mappings[0][2].id,'quantity':1,'uom_id':self.uom.id,'product_id':False,'specification':'','usage':'','frequency':'','course':''}]
+        exam=s._operate('order',a|{'kind':'exam','purpose':'F2 unperformed panorama retained across D1/D2','lines':exam_lines},key())
+        exam=s._operate('issue',a|{'order_id':exam['order_id'],'version':exam['version']},key())
         hand=c._operate('handover',handover_args(d,l))
         arrive_report(self,{'task_id':hand['continuation_task_id']})
         task=self.root['ydental.intake.task'].browse(hand['continuation_task_id'])
@@ -153,6 +156,9 @@ class TestActualTreatment(TransactionCase):
         c._operate('confirm',save_args(pending,'Synthetic D1 completion without a new project'))
         self.assertEqual(self.root['ydental.treatment.fee'].search_count([]),before)
         self.assertEqual(self.root['ydental.clinical.document'].browse(d['document_id']).ydental_author_id,self.users['doctor'])
+        self.assertEqual(s._model('line').browse(exam['line_ids']).state,'issued')
+        self.assertEqual(self.root['ydental.intake.task'].browse(exam['task_ids']).state,'pending')
+        self.assertFalse(self.root['ydental.queue.execution'].search_count([('ydental_task_id','in',exam['task_ids'])]))
 
     def test_real_source_referrals_timed_untimed_and_retry(self):
         from odoo import fields
