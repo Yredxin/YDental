@@ -17,7 +17,7 @@ result['session_settings']=dict(env.cr.fetchall())
 assert result['session_settings']=={'max_parallel_workers_per_gather':'0','max_parallel_maintenance_workers':'0','maintenance_work_mem':'16384'}
 
 # Fixed server identifiers, never supplied by a client.
-for table in ('ydental_clinical_document','ydental_clinical_version','ydental_queue_execution','ydental_intake_task','ydental_inventory_event','ydental_inventory_batch','stock_move','stock_move_line','stock_quant','ydental_intake_snapshot','ydental_treatment_event','ydental_treatment_fee','ydental_treatment_order','ydental_treatment_line','ydental_treatment_segment','ydental_treatment_consumption','ydental_treatment_price_review','ydental_queue_entry','ydental_queue_lease','ydental_supply_claim','ydental_treatment_medicine_link'):
+for table in ('ydental_clinical_document','ydental_clinical_version','ydental_queue_execution','ydental_intake_task','ydental_inventory_event','ydental_inventory_batch','stock_move','stock_move_line','stock_quant','ydental_intake_snapshot','ydental_treatment_event','ydental_treatment_fee','ydental_treatment_order','ydental_treatment_line','ydental_treatment_segment','ydental_treatment_consumption','ydental_treatment_price_review','ydental_queue_entry','ydental_queue_lease','ydental_supply_claim','ydental_treatment_medicine_link','ydental_queue_outbox','bus_bus','ydental_print_job'):
     env.cr.execute(sql.SQL('SELECT row_to_json(t)::text FROM {} t ORDER BY id').format(sql.Identifier(table)))
     rows=env.cr.fetchall();result['signatures'][table]={'count':len(rows),'sha256':hashlib.sha256('\n'.join(r[0] for r in rows).encode()).hexdigest()}
 queries={
@@ -44,6 +44,13 @@ queries.update({
  'medicine_publication_audit': "SELECT count(*) FROM ydental_treatment_medicine_link l WHERE (SELECT count(*) FROM ydental_access_audit a WHERE a.ydental_event='treatment.medicine_price_published' AND a.ydental_target_model='ydental.treatment.medicine.link' AND a.ydental_target_id=l.id)<>1",
  'native_medicine_lot_product': "SELECT count(*) FROM stock_move_line ml JOIN stock_move m ON m.id=ml.move_id JOIN stock_lot l ON l.id=ml.lot_id JOIN product_product p ON p.id=m.product_id JOIN product_template t ON t.id=p.product_tmpl_id WHERE t.ydental_inventory_kind='medicine' AND (ml.product_id<>m.product_id OR l.product_id<>m.product_id)",
 })
+queries.update({
+ 'print_source_version_exists': "SELECT count(*) FROM ydental_print_job j WHERE (j.ydental_kind IN ('clinical','consent') AND NOT EXISTS(SELECT 1 FROM ydental_clinical_document d WHERE d.id=j.ydental_source_id)) OR (j.ydental_kind='prescription' AND NOT EXISTS(SELECT 1 FROM ydental_treatment_order o WHERE o.id=j.ydental_source_id))",
+ 'print_no_source_attachment': "SELECT count(*) FROM ir_attachment WHERE res_model='ydental.print.job'",
+ 'print_generation_audit_once': "SELECT count(*) FROM ydental_print_job j WHERE (SELECT count(*) FROM ydental_access_audit a WHERE a.ydental_event='print.generate' AND (a.ydental_after->>'job_id')::int=j.id)<>1",
+ 'print_no_physical_paper_claim': "SELECT count(*) FROM ydental_access_audit WHERE ydental_event LIKE 'print.%' AND (ydental_event LIKE '%paper_printed%' OR ydental_after->>'paper_output' IS DISTINCT FROM 'unknown')",
+ 'print_digest_shape': "SELECT count(*) FROM ydental_print_job WHERE ydental_source_digest !~ '^[a-f0-9]{64}$' OR ydental_pdf_digest !~ '^[a-f0-9]{64}$'",
+})
 for name,query in queries.items():env.cr.execute(query);result['invariants'][name]=env.cr.fetchone()[0]
 result['financial_tables']={}
 for table in ('account_move','account_payment'):
@@ -51,7 +58,7 @@ for table in ('account_move','account_payment'):
     if env.cr.fetchone()[0]:
         env.cr.execute(sql.SQL('SELECT count(*) FROM {}').format(sql.Identifier(table)));result['financial_tables'][table]=env.cr.fetchone()[0]
     else:result['financial_tables'][table]='NOT_INSTALLED'
-env.cr.execute("SELECT ydental_event,count(*) FROM ydental_access_audit WHERE ydental_event LIKE 'clinical.%' OR ydental_event LIKE 'treatment.%' GROUP BY ydental_event ORDER BY ydental_event")
+env.cr.execute("SELECT ydental_event,count(*) FROM ydental_access_audit WHERE ydental_event LIKE 'clinical.%' OR ydental_event LIKE 'treatment.%' OR ydental_event LIKE 'print.%' GROUP BY ydental_event ORDER BY ydental_event")
 result['audit_events']=dict(env.cr.fetchall());result['result']='PASS' if not any(result['invariants'].values()) else 'FAIL'
 root=Path(__file__).resolve().parents[1];out=root/'docs/evidence/s08c-rework/audit-attempts';out.mkdir(parents=True,exist_ok=True)
 (out/(run.name+'-'+datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f')+'.json')).write_text(json.dumps(result,indent=2)+'\n')
