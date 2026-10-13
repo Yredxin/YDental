@@ -209,6 +209,9 @@ class TestActualTreatment(TransactionCase):
         self.assertFalse(self.root['ydental.queue.append.permit'].search_count([('ydental_task_id','=',next_task.id)]))
 
     def test_exam_actual_start_remains_fail_closed_until_s09(self):
+        if self.env['ir.module.module'].sudo().search_count([
+                ('name', '=', 'ydental_exam'), ('state', '=', 'installed')]):
+            self.skipTest('S09 is installed; the S09 examination tests cover the enabled path.')
         from .common import queue_bind, lease_args, arrive_report
         s,c,q,l,e,d,a=opened_actual(self)
         lines=[{'mapping_id':self.mappings[0][2].id,'quantity':1,'uom_id':self.uom.id,'product_id':False,'specification':'','usage':'','frequency':'','course':''}]

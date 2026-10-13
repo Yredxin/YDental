@@ -36,10 +36,11 @@ def private(path, value):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=['install', 'upgrade', 'serve', 'export', 'probe'])
+    parser.add_argument('action', choices=['install', 'upgrade', 'integrate', 'serve', 'export', 'probe', 'race', 'audit'])
     parser.add_argument('--db', required=True)
     parser.add_argument('--port', required=True, type=int)
     parser.add_argument('--tests', action='store_true')
+    parser.add_argument('--upstream', action='store_true', help='Also execute S08-A/B/C native regression addons')
     args = parser.parse_args()
     if not re.fullmatch(r'ydental_s09_test_[0-9]{14}_[0-9a-f]{8}', args.db) or not 18000 <= args.port <= 18999:
         parser.error('A new S09 database name and isolated port are required')
@@ -58,9 +59,14 @@ def main():
         parser.error('Creation marker absent, reused or unsafe')
     if run.exists() and list(run.glob('crash-*.json')):
         parser.error('Native crash evidence exists; all S09 Odoo actions are stopped pending review')
-    if args.action in ('install', 'upgrade', 'serve'):
+    if args.upstream and not args.tests:
+        parser.error('--upstream requires --tests')
+    if args.action == 'integrate' and not args.upstream:
+        parser.error('integrate requires --upstream')
+    if args.action in ('install', 'upgrade', 'integrate', 'serve'):
         with socket.socket() as sock:
             try:
+                sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
                 sock.bind(('127.0.0.1', args.port))
             except OSError:
                 parser.error('Dedicated port is occupied')
@@ -122,18 +128,25 @@ def main():
         'PGOPTIONS': '-c max_parallel_workers_per_gather=0 -c max_parallel_maintenance_workers=0 -c maintenance_work_mem=16384'})
     command = [str(CORE / '.venv/bin/python'), str(CORE / 'odoo-bin')]
     code = None
-    if args.action == 'probe':
+    if args.action in ('probe', 'race', 'audit'):
         command += ['shell', '-c', str(config), '--no-http']
-        code = "import runpy; runpy.run_path(%r, init_globals={'env': env})" % str(ROOT / 'scripts/s09_probe.py')
+        source = ROOT / ('scripts/s09_' + args.action + '.py')
+        code = "import runpy; runpy.run_path(%r, init_globals={'env': env})" % str(source)
     elif args.action == 'export':
         command += ['i18n', 'export', '-c', str(config), '-o', str(run / 'ydental_exam.pot'), 'ydental_exam']
     else:
         command += ['-c', str(config)]
-        if args.action in ('install', 'upgrade'):
-            command += ['-i' if creating else '-u', 'ydental_exam_test' if args.tests else 'ydental_exam',
+        if args.action in ('install', 'upgrade', 'integrate'):
+            verification = ['ydental_exam_test']
+            if args.upstream:
+                verification += ['ydental_clinical_test', 'ydental_treatment_test', 'ydental_print_test']
+            modules = ','.join(verification if creating else ['ydental_exam'] + verification) if args.tests else 'ydental_exam'
+            if args.action == 'integrate':
+                modules = 'ydental_clinical_test,ydental_treatment_test,ydental_print_test'
+            command += ['-i' if creating or args.action == 'integrate' else '-u', modules,
                 '--load-language', 'en_US,zh_CN', '--stop-after-init']
             if args.tests:
-                command += ['--test-enable', '--test-tags', '/ydental_exam_test']
+                command += ['--test-enable', '--test-tags', ','.join('/' + module for module in verification)]
             if creating:
                 command += ['--with-demo']
     log_path = run / (args.action + '-' + datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f') + '.log')
