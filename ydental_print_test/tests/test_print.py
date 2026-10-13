@@ -199,6 +199,8 @@ class TestControlledPrint(TransactionCase):
             with self.assertRaises(UserError):self.p._operate('generate', args)
         with patch.object(ir_actions_report.IrActionsReport, '_run_wkhtmltopdf', side_effect=UserError('render_failed')):
             with self.assertRaises(UserError):self.p._operate('generate', args)
+        with patch.object(type(self.p.env['ir.actions.report']), '_render_qweb_pdf', return_value=(b'%PDF-1.4 synthetic corrupt file', 'pdf')):
+            with self.assertRaises(UserError):self.p._operate('generate', args)
         self.assertEqual(self.root['ydental.print.job'].search_count([]), before)
         self.assertEqual(self.root['ydental.clinical.document'].browse(self.d['document_id']).ydental_version, self.d['version'])
         self.assertFalse(self.root['ydental.treatment.event'].search_count([('ydental_execution_id', '=', self.e.id)]))

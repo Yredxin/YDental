@@ -120,3 +120,20 @@ class TestPrintHTTP(TestTreatmentHTTP):
             self.assertEqual(self.p_action('preview', {'kind': kind, 'source_id': args['document_id'], 'version': args['document_version']}).status_code, 403)
         self.admin._grant(self.pharmacist.id, self.stores[0].id, {'export': 'none'})
         self.assertEqual(self.p_action('print_request', {'job_id': job['job_id']}).status_code, 403)
+
+    def test_http_render_failure_audited_without_job_or_business_mutation(self):
+        from unittest.mock import patch
+        from odoo.exceptions import UserError
+        from odoo.addons.ydental_print.models.ir_actions_report import IrActionsReport
+        source = self.selection()
+        preview = self.p_action('preview', source)
+        self.assertEqual(preview.status_code, 200, preview.text)
+        counts = {m: self.root[m].search_count([]) for m in ('ydental.print.job', 'ydental.clinical.version', 'ydental.treatment.event', 'ydental.treatment.fee', 'stock.move', 'ydental.intake.snapshot')}
+        with patch.object(IrActionsReport, '_run_wkhtmltopdf', side_effect=UserError('render_failed: synthetic engine failure')):
+            response = self.p_action('generate', source | {'expected_digest': preview.json()['source_digest'], 'key': key()})
+        self.assertEqual(response.status_code, 409, response.text)
+        self.assertNotIn('Synthetic HTTP content', response.text)
+        self.assertNotIn('synthetic engine failure', response.text)
+        for model, count in counts.items():self.assertEqual(self.root[model].search_count([]), count)
+        audits = self.root['ydental.access.audit'].search([('ydental_event', '=', 'print.generate'), ('ydental_result', '=', 'denied')])
+        self.assertTrue(any(a.ydental_after.get('failure_kind') == 'request_or_engine' for a in audits))

@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 import re
 import sys
+import subprocess
 import unicodedata
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -12,7 +13,7 @@ sys.path.insert(0,str(ROOT/'.local/s00-b-deps/verify-lib'))
 import pymupdf
 parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('result',type=Path);args=parser.parse_args()
 source=json.loads(args.result.read_text());assert source['database'].startswith('ydental_s08c_test_')
-summary={'database':source['database'],'tested_commit':source['tested_commit'],'pdfs':[],'visual_review':'PENDING','result':'RUNNING'}
+summary={'database':source['database'],'tested_commit':source['tested_commit'],'pdfs':[],'visual_review':'PENDING','validator_commit':subprocess.check_output(['git','-C',str(ROOT),'rev-parse','HEAD'],text=True).strip(),'renderer_version':pymupdf.VersionBind,'result':'RUNNING'}
 try:
  for artifact in source['artifacts']:
   path=ROOT/artifact['path'];assert hashlib.sha256(path.read_bytes()).hexdigest()==artifact['sha256']

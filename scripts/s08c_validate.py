@@ -38,7 +38,7 @@ def command(script,*arguments):
 def action(name):
  command('s08c.py',name,'--db',args.db,'--port',args.port)
  if name in ('install','upgrade'):
-  entry=json.loads((run/'actions.jsonl').read_text().splitlines()[-1]);assert entry['tests']==[0,0,102 if name=='install' else 100],entry
+  entry=json.loads((run/'actions.jsonl').read_text().splitlines()[-1]);assert entry['tests']==[0,0,103 if name=='install' else 101],entry
 
 def audit(name):
  action('audit');path=sorted((evidence/'audit-attempts').glob(args.db+'-*.json'))[-1];value=json.loads(path.read_text())
