@@ -267,7 +267,7 @@ class TestActualTreatment(TransactionCase):
         self.root['ydental.space.station'].create({'name':'Synthetic target chair','ydental_store_id':store.id,'ydental_floor_id':floor.id,'ydental_area_id':area.id,'ydental_add_capability_ids':[fields.Command.set(self.capabilities[0].ids)]})
         mapping=self.root['ydental.intake.mapping']._new({'name':'Synthetic B legal target','ydental_store_id':store.id,'ydental_category':'frontdesk','ydental_catalog_id':self.catalogs[0].id,'ydental_area_id':area.id,'ydental_execution_area_id':area.id})
         with self.assertRaises(AccessError):s._operate('refer',a|{'mode':'untimed','mapping_id':mapping.id,'reason':'No source account legal authority','valid_until':str(fields.Datetime.now()+timedelta(days=1)),'source':key()},key())
-        self.assertFalse(self.root['ydental.intake.referral'].search_count([('ydental_target_store_id','=',store.id)]))
+        self.assertFalse(self.root['ydental.intake.referral'].search_count([('ydental_mapping_id','=',mapping.id)]))
 
     def test_actual_chairside_medicine_has_no_takeaway_task(self):
         receive(self,20,'medicine');price(self,catalog=self.drug_catalog,amount=10)
