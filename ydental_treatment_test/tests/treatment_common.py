@@ -81,3 +81,29 @@ def pharmacy_start(cls, issued, task_id=None):
     actual = queue._operate('start', lease_args(lease) | {'entry_id': call['entry_id']})
     return queue.env['ydental.treatment.service'], {'execution_id': actual['execution_id'], 'lease_id': lease['lease_id'],
         'lease_token': lease['token'], 'order_id': issued['order_id'], 'order_version': issued['version']}
+
+def cross_legal_target(cls):
+    """A real B company, approved service, business day and published capacity."""
+    from .common import make_slot
+    company = cls.root['res.company'].create({'name': 'Synthetic target legal entity ' + key()})
+    store = cls.root['ydental.access.store'].create({'name': 'Synthetic cross-legal store ' + key(),
+        'company_id': company.id, 'ydental_timezone': cls.stores[0].ydental_timezone})
+    for user in (cls.users['manager'], cls.users['frontdesk']):
+        user.write({'company_ids': [fields.Command.link(company.id)]})
+        cls.admin._join(user.id, store.id)
+    cls.admin._grant(cls.users['manager'].id, store.id, dict.fromkeys(('space','capacity','price','frontdesk'), 'write'))
+    cls.admin._grant(cls.users['frontdesk'].id, store.id, {'frontdesk': 'write'})
+    manager = bind(cls, cls.users['manager'], store)
+    floor = cls.root['ydental.space.floor'].create({'name': 'Synthetic target floor', 'ydental_store_id': store.id})
+    area = cls.root['ydental.space.area'].create({'name': 'Synthetic cross-legal care area',
+        'ydental_store_id': store.id, 'ydental_floor_id': floor.id, 'ydental_reporting': True, 'ydental_purpose': 'care'})
+    station = cls.root['ydental.space.station'].create({'name': 'Synthetic cross-legal chair',
+        'ydental_store_id': store.id, 'ydental_floor_id': floor.id, 'ydental_area_id': area.id,
+        'ydental_add_capability_ids': [fields.Command.set(cls.capabilities[0].ids)]})
+    supply = manager.env['ydental.supply.service']
+    supply._operate('policy', {'name': 'Synthetic cross-legal 1:2', 'mode': 'demo', 'rounding': 'floor',
+        'phone_pool': 'reservation', 'cutoff_minutes': 0, 'reason': 'Synthetic published capacity policy'}, key())
+    supply._operate('business', {'area_id': area.id, 'state': 'open', 'reason': 'Explicit target business day'}, key())
+    mapping = manager._operate('mapping', {'catalog_id': cls.catalogs[0].id, 'area_id': area.id, 'execution_area_id': area.id}, key())
+    slot = make_slot(cls, manager, station, cls.start, cls.end)
+    return store, cls.root['ydental.intake.mapping'].browse(mapping['id']), slot

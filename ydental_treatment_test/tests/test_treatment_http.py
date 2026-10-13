@@ -108,3 +108,18 @@ class TestTreatmentHTTP(TestClinicalHTTP):
         response=self.t_action('publish_medicine',{'catalog_id':self.drug_catalog.id,'product_id':self.products['medicine'],
             'uom_id':self.uom.id,'evidence':'Medical role has no price publication authority','policy':'demo_confirmation'})
         self.assertEqual(response.status_code,403,response.text)
+
+    def test_http_rework_source_only_company_controlled_referral_and_target_rpc_denied(self):
+        from datetime import timedelta
+        from odoo import fields
+        from .treatment_common import cross_legal_target
+        store,mapping,slot=cross_legal_target(self);args=self.medical()
+        self.assertNotIn(store.company_id,self.users['doctor'].company_ids)
+        page=self.url_open('/ydental/treatment');self.assertIn('value="'+str(mapping.id)+'"',page.text)
+        for payload in ({'mode':'timed','start':str(self.start),'end':str(self.end)},
+                {'mode':'untimed','valid_until':str(fields.Datetime.now()+timedelta(days=1))}):
+            response=self.t_action('refer',args|payload|{'mapping_id':mapping.id,'source':key(),'reason':'Trusted cross-legal HTTP source'})
+            self.assertEqual(response.status_code,200,response.text)
+        self.assertIn('error',self.rpc('ydental.intake.mapping','write',[[mapping.id],{'name':'Forbidden target write'}]))
+        self.assertIn('error',self.rpc('ydental.intake.mapping','read',[[mapping.id],['name']]))
+        self.assertEqual(self.url_open('/ydental/treatment').status_code,200)

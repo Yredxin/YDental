@@ -271,12 +271,8 @@ class TestActualTreatment(TransactionCase):
 
     def test_cross_legal_entity_referral_uses_trusted_source_without_target_account_authority(self):
         s,c,q,l,e,d,a=opened_actual(self)
-        company=self.root['res.company'].create({'name':'Synthetic independent B legal entity'})
-        store=self.root['ydental.access.store'].create({'name':'Synthetic independent B store '+key(),'company_id':company.id,'ydental_timezone':'UTC'})
-        floor=self.root['ydental.space.floor'].create({'name':'Synthetic B floor','ydental_store_id':store.id})
-        area=self.root['ydental.space.area'].create({'name':'Synthetic B area','ydental_store_id':store.id,'ydental_floor_id':floor.id,'ydental_purpose':'care','ydental_reporting':True})
-        self.root['ydental.space.station'].create({'name':'Synthetic target chair','ydental_store_id':store.id,'ydental_floor_id':floor.id,'ydental_area_id':area.id,'ydental_add_capability_ids':[fields.Command.set(self.capabilities[0].ids)]})
-        mapping=self.root['ydental.intake.mapping']._new({'name':'Synthetic B legal target','ydental_store_id':store.id,'ydental_category':'frontdesk','ydental_catalog_id':self.catalogs[0].id,'ydental_area_id':area.id,'ydental_execution_area_id':area.id})
+        from .treatment_common import cross_legal_target
+        store,mapping,slot=cross_legal_target(self)
         result=s._operate('refer',a|{'mode':'untimed','mapping_id':mapping.id,'reason':'Trusted S05 source authority only','valid_until':str(fields.Datetime.now()+timedelta(days=1)),'source':key()},key())
         self.assertTrue(result['id'])
         with self.assertRaises(AccessError):s.env['ydental.intake.mapping'].browse(mapping.id).write({'name':'Arbitrary target mutation'})

@@ -72,16 +72,9 @@ class TestReworkBoundaries(TransactionCase):
 
     def test_rework_source_only_company_can_initiate_controlled_cross_legal_referral(self):
         s,c,q,l,e,d,a = opened_actual(self)
-        company = self.root['res.company'].create({'name': 'Rework synthetic target legal entity'})
-        store = self.root['ydental.access.store'].create({'name': 'Rework target ' + key(), 'company_id': company.id, 'ydental_timezone': 'UTC'})
-        floor = self.root['ydental.space.floor'].create({'name': 'Rework floor', 'ydental_store_id': store.id})
-        area = self.root['ydental.space.area'].create({'name': 'Rework care', 'ydental_store_id': store.id,
-            'ydental_floor_id': floor.id, 'ydental_purpose': 'care', 'ydental_reporting': True})
-        self.root['ydental.space.station'].create({'name': 'Rework target chair', 'ydental_store_id': store.id,
-            'ydental_floor_id': floor.id, 'ydental_area_id': area.id, 'ydental_add_capability_ids': [fields.Command.set(self.capabilities[0].ids)]})
-        mapping = self.root['ydental.intake.mapping']._new({'name': 'Rework cross legal target',
-            'ydental_store_id': store.id, 'ydental_category': 'frontdesk', 'ydental_catalog_id': self.catalogs[0].id,
-            'ydental_area_id': area.id, 'ydental_execution_area_id': area.id})
+        from .treatment_common import cross_legal_target
+        store,mapping,slot=cross_legal_target(self)
+        company=store.company_id
         self.assertNotIn(company, self.users['doctor'].company_ids)
         result = s._operate('refer', a | {'mode': 'untimed', 'mapping_id': mapping.id,
             'reason': 'S05 trusted source, no arbitrary target write', 'valid_until': str(fields.Datetime.now() + timedelta(days=1)), 'source': key()}, key())
@@ -130,7 +123,7 @@ class TestReworkBoundaries(TransactionCase):
         r=s._operate('execute',self.chairside(a,[],actual=True),key())
         event=s._model('event').browse(r['event_id']);before=(event.ydental_actor_id.id,event.ydental_actual_at,event.ydental_station_id.id,event.ydental_price_snapshot_id.id)
         self.assertEqual(r['pending_reason'],'medicine_evidence_missing');self.assertFalse(r['fee_id']);self.assertFalse(r['move_ids'])
-        self.assertEqual(event.ydental_reported_materials,[])
+        self.assertEqual(event.ydental_reported_materials,{'rows':[],'catalog_id':self.drug_catalog.id})
         rows=[{'lot_id':self.lots['medicine'],'quantity':2,'uom_id':self.uom.id,'kind':'chairside'}]
         verified=s._operate('verify_medicine',{'event_id':event.id,'materials':rows,'evidence':'Original actual batch independently verified'},key())
         self.assertEqual((verified['event_id'],verified['amount']),(event.id,20));self.assertEqual(len(verified['move_ids']),1)
@@ -198,3 +191,33 @@ class TestReworkBoundaries(TransactionCase):
         r=p._operate('verify_medicine',{'event_id':event.id,'materials':[{'lot_id':lot,'quantity':4,'uom_id':self.uom.id,'kind':'prescription'}],'evidence':'Verified original B SKU and original published price'},key())
         self.assertEqual(r['amount'],108);self.assertEqual(original,(event.ydental_actor_id.id,event.ydental_actual_at,event.ydental_quantity))
         self.assertEqual(p._remaining(p._model('line').browse(issued['line_ids'][0])),2)
+
+    def test_rework_cross_legal_timed_untimed_capacity_closed_invalid_and_no_arbitrary_write(self):
+        from .treatment_common import cross_legal_target
+        from .common import bind,qualify
+        from odoo.exceptions import AccessError
+        store,mapping,slot=cross_legal_target(self)
+        s,c,q,l,e,d,a=opened_actual(self)
+        self.assertNotIn(store.company_id,self.users['doctor'].company_ids)
+        before=self.root['ydental.supply.claim'].search_count([])
+        timed=a|{'mode':'timed','mapping_id':mapping.id,'start':str(self.start),'end':str(self.end),'source':key(),'reason':'Real cross-legal timed source'}
+        result=s._operate('refer',timed,key());self.assertTrue(result['task_id'])
+        self.assertEqual(s._operate('refer',timed,key())['task_id'],result['task_id'])
+        self.assertEqual(self.root['ydental.supply.claim'].search_count([]),before+1)
+        untimed=a|{'mode':'untimed','mapping_id':mapping.id,'valid_until':str(fields.Datetime.now()+timedelta(days=1)),'source':key(),'reason':'Real cross-legal untimed source'}
+        referral=s._operate('refer',untimed,key());self.assertEqual(self.root['ydental.supply.claim'].search_count([]),before+1)
+        target=bind(self,self.users['frontdesk'],store)
+        self.assertTrue(target._operate('accept_referral',{'record_id':referral['id'],'version':referral['version'],'start':str(self.start),'end':str(self.end)},key())['task_id'])
+        self.assertEqual(self.root['ydental.supply.claim'].search_count([]),before+2)
+        for i in range(3):qualify(self,mapping=mapping,service=target)
+        with self.assertRaises(UserError):s._operate('refer',timed|{'source':key()},key())
+        with self.assertRaises(AccessError):s.env['ydental.intake.mapping'].browse(mapping.id).write({'name':'Forbidden B mutation'})
+        with self.assertRaises(AccessError):bind(self,self.users['doctor'],store)
+        manager=bind(self,self.users['manager'],store);supply=manager.env['ydental.supply.service']
+        supply._operate('business',{'area_id':mapping.ydental_area_id.id,'version':supply._business_record(store,mapping.ydental_area_id.id).ydental_version,'state':'draining','reason':'Stop target intake'},key())
+        count=self.root['ydental.intake.referral'].search_count([])
+        with self.assertRaises(UserError):s._operate('refer',untimed|{'source':key()},key())
+        self.assertEqual(self.root['ydental.intake.referral'].search_count([]),count)
+        mapping._save({'active':False})
+        with self.assertRaises(UserError):s._operate('refer',untimed|{'source':key()},key())
+        self.assertEqual(e.state,'serving')

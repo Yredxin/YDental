@@ -320,7 +320,7 @@ class YDentalTreatmentService(models.AbstractModel):
             'ydental_kind': kind, 'ydental_catalog_id': catalog.id,
             'ydental_medicine_link_id': medicine_link.id if medicine_link else False,
             'ydental_product_id': expected_product.id if expected_product else medicine_link.ydental_product_id.id if medicine_link else False,
-            'ydental_reported_materials': rows, 'ydental_quantity': quantity,
+            'ydental_reported_materials': {'rows': rows, 'catalog_id': catalog.id}, 'ydental_quantity': quantity,
             'ydental_uom_id': catalog.ydental_product_id.uom_id.id, 'ydental_teeth': teeth,
             'ydental_actual_at': moment, 'ydental_business_date': self.env['ydental.supply.service']._date(execution.ydental_store_id, moment),
             'ydental_station_id': execution.ydental_lease_id.ydental_station_id.id, 'ydental_reason': reason,
