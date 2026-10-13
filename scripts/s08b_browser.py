@@ -201,7 +201,7 @@ def main():
             pharmacy_enter();dose(4)
             check('F3 actual four remaining two',float(pharm.locator('article[data-order="%s"] .remaining'%rxid).inner_text())==2)
             screenshot(pharm,pharmctx,'B07-real-pharmacy-four-of-six.png');finish()
-            check('F3 finish releases actual execution',pharm.locator('main.o_ydental_treatment').get_attribute('data-execution')=='0')
+            check('F3 finish releases actual execution',int(pharm.locator('main.o_ydental_treatment').get_attribute('data-execution') or 0)==0 and pharm.evaluate("sessionStorage.getItem('ydental_queue_holder')") is None)
             next_task=int(pharm.locator('article[data-order="%s"] .task-id'%rxid).last.inner_text());check('F3 remainder uses a new task',next_task!=task);screenshot(pharm,pharmctx,'B08-finished-four-remainder-awaits-report.png')
             report(next_task);pharmacy_enter();dose(2)
             check('F3 cumulative six remaining zero',float(pharm.locator('article[data-order="%s"] .remaining'%rxid).inner_text())==0);screenshot(pharm,pharmctx,'B09-second-report-real-two-of-six.png')
