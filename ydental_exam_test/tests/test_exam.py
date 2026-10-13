@@ -1,3 +1,4 @@
+import base64
 from datetime import timedelta
 from unittest.mock import patch
 
@@ -393,3 +394,29 @@ class TestExamination(TransactionCase):
             treatment._operate('cancel_exam', args | {'line_id': issued['line_ids'][0],
                 'order_version': issued['version'], 'reason': 'Cannot erase actual exam'}, key())
         self.assertEqual(self.root['ydental.treatment.fee'].browse(actual['fee_id']).ydental_amount, 80)
+
+    def test_attachment_requires_current_editor_source_and_export_for_download(self):
+        self._bind_templates()
+        with patch.object(type(self.group.env['ydental.supply.service']), '_allow_demo_supply', return_value=True):
+            treatment, clinical, _queue, lease, _medical, document, args = opened_actual(self)
+        issued = self._order(treatment, args)
+        clinical._operate('handover', handover_args(document, lease))
+        service, action = self._external_start(issued)
+        draft = service._operate('draft', action | {'version': 0, 'findings': '合成附件所见',
+            'measurements': {}, 'conclusion': ''}, key())
+        raw = base64.b64decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+/lXcAAAAASUVORK5CYII=')
+        payload = {'line_id': action['line_id'], 'version': draft['version'],
+            'filename': 'synthetic.png', 'mimetype': 'image/png',
+            'encoded': base64.b64encode(raw).decode()}
+        with self.assertRaises(ValidationError):
+            service._operate('attach', payload | {'encoded': 'invalid'}, key())
+        saved = service._operate('attach', payload, key())
+        with self.assertRaises(AccessError):
+            service._attachment_download(action['line_id'], saved['attachment_id'])
+        self.admin._grant(self.second.id, self.stores[0].id, {'export': 'write'})
+        content, kind, filename = service._attachment_download(action['line_id'], saved['attachment_id'])
+        self.assertEqual((content, kind, filename), (raw, 'image/png', 'synthetic.png'))
+        with self.assertRaises(AccessError):
+            service._attachment_download(issued['line_ids'][1], saved['attachment_id'])
+        self.assertFalse(self.root['ydental.treatment.event'].search_count([
+            ('ydental_order_line_id', '=', action['line_id'])]))

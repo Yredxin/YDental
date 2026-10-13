@@ -41,6 +41,7 @@ def main():
     parser.add_argument('--port', required=True, type=int)
     parser.add_argument('--tests', action='store_true')
     parser.add_argument('--upstream', action='store_true', help='Also execute S08-A/B/C native regression addons')
+    parser.add_argument('--test-tags', help='A single explicit S09 post-install test selector for diagnosis')
     args = parser.parse_args()
     if not re.fullmatch(r'ydental_s09_test_[0-9]{14}_[0-9a-f]{8}', args.db) or not 18000 <= args.port <= 18999:
         parser.error('A new S09 database name and isolated port are required')
@@ -61,6 +62,9 @@ def main():
         parser.error('Native crash evidence exists; all S09 Odoo actions are stopped pending review')
     if args.upstream and not args.tests:
         parser.error('--upstream requires --tests')
+    if args.test_tags and (not args.tests or not re.fullmatch(
+            r'/ydental_exam_test:TestExamination\.test_[a-z0-9_]+', args.test_tags)):
+        parser.error('Only a single named S09 model test can be selected')
     if args.action == 'integrate' and not args.upstream:
         parser.error('integrate requires --upstream')
     if args.action in ('install', 'upgrade', 'integrate', 'serve'):
@@ -146,7 +150,7 @@ def main():
             command += ['-i' if creating or args.action == 'integrate' else '-u', modules,
                 '--load-language', 'en_US,zh_CN', '--stop-after-init']
             if args.tests:
-                command += ['--test-enable', '--test-tags', ','.join('/' + module for module in verification)]
+                command += ['--test-enable', '--test-tags', args.test_tags or ','.join('/' + module for module in verification)]
             if creating:
                 command += ['--with-demo']
     log_path = run / (args.action + '-' + datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f') + '.log')
