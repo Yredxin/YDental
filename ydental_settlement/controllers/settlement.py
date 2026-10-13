@@ -1,5 +1,6 @@
 import uuid
 from datetime import datetime, timezone
+from urllib.parse import urlencode
 
 from odoo import http
 from odoo.exceptions import AccessError, UserError, ValidationError
@@ -18,10 +19,26 @@ class YDentalSettlement(http.Controller):
         return access.env['ydental.settlement.service']
 
     @http.route('/ydental/settlement', type='http', auth='user', methods=['GET'])
-    def workbench(self, patient_id=None, **kwargs):
+    def workbench(self, patient_id=None, today_page='1', history_page='1',
+                  pending_page='1', invoices_page='1', **kwargs):
+        raw_pages = {'today': today_page, 'history': history_page,
+                     'pending': pending_page, 'invoices': invoices_page}
+        if (patient_id and (not patient_id.isdecimal() or not 1 <= len(patient_id) <= 12)
+                or any(not isinstance(value, str) or not value.isdecimal()
+                       or not 1 <= int(value) <= 10000 for value in raw_pages.values())):
+            return request.make_json_response({'error': 'Invalid workbench page or patient.'},
+                                              status=400, headers=HEADERS)
+        pages = {name: int(value) for name, value in raw_pages.items()}
         service = self._service()
-        number = int(patient_id) if patient_id and patient_id.isdigit() else None
-        context = service._workbench(number)
+        number = int(patient_id) if patient_id else None
+        context = service._workbench(number, pages)
+        def page_url(category, page):
+            selected = dict(pages)
+            selected[category] = page
+            query = {name + '_page': number for name, number in selected.items() if number != 1}
+            if patient_id:
+                query['patient_id'] = patient_id
+            return '/ydental/settlement' + ('?' + urlencode(query) if query else '')
         access = service.env['ydental.access.service']
         member = access._membership(service.env.uid, context['store'].id)
         context.update({'revision': access._scope().ydental_revision,
@@ -31,6 +48,7 @@ class YDentalSettlement(http.Controller):
                                       access._levels(member)['finance_approval'] == 'write' and
                                       access._levels(member)['warehouse'] == 'write'),
                         'new_key': lambda: uuid.uuid4().hex,
+                        'page_url': page_url,
                         'now_utc': lambda: datetime.now(timezone.utc).isoformat()})
         return request.render('ydental_settlement.ydental_settlement_page', context, headers=HEADERS)
 

@@ -888,28 +888,58 @@ class YDentalSettlementService(models.AbstractModel):
             raise UserError(self.env._('trade_stock_mismatch: Native company movement was not completed.'))
         return move
 
-    def _workbench(self, patient_id=None):
+    def _patient_family_ids(self, patient):
+        family = {patient.id}
+        patients = self.env['ydental.patient'].sudo().with_context(active_test=False)
+        while True:
+            aliases = set(patients.search([('ydental_merged_into_id', 'in', list(family))]).ids)
+            if aliases <= family:
+                return list(family)
+            family.update(aliases)
+
+    def _workbench_page(self, model, domain, page, order):
+        count = model.search_count(domain)
+        return model.search(domain, order=order, offset=(page - 1) * 50, limit=50), count
+
+    def _workbench(self, patient_id=None, pages=None):
         store = self._access()
         patient = self._patient(patient_id) if patient_id else False
         if patient:
             self.env['ydental.patient.service']._current_relation(patient, store)
-        domain = [('ydental_store_id', '=', store.id)]
-        fees = self.env['ydental.treatment.fee'].sudo().search(domain, order='id desc', limit=200)
-        links = self._model('source').search([('ydental_fee_id', 'in', fees.ids)])
-        billed_ids = set(links.ydental_fee_id.ids)
-        if patient:
-            fees = fees.filtered(lambda fee: self._same_patient(fee, patient))
-            links = links.filtered(lambda link: self._patient(link.ydental_patient_id.id) == patient)
+        pages = pages or {}
+        if not isinstance(pages, dict) or any(key not in ('today', 'history', 'pending', 'invoices')
+                                               or type(value) is not int or not 1 <= value <= 10000
+                                               for key, value in pages.items()):
+            raise ValidationError(self.env._('Select a valid workbench page.'))
+        page_numbers = {key: pages.get(key, 1) for key in ('today', 'history', 'pending', 'invoices')}
+        family = self._patient_family_ids(patient) if patient else None
+        fee_domain = fields.Domain('ydental_store_id', '=', store.id) & fields.Domain(
+            'ydental_event_id.state', '=', 'confirmed') & fields.Domain(
+            'ydental_settlement_source_ids', 'not any', fields.Domain.TRUE)
+        event_domain = fields.Domain('ydental_store_id', '=', store.id) & fields.Domain('state', '=', 'pending')
+        source_domain = fields.Domain('ydental_store_id', '=', store.id)
+        if family is not None:
+            patient_domain = fields.Domain('ydental_patient_id', 'in', family)
+            fee_domain &= patient_domain
+            event_domain &= patient_domain
+            source_domain &= patient_domain
         today = fields.Date.context_today(self.with_context(tz=store.ydental_timezone))
-        ready = fees.filtered(lambda fee: fee.id not in billed_ids and fee.ydental_event_id.state == 'confirmed')
-        pending = self.env['ydental.treatment.event'].sudo().search([
-            ('ydental_store_id', '=', store.id), ('state', '=', 'pending'),
-        ], order='id desc', limit=200)
-        if patient:
-            pending = pending.filtered(lambda event: event.ydental_patient_id and
-                self._patient(event.ydental_patient_id.id) == patient)
-        invoices = links.ydental_invoice_id.filtered(lambda move: move.amount_residual > 0)
-        for fee in fees:
+        fees = self.env['ydental.treatment.fee'].sudo()
+        today_fees, today_count = self._workbench_page(fees,
+            fee_domain & fields.Domain('ydental_event_id.ydental_business_date', '=', today),
+            page_numbers['today'], 'id desc')
+        history, history_count = self._workbench_page(fees,
+            fee_domain & fields.Domain('ydental_event_id.ydental_business_date', '!=', today),
+            page_numbers['history'], 'id desc')
+        pending, pending_count = self._workbench_page(self.env['ydental.treatment.event'].sudo(),
+            event_domain, page_numbers['pending'], 'id desc')
+        invoice_domain = fields.Domain('company_id', '=', store.company_id.id) & fields.Domain(
+            'state', '=', 'posted') & fields.Domain('move_type', '=', 'out_invoice') & fields.Domain(
+            'amount_residual', '>', 0) & fields.Domain(
+            'ydental_settlement_source_ids', 'any', source_domain)
+        invoices, invoice_count = self._workbench_page(self.env['account.move'].sudo(),
+            invoice_domain, page_numbers['invoices'], 'invoice_date asc, id asc')
+        for fee in today_fees | history:
             self._audit('source_view', fee, store)
         for event in pending:
             self._audit('pending_event_view', event, store,
@@ -917,9 +947,10 @@ class YDentalSettlementService(models.AbstractModel):
         for invoice in invoices:
             self._audit('invoice_view', invoice, store)
         return {'store': store, 'patient': patient,
-                'today': ready.filtered(lambda fee: fee.ydental_event_id.ydental_business_date == today),
-                'history': ready.filtered(lambda fee: fee.ydental_event_id.ydental_business_date != today),
+                'today': today_fees, 'history': history,
                 'pending': pending, 'invoices': invoices,
+                'pages': page_numbers, 'page_counts': {'today': today_count,
+                    'history': history_count, 'pending': pending_count, 'invoices': invoice_count},
                 'payments': self._model('payment').search([('ydental_store_id', '=', store.id)], order='id desc', limit=50),
                 'refunds': self._model('refund').search([('ydental_payment_id.ydental_store_id', '=', store.id)],
                                                        order='id desc', limit=50),
@@ -931,10 +962,11 @@ class YDentalSettlementService(models.AbstractModel):
         self.env['ydental.patient.service']._current_relation(patient, store)
         rows = {}
         seen_invoice_ids = set()
-        for link in self._model('source').search([('ydental_store_id', '!=', store.id)]):
+        family = self._patient_family_ids(patient)
+        for link in self._model('source').search([
+                ('ydental_store_id', '!=', store.id), ('ydental_patient_id', 'in', family),
+                ('ydental_invoice_id.state', '=', 'posted'), ('ydental_invoice_id.amount_residual', '>', 0)]):
             if link.ydental_invoice_id.id in seen_invoice_ids:
-                continue
-            if self._patient(link.ydental_patient_id.id) != patient:
                 continue
             other = link.ydental_store_id
             if other.company_id not in self.env.user.sudo().company_ids:
