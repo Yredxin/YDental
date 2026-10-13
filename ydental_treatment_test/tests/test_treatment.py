@@ -288,3 +288,27 @@ class TestActualTreatment(TransactionCase):
             result=s._operate('execute',args|{'actual_at':str(original)},key())
         self.assertEqual(s._model('event').browse(result['event_id']).ydental_actual_at,original)
         self.assertEqual(self.root['ydental.inventory.event'].browse(result['inventory_event_ids']).ydental_actual_at,original)
+
+    def test_already_performed_native_business_failure_retains_fact_zero_half_bookkeeping(self):
+        receive(self);price(self);s,c,q,l,e,d,a=opened_actual(self)
+        original=type(self.stock)._move
+        def fail(service,event):
+            original(service,event);raise UserError('native_failure: Actual physical project needs bookkeeping review')
+        with patch.object(type(self.stock),'_move',fail):
+            result=s._operate('execute',execute_args(self,a,actual=True),key())
+        self.assertEqual(result['state'],'pending');self.assertEqual(result['pending_reason'],'bookkeeping_failed')
+        self.assertFalse(result['move_ids']);self.assertFalse(result['fee_id']);self.assertFalse(result['inventory_event_ids'])
+        event=result['event_id'];result=s._operate('reconcile',{'event_id':event,'reason':'Original physical source, native bookkeeping recovered'},key())
+        self.assertEqual(result['event_id'],event);self.assertEqual(result['amount'],600);self.assertEqual(len(result['move_ids']),1)
+
+    def test_actual_pharmacy_shortage_preserves_allowance_and_prevents_early_finish(self):
+        price(self,catalog=self.drug_catalog,amount=10)
+        s,c,q,l,e,d,a=opened_actual(self);issued=prescription(self,s,a);c._operate('handover',handover_args(d,l))
+        p,args=pharmacy_start(self,issued)
+        result=p._operate('dispense',args|{'line_id':issued['line_ids'][0],'lot_id':self.lots['medicine'],'quantity':4,'source':key(),
+            'reason':'Verified physically dispensed; stock ledger requires correction','policy':'demo_confirmation','already_performed':True},key())
+        self.assertEqual((result['state'],result['remaining']),('pending',2));self.assertFalse(result['fee_id'])
+        with self.assertRaises(UserError):p._operate('finish',args|{'reason':'Do not finish half bookkeeping'},key())
+        receive(self,10,'medicine');self.stock._operate('recover',{'event_id':result['inventory_event_ids'][0],'reason':'Original actual dispensing physical receipt evidence'},key())
+        result=p._operate('reconcile',{'event_id':result['event_id'],'reason':'Finish original dispensing bookkeeping'},key());self.assertEqual(result['amount'],40)
+        self.assertTrue(p._operate('finish',args|{'reason':'Original four confirmed'},key())['next_task_id'])

@@ -45,7 +45,7 @@ if (root) {
         if (op === 'issue') { return {...actual, order_id: pharmacy.order_id, version: pharmacy.order_version}; }
         if (op === 'cancel_exam') { return {...actual, line_id: Number(line.dataset.line), order_version: pharmacy.order_version, reason: data.reason}; }
         if (op === 'dispense') { return {...pharmacy, line_id: Number(line.dataset.line), lot_id: Number(data.lot_id),
-            quantity: Number(data.quantity), reason: data.reason, source: form.dataset.source, policy: 'demo_confirmation'}; }
+            quantity: Number(data.quantity), already_performed: data.already_performed === 'on', reason: data.reason, source: form.dataset.source, policy: 'demo_confirmation'}; }
         if (op === 'finish') { return {...pharmacy, reason: data.reason}; }
         if (op === 'reconcile') { return {event_id: Number(event.dataset.event), reason: data.reason}; }
         if (op === 'correct') { return {...actual, event_id: Number(event.dataset.event), delta: Number(data.delta),

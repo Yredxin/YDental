@@ -224,9 +224,24 @@ class YDentalTreatmentService(models.AbstractModel):
             self._new('consumption', event, {'name': source, 'ydental_event_id': event.id,
                 'ydental_lot_id': row['lot_id'], 'ydental_quantity': row['quantity'],
                 'ydental_uom_id': row['uom_id'], 'ydental_kind': row['kind']})
-        self._settle(event)
+        self._bookkeep(event)
         self._audit('actual_execution', event, self._event_result(event), reason)
         return self._event_result(event)
+
+    def _bookkeep(self, event):
+        if not event.ydental_already_performed:
+            self._settle(event)
+            return
+        try:
+            with self.env.cr.savepoint():
+                self._settle(event)
+        except (AccessError, ValidationError):
+            raise
+        except UserError:
+            # A verified physical fact survives a known native business failure;
+            # its economic savepoint rolls back every move and fee. Database
+            # serialization/deadlock errors still reach the framework unchanged.
+            event._save({'state': 'pending', 'ydental_pending_reason': 'bookkeeping_failed'})
 
     def _settle(self, event):
         price = self._price_values(event)
@@ -308,7 +323,7 @@ class YDentalTreatmentService(models.AbstractModel):
         if event.state != 'confirmed':
             # Warehouse staff reconcile the original S07 pending record using
             # S07's evidence-only recovery. This action only reads that outcome.
-            self._settle(event)
+            self._bookkeep(event)
         self._audit('reconcile', event, self._event_result(event), reason)
         return self._event_result(event)
 
@@ -499,7 +514,7 @@ class YDentalTreatmentService(models.AbstractModel):
         return execution, order, segment
 
     def _dispense(self, execution_id, lease_id, lease_token, order_id, order_version, line_id,
-                  lot_id, quantity, source, reason, policy):
+                  lot_id, quantity, source, reason, policy, already_performed=False):
         if policy != 'demo_confirmation':
             raise UserError(self.env._('policy_unpublished: Production price policy awaits approval.'))
         execution, order, segment = self._pharmacy(execution_id, lease_id, lease_token, order_id, order_version)
@@ -515,7 +530,7 @@ class YDentalTreatmentService(models.AbstractModel):
         if lot.product_id != line.ydental_product_id:
             raise ValidationError(self.env._('source_category_mismatch: The batch must contain the exact prescribed medicine.'))
         result = self._event(execution, line.ydental_mapping_id.ydental_catalog_id, quantity, source, reason,
-            [{'lot_id': lot.id, 'quantity': quantity, 'uom_id': line.ydental_uom_id.id, 'kind': 'prescription'}], kind='prescription', line=line)
+            [{'lot_id': lot.id, 'quantity': quantity, 'uom_id': line.ydental_uom_id.id, 'kind': 'prescription'}], kind='prescription', line=line, already_performed=already_performed)
         self._audit('actual_dispense', order, dict(result, line_id=line.id, remaining=self._remaining(line)))
         return dict(result, line_id=line.id, remaining=self._remaining(line))
 
