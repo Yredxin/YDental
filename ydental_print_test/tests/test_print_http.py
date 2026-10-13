@@ -111,6 +111,7 @@ class TestPrintHTTP(TestTreatmentHTTP):
         self.assertEqual(issued.status_code, 200, issued.text)
         source = {'kind': 'prescription', 'source_id': issued.json()['order_id'], 'version': issued.json()['version']}
         self.admin._grant(self.pharmacist.id, self.stores[0].id, {'export': 'write'})
+        self.pharmacist.write({'password': 's05-test-password'})
         self.users = self.users | {'pharmacy': self.pharmacist}
         self.select('pharmacy')
         job = self.generated(source)
