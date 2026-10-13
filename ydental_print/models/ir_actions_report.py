@@ -26,7 +26,7 @@ class IrActionsReport(models.Model):
     def _build_wkhtmltopdf_args(self, paperformat_id, landscape, specific_paperformat_args=None, set_viewport_size=False):
         result = super()._build_wkhtmltopdf_args(paperformat_id, landscape, specific_paperformat_args, set_viewport_size)
         if isinstance(self.env.context.get('ydental_print_scope'), RenderScope):
-            result += ['--disable-javascript', '--footer-right', 'YDental | [page]/[topage]', '--footer-font-size', '8']
+            result += ['--encoding', 'UTF-8', '--disable-javascript', '--footer-right', 'YDental | [page]/[topage]', '--footer-font-size', '8']
         return result
 
     def _run_wkhtmltopdf(self, args):

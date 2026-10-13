@@ -8,7 +8,7 @@ import sys
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'.local/s00-b-deps/verify-lib'))
-import fitz
+import pymupdf as fitz
 parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('result',type=Path);args=parser.parse_args()
 source=json.loads(args.result.read_text());assert source['database'].startswith('ydental_s08c_test_')
 summary={'database':source['database'],'tested_commit':source['tested_commit'],'pdfs':[],'visual_review':'PENDING'}
