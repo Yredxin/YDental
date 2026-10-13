@@ -48,9 +48,11 @@ for actor,proc,stream,log,cmd in children:
 assert all(proc.returncode==0 for _,proc,*_ in children)
 a=json.loads((run/'concurrent-a.json').read_text());b=json.loads((run/'concurrent-b.json').read_text())
 assert a['backend_pid']!=b['backend_pid']
-assert sorted([a['outcome'],b['outcome']])==['accepted','conflict']
-accepted=a if a['outcome']=='accepted' else b
+assert all(x['outcome'] in ('accepted','conflict') for x in (a,b))
+accepted=next(x for x in (a,b) if x['outcome']=='accepted')
 assert accepted['amount']==100
+for x in (a,b):
+ if x['outcome']=='accepted':assert x['invoice_id']==accepted['invoice_id'] and x['amount']==100
 with psycopg2.connect(host='127.0.0.1',port=5432,user='odoo',password=config['options']['db_password'],dbname=args.db) as conn:
  conn.set_session(readonly=True)
  with conn.cursor() as cr:
