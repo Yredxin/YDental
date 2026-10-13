@@ -1,5 +1,16 @@
 # YDental 当前执行入口
 
+## 当前 S09原生崩溃阻断 / #33（等待GPT独立技术复核）
+
+- 唯一S09授权为[#33 GPT-ACTIVATE6141057408](https://github.com/Yredxin/YDental/issues/33#issuecomment-6141057408)。已读取#23/#33当前正文及全部有效评论，核对#32最终技术PASS6140703673与Project状态同步6140901633/复核6140955734；[S09开工检查6141225307](https://github.com/Yredxin/YDental/issues/33#issuecomment-6141225307)逐字读回。S08仍待最终统一用户验收，非生产批准。
+- 固定基线`42788593474f309b4bd17d7dd0aed85966b6e484`，独立分支`codex/s09-exam-workbench-r1-20261013`；候选product`85e465cd55f9d4c03b195795f2f9c4e7178b07a7`、test/runner`d1fdaec7e2751068f69c7f8f75b8d0782af5d18c`，final完整SHA见#33本批BLOCKED评论。product→test仅两个scripts；test→final仅AGENTS/报告/脱敏证据。新增`ydental_exam`真实冻结行/队列钩子/结果版本/费库来源/演示报告候选，未安装S09的S08 exam fail-closed保留。
+- Project #4开工前后各完整双读21字段/37项（15当前+22归档）/6视图可见字段/7公开workflow，唯一一次#33自定义执行状态`待启用→进行中`，前后深差异仅该字段name/optionId；#33 OPEN/Todo/S09，#32待用户验收，#34—37待启用。临时快照第二次前读原文件被同名后读覆盖，深比较已执行但该原响应哈希不可再提供，详见docs/evidence/s09/project-start.json。
+- 唯一候选新库`ydental_s09_test_20261013082800_a1b2c3d4`、OID1403489、端口18190、原cluster7694897083368259627。product安装64模块exit0；探针一因合成demo供给适配器未装exit1；探针二走到原生PDF但`state==confirmed && amount==80`断言FAIL、实际差异值UNKNOWN且事务回滚；探针三PID1792405在Odoo registry初始化垃圾回收时**SIGSEGV/-11**、外层245，`PYTHONFAULTHANDLER`仅Python栈，无native stack/core，根因UNKNOWN。已立即停止全部Odoo/浏览器/数据库重跑，runner设crash marker拒绝后续S09动作。
+- 崩溃后只读SQL：exam结果/版本/receipt、treatment event/fee、queue execution均0，deadlock0；原Odoo HTTP200，db20/odoo12、PG cluster/卷、Odoo核心未变。F1候选FAIL且未提交，F2—F4及T01—T13完整验证、升级/带业务再次升级、双PG backend、Firefox、翻译、PDF逐页、权限/上游回归均NOT_RUN/BLOCKED；不能用安装exit0或S08旧PASS替代。中文PO未完成。生产继续BLOCKED。详见[报告](docs/s09-blocked-report.md)和docs/evidence/s09。
+- 正常推送后在#33发布`[CODEX] S09 BLOCKED与技术复核申请`并逐字读回，立即停止等待GPT。不得关Issue、改Project其它字段/视图/workflow、启S10、合并/强推/生产部署；在新原生崩溃停止条件下不自行重试。
+
+下方S08-C及更早“当前/本次”为历史，本轮以上节与S09正式授权为准。
+
 ## 当前 S08-C原生诊断与RX-2分页定向返工 / #32（等待GPT独立技术复核）
 
 - 唯一最新授权为[GPT-REVIEW6138991636](https://github.com/Yredxin/YDental/issues/32#issuecomment-6138991636)。完整读取#23/#32正文及全部有效评论；[先行只读取证与有界恢复计划6139121593](https://github.com/Yredxin/YDental/issues/32#issuecomment-6139121593)已逐字读回。原分支`codex/s08-c-pdf-print-r1-20261013`、旧final`1f5bae007d466f4f6dc932fde435a41f59a9b79f`与旧test`87b2c8588ac3012abce7d9db5f26dc5682dc4e7d`及所有失败/数据库/PDF/PNG不改写。

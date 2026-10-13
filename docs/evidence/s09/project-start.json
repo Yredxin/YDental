@@ -1,0 +1,39 @@
+{
+  "project_id": "PVT_kwHOA3_tu84BmcLJ",
+  "issue": 33,
+  "item_id": "PVTI_lAHOA3_tu84BmcLJzg_8mdA",
+  "field_id": "PVTSSF_lAHOA3_tu84BmcLJzhlLbVo",
+  "before": [
+    "待启用",
+    "441473f3"
+  ],
+  "after": [
+    "进行中",
+    "57b99552"
+  ],
+  "mutation_count": 1,
+  "before_reads": 2,
+  "after_reads": 2,
+  "counts": {
+    "fields": 21,
+    "items_current": 15,
+    "items_archived": 22,
+    "views": 6,
+    "public_workflows": 7
+  },
+  "view_visible_fields": [
+    9,
+    9,
+    5,
+    3,
+    7,
+    3
+  ],
+  "deep_diff": [
+    "#33.执行状态.name",
+    "#33.执行状态.optionId"
+  ],
+  "project_before_content_sha256": "649cc6557bbbb36c0a7268719ee5c12fa9a7ecd1ddd1477709385632f53f1e7f",
+  "project_after_content_sha256": "d2bc9bbcc21756f0c8c0d0ee73d06dbd7a4860f48a8666f69b340ec3ccd7317e",
+  "raw_snapshot_limitation": "The second pre-mutation /tmp filename was overwritten by the second post-mutation read. The deep equality check had already completed; first pre and both post raw snapshots remain in .local/s09-project-start. All four visibleFields raw reads are retained."
+}

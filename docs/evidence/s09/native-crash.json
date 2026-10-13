@@ -1,0 +1,70 @@
+{
+  "database": "ydental_s09_test_20261013082800_a1b2c3d4",
+  "oid": 1403489,
+  "port": 18190,
+  "cluster": "7694897083368259627",
+  "product_commit": "85e465cd55f9d4c03b195795f2f9c4e7178b07a7",
+  "actions": [
+    {
+      "action": "install",
+      "pid": 1790263,
+      "exit_code": 0,
+      "signal": null,
+      "log": "install-20261013T082257986847.log",
+      "sha256": "316ca186a39390e3b88178d401e9e92dcd7f532b945e03cd8c28bcc6ac2e9264",
+      "time_utc": "2026-10-13T08:23:52.246242+00:00"
+    },
+    {
+      "action": "probe",
+      "pid": 1791592,
+      "exit_code": 1,
+      "signal": null,
+      "log": "probe-20261013T082523215270.log",
+      "sha256": "789610231e28c2e8cc5db2ae16e6f098a3e78b2388e740a86aa9f742b3b6c708",
+      "time_utc": "2026-10-13T08:25:31.378478+00:00"
+    },
+    {
+      "action": "probe",
+      "pid": 1792160,
+      "exit_code": 1,
+      "signal": null,
+      "log": "probe-20261013T082622369610.log",
+      "sha256": "3121df6b4a820b5fbdaaa84b8256dd0bd931b1fb4ba9ce8e6a1efd12049bc5a9",
+      "time_utc": "2026-10-13T08:26:33.780569+00:00"
+    },
+    {
+      "action": "probe",
+      "pid": 1792405,
+      "exit_code": -11,
+      "signal": 11,
+      "log": "probe-20261013T082648455067.log",
+      "sha256": "761e3cd6bfda2aef894fd7c413e532c28fcc853aa89b054452db4995b6132daf",
+      "time_utc": "2026-10-13T08:26:50.679764+00:00"
+    }
+  ],
+  "native_crash": {
+    "pid": 1792405,
+    "signal": 11,
+    "python_faulthandler": true,
+    "python_stack_excerpt": "Fatal Python error: Segmentation fault\n\nCurrent thread 0x00007db56fe84780 (most recent call first):\n  Garbage-collecting\n  File \"/home/redxin/code/odoo/odoo-sd/code/.python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/contextlib.py\", line 595 in __exit__\n  File \"/home/redxin/code/odoo/odoo-sd/code/odoo/orm/registry.py\", line 176 in new\n  File \"/home/redxin/code/odoo/odoo-sd/code/odoo/tools/func.py\", line 67 in locked\n  File \"/home/redxin/code/odoo/odoo-sd/code/odoo/orm/registry.py\", line 111 in __new__\n  File \"/home/redxin/code/odoo/odoo-sd/code/odoo/cli/shell.py\", line 136 in shell\n  File \"/home/redxin/code/odoo/odoo-sd/code/odoo/cli/shell.py\", line 161 in run\n  File \"/home/redxin/code/odoo/odoo-sd/code/odoo/cli/command.py\", line 139 in main\n  File \"/home/redxin/code/odoo/odoo-sd/code/odoo-bin\", line 6 in <module>\n\nExtension modules: markupsafe._speedups, lxml._elementpath, lxml.etree, lxml.objectify, psycopg2._psycopg, lxml.builder, psutil._psutil_linux, psutil._psutil_posix, maxminddb.extension, _rjsmin, charset_normalizer.md, charset_normalizer.cd, PIL._imaging, PIL._imagingmath, _cffi_backend, _cbor2, PIL._imagingft (total: 17)\n",
+    "core_soft_limit_bytes": 0,
+    "apport_file_found": false,
+    "native_stack": "UNAVAILABLE",
+    "root_cause": "UNKNOWN"
+  },
+  "read_only_after_crash": {
+    "original_odoo_http": 200,
+    "db_identity_oid": 1403489,
+    "cluster_unchanged": true,
+    "exam_result": 0,
+    "exam_version": 0,
+    "exam_receipt": 0,
+    "treatment_event": 0,
+    "treatment_fee": 0,
+    "queue_execution": 0,
+    "deadlocks": 0,
+    "shm_total_bytes": 268435456,
+    "shm_used_bytes": 97558528
+  },
+  "stop_condition": "No Odoo, browser or test rerun after PID 1792405 SIGSEGV"
+}
