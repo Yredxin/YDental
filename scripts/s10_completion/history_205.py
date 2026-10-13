@@ -4,7 +4,9 @@ from pathlib import Path
 from types import SimpleNamespace
 
 from odoo import api, Command
-from odoo.addons.ydental_treatment_test.tests.common import key, price, bind, handover_args
+from odoo.addons.ydental_treatment_test.tests.common import (
+    key, price, bind, handover_args, accepted, serving, save_args,
+)
 from odoo.addons.ydental_treatment_test.tests.treatment_common import setup, receive, opened_actual, execute_args
 
 run = Path(os.environ['YDENTAL_S10_RUN_DIR'])
@@ -43,7 +45,16 @@ with env.registry.cursor() as cr:
     clinical._operate('handover', handover_args(document, lease))
     manager = bind(f, f.users['manager']).env['ydental.settlement.service']
     invoice = manager._operate('bill', {'fee_ids': [old_billed['fee_id']], 'discount': 0, 'reason': ''}, key())
-    treatment, clinical, queue, lease, execution, document, args = opened_actual(f)
+    task = accepted(f)
+    queue, lease, execution = serving(f, user=f.second, station=f.other_station, task=task)
+    clinical = queue.env['ydental.clinical.service']
+    document = clinical._operate('open', {'execution_id': execution.id,
+        'lease_id': lease['lease_id'], 'lease_token': lease['token']})
+    document.update(clinical._operate('save', save_args(document)))
+    args = {'execution_id': execution.id, 'lease_id': lease['lease_id'],
+        'lease_token': lease['token'], 'document_id': document['document_id'],
+        'document_version': document['version']}
+    treatment = queue.env['ydental.treatment.service']
     for _ in range(205):
         result = treatment._operate('execute', execute_args(f, args), key())
         assert result['state'] == 'confirmed' and result['fee_id'] and len(result['move_ids']) == 1
