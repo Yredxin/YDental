@@ -107,3 +107,28 @@ def cross_legal_target(cls):
     mapping = manager._operate('mapping', {'catalog_id': cls.catalogs[0].id, 'area_id': area.id, 'execution_area_id': area.id}, key())
     slot = make_slot(cls, manager, station, cls.start, cls.end)
     return store, cls.root['ydental.intake.mapping'].browse(mapping['id']), slot
+
+def publish_medicine_link(cls, product, catalog):
+    service = bind(cls, cls.users['price']).env['ydental.queue.service']._bind_connection(key()+key()).env['ydental.treatment.service']
+    return service._operate('publish_medicine', {'catalog_id': catalog.id, 'product_id': product,
+        'uom_id': cls.uom.id, 'evidence': 'Explicit synthetic SKU and service price review', 'policy': 'demo_confirmation'}, key())
+
+
+def distinct_medicine(cls, amount=27, publish=True):
+    product = cls.stock._operate('product', {'code': 'R-' + key(), 'name': 'Distinct synthetic medicine ' + key()[:6],
+        'kind': 'medicine', 'stock_uom_id': cls.uom.id, 'issue_uom_id': cls.uom.id, 'step': 1,
+        'specification': 'Synthetic distinct specification'}, key())['id']
+    lot = cls.stock._operate('lot', {'product_id': product, 'name': 'R-' + key(),
+        'expiration': str(fields.Datetime.now() + timedelta(days=45))}, key())['id']
+    cls.stock._operate('receive', {'lot_id': lot, 'quantity': 20, 'uom_id': cls.uom.id,
+        'source_key': key(), 'reason': 'Synthetic distinct physical receipt'}, key())
+    catalog = cls.group._operate('catalog', {'code': 'R-' + key(), 'name': 'Exact distinct medicine fee ' + str(amount),
+        'kind': 'medicine', 'capability_id': cls.capabilities[0].id, 'uom_id': cls.uom.id}, key())['id']
+    catalog = cls.root['ydental.intake.catalog'].browse(catalog)
+    cls.group._operate('mapping', {'catalog_id': catalog.id, 'area_id': cls.pharmacy_area.id,
+        'execution_area_id': cls.pharmacy_area.id}, key())
+    from .common import price
+    price(cls, catalog=catalog, amount=amount)
+    if publish:
+        publish_medicine_link(cls, product, catalog)
+    return product, lot, catalog

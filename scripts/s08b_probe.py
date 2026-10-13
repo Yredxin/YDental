@@ -66,6 +66,39 @@ def fixture(kind):
                     second=dict(dose)
                     if kind=='dispense_distinct_four':second['source']=key()
                     jobs=[job(p,'dispense',dose),job(p,'dispense',second)];info['sources']=[dose['source'],second['source']]
+        elif kind in ('medication_good_vs_wrong_sku', 'medication_recovery_once', 'sku_publish_conflict', 'cross_legal_last_capacity', 'cross_legal_untimed_once'):
+            from odoo.addons.ydental_treatment_test.tests.treatment_common import distinct_medicine, cross_legal_target
+            if kind.startswith('cross_legal'):
+                store,target,slot=cross_legal_target(f)
+                info.update(target_mapping_id=target.id,target_store_id=store.id,source_doctor_company_ids=f.users['doctor'].company_ids.ids,target_company_id=store.company_id.id)
+                assert store.company_id not in f.users['doctor'].company_ids
+                args=a|{'mode':'timed','mapping_id':target.id,'reason':'Trusted cross-legal concurrent source','start':str(f.start),'end':str(f.end),'source':key()}
+                if kind=='cross_legal_last_capacity':
+                    front=bind(f,f.users['frontdesk'],store)
+                    for i in range(3):qualify(f,mapping=target,service=front)
+                    jobs=[job(s,'refer',args),job(s,'refer',args|{'source':key()})]
+                else:
+                    args={k:v for k,v in args.items() if k not in ('start','end')};args.update(mode='untimed',valid_until=str(fields.Datetime.now()+timedelta(days=1)))
+                    jobs=[job(s,'refer',args),job(s,'refer',args)]
+            elif kind=='sku_publish_conflict':
+                product,lot,catalog=distinct_medicine(f,publish=False)
+                pricer=bind(f,f.users['price']).env['ydental.queue.service']._bind_connection(key()+key()).env['ydental.treatment.service']
+                payload={'product_id':product,'catalog_id':catalog.id,'uom_id':f.uom.id,'evidence':'Competing explicit SKU publication','policy':'demo_confirmation'}
+                jobs=[job(pricer,'publish_medicine',payload),job(pricer,'publish_medicine',payload)]
+                info.update(product_id=product,catalog_id=catalog.id)
+            else:
+                receive(f,20,'medicine');price(f,catalog=f.drug_catalog,amount=10)
+                rows=[{'lot_id':f.lots['medicine'],'quantity':2,'uom_id':f.uom.id,'kind':'chairside'}]
+                payload=a|{'catalog_id':f.drug_catalog.id,'quantity':2,'source':key(),'reason':'Real chairside concurrent fact',
+                    'materials':rows,'teeth':[],'already_performed':kind=='medication_recovery_once','policy':'demo_confirmation'}
+                if kind=='medication_recovery_once':
+                    pending=s._operate('execute',payload|{'materials':[]},key())
+                    verification={'event_id':pending['event_id'],'materials':rows,'evidence':'Verified original actual medication batches'}
+                    k=key();jobs=[job(s,'verify_medicine',verification,k),job(s,'verify_medicine',verification,k)];info['event_id']=pending['event_id']
+                else:
+                    product,lot,catalog=distinct_medicine(f)
+                    wrong=payload|{'source':key(),'materials':[dict(rows[0],lot_id=lot)]}
+                    jobs=[job(s,'execute',payload),job(s,'execute',wrong)];info['sources']=[payload['source'],wrong['source']]
         elif kind.startswith('referral') or kind=='timed_last_capacity' or kind=='untimed_accept':
             target=f.mappings[1][0]
             args=a|{'mode':'timed','mapping_id':target.id,'reason':'Synthetic real clinical referral',
@@ -170,7 +203,7 @@ def race(kind,round_number):
     assert all('initial_backend_pid' in o for o in outcomes),outcomes
     assert outcomes[0]['initial_backend_pid']!=outcomes[1]['initial_backend_pid'],outcomes
     states=sorted(o['result'] for o in outcomes)
-    both=('execute_same','missing_price_fact','recover_original','dispense_same_source','finish_same_key','referral_same_source','price_publish_vs_execute')
+    both=('execute_same','missing_price_fact','recover_original','dispense_same_source','finish_same_key','referral_same_source','price_publish_vs_execute','medication_recovery_once','cross_legal_untimed_once')
     if kind in ('revocation_vs_execute','finish_vs_medical_start'):assert states in (['accepted','accepted'],['accepted','rejected']),outcomes
     else:assert states==(['accepted','accepted'] if kind in both else ['rejected','rejected'] if kind=='native_move_failure' else ['accepted','rejected']),(kind,states,outcomes)
     with env.registry.cursor() as cr:
@@ -191,6 +224,21 @@ def race(kind,round_number):
                 assert len(segment)==1 and segment.ydental_task_id.state=='pending'
                 assert not r['ydental.queue.entry'].search_count([('ydental_task_id','=',segment.ydental_task_id.id)])
         if kind=='exam_cancel_vs_report':assert r['ydental.treatment.line'].browse(info['line_id']).state=='cancelled'
+        if kind in ('medication_good_vs_wrong_sku','medication_recovery_once'):
+            events=r['ydental.treatment.event'].search([('ydental_store_id','=',info['store_id'])])
+            assert len(events)==1 and events.state=='confirmed'
+            fee=r['ydental.treatment.fee'].search([('ydental_event_id','=',events.id)])
+            rows=r['ydental.treatment.consumption'].search([('ydental_event_id','=',events.id)])
+            assert len(fee)==1 and fee.ydental_amount==20 and sum(rows.ydental_inventory_event_id.ydental_move_id.mapped('quantity'))==2
+            assert rows.ydental_inventory_event_id.ydental_move_id.product_id==events.ydental_medicine_link_id.ydental_product_id
+        if kind=='sku_publish_conflict':
+            assert r['ydental.treatment.medicine.link'].search_count([('ydental_store_id','=',info['store_id']),('ydental_product_id','=',info['product_id'])])==1
+        if kind.startswith('cross_legal'):
+            if kind=='cross_legal_last_capacity':
+                assert r['ydental.supply.claim'].search_count([('ydental_store_id','=',info['target_store_id'])])==4
+            else:
+                assert r['ydental.intake.referral'].search_count([('ydental_mapping_id','=',info['target_mapping_id'])])==1
+                assert not r['ydental.supply.claim'].search_count([('ydental_store_id','=',info['target_store_id'])])
         if kind=='untimed_accept':
             accepted=[o['data'] for o in outcomes if o['result']=='accepted'];assert accepted[0]['task_id']
     record['result']='PASS'
@@ -198,7 +246,7 @@ def race(kind,round_number):
 try:
     for kind in ('execute_same','execute_changed','old_lease','shortage_last_unit','missing_price_fact','recover_original',
         'native_move_failure','dispense_distinct_four','dispense_same_source','finish_same_key','finish_distinct_keys',
-        'restore_vs_pharmacy_start','exam_cancel_vs_report','timed_last_capacity','untimed_accept','referral_same_source','price_publish_vs_execute','revocation_vs_execute','two_pharmacy_stations_call','finish_vs_medical_start'):
+        'restore_vs_pharmacy_start','exam_cancel_vs_report','timed_last_capacity','untimed_accept','referral_same_source','price_publish_vs_execute','revocation_vs_execute','two_pharmacy_stations_call','finish_vs_medical_start','medication_good_vs_wrong_sku','medication_recovery_once','sku_publish_conflict','cross_legal_last_capacity','cross_legal_untimed_once'):
         race(kind,1)
     result['result']='PASS'
 except Exception as error:

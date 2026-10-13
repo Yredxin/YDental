@@ -9,7 +9,7 @@ from types import SimpleNamespace
 
 from odoo import api
 from odoo.addons.ydental_treatment_test.tests.common import accepted, price, key
-from odoo.addons.ydental_treatment_test.tests.treatment_common import setup, receive
+from odoo.addons.ydental_treatment_test.tests.treatment_common import setup, receive, distinct_medicine, cross_legal_target
 
 run=Path(os.environ['YDENTAL_S08B_RUN_DIR']);assert run.name==env.cr.dbname and re.fullmatch(r'ydental_s08b_test_[0-9]{14}_[a-f0-9]{8}',env.cr.dbname)
 with env.registry.cursor() as cr:
@@ -21,6 +21,9 @@ with env.registry.cursor() as cr:
     f.stores[0].write({'name':'S08-B 合成演示门店甲'});f.stores[1].write({'name':'S08-B 合成演示门店乙'})
     receive(f,20);receive(f,20,'medicine')
     price(f,amount=600);price(f,catalog=f.drug_catalog,amount=10)
+    med2,lot2,cat2=distinct_medicine(f)
+    med3,lot3,cat3=distinct_medicine(f,amount=43,publish=False)
+    legal_store,legal_mapping,legal_slot=cross_legal_target(f)
     original_price=f.group._operate('snapshot',{'catalog_id':f.catalogs[0].id,'currency_id':f.currency.id,'quantity':1,'source':'S08B-preexisting-demo-'+key(),'policy':'demo_confirmation'},key())
     task=accepted(f);task.ydental_patient_id._save({'name':'合成患者一号'})
     f.users['doctor2']=f.second
@@ -29,7 +32,9 @@ with env.registry.cursor() as cr:
     for role,user in f.users.items():
         password=secrets.token_urlsafe(24);user.write({'password':password,'lang':'zh_CN','name':'合成人员 '+role})
         credentials[role]={'login':user.login,'password':password}
-    preview={'store':f.stores[0].id,'other_store':f.stores[1].id,'station':f.stations[0][0].id,
+    preview={'medicine_catalog':f.drug_catalog.id,'medicine2':med2,'medicine2_lot':lot2,'medicine2_catalog':cat2.id,
+        'medicine3':med3,'medicine3_lot':lot3,'medicine3_catalog':cat3.id,'legal_store':legal_store.id,'legal_mapping':legal_mapping.id,'legal_company':legal_store.company_id.id,
+        'store':f.stores[0].id,'other_store':f.stores[1].id,'station':f.stations[0][0].id,
         'other_station':f.other_station.id,'task':task.id,'patient':task.ydental_patient_id.id,
         'price_snapshot':original_price['id'], 'price_amount':original_price['amount'],
         'pharmacy_station':f.pharmacy_station.id,'pharmacy_mapping':f.drug_mapping.id,'medicine':f.products['medicine'],'medicine_lot':f.lots['medicine'],'material_lot':f.lots['material'],'uom':f.uom.id,'catalog':f.catalogs[0].id,'exam_mapping':f.mappings[0][2].id,'cbct_mapping':f.mappings[0][3].id,'target_mapping':f.mappings[1][0].id,'start':str(f.start),'end':str(f.end),'doctor':f.users['doctor'].id,'doctor2':f.second.id,'mapping':f.mappings[0][0].id}
