@@ -43,6 +43,8 @@ class TestActualTreatment(TransactionCase):
         result=s._operate('execute',execute_args(self,a,actual=True),key())
         self.assertEqual(result['state'],'pending');self.assertFalse(result['fee_id']);self.assertFalse(result['move_ids'])
         stock_event=self.root['ydental.inventory.event'].browse(result['inventory_event_ids']);self.assertEqual(stock_event.state,'pending')
+        original_price=self.root['ydental.intake.price'].search([('ydental_store_id','=',self.stores[0].id),('ydental_catalog_id','=',self.catalogs[0].id),('state','=','published')],limit=1)
+        price(self,amount=999,replace=original_price)
         receive(self)
         self.stock._operate('recover',{'event_id':stock_event.id,'reason':'S08B physical correction verified'},key())
         result=s._operate('reconcile',{'event_id':result['event_id'],'reason':'Original event reconciliation'},key())
@@ -312,3 +314,21 @@ class TestActualTreatment(TransactionCase):
         receive(self,10,'medicine');self.stock._operate('recover',{'event_id':result['inventory_event_ids'][0],'reason':'Original actual dispensing physical receipt evidence'},key())
         result=p._operate('reconcile',{'event_id':result['event_id'],'reason':'Finish original dispensing bookkeeping'},key());self.assertEqual(result['amount'],40)
         self.assertTrue(p._operate('finish',args|{'reason':'Original four confirmed'},key())['next_task_id'])
+
+
+    def test_disabled_batch_new_execution_rejected_original_fact_recovery_no_fake_activation(self):
+        receive(self);price(self);s,c,q,l,e,d,a=opened_actual(self)
+        self.stock._operate('lot_edit',{'lot_id':self.lots['material'],'enabled':False,'reason':'Disable new use'},key())
+        with self.assertRaises(UserError):s._operate('execute',execute_args(self,a),key())
+        result=s._operate('execute',execute_args(self,a,actual=True),key());self.assertEqual(result['state'],'pending')
+        receive(self,1)
+        self.stock._operate('recover',{'event_id':result['inventory_event_ids'][0],'reason':'Evidenced original historical accounting only'},key())
+        result=s._operate('reconcile',{'event_id':result['event_id'],'reason':'Original disabled batch actual fact'},key())
+        self.assertEqual(result['amount'],600)
+        self.assertFalse(self.stock._batch(self.root['stock.lot'].browse(self.lots['material']),self.stores[0]).ydental_enabled)
+
+    def test_other_operator_cannot_reconcile_original_responsibility(self):
+        price(self);s,c,q,l,e,d,a=opened_actual(self)
+        result=s._operate('execute',execute_args(self,a,actual=True),key())
+        other=bind(self,self.second).env['ydental.queue.service']._bind_connection(key()+key()).env[s._name]
+        with self.assertRaises(AccessError):other._operate('reconcile',{'event_id':result['event_id'],'reason':'Cannot impersonate original actor'},key())
