@@ -36,7 +36,8 @@ def private(path, value):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=['install', 'upgrade', 'integrate', 'serve', 'export', 'probe', 'race', 'audit'])
+    parser.add_argument('action', choices=['install', 'upgrade', 'integrate', 'serve', 'export', 'probe',
+                                            'ui_seed', 'race', 'audit'])
     parser.add_argument('--db', required=True)
     parser.add_argument('--port', required=True, type=int)
     parser.add_argument('--tests', action='store_true')
@@ -132,7 +133,7 @@ def main():
         'PGOPTIONS': '-c max_parallel_workers_per_gather=0 -c max_parallel_maintenance_workers=0 -c maintenance_work_mem=16384'})
     command = [str(CORE / '.venv/bin/python'), str(CORE / 'odoo-bin')]
     code = None
-    if args.action in ('probe', 'race', 'audit'):
+    if args.action in ('probe', 'ui_seed', 'race', 'audit'):
         command += ['shell', '-c', str(config), '--no-http']
         source = ROOT / ('scripts/s09_' + args.action + '.py')
         code = "import runpy; runpy.run_path(%r, init_globals={'env': env})" % str(source)

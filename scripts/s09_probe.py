@@ -20,10 +20,15 @@ with env.registry.cursor() as cr:
     f.admin._grant(f.second.id, f.stores[0].id, {'export': 'write'})
     f.admin._grant(f.users['reader'].id, f.stores[0].id, {'medical': 'read', 'exam': 'read'})
     price(f, 80, catalog=f.catalogs[2])
-    f.doctor.env['ydental.exam.service']._operate('bind_template', {
+    f.admin._grant(f.users['manager'].id, f.stores[0].id, {'exam': 'write'})
+    reviewer = f.group.env['ydental.exam.service']
+    for catalog, family in ((f.catalogs[2], 'panorama'), (f.catalogs[3], 'cbct')):
+        reviewer._operate('review_capability', {'capability_id': catalog.ydental_capability_id.id,
+            'family': family, 'reason': 'Synthetic reviewed capability source'}, key())
+    reviewer._operate('bind_template', {
         'catalog_id': f.catalogs[2].id, 'code': 'panorama-demo-1',
         'reason': 'Explicit synthetic clinic template review'}, key())
-    f.doctor.env['ydental.exam.service']._operate('bind_template', {
+    reviewer._operate('bind_template', {
         'catalog_id': f.catalogs[3].id, 'code': 'cbct-demo-1',
         'reason': 'Explicit synthetic clinic template review'}, key())
     with patch.object(type(f.group.env['ydental.supply.service']), '_allow_demo_supply', return_value=True):

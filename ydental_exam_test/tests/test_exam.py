@@ -9,7 +9,7 @@ from odoo.tests import TransactionCase, tagged
 from odoo.addons.ydental_treatment_test.tests.common import (
     key, price, queue_bind, lease_args, handover_args, make_slot, serving, save_args,
 )
-from odoo.addons.ydental_treatment_test.tests.treatment_common import setup, opened_actual
+from odoo.addons.ydental_treatment_test.tests.treatment_common import setup, opened_actual, receive
 
 
 @tagged('post_install', '-at_install')
@@ -20,9 +20,14 @@ class TestExamination(TransactionCase):
         setup(cls)
 
     def _bind_templates(self):
-        service = self.doctor.env['ydental.exam.service']
+        service = self.group.env['ydental.exam.service']
+        self.admin._grant(self.users['manager'].id, self.stores[0].id, {'exam': 'write'})
+        reviewer = self.group.env['ydental.exam.service']
         for catalog, code in ((self.catalogs[2], 'panorama-demo-1'),
                               (self.catalogs[3], 'cbct-demo-1')):
+            reviewer._operate('review_capability', {'capability_id': catalog.ydental_capability_id.id,
+                'family': 'panorama' if code.startswith('panorama') else 'cbct',
+                'reason': 'Synthetic capability family evidence'}, key())
             service._operate('bind_template', {'catalog_id': catalog.id, 'code': code,
                 'reason': 'Synthetic reviewed template association'}, key())
 
@@ -327,7 +332,12 @@ class TestExamination(TransactionCase):
                          ('pending', 'missing_price', False))
 
     def test_wrong_template_type_cannot_bind_to_other_capability(self):
-        service = self.doctor.env['ydental.exam.service']
+        self.admin._grant(self.users['manager'].id, self.stores[0].id, {'exam': 'write'})
+        reviewer = self.group.env['ydental.exam.service']
+        for catalog, family in ((self.catalogs[2], 'panorama'), (self.catalogs[3], 'cbct')):
+            reviewer._operate('review_capability', {'capability_id': catalog.ydental_capability_id.id,
+                'family': family, 'reason': 'Synthetic verified family'}, key())
+        service = reviewer
         with self.assertRaises(ValidationError):
             service._operate('bind_template', {'catalog_id': self.catalogs[2].id,
                 'code': 'cbct-demo-1', 'reason': 'Synthetic wrong capability must be rejected'}, key())
@@ -336,6 +346,51 @@ class TestExamination(TransactionCase):
         with self.assertRaises(ValidationError):
             service._operate('bind_template', {'catalog_id': self.catalogs[3].id,
                 'code': 'panorama-demo-1', 'reason': 'Synthetic reverse mismatch must be rejected'}, key())
+        with self.assertRaises(AccessError):
+            self.root['ydental.access.capability'].browse(self.catalogs[2].ydental_capability_id.id).write({
+                'ydental_exam_family': 'cbct'})
+        with self.assertRaises(AccessError):
+            self.root['ydental.access.capability'].create({'name': 'Unreviewed profile injection',
+                'ydental_code': 'unreviewed-' + key(), 'ydental_exam_family': 'cbct'})
+
+    def test_required_material_evidence_can_be_verified_after_pending_departure(self):
+        self.admin._grant(self.users['manager'].id, self.stores[0].id, {'exam': 'write'})
+        manager = self.group.env['ydental.exam.service']
+        manager._operate('review_capability', {'capability_id': self.catalogs[2].ydental_capability_id.id,
+            'family': 'panorama', 'reason': 'Synthetic known examination family'}, key())
+        manager._operate('bind_template', {'catalog_id': self.catalogs[2].id,
+            'code': 'panorama-demo-1', 'reason': 'Synthetic material evidence required',
+            'material_required': True}, key())
+        price(self, 80, catalog=self.catalogs[2])
+        receive(self, quantity=5)
+        with patch.object(type(self.group.env['ydental.supply.service']), '_allow_demo_supply', return_value=True):
+            treatment, clinical, _queue, lease, _medical, document, args = opened_actual(self)
+        issued = self._order(treatment, args, indexes=(2,))
+        clinical._operate('handover', handover_args(document, lease))
+        service, action = self._external_start(issued)
+        service._operate('draft', action | {'version': 0, 'findings': '批次待核对的实际检查',
+            'measurements': {}, 'conclusion': ''}, key())
+        actual = service._operate('perform', action | {'reason': '实际检查已实施', 'materials': []}, key())
+        event = self.root['ydental.treatment.event'].browse(actual['event_id'])
+        self.assertEqual((event.state, event.ydental_pending_reason), ('pending', 'material_evidence_missing'))
+        self.assertFalse(self.root['ydental.treatment.fee'].search([('ydental_event_id', '=', event.id)]))
+        departed = service._operate('finish', action | {'reason': '临床离场，批次仍需核对'}, key())
+        self.assertEqual(departed['pending_event_id'], event.id)
+        material = {'lot_id': self.lots['material'], 'quantity': 1, 'uom_id': self.uom.id,
+            'kind': 'treatment'}
+        resolved = service._operate('verify_materials', {'line_id': action['line_id'],
+            'materials': [material], 'reason': '原操作员现场批次证据核对'}, key())
+        self.assertEqual((resolved['state'], event.state), ('confirmed', 'confirmed'))
+        self.assertEqual(self.root['ydental.treatment.fee'].search_count([('ydental_event_id', '=', event.id)]), 1)
+        self.assertEqual(self.root['ydental.treatment.consumption'].search_count([
+            ('ydental_event_id', '=', event.id)]), 1)
+        consumption = self.root['ydental.treatment.consumption'].search([
+            ('ydental_event_id', '=', event.id)], limit=1)
+        self.assertEqual(consumption.ydental_inventory_event_id.state, 'done')
+        self.assertEqual(consumption.ydental_inventory_event_id.ydental_move_id.state, 'done')
+        with self.assertRaises((AccessError, UserError)):
+            service._operate('verify_materials', {'line_id': action['line_id'],
+                'materials': [material], 'reason': 'Cannot add a second original batch'}, key())
 
     def test_text_only_save_does_not_clear_known_measurement(self):
         self._bind_templates()
@@ -351,6 +406,16 @@ class TestExamination(TransactionCase):
             'findings': '仅修改所见', 'measurements': {}, 'conclusion': ''}, key())
         self.assertEqual(saved['version'], draft['version'] + 1)
         self.assertEqual(service._view(action['line_id'])['measurements'], known)
+        zero = {'length_mm': {'status': 'known', 'value': 0, 'unit': 'mm'}}
+        updated = service._operate('draft', action | {'version': saved['version'],
+            'findings': '零值仍有效', 'measurements': zero, 'conclusion': ''}, key())
+        kept = service._operate('draft', action | {'version': updated['version'],
+            'findings': '仅改文字，零值保留', 'measurements': {}, 'conclusion': ''}, key())
+        self.assertEqual(service._view(action['line_id'])['measurements'], zero)
+        na = {'length_mm': {'status': 'not_applicable', 'value': None, 'unit': 'mm'}}
+        service._operate('draft', action | {'version': kept['version'],
+            'findings': '本项目不适用', 'measurements': na, 'conclusion': ''}, key())
+        self.assertEqual(service._view(action['line_id'])['measurements'], na)
 
     def test_panorama_task_cannot_be_called_from_idle_cbct_station(self):
         self._bind_templates()

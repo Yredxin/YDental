@@ -7,6 +7,7 @@ import os
 from pathlib import Path
 import re
 import stat
+import subprocess
 import sys
 from urllib.parse import urlsplit
 
@@ -50,13 +51,16 @@ def main():
     accounts = json.loads(credentials.read_text())
     if args.require_chinese:
         require(accounts.get('language') == 'zh_CN', 'Final Chinese account fixture missing')
-    f1 = json.loads((run / 'f1-result.json').read_text())
+    summaries = sorted(run.glob('f1-result-*.json'))
+    require(len(summaries) == 1, 'Exactly one committed F1 summary is required')
+    f1 = json.loads(summaries[0].read_text())
     require(f1['result'] == 'PASS' and f1['amount'] == 80 and f1['event_state'] == 'confirmed',
             'Committed F1 source is not eligible for UI review')
     evidence = ROOT / 'docs/evidence/s09-rework/browser' / datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f')
     evidence.mkdir(parents=True)
     base = f'http://127.0.0.1:{args.port}'
-    result = {'database': args.db, 'product_sha': '739a473948b014c7a31c2bda23c62f3b79e7336d',
+    result = {'database': args.db,
+              'source_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
               'checks': [], 'screenshots': [], 'pageerrors': [], 'pdf': {}}
 
     def check(name, condition):

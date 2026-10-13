@@ -176,6 +176,7 @@ with env.registry.cursor() as cr:
 with env.registry.cursor() as cr:
     fixture = SimpleNamespace(env=api.Environment(cr, 1, {}))
     setup(fixture)
+    fixture.admin._grant(fixture.users['manager'].id, fixture.stores[0].id, {'exam': 'write'})
     original = fixture.stations[0][0]
     chair = fixture.root['ydental.space.station'].create({
         'name': 'Synthetic inline cancel-start race chair',
@@ -206,7 +207,10 @@ with env.registry.cursor() as cr:
     issued = treatment._operate('issue', args | {'order_id': order['order_id'],
         'version': order['version']}, key())
     exam = doctor_queue.env['ydental.exam.service']
-    exam._operate('bind_template', {'catalog_id': fixture.catalogs[2].id,
+    reviewer = fixture.group.env['ydental.exam.service']
+    reviewer._operate('review_capability', {'capability_id': fixture.catalogs[2].ydental_capability_id.id,
+        'family': 'panorama', 'reason': 'Synthetic reviewed capability'}, key())
+    reviewer._operate('bind_template', {'catalog_id': fixture.catalogs[2].id,
         'code': 'panorama-demo-1', 'reason': 'Explicit synthetic reviewed template'}, key())
     line_id = issued['line_ids'][0]
     assert exam._actual(fixture.root['ydental.treatment.line'].browse(line_id), medical.id,
@@ -231,6 +235,101 @@ with env.registry.cursor() as cr:
     record['T05_final_line_state'] = line.state
     record['T05_event_ids'] = events.ids
     record['T05_fee_ids'] = fees.ids
+
+with env.registry.cursor() as cr:
+    fixture = SimpleNamespace(env=api.Environment(cr, 1, {}))
+    setup(fixture)
+    fixture.admin._grant(fixture.users['manager'].id, fixture.stores[0].id, {'exam': 'write'})
+    reviewer = fixture.group.env['ydental.exam.service']
+    reviewer._operate('review_capability', {'capability_id': fixture.catalogs[2].ydental_capability_id.id,
+        'family': 'panorama', 'reason': 'Synthetic exact capability evidence'}, key())
+    catalog_id = fixture.catalogs[2].id
+    good_binding = job(reviewer, 'bind_template', {'catalog_id': catalog_id,
+        'code': 'panorama-demo-1', 'reason': 'Matching reviewed family'})
+    wrong_binding = job(reviewer, 'bind_template', {'catalog_id': catalog_id,
+        'code': 'cbct-demo-1', 'reason': 'Wrong family must fail'})
+    cr.commit()
+
+binding = race('S09_wrong_template_concurrent_binding', [good_binding, wrong_binding])
+assert [row['result'] for row in binding['outcomes']].count('accepted') == 1
+assert [row['code'] for row in binding['outcomes'] if row['result'] == 'rejected'] == ['template_capability_mismatch']
+with env.registry.cursor() as cr:
+    root = api.Environment(cr, 1, {})
+    template = root['ydental.exam.template'].search([('ydental_catalog_id', '=', catalog_id)])
+    assert len(template) == 1 and template.ydental_code == 'panorama-demo-1'
+
+with env.registry.cursor() as cr:
+    fixture = SimpleNamespace(env=api.Environment(cr, 1, {}))
+    setup(fixture)
+    fixture.admin._grant(fixture.users['manager'].id, fixture.stores[0].id, {'exam': 'write'})
+    reviewer = fixture.group.env['ydental.exam.service']
+    reviewer._operate('review_capability', {'capability_id': fixture.catalogs[2].ydental_capability_id.id,
+        'family': 'panorama', 'reason': 'Synthetic exact capability evidence'}, key())
+    reviewer._operate('bind_template', {'catalog_id': fixture.catalogs[2].id,
+        'code': 'panorama-demo-1', 'reason': 'Matching reviewed family'}, key())
+    with patch.object(type(fixture.group.env['ydental.supply.service']),
+                      '_allow_demo_supply', return_value=True):
+        treatment, clinical, _queue, doctor_lease, medical, document, args = opened_actual(fixture)
+    row = {'mapping_id': fixture.mappings[0][2].id, 'quantity': 1,
+        'uom_id': fixture.uom.id, 'product_id': False, 'specification': '',
+        'usage': '', 'frequency': '', 'course': ''}
+    order = treatment._operate('order', args | {'kind': 'exam',
+        'purpose': 'Synthetic pending finish and measurements race', 'lines': [row]}, key())
+    issued = treatment._operate('issue', args | {'order_id': order['order_id'],
+        'version': order['version']}, key())
+    clinical._operate('handover', handover_args(document, doctor_lease))
+    task = fixture.root['ydental.intake.task'].browse(issued['task_ids'][0])
+    fixture.front._operate('report', {'task_id': task.id, 'version': task.ydental_version}, key())
+    examiner = queue_bind(fixture, fixture.second)
+    lease = examiner._operate('enter', {'station_id': fixture.stations[0][2].id})
+    called = examiner._operate('call', lease_args(lease))
+    started = examiner._operate('start', lease_args(lease) | {'entry_id': called['entry_id']})
+    exam = examiner.env['ydental.exam.service']
+    action = {'line_id': issued['line_ids'][0], 'execution_id': started['execution_id'],
+        'lease_id': lease['lease_id'], 'lease_token': lease['token'], 'inline': False}
+    drafted = exam._operate('draft', action | {'version': 0, 'findings': 'Synthetic initial finding',
+        'measurements': {'length_mm': {'status': 'known', 'value': 12, 'unit': 'mm'}},
+        'conclusion': ''}, key())
+    saved_version = drafted['version']
+    draft_one = job(exam, 'draft', action | {'version': saved_version,
+        'findings': 'First concurrent finding', 'measurements': {}, 'conclusion': ''})
+    draft_two = job(exam, 'draft', action | {'version': saved_version,
+        'findings': 'Second concurrent finding', 'measurements': {
+            'length_mm': {'status': 'unknown', 'value': None, 'unit': 'mm'}}, 'conclusion': ''})
+    cr.commit()
+
+measurement_race = race('S09_measurement_edit_same_version', [draft_one, draft_two])
+assert [row['result'] for row in measurement_race['outcomes']].count('accepted') == 1
+with env.registry.cursor() as cr:
+    root = api.Environment(cr, 1, {})
+    result = root['ydental.exam.result'].search([('ydental_line_id', '=', action['line_id'])], limit=1)
+    assert result.ydental_version == saved_version + 1
+    assert result.ydental_measurements['length_mm'] in (
+        {'status': 'known', 'value': 12, 'unit': 'mm'},
+        {'status': 'unknown', 'value': None, 'unit': 'mm'})
+
+with env.registry.cursor() as cr:
+    root = api.Environment(cr, fixture.second.id, dict(exam.env.context))
+    exam = root['ydental.exam.service']
+    performed = exam._operate('perform', action | {'reason': 'Actual examination with missing original price',
+        'materials': []}, key())
+    assert performed['event_state'] == 'pending' and performed['pending_reason'] == 'missing_price'
+    finish_one = job(exam, 'finish', action | {'reason': 'Clinical departure while original fee remains pending'})
+    finish_two = job(exam, 'finish', action | {'reason': 'Concurrent duplicate departure must fail'})
+    cr.commit()
+
+departures = race('S09_pending_departure_two_backends', [finish_one, finish_two])
+assert [row['result'] for row in departures['outcomes']].count('accepted') == 1
+with env.registry.cursor() as cr:
+    root = api.Environment(cr, 1, {})
+    event = root['ydental.treatment.event'].browse(performed['event_id'])
+    execution = root['ydental.queue.execution'].browse(action['execution_id'])
+    lease = root['ydental.queue.lease'].browse(action['lease_id'])
+    assert event.state == 'pending' and event.ydental_pending_reason == 'missing_price'
+    assert execution.state == 'completed' and not lease.ydental_active
+    assert not root['ydental.treatment.fee'].search([('ydental_event_id', '=', event.id)])
+    assert root['ydental.treatment.event'].search_count([
+        ('ydental_order_line_id', '=', action['line_id'])]) == 1
 
 run.joinpath('race-result-' + datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%f') + '.json').write_text(
     json.dumps(record, ensure_ascii=False, indent=2) + '\n')
