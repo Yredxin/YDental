@@ -6,6 +6,5 @@
     'depends': ['ydental_print'],
     'data': ['security/ir.access.csv', 'report/ydental_exam_reports.xml',
              'report/ydental_exam_templates.xml', 'views/ydental_exam_templates.xml'],
-    'assets': {'web.assets_frontend': ['ydental_exam/static/src/workbench/workbench.js']},
     'installable': True,
 }

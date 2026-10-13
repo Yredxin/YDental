@@ -14,6 +14,8 @@ from odoo.tools import consteq
 from odoo.tools.pdf import PdfFileReader, PdfReadError
 from odoo.addons.base.models.ir_qweb import QWebError
 
+from .ydental_access_capability import PROFILE_GUARD
+
 
 TEMPLATES = {
     'oral-demo-1': {'capability': 'oral', 'measurements': {'count': 'count'}},
@@ -75,7 +77,9 @@ class YDentalExamService(models.AbstractModel):
             template = self._model('template').search([
                 ('ydental_store_id', '=', line.ydental_store_id.id),
                 ('ydental_catalog_id', '=', catalog.id), ('ydental_active', '=', True)], limit=1)
-            if not template or template.ydental_code not in TEMPLATES:
+            if not template or template.ydental_code not in TEMPLATES or (
+                    catalog.ydental_capability_id.sudo().ydental_exam_family !=
+                    TEMPLATES[template.ydental_code]['capability']):
                 raise UserError(self.env._('template_required: Bind a reviewed demonstration template to this exact examination catalog.'))
             result = self._model('result')._new({'name': line.name, 'ydental_store_id': line.ydental_store_id.id,
                 'ydental_category': 'exam', 'ydental_patient_id': line.ydental_patient_id.id,
@@ -86,13 +90,15 @@ class YDentalExamService(models.AbstractModel):
                 'ydental_template_version': 'S09-DRAFT-1'})
         return result
 
-    def _bind_template(self, catalog_id, code, reason):
+    def _bind_template(self, catalog_id, code, reason, material_required=False):
         store = self._store(write=True)
         self.env['ydental.access.service']._check('medical', 'write', write=True)
         catalog = self.env['ydental.intake.catalog'].sudo().browse(self.env['ydental.intake.service']._id(catalog_id)).exists()
-        if not catalog or catalog.ydental_kind != 'exam' or code not in TEMPLATES or (
+        if type(material_required) is not bool or not catalog or catalog.ydental_kind != 'exam' or code not in TEMPLATES or (
                 not catalog.ydental_capability_id.active):
             raise ValidationError(self.env._('template_required: Select an active examination catalog and a reviewed demonstration template.'))
+        if catalog.ydental_capability_id.sudo().ydental_exam_family != TEMPLATES[code]['capability']:
+            raise ValidationError(self.env._('template_capability_mismatch: Review the exact service capability before binding its matching examination template.'))
         reason = self.env['ydental.intake.service']._text(reason)
         mapping = self.env['ydental.intake.mapping'].sudo().search([
             ('ydental_catalog_id', '=', catalog.id), ('ydental_store_id', '=', store.id)], limit=1)
@@ -101,15 +107,44 @@ class YDentalExamService(models.AbstractModel):
         previous = self._model('template').search([
             ('ydental_catalog_id', '=', catalog.id), ('ydental_store_id', '=', store.id)], limit=1)
         if previous:
-            if previous.ydental_code != code:
+            if previous.ydental_code != code or previous.ydental_material_required != material_required:
                 raise UserError(self.env._('history_immutable: Create a new catalog for a different result template.'))
             return {'template_id': previous.id, 'code': previous.ydental_code}
         template = self._model('template')._new({'name': catalog.name, 'ydental_store_id': store.id,
             'ydental_category': 'exam', 'ydental_patient_id': False, 'ydental_actor_id': self.env.uid,
             'ydental_catalog_id': catalog.id, 'ydental_code': code, 'ydental_active': True,
-            'ydental_reason': reason})
-        self._audit('template_bound', template, {'catalog_id': catalog.id, 'code': code}, reason)
+            'ydental_reason': reason, 'ydental_material_required': material_required})
+        self._audit('template_bound', template, {'catalog_id': catalog.id, 'code': code,
+            'material_required': material_required}, reason)
         return {'template_id': template.id, 'code': code}
+
+    def _review_capability(self, capability_id, family, reason):
+        store = self._store(write=True)
+        self.env['ydental.access.service']._check('medical', 'write', write=True)
+        if not self.env.user.has_group('ydental_access.ydental_group_manager') or family not in {
+                item['capability'] for item in TEMPLATES.values()}:
+            raise AccessError(self.env._('access_denied: A store clinical administrator must review the examination capability family.'))
+        capability = self.env['ydental.access.capability'].sudo().browse(
+            self.env['ydental.intake.service']._id(capability_id)).exists()
+        mapped = self.env['ydental.intake.mapping'].sudo().search_count([
+            ('ydental_store_id', '=', store.id), ('ydental_catalog_id.ydental_kind', '=', 'exam'),
+            ('ydental_catalog_id.ydental_capability_id', '=', capability.id)]) if capability else 0
+        if not capability or not capability.active or not mapped:
+            raise AccessError(self.env._('source_required: Review a live examination capability mapped to this store.'))
+        reason = self.env['ydental.intake.service']._text(reason)
+        if len(reason) > 240:
+            raise ValidationError(self.env._('invalid_reason: Keep the reviewed capability evidence within 240 characters.'))
+        if capability.ydental_exam_family:
+            if capability.ydental_exam_family != family:
+                raise UserError(self.env._('history_immutable: The reviewed capability family cannot be silently changed.'))
+            return {'capability_id': capability.id, 'family': family}
+        capability.with_context(ydental_exam_profile_guard=PROFILE_GUARD).write({
+            'ydental_exam_family': family, 'ydental_exam_review_actor_id': self.env.uid,
+            'ydental_exam_reviewed_at': fields.Datetime.now(), 'ydental_exam_review_reason': reason})
+        self.env['ydental.access.service']._audit('exam.capability_reviewed', 'exam', capability, store.id,
+            after={'capability_id': capability.id, 'family': family}, reason=reason,
+            source='examination_capability_review')
+        return {'capability_id': capability.id, 'family': family}
 
     def _revalidate(self, line_id, execution_id, lease_id, lease_token, document_id, document_version, reason):
         treatment = self.env['ydental.treatment.service']
@@ -260,7 +295,10 @@ class YDentalExamService(models.AbstractModel):
         if result.state in ('confirmed', 'aborted'):
             raise UserError(self.env._('version_conflict: A confirmed or aborted result needs its own controlled action.'))
         self._editor(result, version)
-        findings, measurements, conclusion = self._content(findings, measurements, conclusion, result.ydental_template_code)
+        if not isinstance(measurements, dict):
+            raise ValidationError(self.env._('invalid_result: Measurement updates must be a field map.'))
+        findings, measurements, conclusion = self._content(findings,
+            dict(result.ydental_measurements or {}) | measurements, conclusion, result.ydental_template_code)
         result._save({'ydental_findings': findings, 'ydental_measurements': measurements,
             'ydental_conclusion': conclusion, 'ydental_version': version + 1})
         self._version(result, 'draft')
@@ -306,7 +344,10 @@ class YDentalExamService(models.AbstractModel):
             raise UserError(self.env._('result_required: Correct only a confirmed result.'))
         self._editor(result, version)
         reason = self.env['ydental.intake.service']._text(reason)
-        findings, measurements, conclusion = self._content(findings, measurements, conclusion, result.ydental_template_code)
+        if not isinstance(measurements, dict):
+            raise ValidationError(self.env._('invalid_result: Measurement updates must be a field map.'))
+        findings, measurements, conclusion = self._content(findings,
+            dict(result.ydental_measurements or {}) | measurements, conclusion, result.ydental_template_code)
         if not findings:
             raise ValidationError(self.env._('result_required: Confirmed findings cannot be blank.'))
         result._save({'ydental_findings': findings, 'ydental_measurements': measurements,
@@ -337,17 +378,29 @@ class YDentalExamService(models.AbstractModel):
         line = self._line(line_id, write=True)
         execution = self._actual(line, execution_id, lease_id, lease_token, inline)
         result = self._result(line)
-        if line.state not in ('done', 'aborted', 'partial') or not result or (
-                result.ydental_event_id and result.ydental_event_id.state != 'confirmed'):
+        if line.state not in ('done', 'aborted', 'partial') or not result:
+            raise UserError(self.env._('reconcile_required: Resolve the actual examination fact before leaving.'))
+        event = result.ydental_event_id
+        pending = bool(event and event.state == 'pending' and event.ydental_already_performed and
+            event.ydental_pending_reason and event.ydental_order_line_id == line and
+            event.ydental_execution_id == execution and event.ydental_store_id == line.ydental_store_id)
+        if event and event.state != 'confirmed' and not pending:
             raise UserError(self.env._('reconcile_required: Resolve the actual examination fact before leaving.'))
         reason = self.env['ydental.intake.service']._text(reason)
+        if pending:
+            self._audit('pending_departure', result, {'event_id': event.id,
+                'pending_reason': event.ydental_pending_reason, 'original_actor_id': event.ydental_actor_id.id,
+                'actual_at': str(event.ydental_actual_at), 'execution_id': execution.id}, reason)
         if inline:
-            self._audit('inline_exam_resolved', result, {'execution_id': execution.id, 'line_id': line.id}, reason)
-            return {'execution_id': execution.id, 'state': 'medical_continues', 'line_id': line.id}
+            self._audit('inline_exam_resolved', result, {'execution_id': execution.id,
+                'line_id': line.id, 'pending_event_id': event.id if pending else False}, reason)
+            return {'execution_id': execution.id, 'state': 'medical_continues_pending_reconciliation' if pending else 'medical_continues',
+                'line_id': line.id, 'pending_event_id': event.id if pending else False}
         queue = self.env['ydental.queue.service']
         queue._finish_exam_segment(execution, reason)
         queue._exit(lease_id, lease_token)
-        return {'execution_id': execution.id, 'state': 'completed', 'line_id': line.id}
+        return {'execution_id': execution.id, 'state': 'completed_pending_reconciliation' if pending else 'completed',
+            'line_id': line.id, 'pending_event_id': event.id if pending else False}
 
     def _reconcile(self, line_id, reason):
         line = self._line(line_id, write=True)
@@ -361,13 +414,41 @@ class YDentalExamService(models.AbstractModel):
         self._audit('reconciled', result, response, reason)
         return response
 
+    def _verify_materials(self, line_id, materials, reason):
+        line = self._line(line_id, write=True)
+        result = self._result(line)
+        event = result.ydental_event_id if result else False
+        if not event or event.ydental_actor_id.id != self.env.uid or event.ydental_order_line_id != line or (
+                not event.ydental_already_performed or event.state != 'pending' or
+                event.ydental_pending_reason != 'material_evidence_missing'):
+            raise AccessError(self.env._('source_required: Only the original operator may verify missing material evidence for this actual examination.'))
+        reason = self.env['ydental.intake.service']._text(reason)
+        treatment = self.env['ydental.treatment.service']
+        rows = treatment._material_rows(materials, 'exam', line.ydental_store_id)
+        if not rows or treatment._model('consumption').search_count([('ydental_event_id', '=', event.id)]):
+            raise UserError(self.env._('material_evidence_missing: Supply each real physical batch exactly once.'))
+        for row in rows:
+            treatment._new('consumption', event, {'name': event.ydental_source,
+                'ydental_event_id': event.id, 'ydental_lot_id': row['lot_id'],
+                'ydental_quantity': row['quantity'], 'ydental_uom_id': row['uom_id'],
+                'ydental_kind': row['kind']})
+        event._save({'ydental_exam_material_review': reason,
+            'ydental_exam_material_verified_at': fields.Datetime.now(), 'ydental_pending_reason': False})
+        treatment._bookkeep(event)
+        response = treatment._event_result(event)
+        self._audit('materials_verified', result, {'event_id': event.id,
+            'reported_materials': rows, 'event_state': event.state}, reason)
+        return response
+
     def _operate(self, operation, payload, key):
         handlers = {'grant_qualification': self._grant_qualification,
+            'review_capability': self._review_capability,
             'bind_template': self._bind_template, 'revalidate': self._revalidate,
             'release_editor': self._release_editor, 'takeover': self._takeover,
             'draft': self._draft,
             'perform': self._perform, 'confirm': self._confirm, 'correct': self._correct,
             'abort': self._abort, 'finish': self._finish, 'reconcile': self._reconcile,
+            'verify_materials': self._verify_materials,
             'attach': self._attachment}
         if operation not in handlers or not isinstance(payload, dict) or not isinstance(key, str) or not 1 <= len(key) <= 120:
             raise ValidationError(self.env._('invalid_action: Select a documented examination action and stable key.'))
@@ -376,7 +457,7 @@ class YDentalExamService(models.AbstractModel):
         except TypeError as error:
             raise ValidationError(self.env._('invalid_action: Unknown or missing examination arguments.')) from error
         queue = self.env['ydental.queue.service']
-        if operation not in ('grant_qualification', 'bind_template'):
+        if operation not in ('grant_qualification', 'bind_template', 'review_capability'):
             if operation == 'revalidate':
                 self.env['ydental.access.service']._check('medical', 'write', write=True)
             else:
@@ -388,7 +469,7 @@ class YDentalExamService(models.AbstractModel):
             self.env['ydental.inventory.service']._lock()
             self.env.cr.execute('SELECT pg_advisory_xact_lock(%s)', [32008])
             self.env.cr.execute('SELECT pg_advisory_xact_lock(%s)', [33009])
-            if operation not in ('grant_qualification', 'bind_template'):
+            if operation not in ('grant_qualification', 'bind_template', 'review_capability'):
                 if operation == 'revalidate':
                     self.env['ydental.access.service']._check('medical', 'write', write=True)
                 else:

@@ -1264,3 +1264,322 @@ msgstr "门店："
 #: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_pdf
 msgid "项目："
 msgstr "项目："
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "/ 医嘱行"
+msgstr "/ 医嘱行"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "/ 患者"
+msgstr "/ 患者"
+
+#. module: ydental_exam
+#: model:ir.model,name:ydental_exam.model_ydental_inventory_service
+msgid "Atomic native inventory and trusted execution source service"
+msgstr "原生库存与可信执行来源服务"
+
+#. module: ydental_exam
+#: model:ir.model.fields.selection,name:ydental_exam.selection__ydental_access_capability__ydental_exam_family__cbct
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "CBCT"
+msgstr "CBCT"
+
+#. module: ydental_exam
+#: model:ir.model.fields.selection,name:ydental_exam.selection__ydental_access_capability__ydental_exam_family__oral
+msgid "Oral examination"
+msgstr "口腔检查"
+
+#. module: ydental_exam
+#: model:ir.model.fields.selection,name:ydental_exam.selection__ydental_access_capability__ydental_exam_family__panorama
+msgid "Panorama"
+msgstr "全景检查"
+
+#. module: ydental_exam
+#: model:ir.model.fields.selection,name:ydental_exam.selection__ydental_access_capability__ydental_exam_family__periodontal
+msgid "Periodontal examination"
+msgstr "牙周检查"
+
+#. module: ydental_exam
+#: model:ir.model,name:ydental_exam.model_ydental_access_capability
+msgid "YDental common capability dictionary"
+msgstr "YDental通用服务能力字典"
+
+#. module: ydental_exam
+#: model:ir.model,name:ydental_exam.model_ydental_access_service
+msgid "YDental trusted authorization and lifecycle service"
+msgstr "YDental可信授权与生命周期服务"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_access_capability__ydental_exam_family
+msgid "Ydental Exam Family"
+msgstr "检查能力家族"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_treatment_event__ydental_exam_material_review
+msgid "Ydental Exam Material Review"
+msgstr "检查耗材核对依据"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_treatment_event__ydental_exam_material_verified_at
+msgid "Ydental Exam Material Verified At"
+msgstr "检查耗材核对时间"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_access_capability__ydental_exam_review_actor_id
+msgid "Ydental Exam Review Actor"
+msgstr "检查能力审核人"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_access_capability__ydental_exam_review_reason
+msgid "Ydental Exam Review Reason"
+msgstr "检查能力审核依据"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_access_capability__ydental_exam_reviewed_at
+msgid "Ydental Exam Reviewed At"
+msgstr "检查能力审核时间"
+
+#. module: ydental_exam
+#: model:ir.model.fields,field_description:ydental_exam.field_ydental_exam_template__ydental_material_required
+msgid "Ydental Material Required"
+msgstr "实际检查需要耗材"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid ""
+"access_denied: A store clinical administrator must review the examination "
+"capability family."
+msgstr "access_denied: 检查能力家族须由门店临床管理员审核。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_access_capability.py:0
+msgid ""
+"access_denied: Review examination capability through its controlled action."
+msgstr "access_denied: 请通过受控操作审核检查能力。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/controllers/exam.py:0
+msgid "access_denied: Select a current medical area in this store."
+msgstr "access_denied: 请选择本店当前有效的医疗区域。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid ""
+"history_immutable: The reviewed capability family cannot be silently "
+"changed."
+msgstr "history_immutable: 已审核的能力家族不得静默更改。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid ""
+"invalid_reason: Keep the reviewed capability evidence within 240 characters."
+msgstr "invalid_reason: 能力审核依据不得超过240字。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid "invalid_result: Measurement updates must be a field map."
+msgstr "invalid_result: 测量更新必须采用字段映射。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid ""
+"material_evidence_missing: Supply each real physical batch exactly once."
+msgstr "material_evidence_missing: 每个真实耗材批次仅可提交一次。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/controllers/exam.py:0
+msgid "source_required: Continuation task ancestry is invalid."
+msgstr "source_required: 续诊任务来源链无效。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid ""
+"source_required: Only the original operator may verify missing material "
+"evidence for this actual examination."
+msgstr "source_required: 仅原检查操作员可核对本次实际检查缺失的耗材证据。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid ""
+"source_required: Review a live examination capability mapped to this store."
+msgstr "source_required: 请审核已映射到本店的有效检查能力。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_exam_service.py:0
+msgid ""
+"template_capability_mismatch: Review the exact service capability before "
+"binding its matching examination template."
+msgstr "template_capability_mismatch: 绑定检查模板前须审核准确的服务能力家族。"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "上传实际检查附件"
+msgstr "上传实际检查附件"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "不适用"
+msgstr "不适用"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "保持原测量"
+msgstr "保持原测量"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "全景"
+msgstr "全景"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_entry_queue
+msgid "区域检查结果待办"
+msgstr "区域检查结果待办"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "原S06续诊任务"
+msgstr "原S06续诊任务"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "原操作员核对说明"
+msgstr "原操作员核对说明"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "受控附件："
+msgstr "受控附件："
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "口腔检查"
+msgstr "口腔检查"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "字节)"
+msgstr "字节)"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "实际数量"
+msgstr "实际数量"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "实际耗材批次"
+msgstr "实际耗材批次"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "审核此能力家族"
+msgstr "审核此能力家族"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "已测量"
+msgstr "已测量"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "当前接诊患者检查结果"
+msgstr "当前接诊患者检查结果"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_entry_treatment
+msgid "当前接诊检查结果"
+msgstr "当前接诊检查结果"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "当前无医疗接诊中的检查医嘱。"
+msgstr "当前无医疗接诊中的检查医嘱。"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "数量"
+msgstr "数量"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "无"
+msgstr "无"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "未知"
+msgstr "未知"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "查看共享待办"
+msgstr "查看共享待办"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "核对原检查耗材"
+msgstr "核对原检查耗材"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "检查能力家族审核"
+msgstr "检查能力家族审核"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "检查附件"
+msgstr "检查附件"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "牙周检查"
+msgstr "牙周检查"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "耗材批次"
+msgstr "耗材批次"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "能力审核依据"
+msgstr "能力审核依据"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "该区域没有待续诊的检查结果。"
+msgstr "该区域没有待续诊的检查结果。"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "该项目实际需要耗材批次"
+msgstr "该项目实际需要耗材批次"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "请选择现有S06区域"
+msgstr "请选择现有S06区域"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "门诊区域"
+msgstr "门诊区域"
+
+#. module: ydental_exam
+#: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
+msgid "门诊区域续诊检查待办"
+msgstr "门诊区域续诊检查待办"

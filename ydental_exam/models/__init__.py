@@ -1,4 +1,7 @@
 from . import ydental_exam_qualification
+from . import ydental_access_capability
+from . import ydental_access_service
+from . import ydental_inventory_service
 from . import ydental_exam_template
 from . import ydental_exam_result
 from . import ydental_exam_version

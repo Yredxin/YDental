@@ -7,10 +7,10 @@
     <template id="ydental_exam_page" name="Examination workbench">
         <t t-call="web.frontend_layout">
             <main class="container py-4 o_ydental_exam" t-att-data-revision="revision"
-                  t-att-data-execution="execution.id if execution else 0"
+                  t-att-data-execution="str(execution.id if execution else 0)"
                   t-att-data-category="execution.ydental_category if execution else ''"
-                  t-att-data-document="medical_document.id if medical_document else 0"
-                  t-att-data-document-version="medical_document.ydental_version if medical_document else 0"
+                  t-att-data-document="str(medical_document.id if medical_document else 0)"
+                  t-att-data-document-version="str(medical_document.ydental_version if medical_document else 0)"
                   t-att-data-write="'1' if can_write else '0'">
                 <h1>检查工作台</h1>
                 <nav><a href="/ydental/queue">工位叫号</a> | <a href="/ydental/treatment">医疗医嘱</a></nav>
@@ -18,6 +18,47 @@
                 <p>门店 <strong t-out="store.name"/> / 实际服务 <strong t-out="execution.id if execution else '-'"/> / 工位 <strong t-out="execution.ydental_lease_id.ydental_station_id.name if execution else '-'"/></p>
                 <p id="exam-message" role="status">请核对真实医嘱行和当前工位后操作。</p>
                 <a id="exam-reconcile" href="/ydental/exam" target="_blank" rel="noopener" hidden="hidden">响应未知：在新页核对真实记录，勿自动重放。</a>
+                <section id="current-exam-handoff" class="border rounded p-3 my-3">
+                    <h2>当前接诊患者检查结果</h2>
+                    <p t-if="not current_lines">当前无医疗接诊中的检查医嘱。</p>
+                    <p t-foreach="current_lines" t-as="current_line">
+                        <a t-att-href="'/ydental/exam/result/%s' % current_line.id" t-out="current_line.name"/>
+                        / 医嘱行 <t t-out="current_line.id"/>
+                        / 状态 <t t-out="line_labels[current_line.state]"/>
+                    </p>
+                </section>
+                <section id="area-exam-handoff" class="border rounded p-3 my-3">
+                    <h2>门诊区域续诊检查待办</h2>
+                    <form action="/ydental/exam" method="get">
+                        <label>门诊区域 <select name="area_id" required="required">
+                            <option value="">请选择现有S06区域</option>
+                            <option t-foreach="care_areas" t-as="care_area" t-att-value="care_area.id"
+                                    t-att-selected="care_area.id == selected_area_id" t-out="care_area.name"/>
+                        </select></label><button type="submit">查看共享待办</button>
+                    </form>
+                    <p t-if="selected_area_id and not handoff_rows">该区域没有待续诊的检查结果。</p>
+                    <article t-foreach="handoff_rows" t-as="handoff">
+                        <strong>原S06续诊任务 <t t-out="handoff[0].id"/></strong>
+                        / 患者 <t t-out="handoff[0].ydental_patient_id.name"/>
+                        <p t-foreach="handoff[1]" t-as="handoff_line">
+                            <a t-att-href="'/ydental/exam/result/%s' % handoff_line.id" t-out="handoff_line.name"/>
+                            / <t t-out="line_labels[handoff_line.state]"/>
+                        </p>
+                    </article>
+                </section>
+                <section t-if="can_review_capability and capability_options" class="border rounded p-3 my-3">
+                    <h2>检查能力家族审核</h2>
+                    <form t-foreach="capability_options" t-as="capability" data-operation="review_capability"
+                          t-att-data-capability="capability.id">
+                        <strong t-out="capability.name"/>
+                        <select name="family" required="required">
+                            <option value="oral">口腔检查</option><option value="periodontal">牙周检查</option>
+                            <option value="panorama">全景</option><option value="cbct">CBCT</option>
+                        </select>
+                        <input name="reason" required="required" maxlength="240" placeholder="能力审核依据"/>
+                        <button type="submit">审核此能力家族</button>
+                    </form>
+                </section>
                 <section t-if="can_write and can_medical_write and unbound_mappings" class="border rounded p-3 my-3">
                     <h2>检查目录演示模板审核绑定</h2>
                     <p>请选择已由门诊审核的准确项目模板；不同模板应建立新目录，不覆盖已有结果。</p>
@@ -29,6 +70,7 @@
                             <option value="panorama-demo-1">全景检查演示</option>
                             <option value="cbct-demo-1">CBCT检查演示</option>
                         </select>
+                        <label>该项目实际需要耗材批次 <input name="material_required" type="checkbox"/></label>
                         <input name="reason" required="required" maxlength="240" placeholder="审核依据"/>
                         <button type="submit">绑定此目录</button>
                     </form>
@@ -43,19 +85,52 @@
                     <p t-if="event">价格快照 <t t-out="event.ydental_price_snapshot_id.id or '-'"/> / 待核对 <t t-out="event.ydental_pending_reason or '-'"/> / 费源状态 <t t-out="event.state"/></p>
                     <p><a t-att-href="'/ydental/exam/result/%s' % line.id" target="_blank" rel="noopener">查看独立结果与版本</a>
                        <a t-if="row and row.ydental_version" t-att-href="'/ydental/exam/report/%s/%s' % (line.id,row.ydental_version)">下载未签演示PDF</a></p>
+                    <p t-if="row and attachments.filtered(lambda attachment: attachment.res_id == row.id)">
+                        受控附件：
+                        <span t-foreach="attachments.filtered(lambda attachment: attachment.res_id == row.id)" t-as="attachment">
+                            <a t-att-href="'/ydental/exam/attachment/%s/%s' % (line.id,attachment.id)"
+                               t-out="attachment.name"/> (<t t-out="attachment.file_size"/> 字节)
+                        </span>
+                    </p>
                     <form t-if="can_medical_write and medical_document and line.state == 'issued' and line.ydental_patient_id == execution.ydental_patient_id and line.ydental_exam_validated_date != business_date"
                           data-operation="revalidate" t-att-data-line="line.id">
                         <label>今日医嘱有效性确认原因 <input name="reason" required="required" maxlength="240"/></label>
                         <button type="submit">医生确认今日续检</button>
                     </form>
                     <t t-if="can_write and execution and (execution.ydental_task_id == line.ydental_task_id or execution == line.ydental_order_id.ydental_execution_id)">
-                        <form data-operation="draft" t-att-data-line="line.id" t-att-data-version="row.ydental_version if row else 0">
+                        <form data-operation="draft" t-att-data-line="line.id" t-att-data-version="str(row.ydental_version if row else 0)">
                             <label>所见 <textarea name="findings" maxlength="12000" t-out="row.ydental_findings or ''"/></label>
                             <label>人工结论（可空） <textarea name="conclusion" maxlength="12000" t-out="row.ydental_conclusion or ''"/></label>
+                            <div t-foreach="catalog_fields.get(line.id, {}).items()" t-as="measurement" data-measurement="1"
+                                 t-att-data-key="measurement[0]" t-att-data-unit="measurement[1]">
+                                <label><t t-out="measurement[0]"/> (<t t-out="measurement[1]"/>)
+                                    <select name="measurement_status">
+                                        <option value="">保持原测量</option>
+                                        <option value="known" t-att-selected="row and (row.ydental_measurements or {}).get(measurement[0], {}).get('status') == 'known'">已测量</option>
+                                        <option value="unknown" t-att-selected="row and (row.ydental_measurements or {}).get(measurement[0], {}).get('status') == 'unknown'">未知</option>
+                                        <option value="not_applicable" t-att-selected="row and (row.ydental_measurements or {}).get(measurement[0], {}).get('status') == 'not_applicable'">不适用</option>
+                                    </select>
+                                </label>
+                                <input name="measurement_value" type="number" step="any" min="0" max="10000"
+                                       t-att-value="str((row.ydental_measurements or {}).get(measurement[0], {}).get('value')) if row and (row.ydental_measurements or {}).get(measurement[0], {}).get('status') == 'known' else ''"/>
+                            </div>
                             <button type="submit">保存独立结果草稿</button>
+                        </form>
+                        <form t-if="row and row.ydental_version and row.state not in ('aborted','confirmed')"
+                              data-operation="attach" t-att-data-line="line.id" t-att-data-version="row.ydental_version">
+                            <label>检查附件 <input name="evidence" type="file" accept="image/jpeg,image/png,application/pdf" required="required"/></label>
+                            <button type="submit">上传实际检查附件</button>
                         </form>
                         <form t-if="line.state in ('issued','started')" data-operation="perform" t-att-data-line="line.id">
                             <label>实际实施说明 <input name="reason" required="required" maxlength="240"/></label>
+                            <div t-foreach="range(3)" t-as="material_index" data-material-row="1">
+                                <label>耗材批次 <select name="lot_id"><option value="">无</option>
+                                    <option t-foreach="material_lots" t-as="lot" t-att-value="lot.id"
+                                            t-att-data-uom="lot.product_id.ydental_issue_uom_id.id or lot.product_id.uom_id.id"
+                                            t-out="'%s / %s' % (lot.product_id.name, lot.name)"/>
+                                </select></label>
+                                <label>实际数量 <input name="quantity" type="number" step="any" min="0"/></label>
+                            </div>
                             <button type="submit">确认真实执行一次并取价</button>
                         </form>
                         <form t-if="line.state == 'started' or line.state == 'done'" data-operation="abort" t-att-data-line="line.id">
@@ -79,13 +154,53 @@
                     <form t-if="can_write and row and row.state == 'confirmed'" data-operation="correct" t-att-data-line="line.id" t-att-data-version="row.ydental_version">
                         <label>更正原因 <input name="reason" required="required" maxlength="240"/></label>
                         <label>所见 <textarea name="findings" maxlength="12000" t-out="row.ydental_findings or ''"/></label>
-                        <label>结论 <textarea name="conclusion" maxlength="12000" t-out="row.ydental_conclusion or ''"/></label><button type="submit">追加更正版本</button>
+                        <label>结论 <textarea name="conclusion" maxlength="12000" t-out="row.ydental_conclusion or ''"/></label>
+                        <div t-foreach="catalog_fields.get(line.id, {}).items()" t-as="measurement" data-measurement="1"
+                             t-att-data-key="measurement[0]" t-att-data-unit="measurement[1]">
+                            <label><t t-out="measurement[0]"/> (<t t-out="measurement[1]"/>)
+                                <select name="measurement_status">
+                                    <option value="">保持原测量</option>
+                                    <option value="known" t-att-selected="(row.ydental_measurements or {}).get(measurement[0], {}).get('status') == 'known'">已测量</option>
+                                    <option value="unknown" t-att-selected="(row.ydental_measurements or {}).get(measurement[0], {}).get('status') == 'unknown'">未知</option>
+                                    <option value="not_applicable" t-att-selected="(row.ydental_measurements or {}).get(measurement[0], {}).get('status') == 'not_applicable'">不适用</option>
+                                </select>
+                            </label>
+                            <input name="measurement_value" type="number" step="any" min="0" max="10000"
+                                   t-att-value="str((row.ydental_measurements or {}).get(measurement[0], {}).get('value')) if (row.ydental_measurements or {}).get(measurement[0], {}).get('status') == 'known' else ''"/>
+                        </div>
+                        <button type="submit">追加更正版本</button>
+                    </form>
+                    <form t-if="can_write and event and event.state == 'pending' and event.ydental_pending_reason == 'material_evidence_missing'"
+                          data-operation="verify_materials" t-att-data-line="line.id">
+                        <label>原操作员核对说明 <input name="reason" required="required" maxlength="240"/></label>
+                        <div t-foreach="range(3)" t-as="material_index" data-material-row="1">
+                            <label>实际耗材批次 <select name="lot_id"><option value="">无</option>
+                                <option t-foreach="material_lots" t-as="lot" t-att-value="lot.id"
+                                        t-att-data-uom="lot.product_id.ydental_issue_uom_id.id or lot.product_id.uom_id.id"
+                                        t-out="'%s / %s' % (lot.product_id.name, lot.name)"/>
+                            </select></label>
+                            <label>数量 <input name="quantity" type="number" step="any" min="0"/></label>
+                        </div>
+                        <button type="submit">核对原检查耗材</button>
                     </form>
                     <form t-if="can_write and event and event.state == 'pending'" data-operation="reconcile" t-att-data-line="line.id">
                         <label>原执行事实核对说明 <input name="reason" required="required" maxlength="240"/></label><button type="submit">原执行人核对费库</button>
                     </form>
                 </section>
+                <script type="module" src="/ydental_exam/static/src/workbench/workbench.js"/>
             </main>
         </t>
+    </template>
+    <template id="ydental_exam_entry_treatment" inherit_id="ydental_treatment.ydental_treatment_page"
+              name="Examination result in medical service">
+        <xpath expr="//nav/a[@href='/ydental/queue']" position="after">
+            <a href="/ydental/exam#current-exam-handoff">当前接诊检查结果</a> |
+        </xpath>
+    </template>
+    <template id="ydental_exam_entry_queue" inherit_id="ydental_queue.ydental_queue_page"
+              name="Examination result in area queue">
+        <xpath expr="//nav/a[@href='/ydental/access']" position="after">
+            <a href="/ydental/exam#area-exam-handoff">区域检查结果待办</a> |
+        </xpath>
     </template>
 </odoo>

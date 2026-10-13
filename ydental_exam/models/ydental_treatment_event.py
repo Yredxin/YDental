@@ -7,6 +7,8 @@ class YDentalTreatmentEvent(models.Model):
 
     ydental_kind = fields.Selection(selection_add=[('exam', 'Actual examination')],
         ondelete={'exam': lambda rows: rows._preserve_exam_history()})
+    ydental_exam_material_review = fields.Char()
+    ydental_exam_material_verified_at = fields.Datetime()
 
     def _preserve_exam_history(self):
         if self:

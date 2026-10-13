@@ -14,6 +14,7 @@ class YDentalExamTemplate(models.Model):
         ('cbct-demo-1', 'CBCT demonstration'),
     ], required=True)
     ydental_active = fields.Boolean(required=True, default=True)
+    ydental_material_required = fields.Boolean(default=False)
     ydental_reason = fields.Char(required=True)
 
     _one_catalog = models.Constraint('UNIQUE(ydental_store_id, ydental_catalog_id)',

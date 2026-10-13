@@ -4,6 +4,8 @@ from odoo import http
 from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.http import request
 
+from odoo.addons.ydental_exam.models.ydental_exam_service import TEMPLATES
+
 
 HEADERS = [('Cache-Control', 'no-store, private, max-age=0'),
            ('X-Content-Type-Options', 'nosniff'), ('Referrer-Policy', 'no-referrer')]
@@ -26,9 +28,26 @@ class YDentalExam(http.Controller):
         execution = queue._actor_execution()
         if execution and execution.ydental_store_id != store:
             execution = False
+        area_id = int(kwargs.get('area_id') or 0) if str(kwargs.get('area_id') or '').isdigit() else 0
+        care_areas = service.env['ydental.space.area'].sudo().search([
+            ('ydental_store_id', '=', store.id), ('ydental_purpose', '=', 'care'), ('active', '=', True)])
+        if area_id and area_id not in care_areas.ids:
+            raise AccessError(request.env._('access_denied: Select a current medical area in this store.'))
+        continuation_tasks = service.env['ydental.intake.task'].sudo().search([
+            ('ydental_store_id', '=', store.id), ('ydental_source_kind', '=', 'continuation'),
+            ('state', 'in', ('pending', 'accepted', 'started')),
+            ('ydental_mapping_id.ydental_area_id', '=', area_id)], order='id desc', limit=100) if area_id else service.env['ydental.intake.task']
         candidates = service.env['ydental.treatment.line'].sudo().search([
             ('ydental_store_id', '=', store.id), ('ydental_order_id.ydental_kind', '=', 'exam'),
             ('ydental_order_id.state', '=', 'issued')], order='id desc', limit=100)
+        if execution and execution.state == 'serving' and execution.ydental_category == 'medical':
+            candidates |= service.env['ydental.treatment.line'].sudo().search([
+                ('ydental_store_id', '=', store.id), ('ydental_order_id.ydental_kind', '=', 'exam'),
+                ('ydental_patient_id', '=', execution.ydental_patient_id.id)])
+        if continuation_tasks:
+            candidates |= service.env['ydental.treatment.line'].sudo().search([
+                ('ydental_store_id', '=', store.id), ('ydental_order_id.ydental_kind', '=', 'exam'),
+                ('ydental_patient_id', 'in', continuation_tasks.ydental_patient_id.ids)])
         lines = service.env['ydental.treatment.line'].sudo()
         for candidate in candidates:
             try:
@@ -49,6 +68,36 @@ class YDentalExam(http.Controller):
             ('ydental_store_id', '=', store.id), ('ydental_catalog_id.ydental_kind', '=', 'exam')])
         bound_catalogs = service._model('template').search([
             ('ydental_store_id', '=', store.id)]).ydental_catalog_id.ids
+        catalog_fields = {}
+        for line in lines:
+            template = service._model('template').search([
+                ('ydental_store_id', '=', store.id),
+                ('ydental_catalog_id', '=', line.ydental_mapping_id.ydental_catalog_id.id)], limit=1)
+            catalog_fields[line.id] = TEMPLATES.get(template.ydental_code, {}).get('measurements', {})
+        attachments = service.env['ir.attachment'].sudo().search([
+            ('res_model', '=', 'ydental.exam.result'), ('res_id', 'in', results.ids), ('public', '=', False)])
+        material_lots = service.env['stock.lot'].sudo().search([
+            ('ydental_store_id', '=', store.id), ('product_id.ydental_inventory_kind', '=', 'material'),
+            ('product_id.active', '=', True)], order='name, id', limit=100)
+        capability_options = service.env['ydental.access.capability'].sudo().search([
+            ('id', 'in', mappings.ydental_catalog_id.ydental_capability_id.ids),
+            ('ydental_exam_family', '=', False), ('active', '=', True)])
+        current_lines = lines.filtered(lambda line: execution and execution.state == 'serving' and
+            execution.ydental_category == 'medical' and line.ydental_patient_id == execution.ydental_patient_id)
+        handoff_rows = []
+        def source_task(task):
+            seen = set()
+            while task and task.ydental_source_kind == 'continuation' and task.ydental_parent_task_id:
+                if task.id in seen:
+                    raise UserError(request.env._('source_required: Continuation task ancestry is invalid.'))
+                seen.add(task.id)
+                task = task.ydental_parent_task_id
+            return task.id if task else 0
+        for task in continuation_tasks:
+            related = lines.filtered(lambda line: line.ydental_patient_id == task.ydental_patient_id and
+                source_task(line.ydental_task_id.ydental_parent_task_id) == source_task(task))
+            if related:
+                handoff_rows.append((task, related))
         return request.render('ydental_exam.ydental_exam_page', {
             'store': store, 'revision': access._scope().ydental_revision,
             'execution': execution if execution and execution.state == 'serving' else False,
@@ -61,6 +110,13 @@ class YDentalExam(http.Controller):
             'unbound_mappings': mappings.filtered(lambda mapping: mapping.ydental_catalog_id.id not in bound_catalogs),
             'line_labels': dict(lines._fields['state']._description_selection(service.env)),
             'result_labels': dict(results._fields['state']._description_selection(service.env)),
+            'catalog_fields': catalog_fields, 'attachments': attachments, 'material_lots': material_lots,
+            'capability_options': capability_options,
+            'can_review_capability': access._levels(member)['exam'] == 'write' and
+                access._levels(member)['medical'] == 'write' and
+                request.env.user.has_group('ydental_access.ydental_group_manager'),
+            'current_lines': current_lines, 'care_areas': care_areas,
+            'selected_area_id': area_id, 'handoff_rows': handoff_rows,
         }, headers=HEADERS)
 
     @http.route('/ydental/exam/action', type='http', auth='user', methods=['POST'], max_content_length=7500000)
