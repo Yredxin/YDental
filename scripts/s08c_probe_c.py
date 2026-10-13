@@ -34,8 +34,9 @@ def fixtures(cr):
  s,c,q,l,e,d,a=opened_actual(f);p=c.env['ydental.print.service'].with_context(lang='zh_CN')
  return f,s,c,q,l,e,d,a,p
 
-def economy(cr):
+def economy(cr, sources=False):
  names=['ydental_treatment_event','ydental_treatment_fee','ydental_treatment_consumption','ydental_treatment_order','ydental_treatment_line','ydental_inventory_event','stock_move','stock_move_line','stock_quant','ydental_intake_snapshot']
+ if sources:names += ['ydental_clinical_document','ydental_clinical_version','ydental_queue_execution','ydental_queue_entry','ydental_queue_lease','ydental_intake_task','ydental_supply_claim']
  signatures={}
  for table in names:
   cr.execute('SELECT COALESCE(jsonb_agg(to_jsonb(t) ORDER BY id),\'[]\'::jsonb)::text FROM '+table+' t')
@@ -43,12 +44,12 @@ def economy(cr):
  return signatures
 
 def pdf(p,selection,name):
- p.env.flush_all();before=economy(p.env.cr);preview=p._operate('preview',selection)
+ p.env.flush_all();before=economy(p.env.cr, sources=True);preview=p._operate('preview',selection)
  job=p._operate('generate',selection|{'expected_digest':preview['source_digest'],'key':key()})
  binary,signature=p._operate('download',{'job_id':job['job_id']})
  p._operate('pdf_view',{'job_id':job['job_id']});p._operate('print_request',{'job_id':job['job_id']})
  assert binary.startswith(b'%PDF-') and hashlib.sha256(binary).hexdigest()==signature
- assert economy(p.env.cr)==before,'PDF changed economic source tables'
+ assert economy(p.env.cr, sources=True)==before,'PDF changed economic source tables'
  path=folder/(name+'.pdf');path.write_bytes(binary)
  payload=p._source(**selection)[3]
  result['artifacts'].append({'path':str(path.relative_to(root)),'sha256':signature,'job_id':job['job_id'],'source':selection,'versions':job['versions'],'source_digest':job['source_digest'],'fields':payload,'economic_signatures':before})
@@ -57,6 +58,10 @@ def pdf(p,selection,name):
 def race(kind):
  with env.registry.cursor() as cr:
   f,s,c,q,l,e,d,a,p=fixtures(cr);sel={'kind':'clinical','source_id':d['document_id'],'version':d['version']}
+  writer_uid=c.env.uid;writer_context=dict(c.env.context)
+  if kind=='generate_during_source_save':
+   f.admin._grant(f.users['reader'].id,f.stores[0].id,{'medical':'read','export':'write'})
+   p=bind(f,f.users['reader']).env['ydental.print.service'].with_context(lang='zh_CN')
   preview=p._operate('preview',sel);args=sel|{'expected_digest':preview['source_digest'],'key':key()}
   context=dict(p.env.context);uid=p.env.uid;admin_context=dict(f.admin.env.context);admin_uid=f.admin.env.uid
   save=save_args(d,'并发来源新版本正文');docid=d['document_id'];oldversion=d['version'];f.env.flush_all();before=economy(cr)
@@ -84,7 +89,7 @@ def race(kind):
      try:
       if kind=='generate_during_source_save' and index==1:
        assert render_enter.wait(20),'generation did not enter native render'
-       value=service.env['ydental.clinical.service']._operate('save',save)
+       value=api.Environment(cr,writer_uid,writer_context)['ydental.clinical.service']._operate('save',save)
       elif kind=='generate_vs_revoke' and index==1:
        admin=api.Environment(cr,admin_uid,admin_context)['ydental.access.service'];admin._grant(uid,f.stores[0].id,{'export':'none'});value={}
       elif kind=='preview_vs_handover' and index==1:

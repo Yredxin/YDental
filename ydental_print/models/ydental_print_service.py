@@ -322,6 +322,16 @@ class YDentalPrintService(models.AbstractModel):
             raise ValidationError(self.env._('invalid_source: Unknown or missing PDF arguments.')) from error
         access = self.env['ydental.access.service']
         access._lock_user(self.env.uid)
-        access._scope(write=True)
+        session = access._scope(write=True)
+        # Under PostgreSQL repeatable read, advisory/row locks alone do not
+        # refresh a waiting request's snapshot. A value-preserving session
+        # fence makes a competing PDF action retry in a fresh transaction.
+        self.env.cr.execute('UPDATE ydental_access_session SET ydental_revision=ydental_revision WHERE id=%s', [session.id])
+        # Detect a grant/lifecycle change committed while this request waited
+        # on the S01 actor lock; do not accept stale positive permission data.
+        self.env.cr.execute('SELECT id FROM res_users WHERE id=%s FOR UPDATE', [self.env.uid])
+        self.env.cr.execute('SELECT id FROM ydental_access_membership WHERE ydental_user_id=%s AND ydental_store_id=%s FOR UPDATE', [self.env.uid, session.ydental_store_id.id])
+        members = [row[0] for row in self.env.cr.fetchall()]
+        self.env.cr.execute('SELECT id FROM ydental_access_grant WHERE ydental_membership_id=ANY(%s) FOR UPDATE', [members])
         with self.env.cr.savepoint():
             return handlers[operation](**payload)
