@@ -82,7 +82,7 @@ def pharmacy_start(cls, issued, task_id=None):
     return queue.env['ydental.treatment.service'], {'execution_id': actual['execution_id'], 'lease_id': lease['lease_id'],
         'lease_token': lease['token'], 'order_id': issued['order_id'], 'order_version': issued['version']}
 
-def cross_legal_target(cls):
+def cross_legal_target(cls, total=12):
     """A real B company, approved service, business day and published capacity."""
     from .common import make_slot
     company = cls.root['res.company'].create({'name': 'Synthetic target legal entity ' + key()})
@@ -105,7 +105,7 @@ def cross_legal_target(cls):
         'phone_pool': 'reservation', 'cutoff_minutes': 0, 'reason': 'Synthetic published capacity policy'}, key())
     supply._operate('business', {'area_id': area.id, 'state': 'open', 'reason': 'Explicit target business day'}, key())
     mapping = manager._operate('mapping', {'catalog_id': cls.catalogs[0].id, 'area_id': area.id, 'execution_area_id': area.id}, key())
-    slot = make_slot(cls, manager, station, cls.start, cls.end)
+    slot = make_slot(cls, manager, station, cls.start, cls.end, total=total)
     return store, cls.root['ydental.intake.mapping'].browse(mapping['id']), slot
 
 def publish_medicine_link(cls, product, catalog):

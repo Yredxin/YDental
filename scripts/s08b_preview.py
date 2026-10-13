@@ -23,7 +23,7 @@ with env.registry.cursor() as cr:
     price(f,amount=600);price(f,catalog=f.drug_catalog,amount=10)
     med2,lot2,cat2=distinct_medicine(f)
     med3,lot3,cat3=distinct_medicine(f,amount=43,publish=False)
-    legal_store,legal_mapping,legal_slot=cross_legal_target(f)
+    legal_store,legal_mapping,legal_slot=cross_legal_target(f,total=3)
     original_price=f.group._operate('snapshot',{'catalog_id':f.catalogs[0].id,'currency_id':f.currency.id,'quantity':1,'source':'S08B-preexisting-demo-'+key(),'policy':'demo_confirmation'},key())
     task=accepted(f);task.ydental_patient_id._save({'name':'合成患者一号'})
     f.users['doctor2']=f.second
@@ -33,7 +33,7 @@ with env.registry.cursor() as cr:
         password=secrets.token_urlsafe(24);user.write({'password':password,'lang':'zh_CN','name':'合成人员 '+role})
         credentials[role]={'login':user.login,'password':password}
     preview={'medicine_catalog':f.drug_catalog.id,'medicine2':med2,'medicine2_lot':lot2,'medicine2_catalog':cat2.id,
-        'medicine3':med3,'medicine3_lot':lot3,'medicine3_catalog':cat3.id,'legal_store':legal_store.id,'legal_mapping':legal_mapping.id,'legal_company':legal_store.company_id.id,
+        'medicine3':med3,'medicine3_lot':lot3,'medicine3_catalog':cat3.id,'legal_store':legal_store.id,'legal_mapping':legal_mapping.id,'legal_company':legal_store.company_id.id,'legal_area':legal_mapping.ydental_area_id.id,
         'store':f.stores[0].id,'other_store':f.stores[1].id,'station':f.stations[0][0].id,
         'other_station':f.other_station.id,'task':task.id,'patient':task.ydental_patient_id.id,
         'price_snapshot':original_price['id'], 'price_amount':original_price['amount'],

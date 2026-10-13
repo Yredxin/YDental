@@ -182,6 +182,29 @@ def main():
             screenshot(page,ctx,'R07-source-only-cross-legal-referrals.png')
             denied=page.evaluate('''async id=>{const r=await fetch('/web/dataset/call_kw/ydental.intake.mapping/write',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:'call',params:{model:'ydental.intake.mapping',method:'write',args:[[id],{name:'Forbidden target mutation'}],kwargs:{}}})});return (await r.json()).error!==undefined}''',preview['legal_mapping'])
             check('cross-legal controlled referral grants no target ordinary RPC write',denied)
+            def referral_form(mode):
+                form=page.locator('form[data-operation=refer]');form.locator('[name=mapping_id]').select_option(str(preview['legal_mapping']));form.locator('[name=mode]').select_option(mode);form.locator('[name=reason]').fill('跨法人失败后保留来源与既有事实')
+                if mode=='timed':
+                    form.locator('[name=start]').fill(preview['start'].replace(' ','T').removesuffix(':00'));form.locator('[name=end]').fill(preview['end'].replace(' ','T').removesuffix(':00'))
+                else:form.locator('[name=valid_until]').fill((datetime.now(timezone.utc).replace(tzinfo=None)+__import__('datetime').timedelta(days=1)).strftime('%Y-%m-%dT%H:%M'))
+                return form
+            reject(page,referral_form('timed'),'insufficient_balance','full cross-legal target refuses another timed claim')
+            screenshot(page,ctx,'R12-cross-legal-full-capacity-rejected.png');page.reload();ready(page)
+            managerctx,manager=login('manager');manager.goto(base+'/ydental/access')
+            switched=manager.evaluate("async store=>{const r=await fetch('/ydental/access/action',{method:'POST',body:new URLSearchParams({operation:'switch',revision:document.querySelector('[name=revision]').value,csrf_token:document.querySelector('[name=csrf_token]').value,output:'json',payload:JSON.stringify({store_id:store})})});return r.status}",preview['legal_store'])
+            require(switched==200,'target-authorized manager selects B')
+            def business(state):
+                manager.goto(base+'/ydental/supply');form=manager.locator('#business-day form').filter(has=manager.locator('input[name=area_id][value="%s"]'%preview['legal_area'])).filter(has=manager.locator('input[name=version]'))
+                form.locator('[name=state]').select_option(state);form.locator('[name=reason]').fill('目标责任人明确停接及恢复，核对原来源不受损')
+                with manager.expect_navigation(wait_until='domcontentloaded'):form.locator('button').click()
+                require('/ydental/supply' in manager.url,'target business transition completed')
+            business('draining');page.reload();ready(page)
+            reject(page,referral_form('untimed'),None,'stopped cross-legal target refuses untimed referral')
+            screenshot(page,ctx,'R13-cross-legal-stopped-target-rejected.png');business('open');page.reload();ready(page)
+            invalid=referral_form('untimed');invalid.locator('[name=mapping_id]').evaluate('(el,id)=>{const o=new Option("非法本店目标",String(id));el.add(o);el.value=String(id)}',preview['mapping'])
+            reject(page,invalid,None,'server rejects modified non-cross-store target mapping')
+            screenshot(page,ctx,'R14-illegal-target-keeps-original-source.png');page.reload();ready(page)
+            check('three cross-legal failures preserve source serving and exactly two original receipts',int(page.locator('main.o_ydental_treatment').get_attribute('data-execution') or 0)>0 and page.locator('[data-referral-receipt]').count()==2)
             page.goto(base+'/ydental/clinical?document_id='+str(d1));open_editor(page);click_wait(page,'#handover-document');page.goto(base+'/ydental/queue');click_wait(page,'button[data-operation=exit]')
             frontctx,front=login('frontdesk')
             def report(task):
