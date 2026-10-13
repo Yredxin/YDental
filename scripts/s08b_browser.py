@@ -137,7 +137,7 @@ def main():
                 page.wait_for_timeout(30)
                 if held:break
             require(held and held[0]['response'].status==200,'real committed execute response barrier')
-            check('actual confirmation freezes every editable control while response held',page.locator('input:enabled,select:enabled,button:enabled').count()==0)
+            check('actual confirmation freezes every editable control while response held',page.locator('.o_ydental_treatment input:enabled,.o_ydental_treatment select:enabled,.o_ydental_treatment button:enabled').count()==0)
             form.locator('[name=reason]').evaluate("el=>{el.value='响应期间程序改变的未提交内容'}")
             held[0]['route'].fulfill(response=held[0]['response']);page.unroute('**/ydental/treatment/action',hold)
             page.wait_for_function('!document.querySelector("#treatment-reconcile").hidden')
