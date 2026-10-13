@@ -1,0 +1,212 @@
+{
+  "result": "PASS",
+  "fixed_product_sha": "739a473948b014c7a31c2bda23c62f3b79e7336d",
+  "fixed_test_sha": "197d1942753fc5cb960af54b47f51dbd7959e4c7",
+  "database": "ydental_s09_test_20261013101000_0f5c8d2a",
+  "oid": 1501596,
+  "cluster": "7694897083368259627",
+  "port": 18196,
+  "config_sha256": "eb36feec67e40fba2288516fef3f938764ca44136eebcb6a6f1b7a66ddae0a5d",
+  "actions": [
+    {
+      "action": "install",
+      "pid": 1853562,
+      "exit_code": 0,
+      "signal": null,
+      "log": "install-20261013T100956959738.log",
+      "sha256": "54f475f0aefc1640f2fe538f01678507f71bac7161c411821496746881c1810c",
+      "commit": "197d1942753fc5cb960af54b47f51dbd7959e4c7",
+      "time_utc": "2026-10-13T10:14:16.786223+00:00",
+      "tests": {
+        "failed": 0,
+        "errors": 0,
+        "total": 145
+      },
+      "command": "../.venv/bin/python scripts/s09.py install --db ydental_s09_test_20261013101000_0f5c8d2a --port 18196 --tests --upstream"
+    },
+    {
+      "action": "upgrade",
+      "pid": 1856226,
+      "exit_code": 0,
+      "signal": null,
+      "log": "upgrade-20261013T101424312707.log",
+      "sha256": "90d04fce884bf572ae562876e2ce207018ebb5fdd2c1ff0b5275c110cd0eed06",
+      "commit": "197d1942753fc5cb960af54b47f51dbd7959e4c7",
+      "time_utc": "2026-10-13T10:17:41.709325+00:00",
+      "tests": {
+        "failed": 0,
+        "errors": 0,
+        "total": 143
+      },
+      "command": "../.venv/bin/python scripts/s09.py upgrade --db ydental_s09_test_20261013101000_0f5c8d2a --port 18196 --tests --upstream"
+    },
+    {
+      "action": "probe",
+      "pid": 1858318,
+      "exit_code": 0,
+      "signal": null,
+      "log": "probe-20261013T101750681801.log",
+      "sha256": "e35c1f00cae8f4457a839432a5eae5f6518f3190aa16491b28ebfb009002e9ae",
+      "commit": "197d1942753fc5cb960af54b47f51dbd7959e4c7",
+      "time_utc": "2026-10-13T10:18:01.122219+00:00",
+      "command": "../.venv/bin/python scripts/s09.py probe --db ydental_s09_test_20261013101000_0f5c8d2a --port 18196"
+    },
+    {
+      "action": "audit",
+      "pid": 1858516,
+      "exit_code": 0,
+      "signal": null,
+      "log": "audit-20261013T101809147563.log",
+      "sha256": "2c62b4f45b3e48dfde865eb7518e8d857eaa61a6209aa0d723bcae52d0b611a6",
+      "commit": "197d1942753fc5cb960af54b47f51dbd7959e4c7",
+      "time_utc": "2026-10-13T10:18:10.517215+00:00",
+      "command": "../.venv/bin/python scripts/s09.py audit --db ydental_s09_test_20261013101000_0f5c8d2a --port 18196"
+    },
+    {
+      "action": "upgrade",
+      "pid": 1858609,
+      "exit_code": 0,
+      "signal": null,
+      "log": "upgrade-20261013T101819854418.log",
+      "sha256": "5f42f22bf8f8ae93be3cb23a7ec500080f56612000d2fc69946535d85d28e1f8",
+      "commit": "197d1942753fc5cb960af54b47f51dbd7959e4c7",
+      "time_utc": "2026-10-13T10:21:37.065362+00:00",
+      "tests": {
+        "failed": 0,
+        "errors": 0,
+        "total": 143
+      },
+      "command": "../.venv/bin/python scripts/s09.py upgrade --db ydental_s09_test_20261013101000_0f5c8d2a --port 18196 --tests --upstream"
+    },
+    {
+      "action": "audit",
+      "pid": 1860683,
+      "exit_code": 0,
+      "signal": null,
+      "log": "audit-20261013T102147004523.log",
+      "sha256": "38da859777ba35aafd10457afca11d995d0c416d881741ba9f1b0264b00fd631",
+      "commit": "197d1942753fc5cb960af54b47f51dbd7959e4c7",
+      "time_utc": "2026-10-13T10:21:48.419803+00:00",
+      "command": "../.venv/bin/python scripts/s09.py audit --db ydental_s09_test_20261013101000_0f5c8d2a --port 18196"
+    },
+    {
+      "action": "race",
+      "pid": 1860917,
+      "exit_code": 0,
+      "signal": null,
+      "log": "race-20261013T102209639993.log",
+      "sha256": "f8dedb15b418ea68a0ebd70644d97f8fdc546a853c075e2ffd56fb8b7712347f",
+      "commit": "197d1942753fc5cb960af54b47f51dbd7959e4c7",
+      "time_utc": "2026-10-13T10:22:33.106359+00:00",
+      "command": "../.venv/bin/python scripts/s09.py race --db ydental_s09_test_20261013101000_0f5c8d2a --port 18196"
+    },
+    {
+      "action": "audit",
+      "pid": 1861257,
+      "exit_code": 0,
+      "signal": null,
+      "log": "audit-20261013T102247951699.log",
+      "sha256": "4f78d0833e4088f84fd342e748b68e40a5d9f45d63fc355ae90e63b6378f1b97",
+      "commit": "197d1942753fc5cb960af54b47f51dbd7959e4c7",
+      "time_utc": "2026-10-13T10:22:49.343693+00:00",
+      "command": "../.venv/bin/python scripts/s09.py audit --db ydental_s09_test_20261013101000_0f5c8d2a --port 18196"
+    },
+    {
+      "action": "export",
+      "pid": 1861396,
+      "exit_code": 0,
+      "signal": null,
+      "log": "export-20261013T102259787326.log",
+      "sha256": "170cd771157108c2bc0edd8f62a640b03dd1500dc601387a6889bd8423ccd858",
+      "commit": "197d1942753fc5cb960af54b47f51dbd7959e4c7",
+      "time_utc": "2026-10-13T10:23:02.130010+00:00",
+      "command": "../.venv/bin/python scripts/s09.py export --db ydental_s09_test_20261013101000_0f5c8d2a --port 18196"
+    },
+    {
+      "action": "serve",
+      "pid": 1861539,
+      "exit_code": 0,
+      "signal": null,
+      "log": "serve-20261013T102317461211.log",
+      "sha256": "761a4dec9b718d74d9398734693db2d269147964465914b5790b463258de03df",
+      "commit": "197d1942753fc5cb960af54b47f51dbd7959e4c7",
+      "time_utc": "2026-10-13T10:25:57.560492+00:00",
+      "command": "../.venv/bin/python scripts/s09.py serve --db ydental_s09_test_20261013101000_0f5c8d2a --port 18196"
+    }
+  ],
+  "f1": {
+    "result": "PASS",
+    "medical_execution": 343,
+    "exam_execution": 344,
+    "order": 95,
+    "line": 143,
+    "other_line": 144,
+    "event": 99,
+    "event_state": "confirmed",
+    "result_document_state_after_perform": "pending",
+    "order_line_state": "done",
+    "fee_source_state": "recorded",
+    "price_version": 105,
+    "price_snapshot": 85,
+    "fee": 81,
+    "amount": 80.0,
+    "result_id": 27,
+    "version": 2,
+    "pdf_bytes": 26605,
+    "pdf_digest": "d886c72f5e95aba8183d2607e22210e550e3c6d1384344b38d2a3eb988de43c3",
+    "pdf_file": "f1-report-99.pdf",
+    "finished": "completed"
+  },
+  "independent_s08b_absent": {
+    "database": "ydental_s08b_test_20261013102620_8b7e91ac",
+    "oid": 1518295,
+    "port": 18197,
+    "config_sha256": "f2323f78e805293e8021ec5423bf2b375b105651a078f037587cacb3cd51c506",
+    "tested_commit": "197d1942753fc5cb960af54b47f51dbd7959e4c7",
+    "command": "../.venv/bin/python scripts/s08b.py install --db ydental_s08b_test_20261013102620_8b7e91ac --port 18197",
+    "exit_code": 0,
+    "pid": 1863526,
+    "log": "install-20261013T102617845568.log",
+    "log_sha256": "373ee42f471623cf6e62a6382204b574c2188e510bfc39ece24522f89f6b3c54",
+    "tests": {
+      "failed": 0,
+      "errors": 0,
+      "total": 80
+    },
+    "fail_closed_test_executed": true
+  },
+  "browser_result": "browser/20261013T102400798830/result.json",
+  "pdf_check": "pdf-final/pdf-check.json",
+  "translation": "translation-ydental_s09_test_20261013101000_0f5c8d2a.json",
+  "race": "race-final.json",
+  "sql": "sql-upgrade.json",
+  "browser_fixture_alias": {
+    "source": "f1-result-99.json",
+    "alias": "f1-result.json",
+    "sha256": "b33dfff3813600a890456e52787866ab1783b7d819273923ca645dc6d0087ec2",
+    "first_browser_attempt": "failed before Firefox launch because fixed browser script expected alias; later run PASS on identical source bytes"
+  },
+  "browser": {
+    "command": "PYTHONPATH=.local/s09-tools ../.venv/bin/python scripts/s09_browser.py --db ydental_s09_test_20261013101000_0f5c8d2a --port 18196 --require-chinese",
+    "exit_code": 0,
+    "checks": 15,
+    "screenshots": 3,
+    "pageerrors": 0,
+    "result": "browser/20261013T102400798830/result.json",
+    "visual_review": "browser/20261013T102400798830/visual-review.json",
+    "downloaded_pdf_check": "browser/20261013T102400798830/pdf-pages/pdf-check.json"
+  },
+  "pdf_probe": {
+    "command": "PYTHONPATH=.local/s09-tools ../.venv/bin/python scripts/s09_pdf_check.py .local/ydental_s09_test_20261013101000_0f5c8d2a/f1-report-99.pdf --output docs/evidence/s09-rework/pdf-final",
+    "exit_code": 0,
+    "check": "pdf-final/pdf-check.json",
+    "visual_review": "pdf-final/visual-review.json"
+  },
+  "translation_check": {
+    "command": "../.venv/bin/python scripts/s09_translation.py --db ydental_s09_test_20261013101000_0f5c8d2a",
+    "exit_code": 0,
+    "translated": 217,
+    "total": 217,
+    "missing": 0
+  }
+}

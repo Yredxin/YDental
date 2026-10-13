@@ -1,0 +1,37 @@
+{
+  "database": "ydental_s09_test_20261013085310_f1a6b7c8",
+  "product_sha": "08f994161c5eb33cecfc127e777881ab88eada6d",
+  "checks": [
+    "doctor switched to synthetic store",
+    "doctor sees committed panorama result",
+    "doctor opens independent authored findings and versions",
+    "doctor sees original fee source and frozen price",
+    "CBCT remains unfinished",
+    "doctor without export cannot download PDF",
+    "examiner switched to synthetic store",
+    "examiner sees own confirmed result",
+    "authorized Firefox downloads genuine PDF",
+    "reader switched to synthetic store",
+    "candidate reader lacks examination grant",
+    "read only user cannot export",
+    "none switched to synthetic store",
+    "ungranted user workbench denied",
+    "Firefox page errors zero"
+  ],
+  "screenshots": [
+    {
+      "file": "docs/evidence/s09-rework/browser/20261013T092352481508/doctor-partial-result.png",
+      "sha256": "6a60df3039e06e664b00d4d3ba0b5c694e96e0ee155680d3fc355240d3bbb331"
+    },
+    {
+      "file": "docs/evidence/s09-rework/browser/20261013T092352481508/examiner-result.png",
+      "sha256": "521afdd9add63032061fa6eb55ec0aef5787f700ff4e6aa14004b21ee7f923c1"
+    }
+  ],
+  "pageerrors": [],
+  "pdf": {
+    "file": "docs/evidence/s09-rework/browser/20261013T092352481508/synthetic-examination-demo.pdf",
+    "sha256": "986328f27839176244f5946296b932d296d89942aa553fa4831572a9b124bbf5",
+    "bytes": 14636
+  }
+}

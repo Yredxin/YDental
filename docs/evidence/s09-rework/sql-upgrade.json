@@ -1,0 +1,32 @@
+{
+  "database": "ydental_s09_test_20261013101000_0f5c8d2a",
+  "oid": 1501596,
+  "cluster": "7694897083368259627",
+  "before_audit_sha256": "f305a02be7703223486307d77743131a64e24b22bac760d261cb1e6a919472c8",
+  "after_audit_sha256": "f305a02be7703223486307d77743131a64e24b22bac760d261cb1e6a919472c8",
+  "business_tables_compared": 19,
+  "signatures_equal": true,
+  "invariants": {
+    "exam_result_source": 0,
+    "exam_event_source": 0,
+    "exam_event_unique": 0,
+    "exam_version_count": 0,
+    "exam_version_source": 0,
+    "exam_version_latest": 0,
+    "confirmed_fee_unique": 0,
+    "exam_fee_snapshot": 0,
+    "unperformed_exam_fee": 0,
+    "duplicate_active_execution": 0,
+    "duplicate_continuation": 0,
+    "negative_internal_quant": 0
+  },
+  "audit_event_counts": {
+    "exam.actual_performed": 1,
+    "exam.confirm": 1,
+    "exam.draft": 1,
+    "exam.report_download": 1,
+    "exam.started": 1,
+    "exam.template_bound": 2
+  },
+  "result": "PASS"
+}

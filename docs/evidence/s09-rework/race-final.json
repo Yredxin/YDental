@@ -1,0 +1,73 @@
+{
+  "database": "ydental_s09_test_20261013101000_0f5c8d2a",
+  "source_sha256": "27c2632aa33a5f5ba5b24a3f3f4af48cb8bd025caeb6ab2ae530d3d232f28b25",
+  "deadlocks": 0,
+  "cases": [
+    {
+      "case": "T01_two_panorama_stations_one_task",
+      "initial_backend_pids": [
+        202151,
+        202169
+      ],
+      "outcomes": [
+        "accepted",
+        "rejected"
+      ],
+      "serialization_retries": [
+        0,
+        1
+      ]
+    },
+    {
+      "case": "T01_same_called_entry_two_backends",
+      "initial_backend_pids": [
+        202169,
+        202151
+      ],
+      "outcomes": [
+        "rejected",
+        "accepted"
+      ],
+      "serialization_retries": [
+        1,
+        0
+      ]
+    },
+    {
+      "case": "T07_restore_versus_exam_start",
+      "initial_backend_pids": [
+        202169,
+        202151
+      ],
+      "outcomes": [
+        "accepted",
+        "rejected"
+      ],
+      "serialization_retries": [
+        0,
+        1
+      ]
+    },
+    {
+      "case": "T05_unperformed_cancel_versus_inline_actual",
+      "initial_backend_pids": [
+        202151,
+        202169
+      ],
+      "outcomes": [
+        "rejected",
+        "accepted"
+      ],
+      "serialization_retries": [
+        1,
+        0
+      ]
+    }
+  ],
+  "T05_before_race": "both_actions_eligible",
+  "T05_final_line_state": "cancelled",
+  "T05_event_count": 0,
+  "T05_fee_count": 0,
+  "T07_active_execution_count": 1,
+  "result": "PASS"
+}

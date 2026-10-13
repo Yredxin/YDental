@@ -1,0 +1,38 @@
+{
+  "project_id": "PVT_kwHOA3_tu84BmcLJ",
+  "read_only": true,
+  "mutation_count": 0,
+  "full_reads_equal": true,
+  "baseline_items_compared": 37,
+  "active_items": 15,
+  "archived_direct_reads": 22,
+  "fields": 21,
+  "views": 6,
+  "visible_field_counts": [
+    9,
+    9,
+    5,
+    3,
+    7,
+    3
+  ],
+  "workflows": 7,
+  "baseline_equal": true,
+  "final_direct_issue_read_utc": "2026-10-13T10:31:17Z",
+  "final_direct_issue_read": {
+    "issue_33": {"state": "OPEN", "native_status": "Todo", "phase": "S09", "execution": "进行中", "project_item_id": "PVTI_lAHOA3_tu84BmcLJzg_8mdA"},
+    "issue_32": {"state": "OPEN", "native_status": "Todo", "phase": "S08", "execution": "待用户验收"}
+  },
+  "issue_33": {
+    "state": "OPEN",
+    "native_status": "Todo",
+    "phase": "S09",
+    "execution": "进行中"
+  },
+  "source_sha256": {
+    "project-before.json": "0c495d13bf0c5c7d7b77b1c91016ddfe8a04749c2da8775727ac4e463f000f31",
+    "project-after.json": "6a5aa45a0f929340e18fc41ed4db18b1f06b45a6d5e2ef162a009df0e9651df0",
+    "archived-current.json": "4de98b603b6779902c957dad7d031d8824ca309bb499dd24936a41e601ea6ee9",
+    "views-current.json": "90c0d5b7450a144c8bb6681eceb3500efcee7d14197351ea85df4d44053ae525"
+  }
+}

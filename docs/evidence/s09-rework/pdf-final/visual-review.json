@@ -1,0 +1,15 @@
+{
+  "result": "PASS",
+  "reviewer": "Codex",
+  "source": "fixed-test synthetic Odoo QWeb/wkhtmltopdf PDF",
+  "pdf_sha256": "d886c72f5e95aba8183d2607e22210e550e3c6d1384344b38d2a3eb988de43c3",
+  "pages_reviewed": [
+    1
+  ],
+  "page_count": 1,
+  "observations": [
+    "Chinese title, warning, provenance labels, findings, conclusion and confirmed status are visibly legible",
+    "No blank page, clipped paragraph or mojibake observed",
+    "Synthetic English catalog and staff names remain source values; no signed clinical report is claimed"
+  ]
+}

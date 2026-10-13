@@ -1,0 +1,16 @@
+{
+  "result": "PASS",
+  "pdf_sha256": "f7364214c490bfca729f9829da32389e4f606f13b1ceb6b5c3fb5fd33681a6f7",
+  "pdf_bytes": 26024,
+  "page_count": 1,
+  "pages": [
+    {
+      "page": 1,
+      "characters": 378,
+      "text_sha256": "5733d69744bcfe5bfe765c7550875f9724e75bb11fde149344e5fb5fab20feaf",
+      "image": "examination-page-01.png",
+      "image_sha256": "fd564e358e2282702cfa67ddc3709920288fcd5ff6e3f737a3a06b6fe8a29071"
+    }
+  ],
+  "manual_visual_review": "REQUIRED"
+}

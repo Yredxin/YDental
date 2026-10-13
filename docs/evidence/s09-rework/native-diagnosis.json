@@ -1,0 +1,47 @@
+{
+  "incident": {
+    "pid": 1792405,
+    "signal": 11,
+    "process_exit": -11,
+    "log_sha256": "761e3cd6bfda2aef894fd7c413e532c28fcc853aa89b054452db4995b6132daf",
+    "python_fault_path": "garbage collection -> contextlib.__exit__ -> Odoo registry.py:176",
+    "native_stack": "UNAVAILABLE",
+    "core": "UNAVAILABLE; soft limit 0",
+    "root_cause": "UNKNOWN"
+  },
+  "read_only_findings": {
+    "apport": "signal recorded; unpackaged interpreter ignored",
+    "journal_kernel": "no matching native entry",
+    "native_extensions": 17,
+    "python_build_id": "7713d416ece8f53a2b37e61dd06defd7bf795954",
+    "libpython_build_id": "747f424108b209be95adc6bb8a826419eb7d6153",
+    "historic_s08c": "dict_dealloc; no proven shared root",
+    "historic_s07": "_PyObject_Calloc; no proven shared root"
+  },
+  "bounded_diagnosis": {
+    "database": "ydental_s09_test_20261013084700_e6a4c2d1",
+    "oid": 1419240,
+    "cluster": "7694897083368259627",
+    "port": 18191,
+    "old_source": "17cd02bf120fa9446af8d4e0effe9d0203570348",
+    "calls": [
+      {
+        "pid": 1803641,
+        "action": "install",
+        "exit": 0,
+        "signal": null
+      },
+      {
+        "pid": 1804184,
+        "action": "probe",
+        "exit": 1,
+        "signal": null,
+        "reason": "F1 known response assertion"
+      }
+    ],
+    "new_sigsegv": false,
+    "root_cause_after": "UNKNOWN",
+    "production": "BLOCKED"
+  },
+  "phase_one_comment": "https://github.com/Yredxin/YDental/issues/33#issuecomment-6141807213"
+}

@@ -1,0 +1,17 @@
+{
+  "result": "PASS",
+  "reviewer": "Codex",
+  "screenshots_reviewed": [
+    "doctor-partial-result.png",
+    "examiner-result.png",
+    "reader-workbench.png"
+  ],
+  "downloaded_pdf_page_count": 1,
+  "downloaded_pdf_page_image_sha256": "e09527ae8decc7c9e39bbd40505fd10148fe713abb8a90e50107917250061098",
+  "observations": [
+    "Doctor and examiner screenshots visibly distinguish completed panorama from unfinished CBCT",
+    "Doctor sees the original result author, frozen price source and fee source; examiner sees own result editing control",
+    "Read-only user sees the workbench without editing controls",
+    "All three screenshots are legible; downloaded report page matches the separately reviewed fixed probe page image"
+  ]
+}
