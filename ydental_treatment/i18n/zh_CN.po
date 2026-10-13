@@ -1645,3 +1645,215 @@ msgstr "不适用"
 #: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
 msgid "UTC"
 msgstr "UTC"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "/ published association"
+msgstr "/ 已发布关联"
+
+#. module: ydental_treatment
+#: model:ir.model.constraint,message:ydental_treatment.constraint_ydental_treatment_medicine_link_one_sku_unit
+msgid "A medicine SKU and unit use one explicit store fee catalog."
+msgstr "每店药品品种及单位只对应一个明确收费目录。"
+
+#. module: ydental_treatment
+#: model:ir.model.constraint,message:ydental_treatment.constraint_ydental_treatment_medicine_link_one_catalog
+msgid "A medicine fee catalog identifies one real SKU in a store."
+msgstr "每店药品收费目录只对应一个真实药品品种。"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Actual medicine SKU"
+msgstr "实际药品品种"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Append original medication evidence"
+msgstr "追加原实际用药核对证据"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Choose actual SKU"
+msgstr "选择真实药品品种"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Choose reviewed medicine fee catalog"
+msgstr "选择已审核药品收费目录"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid ""
+"Each medicine SKU and native unit needs its own evidenced fee catalog. "
+"Pharmacy direction does not determine the medicine price. Historical sources"
+" without an association remain unverified."
+msgstr "每款药品及原生单位须有独立且有据的收费目录。药房服务方向不决定药品价格。没有关联的历史来源仍待核对。"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Explicit SKU price association evidence"
+msgstr "明确药品品种与价格关联证据"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Medicine fee catalog"
+msgstr "药品收费目录"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Original medication evidence"
+msgstr "原实际用药证据"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Publish evidenced SKU price association"
+msgstr "发布有据的药品价源关联"
+
+#. module: ydental_treatment
+#: model:ir.model.fields.selection,name:ydental_treatment.selection__ydental_treatment_medicine_link__state__published
+msgid "Published"
+msgstr "已发布"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Published medicine SKU price associations"
+msgstr "已发布药品品种价源关联"
+
+#. module: ydental_treatment
+#: model:ir.model,name:ydental_treatment.model_ydental_treatment_medicine_link
+msgid "Published store medicine SKU and service price provenance"
+msgstr "本店已发布药品品种与收费价源"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Verified original actual quantity"
+msgstr "核实原实际用量"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Verified original medicine batch"
+msgstr "核实原实际药品批次"
+
+#. module: ydental_treatment
+#: model_terms:ir.ui.view,arch_db:ydental_treatment.ydental_treatment_page
+msgid "Verify original actual batch"
+msgstr "核实原实际批次"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_event__ydental_medication_review
+msgid "Ydental Medication Review"
+msgstr "用药核对证据"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_event__ydental_medicine_link_id
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_fee__ydental_medicine_link_id
+msgid "Ydental Medicine Link"
+msgstr "药品品种价源关联"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_medicine_link__ydental_price_id
+msgid "Ydental Price"
+msgstr "发布时价格版本"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_medicine_link__ydental_product_name
+msgid "Ydental Product Name"
+msgstr "发布时药品名称"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_medicine_link__ydental_published_at
+msgid "Ydental Published At"
+msgstr "关联发布时间"
+
+#. module: ydental_treatment
+#: model:ir.model.fields,field_description:ydental_treatment.field_ydental_treatment_event__ydental_reported_materials
+msgid "Ydental Reported Materials"
+msgstr "原始报送材料证据"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid ""
+"invalid_order: Verify the actual active medicine, native unit and pharmacy "
+"direction before issue."
+msgstr "invalid_order: 开立前须核实真实启用药品、原生单位和药房服务方向。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid ""
+"medicine_evidence_missing: Historical medication needs a separately "
+"evidenced review before new corrections."
+msgstr "medicine_evidence_missing: 历史用药须先有独立核对证据，才能新增更正。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid ""
+"medicine_evidence_missing: Only the original operator may append batch "
+"evidence to this unresolved actual medication fact."
+msgstr "medicine_evidence_missing: 仅原责任人可为本条待核对实际用药追加批次证据。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid ""
+"medicine_evidence_missing: Verify exact medicine SKU, native unit, batches "
+"and total actual quantity before confirming fee and stock."
+msgstr "medicine_evidence_missing: 确认费用库存前须核实药品品种、原生单位、批次与实际总用量一致。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid ""
+"medicine_price_unverified: A published SKU association is immutable; shared "
+"generic medicine pricing has no approved policy."
+msgstr "medicine_price_unverified: 已发布品种关联不可改写；多药共用泛化价格尚无已批准政策。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid ""
+"medicine_price_unverified: Associate one real medicine SKU with its exact "
+"native unit and medicine fee catalog."
+msgstr "medicine_price_unverified: 须将一个真实药品品种及其原生单位明确关联到药品收费目录。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_inventory_service.py:0
+msgid ""
+"medicine_price_unverified: Inventory and fees must use the exact published "
+"SKU price source."
+msgstr "medicine_price_unverified: 库存与费用必须使用同一已发布药品品种价源。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid ""
+"medicine_price_unverified: Publish an evidenced store SKU and fee catalog "
+"association before new medication execution."
+msgstr "medicine_price_unverified: 新用药执行前须发布本店有据的药品品种与收费目录关联。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid ""
+"medicine_price_unverified: The actual SKU has no matching published fee "
+"source."
+msgstr "medicine_price_unverified: 实际药品品种没有匹配的已发布收费来源。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid ""
+"medicine_price_unverified: The fee catalog needs an approved mapping in this"
+" store."
+msgstr "medicine_price_unverified: 收费目录须有本店已批准服务映射。"
+
+#. module: ydental_treatment
+#. odoo-python
+#: code:addons/ydental_treatment/models/ydental_treatment_service.py:0
+msgid ""
+"medicine_price_unverified: The verified SKU must retain the original fee "
+"catalog and historical price."
+msgstr "medicine_price_unverified: 核实药品品种须保留原收费目录与历史价格。"
