@@ -15,7 +15,7 @@ from odoo.addons.ydental_clinical.models.ydental_clinical_service import TEXT_FI
 
 
 REPORT = 'ydental_print.ydental_document_pdf'
-TEMPLATES = {'clinical': 'S08C-CLINICAL-1', 'prescription': 'S08C-RX-1', 'consent': 'S08C-CONSENT-1'}
+TEMPLATES = {'clinical': 'S08C-CLINICAL-1', 'prescription': 'S08C-RX-2', 'consent': 'S08C-CONSENT-1'}
 
 
 def normalized(value):
