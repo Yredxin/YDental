@@ -17,6 +17,30 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ir_actions_report.py:0
+msgid "font_unavailable: A verified Chinese PDF font is required."
+msgstr "font_unavailable: 需要已验证的中文 PDF 字体。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ir_actions_report.py:0
+msgid "render_failed: The Chinese PDF engine is unavailable."
+msgstr "render_failed: 中文 PDF 生成引擎不可用。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ir_actions_report.py:0
+msgid "render_failed: The PDF engine rejected this generation request."
+msgstr "render_failed: PDF 引擎拒绝了本次生成请求。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ir_actions_report.py:0
+msgid "render_timeout: PDF generation exceeded its bounded deadline."
+msgstr "render_timeout: PDF 生成超过了限定时间。"
+
+#. module: ydental_exam
 #: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
 msgid "/ 全景或CBCT任务"
 msgstr "/ 全景或CBCT任务"
