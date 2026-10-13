@@ -114,7 +114,7 @@ def main():
             d1=int(page.evaluate('new URL(location.href).searchParams.get("document_id")'))
             for i in range(1,4):page.locator('[name=chief_complaint]').fill('B联调合成草稿第%s次保存'%i);version(page,i)
             check('three actual A autosaves before B action',page.locator('#server-version').inner_text()=='3')
-            page.goto(base+'/ydental/treatment');page.wait_for_function('document.querySelector("form").dataset.key')
+            page.goto(base+'/ydental/treatment');page.wait_for_function('document.querySelector(".o_ydental_treatment form[data-operation]").dataset.key')
             check('Chinese treatment UI and demonstration boundary','正式价格' in page.inner_text('body') and '实际治疗' in page.inner_text('body'))
             check('autosaves create no actual events',page.locator('[data-event]').count()==0)
             form=page.locator('form[data-operation=execute]')
@@ -124,7 +124,7 @@ def main():
                 form.locator('[name=already_performed]').set_checked(actual)
             def submit(form):
                 with page.expect_navigation(wait_until='domcontentloaded'):form.locator('button[type=submit]').click()
-                page.wait_for_function('document.querySelector("form").dataset.key')
+                page.wait_for_function('document.querySelector(".o_ydental_treatment form[data-operation]").dataset.key')
             fill_project()
             held=[]
             def hold(route):
@@ -143,7 +143,7 @@ def main():
             page.wait_for_function('!document.querySelector("#treatment-reconcile").hidden')
             check('full form change preserves uncertain page and forbids automatic replay',form.locator('[name=reason]').input_value()=='响应期间程序改变的未提交内容' and form.locator('button').is_disabled())
             screenshot(page,ctx,'B00-real-response-held-unsynchronized.png')
-            page.reload();page.wait_for_function('document.querySelector("form").dataset.key')
+            page.reload();page.wait_for_function('document.querySelector(".o_ydental_treatment form[data-operation]").dataset.key')
             first_payload=held[0]['payload']
             check('F1 actual event confirmed with frozen600 and native move',page.locator('[data-event]').count()==1 and '600' in page.locator('.frozen-price').inner_text() and page.locator('.native-moves').inner_text() not in ('[]',''))
             first_event=int(page.locator('[data-event]').get_attribute('data-event'));result['first_event']=first_event
@@ -186,10 +186,10 @@ def main():
             report(task)
             pharmctx,pharm=login('pharmacy');pharm.on('dialog',lambda dialog:dialog.accept())
             def pharmacy_enter():
-                pharm.goto(base+'/ydental/queue');click_wait(pharm,'button[data-operation=enter][data-station="%s"]'%preview['pharmacy_station']);click_wait(pharm,'button[data-operation=call]');click_wait(pharm,'button[data-operation=start]');pharm.goto(base+'/ydental/treatment');pharm.wait_for_function('document.querySelector("form").dataset.key')
+                pharm.goto(base+'/ydental/queue');click_wait(pharm,'button[data-operation=enter][data-station="%s"]'%preview['pharmacy_station']);click_wait(pharm,'button[data-operation=call]');click_wait(pharm,'button[data-operation=start]');pharm.goto(base+'/ydental/treatment');pharm.wait_for_function('document.querySelector(".o_ydental_treatment form[data-operation]").dataset.key')
             def pharm_submit(form):
                 with pharm.expect_navigation(wait_until='domcontentloaded'):form.locator('button[type=submit]').click()
-                pharm.wait_for_function('document.querySelector("form").dataset.key')
+                pharm.wait_for_function('document.querySelector(".o_ydental_treatment form[data-operation]").dataset.key')
             def dose(qty):
                 form=pharm.locator('article[data-order="%s"] form[data-operation=dispense]'%rxid);form.locator('[name=lot_id]').select_option(str(preview['medicine_lot']));form.locator('[name=quantity]').fill(str(qty));form.locator('[name=reason]').fill('合成实际核对发药 '+str(qty));pharm_submit(form)
             def finish():

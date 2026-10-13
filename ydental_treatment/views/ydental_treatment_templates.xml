@@ -2,6 +2,7 @@
     <template id="ydental_treatment_page" name="Treatment and pharmacy workbench">
         <t t-call="web.frontend_layout">
             <main class="container o_ydental_treatment" t-att-data-revision="revision" t-att-data-role="role" t-att-data-execution="execution.id if execution else 0" t-att-data-document="doc.id if doc else 0" t-att-data-version="doc.ydental_version if doc else 0" t-att-data-heartbeat="heartbeat" t-att-data-currency="currency_id">
+                <link rel="stylesheet" href="/ydental_treatment/static/src/workbench/workbench.css"/>
                 <h1>Treatment and pharmacy</h1>
                 <nav><a href="/ydental/queue">Workstation and explicit reporting</a> | <a href="/ydental/clinical" target="_blank" rel="noopener">Independent clinical document</a> | <a href="/ydental/treatment?prices=1">Evidenced historical price review</a></nav>
                 <p class="alert alert-warning">Demonstration pricing and synthetic medication review only. Production pricing, medication policy and clinical signing await approval. These sources are not bills or payments.</p>

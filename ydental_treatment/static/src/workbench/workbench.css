@@ -1,0 +1,13 @@
+.o_ydental_treatment { padding-top: 1.5rem; padding-bottom: 3rem; }
+.o_ydental_treatment section { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #ccd4da; }
+.o_ydental_treatment form { display: flex; flex-wrap: wrap; gap: 1rem; align-items: end; padding: 1rem 0; }
+.o_ydental_treatment label { display: flex; flex-direction: column; gap: .3rem; min-width: 10rem; max-width: 100%; }
+.o_ydental_treatment input, .o_ydental_treatment select { max-width: 100%; padding: .4rem; border: 1px solid #96a5b0; border-radius: .3rem; }
+.o_ydental_treatment input[type=checkbox] { align-self: start; }
+.o_ydental_treatment button { background: #345b6c; color: white; padding: .5rem .9rem; border: 0; border-radius: .3rem; }
+.o_ydental_treatment button:disabled { opacity: .5; }
+.o_ydental_treatment article { margin-top: 1rem; border: 1px solid #d9e0e4; border-radius: .5rem; padding: 1rem; background: #f8fafb; overflow-wrap: anywhere; }
+.o_ydental_treatment_lines { width: 100%; }
+.o_ydental_treatment_line { display: flex; flex-wrap: wrap; gap: .8rem; padding: .8rem 0; border-bottom: 1px dashed #c5d0d8; }
+.o_ydental_treatment table { display: block; overflow-x: auto; }
+.o_ydental_treatment [data-event-state=pending] { border-left: .4rem solid #c78622; }

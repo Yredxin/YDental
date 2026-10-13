@@ -4,6 +4,6 @@
     'license': 'GPL-3',
     'depends': ['ydental_clinical', 'ydental_inventory'],
     'data': ['security/ir.access.csv', 'views/ydental_treatment_templates.xml'],
-    'assets': {'web.assets_frontend': ['ydental_treatment/static/src/workbench/workbench.js']},
+    'author': 'YDental',
     'installable': True,
 }
