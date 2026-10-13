@@ -51,3 +51,36 @@ class TestTreatmentHTTP(TestClinicalHTTP):
         self.assertEqual(self.t_action('invented',{}).status_code,409)
         r=self.url_open('/ydental/treatment/action',data={'operation':'execute','revision':self.revision,'connection':self.connection,'payload':'{}','key':key()});self.assertEqual(r.status_code,400)
         self.connection=key()+key();self.assertEqual(self.t_action('execute',self.dose(args)).status_code,403)
+
+    def test_http_multi_role_actual_pharmacy_execution_selects_pharmacy_workbench(self):
+        receive(self,kind='medicine');price(self,catalog=self.drug_catalog,amount=10)
+        self.admin._grant(self.users['doctor'].id,self.stores[0].id,{'pharmacy':'write'})
+        args=self.medical()
+        line={'mapping_id':self.drug_mapping.id,'quantity':6,'uom_id':self.uom.id,
+            'product_id':self.products['medicine'],'specification':'Synthetic specification',
+            'usage':'Synthetic usage','frequency':'Synthetic frequency','course':'Synthetic course'}
+        draft=self.t_action('order',args|{'kind':'prescription','purpose':'Synthetic dual-role dispensing','lines':[line]})
+        self.assertEqual(draft.status_code,200,draft.text)
+        issued=self.t_action('issue',args|{'order_id':draft.json()['order_id'],'version':draft.json()['version']})
+        self.assertEqual(issued.status_code,200,issued.text);order=issued.json()
+        hand=self.action('handover',self.args()|{'lease_id':self.lease['lease_id'],'lease_token':self.lease['token']})
+        self.assertEqual(hand.status_code,200,hand.text)
+        exited=self.action('exit',{'lease_id':self.lease['lease_id'],'token':self.lease['token']},True)
+        self.assertEqual(exited.status_code,200,exited.text)
+        task=self.root['ydental.intake.task'].browse(order['task_ids'][0])
+        self.front._operate('arrive',{'patient_id':task.ydental_patient_id.id},key())
+        self.front._operate('report',{'task_id':task.id,'version':task.ydental_version},key())
+        entered=self.action('enter',{'station_id':self.pharmacy_station.id},True)
+        self.assertEqual(entered.status_code,200,entered.text);lease=entered.json()
+        held={'lease_id':lease['lease_id'],'token':lease['token']}
+        call=self.action('call',held,True);self.assertEqual(call.status_code,200,call.text)
+        started=self.action('start',held|{'entry_id':call.json()['entry_id']},True)
+        self.assertEqual(started.status_code,200,started.text)
+        page=self.url_open('/ydental/treatment');self.assertEqual(page.status_code,200,page.text)
+        self.assertIn('data-role="pharmacy"',page.text)
+        self.assertIn('data-execution="'+str(started.json()['execution_id'])+'"',page.text)
+        dispense=self.t_action('dispense',{'execution_id':started.json()['execution_id'],'lease_id':lease['lease_id'],
+            'lease_token':lease['token'],'order_id':order['order_id'],'order_version':order['version'],
+            'line_id':order['line_ids'][0],'lot_id':self.lots['medicine'],'quantity':4,
+            'source':key(),'reason':'Synthetic actual four','already_performed':False,'policy':'demo_confirmation'})
+        self.assertEqual(dispense.status_code,200,dispense.text)
