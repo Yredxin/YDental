@@ -1,0 +1,149 @@
+{
+  "stage": "S10 Native D1.4-R1",
+  "authorization": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6161077626",
+  "baseline_sha": "c8907f65cd3c89d25d2732c8d2024266cf02a1ff",
+  "product_sha": "4b168a84254882a2e1e3e5037c372ab57fc3dfdd",
+  "test_sha": "255b48f54495eb99638af8ffc824771b9a5af3e7",
+  "odoo_core_sha": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "checkpoints": [
+    {
+      "comment_id": 6161126211,
+      "body_sha256": "0c6073595f430c9fe6017b6f4224eb8299d927601c8bb671396a1c0af83bf24a",
+      "exact_api_readback": true,
+      "before_database_create": true
+    },
+    {
+      "comment_id": 6161144552,
+      "body_sha256": "4596b1185db517cf0c579287a66e9996c0af91cc10bd6b5a274f717e983ff6ed",
+      "exact_api_readback": true,
+      "before_concurrent_window": true
+    }
+  ],
+  "old_failed_site": {
+    "database": "ydental_s10_test_20261014043500_e41c7a2b",
+    "oid": 2100079,
+    "marker_sha256": "411f3636e8aabd9a21f5a41f0ee149dd5b5b270246ff2ebe65ffa85fa5fc4421",
+    "install_log_sha256": "6229f751c944585895615e7f1c7e75fc0c9018004e4026047f21385b350e64b7",
+    "preserved": true
+  },
+  "hook_contract": {
+    "unchanged_source_sha256": "cb90e4a300486066049677d4b1cf0b98ac4fb3052e5d59a6646403d147d3cbcd",
+    "old_diagnostic_sha256": "d8687790fbdc168ccca6fb28541295f936169daba26654059ab758f6ad173ad0",
+    "corrected_diagnostic_sha256": "3ee57ed8c86c5cbfaf54418f5aa4ed196e08e35f1b63d4b2a14693b6f4f31308",
+    "full_private_diff_sha256": "b28462acbfff220a90dce2c21fce1eb7b91acfe34e27e07c96af031d7cb596ce",
+    "marker_core_equals_core_sha": true,
+    "actual_hook_ast_positive": 1,
+    "actual_hook_ast_negative_rejections": 12,
+    "offline_exit_code": 0,
+    "offline_result_sha256": "007d5b8e0883cd7c05e22ca50caf45d92918a5de830b2811745d0a34227007da",
+    "real_new_marker_hook_exit_code": 0,
+    "real_new_marker_result_sha256": "6fa808c9f1f5fab63b48693371687dbc90ad1299dfc8493bef23061f1c4acefb"
+  },
+  "template": {
+    "database": "ydental_s10_test_20261014034100_b9c74e20",
+    "oid": 2078375,
+    "installed_modules": 91,
+    "system_attachments": 70,
+    "verified_filestore_files": 124,
+    "external_active_sessions": 0,
+    "business_transactions": 0,
+    "preserved": true
+  },
+  "new_database": {
+    "database": "ydental_s10_test_20261014044700_4f6a8d2c",
+    "oid": 2100080,
+    "pg_cluster": "7694897083368259627",
+    "port": 18252,
+    "config_sha256": "582f73fdee28cac3d9f63d116bb934e0def3b19fa5ddb7e10c054ba1ef20cb43",
+    "marker_sha256": "df8ff92d38499745b6ecfffaecb7eaff739ff29066c243b13b15b3a1bf99bb7b",
+    "create_attempts": 1,
+    "create_exit_code": 0,
+    "create_autocommit_idle_identifiers": true,
+    "filestore_files_sha_verified": 124,
+    "post_install_audit_sha256": "6f694f949f2c1107143b4f8c7cca2f696ba16d542e974615bd09e642e65dd731",
+    "post_window_audit_sha256": "c77fd125edbfc0da219f5fab5d30550d6cc4f2675cabb2704cdc06d1b35400df",
+    "installed_modules_after_install": 92,
+    "only_added_module": "ydental_settlement_test@20.0.1.0.0",
+    "unchanged_original_modules": 91,
+    "post_window_business_table_counts": {
+      "account_move": 0,
+      "account_payment": 0,
+      "account_partial_reconcile": 0,
+      "stock_move": 0,
+      "stock_quant": 0,
+      "ydental_patient": 0,
+      "ydental_treatment_event": 0,
+      "ydental_treatment_fee": 0,
+      "ydental_settlement_payment": 0,
+      "ydental_settlement_refund": 0,
+      "ydental_settlement_close": 0,
+      "ydental_settlement_source": 0
+    }
+  },
+  "install": {
+    "odoo_targets": 1,
+    "gdb_parent_pid": 2473357,
+    "odoo_target_pid": 2473364,
+    "gdb_exit_code": 0,
+    "target_normal_exit_code": 0,
+    "real_signal_11": false,
+    "raw_private_log_sha256": "a5c542ed1c8a08dd5442e13050794002948d1f6eb07560d0bc4238706d0b884f"
+  },
+  "read_only_concurrent_window": {
+    "wrapper_invocations": 1,
+    "wrapper_exit_code": 0,
+    "odoo_targets": 2,
+    "registry_overlap_seconds": 0.792,
+    "observer_samples": 54,
+    "observer_a_visible_samples": 22,
+    "observer_b_visible_samples": 23,
+    "observer_both_visible_samples": 22,
+    "observer_backend_canaries_match": true,
+    "raw_private_observer_sha256": "1a29f1a66afee68c08b697b787fff3e5541036d73e0f3ff28b8ef4ef45d53fb1",
+    "raw_private_window_result_sha256": "a8649e80e5f5e5aa518739fbdac6ce96532ecd9d53da72b5d29aa5989e8541cb",
+    "actors": [
+      {
+        "actor": "a",
+        "gdb_parent_pid": 2474282,
+        "odoo_target_pid": 2474324,
+        "pg_backend_pid": 420300,
+        "application_name": "s10_d14r1_a",
+        "registry_start_utc": "2026-10-14T04:50:15.846Z",
+        "registry_end_utc": "2026-10-14T04:50:16.638Z",
+        "gdb_exit_code": 0,
+        "target_normal_exit_code": 0,
+        "real_signal_11": false,
+        "raw_private_log_sha256": "bb8bc7510d0b3ff47505d27561d88adddfca6f534939a31ee3b31781ca830836"
+      },
+      {
+        "actor": "b",
+        "gdb_parent_pid": 2474285,
+        "odoo_target_pid": 2474327,
+        "pg_backend_pid": 420299,
+        "application_name": "s10_d14r1_b",
+        "registry_start_utc": "2026-10-14T04:50:15.840Z",
+        "registry_end_utc": "2026-10-14T04:50:16.638Z",
+        "gdb_exit_code": 0,
+        "target_normal_exit_code": 0,
+        "real_signal_11": false,
+        "raw_private_log_sha256": "f12b2d42148bb5208acd2369a35c0910db7b6a73fdbe3bd3df6894ca7aa86224"
+      }
+    ]
+  },
+  "limits_and_conclusion": {
+    "odoo_targets_total": 3,
+    "odoo_targets_authorized": 3,
+    "firefox_starts": 0,
+    "business_actions": 0,
+    "project_mutations": 0,
+    "old_database_oid_changes": 0,
+    "real_signal_11": false,
+    "new_native_c_crash_stack": false,
+    "original_native_root_cause": "UNKNOWN",
+    "s10_technical_status": "BLOCKED",
+    "production_status": "BLOCKED",
+    "s11_started": false
+  },
+  "private_raw_evidence_directory": ".local/s10-native-20261014-6161077626-d14r1/",
+  "private_new_database_directory": ".local/ydental_s10_test_20261014044700_4f6a8d2c/"
+}
