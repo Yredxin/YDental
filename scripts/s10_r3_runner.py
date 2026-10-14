@@ -19,9 +19,9 @@ from psycopg2 import sql
 ROOT = Path('/home/redxin/code/odoo/odoo-sd/code/sd-addons')
 CORE = ROOT.parent
 STATE = ROOT / '.local'
-NAME = 'ydental_s10_test_20261014020000_e25f7a93'
+NAME = 'ydental_s10_test_20261014020300_8b6c1d4e'
 RUN = STATE / NAME
-PORT = 18246
+PORT = 18247
 CLUSTER = '7694897083368259627'
 CORE_SHA = 'f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb'
 BASE_SHA = os.environ['YDENTAL_S10_EXPECTED_SHA']
