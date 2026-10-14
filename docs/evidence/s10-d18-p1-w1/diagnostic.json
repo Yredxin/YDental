@@ -1,0 +1,53 @@
+{
+  "authorization_comment": 6167210882,
+  "previous_delivery_comment": 6167098306,
+  "precreate_checkpoint_comment": 6167531256,
+  "precreate_checkpoint_exact_get": true,
+  "start_git_sha": "90b385d55c7de599a4700f07b7a61082822dab04",
+  "odoo20_core_sha": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "s07_candidate_sha256": "633da04a93a4ba4f9d28dd748838833558b7f3b45c22d3ac5090d9baaddc8807",
+  "github": {"issue_comment_counts": {"23": 3, "29": 7, "31": 8, "34": 72}, "latest_authorization_exact_get": true, "issue_35": "OPEN_0_COMMENTS"},
+  "template": {"database": "ydental_s10_test_20261014044700_4f6a8d2c", "oid": 2100080, "installed_modules": 92, "attachments": 70, "filestore_files": 124, "mail_message": 851, "bus_bus": 6},
+  "target": {"database": "ydental_s10_test_20261014114000_8ec49d73", "oid": 2100124, "pg_cluster": "7694897083368259627", "port": 18262, "config_sha256": "e38157a0af2ab04c15dd4e96faf8f5616e38dbcd662b8cfea09830b31475a991", "marker_sha256": "7175fcc6df365a4f3300aedddd50cb46ca9f0deccacabcdf7ab05892c3a4a0fb"},
+  "budget": {"create_attempts": 1, "odoo_targets": 1, "gdb_parents": 1, "firefox_targets": 0, "module_install_upgrade": 0, "business_commits": 0, "retries": 0},
+  "processes": {"gdb_pid": 2711500, "odoo_os_pid": 2711506, "pg_backend_pid": 507647, "gdb_target_exit_code": 0, "signal11": false, "gdb_log_sha256": "ce9183f37bd3bbd6774bed2b374a37e51170b37e604653126c8ecf4c47b7ddab"},
+  "stages": [
+    {"name": "BASELINE", "store": 0, "users": 4, "partners": 5, "mail_message": 851, "mail_mail": 0, "bus_bus": 6, "bus_precommit_intents": 0, "account_payment": 0, "account_partial_reconcile": 0, "ir_attachment": 70, "snapshot_sha256": "40a03d177ac31f6ec5ee192662e9666e6dd87573c20e5794c0ceff7a1d206844"},
+    {"name": "AFTER_STORE", "store": 1, "users": 4, "partners": 5, "mail_message": 851, "mail_mail": 0, "bus_bus": 6, "bus_precommit_intents": 0, "account_payment": 0, "account_partial_reconcile": 0, "ir_attachment": 70, "snapshot_sha256": "f9c22845eb28d3794f80377ca49bb35d913f0b7ea891f3eae36cfa784635c41d"},
+    {"name": "AFTER_SETTINGS_USER", "store": 1, "users": 5, "partners": 6, "mail_message": 853, "mail_mail": 0, "bus_bus": 6, "bus_precommit_intents": 1, "account_payment": 0, "account_partial_reconcile": 0, "ir_attachment": 71, "notification_type": "mail.record/insert", "target_model_category": "res.users", "target_role": "settings_actor", "observed_sendone_callsite_count": 1, "snapshot_sha256": "adc3541607edd394398bd412db829257a75b843f76e0b271bacca9e55be312d8"},
+    {"name": "ROLLBACK_AFTER", "store": 0, "users": 4, "partners": 5, "mail_message": 851, "mail_mail": 0, "bus_bus": 6, "bus_precommit_intents": 0, "account_payment": 0, "account_partial_reconcile": 0, "ir_attachment": 70, "snapshot_sha256": "5d43e33dfff290152253079aaf091f09417cd992f000a2335ba427acf68a3f0d"}
+  ],
+  "callsite_chain": [
+    "odoo/tests/common.py:new_test_user:312",
+    "addons/mail/models/discuss/res_users.py:create:16",
+    "addons/mail/models/discuss/discuss_channel.py:_subscribe_users_automatically:841",
+    "addons/mail/models/discuss/discuss_channel_member.py:_get_member_store_list:435",
+    "addons/mail/tools/discuss.py:Store.__init__:238",
+    "addons/bus/models/bus_listener_mixin.py:_bus_send:22",
+    "addons/bus/models/bus.py:_sendone:91"
+  ],
+  "new_filestore_files": {"count": 2, "avatar_svg": {"size": 305, "sha256": "0bef0d6cd8eb624768807b7f89619558733fef976a553f41c2b020ef046ec01d", "exact_locked_avatar_template": true, "content_sha1_path_match": true}, "gc_checklist": {"size": 0, "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "path_matches_avatar": true}, "postrollback_attachment_references": 0},
+  "post_audit": {"source_target_table_counts_equal": true, "installed_modules": 92, "source_target_group_implied_sha256": "982aab7716015636e1a458975ffaae4126c4c07912cf13cc99cb35ab802b3351", "target_active_connections": 0, "historical_oids_unchanged": true, "source_124_filestore_sha_unchanged": true, "raw_evidence_sha256": "c90b8ab96e8f3fe211e3a07e03bbc5e75c08f8e6beae9a6f324c1b44184f5c28"},
+  "private_evidence_sha256": {"w1_control.py": "66ea0165bc9e0e98840ae25df742886d3b978b1a56ba4c0913dd03fc8fe19f3b", "w1_fixture.py": "08e82070bc738829d3a73c309cc15b5de326eff88245370f446fec3391faf4a1", "w1_shell_entry.py": "9f39544602a03f9d0dbe179a33b00023fb1f28ccd84b59da213836e4415d058d", "gdb-one.gdb": "7a395230b369e4acf7987913273bcf4f92adb42754c1700890ba9328986938f6", "w1_offline_test.py": "8b26d51e0be61d36d376c72592bea2d2bfe18529c8a2279c840aff4c8fec187d", "witness-result.json": "7ac4e161e968d7a60812976bceb31dc7e761730ec1ddbc7e86d89832af93c1eb"},
+  "commands_and_exits": [
+    {"command": "gh api --method GET #23/#29/#31/#34 issue bodies and paginated comments; #35", "exit": 0},
+    {"command": "readonly PG source/history identity and template counts/files", "exit": 0},
+    {"command": "python -m py_compile private W1 control/fixture/shell/offline test", "exit": 0},
+    {"command": "python private/w1_offline_test.py", "exit": 0, "tests": 13, "kind": "SIMULATED"},
+    {"command": "gh api POST precreate checkpoint then GET exact readback", "exit": 0},
+    {"command": "python private/w1_control.py create", "exit": 0},
+    {"command": "python private/w1_control.py check", "exit": 0},
+    {"command": "python private/w1_control.py run", "exit": 0},
+    {"command": "independent readonly PG/filestore post-audit", "exit": 0},
+    {"command": "python scripts/s10_d18_p1_w1_offline.py", "exit": 0, "tests": 4, "kind": "SIMULATED"}
+  ],
+  "private_directories": [".local/s10-d18-p1-w1-20261014-6167210882", ".local/ydental_s10_test_20261014114000_8ec49d73"],
+  "s07_candidate": "NOT_ACCEPTED",
+  "s05_s07_compatibility": "UNRESOLVED",
+  "global_group_policy": "POLICY_PENDING",
+  "native_root_cause": "UNKNOWN",
+  "s10_status": "BLOCKED",
+  "production_status": "BLOCKED",
+  "project_mutations": 0,
+  "s11_started": false
+}
