@@ -38,8 +38,11 @@ environment.update({'PATH': str(deps / 'wkhtmltox/usr/local/bin') + os.pathsep +
     'FONTCONFIG_FILE': str(deps / 'fonts.conf'),
     'PGOPTIONS': '-c max_parallel_workers_per_gather=0 -c max_parallel_maintenance_workers=0 -c maintenance_work_mem=16384'})
 command = [str(core / '.venv/bin/python'), str(core / 'odoo-bin'), '-c', str(run / 'odoo.conf')]
-preview_log = run / 'preview.log'
-browser_log = run / 'firefox.log'
+attempt = 1
+while (run / f'preview-{attempt}.log').exists() or (run / f'firefox-{attempt}.log').exists():
+    attempt += 1
+preview_log = run / f'preview-{attempt}.log'
+browser_log = run / f'firefox-{attempt}.log'
 with preview_log.open('x') as stream:
     child = subprocess.Popen(command, cwd=root, env=environment,
                              stdout=stream, stderr=subprocess.STDOUT)
@@ -74,7 +77,7 @@ record = {'database': args.db, 'oid': marker['oid'], 'preview_pid': child.pid,
     'preview_log_sha256': hashlib.sha256(preview_log.read_bytes()).hexdigest(),
     'browser_log_sha256': hashlib.sha256(browser_log.read_bytes()).hexdigest() if browser_log.exists() else None,
     'time_utc': datetime.now(timezone.utc).isoformat()}
-(run / 'preview-result.json').write_text(json.dumps(record, indent=2) + '\n')
+(run / f'preview-result-{attempt}.json').write_text(json.dumps(record, indent=2) + '\n')
 if child.returncode == -11 or child.returncode == 139:
     (run / ('crash-' + str(child.pid) + '.json')).write_text(json.dumps(record) + '\n')
 print(json.dumps(record), flush=True)

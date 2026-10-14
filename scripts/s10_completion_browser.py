@@ -30,7 +30,7 @@ run = root / '.local' / args.db
 marker = json.loads((run / 'database.json').read_text())
 assert marker['database'] == args.db and marker['port'] == args.port
 assert marker['config_sha256'] == hashlib.sha256((run / 'odoo.conf').read_bytes()).hexdigest()
-assert b'.local/' + run.name.encode() + b'/odoo.conf' in Path(f'/proc/{args.pid}/cmdline').read_bytes().split(b'\0')
+assert os.fsencode(str(run / 'odoo.conf')) in Path(f'/proc/{args.pid}/cmdline').read_bytes().split(b'\0')
 assert Path(f'/proc/{args.pid}/cwd').resolve() == root
 f1 = json.loads((run / 'f1.json').read_text())
 f5 = json.loads((run / 'f5.json').read_text())
