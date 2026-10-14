@@ -1,0 +1,282 @@
+{
+  "actual_actions": {
+    "business_writes": 0,
+    "checkpoint_exact_get": 1,
+    "checkpoint_post": 1,
+    "create_database": 0,
+    "firefox": 0,
+    "gdb_odoo_targets": 0,
+    "odoo_targets": 0,
+    "project_mutations": 0,
+    "read_only_pg_metadata_compare": 1,
+    "read_only_pg_schema_probe": 1
+  },
+  "authorization_comment": 6162669294,
+  "branch": "codex/s10-settlement-finance-r1-20261013",
+  "checkpoint_comment": 6163037394,
+  "databases": {
+    "ydental_s10_test_20261014020300_8b6c1d4e": {
+      "compute_sudo_sql": "NOT_AVAILABLE",
+      "field_compute_nonempty": 0,
+      "field_depends_nonempty": 0,
+      "field_related_nonempty": 1426,
+      "field_store_true": 7518,
+      "installed_module_count": 92,
+      "installed_module_sha256": "69ffec40e70c0c86c98dc9da1be2ecbdde543250a5e929f9d380f81b3a0082b8",
+      "ir_model_count": 591,
+      "ir_model_fields_count": 11380,
+      "ir_model_fields_sha256": "2f890c551f5608a41d23bdb50b88711a6b2ffd28f8c51c270e007e81fcb64944",
+      "ir_model_sha256": "ce6f4a99ac1ca955e857f6278ca64b9e5acf73faa0a64f4650fd0ab3b2a10ba0",
+      "module_origin_sql": "NOT_AVAILABLE",
+      "oid": 2056451,
+      "res_lang_active_count": 2,
+      "res_lang_codes_sha256": "b3c2bc9a2e3bc4a4afdba3c637a1d1e67407b6d78640e6dc8d00b17b9e419045",
+      "res_lang_count": 93,
+      "selected_model_fields": {
+        "hr.employee": {
+          "compute": 0,
+          "related": 81,
+          "stored": 74,
+          "total": 208
+        },
+        "res.company": {
+          "compute": 0,
+          "related": 16,
+          "stored": 143,
+          "total": 213
+        },
+        "res.partner": {
+          "compute": 0,
+          "related": 13,
+          "stored": 109,
+          "total": 192
+        },
+        "res.users": {
+          "compute": 0,
+          "related": 169,
+          "stored": 45,
+          "total": 292
+        }
+      },
+      "uid1_context_inputs": {
+        "company_partner_lang_installed": true,
+        "company_partner_lang_present": true,
+        "default_company_present": true,
+        "fallback_would_be_needed_if_read_succeeds": false,
+        "user_lang_installed": true,
+        "user_partner_lang_present": true,
+        "user_partner_tz_present": false
+      }
+    },
+    "ydental_s10_test_20261014044700_4f6a8d2c": {
+      "compute_sudo_sql": "NOT_AVAILABLE",
+      "field_compute_nonempty": 0,
+      "field_depends_nonempty": 0,
+      "field_related_nonempty": 1426,
+      "field_store_true": 7518,
+      "installed_module_count": 92,
+      "installed_module_sha256": "69ffec40e70c0c86c98dc9da1be2ecbdde543250a5e929f9d380f81b3a0082b8",
+      "ir_model_count": 591,
+      "ir_model_fields_count": 11380,
+      "ir_model_fields_sha256": "2f890c551f5608a41d23bdb50b88711a6b2ffd28f8c51c270e007e81fcb64944",
+      "ir_model_sha256": "ce6f4a99ac1ca955e857f6278ca64b9e5acf73faa0a64f4650fd0ab3b2a10ba0",
+      "module_origin_sql": "NOT_AVAILABLE",
+      "oid": 2100080,
+      "res_lang_active_count": 2,
+      "res_lang_codes_sha256": "b3c2bc9a2e3bc4a4afdba3c637a1d1e67407b6d78640e6dc8d00b17b9e419045",
+      "res_lang_count": 93,
+      "selected_model_fields": {
+        "hr.employee": {
+          "compute": 0,
+          "related": 81,
+          "stored": 74,
+          "total": 208
+        },
+        "res.company": {
+          "compute": 0,
+          "related": 16,
+          "stored": 143,
+          "total": 213
+        },
+        "res.partner": {
+          "compute": 0,
+          "related": 13,
+          "stored": 109,
+          "total": 192
+        },
+        "res.users": {
+          "compute": 0,
+          "related": 169,
+          "stored": 45,
+          "total": 292
+        }
+      },
+      "uid1_context_inputs": {
+        "company_partner_lang_installed": true,
+        "company_partner_lang_present": true,
+        "default_company_present": true,
+        "fallback_would_be_needed_if_read_succeeds": false,
+        "user_lang_installed": true,
+        "user_partner_lang_present": true,
+        "user_partner_tz_present": false
+      }
+    },
+    "ydental_s10_test_20261014052222_5457e39f": {
+      "compute_sudo_sql": "NOT_AVAILABLE",
+      "field_compute_nonempty": 0,
+      "field_depends_nonempty": 0,
+      "field_related_nonempty": 1426,
+      "field_store_true": 7518,
+      "installed_module_count": 92,
+      "installed_module_sha256": "69ffec40e70c0c86c98dc9da1be2ecbdde543250a5e929f9d380f81b3a0082b8",
+      "ir_model_count": 591,
+      "ir_model_fields_count": 11380,
+      "ir_model_fields_sha256": "2f890c551f5608a41d23bdb50b88711a6b2ffd28f8c51c270e007e81fcb64944",
+      "ir_model_sha256": "ce6f4a99ac1ca955e857f6278ca64b9e5acf73faa0a64f4650fd0ab3b2a10ba0",
+      "module_origin_sql": "NOT_AVAILABLE",
+      "oid": 2100086,
+      "res_lang_active_count": 2,
+      "res_lang_codes_sha256": "b3c2bc9a2e3bc4a4afdba3c637a1d1e67407b6d78640e6dc8d00b17b9e419045",
+      "res_lang_count": 93,
+      "selected_model_fields": {
+        "hr.employee": {
+          "compute": 0,
+          "related": 81,
+          "stored": 74,
+          "total": 208
+        },
+        "res.company": {
+          "compute": 0,
+          "related": 16,
+          "stored": 143,
+          "total": 213
+        },
+        "res.partner": {
+          "compute": 0,
+          "related": 13,
+          "stored": 109,
+          "total": 192
+        },
+        "res.users": {
+          "compute": 0,
+          "related": 169,
+          "stored": 45,
+          "total": 292
+        }
+      },
+      "uid1_context_inputs": {
+        "company_partner_lang_installed": true,
+        "company_partner_lang_present": true,
+        "default_company_present": true,
+        "fallback_would_be_needed_if_read_succeeds": false,
+        "user_lang_installed": true,
+        "user_partner_lang_present": true,
+        "user_partner_tz_present": false
+      }
+    }
+  },
+  "decision": "Plan native signal11 C stack capture under a separate future authorization; do not execute this turn",
+  "failed_history": [
+    "Private GDB --version without its private LD_LIBRARY_PATH exited 127 (missing libbabeltrace.so.1); isolated GDB-only LD_LIBRARY_PATH --version exited 0; no Odoo target started",
+    "A repeated checkpoint GET via --jq .body added a trailing newline so raw file cmp exited 1; comparing the JSON body string with the original checkpoint exited 0 and matched exactly; no replacement comment was posted"
+  ],
+  "fixed_product": "4b168a84254882a2e1e3e5037c372ab57fc3dfdd",
+  "fixed_test": "255b48f54495eb99638af8ffc824771b9a5af3e7",
+  "limits": [
+    "ir_model_fields SQL compute is not the Python runtime Field.compute object graph",
+    "no actual Native C backtrace or accident shared-library map",
+    "identical metadata does not prove identical process memory"
+  ],
+  "native": {
+    "accident_maps_available": false,
+    "accident_pid": 2383730,
+    "c_backtrace_available": false,
+    "core_available": false,
+    "cpython_build_id": "7713d416ece8f53a2b37e61dd06defd7bf795954",
+    "cpython_debug_info": false,
+    "exit_code": -11,
+    "gdb_version": "17.1",
+    "glibc_build_id": "066527e430a32768d82741e00b81eebb1a872294",
+    "glibc_matching_private_debug_file": true,
+    "guarded_other_exit_code": -2,
+    "guarded_other_pid": 2383729,
+    "guarded_other_signal": "SIGINT",
+    "native_wheels_count": 47,
+    "native_wheels_debug_info_absent": 10,
+    "native_wheels_debug_info_present": 37,
+    "native_wheels_sha_match": 47,
+    "signal": "SIGSEGV"
+  },
+  "native_root_cause": "UNKNOWN",
+  "odoo20_core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "pairwise": {
+    "accident_vs_l1": {
+      "changed_non_sensitive_model_names": [],
+      "field_attrs_changed_count": 0,
+      "field_only_left_count": 0,
+      "field_only_right_count": 0,
+      "installed_module_attrs_changed_count": 0,
+      "installed_module_only_left_count": 0,
+      "installed_module_only_right_count": 0,
+      "language_codes_equal": true,
+      "model_attrs_changed_count": 0,
+      "model_only_left_count": 0,
+      "model_only_right_count": 0,
+      "uid1_company_partner_lang_equal": true,
+      "uid1_default_company_numeric_id_equal": true,
+      "uid1_partner_lang_equal": true,
+      "uid1_partner_tz_equal": true
+    },
+    "accident_vs_pure92": {
+      "changed_non_sensitive_model_names": [],
+      "field_attrs_changed_count": 0,
+      "field_only_left_count": 0,
+      "field_only_right_count": 0,
+      "installed_module_attrs_changed_count": 0,
+      "installed_module_only_left_count": 0,
+      "installed_module_only_right_count": 0,
+      "language_codes_equal": true,
+      "model_attrs_changed_count": 0,
+      "model_only_left_count": 0,
+      "model_only_right_count": 0,
+      "uid1_company_partner_lang_equal": true,
+      "uid1_default_company_numeric_id_equal": true,
+      "uid1_partner_lang_equal": true,
+      "uid1_partner_tz_equal": true
+    },
+    "pure92_vs_l1": {
+      "changed_non_sensitive_model_names": [],
+      "field_attrs_changed_count": 0,
+      "field_only_left_count": 0,
+      "field_only_right_count": 0,
+      "installed_module_attrs_changed_count": 0,
+      "installed_module_only_left_count": 0,
+      "installed_module_only_right_count": 0,
+      "language_codes_equal": true,
+      "model_attrs_changed_count": 0,
+      "model_only_left_count": 0,
+      "model_only_right_count": 0,
+      "uid1_company_partner_lang_equal": true,
+      "uid1_default_company_numeric_id_equal": true,
+      "uid1_partner_lang_equal": true,
+      "uid1_partner_tz_equal": true
+    }
+  },
+  "pg_cluster": "7694897083368259627",
+  "pg_endpoint": "127.0.0.1:5432",
+  "phase": "S10 Native D1.6-0",
+  "prior_reviewed_delivery_comment": 6162562086,
+  "private_evidence": {
+    "accident_log_sha256": "f7795b360a80afc8fdfff8cd9c7e389da25064c36480bdb98bceccd9a2c0eef6",
+    "accident_marker_sha256": "d1785e5f111f0c2358fce04895092b81f1c4455f3e0774f82b1646a447e48d78",
+    "checkpoint_body_sha256": "d71144477bf32106639d127b04463f08173f252df2e8e56974e7ff58d4c923d5",
+    "directory": ".local/s10-native-20261014-6162669294-d160/",
+    "metadata_sha256": "5490fb82a625456441f9996dd8047293d75362dd030c1843146a4fbc8a5e395f",
+    "native_inventory_sha256": "67c45d446e3a28348186d50f890e334d9de93adf49c2662c2396a5c1a4e34d13",
+    "schema_sha256": "2e1386d2acbd0a24ce3d8bbec86633bc0143a11375d7b0f2f9e06497278bb6db"
+  },
+  "production": "BLOCKED",
+  "s10": "BLOCKED",
+  "s11_started": false,
+  "start_head": "49501f75d9b5e3cf8fb91d2826296686c01bf3fa"
+}
