@@ -64,10 +64,10 @@ with env.registry.cursor() as cr:
     }, key())
     pending_snapshot = root['ydental.settlement.close'].browse(pending['close_id'])
     assert pending_snapshot.ydental_pending >= 100 and pending_snapshot.ydental_refunded == 0
-    reviewer._operate('unlock', {
-        'close_id': pending_snapshot.id, 'reason': 'Perform documented later-day refund',
-    }, key())
-    done = service._operate('refund_execute', {
+    # The refund is executed by a second real cashier. The first cashier's
+    # confirmed pending snapshot must remain frozen while the outbound lands
+    # in the second cashier's actual-day close.
+    done = reviewer._operate('refund_execute', {
         'refund_id': request['refund_id'],
         'actual_utc': datetime.now(timezone.utc).isoformat(),
         'proof': 'Synthetic verified actual WeChat refund',
@@ -76,15 +76,15 @@ with env.registry.cursor() as cr:
     refund = root['ydental.settlement.refund'].browse(request['refund_id'])
     assert refund.ydental_refund_business_date == current_day
     assert refund.ydental_refund_channel == 'wechat'
-    assert refund.ydental_executor_id == actor
+    assert refund.ydental_executor_id == approver
     assert refund.ydental_native_payment_id.journal_id == service._config(store).ydental_wechat_journal_id
-    close2 = service._operate('close', {
+    close2 = reviewer._operate('close', {
         'business_date': str(current_day), 'channel': 'wechat',
     }, key())
     today = root['ydental.settlement.close'].browse(close2['close_id'])
     assert today.ydental_refunded >= 100 and today.ydental_pending == 0
     assert before.ydental_refunded == 0 and initial.ydental_refunded == 0
-    assert pending_snapshot.ydental_pending >= 100  # immutable prior cycle
+    assert pending_snapshot.ydental_pending >= 100  # immutable other-cashier cycle
     result = {
         'store': store.id, 'source_payment': receipt.id,
         'source_day': str(earlier_day), 'refund_day': str(current_day),

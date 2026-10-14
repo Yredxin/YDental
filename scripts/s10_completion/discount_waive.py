@@ -35,6 +35,18 @@ with env.registry.cursor() as cr:
  waiver=billing._operate('waive',{'invoice_id':bill['invoice_id'],'amount':80,'reason':'Synthetic documented unpaid waiver'},key())
  invoice=root['account.move'].browse(bill['invoice_id'])
  assert invoice.amount_residual==0 and waiver['actually_refunded']==0
+ zero_source=service._operate('execute',execute_args(f,args),key())
+ assert zero_source['amount']==100
+ zero_bill=billing._operate('bill',{'fee_ids':[zero_source['fee_id']],
+  'discount':100,'reason':'Synthetic documented full fee discount'},key())
+ zero_invoice=root['account.move'].browse(zero_bill['invoice_id'])
+ assert zero_invoice.state=='posted' and zero_invoice.amount_total==0
+ assert zero_invoice.amount_residual==0 and zero_bill['amount']==0
+ assert root['ydental.settlement.source'].search_count([
+  ('ydental_fee_id','=',zero_source['fee_id']),('ydental_invoice_id','=',zero_invoice.id)])==1
  assert not root['account.payment'].search([('partner_id','=',invoice.partner_id.id)])
- print('S10_T03_T06',json.dumps({'fee':actual['fee_id'],'bill':bill,'waive':waiver,'native_invoice':invoice.id}),flush=True)
+ print('S10_T03_T06',json.dumps({'fee':actual['fee_id'],'bill':bill,'waive':waiver,
+  'native_invoice':invoice.id,'zero_fee':zero_source['fee_id'],
+  'zero_native_invoice':zero_invoice.id,'zero_amount':zero_invoice.amount_total,
+  'native_payments_for_patient':0}),flush=True)
  cr.commit()
