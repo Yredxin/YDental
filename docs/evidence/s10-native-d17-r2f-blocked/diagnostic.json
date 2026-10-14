@@ -1,0 +1,224 @@
+{
+  "authorization_comment_id": 6164999858,
+  "baseline_sha": "4f7e4415e9dfa3b373530b549fd4af8aaf46b97c",
+  "branch": "codex/s10-settlement-finance-r1-20261013",
+  "product_sha": "4b168a84254882a2e1e3e5037c372ab57fc3dfdd",
+  "test_sha": "255b48f54495eb99638af8ffc824771b9a5af3e7",
+  "odoo20_core_sha": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "checkpoint1": {
+    "comment_id": 6165199842,
+    "exact_readback": true,
+    "body_sha256": "14019ae2087f75b81c5c579de325cf551b330c2b35cca4586015e799451ca0b1"
+  },
+  "pg": {
+    "endpoint": "127.0.0.1:5432",
+    "cluster": "7694897083368259627",
+    "historical_oids": {
+      "incident": 2056451,
+      "pure92_template": 2100080,
+      "l1": 2100086,
+      "l2_failed": 2100087,
+      "r1_failed": 2100096
+    },
+    "new_db": "ydental_s10_test_20261014092245_1d9a6dd0",
+    "new_oid": 2100105,
+    "port": 18256
+  },
+  "f0": {
+    "old_orphan_files_each": 6,
+    "old_each_classification": {
+      "exact_odoo_synthetic_avatar_svg_proven": 3,
+      "native_gc_checklist_proven": 3,
+      "attachment_references": 0,
+      "specific_orm_write_trace": "LIKELY_NOT_PROVEN"
+    },
+    "template_modules": 92,
+    "template_business_nonzero": 0,
+    "template_attachments": 70,
+    "template_filestore_files": 124,
+    "template_active_external_connections": 0,
+    "queue_actual_ast": {
+      "positive": 3,
+      "negative": 12,
+      "exit": 0,
+      "mode": "SIMULATED"
+    },
+    "hook_actual_ast": {
+      "positive": 1,
+      "negative": 12,
+      "exit": 0,
+      "mode": "SIMULATED"
+    },
+    "fake_guard_clone_observer": {
+      "positive": 16,
+      "negative": 26,
+      "exit": 0,
+      "mode": "SIMULATED"
+    },
+    "static_order_exit": 0,
+    "py_compile_exit": 0
+  },
+  "f1": {
+    "create_attempts": 1,
+    "create_exit": 0,
+    "config_sha256": "f93df8abd56e2a0e8eba291fd9201fabb98975651704c7d1f9e2c2c4f078a01e",
+    "marker_sha256": "6973b84e3626c478111082c13b946e2c3a6d00cd786445fbae716970d2513095",
+    "template_files_copied_sha_match": 124,
+    "hook_real_marker_stub_exit": 0,
+    "preprep_target_guard_exit": 0,
+    "prep_launches": 1,
+    "gdb_parent_pid": 2631663,
+    "odoo_target_pid": 2631671,
+    "target_exit": 1,
+    "gdb_exit": 1,
+    "outer_prep_exit": 2,
+    "true_sigsegv": false,
+    "registry_start_utc": "2026-10-14 09:26:59.517",
+    "registry_end_utc": "2026-10-14 09:27:00.177",
+    "gdb_log_sha256": "f16dc1d22971bd14e2cc48f4e84378cacb2a1cc36a678775f49614ce4bd30555",
+    "failure": "Private fixture absolute mail.message count >100; pure92 template already had 851",
+    "template_mail_message": 851,
+    "new_mail_message_after_rollback": 851,
+    "mail_mail_after_rollback": 0,
+    "committed_patient_fee_event_inventory_stock_account_settlement_counts": 0,
+    "new_filestore_files": 128,
+    "new_extra_files": 4,
+    "new_extras_classified_exact_avatar_svg": 2,
+    "new_extras_classified_gc_checklist": 2,
+    "new_extras_referenced": 0
+  },
+  "f2": {
+    "second_checkpoint": "NOT_PUBLISHED_A_FAILED",
+    "gdb_shell_targets": 0,
+    "pg_observer": "NOT_RUN",
+    "native_c_stack": "NOT_CAPTURED_NO_SIGSEGV"
+  },
+  "budget": {
+    "create_used": 1,
+    "create_max": 1,
+    "odoo_prep_used": 1,
+    "odoo_prep_max": 1,
+    "odoo_f2_used": 0,
+    "odoo_f2_max": 2,
+    "odoo_total_used": 1,
+    "odoo_total_max": 3,
+    "firefox_used": 0,
+    "install_upgrade_used": 0,
+    "retry_used": 0,
+    "project_mutations": 0
+  },
+  "private_evidence": {
+    "f0_dir": ".local/s10-native-20261014-6164999858-d17r2f",
+    "run_dir": ".local/ydental_s10_test_20261014092245_1d9a6dd0",
+    "permissions": "directories700/files600",
+    "old_orphan_inventory_sha256": "ed16e49739d0855b6a3947edaa82e0393fd6cda083f1747e702307436cf8de09",
+    "old_orphan_refcheck_sha256": "a1b53e3c0cffbb26f70ed82d4670822385e90d8915bbe93dd7eaec10956eb172",
+    "old_avatar_match_sha256": "cee2cb74c3a805f5dd9105039958d4b3879b2ca3b7399ce9680668e19b874981",
+    "new_postfailure_audit_sha256": "26b86fd446af8d2f7206483ccc0b0c272f476600e8e64d3928123db714b7cbb9",
+    "new_filestore_classification_sha256": "a5c5a54819f6e54fec8ee3421d50001db95a57bc74b71817b20c425a31f0c0a6",
+    "attempt_ledger_sha256": "25cb9777a87df46961cbfe23f7e1e7cc42292b402aec82884e39adc7ba654e09"
+  },
+  "known_limitations": [
+    "Original SIGSEGV native C root cause UNKNOWN",
+    "S05 controlled pricelist x S07 later second warehouse product compatibility UNRESOLVED",
+    "All L2 clinical/stock records rolled back; no committed L2 state",
+    "Diagnostic fixture absolute mail.message threshold was invalid against template baseline",
+    "No fourth similar L2 database attempt authorized"
+  ],
+  "stewardship": {
+    "historical_databases_modified": false,
+    "historical_filestores_deleted_or_modified": false,
+    "core_modified": false,
+    "product_modified": false,
+    "project_modified": false,
+    "issue_closed": false,
+    "s11_started": false,
+    "production_deployed": false,
+    "s10": "BLOCKED",
+    "production": "BLOCKED"
+  },
+  "command_history": [
+    {
+      "command": "GitHub API GET #23/#34/#35 and all comments",
+      "exit": 0
+    },
+    {
+      "command": "PG read-only OID/cluster and orphan attachment references",
+      "exit": 0
+    },
+    {
+      "command": "old orphan metadata/hash/type inventory and exact avatar candidate-hash matching",
+      "exit": 0
+    },
+    {
+      "command": "py_compile private diagnostic scripts",
+      "exit": 0
+    },
+    {
+      "command": "original queue function AST and original hook AST offline tests",
+      "exit": 0,
+      "mode": "SIMULATED"
+    },
+    {
+      "command": "private offline guard/clone/observer test first attempt",
+      "exit": 1,
+      "reason": "private tool directory path substitution error"
+    },
+    {
+      "command": "private offline guard/clone/observer test corrected",
+      "exit": 0,
+      "mode": "SIMULATED"
+    },
+    {
+      "command": "static check first attempt",
+      "exit": 1,
+      "reason": "test asserted single quote spelling for double quoted observer tuple"
+    },
+    {
+      "command": "static check corrected",
+      "exit": 0,
+      "mode": "SIMULATED"
+    },
+    {
+      "command": "source audit read-only; follow-up summary first attempt",
+      "exit": 1,
+      "reason": "summary script treated module count integer as list; underlying source audit exit0"
+    },
+    {
+      "command": "source audit summary corrected",
+      "exit": 0
+    },
+    {
+      "command": "private GDB bare --version",
+      "exit": "nonzero",
+      "reason": "private LD_LIBRARY_PATH needed"
+    },
+    {
+      "command": "private GDB with scoped LD_LIBRARY_PATH --version",
+      "exit": 0
+    },
+    {
+      "command": "gh API POST first checkpoint and exact GET readback",
+      "exit": 0
+    },
+    {
+      "command": "l2_capture.py clone",
+      "exit": 0
+    },
+    {
+      "command": "original pre_init_hook actual body against real new marker",
+      "exit": 0,
+      "mode": "OFFLINE_STUB"
+    },
+    {
+      "command": "l2_capture.py prep",
+      "exit": 2,
+      "target_exit": 1,
+      "gdb_exit": 1
+    },
+    {
+      "command": "postfailure independent PG read-only aggregates and filestore classification",
+      "exit": 0
+    }
+  ]
+}
