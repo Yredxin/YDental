@@ -1,5 +1,11 @@
 # YDental 当前执行入口
 
+## 当前 S10 Native D0 已完成、D1 建库命令异常持续 BLOCKED / #34（等待 GPT 独立复核）
+
+- 最新唯一授权 [#34 GPT-AUTHORIZE6160027673](https://github.com/Yredxin/YDental/issues/34#issuecomment-6160027673) 限于旧 native SIGSEGV 的 D0 只读与条件 D1 一次 GDB 窗口，禁止 D2。原分支与远端基线 `f24b0302569aefaa394391da6b696d915e3f0616`、固定 product/test、Odoo20 core 均核对匹配；#23/#34 全部有效内容与 #35 OPEN/0 评论已读，授权后无新 GPT/Codex 裁定。原事故 OID2056451、PG cluster、配置/日志/marker SHA 均重读匹配；S07/S08-C/S09/S10 旧日志逐字节核验，根因仍 UNKNOWN。
+- D0 私有目录 `.local/s10-native-20261014-6160027673/` 权限700，私有下载/解包 GDB17.1 与匹配 glibc 调试符号，无系统包安装或历史 venv/core 修改。GDB 父进程的非 Odoo stdin、信号/栈捕获离线预检通过。[强制 D0 GitHub 检查点6160238952](https://github.com/Yredxin/YDental/issues/34#issuecomment-6160238952) 已发表并 API 逐字读回。
+- D1 唯一建库命令 `native_capture.py create` exit1：`psycopg2.errors.ActiveSqlTransaction`，`CREATE DATABASE cannot run inside a transaction block`。计划新库 `ydental_s10_test_20261014033000_6160a273` **未创建、无 OID**，只留下权限700私有空目录/网络guard副本；原库 OID2056451及SHA再核对不变。按“命令异常即停”条件，不修脚本重试；实际 Odoo/GDB目标/Firefox进程均0，未捕获C栈，S10/生产继续BLOCKED。详见[报告](docs/s10-native-d0-d1-create-blocked-report.md)与[脱敏证据](docs/evidence/s10-native-d0-d1-blocked/diagnostic.json)。正常前进提交并在#34报告BLOCKED、逐字读回后立即停止；不启S11、不合并/强推/生产部署、不改Project。
+
 ## 当前 S10 再次定向返工原生崩溃持续 BLOCKED / #34（等待 GPT 独立复核）
 
 - 唯一正式授权为 [#34 GPT-REVIEW/AUTHORIZE6158230350](https://github.com/Yredxin/YDental/issues/34#issuecomment-6158230350)。从固定 `d99f27fffcd6f9b79f1b1ac271dd026493b826b6` 沿原分支快进，纳入 GPT GitHub 未实测 WIP 后，最后 product `4b168a84254882a2e1e3e5037c372ab57fc3dfdd`、固定 test `255b48f54495eb99638af8ffc824771b9a5af3e7`，final SHA 见 #34 本次回执。#23/#34 正文及全部有效评论已重读；不重做已通过 D0/D1。
