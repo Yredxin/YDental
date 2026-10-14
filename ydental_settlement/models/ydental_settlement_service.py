@@ -710,7 +710,11 @@ class YDentalSettlementService(models.AbstractModel):
             and (not refund.ydental_refund_business_date or refund.ydental_refund_business_date == day))
         # A pending refund is an exposure snapshot, never a recorded cash flow.
         # A later actual refund cannot retroactively enter an earlier day.
-        cutoff = min(end_utc, fields.Datetime.now())
+        # Odoo's fields.Datetime.now() deliberately drops microseconds. An
+        # actual refund keeps its supplied UTC microseconds, so using that
+        # helper here can count an already posted refund as still pending in
+        # a close confirmed during the same second.
+        cutoff = min(end_utc, datetime.now(timezone.utc).replace(tzinfo=None))
         requests = self._model('refund').search([
             ('ydental_payment_id.ydental_store_id', '=', store.id),
             ('ydental_payment_id.ydental_cashier_id', '=', self.env.uid),
