@@ -1,0 +1,760 @@
+{
+  "accident_evidence": {
+    "actions_sha256": "d6a578b75fd9ba331372e8616bf7a18999694649ffe65f3e1002660bcf0800cf",
+    "actor_a_barrier_file_sha256": "0ea9fe10796646db8f771bdbab4495d616e73bc40807f9761ec8d5927d86a9b4",
+    "actor_b_barrier_exists": false,
+    "actors": [
+      {
+        "actor": "a",
+        "exit_code": -2,
+        "log_sha256": "bc2291a3583468f6a1062c95ed0733f4e964a1f78ac5336bc655a103023445bf",
+        "pid": 2383729,
+        "signal": 2
+      },
+      {
+        "actor": "b",
+        "exit_code": -11,
+        "log_sha256": "f7795b360a80afc8fdfff8cd9c7e389da25064c36480bdb98bceccd9a2c0eef6",
+        "pid": 2383730,
+        "signal": 11
+      }
+    ],
+    "bill_prepare_log_sha256": "037f182060542d0b26beee8fca781ccc78c02c1b960103f50e734287c96441e5",
+    "concurrency_fixture_sha256": "dc51cd57f2c1793a8b0cebcc977fd3f24c67a086e345f4f7fccc254e9f10c62f",
+    "crash_log_sha256": "f7795b360a80afc8fdfff8cd9c7e389da25064c36480bdb98bceccd9a2c0eef6",
+    "crash_marker_sha256": "d1785e5f111f0c2358fce04895092b81f1c4455f3e0774f82b1646a447e48d78",
+    "last_refund_prepare_log_sha256": "94bcfac3993b6ee04c7a16a87f7dcbb416b39fda6c1e0ec6e9dc4540000a1aad",
+    "race_actions_sha256": "380aa68c226a8fd2b4b904706d6856638c6bc9c0303a11c274a9909a3fb20ff0",
+    "timeline": [
+      {
+        "action": "install",
+        "exit_code": 0,
+        "finished_utc": "2026-10-14T02:04:15.219323+00:00",
+        "log_sha256": "4035831deca38cc94c9b900ea344b02c34d9d29760fa24f334c2401842751f8b",
+        "order": 1,
+        "pid": 2380553,
+        "probe": null,
+        "probe_sha256": null,
+        "signal": null
+      },
+      {
+        "action": "upgrade",
+        "exit_code": 0,
+        "finished_utc": "2026-10-14T02:04:26.934449+00:00",
+        "log_sha256": "b08aee5f17f14ffa683a53970b4670221bd4d884f17e29648fd4572ee33ec67d",
+        "order": 2,
+        "pid": 2381168,
+        "probe": null,
+        "probe_sha256": null,
+        "signal": null
+      },
+      {
+        "action": "shell",
+        "exit_code": 0,
+        "finished_utc": "2026-10-14T02:04:50.799881+00:00",
+        "log_sha256": "8a688a4e33313b37c535b51b066a45dc8b49c11a0c3f237e2f2857a457bfe890",
+        "order": 3,
+        "pid": 2381332,
+        "probe": "f1_740",
+        "probe_sha256": "fe42f6f60ca3dec78a1e6982d1fb1fecb73b4327ace77443f16e887f7093c36e",
+        "signal": null
+      },
+      {
+        "action": "shell",
+        "exit_code": 0,
+        "finished_utc": "2026-10-14T02:05:04.683342+00:00",
+        "log_sha256": "cbe9bfe9695103d0616410a2a0a87d8d0886bda3f9e9383609339d6300e0f0a2",
+        "order": 4,
+        "pid": 2381460,
+        "probe": "f5_270_200",
+        "probe_sha256": "09d38388601f4a8da9345c7273c803b690485c9d0fcb26dda5b50deb17a99399",
+        "signal": null
+      },
+      {
+        "action": "shell",
+        "exit_code": 0,
+        "finished_utc": "2026-10-14T02:05:07.797499+00:00",
+        "log_sha256": "4d842b434d83d52dae0cba5845c65e8a08525b0d279c9b5301611d68979cdcb2",
+        "order": 5,
+        "pid": 2381589,
+        "probe": "refund_day_channel",
+        "probe_sha256": "7af11b4ba91ded094c7e7d0a63031333702f24968d8f9770224ea9cb16881866",
+        "signal": null
+      },
+      {
+        "action": "shell",
+        "exit_code": 0,
+        "finished_utc": "2026-10-14T02:05:25.449759+00:00",
+        "log_sha256": "09ade865fcd558c09dbae68d4b834294a432da6fd9b13b2087b42dec755e0e8a",
+        "order": 6,
+        "pid": 2381628,
+        "probe": "paged_finance_history",
+        "probe_sha256": "6f1841814b62592badb2659884925334ff69b6f4c7825bf1ccbe122edd22fb7b",
+        "signal": null
+      },
+      {
+        "action": "shell",
+        "exit_code": 0,
+        "finished_utc": "2026-10-14T02:05:34.846948+00:00",
+        "log_sha256": "1679c9ef3b9291706610766c1e9dec88dd461d5f4721f771c26634d48cca9e85",
+        "order": 7,
+        "pid": 2381798,
+        "probe": "f2_f3_refund_close",
+        "probe_sha256": "f182b32f8e9725e6548ffcc88c7e68c3a8da424933592ef366314bd4b6b3d119",
+        "signal": null
+      },
+      {
+        "action": "shell",
+        "exit_code": 0,
+        "finished_utc": "2026-10-14T02:05:45.724954+00:00",
+        "log_sha256": "d5f1d5bc5ae902f22af2c5f6f6d8fa61750881e1f984d2f3119b3bbb72f083a5",
+        "order": 8,
+        "pid": 2381916,
+        "probe": "discount_waive",
+        "probe_sha256": "71dc4b54c62b74823434f951525920dbfaf5a19eb18e56665f30108476938b44",
+        "signal": null
+      },
+      {
+        "action": "shell",
+        "exit_code": 0,
+        "finished_utc": "2026-10-14T02:05:56.644162+00:00",
+        "log_sha256": "19e06d41ceef8acf2af054fea4344eadc80a5629fc28acf1b562375ccd2e4e1a",
+        "order": 9,
+        "pid": 2382016,
+        "probe": "quantity_correction",
+        "probe_sha256": "f4c0f3f9e431da2c03cf1965fd935665b809f3f8d0c961fa9677c1cfb7b7f79e",
+        "signal": null
+      },
+      {
+        "action": "shell",
+        "exit_code": 0,
+        "finished_utc": "2026-10-14T02:05:58.507389+00:00",
+        "log_sha256": "153807f33abc2a1e051104dd5634c9015a60e0d5ed267ce8e3f207e77cf9e856",
+        "order": 10,
+        "pid": 2382150,
+        "probe": "drug_return",
+        "probe_sha256": "037fb8d0c53501730060c796594d0bdcc40c038d3f699dcef4507ebeaa3a1391",
+        "signal": null
+      },
+      {
+        "action": "shell",
+        "exit_code": 0,
+        "finished_utc": "2026-10-14T02:06:01.321531+00:00",
+        "log_sha256": "e4dec5424b7f496c9ec1ae4c4427e11f5c3f3d1dbaa1d80e34004e04c4e35a7f",
+        "order": 11,
+        "pid": 2382165,
+        "probe": "refund_failure",
+        "probe_sha256": "5e9248af742e0a588521bd0424ebf974c81e945661b3e6fcf23840fbfea48f70",
+        "signal": null
+      },
+      {
+        "action": "shell",
+        "exit_code": 0,
+        "finished_utc": "2026-10-14T02:06:03.954536+00:00",
+        "log_sha256": "f301c90aa311a5a7845577314cd253db8ed2ee0476c0654ead33c60e3abb4b81",
+        "order": 12,
+        "pid": 2382203,
+        "probe": "partial_refund",
+        "probe_sha256": "0ce3a0023677b1c6bdf0f0f67c7b4fe280ead231d2ccbb0ea0f5b3484d5a42d4",
+        "signal": null
+      },
+      {
+        "action": "shell",
+        "exit_code": 0,
+        "finished_utc": "2026-10-14T02:06:06.792611+00:00",
+        "log_sha256": "3b5f6b709828120956d021ed686b2bc994f8036b22509425da821116bf6c0857",
+        "order": 13,
+        "pid": 2382243,
+        "probe": "late_close",
+        "probe_sha256": "c556cd020b8a3611701c8816150b91f46608760427d7e4de03bd62182f4b1e58",
+        "signal": null
+      },
+      {
+        "action": "shell",
+        "exit_code": 0,
+        "finished_utc": "2026-10-14T02:06:08.658620+00:00",
+        "log_sha256": "cc91b0d7a7ca4b274c7d95661c5104865d154f1cc1b9a409fdf3327962e946a6",
+        "order": 14,
+        "pid": 2382281,
+        "probe": "security_matrix",
+        "probe_sha256": "588d9f0473ea8677e4a85699a4b36587f4c641e7e8f1bfbd2e51efeab965b8dd",
+        "signal": null
+      },
+      {
+        "action": "shell",
+        "exit_code": 0,
+        "finished_utc": "2026-10-14T02:06:10.281106+00:00",
+        "log_sha256": "be26381e2a15b15fc122cd636950fbbc9c65b86809e5498d72fa96d546e4d8b5",
+        "order": 15,
+        "pid": 2382295,
+        "probe": "audit_integrity",
+        "probe_sha256": "c03f265805ecf2f0df3579737a2cf3c1da197c24d7f48e332ee00e3c3e03abb2",
+        "signal": null
+      },
+      {
+        "action": "shell",
+        "exit_code": 0,
+        "finished_utc": "2026-10-14T02:06:12.859603+00:00",
+        "log_sha256": "0971777b5ab6fe32043ea0c65bdf10108cfe20a25a207723e8f773c30a18ea58",
+        "order": 16,
+        "pid": 2382310,
+        "probe": "idempotency",
+        "probe_sha256": "97b2b94ba2d8357df0fcd42ad461dd0cee9a73f41ae431ba4753669c3bdf8bc4",
+        "signal": null
+      },
+      {
+        "action": "shell",
+        "exit_code": 0,
+        "finished_utc": "2026-10-14T02:06:14.697190+00:00",
+        "log_sha256": "4401e35bed4d43be458000bd9d8d04cdd9b0579530992ed5b79009bb1783c088",
+        "order": 17,
+        "pid": 2382368,
+        "probe": "f6_cross_store",
+        "probe_sha256": "969afd3328b407e0a0066e1c38222b53036859d213c4a135f5056f9cae1556ab",
+        "signal": null
+      },
+      {
+        "action": "shell",
+        "exit_code": 0,
+        "finished_utc": "2026-10-14T02:06:24.137803+00:00",
+        "log_sha256": "13dd44f0ef23fe4ce6c55ab5341c64f9512d6a32eb82ff3f58112219f1193f32",
+        "order": 18,
+        "pid": 2382385,
+        "probe": "pending_board",
+        "probe_sha256": "c28c268ab67df741c3df21620a53fe3944d464bccca20a7b1df37e6fda4e7f34",
+        "signal": null
+      },
+      {
+        "action": "shell",
+        "exit_code": 0,
+        "finished_utc": "2026-10-14T02:06:36.619502+00:00",
+        "log_sha256": "adff508eef5a7f415b3af28dc6da59273e37263115c6a9f1be6322f53988cb9e",
+        "order": 19,
+        "pid": 2382492,
+        "probe": "t09_trade",
+        "probe_sha256": "fdbfb8e6e075fef6518dd222a43f026897aeb487dec305db7db9362d3a057bda",
+        "signal": null
+      },
+      {
+        "action": "shell",
+        "exit_code": 0,
+        "finished_utc": "2026-10-14T02:06:45.923645+00:00",
+        "log_sha256": "ec46bbb5f06332310665cb84b1b6cb9f7d9026572df3efeacc702e8bd253f650",
+        "order": 20,
+        "pid": 2382618,
+        "probe": "same_company_transfer",
+        "probe_sha256": "8f96cd23fa399be9e3b7888055bfbb3611f9ee176478a3c73962e05868de6e27",
+        "signal": null
+      },
+      {
+        "action": "shell",
+        "exit_code": 0,
+        "finished_utc": "2026-10-14T02:06:48.429667+00:00",
+        "log_sha256": "3865883768cf7ef0448702000a7fa8499447683884868a94c77100c403e53cca",
+        "order": 21,
+        "pid": 2382693,
+        "probe": "trade_negative",
+        "probe_sha256": "4d6a7425757dfc2072fa6776b9fec34f8231802dd8aeceb5c4bc844355187bf1",
+        "signal": null
+      },
+      {
+        "action": "shell",
+        "exit_code": 0,
+        "finished_utc": "2026-10-14T02:07:29.993132+00:00",
+        "log_sha256": "208617a961016ed575edfdb015b2d6cf2b649394a4158f01ea749871d7665940",
+        "order": 22,
+        "pid": 2382729,
+        "probe": "history_205",
+        "probe_sha256": "b26de909feba1c90747643a8d23a55bd1f0ee7f130335a9e35cf3aaf2950470b",
+        "signal": null
+      },
+      {
+        "action": "shell",
+        "exit_code": 0,
+        "finished_utc": "2026-10-14T02:07:41.769271+00:00",
+        "log_sha256": "a092bdc928fd35cc4ec630e9c649fe8dee72c78a788d996dd075ed7147651c24",
+        "order": 23,
+        "pid": 2383114,
+        "probe": "s09_regression",
+        "probe_sha256": "9cd0de5b59e89a9a4e99212a80d4b257e488189688cedc1276b92b69fdc8d8aa",
+        "signal": null
+      },
+      {
+        "action": "shell",
+        "exit_code": 0,
+        "finished_utc": "2026-10-14T02:07:52.043009+00:00",
+        "log_sha256": "faa5c727215934997b506de09f1d3f6b28f13bb05e8aa9d1fb33b280abc50fd2",
+        "order": 24,
+        "pid": 2383224,
+        "probe": "refund_pdf_states",
+        "probe_sha256": "c1ee51ad31c1c7927a32bf6cff42ff11f2fb42b432951bd903c4a9b529da6d80",
+        "signal": null
+      },
+      {
+        "action": "shell",
+        "exit_code": 0,
+        "finished_utc": "2026-10-14T02:08:04.110473+00:00",
+        "log_sha256": "03bb7cc1f1f0adfbef42faaf67a03fdeae738e689f810cbaa0d74b060f6f5f67",
+        "order": 25,
+        "pid": 2383349,
+        "probe": "finance_race_prepare",
+        "probe_sha256": "bc693fbeacd1ab4dc9931660fba41e9cd1f18b72db4597f9cc85d63b8ff9b742",
+        "signal": null
+      },
+      {
+        "action": "shell",
+        "exit_code": 0,
+        "finished_utc": "2026-10-14T02:08:05.943624+00:00",
+        "log_sha256": "4a2992550e53c5c174f845eef4f8deaa498794570c9f6fb4af4f87390812e67a",
+        "order": 26,
+        "pid": 2383506,
+        "probe": "approval_race_prepare",
+        "probe_sha256": "285d9c9127c6a2b0b4e7796ecc62e6a1207587e2614aca26bce70db0271f05ec",
+        "signal": null
+      },
+      {
+        "action": "shell",
+        "exit_code": 0,
+        "finished_utc": "2026-10-14T02:08:16.674667+00:00",
+        "log_sha256": "037f182060542d0b26beee8fca781ccc78c02c1b960103f50e734287c96441e5",
+        "order": 27,
+        "pid": 2383521,
+        "probe": "concurrency_prepare",
+        "probe_sha256": "441befdfb841644c65517af6a60ea3084fbcea9e983dfd8a1e0307edf561c9aa",
+        "signal": null
+      },
+      {
+        "action": "shell",
+        "exit_code": 0,
+        "finished_utc": "2026-10-14T02:08:18.406239+00:00",
+        "log_sha256": "94bcfac3993b6ee04c7a16a87f7dcbb416b39fda6c1e0ec6e9dc4540000a1aad",
+        "order": 28,
+        "pid": 2383625,
+        "probe": "refund_race_prepare",
+        "probe_sha256": "f640599ca940cb63f9a31149bf47a9968f77cf44175e532a91b6d93cff63f909",
+        "signal": null
+      }
+    ]
+  },
+  "authorization": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6161244580",
+  "baseline_sha": "d4efed555e9df001951f171d585a815a86d2ed5e",
+  "command_ledger": [
+    {
+      "command": "gh api repos/Yredxin/YDental/issues/{23,34,35} and paginated comments; GET 6161244580",
+      "exit_code": 0,
+      "scope": "public GitHub read"
+    },
+    {
+      "command": "git remote -v; git branch --show-current; git rev-parse HEAD; git ls-remote origin refs/heads/codex/s10-settlement-finance-r1-20261013; git status --porcelain=v1",
+      "exit_code": 0,
+      "scope": "read-only Git identity"
+    },
+    {
+      "command": "git -C ../odoo rev-parse HEAD; ../.venv/bin/python -c <interpreter identity>; docker ps --format <identity>",
+      "exit_code": 0,
+      "scope": "read-only environment"
+    },
+    {
+      "command": "../.venv/bin/python - <management DB SELECT pg_control_system and five pg_database OIDs>",
+      "exit_code": 0,
+      "scope": "read-only PG identity"
+    },
+    {
+      "command": "gh api --method POST repos/Yredxin/YDental/issues/34/comments --input <private checkpoint JSON>",
+      "exit_code": 0,
+      "scope": "authorized GitHub checkpoint"
+    },
+    {
+      "command": "gh api repos/Yredxin/YDental/issues/comments/6161294008; exact body comparison",
+      "exit_code": 0,
+      "scope": "GitHub checkpoint readback"
+    },
+    {
+      "command": "../.venv/bin/python .local/s10-native-20261014-6161244580-d150/read_aggregate.py",
+      "exit_code": 0,
+      "scope": "fixed OID read-only 37-table metadata/count/time"
+    },
+    {
+      "command": "../.venv/bin/python - <read-only state and fixture relation SQL>",
+      "exit_code": 0,
+      "scope": "counts only; no patient or financial detail"
+    },
+    {
+      "command": "../.venv/bin/python - <read-only prepare and related time-window counts>",
+      "exit_code": 0,
+      "scope": "fixed OID aggregate"
+    },
+    {
+      "command": "../.venv/bin/python -m py_compile -o <private pyc> scripts/s10_native_d15_l1_draft.py",
+      "exit_code": 2,
+      "scope": "offline CLI option failure, preserved"
+    },
+    {
+      "command": "../.venv/bin/python - <py_compile.compile(cfile=..., doraise=True)>",
+      "exit_code": 0,
+      "scope": "offline corrected compile"
+    },
+    {
+      "command": "../.venv/bin/python .local/s10-native-20261014-6161244580-d150/offline_draft_check.py",
+      "exit_code": 0,
+      "scope": "AST and fake guard, SIMULATED"
+    },
+    {
+      "command": "python3 -m json.tool docs/evidence/s10-native-d15/analysis.json; git diff --check",
+      "exit_code": 0,
+      "scope": "offline artifact validation"
+    }
+  ],
+  "draft_offline_verification": {
+    "actual_odoo_fixture_runs": 0,
+    "ast_static_exit": 0,
+    "correct_pycompile_exit": 0,
+    "current_authorization_gate": "DENY",
+    "fake_negative": 11,
+    "fake_positive": 1,
+    "invalid_pycompile_log_sha256": "726faa50604d639553af2d565576ff6cfbcd708efd3332922a7aae7cd8de535a",
+    "invalid_pycompile_option_exit": 2,
+    "mock_exit": 0,
+    "mock_label": "SIMULATED",
+    "private_mock_source_sha256": "4227cdf7d63face5acccfabc7958ff96e264c43d6727cc17a3f2051df28a6b95"
+  },
+  "fixed_product_sha": "4b168a84254882a2e1e3e5037c372ab57fc3dfdd",
+  "fixed_test_sha": "255b48f54495eb99638af8ffc824771b9a5af3e7",
+  "future_recommendation": {
+    "actor_bill_permitted": false,
+    "current_authorized_odoo_targets": 0,
+    "extra_install_target_if_empty_db": 1,
+    "future_gdb_readonly_shell_targets": 2,
+    "future_new_database_count": 1,
+    "future_odoo_preparation_targets_if_clone_approved": 1,
+    "only_recommended_tier": "L1",
+    "requires_new_gpt_authorization": true
+  },
+  "github_read": {
+    "checkpoint_body_sha256": "48e16752eff3f18d5a8c38b77588741d343bd80f12fa333ed092d5a788e679fa",
+    "checkpoint_comment_id": 6161294008,
+    "checkpoint_exact_api_readback": true,
+    "issue23_comments": 3,
+    "issue34_comments_before_checkpoint": 35,
+    "issue35_comments": 0,
+    "issue35_state": "OPEN"
+  },
+  "odoo_core_sha": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "pg_identity": {
+    "accident_config_sha256": "34f2a7cff12ef31c69090fb7b1f990b008bebf850290e2747d868c6a9d8ae778",
+    "accident_marker_sha256": "96d261798a4b4370772d5700ba8516dd7677d2568f2b3fda80d3572b94a644e6",
+    "cluster": "7694897083368259627",
+    "endpoint": "127.0.0.1:5432",
+    "historical_oids": {
+      "accident": 2056451,
+      "d12_window": 2100078,
+      "d14_failed": 2100079,
+      "d14r1_pure_92": 2100080,
+      "pure_91_template": 2078375
+    }
+  },
+  "private_evidence_dir": ".local/s10-native-20261014-6161244580-d150/",
+  "read_only_aggregate": {
+    "bill_prepare_window_created": {
+      "res_users": 9,
+      "stock_lot": 2,
+      "stock_move": 2,
+      "stock_quant": 3,
+      "ydental_access_capability": 4,
+      "ydental_access_grant": 30,
+      "ydental_access_membership": 16,
+      "ydental_access_session": 11,
+      "ydental_access_store": 2,
+      "ydental_clinical_document": 1,
+      "ydental_intake_catalog": 5,
+      "ydental_intake_mapping": 9,
+      "ydental_intake_price": 1,
+      "ydental_intake_task": 1,
+      "ydental_inventory_config": 1,
+      "ydental_inventory_event": 2,
+      "ydental_patient": 1,
+      "ydental_queue_entry": 1,
+      "ydental_queue_execution": 1,
+      "ydental_settlement_config": 1,
+      "ydental_space_area": 9,
+      "ydental_space_floor": 2,
+      "ydental_space_station": 10,
+      "ydental_supply_claim": 1,
+      "ydental_supply_policy": 2,
+      "ydental_supply_slot": 8,
+      "ydental_treatment_consumption": 1,
+      "ydental_treatment_event": 1,
+      "ydental_treatment_fee": 1
+    },
+    "cutoff_utc": "2026-10-14T02:08:24.934000Z",
+    "fixture_relation_counts": {
+      "billed_settlement_source": 0,
+      "confirmed_event": 1,
+      "consumption": 1,
+      "distinct_event": 1,
+      "distinct_inventory_event": 1,
+      "done_native_move": 1,
+      "fee": 1,
+      "fee_created_before_actor": 1
+    },
+    "last_refund_prepare_window_created": {
+      "ydental_access_session": 2
+    },
+    "private_raw_sha256": {
+      "aggregate": "a5587b44bac977fba40e1afe667776d6f32c359095b58200206400e4366f72f5",
+      "prepare_windows": "9bbfa06f5fe4209e43239ab01eba8601354418dbfeca0b20b9042a985d9d4868",
+      "related_window": "ff82ae152f4903ad285be79b58df3700ccfb2743fa30f6df079aa6771ca26140"
+    },
+    "related_bill_prepare_window_created": {
+      "account_account": 8,
+      "account_journal": 4,
+      "product_pricelist": 1,
+      "product_pricelist_item": 1,
+      "product_product": 7,
+      "product_template": 7,
+      "stock_location": 13,
+      "stock_warehouse": 1,
+      "ydental_access_audit": 149,
+      "ydental_clinical_version": 1,
+      "ydental_intake_operation": 21,
+      "ydental_inventory_batch": 2,
+      "ydental_inventory_operation": 6,
+      "ydental_queue_lease": 1,
+      "ydental_supply_operation": 29,
+      "ydental_treatment_receipt": 1
+    },
+    "state_counts": {
+      "account_move": {
+        "posted": 93
+      },
+      "refund": {
+        "approved": 2,
+        "cancelled": 2,
+        "done": 4,
+        "rejected": 2,
+        "requested": 55,
+        "unknown": 1
+      },
+      "stock_move": {
+        "done": 238
+      },
+      "treatment_event": {
+        "confirmed": 225,
+        "pending": 1
+      }
+    },
+    "table_count": 37,
+    "tables": {
+      "account_move": {
+        "all_created_by_actor_start": true,
+        "count": 93,
+        "writes_after_actor_start": 0
+      },
+      "account_partial_reconcile": {
+        "all_created_by_actor_start": true,
+        "count": 73,
+        "writes_after_actor_start": 0
+      },
+      "account_payment": {
+        "all_created_by_actor_start": true,
+        "count": 70,
+        "writes_after_actor_start": 0
+      },
+      "res_company": {
+        "all_created_by_actor_start": true,
+        "count": 2,
+        "writes_after_actor_start": 0
+      },
+      "res_users": {
+        "all_created_by_actor_start": true,
+        "count": 103,
+        "writes_after_actor_start": 0
+      },
+      "stock_lot": {
+        "all_created_by_actor_start": true,
+        "count": 25,
+        "writes_after_actor_start": 0
+      },
+      "stock_move": {
+        "all_created_by_actor_start": true,
+        "count": 238,
+        "writes_after_actor_start": 0
+      },
+      "stock_quant": {
+        "all_created_by_actor_start": true,
+        "count": 38,
+        "writes_after_actor_start": 0
+      },
+      "ydental_access_capability": {
+        "all_created_by_actor_start": true,
+        "count": 44,
+        "writes_after_actor_start": 0
+      },
+      "ydental_access_grant": {
+        "all_created_by_actor_start": true,
+        "count": 354,
+        "writes_after_actor_start": 0
+      },
+      "ydental_access_membership": {
+        "all_created_by_actor_start": true,
+        "count": 177,
+        "writes_after_actor_start": 0
+      },
+      "ydental_access_session": {
+        "all_created_by_actor_start": true,
+        "count": 176,
+        "writes_after_actor_start": 0
+      },
+      "ydental_access_store": {
+        "all_created_by_actor_start": true,
+        "count": 23,
+        "writes_after_actor_start": 0
+      },
+      "ydental_clinical_document": {
+        "all_created_by_actor_start": true,
+        "count": 11,
+        "writes_after_actor_start": 0
+      },
+      "ydental_intake_catalog": {
+        "all_created_by_actor_start": true,
+        "count": 55,
+        "writes_after_actor_start": 0
+      },
+      "ydental_intake_mapping": {
+        "all_created_by_actor_start": true,
+        "count": 99,
+        "writes_after_actor_start": 0
+      },
+      "ydental_intake_price": {
+        "all_created_by_actor_start": true,
+        "count": 12,
+        "writes_after_actor_start": 0
+      },
+      "ydental_intake_task": {
+        "all_created_by_actor_start": true,
+        "count": 22,
+        "writes_after_actor_start": 0
+      },
+      "ydental_inventory_config": {
+        "all_created_by_actor_start": true,
+        "count": 13,
+        "writes_after_actor_start": 0
+      },
+      "ydental_inventory_event": {
+        "all_created_by_actor_start": true,
+        "count": 236,
+        "writes_after_actor_start": 0
+      },
+      "ydental_patient": {
+        "all_created_by_actor_start": true,
+        "count": 10,
+        "writes_after_actor_start": 0
+      },
+      "ydental_queue_entry": {
+        "all_created_by_actor_start": true,
+        "count": 17,
+        "writes_after_actor_start": 0
+      },
+      "ydental_queue_execution": {
+        "all_created_by_actor_start": true,
+        "count": 17,
+        "writes_after_actor_start": 0
+      },
+      "ydental_settlement_close": {
+        "all_created_by_actor_start": true,
+        "count": 63,
+        "writes_after_actor_start": 0
+      },
+      "ydental_settlement_config": {
+        "all_created_by_actor_start": true,
+        "count": 10,
+        "writes_after_actor_start": 0
+      },
+      "ydental_settlement_payment": {
+        "all_created_by_actor_start": true,
+        "count": 66,
+        "writes_after_actor_start": 0
+      },
+      "ydental_settlement_refund": {
+        "all_created_by_actor_start": true,
+        "count": 66,
+        "writes_after_actor_start": 0
+      },
+      "ydental_settlement_source": {
+        "all_created_by_actor_start": true,
+        "count": 17,
+        "writes_after_actor_start": 0
+      },
+      "ydental_space_area": {
+        "all_created_by_actor_start": true,
+        "count": 99,
+        "writes_after_actor_start": 0
+      },
+      "ydental_space_floor": {
+        "all_created_by_actor_start": true,
+        "count": 22,
+        "writes_after_actor_start": 0
+      },
+      "ydental_space_station": {
+        "all_created_by_actor_start": true,
+        "count": 110,
+        "writes_after_actor_start": 0
+      },
+      "ydental_supply_claim": {
+        "all_created_by_actor_start": true,
+        "count": 11,
+        "writes_after_actor_start": 0
+      },
+      "ydental_supply_policy": {
+        "all_created_by_actor_start": true,
+        "count": 22,
+        "writes_after_actor_start": 0
+      },
+      "ydental_supply_slot": {
+        "all_created_by_actor_start": true,
+        "count": 89,
+        "writes_after_actor_start": 0
+      },
+      "ydental_treatment_consumption": {
+        "all_created_by_actor_start": true,
+        "count": 223,
+        "writes_after_actor_start": 0
+      },
+      "ydental_treatment_event": {
+        "all_created_by_actor_start": true,
+        "count": 226,
+        "writes_after_actor_start": 0
+      },
+      "ydental_treatment_fee": {
+        "all_created_by_actor_start": true,
+        "count": 225,
+        "writes_after_actor_start": 0
+      }
+    },
+    "test_module_states": {
+      "ydental_settlement_test": "installed@20.0.1.0.0",
+      "ydental_treatment_test": "uninstalled"
+    }
+  },
+  "source_sha256": {
+    "scripts/s10_completion/concurrency_actor.py": "b6093bca1ea3031a2550787f04e6c4972cc01a102d5b94a1d3c0d1a7d4168fbe",
+    "scripts/s10_completion/concurrency_prepare.py": "441befdfb841644c65517af6a60ea3084fbcea9e983dfd8a1e0307edf561c9aa",
+    "scripts/s10_native_d15_l1_draft.py": "6ebecb71c39358485b28ffff15ae009686a36a1a15f754923729658f3e5d0c28",
+    "scripts/s10_r3_race.py": "3f7d83ac78553af8fbfaf840526215d19ac6737b1d4693a4a95e386e121b3578",
+    "scripts/s10_r3_runner.py": "f47dbf0c9b9bc76590d16cc8a862b3cac74a0485ea1789facb560dc10394a719",
+    "ydental_treatment_test/tests/common.py": "fd7fe3ee0543cb434381cc31ea312c0bf8cceb06dfc8d9932ff31720888a0d1d",
+    "ydental_treatment_test/tests/treatment_common.py": "ac4d5568a13358103f1bafbb712f32142fe16c9d2a4e5c494dbe8c3854d634ea"
+  },
+  "stage": "S10 Native D1.5-0",
+  "status": "READ_ONLY_DESIGN; S10_BLOCKED; PRODUCTION_BLOCKED; NATIVE_CAUSE_UNKNOWN",
+  "zero_actions": {
+    "business_database_writes": 0,
+    "create_or_clone_database": 0,
+    "firefox_starts": 0,
+    "new_gdb_odoo_targets": 0,
+    "new_odoo_targets": 0,
+    "production_deployed": false,
+    "project_mutations": 0,
+    "s11_started": false
+  }
+}
