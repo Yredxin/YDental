@@ -1,0 +1,2128 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* ydental_settlement
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 20.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-14 01:47+0000\n"
+"PO-Revision-Date: 2026-10-14 01:47+0000\n"
+"Last-Translator: YDental synthetic delivery\n"
+"Language-Team: \n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_queue_page
+msgid "<span> | </span>"
+msgstr "<span> | </span>"
+
+#. module: ydental_settlement
+#: model:ir.model.constraint,message:ydental_settlement.constraint_ydental_settlement_close_cycle_once
+msgid "A close cycle is unique."
+msgstr "日结轮次不得重复。"
+
+#. module: ydental_settlement
+#: model:ir.model.constraint,message:ydental_settlement.constraint_ydental_settlement_source_fee_once
+msgid "A confirmed fee can be billed only once."
+msgstr "同一已确认费用只能出账一次。"
+
+#. module: ydental_settlement
+#: model:ir.model.constraint,message:ydental_settlement.constraint_ydental_settlement_payment_payment_once
+msgid "A native payment has one offline confirmation."
+msgstr "一笔原生付款只能对应一条线下确认。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "Actual offline funds cannot have a future timestamp."
+msgstr "实际线下资金发生时间不能晚于当前时间。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "Actual offline refund of invoice %s"
+msgstr "账单 %s 的实际线下退款"
+
+#. module: ydental_settlement
+#: model:ir.model.fields.selection,name:ydental_settlement.selection__ydental_settlement_refund__ydental_state__done
+msgid "Actually refunded"
+msgstr "已实际退款"
+
+#. module: ydental_settlement
+#: model:ir.model.fields.selection,name:ydental_settlement.selection__ydental_settlement_close__ydental_channel__alipay
+#: model:ir.model.fields.selection,name:ydental_settlement.selection__ydental_settlement_correction__ydental_new_channel__alipay
+#: model:ir.model.fields.selection,name:ydental_settlement.selection__ydental_settlement_correction__ydental_old_channel__alipay
+#: model:ir.model.fields.selection,name:ydental_settlement.selection__ydental_settlement_payment__ydental_channel__alipay
+#: model:ir.model.fields.selection,name:ydental_settlement.selection__ydental_settlement_refund__ydental_refund_channel__alipay
+msgid "Alipay offline"
+msgstr "支付宝线下"
+
+#. module: ydental_settlement
+#: model:ir.model.constraint,message:ydental_settlement.constraint_ydental_settlement_trade_source_once
+msgid "An intercompany source key can be confirmed only once."
+msgstr "跨法人来源键只能确认一次。"
+
+#. module: ydental_settlement
+#: model:ir.model.constraint,message:ydental_settlement.constraint_ydental_settlement_source_line_once
+msgid "An invoice line has one source."
+msgstr "账单行只能关联一个费用来源。"
+
+#. module: ydental_settlement
+#: model:ir.model.fields.selection,name:ydental_settlement.selection__ydental_settlement_refund__ydental_state__approved
+msgid "Approved awaiting offline refund"
+msgstr "已批准，等待实际线下退款"
+
+#. module: ydental_settlement
+#: model:ir.model,name:ydental_settlement.model_ydental_settlement_correction
+msgid "Audited native account reclassification for an offline label error"
+msgstr "线下方式误录的原生科目更正审计"
+
+#. module: ydental_settlement
+#: model:ir.model.fields.selection,name:ydental_settlement.selection__ydental_settlement_close__ydental_channel__card
+#: model:ir.model.fields.selection,name:ydental_settlement.selection__ydental_settlement_correction__ydental_new_channel__card
+#: model:ir.model.fields.selection,name:ydental_settlement.selection__ydental_settlement_correction__ydental_old_channel__card
+#: model:ir.model.fields.selection,name:ydental_settlement.selection__ydental_settlement_payment__ydental_channel__card
+#: model:ir.model.fields.selection,name:ydental_settlement.selection__ydental_settlement_refund__ydental_refund_channel__card
+msgid "Bank card offline"
+msgstr "银行卡线下"
+
+#. module: ydental_settlement
+#: model:ir.model,name:ydental_settlement.model_ydental_settlement_service
+msgid "Bound offline settlement and native account reconciliation"
+msgstr "受控线下结算与原生会计核销"
+
+#. module: ydental_settlement
+#: model:ir.model,name:ydental_settlement.model_report_ydental_settlement_ydental_settlement_pdf
+msgid "Bound synthetic settlement, receipt and refund PDF"
+msgstr "受控合成结算、小票与退款 PDF"
+
+#. module: ydental_settlement
+#: model:ir.model.fields.selection,name:ydental_settlement.selection__ydental_settlement_refund__ydental_state__cancelled
+msgid "Cancelled"
+msgstr "已撤销"
+
+#. module: ydental_settlement
+#: model:ir.model.fields.selection,name:ydental_settlement.selection__ydental_settlement_close__ydental_channel__cash
+#: model:ir.model.fields.selection,name:ydental_settlement.selection__ydental_settlement_correction__ydental_new_channel__cash
+#: model:ir.model.fields.selection,name:ydental_settlement.selection__ydental_settlement_correction__ydental_old_channel__cash
+#: model:ir.model.fields.selection,name:ydental_settlement.selection__ydental_settlement_payment__ydental_channel__cash
+#: model:ir.model.fields.selection,name:ydental_settlement.selection__ydental_settlement_refund__ydental_refund_channel__cash
+msgid "Cash"
+msgstr "现金"
+
+#. module: ydental_settlement
+#: model:ir.model,name:ydental_settlement.model_ydental_settlement_close
+msgid "Cashier daily close and unlock history"
+msgstr "收费员日结与解锁历史"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_config__company_id
+msgid "Company"
+msgstr "公司"
+
+#. module: ydental_settlement
+#: model:ir.model.fields.selection,name:ydental_settlement.selection__ydental_settlement_close__ydental_state__confirmed
+msgid "Confirmed"
+msgstr "已确认"
+
+#. module: ydental_settlement
+#: model:ir.model,name:ydental_settlement.model_res_partner
+msgid "Contact"
+msgstr "联系人"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_close__create_uid
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_config__create_uid
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_correction__create_uid
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_mutex__create_uid
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_payment__create_uid
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_receipt__create_uid
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_refund__create_uid
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_source__create_uid
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_trade__create_uid
+msgid "Created by"
+msgstr "创建人"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_close__create_date
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_config__create_date
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_correction__create_date
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_mutex__create_date
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_payment__create_date
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_receipt__create_date
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_refund__create_date
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_source__create_date
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_trade__create_date
+msgid "Created on"
+msgstr "创建时间"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "Discount requires a reason and cannot exceed the selected fees."
+msgstr "折扣必须说明原因，且不得超过所选费用。"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_account_move__display_name
+#: model:ir.model.fields,field_description:ydental_settlement.field_report_ydental_settlement_ydental_settlement_pdf__display_name
+#: model:ir.model.fields,field_description:ydental_settlement.field_res_partner__display_name
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_close__display_name
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_config__display_name
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_correction__display_name
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_mutex__display_name
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_payment__display_name
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_receipt__display_name
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_record__display_name
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_refund__display_name
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_service__display_name
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_source__display_name
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_trade__display_name
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_treatment_fee__display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "Enter a finite money amount."
+msgstr "请输入有限数值的金额。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "Enter a valid nonnegative currency amount."
+msgstr "请输入有效的非负金额。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "Enter a valid reason or proof."
+msgstr "请输入有效的原因或凭据。"
+
+#. module: ydental_settlement
+#: model:ir.model.fields.selection,name:ydental_settlement.selection__ydental_settlement_refund__ydental_state__failed
+msgid "Execution failed"
+msgstr "执行失败"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "Explicit demonstration discount: %s"
+msgstr "明确的演示折扣：%s"
+
+#. module: ydental_settlement
+#: model:ir.model,name:ydental_settlement.model_ydental_settlement_config
+msgid "Explicit store accounting policy"
+msgstr "门店明确财务政策"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "Explicitly select distinct same-store invoices."
+msgstr "请明确选择本店不同的账单。"
+
+#. module: ydental_settlement
+#: model:ir.model.fields.selection,name:ydental_settlement.selection__ydental_settlement_refund__ydental_state__unknown
+msgid "External state unknown"
+msgstr "外部状态未知"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_account_move__id
+#: model:ir.model.fields,field_description:ydental_settlement.field_report_ydental_settlement_ydental_settlement_pdf__id
+#: model:ir.model.fields,field_description:ydental_settlement.field_res_partner__id
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_close__id
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_config__id
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_correction__id
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_mutex__id
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_payment__id
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_receipt__id
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_record__id
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_refund__id
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_service__id
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_source__id
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_trade__id
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_treatment_fee__id
+msgid "ID"
+msgstr "ID"
+
+#. module: ydental_settlement
+#: model:ir.model,name:ydental_settlement.model_ydental_settlement_receipt
+msgid "Idempotent settlement command receipt"
+msgstr "幂等结算指令回执"
+
+#. module: ydental_settlement
+#: model:ir.model,name:ydental_settlement.model_ydental_settlement_source
+msgid "Immutable fee to native invoice line link"
+msgstr "费用与原生账单行的不可变关联"
+
+#. module: ydental_settlement
+#: model:ir.model,name:ydental_settlement.model_account_move
+msgid "Journal Entry"
+msgstr "会计分录"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_close__write_uid
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_config__write_uid
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_correction__write_uid
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_mutex__write_uid
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_payment__write_uid
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_receipt__write_uid
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_refund__write_uid
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_source__write_uid
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_trade__write_uid
+msgid "Last Updated by"
+msgstr "最后更新人"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_close__write_date
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_config__write_date
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_correction__write_date
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_mutex__write_date
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_payment__write_date
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_receipt__write_date
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_refund__write_date
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_source__write_date
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_trade__write_date
+msgid "Last Updated on"
+msgstr "最后更新时间"
+
+#. module: ydental_settlement
+#: model:ir.model,name:ydental_settlement.model_ydental_settlement_trade
+msgid "Linked native intercompany sale, purchase, stock and account evidence"
+msgstr "关联的原生跨法人销售、采购、库存与会计证据"
+
+#. module: ydental_settlement
+#: model:ir.model,name:ydental_settlement.model_ydental_settlement_payment
+msgid "Offline confirmation linked to native payment"
+msgstr "关联原生付款的线下确认"
+
+#. module: ydental_settlement
+#: model:ir.ui.menu,name:ydental_settlement.ydental_settlement_menu
+msgid "Offline settlement"
+msgstr "线下结算"
+
+#. module: ydental_settlement
+#: model:ir.actions.act_url,name:ydental_settlement.ydental_settlement_action
+msgid "Offline settlement workbench"
+msgstr "线下结算工作台"
+
+#. module: ydental_settlement
+#: model:ir.model.constraint,message:ydental_settlement.constraint_ydental_settlement_config_store_unique
+msgid "One accounting policy per store."
+msgstr "每店只能有一套财务政策。"
+
+#. module: ydental_settlement
+#: model:ir.model.constraint,message:ydental_settlement.constraint_ydental_settlement_payment_key_once
+msgid "Payment request key must be unique."
+msgstr "付款请求键不得重复。"
+
+#. module: ydental_settlement
+#: model:ir.model,name:ydental_settlement.model_ydental_settlement_record
+msgid "Protected settlement record"
+msgstr "受保护的结算记录"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "Provide an actual UTC timestamp."
+msgstr "请提供实际发生的 UTC 时间。"
+
+#. module: ydental_settlement
+#: model:ir.model.constraint,message:ydental_settlement.constraint_ydental_settlement_refund_key_once
+msgid "Refund request key must be unique."
+msgstr "退款请求键不得重复。"
+
+#. module: ydental_settlement
+#: model:ir.model.fields.selection,name:ydental_settlement.selection__ydental_settlement_refund__ydental_state__rejected
+msgid "Rejected"
+msgstr "已驳回"
+
+#. module: ydental_settlement
+#: model:ir.model.fields.selection,name:ydental_settlement.selection__ydental_settlement_refund__ydental_state__requested
+msgid "Requested"
+msgstr "已申请"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_mutex__ydental_revision
+msgid "Revision"
+msgstr "修订号"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "Select a business date and offline payment category."
+msgstr "请选择业务日期和线下支付方式。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "Select a different supported offline category."
+msgstr "请选择另一个支持的线下方式。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "Select a supported offline payment category."
+msgstr "请选择支持的线下支付方式。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "Select a valid past or current business date."
+msgstr "请选择有效的过去或当前业务日期。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "Select a valid record identifier."
+msgstr "请选择有效的记录编号。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "Select a valid workbench page."
+msgstr "请选择有效的工作台页码。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "Select distinct confirmed fee sources."
+msgstr "请选择不同的已确认费用来源。"
+
+#. module: ydental_settlement
+#: model:ir.model,name:ydental_settlement.model_ydental_settlement_refund
+msgid "Separated offline refund approval and actual execution"
+msgstr "分离审批与实际执行的线下退款"
+
+#. module: ydental_settlement
+#: model:ir.model.constraint,message:ydental_settlement.constraint_ydental_settlement_receipt_key_once
+msgid "Settlement key must be unique."
+msgstr "结算键不得重复。"
+
+#. module: ydental_settlement
+#: model:ir.model,name:ydental_settlement.model_ydental_settlement_mutex
+msgid "Settlement transaction snapshot serialization fence"
+msgstr "结算事务快照串行化防护"
+
+#. module: ydental_settlement
+#: model:ir.model.fields.selection,name:ydental_settlement.selection__ydental_settlement_config__ydental_policy__demo_confirmation
+msgid "Synthetic offline demonstration only"
+msgstr "仅供合成线下演示"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/controllers/settlement.py:0
+msgid "Unknown settlement operation."
+msgstr "未知的结算操作。"
+
+#. module: ydental_settlement
+#: model:ir.model.fields.selection,name:ydental_settlement.selection__ydental_settlement_close__ydental_state__unlocked
+msgid "Unlocked"
+msgstr "已解锁"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "Unpaid receivable waiver: %s"
+msgstr "未收应收免单：%s"
+
+#. module: ydental_settlement
+#: model:ir.model.fields.selection,name:ydental_settlement.selection__ydental_settlement_close__ydental_channel__wechat
+#: model:ir.model.fields.selection,name:ydental_settlement.selection__ydental_settlement_correction__ydental_new_channel__wechat
+#: model:ir.model.fields.selection,name:ydental_settlement.selection__ydental_settlement_correction__ydental_old_channel__wechat
+#: model:ir.model.fields.selection,name:ydental_settlement.selection__ydental_settlement_payment__ydental_channel__wechat
+#: model:ir.model.fields.selection,name:ydental_settlement.selection__ydental_settlement_refund__ydental_refund_channel__wechat
+msgid "WeChat offline"
+msgstr "微信线下"
+
+#. module: ydental_settlement
+#: model:ir.module.module,shortdesc:base.module_ydental_settlement
+msgid "YDental Settlement and Offline Finance"
+msgstr "YDental 结算与线下财务"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "YDental actually refunded offline"
+msgstr "YDental 实际线下退款"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "YDental confirmed offline %s"
+msgstr "YDental 已确认线下 %s"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "YDental offline channel correction; payment %s"
+msgstr "YDental 线下方式更正；付款 %s"
+
+#. module: ydental_settlement
+#: model:ir.actions.report,name:ydental_settlement.ydental_settlement_pdf_report
+msgid "YDental synthetic settlement document"
+msgstr "YDental 合成结算文书"
+
+#. module: ydental_settlement
+#: model:ir.model,name:ydental_settlement.model_ydental_treatment_fee
+msgid "YDentalTreatmentFee"
+msgstr "YDental 治疗费用"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_correction__ydental_actor_id
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_receipt__ydental_actor_id
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_trade__ydental_actor_id
+msgid "Ydental Actor"
+msgstr "操作人"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_payment__ydental_actual_at
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_refund__ydental_actual_at
+msgid "Ydental Actual At"
+msgstr "实际发生时间"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_config__ydental_adjustment_journal_id
+msgid "Ydental Adjustment Journal"
+msgstr "调整日记账"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_config__ydental_alipay_journal_id
+msgid "Ydental Alipay Journal"
+msgstr "支付宝日记账"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_payment__ydental_amount
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_refund__ydental_amount
+msgid "Ydental Amount"
+msgstr "金额"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_refund__ydental_approver_id
+msgid "Ydental Approver"
+msgstr "审批人"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_close__ydental_business_date
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_payment__ydental_business_date
+msgid "Ydental Business Date"
+msgstr "业务日期"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_refund__ydental_cancel_evidence
+msgid "Ydental Cancel Evidence"
+msgstr "撤销核查证据"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_refund__ydental_cancel_reason
+msgid "Ydental Cancel Reason"
+msgstr "撤销原因"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_refund__ydental_cancelled_at
+msgid "Ydental Cancelled At"
+msgstr "撤销时间"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_refund__ydental_cancelled_by_id
+msgid "Ydental Cancelled By"
+msgstr "撤销人"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_config__ydental_card_journal_id
+msgid "Ydental Card Journal"
+msgstr "银行卡日记账"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_config__ydental_cash_journal_id
+msgid "Ydental Cash Journal"
+msgstr "现金日记账"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_close__ydental_cashier_id
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_payment__ydental_cashier_id
+msgid "Ydental Cashier"
+msgstr "收费员"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_close__ydental_channel
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_payment__ydental_channel
+msgid "Ydental Channel"
+msgstr "方式"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_close__ydental_confirmed_at
+msgid "Ydental Confirmed At"
+msgstr "确认时间"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_refund__ydental_credit_note_id
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_refund__ydental_credit_note_ids
+msgid "Ydental Credit Note"
+msgstr "贷项通知单"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_close__ydental_currency_id
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_payment__ydental_currency_id
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_refund__ydental_currency_id
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_source__ydental_currency_id
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_trade__ydental_currency_id
+msgid "Ydental Currency"
+msgstr "币种"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_close__ydental_cycle
+msgid "Ydental Cycle"
+msgstr "轮次"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_refund__ydental_decision_reason
+msgid "Ydental Decision Reason"
+msgstr "审批理由"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_source__ydental_discount
+msgid "Ydental Discount"
+msgstr "折扣"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_source__ydental_discount_reason
+msgid "Ydental Discount Reason"
+msgstr "折扣原因"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_payment__ydental_entered_at
+msgid "Ydental Entered At"
+msgstr "录入时间"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_refund__ydental_executor_id
+msgid "Ydental Executor"
+msgstr "执行人"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_config__ydental_expense_account_id
+msgid "Ydental Expense Account"
+msgstr "费用科目"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_source__ydental_fee_id
+msgid "Ydental Fee"
+msgstr "费用"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_receipt__ydental_fingerprint
+msgid "Ydental Fingerprint"
+msgstr "指纹"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_close__ydental_gross
+msgid "Ydental Gross"
+msgstr "实收总额"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_trade__ydental_in_move_id
+msgid "Ydental In Move"
+msgstr "入库移动"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_config__ydental_income_account_id
+msgid "Ydental Income Account"
+msgstr "收入科目"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_payment__ydental_invoice_ids
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_source__ydental_invoice_id
+msgid "Ydental Invoice"
+msgstr "账单"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_payment__ydental_key
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_receipt__ydental_key
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_refund__ydental_key
+msgid "Ydental Key"
+msgstr "请求键"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_source__ydental_line_id
+msgid "Ydental Line"
+msgstr "明细行"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_correction__ydental_move_id
+msgid "Ydental Move"
+msgstr "会计凭证"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_refund__ydental_native_payment_id
+msgid "Ydental Native Payment"
+msgstr "原生付款"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_correction__ydental_new_channel
+msgid "Ydental New Channel"
+msgstr "新方式"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_correction__ydental_old_channel
+msgid "Ydental Old Channel"
+msgstr "原方式"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_receipt__ydental_operation
+msgid "Ydental Operation"
+msgstr "操作"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_source__ydental_original_amount
+msgid "Ydental Original Amount"
+msgstr "原金额"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_trade__ydental_out_move_id
+msgid "Ydental Out Move"
+msgstr "出库移动"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_payment__ydental_patient_id
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_source__ydental_patient_id
+msgid "Ydental Patient"
+msgstr "患者"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_correction__ydental_payment_id
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_payment__ydental_payment_id
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_refund__ydental_payment_id
+msgid "Ydental Payment"
+msgstr "付款"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_close__ydental_pending
+msgid "Ydental Pending"
+msgstr "在途"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_config__ydental_policy
+msgid "Ydental Policy"
+msgstr "政策"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_source__ydental_price_version
+msgid "Ydental Price Version"
+msgstr "价格版本"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_trade__ydental_product_id
+msgid "Ydental Product"
+msgstr "产品"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_payment__ydental_proof
+msgid "Ydental Proof"
+msgstr "凭据"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_trade__ydental_purchase_bill_id
+msgid "Ydental Purchase Bill"
+msgstr "采购账单"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_config__ydental_purchase_journal_id
+msgid "Ydental Purchase Journal"
+msgstr "采购日记账"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_trade__ydental_purchase_order_id
+msgid "Ydental Purchase Order"
+msgstr "采购订单"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_trade__ydental_quantity
+msgid "Ydental Quantity"
+msgstr "数量"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_correction__ydental_reason
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_refund__ydental_reason
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_trade__ydental_reason
+msgid "Ydental Reason"
+msgstr "原因"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_correction__ydental_recorded_at
+msgid "Ydental Recorded At"
+msgstr "记录时间"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_refund__ydental_refund_business_date
+msgid "Ydental Refund Business Date"
+msgstr "退款业务日期"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_refund__ydental_refund_channel
+msgid "Ydental Refund Channel"
+msgstr "退款方式"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_close__ydental_refunded
+msgid "Ydental Refunded"
+msgstr "已退款"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_refund__ydental_release_verified
+msgid "Ydental Release Verified"
+msgstr "已核实释放"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_refund__ydental_requested_at
+msgid "Ydental Requested At"
+msgstr "申请时间"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_refund__ydental_requester_id
+msgid "Ydental Requester"
+msgstr "申请人"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_receipt__ydental_result
+msgid "Ydental Result"
+msgstr "结果"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_trade__ydental_sale_invoice_id
+msgid "Ydental Sale Invoice"
+msgstr "销售账单"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_trade__ydental_sale_order_id
+msgid "Ydental Sale Order"
+msgstr "销售订单"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_config__ydental_sales_journal_id
+msgid "Ydental Sales Journal"
+msgstr "销售日记账"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_account_bank_statement_line__ydental_settlement_source_ids
+#: model:ir.model.fields,field_description:ydental_settlement.field_account_move__ydental_settlement_source_ids
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_treatment_fee__ydental_settlement_source_ids
+msgid "Ydental Settlement Source"
+msgstr "结算来源"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_source__ydental_source_actual_at
+msgid "Ydental Source Actual At"
+msgstr "来源实际时间"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_source__ydental_source_business_date
+msgid "Ydental Source Business Date"
+msgstr "来源业务日期"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_trade__ydental_source_key
+msgid "Ydental Source Key"
+msgstr "来源键"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_trade__ydental_source_lot_id
+msgid "Ydental Source Lot"
+msgstr "来源批次"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_trade__ydental_source_store_id
+msgid "Ydental Source Store"
+msgstr "来源门店"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_close__ydental_state
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_refund__ydental_state
+msgid "Ydental State"
+msgstr "状态"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_close__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_config__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_payment__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_receipt__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_source__ydental_store_id
+msgid "Ydental Store"
+msgstr "门店"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_trade__ydental_target_lot_id
+msgid "Ydental Target Lot"
+msgstr "目标批次"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_trade__ydental_target_store_id
+msgid "Ydental Target Store"
+msgstr "目标门店"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_refund__ydental_terminal_at
+msgid "Ydental Terminal At"
+msgstr "终态时间"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_trade__ydental_unit_id
+msgid "Ydental Unit"
+msgstr "单位"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_trade__ydental_unit_price
+msgid "Ydental Unit Price"
+msgstr "单价"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_close__ydental_unlock_reason
+msgid "Ydental Unlock Reason"
+msgstr "解锁原因"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_close__ydental_unlocked_at
+msgid "Ydental Unlocked At"
+msgstr "解锁时间"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_close__ydental_unlocked_by_id
+msgid "Ydental Unlocked By"
+msgstr "解锁人"
+
+#. module: ydental_settlement
+#: model:ir.model.fields,field_description:ydental_settlement.field_ydental_settlement_config__ydental_wechat_journal_id
+msgid "Ydental Wechat Journal"
+msgstr "微信日记账"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "access_denied: A bound settlement export request is required."
+msgstr "access_denied: 必须使用受控结算导出请求。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid ""
+"access_denied: A different finance approver must approve a pending request."
+msgstr "access_denied: 待处理申请必须由另一名财务审批人批准。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid ""
+"access_denied: A different finance approver must reject a pending request."
+msgstr "access_denied: 待处理申请必须由另一名财务审批人驳回。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "access_denied: A distinct finance reviewer must release this refund."
+msgstr "access_denied: 此退款必须由不同的财务复核人释放额度。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/report_ydental_settlement_pdf.py:0
+msgid "access_denied: Arbitrary settlement report arguments are unavailable."
+msgstr "access_denied: 不得任意传入结算报表参数。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "access_denied: Both legal entities must be in the user company scope."
+msgstr "access_denied: 两家法人均须属于用户可访问公司。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "access_denied: Confirm a distinct approval before actual refund."
+msgstr "access_denied: 实际退款前必须有不同人员批准。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "access_denied: Mixed patient fees cannot be billed."
+msgstr "access_denied: 不同患者费用不可合并出账。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "access_denied: Mixed patient invoices cannot share a payment."
+msgstr "access_denied: 不同患者账单不可共用一笔付款。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "access_denied: Select a confirmed close in this store."
+msgstr "access_denied: 请选择本店已确认的日结。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "access_denied: Select a confirmed fee in this store."
+msgstr "access_denied: 请选择本店已确认费用。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "access_denied: Select a posted invoice from this store."
+msgstr "access_denied: 请选择本店已过账账单。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "access_denied: Select a posted offline payment in this store."
+msgstr "access_denied: 请选择本店已过账线下付款。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "access_denied: Select a refund request in this store."
+msgstr "access_denied: 请选择本店退款申请。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "access_denied: Select another active legal entity."
+msgstr "access_denied: 请选择另一家有效法人。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "access_denied: The store company is outside the account scope."
+msgstr "access_denied: 门店法人不在会计权限范围内。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "access_denied: Unknown settlement report kind."
+msgstr "access_denied: 未知结算报表类型。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_record.py:0
+msgid "access_denied: Use the settlement service."
+msgstr "access_denied: 请通过结算服务操作。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "accounting_mismatch: Expected one native receivable line."
+msgstr "accounting_mismatch: 应有且仅有一条原生应收行。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "accounting_mismatch: Native channel correction did not balance."
+msgstr "accounting_mismatch: 原生渠道更正分录不平衡。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "accounting_mismatch: Native correction credit differs from fee."
+msgstr "accounting_mismatch: 原生更正贷项与费用不一致。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "accounting_mismatch: Native credit note did not post correctly."
+msgstr "accounting_mismatch: 原生贷项通知单未正确过账。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "accounting_mismatch: Native invoice differs from frozen fees."
+msgstr "accounting_mismatch: 原生账单与冻结费用不一致。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "accounting_mismatch: Native offline payment did not post."
+msgstr "accounting_mismatch: 原生线下付款未过账。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "accounting_mismatch: Native payment journal is not balanced."
+msgstr "accounting_mismatch: 原生付款日记账分录不平衡。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "accounting_mismatch: Native refund payment did not post."
+msgstr "accounting_mismatch: 原生退款付款未过账。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "accounting_mismatch: Native source line differs from its frozen fee."
+msgstr "accounting_mismatch: 原生来源行与冻结费用不一致。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "accounting_mismatch: Native source lines are incomplete."
+msgstr "accounting_mismatch: 原生来源行不完整。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "accounting_mismatch: Offline payment was not fully allocated."
+msgstr "accounting_mismatch: 线下付款未完全分摊。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "accounting_mismatch: Refund credit notes are incomplete."
+msgstr "accounting_mismatch: 退款贷项通知单不完整。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid ""
+"accounting_policy_invalid: A real manual outstanding account is required."
+msgstr "accounting_policy_invalid: 必须配置真实手工在途科目。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid ""
+"accounting_policy_invalid: Explicit native clearing accounts are required."
+msgstr "accounting_policy_invalid: 必须明确配置原生清算科目。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "accounting_policy_invalid: Native manual payment method is absent."
+msgstr "accounting_policy_invalid: 缺少原生手工付款方式。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "accounting_policy_invalid: Native outbound manual method is absent."
+msgstr "accounting_policy_invalid: 缺少原生手工出款方式。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid ""
+"accounting_policy_invalid: Payment journal must match the store company."
+msgstr "accounting_policy_invalid: 付款日记账必须属于门店法人。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid ""
+"accounting_policy_invalid: Reclassification needs distinct same-company "
+"accounts."
+msgstr "accounting_policy_invalid: 重分类需要同一法人下不同科目。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid ""
+"accounting_policy_invalid: Sales journal and income account must match the "
+"store company."
+msgstr "accounting_policy_invalid: 销售日记账和收入科目必须属于门店法人。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid ""
+"accounting_policy_missing: Configure an explicit synthetic store policy."
+msgstr "accounting_policy_missing: 请配置明确的合成门店政策。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid ""
+"concurrent_bill: This fee was billed by another request. Refresh and review "
+"its invoice."
+msgstr "concurrent_bill: 该费用已被另一请求出账，请刷新并核对账单。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "correction_amount_invalid: Reversal exceeds original source."
+msgstr "correction_amount_invalid: 冲回金额超过原费用来源。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid ""
+"correction_separate: Bill each confirmed reversal against its original "
+"source."
+msgstr "correction_separate: 每项已确认冲回须单独对原来源出账。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "correction_source_missing: Bill the original confirmed fee first."
+msgstr "correction_source_missing: 请先将原已确认费用出账。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid ""
+"currency_unverified: Only the explicitly configured company currency is "
+"available."
+msgstr "currency_unverified: 仅允许已明确配置的法人币种。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "day_closed: A finance approver must unlock this cashier day."
+msgstr "day_closed: 此收费员业务日须由财务审批人解锁。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "day_closed: Unlock before closing this cashier day again."
+msgstr "day_closed: 再次日结前须先解锁。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "fee_already_billed: Source fees cannot be billed twice."
+msgstr "fee_already_billed: 费用来源不可重复出账。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "fee_unverified: A confirmed price or historical review is required."
+msgstr "fee_unverified: 必须有已确认价格或历史复核。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_record.py:0
+msgid "history_immutable: Settlement evidence cannot be deleted."
+msgstr "history_immutable: 结算证据不得删除。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_record.py:0
+msgid "history_immutable: Settlement evidence cannot be overwritten."
+msgstr "history_immutable: 结算证据不得覆盖。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "insufficient_balance: Source lot has no actual available quantity."
+msgstr "insufficient_balance: 来源批次无实际可用数量。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "invalid_action: Supply a documented operation and key."
+msgstr "invalid_action: 请提供受支持的操作和请求键。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "invalid_action: Unexpected or missing parameters."
+msgstr "invalid_action: 参数缺失或包含未允许字段。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid ""
+"payment_exceeds_residual: Do not create an unallocated patient payment."
+msgstr "payment_exceeds_residual: 不得创建未分摊的患者付款。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "refund_account_mismatch: Frozen refund channel and journal disagree."
+msgstr "refund_account_mismatch: 冻结的退款渠道与日记账不一致。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "refund_account_mismatch: Native refund must be posted."
+msgstr "refund_account_mismatch: 原生退款必须已过账。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid ""
+"refund_channel_review_required: Refund time precedes the channel correction."
+msgstr "refund_channel_review_required: 退款时间早于支付方式更正，需人工核查。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "refund_exceeds_allocated: Native receipt allocations are insufficient."
+msgstr "refund_exceeds_allocated: 原生收款核销额度不足。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid ""
+"refund_exceeds_received: Actual and protected refunds exceed this offline "
+"receipt."
+msgstr "refund_exceeds_received: 已退和受保护退款超过本笔线下收款。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "refund_exceeds_received: Protected requests exceed actual receipt."
+msgstr "refund_exceeds_received: 受保护申请超过实际收款。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "refund_history_review: Native refund journal is ambiguous."
+msgstr "refund_history_review: 历史原生退款日记账无法唯一判定。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid ""
+"refund_recovery_required: Verify no offline refund or native reversal "
+"occurred."
+msgstr "refund_recovery_required: 请核实没有实际退款或原生冲回。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid ""
+"refund_recovery_required: Verify the external offline transfer before re-"
+"arming."
+msgstr "refund_recovery_required: 重新批准前请核实外部线下转账状态。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid ""
+"refund_state_invalid: Only an approved pending refund can be marked "
+"uncertain."
+msgstr "refund_state_invalid: 仅已批准在途退款可标记未知或失败。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "refund_state_invalid: Only an unexecuted refund may be cancelled."
+msgstr "refund_state_invalid: 仅未实际执行的退款可撤销。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "refund_time_invalid: Actual refund cannot precede its application."
+msgstr "refund_time_invalid: 实际退款时间不能早于申请时间。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "render_failed: Settlement PDF could not be generated."
+msgstr "render_failed: 无法生成结算 PDF。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "render_failed: Settlement PDF is invalid or too long."
+msgstr "render_failed: 结算 PDF 无效或页数超限。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid ""
+"trade_account_mismatch: Expected one native invoice and one vendor bill."
+msgstr "trade_account_mismatch: 应有一张原生销售账单和一张采购账单。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid ""
+"trade_account_mismatch: Native company invoices must match linked orders."
+msgstr "trade_account_mismatch: 法人原生账单必须与关联订单一致。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "trade_approval_required: Both native orders must be confirmed."
+msgstr "trade_approval_required: 两张原生订单均须确认。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid ""
+"trade_currency_unapproved: Both synthetic companies must share a currency."
+msgstr "trade_currency_unapproved: 两家合成法人须使用相同币种。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid ""
+"trade_policy_missing: Configure the target purchase journal and expense "
+"account."
+msgstr "trade_policy_missing: 请配置目标采购日记账及费用科目。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid ""
+"trade_policy_missing: Product accounts must match the two explicit company "
+"policies."
+msgstr "trade_policy_missing: 产品科目必须匹配两家法人明确政策。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid ""
+"trade_source_invalid: The two approved company lots must represent one stock"
+" product."
+msgstr "trade_source_invalid: 两家法人批准的批次必须对应同一库存产品。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "trade_stock_mismatch: Expected one native delivery and one receipt."
+msgstr "trade_stock_mismatch: 应有一笔原生发货和一笔收货。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "trade_stock_mismatch: Native company movement was not completed."
+msgstr "trade_stock_mismatch: 法人原生库存移动尚未完成。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "trade_stock_mismatch: Native order movement is ambiguous."
+msgstr "trade_stock_mismatch: 原生订单库存移动无法唯一判定。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "version_conflict: Settlement report source changed while rendering."
+msgstr "version_conflict: 渲染时结算报表来源已变化。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "version_conflict: The intercompany source key is immutable."
+msgstr "version_conflict: 跨法人来源键不可更改。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "version_conflict: This request key belongs to another action."
+msgstr "version_conflict: 该请求键已用于另一操作。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "version_conflict: Unlock the latest close cycle."
+msgstr "version_conflict: 请解锁最新日结轮次。"
+
+#. module: ydental_settlement
+#. odoo-python
+#: code:addons/ydental_settlement/models/ydental_settlement_service.py:0
+msgid "waiver_exceeds_residual: Only unpaid receivable can be waived."
+msgstr "waiver_exceeds_residual: 只能减免尚未收款的应收。"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "、在途"
+msgstr "、在途"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "、实退"
+msgstr "、实退"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page_links
+msgid "上一页"
+msgstr "上一页"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page_links
+msgid "下一页"
+msgstr "下一页"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "下载中文 PDF"
+msgstr "下载中文 PDF"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "下载小票 PDF"
+msgstr "下载小票 PDF"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "下载退款凭据 PDF"
+msgstr "下载退款凭据 PDF"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "不可重复来源"
+msgstr "不可重复来源"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "业务日"
+msgstr "业务日"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "事件"
+msgstr "事件"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "仅在双方门店均有仓库及财务审批权、已配置原生科目与两批次时确认。"
+msgstr "仅在双方门店均有仓库及财务审批权、已配置原生科目与两批次时确认。"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "仅选择本次付款核销的账单"
+msgstr "仅选择本次付款核销的账单"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "今日未出账费用"
+msgstr "今日未出账费用"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "付款"
+msgstr "付款"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page_links
+msgid "共"
+msgstr "共"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_pdf
+msgid "内部结算账单"
+msgstr "内部结算账单"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "内部账单"
+msgstr "内部账单"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_pdf
+msgid "净实际收款："
+msgstr "净实际收款："
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page_links
+msgid "分页"
+msgstr "分页"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "前台与候诊"
+msgstr "前台与候诊"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "单位 ID"
+msgstr "单位 ID"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "历史未出账费用"
+msgstr "历史未出账费用"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_pdf
+msgid "原价格版本"
+msgstr "原价格版本"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "原因"
+msgstr "原因"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_pdf
+msgid "原因："
+msgstr "原因："
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_pdf
+msgid "原生付款号："
+msgstr "原生付款号："
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "原生单号"
+msgstr "原生单号"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_pdf
+msgid "原生单号："
+msgstr "原生单号："
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_pdf
+msgid "原生实收核销："
+msgstr "原生实收核销："
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_pdf
+msgid "原生日记账渠道："
+msgstr "原生日记账渠道："
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "原生贷项冲减未收应收"
+msgstr "原生贷项冲减未收应收"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "原生重分类更正"
+msgstr "原生重分类更正"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_pdf
+msgid "原申请额："
+msgstr "原申请额："
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "原金额"
+msgstr "原金额"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "双方同币种演示单价"
+msgstr "双方同币种演示单价"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "双方审批与实物交易原因"
+msgstr "双方审批与实物交易原因"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "另一人批准，在途"
+msgstr "另一人批准，在途"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "失败"
+msgstr "失败"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "实际发生 UTC"
+msgstr "实际发生 UTC"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_pdf
+msgid "实际发生 UTC："
+msgstr "实际发生 UTC："
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "实际执行人"
+msgstr "实际执行人"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "实际收款"
+msgstr "实际收款"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_pdf
+msgid "实际线下收款小票"
+msgstr "实际线下收款小票"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "实际线下退款凭据"
+msgstr "实际线下退款凭据"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "实际退款 UTC"
+msgstr "实际退款 UTC"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_pdf
+msgid "实际退款 UTC："
+msgstr "实际退款 UTC："
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_pdf
+msgid "实际退款业务日："
+msgstr "实际退款业务日："
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "审批原因"
+msgstr "审批原因"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "已出账未付清"
+msgstr "已出账未付清"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_pdf
+msgid "已实际退款："
+msgstr "已实际退款："
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "已核实未付款"
+msgstr "已核实未付款"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "已核实未实际退款"
+msgstr "已核实未实际退款"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_pdf
+msgid "已选原账单"
+msgstr "已选原账单"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_pdf
+msgid "已选账单目前应收："
+msgstr "已选账单目前应收："
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "应收余额"
+msgstr "应收余额"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_pdf
+msgid "当前应收余额："
+msgstr "当前应收余额："
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "当前门店："
+msgstr "当前门店："
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_pdf
+msgid "录入 UTC："
+msgstr "录入 UTC："
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "待核对原因"
+msgstr "待核对原因"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "待核对，禁止出账"
+msgstr "待核对，禁止出账"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "微信线下"
+msgstr "微信线下"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "恢复原因"
+msgstr "恢复原因"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "患者"
+msgstr "患者"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "患者 ID"
+msgstr "患者 ID"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_pdf
+msgid "患者编号："
+msgstr "患者编号："
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_pdf
+msgid "批准或核查在途："
+msgstr "批准或核查在途："
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_pdf
+msgid "批准／核查在途："
+msgstr "批准／核查在途："
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "折扣原因"
+msgstr "折扣原因"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "撤销原因"
+msgstr "撤销原因"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "撤销申请并释放受保护额度"
+msgstr "撤销申请并释放受保护额度"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "支付宝线下"
+msgstr "支付宝线下"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "收费员日结"
+msgstr "收费员日结"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "数量"
+msgstr "数量"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "方式"
+msgstr "方式"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "无"
+msgstr "无"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "日结"
+msgstr "日结"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "明确折扣金额"
+msgstr "明确折扣金额"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_pdf
+msgid "明确折扣："
+msgstr "明确折扣："
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "更正原因"
+msgstr "更正原因"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "更正线下方式"
+msgstr "更正线下方式"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "有据免单原因"
+msgstr "有据免单原因"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "未收款免单额"
+msgstr "未收款免单额"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "未知"
+msgstr "未知"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_pdf
+msgid "本次原生核销"
+msgstr "本次原生核销"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_pdf
+msgid "本次实际收款："
+msgstr "本次实际收款："
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page_links
+msgid "条；第"
+msgstr "条；第"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "来源"
+msgstr "来源"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "查看其他门店欠款最小摘要"
+msgstr "查看其他门店欠款最小摘要"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "标记未知或失败，继续占用额度"
+msgstr "标记未知或失败，继续占用额度"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "核查原因"
+msgstr "核查原因"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_pdf
+msgid "此为隔离合成数据库中的演示初版，不代表正式税务开票或纸张出纸。"
+msgstr "此为隔离合成数据库中的演示初版，不代表正式税务开票或纸张出纸。"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_pdf
+msgid "法人："
+msgstr "法人："
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "源批次 ID"
+msgstr "源批次 ID"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_pdf
+msgid "状态："
+msgstr "状态："
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "现金"
+msgstr "现金"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "生成原生过账账单"
+msgstr "生成原生过账账单"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "申请退款"
+msgstr "申请退款"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "申请退款额"
+msgstr "申请退款额"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "目标批次 ID"
+msgstr "目标批次 ID"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "目标门店 ID"
+msgstr "目标门店 ID"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "真实线下凭据说明"
+msgstr "真实线下凭据说明"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "确认双法人原生订单、收发与凭证"
+msgstr "确认双法人原生订单、收发与凭证"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "确认实际收款并原生核销"
+msgstr "确认实际收款并原生核销"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "确认已实际退款"
+msgstr "确认已实际退款"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "确认日结并锁定"
+msgstr "确认日结并锁定"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "确认金额"
+msgstr "确认金额"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "筛选"
+msgstr "筛选"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "线下付款与退款"
+msgstr "线下付款与退款"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "线下方式"
+msgstr "线下方式"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "线下核查状态"
+msgstr "线下核查状态"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "线下核查证据"
+msgstr "线下核查证据"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_pdf
+msgid "线下登记方式："
+msgstr "线下登记方式："
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_queue_page
+msgid "线下结算"
+msgstr "线下结算"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "线下结算工作台"
+msgstr "线下结算工作台"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_pdf
+msgid "经办人："
+msgstr "经办人："
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "财务核查后恢复执行"
+msgstr "财务核查后恢复执行"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "财务解锁"
+msgstr "财务解锁"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "财务解锁原因"
+msgstr "财务解锁原因"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_pdf
+msgid "账单总额："
+msgstr "账单总额："
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "费用"
+msgstr "费用"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_pdf
+msgid "费用来源"
+msgstr "费用来源"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "跨法人真实销售与采购"
+msgstr "跨法人真实销售与采购"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "退款"
+msgstr "退款"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_pdf
+msgid "退款申请与实际退款凭据"
+msgstr "退款申请与实际退款凭据"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "选择本店已确认费用出账"
+msgstr "选择本店已确认费用出账"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_pdf
+msgid "金额"
+msgstr "金额"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "银行卡线下"
+msgstr "银行卡线下"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "门店与权限"
+msgstr "门店与权限"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "门店业务日"
+msgstr "门店业务日"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_pdf
+msgid "门店业务日："
+msgstr "门店业务日："
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_pdf
+msgid "门店："
+msgstr "门店："
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page_links
+msgid "页"
+msgstr "页"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_pdf
+msgid "项目"
+msgstr "项目"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "驳回，不退款"
+msgstr "驳回，不退款"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "，应收"
+msgstr "，应收"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "，状态"
+msgstr "，状态"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid ""
+"：\n"
+"                            收"
+msgstr ""
+"：\n"
+"                            收"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_page
+msgid "；仅记录人工确认实际发生的线下资金。本页为演示，不是税务发票或平台到账证明。"
+msgstr "；仅记录人工确认实际发生的线下资金。本页为演示，不是税务发票或平台到账证明。"
+
+#. module: ydental_settlement
+#: model_terms:ir.ui.view,arch_db:ydental_settlement.ydental_settlement_pdf
+msgid "；无支付接口自动到账。"
+msgstr "；无支付接口自动到账。"
