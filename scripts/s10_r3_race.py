@@ -14,7 +14,7 @@ import psycopg2
 
 ROOT = Path('/home/redxin/code/odoo/odoo-sd/code/sd-addons')
 CORE = ROOT.parent
-NAME = 'ydental_s10_test_20261014020000_e25f7a93'
+NAME = 'ydental_s10_test_20261014020300_8b6c1d4e'
 RUN = ROOT / '.local' / NAME
 CORE_SHA = 'f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb'
 EXPECTED = os.environ['YDENTAL_S10_EXPECTED_SHA']
