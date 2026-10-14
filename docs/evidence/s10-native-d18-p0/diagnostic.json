@@ -1,0 +1,52 @@
+{
+  "stage": "S10 Native D1.8-P0",
+  "authorization_comment": 6165415202,
+  "baseline_head": "1655248248e207a944a8524196d17a9e99ace8aa",
+  "fixed_product": "4b168a84254882a2e1e3e5037c372ab57fc3dfdd",
+  "fixed_test": "255b48f54495eb99638af8ffc824771b9a5af3e7",
+  "odoo20_core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "pg_endpoint": "127.0.0.1:5432",
+  "pg_cluster": "7694897083368259627",
+  "fixed_oids_read_only_identity": [2056451, 2100080, 2100086, 2100087, 2100096, 2100105],
+  "github_reads": {
+    "method": "GET",
+    "issues": [23, 29, 31, 34, 35],
+    "effective_comment_counts": {"23": 3, "29": 7, "31": 8, "34": 60, "35": 0},
+    "latest_34_comment_at_start": 6165415202
+  },
+  "prior_l2_failure_evidence": [
+    {"oid": 2100087, "cause": "S07 warehouse caused Odoo settings/pricelist archive and S05 guard rejection", "gdb_log_sha256": "2961e7042afd54125f5c1839f411bf69dc3e60fd25a7c0de549bd10507a9e666"},
+    {"oid": 2100096, "cause": "explicit queue heartbeat/timeout absent", "gdb_log_sha256": "7003652da2b2cd9aecd14c0ed3298423638bcf125897fdd30bf170d1f30b9071"},
+    {"oid": 2100105, "cause": "private fixture absolute mail.message >100 assertion despite template baseline 851", "gdb_log_sha256": "f16dc1d22971bd14e2cc48f4e84378cacb2a1cc36a678775f49614ce4bd30555", "template_mail_message": 851, "rollback_mail_message": 851, "rollback_mail_mail": 0}
+  ],
+  "private_evidence_directory": ".local/s10-native-20261014-6165415202-d18p0",
+  "private_directory_mode": "0700",
+  "private_file_mode": "0600",
+  "private_identity_script_sha256": "0b003a644abf5665ee851e4f7c3194a97b4bc0262453ba205aeb7393b987149f",
+  "offline_contract_sha256": "7c545ae3e4567eb44cd23031b933d2a33a207909fba8fd22adc24235a3971f30",
+  "offline_contract_test_sha256": "5a65a41b7196d1edd41edf8c7ce56541afcbb16fce5538d5a2f2c533fc4dce64",
+  "commands": [
+    {"command": "gh api -X GET /repos/Yredxin/YDental/issues/{23,29,31,34,35} and paginated comments; GET authorization", "exit_code": 0, "evidence": "private downloaded JSON; latest authorization verified"},
+    {"command": "git status --short; git rev-parse HEAD; git branch --show-current", "exit_code": 0, "evidence": "clean baseline, correct branch and SHA"},
+    {"command": "../.venv/bin/python .local/s10-native-20261014-6165415202-d18p0/identity.py", "exit_code": 0, "evidence": "postgres management DB read-only cluster and six OID identities"},
+    {"command": "../.venv/bin/python -m py_compile scripts/s10_native_d18_p0_contract.py scripts/s10_native_d18_p0_contract_test.py", "exit_code": 0},
+    {"command": "../.venv/bin/python scripts/s10_native_d18_p0_contract_test.py [first]", "exit_code": 1, "evidence": "AST test itself omitted ImportFrom; four other tests passed; failure retained"},
+    {"command": "../.venv/bin/python scripts/s10_native_d18_p0_contract_test.py [after test-only fix]", "exit_code": 0, "evidence": "6/6 SIMULATED tests"},
+    {"command": "../.venv/bin/python scripts/s10_native_d18_p0_contract_test.py [after mock and locked-source AST coverage]", "exit_code": 0, "evidence": "8/8 SIMULATED tests"},
+    {"command": "sha256sum offline scripts, report, private identity script and original GDB logs", "exit_code": 0}
+  ],
+  "new_pg_business_aggregates": 0,
+  "conditional_github_readonly_query_checkpoint": "NOT_REQUIRED: no new business aggregate queries",
+  "new_odoo_targets": 0,
+  "new_gdb_odoo_targets": 0,
+  "new_firefox_targets": 0,
+  "create_database_attempts": 0,
+  "configuration_writes": 0,
+  "business_writes": 0,
+  "project_mutations": 0,
+  "s11_started": false,
+  "product_compatibility": "UNRESOLVED",
+  "s10_technical": "BLOCKED",
+  "production": "BLOCKED",
+  "native_root_cause": "UNKNOWN"
+}
