@@ -64,6 +64,10 @@ with env.registry.cursor() as cr:
     }, key())
     pending_snapshot = root['ydental.settlement.close'].browse(pending['close_id'])
     assert pending_snapshot.ydental_pending >= 100 and pending_snapshot.ydental_refunded == 0
+    reviewer._operate('unlock', {
+        'close_id': pending_snapshot.id,
+        'reason': 'Release this cashier day for later verified corrections',
+    }, key())
     # The refund is executed by a second real cashier. The first cashier's
     # confirmed pending snapshot must remain frozen while the outbound lands
     # in the second cashier's actual-day close.
