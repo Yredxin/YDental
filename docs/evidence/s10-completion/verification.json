@@ -1,0 +1,1418 @@
+{
+  "authorization": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6149055777",
+  "baseline_sha": "f4a1e20203b040642667404f7ce07db0c2523d66",
+  "product_sha": "c85c5fbd42d25345ffe217aeeefad24ca89ee9f1",
+  "fixed_test_sha": "38252243b7b671e95017b2bf9a2e39320b0eb3d7",
+  "database": {
+    "database": "ydental_s10_test_20261014002200_7b91d4e6",
+    "oid": 1925429,
+    "cluster": "7694897083368259627",
+    "endpoint": {
+      "host": "127.0.0.1",
+      "port": "5432",
+      "user": "odoo"
+    },
+    "port": 18234,
+    "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+    "source_commit": "38252243b7b671e95017b2bf9a2e39320b0eb3d7",
+    "config_sha256": "805fc75045ae2547cbb2a118c7d42409e422dec46a439f82d7e7346311fb21b2",
+    "canary_sha256": "fe42f6f60ca3dec78a1e6982d1fb1fecb73b4327ace77443f16e887f7093c36e",
+    "created_utc": "2026-10-14T00:21:41.288784+00:00"
+  },
+  "guarded_actions": [
+    {
+      "action": "install",
+      "pid": 2322334,
+      "exit_code": 0,
+      "signal": null,
+      "probe_sha256": null,
+      "log_sha256": "484b016238609f5cf6f82284ca9b62d0755084b5fcbf8a4725d440b827d3168a",
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014002200_7b91d4e6/odoo.conf",
+        "-i",
+        "ydental_settlement,ydental_settlement_test",
+        "--load-language",
+        "en_US,zh_CN",
+        "--stop-after-init"
+      ]
+    },
+    {
+      "action": "upgrade",
+      "pid": 2322952,
+      "exit_code": 0,
+      "signal": null,
+      "probe_sha256": null,
+      "log_sha256": "f4256059056dadd94ac6f58aaba95f0b889f2e5ecb871769bc78250ed6a8d731",
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014002200_7b91d4e6/odoo.conf",
+        "-u",
+        "ydental_settlement,ydental_settlement_test",
+        "--load-language",
+        "en_US,zh_CN",
+        "--stop-after-init"
+      ]
+    },
+    {
+      "action": "shell",
+      "pid": 2323051,
+      "exit_code": 0,
+      "signal": null,
+      "probe_sha256": "fe42f6f60ca3dec78a1e6982d1fb1fecb73b4327ace77443f16e887f7093c36e",
+      "log_sha256": "9c27218f9c66830cbd859219454256ad86b98f27411ae65bf35d88415bb54fb3",
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014002200_7b91d4e6/odoo.conf",
+        "--no-http"
+      ]
+    },
+    {
+      "action": "shell",
+      "pid": 2323184,
+      "exit_code": 0,
+      "signal": null,
+      "probe_sha256": "09d38388601f4a8da9345c7273c803b690485c9d0fcb26dda5b50deb17a99399",
+      "log_sha256": "c6d22197d4e73c4b053ec9cb6e40f881d835077c4c3eb9b134698a9831c4f0c4",
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014002200_7b91d4e6/odoo.conf",
+        "--no-http"
+      ]
+    },
+    {
+      "action": "shell",
+      "pid": 2323316,
+      "exit_code": 0,
+      "signal": null,
+      "probe_sha256": "f182b32f8e9725e6548ffcc88c7e68c3a8da424933592ef366314bd4b6b3d119",
+      "log_sha256": "5ad8e346274d125daae1f0e877cbdc47365878ae0ed1eb2c132596975ece098d",
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014002200_7b91d4e6/odoo.conf",
+        "--no-http"
+      ]
+    },
+    {
+      "action": "shell",
+      "pid": 2323464,
+      "exit_code": 0,
+      "signal": null,
+      "probe_sha256": "b26de909feba1c90747643a8d23a55bd1f0ee7f130335a9e35cf3aaf2950470b",
+      "log_sha256": "858bf5dfd084a91d0b0d062be43b7bb258ec42afa07e79f0b65e433d6612eeb2",
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014002200_7b91d4e6/odoo.conf",
+        "--no-http"
+      ]
+    },
+    {
+      "action": "shell",
+      "pid": 2323860,
+      "exit_code": 0,
+      "signal": null,
+      "probe_sha256": "037fb8d0c53501730060c796594d0bdcc40c038d3f699dcef4507ebeaa3a1391",
+      "log_sha256": "b6991bd9dae1c4f814c28c8640e9a8bde8847c0d9c14b1229924dae85efdeb37",
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014002200_7b91d4e6/odoo.conf",
+        "--no-http"
+      ]
+    },
+    {
+      "action": "shell",
+      "pid": 2323965,
+      "exit_code": 0,
+      "signal": null,
+      "probe_sha256": "c28c268ab67df741c3df21620a53fe3944d464bccca20a7b1df37e6fda4e7f34",
+      "log_sha256": "cae093d6813ed09fe8b18fe9b9a0d016b580bf1c1300cefc6ba71fd7e875308a",
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014002200_7b91d4e6/odoo.conf",
+        "--no-http"
+      ]
+    },
+    {
+      "action": "shell",
+      "pid": 2324061,
+      "exit_code": 0,
+      "signal": null,
+      "probe_sha256": "fdbfb8e6e075fef6518dd222a43f026897aeb487dec305db7db9362d3a057bda",
+      "log_sha256": "93a42dcf3de54578787c878346388a8ce959259ee13b3323d833f789f82c7d8e",
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014002200_7b91d4e6/odoo.conf",
+        "--no-http"
+      ]
+    },
+    {
+      "action": "shell",
+      "pid": 2324168,
+      "exit_code": 0,
+      "signal": null,
+      "probe_sha256": "3256678077182815b40fd37327fe07b7155e2409f929f55d6b16579db229ca1a",
+      "log_sha256": "e1e031d6637bd9c13ce510dbba635c54c90461ee316eb21580f754d30c5eb0fe",
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014002200_7b91d4e6/odoo.conf",
+        "--no-http"
+      ]
+    },
+    {
+      "action": "shell",
+      "pid": 2324207,
+      "exit_code": 0,
+      "signal": null,
+      "probe_sha256": "8f96cd23fa399be9e3b7888055bfbb3611f9ee176478a3c73962e05868de6e27",
+      "log_sha256": "78c6f876d2f5e8195dda3f0de13b4bd5cde0a572f937556b01e92831a3035f14",
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014002200_7b91d4e6/odoo.conf",
+        "--no-http"
+      ]
+    },
+    {
+      "action": "shell",
+      "pid": 2324284,
+      "exit_code": 0,
+      "signal": null,
+      "probe_sha256": "77a8e9b0046921c17d5c70489d1581cbddde4771751c8cb504352be55054e530",
+      "log_sha256": "1e29e218f53c5ef5f05feb708dd479cabfdf7af9b0e66c792820befb6a19bfd1",
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014002200_7b91d4e6/odoo.conf",
+        "--no-http"
+      ]
+    },
+    {
+      "action": "shell",
+      "pid": 2324445,
+      "exit_code": 0,
+      "signal": null,
+      "probe_sha256": "0ce3a0023677b1c6bdf0f0f67c7b4fe280ead231d2ccbb0ea0f5b3484d5a42d4",
+      "log_sha256": "62eaa69c74f1ae382198e9d82b23fce53b525b2617d4696027904d6059a30ebd",
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014002200_7b91d4e6/odoo.conf",
+        "--no-http"
+      ]
+    },
+    {
+      "action": "shell",
+      "pid": 2324484,
+      "exit_code": 0,
+      "signal": null,
+      "probe_sha256": "f4c0f3f9e431da2c03cf1965fd935665b809f3f8d0c961fa9677c1cfb7b7f79e",
+      "log_sha256": "0da0306742e204a9f57dc22f38617d6927eebfe45f8d94d29b083bbe72d9da21",
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014002200_7b91d4e6/odoo.conf",
+        "--no-http"
+      ]
+    },
+    {
+      "action": "shell",
+      "pid": 2324588,
+      "exit_code": 0,
+      "signal": null,
+      "probe_sha256": "969afd3328b407e0a0066e1c38222b53036859d213c4a135f5056f9cae1556ab",
+      "log_sha256": "aeafc91107467fe72bc8c9001d98954a42d649367c9e38958ee875232c0abc6f",
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014002200_7b91d4e6/odoo.conf",
+        "--no-http"
+      ]
+    },
+    {
+      "action": "shell",
+      "pid": 2324623,
+      "exit_code": 0,
+      "signal": null,
+      "probe_sha256": "5e9248af742e0a588521bd0424ebf974c81e945661b3e6fcf23840fbfea48f70",
+      "log_sha256": "1aca95709af44fd494be8699853c3d373bcc08903018c1418548cb1171feb3e1",
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014002200_7b91d4e6/odoo.conf",
+        "--no-http"
+      ]
+    },
+    {
+      "action": "shell",
+      "pid": 2324662,
+      "exit_code": 0,
+      "signal": null,
+      "probe_sha256": "c39d8f7a5b331976554a778c354b750fbe5f262dfe8912f241f423c3fe89c724",
+      "log_sha256": "59debd1e54278d91db4af887101522327830708c45373596d84ad3b23dab93c3",
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014002200_7b91d4e6/odoo.conf",
+        "--no-http"
+      ]
+    },
+    {
+      "action": "shell",
+      "pid": 2324717,
+      "exit_code": 0,
+      "signal": null,
+      "probe_sha256": "c03f265805ecf2f0df3579737a2cf3c1da197c24d7f48e332ee00e3c3e03abb2",
+      "log_sha256": "a8dff2f097bfbfa2cf25ff172f0acb7787c59eac7702c71b79a6019a4af70ea2",
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014002200_7b91d4e6/odoo.conf",
+        "--no-http"
+      ]
+    },
+    {
+      "action": "shell",
+      "pid": 2324752,
+      "exit_code": 0,
+      "signal": null,
+      "probe_sha256": "97b2b94ba2d8357df0fcd42ad461dd0cee9a73f41ae431ba4753669c3bdf8bc4",
+      "log_sha256": "4539ce265b4f09dbc4e7fd1df1e55c11bb303d26d4bbe19406d45f7b43e4ce2f",
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014002200_7b91d4e6/odoo.conf",
+        "--no-http"
+      ]
+    },
+    {
+      "action": "shell",
+      "pid": 2324792,
+      "exit_code": 0,
+      "signal": null,
+      "probe_sha256": "588d9f0473ea8677e4a85699a4b36587f4c641e7e8f1bfbd2e51efeab965b8dd",
+      "log_sha256": "797aedf35491943b0baca0abb53115d887fb03ca89881094fbb6d619a793ff62",
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014002200_7b91d4e6/odoo.conf",
+        "--no-http"
+      ]
+    },
+    {
+      "action": "shell",
+      "pid": 2324830,
+      "exit_code": 0,
+      "signal": null,
+      "probe_sha256": "441befdfb841644c65517af6a60ea3084fbcea9e983dfd8a1e0307edf561c9aa",
+      "log_sha256": "c51f7f4fe7c232e125c1671851eb5d85597e16d247adb0b49d46593a1c1bb6fa",
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014002200_7b91d4e6/odoo.conf",
+        "--no-http"
+      ]
+    },
+    {
+      "action": "shell",
+      "pid": 2324931,
+      "exit_code": 0,
+      "signal": null,
+      "probe_sha256": "f640599ca940cb63f9a31149bf47a9968f77cf44175e532a91b6d93cff63f909",
+      "log_sha256": "601d7894d5b06d98634c899035be3e171968f49da860597e44c5852eed93f80f",
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014002200_7b91d4e6/odoo.conf",
+        "--no-http"
+      ]
+    },
+    {
+      "action": "shell",
+      "pid": 2324946,
+      "exit_code": 0,
+      "signal": null,
+      "probe_sha256": "5a5bc2f0af04ae5fb97c8fda8ef15aa15532dca4ffd9916c8054f98557ec60fe",
+      "log_sha256": "a09b4e4e40c46ad017b2f5a13f45277b1ba98acff954e71a81304c736a363f89",
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014002200_7b91d4e6/odoo.conf",
+        "--no-http"
+      ]
+    },
+    {
+      "action": "upgrade",
+      "pid": 2326258,
+      "exit_code": 0,
+      "signal": null,
+      "probe_sha256": null,
+      "log_sha256": "d2db2a909f295f4ebbd71be9ba2242cfc54d282fd05cda8eb4c614ad34448379",
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014002200_7b91d4e6/odoo.conf",
+        "-u",
+        "ydental_settlement,ydental_settlement_test",
+        "--load-language",
+        "en_US,zh_CN",
+        "--stop-after-init"
+      ]
+    }
+  ],
+  "parallel": {
+    "bill": [
+      {
+        "actor": "a",
+        "pid": 2325014,
+        "exit_code": 0,
+        "signal": null,
+        "command": [
+          "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+          "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+          "shell",
+          "-c",
+          "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014002200_7b91d4e6/odoo.conf",
+          "--no-http"
+        ],
+        "script_sha256": "b6093bca1ea3031a2550787f04e6c4972cc01a102d5b94a1d3c0d1a7d4168fbe",
+        "log_sha256": "a22d8264d7ef3553654cbc7b9ab026f9ee806f9e79028dd448a2d52a7502c7af",
+        "database": "ydental_s10_test_20261014002200_7b91d4e6",
+        "oid": 1925429
+      },
+      {
+        "actor": "b",
+        "pid": 2325015,
+        "exit_code": 0,
+        "signal": null,
+        "command": [
+          "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+          "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+          "shell",
+          "-c",
+          "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014002200_7b91d4e6/odoo.conf",
+          "--no-http"
+        ],
+        "script_sha256": "b6093bca1ea3031a2550787f04e6c4972cc01a102d5b94a1d3c0d1a7d4168fbe",
+        "log_sha256": "bba743f18abfc08393e0f845d67621724609f132c19abfe8fc236af914c30a08",
+        "database": "ydental_s10_test_20261014002200_7b91d4e6",
+        "oid": 1925429
+      }
+    ],
+    "refund": [
+      {
+        "actor": "a",
+        "pid": 2325055,
+        "exit_code": 0,
+        "signal": null,
+        "command": [
+          "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+          "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+          "shell",
+          "-c",
+          "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014002200_7b91d4e6/odoo.conf",
+          "--no-http"
+        ],
+        "script_sha256": "f4ebf23b3a0b79e666d19ec9a752687cd2338cd1c7335e871a526c34f2b74953",
+        "log_sha256": "7d33cb386b809ab9cd56b14db76ab2d9edcce3e77dbcc5ecc6cbfa40ac9781ef",
+        "database": "ydental_s10_test_20261014002200_7b91d4e6",
+        "oid": 1925429
+      },
+      {
+        "actor": "b",
+        "pid": 2325056,
+        "exit_code": 0,
+        "signal": null,
+        "command": [
+          "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+          "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+          "shell",
+          "-c",
+          "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014002200_7b91d4e6/odoo.conf",
+          "--no-http"
+        ],
+        "script_sha256": "f4ebf23b3a0b79e666d19ec9a752687cd2338cd1c7335e871a526c34f2b74953",
+        "log_sha256": "69f23f091c71e0103745826f1e5d3ab723bd5ae3cfca2eee110be088b2418459",
+        "database": "ydental_s10_test_20261014002200_7b91d4e6",
+        "oid": 1925429
+      }
+    ],
+    "close_pay": [
+      {
+        "actor": "a",
+        "pid": 2325826,
+        "exit_code": 0,
+        "signal": null,
+        "command": [
+          "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+          "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+          "shell",
+          "-c",
+          "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014002200_7b91d4e6/odoo.conf",
+          "--no-http"
+        ],
+        "script_sha256": "8185684bb2f7040a1a7149b212745e71d276a49e59f3b9287c69aa0e812fafb1",
+        "log_sha256": "2921f6e77161c3a35e518189bfc89fdf164b7907ec5cc2565019beaa3dd44530",
+        "database": "ydental_s10_test_20261014002200_7b91d4e6",
+        "oid": 1925429
+      },
+      {
+        "actor": "b",
+        "pid": 2325827,
+        "exit_code": 0,
+        "signal": null,
+        "command": [
+          "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+          "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+          "shell",
+          "-c",
+          "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014002200_7b91d4e6/odoo.conf",
+          "--no-http"
+        ],
+        "script_sha256": "8185684bb2f7040a1a7149b212745e71d276a49e59f3b9287c69aa0e812fafb1",
+        "log_sha256": "259eecc0d32dcef9796e15a9b0a010c13d82126c0f8811e4ccc04b9fbde4a864",
+        "database": "ydental_s10_test_20261014002200_7b91d4e6",
+        "oid": 1925429
+      }
+    ],
+    "bill_results": [
+      {
+        "actor": "a",
+        "backend_pid": 365784,
+        "attempt": 2,
+        "outcome": "accepted",
+        "invoice_id": 31,
+        "amount": 100.0
+      },
+      {
+        "actor": "b",
+        "backend_pid": 365785,
+        "attempt": 1,
+        "outcome": "accepted",
+        "invoice_id": 31,
+        "amount": 100.0
+      }
+    ],
+    "refund_results": [
+      {
+        "actor": "a",
+        "backend_pid": 365796,
+        "attempt": 2,
+        "outcome": "rejected",
+        "result": {
+          "code": "refund_exceeds_received"
+        }
+      },
+      {
+        "actor": "b",
+        "backend_pid": 365797,
+        "attempt": 1,
+        "outcome": "accepted",
+        "result": {
+          "refund_id": 6,
+          "state": "requested",
+          "actually_refunded": 0,
+          "reserved": 300.0,
+          "result": "accepted"
+        }
+      }
+    ],
+    "close_results": [
+      {
+        "actor": "a",
+        "backend_pid": 365982,
+        "attempt": 1,
+        "outcome": "accepted",
+        "result": {
+          "close_id": 6,
+          "gross": 15.0,
+          "refunded": 5.0,
+          "pending": 0.0,
+          "net": 10.0,
+          "result": "accepted"
+        }
+      },
+      {
+        "actor": "b",
+        "backend_pid": 365981,
+        "attempt": 2,
+        "outcome": "rejected",
+        "result": {
+          "code": "day_closed"
+        }
+      }
+    ]
+  },
+  "preview": {
+    "database": "ydental_s10_test_20261014002200_7b91d4e6",
+    "oid": 1925429,
+    "preview_pid": 2325100,
+    "preview_exit_code": 0,
+    "preview_signal": null,
+    "browser_exit_code": 0,
+    "command": [
+      "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+      "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+      "-c",
+      "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014002200_7b91d4e6/odoo.conf"
+    ],
+    "preview_log_sha256": "12a6dd80e15a665bc62ce41306d31622b370b2de94d35fd9ea3d436a4779dd49",
+    "browser_log_sha256": "a0533a44eb278a8dd31ebbd9bf0268d0d543cf663d83cf4f0829e8bf0d723e00",
+    "time_utc": "2026-10-14T00:26:41.944905+00:00"
+  },
+  "firefox": {
+    "manager_payment": {
+      "payment_id": 10,
+      "native_payment_id": 14,
+      "amount": 10.0,
+      "allocations": [
+        {
+          "invoice_id": 6,
+          "partial_id": 18,
+          "amount": 10.0
+        }
+      ],
+      "residuals": {
+        "6": 155.0
+      },
+      "result": "accepted"
+    },
+    "old_history_bill": {
+      "invoice_id": 32,
+      "amount": 600.0,
+      "residual": 600.0,
+      "result": "accepted"
+    },
+    "full_waiver": {
+      "credit_note_id": 33,
+      "invoice_residual": 0.0,
+      "actually_refunded": 0,
+      "result": "accepted"
+    },
+    "recent_bills": [
+      34,
+      35
+    ],
+    "multi_invoice_payment": {
+      "payment_id": 9,
+      "native_payment_id": 13,
+      "amount": 700.0,
+      "allocations": [
+        {
+          "invoice_id": 34,
+          "partial_id": 16,
+          "amount": 600.0
+        },
+        {
+          "invoice_id": 35,
+          "partial_id": 17,
+          "amount": 100.0
+        }
+      ],
+      "residuals": {
+        "34": 0.0,
+        "35": 500.0
+      },
+      "result": "accepted"
+    },
+    "frontdesk_payment": {
+      "payment_id": 11,
+      "native_payment_id": 15,
+      "amount": 10.0,
+      "allocations": [
+        {
+          "invoice_id": 6,
+          "partial_id": 19,
+          "amount": 10.0
+        }
+      ],
+      "residuals": {
+        "6": 145.0
+      },
+      "result": "accepted"
+    },
+    "refund_requested": {
+      "refund_id": 7,
+      "state": "requested",
+      "actually_refunded": 0,
+      "reserved": 5.0,
+      "result": "accepted"
+    },
+    "approved": {
+      "refund_id": 7,
+      "state": "approved",
+      "actually_refunded": 0,
+      "reserved": 5.0,
+      "result": "accepted"
+    },
+    "executed": {
+      "refund_id": 7,
+      "state": "done",
+      "actually_refunded": 5.0,
+      "native_payment_id": 16,
+      "credit_note_ids": [
+        39
+      ],
+      "result": "accepted"
+    },
+    "rejected": {
+      "refund_id": 8,
+      "state": "rejected",
+      "credit_note_id": false,
+      "actually_refunded": 0,
+      "result": "accepted"
+    },
+    "unknown": {
+      "refund_id": 9,
+      "state": "unknown",
+      "actually_refunded": 0,
+      "reserved": 5.0,
+      "result": "accepted"
+    },
+    "cancelled": {
+      "refund_id": 9,
+      "state": "cancelled",
+      "actually_refunded": 0,
+      "released": 5.0,
+      "available": 10.0,
+      "result": "accepted"
+    },
+    "closed": {
+      "close_id": 5,
+      "gross": 10.0,
+      "refunded": 5.0,
+      "pending": 0.0,
+      "net": 5.0,
+      "result": "accepted"
+    },
+    "unlocked": {
+      "close_id": 5,
+      "state": "unlocked",
+      "result": "accepted"
+    },
+    "corrected": {
+      "correction_id": 2,
+      "move_id": 41,
+      "old_channel": "alipay",
+      "new_channel": "card",
+      "actual_cash_refunded": 0,
+      "result": "accepted"
+    },
+    "pdfs": {
+      "bill": {
+        "sha256": "a7267011a3db8df2610b8220e893ab3a0e0cf0104925cfb72f31b205ce277b3d",
+        "bytes": 27347
+      },
+      "receipt": {
+        "sha256": "9fda1418e0737a718cdd75a458bd21c7d19634a4785b702f3a9da1b2bfa5498c",
+        "bytes": 28092
+      },
+      "refund": {
+        "sha256": "decfb0c8d57745f662b8e08c69035b96a4e78c43f23b4470ece48b8cd1aa87e8",
+        "bytes": 25727
+      }
+    },
+    "other_store": {
+      "summaryStatus": 200,
+      "summary": [
+        {
+          "store": "S08B Synthetic 56eb7983c8e6eb5bd5fb58af",
+          "store_id": 3,
+          "company": "My Company",
+          "currency": "USD",
+          "residual": 754
+        }
+      ],
+      "deniedStatus": 403
+    },
+    "denied_status": 403,
+    "pageerrors": [],
+    "screenshots": [
+      "firefox-manager-before.png",
+      "firefox-two-cashiers.png",
+      "firefox-refund-done.png",
+      "firefox-final.png",
+      "firefox-other-store.png"
+    ]
+  },
+  "native_sql_before": {
+    "database": "ydental_s10_test_20261014002200_7b91d4e6",
+    "oid": 1925429,
+    "source_commit": "38252243b7b671e95017b2bf9a2e39320b0eb3d7",
+    "phase": "before",
+    "modules": {
+      "installed": 2
+    },
+    "tables": {
+      "ydental_treatment_event": {
+        "count": 222,
+        "sha256": "7a8e80f5db1f97b589cd9c7edf2064e6cdff3f427ed3897078472240343e0da1"
+      },
+      "ydental_treatment_fee": {
+        "count": 221,
+        "sha256": "0f54391e23823347277705f4b8ee4cb82dc62dfc2ecf756c0557b3541c3bcbf1"
+      },
+      "ydental_settlement_source": {
+        "count": 18,
+        "sha256": "995620afb03c741a0d02988dce6fe12bbcb608c9aa7a7fdf6337e5d6fc729910"
+      },
+      "ydental_settlement_payment": {
+        "count": 11,
+        "sha256": "36a0c03c73c1702353b235b08b3431f1bb7f0e6bb676ccc5760e145c43b46a99"
+      },
+      "ydental_settlement_refund": {
+        "count": 9,
+        "sha256": "3831698b36341553645ed11620ecf4a8aea79331213c106b397440be386ce202"
+      },
+      "ydental_settlement_close": {
+        "count": 6,
+        "sha256": "3fa7e1f39bc67ead9f3549123a44ea5b7dfbbe33ddc9f635f54ebc0108562dae"
+      },
+      "ydental_settlement_correction": {
+        "count": 2,
+        "sha256": "3fd1749f4babbb7a59183c2db5daed2176550c7b63a46311170c753310e42d2c"
+      },
+      "ydental_settlement_trade": {
+        "count": 1,
+        "sha256": "bc05e083c34c5fe88da8d20b996ff4fdda3d731a2cb53aa169505f2343ee9016"
+      },
+      "account_move": {
+        "count": 40,
+        "sha256": "0356ba75c52a386b3831d16244837d4fc157aff9ed7dc8a32397087e50c7a154"
+      },
+      "account_payment": {
+        "count": 15,
+        "sha256": "c5ba67c825250b7f8431a472af5b234337dde7fa7f8a858e5dcd135e1a8ba758"
+      },
+      "account_partial_reconcile": {
+        "count": 20,
+        "sha256": "61cca08ae6b5f52a301651d3fffe28a8edd82ba234db7b572cc16aac44d05c71"
+      },
+      "stock_move": {
+        "count": 234,
+        "sha256": "3bd4b06d8963862e97aafa9650fd7dc51f75e5ac8caec214b1b4d3d5e37a380a"
+      },
+      "stock_move_line": {
+        "count": 234,
+        "sha256": "65a0910a272d1bd5cde4871ab1607a33cc0e76f4d7e280aefa75db6214485ed4"
+      },
+      "stock_quant": {
+        "count": 35,
+        "sha256": "d5f0e0227f24cc7245d6d2fe53637d7b6299469dec02d787d72cc478d70f4d41"
+      },
+      "sale_order": {
+        "count": 1,
+        "sha256": "3ccb0fb510ef2828f3e7367a028937f23981cb69ecf86dd26a83c07c283e9040"
+      },
+      "purchase_order": {
+        "count": 1,
+        "sha256": "e4bb66d3143dc2dad90a64be4055d13ebc73de3e4b3f15e0634195bfc219bab8"
+      }
+    },
+    "bad_source": 0,
+    "duplicate_source": 0,
+    "valid_trades": 1,
+    "refunds": {
+      "cancelled": {
+        "count": 2,
+        "amount": 85.0
+      },
+      "done": {
+        "count": 4,
+        "amount": 185.0
+      },
+      "rejected": {
+        "count": 2,
+        "amount": 55.0
+      },
+      "requested": {
+        "count": 1,
+        "amount": 300.0
+      }
+    },
+    "bad_done_refund": 0,
+    "bad_not_done_refund": 0,
+    "native_partials": {
+      "count": 20,
+      "amount": 3491.0
+    },
+    "deadlocks": 0,
+    "f1": {
+      "payment500": [
+        {
+          "invoice_id": 1,
+          "amount": 500.0,
+          "partial_id": 1
+        }
+      ],
+      "payment240": [
+        {
+          "invoice_id": 1,
+          "amount": 240.0,
+          "partial_id": 2
+        }
+      ],
+      "residual": 0.0
+    },
+    "f5": {
+      "selected300": [
+        {
+          "invoice_id": 4,
+          "amount": 270.0,
+          "partial_id": 4
+        },
+        {
+          "invoice_id": 6,
+          "amount": 30.0,
+          "partial_id": 5
+        }
+      ],
+      "only_new": [
+        {
+          "invoice_id": 7,
+          "amount": 200.0,
+          "partial_id": 3
+        }
+      ]
+    }
+  },
+  "native_sql_after": {
+    "database": "ydental_s10_test_20261014002200_7b91d4e6",
+    "oid": 1925429,
+    "source_commit": "38252243b7b671e95017b2bf9a2e39320b0eb3d7",
+    "phase": "after",
+    "modules": {
+      "installed": 2
+    },
+    "tables": {
+      "ydental_treatment_event": {
+        "count": 222,
+        "sha256": "7a8e80f5db1f97b589cd9c7edf2064e6cdff3f427ed3897078472240343e0da1"
+      },
+      "ydental_treatment_fee": {
+        "count": 221,
+        "sha256": "0f54391e23823347277705f4b8ee4cb82dc62dfc2ecf756c0557b3541c3bcbf1"
+      },
+      "ydental_settlement_source": {
+        "count": 18,
+        "sha256": "995620afb03c741a0d02988dce6fe12bbcb608c9aa7a7fdf6337e5d6fc729910"
+      },
+      "ydental_settlement_payment": {
+        "count": 11,
+        "sha256": "36a0c03c73c1702353b235b08b3431f1bb7f0e6bb676ccc5760e145c43b46a99"
+      },
+      "ydental_settlement_refund": {
+        "count": 9,
+        "sha256": "3831698b36341553645ed11620ecf4a8aea79331213c106b397440be386ce202"
+      },
+      "ydental_settlement_close": {
+        "count": 6,
+        "sha256": "3fa7e1f39bc67ead9f3549123a44ea5b7dfbbe33ddc9f635f54ebc0108562dae"
+      },
+      "ydental_settlement_correction": {
+        "count": 2,
+        "sha256": "3fd1749f4babbb7a59183c2db5daed2176550c7b63a46311170c753310e42d2c"
+      },
+      "ydental_settlement_trade": {
+        "count": 1,
+        "sha256": "bc05e083c34c5fe88da8d20b996ff4fdda3d731a2cb53aa169505f2343ee9016"
+      },
+      "account_move": {
+        "count": 40,
+        "sha256": "0356ba75c52a386b3831d16244837d4fc157aff9ed7dc8a32397087e50c7a154"
+      },
+      "account_payment": {
+        "count": 15,
+        "sha256": "c5ba67c825250b7f8431a472af5b234337dde7fa7f8a858e5dcd135e1a8ba758"
+      },
+      "account_partial_reconcile": {
+        "count": 20,
+        "sha256": "61cca08ae6b5f52a301651d3fffe28a8edd82ba234db7b572cc16aac44d05c71"
+      },
+      "stock_move": {
+        "count": 234,
+        "sha256": "3bd4b06d8963862e97aafa9650fd7dc51f75e5ac8caec214b1b4d3d5e37a380a"
+      },
+      "stock_move_line": {
+        "count": 234,
+        "sha256": "65a0910a272d1bd5cde4871ab1607a33cc0e76f4d7e280aefa75db6214485ed4"
+      },
+      "stock_quant": {
+        "count": 35,
+        "sha256": "d5f0e0227f24cc7245d6d2fe53637d7b6299469dec02d787d72cc478d70f4d41"
+      },
+      "sale_order": {
+        "count": 1,
+        "sha256": "3ccb0fb510ef2828f3e7367a028937f23981cb69ecf86dd26a83c07c283e9040"
+      },
+      "purchase_order": {
+        "count": 1,
+        "sha256": "e4bb66d3143dc2dad90a64be4055d13ebc73de3e4b3f15e0634195bfc219bab8"
+      }
+    },
+    "bad_source": 0,
+    "duplicate_source": 0,
+    "valid_trades": 1,
+    "refunds": {
+      "cancelled": {
+        "count": 2,
+        "amount": 85.0
+      },
+      "done": {
+        "count": 4,
+        "amount": 185.0
+      },
+      "rejected": {
+        "count": 2,
+        "amount": 55.0
+      },
+      "requested": {
+        "count": 1,
+        "amount": 300.0
+      }
+    },
+    "bad_done_refund": 0,
+    "bad_not_done_refund": 0,
+    "native_partials": {
+      "count": 20,
+      "amount": 3491.0
+    },
+    "deadlocks": 0,
+    "f1": {
+      "payment500": [
+        {
+          "invoice_id": 1,
+          "amount": 500.0,
+          "partial_id": 1
+        }
+      ],
+      "payment240": [
+        {
+          "invoice_id": 1,
+          "amount": 240.0,
+          "partial_id": 2
+        }
+      ],
+      "residual": 0.0
+    },
+    "f5": {
+      "selected300": [
+        {
+          "invoice_id": 4,
+          "amount": 270.0,
+          "partial_id": 4
+        },
+        {
+          "invoice_id": 6,
+          "amount": 30.0,
+          "partial_id": 5
+        }
+      ],
+      "only_new": [
+        {
+          "invoice_id": 7,
+          "amount": 200.0,
+          "partial_id": 3
+        }
+      ]
+    }
+  },
+  "pdf_pages": {
+    "bill_f2": {
+      "pdf": "bill-f2.pdf",
+      "pdf_sha256": "fe8fa334930186bc2f78716aff46c287c17cad924e421101c782bc56f70173c3",
+      "pages": [
+        {
+          "page": 1,
+          "image": "bill_f2-page-1.png",
+          "image_sha256": "74ce92cc46ecefa9780e4d372292b04d7d5d3634f3fcda02dfe3ca45f7607394",
+          "text_sha256": "cc328497e12158b267fe13a5a75a376131d6f22eab29ab2e2b46f0daa29f4244",
+          "title": "内部结算账单"
+        }
+      ]
+    },
+    "receipt_f2": {
+      "pdf": "receipt-f2.pdf",
+      "pdf_sha256": "ea769ec99fb912a73b4f93aebde2cf797be087108b0532676aefb3b0b671326d",
+      "pages": [
+        {
+          "page": 1,
+          "image": "receipt_f2-page-1.png",
+          "image_sha256": "ea03e30c2c8b2d3663ab199480e029f832a91229e7ccb498cdff55a07c36c362",
+          "text_sha256": "8267f5de7b6ea9e95c6d98177b38eb46010d0a1b827630c02a73ef42ca820a33",
+          "title": "UNKNOWN"
+        }
+      ]
+    },
+    "refund_f2": {
+      "pdf": "refund-f2.pdf",
+      "pdf_sha256": "42232136dc687545e457c285b89e4522a5459bbc115f3fa3e6be000e86bb79f1",
+      "pages": [
+        {
+          "page": 1,
+          "image": "refund_f2-page-1.png",
+          "image_sha256": "c3b0b6ef3e05c9de057c24a23890f62910470c340ffa05ec451e076be928bcb9",
+          "text_sha256": "6bae166606f3e3d5c006f2846781745af98f810f6e054b5db2ac393fde308943",
+          "title": "退款申请与实际退款凭据"
+        }
+      ]
+    },
+    "bill_firefox": {
+      "pdf": "firefox-bill.pdf",
+      "pdf_sha256": "a7267011a3db8df2610b8220e893ab3a0e0cf0104925cfb72f31b205ce277b3d",
+      "pages": [
+        {
+          "page": 1,
+          "image": "bill_firefox-page-1.png",
+          "image_sha256": "b0cfd622d8fa0a7e1d26ad562c1549cff8512a461d6008c2fabb1c2d802ba4da",
+          "text_sha256": "87624cf174067f4997c7e150584ed0c0014d2e257c081a8ce1d0631f620a048f",
+          "title": "内部结算账单"
+        }
+      ]
+    },
+    "receipt_firefox": {
+      "pdf": "firefox-receipt.pdf",
+      "pdf_sha256": "9fda1418e0737a718cdd75a458bd21c7d19634a4785b702f3a9da1b2bfa5498c",
+      "pages": [
+        {
+          "page": 1,
+          "image": "receipt_firefox-page-1.png",
+          "image_sha256": "183822ff37ac1fddf53730f67b42d97b1675892679a8f985b63662ad29d05c1b",
+          "text_sha256": "006d53020c9d5d9dce5130e7c44bda958cd09e1fd93460b2c8112f314f053dce",
+          "title": "UNKNOWN"
+        }
+      ]
+    },
+    "refund_firefox": {
+      "pdf": "firefox-refund.pdf",
+      "pdf_sha256": "decfb0c8d57745f662b8e08c69035b96a4e78c43f23b4470ece48b8cd1aa87e8",
+      "pages": [
+        {
+          "page": 1,
+          "image": "refund_firefox-page-1.png",
+          "image_sha256": "71fbe8691243cb251b0c19cea492f0837cdcbf8b210c9f52c00c4e51fe645a34",
+          "text_sha256": "74a8e87b426d1ff670d4c58268df2bae5e922b47ce0e586a56a89dd61176fdb6",
+          "title": "退款申请与实际退款凭据"
+        }
+      ]
+    }
+  },
+  "synthetic_files": [
+    {
+      "name": "firefox-final.png",
+      "bytes": 420148,
+      "sha256": "0b6d9b741580f0c77cea27d55db24d5e5888e72c648dfac1f984a13a32c7057c"
+    },
+    {
+      "name": "firefox-manager-before.png",
+      "bytes": 356985,
+      "sha256": "79941ba08735f611019e6f9f32837b71193971c0686c63c229879e0be6359e9f"
+    },
+    {
+      "name": "firefox-other-store.png",
+      "bytes": 73682,
+      "sha256": "4cc5a77bf43ea470996c059dbfb1006a3c47be28cff887c5a69f5977e14bc40d"
+    },
+    {
+      "name": "firefox-refund-done.png",
+      "bytes": 399960,
+      "sha256": "d88396ead707e36b39ff6efc7144ee2d794d8d4ea70bb60199636c026c03a8ab"
+    },
+    {
+      "name": "firefox-two-cashiers.png",
+      "bytes": 393299,
+      "sha256": "4719a2c7cd09d670e8814a7a27d082dd1159b5864475c86b134805b5e545b38d"
+    },
+    {
+      "name": "bill_f2-page-1.png",
+      "bytes": 60555,
+      "sha256": "74ce92cc46ecefa9780e4d372292b04d7d5d3634f3fcda02dfe3ca45f7607394"
+    },
+    {
+      "name": "bill_firefox-page-1.png",
+      "bytes": 52098,
+      "sha256": "b0cfd622d8fa0a7e1d26ad562c1549cff8512a461d6008c2fabb1c2d802ba4da"
+    },
+    {
+      "name": "receipt_f2-page-1.png",
+      "bytes": 63920,
+      "sha256": "ea03e30c2c8b2d3663ab199480e029f832a91229e7ccb498cdff55a07c36c362"
+    },
+    {
+      "name": "receipt_firefox-page-1.png",
+      "bytes": 67174,
+      "sha256": "183822ff37ac1fddf53730f67b42d97b1675892679a8f985b63662ad29d05c1b"
+    },
+    {
+      "name": "refund_f2-page-1.png",
+      "bytes": 51597,
+      "sha256": "c3b0b6ef3e05c9de057c24a23890f62910470c340ffa05ec451e076be928bcb9"
+    },
+    {
+      "name": "refund_firefox-page-1.png",
+      "bytes": 55829,
+      "sha256": "71fbe8691243cb251b0c19cea492f0837cdcbf8b210c9f52c00c4e51fe645a34"
+    },
+    {
+      "name": "bill-f2.pdf",
+      "bytes": 27654,
+      "sha256": "fe8fa334930186bc2f78716aff46c287c17cad924e421101c782bc56f70173c3"
+    },
+    {
+      "name": "firefox-bill.pdf",
+      "bytes": 27347,
+      "sha256": "a7267011a3db8df2610b8220e893ab3a0e0cf0104925cfb72f31b205ce277b3d"
+    },
+    {
+      "name": "firefox-receipt.pdf",
+      "bytes": 28092,
+      "sha256": "9fda1418e0737a718cdd75a458bd21c7d19634a4785b702f3a9da1b2bfa5498c"
+    },
+    {
+      "name": "firefox-refund.pdf",
+      "bytes": 25727,
+      "sha256": "decfb0c8d57745f662b8e08c69035b96a4e78c43f23b4470ece48b8cd1aa87e8"
+    },
+    {
+      "name": "receipt-f2.pdf",
+      "bytes": 28069,
+      "sha256": "ea769ec99fb912a73b4f93aebde2cf797be087108b0532676aefb3b0b671326d"
+    },
+    {
+      "name": "refund-f2.pdf",
+      "bytes": 25289,
+      "sha256": "42232136dc687545e457c285b89e4522a5459bbc115f3fa3e6be000e86bb79f1"
+    }
+  ],
+  "fixtures": {
+    "f1": {
+      "store_id": 1,
+      "manager_id": 5,
+      "frontdesk_id": 6,
+      "none_id": 10,
+      "doctor_id": 7,
+      "reader_id": 8,
+      "price_id": 9,
+      "exam_id": 12,
+      "pharmacist_id": 13,
+      "invoice_id": 1,
+      "payment500_id": 1,
+      "payment240_id": 2,
+      "fee_ids": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "drug_event_ids": [
+        3,
+        4
+      ],
+      "drug_move_ids": [
+        4,
+        5
+      ]
+    },
+    "f5": {
+      "patient_id": 2,
+      "store_id": 3,
+      "other_store_id": 4,
+      "manager_id": 14,
+      "frontdesk_id": 15,
+      "old_invoice_id": 4,
+      "new_invoice_id": 6,
+      "payment_id": 4,
+      "old_invoice_ids": [
+        4,
+        5
+      ],
+      "new_invoice_ids": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "only_new_payment_id": 3,
+      "selected_payment_id": 4,
+      "same_day_payment_id": 5,
+      "old_date": "2026-10-13",
+      "new_date": "2026-10-14"
+    },
+    "history": {
+      "store_id": 5,
+      "manager_id": 23,
+      "old_patient": 3,
+      "old_ready_fee": 11,
+      "old_invoice": 16,
+      "recent_patient": 4,
+      "recent_fee_ids": [
+        216,
+        217
+      ]
+    },
+    "trade": {
+      "source_store_id": 9,
+      "target_store_id": 11,
+      "manager_id": 41,
+      "frontdesk_id": 42,
+      "source_lot_id": 10,
+      "target_lot_id": 11,
+      "uom_id": 1,
+      "trade_id": 1,
+      "sale_order_id": 1,
+      "purchase_order_id": 1,
+      "source_key_sha256": "803733bf32c878b94e866711a86bab628eb4112ab592ee3a1610fa86101484e2"
+    }
+  },
+  "candidate_history": [
+    {
+      "database": "ydental_s10_test_20261013234419_c84e6d12",
+      "oid": 1859809,
+      "port": 18231,
+      "source_commit": "1cdeb5b9edbe4eb1d1b6218cbc8a8285a79e0fa5",
+      "guarded_actions": 12,
+      "failed_actions": [
+        {
+          "pid": 2301461,
+          "exit_code": 1,
+          "signal": null,
+          "log_sha256": "ace7aa675439ef97ec609ed0a9c4d83d418a89e91029e9658c6f34efec427e09"
+        },
+        {
+          "pid": 2301835,
+          "exit_code": 1,
+          "signal": null,
+          "log_sha256": "703a05fd6a6401fc827436c14e11c3d540bfd606fdee5ef93c3190e9b934aa68"
+        },
+        {
+          "pid": 2302122,
+          "exit_code": 1,
+          "signal": null,
+          "log_sha256": "295ada78a466bb9647ffc814ffe2b452531c3011b36ea4b2ec003dec1a916fad"
+        }
+      ],
+      "crash_markers": [
+        "crash-2304471.json",
+        "crash-2304470.json"
+      ]
+    },
+    {
+      "database": "ydental_s10_test_20261013235828_5e8ac4d1",
+      "oid": 1881641,
+      "port": 18232,
+      "source_commit": "c63540e8fa301607ad0aed454549483b3c679456",
+      "guarded_actions": 23,
+      "failed_actions": [
+        {
+          "pid": 2308823,
+          "exit_code": 1,
+          "signal": null,
+          "log_sha256": "4afc98ba8dac654dd06de4cdaeec73d79c57f425ad46a15440e9410b21a63399"
+        },
+        {
+          "pid": 2309090,
+          "exit_code": 1,
+          "signal": null,
+          "log_sha256": "74347f477453f7989a047ec416602423f2b0d74974ed3ec444ee548b847c0378"
+        },
+        {
+          "pid": 2309840,
+          "exit_code": 1,
+          "signal": null,
+          "log_sha256": "bb67ada7a13888c951e9592805fa758932fe74ec6b5ddd4dd2f07fc01759eafc"
+        },
+        {
+          "pid": 2311486,
+          "exit_code": 1,
+          "signal": null,
+          "log_sha256": "7f923f2eff4b44ce5bde669574179f5129ee9128e31d0ca8401cc0f3432ab5bc"
+        }
+      ],
+      "crash_markers": []
+    },
+    {
+      "database": "ydental_s10_test_20261014001000_81ac9f72",
+      "oid": 1903547,
+      "port": 18233,
+      "source_commit": "234a6b3ee9493e536cd907e7ab888e2894f33195",
+      "guarded_actions": 25,
+      "failed_actions": [
+        {
+          "pid": 2316474,
+          "exit_code": 1,
+          "signal": null,
+          "log_sha256": "215a4a7172b92ac281dad14e214fdb189d7935a0dd098622bf0e7e16614198f0"
+        },
+        {
+          "pid": 2321739,
+          "exit_code": 1,
+          "signal": null,
+          "log_sha256": "07cc84c0929f687da297befb9fbc35849225b6b1955722bc5b2461f0896e1bdd"
+        }
+      ],
+      "crash_markers": []
+    }
+  ],
+  "production": {
+    "policy": "demo_confirmation",
+    "native_sigsegv_root": "UNKNOWN",
+    "formal_accounts_tax_payment_policy": "NOT_APPROVED",
+    "real_bank_or_wechat_integration": "NOT_CONNECTED",
+    "status": "BLOCKED"
+  },
+  "project_mutations": 0
+}

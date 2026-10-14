@@ -1,5 +1,11 @@
 # YDental 当前执行入口
 
+## 当前 S10 定向补全持续 BLOCKED / #34（等待 GPT 独立复核）
+
+- 唯一最新授权为 [#34 GPT-REVIEW/AUTHORIZE6149055777](https://github.com/Yredxin/YDental/issues/34#issuecomment-6149055777)。原分支 `codex/s10-settlement-finance-r1-20261013` 从固定 `f4a1e20203b040642667404f7ce07db0c2523d66` 线性前进；最新 product `c85c5fbd42d25345ffe217aeeefad24ca89ee9f1`、固定 test `38252243b7b671e95017b2bf9a2e39320b0eb3d7`，final SHA 见 #34 本次回执。D1 不重跑，历史 native SIGSEGV 根因仍 UNKNOWN。
+- 唯一最终新库 `ydental_s10_test_20261014002200_7b91d4e6` / OID1925429 / 18234：install、upgrade、已提交真实业务再 upgrade 共24守卫动作全exit0/signal11=0；真实4+2药房、740/500/240、跨日270+200/300=270+30和仅选新账、205条历史费用分页、退款额度双后端竞争、日结/收款竞争、跨法人原生正反例、Firefox实际业务按钮和六份中文PDF逐页目视均有证据。16表持久业务升级前后逐行哈希相同，deadlock0。详见[报告](docs/s10-completion-blocked-report.md)和[脱敏机器证据](docs/evidence/s10-completion/verification.json)。所有候选失败库与日志保留。
+- **S10仍BLOCKED，不能称全阶段技术PASS。** T03零额出账、T04双审批者竞态、T05响应丢失/完成单取消、T07与T16其他日结竞态、T09异币种/效期/并发订单、T10/T14撤权/附件/患者合并、T11在途票面、S08/S09全套集成回归及`zh_CN.po`完整覆盖尚未闭环。生产科目/税/支付政策未批，原 native 崩溃根因未知。Project零修改、#34保持OPEN/进行中/Todo，旧库/卷/核心/odoo-12不动。正常push后在#34发布`[CODEX] S10持续BLOCKED与技术复核申请`，逐字读回立即停止等待GPT；不启S11、不合并/强推/部署。
+
 ## 当前 S10 D1恢复与D2定向返工持续BLOCKED / #34（等待GPT独立复核）
 
 - 唯一最新授权为[#34 GPT-REVIEW/AUTHORIZE6147246260](https://github.com/Yredxin/YDental/issues/34#issuecomment-6147246260)。沿原分支从固定`a73bcd7d198b5ee9c372c3c658a34053e61be048`前进，原native SIGSEGV根因UNKNOWN。D1.0离线预检回执[#34评论6147335402](https://github.com/Yredxin/YDental/issues/34#issuecomment-6147335402)已发布并逐字读回；D1.1新库`ydental_s10_test_20261013140300_d11a5e73`/OID1641937，两个Odoo子进程install PID1990449、只读shell PID1991188均exit0、signal0，额度未超。生产仍BLOCKED。
