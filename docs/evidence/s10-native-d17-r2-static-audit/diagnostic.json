@@ -1,0 +1,129 @@
+{
+  "authorization_comment_id": 6164444983,
+  "authorization_body_sha256": "4817276d5810be2efb32dd3c0b563a795e33bcdcd4ad2bfb01ad122deeaea67a",
+  "baseline_sha": "7495120e9165aca7d6a9a2bbd68eb60b9ac27bb8",
+  "product_sha": "4b168a84254882a2e1e3e5037c372ab57fc3dfdd",
+  "test_sha": "255b48f54495eb99638af8ffc824771b9a5af3e7",
+  "odoo20_core_sha": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "pg_endpoint": "127.0.0.1:5432",
+  "pg_cluster": "7694897083368259627",
+  "oids": {
+    "incident": 2056451,
+    "pure_92": 2100080,
+    "l1": 2100086,
+    "l2_failed": 2100087,
+    "r1_failed": 2100096
+  },
+  "scope": {
+    "odoo_targets": 0,
+    "gdb_odoo_targets": 0,
+    "firefox_targets": 0,
+    "create_database": 0,
+    "configuration_writes": 0,
+    "business_writes": 0,
+    "queue_config_value_queries": 0,
+    "project_mutations": 0
+  },
+  "queue_settings": {
+    "source": "ydental_queue/models/ydental_queue_service.py:51-60",
+    "source_sha256": "a5b3a037a2be9992edf5867b3d401b351e4a74820d36fcc8764d46e0cc1c2a6e",
+    "actual_ast_body": true,
+    "simulated_positive": 3,
+    "simulated_negative": 12,
+    "test_exit": 0,
+    "values": "2/20 and 2/600 are synthetic examples, not production approval"
+  },
+  "private_evidence": {
+    "directory": ".local/s10-native-20261014-6164444983-d17r2",
+    "directory_mode": "700",
+    "file_mode": "600",
+    "stub_sha256": "c6e5b14843f63b22613f8797c3e69d1403a643050ce1bdb9937c1e9890fdf9ba",
+    "mock_sha256": "6f3e416a8930aa090f87e0854f4b36d1b5328777b7fff7cb8ce3e9662cdba3c6",
+    "disabled_fixture_draft_sha256": "4966f710c4f6b801537f689da7637defad1126470f808b7dae3521c895e67d94",
+    "l2_failed_log_sha256": "2961e7042afd54125f5c1839f411bf69dc3e60fd25a7c0de549bd10507a9e666",
+    "r1_failed_log_sha256": "7003652da2b2cd9aecd14c0ed3298423638bcf125897fdd30bf170d1f30b9071",
+    "l2_attempt_sha256": "8f7395b0f4b97f972886e4ea6301150eeb7fa16329517744d5e52d85941650cd",
+    "r1_attempt_sha256": "b50019adcff66f996af308bfba0b6c5e0f2e0c0a8603e6d48fb22a072697be20"
+  },
+  "public_evidence": {
+    "matrix": "docs/s10-native-d17-r2-dependency-matrix.md",
+    "matrix_sha256": "f322e5d771a4cf090f35677b97ecf0e91b3a4ec6511dea95040ff976e2317587",
+    "safe_ast_stub": "scripts/s10_native_d17_r2_queue_stub.py",
+    "safe_ast_stub_sha256": "6b8c70ffc17a6025385b5b9fdafaed65346fad9a1445b1ee2eb991cad7e19761",
+    "nonexecuting_draft": "scripts/s10_native_d17_r2_draft.py",
+    "nonexecuting_draft_sha256": "f81ac68bf9a78587af1eab994db7ef6f6512d3c5220742b8ee97819980ad4a41"
+  },
+  "precondition_findings": [
+    "S07 setup after S05 owned pricelist causes native settings archive guard rejection",
+    "R1 setup before price reaches report but queue heartbeat/timeout missing",
+    "report invokes real _settings before queue accept",
+    "care area missed-limit must be positive",
+    "demo supply requires installed settlement_test guard",
+    "patient sequence, active supply business day, published slot and qualified doctor required"
+  ],
+  "unknown": [
+    "full native framework side effects and hidden config reads",
+    "new filestore orphan file origin in both failed L2 databases",
+    "stock valuation/accounting outcome until future isolated post-audit",
+    "native SIGSEGV root cause"
+  ],
+  "s05_s07_product_compatibility": "UNRESOLVED",
+  "s10": "BLOCKED",
+  "production": "BLOCKED",
+  "future_runtime_authorization": false,
+  "commands": [
+    {
+      "kind": "GitHub API GET issues/comments/auth",
+      "exit": 0
+    },
+    {
+      "kind": "git/core/venv identity",
+      "exit": 0
+    },
+    {
+      "kind": "PG admin readonly identity OID and cluster",
+      "exit": 0
+    },
+    {
+      "kind": "historical private SHA checks",
+      "exit": 0
+    },
+    {
+      "kind": "py_compile private/public audit scripts",
+      "exit": 0
+    },
+    {
+      "kind": "original _settings AST stub",
+      "exit": 0,
+      "simulation": true
+    },
+    {
+      "kind": "disabled draft AST/mock",
+      "exit": 0,
+      "simulation": true
+    },
+    {
+      "kind": "queue config PG values",
+      "status": "NOT_RUN"
+    },
+    {
+      "kind": "Odoo/GDB-Odoo/Firefox",
+      "status": "NOT_RUN"
+    },
+    {
+      "kind": "historical filestore hash inventory readonly",
+      "exit": 0
+    }
+  ],
+  "historical_filestore_readonly": {
+    "source_base_files": 124,
+    "oid2100087_total": 130,
+    "oid2100087_extras": 6,
+    "oid2100087_extra_inventory_sha256": "3ea6a8ea79749431fe34dc9b926f9b874c8577f88b59ce2506353736158104f0",
+    "oid2100096_total": 130,
+    "oid2100096_extras": 6,
+    "oid2100096_extra_inventory_sha256": "31f971d8c6c9a0c5a36d6c1adfa78f8e81b9cfde7a1f34f783c3ae98053db89d",
+    "origin": "UNKNOWN",
+    "deletions": 0
+  }
+}
