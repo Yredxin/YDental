@@ -3,7 +3,7 @@ import inspect
 import io
 import json
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import datetime, time, timedelta, timezone
 from zoneinfo import ZoneInfo
 
 from psycopg2.errors import UniqueViolation
@@ -429,13 +429,15 @@ class YDentalSettlementService(models.AbstractModel):
         amount = self._money(amount, payment.ydental_currency_id)
         if payment.ydental_currency_id.compare_amounts(amount, self._refund_capacity(payment)) > 0:
             raise UserError(self.env._('refund_exceeds_received: Actual and protected refunds exceed this offline receipt.'))
-        self._close_guard(store, payment.ydental_cashier_id.id, payment.ydental_business_date,
+        requested_at = fields.Datetime.now()
+        self._close_guard(store, self.env.uid,
+                          self._local_date(store, requested_at.replace(tzinfo=timezone.utc)),
                           self._effective_channel(payment))
         refund = self._model('refund')._new({
             'ydental_payment_id': payment.id, 'ydental_amount': amount,
             'ydental_currency_id': payment.ydental_currency_id.id,
             'ydental_requester_id': self.env.uid, 'ydental_reason': self._text(reason),
-            'ydental_key': self._text(request_key, 120),
+            'ydental_key': self._text(request_key, 120), 'ydental_requested_at': requested_at,
         })
         self._audit('refund.request', refund, store, after={'amount': amount}, reason=reason)
         return {'refund_id': refund.id, 'state': refund.ydental_state, 'actually_refunded': 0,
@@ -460,7 +462,8 @@ class YDentalSettlementService(models.AbstractModel):
         if refund.ydental_state != 'requested' or refund.ydental_requester_id.id == self.env.uid:
             raise AccessError(self.env._('access_denied: A different finance approver must reject a pending request.'))
         refund._save({'ydental_state': 'rejected', 'ydental_approver_id': self.env.uid,
-                      'ydental_decision_reason': self._text(reason)})
+                      'ydental_decision_reason': self._text(reason),
+                      'ydental_terminal_at': fields.Datetime.now()})
         self._audit('refund.reject', refund, store, after={'state': 'rejected'}, reason=reason)
         return {'refund_id': refund.id, 'state': 'rejected', 'credit_note_id': False,
                 'actually_refunded': 0}
@@ -497,12 +500,14 @@ class YDentalSettlementService(models.AbstractModel):
         if verified_not_paid is not True or refund.ydental_native_payment_id or refund.ydental_credit_note_ids:
             raise UserError(self.env._('refund_recovery_required: Verify no offline refund or native reversal occurred.'))
         payment = refund.ydental_payment_id
-        self._close_guard(store, payment.ydental_cashier_id.id,
-                          payment.ydental_business_date, self._effective_channel(payment))
+        cancellation_at = fields.Datetime.now()
+        self._close_guard(store, self.env.uid,
+                          self._local_date(store, cancellation_at.replace(tzinfo=timezone.utc)),
+                          self._effective_channel(payment))
         evidence = self._text(evidence, 200)
         reason = self._text(reason)
         refund._save({'ydental_state': 'cancelled', 'ydental_cancelled_by_id': self.env.uid,
-                      'ydental_cancelled_at': fields.Datetime.now(),
+                      'ydental_cancelled_at': cancellation_at, 'ydental_terminal_at': cancellation_at,
                       'ydental_cancel_reason': reason, 'ydental_cancel_evidence': evidence,
                       'ydental_release_verified': True})
         available = self._refund_capacity(payment)
@@ -521,9 +526,16 @@ class YDentalSettlementService(models.AbstractModel):
         payment = refund.ydental_payment_id
         actual = self._instant(actual_utc)
         business_date = self._local_date(store, actual)
-        self._close_guard(store, self.env.uid, business_date, payment.ydental_channel)
+        if refund.ydental_requested_at and actual.replace(tzinfo=None) < refund.ydental_requested_at:
+            raise UserError(self.env._('refund_time_invalid: Actual refund cannot precede its application.'))
+        refund_channel = self._effective_channel(payment)
+        correction = self._model('correction').search([
+            ('ydental_payment_id', '=', payment.id)], order='id desc', limit=1)
+        if correction and actual.replace(tzinfo=None) < correction.ydental_recorded_at:
+            raise UserError(self.env._('refund_channel_review_required: Refund time precedes the channel correction.'))
+        self._close_guard(store, self.env.uid, business_date, refund_channel)
         currency = payment.ydental_currency_id
-        journal = self._journal(config, payment.ydental_channel)
+        journal = self._journal(config, refund_channel)
         method = journal.outbound_payment_method_line_ids.filtered(lambda line: line.payment_method_id.code == 'manual')[:1]
         if not method:
             raise UserError(self.env._('accounting_policy_invalid: Native outbound manual method is absent.'))
@@ -586,9 +598,14 @@ class YDentalSettlementService(models.AbstractModel):
                       'ydental_native_payment_id': outbound.id,
                       'ydental_credit_note_id': credits[:1].id,
                       'ydental_credit_note_ids': [Command.set(credits.ids)],
-                      'ydental_actual_at': actual.replace(tzinfo=None)})
+                      'ydental_actual_at': actual.replace(tzinfo=None),
+                      'ydental_refund_business_date': business_date,
+                      'ydental_refund_channel': refund_channel,
+                      'ydental_terminal_at': actual.replace(tzinfo=None)})
         self._audit('refund.execute', refund, store, after={'native_payment_id': outbound.id,
-            'credit_note_ids': credits.ids, 'amount': refund.ydental_amount})
+            'credit_note_ids': credits.ids, 'amount': refund.ydental_amount,
+            'business_date': str(business_date), 'channel': refund_channel,
+            'executor_id': self.env.uid})
         return {'refund_id': refund.id, 'state': 'done', 'actually_refunded': refund.ydental_amount,
                 'native_payment_id': outbound.id, 'credit_note_ids': credits.ids}
 
@@ -629,45 +646,99 @@ class YDentalSettlementService(models.AbstractModel):
                                                      order='id desc', limit=1)
         return correction.ydental_new_channel if correction else payment.ydental_channel
 
+    def _day_bounds(self, store, day):
+        zone = ZoneInfo(store.ydental_timezone)
+        start = datetime.combine(day, time.min, tzinfo=zone)
+        end = datetime.combine(day + timedelta(days=1), time.min, tzinfo=zone)
+        return (start.astimezone(timezone.utc).replace(tzinfo=None),
+                end.astimezone(timezone.utc).replace(tzinfo=None))
+
+    def _refund_terminal_time(self, refund):
+        if refund.ydental_terminal_at:
+            return refund.ydental_terminal_at
+        if refund.ydental_state == 'done':
+            return refund.ydental_actual_at
+        if refund.ydental_state == 'cancelled':
+            return refund.ydental_cancelled_at
+        if refund.ydental_state == 'rejected':
+            # Legacy terminal records had no dedicated timestamp. The protected
+            # final write_date is the rejection transition time.
+            return refund.write_date
+        return False
+
+    def _native_refund_channel(self, refund, config):
+        native = refund.ydental_native_payment_id
+        if not native or native.move_id.state != 'posted':
+            raise UserError(self.env._('refund_account_mismatch: Native refund must be posted.'))
+        channel = refund.ydental_refund_channel
+        if not channel:
+            matches = [name for name in sorted(CHANNELS)
+                       if self._journal(config, name) == native.journal_id]
+            if len(matches) != 1:
+                raise UserError(self.env._('refund_history_review: Native refund journal is ambiguous.'))
+            channel = matches[0]
+        if native.journal_id != self._journal(config, channel):
+            raise UserError(self.env._('refund_account_mismatch: Frozen refund channel and journal disagree.'))
+        return channel
+
     def _close(self, business_date, channel):
         store = self._access(write=True)
-        self._config(store)
+        config = self._config(store)
         if channel not in CHANNELS or not isinstance(business_date, str):
             raise ValidationError(self.env._('Select a business date and offline payment category.'))
-        date = fields.Date.to_date(business_date)
-        if not date or date > fields.Date.context_today(self):
+        day = fields.Date.to_date(business_date)
+        if not day or day > self._local_date(store, datetime.now(timezone.utc)):
             raise ValidationError(self.env._('Select a valid past or current business date.'))
         existing = self._model('close').search([
             ('ydental_store_id', '=', store.id), ('ydental_cashier_id', '=', self.env.uid),
-            ('ydental_business_date', '=', date), ('ydental_channel', '=', channel),
+            ('ydental_business_date', '=', day), ('ydental_channel', '=', channel),
         ], order='ydental_cycle desc', limit=1)
         if existing and existing.ydental_state == 'confirmed':
             raise UserError(self.env._('day_closed: Unlock before closing this cashier day again.'))
         payments = self._model('payment').search([
             ('ydental_store_id', '=', store.id), ('ydental_cashier_id', '=', self.env.uid),
-            ('ydental_business_date', '=', date),
+            ('ydental_business_date', '=', day),
         ]).filtered(lambda payment: self._effective_channel(payment) == channel)
+        start_utc, end_utc = self._day_bounds(store, day)
         refunds = self._model('refund').search([
-            ('ydental_payment_id', 'in', payments.ids),
+            ('ydental_payment_id.ydental_store_id', '=', store.id),
+            ('ydental_executor_id', '=', self.env.uid), ('ydental_state', '=', 'done'),
+            ('ydental_actual_at', '>=', start_utc), ('ydental_actual_at', '<', end_utc),
         ])
+        refunds = refunds.filtered(
+            lambda refund: self._native_refund_channel(refund, config) == channel
+            and (not refund.ydental_refund_business_date or refund.ydental_refund_business_date == day))
+        # A pending refund is an exposure snapshot, never a recorded cash flow.
+        # A later actual refund cannot retroactively enter an earlier day.
+        cutoff = min(end_utc, fields.Datetime.now())
+        requests = self._model('refund').search([
+            ('ydental_payment_id.ydental_store_id', '=', store.id),
+            ('ydental_payment_id.ydental_cashier_id', '=', self.env.uid),
+            ('create_date', '<=', cutoff),
+        ])
+        pending_rows = requests.filtered(
+            lambda refund: (refund.ydental_requested_at or refund.create_date) <= cutoff
+            and (not self._refund_terminal_time(refund)
+                 or self._refund_terminal_time(refund) > cutoff)
+            and self._effective_channel(refund.ydental_payment_id) == channel)
         currency = store.company_id.currency_id
         gross = currency.round(sum(payments.mapped('ydental_amount')))
-        refunded = currency.round(sum(refunds.filtered(lambda refund: refund.ydental_state == 'done').mapped('ydental_amount')))
-        pending = currency.round(sum(refunds.filtered(lambda refund: refund.ydental_state in
-            ('requested', 'approved', 'failed', 'unknown')).mapped('ydental_amount')))
+        refunded = currency.round(sum(refunds.mapped('ydental_amount')))
+        pending = currency.round(sum(pending_rows.mapped('ydental_amount')))
         for native in payments.ydental_payment_id.move_id | refunds.ydental_native_payment_id.move_id:
             if native.state != 'posted' or not currency.is_zero(sum(native.line_ids.mapped('balance'))):
                 raise UserError(self.env._('accounting_mismatch: Native payment journal is not balanced.'))
         record = self._model('close')._new({
             'ydental_store_id': store.id, 'ydental_cashier_id': self.env.uid,
-            'ydental_business_date': date, 'ydental_channel': channel,
+            'ydental_business_date': day, 'ydental_channel': channel,
             'ydental_state': 'confirmed', 'ydental_gross': gross,
             'ydental_refunded': refunded, 'ydental_pending': pending,
             'ydental_currency_id': currency.id, 'ydental_confirmed_at': fields.Datetime.now(),
             'ydental_cycle': existing.ydental_cycle + 1 if existing else 1,
         })
-        self._audit('close', record, store, after={'gross': gross, 'refunded': refunded,
-                                                   'pending': pending, 'cycle': record.ydental_cycle})
+        self._audit('close', record, store,
+                    after={'gross': gross, 'refunded': refunded, 'pending': pending,
+                           'cycle': record.ydental_cycle, 'refund_ids': refunds.ids})
         return {'close_id': record.id, 'gross': gross, 'refunded': refunded,
                 'pending': pending, 'net': currency.round(gross - refunded)}
 
@@ -911,11 +982,11 @@ class YDentalSettlementService(models.AbstractModel):
         if patient:
             self.env['ydental.patient.service']._current_relation(patient, store)
         pages = pages or {}
-        if not isinstance(pages, dict) or any(key not in ('today', 'history', 'pending', 'invoices')
+        if not isinstance(pages, dict) or any(key not in ('today', 'history', 'pending', 'invoices', 'payments', 'refunds', 'closes')
                                                or type(value) is not int or not 1 <= value <= 10000
                                                for key, value in pages.items()):
             raise ValidationError(self.env._('Select a valid workbench page.'))
-        page_numbers = {key: pages.get(key, 1) for key in ('today', 'history', 'pending', 'invoices')}
+        page_numbers = {key: pages.get(key, 1) for key in ('today', 'history', 'pending', 'invoices', 'payments', 'refunds', 'closes')}
         family = self._patient_family_ids(patient) if patient else None
         fee_domain = fields.Domain('ydental_store_id', '=', store.id) & fields.Domain(
             'ydental_event_id.state', '=', 'confirmed') & fields.Domain(
@@ -950,15 +1021,25 @@ class YDentalSettlementService(models.AbstractModel):
                         after={'state': event.state, 'reason': event.ydental_pending_reason})
         for invoice in invoices:
             self._audit('invoice_view', invoice, store)
+        payment_domain = fields.Domain('ydental_store_id', '=', store.id)
+        refund_domain = fields.Domain('ydental_payment_id.ydental_store_id', '=', store.id)
+        if family is not None:
+            payment_domain &= fields.Domain('ydental_patient_id', 'in', family)
+            refund_domain &= fields.Domain('ydental_payment_id.ydental_patient_id', 'in', family)
+        payments, payment_count = self._workbench_page(
+            self._model('payment'), payment_domain, page_numbers['payments'], 'id desc')
+        refunds_list, refund_count = self._workbench_page(
+            self._model('refund'), refund_domain, page_numbers['refunds'], 'id desc')
+        closes, close_count = self._workbench_page(
+            self._model('close'), fields.Domain('ydental_store_id', '=', store.id),
+            page_numbers['closes'], 'id desc')
         return {'store': store, 'patient': patient,
                 'today': today_fees, 'history': history,
                 'pending': pending, 'invoices': invoices,
                 'pages': page_numbers, 'page_counts': {'today': today_count,
-                    'history': history_count, 'pending': pending_count, 'invoices': invoice_count},
-                'payments': self._model('payment').search([('ydental_store_id', '=', store.id)], order='id desc', limit=50),
-                'refunds': self._model('refund').search([('ydental_payment_id.ydental_store_id', '=', store.id)],
-                                                       order='id desc', limit=50),
-                'closes': self._model('close').search([('ydental_store_id', '=', store.id)], order='id desc', limit=30)}
+                    'history': history_count, 'pending': pending_count, 'invoices': invoice_count,
+                    'payments': payment_count, 'refunds': refund_count, 'closes': close_count},
+                'payments': payments, 'refunds': refunds_list, 'closes': closes}
 
     def _other_store_summary(self, patient_id):
         store = self._access()
@@ -1049,6 +1130,8 @@ class YDentalSettlementService(models.AbstractModel):
                     ('requested', 'approved', 'failed', 'unknown') else 0,
                 'refunded': refund.ydental_amount if refund.ydental_state == 'done' else 0,
                 'actual_utc': str(refund.ydental_actual_at or ''),
+                'refund_business_date': str(refund.ydental_refund_business_date or ''),
+                'refund_channel': refund.ydental_refund_channel or '',
                 'native_payment': refund.ydental_native_payment_id.name or '',
                 'reason': refund.ydental_reason})
             target = refund

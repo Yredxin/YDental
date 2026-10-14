@@ -24,6 +24,14 @@ class YDentalSettlementRefund(models.Model):
     ydental_credit_note_ids = fields.Many2many('account.move', relation='ydental_settlement_refund_credit_rel',
                                                 column1='refund_id', column2='move_id')
     ydental_actual_at = fields.Datetime()
+    # New immutable event dates; nullable to preserve already committed records.
+    ydental_requested_at = fields.Datetime(index=True)
+    ydental_terminal_at = fields.Datetime(index=True)
+    ydental_refund_business_date = fields.Date(index=True)
+    ydental_refund_channel = fields.Selection([
+        ('cash', 'Cash'), ('wechat', 'WeChat offline'),
+        ('alipay', 'Alipay offline'), ('card', 'Bank card offline'),
+    ])
     ydental_key = fields.Char(required=True)
     ydental_cancelled_by_id = fields.Many2one('res.users', ondelete='restrict')
     ydental_cancelled_at = fields.Datetime()

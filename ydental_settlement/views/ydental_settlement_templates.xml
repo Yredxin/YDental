@@ -126,6 +126,7 @@
                             <button type="submit">原生重分类更正</button>
                         </form>
                     </div>
+                    <t t-set="page_kind" t-value="'payments'"/><t t-call="ydental_settlement.ydental_settlement_page_links"/>
                     <div t-foreach="refunds" t-as="refund">
                         <p>退款 <span t-out="refund.id"/>：<span t-out="refund.ydental_amount"/>，状态 <span t-out="refund.ydental_state"/>
                             <a t-att-href="'/ydental/settlement/pdf/refund/%s' % refund.id">下载退款凭据 PDF</a></p>
@@ -173,6 +174,7 @@
                             <button type="submit">撤销申请并释放受保护额度</button>
                         </form>
                     </div>
+                    <t t-set="page_kind" t-value="'refunds'"/><t t-call="ydental_settlement.ydental_settlement_page_links"/>
                 </section>
                 <section><h2>收费员日结</h2>
                     <form t-if="can_write" method="post" action="/ydental/settlement/action">
@@ -195,6 +197,7 @@
                             <button type="submit">财务解锁</button>
                         </form>
                     </div>
+                    <t t-set="page_kind" t-value="'closes'"/><t t-call="ydental_settlement.ydental_settlement_page_links"/>
                 </section>
                 <section t-if="can_trade"><h2>跨法人真实销售与采购</h2>
                     <p>仅在双方门店均有仓库及财务审批权、已配置原生科目与两批次时确认。</p>

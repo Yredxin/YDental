@@ -36,6 +36,7 @@
                     <p>状态：<span t-out="p['state']"/>　原申请额：<span t-out="p['requested']"/> <span t-out="p['currency']"/></p>
                     <p>批准／核查在途：<span t-out="p['pending']"/>　已实际退款：<span t-out="p['refunded']"/></p>
                     <p>实际退款 UTC：<span t-out="p['actual_utc']"/>　原生付款号：<span t-out="p['native_payment']"/></p>
+                    <p t-if="p['state'] == 'done'">实际退款业务日：<span t-out="p['refund_business_date']"/>　原生日记账渠道：<span t-out="p['refund_channel']"/></p>
                     <p>原因：<span t-out="p['reason']"/></p>
                 </div>
                 <p>此为隔离合成数据库中的演示初版，不代表正式税务开票或纸张出纸。</p>

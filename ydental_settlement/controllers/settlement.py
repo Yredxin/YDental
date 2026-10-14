@@ -20,9 +20,12 @@ class YDentalSettlement(http.Controller):
 
     @http.route('/ydental/settlement', type='http', auth='user', methods=['GET'])
     def workbench(self, patient_id=None, today_page='1', history_page='1',
-                  pending_page='1', invoices_page='1', **kwargs):
+                  pending_page='1', invoices_page='1', payments_page='1',
+                  refunds_page='1', closes_page='1', **kwargs):
         raw_pages = {'today': today_page, 'history': history_page,
-                     'pending': pending_page, 'invoices': invoices_page}
+                     'pending': pending_page, 'invoices': invoices_page,
+                     'payments': payments_page, 'refunds': refunds_page,
+                     'closes': closes_page}
         if (patient_id and (not patient_id.isdecimal() or not 1 <= len(patient_id) <= 12)
                 or any(not isinstance(value, str) or not value.isdecimal()
                        or not 1 <= int(value) <= 10000 for value in raw_pages.values())):
