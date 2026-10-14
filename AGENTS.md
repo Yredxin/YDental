@@ -1,5 +1,11 @@
 # YDental 当前执行入口
 
+## 当前 S10 再次定向返工原生崩溃持续 BLOCKED / #34（等待 GPT 独立复核）
+
+- 唯一正式授权为 [#34 GPT-REVIEW/AUTHORIZE6158230350](https://github.com/Yredxin/YDental/issues/34#issuecomment-6158230350)。从固定 `d99f27fffcd6f9b79f1b1ac271dd026493b826b6` 沿原分支快进，纳入 GPT GitHub 未实测 WIP 后，最后 product `4b168a84254882a2e1e3e5037c372ab57fc3dfdd`、固定 test `255b48f54495eb99638af8ffc824771b9a5af3e7`，final SHA 见 #34 本次回执。#23/#34 正文及全部有效评论已重读；不重做已通过 D0/D1。
+- 最终新隔离库 `ydental_s10_test_20261014020300_8b6c1d4e` / OID2056451 / port18247 / cluster7694897083368259627：install、首次 upgrade、26 个真实业务 shell 均 exit0；740/500/240、270+200/300=270+30、跨日退款微信日结、55退款/55日结分页、零元账、药房4+2、跨法人原生凭证/库存及四状态真PDF均有同 SHA 原生证据。首组双 PostgreSQL 后端出账竞争 PID2383730 **SIGSEGV/exit-11**，另一守卫中止 exit-2；发生于 Odoo shell registry 后/业务动作前。无 core/native 根因，**立即停止后续所有 Odoo/Firefox**，未执行带业务再次升级、其它固定并发、完整 Firefox/中文 PDF 视觉回归。所有旧库/日志和新事故库保留。详见 [报告](docs/s10-r3-native-crash-blocked-report.md) 与 [脱敏事故证据](docs/evidence/s10-r3-blocked/incident.json)。
+- **S10持续BLOCKED，不得称全阶段技术PASS。** Project 本批零修改、#34保持 OPEN/进行中/Todo；生产科目/税/支付政策未批且原生稳定性根因 UNKNOWN。正常 push 后在#34发布`[CODEX] S10持续BLOCKED与技术复核申请`，逐字读回立即停止等待 GPT；不得自行再跑 Odoo/Firefox、启 S11、合并/强推/部署或删除旧库。
+
 ## 当前 S10 定向补全持续 BLOCKED / #34（等待 GPT 独立复核）
 
 - 唯一最新授权为 [#34 GPT-REVIEW/AUTHORIZE6149055777](https://github.com/Yredxin/YDental/issues/34#issuecomment-6149055777)。原分支 `codex/s10-settlement-finance-r1-20261013` 从固定 `f4a1e20203b040642667404f7ce07db0c2523d66` 线性前进；最新 product `c85c5fbd42d25345ffe217aeeefad24ca89ee9f1`、固定 test `38252243b7b671e95017b2bf9a2e39320b0eb3d7`，final SHA 见 #34 本次回执。D1 不重跑，历史 native SIGSEGV 根因仍 UNKNOWN。

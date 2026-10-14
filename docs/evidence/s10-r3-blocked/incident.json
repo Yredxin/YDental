@@ -1,0 +1,1045 @@
+{
+  "authorization": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6158230350",
+  "status": "BLOCKED_NEW_NATIVE_SIGSEGV",
+  "database": {
+    "database": "ydental_s10_test_20261014020300_8b6c1d4e",
+    "oid": 2056451,
+    "cluster": "7694897083368259627",
+    "port": 18247,
+    "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+    "source_commit": "255b48f54495eb99638af8ffc824771b9a5af3e7",
+    "config_sha256": "34f2a7cff12ef31c69090fb7b1f990b008bebf850290e2747d868c6a9d8ae778"
+  },
+  "fixed_product_sha": "4b168a84254882a2e1e3e5037c372ab57fc3dfdd",
+  "fixed_test_sha": "255b48f54495eb99638af8ffc824771b9a5af3e7",
+  "actions": [
+    {
+      "action": "install",
+      "pid": 2380553,
+      "exit_code": 0,
+      "signal": null,
+      "database": "ydental_s10_test_20261014020300_8b6c1d4e",
+      "oid": 2056451,
+      "port": 18247,
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014020300_8b6c1d4e/odoo.conf",
+        "-i",
+        "ydental_settlement,ydental_settlement_test",
+        "--load-language",
+        "en_US,zh_CN",
+        "--stop-after-init"
+      ],
+      "config_sha256": "34f2a7cff12ef31c69090fb7b1f990b008bebf850290e2747d868c6a9d8ae778",
+      "probe_sha256": null,
+      "log_sha256": "4035831deca38cc94c9b900ea344b02c34d9d29760fa24f334c2401842751f8b",
+      "log_bytes": 249341,
+      "time_utc": "2026-10-14T02:04:15.219323+00:00"
+    },
+    {
+      "action": "upgrade",
+      "pid": 2381168,
+      "exit_code": 0,
+      "signal": null,
+      "database": "ydental_s10_test_20261014020300_8b6c1d4e",
+      "oid": 2056451,
+      "port": 18247,
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014020300_8b6c1d4e/odoo.conf",
+        "-u",
+        "ydental_settlement,ydental_settlement_test",
+        "--load-language",
+        "en_US,zh_CN",
+        "--stop-after-init"
+      ],
+      "config_sha256": "34f2a7cff12ef31c69090fb7b1f990b008bebf850290e2747d868c6a9d8ae778",
+      "probe_sha256": null,
+      "log_sha256": "b08aee5f17f14ffa683a53970b4670221bd4d884f17e29648fd4572ee33ec67d",
+      "log_bytes": 41963,
+      "time_utc": "2026-10-14T02:04:26.934449+00:00"
+    },
+    {
+      "action": "shell",
+      "pid": 2381332,
+      "exit_code": 0,
+      "signal": null,
+      "database": "ydental_s10_test_20261014020300_8b6c1d4e",
+      "oid": 2056451,
+      "port": 18247,
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014020300_8b6c1d4e/odoo.conf",
+        "--no-http"
+      ],
+      "config_sha256": "34f2a7cff12ef31c69090fb7b1f990b008bebf850290e2747d868c6a9d8ae778",
+      "probe_sha256": "fe42f6f60ca3dec78a1e6982d1fb1fecb73b4327ace77443f16e887f7093c36e",
+      "log_sha256": "8a688a4e33313b37c535b51b066a45dc8b49c11a0c3f237e2f2857a457bfe890",
+      "log_bytes": 6136,
+      "time_utc": "2026-10-14T02:04:50.799881+00:00"
+    },
+    {
+      "action": "shell",
+      "pid": 2381460,
+      "exit_code": 0,
+      "signal": null,
+      "database": "ydental_s10_test_20261014020300_8b6c1d4e",
+      "oid": 2056451,
+      "port": 18247,
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014020300_8b6c1d4e/odoo.conf",
+        "--no-http"
+      ],
+      "config_sha256": "34f2a7cff12ef31c69090fb7b1f990b008bebf850290e2747d868c6a9d8ae778",
+      "probe_sha256": "09d38388601f4a8da9345c7273c803b690485c9d0fcb26dda5b50deb17a99399",
+      "log_sha256": "cbe9bfe9695103d0616410a2a0a87d8d0886bda3f9e9383609339d6300e0f0a2",
+      "log_bytes": 6251,
+      "time_utc": "2026-10-14T02:05:04.683342+00:00"
+    },
+    {
+      "action": "shell",
+      "pid": 2381589,
+      "exit_code": 0,
+      "signal": null,
+      "database": "ydental_s10_test_20261014020300_8b6c1d4e",
+      "oid": 2056451,
+      "port": 18247,
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014020300_8b6c1d4e/odoo.conf",
+        "--no-http"
+      ],
+      "config_sha256": "34f2a7cff12ef31c69090fb7b1f990b008bebf850290e2747d868c6a9d8ae778",
+      "probe_sha256": "7af11b4ba91ded094c7e7d0a63031333702f24968d8f9770224ea9cb16881866",
+      "log_sha256": "4d842b434d83d52dae0cba5845c65e8a08525b0d279c9b5301611d68979cdcb2",
+      "log_bytes": 5165,
+      "time_utc": "2026-10-14T02:05:07.797499+00:00"
+    },
+    {
+      "action": "shell",
+      "pid": 2381628,
+      "exit_code": 0,
+      "signal": null,
+      "database": "ydental_s10_test_20261014020300_8b6c1d4e",
+      "oid": 2056451,
+      "port": 18247,
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014020300_8b6c1d4e/odoo.conf",
+        "--no-http"
+      ],
+      "config_sha256": "34f2a7cff12ef31c69090fb7b1f990b008bebf850290e2747d868c6a9d8ae778",
+      "probe_sha256": "6f1841814b62592badb2659884925334ff69b6f4c7825bf1ccbe122edd22fb7b",
+      "log_sha256": "09ade865fcd558c09dbae68d4b834294a432da6fd9b13b2087b42dec755e0e8a",
+      "log_bytes": 5022,
+      "time_utc": "2026-10-14T02:05:25.449759+00:00"
+    },
+    {
+      "action": "shell",
+      "pid": 2381798,
+      "exit_code": 0,
+      "signal": null,
+      "database": "ydental_s10_test_20261014020300_8b6c1d4e",
+      "oid": 2056451,
+      "port": 18247,
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014020300_8b6c1d4e/odoo.conf",
+        "--no-http"
+      ],
+      "config_sha256": "34f2a7cff12ef31c69090fb7b1f990b008bebf850290e2747d868c6a9d8ae778",
+      "probe_sha256": "f182b32f8e9725e6548ffcc88c7e68c3a8da424933592ef366314bd4b6b3d119",
+      "log_sha256": "1679c9ef3b9291706610766c1e9dec88dd461d5f4721f771c26634d48cca9e85",
+      "log_bytes": 8245,
+      "time_utc": "2026-10-14T02:05:34.846948+00:00"
+    },
+    {
+      "action": "shell",
+      "pid": 2381916,
+      "exit_code": 0,
+      "signal": null,
+      "database": "ydental_s10_test_20261014020300_8b6c1d4e",
+      "oid": 2056451,
+      "port": 18247,
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014020300_8b6c1d4e/odoo.conf",
+        "--no-http"
+      ],
+      "config_sha256": "34f2a7cff12ef31c69090fb7b1f990b008bebf850290e2747d868c6a9d8ae778",
+      "probe_sha256": "71dc4b54c62b74823434f951525920dbfaf5a19eb18e56665f30108476938b44",
+      "log_sha256": "d5f1d5bc5ae902f22af2c5f6f6d8fa61750881e1f984d2f3119b3bbb72f083a5",
+      "log_bytes": 5720,
+      "time_utc": "2026-10-14T02:05:45.724954+00:00"
+    },
+    {
+      "action": "shell",
+      "pid": 2382016,
+      "exit_code": 0,
+      "signal": null,
+      "database": "ydental_s10_test_20261014020300_8b6c1d4e",
+      "oid": 2056451,
+      "port": 18247,
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014020300_8b6c1d4e/odoo.conf",
+        "--no-http"
+      ],
+      "config_sha256": "34f2a7cff12ef31c69090fb7b1f990b008bebf850290e2747d868c6a9d8ae778",
+      "probe_sha256": "f4c0f3f9e431da2c03cf1965fd935665b809f3f8d0c961fa9677c1cfb7b7f79e",
+      "log_sha256": "19e06d41ceef8acf2af054fea4344eadc80a5629fc28acf1b562375ccd2e4e1a",
+      "log_bytes": 5586,
+      "time_utc": "2026-10-14T02:05:56.644162+00:00"
+    },
+    {
+      "action": "shell",
+      "pid": 2382150,
+      "exit_code": 0,
+      "signal": null,
+      "database": "ydental_s10_test_20261014020300_8b6c1d4e",
+      "oid": 2056451,
+      "port": 18247,
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014020300_8b6c1d4e/odoo.conf",
+        "--no-http"
+      ],
+      "config_sha256": "34f2a7cff12ef31c69090fb7b1f990b008bebf850290e2747d868c6a9d8ae778",
+      "probe_sha256": "037fb8d0c53501730060c796594d0bdcc40c038d3f699dcef4507ebeaa3a1391",
+      "log_sha256": "153807f33abc2a1e051104dd5634c9015a60e0d5ed267ce8e3f207e77cf9e856",
+      "log_bytes": 5183,
+      "time_utc": "2026-10-14T02:05:58.507389+00:00"
+    },
+    {
+      "action": "shell",
+      "pid": 2382165,
+      "exit_code": 0,
+      "signal": null,
+      "database": "ydental_s10_test_20261014020300_8b6c1d4e",
+      "oid": 2056451,
+      "port": 18247,
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014020300_8b6c1d4e/odoo.conf",
+        "--no-http"
+      ],
+      "config_sha256": "34f2a7cff12ef31c69090fb7b1f990b008bebf850290e2747d868c6a9d8ae778",
+      "probe_sha256": "5e9248af742e0a588521bd0424ebf974c81e945661b3e6fcf23840fbfea48f70",
+      "log_sha256": "e4dec5424b7f496c9ec1ae4c4427e11f5c3f3d1dbaa1d80e34004e04c4e35a7f",
+      "log_bytes": 5288,
+      "time_utc": "2026-10-14T02:06:01.321531+00:00"
+    },
+    {
+      "action": "shell",
+      "pid": 2382203,
+      "exit_code": 0,
+      "signal": null,
+      "database": "ydental_s10_test_20261014020300_8b6c1d4e",
+      "oid": 2056451,
+      "port": 18247,
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014020300_8b6c1d4e/odoo.conf",
+        "--no-http"
+      ],
+      "config_sha256": "34f2a7cff12ef31c69090fb7b1f990b008bebf850290e2747d868c6a9d8ae778",
+      "probe_sha256": "0ce3a0023677b1c6bdf0f0f67c7b4fe280ead231d2ccbb0ea0f5b3484d5a42d4",
+      "log_sha256": "f301c90aa311a5a7845577314cd253db8ed2ee0476c0654ead33c60e3abb4b81",
+      "log_bytes": 5021,
+      "time_utc": "2026-10-14T02:06:03.954536+00:00"
+    },
+    {
+      "action": "shell",
+      "pid": 2382243,
+      "exit_code": 0,
+      "signal": null,
+      "database": "ydental_s10_test_20261014020300_8b6c1d4e",
+      "oid": 2056451,
+      "port": 18247,
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014020300_8b6c1d4e/odoo.conf",
+        "--no-http"
+      ],
+      "config_sha256": "34f2a7cff12ef31c69090fb7b1f990b008bebf850290e2747d868c6a9d8ae778",
+      "probe_sha256": "c556cd020b8a3611701c8816150b91f46608760427d7e4de03bd62182f4b1e58",
+      "log_sha256": "3b5f6b709828120956d021ed686b2bc994f8036b22509425da821116bf6c0857",
+      "log_bytes": 5397,
+      "time_utc": "2026-10-14T02:06:06.792611+00:00"
+    },
+    {
+      "action": "shell",
+      "pid": 2382281,
+      "exit_code": 0,
+      "signal": null,
+      "database": "ydental_s10_test_20261014020300_8b6c1d4e",
+      "oid": 2056451,
+      "port": 18247,
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014020300_8b6c1d4e/odoo.conf",
+        "--no-http"
+      ],
+      "config_sha256": "34f2a7cff12ef31c69090fb7b1f990b008bebf850290e2747d868c6a9d8ae778",
+      "probe_sha256": "588d9f0473ea8677e4a85699a4b36587f4c641e7e8f1bfbd2e51efeab965b8dd",
+      "log_sha256": "cc91b0d7a7ca4b274c7d95661c5104865d154f1cc1b9a409fdf3327962e946a6",
+      "log_bytes": 5202,
+      "time_utc": "2026-10-14T02:06:08.658620+00:00"
+    },
+    {
+      "action": "shell",
+      "pid": 2382295,
+      "exit_code": 0,
+      "signal": null,
+      "database": "ydental_s10_test_20261014020300_8b6c1d4e",
+      "oid": 2056451,
+      "port": 18247,
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014020300_8b6c1d4e/odoo.conf",
+        "--no-http"
+      ],
+      "config_sha256": "34f2a7cff12ef31c69090fb7b1f990b008bebf850290e2747d868c6a9d8ae778",
+      "probe_sha256": "c03f265805ecf2f0df3579737a2cf3c1da197c24d7f48e332ee00e3c3e03abb2",
+      "log_sha256": "be26381e2a15b15fc122cd636950fbbc9c65b86809e5498d72fa96d546e4d8b5",
+      "log_bytes": 2299,
+      "time_utc": "2026-10-14T02:06:10.281106+00:00"
+    },
+    {
+      "action": "shell",
+      "pid": 2382310,
+      "exit_code": 0,
+      "signal": null,
+      "database": "ydental_s10_test_20261014020300_8b6c1d4e",
+      "oid": 2056451,
+      "port": 18247,
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014020300_8b6c1d4e/odoo.conf",
+        "--no-http"
+      ],
+      "config_sha256": "34f2a7cff12ef31c69090fb7b1f990b008bebf850290e2747d868c6a9d8ae778",
+      "probe_sha256": "97b2b94ba2d8357df0fcd42ad461dd0cee9a73f41ae431ba4753669c3bdf8bc4",
+      "log_sha256": "0971777b5ab6fe32043ea0c65bdf10108cfe20a25a207723e8f773c30a18ea58",
+      "log_bytes": 5401,
+      "time_utc": "2026-10-14T02:06:12.859603+00:00"
+    },
+    {
+      "action": "shell",
+      "pid": 2382368,
+      "exit_code": 0,
+      "signal": null,
+      "database": "ydental_s10_test_20261014020300_8b6c1d4e",
+      "oid": 2056451,
+      "port": 18247,
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014020300_8b6c1d4e/odoo.conf",
+        "--no-http"
+      ],
+      "config_sha256": "34f2a7cff12ef31c69090fb7b1f990b008bebf850290e2747d868c6a9d8ae778",
+      "probe_sha256": "969afd3328b407e0a0066e1c38222b53036859d213c4a135f5056f9cae1556ab",
+      "log_sha256": "4401e35bed4d43be458000bd9d8d04cdd9b0579530992ed5b79009bb1783c088",
+      "log_bytes": 5135,
+      "time_utc": "2026-10-14T02:06:14.697190+00:00"
+    },
+    {
+      "action": "shell",
+      "pid": 2382385,
+      "exit_code": 0,
+      "signal": null,
+      "database": "ydental_s10_test_20261014020300_8b6c1d4e",
+      "oid": 2056451,
+      "port": 18247,
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014020300_8b6c1d4e/odoo.conf",
+        "--no-http"
+      ],
+      "config_sha256": "34f2a7cff12ef31c69090fb7b1f990b008bebf850290e2747d868c6a9d8ae778",
+      "probe_sha256": "c28c268ab67df741c3df21620a53fe3944d464bccca20a7b1df37e6fda4e7f34",
+      "log_sha256": "13dd44f0ef23fe4ce6c55ab5341c64f9512d6a32eb82ff3f58112219f1193f32",
+      "log_bytes": 5488,
+      "time_utc": "2026-10-14T02:06:24.137803+00:00"
+    },
+    {
+      "action": "shell",
+      "pid": 2382492,
+      "exit_code": 0,
+      "signal": null,
+      "database": "ydental_s10_test_20261014020300_8b6c1d4e",
+      "oid": 2056451,
+      "port": 18247,
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014020300_8b6c1d4e/odoo.conf",
+        "--no-http"
+      ],
+      "config_sha256": "34f2a7cff12ef31c69090fb7b1f990b008bebf850290e2747d868c6a9d8ae778",
+      "probe_sha256": "fdbfb8e6e075fef6518dd222a43f026897aeb487dec305db7db9362d3a057bda",
+      "log_sha256": "adff508eef5a7f415b3af28dc6da59273e37263115c6a9f1be6322f53988cb9e",
+      "log_bytes": 6380,
+      "time_utc": "2026-10-14T02:06:36.619502+00:00"
+    },
+    {
+      "action": "shell",
+      "pid": 2382618,
+      "exit_code": 0,
+      "signal": null,
+      "database": "ydental_s10_test_20261014020300_8b6c1d4e",
+      "oid": 2056451,
+      "port": 18247,
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014020300_8b6c1d4e/odoo.conf",
+        "--no-http"
+      ],
+      "config_sha256": "34f2a7cff12ef31c69090fb7b1f990b008bebf850290e2747d868c6a9d8ae778",
+      "probe_sha256": "8f96cd23fa399be9e3b7888055bfbb3611f9ee176478a3c73962e05868de6e27",
+      "log_sha256": "ec46bbb5f06332310665cb84b1b6cb9f7d9026572df3efeacc702e8bd253f650",
+      "log_bytes": 5511,
+      "time_utc": "2026-10-14T02:06:45.923645+00:00"
+    },
+    {
+      "action": "shell",
+      "pid": 2382693,
+      "exit_code": 0,
+      "signal": null,
+      "database": "ydental_s10_test_20261014020300_8b6c1d4e",
+      "oid": 2056451,
+      "port": 18247,
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014020300_8b6c1d4e/odoo.conf",
+        "--no-http"
+      ],
+      "config_sha256": "34f2a7cff12ef31c69090fb7b1f990b008bebf850290e2747d868c6a9d8ae778",
+      "probe_sha256": "4d6a7425757dfc2072fa6776b9fec34f8231802dd8aeceb5c4bc844355187bf1",
+      "log_sha256": "3865883768cf7ef0448702000a7fa8499447683884868a94c77100c403e53cca",
+      "log_bytes": 5183,
+      "time_utc": "2026-10-14T02:06:48.429667+00:00"
+    },
+    {
+      "action": "shell",
+      "pid": 2382729,
+      "exit_code": 0,
+      "signal": null,
+      "database": "ydental_s10_test_20261014020300_8b6c1d4e",
+      "oid": 2056451,
+      "port": 18247,
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014020300_8b6c1d4e/odoo.conf",
+        "--no-http"
+      ],
+      "config_sha256": "34f2a7cff12ef31c69090fb7b1f990b008bebf850290e2747d868c6a9d8ae778",
+      "probe_sha256": "b26de909feba1c90747643a8d23a55bd1f0ee7f130335a9e35cf3aaf2950470b",
+      "log_sha256": "208617a961016ed575edfdb015b2d6cf2b649394a4158f01ea749871d7665940",
+      "log_bytes": 5618,
+      "time_utc": "2026-10-14T02:07:29.993132+00:00"
+    },
+    {
+      "action": "shell",
+      "pid": 2383114,
+      "exit_code": 0,
+      "signal": null,
+      "database": "ydental_s10_test_20261014020300_8b6c1d4e",
+      "oid": 2056451,
+      "port": 18247,
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014020300_8b6c1d4e/odoo.conf",
+        "--no-http"
+      ],
+      "config_sha256": "34f2a7cff12ef31c69090fb7b1f990b008bebf850290e2747d868c6a9d8ae778",
+      "probe_sha256": "9cd0de5b59e89a9a4e99212a80d4b257e488189688cedc1276b92b69fdc8d8aa",
+      "log_sha256": "a092bdc928fd35cc4ec630e9c649fe8dee72c78a788d996dd075ed7147651c24",
+      "log_bytes": 6878,
+      "time_utc": "2026-10-14T02:07:41.769271+00:00"
+    },
+    {
+      "action": "shell",
+      "pid": 2383224,
+      "exit_code": 0,
+      "signal": null,
+      "database": "ydental_s10_test_20261014020300_8b6c1d4e",
+      "oid": 2056451,
+      "port": 18247,
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014020300_8b6c1d4e/odoo.conf",
+        "--no-http"
+      ],
+      "config_sha256": "34f2a7cff12ef31c69090fb7b1f990b008bebf850290e2747d868c6a9d8ae778",
+      "probe_sha256": "c1ee51ad31c1c7927a32bf6cff42ff11f2fb42b432951bd903c4a9b529da6d80",
+      "log_sha256": "faa5c727215934997b506de09f1d3f6b28f13bb05e8aa9d1fb33b280abc50fd2",
+      "log_bytes": 7820,
+      "time_utc": "2026-10-14T02:07:52.043009+00:00"
+    },
+    {
+      "action": "shell",
+      "pid": 2383349,
+      "exit_code": 0,
+      "signal": null,
+      "database": "ydental_s10_test_20261014020300_8b6c1d4e",
+      "oid": 2056451,
+      "port": 18247,
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014020300_8b6c1d4e/odoo.conf",
+        "--no-http"
+      ],
+      "config_sha256": "34f2a7cff12ef31c69090fb7b1f990b008bebf850290e2747d868c6a9d8ae778",
+      "probe_sha256": "bc693fbeacd1ab4dc9931660fba41e9cd1f18b72db4597f9cc85d63b8ff9b742",
+      "log_sha256": "03bb7cc1f1f0adfbef42faaf67a03fdeae738e689f810cbaa0d74b060f6f5f67",
+      "log_bytes": 5618,
+      "time_utc": "2026-10-14T02:08:04.110473+00:00"
+    },
+    {
+      "action": "shell",
+      "pid": 2383506,
+      "exit_code": 0,
+      "signal": null,
+      "database": "ydental_s10_test_20261014020300_8b6c1d4e",
+      "oid": 2056451,
+      "port": 18247,
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014020300_8b6c1d4e/odoo.conf",
+        "--no-http"
+      ],
+      "config_sha256": "34f2a7cff12ef31c69090fb7b1f990b008bebf850290e2747d868c6a9d8ae778",
+      "probe_sha256": "285d9c9127c6a2b0b4e7796ecc62e6a1207587e2614aca26bce70db0271f05ec",
+      "log_sha256": "4a2992550e53c5c174f845eef4f8deaa498794570c9f6fb4af4f87390812e67a",
+      "log_bytes": 5011,
+      "time_utc": "2026-10-14T02:08:05.943624+00:00"
+    },
+    {
+      "action": "shell",
+      "pid": 2383521,
+      "exit_code": 0,
+      "signal": null,
+      "database": "ydental_s10_test_20261014020300_8b6c1d4e",
+      "oid": 2056451,
+      "port": 18247,
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014020300_8b6c1d4e/odoo.conf",
+        "--no-http"
+      ],
+      "config_sha256": "34f2a7cff12ef31c69090fb7b1f990b008bebf850290e2747d868c6a9d8ae778",
+      "probe_sha256": "441befdfb841644c65517af6a60ea3084fbcea9e983dfd8a1e0307edf561c9aa",
+      "log_sha256": "037f182060542d0b26beee8fca781ccc78c02c1b960103f50e734287c96441e5",
+      "log_bytes": 5416,
+      "time_utc": "2026-10-14T02:08:16.674667+00:00"
+    },
+    {
+      "action": "shell",
+      "pid": 2383625,
+      "exit_code": 0,
+      "signal": null,
+      "database": "ydental_s10_test_20261014020300_8b6c1d4e",
+      "oid": 2056451,
+      "port": 18247,
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014020300_8b6c1d4e/odoo.conf",
+        "--no-http"
+      ],
+      "config_sha256": "34f2a7cff12ef31c69090fb7b1f990b008bebf850290e2747d868c6a9d8ae778",
+      "probe_sha256": "f640599ca940cb63f9a31149bf47a9968f77cf44175e532a91b6d93cff63f909",
+      "log_sha256": "94bcfac3993b6ee04c7a16a87f7dcbb416b39fda6c1e0ec6e9dc4540000a1aad",
+      "log_bytes": 4730,
+      "time_utc": "2026-10-14T02:08:18.406239+00:00"
+    }
+  ],
+  "parallel_processes": [
+    {
+      "mode": "bill",
+      "actor": "a",
+      "pid": 2383729,
+      "exit_code": -2,
+      "signal": 2,
+      "database": "ydental_s10_test_20261014020300_8b6c1d4e",
+      "oid": 2056451,
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014020300_8b6c1d4e/odoo.conf",
+        "--no-http"
+      ],
+      "script_sha256": "b6093bca1ea3031a2550787f04e6c4972cc01a102d5b94a1d3c0d1a7d4168fbe",
+      "log_sha256": "bc2291a3583468f6a1062c95ed0733f4e964a1f78ac5336bc655a103023445bf"
+    },
+    {
+      "mode": "bill",
+      "actor": "b",
+      "pid": 2383730,
+      "exit_code": -11,
+      "signal": 11,
+      "database": "ydental_s10_test_20261014020300_8b6c1d4e",
+      "oid": 2056451,
+      "command": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "shell",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014020300_8b6c1d4e/odoo.conf",
+        "--no-http"
+      ],
+      "script_sha256": "b6093bca1ea3031a2550787f04e6c4972cc01a102d5b94a1d3c0d1a7d4168fbe",
+      "log_sha256": "f7795b360a80afc8fdfff8cd9c7e389da25064c36480bdb98bceccd9a2c0eef6"
+    }
+  ],
+  "crash": {
+    "mode": "bill",
+    "actor": "b",
+    "pid": 2383730,
+    "exit_code": -11,
+    "signal": 11,
+    "database": "ydental_s10_test_20261014020300_8b6c1d4e",
+    "oid": 2056451,
+    "command": [
+      "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+      "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+      "shell",
+      "-c",
+      "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261014020300_8b6c1d4e/odoo.conf",
+      "--no-http"
+    ],
+    "script_sha256": "b6093bca1ea3031a2550787f04e6c4972cc01a102d5b94a1d3c0d1a7d4168fbe",
+    "log_sha256": "f7795b360a80afc8fdfff8cd9c7e389da25064c36480bdb98bceccd9a2c0eef6"
+  },
+  "sql": {
+    "table_counts": {
+      "ydental_treatment_event": 226,
+      "ydental_treatment_fee": 225,
+      "ydental_settlement_source": 17,
+      "ydental_settlement_payment": 66,
+      "ydental_settlement_refund": 66,
+      "ydental_settlement_close": 63,
+      "ydental_settlement_trade": 1,
+      "account_move": 93,
+      "account_payment": 70,
+      "account_partial_reconcile": 73,
+      "stock_move": 238,
+      "stock_move_line": 238,
+      "stock_quant": 38,
+      "sale_order": 1,
+      "purchase_order": 1
+    },
+    "f1_500": [
+      [
+        1,
+        "500.00",
+        1
+      ]
+    ],
+    "f1_240": [
+      [
+        1,
+        "240.00",
+        2
+      ]
+    ],
+    "f5_300": [
+      [
+        4,
+        "270.00",
+        4
+      ],
+      [
+        6,
+        "30.00",
+        5
+      ]
+    ],
+    "f5_only_new": [
+      [
+        7,
+        "200.00",
+        3
+      ]
+    ],
+    "invoices": [
+      [
+        1,
+        "740.00",
+        "0.00",
+        "posted",
+        "out_invoice"
+      ],
+      [
+        4,
+        "270.00",
+        "0.00",
+        "posted",
+        "out_invoice"
+      ],
+      [
+        6,
+        "200.00",
+        "165.00",
+        "posted",
+        "out_invoice"
+      ]
+    ],
+    "refund_states": [
+      [
+        "approved",
+        2,
+        "55.00"
+      ],
+      [
+        "cancelled",
+        2,
+        "81.00"
+      ],
+      [
+        "done",
+        4,
+        "280.00"
+      ],
+      [
+        "rejected",
+        2,
+        "55.00"
+      ],
+      [
+        "requested",
+        55,
+        "64.00"
+      ],
+      [
+        "unknown",
+        1,
+        "5.00"
+      ]
+    ],
+    "done_refund_native_journals": [
+      [
+        1,
+        "2026-10-14",
+        "wechat",
+        15,
+        13,
+        "reconciled"
+      ],
+      [
+        57,
+        "2026-10-14",
+        "wechat",
+        5,
+        9,
+        "reconciled"
+      ],
+      [
+        60,
+        "2026-10-14",
+        "wechat",
+        5,
+        9,
+        "reconciled"
+      ],
+      [
+        61,
+        "2026-10-14",
+        "wechat",
+        14,
+        13,
+        "reconciled"
+      ]
+    ],
+    "source_bad_posted_or_company": 0,
+    "source_duplicate_fee": 0,
+    "native_partial_total": [
+      73,
+      "2621.00"
+    ],
+    "native_done_stock_moves": 238,
+    "cross_company_trade": [
+      [
+        1,
+        88,
+        "posted",
+        1,
+        89,
+        "posted",
+        2,
+        "done",
+        "done"
+      ]
+    ],
+    "deadlocks": 0,
+    "modules": [
+      [
+        "ydental_settlement",
+        "installed"
+      ],
+      [
+        "ydental_settlement_test",
+        "installed"
+      ]
+    ]
+  },
+  "log_files": {
+    "install-1.log": {
+      "sha256": "4035831deca38cc94c9b900ea344b02c34d9d29760fa24f334c2401842751f8b",
+      "bytes": 249341
+    },
+    "race-bill-a.log": {
+      "sha256": "bc2291a3583468f6a1062c95ed0733f4e964a1f78ac5336bc655a103023445bf",
+      "bytes": 2897
+    },
+    "race-bill-b.log": {
+      "sha256": "f7795b360a80afc8fdfff8cd9c7e389da25064c36480bdb98bceccd9a2c0eef6",
+      "bytes": 3683
+    },
+    "shell-10.log": {
+      "sha256": "153807f33abc2a1e051104dd5634c9015a60e0d5ed267ce8e3f207e77cf9e856",
+      "bytes": 5183
+    },
+    "shell-11.log": {
+      "sha256": "e4dec5424b7f496c9ec1ae4c4427e11f5c3f3d1dbaa1d80e34004e04c4e35a7f",
+      "bytes": 5288
+    },
+    "shell-12.log": {
+      "sha256": "f301c90aa311a5a7845577314cd253db8ed2ee0476c0654ead33c60e3abb4b81",
+      "bytes": 5021
+    },
+    "shell-13.log": {
+      "sha256": "3b5f6b709828120956d021ed686b2bc994f8036b22509425da821116bf6c0857",
+      "bytes": 5397
+    },
+    "shell-14.log": {
+      "sha256": "cc91b0d7a7ca4b274c7d95661c5104865d154f1cc1b9a409fdf3327962e946a6",
+      "bytes": 5202
+    },
+    "shell-15.log": {
+      "sha256": "be26381e2a15b15fc122cd636950fbbc9c65b86809e5498d72fa96d546e4d8b5",
+      "bytes": 2299
+    },
+    "shell-16.log": {
+      "sha256": "0971777b5ab6fe32043ea0c65bdf10108cfe20a25a207723e8f773c30a18ea58",
+      "bytes": 5401
+    },
+    "shell-17.log": {
+      "sha256": "4401e35bed4d43be458000bd9d8d04cdd9b0579530992ed5b79009bb1783c088",
+      "bytes": 5135
+    },
+    "shell-18.log": {
+      "sha256": "13dd44f0ef23fe4ce6c55ab5341c64f9512d6a32eb82ff3f58112219f1193f32",
+      "bytes": 5488
+    },
+    "shell-19.log": {
+      "sha256": "adff508eef5a7f415b3af28dc6da59273e37263115c6a9f1be6322f53988cb9e",
+      "bytes": 6380
+    },
+    "shell-20.log": {
+      "sha256": "ec46bbb5f06332310665cb84b1b6cb9f7d9026572df3efeacc702e8bd253f650",
+      "bytes": 5511
+    },
+    "shell-21.log": {
+      "sha256": "3865883768cf7ef0448702000a7fa8499447683884868a94c77100c403e53cca",
+      "bytes": 5183
+    },
+    "shell-22.log": {
+      "sha256": "208617a961016ed575edfdb015b2d6cf2b649394a4158f01ea749871d7665940",
+      "bytes": 5618
+    },
+    "shell-23.log": {
+      "sha256": "a092bdc928fd35cc4ec630e9c649fe8dee72c78a788d996dd075ed7147651c24",
+      "bytes": 6878
+    },
+    "shell-24.log": {
+      "sha256": "faa5c727215934997b506de09f1d3f6b28f13bb05e8aa9d1fb33b280abc50fd2",
+      "bytes": 7820
+    },
+    "shell-25.log": {
+      "sha256": "03bb7cc1f1f0adfbef42faaf67a03fdeae738e689f810cbaa0d74b060f6f5f67",
+      "bytes": 5618
+    },
+    "shell-26.log": {
+      "sha256": "4a2992550e53c5c174f845eef4f8deaa498794570c9f6fb4af4f87390812e67a",
+      "bytes": 5011
+    },
+    "shell-27.log": {
+      "sha256": "037f182060542d0b26beee8fca781ccc78c02c1b960103f50e734287c96441e5",
+      "bytes": 5416
+    },
+    "shell-28.log": {
+      "sha256": "94bcfac3993b6ee04c7a16a87f7dcbb416b39fda6c1e0ec6e9dc4540000a1aad",
+      "bytes": 4730
+    },
+    "shell-3.log": {
+      "sha256": "8a688a4e33313b37c535b51b066a45dc8b49c11a0c3f237e2f2857a457bfe890",
+      "bytes": 6136
+    },
+    "shell-4.log": {
+      "sha256": "cbe9bfe9695103d0616410a2a0a87d8d0886bda3f9e9383609339d6300e0f0a2",
+      "bytes": 6251
+    },
+    "shell-5.log": {
+      "sha256": "4d842b434d83d52dae0cba5845c65e8a08525b0d279c9b5301611d68979cdcb2",
+      "bytes": 5165
+    },
+    "shell-6.log": {
+      "sha256": "09ade865fcd558c09dbae68d4b834294a432da6fd9b13b2087b42dec755e0e8a",
+      "bytes": 5022
+    },
+    "shell-7.log": {
+      "sha256": "1679c9ef3b9291706610766c1e9dec88dd461d5f4721f771c26634d48cca9e85",
+      "bytes": 8245
+    },
+    "shell-8.log": {
+      "sha256": "d5f1d5bc5ae902f22af2c5f6f6d8fa61750881e1f984d2f3119b3bbb72f083a5",
+      "bytes": 5720
+    },
+    "shell-9.log": {
+      "sha256": "19e06d41ceef8acf2af054fea4344eadc80a5629fc28acf1b562375ccd2e4e1a",
+      "bytes": 5586
+    },
+    "upgrade-2.log": {
+      "sha256": "b08aee5f17f14ffa683a53970b4670221bd4d884f17e29648fd4572ee33ec67d",
+      "bytes": 41963
+    }
+  },
+  "pdf_files": {
+    "bill-f2.pdf": {
+      "sha256": "cfa63dce5228dfd7d85cb7538cd9d40c462b1cacdeb07ec814e985580b81b17a",
+      "bytes": 27664,
+      "pages": 1,
+      "extracted_chinese_characters": 97
+    },
+    "receipt-f2.pdf": {
+      "sha256": "121432b78ce740d2ab2a49a3deccd7a053258fd065674bb82375c515a6711144",
+      "bytes": 28023,
+      "pages": 1,
+      "extracted_chinese_characters": 123
+    },
+    "refund-approved.pdf": {
+      "sha256": "83ccdd8633362c2aab407516b8ff6f48d10cf6cd366a0396d15cd87af12d11fd",
+      "bytes": 25248,
+      "pages": 1,
+      "extracted_chinese_characters": 100
+    },
+    "refund-done.pdf": {
+      "sha256": "1f5ea396fcceef9b9fd7915f1a4e93a72637abd2a3be24272738bac91dc06a66",
+      "bytes": 26346,
+      "pages": 1,
+      "extracted_chinese_characters": 111
+    },
+    "refund-f2.pdf": {
+      "sha256": "d947e3b84df66d2f0081a2ae141d5714398edb0cab9bc4d32ab3dc6e05707b49",
+      "bytes": 26346,
+      "pages": 1,
+      "extracted_chinese_characters": 111
+    },
+    "refund-rejected.pdf": {
+      "sha256": "f68dbc1f0648c8a21e398de8b5c5c4f7820ffcf886205487aa77101403b464c3",
+      "bytes": 25339,
+      "pages": 1,
+      "extracted_chinese_characters": 100
+    },
+    "refund-unknown.pdf": {
+      "sha256": "20b12d29910422faa996743e6919903e1465566defe3dd1b83855f7d95df21c4",
+      "bytes": 25487,
+      "pages": 1,
+      "extracted_chinese_characters": 100
+    },
+    "s09-regression-report-223.pdf": {
+      "sha256": "236602bb37a04fc97a6b97cd5e28e19da16887b3d3e80ead620c3e781d62373a",
+      "bytes": 26494,
+      "pages": 1,
+      "extracted_chinese_characters": 100
+    }
+  },
+  "core_pattern": "|/usr/share/apport/apport -p%p -s%s -c%c -d%d -P%P -u%u -g%g -F%F -- %E",
+  "core_visible": false,
+  "post_crash_odoo_or_firefox_runs": 0
+}
