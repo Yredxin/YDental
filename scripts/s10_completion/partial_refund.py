@@ -16,7 +16,10 @@ with env.registry.cursor() as cr:
  service=bind(fixture,manager).env['ydental.settlement.service']
  review=bind(fixture,reviewer).env['ydental.settlement.service']
  close=root['ydental.settlement.close'].search([('ydental_store_id','=',store.id),
-     ('ydental_cashier_id','=',manager.id),('ydental_state','=','confirmed')],order='id desc',limit=1)
+     ('ydental_cashier_id','=',manager.id),
+     ('ydental_business_date','=',payment.ydental_business_date),
+     ('ydental_channel','=',service._effective_channel(payment)),
+     ('ydental_state','=','confirmed')],order='id desc',limit=1)
  if close:review._operate('unlock',{'close_id':close.id,'reason':'Reviewed further actual refund evidence'},key())
  invoice=root['account.move'].browse(f5['new_invoice_id'])
  initial=invoice.amount_residual
