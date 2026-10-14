@@ -1,0 +1,217 @@
+{
+  "aggregate": {
+    "actor_start_utc": "2026-10-14T02:08:24.934000Z",
+    "checkpoint_comment_id": 6162472787,
+    "cluster": "7694897083368259627",
+    "databases": {
+      "ydental_s10_test_20261014020300_8b6c1d4e": {
+        "oid": 2056451,
+        "private_fixture_relationship_counts": {
+          "all_sessions_for_bill_fixture_manager": {
+            "created_before_actor": 6,
+            "selected_now": 5,
+            "selected_now_last_write_before_actor": 5,
+            "total": 6
+          },
+          "bill_and_refund_fixture_stores_distinct": true,
+          "bill_and_refund_fixture_users_distinct": true,
+          "last_prepare_switch_audits": {
+            "before_actor": 2,
+            "total": 2
+          },
+          "last_prepare_two_sessions": {
+            "created_before_actor": 2,
+            "found_for_manager": 2,
+            "selected_now": 2,
+            "selected_now_last_write_before_actor": 2
+          }
+        },
+        "session_user_categories": {
+          "active_sessions": 176,
+          "inactive_sessions": 0,
+          "internal_sessions": 0,
+          "manager_group_sessions": 91,
+          "manager_membership_sessions": 0,
+          "share_sessions": 176,
+          "unique_users": 62
+        },
+        "sessions": {
+          "created_before_actor": 176,
+          "created_before_actor_but_updated_after": 0,
+          "created_before_last_visible": 176,
+          "selected_now": 165,
+          "selected_now_with_create_write_before_actor": 165,
+          "selected_now_with_create_write_before_last_visible": 165,
+          "total": 176,
+          "unselected_now": 11
+        },
+        "store_switch_audits": {
+          "at_or_after_actor": 0,
+          "before_actor": 194,
+          "before_last_visible": 194,
+          "total": 194
+        },
+        "uid1_context_inputs": {
+          "default_company_partner_lang_present": 1,
+          "default_company_present": 1,
+          "partner_lang_present": 1,
+          "partner_tz_present": 0,
+          "user_count": 1
+        }
+      },
+      "ydental_s10_test_20261014052222_5457e39f": {
+        "oid": 2100086,
+        "session_user_categories": {
+          "active_sessions": 1,
+          "inactive_sessions": 0,
+          "internal_sessions": 0,
+          "manager_group_sessions": 1,
+          "manager_membership_sessions": 0,
+          "share_sessions": 1,
+          "unique_users": 1
+        },
+        "sessions": {
+          "created_before_actor": 0,
+          "created_before_actor_but_updated_after": 0,
+          "created_before_last_visible": 0,
+          "selected_now": 0,
+          "selected_now_with_create_write_before_actor": 0,
+          "selected_now_with_create_write_before_last_visible": 0,
+          "total": 1,
+          "unselected_now": 1
+        },
+        "store_switch_audits": {
+          "at_or_after_actor": 0,
+          "before_actor": 0,
+          "before_last_visible": 0,
+          "total": 0
+        },
+        "uid1_context_inputs": {
+          "default_company_partner_lang_present": 1,
+          "default_company_present": 1,
+          "partner_lang_present": 1,
+          "partner_tz_present": 0,
+          "user_count": 1
+        }
+      }
+    },
+    "last_visible_utc": "2026-10-14T02:08:26.114000Z"
+  },
+  "authorization": {
+    "checkpoint_body_sha256": "54ff6d76d01b0803df4657f897b63e558f45399bc5107bf5182bf7ecdaf89de0",
+    "checkpoint_comment": 6162472787,
+    "checkpoint_exact_readback": true,
+    "checkpoint_posted_before_accident_aggregate": true,
+    "gpt_comment": 6161691305,
+    "unchanged_by_gpt_check": 6162127891
+  },
+  "budget_actual": {
+    "business_writes": 0,
+    "create_database": 0,
+    "firefox": 0,
+    "gdb_odoo": 0,
+    "odoo": 0,
+    "project_mutations": 0
+  },
+  "causal_boundary": {
+    "bill_and_last_refund_prepare_user_store_relation": "different synthetic users and stores",
+    "context_get_before_actor_stdin": true,
+    "last_python_frame": "Registry.field_computed",
+    "native_c_root_cause": "UNKNOWN",
+    "observed_context_get_to_s01_session_read": false,
+    "shell_initial_context": "empty",
+    "shell_initial_uid": 1
+  },
+  "commands": [
+    {
+      "action": "GitHub issues/comments explicit GET and git remote identity",
+      "exit_code": 0
+    },
+    {
+      "action": "first current #34 comment response",
+      "result": "incomplete; retained privately"
+    },
+    {
+      "action": "independent #34 comments re-read",
+      "comment_count_before_checkpoint": 43,
+      "exit_code": 0
+    },
+    {
+      "action": "read-only postgres management OID/cluster",
+      "exit_code": 0
+    },
+    {
+      "action": "GitHub checkpoint POST",
+      "comment_id": 6162472787,
+      "exit_code": 0
+    },
+    {
+      "action": "GitHub checkpoint GET and exact body compare",
+      "exit_code": 0
+    },
+    {
+      "action": "read-only accident schema query",
+      "exit_code": 0
+    },
+    {
+      "action": "py_compile read-only aggregate script",
+      "exit_code": 0
+    },
+    {
+      "action": "read-only aggregate v1",
+      "exit_code": 1,
+      "failure": "wrong assumption: bill and refund fixture managers identical; no session aggregate executed"
+    },
+    {
+      "action": "static AST SQL verifier first two versions",
+      "exit_code": 1,
+      "failure": "verifier treated wrapper sql argument as unverified literal; diagnostic only"
+    },
+    {
+      "action": "read-only aggregate v2",
+      "exit_code": 0
+    },
+    {
+      "action": "corrected static AST SQL verifier",
+      "exit_code": 0,
+      "literal_select_call_sites": 8
+    }
+  ],
+  "evidence_sha256": {
+    "accident_actions": "d6a578b75fd9ba331372e8616bf7a18999694649ffe65f3e1002660bcf0800cf",
+    "accident_config": "34f2a7cff12ef31c69090fb7b1f990b008bebf850290e2747d868c6a9d8ae778",
+    "accident_crash_log": "f7795b360a80afc8fdfff8cd9c7e389da25064c36480bdb98bceccd9a2c0eef6",
+    "accident_crash_marker": "d1785e5f111f0c2358fce04895092b81f1c4455f3e0774f82b1646a447e48d78",
+    "accident_race_actions": "380aa68c226a8fd2b4b904706d6856638c6bc9c0303a11c274a9909a3fb20ff0",
+    "aggregates_private": "bb3769278ad85bf7f35a973a63908f894510f6c12f835979aeb523df555e5584",
+    "checkpoint_readback": "fa18931b7743f4633f8857ffa8db4aec2012decbcb876293b3b3bcbff2928a4d",
+    "read_aggregates_v1_failed": "725e5e5b99c6248e5fa3a43d8e7b80594398be5deaaf549f0d93af94618510f2",
+    "read_aggregates_v2": "d933f7d7b0f2095323528a676f57cc2484690dfeb41f836086557a72d5c99b7a",
+    "res_users_core": "98a5c18d63069f19ce8eba95adb5809769e6e491630d4ed08b3a93e3097780cf",
+    "s01_service": "9654000038903522213303fcd9cdc64612cdd335deac6a96afd993c4dfd61132",
+    "schema_private": "699599d598206a81ff388f488457c17c590dec792aa2f3c20b9e2be2896a9130",
+    "shell_core": "e6e4f28f4462aac87e43c70ec62329a588e7b1a54297f5bc95b1242c8bc08e0b"
+  },
+  "fixed": {
+    "baseline_head": "daa905063108a18265eb23b894a1b643eec2393c",
+    "branch": "codex/s10-settlement-finance-r1-20261013",
+    "odoo20_core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+    "pg_cluster": "7694897083368259627",
+    "pg_endpoint": "127.0.0.1:5432",
+    "product": "4b168a84254882a2e1e3e5037c372ab57fc3dfdd",
+    "python": "3.12.15",
+    "test": "255b48f54495eb99638af8ffc824771b9a5af3e7"
+  },
+  "private_evidence_directories": [
+    ".local/s10-native-20261014-6161691305-d15c/",
+    ".local/s10-native-20261014-6161691305-d15c-resume/",
+    ".local/ydental_s10_test_20261014020300_8b6c1d4e/"
+  ],
+  "stage": "S10 Native D1.5-C",
+  "status": {
+    "future_native_test_authorized": false,
+    "native_root_cause": "UNKNOWN",
+    "production": "BLOCKED",
+    "s10": "BLOCKED"
+  }
+}
