@@ -55,9 +55,11 @@ with env.registry.cursor() as cr:
         'lease_token': lease['token'], 'document_id': document['document_id'],
         'document_version': document['version']}
     treatment = queue.env['ydental.treatment.service']
+    recent_fee_ids = []
     for _ in range(205):
         result = treatment._operate('execute', execute_args(f, args), key())
         assert result['state'] == 'confirmed' and result['fee_id'] and len(result['move_ids']) == 1
+        recent_fee_ids.append(result['fee_id'])
     board = manager._workbench(old_patient)
     assert old_ready['fee_id'] in (board['today'] | board['history']).ids
     assert invoice['invoice_id'] in board['invoices'].ids
@@ -68,6 +70,10 @@ with env.registry.cursor() as cr:
     assert old_ready['fee_id'] in (all_fifth['today'] | all_fifth['history']).ids
     assert invoice['invoice_id'] in all_first['invoices'].ids
     assert all_first['today'].ids != all_fifth['today'].ids
+    (run / 'history.json').write_text(json.dumps({'old_patient': old_patient,
+        'old_ready_fee': old_ready['fee_id'], 'old_invoice': invoice['invoice_id'],
+        'recent_patient': execution.ydental_patient_id.id,
+        'recent_fee_ids': recent_fee_ids[-2:]}, ensure_ascii=False, indent=2) + '\n')
     print('S10_HISTORY_205', json.dumps({'old_patient': old_patient, 'old_ready_fee': old_ready['fee_id'],
         'old_invoice': invoice['invoice_id'], 'count': all_first['page_counts'],
         'fifth_page_ids': (all_fifth['today'] | all_fifth['history']).ids}, ensure_ascii=False), flush=True)

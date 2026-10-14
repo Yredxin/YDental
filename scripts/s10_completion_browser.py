@@ -34,6 +34,7 @@ assert os.fsencode(str(run / 'odoo.conf')) in Path(f'/proc/{args.pid}/cmdline').
 assert Path(f'/proc/{args.pid}/cwd').resolve() == root
 f1 = json.loads((run / 'f1.json').read_text())
 f5 = json.loads((run / 'f5.json').read_text())
+history = json.loads((run / 'history.json').read_text())
 config = configparser.ConfigParser()
 assert config.read(run / 'odoo.conf')
 with psycopg2.connect(host='127.0.0.1', port=5432, user='odoo',
@@ -89,6 +90,42 @@ with sync_playwright() as playwright:
 
     manager_context, manager = login(f5['manager_id'], f5['store_id'])
     front_context, front = login(f5['frontdesk_id'], f5['store_id'])
+    response = manager.goto(base + f'/ydental/settlement?patient_id={history["old_patient"]}',
+                            wait_until='domcontentloaded')
+    assert response.status == 200
+    old_bill_form = manager.locator('form:has(input[name="operation"][value="bill"])')
+    old_bill_form.locator(f'input[name="fee_ids"][value="{history["old_ready_fee"]}"]').check()
+    old_bill = action(manager, old_bill_form)
+    assert old_bill['amount'] == 600
+    response = manager.goto(base + f'/ydental/settlement?patient_id={history["old_patient"]}',
+                            wait_until='domcontentloaded')
+    assert response.status == 200
+    waive_form = manager.locator(f'form:has(input[name="operation"][value="waive"]):has(input[name="invoice_id"][value="{old_bill["invoice_id"]}"])')
+    waive_form.locator('input[name="amount"]').fill('600')
+    waive_form.locator('input[name="reason"]').fill('Documented synthetic full unpaid waiver')
+    waived = action(manager, waive_form)
+    assert waived['actually_refunded'] == 0
+    recent_bills = []
+    for fee_id in history['recent_fee_ids']:
+        response = manager.goto(base + f'/ydental/settlement?patient_id={history["recent_patient"]}',
+                                wait_until='domcontentloaded')
+        assert response.status == 200
+        bill_form = manager.locator('form:has(input[name="operation"][value="bill"])')
+        bill_form.locator(f'input[name="fee_ids"][value="{fee_id}"]').check()
+        billed = action(manager, bill_form)
+        assert billed['amount'] == 600
+        recent_bills.append(billed['invoice_id'])
+    response = manager.goto(base + f'/ydental/settlement?patient_id={history["recent_patient"]}',
+                            wait_until='domcontentloaded')
+    assert response.status == 200
+    multi_form = manager.locator('form:has(input[name="operation"][value="pay"])')
+    for invoice_id in recent_bills:
+        multi_form.locator(f'input[name="invoice_ids"][value="{invoice_id}"]').check()
+    multi_form.locator('input[name="amount"]').fill('700')
+    multi_form.locator('select[name="channel"]').select_option('cash')
+    multi_form.locator('input[name="proof"]').fill('Actual synthetic two invoice offline receipt')
+    multi_payment = action(manager, multi_form)
+    assert [row['amount'] for row in multi_payment['allocations']] == [600, 100]
     board(manager)
     assert manager.get_by_text(str(starting_residual), exact=True).count() >= 1
     manager.screenshot(path=str(run / 'firefox-manager-before.png'), full_page=True)
@@ -201,6 +238,8 @@ with sync_playwright() as playwright:
     browser.close()
     assert not errors, errors
     print('S10_FIREFOX_BUTTONS', json.dumps({'manager_payment': manager_pay,
+        'old_history_bill': old_bill, 'full_waiver': waived,
+        'recent_bills': recent_bills, 'multi_invoice_payment': multi_payment,
         'frontdesk_payment': front_pay, 'refund_requested': requested,
         'approved': approved, 'executed': executed, 'rejected': rejected,
         'unknown': unknown, 'cancelled': cancelled, 'closed': closed,
