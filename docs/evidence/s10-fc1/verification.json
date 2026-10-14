@@ -1,0 +1,327 @@
+{
+  "scope": "S10-FC1 single synthetic Odoo shell; SQL audit read-only",
+  "authorization_comment": 6170892559,
+  "checkpoint_comment": 6171084143,
+  "start_head": "ce21976f4bc448ff1aa3c2380ce6f959aed9dbde",
+  "database": {
+    "name": "ydental_s10_test_20261014145000_fc1a84d7",
+    "oid": 2100197,
+    "source_oid": 2100080,
+    "cluster": "7694897083368259627",
+    "modules": 92,
+    "warehouses": 2,
+    "config_sha256": "75e30246ffb124b6725080a280a79af0e2d9b26df10936b6cc01127d7a0b94d5",
+    "marker_sha256": "505ae94a5385999d238d78af886dcbf98e531ed05e677ac09bf8b048419152d2"
+  },
+  "run": {
+    "pid": 2820768,
+    "exit_code": 0,
+    "signal11": false,
+    "log_sha256": "0f2f7b3c3ff9be326a2bfeeb3599a0acb557e6f502fbfd8a5daa00a0cfb28ddb",
+    "log_bytes": 6027,
+    "database": "ydental_s10_test_20261014145000_fc1a84d7",
+    "oid": 2100197,
+    "commit_count": 7,
+    "planned_commit_purposes": [
+      "fixture",
+      "A_approval",
+      "B_execute",
+      "C_refund_close",
+      "C_refund_after_close",
+      "C_reclass_close",
+      "C_unlock_reclass_reclose"
+    ]
+  },
+  "races": {
+    "A": {
+      "first_backend": 547513,
+      "second_backend": 547555,
+      "second_start_utc": "2026-10-14T14:46:55.998385+00:00",
+      "second_waiting_before_commit": true,
+      "first": "ODOO_PASS_COMMITTED",
+      "second": "ODOO_PASS_ROLLBACK",
+      "exception": "SerializationFailure",
+      "sqlstate": "40001"
+    },
+    "B": {
+      "first_backend": 547513,
+      "second_backend": 547555,
+      "second_start_utc": "2026-10-14T14:46:56.550605+00:00",
+      "second_waiting_before_commit": true,
+      "first": "ODOO_PASS_COMMITTED",
+      "second": "ODOO_PASS_ROLLBACK",
+      "exception": "SerializationFailure",
+      "sqlstate": "40001"
+    },
+    "C_refund": {
+      "first_backend": 547513,
+      "second_backend": 547558,
+      "second_start_utc": "2026-10-14T14:46:56.912463+00:00",
+      "second_waiting_before_commit": true,
+      "first": "ODOO_PASS_COMMITTED",
+      "second": "ODOO_PASS_ROLLBACK",
+      "exception": "SerializationFailure",
+      "sqlstate": "40001"
+    },
+    "C_reclass": {
+      "first_backend": 547513,
+      "second_backend": 547558,
+      "second_start_utc": "2026-10-14T14:46:57.547041+00:00",
+      "second_waiting_before_commit": true,
+      "first": "ODOO_PASS_COMMITTED",
+      "second": "ODOO_PASS_ROLLBACK",
+      "exception": "SerializationFailure",
+      "sqlstate": "40001"
+    }
+  },
+  "finance": {
+    "move_summary": [
+      [
+        "entry",
+        "posted",
+        6,
+        455.0
+      ],
+      [
+        "out_invoice",
+        "posted",
+        3,
+        300.0
+      ],
+      [
+        "out_refund",
+        "posted",
+        2,
+        55.0
+      ]
+    ],
+    "unbalanced_moves": 0,
+    "payments": [
+      {
+        "type": "inbound",
+        "state": "reconciled",
+        "date": "2026-10-13",
+        "journal": "X11",
+        "count": 1,
+        "amount": 100.0,
+        "posted": true
+      },
+      {
+        "type": "inbound",
+        "state": "reconciled",
+        "date": "2026-10-13",
+        "journal": "X41",
+        "count": 1,
+        "amount": 100.0,
+        "posted": true
+      },
+      {
+        "type": "inbound",
+        "state": "reconciled",
+        "date": "2026-10-14",
+        "journal": "X41",
+        "count": 1,
+        "amount": 100.0,
+        "posted": true
+      },
+      {
+        "type": "outbound",
+        "state": "reconciled",
+        "date": "2026-10-14",
+        "journal": "X41",
+        "count": 2,
+        "amount": 55.0,
+        "posted": true
+      }
+    ],
+    "partial_amounts": [
+      100.0,
+      100.0,
+      100.0,
+      25.0,
+      30.0
+    ],
+    "refunds": [
+      {
+        "state": "approved",
+        "amount": 20.0,
+        "actual_day": null,
+        "channel": null,
+        "native_amount": 0,
+        "native_type": null,
+        "journal": null,
+        "move_state": null
+      },
+      {
+        "state": "done",
+        "amount": 25.0,
+        "actual_day": "2026-10-14",
+        "channel": "card",
+        "native_amount": 25.0,
+        "native_type": "outbound",
+        "journal": "X41",
+        "move_state": "posted"
+      },
+      {
+        "state": "done",
+        "amount": 30.0,
+        "actual_day": "2026-10-14",
+        "channel": "card",
+        "native_amount": 30.0,
+        "native_type": "outbound",
+        "journal": "X41",
+        "move_state": "posted"
+      }
+    ],
+    "closes": [
+      {
+        "channel": "card",
+        "state": "confirmed",
+        "day": "2026-10-14",
+        "cycle": 1,
+        "gross": 0.0,
+        "refunded": 0.0,
+        "pending": 30.0
+      },
+      {
+        "channel": "cash",
+        "state": "unlocked",
+        "day": "2026-10-13",
+        "cycle": 1,
+        "gross": 100.0,
+        "refunded": 0.0,
+        "pending": 0.0
+      },
+      {
+        "channel": "wechat",
+        "state": "confirmed",
+        "day": "2026-10-13",
+        "cycle": 1,
+        "gross": 100.0,
+        "refunded": 0.0,
+        "pending": 0.0
+      }
+    ],
+    "corrections": [
+      {
+        "from": "cash",
+        "to": "wechat",
+        "state": "posted"
+      }
+    ],
+    "correction_lines": [
+      {
+        "debit": 100.0,
+        "credit": 0.0
+      },
+      {
+        "debit": 0.0,
+        "credit": 100.0
+      }
+    ],
+    "audit_events": {
+      "settlement.bill": 3,
+      "settlement.close": 3,
+      "settlement.pay": 3,
+      "settlement.reclassify": 1,
+      "settlement.refund.approve": 3,
+      "settlement.refund.execute": 2,
+      "settlement.refund.request": 3,
+      "settlement.unlock": 1
+    },
+    "mail_mail": 0,
+    "bus_bus": 30,
+    "deadlocks": 0,
+    "phase_counts": {
+      "fixture": {
+        "mail.message": 927,
+        "mail.mail": 0,
+        "bus.bus": 30,
+        "ydental.access.audit": 177,
+        "account.move": 6,
+        "account.payment": 3,
+        "account.partial.reconcile": 3
+      },
+      "A": {
+        "mail.message": 927,
+        "mail.mail": 0,
+        "bus.bus": 30,
+        "ydental.access.audit": 178,
+        "account.move": 6,
+        "account.payment": 3,
+        "account.partial.reconcile": 3
+      },
+      "B": {
+        "mail.message": 930,
+        "mail.mail": 0,
+        "bus.bus": 30,
+        "ydental.access.audit": 179,
+        "account.move": 8,
+        "account.payment": 4,
+        "account.partial.reconcile": 4
+      },
+      "C_refund_close": {
+        "mail.message": 930,
+        "mail.mail": 0,
+        "bus.bus": 30,
+        "ydental.access.audit": 180,
+        "account.move": 8,
+        "account.payment": 4,
+        "account.partial.reconcile": 4
+      },
+      "C_refund_after_close": {
+        "mail.message": 933,
+        "mail.mail": 0,
+        "bus.bus": 30,
+        "ydental.access.audit": 181,
+        "account.move": 10,
+        "account.payment": 5,
+        "account.partial.reconcile": 5
+      },
+      "C_reclass_close": {
+        "mail.message": 933,
+        "mail.mail": 0,
+        "bus.bus": 30,
+        "ydental.access.audit": 182,
+        "account.move": 10,
+        "account.payment": 5,
+        "account.partial.reconcile": 5
+      },
+      "final": {
+        "mail.message": 934,
+        "mail.mail": 0,
+        "bus.bus": 30,
+        "ydental.access.audit": 185,
+        "account.move": 11,
+        "account.payment": 5,
+        "account.partial.reconcile": 5
+      }
+    },
+    "audit_actor_roles": {
+      "distinct_business_actors": 2,
+      "one_store": true,
+      "third_finance_reviewer_only_rollback": true
+    },
+    "published_price": 100,
+    "snapshots": 3,
+    "global_group_xmlids_enabled": [
+      "product.group_product_pricelist",
+      "stock.group_stock_multi_locations",
+      "stock.group_stock_multi_warehouses"
+    ]
+  },
+  "private_sha256": {
+    "ledger": "5a6b6a013963925880050052c32baa5a5ac053986b7b16a45d3295477c75e1d9",
+    "timeline": "83e5bd24b791468e0627a390fc32ad3350d4b34ae4a6ae13d2f099c9c992bfc9",
+    "odoo_log": "0f2f7b3c3ff9be326a2bfeeb3599a0acb557e6f502fbfd8a5daa00a0cfb28ddb"
+  },
+  "limits": {
+    "same_key_after_done_replay": "NOT_RUN",
+    "unknown_recovery_race": "NOT_RUN",
+    "corrected_payment_wechat_refund": "NOT_RUN",
+    "date_escape_negative": "NOT_RUN",
+    "cross_company_negative": "NOT_RUN",
+    "bus_precommit_intent_detail": "NOT_CAPTURED",
+    "full_S10_T01_T16": "NOT_RUN"
+  }
+}
