@@ -26,6 +26,7 @@ assert marker['database'] == args.db and marker['cluster'] == '76948970833682596
 assert marker['config_sha256'] == hashlib.sha256((run / 'odoo.conf').read_bytes()).hexdigest()
 assert not list(run.glob('crash-*.json'))
 with socket.socket() as listener:
+    listener.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     listener.bind(('127.0.0.1', marker['port']))
 config = configparser.ConfigParser(interpolation=None)
 assert config.read(run / 'odoo.conf') and config['options']['db_name'] == args.db

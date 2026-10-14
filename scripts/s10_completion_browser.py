@@ -41,8 +41,18 @@ with psycopg2.connect(host='127.0.0.1', port=5432, user='odoo',
         password=config['options']['db_password'], dbname=args.db) as db:
     db.set_session(readonly=True)
     with db.cursor() as cursor:
+        if 'manager_id' not in history:
+            cursor.execute("SELECT m.ydental_store_id, m.ydental_user_id FROM ydental_treatment_fee f "
+                           "JOIN ydental_access_membership m ON m.ydental_store_id=f.ydental_store_id "
+                           "JOIN ydental_access_grant g ON g.ydental_membership_id=m.id "
+                           "WHERE f.id=%s AND g.ydental_category='settlement' "
+                           "AND g.ydental_level='write'", (history['old_ready_fee'],))
+            matches = cursor.fetchall()
+            assert len(matches) == 1, matches
+            history['store_id'], history['manager_id'] = matches[0]
         cursor.execute('SELECT id, login FROM res_users WHERE id IN %s',
-                       (tuple((f5['manager_id'], f5['frontdesk_id'], f1['none_id'])),))
+                       (tuple((f5['manager_id'], f5['frontdesk_id'],
+                               f1['none_id'], history['manager_id'])),))
         logins = dict(cursor.fetchall())
         cursor.execute('SELECT ydental_timezone FROM ydental_access_store WHERE id=%s', (f5['store_id'],))
         store_tz = cursor.fetchone()[0]
@@ -90,41 +100,42 @@ with sync_playwright() as playwright:
 
     manager_context, manager = login(f5['manager_id'], f5['store_id'])
     front_context, front = login(f5['frontdesk_id'], f5['store_id'])
-    response = manager.goto(base + f'/ydental/settlement?patient_id={history["old_patient"]}',
+    history_context, history_page = login(history['manager_id'], history['store_id'])
+    response = history_page.goto(base + f'/ydental/settlement?patient_id={history["old_patient"]}',
                             wait_until='domcontentloaded')
     assert response.status == 200
-    old_bill_form = manager.locator('form:has(input[name="operation"][value="bill"])')
+    old_bill_form = history_page.locator('form:has(input[name="operation"][value="bill"])')
     old_bill_form.locator(f'input[name="fee_ids"][value="{history["old_ready_fee"]}"]').check()
-    old_bill = action(manager, old_bill_form)
+    old_bill = action(history_page, old_bill_form)
     assert old_bill['amount'] == 600
-    response = manager.goto(base + f'/ydental/settlement?patient_id={history["old_patient"]}',
+    response = history_page.goto(base + f'/ydental/settlement?patient_id={history["old_patient"]}',
                             wait_until='domcontentloaded')
     assert response.status == 200
-    waive_form = manager.locator(f'form:has(input[name="operation"][value="waive"]):has(input[name="invoice_id"][value="{old_bill["invoice_id"]}"])')
+    waive_form = history_page.locator(f'form:has(input[name="operation"][value="waive"]):has(input[name="invoice_id"][value="{old_bill["invoice_id"]}"])')
     waive_form.locator('input[name="amount"]').fill('600')
     waive_form.locator('input[name="reason"]').fill('Documented synthetic full unpaid waiver')
-    waived = action(manager, waive_form)
+    waived = action(history_page, waive_form)
     assert waived['actually_refunded'] == 0
     recent_bills = []
     for fee_id in history['recent_fee_ids']:
-        response = manager.goto(base + f'/ydental/settlement?patient_id={history["recent_patient"]}',
+        response = history_page.goto(base + f'/ydental/settlement?patient_id={history["recent_patient"]}',
                                 wait_until='domcontentloaded')
         assert response.status == 200
-        bill_form = manager.locator('form:has(input[name="operation"][value="bill"])')
+        bill_form = history_page.locator('form:has(input[name="operation"][value="bill"])')
         bill_form.locator(f'input[name="fee_ids"][value="{fee_id}"]').check()
-        billed = action(manager, bill_form)
+        billed = action(history_page, bill_form)
         assert billed['amount'] == 600
         recent_bills.append(billed['invoice_id'])
-    response = manager.goto(base + f'/ydental/settlement?patient_id={history["recent_patient"]}',
+    response = history_page.goto(base + f'/ydental/settlement?patient_id={history["recent_patient"]}',
                             wait_until='domcontentloaded')
     assert response.status == 200
-    multi_form = manager.locator('form:has(input[name="operation"][value="pay"])')
+    multi_form = history_page.locator('form:has(input[name="operation"][value="pay"])')
     for invoice_id in recent_bills:
         multi_form.locator(f'input[name="invoice_ids"][value="{invoice_id}"]').check()
     multi_form.locator('input[name="amount"]').fill('700')
     multi_form.locator('select[name="channel"]').select_option('cash')
     multi_form.locator('input[name="proof"]').fill('Actual synthetic two invoice offline receipt')
-    multi_payment = action(manager, multi_form)
+    multi_payment = action(history_page, multi_form)
     assert [row['amount'] for row in multi_payment['allocations']] == [600, 100]
     board(manager)
     assert manager.get_by_text(str(starting_residual), exact=True).count() >= 1
@@ -232,7 +243,28 @@ with sync_playwright() as playwright:
     assert forbidden.status == 403, forbidden.status
     denied_pdf = none.goto(base + f'/ydental/settlement/pdf/bill/{f1["invoice_id"]}', wait_until='domcontentloaded')
     assert denied_pdf.status == 403, denied_pdf.status
+    other_context, other = login(f5['manager_id'], f5['other_store_id'])
+    board(other)
+    assert other.locator(f'input[name="invoice_ids"][value="{f5["old_invoice_ids"][1]}"]').count() == 0
+    cross_store = other.evaluate('''async ({patient, invoice}) => {
+        const summary = await fetch('/ydental/settlement/other-stores/' + patient);
+        const body = await summary.json();
+        const values = new URLSearchParams({operation:'pay',
+            revision:document.querySelector('[name=revision]').value,
+            csrf_token:document.querySelector('[name=csrf_token]').value,
+            key:'synthetic-forged-cross-store-' + invoice,
+            invoice_ids:String(invoice),amount:'1',channel:'cash',
+            actual_utc:new Date().toISOString(),proof:'Forbidden cross-store request'});
+        const denied = await fetch('/ydental/settlement/action',{method:'POST',body:values});
+        return {summaryStatus:summary.status,summary:body,deniedStatus:denied.status};
+    }''', {'patient': f5['patient_id'], 'invoice': f5['old_invoice_ids'][1]})
+    assert cross_store['summaryStatus'] == 200 and cross_store['deniedStatus'] == 403, cross_store
+    assert len(cross_store['summary']) == 1
+    assert set(cross_store['summary'][0]) == {'store', 'store_id', 'company', 'currency', 'residual'}
+    other.screenshot(path=str(run / 'firefox-other-store.png'), full_page=True)
+    other_context.close()
     none_context.close()
+    history_context.close()
     front_context.close()
     manager_context.close()
     browser.close()
@@ -244,6 +276,8 @@ with sync_playwright() as playwright:
         'approved': approved, 'executed': executed, 'rejected': rejected,
         'unknown': unknown, 'cancelled': cancelled, 'closed': closed,
         'unlocked': unlocked, 'corrected': corrected, 'pdfs': pdfs,
+        'other_store': cross_store,
         'denied_status': forbidden.status, 'pageerrors': errors,
         'screenshots': ['firefox-manager-before.png', 'firefox-two-cashiers.png',
-                        'firefox-refund-done.png', 'firefox-final.png']}), flush=True)
+                        'firefox-refund-done.png', 'firefox-final.png',
+                        'firefox-other-store.png']}), flush=True)

@@ -69,7 +69,8 @@ with env.registry.cursor() as cr:
   vals['ydental_'+channel+'_journal_id']=journal.id
  root['ydental.settlement.config']._new(vals)
  service=bind(f,manager_user,source).env['ydental.settlement.service']
- result=service._operate('trade',{'target_store_id':target.id,'source_lot_id':source_lot.id,'target_lot_id':lot['id'],'quantity':1,'uom_id':product.uom_id.id,'unit_price':80,'source_key':key(),'reason':'Synthetic intercompany actual movement'},key())
+ trade_key=key()
+ result=service._operate('trade',{'target_store_id':target.id,'source_lot_id':source_lot.id,'target_lot_id':lot['id'],'quantity':1,'uom_id':product.uom_id.id,'unit_price':80,'source_key':trade_key,'reason':'Synthetic intercompany actual movement'},key())
  from odoo.exceptions import AccessError
  try:
   bind(f,f.users['frontdesk'],source).env['ydental.settlement.service']._operate('trade',
@@ -78,5 +79,10 @@ with env.registry.cursor() as cr:
        'reason':'Unauthorized cross-company attempt'},key())
  except AccessError:pass
  else:raise AssertionError('Unauthorized cross-company trade was accepted')
+ (run/'trade.json').write_text(json.dumps({'source_store_id':source.id,'target_store_id':target.id,
+  'manager_id':manager_user.id,'frontdesk_id':f.users['frontdesk'].id,
+  'source_lot_id':source_lot.id,'target_lot_id':lot['id'],'uom_id':product.uom_id.id,
+  'source_key':trade_key,'trade_id':result['trade_id'],'sale_order_id':result['sale_order_id'],
+  'purchase_order_id':result['purchase_order_id']},indent=2)+'\n')
  print('TRADE_RESULT',result,flush=True)
  cr.commit()

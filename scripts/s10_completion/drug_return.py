@@ -13,7 +13,8 @@ with env.registry.cursor() as cr:
     root = api.Environment(cr, 1, {})
     store = root['ydental.access.store'].browse(fixture['store_id'])
     user = root['res.users'].browse(fixture['pharmacist_id'])
-    service = bind(SimpleNamespace(root=root, stores=[store]), user).env['ydental.treatment.service']
+    service = bind(SimpleNamespace(root=root, stores=[store]), user).env[
+        'ydental.queue.service']._bind_connection(key() + key()).env['ydental.treatment.service']
     event = root['ydental.treatment.event'].browse(fixture['drug_event_ids'][0])
     consumption = root['ydental.treatment.consumption'].search([('ydental_event_id', '=', event.id)])
     assert len(consumption) == 1 and consumption.ydental_inventory_event_id.state == 'done'

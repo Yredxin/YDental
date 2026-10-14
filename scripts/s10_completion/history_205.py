@@ -70,7 +70,8 @@ with env.registry.cursor() as cr:
     assert old_ready['fee_id'] in (all_fifth['today'] | all_fifth['history']).ids
     assert invoice['invoice_id'] in all_first['invoices'].ids
     assert all_first['today'].ids != all_fifth['today'].ids
-    (run / 'history.json').write_text(json.dumps({'old_patient': old_patient,
+    (run / 'history.json').write_text(json.dumps({'store_id': f.stores[0].id,
+        'manager_id': f.users['manager'].id, 'old_patient': old_patient,
         'old_ready_fee': old_ready['fee_id'], 'old_invoice': invoice['invoice_id'],
         'recent_patient': execution.ydental_patient_id.id,
         'recent_fee_ids': recent_fee_ids[-2:]}, ensure_ascii=False, indent=2) + '\n')

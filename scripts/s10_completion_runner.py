@@ -19,9 +19,9 @@ from psycopg2 import sql
 ROOT = Path('/home/redxin/code/odoo/odoo-sd/code/sd-addons')
 CORE = ROOT.parent
 STATE = ROOT / '.local'
-NAME = 'ydental_s10_test_20261014001000_81ac9f72'
+NAME = 'ydental_s10_test_20261014002200_7b91d4e6'
 RUN = STATE / NAME
-PORT = 18233
+PORT = 18234
 CLUSTER = '7694897083368259627'
 CORE_SHA = 'f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb'
 BASE_SHA = os.environ['YDENTAL_S10_EXPECTED_SHA']
@@ -40,6 +40,7 @@ def identity(action):
     assert subprocess.check_output(['git', '-C', str(CORE / 'odoo'), 'rev-parse', 'HEAD'], text=True).strip() == CORE_SHA
     assert re.fullmatch(r'ydental_s10_test_[0-9]{14}_[a-f0-9]{8}', NAME)
     with socket.socket() as sock:
+        sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         sock.bind(('127.0.0.1', PORT))
     source = configparser.ConfigParser(interpolation=None)
     assert source.read(CORE / 'odoo.conf')
@@ -131,7 +132,7 @@ def main(action):
     else:
         assert len(sys.argv) == 3
         name = sys.argv[2]
-        assert name in ('f1_740', 'f5_270_200', 'f2_f3_refund_close', 'pending_board', 't09_trade', 'same_company_transfer', 'discount_waive', 'partial_refund', 'concurrency_prepare', 'quantity_correction', 'history_205', 'f6_cross_store', 'refund_race_prepare', 'refund_failure', 'late_close', 'audit_integrity', 'idempotency', 'drug_return')
+        assert name in ('f1_740', 'f5_270_200', 'f2_f3_refund_close', 'pending_board', 't09_trade', 'same_company_transfer', 'discount_waive', 'partial_refund', 'concurrency_prepare', 'quantity_correction', 'history_205', 'f6_cross_store', 'refund_race_prepare', 'refund_failure', 'late_close', 'audit_integrity', 'idempotency', 'drug_return', 'security_matrix', 'trade_negative', 'close_race_prepare')
         probe = ROOT / 'scripts/s10_completion' / (name + '.py')
         assert probe.is_file()
         command += ['shell', '-c', str(RUN / 'odoo.conf'), '--no-http']
