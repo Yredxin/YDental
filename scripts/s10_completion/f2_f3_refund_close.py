@@ -45,7 +45,10 @@ with env.registry.cursor() as cr:
  pdfs={}
  for kind,id in [('bill',f1['invoice_id']),('receipt',pay740.id),('refund',request['refund_id'])]:
   raw,digest=ms._pdf(kind,id)
-  target=run/(kind+'-f2.pdf');target.write_bytes(raw)
+  target=run/(kind+'-f2.pdf')
+  if target.exists():
+   target=run/(kind+'-f2-retry.pdf')
+  with target.open('xb') as output:output.write(raw)
   pdfs[kind]={'sha256':digest,'bytes':len(raw)}
  print('S10_F2_REFUND',json.dumps({'request':request,'approved':approve,'done':done,'rejected':rejected,'uncertain':uncertain,'cancel':cancel,'pdfs':pdfs},ensure_ascii=False),flush=True)
  store300=pay300.ydental_store_id
