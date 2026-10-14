@@ -1,0 +1,275 @@
+{
+  "authorization": {
+    "issue": 34,
+    "comment_id": 6161475560,
+    "checkpoint1": 6161576259,
+    "checkpoint2": 6161608003
+  },
+  "fixed": {
+    "branch": "codex/s10-settlement-finance-r1-20261013",
+    "baseline": "abdd047b2c777fb6d86510409875950142d2ff9f",
+    "product": "4b168a84254882a2e1e3e5037c372ab57fc3dfdd",
+    "test": "255b48f54495eb99638af8ffc824771b9a5af3e7",
+    "odoo20_core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb"
+  },
+  "source": {
+    "active_template_connections": 0,
+    "attachments": 70,
+    "business_counts": {
+      "account_move": 0,
+      "account_partial_reconcile": 0,
+      "account_payment": 0,
+      "purchase_order": 0,
+      "sale_order": 0,
+      "stock_move": 0,
+      "stock_quant": 0,
+      "ydental_exam_receipt": 0,
+      "ydental_exam_result": 0,
+      "ydental_patient": 0,
+      "ydental_settlement_close": 0,
+      "ydental_settlement_payment": 0,
+      "ydental_settlement_refund": 0,
+      "ydental_settlement_source": 0,
+      "ydental_treatment_event": 0,
+      "ydental_treatment_fee": 0
+    },
+    "cluster": "7694897083368259627",
+    "config_sha256": "582f73fdee28cac3d9f63d116bb934e0def3b19fa5ddb7e10c054ba1ef20cb43",
+    "database": "ydental_s10_test_20261014044700_4f6a8d2c",
+    "filestore_files": 124,
+    "filestore_inventory_sha256": "e059eae26ea543e3f73111706466e4081df3c0478332f7761f7eaa6c646bc93b",
+    "historical_oids": {
+      "ydental_s10_test_20261014020300_8b6c1d4e": 2056451,
+      "ydental_s10_test_20261014034100_b9c74e20": 2078375,
+      "ydental_s10_test_20261014040500_d12a7c61": 2100078,
+      "ydental_s10_test_20261014043500_e41c7a2b": 2100079,
+      "ydental_s10_test_20261014044700_4f6a8d2c": 2100080
+    },
+    "marker_sha256": "df8ff92d38499745b6ecfffaecb7eaff739ff29066c243b13b15b3a1bf99bb7b",
+    "module_inventory_sha256": "c1bbaa9395bd01d9e11912d56b73155d2b6cd63d3fbf1f58de0404d58e66b8a0",
+    "modules": 92,
+    "oid": 2100080,
+    "partners": 5
+  },
+  "target": {
+    "database": "ydental_s10_test_20261014052222_5457e39f",
+    "oid": 2100086,
+    "cluster": "7694897083368259627",
+    "port": 18253,
+    "config_sha256": "1b97e9c77e4588061a5655313b96f18a255aab854bb59cf9dba7635d3f3c4fba",
+    "marker_sha256": "0acfbb966a1746db3e79506971dbd00ecfea5767009ea0c967eea6eda4957529",
+    "source_oid": 2100080,
+    "filestore_baseline_files": 124,
+    "filestore_after_l1_files": 126
+  },
+  "budget": {
+    "create_attempts": 1,
+    "create_exit": 0,
+    "odoo_prep_targets": 1,
+    "odoo_readonly_targets": 2,
+    "total_odoo_targets": 3,
+    "firefox_starts": 0,
+    "install_or_upgrade_targets": 0
+  },
+  "prep": {
+    "gdb_pid": 2495186,
+    "odoo_pid": 2495194,
+    "gdb_exit": 0,
+    "real_sigsegv": false,
+    "normal_exit": true,
+    "registry_start": "2026-10-14 05:26:41,435",
+    "registry_end": "2026-10-14 05:26:42,106",
+    "canary": {
+      "database": "ydental_s10_test_20261014052222_5457e39f",
+      "odoo_pid": 2495194,
+      "pg_backend_pid": 427937,
+      "application_name": "s10_d15l1_prep",
+      "utc_ns": 1791955602753289760
+    },
+    "log_sha256": "9b71811c7115178a22792a4ee3bbb5896864d188634408ab8a9a83965d90b68c",
+    "log_bytes": 6272
+  },
+  "fixture_delta": {
+    "hr_employee": 1,
+    "ir_attachment": 10,
+    "mail_mail": 0,
+    "mail_message": 5,
+    "res_partner": 1,
+    "res_users": 1,
+    "ydental_access_audit": 4,
+    "ydental_access_grant": 2,
+    "ydental_access_membership": 1,
+    "ydental_access_session": 1,
+    "ydental_access_store": 1
+  },
+  "grants": [
+    [
+      "frontdesk",
+      "write",
+      1
+    ],
+    [
+      "medical",
+      "write",
+      1
+    ]
+  ],
+  "audits": [
+    [
+      "authorization.change",
+      2
+    ],
+    [
+      "employment.join",
+      1
+    ],
+    [
+      "login.scope",
+      1
+    ]
+  ],
+  "internal_messages": [
+    [
+      "hr.employee",
+      "notification",
+      2
+    ],
+    [
+      "hr.version",
+      "notification",
+      1
+    ],
+    [
+      "res.partner",
+      "notification",
+      1
+    ],
+    [
+      "res.users",
+      "notification",
+      1
+    ]
+  ],
+  "system_attachments": [
+    [
+      "hr.employee",
+      1,
+      5
+    ],
+    [
+      "res.partner",
+      6,
+      5
+    ]
+  ],
+  "selected_sessions": [
+    0,
+    1
+  ],
+  "synthetic_user_count": [
+    1,
+    1
+  ],
+  "business_tables_zero": true,
+  "post_window_sql_equal": true,
+  "window": {
+    "database": "ydental_s10_test_20261014052222_5457e39f",
+    "oid": 2100086,
+    "results": {
+      "a": {
+        "gdb_pid": 2496741,
+        "odoo_pid": 2496758,
+        "gdb_exit": 0,
+        "real_sigsegv": false,
+        "normal_exit": true,
+        "registry_start": "2026-10-14 05:29:21,107",
+        "registry_end": "2026-10-14 05:29:21,912",
+        "canary": {
+          "actor": "a",
+          "database": "ydental_s10_test_20261014052222_5457e39f",
+          "odoo_pid": 2496758,
+          "pg_backend_pid": 428521,
+          "application_name": "s10_d15l1_a",
+          "module": "ydental_settlement_test",
+          "state": "installed",
+          "utc_ns": 1791955761935320263
+        },
+        "log_sha256": "a399d3021e1aeab1adfefd04eeb8470c7b908ab16658b4480aa26bc7643986f2",
+        "log_bytes": 3236
+      },
+      "b": {
+        "gdb_pid": 2496743,
+        "odoo_pid": 2496757,
+        "gdb_exit": 0,
+        "real_sigsegv": false,
+        "normal_exit": true,
+        "registry_start": "2026-10-14 05:29:21,107",
+        "registry_end": "2026-10-14 05:29:21,917",
+        "canary": {
+          "actor": "b",
+          "database": "ydental_s10_test_20261014052222_5457e39f",
+          "odoo_pid": 2496757,
+          "pg_backend_pid": 428520,
+          "application_name": "s10_d15l1_b",
+          "module": "ydental_settlement_test",
+          "state": "installed",
+          "utc_ns": 1791955761941216589
+        },
+        "log_sha256": "90c5b3e30fa1d974378568ab156be412f4fc9aeed07e39039036a0ffec9554ef",
+        "log_bytes": 3236
+      }
+    },
+    "registry_overlap": true,
+    "pg_samples": 54,
+    "pg_sample_sha256": "3dff96cb7ebd0b1e2c22b79aaa51566341c022ac4af65e87ceac325ab4148a79",
+    "stopped_own_groups": [],
+    "finished_utc": "2026-10-14T05:29:23.462194+00:00"
+  },
+  "pg_monitor": {
+    "samples": 54,
+    "both_backends_same_sample": 22,
+    "first_both_sample_index": 31,
+    "autocommit_fresh_snapshot": true,
+    "whitelisted_application_names": [
+      "s10_d15l1_a",
+      "s10_d15l1_b"
+    ],
+    "raw_samples_sha256": "3dff96cb7ebd0b1e2c22b79aaa51566341c022ac4af65e87ceac325ab4148a79"
+  },
+  "native": {
+    "real_sigsegv_captured": false,
+    "native_c_backtrace": "NOT_CAPTURED_NO_SIGNAL11",
+    "python_elf_build_id": "7713d416ece8f53a2b37e61dd06defd7bf795954",
+    "psycopg2_elf_build_id": "58c8f5ff9bcddcb79c4fded8945032a13b308488",
+    "root_cause": "UNKNOWN"
+  },
+  "private_evidence": {
+    "tool_directory": ".local/s10-native-20261014-6161475560-d15l1",
+    "run_directory": ".local/ydental_s10_test_20261014052222_5457e39f",
+    "post_audit_sha256": "e2916c5524ef13a1cb1eb4096536eb8d9471dcaef29252d4f1d9a0008e5f271b",
+    "post_window_audit_sha256": "e2916c5524ef13a1cb1eb4096536eb8d9471dcaef29252d4f1d9a0008e5f271b",
+    "checkpoint1_body_sha256": "9634e318811bd5ea055996c4922e5588cebd449940c61ae00f2d8ed3f79d49fc",
+    "checkpoint2_body_sha256": "b8f9ea1401a3c5b4dc35b34201d1d03ef2945e58a933cd814102c3b82e8f9e93",
+    "original_draft_sha256": "6ebecb71c39358485b28ffff15ae009686a36a1a15f754923729658f3e5d0c28",
+    "activated_fixture_sha256": "7f77aa33257af94f1316007e3a05ff6f1c83cb21e856343f06bf07840ef1db15",
+    "capture_checkpoint1_sha256": "119d48a0945de009235ae12bb542538507f8b83a3eee1fa5c8efa75bc29bb3a1",
+    "capture_post_audit_sha256": "3080dfc2bcb1028014f7f145756c64391308234bce4a3a55996f671d6b2b0ec5"
+  },
+  "failures_preserved": [
+    "Initial read-only source audit compared SQL collation to Python list order; corrected set comparison, no database writes.",
+    "Initial read-only source audit queried nonexistent ydental_exam_event; corrected to actual exam tables, no database writes.",
+    "Post-A generic filestore check rejected expected Odoo avatar output; exact two-file and ten-attachment provenance verified, then diagnostic-only verifier tightened without rerunning A.",
+    "Two read-only SQL metadata probes used pre-Odoo20 column names; corrected to res_partner.email and mail_message.model, no database writes.",
+    "A final GitHub comments-list check used gh -f without explicit GET, causing HTTP422/exit1 and no comment; corrected explicit GET exit0."
+  ],
+  "status": {
+    "s10": "BLOCKED",
+    "production": "BLOCKED",
+    "native_root_cause": "UNKNOWN",
+    "project_mutations_this_batch": 0,
+    "s11_started": false,
+    "issue34_closed": false,
+    "merge_or_force_push": false,
+    "historical_db_drop_or_reset": false
+  }
+}
