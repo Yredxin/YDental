@@ -1,0 +1,37 @@
+{
+  "authorization_comment": 6166455763,
+  "precreate_checkpoint_comment": 6166745140,
+  "precreate_checkpoint_exact_get_readback": true,
+  "start_git_sha": "ec9b3b4be8bd6b6892e58e85c4da79bce27e4370",
+  "odoo20_core_sha": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "s07_candidate_sha256": "633da04a93a4ba4f9d28dd748838833558b7f3b45c22d3ac5090d9baaddc8807",
+  "s07_candidate_status": "NOT_ACCEPTED",
+  "template": {"database": "ydental_s10_test_20261014044700_4f6a8d2c", "oid": 2100080, "installed_modules": 92, "filestore_files": 124},
+  "target": {"database": "ydental_s10_test_20261014105200_6bc8a41f", "oid": 2100123, "pg_cluster": "7694897083368259627", "port": 18261, "config_sha256": "44b717be2945b43492a63c4b1d8cb108aff13542b03a8bd07967772a4b2fc05e", "marker_sha256": "a978533ad037a83a800d247d340151bfc980023a1d236003c0640139d7bdac65"},
+  "budget": {"create_attempts": 1, "create_exit": 0, "odoo_targets": 1, "firefox_targets": 0, "module_install_upgrade": 0, "business_commits": 0},
+  "odoo_window": {"gdb_pid": 2683604, "odoo_pid": 2683611, "pg_backend_pid": 497372, "exit_code": 1, "signal11": false, "log_sha256": "607dca2b67288c23a57177ebaa08177fe930410bf1b4ba113b7c530c614a5a62", "stop_stage": "Aprice.after_settings_user_create", "stop_reason": "unexplained_bus_precommit_intent"},
+  "observations": [
+    {"stage": "baseline", "mail_mail": 0, "bus_bus": 6, "account_payment": 0, "account_partial_reconcile": 0, "mail_message": 851, "bus_intents": 0, "sha256": "31b8f9fc59421a3a09515d5d9ca2c4dfac50e9f97bfacff79d8d3c0907bd8176"},
+    {"stage": "after_store_a_create", "mail_mail": 0, "bus_bus": 6, "account_payment": 0, "account_partial_reconcile": 0, "mail_message": 851, "bus_intents": 0, "sha256": "c73de14ae662d5bcf96289d72d73bf7d124017881b55a926cd959c922c0dd49a"},
+    {"stage": "after_settings_user_create", "mail_mail": 0, "bus_bus": 6, "account_payment": 0, "account_partial_reconcile": 0, "mail_message": 853, "new_message_models": ["res.partner", "res.users"], "bus_intents": 1, "bus_intent_type": "UNKNOWN_REDACTED", "sha256": "0b44de0515ed45489a4fdf05c8f003d808451f20eefa90258a1b714d07ded2ef"}
+  ],
+  "cases": {"A": "BLOCKED_BEFORE_WAREHOUSE_SETUP", "B": "NOT_RUN", "C": "NOT_RUN", "D": "NOT_RUN"},
+  "rollback_audit": {"installed_modules": 92, "mail_message": 851, "bus_bus": 6, "mail_mail": 0, "account_move": 0, "account_payment": 0, "account_partial_reconcile": 0, "stock_move": 0, "s07_config": 0, "s05_price": 0, "group_implied_id_hash_equal_to_template": true, "extra_unreferenced_filestore_files": [{"size": 305, "mime": "image/svg+xml", "source": "UNKNOWN"}, {"size": 0, "mime": "inode/x-empty", "source": "UNKNOWN"}], "post_audit_sha256": "a2a57371b328296b1c733b2f70260fed7cb037e17855338187ef6dda0c91dd9b"},
+  "private_evidence": {"tool_dir": ".local/s10-d18p1r1-20261014-6166455763", "db_dir": ".local/ydental_s10_test_20261014105200_6bc8a41f", "fixture_sha256": "562a5ecd31091cf4eb47768b7277529e012d03e5181e34224f73a75c6665ebe7", "control_sha256": "cb387ec7469b93f36c463fb493d292cb0a02320add911b7e45f0b3fcbe7c1203", "post_file_group_audit_sha256": "d4f626e116b0cae6179c79518ab9479a324d32789a331a5898f2340a3d987c8c"},
+  "commands": [
+    {"command": "python -m py_compile [four private diagnostic files]", "exit": 0},
+    {"command": "python private/offline_tools_test.py", "exit": 0, "tests": 12, "kind": "SIMULATED"},
+    {"command": "python private/p1_control.py check_base(False) (readonly)", "exit": 0},
+    {"command": "gh api --method POST #34 precheck raw text", "http": 400, "comment_created": false},
+    {"command": "gh api --method POST #34 precheck JSON; gh api --method GET exact readback", "exit": 0},
+    {"command": "python private/p1_control.py create", "exit": 0},
+    {"command": "python private/p1_control.py check", "exit": 0},
+    {"command": "python private/p1_control.py run", "exit": 1},
+    {"command": "independent readonly PG and filestore post-audit", "exit": 0}
+  ],
+  "project_mutations": 0,
+  "s11_started": false,
+  "s10_status": "BLOCKED",
+  "production_status": "BLOCKED",
+  "native_cause": "UNKNOWN"
+}
