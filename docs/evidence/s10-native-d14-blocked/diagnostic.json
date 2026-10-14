@@ -1,0 +1,555 @@
+{
+  "authorization_comment": 6160943711,
+  "checkpoint1_comment": 6161008700,
+  "checkpoint1_exact_readback": true,
+  "checkpoint1_body_sha256": "132e0cebd4b8f1e588037e60f77b2cd6e1ce945378867e7967bc5bb2056c1c09",
+  "baseline_sha": "c0948c066f2bf64bd304be3fcbbd183b5c415fe4",
+  "fixed_product_sha": "4b168a84254882a2e1e3e5037c372ab57fc3dfdd",
+  "fixed_test_sha": "255b48f54495eb99638af8ffc824771b9a5af3e7",
+  "odoo_core_sha": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "postgres": {
+    "endpoint": "127.0.0.1:5432",
+    "cluster": "7694897083368259627",
+    "source_database": "ydental_s10_test_20261014034100_b9c74e20",
+    "source_oid": 2078375,
+    "incident_oid": 2056451,
+    "d12_oid": 2100078,
+    "new_database": "ydental_s10_test_20261014043500_e41c7a2b",
+    "new_oid": 2100079,
+    "port": 18251,
+    "config_sha256": "786a98733a09ed489c1d68231369d859e9014ac9bebe74861db0c39974571f90",
+    "marker_sha256": "411f3636e8aabd9a21f5a41f0ee149dd5b5b270246ff2ebe65ffa85fa5fc4421"
+  },
+  "clone": {
+    "attempts": 1,
+    "exit_code": 0,
+    "sql": "CREATE DATABASE <new_unique_name> WITH TEMPLATE <verified_pure_synthetic_source>",
+    "files_copied": 124,
+    "pre_install_installed_modules": 91,
+    "pre_install_business_count_sum": 0
+  },
+  "installed_modules_after_failed_install": {
+    "count": 91,
+    "same_as_source": true,
+    "source_full": [
+      {
+        "name": "account",
+        "version": "20.0.1.5",
+        "state": "installed"
+      },
+      {
+        "name": "account_edi_ubl_cii",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "account_payment",
+        "version": "20.0.2.0",
+        "state": "installed"
+      },
+      {
+        "name": "account_qr_code_sepa",
+        "version": "20.0.0.1",
+        "state": "installed"
+      },
+      {
+        "name": "analytic",
+        "version": "20.0.1.2",
+        "state": "installed"
+      },
+      {
+        "name": "api_doc",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "auth_passkey",
+        "version": "20.0.1.1",
+        "state": "installed"
+      },
+      {
+        "name": "auth_passkey_portal",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "auth_password_policy",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "auth_password_policy_portal",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "auth_password_policy_signup",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "auth_signup",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "auth_timeout",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "auth_totp",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "auth_totp_mail",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "auth_totp_portal",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "barcodes",
+        "version": "20.0.2.0",
+        "state": "installed"
+      },
+      {
+        "name": "barcodes_gs1_nomenclature",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "base",
+        "version": "20.0.1.3",
+        "state": "installed"
+      },
+      {
+        "name": "base_address_extended",
+        "version": "20.0.1.1",
+        "state": "installed"
+      },
+      {
+        "name": "base_import",
+        "version": "20.0.2.0",
+        "state": "installed"
+      },
+      {
+        "name": "base_import_module",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "base_install_request",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "base_report_wkhtmltox",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "base_setup",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "bus",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "digest",
+        "version": "20.0.1.1",
+        "state": "installed"
+      },
+      {
+        "name": "google_gmail",
+        "version": "20.0.1.2",
+        "state": "installed"
+      },
+      {
+        "name": "hr",
+        "version": "20.0.1.1",
+        "state": "installed"
+      },
+      {
+        "name": "hr_skills",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "html_editor",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "http_routing",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "iap",
+        "version": "20.0.1.1",
+        "state": "installed"
+      },
+      {
+        "name": "iap_mail",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "mail",
+        "version": "20.0.1.19",
+        "state": "installed"
+      },
+      {
+        "name": "mail_bot",
+        "version": "20.0.1.2",
+        "state": "installed"
+      },
+      {
+        "name": "mail_bot_hr",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "microsoft_outlook",
+        "version": "20.0.1.1",
+        "state": "installed"
+      },
+      {
+        "name": "mysubscription",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "onboarding",
+        "version": "20.0.1.2",
+        "state": "installed"
+      },
+      {
+        "name": "partner_autocomplete",
+        "version": "20.0.1.1",
+        "state": "installed"
+      },
+      {
+        "name": "payment",
+        "version": "20.0.2.0",
+        "state": "installed"
+      },
+      {
+        "name": "phone_validation",
+        "version": "20.0.2.1",
+        "state": "installed"
+      },
+      {
+        "name": "portal",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "portal_discuss",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "privacy_lookup",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "product",
+        "version": "20.0.1.2",
+        "state": "installed"
+      },
+      {
+        "name": "product_expiry",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "purchase",
+        "version": "20.0.1.2",
+        "state": "installed"
+      },
+      {
+        "name": "purchase_edi_ubl_bis3",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "purchase_stock",
+        "version": "20.0.1.2",
+        "state": "installed"
+      },
+      {
+        "name": "resource",
+        "version": "20.0.1.1",
+        "state": "installed"
+      },
+      {
+        "name": "resource_mail",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "rpc",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "sale",
+        "version": "20.0.1.2",
+        "state": "installed"
+      },
+      {
+        "name": "sale_edi_ubl",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "sale_purchase",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "sale_purchase_stock",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "sale_sms",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "sales_team",
+        "version": "20.0.1.1",
+        "state": "installed"
+      },
+      {
+        "name": "sale_stock",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "sale_stock_product_expiry",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "sms",
+        "version": "20.0.3.0",
+        "state": "installed"
+      },
+      {
+        "name": "spreadsheet",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "spreadsheet_account",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "spreadsheet_dashboard",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "spreadsheet_dashboard_account",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "spreadsheet_dashboard_sale",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "spreadsheet_dashboard_stock_account",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "stock",
+        "version": "20.0.1.1",
+        "state": "installed"
+      },
+      {
+        "name": "stock_account",
+        "version": "20.0.1.1",
+        "state": "installed"
+      },
+      {
+        "name": "stock_sms",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "uom",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "utm",
+        "version": "20.0.1.2",
+        "state": "installed"
+      },
+      {
+        "name": "web",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "web_hierarchy",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "web_tour",
+        "version": "20.0.1.0",
+        "state": "installed"
+      },
+      {
+        "name": "web_unsplash",
+        "version": "20.0.1.1",
+        "state": "installed"
+      },
+      {
+        "name": "ydental_access",
+        "version": "20.0.1.0.0",
+        "state": "installed"
+      },
+      {
+        "name": "ydental_base",
+        "version": "20.0.1.0.1",
+        "state": "installed"
+      },
+      {
+        "name": "ydental_clinical",
+        "version": "20.0.1.0.0",
+        "state": "installed"
+      },
+      {
+        "name": "ydental_exam",
+        "version": "20.0.1.0.0",
+        "state": "installed"
+      },
+      {
+        "name": "ydental_intake",
+        "version": "20.0.1.0.0",
+        "state": "installed"
+      },
+      {
+        "name": "ydental_inventory",
+        "version": "20.0.1.0.0",
+        "state": "installed"
+      },
+      {
+        "name": "ydental_patient",
+        "version": "20.0.1.0.0",
+        "state": "installed"
+      },
+      {
+        "name": "ydental_print",
+        "version": "20.0.1.0.0",
+        "state": "installed"
+      },
+      {
+        "name": "ydental_queue",
+        "version": "20.0.1.2.0",
+        "state": "installed"
+      },
+      {
+        "name": "ydental_settlement",
+        "version": "20.0.1.0.0",
+        "state": "installed"
+      },
+      {
+        "name": "ydental_space",
+        "version": "20.0.1.0.0",
+        "state": "installed"
+      },
+      {
+        "name": "ydental_supply",
+        "version": "20.0.1.0.0",
+        "state": "installed"
+      },
+      {
+        "name": "ydental_treatment",
+        "version": "20.0.1.0.0",
+        "state": "installed"
+      }
+    ],
+    "ydental_settlement_test_state": "uninstalled"
+  },
+  "installation": {
+    "attempts": 1,
+    "wrapper_exit_code": 2,
+    "gdb_pid": 2467378,
+    "odoo_target_pid": 2467385,
+    "gdb_exit_code": 255,
+    "target_exit_code": 255,
+    "signal11": false,
+    "normal_exit": false,
+    "log_sha256": "6229f751c944585895615e7f1c7e75fc0c9018004e4026047f21385b350e64b7",
+    "attempt_sha256": "792c3a800f4d3aa4cc637b1e643a33699440f2c8effef8455525d52f3cd19d33",
+    "result_sha256": "131d0b3f8571e88be9ef9c2c3a84290affcbe595b92e80220155627285a1272a",
+    "failure": "Existing pre_init_hook expects marker.core; new clone marker only contains core_sha. AccessError and registry initialization failure.",
+    "post_install_installed_modules": 91,
+    "post_install_business_count_sum": 0
+  },
+  "window_b": {
+    "checkpoint2_published": false,
+    "gdb_parents": 0,
+    "odoo_targets": 0,
+    "observer_samples": 0,
+    "registry_overlap": "UNKNOWN",
+    "native_stack": "NONE_NO_SIGSEGV",
+    "status": "NOT_RUN_BLOCKED"
+  },
+  "static": {
+    "clone_tool_sha256": "d8687790fbdc168ccca6fb28541295f936169daba26654059ab758f6ad173ad0",
+    "observer_sha256": "61ae9a14d74be7e07341fb313bbd3d8fdf649b1f64f17f08a645024bf9b29861",
+    "shell_probe_sha256": "46a85d41d682684c67252d86c317b9ba1e79a1755b78cf71ffaadbf2eae1faa0",
+    "gdb_install_sha256": "1e9eeca725cb74d44125646c840ce6fad53efe56410561d0acd5aef592c573c3",
+    "gdb_a_sha256": "5ace59eb8fe0484532657adf418d30abca7e8032d7e06582cc61e6620b39842e",
+    "gdb_b_sha256": "516cefd26333b9fe45260aa375459a2649eaceaf68922d9090ac1b3842a597c6",
+    "offline_tests_sha256": "745ebefce359947ec1867016c74d7546682d31e88c705019d6c98bc30d0e3eaa",
+    "py_compile_exit_code": 0,
+    "offline_tests_exit_code": 0
+  },
+  "failures_preserved": [
+    "Initial read-only source session assertion counted own connection; exit1, corrected independent admin check exit0.",
+    "Read-only attachment model sort mixed None/str; exit1, corrected display exit0.",
+    "First post-clone read-only import lacked private tool sys.path; exit1 before DB access, corrected read-only verification exit0.",
+    "Unique Odoo installation failed at unchanged pre_init_hook; no retry."
+  ],
+  "private_evidence": {
+    "tool_directory": ".local/s10-native-20261014-6160943711-d14",
+    "new_run_directory": ".local/ydental_s10_test_20261014043500_e41c7a2b",
+    "directory_mode": "700",
+    "private_file_mode": "600",
+    "original_d12_empty_samples_preserved_sha256": "4abb5090a41fece470a5b87045dacd16dd4b5cbb993b7fecf70592ccbbe593ad",
+    "original_s10_crash_log_preserved_sha256": "f7795b360a80afc8fdfff8cd9c7e389da25064c36480bdb98bceccd9a2c0eef6",
+    "failure_history_sha256": "fdc80a0bd6a950bc90b3a7b7934ccb1bd9c05ff2eb007f88f885aeeae76adf2a"
+  },
+  "limits": {
+    "create_attempts": 1,
+    "odoo_targets_total": 1,
+    "firefox_processes": 0,
+    "project_mutations": 0,
+    "d2_executed": false,
+    "s11_started": false,
+    "production_deployment": false,
+    "s10_status": "BLOCKED",
+    "production_status": "BLOCKED"
+  }
+}
