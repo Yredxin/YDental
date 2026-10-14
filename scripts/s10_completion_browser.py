@@ -45,6 +45,8 @@ with psycopg2.connect(host='127.0.0.1', port=5432, user='odoo',
         logins = dict(cursor.fetchall())
         cursor.execute('SELECT ydental_timezone FROM ydental_access_store WHERE id=%s', (f5['store_id'],))
         store_tz = cursor.fetchone()[0]
+        cursor.execute('SELECT amount_residual FROM account_move WHERE id=%s', (f5['new_invoice_id'],))
+        starting_residual = float(cursor.fetchone()[0])
 base = f'http://127.0.0.1:{args.port}'
 
 with sync_playwright() as playwright:
@@ -88,7 +90,7 @@ with sync_playwright() as playwright:
     manager_context, manager = login(f5['manager_id'], f5['store_id'])
     front_context, front = login(f5['frontdesk_id'], f5['store_id'])
     board(manager)
-    assert manager.get_by_text('170.0', exact=True).count() >= 1
+    assert manager.get_by_text(str(starting_residual), exact=True).count() >= 1
     manager.screenshot(path=str(run / 'firefox-manager-before.png'), full_page=True)
     pay_form = manager.locator('form:has(input[name="operation"][value="pay"])')
     pay_form.locator(f'input[name="invoice_ids"][value="{f5["new_invoice_id"]}"]').check()
@@ -104,7 +106,7 @@ with sync_playwright() as playwright:
     front_pay_form.locator('input[name="proof"]').fill('Actual synthetic Firefox frontdesk offline 10')
     front_pay = action(front, front_pay_form)
     board(manager)
-    assert manager.get_by_text('150.0', exact=True).count() >= 1
+    assert manager.get_by_text(str(starting_residual - 20), exact=True).count() >= 1
     manager.screenshot(path=str(run / 'firefox-two-cashiers.png'), full_page=True)
 
     request_form = manager.locator(f'form:has(input[name="operation"][value="refund_request"]):has(input[name="payment_id"][value="{manager_pay["payment_id"]}"])')
