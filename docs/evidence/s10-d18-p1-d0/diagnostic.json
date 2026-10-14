@@ -1,0 +1,153 @@
+{
+  "stage": "S10 D1.8-P1-D0",
+  "authorization_comment": 6166219654,
+  "starting_head": "6d5905a175023d49ec6cde4d89644186f93b4ebc",
+  "old_s10_product_baseline": "4b168a84254882a2e1e3e5037c372ab57fc3dfdd",
+  "fixed_test_baseline": "255b48f54495eb99638af8ffc824771b9a5af3e7",
+  "odoo20_core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "current_s07_candidate_file_sha256": "633da04a93a4ba4f9d28dd748838833558b7f3b45c22d3ac5090d9baaddc8807",
+  "candidate_acceptance": "NOT_ACCEPTED",
+  "product_files_changed": 0,
+  "github_issue_body_and_valid_comment_counts": {
+    "23": 3,
+    "29": 7,
+    "31": 8,
+    "34": 65
+  },
+  "issue35": {
+    "state": "OPEN",
+    "comments": 0
+  },
+  "pg": {
+    "endpoint": "127.0.0.1:5432",
+    "cluster": "7694897083368259627",
+    "database_oid_identity_match": [
+      2056451,
+      2100080,
+      2100086,
+      2100087,
+      2100096,
+      2100105,
+      2100114
+    ],
+    "business_aggregate_queries": 0
+  },
+  "original_failure": {
+    "fixture_sha256": "a6c794ac94b676e2a6e1b110b5540c2093cc8e3e442d1238a89ec50c7993209f",
+    "gdb_log_sha256": "42c6b5169c227adbd81e5b39909c43551545f4556887a8c8ef32528521b0d37d",
+    "line": 316,
+    "compound_components": [
+      "mail.mail",
+      "bus.bus",
+      "account.payment",
+      "account.partial.reconcile"
+    ],
+    "intra_transaction_component_counts": "UNKNOWN",
+    "raw_error": "Outbound or native finance side effect",
+    "postrollback_template_equal_does_not_recover_intra_counts": true
+  },
+  "components": {
+    "mail_mail": {
+      "template_baseline": 0,
+      "before_action": "UNKNOWN",
+      "failure_intra": "UNKNOWN",
+      "old_test_kind": "after != before, global count",
+      "classification": "OBSERVED_BASELINE_AND_UNKNOWN_INTRA"
+    },
+    "bus_bus": {
+      "template_baseline": 6,
+      "before_action": "UNKNOWN",
+      "failure_intra": "UNKNOWN",
+      "old_test_kind": "after != before, global count; precommit intent unobserved",
+      "classification": "OBSERVED_BASELINE_STATIC_POSSIBLE_INTENT_UNKNOWN_INTRA"
+    },
+    "account_payment": {
+      "template_baseline": 0,
+      "before_action": "UNKNOWN",
+      "failure_intra": "UNKNOWN",
+      "old_test_kind": "after != 0, global absolute count",
+      "classification": "OBSERVED_BASELINE_AND_UNKNOWN_INTRA"
+    },
+    "account_partial_reconcile": {
+      "template_baseline": 0,
+      "before_action": "UNKNOWN",
+      "failure_intra": "UNKNOWN",
+      "old_test_kind": "after != 0, global absolute count",
+      "classification": "OBSERVED_BASELINE_AND_UNKNOWN_INTRA"
+    }
+  },
+  "bus_order": [
+    "sendone registers precommit intent",
+    "precommit hook may create bus.bus row",
+    "transaction commit persists row",
+    "postcommit callback sends imbus PG notify"
+  ],
+  "group_effect": {
+    "scope": "global base.group_user implied_ids; all internal users across companies",
+    "candidate_uses": "non-sudo env.is_system then sudo _apply_group",
+    "native_settings_uses": "env.is_admin; Settings implies Access Rights, converse false",
+    "cache_and_regular_group_recompute": "STATIC_POSSIBLE_BY_LOCKED_CORE",
+    "actual_prior_test_group_effect": "UNKNOWN"
+  },
+  "static_simulated": {
+    "py_compile_exit": 0,
+    "selftest_cases": 14,
+    "selftest_exit": 0,
+    "ast_guard_exit": 0,
+    "future_auth_comment_id": null,
+    "real_odoo_pass": false
+  },
+  "report_sha256": "b563bcc007c69f99629d7fc1dc7cd98b25ac0eec3b5a9df9e5722ce01f029a30",
+  "offline_contract_sha256": "16a005b04372f1f79cf88a5d1cd1a8f4987b627a66ffa43b883da5ebd81037b4",
+  "private_evidence_paths": [
+    ".local/s10-d18p1-20261014-6165734052/",
+    ".local/ydental_s10_test_20261014100600_d18a9c4e/"
+  ],
+  "failure_history": [
+    "Initial two core rg paths incorrect, exit2; corrected read-only paths exit0",
+    "First management-only PG identity expectation had two mistyped synthetic names, printed false; actual OIDs unchanged; corrected SELECT assert exit0"
+  ],
+  "commands": [
+    {
+      "kind": "GitHub API GET full issues/comments",
+      "exit": 0
+    },
+    {
+      "kind": "git/core/venv identity",
+      "exit": 0
+    },
+    {
+      "kind": "locked source rg/nl/sha256sum corrected paths",
+      "exit": 0
+    },
+    {
+      "kind": "read-only postgres management identity corrected expected names",
+      "exit": 0
+    },
+    {
+      "kind": "py_compile offline contract",
+      "exit": 0
+    },
+    {
+      "kind": "offline contract 14 SIMULATED cases",
+      "exit": 0
+    },
+    {
+      "kind": "AST no Odoo/PG imports and inactive authorization",
+      "exit": 0
+    }
+  ],
+  "new_odoo_targets": 0,
+  "new_gdb_odoo_targets": 0,
+  "new_firefox_targets": 0,
+  "create_database": 0,
+  "configuration_writes": 0,
+  "business_writes": 0,
+  "project_mutations": 0,
+  "s11_started": false,
+  "production_deployed": false,
+  "s05_s07_compatibility": "UNRESOLVED",
+  "s10_technical": "BLOCKED",
+  "production": "BLOCKED",
+  "native_root_cause": "UNKNOWN"
+}
