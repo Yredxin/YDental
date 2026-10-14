@@ -1,0 +1,5589 @@
+{
+  "authorization_comment": 6169607381,
+  "review_comment": 6169546255,
+  "precheck_comment": 6169781624,
+  "starting_head": "69f76749f12ddca384465cdc2f1b759bf02d3fea",
+  "odoo_core_head": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "fixed_s10_test_commit": "255b48f54495eb99638af8ffc824771b9a5af3e7",
+  "frozen_s07_product_sha256": "df07e1a7eebaec424c13973bf7937bac28defb7f2e27360b3cf6efdecdd2aa2b",
+  "old_c1": {
+    "database_oid": 2100125,
+    "status": "PRESERVED",
+    "bus_catalog_row_source": "UNATTRIBUTED_PREPARATION"
+  },
+  "offline": {
+    "py_compile": "PASS",
+    "git_diff_check": "PASS",
+    "bus_contract": "SIMULATED_PASS_6_OF_6"
+  },
+  "database": {
+    "name": "ydental_odoo_c1r1_20261014134200_6d3e9f20",
+    "oid": 2100126,
+    "cluster": "7694897083368259627",
+    "port": 18264,
+    "source_template_oid": 2100080,
+    "source_filestore_sha_checked": 124,
+    "create_exit_code": 0,
+    "check_exit_code": 0,
+    "created_databases": 1,
+    "limit": 2
+  },
+  "shell": {
+    "command": "../.venv/bin/python .local/odoo-c1-r1-20261014-6169607381/control.py run",
+    "odoo_command": "../.venv/bin/python ../odoo-bin shell -c .local/ydental_odoo_c1r1_20261014134200_6d3e9f20/odoo.conf --no-http",
+    "pid": 2782829,
+    "pg_backend_pid": 533676,
+    "exit_code": 0,
+    "signal11": false,
+    "attempts": 1,
+    "limit": 4,
+    "log_sha256": "51d509aeecf34d311a0147c0b13866efe8fa9db2ff25e5c7e7f00292356bc1cc"
+  },
+  "private_evidence": {
+    "fixture_progress_sha256": "31c967c4594c99a168ffa2e540acfb37ef88c46124229ae3df26e4e94d368e48",
+    "stage_observation_files": 163,
+    "control_sha256": "c829686dba19f5df86b715e6ee0178422543cb98b8adb6b4ebb456614b56360a",
+    "fixture_sha256": "1b270b1b13c4e064f68b5a6e94d81f2664f1b521e7981cf7855678032efb7e2a",
+    "shell_entry_sha256": "0b2bcbfd3ee9f093e0b2c6f1b54c63e9dc63e8ee5acdaa7b64f42d7ed653003a"
+  },
+  "case_results": [
+    {
+      "case": "Aprice",
+      "status": "ODOO_PASS_ROLLBACK",
+      "expected_rejection": null,
+      "accepted": true,
+      "group_before": {
+        "multi_warehouse": true,
+        "multi_location": true,
+        "pricelist": false
+      },
+      "group_after": {
+        "multi_warehouse": true,
+        "multi_location": true,
+        "pricelist": false
+      },
+      "module_digest_stable": true,
+      "whole_case_deltas": {
+        "bus_bus": 2,
+        "mail_message": 13,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 13,
+        "ydental_inventory_config": 1,
+        "ydental_access_audit": 16,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      },
+      "mail_message_new_models": [
+        "hr.employee",
+        "hr.version",
+        "res.partner",
+        "res.users"
+      ]
+    },
+    {
+      "case": "Btwostore",
+      "status": "ODOO_PASS_ROLLBACK",
+      "expected_rejection": null,
+      "accepted": true,
+      "group_before": {
+        "multi_warehouse": true,
+        "multi_location": true,
+        "pricelist": false
+      },
+      "group_after": {
+        "multi_warehouse": true,
+        "multi_location": true,
+        "pricelist": false
+      },
+      "module_digest_stable": true,
+      "whole_case_deltas": {
+        "bus_bus": 3,
+        "mail_message": 20,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 17,
+        "ydental_inventory_config": 1,
+        "ydental_access_audit": 27,
+        "ydental_intake_price": 2,
+        "ydental_intake_snapshot": 2
+      },
+      "mail_message_new_models": [
+        "hr.employee",
+        "hr.version",
+        "res.partner",
+        "res.users"
+      ]
+    },
+    {
+      "case": "Cordinary",
+      "status": "ODOO_PASS_ROLLBACK",
+      "expected_rejection": null,
+      "accepted": true,
+      "group_before": {
+        "multi_warehouse": true,
+        "multi_location": true,
+        "pricelist": false
+      },
+      "group_after": {
+        "multi_warehouse": true,
+        "multi_location": true,
+        "pricelist": false
+      },
+      "module_digest_stable": true,
+      "whole_case_deltas": {
+        "bus_bus": 1,
+        "mail_message": 9,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 13,
+        "ydental_inventory_config": 1,
+        "ydental_access_audit": 13,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      },
+      "mail_message_new_models": []
+    },
+    {
+      "case": "Doffoff",
+      "status": "POLICY_BLOCKED",
+      "expected_rejection": "UserError",
+      "accepted": false,
+      "group_before": {
+        "multi_warehouse": false,
+        "multi_location": false,
+        "pricelist": false
+      },
+      "group_after": {
+        "multi_warehouse": false,
+        "multi_location": false,
+        "pricelist": false
+      },
+      "module_digest_stable": true,
+      "whole_case_deltas": {
+        "bus_bus": 1,
+        "mail_message": 8,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 0,
+        "stock_location": 0,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 11,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      },
+      "mail_message_new_models": []
+    },
+    {
+      "case": "Doffon",
+      "status": "POLICY_BLOCKED",
+      "expected_rejection": "UserError",
+      "accepted": false,
+      "group_before": {
+        "multi_warehouse": false,
+        "multi_location": true,
+        "pricelist": true
+      },
+      "group_after": {
+        "multi_warehouse": false,
+        "multi_location": true,
+        "pricelist": true
+      },
+      "module_digest_stable": true,
+      "whole_case_deltas": {
+        "bus_bus": 1,
+        "mail_message": 8,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 0,
+        "stock_location": 0,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 11,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      },
+      "mail_message_new_models": []
+    },
+    {
+      "case": "Donoff",
+      "status": "POLICY_BLOCKED",
+      "expected_rejection": "UserError",
+      "accepted": false,
+      "group_before": {
+        "multi_warehouse": true,
+        "multi_location": false,
+        "pricelist": false
+      },
+      "group_after": {
+        "multi_warehouse": true,
+        "multi_location": false,
+        "pricelist": false
+      },
+      "module_digest_stable": true,
+      "whole_case_deltas": {
+        "bus_bus": 1,
+        "mail_message": 8,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 0,
+        "stock_location": 0,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 11,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      },
+      "mail_message_new_models": []
+    },
+    {
+      "case": "Donon",
+      "status": "ODOO_PASS_ROLLBACK",
+      "expected_rejection": null,
+      "accepted": true,
+      "group_before": {
+        "multi_warehouse": true,
+        "multi_location": true,
+        "pricelist": false
+      },
+      "group_after": {
+        "multi_warehouse": true,
+        "multi_location": true,
+        "pricelist": false
+      },
+      "module_digest_stable": true,
+      "whole_case_deltas": {
+        "bus_bus": 1,
+        "mail_message": 8,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 13,
+        "ydental_inventory_config": 1,
+        "ydental_access_audit": 13,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      },
+      "mail_message_new_models": []
+    },
+    {
+      "case": "Dnonadmin",
+      "status": "ODOO_PASS_ROLLBACK",
+      "expected_rejection": null,
+      "accepted": true,
+      "group_before": {
+        "multi_warehouse": true,
+        "multi_location": true,
+        "pricelist": false
+      },
+      "group_after": {
+        "multi_warehouse": true,
+        "multi_location": true,
+        "pricelist": false
+      },
+      "module_digest_stable": true,
+      "whole_case_deltas": {
+        "bus_bus": 2,
+        "mail_message": 13,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 13,
+        "ydental_inventory_config": 1,
+        "ydental_access_audit": 17,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      },
+      "mail_message_new_models": [
+        "hr.employee",
+        "hr.version",
+        "res.partner",
+        "res.users"
+      ]
+    }
+  ],
+  "stage_observations": [
+    {
+      "case": "Aprice",
+      "stage": "baseline",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 6,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 0,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 851,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 0,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Aprice",
+      "stage": "after_store_a_create",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 6,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 0,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 851,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 0,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Aprice",
+      "stage": "after_settings_user_create",
+      "classification": "PREPARATION_BUS_RECORDED",
+      "bus_rows": 6,
+      "bus_row_delta": 0,
+      "precommit_intents": [
+        {
+          "scope": "settings_actor",
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "sendone_calls": [
+        {
+          "source": [
+            "mail:__init__",
+            "mail:__missing__"
+          ],
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "postcommit_channel_intents_pending": 0,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 853,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 0,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Aprice",
+      "stage": "after_store_grants_1_0",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 6,
+      "bus_row_delta": 0,
+      "precommit_intents": [
+        {
+          "scope": "settings_actor",
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 0,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 856,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 4,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Aprice",
+      "stage": "after_capability_create",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 6,
+      "bus_row_delta": 0,
+      "precommit_intents": [
+        {
+          "scope": "settings_actor",
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 0,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 856,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 4,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Aprice",
+      "stage": "after_catalog_create",
+      "classification": "PREPARATION_BUS_RECORDED",
+      "bus_rows": 7,
+      "bus_row_delta": 1,
+      "precommit_intents": [],
+      "sendone_calls": [
+        {
+          "source": [
+            "mail:__init__",
+            "mail:_store_channel_fields"
+          ],
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        },
+        {
+          "source": [
+            "mail:__init__",
+            "mail:_store_channel_fields"
+          ],
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 858,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 7,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Aprice",
+      "stage": "after_price_create_0",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 8,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Aprice",
+      "stage": "after_price_review_0",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 9,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Aprice",
+      "stage": "after_price_publish_0",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 10,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Aprice",
+      "stage": "after_snapshot_0",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 11,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Aprice",
+      "stage": "after_initial_group_group_stock_multi_warehouses",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 11,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Aprice",
+      "stage": "after_initial_group_group_stock_multi_locations",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 11,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Aprice",
+      "stage": "before_action",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 11,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Aprice",
+      "stage": "warehouse_setup",
+      "classification": "NO_WAREHOUSE_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 2,
+        "stock_location": 25,
+        "ydental_inventory_config": 1,
+        "ydental_access_audit": 12,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Aprice",
+      "stage": "after_idempotent_same_key",
+      "classification": "NO_WAREHOUSE_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 2,
+        "stock_location": 25,
+        "ydental_inventory_config": 1,
+        "ydental_access_audit": 12,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Aprice",
+      "stage": "after_idempotent_new_key",
+      "classification": "NO_WAREHOUSE_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 2,
+        "stock_location": 25,
+        "ydental_inventory_config": 1,
+        "ydental_access_audit": 13,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Aprice",
+      "stage": "after_quote_0",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 2,
+        "stock_location": 25,
+        "ydental_inventory_config": 1,
+        "ydental_access_audit": 13,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Aprice",
+      "stage": "after_direct_price_guard_rejection",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 2,
+        "stock_location": 25,
+        "ydental_inventory_config": 1,
+        "ydental_access_audit": 13,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Aprice",
+      "stage": "after_no_warehouse_user_create",
+      "classification": "PREPARATION_BUS_RECORDED",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [
+        {
+          "scope": "no_warehouse_right",
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "sendone_calls": [
+        {
+          "source": [
+            "mail:__init__",
+            "mail:__missing__"
+          ],
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 861,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 2,
+        "stock_location": 25,
+        "ydental_inventory_config": 1,
+        "ydental_access_audit": 13,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Aprice",
+      "stage": "after_no_warehouse_user_join",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [
+        {
+          "scope": "no_warehouse_right",
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 864,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 2,
+        "stock_location": 25,
+        "ydental_inventory_config": 1,
+        "ydental_access_audit": 14,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Aprice",
+      "stage": "after_no_warehouse_rejection",
+      "classification": "PREPARATION_BUS_RECORDED",
+      "bus_rows": 8,
+      "bus_row_delta": 1,
+      "precommit_intents": [],
+      "sendone_calls": [
+        {
+          "source": [
+            "mail:__init__",
+            "mail:_store_channel_fields"
+          ],
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "postcommit_channel_intents_pending": 2,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 864,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 2,
+        "stock_location": 25,
+        "ydental_inventory_config": 1,
+        "ydental_access_audit": 16,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Aprice",
+      "stage": "before_final_assertions",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 8,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 2,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 864,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 2,
+        "stock_location": 25,
+        "ydental_inventory_config": 1,
+        "ydental_access_audit": 16,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Btwostore",
+      "stage": "baseline",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 6,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 0,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 851,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 0,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Btwostore",
+      "stage": "after_other_company_create",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 6,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 0,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 854,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 16,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 0,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Btwostore",
+      "stage": "after_store_a_create",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 6,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 0,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 854,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 16,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 0,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Btwostore",
+      "stage": "after_store_b_create",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 6,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 0,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 854,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 16,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 0,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Btwostore",
+      "stage": "after_settings_user_create",
+      "classification": "PREPARATION_BUS_RECORDED",
+      "bus_rows": 6,
+      "bus_row_delta": 0,
+      "precommit_intents": [
+        {
+          "scope": "settings_actor",
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "sendone_calls": [
+        {
+          "source": [
+            "mail:__init__",
+            "mail:__missing__"
+          ],
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "postcommit_channel_intents_pending": 0,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 856,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 16,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 0,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Btwostore",
+      "stage": "after_other_company_internal_create",
+      "classification": "PREPARATION_BUS_RECORDED",
+      "bus_rows": 6,
+      "bus_row_delta": 0,
+      "precommit_intents": [
+        {
+          "scope": "settings_actor",
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        },
+        {
+          "scope": "other_company_internal",
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "sendone_calls": [
+        {
+          "source": [
+            "mail:__init__",
+            "mail:__missing__"
+          ],
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "postcommit_channel_intents_pending": 0,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 858,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 16,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 0,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Btwostore",
+      "stage": "after_store_grants_2_0",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 6,
+      "bus_row_delta": 0,
+      "precommit_intents": [
+        {
+          "scope": "settings_actor",
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        },
+        {
+          "scope": "other_company_internal",
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 0,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 861,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 16,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 4,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Btwostore",
+      "stage": "after_store_grants_2_1",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 6,
+      "bus_row_delta": 0,
+      "precommit_intents": [
+        {
+          "scope": "settings_actor",
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        },
+        {
+          "scope": "other_company_internal",
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 0,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 861,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 16,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 7,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Btwostore",
+      "stage": "after_capability_create",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 6,
+      "bus_row_delta": 0,
+      "precommit_intents": [
+        {
+          "scope": "settings_actor",
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        },
+        {
+          "scope": "other_company_internal",
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 0,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 861,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 16,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 7,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Btwostore",
+      "stage": "after_catalog_create",
+      "classification": "PREPARATION_BUS_RECORDED",
+      "bus_rows": 8,
+      "bus_row_delta": 2,
+      "precommit_intents": [],
+      "sendone_calls": [
+        {
+          "source": [
+            "mail:__init__",
+            "mail:_store_channel_fields"
+          ],
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        },
+        {
+          "source": [
+            "mail:__init__",
+            "mail:_store_channel_fields"
+          ],
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        },
+        {
+          "source": [
+            "mail:__init__",
+            "mail:_store_channel_fields"
+          ],
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "postcommit_channel_intents_pending": 2,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 864,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 16,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 10,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Btwostore",
+      "stage": "after_price_create_0",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 8,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 2,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 865,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 16,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 11,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Btwostore",
+      "stage": "after_price_review_0",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 8,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 2,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 865,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 16,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 12,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Btwostore",
+      "stage": "after_price_publish_0",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 8,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 2,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 865,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 16,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 13,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Btwostore",
+      "stage": "after_snapshot_0",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 8,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 2,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 865,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 16,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 14,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Btwostore",
+      "stage": "after_price_create_1",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 8,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 2,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 866,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 16,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 16,
+        "ydental_intake_price": 2,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Btwostore",
+      "stage": "after_price_review_1",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 8,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 2,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 866,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 16,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 17,
+        "ydental_intake_price": 2,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Btwostore",
+      "stage": "after_price_publish_1",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 8,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 2,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 866,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 16,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 18,
+        "ydental_intake_price": 2,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Btwostore",
+      "stage": "after_snapshot_1",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 8,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 2,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 866,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 16,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 19,
+        "ydental_intake_price": 2,
+        "ydental_intake_snapshot": 2
+      }
+    },
+    {
+      "case": "Btwostore",
+      "stage": "after_initial_group_group_stock_multi_warehouses",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 8,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 2,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 866,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 16,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 19,
+        "ydental_intake_price": 2,
+        "ydental_intake_snapshot": 2
+      }
+    },
+    {
+      "case": "Btwostore",
+      "stage": "after_initial_group_group_stock_multi_locations",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 8,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 2,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 866,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 16,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 19,
+        "ydental_intake_price": 2,
+        "ydental_intake_snapshot": 2
+      }
+    },
+    {
+      "case": "Btwostore",
+      "stage": "before_action",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 8,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 2,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 866,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 16,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 19,
+        "ydental_intake_price": 2,
+        "ydental_intake_snapshot": 2
+      }
+    },
+    {
+      "case": "Btwostore",
+      "stage": "warehouse_setup",
+      "classification": "NO_WAREHOUSE_BUS",
+      "bus_rows": 8,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 2,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 866,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 2,
+        "stock_location": 29,
+        "ydental_inventory_config": 1,
+        "ydental_access_audit": 20,
+        "ydental_intake_price": 2,
+        "ydental_intake_snapshot": 2
+      }
+    },
+    {
+      "case": "Btwostore",
+      "stage": "after_idempotent_same_key",
+      "classification": "NO_WAREHOUSE_BUS",
+      "bus_rows": 8,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 2,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 866,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 2,
+        "stock_location": 29,
+        "ydental_inventory_config": 1,
+        "ydental_access_audit": 20,
+        "ydental_intake_price": 2,
+        "ydental_intake_snapshot": 2
+      }
+    },
+    {
+      "case": "Btwostore",
+      "stage": "after_idempotent_new_key",
+      "classification": "NO_WAREHOUSE_BUS",
+      "bus_rows": 8,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 2,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 866,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 2,
+        "stock_location": 29,
+        "ydental_inventory_config": 1,
+        "ydental_access_audit": 21,
+        "ydental_intake_price": 2,
+        "ydental_intake_snapshot": 2
+      }
+    },
+    {
+      "case": "Btwostore",
+      "stage": "after_quote_0",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 8,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 2,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 866,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 2,
+        "stock_location": 29,
+        "ydental_inventory_config": 1,
+        "ydental_access_audit": 22,
+        "ydental_intake_price": 2,
+        "ydental_intake_snapshot": 2
+      }
+    },
+    {
+      "case": "Btwostore",
+      "stage": "after_quote_1",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 8,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 2,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 866,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 2,
+        "stock_location": 29,
+        "ydental_inventory_config": 1,
+        "ydental_access_audit": 23,
+        "ydental_intake_price": 2,
+        "ydental_intake_snapshot": 2
+      }
+    },
+    {
+      "case": "Btwostore",
+      "stage": "after_direct_price_guard_rejection",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 8,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 2,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 866,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 2,
+        "stock_location": 29,
+        "ydental_inventory_config": 1,
+        "ydental_access_audit": 23,
+        "ydental_intake_price": 2,
+        "ydental_intake_snapshot": 2
+      }
+    },
+    {
+      "case": "Btwostore",
+      "stage": "after_limited_manager_create",
+      "classification": "PREPARATION_BUS_RECORDED",
+      "bus_rows": 8,
+      "bus_row_delta": 0,
+      "precommit_intents": [
+        {
+          "scope": "limited_manager",
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "sendone_calls": [
+        {
+          "source": [
+            "mail:__init__",
+            "mail:__missing__"
+          ],
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "postcommit_channel_intents_pending": 2,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 868,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 2,
+        "stock_location": 29,
+        "ydental_inventory_config": 1,
+        "ydental_access_audit": 23,
+        "ydental_intake_price": 2,
+        "ydental_intake_snapshot": 2
+      }
+    },
+    {
+      "case": "Btwostore",
+      "stage": "after_limited_manager_join",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 8,
+      "bus_row_delta": 0,
+      "precommit_intents": [
+        {
+          "scope": "limited_manager",
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 2,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 871,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 2,
+        "stock_location": 29,
+        "ydental_inventory_config": 1,
+        "ydental_access_audit": 25,
+        "ydental_intake_price": 2,
+        "ydental_intake_snapshot": 2
+      }
+    },
+    {
+      "case": "Btwostore",
+      "stage": "after_cross_store_rejection",
+      "classification": "PREPARATION_BUS_RECORDED",
+      "bus_rows": 9,
+      "bus_row_delta": 1,
+      "precommit_intents": [],
+      "sendone_calls": [
+        {
+          "source": [
+            "mail:__init__",
+            "mail:_store_channel_fields"
+          ],
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "postcommit_channel_intents_pending": 3,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 871,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 2,
+        "stock_location": 29,
+        "ydental_inventory_config": 1,
+        "ydental_access_audit": 27,
+        "ydental_intake_price": 2,
+        "ydental_intake_snapshot": 2
+      }
+    },
+    {
+      "case": "Btwostore",
+      "stage": "after_cross_company_rejection",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 9,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 3,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 871,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 2,
+        "stock_location": 29,
+        "ydental_inventory_config": 1,
+        "ydental_access_audit": 27,
+        "ydental_intake_price": 2,
+        "ydental_intake_snapshot": 2
+      }
+    },
+    {
+      "case": "Btwostore",
+      "stage": "before_final_assertions",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 9,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 3,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 871,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 2,
+        "stock_location": 29,
+        "ydental_inventory_config": 1,
+        "ydental_access_audit": 27,
+        "ydental_intake_price": 2,
+        "ydental_intake_snapshot": 2
+      }
+    },
+    {
+      "case": "Cordinary",
+      "stage": "baseline",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 6,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 0,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 851,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 0,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Cordinary",
+      "stage": "after_store_a_create",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 6,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 0,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 851,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 0,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Cordinary",
+      "stage": "after_settings_user_create",
+      "classification": "PREPARATION_BUS_RECORDED",
+      "bus_rows": 6,
+      "bus_row_delta": 0,
+      "precommit_intents": [
+        {
+          "scope": "settings_actor",
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "sendone_calls": [
+        {
+          "source": [
+            "mail:__init__",
+            "mail:__missing__"
+          ],
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "postcommit_channel_intents_pending": 0,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 853,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 0,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Cordinary",
+      "stage": "after_store_grants_1_0",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 6,
+      "bus_row_delta": 0,
+      "precommit_intents": [
+        {
+          "scope": "settings_actor",
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 0,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 856,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 4,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Cordinary",
+      "stage": "after_capability_create",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 6,
+      "bus_row_delta": 0,
+      "precommit_intents": [
+        {
+          "scope": "settings_actor",
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 0,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 856,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 4,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Cordinary",
+      "stage": "after_catalog_create",
+      "classification": "PREPARATION_BUS_RECORDED",
+      "bus_rows": 7,
+      "bus_row_delta": 1,
+      "precommit_intents": [],
+      "sendone_calls": [
+        {
+          "source": [
+            "mail:__init__",
+            "mail:_store_channel_fields"
+          ],
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        },
+        {
+          "source": [
+            "mail:__init__",
+            "mail:_store_channel_fields"
+          ],
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 858,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 7,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Cordinary",
+      "stage": "after_price_create_0",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 8,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Cordinary",
+      "stage": "after_price_review_0",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 9,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Cordinary",
+      "stage": "after_price_publish_0",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 10,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Cordinary",
+      "stage": "after_snapshot_0",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 11,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Cordinary",
+      "stage": "after_ordinary_pricelist_create",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 860,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 11,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Cordinary",
+      "stage": "after_initial_group_group_stock_multi_warehouses",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 860,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 11,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Cordinary",
+      "stage": "after_initial_group_group_stock_multi_locations",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 860,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 11,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Cordinary",
+      "stage": "before_action",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 860,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 11,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Cordinary",
+      "stage": "warehouse_setup",
+      "classification": "NO_WAREHOUSE_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 860,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 2,
+        "stock_location": 25,
+        "ydental_inventory_config": 1,
+        "ydental_access_audit": 12,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Cordinary",
+      "stage": "after_idempotent_same_key",
+      "classification": "NO_WAREHOUSE_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 860,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 2,
+        "stock_location": 25,
+        "ydental_inventory_config": 1,
+        "ydental_access_audit": 12,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Cordinary",
+      "stage": "after_idempotent_new_key",
+      "classification": "NO_WAREHOUSE_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 860,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 2,
+        "stock_location": 25,
+        "ydental_inventory_config": 1,
+        "ydental_access_audit": 13,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Cordinary",
+      "stage": "after_quote_0",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 860,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 2,
+        "stock_location": 25,
+        "ydental_inventory_config": 1,
+        "ydental_access_audit": 13,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Cordinary",
+      "stage": "after_direct_price_guard_rejection",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 860,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 2,
+        "stock_location": 25,
+        "ydental_inventory_config": 1,
+        "ydental_access_audit": 13,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Cordinary",
+      "stage": "before_final_assertions",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 860,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 2,
+        "stock_location": 25,
+        "ydental_inventory_config": 1,
+        "ydental_access_audit": 13,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Doffoff",
+      "stage": "baseline",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 6,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 0,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 851,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 0,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Doffoff",
+      "stage": "after_store_a_create",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 6,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 0,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 851,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 0,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Doffoff",
+      "stage": "after_settings_user_create",
+      "classification": "PREPARATION_BUS_RECORDED",
+      "bus_rows": 6,
+      "bus_row_delta": 0,
+      "precommit_intents": [
+        {
+          "scope": "settings_actor",
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "sendone_calls": [
+        {
+          "source": [
+            "mail:__init__",
+            "mail:__missing__"
+          ],
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "postcommit_channel_intents_pending": 0,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 853,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 0,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Doffoff",
+      "stage": "after_store_grants_1_0",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 6,
+      "bus_row_delta": 0,
+      "precommit_intents": [
+        {
+          "scope": "settings_actor",
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 0,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 856,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 4,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Doffoff",
+      "stage": "after_capability_create",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 6,
+      "bus_row_delta": 0,
+      "precommit_intents": [
+        {
+          "scope": "settings_actor",
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 0,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 856,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 4,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Doffoff",
+      "stage": "after_catalog_create",
+      "classification": "PREPARATION_BUS_RECORDED",
+      "bus_rows": 7,
+      "bus_row_delta": 1,
+      "precommit_intents": [],
+      "sendone_calls": [
+        {
+          "source": [
+            "mail:__init__",
+            "mail:_store_channel_fields"
+          ],
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        },
+        {
+          "source": [
+            "mail:__init__",
+            "mail:_store_channel_fields"
+          ],
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 858,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 7,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Doffoff",
+      "stage": "after_price_create_0",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 8,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Doffoff",
+      "stage": "after_price_review_0",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 9,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Doffoff",
+      "stage": "after_price_publish_0",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 10,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Doffoff",
+      "stage": "after_snapshot_0",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 11,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Doffoff",
+      "stage": "after_initial_group_group_stock_multi_warehouses",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 11,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Doffoff",
+      "stage": "after_initial_group_group_stock_multi_locations",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 11,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Doffoff",
+      "stage": "after_initial_group_group_product_pricelist",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 11,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Doffoff",
+      "stage": "before_action",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 11,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Doffoff",
+      "stage": "after_rejected_setup",
+      "classification": "NO_WAREHOUSE_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 11,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Doffoff",
+      "stage": "before_final_assertions",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 11,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Doffon",
+      "stage": "baseline",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 6,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 0,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 851,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 0,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Doffon",
+      "stage": "after_store_a_create",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 6,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 0,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 851,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 0,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Doffon",
+      "stage": "after_settings_user_create",
+      "classification": "PREPARATION_BUS_RECORDED",
+      "bus_rows": 6,
+      "bus_row_delta": 0,
+      "precommit_intents": [
+        {
+          "scope": "settings_actor",
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "sendone_calls": [
+        {
+          "source": [
+            "mail:__init__",
+            "mail:__missing__"
+          ],
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "postcommit_channel_intents_pending": 0,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 853,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 0,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Doffon",
+      "stage": "after_store_grants_1_0",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 6,
+      "bus_row_delta": 0,
+      "precommit_intents": [
+        {
+          "scope": "settings_actor",
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 0,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 856,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 4,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Doffon",
+      "stage": "after_capability_create",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 6,
+      "bus_row_delta": 0,
+      "precommit_intents": [
+        {
+          "scope": "settings_actor",
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 0,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 856,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 4,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Doffon",
+      "stage": "after_catalog_create",
+      "classification": "PREPARATION_BUS_RECORDED",
+      "bus_rows": 7,
+      "bus_row_delta": 1,
+      "precommit_intents": [],
+      "sendone_calls": [
+        {
+          "source": [
+            "mail:__init__",
+            "mail:_store_channel_fields"
+          ],
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        },
+        {
+          "source": [
+            "mail:__init__",
+            "mail:_store_channel_fields"
+          ],
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 858,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 7,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Doffon",
+      "stage": "after_price_create_0",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 8,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Doffon",
+      "stage": "after_price_review_0",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 9,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Doffon",
+      "stage": "after_price_publish_0",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 10,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Doffon",
+      "stage": "after_snapshot_0",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 11,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Doffon",
+      "stage": "after_initial_group_group_stock_multi_warehouses",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 11,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Doffon",
+      "stage": "after_initial_group_group_stock_multi_locations",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 11,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Doffon",
+      "stage": "after_initial_group_group_product_pricelist",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": false,
+        "pricelist": true
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 11,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Doffon",
+      "stage": "before_action",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": false,
+        "pricelist": true
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 11,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Doffon",
+      "stage": "after_rejected_setup",
+      "classification": "NO_WAREHOUSE_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": false,
+        "pricelist": true
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 11,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Doffon",
+      "stage": "before_final_assertions",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": false,
+        "pricelist": true
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 11,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Donoff",
+      "stage": "baseline",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 6,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 0,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 851,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 0,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Donoff",
+      "stage": "after_store_a_create",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 6,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 0,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 851,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 0,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Donoff",
+      "stage": "after_settings_user_create",
+      "classification": "PREPARATION_BUS_RECORDED",
+      "bus_rows": 6,
+      "bus_row_delta": 0,
+      "precommit_intents": [
+        {
+          "scope": "settings_actor",
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "sendone_calls": [
+        {
+          "source": [
+            "mail:__init__",
+            "mail:__missing__"
+          ],
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "postcommit_channel_intents_pending": 0,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 853,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 0,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Donoff",
+      "stage": "after_store_grants_1_0",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 6,
+      "bus_row_delta": 0,
+      "precommit_intents": [
+        {
+          "scope": "settings_actor",
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 0,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 856,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 4,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Donoff",
+      "stage": "after_capability_create",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 6,
+      "bus_row_delta": 0,
+      "precommit_intents": [
+        {
+          "scope": "settings_actor",
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 0,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 856,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 4,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Donoff",
+      "stage": "after_catalog_create",
+      "classification": "PREPARATION_BUS_RECORDED",
+      "bus_rows": 7,
+      "bus_row_delta": 1,
+      "precommit_intents": [],
+      "sendone_calls": [
+        {
+          "source": [
+            "mail:__init__",
+            "mail:_store_channel_fields"
+          ],
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        },
+        {
+          "source": [
+            "mail:__init__",
+            "mail:_store_channel_fields"
+          ],
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 858,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 7,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Donoff",
+      "stage": "after_price_create_0",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 8,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Donoff",
+      "stage": "after_price_review_0",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 9,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Donoff",
+      "stage": "after_price_publish_0",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 10,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Donoff",
+      "stage": "after_snapshot_0",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 11,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Donoff",
+      "stage": "after_initial_group_group_stock_multi_warehouses",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 11,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Donoff",
+      "stage": "after_initial_group_group_stock_multi_locations",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 11,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Donoff",
+      "stage": "after_initial_group_group_product_pricelist",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 11,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Donoff",
+      "stage": "before_action",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 11,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Donoff",
+      "stage": "after_rejected_setup",
+      "classification": "NO_WAREHOUSE_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 11,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Donoff",
+      "stage": "before_final_assertions",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 11,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Donon",
+      "stage": "baseline",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 6,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 0,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 851,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 0,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Donon",
+      "stage": "after_store_a_create",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 6,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 0,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 851,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 0,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Donon",
+      "stage": "after_settings_user_create",
+      "classification": "PREPARATION_BUS_RECORDED",
+      "bus_rows": 6,
+      "bus_row_delta": 0,
+      "precommit_intents": [
+        {
+          "scope": "settings_actor",
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "sendone_calls": [
+        {
+          "source": [
+            "mail:__init__",
+            "mail:__missing__"
+          ],
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "postcommit_channel_intents_pending": 0,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 853,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 0,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Donon",
+      "stage": "after_store_grants_1_0",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 6,
+      "bus_row_delta": 0,
+      "precommit_intents": [
+        {
+          "scope": "settings_actor",
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 0,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 856,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 4,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Donon",
+      "stage": "after_capability_create",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 6,
+      "bus_row_delta": 0,
+      "precommit_intents": [
+        {
+          "scope": "settings_actor",
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 0,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 856,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 4,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Donon",
+      "stage": "after_catalog_create",
+      "classification": "PREPARATION_BUS_RECORDED",
+      "bus_rows": 7,
+      "bus_row_delta": 1,
+      "precommit_intents": [],
+      "sendone_calls": [
+        {
+          "source": [
+            "mail:__init__",
+            "mail:_store_channel_fields"
+          ],
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        },
+        {
+          "source": [
+            "mail:__init__",
+            "mail:_store_channel_fields"
+          ],
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 858,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 7,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Donon",
+      "stage": "after_price_create_0",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 8,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Donon",
+      "stage": "after_price_review_0",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 9,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Donon",
+      "stage": "after_price_publish_0",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 10,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Donon",
+      "stage": "after_snapshot_0",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 11,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Donon",
+      "stage": "after_initial_group_group_stock_multi_warehouses",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 11,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Donon",
+      "stage": "after_initial_group_group_stock_multi_locations",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 11,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Donon",
+      "stage": "after_initial_group_group_product_pricelist",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 11,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Donon",
+      "stage": "before_action",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 11,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Donon",
+      "stage": "warehouse_setup",
+      "classification": "NO_WAREHOUSE_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 2,
+        "stock_location": 25,
+        "ydental_inventory_config": 1,
+        "ydental_access_audit": 12,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Donon",
+      "stage": "after_idempotent_same_key",
+      "classification": "NO_WAREHOUSE_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 2,
+        "stock_location": 25,
+        "ydental_inventory_config": 1,
+        "ydental_access_audit": 12,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Donon",
+      "stage": "after_idempotent_new_key",
+      "classification": "NO_WAREHOUSE_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 2,
+        "stock_location": 25,
+        "ydental_inventory_config": 1,
+        "ydental_access_audit": 13,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Donon",
+      "stage": "after_quote_0",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 2,
+        "stock_location": 25,
+        "ydental_inventory_config": 1,
+        "ydental_access_audit": 13,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Donon",
+      "stage": "after_direct_price_guard_rejection",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 2,
+        "stock_location": 25,
+        "ydental_inventory_config": 1,
+        "ydental_access_audit": 13,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Donon",
+      "stage": "before_final_assertions",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 2,
+        "stock_location": 25,
+        "ydental_inventory_config": 1,
+        "ydental_access_audit": 13,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Dnonadmin",
+      "stage": "baseline",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 6,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 0,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 851,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 0,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Dnonadmin",
+      "stage": "after_store_a_create",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 6,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 0,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 851,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 0,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Dnonadmin",
+      "stage": "after_settings_user_create",
+      "classification": "PREPARATION_BUS_RECORDED",
+      "bus_rows": 6,
+      "bus_row_delta": 0,
+      "precommit_intents": [
+        {
+          "scope": "settings_actor",
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "sendone_calls": [
+        {
+          "source": [
+            "mail:__init__",
+            "mail:__missing__"
+          ],
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "postcommit_channel_intents_pending": 0,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 853,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 0,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Dnonadmin",
+      "stage": "after_store_grants_1_0",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 6,
+      "bus_row_delta": 0,
+      "precommit_intents": [
+        {
+          "scope": "settings_actor",
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 0,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 856,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 4,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Dnonadmin",
+      "stage": "after_capability_create",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 6,
+      "bus_row_delta": 0,
+      "precommit_intents": [
+        {
+          "scope": "settings_actor",
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 0,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 856,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 4,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Dnonadmin",
+      "stage": "after_catalog_create",
+      "classification": "PREPARATION_BUS_RECORDED",
+      "bus_rows": 7,
+      "bus_row_delta": 1,
+      "precommit_intents": [],
+      "sendone_calls": [
+        {
+          "source": [
+            "mail:__init__",
+            "mail:_store_channel_fields"
+          ],
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        },
+        {
+          "source": [
+            "mail:__init__",
+            "mail:_store_channel_fields"
+          ],
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 858,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 7,
+        "ydental_intake_price": 0,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Dnonadmin",
+      "stage": "after_price_create_0",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 8,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Dnonadmin",
+      "stage": "after_price_review_0",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 9,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Dnonadmin",
+      "stage": "after_price_publish_0",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 10,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 0
+      }
+    },
+    {
+      "case": "Dnonadmin",
+      "stage": "after_snapshot_0",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": false,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 11,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Dnonadmin",
+      "stage": "after_initial_group_group_stock_multi_warehouses",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": false,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 11,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Dnonadmin",
+      "stage": "after_initial_group_group_stock_multi_locations",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 11,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Dnonadmin",
+      "stage": "before_action",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 859,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 11,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Dnonadmin",
+      "stage": "after_warehouse_staff_create",
+      "classification": "PREPARATION_BUS_RECORDED",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [
+        {
+          "scope": "warehouse_staff",
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "sendone_calls": [
+        {
+          "source": [
+            "mail:__init__",
+            "mail:__missing__"
+          ],
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 861,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 11,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Dnonadmin",
+      "stage": "after_warehouse_staff_grant",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 7,
+      "bus_row_delta": 0,
+      "precommit_intents": [
+        {
+          "scope": "warehouse_staff",
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 1,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 864,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 1,
+        "stock_location": 12,
+        "ydental_inventory_config": 0,
+        "ydental_access_audit": 13,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Dnonadmin",
+      "stage": "warehouse_setup",
+      "classification": "WAREHOUSE_BUS_RECORDED",
+      "bus_rows": 8,
+      "bus_row_delta": 1,
+      "precommit_intents": [],
+      "sendone_calls": [
+        {
+          "source": [
+            "mail:__init__",
+            "mail:_store_channel_fields"
+          ],
+          "target_model": "res.users",
+          "type": "mail.record/insert"
+        }
+      ],
+      "postcommit_channel_intents_pending": 2,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 864,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 2,
+        "stock_location": 25,
+        "ydental_inventory_config": 1,
+        "ydental_access_audit": 16,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Dnonadmin",
+      "stage": "after_idempotent_same_key",
+      "classification": "NO_WAREHOUSE_BUS",
+      "bus_rows": 8,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 2,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 864,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 2,
+        "stock_location": 25,
+        "ydental_inventory_config": 1,
+        "ydental_access_audit": 16,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Dnonadmin",
+      "stage": "after_idempotent_new_key",
+      "classification": "NO_WAREHOUSE_BUS",
+      "bus_rows": 8,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 2,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 864,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 2,
+        "stock_location": 25,
+        "ydental_inventory_config": 1,
+        "ydental_access_audit": 17,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Dnonadmin",
+      "stage": "after_quote_0",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 8,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 2,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 864,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 2,
+        "stock_location": 25,
+        "ydental_inventory_config": 1,
+        "ydental_access_audit": 17,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Dnonadmin",
+      "stage": "after_direct_price_guard_rejection",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 8,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 2,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 864,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 2,
+        "stock_location": 25,
+        "ydental_inventory_config": 1,
+        "ydental_access_audit": 17,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    },
+    {
+      "case": "Dnonadmin",
+      "stage": "before_final_assertions",
+      "classification": "NO_PREPARATION_BUS",
+      "bus_rows": 8,
+      "bus_row_delta": 0,
+      "precommit_intents": [],
+      "sendone_calls": [],
+      "postcommit_channel_intents_pending": 2,
+      "group": {
+        "multi_location": true,
+        "multi_warehouse": true,
+        "pricelist": false
+      },
+      "counts": {
+        "mail_message": 864,
+        "mail_mail": 0,
+        "account_move": 0,
+        "account_payment": 0,
+        "account_partial_reconcile": 0,
+        "stock_move": 0,
+        "stock_warehouse": 2,
+        "stock_location": 25,
+        "ydental_inventory_config": 1,
+        "ydental_access_audit": 17,
+        "ydental_intake_price": 1,
+        "ydental_intake_snapshot": 1
+      }
+    }
+  ],
+  "post_rollback_readonly": {
+    "ydental_access_store": 0,
+    "ydental_intake_price": 0,
+    "ydental_intake_snapshot": 0,
+    "ydental_inventory_config": 0,
+    "ydental_access_audit": 0,
+    "account_move": 0,
+    "account_payment": 0,
+    "account_partial_reconcile": 0,
+    "stock_move": 0,
+    "stock_warehouse": 1,
+    "stock_location": 12,
+    "bus_bus": 6,
+    "mail_message": 851,
+    "mail_mail": 0,
+    "other_connections": 0,
+    "new_filestore_files_preserved": 22
+  },
+  "coverage": {
+    "A": "ODOO_PASS_ROLLBACK",
+    "B": "ODOO_PASS_ROLLBACK",
+    "C": "ODOO_PASS_ROLLBACK",
+    "D_missing_groups": "POLICY_BLOCKED_3_CASES",
+    "D_preconfigured": "ODOO_PASS_ROLLBACK_2_CASES",
+    "dual_backend_lock_order": "NOT_RUN",
+    "group_cache_concurrency": "NOT_RUN",
+    "cross_company_positive_warehouse": "NOT_RUN",
+    "outbound_notification_delivery": "NOT_RUN",
+    "full_s10": "NOT_RUN"
+  },
+  "formal_status": {
+    "s07_candidate": "NOT_ACCEPTED",
+    "s05_s07_compatibility": "UNRESOLVED_PENDING_GPT_REVIEW",
+    "global_group_policy": "POLICY_PENDING",
+    "native_sigsegv_root_cause": "UNKNOWN",
+    "s10": "BLOCKED",
+    "production": "BLOCKED",
+    "s11": "NOT_STARTED"
+  }
+}
