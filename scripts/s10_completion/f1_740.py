@@ -81,6 +81,6 @@ with env.registry.cursor() as cr:
  assert invoice.amount_residual==240
  second=service._operate('pay',{'invoice_ids':[invoice.id],'amount':240,'channel':'wechat','actual_utc':datetime.now(timezone.utc).isoformat(),'proof':'Synthetic actual offline 240'},key())
  assert invoice.amount_residual==0
- (run/'f1.json').write_text(json.dumps({'store_id':f.stores[0].id,'manager_id':f.users['manager'].id,'frontdesk_id':f.users['frontdesk'].id,'none_id':f.users['none'].id,'invoice_id':invoice.id,'payment500_id':pay['payment_id'],'payment240_id':second['payment_id'],'fee_ids':fee_ids,'drug_event_ids':drug_events.ids,'drug_move_ids':moves.mapped('ydental_move_id').ids},ensure_ascii=False,indent=2)+'\n')
+ (run/'f1.json').write_text(json.dumps({'store_id':f.stores[0].id,'manager_id':f.users['manager'].id,'frontdesk_id':f.users['frontdesk'].id,'none_id':f.users['none'].id,'pharmacist_id':f.pharmacist.id,'invoice_id':invoice.id,'payment500_id':pay['payment_id'],'payment240_id':second['payment_id'],'fee_ids':fee_ids,'drug_event_ids':drug_events.ids,'drug_move_ids':moves.mapped('ydental_move_id').ids},ensure_ascii=False,indent=2)+'\n')
  print('S10_F1_740',json.dumps({'fees':fee_ids,'drug_events':drug_events.ids,'native_moves':moves.mapped('ydental_move_id').ids,'bill':bill,'pay500':pay,'pay240':second,'residual':invoice.amount_residual,'partials':root['account.partial.reconcile'].search_count([('debit_move_id.move_id','=',invoice.id)])},ensure_ascii=False),flush=True)
  cr.commit()

@@ -27,6 +27,19 @@ with env.registry.cursor() as cr:
     expected = source.company_id.currency_id.round(sum(invoices.mapped('amount_residual')))
     assert summary[0]['residual'] == expected
     assert set(summary[0]) == {'store', 'store_id', 'company', 'currency', 'residual'}
+    source_config = root['ydental.settlement.config'].search([('ydental_store_id', '=', source.id)], limit=1)
+    assert source_config and source.company_id == target.company_id
+    root['ydental.settlement.config']._new({
+        'ydental_store_id': target.id, 'company_id': target.company_id.id,
+        'ydental_policy': 'demo_confirmation',
+        'ydental_sales_journal_id': source_config.ydental_sales_journal_id.id,
+        'ydental_income_account_id': source_config.ydental_income_account_id.id,
+        'ydental_adjustment_journal_id': source_config.ydental_adjustment_journal_id.id,
+        'ydental_cash_journal_id': source_config.ydental_cash_journal_id.id,
+        'ydental_wechat_journal_id': source_config.ydental_wechat_journal_id.id,
+        'ydental_alipay_journal_id': source_config.ydental_alipay_journal_id.id,
+        'ydental_card_journal_id': source_config.ydental_card_journal_id.id,
+    })
     before = root['account.payment'].search_count([])
     try:
         other._operate('pay', {'invoice_ids': [fixture['old_invoice_ids'][1]],

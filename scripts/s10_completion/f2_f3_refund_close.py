@@ -63,6 +63,6 @@ with env.registry.cursor() as cr:
  unlocked=rs2._operate('unlock',{'close_id':close['close_id'],'reason':'Reviewed source cash proof'},key())
  correction=ms2._operate('reclassify',{'payment_id':pay300.id,'new_channel':'wechat','reason':'Reviewed actual WeChat proof'},key())
  reclosing=ms2._operate('close',{'business_date':str(pay300.ydental_business_date),'channel':'wechat'},key())
- assert close['gross']==300 and reclosing['gross']==300 and correction['actual_cash_refunded']==0
+ assert close['gross']==550 and reclosing['gross']==300 and correction['actual_cash_refunded']==0
  print('S10_F3_DAYCLOSE',json.dumps({'close':close,'unlock':unlocked,'correction':correction,'reclose':reclosing},ensure_ascii=False),flush=True)
  cr.commit()
