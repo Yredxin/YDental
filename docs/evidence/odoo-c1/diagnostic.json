@@ -1,0 +1,17 @@
+{
+  "authorization_comment": 6169133942,
+  "precheck_comment": 6169326455,
+  "starting_head": "0eb9fdb880decc5b81ac65771e35c57b101e2e2d",
+  "odoo_core_head": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "fixed_s10_test_commit": "255b48f54495eb99638af8ffc824771b9a5af3e7",
+  "original_s07_service_sha256": "633da04a93a4ba4f9d28dd748838833558b7f3b45c22d3ac5090d9baaddc8807",
+  "candidate_s07_service_sha256": "df07e1a7eebaec424c13973bf7937bac28defb7f2e27360b3cf6efdecdd2aa2b",
+  "offline_test": {"result": "SIMULATED", "passed": 6, "total": 6, "exit_code": 0},
+  "source_template": {"name": "ydental_s10_test_20261014044700_4f6a8d2c", "oid": 2100080, "filestore_sha_checked": 124, "active_connections_before_create": 0},
+  "new_database": {"name": "ydental_odoo_c1_20261014132000_a84d2c91", "oid": 2100125, "cluster": "7694897083368259627", "port": 18263, "create_exit_code": 0, "check_exit_code": 0},
+  "odoo_shell": {"attempts": 1, "limit": 1, "pid": 2768785, "pg_backend_pid": 528747, "exit_code": 1, "signal11": false, "installed_modules_loaded": 92, "stop_stage": "A.prepare.after_catalog_create", "log_sha256": "19fdc578e528e1260bafdccf1168afaf2e5c562e83d39bb41a3e2b1890cc186b"},
+  "transaction_observation": {"bus_rows_before": 6, "bus_rows_after_catalog": 7, "bus_row_source": "UNKNOWN", "mail_queue_before": 0, "mail_queue_after_catalog": 0, "mail_message_before": 851, "mail_message_after_catalog": 858, "warehouse_before": 1, "warehouse_after_catalog": 1, "inventory_config_before": 0, "inventory_config_after_catalog": 0, "managed_price_before": 0, "managed_price_after_catalog": 0, "account_move_delta": 0, "account_payment_delta": 0, "account_partial_reconcile_delta": 0, "stock_move_delta": 0},
+  "post_rollback": {"bus_rows": 6, "mail_message": 851, "mail_queue": 0, "warehouse": 1, "stock_location": 12, "store": 0, "managed_price": 0, "snapshot": 0, "inventory_config": 0, "audit": 0, "account_move": 0, "account_payment": 0, "account_partial_reconcile": 0, "stock_move": 0, "other_connections": 0, "new_filestore_files_preserved": 2},
+  "scenarios": {"A": "NOT_RUN", "B": "NOT_RUN", "C": "NOT_RUN", "D": "NOT_RUN", "permission_negative": "NOT_RUN"},
+  "status": {"s07_candidate": "NOT_ACCEPTED", "compatibility": "UNRESOLVED", "global_group_policy": "POLICY_PENDING", "native_sigsegv_root_cause": "UNKNOWN", "s10": "BLOCKED", "production": "BLOCKED", "s11": "NOT_STARTED"}
+}

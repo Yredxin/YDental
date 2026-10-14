@@ -161,31 +161,31 @@ class YDentalInventoryService(models.AbstractModel):
         code = self._text(code)
         if len(code) > 5:
             raise ValidationError(self.env._('Warehouse code must have at most five characters.'))
-        # The native second-warehouse path otherwise executes every settings
-        # set_values(), including an unrelated archive of all pricelists when
-        # the pricelist feature is disabled. Apply only the stock location group
-        # needed by that path, with real Settings authority, in this savepoint.
+        # Native warehouse creation can change global groups and execute all
+        # settings set_values(), including pricelist archival. Serialize the
+        # count check with native warehouse writes, then require the Settings
+        # administrator to have configured both global stock groups in advance.
+        self.env.cr.execute('LOCK TABLE stock_warehouse IN SHARE ROW EXCLUSIVE MODE')
         group_user = self.env.ref('base.group_user')
+        self.env.cr.execute('SELECT id FROM res_groups WHERE id = %s FOR UPDATE', [group_user.id])
         multi_warehouse = self.env.ref('stock.group_stock_multi_warehouses')
         multi_location = self.env.ref('stock.group_stock_multi_locations')
-        if multi_warehouse in group_user.implied_ids and multi_location not in group_user.implied_ids:
-            raise UserError(self.env._('configuration_required: Native multi-warehouse group requires storage locations.'))
+        implied_before = set(group_user.implied_ids.ids)
         counts = self._native('stock.warehouse')._read_group(
             [('active', '=', True)], ['company_id'], aggregates=['__count'])
         current = {company.id: count for company, count in counts}
-        needs_group_change = (max([current.get(store.company_id.id, 0) + 1, *current.values()]) > 1
-            and multi_warehouse not in group_user.implied_ids)
-        enabled_location_group = False
-        if needs_group_change:
-            if not self.env.is_system():
-                raise AccessError(self.env._('access_denied: Settings authority is required to enable multiple warehouses.'))
-            if multi_location not in group_user.implied_ids:
-                group_user.sudo()._apply_group(multi_location)
-                enabled_location_group = True
+        next_max = max([current.get(store.company_id.id, 0) + 1, *current.values()])
+        if next_max > 1 and not {multi_warehouse.id, multi_location.id} <= implied_before:
+            raise UserError(self.env._(
+                'configuration_required: A Settings administrator must explicitly enable '
+                'Multiple Warehouses and Storage Locations for internal users before adding this warehouse.'))
+        if next_max <= 1 and multi_warehouse.id in implied_before:
+            raise UserError(self.env._(
+                'configuration_required: The global Multiple Warehouses setting conflicts with the current warehouse count.'))
         warehouse = self._native('stock.warehouse').with_company(store.company_id).create({
             'name': store.name, 'code': code, 'company_id': store.company_id.id, 'ydental_store_id': store.id})
-        if needs_group_change and multi_warehouse not in group_user.implied_ids:
-            raise UserError(self.env._('configuration_required: Native multi-warehouse group did not activate.'))
+        if set(group_user.implied_ids.ids) != implied_before:
+            raise UserError(self.env._('configuration_required: Native warehouse creation changed global user groups.'))
         warehouse.lot_stock_id.write({'ydental_store_id': store.id})
         warehouse.view_location_id.write({'ydental_store_id': store.id})
         values = {'name': store.name, 'ydental_store_id': store.id, 'ydental_warehouse_id': warehouse.id}
@@ -198,8 +198,8 @@ class YDentalInventoryService(models.AbstractModel):
             values['ydental_' + kind + '_id'] = location.id
         config = self._model('config')._new(values)
         return {'id': config.id, 'warehouse_id': warehouse.id,
-            'multi_warehouse_group_enabled': needs_group_change,
-            'multi_location_group_enabled': enabled_location_group}
+            'multi_warehouse_group_enabled': False,
+            'multi_location_group_enabled': False}
 
     def _policy(self, store, near_days, wait_days, low_quantity, reason):
         if type(near_days) is not int or type(wait_days) is not int or not 0 <= near_days <= 3650 or not 0 <= wait_days <= 3650:
