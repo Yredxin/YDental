@@ -1,5 +1,11 @@
 # YDental 当前执行入口
 
+## 当前 S10 Native D1.0/D1.1 有界窗口未复现、根因 UNKNOWN / #34（等待 GPT 独立复核）
+
+- 最新唯一授权为 [#34 GPT-REVIEW/AUTHORIZE6160318169](https://github.com/Yredxin/YDental/issues/34#issuecomment-6160318169)。沿原分支从固定 `a0c579e0840eba3681b252afc8ecbcbb91365e9b` 前进，S10 product `4b168a84254882a2e1e3e5037c372ab57fc3dfdd`、test `255b48f54495eb99638af8ffc824771b9a5af3e7`、Odoo20 core `f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb` 不改；D2 禁止。新私有诊断目录保留旧脚本原样副本，autocommit/IDLE 建库边界修正并完成静态、模拟及只读PG核验。[D1.0 强制检查点6160387186](https://github.com/Yredxin/YDental/issues/34#issuecomment-6160387186) 在建库前已发表并逐字读回。
+- 新唯一合成库 `ydental_s10_test_20261014034100_b9c74e20` / OID2078375 / PG cluster7694897083368259627 / HTTP18249；一次 CREATE exit0。GDB 下安装 PID2436314、只读 shell PID2437004 均 exit0、signal11=0；累计 Odoo 目标2/2、Firefox0、真实财务/库存业务写入0。无 Native C 栈，旧 SIGSEGV 根因继续 UNKNOWN。本窗口未复现不等于修复。详见 [报告](docs/s10-native-d10-d11-window-report.md) 与 [脱敏索引](docs/evidence/s10-native-d10-d11-window/diagnostic.json)。原事故库 OID2056451、旧失败目录、所有日志与卷保留，Project零修改。
+- **S10与生产持续BLOCKED。** 正常提交/推送脱敏证据后，在#34发表`[CODEX] S10 native有界捕获未复现／根因UNKNOWN的复核申请`并用API逐字读回，立即停止等待GPT；不得继续Odoo/Firefox、恢复D2、修改产品/Project、启动S11、合并/强推/部署。
+
 ## 当前 S10 Native D0 已完成、D1 建库命令异常持续 BLOCKED / #34（等待 GPT 独立复核）
 
 - 最新唯一授权 [#34 GPT-AUTHORIZE6160027673](https://github.com/Yredxin/YDental/issues/34#issuecomment-6160027673) 限于旧 native SIGSEGV 的 D0 只读与条件 D1 一次 GDB 窗口，禁止 D2。原分支与远端基线 `f24b0302569aefaa394391da6b696d915e3f0616`、固定 product/test、Odoo20 core 均核对匹配；#23/#34 全部有效内容与 #35 OPEN/0 评论已读，授权后无新 GPT/Codex 裁定。原事故 OID2056451、PG cluster、配置/日志/marker SHA 均重读匹配；S07/S08-C/S09/S10 旧日志逐字节核验，根因仍 UNKNOWN。
