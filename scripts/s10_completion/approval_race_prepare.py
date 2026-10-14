@@ -17,9 +17,10 @@ with env.registry.cursor() as cr:
     manager = root['res.users'].browse(fixture['manager_id'])
     frontdesk = root['res.users'].browse(fixture['frontdesk_id'])
     doctor = root['res.users'].browse(fixture['doctor_id'])
-    root['ydental.access.service']._grant(doctor.id, store.id, {
-        'settlement': 'write', 'finance_approval': 'write'})
     holder = SimpleNamespace(root=root, stores=[store])
+    manager_access = bind(holder, manager).env['ydental.access.service']
+    manager_access._grant(doctor.id, store.id, {
+        'settlement': 'write', 'finance_approval': 'write'})
     service = bind(holder, manager).env['ydental.settlement.service']
     payment = root['ydental.settlement.payment'].browse(fixture['payment240_id'])
     requested = service._operate('refund_request', {'payment_id': payment.id,

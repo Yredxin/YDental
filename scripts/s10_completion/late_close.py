@@ -21,6 +21,7 @@ with env.registry.cursor() as cr:
     review = bind(holder, reviewer).env['ydental.settlement.service']
     yesterday = (datetime.now(timezone.utc) - timedelta(days=1)).isoformat()
     invoice_id = fixture['old_invoice_ids'][1]
+    residual_before = root['account.move'].browse(invoice_id).amount_residual
     payment = service._operate('pay', {'invoice_ids': [invoice_id], 'amount': 10,
         'channel': 'cash', 'actual_utc': yesterday,
         'proof': 'Actual prior-day cash confirmed and entered next day'}, key())
@@ -46,7 +47,8 @@ with env.registry.cursor() as cr:
         'proof': 'Actual prior-day one unit confirmed after finance unlock'}, key())
     second = service._operate('close', {'business_date': str(source.ydental_business_date),
         'channel': 'cash'}, key())
-    assert second['gross'] == 11 and root['account.move'].browse(invoice_id).amount_residual == 259
+    assert second['gross'] == 11
+    assert root['account.move'].browse(invoice_id).amount_residual == residual_before - 11
     print('S10_LATE_CLOSE', json.dumps({'first_payment': payment['payment_id'],
         'actual_at': str(source.ydental_actual_at), 'entered_at': str(source.ydental_entered_at),
         'close': close, 'supplement': supplement, 'reclose': second}), flush=True)

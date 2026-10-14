@@ -19,9 +19,9 @@ from psycopg2 import sql
 ROOT = Path('/home/redxin/code/odoo/odoo-sd/code/sd-addons')
 CORE = ROOT.parent
 STATE = ROOT / '.local'
-NAME = 'ydental_s10_test_20261014014200_c6d31b7a'
+NAME = 'ydental_s10_test_20261014020000_e25f7a93'
 RUN = STATE / NAME
-PORT = 18244
+PORT = 18246
 CLUSTER = '7694897083368259627'
 CORE_SHA = 'f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb'
 BASE_SHA = os.environ['YDENTAL_S10_EXPECTED_SHA']
@@ -133,7 +133,7 @@ def main(action):
     else:
         assert len(sys.argv) == 3
         name = sys.argv[2]
-        assert name in ('f1_740', 'f5_270_200', 'f2_f3_refund_close', 'pending_board', 't09_trade', 'same_company_transfer', 'discount_waive', 'partial_refund', 'concurrency_prepare', 'quantity_correction', 'history_205', 'f6_cross_store', 'refund_race_prepare', 'refund_failure', 'late_close', 'audit_integrity', 'idempotency', 'drug_return', 'security_matrix', 'trade_negative', 'close_race_prepare', 'refund_day_channel', 'paged_finance_history', 'approval_race_prepare', 'approval_race_verify', 'finance_race_prepare', 'finance_race_verify')
+        assert name in ('f1_740', 'f5_270_200', 'f2_f3_refund_close', 'pending_board', 't09_trade', 'same_company_transfer', 'discount_waive', 'partial_refund', 'concurrency_prepare', 'quantity_correction', 'history_205', 'f6_cross_store', 'refund_race_prepare', 'refund_failure', 'late_close', 'audit_integrity', 'idempotency', 'drug_return', 'security_matrix', 'trade_negative', 'close_race_prepare', 'refund_day_channel', 'paged_finance_history', 'approval_race_prepare', 'approval_race_verify', 'finance_race_prepare', 'finance_race_verify', 'refund_pdf_states', 's09_regression')
         probe = ROOT / 'scripts/s10_completion' / (name + '.py')
         assert probe.is_file()
         command += ['shell', '-c', str(RUN / 'odoo.conf'), '--no-http']

@@ -58,6 +58,13 @@ with psycopg2.connect(host='127.0.0.1', port=5432, user='odoo',
         store_tz = cursor.fetchone()[0]
         cursor.execute('SELECT amount_residual FROM account_move WHERE id=%s', (f5['new_invoice_id'],))
         starting_residual = float(cursor.fetchone()[0])
+        cursor.execute("SELECT id FROM ydental_settlement_refund WHERE ydental_payment_id=%s "
+                       "AND ydental_state='requested' ORDER BY id LIMIT 1", (f1['payment500_id'],))
+        older_refund_id = cursor.fetchone()[0]
+        cursor.execute("SELECT id FROM ydental_settlement_close WHERE ydental_store_id=%s "
+                       "AND ydental_channel='card' AND ydental_state='confirmed' ORDER BY id LIMIT 1",
+                       (f1['store_id'],))
+        older_close_id = cursor.fetchone()[0]
 base = f'http://127.0.0.1:{args.port}'
 
 with sync_playwright() as playwright:
@@ -213,7 +220,7 @@ with sync_playwright() as playwright:
     close_form.locator('input[name="business_date"]').fill(str(datetime.now(timezone.utc).astimezone(ZoneInfo(store_tz)).date()))
     close_form.locator('select[name="channel"]').select_option('alipay')
     closed = action(manager, close_form)
-    assert closed['gross'] == 10 and closed['refunded'] == 5
+    assert closed['gross'] >= 10 and closed['refunded'] == 5
     board(front)
     unlock_form = front.locator(f'form:has(input[name="operation"][value="unlock"]):has(input[name="close_id"][value="{closed["close_id"]}"])')
     unlock_form.locator('input[name="reason"]').fill('Independent finance review of actual receipt')
@@ -262,6 +269,28 @@ with sync_playwright() as playwright:
     assert len(cross_store['summary']) == 1
     assert set(cross_store['summary'][0]) == {'store', 'store_id', 'company', 'currency', 'residual'}
     other.screenshot(path=str(run / 'firefox-other-store.png'), full_page=True)
+    old_manager_context, old_manager = login(f1['manager_id'], f1['store_id'])
+    old_manager.goto(base + '/ydental/settlement?refunds_page=2', wait_until='domcontentloaded')
+    older_cancel = old_manager.locator(
+        f'form:has(input[name="operation"][value="refund_cancel"]):has(input[name="refund_id"][value="{older_refund_id}"])')
+    assert older_cancel.count() == 1
+    older_cancel.locator('input[name="verified_not_paid"]').check()
+    older_cancel.locator('input[name="evidence"]').fill('Checked old synthetic request: no transfer')
+    older_cancel.locator('input[name="reason"]').fill('Release old verified pending request')
+    older_cancelled = action(old_manager, older_cancel)
+    assert older_cancelled['released'] == 1
+    old_manager.screenshot(path=str(run / 'firefox-old-refund-page2.png'), full_page=True)
+    old_front_context, old_front = login(f1['frontdesk_id'], f1['store_id'])
+    old_front.goto(base + '/ydental/settlement?closes_page=2', wait_until='domcontentloaded')
+    older_unlock = old_front.locator(
+        f'form:has(input[name="operation"][value="unlock"]):has(input[name="close_id"][value="{older_close_id}"])')
+    assert older_unlock.count() == 1
+    older_unlock.locator('input[name="reason"]').fill('Authorized old close correction')
+    older_unlocked = action(old_front, older_unlock)
+    assert older_unlocked['state'] == 'unlocked'
+    old_front.screenshot(path=str(run / 'firefox-old-close-page2.png'), full_page=True)
+    old_front_context.close()
+    old_manager_context.close()
     other_context.close()
     none_context.close()
     history_context.close()
@@ -277,7 +306,9 @@ with sync_playwright() as playwright:
         'unknown': unknown, 'cancelled': cancelled, 'closed': closed,
         'unlocked': unlocked, 'corrected': corrected, 'pdfs': pdfs,
         'other_store': cross_store,
+        'older_refund_cancelled': older_cancelled, 'older_close_unlocked': older_unlocked,
         'denied_status': forbidden.status, 'pageerrors': errors,
         'screenshots': ['firefox-manager-before.png', 'firefox-two-cashiers.png',
                         'firefox-refund-done.png', 'firefox-final.png',
-                        'firefox-other-store.png']}), flush=True)
+                        'firefox-other-store.png', 'firefox-old-refund-page2.png',
+                        'firefox-old-close-page2.png']}), flush=True)

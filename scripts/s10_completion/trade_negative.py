@@ -1,11 +1,12 @@
 """Cross-company duplicate, authorization, stock and native rollback checks."""
 import json
 import os
+from datetime import timedelta
 from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import patch
 
-from odoo import api
+from odoo import api, fields
 from odoo.exceptions import AccessError, UserError
 from odoo.addons.ydental_treatment_test.tests.common import bind, key
 
@@ -47,6 +48,28 @@ with env.registry.cursor() as cr:
             else:
                 raise AssertionError(f'{label} unexpectedly accepted')
         assert counts() == before, label
+    source_inventory = bind(holder, manager).env['ydental.inventory.service']
+    target = root['ydental.access.store'].browse(fixture['target_store_id'])
+    target_inventory = bind(SimpleNamespace(root=root, stores=[target]), manager).env[
+        'ydental.inventory.service']
+    product_id = root['stock.lot'].browse(fixture['source_lot_id']).product_id.id
+    expired_name = 'S10-EXPIRED-' + key()
+    expired_at = fields.Datetime.to_string(fields.Datetime.now() - timedelta(days=1))
+    expired_source = source_inventory._operate('lot', {'product_id': product_id,
+        'name': expired_name, 'expiration': expired_at}, key())
+    expired_target = target_inventory._operate('lot', {'product_id': product_id,
+        'name': expired_name, 'expiration': expired_at}, key())
+    with cr.savepoint():
+        try:
+            service._operate('trade', payload | {'source_key': key(),
+                'source_lot_id': expired_source['id'],
+                'target_lot_id': expired_target['id']}, key())
+        except UserError as error:
+            assert 'lot_expired:' in str(error)
+            denied.append('expired_company_lots')
+        else:
+            raise AssertionError('Expired lots unexpectedly traded')
+    assert counts() == before
     with patch.object(type(service), '_trade_finish_move',
                       side_effect=UserError('Synthetic native stock failure after both orders')):
         with cr.savepoint():
