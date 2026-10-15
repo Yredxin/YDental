@@ -1,0 +1,11 @@
+# S10-E2E-W3 方案 B CREATE 前预检
+
+- 权威：[#34 授权 6185309077](https://github.com/Yredxin/YDental/issues/34#issuecomment-6185309077)、[W1 GPT 独立复核](https://github.com/Yredxin/YDental/issues/34#issuecomment-6185046690)、[W2-G0 GPT 独立复核](https://github.com/Yredxin/YDental/issues/34#issuecomment-6185255953)。已通过 API GET #23、#29—#34 正文和全部当前评论；#34 共148条，最新为本授权。#35 OPEN/0评论；无新正式授权或并行W3交付。
+- 原分支、本地和远端 HEAD 都是 `a17cf61fadd983aa83ed53c791e79713b83f0b58`；Odoo20 core 是 `f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb`。S10 service blob、S07 service、S10 controller/QWeb 均与授权哈希一致。既有跟踪文件零修改；仅新增允许的 W3 脚本和文档。原Odoo PID42433 属既有开发服务；无并行 W3 Odoo、Firefox或脚本任务。
+- 唯一模板 `ydental_s10_test_20261014044700_4f6a8d2c` / OID2100080 / cluster7694897083368259627 以只读事务重核：精确92已安装模块、18个列名业务/账务表全0、源活动连接0、marker/config哈希相符。124个 filestore 文件逐SHA256与旧固定目录核对；当前69个数据库附件指针指向62个不同文件，每个指针文件SHA1与DB checksum相符。124不是附件指针数，没有据此强行要求相等。详情见 [脱敏预检 JSON](evidence/s10-e2e-w3/preflight.json)。
+- 预选唯一目标 `ydental_s10_test_20261015060000_b6c7d8e9`，当前不存在；127.0.0.1:18278可绑定。CREATE **0**、新Odoo shell/HTTP **0**、Firefox **0**、安装/升级 **0**。不克隆或续作W1 OID2100269。
+- [23步选择器合同](s10-e2e-w3-selector-contract.md)逐步对照当前真实 QWeb、JS、controller 和角色/状态条件。检查任务取 `issued` 医嘱行→真实 `ydental_task_id`→前台队列隐藏 task_id/version，并核本店/患者/映射；首段及续发任务取 issued 处方行→同 order 的实际 segment→队列。不读取检查页不存在的 `.task-id`。检查、药房结束释放连接后才进行下一次明确报到。治疗/药房真实 lot、医生文书、药品 SKU/价关联、财务 cash 日记账及所有 HTML5 required 字段均列入合同。
+- 同一实际 `run()`、`perform()`、每 POST 动作日志和每步事件落盘在 Fake DOM/HTTP/只读SQL 边界完成23步；38个负向故障按预期STOP，包括任一步缺元素、无效表单、旧revision/禁用按钮、错误患者/门店任务、未签发医嘱、检查未交还的报到409、药房未完成409、HTTP409、结算303 denied、重复账单、额外费用及错误药费。离线结果只标 `SIMULATED_PASS`。QWeb与JS静态合同、克隆/单次CREATE及进程停止模拟均PASS。真实只读模板上执行最终 `snapshot()` SQL schema PASS；没有创建业务。
+- Odoo20真实 `configmanager.parse_config` 分别解析最终 shell `odoo-bin shell -c <private config> --no-http` 与 HTTP `odoo-bin -c <private config>`：固定 db_name/dbfilter、loopback端口、worker0、cron0、init/update/test均关闭。预备shell≤600秒、HTTP启动≤180秒且总≤2400秒、单次Playwright/Firefox≤2400秒，运行入口为 `scripts/s10_e2e_w3_control.py` 的 create→prepare→serve+wait-http→browser→stop。预检后若改脚本，必须重做全部离线门槛并在#34发哈希补充，逐字读回后才可CREATE。
+
+**状态：`PREFLIGHT_PASS / CREATE0`。** 只有#34事前检查点 API 逐字读回后，才可按授权进入唯一新库的有界真实Web窗口。W3预检不构成真实GUI或整个S10技术PASS；Native SIGSEGV根因仍UNKNOWN，S10与生产持续BLOCKED。

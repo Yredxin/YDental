@@ -1,0 +1,87 @@
+{
+  "auth_comment": 6185309077,
+  "base_head": "a17cf61fadd983aa83ed53c791e79713b83f0b58",
+  "budgets": {
+    "browser_seconds": 2400,
+    "create": 1,
+    "firefox_launch": 1,
+    "http_process": 1,
+    "http_start_seconds": 180,
+    "http_total_seconds": 2400,
+    "module_install_or_upgrade": 0,
+    "shell_process": 1,
+    "shell_seconds": 600
+  },
+  "commands": {
+    "browser": "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python scripts/s10_e2e_w3_control.py browser",
+    "create": "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python scripts/s10_e2e_w3_control.py create",
+    "prepare": "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python scripts/s10_e2e_w3_control.py prepare",
+    "serve": "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python scripts/s10_e2e_w3_control.py serve",
+    "wait_http": "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python scripts/s10_e2e_w3_control.py wait-http"
+  },
+  "core_head": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "offline": {
+    "action_writer": "ROUND_TRIP_PASS",
+    "actual_run_and_perform_steps": 23,
+    "control_create_failure_gates": "PASS",
+    "negative_cases": 38,
+    "qweb_controller_js": "PASS",
+    "read_only_snapshot_schema": "PASS",
+    "real_odoo20_cli_parser": "PASS",
+    "step_writer": "ROUND_TRIP_PASS"
+  },
+  "remote_head": "a17cf61fadd983aa83ed53c791e79713b83f0b58",
+  "scripts_sha256": {
+    "scripts/s10_e2e_w3_browser.py": "5dc91e1c1e21afd0e687a8af2124c5008d813b47213eb34b870d4a302fd55777",
+    "scripts/s10_e2e_w3_cli_offline.py": "ff2e850cd097fcc75a1b98b9a764c17f399dcbe8249323888fc0daeb92ae73c6",
+    "scripts/s10_e2e_w3_contract.py": "e5e0bb8299a047cbeef4d701398a08c387b4da25ef3ee2eb9bab2cf1369580a5",
+    "scripts/s10_e2e_w3_control.py": "1f824a5aa2b5a47414dbf93ba14fe8e992000763c110b3e7ed70cbf4471b5341",
+    "scripts/s10_e2e_w3_evidence.py": "5b529206a616f1546feb5075d2e7e9be10a7d05141f607218c18e0ac7474179e",
+    "scripts/s10_e2e_w3_flow_offline.py": "a59596a5636d44ce1dcfa297bc39e624d28745d1ac3d9f2f56a50c6160610449",
+    "scripts/s10_e2e_w3_html_offline.py": "ef7559e5c52ee02223390282b48317a69ec72b8aaa8abf264a9ae34f54b2d8ec",
+    "scripts/s10_e2e_w3_offline.py": "472a0a64feb897ce01408e8435d136c79be3d051d250353b864088a1c6a003d4",
+    "scripts/s10_e2e_w3_prepare.py": "5047676218ba910f9d754ee3c41a030c3f704f97a7fbe58f737d44378c0255d7"
+  },
+  "selector_contract_sha256": "77631b39628ef1b683ce2c8cc2ef6659ee044557ebe50f2e115a3f1b588a5172",
+  "source": {
+    "active_connections": 0,
+    "attachment_pointers": 69,
+    "business_counts": {
+      "account_move": 0,
+      "account_partial_reconcile": 0,
+      "account_payment": 0,
+      "mail_mail": 0,
+      "stock_move": 0,
+      "ydental_access_store": 0,
+      "ydental_exam_result": 0,
+      "ydental_intake_task": 0,
+      "ydental_inventory_event": 0,
+      "ydental_patient": 0,
+      "ydental_queue_entry": 0,
+      "ydental_settlement_close": 0,
+      "ydental_settlement_payment": 0,
+      "ydental_settlement_receipt": 0,
+      "ydental_settlement_refund": 0,
+      "ydental_settlement_source": 0,
+      "ydental_treatment_event": 0,
+      "ydental_treatment_fee": 0
+    },
+    "cluster": "7694897083368259627",
+    "config_sha256": "582f73fdee28cac3d9f63d116bb934e0def3b19fa5ddb7e10c054ba1ef20cb43",
+    "database": "ydental_s10_test_20261014044700_4f6a8d2c",
+    "distinct_attachment_files": 62,
+    "filestore_files": 124,
+    "filestore_manifest_sha256": "cd8dec73f198fc285c19ed5f4199aa18b1d5710b6befcbc16fe57730f7974387",
+    "marker_sha256": "df8ff92d38499745b6ecfffaecb7eaff739ff29066c243b13b15b3a1bf99bb7b",
+    "modules": 92,
+    "oid": 2100080
+  },
+  "status": "PREFLIGHT_PASS_CREATE0",
+  "target": {
+    "database": "ydental_s10_test_20261015060000_b6c7d8e9",
+    "port": 18278,
+    "port_free": true,
+    "preexisting_count": 0,
+    "source_oid_marker": 2100080
+  }
+}

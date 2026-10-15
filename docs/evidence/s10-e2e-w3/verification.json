@@ -1,0 +1,671 @@
+{
+  "authorization_comment": 6185309077,
+  "base_head": "a17cf61fadd983aa83ed53c791e79713b83f0b58",
+  "browser": {
+    "bill_harness_assertion": "settlement_http_class expected 303, got 200",
+    "bill_post_http_status_from_server_log": 200,
+    "bill_step_event_logged": false,
+    "completed_steps": [
+      "reserve",
+      "arrive",
+      "report_care",
+      "care_start",
+      "document",
+      "treatment",
+      "exam_order",
+      "prescription",
+      "care_handover",
+      "report_exam",
+      "exam_start",
+      "examination",
+      "report_pharmacy",
+      "pharmacy_start",
+      "dispense_four",
+      "finish_first",
+      "report_remainder",
+      "pharmacy_restart",
+      "dispense_two",
+      "finish_final"
+    ],
+    "last_logged_post": {
+      "http_status": 200,
+      "step": "finish_final",
+      "url": "/ydental/treatment/action"
+    },
+    "logged_posts": 34,
+    "pay_steps_run": false,
+    "private_screenshots": [
+      {
+        "file": "screenshots/01-reserve.png",
+        "sha256": "a5a78d2726d0e249d4c2c101d5b08acbbca294dedf9c95e0860d6b05c305cae0"
+      },
+      {
+        "file": "screenshots/02-arrive.png",
+        "sha256": "7348804ca6353e49f60be996df33a6830dacfc786f697d1f6fc2effec3fcc6b8"
+      },
+      {
+        "file": "screenshots/03-report_care.png",
+        "sha256": "90ebff9d3f70c5d4458477635c6c0f2e6aaf6574f6c69bb382ed7477df906c92"
+      },
+      {
+        "file": "screenshots/04-care_start.png",
+        "sha256": "cedfb6c35d6deba07c4f13bec839dbd28e852f1ca34cd36f89b1bfec720cfcf6"
+      },
+      {
+        "file": "screenshots/05-document.png",
+        "sha256": "69355b82346449491de4ecb775b166246790ed987cc74bafd94ee47b3166d672"
+      },
+      {
+        "file": "screenshots/06-treatment.png",
+        "sha256": "a8aea17a7a180c8f337fa46e595e4a7524d591a4ebef1e4acdf57458f76cb2af"
+      },
+      {
+        "file": "screenshots/07-exam_order.png",
+        "sha256": "0abaf7dcc5f983a76c540905e90221e308f4c0a09937106df3ea764de1e8bdf0"
+      },
+      {
+        "file": "screenshots/08-prescription.png",
+        "sha256": "b1c3ba98f10268b34167b552c8526419439bc4b2729b60e372bda438bc8e01c9"
+      },
+      {
+        "file": "screenshots/09-care_handover.png",
+        "sha256": "f11d6c96397067f60f8de62bbf8082e3314aa397fb3d781d9e5be8392bb95246"
+      },
+      {
+        "file": "screenshots/10-report_exam.png",
+        "sha256": "cd8cb1d6077a778b05ff2f2e268ff5db79369d242b8df3b5687ee07a00204827"
+      },
+      {
+        "file": "screenshots/11-exam_start.png",
+        "sha256": "905cea8395f8bb4a14574d8de5c7e934de78eff1f83bde89db55cda67a96bcc8"
+      },
+      {
+        "file": "screenshots/12-examination.png",
+        "sha256": "5df664547b5e26f421483c157704f3a77f5157a08f16da4cf4c086d64e5b66c7"
+      },
+      {
+        "file": "screenshots/13-report_pharmacy.png",
+        "sha256": "d855a0af1725c3c9f61e0481814e4bb9b7939bf4b5ae5ee7e574b3a440dfd154"
+      },
+      {
+        "file": "screenshots/14-pharmacy_start.png",
+        "sha256": "043e7ace7d283ff9e587012101a8422c7ae9d1dabe46170d838db182dc113e70"
+      },
+      {
+        "file": "screenshots/15-dispense_four.png",
+        "sha256": "cfedc900ccf5a272215171b08ac22cba91577fb4a17312597901f247e3dba687"
+      },
+      {
+        "file": "screenshots/16-finish_first.png",
+        "sha256": "019ad460a493e1abaab2b9d2cec4d46c610bf16418f43af0e15d2e137c49fb49"
+      },
+      {
+        "file": "screenshots/17-report_remainder.png",
+        "sha256": "e8985bcdaf4441eae7697403804cb04dc36c3e25bebdc32548a241dad9af03e3"
+      },
+      {
+        "file": "screenshots/18-pharmacy_restart.png",
+        "sha256": "70315475f04aa431f5e9fc0bd0761b88929e96467dfcaed0b2b1579d2c60021b"
+      },
+      {
+        "file": "screenshots/19-dispense_two.png",
+        "sha256": "10603067ccde5791f27cb44813b5e54ac98203618e200d093a7de3e019d13905"
+      },
+      {
+        "file": "screenshots/20-finish_final.png",
+        "sha256": "381017a697908c5663abf8a5863512bbbc378729ed84977307147e70768bfb6b"
+      }
+    ]
+  },
+  "business": {
+    "account_partial_reconcile": [],
+    "account_payment": [],
+    "audit_economic": [
+      {
+        "count": 1,
+        "event": "exam.actual_performed",
+        "result": "accepted"
+      },
+      {
+        "count": 1,
+        "event": "exam.confirm",
+        "result": "accepted"
+      },
+      {
+        "count": 5,
+        "event": "inventory.movement",
+        "result": "accepted"
+      },
+      {
+        "count": 1,
+        "event": "settlement.bill",
+        "result": "accepted"
+      },
+      {
+        "count": 2,
+        "event": "treatment.actual_dispense",
+        "result": "accepted"
+      },
+      {
+        "count": 4,
+        "event": "treatment.actual_execution",
+        "result": "accepted"
+      },
+      {
+        "count": 2,
+        "event": "treatment.order_issued",
+        "result": "accepted"
+      },
+      {
+        "count": 2,
+        "event": "treatment.pharmacy_segment_finished",
+        "result": "accepted"
+      }
+    ],
+    "inventory": [
+      {
+        "event": null,
+        "id": 1,
+        "lot": 2,
+        "move": 1,
+        "native_quantity": "20.00",
+        "native_state": "done",
+        "quantity": "20.00",
+        "state": "done"
+      },
+      {
+        "event": null,
+        "id": 2,
+        "lot": 1,
+        "move": 2,
+        "native_quantity": "20.00",
+        "native_state": "done",
+        "quantity": "20.00",
+        "state": "done"
+      },
+      {
+        "event": 1,
+        "id": 3,
+        "lot": 2,
+        "move": 3,
+        "native_quantity": "1.00",
+        "native_state": "done",
+        "quantity": "1.00",
+        "state": "done"
+      },
+      {
+        "event": 3,
+        "id": 4,
+        "lot": 1,
+        "move": 4,
+        "native_quantity": "4.00",
+        "native_state": "done",
+        "quantity": "4.00",
+        "state": "done"
+      },
+      {
+        "event": 4,
+        "id": 5,
+        "lot": 1,
+        "move": 5,
+        "native_quantity": "2.00",
+        "native_state": "done",
+        "quantity": "2.00",
+        "state": "done"
+      }
+    ],
+    "invoices": [
+      {
+        "company": 1,
+        "id": 1,
+        "move_type": "out_invoice",
+        "residual": "740.00",
+        "state": "posted",
+        "total": "740.00"
+      }
+    ],
+    "mail_mail": 0,
+    "ydental_exam_result": [
+      {
+        "id": 1,
+        "state": "confirmed",
+        "ydental_event_id": 2,
+        "ydental_line_id": 1,
+        "ydental_version": 2
+      }
+    ],
+    "ydental_intake_snapshot": [
+      {
+        "id": 1,
+        "ydental_amount": "600.00",
+        "ydental_price_id": 1,
+        "ydental_quantity": "1.00",
+        "ydental_unit_price": "600.00"
+      },
+      {
+        "id": 2,
+        "ydental_amount": "80.00",
+        "ydental_price_id": 2,
+        "ydental_quantity": "1.00",
+        "ydental_unit_price": "80.00"
+      },
+      {
+        "id": 3,
+        "ydental_amount": "40.00",
+        "ydental_price_id": 3,
+        "ydental_quantity": "4.00",
+        "ydental_unit_price": "10.00"
+      },
+      {
+        "id": 4,
+        "ydental_amount": "20.00",
+        "ydental_price_id": 3,
+        "ydental_quantity": "2.00",
+        "ydental_unit_price": "10.00"
+      }
+    ],
+    "ydental_intake_task": [
+      {
+        "id": 1,
+        "state": "handed_over",
+        "ydental_mapping_id": 1,
+        "ydental_parent_task_id": null,
+        "ydental_patient_id": 1,
+        "ydental_source_kind": "independent",
+        "ydental_store_id": 1
+      },
+      {
+        "id": 2,
+        "state": "done",
+        "ydental_mapping_id": 3,
+        "ydental_parent_task_id": 1,
+        "ydental_patient_id": 1,
+        "ydental_source_kind": "derived",
+        "ydental_store_id": 1
+      },
+      {
+        "id": 3,
+        "state": "done",
+        "ydental_mapping_id": 9,
+        "ydental_parent_task_id": 1,
+        "ydental_patient_id": 1,
+        "ydental_source_kind": "derived",
+        "ydental_store_id": 1
+      },
+      {
+        "id": 4,
+        "state": "pending",
+        "ydental_mapping_id": 1,
+        "ydental_parent_task_id": 1,
+        "ydental_patient_id": 1,
+        "ydental_source_kind": "continuation",
+        "ydental_store_id": 1
+      },
+      {
+        "id": 5,
+        "state": "done",
+        "ydental_mapping_id": 9,
+        "ydental_parent_task_id": 1,
+        "ydental_patient_id": 1,
+        "ydental_source_kind": "derived",
+        "ydental_store_id": 1
+      }
+    ],
+    "ydental_queue_execution": [
+      {
+        "id": 1,
+        "state": "handover",
+        "ydental_category": "medical",
+        "ydental_task_id": 1
+      },
+      {
+        "id": 2,
+        "state": "completed",
+        "ydental_category": "exam",
+        "ydental_task_id": 2
+      },
+      {
+        "id": 3,
+        "state": "completed",
+        "ydental_category": "pharmacy",
+        "ydental_task_id": 3
+      },
+      {
+        "id": 4,
+        "state": "completed",
+        "ydental_category": "pharmacy",
+        "ydental_task_id": 5
+      }
+    ],
+    "ydental_queue_lease": [
+      {
+        "id": 1,
+        "ydental_active": false,
+        "ydental_release_reason": "holder_exit"
+      },
+      {
+        "id": 2,
+        "ydental_active": false,
+        "ydental_release_reason": "holder_exit"
+      },
+      {
+        "id": 3,
+        "ydental_active": false,
+        "ydental_release_reason": "holder_exit"
+      },
+      {
+        "id": 4,
+        "ydental_active": false,
+        "ydental_release_reason": "holder_exit"
+      }
+    ],
+    "ydental_settlement_payment": [],
+    "ydental_settlement_receipt": [
+      {
+        "id": 1,
+        "ydental_operation": "bill",
+        "ydental_result": {
+          "amount": 740.0,
+          "invoice_id": 1,
+          "residual": 740.0
+        }
+      }
+    ],
+    "ydental_settlement_source": [
+      {
+        "id": 1,
+        "ydental_fee_id": 4,
+        "ydental_invoice_id": 1,
+        "ydental_line_id": 1,
+        "ydental_original_amount": "20.00",
+        "ydental_patient_id": 1
+      },
+      {
+        "id": 2,
+        "ydental_fee_id": 3,
+        "ydental_invoice_id": 1,
+        "ydental_line_id": 2,
+        "ydental_original_amount": "40.00",
+        "ydental_patient_id": 1
+      },
+      {
+        "id": 3,
+        "ydental_fee_id": 2,
+        "ydental_invoice_id": 1,
+        "ydental_line_id": 3,
+        "ydental_original_amount": "80.00",
+        "ydental_patient_id": 1
+      },
+      {
+        "id": 4,
+        "ydental_fee_id": 1,
+        "ydental_invoice_id": 1,
+        "ydental_line_id": 4,
+        "ydental_original_amount": "600.00",
+        "ydental_patient_id": 1
+      }
+    ],
+    "ydental_treatment_event": [
+      {
+        "id": 1,
+        "state": "confirmed",
+        "ydental_actor_id": 7,
+        "ydental_business_date": "2026-10-15",
+        "ydental_execution_id": 1,
+        "ydental_kind": "treatment",
+        "ydental_order_line_id": null,
+        "ydental_patient_id": 1,
+        "ydental_price_snapshot_id": 1,
+        "ydental_quantity": "1.00",
+        "ydental_store_id": 1
+      },
+      {
+        "id": 2,
+        "state": "confirmed",
+        "ydental_actor_id": 12,
+        "ydental_business_date": "2026-10-15",
+        "ydental_execution_id": 2,
+        "ydental_kind": "exam",
+        "ydental_order_line_id": 1,
+        "ydental_patient_id": 1,
+        "ydental_price_snapshot_id": 2,
+        "ydental_quantity": "1.00",
+        "ydental_store_id": 1
+      },
+      {
+        "id": 3,
+        "state": "confirmed",
+        "ydental_actor_id": 13,
+        "ydental_business_date": "2026-10-15",
+        "ydental_execution_id": 3,
+        "ydental_kind": "prescription",
+        "ydental_order_line_id": 2,
+        "ydental_patient_id": 1,
+        "ydental_price_snapshot_id": 3,
+        "ydental_quantity": "4.00",
+        "ydental_store_id": 1
+      },
+      {
+        "id": 4,
+        "state": "confirmed",
+        "ydental_actor_id": 13,
+        "ydental_business_date": "2026-10-15",
+        "ydental_execution_id": 4,
+        "ydental_kind": "prescription",
+        "ydental_order_line_id": 2,
+        "ydental_patient_id": 1,
+        "ydental_price_snapshot_id": 4,
+        "ydental_quantity": "2.00",
+        "ydental_store_id": 1
+      }
+    ],
+    "ydental_treatment_fee": [
+      {
+        "id": 1,
+        "ydental_amount": "600.00",
+        "ydental_event_id": 1,
+        "ydental_patient_id": 1,
+        "ydental_price_snapshot_id": 1,
+        "ydental_unit_price": "600.000000"
+      },
+      {
+        "id": 2,
+        "ydental_amount": "80.00",
+        "ydental_event_id": 2,
+        "ydental_patient_id": 1,
+        "ydental_price_snapshot_id": 2,
+        "ydental_unit_price": "80.000000"
+      },
+      {
+        "id": 3,
+        "ydental_amount": "40.00",
+        "ydental_event_id": 3,
+        "ydental_patient_id": 1,
+        "ydental_price_snapshot_id": 3,
+        "ydental_unit_price": "10.000000"
+      },
+      {
+        "id": 4,
+        "ydental_amount": "20.00",
+        "ydental_event_id": 4,
+        "ydental_patient_id": 1,
+        "ydental_price_snapshot_id": 4,
+        "ydental_unit_price": "10.000000"
+      }
+    ],
+    "ydental_treatment_order": [
+      {
+        "id": 1,
+        "state": "issued",
+        "ydental_kind": "exam",
+        "ydental_patient_id": 1,
+        "ydental_store_id": 1,
+        "ydental_version": 2
+      },
+      {
+        "id": 2,
+        "state": "done",
+        "ydental_kind": "prescription",
+        "ydental_patient_id": 1,
+        "ydental_store_id": 1,
+        "ydental_version": 2
+      }
+    ],
+    "ydental_treatment_segment": [
+      {
+        "id": 1,
+        "state": "done",
+        "ydental_execution_id": 3,
+        "ydental_order_id": 2,
+        "ydental_sequence": 1,
+        "ydental_task_id": 3
+      },
+      {
+        "id": 2,
+        "state": "done",
+        "ydental_execution_id": 4,
+        "ydental_order_id": 2,
+        "ydental_sequence": 2,
+        "ydental_task_id": 5
+      }
+    ]
+  },
+  "preflight_comment": 6185552492,
+  "private_files": {
+    "browser-actions.jsonl": {
+      "bytes": 8144,
+      "sha256": "42fc3fd4a5af0d8604f00c6330ac7e126a614d3b7e0e6b56728bc0c82149bae2"
+    },
+    "browser-attempt.json": {
+      "bytes": 110,
+      "sha256": "e4d2c033893d5a73004d59ad5d24d132485dec7a820c353fd2d201fd207475d7"
+    },
+    "browser-events.jsonl": {
+      "bytes": 1308927,
+      "sha256": "fa2538b8b3587a1f1b90bd8fb06ec6da80fd1726176ac2b39068ddfe2b746d66"
+    },
+    "browser-launch.json.result": {
+      "bytes": 291,
+      "sha256": "2314b047a94a404cce072a16ade7571b148b92101055501c3d0ff63f16d682d6"
+    },
+    "browser.log": {
+      "bytes": 886,
+      "sha256": "f46c091b8e8d2477ff03356d3cd9384f874020af4c922637f4e8f706d0a34361"
+    },
+    "database.json": {
+      "bytes": 868,
+      "sha256": "8b923d1df4f2a285bb65a87779ee3410ef3529319b9cd0bb8a434d8f4be1c736"
+    },
+    "fixture.json": {
+      "bytes": 1184,
+      "sha256": "9492c1fc27f114a8f141edb9e7116d17398ffd484749408d77372c725ca6dc78"
+    },
+    "http.result.json": {
+      "bytes": 294,
+      "sha256": "fdbd44d20dbfd167758b825ce2dd90e1d81dab6f0d0ba55d8ac34c18de99b385"
+    },
+    "odoo-http.log": {
+      "bytes": 104635,
+      "sha256": "a4ccabf99c2d4c1db97bbd249b3d93d3615f870a480660d91e93dfa7507c75ba"
+    },
+    "odoo-prepare.log": {
+      "bytes": 5448,
+      "sha256": "a43a20bbe04443dd3e942e431f7156e52a7d0832ef33b57ccc4a345ad106279d"
+    },
+    "odoo.conf": {
+      "bytes": 637,
+      "sha256": "dfc2d64d3cd32565bd8e901ca547cfe60170f8cc8c0826adfd77ff65c345eb45"
+    },
+    "prepare-attempt.json.result": {
+      "bytes": 292,
+      "sha256": "2c74ce3803f03dc57c716429762e2d75d8a57994e7893ddbdf253b8347fcafe7"
+    }
+  },
+  "qweb_drift": {
+    "controller_html_branch_requires_output_html": true,
+    "controller_sha256": "bfa051971585369f1585d311cfc4553159d4a42ef23b3c54f35d77e53ab4caa2",
+    "installed_contains_output_html": false,
+    "installed_token_arch_sha256": "7160c6c9d525cc4c7790079a944baa052a25bd488b23cbd77db90ad69b4cf0bc",
+    "tracked_contains_output_html": true,
+    "tracked_qweb_sha256": "8f74cffa93a3a24f1d4c4f95a2a006fd698050cda8d27a99924de58770feb329"
+  },
+  "resources": {
+    "browser_result": {
+      "config_sha256": "dfc2d64d3cd32565bd8e901ca547cfe60170f8cc8c0826adfd77ff65c345eb45",
+      "exit_code": 1,
+      "log_bytes": 886,
+      "log_sha256": "f46c091b8e8d2477ff03356d3cd9384f874020af4c922637f4e8f706d0a34361",
+      "oid": 2100285,
+      "pid": 3333227,
+      "signal11": false,
+      "timed_out": false
+    },
+    "create": 1,
+    "firefox_playwright": 1,
+    "http": 1,
+    "http_result": {
+      "config_sha256": "dfc2d64d3cd32565bd8e901ca547cfe60170f8cc8c0826adfd77ff65c345eb45",
+      "exit_code": 0,
+      "log_bytes": 104635,
+      "log_sha256": "a4ccabf99c2d4c1db97bbd249b3d93d3615f870a480660d91e93dfa7507c75ba",
+      "oid": 2100285,
+      "pid": 3333099,
+      "signal11": false,
+      "timed_out": false
+    },
+    "module_install_upgrade": 0,
+    "prepare_result": {
+      "config_sha256": "dfc2d64d3cd32565bd8e901ca547cfe60170f8cc8c0826adfd77ff65c345eb45",
+      "exit_code": 0,
+      "log_bytes": 5448,
+      "log_sha256": "a43a20bbe04443dd3e942e431f7156e52a7d0832ef33b57ccc4a345ad106279d",
+      "oid": 2100285,
+      "pid": 3332873,
+      "signal11": false,
+      "timed_out": false
+    },
+    "prepare_shell": 1
+  },
+  "screenshots": {
+    "aggregate_sha256": "7b2b90a6a558c8bcf536f02b8b4fb2107e55438539b9f144a9ed6e28b88d3b51",
+    "count": 20
+  },
+  "source": {
+    "contains_output_html": false,
+    "database": "ydental_s10_test_20261014044700_4f6a8d2c",
+    "economic_counts": {
+      "account_move": 0,
+      "account_partial_reconcile": 0,
+      "account_payment": 0,
+      "stock_move": 0,
+      "ydental_inventory_event": 0,
+      "ydental_settlement_payment": 0,
+      "ydental_settlement_receipt": 0,
+      "ydental_settlement_source": 0,
+      "ydental_treatment_event": 0,
+      "ydental_treatment_fee": 0
+    },
+    "oid": 2100080,
+    "settlement_tokens_arch_sha256": "7160c6c9d525cc4c7790079a944baa052a25bd488b23cbd77db90ad69b4cf0bc"
+  },
+  "status": "BLOCKED_AFTER_WEB_BILL_COMMIT",
+  "target": {
+    "active_connections_after_http_stop": [],
+    "company_id": 1,
+    "database": "ydental_s10_test_20261015060000_b6c7d8e9",
+    "database_oids": [
+      [
+        "ydental_s10_test_20261014044700_4f6a8d2c",
+        2100080
+      ],
+      [
+        "ydental_s10_test_20261015060000_b6c7d8e9",
+        2100285
+      ]
+    ],
+    "oid": 2100285,
+    "patient_id": 1,
+    "port": 18278,
+    "store_id": 1
+  }
+}
