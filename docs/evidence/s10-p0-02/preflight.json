@@ -1,0 +1,2070 @@
+{
+  "allowed_views": [
+    "ydental_settlement.ydental_queue_page",
+    "ydental_settlement.ydental_settlement_page",
+    "ydental_settlement.ydental_settlement_page_links",
+    "ydental_settlement.ydental_settlement_pdf",
+    "ydental_settlement.ydental_settlement_tokens"
+  ],
+  "authorization_comment": 6191214820,
+  "branch": "codex/s10-settlement-finance-r1-20261013",
+  "browser_argv": [
+    "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+    "/home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s10_p0_02_browser.py"
+  ],
+  "budgets": {
+    "create": 1,
+    "firefox": 1,
+    "http": 1,
+    "negative_posts": 2,
+    "reject": 1,
+    "shell": 0,
+    "unlock": 1,
+    "upgrade": 1
+  },
+  "budgets_used": {
+    "create": 0,
+    "firefox": 0,
+    "http": 0,
+    "negative_posts": 0,
+    "reject": 0,
+    "shell": 0,
+    "unlock": 0,
+    "upgrade": 0
+  },
+  "cli_parser": {
+    "commands": {
+      "http": {
+        "argv": [
+          "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+          "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+          "-c",
+          "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261015_p002_6d84a2c1/odoo.conf"
+        ],
+        "http_enable": true,
+        "max_cron_threads": 0,
+        "stop_after_init": false,
+        "update": {}
+      },
+      "upgrade": {
+        "argv": [
+          "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+          "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+          "-c",
+          "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261015_p002_6d84a2c1/odoo.conf",
+          "-u",
+          "ydental_settlement",
+          "--stop-after-init",
+          "--no-http"
+        ],
+        "http_enable": false,
+        "max_cron_threads": 0,
+        "stop_after_init": true,
+        "update": {
+          "ydental_settlement": true
+        }
+      }
+    },
+    "status": "REAL_CLI_PARSER_PASS"
+  },
+  "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "create_sql": "CREATE DATABASE \"ydental_s10_test_20261015_p002_6d84a2c1\" WITH TEMPLATE \"ydental_s10_test_20261014020300_8b6c1d4e\"",
+  "head": "021ff462bfc2bd739871e99e4c4472eb389b3001",
+  "http_argv": [
+    "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+    "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+    "-c",
+    "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261015_p002_6d84a2c1/odoo.conf"
+  ],
+  "module_write_date_candidates": [
+    "account",
+    "account_check_printing",
+    "account_debit_note",
+    "account_edi",
+    "account_edi_proxy_client",
+    "account_edi_ubl_cii",
+    "account_fleet",
+    "account_payment",
+    "account_payment_custom",
+    "account_payment_interco",
+    "account_peppol",
+    "account_qr_code_emv",
+    "account_qr_code_sepa",
+    "account_tax_python",
+    "account_test",
+    "account_update_tax_tags",
+    "analytic",
+    "api_doc",
+    "attachment_indexation",
+    "auth_ldap",
+    "auth_oauth",
+    "auth_passkey",
+    "auth_passkey_portal",
+    "auth_password_policy",
+    "auth_password_policy_portal",
+    "auth_password_policy_signup",
+    "auth_signup",
+    "auth_timeout",
+    "auth_totp",
+    "auth_totp_mail",
+    "auth_totp_portal",
+    "barcodes",
+    "barcodes_gs1_nomenclature",
+    "base",
+    "base_address_extended",
+    "base_automation",
+    "base_geolocalize",
+    "base_import",
+    "base_import_module",
+    "base_install_request",
+    "base_report_paper_muncher",
+    "base_report_wkhtmltox",
+    "base_setup",
+    "base_sparse_field",
+    "board",
+    "bus",
+    "calendar",
+    "calendar_sms",
+    "certificate",
+    "cloud_storage",
+    "cloud_storage_azure",
+    "cloud_storage_google",
+    "cloud_storage_migration",
+    "contacts",
+    "crm",
+    "crm_iap_enrich",
+    "crm_iap_mine",
+    "crm_livechat",
+    "crm_mail_plugin",
+    "crm_sale_project",
+    "crm_sms",
+    "data_recycle",
+    "delivery",
+    "digest",
+    "event",
+    "event_booth",
+    "event_booth_sale",
+    "event_crm",
+    "event_crm_sale",
+    "event_product",
+    "event_sale",
+    "event_sms",
+    "fleet",
+    "fleet_maintenance",
+    "gamification",
+    "gamification_sale_crm",
+    "google_account",
+    "google_address_autocomplete",
+    "google_calendar",
+    "google_gmail",
+    "google_recaptcha",
+    "hr",
+    "hr_address_extended",
+    "hr_attendance",
+    "hr_calendar",
+    "hr_calendar_google",
+    "hr_expense",
+    "hr_fleet",
+    "hr_gamification",
+    "hr_holidays",
+    "hr_holidays_attendance",
+    "hr_livechat",
+    "hr_maintenance",
+    "hr_presence",
+    "hr_recruitment",
+    "hr_recruitment_skills",
+    "hr_recruitment_sms",
+    "hr_recruitment_survey",
+    "hr_skills",
+    "hr_skills_event",
+    "hr_skills_slides",
+    "hr_skills_survey",
+    "hr_timesheet",
+    "hr_timesheet_attendance",
+    "hr_work_entry",
+    "html_builder",
+    "html_editor",
+    "http_routing",
+    "iap",
+    "iap_crm",
+    "iap_mail",
+    "im_livechat",
+    "iot_drivers",
+    "iot_webserial",
+    "l10n_account_edi_ubl_cii_tests",
+    "l10n_account_withholding_tax",
+    "l10n_account_withholding_tax_pos",
+    "l10n_ae",
+    "l10n_ae_pos",
+    "l10n_anz_ubl_pint",
+    "l10n_ar",
+    "l10n_ar_pos",
+    "l10n_ar_stock",
+    "l10n_ar_website_sale",
+    "l10n_ar_withholding",
+    "l10n_at",
+    "l10n_au",
+    "l10n_bd",
+    "l10n_be",
+    "l10n_be_pos",
+    "l10n_be_pos_restaurant",
+    "l10n_be_pos_sale",
+    "l10n_bf",
+    "l10n_bg",
+    "l10n_bg_ledger",
+    "l10n_bh",
+    "l10n_bj",
+    "l10n_bo",
+    "l10n_br",
+    "l10n_br_sales",
+    "l10n_br_website_sale",
+    "l10n_ca",
+    "l10n_cd",
+    "l10n_cf",
+    "l10n_cg",
+    "l10n_ch",
+    "l10n_ch_pos",
+    "l10n_ci",
+    "l10n_cl",
+    "l10n_cm",
+    "l10n_cn",
+    "l10n_co",
+    "l10n_co_pos",
+    "l10n_cr",
+    "l10n_cy",
+    "l10n_cz",
+    "l10n_de",
+    "l10n_din5008",
+    "l10n_din5008_expense",
+    "l10n_din5008_purchase",
+    "l10n_din5008_repair",
+    "l10n_din5008_sale",
+    "l10n_din5008_stock",
+    "l10n_dk",
+    "l10n_dk_fik",
+    "l10n_do",
+    "l10n_dz",
+    "l10n_ec",
+    "l10n_ec_sale",
+    "l10n_ee",
+    "l10n_eg",
+    "l10n_eg_edi_eta",
+    "l10n_eg_edi_pos",
+    "l10n_es",
+    "l10n_es_edi_facturae",
+    "l10n_es_edi_sii",
+    "l10n_es_edi_tbai",
+    "l10n_es_edi_tbai_pos",
+    "l10n_es_edi_verifactu",
+    "l10n_es_edi_verifactu_pos",
+    "l10n_es_pos",
+    "l10n_es_website_sale",
+    "l10n_et",
+    "l10n_eu_account_vies",
+    "l10n_eu_oss",
+    "l10n_fi",
+    "l10n_fi_sale",
+    "l10n_fr",
+    "l10n_fr_account",
+    "l10n_fr_facturx_chorus_pro",
+    "l10n_fr_hr_holidays",
+    "l10n_fr_payment",
+    "l10n_fr_pdp",
+    "l10n_fr_pdp_pos",
+    "l10n_fr_pos_cert",
+    "l10n_ga",
+    "l10n_gcc_invoice",
+    "l10n_gcc_invoice_stock_account",
+    "l10n_gcc_pos",
+    "l10n_ge",
+    "l10n_gf",
+    "l10n_gn",
+    "l10n_gp",
+    "l10n_gq",
+    "l10n_gr",
+    "l10n_gr_edi",
+    "l10n_gr_edi_delivery_note",
+    "l10n_gr_edi_e_invoo",
+    "l10n_gt",
+    "l10n_gw",
+    "l10n_hk",
+    "l10n_hn",
+    "l10n_hr",
+    "l10n_hr_edi",
+    "l10n_hr_kuna",
+    "l10n_hu",
+    "l10n_hu_edi",
+    "l10n_id",
+    "l10n_id_efaktur_coretax",
+    "l10n_id_pos",
+    "l10n_id_pos_self_order_qris",
+    "l10n_ie",
+    "l10n_il",
+    "l10n_in",
+    "l10n_in_boe",
+    "l10n_in_edi",
+    "l10n_in_ewaybill",
+    "l10n_in_ewaybill_irn",
+    "l10n_in_ewaybill_stock",
+    "l10n_in_hr_holidays",
+    "l10n_in_pos",
+    "l10n_in_purchase_stock",
+    "l10n_in_sale",
+    "l10n_in_sale_stock",
+    "l10n_in_stock",
+    "l10n_iq",
+    "l10n_it",
+    "l10n_it_edi",
+    "l10n_it_edi_doi",
+    "l10n_it_edi_sale",
+    "l10n_it_stock_ddt",
+    "l10n_jo",
+    "l10n_jo_edi",
+    "l10n_jo_edi_pos",
+    "l10n_jp",
+    "l10n_jp_ubl_pint",
+    "l10n_ke",
+    "l10n_ke_edi_tremol",
+    "l10n_kh",
+    "l10n_km",
+    "l10n_kr",
+    "l10n_kr_sale",
+    "l10n_kw",
+    "l10n_kz",
+    "l10n_latam_check",
+    "l10n_latam_invoice_document",
+    "l10n_lb_account",
+    "l10n_lk",
+    "l10n_lt",
+    "l10n_lu",
+    "l10n_lv",
+    "l10n_ma",
+    "l10n_mc",
+    "l10n_mk",
+    "l10n_ml",
+    "l10n_mm",
+    "l10n_mn",
+    "l10n_mq",
+    "l10n_mr",
+    "l10n_mt",
+    "l10n_mt_pos",
+    "l10n_mu_account",
+    "l10n_mx",
+    "l10n_my",
+    "l10n_my_edi",
+    "l10n_my_edi_pos",
+    "l10n_my_ubl_pint",
+    "l10n_mz",
+    "l10n_ne",
+    "l10n_ng",
+    "l10n_nl",
+    "l10n_no",
+    "l10n_nz",
+    "l10n_om",
+    "l10n_pa",
+    "l10n_pe",
+    "l10n_pe_pos",
+    "l10n_ph",
+    "l10n_ph_invoice",
+    "l10n_ph_sale",
+    "l10n_pk",
+    "l10n_pk_edi",
+    "l10n_pk_edi_pos",
+    "l10n_pl",
+    "l10n_pl_edi",
+    "l10n_pl_edi_jst",
+    "l10n_pt",
+    "l10n_qa",
+    "l10n_re",
+    "l10n_ro",
+    "l10n_ro_edi",
+    "l10n_ro_edi_stock",
+    "l10n_rs",
+    "l10n_rs_edi",
+    "l10n_rw",
+    "l10n_sa",
+    "l10n_sa_edi",
+    "l10n_sa_edi_pos",
+    "l10n_sa_pos",
+    "l10n_se",
+    "l10n_sg",
+    "l10n_sg_ubl_pint",
+    "l10n_si",
+    "l10n_sk",
+    "l10n_sn",
+    "l10n_syscohada",
+    "l10n_td",
+    "l10n_test_pos_qr_payment",
+    "l10n_tg",
+    "l10n_th",
+    "l10n_tn",
+    "l10n_tr",
+    "l10n_tw",
+    "l10n_tw_edi_ecpay",
+    "l10n_tw_edi_ecpay_pos",
+    "l10n_tw_edi_ecpay_sale",
+    "l10n_tw_edi_ecpay_website_sale",
+    "l10n_tz_account",
+    "l10n_ua",
+    "l10n_ug",
+    "l10n_uk",
+    "l10n_us",
+    "l10n_us_account",
+    "l10n_uy",
+    "l10n_uz",
+    "l10n_ve",
+    "l10n_vn",
+    "l10n_vn_edi_viettel",
+    "l10n_vn_edi_viettel_pos",
+    "l10n_vn_edi_viettel_stock",
+    "l10n_yt",
+    "l10n_za",
+    "l10n_zm_account",
+    "link_tracker",
+    "loyalty",
+    "lunch",
+    "mail",
+    "mail_bot",
+    "mail_bot_hr",
+    "mail_group",
+    "mail_plugin",
+    "mail_tracking",
+    "mail_tracking_mass_mailing",
+    "mail_tracking_sms",
+    "maintenance",
+    "marketing_card",
+    "marketing_card_event",
+    "mass_mailing",
+    "mass_mailing_crm",
+    "mass_mailing_crm_sms",
+    "mass_mailing_event",
+    "mass_mailing_event_sms",
+    "mass_mailing_event_track",
+    "mass_mailing_event_track_sms",
+    "mass_mailing_sale",
+    "mass_mailing_sale_sms",
+    "mass_mailing_slides",
+    "mass_mailing_sms",
+    "mass_mailing_themes",
+    "microsoft_account",
+    "microsoft_calendar",
+    "microsoft_outlook",
+    "mrp",
+    "mrp_account",
+    "mrp_delivery",
+    "mrp_landed_costs",
+    "mrp_product_expiry",
+    "mrp_repair",
+    "mrp_subcontracting",
+    "mrp_subcontracting_account",
+    "mrp_subcontracting_dropshipping",
+    "mrp_subcontracting_landed_costs",
+    "mrp_subcontracting_purchase",
+    "mysubscription",
+    "onboarding",
+    "partner_autocomplete",
+    "partnership",
+    "payment",
+    "payment_adyen",
+    "payment_aps",
+    "payment_asiapay",
+    "payment_authorize",
+    "payment_buckaroo",
+    "payment_custom",
+    "payment_demo",
+    "payment_dpo",
+    "payment_ecpay",
+    "payment_flutterwave",
+    "payment_iyzico",
+    "payment_mercado_pago",
+    "payment_mollie",
+    "payment_nuvei",
+    "payment_paymob",
+    "payment_paypal",
+    "payment_payu",
+    "payment_razorpay",
+    "payment_redsys",
+    "payment_stripe",
+    "payment_toss_payments",
+    "payment_worldline",
+    "payment_xendit",
+    "phone_validation",
+    "point_of_sale",
+    "populate",
+    "portal",
+    "portal_discuss",
+    "portal_rating",
+    "pos_account_tax_python",
+    "pos_adyen",
+    "pos_bancontact_pay",
+    "pos_cashdro",
+    "pos_cashmatic",
+    "pos_discount",
+    "pos_dpopay",
+    "pos_edi_ubl",
+    "pos_event",
+    "pos_event_sale",
+    "pos_glory_cash",
+    "pos_hr",
+    "pos_hr_restaurant",
+    "pos_imin",
+    "pos_loyalty",
+    "pos_mercado_pago",
+    "pos_mollie",
+    "pos_mrp",
+    "pos_online_payment",
+    "pos_online_payment_self_order",
+    "pos_partner_autocomplete",
+    "pos_pine_labs",
+    "pos_qfpay",
+    "pos_razorpay",
+    "pos_repair",
+    "pos_restaurant",
+    "pos_restaurant_loyalty",
+    "pos_safaricom",
+    "pos_sale",
+    "pos_sale_delivery",
+    "pos_sale_loyalty",
+    "pos_sale_margin",
+    "pos_sale_stock",
+    "pos_self_order",
+    "pos_self_order_bancontact_pay",
+    "pos_self_order_event",
+    "pos_self_order_pine_labs",
+    "pos_self_order_qfpay",
+    "pos_self_order_razorpay",
+    "pos_self_order_sale",
+    "pos_self_order_sms",
+    "pos_sms",
+    "pos_stock",
+    "pos_stripe",
+    "pos_viva_com",
+    "printer",
+    "privacy_lookup",
+    "product",
+    "product_email_template",
+    "product_expiry",
+    "product_margin",
+    "product_matrix",
+    "project",
+    "project_account",
+    "project_hr_expense",
+    "project_hr_skills",
+    "project_mail_plugin",
+    "project_mrp",
+    "project_mrp_account",
+    "project_mrp_sale",
+    "project_mrp_stock_landed_costs",
+    "project_purchase",
+    "project_purchase_stock",
+    "project_sale_expense",
+    "project_sms",
+    "project_stock",
+    "project_stock_account",
+    "project_stock_landed_costs",
+    "project_timesheet_holidays",
+    "project_todo",
+    "purchase",
+    "purchase_alternative",
+    "purchase_alternative_sale",
+    "purchase_alternative_stock",
+    "purchase_edi_ubl_bis3",
+    "purchase_mrp",
+    "purchase_product_matrix",
+    "purchase_repair",
+    "purchase_requisition",
+    "purchase_requisition_stock",
+    "purchase_stock",
+    "rating",
+    "repair",
+    "resource",
+    "resource_mail",
+    "rpc",
+    "sale",
+    "sale_crm",
+    "sale_edi_ubl",
+    "sale_expense",
+    "sale_expense_margin",
+    "sale_gelato",
+    "sale_gelato_stock",
+    "sale_loyalty",
+    "sale_loyalty_delivery",
+    "sale_management",
+    "sale_margin",
+    "sale_mrp",
+    "sale_mrp_margin",
+    "sale_pdf_quote_builder",
+    "sale_product_matrix",
+    "sale_project",
+    "sale_project_margin",
+    "sale_project_stock",
+    "sale_project_stock_account",
+    "sale_purchase",
+    "sale_purchase_project",
+    "sale_purchase_stock",
+    "sale_service",
+    "sale_sms",
+    "sale_stock",
+    "sale_stock_margin",
+    "sale_stock_product_expiry",
+    "sale_timesheet",
+    "sale_timesheet_margin",
+    "sales_team",
+    "sms",
+    "sms_twilio",
+    "snailmail",
+    "snailmail_account",
+    "social_media",
+    "spreadsheet",
+    "spreadsheet_account",
+    "spreadsheet_dashboard",
+    "spreadsheet_dashboard_account",
+    "spreadsheet_dashboard_event_sale",
+    "spreadsheet_dashboard_hr_expense",
+    "spreadsheet_dashboard_hr_timesheet",
+    "spreadsheet_dashboard_im_livechat",
+    "spreadsheet_dashboard_pos_hr",
+    "spreadsheet_dashboard_pos_restaurant",
+    "spreadsheet_dashboard_sale",
+    "spreadsheet_dashboard_sale_timesheet",
+    "spreadsheet_dashboard_stock_account",
+    "spreadsheet_dashboard_website_sale",
+    "spreadsheet_dashboard_website_sale_slides",
+    "stock",
+    "stock_account",
+    "stock_delivery",
+    "stock_dropshipping",
+    "stock_fleet",
+    "stock_landed_costs",
+    "stock_maintenance",
+    "stock_sms",
+    "survey",
+    "survey_crm",
+    "test_assetsbundle",
+    "test_base",
+    "test_base_automation",
+    "test_crm_full",
+    "test_data_module",
+    "test_data_module_install",
+    "test_discuss_full",
+    "test_event_full",
+    "test_html_field_history",
+    "test_http",
+    "test_import_export",
+    "test_inherit",
+    "test_inherit_depends",
+    "test_inherits_depends",
+    "test_l10n",
+    "test_lint",
+    "test_mail",
+    "test_mail_full",
+    "test_mail_sms",
+    "test_main_flows",
+    "test_mass_mailing",
+    "test_populate",
+    "test_resource",
+    "test_sale_product_configurators",
+    "test_sale_purchase_edi_ubl",
+    "test_spreadsheet",
+    "test_tests",
+    "test_translation",
+    "test_translation_mode",
+    "test_uninstall",
+    "test_utm",
+    "test_web",
+    "test_website",
+    "test_website_modules",
+    "test_website_slides_full",
+    "theme_default",
+    "uom",
+    "utm",
+    "web",
+    "web_hierarchy",
+    "web_tour",
+    "web_unsplash",
+    "website",
+    "website_address_autocomplete",
+    "website_blog",
+    "website_cf_turnstile",
+    "website_crm",
+    "website_crm_iap_reveal",
+    "website_crm_livechat",
+    "website_crm_partner_assign",
+    "website_crm_sms",
+    "website_customer",
+    "website_event",
+    "website_event_booth",
+    "website_event_booth_exhibitor",
+    "website_event_booth_sale",
+    "website_event_booth_sale_exhibitor",
+    "website_event_crm",
+    "website_event_exhibitor",
+    "website_event_sale",
+    "website_event_track",
+    "website_event_track_live",
+    "website_event_track_live_quiz",
+    "website_event_track_quiz",
+    "website_forum",
+    "website_google_map",
+    "website_hr_recruitment",
+    "website_hr_recruitment_livechat",
+    "website_links",
+    "website_livechat",
+    "website_mail",
+    "website_mail_group",
+    "website_mass_mailing",
+    "website_mass_mailing_event",
+    "website_mass_mailing_sms",
+    "website_partner",
+    "website_partnership",
+    "website_payment",
+    "website_profile",
+    "website_project",
+    "website_sale",
+    "website_sale_collect",
+    "website_sale_gelato",
+    "website_sale_loyalty",
+    "website_sale_mass_mailing",
+    "website_sale_mrp",
+    "website_sale_project",
+    "website_sale_slides",
+    "website_sale_stock",
+    "website_slides",
+    "website_slides_forum",
+    "website_slides_survey",
+    "website_sms",
+    "website_timesheet",
+    "ydental_access",
+    "ydental_access_test",
+    "ydental_base",
+    "ydental_clinical",
+    "ydental_clinical_test",
+    "ydental_exam",
+    "ydental_exam_test",
+    "ydental_intake",
+    "ydental_intake_test",
+    "ydental_inventory",
+    "ydental_inventory_test",
+    "ydental_patient",
+    "ydental_patient_test",
+    "ydental_print",
+    "ydental_print_test",
+    "ydental_queue",
+    "ydental_queue_test",
+    "ydental_settlement",
+    "ydental_settlement_test",
+    "ydental_space",
+    "ydental_space_test",
+    "ydental_supply",
+    "ydental_supply_test",
+    "ydental_treatment",
+    "ydental_treatment_test"
+  ],
+  "offline": {
+    "cases": {
+      "PASS": "SIMULATED_PASS",
+      "acl": "FAIL_CLOSED",
+      "bad_role": "FAIL_CLOSED",
+      "business": "FAIL_CLOSED",
+      "clone_business": "FAIL_CLOSED",
+      "economy": "FAIL_CLOSED",
+      "http200": "FAIL_CLOSED",
+      "http403": "FAIL_CLOSED",
+      "http409": "FAIL_CLOSED",
+      "invalid_html": "FAIL_CLOSED",
+      "lost_response": "FAIL_CLOSED",
+      "missing_csrf": "FAIL_CLOSED",
+      "missing_key": "FAIL_CLOSED",
+      "missing_output": "FAIL_CLOSED",
+      "missing_record": "FAIL_CLOSED",
+      "model_data": "FAIL_CLOSED",
+      "module_other_field": "FAIL_CLOSED",
+      "module_state": "FAIL_CLOSED",
+      "module_version": "FAIL_CLOSED",
+      "negative_accepted": "FAIL_CLOSED",
+      "old_qweb": "FAIL_CLOSED",
+      "other_lang": "FAIL_CLOSED",
+      "other_view": "FAIL_CLOSED",
+      "partial_money": "FAIL_CLOSED",
+      "schema": "FAIL_CLOSED",
+      "source_oid": "FAIL_CLOSED",
+      "stale_revision": "FAIL_CLOSED",
+      "unbounded_module": "FAIL_CLOSED",
+      "wrong_page": "FAIL_CLOSED"
+    },
+    "count": 29,
+    "status": "SIMULATED_PASS"
+  },
+  "port": 18285,
+  "prior_source_check": {
+    "seven_prior_table_signatures_equal": {
+      "account_move": true,
+      "account_partial_reconcile": true,
+      "account_payment": true,
+      "ydental_access_grant": true,
+      "ydental_settlement_close": true,
+      "ydental_settlement_payment": true,
+      "ydental_settlement_refund": true
+    }
+  },
+  "scripts_sha256": {
+    "scripts/s10_p0_02_browser.py": "6ad8ddaebc6bee705289014a196aa93647e5610f72be5835070dcdcd165174dc",
+    "scripts/s10_p0_02_cli_offline.py": "62b9e28cd7fe1c95f87a29dfff4ccf5ee31803663039010a591007f52f3160c8",
+    "scripts/s10_p0_02_control.py": "2c244d026c48bcb3a495b4cfec561502d7c27b74c31c34f66bc88ec1e0c059c4",
+    "scripts/s10_p0_02_offline.py": "010450c55e5c8346b62a7f71ddd854b320ae9710cbbdebd22d8db91b95aa9ff6",
+    "scripts/s10_p0_02_preflight.py": "ade30ee22acfb6312554fe93428f8a786fd3910339c88f61ea32a3bbfcb48121",
+    "scripts/s10_p0_02_snapshot.py": "63195243e0b902f46b5fd1db24ce6cd97123b52ba3d65963bdeab7b7d5b84bbb"
+  },
+  "source": {
+    "attachment_pointers": 1070,
+    "business": {
+      "close9": [
+        "confirmed",
+        "1",
+        "5",
+        "2026-07-15",
+        "card",
+        "1",
+        "0.00",
+        "0.00",
+        "0.00"
+      ],
+      "close9_latest": 9,
+      "close_page2_ids": [
+        9,
+        8,
+        7,
+        6,
+        5
+      ],
+      "closes_count": 55,
+      "grants": [
+        [
+          5,
+          1,
+          "finance_approval",
+          "write"
+        ],
+        [
+          5,
+          1,
+          "settlement",
+          "write"
+        ],
+        [
+          6,
+          1,
+          "finance_approval",
+          "write"
+        ],
+        [
+          6,
+          1,
+          "settlement",
+          "write"
+        ],
+        [
+          14,
+          3,
+          "finance_approval",
+          "write"
+        ],
+        [
+          14,
+          3,
+          "settlement",
+          "write"
+        ],
+        [
+          14,
+          4,
+          "settlement",
+          "write"
+        ]
+      ],
+      "refund14": [
+        "requested",
+        "5",
+        "1",
+        "1.00",
+        null,
+        null
+      ],
+      "refund_page2_ids": [
+        14,
+        13,
+        12,
+        11,
+        10,
+        9,
+        8,
+        7,
+        6,
+        5,
+        4,
+        3,
+        2
+      ],
+      "refunds_count": 63
+    },
+    "database": "ydental_s10_test_20261014020300_8b6c1d4e",
+    "filestore": {
+      "count": 184,
+      "sha256": "b325817771a580474b632108ea11f373b319567626c5d434e72a047bc556b549"
+    },
+    "installed_count": 92,
+    "module_count": 702,
+    "oid": 2056451,
+    "protected_other_rows": {
+      "ydental_settlement_close_excluding_9": {
+        "rows": 62,
+        "sha256": "f4fe281043ef640f625e758e18dbcd460b7493891a58c2f55546806201684ef2"
+      },
+      "ydental_settlement_refund_excluding_14": {
+        "rows": 65,
+        "sha256": "421c53bfec7510fdca340b088bd3af2790a735595ebe28a08b102a36f2687679"
+      }
+    },
+    "schema": {
+      "columns": 3495,
+      "constraints": 3019,
+      "indexes": 909,
+      "sha256": "3e2c00487260472ad97ca84a68b7e4c1717364715df7e930ecba6ac766f70b1e"
+    },
+    "table_count": 265,
+    "tables": {
+      "account_account": {
+        "rows": 172,
+        "sha256": "6e1293955937a409ce57fc26a54b8359b6bb2adcbfdaceda0797c085981631b3"
+      },
+      "account_account_account_merge_wizard_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_account_account_tag": {
+        "rows": 26,
+        "sha256": "885ceaf40f3728efc895a9261c1a545f8ff389bf6fc8f3ef4feeb2986d9d3609"
+      },
+      "account_account_res_company_rel": {
+        "rows": 172,
+        "sha256": "1e10b1ca7363c2cbb60d3a924f2426a66d25ff9643766b4f3733c32429eb2334"
+      },
+      "account_account_tag": {
+        "rows": 3,
+        "sha256": "83a7d2cfba6c155d1ad944be93990f91ade0181afc25041b3288033916f16dc7"
+      },
+      "account_account_tag_account_move_line_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_account_tag_account_tax_repartition_line_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_account_tag_product_template_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_account_tax_default_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_accrued_orders_wizard": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_analytic_account": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_analytic_applicability": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_analytic_distribution_model": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_analytic_line": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_analytic_line_stock_move_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_analytic_plan": {
+        "rows": 1,
+        "sha256": "ab51e46069ff461d0c6e9767fd6369db55aa41c30f1c5a8ae84b8abdaaf35871"
+      },
+      "account_automatic_entry_wizard": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_automatic_entry_wizard_account_move_line_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_autopost_bills_wizard": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_bank_statement": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_bank_statement_ir_attachment_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_bank_statement_line": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_cash_rounding": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_cash_rounding_account_payment_method_line_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_cash_rounding_res_currency_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_cash_rounding_res_partner_category_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_financial_year_op": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_fiscal_position": {
+        "rows": 4,
+        "sha256": "849a28f1d6ea9127406a608adb29e7cddcd7ba752edcecf640bbff5faca516d4"
+      },
+      "account_fiscal_position_account": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_fiscal_position_account_tax_rel": {
+        "rows": 8,
+        "sha256": "08e0b7fb939263a0e91b6951dbf97baa87a0ad16595796e96794f453a1122ec9"
+      },
+      "account_fiscal_position_res_country_state_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_full_reconcile": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_incoterms": {
+        "rows": 11,
+        "sha256": "dd24b8bf54fa6fe586efd0024accc0f5d064d8aa07a00742a523f5840f530a5b"
+      },
+      "account_invoice_transaction_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_journal": {
+        "rows": 50,
+        "sha256": "b03c25b0fee9004f64eda6214793c8bdbf584646a32bbd1d3cbbfab32f37fda6"
+      },
+      "account_journal_account_reconcile_model_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_journal_group": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_lock_exception": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_merge_wizard": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_merge_wizard_line": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_move": {
+        "rows": 93,
+        "sha256": "f6b4499bb0f7f0bdcd06a52a7a03cf8389b094d7b5d2966b70e76abc55098139"
+      },
+      "account_move__account_payment": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_move_account_move_send_batch_wizard_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_move_account_resequence_wizard_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_move_line": {
+        "rows": 191,
+        "sha256": "d6c1629b3cd90df79713329d011f5255a485ed3c8c27ad92e43886a48ee81db1"
+      },
+      "account_move_line_account_tax_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_move_purchase_order_rel": {
+        "rows": 1,
+        "sha256": "25fdb865c31cfd8b4b93fbe2b03f74d3435304769f3087a1476d9f8525b6768d"
+      },
+      "account_move_reversal": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_move_reversal_move": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_move_reversal_new_move": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_move_send_batch_wizard": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_move_send_wizard": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_move_send_wizard_res_partner_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_move_validate_account_move_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_partial_reconcile": {
+        "rows": 73,
+        "sha256": "2a604690d6662c5efa5dcc4851bf5e78f3c19693a02074dfbdb539fe61f0d78b"
+      },
+      "account_payment": {
+        "rows": 70,
+        "sha256": "87ae455fe68f26401afdb2e77801f36894035ca76e2fcc062772245681ab556c"
+      },
+      "account_payment_account_bank_statement_line_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_payment_method": {
+        "rows": 2,
+        "sha256": "44a408c4592c3871db29e7d43fe2761f38386bf773976c34ac168e0582cd72cd"
+      },
+      "account_payment_method_line": {
+        "rows": 76,
+        "sha256": "7b7e78e62990296dec2d4d18e8009a16b36b6a9d76af14b564bc83dfe7b3e7b8"
+      },
+      "account_payment_register": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_payment_register_move_line_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_payment_term": {
+        "rows": 10,
+        "sha256": "408e7c1099234e19d6c9549dd103e1273c13016c5df76bc77f6310d6ac640d6f"
+      },
+      "account_payment_term_line": {
+        "rows": 11,
+        "sha256": "7717668fb58f278d4a1ed2c4b488036177c62dcf686b568c7c3a7298465523c2"
+      },
+      "account_reconcile_model": {
+        "rows": 4,
+        "sha256": "e9a6001286416802114600328d850ea38bcda0c9daef676b5f85b1420a4b9148"
+      },
+      "account_reconcile_model_line": {
+        "rows": 4,
+        "sha256": "9245fae7fc21b66ea1530fd4e129fa67388870384f04206e901ed6155dad8e77"
+      },
+      "account_reconcile_model_line_account_tax_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_reconcile_model_res_partner_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_report": {
+        "rows": 3,
+        "sha256": "5336c799cabc1fbc343eeeb69d93fda2c47e12731959b62ac8ab28d932eead01"
+      },
+      "account_report_column": {
+        "rows": 6,
+        "sha256": "6061a1af4f1aa3652a380edde1c33edc5e351acb91160fe058061e34505eb475"
+      },
+      "account_report_expression": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_report_external_value": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_report_line": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_report_section_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_resequence_wizard": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_secure_entries_wizard": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_setup_bank_manual_config": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_tax": {
+        "rows": 8,
+        "sha256": "9a7d4e546a52fb71bd8b08c59adcff9064097a90c31adaf108fb4de0337cb134"
+      },
+      "account_tax_alternatives": {
+        "rows": 4,
+        "sha256": "712ac3893c4d7f93f3760d1d49d3985e9c364d2f666022fe84c7c31895b10d37"
+      },
+      "account_tax_filiation_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_tax_group": {
+        "rows": 4,
+        "sha256": "99fcb079aeb027ef706eedbfba7255e21d9a413b0da7ef192683826d7b812c24"
+      },
+      "account_tax_purchase_order_line_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "account_tax_repartition_line": {
+        "rows": 32,
+        "sha256": "7ac2b7905a44f2192204296f02e1a57d4ef56db42a42604bc2ee741f9b961830"
+      },
+      "account_tax_sale_order_line_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "ir_attachment": {
+        "rows": 1071,
+        "sha256": "c986dad856ea0985c07e519a3a9cc0ac58547b65562ae51894a0b9e5eb52cc37"
+      },
+      "ir_model": {
+        "rows": 591,
+        "sha256": "affa04786d732161253954d3e15a04a494b47634a6353f6ca31f98e8712bf871"
+      },
+      "ir_model_data": {
+        "rows": 25592,
+        "sha256": "f1d301b29323d6ee69423240c461944f74dc827988f2ec942f7d6f68876b3ca2"
+      },
+      "ir_model_fields": {
+        "rows": 11380,
+        "sha256": "0a87703861709226564c2a8454eac25d848f355e4c478f13553ccd0da6196246"
+      },
+      "ir_module_module": {
+        "rows": 702,
+        "sha256": "39d9f299f73dfcda8258c0fdb47f306d13df008e24af79da99d4acc6a7f99ecc"
+      },
+      "ir_ui_view": {
+        "rows": 1600,
+        "sha256": "d0a37202b85b4994fac5ac4405a91250da65f007a24907efd1ad362ed62cfd0f"
+      },
+      "mail_followers": {
+        "rows": 483,
+        "sha256": "b3b604efa53479e21b5c021206b489000bff11747d396e6c80ec32906308a753"
+      },
+      "mail_message": {
+        "rows": 1728,
+        "sha256": "1ef16644f6556da7535097f1c73bea51cea06d217f3f9abf14d9d3710755154d"
+      },
+      "product_pricelist": {
+        "rows": 12,
+        "sha256": "f92a00f6f2a595506208f4ed4ae46815991748848859667024168fe49b1cf966"
+      },
+      "product_pricelist_item": {
+        "rows": 12,
+        "sha256": "007c2864e5230dc9c6c740f970dfcd7e6610fb75fd0cf5ae072f3a43f8fe6f72"
+      },
+      "product_product": {
+        "rows": 77,
+        "sha256": "3f4929f3220850d1fd5ab2ddb87c7dcf66cce8f7f732581cb694f1de5919376e"
+      },
+      "product_template": {
+        "rows": 77,
+        "sha256": "a9443da92fe3c93357ec26bf7f7bd2d68c8dbf5e067f21ec164865e9d9d3e110"
+      },
+      "res_company": {
+        "rows": 2,
+        "sha256": "5131b617fc694b211dcd9b2ba7009b9a94a1b2dec9f10f7d7996625c18004c13"
+      },
+      "res_groups": {
+        "rows": 68,
+        "sha256": "b2daceef8ffd2c6c50a5f5f942c91390113cc6300e2dd67724c1237ca2595128"
+      },
+      "res_partner": {
+        "rows": 115,
+        "sha256": "480457180c5cbe8640d107ee2225a2990fc98348aa50cf7d0bc720f139937fa6"
+      },
+      "res_users": {
+        "rows": 103,
+        "sha256": "fc153fd7fe740a16584e1a5895e103d39c54678d39eb3927a86240c05da7720e"
+      },
+      "stock_add_to_wave": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_add_to_wave_stock_move_line_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_add_to_wave_stock_picking_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_backorder_confirmation": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_backorder_confirmation_line": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_conflict_quant_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_inventory_adjustment_name": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_inventory_adjustment_name_stock_quant_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_inventory_conflict": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_inventory_conflict_stock_quant_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_inventory_warning": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_inventory_warning_stock_quant_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_location": {
+        "rows": 185,
+        "sha256": "2f3b0451a54d05ecdee2e8e367d19d50f1b77511c1ce6f65836e96762d0218e6"
+      },
+      "stock_location_label_layout": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_location_stock_picking_type_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_lot": {
+        "rows": 25,
+        "sha256": "a7c7987c880902ccc41b3bb44ffcdc1aec719bcf1ef834500864ff8208f597a3"
+      },
+      "stock_move": {
+        "rows": 238,
+        "sha256": "cd8215edd3033e587ac1be4ca5efee6922c8535c0c402b5751002b4069847fd2"
+      },
+      "stock_move_created_purchase_line_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_move_line": {
+        "rows": 238,
+        "sha256": "51304617e9918893e8749c38db3fdcf0e3acbf81f4eefebdcfa4a06b3bea0fd8"
+      },
+      "stock_move_line_consume_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_move_line_stock_package_destination_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_move_line_stock_put_in_pack_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_move_move_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_move_stock_scrap_reason_tag_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_orderpoint_snooze": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_orderpoint_snooze_stock_warehouse_orderpoint_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_orderpoint_suggest": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_orderpoint_suggest_stock_warehouse_orderpoint_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_package": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_package_destination": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_package_history": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_package_history_stock_picking_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_package_label_layout": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_package_stock_put_in_pack_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_package_type": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_package_type_stock_putaway_rule_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_package_type_stock_route_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_picking": {
+        "rows": 2,
+        "sha256": "980eb8d99809e9ee7c3be43588acf8ca37ece298e01b76da550fc626ea299164"
+      },
+      "stock_picking_backorder_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_picking_batch": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_picking_sms_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_picking_stock_zero_demand_confirmation_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_picking_to_batch": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_picking_type": {
+        "rows": 112,
+        "sha256": "b3e63b2de0e1cc35fcf0a8f8673f51907421de9cf1280c80f0680121033de678"
+      },
+      "stock_picking_type_label_layout": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_put_in_pack": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_putaway_rule": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_quant": {
+        "rows": 38,
+        "sha256": "be2ad77809be384237ae8e83b6ad607db60d67084c5af43357ff78f9a4786228"
+      },
+      "stock_quant_relocate": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_quant_stock_quant_relocate_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_quant_stock_request_count_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_reference": {
+        "rows": 2,
+        "sha256": "3c6010b0cd2ac0cf39bb29bdd69bff5cd7084b7483464f18745f8cabc15e23e7"
+      },
+      "stock_reference_move_rel": {
+        "rows": 2,
+        "sha256": "0027b3c4e3e77180eaa726238fc367ab7a22b6d11676c822177930833a846c13"
+      },
+      "stock_reference_purchase_rel": {
+        "rows": 1,
+        "sha256": "130597c73ff2aa307b3afbc22b272ffc043c20cacf31c4756c068b035195e027"
+      },
+      "stock_reference_sale_rel": {
+        "rows": 1,
+        "sha256": "86df232688047a782677109aae35b5bd751b8dd0c162199c6c68e2f24328a8cb"
+      },
+      "stock_replenishment_info": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_replenishment_option": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_request_count": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_route": {
+        "rows": 30,
+        "sha256": "860e1fe7d0eae6c2096dd8394ae16a845059ac334f10f6caa326fb21c466a829"
+      },
+      "stock_route_categ": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_route_move": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_route_product": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_route_stock_rules_report_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_route_warehouse": {
+        "rows": 42,
+        "sha256": "b5f0ba5cfb58ff790e929febab7f4253ad0f4c51f4c02a06748b392c49927546"
+      },
+      "stock_rule": {
+        "rows": 43,
+        "sha256": "fbd1fea1aad8fc7899a2b37613a35649f0d1d647ca70aab93940da58ce5d6080"
+      },
+      "stock_rules_report": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_rules_report_stock_warehouse_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_scrap_reason_tag": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_storage_category": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_storage_category_capacity": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_traceability_report": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_warehouse": {
+        "rows": 14,
+        "sha256": "d1642fc801f7dda86f01e44f55f680fc7d126faa4486c98be0a9b7d7af5c8d9f"
+      },
+      "stock_warehouse_orderpoint": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_warn_insufficient_qty_scrap": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_wh_resupply_table": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stock_zero_demand_confirmation": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "ydental_access_audit": {
+        "rows": 2654,
+        "sha256": "493409a1a989f446c78817efa101a2452bf7497e79556bf40dac0ce0d4c27bff"
+      },
+      "ydental_access_capability": {
+        "rows": 44,
+        "sha256": "9fde647c879e268b13b524e1dfbd8095ca7372024a91040b013f3885effff9da"
+      },
+      "ydental_access_capability_ydental_space_resource_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "ydental_access_capability_ydental_supply_slot_rel": {
+        "rows": 89,
+        "sha256": "0707a43db71a2a300a6d9678a31d3a91ca0f7f48ff935a9ad98d85b931fd4b84"
+      },
+      "ydental_access_grant": {
+        "rows": 354,
+        "sha256": "eb4938e0e75482ba84d35c8a4b79b661ae30f109898e0da6cd0bdfe837aa3ad8"
+      },
+      "ydental_access_membership": {
+        "rows": 177,
+        "sha256": "187a10ecbd17027aaaab8ce92972983552228efd7718d55850f95d00f50eed55"
+      },
+      "ydental_access_session": {
+        "rows": 176,
+        "sha256": "e2170f8877e4a75953f68a28a40007780b3a2b5fbf8530622c1d51d505eb026c"
+      },
+      "ydental_access_store": {
+        "rows": 23,
+        "sha256": "d747019937c2770f61d529a95e391aa14a9074660625b395cba23c37221f185a"
+      },
+      "ydental_access_template": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "ydental_clinical_document": {
+        "rows": 11,
+        "sha256": "cc219fe33930b6c4bd0bcf4f47d2af73bad7c63743c35c8af3d37ab50cf0e98d"
+      },
+      "ydental_clinical_version": {
+        "rows": 16,
+        "sha256": "5292310898c40b2b698608cae6b5ac7b1dc666fd1629b438c3c275e656eb6515"
+      },
+      "ydental_exam_qualification": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "ydental_exam_receipt": {
+        "rows": 14,
+        "sha256": "5fcd76ed829d364519e5d3a543d1302629f1153b9c9d241362a0782c8d132f41"
+      },
+      "ydental_exam_result": {
+        "rows": 2,
+        "sha256": "4b626949074c854193735be62aee4c90db98fd506f76f828d28dbffc85234c0c"
+      },
+      "ydental_exam_template": {
+        "rows": 3,
+        "sha256": "80512ae13dc835c01a74ff1eafbc3e12278d848f3acafc206e73df0a505c16f3"
+      },
+      "ydental_exam_version": {
+        "rows": 4,
+        "sha256": "fef61f8b14c71098093b773a77c0d67df089b63fe2a2a779ea3bb04eb17bb7ff"
+      },
+      "ydental_intake_arrival": {
+        "rows": 11,
+        "sha256": "9705b99ad8dac609ed139e4cd881f5abe66f1f222411087a73e824331dacf8f3"
+      },
+      "ydental_intake_catalog": {
+        "rows": 55,
+        "sha256": "e9e04c19c67697a690580c4234dfa9529bc785b54e781637d4e4abc3a9e65525"
+      },
+      "ydental_intake_entitlement": {
+        "rows": 11,
+        "sha256": "10c69bcbdf7389d6aff965c837cef016f1c2576ef8e7bb35fe9010edd1a70c87"
+      },
+      "ydental_intake_mapping": {
+        "rows": 99,
+        "sha256": "d24932cf17e063674df03c70c18585526ae564821ab7fcdc813fe117340bc7e6"
+      },
+      "ydental_intake_mutex": {
+        "rows": 1,
+        "sha256": "5798e6319374f651af04b971fcb2ebadb9914fc2fc65af1a6f718e7ad83e0db1"
+      },
+      "ydental_intake_operation": {
+        "rows": 250,
+        "sha256": "786fe19ad02c84577621466080454ae6f14bf300dfefce7fef9283bd3424be23"
+      },
+      "ydental_intake_position": {
+        "rows": 17,
+        "sha256": "921a519e0431d7f70407d5165d71c3a6a19b035dfb802b093861b52fe79ae43c"
+      },
+      "ydental_intake_price": {
+        "rows": 12,
+        "sha256": "cf53f1acc1d86a4380529e84d32e58dfbd17dc369ce2711a9cce2ddcb7ed798c"
+      },
+      "ydental_intake_referral": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "ydental_intake_snapshot": {
+        "rows": 224,
+        "sha256": "a367c07fe67d53c26b480927e02f6d8fb97847bbebc7a5b10730e49757d4c7ff"
+      },
+      "ydental_intake_task": {
+        "rows": 22,
+        "sha256": "5e978990ad5f9634c6a9f85dd8695cd1efb14971c7fdf68205e5bd462ee276c2"
+      },
+      "ydental_inventory_batch": {
+        "rows": 26,
+        "sha256": "c9628ca69b94dcbd081300c4698f25ba7e07f79dd90470da84d0881c3ccac704"
+      },
+      "ydental_inventory_config": {
+        "rows": 13,
+        "sha256": "6aee6672b3bfdba196a4284d8b7f594efd685840098af80883d6c1f26944765e"
+      },
+      "ydental_inventory_event": {
+        "rows": 236,
+        "sha256": "4f4b1d9275dd0c381824860cc5cc69f78a0dc090e80462fa0fd5339ee0ca8244"
+      },
+      "ydental_inventory_mutex": {
+        "rows": 1,
+        "sha256": "43018e609fc5eebfdff260f2488f754849cf6fbce3e611a3a8e8928a812a8529"
+      },
+      "ydental_inventory_operation": {
+        "rows": 73,
+        "sha256": "1e0024f6c6e5a6d099c8c161bd0254458c2be8414272d41afa7aa8e24ec47f71"
+      },
+      "ydental_patient": {
+        "rows": 10,
+        "sha256": "15051cf7e50a93bc99df7e1da260a51dd5c7dc4db05a61f5966ac81f59fde34f"
+      },
+      "ydental_patient_clinical": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "ydental_patient_contact": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "ydental_patient_merge": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "ydental_patient_mutex": {
+        "rows": 1,
+        "sha256": "1e915e8e0018f1140f221b0e086b7ef9c06c0b7847ddd242f689b0baf75348ab"
+      },
+      "ydental_patient_number": {
+        "rows": 10,
+        "sha256": "c81db4b9c66bf9530b114a8219767f6cf3c6d56a9fd178662433f690c6166369"
+      },
+      "ydental_patient_operation": {
+        "rows": 11,
+        "sha256": "b2a2587b7a7aa1761e5d763c16253678c041d8b451a99a7a33e6f51bf915c299"
+      },
+      "ydental_patient_policy": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "ydental_patient_relation": {
+        "rows": 11,
+        "sha256": "f86ae673f195939eab2725a4fbec95bd7096769b668237994c8b4f06ab217e7b"
+      },
+      "ydental_print_job": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "ydental_queue_append_permit": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "ydental_queue_cleanup": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "ydental_queue_cleanup_ydental_queue_entry_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "ydental_queue_entry": {
+        "rows": 17,
+        "sha256": "e1c8105c36e3a9d7bfbd667eed19436cc904647f9c2314aa1cebef5139306bbf"
+      },
+      "ydental_queue_execution": {
+        "rows": 17,
+        "sha256": "151a1355d1dbf075bbd45f787bee94a2abd7f3eee1f34bf30bfaf9e996a64cd4"
+      },
+      "ydental_queue_hold": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "ydental_queue_lease": {
+        "rows": 17,
+        "sha256": "f06ab0de7c62d0ac2dec5943feb52229abec17d2e4bb096cd0799021f77eae5a"
+      },
+      "ydental_queue_mutex": {
+        "rows": 1,
+        "sha256": "444fcb977813627a00d9fc4efae537ac1538c84d33f4b9c72627c2e6990abac7"
+      },
+      "ydental_queue_outbox": {
+        "rows": 229,
+        "sha256": "463dc27d2f3410921c98e8cb7fe42c765f8cc1ebafddb37ae4792bc173263c82"
+      },
+      "ydental_queue_scope": {
+        "rows": 99,
+        "sha256": "391dda0741819c9ac0c4dc375d68814e598e3227efe1ba5a38944b626fad921b"
+      },
+      "ydental_queue_screen_token": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "ydental_settlement_close": {
+        "rows": 63,
+        "sha256": "ca61ad29d704854be5ebbe179901567b0522bf19c7049215fcfe7327be65fb35"
+      },
+      "ydental_settlement_config": {
+        "rows": 10,
+        "sha256": "a9d29967255e686f5c562fee8ec9945e2b4d077e0d6819d12e4fff0578c28a0f"
+      },
+      "ydental_settlement_correction": {
+        "rows": 2,
+        "sha256": "be95a622baec0a1ff661109e59a90c23a669ef38ec13461feb5e9eccac454b9a"
+      },
+      "ydental_settlement_mutex": {
+        "rows": 1,
+        "sha256": "0c98e69b3af530775168de1edab15700214afd09a346ea28bed88929a9d892b0"
+      },
+      "ydental_settlement_payment": {
+        "rows": 66,
+        "sha256": "67e6082a4c0b6a8ff1e84be55db58206fcdd41831bb2869abcdc5d138a44207a"
+      },
+      "ydental_settlement_payment_invoice_rel": {
+        "rows": 68,
+        "sha256": "aec719544e3c0c4fa6f8ec8fd5070a8ab850f1f9a07085f16a806e7fd41b7ccb"
+      },
+      "ydental_settlement_receipt": {
+        "rows": 241,
+        "sha256": "cb1c1fa91737630e0c877fea63b08a22ab6ca19bdf2983ed56760f4091c94ed2"
+      },
+      "ydental_settlement_refund": {
+        "rows": 66,
+        "sha256": "3d17e073547e2c5f4949fddc89d052ba5a668e1b8984d8d1817668265b32fb25"
+      },
+      "ydental_settlement_refund_credit_rel": {
+        "rows": 4,
+        "sha256": "5e4c4805876be6fc31051b8587aa80602d9aff9eab47ad14969e2f7b7e165b6b"
+      },
+      "ydental_settlement_source": {
+        "rows": 17,
+        "sha256": "7eac619148acb7e584e3ac1069d40c3be32c4a125163bb70f480f086e2caccee"
+      },
+      "ydental_settlement_trade": {
+        "rows": 1,
+        "sha256": "f08a63b0904b77b369db97cf0b9b068a17066f1cdc1c3f06ec0f56eafab28dc9"
+      },
+      "ydental_space_area": {
+        "rows": 99,
+        "sha256": "e9487d0a44461bd05c091f91f3574d2b96074ad8e782c0170565d8cd87f60078"
+      },
+      "ydental_space_floor": {
+        "rows": 22,
+        "sha256": "19be80385083b6b28318e4d6593103bb8bf95f929fe4ff734c3c7b8cfc9cebd9"
+      },
+      "ydental_space_item": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "ydental_space_resource": {
+        "rows": 7,
+        "sha256": "90e403788c492d9c1b9c9b6f9eac31d3ca1301f4e63d632971ea7bf514465f6a"
+      },
+      "ydental_space_station": {
+        "rows": 110,
+        "sha256": "6879de96716ad549ba51f965ff161172e2b2b12208f32819977e37a0898e1557"
+      },
+      "ydental_space_station_add_rel": {
+        "rows": 110,
+        "sha256": "d02114a1833ef6b4086ce0a534a49bdcbba7f1b391c92d95d675ad8349af30bc"
+      },
+      "ydental_space_station_remove_rel": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "ydental_supply_assignment": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "ydental_supply_business": {
+        "rows": 100,
+        "sha256": "944668a0b64fd830720af47e7859ad73327c3a77c8da58d826ce299c68922f3e"
+      },
+      "ydental_supply_claim": {
+        "rows": 11,
+        "sha256": "5535e1c4aa740ad9510901f256e3f09b0d59fdf957ac536b89840f84fa79b2bc"
+      },
+      "ydental_supply_disposition": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "ydental_supply_event": {
+        "rows": 322,
+        "sha256": "2fc6c557c99f077020b1bb4db81dd46ca56072f59c80a763e6550c9b121c2083"
+      },
+      "ydental_supply_feedback": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "ydental_supply_mutex": {
+        "rows": 1,
+        "sha256": "eae5b23c87e88c5786609fd651d77889f01e23f17c81c0eff36ff139da24c21d"
+      },
+      "ydental_supply_operation": {
+        "rows": 322,
+        "sha256": "ab446a617195d234dd588c65fb592971db02ab48a12a5d9e1ef2a8432a45b832"
+      },
+      "ydental_supply_policy": {
+        "rows": 22,
+        "sha256": "fb7701e461575a1f32c8ceeec3d5de671ea8f01c4478166f1f864f6d156c8b0e"
+      },
+      "ydental_supply_slot": {
+        "rows": 89,
+        "sha256": "4380e5827dd4dd576d1c2a5f98628186fb55619c20c2b9e5386aa86cc4cd03de"
+      },
+      "ydental_treatment_consumption": {
+        "rows": 223,
+        "sha256": "bde56caeb985453995338b37f29a55a3f3a2a70f80854c9828b83622051ae27d"
+      },
+      "ydental_treatment_event": {
+        "rows": 226,
+        "sha256": "e3578b5505070ba1f1f28b25d24cf3eb2f378c4a2e8a7bd297a2fee58bbdedcd"
+      },
+      "ydental_treatment_fee": {
+        "rows": 225,
+        "sha256": "9338635dce520485bd22eff002ecef6902d0ed370d5dd4d6470f7cf431a6d484"
+      },
+      "ydental_treatment_line": {
+        "rows": 5,
+        "sha256": "a652b605516154758df214c14d64e0a5139b72133cf01e10aeed52cd5deb6d55"
+      },
+      "ydental_treatment_medicine_link": {
+        "rows": 2,
+        "sha256": "af34359aa5f50e012cab88bcbe7f07c7726b30b953d2a7e88b5ab16727815646"
+      },
+      "ydental_treatment_order": {
+        "rows": 4,
+        "sha256": "7f8c74ef2496cdc45e684b227e807eeca9d7a3f919880defe0c49b521c9c3308"
+      },
+      "ydental_treatment_price_review": {
+        "rows": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "ydental_treatment_receipt": {
+        "rows": 239,
+        "sha256": "fbb1ea4e05cbdc4c4776334e4ecb2a02c898e085a452f7d196177b32fb9f5146"
+      },
+      "ydental_treatment_segment": {
+        "rows": 4,
+        "sha256": "e3d3ee63dd1a79979ca02a27890eb430b548714496fe9ccd912bd8807843ac34"
+      }
+    },
+    "views": {
+      "ydental_settlement.ydental_queue_page": {
+        "languages": {
+          "en_US": {
+            "has_output_html": false,
+            "sha256": "1f484c8d4699966e6f67859f473515cccad91d14b65431bc66839a94c9219e04"
+          },
+          "zh_CN": {
+            "has_output_html": false,
+            "sha256": "1f484c8d4699966e6f67859f473515cccad91d14b65431bc66839a94c9219e04"
+          }
+        }
+      },
+      "ydental_settlement.ydental_settlement_page": {
+        "languages": {
+          "en_US": {
+            "has_output_html": false,
+            "sha256": "bfabb0343b6be7768ed837f6a66da161f02fbbc73c9f64e11b2594adde34e60c"
+          },
+          "zh_CN": {
+            "has_output_html": false,
+            "sha256": "bfabb0343b6be7768ed837f6a66da161f02fbbc73c9f64e11b2594adde34e60c"
+          }
+        }
+      },
+      "ydental_settlement.ydental_settlement_page_links": {
+        "languages": {
+          "en_US": {
+            "has_output_html": false,
+            "sha256": "0ecf03c7043048ed239842c1e1f5a6180efcc3b03f570e12e5fa0ef96f8c9bc1"
+          },
+          "zh_CN": {
+            "has_output_html": false,
+            "sha256": "0ecf03c7043048ed239842c1e1f5a6180efcc3b03f570e12e5fa0ef96f8c9bc1"
+          }
+        }
+      },
+      "ydental_settlement.ydental_settlement_pdf": {
+        "languages": {
+          "en_US": {
+            "has_output_html": false,
+            "sha256": "e5234c69fb9a9b56b322208ba83b017b566729504a4963e469d92734f068ede6"
+          },
+          "zh_CN": {
+            "has_output_html": false,
+            "sha256": "e5234c69fb9a9b56b322208ba83b017b566729504a4963e469d92734f068ede6"
+          }
+        }
+      },
+      "ydental_settlement.ydental_settlement_tokens": {
+        "languages": {
+          "en_US": {
+            "has_output_html": false,
+            "sha256": "7160c6c9d525cc4c7790079a944baa052a25bd488b23cbd77db90ad69b4cf0bc"
+          }
+        }
+      }
+    }
+  },
+  "source_config_sha256": "34f2a7cff12ef31c69090fb7b1f990b008bebf850290e2747d868c6a9d8ae778",
+  "source_marker_sha256": "96d261798a4b4370772d5700ba8516dd7677d2568f2b3fda80d3572b94a644e6",
+  "status": "PREFLIGHT_PASS_NO_CREATE_YET",
+  "target": "ydental_s10_test_20261015_p002_6d84a2c1",
+  "upgrade_argv": [
+    "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+    "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+    "-c",
+    "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261015_p002_6d84a2c1/odoo.conf",
+    "-u",
+    "ydental_settlement",
+    "--stop-after-init",
+    "--no-http"
+  ]
+}
