@@ -1,0 +1,327 @@
+{
+  "attachment_pointers_checked": 164,
+  "classification": "OBSERVED_READONLY",
+  "cluster": "7694897083368259627",
+  "config_sha256": "f0a8ad4d715e4a6f316d7c1117e39ce9f743953284af2fa7088ce3eb66feed86",
+  "counts": {
+    "account_move": 0,
+    "account_partial_reconcile": 0,
+    "account_payment": 0,
+    "ydental_exam_result": 0,
+    "ydental_settlement_close": 0,
+    "ydental_settlement_payment": 0,
+    "ydental_settlement_receipt": 0,
+    "ydental_settlement_refund": 0,
+    "ydental_settlement_source": 0
+  },
+  "db_now": "2026-10-15T05:29:01.062359+00:00",
+  "document_editor_expired_at_snapshot": true,
+  "filestore_files": 150,
+  "filestore_inventory_sha256": "52042ed17ffcebb33f98661d75d4eaf640bc05628211009e361bffec76e3d6ae",
+  "lease_expired_at_snapshot": true,
+  "marker_sha256": "2f8730e5092bafb0554d7c6e80c2d3a6dc5fa0f0800b36be7860ee95e67fed0a",
+  "private_row_hashes": {
+    "stock_move": {
+      "count": 3,
+      "sha256": "bc3cba783b65a528f1ace427bd66b8b9cb747874c9d625b4c1a40619ac3c08c5"
+    },
+    "ydental_access_audit": {
+      "count": 236,
+      "sha256": "0bd70fb1590bb0416fe5027cdef91b7920bb8e59579438d934757a4347b8a95e"
+    },
+    "ydental_clinical_document": {
+      "count": 1,
+      "sha256": "1c8cf0c408401b9f59caf13399b9cf82a8ef3d43d13f93880f7b58a2eff39ee8"
+    },
+    "ydental_clinical_version": {
+      "count": 1,
+      "sha256": "75b096d3f6443d431e1ba94948cbdc641c32ded9b12bba83ebd2c09dae98417a"
+    },
+    "ydental_intake_snapshot": {
+      "count": 1,
+      "sha256": "4b09ca1c02e95c759854ac6b8ee9d12835fa4a66315581ceeac02bd341fdf17b"
+    },
+    "ydental_intake_task": {
+      "count": 2,
+      "sha256": "2f94c078a3d709f2611293d62dc420e216df519a838d2016fc55c3ebd5e7beaa"
+    },
+    "ydental_inventory_event": {
+      "count": 3,
+      "sha256": "579ae55fea5e15bb6af199c7ec8977301a88da7d7f1d5f822c4f7a1e775d7bf8"
+    },
+    "ydental_queue_entry": {
+      "count": 1,
+      "sha256": "143450ac165283ec1f5d4024bea74140d8d6321f919dec61568bc119ccfb1531"
+    },
+    "ydental_queue_execution": {
+      "count": 1,
+      "sha256": "747d74f9f12347f7939c75f28a14e08b6d0ae65fec8100d89b49dca78658cd4a"
+    },
+    "ydental_queue_hold": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "ydental_queue_lease": {
+      "count": 1,
+      "sha256": "58f1b133ae7faec1f2b7a34f99e9fc39ea13816d9abfc046be2ff403fc479212"
+    },
+    "ydental_treatment_event": {
+      "count": 1,
+      "sha256": "29f1ac0d79e424dafb0f01fdd485a6149245ace4ae9ae6a7a6683ea2975c1abd"
+    },
+    "ydental_treatment_fee": {
+      "count": 1,
+      "sha256": "9067a8f042fd8d6a17fd4f9871f9580a0f69546b4ac8df64d5b93129dedef00a"
+    },
+    "ydental_treatment_line": {
+      "count": 1,
+      "sha256": "95946de039b1c88faa762b31dc9093dcc54bcdd03bdd23ca430e108636978f83"
+    },
+    "ydental_treatment_order": {
+      "count": 1,
+      "sha256": "05fe9acb1639689d7b2c49b2823dd2c483dc1d94bb2dfb35c2d3562772175e06"
+    }
+  },
+  "rows": {
+    "audit": [
+      [
+        "inventory.movement",
+        "ydental.inventory.event",
+        1,
+        "accepted"
+      ],
+      [
+        "inventory.movement",
+        "ydental.inventory.event",
+        2,
+        "accepted"
+      ],
+      [
+        "clinical.save",
+        "ydental.clinical.document",
+        1,
+        "accepted"
+      ],
+      [
+        "inventory.movement",
+        "ydental.inventory.event",
+        3,
+        "accepted"
+      ],
+      [
+        "treatment.actual_execution",
+        "ydental.treatment.event",
+        1,
+        "accepted"
+      ],
+      [
+        "treatment.order_issued",
+        "ydental.treatment.order",
+        1,
+        "accepted"
+      ]
+    ],
+    "document": [
+      [
+        1,
+        1,
+        1,
+        1,
+        1,
+        "draft",
+        7,
+        "2026-10-15T05:24:03",
+        "2026-10-15T05:14:03",
+        1,
+        1,
+        true
+      ]
+    ],
+    "entry": [
+      [
+        1,
+        1,
+        1,
+        1,
+        "serving",
+        4
+      ]
+    ],
+    "event": [
+      [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        "confirmed",
+        "1.00"
+      ]
+    ],
+    "execution": [
+      [
+        1,
+        1,
+        1,
+        1,
+        1,
+        "serving",
+        1,
+        "2026-10-15T05:14:02",
+        null
+      ]
+    ],
+    "fee": [
+      [
+        1,
+        1,
+        1,
+        1,
+        "600.00"
+      ]
+    ],
+    "hold": [],
+    "lease": [
+      [
+        1,
+        7,
+        9,
+        true,
+        "2026-10-15T05:24:33",
+        null,
+        true,
+        true,
+        true
+      ]
+    ],
+    "lease_session": [
+      [
+        1,
+        11,
+        7,
+        1,
+        1,
+        1,
+        true
+      ]
+    ],
+    "line": [
+      [
+        1,
+        1,
+        1,
+        3,
+        2,
+        "1.00",
+        "issued"
+      ]
+    ],
+    "module": [
+      [
+        "ydental_clinical",
+        "installed"
+      ],
+      [
+        "ydental_exam",
+        "installed"
+      ],
+      [
+        "ydental_queue",
+        "installed"
+      ],
+      [
+        "ydental_settlement",
+        "installed"
+      ],
+      [
+        "ydental_treatment",
+        "installed"
+      ]
+    ],
+    "order": [
+      [
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        "exam",
+        "issued"
+      ]
+    ],
+    "position": [
+      [
+        1,
+        1,
+        1,
+        false,
+        2
+      ]
+    ],
+    "snapshot": [
+      [
+        1,
+        1,
+        "1.00",
+        "600.00",
+        "600.00"
+      ]
+    ],
+    "stock": [
+      [
+        1,
+        "receipt",
+        "done",
+        "20.00",
+        1,
+        "done",
+        "20.00"
+      ],
+      [
+        2,
+        "receipt",
+        "done",
+        "20.00",
+        2,
+        "done",
+        "20.00"
+      ],
+      [
+        3,
+        "treatment",
+        "done",
+        "1.00",
+        3,
+        "done",
+        "1.00"
+      ]
+    ],
+    "task": [
+      [
+        1,
+        1,
+        1,
+        null,
+        null,
+        6,
+        "started",
+        "independent"
+      ],
+      [
+        2,
+        1,
+        3,
+        1,
+        null,
+        1,
+        "pending",
+        "derived"
+      ]
+    ]
+  },
+  "source_name": "ydental_s10_test_20261015051000_e2e1a7b4",
+  "source_oid": 2100269,
+  "task": "S10-E2E-W2-G0"
+}
