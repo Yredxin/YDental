@@ -1,0 +1,142 @@
+{
+  "status": "R7_HTML_DENIAL_LIMITED_PASS",
+  "authorization_comment": 6184612591,
+  "checkpoint_comment": 6184663377,
+  "fixed_start": "09cbcfea575bd488e617a5f597bab3c9d9286eae",
+  "source": {
+    "database": "ydental_s10_test_20261015033000_a4c82d17",
+    "oid": 2100265,
+    "filestore_files": 150,
+    "active_connections_before_create": 0,
+    "marker_sha256": "18c63ad48b8d6c137aad3115fb21be8bad5fe4bac86db65d7950e38df22b61c5",
+    "config_sha256": "b0e4b01b05a2f06b17f755c1f577781e9bd6474c09ba4c740392bad7556d6ae6"
+  },
+  "target": {
+    "database": "ydental_s10_test_20261015060000_c1d2e3f4",
+    "oid": 2100268,
+    "cluster": "7694897083368259627",
+    "port": 18276
+  },
+  "usage": {
+    "new_databases": 1,
+    "odoo_http_processes": 1,
+    "firefox_playwright_processes": 1,
+    "manager_grant_changes": 1,
+    "old_html_close_post_attempts": 1,
+    "new_finance_transactions": 0,
+    "new_closes": 0,
+    "pdf_exports": 0,
+    "module_upgrades": 0,
+    "prepare_shells": 0
+  },
+  "offline": {
+    "status": "SIMULATED_PASS",
+    "actual_run_called": true,
+    "native_empty_date_posts": 0,
+    "native_valid_date_posts": 1,
+    "actual_create_cli_fake_pg_pass": true,
+    "failure_injections": [
+      "event_write_failure",
+      "drop_date_fill",
+      "missing_form",
+      "missing_date_dom",
+      "no_post",
+      "wrong_status",
+      "no_feedback",
+      "money_change"
+    ]
+  },
+  "runtime": {
+    "odoo_pid": 3291138,
+    "odoo_exit": 0,
+    "odoo_signal11": false,
+    "odoo_timeout": false,
+    "browser_exit": 0,
+    "browser_complete_marker": true
+  },
+  "html": {
+    "source_close_business_date": "2026-10-15",
+    "field_type": "date",
+    "required": true,
+    "field_valid": true,
+    "form_valid_before_revoke": true,
+    "invalid_fields_before_revoke": [],
+    "front_revision_unchanged_after_manager_grant": true,
+    "request_method": "POST",
+    "request_path": "/ydental/settlement/action",
+    "request_content_type": "application/x-www-form-urlencoded",
+    "request_operation": [
+      "close"
+    ],
+    "request_output": [
+      "html"
+    ],
+    "request_date": [
+      "2026-10-15"
+    ],
+    "request_channel": [
+      "cash"
+    ],
+    "csrf_key_revision_present": true,
+    "response_status": 303,
+    "response_content_type": "text/html; charset=utf-8",
+    "location_local_workbench": true,
+    "notice_length": 32,
+    "feedback_denied": true,
+    "refresh_get_only": true
+  },
+  "finance": {
+    "source_target_exact_rows_equal_after_test": true,
+    "move_count": 5,
+    "move_line_count": 10,
+    "settlement_receipt_count": 8,
+    "settlement_payment_count": 1,
+    "settlement_refund_count": 1,
+    "settlement_close_count": 1,
+    "native_payment_count": 2,
+    "partial_count": 2,
+    "source_pdf_export_audit_count": 3,
+    "target_pdf_export_audit_count": 3,
+    "source_mail_count": 0,
+    "target_mail_count": 0,
+    "source_bus_count": 30,
+    "target_bus_count": 30
+  },
+  "permissions": {
+    "source_front_settlement": "write",
+    "target_front_settlement": "read"
+  },
+  "audit": {
+    "source_count": 234,
+    "target_count": 247,
+    "delta": {
+      "authorization.change": 1,
+      "login": 2,
+      "login.scope": 2,
+      "store.switch": 2,
+      "settlement.invoice_view": 6
+    },
+    "persistent_denial_audit_claim": false
+  },
+  "not_run": [
+    "pagination_over_50",
+    "R4 and R6 already covered scenarios were not rerun"
+  ],
+  "private_evidence_sha256": {
+    "database.json": "97fbc183e946e05e3de860eb96ee901b0902f3a1228ca486f222d988c7683f95",
+    "odoo.conf": "826c0c24980f351fc240ceab3ec2c9d69031e21a6aa6b4696ceb8d485b0d1c9b",
+    "browser-events.jsonl": "69acdfec7a397c1226473105fa11fcbf5aab49b087d8e85f623ffc6b1ceb239c",
+    "browser-complete.json": "cd3b8e4541f2ed2f561ce950a9bf414724a603c7b8dc3663e599696053962f38",
+    "browser-r7-run.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "odoo-http-r7.log": "03dd8d989f943a14147c7c3e909d639c43ccf01b42abf4fb6f4f6a0d21e42ffa",
+    "http-r7.result.json": "d45fa4223ab53a664ff972816dddeca5f7f2fadef8db4e91b009bbcbf370a839"
+  },
+  "script_sha256": {
+    "s10_ui1_r7_control.py": "3a5a34202f672863ace44bb57dde253f38279c29dae18e2cd8158ebbf5db052e",
+    "s10_ui1_r7_offline.py": "f959578d147841a0df7b4f10e1ca31ceb6c6f6365579dfd9fde61b90309178f2",
+    "s10_ui1_r7_web.py": "68f9f4a865e625f0d90ca45a5f6e43d97a0d6e59ceee9f172e40f2c18e5cdac4",
+    "s10_ui1_r7_browser.py": "7d37e88e4ec96dd7a2d12ba30c4412ca49310f97cac13ddb650061a9697700cd"
+  },
+  "history_preserved": true,
+  "product_modified": false
+}
