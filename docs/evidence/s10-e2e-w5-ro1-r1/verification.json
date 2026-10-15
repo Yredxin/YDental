@@ -1,0 +1,126 @@
+{
+  "HISTORICAL_REAL_WEB_EVIDENCE": {
+    "browser_complete": "NOT_WRITTEN",
+    "final_audit": "NOT_RUN",
+    "first_observed_sha256": "871850d4f298278d04ae92be3c9c8af74273167fb241e3896c4ded311dbaf369",
+    "post_stop_sha256": "de6b60935c5cc54d3ce7f2917fb7100fcad8a5c5d4050ab8b933d0ed300eee7f",
+    "response_codes": [
+      303,
+      303
+    ],
+    "second_observed_sha256": "9a59bfa549602e01a07eeb75a7b9e4f04d8c1bbb9c9d6bd775541041bc78b612",
+    "w5_browser_exit": 1,
+    "web_payment_posts": [
+      500,
+      240
+    ]
+  },
+  "NEW_READONLY_SQL": {
+    "business_date": "2026-10-15",
+    "cash_journal_id": 8,
+    "cashier_user_id": 5,
+    "close_count": 0,
+    "cluster": "7694897083368259627",
+    "company_id": 1,
+    "connections": {
+      "source": 1,
+      "target": 1
+    },
+    "evidence_sha256": "ca2a304fae2918ed91005552c65de21dacdc6a18707d01a16bcabe59a0c06c73",
+    "fees": [
+      600,
+      80,
+      40,
+      20
+    ],
+    "filestore_manifest_sha256": "bd0b0fbad15868bbabb836fa7016a91187bb31c6b9b6d934b2a7a0fe035c4283",
+    "invoice_id": 1,
+    "invoice_total": "740.00",
+    "module_meta_sha256": "f24b36b3a325fd3ea46aa00a83f6ff31717b6be3b8d4bd0f9def5db431247427",
+    "payments": [
+      {
+        "amount": 500,
+        "audit_id": 327,
+        "invoice_ar_line_id": 5,
+        "native_payment_id": 1,
+        "native_state": "reconciled",
+        "partial_id": 1,
+        "payment_ar_line_id": 7,
+        "posted_move_id": 2,
+        "receipt_id": 2,
+        "s10_payment_id": 1
+      },
+      {
+        "amount": 240,
+        "audit_id": 330,
+        "invoice_ar_line_id": 5,
+        "native_payment_id": 2,
+        "native_state": "reconciled",
+        "partial_id": 2,
+        "payment_ar_line_id": 9,
+        "posted_move_id": 3,
+        "receipt_id": 3,
+        "s10_payment_id": 2
+      }
+    ],
+    "refund_count": 0,
+    "schema_projection_sha256": "96902710b207c7d73cf7bea822ce56d5cc35c9a8e160b27c5aea2a3471d293b3",
+    "schema_required_columns": 102,
+    "schema_tables": 42,
+    "source_38_signatures_equal_w5_preflight": true,
+    "source_audit_history_prefix_unchanged": true,
+    "source_oid": 2100301,
+    "source_residual": "740.00",
+    "status": "NEW_READONLY_SQL_PASS",
+    "stock_move_quantities": [
+      1,
+      4,
+      2
+    ],
+    "store_id": 1,
+    "target_31_stable_signatures_equal_before_web": true,
+    "target_oid": 2100310,
+    "target_payment_state": "paid",
+    "target_residual": "0.00",
+    "transaction_read_only": true,
+    "window_seconds": 0.302
+  },
+  "NOT_RUN": [
+    "original W5 browser-complete",
+    "original W5 final_audit",
+    "new browser/Firefox",
+    "new Odoo HTTP/CLI/shell",
+    "new payment POST",
+    "new CREATE/install/upgrade",
+    "real-world cash receipt",
+    "S10 full-stage acceptance",
+    "production deployment"
+  ],
+  "SIMULATED_PASS": {
+    "accounting_negative_cases": 15,
+    "full_flow_negative_cases": 10,
+    "gate_fail_closed_cases": 5,
+    "new_real_transactions": 0
+  },
+  "authorization_comment": 6188802614,
+  "fixed_base": "877b94653e89234ba06c9086d0cb472458188ba1",
+  "hashes": {
+    "checkpoint_sha256": "33b8834d2892e890b1363a4762a14cbbdc8ce48333de2e67afb87821390468ca",
+    "preflight_sha256": "7935c06963017ec68980d4f036259d86e934b106926ade0681eba584bc46fcea",
+    "r1_script_sha256": "7ef4eaabd0ffe27e889435686db1772c0c39be81551496d11382df91352b06c7",
+    "read_only_sql_sha256": "ca2a304fae2918ed91005552c65de21dacdc6a18707d01a16bcabe59a0c06c73"
+  },
+  "preflight_comment": 6189141033,
+  "resources": {
+    "business_writes": 0,
+    "database_create": 0,
+    "firefox_processes": 0,
+    "odoo_processes": 0,
+    "payment_post": 0,
+    "source_sql_connections": 1,
+    "sql_ddl_dml": 0,
+    "sudo": 0,
+    "target_sql_connections": 1
+  },
+  "status": "W5_RO1_R1_READONLY_ACCOUNTING_EVIDENCE_LIMITED_TECH_PASS_REQUEST"
+}

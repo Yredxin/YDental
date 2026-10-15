@@ -1,0 +1,9 @@
+{
+  "authorization": 6188802614,
+  "fixed_head": "877b94653e89234ba06c9086d0cb472458188ba1",
+  "github_exact_readback": true,
+  "preflight_comment_id": 6189141033,
+  "preflight_sha256": "7935c06963017ec68980d4f036259d86e934b106926ade0681eba584bc46fcea",
+  "script_sha256": "7ef4eaabd0ffe27e889435686db1772c0c39be81551496d11382df91352b06c7",
+  "sql_connections_before": 0
+}
