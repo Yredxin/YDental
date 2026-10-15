@@ -1,0 +1,68 @@
+{
+  "authorization_comment": 6187934504,
+  "preflight_comment": 6188488655,
+  "status": "BLOCKED_READONLY_SQL_QUERY_CONTRACT",
+  "fixed_head": "287881a824e9a18dd637522c570f74df139078f9",
+  "fixed_core_head": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "ro1_script_sha256": "e1326cf1e24b5ff712281ebe398ace447e58b8873dad88203a331201b972062d",
+  "preflight_sha256": "6142e41d421025e83a40cb19de8d0da2c8f9f841edd48926199d00a8b010ff45",
+  "historical_real_web_evidence": {
+    "source_database": "ydental_s10_test_20261015064000_d41e7b62",
+    "source_oid": 2100301,
+    "target_database": "ydental_s10_test_20261015073500_e50f4a71",
+    "target_oid": 2100310,
+    "private_files_verified": 27,
+    "private_file_hashes": "docs/evidence/s10-e2e-w5-ro1/preflight.json#private_file_sha256",
+    "first_payment": 500,
+    "second_payment": 240,
+    "http_response_codes": [303, 303],
+    "invoice_residual_sequence": [740, 240, 0],
+    "second_observed_payment_states": ["reconciled", "reconciled"],
+    "w5_browser_exit": 1,
+    "browser_complete": "NOT_WRITTEN",
+    "final_audit": "NOT_RUN"
+  },
+  "simulated_pass": {
+    "new_reconciled_positive": 1,
+    "negative_cases": 12,
+    "source": "scripts/s10_e2e_w5_ro1_verify.py::simulations",
+    "does_not_convert_w5_browser_to_pass": true
+  },
+  "new_readonly_sql": {
+    "attempts": 1,
+    "source_connections": 1,
+    "target_connections": 0,
+    "source_transaction_read_only_verified": true,
+    "source_oid_and_cluster_checks_completed_in_process": true,
+    "source_values_not_persisted": true,
+    "last_successful_query": "SELECT to_jsonb(t)::text FROM ydental_access_audit t ORDER BY id",
+    "failed_query": "SELECT id,ydental_cashier_id,ydental_store_id,ydental_patient_id,ydental_channel,ydental_amount,ydental_business_date,ydental_actual_utc FROM ydental_settlement_payment ORDER BY id",
+    "sqlstate": "42703",
+    "error": "UndefinedColumn: ydental_actual_utc does not exist; PostgreSQL suggested ydental_actual_at",
+    "static_model_field": "ydental_settlement/models/ydental_settlement_payment.py:19 ydental_actual_at",
+    "source_connection_closed": true,
+    "target_accounting": "NOT_RUN",
+    "source_full_38_table_signature": "NOT_RUN",
+    "read_only_sql_result_file": "NOT_WRITTEN",
+    "retry": "NOT_RUN_STOP_CONDITION"
+  },
+  "not_run": [
+    "new target W5 invoice/payment/move/partial/S10/S01 SQL verification",
+    "new W4 source 38 table and filestore final comparison",
+    "W5 browser-complete",
+    "W5 final_audit",
+    "Odoo HTTP/CLI/shell/install/upgrade",
+    "Firefox/Playwright",
+    "database CREATE and payment POST",
+    "S10 full technical acceptance and production release"
+  ],
+  "resource_use": {
+    "database_create": 0,
+    "business_writes": 0,
+    "sql_ddl_dml": 0,
+    "payment_post": 0,
+    "odoo_processes": 0,
+    "firefox_processes": 0,
+    "sudo": 0
+  }
+}
