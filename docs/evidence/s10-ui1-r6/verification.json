@@ -1,0 +1,185 @@
+{
+  "status": "BLOCKED_TEST_HARNESS",
+  "authorization_comment": 6184420329,
+  "checkpoint_comment": 6184494471,
+  "fixed_start": "fc04662455528d6906370dbf15a3445faf6a9813",
+  "source": {
+    "name": "ydental_s10_test_20261015033000_a4c82d17",
+    "oid": 2100265,
+    "filestore_files": 150,
+    "marker_sha256": "18c63ad48b8d6c137aad3115fb21be8bad5fe4bac86db65d7950e38df22b61c5",
+    "config_sha256": "b0e4b01b05a2f06b17f755c1f577781e9bd6474c09ba4c740392bad7556d6ae6"
+  },
+  "target": {
+    "name": "ydental_s10_test_20261015052000_b6d2a94f",
+    "oid": 2100267,
+    "cluster": "7694897083368259627",
+    "port": 18275
+  },
+  "usage": {
+    "new_databases": 1,
+    "odoo_http_processes": 1,
+    "firefox_playwright_processes": 1,
+    "module_upgrades": 0,
+    "new_finance_commits": 0,
+    "pdf_exports": 0,
+    "planned_manager_switches": 2,
+    "planned_grant_changes": 1
+  },
+  "offline": {
+    "status": "SIMULATED_PASS",
+    "actual_run_called": true,
+    "event_writes": 15,
+    "failure_injections": [
+      "event_write_failure",
+      "reader_success",
+      "wrong_status",
+      "missing_sent",
+      "money_change",
+      "missing_html"
+    ],
+    "limitation": "Fake DOM did not model native required business_date field on close form"
+  },
+  "runtime": {
+    "odoo_pid": 3282173,
+    "odoo_exit": 0,
+    "odoo_signal11": false,
+    "odoo_timeout": false,
+    "browser_exit": 1,
+    "browser_error": "Timeout 30000ms waiting for POST response at old HTML close form",
+    "browser_complete_marker": false
+  },
+  "checks": [
+    {
+      "scenario": "reader_bill",
+      "status": "REAL_HTTP_PASS",
+      "http_status": 403,
+      "content_type": "application/json; charset=utf-8",
+      "finance_unchanged": true
+    },
+    {
+      "scenario": "front_unknown",
+      "status": "REAL_HTTP_PASS",
+      "http_status": 409,
+      "content_type": "application/json; charset=utf-8",
+      "finance_unchanged": true
+    },
+    {
+      "scenario": "front_bad_csrf",
+      "status": "REAL_HTTP_PASS",
+      "http_status": 400,
+      "content_type": "text/html; charset=utf-8",
+      "finance_unchanged": true
+    },
+    {
+      "scenario": "reader_pdf_receipt",
+      "status": "REAL_HTTP_PASS",
+      "http_status": 403,
+      "content_type": "application/json; charset=utf-8",
+      "finance_unchanged": true
+    },
+    {
+      "scenario": "reader_pdf_refund",
+      "status": "REAL_HTTP_PASS",
+      "http_status": 403,
+      "content_type": "application/json; charset=utf-8",
+      "finance_unchanged": true
+    },
+    {
+      "scenario": "manager_switch_b",
+      "status": "REAL_HTTP_PASS",
+      "http_status": 200
+    },
+    {
+      "scenario": "manager_switch_a",
+      "status": "REAL_HTTP_PASS",
+      "http_status": 200
+    },
+    {
+      "scenario": "manager_old_revision",
+      "status": "REAL_HTTP_PASS",
+      "http_status": 409,
+      "content_type": "application/json; charset=utf-8",
+      "finance_unchanged": true
+    },
+    {
+      "scenario": "grant_read",
+      "status": "REAL_HTTP_PASS",
+      "http_status": 200
+    },
+    {
+      "scenario": "front_revoked_current_revision",
+      "status": "REAL_HTTP_PASS",
+      "http_status": 403,
+      "content_type": "application/json; charset=utf-8",
+      "finance_unchanged": true
+    },
+    {
+      "scenario": "old_html_form",
+      "status": "BLOCKED_TEST_HARNESS",
+      "observed": "Playwright response wait timed out at 30s; Odoo log has no matching POST"
+    },
+    {
+      "scenario": "html_303_feedback",
+      "status": "NOT_RUN"
+    },
+    {
+      "scenario": "forged_notice",
+      "status": "NOT_RUN"
+    },
+    {
+      "scenario": "pagination_over_50",
+      "status": "NOT_RUN"
+    }
+  ],
+  "finance": {
+    "source_target_exact_rows_equal_after_failure": true,
+    "move_count": 5,
+    "move_line_count": 10,
+    "settlement_receipt_count": 8,
+    "settlement_payment_count": 1,
+    "settlement_refund_count": 1,
+    "settlement_close_count": 1,
+    "native_payment_count": 2,
+    "partial_count": 2,
+    "source_report_download_count": 3,
+    "target_report_download_count": 3,
+    "source_mail_count": 0,
+    "target_mail_count": 0,
+    "source_bus_count": 30,
+    "target_bus_count": 30
+  },
+  "permissions": {
+    "source_front_settlement": "write",
+    "target_front_settlement": "read",
+    "reader_export": "no_grant"
+  },
+  "audit": {
+    "source_count": 234,
+    "target_count": 262,
+    "delta": {
+      "authorization.change": 1,
+      "login": 3,
+      "login.scope": 3,
+      "store.switch": 5,
+      "settlement.invoice_view": 16
+    },
+    "denial_log_persistent_audit": "not claimed"
+  },
+  "private_evidence_sha256": {
+    "database.json": "d4418374b8109d6848c5dfe8c51f2f4240c94765f105b05f118c1f93c43b181c",
+    "odoo.conf": "cbda4756238ea8e4f6b3a30ec9ea87d2e6ff87aef7547b6373582b830d65889f",
+    "browser-events.jsonl": "fbed896f1a4e8e13c11224c197e0326fce2fdc124b380d6cb28d6968b1a04401",
+    "browser-r6-run.log": "afb7f38b19cca71c9b2bf00abf9e116a39babb4a94eb12cae0e0f5ad66da3bc2",
+    "odoo-http-r6.log": "7a1228402016da78f84a46a8bfbed78e5e6b3027e06081729dcd00acb7bdbd97",
+    "http-r6.result.json": "fcf7de5508d56b1fa5dae29d30da756128ce6c06f388d4878b43c40f51c81228"
+  },
+  "script_sha256": {
+    "s10_ui1_r6_offline.py": "be197091eebca99e02edd187ab9816989abb9a99cd31edfe2a2fa8ff71927a2b",
+    "s10_ui1_r6_control.py": "0b96e11d338b063eb0719f391433e43539917f95be4180d6320935b0fe548d0a",
+    "s10_ui1_r6_browser.py": "854867c1fe92db19e415d5454ba527d76d6ca2f2320fa3eb2624569659e3216c",
+    "s10_ui1_r6_web.py": "accb26ade0c6be24a2a297b91eed61a0dca3ad6f1b961d206cc9b4d8b3e5751c"
+  },
+  "history_preserved": true,
+  "product_modified": false
+}
