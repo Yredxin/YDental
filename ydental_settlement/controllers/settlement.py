@@ -1,3 +1,4 @@
+import hmac
 import uuid
 from datetime import datetime, timezone
 from urllib.parse import urlencode
@@ -12,6 +13,14 @@ HEADERS = [('Cache-Control', 'no-store, private, max-age=0'),
 
 
 class YDentalSettlement(http.Controller):
+    def _html_feedback(self, kind):
+        token = uuid.uuid4().hex
+        request.session['ydental_settlement_feedback'] = {'token': token, 'kind': kind}
+        response = request.redirect('/ydental/settlement?' + urlencode({'notice': token}), code=303)
+        for name, value in HEADERS:
+            response.headers[name] = value
+        return response
+
     def _service(self, revision=None):
         access = request.env['ydental.access.service']
         session = access._session_for_key(request.session.sid[:42])
@@ -19,7 +28,7 @@ class YDentalSettlement(http.Controller):
         return access.env['ydental.settlement.service']
 
     @http.route('/ydental/settlement', type='http', auth='user', methods=['GET'])
-    def workbench(self, patient_id=None, today_page='1', history_page='1',
+    def workbench(self, patient_id=None, notice=None, today_page='1', history_page='1',
                   pending_page='1', invoices_page='1', payments_page='1',
                   refunds_page='1', closes_page='1', **kwargs):
         raw_pages = {'today': today_page, 'history': history_page,
@@ -35,6 +44,17 @@ class YDentalSettlement(http.Controller):
         service = self._service()
         number = int(patient_id) if patient_id else None
         context = service._workbench(number, pages)
+        feedback = request.session.get('ydental_settlement_feedback')
+        message = None
+        if (isinstance(feedback, dict) and isinstance(notice, str)
+                and isinstance(feedback.get('token'), str)
+                and hmac.compare_digest(feedback['token'], notice)):
+            request.session.pop('ydental_settlement_feedback', None)
+            message = {
+                'accepted': '操作已受理，请核对下方业务记录。',
+                'already_accepted': '此请求此前已处理，请核对现有记录。',
+                'denied': '请求未完成，请核对权限、门店或输入后重试。',
+            }.get(feedback.get('kind'))
         def page_url(category, page):
             selected = dict(pages)
             selected[category] = page
@@ -52,11 +72,14 @@ class YDentalSettlement(http.Controller):
                                       access._levels(member)['warehouse'] == 'write'),
                         'new_key': lambda: uuid.uuid4().hex,
                         'page_url': page_url,
-                        'now_utc': lambda: datetime.now(timezone.utc).isoformat()})
+                        'now_utc': lambda: datetime.now(timezone.utc).isoformat(),
+                        'feedback': message})
         return request.render('ydental_settlement.ydental_settlement_page', context, headers=HEADERS)
 
     @http.route('/ydental/settlement/action', type='http', auth='user', methods=['POST'], max_content_length=100000)
     def action(self, operation, revision, key, **post):
+        html_form = (post.get('output') == 'html'
+                     and request.httprequest.mimetype == 'application/x-www-form-urlencoded')
         def ids(name):
             values = request.httprequest.form.getlist(name)
             return [int(value) for value in values]
@@ -98,9 +121,14 @@ class YDentalSettlement(http.Controller):
             if operation not in payloads:
                 raise ValidationError(request.env._('Unknown settlement operation.'))
             result = service._operate(operation, payloads[operation](), key)
+            if html_form:
+                return self._html_feedback('already_accepted' if result.get('result') == 'already_accepted'
+                                           else 'accepted')
             return request.make_json_response(result, headers=HEADERS)
         except (AccessError, UserError, ValidationError, ValueError, TypeError, KeyError) as error:
             request.env['ydental.access.service']._denial('settlement.action')
+            if html_form:
+                return self._html_feedback('denied')
             return request.make_json_response({'error': str(error)},
                 status=403 if isinstance(error, AccessError) else 409, headers=HEADERS)
 

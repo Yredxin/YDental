@@ -11,6 +11,7 @@
         <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
         <input type="hidden" name="revision" t-att-value="revision"/>
         <input type="hidden" name="key" t-att-value="new_key()"/>
+        <input type="hidden" name="output" value="html"/>
     </template>
 
     <template id="ydental_settlement_page_links">
@@ -28,6 +29,7 @@
         <t t-call="web.layout" head="head">
             <main class="container py-4 o_ydental_settlement" t-att-data-revision="revision">
                 <h1>线下结算工作台</h1>
+                <p t-if="feedback" role="status" data-ui1-feedback="1" t-out="feedback"/>
                 <p>当前门店：<strong t-out="store.name"/>；仅记录人工确认实际发生的线下资金。本页为演示，不是税务发票或平台到账证明。</p>
                 <nav><a href="/ydental/queue">前台与候诊</a> | <a href="/ydental/access">门店与权限</a></nav>
                 <form method="get" action="/ydental/settlement">

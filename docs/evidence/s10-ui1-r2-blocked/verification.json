@@ -1,0 +1,78 @@
+{
+  "scope": "S10-UI1-R2",
+  "authority_comment": 6182293301,
+  "checkpoint_comment": 6182394266,
+  "baseline_sha": "d59f15d364c3d00641fdb7a155fcbb35236838a5",
+  "branch": "codex/s10-settlement-finance-r1-20261013",
+  "new_database": "ydental_s10_test_20261015014500_c72e6f91",
+  "new_database_oid": 2100240,
+  "source_database_oid": 2100080,
+  "cluster": "7694897083368259627",
+  "config_sha256": "3c0b70d5ed0d13346a7b3d009409c06dc73c73d8b210a6efbc8a44f6cea460ca",
+  "marker_sha256": "c50e4e5dce1fbbdac86f6e01ea0b9c5df8a2d9565274ae7807c8ce49d47e9e11",
+  "filestore_copied_files": 124,
+  "offline": {
+    "compile": "SIMULATED_PASS",
+    "marker_adapter_contract_checks": 34,
+    "actual_create_and_phase_flow_checks": 19,
+    "old_r1_actual_create": "EXPECTED_TypeError_PosixPath_not_callable",
+    "r2_actual_create": "SIMULATED_PASS",
+    "typed_evidence_roundtrip": "SIMULATED_PASS",
+    "phase_failure_injection": "SIMULATED_PASS"
+  },
+  "actual_usage": {
+    "create": "1/1; exit0",
+    "odoo_processes": "3/4 sequential",
+    "firefox_processes": "1/1; interrupted after upgrade STOP",
+    "business_commits": "2/12: fixture, baseline_bill",
+    "upgrade_attempts": "1/1; failed before registry/module update",
+    "successful_module_upgrades": 0
+  },
+  "odoo_process_results": {
+    "prepare": {"pid": 3179484, "exit_code": 0, "signal11": false, "timed_out": false, "log_sha256": "973c64247f85a7b611bbef41b5f1f46404f009a58cbf7a2dc285302f962b8b05"},
+    "http_before": {"pid": 3179696, "exit_code": 0, "signal11": false, "timed_out": false, "log_sha256": "d39a1aa68f10921c54faa7586d394c73bdaf26fc6090c7c80a27e6a346516776"},
+    "upgrade": {"pid": 3181159, "exit_code": 2, "signal11": false, "timed_out": false, "log_sha256": "7477756ddcd40fb23b03dc3ceb6dcad314ed4063998cec905dffe72b7dd4478a", "reason": "Odoo CLI rejected --test-disable"}
+  },
+  "firefox_before_product_change": {
+    "status": "REPRODUCED_JSON_NAVIGATION",
+    "request_content_type": "application/x-www-form-urlencoded",
+    "response_status": 200,
+    "response_content_type": "application/json; charset=utf-8",
+    "final_path": "/ydental/settlement/action",
+    "workbench_present": false,
+    "response_location": null,
+    "baseline_screenshot_sha256_only": "a924bd017d390a4a475352e15ba6ecd5f53f4527baf068be4bb5ee383e774f70"
+  },
+  "baseline_finance_readonly": {
+    "receipt_count": 1,
+    "receipt_operation": "bill",
+    "native_account_moves": 1,
+    "posted_out_invoices": 1,
+    "posted_total_synthetic": "100.00",
+    "payment_count": 0,
+    "refund_count": 0,
+    "close_count": 0,
+    "s01_audit_after_fixture": 156,
+    "s01_audit_after_baseline": 162,
+    "mail_mail_after_baseline": 0,
+    "bus_bus_after_fixture": 30,
+    "bus_bus_after_baseline": 30
+  },
+  "candidate_product_change": {
+    "controller_sha256": "bfa051971585369f1585d311cfc4553159d4a42ef23b3c54f35d77e53ab4caa2",
+    "template_sha256": "8f74cffa93a3a24f1d4c4f95a2a006fd698050cda8d27a99924de58770feb329",
+    "runtime_status": "NOT_RUN; upgrade CLI parse failed"
+  },
+  "not_run": [
+    "post_change_http_firefox", "html_success_and_failure_feedback", "json_api_compatibility",
+    "idempotent_replay_after_change", "partial_payment", "refund_request_approval_execution",
+    "daily_close_unlock", "negative_permissions_csrf_revision_cross_store",
+    "over_50_http_pagination", "bill_receipt_refund_pdf_download_and_visual_review",
+    "unauthorized_pdf_direct_link"
+  ],
+  "historical_oids_readonly_present": [2056451, 2100080, 2100125, 2100126, 2100176, 2100197, 2100212, 2100227, 2100239, 2100240],
+  "status": "BLOCKED_TEST_HARNESS",
+  "s10_full_technical_and_production": "BLOCKED",
+  "native_sigsegv_root_cause": "UNKNOWN",
+  "s11": "NOT_STARTED"
+}
