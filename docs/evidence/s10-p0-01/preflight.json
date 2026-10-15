@@ -1,0 +1,200 @@
+{
+  "status": "BLOCKED_PREFLIGHT_INSTALLED_QWEB_DRIFT",
+  "authorization_comment": 6190937428,
+  "source": {
+    "name": "ydental_s10_test_20261014020300_8b6c1d4e",
+    "oid": 2056451,
+    "cluster": "7694897083368259627",
+    "marker_sha256": "96d261798a4b4370772d5700ba8516dd7677d2568f2b3fda80d3572b94a644e6",
+    "config_sha256": "34f2a7cff12ef31c69090fb7b1f990b008bebf850290e2747d868c6a9d8ae778",
+    "filestore_files": 184,
+    "filestore_manifest_sha256": "b325817771a580474b632108ea11f373b319567626c5d434e72a047bc556b549"
+  },
+  "modules": [
+    [
+      "ydental_settlement",
+      "installed"
+    ],
+    [
+      "ydental_settlement_test",
+      "installed"
+    ]
+  ],
+  "views": {
+    "ydental_settlement.ydental_queue_page": {
+      "active": true,
+      "sha256": "1f484c8d4699966e6f67859f473515cccad91d14b65431bc66839a94c9219e04",
+      "has_output_html": false,
+      "has_refund_reject": false,
+      "has_unlock": false,
+      "has_page_links": false
+    },
+    "ydental_settlement.ydental_settlement_page": {
+      "active": true,
+      "sha256": "bfabb0343b6be7768ed837f6a66da161f02fbbc73c9f64e11b2594adde34e60c",
+      "has_output_html": false,
+      "has_refund_reject": true,
+      "has_unlock": true,
+      "has_page_links": true
+    },
+    "ydental_settlement.ydental_settlement_page_links": {
+      "active": true,
+      "sha256": "0ecf03c7043048ed239842c1e1f5a6180efcc3b03f570e12e5fa0ef96f8c9bc1",
+      "has_output_html": false,
+      "has_refund_reject": false,
+      "has_unlock": false,
+      "has_page_links": true
+    },
+    "ydental_settlement.ydental_settlement_pdf": {
+      "active": true,
+      "sha256": "e5234c69fb9a9b56b322208ba83b017b566729504a4963e469d92734f068ede6",
+      "has_output_html": false,
+      "has_refund_reject": false,
+      "has_unlock": false,
+      "has_page_links": false
+    },
+    "ydental_settlement.ydental_settlement_tokens": {
+      "active": true,
+      "sha256": "7160c6c9d525cc4c7790079a944baa052a25bd488b23cbd77db90ad69b4cf0bc",
+      "has_output_html": false,
+      "has_refund_reject": false,
+      "has_unlock": false,
+      "has_page_links": false
+    }
+  },
+  "product_sha256": {
+    "controller": "bfa051971585369f1585d311cfc4553159d4a42ef23b3c54f35d77e53ab4caa2",
+    "service": "1ea27012fd5500fc21891f9e652f4e694cb2e7cce844fa38d08b7f12beff8d2c",
+    "templates": "8f74cffa93a3a24f1d4c4f95a2a006fd698050cda8d27a99924de58770feb329"
+  },
+  "business": {
+    "counts": {
+      "refund_store1": 63,
+      "close_store1": 55
+    },
+    "refund_page2_ids": [
+      14,
+      13,
+      12,
+      11,
+      10,
+      9,
+      8,
+      7,
+      6,
+      5,
+      4,
+      3,
+      2
+    ],
+    "close_page2_ids": [
+      9,
+      8,
+      7,
+      6,
+      5
+    ],
+    "fixed_refund_id": 14,
+    "fixed_refund_requester": 5,
+    "fixed_close_id": 9,
+    "fixed_close_latest_id": 9,
+    "eligible_approver_user_id": 6,
+    "refund_14_native_payment_and_credit_note": [
+      null,
+      null
+    ],
+    "close_9_snapshot": [
+      "0.00",
+      "0.00",
+      "0.00"
+    ],
+    "grants": [
+      [
+        5,
+        1,
+        "finance_approval",
+        "write"
+      ],
+      [
+        5,
+        1,
+        "settlement",
+        "write"
+      ],
+      [
+        6,
+        1,
+        "finance_approval",
+        "write"
+      ],
+      [
+        6,
+        1,
+        "settlement",
+        "write"
+      ],
+      [
+        14,
+        3,
+        "finance_approval",
+        "write"
+      ],
+      [
+        14,
+        3,
+        "settlement",
+        "write"
+      ],
+      [
+        14,
+        4,
+        "settlement",
+        "write"
+      ]
+    ]
+  },
+  "table_signatures": {
+    "ydental_settlement_refund": {
+      "rows": 66,
+      "sha256": "d076a5aaf038d8027f74fdaaa1a269e42b253dd4bd62d7914effccdaed935217"
+    },
+    "ydental_settlement_close": {
+      "rows": 63,
+      "sha256": "e36fd6db3e28e9e70c6a0849cfb376cdc180cc437979f1c182373f442a464eb1"
+    },
+    "ydental_settlement_payment": {
+      "rows": 66,
+      "sha256": "cb9c0b43566dd66db359a934820887c63e5283e4dba855b0f2768bc7958d2168"
+    },
+    "account_payment": {
+      "rows": 70,
+      "sha256": "5ec78fb8a12defa97e3ed6ffbbf56cd532e7901dbaf8e3d069c12fad57548293"
+    },
+    "account_move": {
+      "rows": 93,
+      "sha256": "baab2b8aea019dcb27799a4ebdba7c8394ed31fa39e7c92e5f9ba3c3983778a2"
+    },
+    "account_partial_reconcile": {
+      "rows": 73,
+      "sha256": "f4a9fafa542f9fd0232076cc2d7a4989eed95a9f853fdbab75242d6de2e22e33"
+    },
+    "ydental_access_grant": {
+      "rows": 354,
+      "sha256": "3d0a96efe9085058762738c8918794e8403a882dc6ee9389360fbb3fd5666c18"
+    }
+  },
+  "offline_simulation": {
+    "case": "installed_form_to_current_controller",
+    "input_output_html": false,
+    "controller_html_branch": false,
+    "expected_http_response_kind": "JSON",
+    "result": "EXPECTED_FAIL_HTML_CONTRACT"
+  },
+  "budgets_used": {
+    "create": 0,
+    "odoo_http": 0,
+    "firefox": 0,
+    "business_post": 0,
+    "odoo_shell": 0
+  }
+}
