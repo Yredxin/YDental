@@ -1,0 +1,162 @@
+{
+  "scope": "S10-UI1-R3",
+  "status": "BLOCKED_ON_FIRST_BILL_PDF_HTTP_409",
+  "authority_comment": 6182876575,
+  "review_comment": 6182771191,
+  "checkpoint_comment": 6183019141,
+  "checkpoint_exact_readback_sha256": "6b11ef966e61af3770fe2c82f7bc7b54375b88c09807ef7a3810d2b5deaa814f",
+  "branch": "codex/s10-settlement-finance-r1-20261013",
+  "baseline_sha": "c2a26eed14ecf2f3961539f607145a737596c1d6",
+  "source": {
+    "database": "ydental_s10_test_20261015014500_c72e6f91",
+    "oid": 2100240,
+    "cluster": "7694897083368259627",
+    "config_sha256": "3c0b70d5ed0d13346a7b3d009409c06dc73c73d8b210a6efbc8a44f6cea460ca",
+    "marker_sha256": "c50e4e5dce1fbbdac86f6e01ea0b9c5df8a2d9565274ae7807c8ce49d47e9e11",
+    "filestore_files": 150,
+    "filestore_manifest_sha256": "abf18f3ab41a8db6c22e269b590fd5910cc1fc954f44cbda6bbffc317aa332db",
+    "attachment_references": 164,
+    "unique_attachment_files_verified": 75,
+    "final_readonly_invariants": {
+      "confirmed_fees": 2,
+      "sources": 1,
+      "bill_receipts": 1,
+      "posted_out_invoices": 1,
+      "posted_invoice_total": "100.00",
+      "posted_invoice_residual": "100.00",
+      "payments_refunds_closes_partial_reconciles": 0,
+      "s01_audit_count": 162,
+      "mail_mail": 0,
+      "internal_bus": 30
+    }
+  },
+  "target": {
+    "database": "ydental_s10_test_20261015024000_d36e2b81",
+    "oid": 2100256,
+    "source_oid_in_marker": 2100240,
+    "cluster": "7694897083368259627",
+    "http_port": 18272,
+    "config_sha256": "9d4ecea18b99ceb23cee15a671ec64bd93e6568b5417e9741f1ae55eec72129f",
+    "marker_sha256": "e11b497a74abb65c1d501130fd4e4fd438ddce8790a81a626ba788ee891eabb1",
+    "filestore_files_at_clone": 150,
+    "actual_qweb_candidate_loaded": true,
+    "final_readonly_invariants": {
+      "confirmed_fees": 2,
+      "sources": 2,
+      "bill_receipts": 2,
+      "posted_out_invoices": 2,
+      "each_invoice_total": "100.00",
+      "each_invoice_residual": "100.00",
+      "payments_refunds_closes_partial_reconciles": 0,
+      "s01_audit_count": 178,
+      "s01_audit_increment_categories": {
+        "login": 3,
+        "login.scope": 3,
+        "settlement.bill": 1,
+        "settlement.invoice_view": 4,
+        "settlement.source_view": 2,
+        "store.switch": 3
+      },
+      "mail_mail": 0,
+      "internal_bus": 30
+    }
+  },
+  "product_candidate_unchanged": {
+    "controller_sha256": "bfa051971585369f1585d311cfc4553159d4a42ef23b3c54f35d77e53ab4caa2",
+    "template_sha256": "8f74cffa93a3a24f1d4c4f95a2a006fd698050cda8d27a99924de58770feb329",
+    "product_files_changed_this_batch": 0
+  },
+  "offline": {
+    "r3_actual_create_dispatch_fake_flow_checks": 7,
+    "r2_marker_adapter_checks": 34,
+    "r2_full_flow_checks": 19,
+    "classification": "SIMULATED_PASS",
+    "compile_and_xml_static": "PASS"
+  },
+  "real_cli_parse": {
+    "processes": "6/6",
+    "legacy_test_disable": "EXPECTED_REJECT_exit2",
+    "first_valid_upgrade": "PARSE_ACCEPTED_but_proof_guard_rejected_unneeded_Git_subprocess_exit1",
+    "prospective_upgrade_and_http": "PASS",
+    "actual_target_upgrade_and_http": "PASS",
+    "actual_upgrade_proof_sha256": "d00ec221878d938fb3e79c9f34a8e4db8465e3e068b15e1aed1214960f8bbe3e",
+    "actual_http_proof_sha256": "236ba350bc3633c5d2eb26c4559c456d4c112b9a784e50f9cd8ae6079081446b",
+    "upgrade_update_only": "ydental_settlement",
+    "http_update_init_empty": true,
+    "test_enable": false,
+    "test_tags_and_test_file_empty": true,
+    "database_connections_or_registry_or_http_listen": 0
+  },
+  "real_usage": {
+    "create": "1/1",
+    "odoo_processes": "2/2 sequential",
+    "module_upgrades": "1/1 successful",
+    "firefox_playwright_processes": "1/1",
+    "successful_named_business_or_audited_export_transactions": "1/12: post_bill",
+    "prepare_shell": 0,
+    "original_http": 0,
+    "retries": 0
+  },
+  "odoo_process_results": {
+    "upgrade": {
+      "pid": 3208396,
+      "exit_code": 0,
+      "signal11": false,
+      "timed_out": false,
+      "log_sha256": "a93b36aa7572135c04f11abdb350508d51715586dda1652211fbd16aba59ed18"
+    },
+    "http_after": {
+      "pid": 3208701,
+      "exit_code": 0,
+      "signal11": false,
+      "timed_out": false,
+      "log_sha256": "3b30c9d08617f3aad5828cb7099e87e310d7fc46b702cd5a5d631831c4558be4"
+    }
+  },
+  "actual_upgrade": {
+    "inherited_finance_before_after_equal": true,
+    "inherited_finance_before_proof_sha256": "c137fa072a03e6b581a9ddb4078afb7a819315fadaf38accff04717fb29c45f7",
+    "upgrade_complete_proof_sha256": "efe4ddcb9fae6699f1f90cb08815e665e1bdc6038ff0261adc6b3c5f39041ca7",
+    "candidate_qweb_database_loaded": true,
+    "auto_tests_enabled": false
+  },
+  "firefox_after_product_change": {
+    "post_bill": {
+      "status": "LIMITED_PASS",
+      "post_response_status": 303,
+      "post_response_content_type": "text/html",
+      "redirect_scope": "local_settlement_workbench",
+      "trusted_session_feedback_present": true,
+      "new_receipt_and_source": 1,
+      "new_native_posted_out_invoice": 1,
+      "new_posted_amount": "100.00",
+      "inherited_invoice_unchanged": true
+    },
+    "first_bill_pdf": {
+      "status": "HTTP_FAIL_409",
+      "download_event": false,
+      "browser_wait_timeout_seconds": 30,
+      "response_body": "UNKNOWN_not_captured",
+      "pdf_download": "NOT_RUN",
+      "visual": "NOT_RUN",
+      "odoo_log_reports_missing_wkhtmltopdf_before_request": true,
+      "renderer_as_exact_cause": "UNKNOWN"
+    },
+    "browser_exit_code": 1,
+    "console_log_sha256": "32bfb01840ed2bbbcae17fd6306419f07662d1c04cf8a596010d8d3085ce4bc",
+    "events_sha256": "3819500cc2e0107873b91e2bf4b52525d16f00ea5df9d7eeab504a8384b4ab0a",
+    "named_commit_ledger_sha256": "e95378c6bf8bcbfbeb4538e46311ac4b6840f817864b54248eb0edea7d78f1f8"
+  },
+  "not_run_after_stop": [
+    "partial_payment_60", "refund_request_20", "different_approver", "actual_refund_20",
+    "daily_close", "finance_unlock", "html_failure_feedback", "json_api_200_403_409",
+    "self_approval_rejection", "cross_store_identity", "revoked_old_revision",
+    "csrf_negative", "same_key_replay_and_refresh", "receipt_pdf_download_and_visual",
+    "refund_pdf_download_and_visual", "bill_pdf_visual", "unauthorized_pdf_direct_link",
+    "over_50_http_pagination"
+  ],
+  "r2_original_html_to_json": "REPRODUCED_IN_R2_INHERITED_EVIDENCE_not_rerun",
+  "s10_full_technical_and_production": "BLOCKED",
+  "native_sigsegv_root_cause": "UNKNOWN",
+  "s11": "NOT_STARTED"
+}
