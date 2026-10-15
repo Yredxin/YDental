@@ -1,0 +1,707 @@
+{
+  "schema": "s10-gap-01/1",
+  "authority_comment": 6190487418,
+  "preflight_comment": 6190538707,
+  "source_head": "5876740dabf342372b0970682947e6be8356fa8c",
+  "issue23_comments": 3,
+  "issue34_comments_before_preflight": 169,
+  "issue35": {
+    "state": "open",
+    "comments": 0
+  },
+  "overall": "S10_GAP_MATRIX_EVIDENCE_REVIEW_REQUEST",
+  "full_pass_rows": [],
+  "resource_budget_actual": {
+    "CREATE": 0,
+    "SQL_DB_CONNECTION": 0,
+    "BUSINESS_WRITE": 0,
+    "PAYMENT_REFUND_POST": 0,
+    "ODOO_HTTP_CLI_SHELL_INSTALL_UPGRADE": 0,
+    "FIREFOX": 0,
+    "SUDO": 0
+  },
+  "source_evidence": {
+    "C": {
+      "commit": "d99f27fffcd6f9b79f1b1ac271dd026493b826b6",
+      "gpt_comment_id": 6158230350,
+      "gpt_url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6158230350",
+      "report": "docs/s10-completion-blocked-report.md",
+      "report_url": "https://github.com/Yredxin/YDental/blob/d99f27fffcd6f9b79f1b1ac271dd026493b826b6/docs/s10-completion-blocked-report.md",
+      "machine_index": "docs/evidence/s10-completion/verification.json",
+      "machine_url": "https://github.com/Yredxin/YDental/blob/d99f27fffcd6f9b79f1b1ac271dd026493b826b6/docs/evidence/s10-completion/verification.json",
+      "database": "ydental_s10_test_20261014002200_7b91d4e6 / OID1925429",
+      "layers": [
+        "REAL_ODOO_MODEL",
+        "COMMITTED_NATIVE_SQL",
+        "TWO_TRANSACTION",
+        "REAL_WEB/FIREFOX",
+        "PDF_BYTES"
+      ]
+    },
+    "R3": {
+      "commit": "f24b0302569aefaa394391da6b696d915e3f0616",
+      "gpt_comment_id": 6159493421,
+      "gpt_url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6159493421",
+      "report": "docs/s10-r3-native-crash-blocked-report.md",
+      "report_url": "https://github.com/Yredxin/YDental/blob/f24b0302569aefaa394391da6b696d915e3f0616/docs/s10-r3-native-crash-blocked-report.md",
+      "machine_index": "docs/evidence/s10-r3-blocked/incident.json",
+      "machine_url": "https://github.com/Yredxin/YDental/blob/f24b0302569aefaa394391da6b696d915e3f0616/docs/evidence/s10-r3-blocked/incident.json",
+      "database": "ydental_s10_test_20261014020300_8b6c1d4e / OID2056451",
+      "layers": [
+        "REAL_ODOO_MODEL",
+        "COMMITTED_NATIVE_SQL",
+        "STATIC_REVIEW"
+      ]
+    },
+    "FC1": {
+      "commit": "7ee2c5e091fa1d29bd01e493b07902d2827f4a35",
+      "gpt_comment_id": 6171308225,
+      "gpt_url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6171308225",
+      "report": "docs/s10-fc1-finance-concurrency-report.md",
+      "report_url": "https://github.com/Yredxin/YDental/blob/7ee2c5e091fa1d29bd01e493b07902d2827f4a35/docs/s10-fc1-finance-concurrency-report.md",
+      "machine_index": "docs/evidence/s10-fc1/verification.json",
+      "machine_url": "https://github.com/Yredxin/YDental/blob/7ee2c5e091fa1d29bd01e493b07902d2827f4a35/docs/evidence/s10-fc1/verification.json",
+      "database": "ydental_s10_test_20261014145000_fc1a84d7 / OID2100197",
+      "layers": [
+        "REAL_ODOO_MODEL",
+        "COMMITTED_NATIVE_SQL",
+        "TWO_TRANSACTION"
+      ]
+    },
+    "FC2": {
+      "commit": "d766b70b0a9c922c809248cdc87e76efa8d5bc23",
+      "gpt_comment_id": 6173646820,
+      "gpt_url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6173646820",
+      "report": "docs/s10-fc2-finance-regression-report.md",
+      "report_url": "https://github.com/Yredxin/YDental/blob/d766b70b0a9c922c809248cdc87e76efa8d5bc23/docs/s10-fc2-finance-regression-report.md",
+      "machine_index": "docs/evidence/s10-fc2/verification.json",
+      "machine_url": "https://github.com/Yredxin/YDental/blob/d766b70b0a9c922c809248cdc87e76efa8d5bc23/docs/evidence/s10-fc2/verification.json",
+      "database": "ydental_s10_test_20261014152000_fc2a7d31 / OID2100212",
+      "layers": [
+        "REAL_ODOO_MODEL",
+        "COMMITTED_NATIVE_SQL",
+        "TWO_TRANSACTION"
+      ]
+    },
+    "UI4": {
+      "commit": "3e2f863d089d1df4bf979eb99624a84abbfad292",
+      "gpt_comment_id": 6183855658,
+      "gpt_url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6183855658",
+      "report": "docs/s10-ui1-r4-blocked-report.md",
+      "report_url": "https://github.com/Yredxin/YDental/blob/3e2f863d089d1df4bf979eb99624a84abbfad292/docs/s10-ui1-r4-blocked-report.md",
+      "machine_index": "docs/evidence/s10-ui1-r4-blocked/verification.json",
+      "machine_url": "https://github.com/Yredxin/YDental/blob/3e2f863d089d1df4bf979eb99624a84abbfad292/docs/evidence/s10-ui1-r4-blocked/verification.json",
+      "database": "ydental_s10_test_20261015033000_a4c82d17 / OID2100265",
+      "layers": [
+        "REAL_WEB/FIREFOX",
+        "COMMITTED_NATIVE_SQL",
+        "PDF_BYTES"
+      ]
+    },
+    "UI6": {
+      "commit": "09cbcfea575bd488e617a5f597bab3c9d9286eae",
+      "gpt_comment_id": 6184556009,
+      "gpt_url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6184556009",
+      "report": "docs/s10-ui1-r6-blocked-report.md",
+      "report_url": "https://github.com/Yredxin/YDental/blob/09cbcfea575bd488e617a5f597bab3c9d9286eae/docs/s10-ui1-r6-blocked-report.md",
+      "machine_index": "docs/evidence/s10-ui1-r6/verification.json",
+      "machine_url": "https://github.com/Yredxin/YDental/blob/09cbcfea575bd488e617a5f597bab3c9d9286eae/docs/evidence/s10-ui1-r6/verification.json",
+      "database": "ydental_s10_test_20261015052000_b6d2a94f / OID2100267",
+      "layers": [
+        "REAL_WEB/FIREFOX",
+        "COMMITTED_NATIVE_SQL"
+      ]
+    },
+    "UI7": {
+      "commit": "7efa4e25583b667cc0de22d115b54d67d0d10a3b",
+      "gpt_comment_id": 6184708258,
+      "gpt_url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6184708258",
+      "report": "docs/s10-ui1-r7-report.md",
+      "report_url": "https://github.com/Yredxin/YDental/blob/7efa4e25583b667cc0de22d115b54d67d0d10a3b/docs/s10-ui1-r7-report.md",
+      "machine_index": "docs/evidence/s10-ui1-r7/verification.json",
+      "machine_url": "https://github.com/Yredxin/YDental/blob/7efa4e25583b667cc0de22d115b54d67d0d10a3b/docs/evidence/s10-ui1-r7/verification.json",
+      "database": "ydental_s10_test_20261015060000_c1d2e3f4 / OID2100268",
+      "layers": [
+        "REAL_WEB/FIREFOX",
+        "COMMITTED_NATIVE_SQL"
+      ]
+    },
+    "W3": {
+      "commit": "71a554667157cdd917c0062db5e4ddf1693f6410",
+      "gpt_comment_id": 6185715797,
+      "gpt_url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6185715797",
+      "report": "docs/s10-e2e-w3-blocked-report.md",
+      "report_url": "https://github.com/Yredxin/YDental/blob/71a554667157cdd917c0062db5e4ddf1693f6410/docs/s10-e2e-w3-blocked-report.md",
+      "machine_index": "docs/evidence/s10-e2e-w3/verification.json",
+      "machine_url": "https://github.com/Yredxin/YDental/blob/71a554667157cdd917c0062db5e4ddf1693f6410/docs/evidence/s10-e2e-w3/verification.json",
+      "database": "ydental_s10_test_20261015060000_b6c7d8e9 / OID2100285",
+      "layers": [
+        "REAL_WEB/FIREFOX",
+        "COMMITTED_NATIVE_SQL"
+      ]
+    },
+    "W4": {
+      "commit": "79417da9043478501ffae586f93eebc1e5d7105d",
+      "gpt_comment_id": 6186530230,
+      "gpt_url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6186530230",
+      "report": "docs/s10-e2e-w4-blocked-report.md",
+      "report_url": "https://github.com/Yredxin/YDental/blob/79417da9043478501ffae586f93eebc1e5d7105d/docs/s10-e2e-w4-blocked-report.md",
+      "machine_index": "docs/evidence/s10-e2e-w4/verification.json",
+      "machine_url": "https://github.com/Yredxin/YDental/blob/79417da9043478501ffae586f93eebc1e5d7105d/docs/evidence/s10-e2e-w4/verification.json",
+      "database": "ydental_s10_test_20261015064000_d41e7b62 / OID2100301",
+      "layers": [
+        "REAL_ODOO_MODEL",
+        "COMMITTED_NATIVE_SQL"
+      ]
+    },
+    "W5": {
+      "commit": "287881a824e9a18dd637522c570f74df139078f9",
+      "gpt_comment_id": 6187844624,
+      "gpt_url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6187844624",
+      "report": "docs/s10-e2e-w5-blocked-report.md",
+      "report_url": "https://github.com/Yredxin/YDental/blob/287881a824e9a18dd637522c570f74df139078f9/docs/s10-e2e-w5-blocked-report.md",
+      "machine_index": "docs/evidence/s10-e2e-w5/verification.json",
+      "machine_url": "https://github.com/Yredxin/YDental/blob/287881a824e9a18dd637522c570f74df139078f9/docs/evidence/s10-e2e-w5/verification.json",
+      "database": "ydental_s10_test_20261015073500_e50f4a71 / OID2100310",
+      "layers": [
+        "REAL_WEB/FIREFOX",
+        "COMMITTED_NATIVE_SQL"
+      ]
+    },
+    "R1": {
+      "commit": "5876740dabf342372b0970682947e6be8356fa8c",
+      "gpt_comment_id": 6190103223,
+      "gpt_url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6190103223",
+      "report": "docs/s10-e2e-w5-ro1-r1-readonly-report.md",
+      "report_url": "https://github.com/Yredxin/YDental/blob/5876740dabf342372b0970682947e6be8356fa8c/docs/s10-e2e-w5-ro1-r1-readonly-report.md",
+      "machine_index": "docs/evidence/s10-e2e-w5-ro1-r1/verification.json",
+      "machine_url": "https://github.com/Yredxin/YDental/blob/5876740dabf342372b0970682947e6be8356fa8c/docs/evidence/s10-e2e-w5-ro1-r1/verification.json",
+      "database": "W4 OID2100301 → W5 OID2100310; NEW_READONLY_SQL",
+      "layers": [
+        "COMMITTED_NATIVE_SQL",
+        "STATIC_REVIEW",
+        "SIMULATED_PASS"
+      ]
+    }
+  },
+  "rows": [
+    {
+      "id": "F1",
+      "requirement": "600+80+6×10=740；500后欠240、补240结清；重复请求不重复账款",
+      "assertions": "同源四费与两次发药、唯一posted账、两次入款/partial/余额、幂等",
+      "accepted_scope": "C/R3模型完成；W3真实Web四费与posted740；W5真实Web收500/240；R1只读核对原生凭证/partial/余额0",
+      "remaining_gap": "W5 browser exit1、final_audit NOT_RUN；23步不在同一Firefox完成；外部现金到账未证",
+      "status": "SCOPED_ACCEPTED",
+      "evidence": [
+        "C",
+        "R3",
+        "W3",
+        "W5",
+        "R1"
+      ],
+      "new_business_execution_needed": true,
+      "policy": "无新增业务规则待决定；生产科目/税/支付政策仍待单列确认",
+      "source_data_and_role": "合成患者/店1；经理收款，医生/检查员/药房分别完成来源",
+      "gap_classes": [
+        "NOT_RUN",
+        "POLICY_PENDING"
+      ],
+      "product_gap": "NOT_CONFIRMED_FROM_FIXED_EVIDENCE",
+      "execution_note": "仅若最终统一验收要求单Firefox全23步，须单独授权；不重发既有W5款"
+    },
+    {
+      "id": "F2",
+      "requirement": "收740→申请退100→异人批准在途100/实退0→真退100；有原因驳回无退款",
+      "assertions": "身份隔离、额度、终态、原生出款/贷项、拒绝原因",
+      "accepted_scope": "C/R3模型正例及驳回；FC1/FC2两事务取消/执行和终态幂等；UI4指定Web退20与异人审批",
+      "remaining_gap": "原F2全序列没有同一次真实Web和外部资金确认；响应丢失HTTP重放、更多审批同退款组合不足",
+      "status": "PARTIAL",
+      "evidence": [
+        "C",
+        "R3",
+        "FC1",
+        "FC2",
+        "UI4"
+      ],
+      "new_business_execution_needed": true,
+      "policy": "无新增业务规则待决定；生产科目/税/支付政策仍待单列确认",
+      "source_data_and_role": "合成收款；申请人、异人审批者、执行人及财务核查者",
+      "gap_classes": [
+        "NOT_RUN",
+        "INSUFFICIENT_EVIDENCE",
+        "POLICY_PENDING"
+      ],
+      "product_gap": "NOT_CONFIRMED_FROM_FIXED_EVIDENCE",
+      "execution_note": "补原断言缺失的最小业务动作；本批未获授权"
+    },
+    {
+      "id": "F3",
+      "requirement": "现金误录微信且已日结→财务解锁→更正→重结；无虚构退款，实物退药另核",
+      "assertions": "锁、审批、渠道重分类、重结、无资金往返、实物归库分离",
+      "accepted_scope": "C/R3模型；FC2更正后微信原生outbound40及当日close；UI4实际Web解锁",
+      "remaining_gap": "合法错日期绕锁、不同业务日/渠道组合与实物退药同链、完整Web更正交互不足",
+      "status": "PARTIAL",
+      "evidence": [
+        "C",
+        "R3",
+        "FC1",
+        "FC2",
+        "UI4"
+      ],
+      "new_business_execution_needed": true,
+      "policy": "无新增业务规则待决定；生产科目/税/支付政策仍待单列确认",
+      "source_data_and_role": "合成现金误录；经理/前台、财务解锁者、原生渠道日记账",
+      "gap_classes": [
+        "NOT_RUN",
+        "INSUFFICIENT_EVIDENCE"
+      ],
+      "product_gap": "NOT_CONFIRMED_FROM_FIXED_EVIDENCE",
+      "execution_note": "补原断言缺失的最小业务动作；本批未获授权"
+    },
+    {
+      "id": "F4",
+      "requirement": "真实诊疗/检查/发药批次扣减→结算→补旧文书/重印；调价不改旧费库款",
+      "assertions": "同一来源链、补录/更正和重印前后逐行不变量",
+      "accepted_scope": "C/R3模型及库存；W3真实Web治疗/检查/4+2/post740；W4业务签名保全；R1证实W5付款未改临床/库存",
+      "remaining_gap": "同一完整临床链补旧文书与原版重印、S08/S09必要HTTP回归及全链签名未齐；不合并跨库为单次PASS",
+      "status": "PARTIAL",
+      "evidence": [
+        "C",
+        "R3",
+        "W3",
+        "W4",
+        "R1"
+      ],
+      "new_business_execution_needed": true,
+      "policy": "无新增业务规则待决定；生产科目/税/支付政策仍待单列确认",
+      "source_data_and_role": "合成同患者临床/检查/药房源及S07批次、原生账",
+      "gap_classes": [
+        "NOT_RUN",
+        "INSUFFICIENT_EVIDENCE"
+      ],
+      "product_gap": "NOT_CONFIRMED_FROM_FIXED_EVIDENCE",
+      "execution_note": "补原断言缺失的最小业务动作；本批未获授权"
+    },
+    {
+      "id": "F5",
+      "requirement": "旧270+新200收300→270+30、欠170；仅选新账不碰旧",
+      "assertions": "业务日/ID顺序、双账不合并、只核选中",
+      "accepted_scope": "C/R3真实模型与原生partial，含仅选新账和同日ID顺序",
+      "remaining_gap": "当前UI Web没有同一组合完整选择/付款证据；生产科目及币种映射待审核",
+      "status": "SCOPED_ACCEPTED",
+      "evidence": [
+        "C",
+        "R3"
+      ],
+      "new_business_execution_needed": false,
+      "policy": "无新增业务规则待决定；生产科目/税/支付政策仍待单列确认",
+      "source_data_and_role": "合成旧/新两张同店原生账；结算操作者",
+      "gap_classes": [
+        "NOT_RUN",
+        "POLICY_PENDING"
+      ],
+      "product_gap": "NOT_CONFIRMED_FROM_FIXED_EVIDENCE",
+      "execution_note": "关键模型或资金路径已采证；现有不足优先只读或交最终验收决策"
+    },
+    {
+      "id": "F6",
+      "requirement": "有权前台A收款，无权只见许可摘要；B只见A欠款摘要，B不得代收A",
+      "assertions": "同一服务鉴权、店铺隔离、摘要最小化、切合法A会话",
+      "accepted_scope": "C/R3模型及HTTP摘要；UI4有权前台；UI6/7撤权/旧页与跨店会话限定负向",
+      "remaining_gap": "跨店原生RPC/附件/完整票据直链及患者合并组合不足；角色矩阵未穷尽",
+      "status": "PARTIAL",
+      "evidence": [
+        "C",
+        "R3",
+        "UI4",
+        "UI6",
+        "UI7"
+      ],
+      "new_business_execution_needed": true,
+      "policy": "无新增业务规则待决定；生产科目/税/支付政策仍待单列确认",
+      "source_data_and_role": "前台有/无billing、经理、跨店B会话与A欠款摘要",
+      "gap_classes": [
+        "NOT_RUN",
+        "INSUFFICIENT_EVIDENCE"
+      ],
+      "product_gap": "NOT_CONFIRMED_FROM_FIXED_EVIDENCE",
+      "execution_note": "补原断言缺失的最小业务动作；本批未获授权"
+    },
+    {
+      "id": "T01",
+      "requirement": "740重复/并发出账→来源有效出账一次",
+      "assertions": "同费源双事务、唯一posted invoice、重放",
+      "accepted_scope": "C双后端同源唯一账；R3固定窗口动作前SIGSEGV，不能算R3竞态",
+      "remaining_gap": "W3只单次Web出账，未在该库并发；不同批次限制需保留",
+      "status": "SCOPED_ACCEPTED",
+      "evidence": [
+        "C",
+        "R3",
+        "W3"
+      ],
+      "new_business_execution_needed": false,
+      "policy": "无新增业务规则待决定；生产科目/税/支付政策仍待单列确认",
+      "source_data_and_role": "同费源两个独立PG后端及出账操作者",
+      "gap_classes": [
+        "NOT_RUN"
+      ],
+      "product_gap": "NOT_CONFIRMED_FROM_FIXED_EVIDENCE",
+      "execution_note": "关键模型或资金路径已采证；现有不足优先只读或交最终验收决策"
+    },
+    {
+      "id": "T02",
+      "requirement": "740收500补240及重试→应收240→0、原生核销与实收一致",
+      "assertions": "两笔Web付款、posted分录、AR partial、重复key",
+      "accepted_scope": "C/R3模型；W5两POST各一次；R1对W4/W5 read-only原生凭证、partial及S01逐项勾稽",
+      "remaining_gap": "W5完成marker和final_audit未运行；真实现金到账及跨故障HTTP响应丢失不在本条已验范围",
+      "status": "SCOPED_ACCEPTED",
+      "evidence": [
+        "C",
+        "R3",
+        "W5",
+        "R1"
+      ],
+      "new_business_execution_needed": false,
+      "policy": "无新增业务规则待决定；生产科目/税/支付政策仍待单列确认",
+      "source_data_and_role": "合成发票1、经理Web现金500/240、原生应收行",
+      "gap_classes": [
+        "NOT_RUN",
+        "POLICY_PENDING"
+      ],
+      "product_gap": "NOT_CONFIRMED_FROM_FIXED_EVIDENCE",
+      "execution_note": "关键模型或资金路径已采证；现有不足优先只读或交最终验收决策"
+    },
+    {
+      "id": "T03",
+      "requirement": "负/超额折扣拒绝；明确免单有原因，零账无假收款",
+      "assertions": "非法折扣、原因、独立0元posted账、无payment",
+      "accepted_scope": "C负/超额拒与免单；R3固定库独立0元posted invoice且无假付款",
+      "remaining_gap": "0元Web操作与所有折扣权限/审计组合尚非完整现场；原R3固定双连接未完成",
+      "status": "SCOPED_ACCEPTED",
+      "evidence": [
+        "C",
+        "R3"
+      ],
+      "new_business_execution_needed": false,
+      "policy": "无新增业务规则待决定；生产科目/税/支付政策仍待单列确认",
+      "source_data_and_role": "合成折扣/免单操作者、0元原生发票",
+      "gap_classes": [
+        "NOT_RUN"
+      ],
+      "product_gap": "NOT_CONFIRMED_FROM_FIXED_EVIDENCE",
+      "execution_note": "关键模型或资金路径已采证；现有不足优先只读或交最终验收决策"
+    },
+    {
+      "id": "T04",
+      "requirement": "退款自批与并发批准→自批拒、在途+已退不超额",
+      "assertions": "同退款双审批者竞争、同收款额度竞争、无重复贷项",
+      "accepted_scope": "C自批拒/额度竞争；FC1同一退款批准胜者+另backend40001；FC2取消竞争",
+      "remaining_gap": "不同请求key及响应丢失场景、外部付款核验未齐；锁对象种类未独立证明",
+      "status": "PARTIAL",
+      "evidence": [
+        "C",
+        "FC1",
+        "FC2"
+      ],
+      "new_business_execution_needed": true,
+      "policy": "无新增业务规则待决定；生产科目/税/支付政策仍待单列确认",
+      "source_data_and_role": "申请者、两个审批后端和额度来源收款",
+      "gap_classes": [
+        "NOT_RUN",
+        "INSUFFICIENT_EVIDENCE"
+      ],
+      "product_gap": "NOT_CONFIRMED_FROM_FIXED_EVIDENCE",
+      "execution_note": "补原断言缺失的最小业务动作；本批未获授权"
+    },
+    {
+      "id": "T05",
+      "requirement": "退款失败/未知/实际完成/重试→不伪已退、不重复资金",
+      "assertions": "failed/unknown人工核查、done终态、取消/执行竞争、同key重试",
+      "accepted_scope": "C/R3模型；FC1执行胜与取消回滚；FC2取消先行、done后重复/拒绝、unknown/failed受控恢复与原生单笔出款",
+      "remaining_gap": "真实HTTP响应丢失后同key重放与外部支付状态真实性未测；unknown与实际出款并发不足",
+      "status": "PARTIAL",
+      "evidence": [
+        "C",
+        "R3",
+        "FC1",
+        "FC2"
+      ],
+      "new_business_execution_needed": true,
+      "policy": "无新增业务规则待决定；生产科目/税/支付政策仍待单列确认",
+      "source_data_and_role": "退款执行/取消后端、人工核查角色、原生outbound",
+      "gap_classes": [
+        "NOT_RUN",
+        "INSUFFICIENT_EVIDENCE",
+        "POLICY_PENDING"
+      ],
+      "product_gap": "NOT_CONFIRMED_FROM_FIXED_EVIDENCE",
+      "execution_note": "补原断言缺失的最小业务动作；本批未获授权"
+    },
+    {
+      "id": "T06",
+      "requirement": "未收款减免只调应收，不记实退",
+      "assertions": "原生应收贷项、payment/refund为0",
+      "accepted_scope": "C/R3未收款免单原生贷项且无真实出款",
+      "remaining_gap": "适用合成模型路径；生产税额和财务映射未批准",
+      "status": "SCOPED_ACCEPTED",
+      "evidence": [
+        "C",
+        "R3"
+      ],
+      "new_business_execution_needed": false,
+      "policy": "无新增业务规则待决定；生产科目/税/支付政策仍待单列确认",
+      "source_data_and_role": "未收账的免单操作者与原生贷项",
+      "gap_classes": [
+        "POLICY_PENDING"
+      ],
+      "product_gap": "NOT_CONFIRMED_FROM_FIXED_EVIDENCE",
+      "execution_note": "关键模型或资金路径已采证；现有不足优先只读或交最终验收决策"
+    },
+    {
+      "id": "T07",
+      "requirement": "日结后改支付方式→财务解锁/原因/再确认，无伪退款",
+      "assertions": "锁阻断、授权解锁、原生重分类、重结及退款渠道正确",
+      "accepted_scope": "C/R3单进程；FC1 close先行；FC2原cash→wechat、微信outbound与新close；UI4 Web解锁",
+      "remaining_gap": "合法业务日跨日绕锁、不同渠道/收费员组合仍不足；更正Web全入口未覆盖",
+      "status": "PARTIAL",
+      "evidence": [
+        "C",
+        "R3",
+        "FC1",
+        "FC2",
+        "UI4"
+      ],
+      "new_business_execution_needed": true,
+      "policy": "无新增业务规则待决定；生产科目/税/支付政策仍待单列确认",
+      "source_data_and_role": "收费员、财务解锁者、实际退款人、渠道日记账",
+      "gap_classes": [
+        "NOT_RUN",
+        "INSUFFICIENT_EVIDENCE"
+      ],
+      "product_gap": "NOT_CONFIRMED_FROM_FIXED_EVIDENCE",
+      "execution_note": "补原断言缺失的最小业务动作；本批未获授权"
+    },
+    {
+      "id": "T08",
+      "requirement": "已出账数量更正、文字更正与实物退回→反向来源、文字不动费库、未退不回库",
+      "assertions": "原事件引用、贷项/新费、文字零经济变化、退药隔离",
+      "accepted_scope": "C/R3分别有模型更正和真实退药隔离库存",
+      "remaining_gap": "同患者同接诊并结合W3费库款/报告重印后的逐行签名与Web动作不足",
+      "status": "PARTIAL",
+      "evidence": [
+        "C",
+        "R3",
+        "W3"
+      ],
+      "new_business_execution_needed": true,
+      "policy": "无新增业务规则待决定；生产科目/税/支付政策仍待单列确认",
+      "source_data_and_role": "临床原事件/文书、药房批次与隔离库",
+      "gap_classes": [
+        "NOT_RUN",
+        "INSUFFICIENT_EVIDENCE"
+      ],
+      "product_gap": "NOT_CONFIRMED_FROM_FIXED_EVIDENCE",
+      "execution_note": "补原断言缺失的最小业务动作；本批未获授权"
+    },
+    {
+      "id": "T09",
+      "requirement": "同法人调拨与跨法人交易→实际收发/凭证对应、公司店隔离",
+      "assertions": "双法人SO/PO/收发/posted账、非法来源/币种/批次/并发",
+      "accepted_scope": "C/R3同法人与跨法人原生正例及多种拒绝；集团多仓策略已批准",
+      "remaining_gap": "异币种、效期/配置失败、同source双事务订单及原生posted失败原子性未获匹配证据",
+      "status": "PARTIAL",
+      "evidence": [
+        "C",
+        "R3"
+      ],
+      "new_business_execution_needed": true,
+      "policy": "集团多仓/多库位政策已在#6170791208批准；生产公司科目、税、币种配置仍待确认",
+      "source_data_and_role": "同法人门店及两法人SO/PO、库存与account.move",
+      "gap_classes": [
+        "NOT_RUN",
+        "INSUFFICIENT_EVIDENCE",
+        "POLICY_PENDING"
+      ],
+      "product_gap": "NOT_CONFIRMED_FROM_FIXED_EVIDENCE",
+      "execution_note": "补原断言缺失的最小业务动作；本批未获授权"
+    },
+    {
+      "id": "T10",
+      "requirement": "他店代收、无权医疗全文或票据→越权拒绝，摘要与全文分离",
+      "assertions": "店铺最小摘要、原生账/医疗全文/附件/PDF直链鉴权",
+      "accepted_scope": "C/R3跨店拒与最小摘要；UI6 reader两PDF直链403、撤权及旧revision拒",
+      "remaining_gap": "跨法人医疗全文、附件/原生RPC、患者合并后的旧身份访问矩阵证据不足",
+      "status": "PARTIAL",
+      "evidence": [
+        "C",
+        "R3",
+        "UI6",
+        "UI7"
+      ],
+      "new_business_execution_needed": true,
+      "policy": "无新增业务规则待决定；生产科目/税/支付政策仍待单列确认",
+      "source_data_and_role": "reader、经理、跨店会话、PDF下载者",
+      "gap_classes": [
+        "NOT_RUN",
+        "INSUFFICIENT_EVIDENCE"
+      ],
+      "product_gap": "NOT_CONFIRMED_FROM_FIXED_EVIDENCE",
+      "execution_note": "补原断言缺失的最小业务动作；本批未获授权"
+    },
+    {
+      "id": "T11",
+      "requirement": "中文票据及部分收退款→实收/欠/在途/已退准确，法人门店正确",
+      "assertions": "bill/receipt/refund PDF字节、中文、各退款状态票面及多账余额",
+      "accepted_scope": "C/R3多张中文PDF；UI4三类实际HTTP200 PDF字节/哈希/各1页，覆盖指定60/20部分资金",
+      "remaining_gap": "批准在途、unknown/rejected/done、零额/多账组合的实际PDF逐页和法人店边界未全覆盖；GPT未亲见私有图",
+      "status": "PARTIAL",
+      "evidence": [
+        "C",
+        "R3",
+        "UI4"
+      ],
+      "new_business_execution_needed": true,
+      "policy": "无新增业务规则待决定；生产科目/税/支付政策仍待单列确认",
+      "source_data_and_role": "合成bill/receipt/refund及部分付款/退款状态",
+      "gap_classes": [
+        "NOT_RUN",
+        "INSUFFICIENT_EVIDENCE",
+        "POLICY_PENDING"
+      ],
+      "product_gap": "NOT_CONFIRMED_FROM_FIXED_EVIDENCE",
+      "execution_note": "补原断言缺失的最小业务动作；本批未获授权"
+    },
+    {
+      "id": "T12",
+      "requirement": "安装升级及F4真实全链→事件、价格、批次、费账款一一对应",
+      "assertions": "安装/首次及带业务升级、同一Web完整临床到结清、S08/S09回归",
+      "accepted_scope": "C固定库安装/双升级及模型；W3 20步真实Web费库/posted740；W4安装态QWeb同步和38表保全；W5付款/R1只读核账",
+      "remaining_gap": "W4元数据越界STOP；W5 browser exit1/final_audit NOT_RUN；同Firefox23步与完整上游HTTP回归未通过",
+      "status": "BLOCKED",
+      "evidence": [
+        "C",
+        "W3",
+        "W4",
+        "W5",
+        "R1"
+      ],
+      "new_business_execution_needed": true,
+      "policy": "无新增业务规则待决定；生产科目/税/支付政策仍待单列确认",
+      "source_data_and_role": "W3医生/检查员/药房/经理与W4/W5克隆账",
+      "gap_classes": [
+        "NOT_RUN",
+        "INSUFFICIENT_EVIDENCE"
+      ],
+      "product_gap": "NOT_CONFIRMED_FROM_FIXED_EVIDENCE",
+      "execution_note": "补原断言缺失的最小业务动作；本批未获授权"
+    },
+    {
+      "id": "T13",
+      "requirement": "旧270新200收300及仅选新账→270+30、欠170、未选不核",
+      "assertions": "跨日/同日稳定次序、两张原生账保留、单选新账",
+      "accepted_scope": "C/R3模型原生partial、仅选新账与超额/跨店拒",
+      "remaining_gap": "此特定多账组合真实浏览器未见；不同库结果不并成同次Web PASS",
+      "status": "SCOPED_ACCEPTED",
+      "evidence": [
+        "C",
+        "R3"
+      ],
+      "new_business_execution_needed": false,
+      "policy": "无新增业务规则待决定；生产科目/税/支付政策仍待单列确认",
+      "source_data_and_role": "旧270/新200两张账和一个300收款操作者",
+      "gap_classes": [
+        "NOT_RUN"
+      ],
+      "product_gap": "NOT_CONFIRMED_FROM_FIXED_EVIDENCE",
+      "execution_note": "关键模型或资金路径已采证；现有不足优先只读或交最终验收决策"
+    },
+    {
+      "id": "T14",
+      "requirement": "有/无billing前台和跨店摘要→同一服务鉴权、无岗位默认开放、无跨店代收",
+      "assertions": "有权Web入口、无权POST、跨店摘要/旧页撤权",
+      "accepted_scope": "C/R3模型/HTTP；UI4有权前台；UI6六组负向与撤权，UI7旧HTML303拒绝",
+      "remaining_gap": "全岗位、跨法人患者合并及原生RPC/附件拒绝未穷尽",
+      "status": "PARTIAL",
+      "evidence": [
+        "C",
+        "R3",
+        "UI4",
+        "UI6",
+        "UI7"
+      ],
+      "new_business_execution_needed": true,
+      "policy": "无新增业务规则待决定；生产科目/税/支付政策仍待单列确认",
+      "source_data_and_role": "front有/无billing、manager切店/撤权旧页",
+      "gap_classes": [
+        "NOT_RUN",
+        "INSUFFICIENT_EVIDENCE"
+      ],
+      "product_gap": "NOT_CONFIRMED_FROM_FIXED_EVIDENCE",
+      "execution_note": "补原断言缺失的最小业务动作；本批未获授权"
+    },
+    {
+      "id": "T15",
+      "requirement": "确认600调价620仍按600结算/重印；退款驳回有原因/审计、无贷项退款",
+      "assertions": "价源冻结、同源重印字节、驳回原因及S01审计/零出款",
+      "accepted_scope": "C/R3模型冻结600与驳回无贷项；UI4指定PDF字节可用",
+      "remaining_gap": "同一旧费源调价后原版重印与更正后的签名、驳回PDF/审计全字段组合不足",
+      "status": "PARTIAL",
+      "evidence": [
+        "C",
+        "R3",
+        "UI4"
+      ],
+      "new_business_execution_needed": true,
+      "policy": "无新增业务规则待决定；生产科目/税/支付政策仍待单列确认",
+      "source_data_and_role": "已确认600费源、调价操作者、驳回者和PDF",
+      "gap_classes": [
+        "NOT_RUN",
+        "INSUFFICIENT_EVIDENCE"
+      ],
+      "product_gap": "NOT_CONFIRMED_FROM_FIXED_EVIDENCE",
+      "execution_note": "补原断言缺失的最小业务动作；本批未获授权"
+    },
+    {
+      "id": "T16",
+      "requirement": "锁后补录、解锁更正、删除/篡改审计→锁覆盖新增/更正、双时间、普通人不可删改",
+      "assertions": "真实跨日补录、错日期绕锁、审计/单据不可改删、close逆序竞争",
+      "accepted_scope": "C/R3双时间/六次篡改拒；FC1/FC2部分close与退款/更正竞态；UI6/7撤权旧页",
+      "remaining_gap": "合法时点而错业务日绕锁、跨日补录与同收费员全渠道组合、审计原生删除/RPC广度不足",
+      "status": "PARTIAL",
+      "evidence": [
+        "C",
+        "R3",
+        "FC1",
+        "FC2",
+        "UI6",
+        "UI7"
+      ],
+      "new_business_execution_needed": true,
+      "policy": "无新增业务规则待决定；生产科目/税/支付政策仍待单列确认",
+      "source_data_and_role": "收费员、财务解锁者、审计记录、两个事务后端",
+      "gap_classes": [
+        "NOT_RUN",
+        "INSUFFICIENT_EVIDENCE"
+      ],
+      "product_gap": "NOT_CONFIRMED_FROM_FIXED_EVIDENCE",
+      "execution_note": "补原断言缺失的最小业务动作；本批未获授权"
+    }
+  ],
+  "cross_batch_lineage": [
+    "W3: OID2100285 real Web clinical/pharmacy and posted invoice740; bill HTTP200, cash not run",
+    "W4: OID2100301 clone of W3, installed QWeb synced, economics preserved; metadata gate stops Web",
+    "W5: OID2100310 clone of W4, real Web cash 500/240, browser exit1/final_audit NOT_RUN",
+    "RO1-R1: read-only W4/W5 native posted payments/partial/residual0; no new POST"
+  ],
+  "visibility": "GPT reviewed repository redacted artifacts; private raw HTTP/screenshots/PDF/PG process logs are Codex attestations, not GPT hands-on reproduction",
+  "policy_pending": [
+    "production chart of accounts/taxes/currencies/payment journals and actual channel policy",
+    "external cash/platform settlement and tax invoice not demonstrated",
+    "final unified user acceptance per #23 comment 6110178328"
+  ],
+  "proposal_status": "PROPOSAL_NOT_AUTHORIZED",
+  "requirement_issue": "https://github.com/Yredxin/YDental/issues/34",
+  "preflight_verbatim_api_get": true,
+  "issue34_comments_after_preflight": 170,
+  "new_evidence_layer": "STATIC_REVIEW_ONLY"
+}
