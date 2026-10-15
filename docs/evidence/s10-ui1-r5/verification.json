@@ -1,0 +1,87 @@
+{
+  "status": "BLOCKED_TEST_EXECUTOR_AFTER_ONE_REAL_READER_POST",
+  "authorization_comment": 6183901946,
+  "checkpoint_comment": 6184273529,
+  "fixed_start": "3e2f863d089d1df4bf979eb99624a84abbfad292",
+  "source": {
+    "name": "ydental_s10_test_20261015033000_a4c82d17",
+    "oid": 2100265,
+    "filestore_files": 150,
+    "active_connections_before_create": 0
+  },
+  "target": {
+    "name": "ydental_s10_test_20261015043000_e7b04c13",
+    "oid": 2100266,
+    "cluster": "7694897083368259627",
+    "port": 18274
+  },
+  "usage": {
+    "new_databases": 1,
+    "odoo_http_processes": 1,
+    "firefox_processes": 1,
+    "module_upgrades": 0,
+    "new_finance_commits": 0,
+    "planned_manager_switch_b_a": 0,
+    "planned_revoke": 0
+  },
+  "runtime": {
+    "http_pid": 3271725,
+    "http_exit": 0,
+    "signal11": false,
+    "http_timeout": false,
+    "browser_first_wrapper": "IMPORT_FAILED_BEFORE_PLAYWRIGHT",
+    "browser_actual": "TYPEERROR_IN_EVENT_AFTER_READER_POST"
+  },
+  "reader_post": {
+    "request": "POST /ydental/settlement/action",
+    "real_http_status": 403,
+    "own_access_credentials": true,
+    "no_write_form": true,
+    "application_json_error_parsed_before_event_failure": true,
+    "complete_browser_assertion": "NOT_RUN"
+  },
+  "finance": {
+    "exact_source_target_rows_equal_after_failure": true,
+    "receipt_count": 8,
+    "account_move_count": 5,
+    "account_payment_count": 2,
+    "partial_count": 2,
+    "mail_mail_count": 0,
+    "bus_rows": 30,
+    "source_audit_count": 234,
+    "target_audit_count": 247,
+    "target_report_download_count": 3,
+    "new_audit_categories": [
+      "login",
+      "login.scope",
+      "store.switch",
+      "settlement.invoice_view"
+    ],
+    "source_report_download_count": 3,
+    "report_download_delta": 0
+  },
+  "negative_scenarios": {
+    "reader_post": "PARTIAL_HTTP_403",
+    "front_json_409": "NOT_RUN",
+    "csrf_400": "NOT_RUN",
+    "reader_pdf_direct": "NOT_RUN",
+    "manager_stale_revision": "NOT_RUN",
+    "permission_revoke": "NOT_RUN",
+    "front_revoked_403": "NOT_RUN",
+    "html_303_feedback": "NOT_RUN",
+    "forged_notice": "NOT_RUN",
+    "pagination_gt50": "NOT_RUN"
+  },
+  "offline_after_fix": "SIMULATED_PASS",
+  "executed_browser_sha256": "ed157d1d8af27601903b95b8920983d7100ee9466385a614e868bd0e9ababf6b",
+  "private_evidence_sha256": {
+    "database.json": "f90d16aafca890e8609143482c549b5ee2b768e22146d9b154b2269a3587cf2e",
+    "odoo.conf": "6c401f02e5dc8dd6628fca9bf43bd056fd33a8862237f4a36795cfccb4728a98",
+    "odoo-http-r5.log": "33a2ebb28f1536563efdcfc35a652534c96986c5c668d8ce89551fc3b68f0e44",
+    "http-r5.result.json": "8bffd1e52192602d106db9672b6ba09c98bb95951afd07ae691388cb1a2f341d",
+    "browser-r5.log": "6c626dc316a593d9bad591224251f0d805c3e99a535a9c60f8ee1a81d0714ad5",
+    "browser-r5-run.log": "58baa12e2b9f42a1f81be39d4e6620007db56e42e9b8cc226facdb7878adbb76",
+    "browser-events.jsonl": "ebc6e98b424b46a27d6c221dd97992344d5f06112b690d4ed2dca19b0904a2c0",
+    "browser-executed.py": "ed157d1d8af27601903b95b8920983d7100ee9466385a614e868bd0e9ababf6b"
+  }
+}
