@@ -1,0 +1,350 @@
+{
+  "accounting": {
+    "invoice": [
+      {
+        "company": 1,
+        "id": 1,
+        "journal": 1,
+        "payment_state": "paid",
+        "residual": "0.00",
+        "state": "posted",
+        "total": "740.00",
+        "type": "out_invoice"
+      }
+    ],
+    "journal_cash_id": 8,
+    "native_payment_move_ids": [
+      2,
+      3
+    ],
+    "native_payments": [
+      {
+        "amount": "500.00",
+        "company": 1,
+        "id": 1,
+        "journal": 8,
+        "move": 2,
+        "move_state": "posted",
+        "partner_type": "customer",
+        "payment_type": "inbound",
+        "state": "reconciled"
+      },
+      {
+        "amount": "240.00",
+        "company": 1,
+        "id": 2,
+        "journal": 8,
+        "move": 3,
+        "move_state": "posted",
+        "partner_type": "customer",
+        "payment_type": "inbound",
+        "state": "reconciled"
+      }
+    ],
+    "partials": [
+      {
+        "amount": "500.00",
+        "company": 1,
+        "credit": 7,
+        "debit": 5,
+        "id": 1
+      },
+      {
+        "amount": "240.00",
+        "company": 1,
+        "credit": 9,
+        "debit": 5,
+        "id": 2
+      }
+    ],
+    "payment_move_balances_equal_zero": true,
+    "receipts": [
+      [
+        1,
+        1,
+        5,
+        "bill",
+        {
+          "amount": 740.0,
+          "invoice_id": 1,
+          "residual": 740.0
+        }
+      ],
+      [
+        2,
+        1,
+        5,
+        "pay",
+        {
+          "allocations": [
+            {
+              "amount": 500.0,
+              "invoice_id": 1,
+              "partial_id": 1
+            }
+          ],
+          "amount": 500.0,
+          "native_payment_id": 1,
+          "payment_id": 1,
+          "residuals": {
+            "1": 240.0
+          }
+        }
+      ],
+      [
+        3,
+        1,
+        5,
+        "pay",
+        {
+          "allocations": [
+            {
+              "amount": 240.0,
+              "invoice_id": 1,
+              "partial_id": 2
+            }
+          ],
+          "amount": 240.0,
+          "native_payment_id": 2,
+          "payment_id": 2,
+          "residuals": {
+            "1": 0.0
+          }
+        }
+      ]
+    ],
+    "s10_cashier_rows": [
+      [
+        1,
+        1,
+        5,
+        "cash",
+        "500.00",
+        "2026-10-15",
+        "2026-10-15 07:52:02.559463"
+      ],
+      [
+        2,
+        1,
+        5,
+        "cash",
+        "240.00",
+        "2026-10-15",
+        "2026-10-15 07:52:03.952418"
+      ]
+    ],
+    "source_fee_and_stock_unchanged": true
+  },
+  "authorization_comment": 6186596167,
+  "core_head": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "failure": {
+    "browser_complete": "NOT_WRITTEN",
+    "final_audit": "NOT_RUN",
+    "fixed_assert_allowed": [
+      "in_process",
+      "paid"
+    ],
+    "line": "scripts/s10_e2e_w5_browser.py:69",
+    "observed_native_state": "reconciled",
+    "product_defect_proven": false,
+    "repeat_payment_or_recreate": false,
+    "stage": "second payment validate_money after response and read-only snapshot"
+  },
+  "fixed_base": "79417da9043478501ffae586f93eebc1e5d7105d",
+  "hashes": {
+    "post_stop_readonly_sha256": "de6b60935c5cc54d3ce7f2917fb7100fcad8a5c5d4050ab8b933d0ed300eee7f",
+    "preflight_sha256": "bb26dea5188ae9147aa11b85f45a530e6124487141f326c0b99238eed93479b4",
+    "private_files_sha256": {
+      "before-web.json": "79b697269f0b6331da01a24960d028e433c66d7ee9a395b9b7583ea519ac1f6e",
+      "browser-attempt.json": "29c092063f9cebea0c7567bd3cf43fc8cba761e835cd46bd90bfb07bd7325671",
+      "browser-attempt.json.result": "a2267d13f1b00c48d404f3bcdf81210f7b025e590f55ee89a8acce30e2863250",
+      "browser-started.json": "c806158d65f2d784a30df59f545c090ceff5dcb649230658ad87cf63b1281305",
+      "browser.log": "19e0ebbb504ee2078cb63478419d9947ee02984c8bcc84c729e3e53855b02765",
+      "create-complete.json": "69cf4a107a942f7fc77715d28b80a6496c5110b8d4e407cdabe999702534287f",
+      "create-sql-committed.json": "63a332394d3d454a34f14bf297b939cc3abf9eccf0e5c71c18867571d27f26f9",
+      "database.json": "1a7f4a2a95e8aa0ea3d6da17abf6033976d2e39754185fa38e441a497351a5fa",
+      "form-240.json": "754db645c44256dee7577e4e1bcf194762f7e5780ba4cefb891621060812fad6",
+      "form-500.json": "a7a583ee6d0ed4e0438f243d3338bc679eca86913b28850be80e73361ddc1069",
+      "http-attempt.json": "7ac9e7945ed27e8d07733ac2f9ca992156a99e1f5cda9b1060f796c5967cbd18",
+      "http-pid.json": "c682a8f227406d650a94ad9da9959cd3e6f95b88deef9241ebbf511ea2545303",
+      "http-ready.json": "c894a6da70bf5b1590af3445c7079c309d2dfa33c05e09739f191067524bf470",
+      "http-result.json": "939b21e05e6224c6c26fd953f5c2b9fbce5433077ef6de60e2f6f934978f4e8b",
+      "manager-login.json": "e929ec503aae439241be758d748490c223aab80e3964e049bb51d8e729f44e28",
+      "odoo-http.log": "5cb7dc1bc49214197f4d48657be54d9dd7cc85ce82204bdf6df7be289976ca8d",
+      "pay-1-confirmed.json": "9e7c4745c224b02c67fa530f33ee6b8ac563dc454bb63161835b57f67edf0fe5",
+      "pay-1-confirmed.png": "c0025cae41e89408bb581823b3899103939e7d7df949f912734e02a68681a5ed",
+      "pay-1-intent.json": "7df9379907b0be3e4ebed6c13f814ec65b1882e2a2fa7b13ae64756447f7995e",
+      "pay-1-observed.json": "871850d4f298278d04ae92be3c9c8af74273167fb241e3896c4ded311dbaf369",
+      "pay-1-response.json": "fd6e858b2bbb4db243ce2f201eacc1339d97367196fa94ad0e06ffd8c13ea313",
+      "pay-1-sent.json": "8b867cc403033144e850663c1580f22c917fc51d4fa521fcd1bbca04932c8507",
+      "pay-2-intent.json": "9e322c916e52f69d29c63c636332e5ac39c0f4bb7f5e9fd895cb386fae143de4",
+      "pay-2-observed.json": "9a59bfa549602e01a07eeb75a7b9e4f04d8c1bbb9c9d6bd775541041bc78b612",
+      "pay-2-response.json": "fd6e858b2bbb4db243ce2f201eacc1339d97367196fa94ad0e06ffd8c13ea313",
+      "pay-2-sent.json": "088806ef65f35cd34e1de6bc438f972b100c2a069900ce9eb41be96f8f68ed51",
+      "post-stop-readonly.json": "de6b60935c5cc54d3ce7f2917fb7100fcad8a5c5d4050ab8b933d0ed300eee7f"
+    },
+    "scripts_sha256": {
+      "scripts/s10_e2e_w5_browser.py": "a3db4471714888a142a47d0067572fe83d9ba92362e2384a26d4144d4509efbc",
+      "scripts/s10_e2e_w5_cli_offline.py": "01af42a51d0014548423f7ba26918ccb0a80625d57a9efda51bc1585658149a0",
+      "scripts/s10_e2e_w5_control.py": "032db39bfbf99d28ee7f4100bf33169e5e2952129eec233b500a433bb9f284f5",
+      "scripts/s10_e2e_w5_offline.py": "f74f1f1e57e66fa320c1ff1309b772b911f31d344b2f39a2b17a8175c5ecf49b",
+      "scripts/s10_e2e_w5_preflight.py": "a5cdf152c9a4d70843fa808b1f7f2f0624362216b561bbc59f42a4a7c8ed38da",
+      "scripts/s10_e2e_w5_snapshot.py": "019d2ddf23a07cb6344bfdfc56b9129fa20aa69a18f17e9d1f1efc87f05d7de7"
+    }
+  },
+  "preflight_comment": 6187223122,
+  "resources": {
+    "browser_result": {
+      "config_sha256": "867f761771ecc20931f69103388df699b094b748e6a9d392e15ebe3d406e43c7",
+      "exit_code": 1,
+      "log_bytes": 718,
+      "log_sha256": "19e0ebbb504ee2078cb63478419d9947ee02984c8bcc84c729e3e53855b02765",
+      "oid": 2100310,
+      "pid": 3400801,
+      "signal11": false,
+      "timeout": false
+    },
+    "create": 1,
+    "firefox_playwright": 1,
+    "http_result": {
+      "exit_code": 0,
+      "log_bytes": 13909,
+      "log_sha256": "5cb7dc1bc49214197f4d48657be54d9dd7cc85ce82204bdf6df7be289976ca8d",
+      "pid": 3400717,
+      "seconds": 9.27619851497002,
+      "signal11": false
+    },
+    "module_install_upgrade": 0,
+    "odoo_http": 1,
+    "odoo_shell": 0,
+    "successful_payment_posts": [
+      500,
+      240
+    ]
+  },
+  "source": {
+    "business_38_equal_preflight": true,
+    "config_sha256": "464f29204afd03c63d1450db442f4d42454e1d164243ca6bb1dbe8eb787b10ba",
+    "database": "ydental_s10_test_20261015064000_d41e7b62",
+    "filestore_unchanged": true,
+    "marker_sha256": "82aaa9c49144987eaa2bf08268db145b62bb55f3ebd5fb373d94dfbd4e101b4a",
+    "module_meta_unchanged": true,
+    "oid": 2100301
+  },
+  "status": "BLOCKED_SCRIPT_ASSERT_AFTER_SECOND_COMMITTED_PAYMENT",
+  "target": {
+    "clone_business_38_equal": true,
+    "config_sha256": "867f761771ecc20931f69103388df699b094b748e6a9d392e15ebe3d406e43c7",
+    "database": "ydental_s10_test_20261015073500_e50f4a71",
+    "filestore_manifest_sha256": "bd0b0fbad15868bbabb836fa7016a91187bb31c6b9b6d934b2a7a0fe035c4283",
+    "marker_sha256": "1a7f4a2a95e8aa0ea3d6da17abf6033976d2e39754185fa38e441a497351a5fa",
+    "oid": 2100310,
+    "port": 18280,
+    "source_audit_prefix_unchanged": true,
+    "source_oid": 2100301,
+    "stable_after_payment_table_count": 31,
+    "stable_after_payment_unchanged": true
+  },
+  "w4_review_comment": 6186530230,
+  "web": {
+    "form_240": {
+      "action": "/ydental/settlement/action",
+      "actual_utc_present": true,
+      "amount": "240",
+      "button_enabled": true,
+      "channel": "cash",
+      "csrf_present": true,
+      "form_valid": true,
+      "form_visible": true,
+      "invoice_ids": [
+        "1"
+      ],
+      "key_present": true,
+      "method": "post",
+      "operation": "pay",
+      "output": "html",
+      "proof_present": true,
+      "revision_match": true
+    },
+    "form_500": {
+      "action": "/ydental/settlement/action",
+      "actual_utc_present": true,
+      "amount": "500",
+      "button_enabled": true,
+      "channel": "cash",
+      "csrf_present": true,
+      "form_valid": true,
+      "form_visible": true,
+      "invoice_ids": [
+        "1"
+      ],
+      "key_present": true,
+      "method": "post",
+      "operation": "pay",
+      "output": "html",
+      "proof_present": true,
+      "revision_match": true
+    },
+    "manager_user_id": 5,
+    "native_payment_states_after_first": [
+      "paid"
+    ],
+    "native_payment_states_after_second": [
+      "reconciled",
+      "reconciled"
+    ],
+    "post_240": {
+      "accepted_feedback": true,
+      "form_fields": {
+        "actual_utc_present": true,
+        "amount": "240",
+        "channel": "cash",
+        "csrf_present": true,
+        "invoice_ids": [
+          "1"
+        ],
+        "key_present": true,
+        "operation": "pay",
+        "output": "html",
+        "proof_present": true,
+        "revision_present": true
+      },
+      "http_status": 303,
+      "location_path": "/ydental/settlement",
+      "method": "POST",
+      "notice_present": true,
+      "page_errors": [],
+      "path": "/ydental/settlement/action",
+      "request_content_type": "application/x-www-form-urlencoded",
+      "response_content_type": "text/html; charset=utf-8"
+    },
+    "post_500": {
+      "accepted_feedback": true,
+      "form_fields": {
+        "actual_utc_present": true,
+        "amount": "500",
+        "channel": "cash",
+        "csrf_present": true,
+        "invoice_ids": [
+          "1"
+        ],
+        "key_present": true,
+        "operation": "pay",
+        "output": "html",
+        "proof_present": true,
+        "revision_present": true
+      },
+      "http_status": 303,
+      "location_path": "/ydental/settlement",
+      "method": "POST",
+      "notice_present": true,
+      "page_errors": [],
+      "path": "/ydental/settlement/action",
+      "request_content_type": "application/x-www-form-urlencoded",
+      "response_content_type": "text/html; charset=utf-8"
+    },
+    "screenshot_240": "NOT_CAPTURED_STOP",
+    "screenshot_500_sha256": "c0025cae41e89408bb581823b3899103939e7d7df949f912734e02a68681a5ed",
+    "store_id": 1
+  }
+}
