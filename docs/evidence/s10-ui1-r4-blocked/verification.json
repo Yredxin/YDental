@@ -1,0 +1,144 @@
+{
+  "scope": "S10-UI1-R4",
+  "status": "BLOCKED_TEST_HARNESS_AFTER_PDF_AND_FINANCE_LIMITED_PASS",
+  "authority_comment": 6183640723,
+  "review_comment": 6183199751,
+  "checkpoint_comment": 6183755327,
+  "checkpoint_exact_readback_sha256": "be77152ab17e3649e9f46eed0eb70bdb751eceda79bb7d7590f040a3c571ba71",
+  "baseline_sha": "26238bf3351e6d2949e1dbd6afb731e5e5022bdf",
+  "branch": "codex/s10-settlement-finance-r1-20261013",
+  "source": {
+    "database": "ydental_s10_test_20261015024000_d36e2b81",
+    "oid": 2100256,
+    "cluster": "7694897083368259627",
+    "config_sha256": "9d4ecea18b99ceb23cee15a671ec64bd93e6568b5417e9741f1ae55eec72129f",
+    "marker_sha256": "e11b497a74abb65c1d501130fd4e4fd438ddce8790a81a626ba788ee891eabb1",
+    "filestore_file_count": 150,
+    "filestore_manifest_sha256": "abf18f3ab41a8db6c22e269b590fd5910cc1fc954f44cbda6bbffc317aa332db",
+    "attachment_references": 164,
+    "unique_attachment_files_verified": 75,
+    "preclone_active_connections": 0,
+    "installed_modules": 92,
+    "original_posted_invoice_amounts_and_residuals": [["100.00", "100.00"], ["100.00", "100.00"]],
+    "payments_refunds_closes_partials": 0,
+    "audit_count_before_and_after": 178,
+    "mail_mail": 0,
+    "internal_bus": 30,
+    "bill_audit_actor_fixture_ids": {"r2_bill_manager": 5, "r3_bill_frontdesk": 6}
+  },
+  "target": {
+    "database": "ydental_s10_test_20261015033000_a4c82d17",
+    "oid": 2100265,
+    "source_oid_in_marker": 2100256,
+    "port": 18273,
+    "config_sha256": "b0e4b01b05a2f06b17f755c1f577781e9bd6474c09ba4c740392bad7556d6ae6",
+    "marker_sha256": "18c63ad48b8d6c137aad3115fb21be8bad5fe4bac86db65d7950e38df22b61c5",
+    "module_upgrades": 0,
+    "candidate_qweb_inherited_and_verified": true,
+    "postrun_identity_only_pass": true,
+    "postrun_verify_target_finance_equality_command": "EXPECTED_REJECT_after_authorized_business_writes"
+  },
+  "product_files_changed": 0,
+  "fixed_product_sha256": {
+    "controller": "bfa051971585369f1585d311cfc4553159d4a42ef23b3c54f35d77e53ab4caa2",
+    "qweb": "8f74cffa93a3a24f1d4c4f95a2a006fd698050cda8d27a99924de58770feb329"
+  },
+  "renderer_smoke": {
+    "status": "RENDERER_SMOKE_PASS",
+    "wkhtmltopdf_path": "/usr/local/bin/wkhtmltopdf",
+    "wkhtmltoimage_path": "/usr/local/bin/wkhtmltoimage",
+    "both_versions": "0.12.6.1 (with patched qt)",
+    "odoo_child_fontconfig": "existing_private_Noto_CJK_config",
+    "exit_code": 0,
+    "pdf_header": true,
+    "pages": 1,
+    "bytes": 10558,
+    "sha256": "ea0267c7546d46e2f928363128475ff93d1a7dfa1b82d7aeb8858d62f023ba45",
+    "chinese_semantic_text": true,
+    "initial_helper_import_failure": "base_venv_lacked_PyMuPDF; no_renderer_invoked; corrected_with_existing_private_verify_lib"
+  },
+  "offline": {
+    "actual_create_and_cli_fake_flow": "SIMULATED_PASS_10_checks",
+    "actual_pdf_function_fake_200_409_403": "SIMULATED_PASS",
+    "typed_date_datetime_decimal_evidence": "SIMULATED_PASS",
+    "compile": "PASS"
+  },
+  "process_usage": {
+    "create": "1/1",
+    "odoo_http": "1/1",
+    "firefox_playwright": "1/1",
+    "successful_named_business_or_audited_exports": "9/12: pay, refund_request, refund_approve, refund_execute, close, unlock, bill_pdf, receipt_pdf, refund_pdf",
+    "upgrade": 0,
+    "prepare_shell": 0,
+    "original_http": 0,
+    "browser_retries": 0
+  },
+  "odoo_http_process": {
+    "pid": 3244847,
+    "exit_code": 0,
+    "signal11": false,
+    "timed_out": false,
+    "log_sha256": "6a60622f2b6c34991aea13b755108055d5f097bbed5c80a06b5a728fc6a88f9d",
+    "wkhtml_paths_logged": true,
+    "wkhtml_network_warning_on_each_pdf": true,
+    "all_pdf_http_responses": 200
+  },
+  "firefox_process": {
+    "exit_code": 1,
+    "cause": "TEST_HARNESS_reader_readonly_page_has_no_csrf_input; JS_null_value_before_no_write_POST",
+    "browser_complete_marker": false,
+    "console_log_sha256": "00f100a71c1f5893324b699d4449a992ada0a1185cf770ad615a827ec0aa03e0",
+    "events_sha256": "405047a536797d059bfb6e99c5e41916902b1130645d627c4218153243a07da3",
+    "commit_ledger_sha256": "300524504d115c3254ab071e739e23ac2485513084e7899317d21b18e8a5e890"
+  },
+  "actual_pdf_results": {
+    "bill": {
+      "http_status": 200, "content_type": "application/pdf", "bytes": 27436, "pages": 1,
+      "sha256": "27508b1e6e4192e80e7dcd5daaff5046919a90c597bc76a99a61aaaf0c18902a",
+      "visual_zh_page_one": "PASS", "semantic_amounts": "received_0_residual_100"
+    },
+    "receipt": {
+      "http_status": 200, "content_type": "application/pdf", "bytes": 28042, "pages": 1,
+      "sha256": "cb5c6c423e182f31a45d217925102402e4ad8398a6e360bf456dd3d2eb907bae",
+      "visual_zh_page_one": "PASS", "semantic_amounts": "received_60_refunded_0_pending_0_residual_40_at_export"
+    },
+    "refund": {
+      "http_status": 200, "content_type": "application/pdf", "bytes": 26240, "pages": 1,
+      "sha256": "203018cc943191a3498435b4ee9c59b753a069cbadc1e3adc7f121314ce12d59",
+      "visual_zh_page_one": "PASS", "semantic_amounts": "requested_20_pending_0_refunded_20"
+    },
+    "all_download_sha256_equal_response_header": true,
+    "bill_pdf_first_request_before_new_money": true,
+    "r3_409_exact_cause": "UNKNOWN_not_reproduced_in_R4",
+    "non_2xx_raw_response_capture": "SIMULATED_ONLY_not_triggered_real"
+  },
+  "native_finance_after": {
+    "invoice_1": {"state": "posted", "total": "100.00", "residual": "100.00"},
+    "invoice_2": {"state": "posted", "total": "100.00", "residual": "40.00"},
+    "account_payments": [
+      {"type": "inbound", "amount": "60.00", "state": "paid", "journal_id": 8},
+      {"type": "outbound", "amount": "20.00", "state": "reconciled", "journal_id": 8}
+    ],
+    "credit_note": {"move_type": "out_refund", "state": "posted", "amount": "20.00"},
+    "native_partial_amounts": ["60.00", "20.00"],
+    "refund": {"amount": "20.00", "state": "done", "requester_fixture_user": 6, "approver_fixture_user": 5},
+    "close": {"state": "unlocked", "gross": "60.00", "refunded": "20.00", "pending": "0.00", "channel": "cash", "business_date": "2026-10-15"},
+    "receipt_operations": ["bill", "bill", "pay", "refund_request", "refund_approve", "refund_execute", "close", "unlock"],
+    "s01_audit_before_after": [178, 234],
+    "mail_mail": 0,
+    "internal_bus": 30
+  },
+  "web_limited_pass": [
+    "six_html_business_303_workbench_feedback", "same_key_json_replay_200_no_extra_money",
+    "refresh_no_extra_money", "forged_notice_no_success_feedback",
+    "requester_self_approval_403", "cross_store_approval_403"
+  ],
+  "not_run_after_stop": [
+    "reader_no_write_POST", "json_generic_403_409", "invalid_csrf", "unauthorized_pdf_direct_link",
+    "revoke_write_permission", "stale_revision_POST", "html_denial_feedback",
+    "over_50_real_http_pagination", "other_json_success_operations"
+  ],
+  "s10_full_technical_and_production": "BLOCKED",
+  "native_sigsegv_root_cause": "UNKNOWN",
+  "s11": "NOT_STARTED"
+}
