@@ -1,0 +1,229 @@
+{
+  "directory": ".local/s10-p0-13 (700)",
+  "privacy": "all raw rows, HTML, HTTP, passwords/cookies/tokens stay private",
+  "raw_contents_not_published": true,
+  "raw_files": {
+    "authorize.json": {
+      "bytes": 15284,
+      "sha256": "72c0db363146fb71ddf2c74e4fac67951687d12f2e055a26c2a24cbd056a8d67"
+    },
+    "browser-first-failure.json": {
+      "bytes": 50,
+      "sha256": "d007e93737854321ac244b651cede546ec6750497f7c33adb59d8d3ba47565bc"
+    },
+    "clinical-get-0.html.json": {
+      "bytes": 15127,
+      "sha256": "b0c853594de6a3d15d7cf1e1b8f44a09d634e9d402d39ef2e2a5f83a5ed84552"
+    },
+    "clone-before-http.json": {
+      "bytes": 39183340,
+      "sha256": "61835c97361405b9c3617eae5448a574bb914fb46225ca964919d2fe8fd4a04e"
+    },
+    "comments23-connector.json": {
+      "bytes": 12816,
+      "sha256": "d153b5b7fcb45eea120f4db2483630317596f4030fb03789e35ef5ceff55ad7f"
+    },
+    "comments23-delivery.json": {
+      "bytes": 12816,
+      "sha256": "d153b5b7fcb45eea120f4db2483630317596f4030fb03789e35ef5ceff55ad7f"
+    },
+    "comments34-connector.json": {
+      "bytes": 1707659,
+      "sha256": "a848694ac204cdb1ad2df98814def80668da9a56a557054dc29e3db1d08ddffb"
+    },
+    "comments34-delivery.json": {
+      "bytes": 1721930,
+      "sha256": "9f0d958c6102eb782881c0d7598c58f60555ce4331ddecba837dd15c498ce932"
+    },
+    "comments35-full.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "comments35.json": {
+      "bytes": 4,
+      "sha256": "cf1cbb66a638b4860a516671fb74850e6ccf787fe6c4c8d29e9c04efe880bd05"
+    },
+    "create-completed.json": {
+      "bytes": 93,
+      "sha256": "43cab764184a7eb2d7bafb62df8e1b274528349f9ae32396d25cf03cc216c354"
+    },
+    "create-intent.json": {
+      "bytes": 218,
+      "sha256": "3355c7546760b5e8ce82c5c41c7b14948dcdba8f479e824e4e06e3c03402d5ff"
+    },
+    "evidence-projection.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "execution-error.json": {
+      "bytes": 57,
+      "sha256": "49767316a3d7cee22d79b0af6f1907d5a739d88b5006355267e6cd61f990045c"
+    },
+    "execution-intent.json": {
+      "bytes": 114,
+      "sha256": "222270bc5399d698e74acf0da99a75e30abd02296a2ef0d9c1b8815f7e6ff5a4"
+    },
+    "execution.log": {
+      "bytes": 6009,
+      "sha256": "4de074449822e0c394cd60e2aace6d7a4b99f012cd2557d698cd4d772124b747"
+    },
+    "firefox-launch-intent.json": {
+      "bytes": 73,
+      "sha256": "d8e2a99a9c3db4c85bd73b1ce5659c9be14ac2f4980e004751dc19ffc622ae7f"
+    },
+    "gate-01-startup-rows.json": {
+      "bytes": 39183340,
+      "sha256": "1cf6bb9d1a8a8985cede0c2d5ce8c8cc9a1d7a01ef79d5228c6929f70907c90c"
+    },
+    "gate-02-startup-rows.json": {
+      "bytes": 39183340,
+      "sha256": "6e1bcaa46a8bdb93c9a794baec9102657afd017b2d1ec2c1bbcb1f8032c7caec"
+    },
+    "http-intent.json": {
+      "bytes": 267,
+      "sha256": "130b095641874ff4734545533e63572b17e3202cf24fd9a12c5c98de21284360"
+    },
+    "intent-native-login.json": {
+      "bytes": 1330,
+      "sha256": "164bd15adbd582bfe724c6f3eddc5c444b61d5ccd76889e6277db22c94e489d5"
+    },
+    "issue23-connector.json": {
+      "bytes": 22346,
+      "sha256": "68ad3648e36fffa41e62d7a7887e4612605c70a0b5021968b78bce504d7eb1c6"
+    },
+    "issue23-delivery.json": {
+      "bytes": 22346,
+      "sha256": "68ad3648e36fffa41e62d7a7887e4612605c70a0b5021968b78bce504d7eb1c6"
+    },
+    "issue23.json": {
+      "bytes": 25675,
+      "sha256": "64fdca706a9d0d2f6b81effe3a8fd6673c2de647ba5cb58e88892884725a22dc"
+    },
+    "issue34-connector.json": {
+      "bytes": 7953,
+      "sha256": "0c11306a8f1ef850fcdf30e25582e4e24c6637093751d272c634da9e0a553af7"
+    },
+    "issue34-delivery.json": {
+      "bytes": 7953,
+      "sha256": "2169c16ad150866428a678371e3edff543741f39f4e8d82226134ebbbf7dd6f4"
+    },
+    "issue34.json": {
+      "bytes": 11318,
+      "sha256": "b06b35aad4c2399f483264afc75951674069cd6cfa30b71809a00829acfa612c"
+    },
+    "issue35-connector.json": {
+      "bytes": 10981,
+      "sha256": "5c96675e91ea75b4ea6ed833d5f276b6f641888bc7a1e02fae6b39afbb91c317"
+    },
+    "issue35-delivery.json": {
+      "bytes": 10981,
+      "sha256": "5c96675e91ea75b4ea6ed833d5f276b6f641888bc7a1e02fae6b39afbb91c317"
+    },
+    "issue35.json": {
+      "bytes": 14343,
+      "sha256": "5858a07ec674ad6577fbe49ecf0f0ffc4006e97fc1d5bffd45719f3e6190fbac"
+    },
+    "maintenance-connection-intent.json": {
+      "bytes": 43,
+      "sha256": "086c42e02c5544f11d8902a67fb1c75310bf3295e217c91c33d0ea03774b5495"
+    },
+    "offline-attempt2.log": {
+      "bytes": 654,
+      "sha256": "2854454522d287e2c908265329b6540d2ed23723e463390355dee6c1fc3fb155"
+    },
+    "offline-final.log": {
+      "bytes": 654,
+      "sha256": "89599cf3f3793435deeb41d58489b73faab94934a37bbb84d9cf9941b7bd91a9"
+    },
+    "preflight-api-raw.json": {
+      "bytes": 17178,
+      "sha256": "eadc8fa87852f40eddfa2324d77066c3b3504de895feb4873697c4416d7a6a10"
+    },
+    "preflight-api-readback.json": {
+      "bytes": 14401,
+      "sha256": "34d34a8b710d9832164027eab13d4acb8508737060bbefef5a359a0ebc958d35"
+    },
+    "preflight-body.txt": {
+      "bytes": 13721,
+      "sha256": "a1606962a139ba92a42071c40e78194155ee1b740071f31307bf50c107f1c1de"
+    },
+    "preflight-comment-intent.json": {
+      "bytes": 169,
+      "sha256": "09e81b277d05d78ef14245e96bc956ad04e6872a42be30eaa3290e16a196e45a"
+    },
+    "preflight-post-payload.json": {
+      "bytes": 13883,
+      "sha256": "41de8922feb504f20ec1df4db40e18215669274540b255c9fb004af0eeaf0836"
+    },
+    "remote-git-observation.json": {
+      "bytes": 322,
+      "sha256": "5e7e098615ec2082f19ad59b9137da6ebd6015372515030e65f128d9492efda0"
+    },
+    "remote-ref.json": {
+      "bytes": 451,
+      "sha256": "0a1c858968f397a9040e96adeb2822924df027ca220cfd512e29e040cb4d6b98"
+    },
+    "response-native-login.json": {
+      "bytes": 647,
+      "sha256": "563364cb8a1bbd3a5322d3a434a08a595753e40aec565cfc74823f150632a1e3"
+    },
+    "source-after-connection-closed.json": {
+      "bytes": 154,
+      "sha256": "158b07bc4e536203c41d6aadaae026e43c8e2ff7ff70bb508a6c50f434b3109c"
+    },
+    "source-after-connection-intent.json": {
+      "bytes": 158,
+      "sha256": "036234bf7a656c4c48f90ba6cbc96fa3ddea1b02b86b53ce1eb21f5ea1aa0697"
+    },
+    "source-before-connection-closed.json": {
+      "bytes": 154,
+      "sha256": "c53f0e857a609eb2427f946be6a790ce9ba48180c38c913639fb69399fb35736"
+    },
+    "source-before-connection-intent.json": {
+      "bytes": 160,
+      "sha256": "56a0095fe55d7d1394e9e6abfd75d3eb5ca30ad2246707b2de7263279edd7fe7"
+    },
+    "target-after-connection-closed.json": {
+      "bytes": 152,
+      "sha256": "eecb02a59dfe2946dca6edbde283eb8afffd2cbcd5eed729d7026bfb3ac46811"
+    },
+    "target-after-connection-intent.json": {
+      "bytes": 157,
+      "sha256": "222c7315a68b54a0c29a48a44b9613880f92017ba0153e8e3c1758866855bd95"
+    },
+    "target-after-rows.json": {
+      "bytes": 39186861,
+      "sha256": "9d4f6c0916ca40cffe5bc884006c2ba418281b70d3592bc0a999c6e1865e805c"
+    },
+    "target-before-connection-closed.json": {
+      "bytes": 153,
+      "sha256": "0ffeba2a2233b0140fe55c2d35b723ac1cd05a1fe8c0dd44314b027a6655b83f"
+    },
+    "target-before-connection-intent.json": {
+      "bytes": 157,
+      "sha256": "3f17f713314ba2080a4bf4baad7bd6c2b42a8d6c784ecccff12c8fd441646c65"
+    },
+    "w5-after-private-rows.json": {
+      "bytes": 39183340,
+      "sha256": "4aa2f9522cfcb9c630966403503df04ef3d22813242262983a0fe64c86f4319c"
+    },
+    "w5-private-rows.json": {
+      "bytes": 39183341,
+      "sha256": "e10e30e14c2b5384ebc11a927cd672279c187a4401dd78d7ca987a9ff387ae05"
+    }
+  },
+  "run_files": {
+    "database.json": {
+      "bytes": 609,
+      "sha256": "c4c8331909a59fc614fd8209a1ba2117308691ecc4d29f06c3c5c3713f9b414d"
+    },
+    "http.log": {
+      "bytes": 10037,
+      "sha256": "26e2b05c7dec93be00d551910c4abe305e7e4200e50a048906f5c99428a22633"
+    },
+    "odoo.conf": {
+      "bytes": 634,
+      "sha256": "1f033f1a840c67eae325b7b1bb4ae99d1d21ee9012f4ed41906b132fcc2e113a"
+    }
+  }
+}

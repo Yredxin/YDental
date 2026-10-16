@@ -1,0 +1,12 @@
+{
+  "authorization": 6211098449,
+  "comment_id": 6211482453,
+  "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6211482453",
+  "body_characters": 9915,
+  "body_utf8_bytes": 13721,
+  "body_sha256": "a1606962a139ba92a42071c40e78194155ee1b740071f31307bf50c107f1c1de",
+  "preflight_sha256": "f3d5a71344b214ff53cd96d0c2d35891f3ad6c285e2a425fa63d3ba96c6a224d",
+  "verbatim_equal": true,
+  "readback_utc_epoch": 1792139651.9465957,
+  "transport": "GitHub REST GET via GitHub connector fetch raw response"
+}

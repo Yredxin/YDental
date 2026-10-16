@@ -1,0 +1,18 @@
+{
+  "origin": "existing native Firefox DEBUG stderr, preserved without rerun",
+  "line_count": 4,
+  "line_sha256": [
+    "ea033ffd1fc05f101cea64bac4c9b059092b99b0e404d8f73bdcf04adf79a904",
+    "bb5c03399fccb2b8fc4b44d1acfc81d91224572c6ee742eba553cf35ad08baf2",
+    "4d7a84533797e50210e6d6ab7c7997bf561a6cc120d890812dd47fe897b1363b",
+    "45922b8d8ac5bc78ded901ef1490fe5aa2f8e35221d27f4e60a0823fcfb9ee45"
+  ],
+  "labels": {
+    "NS_ERROR_ABORT": 2,
+    "NS_ERROR_FAILURE": 1,
+    "protocol_dispose_error": 1
+  },
+  "business_pageerrors": 0,
+  "engine_exit": 0,
+  "root_cause": "UNKNOWN; stderr diagnostics distinct from pageerror and not promoted to a clean browser run"
+}

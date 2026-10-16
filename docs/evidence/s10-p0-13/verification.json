@@ -1,0 +1,89 @@
+{
+  "CREATE": 1,
+  "ODOO_HTTP": 1,
+  "PDF": 0,
+  "SUDO_DIRECT_ORM_INSTALL_UPGRADE_SHELL_TEST": 0,
+  "actual_browser_budget_reconciled_with_server": {
+    "ACQUIRE": 0,
+    "CLINICAL_GET": 1,
+    "CONFIRM": 0,
+    "FIREFOX_LAUNCH": 1,
+    "HEARTBEAT": 0,
+    "NATIVE_LOGIN_POST": 1,
+    "OTHER_POST": 0,
+    "PDF": 0,
+    "RELEASE": 0,
+    "STORE_SWITCH_POST": 0
+  },
+  "actual_connections": {
+    "maintenance": 1,
+    "source-after": 1,
+    "source-before": 1,
+    "target-after": 1,
+    "target-before": 1
+  },
+  "all_old_rows_exact": true,
+  "authorization": 6211098449,
+  "base": "cf6692c27d48ebabf1b7d4f3ab1ef99ef4cfef74",
+  "browser_pageerror_count": 0,
+  "clinical_actions": "NOT_RUN",
+  "clone_initial643_exact": true,
+  "clone_oid": 2100325,
+  "codex_self_test_only": true,
+  "continue_blocks": [
+    "S10_STAGE",
+    "PRODUCTION",
+    "T12",
+    "NATIVE_SIGSEGV_UNKNOWN",
+    "W4_METADATA_STOP",
+    "W5_OLD_BROWSER_EXIT1_FINAL_AUDIT_NOT_RUN",
+    "SAME_SOURCE_ORIGINAL_PDF_UNAVAILABLE"
+  ],
+  "controller_catches_flow_failure": true,
+  "controller_exit": 0,
+  "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "doc1_state": "pending",
+  "doc1_version": 2,
+  "editor_empty": true,
+  "firefox_engine_exits": [
+    {
+      "exit_code": "0",
+      "signal": "null"
+    }
+  ],
+  "firefox_engine_pids": [
+    66299
+  ],
+  "frozen_login_whitelist_pass": false,
+  "funds_stock_fee_write": 0,
+  "historical_replay": 0,
+  "locked627_tables_exact": true,
+  "new_Odoo_SIGSEGV_observed": false,
+  "new_version3": "NOT_RUN",
+  "no_database_or_native_operation_after_source_after": true,
+  "odoo_exit": 0,
+  "odoo_pid": 66211,
+  "old_versions1_2_full_rows_exact": true,
+  "only_new_identity_and_view_audit_rows": true,
+  "original_route_counter_clinical_GET": 0,
+  "preflight_comment": 6211482453,
+  "preflight_rest_verbatim": true,
+  "product_core_acl_old_evidence_issue_project_change": 0,
+  "scope": "one bounded attempt stopped; no retry or product change",
+  "session_template_field_mismatch": [
+    "write_uid"
+  ],
+  "source_after_backend": 1127441,
+  "source_before_after643_exact": true,
+  "source_before_backend": 1127349,
+  "source_before_closed_before_CREATE": true,
+  "source_filestore_seal_unchanged": true,
+  "source_write": 0,
+  "status": "S10_P0_13_BLOCKED_NATIVE_DOM_AND_LOGIN_AUDIT_CONTRACT",
+  "target639_tables_exact": true,
+  "target_filestore_unchanged": true,
+  "unallowlisted_audit": [
+    "source.view"
+  ],
+  "zero_exit_does_not_mean_business_PASS": true
+}

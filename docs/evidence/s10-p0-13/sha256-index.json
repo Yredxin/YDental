@@ -1,0 +1,117 @@
+{
+  "files": {
+    "docs/evidence/s10-p0-13/all643-target-comparison.json": {
+      "bytes": 228526,
+      "sha256": "0732f008c32562bca7019b8c223076598aa01c573827afeb2fd92002b960c202"
+    },
+    "docs/evidence/s10-p0-13/browser-engine-diagnostics.json": {
+      "bytes": 672,
+      "sha256": "c34903607d80ce0102ce4001bc7d5814ecad7d1dccb69da624b402657e4343e9"
+    },
+    "docs/evidence/s10-p0-13/browser-result.json": {
+      "bytes": 5551,
+      "sha256": "bdcbe1ceffd33a691ad6184077993420a5a9af68002e30288c1a9d8985afd063"
+    },
+    "docs/evidence/s10-p0-13/clone.json": {
+      "bytes": 91045,
+      "sha256": "afefda685becb625073c6cec1673b2cae1f2bad10f51e2bcae11cede1e48dc1f"
+    },
+    "docs/evidence/s10-p0-13/eligibility.json": {
+      "bytes": 3941,
+      "sha256": "740dda0b617268215977b8c2d569f9a17cce49587d71e6d06e93d24aec4f18d3"
+    },
+    "docs/evidence/s10-p0-13/execution-preflight.json": {
+      "bytes": 118823,
+      "sha256": "f3d5a71344b214ff53cd96d0c2d35891f3ad6c285e2a425fa63d3ba96c6a224d"
+    },
+    "docs/evidence/s10-p0-13/execution-result.json": {
+      "bytes": 1161,
+      "sha256": "9ce36f9ff9829a19abd7fa828b0774e7e5a135048758d40bc56395c867a48fd3"
+    },
+    "docs/evidence/s10-p0-13/gate-01-startup.json": {
+      "bytes": 110845,
+      "sha256": "1b353948440b3f4c4df40eba237969b295aa937ce4aefd80d5221def93476b4c"
+    },
+    "docs/evidence/s10-p0-13/gate-02-startup.json": {
+      "bytes": 110845,
+      "sha256": "90687939b9a348decde2fa50409f61b9f37defae26ad15ba0363426d36fed791"
+    },
+    "docs/evidence/s10-p0-13/github-delivery-read.json": {
+      "bytes": 87569,
+      "sha256": "97a2b1fadde8b4985133f2f886492610693f728b03576fdfd0733d6bbb361f45"
+    },
+    "docs/evidence/s10-p0-13/github-start.json": {
+      "bytes": 103645,
+      "sha256": "7f3f88a64daf6c5274df068376d1a04d83b4aaebf787aad5fbfd6a4f1a128e78"
+    },
+    "docs/evidence/s10-p0-13/login-audit-field-review.json": {
+      "bytes": 4070,
+      "sha256": "6d0e6ccc700eb7290aa3aca7154622a2d08132cb0fa968e4b38eccda438fc742"
+    },
+    "docs/evidence/s10-p0-13/native-dom-http-review.json": {
+      "bytes": 2941,
+      "sha256": "9b7d78de1c8f709c98aa966d24df3e4ffdbb6f624ab15552ac1c5d955fcaedf9"
+    },
+    "docs/evidence/s10-p0-13/offline-checks.json": {
+      "bytes": 851,
+      "sha256": "9b080b08f362f881f92c8c438a6f79e56aca887511ed9384d09a0a5148ebf30a"
+    },
+    "docs/evidence/s10-p0-13/preflight-api-readback.json": {
+      "bytes": 517,
+      "sha256": "18de78e828a48f78a7052e6295038fa63551a3fb0d935105617f28fd4487709c"
+    },
+    "docs/evidence/s10-p0-13/private-artifact-index.json": {
+      "bytes": 8126,
+      "sha256": "843e7eb8c42df0829fc63fe7bf64e69581b52e483e2ef23a5d1a2597ca6032a0"
+    },
+    "docs/evidence/s10-p0-13/source-after.json": {
+      "bytes": 92081,
+      "sha256": "338472c2aa2308a8be0c3153abee1b962923f680b634afa5bc2a30d7cd86fcd5"
+    },
+    "docs/evidence/s10-p0-13/source-before.json": {
+      "bytes": 92006,
+      "sha256": "595d7f9de193f765ba398f05c7f30367c9e538cef4b89263e78f985c506bc50e"
+    },
+    "docs/evidence/s10-p0-13/target-after-signatures.json": {
+      "bytes": 90658,
+      "sha256": "3df1b9f0e95d5960d20367bb30d29472183cb0748f4d858c66bbaa6abc946462"
+    },
+    "docs/evidence/s10-p0-13/verification.json": {
+      "bytes": 2484,
+      "sha256": "da8ff741b7bef62e961b0cc7cdc2aad3d93a51428b9eb0f81d20e175d9780148"
+    },
+    "docs/s10-p0-13-blocked-report.md": {
+      "bytes": 12659,
+      "sha256": "f5a5d00e2c44e1884d3822f4b2c5b3dff9b1ed585ce68824eeaccfd958ebbbf9"
+    },
+    "docs/s10-p0-13-execution-preflight.md": {
+      "bytes": 13721,
+      "sha256": "a1606962a139ba92a42071c40e78194155ee1b740071f31307bf50c107f1c1de"
+    },
+    "scripts/s10_p0_13_audit.py": {
+      "bytes": 11492,
+      "sha256": "5a9d3c0869a0d53f5883561ebcaf28d79234a9db42ea16c3bdd12b8b03837f15"
+    },
+    "scripts/s10_p0_13_browser.py": {
+      "bytes": 18069,
+      "sha256": "ffaee0487aee5650703f8dec5c37a3cbd02238f84b77815194ce265ddf11a597"
+    },
+    "scripts/s10_p0_13_control.py": {
+      "bytes": 23134,
+      "sha256": "c6e3f631cf3084ae94aca4626c99d2382d4af5809f71f3c195e8c81c1f65a1e5"
+    },
+    "scripts/s10_p0_13_eligibility.py": {
+      "bytes": 14141,
+      "sha256": "21cb4f21786e6f00a9b331aa184091fc612b3adf018a902cc2741ade6f623c25"
+    },
+    "scripts/s10_p0_13_evidence.py": {
+      "bytes": 12805,
+      "sha256": "0dec9c5b3f4ae58d2ab4e459f5432551fb2c50838f0e09fb781dfdaaf66ce67c"
+    },
+    "scripts/s10_p0_13_preflight.py": {
+      "bytes": 14457,
+      "sha256": "313942575cbeb82e82c3d90aebffd282e4dfde2a9686ab67d5dbdcf63a7d8559"
+    }
+  },
+  "scope": "new P0-13 files only; index itself fixed by Git blob, excluded from self-hash"
+}

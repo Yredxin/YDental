@@ -1,0 +1,228 @@
+{
+  "actor": 7,
+  "connection_sha256": null,
+  "counts": {
+    "ACQUIRE": 0,
+    "CLINICAL_GET": 0,
+    "CONFIRM": 0,
+    "FIREFOX_LAUNCH": 1,
+    "HEARTBEAT": 0,
+    "NATIVE_LOGIN_POST": 1,
+    "OTHER_POST": 0,
+    "PDF": 0,
+    "RELEASE": 0,
+    "STORE_SWITCH_POST": 0
+  },
+  "failure": [
+    {
+      "code": "BROWSER_FLOW_STOP",
+      "detail_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "observed_requests": [
+    {
+      "forwarded": true,
+      "method": "GET",
+      "path": "/web/login"
+    },
+    {
+      "forwarded": true,
+      "method": "GET",
+      "path": "/web/assets/ed6b35f/web.material_symbols_outlined.min.woff2"
+    },
+    {
+      "forwarded": true,
+      "method": "GET",
+      "path": "/web/assets/c58ad13/web.odoo_ui_icons.min.woff2"
+    },
+    {
+      "forwarded": true,
+      "method": "GET",
+      "path": "/web/assets/15f5270/web.assets_frontend.min.css"
+    },
+    {
+      "forwarded": true,
+      "method": "GET",
+      "path": "/web/assets/db959f3/web.assets_frontend_minimal.min.js"
+    },
+    {
+      "forwarded": true,
+      "method": "GET",
+      "path": "/web/assets/c5332a1/web.assets_frontend_lazy.min.js"
+    },
+    {
+      "forwarded": true,
+      "method": "GET",
+      "path": "/website/translations"
+    },
+    {
+      "forwarded": true,
+      "method": "POST",
+      "path": "/web/login"
+    },
+    {
+      "forwarded": true,
+      "method": "GET",
+      "path": "/web/assets/15f5270/web.assets_frontend.min.css"
+    },
+    {
+      "forwarded": true,
+      "method": "GET",
+      "path": "/ydental_clinical/static/src/document/document.js"
+    },
+    {
+      "forwarded": true,
+      "method": "GET",
+      "path": "/ydental_clinical/static/src/document/document.css"
+    }
+  ],
+  "page_error_sha256": [],
+  "page_errors_count": 0,
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/web/login",
+      "query_keys": [
+        "redirect"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/web/assets/ed6b35f/web.material_symbols_outlined.min.woff2",
+      "query_keys": []
+    },
+    {
+      "method": "GET",
+      "path": "/web/assets/c58ad13/web.odoo_ui_icons.min.woff2",
+      "query_keys": []
+    },
+    {
+      "method": "GET",
+      "path": "/web/assets/15f5270/web.assets_frontend.min.css",
+      "query_keys": []
+    },
+    {
+      "method": "GET",
+      "path": "/web/assets/db959f3/web.assets_frontend_minimal.min.js",
+      "query_keys": []
+    },
+    {
+      "method": "GET",
+      "path": "/web/assets/c5332a1/web.assets_frontend_lazy.min.js",
+      "query_keys": []
+    },
+    {
+      "method": "GET",
+      "path": "/website/translations",
+      "query_keys": [
+        "hash",
+        "lang"
+      ]
+    },
+    {
+      "actor": 7,
+      "cookie_present": true,
+      "csrf_bound": true,
+      "method": "POST",
+      "operation": "native-login",
+      "origin_ok": true,
+      "path": "/web/login",
+      "payload_sha256": "2ab75be66bf68fa9e0a0038645bea553d6a7a6797479b5ceb1e643558c744759",
+      "scope_revision": null
+    },
+    {
+      "method": "GET",
+      "path": "/web/assets/15f5270/web.assets_frontend.min.css",
+      "query_keys": []
+    },
+    {
+      "method": "GET",
+      "path": "/ydental_clinical/static/src/document/document.js",
+      "query_keys": []
+    },
+    {
+      "method": "GET",
+      "path": "/ydental_clinical/static/src/document/document.css",
+      "query_keys": []
+    }
+  ],
+  "responses": [
+    {
+      "content_type": "text/html; charset=utf-8",
+      "method": "GET",
+      "path": "/web/login",
+      "status": 200
+    },
+    {
+      "content_type": "text/css; charset=utf-8",
+      "method": "GET",
+      "path": "/web/assets/15f5270/web.assets_frontend.min.css",
+      "status": 200
+    },
+    {
+      "content_type": "font/woff2",
+      "method": "GET",
+      "path": "/web/assets/ed6b35f/web.material_symbols_outlined.min.woff2",
+      "status": 200
+    },
+    {
+      "content_type": "application/javascript; charset=utf-8",
+      "method": "GET",
+      "path": "/web/assets/db959f3/web.assets_frontend_minimal.min.js",
+      "status": 200
+    },
+    {
+      "content_type": "font/woff2",
+      "method": "GET",
+      "path": "/web/assets/c58ad13/web.odoo_ui_icons.min.woff2",
+      "status": 200
+    },
+    {
+      "content_type": "application/javascript; charset=utf-8",
+      "method": "GET",
+      "path": "/web/assets/c5332a1/web.assets_frontend_lazy.min.js",
+      "status": 200
+    },
+    {
+      "content_type": "application/json; charset=utf-8",
+      "method": "GET",
+      "path": "/website/translations",
+      "status": 200
+    },
+    {
+      "body_sha256": null,
+      "content_type": "text/html; charset=utf-8",
+      "method": "POST",
+      "operation": "native-login",
+      "path": "/web/login",
+      "status": 303
+    },
+    {
+      "content_type": "text/html; charset=utf-8",
+      "method": "GET",
+      "path": "/ydental/clinical",
+      "status": 200
+    },
+    {
+      "content_type": "text/javascript; charset=utf-8",
+      "method": "GET",
+      "path": "/ydental_clinical/static/src/document/document.js",
+      "status": 200
+    },
+    {
+      "content_type": "text/css; charset=utf-8",
+      "method": "GET",
+      "path": "/ydental_clinical/static/src/document/document.css",
+      "status": 200
+    },
+    {
+      "content_type": "text/css; charset=utf-8",
+      "method": "GET",
+      "path": "/web/assets/15f5270/web.assets_frontend.min.css",
+      "status": 200
+    }
+  ],
+  "scope_revision": 1,
+  "screenshots_private_only": [],
+  "status": "BLOCKED"
+}

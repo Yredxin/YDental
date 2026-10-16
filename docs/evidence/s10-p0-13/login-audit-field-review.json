@@ -1,0 +1,143 @@
+{
+  "audit_event_counts": {
+    "clinical.view": 1,
+    "login": 1,
+    "login.scope": 1,
+    "source.view": 1,
+    "store.switch": 1
+  },
+  "audits": [
+    {
+      "create_date": "2026-10-16T08:34:37.102113",
+      "create_uid": 7,
+      "id": 331,
+      "write_date": "2026-10-16T08:34:37.102113",
+      "write_uid": 7,
+      "ydental_after": null,
+      "ydental_before": null,
+      "ydental_category": "personnel",
+      "ydental_event": "login",
+      "ydental_reason": null,
+      "ydental_result": "accepted",
+      "ydental_source": "native_authenticated_login",
+      "ydental_store_id": null,
+      "ydental_target_id": 7,
+      "ydental_target_model": "res.users",
+      "ydental_user_id": 7
+    },
+    {
+      "create_date": "2026-10-16T08:34:37.44462",
+      "create_uid": 7,
+      "id": 332,
+      "write_date": "2026-10-16T08:34:37.44462",
+      "write_uid": 7,
+      "ydental_after": null,
+      "ydental_before": null,
+      "ydental_category": "personnel",
+      "ydental_event": "login.scope",
+      "ydental_reason": null,
+      "ydental_result": "accepted",
+      "ydental_source": "authenticated_session",
+      "ydental_store_id": null,
+      "ydental_target_id": 16,
+      "ydental_target_model": "ydental.access.session",
+      "ydental_user_id": 7
+    },
+    {
+      "create_date": "2026-10-16T08:34:37.44462",
+      "create_uid": 7,
+      "id": 333,
+      "write_date": "2026-10-16T08:34:37.44462",
+      "write_uid": 7,
+      "ydental_after": {
+        "store_id": 1
+      },
+      "ydental_before": {
+        "store_id": false
+      },
+      "ydental_category": "personnel",
+      "ydental_event": "store.switch",
+      "ydental_reason": null,
+      "ydental_result": "accepted",
+      "ydental_source": "interactive",
+      "ydental_store_id": 1,
+      "ydental_target_id": 16,
+      "ydental_target_model": "ydental.access.session",
+      "ydental_user_id": 7
+    },
+    {
+      "create_date": "2026-10-16T08:34:37.44462",
+      "create_uid": 7,
+      "id": 334,
+      "write_date": "2026-10-16T08:34:37.44462",
+      "write_uid": 7,
+      "ydental_after": null,
+      "ydental_before": null,
+      "ydental_category": "medical",
+      "ydental_event": "clinical.view",
+      "ydental_reason": null,
+      "ydental_result": "accepted",
+      "ydental_source": "clinical_document",
+      "ydental_store_id": 1,
+      "ydental_target_id": 1,
+      "ydental_target_model": "ydental.clinical.document",
+      "ydental_user_id": 7
+    },
+    {
+      "create_date": "2026-10-16T08:34:37.44462",
+      "create_uid": 7,
+      "id": 335,
+      "write_date": "2026-10-16T08:34:37.44462",
+      "write_uid": 7,
+      "ydental_after": null,
+      "ydental_before": null,
+      "ydental_category": "medical",
+      "ydental_event": "source.view",
+      "ydental_reason": null,
+      "ydental_result": "accepted",
+      "ydental_source": "source_model",
+      "ydental_store_id": 1,
+      "ydental_target_id": 1,
+      "ydental_target_model": "ydental.clinical.document",
+      "ydental_user_id": 7
+    }
+  ],
+  "comparison_mode": "offline only on actual captured target-after; no new SQL or relaxed rules",
+  "frozen_comparator": {
+    "exception_message_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exception_type": "AssertionError",
+    "status": "FAIL"
+  },
+  "new_row_counts": {
+    "res_device_log": 1,
+    "res_users_log": 1,
+    "ydental_access_audit": 5,
+    "ydental_access_session": 1
+  },
+  "old_rows_in_all4_changed_tables_unchanged": true,
+  "posthoc_whitelist_relaxation": false,
+  "scope_new_key_or_sid_published": false,
+  "session_actual_actor_store_revision": [
+    7,
+    1,
+    1
+  ],
+  "session_new_id": 16,
+  "session_new_write_uid": 7,
+  "session_template_different_fields": [
+    "create_date",
+    "id",
+    "write_date",
+    "write_uid",
+    "ydental_key_hash"
+  ],
+  "session_template_id": 4,
+  "session_template_write_uid": 8,
+  "session_unallowlisted_different_fields": [
+    "write_uid"
+  ],
+  "status": "BLOCKED_FROZEN_WHITELIST",
+  "unallowlisted_events": [
+    "source.view"
+  ]
+}

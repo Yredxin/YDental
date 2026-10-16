@@ -1,0 +1,25 @@
+{
+  "SQL_CREATE_HTTP_FIREFOX_POST": 0,
+  "checks": [
+    "historical_unchanged643_accepted_as_OFFLINE_FIXTURE_ONLY",
+    "offline_reject_account_move",
+    "offline_reject_ydental_queue_mutex",
+    "offline_reject_ydental_clinical_version",
+    "offline_reject_ydental_access_audit",
+    "offline_accept_request_shape_acquire",
+    "offline_reject_acquire_revision",
+    "offline_reject_acquire_operation",
+    "offline_reject_acquire_csrf_token",
+    "offline_accept_request_shape_confirm",
+    "offline_reject_confirm_revision",
+    "offline_reject_confirm_operation",
+    "offline_reject_confirm_csrf_token",
+    "offline_accept_request_shape_release",
+    "offline_reject_release_revision",
+    "offline_reject_release_operation",
+    "offline_reject_release_csrf_token"
+  ],
+  "count": 17,
+  "historical_fixture_only": true,
+  "status": "PASS"
+}

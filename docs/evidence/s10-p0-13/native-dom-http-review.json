@@ -1,0 +1,91 @@
+{
+  "actual_clinical_GET": 1,
+  "actual_js_dataset_execution": "undefined from absent attribute; original evaluated object was not saved",
+  "complete_original_text_equal": true,
+  "counter_mismatch": "redirect target absent from route-handler observations, but present in real response and native server log; original counter preserved",
+  "data_execution_attribute_present": false,
+  "diagnosis_level": "saved HTML and unchanged JS establish execution-attribute incompatibility; not a recovered runtime traceback",
+  "execution_expected_by_frozen_browser": "0",
+  "html_private_sha256": "b0c853594de6a3d15d7cf1e1b8f44a09d634e9d402d39ef2e2a5f83a5ed84552",
+  "independent_browser_response_clinical_GET": 1,
+  "initial_metadata_tuple_assertion": "(document,revision,version,state,execution,heartbeat,canHandover)==('1','1','2','pending','0','2','no')",
+  "medical_text_published": false,
+  "original_browser_result_unchanged": true,
+  "root_data_attributes": {
+    "data-can-handover": "no",
+    "data-document": "1",
+    "data-heartbeat": "2",
+    "data-revision": "1",
+    "data-state": "pending",
+    "data-version": "2"
+  },
+  "route_counter_clinical_GET": 0,
+  "runtime_failure": "AssertionError with empty message; full traceback/evaluated DOM were not retained by frozen handler",
+  "screenshots": "NOT_CAPTURED; flow stopped before first screenshot",
+  "server_requests": [
+    {
+      "method": "GET",
+      "path": "/web/login",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/web/assets/15f5270/web.assets_frontend.min.css",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/web/assets/ed6b35f/web.material_symbols_outlined.min.woff2",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/web/assets/db959f3/web.assets_frontend_minimal.min.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/web/assets/c58ad13/web.odoo_ui_icons.min.woff2",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/web/assets/c5332a1/web.assets_frontend_lazy.min.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/website/translations",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/web/login",
+      "status": 303
+    },
+    {
+      "method": "GET",
+      "path": "/ydental/clinical",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/ydental_clinical/static/src/document/document.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/ydental_clinical/static/src/document/document.css",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/web/assets/15f5270/web.assets_frontend.min.css",
+      "status": 200
+    }
+  ],
+  "source": "saved actual native Firefox clinical HTTP200 HTML; offline parsing only, no new render or screenshot",
+  "status": "BLOCKED_NATIVE_DOM_CONTRACT",
+  "teeth_row_count": 0,
+  "version_rows": 2
+}
