@@ -1,0 +1,999 @@
+{
+  "companies": [
+    {
+      "cid": 1,
+      "user_id": 5
+    }
+  ],
+  "fees": [
+    {
+      "id": 1,
+      "ydental_amount": "600.00",
+      "ydental_currency_id": 1,
+      "ydental_event_id": 1,
+      "ydental_parent_id": null,
+      "ydental_patient_id": 1,
+      "ydental_price_review_id": null,
+      "ydental_price_snapshot_id": 1,
+      "ydental_quantity": "1.00",
+      "ydental_store_id": 1,
+      "ydental_unit_price": "600.000000"
+    },
+    {
+      "id": 2,
+      "ydental_amount": "80.00",
+      "ydental_currency_id": 1,
+      "ydental_event_id": 2,
+      "ydental_parent_id": null,
+      "ydental_patient_id": 1,
+      "ydental_price_review_id": null,
+      "ydental_price_snapshot_id": 2,
+      "ydental_quantity": "1.00",
+      "ydental_store_id": 1,
+      "ydental_unit_price": "80.000000"
+    },
+    {
+      "id": 3,
+      "ydental_amount": "40.00",
+      "ydental_currency_id": 1,
+      "ydental_event_id": 3,
+      "ydental_parent_id": null,
+      "ydental_patient_id": 1,
+      "ydental_price_review_id": null,
+      "ydental_price_snapshot_id": 3,
+      "ydental_quantity": "4.00",
+      "ydental_store_id": 1,
+      "ydental_unit_price": "10.000000"
+    },
+    {
+      "id": 4,
+      "ydental_amount": "20.00",
+      "ydental_currency_id": 1,
+      "ydental_event_id": 4,
+      "ydental_parent_id": null,
+      "ydental_patient_id": 1,
+      "ydental_price_review_id": null,
+      "ydental_price_snapshot_id": 4,
+      "ydental_quantity": "2.00",
+      "ydental_store_id": 1,
+      "ydental_unit_price": "10.000000"
+    }
+  ],
+  "grants": [
+    {
+      "id": 1,
+      "ydental_category": "frontdesk",
+      "ydental_level": "write",
+      "ydental_membership_id": 1
+    },
+    {
+      "id": 2,
+      "ydental_category": "patient",
+      "ydental_level": "write",
+      "ydental_membership_id": 1
+    },
+    {
+      "id": 3,
+      "ydental_category": "price",
+      "ydental_level": "write",
+      "ydental_membership_id": 1
+    },
+    {
+      "id": 4,
+      "ydental_category": "medical",
+      "ydental_level": "write",
+      "ydental_membership_id": 1
+    },
+    {
+      "id": 5,
+      "ydental_category": "capacity",
+      "ydental_level": "write",
+      "ydental_membership_id": 1
+    },
+    {
+      "id": 6,
+      "ydental_category": "space",
+      "ydental_level": "write",
+      "ydental_membership_id": 1
+    },
+    {
+      "id": 7,
+      "ydental_category": "export",
+      "ydental_level": "write",
+      "ydental_membership_id": 1
+    },
+    {
+      "id": 28,
+      "ydental_category": "warehouse",
+      "ydental_level": "write",
+      "ydental_membership_id": 1
+    },
+    {
+      "id": 30,
+      "ydental_category": "settlement",
+      "ydental_level": "write",
+      "ydental_membership_id": 1
+    },
+    {
+      "id": 31,
+      "ydental_category": "finance_approval",
+      "ydental_level": "write",
+      "ydental_membership_id": 1
+    },
+    {
+      "id": 32,
+      "ydental_category": "exam",
+      "ydental_level": "write",
+      "ydental_membership_id": 1
+    }
+  ],
+  "group_xmlids": [
+    {
+      "model": "res.groups",
+      "module": "base",
+      "name": "group_user",
+      "res_id": 1
+    },
+    {
+      "model": "res.groups",
+      "module": "ydental_base",
+      "name": "ydental_base_group_user",
+      "res_id": 17
+    }
+  ],
+  "invoice": [
+    {
+      "amount_residual": "0.00",
+      "amount_total": "740.00",
+      "company_id": 1,
+      "currency_id": 1,
+      "date": "2026-10-15",
+      "id": 1,
+      "invoice_date": "2026-10-15",
+      "journal_id": 1,
+      "move_type": "out_invoice",
+      "partner_id": 15,
+      "payment_state": "paid",
+      "state": "posted"
+    }
+  ],
+  "invoice_lines": [
+    {
+      "account_id": 25,
+      "amount_residual": "-20.00",
+      "balance": "-20.00",
+      "company_id": 1,
+      "currency_id": 1,
+      "display_type": "product",
+      "id": 1,
+      "move_id": 1,
+      "price_subtotal": "20.00",
+      "price_unit": "10.0",
+      "quantity": "2.00"
+    },
+    {
+      "account_id": 25,
+      "amount_residual": "-40.00",
+      "balance": "-40.00",
+      "company_id": 1,
+      "currency_id": 1,
+      "display_type": "product",
+      "id": 2,
+      "move_id": 1,
+      "price_subtotal": "40.00",
+      "price_unit": "10.0",
+      "quantity": "4.00"
+    },
+    {
+      "account_id": 25,
+      "amount_residual": "-80.00",
+      "balance": "-80.00",
+      "company_id": 1,
+      "currency_id": 1,
+      "display_type": "product",
+      "id": 3,
+      "move_id": 1,
+      "price_subtotal": "80.00",
+      "price_unit": "80.0",
+      "quantity": "1.00"
+    },
+    {
+      "account_id": 25,
+      "amount_residual": "-600.00",
+      "balance": "-600.00",
+      "company_id": 1,
+      "currency_id": 1,
+      "display_type": "product",
+      "id": 4,
+      "move_id": 1,
+      "price_subtotal": "600.00",
+      "price_unit": "600.0",
+      "quantity": "1.00"
+    },
+    {
+      "account_id": 5,
+      "amount_residual": "0.00",
+      "balance": "740.00",
+      "company_id": 1,
+      "currency_id": 1,
+      "display_type": "payment_term",
+      "id": 5,
+      "move_id": 1,
+      "price_subtotal": "0.00",
+      "price_unit": "0.0",
+      "quantity": "0.00"
+    }
+  ],
+  "languages": [
+    {
+      "active": true,
+      "code": "en_US",
+      "id": 1
+    },
+    {
+      "active": true,
+      "code": "zh_CN",
+      "id": 12
+    }
+  ],
+  "memberships": [
+    {
+      "active": true,
+      "employee_active": true,
+      "employee_company_id": 1,
+      "employee_id": 1,
+      "employee_user_id": 5,
+      "id": 1,
+      "resource_active": true,
+      "resource_company_id": 1,
+      "resource_id": 1,
+      "resource_user_id": 5,
+      "ydental_employee_id": 1,
+      "ydental_is_manager": false,
+      "ydental_store_id": 1,
+      "ydental_user_id": 5
+    }
+  ],
+  "modules": [
+    {
+      "latest_version": "20.0.1.5",
+      "name": "account",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "account_edi_ubl_cii",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.2.0",
+      "name": "account_payment",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.0.1",
+      "name": "account_qr_code_sepa",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.2",
+      "name": "analytic",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "api_doc",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.1",
+      "name": "auth_passkey",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "auth_passkey_portal",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "auth_password_policy",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "auth_password_policy_portal",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "auth_password_policy_signup",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "auth_signup",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "auth_timeout",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "auth_totp",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "auth_totp_mail",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "auth_totp_portal",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.2.0",
+      "name": "barcodes",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "barcodes_gs1_nomenclature",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.3",
+      "name": "base",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.1",
+      "name": "base_address_extended",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.2.0",
+      "name": "base_import",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "base_import_module",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "base_install_request",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "base_report_wkhtmltox",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "base_setup",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "bus",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.1",
+      "name": "digest",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.2",
+      "name": "google_gmail",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.1",
+      "name": "hr",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "hr_skills",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "html_editor",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "http_routing",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.1",
+      "name": "iap",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "iap_mail",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.19",
+      "name": "mail",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.2",
+      "name": "mail_bot",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "mail_bot_hr",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.1",
+      "name": "microsoft_outlook",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "mysubscription",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.2",
+      "name": "onboarding",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.1",
+      "name": "partner_autocomplete",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.2.0",
+      "name": "payment",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.2.1",
+      "name": "phone_validation",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "portal",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "portal_discuss",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "privacy_lookup",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.2",
+      "name": "product",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "product_expiry",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.2",
+      "name": "purchase",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "purchase_edi_ubl_bis3",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.2",
+      "name": "purchase_stock",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.1",
+      "name": "resource",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "resource_mail",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "rpc",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.2",
+      "name": "sale",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "sale_edi_ubl",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "sale_purchase",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "sale_purchase_stock",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "sale_sms",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.1",
+      "name": "sales_team",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "sale_stock",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "sale_stock_product_expiry",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.3.0",
+      "name": "sms",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "spreadsheet",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "spreadsheet_account",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "spreadsheet_dashboard",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "spreadsheet_dashboard_account",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "spreadsheet_dashboard_sale",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "spreadsheet_dashboard_stock_account",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.1",
+      "name": "stock",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.1",
+      "name": "stock_account",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "stock_sms",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "uom",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.2",
+      "name": "utm",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "web",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "web_hierarchy",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0",
+      "name": "web_tour",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.1",
+      "name": "web_unsplash",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0.0",
+      "name": "ydental_access",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0.1",
+      "name": "ydental_base",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0.0",
+      "name": "ydental_clinical",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0.0",
+      "name": "ydental_exam",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0.0",
+      "name": "ydental_intake",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0.0",
+      "name": "ydental_inventory",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0.0",
+      "name": "ydental_patient",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0.0",
+      "name": "ydental_print",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.2.0",
+      "name": "ydental_queue",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0.0",
+      "name": "ydental_settlement",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0.0",
+      "name": "ydental_settlement_test",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0.0",
+      "name": "ydental_space",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0.0",
+      "name": "ydental_supply",
+      "state": "installed"
+    },
+    {
+      "latest_version": "20.0.1.0.0",
+      "name": "ydental_treatment",
+      "state": "installed"
+    }
+  ],
+  "paperformat": [
+    {
+      "disable_shrinking": true,
+      "dpi": 96,
+      "format": "A4",
+      "id": 11,
+      "margin_bottom": 16.0,
+      "margin_left": 14.0,
+      "margin_right": 14.0,
+      "margin_top": 12.0,
+      "orientation": "Portrait"
+    }
+  ],
+  "partials": [
+    {
+      "amount": "500.00",
+      "company_id": 1,
+      "credit_move": 2,
+      "credit_move_id": 7,
+      "debit_invoice": 1,
+      "debit_move_id": 5,
+      "id": 1,
+      "origin_payment_id": 1
+    },
+    {
+      "amount": "240.00",
+      "company_id": 1,
+      "credit_move": 3,
+      "credit_move_id": 9,
+      "debit_invoice": 1,
+      "debit_move_id": 5,
+      "id": 2,
+      "origin_payment_id": 2
+    }
+  ],
+  "patient": [
+    {
+      "active": true,
+      "id": 1,
+      "ydental_merged_into_id": null,
+      "ydental_partner_id": 15,
+      "ydental_store_id": 1
+    }
+  ],
+  "patient_relation": [
+    {
+      "id": 1,
+      "ydental_patient_id": 1,
+      "ydental_store_id": 1,
+      "ydental_superseded_by_id": null
+    }
+  ],
+  "payments": [
+    {
+      "amount": "500.00",
+      "company_id": 1,
+      "currency_id": 1,
+      "id": 1,
+      "move_id": 2,
+      "move_state": "posted",
+      "origin_payment_id": 1,
+      "partner_id": 15,
+      "partner_type": "customer",
+      "payment_type": "inbound",
+      "state": "reconciled"
+    },
+    {
+      "amount": "240.00",
+      "company_id": 1,
+      "currency_id": 1,
+      "id": 2,
+      "move_id": 3,
+      "move_state": "posted",
+      "origin_payment_id": 2,
+      "partner_id": 15,
+      "partner_type": "customer",
+      "payment_type": "inbound",
+      "state": "reconciled"
+    }
+  ],
+  "report_action": [
+    {
+      "attachment": null,
+      "attachment_use": null,
+      "id": 570,
+      "model": "ydental.settlement.receipt",
+      "paperformat_id": 11,
+      "report_name": "ydental_settlement.ydental_settlement_pdf",
+      "report_type": "qweb-pdf-wkhtmltopdf",
+      "save_as_attachment": null
+    }
+  ],
+  "report_groups": [
+    {
+      "gid": 17,
+      "report_id": 570
+    }
+  ],
+  "report_views_hash_only": [
+    {
+      "active": true,
+      "arch_SHA256": {
+        "en_US": "6a3b74ee47da9646a38d36b96d9987ab99552a5b30e6c1da061263e93879b810",
+        "zh_CN": "6a3b74ee47da9646a38d36b96d9987ab99552a5b30e6c1da061263e93879b810"
+      },
+      "id": 1599,
+      "inherit_id": null,
+      "key": "ydental_settlement.ydental_settlement_page",
+      "type": "qweb"
+    },
+    {
+      "active": true,
+      "arch_SHA256": {
+        "en_US": "e5234c69fb9a9b56b322208ba83b017b566729504a4963e469d92734f068ede6",
+        "zh_CN": "e5234c69fb9a9b56b322208ba83b017b566729504a4963e469d92734f068ede6"
+      },
+      "id": 1596,
+      "inherit_id": null,
+      "key": "ydental_settlement.ydental_settlement_pdf",
+      "type": "qweb"
+    }
+  ],
+  "report_xmlids": [
+    {
+      "model": "report.paperformat",
+      "module": "ydental_print",
+      "name": "ydental_pdf_a4",
+      "noupdate": false,
+      "res_id": 11
+    },
+    {
+      "model": "ir.ui.view",
+      "module": "ydental_settlement",
+      "name": "ydental_settlement_page",
+      "noupdate": false,
+      "res_id": 1599
+    },
+    {
+      "model": "ir.ui.view",
+      "module": "ydental_settlement",
+      "name": "ydental_settlement_pdf",
+      "noupdate": false,
+      "res_id": 1596
+    },
+    {
+      "model": "ir.actions.report",
+      "module": "ydental_settlement",
+      "name": "ydental_settlement_pdf_report",
+      "noupdate": false,
+      "res_id": 570
+    }
+  ],
+  "settlement_payments": [
+    {
+      "id": 1,
+      "ydental_amount": "500.00",
+      "ydental_cashier_id": 5,
+      "ydental_channel": "cash",
+      "ydental_currency_id": 1,
+      "ydental_patient_id": 1,
+      "ydental_payment_id": 1,
+      "ydental_store_id": 1
+    },
+    {
+      "id": 2,
+      "ydental_amount": "240.00",
+      "ydental_cashier_id": 5,
+      "ydental_channel": "cash",
+      "ydental_currency_id": 1,
+      "ydental_patient_id": 1,
+      "ydental_payment_id": 2,
+      "ydental_store_id": 1
+    }
+  ],
+  "snapshots": [
+    {
+      "id": 1,
+      "ydental_currency_id": 1,
+      "ydental_price_id": 1,
+      "ydental_quantity": "1.00",
+      "ydental_store_id": 1,
+      "ydental_unit_price": "600.00",
+      "ydental_version": 1
+    },
+    {
+      "id": 2,
+      "ydental_currency_id": 1,
+      "ydental_price_id": 2,
+      "ydental_quantity": "1.00",
+      "ydental_store_id": 1,
+      "ydental_unit_price": "80.00",
+      "ydental_version": 1
+    },
+    {
+      "id": 3,
+      "ydental_currency_id": 1,
+      "ydental_price_id": 3,
+      "ydental_quantity": "4.00",
+      "ydental_store_id": 1,
+      "ydental_unit_price": "10.00",
+      "ydental_version": 1
+    },
+    {
+      "id": 4,
+      "ydental_currency_id": 1,
+      "ydental_price_id": 3,
+      "ydental_quantity": "2.00",
+      "ydental_store_id": 1,
+      "ydental_unit_price": "10.00",
+      "ydental_version": 1
+    }
+  ],
+  "sources": [
+    {
+      "id": 1,
+      "ydental_currency_id": 1,
+      "ydental_discount": "0.00",
+      "ydental_fee_id": 4,
+      "ydental_invoice_id": 1,
+      "ydental_line_id": 1,
+      "ydental_original_amount": "20.00",
+      "ydental_patient_id": 1,
+      "ydental_price_version": "S05:3",
+      "ydental_store_id": 1
+    },
+    {
+      "id": 2,
+      "ydental_currency_id": 1,
+      "ydental_discount": "0.00",
+      "ydental_fee_id": 3,
+      "ydental_invoice_id": 1,
+      "ydental_line_id": 2,
+      "ydental_original_amount": "40.00",
+      "ydental_patient_id": 1,
+      "ydental_price_version": "S05:3",
+      "ydental_store_id": 1
+    },
+    {
+      "id": 3,
+      "ydental_currency_id": 1,
+      "ydental_discount": "0.00",
+      "ydental_fee_id": 2,
+      "ydental_invoice_id": 1,
+      "ydental_line_id": 3,
+      "ydental_original_amount": "80.00",
+      "ydental_patient_id": 1,
+      "ydental_price_version": "S05:2",
+      "ydental_store_id": 1
+    },
+    {
+      "id": 4,
+      "ydental_currency_id": 1,
+      "ydental_discount": "0.00",
+      "ydental_fee_id": 1,
+      "ydental_invoice_id": 1,
+      "ydental_line_id": 4,
+      "ydental_original_amount": "600.00",
+      "ydental_patient_id": 1,
+      "ydental_price_version": "S05:1",
+      "ydental_store_id": 1
+    }
+  ],
+  "store": [
+    {
+      "active": true,
+      "company_active": true,
+      "company_id": 1,
+      "currency_id": 1,
+      "id": 1
+    }
+  ],
+  "user": [
+    {
+      "active": true,
+      "company_id": 1,
+      "id": 5,
+      "partner_id": 6,
+      "share": false
+    }
+  ]
+}

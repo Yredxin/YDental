@@ -1,0 +1,19 @@
+{
+  "SQL_actual_at_readback": 0,
+  "body_sha256": "232e6de9207152cb7292e466611cc5141f710238e4d73d6c25c3d27ebccb1741",
+  "characters": 28188,
+  "comment_id": 6215025512,
+  "created_at": "2026-10-16T12:00:20Z",
+  "execution_freeze_sha256": "545c9921151d86ba316875acc63e306e9dc26677ac236257f8711ac714ef4080",
+  "readback_at": "2026-10-16T12:00:50.608786+00:00",
+  "script_sha256": {
+    "scripts/s10_p0_16_contract.py": "58ec54bde9066641a8ba4a5c5086d15e3b9ffbaea48b4168a6bc9cc085e8a139",
+    "scripts/s10_p0_16_offline.py": "e8b9348f5ed033bd1275f531d25858941bdf149d12041d502dae2c237a7d2cbf",
+    "scripts/s10_p0_16_readonly.py": "b07eba82efad3785663785ca5aa58bd347ba689c1b9e2df38ed6843bd714f876"
+  },
+  "sql_contract_sha256": "638f3c289c71e40cda188b5318b5e526b0b101c9b069934a59ea22d3a7dccea4",
+  "transport": "GitHub REST GET raw response",
+  "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6215025512",
+  "utf8_bytes": 30646,
+  "verbatim_equal": true
+}

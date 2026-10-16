@@ -1,0 +1,85 @@
+{
+  "files": {
+    "CORE/odoo/addons/base/models/ir_actions_report.py": {
+      "git": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+      "sha256": "7e8a124f8c27eb74faa9fb359281cf53552fcc2c0dcce0fdb31fbb3842e500c3"
+    },
+    "CORE/odoo/addons/base/models/res_users.py": {
+      "git": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+      "sha256": "98a5c18d63069f19ce8eba95adb5809769e6e491630d4ed08b3a93e3097780cf"
+    },
+    "CORE/odoo/tools/convert.py": {
+      "git": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+      "sha256": "97499204c12e52a8daf1cdbc337e416c52c8626945fdc45f3dd071dfbdefd548"
+    },
+    "ydental_access/models/constants.py": {
+      "git": "82a435e90b2aaba6437322700ad2ac0be4e7e328",
+      "sha256": "a222305b36a2c7c1002f51aedea48b8f4b2fb6286d3db49dafe7835a806541e3"
+    },
+    "ydental_access/models/ydental_access_grant.py": {
+      "git": "82a435e90b2aaba6437322700ad2ac0be4e7e328",
+      "sha256": "143c2366d2671ae353b40964f93e5a85eb86e66bb36fb61479ed30a5b70bdf3f"
+    },
+    "ydental_access/models/ydental_access_membership.py": {
+      "git": "82a435e90b2aaba6437322700ad2ac0be4e7e328",
+      "sha256": "3b4a2c4bb8329521f5dbe778dd54d9737b99f268d5663d3c5116400792f5c679"
+    },
+    "ydental_access/models/ydental_access_service.py": {
+      "git": "82a435e90b2aaba6437322700ad2ac0be4e7e328",
+      "sha256": "9654000038903522213303fcd9cdc64612cdd335deac6a96afd993c4dfd61132"
+    },
+    "ydental_patient/models/ydental_patient_service.py": {
+      "git": "82a435e90b2aaba6437322700ad2ac0be4e7e328",
+      "sha256": "2cc72f87a7dd7cf9bf541007bddb2c975458f564599400ae944b63f5ea4513e3"
+    },
+    "ydental_print/__manifest__.py": {
+      "git": "82a435e90b2aaba6437322700ad2ac0be4e7e328",
+      "sha256": "815049e587e535b90d3419f0d63637d1adbd2344af25dc11532f354bbfe61655"
+    },
+    "ydental_print/report/ydental_print_reports.xml": {
+      "git": "82a435e90b2aaba6437322700ad2ac0be4e7e328",
+      "sha256": "e08827a15dc22d94daffdf422fd5da35de78359dfe55746b6dbfd9b495bda7d8"
+    },
+    "ydental_settlement/__manifest__.py": {
+      "git": "82a435e90b2aaba6437322700ad2ac0be4e7e328",
+      "sha256": "f0654299b6377a4fe54fc9bb195255e1813fd1c0f4f48edabe5072c95529d0c8"
+    },
+    "ydental_settlement/controllers/settlement.py": {
+      "git": "82a435e90b2aaba6437322700ad2ac0be4e7e328",
+      "sha256": "bfa051971585369f1585d311cfc4553159d4a42ef23b3c54f35d77e53ab4caa2"
+    },
+    "ydental_settlement/models/__init__.py": {
+      "git": "82a435e90b2aaba6437322700ad2ac0be4e7e328",
+      "sha256": "c756b95efb434e95f2f4dce32483e7b7b7eef038bd9583ccf1d2e17d0031db3e"
+    },
+    "ydental_settlement/models/report_ydental_settlement_pdf.py": {
+      "git": "82a435e90b2aaba6437322700ad2ac0be4e7e328",
+      "sha256": "5adc6d24a7417f48c1efb60f5da4a8a784e2d14a7080262d18bbc02718cb33bd"
+    },
+    "ydental_settlement/models/ydental_settlement_service.py": {
+      "git": "82a435e90b2aaba6437322700ad2ac0be4e7e328",
+      "sha256": "1ea27012fd5500fc21891f9e652f4e694cb2e7cce844fa38d08b7f12beff8d2c"
+    },
+    "ydental_settlement/report/ydental_settlement_reports.xml": {
+      "git": "82a435e90b2aaba6437322700ad2ac0be4e7e328",
+      "sha256": "962e67a4c66edc661b4d2052d5ba306a7837eadf09a915ef4860f677e7847987"
+    },
+    "ydental_settlement/report/ydental_settlement_templates.xml": {
+      "git": "82a435e90b2aaba6437322700ad2ac0be4e7e328",
+      "sha256": "5d9132e91e8c3b816001bbc93ef2eeb90dbf125083cef2d33203deaea7e467f2"
+    },
+    "ydental_settlement/views/ydental_settlement_templates.xml": {
+      "git": "82a435e90b2aaba6437322700ad2ac0be4e7e328",
+      "sha256": "8f74cffa93a3a24f1d4c4f95a2a006fd698050cda8d27a99924de58770feb329"
+    }
+  },
+  "paid_invoice_workbench_button": "absent due to residual>0 domain; endpoint separately protected; no UI request made",
+  "rank": {
+    "none": 0,
+    "read": 1,
+    "write": 2
+  },
+  "report_action_XMLID": "ydental_settlement.ydental_settlement_pdf_report",
+  "report_name_template_XMLID": "ydental_settlement.ydental_settlement_pdf",
+  "translated_template_compare": "core convert.py template→t/full t-name; compare structure preserving attributes/text; zh_CN falls back to en_US for already-Chinese literal template"
+}

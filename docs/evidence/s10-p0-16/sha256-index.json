@@ -1,0 +1,70 @@
+{
+  "base": "82a435e90b2aaba6437322700ad2ac0be4e7e328",
+  "files": {
+    "docs/evidence/s10-p0-16/eligibility-projection.json": {
+      "bytes": 22158,
+      "sha256": "efb8697a5b0a39ea6c06d2f70bdd4987afd3d987655b84b8989e8e947624fc07"
+    },
+    "docs/evidence/s10-p0-16/execution-freeze.json": {
+      "bytes": 5496,
+      "sha256": "545c9921151d86ba316875acc63e306e9dc26677ac236257f8711ac714ef4080"
+    },
+    "docs/evidence/s10-p0-16/github-before-commit.json": {
+      "bytes": 837,
+      "sha256": "4808d06ef014c0b612dc3817e4b5ead37f11c7f97f90dcfb3093b04df90094bc"
+    },
+    "docs/evidence/s10-p0-16/github-start.json": {
+      "bytes": 65963,
+      "sha256": "7ee327fb8a2ebd327e29e8adec8a3448f0d2a45755c4668e06bc43ba61d8f9ef"
+    },
+    "docs/evidence/s10-p0-16/offline-checks.json": {
+      "bytes": 495502,
+      "sha256": "dfb1018a9e007a0161e10b88d8d0b08329518b9b9d5128745d506d2c61e29610"
+    },
+    "docs/evidence/s10-p0-16/preflight-api-readback.json": {
+      "bytes": 969,
+      "sha256": "bcb261bdd343d4ead819b59a0554fe2503fc19feded6f7449f85221d70e9b162"
+    },
+    "docs/evidence/s10-p0-16/readonly-result.json": {
+      "bytes": 123807,
+      "sha256": "3238cdaae282d9818d6b8d43f94d0efe8a3590f4d0523a63936d73cfd942e70e"
+    },
+    "docs/evidence/s10-p0-16/sql-contract.json": {
+      "bytes": 424658,
+      "sha256": "638f3c289c71e40cda188b5318b5e526b0b101c9b069934a59ea22d3a7dccea4"
+    },
+    "docs/evidence/s10-p0-16/statement-trace.json": {
+      "bytes": 129374,
+      "sha256": "d6b6b28e8f3fad5522bccf401fd9729ae481122051e1446fca03a5fb15947818"
+    },
+    "docs/evidence/s10-p0-16/static-source.json": {
+      "bytes": 4185,
+      "sha256": "a091fcc022a16b9f76d051ec1a8fe9da8e0b5cdcb8a25e95212d506db69a6dc1"
+    },
+    "docs/evidence/s10-p0-16/verification.json": {
+      "bytes": 1389,
+      "sha256": "96700bdad19b17eac6d3d6d494d13533ce3aacbf0d5f7498e1803d8b95940390"
+    },
+    "docs/s10-p0-16-preflight.md": {
+      "bytes": 30646,
+      "sha256": "232e6de9207152cb7292e466611cc5141f710238e4d73d6c25c3d27ebccb1741"
+    },
+    "docs/s10-p0-16-readonly-eligibility-report.md": {
+      "bytes": 8562,
+      "sha256": "5eb45b4a5f3b48d250503c953fa0d8c5b961f16417a9388085907eb93fe3d842"
+    },
+    "scripts/s10_p0_16_contract.py": {
+      "bytes": 16057,
+      "sha256": "58ec54bde9066641a8ba4a5c5086d15e3b9ffbaea48b4168a6bc9cc085e8a139"
+    },
+    "scripts/s10_p0_16_offline.py": {
+      "bytes": 20866,
+      "sha256": "e8b9348f5ed033bd1275f531d25858941bdf149d12041d502dae2c237a7d2cbf"
+    },
+    "scripts/s10_p0_16_readonly.py": {
+      "bytes": 20288,
+      "sha256": "b07eba82efad3785663785ca5aa58bd347ba689c1b9e2df38ed6843bd714f876"
+    }
+  },
+  "self_hash": "fixed by final Codex GitHub delivery receipt; no recursive self-hash"
+}
