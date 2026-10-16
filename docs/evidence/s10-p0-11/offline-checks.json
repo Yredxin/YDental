@@ -1,0 +1,28 @@
+{
+  "CREATE": 0,
+  "Firefox": 0,
+  "HTTP": 0,
+  "SQL_connections": 0,
+  "checks": [
+    "unchanged_all643_snapshot_accepted",
+    "money_change_rejected",
+    "unplanned_fence_rejected",
+    "old_version_change_rejected",
+    "scope_write_before_login_rejected",
+    "unplanned_audit_rejected",
+    "acquire_native_request_shape_accepted_offline",
+    "confirm_native_request_shape_accepted_offline",
+    "release_native_request_shape_accepted_offline",
+    "heartbeat_rejected",
+    "wrong_revision_rejected",
+    "wrong_csrf_rejected",
+    "wrong_connection_rejected",
+    "wrong_doc_version_rejected",
+    "old_key_rejected",
+    "content_change_rejected"
+  ],
+  "count": 16,
+  "real_or_simulated_business_POST": 0,
+  "scope": "offline validation of request rejection and immutable source rows only",
+  "status": "PASS"
+}

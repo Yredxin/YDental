@@ -1,0 +1,247 @@
+{
+  "authorization": 6209310360,
+  "base": "0c972e1949191d62d84536f987a40f26dba57e03",
+  "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "source": "ydental_s10_test_20261015073500_e50f4a71",
+  "source_oid": 2100310,
+  "target": "ydental_s10_test_20261016_p011_a730c9e4",
+  "http_port": 18311,
+  "script_sha256": {
+    "scripts/s10_p0_11_browser.py": "088dbc063eec16f6c22192975e4232c350d0862e368ccc0bb9ee4a037374ae67",
+    "scripts/s10_p0_11_control.py": "1f8b62d4de5a6264f5060e9d945ecaf497f1b7ace1a2406cd9d4cf62eae796ec",
+    "scripts/s10_p0_11_eligibility.py": "919a57a4ecb5c3f149d21639468ad658750e5c731184ebfe38ba8b2b84fd366b",
+    "scripts/s10_p0_11_offline.py": "7036c0144b26f025fc2d3a279410363421a454725f56a4301c7add200bd2e911",
+    "scripts/s10_p0_11_readonly.py": "4d5d0d678ea7c02f48ec2812393779325785de15292180e1f27cd361d19220a6"
+  },
+  "static_source_sha256": {
+    "ydental_clinical/models/ydental_clinical_service.py": "bb601a4d231585281cf569def652f78205993cf2d73f8273ae2cf50d620f6709",
+    "ydental_clinical/controllers/clinical.py": "7b0f3a5f628de9cba389ea7ea8d261a6e999761dea8d645bde75dc5f9d6291bd",
+    "ydental_clinical/views/ydental_clinical_templates.xml": "f485aad62fb2b731358a94f86f9eeac41904df9a8564eb2bdb0dea2407ea8400",
+    "ydental_queue/models/ydental_queue_service.py": "a5b3a037a2be9992edf5867b3d401b351e4a74820d36fcc8764d46e0cc1c2a6e",
+    "ydental_queue/models/ydental_intake_service.py": "a36e91c0558ed1cd7b5f68bbc5087a0f2425e2c80b95bb46934bd320f8c18c65",
+    "ydental_intake/models/ydental_intake_service.py": "fbcb3e9e8c1c46489d8d76c4aefbb4fabe56ef5b0f36bce7ed9b4b9de9c04a0b",
+    "ydental_access/models/ydental_access_service.py": "9654000038903522213303fcd9cdc64612cdd335deac6a96afd993c4dfd61132",
+    "ydental_access/models/res_users.py": "fd6079795cd8b5a5e79be358413fced4400683520a9cf0de3477466e2da31287",
+    "ydental_supply/models/ydental_access_service.py": "f181b774d794bf78da00e7b183ca1cb46ce159addd2ca727a9c4ab83c1d5111d",
+    "ydental_exam/models/ydental_queue_service.py": "a1943e857a0941bb2f2e7f9ea163ff475c45a73b09be91dbdea8eb942e2aa405",
+    "ydental_queue_test/models/adapter.py": "a45cbe79230d78f8e18463adb325c1dbbac59c13b0a00776bf3c6bc01072ea3c",
+    "ydental_clinical/static/src/document/document.js": "98c862a13ca0586cf038e01139258bb2aca7edfd20dc8785ecf85812adb67a30",
+    "ydental_patient/models/ydental_patient_service.py": "2cc72f87a7dd7cf9bf541007bddb2c975458f564599400ae944b63f5ea4513e3",
+    "ydental_supply/models/ydental_supply_service.py": "3c043b19f1b14cd8f00f9dd141e35d6fff10cdad27c25a066341de4f34b124d0",
+    "ydental_queue/models/ydental_queue_return.py": "47edf4e34e5c2367bf23a380a731dea50af14ae53f2db4b94db0bc0565c61e99",
+    "scripts/s08c_network_policy.py": "4d9066d67a6dcc414169d801a9a0679c1635145ded9576f4c264c3ccf94daa41"
+  },
+  "source_sql_sha256": "3506708c4c88d10d555a4ca5d3074a52294db3e68a7dfa21a21d8711b50a93ee",
+  "eligibility_sha256": "dcbcba1268358bcf00e30fa59b9dfa6cb2e73eff63aeedf1ea88bb5911d0e85b",
+  "source_all_643_signature_sha256": "95db7352ef7e366a71dc7db00135631d5b5eacf6cf064ea0ed9ec6c8286a8f41",
+  "CREATE_allowed_conditionally_once": true,
+  "http_argv": [
+    "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+    "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+    "-c",
+    "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261016_p011_a730c9e4/odoo.conf"
+  ],
+  "browser_argv": [
+    "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+    "/home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s10_p0_11_browser.py"
+  ],
+  "sql_plan": [
+    {
+      "file": "scripts/s10_p0_11_readonly.py",
+      "statement": "SHOW transaction_read_only"
+    },
+    {
+      "file": "scripts/s10_p0_11_readonly.py",
+      "statement": "SHOW transaction_isolation"
+    },
+    {
+      "file": "scripts/s10_p0_11_readonly.py",
+      "statement": "SELECT current_database(),(SELECT oid FROM pg_database WHERE datname=current_database()),(SELECT system_identifier::text FROM pg_control_system()),CURRENT_TIMESTAMP"
+    },
+    {
+      "file": "scripts/s10_p0_11_readonly.py",
+      "statement": "SELECT pid FROM pg_stat_activity WHERE datname=current_database() AND pid<>pg_backend_pid()"
+    },
+    {
+      "file": "scripts/s10_p0_11_readonly.py",
+      "statement": "SELECT c.relname,a.attname FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace JOIN pg_attribute a ON a.attrelid=c.oid WHERE n.nspname='public' AND c.relkind='r' AND a.attnum>0 AND NOT a.attisdropped ORDER BY c.relname,a.attnum"
+    },
+    {
+      "file": "scripts/s10_p0_11_readonly.py",
+      "statement": "SELECT to_jsonb(t)::text FROM public.{} t ORDER BY {}"
+    },
+    {
+      "file": "scripts/s10_p0_11_control.py",
+      "statement": "SHOW transaction_read_only"
+    },
+    {
+      "file": "scripts/s10_p0_11_control.py",
+      "statement": "SHOW transaction_isolation"
+    },
+    {
+      "file": "scripts/s10_p0_11_control.py",
+      "statement": "SELECT current_database(),(SELECT oid FROM pg_database WHERE datname=current_database()),(SELECT system_identifier::text FROM pg_control_system())"
+    },
+    {
+      "file": "scripts/s10_p0_11_control.py",
+      "statement": "SELECT c.relname,a.attname FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace JOIN pg_attribute a ON a.attrelid=c.oid WHERE n.nspname='public' AND c.relkind='r' AND a.attnum>0 AND NOT a.attisdropped ORDER BY c.relname,a.attnum"
+    },
+    {
+      "file": "scripts/s10_p0_11_control.py",
+      "statement": "SELECT datname FROM pg_database WHERE datname=%s"
+    },
+    {
+      "file": "scripts/s10_p0_11_control.py",
+      "statement": "SELECT pid FROM pg_stat_activity WHERE datname=current_database() AND pid<>pg_backend_pid()"
+    },
+    {
+      "file": "scripts/s10_p0_11_control.py",
+      "statement": "CREATE DATABASE {} WITH TEMPLATE {}"
+    },
+    {
+      "file": "scripts/s10_p0_11_control.py",
+      "statement": "SELECT to_jsonb(t)::text FROM public.{} t ORDER BY {}"
+    }
+  ],
+  "whitelist": {
+    "all_nonlisted_tables": "exact full rows; no changes",
+    "mutable_tables": [
+      "hr_employee",
+      "hr_version",
+      "orm_signaling_default",
+      "res_device_log",
+      "res_partner",
+      "res_users",
+      "res_users_log",
+      "resource_resource",
+      "ydental_access_audit",
+      "ydental_access_session",
+      "ydental_clinical_document",
+      "ydental_clinical_version",
+      "ydental_intake_mutex",
+      "ydental_patient_mutex",
+      "ydental_queue_mutex",
+      "ydental_supply_mutex"
+    ],
+    "identity": {
+      "actor": 7,
+      "res_users_id": 7,
+      "res_partner_id": 8,
+      "hr_employee_id": 3,
+      "hr_version_id": 3,
+      "resource_resource_id": 3,
+      "existing_field_changes": [
+        "write_uid",
+        "write_date"
+      ],
+      "hr_version_extra": [
+        "last_modified_uid",
+        "last_modified_date"
+      ],
+      "timezone_change": 0,
+      "new_users_log": 1,
+      "new_device_log": 1,
+      "new_access_session": 1,
+      "scope_store": 1,
+      "scope_revision": 1,
+      "all_old_rows_unchanged": true
+    },
+    "audit": {
+      "maximum_new_rows": 8,
+      "actor": 7,
+      "allowed_events": {
+        "login": 1,
+        "login.scope": 1,
+        "store.switch": 1,
+        "clinical.view": 2,
+        "clinical.edit_acquire": 1,
+        "clinical.confirm": 1,
+        "clinical.edit_release": 1
+      },
+      "target_clinical_document": 1,
+      "clinical_store": 1,
+      "clinical_category": "medical",
+      "clinical_source": "clinical_document",
+      "confirm_before": {
+        "version": 2
+      },
+      "confirm_after": {
+        "version": 3
+      },
+      "editor_invalidated": 0
+    },
+    "document": {
+      "id": 1,
+      "content": "exact source full JSON",
+      "allowed_editor_fields": [
+        "ydental_connection_hash",
+        "ydental_editor_expires",
+        "ydental_editor_hash",
+        "ydental_editor_id",
+        "ydental_editor_lease_id",
+        "ydental_session_id",
+        "ydental_session_revision"
+      ],
+      "other_allowed_fields": [
+        "write_uid",
+        "write_date",
+        "state",
+        "ydental_version",
+        "ydental_saved_at"
+      ],
+      "transition": "pending2 -> confirmed3",
+      "new_versions": 1,
+      "kind": "confirm",
+      "previous_version_id": 2,
+      "old_versions": "full-row exact"
+    },
+    "fences": {
+      "tables": [
+        "ydental_intake_mutex",
+        "ydental_patient_mutex",
+        "ydental_queue_mutex",
+        "ydental_supply_mutex"
+      ],
+      "rows_per_table": 1,
+      "allowed_field": "ydental_revision",
+      "increments_per_action": 1,
+      "max_increment_per_table": 3,
+      "all_other_fields_unchanged": true
+    },
+    "orm_signaling_default": {
+      "append_rows_max": 3,
+      "exact_fields": [
+        "id",
+        "date"
+      ],
+      "old_rows_unchanged": true
+    },
+    "ir_attachment_filestore_mail": {
+      "changes": 0
+    }
+  },
+  "maximum_budget": {
+    "CLINICAL_ACTION_POST": 3,
+    "CLINICAL_HEARTBEAT_POST": 0,
+    "CLINICAL_WORKBENCH_GET": 2,
+    "CREATE": 1,
+    "FIREFOX_LAUNCH": 1,
+    "FUNDS_STOCK_WRITE": 0,
+    "NATIVE_LOGIN_POST": 1,
+    "ODOO_HTTP_LAUNCH": 1,
+    "ODOO_SHELL_UPGRADE_INSTALL_INIT_TEST": 0,
+    "OPTIONAL_STORE_SWITCH_POST": 1,
+    "OTHER_BUSINESS_POST": 0,
+    "PDF": 0,
+    "SUDO": 0
+  },
+  "native_flow": "existing native open button acquire; existing confirm button confirm then native automatic release; route gates before forwarding next native POST; no patched JS or synthetic fetch",
+  "heartbeats": "0; fresh native context has no holder/editor; confirm saving=true while confirm/release gates run; any heartbeat request blocked and entire window STOP",
+  "read_only_sql_scope": "W5 and unique new clone only; postgres maintenance connection only single CREATE in autocommit IDLE",
+  "privacy": "raw rows, login/password, CSRF/cookies, connections/editor token/action key, HTTP raw and screenshots private700 only; published allowlisted metadata and SHA",
+  "initial_offline_error": {
+    "preserved": "eligibility-initial.json and eligibility-initial-script.py",
+    "cause": "invalid extra assumption source.id == fee.id; actual frozen FK links reverse 1->4,2->3,3->2,4->1",
+    "correction": "offline compare explicit fee foreign key, amount and invoice/line; no database reconnection or write"
+  }
+}

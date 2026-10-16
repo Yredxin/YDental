@@ -1,0 +1,25 @@
+{
+  "status": "BLOCKED_PREFLIGHT",
+  "blocking_gate": "EXECUTION_CHECKPOINT_NOT_PUBLISHED_OR_API_VERBATIM_READ_BACK",
+  "source_eligibility": "25/25_PASS",
+  "github_post_attempts": 2,
+  "github_post_results": [
+    "TLS handshake timeout",
+    "TLS handshake timeout"
+  ],
+  "after_both_posts_issue_GET": {
+    "state": "open",
+    "comments": 214,
+    "updated_at": "2026-10-16T06:22:25Z"
+  },
+  "other_read_transport_failures": [
+    "gh comments GET TLS handshake timeout",
+    "GitHub connector transport HTTP request failed",
+    "persistent requests Session GET TLS handshake timeout"
+  ],
+  "automatic_business_retry": false,
+  "network_OS_PG_Docker_configuration_changes": 0,
+  "checkpoint_body_sha256": "f127815a6f7aa3152b7c4a59487fea913b5bca0f6bc8d322d6b0edcd247bc814",
+  "execution_preflight_sha256": "73e0b1094877960bfac783547decfe2972c237348db9c44316139d11eaf9f6ec",
+  "checkpoint_exists": false
+}

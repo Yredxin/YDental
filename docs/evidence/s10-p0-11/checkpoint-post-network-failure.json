@@ -1,0 +1,10 @@
+{
+  "operation": "GitHub execution supplement POST",
+  "result": "TLS handshake timeout; no response received",
+  "business_execution_attempts": 0,
+  "comment_readback_after_error": {
+    "comment_count": 214,
+    "last_comment_id": 6209454407,
+    "exact_body_match_ids": []
+  }
+}

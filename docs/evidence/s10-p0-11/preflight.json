@@ -1,0 +1,51 @@
+{
+  "authorization": 6209310360,
+  "base": "0c972e1949191d62d84536f987a40f26dba57e03",
+  "branch": "codex/s10-settlement-finance-r1-20261013",
+  "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "create_allowed_now": false,
+  "later_gate": "All personnel/content/execution/QWeb/source checks required; freeze execution scripts in API checkpoint before CREATE",
+  "maximum_authorized_budget": {
+    "CLINICAL_ACTION_POST": 3,
+    "CLINICAL_HEARTBEAT_POST": 0,
+    "CLINICAL_WORKBENCH_GET": 2,
+    "CREATE": 1,
+    "FIREFOX_LAUNCH": 1,
+    "FUNDS_STOCK_WRITE": 0,
+    "NATIVE_LOGIN_POST": 1,
+    "ODOO_HTTP_LAUNCH": 1,
+    "ODOO_SHELL_UPGRADE_INSTALL_INIT_TEST": 0,
+    "OPTIONAL_STORE_SWITCH_POST": 1,
+    "OTHER_BUSINESS_POST": 0,
+    "PDF": 0,
+    "SUDO": 0
+  },
+  "private_snapshot": ".local/s10-p0-11-6209310360/w5-private-rows.json",
+  "public_projection": "full-row hashes only; raw contents and credentials never published",
+  "script_sha256": "4d5d0d678ea7c02f48ec2812393779325785de15292180e1f27cd361d19220a6",
+  "seal": {
+    "cluster": "7694897083368259627",
+    "config_sha256": "867f761771ecc20931f69103388df699b094b748e6a9d392e15ebe3d406e43c7",
+    "database": "ydental_s10_test_20261015073500_e50f4a71",
+    "file_count": 152,
+    "marker_sha256": "1a7f4a2a95e8aa0ea3d6da17abf6033976d2e39754185fa38e441a497351a5fa",
+    "oid": 2100310,
+    "source": "ydental_s10_test_20261015064000_d41e7b62",
+    "source_config_sha256": "464f29204afd03c63d1450db442f4d42454e1d164243ca6bb1dbe8eb787b10ba",
+    "source_marker_sha256": "82aaa9c49144987eaa2bf08268db145b62bb55f3ebd5fb373d94dfbd4e101b4a",
+    "source_oid": 2100301,
+    "w_manifest_sha256": "bd0b0fbad15868bbabb836fa7016a91187bb31c6b9b6d934b2a7a0fe035c4283"
+  },
+  "sql_connections_max": 1,
+  "sql_literals": [
+    "SHOW transaction_read_only",
+    "SHOW transaction_isolation",
+    "SELECT current_database(),(SELECT oid FROM pg_database WHERE datname=current_database()),(SELECT system_identifier::text FROM pg_control_system()),CURRENT_TIMESTAMP",
+    "SELECT pid FROM pg_stat_activity WHERE datname=current_database() AND pid<>pg_backend_pid()",
+    "SELECT c.relname,a.attname FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace JOIN pg_attribute a ON a.attrelid=c.oid WHERE n.nspname='public' AND c.relkind='r' AND a.attnum>0 AND NOT a.attisdropped ORDER BY c.relname,a.attnum",
+    "SELECT ",
+    "SHOW ",
+    "SELECT to_jsonb(t)::text FROM public.{} t ORDER BY {}"
+  ],
+  "transaction": "READ ONLY / REPEATABLE READ; rollback and close in finally"
+}

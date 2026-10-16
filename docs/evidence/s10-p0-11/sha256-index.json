@@ -1,0 +1,126 @@
+{
+  "algorithm": "SHA256",
+  "self_excluded": true,
+  "files": [
+    {
+      "path": "docs/evidence/s10-p0-11/checkpoint-post-network-failure.json",
+      "bytes": 282,
+      "sha256": "bc8230eed9cd84b083cef124d5ffd764cf299a81c0e41a6f6a770aca7ef8dc35"
+    },
+    {
+      "path": "docs/evidence/s10-p0-11/delivery-check.json",
+      "bytes": 796,
+      "sha256": "0537499b23bfeb5f90ced1f215b6fdf7962a3644a47ed623e324bb10cb539e55"
+    },
+    {
+      "path": "docs/evidence/s10-p0-11/eligibility-corrected.json",
+      "bytes": 3882,
+      "sha256": "dcbcba1268358bcf00e30fa59b9dfa6cb2e73eff63aeedf1ea88bb5911d0e85b"
+    },
+    {
+      "path": "docs/evidence/s10-p0-11/eligibility-initial-script.py",
+      "bytes": 13355,
+      "sha256": "5eb29d5605d0a61319f5f89b6c130e0eb852a92b95710d92518ec46b98408e59"
+    },
+    {
+      "path": "docs/evidence/s10-p0-11/eligibility-initial.json",
+      "bytes": 3340,
+      "sha256": "6b03cf2b14ac82598444bedb07fa44cd4969736867ba0c848c9884205fc7ecb8"
+    },
+    {
+      "path": "docs/evidence/s10-p0-11/eligibility.json",
+      "bytes": 3340,
+      "sha256": "6b03cf2b14ac82598444bedb07fa44cd4969736867ba0c848c9884205fc7ecb8"
+    },
+    {
+      "path": "docs/evidence/s10-p0-11/execution-preflight.json",
+      "bytes": 10349,
+      "sha256": "73e0b1094877960bfac783547decfe2972c237348db9c44316139d11eaf9f6ec"
+    },
+    {
+      "path": "docs/evidence/s10-p0-11/github-start.json",
+      "bytes": 85811,
+      "sha256": "01ef26c785ccd38779f5b6c36aed0489d2d36e836e78484c568831323fe00232"
+    },
+    {
+      "path": "docs/evidence/s10-p0-11/network-checkpoint-blocked.json",
+      "bytes": 912,
+      "sha256": "03b8d6a3e869e08af09af526db0ae58876d3abc5f4d2c3db7b258c84ec032c5c"
+    },
+    {
+      "path": "docs/evidence/s10-p0-11/offline-checks.json",
+      "bytes": 825,
+      "sha256": "233a7eff009793ad9322a5e9e163b06572abba2f2588d4af7efd83612b0dc372"
+    },
+    {
+      "path": "docs/evidence/s10-p0-11/preflight-api-readback.json",
+      "bytes": 5801,
+      "sha256": "2c63036678f02966f6047fb3abd6654a32aefdcd2a0959f506cca9a1f2530373"
+    },
+    {
+      "path": "docs/evidence/s10-p0-11/preflight.json",
+      "bytes": 2530,
+      "sha256": "5ba443a2fe838f2cc8e1b12c4be562f679dfec71a0d367e90ed713c8c51c9cf6"
+    },
+    {
+      "path": "docs/evidence/s10-p0-11/read-only-sql.json",
+      "bytes": 358728,
+      "sha256": "3506708c4c88d10d555a4ca5d3074a52294db3e68a7dfa21a21d8711b50a93ee"
+    },
+    {
+      "path": "docs/evidence/s10-p0-11/static-source-review-complete.json",
+      "bytes": 2636,
+      "sha256": "9d4b3c8413999c9207ce1c17aa879e60db0df924a7fe405b8fbcd334cfca8d7a"
+    },
+    {
+      "path": "docs/evidence/s10-p0-11/static-source-review.json",
+      "bytes": 1918,
+      "sha256": "ea78342666acd85fdad35b31eb973b9686ca37ea4b76e12ee2b7dbcc44186674"
+    },
+    {
+      "path": "docs/evidence/s10-p0-11/verification.json",
+      "bytes": 3198,
+      "sha256": "cbc2f862c84bc3164588f7c16cb09906f5153dca9a87db942f6652812580b823"
+    },
+    {
+      "path": "docs/s10-p0-11-blocked-report.md",
+      "bytes": 10950,
+      "sha256": "8f0763491696b21cf216179cdd0d2b6c77cf1766ce6a1be6730db8ede4171c09"
+    },
+    {
+      "path": "docs/s10-p0-11-execution-preflight.md",
+      "bytes": 6147,
+      "sha256": "f434b209fc0f230ad38e3113f856b34a22eb828d80263e92e950acc6cd0e01ef"
+    },
+    {
+      "path": "docs/s10-p0-11-preflight.md",
+      "bytes": 5136,
+      "sha256": "49cd7b860f37d5ae7416868f648246f809cf7afe4867f5673d6bf708dd7bd1d6"
+    },
+    {
+      "path": "scripts/s10_p0_11_browser.py",
+      "bytes": 17585,
+      "sha256": "088dbc063eec16f6c22192975e4232c350d0862e368ccc0bb9ee4a037374ae67"
+    },
+    {
+      "path": "scripts/s10_p0_11_control.py",
+      "bytes": 21579,
+      "sha256": "1f8b62d4de5a6264f5060e9d945ecaf497f1b7ace1a2406cd9d4cf62eae796ec"
+    },
+    {
+      "path": "scripts/s10_p0_11_eligibility.py",
+      "bytes": 13958,
+      "sha256": "919a57a4ecb5c3f149d21639468ad658750e5c731184ebfe38ba8b2b84fd366b"
+    },
+    {
+      "path": "scripts/s10_p0_11_offline.py",
+      "bytes": 4217,
+      "sha256": "7036c0144b26f025fc2d3a279410363421a454725f56a4301c7add200bd2e911"
+    },
+    {
+      "path": "scripts/s10_p0_11_readonly.py",
+      "bytes": 12187,
+      "sha256": "4d5d0d678ea7c02f48ec2812393779325785de15292180e1f27cd361d19220a6"
+    }
+  ]
+}

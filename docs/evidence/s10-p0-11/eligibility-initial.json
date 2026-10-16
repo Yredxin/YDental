@@ -1,0 +1,113 @@
+{
+  "CREATE": 0,
+  "Firefox": 0,
+  "HTTP": 0,
+  "POST": 0,
+  "checks": {
+    "active_person_company_store_employee": true,
+    "complete_nonempty_original_content": true,
+    "current_patient_relation": true,
+    "current_snapshot_capability": true,
+    "doc_source_identity": true,
+    "existing_synthetic_doctor_credential_verified_offline": true,
+    "explicit_timeout_configuration": true,
+    "handover_not_active_reception": true,
+    "installed_clinical_qweb_matches_source": true,
+    "installed_module_seal": true,
+    "internal_ydental_group": true,
+    "invoice_posted740_residual0": true,
+    "medical_write_now": true,
+    "native_payments_partials_500_240": true,
+    "no_document_editor_or_stale_metadata": true,
+    "no_live_actor_execution_fence": true,
+    "no_refund_close_print_job": true,
+    "one_active_membership": true,
+    "original_current_execution_identity": true,
+    "original_versions1_2_same_content": true,
+    "pending_v2_responsible7": true,
+    "qualification_satisfied_without_provider": true,
+    "qweb_dom_and_zh_CN_present": true,
+    "same_source_fees_sources740": false,
+    "source_station_capability_and_context": true
+  },
+  "execution_not_yet_enabled": true,
+  "facts": {
+    "document": {
+      "author": 7,
+      "company": 1,
+      "content_sha256": "678e527db07b38518de9522b056d45c9a4f5f5da775d07e112c5360f0ced21aa",
+      "current_execution": 1,
+      "editor_id": null,
+      "id": 1,
+      "original_execution": 1,
+      "patient": 1,
+      "responsible": 7,
+      "state": "pending",
+      "store": 1,
+      "version": 2
+    },
+    "editor_timeout_seconds": 600,
+    "execution": {
+      "id": 1,
+      "lease": 1,
+      "lease_active": false,
+      "service_snapshot": {
+        "area_id": 1,
+        "capability_id": 1,
+        "catalog_id": 1,
+        "execution_area_id": 1,
+        "qualification": ""
+      },
+      "state": "handover",
+      "station": 9,
+      "task": 1
+    },
+    "installed_modules": 92,
+    "module_meta_sha256": "f24b36b3a325fd3ea46aa00a83f6ff31717b6be3b8d4bd0f9def5db431247427",
+    "queue_heartbeat_seconds": 2,
+    "qweb_arch_sha256": {
+      "en_US": "224953c3c4a04ad6a7b5fee16eaa32bf0e6e4649990d8a8f546d687067d58fb0",
+      "zh_CN": "64c17fb28bee72dbd2fc506d22f52fe8ac8388ebb733988809b30c2083fa0bcb"
+    },
+    "qweb_view": 1582,
+    "user": {
+      "active": true,
+      "active_capabilities": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "company": 1,
+      "employee": 3,
+      "id": 7,
+      "medical": "write",
+      "membership": 5,
+      "store": 1
+    },
+    "versions": [
+      {
+        "author": 7,
+        "content_sha256": "678e527db07b38518de9522b056d45c9a4f5f5da775d07e112c5360f0ced21aa",
+        "id": 1,
+        "kind": "save",
+        "number": 1,
+        "recorded_at": "2026-10-15T05:59:03",
+        "row_sha256": "8a4f4990c92d08fda78be62e5c2960dc0780336f537eefe6567e04c042289a3e"
+      },
+      {
+        "author": 7,
+        "content_sha256": "678e527db07b38518de9522b056d45c9a4f5f5da775d07e112c5360f0ced21aa",
+        "id": 2,
+        "kind": "save",
+        "number": 2,
+        "recorded_at": "2026-10-15T05:59:08",
+        "row_sha256": "dfccd66f060944a5da03ea851ca6ab8369d86f7b080188c2f0cea692f1e9c3ae"
+      }
+    ]
+  },
+  "failed": [
+    "same_source_fees_sources740"
+  ],
+  "status": "BLOCKED_PREFLIGHT"
+}

@@ -1,0 +1,50 @@
+{
+  "scope": "P0-11 prerequisite and transaction/route review only; no methods executed",
+  "skill": "/home/redxin/.codex/skills/odoo-guidelines/SKILL.md",
+  "files": [
+    {
+      "path": "ydental_clinical/models/ydental_clinical_service.py",
+      "sha256": "bb601a4d231585281cf569def652f78205993cf2d73f8273ae2cf50d620f6709"
+    },
+    {
+      "path": "ydental_clinical/controllers/clinical.py",
+      "sha256": "7b0f3a5f628de9cba389ea7ea8d261a6e999761dea8d645bde75dc5f9d6291bd"
+    },
+    {
+      "path": "ydental_clinical/views/ydental_clinical_templates.xml",
+      "sha256": "f485aad62fb2b731358a94f86f9eeac41904df9a8564eb2bdb0dea2407ea8400"
+    },
+    {
+      "path": "ydental_queue/models/ydental_queue_service.py",
+      "sha256": "a5b3a037a2be9992edf5867b3d401b351e4a74820d36fcc8764d46e0cc1c2a6e"
+    },
+    {
+      "path": "ydental_queue/models/ydental_intake_service.py",
+      "sha256": "a36e91c0558ed1cd7b5f68bbc5087a0f2425e2c80b95bb46934bd320f8c18c65"
+    },
+    {
+      "path": "ydental_intake/models/ydental_intake_service.py",
+      "sha256": "fbcb3e9e8c1c46489d8d76c4aefbb4fabe56ef5b0f36bce7ed9b4b9de9c04a0b"
+    },
+    {
+      "path": "ydental_access/models/ydental_access_service.py",
+      "sha256": "9654000038903522213303fcd9cdc64612cdd335deac6a96afd993c4dfd61132"
+    },
+    {
+      "path": "ydental_access/models/res_users.py",
+      "sha256": "fd6079795cd8b5a5e79be358413fced4400683520a9cf0de3477466e2da31287"
+    },
+    {
+      "path": "ydental_supply/models/ydental_access_service.py",
+      "sha256": "f181b774d794bf78da00e7b183ca1cb46ce159addd2ca727a9c4ab83c1d5111d"
+    },
+    {
+      "path": "ydental_exam/models/ydental_queue_service.py",
+      "sha256": "a1943e857a0941bb2f2e7f9ea163ff475c45a73b09be91dbdea8eb942e2aa405"
+    },
+    {
+      "path": "ydental_queue_test/models/adapter.py",
+      "sha256": "a45cbe79230d78f8e18463adb325c1dbbac59c13b0a00776bf3c6bc01072ea3c"
+    }
+  ]
+}

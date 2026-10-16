@@ -1,0 +1,19 @@
+{
+  "result": "PASS_FOR_BLOCKED_PREFLIGHT_ARTIFACTS",
+  "paths_new_only": true,
+  "scope_runtime_not_run": true,
+  "frozen_scripts_sha_equal": true,
+  "read_only_snapshot_evidence_valid": true,
+  "actual_execution_budget_all_zero": true,
+  "private_literals_not_present": true,
+  "git_origin": "https://github.com/Yredxin/YDental.git",
+  "branch": "codex/s10-settlement-finance-r1-20261013",
+  "base": "0c972e1949191d62d84536f987a40f26dba57e03",
+  "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "remote_before_commit": "0c972e1949191d62d84536f987a40f26dba57e03",
+  "source_oid": 2100310,
+  "new_clone_created": false,
+  "execution_checkpoint_missing": true,
+  "github_delivery_readback": "PENDING; must be recorded privately and immediately STOP",
+  "original_histories_unchanged": true
+}
