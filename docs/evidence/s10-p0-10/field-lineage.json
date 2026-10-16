@@ -1,0 +1,270 @@
+{
+  "P009_after_checks": {
+    "close9_state": "unlocked",
+    "mutex_revision": 244,
+    "new_audit_ids": [
+      2693,
+      2694,
+      2695,
+      2696,
+      2697,
+      2698,
+      2699,
+      2700,
+      2701,
+      2702
+    ],
+    "receipt242_operation": "refund_reject",
+    "receipt243_operation": "unlock",
+    "refund14_no_credit_or_native_payment": true,
+    "refund14_state": "rejected",
+    "session_ids": [
+      185,
+      186
+    ]
+  },
+  "R3_distinct_cases": {
+    "F3": {
+      "audit_ids": [
+        476,
+        477,
+        478,
+        479
+      ],
+      "cashier": 14,
+      "company": 1,
+      "correction": 1,
+      "credit_note": 15,
+      "invoice": 5,
+      "native_reclassify_move": 14,
+      "new_wechat_close": 2,
+      "old_cash_close": 1,
+      "patient": 2,
+      "payment": 6,
+      "refund": 1,
+      "refund_native_payment": 7,
+      "store": 3
+    },
+    "physical_return": {
+      "location_dest": 22,
+      "location_source": 24,
+      "lot": 1,
+      "original_inventory_event": 4,
+      "original_treatment_event": 3,
+      "patient": 1,
+      "quantity": 1,
+      "quarantine_source": "STATIC_REVIEW inventory _return uses configured quarantine; SQL actual location22, configuration field not independently projected",
+      "return_inventory_event": 19,
+      "stock_move": 19,
+      "stock_move_line": 26,
+      "store": 1
+    },
+    "quantity_correction": {
+      "correction_event": 14,
+      "credit_note": 79,
+      "invoice": 78,
+      "original_event": 13,
+      "original_fee": 13,
+      "patient": 4,
+      "reverse_fee": 14,
+      "source_ids": [
+        13,
+        14
+      ],
+      "store": 7
+    }
+  },
+  "W5_four_fees": [
+    {
+      "actor_id": 7,
+      "amount": 600.0,
+      "ancestor_oids": [
+        2100285,
+        2100301
+      ],
+      "business_date": "2026-10-15",
+      "company_id": 1,
+      "consumption_ids": [
+        1
+      ],
+      "database": "ydental_s10_test_20261015073500_e50f4a71",
+      "event_id": 1,
+      "execution_id": 1,
+      "fee_id": 1,
+      "inventory_event_ids": [
+        3
+      ],
+      "invoice_id": 1,
+      "invoice_line_id": 4,
+      "kind": "treatment",
+      "lot_ids": [
+        2
+      ],
+      "oid": 2100310,
+      "patient_id": 1,
+      "price_id": 1,
+      "price_revision": 4,
+      "quantity": 1.0,
+      "relation_support": "本批READONLY_SOURCE字段+固定W3 fee_id COMMITTED_NATIVE_SQL关系+全行同签名；非凭ID相同拼接",
+      "settlement_source_id": 4,
+      "snapshot_id": 1,
+      "snapshot_revision": 1,
+      "stock_move_ids": [
+        3
+      ],
+      "stock_move_line_ids": [
+        5
+      ],
+      "store_id": 1,
+      "unit_price": 600.0
+    },
+    {
+      "actor_id": 12,
+      "amount": 80.0,
+      "ancestor_oids": [
+        2100285,
+        2100301
+      ],
+      "business_date": "2026-10-15",
+      "company_id": 1,
+      "consumption_ids": [],
+      "database": "ydental_s10_test_20261015073500_e50f4a71",
+      "event_id": 2,
+      "execution_id": 2,
+      "fee_id": 2,
+      "inventory_event_ids": [],
+      "invoice_id": 1,
+      "invoice_line_id": 3,
+      "kind": "exam",
+      "lot_ids": [],
+      "oid": 2100310,
+      "patient_id": 1,
+      "price_id": 2,
+      "price_revision": 4,
+      "quantity": 1.0,
+      "relation_support": "本批READONLY_SOURCE字段+固定W3 fee_id COMMITTED_NATIVE_SQL关系+全行同签名；非凭ID相同拼接",
+      "settlement_source_id": 3,
+      "snapshot_id": 2,
+      "snapshot_revision": 1,
+      "stock_move_ids": [],
+      "stock_move_line_ids": [],
+      "store_id": 1,
+      "unit_price": 80.0
+    },
+    {
+      "actor_id": 13,
+      "amount": 40.0,
+      "ancestor_oids": [
+        2100285,
+        2100301
+      ],
+      "business_date": "2026-10-15",
+      "company_id": 1,
+      "consumption_ids": [
+        2
+      ],
+      "database": "ydental_s10_test_20261015073500_e50f4a71",
+      "event_id": 3,
+      "execution_id": 3,
+      "fee_id": 3,
+      "inventory_event_ids": [
+        4
+      ],
+      "invoice_id": 1,
+      "invoice_line_id": 2,
+      "kind": "prescription",
+      "lot_ids": [
+        1
+      ],
+      "oid": 2100310,
+      "patient_id": 1,
+      "price_id": 3,
+      "price_revision": 4,
+      "quantity": 4.0,
+      "relation_support": "本批READONLY_SOURCE字段+固定W3 fee_id COMMITTED_NATIVE_SQL关系+全行同签名；非凭ID相同拼接",
+      "settlement_source_id": 2,
+      "snapshot_id": 3,
+      "snapshot_revision": 1,
+      "stock_move_ids": [
+        4
+      ],
+      "stock_move_line_ids": [
+        6
+      ],
+      "store_id": 1,
+      "unit_price": 10.0
+    },
+    {
+      "actor_id": 13,
+      "amount": 20.0,
+      "ancestor_oids": [
+        2100285,
+        2100301
+      ],
+      "business_date": "2026-10-15",
+      "company_id": 1,
+      "consumption_ids": [
+        3
+      ],
+      "database": "ydental_s10_test_20261015073500_e50f4a71",
+      "event_id": 4,
+      "execution_id": 4,
+      "fee_id": 4,
+      "inventory_event_ids": [
+        5
+      ],
+      "invoice_id": 1,
+      "invoice_line_id": 1,
+      "kind": "prescription",
+      "lot_ids": [
+        1
+      ],
+      "oid": 2100310,
+      "patient_id": 1,
+      "price_id": 3,
+      "price_revision": 4,
+      "quantity": 2.0,
+      "relation_support": "本批READONLY_SOURCE字段+固定W3 fee_id COMMITTED_NATIVE_SQL关系+全行同签名；非凭ID相同拼接",
+      "settlement_source_id": 1,
+      "snapshot_id": 4,
+      "snapshot_revision": 1,
+      "stock_move_ids": [
+        5
+      ],
+      "stock_move_line_ids": [
+        7
+      ],
+      "store_id": 1,
+      "unit_price": 10.0
+    }
+  ],
+  "all_distinct_cases_are_not_single_patient_chain": true,
+  "lineage": [
+    {
+      "child": "W4",
+      "child_oid": 2100301,
+      "clone_exact_38_match": true,
+      "current_verification_layer": "READONLY_SOURCE",
+      "historical_before_snapshot_file": "before-upgrade.json",
+      "historical_before_snapshot_sha256": "63c41126127be7ac895039b31a331802ee78a229b29a2495e59e04d18a553e08",
+      "historical_snapshot_evidence_layer": "COMMITTED_NATIVE_SQL",
+      "marker_parent_identity_match": true,
+      "parent": "W3",
+      "parent_oid": 2100285,
+      "source_current_signature_match": true
+    },
+    {
+      "child": "W5",
+      "child_oid": 2100310,
+      "clone_exact_38_match": true,
+      "current_verification_layer": "READONLY_SOURCE",
+      "historical_before_snapshot_file": "before-web.json",
+      "historical_before_snapshot_sha256": "79b697269f0b6331da01a24960d028e433c66d7ee9a395b9b7583ea519ac1f6e",
+      "historical_snapshot_evidence_layer": "COMMITTED_NATIVE_SQL",
+      "marker_parent_identity_match": true,
+      "parent": "W4",
+      "parent_oid": 2100301,
+      "source_current_signature_match": true
+    }
+  ]
+}

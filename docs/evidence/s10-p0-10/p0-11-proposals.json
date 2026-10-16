@@ -1,0 +1,93 @@
+{
+  "authorized": false,
+  "if_both_preconditions_fail": "P0_11_NOT_AUTHORIZABLE_PENDING_SOURCE",
+  "original_reprint_candidate": "P0_11_NOT_AUTHORIZABLE_PENDING_SOURCE",
+  "original_reprint_reason": "五库print_job均0；R3历史结算PDF不属W5临床链，且结算PDF动态投影/无冻结原版入口。",
+  "proposals": [
+    {
+      "actions": [
+        "本人user7合法登录/自动scope（若不自动合法绑定，仅明确预算内一次switch）",
+        "临床GET定位doc1；acquire一次→confirm既有合成内容一次(expected_version2,new key)→release一次；不发save/correct/新医嘱或经济动作",
+        "同库动作前后核event/fee/price/source/account/partial/stock完整签名；doc仅pending2→confirmed3、version追加1及受控编辑元数据/S01"
+      ],
+      "minimum_budget": {
+        "CLINICAL_POST": 3,
+        "CREATE": 1,
+        "FIREFOX": 1,
+        "FUNDS_POST": 0,
+        "IDENTITY_LOGIN_POST": 1,
+        "ODOO_HTTP": 1,
+        "OPTIONAL_SCOPE_SWITCH_POST": 1,
+        "STOCK_POST": 0,
+        "SUDO": 0,
+        "UPGRADE_INSTALL_SHELL": 0
+      },
+      "name": "W5已结清740同源pending文书1一次补确认，费库款签名零变",
+      "preconditions": [
+        "独立P0-11授权及CREATE前/API读回",
+        "新唯一隔离克隆且W5永久只读，不升级",
+        "doc1 patient1/store1/responsible7/pending/version2；原版本1/2及content hash不变",
+        "执行前重新核当前execution/capability/qualification/active membership和本人medical write；本批未独立投影全资格字段，任一不满足即STOP",
+        "使用同浏览器connection、本人session/revision、独占editor；不重建接诊工位或价格"
+      ],
+      "rank": "PRIMARY",
+      "scope": [
+        "F4子断言",
+        "T08文书与经济分离子断言",
+        "T12来源可追踪子断言"
+      ],
+      "side_effects": [
+        "身份login/session/device/S01（自动switch须逐字段归因）",
+        "临床doc1编辑元数据及state/version、追加clinical.version1、S01 edit_acquire/confirm/edit_release各1；临床GET还会产生clinical.view，按GET次数事前冻结",
+        "queue common fence/mutex事务写须按源码冻结，不能误要求该mutex不变；不改变queue执行/工位事实"
+      ],
+      "source_database": "ydental_s10_test_20261015073500_e50f4a71",
+      "source_oid": 2100310,
+      "status": "PROPOSAL_NOT_AUTHORIZED_CONDITIONAL_ON_ELIGIBILITY_PREFLIGHT",
+      "unproved": [
+        "此动作本批NOT_RUN",
+        "不证明纯文字correct、数量退药、600→620、原版重印、全T12或S08/S09回归"
+      ]
+    },
+    {
+      "actions": [
+        "本人登录/合法scope",
+        "仅一次GET /ydental/settlement/pdf/bill/1，取得新PDF字节，逐页核740/已收740/欠0及法人/门店，比较经济前后SHA"
+      ],
+      "minimum_budget": {
+        "BUSINESS_POST": 0,
+        "CREATE": 1,
+        "FIREFOX": 1,
+        "FUNDS_STOCK_WRITE": 0,
+        "IDENTITY_LOGIN_POST": 1,
+        "ODOO_HTTP": 1,
+        "OPTIONAL_SCOPE_SWITCH_POST": 1,
+        "PDF_GET_RENDER": 1,
+        "SUDO": 0,
+        "UPGRADE_INSTALL_SHELL": 0
+      },
+      "name": "W5同源已付invoice1当前内部账单PDF一次生成/核字节及零经济副作用",
+      "preconditions": [
+        "只在主候选不能合法进入且新授权明确选择备选时执行，不能两案都跑",
+        "新唯一克隆/无升级、本人user5店1 settlement read+export write及原生PDF环境静态核验",
+        "invoice1 posted740/residual0/四费源/两partial原样；没有已有原版PDF基线"
+      ],
+      "rank": "BACKUP",
+      "scope": [
+        "F4同源当前票据子断言",
+        "T11已付740/欠0票面子断言"
+      ],
+      "side_effects": [
+        "身份元数据与S01",
+        "settlement.report_download一次；不是资金动作，也不是原版字节重印；禁止访问退款页2或重复旧权限负向"
+      ],
+      "source_database": "ydental_s10_test_20261015073500_e50f4a71",
+      "source_oid": 2100310,
+      "status": "PROPOSAL_NOT_AUTHORIZED_CONDITIONAL_ON_EXPORT_AND_PDF_PREFLIGHT",
+      "unproved": [
+        "原版重印NOT_RUN/INSUFFICIENT_EVIDENCE；生成第一份当前PDF不能冒充旧PDF重印",
+        "纯文字更正/调价/锁边界仍不覆盖"
+      ]
+    }
+  ]
+}

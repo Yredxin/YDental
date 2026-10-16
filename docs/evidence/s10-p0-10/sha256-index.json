@@ -1,0 +1,81 @@
+{
+  "algorithm": "SHA256 raw file bytes; index excludes itself",
+  "base": "22d4762c8ddc0b8254b3492fe3ccc75664b5cf47",
+  "files": [
+    {
+      "bytes": 216666,
+      "path": "docs/evidence/s10-p0-10/coverage.json",
+      "sha256": "490774f8af9f33d9c512f1adaf40b91b08d26ca3b3da4a3a0aa4318f1b1f7e12"
+    },
+    {
+      "bytes": 1820,
+      "path": "docs/evidence/s10-p0-10/delivery-check.json",
+      "sha256": "68c216a4e6c4bdacaf3326697ff306840c77f0473c05fbdcfeb435b5d8d282bd"
+    },
+    {
+      "bytes": 6775,
+      "path": "docs/evidence/s10-p0-10/field-lineage.json",
+      "sha256": "61d72008dc335d0e9cb940f7b244561706fde2fc261640b009f3619096fc625e"
+    },
+    {
+      "bytes": 118516,
+      "path": "docs/evidence/s10-p0-10/github-authority-index.json",
+      "sha256": "55679f2742a24f60a16d29fb358ce1371eb3001ff6005d921d88d2901441c746"
+    },
+    {
+      "bytes": 4383,
+      "path": "docs/evidence/s10-p0-10/p0-11-proposals.json",
+      "sha256": "2cd28024c4959028c4f169aa36906da3ea6e49d35943908af1f2593084b1cbee"
+    },
+    {
+      "bytes": 4270,
+      "path": "docs/evidence/s10-p0-10/preflight-api-readback.json",
+      "sha256": "0ecb5b5e700598dfcf632a452304bd11bdaa96d896a805b387fea749b98aa224"
+    },
+    {
+      "bytes": 19013,
+      "path": "docs/evidence/s10-p0-10/preflight.json",
+      "sha256": "2ee46e6f7294b150692f5ae9d9a4fc6956ed287f2f598c3982c30077be731eef"
+    },
+    {
+      "bytes": 6904870,
+      "path": "docs/evidence/s10-p0-10/read-only-sql.json",
+      "sha256": "3bbc7130ed4fa3575a1f4ee8e5ca527781c366bbddcaf6de0eb3d8853e0f65ea"
+    },
+    {
+      "bytes": 7079,
+      "path": "docs/evidence/s10-p0-10/same-source-lineage.json",
+      "sha256": "dd23d8b3d6294ab092297034184c833b3cf694098707c150b7f01fbb6ebb5da3"
+    },
+    {
+      "bytes": 6464,
+      "path": "docs/evidence/s10-p0-10/source-entry-review.json",
+      "sha256": "6f71e49f7827f6fc064289b064430ba1e51dcdcc9dbcaa8df1611a577c01a37c"
+    },
+    {
+      "bytes": 727,
+      "path": "docs/evidence/s10-p0-10/verification.json",
+      "sha256": "fa4dc27e51ab98df46908de17c69a9d7b4912cd7934f5c249a7bfce2fda4be38"
+    },
+    {
+      "bytes": 38988,
+      "path": "docs/s10-p0-10-gap02-coverage-report.md",
+      "sha256": "d65dfcd383c0df2eef938443dfd440fbe23e08d9243f02d91270f6154a2120aa"
+    },
+    {
+      "bytes": 27832,
+      "path": "docs/s10-p0-10-same-source-feasibility-report.md",
+      "sha256": "18def4c005d4fa2a6d50f02ee8ef8a37454ffbca2e5046b5dc34c8edd7eccc3b"
+    },
+    {
+      "bytes": 24768,
+      "path": "scripts/s10_p0_10_readonly.py",
+      "sha256": "cf1caeafd876af6155c8d5a784ba0141c39c7b5990f238c994ff8215c3c92b37"
+    },
+    {
+      "bytes": 5536,
+      "path": "scripts/s10_p0_10_verify.py",
+      "sha256": "b7ef7bc068498f5da2a4b14340105467682c87c514f54d36617e24a9673476cb"
+    }
+  ]
+}

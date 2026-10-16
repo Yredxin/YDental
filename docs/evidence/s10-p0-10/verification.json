@@ -1,0 +1,30 @@
+{
+  "FULL_PASS": 0,
+  "R3_existing_pdf_hashes": 8,
+  "W5_stable_tables": 31,
+  "all_zero_execution_budgets": {
+    "BROWSER": 0,
+    "BUSINESS_POST": 0,
+    "CREATE": 0,
+    "ODOO_CLI": 0,
+    "ODOO_HTTP": 0,
+    "SQL_ORM_WRITE": 0,
+    "SUDO": 0
+  },
+  "clone_edges_38_exact": 2,
+  "fixed_historical_files": 57,
+  "no_new_business_test": true,
+  "old_rows_deep_equal": true,
+  "p009_after_643_exact": true,
+  "proposals": 2,
+  "readonly_sources": 5,
+  "result": "PASS",
+  "rows": 22,
+  "sql_script_unchanged_after_checkpoint": true,
+  "status_counts": {
+    "BLOCKED": 1,
+    "PARTIAL": 14,
+    "SCOPED_ACCEPTED": 7
+  },
+  "verification_scope": "STATIC_ARTIFACT_CHECK_ONLY; no new SQL, browser, Odoo or business simulation"
+}

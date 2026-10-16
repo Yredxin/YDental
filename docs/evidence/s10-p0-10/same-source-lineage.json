@@ -1,0 +1,220 @@
+{
+  "R3_P009_protected_signature_equal": {
+    "account_move": true,
+    "account_move_line": true,
+    "account_partial_reconcile": true,
+    "account_payment": true,
+    "stock_move": true,
+    "stock_move_line": true,
+    "stock_quant": true,
+    "ydental_settlement_correction": true,
+    "ydental_settlement_source": true,
+    "ydental_treatment_fee": true
+  },
+  "R3_existing_pdf_files": [
+    {
+      "actual_sha256": "cfa63dce5228dfd7d85cb7538cd9d40c462b1cacdeb07ec814e985580b81b17a",
+      "bytes": 27664,
+      "file": "bill-f2.pdf",
+      "fixed_sha256": "cfa63dce5228dfd7d85cb7538cd9d40c462b1cacdeb07ec814e985580b81b17a",
+      "layer": "PDF_BYTES",
+      "matches": true,
+      "page_visual_review_this_batch": "NOT_RUN",
+      "pdf_magic": true,
+      "same_W5_source": false
+    },
+    {
+      "actual_sha256": "121432b78ce740d2ab2a49a3deccd7a053258fd065674bb82375c515a6711144",
+      "bytes": 28023,
+      "file": "receipt-f2.pdf",
+      "fixed_sha256": "121432b78ce740d2ab2a49a3deccd7a053258fd065674bb82375c515a6711144",
+      "layer": "PDF_BYTES",
+      "matches": true,
+      "page_visual_review_this_batch": "NOT_RUN",
+      "pdf_magic": true,
+      "same_W5_source": false
+    },
+    {
+      "actual_sha256": "83ccdd8633362c2aab407516b8ff6f48d10cf6cd366a0396d15cd87af12d11fd",
+      "bytes": 25248,
+      "file": "refund-approved.pdf",
+      "fixed_sha256": "83ccdd8633362c2aab407516b8ff6f48d10cf6cd366a0396d15cd87af12d11fd",
+      "layer": "PDF_BYTES",
+      "matches": true,
+      "page_visual_review_this_batch": "NOT_RUN",
+      "pdf_magic": true,
+      "same_W5_source": false
+    },
+    {
+      "actual_sha256": "1f5ea396fcceef9b9fd7915f1a4e93a72637abd2a3be24272738bac91dc06a66",
+      "bytes": 26346,
+      "file": "refund-done.pdf",
+      "fixed_sha256": "1f5ea396fcceef9b9fd7915f1a4e93a72637abd2a3be24272738bac91dc06a66",
+      "layer": "PDF_BYTES",
+      "matches": true,
+      "page_visual_review_this_batch": "NOT_RUN",
+      "pdf_magic": true,
+      "same_W5_source": false
+    },
+    {
+      "actual_sha256": "d947e3b84df66d2f0081a2ae141d5714398edb0cab9bc4d32ab3dc6e05707b49",
+      "bytes": 26346,
+      "file": "refund-f2.pdf",
+      "fixed_sha256": "d947e3b84df66d2f0081a2ae141d5714398edb0cab9bc4d32ab3dc6e05707b49",
+      "layer": "PDF_BYTES",
+      "matches": true,
+      "page_visual_review_this_batch": "NOT_RUN",
+      "pdf_magic": true,
+      "same_W5_source": false
+    },
+    {
+      "actual_sha256": "f68dbc1f0648c8a21e398de8b5c5c4f7820ffcf886205487aa77101403b464c3",
+      "bytes": 25339,
+      "file": "refund-rejected.pdf",
+      "fixed_sha256": "f68dbc1f0648c8a21e398de8b5c5c4f7820ffcf886205487aa77101403b464c3",
+      "layer": "PDF_BYTES",
+      "matches": true,
+      "page_visual_review_this_batch": "NOT_RUN",
+      "pdf_magic": true,
+      "same_W5_source": false
+    },
+    {
+      "actual_sha256": "20b12d29910422faa996743e6919903e1465566defe3dd1b83855f7d95df21c4",
+      "bytes": 25487,
+      "file": "refund-unknown.pdf",
+      "fixed_sha256": "20b12d29910422faa996743e6919903e1465566defe3dd1b83855f7d95df21c4",
+      "layer": "PDF_BYTES",
+      "matches": true,
+      "page_visual_review_this_batch": "NOT_RUN",
+      "pdf_magic": true,
+      "same_W5_source": false
+    },
+    {
+      "actual_sha256": "236602bb37a04fc97a6b97cd5e28e19da16887b3d3e80ead620c3e781d62373a",
+      "bytes": 26494,
+      "file": "s09-regression-report-223.pdf",
+      "fixed_sha256": "236602bb37a04fc97a6b97cd5e28e19da16887b3d3e80ead620c3e781d62373a",
+      "layer": "PDF_BYTES",
+      "matches": true,
+      "page_visual_review_this_batch": "NOT_RUN",
+      "pdf_magic": true,
+      "same_W5_source": false
+    }
+  ],
+  "W5_fee_source_links": {
+    "field_evidence_layer": "COMMITTED_NATIVE_SQL",
+    "fixed_commit": "71a554667157cdd917c0062db5e4ddf1693f6410",
+    "new_sql_relation_support": "full ydental_settlement_source row SHA equal W3→W4→W5; fee_id omitted from new redacted column projection",
+    "not_an_independent_sql_fee_id_projection": true,
+    "rows": [
+      {
+        "id": 1,
+        "ydental_fee_id": 4,
+        "ydental_invoice_id": 1,
+        "ydental_line_id": 1,
+        "ydental_original_amount": "20.00",
+        "ydental_patient_id": 1
+      },
+      {
+        "id": 2,
+        "ydental_fee_id": 3,
+        "ydental_invoice_id": 1,
+        "ydental_line_id": 2,
+        "ydental_original_amount": "40.00",
+        "ydental_patient_id": 1
+      },
+      {
+        "id": 3,
+        "ydental_fee_id": 2,
+        "ydental_invoice_id": 1,
+        "ydental_line_id": 3,
+        "ydental_original_amount": "80.00",
+        "ydental_patient_id": 1
+      },
+      {
+        "id": 4,
+        "ydental_fee_id": 1,
+        "ydental_invoice_id": 1,
+        "ydental_line_id": 4,
+        "ydental_original_amount": "600.00",
+        "ydental_patient_id": 1
+      }
+    ]
+  },
+  "W5_old_web_stop": {
+    "browser_exit": 1,
+    "final_audit": "NOT_RUN",
+    "single_firefox_23_steps": "NOT_PASSED"
+  },
+  "all_five_print_job_count": 0,
+  "authorization": 6208516504,
+  "base": "22d4762c8ddc0b8254b3492fe3ccc75664b5cf47",
+  "clone_edges": [
+    {
+      "child": "W4",
+      "child_oid": 2100301,
+      "clone_exact_38_match": true,
+      "current_verification_layer": "READONLY_SOURCE",
+      "historical_before_snapshot_file": "before-upgrade.json",
+      "historical_before_snapshot_sha256": "63c41126127be7ac895039b31a331802ee78a229b29a2495e59e04d18a553e08",
+      "historical_snapshot_evidence_layer": "COMMITTED_NATIVE_SQL",
+      "marker_parent_identity_match": true,
+      "parent": "W3",
+      "parent_oid": 2100285,
+      "source_current_signature_match": true
+    },
+    {
+      "child": "W5",
+      "child_oid": 2100310,
+      "clone_exact_38_match": true,
+      "current_verification_layer": "READONLY_SOURCE",
+      "historical_before_snapshot_file": "before-web.json",
+      "historical_before_snapshot_sha256": "79b697269f0b6331da01a24960d028e433c66d7ee9a395b9b7583ea519ac1f6e",
+      "historical_snapshot_evidence_layer": "COMMITTED_NATIVE_SQL",
+      "marker_parent_identity_match": true,
+      "parent": "W4",
+      "parent_oid": 2100301,
+      "source_current_signature_match": true
+    }
+  ],
+  "new_pdf_render": "NOT_RUN",
+  "original_reprint_same_source": "NO_ELIGIBLE_SAME_SOURCE_FOR_EXISTING_ORIGINAL_PDF",
+  "p009_after_checks": {
+    "close9_state": "unlocked",
+    "mutex_revision": 244,
+    "new_audit_ids": [
+      2693,
+      2694,
+      2695,
+      2696,
+      2697,
+      2698,
+      2699,
+      2700,
+      2701,
+      2702
+    ],
+    "receipt242_operation": "refund_reject",
+    "receipt243_operation": "unlock",
+    "refund14_no_credit_or_native_payment": true,
+    "refund14_state": "rejected",
+    "session_ids": [
+      185,
+      186
+    ]
+  },
+  "source_families": {
+    "R": [
+      "R3",
+      "P009"
+    ],
+    "W": [
+      "W3",
+      "W4",
+      "W5"
+    ],
+    "families_are_independent": true
+  },
+  "source_identity_rule": "database name+OID+marker/config+proven clone and full signatures; numeric IDs alone never establish identity",
+  "stable_after_payment_31_match": true
+}

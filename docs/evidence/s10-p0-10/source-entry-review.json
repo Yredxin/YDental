@@ -1,0 +1,262 @@
+{
+  "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "addon_base": "22d4762c8ddc0b8254b3492fe3ccc75664b5cf47",
+  "skill": "/home/redxin/.codex/skills/odoo-guidelines/SKILL.md",
+  "files": [
+    {
+      "path": "ydental_settlement/models/ydental_settlement_service.py",
+      "sha256": "1ea27012fd5500fc21891f9e652f4e694cb2e7cce844fa38d08b7f12beff8d2c",
+      "layer": "STATIC_REVIEW",
+      "functions": [
+        {
+          "name": "_lock",
+          "line": 111,
+          "end_line": 118
+        },
+        {
+          "name": "_operate",
+          "line": 120,
+          "end_line": 155
+        },
+        {
+          "name": "_close_guard",
+          "line": 322,
+          "end_line": 328
+        },
+        {
+          "name": "_unlock",
+          "line": 749,
+          "end_line": 765
+        },
+        {
+          "name": "_reclassify",
+          "line": 767,
+          "end_line": 814
+        },
+        {
+          "name": "_report_payload",
+          "line": 1077,
+          "end_line": 1144
+        },
+        {
+          "name": "_pdf",
+          "line": 1159,
+          "end_line": 1177
+        }
+      ]
+    },
+    {
+      "path": "ydental_settlement/controllers/settlement.py",
+      "sha256": "bfa051971585369f1585d311cfc4553159d4a42ef23b3c54f35d77e53ab4caa2",
+      "layer": "STATIC_REVIEW",
+      "functions": [
+        {
+          "name": "action",
+          "line": 80,
+          "end_line": 133
+        },
+        {
+          "name": "pdf",
+          "line": 136,
+          "end_line": 145
+        }
+      ]
+    },
+    {
+      "path": "ydental_settlement/models/ydental_settlement_record.py",
+      "sha256": "3f1a0014fd59fbfbced88f692288535f4c078b488a675a554982ec0324245a18",
+      "layer": "STATIC_REVIEW",
+      "functions": [
+        {
+          "name": "create",
+          "line": 13,
+          "end_line": 16
+        },
+        {
+          "name": "write",
+          "line": 18,
+          "end_line": 21
+        },
+        {
+          "name": "unlink",
+          "line": 23,
+          "end_line": 24
+        }
+      ]
+    },
+    {
+      "path": "ydental_clinical/models/ydental_clinical_service.py",
+      "sha256": "bb601a4d231585281cf569def652f78205993cf2d73f8273ae2cf50d620f6709",
+      "layer": "STATIC_REVIEW",
+      "functions": [
+        {
+          "name": "_eligible_responsible",
+          "line": 140,
+          "end_line": 148
+        },
+        {
+          "name": "_valid_editor",
+          "line": 150,
+          "end_line": 163
+        },
+        {
+          "name": "_acquire",
+          "line": 165,
+          "end_line": 188
+        },
+        {
+          "name": "_append",
+          "line": 213,
+          "end_line": 240
+        },
+        {
+          "name": "_confirm",
+          "line": 245,
+          "end_line": 247
+        },
+        {
+          "name": "_correct",
+          "line": 249,
+          "end_line": 251
+        },
+        {
+          "name": "_read",
+          "line": 291,
+          "end_line": 299
+        }
+      ]
+    },
+    {
+      "path": "ydental_clinical/controllers/clinical.py",
+      "sha256": "7b0f3a5f628de9cba389ea7ea8d261a6e999761dea8d645bde75dc5f9d6291bd",
+      "layer": "STATIC_REVIEW",
+      "functions": [
+        {
+          "name": "workbench",
+          "line": 21,
+          "end_line": 60
+        },
+        {
+          "name": "action",
+          "line": 63,
+          "end_line": 72
+        }
+      ]
+    },
+    {
+      "path": "ydental_treatment/models/ydental_treatment_service.py",
+      "sha256": "538af7641531393e1f090b3747906930c517ac83b41de703a2506bc7372fc159",
+      "layer": "STATIC_REVIEW",
+      "functions": [
+        {
+          "name": "_return_material",
+          "line": 489,
+          "end_line": 500
+        }
+      ]
+    },
+    {
+      "path": "ydental_inventory/models/ydental_inventory_service.py",
+      "sha256": "df07e1a7eebaec424c13973bf7937bac28defb7f2e27360b3cf6efdecdd2aa2b",
+      "layer": "STATIC_REVIEW",
+      "functions": [
+        {
+          "name": "_return",
+          "line": 399,
+          "end_line": 410
+        }
+      ]
+    },
+    {
+      "path": "ydental_print/models/ydental_print_service.py",
+      "sha256": "84c7925dacbc8a37f96b1fd4f711bfb3763437d205d6976b9129f2e9e63212d3",
+      "layer": "STATIC_REVIEW",
+      "functions": [
+        {
+          "name": "_source",
+          "line": 131,
+          "end_line": 228
+        },
+        {
+          "name": "_job",
+          "line": 261,
+          "end_line": 271
+        },
+        {
+          "name": "_generate",
+          "line": 273,
+          "end_line": 307
+        },
+        {
+          "name": "_deliver",
+          "line": 309,
+          "end_line": 317
+        },
+        {
+          "name": "_operate",
+          "line": 319,
+          "end_line": 346
+        }
+      ]
+    },
+    {
+      "path": "ydental_print/models/ydental_print_job.py",
+      "sha256": "e435d94f4ef0b4c7fbce65ec8345f07e814533c764b6d2042e0f9c9f82c3001b",
+      "layer": "STATIC_REVIEW",
+      "functions": [
+        {
+          "name": "create",
+          "line": 32,
+          "end_line": 35
+        },
+        {
+          "name": "write",
+          "line": 37,
+          "end_line": 38
+        },
+        {
+          "name": "unlink",
+          "line": 40,
+          "end_line": 41
+        }
+      ]
+    },
+    {
+      "path": "ydental_queue/models/ydental_queue_service.py",
+      "sha256": "a5b3a037a2be9992edf5867b3d401b351e4a74820d36fcc8764d46e0cc1c2a6e",
+      "layer": "STATIC_REVIEW",
+      "functions": [
+        {
+          "name": "_locks",
+          "line": 48,
+          "end_line": 49
+        },
+        {
+          "name": "_bind_connection",
+          "line": 62,
+          "end_line": 67
+        },
+        {
+          "name": "_connection",
+          "line": 69,
+          "end_line": 75
+        }
+      ]
+    },
+    {
+      "path": "ydental_settlement/report/ydental_settlement_reports.xml",
+      "sha256": "962e67a4c66edc661b4d2052d5ba306a7837eadf09a915ef4860f677e7847987",
+      "layer": "STATIC_REVIEW",
+      "functions": []
+    },
+    {
+      "path": "ydental_settlement/report/ydental_settlement_templates.xml",
+      "sha256": "5d9132e91e8c3b816001bbc93ef2eeb90dbf125083cef2d33203deaea7e467f2",
+      "layer": "STATIC_REVIEW",
+      "functions": []
+    }
+  ],
+  "called_business_methods": 0,
+  "product_changes": 0,
+  "scope": "事务/幂等、现有更正/锁、临床补文书、PDF字节来源与受控入口静态检查；非完整安全审计"
+}

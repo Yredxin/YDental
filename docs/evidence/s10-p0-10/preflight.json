@@ -1,0 +1,449 @@
+{
+  "authorization": 6208516504,
+  "base": "22d4762c8ddc0b8254b3492fe3ccc75664b5cf47",
+  "branch": "codex/s10-settlement-finance-r1-20261013",
+  "budget": {
+    "BROWSER": 0,
+    "BUSINESS_POST": 0,
+    "CREATE": 0,
+    "ODOO_CLI": 0,
+    "ODOO_HTTP": 0,
+    "SQL_ORM_WRITE": 0,
+    "SUDO": 0
+  },
+  "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "fixed_files_match": true,
+  "historical_inputs": [
+    {
+      "bytes": 27997,
+      "commit": "22d4762c8ddc0b8254b3492fe3ccc75664b5cf47",
+      "path": "docs/s10-gap-01-evidence-matrix.md",
+      "sha256": "7f798957b924b4eebdc29f2ad1af6ed10259e705eb8574d272d855a3ed5a3496"
+    },
+    {
+      "bytes": 5660,
+      "commit": "22d4762c8ddc0b8254b3492fe3ccc75664b5cf47",
+      "path": "docs/s10-gap-01-next-batch-proposals.md",
+      "sha256": "1584a6207e9742b23b22fb9c30a9a05ae3730853c18db0a9894e9b3fc3068662"
+    },
+    {
+      "bytes": 33576,
+      "commit": "22d4762c8ddc0b8254b3492fe3ccc75664b5cf47",
+      "path": "docs/evidence/s10-gap-01/coverage.json",
+      "sha256": "4fcceaa18e61a1a072b91175e1c51a8f35bf3f7ab8a6c4ac42a05e6500723192"
+    },
+    {
+      "bytes": 11995,
+      "commit": "d99f27fffcd6f9b79f1b1ac271dd026493b826b6",
+      "path": "docs/s10-completion-blocked-report.md",
+      "sha256": "b2b42bd15fb39de84c6e3c08f060219138a98cb650d68c07089656206d7e5908"
+    },
+    {
+      "bytes": 43465,
+      "commit": "d99f27fffcd6f9b79f1b1ac271dd026493b826b6",
+      "path": "docs/evidence/s10-completion/verification.json",
+      "sha256": "cad3d9addbac38a3bf056ed256588d9d262f9bc671f3678f37dbb61d0f2184a4"
+    },
+    {
+      "bytes": 11530,
+      "commit": "f24b0302569aefaa394391da6b696d915e3f0616",
+      "path": "docs/s10-r3-native-crash-blocked-report.md",
+      "sha256": "c118dc1748f00beda21870b46b4accbff850061a66a7a621feb1cbfda9875c1a"
+    },
+    {
+      "bytes": 35669,
+      "commit": "f24b0302569aefaa394391da6b696d915e3f0616",
+      "path": "docs/evidence/s10-r3-blocked/incident.json",
+      "sha256": "a45c83193bfe9bf2c1e7c5f474fcf9bc518ab69f2c9b8dd40876c5882f82180e"
+    },
+    {
+      "bytes": 7821,
+      "commit": "7ee2c5e091fa1d29bd01e493b07902d2827f4a35",
+      "path": "docs/s10-fc1-finance-concurrency-report.md",
+      "sha256": "4bbe8c01e3225b8f8f9e2590fb3e7ece2fd91b0debe8b5f2eb557ee1d2f81f7d"
+    },
+    {
+      "bytes": 8331,
+      "commit": "7ee2c5e091fa1d29bd01e493b07902d2827f4a35",
+      "path": "docs/evidence/s10-fc1/verification.json",
+      "sha256": "5ada1af80e4c9d8ff7da2e2e9d0e196ffb81357b1ca13c5f63caf3f3d1f43898"
+    },
+    {
+      "bytes": 8540,
+      "commit": "d766b70b0a9c922c809248cdc87e76efa8d5bc23",
+      "path": "docs/s10-fc2-finance-regression-report.md",
+      "sha256": "5663bcc7c57204cf5a954cab7e7dd40ba5cd19959de83afb589596069c7116d8"
+    },
+    {
+      "bytes": 14630,
+      "commit": "d766b70b0a9c922c809248cdc87e76efa8d5bc23",
+      "path": "docs/evidence/s10-fc2/verification.json",
+      "sha256": "2ac923fba6f90e6bfa14606ded848bcd6ebc6d90a4fb106563a02ee9089380fe"
+    },
+    {
+      "bytes": 8862,
+      "commit": "3e2f863d089d1df4bf979eb99624a84abbfad292",
+      "path": "docs/s10-ui1-r4-blocked-report.md",
+      "sha256": "5e9257b1c27a2f6c136a8965078ab144162c8bffb98771788ceb8e99475f6819"
+    },
+    {
+      "bytes": 6881,
+      "commit": "3e2f863d089d1df4bf979eb99624a84abbfad292",
+      "path": "docs/evidence/s10-ui1-r4-blocked/verification.json",
+      "sha256": "afce8f88b4bafb6ef6495722198a33d592eed21ca283677b9dadaaa0d326c018"
+    },
+    {
+      "bytes": 4597,
+      "commit": "09cbcfea575bd488e617a5f597bab3c9d9286eae",
+      "path": "docs/s10-ui1-r6-blocked-report.md",
+      "sha256": "fe03c53e1d5cfa9cf0c0763f60beb27c5f89af10601f5bfe97fabfc20774ff43"
+    },
+    {
+      "bytes": 5653,
+      "commit": "09cbcfea575bd488e617a5f597bab3c9d9286eae",
+      "path": "docs/evidence/s10-ui1-r6/verification.json",
+      "sha256": "4c0237e08ed38efadd2d25ff70ecd32d8f3d83b40b5259f49cce3ee55806c778"
+    },
+    {
+      "bytes": 4121,
+      "commit": "7efa4e25583b667cc0de22d115b54d67d0d10a3b",
+      "path": "docs/s10-ui1-r7-report.md",
+      "sha256": "dc5c7e63bd91c89240001fe4487b9859c4fae8806765ef20b849cb7f705a5709"
+    },
+    {
+      "bytes": 4562,
+      "commit": "7efa4e25583b667cc0de22d115b54d67d0d10a3b",
+      "path": "docs/evidence/s10-ui1-r7/verification.json",
+      "sha256": "cfde862ac5bf40b3d6f58f8ff7897b07bf5a862eee64bd92e94cdd064597f39b"
+    },
+    {
+      "bytes": 5839,
+      "commit": "71a554667157cdd917c0062db5e4ddf1693f6410",
+      "path": "docs/s10-e2e-w3-blocked-report.md",
+      "sha256": "becb64b84285eda4dd4142b1fa255b62f2d4991ba3d57ff19f10daa22e8478ee"
+    },
+    {
+      "bytes": 18525,
+      "commit": "71a554667157cdd917c0062db5e4ddf1693f6410",
+      "path": "docs/evidence/s10-e2e-w3/verification.json",
+      "sha256": "a0c5ed5af98bec2f1cc88d2f91f6db7ad80e4eb437d7f434dbbfcdb2b845c560"
+    },
+    {
+      "bytes": 5223,
+      "commit": "79417da9043478501ffae586f93eebc1e5d7105d",
+      "path": "docs/s10-e2e-w4-blocked-report.md",
+      "sha256": "231ec85051b77ef58c2040e33dbaab68319535ec83d3906e9358ccdb663975ba"
+    },
+    {
+      "bytes": 12062,
+      "commit": "79417da9043478501ffae586f93eebc1e5d7105d",
+      "path": "docs/evidence/s10-e2e-w4/verification.json",
+      "sha256": "d493955a429e1c0338bc0c237ffc08e98771f22b894b459e96f36d683b15a63e"
+    },
+    {
+      "bytes": 6470,
+      "commit": "287881a824e9a18dd637522c570f74df139078f9",
+      "path": "docs/s10-e2e-w5-blocked-report.md",
+      "sha256": "9ad2b32f82ad128939c25c5d430369b87a1107d8e30c6a0312a6d3de66c5fa35"
+    },
+    {
+      "bytes": 11277,
+      "commit": "287881a824e9a18dd637522c570f74df139078f9",
+      "path": "docs/evidence/s10-e2e-w5/verification.json",
+      "sha256": "5cd6896404b3b2789692a783269d55c6dde4c70c5824225bbeadd123feea4265"
+    },
+    {
+      "bytes": 6693,
+      "commit": "5876740dabf342372b0970682947e6be8356fa8c",
+      "path": "docs/s10-e2e-w5-ro1-r1-readonly-report.md",
+      "sha256": "84bb38d0de554ef7e69d2a1462cbbb369619396594bd2f17cfe9090bcec66852"
+    },
+    {
+      "bytes": 3834,
+      "commit": "5876740dabf342372b0970682947e6be8356fa8c",
+      "path": "docs/evidence/s10-e2e-w5-ro1-r1/verification.json",
+      "sha256": "e5416ce56f656a6a03a2821ce0908398aa72021847f1c939be6272b4f17fcafa"
+    },
+    {
+      "bytes": 136097,
+      "commit": "47922cf78de2c2266b9015b56684e68d32d50df8",
+      "path": "docs/evidence/s10-p0-02/blocked.json",
+      "sha256": "33d87947ba5e7dd9986858f91d76efa9c30703ff0014f7ca3da8514bbfdcc468"
+    },
+    {
+      "bytes": 64728,
+      "commit": "47922cf78de2c2266b9015b56684e68d32d50df8",
+      "path": "docs/evidence/s10-p0-02/preflight.json",
+      "sha256": "7de64a8da531818f0909f7c7b0c988b6ee0916d7579d4b1756edd3128b24971d"
+    },
+    {
+      "bytes": 7756,
+      "commit": "47922cf78de2c2266b9015b56684e68d32d50df8",
+      "path": "docs/s10-p0-02-blocked-report.md",
+      "sha256": "0a90579ab65ac6e43f459ea0aaac4a4ea3e5d6e7b352bfcd82e843ea5c4d169a"
+    },
+    {
+      "bytes": 8609,
+      "commit": "35d24828ad3e05a9b006168cd2c01bd43677a50d",
+      "path": "docs/evidence/s10-p0-03/blocked.json",
+      "sha256": "f16f8de11aea3bd70884aeda76bf7f4c45c7a7da3c77a1feed9ec2a12e8a689a"
+    },
+    {
+      "bytes": 123732,
+      "commit": "35d24828ad3e05a9b006168cd2c01bd43677a50d",
+      "path": "docs/evidence/s10-p0-03/preflight.json",
+      "sha256": "4a75a4f440a73e28f87eb1b0192037bb4a651f564f190c24fd6e97423572fddd"
+    },
+    {
+      "bytes": 6923,
+      "commit": "35d24828ad3e05a9b006168cd2c01bd43677a50d",
+      "path": "docs/s10-p0-03-blocked-report.md",
+      "sha256": "35c0c14069c36510805d6006820cb332bd78e9891ed3f5b72b2c340dff7b2184"
+    },
+    {
+      "bytes": 13117,
+      "commit": "8802bfee708bb854ac4ef1599796ee1f958db6d6",
+      "path": "docs/evidence/s10-p0-04/blocked.json",
+      "sha256": "1738cbd133eda97234ab621f4bc622e5301b8cbaa9330a958e94e9d97b463e1a"
+    },
+    {
+      "bytes": 218063,
+      "commit": "8802bfee708bb854ac4ef1599796ee1f958db6d6",
+      "path": "docs/evidence/s10-p0-04/business-before-after.json",
+      "sha256": "5b99aa655057a3e54c06aefbb17aa9d9e552cac4ea69940931412b96873c26a7"
+    },
+    {
+      "bytes": 116752,
+      "commit": "8802bfee708bb854ac4ef1599796ee1f958db6d6",
+      "path": "docs/evidence/s10-p0-04/preflight-initial.json",
+      "sha256": "f6655245c9d56ebfe6fa9565a292d2274f10f23b263fbb142dbae5562dc3b2ee"
+    },
+    {
+      "bytes": 116752,
+      "commit": "8802bfee708bb854ac4ef1599796ee1f958db6d6",
+      "path": "docs/evidence/s10-p0-04/preflight.json",
+      "sha256": "025348bbb9bf9224f9df00054e0ad79c4d5d9ec3b1c9c17251dd9222fb5e4226"
+    },
+    {
+      "bytes": 8007,
+      "commit": "8802bfee708bb854ac4ef1599796ee1f958db6d6",
+      "path": "docs/s10-p0-04-blocked-report.md",
+      "sha256": "dcb7795dbd59a9903e8f9461c3aa8ad08c55a3510aeb75d87d529b991487ba12"
+    },
+    {
+      "bytes": 42060,
+      "commit": "59c777bcb6579f8a320c4e5633cc050b329659a1",
+      "path": "docs/evidence/s10-p0-05/blocked.json",
+      "sha256": "82cdd032729f59905695dcffa9a2f03e2aed2964e0395b783460bb8f18d73a6f"
+    },
+    {
+      "bytes": 5340,
+      "commit": "59c777bcb6579f8a320c4e5633cc050b329659a1",
+      "path": "docs/s10-p0-05-blocked-report.md",
+      "sha256": "4d3b9e5b20416c0117cc659474ee608e1f8a08a8459f82844bec44eb124b2724"
+    },
+    {
+      "bytes": 218068,
+      "commit": "da1f1547bf54044c3bb787ac1cfc382728f6b84d",
+      "path": "docs/evidence/s10-p0-06/business-before-after.json",
+      "sha256": "2c8c56a25e6972c8b16e71f2e28907cad10cfcf8c156ab0b8e5724444fd2841d"
+    },
+    {
+      "bytes": 283353,
+      "commit": "da1f1547bf54044c3bb787ac1cfc382728f6b84d",
+      "path": "docs/evidence/s10-p0-06/preflight.json",
+      "sha256": "53318e2f73b0efce62dc8f7ebc43f9ca3716660db514198e42108c4eea7d88f4"
+    },
+    {
+      "bytes": 185222,
+      "commit": "da1f1547bf54044c3bb787ac1cfc382728f6b84d",
+      "path": "docs/evidence/s10-p0-06/verification.json",
+      "sha256": "3a41643daef2283b4ba294ea790edd62ff9b2d77c5293257609c99b2bf7eed90"
+    },
+    {
+      "bytes": 11729,
+      "commit": "da1f1547bf54044c3bb787ac1cfc382728f6b84d",
+      "path": "docs/s10-p0-06-delivery-report.md",
+      "sha256": "48fdb134960727ea2ac0401a85edde481844c287495479957762f3e4f3a3e76a"
+    },
+    {
+      "bytes": 218075,
+      "commit": "4f40f11f51ca4f73070c117b88770e31d1354e9c",
+      "path": "docs/evidence/s10-p0-07/business-before-after.json",
+      "sha256": "63de2e86f97daf6ded2c9fb33e60135adb1e8431b7ccef727ab59b9bcefda4b9"
+    },
+    {
+      "bytes": 334638,
+      "commit": "4f40f11f51ca4f73070c117b88770e31d1354e9c",
+      "path": "docs/evidence/s10-p0-07/preflight.json",
+      "sha256": "dfea99543c418fc47377dadc69ba4f9c28b898c9cf0d2d60e7fc7847095d830b"
+    },
+    {
+      "bytes": 389668,
+      "commit": "4f40f11f51ca4f73070c117b88770e31d1354e9c",
+      "path": "docs/evidence/s10-p0-07/verification.json",
+      "sha256": "5118bb12bc712bc9a326b335066a2c057ae9e83936c43b7855adafcf00e45a1d"
+    },
+    {
+      "bytes": 11119,
+      "commit": "4f40f11f51ca4f73070c117b88770e31d1354e9c",
+      "path": "docs/s10-p0-07-blocked-report.md",
+      "sha256": "86bd9791c2a397ff056e52a4784672b226939850756351aac802f1229948c854"
+    },
+    {
+      "bytes": 219071,
+      "commit": "5c67b6ec8fcdcf138f79148316ab8f960b6077eb",
+      "path": "docs/evidence/s10-p0-08/business-before-after.json",
+      "sha256": "046483672f70fcbb9b7d43b6f2ddb01ffe5a8821367c0a591ad3f5f059468ee4"
+    },
+    {
+      "bytes": 1566,
+      "commit": "5c67b6ec8fcdcf138f79148316ab8f960b6077eb",
+      "path": "docs/evidence/s10-p0-08/delivery-check.json",
+      "sha256": "edbd8ccc4b8be73d0cd572c185ac9ce6f4f25a71c84c51d3e1e251fc0f020ab7"
+    },
+    {
+      "bytes": 369798,
+      "commit": "5c67b6ec8fcdcf138f79148316ab8f960b6077eb",
+      "path": "docs/evidence/s10-p0-08/preflight.json",
+      "sha256": "b17a7f2da9349eeb1c38092dff44e57feee921836161b113e497a77f68b3609e"
+    },
+    {
+      "bytes": 586,
+      "commit": "5c67b6ec8fcdcf138f79148316ab8f960b6077eb",
+      "path": "docs/evidence/s10-p0-08/response-simulation.json",
+      "sha256": "a09801a4ed48007ea348bf1c3fb955900f177701e9538a7b19a491eb84ac2baf"
+    },
+    {
+      "bytes": 258286,
+      "commit": "5c67b6ec8fcdcf138f79148316ab8f960b6077eb",
+      "path": "docs/evidence/s10-p0-08/verification.json",
+      "sha256": "c799d2e619579535c632da02c3fb76bf222070099d8a3861ea089cccdcfc2f29"
+    },
+    {
+      "bytes": 12150,
+      "commit": "5c67b6ec8fcdcf138f79148316ab8f960b6077eb",
+      "path": "docs/s10-p0-08-blocked-report.md",
+      "sha256": "39202983a171300c4efb11f9ce4f71763002fb9af7b7be014cefb7fdbe452f44"
+    },
+    {
+      "bytes": 219083,
+      "commit": "22d4762c8ddc0b8254b3492fe3ccc75664b5cf47",
+      "path": "docs/evidence/s10-p0-09/business-before-after.json",
+      "sha256": "97a9cd9e394e73e4a5acaa9595930474d1bf3961fe79a88fb79536e017bf4378"
+    },
+    {
+      "bytes": 1366,
+      "commit": "22d4762c8ddc0b8254b3492fe3ccc75664b5cf47",
+      "path": "docs/evidence/s10-p0-09/delivery-check.json",
+      "sha256": "e435767eba896910e6c183e53bb4595d1a7149b7e1907956e2f152a13f132d65"
+    },
+    {
+      "bytes": 411532,
+      "commit": "22d4762c8ddc0b8254b3492fe3ccc75664b5cf47",
+      "path": "docs/evidence/s10-p0-09/preflight.json",
+      "sha256": "9af9a957a23eae5b3a9236e565cc6376f921a9b17ac0ac905a0f05e14ad573d6"
+    },
+    {
+      "bytes": 316639,
+      "commit": "22d4762c8ddc0b8254b3492fe3ccc75664b5cf47",
+      "path": "docs/evidence/s10-p0-09/verification.json",
+      "sha256": "3c3c49dbec6c93ec89ce766fea93ff8926691bf28a8e8a8939a671302db994a5"
+    },
+    {
+      "bytes": 12798,
+      "commit": "22d4762c8ddc0b8254b3492fe3ccc75664b5cf47",
+      "path": "docs/s10-p0-09-report.md",
+      "sha256": "1023c69509faf45f64d9598e82a51f02e792e07e3bb30c9534b57c912f25cbc4"
+    }
+  ],
+  "path_gate": true,
+  "schema_contract": "catalog first; SELECT to_jsonb on base tables; optional fields explicit missing",
+  "script_sha256": "cf1caeafd876af6155c8d5a784ba0141c39c7b5990f238c994ff8215c3c92b37",
+  "source_check_before_sql": true,
+  "sources": {
+    "P009": {
+      "config_sha256": "743808ca70ebf1baff4b4fc0a8191c7bcd7b514ec74d6096dfb4ddd5da45e2a9",
+      "database": "ydental_s10_test_20261016_p009_9e51b7c2",
+      "fixed_commit": "22d4762c8ddc0b8254b3492fe3ccc75664b5cf47",
+      "marker_sha256": "59347fb41fb9a8593620fb94da4852a1bcaf0c7fc48f8379c6d7b68502212fdc",
+      "marker_source": "ydental_s10_test_20261016_p008_8d43a1e5",
+      "marker_source_config_sha256": "b97f715d104afdb89044ad753e15ff0115c393b51a85e35a062b0069374313c9",
+      "marker_source_marker_sha256": "40789a77746ae5582e678a401f3b930f710d19c948500893744a126fa1b8937f",
+      "marker_source_oid": 2100323,
+      "oid": 2100324,
+      "status": "STATIC_FILE_IDENTITY_MATCH"
+    },
+    "R3": {
+      "config_sha256": "34f2a7cff12ef31c69090fb7b1f990b008bebf850290e2747d868c6a9d8ae778",
+      "database": "ydental_s10_test_20261014020300_8b6c1d4e",
+      "fixed_commit": "f24b0302569aefaa394391da6b696d915e3f0616",
+      "marker_sha256": "96d261798a4b4370772d5700ba8516dd7677d2568f2b3fda80d3572b94a644e6",
+      "marker_source": null,
+      "marker_source_config_sha256": null,
+      "marker_source_marker_sha256": null,
+      "marker_source_oid": null,
+      "oid": 2056451,
+      "status": "STATIC_FILE_IDENTITY_MATCH"
+    },
+    "W3": {
+      "config_sha256": "dfc2d64d3cd32565bd8e901ca547cfe60170f8cc8c0826adfd77ff65c345eb45",
+      "database": "ydental_s10_test_20261015060000_b6c7d8e9",
+      "fixed_commit": "71a554667157cdd917c0062db5e4ddf1693f6410",
+      "marker_sha256": "8b923d1df4f2a285bb65a87779ee3410ef3529319b9cd0bb8a434d8f4be1c736",
+      "marker_source": "ydental_s10_test_20261014044700_4f6a8d2c",
+      "marker_source_config_sha256": null,
+      "marker_source_marker_sha256": null,
+      "marker_source_oid": 2100080,
+      "oid": 2100285,
+      "status": "STATIC_FILE_IDENTITY_MATCH"
+    },
+    "W4": {
+      "config_sha256": "464f29204afd03c63d1450db442f4d42454e1d164243ca6bb1dbe8eb787b10ba",
+      "database": "ydental_s10_test_20261015064000_d41e7b62",
+      "fixed_commit": "79417da9043478501ffae586f93eebc1e5d7105d",
+      "marker_sha256": "82aaa9c49144987eaa2bf08268db145b62bb55f3ebd5fb373d94dfbd4e101b4a",
+      "marker_source": "ydental_s10_test_20261015060000_b6c7d8e9",
+      "marker_source_config_sha256": "dfc2d64d3cd32565bd8e901ca547cfe60170f8cc8c0826adfd77ff65c345eb45",
+      "marker_source_marker_sha256": "8b923d1df4f2a285bb65a87779ee3410ef3529319b9cd0bb8a434d8f4be1c736",
+      "marker_source_oid": 2100285,
+      "oid": 2100301,
+      "status": "STATIC_FILE_IDENTITY_MATCH"
+    },
+    "W5": {
+      "config_sha256": "867f761771ecc20931f69103388df699b094b748e6a9d392e15ebe3d406e43c7",
+      "database": "ydental_s10_test_20261015073500_e50f4a71",
+      "fixed_commit": "287881a824e9a18dd637522c570f74df139078f9",
+      "marker_sha256": "1a7f4a2a95e8aa0ea3d6da17abf6033976d2e39754185fa38e441a497351a5fa",
+      "marker_source": "ydental_s10_test_20261015064000_d41e7b62",
+      "marker_source_config_sha256": "464f29204afd03c63d1450db442f4d42454e1d164243ca6bb1dbe8eb787b10ba",
+      "marker_source_marker_sha256": "82aaa9c49144987eaa2bf08268db145b62bb55f3ebd5fb373d94dfbd4e101b4a",
+      "marker_source_oid": 2100301,
+      "oid": 2100310,
+      "status": "STATIC_FILE_IDENTITY_MATCH"
+    }
+  },
+  "sql_literals": [
+    "SELECT table_name,column_name,ordinal_position,data_type,udt_name,is_nullable,column_default FROM information_schema.columns WHERE table_schema='public' AND table_name=ANY(%s) ORDER BY table_name,ordinal_position",
+    "SELECT c.relname,con.conname,pg_get_constraintdef(con.oid) FROM pg_constraint con JOIN pg_class c ON c.oid=con.conrelid JOIN pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname='public' AND c.relname=ANY(%s) ORDER BY 1,2",
+    "SELECT tablename,indexname,indexdef FROM pg_indexes WHERE schemaname='public' AND tablename=ANY(%s) ORDER BY tablename,indexname",
+    "SELECT pid FROM pg_stat_activity WHERE datname=current_database() AND pid<>pg_backend_pid()",
+    "SELECT c.relname,a.attname FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace JOIN pg_attribute a ON a.attrelid=c.oid WHERE n.nspname='public' AND c.relkind='r' AND a.attnum>0 AND NOT a.attisdropped ORDER BY c.relname,a.attnum",
+    "SELECT store_fname,checksum FROM ir_attachment WHERE store_fname IS NOT NULL ORDER BY id",
+    "SELECT current_database(),(SELECT oid FROM pg_database WHERE datname=current_database()),(SELECT system_identifier::text FROM pg_control_system())",
+    "SELECT id,ydental_pdf,ydental_pdf_digest FROM ydental_print_job ORDER BY id",
+    "SELECT ",
+    "SHOW ",
+    "SHOW transaction_read_only",
+    "SHOW transaction_isolation",
+    "SELECT to_jsonb(t)::text FROM public.{} t ORDER BY {}"
+  ],
+  "sql_run": "NOT_RUN",
+  "transaction": {
+    "connection_limit": 5,
+    "finalization": "explicit rollback in finally, close in finally",
+    "isolation": "REPEATABLE READ",
+    "other_database_connections": 0,
+    "read_only": true
+  }
+}
