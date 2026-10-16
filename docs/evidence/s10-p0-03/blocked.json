@@ -1,0 +1,256 @@
+{
+  "authorization_comment": 6191916076,
+  "branch": "codex/s10-settlement-finance-r1-20261013",
+  "budgets_used": {
+    "CREATE": 1,
+    "close_unlock": 0,
+    "firefox": 1,
+    "http": 1,
+    "negative_POST": 0,
+    "new_collection_actual_refund_credit_posted_move_stock_write": 0,
+    "odoo_upgrade_install_init_shell": 0,
+    "refund_reject": 1
+  },
+  "core_head": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "evidence_levels": {
+    "allowlist": "WEB_SIDE_EFFECTS_ALLOWLIST_VERIFIED_PREFLIGHT_ONLY",
+    "clone": "NEW_CLONE",
+    "close_and_denials": "NOT_RUN",
+    "finance": "NATIVE_FINANCE_READONLY",
+    "page": "NEW_REAL_WEB_REFUND_PAGE2",
+    "refund": "NEW_HTML_REJECT_COMMITTED_BUT_POST_GATE_BLOCKED",
+    "simulation": "SIMULATED_PASS",
+    "source": "P0_02_STOPPED_SOURCE_PROVENANCE"
+  },
+  "hard_gate": {
+    "all_public_table_count": 643,
+    "attachment_filestore_mail_unchanged": true,
+    "changed_table_count": 7,
+    "changed_tables": {
+      "res_device_log": {
+        "after": {
+          "rows": 2,
+          "sha256": "3b8c7122cf8533bd6a010bea6f29a61680e3f9dffd078214ad1c6c12908a5a9b"
+        },
+        "before": {
+          "rows": 1,
+          "sha256": "909de1d9c65adbda599fb03de2269a6d93b4e741954e4ec3c04a0543fae634b7"
+        }
+      },
+      "res_users_log": {
+        "after": {
+          "rows": 2,
+          "sha256": "b02bf1fa576865c1025fdc9b6e6633314bb91abf3b9f5fdccbbc49f300f4f1c6"
+        },
+        "before": {
+          "rows": 1,
+          "sha256": "dfda4fcb91b95fa372f6cf283285fcc613e27c299be35c390265ccce8efb8447"
+        }
+      },
+      "ydental_access_audit": {
+        "after": {
+          "rows": 2661,
+          "sha256": "250413523017de7e6cb11d76d14684cd1f1d870564d783a469b889c01908270d"
+        },
+        "before": {
+          "rows": 2657,
+          "sha256": "c9e6a7473a1fdd7eb5c3c9134cc4abca4284c0dba175be39c2001457e862329f"
+        }
+      },
+      "ydental_access_session": {
+        "after": {
+          "rows": 178,
+          "sha256": "cfa546055a2625632028038e4bf62c642cb3d6189c5789501cc64b4fe7dc492e"
+        },
+        "before": {
+          "rows": 177,
+          "sha256": "6eaa5c2b223f242a5406ffc129e95f951b9c5375a85dea8a7f0aab7f4d146fbd"
+        }
+      },
+      "ydental_settlement_mutex": {
+        "after": {
+          "rows": 1,
+          "sha256": "a094dd1bc9cafb8561da666ecae530d73a343add914dddbbb871007b79a9e6dd"
+        },
+        "before": {
+          "rows": 1,
+          "sha256": "0c98e69b3af530775168de1edab15700214afd09a346ea28bed88929a9d892b0"
+        }
+      },
+      "ydental_settlement_receipt": {
+        "after": {
+          "rows": 242,
+          "sha256": "4ca3d06a05d15f78010ec9c92c831413b6912d8507122fa9557213205142045b"
+        },
+        "before": {
+          "rows": 241,
+          "sha256": "cb1c1fa91737630e0c877fea63b08a22ab6ca19bdf2983ed56760f4091c94ed2"
+        }
+      },
+      "ydental_settlement_refund": {
+        "after": {
+          "rows": 66,
+          "sha256": "a2412f5698ac5980e4066fbdbc2c0341e79d39dae614c092f917f44339024741"
+        },
+        "before": {
+          "rows": 66,
+          "sha256": "3d17e073547e2c5f4949fddc89d052ba5a668e1b8984d8d1817668265b32fb25"
+        }
+      }
+    },
+    "idempotent_command_receipt": {
+      "actor_id": 6,
+      "id": 242,
+      "key_sha256": "fccb3271c2949314d9907bc7e2413d2c35ec5172f96033cb1d35bdcd8acc7b18",
+      "new_rows": 1,
+      "operation": "refund_reject",
+      "result": {
+        "actually_refunded": 0,
+        "credit_note_id": false,
+        "refund_id": 14,
+        "state": "rejected"
+      },
+      "store_id": 1
+    },
+    "module_view_schema_unchanged": true,
+    "mutex_revision_after": 243,
+    "mutex_revision_before": 242,
+    "native_finance_and_stock_unchanged": [
+      "account_move",
+      "account_move_line",
+      "account_payment",
+      "account_partial_reconcile",
+      "account_full_reconcile",
+      "stock_move",
+      "stock_move_line",
+      "stock_quant",
+      "ydental_settlement_payment",
+      "ydental_settlement_source",
+      "ydental_settlement_correction",
+      "ydental_settlement_trade",
+      "ydental_inventory_event",
+      "ydental_treatment_fee"
+    ],
+    "odoo_device_logs_new": 1,
+    "odoo_user_login_logs_new": 1,
+    "reason": "ydental_settlement_mutex and ydental_settlement_receipt absent from prepublished field allowlist",
+    "s01_audits": [
+      {
+        "id": 2658,
+        "ydental_event": "login",
+        "ydental_result": "accepted",
+        "ydental_source": "native_authenticated_login",
+        "ydental_store_id": null,
+        "ydental_target_id": 6,
+        "ydental_target_model": "res.users",
+        "ydental_user_id": 6
+      },
+      {
+        "id": 2659,
+        "ydental_event": "login.scope",
+        "ydental_result": "accepted",
+        "ydental_source": "authenticated_session",
+        "ydental_store_id": null,
+        "ydental_target_id": 178,
+        "ydental_target_model": "ydental.access.session",
+        "ydental_user_id": 6
+      },
+      {
+        "id": 2660,
+        "ydental_event": "store.switch",
+        "ydental_result": "accepted",
+        "ydental_source": "interactive",
+        "ydental_store_id": 1,
+        "ydental_target_id": 178,
+        "ydental_target_model": "ydental.access.session",
+        "ydental_user_id": 6
+      },
+      {
+        "id": 2661,
+        "ydental_event": "settlement.refund.reject",
+        "ydental_result": "accepted",
+        "ydental_source": "confirmed_offline_transaction",
+        "ydental_store_id": 1,
+        "ydental_target_id": 14,
+        "ydental_target_model": "ydental.settlement.refund",
+        "ydental_user_id": 6
+      }
+    ],
+    "s01_sessions_new": 1
+  },
+  "new_clone": {
+    "attachment_pointers": 1075,
+    "clone_equal_265_managed_schema_modules_views": true,
+    "clone_equal_all_643_tables": true,
+    "config_sha256": "22cc16e2e96c9e668e002dbb0aa191dd370868fb1b6d1e1b11e82b5702b97767",
+    "filestore_files": 194,
+    "filestore_manifest_sha256": "27174fa6aa277611a62f4feaf8deb65701d5bbd0d38f91b7966a9b90f0901372",
+    "marker_sha256": "39683645018da6b7c66cc62cc3366a9ee0a0b26542bd9f3356e4fa8d1b95d7a3",
+    "name": "ydental_s10_test_20261016_p003_75c1e9b2",
+    "oid": 2100319,
+    "port": 18286
+  },
+  "p002_source": {
+    "config_sha256": "4c8dce92918d67eac5ebf9b67693e6c10c19d5af4f1bc3e0f2d3ab34506f7dc7",
+    "filestore_files": 194,
+    "filestore_manifest_sha256": "27174fa6aa277611a62f4feaf8deb65701d5bbd0d38f91b7966a9b90f0901372",
+    "marker_sha256": "e4118f666c350ef75af34f1549b286868d25ac4377e611a7246e53034cc783cd",
+    "name": "ydental_s10_test_20261015_p002_6d84a2c1",
+    "oid": 2100311,
+    "unchanged_all_643_tables": true
+  },
+  "preflight_comment": 6205549655,
+  "preflight_sha256": "4a75a4f440a73e28f87eb1b0192037bb4a651f564f190c24fd6e97423572fddd",
+  "processes": {
+    "browser_error": "unauthorized_table ydental_settlement_mutex",
+    "firefox": {
+      "log_sha256": "26d2daf76618278cc74b2aa7d7938817a2e5fff881b84ec17068395dba4b230c",
+      "pid": 3987222,
+      "returncode": 1
+    },
+    "http": {
+      "log_sha256": "4a6c757354392af4916eb4a0bbc74cd6a34883b723187ebac57e1ce327465a1e",
+      "pid": 3987149,
+      "returncode": 0
+    },
+    "native_signal11_seen": false
+  },
+  "r3": {
+    "config_sha256": "34f2a7cff12ef31c69090fb7b1f990b008bebf850290e2747d868c6a9d8ae778",
+    "marker_sha256": "96d261798a4b4370772d5700ba8516dd7677d2568f2b3fda80d3572b94a644e6",
+    "name": "ydental_s10_test_20261014020300_8b6c1d4e",
+    "oid": 2056451,
+    "unchanged_265_tables_schema_module_view_filestore": true
+  },
+  "real_web": {
+    "close9": {
+      "page2": "NOT_RUN",
+      "state": "confirmed",
+      "unlock_POST": "NOT_RUN"
+    },
+    "negative_posts": "NOT_RUN",
+    "refund_page2_GET": {
+      "id": 14,
+      "page_errors": 0,
+      "screenshot_sha256": "1269b1fb9f81b5ba2d93223f06ce065e7e59b40c539786ac40a10b1006cb6fab",
+      "status": 200
+    },
+    "refund_reject_POST": {
+      "actor": 6,
+      "approver_id": 6,
+      "count": 1,
+      "credit_note_id": null,
+      "feedback": "操作已受理，请核对下方业务记录。",
+      "id": 14,
+      "intent_sha256": "d96c1d54d3ba01b5b688484be48edae5e80798d0786e85675af584768b518aaf",
+      "native_outbound_id": null,
+      "observed_sha256": "fa6dd78ac91d064648b9d138404b9b742b51744812e7d40bef7ca318d522cde4",
+      "reason_present": true,
+      "state_after": "rejected",
+      "state_before": "requested",
+      "status": 303
+    }
+  },
+  "start_head": "47922cf78de2c2266b9015b56684e68d32d50df8",
+  "status": "BLOCKED_AFTER_ONE_COMMITTED_REFUND_REJECT_UNLISTED_COMMAND_METADATA"
+}
