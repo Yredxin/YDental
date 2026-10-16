@@ -1,0 +1,72 @@
+{
+  "fixed_git": "a66c9dfd4b65573a27ff3e45733a87103f17bf32",
+  "layer": "STATIC_REVIEW",
+  "execution_authorized_by_P015": false,
+  "ready_business_count": 0,
+  "selected_candidate_count": 1,
+  "selected_candidate": {
+    "id": "W5_FIRST_CURRENT_PAID_INTERNAL_BILL_PDF",
+    "status": "NOT_AUTHORIZABLE_PENDING_SOURCE",
+    "actor": 5,
+    "store": 1,
+    "company": 1,
+    "source_oid": 2100310,
+    "invoice": 1,
+    "total": 740,
+    "residual": 0,
+    "route": "GET /ydental/settlement/pdf/bill/1",
+    "button": "ydental_settlement/views/ydental_settlement_templates.xml:81 下载中文 PDF",
+    "controller": "ydental_settlement/controllers/settlement.py:135 pdf",
+    "method": "ydental_settlement/models/ydental_settlement_service.py:1159 _pdf",
+    "template": "ydental_settlement/report/ydental_settlement_templates.xml:1",
+    "needs_addon_change": false,
+    "preparation": "new independent authorized clone of W5; never P014/P013 clone; no upgrade/confirm/financial operation",
+    "non_economic": "settlement.report_download actor5 store1 target account.move1 kind bill/PDF hash; native login/view/cache differences require separate exact whitelist",
+    "economic": "fee/source/price/account/payment/refund/close/stock/move/quant/lot zero differences",
+    "assertions": [
+      "one native PDF response/header SHA/format",
+      "visible source fee/price versions and total/received740/residual0, company/store/patient/non-tax label",
+      "old economic/clinical/attachments/filestore and locked tables unchanged",
+      "independent old source643 before/after equality and bounded shutdown"
+    ]
+  },
+  "single_next_prerequisite_package": {
+    "id": "W5_ACTOR5_EXPORT_AND_BILL_SOURCE_READONLY_GATE",
+    "needs_separate_authorization": true,
+    "operations": "read-only source projection only; no CREATE/login/render",
+    "missing_fields": [
+      "user.active/company_ids",
+      "membership/employee.active",
+      "grant membership/category/level settlement>=read/export=write",
+      "installed report action/template/modules"
+    ],
+    "why": "public W5 actual grants omit membership/category/level; fixture setup intent alone is insufficient",
+    "assertions": [
+      "identity/fixed643 match",
+      "actual company/employment/grants satisfy source",
+      "invoice/source740/0 and installed report match",
+      "rollback/close with all forbidden operations zero"
+    ]
+  },
+  "stop": [
+    "parallel authorization/ref drift",
+    "missing source/actor/field/template/dependency",
+    "unexpected delta/request",
+    "budget overrun",
+    "native/render/browser failure or unknown outcome; no retry/repair"
+  ],
+  "ordered_backups": [
+    {
+      "priority": 1,
+      "path": "independent new synthetic confirmed source and nonmedical correction fixture contract",
+      "status": "NOT_AUTHORIZABLE_PENDING_SOURCE"
+    },
+    {
+      "priority": 2,
+      "path": "same-family original PDF retention/byte delivery contract; persistence addon only separately authorized",
+      "status": "NOT_AUTHORIZABLE_PENDING_SOURCE"
+    }
+  ],
+  "retired": "P0-10 pending doc1 confirm primary completed P014; no repeated confirm or P014 clone reuse",
+  "S10_PRODUCTION_T12": "BLOCKED"
+}

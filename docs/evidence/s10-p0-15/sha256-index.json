@@ -1,0 +1,62 @@
+{
+  "base": "a66c9dfd4b65573a27ff3e45733a87103f17bf32",
+  "files": {
+    "docs/evidence/s10-p0-15/gap03-delta.json": {
+      "bytes": 240261,
+      "sha256": "4983ce1bb383f9d139ee2be08668e963780f5090f6f422f22c7399a70ea0cd5a"
+    },
+    "docs/evidence/s10-p0-15/github-before-commit.json": {
+      "bytes": 831,
+      "sha256": "6e81b78f1e87a52bc6d045106d277c89e7b146b5187abc3911c2bd4aae762732"
+    },
+    "docs/evidence/s10-p0-15/github-start.json": {
+      "bytes": 65114,
+      "sha256": "6d3567c887ffc6cef39194552d691ca7fa85e05d3eb0567ce629689ffbdd97ee"
+    },
+    "docs/evidence/s10-p0-15/next-work-package.json": {
+      "bytes": 3208,
+      "sha256": "416028cea49dcc653dcb62a597effd74283dd6c02f90d42a51833cd42018f582"
+    },
+    "docs/evidence/s10-p0-15/offline-development-checks.json": {
+      "bytes": 1113,
+      "sha256": "5e6445a852d497155a6695761c32ac62eb22c8549d387dd2298f7b748aaa4469"
+    },
+    "docs/evidence/s10-p0-15/preflight-api-readback.json": {
+      "bytes": 388,
+      "sha256": "fb0a68968a6420ff2bc47170a06aa9019cc766dbecf933a1ac0b8fabe87eee83"
+    },
+    "docs/evidence/s10-p0-15/remaining-gaps.json": {
+      "bytes": 4528,
+      "sha256": "6751223593c286d389c2e493ce206142a8d02374947fa057fef00a531f44309f"
+    },
+    "docs/evidence/s10-p0-15/source-lineage.json": {
+      "bytes": 16302,
+      "sha256": "559507ada0ead7070d02f94831043db2f2f030e041c7fd84c0baf0709a10f95d"
+    },
+    "docs/evidence/s10-p0-15/static-action-contract.json": {
+      "bytes": 146786,
+      "sha256": "cceef6aaeea8174372d7bd12e084dac4086531fceb0d9c0296406d3e55ae6fe8"
+    },
+    "docs/evidence/s10-p0-15/verification.json": {
+      "bytes": 1453,
+      "sha256": "1b418fc78c092a60a0ad461f985679b59730bfe6fe53121f33aa4ce4e9fb4315"
+    },
+    "docs/s10-p0-15-gap03-delta.md": {
+      "bytes": 15113,
+      "sha256": "7c94fac0e36f2b055621406ce4999a8e10fa0d72ad1aa9abbc73bc141f4edbea"
+    },
+    "docs/s10-p0-15-next-executable-contract.md": {
+      "bytes": 17765,
+      "sha256": "5eea9795d83d36bd321e0ff64acd6437acbd85b7d5a9af99ff9b5e37001c8087"
+    },
+    "docs/s10-p0-15-preflight.md": {
+      "bytes": 5004,
+      "sha256": "a76f6ba21f1ee1ca60d190f1a25cfe25ce2c3b675786d387f957d163adf63e93"
+    },
+    "scripts/s10_p0_15_static_audit.py": {
+      "bytes": 25955,
+      "sha256": "87ddaf36d7499d7153ee3071ad4cca1c5bb85c654041cb6319421aeff344a1da"
+    }
+  },
+  "index_self_hash": "不递归自哈希；本文件SHA256由正式交付评论固定，包含所有其它新增文件，包括分析脚本。"
+}

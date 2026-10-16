@@ -1,0 +1,855 @@
+{
+  "direct_call_sets": {
+    "clinical._append": [
+      "_",
+      "_audit",
+      "_content",
+      "_model",
+      "_new",
+      "_now",
+      "_queue",
+      "_save",
+      "_snapshot",
+      "dumps",
+      "search",
+      "strip"
+    ],
+    "clinical._confirm": [
+      "_append",
+      "_held"
+    ],
+    "clinical._correct": [
+      "_append",
+      "_held",
+      "_text"
+    ],
+    "clinical._save": [
+      "_append",
+      "_held"
+    ],
+    "exam._correct": [
+      "_",
+      "_content",
+      "_editor",
+      "_line",
+      "_result",
+      "_save",
+      "_text",
+      "_version"
+    ],
+    "treatment._return_material": [
+      "_",
+      "_audit",
+      "_get",
+      "_id",
+      "_model",
+      "_return",
+      "browse",
+      "exists",
+      "search"
+    ]
+  },
+  "files": {
+    "scripts/s10_e2e_w3_browser.py": {
+      "fixed_git": "a66c9dfd4b65573a27ff3e45733a87103f17bf32",
+      "sha256": "5dc91e1c1e21afd0e687a8af2124c5008d813b47213eb34b870d4a302fd55777",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/scripts/s10_e2e_w3_browser.py"
+    },
+    "scripts/s10_e2e_w3_prepare.py": {
+      "fixed_git": "a66c9dfd4b65573a27ff3e45733a87103f17bf32",
+      "sha256": "5047676218ba910f9d754ee3c41a030c3f704f97a7fbe58f737d44378c0255d7",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/scripts/s10_e2e_w3_prepare.py"
+    },
+    "ydental_access/models/ydental_access_audit.py": {
+      "fixed_git": "a66c9dfd4b65573a27ff3e45733a87103f17bf32",
+      "sha256": "e07e56d2f4ed2ce489f516c4c902643919282976c02bc9278a68b3d73d8af317",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_access/models/ydental_access_audit.py"
+    },
+    "ydental_access/models/ydental_access_grant.py": {
+      "fixed_git": "a66c9dfd4b65573a27ff3e45733a87103f17bf32",
+      "sha256": "143c2366d2671ae353b40964f93e5a85eb86e66bb36fb61479ed30a5b70bdf3f",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_access/models/ydental_access_grant.py"
+    },
+    "ydental_access/models/ydental_access_membership.py": {
+      "fixed_git": "a66c9dfd4b65573a27ff3e45733a87103f17bf32",
+      "sha256": "3b4a2c4bb8329521f5dbe778dd54d9737b99f268d5663d3c5116400792f5c679",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_access/models/ydental_access_membership.py"
+    },
+    "ydental_access/models/ydental_access_service.py": {
+      "fixed_git": "a66c9dfd4b65573a27ff3e45733a87103f17bf32",
+      "sha256": "9654000038903522213303fcd9cdc64612cdd335deac6a96afd993c4dfd61132",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_access/models/ydental_access_service.py"
+    },
+    "ydental_access/security/ir.access.csv": {
+      "fixed_git": "a66c9dfd4b65573a27ff3e45733a87103f17bf32",
+      "sha256": "a5d5b31290601dd36f17428592c9a307f88457730453f66a24264218858ac42f",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_access/security/ir.access.csv"
+    },
+    "ydental_access/security/ydental_access_security.xml": {
+      "fixed_git": "a66c9dfd4b65573a27ff3e45733a87103f17bf32",
+      "sha256": "ff9cf39601f4d2051c09be9db56ccc9e3dd3aadb364b3432a4c3ef8369f1a188",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_access/security/ydental_access_security.xml"
+    },
+    "ydental_clinical/controllers/clinical.py": {
+      "fixed_git": "a66c9dfd4b65573a27ff3e45733a87103f17bf32",
+      "sha256": "7b0f3a5f628de9cba389ea7ea8d261a6e999761dea8d645bde75dc5f9d6291bd",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_clinical/controllers/clinical.py"
+    },
+    "ydental_clinical/models/ydental_clinical_service.py": {
+      "fixed_git": "a66c9dfd4b65573a27ff3e45733a87103f17bf32",
+      "sha256": "bb601a4d231585281cf569def652f78205993cf2d73f8273ae2cf50d620f6709",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_clinical/models/ydental_clinical_service.py"
+    },
+    "ydental_clinical/models/ydental_clinical_version.py": {
+      "fixed_git": "a66c9dfd4b65573a27ff3e45733a87103f17bf32",
+      "sha256": "a15652869e4d8c1b6d0ad70c1d5e0e744dad39b1f38fdae5ab10f7fc1f9e1717",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_clinical/models/ydental_clinical_version.py"
+    },
+    "ydental_clinical/security/ir.access.csv": {
+      "fixed_git": "a66c9dfd4b65573a27ff3e45733a87103f17bf32",
+      "sha256": "a992b8d7dd8106560994d65a7f844923fddea21e622a7453ac4caeb8ac875e8f",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_clinical/security/ir.access.csv"
+    },
+    "ydental_clinical/static/src/document/document.js": {
+      "fixed_git": "a66c9dfd4b65573a27ff3e45733a87103f17bf32",
+      "sha256": "98c862a13ca0586cf038e01139258bb2aca7edfd20dc8785ecf85812adb67a30",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_clinical/static/src/document/document.js"
+    },
+    "ydental_clinical/views/ydental_clinical_templates.xml": {
+      "fixed_git": "a66c9dfd4b65573a27ff3e45733a87103f17bf32",
+      "sha256": "f485aad62fb2b731358a94f86f9eeac41904df9a8564eb2bdb0dea2407ea8400",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_clinical/views/ydental_clinical_templates.xml"
+    },
+    "ydental_exam/controllers/exam.py": {
+      "fixed_git": "a66c9dfd4b65573a27ff3e45733a87103f17bf32",
+      "sha256": "9f7317eadb148f43673d1d4f51fd5205e74e2bda155fc473d69fd5350923caf9",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_exam/controllers/exam.py"
+    },
+    "ydental_exam/models/ydental_exam_service.py": {
+      "fixed_git": "a66c9dfd4b65573a27ff3e45733a87103f17bf32",
+      "sha256": "07946818e28d51c27b96659eea141f2d6b2903711ac3fac09a5de18424368a5b",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_exam/models/ydental_exam_service.py"
+    },
+    "ydental_intake/models/ydental_intake_service.py": {
+      "fixed_git": "a66c9dfd4b65573a27ff3e45733a87103f17bf32",
+      "sha256": "fbcb3e9e8c1c46489d8d76c4aefbb4fabe56ef5b0f36bce7ed9b4b9de9c04a0b",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_intake/models/ydental_intake_service.py"
+    },
+    "ydental_inventory/controllers/inventory.py": {
+      "fixed_git": "a66c9dfd4b65573a27ff3e45733a87103f17bf32",
+      "sha256": "0a8a8ba8490f4e5a324e21eccde3aaab4c5e0fef9a79c4a2311d03a36e50f6ee",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_inventory/controllers/inventory.py"
+    },
+    "ydental_inventory/models/ydental_inventory_service.py": {
+      "fixed_git": "a66c9dfd4b65573a27ff3e45733a87103f17bf32",
+      "sha256": "df07e1a7eebaec424c13973bf7937bac28defb7f2e27360b3cf6efdecdd2aa2b",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_inventory/models/ydental_inventory_service.py"
+    },
+    "ydental_patient/models/ydental_patient_service.py": {
+      "fixed_git": "a66c9dfd4b65573a27ff3e45733a87103f17bf32",
+      "sha256": "2cc72f87a7dd7cf9bf541007bddb2c975458f564599400ae944b63f5ea4513e3",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_patient/models/ydental_patient_service.py"
+    },
+    "ydental_print/controllers/printing.py": {
+      "fixed_git": "a66c9dfd4b65573a27ff3e45733a87103f17bf32",
+      "sha256": "750c03cbadc66bccd2c7def33a7f8174e75528eeaf5b837f72c238b3e9032f26",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_print/controllers/printing.py"
+    },
+    "ydental_print/models/ydental_print_job.py": {
+      "fixed_git": "a66c9dfd4b65573a27ff3e45733a87103f17bf32",
+      "sha256": "e435d94f4ef0b4c7fbce65ec8345f07e814533c764b6d2042e0f9c9f82c3001b",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_print/models/ydental_print_job.py"
+    },
+    "ydental_print/models/ydental_print_service.py": {
+      "fixed_git": "a66c9dfd4b65573a27ff3e45733a87103f17bf32",
+      "sha256": "84c7925dacbc8a37f96b1fd4f711bfb3763437d205d6976b9129f2e9e63212d3",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_print/models/ydental_print_service.py"
+    },
+    "ydental_queue/models/ydental_queue_service.py": {
+      "fixed_git": "a66c9dfd4b65573a27ff3e45733a87103f17bf32",
+      "sha256": "a5b3a037a2be9992edf5867b3d401b351e4a74820d36fcc8764d46e0cc1c2a6e",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_queue/models/ydental_queue_service.py"
+    },
+    "ydental_settlement/controllers/settlement.py": {
+      "fixed_git": "a66c9dfd4b65573a27ff3e45733a87103f17bf32",
+      "sha256": "bfa051971585369f1585d311cfc4553159d4a42ef23b3c54f35d77e53ab4caa2",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_settlement/controllers/settlement.py"
+    },
+    "ydental_settlement/models/ydental_settlement_service.py": {
+      "fixed_git": "a66c9dfd4b65573a27ff3e45733a87103f17bf32",
+      "sha256": "1ea27012fd5500fc21891f9e652f4e694cb2e7cce844fa38d08b7f12beff8d2c",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_settlement/models/ydental_settlement_service.py"
+    },
+    "ydental_settlement/report/ydental_settlement_reports.xml": {
+      "fixed_git": "a66c9dfd4b65573a27ff3e45733a87103f17bf32",
+      "sha256": "962e67a4c66edc661b4d2052d5ba306a7837eadf09a915ef4860f677e7847987",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_settlement/report/ydental_settlement_reports.xml"
+    },
+    "ydental_settlement/report/ydental_settlement_templates.xml": {
+      "fixed_git": "a66c9dfd4b65573a27ff3e45733a87103f17bf32",
+      "sha256": "5d9132e91e8c3b816001bbc93ef2eeb90dbf125083cef2d33203deaea7e467f2",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_settlement/report/ydental_settlement_templates.xml"
+    },
+    "ydental_settlement/views/ydental_settlement_templates.xml": {
+      "fixed_git": "a66c9dfd4b65573a27ff3e45733a87103f17bf32",
+      "sha256": "8f74cffa93a3a24f1d4c4f95a2a006fd698050cda8d27a99924de58770feb329",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_settlement/views/ydental_settlement_templates.xml"
+    },
+    "ydental_supply/models/ydental_supply_service.py": {
+      "fixed_git": "a66c9dfd4b65573a27ff3e45733a87103f17bf32",
+      "sha256": "3c043b19f1b14cd8f00f9dd141e35d6fff10cdad27c25a066341de4f34b124d0",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_supply/models/ydental_supply_service.py"
+    },
+    "ydental_treatment/controllers/treatment.py": {
+      "fixed_git": "a66c9dfd4b65573a27ff3e45733a87103f17bf32",
+      "sha256": "cabe959a17e221dfd2855b22fff31e7b3f3c079441353ed22d047f36f96c454d",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_treatment/controllers/treatment.py"
+    },
+    "ydental_treatment/models/ydental_treatment_service.py": {
+      "fixed_git": "a66c9dfd4b65573a27ff3e45733a87103f17bf32",
+      "sha256": "538af7641531393e1f090b3747906930c517ac83b41de703a2506bc7372fc159",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_treatment/models/ydental_treatment_service.py"
+    },
+    "ydental_treatment/static/src/workbench/workbench.js": {
+      "fixed_git": "a66c9dfd4b65573a27ff3e45733a87103f17bf32",
+      "sha256": "0d4d95458b2276a2d7087a8c6e9f6601a927332e990f721431df08bccd9e05a3",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_treatment/static/src/workbench/workbench.js"
+    },
+    "ydental_treatment/views/ydental_treatment_templates.xml": {
+      "fixed_git": "a66c9dfd4b65573a27ff3e45733a87103f17bf32",
+      "sha256": "dd305b76cece5eaeca180c0eb1f58e2ed822c528c6d31c554903f281af05ea59",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_treatment/views/ydental_treatment_templates.xml"
+    },
+    "ydental_treatment_test/tests/common.py": {
+      "fixed_git": "a66c9dfd4b65573a27ff3e45733a87103f17bf32",
+      "sha256": "fd7fe3ee0543cb434381cc31ea312c0bf8cceb06dfc8d9932ff31720888a0d1d",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_treatment_test/tests/common.py"
+    },
+    "ydental_treatment_test/tests/treatment_common.py": {
+      "fixed_git": "a66c9dfd4b65573a27ff3e45733a87103f17bf32",
+      "sha256": "ac4d5568a13358103f1bafbb712f32142fe16c9d2a4e5c494dbe8c3854d634ea",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_treatment_test/tests/treatment_common.py"
+    }
+  },
+  "fixed_git": "a66c9dfd4b65573a27ff3e45733a87103f17bf32",
+  "layer": "STATIC_REVIEW / READONLY_SOURCE_FROM_FIXED_GIT",
+  "limitations": "AST/literal guards prove fixed source structure only; no dynamic actor, ORM, SQL, HTTP, concurrency or PDF PASS.",
+  "methods": {
+    "access._audit": {
+      "end_line": 323,
+      "line": 319,
+      "method_sha256": "69db24922a707ff04c9b86db769c2b6573433627fbc695104a9cde44e55e5956",
+      "path": "ydental_access/models/ydental_access_service.py",
+      "source": "    def _audit(self, event, category, target, store_id=False, before=None, after=None,\n               result='accepted', reason=False, source='interactive'):\n        return self.env['ydental.access.audit'].sudo().create(self._audit_values(\n            event, category, target, store_id, before, after, result, reason, source,\n        ))",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_access/models/ydental_access_service.py#L319"
+    },
+    "access._audit_values": {
+      "end_line": 317,
+      "line": 308,
+      "method_sha256": "511dd073cc062c5f5be8da5344cc39bd7fe18674cac5458c37f4838d6d0ae880",
+      "path": "ydental_access/models/ydental_access_service.py",
+      "source": "    def _audit_values(self, event, category, target, store_id=False, before=None, after=None,\n                      result='accepted', reason=False, source='interactive'):\n        \"\"\"Private preparation, containing only documented nonsensitive metadata.\"\"\"\n        return {\n            'ydental_user_id': self.env.uid, 'ydental_store_id': store_id,\n            'ydental_event': event, 'ydental_category': category,\n            'ydental_target_model': target._name, 'ydental_target_id': target.id,\n            'ydental_result': result, 'ydental_reason': reason,\n            'ydental_before': before, 'ydental_after': after, 'ydental_source': source,\n        }",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_access/models/ydental_access_service.py#L308"
+    },
+    "access._check": {
+      "end_line": 306,
+      "line": 292,
+      "method_sha256": "c48d8439e9206874e195310a977a1089c742c1cfd65b1185d8fb4e0fdbaa3cbb",
+      "path": "ydental_access/models/ydental_access_service.py",
+      "source": "    def _check(self, category, level='read', store_id=None, write=False):\n        if category not in dict(CATEGORIES) or level not in RANK:\n            raise AccessError(self.env._('access_denied: Invalid authorization action.'))\n        session = self._scope(write=write)\n        store_id = store_id or session.ydental_store_id.id\n        if not store_id or not self.env['ydental.access.store'].sudo().browse(store_id).active:\n            raise AccessError(self.env._('access_denied: Select an active store.'))\n        membership = self._membership(self.env.uid, store_id)\n        if not membership or not membership.ydental_employee_id.active:\n            raise AccessError(self.env._('access_denied: Active store membership is required.'))\n        if RANK[self._levels(membership)[category]] < RANK[level]:\n            raise AccessError(self.env._('access_denied: This business permission is required.'))\n        if write and self._get_execution_store_id() not in (False, store_id):\n            raise AccessError(self.env._('access_denied: Execution in another store blocks manual writes.'))\n        return membership",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_access/models/ydental_access_service.py#L292"
+    },
+    "access._levels": {
+      "end_line": 258,
+      "line": 252,
+      "method_sha256": "a8c953a79c6a29e0d113fd92d820485ca2813f58fef082872c4dc54090fcc48b",
+      "path": "ydental_access/models/ydental_access_service.py",
+      "source": "    def _levels(self, membership):\n        levels = dict.fromkeys(dict(CATEGORIES), 'none')\n        for grant in self.env['ydental.access.grant'].sudo().search([\n            ('ydental_membership_id', '=', membership.id),\n        ]):\n            levels[grant.ydental_category] = grant.ydental_level\n        return levels",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_access/models/ydental_access_service.py#L252"
+    },
+    "access._membership": {
+      "end_line": 250,
+      "line": 246,
+      "method_sha256": "8ac37657e516ba14649e2602b5f99f448bece8192a57750c2eaf414f68b6dd66",
+      "path": "ydental_access/models/ydental_access_service.py",
+      "source": "    def _membership(self, user_id, store_id, active=True):\n        domain = [('ydental_user_id', '=', user_id), ('ydental_store_id', '=', store_id)]\n        if active:\n            domain.append(('active', '=', True))\n        return self.env['ydental.access.membership'].sudo().with_context(active_test=False).search(domain, limit=1)",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_access/models/ydental_access_service.py#L246"
+    },
+    "access._scope": {
+      "end_line": 240,
+      "line": 225,
+      "method_sha256": "6eedf32a223277005f836a837dcccdc73c1444d3b6514a434111a9d2c6258b42",
+      "path": "ydental_access/models/ydental_access_service.py",
+      "source": "    def _scope(self, write=False):\n        self._require_internal()\n        binding = self.env.context.get('ydental_binding')\n        if not isinstance(binding, Binding) or binding.user_id != self.env.uid:\n            self._denial('scope')\n            raise AccessError(self.env._('access_denied: A server-bound login scope is required.'))\n        session = self.env['ydental.access.session'].sudo().browse(binding.session_id).exists()\n        if write:\n            # Transaction lock closes the old-tab/switch race. A retry rebinds.\n            self.env.cr.execute('SELECT id FROM ydental_access_session WHERE id=%s FOR UPDATE', [session.id])\n            session.invalidate_recordset()\n        if not session or session.ydental_user_id.id != self.env.uid:\n            raise AccessError(self.env._('access_denied: Invalid login scope.'))\n        if session.ydental_revision != binding.revision:\n            raise UserError(self.env._('version_conflict: The store changed. Refresh this page.'))\n        return session",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_access/models/ydental_access_service.py#L225"
+    },
+    "audit.unlink": {
+      "end_line": 26,
+      "line": 25,
+      "method_sha256": "568b2aaf875e6c7d9f97d96fce7bea38e80f8ade035b7ad8813f893c4bca9ae1",
+      "path": "ydental_access/models/ydental_access_audit.py",
+      "source": "    def unlink(self):\n        raise AccessError(self.env._('Audit events cannot be deleted.'))",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_access/models/ydental_access_audit.py#L25"
+    },
+    "audit.write": {
+      "end_line": 23,
+      "line": 22,
+      "method_sha256": "391f7c39c991c115bfeedfeac87a4152e998cce87c188ae59f36f20581e39490",
+      "path": "ydental_access/models/ydental_access_audit.py",
+      "source": "    def write(self, vals):\n        raise AccessError(self.env._('Audit events cannot be changed.'))",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_access/models/ydental_access_audit.py#L22"
+    },
+    "clinical._access": {
+      "end_line": 57,
+      "line": 53,
+      "method_sha256": "f15d6661054e86a2c190d7d48d4ab6f2edbca2ed2cd803ff92680f1e43b3a0c9",
+      "path": "ydental_clinical/models/ydental_clinical_service.py",
+      "source": "    def _access(self, write=False):\n        store = self.env['ydental.access.service']._check('medical', 'write' if write else 'read', write=write).ydental_store_id\n        if store.company_id not in self.env.user.sudo().company_ids:\n            raise AccessError(self.env._('access_denied: The current store company is outside this account\\'s allowed companies.'))\n        return store",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_clinical/models/ydental_clinical_service.py#L53"
+    },
+    "clinical._acquire": {
+      "end_line": 188,
+      "line": 165,
+      "method_sha256": "fc7655a1107c9b29bf1e1257144817229913387b81c88d25210e5293ec33df73",
+      "path": "ydental_clinical/models/ydental_clinical_service.py",
+      "source": "    def _acquire(self, document_id, lease_id=None, lease_token=None):\n        doc = self._document(document_id, True)\n        queue = self._queue()\n        session, connection = queue._connection()\n        execution = doc.ydental_current_execution_id\n        if execution.state in ('serving', 'reserved', 'verify'):\n            lease = queue._held(lease_id, lease_token)\n            if execution.state == 'verify' or execution.ydental_lease_id != lease or lease.ydental_expires_at <= queue._now():\n                raise AccessError(self.env._('access_denied: The current reception holder must edit this document.'))\n        else:\n            lease = queue._model('lease')\n            if doc.ydental_responsible_id.id != self.env.uid or not self._eligible_responsible(doc, self.env.user.sudo()):\n                raise AccessError(self.env._('access_denied: Only the authorized responsible person may complete this document.'))\n        if self._valid_editor(doc):\n            raise UserError(self.env._('editor_busy: This independent document already has a connected editor.'))\n        if doc.ydental_editor_id:\n            self._audit('editor_invalidated', doc, after={'previous_editor_id': doc.ydental_editor_id.id})\n        token = secrets.token_urlsafe(32)\n        doc._save({'ydental_editor_id': self.env.uid, 'ydental_session_id': session.id,\n            'ydental_session_revision': session.ydental_revision, 'ydental_connection_hash': connection.key_hash,\n            'ydental_editor_hash': digest(token), 'ydental_editor_lease_id': lease.id,\n            'ydental_editor_expires': queue._now() + timedelta(seconds=queue._settings()[1])})\n        self._audit('edit_acquire', doc)\n        return self._snapshot(doc) | {'editor_token': token}",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_clinical/models/ydental_clinical_service.py#L165"
+    },
+    "clinical._append": {
+      "end_line": 240,
+      "line": 213,
+      "method_sha256": "ad8b6847fa87a36bc2ec3cd5ffc07820ca8ea9609c49c8ad79729f5a370da625",
+      "path": "ydental_clinical/models/ydental_clinical_service.py",
+      "source": "    def _append(self, doc, expected_version, content, key, kind, reason=''):\n        if type(expected_version) is not int or expected_version < 0 or not isinstance(key, str) or not 16 <= len(key) <= 128:\n            raise ValidationError(self.env._('invalid_version: Supply a server version and stable request key.'))\n        content = self._content(content)\n        signature = digest(json.dumps([expected_version, content, kind, reason], sort_keys=True, ensure_ascii=False))\n        versions = self._model('version')\n        prior = versions.search([('ydental_document_id', '=', doc.id), ('ydental_request_key', '=', key)], limit=1)\n        if prior:\n            if prior.ydental_request_digest != signature or prior.ydental_author_id.id != self.env.uid:\n                raise UserError(self.env._('version_conflict: This request key belongs to different content.'))\n            return self._snapshot(doc) | {'saved_version': prior.ydental_number, 'duplicate': True}\n        if doc.ydental_version != expected_version:\n            raise UserError(self.env._('version_conflict: Refresh before editing a newer clinical version.'))\n        if (kind in ('save', 'confirm') and doc.state == 'confirmed') or (kind == 'correct' and doc.state != 'confirmed'):\n            raise UserError(self.env._('correction_required: Confirmed text requires a new correction and reason.'))\n        if kind in ('confirm', 'correct') and not any(content[name].strip() for name in TEXT_FIELDS) and not content['teeth']:\n            raise ValidationError(self.env._('content_required: Empty clinical text cannot be confirmed.'))\n        previous = versions.search([('ydental_document_id', '=', doc.id)], order='ydental_number desc', limit=1)\n        now = self._queue()._now()\n        version = versions._new({'ydental_store_id': doc.ydental_store_id.id, 'ydental_document_id': doc.id,\n            'ydental_patient_id': doc.ydental_patient_id.id, 'ydental_number': expected_version + 1,\n            'ydental_content': content, 'ydental_author_id': self.env.uid, 'ydental_recorded_at': now,\n            'ydental_kind': kind, 'ydental_reason': reason, 'ydental_previous_id': previous.id,\n            'ydental_request_key': key, 'ydental_request_digest': signature, 'ydental_template': doc.ydental_template})\n        doc._save({'ydental_version': version.ydental_number, 'ydental_content': content, 'ydental_saved_at': now,\n                   **({'state': 'confirmed'} if kind in ('confirm', 'correct') else {})})\n        self._audit(kind, doc, before={'version': expected_version}, after={'version': version.ydental_number}, reason=reason)\n        return self._snapshot(doc) | {'saved_version': version.ydental_number}",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_clinical/models/ydental_clinical_service.py#L213"
+    },
+    "clinical._audit": {
+      "end_line": 51,
+      "line": 48,
+      "method_sha256": "b7cb9796448e241cf512b61bf4865a27ac85a4b6cd5ae68ef91af4042cf130b1",
+      "path": "ydental_clinical/models/ydental_clinical_service.py",
+      "source": "    def _audit(self, event, doc, before=None, after=None, reason=False):\n        access = self.env['ydental.access.service']\n        return access._audit('clinical.' + event, 'medical', doc, access._scope().ydental_store_id.id,\n                             before=before, after=after, reason=reason, source='clinical_document')",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_clinical/models/ydental_clinical_service.py#L48"
+    },
+    "clinical._clear_editor": {
+      "end_line": 205,
+      "line": 202,
+      "method_sha256": "07b2c0cd6377e4a2dee5ef048339a78af82859dfd53cd038364672d206f13a61",
+      "path": "ydental_clinical/models/ydental_clinical_service.py",
+      "source": "    def _clear_editor(self, doc):\n        doc._save({'ydental_editor_id': False, 'ydental_session_id': False, 'ydental_session_revision': 0,\n            'ydental_connection_hash': False, 'ydental_editor_hash': False, 'ydental_editor_expires': False,\n            'ydental_editor_lease_id': False})",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_clinical/models/ydental_clinical_service.py#L202"
+    },
+    "clinical._confirm": {
+      "end_line": 247,
+      "line": 245,
+      "method_sha256": "b036bc7788707feccbefda8b5bc4f8e89beeed399874d25a3a10fe89646e222b",
+      "path": "ydental_clinical/models/ydental_clinical_service.py",
+      "source": "    def _confirm(self, document_id, editor_token, expected_version, content, key):\n        doc = self._held(document_id, editor_token)\n        return self._append(doc, expected_version, content, key, 'confirm')",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_clinical/models/ydental_clinical_service.py#L245"
+    },
+    "clinical._content": {
+      "end_line": 99,
+      "line": 71,
+      "method_sha256": "1bd9295c6e8961c8798ec246a304ed536626074655fff0758aa3a4e89f51fa92",
+      "path": "ydental_clinical/models/ydental_clinical_service.py",
+      "source": "    def _content(self, content):\n        if not isinstance(content, dict) or set(content) != set(TEXT_FIELDS) | {'teeth'}:\n            raise ValidationError(self.env._('invalid_content: Submit the complete clinical draft field set.'))\n        result = {}\n        for name in TEXT_FIELDS:\n            text = content[name]\n            if not isinstance(text, str) or len(text) > 10000:\n                raise ValidationError(self.env._('invalid_content: Clinical text exceeds its allowed size.'))\n            result[name] = text\n        teeth = content['teeth']\n        if not isinstance(teeth, list) or len(teeth) > 53:\n            raise ValidationError(self.env._('invalid_tooth: Invalid FDI tooth collection.'))\n        seen = set()\n        rows = []\n        for row in teeth:\n            if not isinstance(row, dict) or set(row) != {'tooth', 'state', 'surfaces'}:\n                raise ValidationError(self.env._('invalid_tooth: Supply tooth, state and surfaces.'))\n            tooth, state, surfaces = row['tooth'], row['state'], row['surfaces']\n            if type(tooth) is not int or tooth not in (0,) + TEETH or tooth in seen or state not in ('present', 'missing', 'unknown', 'not_applicable'):\n                raise ValidationError(self.env._('invalid_tooth: Select a valid distinct FDI tooth and explicit state.'))\n            if not isinstance(surfaces, list) or any(not isinstance(s, str) for s in surfaces) or len(set(surfaces)) != len(surfaces):\n                raise ValidationError(self.env._('invalid_surface: Select distinct legal tooth surfaces.'))\n            allowed = {'M', 'D', 'B', 'L', 'I' if tooth % 10 <= 3 else 'O'}\n            if (tooth == 0 and state != 'not_applicable') or (tooth != 0 and state == 'not_applicable') or (state != 'present' and surfaces) or not set(surfaces) <= allowed:\n                raise ValidationError(self.env._('invalid_surface: Surfaces must match the tooth and its recorded state.'))\n            seen.add(tooth)\n            rows.append({'tooth': tooth, 'state': state, 'surfaces': sorted(surfaces)})\n        result['teeth'] = sorted(rows, key=lambda row: row['tooth'])\n        return result",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_clinical/models/ydental_clinical_service.py#L71"
+    },
+    "clinical._correct": {
+      "end_line": 251,
+      "line": 249,
+      "method_sha256": "aa39c6a8acdb6d5e8e930950afacfc92a4f97b2481cc111fb14dee473be28dd2",
+      "path": "ydental_clinical/models/ydental_clinical_service.py",
+      "source": "    def _correct(self, document_id, editor_token, expected_version, content, key, reason):\n        reason = self.env['ydental.intake.service']._text(reason)\n        return self._append(self._held(document_id, editor_token), expected_version, content, key, 'correct', reason)",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_clinical/models/ydental_clinical_service.py#L249"
+    },
+    "clinical._document": {
+      "end_line": 69,
+      "line": 59,
+      "method_sha256": "3a069c0d26e0bc9fed1f424366c1150b73310e7014ca7e89475e88bf5166a511",
+      "path": "ydental_clinical/models/ydental_clinical_service.py",
+      "source": "    def _document(self, document_id, write=False):\n        store = self._access(write)\n        doc = self._model().browse(self.env['ydental.intake.service']._id(document_id)).exists()\n        if not doc:\n            raise AccessError(self.env._('access_denied: This clinical document is unavailable.'))\n        if write and doc.ydental_store_id != store:\n            raise AccessError(self.env._('access_denied: Write clinical text only in its source store.'))\n        if not write:\n            self.env['ydental.clinical.document'].browse(doc.id).check_access('read')\n        self.env['ydental.patient.service']._current_relation(doc.ydental_patient_id, store)\n        return doc",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_clinical/models/ydental_clinical_service.py#L59"
+    },
+    "clinical._eligible_responsible": {
+      "end_line": 148,
+      "line": 140,
+      "method_sha256": "ba19fc070fa34642e9eea935025b22fee42ee6b80c4841dccebc98a6615e4a9e",
+      "path": "ydental_clinical/models/ydental_clinical_service.py",
+      "source": "    def _eligible_responsible(self, doc, user):\n        access = self.env['ydental.access.service']\n        member = access._membership(user.id, doc.ydental_store_id.id)\n        snapshot = doc.ydental_current_execution_id.ydental_service_snapshot\n        return bool(user.active and doc.ydental_store_id.company_id in user.company_ids and member and\n            member.ydental_employee_id.active and access._levels(member)['medical'] == 'write' and\n            snapshot['capability_id'] in user.ydental_capability_ids.filtered('active').ids and\n            (not snapshot['qualification'] or self._queue()._qualification_satisfied(\n                doc.ydental_current_execution_id.ydental_task_id, doc.ydental_current_execution_id.ydental_lease_id.ydental_station_id, user)))",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_clinical/models/ydental_clinical_service.py#L140"
+    },
+    "clinical._heartbeat": {
+      "end_line": 200,
+      "line": 197,
+      "method_sha256": "e410b5e3a99d56dc58273d0bd5340f586c3cd826bc13d64df58f0070d91b3bc4",
+      "path": "ydental_clinical/models/ydental_clinical_service.py",
+      "source": "    def _heartbeat(self, document_id, editor_token):\n        doc = self._held(document_id, editor_token)\n        doc._save({'ydental_editor_expires': self._queue()._now() + timedelta(seconds=self._queue()._settings()[1])})\n        return {'document_id': doc.id, 'version': doc.ydental_version}",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_clinical/models/ydental_clinical_service.py#L197"
+    },
+    "clinical._held": {
+      "end_line": 195,
+      "line": 190,
+      "method_sha256": "2c0ae44b77000f800425c6ca27185b6351cb19840b5cfcac0b085b23473194f8",
+      "path": "ydental_clinical/models/ydental_clinical_service.py",
+      "source": "    def _held(self, document_id, editor_token):\n        doc = self._document(document_id, True)\n        session, connection = self._queue()._connection()\n        if not self._valid_editor(doc) or doc.ydental_editor_id.id != self.env.uid or doc.ydental_session_id != session or not consteq(doc.ydental_connection_hash, connection.key_hash) or not isinstance(editor_token, str) or len(editor_token) > 128 or not consteq(doc.ydental_editor_hash, digest(editor_token)):\n            raise AccessError(self.env._('editor_expired: This connection no longer holds the document.'))\n        return doc",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_clinical/models/ydental_clinical_service.py#L190"
+    },
+    "clinical._operate": {
+      "end_line": 121,
+      "line": 104,
+      "method_sha256": "afa48d8d673655aa2af478689793c41ddfd306d46e218c49f3e29429b4a655b1",
+      "path": "ydental_clinical/models/ydental_clinical_service.py",
+      "source": "    def _operate(self, operation, payload):\n        handlers = {'open': self._open, 'acquire': self._acquire, 'heartbeat': self._heartbeat,\n                    'release': self._release, 'save': self._save, 'confirm': self._confirm,\n                    'correct': self._correct, 'handover': self._handover, 'transfer': self._transfer}\n        if operation not in handlers or not isinstance(payload, dict):\n            raise ValidationError(self.env._('invalid_action: Unknown clinical document action.'))\n        try:\n            inspect.signature(handlers[operation]).bind(**payload)\n        except TypeError as error:\n            raise ValidationError(self.env._('invalid_action: Unknown or missing clinical arguments.')) from error\n        self._access(write=True)\n        self._queue()._connection()\n        with self.env.cr.savepoint():\n            # Preserve S06 lock order. The common queue fence also serializes CAS,\n            # document locks and handover with patient/permission transactions.\n            self._queue()._locks()\n            self._access(write=True)\n            return handlers[operation](**payload) | {'result': 'accepted'}",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_clinical/models/ydental_clinical_service.py#L104"
+    },
+    "clinical._read": {
+      "end_line": 299,
+      "line": 291,
+      "method_sha256": "15bfd94da6a929e02671b20da76728abcb4d0539de122601b330a4e7c1967826",
+      "path": "ydental_clinical/models/ydental_clinical_service.py",
+      "source": "    def _read(self, document_id, purpose=None):\n        if purpose:\n            preliminary = self._model().browse(self.env['ydental.intake.service']._id(document_id)).exists()\n            if not preliminary:\n                raise AccessError(self.env._('access_denied: This clinical document is unavailable.'))\n            self = self.env['ydental.access.service']._patient_care(preliminary.ydental_patient_id.id, purpose).env[self._name]\n        doc = self._document(document_id)\n        self._audit('view', doc)\n        return self._snapshot(doc)",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_clinical/models/ydental_clinical_service.py#L291"
+    },
+    "clinical._release": {
+      "end_line": 211,
+      "line": 207,
+      "method_sha256": "406dd1e449ad3c51628cddb807ddd0c8df3b8fdf64e1ea241d6ac3e674ae36b2",
+      "path": "ydental_clinical/models/ydental_clinical_service.py",
+      "source": "    def _release(self, document_id, editor_token):\n        doc = self._held(document_id, editor_token)\n        self._clear_editor(doc)\n        self._audit('edit_release', doc)\n        return {'document_id': doc.id}",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_clinical/models/ydental_clinical_service.py#L207"
+    },
+    "clinical._save": {
+      "end_line": 243,
+      "line": 242,
+      "method_sha256": "eba910502194404a37e83910b65261826371b1e0e13d468b678805717afa0a28",
+      "path": "ydental_clinical/models/ydental_clinical_service.py",
+      "source": "    def _save(self, document_id, editor_token, expected_version, content, key):\n        return self._append(self._held(document_id, editor_token), expected_version, content, key, 'save')",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_clinical/models/ydental_clinical_service.py#L242"
+    },
+    "clinical._snapshot": {
+      "end_line": 289,
+      "line": 285,
+      "method_sha256": "355be1bb7e3dc262d7c30a49f58120df53c3fe8e720775f0ce2351a3c41d9dfc",
+      "path": "ydental_clinical/models/ydental_clinical_service.py",
+      "source": "    def _snapshot(self, doc):\n        return {'document_id': doc.id, 'execution_id': doc.ydental_current_execution_id.id, 'source_execution_id': doc.ydental_execution_id.id, 'version': doc.ydental_version,\n            'state': doc.state, 'content': doc.ydental_content, 'template': doc.ydental_template,\n            'saved_at': fields.Datetime.to_string(doc.ydental_saved_at) if doc.ydental_saved_at else False,\n            'responsible_id': doc.ydental_responsible_id.id}",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_clinical/models/ydental_clinical_service.py#L285"
+    },
+    "clinical._valid_editor": {
+      "end_line": 163,
+      "line": 150,
+      "method_sha256": "a90b05a3e5d77675c96fdd9d7dcf375274dc5b3f3ea3c8596c55c48cd8ef7c8c",
+      "path": "ydental_clinical/models/ydental_clinical_service.py",
+      "source": "    def _valid_editor(self, doc):\n        queue = self._queue()\n        if not doc.ydental_editor_id or not doc.ydental_editor_expires or doc.ydental_editor_expires <= queue._now():\n            return False\n        session = doc.ydental_session_id\n        if not session or session.ydental_revision != doc.ydental_session_revision or session.ydental_store_id != doc.ydental_store_id or not self._eligible_responsible(doc, doc.ydental_editor_id):\n            return False\n        lease = doc.ydental_editor_lease_id\n        if lease and (not lease.ydental_active or lease.ydental_expires_at <= queue._now() or\n                      lease.ydental_revision != session.ydental_revision or lease.ydental_session_id != session or\n                      self._queue()._service_eligibility(self._queue()._execution_entry(doc.ydental_current_execution_id),\n                          lease.ydental_station_id, doc.ydental_editor_id)):\n            return False\n        return True",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_clinical/models/ydental_clinical_service.py#L150"
+    },
+    "exam._confirm": {
+      "end_line": 338,
+      "line": 329,
+      "method_sha256": "d9b8e8ceb319e9a874725cf5a8e67e33ad81b6e924f82461ac9f6e4af29aa22d",
+      "path": "ydental_exam/models/ydental_exam_service.py",
+      "source": "    def _confirm(self, line_id, version, reason):\n        line = self._line(line_id, write=True)\n        result = self._result(line)\n        if not result or not result.ydental_event_id or result.state not in ('pending', 'partial') or not result.ydental_findings:\n            raise UserError(self.env._('result_required: Actual execution and reviewed findings are required.'))\n        self._editor(result, version)\n        reason = self.env['ydental.intake.service']._text(reason)\n        result._save({'state': 'confirmed', 'ydental_completed_at': fields.Datetime.now(), 'ydental_version': version + 1})\n        self._version(result, 'confirm', reason)\n        return {'result_id': result.id, 'version': result.ydental_version, 'state': result.state}",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_exam/models/ydental_exam_service.py#L329"
+    },
+    "exam._correct": {
+      "end_line": 356,
+      "line": 340,
+      "method_sha256": "5d372b28d736d04f0ac76eda82b91ea71aa99019c43363f00a977671497f8bc4",
+      "path": "ydental_exam/models/ydental_exam_service.py",
+      "source": "    def _correct(self, line_id, version, findings, measurements, conclusion, reason):\n        line = self._line(line_id, write=True)\n        result = self._result(line)\n        if not result or result.state != 'confirmed':\n            raise UserError(self.env._('result_required: Correct only a confirmed result.'))\n        self._editor(result, version)\n        reason = self.env['ydental.intake.service']._text(reason)\n        if not isinstance(measurements, dict):\n            raise ValidationError(self.env._('invalid_result: Measurement updates must be a field map.'))\n        findings, measurements, conclusion = self._content(findings,\n            dict(result.ydental_measurements or {}) | measurements, conclusion, result.ydental_template_code)\n        if not findings:\n            raise ValidationError(self.env._('result_required: Confirmed findings cannot be blank.'))\n        result._save({'ydental_findings': findings, 'ydental_measurements': measurements,\n            'ydental_conclusion': conclusion, 'ydental_version': version + 1})\n        self._version(result, 'correction', reason)\n        return {'result_id': result.id, 'version': result.ydental_version, 'state': result.state}",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_exam/models/ydental_exam_service.py#L340"
+    },
+    "exam._editor": {
+      "end_line": 211,
+      "line": 198,
+      "method_sha256": "8ae4c5790111ffe4d630d82a266285857ed06b8e2ec1bdb46e4bb4e47bdb70ff",
+      "path": "ydental_exam/models/ydental_exam_service.py",
+      "source": "    def _editor(self, result, version):\n        session, connection = self.env['ydental.queue.service']._connection()\n        if result.ydental_responsible_id.id != self.env.uid:\n            raise AccessError(self.env._('responsibility_required: Take over this result with an explicit reason before editing.'))\n        if type(version) is not int or result.ydental_version != version:\n            raise UserError(self.env._('version_conflict: Refresh the examination result before editing.'))\n        if result.ydental_current_editor_id and result.ydental_edit_until > fields.Datetime.now() and (\n                result.ydental_current_editor_id.id != self.env.uid or result.ydental_edit_session_id != session or\n                result.ydental_edit_revision != session.ydental_revision or\n                not consteq(result.ydental_edit_connection_hash, connection.key_hash)):\n            raise AccessError(self.env._('editor_busy: This result is held by another live editor.'))\n        result._save({'ydental_current_editor_id': self.env.uid, 'ydental_edit_session_id': session.id,\n            'ydental_edit_revision': session.ydental_revision, 'ydental_edit_connection_hash': connection.key_hash,\n            'ydental_edit_until': fields.Datetime.now() + timedelta(minutes=5)})",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_exam/models/ydental_exam_service.py#L198"
+    },
+    "exam._line": {
+      "end_line": 71,
+      "line": 63,
+      "method_sha256": "7c377112e3f282bfd51bedd23b392ab0ec58dfa9204ecd0f87658f4f084eeda9",
+      "path": "ydental_exam/models/ydental_exam_service.py",
+      "source": "    def _line(self, line_id, write=False):\n        store = self._store(write)\n        line = self.env['ydental.treatment.line'].sudo().browse(self.env['ydental.intake.service']._id(line_id)).exists()\n        if not line or line.ydental_order_id.ydental_kind != 'exam' or line.ydental_store_id != store or (\n                line.ydental_order_id.ydental_patient_id != line.ydental_patient_id or\n                line.ydental_task_id.ydental_mapping_id != line.ydental_mapping_id):\n            raise AccessError(self.env._('source_required: Select a real frozen examination line in this store.'))\n        self.env['ydental.patient.service']._current_relation(line.ydental_patient_id, store)\n        return line",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_exam/models/ydental_exam_service.py#L63"
+    },
+    "exam._operate": {
+      "end_line": 488,
+      "line": 443,
+      "method_sha256": "f73ab648ecb4c0e467fe741f17b80ab98310fbea7d02dab433690d253c8cfec9",
+      "path": "ydental_exam/models/ydental_exam_service.py",
+      "source": "    def _operate(self, operation, payload, key):\n        handlers = {'grant_qualification': self._grant_qualification,\n            'review_capability': self._review_capability,\n            'bind_template': self._bind_template, 'revalidate': self._revalidate,\n            'release_editor': self._release_editor, 'takeover': self._takeover,\n            'draft': self._draft,\n            'perform': self._perform, 'confirm': self._confirm, 'correct': self._correct,\n            'abort': self._abort, 'finish': self._finish, 'reconcile': self._reconcile,\n            'verify_materials': self._verify_materials,\n            'attach': self._attachment}\n        if operation not in handlers or not isinstance(payload, dict) or not isinstance(key, str) or not 1 <= len(key) <= 120:\n            raise ValidationError(self.env._('invalid_action: Select a documented examination action and stable key.'))\n        try:\n            inspect.signature(handlers[operation]).bind(**payload)\n        except TypeError as error:\n            raise ValidationError(self.env._('invalid_action: Unknown or missing examination arguments.')) from error\n        queue = self.env['ydental.queue.service']\n        if operation not in ('grant_qualification', 'bind_template', 'review_capability'):\n            if operation == 'revalidate':\n                self.env['ydental.access.service']._check('medical', 'write', write=True)\n            else:\n                self._store(write=True)\n            queue._connection()\n        digest = fingerprint([operation, payload])\n        with self.env.cr.savepoint():\n            queue._locks()\n            self.env['ydental.inventory.service']._lock()\n            self.env.cr.execute('SELECT pg_advisory_xact_lock(%s)', [32008])\n            self.env.cr.execute('SELECT pg_advisory_xact_lock(%s)', [33009])\n            if operation not in ('grant_qualification', 'bind_template', 'review_capability'):\n                if operation == 'revalidate':\n                    self.env['ydental.access.service']._check('medical', 'write', write=True)\n                else:\n                    self._store(write=True)\n                queue._connection()\n            prior = self._model('receipt').search([('ydental_actor_id', '=', self.env.uid), ('ydental_key', '=', key)], limit=1)\n            if prior:\n                if prior.ydental_fingerprint != digest:\n                    raise UserError(self.env._('version_conflict: This examination key belongs to another action.'))\n                return dict(prior.ydental_result, result='already_accepted')\n            response = handlers[operation](**payload)\n            store = self.env['ydental.access.service']._scope().ydental_store_id\n            self._model('receipt')._new({'name': operation, 'ydental_store_id': store.id, 'ydental_category': 'exam',\n                'ydental_patient_id': False, 'ydental_actor_id': self.env.uid,\n                'ydental_key': key, 'ydental_fingerprint': digest, 'ydental_result': response})\n            return dict(response, result='accepted')",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_exam/models/ydental_exam_service.py#L443"
+    },
+    "exam._perform": {
+      "end_line": 327,
+      "line": 307,
+      "method_sha256": "a6b89b129ed304364710e2261ffc252c365cd0459cc7186033b4fe979be8e95a",
+      "path": "ydental_exam/models/ydental_exam_service.py",
+      "source": "    def _perform(self, line_id, execution_id, lease_id, lease_token, inline, reason, materials, actual_at=None):\n        line = self._line(line_id, write=True)\n        execution = self._actual(line, execution_id, lease_id, lease_token, inline)\n        if line.state not in ('issued', 'started') or self._model('result').search([('ydental_line_id', '=', line.id), ('ydental_event_id', '!=', False)], limit=1):\n            raise UserError(self.env._('already_started: This line already has an actual execution fact.'))\n        result = self._result(line, create=True, execution=execution)\n        if result.state not in ('draft', 'started'):\n            raise UserError(self.env._('version_conflict: This result cannot be performed again.'))\n        catalog = line.ydental_mapping_id.ydental_catalog_id\n        event = self.env['ydental.treatment.service']._event(execution, catalog, line.ydental_quantity,\n            's09-exam-line-' + str(line.id), reason, materials, already_performed=True,\n            kind='exam', line=line, actual_at=actual_at)\n        result._save({'ydental_execution_id': execution.id, 'ydental_event_id': event['event_id'],\n            'ydental_started_at': fields.Datetime.now(), 'ydental_business_date': self.env['ydental.supply.service']._date(line.ydental_store_id),\n            'ydental_station_id': execution.ydental_lease_id.ydental_station_id.id, 'state': 'pending'})\n        line._save({'state': 'done'})\n        response = dict(event, result_id=result.id, line_id=line.id,\n            event_state=event['state'], result_document_state=result.state,\n            order_line_state=line.state, fee_source_state='recorded' if event['fee_id'] else 'absent')\n        self._audit('actual_performed', result, response, reason)\n        return response",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_exam/models/ydental_exam_service.py#L307"
+    },
+    "exam._store": {
+      "end_line": 61,
+      "line": 49,
+      "method_sha256": "912c94e9430c3b9a5370673fd61826e2ecf453ecf581a3a23fa45fb551033d5c",
+      "path": "ydental_exam/models/ydental_exam_service.py",
+      "source": "    def _store(self, write=False):\n        access = self.env['ydental.access.service']\n        level = 'write' if write else 'read'\n        try:\n            member = access._check('exam', level, write=write)\n        except AccessError:\n            if write:\n                raise\n            member = access._check('medical', 'read')\n        store = member.ydental_store_id\n        if store.company_id not in self.env.user.sudo().company_ids:\n            raise AccessError(self.env._('access_denied: The source company is outside the account scope.'))\n        return store",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_exam/models/ydental_exam_service.py#L49"
+    },
+    "exam._version": {
+      "end_line": 269,
+      "line": 259,
+      "method_sha256": "7b41c34d77801c6f83d2b7b30a1d8567b7b3f6c9f80f1f5aca59b3a2b1d9357f",
+      "path": "ydental_exam/models/ydental_exam_service.py",
+      "source": "    def _version(self, result, kind, reason=''):\n        previous = self._model('version').search([('ydental_result_id', '=', result.id)], order='ydental_number desc', limit=1)\n        version = self._model('version')._new({'name': result.name, 'ydental_store_id': result.ydental_store_id.id,\n            'ydental_category': 'exam', 'ydental_patient_id': result.ydental_patient_id.id, 'ydental_actor_id': self.env.uid,\n            'ydental_result_id': result.id, 'ydental_number': result.ydental_version,\n            'ydental_kind': kind, 'ydental_findings': result.ydental_findings,\n            'ydental_measurements': result.ydental_measurements, 'ydental_conclusion': result.ydental_conclusion,\n            'ydental_reason': reason, 'ydental_recorded_at': fields.Datetime.now(),\n            'ydental_previous_id': previous.id if previous else False})\n        self._audit(kind, version, {'result_id': result.id, 'version': result.ydental_version}, reason)\n        return version",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_exam/models/ydental_exam_service.py#L259"
+    },
+    "intake._all_locks": {
+      "end_line": 90,
+      "line": 87,
+      "method_sha256": "826e179aa2dbef51ff73295cab7ca617238f21c6f5c1906ffc7cacb37f255275",
+      "path": "ydental_intake/models/ydental_intake_service.py",
+      "source": "    def _all_locks(self):\n        self.env['ydental.patient.service']._lock()\n        self.env['ydental.supply.service']._lock()\n        self._lock()",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_intake/models/ydental_intake_service.py#L87"
+    },
+    "intake._lock": {
+      "end_line": 85,
+      "line": 81,
+      "method_sha256": "824fe44525b84eabfe5bda3b0c65577dee720eaad2af58bba72b0a7b462c424e",
+      "path": "ydental_intake/models/ydental_intake_service.py",
+      "source": "    def _lock(self):\n        self.env.cr.execute('SELECT pg_advisory_xact_lock(%s)', [29005])\n        mutex = self.env.ref('ydental_intake.ydental_intake_mutex')\n        self.env.cr.execute('UPDATE ydental_intake_mutex SET ydental_revision=ydental_revision+1 WHERE id=%s', [mutex.id])\n        self.env.invalidate_all()",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_intake/models/ydental_intake_service.py#L81"
+    },
+    "inventory._event": {
+      "end_line": 303,
+      "line": 263,
+      "method_sha256": "f6da27e356bfa93d2035f2810fd4dd2bec1db092f1a5a15292a1c36024ab02eb",
+      "path": "ydental_inventory/models/ydental_inventory_service.py",
+      "source": "    def _event(self, store, namespace, source_key, kind, lot, quantity, uom_id, source, target, reason,\n               parent=None, target_store=None, summary='', snapshot=None, actual_at=None, synthetic=False,\n               responsible=None, fee_reference='', actual=False):\n        source_key = self._text(source_key)\n        namespace = self._text(namespace)\n        quantity_stock, unit, unit_snapshot = self._unit(lot.product_id, quantity, uom_id)\n        reason = self._text(reason)\n        digest = fingerprint([kind, lot.id, quantity, unit.id, source.id, target.id, reason,\n            parent.id if parent else False, summary, snapshot, fee_reference, synthetic])\n        prior = self._model('event').search([('ydental_store_id', '=', store.id), ('ydental_source_namespace', '=', namespace),\n            ('ydental_source_key', '=', self._text(source_key))], limit=1)\n        if prior:\n            if prior.ydental_fingerprint != digest:\n                raise UserError(self.env._('version_conflict: The source event is immutable.'))\n            return prior\n        unusable = False\n        if kind in ('replenishment', 'treatment', 'chairside', 'prescription', 'transfer'):\n            try:\n                self._usable(lot, store)\n            except UserError:\n                if not actual: raise\n                unusable = True\n        event = self._model('event')._new({'name': kind, 'ydental_store_id': store.id,\n            'ydental_source_namespace': namespace, 'ydental_source_key': source_key, 'ydental_kind': kind,\n            'ydental_fingerprint': digest, 'ydental_product_id': lot.product_id.id, 'ydental_lot_id': lot.id,\n            'ydental_quantity': quantity_stock, 'ydental_input_quantity': quantity, 'ydental_uom_id': unit.id,\n            'ydental_unit_snapshot': unit_snapshot, 'ydental_from_id': source.id, 'ydental_to_id': target.id,\n            'ydental_parent_id': parent.id if parent else False, 'ydental_target_store_id': target_store.id if target_store else False,\n            'ydental_responsible_id': responsible.id if responsible else self.env.uid, 'ydental_actor_id': self.env.uid,\n            'ydental_reason': reason, 'ydental_summary': summary, 'ydental_price_snapshot': snapshot,\n            'ydental_actual_at': actual_at or self._now(), 'ydental_synthetic': synthetic, 'ydental_fee_reference': fee_reference,\n            'state': 'pending' if actual else 'done'})\n        # An already-performed trusted source can persist as pending, with no\n        # half move. All other shortages fail the enclosing savepoint.\n        if unusable or source.usage == 'internal' and lot.product_id.uom_id.compare(self._quantity(lot, source), quantity_stock) < 0:\n            if not actual:\n                raise UserError(self.env._('insufficient_balance: There is insufficient available stock.'))\n            self._audit('pending', event, after={'event_id': event.id, 'responsible_id': event.ydental_responsible_id.id})\n            return event\n        self._move(event)\n        return event",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_inventory/models/ydental_inventory_service.py#L263"
+    },
+    "inventory._lock": {
+      "end_line": 52,
+      "line": 46,
+      "method_sha256": "cd5227c2b044dd655f89ba913835fb53248ee3509da86b9f8d1618c80a37197b",
+      "path": "ydental_inventory/models/ydental_inventory_service.py",
+      "source": "    def _lock(self):\n        # Single inventory fence closes absent-quant/source races. The UPDATE\n        # also forces repeatable-read contenders to retry from a fresh snapshot.\n        self.env.cr.execute('SELECT pg_advisory_xact_lock(%s)', [31007])\n        self.env.cr.execute('UPDATE ydental_inventory_mutex SET ydental_revision=ydental_revision+1 WHERE id=%s',\n            [self.env.ref('ydental_inventory.ydental_inventory_mutex').id])\n        self.env.invalidate_all()",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_inventory/models/ydental_inventory_service.py#L46"
+    },
+    "inventory._move": {
+      "end_line": 334,
+      "line": 305,
+      "method_sha256": "563048d91de6341b663f06f3e3a6ea17e841e32c8ff279f57175f7f423e75323",
+      "path": "ydental_inventory/models/ydental_inventory_service.py",
+      "source": "    def _move(self, event):\n        if event.ydental_move_id:\n            return\n        lot = event.ydental_lot_id\n        source, target = event.ydental_from_id, event.ydental_to_id\n        if source.usage == 'internal' and lot.product_id.uom_id.compare(self._quantity(lot, source), event.ydental_quantity) < 0:\n            raise UserError(self.env._('insufficient_balance: There is insufficient available stock.'))\n        move = self._native('stock.move').with_company(event.ydental_store_id.company_id).create({\n            'product_id': lot.product_id.id, 'product_uom_qty': event.ydental_quantity, 'uom_id': lot.product_id.uom_id.id,\n            'location_id': source.id, 'location_dest_id': target.id, 'company_id': event.ydental_store_id.company_id.id,\n            'ydental_store_id': event.ydental_store_id.id, 'origin': 'YDental inventory event %s' % event.id,\n            'is_inventory': event.ydental_kind == 'inventory'})\n        move._action_confirm(merge=False, create_proc=False)\n        move._do_unreserve()\n        self._native('stock.move.line').with_company(event.ydental_store_id.company_id).create({'move_id': move.id,\n            'product_id': lot.product_id.id, 'uom_id': lot.product_id.uom_id.id, 'quantity': event.ydental_quantity,\n            'lot_id': lot.id, 'location_id': source.id, 'location_dest_id': target.id,\n            'company_id': event.ydental_store_id.company_id.id, 'ydental_store_id': event.ydental_store_id.id, 'picked': True})\n        move.write({'picked': True})\n        move._action_done()\n        if move.state != 'done':\n            raise UserError(self.env._('inventory_error: Native movement did not finish.'))\n        if event.ydental_target_store_id:\n            self._target_lot(lot, event.ydental_target_store_id)\n        event._save({'ydental_move_id': move.id, 'state': 'done'})\n        if event.ydental_kind == 'receipt':\n            batch = self._batch(lot, event.ydental_store_id)\n            if not batch.ydental_received_at:\n                batch._save({'ydental_received_at': self._now()})\n        self._audit('movement', event, after={'event_id': event.id, 'move_id': move.id, 'quantity': event.ydental_quantity})",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_inventory/models/ydental_inventory_service.py#L305"
+    },
+    "inventory._operate": {
+      "end_line": 155,
+      "line": 128,
+      "method_sha256": "0cff305851b2dcab57aa1dbe2b09b0af75678b809a0b27a31eedc9bd632fd284",
+      "path": "ydental_inventory/models/ydental_inventory_service.py",
+      "source": "    def _operate(self, operation, payload, key):\n        handlers = {'setup': self._setup, 'policy': self._policy, 'product': self._create_product,\n            'product_edit': self._edit_product, 'lot': self._create_lot, 'lot_edit': self._edit_lot,\n            'receive': self._receive, 'issue': self._issue, 'inventory': self._inventory,\n            'transfer': self._transfer, 'return': self._return, 'verify': self._verify, 'recover': self._recover}\n        if operation not in handlers or not isinstance(payload, dict):\n            raise AccessError(self.env._('access_denied: Unknown inventory action.'))\n        key = self._text(key)\n        catalog = operation in ('product', 'product_edit')\n        store = self._access(write=True, catalog=catalog)\n        digest = fingerprint([operation, store.id, payload])\n        with self.env.cr.savepoint():\n            self._lock()\n            store = self._access(write=True, catalog=catalog)\n            receipt = self._model('operation').search([('ydental_store_id', '=', store.id), ('ydental_key', '=', key)], limit=1)\n            if receipt:\n                if receipt.ydental_fingerprint != digest:\n                    raise UserError(self.env._('version_conflict: The request key has different inventory arguments.'))\n                return dict(receipt.ydental_result, result='already_accepted')\n            try:\n                inspect.signature(handlers[operation]).bind(store, **payload)\n            except TypeError as error:\n                raise ValidationError(self.env._('Unknown or missing inventory arguments.')) from error\n            result = dict(handlers[operation](store, **payload), result='accepted')\n            receipt = self._model('operation')._new({'name': operation, 'ydental_store_id': store.id,\n                'ydental_key': key, 'ydental_fingerprint': digest, 'ydental_result': result, 'ydental_actor_id': self.env.uid})\n            self._audit(operation, receipt, after=result)\n            return result",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_inventory/models/ydental_inventory_service.py#L128"
+    },
+    "inventory._return": {
+      "end_line": 410,
+      "line": 399,
+      "method_sha256": "81397f572ebcfdda36a134a6c8354884bca34f0a8e19df72a21b49bcf7e1529f",
+      "path": "ydental_inventory/models/ydental_inventory_service.py",
+      "source": "    def _return(self, store, event_id, quantity, uom_id, source_key, reason):\n        parent = self._get('event', event_id, store)\n        if parent.state != 'done' or parent.ydental_kind not in ('replenishment', 'prescription'):\n            raise UserError(self.env._('return_invalid: Select an actual completed issue.'))\n        lot = parent.ydental_lot_id; config = self._config(store)\n        qty, unit, snap = self._unit(lot.product_id, quantity, uom_id)\n        prior = self._model('event').search([('ydental_parent_id', '=', parent.id), ('ydental_kind', '=', 'return'), ('ydental_source_key', '!=', source_key)])\n        if lot.product_id.uom_id.compare(sum(prior.mapped('ydental_quantity')) + qty, parent.ydental_quantity) > 0:\n            raise UserError(self.env._('return_limit: Physical returns cannot exceed the actual issue.'))\n        event = self._event(store, 'warehouse', source_key, 'return', lot, quantity, uom_id,\n            config.ydental_customer_id, config.ydental_quarantine_id, reason, parent=parent)\n        return {'id': event.id, 'move_id': event.ydental_move_id.id, 'state': 'quarantine'}",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_inventory/models/ydental_inventory_service.py#L399"
+    },
+    "inventory._source_action": {
+      "end_line": 458,
+      "line": 438,
+      "method_sha256": "21549fbef8596e359079153a0946e5e21845cd10161051fce7a5d114ede81167",
+      "path": "ydental_inventory/models/ydental_inventory_service.py",
+      "source": "    def _source_action(self, source):\n        payload = self._authorize_source(source)\n        with self.env.cr.savepoint():\n            self._lock()\n            payload = self._authorize_source(source)\n            access = self.env['ydental.access.service']\n            store = access._scope(write=True).ydental_store_id\n            kind = payload['kind']\n            if kind not in ('treatment', 'chairside', 'prescription'):\n                raise ValidationError(self.env._('Select a supported execution source kind.'))\n            access._check('pharmacy' if kind == 'prescription' else 'medical', 'write', write=True)\n            lot = self._lot(payload['lot_id'], store); config = self._config(store)\n            self._check_source_product(kind, lot)\n            snapshot = payload['price_snapshot']\n            if not isinstance(snapshot, dict) or not snapshot.get('version') or not snapshot.get('currency') or 'unit_price' not in snapshot:\n                raise ValidationError(self.env._('A frozen original source price snapshot is required.'))\n            event = self._event(store, payload['namespace'], payload['source_key'], kind, lot,\n                payload['quantity'], payload['uom_id'], self._location(config, lot.product_id), config.ydental_customer_id,\n                payload['reason'], summary=payload['summary'], snapshot=snapshot, synthetic=payload['synthetic'],\n                responsible=self.env.user, fee_reference=payload['fee_reference'], actual=payload['already_performed'])\n            return {'id': event.id, 'state': event.state, 'move_id': event.ydental_move_id.id}",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_inventory/models/ydental_inventory_service.py#L438"
+    },
+    "inventory._verify": {
+      "end_line": 426,
+      "line": 412,
+      "method_sha256": "6ddeb621cd46b0bfd072d58d032cf65c0126702b369071a2dbf71973f3b5e2a7",
+      "path": "ydental_inventory/models/ydental_inventory_service.py",
+      "source": "    def _verify(self, store, event_id, quantity, uom_id, disposition, source_key, reason):\n        parent = self._get('event', event_id, store)\n        if parent.ydental_kind != 'return' or parent.state != 'done' or disposition not in ('release', 'discard'):\n            raise ValidationError(self.env._('Select a physical return and its verified destination.'))\n        lot = parent.ydental_lot_id; config = self._config(store)\n        if disposition == 'release':\n            self._usable(lot, store)\n        qty, unit, snap = self._unit(lot.product_id, quantity, uom_id)\n        done = self._model('event').search([('ydental_parent_id', '=', parent.id), ('ydental_kind', '=', 'verification'), ('ydental_source_key', '!=', source_key)])\n        if lot.product_id.uom_id.compare(sum(done.mapped('ydental_quantity')) + qty, parent.ydental_quantity) > 0:\n            raise UserError(self.env._('return_limit: Verification exceeds the remaining physical return.'))\n        event = self._event(store, 'warehouse', source_key, 'verification', lot, quantity, uom_id,\n            config.ydental_quarantine_id, self._location(config, lot.product_id) if disposition == 'release' else config.ydental_loss_id,\n            reason, parent=parent)\n        return {'id': event.id, 'move_id': event.ydental_move_id.id, 'disposition': disposition}",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_inventory/models/ydental_inventory_service.py#L412"
+    },
+    "patient._lock": {
+      "end_line": 68,
+      "line": 62,
+      "method_sha256": "dad3cb78957ed173757f7140ba271ae66f418d2f008cb6f04b0a6dc2f66777c9",
+      "path": "ydental_patient/models/ydental_patient_service.py",
+      "source": "    def _lock(self):\n        # Advisory locking alone does not refresh a repeatable-read snapshot.\n        # Updating this fence forces a stale competing transaction to retry.\n        self.env.cr.execute('SELECT pg_advisory_xact_lock(%s)', [28004])\n        mutex = self.env.ref('ydental_patient.ydental_patient_mutex')\n        self.env.cr.execute('UPDATE ydental_patient_mutex SET ydental_revision=ydental_revision+1 WHERE id=%s', [mutex.id])\n        self.env.invalidate_all()",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_patient/models/ydental_patient_service.py#L62"
+    },
+    "print._authorize": {
+      "end_line": 100,
+      "line": 50,
+      "method_sha256": "9ec901cb1d368866bf531f323260f7c04a5461dcdd480a50bd090b410d5ac85a",
+      "path": "ydental_print/models/ydental_print_service.py",
+      "source": "    def _authorize(self, kind, source_id, version, purpose=None):\n        if kind not in TEMPLATES or type(version) is not int or version < 0 or purpose not in (None, '', 'diagnosis', 'history_review'):\n            raise ValidationError(self.env._('invalid_source: Select a documented PDF type, source and version.'))\n        access = self.env['ydental.access.service']\n        session = access._scope()\n        store = session.ydental_store_id\n        access._check('export', 'write')\n        if store.company_id not in self.env.user.sudo().company_ids:\n            raise AccessError(self.env._('access_denied: The current company is unavailable.'))\n        if kind in ('clinical', 'consent'):\n            clinical = self.env['ydental.clinical.service']\n            preliminary = self.env['ydental.clinical.document'].sudo().browse(self._id(source_id)).exists()\n            if not preliminary:\n                raise AccessError(self.env._('access_denied: This PDF source is unavailable.'))\n            if purpose:\n                clinical = access._patient_care(preliminary.ydental_patient_id.id, purpose).env['ydental.clinical.service']\n            doc = clinical._document(source_id)\n            versions = clinical._model('version')\n            selected = versions.search([('ydental_document_id', '=', doc.id), ('ydental_number', '=', version)], limit=1)\n            if (not selected and version != 0) or version == 0 and doc.ydental_version != 0:\n                raise UserError(self.env._('version_conflict: The selected clinical version is unavailable.'))\n            if selected:\n                clinical.env['ydental.clinical.version'].browse(selected.id).check_access('read')\n            return clinical.env[self._name], doc, selected, 'medical'\n        treatment = self.env['ydental.treatment.service']\n        order = self.env['ydental.treatment.order'].sudo().browse(self._id(source_id)).exists()\n        if not order or order.ydental_kind != 'prescription' or order.ydental_store_id != store or purpose:\n            raise AccessError(self.env._('access_denied: This prescription is unavailable in the current store.'))\n        member = access._membership(self.env.uid, store.id)\n        levels = access._levels(member)\n        if levels['medical'] in ('read', 'write'):\n            treatment._access('medical', False)\n            self.env['ydental.treatment.order'].browse(order.id).check_access('read')\n            category = 'medical'\n        else:\n            treatment._access('pharmacy', False)\n            # Narrow trusted projection only: an issued prescription with a real\n            # local pharmacy task, never clinical content or draft orders.\n            segments = self.env['ydental.treatment.segment'].sudo().search([\n                ('ydental_order_id', '=', order.id), ('ydental_store_id', '=', store.id)])\n            if order.state not in ('issued', 'done') or not segments or any(\n                s.ydental_task_id.ydental_patient_id != order.ydental_patient_id or\n                s.ydental_task_id.ydental_store_id != store or s.ydental_task_id.ydental_mapping_id.ydental_execution_area_id.ydental_purpose != 'pharmacy'\n                for s in segments\n            ):\n                raise AccessError(self.env._('access_denied: A real current prescription pharmacy task is required.'))\n            category = 'pharmacy'\n        self.env['ydental.patient.service']._current_relation(order.ydental_patient_id, store)\n        if order.ydental_version != version:\n            raise UserError(self.env._('version_conflict: Refresh the prescription version.'))\n        return self, order, False, category",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_print/models/ydental_print_service.py#L50"
+    },
+    "print._deliver": {
+      "end_line": 317,
+      "line": 309,
+      "method_sha256": "5e4bf967a992d09bce9d901fd2f2ed1bc594f0faeedd38b8117d23f07b8bcabf",
+      "path": "ydental_print/models/ydental_print_service.py",
+      "source": "    def _deliver(self, operation, job_id):\n        if operation not in ('pdf_view', 'download', 'print_request'):\n            raise ValidationError(self.env._('invalid_action: Select a documented PDF operation.'))\n        job, source, category, payload, signature = self._job(job_id)\n        pdf = job.ydental_pdf.content\n        if hashlib.sha256(pdf).hexdigest() != job.ydental_pdf_digest:\n            raise UserError(self.env._('render_failed: Temporary PDF integrity verification failed.'))\n        self._audit('print_requested' if operation == 'print_request' else operation, source, category, payload, signature, job)\n        return pdf, job.ydental_pdf_digest",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_print/models/ydental_print_service.py#L309"
+    },
+    "print._generate": {
+      "end_line": 307,
+      "line": 273,
+      "method_sha256": "55ee3b9898998bb674d86626ea04b50e549816f6aa65435e691ebdd7d04cb806",
+      "path": "ydental_print/models/ydental_print_service.py",
+      "source": "    def _generate(self, kind, source_id, version, expected_digest, key, purpose=None):\n        if not isinstance(expected_digest, str) or not re.fullmatch('[a-f0-9]{64}', expected_digest) or not isinstance(key, str) or not 16 <= len(key) <= 128:\n            raise ValidationError(self.env._('invalid_source: Review the source digest and supply a stable generation key.'))\n        service, source, category, payload, signature = self._source(kind, source_id, version, purpose)\n        if signature != expected_digest:\n            raise UserError(self.env._('version_conflict: The source changed. Review before generating a PDF.'))\n        session = self.env['ydental.access.service']._scope()\n        jobs = self.env['ydental.print.job'].sudo()\n        prior = jobs.search([('ydental_session_id', '=', session.id), ('ydental_revision', '=', session.ydental_revision), ('ydental_key', '=', key)], limit=1)\n        if prior:\n            job, _, _, _, _ = self._job(prior.id)\n            if (job.ydental_kind, job.ydental_source_id, job.ydental_version, job.ydental_source_digest) != (kind, source_id, version, expected_digest):\n                raise UserError(self.env._('version_conflict: This generation key belongs to another source.'))\n            self._audit('generate_repeat', source, category, payload, signature, job)\n        else:\n            scope = service._render_scope(payload, signature, purpose)\n            reports = service.env['ir.actions.report'].with_context(ydental_print_scope=scope, lang='zh_CN', force_report_rendering=True, report_pdf_no_attachment=True)\n            try:\n                pdf, output_type = reports._render_qweb_pdf(REPORT, [source.id])\n                if output_type != 'pdf' or not isinstance(pdf, bytes) or not pdf.startswith(b'%PDF-') or len(pdf) > 10000000:\n                    raise UserError(self.env._('render_failed: The PDF engine did not produce a valid bounded PDF.'))\n                if len(PdfFileReader(io.BytesIO(pdf)).pages) > 80:\n                    raise UserError(self.env._('size_limit: This PDF exceeds the demonstration page limit.'))\n            except (QWebError, PdfReadError, OSError, ValueError) as error:\n                raise UserError(self.env._('render_failed: The PDF engine did not produce a valid bounded PDF.')) from error\n            job = jobs._new({'ydental_actor_id': self.env.uid, 'ydental_store_id': session.ydental_store_id.id,\n                'ydental_session_id': session.id, 'ydental_revision': session.ydental_revision, 'ydental_kind': kind,\n                'ydental_source_id': source_id, 'ydental_version': version, 'ydental_purpose': purpose,\n                'ydental_source_digest': signature, 'ydental_pdf_digest': hashlib.sha256(pdf).hexdigest(),\n                'ydental_template': TEMPLATES[kind], 'ydental_versions': payload['versions'],\n                'ydental_expires_at': fields.Datetime.now() + timedelta(minutes=15), 'ydental_key': key,\n                'ydental_pdf': BinaryBytes(pdf, filename='ydental-demonstration.pdf')})\n            self._audit('generate', source, category, payload, signature, job)\n        return {'job_id': job.id, 'pdf_digest': job.ydental_pdf_digest, 'source_digest': signature, 'versions': job.ydental_versions,\n                'expires_at': str(job.ydental_expires_at), 'paper_output': 'unknown'}",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_print/models/ydental_print_service.py#L273"
+    },
+    "print._job": {
+      "end_line": 271,
+      "line": 261,
+      "method_sha256": "54b0b0f840777c3932ccdb017507684c56d7dda66507e8766873a294f5fee045",
+      "path": "ydental_print/models/ydental_print_service.py",
+      "source": "    def _job(self, job_id):\n        session = self.env['ydental.access.service']._scope()\n        # Narrow sudo is necessary because no ordinary ACL exposes job bodies.\n        job = self.env['ydental.print.job'].sudo().browse(self._id(job_id)).exists()\n        if not job or (job.ydental_actor_id.id, job.ydental_session_id.id, job.ydental_revision, job.ydental_store_id.id) != (\n            self.env.uid, session.id, session.ydental_revision, session.ydental_store_id.id) or job.ydental_expires_at <= fields.Datetime.now():\n            raise AccessError(self.env._('access_denied: This temporary PDF is unavailable. Generate a new demonstration copy.'))\n        service, source, category, payload, signature = self._source(job.ydental_kind, job.ydental_source_id, job.ydental_version, job.ydental_purpose or None)\n        if signature != job.ydental_source_digest:\n            raise UserError(self.env._('version_conflict: The source changed. Review and generate a new demonstration copy.'))\n        return job, source, category, payload, signature",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_print/models/ydental_print_service.py#L261"
+    },
+    "print._operate": {
+      "end_line": 346,
+      "line": 319,
+      "method_sha256": "a4e85394a166bf0f844bbebc11622639e8e82fdf88827b4f038e019ddb611e12",
+      "path": "ydental_print/models/ydental_print_service.py",
+      "source": "    def _operate(self, operation, payload):\n        # Public RPC cannot create RenderScope or S01 Binding instances. This\n        # private service is reached only through the server HTTP adapter.\n        handlers = {'preview': self._preview, 'generate': self._generate,\n                    'pdf_view': lambda job_id: self._deliver('pdf_view', job_id),\n                    'download': lambda job_id: self._deliver('download', job_id),\n                    'print_request': lambda job_id: self._deliver('print_request', job_id)}\n        if operation not in handlers or not isinstance(payload, dict):\n            raise ValidationError(self.env._('invalid_action: Select a documented PDF operation.'))\n        try:\n            inspect.signature(handlers[operation]).bind(**payload)\n        except TypeError as error:\n            raise ValidationError(self.env._('invalid_source: Unknown or missing PDF arguments.')) from error\n        access = self.env['ydental.access.service']\n        access._lock_user(self.env.uid)\n        session = access._scope(write=True)\n        # Under PostgreSQL repeatable read, advisory/row locks alone do not\n        # refresh a waiting request's snapshot. A value-preserving session\n        # fence makes a competing PDF action retry in a fresh transaction.\n        self.env.cr.execute('UPDATE ydental_access_session SET ydental_revision=ydental_revision WHERE id=%s', [session.id])\n        # Detect a grant/lifecycle change committed while this request waited\n        # on the S01 actor lock; do not accept stale positive permission data.\n        self.env.cr.execute('SELECT id FROM res_users WHERE id=%s FOR NO KEY UPDATE', [self.env.uid])\n        self.env.cr.execute('SELECT id FROM ydental_access_membership WHERE ydental_user_id=%s AND ydental_store_id=%s FOR NO KEY UPDATE', [self.env.uid, session.ydental_store_id.id])\n        members = [row[0] for row in self.env.cr.fetchall()]\n        self.env.cr.execute('SELECT id FROM ydental_access_grant WHERE ydental_membership_id=ANY(%s) FOR NO KEY UPDATE', [members])\n        with self.env.cr.savepoint():\n            return handlers[operation](**payload)",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_print/models/ydental_print_service.py#L319"
+    },
+    "queue._connection": {
+      "end_line": 75,
+      "line": 69,
+      "method_sha256": "407f89b1f43a9c07b555fe9b3155448b8de7d8293890b607e27bf456c0d9f999",
+      "path": "ydental_queue/models/ydental_queue_service.py",
+      "source": "    def _connection(self):\n        session = self.env['ydental.access.service']._scope(write=True)\n        connection = self.env.context.get('ydental_queue_connection')\n        if type(connection) is not Connection or (connection.actor_id, connection.session_id, connection.revision) != (\n                self.env.uid, session.id, session.ydental_revision):\n            raise AccessError(self.env._('access_denied: A holding browser connection is required.'))\n        return session, connection",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_queue/models/ydental_queue_service.py#L69"
+    },
+    "queue._held": {
+      "end_line": 126,
+      "line": 116,
+      "method_sha256": "b36e3e15f89971feb6d3234ccb20593b7d8570bc60b6fbea0a4de9d19016424a",
+      "path": "ydental_queue/models/ydental_queue_service.py",
+      "source": "    def _held(self, lease_id, token, admission=False):\n        session, connection = self._connection()\n        lease = self._model('lease').browse(self.env['ydental.intake.service']._id(lease_id)).exists()\n        if not lease or not lease.ydental_active or lease.ydental_actor_id.id != self.env.uid or (\n            lease.ydental_session_id.id, lease.ydental_revision\n        ) != (session.id, session.ydental_revision) or not consteq(lease.ydental_connection_hash, connection.key_hash) or (\n            not isinstance(token, str) or len(token) > 128 or not consteq(lease.ydental_token_hash, digest(token))\n        ):\n            raise AccessError(self.env._('access_denied: This connection no longer holds the workstation.'))\n        self._station(lease.ydental_station_id.id, admission=admission)\n        return lease",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_queue/models/ydental_queue_service.py#L116"
+    },
+    "queue._locks": {
+      "end_line": 49,
+      "line": 48,
+      "method_sha256": "412879b9ff8fe2e6219795c13ca5f8b89f7838221e4a4b2a5f620b074b938a1f",
+      "path": "ydental_queue/models/ydental_queue_service.py",
+      "source": "    def _locks(self):\n        self.env['ydental.intake.service']._all_locks()",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_queue/models/ydental_queue_service.py#L48"
+    },
+    "queue._settings": {
+      "end_line": 60,
+      "line": 51,
+      "method_sha256": "9fdff0ea26c292ed3ea19133f2d94cbd4fe2c88fd04e559b7a9f5f36d46fbca0",
+      "path": "ydental_queue/models/ydental_queue_service.py",
+      "source": "    def _settings(self):\n        params = self.env['ir.config_parameter'].sudo()\n        try:\n            heartbeat = int(params.get_str('ydental_queue.heartbeat_seconds', ''))\n            timeout = int(params.get_str('ydental_queue.timeout_seconds', ''))\n        except (ValueError, TypeError) as error:\n            raise UserError(self.env._('configuration_required: Publish explicit heartbeat and timeout settings.')) from error\n        if not 1 <= heartbeat < timeout <= 86400:\n            raise UserError(self.env._('configuration_required: Timeout must exceed the positive heartbeat interval.'))\n        return heartbeat, timeout",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_queue/models/ydental_queue_service.py#L51"
+    },
+    "settlement._access": {
+      "end_line": 45,
+      "line": 39,
+      "method_sha256": "a8afd28fb84cb94235e9850d1903881e3d8241511fd20ddd2a777de130e86cab",
+      "path": "ydental_settlement/models/ydental_settlement_service.py",
+      "source": "    def _access(self, write=False, finance=False):\n        access = self.env['ydental.access.service']\n        category = 'finance_approval' if finance else 'settlement'\n        store = access._check(category, 'write' if write else 'read', write=write).ydental_store_id\n        if store.company_id not in self.env.user.sudo().company_ids:\n            raise AccessError(self.env._('access_denied: The store company is outside the account scope.'))\n        return store",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_settlement/models/ydental_settlement_service.py#L39"
+    },
+    "settlement._bill": {
+      "end_line": 256,
+      "line": 173,
+      "method_sha256": "35047dfa7e2c545eb657fcfa7ca334f0c4136bf7b77b0b5321d1890b8cbacae9",
+      "path": "ydental_settlement/models/ydental_settlement_service.py",
+      "source": "    def _bill(self, fee_ids, discount, reason):\n        store = self._access(write=True)\n        config = self._config(store)\n        if not isinstance(fee_ids, list) or not fee_ids or any(type(x) is not int for x in fee_ids) or len(set(fee_ids)) != len(fee_ids):\n            raise ValidationError(self.env._('Select distinct confirmed fee sources.'))\n        fees = [self._fee(fee_id, store) for fee_id in fee_ids]\n        patient = self._patient(fees[0].ydental_patient_id.id)\n        if any(not self._same_patient(fee, patient) for fee in fees):\n            raise AccessError(self.env._('access_denied: Mixed patient fees cannot be billed.'))\n        prior = self._model('source').search([('ydental_fee_id', 'in', fee_ids)])\n        if prior:\n            if len(prior) == len(fees) and not discount and len(prior.ydental_invoice_id) == 1:\n                return {'invoice_id': prior.ydental_invoice_id.id, 'amount': prior.ydental_invoice_id.amount_total}\n            raise UserError(self.env._('fee_already_billed: Source fees cannot be billed twice.'))\n        if any(fee.ydental_amount < 0 for fee in fees):\n            if len(fees) != 1 or fees[0].ydental_amount >= 0 or discount:\n                raise UserError(self.env._('correction_separate: Bill each confirmed reversal against its original source.'))\n            self._close_guard_any(store, self.env.uid, fees[0].ydental_event_id.ydental_business_date)\n            return self._bill_correction(fees[0], store, config)\n        currency = store.company_id.currency_id\n        original = currency.round(sum(fee.ydental_amount for fee in fees))\n        discount = self._money(discount, currency, allow_zero=True)\n        if discount > original or discount and not self._text(reason):\n            raise ValidationError(self.env._('Discount requires a reason and cannot exceed the selected fees.'))\n        date = max(fee.ydental_event_id.ydental_business_date for fee in fees)\n        for fee in fees:\n            self._close_guard_any(store, self.env.uid, fee.ydental_event_id.ydental_business_date)\n        commands = [Command.create({\n            'name': fee.name,\n            'quantity': fee.ydental_quantity,\n            'price_unit': fee.ydental_unit_price,\n            'account_id': config.ydental_income_account_id.id,\n            'tax_ids': [Command.clear()],\n            'product_id': fee.ydental_product_id.id or False,\n        }) for fee in fees]\n        if discount:\n            commands.append(Command.create({\n                'name': self.env._('Explicit demonstration discount: %s', self._text(reason)),\n                'quantity': 1, 'price_unit': -discount,\n                'account_id': config.ydental_income_account_id.id,\n                'tax_ids': [Command.clear()],\n            }))\n        invoice = self.env['account.move'].sudo().with_company(store.company_id).create({\n            'move_type': 'out_invoice', 'company_id': store.company_id.id,\n            'journal_id': config.ydental_sales_journal_id.id,\n            'partner_id': patient.ydental_partner_id.id,\n            'invoice_date': date, 'date': date,\n            'currency_id': currency.id,\n            'invoice_origin': 'YDental confirmed fee sources ' + ','.join(map(str, fee_ids)),\n            'invoice_line_ids': commands,\n        })\n        invoice.action_post()\n        if invoice.state != 'posted' or currency.compare_amounts(invoice.amount_total, original - discount):\n            raise UserError(self.env._('accounting_mismatch: Native invoice differs from frozen fees.'))\n        lines = invoice.invoice_line_ids.sorted('id')[:len(fees)]\n        if len(lines) != len(fees):\n            raise UserError(self.env._('accounting_mismatch: Native source lines are incomplete.'))\n        for fee, line in zip(fees, lines):\n            if currency.compare_amounts(line.price_subtotal, fee.ydental_amount):\n                raise UserError(self.env._('accounting_mismatch: Native source line differs from its frozen fee.'))\n            snapshot = fee.ydental_price_snapshot_id\n            version = 'S05:' + str(snapshot.ydental_price_id.id) if snapshot else 'review:' + str(fee.ydental_price_review_id.id)\n            try:\n                with self.env.cr.savepoint():\n                    self._model('source')._new({\n                        'ydental_fee_id': fee.id, 'ydental_store_id': store.id,\n                        'ydental_patient_id': fee.ydental_patient_id.id,\n                        'ydental_invoice_id': invoice.id, 'ydental_line_id': line.id,\n                        'ydental_original_amount': fee.ydental_amount, 'ydental_currency_id': currency.id,\n                        'ydental_discount': discount if fee == fees[0] else 0,\n                        'ydental_discount_reason': reason if discount and fee == fees[0] else False,\n                        'ydental_source_business_date': fee.ydental_event_id.ydental_business_date,\n                        'ydental_source_actual_at': fee.ydental_event_id.ydental_actual_at,\n                        'ydental_price_version': version,\n                    })\n            except UniqueViolation as error:\n                if error.diag.constraint_name != 'ydental_settlement_source_fee_once':\n                    raise\n                # A competing REPEATABLE READ transaction cannot see the winner's\n                # new source. Abort this invoice instead of leaking a SQL error.\n                raise UserError(self.env._('concurrent_bill: This fee was billed by another request. Refresh and review its invoice.')) from error\n        self._audit('bill', invoice, store, after={'fee_ids': fee_ids, 'amount': invoice.amount_total,\n                                                   'discount': discount}, reason=reason)\n        return {'invoice_id': invoice.id, 'amount': invoice.amount_total, 'residual': invoice.amount_residual}",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_settlement/models/ydental_settlement_service.py#L173"
+    },
+    "settlement._bill_correction": {
+      "end_line": 311,
+      "line": 258,
+      "method_sha256": "2f69b5b4663e1601d3509d5667150868fe1dbe3bd9ae24ce0f12fe9d51476576",
+      "path": "ydental_settlement/models/ydental_settlement_service.py",
+      "source": "    def _bill_correction(self, fee, store, config):\n        parent = fee.ydental_parent_id\n        link = self._model('source').search([('ydental_fee_id', '=', parent.id)], limit=1) if parent else False\n        if not link or link.ydental_store_id != store or link.ydental_invoice_id.move_type != 'out_invoice':\n            raise UserError(self.env._('correction_source_missing: Bill the original confirmed fee first.'))\n        original = link.ydental_invoice_id\n        currency = store.company_id.currency_id\n        amount = currency.round(-fee.ydental_amount)\n        if amount <= 0 or currency.compare_amounts(amount, link.ydental_original_amount) > 0:\n            raise UserError(self.env._('correction_amount_invalid: Reversal exceeds original source.'))\n        date = fee.ydental_event_id.ydental_business_date\n        credit = self.env['account.move'].sudo().with_company(store.company_id).create({\n            'move_type': 'out_refund', 'company_id': store.company_id.id,\n            'journal_id': config.ydental_sales_journal_id.id,\n            'partner_id': original.partner_id.id,\n            'invoice_date': date, 'date': date, 'currency_id': currency.id,\n            'invoice_origin': original.name,\n            'invoice_line_ids': [Command.create({\n                'name': fee.name, 'quantity': abs(fee.ydental_quantity) or 1,\n                'price_unit': fee.ydental_unit_price if fee.ydental_quantity else amount,\n                'account_id': config.ydental_income_account_id.id,\n                'tax_ids': [Command.clear()],\n                'product_id': fee.ydental_product_id.id or False,\n            })],\n        })\n        credit.action_post()\n        if credit.state != 'posted' or currency.compare_amounts(credit.amount_total, amount):\n            raise UserError(self.env._('accounting_mismatch: Native correction credit differs from fee.'))\n        line = credit.invoice_line_ids[:1]\n        snapshot = fee.ydental_price_snapshot_id\n        self._model('source')._new({\n            'ydental_fee_id': fee.id, 'ydental_store_id': store.id,\n            'ydental_patient_id': fee.ydental_patient_id.id,\n            'ydental_invoice_id': credit.id, 'ydental_line_id': line.id,\n            'ydental_original_amount': fee.ydental_amount,\n            'ydental_currency_id': currency.id,\n            'ydental_source_business_date': date,\n            'ydental_source_actual_at': fee.ydental_event_id.ydental_actual_at,\n            'ydental_price_version': 'S05:' + str(snapshot.ydental_price_id.id)\n                if snapshot else 'review:' + str(fee.ydental_price_review_id.id),\n        })\n        allocated = min(original.amount_residual, amount)\n        if allocated > 0:\n            self.env['account.partial.reconcile'].sudo().with_company(store.company_id).create({\n                'debit_move_id': self._receivable(original, debit=True).id,\n                'credit_move_id': self._receivable(credit, debit=False).id,\n                'amount': allocated, 'debit_amount_currency': allocated,\n                'credit_amount_currency': allocated,\n            })\n        self._audit('bill_correction', credit, store, after={'fee_id': fee.id,\n            'original_invoice_id': original.id, 'credit_amount': amount,\n            'unpaid_reduced': allocated})\n        return {'credit_note_id': credit.id, 'amount': -amount,\n                'unpaid_reduced': allocated, 'actually_refunded': 0}",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_settlement/models/ydental_settlement_service.py#L258"
+    },
+    "settlement._close_guard": {
+      "end_line": 328,
+      "line": 322,
+      "method_sha256": "22b4c92d5a9282fe3cd0f5b577f7103d379c60e4f063ee7e6be46156661d85d4",
+      "path": "ydental_settlement/models/ydental_settlement_service.py",
+      "source": "    def _close_guard(self, store, cashier_id, business_date, channel):\n        closed = self._model('close').search([\n            ('ydental_store_id', '=', store.id), ('ydental_cashier_id', '=', cashier_id),\n            ('ydental_business_date', '=', business_date), ('ydental_channel', '=', channel),\n        ], order='ydental_cycle desc', limit=1)\n        if closed and closed.ydental_state == 'confirmed':\n            raise UserError(self.env._('day_closed: A finance approver must unlock this cashier day.'))",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_settlement/models/ydental_settlement_service.py#L322"
+    },
+    "settlement._close_guard_any": {
+      "end_line": 332,
+      "line": 330,
+      "method_sha256": "49d2d6e4b48ab644001608c315cba96038d7fd99af9d41f56896e4c0cad5acc7",
+      "path": "ydental_settlement/models/ydental_settlement_service.py",
+      "source": "    def _close_guard_any(self, store, cashier_id, business_date):\n        for channel in CHANNELS:\n            self._close_guard(store, cashier_id, business_date, channel)",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_settlement/models/ydental_settlement_service.py#L330"
+    },
+    "settlement._invoice": {
+      "end_line": 320,
+      "line": 313,
+      "method_sha256": "18336da010c696a66f78dec81f6cf25f3504b3970e6b970bcb9e170e2f32ebeb",
+      "path": "ydental_settlement/models/ydental_settlement_service.py",
+      "source": "    def _invoice(self, invoice_id, store):\n        invoice = self.env['account.move'].sudo().browse(self._positive_id(invoice_id)).exists()\n        sources = self._model('source').search([('ydental_invoice_id', '=', invoice.id)]) if invoice else False\n        if not invoice or invoice.state != 'posted' or invoice.move_type != 'out_invoice' or not sources or (\n                any(source.ydental_store_id != store for source in sources)\n                or invoice.company_id != store.company_id):\n            raise AccessError(self.env._('access_denied: Select a posted invoice from this store.'))\n        return invoice, sources",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_settlement/models/ydental_settlement_service.py#L313"
+    },
+    "settlement._pdf": {
+      "end_line": 1177,
+      "line": 1159,
+      "method_sha256": "f0125791f130e581de041e3737fa2394386fbe9f3039dc68ef449be500ad2503",
+      "path": "ydental_settlement/models/ydental_settlement_service.py",
+      "source": "    def _pdf(self, kind, source_id):\n        target, payload = self._report_payload(kind, source_id)\n        session = self.env['ydental.access.service']._scope()\n        scope = SettlementPdfScope(self.env.uid, session.id, session.ydental_revision,\n            kind, source_id, hashlib.sha256(json.dumps(payload, sort_keys=True,\n                                                       ensure_ascii=True).encode()).hexdigest())\n        report = self.env['ir.actions.report'].with_context(\n            ydental_settlement_pdf_scope=scope, lang='zh_CN', force_report_rendering=True,\n            report_pdf_no_attachment=True)\n        try:\n            pdf, result = report._render_qweb_pdf('ydental_settlement.ydental_settlement_pdf', [source_id])\n            if result != 'pdf' or not isinstance(pdf, bytes) or not pdf.startswith(b'%PDF-') or len(pdf) > 10000000 or (\n                    len(PdfFileReader(io.BytesIO(pdf)).pages) > 20):\n                raise UserError(self.env._('render_failed: Settlement PDF is invalid or too long.'))\n        except (QWebError, PdfReadError, OSError, ValueError) as error:\n            raise UserError(self.env._('render_failed: Settlement PDF could not be generated.')) from error\n        digest = hashlib.sha256(pdf).hexdigest()\n        self._audit('report_download', target, self._access(), after={'kind': kind, 'pdf_sha256': digest})\n        return pdf, digest",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_settlement/models/ydental_settlement_service.py#L1159"
+    },
+    "settlement._refund_execute": {
+      "end_line": 610,
+      "line": 520,
+      "method_sha256": "4c4d244e5cb871d59b4d4fba1b04fd3cdd5900fc3d0e5623937954be47af5b8f",
+      "path": "ydental_settlement/models/ydental_settlement_service.py",
+      "source": "    def _refund_execute(self, refund_id, actual_utc, proof):\n        store = self._access(write=True)\n        config = self._config(store)\n        refund = self._refund(refund_id, store)\n        if refund.ydental_state != 'approved' or not refund.ydental_approver_id or refund.ydental_requester_id == refund.ydental_approver_id:\n            raise AccessError(self.env._('access_denied: Confirm a distinct approval before actual refund.'))\n        payment = refund.ydental_payment_id\n        actual = self._instant(actual_utc)\n        business_date = self._local_date(store, actual)\n        if refund.ydental_requested_at and actual.replace(tzinfo=None) < refund.ydental_requested_at:\n            raise UserError(self.env._('refund_time_invalid: Actual refund cannot precede its application.'))\n        refund_channel = self._effective_channel(payment)\n        correction = self._model('correction').search([\n            ('ydental_payment_id', '=', payment.id)], order='id desc', limit=1)\n        if correction and actual.replace(tzinfo=None) < correction.ydental_recorded_at:\n            raise UserError(self.env._('refund_channel_review_required: Refund time precedes the channel correction.'))\n        self._close_guard(store, self.env.uid, business_date, refund_channel)\n        currency = payment.ydental_currency_id\n        journal = self._journal(config, refund_channel)\n        method = journal.outbound_payment_method_line_ids.filtered(lambda line: line.payment_method_id.code == 'manual')[:1]\n        if not method:\n            raise UserError(self.env._('accounting_policy_invalid: Native outbound manual method is absent.'))\n        original = payment.ydental_payment_id\n        partials = self.env['account.partial.reconcile'].sudo().search([\n            ('credit_move_id', 'in', original.move_id.line_ids.ids),\n            ('debit_move_id.move_id', 'in', payment.ydental_invoice_ids.ids),\n        ], order='id')\n        if currency.compare_amounts(sum(partials.mapped('amount')), refund.ydental_amount) < 0:\n            raise UserError(self.env._('refund_exceeds_allocated: Native receipt allocations are insufficient.'))\n        remaining = refund.ydental_amount\n        credits = self.env['account.move'].sudo()\n        for partial in partials.sorted(key=lambda part: (part.debit_move_id.move_id.invoice_date,\n                                                         part.debit_move_id.move_id.id, part.id)):\n            if currency.is_zero(remaining):\n                break\n            amount = min(remaining, partial.amount)\n            invoice = partial.debit_move_id.move_id\n            credit_note = self.env['account.move'].sudo().with_company(store.company_id).create({\n                'move_type': 'out_refund', 'company_id': store.company_id.id,\n                'journal_id': config.ydental_sales_journal_id.id,\n                'partner_id': invoice.partner_id.id,\n                'invoice_date': business_date, 'date': business_date,\n                'currency_id': currency.id,\n                'invoice_origin': invoice.name,\n                'invoice_line_ids': [Command.create({\n                    'name': self.env._('Actual offline refund of invoice %s', invoice.name),\n                    'quantity': 1, 'price_unit': amount,\n                    'account_id': config.ydental_income_account_id.id,\n                    'tax_ids': [Command.clear()],\n                })],\n            })\n            credit_note.action_post()\n            if credit_note.state != 'posted' or currency.compare_amounts(credit_note.amount_total, amount):\n                raise UserError(self.env._('accounting_mismatch: Native credit note did not post correctly.'))\n            credits |= credit_note\n            remaining = currency.round(remaining - amount)\n        if not currency.is_zero(remaining):\n            raise UserError(self.env._('accounting_mismatch: Refund credit notes are incomplete.'))\n        outbound = self.env['account.payment'].sudo().with_company(store.company_id).create({\n            'payment_type': 'outbound', 'partner_type': 'customer',\n            'company_id': store.company_id.id, 'partner_id': original.partner_id.id,\n            'journal_id': journal.id, 'payment_method_line_id': method.id,\n            'amount': refund.ydental_amount, 'currency_id': currency.id, 'date': business_date,\n            'memo': self.env._('YDental actually refunded offline'),\n            'payment_reference': self._text(proof, 200),\n        })\n        outbound.action_post()\n        if outbound.move_id.state != 'posted':\n            raise UserError(self.env._('accounting_mismatch: Native refund payment did not post.'))\n        debit = self._receivable(outbound.move_id, debit=True)\n        for credit_note in credits:\n            credit = self._receivable(credit_note, debit=False)\n            amount = credit_note.amount_total\n            self.env['account.partial.reconcile'].sudo().with_company(store.company_id).create({\n                'debit_move_id': debit.id, 'credit_move_id': credit.id,\n                'amount': amount, 'debit_amount_currency': amount, 'credit_amount_currency': amount,\n            })\n        refund._save({'ydental_state': 'done', 'ydental_executor_id': self.env.uid,\n                      'ydental_native_payment_id': outbound.id,\n                      'ydental_credit_note_id': credits[:1].id,\n                      'ydental_credit_note_ids': [Command.set(credits.ids)],\n                      'ydental_actual_at': actual.replace(tzinfo=None),\n                      'ydental_refund_business_date': business_date,\n                      'ydental_refund_channel': refund_channel,\n                      'ydental_terminal_at': actual.replace(tzinfo=None)})\n        self._audit('refund.execute', refund, store, after={'native_payment_id': outbound.id,\n            'credit_note_ids': credits.ids, 'amount': refund.ydental_amount,\n            'business_date': str(business_date), 'channel': refund_channel,\n            'executor_id': self.env.uid})\n        return {'refund_id': refund.id, 'state': 'done', 'actually_refunded': refund.ydental_amount,\n                'native_payment_id': outbound.id, 'credit_note_ids': credits.ids}",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_settlement/models/ydental_settlement_service.py#L520"
+    },
+    "settlement._report_payload": {
+      "end_line": 1144,
+      "line": 1077,
+      "method_sha256": "d1247ea57d1d96cfc76c8534aa333dd8b669846056d9cda9bcacb8b5501ead1c",
+      "path": "ydental_settlement/models/ydental_settlement_service.py",
+      "source": "    def _report_payload(self, kind, source_id):\n        store = self._access()\n        self.env['ydental.access.service']._check('export', 'write')\n        source_id = self._positive_id(source_id)\n        currency = store.company_id.currency_id\n        payload = {'kind': kind, 'source_id': source_id, 'company': store.company_id.name,\n                   'store': store.name, 'currency': currency.name,\n                   'operator': self.env.user.name,\n                   'demo': '演示线下业务凭据；非税务发票、非银行或支付平台到账证明'}\n        if kind == 'bill':\n            invoice, sources = self._invoice(source_id, store)\n            patient = self._patient(sources[0].ydental_patient_id.id)\n            received_partials = self.env['account.partial.reconcile'].sudo().search([\n                ('debit_move_id.move_id', '=', invoice.id),\n                ('credit_move_id.move_id.origin_payment_id', '!=', False),\n            ])\n            payload.update({'patient': patient.ydental_number, 'number': invoice.name,\n                'business_date': str(invoice.invoice_date), 'total': invoice.amount_total,\n                'residual': invoice.amount_residual,\n                'received': currency.round(sum(received_partials.mapped('amount'))),\n                'lines': [{'name': link.ydental_fee_id.name,\n                           'fee_id': link.ydental_fee_id.id, 'amount': link.ydental_original_amount,\n                           'price_version': link.ydental_price_version} for link in sources],\n                'discount': currency.round(sum(sources.mapped('ydental_discount')))})\n            target = invoice\n        elif kind == 'receipt':\n            payment = self._payment_record(source_id, store)\n            patient = self._patient(payment.ydental_patient_id.id)\n            partials = self.env['account.partial.reconcile'].sudo().search([\n                ('credit_move_id', 'in', payment.ydental_payment_id.move_id.line_ids.ids),\n                ('debit_move_id.move_id', 'in', payment.ydental_invoice_ids.ids),\n            ], order='id')\n            refunds = self._model('refund').search([('ydental_payment_id', '=', payment.id)])\n            done = sum(refunds.filtered(lambda row: row.ydental_state == 'done').mapped('ydental_amount'))\n            pending = sum(refunds.filtered(lambda row: row.ydental_state in\n                ('requested', 'approved', 'failed', 'unknown')).mapped('ydental_amount'))\n            payload.update({'patient': patient.ydental_number,\n                'number': payment.ydental_payment_id.name,\n                'business_date': str(payment.ydental_business_date),\n                'actual_utc': str(payment.ydental_actual_at),\n                'recorded_utc': str(payment.ydental_entered_at),\n                'channel': self._effective_channel(payment),\n                'received': payment.ydental_amount, 'refunded': currency.round(done),\n                'pending': currency.round(pending),\n                'net': currency.round(payment.ydental_amount - done),\n                'residual': currency.round(sum(payment.ydental_invoice_ids.mapped('amount_residual'))),\n                'allocations': [{'invoice': part.debit_move_id.move_id.name, 'amount': part.amount}\n                                for part in partials]})\n            target = payment\n        elif kind == 'refund':\n            refund = self._refund(source_id, store)\n            payment = refund.ydental_payment_id\n            patient = self._patient(payment.ydental_patient_id.id)\n            payload.update({'patient': patient.ydental_number,\n                'number': str(refund.id), 'business_date': str(payment.ydental_business_date),\n                'state': refund.ydental_state, 'requested': refund.ydental_amount,\n                'pending': refund.ydental_amount if refund.ydental_state in\n                    ('requested', 'approved', 'failed', 'unknown') else 0,\n                'refunded': refund.ydental_amount if refund.ydental_state == 'done' else 0,\n                'actual_utc': str(refund.ydental_actual_at or ''),\n                'refund_business_date': str(refund.ydental_refund_business_date or ''),\n                'refund_channel': refund.ydental_refund_channel or '',\n                'native_payment': refund.ydental_native_payment_id.name or '',\n                'reason': refund.ydental_reason})\n            target = refund\n        else:\n            raise AccessError(self.env._('access_denied: Unknown settlement report kind.'))\n        return target, payload",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_settlement/models/ydental_settlement_service.py#L1077"
+    },
+    "settlement._validate_pdf_scope": {
+      "end_line": 1157,
+      "line": 1146,
+      "method_sha256": "a86d664f842c9cc070d38e87d2a44c0a1a8b4303db1f0833386ef9437e955008",
+      "path": "ydental_settlement/models/ydental_settlement_service.py",
+      "source": "    def _validate_pdf_scope(self):\n        scope = self.env.context.get('ydental_settlement_pdf_scope')\n        session = self.env['ydental.access.service']._scope()\n        if type(scope) is not SettlementPdfScope or (\n                scope.actor_id, scope.session_id, scope.revision) != (\n                    self.env.uid, session.id, session.ydental_revision):\n            raise AccessError(self.env._('access_denied: A bound settlement export request is required.'))\n        _target, payload = self._report_payload(scope.kind, scope.source_id)\n        digest = hashlib.sha256(json.dumps(payload, sort_keys=True, ensure_ascii=True).encode()).hexdigest()\n        if digest != scope.digest:\n            raise UserError(self.env._('version_conflict: Settlement report source changed while rendering.'))\n        return payload",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_settlement/models/ydental_settlement_service.py#L1146"
+    },
+    "supply._lock": {
+      "end_line": 32,
+      "line": 22,
+      "method_sha256": "509ecb4897415c758a9a32e8401a757901cf525afc709dbe0d00b107fea64e27",
+      "path": "ydental_supply/models/ydental_supply_service.py",
+      "source": "    def _lock(self):\n        # Same space lock as S02. The UPDATE is essential under PostgreSQL\n        # repeatable read: a stale snapshot must serialize/retry, not sell twice.\n        self.env.cr.execute('SELECT pg_advisory_xact_lock(%s)', [26002])\n        mutex = self.env.ref('ydental_supply.ydental_supply_mutex', raise_if_not_found=False)\n        if not mutex and self.env.context.get('install_mode'):\n            return\n        if not mutex:\n            raise UserError(self.env._('Supply serialization configuration is missing.'))\n        self.env.cr.execute('UPDATE ydental_supply_mutex SET ydental_revision=ydental_revision+1 WHERE id=%s', [mutex.id])\n        self.env.invalidate_all()",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_supply/models/ydental_supply_service.py#L22"
+    },
+    "treatment._bookkeep": {
+      "end_line": 363,
+      "line": 349,
+      "method_sha256": "542d1982a23bba02453cb4adb1b4c9506bcdf6ae750d4bfbf6ce0b77a8497e81",
+      "path": "ydental_treatment/models/ydental_treatment_service.py",
+      "source": "    def _bookkeep(self, event):\n        if not event.ydental_already_performed:\n            self._settle(event)\n            return\n        try:\n            with self.env.cr.savepoint():\n                self._settle(event)\n        except (AccessError, ValidationError):\n            raise\n        except UserError as error:\n            # A verified physical fact survives a known native business failure;\n            # its economic savepoint rolls back every move and fee. Database\n            # serialization/deadlock errors still reach the framework unchanged.\n            event._save({'state': 'pending', 'ydental_pending_reason': 'bookkeeping_failed'})\n            self._audit('bookkeeping_pending', event, {'failure_code': str(error).split(':')[0][:120]})",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_treatment/models/ydental_treatment_service.py#L349"
+    },
+    "treatment._correct": {
+      "end_line": 487,
+      "line": 470,
+      "method_sha256": "ec864a3a22b0ecdc4ef954dc6c7a4220043d7522f038f6b7186866820a18d6ef",
+      "path": "ydental_treatment/models/ydental_treatment_service.py",
+      "source": "    def _correct(self, event_id, execution_id, lease_id, lease_token, document_id, document_version,\n                 delta, source, reason, materials):\n        execution, doc = self._medical(execution_id, lease_id, lease_token, document_id, document_version)\n        parent = self._get('event', event_id, 'medical')\n        if parent.ydental_patient_id != execution.ydental_patient_id or parent.ydental_kind not in ('treatment', 'chairside') or parent.state != 'confirmed':\n            raise UserError(self.env._('correction_required: Select a confirmed treatment source for this patient.'))\n        self._project(execution, parent.ydental_catalog_id.id)\n        if parent.ydental_kind == 'chairside' and not parent.ydental_medicine_link_id:\n            raise UserError(self.env._('medicine_evidence_missing: Historical medication needs a separately evidenced review before new corrections.'))\n        if not (type(delta) in (int, float) and delta == 0 and materials):\n            self._quantity(delta, parent.ydental_uom_id, signed=True)\n        corrections = self._model('event').search([('ydental_parent_id', '=', parent.id)])\n        prior = corrections.filtered(lambda e: e.ydental_source == source)\n        net = parent.ydental_quantity + sum((corrections - prior).mapped('ydental_quantity')) + delta\n        if net < 0 or delta < 0 and materials:\n            raise ValidationError(self.env._('invalid_quantity: A correction cannot exceed the original quantity; physical returns require a separate verified return.'))\n        return self._event(execution, parent.ydental_catalog_id, delta, source, reason, materials,\n            doc=doc, teeth=parent.ydental_teeth, kind='correction', parent=parent)",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_treatment/models/ydental_treatment_service.py#L470"
+    },
+    "treatment._dispense": {
+      "end_line": 667,
+      "line": 646,
+      "method_sha256": "3524f1383f0d220234daf4933c493748fb013cd62408b66259cfa4aa5b8c9cd5",
+      "path": "ydental_treatment/models/ydental_treatment_service.py",
+      "source": "    def _dispense(self, execution_id, lease_id, lease_token, order_id, order_version, line_id,\n                  lot_id, quantity, source, reason, policy, already_performed=False):\n        if policy != 'demo_confirmation':\n            raise UserError(self.env._('policy_unpublished: Production price policy awaits approval.'))\n        execution, order, segment = self._pharmacy(execution_id, lease_id, lease_token, order_id, order_version)\n        line = self._get('line', line_id, 'pharmacy')\n        if line.ydental_order_id != order or line.state != 'issued':\n            raise AccessError(self.env._('source_required: Select an issued line of the called prescription.'))\n        self._quantity(quantity, line.ydental_uom_id)\n        prior = self._model('event').search([('ydental_store_id', '=', order.ydental_store_id.id), ('ydental_source', '=', source)], limit=1)\n        remaining = self._remaining(line) + (prior.ydental_quantity if prior and prior.ydental_order_line_id == line else 0)\n        if line.ydental_uom_id.compare(quantity, remaining) > 0:\n            raise UserError(self.env._('overdispense: The actual issue would exceed the remaining approved quantity.'))\n        lot = self.env['ydental.inventory.service']._lot(lot_id, order.ydental_store_id)\n        if lot.product_id != line.ydental_product_id:\n            raise ValidationError(self.env._('source_category_mismatch: The batch must contain the exact prescribed medicine.'))\n        self._validate_prescription(line)\n        link = self._medicine_link(order.ydental_store_id, product=line.ydental_product_id, required=not already_performed)\n        result = self._event(execution, link.ydental_catalog_id if link else line.ydental_mapping_id.ydental_catalog_id, quantity, source, reason,\n            [{'lot_id': lot.id, 'quantity': quantity, 'uom_id': line.ydental_uom_id.id, 'kind': 'prescription'}], kind='prescription', line=line, already_performed=already_performed, medicine_link=link, expected_product=line.ydental_product_id)\n        self._audit('actual_dispense', order, dict(result, line_id=line.id, remaining=self._remaining(line)))\n        return dict(result, line_id=line.id, remaining=self._remaining(line))",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_treatment/models/ydental_treatment_service.py#L646"
+    },
+    "treatment._event": {
+      "end_line": 347,
+      "line": 285,
+      "method_sha256": "d00a68db6c9bd3f1eeba8fd86d8abfcda540213d5bdff9aed8de6de2acbdacf2",
+      "path": "ydental_treatment/models/ydental_treatment_service.py",
+      "source": "    def _event(self, execution, catalog, quantity, source, reason, rows, *, doc=None, teeth=None,\n               already_performed=False, kind='treatment', line=None, parent=None, actual_at=None, medicine_link=None, expected_product=None):\n        if not isinstance(source, str) or not 1 <= len(source) <= 120 or type(already_performed) is not bool:\n            raise ValidationError(self.env._('invalid_source: Supply a stable source identifier and explicit fact status.'))\n        if not (kind == 'correction' and type(quantity) in (int, float) and quantity == 0 and rows):\n            quantity = self._quantity(quantity, catalog.ydental_product_id.uom_id, signed=kind == 'correction')\n        reason = self.env['ydental.intake.service']._text(reason)\n        rows = self._material_rows(rows, execution.ydental_category, execution.ydental_store_id)\n        if actual_at is not None and (not isinstance(actual_at, str) or len(actual_at) != 19):\n            raise ValidationError(self.env._('invalid_time: Supply an explicit UTC date and time with seconds.'))\n        moment = fields.Datetime.to_datetime(actual_at) if actual_at else fields.Datetime.now()\n        if moment < execution.ydental_started_at or moment > fields.Datetime.now():\n            raise ValidationError(self.env._('invalid_time: Actual time must fall within this started service and cannot be in the future.'))\n        digest = fingerprint([actual_at, execution.id, catalog.id, quantity, reason, rows, doc.id if doc else False,\n            doc.ydental_version if doc else 0, teeth, already_performed, kind, line.id if line else False, parent.id if parent else False])\n        prior = self._model('event').search([('ydental_store_id', '=', execution.ydental_store_id.id), ('ydental_source', '=', source)], limit=1)\n        if prior:\n            if prior.ydental_fingerprint != digest or prior.ydental_actor_id.id != self.env.uid:\n                raise UserError(self.env._('version_conflict: This clinical source already has immutable execution parameters.'))\n            return self._event_result(prior)\n        medication = kind in ('chairside', 'prescription') or bool(parent and parent.ydental_medicine_link_id)\n        evidence_missing = False\n        if medication:\n            medicine_link = medicine_link or (parent.ydental_medicine_link_id if parent else self._medicine_link(execution.ydental_store_id, catalog=catalog, required=False))\n            if expected_product and medicine_link and medicine_link.ydental_product_id != expected_product:\n                medicine_link = self._model('medicine.link')\n            try:\n                self._check_medication(medicine_link, rows, quantity, expected_product, correction=bool(parent))\n            except UserError:\n                if not already_performed:\n                    raise\n                evidence_missing = True\n        event = self._new('event', execution, {'name': catalog.name, 'ydental_execution_id': execution.id,\n            'ydental_document_id': doc.id if doc else False, 'ydental_document_version': doc.ydental_version if doc else 0,\n            'ydental_order_line_id': line.id if line else False, 'ydental_source': source, 'ydental_fingerprint': digest,\n            'ydental_kind': kind, 'ydental_catalog_id': catalog.id,\n            'ydental_medicine_link_id': medicine_link.id if medicine_link else False,\n            'ydental_product_id': expected_product.id if expected_product else medicine_link.ydental_product_id.id if medicine_link else False,\n            'ydental_reported_materials': {'rows': rows, 'catalog_id': catalog.id}, 'ydental_quantity': quantity,\n            'ydental_uom_id': catalog.ydental_product_id.uom_id.id, 'ydental_teeth': teeth,\n            'ydental_actual_at': moment, 'ydental_business_date': self.env['ydental.supply.service']._date(execution.ydental_store_id, moment),\n            'ydental_station_id': execution.ydental_lease_id.ydental_station_id.id, 'ydental_reason': reason,\n            'ydental_already_performed': already_performed, 'ydental_parent_id': parent.id if parent else False})\n        if parent:\n            event._save({'ydental_price_snapshot_id': parent.ydental_price_snapshot_id.id,\n                'ydental_price_review_id': parent.ydental_price_review_id.id})\n        elif not medication or medicine_link:\n            try:\n                self._quote(event)\n            except UserError as error:\n                if not already_performed or not str(error).startswith('missing_price:'):\n                    raise\n                event._save({'ydental_pending_reason': 'missing_price'})\n        if evidence_missing:\n            event._save({'ydental_pending_reason': 'medicine_evidence_missing'})\n            rows = []\n        for row in rows:\n            self._new('consumption', event, {'name': source, 'ydental_event_id': event.id,\n                'ydental_lot_id': row['lot_id'], 'ydental_quantity': row['quantity'],\n                'ydental_uom_id': row['uom_id'], 'ydental_kind': row['kind']})\n        self._bookkeep(event)\n        self._audit('actual_execution', event, self._event_result(event), reason)\n        return self._event_result(event)",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_treatment/models/ydental_treatment_service.py#L285"
+    },
+    "treatment._medical": {
+      "end_line": 124,
+      "line": 119,
+      "method_sha256": "d0ef2dfabf304bc97d89be67988b3ff2c80b95a4cbff40e662d221ed2583ced3",
+      "path": "ydental_treatment/models/ydental_treatment_service.py",
+      "source": "    def _medical(self, execution_id, lease_id, lease_token, document_id, document_version):\n        execution = self._serving(execution_id, lease_id, lease_token, 'medical')\n        doc = self.env['ydental.clinical.service']._document(document_id, write=True)\n        if doc.ydental_current_execution_id != execution or type(document_version) is not int or doc.ydental_version != document_version or document_version < 1:\n            raise UserError(self.env._('save_required: Save and verify the current document version before the clinical action.'))\n        return execution, doc",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_treatment/models/ydental_treatment_service.py#L119"
+    },
+    "treatment._operate": {
+      "end_line": 102,
+      "line": 64,
+      "method_sha256": "8ab9c9b7266119f925e8e177e54b98fa15017382ce2a0c14d77b4cfac4926880",
+      "path": "ydental_treatment/models/ydental_treatment_service.py",
+      "source": "    def _operate(self, operation, payload, key):\n        handlers = {'execute': self._execute, 'order': self._draft_order, 'edit_order': self._edit_order,\n            'issue': self._issue, 'cancel_exam': self._cancel_exam, 'dispense': self._dispense,\n            'finish': self._finish, 'reconcile': self._reconcile, 'review_price': self._review_price,\n            'publish_medicine': self._publish_medicine, 'verify_medicine': self._verify_medicine,\n            'correct': self._correct, 'return_material': self._return_material, 'refer': self._refer}\n        if operation not in handlers or not isinstance(payload, dict) or not isinstance(key, str) or not 1 <= len(key) <= 120:\n            raise ValidationError(self.env._('invalid_action: Supply a documented action and stable request key.'))\n        try:\n            inspect.signature(handlers[operation]).bind(**payload)\n        except TypeError as error:\n            raise ValidationError(self.env._('invalid_action: Unknown or missing execution arguments.')) from error\n        category = 'pharmacy' if operation in ('dispense', 'finish') else 'price' if operation in ('review_price', 'publish_medicine') else 'medical'\n        if operation in ('reconcile', 'return_material', 'verify_medicine'):\n            event = self._model('event').browse(self.env['ydental.intake.service']._id(payload.get('event_id'))).exists()\n            if event and event.ydental_kind == 'prescription':\n                category = 'pharmacy'\n        store = self._access(category)\n        queue = self.env['ydental.queue.service']\n        queue._connection()\n        digest = fingerprint([operation, store.id, payload])\n        with self.env.cr.savepoint():\n            # S01 user/session -> S04 patient -> S03 supply -> S05 intake ->\n            # S06 queue -> S07 inventory. All B paths acquire this before native\n            # stock or B sources; source adapters never acquire upstream fences.\n            queue._locks()\n            self.env['ydental.inventory.service']._lock()\n            self.env.cr.execute('SELECT pg_advisory_xact_lock(%s)', [32008])\n            self._access(category)\n            queue._connection()\n            prior = self._model('receipt').search([('ydental_actor_id', '=', self.env.uid), ('ydental_key', '=', key)], limit=1)\n            if prior:\n                if prior.ydental_fingerprint != digest:\n                    raise UserError(self.env._('version_conflict: This key belongs to another action.'))\n                return dict(prior.ydental_result, result='already_accepted')\n            result = handlers[operation](**payload)\n            self._model('receipt')._new({'name': operation, 'ydental_store_id': store.id, 'ydental_category': category,\n                'ydental_actor_id': self.env.uid, 'ydental_key': key, 'ydental_fingerprint': digest, 'ydental_result': result})\n            return dict(result, result='accepted')",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_treatment/models/ydental_treatment_service.py#L64"
+    },
+    "treatment._pharmacy": {
+      "end_line": 644,
+      "line": 634,
+      "method_sha256": "a544e7c13fc8ecd71ee937fe80e22f2bf64b7c7317a89c764cb022425658af64",
+      "path": "ydental_treatment/models/ydental_treatment_service.py",
+      "source": "    def _pharmacy(self, execution_id, lease_id, lease_token, order_id, order_version):\n        execution = self._serving(execution_id, lease_id, lease_token, 'pharmacy')\n        order = self._get('order', order_id, 'pharmacy')\n        segment = self._model('segment').search([('ydental_task_id', '=', execution.ydental_task_id.id),\n            ('ydental_order_id', '=', order.id), ('state', 'in', ('pending', 'active'))], limit=1)\n        if not segment or order.state != 'issued' or order.ydental_version != order_version or order.ydental_patient_id != execution.ydental_patient_id:\n            raise UserError(self.env._('order_frozen: Select the issued prescription version bound to this actual pharmacy segment.'))\n        if segment.ydental_execution_id and segment.ydental_execution_id != execution:\n            raise UserError(self.env._('version_conflict: This prescription segment is bound to another execution.'))\n        segment._save({'state': 'active', 'ydental_execution_id': execution.id})\n        return execution, order, segment",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_treatment/models/ydental_treatment_service.py#L634"
+    },
+    "treatment._price_values": {
+      "end_line": 264,
+      "line": 255,
+      "method_sha256": "d2402a44795ad5340dda8a1426d0666e5e4e1cfd94e7d2219c99486b996b8436",
+      "path": "ydental_treatment/models/ydental_treatment_service.py",
+      "source": "    def _price_values(self, event):\n        if event.ydental_price_snapshot_id:\n            snap = event.ydental_price_snapshot_id\n            return {'version': snap.ydental_price_id.id, 'currency': snap.ydental_currency_id.id,\n                'unit_price': snap.ydental_unit_price, 'policy': 'demo_confirmation'}\n        if event.ydental_price_review_id:\n            review = event.ydental_price_review_id\n            return {'version': 'review-' + str(review.id), 'currency': review.ydental_currency_id.id,\n                'unit_price': review.ydental_unit_price, 'policy': 'demo_confirmation'}\n        return None",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_treatment/models/ydental_treatment_service.py#L255"
+    },
+    "treatment._quote": {
+      "end_line": 253,
+      "line": 245,
+      "method_sha256": "a1445c52e3db2f9b14f19efa2329a478a0c2c00fbd9fd0348115d6cd50446816",
+      "path": "ydental_treatment/models/ydental_treatment_service.py",
+      "source": "    def _quote(self, event):\n        intake = self.env['ydental.intake.service']\n        # Freeze at the actual event time. A future replacement is never used\n        # to silently reconstruct an unknown historical price.\n        version, values = intake._quote(event.ydental_store_id, event.ydental_catalog_id.id,\n            event.ydental_store_id.company_id.currency_id.id, abs(event.ydental_quantity), instant=event.ydental_actual_at)\n        snapshot = intake._new('snapshot', event.ydental_store_id, dict(values, name=event.ydental_source,\n            ydental_source='s08b-event-' + str(event.id), ydental_policy='demo_confirmation', ydental_actor_id=self.env.uid))\n        event._save({'ydental_price_snapshot_id': snapshot.id})",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_treatment/models/ydental_treatment_service.py#L245"
+    },
+    "treatment._remaining": {
+      "end_line": 632,
+      "line": 628,
+      "method_sha256": "aa2c1268424b9491ed3b5e0d6e17f44085cc5e511be1b396f4f696939019933a",
+      "path": "ydental_treatment/models/ydental_treatment_service.py",
+      "source": "    def _remaining(self, line):\n        # Actual issue facts, including pending bookkeeping, consume the\n        # approved allowance. Physical returns never reopen the prescription.\n        events = self._model('event').search([('ydental_order_line_id', '=', line.id), ('ydental_kind', '=', 'prescription')])\n        return line.ydental_quantity - sum(events.mapped('ydental_quantity'))",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_treatment/models/ydental_treatment_service.py#L628"
+    },
+    "treatment._return_material": {
+      "end_line": 500,
+      "line": 489,
+      "method_sha256": "2a732350d7fba29ea80ca3b36542727677ef71c1279d13bee6ff60e061e361eb",
+      "path": "ydental_treatment/models/ydental_treatment_service.py",
+      "source": "    def _return_material(self, event_id, inventory_event_id, quantity, uom_id, source, reason):\n        event = self._model('event').browse(self.env['ydental.intake.service']._id(event_id)).exists()\n        category = 'pharmacy' if event and event.ydental_kind == 'prescription' else 'medical'\n        event = self._get('event', event_id, category)\n        row = self._model('consumption').search([('ydental_event_id', '=', event.id),\n            ('ydental_inventory_event_id', '=', inventory_event_id)], limit=1)\n        if not row or row.ydental_inventory_event_id.state != 'done':\n            raise AccessError(self.env._('source_required: Select a completed physical issue from this clinical event.'))\n        result = self.env['ydental.inventory.service']._return(event.ydental_store_id, inventory_event_id,\n            quantity, uom_id, source, reason)\n        self._audit('physical_return_quarantine', event, result, reason)\n        return result",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_treatment/models/ydental_treatment_service.py#L489"
+    },
+    "treatment._serving": {
+      "end_line": 117,
+      "line": 104,
+      "method_sha256": "a673b55d941e8e86334d49efce12e4baea0143afede7bac85bc632f8edf1951e",
+      "path": "ydental_treatment/models/ydental_treatment_service.py",
+      "source": "    def _serving(self, execution_id, lease_id, lease_token, category):\n        queue = self.env['ydental.queue.service']\n        lease = queue._held(lease_id, lease_token)\n        execution = queue._source_execution(execution_id, lease)\n        if execution.state != 'serving' or lease.ydental_category != category or lease.ydental_expires_at <= queue._now():\n            raise AccessError(self.env._('execution_required: The current holder must start the actual service.'))\n        store = self._access(category)\n        if execution.ydental_store_id != store or execution.ydental_service_snapshot != queue._service_snapshot(execution.ydental_task_id):\n            raise UserError(self.env._('version_conflict: The actual service source changed.'))\n        failure = queue._service_eligibility(queue._execution_entry(execution), lease.ydental_station_id)\n        if failure:\n            raise AccessError(failure)\n        self.env['ydental.patient.service']._current_relation(execution.ydental_patient_id, store)\n        return execution",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_treatment/models/ydental_treatment_service.py#L104"
+    },
+    "treatment._settle": {
+      "end_line": 418,
+      "line": 365,
+      "method_sha256": "04c276742d68d0694ec826ecda3753ee23d900f69d743d11c9adf8770c7b2df1",
+      "path": "ydental_treatment/models/ydental_treatment_service.py",
+      "source": "    def _settle(self, event):\n        if event.ydental_pending_reason == 'medicine_evidence_missing':\n            return\n        price = self._price_values(event)\n        if not price:\n            event._save({'ydental_pending_reason': 'missing_price'})\n            return\n        pending = []\n        rows = self._model('consumption').search([('ydental_event_id', '=', event.id)])\n        inventory = self.env['ydental.inventory.service']\n        if event.ydental_kind in ('chairside', 'prescription') or event.ydental_medicine_link_id:\n            self._check_medication(event.ydental_medicine_link_id, [\n                {'lot_id': r.ydental_lot_id.id, 'quantity': r.ydental_quantity, 'uom_id': r.ydental_uom_id.id, 'kind': r.ydental_kind}\n                for r in rows], event.ydental_quantity, event.ydental_product_id, correction=bool(event.ydental_parent_id))\n        # If a real historical project is short in any batch, persist its S07\n        # pending fact first and defer every other issue. No partial native\n        # consumption is posted merely because another material was available.\n        unavailable = rows.filtered(lambda row: row.ydental_inventory_event_id and row.ydental_inventory_event_id.state != 'done')\n        for row in rows.filtered(lambda row: not row.ydental_inventory_event_id):\n            lot = row.ydental_lot_id\n            config = inventory._config(event.ydental_store_id)\n            stock_quantity, unit, unit_snapshot = inventory._unit(lot.product_id, row.ydental_quantity, row.ydental_uom_id.id)\n            batch = inventory._batch(lot, event.ydental_store_id)\n            unusable = not batch.ydental_enabled or not lot.product_id.active or not lot.expiration_date or lot.expiration_date <= fields.Datetime.now()\n            short = lot.product_id.uom_id.compare(inventory._quantity(lot, inventory._location(config, lot.product_id)), stock_quantity) < 0\n            if unusable or short:\n                unavailable |= row\n        if unavailable:\n            for row in unavailable.filtered(lambda row: not row.ydental_inventory_event_id):\n                result = inventory._source_action(InventorySource(self.env.uid, event.ydental_store_id.id, row.id))\n                row._save({'ydental_inventory_event_id': result['id']})\n            event._save({'ydental_pending_reason': 'inventory_pending'})\n            return\n        for row in rows:\n            if not row.ydental_inventory_event_id:\n                result = self.env['ydental.inventory.service']._source_action(InventorySource(self.env.uid, event.ydental_store_id.id, row.id))\n                row._save({'ydental_inventory_event_id': result['id']})\n            if row.ydental_inventory_event_id.state != 'done':\n                pending.append(row.id)\n        if pending:\n            event._save({'ydental_pending_reason': 'inventory_pending'})\n            return\n        if not self._model('fee').search_count([('ydental_event_id', '=', event.id)]):\n            currency = self.env['res.currency'].browse(price['currency'])\n            parent_fee = self._model('fee').search([('ydental_event_id', '=', event.ydental_parent_id.id)], limit=1) if event.ydental_parent_id else False\n            self._new('fee', event, {'name': event.name, 'ydental_event_id': event.id,\n                'ydental_parent_id': parent_fee.id if parent_fee else False,\n                'ydental_medicine_link_id': event.ydental_medicine_link_id.id, 'ydental_product_id': event.ydental_product_id.id,\n                'ydental_price_snapshot_id': event.ydental_price_snapshot_id.id,\n                'ydental_price_review_id': event.ydental_price_review_id.id,\n                'ydental_quantity': event.ydental_quantity, 'ydental_unit_price': price['unit_price'],\n                'ydental_currency_id': currency.id, 'ydental_amount': currency.round(event.ydental_quantity * price['unit_price']),\n                'ydental_policy': 'demo_confirmation'})\n        event._save({'state': 'confirmed', 'ydental_pending_reason': False})",
+      "url": "https://github.com/Yredxin/YDental/blob/a66c9dfd4b65573a27ff3e45733a87103f17bf32/ydental_treatment/models/ydental_treatment_service.py#L365"
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "layer": "STATIC_ONLY",
+  "earlier_local_failures_preserved": [
+    {
+      "check": "first generator",
+      "result": "FAIL",
+      "cause": "fixed source path controllers/print.py absent; real path printing.py",
+      "runtime_operations": 0
+    },
+    {
+      "check": "source assertion review",
+      "result": "CORRECTED_BEFORE_FINAL",
+      "cause": "_held uses _valid_editor/hash comparisons; print._job uses _source/signature, not assumed helper names",
+      "runtime_operations": 0
+    },
+    {
+      "check": "second generator",
+      "result": "FAIL",
+      "cause": "JS does not contain auto_release symbol; actual await action(release) verified",
+      "runtime_operations": 0
+    },
+    {
+      "check": "additional static path lookup",
+      "result": "CORRECTED_BEFORE_FINAL",
+      "cause": "security ACL actual filename is ir.access.csv, not assumed ir.model.access.csv; common clinical fence is patient/supply/intake, no assertion of queue-own mutex update",
+      "runtime_operations": 0
+    }
+  ],
+  "final_result": "see verification.json",
+  "no_addon_or_old_evidence_changes": true
+}

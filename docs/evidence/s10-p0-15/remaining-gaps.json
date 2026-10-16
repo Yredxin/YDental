@@ -1,0 +1,136 @@
+{
+  "P015_actual_budget": {
+    "BUSINESS_GET": 0,
+    "BUSINESS_POST": 0,
+    "CREATE": 0,
+    "DB_SQL_CONNECTION": 0,
+    "DIRECT_BUSINESS_ORM": 0,
+    "FIREFOX": 0,
+    "FUNDS_FEE_STOCK_ATTACHMENT_PDF_WRITE": 0,
+    "ISSUE_PROJECT_STATE_CHANGE": 0,
+    "MERGE_DEPLOY_S11": 0,
+    "ODOO_HTTP": 0,
+    "ODOO_SHELL_INSTALL_UPGRADE_INIT_TEST": 0,
+    "SUDO": 0
+  },
+  "T12": {
+    "P014_effect": "一个确认子断言，不能抵销上述STOP或证明引擎稳定修复",
+    "complete_same_Firefox23_steps": "NOT_RUN/PREVIOUSLY_NOT_PASSED",
+    "historical23_step_names": [
+      "reserve",
+      "arrive",
+      "report_care",
+      "care_start",
+      "document",
+      "treatment",
+      "exam_order",
+      "prescription",
+      "care_handover",
+      "report_exam",
+      "exam_start",
+      "examination",
+      "report_pharmacy",
+      "pharmacy_start",
+      "dispense_four",
+      "finish_first",
+      "report_remainder",
+      "pharmacy_restart",
+      "dispense_two",
+      "finish_final",
+      "bill",
+      "pay_five_hundred",
+      "pay_two_forty"
+    ],
+    "missing": [
+      "same-source end-to-end native 23 steps",
+      "complete S08/S09 real HTTP regressions",
+      "text/quantity/physical return/original PDF combined invariant evidence"
+    ],
+    "preserved_stops": [
+      "W4 metadata 682 write_date rows/dependency loading STOP",
+      "W5 browser exit1/browser-complete absent/final_audit NOT_RUN",
+      "R3 registry Native SIGSEGV exit-11/other guard-2; root cause UNKNOWN"
+    ],
+    "status": "BLOCKED",
+    "step_source": "scripts/s10_e2e_w3_browser.py:28"
+  },
+  "clinical_correct": {
+    "code_change": "clinical纯文字correct本身已有；来源准备与合法更正内容未冻结",
+    "source_reason": "唯一confirmed3在禁止复用P014克隆；旧W5仍pending2",
+    "status": "NOT_AUTHORIZABLE_PENDING_SOURCE",
+    "timer": "900ms autosave只在非confirmed触发；2s heartbeat需单独预算，不能照抄P014 heartbeat0"
+  },
+  "current_bill_candidate": {
+    "actor": 5,
+    "actor_membership_historical": [
+      {
+        "active": true,
+        "create_date": "2026-10-15T05:58:20.892103",
+        "create_uid": 5,
+        "id": 1,
+        "write_date": "2026-10-15T05:58:20.892103",
+        "write_uid": 5,
+        "ydental_store_id": 1,
+        "ydental_user_id": 5
+      }
+    ],
+    "company": 1,
+    "fixture_intent": [
+      "scripts/s10_e2e_w3_prepare.py:51",
+      "ydental_treatment_test/tests/common.py:41"
+    ],
+    "invoice": 1,
+    "minimal_prerequisite": "先独立授权一个W5严格只读资格/源投影门禁，补store1/user5在职/公司/settlement read与export write展开grant及原生PDF模块/模板已安装的证据；不CREATE/login/render",
+    "missing_grant_projection_fields": [
+      "ydental_category",
+      "ydental_level",
+      "ydental_membership_id"
+    ],
+    "paid": 740,
+    "residual": 0,
+    "status": "NOT_AUTHORIZABLE_PENDING_SOURCE",
+    "store": 1
+  },
+  "original_pdf": {
+    "P014_source_job_count": 0,
+    "R3_external_pdfs_exist_in_fixed_index": true,
+    "R3_external_pdfs_opened_in_P015": false,
+    "W5_existing_clinical_pdf_bytes": [],
+    "absence_scope": "只证明已投影的来源/固定索引没有W5同源可用原版，不能推广全系统PDF不存在",
+    "job_count_all_five_historical_sources": 0,
+    "print_job": "临床/处方/consent短期数据库字节15min；不是结算票据或S12永久原件",
+    "settlement_pdf": "每次根据当前业务payload渲染；no attachment；无原版取回endpoint",
+    "status": "NOT_AUTHORIZABLE_PENDING_SOURCE"
+  },
+  "physical_return": {
+    "R3_only": "inventory4→19 patient1/store1；不是R3数量event13→14 patient4/store7，更不是W5",
+    "not_automatic": [
+      "fee reduction",
+      "cash refund",
+      "usable stock release"
+    ],
+    "status": "NOT_RUN",
+    "supported_stock_parents": [
+      "replenishment",
+      "prescription"
+    ]
+  },
+  "policy": {
+    "items": [
+      "生产科目/税/币种配置",
+      "银行或渠道实际到账",
+      "S12正式税务原件",
+      "S13最终用户效果验收"
+    ],
+    "status": "POLICY_PENDING"
+  },
+  "quantity_correction": {
+    "future_blockers": "当前serving/本人lease、文书CAS、源kind、原始快照、材料/库存/并发/跨日店会锁须单独核实",
+    "prescription_quantity_edit": "固定_correct拒绝prescription；若需该功能须另行产品授权",
+    "status": "NOT_RUN",
+    "supported": [
+      "treatment",
+      "chairside"
+    ]
+  }
+}

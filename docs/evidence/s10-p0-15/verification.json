@@ -1,0 +1,41 @@
+{
+  "22_original_rows_all_fields_exact": true,
+  "FULL_PASS": 0,
+  "GPT_review_or_P016_authorization": "NOT_CLAIMED",
+  "S10_PRODUCTION_T12": "BLOCKED",
+  "base": "a66c9dfd4b65573a27ff3e45733a87103f17bf32",
+  "budget_actual_and_limit": {
+    "BUSINESS_GET": 0,
+    "BUSINESS_POST": 0,
+    "CREATE": 0,
+    "DB_SQL_CONNECTION": 0,
+    "DIRECT_BUSINESS_ORM": 0,
+    "FIREFOX": 0,
+    "FUNDS_FEE_STOCK_ATTACHMENT_PDF_WRITE": 0,
+    "ISSUE_PROJECT_STATE_CHANGE": 0,
+    "MERGE_DEPLOY_S11": 0,
+    "ODOO_HTTP": 0,
+    "ODOO_SHELL_INSTALL_UPGRADE_INIT_TEST": 0,
+    "SUDO": 0
+  },
+  "codex_static_review_only": true,
+  "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "current_business_runtime_proof": "NOT_RUN",
+  "native_SIGSEGV_root_cause": "UNKNOWN",
+  "new_historical_PDF_bytes": "NOT_RUN",
+  "next_business_READY": false,
+  "next_minimal_prerequisite": "只读补user5展开grant/公司在职/票据安装态；另行授权，当前不执行",
+  "old_tracked_files_verified": 3823,
+  "old_tracked_manifest_sha256": "d6eddd4d3ea1cd8bd1f58fc29b2e92ad08d2605eba380516fd6c1d105a25282a",
+  "original_status_counts": {
+    "BLOCKED": 1,
+    "PARTIAL": 14,
+    "SCOPED_ACCEPTED": 7
+  },
+  "preflight": 6214014587,
+  "preflight_exact": true,
+  "requested_ceiling": "S10_P0_15_GAP03_DELTA_AND_NEXT_ACTION_STATIC_TECH_ACCEPTED",
+  "source_AST_and_literal_guards": "PASS",
+  "source_eligibility_now": "NOT_RUN",
+  "status": "STATIC_CHECKS_PASS_PENDING_GPT"
+}

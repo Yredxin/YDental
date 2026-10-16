@@ -1,0 +1,41 @@
+{
+  "layer": "GitHub API read-only full refresh before commit",
+  "issues": {
+    "23": {
+      "body_equal_to_start": true,
+      "state": "open",
+      "comments": 3
+    },
+    "34": {
+      "body_equal_to_start": true,
+      "state": "open",
+      "comments": 229
+    },
+    "35": {
+      "body_equal_to_start": true,
+      "state": "open",
+      "comments": 0
+    }
+  },
+  "comments": {
+    "23": {
+      "count": 3,
+      "all_prior_ids_bodies_updated_at_equal": true,
+      "last_id": 6125774169,
+      "new_comments": []
+    },
+    "34": {
+      "count": 229,
+      "all_prior_ids_bodies_updated_at_equal": true,
+      "last_id": 6214014587,
+      "new_comments": [
+        6214014587
+      ]
+    },
+    "35": {
+      "count": 0
+    }
+  },
+  "ref": "a66c9dfd4b65573a27ff3e45733a87103f17bf32",
+  "no_parallel_update": true
+}
