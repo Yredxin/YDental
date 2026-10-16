@@ -1,0 +1,13 @@
+{
+  "acquire_intent_to_confirm_intent_seconds": 1.810004,
+  "confirm_to_release_intent_seconds": 1.699402,
+  "heartbeat_actual_POST": 0,
+  "interval_seconds_unchanged": 2,
+  "note": "intent includes readonly gate delay; native saving stays true during confirm/release; timing alone is not heartbeat proof, real HTTP budget is",
+  "post_intent_UTC": {
+    "acquire": "2026-10-16T09:25:07.948994+00:00",
+    "confirm": "2026-10-16T09:25:09.758998+00:00",
+    "native-login": "2026-10-16T09:25:05.588659+00:00",
+    "release": "2026-10-16T09:25:11.458400+00:00"
+  }
+}

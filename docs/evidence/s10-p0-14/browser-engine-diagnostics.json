@@ -1,0 +1,20 @@
+{
+  "label_occurrences": {
+    "NS_ERROR_ABORT": 3,
+    "NS_ERROR_FAILURE": 2,
+    "error in channel": 4
+  },
+  "line_sha256": [
+    "80c13e6dc95d2e575650b5797a7dd45aaf80898ec1fc0e8f3734115127190914",
+    "353b9741f83b967331cacf473e81712d6fd78af7aa3670b84aeb3f778c55e7da",
+    "e495e185b959a079825c5a2381a7a76ceef90248e2d5b3de9c2e0b87b275e4bb",
+    "8804ba7472da707d9e7a8901035536a1be25c88a864a5283184d52438b003da1",
+    "90075cd8b1c0936604e8210f0ec1ff1f67e9a2f5548155a90b286376634af889",
+    "353c82175baec4f48169f916a91fbdd50a81a2d22dc2ccaabe8e104e80af0464",
+    "f6a740de449fcb4f8150a7dbbe55617641a3b33aeaea28e7f7881b3d4f68bd41",
+    "47e9e39833798b3f168c6332ed57b3f28c0fdaf7eb8159ce9f45dcf8044d8267"
+  ],
+  "not_claimed_clean_browser_or_production_stability": true,
+  "root_cause": "UNKNOWN; retained engine diagnostics, distinct from zero business-page pageerror and validated native responses",
+  "stderr_line_count": 8
+}

@@ -1,0 +1,78 @@
+{
+  "CREATE": 1,
+  "HTTP": 1,
+  "NATIVE_SIGSEGV_ROOT_CAUSE": "UNKNOWN",
+  "P013_clone_touched": false,
+  "S10_STAGE_PRODUCTION_T12": "BLOCKED",
+  "actual_connections": {
+    "maintenance": 1,
+    "source-after": 1,
+    "source-before": 1,
+    "target-after": 1,
+    "target-before": 1
+  },
+  "attachments_filestore_changes": 0,
+  "authorization": 6212000008,
+  "base": "6c64403f9c015c669e50e750aff6e0e7a2eab3c0",
+  "clone_initial643_exact": true,
+  "clone_oid": 2100326,
+  "clone_source_oid": 2100310,
+  "complete_original_content_equal": true,
+  "continuing_blocks": [
+    "W4_METADATA_STOP",
+    "W5_OLD_BROWSER_EXIT1_FINAL_AUDIT_NOT_RUN",
+    "SAME_SOURCE_ORIGINAL_PDF_UNAVAILABLE",
+    "FORMAL_ACCOUNT_TAX_CURRENCY_PAYMENT_POLICY_UNAPPROVED"
+  ],
+  "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "counts": {
+    "ACQUIRE": 1,
+    "CLINICAL_GET": 2,
+    "CONFIRM": 1,
+    "FIREFOX_LAUNCH": 1,
+    "HEARTBEAT": 0,
+    "NATIVE_LOGIN_POST": 1,
+    "OTHER_POST": 0,
+    "PDF": 0,
+    "RELEASE": 1,
+    "STORE_SWITCH_POST": 0
+  },
+  "doc_state": "confirmed",
+  "doc_version": 3,
+  "editor_released": true,
+  "engine_stderr_unknown_diagnostics_preserved": true,
+  "exact_whitelist_PASS": true,
+  "executor_sudo_directORM_shell_upgrade_install_init_test": 0,
+  "firefox_PIDs": [
+    96134
+  ],
+  "firefox_exits": [
+    {
+      "exit_code": "0",
+      "signal": "null"
+    }
+  ],
+  "funds_fee_stock_changes": 0,
+  "historical_transaction_replay": 0,
+  "locked627_full_equal": true,
+  "network_response_server_GET_POST_equal": true,
+  "new_versions": 1,
+  "no_DB_or_native_operation_after_source_after": true,
+  "not_GPT_PASS_or_S10_stage_PASS": true,
+  "odoo_PID": 96043,
+  "odoo_exit": 0,
+  "old_v1_v2_full_equal": true,
+  "pageerror_count": 0,
+  "preflight_REST_verbatim": true,
+  "preflight_comment": 6212387399,
+  "product_core_ACL_AGENTS_historical_evidence_issue_project_changes": 0,
+  "requested_GPT_scope_only": "S10_P0_14_W5_DOC1_NATIVE_CONFIRM_SOURCE_BEFORE_AFTER_AND_MONEY_STOCK_ZERO_SCOPED_TECH_PASS",
+  "source_after_backend": 1139635,
+  "source_backends_distinct": true,
+  "source_before_after643_exact": true,
+  "source_before_backend": 1139508,
+  "source_before_closed_before_CREATE": true,
+  "status": "SCOPED_CODEX_SELF_TEST_COMPLETE_PENDING_GPT",
+  "target633_tables_full_equal": true,
+  "target_before_after643_compared": true
+}

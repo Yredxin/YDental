@@ -1,0 +1,11 @@
+{
+  "canHandover": "no",
+  "content_sha256": "678e527db07b38518de9522b056d45c9a4f5f5da775d07e112c5360f0ced21aa",
+  "document": "1",
+  "execution": null,
+  "heartbeat": "2",
+  "revision": "1",
+  "same_original_content": true,
+  "state": "pending",
+  "version": "2"
+}

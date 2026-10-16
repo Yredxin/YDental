@@ -1,0 +1,165 @@
+{
+  "files": {
+    "docs/evidence/s10-p0-14/all643-target-comparison.json": {
+      "bytes": 228062,
+      "sha256": "905a29f110c85ff67df98e1c8f575b135e11ebbc87192b0817bebb0c3fc76e36"
+    },
+    "docs/evidence/s10-p0-14/browser-engine-diagnostics.json": {
+      "bytes": 928,
+      "sha256": "fd0d6db0c2732316b83d705b4dcf52aac684d5a073a312a67bf0a4b20bf2e33b"
+    },
+    "docs/evidence/s10-p0-14/browser-result.json": {
+      "bytes": 11853,
+      "sha256": "8bf4899e1bc925926a53b506ce46e83b4817c505b23bd3f0aed599e45c7fde87"
+    },
+    "docs/evidence/s10-p0-14/clone.json": {
+      "bytes": 91045,
+      "sha256": "4dda6f451f0e00c466055c6f92937c4d005f9499bfc5c5ca2e4e6117a0ddbb8e"
+    },
+    "docs/evidence/s10-p0-14/document-audit-fields.json": {
+      "bytes": 7105,
+      "sha256": "f52f8d3df0163ca1f844bb8f2c302d3bdedad9596ec83c3d75b467f4581557d3"
+    },
+    "docs/evidence/s10-p0-14/dom-after.json": {
+      "bytes": 243,
+      "sha256": "d73def6424294504787f6ed40fff583bb12b211c0a14cece5dcfad48c6c4a070"
+    },
+    "docs/evidence/s10-p0-14/dom-before.json": {
+      "bytes": 266,
+      "sha256": "aae4145c41933b1ad0d73d3a5d7a7ae1f9aa69d848a868f9aeb65082768e4910"
+    },
+    "docs/evidence/s10-p0-14/eligibility.json": {
+      "bytes": 3941,
+      "sha256": "4c00ccda80c4b2aff2c0462030492f5da464ad479b3f2c0a1f11cc77167c243e"
+    },
+    "docs/evidence/s10-p0-14/execution-preflight.json": {
+      "bytes": 126700,
+      "sha256": "f2769b28d5941527792fef9a11b6bf8911033ff7aa30e886df246307dbb5c282"
+    },
+    "docs/evidence/s10-p0-14/execution-result.json": {
+      "bytes": 1017,
+      "sha256": "8ca867285cd0834ceee8534f8896ba9c25f7f46fd9a06617cdc129e15c5eb59d"
+    },
+    "docs/evidence/s10-p0-14/gate-01-startup.json": {
+      "bytes": 9101,
+      "sha256": "6b98af31bff4af7bcef70c823b1e8ceaa77da8e60e09411d1afa1094c410652a"
+    },
+    "docs/evidence/s10-p0-14/gate-02-startup.json": {
+      "bytes": 9101,
+      "sha256": "bed56e13a6c5743b5e418b0749267738d6d991e9cc3e6eb804d459848f05e171"
+    },
+    "docs/evidence/s10-p0-14/gate-03-login-view.json": {
+      "bytes": 11017,
+      "sha256": "c69be2c6f637bc2f85d64b1b9d2bb39352a11dc45ca58e363b63366733e80ed5"
+    },
+    "docs/evidence/s10-p0-14/gate-04-acquired.json": {
+      "bytes": 11523,
+      "sha256": "3eafa7d410446f237981afbe0f363425f665ac1254cf8a5ab58332226475e9db"
+    },
+    "docs/evidence/s10-p0-14/gate-05-confirmed.json": {
+      "bytes": 11968,
+      "sha256": "a9e6898b26070ed3a754ed6869ce734c8ccb5ce6f9245ad7410ffc71bbd96c48"
+    },
+    "docs/evidence/s10-p0-14/gate-06-released.json": {
+      "bytes": 12330,
+      "sha256": "acbc63b09429a149998c3e5a00d7870165208113a474af1a91c0cbe7a9c4129c"
+    },
+    "docs/evidence/s10-p0-14/gate-07-final-view.json": {
+      "bytes": 12687,
+      "sha256": "7e6a4b8a02728c90d4fdcd25afb3a926f9db79f22527cd322709846c26562b1c"
+    },
+    "docs/evidence/s10-p0-14/gate-stopped-target.json": {
+      "bytes": 114381,
+      "sha256": "17932267a1fcd3f4674add7af854a5a28b2c03cb15273a7371e3905ebe98e343"
+    },
+    "docs/evidence/s10-p0-14/github-delivery-read.json": {
+      "bytes": 280,
+      "sha256": "bd105b1dd9e23a1f42d9c48df65d876cc98d99971eb2b59b43684d8772189da7"
+    },
+    "docs/evidence/s10-p0-14/github-start.json": {
+      "bytes": 105464,
+      "sha256": "f34aaf9f6dda0e91ea81306f811fe81b83b02afacc1b5fe894e29d063c2adb28"
+    },
+    "docs/evidence/s10-p0-14/http-reconciliation.json": {
+      "bytes": 2688,
+      "sha256": "eb01a96c737acde8ed8f133204a8bc04284eb6682638e53d7da5b4b24ae77c38"
+    },
+    "docs/evidence/s10-p0-14/native-action-times.json": {
+      "bytes": 565,
+      "sha256": "40a347150b061294b79c2c379024ef8e3387198268ad437c0356b1de85a1d2af"
+    },
+    "docs/evidence/s10-p0-14/native-dom-visual-review.json": {
+      "bytes": 2292,
+      "sha256": "4af9fcebf8a4e05b8c78db95038a464885a1054058db611de8287277e13ec592"
+    },
+    "docs/evidence/s10-p0-14/offline-checks.json": {
+      "bytes": 927,
+      "sha256": "b21ed04ccfe0cd37c73f30668c053c2406c6bc21e173b836e93cd2f613577f55"
+    },
+    "docs/evidence/s10-p0-14/preflight-api-readback.json": {
+      "bytes": 511,
+      "sha256": "2c951a521056f13700daf2f6e2400bc9a1d68504f31954e14c15fa3bb79d7cfa"
+    },
+    "docs/evidence/s10-p0-14/private-artifact-index.json": {
+      "bytes": 9382,
+      "sha256": "2bc8ee8ad1c6e2c51ef036d78776572bc9d10d39f14d45dd86aa540fc5cba193"
+    },
+    "docs/evidence/s10-p0-14/source-after.json": {
+      "bytes": 92081,
+      "sha256": "d2247d781a81653fb00684a474e919929fae50a4d8d8759bfb9700f6c4662feb"
+    },
+    "docs/evidence/s10-p0-14/source-before.json": {
+      "bytes": 92006,
+      "sha256": "3aa98b3600187f47653a7099ca61368e532c878110bea4f28bfa10b2c3f16dbc"
+    },
+    "docs/evidence/s10-p0-14/static-contract.json": {
+      "bytes": 6237,
+      "sha256": "540ff1cf2d042ada611cd4141206bfdbdfa9deecff70f7ff71183348f9d5ec34"
+    },
+    "docs/evidence/s10-p0-14/target-after-signatures.json": {
+      "bytes": 90658,
+      "sha256": "63b8ad202fa55dcff94116a8163791e3957a5a7a86764aac227cd880a360d184"
+    },
+    "docs/evidence/s10-p0-14/verification.json": {
+      "bytes": 2351,
+      "sha256": "e23bc946aa560bb9eb4833b10b9bf5f63c95e11852f0bcc0a4dbbea24296b749"
+    },
+    "docs/s10-p0-14-execution-preflight.md": {
+      "bytes": 20477,
+      "sha256": "b11a961e4b506418556fa0976c229dbaa2b3ec1cffb538f0fd78e73158e4cfd4"
+    },
+    "docs/s10-p0-14-report.md": {
+      "bytes": 17009,
+      "sha256": "82bf0860e3b2cbf06d2983ce3e282d1b364c74322e905f03dccab551b13232b3"
+    },
+    "scripts/s10_p0_14_audit.py": {
+      "bytes": 11804,
+      "sha256": "03acd386777f2538b6015db04f8818a1a80c98996998eb6696b49c2cba9fae7d"
+    },
+    "scripts/s10_p0_14_browser.py": {
+      "bytes": 20226,
+      "sha256": "a5570cfdfdd2283dac2395558eaeb53ac6c3fce2cedcf3f6cb6204c86486af64"
+    },
+    "scripts/s10_p0_14_contract.py": {
+      "bytes": 15463,
+      "sha256": "2df01350c9e2608833918f87bc3e5fecfda72438915ea7395434a00ff7b62752"
+    },
+    "scripts/s10_p0_14_control.py": {
+      "bytes": 26447,
+      "sha256": "b4e0edf50168664c3767faa9b6a0c12c1abe31d026eb0733996d7d9baa585499"
+    },
+    "scripts/s10_p0_14_eligibility.py": {
+      "bytes": 14141,
+      "sha256": "eb94bb2a4077b13a18e52510b87358c72baf7ce6f5001ec4b4b4d4fcfbbd0e1b"
+    },
+    "scripts/s10_p0_14_evidence.py": {
+      "bytes": 11161,
+      "sha256": "16c8d2fcc3ef2ce5738ac92ff0eae4395a8d3bc54757a3a7f9711955c44e5379"
+    },
+    "scripts/s10_p0_14_preflight.py": {
+      "bytes": 16073,
+      "sha256": "f5c0521c4692f7e01f3e4e9796767b077520b0b549bf87cd1a98767fcbeec44a"
+    }
+  },
+  "scope": "new P0-14 only; index itself fixed by Git blob, excluded from self hash"
+}

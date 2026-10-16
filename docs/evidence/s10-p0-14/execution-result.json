@@ -1,0 +1,45 @@
+{
+  "CREATE": 1,
+  "Firefox": 1,
+  "Odoo_HTTP": 1,
+  "actual_connections": {
+    "maintenance": 1,
+    "source-after": 1,
+    "source-before": 1,
+    "target-after": 1,
+    "target-before": 1
+  },
+  "authorization": 6212000008,
+  "browser_counts": {
+    "ACQUIRE": 1,
+    "CLINICAL_GET": 2,
+    "CONFIRM": 1,
+    "FIREFOX_LAUNCH": 1,
+    "HEARTBEAT": 0,
+    "NATIVE_LOGIN_POST": 1,
+    "OTHER_POST": 0,
+    "PDF": 0,
+    "RELEASE": 1,
+    "STORE_SWITCH_POST": 0
+  },
+  "create_attempts": 1,
+  "firefox_engine_exits": [
+    {
+      "exit_code": "0",
+      "signal": "null"
+    }
+  ],
+  "firefox_engine_pids": [
+    96134
+  ],
+  "no_product_core_issue_project_mutation": true,
+  "odoo_log_sha256": "154c5e5e273a00d9db9c7cf15bce75fd402f3991e480e106b1bd1d5c34324c1a",
+  "odoo_pid": 96043,
+  "odoo_returncode": 0,
+  "source_after": "PASS",
+  "source_all643_exact": true,
+  "source_before": "PASS",
+  "status": "SCOPED_CODEX_SELF_TEST_COMPLETE_PENDING_GPT",
+  "target_after": "PASS",
+  "target_filestore_unchanged": true
+}

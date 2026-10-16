@@ -1,0 +1,136 @@
+{
+  "SQL_CREATE_HTTP_FIREFOX_POST": 0,
+  "authorization": 6212000008,
+  "base": "6c64403f9c015c669e50e750aff6e0e7a2eab3c0",
+  "checks": [
+    "saved_real_HTML_missing_execution_accepted_under_actor_idle_predicate",
+    "literal_zero_accepted_under_same_predicate",
+    "nonzero_execution_rejected",
+    "wrong_actor_execution_rejected",
+    "version_drift_rejected",
+    "fixed_QWeb_numeric_zero_is_omitted_string_zero_is_kept",
+    "actual_JS_Number_missing_is_NaN_and_falsy",
+    "new_session_wrong_write_uid_rejected",
+    "new_session_wrong_create_uid_rejected",
+    "new_session_wrong_store_rejected",
+    "new_session_uid7_from_native_create_switch_and_ORM_log_access",
+    "source_view_wrong_ydental_user_id",
+    "source_view_wrong_ydental_store_id",
+    "source_view_wrong_ydental_target_id",
+    "source_view_wrong_ydental_source",
+    "source_view_wrong_ydental_category",
+    "source_view_actual_controller_search_ORM_dispatch_S01_pure_builder_path_proved",
+    "redirect_request_response_and_server_count1_independent_of_route_callback0",
+    "native_timer_unmodified_saving_blocks_heartbeat_during_confirm_auto_release"
+  ],
+  "count": 19,
+  "current_runtime_qualification": "NOT_RUN",
+  "dependencies": {
+    "../odoo/addons/base/models/ir_qweb.py": "f80ca78702c43017bb094d5f1b345cbf2a8f3c886cbe20f6f49a1f3581329a65",
+    "../odoo/orm/models.py": "e84f13aeaf02b61f69a38f4e293400279334386fd7619e64f6a21a6b5a383668",
+    ".local/s00-b-deps/verify-lib/playwright/async_api/_generated.py": "4ce7017cc59fb0e5d84596cbbc5c614fd302716aa855ddeaaa21d9f8605f6178",
+    "ydental_access/models/ydental_access_service.py": "9654000038903522213303fcd9cdc64612cdd335deac6a96afd993c4dfd61132",
+    "ydental_access/models/ydental_access_session.py": "1d3d5ab9b30d7869c759697afee1bc623ba2ccf3832c9317ebb27bf3e59b9adf",
+    "ydental_access/models/ydental_access_source.py": "2236034b969fed2a2ceabf15d368a94a081930b0850b8bb0deb6a86fc8d1c517",
+    "ydental_clinical/controllers/clinical.py": "7b0f3a5f628de9cba389ea7ea8d261a6e999761dea8d645bde75dc5f9d6291bd",
+    "ydental_clinical/models/ydental_clinical_document.py": "963354107c1e5eae7a33ecaf7757ff772bca0f15889365a5d0d9cb4d8632280a",
+    "ydental_clinical/models/ydental_clinical_service.py": "bb601a4d231585281cf569def652f78205993cf2d73f8273ae2cf50d620f6709",
+    "ydental_clinical/static/src/document/document.js": "98c862a13ca0586cf038e01139258bb2aca7edfd20dc8785ecf85812adb67a30",
+    "ydental_clinical/views/ydental_clinical_templates.xml": "f485aad62fb2b731358a94f86f9eeac41904df9a8564eb2bdb0dea2407ea8400"
+  },
+  "evidence": {
+    "DOM": {
+      "QWeb_expression": "execution.id if execution else 0",
+      "no_HTML_or_product_changes": true,
+      "node_expression_only": {
+        "missingBranch": false,
+        "missingIsNaN": true,
+        "zeroBranch": false
+      },
+      "numeric_zero_attribute_emitted": false,
+      "runtime_condition": "current source and target must still prove actor7 has no serving/verify execution, doc1 handover/pending2",
+      "saved_HTML_metadata": {
+        "data-can-handover": "no",
+        "data-document": "1",
+        "data-heartbeat": "2",
+        "data-revision": "1",
+        "data-state": "pending",
+        "data-version": "2"
+      },
+      "string_zero_attribute_emitted": true
+    },
+    "heartbeat": {
+      "interval_seconds": 2,
+      "patch_timer": false,
+      "plan": "native acquire then immediate confirm; before-forward compact read-only gates; saving=true during confirm/release; any heartbeat request hard STOP, never forwarded",
+      "timeout_seconds": 600
+    },
+    "redirect": {
+      "POST_gate": "route validation once per operation plus request/response/server equality; unknown or duplicate stops before continue",
+      "browser_response_count": 1,
+      "new_counter": "synchronous BrowserContext request event unique Request identities, including redirected_from; response+server reconciliation",
+      "old_route_count": 0,
+      "saved_login_status": 303,
+      "saved_redirect": "/ydental/clinical?document_id=1",
+      "saved_server_count": 1
+    },
+    "session": {
+      "old_rows": "exact full rows; no additional writes allowed",
+      "old_template_id": 4,
+      "old_template_write_uid": 8,
+      "only_added_template_difference": "write_uid strictly7; other existing4 differences unchanged",
+      "required_new_create_uid": 7,
+      "required_new_write_uid": 7,
+      "saved_new_id": 16
+    },
+    "source.view": {
+      "absolute_cap": 2,
+      "exact_identity": {
+        "ydental_category": "medical",
+        "ydental_event": "source.view",
+        "ydental_result": "accepted",
+        "ydental_source": "source_model",
+        "ydental_store_id": 1,
+        "ydental_target_id": 1,
+        "ydental_target_model": "ydental.clinical.document",
+        "ydental_user_id": 7
+      },
+      "exact_initial_GET_source_views": 1,
+      "final_confirmed_GET_source_views": 0,
+      "frozen_plan_uses_stricter_total": 1,
+      "maximum_one_per_actual_GET": true,
+      "pending_doc_ids": [
+        1
+      ],
+      "pure_builder_matches_saved_audit335": true,
+      "purpose": "authorized source-read trace on pending-document listing, independent of explicit clinical.view",
+      "source_path": [
+        "clinical.workbench pending non-sudo search(store1,pending)",
+        "BaseModel.search -> self.search_fetch",
+        "YDentalAccessSource.search_fetch -> _source_audit",
+        "_source_audit -> _scope / _audit_values / immutable audit.create"
+      ]
+    }
+  },
+  "not_real_web_or_business_PASS": true,
+  "old_evidence_modified": false,
+  "saved_private_inputs": {
+    "clinical-get-0.html.json": {
+      "bytes": 15127,
+      "sha256": "b0c853594de6a3d15d7cf1e1b8f44a09d634e9d402d39ef2e2a5f83a5ed84552"
+    },
+    "response-native-login.json": {
+      "bytes": 647,
+      "sha256": "563364cb8a1bbd3a5322d3a434a08a595753e40aec565cfc74823f150632a1e3"
+    },
+    "target-after-rows.json": {
+      "bytes": 39186861,
+      "sha256": "9d4f6c0916ca40cffe5bc884006c2ba418281b70d3592bc0a999c6e1865e805c"
+    },
+    "w5-private-rows.json": {
+      "bytes": 39183341,
+      "sha256": "e10e30e14c2b5384ebc11a927cd672279c187a4401dd78d7ca987a9ff387ae05"
+    }
+  },
+  "status": "STATIC_REVIEW_PASS"
+}

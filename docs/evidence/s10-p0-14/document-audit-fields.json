@@ -1,0 +1,245 @@
+{
+  "all_old_audit_session_device_login_rows_exact": true,
+  "audits": [
+    {
+      "create_date": "2026-10-16T09:25:05.603211",
+      "create_uid": 7,
+      "id": 331,
+      "write_date": "2026-10-16T09:25:05.603211",
+      "write_uid": 7,
+      "ydental_after": null,
+      "ydental_before": null,
+      "ydental_category": "personnel",
+      "ydental_event": "login",
+      "ydental_reason": null,
+      "ydental_result": "accepted",
+      "ydental_source": "native_authenticated_login",
+      "ydental_store_id": null,
+      "ydental_target_id": 7,
+      "ydental_target_model": "res.users",
+      "ydental_user_id": 7
+    },
+    {
+      "create_date": "2026-10-16T09:25:05.953699",
+      "create_uid": 7,
+      "id": 332,
+      "write_date": "2026-10-16T09:25:05.953699",
+      "write_uid": 7,
+      "ydental_after": null,
+      "ydental_before": null,
+      "ydental_category": "personnel",
+      "ydental_event": "login.scope",
+      "ydental_reason": null,
+      "ydental_result": "accepted",
+      "ydental_source": "authenticated_session",
+      "ydental_store_id": null,
+      "ydental_target_id": 16,
+      "ydental_target_model": "ydental.access.session",
+      "ydental_user_id": 7
+    },
+    {
+      "create_date": "2026-10-16T09:25:05.953699",
+      "create_uid": 7,
+      "id": 333,
+      "write_date": "2026-10-16T09:25:05.953699",
+      "write_uid": 7,
+      "ydental_after": {
+        "store_id": 1
+      },
+      "ydental_before": {
+        "store_id": false
+      },
+      "ydental_category": "personnel",
+      "ydental_event": "store.switch",
+      "ydental_reason": null,
+      "ydental_result": "accepted",
+      "ydental_source": "interactive",
+      "ydental_store_id": 1,
+      "ydental_target_id": 16,
+      "ydental_target_model": "ydental.access.session",
+      "ydental_user_id": 7
+    },
+    {
+      "create_date": "2026-10-16T09:25:05.953699",
+      "create_uid": 7,
+      "id": 334,
+      "write_date": "2026-10-16T09:25:05.953699",
+      "write_uid": 7,
+      "ydental_after": null,
+      "ydental_before": null,
+      "ydental_category": "medical",
+      "ydental_event": "clinical.view",
+      "ydental_reason": null,
+      "ydental_result": "accepted",
+      "ydental_source": "clinical_document",
+      "ydental_store_id": 1,
+      "ydental_target_id": 1,
+      "ydental_target_model": "ydental.clinical.document",
+      "ydental_user_id": 7
+    },
+    {
+      "create_date": "2026-10-16T09:25:05.953699",
+      "create_uid": 7,
+      "id": 335,
+      "write_date": "2026-10-16T09:25:05.953699",
+      "write_uid": 7,
+      "ydental_after": null,
+      "ydental_before": null,
+      "ydental_category": "medical",
+      "ydental_event": "source.view",
+      "ydental_reason": null,
+      "ydental_result": "accepted",
+      "ydental_source": "source_model",
+      "ydental_store_id": 1,
+      "ydental_target_id": 1,
+      "ydental_target_model": "ydental.clinical.document",
+      "ydental_user_id": 7
+    },
+    {
+      "create_date": "2026-10-16T09:25:07.962454",
+      "create_uid": 7,
+      "id": 336,
+      "write_date": "2026-10-16T09:25:07.962454",
+      "write_uid": 7,
+      "ydental_after": null,
+      "ydental_before": null,
+      "ydental_category": "medical",
+      "ydental_event": "clinical.edit_acquire",
+      "ydental_reason": null,
+      "ydental_result": "accepted",
+      "ydental_source": "clinical_document",
+      "ydental_store_id": 1,
+      "ydental_target_id": 1,
+      "ydental_target_model": "ydental.clinical.document",
+      "ydental_user_id": 7
+    },
+    {
+      "create_date": "2026-10-16T09:25:09.76661",
+      "create_uid": 7,
+      "id": 337,
+      "write_date": "2026-10-16T09:25:09.76661",
+      "write_uid": 7,
+      "ydental_after": {
+        "version": 3
+      },
+      "ydental_before": {
+        "version": 2
+      },
+      "ydental_category": "medical",
+      "ydental_event": "clinical.confirm",
+      "ydental_reason": "",
+      "ydental_result": "accepted",
+      "ydental_source": "clinical_document",
+      "ydental_store_id": 1,
+      "ydental_target_id": 1,
+      "ydental_target_model": "ydental.clinical.document",
+      "ydental_user_id": 7
+    },
+    {
+      "create_date": "2026-10-16T09:25:11.464629",
+      "create_uid": 7,
+      "id": 338,
+      "write_date": "2026-10-16T09:25:11.464629",
+      "write_uid": 7,
+      "ydental_after": null,
+      "ydental_before": null,
+      "ydental_category": "medical",
+      "ydental_event": "clinical.edit_release",
+      "ydental_reason": null,
+      "ydental_result": "accepted",
+      "ydental_source": "clinical_document",
+      "ydental_store_id": 1,
+      "ydental_target_id": 1,
+      "ydental_target_model": "ydental.clinical.document",
+      "ydental_user_id": 7
+    },
+    {
+      "create_date": "2026-10-16T09:25:13.232875",
+      "create_uid": 7,
+      "id": 339,
+      "write_date": "2026-10-16T09:25:13.232875",
+      "write_uid": 7,
+      "ydental_after": null,
+      "ydental_before": null,
+      "ydental_category": "medical",
+      "ydental_event": "clinical.view",
+      "ydental_reason": null,
+      "ydental_result": "accepted",
+      "ydental_source": "clinical_document",
+      "ydental_store_id": 1,
+      "ydental_target_id": 1,
+      "ydental_target_model": "ydental.clinical.document",
+      "ydental_user_id": 7
+    }
+  ],
+  "document": {
+    "author": 7,
+    "company": 1,
+    "content_full_equal": true,
+    "content_sha256": "678e527db07b38518de9522b056d45c9a4f5f5da775d07e112c5360f0ced21aa",
+    "editor_released": true,
+    "id": 1,
+    "patient": 1,
+    "responsible": 7,
+    "saved_at": "2026-10-16T09:25:09",
+    "state": "confirmed",
+    "store": 1,
+    "version": 3
+  },
+  "fences": {
+    "ydental_intake_mutex": {
+      "after": 97,
+      "before": 94,
+      "only_changed_field": "ydental_revision"
+    },
+    "ydental_patient_mutex": {
+      "after": 108,
+      "before": 105,
+      "only_changed_field": "ydental_revision"
+    },
+    "ydental_queue_mutex": {
+      "after": 105,
+      "before": 102,
+      "only_changed_field": "ydental_revision"
+    },
+    "ydental_supply_mutex": {
+      "after": 150,
+      "before": 147,
+      "only_changed_field": "ydental_revision"
+    }
+  },
+  "frozen_final_full643_gate": "PASS",
+  "native_new_key_sha256": "708a59051d04646d035419b83c2395e3ddd00c18d21d5a1f4af7bd746d8fc26a",
+  "new_session": {
+    "actor": 7,
+    "create_uid": 7,
+    "different_template_fields": [
+      "create_date",
+      "id",
+      "write_date",
+      "write_uid",
+      "ydental_key_hash"
+    ],
+    "id": 16,
+    "revision": 1,
+    "store": 1,
+    "template_id": 4,
+    "template_write_uid": 8,
+    "write_uid": 7
+  },
+  "new_version": {
+    "create_uid": 7,
+    "id": 3,
+    "write_uid": 7,
+    "ydental_author_id": 7,
+    "ydental_kind": "confirm",
+    "ydental_number": 3,
+    "ydental_previous_id": 2,
+    "ydental_recorded_at": "2026-10-16T09:25:09"
+  },
+  "new_version_content_sha256": "678e527db07b38518de9522b056d45c9a4f5f5da775d07e112c5360f0ced21aa",
+  "old_versions1_2_full_rows_exact": true,
+  "orm_signaling_append_actual": 0,
+  "source_view_final_GET": 0,
+  "source_view_initial_GET": 1
+}

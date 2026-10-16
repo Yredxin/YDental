@@ -1,0 +1,287 @@
+{
+  "PASS": true,
+  "all_table_signatures": {
+    "account_move": {
+      "rows": 3,
+      "sha256": "11a5639398c75c43081478b224c028cd3db7cebedca32521aa3c65e89588dc88"
+    },
+    "account_move_line": {
+      "rows": 9,
+      "sha256": "fd411e91d50e555c18629cd548b391080ab8583d7e8a79b619b807dd1720cbbc"
+    },
+    "account_partial_reconcile": {
+      "rows": 2,
+      "sha256": "1f82acfb99c13d5d12468d95bfe758e544c1d0bd762e57868884fbbcdfc0bd9b"
+    },
+    "account_payment": {
+      "rows": 2,
+      "sha256": "a83306a1fc02630a2be566b9aa4d94ac0477ec52067e7c206f62a82c0c5676e3"
+    },
+    "hr_employee": {
+      "rows": 9,
+      "sha256": "44c92d3f0c0a0ef870b48ecf5411f4dd0afcdd35a1223e229e50fcc6ef619d96"
+    },
+    "hr_version": {
+      "rows": 9,
+      "sha256": "e4e66050a976581ae9b970bcd5568e1e234da3483d412bbaaee7cf9804f0ffcb"
+    },
+    "ir_config_parameter": {
+      "rows": 30,
+      "sha256": "09d40e5fccdc1eb11da39e2fb2421ab4bdec7af7a53472e75b265e95b0ebf524"
+    },
+    "ir_model_data": {
+      "rows": 25493,
+      "sha256": "4849ed515c541ecd21618553db9d949bdbb31a6c73f0b22bedbe9478b3ab7fd3"
+    },
+    "ir_module_module": {
+      "rows": 702,
+      "sha256": "01d37c815137e6da7ac1e059f761a06b804cd24bfd5a537ae42f1edd05a60aa6"
+    },
+    "ir_ui_view": {
+      "rows": 1600,
+      "sha256": "a9d7dc9d028ee358143e51e468d27daeb648d8ca15589211b69a72f0baa721c2"
+    },
+    "orm_signaling_default": {
+      "rows": 14,
+      "sha256": "c09f320b42a7970adfdc3c5238eb4261b8ca1bc2edb913ce35eb42b26fc6985a"
+    },
+    "res_company_users_rel": {
+      "rows": 13,
+      "sha256": "65be5b9ad73347509d3add231fabfd8b186ccf29d837d30325095d2219c4e26f"
+    },
+    "res_device_log": {
+      "rows": 6,
+      "sha256": "3ec5d706e295708de666f1361aae5bcf54e061d76578dfe663bba988e34d8e99"
+    },
+    "res_groups_implied_rel": {
+      "rows": 79,
+      "sha256": "d67cb2e66eb50fb5e75b053d05a7b4f0d02395f9fe6a9a7d5bb379b9b35cb115"
+    },
+    "res_groups_users_rel": {
+      "rows": 34,
+      "sha256": "998b45ca30c3c47ac4d615e40e47c34b8f783a2949de93a88668823a94cb1c8f"
+    },
+    "res_partner": {
+      "rows": 15,
+      "sha256": "2644df16ce05453f472635e28ac4c6a86427513c4c5d081cfa0e33d139171706"
+    },
+    "res_users": {
+      "rows": 13,
+      "sha256": "9b02dc2ef5ea2adbd7ba24dfa8d6312f72fbbbcf137598392a55d6de109baafb"
+    },
+    "res_users_log": {
+      "rows": 6,
+      "sha256": "b4dc38cb7d0afbece6b539df4863f36aa53fe19854be10ecf4c11f72d97cc9c6"
+    },
+    "res_users_ydental_access_capability_rel": {
+      "rows": 13,
+      "sha256": "93362f9f53de9d42796aed83f9cf3d0d14e6284a93ae7685471006f2e8cd6fdb"
+    },
+    "resource_resource": {
+      "rows": 9,
+      "sha256": "9426bebf7acdaa046120a4110e9554e2c149c036e2a1d1d46c5af519fc5933bf"
+    },
+    "ydental_access_audit": {
+      "rows": 330,
+      "sha256": "c5db15874d345f79c780d5a2b2b25b319318491ed25652dcf9d00865b8dcc3de"
+    },
+    "ydental_access_capability": {
+      "rows": 4,
+      "sha256": "68fa0fd4e4c2638634fdad62bae0f30e00086bb1a852b6b3ee9139e678d8a260"
+    },
+    "ydental_access_grant": {
+      "rows": 34,
+      "sha256": "db951aa701bf81374b58ec056770843dccad7b0a1bbe4f7de5a0a24373204338"
+    },
+    "ydental_access_membership": {
+      "rows": 16,
+      "sha256": "166c757bce2f2d6ba2d9573164f006b08a9ab40ba07a7e8e51005d7f697580a0"
+    },
+    "ydental_access_session": {
+      "rows": 15,
+      "sha256": "ba85abcb8209e4218fcf42118e0f44296b0ac304b1dccd3f4ebb3601eb7dfa84"
+    },
+    "ydental_access_store": {
+      "rows": 2,
+      "sha256": "7097e27a3c3bf00a9125674679e22cb13ea644d7714205544d691e4d550abc85"
+    },
+    "ydental_clinical_document": {
+      "rows": 1,
+      "sha256": "ca7eb4e47d76d9faef034153d080503a1266c4c3db5d9adb56bb174e862252af"
+    },
+    "ydental_clinical_version": {
+      "rows": 2,
+      "sha256": "b91362ccf5b6fb803cb668555cf9208885092d467ecd3c51bf230c12a62f3298"
+    },
+    "ydental_intake_catalog": {
+      "rows": 5,
+      "sha256": "54f5457110c8210c7b90e24b6ffb0a2cefde56828567664b68d272fb2f11fe64"
+    },
+    "ydental_intake_mapping": {
+      "rows": 9,
+      "sha256": "6ba8e43a78eda7a6a80cf0396e78ef96b7f8a9fda02ec651a82574eb25a256ee"
+    },
+    "ydental_intake_mutex": {
+      "rows": 1,
+      "sha256": "f734204f96ef9237d1fdfac2f16fc6261ba89b6219cbb9df819c6aac94c2de7e"
+    },
+    "ydental_intake_task": {
+      "rows": 5,
+      "sha256": "76ffb8736754bd643107a4596681cb91f2289c439f3881ca6880db926b9e1db2"
+    },
+    "ydental_patient_mutex": {
+      "rows": 1,
+      "sha256": "0c229f36bfae2215090fa90cb37e8d8f0b119688ee6318f56fc173d3ab60634b"
+    },
+    "ydental_patient_relation": {
+      "rows": 1,
+      "sha256": "63766de93346a5793bc4c8ac6bf36b27f29f9d7ae4190fe3121ea93e63d3d1d6"
+    },
+    "ydental_print_job": {
+      "rows": 0,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    "ydental_queue_execution": {
+      "rows": 4,
+      "sha256": "f47c87451f0d6131a916999d2b75572602851041578916a007787fda50c0d6af"
+    },
+    "ydental_queue_lease": {
+      "rows": 4,
+      "sha256": "6219f8a67c1f1876b4cfb4b6d11330ee7109d49a21e1cc42995e7b7d868275a8"
+    },
+    "ydental_queue_mutex": {
+      "rows": 1,
+      "sha256": "90fd719fc424280f9f301660e7531f187df024cd8504d767c10da01070c02cb2"
+    },
+    "ydental_settlement_close": {
+      "rows": 0,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    "ydental_settlement_refund": {
+      "rows": 0,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+    },
+    "ydental_settlement_source": {
+      "rows": 4,
+      "sha256": "b4ffe89de20a1ed9573380ed67645765b76ecba767b5147b17cd7b25bd8222c1"
+    },
+    "ydental_space_area": {
+      "rows": 9,
+      "sha256": "d95d66e350647643ce06b79674fd9f33b8dd815d8c4e83dd14deaec95c2e48ae"
+    },
+    "ydental_space_floor": {
+      "rows": 2,
+      "sha256": "0acd198c2bf2d263f85a17beb9facdaa2434ce5f09b05744bb57fcce4d23f0b9"
+    },
+    "ydental_space_station": {
+      "rows": 10,
+      "sha256": "67eec50f07943e1ea02f9d94150bea90be88f131e175df0fe5de5381039d5f55"
+    },
+    "ydental_space_station_add_rel": {
+      "rows": 10,
+      "sha256": "f2954df2f2e018d94b21e20c49e48540fda06758b83279f5ed1821b7f3b1d6f1"
+    },
+    "ydental_supply_mutex": {
+      "rows": 1,
+      "sha256": "bc01410339e8693e2fad7fb19c9ccd585fcc476c461136dad8d362203ee3a620"
+    },
+    "ydental_treatment_fee": {
+      "rows": 4,
+      "sha256": "93a338b58c18ebcef8a92b2608c3b0cec31f2e2adb0f1574bbeeba4b54aefe6a"
+    }
+  },
+  "audits": [],
+  "backend_pid": 1139528,
+  "capture_scope": "minimal",
+  "changed_tables": [],
+  "checked_tables": [
+    "account_move",
+    "account_move_line",
+    "account_partial_reconcile",
+    "account_payment",
+    "hr_employee",
+    "hr_version",
+    "ir_config_parameter",
+    "ir_model_data",
+    "ir_module_module",
+    "ir_ui_view",
+    "orm_signaling_default",
+    "res_company_users_rel",
+    "res_device_log",
+    "res_groups_implied_rel",
+    "res_groups_users_rel",
+    "res_partner",
+    "res_users",
+    "res_users_log",
+    "res_users_ydental_access_capability_rel",
+    "resource_resource",
+    "ydental_access_audit",
+    "ydental_access_capability",
+    "ydental_access_grant",
+    "ydental_access_membership",
+    "ydental_access_session",
+    "ydental_access_store",
+    "ydental_clinical_document",
+    "ydental_clinical_version",
+    "ydental_intake_catalog",
+    "ydental_intake_mapping",
+    "ydental_intake_mutex",
+    "ydental_intake_task",
+    "ydental_patient_mutex",
+    "ydental_patient_relation",
+    "ydental_print_job",
+    "ydental_queue_execution",
+    "ydental_queue_lease",
+    "ydental_queue_mutex",
+    "ydental_settlement_close",
+    "ydental_settlement_refund",
+    "ydental_settlement_source",
+    "ydental_space_area",
+    "ydental_space_floor",
+    "ydental_space_station",
+    "ydental_space_station_add_rel",
+    "ydental_supply_mutex",
+    "ydental_treatment_fee"
+  ],
+  "clinical_action_commits": 0,
+  "clinical_views": 0,
+  "document_state": "pending",
+  "document_version": 2,
+  "economic_and_other_tables_unchanged": [
+    "account_move",
+    "account_move_line",
+    "account_partial_reconcile",
+    "account_payment",
+    "ir_config_parameter",
+    "ir_model_data",
+    "ir_module_module",
+    "ir_ui_view",
+    "res_company_users_rel",
+    "res_groups_implied_rel",
+    "res_groups_users_rel",
+    "res_users_ydental_access_capability_rel",
+    "ydental_access_capability",
+    "ydental_access_grant",
+    "ydental_access_membership",
+    "ydental_access_store",
+    "ydental_intake_catalog",
+    "ydental_intake_mapping",
+    "ydental_intake_task",
+    "ydental_patient_relation",
+    "ydental_print_job",
+    "ydental_queue_execution",
+    "ydental_queue_lease",
+    "ydental_settlement_close",
+    "ydental_settlement_refund",
+    "ydental_settlement_source",
+    "ydental_space_area",
+    "ydental_space_floor",
+    "ydental_space_station",
+    "ydental_space_station_add_rel",
+    "ydental_treatment_fee"
+  ],
+  "full643_or_economic_proof": false,
+  "old_versions_full_rows_unchanged": true,
+  "phase": "startup",
+  "snapshot_number": 2
+}

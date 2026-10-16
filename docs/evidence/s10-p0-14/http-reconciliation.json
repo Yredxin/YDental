@@ -1,0 +1,122 @@
+{
+  "POST_network": [
+    "/web/login",
+    "/ydental/clinical/action",
+    "/ydental/clinical/action",
+    "/ydental/clinical/action"
+  ],
+  "POST_response": [
+    "/web/login",
+    "/ydental/clinical/action",
+    "/ydental/clinical/action",
+    "/ydental/clinical/action"
+  ],
+  "POST_server": [
+    "/web/login",
+    "/ydental/clinical/action",
+    "/ydental/clinical/action",
+    "/ydental/clinical/action"
+  ],
+  "all_equal": true,
+  "clinical_GET_counter": 2,
+  "clinical_GET_network": 2,
+  "clinical_GET_response": 2,
+  "clinical_GET_server": 2,
+  "server_requests": [
+    {
+      "method": "GET",
+      "path": "/web/login",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/web/assets/ed6b35f/web.material_symbols_outlined.min.woff2",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/web/assets/c58ad13/web.odoo_ui_icons.min.woff2",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/web/assets/db959f3/web.assets_frontend_minimal.min.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/web/assets/15f5270/web.assets_frontend.min.css",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/web/assets/c5332a1/web.assets_frontend_lazy.min.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/website/translations",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/web/login",
+      "status": 303
+    },
+    {
+      "method": "GET",
+      "path": "/ydental/clinical",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/ydental_clinical/static/src/document/document.css",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/ydental_clinical/static/src/document/document.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/web/assets/15f5270/web.assets_frontend.min.css",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/ydental/clinical/action",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/ydental/clinical/action",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/ydental/clinical/action",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/ydental/clinical",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/ydental_clinical/static/src/document/document.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/ydental_clinical/static/src/document/document.css",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/web/assets/15f5270/web.assets_frontend.min.css",
+      "status": 200
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "UI_language_observed": "English; no new translation/full language acceptance claimed",
+  "no_DOM_attribute_injection": true,
+  "no_image_upload_to_GitHub": true,
+  "real_saved_HTML": {
+    "1": {
+      "HTML_private_file_sha256": "244c1fcd2c4778dbc9cb38bd4cb6343f70dee7bb25fff6aef1112dfee012f195",
+      "content_equal": true,
+      "metadata": {
+        "data-can-handover": "no",
+        "data-document": "1",
+        "data-heartbeat": "2",
+        "data-revision": "1",
+        "data-state": "pending",
+        "data-version": "2"
+      },
+      "pending_rows": 1,
+      "status": 200,
+      "version_rows": 2
+    },
+    "2": {
+      "HTML_private_file_sha256": "9d309f6924237b08cb5e83dd6f5529d668c8e4136db8dfd4f15d2cebeb949261",
+      "content_equal": true,
+      "metadata": {
+        "data-can-handover": "no",
+        "data-document": "1",
+        "data-heartbeat": "2",
+        "data-revision": "1",
+        "data-state": "confirmed",
+        "data-version": "3"
+      },
+      "pending_rows": 0,
+      "status": 200,
+      "version_rows": 3
+    }
+  },
+  "screenshots": [
+    {
+      "bytes": 258336,
+      "name": "acquired-before-confirm.png",
+      "sha256": "4514f55b3999ec21957ba68878385ffce737c55ed8eadfeeaa489125206f0691",
+      "visually_reviewed": true
+    },
+    {
+      "bytes": 262088,
+      "name": "before-acquire.png",
+      "sha256": "e1327d3b7365723b566c657d20c3f3c4d050e6765cfbe93824a2ebe4fd3dfd52",
+      "visually_reviewed": true
+    },
+    {
+      "bytes": 258181,
+      "name": "confirmed-before-release.png",
+      "sha256": "3b2aa8c5a213787b5870f3318048e0289fc36a9f806273cb5f9cf41439cb8f3d",
+      "visually_reviewed": true
+    },
+    {
+      "bytes": 265208,
+      "name": "final-confirmed-v3.png",
+      "sha256": "5302dd2a29a085c6422cbd155432c1e5b195b02c3d534e916d9ebe55f2f993b9",
+      "visually_reviewed": true
+    },
+    {
+      "bytes": 258841,
+      "name": "released-before-final-get.png",
+      "sha256": "e032f6b5c743907ec0456352b2c8b17a7163035b717d06b209f2ab0be2b0efc9",
+      "visually_reviewed": true
+    }
+  ],
+  "visual_result": "5 actual native screenshots reviewed; final confirmed3/three authored versions/empty pending list/read-only released editor; transient pre-navigation header/history retain old page while server-version is3"
+}
