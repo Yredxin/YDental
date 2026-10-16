@@ -1,0 +1,37 @@
+{
+  "latest_comment_authorization_unchanged": true,
+  "observations": {
+    "comments34-last": {
+      "count": 17,
+      "last_id": 6210207391,
+      "new_after_auth": []
+    },
+    "issue23": {
+      "body_same": true,
+      "comments": 3,
+      "state": "open",
+      "updated_at": "2026-10-12T13:58:17Z"
+    },
+    "issue34": {
+      "error": "URLError"
+    },
+    "issue35": {
+      "error": "URLError"
+    }
+  },
+  "recovered_issue_observations": {
+    "34": {
+      "body_same": true,
+      "comments": 217,
+      "state": "open",
+      "updated_at": "2026-10-16T07:15:34Z"
+    },
+    "35": {
+      "body_same": true,
+      "comments": 0,
+      "state": "open",
+      "updated_at": "2026-10-11T06:01:31Z"
+    }
+  },
+  "scope": "pre-commit GitHub re-read; partial failures retained"
+}

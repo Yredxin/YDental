@@ -1,0 +1,66 @@
+{
+  "current_source_identity_or_signature_verified": false,
+  "files": {
+    "docs/evidence/s10-e2e-w5-ro1-r1/read-only-sql.json": {
+      "bytes": 22774,
+      "sha256": "ca2a304fae2918ed91005552c65de21dacdc6a18707d01a16bcabe59a0c06c73"
+    },
+    "docs/evidence/s10-p0-10/read-only-sql.json": {
+      "bytes": 6904870,
+      "sha256": "3bbc7130ed4fa3575a1f4ee8e5ca527781c366bbddcaf6de0eb3d8853e0f65ea"
+    },
+    "docs/evidence/s10-p0-11/eligibility-corrected.json": {
+      "bytes": 3882,
+      "sha256": "dcbcba1268358bcf00e30fa59b9dfa6cb2e73eff63aeedf1ea88bb5911d0e85b"
+    },
+    "docs/evidence/s10-p0-11/preflight.json": {
+      "bytes": 2530,
+      "sha256": "5ba443a2fe838f2cc8e1b12c4be562f679dfec71a0d367e90ed713c8c51c9cf6"
+    },
+    "docs/evidence/s10-p0-11/read-only-sql.json": {
+      "bytes": 358728,
+      "sha256": "3506708c4c88d10d555a4ca5d3074a52294db3e68a7dfa21a21d8711b50a93ee"
+    },
+    "scripts/s10_p0_11_control.py": {
+      "bytes": 21579,
+      "sha256": "1f8b62d4de5a6264f5060e9d945ecaf497f1b7ace1a2406cd9d4cf62eae796ec"
+    },
+    "scripts/s10_p0_11_readonly.py": {
+      "bytes": 12187,
+      "sha256": "4d5d0d678ea7c02f48ec2812393779325785de15292180e1f27cd361d19220a6"
+    }
+  },
+  "historical_eligibility_checks": 25,
+  "historical_public_tables": 643,
+  "historical_source_fee_links": [
+    {
+      "amount": 20.0,
+      "fee_id": 4,
+      "invoice_id": 1,
+      "line_id": 1,
+      "source_id": 1
+    },
+    {
+      "amount": 40.0,
+      "fee_id": 3,
+      "invoice_id": 1,
+      "line_id": 2,
+      "source_id": 2
+    },
+    {
+      "amount": 80.0,
+      "fee_id": 2,
+      "invoice_id": 1,
+      "line_id": 3,
+      "source_id": 3
+    },
+    {
+      "amount": 600.0,
+      "fee_id": 1,
+      "invoice_id": 1,
+      "line_id": 4,
+      "source_id": 4
+    }
+  ],
+  "scope": "fixed historical files only; no current W5 SQL or medical-content access"
+}

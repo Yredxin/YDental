@@ -1,0 +1,37 @@
+{
+  "base": "0b64b1b143ca99dac0404d202d410a782d08421f",
+  "files": {
+    "docs/evidence/s10-p0-12/artifact-validation.json": {
+      "bytes": 507,
+      "sha256": "6760c05d0d47f5c80686c6879164be0b57a4f4a345b6007ba07214477c71c5c7"
+    },
+    "docs/evidence/s10-p0-12/github-end.json": {
+      "bytes": 791,
+      "sha256": "d59de815cd9419d96ecd3334385d6603413c8b09d0356778c43358435f9a87fa"
+    },
+    "docs/evidence/s10-p0-12/github-start.json": {
+      "bytes": 113787,
+      "sha256": "ffb054fdff7c5b6b3f2abf0d17d0da3c31fc121b6ab87268e8442e8282378987"
+    },
+    "docs/evidence/s10-p0-12/historical-references.json": {
+      "bytes": 1885,
+      "sha256": "07bd5ed9adafec342162745566a399125533c7a74490acf20104745a4be72130"
+    },
+    "docs/evidence/s10-p0-12/offline-contract.json": {
+      "bytes": 2900,
+      "sha256": "c7d1c28e9e99db006c3b45109ff9aebcb683bd19a027fe16ea9bcb3ab5b26af5"
+    },
+    "docs/evidence/s10-p0-12/verification.json": {
+      "bytes": 1508,
+      "sha256": "d0b952b52ab73b79efc9ac7df07edaf9646c7c10c0e94d8994535e6c20b14875"
+    },
+    "docs/s10-p0-12-blocked-report.md": {
+      "bytes": 9145,
+      "sha256": "2eee44b3ef7627acfcb2ee7cacf466772eb0cca3fa303e145396a43c24131b99"
+    },
+    "scripts/s10_p0_12_offline_contract.py": {
+      "bytes": 10548,
+      "sha256": "b22fd50de591cd2066284dcbef1b4663984301313d4487b46bd0012a0f01060a"
+    }
+  }
+}

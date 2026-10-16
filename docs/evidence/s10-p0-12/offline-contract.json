@@ -1,0 +1,61 @@
+{
+  "actual_budget": {
+    "ACQUIRE_POST": 0,
+    "CLINICAL_GET": 0,
+    "CONFIRM_POST": 0,
+    "CREATE": 0,
+    "DIRECT_BUSINESS_ORM": 0,
+    "FIREFOX_LAUNCH": 0,
+    "FUNDS_STOCK_WRITE": 0,
+    "HEARTBEAT_POST": 0,
+    "MAINTENANCE_SQL_CONNECTION": 0,
+    "NATIVE_LOGIN_POST": 0,
+    "ODOO_HTTP_LAUNCH": 0,
+    "ODOO_SHELL_UPGRADE_INSTALL_INIT_TEST": 0,
+    "OTHER_BUSINESS_POST": 0,
+    "PDF": 0,
+    "RELEASE_POST": 0,
+    "STORE_SWITCH_POST": 0,
+    "SUDO": 0,
+    "TARGET_SQL_CONNECTION": 0,
+    "W5_SQL_CONNECTION": 0
+  },
+  "analysis": [
+    "A separate maintenance CREATE backend conflicts with a still-connected W5 read-only backend.",
+    "Closing the sole W5 connection before CREATE leaves no connection budget for an independently observed post-Web W5 full-table snapshot.",
+    "Keeping one REPEATABLE READ snapshot does not provide a fresh post-Web observation.",
+    "PostgreSQL exempts the CREATE caller itself from the source-backend check. Using that exception would require executing DDL on the W5 connection outside its strictly read-only transaction contract.",
+    "Clone signatures and filesystem seals do not substitute for a new source-database full-table observation.",
+    "No source connection, CREATE, executable Web plan, or execution checkpoint was attempted."
+  ],
+  "authorization": 6210207391,
+  "authorization_body_sha256": "3629c84cd425700cad20e1f74dcd900b05f7bc3e0b14b21db3b6b78360e5d6df",
+  "candidate_p011_source_connections_if_run_after_its_capture": 4,
+  "evidence_level": "offline contract analysis; not a PostgreSQL execution failure",
+  "exact_authorization_fragments": {
+    "clone_from_source": "从旧W5只读模板",
+    "one_strict_source_connection": "一次独立W5严格READ ONLY / REPEATABLE READ只读SQL连接",
+    "source_after_proof": "旧W5全程永久只读/前后全表SHA不变",
+    "source_connection_budget": "W5只读SQL连接≤1"
+  },
+  "execution_checkpoint": "NOT_PUBLISHED_OFFLINE_PLANNING_BLOCKED",
+  "freeze_or_budget_relaxation": false,
+  "p011_entry_points_executed": false,
+  "primary_sources": [
+    {
+      "supports": "CREATE outside transaction blocks; other template sessions prevent cloning",
+      "url": "https://www.postgresql.org/docs/current/sql-createdatabase.html"
+    },
+    {
+      "supports": "REPEATABLE READ snapshot semantics; CREATE disallowed in read-only transactions",
+      "url": "https://www.postgresql.org/docs/current/sql-set-transaction.html"
+    },
+    {
+      "supports": "the current CREATE caller is exempt; other source backends are checked",
+      "url": "https://github.com/postgres/postgres/blob/REL_17_STABLE/src/backend/commands/dbcommands.c#L1271"
+    }
+  ],
+  "reason": "STRICT_SINGLE_W5_CONNECTION_AND_POST_WEB_SOURCE_FULL_TABLE_PROOF_NOT_JOINTLY_PLANNABLE",
+  "script_sha256": "b22fd50de591cd2066284dcbef1b4663984301313d4487b46bd0012a0f01060a",
+  "status": "BLOCKED_PREFLIGHT"
+}

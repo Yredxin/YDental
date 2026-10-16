@@ -1,0 +1,13 @@
+{
+  "all_actual_budgets_zero": true,
+  "all_json_and_python_parse": true,
+  "all_new_files_allowed": true,
+  "base": "0b64b1b143ca99dac0404d202d410a782d08421f",
+  "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "current_w5_or_clinical_pass_claimed": false,
+  "delivery_api_readback": "PENDING; private receipt then immediate STOP",
+  "frozen_offline_script_sha_matches": true,
+  "private_literal_scan": true,
+  "status": "PASS_FOR_OFFLINE_BLOCKED_ARTIFACTS_ONLY",
+  "tracked_historical_changes": []
+}
