@@ -97,7 +97,16 @@ class PackageBudget(Budget):
                 raise RuntimeError('FRAMEWORK6_RAW_STORAGE_BOUND')
         elif self.path.exists() and time.time() - strict_loads(self.path.read_bytes())['started_epoch'] > 8 * 3600:
             raise RuntimeError('RUN_WINDOW_EXHAUSTED')
-        roots = (LEGACY_EXEC_ROOT, EXEC_ROOT, RUN_ROOT) + ((self.profile.root,) if self.profile else ())
+        roots = (LEGACY_EXEC_ROOT, EXEC_ROOT, RUN_ROOT)
+        if self.profile is not None:
+            # The complete retained LC2 package; metadata only, no old contents.
+            roots = tuple(ROOT / '.local' / name for name in (
+                's10-lc2-safety-triage-20261017-01', 's10-lc2-framework6-20261017-01',
+                's10-lc2-r12-20261017', 's10-lc2-caller-adapter-20261017-02',
+                's10-lc2-plan-20261017', 's10-lc2-code-rework-20261017-01',
+                's10-lc2', 's10-lc2-main-a-20261018-01', 's10-lc2-exec-20261017',
+            )) + (self.profile.root,)
+        roots = tuple(dict.fromkeys(roots))
         size = sum(path.stat().st_size for base in roots if base.exists()
                    for path in base.rglob('*') if path.is_file() and not path.is_symlink())
         if size >= RAW_LIMIT * .9:

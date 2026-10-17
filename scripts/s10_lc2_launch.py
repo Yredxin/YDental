@@ -21,14 +21,14 @@ from s10_lc2_targets import (EXEC_ROOT, LEGACY_EXEC_ROOT, PLAN, RUN_ROOT, Packag
 from s10_lc2_process_guard import ObservationBlocked, ProcessLogGuard
 from s10_lc2_framework_caller import (GRANT_ENV, GRANT_NAME, check_framework_failure,
                                       framework_failure_facts, issue_framework_grant)
-from s10_lc2_task_profile import FRAMEWORK6, MAIN_A
+from s10_lc2_task_profile import FRAMEWORK6, MAIN_A_AUTONOMY, MAIN_A_PROFILES
 
 ROOT = Path(__file__).resolve().parents[1]
 PYTHON = ROOT.parent / '.venv/bin/python'
 STOP = EXEC_ROOT / 'HARD-STOP.json'
 ACTION_ROLES = {'scratch-tests': 'scratch', 'upgrade': 'main', 'main-upgrade': 'main',
                 'main-service': 'main', 'scratch-service': 'scratch', 'scratch-upgrade': 'scratch',
-                'main-fixture': 'main', 'scratch-fixture': 'scratch'}
+                'main-fixture': 'main', 'scratch-fixture': 'scratch', 'main-credential-setup': 'main'}
 
 
 def keep_primary(directory, error, *, stage, root_event_id=None):
@@ -239,6 +239,13 @@ class OwnedApplication:
         self.stop_path = self.exec_root / 'HARD-STOP.json' if profile is not None else STOP
         extra = {'profile': profile} if profile is not None else {}
         self.action = action
+        self.credential_script_sha256 = None
+        if action == 'main-credential-setup':
+            self.credential_script_sha256 = strict_loads(Path(approval).read_bytes()).get(
+                'frozen_files', {}).get('scripts/s10_lc2_main_a_credentials.py')
+            if (not isinstance(self.credential_script_sha256, str)
+                    or len(self.credential_script_sha256) != 64):
+                raise RuntimeError('MAIN_CREDENTIAL_SCRIPT_MUST_BE_FROZEN')
         self.marker = candidate_marker(marker, approval=approval, product_commit=product_commit,
                                        test_commit=test_commit, action=action, **extra)
         self.run, options = launch_guard(self.marker, approval=approval, product_commit=product_commit,
@@ -256,12 +263,12 @@ class OwnedApplication:
         identity_probe(self.marker, options, budget=self.budget, directory=self.directory)
         self.native_logfile = self.directory / 'odoo-native.log'
         command = [str(PYTHON), str(ROOT.parent / 'odoo-bin')]
-        if action in {'main-fixture', 'scratch-fixture'}:
+        if action in {'main-fixture', 'scratch-fixture', 'main-credential-setup'}:
             command += ['shell']
         self.command = command + ['-c', str(self.run / 'odoo.conf'), '--logfile', str(self.native_logfile),
                                   '--db-system=' + self.marker['database'],
                                   '--log-handler=werkzeug:WARNING,odoo.http.server:CRITICAL']
-        if action in {'main-fixture', 'scratch-fixture'}:
+        if action in {'main-fixture', 'scratch-fixture', 'main-credential-setup'}:
             self.command += ['--no-http']
         self.process = None
         self.streams = []
@@ -294,6 +301,7 @@ class OwnedApplication:
             'main-upgrade': ('--stop-after-init', '--load-language=zh_CN', '-u', 'ydental_settlement'),
             'scratch-upgrade': ('--stop-after-init', '--load-language=zh_CN', '-u', 'ydental_settlement'),
             'main-service': (), 'scratch-service': (), 'main-fixture': (), 'scratch-fixture': (),
+            'main-credential-setup': (),
         }
         candidates = {allowed.get(self.action)}
         if profile is not None and profile.message_id == FRAMEWORK6:
@@ -312,8 +320,17 @@ class OwnedApplication:
                     or len(pass_fds) != 2 or len(set(pass_fds)) != 2
                     or any(not stat.S_ISFIFO(os.fstat(fd).st_mode) for fd in pass_fds)):
                 raise ValueError('FIXTURE_STDIN_AND_ANONYMOUS_PIPES_REQUIRED')
+        elif self.action == 'main-credential-setup':
+            expected_stdin = ROOT / 'scripts/s10_lc2_main_a_credentials.py'
+            if (profile is None or profile.message_id != MAIN_A_AUTONOMY
+                    or stdin_path is None or Path(stdin_path).resolve() != expected_stdin
+                    or pass_fds or expected_stdin.is_symlink()
+                    or hashlib.sha256(expected_stdin.read_bytes()).hexdigest()
+                        != self.credential_script_sha256):
+                raise ValueError('MAIN_CREDENTIAL_SETUP_FIXED_STDIN_REQUIRED')
         elif stdin_path is not None or pass_fds:
             raise ValueError('NON_FIXTURE_STDIN_FORBIDDEN')
+        has_stdin = fixture or self.action == 'main-credential-setup'
         with socket.socket() as reservation:
             reservation.bind(('127.0.0.1', self.marker['port']))
         self.budget.consume('odoo_start')
@@ -334,8 +351,8 @@ class OwnedApplication:
                   'native_postgres_dbname_fallback_allowance': 1 if profile is not None else 0,
                   'native_existence_actual_connections': 'UNKNOWN',
                   'native_system_connection_evidence_layer': 'SOURCE_INFERRED_ALLOWANCE_NOT_ACTUAL_COUNT',
-                  'stdin_sha256': hashlib.sha256(expected_stdin.read_bytes()).hexdigest() if fixture else None})
-        stdin = expected_stdin.open('rb') if fixture else subprocess.DEVNULL
+                  'stdin_sha256': hashlib.sha256(expected_stdin.read_bytes()).hexdigest() if has_stdin else None})
+        stdin = expected_stdin.open('rb') if has_stdin else subprocess.DEVNULL
         self.started = time.monotonic()
         try:
             bind_dispatch_owner(self, **({'profile': profile} if profile is not None else {}))
@@ -419,7 +436,7 @@ class OwnedApplication:
 
     def check(self, *, allow_starting=False):
         self.budget.check_storage()
-        maximum = 1200 if getattr(getattr(self, 'profile', None), 'message_id', None) == MAIN_A else 1800
+        maximum = 1200 if getattr(getattr(self, 'profile', None), 'message_id', None) in MAIN_A_PROFILES else 1800
         if time.monotonic() - self.started > maximum:
             self._stop('OWNED_SERVICE_WINDOW_EXHAUSTED', pid=self.process.pid)
             raise TimeoutError('OWNED_SERVICE_WINDOW_EXHAUSTED')
@@ -465,7 +482,7 @@ class OwnedApplication:
             'transport_access_error_detail_retained': False})
 
     def wait(self, timeout):
-        if getattr(getattr(self, 'profile', None), 'message_id', None) == MAIN_A:
+        if getattr(getattr(self, 'profile', None), 'message_id', None) in MAIN_A_PROFILES:
             timeout = min(timeout, 1200)
         try:
             while self.process.poll() is None:

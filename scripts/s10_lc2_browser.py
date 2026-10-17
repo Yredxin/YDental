@@ -23,7 +23,7 @@ import uuid
 from s10_lc2_evidence import PROTECTED, save_once
 from s10_lc2_http import _private_directory, _save_bytes, _redacted_json, main_a_request_boundary
 from s10_lc2_supervisor import save_primary
-from s10_lc2_task_profile import MAIN_A, MAIN
+from s10_lc2_task_profile import MAIN_A_AUTONOMY, MAIN_A_PROFILES, MAIN
 
 
 _DATABASE = re.compile(r'ydental_s10_test_[0-9]{14}_[a-f0-9]{8}\Z')
@@ -173,7 +173,7 @@ class BrowserSession:
         self.playwright_root = Path(playwright_root) if playwright_root else root / '.local/s00-b-deps/verify-lib'
         self.base_url, self.database, self.budget = base_url, database, budget
         self.task_profile = getattr(budget, 'profile', None)
-        if self.task_profile is not None and self.task_profile.message_id == MAIN_A:
+        if self.task_profile is not None and self.task_profile.message_id in MAIN_A_PROFILES:
             self.task_profile.validate_target(database, 2144129, parsed.port)
             if set(owned_targets) != {MAIN}:
                 raise BrowserBoundaryError('MAIN_A_BROWSER_TARGET_SCOPE_INVALID')
@@ -229,9 +229,13 @@ class BrowserSession:
 
     def _request_allowed(self, request):
         path = self._target_path(request.url)
-        if self.task_profile is not None and self.task_profile.message_id == MAIN_A:
+        if self.task_profile is not None and self.task_profile.message_id in MAIN_A_PROFILES:
             self.task_profile.verify()
-            if self.case_id != 'A-ORIGINAL' or path == '/ydental/clinical':
+            allowed_cases = {'A-ORIGINAL'}
+            if self.task_profile.message_id == MAIN_A_AUTONOMY:
+                allowed_cases.add('A-EDITOR')
+            if (self.case_id not in allowed_cases
+                    or path == '/ydental/clinical' and self.task_profile.message_id != MAIN_A_AUTONOMY):
                 raise BrowserBoundaryError('MAIN_A_BROWSER_CASE_FORBIDDEN')
             form = None
             if request.method == 'POST':
@@ -274,6 +278,11 @@ class BrowserSession:
         if path == '/ydental/settlement/action' and self._allow_invalid_settlement:
             if parse_qs(body, keep_blank_values=True).get('operation') == [_INVALID_OPERATION]:
                 return path
+        if (path == '/ydental/clinical/action' and self.task_profile is not None
+                and self.task_profile.message_id == MAIN_A_AUTONOMY
+                and self.case_id == 'A-EDITOR'):
+            # The exact acquire/release payload already passed MAIN-A's gate.
+            return path
         if path == '/ydental/clinical/action' and self._allow_invalid_editor:
             form = parse_qs(body, keep_blank_values=True)
             try:
@@ -952,7 +961,7 @@ async def run_main_a_browser(*, base_url, database, owned_targets, budget, direc
                              original_sha256, patient_id, **session_options):
     """Only the authorized MAIN-A existing-v1 workbench click and download."""
     profile = getattr(budget, 'profile', None)
-    if (profile is None or profile.message_id != MAIN_A
+    if (profile is None or profile.message_id not in MAIN_A_PROFILES
             or (store_id, invoice_id, original_id, patient_id) != (1, 1, 1, 1)
             or original_sha256 != '05928780e7d97a06cf29019634f64b010eb4994c2f1c5032d561008a50b059b4'):
         raise BrowserBoundaryError('MAIN_A_ORIGINAL_SCOPE_INVALID')

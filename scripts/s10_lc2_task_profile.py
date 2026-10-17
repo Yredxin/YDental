@@ -9,6 +9,8 @@ import time
 ROOT = Path(__file__).resolve().parents[1]
 FRAMEWORK6 = 'YD-S10-LC2-FRAMEWORK6-20261017-01'
 MAIN_A = 'YD-S10-LC2-MAIN-A-20261018-01'
+MAIN_A_AUTONOMY = 'YD-S10-LC2-MAIN-A-20261018-02'
+MAIN_A_PROFILES = frozenset({MAIN_A, MAIN_A_AUTONOMY})
 SCRATCH = 'ydental_s10_test_20261017105432_ce6dcbf8'
 MAIN = 'ydental_s10_test_20261017105432_810a7d9c'
 OLD_EPOCH = 1792238721.801
@@ -20,6 +22,8 @@ MAIN_A_LIMITS = {'odoo_start': 3, 'target_ro': 8, 'http': 200,
 MAIN_A_BASELINE = {'accident_ro': 2, 'create': 2, 'maintenance': 1,
                    'odoo_start': 2, 'target_ro': 9, 'http': 1,
                    'firefox': 0, 'original_get': 0}
+MAIN_A_AUTONOMY_LIMITS = MAIN_A_LIMITS | {'odoo_start': 4}
+MAIN_A_AUTONOMY_BASELINE = MAIN_A_BASELINE | {'target_ro': 11}
 _SPECS = {
     FRAMEWORK6: ('s10-lc2-framework6-20261017-01', 1792250152.972942,
                  'EXISTING_SCRATCH_NATIVE_FRAMEWORK_ONLY',
@@ -27,6 +31,9 @@ _SPECS = {
     MAIN_A: ('s10-lc2-main-a-20261018-01', 1792277998.753601,
              'EXISTING_MAIN_DOCUMENT_AND_ORIGINAL_CLOSEOUT',
              '72ac77e0c73695fdfeb50326bbae1dcb27407e04'),
+    MAIN_A_AUTONOMY: ('s10-lc2-main-a-20261018-02', 1792279870.0,
+                      'EXISTING_MAIN_TEST_CREDENTIAL_SETUP_AND_A_CLOSEOUT',
+                      '41e6c7c2b906653c9e264e4f402f5e572765bb98'),
 }
 
 
@@ -48,27 +55,33 @@ class TaskProfile:
 
     @property
     def database(self):
-        return MAIN if self.message_id == MAIN_A else SCRATCH
+        return MAIN if self.message_id in MAIN_A_PROFILES else SCRATCH
 
     @property
     def local_limits(self):
+        if self.message_id == MAIN_A_AUTONOMY:
+            return dict(MAIN_A_AUTONOMY_LIMITS)
         return dict(MAIN_A_LIMITS if self.message_id == MAIN_A else LOCAL_LIMITS)
 
     @property
     def baseline(self):
+        if self.message_id == MAIN_A_AUTONOMY:
+            return dict(MAIN_A_AUTONOMY_BASELINE)
         return dict(MAIN_A_BASELINE if self.message_id == MAIN_A else BASELINE)
 
     @property
     def allowed_actions(self):
+        if self.message_id == MAIN_A_AUTONOMY:
+            return {'main-service', 'main-credential-setup'}
         return {'main-service'} if self.message_id == MAIN_A else {'scratch-tests'}
 
     @property
     def run_id(self):
-        return 'lc2-main-a-20261018-01' if self.message_id == MAIN_A else 'lc2-framework6-20261017-01'
+        return _SPECS[self.message_id][0].removeprefix('s10-')
 
     def validate_target(self, database, oid, port=None):
         self.verify()
-        expected = (MAIN, 2144129, 18410) if self.message_id == MAIN_A else (SCRATCH, 2144130, 18411)
+        expected = (MAIN, 2144129, 18410) if self.message_id in MAIN_A_PROFILES else (SCRATCH, 2144130, 18411)
         if (database, oid) != expected[:2] or port is not None and port != expected[2]:
             raise RuntimeError('LC2_TASK_TARGET_SCOPE_INVALID')
 
@@ -78,7 +91,7 @@ class TaskProfile:
         root_name, started, authorized_scope, parent = _SPECS[self.message_id]
         if (self.root != ROOT / '.local' / root_name
                 or self.started_epoch != started
-                or self.deadline_epoch != self.started_epoch + 7200):
+                or self.deadline_epoch != self.started_epoch + (14400 if self.message_id == MAIN_A_AUTONOMY else 7200)):
             raise RuntimeError('FRAMEWORK6_PROFILE_SCOPE_INVALID')
         raw = (self.root / 'scope.json').read_bytes()
         scope = json.loads(raw)
@@ -108,7 +121,7 @@ class TaskProfile:
         for kind in set(self.baseline) - set(self.local_limits):
             if value['counts'].get(kind) != self.baseline[kind]:
                 raise RuntimeError('FRAMEWORK6_PROTECTED_RESOURCE_DRIFT')
-        if self.message_id == MAIN_A and set(value['counts']) != set(self.baseline):
+        if self.message_id in MAIN_A_PROFILES and set(value['counts']) != set(self.baseline):
             raise RuntimeError('MAIN_A_CUMULATIVE_RESOURCE_SET_DRIFT')
 
 
@@ -118,6 +131,10 @@ def framework6_profile():
 
 def main_a_profile():
     return _profile(MAIN_A)
+
+
+def main_a_autonomy_profile():
+    return _profile(MAIN_A_AUTONOMY)
 
 
 def _profile(message_id):
@@ -132,7 +149,11 @@ def _profile(message_id):
             or value.get('started_epoch') != started):
         raise RuntimeError('FRAMEWORK6_AUTHORITY_SCOPE_INVALID')
     # Scope receipt is fixed; a new profile never edits the old epoch or STOP.
-    profile = TaskProfile(root, value['started_epoch'], value['started_epoch'] + 7200,
+    duration = 14400 if message_id == MAIN_A_AUTONOMY else 7200
+    if (message_id == MAIN_A_AUTONOMY
+            and value.get('deadline_epoch') != started + duration):
+        raise RuntimeError('MAIN_A_AUTONOMY_DEADLINE_DRIFT')
+    profile = TaskProfile(root, value['started_epoch'], value['started_epoch'] + duration,
                           hashlib.sha256(raw).hexdigest(), message_id)
     profile.verify()
     return profile

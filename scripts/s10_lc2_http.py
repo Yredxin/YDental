@@ -26,7 +26,7 @@ import uuid
 from s10_lc2_evidence import PROTECTED, save_once
 from s10_lc2_logging import strict_loads
 from s10_lc2_supervisor import save_primary
-from s10_lc2_task_profile import MAIN_A, MAIN
+from s10_lc2_task_profile import MAIN_A_PROFILES, MAIN
 
 
 _DATABASE = re.compile(r'ydental_s10_test_[0-9]{14}_[a-f0-9]{8}\Z')
@@ -78,7 +78,9 @@ def main_a_request_boundary(method, path, *, form=None, json_body=None):
     if method == 'GET':
         allowed = route in {'/web/login', '/ydental/access', '/ydental/clinical',
                             '/ydental/settlement', '/ydental/settlement/bill-original/1',
-                            '/web/binary/company_logo', '/logo.png', '/web/manifest.webmanifest'}
+                            '/web/binary/company_logo', '/logo.png', '/web/manifest.webmanifest',
+                            '/ydental_clinical/static/src/document/document.js',
+                            '/ydental_clinical/static/src/document/document.css'}
         allowed = allowed or route.startswith(('/web/assets/', '/web/static/'))
         allowed = allowed or bool(re.fullmatch(r'/web/image/res\.company/[1-9][0-9]*/logo', route))
         if not allowed or route == '/ydental/clinical' and query != {'document_id': ['1']}:
@@ -377,7 +379,7 @@ class Client:
         self._family_ticket = None
         self.budget = budget
         self.task_profile = getattr(budget, 'profile', None)
-        if self.task_profile is not None and self.task_profile.message_id == MAIN_A:
+        if self.task_profile is not None and self.task_profile.message_id in MAIN_A_PROFILES:
             self.task_profile.validate_target(database, 2144129, parsed.port)
             if target_role != 'main' or set(owned_targets) != {MAIN}:
                 raise ValueError('MAIN_A_HTTP_TARGET_SCOPE_INVALID')
@@ -487,7 +489,7 @@ class Client:
                 or type(discard_response) is not bool or type(retry_manifest) is not bool):
             raise ValueError('HTTP_REQUEST_CONTAINER_OR_FLAGS_INVALID')
         path, decoded = self._path(path)
-        if self.task_profile is not None and self.task_profile.message_id == MAIN_A:
+        if self.task_profile is not None and self.task_profile.message_id in MAIN_A_PROFILES:
             self.task_profile.verify()
             main_a_request_boundary(method, path, form=form, json_body=json_body)
             if (case_id not in {'A-STATE', 'A-EDITOR', 'A-ORIGINAL'}
