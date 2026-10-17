@@ -1,0 +1,24 @@
+2026-10-17 01:50:29,024 696121 DEBUG ydental_s10_p018_20261017020000_8e21bc49 odoo.sql_db.connection: ConnectionPool(read/write;used=1/count=1/max=4) Create new connection backend PID 1377390
+2026-10-17 01:50:30,383 696121 INFO ydental_s10_p018_20261017020000_8e21bc49 odoo.modules.loading: 92 modules loaded in 0.77s, 0 queries (+0 extra)
+2026-10-17 01:50:30,651 696121 INFO ydental_s10_p018_20261017020000_8e21bc49 odoo.registry: Registry loaded in 1.635s
+  File "/home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s10_p0_18_metadata.py", line 49, in <module>
+  File "/home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s10_p0_18_metadata.py", line 33, in main
+  File "/home/redxin/code/odoo/odoo-sd/code/odoo/tools/convert.py", line 718, in convert_file
+  File "/home/redxin/code/odoo/odoo-sd/code/odoo/tools/convert.py", line 817, in convert_xml_import
+  File "/home/redxin/code/odoo/odoo-sd/code/odoo/tools/convert.py", line 688, in parse
+  File "/home/redxin/code/odoo/odoo-sd/code/odoo/tools/convert.py", line 630, in _tag_root
+  File "/home/redxin/code/odoo/odoo-sd/code/odoo/tools/convert.py", line 482, in _tag_record
+  File "/home/redxin/code/odoo/odoo-sd/code/odoo/orm/models.py", line 4684, in _load_records
+  File "/home/redxin/code/odoo/odoo-sd/code/odoo/orm/models.py", line 4605, in _load_records_write
+  File "/home/redxin/code/odoo/odoo-sd/code/odoo/orm/models.py", line 3887, in write
+  File "/home/redxin/code/odoo/odoo-sd/code/odoo/orm/registry.py", line 766, in is_modifying_relations
+  File "/home/redxin/code/odoo/odoo-sd/code/.python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/functools.py", line 998, in __get__
+  File "/home/redxin/code/odoo/odoo-sd/code/odoo/orm/registry.py", line 743, in _field_triggers
+  File "/home/redxin/code/odoo/odoo-sd/code/odoo/orm/fields.py", line 967, in resolve_depends
+Traceback (most recent call last):
+  File "/home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s10_p0_18_metadata.py", line 49, in <module>
+  File "/home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s10_p0_18_metadata.py", line 36, in main
+    changes=c.metadata_gate(before['tables'],after['tables'])
+  File "/home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s10_p0_18_contract.py", line 188, in metadata_gate
+    assert t in {'ir_ui_view','ir_ui_menu','ir_act_url','ir_model_data'}, ('METADATA_TABLE',t)
+AssertionError: ('METADATA_TABLE', 'ir_actions')
