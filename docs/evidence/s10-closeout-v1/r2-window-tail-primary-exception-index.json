@@ -1,0 +1,7 @@
+{
+  "private_file": ".local/s10-closeout-v1/r2-window-tail-primary-exception.json",
+  "sha256": "11b63950b083889f16fb6956c3e400447b472eb2213dbb1a6dc6cfc9a1f361fb",
+  "snapshot_status": "NOT_ATTEMPTED_NO_UID1_FLUSH",
+  "stage": "final_tail_unavailable",
+  "type": "AssertionError"
+}

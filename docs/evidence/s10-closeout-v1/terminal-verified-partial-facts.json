@@ -1,0 +1,38 @@
+{
+  "clone_filestore_198_files_current_bytes_exact": true,
+  "current_editor_after_crash_not_asserted": true,
+  "final_source": {
+    "all_645_tables_schema_rows_exact": true,
+    "all_filestore_bytes_exact": true,
+    "source_connections": 3
+  },
+  "final_tail": "SERIALIZED_READBACK_MISMATCH; NOT_VALID_BASELINE",
+  "last_valid_independent_checkpoint": {
+    "editor": 7,
+    "new_versions": [
+      {
+        "id": 9,
+        "ydental_author_id": 7,
+        "ydental_kind": "confirm",
+        "ydental_number": 3,
+        "ydental_previous_id": 2,
+        "ydental_reason": ""
+      },
+      {
+        "id": 10,
+        "ydental_author_id": 7,
+        "ydental_kind": "correct",
+        "ydental_number": 4,
+        "ydental_previous_id": 9,
+        "ydental_reason": "CLOSEOUT wording only, no economic action"
+      }
+    ],
+    "session": 109,
+    "state": "confirmed",
+    "version": 4,
+    "writer": 7
+  },
+  "old_economic_storage_exact_at_last_valid_checkpoint": true,
+  "old_original_rows_at_last_valid_checkpoint_exact": true,
+  "release": "CALL_DISPATCHED_NO_COMMIT_NO_SUCCESS_MARKER; native crashed during evidence save"
+}

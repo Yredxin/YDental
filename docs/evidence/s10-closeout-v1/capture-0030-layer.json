@@ -1,0 +1,8 @@
+{
+  "bytes": 6203276,
+  "full": false,
+  "private_raw_file": ".local/s10-closeout-v1/capture-0030-server-rows.jsonl",
+  "server_and_client_row_digests_equal": true,
+  "sha256": "3c140a78d644ed164ad716339c17e451cbbdbe966bf843950ec703211f3b3d5c",
+  "tables": 316
+}

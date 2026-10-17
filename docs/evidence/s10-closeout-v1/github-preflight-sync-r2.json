@@ -1,0 +1,10 @@
+{
+  "api_raw": "preflight-r2-readback.json",
+  "body_path": "preflight-r2-body.txt",
+  "body_sha256": "3e74e9cb6f8166b97d92d39decbb34782093a0df221e35759c0343a8dc2b409c",
+  "comment_id": 6232029326,
+  "readback_UTC": "2026-10-17T08:59:16.847488+00:00",
+  "safety_refusal": false,
+  "state": "SYNCED_EXACT_READBACK",
+  "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6232029326"
+}

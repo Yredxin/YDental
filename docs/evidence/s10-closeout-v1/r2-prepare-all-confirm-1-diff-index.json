@@ -1,0 +1,164 @@
+{
+  "all_values_saved_before_assertion": true,
+  "changes": [
+    {
+      "after_count": 1,
+      "after_sha256": "89b840e7a1f5b02e7340674db855801c8b198d55879402f6206bf8944f9a48a9",
+      "before_count": 0,
+      "before_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "columns": [
+        "__physical_oid__",
+        "__physical_table__",
+        "create_date",
+        "create_uid",
+        "id",
+        "write_date",
+        "write_uid",
+        "ydental_after",
+        "ydental_before",
+        "ydental_category",
+        "ydental_event",
+        "ydental_reason",
+        "ydental_result",
+        "ydental_source",
+        "ydental_store_id",
+        "ydental_target_id",
+        "ydental_target_model",
+        "ydental_user_id"
+      ],
+      "duplicate_key_preserved": false,
+      "economic": false,
+      "physical_key": [
+        "public",
+        "ydental_access_audit",
+        1182
+      ],
+      "table": "ydental_access_audit"
+    },
+    {
+      "after_count": 1,
+      "after_sha256": "60984d1c998e59ac6584925b5c4813afa96202d265e7e9930b9977ee7a414d5c",
+      "before_count": 1,
+      "before_sha256": "53e34a08c89fef0d3b3cab3c1be5774298e0fa6fdbce1d7c2cd80120bf7f4218",
+      "columns": [
+        "state",
+        "ydental_saved_at",
+        "ydental_version"
+      ],
+      "duplicate_key_preserved": false,
+      "economic": false,
+      "physical_key": [
+        "public",
+        "ydental_clinical_document",
+        1
+      ],
+      "table": "ydental_clinical_document"
+    },
+    {
+      "after_count": 1,
+      "after_sha256": "371c73e2052e3f7eb58ac31e4623fd5ac92968bf60d4291325fb656d6efc0a74",
+      "before_count": 0,
+      "before_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "columns": [
+        "__physical_oid__",
+        "__physical_table__",
+        "create_date",
+        "create_uid",
+        "id",
+        "write_date",
+        "write_uid",
+        "ydental_author_id",
+        "ydental_category",
+        "ydental_content",
+        "ydental_document_id",
+        "ydental_kind",
+        "ydental_number",
+        "ydental_patient_id",
+        "ydental_previous_id",
+        "ydental_reason",
+        "ydental_recorded_at",
+        "ydental_request_digest",
+        "ydental_request_key",
+        "ydental_store_id",
+        "ydental_template"
+      ],
+      "duplicate_key_preserved": false,
+      "economic": false,
+      "physical_key": [
+        "public",
+        "ydental_clinical_version",
+        9
+      ],
+      "table": "ydental_clinical_version"
+    },
+    {
+      "after_count": 1,
+      "after_sha256": "26ccef293c79d8812d0095a5377f3b4a759ac650369bf044fd22d699e0ca98a7",
+      "before_count": 1,
+      "before_sha256": "3cad93b8e19c13b2eaf222cc8020babb0916735edce98b8a80fd7507db7ff658",
+      "columns": [
+        "ydental_revision"
+      ],
+      "duplicate_key_preserved": false,
+      "economic": false,
+      "physical_key": [
+        "public",
+        "ydental_intake_mutex",
+        1
+      ],
+      "table": "ydental_intake_mutex"
+    },
+    {
+      "after_count": 1,
+      "after_sha256": "e83532a01bc9dd0e6f2fc99806bc5f1d39151a32a0f18bd9aa40773e952ceda8",
+      "before_count": 1,
+      "before_sha256": "5d5f735c1d6c0a2572d3f2d6f933e80422541b3671966babb44a046f82a4dae7",
+      "columns": [
+        "ydental_revision"
+      ],
+      "duplicate_key_preserved": false,
+      "economic": false,
+      "physical_key": [
+        "public",
+        "ydental_patient_mutex",
+        1
+      ],
+      "table": "ydental_patient_mutex"
+    },
+    {
+      "after_count": 1,
+      "after_sha256": "a4c3d89dce76c331bee455d3da64bc9444dd738bcfe149c60e83abe9ee19bc29",
+      "before_count": 1,
+      "before_sha256": "9f9624ba2f6c403be9b0893d37036b6698b81dc1a2bb59b572ec7601dcbb7f65",
+      "columns": [
+        "ydental_revision"
+      ],
+      "duplicate_key_preserved": false,
+      "economic": false,
+      "physical_key": [
+        "public",
+        "ydental_queue_mutex",
+        1
+      ],
+      "table": "ydental_queue_mutex"
+    },
+    {
+      "after_count": 1,
+      "after_sha256": "f5bfe01d4bd0544b5f2fe5a1dacac84fcfa11b233163d278ee850c462731d2a0",
+      "before_count": 1,
+      "before_sha256": "23604dddbc7027395834d3ad1a10eef40ac676facf875387d436f991abd219e1",
+      "columns": [
+        "ydental_revision"
+      ],
+      "duplicate_key_preserved": false,
+      "economic": false,
+      "physical_key": [
+        "public",
+        "ydental_supply_mutex",
+        1
+      ],
+      "table": "ydental_supply_mutex"
+    }
+  ],
+  "schema_changed": false
+}

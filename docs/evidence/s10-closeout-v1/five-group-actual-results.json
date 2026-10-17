@@ -1,0 +1,49 @@
+{
+  "A": {
+    "completed": [
+      "acquire",
+      "confirm v3",
+      "wording-only correct v4"
+    ],
+    "evidence": [
+      "r2-A-acquire-checkpoint.json",
+      "r2-A-confirm-checkpoint.json",
+      "r2-A-correct-checkpoint.json",
+      "r2-prepare-all-result.json"
+    ],
+    "result": "PARTIAL_COMMITTED_THEN_NATIVE_SIGSEGV",
+    "uncompleted": [
+      "committed release",
+      "real UI retake of original"
+    ]
+  },
+  "B": {
+    "result": "NOT_RUN_AFTER_NATIVE_STOP",
+    "uncompleted": [
+      "six MODEL write/unlink",
+      "six actual RPC write/unlink"
+    ]
+  },
+  "C": {
+    "result": "NOT_RUN_AFTER_NATIVE_STOP",
+    "uncompleted": [
+      "original/attachment permission matrix and bodies"
+    ]
+  },
+  "D": {
+    "new_upstream_or_money_actions": 0,
+    "result": "NOT_RUN_AFTER_NATIVE_STOP",
+    "uncompleted": [
+      "D admission",
+      "failed recovery",
+      "lost response verification and deduplication"
+    ]
+  },
+  "E": {
+    "result": "NOT_RUN_AFTER_NATIVE_STOP",
+    "uncompleted": [
+      "S10-only upgrade and affected UI regression"
+    ],
+    "upgrade": 0
+  }
+}

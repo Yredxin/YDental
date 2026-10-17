@@ -1,0 +1,28 @@
+{
+  "changes": [
+    {
+      "after_count": 1,
+      "after_sha256": "4a9eef00ca8f609a49a9aea64704fc817aa6eed1d957e36fd7b2be4b0d7ad7cd",
+      "before_count": 1,
+      "before_sha256": "5fb4e252e33e45bc2782ab1ea45fa77c62a8e192465e5deebae9a2a7039527d9",
+      "columns": [
+        "arch_prev"
+      ],
+      "duplicate_key_preserved": false,
+      "economic": false,
+      "physical_key": [
+        "public",
+        "ir_ui_view",
+        1123
+      ],
+      "table": "ir_ui_view"
+    }
+  ],
+  "conclusion": "Saved raw-row/file comparison is limited; original in-memory/save-readback failure remains unresolved.",
+  "one_acquired_capture_not_independent_measurements": true,
+  "raw_rows": 70950,
+  "raw_schema_not_independently_rebuilt": true,
+  "save_time_in_memory_object_unavailable": true,
+  "server_raw_line_hashes_match": true,
+  "stored_file_not_repaired_or_accepted_as_baseline": true
+}

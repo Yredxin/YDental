@@ -1,0 +1,8 @@
+{
+  "PASS": true,
+  "evidence_first": true,
+  "result": {
+    "normal_editor_heartbeat_only": true,
+    "zero_new_versions_or_economic_events": true
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "CREATE": 1,
+  "CREATE_returned": 1,
+  "HTTP_dispatched": 0,
+  "Odoo_processes": 3,
+  "RO_closed": 14,
+  "RO_total": 14,
+  "S11_merge_deploy_Issue_Project_mutation": 0,
+  "STOP": {
+    "no_new_business": true,
+    "reason": "NATIVE_PROCESS_FAILED:r2-prepare-all"
+  },
+  "authority": "USER_DIRECT_S10_CLOSEOUT_PLAN_v1.1",
+  "commit_intent": 5,
+  "commit_returned": 5,
+  "commit_unknown": 0,
+  "execution_commit": "00e6c4a1d8e1c7f46c411de62aba18511defed0f",
+  "full_capture_nodes": 9,
+  "github_sync": "SYNCED_EXACT_READBACK",
+  "maintenance": 1,
+  "old_economic_replay": 0,
+  "original_GET": 0,
+  "original_generation": 0,
+  "parent": "7d52d9e342d49837f3b81a7da3b6e7794a5cde01",
+  "prior_R0_stop_preserved": {
+    "no_new_business": true,
+    "reason": "NATIVE_PROCESS_FAILED:r0-prepare-all"
+  },
+  "refund_PDF": 0,
+  "response_loss": 0,
+  "source_READONLY": 3
+}

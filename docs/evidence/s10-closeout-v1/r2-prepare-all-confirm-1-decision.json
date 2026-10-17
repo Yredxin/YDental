@@ -1,0 +1,15 @@
+{
+  "PASS": true,
+  "evidence_first": true,
+  "result": {
+    "all_economic_stored_facts_exact": true,
+    "audit_event": "clinical.confirm",
+    "mutex_exact_records_delta": {
+      "ydental_intake_mutex:1": 1,
+      "ydental_patient_mutex:1": 1,
+      "ydental_queue_mutex:1": 1,
+      "ydental_supply_mutex:1": 1
+    },
+    "new_versions": 1
+  }
+}
