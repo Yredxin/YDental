@@ -1,5 +1,6 @@
 """LC2 compatibility and audit-contract tests; framework transactions own rollback."""
 import os
+import logging
 from unittest.mock import patch
 
 from odoo.exceptions import AccessError, UserError, ValidationError
@@ -66,6 +67,8 @@ class TestLogCloseout(TransactionCase):
                 self.env['ydental.access.service']._audit('lc2.synthetic', 'personnel', self.env.user)
 
     def test_context_restores_and_does_not_change_environment_identity(self):
+        self.assertEqual(logging.getLogger('odoo.http.server').getEffectiveLevel(), logging.CRITICAL)
+        self.assertEqual(logging.getLogger('ydental.events').getEffectiveLevel(), logging.INFO)
         identity = (self.env.uid, self.env.su, self.env.transaction.default_env)
         previous = current_context()
         with context_scope(case_id='L06', actor_id=self.env.uid, effective_uid=self.env.uid):

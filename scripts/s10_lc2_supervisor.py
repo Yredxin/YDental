@@ -108,6 +108,6 @@ def launch(command, directory, *, timeout, attempt, last_checkpoint=None, env=No
                                                   last_checkpoint or 'NOT_OBSERVED'])
     return {'pid': child.pid, 'returncode': returncode, 'signal': observed_signal,
             'timed_out': timed_out, 'exit_path': str(exit_path),
-            'native_crash': observed_signal in {signal.SIGSEGV, signal.SIGABRT},
+            'native_crash': observed_signal in {signal.SIGILL, signal.SIGABRT, signal.SIGBUS, signal.SIGFPE, signal.SIGSEGV},
             'parent_evidence_complete': evidence_complete,
             'transaction_outcome': 'NOT_OBSERVED'}

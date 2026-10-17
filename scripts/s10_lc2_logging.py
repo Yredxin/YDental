@@ -15,6 +15,7 @@ OPTIONAL_TYPES = {
     'company_id': int, 'store_id': int, 'scope_revision': int,
     'error_code': str, 'error_class': str, 'exception_type': str,
     'root_event_id': str, 'commit_observation': str,
+    'native_http_log_level': int, 'diagnostic_log_level': int,
 }
 
 

@@ -7,6 +7,7 @@ from itertools import zip_longest
 import json
 from pathlib import Path
 import secrets
+import time
 
 from s10_lc2_admission import verify_admission
 from s10_lc2_evidence import ACCIDENT, Budget, RAW_LIMIT, collect_selection, runtime_gate, save_once
@@ -30,6 +31,8 @@ class PackageBudget(Budget):
         return super().consume(kind)
 
     def check_storage(self):
+        if self.path.exists() and time.time() - strict_loads(self.path.read_bytes())['started_epoch'] > 8 * 3600:
+            raise RuntimeError('RUN_WINDOW_EXHAUSTED')
         size = sum(path.stat().st_size for base in (LEGACY_EXEC_ROOT, EXEC_ROOT, RUN_ROOT) if base.exists()
                    for path in base.rglob('*') if path.is_file() and not path.is_symlink())
         if size >= RAW_LIMIT * .9:

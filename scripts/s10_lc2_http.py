@@ -6,6 +6,7 @@ Credentials/tokens/full payloads remain in memory, never in diagnostic files.
 Explicit approved binary artifacts and minimal D retry facts are separate.
 """
 from dataclasses import dataclass, field
+from contextlib import contextmanager
 from datetime import datetime, timezone
 import hashlib
 from html.parser import HTMLParser
@@ -28,6 +29,16 @@ from s10_lc2_supervisor import save_primary
 
 
 _DATABASE = re.compile(r'ydental_s10_test_[0-9]{14}_[a-f0-9]{8}\Z')
+_SCRATCH_DATABASE = 'ydental_s10_test_20261017105432_ce6dcbf8'
+_MAIN_DATABASE = 'ydental_s10_test_20261017105432_810a7d9c'
+FAMILY_PATIENT_VALUES = ({'name': 'LC2 C FAMILY ALIAS', 'sex': 'unknown', 'phone': '', 'email': ''},
+                         {'name': 'LC2 C FAMILY CANONICAL', 'sex': 'unknown', 'phone': '', 'email': ''})
+FAMILY_CLINICAL_VALUES = ({'allergies': 'LC2_SYNTHETIC_ALIAS_ALLERGY',
+                           'prior_history': 'LC2_SYNTHETIC_ALIAS_HISTORY', 'medication': 'LC2_SYNTHETIC_ALIAS_MEDICATION'},
+                          {'allergies': 'LC2_SYNTHETIC_CANONICAL_ALLERGY',
+                           'prior_history': 'LC2_SYNTHETIC_CANONICAL_HISTORY', 'medication': 'LC2_SYNTHETIC_CANONICAL_MEDICATION'})
+FAMILY_REQUEST_REASON = 'LC2 synthetic identity duplicate verified for isolated C family'
+FAMILY_CONFIRM_REASON = 'LC2 manager verified only the two new synthetic identities'
 _MODEL = re.compile(r'[a-z][a-z0-9_.]{0,99}\Z')
 _METHOD = re.compile(r'[a-z_][a-z0-9_]{0,99}\Z')
 _LABEL = re.compile(r'[A-Za-z0-9_.:-]{1,96}\Z')
@@ -36,7 +47,8 @@ _REDIRECTS = {301, 302, 303, 307, 308}
 _OPERATIONS = frozenset({'bill', 'pay', 'refund_request', 'refund_approve', 'refund_reject',
                          'refund_execute', 'refund_uncertain', 'refund_recover', 'refund_cancel',
                          'close', 'unlock', 'reclassify', 'waive', 'trade',
-                         'acquire', 'release', 'heartbeat', 'open', 'save', 'confirm', 'correct'})
+                         'acquire', 'release', 'heartbeat', 'open', 'save', 'confirm', 'correct',
+                         'create', 'clinical', 'request_merge'})
 _MIMES = frozenset({'application/pdf', 'application/json', 'application/octet-stream',
                     'text/html', 'text/plain', 'text/css', 'application/javascript',
                     'image/png', 'image/jpeg', 'image/gif', 'image/svg+xml', 'image/webp'})
@@ -64,6 +76,82 @@ class HttpEvidenceError(RuntimeError):
 
 class OutcomeUnknown(RuntimeError):
     """Caller must independently verify before any repeat economic request."""
+
+
+class _FamilyWriteScope:
+    """One bounded C fixture sequence; this is tool admission, not Odoo auth."""
+    def __init__(self, reader, manager, *, reader_uid, manager_uid, existing_patients, existing_merges,
+                 protected_patient_ids):
+        for client in (reader, manager):
+            if (client.target_role != 'main' or client.database != _MAIN_DATABASE
+                    or client.base_url != 'http://127.0.0.1:18410'):
+                raise ValueError('FAMILY_TARGET_IDENTITY_MISMATCH')
+        if type(reader_uid) is not int or reader_uid <= 7 or manager_uid != 5 or reader is manager:
+            raise ValueError('FAMILY_ACTOR_IDENTITY_MISMATCH')
+        for values in (existing_patients, existing_merges, protected_patient_ids):
+            if type(values) not in (list, tuple) or len(values) > 1000 or any(type(item) is not int or item <= 0 for item in values):
+                raise ValueError('FAMILY_BASELINE_IDS_INVALID')
+        if not {1, 2, 3, 4} <= set(protected_patient_ids):
+            raise ValueError('FAMILY_PROTECTED_PATIENT_BASELINE_MISSING')
+        self.reader, self.manager = reader, manager
+        self.existing_patients = set(existing_patients) | set(protected_patient_ids)
+        self.existing_merges = set(existing_merges)
+        self.patient_ids, self.clinical_ids = [], []
+        self.merge_id = self.merge_version = None
+        self.step = 0
+        self.dispatched = False
+
+    def expected(self):
+        if self.step in (0, 2):
+            return self.reader, 'create', {'values': dict(FAMILY_PATIENT_VALUES[self.step // 2])}
+        if self.step in (1, 3):
+            index = self.step // 2
+            return self.reader, 'clinical', {'patient_id': self.patient_ids[index],
+                'values': dict(FAMILY_CLINICAL_VALUES[index])}
+        if self.step == 4:
+            return self.reader, 'request_merge', {'source_id': self.patient_ids[0],
+                'target_id': self.patient_ids[1], 'reason': FAMILY_REQUEST_REASON}
+        if self.step == 5:
+            return self.manager, 'confirm', {'request_id': self.merge_id,
+                'version': self.merge_version, 'reason': FAMILY_CONFIRM_REASON}
+        raise ValueError('FAMILY_SCOPE_COMPLETE_NO_MORE_WRITES')
+
+    def permit(self, client, operation, payload):
+        expected_client, expected_operation, expected_payload = self.expected()
+        if self.dispatched or client is not expected_client or (operation, payload) != (expected_operation, expected_payload):
+            raise ValueError('FAMILY_WRITE_OUTSIDE_EXACT_NEW_FIXTURE_SEQUENCE')
+
+    def consume_form(self, client, form):
+        if (type(form) is not dict or set(form) != {'operation', 'revision', 'csrf_token', 'payload', 'output', 'key'}
+                or form.get('output') != 'json' or type(form.get('key')) is not str
+                or not re.fullmatch(r'[a-f0-9]{32}', form['key'])
+                or type(form.get('payload')) is not str):
+            raise ValueError('FAMILY_FORM_SHAPE_NOT_APPROVED')
+        payload = strict_loads(form['payload'])
+        self.permit(client, form['operation'], payload)
+        self.dispatched = True  # An unknown outcome cannot silently be retried.
+
+    def accept(self, operation, result):
+        _, expected_operation, _ = self.expected()
+        if not self.dispatched or operation != expected_operation or type(result) is not dict or result.get('result') != 'accepted':
+            raise OutcomeUnknown('FAMILY_ACTION_RESULT_REQUIRES_INDEPENDENT_VERIFICATION')
+        identity, version = result.get('id'), result.get('version')
+        if type(identity) is not int or identity <= 0 or type(version) is not int or version <= 0:
+            raise OutcomeUnknown('FAMILY_ACTION_IDENTITY_NOT_OBSERVED')
+        if operation == 'create':
+            if identity in self.existing_patients or identity in self.patient_ids or identity <= 4:
+                raise OutcomeUnknown('FAMILY_CREATE_RETURNED_PREEXISTING_PATIENT_STOP')
+            self.patient_ids.append(identity)
+        elif operation == 'clinical':
+            self.clinical_ids.append(identity)
+        elif operation == 'request_merge':
+            if identity in self.existing_merges:
+                raise OutcomeUnknown('FAMILY_MERGE_RETURNED_PREEXISTING_REQUEST_STOP')
+            self.merge_id, self.merge_version = identity, version
+        elif result.get('patient_id') != self.patient_ids[1]:
+            raise OutcomeUnknown('FAMILY_CONFIRM_CANONICAL_IDENTITY_MISMATCH')
+        self.step += 1
+        self.dispatched = False
 
 
 class _CsrfParser(HTMLParser):
@@ -212,7 +300,8 @@ def _binary_kind(body):
 
 class Client:
     def __init__(self, base_url, *, database, owned_targets, budget, directory,
-                 opener=None, timeout=15, max_response_bytes=16 * 1024 * 1024):
+                 opener=None, timeout=15, max_response_bytes=16 * 1024 * 1024,
+                 target_role='main'):
         parsed = urlsplit(base_url)
         if (parsed.scheme != 'http' or parsed.hostname != '127.0.0.1'
                 or parsed.port not in range(18410, 18420) or parsed.username is not None
@@ -226,8 +315,13 @@ class Client:
             raise ValueError('HTTP_DATABASE_NOT_OWNED')
         if not 0 < timeout <= 30 or not 1 <= max_response_bytes <= 32 * 1024 * 1024:
             raise ValueError('HTTP_OBSERVATION_BOUND_NOT_APPROVED')
+        if target_role not in {'main', 'scratch'} or (
+                target_role == 'scratch' and (database != _SCRATCH_DATABASE or parsed.port != 18411)):
+            raise ValueError('HTTP_TARGET_ROLE_IDENTITY_MISMATCH')
         self.base_url = base_url
         self.database = database
+        self.target_role = target_role
+        self._family_ticket = None
         self.budget = budget
         self.directory = _private_directory(directory)
         self.timeout = timeout
@@ -259,9 +353,36 @@ class Client:
             raise ValueError('HTTP_NATIVE_ADMIN_PATH_FORBIDDEN')
         if decoded.startswith('/ydental/settlement/bill-original/create/'):
             raise ValueError('ORIGINAL_REGENERATION_FORBIDDEN')
+        if decoded.startswith('/ydental/'):
+            main_path = (decoded in {'/ydental/access', '/ydental/access/action',
+                                    '/ydental/clinical', '/ydental/clinical/action',
+                                    '/ydental/settlement', '/ydental/settlement/action',
+                                    '/ydental/patients'}
+                         or bool(re.fullmatch(r'/ydental/settlement/(?:bill-original|other-stores)/[1-9][0-9]*', decoded))
+                         or bool(re.fullmatch(r'/ydental/settlement/pdf/(?:bill|receipt|refund)/[1-9][0-9]*', decoded))
+                         or bool(re.fullmatch(r'/ydental/patients/[1-9][0-9]*(?:/clinical)?', decoded)))
+            scratch_path = self.target_role == 'scratch' and decoded in {
+                '/ydental/patients/action', '/ydental/intake', '/ydental/intake/action',
+                '/ydental/supply', '/ydental/supply/action', '/ydental/queue', '/ydental/queue/action',
+                '/ydental/treatment', '/ydental/treatment/action',
+            }
+            family_path = decoded == '/ydental/patients/action' and self._family_ticket is not None
+            if not (main_path or scratch_path or family_path):
+                raise ValueError('HTTP_APPLICATION_ROUTE_NOT_APPROVED_FOR_TARGET_ROLE')
         if any(value != self.database for value in parse_qs(parsed.query, keep_blank_values=True).get('db', [])):
             raise ValueError('HTTP_DATABASE_QUERY_DRIFT')
         return path, decoded
+
+    @contextmanager
+    def _family_request(self, scope, operation, payload):
+        if not isinstance(scope, _FamilyWriteScope) or self._family_ticket is not None:
+            raise ValueError('FAMILY_SCOPE_TICKET_INVALID_OR_NESTED')
+        scope.permit(self, operation, payload)
+        self._family_ticket = scope
+        try:
+            yield
+        finally:
+            self._family_ticket = None
 
     @staticmethod
     def _route(decoded):
@@ -308,6 +429,16 @@ class Client:
                 or type(discard_response) is not bool or type(retry_manifest) is not bool):
             raise ValueError('HTTP_REQUEST_CONTAINER_OR_FLAGS_INVALID')
         path, decoded = self._path(path)
+        if self.target_role == 'main' and decoded == '/ydental/patients/action':
+            if method != 'POST' or self._family_ticket is None:
+                raise ValueError('FAMILY_MAIN_PATIENT_WRITE_REQUIRES_EXACT_TICKET')
+            self._family_ticket.consume_form(self, form)
+        if (self.target_role == 'main' and decoded == '/ydental/clinical/action'
+                and (method != 'POST' or type(form) is not dict
+                     or form.get('operation') not in {'acquire', 'release', 'heartbeat'})):
+            raise ValueError('HTTP_MAIN_CLINICAL_REPLAY_FORBIDDEN')
+        if method == 'POST' and re.fullmatch(r'/ydental/patients(?:/[1-9][0-9]*(?:/clinical)?)?', decoded):
+            raise ValueError('HTTP_PATIENT_READ_ROUTE_IS_GET_ONLY')
         if method == 'GET' and (form is not None or json_body is not None):
             raise ValueError('HTTP_GET_BODY_FORBIDDEN')
         if type(form) is dict and 'db' in form and form['db'] != self.database:

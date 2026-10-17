@@ -7,6 +7,7 @@ from datetime import datetime, timezone
 import os
 from pathlib import Path
 import socket
+import stat
 import subprocess
 import time
 import uuid
@@ -143,6 +144,13 @@ def identity_probe(marker, options, *, budget, directory):
             cursor.execute("SET LOCAL timezone='UTC'")
             cursor.execute("SELECT current_database(),(SELECT oid FROM pg_database WHERE datname=current_database()),(SELECT system_identifier::text FROM pg_control_system()),pg_backend_pid(),current_user,current_setting('transaction_read_only'),current_setting('transaction_isolation')")
             identity = cursor.fetchone()
+            cursor.execute("SET LOCAL statement_timeout='15s'")
+            cursor.execute('SELECT pid,state,backend_type,application_name FROM pg_stat_activity WHERE datname=current_database() AND pid<>pg_backend_pid() ORDER BY pid')
+            others = cursor.fetchall()
+            save_once(Path(directory) / 'target-other-connections.json', {'connections': [
+                dict(zip(['pid', 'state', 'backend_type', 'application_name'], row)) for row in others]})
+            if others:
+                raise RuntimeError('OTHER_TARGET_CONNECTIONS_BEFORE_OWNED_LAUNCH')
             if tuple(identity[:3]) != (marker['database'], marker['oid'], CLUSTER) or tuple(identity[4:]) != ('odoo', 'on', 'repeatable read'):
                 raise RuntimeError('LAUNCH_DATABASE_IDENTITY_DRIFT')
         connection.rollback()
@@ -182,6 +190,9 @@ def environment(run, product_commit, test_commit):
 def dependency_preflight(env, directory):
     result = launch([str(PYTHON), str(ROOT / 'scripts/s10_lc2_preflight.py')],
                     Path(directory) / 'dependency-preflight', env=env, cwd=ROOT, timeout=30, attempt=1)
+    if result.get('native_crash') or result['returncode'] in (-4, -6, -7, -8, -11):
+        stop('DEPENDENCY_PREFLIGHT_NATIVE_CRASH', pid=result['pid'], signal=result['signal'])
+        raise RuntimeError('NATIVE_PREFLIGHT_HARD_STOP')
     if result['returncode'] != 0:
         raise RuntimeError('OFFLINE_DEPENDENCY_PREFLIGHT_FAILED')
     report = strict_loads((Path(directory) / 'dependency-preflight/stdout.log').read_bytes())
@@ -204,7 +215,15 @@ class OwnedApplication:
         self.env = environment(self.run, product_commit, test_commit)
         dependency_preflight(self.env, self.directory)
         identity_probe(self.marker, options, budget=self.budget, directory=self.directory)
-        self.command = [str(PYTHON), str(ROOT.parent / 'odoo-bin'), '-c', str(self.run / 'odoo.conf')]
+        self.native_logfile = self.directory / 'odoo-native.log'
+        command = [str(PYTHON), str(ROOT.parent / 'odoo-bin')]
+        if action in {'main-fixture', 'scratch-fixture'}:
+            command += ['shell']
+        self.command = command + ['-c', str(self.run / 'odoo.conf'), '--logfile', str(self.native_logfile),
+                                  '--db-system=' + self.marker['database'],
+                                  '--log-handler=werkzeug:WARNING,odoo.http.server:CRITICAL']
+        if action in {'main-fixture', 'scratch-fixture'}:
+            self.command += ['--no-http']
         self.process = None
         self.streams = []
         self.started = None
@@ -224,22 +243,35 @@ class OwnedApplication:
             'upgrade': ('--stop-after-init', '--load-language=zh_CN', '-u', 'ydental_settlement'),
             'main-upgrade': ('--stop-after-init', '--load-language=zh_CN', '-u', 'ydental_settlement'),
             'scratch-upgrade': ('--stop-after-init', '--load-language=zh_CN', '-u', 'ydental_settlement'),
-            'main-service': (), 'scratch-service': (),
+            'main-service': (), 'scratch-service': (), 'main-fixture': (), 'scratch-fixture': (),
         }
         if type(arguments) is not list or tuple(arguments) != allowed.get(self.action):
             raise ValueError('APPLICATION_ARGUMENT_OVERRIDE_REFUSED')
         if any(type(fd) is not int or fd < 3 for fd in pass_fds):
             raise ValueError('INVALID_OWNED_RAM_PIPE_DESCRIPTOR')
-        if stdin_path is not None or pass_fds:
-            raise ValueError('SHELL_FIXTURE_NOT_YET_DISPATCHABLE')
+        fixture = self.action in {'main-fixture', 'scratch-fixture'}
+        expected_stdin = ROOT / 'scripts/s10_lc2_fixture_process.py'
+        if fixture:
+            if (stdin_path is None or Path(stdin_path).resolve() != expected_stdin
+                    or len(pass_fds) != 2 or len(set(pass_fds)) != 2
+                    or any(not stat.S_ISFIFO(os.fstat(fd).st_mode) for fd in pass_fds)):
+                raise ValueError('FIXTURE_STDIN_AND_ANONYMOUS_PIPES_REQUIRED')
+        elif stdin_path is not None or pass_fds:
+            raise ValueError('NON_FIXTURE_STDIN_FORBIDDEN')
         with socket.socket() as reservation:
             reservation.bind(('127.0.0.1', self.marker['port']))
         self.budget.consume('odoo_start')
         save_once(self.directory / 'launch-intent.json', {'command': self.command + arguments,
                   'database': self.marker['database'], 'oid': self.marker['oid'],
                   'product_commit': self.env['YDENTAL_PRODUCT_COMMIT'], 'test_commit': self.env['YDENTAL_TEST_COMMIT'],
-                  'core_commit': CORE, 'commit_observation': 'NOT_OBSERVED'})
-        stdin = subprocess.DEVNULL
+                  'core_commit': CORE, 'commit_observation': 'NOT_OBSERVED',
+                  'effective_logfile': str(getattr(self, 'native_logfile', self.directory / 'odoo-native.log')),
+                  'effective_logfile_path_sha256': hashlib.sha256(str(getattr(self, 'native_logfile', self.directory / 'odoo-native.log')).encode()).hexdigest(),
+                  'transport_access_logger_level': 'CRITICAL',
+                  'transport_access_error_detail_retained': False,
+                  'effective_db_system': self.marker['database'], 'maintenance_database_connection_authorized': False,
+                  'stdin_sha256': hashlib.sha256(expected_stdin.read_bytes()).hexdigest() if fixture else None})
+        stdin = expected_stdin.open('rb') if fixture else subprocess.DEVNULL
         self.started = time.monotonic()
         try:
             for name in ('stdout.log', 'stderr-faulthandler.log'):
@@ -265,7 +297,7 @@ class OwnedApplication:
         if STOP.exists() or list((self.run / 'diagnostics').glob('diagnostics-failed-*.txt')):
             raise RuntimeError('APPLICATION_DIAGNOSTIC_OR_HARD_STOP')
         if self.process.poll() is not None:
-            if self.process.returncode in (-11, -6):
+            if self.process.returncode in (-4, -6, -7, -8, -11):
                 stop('NATIVE_CRASH', pid=self.process.pid, signal=-self.process.returncode)
             raise RuntimeError('APPLICATION_EXITED')
 
@@ -275,11 +307,27 @@ class OwnedApplication:
             self.check()
             try:
                 with socket.create_connection(('127.0.0.1', self.marker['port']), timeout=.5):
+                    self.assert_observed_logging_levels()
                     return
             except OSError:
                 if time.monotonic() - started > timeout:
                     raise TimeoutError('OWNED_HTTP_START_TIMEOUT')
                 time.sleep(.1)
+
+    def assert_observed_logging_levels(self):
+        """The actual service PID must attest privacy levels before token requests."""
+        starts = []
+        for path in (self.run / 'diagnostics').glob('events-' + str(self.process.pid) + '-*.jsonl'):
+            for raw in path.read_bytes().splitlines():
+                event = strict_loads(raw)
+                if event.get('event') == 'run.start' and event.get('pid') == self.process.pid:
+                    starts.append(event)
+        if len(starts) != 1 or starts[0].get('native_http_log_level') != 50 or starts[0].get('diagnostic_log_level') != 20:
+            raise RuntimeError('ACTUAL_SERVICE_LOG_PRIVACY_LEVEL_NOT_ATTESTED')
+        save_once(self.directory / 'actual-log-levels.json', {
+            'pid': self.process.pid, 'event_id': starts[0]['event_id'],
+            'native_http_log_level': 50, 'diagnostic_log_level': 20,
+            'transport_access_error_detail_retained': False})
 
     def wait(self, timeout):
         try:
@@ -296,7 +344,7 @@ class OwnedApplication:
             raise
         else:
             self.close()
-        if returncode in (-11, -6):
+        if returncode in (-4, -6, -7, -8, -11):
             stop('NATIVE_CRASH', pid=self.process.pid, signal=-returncode)
         return returncode
 
@@ -326,7 +374,7 @@ class OwnedApplication:
                 retain(persistence_error, 'hard_stop_persistence')
         finally:
             code = self.process.returncode if self.process is not None else None
-            if code in (-11, -6):
+            if code in (-4, -6, -7, -8, -11):
                 try:
                     stop('NATIVE_CRASH', pid=self.process.pid, signal=-code)
                 except BaseException as persistence_error:
@@ -366,7 +414,7 @@ def main():
     code = app.wait(1200)
     save_once(app.directory / 'result.json', {'exit_code': code, 'pid': app.process.pid,
               'signal': -code if code < 0 else None, 'database': marker['database'],
-              'mode': args.mode, 'execution_layer': 'MODEL_HTTP_FRAMEWORK' if role == 'scratch' else 'NATIVE_UPGRADE',
+              'mode': args.mode, 'execution_layer': 'MODEL_HTTP_FRAMEWORK' if args.mode == 'scratch-tests' else 'NATIVE_UPGRADE',
               'real_money_operations': 0})
     print(str(app.directory / 'result.json'))
     return code if code >= 0 else 128 - code

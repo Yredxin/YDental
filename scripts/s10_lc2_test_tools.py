@@ -522,7 +522,7 @@ class DiagnosticsCase(unittest.TestCase):
             if path.is_file():
                 self.assertNotIn(b'synthetic-business-private', path.read_bytes())
 
-    def chained_error(self):
+    def chained_error(self, outer_type=NameError):
         def first_failure():
             raise LookupError('synthetic-private-first-message')
 
@@ -530,11 +530,11 @@ class DiagnosticsCase(unittest.TestCase):
             try:
                 first_failure()
             except LookupError as cause:
-                raise NameError('synthetic-private-outer-message') from cause
+                raise outer_type('synthetic-private-outer-message') from cause
 
         try:
             wrapping_layer()
-        except NameError as error:
+        except (NameError, ValueError) as error:
             return error
 
     def exception_identity(self, error):
@@ -561,6 +561,25 @@ class DiagnosticsCase(unittest.TestCase):
         for path in self.directory.iterdir():
             if path.is_file():
                 self.assertNotIn(b'synthetic-private-', path.read_bytes())
+
+    def test_gpr02_exact_lookup_error_value_error_explicit_cause(self):
+        error = self.chained_error(ValueError)
+        before = self.exception_identity(error)
+        chain = self.diagnostics.safe_exception_chain(error)
+        self.assertEqual([row['exception_type'] for row in chain['nodes']], ['ValueError', 'LookupError'])
+        self.assertEqual(chain['nodes'][0]['link_type'], 'cause')
+        self.assertTrue(any(frame['function'] == 'first_failure' for frame in chain['nodes'][1]['frames']))
+        self.assertEqual(self.exception_identity(error), before)
+        self.diagnostics.configure_once(str(self.directory))
+        event_id = self.diagnostics.record_exception(error, component='synthetic', stage='business.start')
+        persisted = strict_loads(next(self.directory.glob('stack-*.json')).read_bytes())
+        self.assertEqual(persisted['primary_event_id'], event_id)
+        self.assertEqual([node['exception_type'] for node in persisted['nodes']], ['ValueError', 'LookupError'])
+        self.assertTrue(any(frame['function'] == 'first_failure' for frame in persisted['nodes'][1]['frames']))
+        ascii_chain = next(self.directory.glob('chain-*.txt')).read_text()
+        self.assertIn('primary_event_id=' + event_id, ascii_chain)
+        self.assertIn('exception-1.exception_type=LookupError', ascii_chain)
+        self.assertEqual(self.exception_identity(error), before)
 
     def test_gpr02_implicit_context_and_explicit_suppression_boundaries(self):
         def context_error(suppress):
