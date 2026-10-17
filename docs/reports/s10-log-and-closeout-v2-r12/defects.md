@@ -1,0 +1,17 @@
+# R1.2缺陷、首事实、修正及复核
+
+旧R1.1两次普通修复、失败原始材料与STOP保持。用户R1.2解除普通轮数限制，不解除真实安全硬停；未为普通问题请求GPT逐项批准。
+
+|ID|首事实及原因|补丁与实际复核|当前边界|
+|---|---|---|---|
+|R11-DEPENDENCY|scratch原exit255/no signal，受控路径漏既有s04-deps metadata。|launcher受控scripts+s04-deps，真实同子解释器metadata/import phonenumbers9.0.16通过；无安装。|正常续装/6框架测试NOT_RUN；不是新的Native或GPR失败。|
+|GPR-02|原只外层traceback，缺cause/有效context。|7f7849c bounded链；最终P/T含精确LookupError→ValueError、context/fromNone、cycle/depth/frame、serializer与writer故障组合，15diagnostic纯测试PASS；原对象保持。|纯合成限定PASS，不代表真实业务/框架。|
+|R12-RENDERER-SCHEMA|新增renderer三个int未入离线reader optional类型。|642a75b加非负int/null校验；1测试含18子边界PASS，拒bool/str/负数。|仅schema，不代表renderer真实退出消费。|
+|R12-BROWSER-REDIRECT|旧未运行草稿误认为Firefox route可拦redirect；既有NetworkObserver183/450行反证。|逐上游route.fetch redirects0/retries0+预算，手动RAM Location freshGET逐hop守卫；POST307/308不重放。18fakebrowser/family+11fakeHTTP PASS。|旧草稿未运行无漏派；新真实Firefox/redirect层兼容NOT_RUN。|
+|R12-BROWSER-SECRET|Playwright fill错误可带真实密码进异常message。|边界先结构primary后固定fromNone，密码sentinel纯fake覆盖，raw/最终error无泄露。|driver DEBUG等环境未guard；浏览器整体未准运行。|
+|R12-FAMILY-ACL|patient clinical不是S04doc open；底层source/payment即manager也无readACL，空域不证明非空家族财务正例。|正常新对象family六步工具、nativeAccessError guard、family专属空域与name/id核同，fake断言通过。|真实family/alias/非空经济/finance混源分支NOT_RUN。|
+|R12-PDF-HTTP|固定core minimal_layout含远程CSS/JS；Qt内部retry/redirect硬上界不明，不能推0或预扣任意50。|d30682a exactSettlementScope inline无资源正常addon extension，字体5s/wkhtml30s/私有temp/退出诊断；8purefake PASS。|新PDF/中文逐页/E均NOT_RUN；父renderer Native/REAP_FAILED→STOP消费仍待补。|
+|R12-NATIVE-DBSYSTEM|core启动_create_empty_database先连db_system，默认postgres；同目标OperationalError仍可fallbackpostgres。|ownedCLI显式同目标为未运行工具候选；源码审揭示fallback仍需严证。|R1.1隐式system连接实际计数/库UNKNOWN；不改旧显式维护账本，不执行新应用试探。|
+|R12-TOOL-SAFETY|12:52:28.744Z真实testeragent errored：possible cybersecurity risk；末工具/命令未公开。|原始事件SHA/时间/turn元数据保全，主控+acceptance各自list_agents观测，HARD-STOP新文件封存；全部应用执行冻结。|包级BLOCKED，不重述/换执行者/工具/人工转发绕过；非产品运行FAIL/Native。|
+
+最终P d30682a6c9c12b47d8df16609100c1452d9207a7/T642a75ba0ad6b6c4eb795a9a2c9ca7f0406125ca，实际24纯离线断言PASS。源码AST27份前后同；历史51与开发期快照各自保留。不因本轮补报告重跑业务。

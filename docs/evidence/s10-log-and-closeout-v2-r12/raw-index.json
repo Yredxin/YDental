@@ -1,0 +1,105 @@
+{
+  "sealed_raw_index": {
+    "private_path": ".local/s10-lc2-r12-20261017/sealed-raw-index.json",
+    "bytes": 538183,
+    "sha256": "621a83b688aedf1a42fd552774b76257fbcf825c6031cb7e1c5ee666a0dafc46",
+    "mode": "0o600"
+  },
+  "raw_files": 2160,
+  "raw_bytes_at_seal": 60014341,
+  "cap_bytes": 1073741824,
+  "selected_refs": [
+    {
+      "private_path": ".local/s10-lc2-r12-20261017/authority.json",
+      "bytes": 723,
+      "sha256": "7d81adb62a0e0e54e1739e5a0252d81c7bace2a97741976bce2f8031c45abc63",
+      "mode": "0o600"
+    },
+    {
+      "private_path": ".local/s10-lc2-r12-20261017/tool-refusal-original-event.json",
+      "bytes": 1102,
+      "sha256": "24acc2aa5c9f3258e3c71384507a1d784f3bae175d262608be0322c32c48b65c",
+      "mode": "0o600"
+    },
+    {
+      "private_path": ".local/s10-lc2-r12-20261017/tool-safety-refusal.json",
+      "bytes": 1974,
+      "sha256": "8a450e9e5dd5ac603204baef06cb714546475ef95a62c5c331146d66e0eb456e",
+      "mode": "0o600"
+    },
+    {
+      "private_path": ".local/s10-lc2-r12-20261017/HARD-STOP.json",
+      "bytes": 298,
+      "sha256": "93dd9a4492f74fd4699b43e3547d427fc97e93ef57c84a89204d612930bd91da",
+      "mode": "0o600"
+    },
+    {
+      "private_path": ".local/s10-lc2-r12-20261017/budget-at-tool-stop.json",
+      "bytes": 346,
+      "sha256": "27d25ee6df1668fd0c450b921d9b9392bd5320985976507c9cacd0451c43c60a",
+      "mode": "0o600"
+    },
+    {
+      "private_path": ".local/s10-lc2-r12-20261017/budget.json",
+      "bytes": 309,
+      "sha256": "1dc98de2d27680494c0fbfc6a4abfaf737d142d9c1271bbb798a9fd9ee88c44b",
+      "mode": "0o600"
+    },
+    {
+      "private_path": ".local/s10-lc2-r12-20261017/final-local-preservation.json",
+      "bytes": 2007,
+      "sha256": "7c65a25d4679732de2436b9c31588497f72ed155cc45b2d40c88da25bbd2d018",
+      "mode": "0o600"
+    },
+    {
+      "private_path": ".local/s10-lc2-r12-20261017/final-github-check/delta.json",
+      "bytes": 448,
+      "sha256": "3b3bd2c37b0c53b228c6da04da3544db8be8357ef9fe9786b3901f3cecbe3349",
+      "mode": "0o600"
+    },
+    {
+      "private_path": ".local/s10-lc2-r12-20261017/final-logging-schema-offline-20261017T130400Z/summary.json",
+      "bytes": 804,
+      "sha256": "c1f19a4b3f723622cd0dd83f34b6ab590808666bdeaa49830de7a323684c3f6f",
+      "mode": "0o600"
+    },
+    {
+      "private_path": ".local/s10-lc2-r12-20261017/final-logging-schema-offline-20261017T130400Z/source-before.json",
+      "bytes": 3884,
+      "sha256": "849fd438e2f16dc0fe2dc5071c69991a074513258f1c596043ea6c7cea08ffcb",
+      "mode": "0o600"
+    },
+    {
+      "private_path": ".local/s10-lc2-r12-20261017/final-logging-schema-offline-20261017T130400Z/source-after.json",
+      "bytes": 3884,
+      "sha256": "849fd438e2f16dc0fe2dc5071c69991a074513258f1c596043ea6c7cea08ffcb",
+      "mode": "0o600"
+    },
+    {
+      "private_path": ".local/s10-lc2-r12-20261017/final-logging-schema-offline-20261017T130400Z/pure-offline/parent-exit.tsv",
+      "bytes": 290,
+      "sha256": "c3b69283585ec9078158b1a24094897e75da6419068256ce1c57fc32e6780098",
+      "mode": "0o600"
+    },
+    {
+      "private_path": ".local/s10-lc2-r12-20261017/final-logging-schema-offline-20261017T130400Z/pure-offline/stderr-faulthandler.log",
+      "bytes": 4794,
+      "sha256": "bd5f3102e7c635b300d299acef35f006f80d88409b40b458750ca2d28f7a5287",
+      "mode": "0o600"
+    },
+    {
+      "private_path": ".local/s10-lc2-r12-20261017/start-sync.json",
+      "bytes": 313,
+      "sha256": "337f0ff403359590d2a3f32dd4b24ab9798e9a73728e1ce9ced735a519c94ebf",
+      "mode": "0o600"
+    },
+    {
+      "private_path": ".local/s10-lc2-r12-20261017/new-raw-mode-correction.json",
+      "bytes": 387,
+      "sha256": "d5ecc165277829e5ff3be78b121699ca45f933163a017a1af29430df5d877b6d",
+      "mode": "0o600"
+    }
+  ],
+  "raw_contents_private": true,
+  "later_sync_not_part_of_this_seal": true
+}

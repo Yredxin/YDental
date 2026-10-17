@@ -6,8 +6,10 @@
       "AGENTS current entry",
       "R1.2 governance/manifests/mapping",
       "git commits/push",
-      "GitHub comments"
-    ]
+      "GitHub comments",
+      "scripts/s10_lc2_test_renderer.py (reproducible copy; root path adjustment only)"
+    ],
+    "safe_offline_takeover": "Only pure logging reader schema and final pure logging/fake renderer checks; no blocked application task takeover."
   },
   "roles": {
     "developer": {
@@ -17,18 +19,45 @@
         "ydental_access/diagnostics.py",
         "scripts/s10_lc2_http.py",
         "scripts/s10_lc2_browser.py",
-        "ydental_settlement_test/models/lc2_fixture.py"
-      ]
+        "ydental_settlement_test/models/lc2_fixture.py",
+        "scripts/s10_lc2_test_browser.py",
+        "scripts/s10_lc2_failure_fixture_r12.py",
+        "scripts/s10_lc2_family.py",
+        "ydental_settlement/models/ir_actions_report.py",
+        "ydental_settlement/models/__init__.py"
+      ],
+      "handoffs": [
+        {
+          "scope": "GPR02 diagnostics.py",
+          "state": "committed7f7849c; independent static review"
+        },
+        {
+          "scope": "browser/http focused offline",
+          "state": "13 fake browser+11 fake HTTP actualexit0; independent static freeze approval; runtime NOT_RUN",
+          "raw": ".local/s10-lc2-r12-20261017/developer-browser-offline-20261017T122243Z/"
+        },
+        {
+          "scope": "final family/browser privacy",
+          "state": "18 fake browser/family+11 HTTP exit0, static scope accepted; actual application NOT_RUN"
+        },
+        {
+          "scope": "settlement scoped renderer",
+          "state": "202line product +3 renderer integerfields;8 purefake producer tests, final same code8 fake tests; static accepted, realPDF NOT_RUN"
+        }
+      ],
+      "final_state": "COMPLETED_SAFE_SOURCE_HANDOFF"
     },
     "tester": {
       "canonical": "/root/tester",
       "thread_id": "NOT_EXPOSED_BY_TOOL",
       "owns": [
-        "remaining scripts/s10_lc2*.py",
+        "remaining scripts/s10_lc2*.py except explicitly listed developer-owned files",
         "framework tests",
         "new separate D fixture/cases"
       ],
-      "runtime_owner": true
+      "runtime_owner": false,
+      "final_state": "ERRORED_REAL_AGENT_SAFETY_REFUSAL",
+      "handoff": "Two target RO completed; unrun coordinator/fixture/cases source preserved, no final runtime-ready handoff."
     },
     "acceptance": {
       "canonical": "/root/acceptance",
@@ -36,9 +65,27 @@
       "owns": [
         "acceptance-review.md"
       ],
-      "independent": true
+      "independent": true,
+      "final_state": "COMPLETED_FINAL_PARTIAL_ACCEPTED_RUNTIME_BLOCKED",
+      "signed_report": {
+        "path": "docs/reports/s10-log-and-closeout-v2-r12/acceptance-review.md",
+        "bytes": 30907,
+        "sha256": "b35553436df590f35a055d43c597eb3b6b6585260f4bcb9c60eb156b0d1497e7",
+        "signed_at_utc": "2026-10-17T13:10:22Z"
+      }
     }
   },
-  "actual_role_check": "collaboration.list_agents all four running; reuse actual threads via followup_task, no OS privilege/isolation claim",
-  "runtime_rule": "tester sole target DB/Odoo/HTTP/browser executor; serial one application; candidate frozen before runtime"
+  "actual_role_check": "Actual canonical agents observed by collaboration tools; tester errored with real safety refusal, independently observed by acceptance; no replacement runtime executor.",
+  "runtime_rule": "ALL RUNTIME FROZEN after actual tool/agent safety refusal. No application dispatch was created; code snapshot does not authorize execution.",
+  "fresh_locator": {
+    "canonical": "/root/acceptance_locator_r12",
+    "thread_id": "NOT_EXPOSED_BY_TOOL",
+    "spawn": "actual collaboration.spawn_agent fork_turns=none",
+    "input_boundary": "standard index plus acceptance contract only; no producer or injected answer",
+    "index": ".local/s10-lc2-r12-20261017/locator-package-20261017T122542Z/index.json",
+    "owns": [
+      "locator-review.md"
+    ],
+    "state": "COMPLETED_PASS_SYNTHETIC_SNAPSHOT_ONLY"
+  }
 }

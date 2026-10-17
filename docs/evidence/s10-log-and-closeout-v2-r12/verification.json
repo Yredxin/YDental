@@ -1,0 +1,129 @@
+{
+  "task_id": "S10-LOG-AND-CLOSEOUT-v2",
+  "message_id": "YD-S10-LC2-EXEC-20261017-02",
+  "revision": "1.2",
+  "parent_commit": "87a2542ff978fa3a1a58baf8d05fca7d59802554",
+  "product_commit": "d30682a6c9c12b47d8df16609100c1452d9207a7",
+  "test_commit": "642a75ba0ad6b6c4eb795a9a2c9ca7f0406125ca",
+  "core_read_only": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "execution_status": "BLOCKED_TOOL_AGENT_SAFETY_REFUSAL",
+  "stage_status": "BLOCKED",
+  "final_pure_offline": {
+    "raw": ".local/s10-lc2-r12-20261017/final-logging-schema-offline-20261017T130400Z/",
+    "actual_time_utc": "2026-10-17T13:02:14.791316Z",
+    "directory_label_is_not_execution_timestamp": true,
+    "tests": 24,
+    "diagnostics": 15,
+    "renderer_schema": 1,
+    "renderer_schema_subcases": 18,
+    "fake_renderer": 8,
+    "parent_child_pid": 1120215,
+    "exit_code": 0,
+    "signal": null,
+    "timeout": false,
+    "source_files": 27,
+    "source_before_after_current_equal": true,
+    "layer": "PURE_OFFLINE_LOGGING_SCHEMA_FAKE_RENDERER",
+    "not_executed": [
+      "Odoo",
+      "DB",
+      "real HTTP/RPC",
+      "Firefox",
+      "native PDF engine"
+    ]
+  },
+  "earlier_offline": [
+    {
+      "scope": "58 development assertions before candidate freeze",
+      "source_manifest": ".local/s10-lc2-r12-20261017/offline-initial/source-manifest.json",
+      "final_candidate_pass_claimed": false
+    },
+    {
+      "scope": "18 fake browser/family + 11 fake HTTP",
+      "raw": ".local/s10-lc2-r12-20261017/developer-privacy-family-offline-20261017T124240Z/",
+      "pids": [
+        1107647,
+        1107649
+      ],
+      "exit_codes": [
+        0,
+        0
+      ],
+      "final_application_pass_claimed": false
+    },
+    {
+      "scope": "8 fake renderer producer checks",
+      "raw": ".local/s10-lc2-r12-20261017/renderer-focused-offline-20261017T125600Z/",
+      "pid": 1117254,
+      "exit_code": 0
+    }
+  ],
+  "locator": {
+    "canonical": "/root/acceptance_locator_r12",
+    "fresh_fork": "none",
+    "report": "docs/reports/s10-log-and-closeout-v2-r12/locator-review.md",
+    "scope": "PASS_SYNTHETIC_ONLY_R12_SOURCE_SNAPSHOT",
+    "product_snapshot": "7f7849c0bfeeb0ec7a331eb9b65821e955396a45",
+    "test_snapshot": "1702a8bcfdbea43daf661962447c36ba630a97ec",
+    "actual_locator_duration_seconds": 71.282,
+    "independent_hash_files": 12,
+    "producer_pid": 1096836,
+    "producer_exit_code": 0,
+    "injected_child_pid": 1096840,
+    "injected_child_exit_code": 1,
+    "injected_child_signal": null,
+    "db_commit_claimed": false,
+    "final_new_candidate_fresh_locator_claimed": false
+  },
+  "resource_counts": {
+    "r12_added": {
+      "target_ro": 2,
+      "protected_source_connections": 0,
+      "maintenance": 0,
+      "create": 0,
+      "odoo": 0,
+      "http": 0,
+      "firefox": 0,
+      "old_original_get": 0,
+      "business_or_economic_commit": 0
+    },
+    "inherited_ledger_cumulative": {
+      "accident_ro": 2,
+      "maintenance_explicit_operator": 1,
+      "create": 2,
+      "odoo_start": 1,
+      "target_ro": 6,
+      "http": 0,
+      "firefox": 0,
+      "old_original_get": 0
+    },
+    "legacy_native_cli_system_connections_actual_count": "UNKNOWN",
+    "legacy_native_cli_system_database": "UNKNOWN",
+    "legacy_ledger_not_overwritten": true
+  },
+  "baseline": "last actual new target RO only; no final new DB measurement after safety freeze",
+  "new_committed_operations": [],
+  "runtime_tool_readiness": "NOT_RUNTIME_READY_SAFETY_FROZEN",
+  "unresolved_gates": [
+    "Parent must consume renderer signal/REAP_FAILED and persist hard stop",
+    "Firefox driver DEBUG/PWDEBUG/DEBUG_FILE environment protection",
+    "Native CLI db_system OperationalError fallback can open postgres; require verified no-maintenance admission",
+    "All required framework and real application tests",
+    "C nonempty financial family positive, alias entry and true finance mixed-source branch coverage"
+  ],
+  "confidence_limits": [
+    "Actual safety refusal did not expose last command/tool; specific_command UNKNOWN",
+    "No new native crash; historical Native root cause UNKNOWN",
+    "No S10 PASS or production authorization",
+    "No inference of database-wide rollback or release from expired stored editor"
+  ],
+  "independent_acceptance": {
+    "canonical": "/root/acceptance",
+    "status": "FINAL_PARTIAL_ACCEPTED_RUNTIME_BLOCKED",
+    "report": "docs/reports/s10-log-and-closeout-v2-r12/acceptance-review.md",
+    "bytes": 30907,
+    "sha256": "b35553436df590f35a055d43c597eb3b6b6585260f4bcb9c60eb156b0d1497e7",
+    "signed_at_utc": "2026-10-17T13:10:22Z",
+    "runtime_approval": false
+  }
+}

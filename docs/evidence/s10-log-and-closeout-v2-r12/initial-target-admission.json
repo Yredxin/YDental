@@ -1,0 +1,52 @@
+{
+  "main": {
+    "decision": {
+      "admission_ready": true,
+      "compared_rows": 6734,
+      "copied_not_new_measurement": false,
+      "current_editor_release_claimed": false,
+      "database": "ydental_s10_test_20261017105432_810a7d9c",
+      "filestore_files_equal": 198,
+      "independent_connection_closed_before_review": true,
+      "independent_target_RO_measurement": true,
+      "marker_sha256": "821e62e2a5f646f25dbfb858e229ecc3770f341a699d8368e0d47e9182408a29",
+      "marker_unchanged": true,
+      "oid": 2144129,
+      "old_source_business_writes": 0,
+      "purpose": "main historical A/B/C and E-MAIN only",
+      "schema_security_modules_and_queue_settings_equal": true,
+      "stored_rows_equal": true
+    },
+    "private_raw": ".local/s10-lc2-r12-20261017/reentry-main/reentry-decision.json",
+    "sha256": "589c5a772a6eff195d48554bd46dd705c82d4b403c446f1c326d89b8c5ac74b6"
+  },
+  "scratch": {
+    "decision": {
+      "admission_ready": true,
+      "business_scope_absence_proven_by_actual_schema": true,
+      "business_tables_present": [],
+      "database": "ydental_s10_test_20261017105432_ce6dcbf8",
+      "independent_connection_closed_before_review": true,
+      "installed_modules": [
+        {
+          "id": 34,
+          "latest_version": "20.0.1.3",
+          "name": "base",
+          "state": "installed"
+        }
+      ],
+      "marker_sha256": "d34c9aa886d974d2ab1f7554b7d7969284f7bf7e4d4661d7b38763b26f3537f6",
+      "marker_unchanged": true,
+      "module_catalog_rows": 702,
+      "oid": 2144130,
+      "pending_module_names": [],
+      "public_physical_table_count": 115,
+      "purpose": "normal Odoo install reentry then independent synthetic D and E-D",
+      "whole_database_empty_claimed": false,
+      "whole_database_rollback_claimed": false
+    },
+    "private_raw": ".local/s10-lc2-r12-20261017/reentry-scratch/reentry-decision.json",
+    "sha256": "9f9a150250f5e490e33fdc23e9ed913042206ea8879bc48b0564b420c3183748"
+  },
+  "scope": "Fresh target-only RO; no editor-release, business, application or whole-database-rollback claim."
+}

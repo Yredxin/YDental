@@ -3,12 +3,12 @@
   "message_id": "YD-S10-LC2-EXEC-20261017-02",
   "revision": "1.2",
   "parent_commit": "87a2542ff978fa3a1a58baf8d05fca7d59802554",
-  "execution_status": "IN_PROGRESS",
+  "execution_status": "BLOCKED_TOOL_AGENT_SAFETY_REFUSAL",
   "counts": {
     "LOG": 12,
     "S10": 22
   },
-  "status_rule": "历史正式采纳与本轮逐TC新执行分列；证据层级逐项保留；离线/合成不替代真实RPC/资金/浏览器；S10阶段仍BLOCKED",
+  "status_rule": "Historical adoption preserved separately. Actual RO baseline != business A completion; pure mocks != framework/real RPC/browser/PDF; every new whole S10 row remains NOT_RUN and stage BLOCKED.",
   "logs": [
     {
       "id": "LOG-01",
@@ -32,15 +32,30 @@
         "JSONL+原生日志+独立进程索引",
         "适用时S01 audit_ref与独立状态核实"
       ],
-      "resources": "scratch日志配置+单次启动",
+      "resources": "R1.1+R1.2统一累计上限；继承已用，不恢复旧事故窗口额度。main A/B/C，scratch唯一D，E-MAIN/E-D分支。",
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "historical_acceptance": "新标准，未有LOG运行采纳",
-      "new_execution_status": "NOT_RUN",
-      "plan_status": "IMPLEMENTED_PART_OR_NOT_RUN_AS_EVIDENCED",
-      "actual_evidence": [],
-      "reason": "R1.2新候选待冻结及实际运行；R1.1历史成果独立保留。",
-      "r11_execution_status": "PARTIAL_OFFLINE_ONLY"
+      "new_execution_status": "PARTIAL_OFFLINE_ONLY",
+      "plan_status": "DELIVERED_WITH_EVIDENCED_RUNTIME_BLOCK",
+      "actual_evidence": [
+        "../../evidence/s10-log-and-closeout-v2-r12/verification.json",
+        "acceptance-review.md"
+      ],
+      "reason": "Final diagnostics lifecycle/config/factory pure tests; actual Odoo init NOT_RUN.",
+      "r11_execution_status": "PARTIAL_OFFLINE_ONLY",
+      "acceptance_criteria_refs": [
+        "AC-LOG-01"
+      ],
+      "actual_layers": [
+        "STATIC",
+        "SYNTHETIC_FIXTURE"
+      ],
+      "planned_runtime_executor": "/root/tester",
+      "actual_executors": [
+        "/root/developer (source and producer pure mocks)",
+        "/root (final pure logging/schema/fake-renderer and preservation only)"
+      ]
     },
     {
       "id": "LOG-02",
@@ -64,22 +79,38 @@
         "JSONL+原生日志+独立进程索引",
         "适用时S01 audit_ref与独立状态核实"
       ],
-      "resources": "单服务两请求+独立audit查证",
+      "resources": "R1.1+R1.2统一累计上限；继承已用，不恢复旧事故窗口额度。main A/B/C，scratch唯一D，E-MAIN/E-D分支。",
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "historical_acceptance": "新标准，未有LOG运行采纳",
-      "new_execution_status": "NOT_RUN",
-      "plan_status": "IMPLEMENTED_PART_OR_NOT_RUN_AS_EVIDENCED",
-      "actual_evidence": [],
-      "reason": "R1.2新候选待冻结及实际运行；R1.1历史成果独立保留。",
-      "r11_execution_status": "PARTIAL_OFFLINE_ONLY"
+      "new_execution_status": "PARTIAL_OFFLINE_ONLY",
+      "plan_status": "DELIVERED_WITH_EVIDENCED_RUNTIME_BLOCK",
+      "actual_evidence": [
+        "../../evidence/s10-log-and-closeout-v2-r12/verification.json",
+        "acceptance-review.md"
+      ],
+      "reason": "Final thread/async context isolation tests; two real HTTP requests NOT_RUN.",
+      "r11_execution_status": "PARTIAL_OFFLINE_ONLY",
+      "acceptance_criteria_refs": [
+        "AC-LOG-02"
+      ],
+      "actual_layers": [
+        "STATIC",
+        "SYNTHETIC_FIXTURE"
+      ],
+      "planned_runtime_executor": "/root/tester",
+      "actual_executors": [
+        "/root/developer (source and producer pure mocks)",
+        "/root (final pure logging/schema/fake-renderer and preservation only)"
+      ]
     },
     {
       "id": "LOG-03",
       "requirement": "拒绝/异常分类",
       "implementation": "diagnostic_errors.py / action parse-vs-service catch-sites",
       "test_cases": [
-        "L03:缺权限/日结/版本冲突固定码；合成NameError/TypeError程序异常；403/409/303不变"
+        "L03:缺权限/日结/版本冲突固定码；合成NameError/TypeError程序异常；403/409/303不变",
+        "GPR01原生actual instance/name/arguments/context；真实RPC公开翻译与native WarningDialog、403/409/303分别证明。"
       ],
       "prerequisites": [
         "完整实施包明确批准",
@@ -97,22 +128,38 @@
         "JSONL+原生日志+独立进程索引",
         "适用时S01 audit_ref与独立状态核实"
       ],
-      "resources": "新夹具拒绝与scratch故障注入",
+      "resources": "R1.1+R1.2统一累计上限；继承已用，不恢复旧事故窗口额度。main A/B/C，scratch唯一D，E-MAIN/E-D分支。",
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "historical_acceptance": "新标准，未有LOG运行采纳",
-      "new_execution_status": "NOT_RUN",
-      "plan_status": "IMPLEMENTED_PART_OR_NOT_RUN_AS_EVIDENCED",
-      "actual_evidence": [],
-      "reason": "R1.2新候选待冻结及实际运行；R1.1历史成果独立保留。",
-      "r11_execution_status": "PARTIAL_OFFLINE_ONLY"
+      "new_execution_status": "PARTIAL_STATIC_OFFLINE_ONLY",
+      "plan_status": "DELIVERED_WITH_EVIDENCED_RUNTIME_BLOCK",
+      "actual_evidence": [
+        "../../evidence/s10-log-and-closeout-v2-r12/verification.json",
+        "acceptance-review.md"
+      ],
+      "reason": "Native exception factory retained; real serialization/RPC/UI contracts NOT_RUN.",
+      "r11_execution_status": "PARTIAL_OFFLINE_ONLY",
+      "acceptance_criteria_refs": [
+        "AC-LOG-03"
+      ],
+      "actual_layers": [
+        "STATIC",
+        "SYNTHETIC_FIXTURE"
+      ],
+      "planned_runtime_executor": "/root/tester",
+      "actual_executors": [
+        "/root/developer (source and producer pure mocks)",
+        "/root (final pure logging/schema/fake-renderer and preservation only)"
+      ]
     },
     {
       "id": "LOG-04",
       "requirement": "首异常与secondary",
-      "implementation": "supervisor.save_primary / evidence.seal / diagnostics.safe_exception_frames",
+      "implementation": "supervisor.save_primary / evidence.seal / diagnostics.safe_exception_frames; GPR02/GPR-02 safe_exception_chain bounded cause/effective context and separate ASCII chain before JSON",
       "test_cases": [
-        "L04:合成业务异常+保存异常+fallback异常；首异常不覆盖、不递归serializer"
+        "L04:合成业务异常+保存异常+fallback异常；首异常不覆盖、不递归serializer",
+        "GPR02精确LookupError→ValueError fromcause；implicit context/fromNone/cause优先/cycle/depth/per-node-total-frames；链采集与serializer/writer failure组合，primary/secondary分开、原对象不变。"
       ],
       "prerequisites": [
         "完整实施包明确批准",
@@ -127,15 +174,30 @@
         "JSONL+原生日志+独立进程索引",
         "适用时S01 audit_ref与独立状态核实"
       ],
-      "resources": "非Odoo安全工具用例",
+      "resources": "R1.1+R1.2统一累计上限；继承已用，不恢复旧事故窗口额度。main A/B/C，scratch唯一D，E-MAIN/E-D分支。",
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "historical_acceptance": "新标准，未有LOG运行采纳",
-      "new_execution_status": "NOT_RUN",
-      "plan_status": "IMPLEMENTED_PART_OR_NOT_RUN_AS_EVIDENCED",
-      "actual_evidence": [],
-      "reason": "R1.2新候选待冻结及实际运行；R1.1历史成果独立保留。",
-      "r11_execution_status": "PASS_SYNTHETIC_ONLY"
+      "new_execution_status": "PASS_SCOPED_SYNTHETIC_ONLY",
+      "plan_status": "DELIVERED_WITH_EVIDENCED_RUNTIME_BLOCK",
+      "actual_evidence": [
+        "../../evidence/s10-log-and-closeout-v2-r12/verification.json",
+        "acceptance-review.md"
+      ],
+      "reason": "Final exact LookupError→ValueError cause, effective context/fromNone, cycle/depth/frame, serializer/writer primary-secondary tests passed. No real business failure exercised.",
+      "r11_execution_status": "PASS_SYNTHETIC_ONLY",
+      "acceptance_criteria_refs": [
+        "AC-LOG-04"
+      ],
+      "actual_layers": [
+        "STATIC",
+        "SYNTHETIC_FIXTURE"
+      ],
+      "planned_runtime_executor": "/root/tester",
+      "actual_executors": [
+        "/root/developer (source and producer pure mocks)",
+        "/root (final pure logging/schema/fake-renderer and preservation only)"
+      ]
     },
     {
       "id": "LOG-05",
@@ -160,22 +222,38 @@
         "JSONL+原生日志+独立进程索引",
         "适用时S01 audit_ref与独立状态核实"
       ],
-      "resources": "新主目标唯一6/2+D observer",
+      "resources": "R1.1+R1.2统一累计上限；继承已用，不恢复旧事故窗口额度。main A/B/C，scratch唯一D，E-MAIN/E-D分支。",
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "historical_acceptance": "新标准，未有LOG运行采纳",
-      "new_execution_status": "NOT_RUN",
-      "plan_status": "IMPLEMENTED_PART_OR_NOT_RUN_AS_EVIDENCED",
-      "actual_evidence": [],
-      "reason": "R1.2新候选待冻结及实际运行；R1.1历史成果独立保留。",
-      "r11_execution_status": "PARTIAL_OFFLINE_ONLY"
+      "new_execution_status": "PARTIAL_OFFLINE_ONLY",
+      "plan_status": "DELIVERED_WITH_EVIDENCED_RUNTIME_BLOCK",
+      "actual_evidence": [
+        "../../evidence/s10-log-and-closeout-v2-r12/verification.json",
+        "acceptance-review.md"
+      ],
+      "reason": "No inferred commit in log semantics; new economic transaction observation NOT_RUN.",
+      "r11_execution_status": "PARTIAL_OFFLINE_ONLY",
+      "acceptance_criteria_refs": [
+        "AC-LOG-05"
+      ],
+      "actual_layers": [
+        "STATIC",
+        "SYNTHETIC_FIXTURE"
+      ],
+      "planned_runtime_executor": "/root/tester",
+      "actual_executors": [
+        "/root/developer (source and producer pure mocks)",
+        "/root (final pure logging/schema/fake-renderer and preservation only)"
+      ]
     },
     {
       "id": "LOG-06",
       "requirement": "日志无业务副作用",
       "implementation": "diagnostics纯primitive / access._audit原失败规则",
       "test_cases": [
-        "L06:静态禁ORM/flush/uid/default_env/锁/事务；开关同夹具经济差异0；强制审计失败回滚"
+        "L06:静态禁ORM/flush/uid/default_env/锁/事务；开关同夹具经济差异0；强制审计失败回滚",
+        "GPR01原生actual instance/name/arguments/context；真实RPC公开翻译与native WarningDialog、403/409/303分别证明。"
       ],
       "prerequisites": [
         "完整实施包明确批准",
@@ -193,15 +271,30 @@
         "JSONL+原生日志+独立进程索引",
         "适用时S01 audit_ref与独立状态核实"
       ],
-      "resources": "scratch等价夹具+主目标A不变量",
+      "resources": "R1.1+R1.2统一累计上限；继承已用，不恢复旧事故窗口额度。main A/B/C，scratch唯一D，E-MAIN/E-D分支。",
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "historical_acceptance": "新标准，未有LOG运行采纳",
-      "new_execution_status": "NOT_RUN",
-      "plan_status": "IMPLEMENTED_PART_OR_NOT_RUN_AS_EVIDENCED",
-      "actual_evidence": [],
-      "reason": "R1.2新候选待冻结及实际运行；R1.1历史成果独立保留。",
-      "r11_execution_status": "PARTIAL_STATIC_ONLY"
+      "new_execution_status": "PARTIAL_STATIC_OFFLINE_ONLY",
+      "plan_status": "DELIVERED_WITH_EVIDENCED_RUNTIME_BLOCK",
+      "actual_evidence": [
+        "../../evidence/s10-log-and-closeout-v2-r12/verification.json",
+        "acceptance-review.md"
+      ],
+      "reason": "No ORM/uid/flush/lock/commit in diagnostics; actual ORM/audit/transaction regression NOT_RUN.",
+      "r11_execution_status": "PARTIAL_STATIC_ONLY",
+      "acceptance_criteria_refs": [
+        "AC-LOG-06"
+      ],
+      "actual_layers": [
+        "STATIC",
+        "SYNTHETIC_FIXTURE"
+      ],
+      "planned_runtime_executor": "/root/tester",
+      "actual_executors": [
+        "/root/developer (source and producer pure mocks)",
+        "/root (final pure logging/schema/fake-renderer and preservation only)"
+      ]
     },
     {
       "id": "LOG-07",
@@ -224,15 +317,31 @@
         "JSONL+原生日志+独立进程索引",
         "适用时S01 audit_ref与独立状态核实"
       ],
-      "resources": "非Odoo工具测试；不诱发新Native",
+      "resources": "R1.1+R1.2统一累计上限；继承已用，不恢复旧事故窗口额度。main A/B/C，scratch唯一D，E-MAIN/E-D分支。",
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "historical_acceptance": "新标准，未有LOG运行采纳",
-      "new_execution_status": "NOT_RUN",
-      "plan_status": "IMPLEMENTED_PART_OR_NOT_RUN_AS_EVIDENCED",
-      "actual_evidence": [],
-      "reason": "R1.2新候选待冻结及实际运行；R1.1历史成果独立保留。",
-      "r11_execution_status": "PASS_ORCHESTRATOR_EXIT_ONLY"
+      "new_execution_status": "PASS_SCOPED_PARENT_ONLY",
+      "plan_status": "DELIVERED_WITH_EVIDENCED_RUNTIME_BLOCK",
+      "actual_evidence": [
+        "../../evidence/s10-log-and-closeout-v2-r12/verification.json",
+        "acceptance-review.md"
+      ],
+      "reason": "Actual independent parents for preflight/two RO/offline; synthetic locator child exit1. No new Odoo/renderer application process.",
+      "r11_execution_status": "PASS_ORCHESTRATOR_EXIT_ONLY",
+      "acceptance_criteria_refs": [
+        "AC-LOG-07"
+      ],
+      "actual_layers": [
+        "STATIC",
+        "SYNTHETIC_FIXTURE"
+      ],
+      "planned_runtime_executor": "/root/tester",
+      "actual_executors": [
+        "/root/developer (source and producer pure mocks)",
+        "/root (final pure logging/schema/fake-renderer and preservation only)",
+        "/root/tester (two target RO, before refusal)"
+      ]
     },
     {
       "id": "LOG-08",
@@ -254,22 +363,39 @@
         "JSONL+原生日志+独立进程索引",
         "适用时S01 audit_ref与独立状态核实"
       ],
-      "resources": "离线短坏行夹具",
+      "resources": "R1.1+R1.2统一累计上限；继承已用，不恢复旧事故窗口额度。main A/B/C，scratch唯一D，E-MAIN/E-D分支。",
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "historical_acceptance": "新标准，未有LOG运行采纳",
-      "new_execution_status": "NOT_RUN",
-      "plan_status": "IMPLEMENTED_PART_OR_NOT_RUN_AS_EVIDENCED",
-      "actual_evidence": [],
-      "reason": "R1.2新候选待冻结及实际运行；R1.1历史成果独立保留。",
-      "r11_execution_status": "PASS_SYNTHETIC_ONLY"
+      "new_execution_status": "PARTIAL_OFFLINE_ONLY",
+      "plan_status": "DELIVERED_WITH_EVIDENCED_RUNTIME_BLOCK",
+      "actual_evidence": [
+        "../../evidence/s10-log-and-closeout-v2-r12/verification.json",
+        "acceptance-review.md"
+      ],
+      "reason": "R1.1 strict JSONL tests retained; final renderer primitive schema type/range tested. Final complete real multi-process application log NOT_RUN.",
+      "r11_execution_status": "PASS_SYNTHETIC_ONLY",
+      "acceptance_criteria_refs": [
+        "AC-LOG-08"
+      ],
+      "actual_layers": [
+        "STATIC",
+        "SYNTHETIC_FIXTURE"
+      ],
+      "planned_runtime_executor": "/root/tester",
+      "actual_executors": [
+        "/root/developer (source and producer pure mocks)",
+        "/root (final pure logging/schema/fake-renderer and preservation only)"
+      ]
     },
     {
       "id": "LOG-09",
       "requirement": "隐私与注入",
-      "implementation": "diagnostics白名单 / public export scanner",
+      "implementation": "diagnostics白名单 / public export scanner; GPR02/GPR-02 safe_exception_chain bounded cause/effective context and separate ASCII chain before JSON",
       "test_cases": [
-        "L09:合成password/cookie/token/病例/换行/含秘异常；关联非secret；公开自动扫描+人工复核"
+        "L09:合成password/cookie/token/病例/换行/含秘异常；关联非secret；公开自动扫描+人工复核",
+        "GPR02精确LookupError→ValueError fromcause；implicit context/fromNone/cause优先/cycle/depth/per-node-total-frames；链采集与serializer/writer failure组合，primary/secondary分开、原对象不变。",
+        "GPR01原生actual instance/name/arguments/context；真实RPC公开翻译与native WarningDialog、403/409/303分别证明。"
       ],
       "prerequisites": [
         "完整实施包明确批准",
@@ -285,15 +411,30 @@
         "JSONL+原生日志+独立进程索引",
         "适用时S01 audit_ref与独立状态核实"
       ],
-      "resources": "本包合成秘密与公开材料",
+      "resources": "R1.1+R1.2统一累计上限；继承已用，不恢复旧事故窗口额度。main A/B/C，scratch唯一D，E-MAIN/E-D分支。",
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "historical_acceptance": "新标准，未有LOG运行采纳",
-      "new_execution_status": "NOT_RUN",
-      "plan_status": "IMPLEMENTED_PART_OR_NOT_RUN_AS_EVIDENCED",
-      "actual_evidence": [],
-      "reason": "R1.2新候选待冻结及实际运行；R1.1历史成果独立保留。",
-      "r11_execution_status": "PASS_PUBLIC_EXPORT_AND_SYNTHETIC_ONLY"
+      "new_execution_status": "PARTIAL_STATIC_OFFLINE_ONLY",
+      "plan_status": "DELIVERED_WITH_EVIDENCED_RUNTIME_BLOCK",
+      "actual_evidence": [
+        "../../evidence/s10-log-and-closeout-v2-r12/verification.json",
+        "acceptance-review.md"
+      ],
+      "reason": "Bounded message-free chain and fake secret sentinel passed; driver debug-env gap retained, no real network secret test.",
+      "r11_execution_status": "PASS_PUBLIC_EXPORT_AND_SYNTHETIC_ONLY",
+      "acceptance_criteria_refs": [
+        "AC-LOG-09"
+      ],
+      "actual_layers": [
+        "STATIC",
+        "SYNTHETIC_FIXTURE"
+      ],
+      "planned_runtime_executor": "/root/tester",
+      "actual_executors": [
+        "/root/developer (source and producer pure mocks)",
+        "/root (final pure logging/schema/fake-renderer and preservation only)"
+      ]
     },
     {
       "id": "LOG-10",
@@ -316,22 +457,38 @@
         "JSONL+原生日志+独立进程索引",
         "适用时S01 audit_ref与独立状态核实"
       ],
-      "resources": "新run文件，16KiB行/10MiB段/5段/1GiB包",
+      "resources": "R1.1+R1.2统一累计上限；继承已用，不恢复旧事故窗口额度。main A/B/C，scratch唯一D，E-MAIN/E-D分支。",
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "historical_acceptance": "新标准，未有LOG运行采纳",
-      "new_execution_status": "NOT_RUN",
-      "plan_status": "IMPLEMENTED_PART_OR_NOT_RUN_AS_EVIDENCED",
-      "actual_evidence": [],
-      "reason": "R1.2新候选待冻结及实际运行；R1.1历史成果独立保留。",
-      "r11_execution_status": "PARTIAL_OFFLINE_ONLY"
+      "new_execution_status": "PARTIAL_OFFLINE_ONLY",
+      "plan_status": "DELIVERED_WITH_EVIDENCED_RUNTIME_BLOCK",
+      "actual_evidence": [
+        "../../evidence/s10-log-and-closeout-v2-r12/verification.json",
+        "acceptance-review.md"
+      ],
+      "reason": "Threaded emit/lifecycle and bounded rotation tests; application performance/storage workload NOT_RUN.",
+      "r11_execution_status": "PARTIAL_OFFLINE_ONLY",
+      "acceptance_criteria_refs": [
+        "AC-LOG-10"
+      ],
+      "actual_layers": [
+        "STATIC",
+        "SYNTHETIC_FIXTURE"
+      ],
+      "planned_runtime_executor": "/root/tester",
+      "actual_executors": [
+        "/root/developer (source and producer pure mocks)",
+        "/root (final pure logging/schema/fake-renderer and preservation only)"
+      ]
     },
     {
       "id": "LOG-11",
       "requirement": "独立验收定位",
       "implementation": "query_timeline / summary / failure package",
       "test_cases": [
-        "L11:未来fresh acceptance_locator独立线程仅拿标准入口index/manifest/AC，不继承开发/注入答案；定位首异常/最后可靠提交/UNKNOWN，记录实际耗时，无预设SLA"
+        "L11:未来fresh acceptance_locator独立线程仅拿标准入口index/manifest/AC，不继承开发/注入答案；定位首异常/最后可靠提交/UNKNOWN，记录实际耗时，无预设SLA",
+        "R1.2 fresh locator只收标准index/manifest，不收注入答案；定位链首因/外层、secondary/checkpoint/独立parent退出；合成边界如实限定。"
       ],
       "prerequisites": [
         "完整实施包明确批准",
@@ -346,15 +503,31 @@
         "JSONL+原生日志+独立进程索引",
         "适用时S01 audit_ref与独立状态核实"
       ],
-      "resources": "新失败夹具包；验收未参与写实现",
+      "resources": "R1.1+R1.2统一累计上限；继承已用，不恢复旧事故窗口额度。main A/B/C，scratch唯一D，E-MAIN/E-D分支。",
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "historical_acceptance": "新标准，未有LOG运行采纳",
-      "new_execution_status": "NOT_RUN",
-      "plan_status": "IMPLEMENTED_PART_OR_NOT_RUN_AS_EVIDENCED",
-      "actual_evidence": [],
-      "reason": "R1.2新候选待冻结及实际运行；R1.1历史成果独立保留。",
-      "r11_execution_status": "PASS_SYNTHETIC_ONLY"
+      "new_execution_status": "PASS_SCOPED_SYNTHETIC_SNAPSHOT_ONLY",
+      "plan_status": "DELIVERED_WITH_EVIDENCED_RUNTIME_BLOCK",
+      "actual_evidence": [
+        "../../evidence/s10-log-and-closeout-v2-r12/verification.json",
+        "acceptance-review.md",
+        "locator-review.md"
+      ],
+      "reason": "Fresh independent locator recovered first cause/secondary/checkpoint/exit in71.282s,12/12 hashes; pre-final product/test snapshot explicitly recorded.",
+      "r11_execution_status": "PASS_SYNTHETIC_ONLY",
+      "acceptance_criteria_refs": [
+        "AC-LOG-11"
+      ],
+      "actual_layers": [
+        "STATIC",
+        "SYNTHETIC_FIXTURE"
+      ],
+      "planned_runtime_executor": "/root/tester",
+      "actual_executors": [
+        "/root/developer (synthetic producer)",
+        "/root/acceptance_locator_r12 (fresh independent locator)"
+      ]
     },
     {
       "id": "LOG-12",
@@ -380,15 +553,26 @@
         "JSONL+原生日志+独立进程索引",
         "适用时S01 audit_ref与独立状态核实"
       ],
-      "resources": "获批新主目标与scratch；LOG不代替A-E",
+      "resources": "R1.1+R1.2统一累计上限；继承已用，不恢复旧事故窗口额度。main A/B/C，scratch唯一D，E-MAIN/E-D分支。",
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "historical_acceptance": "新标准，未有LOG运行采纳",
-      "new_execution_status": "NOT_RUN",
-      "plan_status": "IMPLEMENTED_PART_OR_NOT_RUN_AS_EVIDENCED",
-      "actual_evidence": [],
-      "reason": "R1.2新候选待冻结及实际运行；R1.1历史成果独立保留。",
-      "r11_execution_status": "NOT_RUN"
+      "new_execution_status": "BLOCKED_NOT_RUN",
+      "plan_status": "DELIVERED_WITH_EVIDENCED_RUNTIME_BLOCK",
+      "actual_evidence": [
+        "../../evidence/s10-log-and-closeout-v2-r12/verification.json",
+        "acceptance-review.md"
+      ],
+      "reason": "Unique D native6/2 lifecycle and two independent data upgrades NOT_RUN.",
+      "r11_execution_status": "NOT_RUN",
+      "acceptance_criteria_refs": [
+        "AC-LOG-12"
+      ],
+      "actual_layers": [
+        "STATIC"
+      ],
+      "planned_runtime_executor": "/root/tester",
+      "actual_executors": []
     }
   ],
   "s10": [
@@ -436,25 +620,31 @@
         "对应A-E原始响应/独立状态/索引",
         "E精确差异及旧/新提交保全"
       ],
-      "resources": "主计划第4节整包统一上限，禁止继承旧预算",
+      "resources": "R1.1+R1.2统一累计上限；继承已用，不恢复旧事故窗口额度。main A/B/C，scratch唯一D，E-MAIN/E-D分支。",
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "new_execution_status": "NOT_RUN",
       "stage_exit_status": "BLOCKED",
-      "plan_status": "BLOCKED_DELIVERY",
+      "plan_status": "DELIVERED_WITH_EVIDENCED_RUNTIME_BLOCK",
       "evidence_requirement_refs": [
         "/tc_evidence_requirements/E-PREBASELINE",
         "/tc_evidence_requirements/E-UPGRADE-S10-ONLY",
         "/tc_evidence_requirements/E-PRESERVE",
         "/tc_evidence_requirements/E-AFFECTED-REGRESSION"
       ],
-      "new_execution_evidence": {
-        "A-STATE": "not referenced",
-        "actual_new_business_tests": "NOT_RUN"
-      },
+      "new_execution_evidence": {},
       "actual_evidence": [],
-      "reason": "R1.2新候选待冻结及实际运行；R1.1历史成果独立保留。",
-      "r11_execution_status": "NOT_RUN"
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL: all further two-target application execution frozen; A-STATE baseline is separate, not whole-row completion.",
+      "r11_execution_status": "NOT_RUN",
+      "acceptance_criteria_refs": [
+        "AC-E-PREBASELINE",
+        "AC-E-UPGRADE-S10-ONLY",
+        "AC-E-PRESERVE",
+        "AC-E-AFFECTED-REGRESSION"
+      ],
+      "blocking_evidence_refs": [
+        "../../evidence/s10-log-and-closeout-v2-r12/tool-safety-refusal.json"
+      ]
     },
     {
       "id": "F2",
@@ -507,12 +697,12 @@
         "对应A-E原始响应/独立状态/索引",
         "E精确差异及旧/新提交保全"
       ],
-      "resources": "主计划第4节整包统一上限，禁止继承旧预算",
+      "resources": "R1.1+R1.2统一累计上限；继承已用，不恢复旧事故窗口额度。main A/B/C，scratch唯一D，E-MAIN/E-D分支。",
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "new_execution_status": "NOT_RUN",
       "stage_exit_status": "BLOCKED",
-      "plan_status": "BLOCKED_DELIVERY",
+      "plan_status": "DELIVERED_WITH_EVIDENCED_RUNTIME_BLOCK",
       "evidence_requirement_refs": [
         "/tc_evidence_requirements/D-ADMIT",
         "/tc_evidence_requirements/D-NORMAL-6",
@@ -525,13 +715,25 @@
         "/tc_evidence_requirements/E-PRESERVE",
         "/tc_evidence_requirements/E-AFFECTED-REGRESSION"
       ],
-      "new_execution_evidence": {
-        "A-STATE": "not referenced",
-        "actual_new_business_tests": "NOT_RUN"
-      },
+      "new_execution_evidence": {},
       "actual_evidence": [],
-      "reason": "R1.2新候选待冻结及实际运行；R1.1历史成果独立保留。",
-      "r11_execution_status": "NOT_RUN"
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL: all further two-target application execution frozen; A-STATE baseline is separate, not whole-row completion.",
+      "r11_execution_status": "NOT_RUN",
+      "acceptance_criteria_refs": [
+        "AC-D-ADMIT",
+        "AC-D-NORMAL-6",
+        "AC-D-FAILED-2",
+        "AC-D-RECOVER-2",
+        "AC-D-LOST-REFUND-2",
+        "AC-D-VERIFY-RETRY",
+        "AC-E-PREBASELINE",
+        "AC-E-UPGRADE-S10-ONLY",
+        "AC-E-PRESERVE",
+        "AC-E-AFFECTED-REGRESSION"
+      ],
+      "blocking_evidence_refs": [
+        "../../evidence/s10-log-and-closeout-v2-r12/tool-safety-refusal.json"
+      ]
     },
     {
       "id": "F3",
@@ -577,25 +779,31 @@
         "对应A-E原始响应/独立状态/索引",
         "E精确差异及旧/新提交保全"
       ],
-      "resources": "主计划第4节整包统一上限，禁止继承旧预算",
+      "resources": "R1.1+R1.2统一累计上限；继承已用，不恢复旧事故窗口额度。main A/B/C，scratch唯一D，E-MAIN/E-D分支。",
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "new_execution_status": "NOT_RUN",
       "stage_exit_status": "BLOCKED",
-      "plan_status": "BLOCKED_DELIVERY",
+      "plan_status": "DELIVERED_WITH_EVIDENCED_RUNTIME_BLOCK",
       "evidence_requirement_refs": [
         "/tc_evidence_requirements/E-PREBASELINE",
         "/tc_evidence_requirements/E-UPGRADE-S10-ONLY",
         "/tc_evidence_requirements/E-PRESERVE",
         "/tc_evidence_requirements/E-AFFECTED-REGRESSION"
       ],
-      "new_execution_evidence": {
-        "A-STATE": "not referenced",
-        "actual_new_business_tests": "NOT_RUN"
-      },
+      "new_execution_evidence": {},
       "actual_evidence": [],
-      "reason": "R1.2新候选待冻结及实际运行；R1.1历史成果独立保留。",
-      "r11_execution_status": "NOT_RUN"
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL: all further two-target application execution frozen; A-STATE baseline is separate, not whole-row completion.",
+      "r11_execution_status": "NOT_RUN",
+      "acceptance_criteria_refs": [
+        "AC-E-PREBASELINE",
+        "AC-E-UPGRADE-S10-ONLY",
+        "AC-E-PRESERVE",
+        "AC-E-AFFECTED-REGRESSION"
+      ],
+      "blocking_evidence_refs": [
+        "../../evidence/s10-log-and-closeout-v2-r12/tool-safety-refusal.json"
+      ]
     },
     {
       "id": "F4",
@@ -647,12 +855,12 @@
         "对应A-E原始响应/独立状态/索引",
         "E精确差异及旧/新提交保全"
       ],
-      "resources": "主计划第4节整包统一上限，禁止继承旧预算",
+      "resources": "R1.1+R1.2统一累计上限；继承已用，不恢复旧事故窗口额度。main A/B/C，scratch唯一D，E-MAIN/E-D分支。",
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "new_execution_status": "NOT_RUN",
       "stage_exit_status": "BLOCKED",
-      "plan_status": "BLOCKED_DELIVERY",
+      "plan_status": "DELIVERED_WITH_EVIDENCED_RUNTIME_BLOCK",
       "evidence_requirement_refs": [
         "/tc_evidence_requirements/A-STATE",
         "/tc_evidence_requirements/A-EDITOR",
@@ -662,13 +870,22 @@
         "/tc_evidence_requirements/E-PRESERVE",
         "/tc_evidence_requirements/E-AFFECTED-REGRESSION"
       ],
-      "new_execution_evidence": {
-        "A-STATE": "PASS_BASELINE_ONLY",
-        "actual_new_business_tests": "NOT_RUN"
-      },
+      "new_execution_evidence": {},
       "actual_evidence": [],
-      "reason": "R1.2新候选待冻结及实际运行；R1.1历史成果独立保留。",
-      "r11_execution_status": "NOT_RUN"
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL: all further two-target application execution frozen; A-STATE baseline is separate, not whole-row completion.",
+      "r11_execution_status": "NOT_RUN",
+      "acceptance_criteria_refs": [
+        "AC-A-STATE",
+        "AC-A-EDITOR",
+        "AC-A-ORIGINAL",
+        "AC-E-PREBASELINE",
+        "AC-E-UPGRADE-S10-ONLY",
+        "AC-E-PRESERVE",
+        "AC-E-AFFECTED-REGRESSION"
+      ],
+      "blocking_evidence_refs": [
+        "../../evidence/s10-log-and-closeout-v2-r12/tool-safety-refusal.json"
+      ]
     },
     {
       "id": "F5",
@@ -716,25 +933,31 @@
         "对应A-E原始响应/独立状态/索引",
         "E精确差异及旧/新提交保全"
       ],
-      "resources": "主计划第4节整包统一上限，禁止继承旧预算",
+      "resources": "R1.1+R1.2统一累计上限；继承已用，不恢复旧事故窗口额度。main A/B/C，scratch唯一D，E-MAIN/E-D分支。",
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "new_execution_status": "NOT_RUN",
       "stage_exit_status": "BLOCKED",
-      "plan_status": "BLOCKED_DELIVERY",
+      "plan_status": "DELIVERED_WITH_EVIDENCED_RUNTIME_BLOCK",
       "evidence_requirement_refs": [
         "/tc_evidence_requirements/E-PREBASELINE",
         "/tc_evidence_requirements/E-UPGRADE-S10-ONLY",
         "/tc_evidence_requirements/E-PRESERVE",
         "/tc_evidence_requirements/E-AFFECTED-REGRESSION"
       ],
-      "new_execution_evidence": {
-        "A-STATE": "not referenced",
-        "actual_new_business_tests": "NOT_RUN"
-      },
+      "new_execution_evidence": {},
       "actual_evidence": [],
-      "reason": "R1.2新候选待冻结及实际运行；R1.1历史成果独立保留。",
-      "r11_execution_status": "NOT_RUN"
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL: all further two-target application execution frozen; A-STATE baseline is separate, not whole-row completion.",
+      "r11_execution_status": "NOT_RUN",
+      "acceptance_criteria_refs": [
+        "AC-E-PREBASELINE",
+        "AC-E-UPGRADE-S10-ONLY",
+        "AC-E-PRESERVE",
+        "AC-E-AFFECTED-REGRESSION"
+      ],
+      "blocking_evidence_refs": [
+        "../../evidence/s10-log-and-closeout-v2-r12/tool-safety-refusal.json"
+      ]
     },
     {
       "id": "F6",
@@ -787,12 +1010,12 @@
         "对应A-E原始响应/独立状态/索引",
         "E精确差异及旧/新提交保全"
       ],
-      "resources": "主计划第4节整包统一上限，禁止继承旧预算",
+      "resources": "R1.1+R1.2统一累计上限；继承已用，不恢复旧事故窗口额度。main A/B/C，scratch唯一D，E-MAIN/E-D分支。",
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "new_execution_status": "NOT_RUN",
       "stage_exit_status": "BLOCKED",
-      "plan_status": "BLOCKED_DELIVERY",
+      "plan_status": "DELIVERED_WITH_EVIDENCED_RUNTIME_BLOCK",
       "evidence_requirement_refs": [
         "/tc_evidence_requirements/C-SCOPE",
         "/tc_evidence_requirements/C-ATTACHMENT",
@@ -803,13 +1026,23 @@
         "/tc_evidence_requirements/E-PRESERVE",
         "/tc_evidence_requirements/E-AFFECTED-REGRESSION"
       ],
-      "new_execution_evidence": {
-        "A-STATE": "not referenced",
-        "actual_new_business_tests": "NOT_RUN"
-      },
+      "new_execution_evidence": {},
       "actual_evidence": [],
-      "reason": "R1.2新候选待冻结及实际运行；R1.1历史成果独立保留。",
-      "r11_execution_status": "NOT_RUN"
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL: all further two-target application execution frozen; A-STATE baseline is separate, not whole-row completion.",
+      "r11_execution_status": "NOT_RUN",
+      "acceptance_criteria_refs": [
+        "AC-C-SCOPE",
+        "AC-C-ATTACHMENT",
+        "AC-C-TOKEN",
+        "AC-C-REVOKED-PAGE",
+        "AC-E-PREBASELINE",
+        "AC-E-UPGRADE-S10-ONLY",
+        "AC-E-PRESERVE",
+        "AC-E-AFFECTED-REGRESSION"
+      ],
+      "blocking_evidence_refs": [
+        "../../evidence/s10-log-and-closeout-v2-r12/tool-safety-refusal.json"
+      ]
     },
     {
       "id": "T01",
@@ -856,25 +1089,31 @@
         "对应A-E原始响应/独立状态/索引",
         "E精确差异及旧/新提交保全"
       ],
-      "resources": "主计划第4节整包统一上限，禁止继承旧预算",
+      "resources": "R1.1+R1.2统一累计上限；继承已用，不恢复旧事故窗口额度。main A/B/C，scratch唯一D，E-MAIN/E-D分支。",
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "new_execution_status": "NOT_RUN",
       "stage_exit_status": "BLOCKED",
-      "plan_status": "BLOCKED_DELIVERY",
+      "plan_status": "DELIVERED_WITH_EVIDENCED_RUNTIME_BLOCK",
       "evidence_requirement_refs": [
         "/tc_evidence_requirements/E-PREBASELINE",
         "/tc_evidence_requirements/E-UPGRADE-S10-ONLY",
         "/tc_evidence_requirements/E-PRESERVE",
         "/tc_evidence_requirements/E-AFFECTED-REGRESSION"
       ],
-      "new_execution_evidence": {
-        "A-STATE": "not referenced",
-        "actual_new_business_tests": "NOT_RUN"
-      },
+      "new_execution_evidence": {},
       "actual_evidence": [],
-      "reason": "R1.2新候选待冻结及实际运行；R1.1历史成果独立保留。",
-      "r11_execution_status": "NOT_RUN"
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL: all further two-target application execution frozen; A-STATE baseline is separate, not whole-row completion.",
+      "r11_execution_status": "NOT_RUN",
+      "acceptance_criteria_refs": [
+        "AC-E-PREBASELINE",
+        "AC-E-UPGRADE-S10-ONLY",
+        "AC-E-PRESERVE",
+        "AC-E-AFFECTED-REGRESSION"
+      ],
+      "blocking_evidence_refs": [
+        "../../evidence/s10-log-and-closeout-v2-r12/tool-safety-refusal.json"
+      ]
     },
     {
       "id": "T02",
@@ -920,25 +1159,31 @@
         "对应A-E原始响应/独立状态/索引",
         "E精确差异及旧/新提交保全"
       ],
-      "resources": "主计划第4节整包统一上限，禁止继承旧预算",
+      "resources": "R1.1+R1.2统一累计上限；继承已用，不恢复旧事故窗口额度。main A/B/C，scratch唯一D，E-MAIN/E-D分支。",
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "new_execution_status": "NOT_RUN",
       "stage_exit_status": "BLOCKED",
-      "plan_status": "BLOCKED_DELIVERY",
+      "plan_status": "DELIVERED_WITH_EVIDENCED_RUNTIME_BLOCK",
       "evidence_requirement_refs": [
         "/tc_evidence_requirements/E-PREBASELINE",
         "/tc_evidence_requirements/E-UPGRADE-S10-ONLY",
         "/tc_evidence_requirements/E-PRESERVE",
         "/tc_evidence_requirements/E-AFFECTED-REGRESSION"
       ],
-      "new_execution_evidence": {
-        "A-STATE": "not referenced",
-        "actual_new_business_tests": "NOT_RUN"
-      },
+      "new_execution_evidence": {},
       "actual_evidence": [],
-      "reason": "R1.2新候选待冻结及实际运行；R1.1历史成果独立保留。",
-      "r11_execution_status": "NOT_RUN"
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL: all further two-target application execution frozen; A-STATE baseline is separate, not whole-row completion.",
+      "r11_execution_status": "NOT_RUN",
+      "acceptance_criteria_refs": [
+        "AC-E-PREBASELINE",
+        "AC-E-UPGRADE-S10-ONLY",
+        "AC-E-PRESERVE",
+        "AC-E-AFFECTED-REGRESSION"
+      ],
+      "blocking_evidence_refs": [
+        "../../evidence/s10-log-and-closeout-v2-r12/tool-safety-refusal.json"
+      ]
     },
     {
       "id": "T03",
@@ -985,25 +1230,31 @@
         "对应A-E原始响应/独立状态/索引",
         "E精确差异及旧/新提交保全"
       ],
-      "resources": "主计划第4节整包统一上限，禁止继承旧预算",
+      "resources": "R1.1+R1.2统一累计上限；继承已用，不恢复旧事故窗口额度。main A/B/C，scratch唯一D，E-MAIN/E-D分支。",
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "new_execution_status": "NOT_RUN",
       "stage_exit_status": "BLOCKED",
-      "plan_status": "BLOCKED_DELIVERY",
+      "plan_status": "DELIVERED_WITH_EVIDENCED_RUNTIME_BLOCK",
       "evidence_requirement_refs": [
         "/tc_evidence_requirements/E-PREBASELINE",
         "/tc_evidence_requirements/E-UPGRADE-S10-ONLY",
         "/tc_evidence_requirements/E-PRESERVE",
         "/tc_evidence_requirements/E-AFFECTED-REGRESSION"
       ],
-      "new_execution_evidence": {
-        "A-STATE": "not referenced",
-        "actual_new_business_tests": "NOT_RUN"
-      },
+      "new_execution_evidence": {},
       "actual_evidence": [],
-      "reason": "R1.2新候选待冻结及实际运行；R1.1历史成果独立保留。",
-      "r11_execution_status": "NOT_RUN"
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL: all further two-target application execution frozen; A-STATE baseline is separate, not whole-row completion.",
+      "r11_execution_status": "NOT_RUN",
+      "acceptance_criteria_refs": [
+        "AC-E-PREBASELINE",
+        "AC-E-UPGRADE-S10-ONLY",
+        "AC-E-PRESERVE",
+        "AC-E-AFFECTED-REGRESSION"
+      ],
+      "blocking_evidence_refs": [
+        "../../evidence/s10-log-and-closeout-v2-r12/tool-safety-refusal.json"
+      ]
     },
     {
       "id": "T04",
@@ -1050,25 +1301,31 @@
         "对应A-E原始响应/独立状态/索引",
         "E精确差异及旧/新提交保全"
       ],
-      "resources": "主计划第4节整包统一上限，禁止继承旧预算",
+      "resources": "R1.1+R1.2统一累计上限；继承已用，不恢复旧事故窗口额度。main A/B/C，scratch唯一D，E-MAIN/E-D分支。",
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "new_execution_status": "NOT_RUN",
       "stage_exit_status": "BLOCKED",
-      "plan_status": "BLOCKED_DELIVERY",
+      "plan_status": "DELIVERED_WITH_EVIDENCED_RUNTIME_BLOCK",
       "evidence_requirement_refs": [
         "/tc_evidence_requirements/E-PREBASELINE",
         "/tc_evidence_requirements/E-UPGRADE-S10-ONLY",
         "/tc_evidence_requirements/E-PRESERVE",
         "/tc_evidence_requirements/E-AFFECTED-REGRESSION"
       ],
-      "new_execution_evidence": {
-        "A-STATE": "not referenced",
-        "actual_new_business_tests": "NOT_RUN"
-      },
+      "new_execution_evidence": {},
       "actual_evidence": [],
-      "reason": "R1.2新候选待冻结及实际运行；R1.1历史成果独立保留。",
-      "r11_execution_status": "NOT_RUN"
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL: all further two-target application execution frozen; A-STATE baseline is separate, not whole-row completion.",
+      "r11_execution_status": "NOT_RUN",
+      "acceptance_criteria_refs": [
+        "AC-E-PREBASELINE",
+        "AC-E-UPGRADE-S10-ONLY",
+        "AC-E-PRESERVE",
+        "AC-E-AFFECTED-REGRESSION"
+      ],
+      "blocking_evidence_refs": [
+        "../../evidence/s10-log-and-closeout-v2-r12/tool-safety-refusal.json"
+      ]
     },
     {
       "id": "T05",
@@ -1121,12 +1378,12 @@
         "对应A-E原始响应/独立状态/索引",
         "E精确差异及旧/新提交保全"
       ],
-      "resources": "主计划第4节整包统一上限，禁止继承旧预算",
+      "resources": "R1.1+R1.2统一累计上限；继承已用，不恢复旧事故窗口额度。main A/B/C，scratch唯一D，E-MAIN/E-D分支。",
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "new_execution_status": "NOT_RUN",
       "stage_exit_status": "BLOCKED",
-      "plan_status": "BLOCKED_DELIVERY",
+      "plan_status": "DELIVERED_WITH_EVIDENCED_RUNTIME_BLOCK",
       "evidence_requirement_refs": [
         "/tc_evidence_requirements/D-ADMIT",
         "/tc_evidence_requirements/D-NORMAL-6",
@@ -1139,13 +1396,25 @@
         "/tc_evidence_requirements/E-PRESERVE",
         "/tc_evidence_requirements/E-AFFECTED-REGRESSION"
       ],
-      "new_execution_evidence": {
-        "A-STATE": "not referenced",
-        "actual_new_business_tests": "NOT_RUN"
-      },
+      "new_execution_evidence": {},
       "actual_evidence": [],
-      "reason": "R1.2新候选待冻结及实际运行；R1.1历史成果独立保留。",
-      "r11_execution_status": "NOT_RUN"
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL: all further two-target application execution frozen; A-STATE baseline is separate, not whole-row completion.",
+      "r11_execution_status": "NOT_RUN",
+      "acceptance_criteria_refs": [
+        "AC-D-ADMIT",
+        "AC-D-NORMAL-6",
+        "AC-D-FAILED-2",
+        "AC-D-RECOVER-2",
+        "AC-D-LOST-REFUND-2",
+        "AC-D-VERIFY-RETRY",
+        "AC-E-PREBASELINE",
+        "AC-E-UPGRADE-S10-ONLY",
+        "AC-E-PRESERVE",
+        "AC-E-AFFECTED-REGRESSION"
+      ],
+      "blocking_evidence_refs": [
+        "../../evidence/s10-log-and-closeout-v2-r12/tool-safety-refusal.json"
+      ]
     },
     {
       "id": "T06",
@@ -1191,25 +1460,31 @@
         "对应A-E原始响应/独立状态/索引",
         "E精确差异及旧/新提交保全"
       ],
-      "resources": "主计划第4节整包统一上限，禁止继承旧预算",
+      "resources": "R1.1+R1.2统一累计上限；继承已用，不恢复旧事故窗口额度。main A/B/C，scratch唯一D，E-MAIN/E-D分支。",
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "new_execution_status": "NOT_RUN",
       "stage_exit_status": "BLOCKED",
-      "plan_status": "BLOCKED_DELIVERY",
+      "plan_status": "DELIVERED_WITH_EVIDENCED_RUNTIME_BLOCK",
       "evidence_requirement_refs": [
         "/tc_evidence_requirements/E-PREBASELINE",
         "/tc_evidence_requirements/E-UPGRADE-S10-ONLY",
         "/tc_evidence_requirements/E-PRESERVE",
         "/tc_evidence_requirements/E-AFFECTED-REGRESSION"
       ],
-      "new_execution_evidence": {
-        "A-STATE": "not referenced",
-        "actual_new_business_tests": "NOT_RUN"
-      },
+      "new_execution_evidence": {},
       "actual_evidence": [],
-      "reason": "R1.2新候选待冻结及实际运行；R1.1历史成果独立保留。",
-      "r11_execution_status": "NOT_RUN"
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL: all further two-target application execution frozen; A-STATE baseline is separate, not whole-row completion.",
+      "r11_execution_status": "NOT_RUN",
+      "acceptance_criteria_refs": [
+        "AC-E-PREBASELINE",
+        "AC-E-UPGRADE-S10-ONLY",
+        "AC-E-PRESERVE",
+        "AC-E-AFFECTED-REGRESSION"
+      ],
+      "blocking_evidence_refs": [
+        "../../evidence/s10-log-and-closeout-v2-r12/tool-safety-refusal.json"
+      ]
     },
     {
       "id": "T07",
@@ -1255,25 +1530,31 @@
         "对应A-E原始响应/独立状态/索引",
         "E精确差异及旧/新提交保全"
       ],
-      "resources": "主计划第4节整包统一上限，禁止继承旧预算",
+      "resources": "R1.1+R1.2统一累计上限；继承已用，不恢复旧事故窗口额度。main A/B/C，scratch唯一D，E-MAIN/E-D分支。",
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "new_execution_status": "NOT_RUN",
       "stage_exit_status": "BLOCKED",
-      "plan_status": "BLOCKED_DELIVERY",
+      "plan_status": "DELIVERED_WITH_EVIDENCED_RUNTIME_BLOCK",
       "evidence_requirement_refs": [
         "/tc_evidence_requirements/E-PREBASELINE",
         "/tc_evidence_requirements/E-UPGRADE-S10-ONLY",
         "/tc_evidence_requirements/E-PRESERVE",
         "/tc_evidence_requirements/E-AFFECTED-REGRESSION"
       ],
-      "new_execution_evidence": {
-        "A-STATE": "not referenced",
-        "actual_new_business_tests": "NOT_RUN"
-      },
+      "new_execution_evidence": {},
       "actual_evidence": [],
-      "reason": "R1.2新候选待冻结及实际运行；R1.1历史成果独立保留。",
-      "r11_execution_status": "NOT_RUN"
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL: all further two-target application execution frozen; A-STATE baseline is separate, not whole-row completion.",
+      "r11_execution_status": "NOT_RUN",
+      "acceptance_criteria_refs": [
+        "AC-E-PREBASELINE",
+        "AC-E-UPGRADE-S10-ONLY",
+        "AC-E-PRESERVE",
+        "AC-E-AFFECTED-REGRESSION"
+      ],
+      "blocking_evidence_refs": [
+        "../../evidence/s10-log-and-closeout-v2-r12/tool-safety-refusal.json"
+      ]
     },
     {
       "id": "T08",
@@ -1324,12 +1605,12 @@
         "对应A-E原始响应/独立状态/索引",
         "E精确差异及旧/新提交保全"
       ],
-      "resources": "主计划第4节整包统一上限，禁止继承旧预算",
+      "resources": "R1.1+R1.2统一累计上限；继承已用，不恢复旧事故窗口额度。main A/B/C，scratch唯一D，E-MAIN/E-D分支。",
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "new_execution_status": "NOT_RUN",
       "stage_exit_status": "BLOCKED",
-      "plan_status": "BLOCKED_DELIVERY",
+      "plan_status": "DELIVERED_WITH_EVIDENCED_RUNTIME_BLOCK",
       "evidence_requirement_refs": [
         "/tc_evidence_requirements/A-STATE",
         "/tc_evidence_requirements/A-EDITOR",
@@ -1339,13 +1620,22 @@
         "/tc_evidence_requirements/E-PRESERVE",
         "/tc_evidence_requirements/E-AFFECTED-REGRESSION"
       ],
-      "new_execution_evidence": {
-        "A-STATE": "PASS_BASELINE_ONLY",
-        "actual_new_business_tests": "NOT_RUN"
-      },
+      "new_execution_evidence": {},
       "actual_evidence": [],
-      "reason": "R1.2新候选待冻结及实际运行；R1.1历史成果独立保留。",
-      "r11_execution_status": "NOT_RUN"
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL: all further two-target application execution frozen; A-STATE baseline is separate, not whole-row completion.",
+      "r11_execution_status": "NOT_RUN",
+      "acceptance_criteria_refs": [
+        "AC-A-STATE",
+        "AC-A-EDITOR",
+        "AC-A-ORIGINAL",
+        "AC-E-PREBASELINE",
+        "AC-E-UPGRADE-S10-ONLY",
+        "AC-E-PRESERVE",
+        "AC-E-AFFECTED-REGRESSION"
+      ],
+      "blocking_evidence_refs": [
+        "../../evidence/s10-log-and-closeout-v2-r12/tool-safety-refusal.json"
+      ]
     },
     {
       "id": "T09",
@@ -1397,12 +1687,12 @@
         "对应A-E原始响应/独立状态/索引",
         "E精确差异及旧/新提交保全"
       ],
-      "resources": "主计划第4节整包统一上限，禁止继承旧预算",
+      "resources": "R1.1+R1.2统一累计上限；继承已用，不恢复旧事故窗口额度。main A/B/C，scratch唯一D，E-MAIN/E-D分支。",
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "new_execution_status": "NOT_RUN",
       "stage_exit_status": "BLOCKED",
-      "plan_status": "BLOCKED_DELIVERY",
+      "plan_status": "DELIVERED_WITH_EVIDENCED_RUNTIME_BLOCK",
       "evidence_requirement_refs": [
         "/tc_evidence_requirements/C-SCOPE",
         "/tc_evidence_requirements/C-ATTACHMENT",
@@ -1413,13 +1703,23 @@
         "/tc_evidence_requirements/E-PRESERVE",
         "/tc_evidence_requirements/E-AFFECTED-REGRESSION"
       ],
-      "new_execution_evidence": {
-        "A-STATE": "not referenced",
-        "actual_new_business_tests": "NOT_RUN"
-      },
+      "new_execution_evidence": {},
       "actual_evidence": [],
-      "reason": "R1.2新候选待冻结及实际运行；R1.1历史成果独立保留。",
-      "r11_execution_status": "NOT_RUN"
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL: all further two-target application execution frozen; A-STATE baseline is separate, not whole-row completion.",
+      "r11_execution_status": "NOT_RUN",
+      "acceptance_criteria_refs": [
+        "AC-C-SCOPE",
+        "AC-C-ATTACHMENT",
+        "AC-C-TOKEN",
+        "AC-C-REVOKED-PAGE",
+        "AC-E-PREBASELINE",
+        "AC-E-UPGRADE-S10-ONLY",
+        "AC-E-PRESERVE",
+        "AC-E-AFFECTED-REGRESSION"
+      ],
+      "blocking_evidence_refs": [
+        "../../evidence/s10-log-and-closeout-v2-r12/tool-safety-refusal.json"
+      ]
     },
     {
       "id": "T10",
@@ -1471,12 +1771,12 @@
         "对应A-E原始响应/独立状态/索引",
         "E精确差异及旧/新提交保全"
       ],
-      "resources": "主计划第4节整包统一上限，禁止继承旧预算",
+      "resources": "R1.1+R1.2统一累计上限；继承已用，不恢复旧事故窗口额度。main A/B/C，scratch唯一D，E-MAIN/E-D分支。",
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "new_execution_status": "NOT_RUN",
       "stage_exit_status": "BLOCKED",
-      "plan_status": "BLOCKED_DELIVERY",
+      "plan_status": "DELIVERED_WITH_EVIDENCED_RUNTIME_BLOCK",
       "evidence_requirement_refs": [
         "/tc_evidence_requirements/C-SCOPE",
         "/tc_evidence_requirements/C-ATTACHMENT",
@@ -1487,13 +1787,23 @@
         "/tc_evidence_requirements/E-PRESERVE",
         "/tc_evidence_requirements/E-AFFECTED-REGRESSION"
       ],
-      "new_execution_evidence": {
-        "A-STATE": "not referenced",
-        "actual_new_business_tests": "NOT_RUN"
-      },
+      "new_execution_evidence": {},
       "actual_evidence": [],
-      "reason": "R1.2新候选待冻结及实际运行；R1.1历史成果独立保留。",
-      "r11_execution_status": "NOT_RUN"
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL: all further two-target application execution frozen; A-STATE baseline is separate, not whole-row completion.",
+      "r11_execution_status": "NOT_RUN",
+      "acceptance_criteria_refs": [
+        "AC-C-SCOPE",
+        "AC-C-ATTACHMENT",
+        "AC-C-TOKEN",
+        "AC-C-REVOKED-PAGE",
+        "AC-E-PREBASELINE",
+        "AC-E-UPGRADE-S10-ONLY",
+        "AC-E-PRESERVE",
+        "AC-E-AFFECTED-REGRESSION"
+      ],
+      "blocking_evidence_refs": [
+        "../../evidence/s10-log-and-closeout-v2-r12/tool-safety-refusal.json"
+      ]
     },
     {
       "id": "T11",
@@ -1557,12 +1867,12 @@
         "对应A-E原始响应/独立状态/索引",
         "E精确差异及旧/新提交保全"
       ],
-      "resources": "主计划第4节整包统一上限，禁止继承旧预算",
+      "resources": "R1.1+R1.2统一累计上限；继承已用，不恢复旧事故窗口额度。main A/B/C，scratch唯一D，E-MAIN/E-D分支。",
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "new_execution_status": "NOT_RUN",
       "stage_exit_status": "BLOCKED",
-      "plan_status": "BLOCKED_DELIVERY",
+      "plan_status": "DELIVERED_WITH_EVIDENCED_RUNTIME_BLOCK",
       "evidence_requirement_refs": [
         "/tc_evidence_requirements/A-STATE",
         "/tc_evidence_requirements/A-EDITOR",
@@ -1582,13 +1892,32 @@
         "/tc_evidence_requirements/E-PRESERVE",
         "/tc_evidence_requirements/E-AFFECTED-REGRESSION"
       ],
-      "new_execution_evidence": {
-        "A-STATE": "PASS_BASELINE_ONLY",
-        "actual_new_business_tests": "NOT_RUN"
-      },
+      "new_execution_evidence": {},
       "actual_evidence": [],
-      "reason": "R1.2新候选待冻结及实际运行；R1.1历史成果独立保留。",
-      "r11_execution_status": "NOT_RUN"
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL: all further two-target application execution frozen; A-STATE baseline is separate, not whole-row completion.",
+      "r11_execution_status": "NOT_RUN",
+      "acceptance_criteria_refs": [
+        "AC-A-STATE",
+        "AC-A-EDITOR",
+        "AC-A-ORIGINAL",
+        "AC-C-SCOPE",
+        "AC-C-ATTACHMENT",
+        "AC-C-TOKEN",
+        "AC-C-REVOKED-PAGE",
+        "AC-D-ADMIT",
+        "AC-D-NORMAL-6",
+        "AC-D-FAILED-2",
+        "AC-D-RECOVER-2",
+        "AC-D-LOST-REFUND-2",
+        "AC-D-VERIFY-RETRY",
+        "AC-E-PREBASELINE",
+        "AC-E-UPGRADE-S10-ONLY",
+        "AC-E-PRESERVE",
+        "AC-E-AFFECTED-REGRESSION"
+      ],
+      "blocking_evidence_refs": [
+        "../../evidence/s10-log-and-closeout-v2-r12/tool-safety-refusal.json"
+      ]
     },
     {
       "id": "T12",
@@ -1639,12 +1968,12 @@
         "对应A-E原始响应/独立状态/索引",
         "E精确差异及旧/新提交保全"
       ],
-      "resources": "主计划第4节整包统一上限，禁止继承旧预算",
+      "resources": "R1.1+R1.2统一累计上限；继承已用，不恢复旧事故窗口额度。main A/B/C，scratch唯一D，E-MAIN/E-D分支。",
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "new_execution_status": "NOT_RUN",
       "stage_exit_status": "BLOCKED",
-      "plan_status": "BLOCKED_DELIVERY",
+      "plan_status": "DELIVERED_WITH_EVIDENCED_RUNTIME_BLOCK",
       "evidence_requirement_refs": [
         "/tc_evidence_requirements/A-STATE",
         "/tc_evidence_requirements/A-EDITOR",
@@ -1654,13 +1983,22 @@
         "/tc_evidence_requirements/E-PRESERVE",
         "/tc_evidence_requirements/E-AFFECTED-REGRESSION"
       ],
-      "new_execution_evidence": {
-        "A-STATE": "PASS_BASELINE_ONLY",
-        "actual_new_business_tests": "NOT_RUN"
-      },
+      "new_execution_evidence": {},
       "actual_evidence": [],
-      "reason": "R1.2新候选待冻结及实际运行；R1.1历史成果独立保留。",
-      "r11_execution_status": "NOT_RUN"
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL: all further two-target application execution frozen; A-STATE baseline is separate, not whole-row completion.",
+      "r11_execution_status": "NOT_RUN",
+      "acceptance_criteria_refs": [
+        "AC-A-STATE",
+        "AC-A-EDITOR",
+        "AC-A-ORIGINAL",
+        "AC-E-PREBASELINE",
+        "AC-E-UPGRADE-S10-ONLY",
+        "AC-E-PRESERVE",
+        "AC-E-AFFECTED-REGRESSION"
+      ],
+      "blocking_evidence_refs": [
+        "../../evidence/s10-log-and-closeout-v2-r12/tool-safety-refusal.json"
+      ]
     },
     {
       "id": "T13",
@@ -1708,25 +2046,31 @@
         "对应A-E原始响应/独立状态/索引",
         "E精确差异及旧/新提交保全"
       ],
-      "resources": "主计划第4节整包统一上限，禁止继承旧预算",
+      "resources": "R1.1+R1.2统一累计上限；继承已用，不恢复旧事故窗口额度。main A/B/C，scratch唯一D，E-MAIN/E-D分支。",
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "new_execution_status": "NOT_RUN",
       "stage_exit_status": "BLOCKED",
-      "plan_status": "BLOCKED_DELIVERY",
+      "plan_status": "DELIVERED_WITH_EVIDENCED_RUNTIME_BLOCK",
       "evidence_requirement_refs": [
         "/tc_evidence_requirements/E-PREBASELINE",
         "/tc_evidence_requirements/E-UPGRADE-S10-ONLY",
         "/tc_evidence_requirements/E-PRESERVE",
         "/tc_evidence_requirements/E-AFFECTED-REGRESSION"
       ],
-      "new_execution_evidence": {
-        "A-STATE": "not referenced",
-        "actual_new_business_tests": "NOT_RUN"
-      },
+      "new_execution_evidence": {},
       "actual_evidence": [],
-      "reason": "R1.2新候选待冻结及实际运行；R1.1历史成果独立保留。",
-      "r11_execution_status": "NOT_RUN"
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL: all further two-target application execution frozen; A-STATE baseline is separate, not whole-row completion.",
+      "r11_execution_status": "NOT_RUN",
+      "acceptance_criteria_refs": [
+        "AC-E-PREBASELINE",
+        "AC-E-UPGRADE-S10-ONLY",
+        "AC-E-PRESERVE",
+        "AC-E-AFFECTED-REGRESSION"
+      ],
+      "blocking_evidence_refs": [
+        "../../evidence/s10-log-and-closeout-v2-r12/tool-safety-refusal.json"
+      ]
     },
     {
       "id": "T14",
@@ -1779,12 +2123,12 @@
         "对应A-E原始响应/独立状态/索引",
         "E精确差异及旧/新提交保全"
       ],
-      "resources": "主计划第4节整包统一上限，禁止继承旧预算",
+      "resources": "R1.1+R1.2统一累计上限；继承已用，不恢复旧事故窗口额度。main A/B/C，scratch唯一D，E-MAIN/E-D分支。",
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "new_execution_status": "NOT_RUN",
       "stage_exit_status": "BLOCKED",
-      "plan_status": "BLOCKED_DELIVERY",
+      "plan_status": "DELIVERED_WITH_EVIDENCED_RUNTIME_BLOCK",
       "evidence_requirement_refs": [
         "/tc_evidence_requirements/C-SCOPE",
         "/tc_evidence_requirements/C-ATTACHMENT",
@@ -1795,13 +2139,23 @@
         "/tc_evidence_requirements/E-PRESERVE",
         "/tc_evidence_requirements/E-AFFECTED-REGRESSION"
       ],
-      "new_execution_evidence": {
-        "A-STATE": "not referenced",
-        "actual_new_business_tests": "NOT_RUN"
-      },
+      "new_execution_evidence": {},
       "actual_evidence": [],
-      "reason": "R1.2新候选待冻结及实际运行；R1.1历史成果独立保留。",
-      "r11_execution_status": "NOT_RUN"
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL: all further two-target application execution frozen; A-STATE baseline is separate, not whole-row completion.",
+      "r11_execution_status": "NOT_RUN",
+      "acceptance_criteria_refs": [
+        "AC-C-SCOPE",
+        "AC-C-ATTACHMENT",
+        "AC-C-TOKEN",
+        "AC-C-REVOKED-PAGE",
+        "AC-E-PREBASELINE",
+        "AC-E-UPGRADE-S10-ONLY",
+        "AC-E-PRESERVE",
+        "AC-E-AFFECTED-REGRESSION"
+      ],
+      "blocking_evidence_refs": [
+        "../../evidence/s10-log-and-closeout-v2-r12/tool-safety-refusal.json"
+      ]
     },
     {
       "id": "T15",
@@ -1853,12 +2207,12 @@
         "对应A-E原始响应/独立状态/索引",
         "E精确差异及旧/新提交保全"
       ],
-      "resources": "主计划第4节整包统一上限，禁止继承旧预算",
+      "resources": "R1.1+R1.2统一累计上限；继承已用，不恢复旧事故窗口额度。main A/B/C，scratch唯一D，E-MAIN/E-D分支。",
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "new_execution_status": "NOT_RUN",
       "stage_exit_status": "BLOCKED",
-      "plan_status": "BLOCKED_DELIVERY",
+      "plan_status": "DELIVERED_WITH_EVIDENCED_RUNTIME_BLOCK",
       "evidence_requirement_refs": [
         "/tc_evidence_requirements/A-STATE",
         "/tc_evidence_requirements/A-EDITOR",
@@ -1868,13 +2222,22 @@
         "/tc_evidence_requirements/E-PRESERVE",
         "/tc_evidence_requirements/E-AFFECTED-REGRESSION"
       ],
-      "new_execution_evidence": {
-        "A-STATE": "PASS_BASELINE_ONLY",
-        "actual_new_business_tests": "NOT_RUN"
-      },
+      "new_execution_evidence": {},
       "actual_evidence": [],
-      "reason": "R1.2新候选待冻结及实际运行；R1.1历史成果独立保留。",
-      "r11_execution_status": "NOT_RUN"
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL: all further two-target application execution frozen; A-STATE baseline is separate, not whole-row completion.",
+      "r11_execution_status": "NOT_RUN",
+      "acceptance_criteria_refs": [
+        "AC-A-STATE",
+        "AC-A-EDITOR",
+        "AC-A-ORIGINAL",
+        "AC-E-PREBASELINE",
+        "AC-E-UPGRADE-S10-ONLY",
+        "AC-E-PRESERVE",
+        "AC-E-AFFECTED-REGRESSION"
+      ],
+      "blocking_evidence_refs": [
+        "../../evidence/s10-log-and-closeout-v2-r12/tool-safety-refusal.json"
+      ]
     },
     {
       "id": "T16",
@@ -1923,12 +2286,12 @@
         "对应A-E原始响应/独立状态/索引",
         "E精确差异及旧/新提交保全"
       ],
-      "resources": "主计划第4节整包统一上限，禁止继承旧预算",
+      "resources": "R1.1+R1.2统一累计上限；继承已用，不恢复旧事故窗口额度。main A/B/C，scratch唯一D，E-MAIN/E-D分支。",
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "new_execution_status": "NOT_RUN",
       "stage_exit_status": "BLOCKED",
-      "plan_status": "BLOCKED_DELIVERY",
+      "plan_status": "DELIVERED_WITH_EVIDENCED_RUNTIME_BLOCK",
       "evidence_requirement_refs": [
         "/tc_evidence_requirements/B-MODEL-6",
         "/tc_evidence_requirements/B-RPC-6",
@@ -1937,13 +2300,21 @@
         "/tc_evidence_requirements/E-PRESERVE",
         "/tc_evidence_requirements/E-AFFECTED-REGRESSION"
       ],
-      "new_execution_evidence": {
-        "A-STATE": "not referenced",
-        "actual_new_business_tests": "NOT_RUN"
-      },
+      "new_execution_evidence": {},
       "actual_evidence": [],
-      "reason": "R1.2新候选待冻结及实际运行；R1.1历史成果独立保留。",
-      "r11_execution_status": "NOT_RUN"
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL: all further two-target application execution frozen; A-STATE baseline is separate, not whole-row completion.",
+      "r11_execution_status": "NOT_RUN",
+      "acceptance_criteria_refs": [
+        "AC-B-MODEL-6",
+        "AC-B-RPC-6",
+        "AC-E-PREBASELINE",
+        "AC-E-UPGRADE-S10-ONLY",
+        "AC-E-PRESERVE",
+        "AC-E-AFFECTED-REGRESSION"
+      ],
+      "blocking_evidence_refs": [
+        "../../evidence/s10-log-and-closeout-v2-r12/tool-safety-refusal.json"
+      ]
     }
   ],
   "group_cases": {
@@ -1986,11 +2357,23 @@
         "新准入RO身份/隔离/退出",
         "doc v4及versions9→10/author/经济/原件独立基线"
       ],
-      "status": "NOT_RUN",
+      "status": "PASS_BASELINE_ONLY",
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
-      "actual_evidence": [],
-      "database_role": "main"
+      "actual_evidence": [
+        "../../evidence/s10-log-and-closeout-v2-r12/initial-target-admission.json"
+      ],
+      "database_role": "main",
+      "actual_layers": [
+        "INDEPENDENT_TARGET_RO_NATIVE_STORED_FACTS"
+      ],
+      "accepted_scope": "Fresh main RO baseline only; A-EDITOR/A-ORIGINAL not yet executed.",
+      "acceptance_criteria_id": "AC-A-STATE",
+      "acceptance_criteria": [
+        "新准入RO身份/隔离/退出",
+        "doc v4及versions9→10/author/经济/原件独立基线"
+      ],
+      "reason": "Fresh independent main RO baseline only; no editor release/original acquisition."
     },
     "A-EDITOR": {
       "required_layers": [
@@ -2006,7 +2389,14 @@
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "actual_evidence": [],
-      "database_role": "main"
+      "database_role": "main",
+      "acceptance_criteria_id": "AC-A-EDITOR",
+      "acceptance_criteria": [
+        "真实actor7正常acquire/release或已无editor的独立状态",
+        "合法失效分支/审计/四mutex精确diff",
+        "v4/旧费库款不变"
+      ],
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch."
     },
     "A-ORIGINAL": {
       "required_layers": [
@@ -2024,7 +2414,14 @@
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "actual_evidence": [],
-      "database_role": "main"
+      "database_role": "main",
+      "acceptance_criteria_id": "AC-A-ORIGINAL",
+      "acceptance_criteria": [
+        "真实工作台link/click/download",
+        "旧v1字节SHA同059287…",
+        "逐页目视及原件不重渲染计数0/经济不变"
+      ],
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch."
     },
     "B-MODEL-6": {
       "required_layers": [
@@ -2038,7 +2435,13 @@
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "actual_evidence": [],
-      "database_role": "main"
+      "database_role": "main",
+      "acceptance_criteria_id": "AC-B-MODEL-6",
+      "acceptance_criteria": [
+        "source/payment/audit各write/unlink六项framework普通用户拒绝",
+        "非空实际字段/目标前后存储/actor/su/回滚隔离"
+      ],
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch."
     },
     "B-RPC-6": {
       "required_layers": [
@@ -2053,7 +2456,13 @@
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "actual_evidence": [],
-      "database_role": "main"
+      "database_role": "main",
+      "acceptance_criteria_id": "AC-B-RPC-6",
+      "acceptance_criteria": [
+        "六项真实JSONRPC请求/响应体/实际params",
+        "各错误层与独立旧对象/审计旧行不变"
+      ],
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch."
     },
     "C-SCOPE": {
       "required_layers": [
@@ -2069,7 +2478,13 @@
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "actual_evidence": [],
-      "database_role": "main"
+      "database_role": "main",
+      "acceptance_criteria_id": "AC-C-SCOPE",
+      "acceptance_criteria": [
+        "每权限/店/公司/family/混源cell预期与真实响应",
+        "新合成fixture标识与old对象只读不变"
+      ],
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch."
     },
     "C-ATTACHMENT": {
       "required_layers": [
@@ -2085,7 +2500,14 @@
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "actual_evidence": [],
-      "database_role": "main"
+      "database_role": "main",
+      "acceptance_criteria_id": "AC-C-ATTACHMENT",
+      "acceptance_criteria": [
+        "content/image/download各实际body MIME bytes SHA",
+        "合法safe placeholder解码像素/尺寸/内容对照及无原件泄露",
+        "独立附件/原件行和审计变化"
+      ],
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch."
     },
     "C-TOKEN": {
       "required_layers": [
@@ -2100,7 +2522,13 @@
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "actual_evidence": [],
-      "database_role": "main"
+      "database_role": "main",
+      "acceptance_criteria_id": "AC-C-TOKEN",
+      "acceptance_criteria": [
+        "无/随机无效/合法受控有效token各实际请求或N/A源码不可签发理由",
+        "原件native binary前置拒绝；token不进入公开材料"
+      ],
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch."
     },
     "C-REVOKED-PAGE": {
       "required_layers": [
@@ -2117,7 +2545,13 @@
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "actual_evidence": [],
-      "database_role": "main"
+      "database_role": "main",
+      "acceptance_criteria_id": "AC-C-REVOKED-PAGE",
+      "acceptance_criteria": [
+        "新合成用户授权前页面/撤权后旧页下一请求拒绝",
+        "同源read/export分离及正常恢复原fixture权限的独立核实"
+      ],
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch."
     },
     "D-ADMIT": {
       "required_layers": [
@@ -2134,7 +2568,13 @@
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "actual_evidence": [],
-      "database_role": "scratch"
+      "database_role": "scratch",
+      "acceptance_criteria_id": "AC-D-ADMIT",
+      "acceptance_criteria": [
+        "新独立来源及真实账号/店/公司/scope/日期/全相关渠道日结锁准入",
+        "无旧钱款/锁/权限改动"
+      ],
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch."
     },
     "D-NORMAL-6": {
       "required_layers": [
@@ -2150,7 +2590,13 @@
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "actual_evidence": [],
-      "database_role": "scratch"
+      "database_role": "scratch",
+      "acceptance_criteria_id": "AC-D-NORMAL-6",
+      "acceptance_criteria": [
+        "唯一新patient/source/invoice费用6与一次收6",
+        "native inbound/partial/receipt/audit独立核回"
+      ],
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch."
     },
     "D-FAILED-2": {
       "required_layers": [
@@ -2167,7 +2613,14 @@
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "actual_evidence": [],
-      "database_role": "scratch"
+      "database_role": "scratch",
+      "acceptance_criteria_id": "AC-D-FAILED-2",
+      "acceptance_criteria": [
+        "新refund2申请/异人批准",
+        "refund_uncertain failed合成线下未付事实/状态/额度/audit",
+        "非真实网关故障标识"
+      ],
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch."
     },
     "D-RECOVER-2": {
       "required_layers": [
@@ -2183,7 +2636,13 @@
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "actual_evidence": [],
-      "database_role": "scratch"
+      "database_role": "scratch",
+      "acceptance_criteria_id": "AC-D-RECOVER-2",
+      "acceptance_criteria": [
+        "合法finance verified_not_paid→approved",
+        "额度/审计独立状态，不增加出款"
+      ],
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch."
     },
     "D-LOST-REFUND-2": {
       "required_layers": [
@@ -2200,7 +2659,14 @@
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "actual_evidence": [],
-      "database_role": "scratch"
+      "database_role": "scratch",
+      "acceptance_criteria_id": "AC-D-LOST-REFUND-2",
+      "acceptance_criteria": [
+        "refund_execute唯一派发+客户端故意丢响应的独立dispatch记录",
+        "OUTCOME_UNKNOWN→新RO核done/唯一outbound/credit/partial/receipt/audit",
+        "未知不重放"
+      ],
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch."
     },
     "D-VERIFY-RETRY": {
       "required_layers": [
@@ -2217,7 +2683,14 @@
       "executor": "/root/tester",
       "reviewer": "/root/acceptance",
       "actual_evidence": [],
-      "database_role": "scratch"
+      "database_role": "scratch",
+      "acceptance_criteria_id": "AC-D-VERIFY-RETRY",
+      "acceptance_criteria": [
+        "前置已核done后同actor/store/key/payload/operation_ref一次retry",
+        "返回already_accepted/native出款仍1笔2/净收4",
+        "退款PDF实际字节/目视由T11另列"
+      ],
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch."
     },
     "E-PREBASELINE": {
       "required_layers": [
@@ -2237,14 +2710,22 @@
         "E-MAIN": {
           "database_role": "main",
           "status": "NOT_RUN",
-          "actual_evidence": []
+          "actual_evidence": [],
+          "reason": "Actual upgrade/pre-post regression not executed; safety freeze."
         },
         "E-D": {
           "database_role": "scratch",
           "status": "NOT_RUN",
-          "actual_evidence": []
+          "actual_evidence": [],
+          "reason": "Actual upgrade/pre-post regression not executed; safety freeze."
         }
-      }
+      },
+      "acceptance_criteria_id": "AC-E-PREBASELINE",
+      "acceptance_criteria": [
+        "目标SHA/config/marker/模块/schema/关系全清单",
+        "旧及新增经济权限临床审计原件附件全域前存储签名"
+      ],
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch."
     },
     "E-UPGRADE-S10-ONLY": {
       "required_layers": [
@@ -2265,14 +2746,23 @@
         "E-MAIN": {
           "database_role": "main",
           "status": "NOT_RUN",
-          "actual_evidence": []
+          "actual_evidence": [],
+          "reason": "Actual upgrade/pre-post regression not executed; safety freeze."
         },
         "E-D": {
           "database_role": "scratch",
           "status": "NOT_RUN",
-          "actual_evidence": []
+          "actual_evidence": [],
+          "reason": "Actual upgrade/pre-post regression not executed; safety freeze."
         }
-      }
+      },
+      "acceptance_criteria_id": "AC-E-UPGRADE-S10-ONLY",
+      "acceptance_criteria": [
+        "精确-u ydental_settlement命令与独立父进程exit/signal",
+        "原生日志/模块版本/事务后RO状态",
+        "失败保全不重克隆/不伪回滚"
+      ],
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch."
     },
     "E-PRESERVE": {
       "required_layers": [
@@ -2292,14 +2782,23 @@
         "E-MAIN": {
           "database_role": "main",
           "status": "NOT_RUN",
-          "actual_evidence": []
+          "actual_evidence": [],
+          "reason": "Actual upgrade/pre-post regression not executed; safety freeze."
         },
         "E-D": {
           "database_role": "scratch",
           "status": "NOT_RUN",
-          "actual_evidence": []
+          "actual_evidence": [],
+          "reason": "Actual upgrade/pre-post regression not executed; safety freeze."
         }
-      }
+      },
+      "acceptance_criteria_id": "AC-E-PRESERVE",
+      "acceptance_criteria": [
+        "逐行存储全域前后diff/附件与filestore逐文件bytes SHA",
+        "升级技术元数据逐字段白名单及原因",
+        "所有历史与本包提交保全"
+      ],
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch."
     },
     "E-AFFECTED-REGRESSION": {
       "required_layers": [
@@ -2323,14 +2822,23 @@
         "E-MAIN": {
           "database_role": "main",
           "status": "NOT_RUN",
-          "actual_evidence": []
+          "actual_evidence": [],
+          "reason": "Actual upgrade/pre-post regression not executed; safety freeze."
         },
         "E-D": {
           "database_role": "scratch",
           "status": "NOT_RUN",
-          "actual_evidence": []
+          "actual_evidence": [],
+          "reason": "Actual upgrade/pre-post regression not executed; safety freeze."
         }
-      }
+      },
+      "acceptance_criteria_id": "AC-E-AFFECTED-REGRESSION",
+      "acceptance_criteria": [
+        "受影响S01/clinical/settlement/original方法与typed异常API翻译回归",
+        "B真实RPC/C关键cells/旧原件UI同SHA和PDF逐页",
+        "D只读唯一提交，不重执行资金；新合成并发仅直接影响需要时"
+      ],
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch."
     }
   },
   "implementation_started_at_utc": "2026-10-17T12:05:21.801Z",
@@ -2346,13 +2854,40 @@
     "evidence_refs": [],
     "status": "NOT_RUN",
     "actual_runtime_status": "NOT_RUN",
-    "reason": "Native exact instances implemented and statically reviewed; scratch fails before5 framework tests. No actual serialization/translation/RPC/UI/403409303 PASS."
+    "reason": "Native exact type/module retained statically; R1.2 framework, real RPC/UI, translation and403/409/303 NOT_RUN due real agent safety refusal.",
+    "r12_execution_status": "NOT_RUN",
+    "r11_reason": "Native exact instances implemented and statically reviewed; scratch fails before5 framework tests. No actual serialization/translation/RPC/UI/403409303 PASS."
   },
   "r11_reference": "../s10-log-and-closeout-v2/acceptance-matrix.json",
   "GPR-02": {
-    "status": "IMPLEMENTED_STATIC_REVIEW_PENDING_TEST",
+    "status": "PASS_SCOPED_FINAL_PURE_OFFLINE",
     "native_identity_unchanged": true,
     "bounded_cause_context": true,
-    "actual_evidence": []
+    "actual_evidence": [
+      "../../evidence/s10-log-and-closeout-v2-r12/verification.json",
+      "acceptance-review.md"
+    ],
+    "requirement_id": "GPR02",
+    "acceptance_criteria": [
+      "bounded explicit cause/effective context with outer and first-visible cause structural frames",
+      "suppressed/cycle/depth/frame limits visible; no messages/locals/source or mutation",
+      "minimal primary before independent ASCII chain before JSON; secondary linked separately",
+      "exact LookupError→ValueError regression plus serialization/writer failure combination"
+    ],
+    "log_refs": [
+      "LOG-04",
+      "LOG-09"
+    ],
+    "reviewer": "/root/acceptance",
+    "actual_application_status": "NOT_RUN",
+    "fixed_candidate": {
+      "product_commit": "d30682a6c9c12b47d8df16609100c1452d9207a7",
+      "test_commit": "642a75ba0ad6b6c4eb795a9a2c9ca7f0406125ca"
+    }
+  },
+  "fixed_candidate": {
+    "product_commit": "d30682a6c9c12b47d8df16609100c1452d9207a7",
+    "test_commit": "642a75ba0ad6b6c4eb795a9a2c9ca7f0406125ca",
+    "runtime_readiness": "NOT_RUNTIME_READY_SAFETY_FROZEN"
   }
 }
