@@ -154,3 +154,32 @@ exact分支自有ExitStack/TemporaryDirectory0700和NamedTemporaryFile0600，仅
 最终结论FINAL_PARTIAL_ACCEPTED_RUNTIME_BLOCKED：本包可以正常线性保存/发表上述限定源码和取证，提交GPT技术复核；不能批准应用执行、T12/S10/生产通过。实际agent安全拒绝不以换人/工具/措辞绕过，本角色未连接DB/HTTP、未启动应用/browser/测试、未改其他writer文件。后续先合法解决真实执行能力拒绝及具体准入缺口，再由明确后续边界判断是否续行；本签署不继承未用额度或解除STOP。GitHub最终发表/全文读回由主控后续真实记录，本签不预认证尚未发生的同步。
 
 最终签署取钟2026-10-17T13:10:22Z（实际工具UTC时钟，秒精度）；本角色到此停止写入，仅交主控保存本已完成报告，不改原R1.1材料。
+
+## 2026-10-17独立源码返工复核追加（原签署历史不改）
+
+本轮`YD-S10-LC2-CODE-REWORK-20261017-01`结论：**SOURCE_READY / PURE_OFFLINE_REVIEWED / RUNTIME_NOT_AUTHORIZED / S10_EXIT_BLOCKED**，仅指本次TR-01—04源码修正和纯离线覆盖。固定父874619728179f13cef514f503c62845e50f419c9，产品ad7d5311dbe7efe687a1dd00776eee8083879541，工具/测试984db5ab011602547405bd32f5c7c9c6b7d852bb。P→T产品路径diff为空，独立验收仍为真实`/root/acceptance`；开发`/root/developer`与主控`/root`各自源码和自测，原tester未重派。没有独立tester的应用验收。
+
+已完整读取正式技术复核6234601017（9559字节，SHA03d5623ed8dd8400a443881795c700bc97dc0d43aaf0b533dccffc42137626ba），只按SOURCE_AND_PURE_OFFLINE_ONLY工作。未读取或重复整理原安全事件/被拒账户材料，未尝试原被拒命令、接手其运行、连接DB/业务网络、导入Odoo或启动应用/driver/PDF引擎。本任务未遇新的工具安全拒绝。原STOP不解除，历史Native根因仍UNKNOWN；本条不是R1.2运行恢复许可，也不把支持工单置于独立源码工作的前置条件。
+
+### 四项源码与覆盖结论
+
+- TR-01：独立实读ProcessEvents/ProcessLogGuard、OwnedApplication的check/wait/close及PackageBudget派发前检查。PID/run/sequence与事件重放校验、最多5×10MiB分段/16KiB单行/100000事件、fstat快照增量读、轮转和终态seal字节/SHA核对，覆盖缺失/截断/替换/同长改写/缺seal。renderer负信号、REAP_FAILED、UNKNOWN及正码待核进入不可清除的进程级首故障冻结；STOP写失败、close、新owner或下一预算派发均不能恢复。服务和等待/终态路径消费相同状态机，实际父负退出作为独立事实保留，不替日志UNKNOWN猜Native，也不覆盖先前事件引用。正常预期拒绝与未出现renderer事件均不误报Native。本角色提出的实例冻结丢失、末尾seal、UNKNOWN出口与首事件引用缺口已在最终代码和纯测试闭环。
+- TR-02：独立实读classify_error、type-only有界预期链判定和record_exception。普通AccessError/ValidationError/UserError及真正request.parse拒绝仅短关联event，不生成minimal/chain/stack文件；非native异常不能靠diagnostic_code伪装业务拒绝。程序/证据原因、包装的有效cause/context、显式Python调查以及隐藏/循环/深度不确定边界保留原primary-first有界链，不穿透from None；原异常对象/args/cause/context/suppression保留。短事件失败仍使用既有诊断失败边界，不吞强制业务审计。
+- TR-03：202行替代渲染路径已收缩为两方法原生委派/观测，撤去替代layout、HTML限制、临时文件/会话、字体检查、自有Popen和参数重写。已对照固定core：原生空reportset在actual report_ref解析后，以原env绑定结算report，要求真正SettlementPdfScope及既有校验，再委派super；参数、结果、异常原样保留。负码、正码、UNKNOWN和returncode属性观察失败分别记录，后者保结构首因/root关联并返回原对象。CompletedProcess没有renderer PID或独立reap证明，保持UNKNOWN；原生正码1可能warning后继续生成，消费器只保守暂停核实，不冒称产品PDF失败。原件路径的ASTfake正例/损坏拒绝均不重生成旧字节。真实MRO、QWeb、中文分页、纸张、原生资源请求和双E兼容没有被fake证明。
+- TR-04：driver导入/启动前严格拒绝未知、DEBUG/PWDEBUG/DEBUG_FILE、preload/proxy等环境键；Firefox接收显式局部白名单副本。async_playwright.start没有env参数，未来协调进程必须已在批准的最小环境中，否则拒绝；本轮没有构建driver框架或临时改全局os.environ。仅从既有browser_phase删去全局DEBUG修改，测试只AST读该独立adapter，未导入cases模块。固定core CLI每个目标调用_create_empty_database、同target系统连接OperationalError可fallback postgres/目标缺失可进入CREATE的事实仍是未来准入缺口，未patch core或扩大资源实测。
+
+### 最终单一候选的证据复核
+
+已全文读统一harness及选集，排除真实依赖预检、logger真实子进程join和应用发现；禁止Popen/run、网络connect/bind、Odoo/数据库/driver依赖导入及打开旧R1.1/R1.2/runroot材料。纯测试仅临时合成文件、AST函数/类和fake对象，不把fake native report或fake browser运输写成真实调用。
+
+独立逐名比对选集与unittest：100唯一选项正好对应100条ok，无缺项/重复；分组24guard/env、18fake browser、11fake HTTP、11report/原件ASTfake、6mock launcher、30pure日志/链/schema。实际PID1158849，2026-10-17T14:03:59.296584Z—14:04:00.009470Z；0failure/0error/0skip/0forbidden attempts。46源before=after=当前逐文件SHA全部相同。result明确cases_module_imported=false、odoo_imported=false，执行角色CONTROLLER_REWORK_SELF_TEST。tool-exit.json保实际工具chunk62efc4、exit0/0.650139521秒；工具未公开OS父PID，不构造父进程证明。预期故障注入stderr保留，不声称无告警。
+
+证据在新私有`.local/s10-lc2-code-rework-20261017-01/final-pure-candidate-1/`，本角色逐项核六个matrix evidence_refs的bytes/SHA均同。开发首25中5个fake len/id错误、后续修正25及观察属性补丁3项均保留为不同开发快照；本次100是最终同候选实际重跑，未相加旧24/58/18/11或25+3。开发自测加主控自测由本角色独立审代码与覆盖，本角色没有代替独立tester运行应用。
+
+### 文书、未运行边界与最终签署
+
+已全文核本次summary/defects/journal/roster与matrix增量。程序核12LOG、22S10、19TC数量不变；22完整S10对象与父逐结构完全相同，12LOG所有原字段相同，19TC原字段相同，只新增source refs/code_rework。历史采纳未重审，所有既有运行状态未升级。summary原文是精确suffix，defects/journal原文是精确prefix；本报告原30907字节签署prefix SHA仍b35553436df590f35a055d43c597eb3b6b6585260f4bcb9c60eb156b0d1497e7，以上历史结论没有回改。
+
+未来原AC最低仍缺六框架/GPR01真实serializer-RPC-翻译-UI与审计事务；main合法编辑权/旧原件同SHA取回、B六MODEL和六RPC、C完整权限及非空family财务/alias/真正finance混源/图片200实际内容；scratch唯一合法新上游6/2及failed恢复、丢响应独立核实与同key防重；同候选E-MAIN/E-D带各自数据升级、全域保全及真实PDF逐页兼容。原生动态report内部HTTP资源计账、driver受控协调环境、原生CLI系统库连接及禁止意外CREATE的合法资源准入仍需明确，不能用本次纯测试替代。旧租约/旧资金/旧原件不为凑覆盖更改或重放。
+
+本轮源码和纯覆盖限定可采、可正常线性保存交付技术复核；没有应用RUNTIME_READY、S10/T12/生产通过或新运行额度继承。GitHub最终发表和API全文读回由主控后续据实记录，不预认证尚未发生的同步。本角色仅追加本文件，签署取钟2026-10-17T14:08:10Z（工具UTC秒精度），到此停止写入。

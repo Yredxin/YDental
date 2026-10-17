@@ -87,5 +87,29 @@
       "locator-review.md"
     ],
     "state": "COMPLETED_PASS_SYNTHETIC_SNAPSHOT_ONLY"
+  },
+  "code_rework": {
+    "message_id": "YD-S10-LC2-CODE-REWORK-20261017-01",
+    "scope": "SOURCE_AND_PURE_OFFLINE_ONLY",
+    "controller": "/root: runner, event consumer, driver env, unified pure self-tests, reports, git/GitHub",
+    "developer": "/root/developer: diagnostics/native report observer and pure branch tests, final stopped",
+    "acceptance": "/root/acceptance: independent code/test/coverage review only; append original acceptance report",
+    "tester": "/root/tester: previous errored unchanged; not invoked; account-material check not taken over",
+    "final_candidate": {
+      "product_commit": "ad7d5311dbe7efe687a1dd00776eee8083879541",
+      "test_commit": "984db5ab011602547405bd32f5c7c9c6b7d852bb"
+    },
+    "pure_execution": "CONTROLLER_REWORK_SELF_TEST; not independent tester application acceptance",
+    "independent_review_status": "SOURCE_READY / PURE_OFFLINE_REVIEWED / RUNTIME_NOT_AUTHORIZED / S10_EXIT_BLOCKED",
+    "independent_signature": {
+      "canonical": "/root/acceptance",
+      "status": "SOURCE_READY / PURE_OFFLINE_REVIEWED / RUNTIME_NOT_AUTHORIZED / S10_EXIT_BLOCKED",
+      "report": "docs/reports/s10-log-and-closeout-v2-r12/acceptance-review.md",
+      "bytes": 38113,
+      "sha256": "047a03a72541871f80fc1bdc8c22fbbf2334af1435d138fc1130bf8a368343ac",
+      "old_signed_prefix_bytes": 30907,
+      "old_prefix_sha256": "b35553436df590f35a055d43c597eb3b6b6585260f4bcb9c60eb156b0d1497e7",
+      "not_application_acceptance": true
+    }
   }
 }

@@ -55,7 +55,11 @@
       "actual_executors": [
         "/root/developer (source and producer pure mocks)",
         "/root (final pure logging/schema/fake-renderer and preservation only)"
-      ]
+      ],
+      "code_rework_refs": [
+        "TR-02"
+      ],
+      "code_rework_scope": "Source/pure checks only; original actual execution status above retained, not upgraded to runtime PASS."
     },
     {
       "id": "LOG-02",
@@ -102,7 +106,11 @@
       "actual_executors": [
         "/root/developer (source and producer pure mocks)",
         "/root (final pure logging/schema/fake-renderer and preservation only)"
-      ]
+      ],
+      "code_rework_refs": [
+        "TR-01"
+      ],
+      "code_rework_scope": "Source/pure checks only; original actual execution status above retained, not upgraded to runtime PASS."
     },
     {
       "id": "LOG-03",
@@ -151,7 +159,11 @@
       "actual_executors": [
         "/root/developer (source and producer pure mocks)",
         "/root (final pure logging/schema/fake-renderer and preservation only)"
-      ]
+      ],
+      "code_rework_refs": [
+        "TR-02"
+      ],
+      "code_rework_scope": "Source/pure checks only; original actual execution status above retained, not upgraded to runtime PASS."
     },
     {
       "id": "LOG-04",
@@ -197,7 +209,12 @@
       "actual_executors": [
         "/root/developer (source and producer pure mocks)",
         "/root (final pure logging/schema/fake-renderer and preservation only)"
-      ]
+      ],
+      "code_rework_refs": [
+        "TR-01",
+        "TR-02"
+      ],
+      "code_rework_scope": "Source/pure checks only; original actual execution status above retained, not upgraded to runtime PASS."
     },
     {
       "id": "LOG-05",
@@ -245,7 +262,12 @@
       "actual_executors": [
         "/root/developer (source and producer pure mocks)",
         "/root (final pure logging/schema/fake-renderer and preservation only)"
-      ]
+      ],
+      "code_rework_refs": [
+        "TR-01",
+        "TR-03"
+      ],
+      "code_rework_scope": "Source/pure checks only; original actual execution status above retained, not upgraded to runtime PASS."
     },
     {
       "id": "LOG-06",
@@ -294,7 +316,12 @@
       "actual_executors": [
         "/root/developer (source and producer pure mocks)",
         "/root (final pure logging/schema/fake-renderer and preservation only)"
-      ]
+      ],
+      "code_rework_refs": [
+        "TR-02",
+        "TR-03"
+      ],
+      "code_rework_scope": "Source/pure checks only; original actual execution status above retained, not upgraded to runtime PASS."
     },
     {
       "id": "LOG-07",
@@ -341,7 +368,12 @@
         "/root/developer (source and producer pure mocks)",
         "/root (final pure logging/schema/fake-renderer and preservation only)",
         "/root/tester (two target RO, before refusal)"
-      ]
+      ],
+      "code_rework_refs": [
+        "TR-01",
+        "TR-03"
+      ],
+      "code_rework_scope": "Source/pure checks only; original actual execution status above retained, not upgraded to runtime PASS."
     },
     {
       "id": "LOG-08",
@@ -386,7 +418,11 @@
       "actual_executors": [
         "/root/developer (source and producer pure mocks)",
         "/root (final pure logging/schema/fake-renderer and preservation only)"
-      ]
+      ],
+      "code_rework_refs": [
+        "TR-01"
+      ],
+      "code_rework_scope": "Source/pure checks only; original actual execution status above retained, not upgraded to runtime PASS."
     },
     {
       "id": "LOG-09",
@@ -434,7 +470,12 @@
       "actual_executors": [
         "/root/developer (source and producer pure mocks)",
         "/root (final pure logging/schema/fake-renderer and preservation only)"
-      ]
+      ],
+      "code_rework_refs": [
+        "TR-02",
+        "TR-04"
+      ],
+      "code_rework_scope": "Source/pure checks only; original actual execution status above retained, not upgraded to runtime PASS."
     },
     {
       "id": "LOG-10",
@@ -480,7 +521,12 @@
       "actual_executors": [
         "/root/developer (source and producer pure mocks)",
         "/root (final pure logging/schema/fake-renderer and preservation only)"
-      ]
+      ],
+      "code_rework_refs": [
+        "TR-01",
+        "TR-02"
+      ],
+      "code_rework_scope": "Source/pure checks only; original actual execution status above retained, not upgraded to runtime PASS."
     },
     {
       "id": "LOG-11",
@@ -527,7 +573,9 @@
       "actual_executors": [
         "/root/developer (synthetic producer)",
         "/root/acceptance_locator_r12 (fresh independent locator)"
-      ]
+      ],
+      "code_rework_refs": [],
+      "code_rework_scope": "Source/pure checks only; original actual execution status above retained, not upgraded to runtime PASS."
     },
     {
       "id": "LOG-12",
@@ -572,7 +620,12 @@
         "STATIC"
       ],
       "planned_runtime_executor": "/root/tester",
-      "actual_executors": []
+      "actual_executors": [],
+      "code_rework_refs": [
+        "TR-03",
+        "TR-04"
+      ],
+      "code_rework_scope": "Source/pure checks only; original actual execution status above retained, not upgraded to runtime PASS."
     }
   ],
   "s10": [
@@ -2373,7 +2426,13 @@
         "新准入RO身份/隔离/退出",
         "doc v4及versions9→10/author/经济/原件独立基线"
       ],
-      "reason": "Fresh independent main RO baseline only; no editor release/original acquisition."
+      "reason": "Fresh independent main RO baseline only; no editor release/original acquisition.",
+      "code_rework_refs": [
+        "TR-01",
+        "TR-02",
+        "TR-04"
+      ],
+      "code_rework_does_not_satisfy_required_runtime_layers": true
     },
     "A-EDITOR": {
       "required_layers": [
@@ -2396,7 +2455,13 @@
         "合法失效分支/审计/四mutex精确diff",
         "v4/旧费库款不变"
       ],
-      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch."
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch.",
+      "code_rework_refs": [
+        "TR-01",
+        "TR-02",
+        "TR-04"
+      ],
+      "code_rework_does_not_satisfy_required_runtime_layers": true
     },
     "A-ORIGINAL": {
       "required_layers": [
@@ -2421,7 +2486,12 @@
         "旧v1字节SHA同059287…",
         "逐页目视及原件不重渲染计数0/经济不变"
       ],
-      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch."
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch.",
+      "code_rework_refs": [
+        "TR-03",
+        "TR-04"
+      ],
+      "code_rework_does_not_satisfy_required_runtime_layers": true
     },
     "B-MODEL-6": {
       "required_layers": [
@@ -2441,7 +2511,13 @@
         "source/payment/audit各write/unlink六项framework普通用户拒绝",
         "非空实际字段/目标前后存储/actor/su/回滚隔离"
       ],
-      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch."
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch.",
+      "code_rework_refs": [
+        "TR-01",
+        "TR-02",
+        "TR-04"
+      ],
+      "code_rework_does_not_satisfy_required_runtime_layers": true
     },
     "B-RPC-6": {
       "required_layers": [
@@ -2462,7 +2538,13 @@
         "六项真实JSONRPC请求/响应体/实际params",
         "各错误层与独立旧对象/审计旧行不变"
       ],
-      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch."
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch.",
+      "code_rework_refs": [
+        "TR-01",
+        "TR-02",
+        "TR-04"
+      ],
+      "code_rework_does_not_satisfy_required_runtime_layers": true
     },
     "C-SCOPE": {
       "required_layers": [
@@ -2484,7 +2566,13 @@
         "每权限/店/公司/family/混源cell预期与真实响应",
         "新合成fixture标识与old对象只读不变"
       ],
-      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch."
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch.",
+      "code_rework_refs": [
+        "TR-01",
+        "TR-02",
+        "TR-04"
+      ],
+      "code_rework_does_not_satisfy_required_runtime_layers": true
     },
     "C-ATTACHMENT": {
       "required_layers": [
@@ -2507,7 +2595,13 @@
         "合法safe placeholder解码像素/尺寸/内容对照及无原件泄露",
         "独立附件/原件行和审计变化"
       ],
-      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch."
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch.",
+      "code_rework_refs": [
+        "TR-01",
+        "TR-02",
+        "TR-04"
+      ],
+      "code_rework_does_not_satisfy_required_runtime_layers": true
     },
     "C-TOKEN": {
       "required_layers": [
@@ -2528,7 +2622,13 @@
         "无/随机无效/合法受控有效token各实际请求或N/A源码不可签发理由",
         "原件native binary前置拒绝；token不进入公开材料"
       ],
-      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch."
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch.",
+      "code_rework_refs": [
+        "TR-01",
+        "TR-02",
+        "TR-04"
+      ],
+      "code_rework_does_not_satisfy_required_runtime_layers": true
     },
     "C-REVOKED-PAGE": {
       "required_layers": [
@@ -2551,7 +2651,13 @@
         "新合成用户授权前页面/撤权后旧页下一请求拒绝",
         "同源read/export分离及正常恢复原fixture权限的独立核实"
       ],
-      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch."
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch.",
+      "code_rework_refs": [
+        "TR-01",
+        "TR-02",
+        "TR-04"
+      ],
+      "code_rework_does_not_satisfy_required_runtime_layers": true
     },
     "D-ADMIT": {
       "required_layers": [
@@ -2574,7 +2680,13 @@
         "新独立来源及真实账号/店/公司/scope/日期/全相关渠道日结锁准入",
         "无旧钱款/锁/权限改动"
       ],
-      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch."
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch.",
+      "code_rework_refs": [
+        "TR-01",
+        "TR-02",
+        "TR-04"
+      ],
+      "code_rework_does_not_satisfy_required_runtime_layers": true
     },
     "D-NORMAL-6": {
       "required_layers": [
@@ -2596,7 +2708,13 @@
         "唯一新patient/source/invoice费用6与一次收6",
         "native inbound/partial/receipt/audit独立核回"
       ],
-      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch."
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch.",
+      "code_rework_refs": [
+        "TR-01",
+        "TR-02",
+        "TR-04"
+      ],
+      "code_rework_does_not_satisfy_required_runtime_layers": true
     },
     "D-FAILED-2": {
       "required_layers": [
@@ -2620,7 +2738,13 @@
         "refund_uncertain failed合成线下未付事实/状态/额度/audit",
         "非真实网关故障标识"
       ],
-      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch."
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch.",
+      "code_rework_refs": [
+        "TR-01",
+        "TR-02",
+        "TR-04"
+      ],
+      "code_rework_does_not_satisfy_required_runtime_layers": true
     },
     "D-RECOVER-2": {
       "required_layers": [
@@ -2642,7 +2766,13 @@
         "合法finance verified_not_paid→approved",
         "额度/审计独立状态，不增加出款"
       ],
-      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch."
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch.",
+      "code_rework_refs": [
+        "TR-01",
+        "TR-02",
+        "TR-04"
+      ],
+      "code_rework_does_not_satisfy_required_runtime_layers": true
     },
     "D-LOST-REFUND-2": {
       "required_layers": [
@@ -2666,7 +2796,13 @@
         "OUTCOME_UNKNOWN→新RO核done/唯一outbound/credit/partial/receipt/audit",
         "未知不重放"
       ],
-      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch."
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch.",
+      "code_rework_refs": [
+        "TR-01",
+        "TR-02",
+        "TR-04"
+      ],
+      "code_rework_does_not_satisfy_required_runtime_layers": true
     },
     "D-VERIFY-RETRY": {
       "required_layers": [
@@ -2690,7 +2826,13 @@
         "返回already_accepted/native出款仍1笔2/净收4",
         "退款PDF实际字节/目视由T11另列"
       ],
-      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch."
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch.",
+      "code_rework_refs": [
+        "TR-01",
+        "TR-02",
+        "TR-04"
+      ],
+      "code_rework_does_not_satisfy_required_runtime_layers": true
     },
     "E-PREBASELINE": {
       "required_layers": [
@@ -2725,7 +2867,12 @@
         "目标SHA/config/marker/模块/schema/关系全清单",
         "旧及新增经济权限临床审计原件附件全域前存储签名"
       ],
-      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch."
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch.",
+      "code_rework_refs": [
+        "TR-03",
+        "TR-04"
+      ],
+      "code_rework_does_not_satisfy_required_runtime_layers": true
     },
     "E-UPGRADE-S10-ONLY": {
       "required_layers": [
@@ -2762,7 +2909,12 @@
         "原生日志/模块版本/事务后RO状态",
         "失败保全不重克隆/不伪回滚"
       ],
-      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch."
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch.",
+      "code_rework_refs": [
+        "TR-03",
+        "TR-04"
+      ],
+      "code_rework_does_not_satisfy_required_runtime_layers": true
     },
     "E-PRESERVE": {
       "required_layers": [
@@ -2798,7 +2950,12 @@
         "升级技术元数据逐字段白名单及原因",
         "所有历史与本包提交保全"
       ],
-      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch."
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch.",
+      "code_rework_refs": [
+        "TR-03",
+        "TR-04"
+      ],
+      "code_rework_does_not_satisfy_required_runtime_layers": true
     },
     "E-AFFECTED-REGRESSION": {
       "required_layers": [
@@ -2838,7 +2995,12 @@
         "B真实RPC/C关键cells/旧原件UI同SHA和PDF逐页",
         "D只读唯一提交，不重执行资金；新合成并发仅直接影响需要时"
       ],
-      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch."
+      "reason": "TOOL_AGENT_SAFETY_REFUSAL; no application dispatch.",
+      "code_rework_refs": [
+        "TR-03",
+        "TR-04"
+      ],
+      "code_rework_does_not_satisfy_required_runtime_layers": true
     }
   },
   "implementation_started_at_utc": "2026-10-17T12:05:21.801Z",
@@ -2889,5 +3051,119 @@
     "product_commit": "d30682a6c9c12b47d8df16609100c1452d9207a7",
     "test_commit": "642a75ba0ad6b6c4eb795a9a2c9ca7f0406125ca",
     "runtime_readiness": "NOT_RUNTIME_READY_SAFETY_FROZEN"
+  },
+  "code_rework": {
+    "message_id": "YD-S10-LC2-CODE-REWORK-20261017-01",
+    "scope": "SOURCE_AND_PURE_OFFLINE_ONLY",
+    "review": 6234601017,
+    "parent_commit": "874619728179f13cef514f503c62845e50f419c9",
+    "fixed_candidate": {
+      "product_commit": "ad7d5311dbe7efe687a1dd00776eee8083879541",
+      "test_commit": "984db5ab011602547405bd32f5c7c9c6b7d852bb"
+    },
+    "source_status": "SOURCE_READY_PURE_OFFLINE_REVIEWED",
+    "runtime_status": "BLOCKED_NO_NEW_AUTH",
+    "tester_status": "original tester remains errored; no re-dispatch or account-material check takeover",
+    "pure_test_execution_role": "CONTROLLER_REWORK_SELF_TEST",
+    "pure_result": {
+      "scope": "SOURCE_AND_PURE_OFFLINE_ONLY",
+      "execution_role": "CONTROLLER_REWORK_SELF_TEST",
+      "product_commit": "ad7d5311dbe7efe687a1dd00776eee8083879541",
+      "test_commit": "984db5ab011602547405bd32f5c7c9c6b7d852bb",
+      "started_at_utc": "2026-10-17T14:03:59.296584+00:00",
+      "finished_at_utc": "2026-10-17T14:04:00.009470+00:00",
+      "pid": 1158849,
+      "tests": 100,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "forbidden_attempts": [],
+      "source_before_after_equal": true,
+      "source_files": 46,
+      "cases_module_imported": false,
+      "odoo_imported": false,
+      "independent_tester_or_application_pass_claimed": false
+    },
+    "evidence_refs": [
+      {
+        "private_path": ".local/s10-lc2-code-rework-20261017-01/final-pure-candidate-1/result.json",
+        "bytes": 621,
+        "sha256": "34f5a5fd262b9efab1d849805f75425e59edb61b29f431ac03ddd05272a2610f"
+      },
+      {
+        "private_path": ".local/s10-lc2-code-rework-20261017-01/final-pure-candidate-1/unittest.txt",
+        "bytes": 17205,
+        "sha256": "6bfbd0022a2c55c87912786d06cdf388f7f3ee0d00f79fbcd9e4d8c6c2316d5d"
+      },
+      {
+        "private_path": ".local/s10-lc2-code-rework-20261017-01/final-pure-candidate-1/selected-tests.json",
+        "bytes": 10459,
+        "sha256": "b6d48cca34e28a487f4f7154000faf82fd5cc0b1ac760d5a45bedf7250c2c28b"
+      },
+      {
+        "private_path": ".local/s10-lc2-code-rework-20261017-01/final-pure-candidate-1/source-before.json",
+        "bytes": 5212,
+        "sha256": "e445e401d2e948fa099b084f741533667b9401215c6bf3a44534a2f6fbdb526b"
+      },
+      {
+        "private_path": ".local/s10-lc2-code-rework-20261017-01/final-pure-candidate-1/source-after.json",
+        "bytes": 5212,
+        "sha256": "e445e401d2e948fa099b084f741533667b9401215c6bf3a44534a2f6fbdb526b"
+      },
+      {
+        "private_path": ".local/s10-lc2-code-rework-20261017-01/final-pure-candidate-1/tool-exit.json",
+        "bytes": 521,
+        "sha256": "d76c409cce3b1307b0064488b7dbece5409a279bdca427a865fb3d47ccfaa676"
+      }
+    ],
+    "technical_rework": {
+      "TR-01": {
+        "status": "SOURCE_AND_SYNTHETIC_REVIEW_COMPLETE",
+        "files": [
+          "scripts/s10_lc2_process_guard.py::ProcessEvents/ProcessLogGuard",
+          "scripts/s10_lc2_launch.py::observe_events/check/wait/close",
+          "scripts/s10_lc2_targets.py::freeze_dispatch/PackageBudget.consume"
+        ],
+        "coverage": "owned PID/run/sequence, negative renderer signal, REAP_FAILED, UNKNOWN/nonzero-not-native, missing/partial/shrunk/replaced logs, terminal/rotated seals, sticky first primary, STOP writer failure then close/new bind/launch/request blocked; actual observer fake events feed same consumer",
+        "limits": "Actual native parent/grandchild supervision NOT_RUN. CompletedProcess has no renderer PID/reap proof; do not fabricate."
+      },
+      "TR-02": {
+        "status": "SOURCE_AND_PURE_BRANCH_REVIEW_COMPLETE",
+        "files": [
+          "ydental_access/diagnostics.py::classify_error/_expected_rejection_chain/record_exception"
+        ],
+        "coverage": "short native expected rejection and parse input, no stack/chain/minimal files; unexpected visible cause/context, evidence error, hidden/uncertain/cycle/depth and explicit Python investigate=True keep bounded primary-first chain; original instance identity retained",
+        "limits": "Real GPR01 RPC/name/arguments/translation/UI and mandatory audit transaction regression NOT_RUN."
+      },
+      "TR-03": {
+        "status": "SOURCE_SHRUNK_NATIVE_HANDOFF_REVIEWED",
+        "files": [
+          "ydental_settlement/models/ir_actions_report.py::_run_pdf_engine_without_processing/_run_wkhtmltopdf"
+        ],
+        "coverage": "original202line substitute replaced by native two-method observer; actual empty native reportset/report_ref bound in originalenv; scope validation; super exactargs/kwargs/result/exception; negative/positive/unknowncode and property-evidence error; old original bytes AST positive/corruption negative without regeneration",
+        "limits": "Real MRO/QWeb/nativePDF/Chinese pages/paperformat/native accounting docs/E remain NOT_RUN; native report internal HTTP budgeting not solved by a new renderer; positive code1 is NOT_NATIVE and may still yield a PDF in core, so consumer only pauses for verification."
+      },
+      "TR-04": {
+        "status": "SOURCE_AND_PURE_ENV_REVIEW_COMPLETE",
+        "files": [
+          "scripts/s10_lc2_browser.py::driver_environment/__aenter__",
+          "scripts/s10_lc2_cases.py::browser_phase",
+          "scripts/s10_lc2_test_pure_rework.py::main"
+        ],
+        "coverage": "before import/start reject unknown/debug/preload/proxy env; driver must already inherit approved whitelist, Firefox gets explicit local copy; no os.environ mutation; old globalDEBUG assignment removed only from browser adapter; one frozen candidate100tests, no mixed snapshot counts",
+        "limits": "async_playwright.start has no env argument: future coordinator must already start with approved minimal environment; real driver NOT_RUN. Native CLI target db_system fallback to postgres/CREATE and C/E genuine cells remain unresolved runtime admissions."
+      }
+    },
+    "independent_acceptance": {
+      "canonical": "/root/acceptance",
+      "status": "SOURCE_READY / PURE_OFFLINE_REVIEWED / RUNTIME_NOT_AUTHORIZED / S10_EXIT_BLOCKED",
+      "report": "docs/reports/s10-log-and-closeout-v2-r12/acceptance-review.md",
+      "bytes": 38113,
+      "sha256": "047a03a72541871f80fc1bdc8c22fbbf2334af1435d138fc1130bf8a368343ac",
+      "old_signed_prefix_bytes": 30907,
+      "old_prefix_sha256": "b35553436df590f35a055d43c597eb3b6b6585260f4bcb9c60eb156b0d1497e7",
+      "not_application_acceptance": true
+    },
+    "old_RUNTIME_records_preserved": true
   }
 }

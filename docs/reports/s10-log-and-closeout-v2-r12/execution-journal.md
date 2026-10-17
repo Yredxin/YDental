@@ -16,3 +16,11 @@
 - 实际13:02:14Z最终P/T纯日志/schema/fakerenderer24项PASS，parent1120215exit0/no signal/timeout，27source before/after/current同；raw目录130400标签不当实际时间。无DB/Odoo/真实HTTP/Firefox/nativePDF。
 - 13:03:14Z文件/进程只读保全采样：两markerSHA不变，ownedOdoo0，原42433exe/cwd/odoo-bin仍在，raw旧+新+runroot60012334B；无新增数据库测量。累计账本targetRO6/Odoo1、业务0，历史nativeCLI隐式system连接观测UNKNOWN单列。
 - 交付前#23/#34正文/既有评论无变化，唯一新增START6233729703；#35OPEN/0comments，origin远端仍父87a2542。最终提交/推送/评论全文回读另记真实同步，不以补同步派发业务。
+
+## 代码返工（message YD-S10-LC2-CODE-REWORK-20261017-01）
+
+- 13:47:19Z完整读取正式技术复核6234601017/9559B SHA03d5623ed8dd8400a443881795c700bc97dc0d43aaf0b533dccffc42137626ba，parent8746197/clean；新直接授权仅SOURCE_AND_PURE_OFFLINE_ONLY。developer/acceptance真实沿用，原tester不重派。
+- 内部普通源码/替身修复：开发TR02/03，主控TR01/04，独立验收提示首故障不可覆盖、进程级冻结、终态seal、Native事实与日志UNKNOWN区分，逐项闭环；没有为普通问题向用户再请示。
+- developer首次25有5fake接口错误保留；修复后25pass。后续returncode属性取证异常补首因，单独3purepass仅开发历史。主控定向39/42purepass为开发快照，不计入最终候选总数。
+- 固定product ad7d5311dbe7efe687a1dd00776eee8083879541/test984db5ab011602547405bd32f5c7c9c6b7d852bb；14:03:59.296584Z—14:04:00.009470Z统一pure100/0fail/0error/0skip/0forbidden，PID1158849，46源码SHA前后同；工具exit0，cases/Odoo未import，预期诊断故障注入stderr保留。全部实际应用/DB/driver/PDF/资金/升级0，STOP原字节保持。
+- 只更新现有report/defect/matrix及独立验收追加，不新增规划或大型日志包。最终线性push/#34回读另按实际同步记录，不因同步重跑测试或业务。

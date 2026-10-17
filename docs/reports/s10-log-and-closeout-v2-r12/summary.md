@@ -1,3 +1,45 @@
+# 当前代码返工交付：SOURCE_READY / PURE_OFFLINE_REVIEWED / RUNTIME持续BLOCKED
+
+本轮`YD-S10-LC2-CODE-REWORK-20261017-01`，`SOURCE_AND_PURE_OFFLINE_ONLY`，完整按[GPT技术复核6234601017](https://github.com/Yredxin/YDental/issues/34#issuecomment-6234601017)完成TR-01—04源码及纯测试返工。父`874619728179f13cef514f503c62845e50f419c9`；产品`ad7d5311dbe7efe687a1dd00776eee8083879541`，测试/工具`984db5ab011602547405bd32f5c7c9c6b7d852bb`，core只读`f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb`。独立acceptance已签`SOURCE_READY / PURE_OFFLINE_REVIEWED / RUNTIME_NOT_AUTHORIZED / S10_EXIT_BLOCKED`（38113B/SHA 047a03a72541871f80fc1bdc8c22fbbf2334af1435d138fc1130bf8a368343ac）；本节为新增代码返工；下方R1.2实际交付全文保留为历史，原采纳、旧失败和未运行状态不改写。
+
+没有恢复R1.2运行、替换tester或接手被拒账户材料检查；不再整理支持反馈或复查安全事件。原tester errored和STOP保持。真实主控`/root`完成runner/driver与统一pure自测，`/root/developer`完成诊断/报告代码和其pure自测，`/root/acceptance`独立审代码与覆盖；这是开发/主控自测加独立审查，不是独立tester的应用验收。
+
+|返工|实际源码修改与纯覆盖|仍需真实证据|
+|---|---|---|
+|TR-01|owned PID/run/sequence, negative renderer signal, REAP_FAILED, UNKNOWN/nonzero-not-native, missing/partial/shrunk/replaced logs, terminal/rotated seals, sticky first primary, STOP writer failure then close/new bind/launch/request blocked; actual observer fake events feed same consumer|Actual native parent/grandchild supervision NOT_RUN. CompletedProcess has no renderer PID/reap proof; do not fabricate.|
+|TR-02|short native expected rejection and parse input, no stack/chain/minimal files; unexpected visible cause/context, evidence error, hidden/uncertain/cycle/depth and explicit Python investigate=True keep bounded primary-first chain; original instance identity retained|Real GPR01 RPC/name/arguments/translation/UI and mandatory audit transaction regression NOT_RUN.|
+|TR-03|original202line substitute replaced by native two-method observer; actual empty native reportset/report_ref bound in originalenv; scope validation; super exactargs/kwargs/result/exception; negative/positive/unknowncode and property-evidence error; old original bytes AST positive/corruption negative without regeneration|Real MRO/QWeb/nativePDF/Chinese pages/paperformat/native accounting docs/E remain NOT_RUN; native report internal HTTP budgeting not solved by a new renderer; positive code1 is NOT_NATIVE and may still yield a PDF in core, so consumer only pauses for verification.|
+|TR-04|before import/start reject unknown/debug/preload/proxy env; driver must already inherit approved whitelist, Firefox gets explicit local copy; no os.environ mutation; old globalDEBUG assignment removed only from browser adapter; one frozen candidate100tests, no mixed snapshot counts|async_playwright.start has no env argument: future coordinator must already start with approved minimal environment; real driver NOT_RUN. Native CLI target db_system fallback to postgres/CREATE and C/E genuine cells remain unresolved runtime admissions.|
+
+TR-01现在从真实observer生产的合成事件到同一消费状态机，再到服务check/安装升级wait/终态close以及下一次HTTP或browser预算派发前检查。进程级首次故障先锁存；STOP持久化失败或关闭实例不会清掉冻结。启动前最多60秒只允许等待日志，不能因此允许请求；日志完整性UNKNOWN与实际parent负退出分开，原事件/root引用不被后续保存失败覆盖。每PID最多5段×10MiB、单行16KiB、100000events，增量只读当前fstat快照；已轮转/终态核seal字节和SHA，同长改写/缺seal也拒绝。未出现renderer事件本身不会误报，正常短业务拒绝不触发Native停止。
+
+TR-03仅保留必要的原生委派与观测；已移除替代layout、HTML白名单、临时文件/会话处理、字体检查、自有Popen与参数重写，不新增渲染/网络框架。仍保留的两方法是产品变化，明确映射A-ORIGINAL与原E/PDF回归；正常原生report_ref解析后以原env绑定，不借用sudo环境。CompletedProcess不提供PID/reap，保持UNKNOWN，负码元数据并不等于独立OS进程证据。观察层不改super返回和异常；正码1可能被core作为warning接受，父只保守暂停后续派发待核，不能据此称产品PDF FAIL。
+
+TR-04没有第三方driver env注入API：`async_playwright.start`直接继承进程环境且无env参数。因此helper在导入/启动前严格拒绝任何非白名单ambient键，未来coordinator必须已由批准入口以最小环境启动；Firefox明确接收该白名单副本。没有临时修改全局os.environ，没有patch driver库。SDK自行添加的正常内部字段不能在本轮fake中冒称已实际观察。
+
+## 最终同一候选纯测试
+
+实际2026-10-17T14:03:59.296584Z—14:04:00.009470Z，PID1158849，**100 tests /0failure/0error/0skip/0forbidden attempts**，46source before/after/current SHA一致。统一执行候选P`ad7d5311dbe7efe687a1dd00776eee8083879541`/T`984db5ab011602547405bd32f5c7c9c6b7d852bb`，不是旧24/58/18/11或开发25+3的相加。分组：24guard/env、18fake browser、11fake HTTP、11原生report/原件ASTfake、6mock launcher、30pure日志/链/schema。真实工具exec_command回传exit0，tool-exit.json单独记录；OS父PID未公开，不伪造。故障注入预期stderr`LC2_PRIMARY_EVIDENCE_UNAVAILABLE/YDENTAL_DIAGNOSTIC_FAILURE`保留，不声称无告警。
+
+统一harness主动禁止Popen/run、网络connect/bind、Odoo/数据库/driver依赖导入及打开旧R1.1/R1.2/runroot资料，未导入cases模块、未触发原账户检查。只AST检查同文件中独立browser adapter，不执行该文件。测试不能暗中启动应用。已有开发第一次25测试替身len/id五失败保留，修正后25和后续3只作开发迭代历史，不计入最终100。
+
+私有小证据目录`.local/s10-lc2-code-rework-20261017-01/final-pure-candidate-1`仅选集、逐项结果、46源码SHA与工具退出事实，未复制旧日志/数据库或客服资料。机器映射[acceptance-matrix.json](acceptance-matrix.json)新增`code_rework`，保留12LOG+22S10/19TC原需求与原R1.2状态、历史22采纳。独立新结论追加在[acceptance-review.md](acceptance-review.md)，不改旧30907字节签章前缀。
+
+## 仍需真实运行的原AC最小清单（不是本轮许可）
+
+- 最低6框架及GPR-01 serializer name/arguments、公开消息/翻译、真实RPC/UI403/409/303与强制审计/事务回归。
+- main A-EDITOR/A-ORIGINAL合法工作台操作与旧v1同SHA重取/逐页；不重生成旧原件、不改旧租约或资金。
+- B六MODEL+六真实RPC；C读/导出、撤权旧页、跨公司/店、非空family财务正例/alias/真正finance混源、有效token/附件/图片200实际内容等原矩阵。
+- scratch唯一正常上游D6入/2出，failed核未付recover、一次执行丢响应后独立核实，再同key一次防重；不重放旧钱。
+- E-MAIN/E-D同候选、带各自数据仅-u ydental_settlement、全保全与受影响回归；恢复原生report后的真实QWeb/MRO/中文分页/纸张/PDF逐页、原件与审计回归。两库不拼患者链。
+- 未来任何应用准入仍须明确能力/资源：固定core原生CLI每目标会调用_create_empty_database；db_system=target若OperationalError仍回退postgres并可能进入CREATE路径，源码参数不能保证原“新增维护/CREATE0”。当前仅列出最小差异：若未来采用该原生CLI，需要明确许可其实际system连接范围并严守不建库；目标丢失须停止，不能以这条源码任务扩大范围或patch core绕过。原生动态report潜在内部HTTP资源也需在现有预算内有可查证准入，不能继续靠新渲染网络框架解决。
+
+本轮DB连接、Odoo/业务HTTP-RPC/driver/Firefox/原生PDF/业务资金/升级/维护/CREATE均0；原core、odoo-12、两库与旧原件/账款不变。SOURCE局部READY和RUNTIME_READY分开；S10/T12及生产持续BLOCKED，历史Native根因UNKNOWN，不启S11/合并/强推。正常线性提交推送、#34脱敏回执后API全文读回，仅记录真实同步。
+
+---
+
+以下为原R1.2交付历史（原文保留）：
+
 # S10-LOG-AND-CLOSEOUT-v2 R1.2 具体阻断交付
 
 本轮已实现依赖启动前提、GPR-02异常链及结算专属有界渲染源码，并完成限定离线验证与独立审查；整包因真实agent安全拒绝停止应用执行，**S10与生产持续BLOCKED**。不是补依赖即结束，也不是普通修复两轮耗尽；R1.2已撤销普通两轮上限。剩余运行额度不构成越过安全停止的授权。
