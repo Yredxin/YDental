@@ -53,6 +53,7 @@ _LIFECYCLE_PIDS = set()
 _CLOSING_PIDS = set()
 _LIFECYCLE_LABELS = {}
 _ENV_LABEL = re.compile(r'[A-Za-z0-9_.:-]{1,96}\Z')
+MAX_EXCEPTION_CHAIN_BYTES = 128 * 1024
 
 
 def _lifecycle_labels():
@@ -372,16 +373,122 @@ def classify_error(error, stage=None):
     return 'APPLICATION_ERROR', 'APPLICATION_ERROR'
 
 
-def safe_exception_frames(error):
-    """Only structural frame locations, with no messages/source/locals."""
+def _structural_name(value):
+    """Source/type labels only, bounded ASCII with no control characters."""
+    return re.sub(r'[^A-Za-z0-9_.<>-]', '_', value[:128]) or 'UNKNOWN'
+
+
+def _exception_frames(error, limit):
     frames = []
-    tb = error.__traceback__
-    while tb is not None and len(frames) < 32:
+    tb = BaseException.__traceback__.__get__(error)
+    while tb is not None and len(frames) < limit:
         code = tb.tb_frame.f_code
-        frames.append({'file': Path(code.co_filename).name[:128],
-                       'function': code.co_name[:128], 'line': tb.tb_lineno})
+        frames.append({'file': _structural_name(Path(code.co_filename).name),
+                       'function': _structural_name(code.co_name), 'line': tb.tb_lineno})
         tb = tb.tb_next
-    return frames
+    return frames, tb is not None
+
+
+def safe_exception_frames(error):
+    """One traceback, for existing callers; full chain uses the helper below."""
+    return _exception_frames(error, 32)[0]
+
+
+def safe_exception_chain(error, *, max_depth=8, max_frames=32, max_total_frames=64):
+    """Outer-to-first-visible-cause structure, never messages/args/locals.
+
+    Explicit causes take precedence, as in Python's traceback display. A
+    suppressed implicit context is not traversed or identified. Object IDs are
+    only used in RAM for cycle detection; artifact node IDs are local ordinals.
+    """
+    if (not isinstance(error, BaseException)
+            or type(max_depth) is not int or not 1 <= max_depth <= 8
+            or type(max_frames) is not int or not 1 <= max_frames <= 32
+            or type(max_total_frames) is not int or not 1 <= max_total_frames <= 64):
+        raise ValueError('INVALID_DIAGNOSTIC_CHAIN_BOUND')
+    nodes, seen = [], {}
+    current = error
+    remaining = max_total_frames
+    termination = 'COMPLETE'
+    while current is not None:
+        node_id = 'exception-%s' % len(nodes)
+        seen[id(current)] = node_id
+        frames, frames_truncated = _exception_frames(current, min(max_frames, remaining))
+        remaining -= len(frames)
+        cause = BaseException.__cause__.__get__(current)
+        context = BaseException.__context__.__get__(current)
+        suppressed = BaseException.__suppress_context__.__get__(current)
+        node = {'node_id': node_id, 'exception_type': _structural_name(type(current).__name__),
+                'exception_module': _structural_name(type(current).__module__),
+                'frames': frames, 'frames_truncated': frames_truncated,
+                'context_suppressed': suppressed, 'link_type': 'none', 'next_node_id': None}
+        nodes.append(node)
+        if cause is not None:
+            next_error, relationship = cause, 'cause'
+        elif context is not None and not suppressed:
+            next_error, relationship = context, 'context'
+        else:
+            if context is not None and suppressed:
+                termination = 'CONTEXT_SUPPRESSED'
+            break
+        node['link_type'] = relationship
+        if id(next_error) in seen:
+            node['next_node_id'] = seen[id(next_error)]
+            termination = 'CYCLE'
+            break
+        if len(nodes) >= max_depth:
+            termination = 'DEPTH_LIMIT'
+            break
+        node['next_node_id'] = 'exception-%s' % len(nodes)
+        current = next_error
+    chain_truncated = termination in {'CYCLE', 'DEPTH_LIMIT'}
+    return {'schema_version': '1.0', 'kind': 'PRIMARY_EXCEPTION_CHAIN',
+            'outer_node_id': 'exception-0', 'nodes': nodes,
+            'deepest_visible_node_id': nodes[-1]['node_id'],
+            'first_cause_node_id': None if chain_truncated else nodes[-1]['node_id'],
+            'first_cause_status': ('TRUNCATED' if chain_truncated else
+                                   'VISIBLE_BOUNDARY_ONLY' if termination == 'CONTEXT_SUPPRESSED' else
+                                   'VISIBLE_CHAIN_COMPLETE'),
+            'termination': termination, 'truncated': chain_truncated or any(
+                node['frames_truncated'] for node in nodes),
+            'frame_count': max_total_frames - remaining,
+            'limits': {'depth': max_depth, 'frames_per_node': max_frames,
+                       'total_frames': max_total_frames, 'bytes': MAX_EXCEPTION_CHAIN_BYTES}}
+
+
+def _minimal_chain(chain, primary_id):
+    """Independent ASCII chain survives a failing JSON serializer/formatter."""
+    lines = ['primary_event_id=' + primary_id + '\n',
+             'kind=PRIMARY_EXCEPTION_CHAIN\n', 'termination=' + chain['termination'] + '\n',
+             'first_cause_status=' + chain['first_cause_status'] + '\n',
+             'truncated=' + str(int(chain['truncated'])) + '\n']
+    for node in chain['nodes']:
+        prefix = node['node_id'] + '.'
+        for name in ('exception_type', 'exception_module', 'link_type'):
+            lines.append(prefix + name + '=' + node[name] + '\n')
+        lines.append(prefix + 'next=' + (node['next_node_id'] or 'NONE') + '\n')
+        lines.append(prefix + 'context_suppressed=' + str(int(node['context_suppressed'])) + '\n')
+        lines.append(prefix + 'frames_truncated=' + str(int(node['frames_truncated'])) + '\n')
+        for number, frame in enumerate(node['frames']):
+            frame_prefix = prefix + 'frame-%s.' % number
+            for name in ('file', 'function', 'line'):
+                lines.append(frame_prefix + name + '=' + str(frame[name]) + '\n')
+    raw = ''.join(lines).encode('ascii')
+    if len(raw) > MAX_EXCEPTION_CHAIN_BYTES:
+        raise ValueError('DIAGNOSTIC_CHAIN_TOO_LARGE')
+    name = 'chain-%s-%s.txt' % (os.getpid(), primary_id)
+    fd = os.open(_DIRECTORY / name, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW, 0o600)
+    try:
+        view = memoryview(raw)
+        while view:
+            count = os.write(fd, view)
+            if count <= 0:
+                raise OSError('DIAGNOSTIC_SHORT_WRITE')
+            view = view[count:]
+        os.fsync(fd)
+    finally:
+        os.close(fd)
+    return name
 
 
 def _minimal_exception(event_id, component, stage, error_class, code, exception_type, root_event_id=None):
@@ -442,17 +549,28 @@ def _record_exception(error, component, stage):
                outcome='denied' if error_class == 'BUSINESS_REJECTION' else 'error',
                severity='INFO' if error_class == 'BUSINESS_REJECTION' else 'ERROR')
     try:
-        if error_class == 'APPLICATION_ERROR' and _DIRECTORY is not None:
+        if _DIRECTORY is not None:
             stack_ref = 'stack-%s-%s.json' % (os.getpid(), uuid.uuid4().hex)
-            raw = json.dumps(safe_exception_frames(error), ensure_ascii=True,
+            chain = safe_exception_chain(error)
+            chain['primary_event_id'] = primary_id
+            chain_ref = _minimal_chain(chain, primary_id)
+            raw = json.dumps(chain, ensure_ascii=True,
                              separators=(',', ':')).encode('ascii')
+            if len(raw) > MAX_EXCEPTION_CHAIN_BYTES:
+                raise ValueError('DIAGNOSTIC_CHAIN_TOO_LARGE')
             fd = os.open(_DIRECTORY / stack_ref, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW, 0o600)
             try:
-                os.write(fd, raw)
+                view = memoryview(raw)
+                while view:
+                    count = os.write(fd, view)
+                    if count <= 0:
+                        raise OSError('DIAGNOSTIC_SHORT_WRITE')
+                    view = view[count:]
+                os.fsync(fd)
             finally:
                 os.close(fd)
             emit_event('exception.stack.saved', component=component, root_event_id=primary_id,
-                       stack_ref=stack_ref, stage='evidence.finalization')
+                       stack_ref=stack_ref, evidence_refs=[chain_ref], stage='evidence.finalization')
     except Exception as secondary:
         secondary_id = uuid.uuid4().hex
         try:
