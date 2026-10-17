@@ -183,3 +183,23 @@ exact分支自有ExitStack/TemporaryDirectory0700和NamedTemporaryFile0600，仅
 未来原AC最低仍缺六框架/GPR01真实serializer-RPC-翻译-UI与审计事务；main合法编辑权/旧原件同SHA取回、B六MODEL和六RPC、C完整权限及非空family财务/alias/真正finance混源/图片200实际内容；scratch唯一合法新上游6/2及failed恢复、丢响应独立核实与同key防重；同候选E-MAIN/E-D带各自数据升级、全域保全及真实PDF逐页兼容。原生动态report内部HTTP资源计账、driver受控协调环境、原生CLI系统库连接及禁止意外CREATE的合法资源准入仍需明确，不能用本次纯测试替代。旧租约/旧资金/旧原件不为凑覆盖更改或重放。
 
 本轮源码和纯覆盖限定可采、可正常线性保存交付技术复核；没有应用RUNTIME_READY、S10/T12/生产通过或新运行额度继承。GitHub最终发表和API全文读回由主控后续据实记录，不预认证尚未发生的同步。本角色仅追加本文件，签署取钟2026-10-17T14:08:10Z（工具UTC秒精度），到此停止写入。
+
+## TR-01框架调用者适配独立追加 / CODE-REWORK-20261017-02
+
+限定结论：**SOURCE_READY / PURE_OFFLINE_REVIEWED / RUNTIME_NOT_AUTHORIZED / S10_EXIT_BLOCKED**。本轮直接用户指令`YD-S10-LC2-CODE-REWORK-20261017-02`仅SOURCE_AND_PURE_OFFLINE_ONLY；已完整读主控人工整理的5793字节direct-user-task.txt及配套精确要求。没有新的已发布GPT复核编号，不代发此前被拒GPT评论。固定父e976f1d259e3719362cf59a4ba21f6338ce0ec79，实现cf5d63fe510b52ea150d07495bf3062f4ce0961d，纯测试/工具83e14b75e29aa49ceff26410236df13424f30163。独立验收仍为`/root/acceptance`，仅追加本文件；主控与开发分别单写测试/文书和五处实现，原tester未重派。
+
+已对照真实源码调用链确认：父解释器绑定的_DISPATCH_OWNER不会成为Odoo框架子解释器的模块状态，原TestLogCloseoutHTTP.url_open会在HTTP前被无owner检查拒绝。这是源码和独立命名空间模拟结论，没有实际Odoo复现。本次普通PackageBudget仍须owner.check和首故障检查，owner=None没有自动放行或环境开关豁免；框架入口另用专用reserve_framework_http，实际传self.env.cr.dbname、固定core的self.http_port()类方法及真实类/测试方法用途。
+
+专用grant只由已过普通启动准入的scratch-tests父路径发行，绑定实际子PID/父PID、18411、明确audit.write路径、唯一HttpCase方法、数据库/OID/角色、配置及marker、已关闭RO身份记录、候选/core、八份必要固定源码和既有预算起点。子先核私有目录/文件、grant、身份/用途/候选、自身ProcessLogGuard与共享停止，再在原flock中写一次pending、累计扣账/intent及reserved，之后实际AST入口只调用一次模拟super，allow_redirects=False。不存在新调度服务、子预算、账本重置或HTTP自动重试。原参数/kwargs、返回对象和发送异常对象保留；异常发送仍保留已扣意图，不能回退或用同grant再次发送。
+
+本轮独立审查提出并在最终源闭环的具体问题包括：create=False构造的删除竞态仍可能落入初始化；已退出子进程使wait跳过共享失败；终态grant被删时按exists猜职责；producer事件引用被通用框架错误抢占；scratch Native/未消费grant及direct close顺序。最终create=False路径永不初始化；父候选/start/check/wait/close读取共享失败，明确scratch职责要求grant及消费证据；producer完整性及首event/root、真实Native事实先于新增框架未知，后续错误不能覆盖。普通exit0却未消费grant仍拒绝，正常main无框架grant不误报；未实际制造任何Native故障。
+
+停止传播采用子解释器首故障内存锁存、首次共享failure及STOP保存，并保留pending/consumed证据；父使用相同首次reason/event/root冻结。STOP单独保存失败、预算保存失败、intent或reserved失败均有零发送/不退款/新命名空间不可复用测试。若所有共享写入同时不可用，只能保证当前实际子解释器仍锁存、父终态未消费grant记UNKNOWN及真正新PID不能用旧grant；不宣称父即时获知，也不作“同PID任意模块reload无条件安全”的保证。没有为此增加服务或真实进程试验。
+
+最终统一纯回归150项，0failure/0error/0skip/0forbidden，2026-10-17T14:49:37.529040Z—14:49:38.900951Z，纯harness PID1186976，实际工具completion exit0（chunk4a3800/session53623，session是工具会话标识，不构造OS父PID）。本角色逐名程序核：150唯一选项正好对应150条ok，原100个ID全部保留，新50个框架调用者纯检查；49源before=after=当前SHA全同。P→T所有addon路径diff为空。开发142项的1个close重复冻结error、后续146项及最终150各自保留，不把不同快照相加为最终通过。
+
+已全文审统一harness、实际url_open的AST继承FakeHttpCase、独立helper/targets命名空间和模拟super；另独立逐个比较父与当前test_log_closeout.py的六个test_*方法AST，全部完全相同，没有删改弱真实框架断言。新50项覆盖合法check→pending→budget→intent→reserved→send精确顺序、身份/候选/配置/用途不符及缺grant/私有性/STOP/日志/预算/保存失败的零发送、发送原异常且无重试、重导入不重记和父终态/首因交叉。验证器、Budget和ProcessLogGuard实际执行，只有进程身份、私有配置及发送对象为合成夹具。新旧pure入口将共享状态根指向临时目录，harness禁止外部进程、应用依赖及网络；未导入Odoo/cases或启动真实framework子进程。执行者是CONTROLLER_REWORK_SELF_TEST，本角色独立审代码与保存结果，不冒独立tester应用验收。
+
+已全文核summary/defects/journal/roster/matrix本轮增量，七份evidence_refs的bytes/SHA全部匹配；12LOG、22S10及19TC完整对象与父相同，既有运行状态和历史采纳不变。summary旧文精确suffix、defects/journal旧文精确prefix；本报告原38113字节prefix SHA仍047a03a72541871f80fc1bdc8c22fbbf2334af1435d138fc1130bf8a368343ac。新框架适配仅源及纯覆盖可采，六项真实框架与S10业务仍NOT_RUN，原CLI/动态PDF/权限/原件/资金/双E真实准入缺口不被消除。
+
+本角色未连接DB/应用HTTP、运行Odoo/真实测试子进程/driver/PDF，未接手被拒账户材料或重复事件调查，未解除STOP或修改其他writer文件。新任务没有发生本任务的工具安全拒绝。本轮限定工作可交回GPT技术复核；GitHub新CODEX交付及全文读回由主控后续据实记录，本签不预认证同步。签署取钟2026-10-17T14:51:50Z（工具UTC秒精度），到此停止写入。

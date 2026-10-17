@@ -28,3 +28,8 @@
 |TR-04-CLI|原nativeCLI同target system连接失败会fallbackpostgres，且目标丢失可能CREATE。|固定core源码说明并列具体未来资源差异，未patch core、未放宽guard或实际连接。|运行前仍需明确system连接与禁止建库的合法准入；本轮不准运行。|
 
 安全拒绝事实仅继承既有记录，不重复取证；代码缺陷与缺运行证据分列。最终P ad7d5311dbe7efe687a1dd00776eee8083879541/T984db5ab011602547405bd32f5c7c9c6b7d852bb，统一100/0skip/0forbidden，仅开发/主控pure自测，独立acceptance审代码与覆盖，原tester不替代。
+
+
+## TR-01 框架调用者适配 / YD-S10-LC2-CODE-REWORK-20261017-02
+
+父owner不跨解释器，原实际HttpCase.url_open在发送前无合法owner。现父路径保留owner，框架入口使用自身一次grant、固定身份/候选/用途、原共享账本及自身日志/STOP；不改Odoo或业务语义。P `cf5d63fe510b52ea150d07495bf3062f4ce0961d` / T `83e14b75e29aa49ceff26410236df13424f30163`，最终150纯检查全过，原100 IDs保留。开发142的1error系close重复原生冻结，保留失败并修正producer→Native→framework顺序，146开发及150固定候选区分。六项真实框架和S10仍NOT_RUN；SOURCE适配不代表应用准出。完整增量、边界和证据见acceptance-matrix.json::tr01_caller_adapter。

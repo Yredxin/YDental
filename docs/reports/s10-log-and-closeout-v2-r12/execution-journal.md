@@ -24,3 +24,10 @@
 - developer首次25有5fake接口错误保留；修复后25pass。后续returncode属性取证异常补首因，单独3purepass仅开发历史。主控定向39/42purepass为开发快照，不计入最终候选总数。
 - 固定product ad7d5311dbe7efe687a1dd00776eee8083879541/test984db5ab011602547405bd32f5c7c9c6b7d852bb；14:03:59.296584Z—14:04:00.009470Z统一pure100/0fail/0error/0skip/0forbidden，PID1158849，46源码SHA前后同；工具exit0，cases/Odoo未import，预期诊断故障注入stderr保留。全部实际应用/DB/driver/PDF/资金/升级0，STOP原字节保持。
 - 只更新现有report/defect/matrix及独立验收追加，不新增规划或大型日志包。最终线性push/#34回读另按实际同步记录，不因同步重跑测试或业务。
+
+
+## YD-S10-LC2-CODE-REWORK-20261017-02 / SOURCE_AND_PURE_OFFLINE_ONLY
+
+本轮用户直接源码指令，无新GPT已发布复核；初始本地/远端父e976f1d相符、工作树干净，#23/#34当前正文与增量、本消息无回执已核。开发与acceptance沿用真实独立角色，原tester不触发。开发五处实现/主控两纯入口分别唯一写者。
+
+开发统一142/0fail/1error/0skip（14:45:14.575832Z、PID1184216、exit1）首次异常：close重复require_unfrozen覆盖已知Native返回，旧断言不改；修后开发146/0/0/0（14:46:46.879455Z、PID1185130、exit0）。独立审查再发现scratch grant未消费与Native/producer首因顺序，补四纯对照并重排。P `cf5d63fe510b52ea150d07495bf3062f4ce0961d` / T `83e14b75e29aa49ceff26410236df13424f30163` 冻结后最终150/0/0/0，14:49:37.529040Z—14:49:38.900951Z、PID1186976、工具exit0；49源码前后/当前一致、原100ID子集全部保留。开发与最终结果分别保全，未重跑任何业务。后续只报告/独立签署/线性同步，无运行授权。

@@ -1,3 +1,23 @@
+# 当前TR-01调用者适配：SOURCE_READY / PURE_OFFLINE_REVIEWED，运行仍BLOCKED
+
+本轮`YD-S10-LC2-CODE-REWORK-20261017-02`仅`SOURCE_AND_PURE_OFFLINE_ONLY`，用户当前直接指令承接[实际交付6234908035](https://github.com/Yredxin/YDental/issues/34#issuecomment-6234908035)及[既有技术方向6234601017](https://github.com/Yredxin/YDental/issues/34#issuecomment-6234601017)。没有新的GPT复核评论，不代发此前被拒评论。父`e976f1d259e3719362cf59a4ba21f6338ce0ec79`；实现`cf5d63fe510b52ea150d07495bf3062f4ce0961d`，纯测试/工具`83e14b75e29aa49ceff26410236df13424f30163`；固定core未改。
+
+父`_DISPATCH_OWNER`不会跨解释器，原HttpCase在发请求前会被`NO_ACTIVE_APPLICATION_DISPATCH_GUARD`拒绝；这是源码及独立命名空间模拟确认的缺口，并非Odoo实际复现或业务权限PASS。修正保留父`PackageBudget`的owner/停止检查；框架`url_open`改用限定scratch-tests、真实PID/PPID、实际类/方法及audit.write端点的一次grant。复用目标角色/OID/端口、配置/marker/已关闭RO身份记录、固定源码与旧预算起点，读取自身日志完整性和已知renderer首因；没有owner为空放行或环境标记免检。
+
+`Budget(create=False)`只打开已有账本，在原文件锁内按“检查→pending→累计记账/intent→reserved→一次super发送”推进。原生参数、返回、异常对象及禁止重定向契约保留；发送或记账失败不自动重试、不退回额度。子内首故障锁存并尝试保存共享failure/STOP；父候选/启动/运行/终态检查均消费，重初始化不能清空已保存停止、pending或已用grant。producer事件与实际Native负退出优先，框架未消费是后续未知，不能覆盖原首因/负退出码。仅全共享写入均失败时，不能声称父即时知道；当前子解释器仍冻结、终态未消费grant保留UNKNOWN，真正新PID也不匹配旧grant。首请求赶在grant发行前仍拒绝，不自动重发。
+
+最终同一P/T实际**150 tests /0failure/0error/0skip/0forbidden**，2026-10-17T14:49:37.529040Z—14:49:38.900951Z，PID1186976，工具exit0，49源码before/after/current一致。原100个测试ID逐一保留，新50项；不是历史测试数相加。实际HttpCase方法AST配合模拟super及独立helper命名空间覆盖：合法/身份候选用途不符、缺上下文/STOP/预算耗尽/各保存失败均0发送；合法先核后账再发1次，结果/异常不改；重导入不重记、父快退/close与Native/producer首因交叉均有纯夹具。harness禁止外部子进程、网络与应用依赖，使用全合成私有临时文件；未导入Odoo/cases。预期故障注入stderr保留。
+
+开发期142项有1error（新增close检查重复抛已记录Native冻结，使旧`-11`返回契约回归），已在内部修复且不改弱旧断言；随后146项通过；最后追加四项交叉边界后在固定P/T执行150项。两次开发快照原样保留，不冒最终候选结果。私有最小索引在`.local/s10-lc2-caller-adapter-20261017-02/final-pure-candidate-1`；本轮增量详见[缺陷](defects.md)、[机器映射](acceptance-matrix.json)的`tr01_caller_adapter`及[独立验收](acceptance-review.md)。
+
+真实`/root/developer`单写五处实现，主控单写纯测试/报告与Git，同一`/root/acceptance`独立审查，原tester仍errored，不安排替代重发或接手被拒账户材料。独立验收已签`SOURCE_READY / PURE_OFFLINE_REVIEWED / RUNTIME_NOT_AUTHORIZED / S10_EXIT_BLOCKED`（43733B/SHA`4ffa9c6b42eb8ee53c1390440d8d0dcb6cda04ada9ab4f7ac839344e45ca35a8`，原38113B前缀未改）。六项真实框架、原A/B/C/D、E-MAIN/E-D均**NOT_RUN**，没有DB/Odoo/应用HTTP/RPC/浏览器/driver/原生PDF/资金/升级/维护/CREATE动作，不解除STOP，不改core/odoo-12、两库、旧文书/原件/账款。保留TR02/03/04与旧100报告；本适配不等于RUNTIME_READY或S10通过。
+
+仍需真实验证的最小项仅为：获独立合法运行准入后执行六框架（包含实际HttpCase与日志/累计预算/停止协同）、已有GPR/RPC/UI契约，以及原S10权限/原件/资金和双E回归。本轮未授权这些动作。推荐GPT对本固定源码作技术复核，S10及生产继续BLOCKED。
+
+---
+
+以下为上一轮源码返工及R1.2历史，原文保留：
+
 # 当前代码返工交付：SOURCE_READY / PURE_OFFLINE_REVIEWED / RUNTIME持续BLOCKED
 
 本轮`YD-S10-LC2-CODE-REWORK-20261017-01`，`SOURCE_AND_PURE_OFFLINE_ONLY`，完整按[GPT技术复核6234601017](https://github.com/Yredxin/YDental/issues/34#issuecomment-6234601017)完成TR-01—04源码及纯测试返工。父`874619728179f13cef514f503c62845e50f419c9`；产品`ad7d5311dbe7efe687a1dd00776eee8083879541`，测试/工具`984db5ab011602547405bd32f5c7c9c6b7d852bb`，core只读`f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb`。独立acceptance已签`SOURCE_READY / PURE_OFFLINE_REVIEWED / RUNTIME_NOT_AUTHORIZED / S10_EXIT_BLOCKED`（38113B/SHA 047a03a72541871f80fc1bdc8c22fbbf2334af1435d138fc1130bf8a368343ac）；本节为新增代码返工；下方R1.2实际交付全文保留为历史，原采纳、旧失败和未运行状态不改写。

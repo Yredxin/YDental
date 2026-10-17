@@ -3125,7 +3125,8 @@
           "scripts/s10_lc2_targets.py::freeze_dispatch/PackageBudget.consume"
         ],
         "coverage": "owned PID/run/sequence, negative renderer signal, REAP_FAILED, UNKNOWN/nonzero-not-native, missing/partial/shrunk/replaced logs, terminal/rotated seals, sticky first primary, STOP writer failure then close/new bind/launch/request blocked; actual observer fake events feed same consumer",
-        "limits": "Actual native parent/grandchild supervision NOT_RUN. CompletedProcess has no renderer PID/reap proof; do not fabricate."
+        "limits": "Actual native parent/grandchild supervision NOT_RUN. CompletedProcess has no renderer PID/reap proof; do not fabricate.",
+        "caller_adapter_followup_message_id": "YD-S10-LC2-CODE-REWORK-20261017-02"
       },
       "TR-02": {
         "status": "SOURCE_AND_PURE_BRANCH_REVIEW_COMPLETE",
@@ -3179,6 +3180,145 @@
       "verified_at_utc": "2026-10-17T14:11:11.682797+00:00",
       "runtime_resumed": false,
       "tests_repeated_for_sync": false
+    }
+  },
+  "tr01_caller_adapter": {
+    "message_id": "YD-S10-LC2-CODE-REWORK-20261017-02",
+    "scope": "SOURCE_AND_PURE_OFFLINE_ONLY",
+    "authority": "current direct user instruction; no newly published GPT review claimed",
+    "parent_commit": "e976f1d259e3719362cf59a4ba21f6338ce0ec79",
+    "prior_delivery_comment": 6234908035,
+    "existing_review_comment": 6234601017,
+    "fixed_candidate": {
+      "product_commit": "cf5d63fe510b52ea150d07495bf3062f4ce0961d",
+      "test_commit": "83e14b75e29aa49ceff26410236df13424f30163",
+      "core_readonly": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb"
+    },
+    "source_status": "SOURCE_READY_PURE_OFFLINE_REVIEWED",
+    "runtime_status": "NOT_RUN_NO_RUNTIME_AUTH_S10_BLOCKED",
+    "parent_context": "PackageBudget keeps process-local owner.check and sticky/shared failure gate; no owner=None exemption",
+    "framework_context": "scratch-tests-only O_EXCL launch grant binds actual PID/PPID, exact HttpCase purpose and audit.write route, database/OID/port, marker/config/closed identity probe, fixed sources, existing package epoch and ledger; own ProcessLogGuard before reservation",
+    "accounting": "Existing Budget(create=False), same flock: gate and pending -> cumulative debit and intent -> reserved -> native super once, redirects false; no reset/debit refund/retry",
+    "failure_handling": "First sticky child + bounded shared first-failure refs + STOP attempts; parent candidate/start/check/wait/close read shared state; terminal required grant/consumption fail closed. Native/producer primary precedes framework uncertainty.",
+    "limits": [
+      "All shared persistence unavailable: same interpreter remains frozen, parent terminal unconsumed grant is UNKNOWN; no instantaneous cross-interpreter propagation claim; actual new PID cannot reuse old grant.",
+      "Grant not present when child first calls: refuse, no retry.",
+      "No real child interpreter, Odoo, HttpCase network, concurrency or native process exercised."
+    ],
+    "pure_result": {
+      "scope": "SOURCE_AND_PURE_OFFLINE_ONLY",
+      "execution_role": "CONTROLLER_REWORK_SELF_TEST",
+      "product_commit": "cf5d63fe510b52ea150d07495bf3062f4ce0961d",
+      "test_commit": "83e14b75e29aa49ceff26410236df13424f30163",
+      "started_at_utc": "2026-10-17T14:49:37.529040+00:00",
+      "finished_at_utc": "2026-10-17T14:49:38.900951+00:00",
+      "pid": 1186976,
+      "tests": 150,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "forbidden_attempts": [],
+      "source_before_after_equal": true,
+      "source_files": 49,
+      "cases_module_imported": false,
+      "odoo_imported": false,
+      "independent_tester_or_application_pass_claimed": false
+    },
+    "coverage_continuity": {
+      "old_ids": 100,
+      "current_ids": 150,
+      "missing_old_ids": [],
+      "new_ids": 50,
+      "all_49_source_current_equal": true,
+      "old_and_new_cores_or_counts_not_summed": true
+    },
+    "evidence_refs": [
+      {
+        "private_path": ".local/s10-lc2-caller-adapter-20261017-02/final-pure-candidate-1/result.json",
+        "bytes": 621,
+        "sha256": "2354b3dbc78d60d3a788b5a7256b05f18920dd2ecaaff91405d1ebc9bce39bd0"
+      },
+      {
+        "private_path": ".local/s10-lc2-caller-adapter-20261017-02/final-pure-candidate-1/unittest.txt",
+        "bytes": 25608,
+        "sha256": "b6b5d8f21e8c30b1f7fe96c94a9c03e7223e692f59ecb69940aa66eece219bf0"
+      },
+      {
+        "private_path": ".local/s10-lc2-caller-adapter-20261017-02/final-pure-candidate-1/selected-tests.json",
+        "bytes": 15931,
+        "sha256": "6114d1fa0dc2c596a6562b05c300f19a0e70cc5f65fe77dd0cb2386d45f5c08b"
+      },
+      {
+        "private_path": ".local/s10-lc2-caller-adapter-20261017-02/final-pure-candidate-1/source-before.json",
+        "bytes": 5559,
+        "sha256": "e510332ffc100440621e984d4a562991ee96d2730e7fffaf088d49b9e8b9c75b"
+      },
+      {
+        "private_path": ".local/s10-lc2-caller-adapter-20261017-02/final-pure-candidate-1/source-after.json",
+        "bytes": 5559,
+        "sha256": "e510332ffc100440621e984d4a562991ee96d2730e7fffaf088d49b9e8b9c75b"
+      },
+      {
+        "private_path": ".local/s10-lc2-caller-adapter-20261017-02/final-pure-candidate-1/tool-exit.json",
+        "bytes": 232,
+        "sha256": "710aa156d97a11957ba27009eddb0765fd27a908f18a2f4e05758e0b0619c288"
+      },
+      {
+        "private_path": ".local/s10-lc2-caller-adapter-20261017-02/final-pure-candidate-1/coverage-continuity.json",
+        "bytes": 174,
+        "sha256": "b0efd0f4efafdfe078dfc14b747e3bfcf04bf313c30c301cadac7a01811a0df8"
+      }
+    ],
+    "iterations": [
+      {
+        "scope": "UNCOMMITTED_DEVELOPMENT",
+        "tests": 142,
+        "failures": 0,
+        "errors": 1,
+        "cause": "close repeated require_dispatch_unfrozen after already observed native exit; old -11 return changed",
+        "resolution": "close separates shared framework checks; native/producer-first terminal order; old assertions retained",
+        "raw": ".local/s10-lc2-caller-adapter-20261017-02/development-pure-1"
+      },
+      {
+        "scope": "UNCOMMITTED_DEVELOPMENT",
+        "tests": 146,
+        "failures": 0,
+        "errors": 0,
+        "raw": ".local/s10-lc2-caller-adapter-20261017-02/development-pure-2"
+      },
+      {
+        "scope": "FINAL_FIXED_CANDIDATE",
+        "tests": 150,
+        "failures": 0,
+        "errors": 0,
+        "new_cases_after_146": "scratch wait -11/0 and direct close native/producer-first cross checks",
+        "raw": ".local/s10-lc2-caller-adapter-20261017-02/final-pure-candidate-1"
+      }
+    ],
+    "files": [
+      "scripts/s10_lc2_targets.py::require_dispatch_unfrozen/PackageBudget.consume",
+      "scripts/s10_lc2_evidence.py::Budget.__init__/consume",
+      "scripts/s10_lc2_framework_caller.py::issue_framework_grant/reserve_framework_http/check_framework_failure",
+      "scripts/s10_lc2_launch.py::environment/start/check_framework_markers/check_evidence_markers/wait/close",
+      "ydental_settlement_test/tests/test_log_closeout.py::TestLogCloseoutHTTP.url_open",
+      "scripts/s10_lc2_test_framework_caller.py",
+      "scripts/s10_lc2_test_pure_rework.py"
+    ],
+    "independent_acceptance": {
+      "canonical": "/root/acceptance",
+      "status": "SOURCE_READY / PURE_OFFLINE_REVIEWED / RUNTIME_NOT_AUTHORIZED / S10_EXIT_BLOCKED",
+      "report": "docs/reports/s10-log-and-closeout-v2-r12/acceptance-review.md",
+      "bytes": 43733,
+      "sha256": "4ffa9c6b42eb8ee53c1390440d8d0dcb6cda04ada9ab4f7ac839344e45ca35a8"
+    },
+    "actual_framework_tests": {
+      "count": 6,
+      "status": "NOT_RUN"
+    },
+    "s10_business": "NOT_RUN_BLOCKED",
+    "new_application_database_http_browser_pdf_money_upgrade_dispatches": 0,
+    "github_sync": {
+      "status": "PENDING"
     }
   }
 }

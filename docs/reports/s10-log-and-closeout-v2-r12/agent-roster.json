@@ -111,5 +111,37 @@
       "old_prefix_sha256": "b35553436df590f35a055d43c597eb3b6b6585260f4bcb9c60eb156b0d1497e7",
       "not_application_acceptance": true
     }
+  },
+  "tr01_caller_adapter": {
+    "message_id": "YD-S10-LC2-CODE-REWORK-20261017-02",
+    "controller": "/root",
+    "developer": "/root/developer",
+    "acceptance": "/root/acceptance",
+    "tester": "original /root/tester remains errored; not triggered or replaced",
+    "thread_uuid": "not exposed; canonical labels are role identities, not OS isolation or platform request IDs",
+    "file_owners": {
+      "developer": [
+        "scripts/s10_lc2_targets.py::require_dispatch_unfrozen/PackageBudget.consume",
+        "scripts/s10_lc2_evidence.py::Budget.__init__/consume",
+        "scripts/s10_lc2_framework_caller.py::issue_framework_grant/reserve_framework_http/check_framework_failure",
+        "scripts/s10_lc2_launch.py::environment/start/check_framework_markers/check_evidence_markers/wait/close",
+        "ydental_settlement_test/tests/test_log_closeout.py::TestLogCloseoutHTTP.url_open"
+      ],
+      "controller": [
+        "scripts/s10_lc2_test_framework_caller.py",
+        "scripts/s10_lc2_test_pure_rework.py",
+        "summary.md",
+        "defects.md",
+        "acceptance-matrix.json",
+        "agent-roster.json",
+        "execution-journal.md",
+        "git/github receipts"
+      ],
+      "acceptance": [
+        "acceptance-review.md appended section only"
+      ]
+    },
+    "independent_application_tester_pass_claimed": false,
+    "handoff": "developer stopped source writes before freeze; controller 150 fixed-candidate pure checks; acceptance independently signed SOURCE_READY/PURE_OFFLINE_REVIEWED with runtime NOT_AUTHORIZED; original tester untouched"
   }
 }
