@@ -1,0 +1,43 @@
+{
+  "classification": "当前有限观测一致",
+  "final_offline_verification_exit": 0,
+  "collection_exit": 0,
+  "psql_exit": 0,
+  "python_exit": 0,
+  "seal_exit": 0,
+  "frozen_inputs_match": 13,
+  "compiled_scripts": 3,
+  "read_only_connections": 2,
+  "explicit_statements_per_client": [
+    6,
+    6
+  ],
+  "ROLLBACK_CLOSE_both": true,
+  "per_client_layer_checks": [
+    13,
+    13
+  ],
+  "cross_client_checks": 18,
+  "all_checks_match": true,
+  "historical_field_SHA_match": true,
+  "raw_return_bytes": [
+    6986,
+    6985
+  ],
+  "field_characters_UTF8_bytes": [
+    2022,
+    2022
+  ],
+  "serialized_bytes_each": 7034,
+  "source_field_text_publication_matches_GPT_reviewed_template": true,
+  "credential_line_not_in_public_files": true,
+  "private_root_mode": "0700",
+  "PGPASS_mode": "0600",
+  "product_core_and_old_tracked_files_unchanged": true,
+  "historical_root_cause_fixed": false,
+  "business_resume_authorized": false,
+  "other_databases_Odoo_business_HTTP": 0,
+  "S10_stage_exit": "BLOCKED",
+  "five_groups": "unchanged A BLOCKED; B/C/D/E NOT_RUN",
+  "final_receipt_readback": "private only after publication; immediate STOP; no further commit"
+}

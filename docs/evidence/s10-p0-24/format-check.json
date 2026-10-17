@@ -1,0 +1,11 @@
+{
+  "default_git_whitespace_check_exit": 2,
+  "only_flagged_paths": [
+    "docs/evidence/s10-p0-24/psql/arch_prev.utf8",
+    "docs/evidence/s10-p0-24/python/arch_prev.utf8"
+  ],
+  "reason": "preserve required field trailing blank line and four spaces, exactly 2022 bytes; do not strip",
+  "check_excluding_only_these_two_raw_field_files_exit": 0,
+  "field_SHA_unchanged": true,
+  "data_contract_or_gate_not_relaxed": true
+}

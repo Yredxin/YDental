@@ -1,0 +1,57 @@
+{
+  "classification": "当前有限观测一致",
+  "connections_attempted": 2,
+  "connections_identified": 2,
+  "connection_cap": 2,
+  "other_databases": 0,
+  "maintenance": 0,
+  "explicit_SQL_total": 12,
+  "per_client": [
+    {
+      "client": "psql",
+      "pid": 891514,
+      "backend_pid": 1454084,
+      "explicit_SQL": 6,
+      "ROLLBACK_returned": true,
+      "closed": true,
+      "exit_code": 0,
+      "duration_s": 0.08585849695373327,
+      "body_duration_s": 0.08585849695373327
+    },
+    {
+      "client": "python",
+      "pid": 891516,
+      "backend_pid": 1454085,
+      "explicit_SQL": 6,
+      "ROLLBACK_returned": true,
+      "closed": true,
+      "exit_code": 0,
+      "duration_s": 0.16479887696914375,
+      "body_duration_s": 0.04913727391976863
+    }
+  ],
+  "configured_timeouts_seconds": {
+    "connect": 5,
+    "statement": 5,
+    "total_client": 30
+  },
+  "reconnects_retries": 0,
+  "target_SELECTs": 2,
+  "target_rows_per_SELECT": [
+    1,
+    1
+  ],
+  "SHOWs": 4,
+  "identity_SELECTs": 2,
+  "BEGINs": 2,
+  "ROLLBACKs": 2,
+  "COMMIT_CREATE_DROP_business_DML": 0,
+  "Odoo_Registry_shell": 0,
+  "business_HTTP_RPC_browser": 0,
+  "scope_documents_payments_refunds_daily_close": 0,
+  "PDF_generate_download": 0,
+  "permission_install_upgrade_product_core_changes": 0,
+  "sudo_OS_PG_Docker_network_hardware_special": 0,
+  "Issue_Project_state_changes": 0,
+  "independent_server_activity_tail_check": "NOT_RUN; outside six-statement budget; client-side close/ROLLBACK evidence only"
+}

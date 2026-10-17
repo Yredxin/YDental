@@ -1,0 +1,66 @@
+{
+  "authorization": 6230858409,
+  "business_and_product_budgets": 0,
+  "execution_commit": "c88f5606da4057d2fbae0997caeddeeb4e90af3c",
+  "explicit_statement_cap_each": 6,
+  "files": {
+    "../.venv/bin/python": "0886fb76ceec8ff568d23079b5da6342bb41675e216e11525d4d6a9e65988d10",
+    ".local/s10-p0-24/credential-reference.json": "07bc79b5b8a6329b4713bf0860a54728e8466e9ae0ec8976383fb198bbb1d82c",
+    "/home/redxin/code/odoo/odoo-sd/code/.venv/lib/python3.12/site-packages/psycopg2/_psycopg.cpython-312-x86_64-linux-gnu.so": "b90c2678118f0f2a306b45e4a1985300c911c8fd0e57ad5e48061b3ff9945891",
+    "/home/redxin/code/odoo/odoo-sd/code/sd-addons/docs/evidence/s10-p0-24/SQL-contract.json": "bb19b69039fc1b2c67e1430ac93afa4d2683c929a0f24ad81980abd9f2a68dcd",
+    "/home/redxin/code/odoo/odoo-sd/code/sd-addons/docs/evidence/s10-p0-24/pure-file-preflight.json": "0a0288bb2091e00c75079fb05ba5c1168e60bd430c8a7c45251c11630abf5829",
+    "/home/redxin/code/odoo/odoo-sd/code/sd-addons/docs/evidence/s10-p0-24/start-verification.json": "e102242785b65444e48622e4b619759c103b7e8bebb4f0f56f97849a6e829425",
+    "/home/redxin/code/odoo/odoo-sd/code/sd-addons/docs/evidence/s10-p0-24/tools-and-output-contract.json": "a23eb7ffd441d81467d133c57422079a74448a72b2ff36fd12a015b11ea53237",
+    "/usr/lib/postgresql/18/bin/psql": "d1108fdb45b87f2313d7acfbb91a0a65ca97c6c2195f15d8ae9295121029ef67",
+    "docs/evidence/s10-p0-23/diagnostic-fixed/arch_prev-tail.txt": "776c4257a3567c92aa3e46aa5dc2c4e5a714989be88ab59714452dfeb4042664",
+    "scripts/s10_p0_16_contract.py": "58ec54bde9066641a8ba4a5c5086d15e3b9ffbaea48b4168a6bc9cc085e8a139",
+    "scripts/s10_p0_24_collect.py": "faeaf74b3be3a3720c63c66839883ca096acbd31e3254893e79f3d8fefcfebc6",
+    "scripts/s10_p0_24_contract.py": "59f16d63b27e74b5b1b8e9614fe2da6e3577598316b4ba6273e0e95043230a37",
+    "scripts/s10_p0_24_offline.py": "60a94c7af0ee98b0792aab7324e5c9e469ce23eb129ced7113386fa90912a3fd"
+  },
+  "maximum_connections": 2,
+  "no_other_database_or_maintenance_connection": true,
+  "no_retry_or_reconnect": true,
+  "parent": "ba536bc2203caee6f1681fd7aaac23a5b2a33704",
+  "queries": [
+    [
+      "begin",
+      "BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY;"
+    ],
+    [
+      "show-readonly",
+      "SHOW transaction_read_only;"
+    ],
+    [
+      "show-isolation",
+      "SHOW transaction_isolation;"
+    ],
+    [
+      "identity",
+      "SELECT pg_catalog.jsonb_build_object(\n 'kind','identity', 'database',pg_catalog.current_database(),\n 'database_oid',(SELECT oid::bigint FROM pg_catalog.pg_database WHERE datname=pg_catalog.current_database()),\n 'cluster',(SELECT system_identifier::text FROM pg_catalog.pg_control_system()),\n 'backend_pid',pg_catalog.pg_backend_pid(), 'server_time',pg_catalog.clock_timestamp(),\n 'transaction_start',pg_catalog.transaction_timestamp(), 'snapshot',pg_catalog.pg_current_snapshot()::text,\n 'read_only',pg_catalog.current_setting('transaction_read_only'),\n 'isolation',pg_catalog.current_setting('transaction_isolation'),\n 'server_encoding',pg_catalog.getdatabaseencoding(), 'client_encoding',pg_catalog.current_setting('client_encoding'),\n 'server_version',pg_catalog.current_setting('server_version'),\n 'server_version_num',pg_catalog.current_setting('server_version_num')\n)::text;"
+    ],
+    [
+      "target",
+      "SELECT pg_catalog.jsonb_build_object(\n 'kind','target', 'id',v.id, 'key',v.key,\n 'table_oid',v.tableoid::bigint, 'physical_table',v.tableoid::regclass::text,\n 'arch_prev_type',pg_catalog.pg_typeof(v.arch_prev)::text, 'arch_prev_is_null',v.arch_prev IS NULL,\n 'arch_prev_text',v.arch_prev, 'arch_prev_characters',pg_catalog.char_length(v.arch_prev),\n 'arch_prev_UTF8_bytes',pg_catalog.octet_length(pg_catalog.convert_to(v.arch_prev,'UTF8')),\n 'arch_prev_UTF8_hex',pg_catalog.encode(pg_catalog.convert_to(v.arch_prev,'UTF8'),'hex'),\n 'arch_prev_server_sha256',pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to(v.arch_prev,'UTF8')),'hex'),\n 'arch_db_type',pg_catalog.pg_typeof(v.arch_db)::text, 'arch_db_is_null',v.arch_db IS NULL,\n 'arch_db_server_sha256',pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to(v.arch_db::text,'UTF8')),'hex'),\n 'write_uid',v.write_uid, 'write_date',v.write_date,\n 'server_time',pg_catalog.clock_timestamp(), 'backend_pid',pg_catalog.pg_backend_pid(),\n 'transaction_start',pg_catalog.transaction_timestamp(), 'snapshot',pg_catalog.pg_current_snapshot()::text,\n 'server_encoding',pg_catalog.getdatabaseencoding(), 'client_encoding',pg_catalog.current_setting('client_encoding')\n)::text FROM public.ir_ui_view AS v\nWHERE v.id=929 AND v.key='account.portal_my_journal_mail_notifications';"
+    ],
+    [
+      "rollback",
+      "ROLLBACK;"
+    ]
+  ],
+  "scope": "one psql and one Python read-only observation, same field only",
+  "target": {
+    "OID": 2144126,
+    "cluster": "7694897083368259627",
+    "database": "ydental_s10_test_20261017060000_22b0cafe",
+    "id": 929,
+    "key": "account.portal_my_journal_mail_notifications",
+    "table_OID_expected": 2122563
+  },
+  "timeouts_seconds": {
+    "body_reserve_for_rollback_at": 25,
+    "connect": 5,
+    "statement": 5,
+    "total_client": 30
+  }
+}

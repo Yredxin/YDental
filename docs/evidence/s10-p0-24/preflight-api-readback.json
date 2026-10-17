@@ -1,0 +1,9 @@
+{
+  "comment_id": 6230985005,
+  "body_exact": true,
+  "body_sha256": "7318792ddd531aee925f942d5fff9d5dcdd059344fc54d7df51d8c60ea0fbc5c",
+  "body_bytes": 8235,
+  "verified_UTC": "2026-10-17T07:02:42.894620+00:00",
+  "freeze_sha256": "fdaa8b0e0b943489ac4c5d2f7a0522ba4f17a78e6ff5ec18103124e0538ccf2b",
+  "execution_commit": "c88f5606da4057d2fbae0997caeddeeb4e90af3c"
+}

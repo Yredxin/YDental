@@ -1,0 +1,97 @@
+{
+  "layers": [
+    {
+      "client": "psql",
+      "boundaries": [
+        "same SELECT server convert_to/hex/sha256",
+        "client received text/stdout",
+        "strict JSON parsed fields",
+        "UTF8 explicit allow_nan=False serialized bytes",
+        "flush/fsync/close/reopen bytes and reparsed semantics"
+      ],
+      "raw_target": {
+        "path": ".local/s10-p0-24/psql/target-return.utf8",
+        "bytes": 6986
+      },
+      "serialized": {
+        "bytes": 7034
+      },
+      "parsed_field": {
+        "bytes": 2022
+      },
+      "row": {
+        "arch_db_is_null": false,
+        "arch_db_server_sha256": "39bad19dad71ac0b68be0150c75ac213bb9a0560a46fde8bf91f495a5cec8a92",
+        "arch_db_type": "jsonb",
+        "arch_prev_UTF8_bytes": 2022,
+        "arch_prev_characters": 2022,
+        "arch_prev_is_null": false,
+        "arch_prev_server_sha256": "776c4257a3567c92aa3e46aa5dc2c4e5a714989be88ab59714452dfeb4042664",
+        "arch_prev_type": "text",
+        "backend_pid": 1454084,
+        "client_encoding": "UTF8",
+        "id": 929,
+        "key": "account.portal_my_journal_mail_notifications",
+        "kind": "target",
+        "physical_table": "ir_ui_view",
+        "server_encoding": "UTF8",
+        "server_time": "2026-10-17T07:02:43.110259+00:00",
+        "snapshot": "516783:516783:",
+        "table_oid": 2122563,
+        "transaction_start": "2026-10-17T07:02:43.056292+00:00",
+        "write_date": "2026-10-17T04:24:39.404667",
+        "write_uid": 1
+      },
+      "server_original_text_not_pre_driver_protocol": true,
+      "same_object_duplicate_files_not_new_measurements": true
+    },
+    {
+      "client": "python",
+      "boundaries": [
+        "same SELECT server convert_to/hex/sha256",
+        "client received text/stdout",
+        "strict JSON parsed fields",
+        "UTF8 explicit allow_nan=False serialized bytes",
+        "flush/fsync/close/reopen bytes and reparsed semantics"
+      ],
+      "raw_target": {
+        "path": ".local/s10-p0-24/python/target-return.utf8",
+        "bytes": 6985
+      },
+      "serialized": {
+        "bytes": 7034
+      },
+      "parsed_field": {
+        "bytes": 2022
+      },
+      "row": {
+        "arch_db_is_null": false,
+        "arch_db_server_sha256": "39bad19dad71ac0b68be0150c75ac213bb9a0560a46fde8bf91f495a5cec8a92",
+        "arch_db_type": "jsonb",
+        "arch_prev_UTF8_bytes": 2022,
+        "arch_prev_characters": 2022,
+        "arch_prev_is_null": false,
+        "arch_prev_server_sha256": "776c4257a3567c92aa3e46aa5dc2c4e5a714989be88ab59714452dfeb4042664",
+        "arch_prev_type": "text",
+        "backend_pid": 1454085,
+        "client_encoding": "UTF8",
+        "id": 929,
+        "key": "account.portal_my_journal_mail_notifications",
+        "kind": "target",
+        "physical_table": "ir_ui_view",
+        "server_encoding": "UTF8",
+        "server_time": "2026-10-17T07:02:43.265921+00:00",
+        "snapshot": "516783:516783:",
+        "table_oid": 2122563,
+        "transaction_start": "2026-10-17T07:02:43.240855+00:00",
+        "write_date": "2026-10-17T04:24:39.404667",
+        "write_uid": 1
+      },
+      "server_original_text_not_pre_driver_protocol": true,
+      "same_object_duplicate_files_not_new_measurements": true
+    }
+  ],
+  "active_arch_db_body_never_selected_or_returned": true,
+  "complete_JSON_envelope_hashes_differ_as_expected_with_clock_backend_and_final_LF": "do not compare different transaction envelopes as same bytes; compare fixed field and metadata explicitly",
+  "historical_field_baseline_SHA": "776c4257a3567c92aa3e46aa5dc2c4e5a714989be88ab59714452dfeb4042664"
+}

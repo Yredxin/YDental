@@ -1,0 +1,48 @@
+{
+  "UTF8_bytes": 2022,
+  "active_digest_source": "same SELECT: sha256(convert_to(v.arch_db::text,'UTF8')); active text NOT selected",
+  "all_layer_comparisons_match": true,
+  "characters": 2022,
+  "client_field_sha256": "776c4257a3567c92aa3e46aa5dc2c4e5a714989be88ab59714452dfeb4042664",
+  "comparisons": {
+    "field_write_readback_bytes": true,
+    "raw_client_return_write_readback_bytes": true,
+    "same_transaction_backend_pid": true,
+    "same_transaction_client_encoding": true,
+    "same_transaction_server_encoding": true,
+    "same_transaction_snapshot": true,
+    "same_transaction_transaction_start": true,
+    "serialized_reparse_semantics": true,
+    "serialized_write_readback_bytes": true,
+    "server_vs_client_UTF8_bytes": true,
+    "server_vs_client_UTF8_hex": true,
+    "server_vs_client_characters": true,
+    "server_vs_client_sha256": true
+  },
+  "completed": true,
+  "field_io": {
+    "bytes_equal": true,
+    "intended_bytes": 2022,
+    "intended_sha256": "776c4257a3567c92aa3e46aa5dc2c4e5a714989be88ab59714452dfeb4042664",
+    "path": ".local/s10-p0-24/python/parsed-field.utf8",
+    "readback_bytes": 2022,
+    "readback_sha256": "776c4257a3567c92aa3e46aa5dc2c4e5a714989be88ab59714452dfeb4042664"
+  },
+  "historical_field_sha_match": true,
+  "label": "python",
+  "parsed_type": "str",
+  "raw_envelope_sha256": "f22abed6b644df88e89c78116634ab7ab71e94f560aadc4b9ddd2824c6f65496",
+  "raw_is_not_wire_protocol": true,
+  "reparse_error": null,
+  "serialized_io": {
+    "bytes_equal": true,
+    "intended_bytes": 7034,
+    "intended_sha256": "2a3c3f3ce7119f353b9cbc7046beaf584796c072fd0ef45799f4fa95bf3823b9",
+    "path": ".local/s10-p0-24/python/serialized.json",
+    "readback_bytes": 7034,
+    "readback_sha256": "2a3c3f3ce7119f353b9cbc7046beaf584796c072fd0ef45799f4fa95bf3823b9"
+  },
+  "server_digest_source": "same target SELECT: encode(sha256(convert_to(v.arch_prev,'UTF8')),'hex')",
+  "server_sha256": "776c4257a3567c92aa3e46aa5dc2c4e5a714989be88ab59714452dfeb4042664",
+  "target_identity_and_type_ok": true
+}

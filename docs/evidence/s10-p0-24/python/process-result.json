@@ -1,0 +1,156 @@
+{
+  "UTC": "2026-10-17T07:02:43.277502+00:00",
+  "client": "python/psycopg2",
+  "connection_closed": true,
+  "duration_s": 0.04913727391976863,
+  "error_detail_private": true,
+  "error_present": false,
+  "explicit_ROLLBACK_returned": true,
+  "explicit_statements": [
+    {
+      "SQL": "BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY;",
+      "cells": [],
+      "intent_UTC": "2026-10-17T07:02:43.239778+00:00",
+      "label": "begin",
+      "number": 1,
+      "returned_UTC": "2026-10-17T07:02:43.240987+00:00",
+      "rows": 0,
+      "status": "BEGIN"
+    },
+    {
+      "SQL": "SHOW transaction_read_only;",
+      "cells": [
+        {
+          "Python_type": "str",
+          "UTF8_bytes": 2,
+          "characters": 2,
+          "description_type_oid": 25,
+          "row": 0,
+          "sha256": "b8d31e852725afb1e26d53bab6095b2bff1749c9275be13ed1c05a56ed31ec09",
+          "write_readback": {
+            "bytes_equal": true,
+            "intended_bytes": 2,
+            "intended_sha256": "b8d31e852725afb1e26d53bab6095b2bff1749c9275be13ed1c05a56ed31ec09",
+            "path": ".local/s10-p0-24/python/02-cell-0.utf8",
+            "readback_bytes": 2,
+            "readback_sha256": "b8d31e852725afb1e26d53bab6095b2bff1749c9275be13ed1c05a56ed31ec09"
+          }
+        }
+      ],
+      "intent_UTC": "2026-10-17T07:02:43.243228+00:00",
+      "label": "show-readonly",
+      "number": 2,
+      "returned_UTC": "2026-10-17T07:02:43.245659+00:00",
+      "rows": 1,
+      "status": "SHOW"
+    },
+    {
+      "SQL": "SHOW transaction_isolation;",
+      "cells": [
+        {
+          "Python_type": "str",
+          "UTF8_bytes": 15,
+          "characters": 15,
+          "description_type_oid": 25,
+          "row": 0,
+          "sha256": "a96ddf9a790bf7b063675b70b3e7c4f5d51f5c788c966d59cc4def52d8b4aae9",
+          "write_readback": {
+            "bytes_equal": true,
+            "intended_bytes": 15,
+            "intended_sha256": "a96ddf9a790bf7b063675b70b3e7c4f5d51f5c788c966d59cc4def52d8b4aae9",
+            "path": ".local/s10-p0-24/python/03-cell-0.utf8",
+            "readback_bytes": 15,
+            "readback_sha256": "a96ddf9a790bf7b063675b70b3e7c4f5d51f5c788c966d59cc4def52d8b4aae9"
+          }
+        }
+      ],
+      "intent_UTC": "2026-10-17T07:02:43.247961+00:00",
+      "label": "show-isolation",
+      "number": 3,
+      "returned_UTC": "2026-10-17T07:02:43.250296+00:00",
+      "rows": 1,
+      "status": "SHOW"
+    },
+    {
+      "SQL": "SELECT pg_catalog.jsonb_build_object(\n 'kind','identity', 'database',pg_catalog.current_database(),\n 'database_oid',(SELECT oid::bigint FROM pg_catalog.pg_database WHERE datname=pg_catalog.current_database()),\n 'cluster',(SELECT system_identifier::text FROM pg_catalog.pg_control_system()),\n 'backend_pid',pg_catalog.pg_backend_pid(), 'server_time',pg_catalog.clock_timestamp(),\n 'transaction_start',pg_catalog.transaction_timestamp(), 'snapshot',pg_catalog.pg_current_snapshot()::text,\n 'read_only',pg_catalog.current_setting('transaction_read_only'),\n 'isolation',pg_catalog.current_setting('transaction_isolation'),\n 'server_encoding',pg_catalog.getdatabaseencoding(), 'client_encoding',pg_catalog.current_setting('client_encoding'),\n 'server_version',pg_catalog.current_setting('server_version'),\n 'server_version_num',pg_catalog.current_setting('server_version_num')\n)::text;",
+      "cells": [
+        {
+          "Python_type": "str",
+          "UTF8_bytes": 485,
+          "characters": 485,
+          "description_type_oid": 25,
+          "row": 0,
+          "sha256": "9c67113fe2ede18c990acbddcfadb36c8351b0251d8eff717c5e9df4b4f43f50",
+          "write_readback": {
+            "bytes_equal": true,
+            "intended_bytes": 485,
+            "intended_sha256": "9c67113fe2ede18c990acbddcfadb36c8351b0251d8eff717c5e9df4b4f43f50",
+            "path": ".local/s10-p0-24/python/04-cell-0.utf8",
+            "readback_bytes": 485,
+            "readback_sha256": "9c67113fe2ede18c990acbddcfadb36c8351b0251d8eff717c5e9df4b4f43f50"
+          }
+        }
+      ],
+      "intent_UTC": "2026-10-17T07:02:43.252793+00:00",
+      "label": "identity",
+      "number": 4,
+      "returned_UTC": "2026-10-17T07:02:43.257729+00:00",
+      "rows": 1,
+      "status": "SELECT 1"
+    },
+    {
+      "SQL": "SELECT pg_catalog.jsonb_build_object(\n 'kind','target', 'id',v.id, 'key',v.key,\n 'table_oid',v.tableoid::bigint, 'physical_table',v.tableoid::regclass::text,\n 'arch_prev_type',pg_catalog.pg_typeof(v.arch_prev)::text, 'arch_prev_is_null',v.arch_prev IS NULL,\n 'arch_prev_text',v.arch_prev, 'arch_prev_characters',pg_catalog.char_length(v.arch_prev),\n 'arch_prev_UTF8_bytes',pg_catalog.octet_length(pg_catalog.convert_to(v.arch_prev,'UTF8')),\n 'arch_prev_UTF8_hex',pg_catalog.encode(pg_catalog.convert_to(v.arch_prev,'UTF8'),'hex'),\n 'arch_prev_server_sha256',pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to(v.arch_prev,'UTF8')),'hex'),\n 'arch_db_type',pg_catalog.pg_typeof(v.arch_db)::text, 'arch_db_is_null',v.arch_db IS NULL,\n 'arch_db_server_sha256',pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to(v.arch_db::text,'UTF8')),'hex'),\n 'write_uid',v.write_uid, 'write_date',v.write_date,\n 'server_time',pg_catalog.clock_timestamp(), 'backend_pid',pg_catalog.pg_backend_pid(),\n 'transaction_start',pg_catalog.transaction_timestamp(), 'snapshot',pg_catalog.pg_current_snapshot()::text,\n 'server_encoding',pg_catalog.getdatabaseencoding(), 'client_encoding',pg_catalog.current_setting('client_encoding')\n)::text FROM public.ir_ui_view AS v\nWHERE v.id=929 AND v.key='account.portal_my_journal_mail_notifications';",
+      "cells": [
+        {
+          "Python_type": "str",
+          "UTF8_bytes": 6985,
+          "characters": 6985,
+          "description_type_oid": 25,
+          "row": 0,
+          "sha256": "f22abed6b644df88e89c78116634ab7ab71e94f560aadc4b9ddd2824c6f65496",
+          "write_readback": {
+            "bytes_equal": true,
+            "intended_bytes": 6985,
+            "intended_sha256": "f22abed6b644df88e89c78116634ab7ab71e94f560aadc4b9ddd2824c6f65496",
+            "path": ".local/s10-p0-24/python/05-cell-0.utf8",
+            "readback_bytes": 6985,
+            "readback_sha256": "f22abed6b644df88e89c78116634ab7ab71e94f560aadc4b9ddd2824c6f65496"
+          }
+        }
+      ],
+      "intent_UTC": "2026-10-17T07:02:43.263331+00:00",
+      "label": "target",
+      "number": 5,
+      "returned_UTC": "2026-10-17T07:02:43.267497+00:00",
+      "rows": 1,
+      "status": "SELECT 1"
+    },
+    {
+      "SQL": "ROLLBACK;",
+      "cells": [],
+      "intent_UTC": "2026-10-17T07:02:43.274927+00:00",
+      "label": "rollback",
+      "number": 6,
+      "returned_UTC": "2026-10-17T07:02:43.276181+00:00",
+      "rows": 0,
+      "status": "ROLLBACK"
+    }
+  ],
+  "identity": {
+    "backend_pid": 1454085,
+    "client_encoding": "UTF8",
+    "cluster": "7694897083368259627",
+    "database": "ydental_s10_test_20261017060000_22b0cafe",
+    "database_oid": 2144126,
+    "isolation": "repeatable read",
+    "kind": "identity",
+    "read_only": "on",
+    "server_encoding": "UTF8",
+    "server_time": "2026-10-17T07:02:43.255027+00:00",
+    "server_version": "18.6 (Debian 18.6-1.pgdg13+2)",
+    "server_version_num": "180006",
+    "snapshot": "516783:516783:",
+    "transaction_start": "2026-10-17T07:02:43.240855+00:00"
+  },
+  "pid": 891516
+}

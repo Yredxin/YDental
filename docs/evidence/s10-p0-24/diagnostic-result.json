@@ -1,0 +1,161 @@
+{
+  "S10_stage_exit": "BLOCKED",
+  "business_operations": 0,
+  "classification": "当前有限观测一致",
+  "client_analyses": {
+    "psql": {
+      "UTF8_bytes": 2022,
+      "active_digest_source": "same SELECT: sha256(convert_to(v.arch_db::text,'UTF8')); active text NOT selected",
+      "all_layer_comparisons_match": true,
+      "characters": 2022,
+      "client_field_sha256": "776c4257a3567c92aa3e46aa5dc2c4e5a714989be88ab59714452dfeb4042664",
+      "comparisons": {
+        "field_write_readback_bytes": true,
+        "raw_client_return_write_readback_bytes": true,
+        "same_transaction_backend_pid": true,
+        "same_transaction_client_encoding": true,
+        "same_transaction_server_encoding": true,
+        "same_transaction_snapshot": true,
+        "same_transaction_transaction_start": true,
+        "serialized_reparse_semantics": true,
+        "serialized_write_readback_bytes": true,
+        "server_vs_client_UTF8_bytes": true,
+        "server_vs_client_UTF8_hex": true,
+        "server_vs_client_characters": true,
+        "server_vs_client_sha256": true
+      },
+      "completed": true,
+      "field_io": {
+        "bytes_equal": true,
+        "intended_bytes": 2022,
+        "intended_sha256": "776c4257a3567c92aa3e46aa5dc2c4e5a714989be88ab59714452dfeb4042664",
+        "path": ".local/s10-p0-24/psql/parsed-field.utf8",
+        "readback_bytes": 2022,
+        "readback_sha256": "776c4257a3567c92aa3e46aa5dc2c4e5a714989be88ab59714452dfeb4042664"
+      },
+      "historical_field_sha_match": true,
+      "label": "psql",
+      "parsed_type": "str",
+      "raw_envelope_sha256": "a165a39782783af728c00b6bf2dfa7076b59bb013fa300ea40490ee13ad6128a",
+      "raw_is_not_wire_protocol": true,
+      "reparse_error": null,
+      "serialized_io": {
+        "bytes_equal": true,
+        "intended_bytes": 7034,
+        "intended_sha256": "d0f6ada717b80f574904d5cc7363312210d3525b1d3ae6b93abbdbd80c6b8e11",
+        "path": ".local/s10-p0-24/psql/serialized.json",
+        "readback_bytes": 7034,
+        "readback_sha256": "d0f6ada717b80f574904d5cc7363312210d3525b1d3ae6b93abbdbd80c6b8e11"
+      },
+      "server_digest_source": "same target SELECT: encode(sha256(convert_to(v.arch_prev,'UTF8')),'hex')",
+      "server_sha256": "776c4257a3567c92aa3e46aa5dc2c4e5a714989be88ab59714452dfeb4042664",
+      "target_identity_and_type_ok": true
+    },
+    "python": {
+      "UTF8_bytes": 2022,
+      "active_digest_source": "same SELECT: sha256(convert_to(v.arch_db::text,'UTF8')); active text NOT selected",
+      "all_layer_comparisons_match": true,
+      "characters": 2022,
+      "client_field_sha256": "776c4257a3567c92aa3e46aa5dc2c4e5a714989be88ab59714452dfeb4042664",
+      "comparisons": {
+        "field_write_readback_bytes": true,
+        "raw_client_return_write_readback_bytes": true,
+        "same_transaction_backend_pid": true,
+        "same_transaction_client_encoding": true,
+        "same_transaction_server_encoding": true,
+        "same_transaction_snapshot": true,
+        "same_transaction_transaction_start": true,
+        "serialized_reparse_semantics": true,
+        "serialized_write_readback_bytes": true,
+        "server_vs_client_UTF8_bytes": true,
+        "server_vs_client_UTF8_hex": true,
+        "server_vs_client_characters": true,
+        "server_vs_client_sha256": true
+      },
+      "completed": true,
+      "field_io": {
+        "bytes_equal": true,
+        "intended_bytes": 2022,
+        "intended_sha256": "776c4257a3567c92aa3e46aa5dc2c4e5a714989be88ab59714452dfeb4042664",
+        "path": ".local/s10-p0-24/python/parsed-field.utf8",
+        "readback_bytes": 2022,
+        "readback_sha256": "776c4257a3567c92aa3e46aa5dc2c4e5a714989be88ab59714452dfeb4042664"
+      },
+      "historical_field_sha_match": true,
+      "label": "python",
+      "parsed_type": "str",
+      "raw_envelope_sha256": "f22abed6b644df88e89c78116634ab7ab71e94f560aadc4b9ddd2824c6f65496",
+      "raw_is_not_wire_protocol": true,
+      "reparse_error": null,
+      "serialized_io": {
+        "bytes_equal": true,
+        "intended_bytes": 7034,
+        "intended_sha256": "2a3c3f3ce7119f353b9cbc7046beaf584796c072fd0ef45799f4fa95bf3823b9",
+        "path": ".local/s10-p0-24/python/serialized.json",
+        "readback_bytes": 7034,
+        "readback_sha256": "2a3c3f3ce7119f353b9cbc7046beaf584796c072fd0ef45799f4fa95bf3823b9"
+      },
+      "server_digest_source": "same target SELECT: encode(sha256(convert_to(v.arch_prev,'UTF8')),'hex')",
+      "server_sha256": "776c4257a3567c92aa3e46aa5dc2c4e5a714989be88ab59714452dfeb4042664",
+      "target_identity_and_type_ok": true
+    }
+  },
+  "clients_may_share_libpq_and_host": true,
+  "collection": {
+    "UTC": "2026-10-17T07:02:43.313851+00:00",
+    "business_actions": 0,
+    "no_retry": true,
+    "psql_completed": true,
+    "psql_layers_ok": true,
+    "python_exit": 0,
+    "python_layers_ok": true,
+    "python_started": true
+  },
+  "cross_client_stable_fields": {
+    "arch_db_is_null": true,
+    "arch_db_server_sha256": true,
+    "arch_db_type": true,
+    "arch_prev_UTF8_bytes": true,
+    "arch_prev_UTF8_hex": true,
+    "arch_prev_characters": true,
+    "arch_prev_is_null": true,
+    "arch_prev_server_sha256": true,
+    "arch_prev_text": true,
+    "arch_prev_type": true,
+    "client_encoding": true,
+    "id": true,
+    "key": true,
+    "physical_table": true,
+    "server_encoding": true,
+    "table_oid": true,
+    "write_date": true,
+    "write_uid": true
+  },
+  "current_observations_only": true,
+  "database_overall_integrity_proven": false,
+  "five_groups": "unchanged: A BLOCKED; B/C/D/E NOT_RUN",
+  "historical_root_cause_fixed": false,
+  "other_databases": 0,
+  "public_disclosure": {
+    "psql": {
+      "full_text_disclosure_approved_against_GPT_reviewed_template": true,
+      "raw_return_present": true,
+      "stderr.raw": {
+        "bytes": 0,
+        "raw_private_only": true,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout.raw": {
+        "bytes": 7653,
+        "raw_private_only": true,
+        "sha256": "b858eae99a916b5f331ef549cc93a8885e318d59be8e2c60c1027d247b399833"
+      }
+    },
+    "python": {
+      "full_text_disclosure_approved_against_GPT_reviewed_template": true,
+      "raw_return_present": true
+    }
+  },
+  "raw_capture_boundary": "psql stdout / psycopg2-decoded text; not network capture or pre-driver protocol bytes",
+  "same_object_copies_not_independent_measurements": true
+}
