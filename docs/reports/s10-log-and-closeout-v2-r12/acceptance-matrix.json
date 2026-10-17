@@ -3554,7 +3554,18 @@
     },
     "remaining_business_and_ui": "NOT_RUN_S10_T12_PRODUCTION_BLOCKED",
     "github_sync": {
-      "status": "PENDING"
+      "status": "SYNCED_FULL_API_READBACK",
+      "message_id": "YD-S10-LC2-FRAMEWORK6-20261017-01",
+      "comment_id": 6235955573,
+      "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6235955573",
+      "api_full_readback": true,
+      "body_utf8_bytes": 7940,
+      "body_utf8_sha256": "1ba6c27f981c25d81c987ae7ab5a2668dab80d8cba57cb8f7a5b7c5fac7b211d",
+      "product_commit": "cf5d63fe510b52ea150d07495bf3062f4ce0961d",
+      "test_commit": "a910106050073c85b657b1e8762fda31fd43ee6d",
+      "evidence_commit": "1098fe7c4b3cb306c30359cfbd080878c9c146d2",
+      "framework6_complete": true,
+      "further_application_dispatch_authorized": false
     },
     "requirement_support": {
       "LOG-01": "native Odoo logging/levels initialized; six-scoped only",

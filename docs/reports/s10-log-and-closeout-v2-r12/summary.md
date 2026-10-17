@@ -33,6 +33,8 @@
 
 推荐GPT采纳本六项原生框架结果；**不代表完整GPR UI/403/409/303、并发、PDF、财务闭环、A—E、E-MAIN/E-D或S10/T12/生产通过**。到本任务六项结果结束，不自行续用剩余预算或启动下一任务。
 
+[本轮FRAMEWORK6交付6235955573](https://github.com/Yredxin/YDental/issues/34#issuecomment-6235955573)已实际发表并REST API全文读回7940 UTF-8 bytes/SHA256 `1ba6c27f981c25d81c987ae7ab5a2668dab80d8cba57cb8f7a5b7c5fac7b211d`。固定证据`1098fe7c4b3cb306c30359cfbd080878c9c146d2`；之后仅保存同步回执，无源码变更或测试重跑。新任务到六项结束，剩余额度不续用，不预替GPT裁定S10。
+
 ---
 
 以下为TR-01源码返工和更早交付历史（原文保留）：
