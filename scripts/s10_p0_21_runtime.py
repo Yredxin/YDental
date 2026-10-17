@@ -49,6 +49,9 @@ def checkpoint(cr,env,label,markers=None):
     # This verification runner owns this cursor and the business transaction.
     verify_native_facts(env)
     if markers:c.save(c.PRIVATE/(label+'-pending-markers-not-success.json'),markers)
+    effects=rank_effects(cr)
+    c.save(c.PRIVATE/(label+'-native-postcommit-rank-effects.json'),effects)
+    c.save(c.OUT/(label+'-native-postcommit-rank-effects.json'),effects)
     snap=snapshot(env,full=True);c.save(c.PRIVATE/(label+'-precommit-full.json'),snap)
     c.event('commit_intent',label=label,economic_storage_sha256=c.sha(c.canonical({t:r for t,r in snap['tables'].items() if c.economic(t)}).encode()))
     try:cr.commit()
@@ -58,16 +61,7 @@ def checkpoint(cr,env,label,markers=None):
         raise
     c.event('commit_returned',label=label)
     independent=c.readonly(label+'-independent')
-    def committed_gate(a,b,index):
-        c.unchanged_economics(a,b,index)
-        for change in index:
-            assert change['table'].startswith('orm_signaling_'),('COMMIT_READBACK_DRIFT',change['table'],change['columns'])
-            t=change['table'];old=a['tables'].get(t,[]);new=b['tables'].get(t,[])
-            oldrows={c.canonical(r) for r in old};assert oldrows<={c.canonical(r) for r in new}
-            added=[r for r in new if c.canonical(r) not in oldrows];assert len(added)<=1
-            assert all(set(r)-{'__physical_table__','__physical_oid__'}=={'id','date'} for r in added)
-        return {'every_stored_row_read_back':True,'native_cache_signals_only_if_any':True}
-    c.persist(label+'-committed',snap,independent,committed_gate)
+    c.persist(label+'-committed',snap,independent,lambda a,b,i:committed_gate(a,b,i,effects))
     # Markers are published only after COMMIT and independent exact stored readback.
     if markers:
         for filename,value in markers.items():
@@ -120,3 +114,43 @@ def verify_native_facts(env):
         assert original.attachment_id and not original.attachment_id.public and not original.attachment_id.access_token
         assert c.sha(original.attachment_id.raw.content)==original.pdf_sha256
     return True
+
+
+def rank_effects(cr):
+    effects=[]
+    for callback in cr.postcommit._funcs:
+        if callback.__name__!='increase_partner_rank':continue
+        assert callback.__code__.co_filename.endswith('/addons/account/models/partner.py')
+        closure={name:cell.cell_contents for name,cell in zip(callback.__code__.co_freevars,callback.__closure__ or [])}
+        field=closure['field'];assert field in ('customer_rank','supplier_rank')
+        for partner_id,delta in closure['data'].items():
+            effects.append({'partner_id':partner_id,'field':field,'delta':delta,'actor_uid':closure['self'].env.uid,'fixed_core_source':'addons/account/models/partner.py:883-917','captured_before_commit':True})
+    return effects
+
+
+def committed_gate(a,b,index,effects):
+    assert not [r for r in index if r['economic']],'STORED_ECONOMIC_READBACK_DRIFT'
+    expected={}
+    for effect in effects:
+        e=expected.setdefault(effect['partner_id'],{'fields':{},'actor_uid':effect['actor_uid']})
+        e['fields'][effect['field']]=e['fields'].get(effect['field'],0)+effect['delta'];e['actor_uid']=effect['actor_uid']
+    for change in index:
+        t=change['table']
+        if t=='res_partner':
+            ident=change['physical_key'][2];assert ident in expected,'UNREGISTERED_PARTNER_RANK'
+            permitted=set(expected[ident]['fields'])|{'write_uid','write_date'}
+            assert set(change['columns'])<=permitted,'PARTNER_IDENTITY_CHANGED'
+            old=next(r for r in a['tables'][t] if r['id']==ident);new=next(r for r in b['tables'][t] if r['id']==ident)
+            for field,delta in expected[ident]['fields'].items():assert new[field]==old[field]+delta,'PARTNER_RANK_DELTA_MISMATCH'
+            assert new['write_uid']==expected[ident]['actor_uid'],'PARTNER_RANK_ACTOR_MISMATCH'
+            assert new['write_date']>=old['write_date']
+        else:
+            assert t.startswith('orm_signaling_'),('COMMIT_READBACK_DRIFT',t,change['columns'])
+            old=a['tables'].get(t,[]);new=b['tables'].get(t,[])
+            oldrows={c.canonical(r) for r in old};assert oldrows<={c.canonical(r) for r in new}
+            added=[r for r in new if c.canonical(r) not in oldrows];assert len(added)<=1
+            assert all(set(r)-{'__physical_table__','__physical_oid__'}=={'id','date'} for r in added)
+    for ident,effect in expected.items():
+        old=next(r for r in a['tables']['res_partner'] if r['id']==ident);new=next(r for r in b['tables']['res_partner'] if r['id']==ident)
+        for field,delta in effect['fields'].items():assert new[field]==old[field]+delta
+    return {'all_economic_storage_exact':True,'all_other_stored_rows_exact_except_precise_native_effects':True,'registered_native_rank_effects':effects}
