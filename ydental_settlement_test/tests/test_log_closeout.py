@@ -8,7 +8,7 @@ from odoo.tests import HttpCase, TransactionCase, new_test_user, tagged
 from odoo.tools import mute_logger
 
 from odoo.addons.ydental_access.diagnostic_errors import native_error
-from odoo.addons.ydental_access.diagnostics import classify_error, context_scope, current_context
+from odoo.addons.ydental_access.diagnostics import classify_error, context_scope, current_context, safe_exception_chain
 
 
 @tagged('post_install', '-at_install', 's10_lc2')
@@ -41,6 +41,23 @@ class TestLogCloseout(TransactionCase):
             self.assertEqual(classify_error(error, 'business.start')[0], 'APPLICATION_ERROR')
         self.assertEqual(classify_error(ValueError('synthetic'), 'request.parse'),
                          ('BUSINESS_REJECTION', 'INPUT_PARSE_ERROR'))
+
+    def test_gpr02_chained_native_exception_keeps_framework_identity(self):
+        identity = (self.env.uid, self.env.su, self.env.transaction.default_env)
+        try:
+            try:
+                raise LookupError('synthetic secret cause')
+            except LookupError as cause:
+                raise native_error(AccessError, 'Audit events cannot be changed.', 'AUTHZ_DENIED') from cause
+        except AccessError as error:
+            before = (type(error), error.args, error.__cause__, error.__context__, error.__traceback__)
+            chain = safe_exception_chain(error)
+            self.assertEqual([node['exception_type'] for node in chain['nodes']], ['AccessError', 'LookupError'])
+            self.assertEqual(chain['nodes'][0]['link_type'], 'cause')
+            self.assertEqual(chain['nodes'][1]['exception_module'], 'builtins')
+            self.assertEqual((type(error), error.args, error.__cause__, error.__context__, error.__traceback__), before)
+            self.assertEqual(serialize_exception(error)['name'], 'odoo.exceptions.AccessError')
+        self.assertEqual((self.env.uid, self.env.su, self.env.transaction.default_env), identity)
 
     def test_mandatory_business_audit_failure_propagates(self):
         audit_type = type(self.env['ydental.access.audit'])

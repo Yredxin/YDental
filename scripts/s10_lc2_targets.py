@@ -15,16 +15,22 @@ from s10_lc2_runtime import create_targets, prepare_target, source_filestore_inv
 from s10_lc2_supervisor import safe_plain
 
 ROOT = Path(__file__).resolve().parents[1]
-EXEC_ROOT = ROOT / '.local/s10-lc2-exec-20261017'
+LEGACY_EXEC_ROOT = ROOT / '.local/s10-lc2-exec-20261017'
+EXEC_ROOT = ROOT / '.local/s10-lc2-r12-20261017'
 RUN_ROOT = ROOT / '.local/s10-lc2/20261017-lc2-exec01'
-PLAN = EXEC_ROOT / 'target-plan.json'
-SOURCE_CAPTURE = EXEC_ROOT / 'admission-r11-final/capture'
+PLAN = LEGACY_EXEC_ROOT / 'target-plan.json'
+SOURCE_CAPTURE = LEGACY_EXEC_ROOT / 'admission-r11-final/capture'
 
 
 class PackageBudget(Budget):
-    """Global raw cap spans both approved new-run roots; protected old evidence excluded."""
+    """R1.2 cumulative resources; both evidence windows plus shared owned files."""
+    def consume(self, kind):
+        if kind in {'accident_ro', 'maintenance', 'create'}:
+            raise RuntimeError('R12_NO_PROTECTED_SOURCE_OR_CREATE_DISPATCH')
+        return super().consume(kind)
+
     def check_storage(self):
-        size = sum(path.stat().st_size for base in (EXEC_ROOT, RUN_ROOT) if base.exists()
+        size = sum(path.stat().st_size for base in (LEGACY_EXEC_ROOT, EXEC_ROOT, RUN_ROOT) if base.exists()
                    for path in base.rglob('*') if path.is_file() and not path.is_symlink())
         if size >= RAW_LIMIT * .9:
             raise RuntimeError('GLOBAL_RAW_STORAGE_PAUSE_AT_90_PERCENT')
@@ -125,7 +131,7 @@ def main():
         save_once(EXEC_ROOT / 'owned-target-markers.json', {'markers': markers})
         print(json.dumps({'created': markers, 'odoo_started': 0}, ensure_ascii=True))
     else:
-        selections = strict_loads((EXEC_ROOT / 'admission-r11-final/admission-selection.json').read_bytes())['tables']
+        selections = strict_loads((LEGACY_EXEC_ROOT / 'admission-r11-final/admission-selection.json').read_bytes())['tables']
         if args.mode == 'verify-source':
             directory = EXEC_ROOT / 'source-after-copy'
             collect_selection(psycopg2.connect, credentials(), database=ACCIDENT, expected_oid=2144127,

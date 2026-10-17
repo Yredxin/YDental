@@ -13,12 +13,15 @@ import uuid
 
 from s10_lc2_evidence import CLUSTER, CORE, runtime_gate, save_once, target_guard
 from s10_lc2_logging import strict_loads
-from s10_lc2_supervisor import append_plain, private_file, safe_plain, save_primary
-from s10_lc2_targets import EXEC_ROOT, PLAN, RUN_ROOT, PackageBudget
+from s10_lc2_supervisor import append_plain, private_file, safe_plain, save_primary, launch
+from s10_lc2_targets import EXEC_ROOT, LEGACY_EXEC_ROOT, PLAN, RUN_ROOT, PackageBudget
 
 ROOT = Path(__file__).resolve().parents[1]
 PYTHON = ROOT.parent / '.venv/bin/python'
 STOP = EXEC_ROOT / 'HARD-STOP.json'
+ACTION_ROLES = {'scratch-tests': 'scratch', 'upgrade': 'main', 'main-upgrade': 'main',
+                'main-service': 'main', 'scratch-service': 'scratch', 'scratch-upgrade': 'scratch',
+                'main-fixture': 'main', 'scratch-fixture': 'scratch'}
 
 
 def keep_primary(directory, error, *, stage, root_event_id=None):
@@ -43,7 +46,7 @@ def candidate_marker(marker, *, approval, product_commit, test_commit, action):
     dispatch = runtime_gate(approval, product_commit=product_commit, test_commit=test_commit)
     if action not in dispatch.get('allowed_actions', []) or marker['database'] not in dispatch.get('allowed_target_names', []):
         raise RuntimeError('MARKER_CANDIDATE_NOT_DISPATCHED')
-    expected_role = {'scratch-tests': 'scratch', 'upgrade': 'main', 'main-service': 'main'}.get(action)
+    expected_role = ACTION_ROLES.get(action)
     target = next((item for item in strict_loads(PLAN.read_bytes())['targets']
                    if item['database'] == marker['database']), None)
     if (expected_role is None or target is None or target['role'] != expected_role
@@ -95,7 +98,7 @@ def launch_guard(marker, *, approval, product_commit, test_commit, action):
     names = [item['database'] for item in plan['targets']]
     if set(names) != set(dispatch.get('allowed_target_names', [])):
         raise RuntimeError('APPLICATION_TARGET_SET_DRIFT')
-    expected_role = {'scratch-tests': 'scratch', 'upgrade': 'main', 'main-service': 'main'}.get(action)
+    expected_role = ACTION_ROLES.get(action)
     selected = next((item for item in plan['targets'] if item['database'] == marker['database']), None)
     if (expected_role is None or selected is None or selected['role'] != expected_role
             or marker.get('role') != expected_role or marker.get('lc2_role') != expected_role
@@ -166,12 +169,25 @@ def identity_probe(marker, options, *, budget, directory):
 def environment(run, product_commit, test_commit):
     env = dict(os.environ)
     env.pop('PGOPTIONS', None)
-    env.update(PYTHONPATH=str(ROOT / 'scripts'), YDENTAL_S10_RUN_DIR=str(run),
-               YDENTAL_RUN_ID='lc2-exec-20261017', YDENTAL_TASK_ID='S10-LOG-AND-CLOSEOUT-v2',
+    env.pop('PYTHONHOME', None)
+    env.update(PYTHONPATH=os.pathsep.join([str(ROOT / 'scripts'), str(ROOT / '.local/s04-deps')]),
+               PYTHONDONTWRITEBYTECODE='1', YDENTAL_S10_RUN_DIR=str(run),
+               YDENTAL_RUN_ID='lc2-r12-exec-20261017', YDENTAL_TASK_ID='S10-LOG-AND-CLOSEOUT-v2',
                YDENTAL_PRODUCT_COMMIT=product_commit, YDENTAL_TEST_COMMIT=test_commit, YDENTAL_CORE_COMMIT=CORE,
                YDENTAL_DIAGNOSTIC_DIR=str(run / 'diagnostics'),
                YDENTAL_LC2_BUDGET_DIR=str(EXEC_ROOT), PYTHONFAULTHANDLER='1')
     return env
+
+
+def dependency_preflight(env, directory):
+    result = launch([str(PYTHON), str(ROOT / 'scripts/s10_lc2_preflight.py')],
+                    Path(directory) / 'dependency-preflight', env=env, cwd=ROOT, timeout=30, attempt=1)
+    if result['returncode'] != 0:
+        raise RuntimeError('OFFLINE_DEPENDENCY_PREFLIGHT_FAILED')
+    report = strict_loads((Path(directory) / 'dependency-preflight/stdout.log').read_bytes())
+    if report['odoo_imported'] or report['database_connection_performed']:
+        raise RuntimeError('DEPENDENCY_PREFLIGHT_SCOPE_DRIFT')
+    return report
 
 
 class OwnedApplication:
@@ -185,8 +201,9 @@ class OwnedApplication:
         self.budget = PackageBudget(EXEC_ROOT)
         self.directory = EXEC_ROOT / ('application-' + action + '-' + uuid.uuid4().hex[:8])
         self.directory.mkdir(mode=0o700)
-        identity_probe(self.marker, options, budget=self.budget, directory=self.directory)
         self.env = environment(self.run, product_commit, test_commit)
+        dependency_preflight(self.env, self.directory)
+        identity_probe(self.marker, options, budget=self.budget, directory=self.directory)
         self.command = [str(PYTHON), str(ROOT.parent / 'odoo-bin'), '-c', str(self.run / 'odoo.conf')]
         self.process = None
         self.streams = []
@@ -205,7 +222,9 @@ class OwnedApplication:
             'scratch-tests': ('--stop-after-init', '--load-language=zh_CN', '-i',
                               'ydental_settlement_test', '--test-enable', '--test-tags=s10_lc2'),
             'upgrade': ('--stop-after-init', '--load-language=zh_CN', '-u', 'ydental_settlement'),
-            'main-service': (),
+            'main-upgrade': ('--stop-after-init', '--load-language=zh_CN', '-u', 'ydental_settlement'),
+            'scratch-upgrade': ('--stop-after-init', '--load-language=zh_CN', '-u', 'ydental_settlement'),
+            'main-service': (), 'scratch-service': (),
         }
         if type(arguments) is not list or tuple(arguments) != allowed.get(self.action):
             raise ValueError('APPLICATION_ARGUMENT_OVERRIDE_REFUSED')
@@ -328,13 +347,13 @@ class OwnedApplication:
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('mode', choices=['scratch-tests', 'upgrade'])
+    parser.add_argument('mode', choices=['scratch-tests', 'main-upgrade', 'scratch-upgrade'])
     parser.add_argument('--approval', required=True)
     parser.add_argument('--product-commit', required=True)
     parser.add_argument('--test-commit', required=True)
     args = parser.parse_args()
-    markers = strict_loads((EXEC_ROOT / 'owned-target-markers.json').read_bytes())['markers']
-    role = 'scratch' if args.mode == 'scratch-tests' else 'main'
+    markers = strict_loads((LEGACY_EXEC_ROOT / 'owned-target-markers.json').read_bytes())['markers']
+    role = ACTION_ROLES[args.mode]
     marker = next(item for item in markers if item['role'] == role)
     app = OwnedApplication(marker, approval=args.approval, product_commit=args.product_commit,
                            test_commit=args.test_commit, action=args.mode)

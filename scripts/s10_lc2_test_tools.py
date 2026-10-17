@@ -522,6 +522,150 @@ class DiagnosticsCase(unittest.TestCase):
             if path.is_file():
                 self.assertNotIn(b'synthetic-business-private', path.read_bytes())
 
+    def chained_error(self):
+        def first_failure():
+            raise LookupError('synthetic-private-first-message')
+
+        def wrapping_layer():
+            try:
+                first_failure()
+            except LookupError as cause:
+                raise NameError('synthetic-private-outer-message') from cause
+
+        try:
+            wrapping_layer()
+        except NameError as error:
+            return error
+
+    def exception_identity(self, error):
+        return (type(error), error.args, error.__cause__, error.__context__,
+                error.__suppress_context__, error.__traceback__)
+
+    def test_gpr02_explicit_cause_records_first_frame_and_preserves_exception(self):
+        error = self.chained_error()
+        before = self.exception_identity(error)
+        self.diagnostics.configure_once(str(self.directory))
+        event_id = self.diagnostics.record_exception(error, component='synthetic', stage='business.start')
+        chains = [strict_loads(path.read_bytes()) for path in self.directory.glob('stack-*.json')]
+        self.assertEqual(len(chains), 1)
+        chain = chains[0]
+        self.assertEqual(chain['primary_event_id'], event_id)
+        self.assertEqual(chain['kind'], 'PRIMARY_EXCEPTION_CHAIN')
+        self.assertEqual([row['exception_type'] for row in chain['nodes']], ['NameError', 'LookupError'])
+        self.assertEqual(chain['nodes'][0]['link_type'], 'cause')
+        self.assertEqual(chain['nodes'][0]['next_node_id'], chain['nodes'][1]['node_id'])
+        self.assertTrue(any(frame['function'] == 'first_failure' for frame in chain['nodes'][1]['frames']))
+        self.assertEqual(chain['first_cause_node_id'], chain['nodes'][1]['node_id'])
+        self.assertEqual(chain['termination'], 'COMPLETE')
+        self.assertEqual(self.exception_identity(error), before)
+        for path in self.directory.iterdir():
+            if path.is_file():
+                self.assertNotIn(b'synthetic-private-', path.read_bytes())
+
+    def test_gpr02_implicit_context_and_explicit_suppression_boundaries(self):
+        def context_error(suppress):
+            try:
+                raise LookupError('synthetic-private-context')
+            except LookupError:
+                try:
+                    if suppress:
+                        raise ValueError('synthetic-private-outer') from None
+                    raise ValueError('synthetic-private-outer')
+                except ValueError as error:
+                    return error
+
+        visible = context_error(False)
+        chain = self.diagnostics.safe_exception_chain(visible)
+        self.assertEqual([row['exception_type'] for row in chain['nodes']], ['ValueError', 'LookupError'])
+        self.assertEqual(chain['nodes'][0]['link_type'], 'context')
+        suppressed = context_error(True)
+        before = self.exception_identity(suppressed)
+        chain = self.diagnostics.safe_exception_chain(suppressed)
+        self.assertEqual(len(chain['nodes']), 1)
+        self.assertEqual(chain['termination'], 'CONTEXT_SUPPRESSED')
+        self.assertEqual(chain['first_cause_status'], 'VISIBLE_BOUNDARY_ONLY')
+        self.assertEqual(chain['nodes'][0]['link_type'], 'none')
+        self.assertEqual(self.exception_identity(suppressed), before)
+        self.assertNotIn('LookupError', json.dumps(chain))
+        explicit = ValueError('outer')
+        explicit.__context__ = IndexError('hidden-context')
+        explicit.__cause__ = visible
+        result = self.diagnostics.safe_exception_chain(explicit)
+        self.assertNotIn('IndexError', json.dumps(result))
+        self.assertEqual(result['nodes'][0]['link_type'], 'cause')
+
+    def test_gpr02_cycles_depth_and_total_frame_limits_are_explicit(self):
+        first, second = LookupError('first'), ValueError('second')
+        first.__cause__, second.__cause__ = second, first
+        chain = self.diagnostics.safe_exception_chain(first)
+        self.assertEqual(chain['termination'], 'CYCLE')
+        self.assertTrue(chain['truncated'])
+        self.assertIsNone(chain['first_cause_node_id'])
+        self.assertEqual(chain['nodes'][-1]['next_node_id'], 'exception-0')
+        errors = [ValueError('synthetic') for _ in range(10)]
+        for index in range(9):
+            errors[index].__cause__ = errors[index + 1]
+        chain = self.diagnostics.safe_exception_chain(errors[0], max_depth=2)
+        self.assertEqual(chain['termination'], 'DEPTH_LIMIT')
+        self.assertEqual(len(chain['nodes']), 2)
+        self.assertIsNone(chain['first_cause_node_id'])
+
+        def recursive_failure(depth):
+            if depth:
+                return recursive_failure(depth - 1)
+            raise NameError('synthetic-private-recursive')
+
+        try:
+            recursive_failure(12)
+        except NameError as error:
+            chain = self.diagnostics.safe_exception_chain(error, max_frames=3, max_total_frames=2)
+        self.assertEqual(chain['frame_count'], 2)
+        self.assertTrue(chain['truncated'])
+        self.assertTrue(chain['nodes'][0]['frames_truncated'])
+        self.assertLessEqual(len(json.dumps(chain)), self.diagnostics.MAX_EXCEPTION_CHAIN_BYTES)
+        with self.assertRaises(ValueError):
+            self.diagnostics.safe_exception_chain(errors[0], max_depth=1000)
+
+    def test_gpr02_chain_survives_serializer_failure_and_secondary_is_separate(self):
+        error = self.chained_error()
+        before = self.exception_identity(error)
+        self.diagnostics.configure_once(str(self.directory))
+        with patch.object(self.diagnostics.json, 'dumps', side_effect=ValueError('synthetic-private-json')):
+            primary_id = self.diagnostics.record_exception(error, component='synthetic', stage='business.start')
+        self.assertEqual(self.exception_identity(error), before)
+        chains = list(self.directory.glob('chain-*.txt'))
+        self.assertEqual(len(chains), 1)
+        raw = chains[0].read_text()
+        self.assertIn('primary_event_id=' + primary_id, raw)
+        self.assertIn('exception-0.exception_type=NameError', raw)
+        self.assertIn('exception-1.exception_type=LookupError', raw)
+        self.assertIn('function=first_failure', raw)
+        rows = [dict(line.split('=', 1) for line in path.read_text().splitlines())
+                for path in self.directory.glob('exception-*.txt')]
+        primary = next(row for row in rows if row['event_id'] == primary_id)
+        secondary = next(row for row in rows if row['root_event_id'] == primary_id)
+        self.assertEqual(primary['exception_type'], 'NameError')
+        self.assertEqual(secondary['exception_type'], 'ValueError')
+        self.assertEqual(secondary['stage'], 'evidence.finalization')
+        self.assertEqual(secondary['error_class'], 'EVIDENCE_ERROR')
+        self.assertTrue(self.diagnostics.diagnostics_failed())
+        for path in self.directory.iterdir():
+            if path.is_file():
+                self.assertNotIn(b'synthetic-private-', path.read_bytes())
+
+    def test_gpr02_chain_writer_failure_does_not_replace_primary(self):
+        error = self.chained_error()
+        before = self.exception_identity(error)
+        self.diagnostics.configure_once(str(self.directory))
+        with patch.object(self.diagnostics, '_minimal_chain', side_effect=OSError('synthetic-chain-writer')):
+            primary_id = self.diagnostics.record_exception(error, component='synthetic', stage='business.start')
+        self.assertEqual(self.exception_identity(error), before)
+        rows = [dict(line.split('=', 1) for line in path.read_text().splitlines())
+                for path in self.directory.glob('exception-*.txt')]
+        self.assertEqual(next(row for row in rows if row['event_id'] == primary_id)['exception_type'], 'NameError')
+        self.assertEqual(next(row for row in rows if row['root_event_id'] == primary_id)['exception_type'], 'OSError')
+        self.assertTrue(self.diagnostics.diagnostics_failed())
+
     def test_rotation_stops_at_bound_and_preserves_segments(self):
         handler = self.diagnostics.PidFileHandler(self.directory, segment_bytes=128, max_segments=2)
         handler.setFormatter(self.diagnostics.JsonlFormatter())

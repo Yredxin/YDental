@@ -18,7 +18,7 @@ ACCIDENT = 'ydental_s10_test_20261017080710_2494c102'
 PROTECTED = {'ydental_s10_test_20261017050000_21b0cafe': 0, ACCIDENT: 2}
 LIMITS = {'accident_ro': 2, 'target_ro': 48, 'maintenance': 1, 'create': 2,
           'odoo_start': 12, 'http': 600, 'original_get': 12, 'firefox': 3}
-AUTHORIZATION_EPOCH = 1792233151  # 2026-10-17T10:32:31Z, direct package authorization.
+AUTHORIZATION_EPOCH = 1792238721.801  # R1.2 direct authorization; cumulative counts preserved.
 RAW_LIMIT = 1024 ** 3
 
 
@@ -79,7 +79,7 @@ class Budget:
 
 def runtime_gate(approval_path, *, product_commit, test_commit):
     value = strict_loads(Path(approval_path).read_bytes())
-    if (value.get('message_id') != 'YD-S10-LC2-EXEC-20261017-01'
+    if (value.get('message_id') != 'YD-S10-LC2-EXEC-20261017-02'
             or value.get('start_api_exact_readback') is not True
             or value.get('runtime_dispatched') is not True
             or value.get('product_commit') != product_commit

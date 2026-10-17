@@ -8,7 +8,7 @@ import unittest
 from unittest.mock import MagicMock, patch
 
 from s10_lc2_evidence import CLUSTER, CORE, save_once
-from s10_lc2_launch import OwnedApplication, ROOT, launch_guard
+from s10_lc2_launch import OwnedApplication, ROOT, dependency_preflight, environment, launch_guard
 
 
 class FakeProcess:
@@ -48,6 +48,23 @@ class LaunchCase(unittest.TestCase):
         app.started = time.monotonic()
         app.budget = MagicMock()
         return app
+
+    def test_actual_child_metadata_and_import_under_exact_application_environment(self):
+        report = dependency_preflight(environment(self.directory, 'synthetic-product', 'synthetic-test'),
+                                      self.directory)
+        self.assertFalse(report['odoo_imported'])
+        self.assertFalse(report['database_connection_performed'])
+        self.assertEqual(report['cwd'], str(ROOT))
+        phone = next(item for item in report['dependencies'] if item['module'] == 'phonenumbers')
+        self.assertEqual(phone['version'], '9.0.16')
+        self.assertTrue(Path(phone['import_file']).is_relative_to(ROOT / '.local/s04-deps'))
+        self.assertEqual(Path(report['python_executable']).resolve(), (ROOT.parent / '.venv/bin/python').resolve())
+
+    def test_controlled_application_path_does_not_inherit_external_pythonpath(self):
+        with patch.dict('os.environ', {'PYTHONPATH': '/unapproved/synthetic-path'}):
+            actual = environment(self.directory, 'synthetic-product', 'synthetic-test')
+        self.assertEqual(actual['PYTHONPATH'], str(ROOT / 'scripts') + ':' + str(ROOT / '.local/s04-deps'))
+        self.assertEqual(actual['PYTHONDONTWRITEBYTECODE'], '1')
 
     def test_start_evidence_failure_reaps_exact_owned_process(self):
         app, process = self.fake_application(), FakeProcess()
