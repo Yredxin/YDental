@@ -15,7 +15,7 @@ from s10_lc2_logging import strict_loads
 from s10_lc2_runtime import create_targets, prepare_target, source_filestore_inventory
 from s10_lc2_supervisor import safe_plain
 from s10_lc2_framework_caller import FAILURE_NAME, framework_failure_facts
-from s10_lc2_task_profile import LOCAL_LIMITS, TaskProfile
+from s10_lc2_task_profile import TaskProfile
 
 ROOT = Path(__file__).resolve().parents[1]
 LEGACY_EXEC_ROOT = ROOT / '.local/s10-lc2-exec-20261017'
@@ -76,7 +76,7 @@ class PackageBudget(Budget):
 
     def consume(self, kind):
         require_dispatch_unfrozen(self.profile)
-        if self.profile is not None and kind not in LOCAL_LIMITS:
+        if self.profile is not None and kind not in self.profile.local_limits:
             raise RuntimeError('FRAMEWORK6_RESOURCE_NOT_AUTHORIZED')
         if kind in {'accident_ro', 'maintenance', 'create'}:
             raise RuntimeError('R12_NO_PROTECTED_SOURCE_OR_CREATE_DISPATCH')

@@ -26,6 +26,7 @@ import uuid
 from s10_lc2_evidence import PROTECTED, save_once
 from s10_lc2_logging import strict_loads
 from s10_lc2_supervisor import save_primary
+from s10_lc2_task_profile import MAIN_A, MAIN
 
 
 _DATABASE = re.compile(r'ydental_s10_test_[0-9]{14}_[a-f0-9]{8}\Z')
@@ -63,6 +64,58 @@ _CASES = frozenset({
     'D-LOST-REFUND-2', 'D-VERIFY-RETRY', 'E-PREBASELINE',
     'E-UPGRADE-S10-ONLY', 'E-PRESERVE', 'E-AFFECTED-REGRESSION',
 })
+
+
+def main_a_request_boundary(method, path, *, form=None, json_body=None):
+    """MAIN-A permits normal login, store 1, document 1 and stored original 1.
+
+    This gate only narrows the existing transport guard. It never supplies
+    credentials, a session, an editor token or an authorization decision.
+    """
+    parsed = urlsplit(path)
+    route = parsed.path
+    query = parse_qs(parsed.query, keep_blank_values=True)
+    if method == 'GET':
+        allowed = route in {'/web/login', '/ydental/access', '/ydental/clinical',
+                            '/ydental/settlement', '/ydental/settlement/bill-original/1',
+                            '/web/binary/company_logo', '/logo.png', '/web/manifest.webmanifest'}
+        allowed = allowed or route.startswith(('/web/assets/', '/web/static/'))
+        allowed = allowed or bool(re.fullmatch(r'/web/image/res\.company/[1-9][0-9]*/logo', route))
+        if not allowed or route == '/ydental/clinical' and query != {'document_id': ['1']}:
+            raise ValueError('MAIN_A_GET_ROUTE_OR_DOCUMENT_FORBIDDEN')
+        if route == '/ydental/settlement' and query not in ({}, {'patient_id': ['1']}):
+            raise ValueError('MAIN_A_PATIENT_QUERY_FORBIDDEN')
+        return
+    if method != 'POST' or type(form) is not dict or json_body is not None:
+        raise ValueError('MAIN_A_POST_SHAPE_FORBIDDEN')
+    if route == '/web/login':
+        if (set(form) - {'db', 'login', 'password', 'csrf_token', 'redirect', 'type'}
+                or form.get('db', MAIN) != MAIN
+                or form.get('redirect', '/ydental/settlement') not in {'/ydental/settlement', '/ydental/access'}):
+            raise ValueError('MAIN_A_LOGIN_SHAPE_FORBIDDEN')
+        return
+    if route == '/ydental/access/action' and form.get('operation') == 'switch':
+        if 'payload' in form:
+            payload = strict_loads(form['payload'])
+            valid = payload == {'store_id': 1}
+            allowed_fields = {'operation', 'revision', 'payload', 'output', 'csrf_token'}
+        else:
+            valid = form.get('store_id') in (1, '1')
+            allowed_fields = {'operation', 'revision', 'store_id', 'csrf_token'}
+        if valid and not set(form) - allowed_fields:
+            return
+    if route == '/ydental/clinical/action':
+        operation = form.get('operation')
+        payload = strict_loads(form.get('payload', 'null'))
+        if (set(form) <= {'operation', 'revision', 'connection', 'csrf_token', 'payload'}
+                and type(payload) is dict and payload.get('document_id') == 1
+                and type(payload.get('document_id')) is int):
+            if operation == 'acquire' and set(payload) == {'document_id'}:
+                return
+            if (operation == 'release' and set(payload) == {'document_id', 'editor_token'}
+                    and type(payload['editor_token']) is str and 0 < len(payload['editor_token']) <= 128):
+                return
+    raise ValueError('MAIN_A_ACTION_FORBIDDEN')
 
 
 class _NoRedirect(HTTPRedirectHandler):
@@ -323,6 +376,11 @@ class Client:
         self.target_role = target_role
         self._family_ticket = None
         self.budget = budget
+        self.task_profile = getattr(budget, 'profile', None)
+        if self.task_profile is not None and self.task_profile.message_id == MAIN_A:
+            self.task_profile.validate_target(database, 2144129, parsed.port)
+            if target_role != 'main' or set(owned_targets) != {MAIN}:
+                raise ValueError('MAIN_A_HTTP_TARGET_SCOPE_INVALID')
         self.directory = _private_directory(directory)
         self.timeout = timeout
         self.max_response_bytes = max_response_bytes
@@ -429,6 +487,12 @@ class Client:
                 or type(discard_response) is not bool or type(retry_manifest) is not bool):
             raise ValueError('HTTP_REQUEST_CONTAINER_OR_FLAGS_INVALID')
         path, decoded = self._path(path)
+        if self.task_profile is not None and self.task_profile.message_id == MAIN_A:
+            self.task_profile.verify()
+            main_a_request_boundary(method, path, form=form, json_body=json_body)
+            if (case_id not in {'A-STATE', 'A-EDITOR', 'A-ORIGINAL'}
+                    or discard_response or retry_manifest):
+                raise ValueError('MAIN_A_CASE_OR_REPLAY_FORBIDDEN')
         if self.target_role == 'main' and decoded == '/ydental/patients/action':
             if method != 'POST' or self._family_ticket is None:
                 raise ValueError('FAMILY_MAIN_PATIENT_WRITE_REQUIRES_EXACT_TICKET')

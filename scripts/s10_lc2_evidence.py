@@ -11,7 +11,7 @@ import time
 
 from s10_lc2_logging import strict_loads
 from s10_lc2_supervisor import append_plain, private_file, safe_plain, save_primary
-from s10_lc2_task_profile import LOCAL_LIMITS, SCRATCH, TaskProfile
+from s10_lc2_task_profile import TaskProfile
 
 CORE = 'f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb'
 CLUSTER = '7694897083368259627'
@@ -83,7 +83,7 @@ class Budget:
             value = strict_loads(self.path.read_bytes())
             if self.profile is not None:
                 self.profile.validate_ledger(value)
-                if kind not in LOCAL_LIMITS or value['task_counts'].get(kind, 0) >= LOCAL_LIMITS[kind]:
+                if kind not in self.profile.local_limits or value['task_counts'].get(kind, 0) >= self.profile.local_limits[kind]:
                     raise RuntimeError('FRAMEWORK6_RESOURCE_EXHAUSTED:' + kind)
             elif time.time() - value['started_epoch'] > 8 * 3600:
                 raise RuntimeError('RUN_WINDOW_EXHAUSTED')
@@ -108,8 +108,8 @@ def runtime_gate(approval_path, *, product_commit, test_commit, profile=None):
     if profile is not None:
         profile.verify()
         if (value.get('authority_sha256') != profile.authority_sha256
-                or set(value.get('allowed_target_names', [])) != {SCRATCH}
-                or set(value.get('allowed_actions', [])) != {'scratch-tests'}):
+                or set(value.get('allowed_target_names', [])) != {profile.database}
+                or set(value.get('allowed_actions', [])) != profile.allowed_actions):
             raise RuntimeError('FRAMEWORK6_DISPATCH_SCOPE_INVALID')
     if (value.get('message_id') != expected_message
             or value.get('start_api_exact_readback') is not True
@@ -161,6 +161,10 @@ def collect_selection(connect, connection_args, *, database, expected_oid, selec
         raise RuntimeError('P021_CONNECTION_FORBIDDEN')
     if database != ACCIDENT and database not in allowed_target_names:
         raise RuntimeError('DATABASE_NOT_IN_APPROVED_TARGETS')
+    if getattr(budget, 'profile', None) is not None:
+        budget.profile.validate_target(database, expected_oid)
+        if set(allowed_target_names) != {budget.profile.database}:
+            raise RuntimeError('LC2_TASK_RO_TARGET_SET_DRIFT')
     if database != ACCIDENT:
         if target_directory is None or config_path is None:
             raise RuntimeError('TARGET_MARKER_REQUIRED')

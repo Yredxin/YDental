@@ -1,4 +1,4 @@
-"""Metadata for the separately authorized existing-scratch FRAMEWORK6 task."""
+"""Fixed metadata for separately authorized, existing-target LC2 tasks."""
 from dataclasses import dataclass
 import hashlib
 import json
@@ -8,11 +8,26 @@ import time
 
 ROOT = Path(__file__).resolve().parents[1]
 FRAMEWORK6 = 'YD-S10-LC2-FRAMEWORK6-20261017-01'
+MAIN_A = 'YD-S10-LC2-MAIN-A-20261018-01'
 SCRATCH = 'ydental_s10_test_20261017105432_ce6dcbf8'
+MAIN = 'ydental_s10_test_20261017105432_810a7d9c'
 OLD_EPOCH = 1792238721.801
 BASELINE = {'accident_ro': 2, 'create': 2, 'maintenance': 1,
             'odoo_start': 1, 'target_ro': 6, 'http': 0}
 LOCAL_LIMITS = {'odoo_start': 3, 'target_ro': 8, 'http': 12}
+MAIN_A_LIMITS = {'odoo_start': 3, 'target_ro': 8, 'http': 200,
+                 'firefox': 1, 'original_get': 3}
+MAIN_A_BASELINE = {'accident_ro': 2, 'create': 2, 'maintenance': 1,
+                   'odoo_start': 2, 'target_ro': 9, 'http': 1,
+                   'firefox': 0, 'original_get': 0}
+_SPECS = {
+    FRAMEWORK6: ('s10-lc2-framework6-20261017-01', 1792250152.972942,
+                 'EXISTING_SCRATCH_NATIVE_FRAMEWORK_ONLY',
+                 'b99bb431315d201b4591e50785206779ac7fb524'),
+    MAIN_A: ('s10-lc2-main-a-20261018-01', 1792277998.753601,
+             'EXISTING_MAIN_DOCUMENT_AND_ORIGINAL_CLOSEOUT',
+             '72ac77e0c73695fdfeb50326bbae1dcb27407e04'),
+}
 
 
 @dataclass(frozen=True)
@@ -29,19 +44,48 @@ class TaskProfile:
 
     @property
     def data_dir(self):
-        return ROOT / '.local/s10-lc2/20261017-lc2-exec01' / SCRATCH / 'data'
+        return ROOT / '.local/s10-lc2/20261017-lc2-exec01' / self.database / 'data'
+
+    @property
+    def database(self):
+        return MAIN if self.message_id == MAIN_A else SCRATCH
+
+    @property
+    def local_limits(self):
+        return dict(MAIN_A_LIMITS if self.message_id == MAIN_A else LOCAL_LIMITS)
+
+    @property
+    def baseline(self):
+        return dict(MAIN_A_BASELINE if self.message_id == MAIN_A else BASELINE)
+
+    @property
+    def allowed_actions(self):
+        return {'main-service'} if self.message_id == MAIN_A else {'scratch-tests'}
+
+    @property
+    def run_id(self):
+        return 'lc2-main-a-20261018-01' if self.message_id == MAIN_A else 'lc2-framework6-20261017-01'
+
+    def validate_target(self, database, oid, port=None):
+        self.verify()
+        expected = (MAIN, 2144129, 18410) if self.message_id == MAIN_A else (SCRATCH, 2144130, 18411)
+        if (database, oid) != expected[:2] or port is not None and port != expected[2]:
+            raise RuntimeError('LC2_TASK_TARGET_SCOPE_INVALID')
 
     def verify(self):
-        if (self.root != ROOT / '.local/s10-lc2-framework6-20261017-01'
-                or self.started_epoch != 1792250152.972942
+        if self.message_id not in _SPECS:
+            raise RuntimeError('UNKNOWN_LC2_TASK_PROFILE')
+        root_name, started, authorized_scope, parent = _SPECS[self.message_id]
+        if (self.root != ROOT / '.local' / root_name
+                or self.started_epoch != started
                 or self.deadline_epoch != self.started_epoch + 7200):
             raise RuntimeError('FRAMEWORK6_PROFILE_SCOPE_INVALID')
         raw = (self.root / 'scope.json').read_bytes()
         scope = json.loads(raw)
-        if (self.message_id != FRAMEWORK6 or scope.get('message_id') != FRAMEWORK6
-                or scope.get('scope') != 'EXISTING_SCRATCH_NATIVE_FRAMEWORK_ONLY'
+        if (scope.get('message_id') != self.message_id
+                or scope.get('scope') != authorized_scope
                 or scope.get('direct_user_authority') is not True
-                or scope.get('parent_commit') != 'b99bb431315d201b4591e50785206779ac7fb524'
+                or scope.get('parent_commit') != parent
                 or scope.get('started_epoch') != self.started_epoch
                 or hashlib.sha256(raw).hexdigest() != self.authority_sha256
                 or not self.started_epoch <= time.time() <= self.deadline_epoch):
@@ -54,31 +98,42 @@ class TaskProfile:
                 or value.get('task_started_epoch') != self.started_epoch
                 or value.get('authority_sha256') != self.authority_sha256
                 or type(value.get('task_counts')) is not dict or type(value.get('counts')) is not dict
-                or set(value['task_counts']) - set(LOCAL_LIMITS)):
+                or set(value['task_counts']) - set(self.local_limits)):
             raise RuntimeError('FRAMEWORK6_BUDGET_IDENTITY_INVALID')
-        for kind, maximum in LOCAL_LIMITS.items():
+        for kind, maximum in self.local_limits.items():
             count = value['task_counts'].get(kind, 0)
             if (type(count) is not int or not 0 <= count <= maximum
-                    or value['counts'].get(kind, 0) != BASELINE[kind] + count):
+                    or value['counts'].get(kind, 0) != self.baseline[kind] + count):
                 raise RuntimeError('FRAMEWORK6_BUDGET_CUMULATIVE_DRIFT')
-        for kind in ('accident_ro', 'create', 'maintenance'):
-            if value['counts'].get(kind) != BASELINE[kind]:
+        for kind in set(self.baseline) - set(self.local_limits):
+            if value['counts'].get(kind) != self.baseline[kind]:
                 raise RuntimeError('FRAMEWORK6_PROTECTED_RESOURCE_DRIFT')
+        if self.message_id == MAIN_A and set(value['counts']) != set(self.baseline):
+            raise RuntimeError('MAIN_A_CUMULATIVE_RESOURCE_SET_DRIFT')
 
 
 def framework6_profile():
-    root = ROOT / '.local/s10-lc2-framework6-20261017-01'
+    return _profile(FRAMEWORK6)
+
+
+def main_a_profile():
+    return _profile(MAIN_A)
+
+
+def _profile(message_id):
+    root_name, started, authorized_scope, parent = _SPECS[message_id]
+    root = ROOT / '.local' / root_name
     raw = (root / 'scope.json').read_bytes()
     value = json.loads(raw)
-    if (value.get('message_id') != FRAMEWORK6
-            or value.get('scope') != 'EXISTING_SCRATCH_NATIVE_FRAMEWORK_ONLY'
+    if (value.get('message_id') != message_id
+            or value.get('scope') != authorized_scope
             or value.get('direct_user_authority') is not True
-            or value.get('parent_commit') != 'b99bb431315d201b4591e50785206779ac7fb524'
-            or value.get('started_epoch') != 1792250152.972942):
+            or value.get('parent_commit') != parent
+            or value.get('started_epoch') != started):
         raise RuntimeError('FRAMEWORK6_AUTHORITY_SCOPE_INVALID')
     # Scope receipt is fixed; a new profile never edits the old epoch or STOP.
     profile = TaskProfile(root, value['started_epoch'], value['started_epoch'] + 7200,
-                          hashlib.sha256(raw).hexdigest())
+                          hashlib.sha256(raw).hexdigest(), message_id)
     profile.verify()
     return profile
 
@@ -87,6 +142,6 @@ def profile_from_environment(environment):
     selected = environment.get('YDENTAL_LC2_PROFILE')
     if selected is None:
         return None
-    if selected != FRAMEWORK6:
+    if selected not in _SPECS:
         raise RuntimeError('UNKNOWN_LC2_TASK_PROFILE')
-    return framework6_profile()
+    return _profile(selected)

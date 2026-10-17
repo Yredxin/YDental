@@ -21,7 +21,7 @@ from s10_lc2_targets import (EXEC_ROOT, LEGACY_EXEC_ROOT, PLAN, RUN_ROOT, Packag
 from s10_lc2_process_guard import ObservationBlocked, ProcessLogGuard
 from s10_lc2_framework_caller import (GRANT_ENV, GRANT_NAME, check_framework_failure,
                                       framework_failure_facts, issue_framework_grant)
-from s10_lc2_task_profile import FRAMEWORK6, SCRATCH
+from s10_lc2_task_profile import FRAMEWORK6, MAIN_A
 
 ROOT = Path(__file__).resolve().parents[1]
 PYTHON = ROOT.parent / '.venv/bin/python'
@@ -104,9 +104,10 @@ def candidate_marker(marker, *, approval, product_commit, test_commit, action, p
 def launch_guard(marker, *, approval, product_commit, test_commit, action, profile=None):
     require_dispatch_unfrozen(profile)
     extra = {'profile': profile} if profile is not None else {}
-    if profile is not None and (action != 'scratch-tests' or marker.get('database') != SCRATCH
-                                or marker.get('oid') != 2144130 or marker.get('port') != 18411):
-        raise RuntimeError('FRAMEWORK6_APPLICATION_SCOPE_INVALID')
+    if profile is not None:
+        profile.validate_target(marker.get('database'), marker.get('oid'), marker.get('port'))
+        if action not in profile.allowed_actions:
+            raise RuntimeError('LC2_TASK_APPLICATION_SCOPE_INVALID')
     if (profile.root / 'HARD-STOP.json' if profile is not None else STOP).exists():
         raise RuntimeError('LC2_HARD_STOP_ACTIVE')
     dispatch = runtime_gate(approval, product_commit=product_commit, test_commit=test_commit, **extra)
@@ -211,7 +212,7 @@ def environment(run, product_commit, test_commit, profile=None):
         if 'faketime' in env.get('LD_PRELOAD', '').lower():
             raise RuntimeError('FRAMEWORK6_FAKETIME_PRELOAD_FORBIDDEN')
         env.update(YDENTAL_LC2_PROFILE=profile.message_id,
-                   YDENTAL_RUN_ID='lc2-framework6-20261017-01', YDENTAL_LC2_BUDGET_DIR=str(profile.root))
+                   YDENTAL_RUN_ID=profile.run_id, YDENTAL_LC2_BUDGET_DIR=str(profile.root))
     return env
 
 
@@ -295,7 +296,7 @@ class OwnedApplication:
             'main-service': (), 'scratch-service': (), 'main-fixture': (), 'scratch-fixture': (),
         }
         candidates = {allowed.get(self.action)}
-        if profile is not None:
+        if profile is not None and profile.message_id == FRAMEWORK6:
             prefix = ('--stop-after-init', '--load-language=en_US,zh_CN')
             suffix = ('--test-enable', '--test-tags=s10_lc2/ydental_settlement_test')
             candidates = {prefix + operation + suffix for operation in (
@@ -418,7 +419,8 @@ class OwnedApplication:
 
     def check(self, *, allow_starting=False):
         self.budget.check_storage()
-        if time.monotonic() - self.started > 1800:
+        maximum = 1200 if getattr(getattr(self, 'profile', None), 'message_id', None) == MAIN_A else 1800
+        if time.monotonic() - self.started > maximum:
             self._stop('OWNED_SERVICE_WINDOW_EXHAUSTED', pid=self.process.pid)
             raise TimeoutError('OWNED_SERVICE_WINDOW_EXHAUSTED')
         self.check_evidence_markers()
@@ -463,6 +465,8 @@ class OwnedApplication:
             'transport_access_error_detail_retained': False})
 
     def wait(self, timeout):
+        if getattr(getattr(self, 'profile', None), 'message_id', None) == MAIN_A:
+            timeout = min(timeout, 1200)
         try:
             while self.process.poll() is None:
                 self.budget.check_storage()

@@ -21,8 +21,9 @@ from urllib.parse import parse_qs, unquote, urlencode, urljoin, urlsplit
 import uuid
 
 from s10_lc2_evidence import PROTECTED, save_once
-from s10_lc2_http import _private_directory, _save_bytes, _redacted_json
+from s10_lc2_http import _private_directory, _save_bytes, _redacted_json, main_a_request_boundary
 from s10_lc2_supervisor import save_primary
+from s10_lc2_task_profile import MAIN_A, MAIN
 
 
 _DATABASE = re.compile(r'ydental_s10_test_[0-9]{14}_[a-f0-9]{8}\Z')
@@ -171,6 +172,11 @@ class BrowserSession:
         self.executable = Path(executable_path) if executable_path else root / '.local/s00-b-deps/browsers/firefox-1543/firefox/firefox'
         self.playwright_root = Path(playwright_root) if playwright_root else root / '.local/s00-b-deps/verify-lib'
         self.base_url, self.database, self.budget = base_url, database, budget
+        self.task_profile = getattr(budget, 'profile', None)
+        if self.task_profile is not None and self.task_profile.message_id == MAIN_A:
+            self.task_profile.validate_target(database, 2144129, parsed.port)
+            if set(owned_targets) != {MAIN}:
+                raise BrowserBoundaryError('MAIN_A_BROWSER_TARGET_SCOPE_INVALID')
         self.directory = _private_directory(directory)
         self.artifacts = _private_directory(self.directory / 'binary-artifacts')
         self.locale, self.maximum_seconds = locale, maximum_seconds
@@ -223,6 +229,20 @@ class BrowserSession:
 
     def _request_allowed(self, request):
         path = self._target_path(request.url)
+        if self.task_profile is not None and self.task_profile.message_id == MAIN_A:
+            self.task_profile.verify()
+            if self.case_id != 'A-ORIGINAL' or path == '/ydental/clinical':
+                raise BrowserBoundaryError('MAIN_A_BROWSER_CASE_FORBIDDEN')
+            form = None
+            if request.method == 'POST':
+                parsed_form = parse_qs(request.post_data or '', keep_blank_values=True)
+                if any(len(values) != 1 for values in parsed_form.values()):
+                    raise BrowserBoundaryError('MAIN_A_BROWSER_DUPLICATE_FORM_FIELD')
+                form = {key: values[0] for key, values in parsed_form.items()}
+            try:
+                main_a_request_boundary(request.method, request.url, form=form)
+            except (TypeError, ValueError):
+                raise BrowserBoundaryError('MAIN_A_BROWSER_REQUEST_FORBIDDEN') from None
         if request.method == 'GET':
             approved = (path in {'/web', '/odoo', '/web/login', '/web/binary/company_logo',
                                  '/web/webclient/load_menus', '/web/webclient/translations',
@@ -923,4 +943,29 @@ async def run_browser(*, base_url, database, owned_targets, budget, directory, p
         results['revoked_page'] = await session.revoked_old_page(invoice_id, original_id,
             patient_id=patient_id, revoke_callback=revoke_reader, restore_callback=restore_reader)
     save_once(Path(directory) / (uuid.uuid4().hex + '.browser-results.json'), results)
+    return results
+
+
+@_safe_browser_entrypoint('browser.main_a')
+async def run_main_a_browser(*, base_url, database, owned_targets, budget, directory,
+                             credentials, store_id, invoice_id, original_id,
+                             original_sha256, patient_id, **session_options):
+    """Only the authorized MAIN-A existing-v1 workbench click and download."""
+    profile = getattr(budget, 'profile', None)
+    if (profile is None or profile.message_id != MAIN_A
+            or (store_id, invoice_id, original_id, patient_id) != (1, 1, 1, 1)
+            or original_sha256 != '05928780e7d97a06cf29019634f64b010eb4994c2f1c5032d561008a50b059b4'):
+        raise BrowserBoundaryError('MAIN_A_ORIGINAL_SCOPE_INVALID')
+    profile.verify()
+    async with BrowserSession(base_url, database=database, owned_targets=owned_targets,
+                              budget=budget, directory=directory, **session_options) as session:
+        await session.login(credentials.login, credentials.password)
+        await session.switch_store(store_id)
+        original = await session.download_original(invoice_id, original_id, original_sha256,
+                                                    patient_id=patient_id, phase='pre')
+    results = {'case_id': 'A-ORIGINAL', 'original': original,
+               'evidence_kind': 'REAL_FIREFOX_UI_UPSTREAM_FORWARDED',
+               'redirect_policy': 'MANUAL_REDIRECT', 'native_automatic_redirect_acceptance': False,
+               'independent_verification': 'PENDING'}
+    save_once(Path(directory) / (uuid.uuid4().hex + '.main-a-browser-results.json'), results)
     return results
