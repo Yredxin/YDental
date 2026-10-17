@@ -1,5 +1,6 @@
 """Own-cursor native checkpoints; each predicate runs after complete evidence save."""
 from collections import defaultdict
+from contextlib import contextmanager
 from types import CodeType
 import os
 import traceback
@@ -41,14 +42,37 @@ def key():
     return secrets.token_hex(16)
 
 
+@contextmanager
+def actor_context(env):
+    """Use Odoo's real actor for implicit savepoint flush as well as explicit flush.
+
+    Same default-env binding as fixed core tests/common.py::BaseCase.uid.
+    No log-access fields or business permissions are changed.
+    """
+    assert not any(env._field_dirty.values()), 'DIRTY_BEFORE_ACTOR_BIND'
+    prior = env.transaction.default_env
+    env.transaction.default_env = env
+    try:
+        yield
+        env.flush_all()
+        assert not any(env._field_dirty.values()), 'DIRTY_AFTER_ACTOR_FLUSH'
+    finally:
+        # An unsafe failed transaction must never regain uid1 as its flushing env.
+        if not any(env._field_dirty.values()):
+            env.transaction.default_env = prior
+
+
+def actor_call(service, call):
+    with actor_context(service.env):
+        return call()
+
+
 def bind(root, uid, store_id):
     access = root['ydental.access.service'].with_user(uid)
-    session = access._session_for_key(key())
-    bound = access._bind(session)
-    bound._switch(store_id)
-    # Flush the normal actor's writes before the uid1 read-only projection.
-    # Odoo20 _write_multi supplies env.uid when an unchanged write_uid was not dirty.
-    bound.env.flush_all()
+    with actor_context(access.env):
+        session = access._session_for_key(key())
+        bound = access._bind(session)
+        bound._switch(store_id)
     return bound._bind(session)
 
 
@@ -240,7 +264,7 @@ def verify_facts(env):
 
 def checkpoint(cr, root, label, marker=None):
     if c.current_freeze()['round']:
-        label = 'r1-' + label
+        label = 'r%s-' % c.current_freeze()['round'] + label
     verify_facts(root)
     effects = native_effects(cr)
     before = snapshot(root)

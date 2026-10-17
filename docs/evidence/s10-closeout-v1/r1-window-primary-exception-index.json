@@ -1,0 +1,7 @@
+{
+  "private_file": ".local/s10-closeout-v1/r1-window-primary-exception.json",
+  "sha256": "29bcf299af2bc4572f99a7568d93fe40d0472b861565e7e40c378e54c9d9a85b",
+  "snapshot_status": "NOT_ATTEMPTED_NO_UID1_FLUSH",
+  "stage": "resume_r1",
+  "type": "AssertionError"
+}

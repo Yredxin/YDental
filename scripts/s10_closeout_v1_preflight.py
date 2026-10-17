@@ -19,7 +19,7 @@ def main():
     os.umask(0o077)
     c.PRIVATE.mkdir(mode=0o700, exist_ok=True); c.OUT.mkdir(parents=True, exist_ok=True)
     label_input = sys.argv[1] if len(sys.argv) > 1 else 'initial'
-    if label_input.startswith('R1'):
+    if label_input.startswith(('R1', 'R2')):
         assert c.git('merge-base', c.BASE, 'HEAD') == c.BASE
         assert not c.git('diff', c.BASE, 'HEAD', '--', 'ydental_*')
     else:
@@ -208,7 +208,7 @@ def main():
         'D_date': 'actual current store local date, independently frozen before upstream and checked per action',
         'D_new_identity_or_expanded_permission': False, 'D_old_close_unlock': False,
         'R1_source_budget_exception_state': 'EXPLICITLY_APPROVED' if (c.PRIVATE / 'source-budget-approval.json').exists() else 'PENDING_NOT_IMPLEMENTED',
-        'R1_actor_flush_before_uid1_projection': label_input.startswith('R1'),
+        'R1_actor_flush_before_uid1_projection': label_input.startswith(('R1', 'R2')),
         'R1_C_revoke_restore': 'same legal manager5 HTTP grant, not extra Odoo processes',
         'A_acquire_confirm_correct_release_each': 1, 'A_normal_editor_heartbeat_max': 3,
         'A_editor_timeout_unchanged': True, 'A_versions': [2, 3, 4],

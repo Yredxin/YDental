@@ -94,7 +94,9 @@ def run_native(action):
         timeout = 480
     else:
         argv = [str(c.PYTHON), str(c.ROOT / 'scripts/s10_closeout_v1_native.py'), action]
-        timeout = 420
+        # Full evidence serialization and independent readback count toward this
+        # single process deadline; no extra process or automatic retry is granted.
+        timeout = 1200
     log = c.RUN / (label + '.log')
     with log.open('xb') as stream:
         process = subprocess.Popen(argv, cwd=c.ROOT, env=native_env(label), stdin=subprocess.DEVNULL,
@@ -120,7 +122,7 @@ def run_native(action):
 
 def source_final():
     c.gate()
-    suffix = '-r1' if c.current_freeze()['round'] else ''
+    suffix = '-r%s' % c.current_freeze()['round'] if c.current_freeze()['round'] else ''
     source = c.readonly('source-final' + suffix, source=True)
     before = c.read(c.PRIVATE / 'source-before-RO.json')
     c.persist('source-final-preservation' + suffix, before, source, c.exact)

@@ -1,0 +1,7 @@
+{
+  "private_file": ".local/s10-closeout-v1/r1-prepare-all-acquire-1-primary-exception.json",
+  "sha256": "32e56842428c56e507c613dc3214d90415b086c4cbddc43995505a430ef33774",
+  "snapshot_status": "NOT_ATTEMPTED_NO_UID1_FLUSH",
+  "stage": "persist_and_predicate",
+  "type": "AssertionError"
+}

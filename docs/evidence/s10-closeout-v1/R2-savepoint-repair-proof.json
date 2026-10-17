@@ -1,0 +1,52 @@
+{
+  "DB_Odoo_HTTP": 0,
+  "R1_acquire_independently_rolled_back": true,
+  "core_path": [
+    "clinical_service._operate savepoint exit",
+    "sql_db._FlushingSavepoint._close",
+    "Cursor.flush",
+    "Transaction.flush/default_env",
+    "models._write_multi"
+  ],
+  "core_test_precedent": "odoo/tests/common.py:686 uid setter binds default_env to actual actor",
+  "exit_code": 0,
+  "final_repair_within_original_two_round_cap": true,
+  "preserved_R1_STOP_sha256": "db034673e2e6d13e48c69de6a321bb38fdbb9c4c0ecc9328fdbb617307448957",
+  "real_R1_writer1_still_rejected": true,
+  "results": [
+    {
+      "actor": 7,
+      "corrected_implicit_and_explicit_flush_uids": [
+        7,
+        7
+      ],
+      "uncorrected_implicit_savepoint_flush_uid": 1
+    },
+    {
+      "actor": 5,
+      "corrected_implicit_and_explicit_flush_uids": [
+        5,
+        5
+      ],
+      "uncorrected_implicit_savepoint_flush_uid": 1
+    },
+    {
+      "actor": 6,
+      "corrected_implicit_and_explicit_flush_uids": [
+        6,
+        6
+      ],
+      "uncorrected_implicit_savepoint_flush_uid": 1
+    },
+    {
+      "actor": 41,
+      "corrected_implicit_and_explicit_flush_uids": [
+        41,
+        41
+      ],
+      "uncorrected_implicit_savepoint_flush_uid": 1
+    }
+  ],
+  "same_collector_defect_proven": true,
+  "scope": "implicit savepoint flush selected first uid1 environment before R1 explicit actor flush"
+}

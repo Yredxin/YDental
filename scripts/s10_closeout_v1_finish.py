@@ -71,7 +71,7 @@ def main():
         'commit_unknown': sum(v['event'] == 'commit_unknown' for v in es),
         'original_generation': 0, 'old_economic_replay': 0, 'S11_merge_deploy_Issue_Project_mutation': 0,
         'full_capture_nodes': [c.read(p)['full'] for p in c.OUT.glob('capture-*-layer.json')].count(True),
-        'STOP': c.read(c.PRIVATE / ('STOP-r1.json' if (c.PRIVATE / 'STOP-r1.json').exists() else 'STOP.json')) if stopped else None,
+        'STOP': c.read(c.PRIVATE / ('STOP-r%s.json' % c.current_freeze()['round'] if c.stopped() and c.current_freeze()['round'] else 'STOP.json')) if stopped else None,
         'prior_R0_stop_preserved': c.read(c.PRIVATE / 'STOP.json') if (c.PRIVATE / 'STOP.json').exists() else None,
         'github_sync': c.read(c.PRIVATE / c.read(c.PRIVATE / 'active-plan.json').get('github_sync_path', 'github-preflight-sync.json'))['state']}
     cap_source = 3 if (c.PRIVATE / 'source-budget-approval.json').exists() else 2
@@ -90,10 +90,10 @@ def main():
              'decisions': {name: row['PASS'] for name, row in decisions.items()}, 'actual': actual}
     successful = not stopped and (c.OUT / 'Web-and-upgrade-result.json').exists()
     if successful:
-        tail = c.read(c.PRIVATE / ('r1-final-tail-RO.json' if c.current_freeze()['round'] else 'final-tail-RO.json'))
+        tail = c.read(c.PRIVATE / ('r%s-final-tail-RO.json' % c.current_freeze()['round'] if c.current_freeze()['round'] else 'final-tail-RO.json'))
         facts['tail'] = verify_tail(tail)
         assert actual['RO_total'] == actual['RO_closed'] and actual['source_READONLY'] == cap_source
-        assert (c.OUT / ('source-final-preserved-r1.json' if c.current_freeze()['round'] else 'source-final-preserved.json')).exists()
+        assert (c.OUT / ('source-final-preserved-r%s.json' % c.current_freeze()['round'] if c.current_freeze()['round'] else 'source-final-preserved.json')).exists()
         assert actual['commit_unknown'] == 0
         facts['upgrade'] = c.read(c.OUT / 'Web-and-upgrade-result.json')
         facts['visual_review'] = c.read(c.OUT / 'visual-review.json')

@@ -1,0 +1,65 @@
+[
+  {
+    "file": "sd-addons/ydental_clinical/models/ydental_clinical_service.py",
+    "loaded_code_equals_fixed_compile": true,
+    "method": "_operate",
+    "model": "ydental.clinical.service",
+    "source_sha256": "bb601a4d231585281cf569def652f78205993cf2d73f8273ae2cf50d620f6709"
+  },
+  {
+    "file": "sd-addons/ydental_clinical/models/ydental_clinical_service.py",
+    "loaded_code_equals_fixed_compile": true,
+    "method": "_acquire",
+    "model": "ydental.clinical.service",
+    "source_sha256": "bb601a4d231585281cf569def652f78205993cf2d73f8273ae2cf50d620f6709"
+  },
+  {
+    "file": "sd-addons/ydental_clinical/models/ydental_clinical_service.py",
+    "loaded_code_equals_fixed_compile": true,
+    "method": "_append",
+    "model": "ydental.clinical.service",
+    "source_sha256": "bb601a4d231585281cf569def652f78205993cf2d73f8273ae2cf50d620f6709"
+  },
+  {
+    "file": "sd-addons/ydental_queue/models/ydental_queue_service.py",
+    "loaded_code_equals_fixed_compile": true,
+    "method": "_locks",
+    "model": "ydental.queue.service",
+    "source_sha256": "a5b3a037a2be9992edf5867b3d401b351e4a74820d36fcc8764d46e0cc1c2a6e"
+  },
+  {
+    "file": "sd-addons/ydental_queue/models/ydental_intake_service.py",
+    "loaded_code_equals_fixed_compile": true,
+    "method": "_all_locks",
+    "model": "ydental.intake.service",
+    "source_sha256": "a36e91c0558ed1cd7b5f68bbc5087a0f2425e2c80b95bb46934bd320f8c18c65"
+  },
+  {
+    "file": "sd-addons/ydental_settlement/models/ydental_settlement_original_service.py",
+    "loaded_code_equals_fixed_compile": true,
+    "method": "_original_invoice",
+    "model": "ydental.settlement.service",
+    "source_sha256": "e579903e43a3464107fa35476a97a4520d1b9880724157181833a8a1a303c401"
+  },
+  {
+    "file": "sd-addons/ydental_settlement/models/ydental_settlement_original_service.py",
+    "loaded_code_equals_fixed_compile": true,
+    "method": "_bill_original_bytes",
+    "model": "ydental.settlement.service",
+    "source_sha256": "e579903e43a3464107fa35476a97a4520d1b9880724157181833a8a1a303c401"
+  },
+  {
+    "file": "sd-addons/ydental_settlement/models/ydental_settlement_service.py",
+    "loaded_code_equals_fixed_compile": true,
+    "method": "_refund_execute",
+    "model": "ydental.settlement.service",
+    "source_sha256": "5bd0a86124b44df8d34d3f2511487850e6768ce8e268649589f444ac126d2031"
+  },
+  {
+    "file": "sd-addons/ydental_settlement/models/ir_attachment_original.py",
+    "loaded_code_equals_fixed_compile": true,
+    "method": "_find_record",
+    "model": "ir.binary",
+    "source_sha256": "ada928467b05099a5eb570e1e8f972eabe25f588dfbacee81b7c75985ce73864"
+  }
+]

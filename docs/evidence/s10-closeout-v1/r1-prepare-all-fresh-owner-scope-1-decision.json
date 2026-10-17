@@ -1,0 +1,7 @@
+{
+  "PASS": true,
+  "evidence_first": true,
+  "result": {
+    "new_bound_ordinary_sessions_only": true
+  }
+}

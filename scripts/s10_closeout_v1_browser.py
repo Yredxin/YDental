@@ -221,7 +221,7 @@ async def main():
                 return
             await click_original(page, 'A-after-document-original-v1')
             after_A = await asyncio.to_thread(c.readonly, 'A-after-real-UI-retake')
-            before_A = c.read(c.PRIVATE / 'r1-D-recovered-committed-RO.json')
+            before_A = c.read(c.PRIVATE / 'r%s-D-recovered-committed-RO.json' % c.current_freeze()['round'])
             c.persist('A-real-UI-storage-window', before_A, after_A, original_gate)
 
             # Authenticated and genuinely anonymous finite native binary/RPC matrix.

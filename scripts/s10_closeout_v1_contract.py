@@ -78,16 +78,20 @@ def current_freeze():
 
 
 def stopped():
-    if (PRIVATE / 'STOP-r1.json').exists():
-        return True
-    if not (PRIVATE / 'STOP.json').exists():
-        return False
     freeze = current_freeze()
-    if freeze['round'] != 1:
-        return True
+    round_no = freeze['round']
+    if (PRIVATE / ('STOP-r%s.json' % round_no)).exists(): return True
+    if not (PRIVATE / 'STOP.json').exists(): return False
+    if round_no == 2:
+        permit = PRIVATE / 'repair-r2-proof.json'
+        if not permit.exists(): return True
+        proof = read(permit)
+        return not (proof['same_collector_defect_proven'] and proof['R1_acquire_independently_rolled_back']
+                    and proof['preserved_R1_STOP_sha256'] == sha((PRIVATE/'STOP-r1.json').read_bytes())
+                    and proof['final_repair_within_original_two_round_cap'])
+    if round_no != 1: return True
     permit = PRIVATE / 'repair-r1-approved.json'
-    if not permit.exists():
-        return True
+    if not permit.exists(): return True
     proof = read(permit)
     return not (proof['same_clone_only'] and proof['source_extra_final_RO_explicitly_approved']
                 and proof['preserved_R0_STOP_sha256'] == sha((PRIVATE / 'STOP.json').read_bytes())
@@ -246,7 +250,7 @@ def readonly(label, source=False, full=False):
             assert approval['source'] == SOURCE and approval['oid'] == SOURCE_OID and approval['cluster'] == CLUSTER
             assert approval['source_cap'] == 3 and approval['total_explicit_RO_cap'] == 28 and approval['terminal_only']
             cap = 3
-        assert label in {'source-before', 'source-final', 'source-final-r1'}
+        assert label in {'source-before', 'source-final', 'source-final-r1', 'source-final-r2'}
         assert sum(e['event'] == 'RO_intent' and e.get('database') == SOURCE for e in events) < cap
     event('RO_intent', label=label, database=database)
     conn = psycopg2.connect(dbname=database, connect_timeout=5, options='-c default_transaction_read_only=on ' + OPTIONS, **credentials())
@@ -279,7 +283,7 @@ def filetree(root):
 
 
 def stop(reason):
-    path = PRIVATE / ('STOP-r1.json' if current_freeze()['round'] else 'STOP.json')
+    path = PRIVATE / ('STOP-r%s.json' % current_freeze()['round'] if current_freeze()['round'] else 'STOP.json')
     if not path.exists():
         save(path, {'reason': reason, 'no_new_business': True})
     event('STOP', reason=reason)
