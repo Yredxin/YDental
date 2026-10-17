@@ -3164,6 +3164,21 @@
       "old_prefix_sha256": "b35553436df590f35a055d43c597eb3b6b6585260f4bcb9c60eb156b0d1497e7",
       "not_application_acceptance": true
     },
-    "old_RUNTIME_records_preserved": true
+    "old_RUNTIME_records_preserved": true,
+    "github_sync": {
+      "message_id": "YD-S10-LC2-CODE-REWORK-20261017-01",
+      "scope": "SOURCE_AND_PURE_OFFLINE_ONLY",
+      "status": "POSTED_FULL_API_READBACK_BYTE_EQUAL",
+      "comment_id": 6234908035,
+      "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6234908035",
+      "utf8_bytes": 6328,
+      "sha256": "1944324e9636e600e78dbbfc253102be65beb703da18b6cbf22cf8a253c5c4f2",
+      "product_commit": "ad7d5311dbe7efe687a1dd00776eee8083879541",
+      "test_commit": "984db5ab011602547405bd32f5c7c9c6b7d852bb",
+      "evidence_commit": "8bb6f19d9231726ad154add090538afc7f0c7908",
+      "verified_at_utc": "2026-10-17T14:11:11.682797+00:00",
+      "runtime_resumed": false,
+      "tests_repeated_for_sync": false
+    }
   }
 }
