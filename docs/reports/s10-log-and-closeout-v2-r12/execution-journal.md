@@ -33,3 +33,5 @@
 开发统一142/0fail/1error/0skip（14:45:14.575832Z、PID1184216、exit1）首次异常：close重复require_unfrozen覆盖已知Native返回，旧断言不改；修后开发146/0/0/0（14:46:46.879455Z、PID1185130、exit0）。独立审查再发现scratch grant未消费与Native/producer首因顺序，补四纯对照并重排。P `cf5d63fe510b52ea150d07495bf3062f4ce0961d` / T `83e14b75e29aa49ceff26410236df13424f30163` 冻结后最终150/0/0/0，14:49:37.529040Z—14:49:38.900951Z、PID1186976、工具exit0；49源码前后/当前一致、原100ID子集全部保留。开发与最终结果分别保全，未重跑任何业务。后续只报告/独立签署/线性同步，无运行授权。
 
 独立acceptance最后追加结束后复核最终报告43870B/SHA d0ff516bf71ad81e1ec4e0b84f5eb0b62ab2c5d0486f941913b5701144d0a2b9，更新主控此前对追加中43733B快照的索引；38113B旧前缀不变。仅报告摘要校正，无源码或测试变化/重跑。
+
+本轮真实[CODEX交付6235370883](https://github.com/Yredxin/YDental/issues/34#issuecomment-6235370883)已发表并API全文逐字节读回：5682 UTF-8 bytes/SHA256 `1d3ba89306caceb3cfd4e164ff574140f5de9b81a4e8d9fbbf5204b27ee77711`。证据固定`ff10a033dede4d6c01685e1ec4aa3e88e4e68c7a`；后续提交仅此同步回执，不改变固定P/T或重复测试。不是GPT新复核、人工转发或平台限制解除。

@@ -14,6 +14,8 @@
 
 仍需真实验证的最小项仅为：获独立合法运行准入后执行六框架（包含实际HttpCase与日志/累计预算/停止协同）、已有GPR/RPC/UI契约，以及原S10权限/原件/资金和双E回归。本轮未授权这些动作。推荐GPT对本固定源码作技术复核，S10及生产继续BLOCKED。
 
+本轮真实[CODEX交付6235370883](https://github.com/Yredxin/YDental/issues/34#issuecomment-6235370883)已发表并API全文逐字节读回：5682 UTF-8 bytes/SHA256 `1d3ba89306caceb3cfd4e164ff574140f5de9b81a4e8d9fbbf5204b27ee77711`。证据固定`ff10a033dede4d6c01685e1ec4aa3e88e4e68c7a`；后续提交仅此同步回执，不改变固定P/T或重复测试。不是GPT新复核、人工转发或平台限制解除。
+
 ---
 
 以下为上一轮源码返工及R1.2历史，原文保留：

@@ -3318,7 +3318,18 @@
     "s10_business": "NOT_RUN_BLOCKED",
     "new_application_database_http_browser_pdf_money_upgrade_dispatches": 0,
     "github_sync": {
-      "status": "PENDING"
+      "status": "SYNCED_FULL_API_READBACK",
+      "message_id": "YD-S10-LC2-CODE-REWORK-20261017-02",
+      "comment_id": 6235370883,
+      "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6235370883",
+      "full_api_readback": true,
+      "body_utf8_bytes": 5682,
+      "body_utf8_sha256": "1d3ba89306caceb3cfd4e164ff574140f5de9b81a4e8d9fbbf5204b27ee77711",
+      "product_commit": "cf5d63fe510b52ea150d07495bf3062f4ce0961d",
+      "test_commit": "83e14b75e29aa49ceff26410236df13424f30163",
+      "evidence_commit": "ff10a033dede4d6c01685e1ec4aa3e88e4e68c7a",
+      "not_a_gpt_review_or_relay": true,
+      "runtime_authorized_or_restored": false
     }
   }
 }
