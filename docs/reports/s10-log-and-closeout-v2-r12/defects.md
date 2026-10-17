@@ -38,3 +38,9 @@
 ## FRAMEWORK6 原生集成验证 / YD-S10-LC2-FRAMEWORK6-20261017-01
 
 TR01源码接受后在现scratch第一次真实运行五TransactionCase+一HttpCase，共6/0fail/0error/0skip、exit0，native请求确实到达并返回原生AccessError。原六测试及断言未改，不重开TR01源问题。必要新profile把旧epoch/授权/root和新两小时/单scratch/局部预算分开，累计计数继承，旧STOP不动；静态审修正canonical构造及deadline后保primary，不重跑150。后处理一次hash域前缀假设错误已修并保存第一回执，不算原生测试FAIL/不补跑。原生依赖WARN保留不宣称无warning，本限定任务不扩产品维护。全GPR UI/403/409/303、A—E、PDF及S10仍NOT_RUN/BLOCKED。
+
+
+## MAIN-A限定执行 YD-S10-LC2-MAIN-A-20261018-01
+
+- 取证后处理datetime序列化TypeError：仅RO关闭后发生，保留首次脚本/失败，改为ISO8601后第二RO保存PASS。消耗两条RO，不伪称一次或业务失败。
+- LOGIN_INPUT_UNAVAILABLE：未提供当前正常授权登录/provider；旧被拒账户材料不接手。A-STATE通过有限基线，A-EDITOR/A-ORIGINAL仍BLOCKED/NOT_RUN，工具静态准备不替代真实验收。

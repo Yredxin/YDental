@@ -155,5 +155,43 @@
     "actual_parent_pid": 1210624,
     "actual_odoo_pid": 1210698,
     "independent_tester_application_acceptance_claimed": false
+  },
+  "main_a": {
+    "message_id": "YD-S10-LC2-MAIN-A-20261018-01",
+    "controller": "/root: unique finite main RO executor and Git/report owner; self-observation, not independent tester application acceptance",
+    "developer": "/root/developer_main_a: newly derived real canonical role, six tool files only; stopped before freeze",
+    "acceptance": "/root/acceptance_main_a: independently reviews finite evidence and source, append-only acceptance-review.md",
+    "original_tester": "historical errored unchanged, not triggered/replaced; refused account task not accessed",
+    "thread_identifiers": "canonical task names actually exposed; no invented internal UUID/OS sandbox",
+    "file_owners": {
+      "developer": [
+        "scripts/s10_lc2_task_profile.py",
+        "scripts/s10_lc2_evidence.py",
+        "scripts/s10_lc2_targets.py",
+        "scripts/s10_lc2_launch.py",
+        "scripts/s10_lc2_http.py",
+        "scripts/s10_lc2_browser.py"
+      ],
+      "controller": [
+        "private finite observer/metadata",
+        "summary/matrix/defects/journal/roster",
+        "Git/GitHub sync"
+      ],
+      "acceptance": [
+        "acceptance-review.md appended final section"
+      ]
+    },
+    "product_commit": "cf5d63fe510b52ea150d07495bf3062f4ce0961d",
+    "tools_commit": "f309511fbcbd746708a06ce9b24bf1eab340da4c",
+    "actual_application_executor": null,
+    "native_framework_tests_rerun": false,
+    "independent_acceptance": {
+      "canonical": "/root/acceptance_main_a",
+      "status": "A_STATE_FINITE_BASELINE_ACCEPTED / A_EDITOR_AND_ORIGINAL_BLOCKED_LOGIN_INPUT / A_GROUP_INCOMPLETE / S10_EXIT_BLOCKED",
+      "report": "docs/reports/s10-log-and-closeout-v2-r12/acceptance-review.md",
+      "bytes": 62754,
+      "sha256": "53ae3113ed73b2fb5e556fcea56f1a26cbe628738af243b3dbf1bf8a0f8cf021",
+      "scope": "INDEPENDENT_SOURCE_AND_FINITE_SAVED_EVIDENCE_REVIEW_NOT_APPLICATION_TEST_EXECUTION"
+    }
   }
 }

@@ -2432,7 +2432,21 @@
         "TR-02",
         "TR-04"
       ],
-      "code_rework_does_not_satisfy_required_runtime_layers": true
+      "code_rework_does_not_satisfy_required_runtime_layers": true,
+      "main_a_observation": {
+        "id": "A-STATE",
+        "status": "PASS_BASELINE_ONLY",
+        "execution": "EXECUTED",
+        "layers": [
+          "INDEPENDENT_MAIN_RO_NATIVE_STORED_FACTS"
+        ],
+        "evidence": {
+          "path": ".local/s10-lc2-main-a-20261018-01/main-preflight.json",
+          "bytes": 14983,
+          "sha256": "13eed1c165b616210ffe6b611e9ef24f9cdde7f783f505250dd5205e519e16a9"
+        },
+        "details": "60 relevant tables /1034 rows exact SHA comparison with last valid main checkpoint; 93 installed module name/state/version tuples equal; document1 confirmed/v4, versions9→10 author7; no conflicting connection; retained v1 actual file baseline SHA equal. Limited domain measurement, not whole-database terminal audit."
+      }
     },
     "A-EDITOR": {
       "required_layers": [
@@ -2461,7 +2475,17 @@
         "TR-02",
         "TR-04"
       ],
-      "code_rework_does_not_satisfy_required_runtime_layers": true
+      "code_rework_does_not_satisfy_required_runtime_layers": true,
+      "main_a_observation": {
+        "id": "A-EDITOR",
+        "status": "BLOCKED",
+        "execution": "NOT_RUN",
+        "layers": [
+          "STATIC",
+          "INDEPENDENT_MAIN_RO_PRECONDITION"
+        ],
+        "reason": "LOGIN_INPUT_UNAVAILABLE: no current authorized login/provider was supplied; prior refused account materials not read or reused. Stored editor7/session109 expired, not released. No acquire/release dispatched."
+      }
     },
     "A-ORIGINAL": {
       "required_layers": [
@@ -2491,7 +2515,17 @@
         "TR-03",
         "TR-04"
       ],
-      "code_rework_does_not_satisfy_required_runtime_layers": true
+      "code_rework_does_not_satisfy_required_runtime_layers": true,
+      "main_a_observation": {
+        "id": "A-ORIGINAL",
+        "status": "BLOCKED",
+        "execution": "NOT_RUN",
+        "layers": [
+          "STATIC",
+          "INDEPENDENT_MAIN_RO_FILE_BASELINE"
+        ],
+        "reason": "LOGIN_INPUT_UNAVAILABLE: no authorized workbench login. Existing stored file SHA is only baseline; no Firefox/click/download/GET/PDF_VISUAL performed."
+      }
     },
     "B-MODEL-6": {
       "required_layers": [
@@ -3576,5 +3610,188 @@
       "LOG-07": "actual owned parent/child exit0/sealed end PASS_SCOPED; historic Native root cause UNKNOWN",
       "LOG-12": "D/E NOT_RUN; six framework tests do not grant stage exit"
     }
+  },
+  "main_a": {
+    "message_id": "YD-S10-LC2-MAIN-A-20261018-01",
+    "scope": "EXISTING_MAIN_DOCUMENT_AND_ORIGINAL_CLOSEOUT",
+    "parent_commit": "72ac77e0c73695fdfeb50326bbae1dcb27407e04",
+    "status": "A_STATE_BASELINE_VERIFIED_REMAINING_A_BLOCKED_LOGIN_INPUT",
+    "product_commit": "cf5d63fe510b52ea150d07495bf3062f4ce0961d",
+    "test_tools_commit": "f309511fbcbd746708a06ce9b24bf1eab340da4c",
+    "core_commit": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+    "database": "ydental_s10_test_20261017105432_810a7d9c",
+    "oid": 2144129,
+    "cluster": "7694897083368259627",
+    "port": 18410,
+    "received_at_utc": "2026-10-17T22:59:58.753601+00:00",
+    "deadline_utc": "2026-10-18T00:59:58.753601+00:00",
+    "rows": [
+      {
+        "id": "A-STATE",
+        "status": "PASS_BASELINE_ONLY",
+        "execution": "EXECUTED",
+        "layers": [
+          "INDEPENDENT_MAIN_RO_NATIVE_STORED_FACTS"
+        ],
+        "evidence": {
+          "path": ".local/s10-lc2-main-a-20261018-01/main-preflight.json",
+          "bytes": 14983,
+          "sha256": "13eed1c165b616210ffe6b611e9ef24f9cdde7f783f505250dd5205e519e16a9"
+        },
+        "details": "60 relevant tables /1034 rows exact SHA comparison with last valid main checkpoint; 93 installed module name/state/version tuples equal; document1 confirmed/v4, versions9→10 author7; no conflicting connection; retained v1 actual file baseline SHA equal. Limited domain measurement, not whole-database terminal audit."
+      },
+      {
+        "id": "A-EDITOR",
+        "status": "BLOCKED",
+        "execution": "NOT_RUN",
+        "layers": [
+          "STATIC",
+          "INDEPENDENT_MAIN_RO_PRECONDITION"
+        ],
+        "reason": "LOGIN_INPUT_UNAVAILABLE: no current authorized login/provider was supplied; prior refused account materials not read or reused. Stored editor7/session109 expired, not released. No acquire/release dispatched."
+      },
+      {
+        "id": "A-ORIGINAL",
+        "status": "BLOCKED",
+        "execution": "NOT_RUN",
+        "layers": [
+          "STATIC",
+          "INDEPENDENT_MAIN_RO_FILE_BASELINE"
+        ],
+        "reason": "LOGIN_INPUT_UNAVAILABLE: no authorized workbench login. Existing stored file SHA is only baseline; no Firefox/click/download/GET/PDF_VISUAL performed."
+      }
+    ],
+    "new_resource_counts": {
+      "target_ro": 2,
+      "odoo_start": 0,
+      "http": 0,
+      "firefox": 0,
+      "original_get": 0,
+      "maintenance": 0,
+      "create": 0,
+      "scratch_or_protected_source_connections": 0,
+      "business_editor_write": 0,
+      "dynamic_pdf": 0,
+      "funds": 0,
+      "upgrade": 0
+    },
+    "cumulative_counts": {
+      "accident_ro": 2,
+      "create": 2,
+      "firefox": 0,
+      "http": 1,
+      "maintenance": 1,
+      "odoo_start": 2,
+      "original_get": 0,
+      "target_ro": 11
+    },
+    "application_dispatched": false,
+    "normal_login_input_requested": true,
+    "old_refused_materials_accessed": false,
+    "submitted_business_operations": [],
+    "persistent_install_or_upgrade": false,
+    "first_failure_preserved": {
+      "path": ".local/s10-lc2-main-a-20261018-01/first-preflight-failure.json",
+      "bytes": 594,
+      "sha256": "24d8dcf0974fb8c8b96f4a62e2aedf85fda97acee20985a7c4cd6fbfa7149cce"
+    },
+    "observer_receipts": {
+      "path": ".local/s10-lc2-main-a-20261018-01/observer-tool-receipts.json",
+      "bytes": 896,
+      "sha256": "e6ac35d7073430db4b1bcfd2121564ab34e59ae9ad1a1093caa9e12db174ebca"
+    },
+    "preflight_validation": {
+      "path": ".local/s10-lc2-main-a-20261018-01/main-preflight-validation.json",
+      "bytes": 257,
+      "sha256": "5364418a5ba59143bdd21b3ef2a94521aa2c2fe83859672bb5f2e9399b4eeea1"
+    },
+    "effective_before_after": "two read-only observations only; first capture post-close serialization failed; second valid finite checkpoint; no application/post-business checkpoint claimed",
+    "independent_acceptance": {
+      "canonical": "/root/acceptance_main_a",
+      "status": "A_STATE_FINITE_BASELINE_ACCEPTED / A_EDITOR_AND_ORIGINAL_BLOCKED_LOGIN_INPUT / A_GROUP_INCOMPLETE / S10_EXIT_BLOCKED",
+      "report": "docs/reports/s10-log-and-closeout-v2-r12/acceptance-review.md",
+      "bytes": 62754,
+      "sha256": "53ae3113ed73b2fb5e556fcea56f1a26cbe628738af243b3dbf1bf8a0f8cf021",
+      "scope": "INDEPENDENT_SOURCE_AND_FINITE_SAVED_EVIDENCE_REVIEW_NOT_APPLICATION_TEST_EXECUTION"
+    },
+    "s10_t12_status": "BLOCKED",
+    "framework6_previously_accepted": "6242631423; not rerun",
+    "recommendation": "Provide a currently authorized clinical actor7 login and authorized billing/export workbench login through a private credential provider; then complete only remaining A within an explicitly valid scoped window, with fresh identity/lock checks. Do not recover old refused materials or reset passwords.",
+    "private_raw_index": {
+      "path": ".local/s10-lc2-main-a-20261018-01/main-a-raw-index.json",
+      "bytes": 3149,
+      "sha256": "2dc829aa9f349c540c7d28b743b47c89cdc4c4855c9c3caba093974bb407d524"
+    },
+    "developer_offline_check": {
+      "status": "PASS",
+      "kind": "ONE_FINAL_CANDIDATE_OFFLINE_SYNTHETIC_HARNESS_NOT_NATIVE_TEST_COUNT",
+      "exit": 0,
+      "source_files_compiled": 6,
+      "result_private_ref": {
+        "private_path": ".local/s10-lc2-main-a-20261018-01/developer-main-a-offline-check.stdout.json",
+        "bytes": 834,
+        "sha256": "a6f5afed4a167552ecc558b40c06278d711349d3d30a0db3d9611bbacf5b024d"
+      }
+    },
+    "storage_measurement": {
+      "measured_utc": "2026-10-17T23:12:23.592975+00:00",
+      "roots": [
+        {
+          "root": ".local/s10-lc2-safety-triage-20261017-01",
+          "files": 5,
+          "bytes": 13586
+        },
+        {
+          "root": ".local/s10-lc2-framework6-20261017-01",
+          "files": 55,
+          "bytes": 507927
+        },
+        {
+          "root": ".local/s10-lc2-r12-20261017",
+          "files": 498,
+          "bytes": 15254942
+        },
+        {
+          "root": ".local/s10-lc2-caller-adapter-20261017-02",
+          "files": 27,
+          "bytes": 341943
+        },
+        {
+          "root": ".local/s10-lc2-plan-20261017",
+          "files": 18,
+          "bytes": 6177106
+        },
+        {
+          "root": ".local/s10-lc2-code-rework-20261017-01",
+          "files": 28,
+          "bytes": 125944
+        },
+        {
+          "root": ".local/s10-lc2",
+          "files": 314,
+          "bytes": 68390519
+        },
+        {
+          "root": ".local/s10-lc2-main-a-20261018-01",
+          "files": 28,
+          "bytes": 3367895
+        },
+        {
+          "root": ".local/s10-lc2-exec-20261017",
+          "files": 1449,
+          "bytes": 41820179
+        }
+      ],
+      "cumulative_bytes": 136000041,
+      "new_root_bytes": 3367895,
+      "limits": {
+        "new": 268435456,
+        "cumulative": 1073741824
+      },
+      "metadata_only_no_database_connection": true
+    },
+    "eligibility_runtime_status": "NOT_RUN_REQUIRES_CURRENT_AUTHORIZED_SESSION",
+    "old_editor_state": "EXPIRED_STORED_EDITOR7_SESSION109_NOT_RELEASED",
+    "runtime_ready": false
   }
 }

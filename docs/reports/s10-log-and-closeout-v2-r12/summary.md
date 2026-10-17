@@ -1,3 +1,26 @@
+# 当前MAIN-A：基线已核，编辑收尾及工作台重取受登录输入阻塞
+
+用户直接批准`YD-S10-LC2-MAIN-A-20261018-01`，父`72ac77e0c73695fdfeb50326bbae1dcb27407e04`，承接[六项采纳6242631423](https://github.com/Yredxin/YDental/issues/34#issuecomment-6242631423)。product保持`cf5d63fe510b52ea150d07495bf3062f4ce0961d`，本轮工具固定`f309511fbcbd746708a06ce9b24bf1eab340da4c`，core保持只读。新START[6242855166](https://github.com/Yredxin/YDental/issues/34#issuecomment-6242855166)全文1732B/SHA`fb2d9d5bbc1961a8b5510cbc8765471ed8d39644fefc8ab87f3af3690f221d42`API读回一致。旧150/六项及下方历史报告保留，本次未重跑。
+
+|A组|当前结果|实际证据层级|
+|---|---|---|
+|A-STATE|PASS_BASELINE_ONLY|两次main限定RO；第二次保存有效，60相关表1034行与最后有效检查点一致，93已装模块一致|
+|A-EDITOR|BLOCKED / NOT_RUN|仅静态与只读前提，editor7/session109过期存储仍在，未acquire/release|
+|A-ORIGINAL|BLOCKED / NOT_RUN|仅现存原件基线同SHA；没有工作台点击、下载或逐页复核|
+
+唯一main OID2144129/cluster7694897083368259627/18410，文书1仍confirmed/v4，v9(confirm/v3/author7)→v10(correct/v4/author7)不变。原件1/附件161留存27665B/SHA`05928780e7d97a06cf29019634f64b010eb4994c2f1c5032d561008a50b059b4`；这不是浏览器重取通过。当前执行1为handover，actor7 active，但真实授权会话/编辑资格须正常登录后再核，不由静态推定实际通过。
+
+具体阻断：当前任务没有可用的正常授权登录输入或明确私有凭据provider，已向用户询问；未读取旧被拒账户材料、重置密码、伪造会话或使用测试替身。因而未启动Odoo、HTTP、Firefox及任何编辑写入，已提交业务操作清单为空。建议由用户提供当前合法临床actor7与结算原件read/export账号的私有入口后，仅完成剩余A；不扩B/C、D、双E。
+
+主控`/root`实际RO自测；新真实`/root/developer_main_a`独占六工具脚本最小接入；`/root/acceptance_main_a`独立审查原始有限证据及代码、仅追加验收报告。历史tester未重派。工具增加固定MAIN-A metadata/单main-service/1200秒和局部累计预算、A专用HTTP窄路由与现有浏览器只下载入口；产品与六测试源码未改，新浏览器路径未实测，不称RUNTIME_READY。
+
+首次RO在rollback/close后保存datetime遇TypeError，第一脚本及失败保留；仅修取证ISO规范化后第二次RO保存成功，无业务重试。有效原始记录`main-preflight.json`14983B/SHA`13eed1c165b616210ffe6b611e9ef24f9cdde7f783f505250dd5205e519e16a9`。新增RO2，Odoo/HTTP/Firefox/GET/资金/动态PDF/升级/维护/CREATE/来源及scratch连接全0；累计Odoo2/12、RO11/48、HTTP1/600、Firefox0/3、GET0/12。旧STOP与全部旧证据保全；窗口2026-10-17T22:59:58.753601+00:00至2026-10-18T00:59:58.753601+00:00，不因缺输入延长或自动复活。
+
+新增一次最终候选纯合成harness exit0，六工具compile及预派发边界PASS；不是原生测试数，不与旧150/六项相加。新raw约3.37MB，全LC2九根约136MB，低于256MiB/1GiB。独立验收见既有acceptance-review.md本轮追加。S10/T12与生产仍BLOCKED；没有新的Native事故，历史根因UNKNOWN。本组仅交实际已完成部分及具体输入阻断，最终同步状态随GitHub回执记录。
+
+---
+以下为原FRAMEWORK-6及更早历史全文，保留其当时状态和签署。
+
 # 当前FRAMEWORK-6：六项原生框架PASS，等待GPT复核；S10仍BLOCKED
 
 本轮`YD-S10-LC2-FRAMEWORK6-20261017-01`，`EXISTING_SCRATCH_NATIVE_FRAMEWORK_ONLY`，用户直接批准[正式限定任务6235542536](https://github.com/Yredxin/YDental/issues/34#issuecomment-6235542536)，承接[源码接受6235473696](https://github.com/Yredxin/YDental/issues/34#issuecomment-6235473696)。父`b99bb431315d201b4591e50785206779ac7fb524`；已接受产品保持`cf5d63fe510b52ea150d07495bf3062f4ce0961d`，本轮工具/测试固定`a910106050073c85b657b1e8762fda31fd43ee6d`，core只读`f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb`未改。下方源码150项及R1.2历史原文保留，本轮不重跑150，也不恢复原整包。

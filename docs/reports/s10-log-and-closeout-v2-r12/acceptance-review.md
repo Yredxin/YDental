@@ -251,3 +251,32 @@ HttpCase 的 HTTP200、RPC `odoo.exceptions.AccessError`、英文 arguments `['A
 矩阵只新增 framework6 局部原生证据；旧 logs/s10/group_cases/tc_evidence_requirements/code_rework/tr01_caller_adapter 对象与父 b99 全同，六项测试源码全字节同父，未弱化断言。LOG01/02/03/04/06/07 得到本六项限定支持；单请求不能填两请求并发、模拟强制审计故障不填真实持久 I/O 故障；LOG12 与所有 S10 整行退出状态不因六项而升级。未用历史150纯测试冒本轮运行，也未把本次原生六项扩充为完整应用验收。
 
 最终独立结论：本次明确授权的五项 TransactionCase 加一项实际 HTTP HttpCase **局部原生六项已完成且有据可采纳**，可由主控正常固定证据并提交 GPT 技术复核。S10、生产及剩余业务/完整 UI403/409/303、浏览器、真实动态 PDF/资源准入、A/B/C/D/E 完整收尾、带业务双库 E 仍为 NOT_RUN/BLOCKED；历史 Native 根因继续 UNKNOWN。本追加不授予任何后续运行、不解除旧 STOP、不替代 GPT 复核。审核者完成本节后停止写入，后续 GitHub 实际同步由主控另行记录。
+
+
+## MAIN-A 独立验收追加 / 2026-10-17T23:12:28Z
+
+本节适用于用户直接批准的 `YD-S10-LC2-MAIN-A-20261018-01`，结论为 **A_STATE_FINITE_BASELINE_ACCEPTED / A_EDITOR_AND_ORIGINAL_BLOCKED_LOGIN_INPUT / A_GROUP_INCOMPLETE / S10_EXIT_BLOCKED**。这里只采本次实际完成的限定 main 只读基线和工具静态准备；没有合法编辑收尾、真实工作台旧原件取回或应用验收通过。既有 53,562 字节全部保留，前缀 SHA256 为 `87888fc42026fcf4e8c751ed5476f0c9615ce87dfa4b12e28254af336a3faba8`。
+
+独立验收者为本轮真实新派生 `/root/acceptance_main_a`，只读源码、有限有效基线及本轮证据，只追加本文件；主控 `/root` 是两次 RO 的实际执行者，按 `CONTROLLER_INDEPENDENT_RO_SELF_OBSERVATION` 登记。developer `/root/developer_main_a` 独占六工具并已停写。原 tester 未触发或恢复，本次没有独立 tester 应用重跑；canonical 名称是实际接口标识，不虚构内部 UUID 或独立 OS 沙箱。审核者没有连接 DB/HTTP、启动 Odoo/Firefox/driver/PDF、运行上述 fake harness，也没有读取或接手旧被拒账户材料。
+
+已全文读取主控保存的 `direct-task.md`（明确为本会话用户任务的完整语义转录，非原始附件字节）、`6242631423` 框架接受及 `6235955573` 框架交付全文，读取 `6232709051` 的 A 组和现有三个验收 cell。既采同源 v3/v4、历史 150 纯测试及六项原生框架不重审、不重跑。直接批准独立 MAIN-A 的窗口为 2026-10-17T22:59:58.753601Z—2026-10-18T00:59:58.753601Z；GPT 接受六框架本身不当作 main 运行许可。START `6242855166` 的保存 comment、created response body 与 API readback body 已独立逐字核同，均 1,732 UTF-8 字节、SHA256 `fb2d9d5bbc1961a8b5510cbc8765471ed8d39644fefc8ab87f3af3690f221d42`。审核者未另发网络请求，不把同次保存响应当另一次测量。
+
+固定父 `72ac77e0c73695fdfeb50326bbae1dcb27407e04`，产品保持 `cf5d63fe510b52ea150d07495bf3062f4ce0961d`，本轮工具固定 `f309511fbcbd746708a06ce9b24bf1eab340da4c`，core 只读 `f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb`。六工具 diff、关键调用上下文及 developer 停写的六个当前源码 SHA 已逐一核同；产品 addon 与固定六测试未改。MAIN-A profile 绑定固定任务/起止/父/唯一 main、仅 `main-service`、1200 秒应用上限及局部 3/8/200/1/3 资源，累计基线 2/9/1/0/0 继承。HTTP 窄边界限正常登录、店1、文书1 acquire/release 和原件1；拒绝 confirm、动态 PDF、结算写入和其他 RPC。独立提出的新 MAIN-A 浏览器入口缺少全入口安全异常包装，developer 已沿用既有 `_safe_browser_entrypoint` 闭环；专用入口只登录、正常切店和真实既有 v1 链接下载，不调用旧 C 组流程。结论仅 `STATIC_MAIN_A_TOOLS_READY_FOR_FREEZE`，没有实际浏览器或应用 RUNTIME_READY。
+
+developer 最终落盘 `developer-main-a-offline-check.py` 及 stdout/stderr/run 已全文读；三份 run refs 的 bytes/SHA/0600 和 stdout 的六源 SHA 与当前源码全部匹配。run SHA256 为 `f5502c2d19ccfaeb7d9532713d9ac7bc54fedcc822bc0de507d99130fa612018`，记录 exit0、约0.165秒。harness 只 compile 六文件、构造合成 ledger/fake budget 并核局部预算/跨库/请求派发前边界，没有 consume、浏览器启动或网络发送；这是单个离线限定校验，不把 assert 循环数量当原生 TC，不与先前未单独落盘的 inline 检查或历史150相加。
+
+两次主控有限 main RO 的脚本、首次失败、有效输出、validation 及实际工具回执已全文阅读。首次实际工具 exit1/0.050762522秒，在 ROLLBACK/CLOSE 后 JSON 保存 datetime 遇 TypeError；首次脚本 SHA 与失败记录匹配，精确首起止未单独保存，诚实 UNKNOWN。只改离线 ISO8601 规范化后第二次重新有限 RO，实际工具 exit0/0.060657192秒；有效观测开始23:09:47.998621Z、观测耗时0.06015714397653937秒。第二次输出 `main-preflight.json` 为14,983字节、0600、SHA256 `13eed1c165b616210ffe6b611e9ef24f9cdde7f783f505250dd5205e519e16a9`。首次失败不冒充业务失败或有效完整保存，不把两个观察拼成应用前后提交链。
+
+有效结果身份为唯一 `ydental_s10_test_20261017105432_810a7d9c` / OID2144129 / cluster7694897083368259627 / 应用用户odoo / backend1695585，RO、REPEATABLE READ、UTC，other connections为空，ROLLBACK 返回且连接已关闭。独立重新核其有效 baseline index SHA、60个选定域共1034行逐表哈希、93个已安装模块 name/state/latest_version 元组，全部与最后有效 main 测量相同。没有 pending 模块。此为有限相关域存储保全，不是重新全库转储或全库最终审计。文书1仍 confirmed/v4、原始作者和负责人7，版本9=confirm/v3/author7/previous2、版本10=correct/v4/author7/previous9；执行1为handover、actor7 active。editor7/session109及存储到期09:09:51仍在，仅过期，不能写已 release；active 与 handover 也不证明当前会话下完整编辑资格已通过。
+
+原件1/附件161仍归同源invoice1/patient1/store1/company1，留存27665字节 SHA256 `05928780e7d97a06cf29019634f64b010eb4994c2f1c5032d561008a50b059b4`。审核者只对两份实际留存 filestore 文件 bytes/SHA 再核，与有限结果一致；没有查看它们代替下载后的逐页目视。源码已核旧 settled 行 v1 链接→`bill-original/<id>`→`_bill_original_bytes`，检查权限/来源/私有无token附件归属和实际 raw SHA 后返回留存字节，并新增下载审计；该路径不调用 renderer 或 create。此静态事实与本地留存基线都不能填真实 Firefox/click/download/HTTP/PDF_VISUAL cell。后续合法 acquire/release 按完整已安装继承链 `queue._locks→intake._all_locks` 及 queue addon override 更新 patient/supply/intake/queue 四个 mutex；每成功请求的精确允许差异应连同 editor 字段、正常会话及审计核验，旧正文/版本/作者/经济域保持。本次这些请求没有派发，没有伪填预期审计或 mutex 差异。
+
+实际缺项是 `LOGIN_INPUT_UNAVAILABLE`：没有提供当前合法临床 actor7 登录与原件查阅/export 工作台登录或明确私有 provider，主控已询问；等待不是输入或批准，未从旧被拒材料补取、重置密码、伪造会话或创建测试替身。因此 A-STATE 为 `PASS_BASELINE_ONLY`；A-EDITOR 和 A-ORIGINAL 均 `BLOCKED / NOT_RUN`。没有 acquire/release、工作台下载、旧原件 GET 或 PDF_VISUAL，不声称 A 组完成。合法输入与届时有效范围具备后仍须重新核真实身份、资格/锁及动作结果，不能凭本节自动恢复运行。
+
+新账本两次 target RO 已计入，新增 Odoo/HTTP/Firefox/旧原件GET/临床编辑写入/动态PDF/资金/升级/maintenance/CREATE/scratch或保护来源连接全0；累计 Odoo2/12、targetRO11/48、HTTP1/600、Firefox0/3、旧原件GET0/12，旧accidentRO2/maintenance1/CREATE2保持。继承 framework6 budget 原字节 SHA 独立核同。没有本轮原生 CLI 调用，先前内部系统连接 UNKNOWN 不回造为0。两条工具退出回执来自主控保存的实际工具返回事实，审核者没有另行 OS/DB 测量。没有新的本任务工具安全拒绝或 Native 事故，不宣称解除旧 STOP 或历史 Native 根因已知。
+
+已全文核本次 summary/matrix/defects/journal/roster 增量及私有 `main-a-verification.json`；其中有效 RO、首次失败、工具回执、validation 四引用的 bytes/SHA 均同。程序比对父72ac77e矩阵，除新增 `main_a` 和三个 A cell 的 `main_a_observation` 外，原全部对象结构相同；旧12LOG/22S10/19TC及六框架状态未冒升。最终可线性保存上述有限基线、工具和具体阻断，交 GPT 复核；A组、S10/T12及生产仍未通过，B/C、D、双E未执行，不启S11。最终 GitHub交付/API同步由主控随后据实记录，本签不预认证尚未发生的同步。
+
+Guidelines read: Odoo review、Odoo security 全文；Odoo guidelines 的 Python imports/naming/static translation、ORM recordsets/methods/transactions、controllers、access rights、XML views/inheritance；本节仅进行所述 A 路径与六工具定向审查，不宣称全 addon 安全审计。最终取钟2026-10-17T23:12:28Z（工具UTC秒精度）；审核者到此停止写入。
+
+封口补核：主控在上述签署并行交付了15份最小 raw 索引及空间快照，审核者随后独立逐份核毕。`main-a-raw-index.json` 为3149字节、SHA256 `2dc829aa9f349c540c7d28b743b47c89cdc4c4855c9c3caba093974bb407d524`，15引用的 bytes/SHA/0600全部匹配。23:12:23.592975Z空间快照为本轮根3,367,895字节、九相关根合计136,000,041字节，九项算术相等且低于256MiB/1GiB；这是当时元数据计量，后续索引/同步小文件另增，未打开旧安全账户材料复算内容。matrix/summary新增 fake harness、raw index及快照引用与所核事实一致，三A结果未变。本次最终签署仍为有限基线接受、其余A前提阻断；审核者到此最终停写。
