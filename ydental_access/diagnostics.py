@@ -33,12 +33,12 @@ _FIELDS = (
     'error_class', 'exception_type', 'root_event_id', 'stack_ref',
     'transaction_phase', 'commit_observation', 'checkpoint_ref',
     'evidence_refs', 'object_ref', 'version_before', 'version_after', 'diff_ref',
-    'audit_ref', 'context_missing',
+    'audit_ref', 'context_missing', 'native_http_log_level', 'diagnostic_log_level',
 )
 _INTS = frozenset({
     'attempt', 'actor_id', 'effective_uid', 'company_id', 'store_id',
     'scope_revision', 'monotonic_ns', 'pid', 'thread_id', 'process_seq',
-    'version_before', 'version_after', 'audit_ref',
+    'version_before', 'version_after', 'audit_ref', 'native_http_log_level', 'diagnostic_log_level',
 })
 _TOKEN = re.compile(r'[A-Za-z0-9_.:/-]{1,160}\Z')
 _CONTEXT = ContextVar('ydental_diagnostic_context', default=None)
@@ -69,9 +69,11 @@ def _lifecycle_event(event, labels, outcome):
     # A process event is not an HTTP request or evidence of a committed unit.
     token = bind_context(**labels)
     try:
+        levels = ({'native_http_log_level': logging.getLogger('odoo.http.server').getEffectiveLevel(),
+                   'diagnostic_log_level': _LOGGER.getEffectiveLevel()} if event == 'run.start' else {})
         emit_event(event, component='ydental_access.diagnostics',
                    stage='process.diagnostics', outcome=outcome,
-                   transaction_phase='NOT_OBSERVED', commit_observation='NOT_OBSERVED')
+                   transaction_phase='NOT_OBSERVED', commit_observation='NOT_OBSERVED', **levels)
     finally:
         reset_context(token)
 
