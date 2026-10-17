@@ -11,6 +11,7 @@ import time
 
 from s10_lc2_logging import strict_loads
 from s10_lc2_supervisor import append_plain, private_file, safe_plain, save_primary
+from s10_lc2_task_profile import LOCAL_LIMITS, SCRATCH, TaskProfile
 
 CORE = 'f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb'
 CLUSTER = '7694897083368259627'
@@ -41,7 +42,12 @@ def save_once(path, value):
 class Budget:
     """One budget owner, durable before dispatch; a failed call still consumes its intent."""
 
-    def __init__(self, directory, *, started_epoch=None, create=True):
+    def __init__(self, directory, *, started_epoch=None, create=True, profile=None):
+        self.profile = profile
+        if profile is not None:
+            if type(profile) is not TaskProfile or Path(directory) != profile.root or create:
+                raise ValueError('FRAMEWORK6_REQUIRES_EXISTING_TASK_BUDGET')
+            profile.verify()
         self.directory = Path(directory)
         self.path = self.directory / 'budget.json'
         self.lock_path = self.directory / 'budget.lock'
@@ -75,12 +81,18 @@ class Budget:
             if before_reserve is not None:
                 before_reserve()
             value = strict_loads(self.path.read_bytes())
-            if time.time() - value['started_epoch'] > 8 * 3600:
+            if self.profile is not None:
+                self.profile.validate_ledger(value)
+                if kind not in LOCAL_LIMITS or value['task_counts'].get(kind, 0) >= LOCAL_LIMITS[kind]:
+                    raise RuntimeError('FRAMEWORK6_RESOURCE_EXHAUSTED:' + kind)
+            elif time.time() - value['started_epoch'] > 8 * 3600:
                 raise RuntimeError('RUN_WINDOW_EXHAUSTED')
             count = value['counts'].get(kind, 0) + 1
             if count > LIMITS[kind]:
                 raise RuntimeError('RESOURCE_EXHAUSTED:' + kind)
             value['counts'][kind] = count
+            if self.profile is not None:
+                value['task_counts'][kind] = value['task_counts'].get(kind, 0) + 1
             temporary = self.path.with_suffix('.next')
             save_once(temporary, value)
             temporary.replace(self.path)
@@ -90,9 +102,16 @@ class Budget:
         return count
 
 
-def runtime_gate(approval_path, *, product_commit, test_commit):
+def runtime_gate(approval_path, *, product_commit, test_commit, profile=None):
     value = strict_loads(Path(approval_path).read_bytes())
-    if (value.get('message_id') != 'YD-S10-LC2-EXEC-20261017-02'
+    expected_message = profile.message_id if profile is not None else 'YD-S10-LC2-EXEC-20261017-02'
+    if profile is not None:
+        profile.verify()
+        if (value.get('authority_sha256') != profile.authority_sha256
+                or set(value.get('allowed_target_names', [])) != {SCRATCH}
+                or set(value.get('allowed_actions', [])) != {'scratch-tests'}):
+            raise RuntimeError('FRAMEWORK6_DISPATCH_SCOPE_INVALID')
+    if (value.get('message_id') != expected_message
             or value.get('start_api_exact_readback') is not True
             or value.get('runtime_dispatched') is not True
             or value.get('product_commit') != product_commit

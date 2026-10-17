@@ -15,6 +15,7 @@ from s10_lc2_logging import strict_loads
 from s10_lc2_runtime import create_targets, prepare_target, source_filestore_inventory
 from s10_lc2_supervisor import safe_plain
 from s10_lc2_framework_caller import FAILURE_NAME, framework_failure_facts
+from s10_lc2_task_profile import LOCAL_LIMITS, TaskProfile
 
 ROOT = Path(__file__).resolve().parents[1]
 LEGACY_EXEC_ROOT = ROOT / '.local/s10-lc2-exec-20261017'
@@ -26,24 +27,35 @@ SOURCE_CAPTURE = LEGACY_EXEC_ROOT / 'admission-r11-final/capture'
 # use their separate exact-launch grant and the same cumulative ledger.
 _DISPATCH_OWNER = None
 _DISPATCH_FAILURE = None
+_PROFILE_FAILURES = {}
 
 
-def freeze_dispatch(failure):
+def freeze_dispatch(failure, profile=None):
     global _DISPATCH_FAILURE
+    if profile is not None:
+        _PROFILE_FAILURES.setdefault(profile.message_id, dict(failure))
+        return
     if _DISPATCH_FAILURE is None:
         _DISPATCH_FAILURE = dict(failure)
 
 
-def require_dispatch_unfrozen():
+def require_dispatch_unfrozen(profile=None):
+    if profile is not None:
+        profile.verify()
+        if (profile.root / FAILURE_NAME).exists():
+            freeze_dispatch(framework_failure_facts(profile.root), profile)
+        if (profile.root / 'HARD-STOP.json').exists() or profile.message_id in _PROFILE_FAILURES:
+            raise RuntimeError('FRAMEWORK6_DISPATCH_FROZEN')
+        return
     if _DISPATCH_FAILURE is None and (EXEC_ROOT / FAILURE_NAME).exists():
         freeze_dispatch(framework_failure_facts(EXEC_ROOT))
     if _DISPATCH_FAILURE is not None:
         raise RuntimeError('APPLICATION_DISPATCH_FROZEN_' + _DISPATCH_FAILURE['reason'])
 
 
-def bind_dispatch_owner(owner):
+def bind_dispatch_owner(owner, profile=None):
     global _DISPATCH_OWNER
-    require_dispatch_unfrozen()
+    require_dispatch_unfrozen(profile)
     if _DISPATCH_OWNER is not None:
         raise RuntimeError('ANOTHER_APPLICATION_DISPATCH_OWNER_ACTIVE')
     _DISPATCH_OWNER = owner
@@ -57,20 +69,36 @@ def release_dispatch_owner(owner):
 
 class PackageBudget(Budget):
     """R1.2 cumulative resources; both evidence windows plus shared owned files."""
+    def __init__(self, directory, *, profile=None, **kwargs):
+        if profile is not None:
+            kwargs.update(create=False, profile=profile)
+        super().__init__(directory, **kwargs)
+
     def consume(self, kind):
-        require_dispatch_unfrozen()
+        require_dispatch_unfrozen(self.profile)
+        if self.profile is not None and kind not in LOCAL_LIMITS:
+            raise RuntimeError('FRAMEWORK6_RESOURCE_NOT_AUTHORIZED')
         if kind in {'accident_ro', 'maintenance', 'create'}:
             raise RuntimeError('R12_NO_PROTECTED_SOURCE_OR_CREATE_DISPATCH')
         if kind in {'http', 'original_get'}:
             if _DISPATCH_OWNER is None:
                 raise RuntimeError('NO_ACTIVE_APPLICATION_DISPATCH_GUARD')
+            owner_profile = getattr(_DISPATCH_OWNER, 'profile', None)
+            if (self.profile is not None and owner_profile != self.profile
+                    or self.profile is None and type(owner_profile) is TaskProfile):
+                raise RuntimeError('APPLICATION_TASK_PROFILE_MISMATCH')
             _DISPATCH_OWNER.check()
         return super().consume(kind)
 
     def check_storage(self):
-        if self.path.exists() and time.time() - strict_loads(self.path.read_bytes())['started_epoch'] > 8 * 3600:
+        if self.profile is not None:
+            self.profile.verify()
+            if sum(p.stat().st_size for p in self.profile.root.rglob('*') if p.is_file() and not p.is_symlink()) >= 256 * 1024 ** 2:
+                raise RuntimeError('FRAMEWORK6_RAW_STORAGE_BOUND')
+        elif self.path.exists() and time.time() - strict_loads(self.path.read_bytes())['started_epoch'] > 8 * 3600:
             raise RuntimeError('RUN_WINDOW_EXHAUSTED')
-        size = sum(path.stat().st_size for base in (LEGACY_EXEC_ROOT, EXEC_ROOT, RUN_ROOT) if base.exists()
+        roots = (LEGACY_EXEC_ROOT, EXEC_ROOT, RUN_ROOT) + ((self.profile.root,) if self.profile else ())
+        size = sum(path.stat().st_size for base in roots if base.exists()
                    for path in base.rglob('*') if path.is_file() and not path.is_symlink())
         if size >= RAW_LIMIT * .9:
             raise RuntimeError('GLOBAL_RAW_STORAGE_PAUSE_AT_90_PERCENT')

@@ -11,6 +11,7 @@ import time
 from s10_lc2_evidence import AUTHORIZATION_EPOCH, Budget, CLUSTER, CORE, LIMITS, RAW_LIMIT, save_once
 from s10_lc2_logging import strict_loads
 from s10_lc2_process_guard import ProcessLogGuard
+from s10_lc2_task_profile import profile_from_environment
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -28,9 +29,11 @@ FROZEN_FILES = frozenset({
     'scripts/s10_lc2_framework_caller.py', 'scripts/s10_lc2_evidence.py',
     'scripts/s10_lc2_launch.py', 'scripts/s10_lc2_targets.py',
     'scripts/s10_lc2_process_guard.py', 'scripts/s10_lc2_logging.py', 'scripts/s10_lc2_supervisor.py',
+    'scripts/s10_lc2_task_profile.py',
     'ydental_settlement_test/tests/test_log_closeout.py',
 })
 _FAILURE = None
+_PROFILE_FAILURES = {}
 
 
 def _private_directory(path):
@@ -53,10 +56,16 @@ def _read(path, limit=128 * 1024):
     return raw
 
 
-def _ledger(directory):
+def _ledger(directory, profile=None):
     _private_directory(directory)
     value = strict_loads(_read(Path(directory) / 'budget.json'))
     _read(Path(directory) / 'budget.lock')
+    if profile is not None:
+        profile.validate_ledger(value)
+        if any(kind not in LIMITS or type(count) is not int or not 0 <= count <= LIMITS[kind]
+               for kind, count in value['counts'].items()):
+            raise RuntimeError('FRAMEWORK6_CUMULATIVE_BUDGET_INVALID')
+        return value
     if (type(value) is not dict or set(value) != {'started_epoch', 'counts'}
             or value['started_epoch'] != AUTHORIZATION_EPOCH or type(value['counts']) is not dict
             or any(kind not in LIMITS or type(count) is not int or not 0 <= count <= LIMITS[kind]
@@ -93,33 +102,47 @@ def framework_failure_facts(budget_directory):
         return {'reason': 'FRAMEWORK_FAILURE_RECORD_UNREADABLE', 'event_id': None, 'root_event_id': None}
 
 
-def freeze_framework_http(error, *, observed_failure=None):
+def freeze_framework_http(error, *, observed_failure=None, profile=None):
     global _FAILURE
-    if _FAILURE is None:
+    if profile is None:
+        try:
+            profile = profile_from_environment(os.environ)
+        except BaseException:
+            # Cleanup cannot replace the original send error at a task deadline.
+            _FAILURE = _FAILURE or 'FRAMEWORK_PROFILE_UNAVAILABLE'
+            return
+    root = profile.root if profile is not None else EXEC_ROOT
+    previous = _PROFILE_FAILURES.get(profile.message_id) if profile is not None else _FAILURE
+    if previous is None:
         try:
             facts = _failure_facts(observed_failure) if observed_failure else {
                 'reason': 'CALLER_ADMISSION_OR_RESERVATION_FAILED', 'event_id': None, 'root_event_id': None}
         except BaseException:
             facts = {'reason': 'FRAMEWORK_FAILURE_FACTS_INVALID', 'event_id': None, 'root_event_id': None}
-        _FAILURE = facts['reason']
+        if profile is not None:
+            _PROFILE_FAILURES[profile.message_id] = facts['reason']
+        else:
+            _FAILURE = facts['reason']
         value = {**facts, 'pid': os.getpid(), 'purpose': PURPOSE,
                  'exception_type': type(error).__name__,
                  'ts_utc': datetime.now(timezone.utc).isoformat()}
         for name in (FAILURE_NAME, 'HARD-STOP.json'):
             try:
-                save_once(EXEC_ROOT / name, value)
+                save_once(root / name, value)
             except BaseException:
                 # A local latch still blocks this interpreter. No claim of
                 # instantaneous cross-process delivery when all writes fail.
                 pass
 
 
-def issue_framework_grant(path, *, marker, environment, child_pid, frozen_files):
+def issue_framework_grant(path, *, marker, environment, child_pid, frozen_files, profile=None):
     """Parent calls only after its ordinary launch/identity/candidate gates."""
     path = Path(path)
-    _private_directory(EXEC_ROOT)
+    root = profile.root if profile is not None else EXEC_ROOT
+    run_root = profile.run_root if profile is not None else RUN_ROOT
+    _private_directory(root)
     _private_directory(path.parent)
-    if (path.name != GRANT_NAME or path.parent.parent != EXEC_ROOT
+    if (path.name != GRANT_NAME or path.parent.parent != root
             or not re.fullmatch(r'application-scratch-tests-[a-f0-9]{8}', path.parent.name)
             or marker.get('role') != 'scratch' or marker.get('lc2_role') != 'scratch'
             or type(marker.get('database')) is not str
@@ -128,15 +151,15 @@ def issue_framework_grant(path, *, marker, environment, child_pid, frozen_files)
             or type(child_pid) is not int or child_pid <= 0
             or not FROZEN_FILES.issubset(frozen_files)):
         raise RuntimeError('FRAMEWORK_GRANT_ISSUER_SCOPE_INVALID')
-    run = RUN_ROOT / marker['database']
+    run = run_root / marker['database']
     _private_directory(run)
-    ledger = _ledger(EXEC_ROOT)
+    ledger = _ledger(root, profile)
     issued = time.time()
     value = {'schema_version': '1.0', 'purpose': PURPOSE, 'action': 'scratch-tests', 'role': 'scratch',
              'parent_pid': os.getpid(), 'child_pid': child_pid, 'issued_epoch': issued,
-             'deadline_epoch': min(issued + 1200, ledger['started_epoch'] + 8 * 3600),
+             'deadline_epoch': min(issued + 1200, profile.deadline_epoch if profile else ledger['started_epoch'] + 8 * 3600),
              'database': marker['database'], 'oid': marker['oid'], 'port': marker['port'],
-             'run_directory': str(run), 'budget_directory': str(EXEC_ROOT),
+             'run_directory': str(run), 'budget_directory': str(root),
              'budget_started_epoch': ledger['started_epoch'],
              'run_id': environment['YDENTAL_RUN_ID'], 'task_id': environment['YDENTAL_TASK_ID'],
              'product_commit': environment['YDENTAL_PRODUCT_COMMIT'],
@@ -145,11 +168,14 @@ def issue_framework_grant(path, *, marker, environment, child_pid, frozen_files)
              'identity_probe_sha256': _file_sha(path.parent / 'identity-probe.json'),
              'identity_probe_exit_sha256': _file_sha(path.parent / 'identity-probe-exit.tsv'),
              'frozen_files': {name: frozen_files[name] for name in sorted(FROZEN_FILES)}}
+    if profile is not None:
+        value.update(task_message_id=profile.message_id, task_started_epoch=profile.started_epoch,
+                     authority_sha256=profile.authority_sha256)
     save_once(path, value)
     return value
 
 
-def check_framework_failure(directory, *, budget_directory=None, final=False, grant_required=False):
+def check_framework_failure(directory, *, budget_directory=None, final=False, grant_required=False, profile=None):
     """Parent checks under the ledger lock, so an active reservation is not a fault."""
     directory = Path(directory)
     budget_directory = Path(budget_directory) if budget_directory is not None else EXEC_ROOT
@@ -173,13 +199,17 @@ def check_framework_failure(directory, *, budget_directory=None, final=False, gr
                 or before.get('pid') != after.get('pid')
                 or before.get('resource') != 'http' or after.get('resource') != 'http'
                 or type(after.get('count')) is not int or after['count'] < 1
-                or _ledger(budget_directory)['counts'].get('http', 0) < after['count']):
+                or _ledger(budget_directory, profile)['counts'].get('http', 0) < after['count']):
             raise RuntimeError('FRAMEWORK_RESERVATION_EVIDENCE_INVALID')
 
 
 class _FrameworkBudget(Budget):
     def check_storage(self):
-        size = sum(path.stat().st_size for base in (LEGACY_EXEC_ROOT, EXEC_ROOT, RUN_ROOT) if base.exists()
+        roots = (LEGACY_EXEC_ROOT, EXEC_ROOT, RUN_ROOT) + ((self.profile.root,) if self.profile else ())
+        if self.profile is not None and sum(p.stat().st_size for p in self.profile.root.rglob('*')
+                if p.is_file() and not p.is_symlink()) >= 256 * 1024 ** 2:
+            raise RuntimeError('FRAMEWORK6_RAW_STORAGE_BOUND')
+        size = sum(path.stat().st_size for base in roots if base.exists()
                    for path in base.rglob('*') if path.is_file() and not path.is_symlink())
         if size >= RAW_LIMIT * .9:
             raise RuntimeError('FRAMEWORK_RAW_STORAGE_BOUND')
@@ -188,19 +218,23 @@ class _FrameworkBudget(Budget):
 
 def reserve_framework_http(*, environment, database, http_port, url, purpose, allow_redirects=False):
     """Caller-local gate and one durable reservation before the native url_open."""
-    if _FAILURE is not None:
-        raise RuntimeError('FRAMEWORK_HTTP_FROZEN_' + _FAILURE)
+    profile = profile_from_environment(environment)
+    root = profile.root if profile is not None else EXEC_ROOT
+    run_root = profile.run_root if profile is not None else RUN_ROOT
+    failure = _PROFILE_FAILURES.get(profile.message_id) if profile is not None else _FAILURE
+    if failure is not None:
+        raise RuntimeError('FRAMEWORK_HTTP_FROZEN_' + failure)
     observed_failure = None
     try:
-        _private_directory(EXEC_ROOT)
-        if (EXEC_ROOT / 'HARD-STOP.json').exists() or (EXEC_ROOT / FAILURE_NAME).exists():
+        _private_directory(root)
+        if (root / 'HARD-STOP.json').exists() or (root / FAILURE_NAME).exists():
             raise RuntimeError('FRAMEWORK_EXISTING_STOP')
         pointer = environment.get(GRANT_ENV)
         if not pointer:
             raise RuntimeError('FRAMEWORK_GRANT_MISSING')
         path = Path(pointer)
         _private_directory(path.parent)
-        if (path.name != GRANT_NAME or path.parent.parent != EXEC_ROOT
+        if (path.name != GRANT_NAME or path.parent.parent != root
                 or not re.fullmatch(r'application-scratch-tests-[a-f0-9]{8}', path.parent.name)):
             raise RuntimeError('FRAMEWORK_GRANT_PATH_INVALID')
         grant_raw = _read(path)
@@ -208,14 +242,14 @@ def reserve_framework_http(*, environment, database, http_port, url, purpose, al
         if (type(database) is not str
                 or not re.fullmatch(r'ydental_s10_test_[0-9]{14}_[a-f0-9]{8}', database)):
             raise RuntimeError('FRAMEWORK_DATABASE_NAME_INVALID')
-        run = RUN_ROOT / database
-        if run.parent != RUN_ROOT or run.resolve() != run:
+        run = run_root / database
+        if run.parent != run_root or run.resolve() != run:
             raise RuntimeError('FRAMEWORK_TARGET_PATH_INVALID')
         _private_directory(run)
 
         def gate():
             nonlocal observed_failure
-            if (EXEC_ROOT / 'HARD-STOP.json').exists() or (EXEC_ROOT / FAILURE_NAME).exists():
+            if (root / 'HARD-STOP.json').exists() or (root / FAILURE_NAME).exists():
                 raise RuntimeError('FRAMEWORK_EXISTING_STOP')
             if _read(path) != grant_raw:
                 raise RuntimeError('FRAMEWORK_GRANT_CHANGED')
@@ -227,12 +261,18 @@ def reserve_framework_http(*, environment, database, http_port, url, purpose, al
                     or type(grant.get('parent_pid')) is not int or type(grant.get('child_pid')) is not int
                     or grant.get('parent_pid') != os.getppid() or grant.get('child_pid') != os.getpid()
                     or grant.get('database') != database or grant.get('port') != http_port
-                    or grant.get('run_directory') != str(run) or grant.get('budget_directory') != str(EXEC_ROOT)
+                    or grant.get('run_directory') != str(run) or grant.get('budget_directory') != str(root)
                     or grant.get('core_commit') != CORE
-                    or grant.get('budget_started_epoch') != _ledger(EXEC_ROOT)['started_epoch']
+                    or grant.get('budget_started_epoch') != _ledger(root, profile)['started_epoch']
                     or not grant['issued_epoch'] <= time.time() <= grant['deadline_epoch']
-                    or grant['deadline_epoch'] > min(grant['issued_epoch'] + 1200, AUTHORIZATION_EPOCH + 8 * 3600)):
+                    or grant['deadline_epoch'] > min(grant['issued_epoch'] + 1200,
+                        profile.deadline_epoch if profile else AUTHORIZATION_EPOCH + 8 * 3600)):
                 raise RuntimeError('FRAMEWORK_CALLER_IDENTITY_OR_PURPOSE_INVALID')
+            if profile is not None and (database != 'ydental_s10_test_20261017105432_ce6dcbf8'
+                    or grant.get('oid') != 2144130 or grant.get('task_message_id') != profile.message_id
+                    or grant.get('task_started_epoch') != profile.started_epoch
+                    or grant.get('authority_sha256') != profile.authority_sha256):
+                raise RuntimeError('FRAMEWORK6_GRANT_AUTHORITY_DRIFT')
             for field in ('run_id', 'task_id', 'product_commit', 'test_commit', 'core_commit'):
                 if environment.get('YDENTAL_' + field.upper()) != grant.get(field):
                     raise RuntimeError('FRAMEWORK_CANDIDATE_ENV_DRIFT')
@@ -240,7 +280,7 @@ def reserve_framework_http(*, environment, database, http_port, url, purpose, al
                 if not re.fullmatch(r'[a-f0-9]{40}', grant[field]):
                     raise RuntimeError('FRAMEWORK_CANDIDATE_INVALID')
             if (environment.get('YDENTAL_S10_RUN_DIR') != str(run)
-                    or environment.get('YDENTAL_LC2_BUDGET_DIR') != str(EXEC_ROOT)
+                    or environment.get('YDENTAL_LC2_BUDGET_DIR') != str(root)
                     or _file_sha(run / 'database.json') != grant['marker_sha256']
                     or _file_sha(run / 'odoo.conf') != grant['config_sha256']
                     or _file_sha(path.parent / 'identity-probe.json') != grant['identity_probe_sha256']
@@ -283,8 +323,8 @@ def reserve_framework_http(*, environment, database, http_port, url, purpose, al
                       'pid': os.getpid(), 'purpose': PURPOSE,
                       'grant_sha256': hashlib.sha256(grant_raw).hexdigest()})
 
-        budget = _FrameworkBudget(EXEC_ROOT, create=False)
+        budget = _FrameworkBudget(root, create=False, **({'profile': profile} if profile is not None else {}))
         return budget.consume('http', before_reserve=gate, after_reserve=reserved)
     except BaseException as primary:
-        freeze_framework_http(primary, observed_failure=observed_failure)
+        freeze_framework_http(primary, observed_failure=observed_failure, profile=profile)
         raise

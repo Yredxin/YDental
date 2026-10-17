@@ -21,6 +21,7 @@ from s10_lc2_targets import (EXEC_ROOT, LEGACY_EXEC_ROOT, PLAN, RUN_ROOT, Packag
 from s10_lc2_process_guard import ObservationBlocked, ProcessLogGuard
 from s10_lc2_framework_caller import (GRANT_ENV, GRANT_NAME, check_framework_failure,
                                       framework_failure_facts, issue_framework_grant)
+from s10_lc2_task_profile import FRAMEWORK6, SCRATCH
 
 ROOT = Path(__file__).resolve().parents[1]
 PYTHON = ROOT.parent / '.venv/bin/python'
@@ -42,27 +43,30 @@ def keep_primary(directory, error, *, stage, root_event_id=None):
         return {'event_id': None, 'saved': False}
 
 
-def stop(reason, **facts):
-    if not STOP.exists():
-        save_once(STOP, {'reason': reason, 'ts_utc': datetime.now(timezone.utc).isoformat(), **facts})
+def stop(reason, *, profile=None, **facts):
+    path = profile.root / 'HARD-STOP.json' if profile is not None else STOP
+    if not path.exists():
+        save_once(path, {'reason': reason, 'ts_utc': datetime.now(timezone.utc).isoformat(), **facts})
 
 
-def candidate_marker(marker, *, approval, product_commit, test_commit, action):
+def candidate_marker(marker, *, approval, product_commit, test_commit, action, profile=None):
     """Preserve every prior new-target marker byte before candidate metadata advances."""
-    require_dispatch_unfrozen()
-    if STOP.exists():
+    require_dispatch_unfrozen(profile)
+    extra = {'profile': profile} if profile is not None else {}
+    if (profile.root / 'HARD-STOP.json' if profile is not None else STOP).exists():
         raise RuntimeError('LC2_HARD_STOP_ACTIVE')
-    dispatch = runtime_gate(approval, product_commit=product_commit, test_commit=test_commit)
+    dispatch = runtime_gate(approval, product_commit=product_commit, test_commit=test_commit, **extra)
     if action not in dispatch.get('allowed_actions', []) or marker['database'] not in dispatch.get('allowed_target_names', []):
         raise RuntimeError('MARKER_CANDIDATE_NOT_DISPATCHED')
     expected_role = ACTION_ROLES.get(action)
-    target = next((item for item in strict_loads(PLAN.read_bytes())['targets']
+    plan_path = profile.root / 'target-plan.json' if profile is not None else PLAN
+    target = next((item for item in strict_loads(plan_path.read_bytes())['targets']
                    if item['database'] == marker['database']), None)
     if (expected_role is None or target is None or target['role'] != expected_role
             or marker.get('role') != expected_role or marker.get('lc2_role') != expected_role
             or target['port'] != marker['port']):
         raise RuntimeError('MARKER_ROLE_ACTION_DRIFT')
-    run = RUN_ROOT / marker['database']
+    run = (profile.run_root if profile is not None else RUN_ROOT) / marker['database']
     actual = target_guard(marker['database'], run, allowed_names=dispatch['allowed_target_names'], config_path=run / 'odoo.conf')
     immutable = set(marker) - {'product_commit', 'test_commit'}
     if any(actual.get(key) != marker[key] for key in immutable) or actual['core'] != CORE:
@@ -97,14 +101,18 @@ def candidate_marker(marker, *, approval, product_commit, test_commit, action):
     return updated
 
 
-def launch_guard(marker, *, approval, product_commit, test_commit, action):
-    require_dispatch_unfrozen()
-    if STOP.exists():
+def launch_guard(marker, *, approval, product_commit, test_commit, action, profile=None):
+    require_dispatch_unfrozen(profile)
+    extra = {'profile': profile} if profile is not None else {}
+    if profile is not None and (action != 'scratch-tests' or marker.get('database') != SCRATCH
+                                or marker.get('oid') != 2144130 or marker.get('port') != 18411):
+        raise RuntimeError('FRAMEWORK6_APPLICATION_SCOPE_INVALID')
+    if (profile.root / 'HARD-STOP.json' if profile is not None else STOP).exists():
         raise RuntimeError('LC2_HARD_STOP_ACTIVE')
-    dispatch = runtime_gate(approval, product_commit=product_commit, test_commit=test_commit)
+    dispatch = runtime_gate(approval, product_commit=product_commit, test_commit=test_commit, **extra)
     if action not in dispatch.get('allowed_actions', []):
         raise RuntimeError('APPLICATION_ACTION_NOT_DISPATCHED')
-    plan = strict_loads(PLAN.read_bytes())
+    plan = strict_loads((profile.root / 'target-plan.json' if profile is not None else PLAN).read_bytes())
     names = [item['database'] for item in plan['targets']]
     if set(names) != set(dispatch.get('allowed_target_names', [])):
         raise RuntimeError('APPLICATION_TARGET_SET_DRIFT')
@@ -114,7 +122,7 @@ def launch_guard(marker, *, approval, product_commit, test_commit, action):
             or marker.get('role') != expected_role or marker.get('lc2_role') != expected_role
             or selected['port'] != marker['port']):
         raise RuntimeError('APPLICATION_ROLE_ACTION_DRIFT')
-    run = RUN_ROOT / marker['database']
+    run = (profile.run_root if profile is not None else RUN_ROOT) / marker['database']
     actual = target_guard(marker['database'], run, allowed_names=names, config_path=run / 'odoo.conf')
     if (actual != marker or marker['product_commit'] != product_commit
             or marker['test_commit'] != test_commit or marker['core'] != CORE):
@@ -126,7 +134,7 @@ def launch_guard(marker, *, approval, product_commit, test_commit, action):
                 'db_name': marker['database'], 'dbfilter': '^' + marker['database'] + '$',
                 'workers': '0', 'max_cron_threads': '0', 'db_maxconn': '4',
                 'http_interface': '127.0.0.1', 'http_port': str(marker['port']),
-                'data_dir': str(run / 'data'), 'logfile': str(run / 'odoo-native.log'),
+                'data_dir': str(profile.data_dir if profile is not None else run / 'data'), 'logfile': str(run / 'odoo-native.log'),
                 'log_config': str(ROOT / 'config/logging-s10.example.json'),
                 'addons_path': str(ROOT.parent / 'addons') + ',' + str(ROOT)}
     if any(options.get(key) != value for key, value in expected.items()) or not 18410 <= marker['port'] <= 18419:
@@ -183,25 +191,36 @@ def identity_probe(marker, options, *, budget, directory):
         raise TimeoutError('LAUNCH_PROBE_WINDOW_EXHAUSTED')
 
 
-def environment(run, product_commit, test_commit):
+def environment(run, product_commit, test_commit, profile=None):
     env = dict(os.environ)
     env.pop('PGOPTIONS', None)
     env.pop('PYTHONHOME', None)
     env.pop(GRANT_ENV, None)
+    env.pop('YDENTAL_LC2_PROFILE', None)
     env.update(PYTHONPATH=os.pathsep.join([str(ROOT / 'scripts'), str(ROOT / '.local/s04-deps')]),
                PYTHONDONTWRITEBYTECODE='1', YDENTAL_S10_RUN_DIR=str(run),
                YDENTAL_RUN_ID='lc2-r12-exec-20261017', YDENTAL_TASK_ID='S10-LOG-AND-CLOSEOUT-v2',
                YDENTAL_PRODUCT_COMMIT=product_commit, YDENTAL_TEST_COMMIT=test_commit, YDENTAL_CORE_COMMIT=CORE,
                YDENTAL_DIAGNOSTIC_DIR=str(run / 'diagnostics'),
                YDENTAL_LC2_BUDGET_DIR=str(EXEC_ROOT), PYTHONFAULTHANDLER='1')
+    if profile is not None:
+        profile.verify()
+        for key in tuple(env):
+            if key.startswith('FAKETIME') or key == 'ODOO_FAKETIME_TEST_MODE':
+                env.pop(key)
+        if 'faketime' in env.get('LD_PRELOAD', '').lower():
+            raise RuntimeError('FRAMEWORK6_FAKETIME_PRELOAD_FORBIDDEN')
+        env.update(YDENTAL_LC2_PROFILE=profile.message_id,
+                   YDENTAL_RUN_ID='lc2-framework6-20261017-01', YDENTAL_LC2_BUDGET_DIR=str(profile.root))
     return env
 
 
-def dependency_preflight(env, directory):
+def dependency_preflight(env, directory, profile=None):
     result = launch([str(PYTHON), str(ROOT / 'scripts/s10_lc2_preflight.py')],
                     Path(directory) / 'dependency-preflight', env=env, cwd=ROOT, timeout=30, attempt=1)
     if result.get('native_crash') or result['returncode'] in (-4, -6, -7, -8, -11):
-        stop('DEPENDENCY_PREFLIGHT_NATIVE_CRASH', pid=result['pid'], signal=result['signal'])
+        stop('DEPENDENCY_PREFLIGHT_NATIVE_CRASH', pid=result['pid'], signal=result['signal'],
+             **({'profile': profile} if profile is not None else {}))
         raise RuntimeError('NATIVE_PREFLIGHT_HARD_STOP')
     if result['returncode'] != 0:
         raise RuntimeError('OFFLINE_DEPENDENCY_PREFLIGHT_FAILED')
@@ -213,22 +232,26 @@ def dependency_preflight(env, directory):
 
 class OwnedApplication:
     """One exact owned Popen; monitor global raw cap while code runs."""
-    def __init__(self, marker, *, approval, product_commit, test_commit, action):
+    def __init__(self, marker, *, approval, product_commit, test_commit, action, profile=None):
+        self.profile = profile
+        self.exec_root = profile.root if profile is not None else EXEC_ROOT
+        self.stop_path = self.exec_root / 'HARD-STOP.json' if profile is not None else STOP
+        extra = {'profile': profile} if profile is not None else {}
         self.action = action
         self.marker = candidate_marker(marker, approval=approval, product_commit=product_commit,
-                                       test_commit=test_commit, action=action)
+                                       test_commit=test_commit, action=action, **extra)
         self.run, options = launch_guard(self.marker, approval=approval, product_commit=product_commit,
-                                         test_commit=test_commit, action=action)
-        self.budget = PackageBudget(EXEC_ROOT)
-        self.directory = EXEC_ROOT / ('application-' + action + '-' + uuid.uuid4().hex[:8])
+                                         test_commit=test_commit, action=action, **extra)
+        self.budget = PackageBudget(self.exec_root, **extra)
+        self.directory = self.exec_root / ('application-' + action + '-' + uuid.uuid4().hex[:8])
         self.directory.mkdir(mode=0o700)
-        self.env = environment(self.run, product_commit, test_commit)
+        self.env = environment(self.run, product_commit, test_commit, **extra)
         self.framework_grant_path = self.directory / GRANT_NAME if action == 'scratch-tests' else None
         self.framework_frozen_files = {}
         if self.framework_grant_path is not None:
             self.env[GRANT_ENV] = str(self.framework_grant_path)
             self.framework_frozen_files = strict_loads(Path(approval).read_bytes()).get('frozen_files', {})
-        dependency_preflight(self.env, self.directory)
+        dependency_preflight(self.env, self.directory, **extra)
         identity_probe(self.marker, options, budget=self.budget, directory=self.directory)
         self.native_logfile = self.directory / 'odoo-native.log'
         command = [str(PYTHON), str(ROOT.parent / 'odoo-bin')]
@@ -247,13 +270,22 @@ class OwnedApplication:
     def __enter__(self):
         return self
 
+    def _stop(self, reason, **facts):
+        profile = getattr(self, 'profile', None)
+        return stop(reason, **facts, **({'profile': profile} if profile is not None else {}))
+
+    def _freeze(self, failure):
+        profile = getattr(self, 'profile', None)
+        freeze_dispatch(failure, **({'profile': profile} if profile is not None else {}))
+
     def __exit__(self, error_type, error, tb):
         primary = keep_primary(self.directory, error, stage='application_context') if error is not None else None
         self.close(primary=primary)
         return False
 
     def start(self, arguments, *, pass_fds=(), stdin_path=None):
-        require_dispatch_unfrozen()
+        profile = getattr(self, 'profile', None)
+        require_dispatch_unfrozen(profile)
         allowed = {
             'scratch-tests': ('--stop-after-init', '--load-language=zh_CN', '-i',
                               'ydental_settlement_test', '--test-enable', '--test-tags=s10_lc2'),
@@ -262,7 +294,13 @@ class OwnedApplication:
             'scratch-upgrade': ('--stop-after-init', '--load-language=zh_CN', '-u', 'ydental_settlement'),
             'main-service': (), 'scratch-service': (), 'main-fixture': (), 'scratch-fixture': (),
         }
-        if type(arguments) is not list or tuple(arguments) != allowed.get(self.action):
+        candidates = {allowed.get(self.action)}
+        if profile is not None:
+            prefix = ('--stop-after-init', '--load-language=en_US,zh_CN')
+            suffix = ('--test-enable', '--test-tags=s10_lc2/ydental_settlement_test')
+            candidates = {prefix + operation + suffix for operation in (
+                ('-i', 'ydental_settlement_test'), (), ('-u', 'ydental_settlement_test'))}
+        if type(arguments) is not list or tuple(arguments) not in candidates:
             raise ValueError('APPLICATION_ARGUMENT_OVERRIDE_REFUSED')
         if any(type(fd) is not int or fd < 3 for fd in pass_fds):
             raise ValueError('INVALID_OWNED_RAM_PIPE_DESCRIPTOR')
@@ -287,11 +325,19 @@ class OwnedApplication:
                   'transport_access_logger_level': 'CRITICAL',
                   'transport_access_error_detail_retained': False,
                   'effective_db_system': self.marker['database'], 'maintenance_database_connection_authorized': False,
+                  'native_system_connection_authorized': profile is not None,
+                  'maintenance_operations_authorized': False,
+                  'native_system_connection_mode': 'EXISTENCE_QUERY_ONLY' if profile is not None else 'LEGACY_NOT_AUTHORIZED',
+                  'task_message_id': profile.message_id if profile is not None else None,
+                  'native_existence_query_allowance': 1 if profile is not None else 0,
+                  'native_postgres_dbname_fallback_allowance': 1 if profile is not None else 0,
+                  'native_existence_actual_connections': 'UNKNOWN',
+                  'native_system_connection_evidence_layer': 'SOURCE_INFERRED_ALLOWANCE_NOT_ACTUAL_COUNT',
                   'stdin_sha256': hashlib.sha256(expected_stdin.read_bytes()).hexdigest() if fixture else None})
         stdin = expected_stdin.open('rb') if fixture else subprocess.DEVNULL
         self.started = time.monotonic()
         try:
-            bind_dispatch_owner(self)
+            bind_dispatch_owner(self, **({'profile': profile} if profile is not None else {}))
             for name in ('stdout.log', 'stderr-faulthandler.log'):
                 self.streams.append(private_file(self.directory / name))
             self.process = subprocess.Popen(self.command + arguments, cwd=ROOT, env=self.env,
@@ -302,7 +348,8 @@ class OwnedApplication:
                 if grant_path is None:
                     raise RuntimeError('FRAMEWORK_LAUNCH_GRANT_NOT_PREPARED')
                 issue_framework_grant(grant_path, marker=self.marker, environment=self.env,
-                                      child_pid=self.process.pid, frozen_files=self.framework_frozen_files)
+                                      child_pid=self.process.pid, frozen_files=self.framework_frozen_files,
+                                      **({'profile': profile} if profile is not None else {}))
             self.event_guard = ProcessLogGuard(self.run / 'diagnostics', self.process.pid,
                                               self.env['YDENTAL_RUN_ID'])
             append_plain(self.directory / 'parent-exit.tsv', ['child.start', time.time_ns(), self.process.pid])
@@ -326,9 +373,9 @@ class OwnedApplication:
             # The in-memory latch is set first, so even a failed STOP writer
             # cannot permit another request or replace the producer's primary.
             failure = self.event_guard.state.failure
-            freeze_dispatch(failure)
+            self._freeze(failure)
             try:
-                stop(failure['reason'], pid=self.process.pid,
+                self._stop(failure['reason'], pid=self.process.pid,
                      primary_event_id=failure['event_id'], root_event_id=failure['root_event_id'])
             except BaseException as secondary:
                 keep_primary(self.directory, secondary, stage='event_stop_persistence',
@@ -339,28 +386,31 @@ class OwnedApplication:
         """A real parent return code is independent of diagnostic completeness."""
         if code not in (-4, -6, -7, -8, -11):
             return
-        freeze_dispatch({'reason': 'NATIVE_PROCESS_EXIT', 'event_id': None, 'root_event_id': None})
+        self._freeze({'reason': 'NATIVE_PROCESS_EXIT', 'event_id': None, 'root_event_id': None})
         try:
-            stop('NATIVE_CRASH', pid=self.process.pid, signal=-code)
+            self._stop('NATIVE_CRASH', pid=self.process.pid, signal=-code)
         except BaseException as secondary:
             keep_primary(self.directory, secondary, stage='native_stop_persistence')
 
     def check_evidence_markers(self, *, final=False):
-        require_dispatch_unfrozen()
-        if STOP.exists():
+        require_dispatch_unfrozen(getattr(self, 'profile', None))
+        if getattr(self, 'stop_path', STOP).exists():
             raise RuntimeError('APPLICATION_DIAGNOSTIC_OR_HARD_STOP')
         self.check_framework_markers(final=final)
 
     def check_framework_markers(self, *, final=False):
         """Cleanup observes new shared faults without replaying an existing stop."""
         try:
-            check_framework_failure(self.directory, budget_directory=STOP.parent, final=final,
-                                    grant_required=getattr(self, 'action', None) == 'scratch-tests')
+            profile = getattr(self, 'profile', None)
+            root = getattr(self, 'stop_path', STOP).parent
+            check_framework_failure(self.directory, budget_directory=root, final=final,
+                                    grant_required=getattr(self, 'action', None) == 'scratch-tests',
+                                    **({'profile': profile} if profile is not None else {}))
         except BaseException:
-            failure = framework_failure_facts(STOP.parent)
-            freeze_dispatch(failure)
+            failure = framework_failure_facts(getattr(self, 'stop_path', STOP).parent)
+            self._freeze(failure)
             try:
-                stop(failure['reason'], pid=self.process.pid, primary_event_id=failure['event_id'],
+                self._stop(failure['reason'], pid=self.process.pid, primary_event_id=failure['event_id'],
                      root_event_id=failure['root_event_id'])
             except BaseException as secondary:
                 keep_primary(self.directory, secondary, stage='framework_stop_persistence')
@@ -369,7 +419,7 @@ class OwnedApplication:
     def check(self, *, allow_starting=False):
         self.budget.check_storage()
         if time.monotonic() - self.started > 1800:
-            stop('OWNED_SERVICE_WINDOW_EXHAUSTED', pid=self.process.pid)
+            self._stop('OWNED_SERVICE_WINDOW_EXHAUSTED', pid=self.process.pid)
             raise TimeoutError('OWNED_SERVICE_WINDOW_EXHAUSTED')
         self.check_evidence_markers()
         code = self.process.poll()
@@ -381,7 +431,7 @@ class OwnedApplication:
             raise RuntimeError('APPLICATION_DIAGNOSTICS_ENDED_NO_DISPATCH')
         if self.process.poll() is not None:
             if self.process.returncode in (-4, -6, -7, -8, -11):
-                stop('NATIVE_CRASH', pid=self.process.pid, signal=-self.process.returncode)
+                self._stop('NATIVE_CRASH', pid=self.process.pid, signal=-self.process.returncode)
             raise RuntimeError('APPLICATION_EXITED')
 
     def wait_ready(self, timeout=60):
@@ -419,7 +469,7 @@ class OwnedApplication:
                 self.check_evidence_markers()
                 self.observe_events(allow_starting=time.monotonic() - self.started < 60)
                 if time.monotonic() - self.started > timeout:
-                    stop('APPLICATION_TIMEOUT_OUTCOME_NOT_OBSERVED', pid=self.process.pid)
+                    self._stop('APPLICATION_TIMEOUT_OUTCOME_NOT_OBSERVED', pid=self.process.pid)
                     raise TimeoutError('APPLICATION_WINDOW_EXHAUSTED')
                 time.sleep(.2)
             returncode = self.process.returncode
@@ -467,7 +517,7 @@ class OwnedApplication:
         except BaseException as secondary:
             retain(secondary, 'application_owned_cleanup')
             try:
-                stop('OWNED_PROCESS_CLEANUP_UNCONFIRMED')
+                self._stop('OWNED_PROCESS_CLEANUP_UNCONFIRMED')
             except BaseException as persistence_error:
                 retain(persistence_error, 'hard_stop_persistence')
         finally:
