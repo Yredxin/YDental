@@ -1,0 +1,60 @@
+{
+  "DB_connections_Odoo_business_HTTP": 0,
+  "STATIC_server_fields_synthesized_not_measured": true,
+  "all_three_scripts_compile": true,
+  "count": 9,
+  "exit_code": 0,
+  "old_modules_imported": false,
+  "pure_file_tests": [
+    {
+      "actual": true,
+      "case": "normal",
+      "evidence_saved": true,
+      "expected": true
+    },
+    {
+      "actual": false,
+      "case": "v-to-6-with-unchanged-synthetic-server-digest",
+      "evidence_saved": true,
+      "expected": false
+    },
+    {
+      "actual": false,
+      "case": "literal-control-1F",
+      "evidence_saved": true,
+      "expected": false
+    },
+    {
+      "actual": true,
+      "case": "normal-escaped-control",
+      "evidence_saved": true,
+      "expected": true
+    },
+    {
+      "actual": false,
+      "case": "duplicate-key",
+      "evidence_saved": true,
+      "expected": false
+    },
+    {
+      "actual": false,
+      "case": "truncated",
+      "evidence_saved": true,
+      "expected": false
+    },
+    {
+      "actual": false,
+      "case": "injected-readback-mismatch",
+      "evidence_saved": true,
+      "synthetic_read_fault_not_real_database_or_disk_corruption": true
+    },
+    {
+      "case": "nonfinite-parse",
+      "rejected": true
+    },
+    {
+      "case": "nonfinite-serialize",
+      "rejected": true
+    }
+  ]
+}

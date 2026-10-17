@@ -1,0 +1,41 @@
+{
+  "parent_HEAD": "ba536bc2203caee6f1681fd7aaac23a5b2a33704",
+  "origin": "https://github.com/Yredxin/YDental.git",
+  "branch": "codex/s10-settlement-finance-r1-20261013",
+  "initial_worktree": "clean",
+  "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "issue23": {
+    "state": "open",
+    "comments": 3,
+    "body_and_all_comments_exact_prior": true
+  },
+  "issue34": {
+    "state": "open",
+    "comments": 270,
+    "prior_264_comments_exact": true,
+    "four_P023_flow_comments_exact_private_bodies": true,
+    "only_added_authority": [
+      6230830175,
+      6230858409
+    ]
+  },
+  "issue35": {
+    "state": "open",
+    "comments": 0
+  },
+  "P024_existing_CODEX_records": 0,
+  "credential_private_file_present": true,
+  "public_connection_fields": {
+    "host": "127.0.0.1",
+    "port": 5432,
+    "user": "odoo"
+  },
+  "database_connections_before_preflight": 0,
+  "tools": {
+    "psql": "/usr/bin/psql 18.6",
+    "python": "../.venv/bin/python 3.12.15",
+    "psycopg2": "2.9.9",
+    "libpq_compiled_and_runtime": 180006
+  },
+  "server_hash_capability_basis": "existing PostgreSQL 18.6 client/libpq; prior fixed P016 contract uses pg_catalog.sha256/convert_to/encode, no extension needed; no preflight DB probe"
+}

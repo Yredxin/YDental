@@ -1,0 +1,47 @@
+{
+  "OID": 2144126,
+  "cluster": "7694897083368259627",
+  "connect_timeout_s": 5,
+  "database": "ydental_s10_test_20261017060000_22b0cafe",
+  "field_UTF8_max_bytes": 8192,
+  "host": "127.0.0.1",
+  "maximum_connections": 2,
+  "maximum_explicit_statements_per_client": 6,
+  "no_commit_retry_reconnect_fallback": true,
+  "normal_explicit_statements_per_client": [
+    [
+      "begin",
+      "BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY;"
+    ],
+    [
+      "show-readonly",
+      "SHOW transaction_read_only;"
+    ],
+    [
+      "show-isolation",
+      "SHOW transaction_isolation;"
+    ],
+    [
+      "identity",
+      "SELECT pg_catalog.jsonb_build_object(\n 'kind','identity', 'database',pg_catalog.current_database(),\n 'database_oid',(SELECT oid::bigint FROM pg_catalog.pg_database WHERE datname=pg_catalog.current_database()),\n 'cluster',(SELECT system_identifier::text FROM pg_catalog.pg_control_system()),\n 'backend_pid',pg_catalog.pg_backend_pid(), 'server_time',pg_catalog.clock_timestamp(),\n 'transaction_start',pg_catalog.transaction_timestamp(), 'snapshot',pg_catalog.pg_current_snapshot()::text,\n 'read_only',pg_catalog.current_setting('transaction_read_only'),\n 'isolation',pg_catalog.current_setting('transaction_isolation'),\n 'server_encoding',pg_catalog.getdatabaseencoding(), 'client_encoding',pg_catalog.current_setting('client_encoding'),\n 'server_version',pg_catalog.current_setting('server_version'),\n 'server_version_num',pg_catalog.current_setting('server_version_num')\n)::text;"
+    ],
+    [
+      "target",
+      "SELECT pg_catalog.jsonb_build_object(\n 'kind','target', 'id',v.id, 'key',v.key,\n 'table_oid',v.tableoid::bigint, 'physical_table',v.tableoid::regclass::text,\n 'arch_prev_type',pg_catalog.pg_typeof(v.arch_prev)::text, 'arch_prev_is_null',v.arch_prev IS NULL,\n 'arch_prev_text',v.arch_prev, 'arch_prev_characters',pg_catalog.char_length(v.arch_prev),\n 'arch_prev_UTF8_bytes',pg_catalog.octet_length(pg_catalog.convert_to(v.arch_prev,'UTF8')),\n 'arch_prev_UTF8_hex',pg_catalog.encode(pg_catalog.convert_to(v.arch_prev,'UTF8'),'hex'),\n 'arch_prev_server_sha256',pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to(v.arch_prev,'UTF8')),'hex'),\n 'arch_db_type',pg_catalog.pg_typeof(v.arch_db)::text, 'arch_db_is_null',v.arch_db IS NULL,\n 'arch_db_server_sha256',pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to(v.arch_db::text,'UTF8')),'hex'),\n 'write_uid',v.write_uid, 'write_date',v.write_date,\n 'server_time',pg_catalog.clock_timestamp(), 'backend_pid',pg_catalog.pg_backend_pid(),\n 'transaction_start',pg_catalog.transaction_timestamp(), 'snapshot',pg_catalog.pg_current_snapshot()::text,\n 'server_encoding',pg_catalog.getdatabaseencoding(), 'client_encoding',pg_catalog.current_setting('client_encoding')\n)::text FROM public.ir_ui_view AS v\nWHERE v.id=929 AND v.key='account.portal_my_journal_mail_notifications';"
+    ],
+    [
+      "rollback",
+      "ROLLBACK;"
+    ]
+  ],
+  "port": 5432,
+  "startup_options": "-c default_transaction_read_only=on -c statement_timeout=5000 -c lock_timeout=5000 -c timezone=UTC -c client_encoding=UTF8",
+  "statement_timeout_ms": 5000,
+  "target": {
+    "id": 929,
+    "key": "account.portal_my_journal_mail_notifications",
+    "table_oid_expected": 2122563
+  },
+  "target_envelope_max_bytes": 65536,
+  "total_client_timeout_s": 30
+}
