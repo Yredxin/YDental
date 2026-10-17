@@ -15,3 +15,4 @@ from . import report_ydental_settlement_pdf
 from . import ydental_settlement_bill_original
 from . import ydental_settlement_original_service
 from . import ir_attachment_original
+from . import ir_actions_report

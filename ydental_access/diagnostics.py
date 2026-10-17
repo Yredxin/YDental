@@ -34,11 +34,13 @@ _FIELDS = (
     'transaction_phase', 'commit_observation', 'checkpoint_ref',
     'evidence_refs', 'object_ref', 'version_before', 'version_after', 'diff_ref',
     'audit_ref', 'context_missing', 'native_http_log_level', 'diagnostic_log_level',
+    'renderer_pid', 'renderer_exit_code', 'renderer_signal',
 )
 _INTS = frozenset({
     'attempt', 'actor_id', 'effective_uid', 'company_id', 'store_id',
     'scope_revision', 'monotonic_ns', 'pid', 'thread_id', 'process_seq',
     'version_before', 'version_after', 'audit_ref', 'native_http_log_level', 'diagnostic_log_level',
+    'renderer_pid', 'renderer_exit_code', 'renderer_signal',
 })
 _TOKEN = re.compile(r'[A-Za-z0-9_.:/-]{1,160}\Z')
 _CONTEXT = ContextVar('ydental_diagnostic_context', default=None)
