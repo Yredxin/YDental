@@ -1,5 +1,7 @@
 # 当前 MAIN-A 自主管理交付：凭据准备与正常登录成功，A组仍未完成
 
+最终[本轮交付6243358235](https://github.com/Yredxin/YDental/issues/34#issuecomment-6243358235)已API全文读回一致：7086B/SHA `f4e4f7398cdb77f1584c1ccea2154b39442b0f18ceaa70f32aa82885ab376db9`；证据提交 `abfd1a74232739617a7e7d34637118da02fc7dd2`。本次同步未重执业务。
+
 本轮 `YD-S10-LC2-MAIN-A-20261018-02`，用户直接采用[开发测试自主权](https://github.com/Yredxin/YDental/issues/23#issuecomment-6243010403)与[MAIN-A续行范围](https://github.com/Yredxin/YDental/issues/34#issuecomment-6243026115)。父 `41e6c7c2b906653c9e264e4f402f5e572765bb98`；product保持 `cf5d63fe510b52ea150d07495bf3062f4ce0961d`，首工具 `4ec332cdd11d13da291f3335db4f6bd8d943d1db`，修复后工具 `3dc91ede7651468e1a66d0cad07d3462214ba3d4`，core只读 `f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb`。START[6243131136](https://github.com/Yredxin/YDental/issues/34#issuecomment-6243131136)全文2785B/SHA `a4b48133239f7a4c648d1a869ff6e8a2a54d7e519bb6df85446aa6b32c0934e7` API读回一致。
 
 |子项|实际结果|层级与具体阻断|
