@@ -1,0 +1,195 @@
+{
+  "core_proof": {
+    "addons/web/controllers/utils.py": {
+      "excerpts": [
+        {
+          "first_line": 96,
+          "last_line": 108,
+          "text": "        werkzeug.exceptions.abort(request.redirect(url_redirect.to_url(), 302))\n\n    # if db not provided, use the session one\n    if not db and request.session.db and router.db_filter([request.session.db]):\n        db = request.session.db\n\n    # if no database provided and no database in session, use monodb\n    if not db:\n        all_dbs = router.db_list(force=True)\n        if len(all_dbs) == 1:\n            db = all_dbs[0]\n\n    # if no db can be found til here, send to the database selector"
+        }
+      ],
+      "sha256": "2d82412279db32009f513567a68aec550d26fcf27aaa1df80388a5327e3400a6"
+    },
+    "odoo/http/router.py": {
+      "excerpts": [
+        {
+          "first_line": 70,
+          "last_line": 85,
+          "text": "def db_list(force: bool = False, host: str | None = None) -> list[str]:\n    \"\"\"\n    Get the list of available databases.\n\n    :param bool force: See :func:`~odoo.modules.db.list_dbs`\n    :param host: The Host used to replace %h and %d in the dbfilters\n        regexp. Taken from the current request when omitted.\n    :returns: the list of available databases\n    :rtype: List[str]\n    \"\"\"\n    try:\n        dbs = odoo.modules.db.list_dbs(force=force)\n    except OperationalError:\n        return []\n    return db_filter(dbs, host)\n"
+        }
+      ],
+      "sha256": "c802d7fdee3e6ed96ec43c12cc03db018d08020806f9606d93f416c48f08ae9a"
+    },
+    "odoo/modules/db.py": {
+      "excerpts": [
+        {
+          "first_line": 703,
+          "last_line": 731,
+          "text": "def list_dbs(*, force=False):\n    if not force:\n        verify_db_management_enabled()\n\n    if not odoo.tools.config['dbfilter'] and odoo.tools.config['db_name']:\n        # In case --db-filter is not provided and --database is passed, Odoo will not\n        # fetch the list of databases available on the postgres server and instead will\n        # use the value of --database as comma seperated list of exposed databases.\n        return sorted(odoo.tools.config['db_name'])\n\n    chosen_template = odoo.tools.config['db_template']\n    ignore_templates_list = tuple({'postgres', chosen_template})\n    db = odoo.sql_db.db_connect(config['db_system'])\n    with closing(db.cursor()) as cr:\n        try:\n            cr.execute(\"\"\"\n                SELECT datname\n                  FROM pg_database\n                 WHERE datdba = (\n                      SELECT usesysid\n                        FROM pg_user\n                       WHERE usename = current_user\n                   )\n                   AND NOT datistemplate\n                   AND datallowconn\n                   AND datname NOT IN %s\n              ORDER BY datname\n            \"\"\", (ignore_templates_list,))\n            return [name for (name,) in cr.fetchall()]"
+        }
+      ],
+      "sha256": "14593e2a99f877c1cc7d276b5fd2d91a360f7f0efb78f72199b29f620ea724ad"
+    },
+    "odoo/sql_db.py": {
+      "excerpts": [
+        {
+          "first_line": 630,
+          "last_line": 654,
+          "text": "class ConnectionPool:\n    \"\"\" The pool of connections to database(s)\n\n        Keep a set of connections to pg databases open, and reuse them\n        to open cursors for all transactions.\n\n        The connections are *not* automatically closed. Only a close_db()\n        can trigger that.\n    \"\"\"\n\n    def __init__(self, maxconn: int = 64, readonly: bool = False):\n        # most recently used connections are at the end of the queue\n        self._free_connections: list[PsycoConnection] = []\n        self._used_connections = tools.OrderedSet[PsycoConnection]()\n        self._check_free_at: float = 0.0\n        self._maxconn = max(maxconn, 1)\n        self._readonly = readonly\n        self._lock = threading.Lock()\n\n    def __repr__(self):\n        used = len(self._used_connections)\n        count = used + len(self._free_connections)\n        mode = 'read-only' if self._readonly else 'read/write'\n        return f\"ConnectionPool({mode};used={used}/count={count}/max={self._maxconn})\"\n"
+        },
+        {
+          "first_line": 662,
+          "last_line": 715,
+          "text": "    @locked\n    def borrow(self, connection_info: dict) -> PsycoConnection:\n        \"\"\"\n        Borrow a PsycoConnection from the pool. If no connection is available, create a new one\n        as long as there are still slots available. Perform some garbage-collection in the pool:\n        idle and dead connections are removed.\n\n        :param dict connection_info: dict of psql connection keywords\n        :rtype: PsycoConnection\n        \"\"\"\n        # find a connection, free idle and dead connections\n        now = time.time()\n        if (check_all := self._check_free_at < now):\n            self._check_free_at = now + MAX_IDLE_TIMEOUT / 10\n        close_used_before = now - MAX_IDLE_TIMEOUT\n        selected_cnx = None\n        for i, cnx in tools.reverse_enumerate(self._free_connections):\n            if not cnx.closed and cnx._pool_last_used < close_used_before:\n                self._debug('Close connection at index %d: %r', i, cnx.dsn)\n                cnx.close()\n            if cnx.closed:\n                self._free_connections.pop(i)\n                self._debug('Removing closed connection at index %d: %r', i, cnx.dsn)\n            elif selected_cnx is None and self._dsn_equals(cnx.dsn, connection_info):\n                self._debug('Borrow existing connection to %r at index %d', cnx.dsn, i)\n                self._free_connections.pop(i)\n                self._used_connections.add(cnx)\n                if not check_all:\n                    return cnx\n                selected_cnx = cnx\n        if selected_cnx is not None:\n            return selected_cnx\n\n        if len(self._free_connections) + len(self._used_connections) >= self._maxconn:\n            # pool is full, try to close the oldest connection\n            if self._free_connections:\n                cnx = self._free_connections.pop(0)\n                cnx.close()\n                self._debug('Removing old connection at index %d: %r', 0, cnx.dsn)\n            else:\n                raise PoolError('The Connection Pool Is Full')\n\n        try:\n            result = psycopg2.connect(\n                connection_factory=PsycoConnection,\n                **connection_info)\n            result.give_back = functools.partial(self.give_back, result)\n        except psycopg2.Error:\n            _logger.info('Connection to the database failed')\n            raise\n        if result.server_version < MIN_PG_VERSION * 10000:\n            warnings.warn(f\"Postgres version is {result.server_version}, lower than minimum required {MIN_PG_VERSION * 10000}\")\n        self._used_connections.add(result)\n        self._debug('Create new connection backend PID %d', result.get_backend_pid())"
+        }
+      ],
+      "sha256": "e9d5ddf306a50c08e03e97d5fe265e350e736f7255dfd8b0a5836db1003c16ae"
+    }
+  },
+  "creation_events": [
+    {
+      "UTC_log_timestamp": "2026-10-17 02:40:26,994",
+      "pid": 1389503,
+      "pool_count": 1,
+      "pool_max": 4,
+      "pool_mode": "read/write",
+      "pool_used": 1
+    },
+    {
+      "UTC_log_timestamp": "2026-10-17 02:40:27,529",
+      "pid": 1389506,
+      "pool_count": 1,
+      "pool_max": 4,
+      "pool_mode": "read/write",
+      "pool_used": 1
+    },
+    {
+      "UTC_log_timestamp": "2026-10-17 02:40:31,239",
+      "pid": 1389519,
+      "pool_count": 2,
+      "pool_max": 4,
+      "pool_mode": "read/write",
+      "pool_used": 1
+    },
+    {
+      "UTC_log_timestamp": "2026-10-17 02:40:31,675",
+      "pid": 1389529,
+      "pool_count": 2,
+      "pool_max": 4,
+      "pool_mode": "read/write",
+      "pool_used": 1
+    },
+    {
+      "UTC_log_timestamp": "2026-10-17 02:40:31,683",
+      "pid": 1389530,
+      "pool_count": 3,
+      "pool_max": 4,
+      "pool_mode": "read/write",
+      "pool_used": 2
+    },
+    {
+      "UTC_log_timestamp": "2026-10-17 02:40:31,690",
+      "pid": 1389531,
+      "pool_count": 4,
+      "pool_max": 4,
+      "pool_mode": "read/write",
+      "pool_used": 3
+    },
+    {
+      "UTC_log_timestamp": "2026-10-17 02:40:31,705",
+      "pid": 1389532,
+      "pool_count": 4,
+      "pool_max": 4,
+      "pool_mode": "read/write",
+      "pool_used": 4
+    },
+    {
+      "UTC_log_timestamp": "2026-10-17 02:40:31,718",
+      "pid": 1389533,
+      "pool_count": 4,
+      "pool_max": 4,
+      "pool_mode": "read/write",
+      "pool_used": 4
+    },
+    {
+      "UTC_log_timestamp": "2026-10-17 02:40:31,728",
+      "pid": 1389534,
+      "pool_count": 3,
+      "pool_max": 4,
+      "pool_mode": "read/write",
+      "pool_used": 3
+    },
+    {
+      "UTC_log_timestamp": "2026-10-17 02:40:31,748",
+      "pid": 1389535,
+      "pool_count": 3,
+      "pool_max": 4,
+      "pool_mode": "read/write",
+      "pool_used": 3
+    },
+    {
+      "UTC_log_timestamp": "2026-10-17 02:40:31,758",
+      "pid": 1389536,
+      "pool_count": 4,
+      "pool_max": 4,
+      "pool_mode": "read/write",
+      "pool_used": 4
+    }
+  ],
+  "first_saved_stop_error_mtime_UTC": "2026-10-17T02:40:31.710931+00:00",
+  "known_fixed_source_behavior": "db_maxconn limits pool occupancy, not cumulative connection creations; db_list(force=True) with dbfilter can call modules.db.list_dbs against db_system/postgres. Own log confirms connection recycling and both DSNs. No runtime patch/tuning/retry performed.",
+  "maintenance_accounting_limitation": "One explicit coordinator maintenance connection plus additional native Web postgres DSNs; cannot claim all catalog connections limited to the explicit maintenance1 or that native connections target only clone.",
+  "native_DSN_database_names": [
+    "postgres",
+    "ydental_s10_p019_20261017021844_64f8a46b"
+  ],
+  "per_PID_database_attribution": "Create records omit DSN; do not assign each PID to a database using only thread log context. Both database DSNs are observed in borrowing/releasing records.",
+  "server_completed_requests": [
+    {
+      "method": "GET",
+      "path": "/web/login",
+      "query": "redirect=/ydental/settlement",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/web/assets/ed6b35f/web.material_symbols_outlined.min.woff2",
+      "query": "",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/web/assets/c58ad13/web.odoo_ui_icons.min.woff2",
+      "query": "",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/web/assets/db959f3/web.assets_frontend_minimal.min.js",
+      "query": "",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/web/assets/15f5270/web.assets_frontend.min.css",
+      "query": "",
+      "status": 200
+    }
+  ],
+  "status": "BUDGET_EXCEEDED",
+  "unique_backend_pids": [
+    1389503,
+    1389506,
+    1389519,
+    1389529,
+    1389530,
+    1389531,
+    1389532,
+    1389533,
+    1389534,
+    1389535,
+    1389536
+  ],
+  "web_physical_connect_actual": 11,
+  "web_physical_connect_limit": 4
+}

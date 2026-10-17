@@ -1,0 +1,245 @@
+{
+  "scope": "PURE_FILE_TEST_ONLY",
+  "cases": [
+    {
+      "name": "pass",
+      "scope": "STATIC_FILE_LEDGER_NOT_NATIVE_ODOO",
+      "commit_intent": true,
+      "commit_completed_marker": true,
+      "full_before": true,
+      "full_after": true,
+      "full_diff": true,
+      "public_diff_index": true,
+      "decision": {
+        "PASS": true,
+        "detail": [
+          {
+            "after_sha256": "f72f94d892900c7cdd59c1bd25239eaaf2dbb4fd2a3884e0b6f888b678b68fd1",
+            "before_sha256": "1359ec7ebc7a43f0a0da88f61a656cf105d614a5800660dd5c3812e709a1de88",
+            "fields": [
+              "write_date"
+            ],
+            "id": 571,
+            "table": "ir_act_url"
+          },
+          {
+            "after_sha256": "8929bd182148fd7af8b5376daaf0c48e100d7bf56d5cdc65783a65aaa0f6dcbc",
+            "before_sha256": "d0e3c254c5b9d6e05b3fc9f99ddd8737b8b3d9075b2ff07d98a9103022b06238",
+            "fields": [
+              "write_date"
+            ],
+            "id": 320,
+            "table": "ir_ui_menu"
+          },
+          {
+            "after_sha256": "c2d8c0d05e84a09ec4ecbab2bc7a5a947a82857a53101199f4aa7aacfefcfe3b",
+            "before_sha256": "a2e35c546e4b184b210ebe8d38d0c6a3eab192785106d61dd8fe6cc974992539",
+            "fields": [
+              "arch_db",
+              "arch_prev",
+              "write_date"
+            ],
+            "id": 1597,
+            "table": "ir_ui_view"
+          },
+          {
+            "after_sha256": "522cee4996c5266b436901fe468f5383a4a6f60a5144510a7a6ddf3581cdfd5a",
+            "before_sha256": "a79d7f20e581af47866f1d7306eeab31bae48d2f5c07156732b62384782dd5a5",
+            "fields": [
+              "arch_db",
+              "write_date"
+            ],
+            "id": 1598,
+            "table": "ir_ui_view"
+          },
+          {
+            "after_sha256": "dd4a1be107ddbfe05b5541c515d2c5b288b5812e65acee2e284b35dbc84311a2",
+            "before_sha256": "50c8d74c18203d66330ac638deef87d2cf1228375048023ac69c9ae0d5dca08c",
+            "fields": [
+              "arch_db",
+              "arch_prev",
+              "write_date"
+            ],
+            "id": 1599,
+            "table": "ir_ui_view"
+          },
+          {
+            "all_shared_fields_match_child": true,
+            "child_gate_passed": true,
+            "fields": [
+              "write_date"
+            ],
+            "id": 571,
+            "physical_schema": "public",
+            "physical_table": "ir_act_url",
+            "table": "ir_actions"
+          }
+        ],
+        "evidence_saved_before_decision": true
+      },
+      "runtime_error": null
+    },
+    {
+      "name": "reject",
+      "scope": "STATIC_FILE_LEDGER_NOT_NATIVE_ODOO",
+      "commit_intent": false,
+      "commit_completed_marker": false,
+      "full_before": true,
+      "full_after": true,
+      "full_diff": true,
+      "public_diff_index": true,
+      "decision": {
+        "PASS": false,
+        "error_sha256": "570945d023fe8d1b7335da757df05e7514ef836b5f358eeabf063c1169f3acd7",
+        "evidence_saved_before_decision": true,
+        "reason_code": "PHYSICAL_ROW_SET_CHANGED"
+      },
+      "runtime_error": {
+        "after_snapshot_available": true,
+        "commit_attempted": false,
+        "committed_marker": false,
+        "complete_diff_available": true,
+        "error": "PHYSICAL_ROW_SET_CHANGED"
+      }
+    },
+    {
+      "name": "load_error",
+      "scope": "STATIC_FILE_LEDGER_NOT_NATIVE_ODOO",
+      "commit_intent": false,
+      "commit_completed_marker": false,
+      "full_before": false,
+      "full_after": false,
+      "full_diff": false,
+      "public_diff_index": false,
+      "decision": null,
+      "runtime_error": {
+        "after_snapshot_available": false,
+        "commit_attempted": false,
+        "committed_marker": false,
+        "complete_diff_available": false,
+        "error": "FIXTURE_LOAD_ERROR"
+      }
+    },
+    {
+      "name": "capture_error",
+      "scope": "STATIC_FILE_LEDGER_NOT_NATIVE_ODOO",
+      "commit_intent": false,
+      "commit_completed_marker": false,
+      "full_before": false,
+      "full_after": false,
+      "full_diff": false,
+      "public_diff_index": false,
+      "decision": null,
+      "runtime_error": {
+        "after_snapshot_available": false,
+        "commit_attempted": false,
+        "committed_marker": false,
+        "complete_diff_available": false,
+        "error": "FIXTURE_CAPTURE_ERROR"
+      }
+    },
+    {
+      "name": "IO_error",
+      "scope": "STATIC_FILE_LEDGER_NOT_NATIVE_ODOO",
+      "commit_intent": false,
+      "commit_completed_marker": false,
+      "full_before": true,
+      "full_after": true,
+      "full_diff": true,
+      "public_diff_index": false,
+      "decision": null,
+      "runtime_error": {
+        "after_snapshot_available": true,
+        "commit_attempted": false,
+        "committed_marker": false,
+        "complete_diff_available": true,
+        "error": "[Errno 17] File exists: '/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/s10-p0-19/offline-run-01/IO_error/public'"
+      }
+    },
+    {
+      "name": "commit_unknown",
+      "scope": "STATIC_FILE_LEDGER_NOT_NATIVE_ODOO",
+      "commit_intent": true,
+      "commit_completed_marker": false,
+      "full_before": true,
+      "full_after": true,
+      "full_diff": true,
+      "public_diff_index": true,
+      "decision": {
+        "PASS": true,
+        "detail": [
+          {
+            "after_sha256": "f72f94d892900c7cdd59c1bd25239eaaf2dbb4fd2a3884e0b6f888b678b68fd1",
+            "before_sha256": "1359ec7ebc7a43f0a0da88f61a656cf105d614a5800660dd5c3812e709a1de88",
+            "fields": [
+              "write_date"
+            ],
+            "id": 571,
+            "table": "ir_act_url"
+          },
+          {
+            "after_sha256": "8929bd182148fd7af8b5376daaf0c48e100d7bf56d5cdc65783a65aaa0f6dcbc",
+            "before_sha256": "d0e3c254c5b9d6e05b3fc9f99ddd8737b8b3d9075b2ff07d98a9103022b06238",
+            "fields": [
+              "write_date"
+            ],
+            "id": 320,
+            "table": "ir_ui_menu"
+          },
+          {
+            "after_sha256": "c2d8c0d05e84a09ec4ecbab2bc7a5a947a82857a53101199f4aa7aacfefcfe3b",
+            "before_sha256": "a2e35c546e4b184b210ebe8d38d0c6a3eab192785106d61dd8fe6cc974992539",
+            "fields": [
+              "arch_db",
+              "arch_prev",
+              "write_date"
+            ],
+            "id": 1597,
+            "table": "ir_ui_view"
+          },
+          {
+            "after_sha256": "522cee4996c5266b436901fe468f5383a4a6f60a5144510a7a6ddf3581cdfd5a",
+            "before_sha256": "a79d7f20e581af47866f1d7306eeab31bae48d2f5c07156732b62384782dd5a5",
+            "fields": [
+              "arch_db",
+              "write_date"
+            ],
+            "id": 1598,
+            "table": "ir_ui_view"
+          },
+          {
+            "after_sha256": "dd4a1be107ddbfe05b5541c515d2c5b288b5812e65acee2e284b35dbc84311a2",
+            "before_sha256": "50c8d74c18203d66330ac638deef87d2cf1228375048023ac69c9ae0d5dca08c",
+            "fields": [
+              "arch_db",
+              "arch_prev",
+              "write_date"
+            ],
+            "id": 1599,
+            "table": "ir_ui_view"
+          },
+          {
+            "all_shared_fields_match_child": true,
+            "child_gate_passed": true,
+            "fields": [
+              "write_date"
+            ],
+            "id": 571,
+            "physical_schema": "public",
+            "physical_table": "ir_act_url",
+            "table": "ir_actions"
+          }
+        ],
+        "evidence_saved_before_decision": true
+      },
+      "runtime_error": {
+        "after_snapshot_available": true,
+        "commit_attempted": true,
+        "committed_marker": false,
+        "complete_diff_available": true,
+        "error": "FIXTURE_COMMIT_UNKNOWN"
+      }
+    }
+  ],
+  "actual_runtime_budget_used": 0
+}

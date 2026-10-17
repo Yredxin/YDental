@@ -1,0 +1,16 @@
+2026-10-17 02:40:10,476 726521 DEBUG ydental_s10_p019_20261017021844_64f8a46b odoo.sql_db.connection: ConnectionPool(read/write;used=1/count=1/max=4) Create new connection backend PID 1389431
+2026-10-17 02:40:11,858 726521 INFO ydental_s10_p019_20261017021844_64f8a46b odoo.registry: Registry loaded in 1.391s
+2026-10-17 02:40:21,164 726521 INFO ydental_s10_p019_20261017021844_64f8a46b odoo.registry: Caches invalidated, signaling through the database: ['default', 'templates']
+2026-10-17 02:40:26,994 ConnectionPool(read/write;used=1/count=1/max=4) Create new connection backend PID 1389503
+2026-10-17 02:40:27,529 ConnectionPool(read/write;used=1/count=1/max=4) Create new connection backend PID 1389506
+2026-10-17 02:40:31,239 ConnectionPool(read/write;used=1/count=2/max=4) Create new connection backend PID 1389519
+2026-10-17 02:40:31,675 ConnectionPool(read/write;used=1/count=2/max=4) Create new connection backend PID 1389529
+2026-10-17 02:40:31,683 ConnectionPool(read/write;used=2/count=3/max=4) Create new connection backend PID 1389530
+2026-10-17 02:40:31,690 ConnectionPool(read/write;used=3/count=4/max=4) Create new connection backend PID 1389531
+2026-10-17 02:40:31,705 ConnectionPool(read/write;used=4/count=4/max=4) Create new connection backend PID 1389532
+2026-10-17 02:40:31,718 ConnectionPool(read/write;used=4/count=4/max=4) Create new connection backend PID 1389533
+2026-10-17 02:40:31,728 ConnectionPool(read/write;used=3/count=3/max=4) Create new connection backend PID 1389534
+2026-10-17 02:40:31,748 ConnectionPool(read/write;used=3/count=3/max=4) Create new connection backend PID 1389535
+2026-10-17 02:40:31,758 ConnectionPool(read/write;used=4/count=4/max=4) Create new connection backend PID 1389536
+STOP: NATIVE_CONNECTION_BUDGET; actual Web native physical creates11 > frozen4
+HTTP process exit0; Firefox engine exit0; browser executor interrupted; request journal unavailable.

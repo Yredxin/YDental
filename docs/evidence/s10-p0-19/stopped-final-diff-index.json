@@ -1,0 +1,129 @@
+{
+  "all643_table_sets_captured": true,
+  "change_count": 9,
+  "changes": [
+    {
+      "after_rows": 1,
+      "after_sha256": "ab29585e6eb4025ab6785ae43cd521a72b2d4f5229399ee2a65aa2e040fad260",
+      "ambiguous_logical_id": false,
+      "before_rows": 1,
+      "before_sha256": "dbf9975f2bc9e68c889d87f2b06bfc97b7c7a630e0a00acf9d27aa38b431e3e4",
+      "columns": [
+        "write_date"
+      ],
+      "logical_id": 571,
+      "table": "ir_act_url"
+    },
+    {
+      "after_rows": 1,
+      "after_sha256": "99f5458061b5930826f343600b5ae7f7ce58488f8f1705a1b7889034eb8362ae",
+      "ambiguous_logical_id": false,
+      "before_rows": 1,
+      "before_sha256": "caeb65812e5d58411de3760da43901ebcb6c8424b178adad0a403060049f3a2a",
+      "columns": [
+        "write_date"
+      ],
+      "logical_id": 571,
+      "table": "ir_actions"
+    },
+    {
+      "after_rows": 1,
+      "after_sha256": "c7a2cb61512d0e90052c44827d27af3edd184dc692acdefb01f0340b08d9c39c",
+      "ambiguous_logical_id": false,
+      "before_rows": 1,
+      "before_sha256": "ac0e7eb1728e31134a2bd96aed9ddf9e69dce62d9eb955db2ba510b9e8b34bdd",
+      "columns": [
+        "write_date"
+      ],
+      "logical_id": 320,
+      "table": "ir_ui_menu"
+    },
+    {
+      "after_rows": 1,
+      "after_sha256": "647077c7689b911112a7b3dc530923c58f7e79388ba12b229069fa72a71e5a62",
+      "ambiguous_logical_id": false,
+      "before_rows": 1,
+      "before_sha256": "f52032afc916ae12c49d9efdc1ab2d5880ca9a9a16020c23ee79d29dfe17e9db",
+      "columns": [
+        "arch_prev",
+        "write_date"
+      ],
+      "logical_id": 1597,
+      "table": "ir_ui_view"
+    },
+    {
+      "after_rows": 1,
+      "after_sha256": "1f65b841041e5db33f2bace89c122af4ecebd27955427e34ee6e35b4d6f60a4c",
+      "ambiguous_logical_id": false,
+      "before_rows": 1,
+      "before_sha256": "376cb0a89866fe446e2d59c21d03ce90b30d964f2465b0072e556f57bbb518dc",
+      "columns": [
+        "write_date"
+      ],
+      "logical_id": 1598,
+      "table": "ir_ui_view"
+    },
+    {
+      "after_rows": 1,
+      "after_sha256": "5fbe7941006372ffd71e79d17d2535e13a04411ef2e783b33fa9bbab88495e8c",
+      "ambiguous_logical_id": false,
+      "before_rows": 1,
+      "before_sha256": "0a54782ad6a2715145ef98e50f73b6d564701fe8cdcba63e28839817948d06e2",
+      "columns": [
+        "arch_db",
+        "arch_prev",
+        "write_date"
+      ],
+      "logical_id": 1599,
+      "table": "ir_ui_view"
+    },
+    {
+      "after_rows": 1,
+      "after_sha256": "0b3070e82fbe9f3e6afa9af226c73456ecf34a28b7ad73c3df389b4e65818173",
+      "ambiguous_logical_id": false,
+      "before_rows": 0,
+      "before_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "columns": [
+        "date",
+        "id"
+      ],
+      "logical_id": 15,
+      "table": "orm_signaling_default"
+    },
+    {
+      "after_rows": 1,
+      "after_sha256": "fedc26b07211a100f327ff119c1c0dc9f07361a8186a0fb7aca99f7fc6010c8f",
+      "ambiguous_logical_id": false,
+      "before_rows": 0,
+      "before_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "columns": [
+        "date",
+        "id"
+      ],
+      "logical_id": 5,
+      "table": "orm_signaling_templates"
+    },
+    {
+      "after_rows": 1,
+      "after_sha256": "d2ff443d36653540b06bd0b5e5da0bb3fcd2f2f1c01a746d0648020051c3435e",
+      "before_rows": 1,
+      "before_sha256": "a725700f451d085c6eba63b884d0e3071bc27dac1eb35f27f5ae6e4b2e7f23fd",
+      "columns": [
+        "write_date"
+      ],
+      "duplicate_key": false,
+      "physical_key": [
+        "public",
+        "ir_act_url",
+        571
+      ],
+      "table": "action_projection"
+    }
+  ],
+  "label": "stopped-final",
+  "private_snapshot_sha256": {
+    "after": "fb2319d2e82b09d492835b8433eae012d9685a2c857d0095bdd8cdcae4d90715",
+    "before": "46c82a4f67fc9a7a06cc6d55f8128c3381408295f9bf1268ae0574a70c3d43f9",
+    "full-diff": "4f03a08e7e54801f8bd570f7bd11666af9de5c69a0ddeff2dd3ade945c7b3573"
+  }
+}

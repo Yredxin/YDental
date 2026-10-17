@@ -1,0 +1,11 @@
+{
+  "changed_tables": [
+    "ir_act_url",
+    "ir_actions",
+    "ir_ui_menu",
+    "ir_ui_view",
+    "orm_signaling_default",
+    "orm_signaling_templates"
+  ],
+  "economic_tables_unchanged": true
+}

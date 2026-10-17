@@ -1,0 +1,175 @@
+{
+  "Firefox_engine_exit": {
+    "exit_code": 0,
+    "signal": null
+  },
+  "Firefox_engine_pid": 726784,
+  "HTTP_completed_server_observation": {
+    "LOGIN_GET": 1,
+    "PDF_GET": 0,
+    "POST": 0,
+    "STATIC_ASSET_GET": 4,
+    "WORKBENCH_GET": 0
+  },
+  "HTTP_exit": 0,
+  "HTTP_pid": 726717,
+  "P018_transient_field_claim": "Not reopened or inferred from P019; old unretained diff remains unknown.",
+  "P019_actual_parent_projection_columns": [
+    "write_date"
+  ],
+  "UI_PDF_outcome": "NOT_COMPLETED_NOT_VERIFIED",
+  "actual_operations": {
+    "CREATE": 1,
+    "Firefox_context": 1,
+    "HTTP_process": 1,
+    "PDF_click_intent": 0,
+    "PDF_files_saved": 0,
+    "XML_import": 1,
+    "economic_clinical_permission_business_writes": 0,
+    "history_replay": 0,
+    "metadata_commit": 1,
+    "metadata_process": 1,
+    "screenshot_files_saved": 0,
+    "successful_authenticated_login": 0,
+    "successful_workbench_view": 0,
+    "sudo": 0
+  },
+  "all_other_637_tables_exact": true,
+  "authorization": 6228355422,
+  "base": "432c06f1b3529eafd7f7610475cb11c9ea834b3c",
+  "browser_executor_returncode": "not retained in frozen result; termination path waited for own process",
+  "browser_request_count_limitation": "Parent terminated browser executor on native connection-budget failure before its finally result was saved. In-memory browser request/response counters unavailable; server-completed five requests are observed, not proof of all initiated requests. No complete browser/server reconciliation. Do not report exact initiated login POST0 as measured.",
+  "changed_committed_tables": [
+    "ir_act_url",
+    "ir_actions",
+    "ir_ui_menu",
+    "ir_ui_view",
+    "orm_signaling_default",
+    "orm_signaling_templates"
+  ],
+  "connections": {
+    "all_physical_total": 18,
+    "clone_before": 1,
+    "clone_final": 1,
+    "clone_postmetadata": 1,
+    "explicit_maintenance": 1,
+    "native_metadata": 1,
+    "native_web": 11,
+    "source_after": 1,
+    "source_before": 1,
+    "web_budget_exceeded": true,
+    "web_budget_limit": 4
+  },
+  "coordinator_exit": 1,
+  "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "fee_money_stock_clinical_price_permissions_old_attachments_all_exact": true,
+  "frozen_files_unchanged": true,
+  "independent_postcommit_gate_PASS": true,
+  "initial_clone643_and_physical_projection_equals_source": true,
+  "metadata_commit": 1,
+  "metadata_exit": 0,
+  "metadata_full_before_after_diff_saved_before_decision": true,
+  "native_metadata_precommit_gate": {
+    "PASS": true,
+    "detail": [
+      {
+        "after_sha256": "8b152b38183f6ca212fd3aa7cdea2d8cdb4760ba847b968b90e61c8f9bf57a51",
+        "before_sha256": "1359ec7ebc7a43f0a0da88f61a656cf105d614a5800660dd5c3812e709a1de88",
+        "fields": [
+          "write_date"
+        ],
+        "id": 571,
+        "table": "ir_act_url"
+      },
+      {
+        "after_sha256": "d260c04378e2c687297a58e7b4c76a5a2bbe333b10a7716549ae526183e4a787",
+        "before_sha256": "d0e3c254c5b9d6e05b3fc9f99ddd8737b8b3d9075b2ff07d98a9103022b06238",
+        "fields": [
+          "write_date"
+        ],
+        "id": 320,
+        "table": "ir_ui_menu"
+      },
+      {
+        "after_sha256": "c5920affa5d3dfba0dbdf0110bbc1790672cbfe1d9ad56ac0b9505936c3025d8",
+        "before_sha256": "a2e35c546e4b184b210ebe8d38d0c6a3eab192785106d61dd8fe6cc974992539",
+        "fields": [
+          "arch_prev",
+          "write_date"
+        ],
+        "id": 1597,
+        "table": "ir_ui_view"
+      },
+      {
+        "after_sha256": "b5b54916491983f836271b169db3052f46d446d479addbb2144c93b44b0650cc",
+        "before_sha256": "a79d7f20e581af47866f1d7306eeab31bae48d2f5c07156732b62384782dd5a5",
+        "fields": [
+          "write_date"
+        ],
+        "id": 1598,
+        "table": "ir_ui_view"
+      },
+      {
+        "after_sha256": "61db93de45796e745e9f217356ec34843ab9c3a17ad8c4894fe45d59d07196a5",
+        "before_sha256": "50c8d74c18203d66330ac638deef87d2cf1228375048023ac69c9ae0d5dca08c",
+        "fields": [
+          "arch_db",
+          "arch_prev",
+          "write_date"
+        ],
+        "id": 1599,
+        "table": "ir_ui_view"
+      },
+      {
+        "all_shared_fields_match_child": true,
+        "child_gate_passed": true,
+        "fields": [
+          "write_date"
+        ],
+        "id": 571,
+        "physical_schema": "public",
+        "physical_table": "ir_act_url",
+        "table": "ir_actions"
+      }
+    ],
+    "evidence_saved_before_decision": true
+  },
+  "new_S01_audits": 0,
+  "new_asset_attachments": 0,
+  "new_identity_session_device_logs": 0,
+  "original_P018_window_reopened": false,
+  "original_SIGSEGV_root_cause": "UNKNOWN",
+  "owned_HTTP_and_Firefox_pids_absent": true,
+  "preflight": {
+    "all_runtime_budgets_at_readback": 0,
+    "authorization": 6228355422,
+    "body_sha256": "70e7291f8d1c9bb00f6f613125a269b59ffc6fe7446b6098e357cc94334d19dc",
+    "characters": 9736,
+    "comment_id": 6228603990,
+    "created_at": "2026-10-17T02:39:06Z",
+    "freeze_sha256": "b916b620023321b7b74dcddd176d71a14e25f7a44d7a69e1ea5ec82e60300be0",
+    "readback_at": "2026-10-17T02:39:22.139Z",
+    "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6228603990",
+    "utf8_bytes": 14770,
+    "verbatim_equal": true
+  },
+  "remaining_actions": "Only file evidence and GitHub delivery; no repeat CREATE/import/login/click, no contract edits or new connection; preserve clone2100330; STOP after receipt",
+  "source643_and_physical_projection_before_after_exact": true,
+  "source_and_clone_old_filestore152_exact": true,
+  "status": "BLOCKED_WEB_NATIVE_CONNECTION_BUDGET_EXCEEDED",
+  "stopped_tail_decision_PASS_meaning": "persisted capture succeeded; detail not_a_success_gate=true; not Web/economic acceptance or overall PASS",
+  "stopped_tail_full_before_after_and_diff_saved": true,
+  "target": {
+    "checkpoint": 6228603990,
+    "cluster": "7694897083368259627",
+    "config_sha256": "adce309f9754e5e53d06d308873d6c93247afa08c7c842b5f785338fa30a3ac3",
+    "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+    "database": "ydental_s10_p019_20261017021844_64f8a46b",
+    "head": "432c06f1b3529eafd7f7610475cb11c9ea834b3c",
+    "oid": 2100330,
+    "source": "ydental_s10_test_20261015073500_e50f4a71",
+    "source_oid": 2100310
+  },
+  "target_before_vs_final_all643_equal": false,
+  "target_metadata_after_vs_stopped_final_all643_and_physical_projection_equal": true
+}

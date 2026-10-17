@@ -1,0 +1,11 @@
+{
+  "all643_table_sets_captured": true,
+  "change_count": 0,
+  "changes": [],
+  "label": "clone-initial",
+  "private_snapshot_sha256": {
+    "after": "935a57586f183793ef2e9e53b1bcb428addb40ad9577ecc512d0845371574f95",
+    "before": "46c82a4f67fc9a7a06cc6d55f8128c3381408295f9bf1268ae0574a70c3d43f9",
+    "full-diff": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+  }
+}

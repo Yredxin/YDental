@@ -1,0 +1,16 @@
+{
+  "PASS": true,
+  "detail": {
+    "STOPPED": true,
+    "changed_tables": [
+      "ir_act_url",
+      "ir_actions",
+      "ir_ui_menu",
+      "ir_ui_view",
+      "orm_signaling_default",
+      "orm_signaling_templates"
+    ],
+    "not_a_success_gate": true
+  },
+  "evidence_saved_before_decision": true
+}

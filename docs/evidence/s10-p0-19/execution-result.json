@@ -1,0 +1,45 @@
+{
+  "actual_attempts": {
+    "browser-process": 1,
+    "create": 1,
+    "http": 1,
+    "maintenance": 1,
+    "metadata-process": 1,
+    "source-after": 1,
+    "source-before": 1,
+    "target-after": 1,
+    "target-before": 1,
+    "target-metadata-after": 1,
+    "xml-import": 1
+  },
+  "authorization": 6228355422,
+  "base": "432c06f1b3529eafd7f7610475cb11c9ea834b3c",
+  "error_sha256": "303c97dae094547eb8c9e3cac41e5351485683a8b518353336b7b6fd066a261c",
+  "error_type": "AssertionError",
+  "failed_phase": "firefox",
+  "http_exit_code": 0,
+  "metadata_commit_attempts": 1,
+  "metadata_committed_marker": 1,
+  "metadata_exit_code": 0,
+  "native_connections": "Native connection DEBUG backend-create records counted separately; metadata<=4 and Web<=4 physical connects, pool<=4, no retry on failure.",
+  "native_metadata_backend_pids": [
+    1389431
+  ],
+  "native_or_browser_exit_error_type": "AssertionError",
+  "runtime_zero_budget": {
+    "BUSINESS_POST": 0,
+    "DIRECT_BUSINESS_ORM": 0,
+    "ECONOMIC_OR_CLINICAL_WRITE": 0,
+    "EXECUTOR_SUDO": 0,
+    "HISTORICAL_REPLAY": 0,
+    "ISSUE_PROJECT_STATE_CHANGE": 0,
+    "MERGE_DEPLOY_P020_S11": 0,
+    "ODOO_SHELL_INSTALL_UPGRADE_INIT_TEST": 0,
+    "OS_PG_DOCKER_NETWORK_SPECIAL": 0,
+    "PRODUCT_CHANGE": 0
+  },
+  "source_final643": "PASS",
+  "status": "BLOCKED",
+  "stopped_clone_filestore_exact": true,
+  "target_final_invariants": "CAPTURED_INCOMPLETE_EXECUTION"
+}

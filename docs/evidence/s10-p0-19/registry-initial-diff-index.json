@@ -1,0 +1,11 @@
+{
+  "all643_table_sets_captured": true,
+  "change_count": 0,
+  "changes": [],
+  "label": "registry-initial",
+  "private_snapshot_sha256": {
+    "after": "c4cd286968959e61e5e1d08fc6b30683f064176f42072e6623b5ea8f462ba33b",
+    "before": "f9ab5b60b1cfdb8c23a061bc9966bdcda937c5ed915c48257691601b0804ed1e",
+    "full-diff": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+  }
+}
