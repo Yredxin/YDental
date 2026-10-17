@@ -6,6 +6,7 @@ import sys
 import s10_closeout_v1_contract as c
 from s10_closeout_v1_control import create, run_native, source_final
 from s10_closeout_v1_web import main as web_main
+from s10_closeout_v1_runtime import failure_evidence
 
 
 def main():
@@ -55,10 +56,13 @@ def resume_r1():
         result['status'] = 'A_B_C_D_E_COMPLETED_PENDING_FINAL_PROTECTION_AND_VISUAL'
     except BaseException as error:
         result['error_type'] = type(error).__name__
+        failure_evidence('r1-window', 'resume_r1', error)
         c.stop('R1_WINDOW_STOP:' + type(error).__name__)
     finally:
         try: c.readonly('r1-final-tail', full=True)
         except BaseException as error:
+            failure_evidence('r1-window-tail', 'final_tail_unavailable', error)
+            result['final_tail_error'] = type(error).__name__
             c.stop('R1_TAIL_INCOMPLETE:' + type(error).__name__)
         c.save(c.OUT / 'R1-window-result.json', result)
     # The final source audit is deliberately NOT automatic on an intermediate checker failure.

@@ -1,0 +1,9 @@
+{
+  "actor_flush_only": true,
+  "database": "ydental_s10_test_20261017080710_2494c102",
+  "exception_first": true,
+  "oid": 2144127,
+  "preserved_R0_STOP_sha256": "4fdb0e4e1753f1dc84eaf344288a94a04de6278c6a3fc7f885e9bce826a2dca2",
+  "same_clone_only": true,
+  "source_extra_final_RO_explicitly_approved": true
+}

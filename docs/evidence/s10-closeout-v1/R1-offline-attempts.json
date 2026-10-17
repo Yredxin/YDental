@@ -1,0 +1,16 @@
+{
+  "DB_Odoo_HTTP_Firefox": 0,
+  "exception_check_fixed": {
+    "exit_code": 0,
+    "private_log": ".local/s10-closeout-v1/R1-exception-check-fixed.log"
+  },
+  "exception_check_initial": {
+    "exit_code": 1,
+    "private_log": ".local/s10-closeout-v1/R1-exception-check.log",
+    "reason": "test glob selected secondary exception record"
+  },
+  "preflight_R1_final_approved": {
+    "exit_code": 0,
+    "private_log": ".local/s10-closeout-v1/R1-final-approved-preflight.log"
+  }
+}

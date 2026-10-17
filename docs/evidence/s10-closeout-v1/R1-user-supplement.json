@@ -1,0 +1,7 @@
+{
+  "authority": "USER_DIRECT_S10_CLOSEOUT_PLAN_v1.1",
+  "baseline": "c58dd6809b7f384be72b63785c7594990f428551",
+  "not_GitHub_P0_25": true,
+  "record_type": "USER_DIRECT_APPROVAL_SUPPLEMENT",
+  "user_instruction_scope_transcription": "继续 S10-CLOSEOUT-PLAN-v1.1 的 R1 定向修复及原五组收尾。当前固定检查点：c58dd6809b7f384be72b63785c7594990f428551；继续原分支 codex/s10-settlement-finance-r1-20261013。\n同意唯一的源只读预算补充：P0-21 来源 ydental_s10_test_20261017050000_21b0cafe，OID2122140 / cluster7694897083368259627。在原已执行两条源只读连接之外，最多追加1条严格 READ ONLY / REPEATABLE READ 连接，仅用于整个收尾包真正结束时的最终来源保全核验，最终 ROLLBACK/CLOSE。源只读累计上限3；全包显式只读连接总上限仍28。不得在源库启动Odoo、修改数据、授撤权、升级或执行业务。不得在下一次可修复中间检查失败时提前消耗最终源额度。R0源尾审只代表原时点。\n只在已建副本 ydental_s10_test_20261017080710_2494c102 / OID2144127 / 同cluster续接；先核与R0最终有效尾审一致，acquire回滚、pending/v2无有效编辑者，scope及审计提交保留。不得CREATE、换库、重建740、删除scope或重放旧经济动作；明确R1续接入口，不运行含create的R0入口。\n真实操作账号环境flush之后才uid1只读投影。不得手写write_uid、接受错误操作者、取消锁或放宽作者/版本/审计/经济不变量；修正仅本包新脚本。业务调用、actor flush或snapshot失败先保存原始异常及已有证据，不以快照断言遮蔽原始失败，不用uid1刷新业务。无法安全采集的部分记未取得并停止。静态检查、固定R1和回归清单后按原允许修复轮次继续A+B→C+D→E。\nGitHub同步独立；用户直接确认，不冒称GPT P0-25；工具安全拒绝不得换工具/身份/入口绕过。不重复P023/24；D在上游费用资金前核真实身份、日期、权限及全部相关日结锁；旧日结不解锁、历史资金不重放。未知经济、越权内容、身份漂移、证据不一致或Native崩溃按原停止边界。最终五组实际结果、完整22行、固定提交证据同步状态，停止等待GPT独立技术复核，不启S11合并部署。"
+}

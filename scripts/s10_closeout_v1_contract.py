@@ -155,23 +155,31 @@ def capture(cur, database=NAME, full=False):
                      if json.loads(line)['event'] == 'snapshot_identity')
     raw_path = PRIVATE / ('capture-%04d-server-rows.jsonl' % capture_no)
     raw_stream = raw_path.open('x')
-    for table, columns in sorted(schema.items()):
-        if not full and not selected_table(table):
-            continue
-        # Identifiers come exclusively from this verified actual catalog.
-        from psycopg2 import sql
-        order = sql.Identifier('id') if any(c['column'] == 'id' for c in columns) else sql.SQL('to_jsonb(t)::text')
-        query = sql.SQL("SELECT t.tableoid::regclass::text,t.tableoid,to_jsonb(t)::text,pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to(to_jsonb(t)::text,'UTF8')),'hex') FROM public.{} t ORDER BY {}").format(sql.Identifier(table), order)
-        cur.execute(query)
-        tables[table] = []
-        for physical, physical_oid, raw, server_digest in cur.fetchall():
-            raw_stream.write(canonical({'requested_table': table, 'physical_table': physical,
-                'physical_oid': physical_oid, 'server_json_text': raw, 'server_sha256': server_digest}) + '\n')
-            raw_stream.flush()
-            assert sha(raw.encode('utf8')) == server_digest, ('SERVER_CLIENT_ROW_BYTES_MISMATCH', table)
-            value = json.loads(raw, parse_float=Decimal)
-            tables[table].append(value | {'__physical_table__': physical, '__physical_oid__': physical_oid})
-    raw_stream.flush(); os.fsync(raw_stream.fileno()); raw_stream.close()
+    complete = False
+    try:
+        for table, columns in sorted(schema.items()):
+            if not full and not selected_table(table):
+                continue
+            # Identifiers come exclusively from this verified actual catalog.
+            from psycopg2 import sql
+            order = sql.Identifier('id') if any(c['column'] == 'id' for c in columns) else sql.SQL('to_jsonb(t)::text')
+            query = sql.SQL("SELECT t.tableoid::regclass::text,t.tableoid,to_jsonb(t)::text,pg_catalog.encode(pg_catalog.sha256(pg_catalog.convert_to(to_jsonb(t)::text,'UTF8')),'hex') FROM public.{} t ORDER BY {}").format(sql.Identifier(table), order)
+            cur.execute(query)
+            tables[table] = []
+            for physical, physical_oid, raw, server_digest in cur.fetchall():
+                raw_stream.write(canonical({'requested_table': table, 'physical_table': physical,
+                    'physical_oid': physical_oid, 'server_json_text': raw, 'server_sha256': server_digest}) + '\n')
+                raw_stream.flush()
+                assert sha(raw.encode('utf8')) == server_digest, ('SERVER_CLIENT_ROW_BYTES_MISMATCH', table)
+                value = json.loads(raw, parse_float=Decimal)
+                tables[table].append(value | {'__physical_table__': physical, '__physical_oid__': physical_oid})
+        complete = True
+    finally:
+        raw_stream.flush(); os.fsync(raw_stream.fileno()); raw_stream.close()
+        if not complete:
+            save(OUT / ('capture-%04d-partial-layer.json' % capture_no), {'private_raw_file': str(raw_path.relative_to(ROOT)),
+                'bytes': raw_path.stat().st_size, 'sha256': sha(raw_path.read_bytes()),
+                'status': 'INCOMPLETE_NO_SNAPSHOT_PASS', 'tables_started': sorted(tables)})
     save(OUT / ('capture-%04d-layer.json' % capture_no), {'private_raw_file': str(raw_path.relative_to(ROOT)),
         'bytes': raw_path.stat().st_size, 'sha256': sha(raw_path.read_bytes()),
         'server_and_client_row_digests_equal': True, 'full': full, 'tables': len(tables)})
@@ -235,6 +243,8 @@ def readonly(label, source=False, full=False):
         if (PRIVATE / 'source-budget-approval.json').exists():
             approval = read(PRIVATE / 'source-budget-approval.json')
             assert approval['additional_final_source_RO'] == 1 and approval['explicit_user_approval']
+            assert approval['source'] == SOURCE and approval['oid'] == SOURCE_OID and approval['cluster'] == CLUSTER
+            assert approval['source_cap'] == 3 and approval['total_explicit_RO_cap'] == 28 and approval['terminal_only']
             cap = 3
         assert label in {'source-before', 'source-final', 'source-final-r1'}
         assert sum(e['event'] == 'RO_intent' and e.get('database') == SOURCE for e in events) < cap

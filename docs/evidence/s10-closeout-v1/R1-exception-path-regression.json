@@ -1,0 +1,50 @@
+{
+  "exit_code": 0,
+  "pure_files_only": true,
+  "real_observe_implementation_executed": true,
+  "results": [
+    {
+      "order": [
+        "snapshot",
+        "business",
+        "primary_saved",
+        "snapshot",
+        "primary_saved"
+      ],
+      "primary_identity_preserved": true,
+      "scenario": "business_call"
+    },
+    {
+      "order": [
+        "snapshot",
+        "business",
+        "actor_flush",
+        "primary_saved",
+        "snapshot",
+        "primary_saved"
+      ],
+      "primary_identity_preserved": true,
+      "scenario": "actor_flush"
+    },
+    {
+      "order": [
+        "snapshot",
+        "primary_saved"
+      ],
+      "primary_identity_preserved": true,
+      "scenario": "before_snapshot"
+    },
+    {
+      "order": [
+        "snapshot",
+        "business",
+        "actor_flush",
+        "snapshot",
+        "primary_saved"
+      ],
+      "primary_identity_preserved": true,
+      "scenario": "after_snapshot"
+    }
+  ],
+  "unsafe_snapshot_unavailable_not_flushed": true
+}

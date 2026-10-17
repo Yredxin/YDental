@@ -1,0 +1,49 @@
+{
+  "DB_CREATE_Odoo_HTTP_Firefox_used": 0,
+  "all_four_document_lifecycle_predicates": true,
+  "config_sha256": "ef6805463c0fbe388ed774b92cd7391a0135f23567d96c7ade512908b8e4f816",
+  "deterministic_rejections": [
+    "stored_amount",
+    "patient_identity",
+    "mutex_delta2",
+    "audit_wrong_actor",
+    "upgrade_economic",
+    "action_url_changed",
+    "action_parent_inconsistent",
+    "duplicate_physical_key_preserved_not_silently_overwritten",
+    "unescaped_control",
+    "duplicate_json_key",
+    "truncated_JSON",
+    "marker_only_after_independent_commit_readback"
+  ],
+  "document_mutex_positive": "four exact records +1 each",
+  "exit_code": 0,
+  "full_evidence_saved_before_rejection": true,
+  "native_slot_return_contract": "slot returns id/warning/policy, publish version read from actual returned record",
+  "new_scripts_compile_and_symbols": {
+    "scripts/s10_closeout_v1_browser.py": [],
+    "scripts/s10_closeout_v1_cases.py": [],
+    "scripts/s10_closeout_v1_contract.py": [],
+    "scripts/s10_closeout_v1_control.py": [],
+    "scripts/s10_closeout_v1_exception_check.py": [],
+    "scripts/s10_closeout_v1_finish.py": [],
+    "scripts/s10_closeout_v1_native.py": [],
+    "scripts/s10_closeout_v1_preflight.py": [],
+    "scripts/s10_closeout_v1_repair_check.py": [],
+    "scripts/s10_closeout_v1_run.py": [],
+    "scripts/s10_closeout_v1_runtime.py": [],
+    "scripts/s10_closeout_v1_web.py": []
+  },
+  "no_stale_500": true,
+  "old_evidence_not_rehashed_or_rewritten": true,
+  "pure_files_only": true,
+  "real_catalog_field_handoffs_checked": true,
+  "source_private_dependencies_sha256": {
+    ".local/s10-p0-21/final-RO-rows.json": "7405cf237da5fa8cbe4557ba89080b59275675f072fb4dcda69f46db1ee28d1d",
+    ".local/ydental_s10_test_20261017050000_21b0cafe/b-chain.json": "628d42104395f3ecb0149c5a07e8b79528e0c73ec108edcd022d6804c78c7cc6",
+    ".local/ydental_s10_test_20261017050000_21b0cafe/database.json": "7f3a2d3d0173c84f7b617065872c1bb3c23e80bdd4a0c6e1c13f993254ccb3bc",
+    ".local/ydental_s10_test_20261017050000_21b0cafe/odoo.conf": "f2cc0fb165dd2fe5c8e141871f7a1f7226a6f1ba7f1579b2bcbab769b05c3547",
+    ".local/ydental_s10_test_20261017050000_21b0cafe/original.json": "4ba6b82d9cc8b24b1cde6973d2196257166cd3b4cb83015d8e53d9b2f622de4f",
+    ".local/ydental_s10_test_20261017050000_21b0cafe/trade.json": "90d9bee4ee407a51efe6d5a5f26970cc047d75d0c7ea9c776de38df0470e8f4b"
+  }
+}

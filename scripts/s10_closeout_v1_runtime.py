@@ -2,10 +2,38 @@
 from collections import defaultdict
 from types import CodeType
 import os
+import traceback
 from pathlib import Path
 import s10_closeout_v1_contract as c
 
 COUNTS = defaultdict(int)
+
+
+def failure_evidence(label, stage, error, obtained=None):
+    """Save the primary exception before attempting any optional diagnostic read."""
+    record = {'stage': stage, 'type': type(error).__name__, 'message': str(error),
+              'traceback': ''.join(traceback.format_exception(error)), 'obtained': obtained or {},
+              'snapshot_status': 'NOT_ATTEMPTED_NO_UID1_FLUSH'}
+    path = c.PRIVATE / (label + '-primary-exception.json')
+    try:
+        c.save(path, record)
+        c.save(c.OUT / (label + '-primary-exception-index.json'), {
+            'stage': stage, 'type': type(error).__name__, 'private_file': str(path.relative_to(c.ROOT)),
+            'sha256': c.sha(path.read_bytes()), 'snapshot_status': record['snapshot_status']})
+    except BaseException as saving_error:
+        # Never replace the business/flush/capture exception with a diagnostic failure.
+        try: c.event('exception_save_unavailable', label=label, primary=type(error).__name__, secondary=type(saving_error).__name__)
+        except BaseException: pass
+
+
+def exception_snapshot(env, label, before):
+    """Best effort only after the primary exception has been durably recorded."""
+    try:
+        after = snapshot(env)
+        c.persist(label + '-exception', before, after, lambda a, b, d: {'exception_only_no_business_PASS': True})
+    except BaseException as secondary:
+        failure_evidence(label + '-secondary', 'exception_snapshot_unavailable', secondary,
+                         {'before_saved': True, 'no_uid1_flush': True})
 
 
 def key():
@@ -44,20 +72,26 @@ def observe(env, label, call, predicate, actor_env=None):
     label = os.environ['YDENTAL_CLOSEOUT_ACTION'] + '-' + label
     COUNTS[label] += 1
     label += '-' + str(COUNTS[label])
-    before = snapshot(env)
-    c.save(c.PRIVATE / (label + '-intent-before.json'), before)
-    c.event('native_action_intent', label=label)
+    stage = 'before_snapshot'
     try:
+        before = snapshot(env)
+        c.save(c.PRIVATE / (label + '-intent-before.json'), before)
+        c.event('native_action_intent', label=label)
+        stage = 'business_call'
         value = call()
+        stage = 'actor_flush'
         if actor_env is not None:
             actor_env.flush_all()
-    except BaseException as error:
+        stage = 'after_snapshot'
         after = snapshot(env)
-        c.persist(label + '-exception', before, after, lambda a, b, d: {'exception_only_no_business_PASS': True})
+        stage = 'persist_and_predicate'
+        c.persist(label, before, after, predicate)
+    except BaseException as error:
+        failure_evidence(label, stage, error, {'before_saved': 'before' in locals(), 'after_acquired': 'after' in locals()})
+        if stage in {'business_call', 'actor_flush'}:
+            exception_snapshot(env, label, before)
         c.event('native_action_exception', label=label, error=type(error).__name__)
         raise
-    after = snapshot(env)
-    c.persist(label, before, after, predicate)
     c.event('native_action_returned', label=label)
     return value
 
@@ -218,9 +252,12 @@ def checkpoint(cr, root, label, marker=None):
     try:
         cr.commit()
     except BaseException as error:
+        failure_evidence(label, 'commit_unknown', error, {'precommit_saved': True})
         c.event('commit_unknown', label=label, error=type(error).__name__)
-        c.readonly(label + '-unknown-tail')
         c.stop('UNKNOWN_COMMIT_RESULT')
+        try: c.readonly(label + '-unknown-tail')
+        except BaseException as secondary:
+            failure_evidence(label + '-secondary', 'unknown_commit_tail_unavailable', secondary)
         raise
     c.event('commit_returned', label=label)
     after = c.readonly(label + '-committed')
