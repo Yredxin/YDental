@@ -2,6 +2,7 @@
 from contextvars import ContextVar
 from contextlib import contextmanager
 from datetime import datetime, timezone
+import atexit
 import hashlib
 import json
 import logging
@@ -43,11 +44,47 @@ _TOKEN = re.compile(r'[A-Za-z0-9_.:/-]{1,160}\Z')
 _CONTEXT = ContextVar('ydental_diagnostic_context', default=None)
 _LOGGER = logging.getLogger(LOGGER_NAME)
 _CONFIG_LOCK = threading.RLock()
-_SEQUENCE_LOCK = threading.Lock()
+_SEQUENCE_LOCK = threading.RLock()
 _SEQUENCE = 0
 _PID = os.getpid()
 _DIRECTORY = None
 _FAILED = False
+_LIFECYCLE_PIDS = set()
+_CLOSING_PIDS = set()
+_LIFECYCLE_LABELS = {}
+_ENV_LABEL = re.compile(r'[A-Za-z0-9_.:-]{1,96}\Z')
+
+
+def _lifecycle_labels():
+    """Snapshot only the existing non-secret launch labels, never ORM state."""
+    selected = {}
+    for name in ('run_id', 'task_id', 'product_commit', 'test_commit', 'core_commit'):
+        value = os.environ.get('YDENTAL_' + name.upper())
+        selected[name] = value if type(value) is str and _ENV_LABEL.fullmatch(value) else None
+    return selected
+
+
+def _lifecycle_event(event, labels, outcome):
+    # A process event is not an HTTP request or evidence of a committed unit.
+    token = bind_context(**labels)
+    try:
+        emit_event(event, component='ydental_access.diagnostics',
+                   stage='process.diagnostics', outcome=outcome,
+                   transaction_phase='NOT_OBSERVED', commit_observation='NOT_OBSERVED')
+    finally:
+        reset_context(token)
+
+
+def _close_lifecycle(pid, labels):
+    """A shared reentrant sequence/handler lock permits native shutdown too."""
+    with _SEQUENCE_LOCK:
+        if pid != os.getpid() or pid in _CLOSING_PIDS:
+            return
+        _CLOSING_PIDS.add(pid)
+        try:
+            _lifecycle_event('run.end', labels, 'DIAGNOSTIC_CLOSING')
+        except Exception:
+            _failure()
 
 
 def _primitive(name, value):
@@ -160,6 +197,11 @@ class PidFileHandler(logging.Handler):
     """One exclusive file per PID/launch; seal segments without deleting any."""
     def __init__(self, directory, segment_bytes=10 * 1024 * 1024, max_segments=5):
         super().__init__(logging.INFO)
+        # One lock, not two inversely ordered locks: logging.shutdown acquires
+        # handler.lock before close, while emit_event assigns the next sequence
+        # before logging acquires handler.lock. Native close can safely emit the
+        # final lifecycle event under this same reentrant diagnostic-only lock.
+        self.lock = _SEQUENCE_LOCK
         if not 128 <= segment_bytes <= 10 * 1024 * 1024 or not 1 <= max_segments <= 5:
             raise ValueError('INVALID_DIAGNOSTIC_BUDGET')
         self.directory = Path(directory)
@@ -225,6 +267,8 @@ class PidFileHandler(logging.Handler):
         self.acquire()
         try:
             if self.pid == os.getpid():
+                if self.pid in _LIFECYCLE_LABELS:
+                    _close_lifecycle(self.pid, _LIFECYCLE_LABELS[self.pid])
                 self._seal()
             elif self.fd is not None:
                 os.close(self.fd)
@@ -266,6 +310,15 @@ def configure_once(directory=None):
             handler = PidFileHandler(candidate)
             handler.setFormatter(JsonlFormatter())
             _LOGGER.addHandler(handler)
+            if _PID not in _LIFECYCLE_PIDS:
+                _LIFECYCLE_PIDS.add(_PID)
+                labels = _lifecycle_labels()
+                _LIFECYCLE_LABELS[_PID] = labels
+                # logging registered shutdown at import time. This later
+                # callback normally runs first. Odoo may explicitly call
+                # shutdown earlier; handler.close emits the same event once.
+                atexit.register(_close_lifecycle, _PID, labels)
+                _lifecycle_event('run.start', labels, 'DIAGNOSTIC_READY')
             return True
         except Exception:
             _failure()
@@ -276,7 +329,7 @@ def emit_event(event, **values):
     """Optional diagnostics cannot modify a caller's transaction or exception."""
     global _SEQUENCE
     try:
-        metadata = current_context() | _validated(values)
+        metadata = _LIFECYCLE_LABELS.get(os.getpid(), {}) | current_context() | _validated(values)
         event_id = metadata.pop('event_id', None) or uuid.uuid4().hex
         with _SEQUENCE_LOCK:
             _SEQUENCE += 1
