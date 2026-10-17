@@ -44,3 +44,15 @@ TR01源码接受后在现scratch第一次真实运行五TransactionCase+一HttpC
 
 - 取证后处理datetime序列化TypeError：仅RO关闭后发生，保留首次脚本/失败，改为ISO8601后第二RO保存PASS。消耗两条RO，不伪称一次或业务失败。
 - LOGIN_INPUT_UNAVAILABLE：未提供当前正常授权登录/provider；旧被拒账户材料不接手。A-STATE通过有限基线，A-EDITOR/A-ORIGINAL仍BLOCKED/NOT_RUN，工具静态准备不替代真实验收。
+
+
+## MAIN-A DEV-TEST-AUTONOMY / YD-S10-LC2-MAIN-A-20261018-02
+
+- 已解决LOGIN_INPUT_UNAVAILABLE：标准ORM准备必要既有用户7/5，用户7正常原登录表单真实HTTP认证成功；没有改业务资格或读取旧被拒材料。
+- 入口已整理为MAIN-A-DEV-AUTONOMY-1.0，旧AGENTS原字节归档。150纯测试/六框架既采不重跑。
+- 普通preflight猜login前缀失败已保留，使用当前非敏感合成显示名/权限及克隆来源确认，不猜权限。
+- 首服务SOCKET_READY_BEFORE_RUN_START导致提前隐私证明失败；清理SIGINT/-2后二级缺日志STOP。修复3dc91ed等待真实start/level并保留60s边界，四小型合成边界及后两服务准出支持。仅本轮误触STOP原字节归档，有明确回执；旧STOP不动。
+- A-EDITOR具体阻断：私有HTTP runner错误断言switch.result=accepted，而现控制器仅返回revision；在acquire前失败。团队可避免断言错误，已修私有源码但四Odoo额度耗尽，NOT_RUN，旧editor7/session109仍过期未release。不得归因密码/产品权限。
+- A-ORIGINAL具体阻断：唯一Firefox launch Error，context/工作台点击/原件GET/下载/视觉均0，具体原因/内部PID退出UNKNOWN；启动Error文字未留是工具可诊断性限制。Firefox1额度耗尽，不换浏览器/工具或直接GET替代。
+- 实际隐私缺陷：base res_device INFO在本轮normal login记录一次session标识前缀；raw0700/0600私有保全，未公开值/行/摘要。http.server CRITICAL证明不足覆盖该logger，不称绝无token日志；未见密码输出证据，不称外传。抑制修复和运行回归NOT_RUN，当前无应用额度。
+- 终核60表1034行/93模块、旧1178审计、正文/版本/作者/费库账款/原件及四mutex同基线；新增认证配置、native登录/device各1、session110及3个S01认证/切店审计明确分列。A组/S10/生产不通过。

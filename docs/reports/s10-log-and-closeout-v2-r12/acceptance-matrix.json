@@ -3808,5 +3808,404 @@
       "reason": "LOGIN_INPUT_UNAVAILABLE",
       "application_dispatched": false
     }
-  }
+  },
+  "main_a_autonomy": {
+    "message_id": "YD-S10-LC2-MAIN-A-20261018-02",
+    "scope": "EXISTING_MAIN_TEST_CREDENTIAL_SETUP_AND_A_CLOSEOUT",
+    "parent_commit": "41e6c7c2b906653c9e264e4f402f5e572765bb98",
+    "rules_version": "MAIN-A-DEV-AUTONOMY-1.0",
+    "status": "A_STATE_PASS_AUTH_SETUP_PASS_EDITOR_AND_ORIGINAL_INCOMPLETE",
+    "product_commit": "cf5d63fe510b52ea150d07495bf3062f4ce0961d",
+    "initial_test_tools_commit": "4ec332cdd11d13da291f3335db4f6bd8d943d1db",
+    "test_tools_commit": "3dc91ede7651468e1a66d0cad07d3462214ba3d4",
+    "core_commit": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+    "database": "ydental_s10_test_20261017105432_810a7d9c",
+    "oid": 2144129,
+    "cluster": "7694897083368259627",
+    "port": 18410,
+    "rows": [
+      {
+        "business_domains_exact_before_after": true,
+        "document": {
+          "id": 1,
+          "state": "confirmed",
+          "write_date": "2026-10-17T08:59:48.617108",
+          "write_uid": 7,
+          "ydental_author_id": 7,
+          "ydental_current_execution_id": 1,
+          "ydental_editor_expires": "2026-10-17T09:09:51",
+          "ydental_editor_id": 7,
+          "ydental_editor_lease_id": null,
+          "ydental_patient_id": 1,
+          "ydental_responsible_id": 7,
+          "ydental_session_id": 109,
+          "ydental_session_revision": 1,
+          "ydental_store_id": 1,
+          "ydental_version": 4
+        },
+        "execution": "EXECUTED",
+        "id": "A-STATE",
+        "installed_modules": 93,
+        "layers": [
+          "INDEPENDENT_MAIN_RO_COMMITTED_STATE",
+          "ACTUAL_RETAINED_FILE_CHECK_NOT_BROWSER_DOWNLOAD"
+        ],
+        "old_audits_preserved": {
+          "equal_valid_baseline": true,
+          "rows": 1178
+        },
+        "rows": 1034,
+        "status": "PASS_SCOPED_BASELINE_AND_TERMINAL_PRESERVATION",
+        "tables": 60,
+        "valid_baseline_equal": true
+      },
+      {
+        "access_get_http": 200,
+        "editor_service_calls": 0,
+        "editor_terminal_state": "EXPIRED_STORED_EDITOR7_SESSION109_NOT_RELEASED",
+        "execution": "NOT_RUN",
+        "failure_attributable_to": "TESTER_AVOIDABLE_ASSERTION_ERROR_NOT_PRODUCT_PERMISSION_OR_CREDENTIAL_FAILURE",
+        "id": "A-EDITOR",
+        "layers": [
+          "STATIC_CURRENT_QUALIFICATION",
+          "STANDARD_ORM_AUTHENTICATION_FIXTURE",
+          "REAL_HTTP_NORMAL_LOGIN_AND_STORE_SWITCH",
+          "INDEPENDENT_MAIN_RO_TERMINAL_STATE"
+        ],
+        "normal_login_http": [
+          200,
+          303
+        ],
+        "reason": "PRIVATE_HTTP_RUNNER_WRONGLY_ASSERTED_SWITCH_RESULT_ACCEPTED; ACTUAL_CONTROLLER_RETURNS_ONLY_REVISION. ASSERTION_RAISED_BEFORE_ACQUIRE; FOUR_ODOO_START_BUDGET_EXHAUSTED; CORRECTED_CANDIDATE_SAVED_NOT_RUN",
+        "status": "BLOCKED",
+        "store_switch_http": 200
+      },
+      {
+        "browser_contexts": 0,
+        "direct_http_substitution": false,
+        "download_files": 0,
+        "execution": "NOT_RUN",
+        "id": "A-ORIGINAL",
+        "layers": [
+          "ONE_REAL_FIREFOX_LAUNCH_ATTEMPT_FAILED_BEFORE_CONTEXT",
+          "RETAINED_FILE_BASELINE_ONLY"
+        ],
+        "old_retained_file": {
+          "attachment_id": 161,
+          "bytes": 27665,
+          "sha256": "05928780e7d97a06cf29019634f64b010eb4994c2f1c5032d561008a50b059b4"
+        },
+        "original_gets": 0,
+        "pdf_visual_pages": 0,
+        "reason": "PLAYWRIGHT_FIREFOX_LAUNCH_ERROR_BEFORE_CONTEXT_OR_LOGIN; SPECIFIC_CAUSE_UNKNOWN; FIREFOX_ONE_ATTEMPT_BUDGET_EXHAUSTED",
+        "status": "BLOCKED",
+        "workbench_clicks": 0
+      }
+    ],
+    "authentication": {
+      "cache_changes": "NOT_INDEPENDENTLY_MEASURED",
+      "clinical_actor_id": 7,
+      "directory_mode": "0700",
+      "explicit_commit_returned": true,
+      "files_mode": "0600",
+      "git_ignored": true,
+      "identity_and_business_privileges_unchanged": true,
+      "native_new_device_metadata": [
+        {
+          "create_date": null,
+          "create_uid": null,
+          "first_activity": "2026-10-17T23:42:52",
+          "id": 3,
+          "last_activity": "2026-10-17T23:42:52",
+          "revoked": false,
+          "user_id": 7,
+          "write_date": null,
+          "write_uid": null
+        }
+      ],
+      "native_new_user_login_metadata": [
+        {
+          "create_date": "2026-10-17T23:42:52.156620",
+          "create_uid": 7,
+          "id": 3,
+          "write_date": "2026-10-17T23:42:52.156620",
+          "write_uid": 7
+        }
+      ],
+      "old_browser_session_invalidation": "STANDARD_ORM_MECHANISM_NOT_SEPARATELY_PROBED",
+      "old_refused_materials_accessed": false,
+      "original_reader_id": 5,
+      "prepared_ids": [
+        7,
+        5
+      ],
+      "provider_directory": ".local/s10-lc2-main-a-20261018-02/credentials",
+      "provider_values_or_password_hashes_or_fingerprints_exported": false,
+      "s01_new_audits": [
+        {
+          "create_date": "2026-10-17T23:42:52.156620",
+          "id": 1185,
+          "ydental_after": null,
+          "ydental_before": null,
+          "ydental_category": "personnel",
+          "ydental_event": "login",
+          "ydental_result": "accepted",
+          "ydental_source": "native_authenticated_login",
+          "ydental_store_id": null,
+          "ydental_target_id": 7,
+          "ydental_target_model": "res.users",
+          "ydental_user_id": 7
+        },
+        {
+          "create_date": "2026-10-17T23:42:52.583425",
+          "id": 1186,
+          "ydental_after": null,
+          "ydental_before": null,
+          "ydental_category": "personnel",
+          "ydental_event": "login.scope",
+          "ydental_result": "accepted",
+          "ydental_source": "authenticated_session",
+          "ydental_store_id": null,
+          "ydental_target_id": 110,
+          "ydental_target_model": "ydental.access.session",
+          "ydental_user_id": 7
+        },
+        {
+          "create_date": "2026-10-17T23:42:52.583425",
+          "id": 1187,
+          "ydental_after": {
+            "store_id": 1
+          },
+          "ydental_before": {
+            "store_id": false
+          },
+          "ydental_category": "personnel",
+          "ydental_event": "store.switch",
+          "ydental_result": "accepted",
+          "ydental_source": "interactive",
+          "ydental_store_id": 1,
+          "ydental_target_id": 110,
+          "ydental_target_model": "ydental.access.session",
+          "ydental_user_id": 7
+        }
+      ],
+      "s01_new_sessions": [
+        {
+          "id": 110,
+          "write_date": "2026-10-17T23:42:52.583425",
+          "write_uid": 7,
+          "ydental_revision": 1,
+          "ydental_store_id": 1,
+          "ydental_user_id": 7
+        }
+      ],
+      "source": "P021-B Synthetic doctor/manager live metadata and owned-main clone provenance",
+      "standard_orm_password_writes": 2,
+      "user5_not_logged_in": true,
+      "user_metadata_changes": [
+        {
+          "changes": {
+            "write_date": {
+              "after": "2026-10-17T23:37:55.780896",
+              "before": "2026-10-17T04:56:12.084869"
+            },
+            "write_uid": {
+              "after": 1,
+              "before": 5
+            }
+          },
+          "user_id": 5
+        },
+        {
+          "changes": {
+            "write_date": {
+              "after": "2026-10-17T23:37:55.780896",
+              "before": "2026-10-17T04:27:46.319808"
+            }
+          },
+          "user_id": 7
+        }
+      ]
+    },
+    "new_resource_counts": {
+      "clinical_acquire": 0,
+      "clinical_release": 0,
+      "create": 0,
+      "firefox": 1,
+      "http": 4,
+      "maintenance": 0,
+      "odoo_start": 4,
+      "original_get": 0,
+      "scratch_or_protected_source_connections": 0,
+      "target_ro": 8,
+      "upgrade": 0
+    },
+    "cumulative_counts": {
+      "accident_ro": 2,
+      "create": 2,
+      "firefox": 1,
+      "http": 5,
+      "maintenance": 1,
+      "odoo_start": 6,
+      "original_get": 0,
+      "target_ro": 19
+    },
+    "storage_measurement": {
+      "cumulative_bytes": 139779459,
+      "measurement": "METADATA_ONLY_NO_PROVIDER_READ_OR_DIGEST",
+      "new_limit_bytes": 268435456,
+      "new_root_bytes": 3742924,
+      "package_limit_bytes": 1073741824,
+      "roots": [
+        {
+          "bytes": 13586,
+          "root": ".local/s10-lc2-safety-triage-20261017-01"
+        },
+        {
+          "bytes": 507927,
+          "root": ".local/s10-lc2-framework6-20261017-01"
+        },
+        {
+          "bytes": 15254942,
+          "root": ".local/s10-lc2-r12-20261017"
+        },
+        {
+          "bytes": 341943,
+          "root": ".local/s10-lc2-caller-adapter-20261017-02"
+        },
+        {
+          "bytes": 6177106,
+          "root": ".local/s10-lc2-plan-20261017"
+        },
+        {
+          "bytes": 125944,
+          "root": ".local/s10-lc2-code-rework-20261017-01"
+        },
+        {
+          "bytes": 68391077,
+          "root": ".local/s10-lc2"
+        },
+        {
+          "bytes": 3403831,
+          "root": ".local/s10-lc2-main-a-20261018-01"
+        },
+        {
+          "bytes": 41820179,
+          "root": ".local/s10-lc2-exec-20261017"
+        },
+        {
+          "bytes": 3742924,
+          "root": ".local/s10-lc2-main-a-20261018-02"
+        }
+      ]
+    },
+    "privacy": {
+      "absolute_no_token_logging_claim": false,
+      "actual_native_device_session_identifier_log_message_count": 1,
+      "defect": "NATIVE_BASE_RES_DEVICE_INFO_LOG_WRITES_STORED_SESSION_PREFIX_DURING_NORMAL_LOGIN",
+      "native_log_mode": "0600",
+      "password_output_observed": false,
+      "raw_private_and_preserved": true,
+      "session_identifier_values_or_digest_exported": false,
+      "subsequent_fix_and_regression": "NOT_RUN_NO_APPLICATION_BUDGET"
+    },
+    "processes": [
+      {
+        "application_directory": ".local/s10-lc2-main-a-20261018-02/application-main-credential-setup-aa74d6e7",
+        "elapsed_seconds": 2.477,
+        "exit_evidence": {
+          "bytes": 182,
+          "path": ".local/s10-lc2-main-a-20261018-02/application-main-credential-setup-aa74d6e7/parent-exit.tsv",
+          "sha256": "e167842f4bf03db376ccbc3b5a54e8773938f250cbee89a9882ac8dbc534d06d"
+        },
+        "pid": 1499906,
+        "pid_currently_exists": false,
+        "returncode": 0,
+        "signal": null
+      },
+      {
+        "application_directory": ".local/s10-lc2-main-a-20261018-02/application-main-service-0cefe131",
+        "elapsed_seconds": 2.074,
+        "exit_evidence": {
+          "bytes": 111,
+          "path": ".local/s10-lc2-main-a-20261018-02/application-main-service-0cefe131/parent-exit.tsv",
+          "sha256": "723a9f6806c2db5fc776c1e06e8b6bc9963c922b87f99d136e0582041497890c"
+        },
+        "pid": 1502078,
+        "pid_currently_exists": false,
+        "returncode": 0,
+        "signal": null
+      },
+      {
+        "application_directory": ".local/s10-lc2-main-a-20261018-02/application-main-service-0fe1deba",
+        "elapsed_seconds": 0.829,
+        "exit_evidence": {
+          "bytes": 109,
+          "path": ".local/s10-lc2-main-a-20261018-02/application-main-service-0fe1deba/parent-exit.tsv",
+          "sha256": "d44580598ee412f1ed335ea8d53cb04839b6289211463e86daf6bd6ae6cceaf9"
+        },
+        "pid": 1500228,
+        "pid_currently_exists": false,
+        "returncode": -2,
+        "signal": 2
+      },
+      {
+        "application_directory": ".local/s10-lc2-main-a-20261018-02/application-main-service-c4802d0e",
+        "elapsed_seconds": 2.81,
+        "exit_evidence": {
+          "bytes": 111,
+          "path": ".local/s10-lc2-main-a-20261018-02/application-main-service-c4802d0e/parent-exit.tsv",
+          "sha256": "d9797da998b3fe4f9b2436f2ada6cf8889310f07e70acc3e0a41d4a900a91865"
+        },
+        "pid": 1503404,
+        "pid_currently_exists": false,
+        "returncode": 0,
+        "signal": null
+      }
+    ],
+    "verification": {
+      "path": ".local/s10-lc2-main-a-20261018-02/main-a-autonomy-verification.json",
+      "bytes": 13881,
+      "sha256": "ab92fe29b831b9e30b186918a8100018f7a349dd6b5e2a4996c22810c60131ba"
+    },
+    "private_raw_index": {
+      "path": ".local/s10-lc2-main-a-20261018-02/main-a-autonomy-raw-index.json",
+      "bytes": 4012,
+      "sha256": "0cbdeeddf1add81415ca24837bc0efc5649e0dead01465a9858e9b572be73c6d"
+    },
+    "start_comment": {
+      "id": 6243131136,
+      "api_full_readback_exact": true,
+      "body_bytes": 2785,
+      "body_sha256": "a4b48133239f7a4c648d1a869ff6e8a2a54d7e519bb6df85446aa6b32c0934e7"
+    },
+    "old_agents_archive": {
+      "path": "docs/history/AGENTS_before_20261018.md",
+      "bytes": 87377,
+      "sha256": "0df736c0d198782be7795a719fa1a7726762bdb01b827e4057f2c281c64e830b"
+    },
+    "roles": {
+      "controller": "/root",
+      "developer": "/root/developer_autonomy",
+      "tester": "/root/tester_autonomy",
+      "acceptance": "/root/acceptance_autonomy",
+      "single_db_executor": "/root/tester_autonomy",
+      "os_sandbox_isolation_claimed": false
+    },
+    "old_refused_materials_accessed": false,
+    "framework6_and_150": "PREVIOUSLY_ACCEPTED_NOT_RERUN",
+    "clinical_operations": [],
+    "dynamic_pdf_or_new_original": 0,
+    "s10_t12_production": "BLOCKED",
+    "runtime_continuation_allowed": false,
+    "independent_acceptance": {
+      "canonical": "/root/acceptance_autonomy",
+      "status": "A_STATE_SCOPED_PRESERVATION_ACCEPTED / AUTH_SETUP_AND_NORMAL_HTTP_LOGIN_ACCEPTED / A_EDITOR_NOT_RUN / A_ORIGINAL_NOT_RUN / A_GROUP_INCOMPLETE / S10_T12_PRODUCTION_BLOCKED",
+      "report": "docs/reports/s10-log-and-closeout-v2-r12/acceptance-review.md",
+      "bytes": 72919,
+      "sha256": "79c8e3183309c6e0862beab1eee0d12e27a1c601cf57c05619e37632b63cd86d",
+      "scope": "INDEPENDENT_SOURCE_AND_FINITE_SAVED_EVIDENCE_REVIEW_NOT_APPLICATION_EXECUTION"
+    }
+  },
+  "current_execution_message_id": "YD-S10-LC2-MAIN-A-20261018-02"
 }

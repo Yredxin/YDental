@@ -7,7 +7,8 @@
 - 用户直接授权 `YD-S10-LC2-MAIN-A-20261018-02`；task `S10-LOG-AND-CLOSEOUT-v2`；scope `EXISTING_MAIN_TEST_CREDENTIAL_SETUP_AND_A_CLOSEOUT`。
 - [开发测试自主权](https://github.com/Yredxin/YDental/issues/23#issuecomment-6243010403)、[MAIN-A范围](https://github.com/Yredxin/YDental/issues/34#issuecomment-6243026115)、#23/#34当前正文及有效增量是正式依据。
 - 固定父 `41e6c7c2b906653c9e264e4f402f5e572765bb98`；分支 `codex/s10-settlement-finance-r1-20261013`；产品保持 `cf5d63fe510b52ea150d07495bf3062f4ce0961d`。工作目录 `/home/redxin/code/odoo/odoo-sd/code/sd-addons`。
-- [上一轮MAIN-A](https://github.com/Yredxin/YDental/issues/34#issuecomment-6242930304)有限A-STATE（60表1034行/93模块）已采，A-EDITOR/A-ORIGINAL未运行，本轮完成剩余A。
+- [上一轮MAIN-A](https://github.com/Yredxin/YDental/issues/34#issuecomment-6242930304)有限A-STATE（60表1034行/93模块）已采，A-EDITOR/A-ORIGINAL未运行，本轮目标为完成剩余A。
+- 本轮实际已结束：用户7/5凭据准备及用户7正常HTTP登录完成；A-STATE终核保全通过；A-EDITOR因私有runner切店断言错误在acquire前退出，A-ORIGINAL因唯一Firefox启动失败未运行。Odoo4/RO8/Firefox1本轮额度已耗尽；另有原生设备日志session标识前缀缺陷。A组仍BLOCKED，详见现有报告，等待复核，不自动恢复运行。
 - 150项历史纯测试及[六项原生框架](https://github.com/Yredxin/YDental/issues/34#issuecomment-6242631423)已接受，不无变更重跑/重判。S10/T12及生产仍BLOCKED。
 
 ## 唯一目标与允许动作

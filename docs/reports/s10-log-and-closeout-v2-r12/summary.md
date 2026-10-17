@@ -1,3 +1,34 @@
+# 当前 MAIN-A 自主管理交付：凭据准备与正常登录成功，A组仍未完成
+
+本轮 `YD-S10-LC2-MAIN-A-20261018-02`，用户直接采用[开发测试自主权](https://github.com/Yredxin/YDental/issues/23#issuecomment-6243010403)与[MAIN-A续行范围](https://github.com/Yredxin/YDental/issues/34#issuecomment-6243026115)。父 `41e6c7c2b906653c9e264e4f402f5e572765bb98`；product保持 `cf5d63fe510b52ea150d07495bf3062f4ce0961d`，首工具 `4ec332cdd11d13da291f3335db4f6bd8d943d1db`，修复后工具 `3dc91ede7651468e1a66d0cad07d3462214ba3d4`，core只读 `f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb`。START[6243131136](https://github.com/Yredxin/YDental/issues/34#issuecomment-6243131136)全文2785B/SHA `a4b48133239f7a4c648d1a869ff6e8a2a54d7e519bb6df85446aa6b32c0934e7` API读回一致。
+
+|子项|实际结果|层级与具体阻断|
+|---|---|---|
+|测试账号与登录|准备成功；正常HTTP登录成功|现有合成用户7/5标准ORM密码写并commit；仅用户7真实GET登录页200→POST303→access200→switch200；不是Firefox登录。|
+|A-STATE|PASS，限定基线与终核保全|60表1034行/93模块前、认证后、运行终核全同；1178条旧审计同有效基线；不冒全库无变化。|
+|A-EDITOR|BLOCKED / NOT_RUN|正常登录/切店后，私有runner错误期待switch返回result=accepted，实际接口仅返回revision。断言在acquire前退出，Odoo4次耗尽；这是团队可避免的测试实现错误，非密码/权限或产品拒绝。修正私有候选已存，未运行。|
+|A-ORIGINAL|BLOCKED / NOT_RUN|唯一Firefox启动尝试在创建context前Playwright Error；底层原因及内部进程退出UNKNOWN。未工作台点击、GET、下载或逐页目视，不能用留存文件替代。|
+
+入口整理提交 `c046597`：旧根AGENTS完整87377B原字节归档 `docs/history/AGENTS_before_20261018.md`，SHA `0df736c0d198782be7795a719fa1a7726762bdb01b827e4057f2c281c64e830b`，父版本逐字相同；当前唯一规则 `MAIN-A-DEV-AUTONOMY-1.0`。仓内无嵌套override。命名Markdown附件未在仓内找到，采用用户本消息提供的全文，不声称取得附件原字节。真实主控 `/root`；开发 `/root/developer_autonomy` 独占工具；测试 `/root/tester_autonomy` 是唯一DB/应用执行者；独立 `/root/acceptance_autonomy` 只审代码/证据并追加验收；均先读同一当前规则及正式正文，角色不等于OS隔离。
+
+只连接批准main/OID2144129/cluster7694897083368259627，live非敏感元数据和已有克隆来源确认两账号是项目合成doctor/manager；用户7有临床资格但无export，用户5有现存settlement/export资格。凭据本机生成，provider在 `.local/s10-lc2-main-a-20261018-02/credentials/`（0700/0600/Git忽略）；值、密码哈希及凭据文件摘要不输出、不提交、不广播，开发/验收不读取值。认证准备两用户password标准ORM写；user5 write_uid5→1，user7仍1，两者write_date更新。ID/active/员工/公司/门店/groups/资格不变。标准旧会话失效机制未单独探测，缓存变化未独立计量，不伪称全库只读。
+
+终核文书1完整字段与有效基线一致：confirmed/v4、作者/负责人7、版本9 confirm/v3→10 correct/v4/previous9；四mutex零差异。旧editor7/session109及09:09:51过期字段仍在，**没有release**。新增会话110（user7/store1/revision1），原生login log id3和device id3各1；新增S01 audit1185 login、1186 login.scope、1187 store.switch，均actor7。没有临床acquire/release、正文/版本/作者、费库账款、库存、原件业务变化。原件1/附件161留存仍27665B/application/pdf/SHA `05928780e7d97a06cf29019634f64b010eb4994c2f1c5032d561008a50b059b4`；此为留存核对，**不是下载验收**。
+
+首普通preflight因猜测login前缀断言失败，后用当前非敏感来源元数据修正并额外计RO。首服务存在工具就绪竞态：socket先bind，registry未发run.start便核隐私level而抛错；清理产生SIGINT/-2，二级DIAGNOSTIC_LOG_MISSING。定向wait_ready修补等待真实run.start+socket+隐私级别，60s封顶；四项小型合成边界通过，后两服务真实准出。新误触STOP148B/SHA `189b554e933dca6211d28166c6dc8ec4909b395864bc38fe9335b729d9f94412` 原字节归档失败attempt并有一次修复回执；所有旧窗口STOP不改，不加通用忽略、不恢复旧窗口、不重做认证。Firefox失败与随后switch断言失败均原样保全；150纯测试及六框架既采结果未重跑。
+
+**实际日志隐私缺陷仍未修复/回归：** 原生base res_device INFO在正常登录时记录session标识前缀，四份本轮owned native日志marker计数0/0/0/1；仅http.server级别证明不能覆盖该logger。日志0600、目录0700私有原文保全，不公开值/行/摘要，不声称所有session/token未进日志；未见密码值输出证据，也不据此宣称密码或原文外传。没有新的实际工具安全拒绝记录；Firefox Error文本按现工具未保留，不能臆断sandbox/依赖或Native原因。后续需修该原生日志抑制及Firefox可诊断性，当前无应用/Firefox额度进行回归。
+
+资源：本轮Odoo4/4、独立mainRO8/8、HTTP4/200、Firefox启动尝试1/1、旧原件GET0/3；累计Odoo6/12、RO19/48、HTTP5/600、Firefox1/3、GET0/12；旧accidentRO2/maintenance1/CREATE2仅继承。四owned Odoo PID1499906/1500228/1502078/1503404退出0/-2/0/0且均已不存在；每次不足3秒，Firefox driver.stop返回但内部PID/退出未捕获。原生CLI均指定本main db-system，内部系统连接实际数仍UNKNOWN，不回造历史账本。无scratch/保护来源/维护/CREATE/升级/动态PDF/新原件/资金动作。窗口23:31:10Z—03:31:10Z；本轮运行已停止，未用累计额度不自动续用。23:47空间快照新根3742924B/总139779459B，低于256MiB/1GiB，后续索引/同步小文件另增。
+
+有限原始验证 `.local/s10-lc2-main-a-20261018-02/main-a-autonomy-verification.json`、最小raw index `main-a-autonomy-raw-index.json` 的bytes/SHA与映射见矩阵 `main_a_autonomy`；不公开私有原始日志、凭据、会话或文书。独立验收另见本目录 `acceptance-review.md` 本轮追加。**A组、S10/T12及生产仍BLOCKED**，不改Issue/Project、不B/C、D、双E、S11、合并/强推/部署。后续新范围必须先处理上述具体缺陷并重新明确运行额度，不能把本次凭据准备和登录当作A剩余已完成。
+
+独立acceptance已最终签署：仅接受有限保全/认证/正常HTTP登录，A-EDITOR/A-ORIGINAL NOT_RUN、A组不通过。验收报告72919B/SHA `79c8e3183309c6e0862beab1eee0d12e27a1c601cf57c05619e37632b63cd86d`，原62754B前缀不变；最终GitHub同步由主控随后据实保存，不预认证。
+
+---
+
+以下为上轮MAIN-A及更早历史原文，结论限各自当时范围：
+
 # 当前MAIN-A：基线已核，编辑收尾及工作台重取受登录输入阻塞
 
 最终[MAIN-A交付6242930304](https://github.com/Yredxin/YDental/issues/34#issuecomment-6242930304)已API全文读回一致：5996B/SHA`73cd8a6eb522cb5480df3b663620db68876fa9eddeb5dd79a7c5cb89b09c65f5`；证据提交`eadfae3aca4d558b4caa7c27203326ae99514ee9`。

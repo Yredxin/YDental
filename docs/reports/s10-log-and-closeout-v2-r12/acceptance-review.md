@@ -280,3 +280,35 @@ developer 最终落盘 `developer-main-a-offline-check.py` 及 stdout/stderr/run
 Guidelines read: Odoo review、Odoo security 全文；Odoo guidelines 的 Python imports/naming/static translation、ORM recordsets/methods/transactions、controllers、access rights、XML views/inheritance；本节仅进行所述 A 路径与六工具定向审查，不宣称全 addon 安全审计。最终取钟2026-10-17T23:12:28Z（工具UTC秒精度）；审核者到此停止写入。
 
 封口补核：主控在上述签署并行交付了15份最小 raw 索引及空间快照，审核者随后独立逐份核毕。`main-a-raw-index.json` 为3149字节、SHA256 `2dc829aa9f349c540c7d28b743b47c89cdc4c4855c9c3caba093974bb407d524`，15引用的 bytes/SHA/0600全部匹配。23:12:23.592975Z空间快照为本轮根3,367,895字节、九相关根合计136,000,041字节，九项算术相等且低于256MiB/1GiB；这是当时元数据计量，后续索引/同步小文件另增，未打开旧安全账户材料复算内容。matrix/summary新增 fake harness、raw index及快照引用与所核事实一致，三A结果未变。本次最终签署仍为有限基线接受、其余A前提阻断；审核者到此最终停写。
+
+## MAIN-A DEV-TEST-AUTONOMY 独立验收 / 2026-10-17T23:47:42Z
+
+本节仅适用 `YD-S10-LC2-MAIN-A-20261018-02`，结论为 **A_STATE_SCOPED_PRESERVATION_ACCEPTED / AUTH_SETUP_AND_NORMAL_HTTP_LOGIN_ACCEPTED / A_EDITOR_NOT_RUN / A_ORIGINAL_NOT_RUN / A_GROUP_INCOMPLETE / S10_T12_PRODUCTION_BLOCKED**。A组没有完成；凭据准备、普通登录成功不能代替合法编辑权收尾或工作台原件下载。此前62,754字节原样保留，前缀SHA256为 `53ae3113ed73b2fb5e556fcea56f1a26cbe628738af243b3dbf1bf8a0f8cf021`。
+
+本轮真实独立审核者 `/root/acceptance_autonomy` 只读规则、源码和本轮有限证据，仅追加本文件；developer `/root/developer_autonomy` 单写分派工具，tester `/root/tester_autonomy` 是唯一数据库及应用执行者，主控 `/root` 负责规则、调度、报告与GitHub。角色不是OS权限隔离。审核者未连接数据库/HTTP、未启动Odoo/Firefox/PDF、未重跑150纯测试或六框架、未读取凭据值、密码哈希、cookie、会话文件或旧被拒材料，不验收自己的实现。
+
+已完整读 `MAIN-A-DEV-AUTONOMY-1.0`、正式6243010403/6243026115正文及scope，另读6242631423正式六框架采纳和6242930304上一轮交付。根入口与正式范围一致；仓内只发现根AGENTS，无嵌套覆盖。历史归档87,377字节与父 `41e6c7c2b906653c9e264e4f402f5e572765bb98:AGENTS.md` 全字节相同，SHA256 `0df736c0d198782be7795a719fa1a7726762bdb01b827e4057f2c281c64e830b`，未删除旧STOP或重开旧窗口。START6243131136的正文、created和API readback三份全同2785 UTF-8字节，SHA256 `a4b48133239f7a4c648d1a869ff6e8a2a54d7e519bb6df85446aa6b32c0934e7`；这是独立核保存响应，非审核者另发请求。最终DELIVERY尚待实际同步，不预签。
+
+产品保持 `cf5d63fe510b52ea150d07495bf3062f4ce0961d`，初始工具 `4ec332cdd11d13da291f3335db4f6bd8d943d1db`，普通启动竞态修复后工具 `3dc91ede7651468e1a66d0cad07d3462214ba3d4`；本轮提交路径仅入口/归档和六个工具文件，无业务addon或固定六测试变化。定向核新profile固定父、唯一main、4小时、局部4/8/200/1/3及累计起点；credential action只运行冻结helper、无任意stdin/参数/fd，启动前再次SHA校验；HTTP/浏览器窄门只准正常登录、店1、文书1 acquire/release及旧原件1，动态PDF和其他业务写入仍禁。包空间guard覆盖既有九根加新根。最初开发离线检查仅inline工具回执，不冒称有独立落盘runner；startup修复另有落盘小型合成脚本和结果，四边界通过，不与历史150/六框架相加。
+
+认证准备有实际提交证据：必要既有用户为临床7及具现存settlement/export权限的5，当前非敏感元数据标记P021-B Synthetic doctor/manager；7没有export权限，故第二人有必要。目标归属来自原owned-main克隆标记、用户来源及当前资格/权限观察，不只凭库名。启动前独立RO和launcher probe均无其他连接。两人通过既有Odoo ORM标准password setter设置新随机密码，PID1499906 exit0，helper显式commit返回；没有增权、换作者或清编辑锁。provider目录0700、两文件0600且Git忽略，由审核者仅stat/check-ignore核，不读取内容。身份、员工/公司/门店、groups、capabilities、membership和grants前后同；可见res_users差异仅两人write_uid/write_date。旧浏览器会话失效仅按标准ORM机制声明，未另探测；缓存变化未独立测量，不能写成一切只读或全库无变化。
+
+A-STATE接受有限保全。before/after-auth/terminal三份独立RO/RR均为唯一main/OID2144129/cluster7694897083368259627/应用用户odoo，rollback与close已返回，终核无其他连接。60相关表1034行、93模块逐表签名与已采有效基线及本轮before相同，无pending；原1178条审计签名保全。文书1仍confirmed/v4、作者/负责人7，版本9 confirm/v3→10 correct/v4/previous9，文书全部观察字段未变；四互斥计数也未变。旧editor7/session109及过期时间09:09:51仍在，**没有release**。原件1/附件161留存27665B/MIME application/pdf/SHA256 `05928780e7d97a06cf29019634f64b010eb4994c2f1c5032d561008a50b059b4` 同；这是留存文件有限核验，非浏览器下载。费用、库存、原生账款和结算等所列保护域未漂移，不扩大为全库新终审。
+
+实际正常HTTP登录已成功：actor7真实GET登录页200取得CSRF、POST标准登录303，仅使用服务器Set-Cookie和RAM CookieJar，随后GET access200、POST店1 switch200。终核新增S01 session110/revision1/store1，审计1185 login、1186 login.scope、1187 store.switch均actor7；原生user login/device metadata各新增一条。没有构造cookie、插入会话、管理员代测或旧账户材料恢复。用户5只准备密码，未实际登录。此为真实HTTP正常表单与现有服务前置层级，**不是Firefox登录或UI按钮通过**。
+
+A-EDITOR为NOT_RUN。私有runner在switch之后错误断言 `result == accepted`；当前controller `ydental_access/controllers/access.py::_execute` 对switch实际只返回revision。PID1503404的AssertionError frame精确在runner第33行，4个实际请求中没有clinical/action；这是团队可避免的测试合同错误，不是密码缺失、权限失败或产品编辑失败。第4个Odoo随后exit0，启动额度已耗尽。失败runner和approval原样保留，修正候选另存 `run-editor-http-corrected-NOT-RUN.py`、未执行；不能以源码修正冒成服务已acquire/release。最终观察专门按零编辑业务验收，未使用预设mutex+2或假release填格。
+
+A-ORIGINAL为NOT_RUN。唯一Firefox启动尝试在Playwright firefox.launch抛Error，返回browser对象前失败，context0、正常浏览器登录0、工作台click0、GET0、下载0、PDF逐页目视0；原因文本及内部Firefox PID/退出码未留，具体根因UNKNOWN。审核者读结构性startup-chain和close证据，不推测安全拒绝、依赖或Native根因；没有重试Firefox、换sandbox或直接HTTP取原件替代。第3个Odoo PID1502078有真实run.start及日志级别准出后exit0，此应用就绪不代表浏览器就绪。
+
+普通故障均保留。首次账号login前缀断言过窄，RO已完成保存，随后只补本轮选定非敏感来源元数据，无旧被拒材料读取。首服务PID1500228在socket先监听、registry尚加载时过早要求run.start隐私证明；首因23:38:17.454为日志级别未准出，cleanup SIGINT/-2后产生二级DIAGNOSTIC_LOG_MISSING。修复wait_ready须真实run.start+socket+正确level才ready，启动最多60秒，错level和已开始后日志缺失仍拒绝。仅本轮误触STOP148字节原样归档，SHA256 `189b554e933dca6211d28166c6dc8ec4909b395864bc38fe9335b729d9f94412` 与修复回执一致；同scope同累计预算一次恢复，未改任何旧STOP、未加通用忽略机制，亦非安全拒绝或Native恢复。
+
+另有实际日志隐私缺陷，未获本轮修复回归：固定core `res_device.py` 的INFO日志记录sid前缀，现有launcher只抑制HTTP访问logger。审核者仅对四个本轮owned原生日志计固定marker，结果0/0/0/1，与tester结构性计数相同；未输出标识值、日志原文或其摘要。四raw日志0600、父目录0700私有原样保全，不可声称所有session/token从未记录；没有密码输出或对外传输的已观察证据，不把它扩写成密码外泄。后续须抑制该明确logger并真实回归，当前没有应用预算，未静默改core或补跑。
+
+新增实际资源为Odoo4、main RO8、HTTP4、Firefox启动尝试1、旧原件GET0；累计Odoo6/12、RO19/48、HTTP5/600、Firefox1/3、GET0/12，旧accidentRO2/maintenance1/CREATE2继承。四Odoo PID1499906/1500228/1502078/1503404的父退出为0/-2/0/0，审核时四PID均不存在；Firefox内部进程退出仍UNKNOWN。每服务远低于1200秒；无资金/库存、动态PDF、新原件、升级、建库、维护、scratch或保护来源动作。原生CLI存在性/系统连接精确数仍UNKNOWN，不回造为0。终核RO8及Odoo4上限已满，全部应用业务停止，时间窗口未到也不继续。
+
+最终 `main-a-autonomy-verification.json` 13,881B/SHA256 `ab92fe29b831b9e30b186918a8100018f7a349dd6b5e2a4996c22810c60131ba`，`main-a-autonomy-raw-index.json` 4,012B/SHA256 `0cbdeeddf1add81415ca24837bc0efc5649e0dead01465a9858e9b572be73c6d`。独立核20份verification证据引用及4份父退出引用、raw索引21份引用，bytes/SHA全同；索引排除provider、含秘密配置、原生日志和应用session文件，未生成密码摘要。23:47:07元数据空间快照本根3,742,924B、十根合计139,779,459B，逐项算术相等且低于256MiB/1GiB，后续小型索引/同步文件另增。first-preflight-failure.json初为0664的脱敏失败文件，已交tester收紧为0600；内容SHA未改变。终核observer按独立final-observer-freeze固定，不把其后处理修订冒成已固定应用候选的一部分。
+
+最终只接受规则整理、认证夹具、真实普通HTTP登录及有限旧数据保全，**不接受A组完成**。A-EDITOR/A-ORIGINAL仍有上述具体未执行原因，S10/T12与生产BLOCKED，历史Native根因UNKNOWN；不进入B/C、D、双E、S11或部署。本签署不授权补跑或额外资源，交主控据实提交现有summary/defects/matrix与GitHub复核。Guidelines read：Odoo review/security全文；Odoo guidelines的Python imports/naming/static translation、ORM recordsets/methods/transactions、controllers/access rights；仅本轮A路径与工具定向审查，非全addon安全审计。
+
+封口补核：主控已收紧first-preflight-failure.json权限；审核者独立stat确为0600，仍380B/SHA256 `c1d8104fed117e88fc7c9fd2a8ccce12f2e6cf6e162295a88cca237ec76607f8`，内容未改。已全文核本轮summary/defects/AGENTS增量，与上述有限结论一致；矩阵相对工具提交仅新增main_a_autonomy及current_execution_message_id，原全部对象结构同值，不冒升旧框架、main_a或S10状态。审核者到此停止写入，不预签尚未发生的最终GitHub同步。
