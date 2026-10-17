@@ -1,0 +1,23 @@
+{
+  "checked_at": "2026-10-17T05:59:26.140Z",
+  "repository": "Yredxin/YDental",
+  "issue23": {
+    "state": "open",
+    "comments": 3,
+    "body_unchanged": true
+  },
+  "issue34": {
+    "state": "open",
+    "comments": 261,
+    "body_unchanged": true,
+    "prior_260_comment_bodies_unchanged": true,
+    "only_added_comment": 6230358883
+  },
+  "issue35": {
+    "state": "open",
+    "comments": 0
+  },
+  "remote_HEAD": "f58d92046e14c77834a3ff12351a0010834e2da8",
+  "no_parallel_or_duplicate_batch_delivery": true,
+  "Issue_Project_mutations": 0
+}

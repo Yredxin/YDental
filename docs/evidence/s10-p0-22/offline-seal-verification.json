@@ -1,0 +1,25 @@
+{
+  "all_22_P021_historical_objects_exact": true,
+  "all_inherited_economic_original_attachment_rows_exact": true,
+  "current_tail_all_rows_equal_scope_precommit": true,
+  "doc1": {
+    "editor": null,
+    "state": "pending",
+    "version": 2
+  },
+  "exit_code": 0,
+  "invoice1": {
+    "amount": "740.00",
+    "residual": "0.00",
+    "state": "posted"
+  },
+  "new_snapshot_table_count": 645,
+  "no_resume_or_arch_prev_DML": true,
+  "only_a_finite_capture_does_not_explain_transient": true,
+  "overall": "S10_TECHNICAL_EXIT_BLOCKED",
+  "source_preserved": {
+    "all_645_tables_schema_rows_exact": true,
+    "all_filestore_bytes_exact": true,
+    "source_connections": 2
+  }
+}

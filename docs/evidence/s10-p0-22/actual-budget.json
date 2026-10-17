@@ -1,0 +1,61 @@
+{
+  "B_MODEL_negatives": 0,
+  "CREATE": 1,
+  "C_MODEL_RPC_HTTP": [
+    0,
+    0,
+    0
+  ],
+  "Firefox": 0,
+  "Issue_Project_mutations": 0,
+  "Odoo_HTTP": 0,
+  "PDF_render": 0,
+  "RO_cap": 24,
+  "T05_economic_actions": 0,
+  "all_explicit_RO_RR": 5,
+  "commit_returned": 1,
+  "commit_scope_only_not_success_marker": true,
+  "document_actions": 0,
+  "event_counts": {
+    "CREATE_intent": 1,
+    "CREATE_returned": 1,
+    "RO_closed": 5,
+    "RO_intent": 5,
+    "STOP": 1,
+    "commit_intent": 1,
+    "commit_returned": 1,
+    "maintenance_closed": 1,
+    "maintenance_intent": 1,
+    "native_action_intent": 1,
+    "native_action_returned": 1,
+    "snapshot_identity": 9
+  },
+  "maintenance": 1,
+  "native_DSN_note": "UNKNOWN where native log omits it",
+  "native_pool_cap": 8,
+  "native_scenarios": [
+    {
+      "DSNs_observed": [
+        "ydental_s10_test_20261017060000_22b0cafe"
+      ],
+      "SIGSEGV": false,
+      "action": "A",
+      "backend_creations": [
+        1436159
+      ],
+      "exit_code": 1,
+      "log_bytes": 9868,
+      "log_sha256": "a68f83279770bad4128e595727f355d785c238dc229ca5657ccb914ae44e0e3a",
+      "per_PID_DSN": "UNKNOWN where native log omits it",
+      "pid": 844851,
+      "pool_max_observed": 1,
+      "round": 0
+    }
+  ],
+  "original_GET": 0,
+  "original_generation": 0,
+  "other_old_business_connections": 0,
+  "repair_rounds_used": 0,
+  "source_RO": 2,
+  "upgrade": 0
+}

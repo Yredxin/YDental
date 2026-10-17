@@ -1,0 +1,15 @@
+{
+  "all_initial_rows_exact": true,
+  "authorization": 6230134070,
+  "cluster": "7694897083368259627",
+  "config_sha256": "1e652665d288192697d7982b06e56da64acb7d213ffdb1eea9b929e5ffc3a47a",
+  "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "database": "ydental_s10_test_20261017060000_22b0cafe",
+  "filestore_copied_no_hardlinks": true,
+  "filestore_file_count": 198,
+  "oid": 2144126,
+  "parent": "f58d92046e14c77834a3ff12351a0010834e2da8",
+  "port": 18323,
+  "source_database": "ydental_s10_test_20261017050000_21b0cafe",
+  "source_oid": 2122140
+}

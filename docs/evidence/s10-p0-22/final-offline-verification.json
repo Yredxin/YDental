@@ -1,0 +1,15 @@
+{
+  "exit_code": 0,
+  "scripts_compile": 9,
+  "initial_freeze_files_unchanged": 445,
+  "P021_manifest_files_unchanged": 347,
+  "json_documents_parsed": 43,
+  "P021_rows_exact": 22,
+  "product_and_core_unchanged": true,
+  "public_artifact_config_secret_and_concrete_cookie_scan": "PASS",
+  "private_files_hashed": 256,
+  "private_bytes": 1249150563,
+  "private_root_modes": "0700",
+  "operations": "pure file reads, compile, git inspection only; no Odoo imports or database/network calls",
+  "static_only_does_not_replace_runtime": "true"
+}

@@ -1,0 +1,35 @@
+{
+  "DB_CREATE_Odoo_HTTP_Firefox_used": 0,
+  "config_sha256": "1e652665d288192697d7982b06e56da64acb7d213ffdb1eea9b929e5ffc3a47a",
+  "deterministic_rejections": [
+    "stored_amount",
+    "patient_identity",
+    "mutex_delta2",
+    "audit_wrong_actor"
+  ],
+  "document_mutex_positive": "four exact records +1 each",
+  "exit_code": 0,
+  "full_evidence_saved_before_rejection": true,
+  "new_scripts_compile_and_symbols": {
+    "scripts/s10_p0_22_browser.py": [],
+    "scripts/s10_p0_22_cases.py": [],
+    "scripts/s10_p0_22_contract.py": [],
+    "scripts/s10_p0_22_control.py": [],
+    "scripts/s10_p0_22_native.py": [],
+    "scripts/s10_p0_22_preflight.py": [],
+    "scripts/s10_p0_22_runtime.py": [],
+    "scripts/s10_p0_22_web.py": []
+  },
+  "no_stale_500": true,
+  "old_347_SHA256_all_equal": true,
+  "pure_files_only": true,
+  "real_catalog_field_handoffs_checked": true,
+  "source_private_dependencies_sha256": {
+    ".local/s10-p0-21/final-RO-rows.json": "7405cf237da5fa8cbe4557ba89080b59275675f072fb4dcda69f46db1ee28d1d",
+    ".local/ydental_s10_test_20261017050000_21b0cafe/b-chain.json": "628d42104395f3ecb0149c5a07e8b79528e0c73ec108edcd022d6804c78c7cc6",
+    ".local/ydental_s10_test_20261017050000_21b0cafe/database.json": "7f3a2d3d0173c84f7b617065872c1bb3c23e80bdd4a0c6e1c13f993254ccb3bc",
+    ".local/ydental_s10_test_20261017050000_21b0cafe/odoo.conf": "f2cc0fb165dd2fe5c8e141871f7a1f7226a6f1ba7f1579b2bcbab769b05c3547",
+    ".local/ydental_s10_test_20261017050000_21b0cafe/original.json": "4ba6b82d9cc8b24b1cde6973d2196257166cd3b4cb83015d8e53d9b2f622de4f",
+    ".local/ydental_s10_test_20261017050000_21b0cafe/trade.json": "90d9bee4ee407a51efe6d5a5f26970cc047d75d0c7ea9c776de38df0470e8f4b"
+  }
+}

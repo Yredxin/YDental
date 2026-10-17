@@ -1,0 +1,36 @@
+{
+  "T05_new_economic_actions": 0,
+  "active_arch_db_unchanged": true,
+  "all_economic_stored_facts_exact": true,
+  "before_sha256": "776c4257a3567c92aa3e46aa5dc2c4e5a714989be88ab59714452dfeb4042664",
+  "cause": "UNKNOWN; no attribution or OS/PG/security investigation",
+  "changes": [
+    {
+      "after": "6",
+      "after_codepoint": 54,
+      "before": "v",
+      "before_codepoint": 118,
+      "character_offset": 1992
+    }
+  ],
+  "current_tail_matches_precommit": true,
+  "document_business_actions": 0,
+  "failed_readback_sha256": "75cf739577c6a1977bdd25ddfc4df3a930255243916765abd79b248819248050",
+  "field": "arch_prev",
+  "id": 929,
+  "key": "account.portal_my_journal_mail_notifications",
+  "no_resume_after_tail_returned_to_original": true,
+  "other_stored_rows_columns_exact_between_precommit_and_failed_readback": true,
+  "overall": "BLOCKED_UNEXPLAINED_STORED_METADATA_INTEGRITY_RISK",
+  "physical_table": "public.ir_ui_view",
+  "repair_rounds_used": 0,
+  "source_final_RO_used": true,
+  "source_scope": "clone only observed; source preservation independently checked",
+  "tail_sha256": "776c4257a3567c92aa3e46aa5dc2c4e5a714989be88ab59714452dfeb4042664",
+  "text_lengths": [
+    2022,
+    2022,
+    2022
+  ],
+  "write_uid_date_unchanged": true
+}

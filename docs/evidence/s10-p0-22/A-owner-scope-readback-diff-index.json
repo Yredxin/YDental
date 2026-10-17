@@ -1,0 +1,23 @@
+{
+  "all_values_saved_before_assertion": true,
+  "changes": [
+    {
+      "after_count": 1,
+      "after_sha256": "d07247582257e832d01a2c9c67a18833cd268a58ece5a8db2706d32b8e76e8aa",
+      "before_count": 1,
+      "before_sha256": "02704dc21c14bff9445e9e5234e93a320549693647d3e28aa6ee81593c8e55b1",
+      "columns": [
+        "arch_prev"
+      ],
+      "duplicate_key_preserved": false,
+      "economic": false,
+      "physical_key": [
+        "public",
+        "ir_ui_view",
+        929
+      ],
+      "table": "ir_ui_view"
+    }
+  ],
+  "schema_changed": false
+}

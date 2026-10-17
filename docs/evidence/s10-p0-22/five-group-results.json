@@ -1,0 +1,42 @@
+{
+  "A": {
+    "acquire_confirm_correct_release": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "new_UI_original_GET": 0,
+    "scope_commit_returned": true,
+    "scope_independent_readback_gate": "FAIL",
+    "status": "BLOCKED_BEFORE_DOCUMENT_ACTIONS"
+  },
+  "B": {
+    "six_MODEL_denials": 0,
+    "status": "NOT_RUN_STOP_BOUNDARY"
+  },
+  "C": {
+    "MODEL_fixtures": 0,
+    "effective_token_construction": 0,
+    "real_HTTP": 0,
+    "real_RPC": 0,
+    "response_body_pixel_tests": 0,
+    "status": "NOT_RUN_STOP_BOUNDARY"
+  },
+  "D": {
+    "controlled_response_loss": 0,
+    "new_fee_invoice_receipt_refund": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "same_key_repeat": 0,
+    "status": "NOT_RUN_STOP_BOUNDARY"
+  },
+  "E": {
+    "S10_upgrade": 0,
+    "post_upgrade_UI": 0,
+    "status": "NOT_RUN_STOP_BOUNDARY"
+  }
+}

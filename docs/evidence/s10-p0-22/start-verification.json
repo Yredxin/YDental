@@ -1,0 +1,24 @@
+{
+  "DB_Odoo_HTTP_Firefox_used_before_preflight": 0,
+  "branch": "codex/s10-settlement-finance-r1-20261013",
+  "current_test_HEAD": "219df2a8161f217abb2aa20cc446ffd2c68cd868",
+  "initial_remote_HEAD": "f58d92046e14c77834a3ff12351a0010834e2da8",
+  "initial_tree": "clean",
+  "issue23": {
+    "body_exact": true,
+    "comments": 3,
+    "state": "open"
+  },
+  "issue34": {
+    "comments": 260,
+    "existing_CODEX_P022": [],
+    "old253_bodies_exact": true,
+    "state": "open"
+  },
+  "issue35": {
+    "comments": 0,
+    "state": "open"
+  },
+  "origin": "https://github.com/Yredxin/YDental.git",
+  "parent": "f58d92046e14c77834a3ff12351a0010834e2da8"
+}

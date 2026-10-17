@@ -1,0 +1,67 @@
+{
+  "overall": "S10_TECHNICAL_EXIT_BLOCKED",
+  "parent_HEAD": "f58d92046e14c77834a3ff12351a0010834e2da8",
+  "execution_script_commit": "219df2a8161f217abb2aa20cc446ffd2c68cd868",
+  "offline_seal_script_commit": "cc17a6a6f4160c99c7810a2cc0aafd78d6965a88",
+  "product_content_reference": "be1d12a2d21771ca411ca8bdd510437980b68ef3",
+  "product_changes": 0,
+  "core_readonly": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "preflight_comment": 6230358883,
+  "preflight_readback_exact": true,
+  "initial_freeze_sha256": "ff131b9731247e8a6d579de7b0e7a44cc4175cc901242ac12669dea28dbd3b47",
+  "source_preserved": true,
+  "clone_OID": 2144126,
+  "native_exit": 1,
+  "stop_reason": "unexplained stored public.ir_ui_view(929).arch_prev difference at independent committed readback; final tail returned to original; cause UNKNOWN",
+  "scope_commit_returned": 1,
+  "scope_checkpoint_gate_passed": false,
+  "document_actions": 0,
+  "HTTP_Firefox_PDF_upgrade": 0,
+  "five_groups": {
+    "A": {
+      "acquire_confirm_correct_release": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "new_UI_original_GET": 0,
+      "scope_commit_returned": true,
+      "scope_independent_readback_gate": "FAIL",
+      "status": "BLOCKED_BEFORE_DOCUMENT_ACTIONS"
+    },
+    "B": {
+      "six_MODEL_denials": 0,
+      "status": "NOT_RUN_STOP_BOUNDARY"
+    },
+    "C": {
+      "MODEL_fixtures": 0,
+      "effective_token_construction": 0,
+      "real_HTTP": 0,
+      "real_RPC": 0,
+      "response_body_pixel_tests": 0,
+      "status": "NOT_RUN_STOP_BOUNDARY"
+    },
+    "D": {
+      "controlled_response_loss": 0,
+      "new_fee_invoice_receipt_refund": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "same_key_repeat": 0,
+      "status": "NOT_RUN_STOP_BOUNDARY"
+    },
+    "E": {
+      "S10_upgrade": 0,
+      "post_upgrade_UI": 0,
+      "status": "NOT_RUN_STOP_BOUNDARY"
+    }
+  },
+  "actual_budget": "actual-budget.json",
+  "static_verification": "final-offline-verification.json",
+  "P021_22_historical_rows_exact": true,
+  "S10_stage_exit_satisfied": false,
+  "delivery_API_proof": "saved private only after final publication and exact REST GET; no further execution or commit after readback"
+}
