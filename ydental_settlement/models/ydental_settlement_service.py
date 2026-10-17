@@ -12,6 +12,8 @@ from odoo import Command, fields, models
 from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.tools.pdf import PdfFileReader, PdfReadError
 from odoo.addons.base.models.ir_qweb import QWebError
+from odoo.addons.ydental_access.diagnostic_errors import native_error
+from odoo.addons.ydental_access.diagnostics import context_scope, current_context, emit_event
 from odoo.addons.ydental_inventory.models.ydental_inventory_record import MUTATION as INVENTORY_MUTATION
 
 
@@ -134,25 +136,36 @@ class YDentalSettlementService(models.AbstractModel):
         except TypeError as error:
             raise ValidationError(self.env._('invalid_action: Unexpected or missing parameters.')) from error
         store = self._access(write=True, finance=operation in ('refund_approve', 'refund_reject', 'unlock'))
-        digest = hashlib.sha256(json.dumps([operation, store.id, payload], sort_keys=True,
-                                           ensure_ascii=True).encode()).hexdigest()
-        with self.env.cr.savepoint():
-            self._lock()
-            self._access(write=True, finance=operation in ('refund_approve', 'refund_reject', 'unlock'))
-            receipt = self._model('receipt').search([
-                ('ydental_store_id', '=', store.id), ('ydental_actor_id', '=', self.env.uid),
-                ('ydental_key', '=', key)], limit=1)
-            if receipt:
-                if receipt.ydental_fingerprint != digest:
-                    raise UserError(self.env._('version_conflict: This request key belongs to another action.'))
-                return dict(receipt.ydental_result, result='already_accepted')
-            result = handlers[operation](**payload)
-            self._model('receipt')._new({
-                'ydental_store_id': store.id, 'ydental_actor_id': self.env.uid,
-                'ydental_key': key, 'ydental_fingerprint': digest,
-                'ydental_operation': operation, 'ydental_result': result,
-            })
-            return dict(result, result='accepted')
+        identity_ref = hashlib.sha256(('ydental-diagnostic-operation:%s:%s:%s:%s' % (
+            operation, self.env.uid, store.id, key)).encode('utf-8', errors='surrogatepass')).hexdigest()
+        with context_scope(operation=operation, store_id=store.id,
+                           actor_id=self.env.uid, effective_uid=self.env.uid, su_flag=self.env.su,
+                           operation_ref=current_context().get('operation_ref') or identity_ref,
+                           idempotency_ref=identity_ref, transaction_phase='IN_TRANSACTION'):
+            emit_event('business.start', component='settlement.service', stage='business.start')
+            digest = hashlib.sha256(json.dumps([operation, store.id, payload], sort_keys=True,
+                                               ensure_ascii=True).encode()).hexdigest()
+            with self.env.cr.savepoint():
+                self._lock()
+                self._access(write=True, finance=operation in ('refund_approve', 'refund_reject', 'unlock'))
+                receipt = self._model('receipt').search([
+                    ('ydental_store_id', '=', store.id), ('ydental_actor_id', '=', self.env.uid),
+                    ('ydental_key', '=', key)], limit=1)
+                if receipt:
+                    if receipt.ydental_fingerprint != digest:
+                        raise native_error(UserError, self.env._('version_conflict: This request key belongs to another action.'),
+                                           'VERSION_CONFLICT')
+                    emit_event('business.returned', component='settlement.service', stage='business.returned',
+                               outcome='already_accepted')
+                    return dict(receipt.ydental_result, result='already_accepted')
+                result = handlers[operation](**payload)
+                self._model('receipt')._new({
+                    'ydental_store_id': store.id, 'ydental_actor_id': self.env.uid,
+                    'ydental_key': key, 'ydental_fingerprint': digest,
+                    'ydental_operation': operation, 'ydental_result': result,
+                })
+                emit_event('business.returned', component='settlement.service', stage='business.returned', outcome='accepted')
+                return dict(result, result='accepted')
 
     def _fee(self, fee_id, store):
         fee = self.env['ydental.treatment.fee'].sudo().browse(self._positive_id(fee_id)).exists()
@@ -325,7 +338,8 @@ class YDentalSettlementService(models.AbstractModel):
             ('ydental_business_date', '=', business_date), ('ydental_channel', '=', channel),
         ], order='ydental_cycle desc', limit=1)
         if closed and closed.ydental_state == 'confirmed':
-            raise UserError(self.env._('day_closed: A finance approver must unlock this cashier day.'))
+            raise native_error(UserError, self.env._('day_closed: A finance approver must unlock this cashier day.'),
+                               'DAY_CLOSED')
 
     def _close_guard_any(self, store, cashier_id, business_date):
         for channel in CHANNELS:
@@ -482,7 +496,8 @@ class YDentalSettlementService(models.AbstractModel):
         store = self._access(write=True, finance=True)
         refund = self._refund(refund_id, store)
         if refund.ydental_state not in ('failed', 'unknown') or verified_not_paid is not True:
-            raise UserError(self.env._('refund_recovery_required: Verify the external offline transfer before re-arming.'))
+            raise native_error(UserError, self.env._('refund_recovery_required: Verify the external offline transfer before re-arming.'),
+                               'REFUND_RECOVERY_REQUIRED')
         refund._save({'ydental_state': 'approved', 'ydental_decision_reason': self._text(reason)})
         self._audit('refund.recover', refund, store, after={'verified_not_paid': True}, reason=reason)
         return {'refund_id': refund.id, 'state': 'approved', 'actually_refunded': 0}

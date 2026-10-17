@@ -3,6 +3,8 @@ import json
 from odoo import http
 from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.http import request
+from odoo.addons.ydental_access.controllers.diagnostics import observed_http
+from odoo.addons.ydental_access.diagnostics import emit_event, record_exception, update_context
 
 from ..models.ydental_clinical_service import TEXT_FIELDS, TEETH
 
@@ -13,11 +15,13 @@ class YDentalClinical(http.Controller):
         access = request.env['ydental.access.service']
         session = access._session_for_key(request.session.sid[:42])
         service = access._bind(session, revision).env['ydental.clinical.service']
+        update_context(scope_revision=service.env.context['ydental_binding'].revision)
         if connection:
             service = service._queue()._bind_connection(connection).env['ydental.clinical.service']
         return service
 
     @http.route('/ydental/clinical', type='http', auth='user', methods=['GET'])
+    @observed_http('clinical.workbench')
     def workbench(self, document_id=None, purpose=None, **kwargs):
         service = self._service()
         store = service._access()
@@ -60,13 +64,22 @@ class YDentalClinical(http.Controller):
         }, headers=[('Cache-Control', 'no-store')])
 
     @http.route('/ydental/clinical/action', type='http', auth='user', methods=['POST'], max_content_length=100000)
+    @observed_http('clinical.action')
     def action(self, operation, revision, connection, payload):
         try:
-            service = self._service(int(revision), connection)
+            update_context(stage='request.parse')
+            parsed_revision = int(revision)
+            update_context(stage='authorization')
+            service = self._service(parsed_revision, connection)
+            update_context(stage='request.parse')
             args = json.loads(payload)
+            update_context(stage='business.call')
+            emit_event('business.start', component='clinical.action', stage='business.start')
             result = service._operate(operation, args)
+            emit_event('business.returned', component='clinical.action', stage='business.returned', outcome='accepted')
             return request.make_json_response(result, headers=[('Cache-Control', 'no-store')])
         except (AccessError, UserError, ValueError, TypeError, KeyError) as error:
+            record_exception(error, 'clinical.action')
             request.env['ydental.access.service']._denial('clinical.action')
             return request.make_json_response({'error': str(error)}, status=403 if isinstance(error, AccessError) else 409,
                 headers=[('Cache-Control', 'no-store')])

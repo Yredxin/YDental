@@ -6,6 +6,8 @@ from urllib.parse import urlencode
 from odoo import http
 from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.http import request
+from odoo.addons.ydental_access.controllers.diagnostics import observed_http
+from odoo.addons.ydental_access.diagnostics import record_exception, update_context
 
 
 HEADERS = [('Cache-Control', 'no-store, private, max-age=0'),
@@ -25,9 +27,11 @@ class YDentalSettlement(http.Controller):
         access = request.env['ydental.access.service']
         session = access._session_for_key(request.session.sid[:42])
         access = access._bind(session, revision)
+        update_context(scope_revision=access.env.context['ydental_binding'].revision)
         return access.env['ydental.settlement.service']
 
     @http.route('/ydental/settlement', type='http', auth='user', methods=['GET'])
+    @observed_http('settlement.workbench')
     def workbench(self, patient_id=None, notice=None, today_page='1', history_page='1',
                   pending_page='1', invoices_page='1', payments_page='1',
                   refunds_page='1', closes_page='1', settled_page='1', **kwargs):
@@ -80,6 +84,7 @@ class YDentalSettlement(http.Controller):
         return request.render('ydental_settlement.ydental_settlement_page', context, headers=HEADERS)
 
     @http.route('/ydental/settlement/action', type='http', auth='user', methods=['POST'], max_content_length=100000)
+    @observed_http('settlement.action')
     def action(self, operation, revision, key, **post):
         html_form = (post.get('output') == 'html'
                      and request.httprequest.mimetype == 'application/x-www-form-urlencoded')
@@ -88,7 +93,10 @@ class YDentalSettlement(http.Controller):
             return [int(value) for value in values]
 
         try:
-            service = self._service(int(revision))
+            update_context(stage='request.parse')
+            parsed_revision = int(revision)
+            update_context(stage='authorization')
+            service = self._service(parsed_revision)
             payloads = {
                 'bill': lambda: {'fee_ids': ids('fee_ids'), 'discount': float(post.get('discount') or 0),
                                  'reason': post.get('reason') or ''},
@@ -123,12 +131,16 @@ class YDentalSettlement(http.Controller):
             }
             if operation not in payloads:
                 raise ValidationError(request.env._('Unknown settlement operation.'))
-            result = service._operate(operation, payloads[operation](), key)
+            update_context(stage='request.parse')
+            parsed_payload = payloads[operation]()
+            update_context(stage='business.call')
+            result = service._operate(operation, parsed_payload, key)
             if html_form:
                 return self._html_feedback('already_accepted' if result.get('result') == 'already_accepted'
                                            else 'accepted')
             return request.make_json_response(result, headers=HEADERS)
         except (AccessError, UserError, ValidationError, ValueError, TypeError, KeyError) as error:
+            record_exception(error, 'settlement.action')
             request.env['ydental.access.service']._denial('settlement.action')
             if html_form:
                 return self._html_feedback('denied')
@@ -136,6 +148,7 @@ class YDentalSettlement(http.Controller):
                 status=403 if isinstance(error, AccessError) else 409, headers=HEADERS)
 
     @http.route('/ydental/settlement/pdf/<string:kind>/<int:source_id>', type='http', auth='user', methods=['GET'])
+    @observed_http('settlement.pdf')
     def pdf(self, kind, source_id, **kwargs):
         try:
             raw, digest = self._service().with_context(lang='zh_CN')._pdf(kind, source_id)
@@ -143,15 +156,18 @@ class YDentalSettlement(http.Controller):
                 ('Content-Disposition', 'attachment; filename="ydental-settlement-demo.pdf"'),
                 ('X-YDental-PDF-SHA256', digest)])
         except (AccessError, UserError, ValidationError) as error:
+            record_exception(error, 'settlement.pdf')
             request.env['ydental.access.service']._denial('settlement.report')
             return request.make_json_response({'error': str(error)},
                 status=403 if isinstance(error, AccessError) else 409, headers=HEADERS)
 
     @http.route('/ydental/settlement/other-stores/<int:patient_id>', type='http', auth='user', methods=['GET'])
+    @observed_http('settlement.other_stores')
     def other_stores(self, patient_id, **kwargs):
         try:
             return request.make_json_response(self._service()._other_store_summary(patient_id), headers=HEADERS)
         except (AccessError, UserError, ValidationError) as error:
+            record_exception(error, 'settlement.other_stores')
             request.env['ydental.access.service']._denial('settlement.other_store_summary')
             return request.make_json_response({'error': str(error)},
                 status=403 if isinstance(error, AccessError) else 409, headers=HEADERS)

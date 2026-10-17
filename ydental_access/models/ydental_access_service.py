@@ -5,6 +5,7 @@ import logging
 from odoo import api, fields, models
 from odoo.exceptions import AccessError, UserError, ValidationError
 
+from ..diagnostics import emit_event
 from .constants import Binding, CATEGORIES, GROUP_MANAGER, RANK, SYSTEM_MANAGER
 
 
@@ -19,6 +20,9 @@ class YDentalAccessService(models.AbstractModel):
         # Security rejection survives a rolled-back business transaction. Never
         # log request bodies, credentials, clinical text or a denied source ID.
         _logger.info('YDental security rejection actor=%s action=%s result=denied', self.env.uid, action)
+        emit_event('security.rejected', component='access', operation=action,
+                   actor_id=self.env.uid, effective_uid=self.env.uid, su_flag=self.env.su,
+                   outcome='denied', error_class='BUSINESS_REJECTION', error_code='AUTHZ_DENIED')
 
     def _require_internal(self):
         if not self.env.user.active or not self.env.user._is_internal() or not self.env.user.has_group(
@@ -318,9 +322,14 @@ class YDentalAccessService(models.AbstractModel):
 
     def _audit(self, event, category, target, store_id=False, before=None, after=None,
                result='accepted', reason=False, source='interactive'):
-        return self.env['ydental.access.audit'].sudo().create(self._audit_values(
+        audit = self.env['ydental.access.audit'].sudo().create(self._audit_values(
             event, category, target, store_id, before, after, result, reason, source,
         ))
+        emit_event('audit.created', component='access.audit', operation=event,
+                   actor_id=self.env.uid, effective_uid=audit.env.uid, su_flag=audit.env.su,
+                   store_id=store_id or None, audit_ref=audit.id,
+                   transaction_phase='IN_TRANSACTION', commit_observation='NOT_OBSERVED')
+        return audit
 
     def _switch(self, store_id):
         session = self._scope(write=True)

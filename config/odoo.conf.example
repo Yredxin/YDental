@@ -6,3 +6,16 @@ db_user = REPLACE_LOCALLY
 db_password = REPLACE_LOCALLY
 ; p00.py copies only database connection settings and generates isolated runtime settings.
 ; Never use this placeholder configuration directly on an existing database.
+; Optional native logging example (resolve to an absolute path in the private run):
+; log_config = /ABSOLUTE/PRIVATE/RUN/logging-s10.json
+; log_level = info
+; log_handler = :INFO
+; The standard-library-only JSON example keeps Odoo's native logfile/stderr.
+; Set YDENTAL_DIAGNOSTIC_DIR to an existing, owner-only 0700 private run directory
+; to enable ydental.events JSONL after the access addon loads normally.
+; Each launched PID owns exclusive files (10 MiB segments, at most five);
+; segments are sealed, never automatically deleted. INFO only; no SQL/body dump.
+; The launcher records run/task/candidate/core metadata in YDENTAL_RUN_ID,
+; YDENTAL_TASK_ID, YDENTAL_PRODUCT_COMMIT, YDENTAL_TEST_COMMIT, YDENTAL_CORE_COMMIT.
+; It must monitor diagnostics-failed-<pid>.txt and stop further related writes.
+; This example does not prove any machine's active logging configuration.

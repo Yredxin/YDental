@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "disable_existing_loggers": false,
+  "keep_odoo_default": true,
+  "loggers": {
+    "ydental.events": {
+      "level": "INFO",
+      "handlers": [],
+      "propagate": false
+    }
+  }
+}
