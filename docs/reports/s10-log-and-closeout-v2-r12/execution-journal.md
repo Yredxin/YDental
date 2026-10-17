@@ -35,3 +35,12 @@
 独立acceptance最后追加结束后复核最终报告43870B/SHA d0ff516bf71ad81e1ec4e0b84f5eb0b62ab2c5d0486f941913b5701144d0a2b9，更新主控此前对追加中43733B快照的索引；38113B旧前缀不变。仅报告摘要校正，无源码或测试变化/重跑。
 
 本轮真实[CODEX交付6235370883](https://github.com/Yredxin/YDental/issues/34#issuecomment-6235370883)已发表并API全文逐字节读回：5682 UTF-8 bytes/SHA256 `1d3ba89306caceb3cfd4e164ff574140f5de9b81a4e8d9fbbf5204b27ee77711`。证据固定`ff10a033dede4d6c01685e1ec4aa3e88e4e68c7a`；后续提交仅此同步回执，不改变固定P/T或重复测试。不是GPT新复核、人工转发或平台限制解除。
+
+
+## FRAMEWORK6 / YD-S10-LC2-FRAMEWORK6-20261017-01
+
+用户直接授权及正式6235542536已全文读；b99bb43本地/远端一致、干净工作树，沿用developer/acceptance，原tester未触发。15:15:52.972942Z记录两小时窗口；预RO backend1577383确认scratch/base-only/无冲突后START6235616835全文读回。五脚本新profile元数据接入与AST/metadata检查、独立静态审后冻结T a910106050073c85b657b1e8762fda31fd43ee6d，接受产品cf5d63f不变；新config沿用原scratch data_dir，旧STOP/marker/config/budget不改。
+
+15:27:44.524761Z主控父1210624开始，launch RO backend1579913；Odoo1210698正常-i测试模块及声明依赖、load en_US,zh_CN，exacttag/module。15:29:01实际6post-tests/0fail/0error；唯一HTTP真实请求、原生AccessError断言通过。15:29:02.613883Z父观察子exit0，seal/seq1—4完整。postRO backend1580491核91installed/no pending/644tables/两语言active及新夹具0，明确模块安装持久化并非整库回滚。本轮Odoo1/RO3/HTTP1，累计2/9/1；维护/CREATE/业务0。后处理域哈希断言一次失败、源码前缀核实后修正，原生结果不改/未重跑。独立验收及同步随后据实记录。
+
+独立acceptance于15:39:01Z追加验收并明确停止写入：FRAMEWORK6_SCOPED_ACCEPTED / PENDING_GPT_REVIEW / S10_EXIT_BLOCKED，报告53562B/SHA 87888fc42026fcf4e8c751ed5476f0c9615ce87dfa4b12e28254af336a3faba8，旧43870B前缀不变。主控据最终停止后字节固定索引，不重跑应用。

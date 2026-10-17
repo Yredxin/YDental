@@ -203,3 +203,51 @@ exact分支自有ExitStack/TemporaryDirectory0700和NamedTemporaryFile0600，仅
 已全文核summary/defects/journal/roster/matrix本轮增量，七份evidence_refs的bytes/SHA全部匹配；12LOG、22S10及19TC完整对象与父相同，既有运行状态和历史采纳不变。summary旧文精确suffix、defects/journal旧文精确prefix；本报告原38113字节prefix SHA仍047a03a72541871f80fc1bdc8c22fbbf2334af1435d138fc1130bf8a368343ac。新框架适配仅源及纯覆盖可采，六项真实框架与S10业务仍NOT_RUN，原CLI/动态PDF/权限/原件/资金/双E真实准入缺口不被消除。
 
 本角色未连接DB/应用HTTP、运行Odoo/真实测试子进程/driver/PDF，未接手被拒账户材料或重复事件调查，未解除STOP或修改其他writer文件。新任务没有发生本任务的工具安全拒绝。本轮限定工作可交回GPT技术复核；GitHub新CODEX交付及全文读回由主控后续据实记录，本签不预认证同步。签署取钟2026-10-17T14:51:50Z（工具UTC秒精度），到此停止写入。
+
+
+## FRAMEWORK6 独立验收追加 / 2026-10-17T15:39:01Z
+
+本节仅适用于 `YD-S10-LC2-FRAMEWORK6-20261017-01`，结论为 **FRAMEWORK6_SCOPED_ACCEPTED / PENDING_GPT_REVIEW；S10_EXIT_BLOCKED**。本次六项确有原生框架执行与一次实际本机 HTTP RPC，不再仅为纯模拟结论；本结论不扩大至 S10 业务、生产、完整 UI、PDF、D/E 或旧 Native 根因。前 43,870 字节及全部旧签署保持原样，原前缀 SHA256 为 `d0ff516bf71ad81e1ec4e0b84f5eb0b62ab2c5d0486f941913b5701144d0a2b9`。
+
+独立审核者仍为真实 `/root/acceptance`；实际执行者为主控 `/root`，执行层级记为 `CONTROLLER_NATIVE_FRAMEWORK_SELF_TEST`。原 tester 未触发、未恢复；developer 仅交付必要 metadata/profile 适配。审核者只读取代码、既有授权和本轮证据，未启动 DB、Odoo、HTTP、浏览器、PDF 或应用测试。本节不是独立 tester 自行重跑，也不是 GPT 最终技术复核。正式新任务及先前源码采纳评论 `6235542536` / `6235473696` 的完整缓存正文和 scope 已完整阅读；START `6235616835` 的全文 API 读回记录已核，2253 字节，SHA256 `646aa7b8c793415972bd8f0aa48466710ab9e61cd53084a15055bc83ea156ffe`。交付评论尚待主控实际发表并读回，不预签已同步。
+
+### 准入与候选范围
+
+固定父 `b99bb431315d201b4591e50785206779ac7fb524`，产品 `cf5d63fe510b52ea150d07495bf3062f4ce0961d`，工具/测试 `a910106050073c85b657b1e8762fda31fd43ee6d`，只读 core `f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb`。必要五脚本适配将新授权、2 小时期限、唯一 scratch 用途、共享累计预算和本轮目录显式绑定；旧 STOP、预算、config、marker 没有清空或改写。profile 的 canonical root、scope/父 SHA、授权起时/期限检查及拒绝时保原异常的 best-effort freeze 已闭环。框架子解释器仍通过精确 grant、PID/PPID、用途、candidate/source、持久共享预算及 failure/终态检查，不以空 owner 或任意 env flag 放行；未重新审判已正式采纳 TR01，也未另加纯测试作为本轮准入条件。
+
+仅既有 scratch `ydental_s10_test_20261017105432_ce6dcbf8` / OID2144130 / cluster7694897083368259627 / 127.0.0.1:18411。实际参数为正常 `-i ydental_settlement_test`、`--load-language=en_US,zh_CN`、`--test-enable --test-tags=s10_lc2/ydental_settlement_test --stop-after-init`；与固定六项源码相符。`--db-system` 为同一 scratch；正式授权允许每次启动一次原生存在性查询及最多一次 postgres **数据库名** fallback，用户仍为既有应用 `odoo`，并非 postgres 角色或运维扩权。实际内部系统连接数未直接观测，保持 UNKNOWN；未见 fallback 日志不等于证明零 fallback/零内部连接。没有新 CREATE、maintenance 操作、main/保护源连接、业务浏览器或动态 PDF 准入。
+
+### 六项真实执行及证据边界
+
+实际首轮 wrapper PID1210624、Odoo PID1210698，2026-10-17T15:27:44.524761Z 至 15:29:02.613883Z，含预检共 78.089136975 秒。独立父退出记录为 child exit0 / signal None；实际工具完成同样 exit0。原生日志有恰好六条选中方法 Starting、`6 post-tests`、`0 failed, 0 error(s) of 6 tests`，无 skipped 行；固定 core 的 addSkip 会写 skipped，故本六项结论为 6 执行、0 fail、0 error、0 skip。stats 的 10 是两 class 的 setUpClass/tearDownClass 四项统计加六方法，不是十个测试。原生日志存在正常兼容/manifest/field 警告，本报告不声称无告警。
+
+| 实际方法 | 层级及局部结论 |
+| --- | --- |
+| `test_native_error_serialization_exact_type_arguments_and_translation` | 原生 TransactionCase；en_US/zh_CN、三类原生异常精确类型/args/serialize 对照，PASS。 |
+| `test_service_type_error_is_not_localized_business_rejection` | 原生 TransactionCase 中合成异常；Type/Key/Name 与请求解析 ValueError 分类断言，PASS；不是实际编程事故。 |
+| `test_gpr02_chained_native_exception_keeps_framework_identity` | 原生 TransactionCase 中 LookupError→AccessError 合成链及 uid/su/default_env/原异常保持断言，PASS。 |
+| `test_mandatory_business_audit_failure_propagates` | 原生 TransactionCase、mock audit.create 抛 RuntimeError 并核传播，PASS；不是实际磁盘或 PostgreSQL 故障。 |
+| `test_context_restores_and_does_not_change_environment_identity` | 原生 TransactionCase；ContextVar 恢复、env 身份不变及实际 logger levels50/20，PASS。 |
+| `test_actual_rpc_preserves_native_access_error_name_and_arguments` | 原生 HttpCase、合成授权用户和审计记录、一次真正本机 POST，PASS；框架本地 seeded session 不冒真实浏览器登录。 |
+
+HttpCase 的 HTTP200、RPC `odoo.exceptions.AccessError`、英文 arguments `['Audit events cannot be changed.']`、context `{}`、无 result 和原审计未改，来自固定实际测试断言成功及真实服务端事件。未单独保存原始 RPC response body，证据层明确为 `ACTUAL_SERVER_REQUEST_AND_REJECTION_EVENTS_PLUS_SUCCESSFUL_NATIVE_ASSERTIONS`；不制造 body 证据、不补跑。此 RPC 不是完整 B 六种普通操作、中文 UI 对话框或 HTTP403/409/303 状态矩阵。
+
+实际请求 L03 的 actor/effective_uid=5、su=False；request_id/trace_id 在 request.received 与 operation.rejected 一致；AUTHZ_DENIED / BUSINESS_REJECTION / AccessError 符合预期短拒绝，未落异常堆栈。operation_ref 为输入加固定 `ydental-client-operation:` 前缀后 SHA256，值 `1ffab5fd0695382b4e12b01deb7527fa937f79da5415dc41b11f122d715f8aa2`。首次后处理误用裸输入 hash 的 assertion 已保留 first-error，仅修证据后处理；候选与应用未改、未重跑。
+
+子诊断文件四行 seq1—4 为 run.start/request.received/operation.rejected/run.end，seal 的 bytes/SHA 有效；它们属于子进程，不称父 run.end。独立父退出另有 parent-exit.tsv 和工具完成事实。run.start/run.end 的 commit/transaction 均 NOT_OBSERVED，业务拒绝为 IN_TRANSACTION；不能据日志 end 推断 commit、整库 rollback 或消除事务 UNKNOWN。JSONL5567 字节，SHA256 `6ec3dbdd825cc6e8f9ccf7231b1a1e7148af5903b8b47635f65deec1a5e82fd3`。HTTP grant/pending/reserved 均为实际子 PID1210698、同一 grant SHA 与用途，reserved count1。
+
+### 连接、落地状态与资源
+
+三次独立 scratch RO 为初始 backend1577383、启动前身份 backend1579913、运行后 backend1580491；同 OID/cluster/application user，有限 RO/RR 观测，rollback/closed 已记录，others 为空。安装前仅 base、115 物理表；运行后正常安装91模块、644表、无 pending，en_US 与 zh_CN active。模块/语言/系统附件安装是持久效果，不是全库回滚。运行后 `lc2_rpc_user` 与 `lc2.synthetic` 审计各0，支持本次测试夹具已回滚；八个实际存在的 allowlist 业务表计数0，结论仅及这八表，不扩写为所有业务表、历史账款保全或真实 S10 事务已测。主控实际查询源码及 before/after/exit 已独立阅读，本审核不新增连接。
+
+本轮 local Odoo1/3、独立目标 RO3/8、HTTP1/12；累计 Odoo2/12、目标 RO9/48、HTTP1/600。旧 accident_ro2 / CREATE2 / maintenance1 保留不变；这里 maintenance 账目不代替前述原生系统连接 UNKNOWN。Firefox、原件 GET、PDF、临床与经济动作、D/E 均新增0。授权窗口为15:15:52.972942Z—17:15:52.972942Z，实际运行在窗口内，应用时长远低于1200秒。
+
+新任务根原始材料478627字节，加整个既有 scratch data_dir64890731字节作为保守上界共65369358字节，小于256MiB；所有相关私有根合计126412154字节，小于1GiB。前者包含旧 data 文件，明确不是全部本轮新增量。旧 STOP SHA `93dd9a4492f74fd4699b43e3547d427fc97e93ef57c84a89204d612930bd91da` 及旧预算/config/marker 的原字节校验保持。运行已经终止，后续不再派发应用或连接。
+
+### 本次独立核验及退出签署
+
+逐项重读并核对私有 framework6-verification.json 的22个原始引用 bytes/SHA、14项当前源码 SHA，全部一致；验证文件13454字节，SHA256 `2510798dc9d56b0efc3b7f162f52ffba3b1ce8e20ca5bd4cf2c2130acba90cb1`。同时核实际工具退出、六 Starting 与总汇、父退出、JSONL/seal、三 RO、grant/账本、raw 上界及最终公开 summary/matrix/defects/journal/roster 增量。公开 summary 曾误称“父 run.end”，已修为“独立父退出记录及子JSONL run.end/seq1—4与seal有效”，本次已实读核回。
+
+矩阵只新增 framework6 局部原生证据；旧 logs/s10/group_cases/tc_evidence_requirements/code_rework/tr01_caller_adapter 对象与父 b99 全同，六项测试源码全字节同父，未弱化断言。LOG01/02/03/04/06/07 得到本六项限定支持；单请求不能填两请求并发、模拟强制审计故障不填真实持久 I/O 故障；LOG12 与所有 S10 整行退出状态不因六项而升级。未用历史150纯测试冒本轮运行，也未把本次原生六项扩充为完整应用验收。
+
+最终独立结论：本次明确授权的五项 TransactionCase 加一项实际 HTTP HttpCase **局部原生六项已完成且有据可采纳**，可由主控正常固定证据并提交 GPT 技术复核。S10、生产及剩余业务/完整 UI403/409/303、浏览器、真实动态 PDF/资源准入、A/B/C/D/E 完整收尾、带业务双库 E 仍为 NOT_RUN/BLOCKED；历史 Native 根因继续 UNKNOWN。本追加不授予任何后续运行、不解除旧 STOP、不替代 GPT 复核。审核者完成本节后停止写入，后续 GitHub 实际同步由主控另行记录。

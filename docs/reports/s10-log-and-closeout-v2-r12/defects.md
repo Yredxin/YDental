@@ -33,3 +33,8 @@
 ## TR-01 框架调用者适配 / YD-S10-LC2-CODE-REWORK-20261017-02
 
 父owner不跨解释器，原实际HttpCase.url_open在发送前无合法owner。现父路径保留owner，框架入口使用自身一次grant、固定身份/候选/用途、原共享账本及自身日志/STOP；不改Odoo或业务语义。P `cf5d63fe510b52ea150d07495bf3062f4ce0961d` / T `83e14b75e29aa49ceff26410236df13424f30163`，最终150纯检查全过，原100 IDs保留。开发142的1error系close重复原生冻结，保留失败并修正producer→Native→framework顺序，146开发及150固定候选区分。六项真实框架和S10仍NOT_RUN；SOURCE适配不代表应用准出。完整增量、边界和证据见acceptance-matrix.json::tr01_caller_adapter。
+
+
+## FRAMEWORK6 原生集成验证 / YD-S10-LC2-FRAMEWORK6-20261017-01
+
+TR01源码接受后在现scratch第一次真实运行五TransactionCase+一HttpCase，共6/0fail/0error/0skip、exit0，native请求确实到达并返回原生AccessError。原六测试及断言未改，不重开TR01源问题。必要新profile把旧epoch/授权/root和新两小时/单scratch/局部预算分开，累计计数继承，旧STOP不动；静态审修正canonical构造及deadline后保primary，不重跑150。后处理一次hash域前缀假设错误已修并保存第一回执，不算原生测试FAIL/不补跑。原生依赖WARN保留不宣称无warning，本限定任务不扩产品维护。全GPR UI/403/409/303、A—E、PDF及S10仍NOT_RUN/BLOCKED。

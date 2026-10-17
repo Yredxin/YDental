@@ -3331,5 +3331,239 @@
       "not_a_gpt_review_or_relay": true,
       "runtime_authorized_or_restored": false
     }
+  },
+  "framework6": {
+    "message_id": "YD-S10-LC2-FRAMEWORK6-20261017-01",
+    "scope": "EXISTING_SCRATCH_NATIVE_FRAMEWORK_ONLY",
+    "execution_role": "CONTROLLER_NATIVE_FRAMEWORK_SELF_TEST",
+    "product_commit": "cf5d63fe510b52ea150d07495bf3062f4ce0961d",
+    "test_commit": "a910106050073c85b657b1e8762fda31fd43ee6d",
+    "core_commit": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+    "test_rows": [
+      {
+        "layer": "NATIVE_TRANSACTIONCASE_SYNTHETIC_FIXTURE",
+        "name": "TestLogCloseout.test_native_error_serialization_exact_type_arguments_and_translation",
+        "status": "PASS"
+      },
+      {
+        "layer": "NATIVE_TRANSACTIONCASE_SYNTHETIC_FIXTURE",
+        "name": "TestLogCloseout.test_service_type_error_is_not_localized_business_rejection",
+        "status": "PASS"
+      },
+      {
+        "layer": "NATIVE_TRANSACTIONCASE_SYNTHETIC_FIXTURE",
+        "name": "TestLogCloseout.test_gpr02_chained_native_exception_keeps_framework_identity",
+        "status": "PASS"
+      },
+      {
+        "layer": "NATIVE_TRANSACTIONCASE_SYNTHETIC_FIXTURE",
+        "name": "TestLogCloseout.test_mandatory_business_audit_failure_propagates",
+        "status": "PASS"
+      },
+      {
+        "layer": "NATIVE_TRANSACTIONCASE_SYNTHETIC_FIXTURE",
+        "name": "TestLogCloseout.test_context_restores_and_does_not_change_environment_identity",
+        "status": "PASS"
+      },
+      {
+        "layer": "NATIVE_HTTP_RPC_SYNTHETIC_FIXTURE",
+        "name": "TestLogCloseoutHTTP.test_actual_rpc_preserves_native_access_error_name_and_arguments",
+        "status": "PASS"
+      }
+    ],
+    "discovered_source_methods": [
+      "TestLogCloseout.test_native_error_serialization_exact_type_arguments_and_translation",
+      "TestLogCloseout.test_service_type_error_is_not_localized_business_rejection",
+      "TestLogCloseout.test_gpr02_chained_native_exception_keeps_framework_identity",
+      "TestLogCloseout.test_mandatory_business_audit_failure_propagates",
+      "TestLogCloseout.test_context_restores_and_does_not_change_environment_identity",
+      "TestLogCloseoutHTTP.test_actual_rpc_preserves_native_access_error_name_and_arguments"
+    ],
+    "actual_native_started_methods": [
+      "TestLogCloseout.test_context_restores_and_does_not_change_environment_identity",
+      "TestLogCloseout.test_gpr02_chained_native_exception_keeps_framework_identity",
+      "TestLogCloseout.test_mandatory_business_audit_failure_propagates",
+      "TestLogCloseout.test_native_error_serialization_exact_type_arguments_and_translation",
+      "TestLogCloseout.test_service_type_error_is_not_localized_business_rejection",
+      "TestLogCloseoutHTTP.test_actual_rpc_preserves_native_access_error_name_and_arguments"
+    ],
+    "native_summary": {
+      "errors": 0,
+      "failures": 0,
+      "post_tests": 6,
+      "skips": 0,
+      "stats_counter": 10,
+      "stats_counter_explanation": "fixed core OdooSuite.collectStats includes two setUpClass and two tearDownClass entries; 6 methods+4 fixture stats; not 10 test cases",
+      "tests": 6
+    },
+    "actual_native_http": {
+      "actor_id": 5,
+      "arguments": [
+        "Audit events cannot be changed."
+      ],
+      "context": {},
+      "effective_uid": 5,
+      "evidence_layer": "ACTUAL_SERVER_REQUEST_AND_REJECTION_EVENTS_PLUS_SUCCESSFUL_NATIVE_ASSERTIONS; no raw response body capture",
+      "method": "POST",
+      "operation_ref_sha256": "1ffab5fd0695382b4e12b01deb7527fa937f79da5415dc41b11f122d715f8aa2",
+      "rejection_event_id": "8cb706e19c5041098be0e96b006f97c8",
+      "request_count": 1,
+      "request_event_id": "26d021ab686f46fdb68ff00c861763f7",
+      "request_id": "dea31570bfaf4880ba020d8d861a9556",
+      "route": "/web/dataset/call_kw/ydental.access.audit.write",
+      "rpc_error_name": "odoo.exceptions.AccessError",
+      "status_code": 200,
+      "su_flag": false
+    },
+    "native_system_connections": {
+      "actual_connection_counts": "UNKNOWN_NOT_DIRECTLY_MEASURED",
+      "allowance_existence_per_start": 1,
+      "allowance_postgres_dbname_fallback_per_start": 1,
+      "db_system": "ydental_s10_test_20261017105432_ce6dcbf8",
+      "db_user": "odoo",
+      "evidence_layer": "SOURCE_INFERRED_ONE_EXISTENCE_CALL; NO_FALLBACK_LOG_OBSERVED",
+      "fallback_log_observed": false
+    },
+    "source_sha_before_after_equal": true,
+    "old_files_sha_unchanged": {
+      "old_budget_sha256": true,
+      "old_config_sha256": true,
+      "old_marker_sha256": true,
+      "old_stop_sha256": true
+    },
+    "native_diagnostics": {
+      "events": 4,
+      "parent_guard_failure": null,
+      "process_sequences": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "run_end_seal_valid": true
+    },
+    "parent_commit": "b99bb431315d201b4591e50785206779ac7fb524",
+    "formal_task_comment": 6235542536,
+    "source_acceptance_comment": 6235473696,
+    "status": "FRAMEWORK6_NATIVE_PASS_PENDING_GPT_REVIEW",
+    "process": {
+      "application_directory": "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/s10-lc2-framework6-20261017-01/application-scratch-tests-10b485e1",
+      "attempt": 1,
+      "elapsed_seconds": 78.08913697500248,
+      "execution_role": "CONTROLLER_NATIVE_FRAMEWORK_SELF_TEST",
+      "exit_code": 0,
+      "finished_at_utc": "2026-10-17T15:29:02.613883+00:00",
+      "message_id": "YD-S10-LC2-FRAMEWORK6-20261017-01",
+      "pid": 1210698,
+      "product_commit": "cf5d63fe510b52ea150d07495bf3062f4ce0961d",
+      "signal": null,
+      "started_at_utc": "2026-10-17T15:27:44.524761+00:00",
+      "task_id": "S10-LOG-AND-CLOSEOUT-v2",
+      "test_commit": "a910106050073c85b657b1e8762fda31fd43ee6d",
+      "transaction_result": "MODULE_INSTALL_AND_TEST_ROLLBACK_REQUIRE_INDEPENDENT_CHECK"
+    },
+    "installation_summary": {
+      "tables_before": 115,
+      "tables_after": 644,
+      "pending_after": [],
+      "languages_after": [
+        [
+          "en_US",
+          true
+        ],
+        [
+          "zh_CN",
+          true
+        ]
+      ],
+      "new_test_user_remaining": 0,
+      "new_test_audit_remaining": 0,
+      "business_counts": {
+        "account_move": 0,
+        "account_payment": 0,
+        "stock_move": 0,
+        "ydental_patient": 0,
+        "ydental_settlement_payment": 0,
+        "ydental_settlement_refund": 0,
+        "ydental_treatment_event": 0,
+        "ydental_treatment_fee": 0
+      },
+      "boundary": "Normal module and language installation persists; only test fixture rollback is established, not whole-database rollback"
+    },
+    "installed_modules_before_count": 1,
+    "installed_modules_after_count": 91,
+    "resource_local": {
+      "http": 1,
+      "odoo_start": 1,
+      "target_ro": 3
+    },
+    "resource_cumulative": {
+      "accident_ro": 2,
+      "create": 2,
+      "http": 1,
+      "maintenance": 1,
+      "odoo_start": 2,
+      "target_ro": 9
+    },
+    "raw_usage": {
+      "roots_bytes": {
+        "s10-lc2": 68390519,
+        "s10-lc2-exec-20261017": 41820179,
+        "s10-lc2-r12-20261017": 15254942,
+        "s10-lc2-code-rework-20261017-01": 125944,
+        "s10-lc2-caller-adapter-20261017-02": 341943,
+        "s10-lc2-framework6-20261017-01": 478627
+      },
+      "cumulative_bytes": 126412154,
+      "new_task_root_bytes": 478627,
+      "entire_scratch_data_dir_bytes_including_old_files": 64890731,
+      "conservative_new_upper_bound": 65369358,
+      "limits_bytes": {
+        "new": 268435456,
+        "cumulative": 1073741824
+      }
+    },
+    "start_sync": {
+      "comment_id": 6235616835,
+      "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6235616835",
+      "api_full_readback": true,
+      "bytes": 2253,
+      "sha256": "646aa7b8c793415972bd8f0aa48466710ab9e61cd53084a15055bc83ea156ffe"
+    },
+    "private_verification": {
+      "private_path": ".local/s10-lc2-framework6-20261017-01/framework6-verification.json",
+      "bytes": 13454,
+      "sha256": "2510798dc9d56b0efc3b7f162f52ffba3b1ce8e20ca5bd4cf2c2130acba90cb1"
+    },
+    "actual_tool_exit": {
+      "private_path": ".local/s10-lc2-framework6-20261017-01/attempt-1-tool-exit.json",
+      "bytes": 182,
+      "sha256": "ec9aa46aef5ccbf3f9f779276cbb0763b2a8b65e92f45c506981200f812ab564"
+    },
+    "raw_native_log": {
+      "bytes": 252963,
+      "private_path": ".local/s10-lc2-framework6-20261017-01/application-scratch-tests-10b485e1/odoo-native.log",
+      "sha256": "34dbd7c7d0037b8667ff780ab560656e883904a3651739de7678fdcb40675d67"
+    },
+    "independent_acceptance": {
+      "canonical": "/root/acceptance",
+      "status": "FRAMEWORK6_SCOPED_ACCEPTED / PENDING_GPT_REVIEW / S10_EXIT_BLOCKED",
+      "report": "docs/reports/s10-log-and-closeout-v2-r12/acceptance-review.md",
+      "bytes": 53562,
+      "sha256": "87888fc42026fcf4e8c751ed5476f0c9615ce87dfa4b12e28254af336a3faba8"
+    },
+    "remaining_business_and_ui": "NOT_RUN_S10_T12_PRODUCTION_BLOCKED",
+    "github_sync": {
+      "status": "PENDING"
+    },
+    "requirement_support": {
+      "LOG-01": "native Odoo logging/levels initialized; six-scoped only",
+      "LOG-02": "one native correlated HTTP request; two-request concurrency NOT_RUN",
+      "LOG-03": "native serializer/messages/en_US-zh_CN/RPC error identity PASS_SCOPED; full UI/status matrix NOT_RUN",
+      "LOG-04": "native chained AccessError identity/framework retention PASS_SCOPED; bounded-chain other cases historical pure",
+      "LOG-06": "native synthetic mandatory audit failure and env identity assertions PASS_SCOPED; business transactions NOT_RUN",
+      "LOG-07": "actual owned parent/child exit0/sealed end PASS_SCOPED; historic Native root cause UNKNOWN",
+      "LOG-12": "D/E NOT_RUN; six framework tests do not grant stage exit"
+    }
   }
 }

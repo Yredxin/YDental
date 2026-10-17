@@ -1,3 +1,42 @@
+# 当前FRAMEWORK-6：六项原生框架PASS，等待GPT复核；S10仍BLOCKED
+
+本轮`YD-S10-LC2-FRAMEWORK6-20261017-01`，`EXISTING_SCRATCH_NATIVE_FRAMEWORK_ONLY`，用户直接批准[正式限定任务6235542536](https://github.com/Yredxin/YDental/issues/34#issuecomment-6235542536)，承接[源码接受6235473696](https://github.com/Yredxin/YDental/issues/34#issuecomment-6235473696)。父`b99bb431315d201b4591e50785206779ac7fb524`；已接受产品保持`cf5d63fe510b52ea150d07495bf3062f4ce0961d`，本轮工具/测试固定`a910106050073c85b657b1e8762fda31fd43ee6d`，core只读`f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb`未改。下方源码150项及R1.2历史原文保留，本轮不重跑150，也不恢复原整包。
+
+真实主控`/root`唯一执行scratch预检、正常安装和框架测试，标注`CONTROLLER_NATIVE_FRAMEWORK_SELF_TEST`；沿用`/root/developer`仅写五脚本最小任务接入，沿用`/root/acceptance`独立审代码/原生结果/取证，原tester仍errored，未触发或接手其旧账户材料。没有替换测试agent或解除平台安全控制。[START6235616835](https://github.com/Yredxin/YDental/issues/34#issuecomment-6235616835)已API全文读回2253B/SHA`646aa7b8c793415972bd8f0aa48466710ab9e61cd53084a15055bc83ea156ffe`。实际接收15:15:52.972942Z、截止17:15:52.972942Z，不继承旧运行窗口。
+
+## 六项实际结果
+
+|完整用例|结果|证据层级|
+|---|---|---|
+|TestLogCloseout.test_native_error_serialization_exact_type_arguments_and_translation|PASS|原生TransactionCase+合成夹具|
+|TestLogCloseout.test_service_type_error_is_not_localized_business_rejection|PASS|原生TransactionCase+合成夹具|
+|TestLogCloseout.test_gpr02_chained_native_exception_keeps_framework_identity|PASS|原生TransactionCase+合成夹具|
+|TestLogCloseout.test_mandatory_business_audit_failure_propagates|PASS|原生TransactionCase+合成夹具|
+|TestLogCloseout.test_context_restores_and_does_not_change_environment_identity|PASS|原生TransactionCase+合成夹具|
+|TestLogCloseoutHTTP.test_actual_rpc_preserves_native_access_error_name_and_arguments|PASS|真实HTTP/RPC+新合成夹具|
+
+只选择`--test-tags=s10_lc2/ydental_settlement_test`，原测试源六个test_*及所有断言未改。原生日志实际六条Starting与源码六方法逐名集合一致，结尾`6 post-tests`、`0 failed, 0 error(s) of 6 tests`，无skip记录。统计另记`10 tests`是固定core suite.py为两类的setUpClass/tearDownClass各加一条stats（6+4），不是额外四个测试。原生子PID1210698，真实父1210624，实际退出0/无信号；主控调用15:27:44.524761Z—15:29:02.613883Z、78.089秒（含依赖预检及身份探测）。工具完成exit0，独立父退出记录及子JSONL run.end/seq1—4与seal有效；没有Native事故或测试失败重跑。
+
+唯一真实HttpCase为POST `/web/dataset/call_kw/ydental.access.audit.write`：HTTP200，RPC错误name=`odoo.exceptions.AccessError`，arguments=`['Audit events cannot be changed.']`，context={}；这些响应字段由实际执行通过的原生断言证明，未另落原始response body文件，不补跑取证。保存的服务端request.received与operation.rejected同request/trace、L03、actor=effective UID且非sudo，分类AUTHZ_DENIED/BUSINESS_REJECTION/AccessError；operation_ref按固定controller域前缀哈希关联，grant pending/reserved同PID/SHA、累计HTTP count1。它不是模拟网络，也不冒B六项RPC或UI矩阵。
+
+## 安装持久状态、预算与边界
+
+独立scratch RO前后始终OID2144130、cluster7694897083368259627、odoo账号、无其他目标连接。安装前base唯一installed/115表，settlement/test均uninstalled；正常`-i ydental_settlement_test`及声明依赖、`en_US,zh_CN`语言加载后，91模块installed/644表、无pending，两语言active。安装的模块/schema/语言/filestore状态已持久化，**不是整库回滚**。原生测试新用户及lc2.synthetic审计行终核均0，限定八张存在的临床/财务/库存业务表计数0；这是测试夹具事务回滚及限定空表证据，不是主库或历史业务全保全验收。依赖闭包静态55不冒实际安装数，core auto_install后的实际91如实保留。
+
+本轮只用Odoo1/3、独立RO3/8（预检、launch probe、终核各1）、HTTP1/12；累计Odoo2/12、targetRO9/48、HTTP1/600，旧accidentRO2/maintenance1/CREATE2账本不动。CLI显式db_system=scratch、应用账号，固定源码推断本次一次存在性调用，最多一次postgres数据库名回退获批；无回退日志，但实际原生系统连接总数**UNKNOWN/未独立PG测量**，不以池退出关闭2连接或无回退日志伪造累计0。无维护操作、CREATE/DROP/复制/恢复/提权；未改core或数据库服务。
+
+新任务原始目录计量478627B；保守把整个scratch data_dir连旧系统文件都计入，新材料上界65369358B<256MiB；包内既有+新增126412154B<1GiB（计量快照，后续同步小文件另增）。旧STOP、旧budget及旧scratch marker/config原字节SHA均相同。原长期42433仍在，自己的1210698已退出。main、历史来源、旧文书/原件/资金从未连接或操作，浏览器/driver/PDF/D/E/S11均未运行。
+
+必要源码只接入新任务profile、显式新root/marker/grant/两小时与局部预算，并继承旧累计；正常原生流程不patch core、不重建scratch、不手改模块状态。独立静态审查修了profile直接构造固定身份和deadline后保存错误不覆盖原异常；五脚本AST/metadata校验通过后固定候选才派发。原生首轮即六项通过，没有为普通失败消耗重跑。取证后处理首次误按裸operation_ref哈希断言失败，按固定controller的`ydental-client-operation:`前缀更正；保留原错误回执，未改产品/测试候选或重跑应用。
+
+[机器映射](acceptance-matrix.json)新增`framework6`六行与范围，原12LOG/22S10/19TC及历史采纳不改。小型私有索引`.local/s10-lc2-framework6-20261017-01/framework6-verification.json`记录原生日志/退出、安装前后状态、grant/预算、十四源SHA和22份raw引用，公开仅脱敏索引。独立acceptance已最终签署`FRAMEWORK6_SCOPED_ACCEPTED / PENDING_GPT_REVIEW / S10_EXIT_BLOCKED`，报告53562B/SHA`87888fc42026fcf4e8c751ed5476f0c9615ce87dfa4b12e28254af336a3faba8`（旧43870B前缀不变）；不冒独立tester应用验收。
+
+推荐GPT采纳本六项原生框架结果；**不代表完整GPR UI/403/409/303、并发、PDF、财务闭环、A—E、E-MAIN/E-D或S10/T12/生产通过**。到本任务六项结果结束，不自行续用剩余预算或启动下一任务。
+
+---
+
+以下为TR-01源码返工和更早交付历史（原文保留）：
+
 # 当前TR-01调用者适配：SOURCE_READY / PURE_OFFLINE_REVIEWED，运行仍BLOCKED
 
 本轮`YD-S10-LC2-CODE-REWORK-20261017-02`仅`SOURCE_AND_PURE_OFFLINE_ONLY`，用户当前直接指令承接[实际交付6234908035](https://github.com/Yredxin/YDental/issues/34#issuecomment-6234908035)及[既有技术方向6234601017](https://github.com/Yredxin/YDental/issues/34#issuecomment-6234601017)。没有新的GPT复核评论，不代发此前被拒评论。父`e976f1d259e3719362cf59a4ba21f6338ce0ec79`；实现`cf5d63fe510b52ea150d07495bf3062f4ce0961d`，纯测试/工具`83e14b75e29aa49ceff26410236df13424f30163`；固定core未改。

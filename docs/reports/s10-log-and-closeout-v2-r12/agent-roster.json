@@ -143,5 +143,17 @@
     },
     "independent_application_tester_pass_claimed": false,
     "handoff": "developer stopped source writes before freeze; controller 150 fixed-candidate pure checks; acceptance independently signed SOURCE_READY/PURE_OFFLINE_REVIEWED with runtime NOT_AUTHORIZED; original tester untouched"
+  },
+  "framework6": {
+    "message_id": "YD-S10-LC2-FRAMEWORK6-20261017-01",
+    "controller": "/root",
+    "actual_native_executor": "/root (CONTROLLER_NATIVE_FRAMEWORK_SELF_TEST)",
+    "developer": "/root/developer (only five task metadata scripts, no DB/application)",
+    "acceptance": "/root/acceptance (independent read/review, append report only)",
+    "original_tester": "errored, not triggered or replaced",
+    "file_ownership": "developer five implementation scripts; controller private executor/observer/collector, existing summary/matrix/journal/roster and Git; acceptance only appended acceptance-review.md",
+    "actual_parent_pid": 1210624,
+    "actual_odoo_pid": 1210698,
+    "independent_tester_application_acceptance_claimed": false
   }
 }
