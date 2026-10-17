@@ -700,6 +700,174 @@ class DiagnosticsCase(unittest.TestCase):
         self.assertEqual(next(row for row in rows if row['root_event_id'] == primary_id)['exception_type'], 'OSError')
         self.assertTrue(self.diagnostics.diagnostics_failed())
 
+    def fake_native_rejection(self, name='UserError', code=None):
+        # Type labels simulate native classes; this test never imports Odoo.
+        error = type(name, (Exception,), {'__module__': 'odoo.exceptions'})(
+            'synthetic-private-rejection-message')
+        if code is not None:
+            error.diagnostic_code = code
+        return error
+
+    def diagnostic_events(self):
+        for handler in logging.getLogger('ydental.events').handlers:
+            handler.flush()
+        return [strict_loads(line) for path in self.directory.glob('events-*.jsonl')
+                for line in path.read_bytes().splitlines()]
+
+    def test_tr02_expected_rejection_is_one_short_correlated_event_without_files(self):
+        self.diagnostics.configure_once(str(self.directory))
+        error = self.fake_native_rejection('AccessError', 'AUTHZ_DENIED')
+        before = self.exception_identity(error)
+        token = self.diagnostics.bind_context(run_id='synthetic-run', task_id='S10-LC2', case_id='L-DENIED',
+            trace_id='synthetic-trace', request_id='synthetic-request', operation_ref='synthetic-operation')
+        try:
+            with patch.object(self.diagnostics, 'safe_exception_chain', side_effect=AssertionError('no stack')), \
+                 patch.object(self.diagnostics, '_minimal_exception', side_effect=AssertionError('no primary file')):
+                event_id = self.diagnostics.record_exception(error, 'synthetic', 'business.start')
+        finally:
+            self.diagnostics.reset_context(token)
+        rows = [row for row in self.diagnostic_events() if row['event_id'] == event_id]
+        self.assertEqual(len(rows), 1)
+        self.assertEqual((rows[0]['event'], rows[0]['error_code'], rows[0]['severity']),
+                         ('operation.rejected', 'AUTHZ_DENIED', 'INFO'))
+        self.assertEqual((rows[0]['trace_id'], rows[0]['request_id'], rows[0]['operation_ref']),
+                         ('synthetic-trace', 'synthetic-request', 'synthetic-operation'))
+        self.assertFalse(any(self.directory.glob('exception-*.txt')))
+        self.assertFalse(any(self.directory.glob('chain-*.txt')))
+        self.assertFalse(any(self.directory.glob('stack-*.json')))
+        self.assertEqual(self.exception_identity(error), before)
+        self.assertFalse(self.diagnostics.diagnostics_failed())
+        self.assertNotIn('synthetic-private-rejection-message', json.dumps(rows))
+
+    def test_tr02_entirely_expected_native_cause_chain_stays_short(self):
+        self.diagnostics.configure_once(str(self.directory))
+        error = self.fake_native_rejection()
+        error.__cause__ = self.fake_native_rejection('AccessError')
+        before = self.exception_identity(error)
+        self.diagnostics.record_exception(error, 'synthetic')
+        self.assertFalse(any(self.directory.glob('stack-*.json')))
+        self.assertEqual(self.exception_identity(error), before)
+        self.assertEqual(self.diagnostic_events()[-1]['event'], 'operation.rejected')
+
+    def test_tr02_plain_native_warning_types_remain_short_without_message_leaks(self):
+        self.diagnostics.configure_once(str(self.directory))
+        for name, expected_code in [('AccessError', 'AUTHZ_DENIED'),
+                                     ('ValidationError', 'INPUT_REJECTED'),
+                                     ('UserError', 'BUSINESS_RULE_REJECTED')]:
+            error = self.fake_native_rejection(name)
+            before = self.exception_identity(error)
+            event_id = self.diagnostics.record_exception(error, 'synthetic')
+            event = next(row for row in self.diagnostic_events() if row['event_id'] == event_id)
+            self.assertEqual(event['error_code'], expected_code)
+            self.assertEqual(event['error_class'], 'BUSINESS_REJECTION')
+            self.assertEqual(self.exception_identity(error), before)
+        self.assertFalse(any(self.directory.glob('chain-*.txt')))
+        self.assertFalse(any(self.directory.glob('stack-*.json')))
+        for path in self.directory.iterdir():
+            if path.is_file():
+                self.assertNotIn(b'synthetic-private-', path.read_bytes())
+
+    def test_tr02_programming_and_evidence_errors_keep_bounded_evidence(self):
+        self.diagnostics.configure_once(str(self.directory))
+        spoofed = TypeError('synthetic-private-programming-message')
+        spoofed.diagnostic_code = 'AUTHZ_DENIED'
+        evidence = self.fake_native_rejection(code='DIAGNOSTIC_FAILURE')
+        application = self.fake_native_rejection(code='APPLICATION_ERROR')
+        for error, stage, expected_class in [
+                (spoofed, None, 'APPLICATION_ERROR'), (evidence, None, 'EVIDENCE_ERROR'),
+                (application, None, 'APPLICATION_ERROR'),
+                (ValueError('synthetic-private-business-stage'), 'business.start', 'APPLICATION_ERROR'),
+                (self.fake_native_rejection(), 'evidence.finalization', 'EVIDENCE_ERROR')]:
+            before = self.exception_identity(error)
+            event_id = self.diagnostics.record_exception(error, 'synthetic', stage)
+            primary = next(row for row in self.diagnostic_events() if row['event_id'] == event_id)
+            self.assertEqual(primary['error_class'], expected_class)
+            self.assertEqual(self.exception_identity(error), before)
+        stacks = [strict_loads(path.read_bytes()) for path in self.directory.glob('stack-*.json')]
+        self.assertEqual(len(stacks), 5)
+        self.assertTrue(all(len(json.dumps(chain)) <= self.diagnostics.MAX_EXCEPTION_CHAIN_BYTES
+                            for chain in stacks))
+
+    def test_tr02_native_wrapper_does_not_hide_unexpected_cause_or_context(self):
+        self.diagnostics.configure_once(str(self.directory))
+        for explicit, cause_type in ((explicit, cause_type) for explicit in (True, False)
+                                    for cause_type in (LookupError, NameError, ValueError, ZeroDivisionError)):
+            outer = self.fake_native_rejection()
+            try:
+                raise cause_type('synthetic-private-first-cause')
+            except (LookupError, NameError, ValueError, ZeroDivisionError) as inner:
+                try:
+                    if explicit:
+                        raise outer from inner
+                    raise outer
+                except type(outer) as error:
+                    before = self.exception_identity(error)
+                    event_id = self.diagnostics.record_exception(error, 'synthetic')
+                    self.assertEqual(self.exception_identity(error), before)
+            chain = next(strict_loads(path.read_bytes()) for path in self.directory.glob('stack-*.json')
+                         if strict_loads(path.read_bytes())['primary_event_id'] == event_id)
+            self.assertEqual([node['exception_type'] for node in chain['nodes']],
+                             ['UserError', cause_type.__name__])
+            self.assertEqual(chain['nodes'][0]['link_type'], 'cause' if explicit else 'context')
+            primary = next(row for row in self.diagnostic_events() if row['event_id'] == event_id)
+            self.assertEqual((primary['event'], primary['error_class']),
+                             ('operation.error', 'APPLICATION_ERROR'))
+
+    def test_tr02_suppressed_uncertain_boundary_keeps_only_visible_evidence(self):
+        self.diagnostics.configure_once(str(self.directory))
+        outer = self.fake_native_rejection()
+        try:
+            raise NameError('synthetic-private-suppressed-cause')
+        except NameError:
+            try:
+                raise outer from None
+            except type(outer) as error:
+                before = self.exception_identity(error)
+                self.diagnostics.record_exception(error, 'synthetic')
+                self.assertEqual(self.exception_identity(error), before)
+        chain = strict_loads(next(self.directory.glob('stack-*.json')).read_bytes())
+        self.assertEqual(chain['termination'], 'CONTEXT_SUPPRESSED')
+        self.assertEqual([node['exception_type'] for node in chain['nodes']], ['UserError'])
+        self.assertNotIn('NameError', json.dumps(chain))
+
+    def test_tr02_explicit_investigation_preserves_expected_rejection_chain(self):
+        self.diagnostics.configure_once(str(self.directory))
+        error = self.fake_native_rejection('AccessError')
+        before = self.exception_identity(error)
+        event_id = self.diagnostics.record_exception(error, 'synthetic', investigate=True)
+        chain = strict_loads(next(self.directory.glob('stack-*.json')).read_bytes())
+        self.assertEqual(chain['primary_event_id'], event_id)
+        self.assertTrue(list(self.directory.glob('exception-*.txt')))
+        self.assertEqual(self.exception_identity(error), before)
+        primary = next(row for row in self.diagnostic_events() if row['event_id'] == event_id)
+        self.assertEqual(primary['error_class'], 'BUSINESS_REJECTION')
+
+    def test_tr02_cyclic_or_deep_rejections_are_uncertain_and_bounded(self):
+        self.diagnostics.configure_once(str(self.directory))
+        cycle = self.fake_native_rejection()
+        cycle.__cause__ = cycle
+        errors = [self.fake_native_rejection() for _ in range(10)]
+        for index in range(9):
+            errors[index].__cause__ = errors[index + 1]
+        for error, termination in [(cycle, 'CYCLE'), (errors[0], 'DEPTH_LIMIT')]:
+            event_id = self.diagnostics.record_exception(error, 'synthetic')
+            chain = next(strict_loads(path.read_bytes()) for path in self.directory.glob('stack-*.json')
+                         if strict_loads(path.read_bytes())['primary_event_id'] == event_id)
+            self.assertEqual(chain['termination'], termination)
+            self.assertTrue(chain['truncated'])
+            self.assertLessEqual(len(chain['nodes']), 8)
+
+    def test_tr02_parse_rejection_is_short_but_parse_wrapper_cause_is_not(self):
+        self.diagnostics.configure_once(str(self.directory))
+        plain = ValueError('synthetic-private-invalid-input')
+        self.diagnostics.record_exception(plain, 'synthetic', 'request.parse')
+        self.assertFalse(any(self.directory.glob('stack-*.json')))
+        wrapped = ValueError('synthetic-private-outer-input')
+        wrapped.__cause__ = KeyError('synthetic-private-programming-cause')
+        self.diagnostics.record_exception(wrapped, 'synthetic', 'request.parse')
+        chain = strict_loads(next(self.directory.glob('stack-*.json')).read_bytes())
+        self.assertEqual([node['exception_type'] for node in chain['nodes']], ['ValueError', 'KeyError'])
+
     def test_rotation_stops_at_bound_and_preserves_segments(self):
         handler = self.diagnostics.PidFileHandler(self.directory, segment_bytes=128, max_segments=2)
         handler.setFormatter(self.diagnostics.JsonlFormatter())

@@ -21,13 +21,47 @@ EXEC_ROOT = ROOT / '.local/s10-lc2-r12-20261017'
 RUN_ROOT = ROOT / '.local/s10-lc2/20261017-lc2-exec01'
 PLAN = LEGACY_EXEC_ROOT / 'target-plan.json'
 SOURCE_CAPTURE = LEGACY_EXEC_ROOT / 'admission-r11-final/capture'
+# One serial owned application per coordinator. Every HTTP budget reservation
+# observes it before any network dispatch, including browser subrequests.
+_DISPATCH_OWNER = None
+_DISPATCH_FAILURE = None
+
+
+def freeze_dispatch(failure):
+    global _DISPATCH_FAILURE
+    if _DISPATCH_FAILURE is None:
+        _DISPATCH_FAILURE = dict(failure)
+
+
+def require_dispatch_unfrozen():
+    if _DISPATCH_FAILURE is not None:
+        raise RuntimeError('APPLICATION_DISPATCH_FROZEN_' + _DISPATCH_FAILURE['reason'])
+
+
+def bind_dispatch_owner(owner):
+    global _DISPATCH_OWNER
+    require_dispatch_unfrozen()
+    if _DISPATCH_OWNER is not None:
+        raise RuntimeError('ANOTHER_APPLICATION_DISPATCH_OWNER_ACTIVE')
+    _DISPATCH_OWNER = owner
+
+
+def release_dispatch_owner(owner):
+    global _DISPATCH_OWNER
+    if _DISPATCH_OWNER is owner:
+        _DISPATCH_OWNER = None
 
 
 class PackageBudget(Budget):
     """R1.2 cumulative resources; both evidence windows plus shared owned files."""
     def consume(self, kind):
+        require_dispatch_unfrozen()
         if kind in {'accident_ro', 'maintenance', 'create'}:
             raise RuntimeError('R12_NO_PROTECTED_SOURCE_OR_CREATE_DISPATCH')
+        if kind in {'http', 'original_get'}:
+            if _DISPATCH_OWNER is None:
+                raise RuntimeError('NO_ACTIVE_APPLICATION_DISPATCH_GUARD')
+            _DISPATCH_OWNER.check()
         return super().consume(kind)
 
     def check_storage(self):

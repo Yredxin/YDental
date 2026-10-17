@@ -772,8 +772,6 @@ async def browser_phase(phase, manager, reader, doctor, reader_fixture, facts):
         return await grant({'settlement': 'none', 'export': 'none'})
     async def restore():
         return await grant(reader_levels(reader_fixture))
-    previous_debug = os.environ.get('DEBUG')
-    os.environ['DEBUG'] = 'pw:browser'
     try:
         result = await run_browser(base_url=BASES['main'], database=NAMES['main'],
             owned_targets={NAMES['main']: BASES['main']}, budget=PackageBudget(EXEC_ROOT), directory=directory,
@@ -784,10 +782,6 @@ async def browser_phase(phase, manager, reader, doctor, reader_fixture, facts):
             audit_id=228, document_id=1, revoke_reader=revoke, restore_reader=restore,
             maximum_seconds=600)
     finally:
-        if previous_debug is None:
-            os.environ.pop('DEBUG', None)
-        else:
-            os.environ['DEBUG'] = previous_debug
         finished.set(); thread.join(timeout=2)
         current = process_tree()
         survivors = [row for pid, row in observed.items() if pid in current and current[pid]['birth_ticks'] == row['birth_ticks']]

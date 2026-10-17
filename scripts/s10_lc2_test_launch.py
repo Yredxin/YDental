@@ -34,6 +34,12 @@ class LaunchCase(unittest.TestCase):
         self.temporary = tempfile.TemporaryDirectory(prefix='lc2-launch-offline-')
         self.addCleanup(self.temporary.cleanup)
         self.directory = Path(self.temporary.name)
+        self.stop_patch = patch('s10_lc2_launch.STOP', self.directory / 'synthetic-STOP.json')
+        self.stop_patch.start()
+        self.addCleanup(self.stop_patch.stop)
+        self.failure_patch = patch('s10_lc2_targets._DISPATCH_FAILURE', None)
+        self.failure_patch.start()
+        self.addCleanup(self.failure_patch.stop)
         self.database = 'ydental_s10_test_20261017120000_1234abcd'
 
     def fake_application(self):
@@ -41,8 +47,11 @@ class LaunchCase(unittest.TestCase):
         app.action = 'main-service'
         app.marker = {'port': 18411, 'database': self.database, 'oid': 123}
         app.directory = self.directory
+        app.run = self.directory
         app.command = ['synthetic-application-command']
-        app.env = {'YDENTAL_PRODUCT_COMMIT': 'synthetic-product', 'YDENTAL_TEST_COMMIT': 'synthetic-test'}
+        app.env = {'YDENTAL_PRODUCT_COMMIT': 'synthetic-product', 'YDENTAL_TEST_COMMIT': 'synthetic-test',
+                   'YDENTAL_RUN_ID': 'synthetic-run'}
+        app.event_guard = None
         app.process = None
         app.streams = []
         app.started = time.monotonic()

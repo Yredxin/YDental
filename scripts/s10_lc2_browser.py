@@ -47,6 +47,29 @@ class BrowserBoundaryError(RuntimeError):
     """A fixed reason code; never include a URL, payload or browser traceback."""
 
 
+_DRIVER_ENV_KEYS = frozenset({
+    'PATH', 'HOME', 'USER', 'LOGNAME', 'SHELL', 'LANG', 'LANGUAGE', 'LC_ALL', 'LC_CTYPE',
+    'TZ', 'TMPDIR', 'TMP', 'TEMP', 'DISPLAY', 'WAYLAND_DISPLAY', 'XAUTHORITY',
+    'XDG_RUNTIME_DIR', 'XDG_CACHE_HOME', 'XDG_CONFIG_HOME', 'XDG_DATA_HOME',
+    'SYSTEMROOT', 'WINDIR', 'COMSPEC', 'PATHEXT', 'USERPROFILE', 'LOCALAPPDATA',
+})
+
+
+def driver_environment(ambient):
+    """The Python driver inherits ambient env; refuse rather than mutate it.
+
+    async_playwright.start has no env argument. Its coordinator must already
+    have this minimal environment; Firefox receives the same explicit copy.
+    Unknown/debug/preload/proxy variables never silently reach either child.
+    """
+    if type(ambient) is not dict or any(type(k) is not str or type(v) is not str
+                                       for k, v in ambient.items()):
+        raise BrowserBoundaryError('DRIVER_ENVIRONMENT_INVALID')
+    if set(ambient) - _DRIVER_ENV_KEYS:
+        raise BrowserBoundaryError('DRIVER_ENVIRONMENT_NOT_WHITELISTED')
+    return dict(ambient)
+
+
 def _preserve_browser_failure(directory, primary, stage):
     """Save structural evidence only, before replacing third-party UI text."""
     try:
@@ -392,6 +415,8 @@ class BrowserSession:
     async def __aenter__(self):
         if self.started is not None:
             raise BrowserBoundaryError('BROWSER_SESSION_ALREADY_STARTED')
+        # Validate before imports, factory.start, or any budget/child dispatch.
+        child_env = driver_environment(dict(os.environ))
         if self.factory is None:
             if not self.executable.is_absolute() or not self.executable.is_file():
                 raise BrowserBoundaryError('EXISTING_FIREFOX_UNAVAILABLE')
@@ -406,11 +431,12 @@ class BrowserSession:
         self.budget.consume('firefox')
         self.started = time.monotonic()
         try:
+            child_env = driver_environment(dict(os.environ))
             self.playwright = await self.factory().start()
             # No sandbox-disabling flags, preferences, proxy, persistent profile
             # or dependency installation. Capability refusal is a hard STOP.
             self.browser = await self.playwright.firefox.launch(
-                executable_path=str(self.executable), headless=True)
+                executable_path=str(self.executable), headless=True, env=child_env)
             self._watchdog = asyncio.create_task(self._deadline())
             await self._new_context()
             return self

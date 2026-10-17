@@ -15,7 +15,10 @@ import uuid
 from s10_lc2_evidence import CLUSTER, CORE, runtime_gate, save_once, target_guard
 from s10_lc2_logging import strict_loads
 from s10_lc2_supervisor import append_plain, private_file, safe_plain, save_primary, launch
-from s10_lc2_targets import EXEC_ROOT, LEGACY_EXEC_ROOT, PLAN, RUN_ROOT, PackageBudget
+from s10_lc2_targets import (EXEC_ROOT, LEGACY_EXEC_ROOT, PLAN, RUN_ROOT, PackageBudget,
+                            bind_dispatch_owner, release_dispatch_owner, freeze_dispatch,
+                            require_dispatch_unfrozen)
+from s10_lc2_process_guard import ObservationBlocked, ProcessLogGuard
 
 ROOT = Path(__file__).resolve().parents[1]
 PYTHON = ROOT.parent / '.venv/bin/python'
@@ -44,6 +47,9 @@ def stop(reason, **facts):
 
 def candidate_marker(marker, *, approval, product_commit, test_commit, action):
     """Preserve every prior new-target marker byte before candidate metadata advances."""
+    require_dispatch_unfrozen()
+    if STOP.exists():
+        raise RuntimeError('LC2_HARD_STOP_ACTIVE')
     dispatch = runtime_gate(approval, product_commit=product_commit, test_commit=test_commit)
     if action not in dispatch.get('allowed_actions', []) or marker['database'] not in dispatch.get('allowed_target_names', []):
         raise RuntimeError('MARKER_CANDIDATE_NOT_DISPATCHED')
@@ -90,6 +96,7 @@ def candidate_marker(marker, *, approval, product_commit, test_commit, action):
 
 
 def launch_guard(marker, *, approval, product_commit, test_commit, action):
+    require_dispatch_unfrozen()
     if STOP.exists():
         raise RuntimeError('LC2_HARD_STOP_ACTIVE')
     dispatch = runtime_gate(approval, product_commit=product_commit, test_commit=test_commit)
@@ -227,6 +234,7 @@ class OwnedApplication:
         self.process = None
         self.streams = []
         self.started = None
+        self.event_guard = None
 
     def __enter__(self):
         return self
@@ -274,11 +282,14 @@ class OwnedApplication:
         stdin = expected_stdin.open('rb') if fixture else subprocess.DEVNULL
         self.started = time.monotonic()
         try:
+            bind_dispatch_owner(self)
             for name in ('stdout.log', 'stderr-faulthandler.log'):
                 self.streams.append(private_file(self.directory / name))
             self.process = subprocess.Popen(self.command + arguments, cwd=ROOT, env=self.env,
                                             stdin=stdin, stdout=self.streams[0], stderr=self.streams[1],
                                             umask=0o077, pass_fds=tuple(pass_fds))
+            self.event_guard = ProcessLogGuard(self.run / 'diagnostics', self.process.pid,
+                                              self.env['YDENTAL_RUN_ID'])
             append_plain(self.directory / 'parent-exit.tsv', ['child.start', time.time_ns(), self.process.pid])
         except BaseException as error:
             primary = keep_primary(self.directory, error, stage='application_launch')
@@ -289,13 +300,54 @@ class OwnedApplication:
                 stdin.close()
         return self
 
-    def check(self):
+    def observe_events(self, *, allow_starting=False, final=False):
+        if self.event_guard is None:
+            raise RuntimeError('APPLICATION_EVENT_GUARD_NOT_INITIALIZED')
+        try:
+            if list((self.run / 'diagnostics').glob('diagnostics-failed-*.txt')):
+                self.event_guard.state.fail('DIAGNOSTIC_CHAIN_UNAVAILABLE')
+            return self.event_guard.observe(allow_starting=allow_starting, final=final)
+        except ObservationBlocked:
+            # The in-memory latch is set first, so even a failed STOP writer
+            # cannot permit another request or replace the producer's primary.
+            failure = self.event_guard.state.failure
+            freeze_dispatch(failure)
+            try:
+                stop(failure['reason'], pid=self.process.pid,
+                     primary_event_id=failure['event_id'], root_event_id=failure['root_event_id'])
+            except BaseException as secondary:
+                keep_primary(self.directory, secondary, stage='event_stop_persistence',
+                             root_event_id=failure['root_event_id'] or failure['event_id'])
+            raise
+
+    def observe_native_exit(self, code):
+        """A real parent return code is independent of diagnostic completeness."""
+        if code not in (-4, -6, -7, -8, -11):
+            return
+        freeze_dispatch({'reason': 'NATIVE_PROCESS_EXIT', 'event_id': None, 'root_event_id': None})
+        try:
+            stop('NATIVE_CRASH', pid=self.process.pid, signal=-code)
+        except BaseException as secondary:
+            keep_primary(self.directory, secondary, stage='native_stop_persistence')
+
+    def check_evidence_markers(self):
+        require_dispatch_unfrozen()
+        if STOP.exists():
+            raise RuntimeError('APPLICATION_DIAGNOSTIC_OR_HARD_STOP')
+
+    def check(self, *, allow_starting=False):
         self.budget.check_storage()
         if time.monotonic() - self.started > 1800:
             stop('OWNED_SERVICE_WINDOW_EXHAUSTED', pid=self.process.pid)
             raise TimeoutError('OWNED_SERVICE_WINDOW_EXHAUSTED')
-        if STOP.exists() or list((self.run / 'diagnostics').glob('diagnostics-failed-*.txt')):
-            raise RuntimeError('APPLICATION_DIAGNOSTIC_OR_HARD_STOP')
+        self.check_evidence_markers()
+        code = self.process.poll()
+        try:
+            self.observe_events(allow_starting=allow_starting and code is None, final=code is not None)
+        finally:
+            self.observe_native_exit(code)
+        if self.event_guard.state.ended:
+            raise RuntimeError('APPLICATION_DIAGNOSTICS_ENDED_NO_DISPATCH')
         if self.process.poll() is not None:
             if self.process.returncode in (-4, -6, -7, -8, -11):
                 stop('NATIVE_CRASH', pid=self.process.pid, signal=-self.process.returncode)
@@ -304,7 +356,7 @@ class OwnedApplication:
     def wait_ready(self, timeout=60):
         started = time.monotonic()
         while True:
-            self.check()
+            self.check(allow_starting=True)
             try:
                 with socket.create_connection(('127.0.0.1', self.marker['port']), timeout=.5):
                     self.assert_observed_logging_levels()
@@ -333,19 +385,23 @@ class OwnedApplication:
         try:
             while self.process.poll() is None:
                 self.budget.check_storage()
+                self.check_evidence_markers()
+                self.observe_events(allow_starting=time.monotonic() - self.started < 60)
                 if time.monotonic() - self.started > timeout:
                     stop('APPLICATION_TIMEOUT_OUTCOME_NOT_OBSERVED', pid=self.process.pid)
                     raise TimeoutError('APPLICATION_WINDOW_EXHAUSTED')
                 time.sleep(.2)
             returncode = self.process.returncode
+            try:
+                self.observe_events(final=True)
+            finally:
+                self.observe_native_exit(returncode)
         except BaseException as error:
             primary = keep_primary(self.directory, error, stage='application_wait')
             self.close(primary=primary)
             raise
         else:
             self.close()
-        if returncode in (-4, -6, -7, -8, -11):
-            stop('NATIVE_CRASH', pid=self.process.pid, signal=-returncode)
         return returncode
 
     def close(self, primary=None):
@@ -374,11 +430,12 @@ class OwnedApplication:
                 retain(persistence_error, 'hard_stop_persistence')
         finally:
             code = self.process.returncode if self.process is not None else None
-            if code in (-4, -6, -7, -8, -11):
+            if getattr(self, 'event_guard', None) is not None:
                 try:
-                    stop('NATIVE_CRASH', pid=self.process.pid, signal=-code)
-                except BaseException as persistence_error:
-                    retain(persistence_error, 'native_stop_persistence')
+                    self.observe_events(final=True)
+                except BaseException as secondary:
+                    retain(secondary, 'application_final_diagnostics')
+            self.observe_native_exit(code)
             if not safe_plain(self.directory / 'parent-exit.tsv', ['parent.end', time.time_ns(),
                               self.process.pid if self.process else None, code,
                               -code if code is not None and code < 0 else None, 'TRANSACTION_NOT_OBSERVED']):
@@ -389,6 +446,7 @@ class OwnedApplication:
                 except BaseException as secondary:
                     retain(secondary, 'application_output_close')
             self.streams = []
+            release_dispatch_owner(self)
         if cleanup_error is not None and primary is None:
             raise cleanup_error
 

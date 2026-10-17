@@ -325,8 +325,9 @@ class BrowserBoundaryCase(unittest.IsolatedAsyncioTestCase):
             async def start(self):
                 return driver
         session.factory = lambda: FakeFactory()
-        with self.assertRaisesRegex(BrowserBoundaryError, 'FIREFOX_CAPABILITY_OR_START_FAILED_STOP'):
-            await session.__aenter__()
+        with patch.dict('os.environ', {'PATH': '/synthetic/bin'}, clear=True):
+            with self.assertRaisesRegex(BrowserBoundaryError, 'FIREFOX_CAPABILITY_OR_START_FAILED_STOP'):
+                await session.__aenter__()
         chain = json.loads(next(session.directory.glob('*.startup-chain.json')).read_bytes())
         self.assertEqual([node['exception_type'] for node in chain['nodes']], ['RuntimeError', 'LookupError'])
         self.assertEqual(chain['nodes'][0]['link_type'], 'cause')
