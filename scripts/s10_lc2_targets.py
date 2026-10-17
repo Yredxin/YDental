@@ -14,6 +14,7 @@ from s10_lc2_evidence import ACCIDENT, Budget, RAW_LIMIT, collect_selection, run
 from s10_lc2_logging import strict_loads
 from s10_lc2_runtime import create_targets, prepare_target, source_filestore_inventory
 from s10_lc2_supervisor import safe_plain
+from s10_lc2_framework_caller import FAILURE_NAME, framework_failure_facts
 
 ROOT = Path(__file__).resolve().parents[1]
 LEGACY_EXEC_ROOT = ROOT / '.local/s10-lc2-exec-20261017'
@@ -21,8 +22,8 @@ EXEC_ROOT = ROOT / '.local/s10-lc2-r12-20261017'
 RUN_ROOT = ROOT / '.local/s10-lc2/20261017-lc2-exec01'
 PLAN = LEGACY_EXEC_ROOT / 'target-plan.json'
 SOURCE_CAPTURE = LEGACY_EXEC_ROOT / 'admission-r11-final/capture'
-# One serial owned application per coordinator. Every HTTP budget reservation
-# observes it before any network dispatch, including browser subrequests.
+# Parent coordinator ownership is process-local. Framework HttpCase requests
+# use their separate exact-launch grant and the same cumulative ledger.
 _DISPATCH_OWNER = None
 _DISPATCH_FAILURE = None
 
@@ -34,6 +35,8 @@ def freeze_dispatch(failure):
 
 
 def require_dispatch_unfrozen():
+    if _DISPATCH_FAILURE is None and (EXEC_ROOT / FAILURE_NAME).exists():
+        freeze_dispatch(framework_failure_facts(EXEC_ROOT))
     if _DISPATCH_FAILURE is not None:
         raise RuntimeError('APPLICATION_DISPATCH_FROZEN_' + _DISPATCH_FAILURE['reason'])
 

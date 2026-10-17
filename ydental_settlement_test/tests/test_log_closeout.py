@@ -82,14 +82,16 @@ class TestLogCloseoutHTTP(HttpCase):
     def url_open(self, url, *args, allow_redirects=False, **kwargs):
         # authenticate() in this fixed core seeds a framework session locally;
         # every actual HTTP call here is explicit and never follows redirects.
-        from s10_lc2_targets import PackageBudget
-        budget_directory = os.environ.get('YDENTAL_LC2_BUDGET_DIR')
-        if not budget_directory:
-            raise RuntimeError('LC2_HTTP_TEST_REQUIRES_APPROVED_BUDGET')
-        if allow_redirects:
-            raise RuntimeError('LC2_HTTP_TEST_AUTO_REDIRECT_FORBIDDEN')
-        PackageBudget(budget_directory).consume('http')
-        return super().url_open(url, *args, allow_redirects=False, **kwargs)
+        from s10_lc2_framework_caller import freeze_framework_http, reserve_framework_http
+        reserve_framework_http(environment=os.environ, database=self.env.cr.dbname,
+                               http_port=self.http_port(), url=url,
+                               purpose=type(self).__name__ + '.' + self._testMethodName,
+                               allow_redirects=allow_redirects)
+        try:
+            return super().url_open(url, *args, allow_redirects=False, **kwargs)
+        except BaseException as primary:
+            freeze_framework_http(primary)
+            raise
 
     def test_actual_rpc_preserves_native_access_error_name_and_arguments(self):
         user = new_test_user(self.env, login='lc2_rpc_user', groups='base.group_user')

@@ -41,11 +41,19 @@ def save_once(path, value):
 class Budget:
     """One budget owner, durable before dispatch; a failed call still consumes its intent."""
 
-    def __init__(self, directory, *, started_epoch=None):
+    def __init__(self, directory, *, started_epoch=None, create=True):
         self.directory = Path(directory)
         self.path = self.directory / 'budget.json'
         self.lock_path = self.directory / 'budget.lock'
-        self.directory.mkdir(mode=0o700, parents=True, exist_ok=True)
+        self.create = create
+        if type(create) is not bool or not create and started_epoch is not None:
+            raise ValueError('INVALID_BUDGET_OPEN_MODE')
+        if create:
+            self.directory.mkdir(mode=0o700, parents=True, exist_ok=True)
+        elif not self.directory.is_dir() or not self.path.is_file() or not self.lock_path.is_file():
+            raise RuntimeError('EXISTING_BUDGET_REQUIRED')
+        if not create:
+            return  # Never initialize from the child path, even after a deletion race.
         if not self.path.exists():
             save_once(self.path, {'started_epoch': started_epoch if started_epoch is not None else AUTHORIZATION_EPOCH, 'counts': {}})
 
@@ -57,12 +65,15 @@ class Budget:
             safe_plain(self.directory / 'storage-warning.tsv', [time.time_ns(), '80_PERCENT', size])
         return size
 
-    def consume(self, kind):
+    def consume(self, kind, *, before_reserve=None, after_reserve=None):
         if kind not in LIMITS:
             raise ValueError('UNAPPROVED_RESOURCE')
         self.check_storage()
-        with os.fdopen(os.open(self.lock_path, os.O_RDWR | os.O_CREAT, 0o600), 'a+b') as lock:
+        flags = os.O_RDWR | os.O_NOFOLLOW | (os.O_CREAT if self.create else 0)
+        with os.fdopen(os.open(self.lock_path, flags, 0o600), 'a+b') as lock:
             fcntl.flock(lock, fcntl.LOCK_EX)
+            if before_reserve is not None:
+                before_reserve()
             value = strict_loads(self.path.read_bytes())
             if time.time() - value['started_epoch'] > 8 * 3600:
                 raise RuntimeError('RUN_WINDOW_EXHAUSTED')
@@ -74,6 +85,8 @@ class Budget:
             save_once(temporary, value)
             temporary.replace(self.path)
             append_plain(self.directory / 'budget-intents.tsv', [time.time_ns(), kind, count])
+            if after_reserve is not None:
+                after_reserve(count)
         return count
 
 

@@ -19,6 +19,8 @@ from s10_lc2_targets import (EXEC_ROOT, LEGACY_EXEC_ROOT, PLAN, RUN_ROOT, Packag
                             bind_dispatch_owner, release_dispatch_owner, freeze_dispatch,
                             require_dispatch_unfrozen)
 from s10_lc2_process_guard import ObservationBlocked, ProcessLogGuard
+from s10_lc2_framework_caller import (GRANT_ENV, GRANT_NAME, check_framework_failure,
+                                      framework_failure_facts, issue_framework_grant)
 
 ROOT = Path(__file__).resolve().parents[1]
 PYTHON = ROOT.parent / '.venv/bin/python'
@@ -185,6 +187,7 @@ def environment(run, product_commit, test_commit):
     env = dict(os.environ)
     env.pop('PGOPTIONS', None)
     env.pop('PYTHONHOME', None)
+    env.pop(GRANT_ENV, None)
     env.update(PYTHONPATH=os.pathsep.join([str(ROOT / 'scripts'), str(ROOT / '.local/s04-deps')]),
                PYTHONDONTWRITEBYTECODE='1', YDENTAL_S10_RUN_DIR=str(run),
                YDENTAL_RUN_ID='lc2-r12-exec-20261017', YDENTAL_TASK_ID='S10-LOG-AND-CLOSEOUT-v2',
@@ -220,6 +223,11 @@ class OwnedApplication:
         self.directory = EXEC_ROOT / ('application-' + action + '-' + uuid.uuid4().hex[:8])
         self.directory.mkdir(mode=0o700)
         self.env = environment(self.run, product_commit, test_commit)
+        self.framework_grant_path = self.directory / GRANT_NAME if action == 'scratch-tests' else None
+        self.framework_frozen_files = {}
+        if self.framework_grant_path is not None:
+            self.env[GRANT_ENV] = str(self.framework_grant_path)
+            self.framework_frozen_files = strict_loads(Path(approval).read_bytes()).get('frozen_files', {})
         dependency_preflight(self.env, self.directory)
         identity_probe(self.marker, options, budget=self.budget, directory=self.directory)
         self.native_logfile = self.directory / 'odoo-native.log'
@@ -245,6 +253,7 @@ class OwnedApplication:
         return False
 
     def start(self, arguments, *, pass_fds=(), stdin_path=None):
+        require_dispatch_unfrozen()
         allowed = {
             'scratch-tests': ('--stop-after-init', '--load-language=zh_CN', '-i',
                               'ydental_settlement_test', '--test-enable', '--test-tags=s10_lc2'),
@@ -288,6 +297,12 @@ class OwnedApplication:
             self.process = subprocess.Popen(self.command + arguments, cwd=ROOT, env=self.env,
                                             stdin=stdin, stdout=self.streams[0], stderr=self.streams[1],
                                             umask=0o077, pass_fds=tuple(pass_fds))
+            if self.action == 'scratch-tests':
+                grant_path = getattr(self, 'framework_grant_path', None)
+                if grant_path is None:
+                    raise RuntimeError('FRAMEWORK_LAUNCH_GRANT_NOT_PREPARED')
+                issue_framework_grant(grant_path, marker=self.marker, environment=self.env,
+                                      child_pid=self.process.pid, frozen_files=self.framework_frozen_files)
             self.event_guard = ProcessLogGuard(self.run / 'diagnostics', self.process.pid,
                                               self.env['YDENTAL_RUN_ID'])
             append_plain(self.directory / 'parent-exit.tsv', ['child.start', time.time_ns(), self.process.pid])
@@ -330,10 +345,26 @@ class OwnedApplication:
         except BaseException as secondary:
             keep_primary(self.directory, secondary, stage='native_stop_persistence')
 
-    def check_evidence_markers(self):
+    def check_evidence_markers(self, *, final=False):
         require_dispatch_unfrozen()
         if STOP.exists():
             raise RuntimeError('APPLICATION_DIAGNOSTIC_OR_HARD_STOP')
+        self.check_framework_markers(final=final)
+
+    def check_framework_markers(self, *, final=False):
+        """Cleanup observes new shared faults without replaying an existing stop."""
+        try:
+            check_framework_failure(self.directory, budget_directory=STOP.parent, final=final,
+                                    grant_required=getattr(self, 'action', None) == 'scratch-tests')
+        except BaseException:
+            failure = framework_failure_facts(STOP.parent)
+            freeze_dispatch(failure)
+            try:
+                stop(failure['reason'], pid=self.process.pid, primary_event_id=failure['event_id'],
+                     root_event_id=failure['root_event_id'])
+            except BaseException as secondary:
+                keep_primary(self.directory, secondary, stage='framework_stop_persistence')
+            raise
 
     def check(self, *, allow_starting=False):
         self.budget.check_storage()
@@ -393,7 +424,18 @@ class OwnedApplication:
                 time.sleep(.2)
             returncode = self.process.returncode
             try:
+                native_exit = returncode in (-4, -6, -7, -8, -11)
+                if not native_exit:
+                    self.check_evidence_markers(final=True)
                 self.observe_events(final=True)
+                if native_exit:
+                    # Preserve the independently observed signal and the old
+                    # diagnostic-first order. New framework uncertainty is secondary.
+                    self.observe_native_exit(returncode)
+                    try:
+                        self.check_framework_markers(final=True)
+                    except BaseException as secondary:
+                        keep_primary(self.directory, secondary, stage='framework_after_native_exit')
             finally:
                 self.observe_native_exit(returncode)
         except BaseException as error:
@@ -436,6 +478,11 @@ class OwnedApplication:
                 except BaseException as secondary:
                     retain(secondary, 'application_final_diagnostics')
             self.observe_native_exit(code)
+            if self.process is not None:
+                try:
+                    self.check_framework_markers(final=True)
+                except BaseException as secondary:
+                    retain(secondary, 'application_final_framework_guard')
             if not safe_plain(self.directory / 'parent-exit.tsv', ['parent.end', time.time_ns(),
                               self.process.pid if self.process else None, code,
                               -code if code is not None and code < 0 else None, 'TRANSACTION_NOT_OBSERVED']):
@@ -447,7 +494,8 @@ class OwnedApplication:
                     retain(secondary, 'application_output_close')
             self.streams = []
             release_dispatch_owner(self)
-        if cleanup_error is not None and primary is None:
+        native_exit = self.process is not None and self.process.returncode in (-4, -6, -7, -8, -11)
+        if cleanup_error is not None and primary is None and not native_exit:
             raise cleanup_error
 
 
