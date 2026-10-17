@@ -1,0 +1,44 @@
+{
+  "controller": {
+    "canonical": "/root",
+    "thread_id": "01a1494f-2b74-7111-854f-ea64560ff09e",
+    "owns": [
+      "AGENTS current entry",
+      "R1.2 governance/manifests/mapping",
+      "git commits/push",
+      "GitHub comments"
+    ]
+  },
+  "roles": {
+    "developer": {
+      "canonical": "/root/developer",
+      "thread_id": "NOT_EXPOSED_BY_TOOL",
+      "owns": [
+        "ydental_access/diagnostics.py",
+        "scripts/s10_lc2_http.py",
+        "scripts/s10_lc2_browser.py",
+        "ydental_settlement_test/models/lc2_fixture.py"
+      ]
+    },
+    "tester": {
+      "canonical": "/root/tester",
+      "thread_id": "NOT_EXPOSED_BY_TOOL",
+      "owns": [
+        "remaining scripts/s10_lc2*.py",
+        "framework tests",
+        "new separate D fixture/cases"
+      ],
+      "runtime_owner": true
+    },
+    "acceptance": {
+      "canonical": "/root/acceptance",
+      "thread_id": "NOT_EXPOSED_BY_TOOL",
+      "owns": [
+        "acceptance-review.md"
+      ],
+      "independent": true
+    }
+  },
+  "actual_role_check": "collaboration.list_agents all four running; reuse actual threads via followup_task, no OS privilege/isolation claim",
+  "runtime_rule": "tester sole target DB/Odoo/HTTP/browser executor; serial one application; candidate frozen before runtime"
+}

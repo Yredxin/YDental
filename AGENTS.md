@@ -1,5 +1,13 @@
 # YDental 当前执行入口
 
+## 当前 S10-LOG-AND-CLOSEOUT-v2 R1.2 整包续行实施
+
+- 用户直接批准 `YD-S10-LC2-EXEC-20261017-02` / revision1.2；[GPT续行修正6233620730](https://github.com/Yredxin/YDental/issues/34#issuecomment-6233620730)，承接R1.1交付6233527582。父 `87a2542ff978fa3a1a58baf8d05fca7d59802554`；core只读 `f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb`。直接授权2026-10-17T12:05:21.801Z起8小时，截止20:05:21.801Z；[开工6233729703](https://github.com/Yredxin/YDental/issues/34#issuecomment-6233729703)已API全文等同比对。
+- 真实/root主控与独立developer/tester/acceptance沿用，唯一文件writer，tester独占两库串行应用执行，冻结候选后测试。R1.2明确撤销“普通修复累计两轮即停包”，保留旧失败/停止；包内修复须有新增证据，所有安全硬停继续有效。受控scripts+既有s04-deps真实子解释器metadata/import预检、GPR02有界脱敏cause/context链、GPR01原生异常身份共同落实。
+- 仅既有main OID2144129/18410做A/B/C，保护旧租约/文书v4/版本9→10/作者7/账款原件；仅既有scratch OID2144130/18411正常安装重入、实际五框架TC后，允许唯一正常上游D合成6入2出持久样例。E-MAIN/E-D分别同候选带数据 `-u ydental_settlement`，不拼两库、不复制D回main；任一必需分支不全则T12/S10持续BLOCKED。
+- 累计Odoo1/12、目标RO4/48、HTTP0/600、Firefox0/3、旧原件GET0/12、raw约42MB计入1GiB；仅以新账本实际递增值为准，不清零。保护来源新增连接0、maintenance/CREATE新增0、不第三库。core/odoo-12/长期服务42433及旧证据均保护。不安装依赖/扩权/OS-PG运维/网络专项，不Issue/Project状态改动/S11/合并/强推/生产。Native或未知资金提交/越权内容/完整性/身份漂移/他人有效锁/越界/真实工具拒绝，立即冻结受影响运行。
+- 本包资料 `docs/reports/s10-log-and-closeout-v2-r12/`，34行和19TC分库映射保留证据层级。下面R1.1及更早入口是历史，R1.2明确修改部分以本节及用户直接指令为准；历史Native根因UNKNOWN，S10和生产并未通过。
+
 ## 当前 S10-LOG-AND-CLOSEOUT-v2 R1.1 具体阻塞交付 / 等待GPT技术复核
 
 - 用户直接授权message_id `YD-S10-LC2-EXEC-20261017-01` / revision1.1，采用[方案6232709051](https://github.com/Yredxin/YDental/issues/34#issuecomment-6232709051)+[GPR-01 6232783106](https://github.com/Yredxin/YDental/issues/34#issuecomment-6232783106)。父`e7cd02689b92c0cc4f7343842268b21e56de9f80`；最终product `b5d303949d8361a023d7f3c162a5bd40da674484`，test `fe3a46ee511612b53d4ba231018d1c5f42bab30f`；core只读`f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb`。原规划/AR01—05保留，详见`docs/reports/s10-log-and-closeout-v2/summary.md`和34行`acceptance-matrix.json`。

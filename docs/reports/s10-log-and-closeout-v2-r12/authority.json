@@ -1,0 +1,15 @@
+{
+  "task_id": "S10-LOG-AND-CLOSEOUT-v2",
+  "message_id": "YD-S10-LC2-EXEC-20261017-02",
+  "revision": "1.2",
+  "received_at_utc": "2026-10-17T12:05:21.801Z",
+  "started_epoch": 1792238721.801,
+  "deadline_utc": "2026-10-17T20:05:21.801000+00:00",
+  "source": "actual current user response_item message; parent thread01a1494f-2b74-7111-854f-ea64560ff09e",
+  "bytes": 17888,
+  "sha256": "2b71c2644f0be6dc2adc692cbd31e72b2fde15d76c5df93075285fccb981a7b6",
+  "parent_commit": "87a2542ff978fa3a1a58baf8d05fca7d59802554",
+  "approved_review": 6233620730,
+  "ordinary_two_repairs_rule_revoked": true,
+  "historical_repair_records_preserved": true
+}
