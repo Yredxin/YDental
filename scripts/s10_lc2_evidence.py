@@ -118,6 +118,7 @@ def target_guard(database, directory, *, allowed_names, config_path):
 def collect_selection(connect, connection_args, *, database, expected_oid, selections,
                       directory, budget, allowed_target_names=(),
                       target_directory=None, config_path=None,
+                      collect_metadata=False,
                       max_bytes=32 * 1024 * 1024, max_rows=200000):
     """One RO/RR transaction; close connection before decoding/hash/sealing large files.
 
@@ -136,6 +137,8 @@ def collect_selection(connect, connection_args, *, database, expected_oid, selec
             raise RuntimeError('TARGET_OID_DRIFT')
     if not selections:
         raise ValueError('EMPTY_SELECTION')
+    if type(collect_metadata) is not bool:
+        raise ValueError('INVALID_METADATA_SELECTION')
     if (connection_args.get('host') != '127.0.0.1' or str(connection_args.get('port')) != '5432'
             or connection_args.get('user') != 'odoo'
             or set(connection_args) - {'host', 'port', 'user', 'password', 'sslmode', 'application_name'}):
@@ -182,6 +185,7 @@ def collect_selection(connect, connection_args, *, database, expected_oid, selec
                 others = cursor.fetchall()
                 save_once(directory / 'other-connections.json', {'connections': [
                     dict(zip(['pid', 'state', 'backend_type', 'application_name'], row)) for row in others]})
+            if database == ACCIDENT or collect_metadata:
                 cursor.execute("SELECT c.relname,a.attname,format_type(a.atttypid,a.atttypmod) FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace JOIN pg_attribute a ON a.attrelid=c.oid WHERE n.nspname='public' AND c.relkind='r' AND a.attnum>0 AND NOT a.attisdropped ORDER BY c.relname,a.attnum LIMIT 50001")
                 catalog = cursor.fetchall()
                 if len(catalog) >= 50001:

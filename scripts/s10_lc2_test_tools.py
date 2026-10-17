@@ -178,7 +178,7 @@ class FakeCursor:
             self.rows = list(self.connection.rows)
 
     def fetchone(self):
-        return (ACCIDENT, self.connection.oid, CLUSTER, 345, 'on', 'repeatable read', 'odoo', '127.0.0.1', 5432, 'UTC')
+        return (self.connection.database, self.connection.oid, CLUSTER, 345, 'on', 'repeatable read', 'odoo', '127.0.0.1', 5432, 'UTC')
 
     def fetchmany(self, size):
         rows, self.rows = self.rows[:size], self.rows[size:]
@@ -189,10 +189,11 @@ class FakeCursor:
 
 
 class FakeConnection:
-    def __init__(self, oid=2144127, rows=None):
+    def __init__(self, oid=2144127, rows=None, database=ACCIDENT):
         text = '{"id":1,"state":"confirmed"}'
         self.oid, self.rows = oid, rows or [('ydental_clinical_document', 999, text, hashlib.sha256(text.encode()).hexdigest())]
         self.queries, self.session = [], None
+        self.database = database
         self.closed, self.rolled_back = False, False
 
     def set_session(self, **values):
@@ -272,6 +273,25 @@ class EvidenceCase(unittest.TestCase):
         (self.directory / 'raw.bin').write_bytes(b'x' * 950)
         with patch('s10_lc2_evidence.RAW_LIMIT', 1000), self.assertRaisesRegex(RuntimeError, '90_PERCENT'):
             budget.consume('http')
+
+    def test_owned_target_explicit_metadata_selection_is_independently_collected(self):
+        name = 'ydental_s10_test_20261017120000_1234abcd'
+        run = self.directory / name
+        run.mkdir(mode=0o700)
+        config = run / 'odoo.conf'
+        config.write_text('[options]\n')
+        save_once(run / 'database.json', {'database': name, 'oid': 777, 'core': CORE, 'cluster': CLUSTER,
+                                        'config_sha256': hashlib.sha256(config.read_bytes()).hexdigest()})
+        connection = FakeConnection(oid=777, database=name)
+        capture = self.directory / 'target-capture'
+        collect_selection(lambda **kw: connection, CONNECTION_ARGS, database=name, expected_oid=777,
+                          selections=[{'table': 'ydental_clinical_document'}], directory=capture,
+                          budget=Budget(self.directory / 'budget'), allowed_target_names=[name],
+                          target_directory=run, config_path=config, collect_metadata=True)
+        self.assertTrue(connection.closed)
+        for filename in ['schema.json', 'native-access.json', 'installed-modules.json', 'queue-settings.json']:
+            self.assertTrue((capture / filename).is_file())
+        self.assertFalse((capture / 'other-connections.json').exists())
 
 
 class DiagnosticsCase(unittest.TestCase):
