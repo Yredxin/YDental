@@ -112,7 +112,17 @@
                             <td t-out="invoice.id"/><td t-out="invoice.name"/><td t-out="invoice.invoice_date"/>
                             <td t-out="invoice.amount_total"/><td t-out="invoice.amount_residual"/>
                             <td><a t-if="can_export" t-att-href="'/ydental/settlement/pdf/bill/%s' % invoice.id">下载当前内部账单 PDF</a>
-                                <span t-else="">仅供查阅</span></td>
+                                <span t-else="">仅供查阅</span>
+                                <t t-if="can_export">
+                                    <form method="post" t-att-action="'/ydental/settlement/bill-original/create/%s' % invoice.id">
+                                        <t t-call="ydental_settlement.ydental_settlement_tokens"/>
+                                        <input type="hidden" name="previous_id" t-att-value="bill_originals.get(invoice.id, [{}])[0].get('id', '')"/>
+                                        <button type="submit">生成并留存内部账单原件</button>
+                                    </form>
+                                    <p t-foreach="bill_originals.get(invoice.id, [])" t-as="original">
+                                        <a t-att-href="'/ydental/settlement/bill-original/%s' % original['id']">下载已留存内部账单原件（版本 <t t-out="original['version']"/>）</a>
+                                    </p>
+                                </t></td>
                         </tr></tbody>
                     </table>
                     <nav t-if="page_counts['settled'] &gt; 50" aria-label="已结清账单分页">
