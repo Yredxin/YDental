@@ -1,0 +1,67 @@
+{
+  "task_id": "S10-LOG-AND-CLOSEOUT-v2",
+  "message_id": "YD-S10-LC2-EXEC-20261017-01",
+  "revision": "1.1",
+  "checkpoint": "SOURCE_ADMISSION_RO1",
+  "product_commit": "32cb6e8d9556b35e3280f17b9b8709f34a005127",
+  "test_commit": "8b77205ab8ad02244eff29838b01342b49a28bb8",
+  "identity": {
+    "backend_pid": 1510531,
+    "cluster": "7694897083368259627",
+    "database": "ydental_s10_test_20261017080710_2494c102",
+    "isolation": "repeatable read",
+    "oid": 2144127,
+    "read_only": "on",
+    "timezone": "UTC"
+  },
+  "decision": {
+    "actual_original_bytes_verified": true,
+    "changed_tables": [],
+    "copy_admission": true,
+    "current_editor_id": 7,
+    "document_differences": [
+      {
+        "fields": [],
+        "id": 1
+      },
+      {
+        "fields": [],
+        "id": 2
+      },
+      {
+        "fields": [],
+        "id": 3
+      },
+      {
+        "fields": [],
+        "id": 4
+      },
+      {
+        "fields": [],
+        "id": 5
+      }
+    ],
+    "editor_expiry": "2026-10-17T09:09:51",
+    "native_security_and_module_reference": ".local/s10-closeout-v1/clone-initial-RO.json",
+    "native_security_model": "ir.access (fixed core20, no ir.rule/ir.model.access tables)",
+    "old_original_sha_metadata": "05928780e7d97a06cf29019634f64b010eb4994c2f1c5032d561008a50b059b4",
+    "other_connection_count": 0,
+    "pending_editor_delta_review": [],
+    "schema_equal_valid_checkpoint": true,
+    "status": "ADMISSION_CANDIDATE",
+    "unexplained_tables_or_rules": [],
+    "v4_and_ancestry_observed": true
+  },
+  "raw_table_count": 316,
+  "raw_total_bytes": 5949924,
+  "raw_total_rows": 6734,
+  "independent_acceptance": "ACTUAL_ACCIDENT_BASELINE_ACCEPTED_FOR_COPY 2026-10-17T10:51:51Z; offline review of fresh acquisition, not a second DB measurement",
+  "resources_used": {
+    "accident_ro": 1
+  },
+  "rollback_and_closed": true,
+  "new_business_actions": 0,
+  "native_root_cause": "UNKNOWN",
+  "source_editor_released": false,
+  "next": "create tools and target verification before Odoo dispatch"
+}

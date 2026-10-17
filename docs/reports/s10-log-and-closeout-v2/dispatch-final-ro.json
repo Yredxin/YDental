@@ -1,0 +1,51 @@
+{
+  "task_id": "S10-LOG-AND-CLOSEOUT-v2",
+  "message_id": "YD-S10-LC2-EXEC-20261017-01",
+  "revision": "1.1",
+  "authority_record": "docs/reports/s10-log-and-closeout-v2/authority.json",
+  "start_api_exact_readback": true,
+  "start_comment_id": 6232872103,
+  "runtime_dispatched": true,
+  "dispatch_scope": "ONLY_TWO_FINAL_OWNED_RO_OBSERVATIONS; NO_APPLICATION_OR_BUSINESS_RETRY",
+  "product_commit": "b5d303949d8361a023d7f3c162a5bd40da674484",
+  "test_commit": "fe3a46ee511612b53d4ba231018d1c5f42bab30f",
+  "core_commit": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "accident_database": "ydental_s10_test_20261017080710_2494c102",
+  "accident_oid": 2144127,
+  "cluster": "7694897083368259627",
+  "selection_path": ".local/s10-lc2-exec-20261017/admission-r11-final/admission-selection.json",
+  "selection_sha256": "4bfb5aac8a4997cc87ec598c636f9c0c8e1eedb1e77282a288a844a0e00dc506",
+  "allowed_target_names": [
+    "ydental_s10_test_20261017105432_810a7d9c",
+    "ydental_s10_test_20261017105432_ce6dcbf8"
+  ],
+  "budget_directory": ".local/s10-lc2-exec-20261017",
+  "started_epoch": 1792233151.427,
+  "deadline_utc": "2026-10-17T18:32:31Z",
+  "dispatched_at_utc": "2026-10-17T11:37:12.735211+00:00",
+  "only_runtime_executor": "/root/tester",
+  "acceptance_readiness": "FINAL_TWO_OWNED_RO_READY",
+  "allowed_actions": [
+    "final-scratch-ro",
+    "final-main-ro"
+  ],
+  "target_plan_sha256": "c38203781fb1e18caaa77677f9e786ec9907df5982997891f70c1d2cef3c5651",
+  "max_new_odoo_starts_this_dispatch": 0,
+  "scratch_database": "ydental_s10_test_20261017105432_ce6dcbf8",
+  "scratch_oid": 2144130,
+  "scratch_port": 18411,
+  "frozen_files": {
+    "ydental_access/diagnostics.py": "762a0a1de9509ec7dce74d48cb63c27d55174fb5f54217436d65bb0fece00edb",
+    "ydental_access/controllers/access.py": "95763b0c037f8dd519d57668d2f2d70e9311a03a5681c3de149d753bdbc7e85b",
+    "scripts/s10_lc2_logging.py": "f7c9a2bbf3a3104eab1cfb03c58024d9817e52733ac6e5a173111f3ec8523b20",
+    "scripts/s10_lc2_test_tools.py": "84866cc9037e16b92f229cb8ffead51bc8987103a0b1c0091278d25d01b096f5",
+    "scripts/s10_lc2_launch.py": "bc6ff183e089bb3548f8233d6ae5725f4bb08c335c3f35c8e3662556a89c1a72",
+    "scripts/s10_lc2_test_launch.py": "addb1e49a6a4f34919287521cdb34b3c45accab5a3f512f888a35a114515df13",
+    "scripts/s10_lc2_failure_fixture.py": "abc61ebb03038404faf9f0b558b7068e306655c2fa1ed45e7d1decb850c5c2de",
+    "ydental_settlement_test/tests/test_log_closeout.py": "98ae9053fd466f1b653746a3018e7230119fc497046891da699361ed2888c483",
+    "ydental_settlement_test/models/lc2_fixture.py": "0082fbff67102766683f2a250cf99eb84513469c9637807dccceec02113bda2f",
+    "ydental_settlement_test/models/__init__.py": "cb4e340e70f8740def5cec9628478817694d1a7bd90f40d24d8d2a9b83d0e508",
+    ".local/s10-lc2-exec-20261017/final-observer-proposal.py": "6d9c674770109d659827ff796460e86190e9fe1c038def233eca0dfddf0379bb"
+  },
+  "max_new_target_ro_this_dispatch": 2
+}

@@ -1,0 +1,157 @@
+{
+  "status": "PASS",
+  "scope": "new public reports/evidence + approved full delivery body + current AGENTS entry only",
+  "not_a_claim_private316_or_configs_have_no_sensitive_data": true,
+  "at_utc": "2026-10-17T11:47:49.227892+00:00",
+  "manual_independent_review": "PUBLIC_EXPORT_REVIEW_COMPLETE; /root/acceptance; LOG09 PASS_PUBLIC_EXPORT_AND_SYNTHETIC_ONLY",
+  "independent_review_sha256": "470b0cb89a8a374bcbbcae764bfe599348daaa7271aac30938be2389bd1c1a24",
+  "findings": [],
+  "files": [
+    {
+      "path": "docs/evidence/s10-log-and-closeout-v2/final-owned-process-observation.json",
+      "bytes": 1712,
+      "sha256": "535a627b3ee80c497fa1382e0f6f8ebc05951c9f9a8a382ff3220ed0b3daa22c"
+    },
+    {
+      "path": "docs/evidence/s10-log-and-closeout-v2/final-public-raw-summary.json",
+      "bytes": 2077,
+      "sha256": "3218c0aa09fc24270c9609f704ada89a28b83eb608be9f178a5492d030df65ac"
+    },
+    {
+      "path": "docs/evidence/s10-log-and-closeout-v2/final-state.json",
+      "bytes": 3614,
+      "sha256": "9786c80efbd372ecd5e11d5e791e1f63bbd75b998f4a5a4b107d5157a050db3b"
+    },
+    {
+      "path": "docs/evidence/s10-log-and-closeout-v2/raw-index-v2-summary.json",
+      "bytes": 1074,
+      "sha256": "5d6992d41f302763592e960c7c51417cc20e33b26304b406a1e5d5be1d7de3f7"
+    },
+    {
+      "path": "docs/evidence/s10-log-and-closeout-v2/scratch-initialization.json",
+      "bytes": 2761,
+      "sha256": "16e193a7bd43a47e3c54e8a830351db5b835bee36cc046ca4f3116bed3220a1b"
+    },
+    {
+      "path": "docs/reports/s10-log-and-closeout-v2/acceptance-matrix.json",
+      "bytes": 106027,
+      "sha256": "c00f4ef615b79416b6247774e3ecf06a90f280ff5d884fb486704ff22d812dda"
+    },
+    {
+      "path": "docs/reports/s10-log-and-closeout-v2/acceptance-review.md",
+      "bytes": 42118,
+      "sha256": "470b0cb89a8a374bcbbcae764bfe599348daaa7271aac30938be2389bd1c1a24"
+    },
+    {
+      "path": "docs/reports/s10-log-and-closeout-v2/agent-roster.json",
+      "bytes": 3512,
+      "sha256": "4db3b1a7cf4cc8c21a53a6f7f0ece87a14c8d755d971ab3c463309e87f2d0907"
+    },
+    {
+      "path": "docs/reports/s10-log-and-closeout-v2/authority.json",
+      "bytes": 719,
+      "sha256": "804b7978b07a7773b255c0955981db9fafb71c7e470d48ceddf89c171e5b9ef2"
+    },
+    {
+      "path": "docs/reports/s10-log-and-closeout-v2/checkpoint-ro1-comment.md",
+      "bytes": 2237,
+      "sha256": "4abed5768d70fd4cb5babe022f7cb588e985be07d2be102a217303743fc3856d"
+    },
+    {
+      "path": "docs/reports/s10-log-and-closeout-v2/checkpoint-ro1-sync.json",
+      "bytes": 365,
+      "sha256": "51ebb65e77d3a4b6637b25b8af7241738df77ea98f24843cc6ca12388e916642"
+    },
+    {
+      "path": "docs/reports/s10-log-and-closeout-v2/checkpoint-target-comment.md",
+      "bytes": 2981,
+      "sha256": "c0f87d49437750322837a006087dd010cf82d345b977363629fdaab270d21b8e"
+    },
+    {
+      "path": "docs/reports/s10-log-and-closeout-v2/checkpoint-target-sync.json",
+      "bytes": 365,
+      "sha256": "f393e3e4cb76b1c2a9673d4368f14aeabbb18ff77d2671f9c445e941c21a072b"
+    },
+    {
+      "path": "docs/reports/s10-log-and-closeout-v2/d-admission-blocked.md",
+      "bytes": 2002,
+      "sha256": "aa89e384b7a800384c297f20b924490eb97dbf177a8fb5fac4e6d62efe02cf5f"
+    },
+    {
+      "path": "docs/reports/s10-log-and-closeout-v2/defects.md",
+      "bytes": 7075,
+      "sha256": "e0f26551802bc8b22806ee19aa9732635d0a7427add288f94339a2b8260acc89"
+    },
+    {
+      "path": "docs/reports/s10-log-and-closeout-v2/dispatch-final-ro.json",
+      "bytes": 2924,
+      "sha256": "f6bc1698cb612868533f2c7a71ebc4ec916eeeb751b72a159ecde61f6658a90d"
+    },
+    {
+      "path": "docs/reports/s10-log-and-closeout-v2/dispatch-ro1.json",
+      "bytes": 1175,
+      "sha256": "0df49751a0ece1df32761e9a903dd2eccbe26d7528166098db26b778441178e4"
+    },
+    {
+      "path": "docs/reports/s10-log-and-closeout-v2/dispatch-scratch.json",
+      "bytes": 2792,
+      "sha256": "cff916b1453d5e0a1d5583954bd4aed2a55d33be617dcb32e9b423f17b57d45f"
+    },
+    {
+      "path": "docs/reports/s10-log-and-closeout-v2/locator-review.md",
+      "bytes": 4920,
+      "sha256": "3ca2c360849230a99c1a098e925719e51ecebfbc6e765520296c95f74636abf4"
+    },
+    {
+      "path": "docs/reports/s10-log-and-closeout-v2/plan-and-acceptance.md",
+      "bytes": 3012,
+      "sha256": "7f237c6d718d56fd3e19a51068fe92698a1fbfed247613c36b0b1a9cb6712b3c"
+    },
+    {
+      "path": "docs/reports/s10-log-and-closeout-v2/private-permission-convergence.json",
+      "bytes": 5870,
+      "sha256": "f227b488e8ed3a38b9e88f9be3b97556a9999c146f2984d8312be3d3c4c8f5ab"
+    },
+    {
+      "path": "docs/reports/s10-log-and-closeout-v2/run-manifest.json",
+      "bytes": 4230,
+      "sha256": "42e861dcf1165eda95a2ca90e3f6c18be8f4321df387ec245cbe0ee64e575560"
+    },
+    {
+      "path": "docs/reports/s10-log-and-closeout-v2/source-admission-ro1.json",
+      "bytes": 2030,
+      "sha256": "e83e3c5e8f0d9fd087f8bc7161f2a0c9ed4d01d0376ec6359ee1a1bfcd1a10c9"
+    },
+    {
+      "path": "docs/reports/s10-log-and-closeout-v2/start-comment.md",
+      "bytes": 2796,
+      "sha256": "f130d3b8a87d0e375488d5d737dc67abe688df144c1e391e773c9f06c32e005d"
+    },
+    {
+      "path": "docs/reports/s10-log-and-closeout-v2/start-sync.json",
+      "bytes": 402,
+      "sha256": "2f27467447e75ca54b9762ef70514bec47b20025a7c6ac9ae95d02b09d3e9199"
+    },
+    {
+      "path": "docs/reports/s10-log-and-closeout-v2/summary.md",
+      "bytes": 6262,
+      "sha256": "1079c73dce27da798bd1eed8a2ecb182eb1ba1c7543526471554ed0bf145e7df"
+    },
+    {
+      "path": "docs/reports/s10-log-and-closeout-v2/target-admission.json",
+      "bytes": 4205,
+      "sha256": "23acc53eeee854be8ed84ff46c47687212963591c9d6dfd8316828e41b37cb3f"
+    },
+    {
+      "path": "docs/reports/s10-log-and-closeout-v2/unrun-browser-draft.json",
+      "bytes": 796,
+      "sha256": "762112ec4a5856edd88c7b308c4560ebc2d8074288598ad71ae14448842fac96"
+    },
+    {
+      "path": ".local/s10-lc2-exec-20261017/delivery-approved-body-sha-pending.md",
+      "bytes": 23724,
+      "sha256": "b685794b6c646dae477e38275b90232306789dd504be646649349e4631feb65e"
+    }
+  ],
+  "body_final_change_allowed": "only substitute approved evidence commit hex for EVIDENCE_COMMIT_PENDING; new immutable API body saved separately and byte-compared after POST"
+}

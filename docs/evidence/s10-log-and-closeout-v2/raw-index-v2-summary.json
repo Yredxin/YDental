@@ -1,0 +1,21 @@
+{
+  "private_index_ref": ".local/s10-lc2-exec-20261017/final-private-raw-index-v2.json",
+  "sha256": "3313af97f13111b7a29a8d148fa544720ab8d8ac6335ae43ed80e1c202d0c2ab",
+  "index_bytes": 353293,
+  "indexed_file_count": 1668,
+  "indexed_bytes": 41966891,
+  "all_indexed_private_files_mode": "0o600",
+  "private_run_roots_mode": "0o700",
+  "nested_native_owner_only_directory_exceptions": [
+    {
+      "path": ".local/s10-lc2/20261017-lc2-exec01/ydental_s10_test_20261017105432_ce6dcbf8/data/addons/20.0",
+      "mode": "0o500",
+      "native_owner_only_cache_preserved": true
+    }
+  ],
+  "initial_index_guard_observation": "all-nested-0700 assertion refused native0500 cache; no index was written/no bytes or cache mode changed; final actual metadata preserved",
+  "pre_permission_index_preserved": "d2468a5ff9a570594184da19c864aee513af5976fa9ff662aa04bef6811c76e2",
+  "new_api_sync_controls_after_seal": "separate0600 files with individual SHA/full-readback; excluded from immutable pre-publish index",
+  "partial_scratch_preserved": true,
+  "no_application_retry": true
+}

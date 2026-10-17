@@ -1,0 +1,111 @@
+{
+  "task_id": "S10-LOG-AND-CLOSEOUT-v2",
+  "message_id": "YD-S10-LC2-EXEC-20261017-01",
+  "revision": "1.1",
+  "authority": "authority.json",
+  "execution_status": "BLOCKED_READY_FOR_GPT_REVIEW",
+  "parent_commit": "e7cd02689b92c0cc4f7343842268b21e56de9f80",
+  "governance_commit": "7dd9148",
+  "product_commit": "b5d303949d8361a023d7f3c162a5bd40da674484",
+  "test_commit": "fe3a46ee511612b53d4ba231018d1c5f42bab30f",
+  "core_commit": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "core_tracked_diff": "EMPTY_AT_START_AND_FINAL_CHECK",
+  "start_api_readback": "start-sync.json",
+  "runtime_dispatched": true,
+  "window_started_at_utc": "2026-10-17T10:32:31.427Z",
+  "deadline_utc": "2026-10-17T18:32:31Z",
+  "versions": {
+    "codex": "0.163.0",
+    "python": "3.12.15",
+    "gh": "2.102.0"
+  },
+  "scope": "logging/independent admission/A/B/C/unique synthetic6-2 D/S10-only E",
+  "no_new_dependency_or_shared_config": true,
+  "resource_budget_owner": "/root/tester",
+  "stage_status": "S10_TECHNICAL_EXIT_BLOCKED",
+  "historical_native_root_cause": "UNKNOWN",
+  "current_accident_editor_release": "NOT_RELEASED_BY_THIS_PACKAGE; RO observed editor7 expired2026-10-17T09:09:51; valid stored state retained",
+  "new_committed_business_actions": [],
+  "updated_at_utc": "2026-10-17T11:46:16.456909+00:00",
+  "offline_tool_test": {
+    "executed": 43,
+    "exit_code": 0,
+    "breakdown": {
+      "tools": 27,
+      "http_fake": 11,
+      "create_fake": 5
+    },
+    "private_evidence": [
+      ".local/s10-lc2-exec-20261017/offline-final-tools",
+      ".local/s10-lc2-exec-20261017/offline-final-http",
+      ".local/s10-lc2-exec-20261017/offline-final-create"
+    ],
+    "layers": [
+      "SYNTHETIC_FIXTURE"
+    ],
+    "no_application_tests": true,
+    "scope": "historical candidate2 preflight; latest frozen candidate3 result below"
+  },
+  "existing_service_observation_correction": {
+    "pid": 42433,
+    "script": "odoo-bin",
+    "exe": "python3.12",
+    "status": "historical existing service protected; no HTTP or changes",
+    "initial_comm_only_scan_was_incomplete": true
+  },
+  "latest_dispatch": "dispatch-final-ro.json",
+  "actual_baseline": "source-admission-ro1.json",
+  "repair_cycles_used": 2,
+  "repair_cycles_max": 2,
+  "new_target_admission": "target-admission.json",
+  "current_budget_counts": {
+    "accident_ro": 2,
+    "create": 2,
+    "maintenance": 1,
+    "odoo_start": 1,
+    "target_ro": 4
+  },
+  "D_status": {
+    "status": "PRECONDITION_BLOCKED",
+    "report": "d-admission-blocked.md",
+    "financial_dispatches": 0,
+    "financial_commits": 0
+  },
+  "initial_product_commit": "32cb6e8d9556b35e3280f17b9b8709f34a005127",
+  "application_phase_status": "APPLICATION_INITIALIZATION_BLOCKED; NO_RETRY",
+  "LOG11_scope": "PASS_SYNTHETIC_ONLY; primary LookupError raised/caught; secondary OSError emitted synthetic record, not actual OS failure",
+  "repair_cycles_remaining": 0,
+  "latest_offline_candidate_result": {
+    "tests": 51,
+    "breakdown": {
+      "tools": 30,
+      "launch": 5,
+      "http_fake": 11,
+      "create_fake": 5
+    },
+    "exit_code": 0,
+    "private_raw": ".local/s10-lc2-exec-20261017/offline-cycle2-frozen",
+    "status": "PASS_OFFLINE_SYNTHETIC; no business or actual GPR framework PASS"
+  },
+  "previous_product_commits": [
+    "32cb6e8d9556b35e3280f17b9b8709f34a005127",
+    "af607e09ad4104aacc32ec75c18335551ecf1503"
+  ],
+  "framework_tests_run": 0,
+  "framework_tests_not_run": 5,
+  "final_state": "../../evidence/s10-log-and-closeout-v2/final-state.json",
+  "scratch_database_outcome": "PARTIAL_INITIALIZATION; BASE_INSTALLED; not total rollback",
+  "recommended_next_action": "new explicitly bounded repair authorization for existing-dependency PYTHONPATH and actual GPR, no reinstall/rebuild/replay",
+  "final_resource_note": "v1 raw38.5MB/v2 raw41,966,891bytes; final export/API controls separately indexed by per-file SHA",
+  "final_GitHub_readonly_refresh": {
+    "issue23_body_equal": true,
+    "comments23_equal": true,
+    "issue34_body_equal": true,
+    "comments34_count": 285,
+    "new_after_checkpoint6233150151": 0,
+    "issue35_state": "OPEN",
+    "issue35_comments": 0,
+    "EXEC_start_dedup_confirmed": true,
+    "prior_EXEC_delivery_found": false
+  }
+}

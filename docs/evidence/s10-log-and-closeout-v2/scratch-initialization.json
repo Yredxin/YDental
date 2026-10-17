@@ -1,0 +1,70 @@
+{
+  "actual_framework_tests_run": 0,
+  "business_money_dispatches": 0,
+  "core_commit": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "database": "ydental_s10_test_20261017105432_ce6dcbf8",
+  "dependency_install_or_environment_repair_performed": false,
+  "existing_dependency_location": ".local/s04-deps/phonenumbers-9.0.16.dist-info",
+  "files": [
+    {
+      "bytes": 113,
+      "path": ".local/s10-lc2-exec-20261017/application-scratch-tests-9b1c67fe/parent-exit.tsv",
+      "sha256": "0fd266c9c407fb82033aeafa54e7e0cbf8d197e5ad4dddcf14592bb3ef1e6b76"
+    },
+    {
+      "bytes": 225,
+      "path": ".local/s10-lc2-exec-20261017/application-scratch-tests-9b1c67fe/identity-probe.json",
+      "sha256": "c650124ef930b4f023409bf193e6a129432de1b30d958336b31bdb46d5ec1b2a"
+    },
+    {
+      "bytes": 27,
+      "path": ".local/s10-lc2-exec-20261017/application-scratch-tests-9b1c67fe/identity-probe-exit.tsv",
+      "sha256": "90d55c02bbce19784acd1f4ca442a96099e6e16f09fbda179ea511686b14cd85"
+    },
+    {
+      "bytes": 668,
+      "path": ".local/s10-lc2-exec-20261017/application-scratch-tests-9b1c67fe/launch-intent.json",
+      "sha256": "359a1a3704fb031ffc11b3bce766a10977a211d76297e988c1e2b58dd97e6ce0"
+    },
+    {
+      "bytes": 203,
+      "path": ".local/s10-lc2-exec-20261017/application-scratch-tests-9b1c67fe/result.json",
+      "sha256": "746be8af5121a990ed7ab1a99d4f63bac7d389e7e9e0f598c1a6ca3203897746"
+    },
+    {
+      "bytes": 213,
+      "path": ".local/s10-lc2-exec-20261017/scratch-framework-parent/parent-exit.tsv",
+      "sha256": "f873f4b3880bbc350f7a85da09ca29ce706b26684b0b55ef3798b0676a82f5ab"
+    },
+    {
+      "bytes": 24175,
+      "path": ".local/s10-lc2/20261017-lc2-exec01/ydental_s10_test_20261017105432_ce6dcbf8/odoo-native.log",
+      "sha256": "7235b92099e56017bfb66600764e9a0fd8dc4ec0c4d98563eff1c50acc793935"
+    }
+  ],
+  "firefox": 0,
+  "first_exception_chain": [
+    "importlib.metadata.PackageNotFoundError",
+    "odoo.modules.module.MissingDependency"
+  ],
+  "framework_tests_not_run": 5,
+  "http": 0,
+  "missing_distribution": "phonenumbers",
+  "observed_launcher_pythonpath": "scripts only",
+  "odoo_exit_code": 255,
+  "odoo_pid": 1060827,
+  "oid": 2144130,
+  "original_native_root_cause": "UNKNOWN",
+  "outcome": "APPLICATION_INITIALIZATION_BLOCKED",
+  "preserve_partial_database": true,
+  "product_commit": "b5d303949d8361a023d7f3c162a5bd40da674484",
+  "retry_performed": false,
+  "signal": null,
+  "test_commit": "fe3a46ee511612b53d4ba231018d1c5f42bab30f",
+  "transaction_outcome": "NOT_OBSERVED",
+  "private_source_ref": {
+    "path": ".local/s10-lc2-exec-20261017/scratch-initialization-observation.json",
+    "bytes": 2284,
+    "sha256": "74f0f1b351a05d6fb4d20f32bb68d2b12e4b2a2f2298cf3ee1f70d496dcd7e69"
+  }
+}

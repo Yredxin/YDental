@@ -1,0 +1,16 @@
+{
+  "original_path": "scripts/s10_lc2_browser.py",
+  "preserved_path": ".local/s10-lc2-exec-20261017/unrun-drafts/s10_lc2_browser.py",
+  "sha256": "307ea60f07febd17928c9209a099eb33c0db0f55f419dcc2b1052e2abaa82366",
+  "bytes": 35052,
+  "status": "UNRUN_UNREVIEWED_DRAFT_NOT_IN_COMMITTED_EXECUTION_CANDIDATE",
+  "developer_handoff": "all writers stopped; original byte move authorized by file owner",
+  "known_gaps": [
+    "303 body not observed must not hash fabricated empty body; redirects pre-dispatch accounting",
+    "secondary restore/close must preserve primary",
+    "fresh context per persona",
+    "native modal selector and exact arguments/translated UI message",
+    "owned websocket/native bus capability and budget not approved"
+  ],
+  "at_utc": "2026-10-17T11:36:03.611940+00:00"
+}

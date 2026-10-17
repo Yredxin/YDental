@@ -1,0 +1,100 @@
+{
+  "all_listed_processes_absent": true,
+  "basis": "child.start entries in this package parent-exit evidence; existence only; no signals sent",
+  "observed_utc": "2026-10-17T11:38:27.481274+00:00",
+  "original_long_running_42433_not_examined_or_signalled": true,
+  "processes": [
+    {
+      "pid": 1028615,
+      "proc_exists": false
+    },
+    {
+      "pid": 1032024,
+      "proc_exists": false
+    },
+    {
+      "pid": 1032861,
+      "proc_exists": false
+    },
+    {
+      "pid": 1034065,
+      "proc_exists": false
+    },
+    {
+      "pid": 1034335,
+      "proc_exists": false
+    },
+    {
+      "pid": 1037087,
+      "proc_exists": false
+    },
+    {
+      "pid": 1039109,
+      "proc_exists": false
+    },
+    {
+      "pid": 1039120,
+      "proc_exists": false
+    },
+    {
+      "pid": 1039121,
+      "proc_exists": false
+    },
+    {
+      "pid": 1039721,
+      "proc_exists": false
+    },
+    {
+      "pid": 1041527,
+      "proc_exists": false
+    },
+    {
+      "pid": 1041740,
+      "proc_exists": false
+    },
+    {
+      "pid": 1041971,
+      "proc_exists": false
+    },
+    {
+      "pid": 1046852,
+      "proc_exists": false
+    },
+    {
+      "pid": 1056939,
+      "proc_exists": false
+    },
+    {
+      "pid": 1059680,
+      "proc_exists": false
+    },
+    {
+      "pid": 1059694,
+      "proc_exists": false
+    },
+    {
+      "pid": 1059696,
+      "proc_exists": false
+    },
+    {
+      "pid": 1059697,
+      "proc_exists": false
+    },
+    {
+      "pid": 1060756,
+      "proc_exists": false
+    },
+    {
+      "pid": 1060827,
+      "proc_exists": false
+    },
+    {
+      "pid": 1064238,
+      "proc_exists": false
+    },
+    {
+      "pid": 1064273,
+      "proc_exists": false
+    }
+  ]
+}

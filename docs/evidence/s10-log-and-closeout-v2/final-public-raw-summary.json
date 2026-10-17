@@ -1,0 +1,64 @@
+{
+  "actual_budget": {
+    "counts": {
+      "accident_ro": 2,
+      "create": 2,
+      "maintenance": 1,
+      "odoo_start": 1,
+      "target_ro": 4
+    },
+    "started_epoch": 1792233151
+  },
+  "all_listed_owned_processes_absent": true,
+  "application_initialization_exit": 255,
+  "file_modes": {
+    "0o444": 10,
+    "0o600": 1647,
+    "0o664": 2
+  },
+  "further_application_runtime": "FROZEN",
+  "indexed_bytes": 38495277,
+  "indexed_file_count": 1659,
+  "main_final_preserved_filestore_files": 198,
+  "main_final_preserved_rows": 6734,
+  "main_final_preserved_tables": 316,
+  "native_root_cause": "UNKNOWN",
+  "observed_utc": "2026-10-17T11:38:27.677245+00:00",
+  "ordinary_repairs_limit": 2,
+  "ordinary_repairs_used": 2,
+  "owned_process_observation_sha256": "50970a964de894e9756141e0addb587d7a19eaec5fe72a0a897a27df816d0d5d",
+  "private_index_bytes": 411293,
+  "private_index_sha256": "d2468a5ff9a570594184da19c864aee513af5976fa9ff662aa04bef6811c76e2",
+  "scratch_framework_tests_not_run": 5,
+  "target_markers": [
+    {
+      "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+      "database": "ydental_s10_test_20261017105432_810a7d9c",
+      "marker_sha256": "821e62e2a5f646f25dbfb858e229ecc3770f341a699d8368e0d47e9182408a29",
+      "oid": 2144129,
+      "port": 18410,
+      "product_commit": "32cb6e8d9556b35e3280f17b9b8709f34a005127",
+      "role": "main",
+      "test_commit": "21dbc92f5233fd6c72e80af77549ee534522e058"
+    },
+    {
+      "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+      "database": "ydental_s10_test_20261017105432_ce6dcbf8",
+      "marker_sha256": "d34c9aa886d974d2ab1f7554b7d7969284f7bf7e4d4661d7b38763b26f3537f6",
+      "oid": 2144130,
+      "port": 18411,
+      "product_commit": "b5d303949d8361a023d7f3c162a5bd40da674484",
+      "role": "scratch",
+      "test_commit": "fe3a46ee511612b53d4ba231018d1c5f42bab30f"
+    }
+  ],
+  "unstable_path_count": 0,
+  "whole_scratch_rollback_claimed": false,
+  "zero_counts": {
+    "business_money_dispatches": 0,
+    "firefox": 0,
+    "http": 0,
+    "original_get": 0,
+    "p021_ro": 0
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "task_id": "S10-LOG-AND-CLOSEOUT-v2",
+  "message_id": "YD-S10-LC2-EXEC-20261017-01",
+  "revision": "1.1",
+  "outcome": "BLOCKED",
+  "product_commit": "b5d303949d8361a023d7f3c162a5bd40da674484",
+  "test_commit": "fe3a46ee511612b53d4ba231018d1c5f42bab30f",
+  "core_commit": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "baseline_pass": "A-STATE only",
+  "framework_tests_run": 0,
+  "framework_tests_not_run": 5,
+  "final_main": {
+    "application_or_http_ever_started_on_main": false,
+    "collected_files": 316,
+    "compared_rows": 6734,
+    "connection_closed_before_summary": true,
+    "copied_not_new_measurement": false,
+    "database": "ydental_s10_test_20261017105432_810a7d9c",
+    "filestore_files_equal": 198,
+    "independent_target_RO_measurement": true,
+    "initial_marker_product_commit": "32cb6e8d9556b35e3280f17b9b8709f34a005127",
+    "initial_marker_test_commit": "21dbc92f5233fd6c72e80af77549ee534522e058",
+    "marker_sha256": "821e62e2a5f646f25dbfb858e229ecc3770f341a699d8368e0d47e9182408a29",
+    "marker_unchanged": true,
+    "oid": 2144129,
+    "old_source_business_writes": 0,
+    "outcome": "FINAL_MAIN_PRESERVATION_VERIFIED",
+    "schema_security_modules_and_queue_settings_equal": true,
+    "stored_rows_equal": true
+  },
+  "scratch_current_module_states": {
+    "total": 702,
+    "installed": 1,
+    "installed_name": "base",
+    "installed_version": "20.0.1.3",
+    "uninstalled": 680,
+    "uninstallable": 21,
+    "whole_database_rollback_claimed": false
+  },
+  "final_budget": {
+    "counts": {
+      "accident_ro": 2,
+      "create": 2,
+      "maintenance": 1,
+      "odoo_start": 1,
+      "target_ro": 4
+    },
+    "started_epoch": 1792233151
+  },
+  "http": 0,
+  "firefox": 0,
+  "new_financial_dispatches": 0,
+  "new_business_actions": [],
+  "original_accident_business_writes": 0,
+  "P021_connections": 0,
+  "preserved_prior_editor": "stored7, expired09:09:51, no release/confirm/correct by this package",
+  "stage_status": "S10/production BLOCKED; historic Native UNKNOWN",
+  "final_observer_refs": [
+    {
+      "path": ".local/s10-lc2-exec-20261017/final-scratch-preservation/final-observation.json",
+      "bytes": 61719,
+      "sha256": "6913567f922457a9318cfcd54737a76a835d6b0a20c57daa21667c38bac4ead3"
+    },
+    {
+      "path": ".local/s10-lc2-exec-20261017/final-main-preservation/final-observation.json",
+      "bytes": 750,
+      "sha256": "8c23698bb06af4ff02365f3714f696a019347c3b12feec50e6ffd55006ce167c"
+    },
+    {
+      "path": ".local/s10-lc2-exec-20261017/final-scratch-preservation/observer-exit.tsv",
+      "bytes": 65,
+      "sha256": "f07f8195ed39494e7571da7bc3403c015aeced227b49db1b6bd447b7b8268f82"
+    },
+    {
+      "path": ".local/s10-lc2-exec-20261017/final-main-preservation/observer-exit.tsv",
+      "bytes": 65,
+      "sha256": "39435bbb3bd28bc9487191cb0d3726c7c51f38b98d51b8abc73a4498884745be"
+    },
+    {
+      "path": ".local/s10-lc2-exec-20261017/final-scratch-ro-parent/parent-exit.tsv",
+      "bytes": 210,
+      "sha256": "5abab62b26b57a4973f2152c2cd66855d11d41d04e8b83e5c269fce05f92f21c"
+    },
+    {
+      "path": ".local/s10-lc2-exec-20261017/final-main-ro-parent/parent-exit.tsv",
+      "bytes": 211,
+      "sha256": "cbcd5ab1c56bda39fca1fcff65361ea9fafe1099eeb638d62b95a9860d1d3d4a"
+    }
+  ],
+  "current_raw_index": "raw-index-v2-summary.json",
+  "prior_raw_snapshot": "final-public-raw-summary.json (pre-private-permission convergence modes, preserved historical observation)",
+  "permission_note": "private run roots0700; current indexed files0600; one native nested owner-only cache0500 preserved; pre-mode ledger retained"
+}

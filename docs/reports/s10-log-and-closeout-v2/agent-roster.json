@@ -1,0 +1,76 @@
+{
+  "revision": "1.1",
+  "message_id": "YD-S10-LC2-EXEC-20261017-01",
+  "parent_commit": "e7cd02689b92c0cc4f7343842268b21e56de9f80",
+  "actual_interface": "collaboration.followup_task/list_agents",
+  "child_uuid_exposed": false,
+  "parent_thread_uuid": "01a1494f-2b74-7111-854f-ea64560ff09e",
+  "permission_boundary": "shared parent actual permissions; no independent OS isolation",
+  "roles": [
+    {
+      "role": "controller",
+      "actual_agent_id": "/root",
+      "owns": [
+        "AGENTS.md",
+        "docs/reports/s10-log-and-closeout-v2/* except acceptance-review.md and locator-review.md",
+        "docs/evidence/s10-log-and-closeout-v2/*"
+      ],
+      "status": "FINAL_DELIVERY",
+      "inspection_parent_commit": "e7cd02689b92c0cc4f7343842268b21e56de9f80"
+    },
+    {
+      "role": "developer",
+      "actual_agent_id": "/root/developer",
+      "owns": [
+        "ydental_access/* product only",
+        "ydental_settlement/* product only",
+        "ydental_clinical/* necessary product boundary only",
+        "config/* examples only",
+        "scripts/s10_lc2_http.py (new isolated ownership handoff; no network dispatch)",
+        "ydental_settlement_test/models/lc2_fixture.py (new private fixture ownership transfer)",
+        "ydental_settlement_test/models/__init__.py (necessary fixture import only)"
+      ],
+      "status": "COMPLETED_FROZEN_HANDOFF",
+      "inspection_parent_commit": "e7cd02689b92c0cc4f7343842268b21e56de9f80",
+      "product_handoff_utc": "2026-10-17T10:40:46Z",
+      "product_commit": "b5d303949d8361a023d7f3c162a5bd40da674484",
+      "product_RPC_observation_handoff": "STATIC_RPC_OBSERVATION_READY; six lines no semantics change",
+      "handoff": "product commits + private fixture statically accepted; browser draft archived unrun"
+    },
+    {
+      "role": "tester",
+      "actual_agent_id": "/root/tester",
+      "owns": [
+        "scripts/s10_lc2*.py except s10_lc2_http.py",
+        "scripts/test_s10_lc2*.py",
+        "ydental_settlement_test/* except developer-owned models/lc2_fixture.py and necessary models import",
+        "private run configs/evidence and all DB/application dispatch"
+      ],
+      "status": "COMPLETED_RUNTIME_STOPPED",
+      "inspection_parent_commit": "e7cd02689b92c0cc4f7343842268b21e56de9f80",
+      "handoff": "51 offline pass; scratch255/5NOT_RUN; two final RO; 23 owned processes absent; private raw index sealed"
+    },
+    {
+      "role": "acceptance",
+      "actual_agent_id": "/root/acceptance",
+      "owns": [
+        "docs/reports/s10-log-and-closeout-v2/acceptance-review.md"
+      ],
+      "status": "COMPLETED_INDEPENDENT_ACCEPTANCE_BLOCKED",
+      "inspection_parent_commit": "e7cd02689b92c0cc4f7343842268b21e56de9f80",
+      "handoff": "A-STATE and scoped LOG evidence accepted; full application/S10 BLOCKED; final public whitelist reviewed"
+    },
+    {
+      "role": "acceptance_locator",
+      "actual_agent_id": "/root/acceptance_locator",
+      "fork_turns": "none",
+      "owns": [
+        "docs/reports/s10-log-and-closeout-v2/locator-review.md"
+      ],
+      "scope": "LOG11 blind synthetic fixture locator only; standard index only; no DB/HTTP",
+      "status": "COMPLETED",
+      "handoff": "locator-review.md; 49.349s; PASS_SYNTHETIC_ONLY"
+    }
+  ],
+  "ownership_transfer_note": "root expressly assigned new HTTP client and private test fixture+necessary models import to developer; tester owns all runtime execution and remaining tests. No overlapping writer. No new OS permission/UUID claim."
+}

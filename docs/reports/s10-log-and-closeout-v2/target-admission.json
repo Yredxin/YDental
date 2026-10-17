@@ -1,0 +1,145 @@
+{
+  "task_id": "S10-LOG-AND-CLOSEOUT-v2",
+  "message_id": "YD-S10-LC2-EXEC-20261017-01",
+  "revision": "1.1",
+  "test_commit": "21dbc92f5233fd6c72e80af77549ee534522e058",
+  "product_commit": "32cb6e8d9556b35e3280f17b9b8709f34a005127",
+  "core_commit": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "targets": [
+    {
+      "cluster": "7694897083368259627",
+      "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+      "database": "ydental_s10_test_20261017105432_810a7d9c",
+      "oid": 2144129,
+      "port": 18410,
+      "role": "main"
+    },
+    {
+      "cluster": "7694897083368259627",
+      "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+      "database": "ydental_s10_test_20261017105432_ce6dcbf8",
+      "oid": 2144130,
+      "port": 18411,
+      "role": "scratch"
+    }
+  ],
+  "main_verification": {
+    "compared_rows": 6734,
+    "copied_not_new_measurement": false,
+    "filestore_files_equal": 198,
+    "independent_target_RO_measurement": true,
+    "old_source_business_writes": 0,
+    "schema_security_modules_and_queue_settings_equal": true,
+    "stored_rows_equal": true
+  },
+  "source_after_copy_admission": {
+    "actual_original_bytes_verified": true,
+    "changed_tables": [],
+    "copy_admission": true,
+    "current_editor_id": 7,
+    "document_differences": [
+      {
+        "fields": [],
+        "id": 1
+      },
+      {
+        "fields": [],
+        "id": 2
+      },
+      {
+        "fields": [],
+        "id": 3
+      },
+      {
+        "fields": [],
+        "id": 4
+      },
+      {
+        "fields": [],
+        "id": 5
+      }
+    ],
+    "editor_expiry": "2026-10-17T09:09:51",
+    "native_security_and_module_reference": ".local/s10-closeout-v1/clone-initial-RO.json",
+    "native_security_model": "ir.access (fixed core20, no ir.rule/ir.model.access tables)",
+    "old_original_sha_metadata": "05928780e7d97a06cf29019634f64b010eb4994c2f1c5032d561008a50b059b4",
+    "other_connection_count": 0,
+    "pending_editor_delta_review": [],
+    "schema_equal_valid_checkpoint": true,
+    "status": "ADMISSION_CANDIDATE",
+    "unexplained_tables_or_rules": [],
+    "v4_and_ancestry_observed": true
+  },
+  "budgets_observed": {
+    "counts": {
+      "accident_ro": 2,
+      "create": 2,
+      "maintenance": 1,
+      "target_ro": 1
+    },
+    "started_epoch": 1792233151
+  },
+  "source_RO_exhausted": true,
+  "P021_connections": 0,
+  "odoo_starts": 0,
+  "http": 0,
+  "firefox": 0,
+  "business_actions": [],
+  "parent_observations": [
+    {
+      "role": "create",
+      "child_pid": 1041527,
+      "exit_code": 0,
+      "signal": null,
+      "elapsed_seconds": 3.22
+    },
+    {
+      "role": "source_RO2",
+      "child_pid": 1041740,
+      "exit_code": 0,
+      "signal": null,
+      "elapsed_seconds": 2.53
+    },
+    {
+      "role": "main_RO1",
+      "child_pid": 1041971,
+      "exit_code": 0,
+      "signal": null,
+      "elapsed_seconds": 1.83
+    }
+  ],
+  "raw_refs": [
+    {
+      "path": ".local/s10-lc2-exec-20261017/create-window/created-databases.json",
+      "bytes": 401,
+      "sha256": "b04567d7f89bb3ccf1dc0bc20074d7521e5429abfa3de4c90a9de4489990608b"
+    },
+    {
+      "path": ".local/s10-lc2-exec-20261017/create-window/maintenance-exit.tsv",
+      "bytes": 27,
+      "sha256": "13c368b5f5b9e1d32c3b87638f025bca0329bdc50d53ca443223dc5c7a2bcba2"
+    },
+    {
+      "path": ".local/s10-lc2-exec-20261017/source-after-copy/admission-decision.json",
+      "bytes": 780,
+      "sha256": "6faae5d925c043600c2e9b340f800ed3d3c9d387af3af5e920304f7763772aea"
+    },
+    {
+      "path": ".local/s10-lc2-exec-20261017/main-after-copy/clone-verification.json",
+      "bytes": 252,
+      "sha256": "0793b7d7d3e660427b6fa81dbc6389aa09ee0627e382d06923c3374de1535f19"
+    },
+    {
+      "path": ".local/s10-lc2-exec-20261017/runtime-dispatch-create.json",
+      "bytes": 1514,
+      "sha256": "1647148a0db98c31ac5b064480c25c67d09264de668908b0989dbcf068b923a0"
+    },
+    {
+      "path": ".local/s10-lc2-exec-20261017/target-plan.json",
+      "bytes": 744,
+      "sha256": "c38203781fb1e18caaa77677f9e786ec9907df5982997891f70c1d2cef3c5651"
+    }
+  ],
+  "independent_review": "acceptance-review.md",
+  "next_step": "NO_ODOO_UNTIL_FRAMEWORK_TOOLS_FREEZE_AND_STATIC_REVIEW"
+}
