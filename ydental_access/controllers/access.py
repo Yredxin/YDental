@@ -6,6 +6,9 @@ from odoo.http import request
 
 from odoo.addons.web.controllers.dataset import DataSet
 
+from ..diagnostics import update_context
+from .diagnostics import observed_http
+
 
 class YDentalAccess(http.Controller):
 
@@ -137,10 +140,12 @@ class YDentalDataSet(DataSet):
         # RPC context is untrusted. Only the numeric revision is consumed here;
         # a client purpose does not authorize care. Binding comes from the SID.
         bound = service._bind(session, context.get('ydental_revision'))
+        update_context(scope_revision=bound.env.context['ydental_binding'].revision)
         context['ydental_binding'] = bound.env.context['ydental_binding']
         return dict(kwargs, context=context)
 
     @http.route()
+    @observed_http('access.rpc.call_kw')
     def call_kw(self, model, method, args, kwargs, path=None):
         if model in request.env['ydental.access.service']._get_sources().values() or (
             method == 'export_data' and request.env.user.has_group('ydental_base.ydental_base_group_user')
@@ -156,6 +161,7 @@ class YDentalDataSet(DataSet):
         return super().call_kw(model, method, args, kwargs, path)
 
     @http.route()
+    @observed_http('access.rpc.call_button')
     def call_button(self, model, method, args, kwargs, path=None):
         if model in request.env['ydental.access.service']._get_sources().values():
             if type((kwargs.get('context') or {}).get('ydental_revision')) is not int:
