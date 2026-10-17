@@ -1,6 +1,7 @@
 """Meaningful offline LC2 tests. No Odoo, database or business browser is loaded."""
 from concurrent.futures import ThreadPoolExecutor
 import asyncio
+import atexit
 import importlib.util
 import hashlib
 import json
@@ -10,6 +11,8 @@ from pathlib import Path
 import signal
 import sys
 import tempfile
+import threading
+import weakref
 import unittest
 from unittest.mock import patch
 
@@ -63,6 +66,17 @@ class ToolCase(unittest.TestCase):
         self.assertEqual(self.log(b'')['status'], 'INVALID')
         result = self.log(json.dumps(record(event='request.returned')).encode() + b'\n')
         self.assertIn('MISSING_RUN_END', [item['code'] for item in result['defects']])
+
+    def test_process_end_does_not_hide_same_run_other_pid_gap(self):
+        rows = [record(1, event='request.returned'),
+                record(1, pid=456, event_id='other-pid-end', event='run.end')]
+        result = self.log(b''.join(json.dumps(row).encode() + b'\n' for row in rows))
+        self.assertEqual(result['status'], 'INVALID')
+        gaps = [item for item in result['defects'] if item['code'] == 'MISSING_RUN_END']
+        self.assertEqual(gaps, [{'run_id': 'synthetic-run', 'pid': 123, 'code': 'MISSING_RUN_END'}])
+        rows.append(record(2, event='run.end'))
+        result = self.log(b''.join(json.dumps(row).encode() + b'\n' for row in rows))
+        self.assertEqual(result['status'], 'VALID', result['defects'])
 
     def test_primary_secondary_and_checkpoint_independent(self):
         rows = [record(1, event='error', error_class='APPLICATION_ERROR'),
@@ -299,11 +313,16 @@ class DiagnosticsCase(unittest.TestCase):
 
     def setUp(self):
         ToolCase.setUp(self)
+        environment = patch.dict(os.environ, {'YDENTAL_RUN_ID': 'synthetic-run', 'YDENTAL_TASK_ID': 'S10-LC2'})
+        environment.start()
+        self.addCleanup(environment.stop)
         logger = logging.getLogger('ydental.events')
         previous_handlers, previous_level, previous_propagate = list(logger.handlers), logger.level, logger.propagate
         logger.handlers = []
 
         def cleanup():
+            self.diagnostics._close_lifecycle(os.getpid(), self.diagnostics._lifecycle_labels())
+            atexit.unregister(self.diagnostics._close_lifecycle)
             for handler in list(logger.handlers):
                 handler.close()
             logger.handlers = previous_handlers
@@ -323,6 +342,14 @@ class DiagnosticsCase(unittest.TestCase):
                     if isinstance(item, self.diagnostics.PidFileHandler)]
         self.assertEqual(len(handlers), 1)
         self.assertIs(logging.getLogRecordFactory(), factory)
+        logging.shutdown([weakref.ref(handlers[0])])
+        handlers[0].close()
+        logging.shutdown([weakref.ref(handlers[0])])
+        result = validate_jsonl(list(self.directory.glob('events-*.jsonl')))
+        self.assertEqual(result['status'], 'VALID', result['defects'])
+        self.assertEqual([item['record']['event'] for item in result['records']], ['run.start', 'run.end'])
+        self.assertTrue(all(item['record']['commit_observation'] == 'NOT_OBSERVED' for item in result['records']))
+        self.assertEqual(result['records'][-1]['record']['outcome'], 'DIAGNOSTIC_CLOSING')
 
     def test_context_isolated_threads_and_async_tasks_and_reset(self):
         def thread_case(value):
@@ -353,7 +380,7 @@ class DiagnosticsCase(unittest.TestCase):
         self.diagnostics.configure_once(str(self.directory))
 
         def writer(index):
-            token = self.diagnostics.bind_context(run_id='synthetic-thread-run', task_id='S10-LC2',
+            token = self.diagnostics.bind_context(run_id='synthetic-run', task_id='S10-LC2',
                                                   case_id='L02-' + str(index), trace_id='trace-' + str(index),
                                                   request_id='request-' + str(index))
             try:
@@ -364,29 +391,73 @@ class DiagnosticsCase(unittest.TestCase):
 
         with ThreadPoolExecutor(max_workers=4) as executor:
             list(executor.map(writer, range(4)))
-        token = self.diagnostics.bind_context(run_id='synthetic-thread-run')
-        try:
-            self.diagnostics.emit_event('run.end')
-        finally:
-            self.diagnostics.reset_context(token)
+        logging.shutdown([weakref.ref(item) for item in logging.getLogger('ydental.events').handlers])
         result = validate_jsonl(list(self.directory.glob('events-*.jsonl')))
         self.assertEqual(result['status'], 'VALID', result['defects'])
-        self.assertEqual(result['record_count'], 201)
-        for item in result['records'][:-1]:
+        self.assertEqual(result['record_count'], 202)
+        for item in query_timeline(result, event='synthetic.thread.event'):
             row = item['record']
             suffix = row['case_id'].split('-')[-1]
             self.assertEqual(row['trace_id'], 'trace-' + suffix)
             self.assertEqual(row['request_id'], 'request-' + suffix)
             self.assertEqual(row['operation'], 'operation-' + suffix)
 
-    def test_no_context_is_explicit_and_strict_validator_compatible(self):
+    def test_real_emit_and_explicit_shutdown_have_bounded_join(self):
         self.diagnostics.configure_once(str(self.directory))
-        self.diagnostics.emit_event('run.end')
+        handler = next(item for item in logging.getLogger('ydental.events').handlers
+                       if isinstance(item, self.diagnostics.PidFileHandler))
+        ready = threading.Barrier(3)
+        done, errors = [], []
+
+        def writer():
+            try:
+                token = self.diagnostics.bind_context(run_id='synthetic-run')
+                try:
+                    ready.wait(timeout=2)
+                    for _ in range(25):
+                        self.diagnostics.emit_event('synthetic.concurrent-close')
+                    done.append('writer')
+                finally:
+                    self.diagnostics.reset_context(token)
+            except BaseException as error:
+                errors.append(type(error).__name__)
+
+        def closer():
+            try:
+                ready.wait(timeout=2)
+                logging.shutdown([weakref.ref(handler)])
+                done.append('close')
+            except BaseException as error:
+                errors.append(type(error).__name__)
+
+        threads = [threading.Thread(target=writer, daemon=True), threading.Thread(target=closer, daemon=True)]
+        for thread in threads:
+            thread.start()
+        ready.wait(timeout=2)
+        for thread in threads:
+            thread.join(timeout=3)
+        self.assertTrue(all(not thread.is_alive() for thread in threads), 'emit/shutdown lock ordering deadlocked')
+        self.assertEqual(errors, [])
+        self.assertCountEqual(done, ['writer', 'close'])
+        # Writes after diagnostic close may mark unavailable; they never block or
+        # prove a completed business transaction. Full validity is tested separately.
+        result = validate_jsonl(list(self.directory.glob('events-*.jsonl')))
+        ends = query_timeline(result, event='run.end')
+        self.assertEqual(len(ends), 1)
+        self.assertEqual(ends[0]['record']['commit_observation'], 'NOT_OBSERVED')
+
+    def test_no_request_context_keeps_launch_identity_and_complete_run(self):
+        self.diagnostics.configure_once(str(self.directory))
+        self.diagnostics.emit_event('synthetic.no-context')
+        self.diagnostics._close_lifecycle(os.getpid(), self.diagnostics._lifecycle_labels())
         for handler in logging.getLogger('ydental.events').handlers:
             handler.flush()
         result = validate_jsonl(list(self.directory.glob('events-*.jsonl')))
-        self.assertEqual(result['status'], 'VALID')
-        event = result['records'][0]['record']
+        self.assertEqual(result['status'], 'VALID', result['defects'])
+        self.assertEqual(result['record_count'], 3)
+        event = query_timeline(result, event='synthetic.no-context')[0]['record']
+        self.assertEqual(event['run_id'], 'synthetic-run')
+        self.assertEqual(event['task_id'], 'S10-LC2')
         self.assertTrue(event['context_missing'])
         self.assertIsNone(event['actor_id'])
         self.assertEqual(event['commit_observation'], 'NOT_OBSERVED')
@@ -421,6 +492,35 @@ class DiagnosticsCase(unittest.TestCase):
         self.assertIn('NameError', text)
         self.assertIn('synthetic-trace', text)
         self.assertNotIn('synthetic-secret', text)
+        parsed = [dict(line.split('=', 1) for line in path.read_text().splitlines()) for path in primaries]
+        first = [row for row in parsed if row['exception_type'] == 'NameError']
+        secondary = [row for row in parsed if row['exception_type'] == 'ValueError']
+        self.assertEqual(len(first), 1)
+        self.assertEqual(len(secondary), 1)
+        self.assertEqual(secondary[0]['root_event_id'], first[0]['event_id'])
+        self.assertEqual(secondary[0]['stage'], 'evidence.finalization')
+        self.assertEqual(secondary[0]['error_class'], 'EVIDENCE_ERROR')
+        self.assertTrue(self.diagnostics.diagnostics_failed())
+
+    def test_primary_and_fallback_failure_keeps_business_instance(self):
+        self.diagnostics.configure_once(str(self.directory))
+        original = NameError('synthetic-business-private')
+        observed = None
+        try:
+            try:
+                raise original
+            except NameError as error:
+                with patch.object(self.diagnostics, '_minimal_exception', side_effect=OSError('writer')):
+                    with patch.object(self.diagnostics.os, 'write', side_effect=OSError('stderr')):
+                        self.diagnostics.record_exception(error, component='synthetic', stage='business.start')
+                raise
+        except NameError as error:
+            observed = error
+        self.assertIs(observed, original)
+        self.assertTrue(self.diagnostics.diagnostics_failed())
+        for path in self.directory.iterdir():
+            if path.is_file():
+                self.assertNotIn(b'synthetic-business-private', path.read_bytes())
 
     def test_rotation_stops_at_bound_and_preserves_segments(self):
         handler = self.diagnostics.PidFileHandler(self.directory, segment_bytes=128, max_segments=2)

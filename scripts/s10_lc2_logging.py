@@ -73,12 +73,12 @@ def validate_jsonl(paths, *, require_end=True):
                         if row['event_id'] in seen:
                             raise ValueError('DUPLICATE_EVENT_ID')
                         process = (row.get('run_id'), row['pid'])
-                        previous = sequences.get(process)
+                        previous = sequences.get(row['pid'])
                         if previous is not None and row['process_seq'] != previous + 1:
                             raise ValueError('PROCESS_SEQUENCE_GAP_OR_REORDER')
-                        sequences[process] = row['process_seq']
+                        sequences[row['pid']] = row['process_seq']
                         seen.add(row['event_id'])
-                        run = runs.setdefault(row.get('run_id'), set())
+                        run = runs.setdefault(process, set())
                         run.add(row['event'])
                         records.append({'location': location, 'record': row})
                     except (ValueError, UnicodeError) as error:
@@ -90,9 +90,9 @@ def validate_jsonl(paths, *, require_end=True):
                 if issue:
                     defects.append(location | {'code': issue})
     if require_end:
-        for run_id, events in runs.items():
+        for (run_id, pid), events in runs.items():
             if 'run.end' not in events:
-                defects.append({'run_id': run_id, 'code': 'MISSING_RUN_END'})
+                defects.append({'run_id': run_id, 'pid': pid, 'code': 'MISSING_RUN_END'})
     if not records:
         defects.append({'code': 'NO_VALID_RECORDS'})
     return {'status': 'INVALID' if defects else 'VALID', 'records': records,

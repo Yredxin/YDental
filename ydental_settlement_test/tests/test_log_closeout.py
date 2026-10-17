@@ -62,13 +62,13 @@ class TestLogCloseoutHTTP(HttpCase):
     def url_open(self, url, *args, allow_redirects=False, **kwargs):
         # authenticate() in this fixed core seeds a framework session locally;
         # every actual HTTP call here is explicit and never follows redirects.
-        from s10_lc2_evidence import Budget
+        from s10_lc2_targets import PackageBudget
         budget_directory = os.environ.get('YDENTAL_LC2_BUDGET_DIR')
         if not budget_directory:
             raise RuntimeError('LC2_HTTP_TEST_REQUIRES_APPROVED_BUDGET')
         if allow_redirects:
             raise RuntimeError('LC2_HTTP_TEST_AUTO_REDIRECT_FORBIDDEN')
-        Budget(budget_directory).consume('http')
+        PackageBudget(budget_directory).consume('http')
         return super().url_open(url, *args, allow_redirects=False, **kwargs)
 
     def test_actual_rpc_preserves_native_access_error_name_and_arguments(self):
@@ -84,7 +84,8 @@ class TestLogCloseoutHTTP(HttpCase):
                                      data='{"jsonrpc":"2.0","method":"call","id":1,"params":'
                                           '{"model":"ydental.access.audit","method":"write","args":'
                                           '[[' + str(audit.id) + '],{"ydental_reason":"synthetic tamper"}],"kwargs":{}}}',
-                                     headers={'Content-Type': 'application/json'})
+                                     headers={'Content-Type': 'application/json', 'X-YDental-Case-ID': 'L03',
+                                              'X-YDental-Operation-Ref': 'lc2-framework-native-audit-denial'})
         self.assertEqual(response.status_code, 200)
         value = response.json()
         self.assertNotIn('result', value)
