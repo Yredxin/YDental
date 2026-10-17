@@ -1,0 +1,17 @@
+{
+  "DSNs_observed": [
+    "ydental_s10_test_20261017080710_2494c102"
+  ],
+  "SIGSEGV": false,
+  "action": "prepare-all",
+  "backend_creations": [
+    1473875
+  ],
+  "exit_code": 1,
+  "log_bytes": 10216,
+  "log_sha256": "58b239d8f8f843d0ae8b3df086cded5603897b44cb9102d911a59d90394c4773",
+  "per_PID_DSN": "UNKNOWN where native log omits it",
+  "pid": 940956,
+  "pool_max_observed": 1,
+  "round": 0
+}

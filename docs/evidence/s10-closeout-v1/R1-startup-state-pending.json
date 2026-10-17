@@ -1,0 +1,13 @@
+{
+  "R0_failure_preserved": true,
+  "R1_business_dispatched": false,
+  "R1_source_extra_RO_approval_received": false,
+  "core_prefix_check_exit": 0,
+  "current_STOP_remains_effective": true,
+  "new_code_offline_ready": true,
+  "new_preflight_exit": 0,
+  "other_budget_increases_requested": 0,
+  "safety_refusal_bypass": false,
+  "source_extra_RO_requested": 1,
+  "state": "WAITING_EXPLICIT_SOURCE_BUDGET_EXCEPTION"
+}

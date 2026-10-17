@@ -1,0 +1,15 @@
+{
+  "DB_Odoo_HTTP_Firefox_used": 0,
+  "actor_flush_default_writer": 7,
+  "core_function_prefix": "odoo/orm/models.py::_write_multi before SQL grouping",
+  "core_source_sha256": "e84f13aeaf02b61f69a38f4e293400279334386fd7619e64f6a21a6b5a383668",
+  "exit_code": 0,
+  "explicit_existing_dirty_writer_preserved": true,
+  "independent_tail_equals_pre_acquire": true,
+  "layer": "ISOLATED_FIXED_CORE_PREFIX_AND_SAVED_R0_EVIDENCE",
+  "real_R0_writer1_still_rejected": true,
+  "root_flush_default_writer": 1,
+  "scope_of_conclusion": "collector flush identity defect; no product/core modification",
+  "synthetic_fixture_does_not_rewrite_R0": true,
+  "synthetic_writer7_fixture_accepted": true
+}

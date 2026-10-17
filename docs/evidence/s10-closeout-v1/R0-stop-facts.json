@@ -1,0 +1,93 @@
+{
+  "A_confirm_correct_release": 0,
+  "B_C_D_E": 0,
+  "Firefox_HTTP_RPC_PDF": 0,
+  "acquire_rolled_back": true,
+  "doc": "pending/v2/editorNULL",
+  "economic_stored_changes": 0,
+  "only_committed_changes": [
+    {
+      "columns": [
+        "__physical_oid__",
+        "__physical_table__",
+        "create_date",
+        "create_uid",
+        "id",
+        "write_date",
+        "write_uid",
+        "ydental_after",
+        "ydental_before",
+        "ydental_category",
+        "ydental_event",
+        "ydental_reason",
+        "ydental_result",
+        "ydental_source",
+        "ydental_store_id",
+        "ydental_target_id",
+        "ydental_target_model",
+        "ydental_user_id"
+      ],
+      "key": [
+        "public",
+        "ydental_access_audit",
+        1173
+      ],
+      "table": "ydental_access_audit"
+    },
+    {
+      "columns": [
+        "__physical_oid__",
+        "__physical_table__",
+        "create_date",
+        "create_uid",
+        "id",
+        "write_date",
+        "write_uid",
+        "ydental_after",
+        "ydental_before",
+        "ydental_category",
+        "ydental_event",
+        "ydental_reason",
+        "ydental_result",
+        "ydental_source",
+        "ydental_store_id",
+        "ydental_target_id",
+        "ydental_target_model",
+        "ydental_user_id"
+      ],
+      "key": [
+        "public",
+        "ydental_access_audit",
+        1174
+      ],
+      "table": "ydental_access_audit"
+    },
+    {
+      "columns": [
+        "__physical_oid__",
+        "__physical_table__",
+        "create_date",
+        "create_uid",
+        "id",
+        "write_date",
+        "write_uid",
+        "ydental_key_hash",
+        "ydental_revision",
+        "ydental_store_id",
+        "ydental_user_id"
+      ],
+      "key": [
+        "public",
+        "ydental_access_session",
+        107
+      ],
+      "table": "ydental_access_session"
+    }
+  ],
+  "source_and_clone_initial_full_645_verified": true,
+  "source_final_preserved": {
+    "all_645_tables_schema_rows_exact": true,
+    "all_filestore_bytes_exact": true,
+    "source_connections": 2
+  }
+}

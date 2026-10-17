@@ -73,6 +73,27 @@ def git(*args, cwd=ROOT):
     return subprocess.check_output(['git', '-C', str(cwd), *args], text=True).strip()
 
 
+def current_freeze():
+    return read(ROOT / read(PRIVATE / 'active-plan.json')['freeze_path'])
+
+
+def stopped():
+    if (PRIVATE / 'STOP-r1.json').exists():
+        return True
+    if not (PRIVATE / 'STOP.json').exists():
+        return False
+    freeze = current_freeze()
+    if freeze['round'] != 1:
+        return True
+    permit = PRIVATE / 'repair-r1-approved.json'
+    if not permit.exists():
+        return True
+    proof = read(permit)
+    return not (proof['same_clone_only'] and proof['source_extra_final_RO_explicitly_approved']
+                and proof['preserved_R0_STOP_sha256'] == sha((PRIVATE / 'STOP.json').read_bytes())
+                and read(OUT / 'R1-offline-repair-check.json')['independent_tail_equals_pre_acquire'])
+
+
 def gate(business=False):
     assert git('branch', '--show-current') == BRANCH
     assert git('remote', 'get-url', 'origin') == 'https://github.com/Yredxin/YDental.git'
@@ -83,7 +104,7 @@ def gate(business=False):
     assert approval['user_execution_message_verbatim'] == 'Implement the plan.'
     plan = read(PRIVATE / 'active-plan.json')
     freeze = read(ROOT / plan['freeze_path'])
-    sync = read(PRIVATE / 'github-preflight-sync.json')
+    sync = read(PRIVATE / plan.get('github_sync_path', 'github-preflight-sync.json'))
     assert sync['state'] in {'SYNCED_EXACT_READBACK', 'UNSYNCED'}
     if sync['state'] == 'SYNCED_EXACT_READBACK':
         raw = read(PRIVATE / sync['api_raw'])
@@ -94,7 +115,7 @@ def gate(business=False):
     for path, digest in freeze['file_sha256'].items():
         assert sha((ROOT / path).read_bytes()) == digest, ('FROZEN_DRIFT', path)
     if business:
-        assert not (PRIVATE / 'STOP.json').exists()
+        assert not stopped()
     return freeze
 
 
@@ -210,8 +231,13 @@ def readonly(label, source=False, full=False):
     events = [json.loads(line) for line in (OUT / 'events.jsonl').read_text().splitlines()] if (OUT / 'events.jsonl').exists() else []
     assert sum(e['event'] == 'RO_intent' for e in events) < 28
     if source:
-        assert label in {'source-before', 'source-final'}
-        assert sum(e['event'] == 'RO_intent' and e.get('database') == SOURCE for e in events) < 2
+        cap = 2
+        if (PRIVATE / 'source-budget-approval.json').exists():
+            approval = read(PRIVATE / 'source-budget-approval.json')
+            assert approval['additional_final_source_RO'] == 1 and approval['explicit_user_approval']
+            cap = 3
+        assert label in {'source-before', 'source-final', 'source-final-r1'}
+        assert sum(e['event'] == 'RO_intent' and e.get('database') == SOURCE for e in events) < cap
     event('RO_intent', label=label, database=database)
     conn = psycopg2.connect(dbname=database, connect_timeout=5, options='-c default_transaction_read_only=on ' + OPTIONS, **credentials())
     try:
@@ -243,6 +269,7 @@ def filetree(root):
 
 
 def stop(reason):
-    if not (PRIVATE / 'STOP.json').exists():
-        save(PRIVATE / 'STOP.json', {'reason': reason, 'no_new_business': True})
+    path = PRIVATE / ('STOP-r1.json' if current_freeze()['round'] else 'STOP.json')
+    if not path.exists():
+        save(path, {'reason': reason, 'no_new_business': True})
     event('STOP', reason=reason)

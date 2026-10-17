@@ -18,7 +18,12 @@ from s10_closeout_v1_runtime import document_gate
 def main():
     os.umask(0o077)
     c.PRIVATE.mkdir(mode=0o700, exist_ok=True); c.OUT.mkdir(parents=True, exist_ok=True)
-    assert c.git('rev-parse', 'HEAD') == c.BASE
+    label_input = sys.argv[1] if len(sys.argv) > 1 else 'initial'
+    if label_input.startswith('R1'):
+        assert c.git('merge-base', c.BASE, 'HEAD') == c.BASE
+        assert not c.git('diff', c.BASE, 'HEAD', '--', 'ydental_*')
+    else:
+        assert c.git('rev-parse', 'HEAD') == c.BASE
     assert c.git('branch', '--show-current') == c.BRANCH
     assert c.git('rev-parse', 'HEAD', cwd=c.CORE_ROOT) == c.CORE
     assert not c.git('status', '--porcelain', '--untracked-files=no', cwd=c.CORE_ROOT)
@@ -194,7 +199,7 @@ def main():
         'DB_CREATE_Odoo_HTTP_Firefox_used': 0, 'config_sha256': c.sha((c.PRIVATE / 'proposed-odoo.conf').read_bytes())})
     c.save(c.OUT / ('execution-contract-' + label + '.json'), {
         'authority': 'USER_DIRECT_S10_CLOSEOUT_PLAN_v1.1', 'source': c.SOURCE, 'source_oid': c.SOURCE_OID,
-        'database': c.NAME, 'port': c.PORT, 'source_connections': 2, 'maintenance_connections': 1,
+        'database': c.NAME, 'port': c.PORT, 'source_connections': 3 if (c.PRIVATE / 'source-budget-approval.json').exists() else 2, 'maintenance_connections': 1,
         'CREATE': 1, 'READ_ONLY_RR_total': 28, 'Odoo_processes': 6, 'max_native_pool': 8,
         'HTTP_total': 600, 'original_GET_total': 12, 'original_generation': 0,
         'PDF_new_refund_render': 2, 'permission_category_changes_max': 8, 'new_S01_audit_max': 500,
@@ -202,6 +207,9 @@ def main():
         'D_actor': 5, 'D_distinct_approver': 6, 'doctor': 7, 'store': 1, 'company': 1, 'channel': 'cash',
         'D_date': 'actual current store local date, independently frozen before upstream and checked per action',
         'D_new_identity_or_expanded_permission': False, 'D_old_close_unlock': False,
+        'R1_source_budget_exception_state': 'EXPLICITLY_APPROVED' if (c.PRIVATE / 'source-budget-approval.json').exists() else 'PENDING_NOT_IMPLEMENTED',
+        'R1_actor_flush_before_uid1_projection': label_input.startswith('R1'),
+        'R1_C_revoke_restore': 'same legal manager5 HTTP grant, not extra Odoo processes',
         'A_acquire_confirm_correct_release_each': 1, 'A_normal_editor_heartbeat_max': 3,
         'A_editor_timeout_unchanged': True, 'A_versions': [2, 3, 4],
         'B_MODEL_write_unlink': 6, 'B_RPC_write_unlink': 6,

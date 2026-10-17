@@ -83,8 +83,9 @@ def run_native(action):
     assert action in ACTIONS
     prior = [json.loads(v) for v in (c.OUT / 'events.jsonl').read_text().splitlines()]
     assert sum(v['event'] == 'Odoo_process_intent' for v in prior) < 6
-    assert not any(v['event'] == 'Odoo_process_intent' and v.get('action') == action for v in prior)
-    c.event('Odoo_process_intent', action=action)
+    assert not any(v['event'] == 'Odoo_process_intent' and v.get('action') == action
+                   and v.get('round', 0) == freeze['round'] for v in prior)
+    c.event('Odoo_process_intent', action=action, round=freeze['round'])
     label = 'r%s-%s' % (freeze['round'], action)
     c.save(c.PRIVATE / (label + '-intent.json'), {'action': action, 'execution_HEAD': c.git('rev-parse', 'HEAD')})
     if action == 'upgrade':
@@ -119,14 +120,15 @@ def run_native(action):
 
 def source_final():
     c.gate()
-    source = c.readonly('source-final', source=True)
+    suffix = '-r1' if c.current_freeze()['round'] else ''
+    source = c.readonly('source-final' + suffix, source=True)
     before = c.read(c.PRIVATE / 'source-before-RO.json')
-    c.persist('source-final-preservation', before, source, c.exact)
+    c.persist('source-final-preservation' + suffix, before, source, c.exact)
     files = c.filetree(c.SOURCE_RUN / 'data/filestore' / c.SOURCE)
-    c.save(c.OUT / 'source-final-filestore.json', files)
+    c.save(c.OUT / ('source-final-filestore' + suffix + '.json'), files)
     assert files == c.read(c.PRIVATE / 'source-before-files.json')
-    c.save(c.OUT / 'source-final-preserved.json', {'all_645_tables_schema_rows_exact': True,
-                                               'all_filestore_bytes_exact': True, 'source_connections': 2})
+    c.save(c.OUT / ('source-final-preserved' + suffix + '.json'), {'all_645_tables_schema_rows_exact': True,
+                                               'all_filestore_bytes_exact': True, 'source_connections': 3 if suffix else 2})
 
 
 if __name__ == '__main__':

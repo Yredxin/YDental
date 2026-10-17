@@ -1,0 +1,16 @@
+{
+  "COMMIT_returned": 1,
+  "CREATE": 1,
+  "HTTP_RPC_Firefox_PDF_upgrade": 0,
+  "Odoo_cap": 6,
+  "Odoo_processes": 1,
+  "RO_cap": 28,
+  "RO_closed": 5,
+  "RO_total": 5,
+  "confirmed_corrected_released": 0,
+  "economic_writes": 0,
+  "maintenance": 1,
+  "source_RO": 2,
+  "source_cap": 2,
+  "source_extra_final_requested_not_approved": 1
+}

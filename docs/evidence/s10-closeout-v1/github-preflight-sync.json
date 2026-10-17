@@ -1,0 +1,13 @@
+{
+  "api_raw": "preflight-api-readback.json",
+  "authority": "USER_DIRECT_S10_CLOSEOUT_PLAN_v1.1",
+  "body_path": "preflight-body.txt",
+  "body_sha256": "5e5fab83ee45c116af13af06f0e2b09f9772d26637252b1e1835bb37c82029fe",
+  "business_test_failed": false,
+  "comment_id": 6231682329,
+  "post_exit_code": 0,
+  "readback_UTC": "2026-10-17T08:21:49.739220+00:00",
+  "safety_refusal": false,
+  "state": "SYNCED_EXACT_READBACK",
+  "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6231682329"
+}

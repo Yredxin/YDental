@@ -221,7 +221,7 @@ async def main():
                 return
             await click_original(page, 'A-after-document-original-v1')
             after_A = await asyncio.to_thread(c.readonly, 'A-after-real-UI-retake')
-            before_A = c.read(c.PRIVATE / 'D-recovered-committed-RO.json')
+            before_A = c.read(c.PRIVATE / 'r1-D-recovered-committed-RO.json')
             c.persist('A-real-UI-storage-window', before_A, after_A, original_gate)
 
             # Authenticated and genuinely anonymous finite native binary/RPC matrix.
@@ -293,7 +293,23 @@ async def main():
             reader = await context(); reader_page = await login(reader, SECRET['reader_login'])
             await click_original(reader_page, 'C-authorized-reader-before-revocation')
             await reader_page.wait_for_load_state('networkidle')
-            await wait_release('revoke')
+            async def grant_reader(levels, label):
+                assert levels in [{'export': 'none'}, {'settlement': 'none', 'export': 'write'}]
+                csrf = await page.locator('input[name=csrf_token]').first.input_value()
+                revision = await page.locator('input[name=revision]').first.input_value()
+                target = BASE + '/ydental/access/action'
+                dispatch('POST', target, 'C-real-authorized-grant')
+                response = await manager.request.post(target, form={'operation': 'grant', 'revision': revision,
+                    'csrf_token': csrf, 'output': 'json', 'payload': json.dumps({'user_id': SECRET['reader_id'],
+                    'store_id': SECRET['store_id'], 'levels': levels})}, max_redirects=0)
+                body = await response.body(); save_response(label, response, body)
+                assert response.status == 200 and json.loads(body)['membership_id'] == 7
+                stored = await asyncio.to_thread(c.readonly, label + '-committed')
+                actual = {r['ydental_category']: r['ydental_level'] for r in stored['tables']['ydental_access_grant']
+                          if r['ydental_membership_id'] == 7}
+                assert all(actual.get(k, 'none') == value for k, value in levels.items())
+                return stored
+            await grant_reader({'export': 'none'}, 'C-http-revoke')
             url = BASE + '/ydental/settlement/bill-original/' + str(SECRET['original_id'])
             dispatch('GET', url, 'HTTP_live_revocation')
             response = await reader.request.get(url, max_redirects=0)
@@ -301,7 +317,8 @@ async def main():
             no_pdf_leak(body); assert response.status == 403
             c.save(c.OUT / 'C-live-revocation.json', meta | {'next_request_denied': True, 'not_old_page_CAS_conflict': True})
 
-            await wait_release('restore')
+            await grant_reader({'settlement': 'none', 'export': 'write'}, 'C-http-restore')
+            c.save(c.OUT / 'C-http-control-complete.json', {'real_authorized_actor': 5, 'restored_initial_levels': True, 'extra_Odoo_processes': 0})
             dispatch('GET', url, 'HTTP_read_none_export_write')
             response = await reader.request.get(url, max_redirects=0)
             body = await response.body(); save_response('C-read-none-export-write', response, body)

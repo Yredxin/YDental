@@ -18,25 +18,29 @@ def bind(root, uid, store_id):
     session = access._session_for_key(key())
     bound = access._bind(session)
     bound._switch(store_id)
+    # Flush the normal actor's writes before the uid1 read-only projection.
+    # Odoo20 _write_multi supplies env.uid when an unchanged write_uid was not dirty.
+    bound.env.flush_all()
     return bound._bind(session)
 
 
 def snapshot(env):
     from odoo.orm.environments import Environment
-    env.flush_all()
+    assert not any(env._field_dirty.values()), 'ACTOR_MUST_FLUSH_BEFORE_UID1_PROJECTION'
+    assert not any(any(ids) for ids in env.transaction.tocompute.values()), 'ACTOR_PENDING_COMPUTE_BEFORE_PROJECTION'
     audit = Environment(env.cr, 1, {'lang': 'zh_CN'})
     fields = {'ydental.clinical.document': ['id', 'display_name', 'state', 'ydental_version'],
               'account.move': ['id', 'display_name', 'partner_id'],
               'stock.move': ['id', 'display_name', 'product_id']}
     display = {name: audit[name].search([], order='id').read(names) for name, names in fields.items()}
-    env.flush_all()
+    assert not any(env._field_dirty.values()), 'READ_PROJECTION_MUST_NOT_DIRTY_STORED_FIELDS'
     result = c.capture(env.cr)
     result['display_projection'] = display
     result['display_fields'] = fields
     return result
 
 
-def observe(env, label, call, predicate):
+def observe(env, label, call, predicate, actor_env=None):
     label = os.environ['YDENTAL_CLOSEOUT_ACTION'] + '-' + label
     COUNTS[label] += 1
     label += '-' + str(COUNTS[label])
@@ -45,6 +49,8 @@ def observe(env, label, call, predicate):
     c.event('native_action_intent', label=label)
     try:
         value = call()
+        if actor_env is not None:
+            actor_env.flush_all()
     except BaseException as error:
         after = snapshot(env)
         c.persist(label + '-exception', before, after, lambda a, b, d: {'exception_only_no_business_PASS': True})
@@ -185,7 +191,7 @@ def committed_gate(effects):
 
 
 def verify_facts(env):
-    env.flush_all()
+    assert not any(env._field_dirty.values()), 'ACTOR_MUST_FLUSH_BEFORE_READONLY_FACT_CHECK'
     for move in env['account.move'].search([('state', '=', 'posted')]):
         assert move.company_id.currency_id.is_zero(sum(move.line_ids.mapped('balance')))
     for source in env['ydental.settlement.source'].search([]):
@@ -199,6 +205,8 @@ def verify_facts(env):
 
 
 def checkpoint(cr, root, label, marker=None):
+    if c.current_freeze()['round']:
+        label = 'r1-' + label
     verify_facts(root)
     effects = native_effects(cr)
     before = snapshot(root)

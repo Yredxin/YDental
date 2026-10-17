@@ -98,17 +98,11 @@ def window(mode):
         begin = time.monotonic(); completed = set()
         while browser.poll() is None:
             assert service.poll() is None and time.monotonic() - begin < 1200
-            assert not (c.PRIVATE / 'STOP.json').exists()
-            for action in ['revoke', 'restore']:
-                marker = c.PRIVATE / ('browser-wait-' + action + '.json')
-                if mode == 'pre' and action not in completed and marker.exists():
-                    assert run_native(action) == 0
-                    c.save(c.PRIVATE / ('continue-' + action + '.json'), {'committed_and_read_back': True})
-                    completed.add(action)
+            assert not c.stopped()
             time.sleep(.2)
         status.update(browser_runner_exit_code=browser.returncode)
         assert browser.returncode == 0
-        if mode == 'pre': assert completed == {'revoke', 'restore'}
+        if mode == 'pre': assert (c.OUT / 'C-http-control-complete.json').exists()
         status['status'] = 'BROWSER_COMPLETE'
     except BaseException:
         c.stop('WEB_WINDOW_FAILED:' + mode)

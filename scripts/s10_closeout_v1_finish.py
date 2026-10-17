@@ -55,10 +55,10 @@ def verify_tail(tail):
 
 def main():
     es = events()
-    stopped = (c.PRIVATE / 'STOP.json').exists()
+    stopped = c.stopped()
     decisions = {p.name: c.read(p) for p in sorted(c.OUT.glob('*decision.json'))}
     actual = {
-        'authority': c.AUTH, 'parent': c.BASE, 'execution_commit': c.read(c.PRIVATE / 'freeze.json')['execution_commit'],
+        'authority': c.AUTH, 'parent': c.BASE, 'execution_commit': c.current_freeze()['execution_commit'],
         'source_READONLY': sum(v['event'] == 'RO_intent' and v.get('database') == c.SOURCE for v in es),
         'RO_total': sum(v['event'] == 'RO_intent' for v in es),
         'RO_closed': sum(v['event'] == 'RO_closed' for v in es),
@@ -71,9 +71,11 @@ def main():
         'commit_unknown': sum(v['event'] == 'commit_unknown' for v in es),
         'original_generation': 0, 'old_economic_replay': 0, 'S11_merge_deploy_Issue_Project_mutation': 0,
         'full_capture_nodes': [c.read(p)['full'] for p in c.OUT.glob('capture-*-layer.json')].count(True),
-        'STOP': c.read(c.PRIVATE / 'STOP.json') if stopped else None,
-        'github_sync': c.read(c.PRIVATE / 'github-preflight-sync.json')['state']}
-    for key, cap in [('source_READONLY', 2), ('RO_total', 28), ('maintenance', 1), ('CREATE', 1), ('Odoo_processes', 6)]:
+        'STOP': c.read(c.PRIVATE / ('STOP-r1.json' if (c.PRIVATE / 'STOP-r1.json').exists() else 'STOP.json')) if stopped else None,
+        'prior_R0_stop_preserved': c.read(c.PRIVATE / 'STOP.json') if (c.PRIVATE / 'STOP.json').exists() else None,
+        'github_sync': c.read(c.PRIVATE / c.read(c.PRIVATE / 'active-plan.json').get('github_sync_path', 'github-preflight-sync.json'))['state']}
+    cap_source = 3 if (c.PRIVATE / 'source-budget-approval.json').exists() else 2
+    for key, cap in [('source_READONLY', cap_source), ('RO_total', 28), ('maintenance', 1), ('CREATE', 1), ('Odoo_processes', 6)]:
         assert actual[key] <= cap
     http_path = c.OUT / 'HTTP-events.jsonl'
     http = [json.loads(v) for v in http_path.read_text().splitlines()] if http_path.exists() else []
@@ -88,9 +90,10 @@ def main():
              'decisions': {name: row['PASS'] for name, row in decisions.items()}, 'actual': actual}
     successful = not stopped and (c.OUT / 'Web-and-upgrade-result.json').exists()
     if successful:
-        tail = c.read(c.PRIVATE / 'final-tail-RO.json')
+        tail = c.read(c.PRIVATE / ('r1-final-tail-RO.json' if c.current_freeze()['round'] else 'final-tail-RO.json'))
         facts['tail'] = verify_tail(tail)
-        assert actual['RO_total'] == actual['RO_closed'] and actual['source_READONLY'] == 2
+        assert actual['RO_total'] == actual['RO_closed'] and actual['source_READONLY'] == cap_source
+        assert (c.OUT / ('source-final-preserved-r1.json' if c.current_freeze()['round'] else 'source-final-preserved.json')).exists()
         assert actual['commit_unknown'] == 0
         facts['upgrade'] = c.read(c.OUT / 'Web-and-upgrade-result.json')
         facts['visual_review'] = c.read(c.OUT / 'visual-review.json')

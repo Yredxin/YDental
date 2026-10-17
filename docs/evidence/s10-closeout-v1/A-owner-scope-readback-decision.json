@@ -1,0 +1,8 @@
+{
+  "PASS": true,
+  "evidence_first": true,
+  "result": {
+    "exact_storage_except_captured_native_rank_and_append_signals": true,
+    "native_effects": []
+  }
+}
