@@ -1,0 +1,32 @@
+{
+  "parent_HEAD": "42107b731775e239ef516e718f46347382147171",
+  "initial_HEAD": "42107b731775e239ef516e718f46347382147171",
+  "initial_tree": "clean before new P023 files",
+  "origin": "https://github.com/Yredxin/YDental.git",
+  "branch": "codex/s10-settlement-finance-r1-20261013",
+  "remote_HEAD": "42107b731775e239ef516e718f46347382147171",
+  "issue23": {
+    "state": "open",
+    "comments": 3,
+    "body_unchanged": true,
+    "all_3_comment_bodies_unchanged": true
+  },
+  "issue34": {
+    "state": "open",
+    "comments": 264,
+    "body_unchanged": true,
+    "old_260_comment_bodies_exact": true,
+    "P022_preflight_delivery_bodies_exact": true,
+    "only_further_comments": [
+      6230526897,
+      6230563750
+    ]
+  },
+  "issue35": {
+    "state": "open",
+    "comments": 0
+  },
+  "P023_duplicate_preflight_delivery_titled_records": 0,
+  "all_comments_complete_API_saved": true,
+  "all_runtime_operations_before_preflight": 0
+}
