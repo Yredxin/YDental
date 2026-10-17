@@ -1,5 +1,7 @@
 # 当前MAIN-A：基线已核，编辑收尾及工作台重取受登录输入阻塞
 
+最终[MAIN-A交付6242930304](https://github.com/Yredxin/YDental/issues/34#issuecomment-6242930304)已API全文读回一致：5996B/SHA`73cd8a6eb522cb5480df3b663620db68876fa9eddeb5dd79a7c5cb89b09c65f5`；证据提交`eadfae3aca4d558b4caa7c27203326ae99514ee9`。
+
 用户直接批准`YD-S10-LC2-MAIN-A-20261018-01`，父`72ac77e0c73695fdfeb50326bbae1dcb27407e04`，承接[六项采纳6242631423](https://github.com/Yredxin/YDental/issues/34#issuecomment-6242631423)。product保持`cf5d63fe510b52ea150d07495bf3062f4ce0961d`，本轮工具固定`f309511fbcbd746708a06ce9b24bf1eab340da4c`，core保持只读。新START[6242855166](https://github.com/Yredxin/YDental/issues/34#issuecomment-6242855166)全文1732B/SHA`fb2d9d5bbc1961a8b5510cbc8765471ed8d39644fefc8ab87f3af3690f221d42`API读回一致。旧150/六项及下方历史报告保留，本次未重跑。
 
 |A组|当前结果|实际证据层级|
