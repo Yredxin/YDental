@@ -30,6 +30,7 @@ def main():
     output = Path(args.output)
     output.mkdir(mode=0o700, parents=True, exist_ok=False)
     sources = sorted([*ROOT.glob('scripts/s10_lc2*.py'), ROOT / 'ydental_access/diagnostics.py',
+                      ROOT / 'ydental_settlement_test/tests/test_log_closeout.py',
                       *ROOT.glob('ydental_settlement/models/*.py')])
 
     def manifest():
@@ -77,9 +78,15 @@ def main():
                 scope.enter_context(patch.object(owner, name, deny(name)))
             for owner, name in ((builtins, 'open'), (io, 'open'), (os, 'open')):
                 scope.enter_context(patch.object(owner, name, confined_opener(getattr(owner, name))))
+            # Parent sticky-state checks must never inspect the real stopped run.
+            import s10_lc2_targets
+            synthetic_shared = output / 'synthetic-shared-state'
+            synthetic_shared.mkdir(mode=0o700)
+            scope.enter_context(patch.object(s10_lc2_targets, 'EXEC_ROOT', synthetic_shared))
             suite = unittest.TestSuite()
             for module in ('s10_lc2_test_process_guard', 's10_lc2_test_browser',
-                           's10_lc2_test_http', 's10_lc2_test_renderer'):
+                           's10_lc2_test_http', 's10_lc2_test_renderer',
+                           's10_lc2_test_framework_caller'):
                 suite.addTests(unittest.defaultTestLoader.loadTestsFromName(module))
             # No preflight subprocess, signal injection, accounts, cases import,
             # real framework, or broad discovery of unrelated application tests.
