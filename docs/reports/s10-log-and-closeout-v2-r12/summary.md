@@ -10,7 +10,7 @@
 
 开发期142项有1error（新增close检查重复抛已记录Native冻结，使旧`-11`返回契约回归），已在内部修复且不改弱旧断言；随后146项通过；最后追加四项交叉边界后在固定P/T执行150项。两次开发快照原样保留，不冒最终候选结果。私有最小索引在`.local/s10-lc2-caller-adapter-20261017-02/final-pure-candidate-1`；本轮增量详见[缺陷](defects.md)、[机器映射](acceptance-matrix.json)的`tr01_caller_adapter`及[独立验收](acceptance-review.md)。
 
-真实`/root/developer`单写五处实现，主控单写纯测试/报告与Git，同一`/root/acceptance`独立审查，原tester仍errored，不安排替代重发或接手被拒账户材料。独立验收已签`SOURCE_READY / PURE_OFFLINE_REVIEWED / RUNTIME_NOT_AUTHORIZED / S10_EXIT_BLOCKED`（43733B/SHA`4ffa9c6b42eb8ee53c1390440d8d0dcb6cda04ada9ab4f7ac839344e45ca35a8`，原38113B前缀未改）。六项真实框架、原A/B/C/D、E-MAIN/E-D均**NOT_RUN**，没有DB/Odoo/应用HTTP/RPC/浏览器/driver/原生PDF/资金/升级/维护/CREATE动作，不解除STOP，不改core/odoo-12、两库、旧文书/原件/账款。保留TR02/03/04与旧100报告；本适配不等于RUNTIME_READY或S10通过。
+真实`/root/developer`单写五处实现，主控单写纯测试/报告与Git，同一`/root/acceptance`独立审查，原tester仍errored，不安排替代重发或接手被拒账户材料。独立验收已签`SOURCE_READY / PURE_OFFLINE_REVIEWED / RUNTIME_NOT_AUTHORIZED / S10_EXIT_BLOCKED`（43870B/SHA`d0ff516bf71ad81e1ec4e0b84f5eb0b62ab2c5d0486f941913b5701144d0a2b9`，原38113B前缀未改）。六项真实框架、原A/B/C/D、E-MAIN/E-D均**NOT_RUN**，没有DB/Odoo/应用HTTP/RPC/浏览器/driver/原生PDF/资金/升级/维护/CREATE动作，不解除STOP，不改core/odoo-12、两库、旧文书/原件/账款。保留TR02/03/04与旧100报告；本适配不等于RUNTIME_READY或S10通过。
 
 仍需真实验证的最小项仅为：获独立合法运行准入后执行六框架（包含实际HttpCase与日志/累计预算/停止协同）、已有GPR/RPC/UI契约，以及原S10权限/原件/资金和双E回归。本轮未授权这些动作。推荐GPT对本固定源码作技术复核，S10及生产继续BLOCKED。
 
