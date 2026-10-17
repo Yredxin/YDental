@@ -1,0 +1,57 @@
+{
+  "task_id": "S10-LOG-AND-CLOSEOUT-v2",
+  "message_id": "YD-S10-LC2-PLAN-20261017-01",
+  "recorded_at_utc": "2026-10-17T10:14:38.801919+00:00",
+  "evidence_layer": "STATIC / PLAN_REVIEW_ONLY",
+  "hash_scope": "仅本轮新规划文件字节；不是业务事实测量，不含self/comment/sync可变文件以免自引用",
+  "files": [
+    {
+      "path": "docs/plans/s10-log-and-closeout-v2/plan-and-acceptance.md",
+      "bytes": 29151,
+      "sha256": "84bd69296d19a06d1daf3a937b5ca7c46c95712c62f6d81f9f525c53ef0162ce",
+      "level": "STATIC_PLAN"
+    },
+    {
+      "path": "docs/plans/s10-log-and-closeout-v2/run-manifest.json",
+      "bytes": 3772,
+      "sha256": "04edb4d7f81b2fed3a97959f0a3aacd04c4a0e2c8f3c5593ac831fefe5f5cb3a",
+      "level": "STATIC_PLAN"
+    },
+    {
+      "path": "docs/plans/s10-log-and-closeout-v2/agent-roster.json",
+      "bytes": 4900,
+      "sha256": "a26fd31668661c38199d4f7388edc976a9bf3f307081bdebfb975602f6895fb2",
+      "level": "STATIC_PLAN"
+    },
+    {
+      "path": "docs/plans/s10-log-and-closeout-v2/acceptance-matrix.json",
+      "bytes": 82004,
+      "sha256": "5d5d2109af42eecd9fdba19bd2cc219290e908bbe273d43c18153ae7c75c81ff",
+      "level": "STATIC_PLAN"
+    },
+    {
+      "path": "docs/plans/s10-log-and-closeout-v2/summary.md",
+      "bytes": 3108,
+      "sha256": "89055ded917c1523398718ed8ed42e11c6ccb62b3b14a82bf19d03d5bd1defc3",
+      "level": "STATIC_PLAN"
+    },
+    {
+      "path": "docs/plans/s10-log-and-closeout-v2/developer-handoff.md",
+      "bytes": 29063,
+      "sha256": "356d08dd1e31a356b4eef2b95e36f2d4a984232839a33e88a8f0a06dd73c2951",
+      "level": "STATIC_PLAN"
+    },
+    {
+      "path": "docs/plans/s10-log-and-closeout-v2/tester-handoff.md",
+      "bytes": 36139,
+      "sha256": "1473a208c451fc2fcedc1913e9d890315ffc6cefc515353f7fc16b1f6a36318e",
+      "level": "STATIC_PLAN"
+    },
+    {
+      "path": "docs/plans/s10-log-and-closeout-v2/acceptance-review.md",
+      "bytes": 10671,
+      "sha256": "89f326a7561d255b9cf4f4672b8cd6efee14715f3d9e2fb738e19d92a68990b8",
+      "level": "PLAN_REVIEW"
+    }
+  ]
+}

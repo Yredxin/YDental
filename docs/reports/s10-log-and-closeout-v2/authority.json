@@ -1,0 +1,16 @@
+{
+  "task_id": "S10-LOG-AND-CLOSEOUT-v2",
+  "message_id": "YD-S10-LC2-EXEC-20261017-01",
+  "revision": "1.1",
+  "authority_source": "用户本轮明确发送直接实施授权",
+  "received_at_utc": "2026-10-17T10:32:31.427Z",
+  "source": "当前父会话实际user_message，非GPT方案批准推定",
+  "source_private": ".local/s10-lc2-exec-20261017/direct-user-authorization.txt",
+  "bytes": 20304,
+  "sha256": "cfb74d583d164f48179711594739eb70cb4c72df4f94c1802490727873680e36",
+  "parent_commit": "e7cd02689b92c0cc4f7343842268b21e56de9f80",
+  "core_commit": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "adopted_plan": 6232709051,
+  "required_gpt_correction": 6232783106,
+  "old_runtime_budgets_revived": false
+}

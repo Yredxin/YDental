@@ -1,0 +1,2082 @@
+{
+  "task_id": "S10-LOG-AND-CLOSEOUT-v2",
+  "message_id": "YD-S10-LC2-PLAN-20261017-01",
+  "revision": "1.0",
+  "parent_commit": "e7cd02689b92c0cc4f7343842268b21e56de9f80",
+  "execution_status": "PLAN_ONLY / NO_NEW_RUNTIME_AUTH",
+  "counts": {
+    "LOG": 12,
+    "S10": 22
+  },
+  "status_rule": "历史正式采纳不覆盖新TC；方案评审不等于运行PASS；所有新增执行NOT_RUN",
+  "logs": [
+    {
+      "id": "LOG-01",
+      "requirement": "原生配置兼容",
+      "implementation": "diagnostics.configure_once / netsvc.init_logger只读 / logging-s10.example.json",
+      "test_cases": [
+        "L01:正常/异常启动和重复初始化；原生factory/handler字段兼容、无重复"
+      ],
+      "prerequisites": [
+        "完整实施包明确批准",
+        "锁定product/test/core版本",
+        "新环境/日志准入成立"
+      ],
+      "required_evidence_layers": [
+        "STATIC",
+        "SYNTHETIC_FIXTURE",
+        "HTTP/RPC"
+      ],
+      "planned_evidence": [
+        "case intent/result",
+        "JSONL+原生日志+独立进程索引",
+        "适用时S01 audit_ref与独立状态核实"
+      ],
+      "resources": "scratch日志配置+单次启动",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance",
+      "historical_acceptance": "新标准，未有LOG运行采纳",
+      "new_execution_status": "NOT_RUN",
+      "plan_status": "PLANNED"
+    },
+    {
+      "id": "LOG-02",
+      "requirement": "端到端关联",
+      "implementation": "bind_context/reset_context; _audit audit_ref; query_timeline",
+      "test_cases": [
+        "L02:正常/拒绝链；两真实并行请求不同actor/trace不串；缺上下文显式null"
+      ],
+      "prerequisites": [
+        "完整实施包明确批准",
+        "锁定product/test/core版本",
+        "新环境/日志准入成立"
+      ],
+      "required_evidence_layers": [
+        "STATIC",
+        "MODEL",
+        "HTTP/RPC"
+      ],
+      "planned_evidence": [
+        "case intent/result",
+        "JSONL+原生日志+独立进程索引",
+        "适用时S01 audit_ref与独立状态核实"
+      ],
+      "resources": "单服务两请求+独立audit查证",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance",
+      "historical_acceptance": "新标准，未有LOG运行采纳",
+      "new_execution_status": "NOT_RUN",
+      "plan_status": "PLANNED"
+    },
+    {
+      "id": "LOG-03",
+      "requirement": "拒绝/异常分类",
+      "implementation": "diagnostic_errors.py / action parse-vs-service catch-sites",
+      "test_cases": [
+        "L03:缺权限/日结/版本冲突固定码；合成NameError/TypeError程序异常；403/409/303不变"
+      ],
+      "prerequisites": [
+        "完整实施包明确批准",
+        "锁定product/test/core版本",
+        "新环境/日志准入成立"
+      ],
+      "required_evidence_layers": [
+        "STATIC",
+        "MODEL",
+        "HTTP/RPC",
+        "SYNTHETIC_FIXTURE"
+      ],
+      "planned_evidence": [
+        "case intent/result",
+        "JSONL+原生日志+独立进程索引",
+        "适用时S01 audit_ref与独立状态核实"
+      ],
+      "resources": "新夹具拒绝与scratch故障注入",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance",
+      "historical_acceptance": "新标准，未有LOG运行采纳",
+      "new_execution_status": "NOT_RUN",
+      "plan_status": "PLANNED"
+    },
+    {
+      "id": "LOG-04",
+      "requirement": "首异常与secondary",
+      "implementation": "supervisor.save_primary / evidence.seal / diagnostics.safe_exception_frames",
+      "test_cases": [
+        "L04:合成业务异常+保存异常+fallback异常；首异常不覆盖、不递归serializer"
+      ],
+      "prerequisites": [
+        "完整实施包明确批准",
+        "锁定product/test/core版本",
+        "离线工具安全夹具"
+      ],
+      "required_evidence_layers": [
+        "SYNTHETIC_FIXTURE"
+      ],
+      "planned_evidence": [
+        "case intent/result",
+        "JSONL+原生日志+独立进程索引",
+        "适用时S01 audit_ref与独立状态核实"
+      ],
+      "resources": "非Odoo安全工具用例",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance",
+      "historical_acceptance": "新标准，未有LOG运行采纳",
+      "new_execution_status": "NOT_RUN",
+      "plan_status": "PLANNED"
+    },
+    {
+      "id": "LOG-05",
+      "requirement": "真实事务结果",
+      "implementation": "intent/dispatch/independent_verify; D-FAILED/D-LOST",
+      "test_cases": [
+        "L05:回滚、accepted/returned与commit分列；真实新refund丢响应先UNKNOWN再独立核实；不盲重退"
+      ],
+      "prerequisites": [
+        "完整实施包明确批准",
+        "锁定product/test/core版本",
+        "新环境/日志准入成立"
+      ],
+      "required_evidence_layers": [
+        "MODEL",
+        "HTTP/RPC",
+        "MODEL_NATIVE_COMMITTED",
+        "SYNTHETIC_FIXTURE"
+      ],
+      "planned_evidence": [
+        "case intent/result",
+        "JSONL+原生日志+独立进程索引",
+        "适用时S01 audit_ref与独立状态核实"
+      ],
+      "resources": "新主目标唯一6/2+D observer",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance",
+      "historical_acceptance": "新标准，未有LOG运行采纳",
+      "new_execution_status": "NOT_RUN",
+      "plan_status": "PLANNED"
+    },
+    {
+      "id": "LOG-06",
+      "requirement": "日志无业务副作用",
+      "implementation": "diagnostics纯primitive / access._audit原失败规则",
+      "test_cases": [
+        "L06:静态禁ORM/flush/uid/default_env/锁/事务；开关同夹具经济差异0；强制审计失败回滚"
+      ],
+      "prerequisites": [
+        "完整实施包明确批准",
+        "锁定product/test/core版本",
+        "新环境/日志准入成立"
+      ],
+      "required_evidence_layers": [
+        "STATIC",
+        "MODEL",
+        "HTTP/RPC",
+        "MODEL_NATIVE_COMMITTED"
+      ],
+      "planned_evidence": [
+        "case intent/result",
+        "JSONL+原生日志+独立进程索引",
+        "适用时S01 audit_ref与独立状态核实"
+      ],
+      "resources": "scratch等价夹具+主目标A不变量",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance",
+      "historical_acceptance": "新标准，未有LOG运行采纳",
+      "new_execution_status": "NOT_RUN",
+      "plan_status": "PLANNED"
+    },
+    {
+      "id": "LOG-07",
+      "requirement": "独立进程退出",
+      "implementation": "supervisor.launch/record_exit; faulthandler独立FD",
+      "test_cases": [
+        "L07:正常/异常/timeout/安全非Odoo信号子进程；历史965603退出解析"
+      ],
+      "prerequisites": [
+        "完整实施包明确批准",
+        "锁定product/test/core版本",
+        "离线工具安全夹具"
+      ],
+      "required_evidence_layers": [
+        "STATIC",
+        "SYNTHETIC_FIXTURE"
+      ],
+      "planned_evidence": [
+        "case intent/result",
+        "JSONL+原生日志+独立进程索引",
+        "适用时S01 audit_ref与独立状态核实"
+      ],
+      "resources": "非Odoo工具测试；不诱发新Native",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance",
+      "historical_acceptance": "新标准，未有LOG运行采纳",
+      "new_execution_status": "NOT_RUN",
+      "plan_status": "PLANNED"
+    },
+    {
+      "id": "LOG-08",
+      "requirement": "严格JSONL完整性",
+      "implementation": "logging.validate_jsonl",
+      "test_cases": [
+        "L08:重复键/NaN/UTF8/截断/oversize/缺run-end/重复event；标INVALID不修旧证据"
+      ],
+      "prerequisites": [
+        "完整实施包明确批准",
+        "锁定product/test/core版本",
+        "离线工具安全夹具"
+      ],
+      "required_evidence_layers": [
+        "SYNTHETIC_FIXTURE"
+      ],
+      "planned_evidence": [
+        "case intent/result",
+        "JSONL+原生日志+独立进程索引",
+        "适用时S01 audit_ref与独立状态核实"
+      ],
+      "resources": "离线短坏行夹具",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance",
+      "historical_acceptance": "新标准，未有LOG运行采纳",
+      "new_execution_status": "NOT_RUN",
+      "plan_status": "PLANNED"
+    },
+    {
+      "id": "LOG-09",
+      "requirement": "隐私与注入",
+      "implementation": "diagnostics白名单 / public export scanner",
+      "test_cases": [
+        "L09:合成password/cookie/token/病例/换行/含秘异常；关联非secret；公开自动扫描+人工复核"
+      ],
+      "prerequisites": [
+        "完整实施包明确批准",
+        "锁定product/test/core版本",
+        "离线工具安全夹具"
+      ],
+      "required_evidence_layers": [
+        "STATIC",
+        "SYNTHETIC_FIXTURE"
+      ],
+      "planned_evidence": [
+        "case intent/result",
+        "JSONL+原生日志+独立进程索引",
+        "适用时S01 audit_ref与独立状态核实"
+      ],
+      "resources": "本包合成秘密与公开材料",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance",
+      "historical_acceptance": "新标准，未有LOG运行采纳",
+      "new_execution_status": "NOT_RUN",
+      "plan_status": "PLANNED"
+    },
+    {
+      "id": "LOG-10",
+      "requirement": "保存并发/开销有界",
+      "implementation": "PidFileHandler / supervisor单进程独占段/索引",
+      "test_cases": [
+        "L10:两写者分文件；上限/轮转/空间/权限失败；测开关时延、大小和事件数；不删历史"
+      ],
+      "prerequisites": [
+        "完整实施包明确批准",
+        "锁定product/test/core版本",
+        "新环境/日志准入成立"
+      ],
+      "required_evidence_layers": [
+        "SYNTHETIC_FIXTURE",
+        "HTTP/RPC"
+      ],
+      "planned_evidence": [
+        "case intent/result",
+        "JSONL+原生日志+独立进程索引",
+        "适用时S01 audit_ref与独立状态核实"
+      ],
+      "resources": "新run文件，16KiB行/10MiB段/5段/1GiB包",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance",
+      "historical_acceptance": "新标准，未有LOG运行采纳",
+      "new_execution_status": "NOT_RUN",
+      "plan_status": "PLANNED"
+    },
+    {
+      "id": "LOG-11",
+      "requirement": "独立验收定位",
+      "implementation": "query_timeline / summary / failure package",
+      "test_cases": [
+        "L11:未来fresh acceptance_locator独立线程仅拿标准入口index/manifest/AC，不继承开发/注入答案；定位首异常/最后可靠提交/UNKNOWN，记录实际耗时，无预设SLA"
+      ],
+      "prerequisites": [
+        "完整实施包明确批准",
+        "锁定product/test/core版本",
+        "离线工具安全夹具"
+      ],
+      "required_evidence_layers": [
+        "SYNTHETIC_FIXTURE"
+      ],
+      "planned_evidence": [
+        "case intent/result",
+        "JSONL+原生日志+独立进程索引",
+        "适用时S01 audit_ref与独立状态核实"
+      ],
+      "resources": "新失败夹具包；验收未参与写实现",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance",
+      "historical_acceptance": "新标准，未有LOG运行采纳",
+      "new_execution_status": "NOT_RUN",
+      "plan_status": "PLANNED"
+    },
+    {
+      "id": "LOG-12",
+      "requirement": "S10最小样例",
+      "implementation": "A合法只读或D正常 / B-C拒绝 / scratch程序异常",
+      "test_cases": [
+        "L12:正常+拒绝+程序异常三样例联四层、明确真实HTTP与模拟/MODEL边界"
+      ],
+      "prerequisites": [
+        "完整实施包明确批准",
+        "锁定product/test/core版本",
+        "新环境/日志准入成立"
+      ],
+      "required_evidence_layers": [
+        "MODEL",
+        "HTTP/RPC",
+        "MODEL_NATIVE_COMMITTED",
+        "BROWSER",
+        "SYNTHETIC_FIXTURE"
+      ],
+      "planned_evidence": [
+        "case intent/result",
+        "JSONL+原生日志+独立进程索引",
+        "适用时S01 audit_ref与独立状态核实"
+      ],
+      "resources": "获批新主目标与scratch；LOG不代替A-E",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance",
+      "historical_acceptance": "新标准，未有LOG运行采纳",
+      "new_execution_status": "NOT_RUN",
+      "plan_status": "PLANNED"
+    }
+  ],
+  "s10": [
+    {
+      "id": "F1",
+      "formal_requirement": "S10-F1（独立合成数据）：治疗600+检查80+发药6×10=740，出账740→实收500欠240→补240结清。重复请求不再收款/出账。",
+      "historical_formal_adoption": {
+        "status": "SCOPED_ACCEPTED_ONLY_NOT_STAGE_PASS",
+        "scope": "同一患者/执行/四费600+80+40+20=740；发布620后仍旧600；350+390原生核销、COMMIT及独立恢复读回。 产品未变，来源独立，限P021正式裁定采纳范围。",
+        "authority": [
+          "https://github.com/Yredxin/YDental/issues/34#issuecomment-6230102263"
+        ],
+        "source": {
+          "commit": "e7cd02689b92c0cc4f7343842268b21e56de9f80",
+          "file": "docs/evidence/s10-closeout-v1/exit-table-reviewed-terminal.json",
+          "json_pointer": "/rows/0",
+          "complete_history_retained_in_original": true
+        },
+        "layers": [
+          "MODEL_NATIVE_COMMITTED"
+        ],
+        "limitations": "保留740/350+390；原500+240只按原历史来源，禁止重收"
+      },
+      "new_requirement_groups": [
+        "E"
+      ],
+      "new_test_cases": [
+        "E-PREBASELINE",
+        "E-UPGRADE-S10-ONLY",
+        "E-PRESERVE",
+        "E-AFFECTED-REGRESSION"
+      ],
+      "affected_regression": [
+        "E前后全历史及本包经济/权限/文书/审计/附件/原件存储不变量",
+        "日志/typed-catch影响路径：新fixture模型与实际HTTP拒绝/身份，固定候选API/翻译兼容",
+        "涉及并发语义变化才在scratch真实独立backend补直接竞争；不用关联并行冒充业务竞争"
+      ],
+      "prerequisites": [
+        "第4节新准入和资源明确批准",
+        "A目标继承v3/v4而非pending/v2重建",
+        "无未知提交/权限/完整性/Native硬停止"
+      ],
+      "planned_evidence": [
+        "intent/固定candidate与真实角色",
+        "对应A-E原始响应/独立状态/索引",
+        "E精确差异及旧/新提交保全"
+      ],
+      "resources": "主计划第4节整包统一上限，禁止继承旧预算",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance",
+      "new_execution_status": "NOT_RUN",
+      "stage_exit_status": "BLOCKED",
+      "plan_status": "PLANNED",
+      "evidence_requirement_refs": [
+        "/tc_evidence_requirements/E-PREBASELINE",
+        "/tc_evidence_requirements/E-UPGRADE-S10-ONLY",
+        "/tc_evidence_requirements/E-PRESERVE",
+        "/tc_evidence_requirements/E-AFFECTED-REGRESSION"
+      ],
+      "new_execution_evidence": []
+    },
+    {
+      "id": "F2",
+      "formal_requirement": "S10-F2：已收740→申请退100→他人批准，在途100/实退0→确认真实退100，累计已退100/净收640。拒绝另一申请须原因且不产生退款。",
+      "historical_formal_adoption": {
+        "status": "SCOPED_ACCEPTED_ONLY_NOT_STAGE_PASS",
+        "scope": "新申请100异人批准/实际退100，收740净640；拒50无贷项/付款；unknown80核实未付取消、容量回390。 产品未变，来源独立，限P021正式裁定采纳范围。",
+        "authority": [
+          "https://github.com/Yredxin/YDental/issues/34#issuecomment-6230102263"
+        ],
+        "source": {
+          "commit": "e7cd02689b92c0cc4f7343842268b21e56de9f80",
+          "file": "docs/evidence/s10-closeout-v1/exit-table-reviewed-terminal.json",
+          "json_pointer": "/rows/1",
+          "complete_history_retained_in_original": true
+        },
+        "layers": [
+          "MODEL_NATIVE_COMMITTED"
+        ],
+        "limitations": "100/50/unknown80等独立历史不拼主链；D新failed/退款丢响应另证"
+      },
+      "new_requirement_groups": [
+        "D",
+        "E"
+      ],
+      "new_test_cases": [
+        "D-ADMIT",
+        "D-NORMAL-6",
+        "D-FAILED-2",
+        "D-RECOVER-2",
+        "D-LOST-REFUND-2",
+        "D-VERIFY-RETRY",
+        "E-PREBASELINE",
+        "E-UPGRADE-S10-ONLY",
+        "E-PRESERVE",
+        "E-AFFECTED-REGRESSION"
+      ],
+      "affected_regression": [
+        "E前后全历史及本包经济/权限/文书/审计/附件/原件存储不变量",
+        "日志/typed-catch影响路径：新fixture模型与实际HTTP拒绝/身份，固定候选API/翻译兼容",
+        "涉及并发语义变化才在scratch真实独立backend补直接竞争；不用关联并行冒充业务竞争"
+      ],
+      "prerequisites": [
+        "第4节新准入和资源明确批准",
+        "A目标继承v3/v4而非pending/v2重建",
+        "无未知提交/权限/完整性/Native硬停止"
+      ],
+      "planned_evidence": [
+        "intent/固定candidate与真实角色",
+        "对应A-E原始响应/独立状态/索引",
+        "E精确差异及旧/新提交保全"
+      ],
+      "resources": "主计划第4节整包统一上限，禁止继承旧预算",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance",
+      "new_execution_status": "NOT_RUN",
+      "stage_exit_status": "BLOCKED",
+      "plan_status": "PLANNED",
+      "evidence_requirement_refs": [
+        "/tc_evidence_requirements/D-ADMIT",
+        "/tc_evidence_requirements/D-NORMAL-6",
+        "/tc_evidence_requirements/D-FAILED-2",
+        "/tc_evidence_requirements/D-RECOVER-2",
+        "/tc_evidence_requirements/D-LOST-REFUND-2",
+        "/tc_evidence_requirements/D-VERIFY-RETRY",
+        "/tc_evidence_requirements/E-PREBASELINE",
+        "/tc_evidence_requirements/E-UPGRADE-S10-ONLY",
+        "/tc_evidence_requirements/E-PRESERVE",
+        "/tc_evidence_requirements/E-AFFECTED-REGRESSION"
+      ],
+      "new_execution_evidence": []
+    },
+    {
+      "id": "F3",
+      "formal_requirement": "S10-F3：实际微信录成现金且已日结→财务审批解锁留原因→更正登记→再日结，没有真实资金往返；实物退药另进待核查。",
+      "historical_formal_adoption": {
+        "status": "SCOPED_ACCEPTED_ONLY_NOT_STAGE_PASS",
+        "scope": "新现金日结550锁、异人解锁、更正300到微信、原生重分类move15、重结300；无现金往返。药品退回另记录。 产品未变，来源独立，限P021正式裁定采纳范围。",
+        "authority": [
+          "https://github.com/Yredxin/YDental/issues/34#issuecomment-6230102263"
+        ],
+        "source": {
+          "commit": "e7cd02689b92c0cc4f7343842268b21e56de9f80",
+          "file": "docs/evidence/s10-closeout-v1/exit-table-reviewed-terminal.json",
+          "json_pointer": "/rows/2",
+          "complete_history_retained_in_original": true
+        },
+        "layers": [
+          "MODEL_NATIVE_COMMITTED"
+        ],
+        "limitations": "旧日结/重分类与实物事实保持；新拒绝夹具测DAY_CLOSED，不解旧锁"
+      },
+      "new_requirement_groups": [
+        "E"
+      ],
+      "new_test_cases": [
+        "E-PREBASELINE",
+        "E-UPGRADE-S10-ONLY",
+        "E-PRESERVE",
+        "E-AFFECTED-REGRESSION"
+      ],
+      "affected_regression": [
+        "E前后全历史及本包经济/权限/文书/审计/附件/原件存储不变量",
+        "日志/typed-catch影响路径：新fixture模型与实际HTTP拒绝/身份，固定候选API/翻译兼容",
+        "涉及并发语义变化才在scratch真实独立backend补直接竞争；不用关联并行冒充业务竞争"
+      ],
+      "prerequisites": [
+        "第4节新准入和资源明确批准",
+        "A目标继承v3/v4而非pending/v2重建",
+        "无未知提交/权限/完整性/Native硬停止"
+      ],
+      "planned_evidence": [
+        "intent/固定candidate与真实角色",
+        "对应A-E原始响应/独立状态/索引",
+        "E精确差异及旧/新提交保全"
+      ],
+      "resources": "主计划第4节整包统一上限，禁止继承旧预算",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance",
+      "new_execution_status": "NOT_RUN",
+      "stage_exit_status": "BLOCKED",
+      "plan_status": "PLANNED",
+      "evidence_requirement_refs": [
+        "/tc_evidence_requirements/E-PREBASELINE",
+        "/tc_evidence_requirements/E-UPGRADE-S10-ONLY",
+        "/tc_evidence_requirements/E-PRESERVE",
+        "/tc_evidence_requirements/E-AFFECTED-REGRESSION"
+      ],
+      "new_execution_evidence": []
+    },
+    {
+      "id": "F4",
+      "formal_requirement": "S10-F4：真实诊疗/检查/发药、批次扣减→结算→补旧文书/重印票据，费库款不再变化，调价也不改原已确认费用。",
+      "historical_formal_adoption": {
+        "status": "SCOPED_ACCEPTED_ONLY_NOT_STAGE_PASS",
+        "scope": "同源治疗/检查/药房4+2/批次/四费/账款已提交，原件1留存；acquire完整经济差异为0，但患者mutex修订被冻结门禁拒绝并回滚。 产品未变，来源独立，限P021正式裁定采纳范围。；6232155980追加同源confirmed/v3和correct/v4已验证提交，release当前UNKNOWN。",
+        "authority": [
+          "https://github.com/Yredxin/YDental/issues/34#issuecomment-6230102263",
+          "https://github.com/Yredxin/YDental/issues/34#issuecomment-6232155980"
+        ],
+        "source": {
+          "commit": "e7cd02689b92c0cc4f7343842268b21e56de9f80",
+          "file": "docs/evidence/s10-closeout-v1/exit-table-reviewed-terminal.json",
+          "json_pointer": "/rows/3",
+          "complete_history_retained_in_original": true
+        },
+        "layers": [
+          "MODEL_NATIVE_COMMITTED",
+          "BROWSER"
+        ],
+        "limitations": "6232155980仅采v3/v4子证据；A仍尾段未完成"
+      },
+      "new_requirement_groups": [
+        "A",
+        "E"
+      ],
+      "new_test_cases": [
+        "A-STATE",
+        "A-EDITOR",
+        "A-ORIGINAL",
+        "E-PREBASELINE",
+        "E-UPGRADE-S10-ONLY",
+        "E-PRESERVE",
+        "E-AFFECTED-REGRESSION"
+      ],
+      "affected_regression": [
+        "E前后全历史及本包经济/权限/文书/审计/附件/原件存储不变量",
+        "日志/typed-catch影响路径：新fixture模型与实际HTTP拒绝/身份，固定候选API/翻译兼容",
+        "涉及并发语义变化才在scratch真实独立backend补直接竞争；不用关联并行冒充业务竞争"
+      ],
+      "prerequisites": [
+        "第4节新准入和资源明确批准",
+        "A目标继承v3/v4而非pending/v2重建",
+        "无未知提交/权限/完整性/Native硬停止"
+      ],
+      "planned_evidence": [
+        "intent/固定candidate与真实角色",
+        "对应A-E原始响应/独立状态/索引",
+        "E精确差异及旧/新提交保全"
+      ],
+      "resources": "主计划第4节整包统一上限，禁止继承旧预算",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance",
+      "new_execution_status": "NOT_RUN",
+      "stage_exit_status": "BLOCKED",
+      "plan_status": "PLANNED",
+      "evidence_requirement_refs": [
+        "/tc_evidence_requirements/A-STATE",
+        "/tc_evidence_requirements/A-EDITOR",
+        "/tc_evidence_requirements/A-ORIGINAL",
+        "/tc_evidence_requirements/E-PREBASELINE",
+        "/tc_evidence_requirements/E-UPGRADE-S10-ONLY",
+        "/tc_evidence_requirements/E-PRESERVE",
+        "/tc_evidence_requirements/E-AFFECTED-REGRESSION"
+      ],
+      "new_execution_evidence": []
+    },
+    {
+      "id": "F5",
+      "formal_requirement": "S10-F5（另一个独立场景）：旧账270、新账200，均选中，实收300→先核旧270，再核新30→旧账0、新账欠170，保留两张账单和一笔300收款。仅选新账时不得擅自核旧账。",
+      "historical_formal_adoption": {
+        "status": "SCOPED_ACCEPTED_ONLY_NOT_STAGE_PASS",
+        "scope": "新多账仅新200不动旧账；选300按270+30；同日稳定ID；真实前台Web只选invoice9收3，余额200→197。 产品未变，来源独立，限P021正式裁定采纳范围。",
+        "authority": [
+          "https://github.com/Yredxin/YDental/issues/34#issuecomment-6230102263"
+        ],
+        "source": {
+          "commit": "e7cd02689b92c0cc4f7343842268b21e56de9f80",
+          "file": "docs/evidence/s10-closeout-v1/exit-table-reviewed-terminal.json",
+          "json_pointer": "/rows/4",
+          "complete_history_retained_in_original": true
+        },
+        "layers": [
+          "MODEL_NATIVE_COMMITTED",
+          "HTTP/RPC",
+          "BROWSER"
+        ],
+        "limitations": "保留270+30及仅选新账，不再收旧款"
+      },
+      "new_requirement_groups": [
+        "E"
+      ],
+      "new_test_cases": [
+        "E-PREBASELINE",
+        "E-UPGRADE-S10-ONLY",
+        "E-PRESERVE",
+        "E-AFFECTED-REGRESSION"
+      ],
+      "affected_regression": [
+        "E前后全历史及本包经济/权限/文书/审计/附件/原件存储不变量",
+        "日志/typed-catch影响路径：新fixture模型与实际HTTP拒绝/身份，固定候选API/翻译兼容",
+        "涉及并发语义变化才在scratch真实独立backend补直接竞争；不用关联并行冒充业务竞争"
+      ],
+      "prerequisites": [
+        "第4节新准入和资源明确批准",
+        "A目标继承v3/v4而非pending/v2重建",
+        "无未知提交/权限/完整性/Native硬停止"
+      ],
+      "planned_evidence": [
+        "intent/固定candidate与真实角色",
+        "对应A-E原始响应/独立状态/索引",
+        "E精确差异及旧/新提交保全"
+      ],
+      "resources": "主计划第4节整包统一上限，禁止继承旧预算",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance",
+      "new_execution_status": "NOT_RUN",
+      "stage_exit_status": "BLOCKED",
+      "plan_status": "PLANNED",
+      "evidence_requirement_refs": [
+        "/tc_evidence_requirements/E-PREBASELINE",
+        "/tc_evidence_requirements/E-UPGRADE-S10-ONLY",
+        "/tc_evidence_requirements/E-PRESERVE",
+        "/tc_evidence_requirements/E-AFFECTED-REGRESSION"
+      ],
+      "new_execution_evidence": []
+    },
+    {
+      "id": "F6",
+      "formal_requirement": "S10-F6：前台小李有A结算权可从前台收款，无结算权者只能看到获准摘要。B看到A欠270仅只读；不能在B收A款，A权限且上下文合法时到A处理。",
+      "historical_formal_adoption": {
+        "status": "SCOPED_ACCEPTED_ONLY_NOT_STAGE_PASS",
+        "scope": "前台有权真实Web收3；六类无结算岗位board/pdf/pay拒绝；原件错店及撤权服务拒绝。 产品未变，来源独立，限P021正式裁定采纳范围。",
+        "authority": [
+          "https://github.com/Yredxin/YDental/issues/34#issuecomment-6230102263"
+        ],
+        "source": {
+          "commit": "e7cd02689b92c0cc4f7343842268b21e56de9f80",
+          "file": "docs/evidence/s10-closeout-v1/exit-table-reviewed-terminal.json",
+          "json_pointer": "/rows/5",
+          "complete_history_retained_in_original": true
+        },
+        "layers": [
+          "MODEL",
+          "HTTP/RPC",
+          "BROWSER"
+        ],
+        "limitations": "普通前台真Web与六角色拒绝、旧模型原件负向层级分开"
+      },
+      "new_requirement_groups": [
+        "C",
+        "E"
+      ],
+      "new_test_cases": [
+        "C-SCOPE",
+        "C-ATTACHMENT",
+        "C-TOKEN",
+        "C-REVOKED-PAGE",
+        "E-PREBASELINE",
+        "E-UPGRADE-S10-ONLY",
+        "E-PRESERVE",
+        "E-AFFECTED-REGRESSION"
+      ],
+      "affected_regression": [
+        "E前后全历史及本包经济/权限/文书/审计/附件/原件存储不变量",
+        "日志/typed-catch影响路径：新fixture模型与实际HTTP拒绝/身份，固定候选API/翻译兼容",
+        "涉及并发语义变化才在scratch真实独立backend补直接竞争；不用关联并行冒充业务竞争"
+      ],
+      "prerequisites": [
+        "第4节新准入和资源明确批准",
+        "A目标继承v3/v4而非pending/v2重建",
+        "无未知提交/权限/完整性/Native硬停止"
+      ],
+      "planned_evidence": [
+        "intent/固定candidate与真实角色",
+        "对应A-E原始响应/独立状态/索引",
+        "E精确差异及旧/新提交保全"
+      ],
+      "resources": "主计划第4节整包统一上限，禁止继承旧预算",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance",
+      "new_execution_status": "NOT_RUN",
+      "stage_exit_status": "BLOCKED",
+      "plan_status": "PLANNED",
+      "evidence_requirement_refs": [
+        "/tc_evidence_requirements/C-SCOPE",
+        "/tc_evidence_requirements/C-ATTACHMENT",
+        "/tc_evidence_requirements/C-TOKEN",
+        "/tc_evidence_requirements/C-REVOKED-PAGE",
+        "/tc_evidence_requirements/E-PREBASELINE",
+        "/tc_evidence_requirements/E-UPGRADE-S10-ONLY",
+        "/tc_evidence_requirements/E-PRESERVE",
+        "/tc_evidence_requirements/E-AFFECTED-REGRESSION"
+      ],
+      "new_execution_evidence": []
+    },
+    {
+      "id": "T01",
+      "formal_requirement": "740重复/并发出账；来源有效出账一次",
+      "historical_formal_adoption": {
+        "status": "SCOPED_ACCEPTED_ONLY_NOT_STAGE_PASS",
+        "scope": "新源bill重试仍invoice1/四来源；财务方法与旧并发证据AST相同，历史两事务结论只按原范围引用。 产品未变，来源独立，限P021正式裁定采纳范围。",
+        "authority": [
+          "https://github.com/Yredxin/YDental/issues/34#issuecomment-6230102263"
+        ],
+        "source": {
+          "commit": "e7cd02689b92c0cc4f7343842268b21e56de9f80",
+          "file": "docs/evidence/s10-closeout-v1/exit-table-reviewed-terminal.json",
+          "json_pointer": "/rows/6",
+          "complete_history_retained_in_original": true
+        },
+        "layers": [
+          "MODEL",
+          "MODEL_NATIVE_COMMITTED"
+        ],
+        "limitations": "历史双事务仅原断言兼容；LOG双请求不等于出账并发PASS"
+      },
+      "new_requirement_groups": [
+        "E"
+      ],
+      "new_test_cases": [
+        "E-PREBASELINE",
+        "E-UPGRADE-S10-ONLY",
+        "E-PRESERVE",
+        "E-AFFECTED-REGRESSION"
+      ],
+      "affected_regression": [
+        "E前后全历史及本包经济/权限/文书/审计/附件/原件存储不变量",
+        "日志/typed-catch影响路径：新fixture模型与实际HTTP拒绝/身份，固定候选API/翻译兼容",
+        "涉及并发语义变化才在scratch真实独立backend补直接竞争；不用关联并行冒充业务竞争"
+      ],
+      "prerequisites": [
+        "第4节新准入和资源明确批准",
+        "A目标继承v3/v4而非pending/v2重建",
+        "无未知提交/权限/完整性/Native硬停止"
+      ],
+      "planned_evidence": [
+        "intent/固定candidate与真实角色",
+        "对应A-E原始响应/独立状态/索引",
+        "E精确差异及旧/新提交保全"
+      ],
+      "resources": "主计划第4节整包统一上限，禁止继承旧预算",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance",
+      "new_execution_status": "NOT_RUN",
+      "stage_exit_status": "BLOCKED",
+      "plan_status": "PLANNED",
+      "evidence_requirement_refs": [
+        "/tc_evidence_requirements/E-PREBASELINE",
+        "/tc_evidence_requirements/E-UPGRADE-S10-ONLY",
+        "/tc_evidence_requirements/E-PRESERVE",
+        "/tc_evidence_requirements/E-AFFECTED-REGRESSION"
+      ],
+      "new_execution_evidence": []
+    },
+    {
+      "id": "T02",
+      "formal_requirement": "740收500补240及重试；应收240→0，原生核销和实收一致",
+      "historical_formal_adoption": {
+        "status": "SCOPED_ACCEPTED_ONLY_NOT_STAGE_PASS",
+        "scope": "新350+390形成partial1/2、余额0；新5同key重试仅一笔，变更payload拒绝。旧500/240只历史引用。 产品未变，来源独立，限P021正式裁定采纳范围。",
+        "authority": [
+          "https://github.com/Yredxin/YDental/issues/34#issuecomment-6230102263"
+        ],
+        "source": {
+          "commit": "e7cd02689b92c0cc4f7343842268b21e56de9f80",
+          "file": "docs/evidence/s10-closeout-v1/exit-table-reviewed-terminal.json",
+          "json_pointer": "/rows/7",
+          "complete_history_retained_in_original": true
+        },
+        "layers": [
+          "MODEL_NATIVE_COMMITTED"
+        ],
+        "limitations": "保留350+390、原500+240历史及原5同key；不重收"
+      },
+      "new_requirement_groups": [
+        "E"
+      ],
+      "new_test_cases": [
+        "E-PREBASELINE",
+        "E-UPGRADE-S10-ONLY",
+        "E-PRESERVE",
+        "E-AFFECTED-REGRESSION"
+      ],
+      "affected_regression": [
+        "E前后全历史及本包经济/权限/文书/审计/附件/原件存储不变量",
+        "日志/typed-catch影响路径：新fixture模型与实际HTTP拒绝/身份，固定候选API/翻译兼容",
+        "涉及并发语义变化才在scratch真实独立backend补直接竞争；不用关联并行冒充业务竞争"
+      ],
+      "prerequisites": [
+        "第4节新准入和资源明确批准",
+        "A目标继承v3/v4而非pending/v2重建",
+        "无未知提交/权限/完整性/Native硬停止"
+      ],
+      "planned_evidence": [
+        "intent/固定candidate与真实角色",
+        "对应A-E原始响应/独立状态/索引",
+        "E精确差异及旧/新提交保全"
+      ],
+      "resources": "主计划第4节整包统一上限，禁止继承旧预算",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance",
+      "new_execution_status": "NOT_RUN",
+      "stage_exit_status": "BLOCKED",
+      "plan_status": "PLANNED",
+      "evidence_requirement_refs": [
+        "/tc_evidence_requirements/E-PREBASELINE",
+        "/tc_evidence_requirements/E-UPGRADE-S10-ONLY",
+        "/tc_evidence_requirements/E-PRESERVE",
+        "/tc_evidence_requirements/E-AFFECTED-REGRESSION"
+      ],
+      "new_execution_evidence": []
+    },
+    {
+      "id": "T03",
+      "formal_requirement": "负/超额折扣、明确免单；非法拒绝，原因齐，零账无假收款",
+      "historical_formal_adoption": {
+        "status": "SCOPED_ACCEPTED_ONLY_NOT_STAGE_PASS",
+        "scope": "负/超额折扣拒绝；明确理由全额折扣产生posted零账，患者原生付款0。 产品未变，来源独立，限P021正式裁定采纳范围。",
+        "authority": [
+          "https://github.com/Yredxin/YDental/issues/34#issuecomment-6230102263"
+        ],
+        "source": {
+          "commit": "e7cd02689b92c0cc4f7343842268b21e56de9f80",
+          "file": "docs/evidence/s10-closeout-v1/exit-table-reviewed-terminal.json",
+          "json_pointer": "/rows/8",
+          "complete_history_retained_in_original": true
+        },
+        "layers": [
+          "MODEL",
+          "MODEL_NATIVE_COMMITTED"
+        ],
+        "limitations": "新scratch折扣/零额回归，不记真收款"
+      },
+      "new_requirement_groups": [
+        "E"
+      ],
+      "new_test_cases": [
+        "E-PREBASELINE",
+        "E-UPGRADE-S10-ONLY",
+        "E-PRESERVE",
+        "E-AFFECTED-REGRESSION"
+      ],
+      "affected_regression": [
+        "E前后全历史及本包经济/权限/文书/审计/附件/原件存储不变量",
+        "日志/typed-catch影响路径：新fixture模型与实际HTTP拒绝/身份，固定候选API/翻译兼容",
+        "涉及并发语义变化才在scratch真实独立backend补直接竞争；不用关联并行冒充业务竞争"
+      ],
+      "prerequisites": [
+        "第4节新准入和资源明确批准",
+        "A目标继承v3/v4而非pending/v2重建",
+        "无未知提交/权限/完整性/Native硬停止"
+      ],
+      "planned_evidence": [
+        "intent/固定candidate与真实角色",
+        "对应A-E原始响应/独立状态/索引",
+        "E精确差异及旧/新提交保全"
+      ],
+      "resources": "主计划第4节整包统一上限，禁止继承旧预算",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance",
+      "new_execution_status": "NOT_RUN",
+      "stage_exit_status": "BLOCKED",
+      "plan_status": "PLANNED",
+      "evidence_requirement_refs": [
+        "/tc_evidence_requirements/E-PREBASELINE",
+        "/tc_evidence_requirements/E-UPGRADE-S10-ONLY",
+        "/tc_evidence_requirements/E-PRESERVE",
+        "/tc_evidence_requirements/E-AFFECTED-REGRESSION"
+      ],
+      "new_execution_evidence": []
+    },
+    {
+      "id": "T04",
+      "formal_requirement": "退款自批与并发批准；自批拒绝，在途+已退不超允许额",
+      "historical_formal_adoption": {
+        "status": "SCOPED_ACCEPTED_ONLY_NOT_STAGE_PASS",
+        "scope": "新退款自批拒绝/异人批准、额度检查；旧审批/额度两事务子证据仅在未变财务方法范围兼容引用。 产品未变，来源独立，限P021正式裁定采纳范围。",
+        "authority": [
+          "https://github.com/Yredxin/YDental/issues/34#issuecomment-6230102263"
+        ],
+        "source": {
+          "commit": "e7cd02689b92c0cc4f7343842268b21e56de9f80",
+          "file": "docs/evidence/s10-closeout-v1/exit-table-reviewed-terminal.json",
+          "json_pointer": "/rows/9",
+          "complete_history_retained_in_original": true
+        },
+        "layers": [
+          "MODEL",
+          "MODEL_NATIVE_COMMITTED"
+        ],
+        "limitations": "旧双事务额度仅原范围；如typed路径影响则新scratch真双backend回归，不用LOG并行代替"
+      },
+      "new_requirement_groups": [
+        "E"
+      ],
+      "new_test_cases": [
+        "E-PREBASELINE",
+        "E-UPGRADE-S10-ONLY",
+        "E-PRESERVE",
+        "E-AFFECTED-REGRESSION"
+      ],
+      "affected_regression": [
+        "E前后全历史及本包经济/权限/文书/审计/附件/原件存储不变量",
+        "日志/typed-catch影响路径：新fixture模型与实际HTTP拒绝/身份，固定候选API/翻译兼容",
+        "涉及并发语义变化才在scratch真实独立backend补直接竞争；不用关联并行冒充业务竞争"
+      ],
+      "prerequisites": [
+        "第4节新准入和资源明确批准",
+        "A目标继承v3/v4而非pending/v2重建",
+        "无未知提交/权限/完整性/Native硬停止"
+      ],
+      "planned_evidence": [
+        "intent/固定candidate与真实角色",
+        "对应A-E原始响应/独立状态/索引",
+        "E精确差异及旧/新提交保全"
+      ],
+      "resources": "主计划第4节整包统一上限，禁止继承旧预算",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance",
+      "new_execution_status": "NOT_RUN",
+      "stage_exit_status": "BLOCKED",
+      "plan_status": "PLANNED",
+      "evidence_requirement_refs": [
+        "/tc_evidence_requirements/E-PREBASELINE",
+        "/tc_evidence_requirements/E-UPGRADE-S10-ONLY",
+        "/tc_evidence_requirements/E-PRESERVE",
+        "/tc_evidence_requirements/E-AFFECTED-REGRESSION"
+      ],
+      "new_execution_evidence": []
+    },
+    {
+      "id": "T05",
+      "formal_requirement": "退款失败/未知/实际完成/重试；不伪已退、不重复资金记录",
+      "historical_formal_adoption": {
+        "status": "SCOPED_ACCEPTED_ONLY_NOT_STAGE_PASS",
+        "scope": "真实unknown80核实未付撤销、done100原生出款与贷项、rejected50无资金。 产品未变，来源独立，限P021正式裁定采纳范围。",
+        "authority": [
+          "https://github.com/Yredxin/YDental/issues/34#issuecomment-6230102263"
+        ],
+        "source": {
+          "commit": "e7cd02689b92c0cc4f7343842268b21e56de9f80",
+          "file": "docs/evidence/s10-closeout-v1/exit-table-reviewed-terminal.json",
+          "json_pointer": "/rows/10",
+          "complete_history_retained_in_original": true
+        },
+        "layers": [
+          "MODEL_NATIVE_COMMITTED"
+        ],
+        "limitations": "旧unknown/done/rejected保留；failed和refund真实HTTP丢响应/核实/防重新增"
+      },
+      "new_requirement_groups": [
+        "D",
+        "E"
+      ],
+      "new_test_cases": [
+        "D-ADMIT",
+        "D-NORMAL-6",
+        "D-FAILED-2",
+        "D-RECOVER-2",
+        "D-LOST-REFUND-2",
+        "D-VERIFY-RETRY",
+        "E-PREBASELINE",
+        "E-UPGRADE-S10-ONLY",
+        "E-PRESERVE",
+        "E-AFFECTED-REGRESSION"
+      ],
+      "affected_regression": [
+        "E前后全历史及本包经济/权限/文书/审计/附件/原件存储不变量",
+        "日志/typed-catch影响路径：新fixture模型与实际HTTP拒绝/身份，固定候选API/翻译兼容",
+        "涉及并发语义变化才在scratch真实独立backend补直接竞争；不用关联并行冒充业务竞争"
+      ],
+      "prerequisites": [
+        "第4节新准入和资源明确批准",
+        "A目标继承v3/v4而非pending/v2重建",
+        "无未知提交/权限/完整性/Native硬停止"
+      ],
+      "planned_evidence": [
+        "intent/固定candidate与真实角色",
+        "对应A-E原始响应/独立状态/索引",
+        "E精确差异及旧/新提交保全"
+      ],
+      "resources": "主计划第4节整包统一上限，禁止继承旧预算",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance",
+      "new_execution_status": "NOT_RUN",
+      "stage_exit_status": "BLOCKED",
+      "plan_status": "PLANNED",
+      "evidence_requirement_refs": [
+        "/tc_evidence_requirements/D-ADMIT",
+        "/tc_evidence_requirements/D-NORMAL-6",
+        "/tc_evidence_requirements/D-FAILED-2",
+        "/tc_evidence_requirements/D-RECOVER-2",
+        "/tc_evidence_requirements/D-LOST-REFUND-2",
+        "/tc_evidence_requirements/D-VERIFY-RETRY",
+        "/tc_evidence_requirements/E-PREBASELINE",
+        "/tc_evidence_requirements/E-UPGRADE-S10-ONLY",
+        "/tc_evidence_requirements/E-PRESERVE",
+        "/tc_evidence_requirements/E-AFFECTED-REGRESSION"
+      ],
+      "new_execution_evidence": []
+    },
+    {
+      "id": "T06",
+      "formal_requirement": "未收款减免；只调应收，不记实退",
+      "historical_formal_adoption": {
+        "status": "SCOPED_ACCEPTED_ONLY_NOT_STAGE_PASS",
+        "scope": "未收80减免产生贷项17、余额0，实际退款0、患者原生付款0。 产品未变，来源独立，限P021正式裁定采纳范围。",
+        "authority": [
+          "https://github.com/Yredxin/YDental/issues/34#issuecomment-6230102263"
+        ],
+        "source": {
+          "commit": "e7cd02689b92c0cc4f7343842268b21e56de9f80",
+          "file": "docs/evidence/s10-closeout-v1/exit-table-reviewed-terminal.json",
+          "json_pointer": "/rows/11",
+          "complete_history_retained_in_original": true
+        },
+        "layers": [
+          "MODEL_NATIVE_COMMITTED"
+        ],
+        "limitations": "保留未收80减免/实际退款0"
+      },
+      "new_requirement_groups": [
+        "E"
+      ],
+      "new_test_cases": [
+        "E-PREBASELINE",
+        "E-UPGRADE-S10-ONLY",
+        "E-PRESERVE",
+        "E-AFFECTED-REGRESSION"
+      ],
+      "affected_regression": [
+        "E前后全历史及本包经济/权限/文书/审计/附件/原件存储不变量",
+        "日志/typed-catch影响路径：新fixture模型与实际HTTP拒绝/身份，固定候选API/翻译兼容",
+        "涉及并发语义变化才在scratch真实独立backend补直接竞争；不用关联并行冒充业务竞争"
+      ],
+      "prerequisites": [
+        "第4节新准入和资源明确批准",
+        "A目标继承v3/v4而非pending/v2重建",
+        "无未知提交/权限/完整性/Native硬停止"
+      ],
+      "planned_evidence": [
+        "intent/固定candidate与真实角色",
+        "对应A-E原始响应/独立状态/索引",
+        "E精确差异及旧/新提交保全"
+      ],
+      "resources": "主计划第4节整包统一上限，禁止继承旧预算",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance",
+      "new_execution_status": "NOT_RUN",
+      "stage_exit_status": "BLOCKED",
+      "plan_status": "PLANNED",
+      "evidence_requirement_refs": [
+        "/tc_evidence_requirements/E-PREBASELINE",
+        "/tc_evidence_requirements/E-UPGRADE-S10-ONLY",
+        "/tc_evidence_requirements/E-PRESERVE",
+        "/tc_evidence_requirements/E-AFFECTED-REGRESSION"
+      ],
+      "new_execution_evidence": []
+    },
+    {
+      "id": "T07",
+      "formal_requirement": "日结后改支付方式；财务解锁/原因/再确认，无伪退款",
+      "historical_formal_adoption": {
+        "status": "SCOPED_ACCEPTED_ONLY_NOT_STAGE_PASS",
+        "scope": "日结锁拒绝改支付方式；解锁原因/异人审批、现金→微信重分类、再结；无伪退款。 产品未变，来源独立，限P021正式裁定采纳范围。",
+        "authority": [
+          "https://github.com/Yredxin/YDental/issues/34#issuecomment-6230102263"
+        ],
+        "source": {
+          "commit": "e7cd02689b92c0cc4f7343842268b21e56de9f80",
+          "file": "docs/evidence/s10-closeout-v1/exit-table-reviewed-terminal.json",
+          "json_pointer": "/rows/12",
+          "complete_history_retained_in_original": true
+        },
+        "layers": [
+          "MODEL_NATIVE_COMMITTED"
+        ],
+        "limitations": "保留旧改方式/日结；只新夹具拒绝回归"
+      },
+      "new_requirement_groups": [
+        "E"
+      ],
+      "new_test_cases": [
+        "E-PREBASELINE",
+        "E-UPGRADE-S10-ONLY",
+        "E-PRESERVE",
+        "E-AFFECTED-REGRESSION"
+      ],
+      "affected_regression": [
+        "E前后全历史及本包经济/权限/文书/审计/附件/原件存储不变量",
+        "日志/typed-catch影响路径：新fixture模型与实际HTTP拒绝/身份，固定候选API/翻译兼容",
+        "涉及并发语义变化才在scratch真实独立backend补直接竞争；不用关联并行冒充业务竞争"
+      ],
+      "prerequisites": [
+        "第4节新准入和资源明确批准",
+        "A目标继承v3/v4而非pending/v2重建",
+        "无未知提交/权限/完整性/Native硬停止"
+      ],
+      "planned_evidence": [
+        "intent/固定candidate与真实角色",
+        "对应A-E原始响应/独立状态/索引",
+        "E精确差异及旧/新提交保全"
+      ],
+      "resources": "主计划第4节整包统一上限，禁止继承旧预算",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance",
+      "new_execution_status": "NOT_RUN",
+      "stage_exit_status": "BLOCKED",
+      "plan_status": "PLANNED",
+      "evidence_requirement_refs": [
+        "/tc_evidence_requirements/E-PREBASELINE",
+        "/tc_evidence_requirements/E-UPGRADE-S10-ONLY",
+        "/tc_evidence_requirements/E-PRESERVE",
+        "/tc_evidence_requirements/E-AFFECTED-REGRESSION"
+      ],
+      "new_execution_evidence": []
+    },
+    {
+      "id": "T08",
+      "formal_requirement": "已出账数量更正、文字更正和实物退回；反向来源正确，文字不动费库，未退不回库",
+      "historical_formal_adoption": {
+        "status": "SCOPED_ACCEPTED_ONLY_NOT_STAGE_PASS",
+        "scope": "独立患者数量更正关联原费13→反向费14/贷项20，旧600不取620；主链药event3退1到quarantine，处方余量仍0、不增费退款。 产品未变，来源独立，限P021正式裁定采纳范围。；6232155980追加同源confirmed/v3和correct/v4已验证提交，release当前UNKNOWN。",
+        "authority": [
+          "https://github.com/Yredxin/YDental/issues/34#issuecomment-6230102263",
+          "https://github.com/Yredxin/YDental/issues/34#issuecomment-6232155980"
+        ],
+        "source": {
+          "commit": "e7cd02689b92c0cc4f7343842268b21e56de9f80",
+          "file": "docs/evidence/s10-closeout-v1/exit-table-reviewed-terminal.json",
+          "json_pointer": "/rows/13",
+          "complete_history_retained_in_original": true
+        },
+        "layers": [
+          "MODEL_NATIVE_COMMITTED"
+        ],
+        "limitations": "旧数量/实物独立事实与同源文字v3/v4分列"
+      },
+      "new_requirement_groups": [
+        "A",
+        "E"
+      ],
+      "new_test_cases": [
+        "A-STATE",
+        "A-EDITOR",
+        "A-ORIGINAL",
+        "E-PREBASELINE",
+        "E-UPGRADE-S10-ONLY",
+        "E-PRESERVE",
+        "E-AFFECTED-REGRESSION"
+      ],
+      "affected_regression": [
+        "E前后全历史及本包经济/权限/文书/审计/附件/原件存储不变量",
+        "日志/typed-catch影响路径：新fixture模型与实际HTTP拒绝/身份，固定候选API/翻译兼容",
+        "涉及并发语义变化才在scratch真实独立backend补直接竞争；不用关联并行冒充业务竞争"
+      ],
+      "prerequisites": [
+        "第4节新准入和资源明确批准",
+        "A目标继承v3/v4而非pending/v2重建",
+        "无未知提交/权限/完整性/Native硬停止"
+      ],
+      "planned_evidence": [
+        "intent/固定candidate与真实角色",
+        "对应A-E原始响应/独立状态/索引",
+        "E精确差异及旧/新提交保全"
+      ],
+      "resources": "主计划第4节整包统一上限，禁止继承旧预算",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance",
+      "new_execution_status": "NOT_RUN",
+      "stage_exit_status": "BLOCKED",
+      "plan_status": "PLANNED",
+      "evidence_requirement_refs": [
+        "/tc_evidence_requirements/A-STATE",
+        "/tc_evidence_requirements/A-EDITOR",
+        "/tc_evidence_requirements/A-ORIGINAL",
+        "/tc_evidence_requirements/E-PREBASELINE",
+        "/tc_evidence_requirements/E-UPGRADE-S10-ONLY",
+        "/tc_evidence_requirements/E-PRESERVE",
+        "/tc_evidence_requirements/E-AFFECTED-REGRESSION"
+      ],
+      "new_execution_evidence": []
+    },
+    {
+      "id": "T09",
+      "formal_requirement": "同法人调拨与跨法人交易；实际收发/凭证对应、公司店铺隔离",
+      "historical_formal_adoption": {
+        "status": "SCOPED_ACCEPTED_ONLY_NOT_STAGE_PASS",
+        "scope": "新同法人调拨move24/qty5；新跨法人sale/purchase、库存及posted双方法人凭证，普通前台请求拒绝。 产品未变，来源独立，限P021正式裁定采纳范围。",
+        "authority": [
+          "https://github.com/Yredxin/YDental/issues/34#issuecomment-6230102263"
+        ],
+        "source": {
+          "commit": "e7cd02689b92c0cc4f7343842268b21e56de9f80",
+          "file": "docs/evidence/s10-closeout-v1/exit-table-reviewed-terminal.json",
+          "json_pointer": "/rows/14",
+          "complete_history_retained_in_original": true
+        },
+        "layers": [
+          "MODEL_NATIVE_COMMITTED",
+          "MODEL"
+        ],
+        "limitations": "旧跨法人真实原生凭证保留，新C测权限不重交易"
+      },
+      "new_requirement_groups": [
+        "C",
+        "E"
+      ],
+      "new_test_cases": [
+        "C-SCOPE",
+        "C-ATTACHMENT",
+        "C-TOKEN",
+        "C-REVOKED-PAGE",
+        "E-PREBASELINE",
+        "E-UPGRADE-S10-ONLY",
+        "E-PRESERVE",
+        "E-AFFECTED-REGRESSION"
+      ],
+      "affected_regression": [
+        "E前后全历史及本包经济/权限/文书/审计/附件/原件存储不变量",
+        "日志/typed-catch影响路径：新fixture模型与实际HTTP拒绝/身份，固定候选API/翻译兼容",
+        "涉及并发语义变化才在scratch真实独立backend补直接竞争；不用关联并行冒充业务竞争"
+      ],
+      "prerequisites": [
+        "第4节新准入和资源明确批准",
+        "A目标继承v3/v4而非pending/v2重建",
+        "无未知提交/权限/完整性/Native硬停止"
+      ],
+      "planned_evidence": [
+        "intent/固定candidate与真实角色",
+        "对应A-E原始响应/独立状态/索引",
+        "E精确差异及旧/新提交保全"
+      ],
+      "resources": "主计划第4节整包统一上限，禁止继承旧预算",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance",
+      "new_execution_status": "NOT_RUN",
+      "stage_exit_status": "BLOCKED",
+      "plan_status": "PLANNED",
+      "evidence_requirement_refs": [
+        "/tc_evidence_requirements/C-SCOPE",
+        "/tc_evidence_requirements/C-ATTACHMENT",
+        "/tc_evidence_requirements/C-TOKEN",
+        "/tc_evidence_requirements/C-REVOKED-PAGE",
+        "/tc_evidence_requirements/E-PREBASELINE",
+        "/tc_evidence_requirements/E-UPGRADE-S10-ONLY",
+        "/tc_evidence_requirements/E-PRESERVE",
+        "/tc_evidence_requirements/E-AFFECTED-REGRESSION"
+      ],
+      "new_execution_evidence": []
+    },
+    {
+      "id": "T10",
+      "formal_requirement": "他店代收/无权医疗全文或票据；越权拒绝，摘要与全文分离",
+      "historical_formal_adoption": {
+        "status": "SCOPED_ACCEPTED_ONLY_NOT_STAGE_PASS",
+        "scope": "六角色拒绝、原件19项MODEL/service断言；真实content404；image200因未存body维持证据缺失。不得称19真实RPC。",
+        "authority": [
+          "https://github.com/Yredxin/YDental/issues/34#issuecomment-6230102263"
+        ],
+        "source": {
+          "commit": "e7cd02689b92c0cc4f7343842268b21e56de9f80",
+          "file": "docs/evidence/s10-closeout-v1/exit-table-reviewed-terminal.json",
+          "json_pointer": "/rows/15",
+          "complete_history_retained_in_original": true
+        },
+        "layers": [
+          "MODEL",
+          "HTTP/RPC"
+        ],
+        "limitations": "19项仅MODEL/service；旧RPC-read=with_user().read；invalid token不是有效token；旧image200缺body仍证据缺失"
+      },
+      "new_requirement_groups": [
+        "C",
+        "E"
+      ],
+      "new_test_cases": [
+        "C-SCOPE",
+        "C-ATTACHMENT",
+        "C-TOKEN",
+        "C-REVOKED-PAGE",
+        "E-PREBASELINE",
+        "E-UPGRADE-S10-ONLY",
+        "E-PRESERVE",
+        "E-AFFECTED-REGRESSION"
+      ],
+      "affected_regression": [
+        "E前后全历史及本包经济/权限/文书/审计/附件/原件存储不变量",
+        "日志/typed-catch影响路径：新fixture模型与实际HTTP拒绝/身份，固定候选API/翻译兼容",
+        "涉及并发语义变化才在scratch真实独立backend补直接竞争；不用关联并行冒充业务竞争"
+      ],
+      "prerequisites": [
+        "第4节新准入和资源明确批准",
+        "A目标继承v3/v4而非pending/v2重建",
+        "无未知提交/权限/完整性/Native硬停止"
+      ],
+      "planned_evidence": [
+        "intent/固定candidate与真实角色",
+        "对应A-E原始响应/独立状态/索引",
+        "E精确差异及旧/新提交保全"
+      ],
+      "resources": "主计划第4节整包统一上限，禁止继承旧预算",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance",
+      "new_execution_status": "NOT_RUN",
+      "stage_exit_status": "BLOCKED",
+      "plan_status": "PLANNED",
+      "evidence_requirement_refs": [
+        "/tc_evidence_requirements/C-SCOPE",
+        "/tc_evidence_requirements/C-ATTACHMENT",
+        "/tc_evidence_requirements/C-TOKEN",
+        "/tc_evidence_requirements/C-REVOKED-PAGE",
+        "/tc_evidence_requirements/E-PREBASELINE",
+        "/tc_evidence_requirements/E-UPGRADE-S10-ONLY",
+        "/tc_evidence_requirements/E-PRESERVE",
+        "/tc_evidence_requirements/E-AFFECTED-REGRESSION"
+      ],
+      "new_execution_evidence": []
+    },
+    {
+      "id": "T11",
+      "formal_requirement": "中文票据及部分收退款；实收/欠款/在途/已退准确，法人门店正确",
+      "historical_formal_adoption": {
+        "status": "SCOPED_ACCEPTED_ONLY_NOT_STAGE_PASS",
+        "scope": "新bill/receipt/refund三份中文原生PDF各1页已逐页目视；740/0、实收350/退100/净250、done100状态准确。旧原件UI实际下载另1页同SHA。 产品未变，来源独立，限P021正式裁定采纳范围。",
+        "authority": [
+          "https://github.com/Yredxin/YDental/issues/34#issuecomment-6230102263"
+        ],
+        "source": {
+          "commit": "e7cd02689b92c0cc4f7343842268b21e56de9f80",
+          "file": "docs/evidence/s10-closeout-v1/exit-table-reviewed-terminal.json",
+          "json_pointer": "/rows/16",
+          "complete_history_retained_in_original": true
+        },
+        "layers": [
+          "MODEL_NATIVE_COMMITTED",
+          "PDF_VISUAL",
+          "BROWSER"
+        ],
+        "limitations": "旧三PDF/原件Codex目视是历史署名证据非本轮重测；新退款状态PDF逐页看"
+      },
+      "new_requirement_groups": [
+        "A",
+        "C",
+        "D",
+        "E"
+      ],
+      "new_test_cases": [
+        "A-STATE",
+        "A-EDITOR",
+        "A-ORIGINAL",
+        "C-SCOPE",
+        "C-ATTACHMENT",
+        "C-TOKEN",
+        "C-REVOKED-PAGE",
+        "D-ADMIT",
+        "D-NORMAL-6",
+        "D-FAILED-2",
+        "D-RECOVER-2",
+        "D-LOST-REFUND-2",
+        "D-VERIFY-RETRY",
+        "E-PREBASELINE",
+        "E-UPGRADE-S10-ONLY",
+        "E-PRESERVE",
+        "E-AFFECTED-REGRESSION"
+      ],
+      "affected_regression": [
+        "E前后全历史及本包经济/权限/文书/审计/附件/原件存储不变量",
+        "日志/typed-catch影响路径：新fixture模型与实际HTTP拒绝/身份，固定候选API/翻译兼容",
+        "涉及并发语义变化才在scratch真实独立backend补直接竞争；不用关联并行冒充业务竞争"
+      ],
+      "prerequisites": [
+        "第4节新准入和资源明确批准",
+        "A目标继承v3/v4而非pending/v2重建",
+        "无未知提交/权限/完整性/Native硬停止"
+      ],
+      "planned_evidence": [
+        "intent/固定candidate与真实角色",
+        "对应A-E原始响应/独立状态/索引",
+        "E精确差异及旧/新提交保全"
+      ],
+      "resources": "主计划第4节整包统一上限，禁止继承旧预算",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance",
+      "new_execution_status": "NOT_RUN",
+      "stage_exit_status": "BLOCKED",
+      "plan_status": "PLANNED",
+      "evidence_requirement_refs": [
+        "/tc_evidence_requirements/A-STATE",
+        "/tc_evidence_requirements/A-EDITOR",
+        "/tc_evidence_requirements/A-ORIGINAL",
+        "/tc_evidence_requirements/C-SCOPE",
+        "/tc_evidence_requirements/C-ATTACHMENT",
+        "/tc_evidence_requirements/C-TOKEN",
+        "/tc_evidence_requirements/C-REVOKED-PAGE",
+        "/tc_evidence_requirements/D-ADMIT",
+        "/tc_evidence_requirements/D-NORMAL-6",
+        "/tc_evidence_requirements/D-FAILED-2",
+        "/tc_evidence_requirements/D-RECOVER-2",
+        "/tc_evidence_requirements/D-LOST-REFUND-2",
+        "/tc_evidence_requirements/D-VERIFY-RETRY",
+        "/tc_evidence_requirements/E-PREBASELINE",
+        "/tc_evidence_requirements/E-UPGRADE-S10-ONLY",
+        "/tc_evidence_requirements/E-PRESERVE",
+        "/tc_evidence_requirements/E-AFFECTED-REGRESSION"
+      ],
+      "new_execution_evidence": []
+    },
+    {
+      "id": "T12",
+      "formal_requirement": "安装升级及F4真实全链；事件、价格、批次、费账款一一对应",
+      "historical_formal_adoption": {
+        "status": "SCOPED_ACCEPTED_ONLY_NOT_STAGE_PASS",
+        "scope": "唯一新B正常安装，真实同源S08/S09/药房/价费账款已提交；全部645物理表独立尾审。 产品未变，来源独立，限P021正式裁定采纳范围。；6232155980追加同源confirmed/v3和correct/v4已验证提交，release当前UNKNOWN。",
+        "authority": [
+          "https://github.com/Yredxin/YDental/issues/34#issuecomment-6230102263",
+          "https://github.com/Yredxin/YDental/issues/34#issuecomment-6232155980"
+        ],
+        "source": {
+          "commit": "e7cd02689b92c0cc4f7343842268b21e56de9f80",
+          "file": "docs/evidence/s10-closeout-v1/exit-table-reviewed-terminal.json",
+          "json_pointer": "/rows/17",
+          "complete_history_retained_in_original": true
+        },
+        "layers": [
+          "MODEL_NATIVE_COMMITTED"
+        ],
+        "limitations": "安装不代替带数据升级；同源全链尾段与升级仍BLOCKED"
+      },
+      "new_requirement_groups": [
+        "A",
+        "E"
+      ],
+      "new_test_cases": [
+        "A-STATE",
+        "A-EDITOR",
+        "A-ORIGINAL",
+        "E-PREBASELINE",
+        "E-UPGRADE-S10-ONLY",
+        "E-PRESERVE",
+        "E-AFFECTED-REGRESSION"
+      ],
+      "affected_regression": [
+        "E前后全历史及本包经济/权限/文书/审计/附件/原件存储不变量",
+        "日志/typed-catch影响路径：新fixture模型与实际HTTP拒绝/身份，固定候选API/翻译兼容",
+        "涉及并发语义变化才在scratch真实独立backend补直接竞争；不用关联并行冒充业务竞争"
+      ],
+      "prerequisites": [
+        "第4节新准入和资源明确批准",
+        "A目标继承v3/v4而非pending/v2重建",
+        "无未知提交/权限/完整性/Native硬停止"
+      ],
+      "planned_evidence": [
+        "intent/固定candidate与真实角色",
+        "对应A-E原始响应/独立状态/索引",
+        "E精确差异及旧/新提交保全"
+      ],
+      "resources": "主计划第4节整包统一上限，禁止继承旧预算",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance",
+      "new_execution_status": "NOT_RUN",
+      "stage_exit_status": "BLOCKED",
+      "plan_status": "PLANNED",
+      "evidence_requirement_refs": [
+        "/tc_evidence_requirements/A-STATE",
+        "/tc_evidence_requirements/A-EDITOR",
+        "/tc_evidence_requirements/A-ORIGINAL",
+        "/tc_evidence_requirements/E-PREBASELINE",
+        "/tc_evidence_requirements/E-UPGRADE-S10-ONLY",
+        "/tc_evidence_requirements/E-PRESERVE",
+        "/tc_evidence_requirements/E-AFFECTED-REGRESSION"
+      ],
+      "new_execution_evidence": []
+    },
+    {
+      "id": "T13",
+      "formal_requirement": "F5旧270新200收300及仅选新账；核销270+30、欠170，未合并账单；未选不核",
+      "historical_formal_adoption": {
+        "status": "SCOPED_ACCEPTED_ONLY_NOT_STAGE_PASS",
+        "scope": "选中旧270+新200、300只核270+30；仅选新账及同日ID序；普通前台额外新3只核指定invoice9。 产品未变，来源独立，限P021正式裁定采纳范围。",
+        "authority": [
+          "https://github.com/Yredxin/YDental/issues/34#issuecomment-6230102263"
+        ],
+        "source": {
+          "commit": "e7cd02689b92c0cc4f7343842268b21e56de9f80",
+          "file": "docs/evidence/s10-closeout-v1/exit-table-reviewed-terminal.json",
+          "json_pointer": "/rows/18",
+          "complete_history_retained_in_original": true
+        },
+        "layers": [
+          "MODEL_NATIVE_COMMITTED",
+          "HTTP/RPC",
+          "BROWSER"
+        ],
+        "limitations": "保留日期/ID分摊、仅选新和前台3，禁旧资金重试"
+      },
+      "new_requirement_groups": [
+        "E"
+      ],
+      "new_test_cases": [
+        "E-PREBASELINE",
+        "E-UPGRADE-S10-ONLY",
+        "E-PRESERVE",
+        "E-AFFECTED-REGRESSION"
+      ],
+      "affected_regression": [
+        "E前后全历史及本包经济/权限/文书/审计/附件/原件存储不变量",
+        "日志/typed-catch影响路径：新fixture模型与实际HTTP拒绝/身份，固定候选API/翻译兼容",
+        "涉及并发语义变化才在scratch真实独立backend补直接竞争；不用关联并行冒充业务竞争"
+      ],
+      "prerequisites": [
+        "第4节新准入和资源明确批准",
+        "A目标继承v3/v4而非pending/v2重建",
+        "无未知提交/权限/完整性/Native硬停止"
+      ],
+      "planned_evidence": [
+        "intent/固定candidate与真实角色",
+        "对应A-E原始响应/独立状态/索引",
+        "E精确差异及旧/新提交保全"
+      ],
+      "resources": "主计划第4节整包统一上限，禁止继承旧预算",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance",
+      "new_execution_status": "NOT_RUN",
+      "stage_exit_status": "BLOCKED",
+      "plan_status": "PLANNED",
+      "evidence_requirement_refs": [
+        "/tc_evidence_requirements/E-PREBASELINE",
+        "/tc_evidence_requirements/E-UPGRADE-S10-ONLY",
+        "/tc_evidence_requirements/E-PRESERVE",
+        "/tc_evidence_requirements/E-AFFECTED-REGRESSION"
+      ],
+      "new_execution_evidence": []
+    },
+    {
+      "id": "T14",
+      "formal_requirement": "F6前台有/无billing权及跨店摘要；同一结算服务鉴权，无按岗位默认放开，无跨店代收",
+      "historical_formal_adoption": {
+        "status": "SCOPED_ACCEPTED_ONLY_NOT_STAGE_PASS",
+        "scope": "普通前台真工作台/收款；六角色无权拒；新原件read/export分别缺失及撤权旧绑定服务下次拒绝。 产品未变，来源独立，限P021正式裁定采纳范围。",
+        "authority": [
+          "https://github.com/Yredxin/YDental/issues/34#issuecomment-6230102263"
+        ],
+        "source": {
+          "commit": "e7cd02689b92c0cc4f7343842268b21e56de9f80",
+          "file": "docs/evidence/s10-closeout-v1/exit-table-reviewed-terminal.json",
+          "json_pointer": "/rows/19",
+          "complete_history_retained_in_original": true
+        },
+        "layers": [
+          "MODEL",
+          "HTTP/RPC",
+          "BROWSER"
+        ],
+        "limitations": "旧服务撤权不代替新真实RPC/撤权旧页"
+      },
+      "new_requirement_groups": [
+        "C",
+        "E"
+      ],
+      "new_test_cases": [
+        "C-SCOPE",
+        "C-ATTACHMENT",
+        "C-TOKEN",
+        "C-REVOKED-PAGE",
+        "E-PREBASELINE",
+        "E-UPGRADE-S10-ONLY",
+        "E-PRESERVE",
+        "E-AFFECTED-REGRESSION"
+      ],
+      "affected_regression": [
+        "E前后全历史及本包经济/权限/文书/审计/附件/原件存储不变量",
+        "日志/typed-catch影响路径：新fixture模型与实际HTTP拒绝/身份，固定候选API/翻译兼容",
+        "涉及并发语义变化才在scratch真实独立backend补直接竞争；不用关联并行冒充业务竞争"
+      ],
+      "prerequisites": [
+        "第4节新准入和资源明确批准",
+        "A目标继承v3/v4而非pending/v2重建",
+        "无未知提交/权限/完整性/Native硬停止"
+      ],
+      "planned_evidence": [
+        "intent/固定candidate与真实角色",
+        "对应A-E原始响应/独立状态/索引",
+        "E精确差异及旧/新提交保全"
+      ],
+      "resources": "主计划第4节整包统一上限，禁止继承旧预算",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance",
+      "new_execution_status": "NOT_RUN",
+      "stage_exit_status": "BLOCKED",
+      "plan_status": "PLANNED",
+      "evidence_requirement_refs": [
+        "/tc_evidence_requirements/C-SCOPE",
+        "/tc_evidence_requirements/C-ATTACHMENT",
+        "/tc_evidence_requirements/C-TOKEN",
+        "/tc_evidence_requirements/C-REVOKED-PAGE",
+        "/tc_evidence_requirements/E-PREBASELINE",
+        "/tc_evidence_requirements/E-UPGRADE-S10-ONLY",
+        "/tc_evidence_requirements/E-PRESERVE",
+        "/tc_evidence_requirements/E-AFFECTED-REGRESSION"
+      ],
+      "new_execution_evidence": []
+    },
+    {
+      "id": "T15",
+      "formal_requirement": "已确认600调价620后结算/重印；退款驳回；仍取600快照；驳回原因和审计齐、不生贷项/退款",
+      "historical_formal_adoption": {
+        "status": "SCOPED_ACCEPTED_ONLY_NOT_STAGE_PASS",
+        "scope": "主链确认费用600→发布620→仍600出账；新退款拒50原因/审计/无贷项；原件v1真实UI重取同SHA，v2另存且v1未覆盖。 产品未变，来源独立，限P021正式裁定采纳范围。；6232155980追加同源confirmed/v3和correct/v4已验证提交，release当前UNKNOWN。",
+        "authority": [
+          "https://github.com/Yredxin/YDental/issues/34#issuecomment-6230102263",
+          "https://github.com/Yredxin/YDental/issues/34#issuecomment-6232155980"
+        ],
+        "source": {
+          "commit": "e7cd02689b92c0cc4f7343842268b21e56de9f80",
+          "file": "docs/evidence/s10-closeout-v1/exit-table-reviewed-terminal.json",
+          "json_pointer": "/rows/20",
+          "complete_history_retained_in_original": true
+        },
+        "layers": [
+          "MODEL_NATIVE_COMMITTED",
+          "BROWSER"
+        ],
+        "limitations": "保留600/620价源及驳回50；A同SHA重取不重生成"
+      },
+      "new_requirement_groups": [
+        "A",
+        "E"
+      ],
+      "new_test_cases": [
+        "A-STATE",
+        "A-EDITOR",
+        "A-ORIGINAL",
+        "E-PREBASELINE",
+        "E-UPGRADE-S10-ONLY",
+        "E-PRESERVE",
+        "E-AFFECTED-REGRESSION"
+      ],
+      "affected_regression": [
+        "E前后全历史及本包经济/权限/文书/审计/附件/原件存储不变量",
+        "日志/typed-catch影响路径：新fixture模型与实际HTTP拒绝/身份，固定候选API/翻译兼容",
+        "涉及并发语义变化才在scratch真实独立backend补直接竞争；不用关联并行冒充业务竞争"
+      ],
+      "prerequisites": [
+        "第4节新准入和资源明确批准",
+        "A目标继承v3/v4而非pending/v2重建",
+        "无未知提交/权限/完整性/Native硬停止"
+      ],
+      "planned_evidence": [
+        "intent/固定candidate与真实角色",
+        "对应A-E原始响应/独立状态/索引",
+        "E精确差异及旧/新提交保全"
+      ],
+      "resources": "主计划第4节整包统一上限，禁止继承旧预算",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance",
+      "new_execution_status": "NOT_RUN",
+      "stage_exit_status": "BLOCKED",
+      "plan_status": "PLANNED",
+      "evidence_requirement_refs": [
+        "/tc_evidence_requirements/A-STATE",
+        "/tc_evidence_requirements/A-EDITOR",
+        "/tc_evidence_requirements/A-ORIGINAL",
+        "/tc_evidence_requirements/E-PREBASELINE",
+        "/tc_evidence_requirements/E-UPGRADE-S10-ONLY",
+        "/tc_evidence_requirements/E-PRESERVE",
+        "/tc_evidence_requirements/E-AFFECTED-REGRESSION"
+      ],
+      "new_execution_evidence": []
+    },
+    {
+      "id": "T16",
+      "formal_requirement": "日结锁后补录、解锁更正、删除/篡改审计；锁覆盖新增/更正，合法补录双时间可查，单据日志不可普通删改",
+      "historical_formal_adoption": {
+        "status": "SCOPED_ACCEPTED_ONLY_NOT_STAGE_PASS",
+        "scope": "新实际前日/今日录入双时间、锁后补录拒绝、异人解锁再收1重结11均提交读回。 产品未变，来源独立，限P021正式裁定采纳范围。",
+        "authority": [
+          "https://github.com/Yredxin/YDental/issues/34#issuecomment-6230102263"
+        ],
+        "source": {
+          "commit": "e7cd02689b92c0cc4f7343842268b21e56de9f80",
+          "file": "docs/evidence/s10-closeout-v1/exit-table-reviewed-terminal.json",
+          "json_pointer": "/rows/21",
+          "complete_history_retained_in_original": true
+        },
+        "layers": [
+          "MODEL_NATIVE_COMMITTED"
+        ],
+        "limitations": "旧双时间/锁/再结保留；新增六动作各MODEL和RPC12结果"
+      },
+      "new_requirement_groups": [
+        "B",
+        "E"
+      ],
+      "new_test_cases": [
+        "B-MODEL-6",
+        "B-RPC-6",
+        "E-PREBASELINE",
+        "E-UPGRADE-S10-ONLY",
+        "E-PRESERVE",
+        "E-AFFECTED-REGRESSION"
+      ],
+      "affected_regression": [
+        "E前后全历史及本包经济/权限/文书/审计/附件/原件存储不变量",
+        "日志/typed-catch影响路径：新fixture模型与实际HTTP拒绝/身份，固定候选API/翻译兼容",
+        "涉及并发语义变化才在scratch真实独立backend补直接竞争；不用关联并行冒充业务竞争"
+      ],
+      "prerequisites": [
+        "第4节新准入和资源明确批准",
+        "A目标继承v3/v4而非pending/v2重建",
+        "无未知提交/权限/完整性/Native硬停止"
+      ],
+      "planned_evidence": [
+        "intent/固定candidate与真实角色",
+        "对应A-E原始响应/独立状态/索引",
+        "E精确差异及旧/新提交保全"
+      ],
+      "resources": "主计划第4节整包统一上限，禁止继承旧预算",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance",
+      "new_execution_status": "NOT_RUN",
+      "stage_exit_status": "BLOCKED",
+      "plan_status": "PLANNED",
+      "evidence_requirement_refs": [
+        "/tc_evidence_requirements/B-MODEL-6",
+        "/tc_evidence_requirements/B-RPC-6",
+        "/tc_evidence_requirements/E-PREBASELINE",
+        "/tc_evidence_requirements/E-UPGRADE-S10-ONLY",
+        "/tc_evidence_requirements/E-PRESERVE",
+        "/tc_evidence_requirements/E-AFFECTED-REGRESSION"
+      ],
+      "new_execution_evidence": []
+    }
+  ],
+  "group_cases": {
+    "A": [
+      "A-STATE",
+      "A-EDITOR",
+      "A-ORIGINAL"
+    ],
+    "B": [
+      "B-MODEL-6",
+      "B-RPC-6"
+    ],
+    "C": [
+      "C-SCOPE",
+      "C-ATTACHMENT",
+      "C-TOKEN",
+      "C-REVOKED-PAGE"
+    ],
+    "D": [
+      "D-ADMIT",
+      "D-NORMAL-6",
+      "D-FAILED-2",
+      "D-RECOVER-2",
+      "D-LOST-REFUND-2",
+      "D-VERIFY-RETRY"
+    ],
+    "E": [
+      "E-PREBASELINE",
+      "E-UPGRADE-S10-ONLY",
+      "E-PRESERVE",
+      "E-AFFECTED-REGRESSION"
+    ]
+  },
+  "tc_evidence_requirements": {
+    "A-STATE": {
+      "required_layers": [
+        "MODEL_NATIVE_COMMITTED"
+      ],
+      "minimum_artifacts": [
+        "新准入RO身份/隔离/退出",
+        "doc v4及versions9→10/author/经济/原件独立基线"
+      ],
+      "status": "NOT_RUN",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance"
+    },
+    "A-EDITOR": {
+      "required_layers": [
+        "HTTP/RPC",
+        "MODEL_NATIVE_COMMITTED"
+      ],
+      "minimum_artifacts": [
+        "真实actor7正常acquire/release或已无editor的独立状态",
+        "合法失效分支/审计/四mutex精确diff",
+        "v4/旧费库款不变"
+      ],
+      "status": "NOT_RUN",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance"
+    },
+    "A-ORIGINAL": {
+      "required_layers": [
+        "BROWSER",
+        "HTTP/RPC",
+        "PDF_VISUAL",
+        "MODEL_NATIVE_COMMITTED"
+      ],
+      "minimum_artifacts": [
+        "真实工作台link/click/download",
+        "旧v1字节SHA同059287…",
+        "逐页目视及原件不重渲染计数0/经济不变"
+      ],
+      "status": "NOT_RUN",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance"
+    },
+    "B-MODEL-6": {
+      "required_layers": [
+        "MODEL"
+      ],
+      "minimum_artifacts": [
+        "source/payment/audit各write/unlink六项framework普通用户拒绝",
+        "非空实际字段/目标前后存储/actor/su/回滚隔离"
+      ],
+      "status": "NOT_RUN",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance"
+    },
+    "B-RPC-6": {
+      "required_layers": [
+        "HTTP/RPC",
+        "MODEL_NATIVE_COMMITTED"
+      ],
+      "minimum_artifacts": [
+        "六项真实JSONRPC请求/响应体/实际params",
+        "各错误层与独立旧对象/审计旧行不变"
+      ],
+      "status": "NOT_RUN",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance"
+    },
+    "C-SCOPE": {
+      "required_layers": [
+        "HTTP/RPC",
+        "MODEL_NATIVE_COMMITTED",
+        "SYNTHETIC_FIXTURE"
+      ],
+      "minimum_artifacts": [
+        "每权限/店/公司/family/混源cell预期与真实响应",
+        "新合成fixture标识与old对象只读不变"
+      ],
+      "status": "NOT_RUN",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance"
+    },
+    "C-ATTACHMENT": {
+      "required_layers": [
+        "HTTP/RPC",
+        "MODEL_NATIVE_COMMITTED"
+      ],
+      "minimum_artifacts": [
+        "content/image/download各实际body MIME bytes SHA",
+        "合法safe placeholder解码像素/尺寸/内容对照及无原件泄露",
+        "独立附件/原件行和审计变化"
+      ],
+      "status": "NOT_RUN",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance"
+    },
+    "C-TOKEN": {
+      "required_layers": [
+        "STATIC",
+        "HTTP/RPC"
+      ],
+      "minimum_artifacts": [
+        "无/随机无效/合法受控有效token各实际请求或N/A源码不可签发理由",
+        "原件native binary前置拒绝；token不进入公开材料"
+      ],
+      "status": "NOT_RUN",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance"
+    },
+    "C-REVOKED-PAGE": {
+      "required_layers": [
+        "BROWSER",
+        "HTTP/RPC",
+        "MODEL_NATIVE_COMMITTED",
+        "SYNTHETIC_FIXTURE"
+      ],
+      "minimum_artifacts": [
+        "新合成用户授权前页面/撤权后旧页下一请求拒绝",
+        "同源read/export分离及正常恢复原fixture权限的独立核实"
+      ],
+      "status": "NOT_RUN",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance"
+    },
+    "D-ADMIT": {
+      "required_layers": [
+        "STATIC",
+        "HTTP/RPC",
+        "MODEL_NATIVE_COMMITTED",
+        "SYNTHETIC_FIXTURE"
+      ],
+      "minimum_artifacts": [
+        "新独立来源及真实账号/店/公司/scope/日期/全相关渠道日结锁准入",
+        "无旧钱款/锁/权限改动"
+      ],
+      "status": "NOT_RUN",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance"
+    },
+    "D-NORMAL-6": {
+      "required_layers": [
+        "HTTP/RPC",
+        "MODEL_NATIVE_COMMITTED",
+        "SYNTHETIC_FIXTURE"
+      ],
+      "minimum_artifacts": [
+        "唯一新patient/source/invoice费用6与一次收6",
+        "native inbound/partial/receipt/audit独立核回"
+      ],
+      "status": "NOT_RUN",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance"
+    },
+    "D-FAILED-2": {
+      "required_layers": [
+        "HTTP/RPC",
+        "MODEL_NATIVE_COMMITTED",
+        "SYNTHETIC_FIXTURE"
+      ],
+      "minimum_artifacts": [
+        "新refund2申请/异人批准",
+        "refund_uncertain failed合成线下未付事实/状态/额度/audit",
+        "非真实网关故障标识"
+      ],
+      "status": "NOT_RUN",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance"
+    },
+    "D-RECOVER-2": {
+      "required_layers": [
+        "HTTP/RPC",
+        "MODEL_NATIVE_COMMITTED",
+        "SYNTHETIC_FIXTURE"
+      ],
+      "minimum_artifacts": [
+        "合法finance verified_not_paid→approved",
+        "额度/审计独立状态，不增加出款"
+      ],
+      "status": "NOT_RUN",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance"
+    },
+    "D-LOST-REFUND-2": {
+      "required_layers": [
+        "HTTP/RPC",
+        "MODEL_NATIVE_COMMITTED",
+        "SYNTHETIC_FIXTURE"
+      ],
+      "minimum_artifacts": [
+        "refund_execute唯一派发+客户端故意丢响应的独立dispatch记录",
+        "OUTCOME_UNKNOWN→新RO核done/唯一outbound/credit/partial/receipt/audit",
+        "未知不重放"
+      ],
+      "status": "NOT_RUN",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance"
+    },
+    "D-VERIFY-RETRY": {
+      "required_layers": [
+        "HTTP/RPC",
+        "MODEL_NATIVE_COMMITTED",
+        "SYNTHETIC_FIXTURE"
+      ],
+      "minimum_artifacts": [
+        "前置已核done后同actor/store/key/payload/operation_ref一次retry",
+        "返回already_accepted/native出款仍1笔2/净收4",
+        "退款PDF实际字节/目视由T11另列"
+      ],
+      "status": "NOT_RUN",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance"
+    },
+    "E-PREBASELINE": {
+      "required_layers": [
+        "STATIC",
+        "MODEL_NATIVE_COMMITTED"
+      ],
+      "minimum_artifacts": [
+        "目标SHA/config/marker/模块/schema/关系全清单",
+        "旧及新增经济权限临床审计原件附件全域前存储签名"
+      ],
+      "status": "NOT_RUN",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance"
+    },
+    "E-UPGRADE-S10-ONLY": {
+      "required_layers": [
+        "STATIC",
+        "MODEL_NATIVE_COMMITTED"
+      ],
+      "minimum_artifacts": [
+        "精确-u ydental_settlement命令与独立父进程exit/signal",
+        "原生日志/模块版本/事务后RO状态",
+        "失败保全不重克隆/不伪回滚"
+      ],
+      "status": "NOT_RUN",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance"
+    },
+    "E-PRESERVE": {
+      "required_layers": [
+        "MODEL_NATIVE_COMMITTED"
+      ],
+      "minimum_artifacts": [
+        "逐行存储全域前后diff/附件与filestore逐文件bytes SHA",
+        "升级技术元数据逐字段白名单及原因",
+        "所有历史与本包提交保全"
+      ],
+      "status": "NOT_RUN",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance"
+    },
+    "E-AFFECTED-REGRESSION": {
+      "required_layers": [
+        "MODEL",
+        "HTTP/RPC",
+        "BROWSER",
+        "PDF_VISUAL",
+        "SYNTHETIC_FIXTURE"
+      ],
+      "minimum_artifacts": [
+        "受影响S01/clinical/settlement/original方法与typed异常API翻译回归",
+        "B真实RPC/C关键cells/旧原件UI同SHA和PDF逐页",
+        "D只读唯一提交，不重执行资金；新合成并发仅直接影响需要时"
+      ],
+      "status": "NOT_RUN",
+      "executor": "/root/tester",
+      "reviewer": "/root/acceptance"
+    }
+  }
+}
