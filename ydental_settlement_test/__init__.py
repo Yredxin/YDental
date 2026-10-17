@@ -5,6 +5,7 @@ from pathlib import Path
 import re
 
 from odoo.exceptions import AccessError
+from odoo.tools import config
 
 
 def pre_init_hook(env):
@@ -29,3 +30,7 @@ def pre_init_hook(env):
 
 
 from . import models
+
+
+if config['test_enable']:
+    from . import tests
