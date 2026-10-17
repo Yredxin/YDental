@@ -318,9 +318,6 @@ def main():
     a = values[('.local/s10-p0-22/A-owner-scope-precommit.json', 'snapshot-target')]
     b = values[('.local/s10-p0-22/A-owner-scope-committed-RO.json', 'snapshot-target')]
     c = values[('.local/s10-p0-22/final-tail-RO.json', 'snapshot-target')]
-    save('field-observations.json', {'observations': observations, 'target_table_signatures': tables})
-    save('comparisons.json', {'comparisons': comparisons, 'precommit_to_readback': differences(a, b),
-                            'readback_to_tail': differences(b, c), 'precommit_to_tail': differences(a, c)})
     assert a == c and len(differences(a, b)['character_differences']) == 1
     assert differences(a, b)['character_differences'][0]['character_offset'] == 1992
     assert a[1992] == 'v' and b[1992] == '6'
@@ -340,6 +337,10 @@ def main():
                   'observed_variant_only_exact_single_character_difference': True,
                   'whole_database_rows_published': False}
     save('disclosure-check.json', disclosure)
+    # Hex and nearby fragments also disclose content: save them only after this gate.
+    save('field-observations.json', {'observations': observations, 'target_table_signatures': tables})
+    save('comparisons.json', {'comparisons': comparisons, 'precommit_to_readback': differences(a, b),
+                            'readback_to_tail': differences(b, c), 'precommit_to_tail': differences(a, c)})
     for name, val in [('precommit', a), ('readback', b), ('tail', c)]:
         with (OUT / ('arch_prev-' + name + '.txt')).open('xb') as stream:
             stream.write(val.encode()); stream.flush(); os.fsync(stream.fileno())
