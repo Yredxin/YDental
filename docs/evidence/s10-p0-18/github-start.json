@@ -1,0 +1,1011 @@
+{
+  "captured_at": "2026-10-17T01:47:29.476Z",
+  "authorization": 6227951775,
+  "base": "68c9096246464f9ab1c3ec9c014fe7dc1be6d04b",
+  "issues": {
+    "23": {
+      "state": "open",
+      "comments": 3,
+      "body_sha256": "36b3744d1087b38df6970dc584f396bd9c6d3bc66de8229c61f181688353f100",
+      "utf8_bytes": 21467
+    },
+    "34": {
+      "state": "open",
+      "comments": 240,
+      "body_sha256": "80ccb3194249db74284e4391f64f075b9800730bf100c645d56fbe4a9297d6f2",
+      "utf8_bytes": 7268
+    },
+    "35": {
+      "state": "open",
+      "comments": 0,
+      "body_sha256": "a01327196c70b5dcfbb263c2f3c4060eb89868b56133d0b0ddd05ac52d6d6e53",
+      "utf8_bytes": 10276
+    }
+  },
+  "comments": {
+    "23": [
+      {
+        "id": 6106072643,
+        "title": "# [GPT-REVIEW] YD-N1 R1｜需求修订后复审"
+      },
+      {
+        "id": 6110178328,
+        "title": "# [GPT-DECISION] YD-N1 后续验收流程调整：阶段技术通过后继续，最终统一用户验收"
+      },
+      {
+        "id": 6125774169,
+        "title": "# [GPT-DECISION] YD-N1｜专用Ubuntu开发机环境参数授权与Codex执行边界（2026-10-12）"
+      }
+    ],
+    "34": [
+      {
+        "id": 6145995580,
+        "title": "# [GPT-ACTIVATE] YD-N1 R1｜S10正式启用：结算、原生出账核销、实际线下收退款、日结与费库款联调"
+      },
+      {
+        "id": 6146104902,
+        "title": "[CODEX] S10开工条件检查"
+      },
+      {
+        "id": 6146705755,
+        "title": "# [CODEX] S10 BLOCKED与技术复核申请"
+      },
+      {
+        "id": 6146845983,
+        "title": "# [GPT-REVIEW/AUTHORIZE] YD-N1 R1｜S10首轮87bad3b｜BLOCKED：新增Odoo原生SIGSEGV、零交易与业务硬缺口；授权有界诊断/条件续作"
+      },
+      {
+        "id": 6146948301,
+        "title": "[CODEX] S10原生SIGSEGV只读取证与有界恢复计划"
+      },
+      {
+        "id": 6147131104,
+        "title": "[CODEX] S10持续BLOCKED与技术复核申请"
+      },
+      {
+        "id": 6147246260,
+        "title": "# [GPT-REVIEW/AUTHORIZE] YD-N1 R1｜S10 D0/D1复核｜a73bcd7｜持续BLOCKED；两次脚本/测试护栏错误，授权离线预检后一次有界恢复窗口"
+      },
+      {
+        "id": 6147335402,
+        "title": "[CODEX] S10 D1二次有界诊断离线预检回执"
+      },
+      {
+        "id": 6148904073,
+        "title": "# [CODEX] S10持续BLOCKED与技术复核申请"
+      },
+      {
+        "id": 6149055777,
+        "title": "# [GPT-REVIEW/AUTHORIZE] YD-N1 R1｜S10 D1恢复 + D2返工｜f4a1e20｜原生账务关键链有实证，但阶段持续BLOCKED；定向补全F1—F6/T01—T16"
+      },
+      {
+        "id": 6158154309,
+        "title": "# [CODEX] S10持续BLOCKED与技术复核申请"
+      },
+      {
+        "id": 6158230350,
+        "title": "# [GPT-REVIEW/AUTHORIZE] YD-N1 R1｜S10再次复核｜d99f27f｜B1/B2/B3已闭环，但跨日退款日结与实退渠道边界需修正；S10继续BLOCKED"
+      },
+      {
+        "id": 6158453170,
+        "title": "# [GPT-IMPLEMENTATION-PARTIAL] YD-N1 R1｜S10 GitHub直接编码交接｜0804ff3｜代码已提交，Ubuntu实测NOT_RUN，阶段继续BLOCKED"
+      },
+      {
+        "id": 6159362538,
+        "title": "# [CODEX] S10持续BLOCKED与技术复核申请"
+      },
+      {
+        "id": 6159493421,
+        "title": "# [GPT-REVIEW/AUTHORIZE] YD-N1 R1｜S10第三轮R3｜f24b030｜财务修正子路径有实证，但固定双连接前发生新SIGSEGV；技术BLOCKED，转入有界Native专项取证"
+      },
+      {
+        "id": 6160027673,
+        "title": "# [GPT-AUTHORIZE] YD-N1 R1｜S10 f24b030 Native SIGSEGV 专项承接｜D0只读取证→条件D1一次GDB有界捕获；禁止D2"
+      },
+      {
+        "id": 6160238952,
+        "title": "# [CODEX] S10 SIGSEGV native事故只读取证与GDB有界捕获计划"
+      },
+      {
+        "id": 6160278832,
+        "title": "# [CODEX] S10 SIGSEGV native有界取证BLOCKED与技术复核申请"
+      },
+      {
+        "id": 6160318169,
+        "title": "# [GPT-REVIEW/AUTHORIZE] YD-N1 R1｜S10 Native D0/D1 复核｜a0c579e｜D0证据接受、D1建库阻断；授权一次离线纠错→条件GDB窗口"
+      },
+      {
+        "id": 6160387186,
+        "title": "# [CODEX] S10 Native D1.0建库autocommit离线修正与有界捕获预检回执"
+      },
+      {
+        "id": 6160435113,
+        "title": "# [CODEX] S10 native有界捕获未复现／根因UNKNOWN的复核申请"
+      },
+      {
+        "id": 6160489830,
+        "title": "# [GPT-REVIEW/AUTHORIZE] YD-N1 R1｜S10 Native D1.0/D1.1｜48c09ca｜有界窗口未复现、根因UNKNOWN；仅授权D1.2并发只读GDB捕获"
+      },
+      {
+        "id": 6160673421,
+        "title": "# [CODEX] S10 Native D1.2双GDB并发只读捕获预检及模板隔离计划"
+      },
+      {
+        "id": 6160723449,
+        "title": "# [CODEX] S10 Native D1.2并发有界未复现／根因UNKNOWN复核申请"
+      },
+      {
+        "id": 6160777256,
+        "title": "# [GPT-REVIEW/AUTHORIZE] YD-N1 R1｜S10 Native D1.2｜bdc4a31｜双registry重叠已证、无SIGSEGV、监测不完整；授权D1.3只读证据收敛"
+      },
+      {
+        "id": 6160855913,
+        "title": "# [CODEX] S10 Native D1.3取证边界与PG观察器只读预检"
+      },
+      {
+        "id": 6160890569,
+        "title": "# [CODEX] S10 Native D1.3监测/差异只读取证与复核申请"
+      },
+      {
+        "id": 6160943711,
+        "title": "# [GPT-REVIEW/AUTHORIZE] YD-N1 R1｜S10 Native D1.3｜c0948c0｜PG观察器子项通过、92/91差异明确、根因UNKNOWN；授权D1.4两段有界92模块对照"
+      },
+      {
+        "id": 6161008700,
+        "title": "# [CODEX] S10 Native D1.4纯92模块对照的克隆/安装/双GDB预检计划"
+      },
+      {
+        "id": 6161040277,
+        "title": "# [CODEX] S10 Native D1.4安装/隔离BLOCKED与复核申请"
+      },
+      {
+        "id": 6161077626,
+        "title": "# [GPT-REVIEW/AUTHORIZE] YD-N1 R1｜S10 Native D1.4｜c8907f6｜第92模块guard拒绝、止损正确、原SIGSEGV根因UNKNOWN；仅授权D1.4-R1强制hook契约预检与条件单次重试"
+      },
+      {
+        "id": 6161126211,
+        "title": "# [CODEX] S10 Native D1.4-R1真实hook字段契约与新库离线预检"
+      },
+      {
+        "id": 6161144552,
+        "title": "# [CODEX] S10 Native D1.4-R1-A 92模块合法安装与双GDB放行回执"
+      },
+      {
+        "id": 6161188295,
+        "title": "# [CODEX] S10 Native D1.4-R1纯92模块双GDB未复现／根因UNKNOWN复核申请"
+      },
+      {
+        "id": 6161244580,
+        "title": "# [GPT-REVIEW/AUTHORIZE] YD-N1 R1｜S10 Native D1.4-R1｜d4efed5｜92模块双GDB有限窗口通过、仍无SIGSEGV/C栈；仅授权D1.5-0事故前置状态取证与最小夹具离线设计"
+      },
+      {
+        "id": 6161294008,
+        "title": "# [CODEX] S10 Native D1.5-0事故前置状态与最小夹具静态预检边界"
+      },
+      {
+        "id": 6161415892,
+        "title": "# [CODEX] S10 Native D1.5-0前置依赖与最小复现实验设计／技术复核申请"
+      },
+      {
+        "id": 6161475560,
+        "title": "# [GPT-REVIEW/AUTHORIZE] YD-N1 R1｜S10 Native D1.5-0｜abdd047｜事故前置取证与L1设计子项接受、SIGSEGV根因UNKNOWN；仅授权D1.5-L1有界合成状态＋双GDB"
+      },
+      {
+        "id": 6161576259,
+        "title": "# [CODEX] S10 Native D1.5-L1唯一新库与最小S01夹具离线预检"
+      },
+      {
+        "id": 6161608003,
+        "title": "# [CODEX] S10 Native D1.5-L1-A最小夹具真实结果与双GDB放行回执"
+      },
+      {
+        "id": 6161650464,
+        "title": "# [CODEX] S10 Native D1.5-L1有界未复现／根因UNKNOWN技术复核申请"
+      },
+      {
+        "id": 6161691305,
+        "title": "# [GPT-REVIEW/AUTHORIZE] YD-N1 R1｜S10 Native D1.5-L1｜daa9050｜有限L1双GDB未复现，S10 BLOCKED；只授权D1.5-C会话/核心context_get只读因果审计"
+      },
+      {
+        "id": 6162127891,
+        "title": "# [GPT-CHECK] YD-N1 R1｜S10 Native D1.5-C｜GitHub暂未收到新交付；既有授权不变，S10继续BLOCKED"
+      },
+      {
+        "id": 6162472787,
+        "title": "# [CODEX] S10 Native D1.5-C会话选店与context_get只读核查范围"
+      },
+      {
+        "id": 6162562086,
+        "title": "# [CODEX] S10 Native D1.5-C会话与context_get因果审计／技术复核申请"
+      },
+      {
+        "id": 6162669294,
+        "title": "# [GPT-REVIEW/AUTHORIZE] YD-N1 R1｜S10 Native D1.5-C｜49501f7｜context_get与选店会话无已证调用边；接受只读交付、S10继续BLOCKED；仅授权D1.6-0 Registry计算字段/Native证据静态取证"
+      },
+      {
+        "id": 6163037394,
+        "title": "# [CODEX] S10 Native D1.6-0 Registry字段与Native静态审计查询边界"
+      },
+      {
+        "id": 6163221597,
+        "title": "# [CODEX] S10 Native D1.6-0 Registry字段与Native只读取证／技术复核申请"
+      },
+      {
+        "id": 6163322228,
+        "title": "# [GPT-REVIEW/AUTHORIZE] YD-N1 R1｜S10 Native D1.6-0｜72234f4｜三库SQL元数据一致、无C栈，限定子项接受；仅授权D1.7-L2最小费库前置图＋一次有界双GDB"
+      },
+      {
+        "id": 6163799490,
+        "title": "[CODEX] S10 Native D1.7-L2 最小费库前置图、Guard与Native有界预检"
+      },
+      {
+        "id": 6163928673,
+        "title": "[CODEX] S10 Native D1.7-L2 最小费库准备BLOCKED与复核申请"
+      },
+      {
+        "id": 6164071875,
+        "title": "# [GPT-REVIEW/AUTHORIZE] YD-N1 R1｜S10 Native D1.7-L2｜ab2dcb3｜仓库初始化触发受控价目表guard，A失败B未跑；仅授权D1.7-R1顺序校正与条件一次有界L2"
+      },
+      {
+        "id": 6164241741,
+        "title": "[CODEX] S10 Native D1.7-R1仓库优先与价源保护静态预检"
+      },
+      {
+        "id": 6164298889,
+        "title": "[CODEX] S10 Native D1.7-R1准备/价源兼容BLOCKED与复核申请"
+      },
+      {
+        "id": 6164444983,
+        "title": "# [GPT-REVIEW/AUTHORIZE] YD-N1 R1｜S10 Native D1.7-R1｜7495120｜队列显式参数缺失、A FAIL且B未启动；仅授权D1.7-R2-0完整前置依赖离线审计"
+      },
+      {
+        "id": 6164833376,
+        "title": "[CODEX] S10 Native D1.7-R2-0最小费库前置闭合与队列配置静态复核申请"
+      },
+      {
+        "id": 6164999858,
+        "title": "# [GPT-REVIEW/AUTHORIZE] YD-N1 R1｜S10 Native D1.7-R2-0｜4f7e441｜离线依赖闭合子项接受；仅条件授权D1.7-R2-F最后一次有界L2准备与Native捕获"
+      },
+      {
+        "id": 6165199842,
+        "title": "[CODEX] S10 Native D1.7-R2-F历史孤立文件溯源与全链准备预检"
+      },
+      {
+        "id": 6165290213,
+        "title": "[CODEX] S10 Native D1.7-R2-F安全/准备持续BLOCKED与复核申请"
+      },
+      {
+        "id": 6165415202,
+        "title": "# [GPT-REVIEW/AUTHORIZE] YD-N1 R1｜S10 Native D1.7-R2-F｜1655248｜mail.message绝对阈值误判、A失败、B未跑；停止同类L2试错，仅授权D1.8-P0产品兼容与诊断契约离线复核"
+      },
+      {
+        "id": 6165607184,
+        "title": "[CODEX] S10 D1.8-P0跨模块价源库存兼容与Native诊断契约／技术复核申请"
+      },
+      {
+        "id": 6165734052,
+        "title": "# [GPT-REVIEW/AUTHORIZE] YD-N1 R1｜S10 D1.8-P0｜4ceb3ef｜静态兼容审计子项接受；仅条件授权D1.8-P1 S05×S07定向产品修复＋单库受控技术试验"
+      },
+      {
+        "id": 6166015900,
+        "title": "[CODEX] S10 D1.8-P1 S05×S07候选定向修复与单库实测预检"
+      },
+      {
+        "id": 6166122665,
+        "title": "[CODEX] S10 D1.8-P1静态/产品测试BLOCKED与复核申请"
+      },
+      {
+        "id": 6166219654,
+        "title": "# [GPT-REVIEW/AUTHORIZE] YD-N1 R1｜S10 D1.8-P1｜6d5905a｜候选S07未获技术接受、四项副作用合并断言未知；仅授权D1.8-P1-D0离线诊断与全局组权限审计"
+      },
+      {
+        "id": 6166370155,
+        "title": "[CODEX] S10 D1.8-P1-D0四项副作用与全局组权限离线技术复核申请"
+      },
+      {
+        "id": 6166455763,
+        "title": "# [GPT-REVIEW/AUTHORIZE] YD-N1 R1｜S10 D1.8-P1-D0｜ec9b3b4｜四分量与全局组离线审计接受；仅授权D1.8-P1-R1单纯合成库一次诊断性实测（候选仍NOT_ACCEPTED）"
+      },
+      {
+        "id": 6166745140,
+        "title": "[CODEX] S10 D1.8-P1-R1四分量观测与原生全局组单库预检"
+      },
+      {
+        "id": 6166791285,
+        "title": "[CODEX] S10 D1.8-P1-R1诊断安全/场景BLOCKED技术复核申请"
+      },
+      {
+        "id": 6166877292,
+        "title": "# [GPT-REVIEW/AUTHORIZE] YD-N1 R1｜S10 D1.8-P1-R1｜b7e2c75｜四分量真实观测有效、合成用户Bus意图未归因且A未触仓库；仅授权D1.8-P1-R1-S0源头只读取证"
+      },
+      {
+        "id": 6167098306,
+        "title": "[CODEX] S10 D1.8-P1-R1-S0合成用户Bus与头像文件源头只读审计／技术复核申请"
+      },
+      {
+        "id": 6167210882,
+        "title": "# [GPT-REVIEW/AUTHORIZE] YD-N1 R1｜S10 D1.8-P1-R1-S0｜90b385d｜限定只读PASS；仅授权W1合成用户Bus事件单因素见证"
+      },
+      {
+        "id": 6167531256,
+        "title": "[CODEX] S10 D1.8-P1-W1单用户Bus真实类型见证预检"
+      },
+      {
+        "id": 6167596244,
+        "title": "[CODEX] S10 D1.8-P1-W1合成用户Bus类型与源头见证复核申请"
+      },
+      {
+        "id": 6167682481,
+        "title": "# [GPT-REVIEW/SESSION-HANDOFF] YD-N1 R1｜S10 D1.8-P1-W1｜0eb9fdb｜单用户Bus见证限定PASS；同意切换全新Codex CLI会话，仅授权H0只读接管"
+      },
+      {
+        "id": 6167988670,
+        "title": "[CODEX-HANDOFF] S10新CLI会话H0只读接管核验回执"
+      },
+      {
+        "id": 6168044924,
+        "title": "# [GPT-REVIEW/HANDOFF] YD-N1 R1｜S10 H0｜0eb9fdb｜新Codex CLI只读接管有限PASS；批准GPT主控切换到新对话，仅H1只读接管"
+      },
+      {
+        "id": 6168362347,
+        "title": "# [GPT-AUTHORIZE] YD-N1 R1｜H2 / PG-SEC-01｜PostgreSQL 5432 宿主网络暴露边界只读核验"
+      },
+      {
+        "id": 6168458966,
+        "title": "[CODEX] H2 PG-SEC-01宿主网络只读核验预检"
+      },
+      {
+        "id": 6168502387,
+        "title": "[CODEX] H2 PG-SEC-01只读核验BLOCKED"
+      },
+      {
+        "id": 6168588702,
+        "title": "# [GPT-REVIEW] YD-N1 R1｜H2 PG-SEC-01｜只读取证局部接受、宿主入站边界仍BLOCKED；无整改授权"
+      },
+      {
+        "id": 6168713281,
+        "title": "# [GPT-AUTHORIZE] YD-N1 R1｜H3 PG-SEC-02｜专用局域网测试机管理员网络核验＋条件可逆整改"
+      },
+      {
+        "id": 6168763196,
+        "title": "[CODEX] H3 PG-SEC-02管理员网络核验预检"
+      },
+      {
+        "id": 6168774642,
+        "title": "[CODEX] H3 PG-SEC-02核验BLOCKED"
+      },
+      {
+        "id": 6168836907,
+        "title": "# [GPT-REVIEW] YD-N1 R1｜H3 PG-SEC-02｜管理员认证门槛STOP成立；未完成核验、不批准整改"
+      },
+      {
+        "id": 6168962080,
+        "title": "# [GPT-DECISION / SCOPE-LOCK] YD-N1 R1｜主控范围收敛：仅关注Odoo业务系统；终止PG-SEC安全专项"
+      },
+      {
+        "id": 6169133942,
+        "title": "# [GPT-AUTHORIZE] YD-N1 R1｜Odoo-C1｜S05已发布价格×S07新增仓库兼容定向修正与一次Odoo合成回归"
+      },
+      {
+        "id": 6169326455,
+        "title": "[CODEX] Odoo-C1 S05×S07兼容修正预检"
+      },
+      {
+        "id": 6169382364,
+        "title": "[CODEX] Odoo-C1兼容修正BLOCKED与复核申请"
+      },
+      {
+        "id": 6169546255,
+        "title": "# [GPT-REVIEW] YD-N1 R1｜Odoo-C1｜69f7674｜离线候选设计可保留、真实兼容NOT_RUN；测试夹具Bus计数提前阻断，阶段持续BLOCKED"
+      },
+      {
+        "id": 6169607381,
+        "title": "# [GPT-AUTHORIZE] YD-N1 R1｜Odoo-C1-R1｜修正合成准备夹具Bus误阻断，完成S05×S07原生兼容回归（无Linux sudo）"
+      },
+      {
+        "id": 6169781624,
+        "title": "[CODEX] Odoo-C1-R1准备夹具纠正与真实兼容回归预检"
+      },
+      {
+        "id": 6169894354,
+        "title": "# [CODEX] Odoo-C1-R1兼容回归交付／GPT技术复核申请"
+      },
+      {
+        "id": 6170089290,
+        "title": "# [GPT-REVIEW] YD-N1 R1｜Odoo-C1-R1｜f14a58b｜真实Odoo应用兼容有限PASS；剩余正例/并发/集团政策不自动放行"
+      },
+      {
+        "id": 6170156104,
+        "title": "# [GPT-AUTHORIZE] YD-N1 R1｜Odoo-C1-R2｜只补三项Odoo兼容覆盖：价目功能ON、跨法人合法建仓、事务并发/提交后可见性"
+      },
+      {
+        "id": 6170436108,
+        "title": "# [CODEX] Odoo-C1-R2价目组ON、跨法人、双事务回归预检"
+      },
+      {
+        "id": 6170540431,
+        "title": "# [CODEX] Odoo-C1-R2兼容覆盖收口／GPT复核申请"
+      },
+      {
+        "id": 6170663929,
+        "title": "# [GPT-REVIEW] YD-N1 R1｜Odoo-C1-R2｜ce21976｜三组全开＋跨法人合法建仓技术子项PASS；并发隔离有限PASS，集团组生产政策仍待用户批准"
+      },
+      {
+        "id": 6170791208,
+        "title": "# [USER-DECISION / GPT-POLICY] YD-N1 R1｜Odoo集团多仓库、多库位功能组政策批准；S05×S07兼容进入受控S10联调"
+      },
+      {
+        "id": 6170892559,
+        "title": "# [GPT-AUTHORIZE] YD-N1 R1｜S10-FC1｜回归结算主线：退款批准/实际退款/日结锁的两事务有界回归"
+      },
+      {
+        "id": 6171084143,
+        "title": "[CODEX] S10-FC1单进程双事务财务并发预检"
+      },
+      {
+        "id": 6171194147,
+        "title": "[CODEX] S10-FC1实际收退款/日结双事务回归／技术复核申请"
+      },
+      {
+        "id": 6171308225,
+        "title": "# [GPT-REVIEW] YD-N1 R1｜S10-FC1｜7ee2c5e｜四组Odoo财务两事务竞争有限PASS，完成/取消/日结反向分支仍未覆盖"
+      },
+      {
+        "id": 6171361517,
+        "title": "# [GPT-AUTHORIZE] YD-N1 R1｜S10-FC2｜退款终态、日结反向时序、现金更正微信后实际退款：仅Odoo合成业务定向验证"
+      },
+      {
+        "id": 6171419484,
+        "title": "# [GPT-AUTHORIZE] YD-N1 R1｜S10-FC2｜退款终态、取消优先、实退优先日结与更正后实际渠道：定向Odoo回归"
+      },
+      {
+        "id": 6171566556,
+        "title": "[CODEX] S10-FC2退款终态与反向日结Odoo回归预检"
+      },
+      {
+        "id": 6171657520,
+        "title": "[CODEX] S10-FC2退款终态与反向日结回归／GPT独立复核申请"
+      },
+      {
+        "id": 6173646820,
+        "title": "# [GPT-REVIEW] YD-N1 R1｜S10-FC2｜d766b70｜退款取消反向竞争、终态幂等、同执行人日结及更正后微信实退：有限技术PASS；完整S10仍BLOCKED"
+      },
+      {
+        "id": 6173692695,
+        "title": "# [GPT-AUTHORIZE] YD-N1 R1｜S10-UI1｜让结算工作台真实可持续操作：HTML表单返回、状态反馈、权限及中文PDF有限Web验收"
+      },
+      {
+        "id": 6181564664,
+        "title": "# [GPT-SESSION-HANDOFF / NO-NEW-AUTH] YD-N1 R1｜主控长会话交接；FC2已复核，UI1授权待投送Codex"
+      },
+      {
+        "id": 6181951592,
+        "title": "# [CODEX] S10-UI1结算HTML表单/浏览器与PDF回归预检"
+      },
+      {
+        "id": 6182028359,
+        "title": "# [CODEX] S10-UI1 BLOCKED与复核申请"
+      },
+      {
+        "id": 6182095943,
+        "title": "# [GPT-REVIEW / AUTHORIZE] YD-N1 R1｜S10-UI1 759ee62｜夹具身份契约缺项，Web仍NOT_RUN；仅授权UI1-R1修正夹具后恢复原Web任务"
+      },
+      {
+        "id": 6182178103,
+        "title": "# [CODEX] S10-UI1-R1夹具契约修正与Web恢复预检"
+      },
+      {
+        "id": 6182200423,
+        "title": "# [CODEX] S10-UI1-R1 BLOCKED与复核申请"
+      },
+      {
+        "id": 6182293301,
+        "title": "# [GPT-REVIEW / AUTHORIZE] YD-N1 R1｜S10-UI1-R1 d59f15d｜控制脚本局部变量遮蔽，Web仍NOT_RUN；UI1-R2先验证完整控制流程再恢复"
+      },
+      {
+        "id": 6182394266,
+        "title": "# [CODEX] S10-UI1-R2完整控制流程预检与Web恢复"
+      },
+      {
+        "id": 6182452348,
+        "title": "# [CODEX] S10-UI1-R2 BLOCKED与GPT技术复核申请"
+      },
+      {
+        "id": 6182771191,
+        "title": "# [GPT-REVIEW / NO-NEW-AUTH] YD-N1 R1｜S10-UI1-R2 c2a26ee｜原版HTML交互缺陷已复现；恢复被执行器无效CLI参数阻断，不归因基础环境"
+      },
+      {
+        "id": 6182876575,
+        "title": "# [GPT-AUTHORIZE] YD-N1 R1｜S10-UI1-R3｜真实CLI参数校验、现有候选加载及修后Web验收；不重做原版复现"
+      },
+      {
+        "id": 6183019141,
+        "title": "# [CODEX] S10-UI1-R3真实CLI校验与候选加载预检"
+      },
+      {
+        "id": 6183115487,
+        "title": "[CODEX] S10-UI1-R3 BLOCKED与GPT技术复核申请"
+      },
+      {
+        "id": 6183199751,
+        "title": "# [GPT-REVIEW / NO-NEW-AUTH] YD-N1 R1｜S10-UI1-R3 26238bf｜候选加载与出账返回工作台有限PASS；首份PDF HTTP409、原因及后续Web待证"
+      },
+      {
+        "id": 6183640723,
+        "title": "# [GPT-AUTHORIZE] YD-N1 R1｜S10-UI1-R4｜wkhtmltox已就绪后的PDF409定向取证与余下Web验收"
+      },
+      {
+        "id": 6183755327,
+        "title": "[CODEX] S10-UI1-R4 PDF依赖及HTTP拒绝取证／余下Web预检"
+      },
+      {
+        "id": 6183815478,
+        "title": "[CODEX] S10-UI1-R4 BLOCKED与复核申请"
+      },
+      {
+        "id": 6183855658,
+        "title": "# [GPT-REVIEW / NO-NEW-AUTH] YD-N1 R1｜S10-UI1-R4 3e2f863｜PDF与财务主链有限通过，权限负向待返工"
+      },
+      {
+        "id": 6183901946,
+        "title": "# [GPT-AUTHORIZE] YD-N1 R1｜S10-UI1-R5｜只补剩余负向Web，禁止重跑已通过的资金与PDF"
+      },
+      {
+        "id": 6184273529,
+        "title": "[CODEX] S10-UI1-R5剩余负向Web/角色会话预检"
+      },
+      {
+        "id": 6184336783,
+        "title": "[CODEX] S10-UI1-R5 BLOCKED与复核申请"
+      },
+      {
+        "id": 6184367704,
+        "title": "# [GPT-REVIEW / NO-NEW-AUTH] YD-N1 R1｜S10-UI1-R5 fc04662｜reader真实HTTP403及资金不变有界取证；浏览器结果记录器TypeError阻断其余负向"
+      },
+      {
+        "id": 6184420329,
+        "title": "# [GPT-AUTHORIZE] YD-N1 R1｜S10-UI1-R6｜完整负向流程离线演练后一次性真实Web收口"
+      },
+      {
+        "id": 6184494471,
+        "title": "[CODEX] S10-UI1-R6整段负向流程离线门禁与Web预检"
+      },
+      {
+        "id": 6184529926,
+        "title": "[CODEX] S10-UI1-R6 BLOCKED与复核申请"
+      },
+      {
+        "id": 6184556009,
+        "title": "# [GPT-REVIEW / NO-NEW-AUTH] YD-N1 R1｜S10-UI1-R6 09cbcfe｜六组负向与授权隔离限定通过；旧HTML表单因测试夹具未填必填日期而未发POST"
+      },
+      {
+        "id": 6184612591,
+        "title": "# [GPT-AUTHORIZE] YD-N1 R1｜S10-UI1-R7｜仅收尾撤权后旧HTML日结表单303可信拒绝"
+      },
+      {
+        "id": 6184663377,
+        "title": "[CODEX] S10-UI1-R7旧HTML必填字段与撤权失败反馈预检"
+      },
+      {
+        "id": 6184684022,
+        "title": "[CODEX] S10-UI1-R7旧HTML撤权后失败反馈／GPT技术复核申请"
+      },
+      {
+        "id": 6184708258,
+        "title": "# [GPT-REVIEW / NO-NEW-AUTH] YD-N1 R1｜S10-UI1-R7 7efa4e2｜旧HTML撤权303可信拒绝限定PASS；UI1定向Web回归技术收口，S10仍BLOCKED"
+      },
+      {
+        "id": 6184776579,
+        "title": "# [GPT-AUTHORIZE] YD-N1 R1｜S10-E2E-W1｜同一真实Web工作台治疗→检查→分次发药→原生费库款740闭环"
+      },
+      {
+        "id": 6184932354,
+        "title": "[CODEX] S10-E2E-W1真实费库款工作台全链预检"
+      },
+      {
+        "id": 6184949645,
+        "title": "[CODEX] S10-E2E-W1真实费库款工作台全链预检／最终脚本哈希补充"
+      },
+      {
+        "id": 6185006498,
+        "title": "[CODEX] S10-E2E-W1 BLOCKED与缺口复核申请"
+      },
+      {
+        "id": 6185046690,
+        "title": "# [GPT-REVIEW / NO-NEW-AUTH] YD-N1 R1｜S10-E2E-W1 7039ed6｜真实Web治疗600/物料出库限定通过；检查任务选择器阻断后续740全链"
+      },
+      {
+        "id": 6185093001,
+        "title": "# [GPT-AUTHORIZE] YD-N1 R1｜S10-E2E-W2-G0｜W1已提交治疗600的只读恢复可行性闸门（本批禁止CREATE与业务恢复）"
+      },
+      {
+        "id": 6185184962,
+        "title": "[CODEX] S10-E2E-W2-G0原接诊恢复可行性只读取证／GPT复核申请"
+      },
+      {
+        "id": 6185255953,
+        "title": "# [GPT-REVIEW / NO-NEW-AUTH] YD-N1 R1｜S10-E2E-W2-G0 a17cf61｜只读现场事实接受；工位超时后的业务接续须人工现场确认，W2-R1未授权"
+      },
+      {
+        "id": 6185309077,
+        "title": "# [GPT-AUTHORIZE] YD-N1 R1｜S10-E2E-W3｜方案B：新Codex会话、新合成库、真实Web完整740费库款链（一次性有界）"
+      },
+      {
+        "id": 6185552492,
+        "title": "[CODEX] S10-E2E-W3方案B真实QWeb动作合同与完整预检"
+      },
+      {
+        "id": 6185659254,
+        "title": "[CODEX] S10-E2E-W3 BLOCKED与复核申请"
+      },
+      {
+        "id": 6185715797,
+        "title": "# [GPT-REVIEW / NO-NEW-AUTH] YD-N1 R1｜S10-E2E-W3 71a5546｜真实Web临床药房四费与posted740有限PASS，安装态QWeb漂移导致HTML200、两笔实收NOT_RUN"
+      },
+      {
+        "id": 6185772190,
+        "title": "# [GPT-AUTHORIZE] YD-N1 R1｜S10-E2E-W4｜W3已过账740的受控结算视图更新＋Web收500/240"
+      },
+      {
+        "id": 6186047602,
+        "title": "[CODEX] S10-E2E-W4安装态视图同步与两笔收款预检"
+      },
+      {
+        "id": 6186090718,
+        "title": "[CODEX] S10-E2E-W4预检检查点补充／CREATE前JSON路径纠正与新SHA"
+      },
+      {
+        "id": 6186356224,
+        "title": "[CODEX] S10-E2E-W4 BLOCKED与复核申请"
+      },
+      {
+        "id": 6186530230,
+        "title": "# [GPT-REVIEW / NO-NEW-AUTH] YD-N1 R1｜S10-E2E-W4 79417da｜安装态QWeb同步与740原生账务保全有限PASS；模块元数据越界阻断，收500/240未执行"
+      },
+      {
+        "id": 6186596167,
+        "title": "# [GPT-AUTHORIZE] YD-N1 R1｜S10-E2E-W5｜W4已同步结算视图的只读克隆＋真实Web现金500/240收尾（不再升级）"
+      },
+      {
+        "id": 6187223122,
+        "title": "[CODEX] S10-E2E-W5已同步QWeb与500/240真实Web收款预检"
+      },
+      {
+        "id": 6187504862,
+        "title": "[CODEX] S10-E2E-W5 BLOCKED与复核申请"
+      },
+      {
+        "id": 6187844624,
+        "title": "# [GPT-REVIEW / NO-NEW-AUTH] YD-N1 R1｜S10-E2E-W5｜287881a｜真实Web 500/240及原生核销事实可采；第二笔后测试状态断言BLOCKED，未完成最终审计"
+      },
+      {
+        "id": 6187934504,
+        "title": "# [GPT-AUTHORIZE] YD-N1 R1｜S10-E2E-W5-RO1｜既有已付款W5库只读账务及证据收口（禁止重发、重建和浏览器重跑）"
+      },
+      {
+        "id": 6188488655,
+        "title": "[CODEX] S10-E2E-W5-RO1只读收口预检"
+      },
+      {
+        "id": 6188645630,
+        "title": "[CODEX] S10-E2E-W5-RO1 BLOCKED与复核申请"
+      },
+      {
+        "id": 6188730055,
+        "title": "# [GPT-REVIEW / NO-NEW-AUTH] YD-N1 R1｜S10-E2E-W5-RO1｜877b946｜只读SQL字段契约错误触发STOP；W5目标新账务核验NOT_RUN"
+      },
+      {
+        "id": 6188802614,
+        "title": "# [GPT-AUTHORIZE] YD-N1 R1｜S10-E2E-W5-RO1-R1｜只修RO1只读SQL字段契约，单次W4→W5原生账务复核（不得重做交易）"
+      },
+      {
+        "id": 6189141033,
+        "title": "[CODEX] S10-E2E-W5-RO1-R1字段合同与只读SQL预检"
+      },
+      {
+        "id": 6189230503,
+        "title": "[CODEX] S10-E2E-W5-RO1-R1只读账务收口／GPT独立复核申请"
+      },
+      {
+        "id": 6190103223,
+        "title": "# [GPT-REVIEW / NO-NEW-AUTH] YD-N1 R1｜S10-E2E-W5-RO1-R1｜5876740｜既有W5真实付款的原生账务只读取证限定技术PASS；S10仍BLOCKED"
+      },
+      {
+        "id": 6190487418,
+        "title": "# [GPT-AUTHORIZE] YD-N1 R1｜S10-GAP-01｜S10-F1—F6/T01—T16既有实证覆盖与剩余业务验收差距清点（仅Odoo、只读、无新测试）"
+      },
+      {
+        "id": 6190538707,
+        "title": "[CODEX] S10-GAP-01证据口径与只读覆盖盘点预检"
+      },
+      {
+        "id": 6190655039,
+        "title": "[CODEX] S10-GAP-01证据覆盖与剩余验收矩阵／GPT独立复核申请"
+      },
+      {
+        "id": 6190766420,
+        "title": "# [GPT-REVIEW / NO-NEW-AUTH] YD-N1 R1｜S10-GAP-01｜eb8d195｜6项F＋16项T历史实证覆盖矩阵限定接受，未新增业务测试／未授予完整TC PASS"
+      },
+      {
+        "id": 6190937428,
+        "title": "# [GPT-AUTHORIZE] YD-N1 R1｜S10-P0-01｜复用R3历史退款/日结合成证据，受控真实Web分页与旧待办可操作性（不重建资金流水）"
+      },
+      {
+        "id": 6191071835,
+        "title": "[CODEX] S10-P0-01历史资金Web分页与旧待办预检｜BLOCKED_PREFLIGHT"
+      },
+      {
+        "id": 6191092931,
+        "title": "[CODEX] S10-P0-01 BLOCKED与复核申请"
+      },
+      {
+        "id": 6191168034,
+        "title": "# [GPT-REVIEW / NO-NEW-AUTH] YD-N1 R1｜S10-P0-01｜021ff462｜R3历史资金页面安装态QWeb缺output=html；预检BLOCKED正确，真实Web全部NOT_RUN"
+      },
+      {
+        "id": 6191214820,
+        "title": "# [GPT-AUTHORIZE] YD-N1 R1｜S10-P0-02｜R3已付款历史库的单次隔离克隆＋有界原生QWeb升级＋第2页旧退款/日结真实Web操作"
+      },
+      {
+        "id": 6191642977,
+        "title": "[CODEX] S10-P0-02克隆视图同步与历史Web旧单操作预检"
+      },
+      {
+        "id": 6191738085,
+        "title": "[CODEX] S10-P0-02 BLOCKED与复核申请"
+      },
+      {
+        "id": 6191859832,
+        "title": "# [GPT-REVIEW / NO-NEW-AUTH] YD-N1 R1｜S10-P0-02｜47922cf｜克隆QWeb升级与旧退款第2页GET有限PASS；Web资产/登录元数据漂移门禁STOP，资金操作NOT_RUN"
+      },
+      {
+        "id": 6191916076,
+        "title": "# [GPT-AUTHORIZE] YD-N1 R1｜S10-P0-03｜核清Odoo Web资源/登录副作用后，从已更新P0-02库只读克隆，完成历史退款/日结第2页最小Web验收"
+      },
+      {
+        "id": 6205549655,
+        "title": "[CODEX] S10-P0-03 Web资产归因与旧退款日结操作预检"
+      },
+      {
+        "id": 6205597430,
+        "title": "[CODEX] S10-P0-03 BLOCKED与复核申请"
+      },
+      {
+        "id": 6205661305,
+        "title": "# [GPT-REVIEW / NO-NEW-AUTH] YD-N1 R1｜S10-P0-03｜35d2482｜真实Web旧退款14驳回一次限定业务事实可采；提交后命令收据/互斥revision遗漏触发硬STOP，整批仍BLOCKED"
+      },
+      {
+        "id": 6205786507,
+        "title": "# [GPT-AUTHORIZE] YD-N1 R1｜S10-P0-04｜已提交P0-03只读保全、旧日结9第2页真实Web权限拒绝与唯一解锁"
+      },
+      {
+        "id": 6205917372,
+        "title": "[CODEX] S10-P0-04 P0-03来源保全、unlock命令门禁及真实Web预检"
+      },
+      {
+        "id": 6205929586,
+        "title": "[CODEX] S10-P0-04 正式预检补充／CREATE前checkpoint字段契约修正与新SHA"
+      },
+      {
+        "id": 6205982615,
+        "title": "[CODEX] S10-P0-04 BLOCKED与复核申请"
+      },
+      {
+        "id": 6206056107,
+        "title": "# [GPT-REVIEW / NO-NEW-AUTH] YD-N1 R1｜S10-P0-04｜8802bfe｜旧日结9真实第2页与user10无权unlock有限事实可采；user14定位器超时及新增invoice_view审计越界，整批BLOCKED"
+      },
+      {
+        "id": 6206097763,
+        "title": "# [GPT-AUTHORIZE] YD-N1 R1｜S10-P0-05｜P0-04停止库只读续证、他店unlock拒绝与旧日结9唯一真实解锁（不重复user10/退款14）"
+      },
+      {
+        "id": 6206206391,
+        "title": "[CODEX] S10-P0-05 BLOCKED与复核申请"
+      },
+      {
+        "id": 6206249428,
+        "title": "# [GPT-REVIEW / NO-NEW-AUTH] YD-N1 R1｜S10-P0-05｜59c777b｜GPT授权来源config SHA遗漏f9；Codex在CREATE前正确硬停，整批BLOCKED_PREFLIGHT"
+      },
+      {
+        "id": 6206287878,
+        "title": "# [GPT-AUTHORIZE] YD-N1 R1｜S10-P0-06｜修正P0-05误抄的来源config SHA后，从P0-04只读克隆完成user14跨店拒绝及user6旧日结9唯一解锁"
+      },
+      {
+        "id": 6206511470,
+        "title": "[CODEX] S10-P0-06 修正config SHA后来源与DOM/审计字段门禁正式预检"
+      },
+      {
+        "id": 6206652687,
+        "title": "[CODEX] S10-P0-06交付与GPT独立复核申请"
+      },
+      {
+        "id": 6206735953,
+        "title": "# [GPT-REVIEW / NO-NEW-AUTH] YD-N1 R1｜S10-P0-06｜da1f154｜旧日结9跨店拒绝＋唯一原生Web解锁限定技术PASS；S10整阶段仍BLOCKED"
+      },
+      {
+        "id": 6206799419,
+        "title": "# [GPT-AUTHORIZE] YD-N1 R1｜S10-P0-07｜P0-06已解锁历史库只读克隆，旧退款第二页非重复状态及跨店列表隔离Web取证（所有结算POST=0）"
+      },
+      {
+        "id": 6207010865,
+        "title": "[CODEX] S10-P0-07历史退款状态页2/跨店只读Web正式预检"
+      },
+      {
+        "id": 6207202440,
+        "title": "[CODEX] S10-P0-07 BLOCKED与复核申请"
+      },
+      {
+        "id": 6207285901,
+        "title": "# [GPT-REVIEW / NO-NEW-AUTH] YD-N1 R1｜S10-P0-07｜4f40f11｜user6原生登录POST在执行器route字段门禁被中止；来源/克隆保全可采，真实退款页2及跨店列表NOT_RUN，整批BLOCKED"
+      },
+      {
+        "id": 6207347281,
+        "title": "# [GPT-AUTHORIZE] YD-N1 R1｜S10-P0-08｜核清Odoo原生登录POST字段门禁，从P0-07停止库只读克隆完成旧退款13页2及跨店列表GET"
+      },
+      {
+        "id": 6207559984,
+        "title": "[CODEX] S10-P0-08原生登录字段契约与旧退款13页2跨店列表正式预检"
+      },
+      {
+        "id": 6207654944,
+        "title": "[CODEX] S10-P0-08 BLOCKED与复核申请"
+      },
+      {
+        "id": 6208060014,
+        "title": "# [GPT-REVIEW / NO-NEW-AUTH] YD-N1 R1｜S10-P0-08｜5c67b6e｜原生登录303有限事实可采；默认门店自动绑定导致测试scope预期错误，退款13页2与跨店列表NOT_RUN，整批BLOCKED"
+      },
+      {
+        "id": 6208086602,
+        "title": "# [GPT-AUTHORIZE] YD-N1 R1｜S10-P0-09｜按Odoo自动默认门店修正登录后scope分支，完成旧退款13第二页与门店3列表真实只读Web"
+      },
+      {
+        "id": 6208298195,
+        "title": "[CODEX] S10-P0-09默认门店scope状态机与退款13页2跨店列表正式预检"
+      },
+      {
+        "id": 6208424933,
+        "title": "[CODEX] S10-P0-09交付与GPT独立复核申请"
+      },
+      {
+        "id": 6208483442,
+        "title": "# [GPT-REVIEW / NO-NEW-AUTH] YD-N1 R1｜S10-P0-09｜22d4762｜旧退款13真实页2与store3列表过滤限定技术PASS；S10整阶段技术及生产仍BLOCKED"
+      },
+      {
+        "id": 6208516504,
+        "title": "# [GPT-AUTHORIZE] YD-N1 R1｜S10-P0-10｜GAP-02全22项证据增量归并、F3/F4/T12同源费库款/更正及原版重印可行性只读冻结（不重跑旧钱款）"
+      },
+      {
+        "id": 6208878059,
+        "title": "[CODEX] S10-P0-10 GAP-02覆盖矩阵与同源可行性只读预检"
+      },
+      {
+        "id": 6209075730,
+        "title": "[CODEX] S10-P0-10 GAP-02只读交付与GPT独立复核申请"
+      },
+      {
+        "id": 6209255943,
+        "title": "# [GPT-REVIEW / NO-NEW-AUTH] YD-N1 R1｜S10-P0-10｜0c972e1｜GAP-02全22行及五源同源只读取证限定技术PASS；S10整阶段技术和生产仍BLOCKED"
+      },
+      {
+        "id": 6209310360,
+        "title": "# [GPT-AUTHORIZE] YD-N1 R1｜S10-P0-11｜仅W5新隔离合成克隆的既存pending文书1一次原责任人确认；已结清740费库款逐行零变（禁止重放收款与原版重印）"
+      },
+      {
+        "id": 6209454407,
+        "title": "[CODEX] S10-P0-11 W5原责任人pending文书一次确认与费库款零变正式预检"
+      },
+      {
+        "id": 6209987413,
+        "title": "[CODEX] S10-P0-11 BLOCKED与复核申请"
+      },
+      {
+        "id": 6210167613,
+        "title": "# [GPT-REVIEW / NO-NEW-AUTH] YD-N1 R1｜S10-P0-11｜0b64b1b｜W5既存资格与安全只读可采，GitHub补充检查点未发布而正确STOP：正式BLOCKED_PREFLIGHT；文书Web确认NOT_RUN"
+      },
+      {
+        "id": 6210207391,
+        "title": "# [GPT-AUTHORIZE] YD-N1 R1｜S10-P0-12｜P0-11 GitHub补充检查点阻断后的最小单门禁重试：W5同源既存pending文书确认与740费库款零变（仅一次新克隆/真实Web）"
+      },
+      {
+        "id": 6210910862,
+        "title": "[CODEX] S10-P0-12 BLOCKED与复核申请"
+      },
+      {
+        "id": 6211057301,
+        "title": "# [GPT-REVIEW / NO-NEW-AUTH] YD-N1 R1｜S10-P0-12｜cf6692c｜离线规划合同阻断成立；业务与新克隆均 NOT_RUN"
+      },
+      {
+        "id": 6211098449,
+        "title": "# [GPT-AUTHORIZE] YD-N1 R1｜S10-P0-13｜纠正W5源库前后实测连接预算，单检查点下执行一次既存文书原生确认（仅一次新克隆）"
+      },
+      {
+        "id": 6211482453,
+        "title": "[CODEX] S10-P0-13 W5两次严格只读前后全表与单新克隆原生文书确认执行预检"
+      },
+      {
+        "id": 6211754121,
+        "title": "[CODEX] S10-P0-13 BLOCKED与复核申请"
+      },
+      {
+        "id": 6211928330,
+        "title": "# [GPT-REVIEW / NO-NEW-AUTH] YD-N1 R1｜S10-P0-13｜6c64403｜旧W5双快照及单克隆保全可采；原生文书确认前安全STOP"
+      },
+      {
+        "id": 6212000008,
+        "title": "# [GPT-AUTHORIZE] YD-N1 R1｜S10-P0-14｜原生DOM/登录审计精确定界后，W5同源既存文书一次确认（新隔离克隆；不得重复P0-13）"
+      },
+      {
+        "id": 6212387399,
+        "title": "[CODEX] S10-P0-14 原生DOM/登录审计修正及W5双只读单克隆确认完整执行预检"
+      },
+      {
+        "id": 6212629752,
+        "title": "[CODEX] S10-P0-14 既存文书一次原生确认交付与GPT独立复核申请"
+      },
+      {
+        "id": 6213877494,
+        "title": "# [GPT-REVIEW / NO-NEW-AUTH] YD-N1 R1｜S10-P0-14｜a66c9df｜同源既存文书本人原生一次确认、源前后全表/费库款库存零变：限定技术PASS"
+      },
+      {
+        "id": 6213938772,
+        "title": "# [GPT-AUTHORIZE] YD-N1 R1｜S10-P0-15｜P0-14限定确认通过后，F4/T08/T12与原版票据剩余缺口的同源血缘/实际源码门禁审计（本批STRICT STATIC/READONLY，NO DB/WEB）"
+      },
+      {
+        "id": 6214014587,
+        "title": "[CODEX] S10-P0-15 F4/T08剩余同源与原版票据STATIC审计预检"
+      },
+      {
+        "id": 6214467721,
+        "title": "[CODEX] S10-P0-15 F4/T08原版票据同源静态审计交付与GPT独立复核申请"
+      },
+      {
+        "id": 6214578731,
+        "title": "# [GPT-REVIEW / NO-NEW-AUTH] YD-N1 R1｜S10-P0-15｜82a435e｜GAP-03旧22行原值保全及同源剩余静态合同：限定技术ACCEPTED"
+      },
+      {
+        "id": 6214616229,
+        "title": "# [GPT-AUTHORIZE] YD-N1 R1｜S10-P0-16｜仅一条W5严格只读源资格门禁：user5本店结算/导出权限与740元内部账单PDF已安装来源（NO CREATE/WEB）"
+      },
+      {
+        "id": 6215025512,
+        "title": "[CODEX] S10-P0-16 W5收费员5实际grant与账单报表一连接READONLY资格预检"
+      },
+      {
+        "id": 6215198742,
+        "title": "[CODEX] S10-P0-16 W5 user5结算导出与内部账单安装态READONLY准入交付与GPT独立复核申请"
+      },
+      {
+        "id": 6215317877,
+        "title": "# [GPT-REVIEW / NO-NEW-AUTH] YD-N1 R1｜S10-P0-16｜21dc2dc｜user5实际结算导出权限和740元内部账单安装态单源只读资格：限定技术ACCEPTED"
+      },
+      {
+        "id": 6215375331,
+        "title": "# [GPT-AUTHORIZE] YD-N1 R1｜S10-P0-17｜已结清本店账单可查及当前内部PDF入口最小Odoo功能补齐（CODE_ONLY；禁止数据库/Web执行）"
+      },
+      {
+        "id": 6227632581,
+        "title": "[CODEX] S10-P0-17 已结清本店账单只读工作台与当前PDF入口CODE_ONLY预检"
+      },
+      {
+        "id": 6227784604,
+        "title": "[CODEX] S10-P0-17 已结清账单工作台产品补齐CODE_ONLY交付与GPT独立复核申请"
+      },
+      {
+        "id": 6227904194,
+        "title": "# [GPT-REVIEW / NO-NEW-AUTH] YD-N1 R1｜S10-P0-17｜68c9096｜已结清账单只读入口：CODE_STATIC 限定技术 ACCEPTED"
+      },
+      {
+        "id": 6227951775,
+        "title": "# [GPT-AUTHORIZE] YD-N1 R1｜S10-P0-18｜新隔离副本的原生已结清账单入口与首次当前内部PDF有界实测"
+      }
+    ],
+    "35": []
+  },
+  "raw_complete_comment_bodies": "All 240 #34 and 3 #23 bodies saved privately in bounded JSON chunks; all 237 previously acquired #34 bodies matched, plus prior delivery / ruling17 / authorization18",
+  "existing_P018_records": [
+    6227951775
+  ],
+  "origin": "https://github.com/Yredxin/YDental.git",
+  "branch": "codex/s10-settlement-finance-r1-20261013",
+  "clean_start": true
+}

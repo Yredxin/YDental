@@ -1,0 +1,29 @@
+{
+  "all_runtime_budgets": 0,
+  "checks": [
+    "18_fixed_file_SHAs_and_fixed_index_object_no_old_test_rerun",
+    "positive_exact5_metadata_fixture",
+    "reject_account_balance",
+    "reject_grant_change",
+    "reject_unrelated_view",
+    "reject_menu_action_change",
+    "reject_module_state",
+    "reject_xmlid_remap",
+    "reject_main_old_arch",
+    "reject_language_key_widening",
+    "fixed_convert_file_actual_env_module_filename_explicit_idref_mode_update",
+    "exact_existing_XMLID_set5_no_schema_or_report_load",
+    "all643_literal_READONLY_SELECTs",
+    "existing_private_user5_credential_matches_saved_synthetic_hash_no_password_reset"
+  ],
+  "count": 14,
+  "exit_code": 0,
+  "initial_inspection_failures": [
+    "system python lacks lxml; used existing target3.12.15 venv",
+    "pdftotext/pdfinfo absent from PATH; freeze existing PyMuPDF pure-file parser/rasterizer instead, no installation",
+    "first preflight exit1: assumed all helper views had zh_CN; exact saved row languages used instead, no runtime operation",
+    "second preflight exit1: negative fixture wrote existing write_uid1 and did not mutate; changed fixture to999 to exercise actual rejection"
+  ],
+  "not_Odoo_PDF_or_UI_execution": true,
+  "status": "PURE_FILE_PREFLIGHT_PASS"
+}

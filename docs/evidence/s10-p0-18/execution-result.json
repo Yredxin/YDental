@@ -1,0 +1,42 @@
+{
+  "actual_attempts": {
+    "browser-process": 0,
+    "create": 1,
+    "http": 0,
+    "maintenance": 1,
+    "metadata-process": 1,
+    "source-after": 1,
+    "source-before": 1,
+    "target-after": 1,
+    "target-before": 1,
+    "target-metadata-after": 0,
+    "xml-import": 1
+  },
+  "authorization": 6227951775,
+  "base": "68c9096246464f9ab1c3ec9c014fe7dc1be6d04b",
+  "error_sha256": "40cd52269c76bed842f2d8c8e43368427ce15aa9da62e25aa0c6fdbaf5789693",
+  "error_type": "AssertionError",
+  "failed_phase": "metadata-process",
+  "metadata_exit_code": 1,
+  "native_connections": "Native connection DEBUG backend-create records counted separately; metadata<=4 and Web<=4 physical connects, pool<=4, no retry on failure.",
+  "native_metadata_backend_pids": [
+    1377390
+  ],
+  "native_web_backend_pids": [],
+  "runtime_zero_budget": {
+    "BUSINESS_POST": 0,
+    "DIRECT_BUSINESS_ORM": 0,
+    "ECONOMIC_OR_CLINICAL_WRITE": 0,
+    "EXECUTOR_SUDO": 0,
+    "HISTORICAL_REPLAY": 0,
+    "ISSUE_PROJECT_STATE_CHANGE": 0,
+    "MERGE_DEPLOY_P019_S11": 0,
+    "ODOO_SHELL_INSTALL_UPGRADE_INIT_TEST": 0,
+    "OS_PG_DOCKER_NETWORK_SPECIAL": 0,
+    "PRODUCT_CHANGE": 0
+  },
+  "source_final643": "PASS",
+  "status": "BLOCKED",
+  "stopped_clone_filestore_exact": true,
+  "target_final_invariants": "CAPTURED_INCOMPLETE_EXECUTION"
+}

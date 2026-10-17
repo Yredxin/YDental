@@ -1,0 +1,116 @@
+{
+  "base": "68c9096246464f9ab1c3ec9c014fe7dc1be6d04b",
+  "files": {
+    "docs/evidence/s10-p0-18/blocked-verification.json": {
+      "bytes": 7605,
+      "sha256": "237c562864209ad9600d00475df301fadb726c25abd176532bd83b94d4d16c71",
+      "status": "added"
+    },
+    "docs/evidence/s10-p0-18/execution-freeze.json": {
+      "bytes": 11342,
+      "sha256": "0887efa9ab7f009644e02e057a2f6fc9ec60841b709982c673da728c4ceea0a5",
+      "status": "added"
+    },
+    "docs/evidence/s10-p0-18/execution-result.json": {
+      "bytes": 1315,
+      "sha256": "9005426444188ff9bbc57924f7c3ab7b83a44d02320307511b5149fdffab67bb",
+      "status": "added"
+    },
+    "docs/evidence/s10-p0-18/github-comment-body-index.json": {
+      "bytes": 46168,
+      "sha256": "962f95977e612d61daa8b087cc0f3899b8ea99a844f467fe487cb7dcfa0ad16a",
+      "status": "added"
+    },
+    "docs/evidence/s10-p0-18/github-start.json": {
+      "bytes": 41715,
+      "sha256": "65be6a542553d294794526fac373f53dbe8da7d2a48827e61331d3730a525366",
+      "status": "added"
+    },
+    "docs/evidence/s10-p0-18/metadata-contract.json": {
+      "bytes": 171438,
+      "sha256": "4fd82604d0ccbc466042bde0b78eac6d12be039353d1a974cbf2393dbc92aa26",
+      "status": "added"
+    },
+    "docs/evidence/s10-p0-18/offline-result.json": {
+      "bytes": 1267,
+      "sha256": "0cf1f3d69f25e85517afff3108c6fe47c84b6d0bdae9ba5dc882da38af89fa18",
+      "status": "added"
+    },
+    "docs/evidence/s10-p0-18/preflight-api-readback.json": {
+      "bytes": 511,
+      "sha256": "47a639d9a7e78501b3a8f31dcbbfd2f720c38e9f7a3ff95685202dbaebf008b8",
+      "status": "added"
+    },
+    "docs/evidence/s10-p0-18/private-artifact-index.json": {
+      "bytes": 848,
+      "sha256": "25bde8943e231ec5920310f3c0a0de3d5f424e7662995f8d2a5d552c5916cbf3",
+      "status": "added"
+    },
+    "docs/evidence/s10-p0-18/source-after.json": {
+      "bytes": 90760,
+      "sha256": "50e091f1132ee87077a6cc87f841eac3044d31d6b77b9ce7b6d141fddf7a9f58",
+      "status": "added"
+    },
+    "docs/evidence/s10-p0-18/source-before.json": {
+      "bytes": 90760,
+      "sha256": "1f066d3d4705853823b4f309f9269429014b95e98fdead1b9a45910fcd521b3a",
+      "status": "added"
+    },
+    "docs/evidence/s10-p0-18/sql-contract.json": {
+      "bytes": 255386,
+      "sha256": "723a27d87bf3a00c87544d98bb6b7de02d9ab530b3c73479a6c5c77ed1541c09",
+      "status": "added"
+    },
+    "docs/evidence/s10-p0-18/stopped-target-table-diff.json": {
+      "bytes": 64,
+      "sha256": "b3d21539e60e8cb50b2dc5c3e41246c93cfb6c02fd714a7f01dd80236cfb43f2",
+      "status": "added"
+    },
+    "docs/evidence/s10-p0-18/target-after.json": {
+      "bytes": 90760,
+      "sha256": "c68d5ddbe0831b6b854037dd671ae84130c7816877207349be734d4bf83c9d09",
+      "status": "added"
+    },
+    "docs/evidence/s10-p0-18/target-before.json": {
+      "bytes": 90760,
+      "sha256": "d465c90094f1c2ab11ca5cc8e48378e086eb16e359cb8c6b8aa0a55b69f4eea1",
+      "status": "added"
+    },
+    "docs/s10-p0-18-blocked-report.md": {
+      "bytes": 11315,
+      "sha256": "5aa33b2c4c1db5eca473ec936726e1d7fab68af1bef36b5f08c8a7ff0cdc4972",
+      "status": "added"
+    },
+    "docs/s10-p0-18-preflight.md": {
+      "bytes": 12268,
+      "sha256": "86db1d60560917b1081c27d4687b5a1997d1bc83f8c96aca9637d7fbb0f80449",
+      "status": "added"
+    },
+    "scripts/s10_p0_18_browser.py": {
+      "bytes": 12635,
+      "sha256": "032333e1b9117b95bd7551decccd618280252d3fdae2315c4ccb1ad27092bd22",
+      "status": "added"
+    },
+    "scripts/s10_p0_18_contract.py": {
+      "bytes": 15794,
+      "sha256": "dd1115ae12c60b2b98e98471418fc4d68d54e9860a9ca63ecaef89109aacb40f",
+      "status": "added"
+    },
+    "scripts/s10_p0_18_control.py": {
+      "bytes": 13725,
+      "sha256": "b53e0e1e89937e623ad433ac98bb2a4b141165e800a17505228c94c361de2b8a",
+      "status": "added"
+    },
+    "scripts/s10_p0_18_metadata.py": {
+      "bytes": 2502,
+      "sha256": "5d05f69cbe338b7780932cd4af5e3849b2eb26ff7d833ccbf230c905fac90614",
+      "status": "added"
+    },
+    "scripts/s10_p0_18_preflight.py": {
+      "bytes": 12337,
+      "sha256": "1e2bd8eef65d7dda63c2b61d78854f1faf6fbd322ab39fa377e336c7d76297d6",
+      "status": "added"
+    }
+  },
+  "self_hash": "fixed in final GitHub receipt; no recursive self hash"
+}

@@ -1,0 +1,207 @@
+{
+  "HTTP_exact_routes": {
+    "GET /web/login?redirect=/ydental/settlement": 1,
+    "GET /website/translations?hash=&lang=zh_CN": 1,
+    "GET /ydental/settlement (native login redirect)": 1,
+    "GET /ydental/settlement/pdf/bill/1 (one real link click)": 1,
+    "GET /ydental/settlement?patient_id=1 (native filter form)": 1,
+    "GET existing source /web/assets/ URLs; no query": 100,
+    "POST /web/login": 1,
+    "other": 0
+  },
+  "PDF": "one download, %PDF,<=10MB/20pages, response SHA=bytes SHA; PyMuPDF text+rasters; actual human image inspection required; report_pdf_no_attachment retained",
+  "argv": {
+    "browser": [
+      "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+      "/home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s10_p0_18_browser.py"
+    ],
+    "executor": [
+      "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+      "/home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s10_p0_18_control.py"
+    ],
+    "http": [
+      "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+      "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+      "-c",
+      "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_p018_20261017020000_8e21bc49/odoo.conf"
+    ],
+    "metadata": [
+      "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+      "/home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s10_p0_18_metadata.py"
+    ]
+  },
+  "assets_append_only": {
+    "MIMEs": {
+      "web.assets_frontend.min.css": "text/css",
+      "web.assets_frontend_lazy.min.js": "application/javascript",
+      "web.assets_frontend_minimal.min.js": "application/javascript",
+      "web.material_symbols_outlined.min.woff2": "font/woff2",
+      "web.odoo_ui_icons.min.woff2": "font/woff2"
+    },
+    "URL": "/web/assets/<existing basename version>",
+    "actor": 1,
+    "empty": [
+      "res_field",
+      "access_token",
+      "original_id",
+      "description",
+      "db_datas"
+    ],
+    "file_size_max": 5000000,
+    "maximum": 5,
+    "model": "ir.attachment",
+    "nonempty": [
+      "store_fname",
+      "checksum"
+    ],
+    "original_rows_and_files": "all unchanged; no deletion/replacement; no patient/report attachments",
+    "public": true,
+    "res_id": 0,
+    "res_model": "ir.ui.view",
+    "type": "binary"
+  },
+  "audit_binding": "actor/create_uid/write_uid5; scope store1/revision1; login no store; login.scope and store.switch new native session; settlement category/source unchanged; old rows exact",
+  "audit_exact6": {
+    "login": 1,
+    "login.scope": 1,
+    "settlement.invoice_view account.move1": 2,
+    "settlement.report_download account.move1 PDF_SHA": 1,
+    "store.switch": 1
+  },
+  "authorization": 6227951775,
+  "base": "68c9096246464f9ab1c3ec9c014fe7dc1be6d04b",
+  "branch": "codex/s10-settlement-finance-r1-20261013",
+  "clone_connections": "Three independent READONLY/RR: preimport; postimport/preWeb; after browser stopped; native backend-create logs separate",
+  "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "file_sha256": {
+    "../addons/web/controllers/home.py": "f66bcf97503c4388c37b664fc4ca96a913a3166dc68d254b919bfe846587a482",
+    "../odoo/addons/base/models/assetsbundle.py": "59164b76b09bee5eddabf1cd72fbc1cabbd450a3d80b6b1b11d8d3cac2a2b233",
+    "../odoo/addons/base/models/ir_model.py": "8cf0f5ee2e9a537b392a6bfd80bce452e8c55a9dab8d0f89a3114a6d083cba87",
+    "../odoo/addons/base/models/ir_ui_menu.py": "ee1ca90dbbe59f06676b0408f3d25478a7e4099a3b59750fa3eac891fe2a9f44",
+    "../odoo/addons/base/models/ir_ui_view.py": "f30e202c88a32c8c86f623ce175924ee144947218dd495ee6eb08ddf54569826",
+    "../odoo/addons/base/models/res_device.py": "cfe76793b19cd15387a380f4d069263a72ccd42f6a672a575c9e7466817a6e44",
+    "../odoo/addons/base/models/res_users.py": "98a5c18d63069f19ce8eba95adb5809769e6e491630d4ed08b3a93e3097780cf",
+    "../odoo/cli/command.py": "220c80e9296d80357879b9e767b382837e5c005604e1df78bb73f324a064a6ae",
+    "../odoo/init.py": "7e637e4590f22c572e1502a4c24507f9d2b6ba6eed27a18857280b62aa566c09",
+    "../odoo/orm/environments.py": "02f27d90ce7fb3909a2ce2ae1493b13e9394005a629b231abfbc05e892dcaf8c",
+    "../odoo/orm/registry.py": "9ded0ad8547f623967d150e54644e4553271eef3300c80d212235e1f46e73823",
+    "../odoo/sql_db.py": "e9d5ddf306a50c08e03e97d5fe265e350e736f7255dfd8b0a5836db1003c16ae",
+    "../odoo/tools/convert.py": "97499204c12e52a8daf1cdbc337e416c52c8626945fdc45f3dd071dfbdefd548",
+    ".local/s00-b-deps/browser-fonts.conf": "aa1130dad0533ccb7c67ac07bfd217e7e1954aac02bcd1baf18bfb6952dc179c",
+    ".local/s00-b-deps/verify-lib/playwright/async_api/_generated.py": "4ce7017cc59fb0e5d84596cbbc5c614fd302716aa855ddeaaa21d9f8605f6178",
+    ".local/s00-b-deps/verify-lib/pymupdf/__init__.py": "e8cdb45ed0afa21f919cec30e69b7b572c3db7bc80d203e4e07e4c7ea2b19cce",
+    ".local/s00-b-deps/verify-lib/pymupdf/_mupdf.so": "d16a4ad71a3477f6a11dfbb0ef53c41180ec35a37b50fd39956e61c8344ec15c",
+    ".local/s10-p0-14/w5-private-rows.json": "08d7e344170899737f990aad0473334250bc565acdb91eba715c271551412e35",
+    ".local/s10-p0-16/projections.json": "0e81ab5e9cbde27eccb56ee63d7e3bd8181c3937810830e2428039441fd2a186",
+    ".local/ydental_s10_test_20261015060000_b6c7d8e9/fixture.json": "9492c1fc27f114a8f141edb9e7116d17398ffd484749408d77372c725ca6dc78",
+    "docs/evidence/s10-p0-11/read-only-sql.json": "3506708c4c88d10d555a4ca5d3074a52294db3e68a7dfa21a21d8711b50a93ee",
+    "docs/evidence/s10-p0-16/readonly-result.json": "3238cdaae282d9818d6b8d43f94d0efe8a3590f4d0523a63936d73cfd942e70e",
+    "docs/evidence/s10-p0-18/metadata-contract.json": "4fd82604d0ccbc466042bde0b78eac6d12be039353d1a974cbf2393dbc92aa26",
+    "docs/evidence/s10-p0-18/offline-result.json": "0cf1f3d69f25e85517afff3108c6fe47c84b6d0bdae9ba5dc882da38af89fa18",
+    "docs/evidence/s10-p0-18/sql-contract.json": "723a27d87bf3a00c87544d98bb6b7de02d9ab530b3c73479a6c5c77ed1541c09",
+    "scripts/s10_e2e_w5_browser.py": "a3db4471714888a142a47d0067572fe83d9ba92362e2384a26d4144d4509efbc",
+    "scripts/s10_p0_18_browser.py": "032333e1b9117b95bd7551decccd618280252d3fdae2315c4ccb1ad27092bd22",
+    "scripts/s10_p0_18_contract.py": "dd1115ae12c60b2b98e98471418fc4d68d54e9860a9ca63ecaef89109aacb40f",
+    "scripts/s10_p0_18_control.py": "b53e0e1e89937e623ad433ac98bb2a4b141165e800a17505228c94c361de2b8a",
+    "scripts/s10_p0_18_metadata.py": "5d05f69cbe338b7780932cd4af5e3849b2eb26ff7d833ccbf230c905fac90614",
+    "scripts/s10_p0_18_preflight.py": "1e2bd8eef65d7dda63c2b61d78854f1faf6fbd322ab39fa377e336c7d76297d6",
+    "ydental_access/controllers/access.py": "f91e98407b133a22de78a2bd5c468eb4fff9b4f866e21a900f1afc60536d7627",
+    "ydental_access/models/ir_http.py": "88dcda42a2cd6fad8c3cd52099abf0eb877660d5d9b2b318dc7e24ef061d05f4",
+    "ydental_access/models/res_users.py": "fd6079795cd8b5a5e79be358413fced4400683520a9cf0de3477466e2da31287",
+    "ydental_access/models/ydental_access_service.py": "9654000038903522213303fcd9cdc64612cdd335deac6a96afd993c4dfd61132",
+    "ydental_access_test/models/ydental_access_service.py": "bf209dc717abaf8ed2b8af0749104319bd9896529ab95a0e76e4d548d4ea7b79",
+    "ydental_patient/models/ydental_patient_service.py": "2cc72f87a7dd7cf9bf541007bddb2c975458f564599400ae944b63f5ea4513e3",
+    "ydental_settlement/controllers/settlement.py": "8cc7a0380a70298c0d8959af614f8101b9a593defcd6b1f777ce7cd0779658b0",
+    "ydental_settlement/models/report_ydental_settlement_pdf.py": "5adc6d24a7417f48c1efb60f5da4a8a784e2d14a7080262d18bbc02718cb33bd",
+    "ydental_settlement/models/ydental_settlement_service.py": "5bd0a86124b44df8d34d3f2511487850e6768ce8e268649589f444ac126d2031",
+    "ydental_settlement/report/ydental_settlement_templates.xml": "5d9132e91e8c3b816001bbc93ef2eeb90dbf125083cef2d33203deaea7e467f2",
+    "ydental_settlement/views/ydental_settlement_templates.xml": "f6b1401953d272e48bcc72f2769a580a5b4af4613d761cc746926dd1fe607eff",
+    "ydental_supply/models/ydental_access_service.py": "f181b774d794bf78da00e7b183ca1cb46ce159addd2ca727a9c4ab83c1d5111d"
+  },
+  "maximum_budget": {
+    "BUSINESS_POST": 0,
+    "CREATE": 1,
+    "DIRECT_BUSINESS_ORM": 0,
+    "DOWNLOAD": 1,
+    "ECONOMIC_OR_CLINICAL_WRITE": 0,
+    "EXECUTOR_SUDO": 0,
+    "FIREFOX_CONTEXT": 1,
+    "HISTORICAL_REPLAY": 0,
+    "HTTP_PROCESS": 1,
+    "INVOICE_VIEW_AUDIT": 2,
+    "ISSUE_PROJECT_STATE_CHANGE": 0,
+    "LOGIN_AUDIT": 1,
+    "LOGIN_GET": 1,
+    "LOGIN_POST": 1,
+    "LOGIN_SCOPE_AUDIT": 1,
+    "MAINTENANCE": 1,
+    "MERGE_DEPLOY_P019_S11": 0,
+    "METADATA_COMMIT": 1,
+    "METADATA_PROCESS": 1,
+    "NATIVE_METADATA_CONNECTION": 4,
+    "NATIVE_WEB_CONNECTION": 4,
+    "NEW_ASSET_ATTACHMENT": 5,
+    "ODOO_SHELL_INSTALL_UPGRADE_INIT_TEST": 0,
+    "OS_PG_DOCKER_NETWORK_SPECIAL": 0,
+    "PDF_GET": 1,
+    "PDF_RENDER": 1,
+    "PRODUCT_CHANGE": 0,
+    "REPORT_DOWNLOAD_AUDIT": 1,
+    "SOURCE_AFTER": 1,
+    "SOURCE_BEFORE": 1,
+    "STATIC_RESOURCE_GET": 100,
+    "STORE_SWITCH_AUDIT": 1,
+    "STORE_SWITCH_POST": 0,
+    "TARGET_AFTER": 1,
+    "TARGET_BEFORE": 1,
+    "TARGET_METADATA_AFTER": 1,
+    "TRANSLATIONS_GET": 1,
+    "WKHTML_RESOURCE_GET": 0,
+    "WORKBENCH_GET": 2,
+    "XML_IMPORT": 1
+  },
+  "native_environment": {
+    "FONTCONFIG_FILE": "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/s00-b-deps/browser-fonts.conf",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONFAULTHANDLER": "1",
+    "PYTHONPATH": "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/s04-deps",
+    "connection_logging": "odoo.sql_db.connection:DEBUG; no core/driver hooks or monkey patches"
+  },
+  "no_new_product_or_old_evidence_changes": true,
+  "protected_libraries_and_economics": "Every one of643 tables compared; no economic/clinical/permission fields exempt; only exact5 metadata then exact Web fields above",
+  "source": {
+    "cluster": "7694897083368259627",
+    "name": "ydental_s10_test_20261015073500_e50f4a71",
+    "oid": 2100310,
+    "seal": {
+      "database.json": "1a7f4a2a95e8aa0ea3d6da17abf6033976d2e39754185fa38e441a497351a5fa",
+      "filestore_files": 152,
+      "filestore_manifest": "bd0b0fbad15868bbabb836fa7016a91187bb31c6b9b6d934b2a7a0fe035c4283",
+      "odoo.conf": "867f761771ecc20931f69103388df699b094b748e6a9d392e15ebe3d406e43c7"
+    }
+  },
+  "source_connection_order": "source-before rollback/close BEFORE maintenance/CREATE; source-after only after clone stopped",
+  "stop": "Any identity/precision/budget/assertion/crash/unknown request fails STOP; no CREATE/import/login/click retry; only bounded final source/target readonly audits and stop own processes",
+  "target": {
+    "OID": "Only new CREATE result; distinct from catalog all existing OIDs; immutable marker",
+    "directory": "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_p018_20261017020000_8e21bc49",
+    "name": "ydental_s10_p018_20261017020000_8e21bc49",
+    "port": 18318
+  },
+  "web_identity_fields": {
+    "hr_version1": [
+      "write_date",
+      "write_uid5",
+      "last_modified_date",
+      "last_modified_uid5"
+    ],
+    "orm_signaling_default": "append<=1 id/date only after Web",
+    "res_device_log": "append1 native SID prefix,Firefox,127.0.0.1,no geo/revoked,raw-SQL technical nulls",
+    "res_users5,res_partner6,hr_employee1,resource_resource1": [
+      "write_date",
+      "write_uid5"
+    ],
+    "res_users_log": "append1 uid5 dates equal",
+    "ydental_access_session": "append1 uid5/store1/revision1 create/write5 SID hash"
+  }
+}

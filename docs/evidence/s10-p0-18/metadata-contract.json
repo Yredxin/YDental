@@ -1,0 +1,3222 @@
+{
+  "allowed_columns": {
+    "ir_act_url": [
+      "write_date",
+      "write_uid"
+    ],
+    "ir_model_data": [
+      "write_date",
+      "write_uid"
+    ],
+    "ir_ui_menu": [
+      "write_date",
+      "write_uid"
+    ],
+    "ir_ui_view": [
+      "arch_db",
+      "arch_fs",
+      "arch_prev",
+      "arch_updated",
+      "write_date",
+      "write_uid"
+    ]
+  },
+  "expected_arch_structures": {
+    "ydental_settlement_page": [
+      "t",
+      {
+        "name": "Offline settlement workbench",
+        "t-name": "ydental_settlement.ydental_settlement_page"
+      },
+      "",
+      [
+        [
+          "t",
+          {
+            "t-set": "head"
+          },
+          "",
+          [
+            [
+              "meta",
+              {
+                "content": "width=device-width, initial-scale=1",
+                "name": "viewport"
+              },
+              "",
+              [],
+              ""
+            ],
+            [
+              "t",
+              {
+                "t-call-assets": "web.assets_frontend",
+                "t-js": "false"
+              },
+              "",
+              [],
+              ""
+            ]
+          ],
+          ""
+        ],
+        [
+          "t",
+          {
+            "head": "head",
+            "t-call": "web.layout"
+          },
+          "",
+          [
+            [
+              "main",
+              {
+                "class": "container py-4 o_ydental_settlement",
+                "t-att-data-revision": "revision"
+              },
+              "",
+              [
+                [
+                  "h1",
+                  {},
+                  "线下结算工作台",
+                  [],
+                  ""
+                ],
+                [
+                  "p",
+                  {
+                    "data-ui1-feedback": "1",
+                    "role": "status",
+                    "t-if": "feedback",
+                    "t-out": "feedback"
+                  },
+                  "",
+                  [],
+                  ""
+                ],
+                [
+                  "p",
+                  {},
+                  "当前门店：",
+                  [
+                    [
+                      "strong",
+                      {
+                        "t-out": "store.name"
+                      },
+                      "",
+                      [],
+                      "；仅记录人工确认实际发生的线下资金。本页为演示，不是税务发票或平台到账证明。"
+                    ]
+                  ],
+                  ""
+                ],
+                [
+                  "nav",
+                  {},
+                  "",
+                  [
+                    [
+                      "a",
+                      {
+                        "href": "/ydental/queue"
+                      },
+                      "前台与候诊",
+                      [],
+                      "|"
+                    ],
+                    [
+                      "a",
+                      {
+                        "href": "/ydental/access"
+                      },
+                      "门店与权限",
+                      [],
+                      ""
+                    ]
+                  ],
+                  ""
+                ],
+                [
+                  "form",
+                  {
+                    "action": "/ydental/settlement",
+                    "method": "get"
+                  },
+                  "",
+                  [
+                    [
+                      "label",
+                      {},
+                      "患者 ID",
+                      [
+                        [
+                          "input",
+                          {
+                            "min": "1",
+                            "name": "patient_id",
+                            "t-att-value": "patient.id if patient else ''",
+                            "type": "number"
+                          },
+                          "",
+                          [],
+                          ""
+                        ]
+                      ],
+                      ""
+                    ],
+                    [
+                      "button",
+                      {
+                        "type": "submit"
+                      },
+                      "筛选",
+                      [],
+                      ""
+                    ]
+                  ],
+                  ""
+                ],
+                [
+                  "p",
+                  {
+                    "t-if": "patient"
+                  },
+                  "患者编号：",
+                  [
+                    [
+                      "strong",
+                      {
+                        "t-out": "patient.ydental_number"
+                      },
+                      "",
+                      [],
+                      ""
+                    ]
+                  ],
+                  ""
+                ],
+                [
+                  "p",
+                  {
+                    "t-if": "patient"
+                  },
+                  "",
+                  [
+                    [
+                      "a",
+                      {
+                        "t-att-href": "'/ydental/settlement/other-stores/%s' % patient.id"
+                      },
+                      "查看其他门店欠款最小摘要",
+                      [],
+                      ""
+                    ]
+                  ],
+                  ""
+                ],
+                [
+                  "section",
+                  {},
+                  "",
+                  [
+                    [
+                      "h2",
+                      {},
+                      "今日未出账费用",
+                      [],
+                      ""
+                    ],
+                    [
+                      "p",
+                      {
+                        "t-if": "not today"
+                      },
+                      "无",
+                      [],
+                      ""
+                    ],
+                    [
+                      "table",
+                      {
+                        "class": "table",
+                        "t-if": "today"
+                      },
+                      "",
+                      [
+                        [
+                          "thead",
+                          {},
+                          "",
+                          [
+                            [
+                              "tr",
+                              {},
+                              "",
+                              [
+                                [
+                                  "th",
+                                  {},
+                                  "费用",
+                                  [],
+                                  ""
+                                ],
+                                [
+                                  "th",
+                                  {},
+                                  "来源",
+                                  [],
+                                  ""
+                                ],
+                                [
+                                  "th",
+                                  {},
+                                  "确认金额",
+                                  [],
+                                  ""
+                                ],
+                                [
+                                  "th",
+                                  {},
+                                  "业务日",
+                                  [],
+                                  ""
+                                ]
+                              ],
+                              ""
+                            ]
+                          ],
+                          ""
+                        ],
+                        [
+                          "tbody",
+                          {},
+                          "",
+                          [
+                            [
+                              "tr",
+                              {
+                                "t-as": "fee",
+                                "t-foreach": "today"
+                              },
+                              "",
+                              [
+                                [
+                                  "td",
+                                  {
+                                    "t-out": "fee.id"
+                                  },
+                                  "",
+                                  [],
+                                  ""
+                                ],
+                                [
+                                  "td",
+                                  {
+                                    "t-out": "fee.name"
+                                  },
+                                  "",
+                                  [],
+                                  ""
+                                ],
+                                [
+                                  "td",
+                                  {
+                                    "t-out": "fee.ydental_amount"
+                                  },
+                                  "",
+                                  [],
+                                  ""
+                                ],
+                                [
+                                  "td",
+                                  {
+                                    "t-out": "fee.ydental_event_id.ydental_business_date"
+                                  },
+                                  "",
+                                  [],
+                                  ""
+                                ]
+                              ],
+                              ""
+                            ]
+                          ],
+                          ""
+                        ]
+                      ],
+                      ""
+                    ],
+                    [
+                      "t",
+                      {
+                        "t-set": "page_kind",
+                        "t-value": "'today'"
+                      },
+                      "",
+                      [],
+                      ""
+                    ],
+                    [
+                      "t",
+                      {
+                        "t-call": "ydental_settlement.ydental_settlement_page_links"
+                      },
+                      "",
+                      [],
+                      ""
+                    ]
+                  ],
+                  ""
+                ],
+                [
+                  "section",
+                  {},
+                  "",
+                  [
+                    [
+                      "h2",
+                      {},
+                      "历史未出账费用",
+                      [],
+                      ""
+                    ],
+                    [
+                      "p",
+                      {
+                        "t-if": "not history"
+                      },
+                      "无",
+                      [],
+                      ""
+                    ],
+                    [
+                      "table",
+                      {
+                        "class": "table",
+                        "t-if": "history"
+                      },
+                      "",
+                      [
+                        [
+                          "tbody",
+                          {},
+                          "",
+                          [
+                            [
+                              "tr",
+                              {
+                                "t-as": "fee",
+                                "t-foreach": "history"
+                              },
+                              "",
+                              [
+                                [
+                                  "td",
+                                  {
+                                    "t-out": "fee.id"
+                                  },
+                                  "",
+                                  [],
+                                  ""
+                                ],
+                                [
+                                  "td",
+                                  {
+                                    "t-out": "fee.name"
+                                  },
+                                  "",
+                                  [],
+                                  ""
+                                ],
+                                [
+                                  "td",
+                                  {
+                                    "t-out": "fee.ydental_amount"
+                                  },
+                                  "",
+                                  [],
+                                  ""
+                                ],
+                                [
+                                  "td",
+                                  {
+                                    "t-out": "fee.ydental_event_id.ydental_business_date"
+                                  },
+                                  "",
+                                  [],
+                                  ""
+                                ]
+                              ],
+                              ""
+                            ]
+                          ],
+                          ""
+                        ]
+                      ],
+                      ""
+                    ],
+                    [
+                      "t",
+                      {
+                        "t-set": "page_kind",
+                        "t-value": "'history'"
+                      },
+                      "",
+                      [],
+                      ""
+                    ],
+                    [
+                      "t",
+                      {
+                        "t-call": "ydental_settlement.ydental_settlement_page_links"
+                      },
+                      "",
+                      [],
+                      ""
+                    ]
+                  ],
+                  ""
+                ],
+                [
+                  "section",
+                  {},
+                  "",
+                  [
+                    [
+                      "h2",
+                      {},
+                      "待核对，禁止出账",
+                      [],
+                      ""
+                    ],
+                    [
+                      "p",
+                      {
+                        "t-if": "not pending"
+                      },
+                      "无",
+                      [],
+                      ""
+                    ],
+                    [
+                      "table",
+                      {
+                        "class": "table",
+                        "t-if": "pending"
+                      },
+                      "",
+                      [
+                        [
+                          "thead",
+                          {},
+                          "",
+                          [
+                            [
+                              "tr",
+                              {},
+                              "",
+                              [
+                                [
+                                  "th",
+                                  {},
+                                  "事件",
+                                  [],
+                                  ""
+                                ],
+                                [
+                                  "th",
+                                  {},
+                                  "患者",
+                                  [],
+                                  ""
+                                ],
+                                [
+                                  "th",
+                                  {},
+                                  "业务日",
+                                  [],
+                                  ""
+                                ],
+                                [
+                                  "th",
+                                  {},
+                                  "实际执行人",
+                                  [],
+                                  ""
+                                ],
+                                [
+                                  "th",
+                                  {},
+                                  "待核对原因",
+                                  [],
+                                  ""
+                                ]
+                              ],
+                              ""
+                            ]
+                          ],
+                          ""
+                        ],
+                        [
+                          "tbody",
+                          {},
+                          "",
+                          [
+                            [
+                              "tr",
+                              {
+                                "t-as": "event",
+                                "t-foreach": "pending"
+                              },
+                              "",
+                              [
+                                [
+                                  "td",
+                                  {
+                                    "t-out": "event.id"
+                                  },
+                                  "",
+                                  [],
+                                  ""
+                                ],
+                                [
+                                  "td",
+                                  {
+                                    "t-out": "event.ydental_patient_id.ydental_number"
+                                  },
+                                  "",
+                                  [],
+                                  ""
+                                ],
+                                [
+                                  "td",
+                                  {
+                                    "t-out": "event.ydental_business_date"
+                                  },
+                                  "",
+                                  [],
+                                  ""
+                                ],
+                                [
+                                  "td",
+                                  {
+                                    "t-out": "event.ydental_actor_id.name"
+                                  },
+                                  "",
+                                  [],
+                                  ""
+                                ],
+                                [
+                                  "td",
+                                  {
+                                    "t-out": "event.ydental_pending_reason or '待核对'"
+                                  },
+                                  "",
+                                  [],
+                                  ""
+                                ]
+                              ],
+                              ""
+                            ]
+                          ],
+                          ""
+                        ]
+                      ],
+                      ""
+                    ],
+                    [
+                      "t",
+                      {
+                        "t-set": "page_kind",
+                        "t-value": "'pending'"
+                      },
+                      "",
+                      [],
+                      ""
+                    ],
+                    [
+                      "t",
+                      {
+                        "t-call": "ydental_settlement.ydental_settlement_page_links"
+                      },
+                      "",
+                      [],
+                      ""
+                    ]
+                  ],
+                  ""
+                ],
+                [
+                  "form",
+                  {
+                    "action": "/ydental/settlement/action",
+                    "method": "post",
+                    "t-if": "can_write and (today or history)"
+                  },
+                  "",
+                  [
+                    [
+                      "t",
+                      {
+                        "t-call": "ydental_settlement.ydental_settlement_tokens"
+                      },
+                      "",
+                      [],
+                      ""
+                    ],
+                    [
+                      "input",
+                      {
+                        "name": "operation",
+                        "type": "hidden",
+                        "value": "bill"
+                      },
+                      "",
+                      [],
+                      ""
+                    ],
+                    [
+                      "h3",
+                      {},
+                      "选择本店已确认费用出账",
+                      [],
+                      ""
+                    ],
+                    [
+                      "label",
+                      {
+                        "style": "display:block",
+                        "t-as": "fee",
+                        "t-foreach": "today | history"
+                      },
+                      "",
+                      [
+                        [
+                          "input",
+                          {
+                            "name": "fee_ids",
+                            "t-att-value": "fee.id",
+                            "type": "checkbox"
+                          },
+                          "",
+                          [],
+                          ""
+                        ],
+                        [
+                          "span",
+                          {
+                            "t-out": "fee.id"
+                          },
+                          "",
+                          [],
+                          "—"
+                        ],
+                        [
+                          "span",
+                          {
+                            "t-out": "fee.name"
+                          },
+                          "",
+                          [],
+                          "："
+                        ],
+                        [
+                          "span",
+                          {
+                            "t-out": "fee.ydental_amount"
+                          },
+                          "",
+                          [],
+                          ""
+                        ]
+                      ],
+                      ""
+                    ],
+                    [
+                      "label",
+                      {},
+                      "明确折扣金额",
+                      [
+                        [
+                          "input",
+                          {
+                            "min": "0",
+                            "name": "discount",
+                            "step": "0.01",
+                            "type": "number",
+                            "value": "0"
+                          },
+                          "",
+                          [],
+                          ""
+                        ]
+                      ],
+                      ""
+                    ],
+                    [
+                      "label",
+                      {},
+                      "折扣原因",
+                      [
+                        [
+                          "input",
+                          {
+                            "maxlength": "300",
+                            "name": "reason",
+                            "type": "text"
+                          },
+                          "",
+                          [],
+                          ""
+                        ]
+                      ],
+                      ""
+                    ],
+                    [
+                      "button",
+                      {
+                        "type": "submit"
+                      },
+                      "生成原生过账账单",
+                      [],
+                      ""
+                    ]
+                  ],
+                  ""
+                ],
+                [
+                  "section",
+                  {},
+                  "",
+                  [
+                    [
+                      "h2",
+                      {},
+                      "已出账未付清",
+                      [],
+                      ""
+                    ],
+                    [
+                      "p",
+                      {
+                        "t-if": "not invoices"
+                      },
+                      "无",
+                      [],
+                      ""
+                    ],
+                    [
+                      "table",
+                      {
+                        "class": "table",
+                        "t-if": "invoices"
+                      },
+                      "",
+                      [
+                        [
+                          "thead",
+                          {},
+                          "",
+                          [
+                            [
+                              "tr",
+                              {},
+                              "",
+                              [
+                                [
+                                  "th",
+                                  {},
+                                  "原生单号",
+                                  [],
+                                  ""
+                                ],
+                                [
+                                  "th",
+                                  {},
+                                  "业务日",
+                                  [],
+                                  ""
+                                ],
+                                [
+                                  "th",
+                                  {},
+                                  "原金额",
+                                  [],
+                                  ""
+                                ],
+                                [
+                                  "th",
+                                  {},
+                                  "应收余额",
+                                  [],
+                                  ""
+                                ],
+                                [
+                                  "th",
+                                  {},
+                                  "内部账单",
+                                  [],
+                                  ""
+                                ]
+                              ],
+                              ""
+                            ]
+                          ],
+                          ""
+                        ],
+                        [
+                          "tbody",
+                          {},
+                          "",
+                          [
+                            [
+                              "tr",
+                              {
+                                "t-as": "invoice",
+                                "t-foreach": "invoices"
+                              },
+                              "",
+                              [
+                                [
+                                  "td",
+                                  {
+                                    "t-out": "invoice.name"
+                                  },
+                                  "",
+                                  [],
+                                  ""
+                                ],
+                                [
+                                  "td",
+                                  {
+                                    "t-out": "invoice.invoice_date"
+                                  },
+                                  "",
+                                  [],
+                                  ""
+                                ],
+                                [
+                                  "td",
+                                  {
+                                    "t-out": "invoice.amount_total"
+                                  },
+                                  "",
+                                  [],
+                                  ""
+                                ],
+                                [
+                                  "td",
+                                  {
+                                    "t-out": "invoice.amount_residual"
+                                  },
+                                  "",
+                                  [],
+                                  ""
+                                ],
+                                [
+                                  "td",
+                                  {},
+                                  "",
+                                  [
+                                    [
+                                      "a",
+                                      {
+                                        "t-att-href": "'/ydental/settlement/pdf/bill/%s' % invoice.id"
+                                      },
+                                      "下载中文 PDF",
+                                      [],
+                                      ""
+                                    ],
+                                    [
+                                      "form",
+                                      {
+                                        "action": "/ydental/settlement/action",
+                                        "method": "post",
+                                        "t-if": "can_write"
+                                      },
+                                      "",
+                                      [
+                                        [
+                                          "t",
+                                          {
+                                            "t-call": "ydental_settlement.ydental_settlement_tokens"
+                                          },
+                                          "",
+                                          [],
+                                          ""
+                                        ],
+                                        [
+                                          "input",
+                                          {
+                                            "name": "operation",
+                                            "type": "hidden",
+                                            "value": "waive"
+                                          },
+                                          "",
+                                          [],
+                                          ""
+                                        ],
+                                        [
+                                          "input",
+                                          {
+                                            "name": "invoice_id",
+                                            "t-att-value": "invoice.id",
+                                            "type": "hidden"
+                                          },
+                                          "",
+                                          [],
+                                          ""
+                                        ],
+                                        [
+                                          "label",
+                                          {},
+                                          "未收款免单额",
+                                          [
+                                            [
+                                              "input",
+                                              {
+                                                "min": "0.01",
+                                                "name": "amount",
+                                                "required": "required",
+                                                "step": "0.01",
+                                                "type": "number"
+                                              },
+                                              "",
+                                              [],
+                                              ""
+                                            ]
+                                          ],
+                                          ""
+                                        ],
+                                        [
+                                          "label",
+                                          {},
+                                          "有据免单原因",
+                                          [
+                                            [
+                                              "input",
+                                              {
+                                                "maxlength": "300",
+                                                "name": "reason",
+                                                "required": "required",
+                                                "type": "text"
+                                              },
+                                              "",
+                                              [],
+                                              ""
+                                            ]
+                                          ],
+                                          ""
+                                        ],
+                                        [
+                                          "button",
+                                          {
+                                            "type": "submit"
+                                          },
+                                          "原生贷项冲减未收应收",
+                                          [],
+                                          ""
+                                        ]
+                                      ],
+                                      ""
+                                    ]
+                                  ],
+                                  ""
+                                ]
+                              ],
+                              ""
+                            ]
+                          ],
+                          ""
+                        ]
+                      ],
+                      ""
+                    ],
+                    [
+                      "t",
+                      {
+                        "t-set": "page_kind",
+                        "t-value": "'invoices'"
+                      },
+                      "",
+                      [],
+                      ""
+                    ],
+                    [
+                      "t",
+                      {
+                        "t-call": "ydental_settlement.ydental_settlement_page_links"
+                      },
+                      "",
+                      [],
+                      ""
+                    ]
+                  ],
+                  ""
+                ],
+                [
+                  "form",
+                  {
+                    "action": "/ydental/settlement/action",
+                    "method": "post",
+                    "t-if": "can_write and invoices"
+                  },
+                  "",
+                  [
+                    [
+                      "t",
+                      {
+                        "t-call": "ydental_settlement.ydental_settlement_tokens"
+                      },
+                      "",
+                      [],
+                      ""
+                    ],
+                    [
+                      "input",
+                      {
+                        "name": "operation",
+                        "type": "hidden",
+                        "value": "pay"
+                      },
+                      "",
+                      [],
+                      ""
+                    ],
+                    [
+                      "h3",
+                      {},
+                      "仅选择本次付款核销的账单",
+                      [],
+                      ""
+                    ],
+                    [
+                      "label",
+                      {
+                        "style": "display:block",
+                        "t-as": "invoice",
+                        "t-foreach": "invoices"
+                      },
+                      "",
+                      [
+                        [
+                          "input",
+                          {
+                            "name": "invoice_ids",
+                            "t-att-value": "invoice.id",
+                            "type": "checkbox"
+                          },
+                          "",
+                          [],
+                          ""
+                        ],
+                        [
+                          "span",
+                          {
+                            "t-out": "invoice.name"
+                          },
+                          "",
+                          [],
+                          "，应收"
+                        ],
+                        [
+                          "span",
+                          {
+                            "t-out": "invoice.amount_residual"
+                          },
+                          "",
+                          [],
+                          ""
+                        ]
+                      ],
+                      ""
+                    ],
+                    [
+                      "label",
+                      {},
+                      "实际收款",
+                      [
+                        [
+                          "input",
+                          {
+                            "min": "0.01",
+                            "name": "amount",
+                            "required": "required",
+                            "step": "0.01",
+                            "type": "number"
+                          },
+                          "",
+                          [],
+                          ""
+                        ]
+                      ],
+                      ""
+                    ],
+                    [
+                      "label",
+                      {},
+                      "线下方式",
+                      [
+                        [
+                          "select",
+                          {
+                            "name": "channel"
+                          },
+                          "",
+                          [
+                            [
+                              "option",
+                              {
+                                "value": "cash"
+                              },
+                              "现金",
+                              [],
+                              ""
+                            ],
+                            [
+                              "option",
+                              {
+                                "value": "wechat"
+                              },
+                              "微信线下",
+                              [],
+                              ""
+                            ],
+                            [
+                              "option",
+                              {
+                                "value": "alipay"
+                              },
+                              "支付宝线下",
+                              [],
+                              ""
+                            ],
+                            [
+                              "option",
+                              {
+                                "value": "card"
+                              },
+                              "银行卡线下",
+                              [],
+                              ""
+                            ]
+                          ],
+                          ""
+                        ]
+                      ],
+                      ""
+                    ],
+                    [
+                      "label",
+                      {},
+                      "实际发生 UTC",
+                      [
+                        [
+                          "input",
+                          {
+                            "name": "actual_utc",
+                            "required": "required",
+                            "t-att-value": "now_utc()",
+                            "type": "text"
+                          },
+                          "",
+                          [],
+                          ""
+                        ]
+                      ],
+                      ""
+                    ],
+                    [
+                      "label",
+                      {},
+                      "真实线下凭据说明",
+                      [
+                        [
+                          "input",
+                          {
+                            "maxlength": "200",
+                            "name": "proof",
+                            "required": "required",
+                            "type": "text"
+                          },
+                          "",
+                          [],
+                          ""
+                        ]
+                      ],
+                      ""
+                    ],
+                    [
+                      "button",
+                      {
+                        "type": "submit"
+                      },
+                      "确认实际收款并原生核销",
+                      [],
+                      ""
+                    ]
+                  ],
+                  ""
+                ],
+                [
+                  "section",
+                  {
+                    "name": "settled-bills"
+                  },
+                  "",
+                  [
+                    [
+                      "h2",
+                      {},
+                      "已结清本店账单",
+                      [],
+                      ""
+                    ],
+                    [
+                      "p",
+                      {
+                        "t-if": "not settled"
+                      },
+                      "本页无已结清本店账单。",
+                      [],
+                      ""
+                    ],
+                    [
+                      "table",
+                      {
+                        "class": "table",
+                        "t-if": "settled"
+                      },
+                      "",
+                      [
+                        [
+                          "thead",
+                          {},
+                          "",
+                          [
+                            [
+                              "tr",
+                              {},
+                              "",
+                              [
+                                [
+                                  "th",
+                                  {},
+                                  "账单 ID",
+                                  [],
+                                  ""
+                                ],
+                                [
+                                  "th",
+                                  {},
+                                  "原生单号",
+                                  [],
+                                  ""
+                                ],
+                                [
+                                  "th",
+                                  {},
+                                  "业务日",
+                                  [],
+                                  ""
+                                ],
+                                [
+                                  "th",
+                                  {},
+                                  "总额",
+                                  [],
+                                  ""
+                                ],
+                                [
+                                  "th",
+                                  {},
+                                  "已结清余额",
+                                  [],
+                                  ""
+                                ],
+                                [
+                                  "th",
+                                  {},
+                                  "内部账单",
+                                  [],
+                                  ""
+                                ]
+                              ],
+                              ""
+                            ]
+                          ],
+                          ""
+                        ],
+                        [
+                          "tbody",
+                          {},
+                          "",
+                          [
+                            [
+                              "tr",
+                              {
+                                "t-as": "invoice",
+                                "t-foreach": "settled"
+                              },
+                              "",
+                              [
+                                [
+                                  "td",
+                                  {
+                                    "t-out": "invoice.id"
+                                  },
+                                  "",
+                                  [],
+                                  ""
+                                ],
+                                [
+                                  "td",
+                                  {
+                                    "t-out": "invoice.name"
+                                  },
+                                  "",
+                                  [],
+                                  ""
+                                ],
+                                [
+                                  "td",
+                                  {
+                                    "t-out": "invoice.invoice_date"
+                                  },
+                                  "",
+                                  [],
+                                  ""
+                                ],
+                                [
+                                  "td",
+                                  {
+                                    "t-out": "invoice.amount_total"
+                                  },
+                                  "",
+                                  [],
+                                  ""
+                                ],
+                                [
+                                  "td",
+                                  {
+                                    "t-out": "invoice.amount_residual"
+                                  },
+                                  "",
+                                  [],
+                                  ""
+                                ],
+                                [
+                                  "td",
+                                  {},
+                                  "",
+                                  [
+                                    [
+                                      "a",
+                                      {
+                                        "t-att-href": "'/ydental/settlement/pdf/bill/%s' % invoice.id",
+                                        "t-if": "can_export"
+                                      },
+                                      "下载当前内部账单 PDF",
+                                      [],
+                                      ""
+                                    ],
+                                    [
+                                      "span",
+                                      {
+                                        "t-else": ""
+                                      },
+                                      "仅供查阅",
+                                      [],
+                                      ""
+                                    ]
+                                  ],
+                                  ""
+                                ]
+                              ],
+                              ""
+                            ]
+                          ],
+                          ""
+                        ]
+                      ],
+                      ""
+                    ],
+                    [
+                      "nav",
+                      {
+                        "aria-label": "已结清账单分页",
+                        "t-if": "page_counts['settled'] > 50"
+                      },
+                      "",
+                      [
+                        [
+                          "span",
+                          {},
+                          "共",
+                          [
+                            [
+                              "span",
+                              {
+                                "t-out": "page_counts['settled']"
+                              },
+                              "",
+                              [],
+                              "条；第"
+                            ],
+                            [
+                              "span",
+                              {
+                                "t-out": "pages['settled']"
+                              },
+                              "",
+                              [],
+                              "页"
+                            ]
+                          ],
+                          ""
+                        ],
+                        [
+                          "a",
+                          {
+                            "t-att-href": "page_url('settled', pages['settled'] - 1)",
+                            "t-if": "pages['settled'] > 1"
+                          },
+                          "上一页",
+                          [],
+                          ""
+                        ],
+                        [
+                          "a",
+                          {
+                            "t-att-href": "page_url('settled', pages['settled'] + 1)",
+                            "t-if": "pages['settled'] < 10000 and pages['settled'] * 50 < page_counts['settled']"
+                          },
+                          "下一页",
+                          [],
+                          ""
+                        ]
+                      ],
+                      ""
+                    ]
+                  ],
+                  ""
+                ],
+                [
+                  "section",
+                  {},
+                  "",
+                  [
+                    [
+                      "h2",
+                      {},
+                      "线下付款与退款",
+                      [],
+                      ""
+                    ],
+                    [
+                      "div",
+                      {
+                        "t-as": "payment",
+                        "t-foreach": "payments"
+                      },
+                      "",
+                      [
+                        [
+                          "p",
+                          {},
+                          "付款",
+                          [
+                            [
+                              "span",
+                              {
+                                "t-out": "payment.id"
+                              },
+                              "",
+                              [],
+                              "/"
+                            ],
+                            [
+                              "span",
+                              {
+                                "t-out": "payment.ydental_payment_id.name"
+                              },
+                              "",
+                              [],
+                              "："
+                            ],
+                            [
+                              "span",
+                              {
+                                "t-out": "payment.ydental_amount"
+                              },
+                              "",
+                              [],
+                              "，"
+                            ],
+                            [
+                              "span",
+                              {
+                                "t-out": "payment.ydental_channel"
+                              },
+                              "",
+                              [],
+                              "，"
+                            ],
+                            [
+                              "a",
+                              {
+                                "t-att-href": "'/ydental/settlement/pdf/receipt/%s' % payment.id"
+                              },
+                              "下载小票 PDF",
+                              [],
+                              ""
+                            ]
+                          ],
+                          ""
+                        ],
+                        [
+                          "form",
+                          {
+                            "action": "/ydental/settlement/action",
+                            "method": "post",
+                            "t-if": "can_write"
+                          },
+                          "",
+                          [
+                            [
+                              "t",
+                              {
+                                "t-call": "ydental_settlement.ydental_settlement_tokens"
+                              },
+                              "",
+                              [],
+                              ""
+                            ],
+                            [
+                              "input",
+                              {
+                                "name": "operation",
+                                "type": "hidden",
+                                "value": "refund_request"
+                              },
+                              "",
+                              [],
+                              ""
+                            ],
+                            [
+                              "input",
+                              {
+                                "name": "payment_id",
+                                "t-att-value": "payment.id",
+                                "type": "hidden"
+                              },
+                              "",
+                              [],
+                              ""
+                            ],
+                            [
+                              "label",
+                              {},
+                              "申请退款额",
+                              [
+                                [
+                                  "input",
+                                  {
+                                    "min": "0.01",
+                                    "name": "amount",
+                                    "required": "required",
+                                    "step": "0.01",
+                                    "type": "number"
+                                  },
+                                  "",
+                                  [],
+                                  ""
+                                ]
+                              ],
+                              ""
+                            ],
+                            [
+                              "label",
+                              {},
+                              "原因",
+                              [
+                                [
+                                  "input",
+                                  {
+                                    "maxlength": "300",
+                                    "name": "reason",
+                                    "required": "required",
+                                    "type": "text"
+                                  },
+                                  "",
+                                  [],
+                                  ""
+                                ]
+                              ],
+                              ""
+                            ],
+                            [
+                              "button",
+                              {
+                                "type": "submit"
+                              },
+                              "申请退款",
+                              [],
+                              ""
+                            ]
+                          ],
+                          ""
+                        ],
+                        [
+                          "form",
+                          {
+                            "action": "/ydental/settlement/action",
+                            "method": "post",
+                            "t-if": "can_write"
+                          },
+                          "",
+                          [
+                            [
+                              "t",
+                              {
+                                "t-call": "ydental_settlement.ydental_settlement_tokens"
+                              },
+                              "",
+                              [],
+                              ""
+                            ],
+                            [
+                              "input",
+                              {
+                                "name": "operation",
+                                "type": "hidden",
+                                "value": "reclassify"
+                              },
+                              "",
+                              [],
+                              ""
+                            ],
+                            [
+                              "input",
+                              {
+                                "name": "payment_id",
+                                "t-att-value": "payment.id",
+                                "type": "hidden"
+                              },
+                              "",
+                              [],
+                              ""
+                            ],
+                            [
+                              "label",
+                              {},
+                              "更正线下方式",
+                              [
+                                [
+                                  "select",
+                                  {
+                                    "name": "new_channel"
+                                  },
+                                  "",
+                                  [
+                                    [
+                                      "option",
+                                      {
+                                        "value": "cash"
+                                      },
+                                      "现金",
+                                      [],
+                                      ""
+                                    ],
+                                    [
+                                      "option",
+                                      {
+                                        "value": "wechat"
+                                      },
+                                      "微信线下",
+                                      [],
+                                      ""
+                                    ],
+                                    [
+                                      "option",
+                                      {
+                                        "value": "alipay"
+                                      },
+                                      "支付宝线下",
+                                      [],
+                                      ""
+                                    ],
+                                    [
+                                      "option",
+                                      {
+                                        "value": "card"
+                                      },
+                                      "银行卡线下",
+                                      [],
+                                      ""
+                                    ]
+                                  ],
+                                  ""
+                                ]
+                              ],
+                              ""
+                            ],
+                            [
+                              "label",
+                              {},
+                              "更正原因",
+                              [
+                                [
+                                  "input",
+                                  {
+                                    "maxlength": "300",
+                                    "name": "reason",
+                                    "required": "required",
+                                    "type": "text"
+                                  },
+                                  "",
+                                  [],
+                                  ""
+                                ]
+                              ],
+                              ""
+                            ],
+                            [
+                              "button",
+                              {
+                                "type": "submit"
+                              },
+                              "原生重分类更正",
+                              [],
+                              ""
+                            ]
+                          ],
+                          ""
+                        ]
+                      ],
+                      ""
+                    ],
+                    [
+                      "t",
+                      {
+                        "t-set": "page_kind",
+                        "t-value": "'payments'"
+                      },
+                      "",
+                      [],
+                      ""
+                    ],
+                    [
+                      "t",
+                      {
+                        "t-call": "ydental_settlement.ydental_settlement_page_links"
+                      },
+                      "",
+                      [],
+                      ""
+                    ],
+                    [
+                      "div",
+                      {
+                        "t-as": "refund",
+                        "t-foreach": "refunds"
+                      },
+                      "",
+                      [
+                        [
+                          "p",
+                          {},
+                          "退款",
+                          [
+                            [
+                              "span",
+                              {
+                                "t-out": "refund.id"
+                              },
+                              "",
+                              [],
+                              "："
+                            ],
+                            [
+                              "span",
+                              {
+                                "t-out": "refund.ydental_amount"
+                              },
+                              "",
+                              [],
+                              "，状态"
+                            ],
+                            [
+                              "span",
+                              {
+                                "t-out": "refund.ydental_state"
+                              },
+                              "",
+                              [],
+                              ""
+                            ],
+                            [
+                              "a",
+                              {
+                                "t-att-href": "'/ydental/settlement/pdf/refund/%s' % refund.id"
+                              },
+                              "下载退款凭据 PDF",
+                              [],
+                              ""
+                            ]
+                          ],
+                          ""
+                        ],
+                        [
+                          "form",
+                          {
+                            "action": "/ydental/settlement/action",
+                            "method": "post",
+                            "t-if": "can_approve and refund.ydental_state == 'requested'"
+                          },
+                          "",
+                          [
+                            [
+                              "t",
+                              {
+                                "t-call": "ydental_settlement.ydental_settlement_tokens"
+                              },
+                              "",
+                              [],
+                              ""
+                            ],
+                            [
+                              "input",
+                              {
+                                "name": "refund_id",
+                                "t-att-value": "refund.id",
+                                "type": "hidden"
+                              },
+                              "",
+                              [],
+                              ""
+                            ],
+                            [
+                              "label",
+                              {},
+                              "审批原因",
+                              [
+                                [
+                                  "input",
+                                  {
+                                    "maxlength": "300",
+                                    "name": "reason",
+                                    "required": "required",
+                                    "type": "text"
+                                  },
+                                  "",
+                                  [],
+                                  ""
+                                ]
+                              ],
+                              ""
+                            ],
+                            [
+                              "button",
+                              {
+                                "name": "operation",
+                                "value": "refund_approve"
+                              },
+                              "另一人批准，在途",
+                              [],
+                              ""
+                            ],
+                            [
+                              "button",
+                              {
+                                "name": "operation",
+                                "value": "refund_reject"
+                              },
+                              "驳回，不退款",
+                              [],
+                              ""
+                            ]
+                          ],
+                          ""
+                        ],
+                        [
+                          "form",
+                          {
+                            "action": "/ydental/settlement/action",
+                            "method": "post",
+                            "t-if": "can_write and refund.ydental_state == 'approved'"
+                          },
+                          "",
+                          [
+                            [
+                              "t",
+                              {
+                                "t-call": "ydental_settlement.ydental_settlement_tokens"
+                              },
+                              "",
+                              [],
+                              ""
+                            ],
+                            [
+                              "input",
+                              {
+                                "name": "operation",
+                                "type": "hidden",
+                                "value": "refund_execute"
+                              },
+                              "",
+                              [],
+                              ""
+                            ],
+                            [
+                              "input",
+                              {
+                                "name": "refund_id",
+                                "t-att-value": "refund.id",
+                                "type": "hidden"
+                              },
+                              "",
+                              [],
+                              ""
+                            ],
+                            [
+                              "label",
+                              {},
+                              "实际退款 UTC",
+                              [
+                                [
+                                  "input",
+                                  {
+                                    "name": "actual_utc",
+                                    "required": "required",
+                                    "t-att-value": "now_utc()",
+                                    "type": "text"
+                                  },
+                                  "",
+                                  [],
+                                  ""
+                                ]
+                              ],
+                              ""
+                            ],
+                            [
+                              "label",
+                              {},
+                              "实际线下退款凭据",
+                              [
+                                [
+                                  "input",
+                                  {
+                                    "maxlength": "200",
+                                    "name": "proof",
+                                    "required": "required",
+                                    "type": "text"
+                                  },
+                                  "",
+                                  [],
+                                  ""
+                                ]
+                              ],
+                              ""
+                            ],
+                            [
+                              "button",
+                              {
+                                "type": "submit"
+                              },
+                              "确认已实际退款",
+                              [],
+                              ""
+                            ]
+                          ],
+                          ""
+                        ],
+                        [
+                          "form",
+                          {
+                            "action": "/ydental/settlement/action",
+                            "method": "post",
+                            "t-if": "can_write and refund.ydental_state == 'approved'"
+                          },
+                          "",
+                          [
+                            [
+                              "t",
+                              {
+                                "t-call": "ydental_settlement.ydental_settlement_tokens"
+                              },
+                              "",
+                              [],
+                              ""
+                            ],
+                            [
+                              "input",
+                              {
+                                "name": "operation",
+                                "type": "hidden",
+                                "value": "refund_uncertain"
+                              },
+                              "",
+                              [],
+                              ""
+                            ],
+                            [
+                              "input",
+                              {
+                                "name": "refund_id",
+                                "t-att-value": "refund.id",
+                                "type": "hidden"
+                              },
+                              "",
+                              [],
+                              ""
+                            ],
+                            [
+                              "label",
+                              {},
+                              "线下核查状态",
+                              [
+                                [
+                                  "select",
+                                  {
+                                    "name": "outcome"
+                                  },
+                                  "",
+                                  [
+                                    [
+                                      "option",
+                                      {
+                                        "value": "unknown"
+                                      },
+                                      "未知",
+                                      [],
+                                      ""
+                                    ],
+                                    [
+                                      "option",
+                                      {
+                                        "value": "failed"
+                                      },
+                                      "失败",
+                                      [],
+                                      ""
+                                    ]
+                                  ],
+                                  ""
+                                ]
+                              ],
+                              ""
+                            ],
+                            [
+                              "label",
+                              {},
+                              "核查原因",
+                              [
+                                [
+                                  "input",
+                                  {
+                                    "maxlength": "300",
+                                    "name": "reason",
+                                    "required": "required",
+                                    "type": "text"
+                                  },
+                                  "",
+                                  [],
+                                  ""
+                                ]
+                              ],
+                              ""
+                            ],
+                            [
+                              "button",
+                              {
+                                "type": "submit"
+                              },
+                              "标记未知或失败，继续占用额度",
+                              [],
+                              ""
+                            ]
+                          ],
+                          ""
+                        ],
+                        [
+                          "form",
+                          {
+                            "action": "/ydental/settlement/action",
+                            "method": "post",
+                            "t-if": "can_approve and refund.ydental_state in ('failed', 'unknown') and refund.ydental_requester_id.id != request.env.uid"
+                          },
+                          "",
+                          [
+                            [
+                              "t",
+                              {
+                                "t-call": "ydental_settlement.ydental_settlement_tokens"
+                              },
+                              "",
+                              [],
+                              ""
+                            ],
+                            [
+                              "input",
+                              {
+                                "name": "operation",
+                                "type": "hidden",
+                                "value": "refund_recover"
+                              },
+                              "",
+                              [],
+                              ""
+                            ],
+                            [
+                              "input",
+                              {
+                                "name": "refund_id",
+                                "t-att-value": "refund.id",
+                                "type": "hidden"
+                              },
+                              "",
+                              [],
+                              ""
+                            ],
+                            [
+                              "label",
+                              {},
+                              "已核实未付款",
+                              [
+                                [
+                                  "input",
+                                  {
+                                    "name": "verified_not_paid",
+                                    "required": "required",
+                                    "type": "checkbox",
+                                    "value": "1"
+                                  },
+                                  "",
+                                  [],
+                                  ""
+                                ]
+                              ],
+                              ""
+                            ],
+                            [
+                              "label",
+                              {},
+                              "恢复原因",
+                              [
+                                [
+                                  "input",
+                                  {
+                                    "maxlength": "300",
+                                    "name": "reason",
+                                    "required": "required",
+                                    "type": "text"
+                                  },
+                                  "",
+                                  [],
+                                  ""
+                                ]
+                              ],
+                              ""
+                            ],
+                            [
+                              "button",
+                              {
+                                "type": "submit"
+                              },
+                              "财务核查后恢复执行",
+                              [],
+                              ""
+                            ]
+                          ],
+                          ""
+                        ],
+                        [
+                          "form",
+                          {
+                            "action": "/ydental/settlement/action",
+                            "method": "post",
+                            "t-if": "(can_write and refund.ydental_state == 'requested' and refund.ydental_requester_id.id == request.env.uid) or (can_approve and refund.ydental_state in ('requested', 'approved', 'failed', 'unknown') and refund.ydental_requester_id.id != request.env.uid)"
+                          },
+                          "",
+                          [
+                            [
+                              "t",
+                              {
+                                "t-call": "ydental_settlement.ydental_settlement_tokens"
+                              },
+                              "",
+                              [],
+                              ""
+                            ],
+                            [
+                              "input",
+                              {
+                                "name": "operation",
+                                "type": "hidden",
+                                "value": "refund_cancel"
+                              },
+                              "",
+                              [],
+                              ""
+                            ],
+                            [
+                              "input",
+                              {
+                                "name": "refund_id",
+                                "t-att-value": "refund.id",
+                                "type": "hidden"
+                              },
+                              "",
+                              [],
+                              ""
+                            ],
+                            [
+                              "label",
+                              {},
+                              "已核实未实际退款",
+                              [
+                                [
+                                  "input",
+                                  {
+                                    "name": "verified_not_paid",
+                                    "required": "required",
+                                    "type": "checkbox",
+                                    "value": "1"
+                                  },
+                                  "",
+                                  [],
+                                  ""
+                                ]
+                              ],
+                              ""
+                            ],
+                            [
+                              "label",
+                              {},
+                              "线下核查证据",
+                              [
+                                [
+                                  "input",
+                                  {
+                                    "maxlength": "200",
+                                    "name": "evidence",
+                                    "required": "required",
+                                    "type": "text"
+                                  },
+                                  "",
+                                  [],
+                                  ""
+                                ]
+                              ],
+                              ""
+                            ],
+                            [
+                              "label",
+                              {},
+                              "撤销原因",
+                              [
+                                [
+                                  "input",
+                                  {
+                                    "maxlength": "300",
+                                    "name": "reason",
+                                    "required": "required",
+                                    "type": "text"
+                                  },
+                                  "",
+                                  [],
+                                  ""
+                                ]
+                              ],
+                              ""
+                            ],
+                            [
+                              "button",
+                              {
+                                "type": "submit"
+                              },
+                              "撤销申请并释放受保护额度",
+                              [],
+                              ""
+                            ]
+                          ],
+                          ""
+                        ]
+                      ],
+                      ""
+                    ],
+                    [
+                      "t",
+                      {
+                        "t-set": "page_kind",
+                        "t-value": "'refunds'"
+                      },
+                      "",
+                      [],
+                      ""
+                    ],
+                    [
+                      "t",
+                      {
+                        "t-call": "ydental_settlement.ydental_settlement_page_links"
+                      },
+                      "",
+                      [],
+                      ""
+                    ]
+                  ],
+                  ""
+                ],
+                [
+                  "section",
+                  {},
+                  "",
+                  [
+                    [
+                      "h2",
+                      {},
+                      "收费员日结",
+                      [],
+                      ""
+                    ],
+                    [
+                      "form",
+                      {
+                        "action": "/ydental/settlement/action",
+                        "method": "post",
+                        "t-if": "can_write"
+                      },
+                      "",
+                      [
+                        [
+                          "t",
+                          {
+                            "t-call": "ydental_settlement.ydental_settlement_tokens"
+                          },
+                          "",
+                          [],
+                          ""
+                        ],
+                        [
+                          "input",
+                          {
+                            "name": "operation",
+                            "type": "hidden",
+                            "value": "close"
+                          },
+                          "",
+                          [],
+                          ""
+                        ],
+                        [
+                          "label",
+                          {},
+                          "门店业务日",
+                          [
+                            [
+                              "input",
+                              {
+                                "name": "business_date",
+                                "required": "required",
+                                "type": "date"
+                              },
+                              "",
+                              [],
+                              ""
+                            ]
+                          ],
+                          ""
+                        ],
+                        [
+                          "label",
+                          {},
+                          "方式",
+                          [
+                            [
+                              "select",
+                              {
+                                "name": "channel"
+                              },
+                              "",
+                              [
+                                [
+                                  "option",
+                                  {
+                                    "value": "cash"
+                                  },
+                                  "现金",
+                                  [],
+                                  ""
+                                ],
+                                [
+                                  "option",
+                                  {
+                                    "value": "wechat"
+                                  },
+                                  "微信线下",
+                                  [],
+                                  ""
+                                ],
+                                [
+                                  "option",
+                                  {
+                                    "value": "alipay"
+                                  },
+                                  "支付宝线下",
+                                  [],
+                                  ""
+                                ],
+                                [
+                                  "option",
+                                  {
+                                    "value": "card"
+                                  },
+                                  "银行卡线下",
+                                  [],
+                                  ""
+                                ]
+                              ],
+                              ""
+                            ]
+                          ],
+                          ""
+                        ],
+                        [
+                          "button",
+                          {
+                            "type": "submit"
+                          },
+                          "确认日结并锁定",
+                          [],
+                          ""
+                        ]
+                      ],
+                      ""
+                    ],
+                    [
+                      "div",
+                      {
+                        "t-as": "close",
+                        "t-foreach": "closes"
+                      },
+                      "",
+                      [
+                        [
+                          "p",
+                          {},
+                          "日结",
+                          [
+                            [
+                              "span",
+                              {
+                                "t-out": "close.id"
+                              },
+                              "",
+                              [],
+                              "/"
+                            ],
+                            [
+                              "span",
+                              {
+                                "t-out": "close.ydental_business_date"
+                              },
+                              "",
+                              [],
+                              "/"
+                            ],
+                            [
+                              "span",
+                              {
+                                "t-out": "close.ydental_channel"
+                              },
+                              "",
+                              [],
+                              "/"
+                            ],
+                            [
+                              "span",
+                              {
+                                "t-out": "close.ydental_state"
+                              },
+                              "",
+                              [],
+                              "：\n                            收"
+                            ],
+                            [
+                              "span",
+                              {
+                                "t-out": "close.ydental_gross"
+                              },
+                              "",
+                              [],
+                              "、实退"
+                            ],
+                            [
+                              "span",
+                              {
+                                "t-out": "close.ydental_refunded"
+                              },
+                              "",
+                              [],
+                              "、在途"
+                            ],
+                            [
+                              "span",
+                              {
+                                "t-out": "close.ydental_pending"
+                              },
+                              "",
+                              [],
+                              ""
+                            ]
+                          ],
+                          ""
+                        ],
+                        [
+                          "form",
+                          {
+                            "action": "/ydental/settlement/action",
+                            "method": "post",
+                            "t-if": "can_approve and close.ydental_state == 'confirmed'"
+                          },
+                          "",
+                          [
+                            [
+                              "t",
+                              {
+                                "t-call": "ydental_settlement.ydental_settlement_tokens"
+                              },
+                              "",
+                              [],
+                              ""
+                            ],
+                            [
+                              "input",
+                              {
+                                "name": "operation",
+                                "type": "hidden",
+                                "value": "unlock"
+                              },
+                              "",
+                              [],
+                              ""
+                            ],
+                            [
+                              "input",
+                              {
+                                "name": "close_id",
+                                "t-att-value": "close.id",
+                                "type": "hidden"
+                              },
+                              "",
+                              [],
+                              ""
+                            ],
+                            [
+                              "label",
+                              {},
+                              "财务解锁原因",
+                              [
+                                [
+                                  "input",
+                                  {
+                                    "maxlength": "300",
+                                    "name": "reason",
+                                    "required": "required",
+                                    "type": "text"
+                                  },
+                                  "",
+                                  [],
+                                  ""
+                                ]
+                              ],
+                              ""
+                            ],
+                            [
+                              "button",
+                              {
+                                "type": "submit"
+                              },
+                              "财务解锁",
+                              [],
+                              ""
+                            ]
+                          ],
+                          ""
+                        ]
+                      ],
+                      ""
+                    ],
+                    [
+                      "t",
+                      {
+                        "t-set": "page_kind",
+                        "t-value": "'closes'"
+                      },
+                      "",
+                      [],
+                      ""
+                    ],
+                    [
+                      "t",
+                      {
+                        "t-call": "ydental_settlement.ydental_settlement_page_links"
+                      },
+                      "",
+                      [],
+                      ""
+                    ]
+                  ],
+                  ""
+                ],
+                [
+                  "section",
+                  {
+                    "t-if": "can_trade"
+                  },
+                  "",
+                  [
+                    [
+                      "h2",
+                      {},
+                      "跨法人真实销售与采购",
+                      [],
+                      ""
+                    ],
+                    [
+                      "p",
+                      {},
+                      "仅在双方门店均有仓库及财务审批权、已配置原生科目与两批次时确认。",
+                      [],
+                      ""
+                    ],
+                    [
+                      "form",
+                      {
+                        "action": "/ydental/settlement/action",
+                        "method": "post"
+                      },
+                      "",
+                      [
+                        [
+                          "t",
+                          {
+                            "t-call": "ydental_settlement.ydental_settlement_tokens"
+                          },
+                          "",
+                          [],
+                          ""
+                        ],
+                        [
+                          "input",
+                          {
+                            "name": "operation",
+                            "type": "hidden",
+                            "value": "trade"
+                          },
+                          "",
+                          [],
+                          ""
+                        ],
+                        [
+                          "label",
+                          {},
+                          "目标门店 ID",
+                          [
+                            [
+                              "input",
+                              {
+                                "min": "1",
+                                "name": "target_store_id",
+                                "required": "required",
+                                "type": "number"
+                              },
+                              "",
+                              [],
+                              ""
+                            ]
+                          ],
+                          ""
+                        ],
+                        [
+                          "label",
+                          {},
+                          "源批次 ID",
+                          [
+                            [
+                              "input",
+                              {
+                                "min": "1",
+                                "name": "source_lot_id",
+                                "required": "required",
+                                "type": "number"
+                              },
+                              "",
+                              [],
+                              ""
+                            ]
+                          ],
+                          ""
+                        ],
+                        [
+                          "label",
+                          {},
+                          "目标批次 ID",
+                          [
+                            [
+                              "input",
+                              {
+                                "min": "1",
+                                "name": "target_lot_id",
+                                "required": "required",
+                                "type": "number"
+                              },
+                              "",
+                              [],
+                              ""
+                            ]
+                          ],
+                          ""
+                        ],
+                        [
+                          "label",
+                          {},
+                          "数量",
+                          [
+                            [
+                              "input",
+                              {
+                                "min": "0.001",
+                                "name": "quantity",
+                                "required": "required",
+                                "step": "0.001",
+                                "type": "number"
+                              },
+                              "",
+                              [],
+                              ""
+                            ]
+                          ],
+                          ""
+                        ],
+                        [
+                          "label",
+                          {},
+                          "单位 ID",
+                          [
+                            [
+                              "input",
+                              {
+                                "min": "1",
+                                "name": "uom_id",
+                                "required": "required",
+                                "type": "number"
+                              },
+                              "",
+                              [],
+                              ""
+                            ]
+                          ],
+                          ""
+                        ],
+                        [
+                          "label",
+                          {},
+                          "双方同币种演示单价",
+                          [
+                            [
+                              "input",
+                              {
+                                "min": "0.01",
+                                "name": "unit_price",
+                                "required": "required",
+                                "step": "0.01",
+                                "type": "number"
+                              },
+                              "",
+                              [],
+                              ""
+                            ]
+                          ],
+                          ""
+                        ],
+                        [
+                          "label",
+                          {},
+                          "不可重复来源",
+                          [
+                            [
+                              "input",
+                              {
+                                "maxlength": "120",
+                                "name": "source_key",
+                                "required": "required",
+                                "type": "text"
+                              },
+                              "",
+                              [],
+                              ""
+                            ]
+                          ],
+                          ""
+                        ],
+                        [
+                          "label",
+                          {},
+                          "双方审批与实物交易原因",
+                          [
+                            [
+                              "input",
+                              {
+                                "maxlength": "300",
+                                "name": "reason",
+                                "required": "required",
+                                "type": "text"
+                              },
+                              "",
+                              [],
+                              ""
+                            ]
+                          ],
+                          ""
+                        ],
+                        [
+                          "button",
+                          {
+                            "type": "submit"
+                          },
+                          "确认双法人原生订单、收发与凭证",
+                          [],
+                          ""
+                        ]
+                      ],
+                      ""
+                    ]
+                  ],
+                  ""
+                ]
+              ],
+              ""
+            ]
+          ],
+          ""
+        ]
+      ],
+      ""
+    ],
+    "ydental_settlement_page_links": [
+      "t",
+      {
+        "t-name": "ydental_settlement.ydental_settlement_page_links"
+      },
+      "",
+      [
+        [
+          "nav",
+          {
+            "aria-label": "分页",
+            "t-if": "page_counts[page_kind] > 50"
+          },
+          "",
+          [
+            [
+              "span",
+              {},
+              "共",
+              [
+                [
+                  "span",
+                  {
+                    "t-out": "page_counts[page_kind]"
+                  },
+                  "",
+                  [],
+                  "条；第"
+                ],
+                [
+                  "span",
+                  {
+                    "t-out": "pages[page_kind]"
+                  },
+                  "",
+                  [],
+                  "页"
+                ]
+              ],
+              ""
+            ],
+            [
+              "a",
+              {
+                "t-att-href": "page_url(page_kind, pages[page_kind] - 1)",
+                "t-if": "pages[page_kind] > 1"
+              },
+              "上一页",
+              [],
+              ""
+            ],
+            [
+              "a",
+              {
+                "t-att-href": "page_url(page_kind, pages[page_kind] + 1)",
+                "t-if": "pages[page_kind] * 50 < page_counts[page_kind]"
+              },
+              "下一页",
+              [],
+              ""
+            ]
+          ],
+          ""
+        ]
+      ],
+      ""
+    ],
+    "ydental_settlement_tokens": [
+      "t",
+      {
+        "t-name": "ydental_settlement.ydental_settlement_tokens"
+      },
+      "",
+      [
+        [
+          "input",
+          {
+            "name": "csrf_token",
+            "t-att-value": "request.csrf_token()",
+            "type": "hidden"
+          },
+          "",
+          [],
+          ""
+        ],
+        [
+          "input",
+          {
+            "name": "revision",
+            "t-att-value": "revision",
+            "type": "hidden"
+          },
+          "",
+          [],
+          ""
+        ],
+        [
+          "input",
+          {
+            "name": "key",
+            "t-att-value": "new_key()",
+            "type": "hidden"
+          },
+          "",
+          [],
+          ""
+        ],
+        [
+          "input",
+          {
+            "name": "output",
+            "type": "hidden",
+            "value": "html"
+          },
+          "",
+          [],
+          ""
+        ]
+      ],
+      ""
+    ]
+  },
+  "fixed_XML": "ydental_settlement/views/ydental_settlement_templates.xml",
+  "main_view_delta": "Only P017 settled-bills plus fixed converter/arch inverse serialization; both en_US and zh_CN structural equality required",
+  "native_signaling": {
+    "orm_signaling_default": 1,
+    "orm_signaling_templates": 1
+  },
+  "no_old_view_customization_or_COW": true,
+  "old5": {
+    "ydental_settlement_action": {
+      "record": {
+        "binding_model_id": null,
+        "binding_type": "action",
+        "binding_view_types": "list,form",
+        "create_date": "2026-10-14T03:44:36.627554",
+        "create_uid": 1,
+        "explanation": null,
+        "help": null,
+        "id": 571,
+        "name": {
+          "en_US": "Offline settlement workbench",
+          "zh_CN": "线下结算工作台"
+        },
+        "path": null,
+        "target": "self",
+        "type": "ir.actions.act_url",
+        "url": "/ydental/settlement",
+        "write_date": "2026-10-15T06:40:26.238735",
+        "write_uid": 1
+      },
+      "xmlid": {
+        "create_date": "2026-10-14T03:44:36.627554",
+        "create_uid": null,
+        "id": 51384,
+        "model": "ir.actions.act_url",
+        "module": "ydental_settlement",
+        "name": "ydental_settlement_action",
+        "noupdate": false,
+        "res_id": 571,
+        "write_date": "2026-10-14T03:44:36.627554",
+        "write_uid": null
+      }
+    },
+    "ydental_settlement_menu": {
+      "record": {
+        "action": "ir.actions.act_url,571",
+        "active": true,
+        "create_date": "2026-10-14T03:44:36.627554",
+        "create_uid": 1,
+        "id": 320,
+        "name": {
+          "en_US": "Offline settlement",
+          "zh_CN": "线下结算"
+        },
+        "parent_id": 81,
+        "parent_path": "81/320/",
+        "sequence": 84,
+        "web_icon": null,
+        "write_date": "2026-10-15T06:40:26.238735",
+        "write_uid": 1
+      },
+      "xmlid": {
+        "create_date": "2026-10-14T03:44:36.627554",
+        "create_uid": null,
+        "id": 51385,
+        "model": "ir.ui.menu",
+        "module": "ydental_settlement",
+        "name": "ydental_settlement_menu",
+        "noupdate": false,
+        "res_id": 320,
+        "write_date": "2026-10-14T03:44:36.627554",
+        "write_uid": null
+      }
+    },
+    "ydental_settlement_page": {
+      "record": {
+        "active": true,
+        "arch_db": {
+          "en_US": "<t name=\"Offline settlement workbench\" t-name=\"ydental_settlement.ydental_settlement_page\">\n        <t t-set=\"head\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/>\n            <t t-call-assets=\"web.assets_frontend\" t-js=\"false\"/></t>\n        <t t-call=\"web.layout\" head=\"head\">\n            <main class=\"container py-4 o_ydental_settlement\" t-att-data-revision=\"revision\">\n                <h1>线下结算工作台</h1>\n                <p t-if=\"feedback\" role=\"status\" data-ui1-feedback=\"1\" t-out=\"feedback\"/>\n                <p>当前门店：<strong t-out=\"store.name\"/>；仅记录人工确认实际发生的线下资金。本页为演示，不是税务发票或平台到账证明。</p>\n                <nav><a href=\"/ydental/queue\">前台与候诊</a> | <a href=\"/ydental/access\">门店与权限</a></nav>\n                <form method=\"get\" action=\"/ydental/settlement\">\n                    <label>患者 ID <input type=\"number\" name=\"patient_id\" min=\"1\" t-att-value=\"patient.id if patient else ''\"/></label>\n                    <button type=\"submit\">筛选</button>\n                </form>\n                <p t-if=\"patient\">患者编号：<strong t-out=\"patient.ydental_number\"/></p>\n                <p t-if=\"patient\"><a t-att-href=\"'/ydental/settlement/other-stores/%s' % patient.id\">查看其他门店欠款最小摘要</a></p>\n                <section>\n                    <h2>今日未出账费用</h2>\n                    <p t-if=\"not today\">无</p>\n                    <table t-if=\"today\" class=\"table\"><thead><tr><th>费用</th><th>来源</th><th>确认金额</th><th>业务日</th></tr></thead>\n                        <tbody><tr t-foreach=\"today\" t-as=\"fee\"><td t-out=\"fee.id\"/><td t-out=\"fee.name\"/>\n                            <td t-out=\"fee.ydental_amount\"/><td t-out=\"fee.ydental_event_id.ydental_business_date\"/></tr></tbody>\n                    </table>\n                    <t t-set=\"page_kind\" t-value=\"'today'\"/><t t-call=\"ydental_settlement.ydental_settlement_page_links\"/>\n                </section>\n                <section><h2>历史未出账费用</h2><p t-if=\"not history\">无</p>\n                    <table t-if=\"history\" class=\"table\"><tbody><tr t-foreach=\"history\" t-as=\"fee\">\n                        <td t-out=\"fee.id\"/><td t-out=\"fee.name\"/><td t-out=\"fee.ydental_amount\"/>\n                        <td t-out=\"fee.ydental_event_id.ydental_business_date\"/></tr></tbody></table>\n                    <t t-set=\"page_kind\" t-value=\"'history'\"/><t t-call=\"ydental_settlement.ydental_settlement_page_links\"/>\n                </section>\n                <section><h2>待核对，禁止出账</h2><p t-if=\"not pending\">无</p>\n                    <table t-if=\"pending\" class=\"table\"><thead><tr><th>事件</th><th>患者</th><th>业务日</th><th>实际执行人</th><th>待核对原因</th></tr></thead>\n                        <tbody><tr t-foreach=\"pending\" t-as=\"event\">\n                            <td t-out=\"event.id\"/><td t-out=\"event.ydental_patient_id.ydental_number\"/>\n                            <td t-out=\"event.ydental_business_date\"/><td t-out=\"event.ydental_actor_id.name\"/>\n                            <td t-out=\"event.ydental_pending_reason or '待核对'\"/></tr></tbody></table>\n                    <t t-set=\"page_kind\" t-value=\"'pending'\"/><t t-call=\"ydental_settlement.ydental_settlement_page_links\"/>\n                </section>\n                <form t-if=\"can_write and (today or history)\" method=\"post\" action=\"/ydental/settlement/action\">\n                    <t t-call=\"ydental_settlement.ydental_settlement_tokens\"/>\n                    <input type=\"hidden\" name=\"operation\" value=\"bill\"/>\n                    <h3>选择本店已确认费用出账</h3>\n                    <label t-foreach=\"today | history\" t-as=\"fee\" style=\"display:block\">\n                        <input type=\"checkbox\" name=\"fee_ids\" t-att-value=\"fee.id\"/>\n                        <span t-out=\"fee.id\"/> — <span t-out=\"fee.name\"/>：<span t-out=\"fee.ydental_amount\"/>\n                    </label>\n                    <label>明确折扣金额 <input type=\"number\" name=\"discount\" min=\"0\" step=\"0.01\" value=\"0\"/></label>\n                    <label>折扣原因 <input type=\"text\" name=\"reason\" maxlength=\"300\"/></label>\n                    <button type=\"submit\">生成原生过账账单</button>\n                </form>\n                <section><h2>已出账未付清</h2><p t-if=\"not invoices\">无</p>\n                    <table t-if=\"invoices\" class=\"table\"><thead><tr><th>原生单号</th><th>业务日</th><th>原金额</th><th>应收余额</th><th>内部账单</th></tr></thead>\n                        <tbody><tr t-foreach=\"invoices\" t-as=\"invoice\">\n                            <td t-out=\"invoice.name\"/><td t-out=\"invoice.invoice_date\"/>\n                            <td t-out=\"invoice.amount_total\"/><td t-out=\"invoice.amount_residual\"/>\n                            <td><a t-att-href=\"'/ydental/settlement/pdf/bill/%s' % invoice.id\">下载中文 PDF</a>\n                                <form t-if=\"can_write\" method=\"post\" action=\"/ydental/settlement/action\">\n                                    <t t-call=\"ydental_settlement.ydental_settlement_tokens\"/>\n                                    <input type=\"hidden\" name=\"operation\" value=\"waive\"/>\n                                    <input type=\"hidden\" name=\"invoice_id\" t-att-value=\"invoice.id\"/>\n                                    <label>未收款免单额 <input type=\"number\" name=\"amount\" min=\"0.01\" step=\"0.01\" required=\"required\"/></label>\n                                    <label>有据免单原因 <input type=\"text\" name=\"reason\" maxlength=\"300\" required=\"required\"/></label>\n                                    <button type=\"submit\">原生贷项冲减未收应收</button>\n                                </form>\n                            </td>\n                        </tr></tbody></table>\n                    <t t-set=\"page_kind\" t-value=\"'invoices'\"/><t t-call=\"ydental_settlement.ydental_settlement_page_links\"/>\n                </section>\n                <form t-if=\"can_write and invoices\" method=\"post\" action=\"/ydental/settlement/action\">\n                    <t t-call=\"ydental_settlement.ydental_settlement_tokens\"/>\n                    <input type=\"hidden\" name=\"operation\" value=\"pay\"/>\n                    <h3>仅选择本次付款核销的账单</h3>\n                    <label t-foreach=\"invoices\" t-as=\"invoice\" style=\"display:block\"><input type=\"checkbox\" name=\"invoice_ids\" t-att-value=\"invoice.id\"/>\n                        <span t-out=\"invoice.name\"/>，应收 <span t-out=\"invoice.amount_residual\"/></label>\n                    <label>实际收款 <input type=\"number\" name=\"amount\" min=\"0.01\" step=\"0.01\" required=\"required\"/></label>\n                    <label>线下方式 <select name=\"channel\"><option value=\"cash\">现金</option><option value=\"wechat\">微信线下</option>\n                        <option value=\"alipay\">支付宝线下</option><option value=\"card\">银行卡线下</option></select></label>\n                    <label>实际发生 UTC <input type=\"text\" name=\"actual_utc\" t-att-value=\"now_utc()\" required=\"required\"/></label>\n                    <label>真实线下凭据说明 <input type=\"text\" name=\"proof\" maxlength=\"200\" required=\"required\"/></label>\n                    <button type=\"submit\">确认实际收款并原生核销</button>\n                </form>\n                <section><h2>线下付款与退款</h2>\n                    <div t-foreach=\"payments\" t-as=\"payment\">\n                        <p>付款 <span t-out=\"payment.id\"/> / <span t-out=\"payment.ydental_payment_id.name\"/>：\n                            <span t-out=\"payment.ydental_amount\"/>，<span t-out=\"payment.ydental_channel\"/>，\n                            <a t-att-href=\"'/ydental/settlement/pdf/receipt/%s' % payment.id\">下载小票 PDF</a></p>\n                        <form t-if=\"can_write\" method=\"post\" action=\"/ydental/settlement/action\">\n                            <t t-call=\"ydental_settlement.ydental_settlement_tokens\"/>\n                            <input type=\"hidden\" name=\"operation\" value=\"refund_request\"/>\n                            <input type=\"hidden\" name=\"payment_id\" t-att-value=\"payment.id\"/>\n                            <label>申请退款额 <input type=\"number\" name=\"amount\" min=\"0.01\" step=\"0.01\" required=\"required\"/></label>\n                            <label>原因 <input type=\"text\" name=\"reason\" maxlength=\"300\" required=\"required\"/></label>\n                            <button type=\"submit\">申请退款</button>\n                        </form>\n                        <form t-if=\"can_write\" method=\"post\" action=\"/ydental/settlement/action\">\n                            <t t-call=\"ydental_settlement.ydental_settlement_tokens\"/>\n                            <input type=\"hidden\" name=\"operation\" value=\"reclassify\"/>\n                            <input type=\"hidden\" name=\"payment_id\" t-att-value=\"payment.id\"/>\n                            <label>更正线下方式 <select name=\"new_channel\"><option value=\"cash\">现金</option>\n                                <option value=\"wechat\">微信线下</option><option value=\"alipay\">支付宝线下</option>\n                                <option value=\"card\">银行卡线下</option></select></label>\n                            <label>更正原因 <input type=\"text\" name=\"reason\" maxlength=\"300\" required=\"required\"/></label>\n                            <button type=\"submit\">原生重分类更正</button>\n                        </form>\n                    </div>\n                    <t t-set=\"page_kind\" t-value=\"'payments'\"/><t t-call=\"ydental_settlement.ydental_settlement_page_links\"/>\n                    <div t-foreach=\"refunds\" t-as=\"refund\">\n                        <p>退款 <span t-out=\"refund.id\"/>：<span t-out=\"refund.ydental_amount\"/>，状态 <span t-out=\"refund.ydental_state\"/>\n                            <a t-att-href=\"'/ydental/settlement/pdf/refund/%s' % refund.id\">下载退款凭据 PDF</a></p>\n                        <form t-if=\"can_approve and refund.ydental_state == 'requested'\" method=\"post\" action=\"/ydental/settlement/action\">\n                            <t t-call=\"ydental_settlement.ydental_settlement_tokens\"/>\n                            <input type=\"hidden\" name=\"refund_id\" t-att-value=\"refund.id\"/>\n                            <label>审批原因 <input type=\"text\" name=\"reason\" maxlength=\"300\" required=\"required\"/></label>\n                            <button name=\"operation\" value=\"refund_approve\">另一人批准，在途</button>\n                            <button name=\"operation\" value=\"refund_reject\">驳回，不退款</button>\n                        </form>\n                        <form t-if=\"can_write and refund.ydental_state == 'approved'\" method=\"post\" action=\"/ydental/settlement/action\">\n                            <t t-call=\"ydental_settlement.ydental_settlement_tokens\"/>\n                            <input type=\"hidden\" name=\"operation\" value=\"refund_execute\"/>\n                            <input type=\"hidden\" name=\"refund_id\" t-att-value=\"refund.id\"/>\n                            <label>实际退款 UTC <input type=\"text\" name=\"actual_utc\" t-att-value=\"now_utc()\" required=\"required\"/></label>\n                            <label>实际线下退款凭据 <input type=\"text\" name=\"proof\" maxlength=\"200\" required=\"required\"/></label>\n                            <button type=\"submit\">确认已实际退款</button>\n                        </form>\n                        <form t-if=\"can_write and refund.ydental_state == 'approved'\" method=\"post\" action=\"/ydental/settlement/action\">\n                            <t t-call=\"ydental_settlement.ydental_settlement_tokens\"/>\n                            <input type=\"hidden\" name=\"operation\" value=\"refund_uncertain\"/>\n                            <input type=\"hidden\" name=\"refund_id\" t-att-value=\"refund.id\"/>\n                            <label>线下核查状态 <select name=\"outcome\"><option value=\"unknown\">未知</option>\n                                <option value=\"failed\">失败</option></select></label>\n                            <label>核查原因 <input type=\"text\" name=\"reason\" maxlength=\"300\" required=\"required\"/></label>\n                            <button type=\"submit\">标记未知或失败，继续占用额度</button>\n                        </form>\n                        <form t-if=\"can_approve and refund.ydental_state in ('failed', 'unknown') and refund.ydental_requester_id.id != request.env.uid\" method=\"post\" action=\"/ydental/settlement/action\">\n                            <t t-call=\"ydental_settlement.ydental_settlement_tokens\"/>\n                            <input type=\"hidden\" name=\"operation\" value=\"refund_recover\"/>\n                            <input type=\"hidden\" name=\"refund_id\" t-att-value=\"refund.id\"/>\n                            <label>已核实未付款 <input type=\"checkbox\" name=\"verified_not_paid\" value=\"1\" required=\"required\"/></label>\n                            <label>恢复原因 <input type=\"text\" name=\"reason\" maxlength=\"300\" required=\"required\"/></label>\n                            <button type=\"submit\">财务核查后恢复执行</button>\n                        </form>\n                        <form t-if=\"(can_write and refund.ydental_state == 'requested' and refund.ydental_requester_id.id == request.env.uid) or (can_approve and refund.ydental_state in ('requested', 'approved', 'failed', 'unknown') and refund.ydental_requester_id.id != request.env.uid)\" method=\"post\" action=\"/ydental/settlement/action\">\n                            <t t-call=\"ydental_settlement.ydental_settlement_tokens\"/>\n                            <input type=\"hidden\" name=\"operation\" value=\"refund_cancel\"/>\n                            <input type=\"hidden\" name=\"refund_id\" t-att-value=\"refund.id\"/>\n                            <label>已核实未实际退款 <input type=\"checkbox\" name=\"verified_not_paid\" value=\"1\" required=\"required\"/></label>\n                            <label>线下核查证据 <input type=\"text\" name=\"evidence\" maxlength=\"200\" required=\"required\"/></label>\n                            <label>撤销原因 <input type=\"text\" name=\"reason\" maxlength=\"300\" required=\"required\"/></label>\n                            <button type=\"submit\">撤销申请并释放受保护额度</button>\n                        </form>\n                    </div>\n                    <t t-set=\"page_kind\" t-value=\"'refunds'\"/><t t-call=\"ydental_settlement.ydental_settlement_page_links\"/>\n                </section>\n                <section><h2>收费员日结</h2>\n                    <form t-if=\"can_write\" method=\"post\" action=\"/ydental/settlement/action\">\n                        <t t-call=\"ydental_settlement.ydental_settlement_tokens\"/>\n                        <input type=\"hidden\" name=\"operation\" value=\"close\"/>\n                        <label>门店业务日 <input type=\"date\" name=\"business_date\" required=\"required\"/></label>\n                        <label>方式 <select name=\"channel\"><option value=\"cash\">现金</option><option value=\"wechat\">微信线下</option>\n                            <option value=\"alipay\">支付宝线下</option><option value=\"card\">银行卡线下</option></select></label>\n                        <button type=\"submit\">确认日结并锁定</button>\n                    </form>\n                    <div t-foreach=\"closes\" t-as=\"close\">\n                        <p>日结 <span t-out=\"close.id\"/> / <span t-out=\"close.ydental_business_date\"/> /\n                            <span t-out=\"close.ydental_channel\"/> / <span t-out=\"close.ydental_state\"/>：\n                            收 <span t-out=\"close.ydental_gross\"/>、实退 <span t-out=\"close.ydental_refunded\"/>、在途 <span t-out=\"close.ydental_pending\"/></p>\n                        <form t-if=\"can_approve and close.ydental_state == 'confirmed'\" method=\"post\" action=\"/ydental/settlement/action\">\n                            <t t-call=\"ydental_settlement.ydental_settlement_tokens\"/>\n                            <input type=\"hidden\" name=\"operation\" value=\"unlock\"/>\n                            <input type=\"hidden\" name=\"close_id\" t-att-value=\"close.id\"/>\n                            <label>财务解锁原因 <input type=\"text\" name=\"reason\" maxlength=\"300\" required=\"required\"/></label>\n                            <button type=\"submit\">财务解锁</button>\n                        </form>\n                    </div>\n                    <t t-set=\"page_kind\" t-value=\"'closes'\"/><t t-call=\"ydental_settlement.ydental_settlement_page_links\"/>\n                </section>\n                <section t-if=\"can_trade\"><h2>跨法人真实销售与采购</h2>\n                    <p>仅在双方门店均有仓库及财务审批权、已配置原生科目与两批次时确认。</p>\n                    <form method=\"post\" action=\"/ydental/settlement/action\">\n                        <t t-call=\"ydental_settlement.ydental_settlement_tokens\"/>\n                        <input type=\"hidden\" name=\"operation\" value=\"trade\"/>\n                        <label>目标门店 ID <input type=\"number\" name=\"target_store_id\" min=\"1\" required=\"required\"/></label>\n                        <label>源批次 ID <input type=\"number\" name=\"source_lot_id\" min=\"1\" required=\"required\"/></label>\n                        <label>目标批次 ID <input type=\"number\" name=\"target_lot_id\" min=\"1\" required=\"required\"/></label>\n                        <label>数量 <input type=\"number\" name=\"quantity\" min=\"0.001\" step=\"0.001\" required=\"required\"/></label>\n                        <label>单位 ID <input type=\"number\" name=\"uom_id\" min=\"1\" required=\"required\"/></label>\n                        <label>双方同币种演示单价 <input type=\"number\" name=\"unit_price\" min=\"0.01\" step=\"0.01\" required=\"required\"/></label>\n                        <label>不可重复来源 <input type=\"text\" name=\"source_key\" maxlength=\"120\" required=\"required\"/></label>\n                        <label>双方审批与实物交易原因 <input type=\"text\" name=\"reason\" maxlength=\"300\" required=\"required\"/></label>\n                        <button type=\"submit\">确认双法人原生订单、收发与凭证</button>\n                    </form>\n                </section>\n            </main>\n        </t>\n    </t>",
+          "zh_CN": "<t name=\"Offline settlement workbench\" t-name=\"ydental_settlement.ydental_settlement_page\">\n        <t t-set=\"head\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/>\n            <t t-call-assets=\"web.assets_frontend\" t-js=\"false\"/></t>\n        <t t-call=\"web.layout\" head=\"head\">\n            <main class=\"container py-4 o_ydental_settlement\" t-att-data-revision=\"revision\">\n                <h1>线下结算工作台</h1>\n                <p t-if=\"feedback\" role=\"status\" data-ui1-feedback=\"1\" t-out=\"feedback\"/>\n                <p>当前门店：<strong t-out=\"store.name\"/>；仅记录人工确认实际发生的线下资金。本页为演示，不是税务发票或平台到账证明。</p>\n                <nav><a href=\"/ydental/queue\">前台与候诊</a> | <a href=\"/ydental/access\">门店与权限</a></nav>\n                <form method=\"get\" action=\"/ydental/settlement\">\n                    <label>患者 ID <input type=\"number\" name=\"patient_id\" min=\"1\" t-att-value=\"patient.id if patient else ''\"/></label>\n                    <button type=\"submit\">筛选</button>\n                </form>\n                <p t-if=\"patient\">患者编号：<strong t-out=\"patient.ydental_number\"/></p>\n                <p t-if=\"patient\"><a t-att-href=\"'/ydental/settlement/other-stores/%s' % patient.id\">查看其他门店欠款最小摘要</a></p>\n                <section>\n                    <h2>今日未出账费用</h2>\n                    <p t-if=\"not today\">无</p>\n                    <table t-if=\"today\" class=\"table\"><thead><tr><th>费用</th><th>来源</th><th>确认金额</th><th>业务日</th></tr></thead>\n                        <tbody><tr t-foreach=\"today\" t-as=\"fee\"><td t-out=\"fee.id\"/><td t-out=\"fee.name\"/>\n                            <td t-out=\"fee.ydental_amount\"/><td t-out=\"fee.ydental_event_id.ydental_business_date\"/></tr></tbody>\n                    </table>\n                    <t t-set=\"page_kind\" t-value=\"'today'\"/><t t-call=\"ydental_settlement.ydental_settlement_page_links\"/>\n                </section>\n                <section><h2>历史未出账费用</h2><p t-if=\"not history\">无</p>\n                    <table t-if=\"history\" class=\"table\"><tbody><tr t-foreach=\"history\" t-as=\"fee\">\n                        <td t-out=\"fee.id\"/><td t-out=\"fee.name\"/><td t-out=\"fee.ydental_amount\"/>\n                        <td t-out=\"fee.ydental_event_id.ydental_business_date\"/></tr></tbody></table>\n                    <t t-set=\"page_kind\" t-value=\"'history'\"/><t t-call=\"ydental_settlement.ydental_settlement_page_links\"/>\n                </section>\n                <section><h2>待核对，禁止出账</h2><p t-if=\"not pending\">无</p>\n                    <table t-if=\"pending\" class=\"table\"><thead><tr><th>事件</th><th>患者</th><th>业务日</th><th>实际执行人</th><th>待核对原因</th></tr></thead>\n                        <tbody><tr t-foreach=\"pending\" t-as=\"event\">\n                            <td t-out=\"event.id\"/><td t-out=\"event.ydental_patient_id.ydental_number\"/>\n                            <td t-out=\"event.ydental_business_date\"/><td t-out=\"event.ydental_actor_id.name\"/>\n                            <td t-out=\"event.ydental_pending_reason or '待核对'\"/></tr></tbody></table>\n                    <t t-set=\"page_kind\" t-value=\"'pending'\"/><t t-call=\"ydental_settlement.ydental_settlement_page_links\"/>\n                </section>\n                <form t-if=\"can_write and (today or history)\" method=\"post\" action=\"/ydental/settlement/action\">\n                    <t t-call=\"ydental_settlement.ydental_settlement_tokens\"/>\n                    <input type=\"hidden\" name=\"operation\" value=\"bill\"/>\n                    <h3>选择本店已确认费用出账</h3>\n                    <label t-foreach=\"today | history\" t-as=\"fee\" style=\"display:block\">\n                        <input type=\"checkbox\" name=\"fee_ids\" t-att-value=\"fee.id\"/>\n                        <span t-out=\"fee.id\"/> — <span t-out=\"fee.name\"/>：<span t-out=\"fee.ydental_amount\"/>\n                    </label>\n                    <label>明确折扣金额 <input type=\"number\" name=\"discount\" min=\"0\" step=\"0.01\" value=\"0\"/></label>\n                    <label>折扣原因 <input type=\"text\" name=\"reason\" maxlength=\"300\"/></label>\n                    <button type=\"submit\">生成原生过账账单</button>\n                </form>\n                <section><h2>已出账未付清</h2><p t-if=\"not invoices\">无</p>\n                    <table t-if=\"invoices\" class=\"table\"><thead><tr><th>原生单号</th><th>业务日</th><th>原金额</th><th>应收余额</th><th>内部账单</th></tr></thead>\n                        <tbody><tr t-foreach=\"invoices\" t-as=\"invoice\">\n                            <td t-out=\"invoice.name\"/><td t-out=\"invoice.invoice_date\"/>\n                            <td t-out=\"invoice.amount_total\"/><td t-out=\"invoice.amount_residual\"/>\n                            <td><a t-att-href=\"'/ydental/settlement/pdf/bill/%s' % invoice.id\">下载中文 PDF</a>\n                                <form t-if=\"can_write\" method=\"post\" action=\"/ydental/settlement/action\">\n                                    <t t-call=\"ydental_settlement.ydental_settlement_tokens\"/>\n                                    <input type=\"hidden\" name=\"operation\" value=\"waive\"/>\n                                    <input type=\"hidden\" name=\"invoice_id\" t-att-value=\"invoice.id\"/>\n                                    <label>未收款免单额 <input type=\"number\" name=\"amount\" min=\"0.01\" step=\"0.01\" required=\"required\"/></label>\n                                    <label>有据免单原因 <input type=\"text\" name=\"reason\" maxlength=\"300\" required=\"required\"/></label>\n                                    <button type=\"submit\">原生贷项冲减未收应收</button>\n                                </form>\n                            </td>\n                        </tr></tbody></table>\n                    <t t-set=\"page_kind\" t-value=\"'invoices'\"/><t t-call=\"ydental_settlement.ydental_settlement_page_links\"/>\n                </section>\n                <form t-if=\"can_write and invoices\" method=\"post\" action=\"/ydental/settlement/action\">\n                    <t t-call=\"ydental_settlement.ydental_settlement_tokens\"/>\n                    <input type=\"hidden\" name=\"operation\" value=\"pay\"/>\n                    <h3>仅选择本次付款核销的账单</h3>\n                    <label t-foreach=\"invoices\" t-as=\"invoice\" style=\"display:block\"><input type=\"checkbox\" name=\"invoice_ids\" t-att-value=\"invoice.id\"/>\n                        <span t-out=\"invoice.name\"/>，应收 <span t-out=\"invoice.amount_residual\"/></label>\n                    <label>实际收款 <input type=\"number\" name=\"amount\" min=\"0.01\" step=\"0.01\" required=\"required\"/></label>\n                    <label>线下方式 <select name=\"channel\"><option value=\"cash\">现金</option><option value=\"wechat\">微信线下</option>\n                        <option value=\"alipay\">支付宝线下</option><option value=\"card\">银行卡线下</option></select></label>\n                    <label>实际发生 UTC <input type=\"text\" name=\"actual_utc\" t-att-value=\"now_utc()\" required=\"required\"/></label>\n                    <label>真实线下凭据说明 <input type=\"text\" name=\"proof\" maxlength=\"200\" required=\"required\"/></label>\n                    <button type=\"submit\">确认实际收款并原生核销</button>\n                </form>\n                <section><h2>线下付款与退款</h2>\n                    <div t-foreach=\"payments\" t-as=\"payment\">\n                        <p>付款 <span t-out=\"payment.id\"/> / <span t-out=\"payment.ydental_payment_id.name\"/>：\n                            <span t-out=\"payment.ydental_amount\"/>，<span t-out=\"payment.ydental_channel\"/>，\n                            <a t-att-href=\"'/ydental/settlement/pdf/receipt/%s' % payment.id\">下载小票 PDF</a></p>\n                        <form t-if=\"can_write\" method=\"post\" action=\"/ydental/settlement/action\">\n                            <t t-call=\"ydental_settlement.ydental_settlement_tokens\"/>\n                            <input type=\"hidden\" name=\"operation\" value=\"refund_request\"/>\n                            <input type=\"hidden\" name=\"payment_id\" t-att-value=\"payment.id\"/>\n                            <label>申请退款额 <input type=\"number\" name=\"amount\" min=\"0.01\" step=\"0.01\" required=\"required\"/></label>\n                            <label>原因 <input type=\"text\" name=\"reason\" maxlength=\"300\" required=\"required\"/></label>\n                            <button type=\"submit\">申请退款</button>\n                        </form>\n                        <form t-if=\"can_write\" method=\"post\" action=\"/ydental/settlement/action\">\n                            <t t-call=\"ydental_settlement.ydental_settlement_tokens\"/>\n                            <input type=\"hidden\" name=\"operation\" value=\"reclassify\"/>\n                            <input type=\"hidden\" name=\"payment_id\" t-att-value=\"payment.id\"/>\n                            <label>更正线下方式 <select name=\"new_channel\"><option value=\"cash\">现金</option>\n                                <option value=\"wechat\">微信线下</option><option value=\"alipay\">支付宝线下</option>\n                                <option value=\"card\">银行卡线下</option></select></label>\n                            <label>更正原因 <input type=\"text\" name=\"reason\" maxlength=\"300\" required=\"required\"/></label>\n                            <button type=\"submit\">原生重分类更正</button>\n                        </form>\n                    </div>\n                    <t t-set=\"page_kind\" t-value=\"'payments'\"/><t t-call=\"ydental_settlement.ydental_settlement_page_links\"/>\n                    <div t-foreach=\"refunds\" t-as=\"refund\">\n                        <p>退款 <span t-out=\"refund.id\"/>：<span t-out=\"refund.ydental_amount\"/>，状态 <span t-out=\"refund.ydental_state\"/>\n                            <a t-att-href=\"'/ydental/settlement/pdf/refund/%s' % refund.id\">下载退款凭据 PDF</a></p>\n                        <form t-if=\"can_approve and refund.ydental_state == 'requested'\" method=\"post\" action=\"/ydental/settlement/action\">\n                            <t t-call=\"ydental_settlement.ydental_settlement_tokens\"/>\n                            <input type=\"hidden\" name=\"refund_id\" t-att-value=\"refund.id\"/>\n                            <label>审批原因 <input type=\"text\" name=\"reason\" maxlength=\"300\" required=\"required\"/></label>\n                            <button name=\"operation\" value=\"refund_approve\">另一人批准，在途</button>\n                            <button name=\"operation\" value=\"refund_reject\">驳回，不退款</button>\n                        </form>\n                        <form t-if=\"can_write and refund.ydental_state == 'approved'\" method=\"post\" action=\"/ydental/settlement/action\">\n                            <t t-call=\"ydental_settlement.ydental_settlement_tokens\"/>\n                            <input type=\"hidden\" name=\"operation\" value=\"refund_execute\"/>\n                            <input type=\"hidden\" name=\"refund_id\" t-att-value=\"refund.id\"/>\n                            <label>实际退款 UTC <input type=\"text\" name=\"actual_utc\" t-att-value=\"now_utc()\" required=\"required\"/></label>\n                            <label>实际线下退款凭据 <input type=\"text\" name=\"proof\" maxlength=\"200\" required=\"required\"/></label>\n                            <button type=\"submit\">确认已实际退款</button>\n                        </form>\n                        <form t-if=\"can_write and refund.ydental_state == 'approved'\" method=\"post\" action=\"/ydental/settlement/action\">\n                            <t t-call=\"ydental_settlement.ydental_settlement_tokens\"/>\n                            <input type=\"hidden\" name=\"operation\" value=\"refund_uncertain\"/>\n                            <input type=\"hidden\" name=\"refund_id\" t-att-value=\"refund.id\"/>\n                            <label>线下核查状态 <select name=\"outcome\"><option value=\"unknown\">未知</option>\n                                <option value=\"failed\">失败</option></select></label>\n                            <label>核查原因 <input type=\"text\" name=\"reason\" maxlength=\"300\" required=\"required\"/></label>\n                            <button type=\"submit\">标记未知或失败，继续占用额度</button>\n                        </form>\n                        <form t-if=\"can_approve and refund.ydental_state in ('failed', 'unknown') and refund.ydental_requester_id.id != request.env.uid\" method=\"post\" action=\"/ydental/settlement/action\">\n                            <t t-call=\"ydental_settlement.ydental_settlement_tokens\"/>\n                            <input type=\"hidden\" name=\"operation\" value=\"refund_recover\"/>\n                            <input type=\"hidden\" name=\"refund_id\" t-att-value=\"refund.id\"/>\n                            <label>已核实未付款 <input type=\"checkbox\" name=\"verified_not_paid\" value=\"1\" required=\"required\"/></label>\n                            <label>恢复原因 <input type=\"text\" name=\"reason\" maxlength=\"300\" required=\"required\"/></label>\n                            <button type=\"submit\">财务核查后恢复执行</button>\n                        </form>\n                        <form t-if=\"(can_write and refund.ydental_state == 'requested' and refund.ydental_requester_id.id == request.env.uid) or (can_approve and refund.ydental_state in ('requested', 'approved', 'failed', 'unknown') and refund.ydental_requester_id.id != request.env.uid)\" method=\"post\" action=\"/ydental/settlement/action\">\n                            <t t-call=\"ydental_settlement.ydental_settlement_tokens\"/>\n                            <input type=\"hidden\" name=\"operation\" value=\"refund_cancel\"/>\n                            <input type=\"hidden\" name=\"refund_id\" t-att-value=\"refund.id\"/>\n                            <label>已核实未实际退款 <input type=\"checkbox\" name=\"verified_not_paid\" value=\"1\" required=\"required\"/></label>\n                            <label>线下核查证据 <input type=\"text\" name=\"evidence\" maxlength=\"200\" required=\"required\"/></label>\n                            <label>撤销原因 <input type=\"text\" name=\"reason\" maxlength=\"300\" required=\"required\"/></label>\n                            <button type=\"submit\">撤销申请并释放受保护额度</button>\n                        </form>\n                    </div>\n                    <t t-set=\"page_kind\" t-value=\"'refunds'\"/><t t-call=\"ydental_settlement.ydental_settlement_page_links\"/>\n                </section>\n                <section><h2>收费员日结</h2>\n                    <form t-if=\"can_write\" method=\"post\" action=\"/ydental/settlement/action\">\n                        <t t-call=\"ydental_settlement.ydental_settlement_tokens\"/>\n                        <input type=\"hidden\" name=\"operation\" value=\"close\"/>\n                        <label>门店业务日 <input type=\"date\" name=\"business_date\" required=\"required\"/></label>\n                        <label>方式 <select name=\"channel\"><option value=\"cash\">现金</option><option value=\"wechat\">微信线下</option>\n                            <option value=\"alipay\">支付宝线下</option><option value=\"card\">银行卡线下</option></select></label>\n                        <button type=\"submit\">确认日结并锁定</button>\n                    </form>\n                    <div t-foreach=\"closes\" t-as=\"close\">\n                        <p>日结 <span t-out=\"close.id\"/> / <span t-out=\"close.ydental_business_date\"/> /\n                            <span t-out=\"close.ydental_channel\"/> / <span t-out=\"close.ydental_state\"/>：\n                            收 <span t-out=\"close.ydental_gross\"/>、实退 <span t-out=\"close.ydental_refunded\"/>、在途 <span t-out=\"close.ydental_pending\"/></p>\n                        <form t-if=\"can_approve and close.ydental_state == 'confirmed'\" method=\"post\" action=\"/ydental/settlement/action\">\n                            <t t-call=\"ydental_settlement.ydental_settlement_tokens\"/>\n                            <input type=\"hidden\" name=\"operation\" value=\"unlock\"/>\n                            <input type=\"hidden\" name=\"close_id\" t-att-value=\"close.id\"/>\n                            <label>财务解锁原因 <input type=\"text\" name=\"reason\" maxlength=\"300\" required=\"required\"/></label>\n                            <button type=\"submit\">财务解锁</button>\n                        </form>\n                    </div>\n                    <t t-set=\"page_kind\" t-value=\"'closes'\"/><t t-call=\"ydental_settlement.ydental_settlement_page_links\"/>\n                </section>\n                <section t-if=\"can_trade\"><h2>跨法人真实销售与采购</h2>\n                    <p>仅在双方门店均有仓库及财务审批权、已配置原生科目与两批次时确认。</p>\n                    <form method=\"post\" action=\"/ydental/settlement/action\">\n                        <t t-call=\"ydental_settlement.ydental_settlement_tokens\"/>\n                        <input type=\"hidden\" name=\"operation\" value=\"trade\"/>\n                        <label>目标门店 ID <input type=\"number\" name=\"target_store_id\" min=\"1\" required=\"required\"/></label>\n                        <label>源批次 ID <input type=\"number\" name=\"source_lot_id\" min=\"1\" required=\"required\"/></label>\n                        <label>目标批次 ID <input type=\"number\" name=\"target_lot_id\" min=\"1\" required=\"required\"/></label>\n                        <label>数量 <input type=\"number\" name=\"quantity\" min=\"0.001\" step=\"0.001\" required=\"required\"/></label>\n                        <label>单位 ID <input type=\"number\" name=\"uom_id\" min=\"1\" required=\"required\"/></label>\n                        <label>双方同币种演示单价 <input type=\"number\" name=\"unit_price\" min=\"0.01\" step=\"0.01\" required=\"required\"/></label>\n                        <label>不可重复来源 <input type=\"text\" name=\"source_key\" maxlength=\"120\" required=\"required\"/></label>\n                        <label>双方审批与实物交易原因 <input type=\"text\" name=\"reason\" maxlength=\"300\" required=\"required\"/></label>\n                        <button type=\"submit\">确认双法人原生订单、收发与凭证</button>\n                    </form>\n                </section>\n            </main>\n        </t>\n    </t>"
+        },
+        "arch_fs": "ydental_settlement/views/ydental_settlement_templates.xml",
+        "arch_prev": "<t name=\"Offline settlement workbench\" t-name=\"ydental_settlement.ydental_settlement_page\">\n        <t t-set=\"head\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/>\n            <t t-call-assets=\"web.assets_frontend\" t-js=\"false\"/></t>\n        <t t-call=\"web.layout\" head=\"head\">\n            <main class=\"container py-4 o_ydental_settlement\" t-att-data-revision=\"revision\">\n                <h1>线下结算工作台</h1>\n                <p>当前门店：<strong t-out=\"store.name\"/>；仅记录人工确认实际发生的线下资金。本页为演示，不是税务发票或平台到账证明。</p>\n                <nav><a href=\"/ydental/queue\">前台与候诊</a> | <a href=\"/ydental/access\">门店与权限</a></nav>\n                <form method=\"get\" action=\"/ydental/settlement\">\n                    <label>患者 ID <input type=\"number\" name=\"patient_id\" min=\"1\" t-att-value=\"patient.id if patient else ''\"/></label>\n                    <button type=\"submit\">筛选</button>\n                </form>\n                <p t-if=\"patient\">患者编号：<strong t-out=\"patient.ydental_number\"/></p>\n                <p t-if=\"patient\"><a t-att-href=\"'/ydental/settlement/other-stores/%s' % patient.id\">查看其他门店欠款最小摘要</a></p>\n                <section>\n                    <h2>今日未出账费用</h2>\n                    <p t-if=\"not today\">无</p>\n                    <table t-if=\"today\" class=\"table\"><thead><tr><th>费用</th><th>来源</th><th>确认金额</th><th>业务日</th></tr></thead>\n                        <tbody><tr t-foreach=\"today\" t-as=\"fee\"><td t-out=\"fee.id\"/><td t-out=\"fee.name\"/>\n                            <td t-out=\"fee.ydental_amount\"/><td t-out=\"fee.ydental_event_id.ydental_business_date\"/></tr></tbody>\n                    </table>\n                    <t t-set=\"page_kind\" t-value=\"'today'\"/><t t-call=\"ydental_settlement.ydental_settlement_page_links\"/>\n                </section>\n                <section><h2>历史未出账费用</h2><p t-if=\"not history\">无</p>\n                    <table t-if=\"history\" class=\"table\"><tbody><tr t-foreach=\"history\" t-as=\"fee\">\n                        <td t-out=\"fee.id\"/><td t-out=\"fee.name\"/><td t-out=\"fee.ydental_amount\"/>\n                        <td t-out=\"fee.ydental_event_id.ydental_business_date\"/></tr></tbody></table>\n                    <t t-set=\"page_kind\" t-value=\"'history'\"/><t t-call=\"ydental_settlement.ydental_settlement_page_links\"/>\n                </section>\n                <section><h2>待核对，禁止出账</h2><p t-if=\"not pending\">无</p>\n                    <table t-if=\"pending\" class=\"table\"><thead><tr><th>事件</th><th>患者</th><th>业务日</th><th>实际执行人</th><th>待核对原因</th></tr></thead>\n                        <tbody><tr t-foreach=\"pending\" t-as=\"event\">\n                            <td t-out=\"event.id\"/><td t-out=\"event.ydental_patient_id.ydental_number\"/>\n                            <td t-out=\"event.ydental_business_date\"/><td t-out=\"event.ydental_actor_id.name\"/>\n                            <td t-out=\"event.ydental_pending_reason or '待核对'\"/></tr></tbody></table>\n                    <t t-set=\"page_kind\" t-value=\"'pending'\"/><t t-call=\"ydental_settlement.ydental_settlement_page_links\"/>\n                </section>\n                <form t-if=\"can_write and (today or history)\" method=\"post\" action=\"/ydental/settlement/action\">\n                    <t t-call=\"ydental_settlement.ydental_settlement_tokens\"/>\n                    <input type=\"hidden\" name=\"operation\" value=\"bill\"/>\n                    <h3>选择本店已确认费用出账</h3>\n                    <label t-foreach=\"today | history\" t-as=\"fee\" style=\"display:block\">\n                        <input type=\"checkbox\" name=\"fee_ids\" t-att-value=\"fee.id\"/>\n                        <span t-out=\"fee.id\"/> — <span t-out=\"fee.name\"/>：<span t-out=\"fee.ydental_amount\"/>\n                    </label>\n                    <label>明确折扣金额 <input type=\"number\" name=\"discount\" min=\"0\" step=\"0.01\" value=\"0\"/></label>\n                    <label>折扣原因 <input type=\"text\" name=\"reason\" maxlength=\"300\"/></label>\n                    <button type=\"submit\">生成原生过账账单</button>\n                </form>\n                <section><h2>已出账未付清</h2><p t-if=\"not invoices\">无</p>\n                    <table t-if=\"invoices\" class=\"table\"><thead><tr><th>原生单号</th><th>业务日</th><th>原金额</th><th>应收余额</th><th>内部账单</th></tr></thead>\n                        <tbody><tr t-foreach=\"invoices\" t-as=\"invoice\">\n                            <td t-out=\"invoice.name\"/><td t-out=\"invoice.invoice_date\"/>\n                            <td t-out=\"invoice.amount_total\"/><td t-out=\"invoice.amount_residual\"/>\n                            <td><a t-att-href=\"'/ydental/settlement/pdf/bill/%s' % invoice.id\">下载中文 PDF</a>\n                                <form t-if=\"can_write\" method=\"post\" action=\"/ydental/settlement/action\">\n                                    <t t-call=\"ydental_settlement.ydental_settlement_tokens\"/>\n                                    <input type=\"hidden\" name=\"operation\" value=\"waive\"/>\n                                    <input type=\"hidden\" name=\"invoice_id\" t-att-value=\"invoice.id\"/>\n                                    <label>未收款免单额 <input type=\"number\" name=\"amount\" min=\"0.01\" step=\"0.01\" required=\"required\"/></label>\n                                    <label>有据免单原因 <input type=\"text\" name=\"reason\" maxlength=\"300\" required=\"required\"/></label>\n                                    <button type=\"submit\">原生贷项冲减未收应收</button>\n                                </form>\n                            </td>\n                        </tr></tbody></table>\n                    <t t-set=\"page_kind\" t-value=\"'invoices'\"/><t t-call=\"ydental_settlement.ydental_settlement_page_links\"/>\n                </section>\n                <form t-if=\"can_write and invoices\" method=\"post\" action=\"/ydental/settlement/action\">\n                    <t t-call=\"ydental_settlement.ydental_settlement_tokens\"/>\n                    <input type=\"hidden\" name=\"operation\" value=\"pay\"/>\n                    <h3>仅选择本次付款核销的账单</h3>\n                    <label t-foreach=\"invoices\" t-as=\"invoice\" style=\"display:block\"><input type=\"checkbox\" name=\"invoice_ids\" t-att-value=\"invoice.id\"/>\n                        <span t-out=\"invoice.name\"/>，应收 <span t-out=\"invoice.amount_residual\"/></label>\n                    <label>实际收款 <input type=\"number\" name=\"amount\" min=\"0.01\" step=\"0.01\" required=\"required\"/></label>\n                    <label>线下方式 <select name=\"channel\"><option value=\"cash\">现金</option><option value=\"wechat\">微信线下</option>\n                        <option value=\"alipay\">支付宝线下</option><option value=\"card\">银行卡线下</option></select></label>\n                    <label>实际发生 UTC <input type=\"text\" name=\"actual_utc\" t-att-value=\"now_utc()\" required=\"required\"/></label>\n                    <label>真实线下凭据说明 <input type=\"text\" name=\"proof\" maxlength=\"200\" required=\"required\"/></label>\n                    <button type=\"submit\">确认实际收款并原生核销</button>\n                </form>\n                <section><h2>线下付款与退款</h2>\n                    <div t-foreach=\"payments\" t-as=\"payment\">\n                        <p>付款 <span t-out=\"payment.id\"/> / <span t-out=\"payment.ydental_payment_id.name\"/>：\n                            <span t-out=\"payment.ydental_amount\"/>，<span t-out=\"payment.ydental_channel\"/>，\n                            <a t-att-href=\"'/ydental/settlement/pdf/receipt/%s' % payment.id\">下载小票 PDF</a></p>\n                        <form t-if=\"can_write\" method=\"post\" action=\"/ydental/settlement/action\">\n                            <t t-call=\"ydental_settlement.ydental_settlement_tokens\"/>\n                            <input type=\"hidden\" name=\"operation\" value=\"refund_request\"/>\n                            <input type=\"hidden\" name=\"payment_id\" t-att-value=\"payment.id\"/>\n                            <label>申请退款额 <input type=\"number\" name=\"amount\" min=\"0.01\" step=\"0.01\" required=\"required\"/></label>\n                            <label>原因 <input type=\"text\" name=\"reason\" maxlength=\"300\" required=\"required\"/></label>\n                            <button type=\"submit\">申请退款</button>\n                        </form>\n                        <form t-if=\"can_write\" method=\"post\" action=\"/ydental/settlement/action\">\n                            <t t-call=\"ydental_settlement.ydental_settlement_tokens\"/>\n                            <input type=\"hidden\" name=\"operation\" value=\"reclassify\"/>\n                            <input type=\"hidden\" name=\"payment_id\" t-att-value=\"payment.id\"/>\n                            <label>更正线下方式 <select name=\"new_channel\"><option value=\"cash\">现金</option>\n                                <option value=\"wechat\">微信线下</option><option value=\"alipay\">支付宝线下</option>\n                                <option value=\"card\">银行卡线下</option></select></label>\n                            <label>更正原因 <input type=\"text\" name=\"reason\" maxlength=\"300\" required=\"required\"/></label>\n                            <button type=\"submit\">原生重分类更正</button>\n                        </form>\n                    </div>\n                    <t t-set=\"page_kind\" t-value=\"'payments'\"/><t t-call=\"ydental_settlement.ydental_settlement_page_links\"/>\n                    <div t-foreach=\"refunds\" t-as=\"refund\">\n                        <p>退款 <span t-out=\"refund.id\"/>：<span t-out=\"refund.ydental_amount\"/>，状态 <span t-out=\"refund.ydental_state\"/>\n                            <a t-att-href=\"'/ydental/settlement/pdf/refund/%s' % refund.id\">下载退款凭据 PDF</a></p>\n                        <form t-if=\"can_approve and refund.ydental_state == 'requested'\" method=\"post\" action=\"/ydental/settlement/action\">\n                            <t t-call=\"ydental_settlement.ydental_settlement_tokens\"/>\n                            <input type=\"hidden\" name=\"refund_id\" t-att-value=\"refund.id\"/>\n                            <label>审批原因 <input type=\"text\" name=\"reason\" maxlength=\"300\" required=\"required\"/></label>\n                            <button name=\"operation\" value=\"refund_approve\">另一人批准，在途</button>\n                            <button name=\"operation\" value=\"refund_reject\">驳回，不退款</button>\n                        </form>\n                        <form t-if=\"can_write and refund.ydental_state == 'approved'\" method=\"post\" action=\"/ydental/settlement/action\">\n                            <t t-call=\"ydental_settlement.ydental_settlement_tokens\"/>\n                            <input type=\"hidden\" name=\"operation\" value=\"refund_execute\"/>\n                            <input type=\"hidden\" name=\"refund_id\" t-att-value=\"refund.id\"/>\n                            <label>实际退款 UTC <input type=\"text\" name=\"actual_utc\" t-att-value=\"now_utc()\" required=\"required\"/></label>\n                            <label>实际线下退款凭据 <input type=\"text\" name=\"proof\" maxlength=\"200\" required=\"required\"/></label>\n                            <button type=\"submit\">确认已实际退款</button>\n                        </form>\n                        <form t-if=\"can_write and refund.ydental_state == 'approved'\" method=\"post\" action=\"/ydental/settlement/action\">\n                            <t t-call=\"ydental_settlement.ydental_settlement_tokens\"/>\n                            <input type=\"hidden\" name=\"operation\" value=\"refund_uncertain\"/>\n                            <input type=\"hidden\" name=\"refund_id\" t-att-value=\"refund.id\"/>\n                            <label>线下核查状态 <select name=\"outcome\"><option value=\"unknown\">未知</option>\n                                <option value=\"failed\">失败</option></select></label>\n                            <label>核查原因 <input type=\"text\" name=\"reason\" maxlength=\"300\" required=\"required\"/></label>\n                            <button type=\"submit\">标记未知或失败，继续占用额度</button>\n                        </form>\n                        <form t-if=\"can_approve and refund.ydental_state in ('failed', 'unknown') and refund.ydental_requester_id.id != request.env.uid\" method=\"post\" action=\"/ydental/settlement/action\">\n                            <t t-call=\"ydental_settlement.ydental_settlement_tokens\"/>\n                            <input type=\"hidden\" name=\"operation\" value=\"refund_recover\"/>\n                            <input type=\"hidden\" name=\"refund_id\" t-att-value=\"refund.id\"/>\n                            <label>已核实未付款 <input type=\"checkbox\" name=\"verified_not_paid\" value=\"1\" required=\"required\"/></label>\n                            <label>恢复原因 <input type=\"text\" name=\"reason\" maxlength=\"300\" required=\"required\"/></label>\n                            <button type=\"submit\">财务核查后恢复执行</button>\n                        </form>\n                        <form t-if=\"(can_write and refund.ydental_state == 'requested' and refund.ydental_requester_id.id == request.env.uid) or (can_approve and refund.ydental_state in ('requested', 'approved', 'failed', 'unknown') and refund.ydental_requester_id.id != request.env.uid)\" method=\"post\" action=\"/ydental/settlement/action\">\n                            <t t-call=\"ydental_settlement.ydental_settlement_tokens\"/>\n                            <input type=\"hidden\" name=\"operation\" value=\"refund_cancel\"/>\n                            <input type=\"hidden\" name=\"refund_id\" t-att-value=\"refund.id\"/>\n                            <label>已核实未实际退款 <input type=\"checkbox\" name=\"verified_not_paid\" value=\"1\" required=\"required\"/></label>\n                            <label>线下核查证据 <input type=\"text\" name=\"evidence\" maxlength=\"200\" required=\"required\"/></label>\n                            <label>撤销原因 <input type=\"text\" name=\"reason\" maxlength=\"300\" required=\"required\"/></label>\n                            <button type=\"submit\">撤销申请并释放受保护额度</button>\n                        </form>\n                    </div>\n                    <t t-set=\"page_kind\" t-value=\"'refunds'\"/><t t-call=\"ydental_settlement.ydental_settlement_page_links\"/>\n                </section>\n                <section><h2>收费员日结</h2>\n                    <form t-if=\"can_write\" method=\"post\" action=\"/ydental/settlement/action\">\n                        <t t-call=\"ydental_settlement.ydental_settlement_tokens\"/>\n                        <input type=\"hidden\" name=\"operation\" value=\"close\"/>\n                        <label>门店业务日 <input type=\"date\" name=\"business_date\" required=\"required\"/></label>\n                        <label>方式 <select name=\"channel\"><option value=\"cash\">现金</option><option value=\"wechat\">微信线下</option>\n                            <option value=\"alipay\">支付宝线下</option><option value=\"card\">银行卡线下</option></select></label>\n                        <button type=\"submit\">确认日结并锁定</button>\n                    </form>\n                    <div t-foreach=\"closes\" t-as=\"close\">\n                        <p>日结 <span t-out=\"close.id\"/> / <span t-out=\"close.ydental_business_date\"/> /\n                            <span t-out=\"close.ydental_channel\"/> / <span t-out=\"close.ydental_state\"/>：\n                            收 <span t-out=\"close.ydental_gross\"/>、实退 <span t-out=\"close.ydental_refunded\"/>、在途 <span t-out=\"close.ydental_pending\"/></p>\n                        <form t-if=\"can_approve and close.ydental_state == 'confirmed'\" method=\"post\" action=\"/ydental/settlement/action\">\n                            <t t-call=\"ydental_settlement.ydental_settlement_tokens\"/>\n                            <input type=\"hidden\" name=\"operation\" value=\"unlock\"/>\n                            <input type=\"hidden\" name=\"close_id\" t-att-value=\"close.id\"/>\n                            <label>财务解锁原因 <input type=\"text\" name=\"reason\" maxlength=\"300\" required=\"required\"/></label>\n                            <button type=\"submit\">财务解锁</button>\n                        </form>\n                    </div>\n                    <t t-set=\"page_kind\" t-value=\"'closes'\"/><t t-call=\"ydental_settlement.ydental_settlement_page_links\"/>\n                </section>\n                <section t-if=\"can_trade\"><h2>跨法人真实销售与采购</h2>\n                    <p>仅在双方门店均有仓库及财务审批权、已配置原生科目与两批次时确认。</p>\n                    <form method=\"post\" action=\"/ydental/settlement/action\">\n                        <t t-call=\"ydental_settlement.ydental_settlement_tokens\"/>\n                        <input type=\"hidden\" name=\"operation\" value=\"trade\"/>\n                        <label>目标门店 ID <input type=\"number\" name=\"target_store_id\" min=\"1\" required=\"required\"/></label>\n                        <label>源批次 ID <input type=\"number\" name=\"source_lot_id\" min=\"1\" required=\"required\"/></label>\n                        <label>目标批次 ID <input type=\"number\" name=\"target_lot_id\" min=\"1\" required=\"required\"/></label>\n                        <label>数量 <input type=\"number\" name=\"quantity\" min=\"0.001\" step=\"0.001\" required=\"required\"/></label>\n                        <label>单位 ID <input type=\"number\" name=\"uom_id\" min=\"1\" required=\"required\"/></label>\n                        <label>双方同币种演示单价 <input type=\"number\" name=\"unit_price\" min=\"0.01\" step=\"0.01\" required=\"required\"/></label>\n                        <label>不可重复来源 <input type=\"text\" name=\"source_key\" maxlength=\"120\" required=\"required\"/></label>\n                        <label>双方审批与实物交易原因 <input type=\"text\" name=\"reason\" maxlength=\"300\" required=\"required\"/></label>\n                        <button type=\"submit\">确认双法人原生订单、收发与凭证</button>\n                    </form>\n                </section>\n            </main>\n        </t>\n    </t>",
+        "arch_updated": false,
+        "create_date": "2026-10-14T03:44:36.627554",
+        "create_uid": 1,
+        "customize_show": false,
+        "id": 1599,
+        "inherit_id": null,
+        "key": "ydental_settlement.ydental_settlement_page",
+        "mode": "primary",
+        "model": null,
+        "name": "Offline settlement workbench",
+        "notes": null,
+        "priority": 16,
+        "technical_usage": null,
+        "type": "qweb",
+        "write_date": "2026-10-15T06:40:26.238735",
+        "write_uid": 1
+      },
+      "xmlid": {
+        "create_date": "2026-10-14T03:44:36.627554",
+        "create_uid": null,
+        "id": 51388,
+        "model": "ir.ui.view",
+        "module": "ydental_settlement",
+        "name": "ydental_settlement_page",
+        "noupdate": false,
+        "res_id": 1599,
+        "write_date": "2026-10-14T03:44:36.627554",
+        "write_uid": null
+      }
+    },
+    "ydental_settlement_page_links": {
+      "record": {
+        "active": true,
+        "arch_db": {
+          "en_US": "<t t-name=\"ydental_settlement.ydental_settlement_page_links\">\n        <nav t-if=\"page_counts[page_kind] &gt; 50\" aria-label=\"分页\">\n            <span>共 <span t-out=\"page_counts[page_kind]\"/> 条；第 <span t-out=\"pages[page_kind]\"/> 页</span>\n            <a t-if=\"pages[page_kind] &gt; 1\" t-att-href=\"page_url(page_kind, pages[page_kind] - 1)\">上一页</a>\n            <a t-if=\"pages[page_kind] * 50 &lt; page_counts[page_kind]\" t-att-href=\"page_url(page_kind, pages[page_kind] + 1)\">下一页</a>\n        </nav>\n    </t>",
+          "zh_CN": "<t t-name=\"ydental_settlement.ydental_settlement_page_links\">\n        <nav t-if=\"page_counts[page_kind] &gt; 50\" aria-label=\"分页\">\n            <span>共 <span t-out=\"page_counts[page_kind]\"/> 条；第 <span t-out=\"pages[page_kind]\"/> 页</span>\n            <a t-if=\"pages[page_kind] &gt; 1\" t-att-href=\"page_url(page_kind, pages[page_kind] - 1)\">上一页</a>\n            <a t-if=\"pages[page_kind] * 50 &lt; page_counts[page_kind]\" t-att-href=\"page_url(page_kind, pages[page_kind] + 1)\">下一页</a>\n        </nav>\n    </t>"
+        },
+        "arch_fs": "ydental_settlement/views/ydental_settlement_templates.xml",
+        "arch_prev": "<t t-name=\"ydental_settlement.ydental_settlement_page_links\">\n        <nav t-if=\"page_counts[page_kind] &gt; 50\" aria-label=\"分页\">\n            <span>共 <span t-out=\"page_counts[page_kind]\"/> 条；第 <span t-out=\"pages[page_kind]\"/> 页</span>\n            <a t-if=\"pages[page_kind] &gt; 1\" t-att-href=\"page_url(page_kind, pages[page_kind] - 1)\">上一页</a>\n            <a t-if=\"pages[page_kind] * 50 &lt; page_counts[page_kind]\" t-att-href=\"page_url(page_kind, pages[page_kind] + 1)\">下一页</a>\n        </nav>\n    </t>",
+        "arch_updated": false,
+        "create_date": "2026-10-14T03:44:36.627554",
+        "create_uid": 1,
+        "customize_show": false,
+        "id": 1598,
+        "inherit_id": null,
+        "key": "ydental_settlement.ydental_settlement_page_links",
+        "mode": "primary",
+        "model": null,
+        "name": "ydental_settlement_page_links",
+        "notes": null,
+        "priority": 16,
+        "technical_usage": null,
+        "type": "qweb",
+        "write_date": "2026-10-15T06:40:26.238735",
+        "write_uid": 1
+      },
+      "xmlid": {
+        "create_date": "2026-10-14T03:44:36.627554",
+        "create_uid": null,
+        "id": 51387,
+        "model": "ir.ui.view",
+        "module": "ydental_settlement",
+        "name": "ydental_settlement_page_links",
+        "noupdate": false,
+        "res_id": 1598,
+        "write_date": "2026-10-14T03:44:36.627554",
+        "write_uid": null
+      }
+    },
+    "ydental_settlement_tokens": {
+      "record": {
+        "active": true,
+        "arch_db": {
+          "en_US": "<t t-name=\"ydental_settlement.ydental_settlement_tokens\">\n        <input type=\"hidden\" name=\"csrf_token\" t-att-value=\"request.csrf_token()\"/>\n        <input type=\"hidden\" name=\"revision\" t-att-value=\"revision\"/>\n        <input type=\"hidden\" name=\"key\" t-att-value=\"new_key()\"/>\n        <input type=\"hidden\" name=\"output\" value=\"html\"/>\n    </t>"
+        },
+        "arch_fs": "ydental_settlement/views/ydental_settlement_templates.xml",
+        "arch_prev": "<t t-name=\"ydental_settlement.ydental_settlement_tokens\">\n        <input type=\"hidden\" name=\"csrf_token\" t-att-value=\"request.csrf_token()\"/>\n        <input type=\"hidden\" name=\"revision\" t-att-value=\"revision\"/>\n        <input type=\"hidden\" name=\"key\" t-att-value=\"new_key()\"/>\n    </t>",
+        "arch_updated": false,
+        "create_date": "2026-10-14T03:44:36.627554",
+        "create_uid": 1,
+        "customize_show": false,
+        "id": 1597,
+        "inherit_id": null,
+        "key": "ydental_settlement.ydental_settlement_tokens",
+        "mode": "primary",
+        "model": null,
+        "name": "ydental_settlement_tokens",
+        "notes": null,
+        "priority": 16,
+        "technical_usage": null,
+        "type": "qweb",
+        "write_date": "2026-10-15T06:40:26.238735",
+        "write_uid": 1
+      },
+      "xmlid": {
+        "create_date": "2026-10-14T03:44:36.627554",
+        "create_uid": null,
+        "id": 51386,
+        "model": "ir.ui.view",
+        "module": "ydental_settlement",
+        "name": "ydental_settlement_tokens",
+        "noupdate": false,
+        "res_id": 1597,
+        "write_date": "2026-10-14T03:44:36.627554",
+        "write_uid": null
+      }
+    }
+  },
+  "other_metadata_business_language_group_relation_schema_report_fields": "EXACT_UNCHANGED"
+}

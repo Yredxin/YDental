@@ -1,0 +1,138 @@
+{
+  "UI_PDF_LOGIN": "NOT_RUN",
+  "XML_import_calls": 1,
+  "account_fee_price_payment_refund_close_clinical_stock_acl_business_attachments_all_exact": true,
+  "actual_connection_counts": {
+    "W5_after": 1,
+    "W5_before": 1,
+    "all_physical_total": 6,
+    "clone_before": 1,
+    "clone_final": 1,
+    "clone_metadata_after": 0,
+    "maintenance": 1,
+    "native_Web": 0,
+    "native_metadata": 1
+  },
+  "actual_operations": {
+    "CREATE": 1,
+    "Firefox": 0,
+    "HTTP": 0,
+    "PDF_GET": 0,
+    "PDF_render": 0,
+    "XML_import": 1,
+    "download": 0,
+    "economic_clinical_permission_write": 0,
+    "history_replay": 0,
+    "login": 0,
+    "metadata_commit": 0,
+    "metadata_process": 1,
+    "module_upgrade_install_init_test_shell": 0,
+    "new_S01_audit": 0,
+    "new_asset_attachment": 0,
+    "store_POST": 0,
+    "sudo": 0,
+    "workbench_GET": 0
+  },
+  "allowed_but_unused_connections": {
+    "clone_metadata_after": 1
+  },
+  "authorization": 6227951775,
+  "base": "68c9096246464f9ab1c3ec9c014fe7dc1be6d04b",
+  "changed_committed_tables": [],
+  "clone_before_after643_exact": true,
+  "complete_uncommitted_field_diff_saved": false,
+  "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "core_evidence": {
+    "odoo/addons/base/data/base_data.sql": {
+      "excerpts": [
+        {
+          "first_line": 5,
+          "last_line": 13,
+          "text": "CREATE TABLE ir_actions (\n  id serial,\n  primary key(id)\n);\nCREATE TABLE ir_act_window (primary key(id)) INHERITS (ir_actions);\nCREATE TABLE ir_act_report_xml (primary key(id)) INHERITS (ir_actions);\nCREATE TABLE ir_act_url (primary key(id)) INHERITS (ir_actions);\nCREATE TABLE ir_act_server (primary key(id)) INHERITS (ir_actions);\nCREATE TABLE ir_act_client (primary key(id)) INHERITS (ir_actions);"
+        }
+      ],
+      "sha256": "7d9e8db69d6115ab019b9921e56f639b5d4e4383d8fe4c47812a092ab6504267"
+    },
+    "odoo/addons/base/models/ir_actions.py": {
+      "excerpts": [
+        {
+          "first_line": 54,
+          "last_line": 60,
+          "text": "class IrActionsActions(models.Model):\n    _name = 'ir.actions.actions'\n    _description = 'Action'\n    _clear_cache_name = 'default'  # self.get_bindings() depends on action records\n    _table = 'ir_actions'\n    _order = 'name, id'\n    _allow_sudo_commands = False"
+        },
+        {
+          "first_line": 90,
+          "last_line": 103,
+          "text": "                if action.path.startswith(\"action-\"):\n                    raise ValidationError(_(\"'action-' is a reserved prefix.\"))\n                if action.path == \"new\":\n                    raise ValidationError(_(\"'new' is reserved, and can not be used as path.\"))\n                # Tables ir_act_window, ir_act_report_xml, ir_act_url, ir_act_server and ir_act_client\n                # inherit from table ir_actions (see base_data.sql). The path must be unique across\n                # all these tables. The unique constraint is not enough because a big limitation of\n                # the inheritance feature is that unique indexes only apply to single tables, and\n                # not accross all the tables. So we need to check the uniqueness of the path manually.\n                # For more information, see: https://www.postgresql.org/docs/14/ddl-inherit.html#DDL-INHERIT-CAVEATS\n\n                # Note that, we leave the unique constraint in place to check the uniqueness of the path\n                # within the same table before checking the uniqueness across all the tables.\n                if (self.env['ir.actions.actions'].search_count([('path', '=', action.path)]) > 1):"
+        },
+        {
+          "first_line": 424,
+          "last_line": 435,
+          "text": "class IrActionsAct_Url(models.Model):\n    _name = 'ir.actions.act_url'\n    _description = 'Action URL'\n    _table = 'ir_act_url'\n    _inherit = ['ir.actions.actions']\n    _order = 'name, id'\n    _allow_sudo_commands = False\n\n    type = fields.Char(default='ir.actions.act_url')\n    url = fields.Text(string='Action URL', required=True)\n    target = fields.Selection([('new', 'New Window'), ('self', 'This Window'), ('download', 'Download')],\n                              string='Action Target', default='new', required=True)"
+        }
+      ],
+      "sha256": "b6c3993ae3ce8fbdc2329dc1e43bda1dbfb7473cea300dcecfd1bced703b94f6"
+    }
+  },
+  "first_rejected_table": "ir_actions",
+  "first_rejected_table_reported_by_native_gate": true,
+  "frozen_scripts_unchanged": true,
+  "initial_clone_equals_source643": true,
+  "limitation": "After snapshot existed in memory, but frozen code saves it only after metadata_gate; assertion aborts before that save. No exact transient row/column diff retained. Do not infer a measured write_date-only diff.",
+  "metadata_commit": 0,
+  "metadata_log_bytes": 8079,
+  "metadata_log_sha256": "d1f22e9f394ce002ac9b4023d43e72250178e0313be7b8cfdeb2ec2e71ac6c17",
+  "native_SIGSEGV": 0,
+  "native_metadata_backend_pids": [
+    1377390
+  ],
+  "native_metadata_process_exit": 1,
+  "observed_event_file_mtimes_UTC": {
+    "create-intent.json": "2026-10-17T01:50:25.192058+00:00",
+    "execution-intent.json": "2026-10-17T01:50:21.353974+00:00",
+    "maintenance-intent.json": "2026-10-17T01:50:25.177652+00:00",
+    "metadata-process-intent.json": "2026-10-17T01:50:28.529440+00:00",
+    "preflight-intent.json": "2026-10-17T01:49:26.984240+00:00",
+    "source-after-intent.json": "2026-10-17T01:50:37.309643+00:00",
+    "source-before-closed.json": "2026-10-17T01:50:24.048226+00:00",
+    "source-before-intent.json": "2026-10-17T01:50:21.386592+00:00",
+    "target-after-intent.json": "2026-10-17T01:50:34.858248+00:00",
+    "target-before-intent.json": "2026-10-17T01:50:26.092045+00:00",
+    "xml-import-intent.json": "2026-10-17T01:50:32.926661+00:00"
+  },
+  "original_SIGSEGV_root_cause": "UNKNOWN",
+  "preflight": {
+    "all_runtime_budgets_at_readback": 0,
+    "authorization": 6227951775,
+    "body_sha256": "86db1d60560917b1081c27d4687b5a1997d1bc83f8c96aca9637d7fbb0f80449",
+    "characters": 8028,
+    "comment_id": 6228148599,
+    "created_at": "2026-10-17T01:49:38Z",
+    "freeze_sha256": "0887efa9ab7f009644e02e057a2f6fc9ec60841b709982c673da728c4ceea0a5",
+    "readback_at": "2026-10-17T01:49:48.688Z",
+    "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6228148599",
+    "utf8_bytes": 12268,
+    "verbatim_equal": true
+  },
+  "remaining_actions": "STOP; no whitelist edits, no import/create/login/click retry; no P019/S11",
+  "source_and_clone_filestore152_exact": true,
+  "source_before_after643_exact": true,
+  "source_before_equals_P016_fixed643": true,
+  "source_clone_stopped_all643_equal": true,
+  "source_connections_closed_before_CREATE": true,
+  "static_causal_explanation": "Fixed core base_data.sql declares ir_act_url INHERITS(ir_actions); current SELECT parent query omits ONLY, so child changes can reflect in parent rowset. This explains a missing projection in preflight, not a new runtime recheck or a proven complete transient diff.",
+  "status": "BLOCKED_METADATA_WHITELIST",
+  "stopped_clone_preserved": true,
+  "target": {
+    "checkpoint": 6228148599,
+    "cluster": "7694897083368259627",
+    "config_sha256": "ddd42ee4769bf66ab1c71f766b972d3bca7f3d41b794039ad163b11076c1eb0e",
+    "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+    "database": "ydental_s10_p018_20261017020000_8e21bc49",
+    "head": "68c9096246464f9ab1c3ec9c014fe7dc1be6d04b",
+    "oid": 2100327,
+    "source": "ydental_s10_test_20261015073500_e50f4a71",
+    "source_oid": 2100310
+  },
+  "transaction_rolled_back": true
+}

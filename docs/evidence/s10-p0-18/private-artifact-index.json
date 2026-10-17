@@ -1,0 +1,26 @@
+{
+  "failed_and_original_evidence_preserved": true,
+  "raw_files": {
+    "metadata.log": {
+      "bytes": 8079,
+      "sha256": "d1f22e9f394ce002ac9b4023d43e72250178e0313be7b8cfdeb2ec2e71ac6c17"
+    },
+    "source-after-rows.json": {
+      "bytes": 44867778,
+      "sha256": "eb669547c009d91126455ef0188b12bf093ca1594b81b862679eda50a7b67eb1"
+    },
+    "source-before-rows.json": {
+      "bytes": 44867778,
+      "sha256": "5d1664aa10001a52563f21ea3ba5d90ecbb36b9c4dcdc5b6a0cc3a3424eb9d4d"
+    },
+    "target-after-rows.json": {
+      "bytes": 44867778,
+      "sha256": "37ef65fa8093f201e3401a950f059d1607e7a9d860c2b03dea969ecf29b379e4"
+    },
+    "target-before-rows.json": {
+      "bytes": 44867778,
+      "sha256": "d096234118aafd18ef1057bdcd2f1126a9367a7c81c47052e90cdf1b87dc1110"
+    }
+  },
+  "raw_rows_credentials_sessions_no_upload": true
+}
