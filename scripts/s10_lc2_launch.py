@@ -454,17 +454,23 @@ class OwnedApplication:
             raise RuntimeError('APPLICATION_EXITED')
 
     def wait_ready(self, timeout=60):
-        started = time.monotonic()
+        # Odoo binds its socket before registry loading emits run.start. A
+        # listening socket alone cannot authorize HTTP/browser dispatch.
+        if type(timeout) not in (int, float) or timeout <= 0:
+            raise ValueError('INVALID_OWNED_HTTP_START_TIMEOUT')
+        deadline = min(time.monotonic() + timeout, self.started + 60)
         while True:
+            if time.monotonic() >= deadline:
+                raise TimeoutError('OWNED_HTTP_START_TIMEOUT')
             self.check(allow_starting=True)
             try:
                 with socket.create_connection(('127.0.0.1', self.marker['port']), timeout=.5):
-                    self.assert_observed_logging_levels()
-                    return
+                    if self.event_guard.state.started:
+                        self.assert_observed_logging_levels()
+                        return
             except OSError:
-                if time.monotonic() - started > timeout:
-                    raise TimeoutError('OWNED_HTTP_START_TIMEOUT')
-                time.sleep(.1)
+                pass
+            time.sleep(.1)
 
     def assert_observed_logging_levels(self):
         """The actual service PID must attest privacy levels before token requests."""
