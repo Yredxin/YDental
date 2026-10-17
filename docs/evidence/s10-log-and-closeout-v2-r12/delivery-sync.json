@@ -1,0 +1,32 @@
+{
+  "task_id": "S10-LOG-AND-CLOSEOUT-v2",
+  "message_id": "YD-S10-LC2-EXEC-20261017-02",
+  "revision": "1.2",
+  "status": "SYNCED_FULL_API_READBACK_BYTE_EQUAL",
+  "comment_id": 6234283910,
+  "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6234283910",
+  "evidence_commit": "cf216f93977a5edc13219f75b67ace23bcf178f3",
+  "product_commit": "d30682a6c9c12b47d8df16609100c1452d9207a7",
+  "test_commit": "642a75ba0ad6b6c4eb795a9a2c9ca7f0406125ca",
+  "utf8_bytes": 19719,
+  "sha256": "9e6cf7daceac2ad431b436c865359e50a536001743fe4bced38017fd1dd4a400",
+  "posted_at_utc": "2026-10-17T13:11:45Z",
+  "verified_at_utc": "2026-10-17T13:11:47.835001+00:00",
+  "full_api_readback": true,
+  "byte_equal": true,
+  "runtime_replayed": false,
+  "issue_or_project_state_changes": false,
+  "closed_at_utc": "2026-10-17T13:12:15.791325+00:00",
+  "authority_received_at_utc": "2026-10-17T12:05:21.801Z",
+  "authority_deadline_utc": "2026-10-17T20:05:21.801Z",
+  "raw_observation_bytes_including_old_new_runroot": 60646154,
+  "raw_cap_bytes": 1073741824,
+  "post_seal_append_index": {
+    "private_path": ".local/s10-lc2-r12-20261017/post-seal-append-index.json",
+    "bytes": 2844,
+    "sha256": "52011cf79d358bf3c1331c0a471a4b2ab2c875c1126b9823616e9f2ce14f3778"
+  },
+  "runtime_remains_frozen": true,
+  "unused_budget_not_carried_forward": true,
+  "independent_acceptance_status": "FINAL_PARTIAL_ACCEPTED_RUNTIME_BLOCKED"
+}
