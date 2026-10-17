@@ -363,9 +363,16 @@ def emit_event(event, **values):
 def classify_error(error, stage=None):
     """Classify only types and allowlisted codes, never localized messages."""
     code = error.__dict__.get('diagnostic_code')
-    if type(code) is str and code in ERROR_CODES and code != 'APPLICATION_ERROR':
-        return 'BUSINESS_REJECTION', code
     ancestry = {(item.__module__, item.__name__) for item in type(error).__mro__}
+    native_rejection = any(('odoo.exceptions', name) in ancestry
+                           for name in ('AccessError', 'ValidationError', 'UserError'))
+    if (type(code) is str and code == 'DIAGNOSTIC_FAILURE'
+            or type(stage) is str and stage.startswith('evidence.')):
+        return 'EVIDENCE_ERROR', 'DIAGNOSTIC_FAILURE'
+    if type(code) is str and code in ERROR_CODES:
+        if code == 'APPLICATION_ERROR' or not native_rejection:
+            return 'APPLICATION_ERROR', 'APPLICATION_ERROR'
+        return 'BUSINESS_REJECTION', code
     if ('odoo.exceptions', 'AccessError') in ancestry:
         return 'BUSINESS_REJECTION', 'AUTHZ_DENIED'
     if ('odoo.exceptions', 'ValidationError') in ancestry:
@@ -375,6 +382,33 @@ def classify_error(error, stage=None):
     if stage == 'request.parse' and isinstance(error, (ValueError, TypeError, KeyError)):
         return 'BUSINESS_REJECTION', 'INPUT_PARSE_ERROR'
     return 'APPLICATION_ERROR', 'APPLICATION_ERROR'
+
+
+def _expected_rejection_chain(error, stage):
+    """Prove a small visible chain is entirely expected before omitting frames.
+
+    An outer native warning alone is insufficient. Hidden, cyclic or deeper
+    boundaries remain uncertain and take the existing bounded evidence path.
+    No traceback, message, argument or local is read for this decision.
+    """
+    current, seen = error, set()
+    for depth in range(8):
+        if id(current) in seen:
+            return False
+        seen.add(id(current))
+        if classify_error(current, stage if depth == 0 else None)[0] != 'BUSINESS_REJECTION':
+            return False
+        cause = BaseException.__cause__.__get__(current)
+        context = BaseException.__context__.__get__(current)
+        if cause is not None:
+            current = cause
+        elif context is not None:
+            if BaseException.__suppress_context__.__get__(current):
+                return False
+            current = context
+        else:
+            return True
+    return False
 
 
 def _structural_name(value):
@@ -524,20 +558,32 @@ def _minimal_exception(event_id, component, stage, error_class, code, exception_
         os.close(fd)
 
 
-def record_exception(error, component, stage=None):
-    """First preserve minimal primary, then optional structured/stack evidence."""
+def record_exception(error, component, stage=None, *, investigate=False):
+    """Short expected rejection, or primary-first bounded error evidence.
+
+    Only an explicit Python caller can request an investigation window; no
+    request/environment context flag enables full stacks for routine denials.
+    """
     try:
-        return _record_exception(error, component, stage)
+        return _record_exception(error, component, stage, investigate)
     except Exception:
         _failure()
         return None
 
 
-def _record_exception(error, component, stage):
+def _record_exception(error, component, stage, investigate):
     primary_id = uuid.uuid4().hex
     selected_stage = stage or current_context().get('stage')
     error_class, code = classify_error(error, selected_stage)
     exception_type = type(error).__name__
+    expected = error_class == 'BUSINESS_REJECTION' and _expected_rejection_chain(error, selected_stage)
+    if error_class == 'BUSINESS_REJECTION' and not expected:
+        error_class, code = 'APPLICATION_ERROR', 'APPLICATION_ERROR'
+    if expected and investigate is not True:
+        emit_event('operation.rejected', event_id=primary_id, component=component,
+                   stage=selected_stage, error_class=error_class, error_code=code,
+                   exception_type=exception_type, outcome='denied', severity='INFO')
+        return primary_id
     try:
         _minimal_exception(primary_id, component, selected_stage, error_class, code, exception_type)
     except Exception:
