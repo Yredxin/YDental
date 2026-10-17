@@ -1,0 +1,91 @@
+{
+  "A_acquire_confirm_correct_release_each": 1,
+  "A_editor_timeout_unchanged": true,
+  "A_normal_editor_heartbeat_max": 3,
+  "A_versions": [
+    2,
+    3,
+    4
+  ],
+  "B_MODEL_write_unlink": 6,
+  "B_RPC_write_unlink": 6,
+  "CREATE": 1,
+  "C_permissions": [
+    "reader8 settlement none->read->none",
+    "reader8 export write->none->write",
+    "rollback-only manager5 store2 settlement none->read",
+    "rollback-only manager41 store11 export none->write"
+  ],
+  "D_actor": 5,
+  "D_client_response_loss": 1,
+  "D_date": "actual current store local date, independently frozen before upstream and checked per action",
+  "D_distinct_approver": 6,
+  "D_new_identity_or_expanded_permission": false,
+  "D_new_source": {
+    "bill": 6,
+    "inbound": 6,
+    "outbound_max": 2,
+    "refund_request": 2
+  },
+  "D_old_close_unlock": false,
+  "D_verified_same_actor_key_payload_repeat": 1,
+  "HTTP_total": 600,
+  "Odoo_processes": 6,
+  "PDF_new_refund_render": 2,
+  "READ_ONLY_RR_total": 28,
+  "S10_upgrade": 1,
+  "S11_merge_deploy_Project_Issue_status": 0,
+  "authority": "USER_DIRECT_S10_CLOSEOUT_PLAN_v1.1",
+  "channel": "cash",
+  "company": 1,
+  "database": "ydental_s10_test_20261017080710_2494c102",
+  "doctor": 7,
+  "evidence_first": true,
+  "full_capture_nodes": [
+    "source-before",
+    "clone-initial",
+    "E-before-upgrade",
+    "E-after-upgrade",
+    "final-tail",
+    "source-final"
+  ],
+  "hard_stops": [
+    "identity drift",
+    "raw digest or saved-byte mismatch",
+    "unknown economic outcome",
+    "unauthorized content",
+    "SIGSEGV",
+    "invalid fixture rollback",
+    "budget exceeded"
+  ],
+  "independent_commit_readback_before_marker": true,
+  "maintenance_SQL": [
+    "SELECT oid,datname FROM pg_database ORDER BY oid",
+    "SELECT pid FROM pg_stat_activity WHERE datid=%s",
+    "CREATE DATABASE <frozen_identifier> TEMPLATE <frozen_source_identifier>",
+    "SELECT oid FROM pg_database WHERE datname=%s"
+  ],
+  "maintenance_connections": 1,
+  "max_native_pool": 8,
+  "new_S01_audit_max": 500,
+  "original_GET_total": 12,
+  "original_generation": 0,
+  "per_action_capture": "all stored ydental/account/stock/identity/permission/original/attachment facts; display separate",
+  "permission_category_changes_max": 8,
+  "port": 18325,
+  "repairs_max": 2,
+  "safety_refusal": "STOP; no different tool, identity or entrypoint retry",
+  "source": "ydental_s10_test_20261017050000_21b0cafe",
+  "source_SQL": [
+    "SELECT current_database(),(SELECT oid FROM pg_database WHERE datname=current_database()),(SELECT system_identifier::text FROM pg_control_system()),pg_backend_pid()",
+    "SELECT c.relname,a.attname,format_type(a.atttypid,a.atttypmod) FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace JOIN pg_attribute a ON a.attrelid=c.oid WHERE n.nspname='public' AND c.relkind='r' AND a.attnum>0 AND NOT a.attisdropped ORDER BY c.relname,a.attnum",
+    "SHOW transaction_read_only",
+    "SHOW transaction_isolation",
+    "SELECT t.tableoid::regclass::text,t.tableoid,to_jsonb(t)::text,encode(sha256(convert_to(to_jsonb(t)::text,'UTF8')),'hex') FROM public.<catalog-identifier> t ORDER BY <catalog-key>",
+    "SELECT pid,state,application_name FROM pg_stat_activity WHERE datid=%s AND pid<>pg_backend_pid() ORDER BY pid",
+    "ROLLBACK"
+  ],
+  "source_connections": 2,
+  "source_oid": 2122140,
+  "store": 1
+}

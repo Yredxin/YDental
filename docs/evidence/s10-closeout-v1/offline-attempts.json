@@ -1,0 +1,26 @@
+{
+  "attempts": [
+    {
+      "label": "initial",
+      "exit_code": 0,
+      "DB_Odoo_HTTP_Firefox": 0
+    },
+    {
+      "label": "final",
+      "exit_code": 1,
+      "error": "FileExistsError: immutable execution-contract.json already saved by initial offline check",
+      "assertions_before_output_collision_completed": true,
+      "intermediate_result_exit0_not_process_PASS": true,
+      "business_executed": false
+    },
+    {
+      "label": "frozen",
+      "exit_code": 0,
+      "deterministic_checks": 12,
+      "undefined_global_symbols": 0,
+      "DB_Odoo_HTTP_Firefox": 0,
+      "log": ".local/s10-closeout-v1/offline-frozen.log"
+    }
+  ],
+  "correction": "New attempt-labelled contract file; preserve earlier outputs, no overwrite or database retry."
+}
