@@ -1,0 +1,53 @@
+{
+  "status": "CODE_STATIC_CHECKS_PASS_PENDING_GPT",
+  "authorization": 6215375331,
+  "base": "21dc2dc243200336959482fcfa9d3b5f5f5ad271",
+  "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "preflight": {
+    "plan_sha256": "6bf9510d061c3a342e0908fc8e3ed3f9480d56f6a045c632d7c4b08f23e02b59",
+    "characters": 3901,
+    "utf8_bytes": 6741,
+    "body_sha256": "a7f656ef86e9599239cb03496e0e01a9243cf6f803ab5ee65641f452c78160fb",
+    "comment_id": 6227632581,
+    "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6227632581",
+    "created_at": "2026-10-17T00:54:59Z",
+    "readback_at": "2026-10-17T00:55:09.878310+00:00",
+    "verbatim_equal": true,
+    "product_changes_at_readback": 0,
+    "all_runtime_budgets": 0
+  },
+  "modified_products": 3,
+  "static_functional_contract_checks": 102,
+  "protected_old_files": 3852,
+  "total_checks": 3954,
+  "static_test_exit_code": 0,
+  "target_python_compile": "3.12.15 exit0",
+  "old_workbench_AST_and_QWeb_structure_preserved": true,
+  "all_other_methods_and_nonpermitted_files_preserved": true,
+  "actual_budget": {
+    "BUSINESS_GET_POST": 0,
+    "CREATE": 0,
+    "DATABASE_CONNECTION": 0,
+    "DIRECT_ORM": 0,
+    "EXECUTOR_SUDO": 0,
+    "FIREFOX": 0,
+    "ISSUE_PROJECT_MUTATION": 0,
+    "MERGE_DEPLOY_S11": 0,
+    "ODOO_HTTP": 0,
+    "ODOO_SHELL_INSTALL_UPGRADE_INIT_TEST": 0,
+    "OS_PG_DOCKER_NETWORK_SPECIAL": 0,
+    "PDF_GENERATION": 0
+  },
+  "NOT_RUN": [
+    "database connections/source snapshots",
+    "Odoo install/upgrade/init/test/shell",
+    "native ORM/Domain SQL compiler",
+    "installed QWeb/HTTP/Firefox/button click",
+    "real PDF/font/audit/economic invariant runtime",
+    "P0-18/S11/deploy/merge"
+  ],
+  "requested_ceiling": "S10_P0_17_PAID_BILL_WORKBENCH_CODE_STATIC_TECH_ACCEPTED",
+  "S10_PRODUCTION_T12": "BLOCKED",
+  "native_SIGSEGV_root_cause": "UNKNOWN",
+  "self_GPT_PASS_claimed": false
+}

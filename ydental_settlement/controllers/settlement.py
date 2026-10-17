@@ -30,12 +30,14 @@ class YDentalSettlement(http.Controller):
     @http.route('/ydental/settlement', type='http', auth='user', methods=['GET'])
     def workbench(self, patient_id=None, notice=None, today_page='1', history_page='1',
                   pending_page='1', invoices_page='1', payments_page='1',
-                  refunds_page='1', closes_page='1', **kwargs):
+                  refunds_page='1', closes_page='1', settled_page='1', **kwargs):
         raw_pages = {'today': today_page, 'history': history_page,
                      'pending': pending_page, 'invoices': invoices_page,
                      'payments': payments_page, 'refunds': refunds_page,
-                     'closes': closes_page}
-        if (patient_id and (not patient_id.isdecimal() or not 1 <= len(patient_id) <= 12)
+                     'closes': closes_page, 'settled': settled_page}
+        if (not isinstance(settled_page, str) or not 1 <= len(settled_page) <= 5
+                or not settled_page.isdecimal()
+                or patient_id and (not patient_id.isdecimal() or not 1 <= len(patient_id) <= 12)
                 or any(not isinstance(value, str) or not value.isdecimal()
                        or not 1 <= int(value) <= 10000 for value in raw_pages.values())):
             return request.make_json_response({'error': 'Invalid workbench page or patient.'},
@@ -66,6 +68,7 @@ class YDentalSettlement(http.Controller):
         member = access._membership(service.env.uid, context['store'].id)
         context.update({'revision': access._scope().ydental_revision,
                         'can_write': access._levels(member)['settlement'] == 'write',
+                        'can_export': access._levels(member)['export'] == 'write',
                         'can_approve': access._levels(member)['finance_approval'] == 'write',
                         'can_trade': (access._levels(member)['settlement'] == 'write' and
                                       access._levels(member)['finance_approval'] == 'write' and

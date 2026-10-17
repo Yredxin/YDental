@@ -1,0 +1,171 @@
+{
+  "actual_execution_budget": {
+    "BUSINESS_GET_POST": 0,
+    "CREATE": 0,
+    "DATABASE_CONNECTION": 0,
+    "DIRECT_ORM": 0,
+    "EXECUTOR_SUDO": 0,
+    "FIREFOX": 0,
+    "ISSUE_PROJECT_MUTATION": 0,
+    "MERGE_DEPLOY_S11": 0,
+    "ODOO_HTTP": 0,
+    "ODOO_SHELL_INSTALL_UPGRADE_INIT_TEST": 0,
+    "OS_PG_DOCKER_NETWORK_SPECIAL": 0,
+    "PDF_GENERATION": 0
+  },
+  "all_source_rule": "EXISTS(valid source) AND NOT EXISTS(NOT valid source); current store, real fee, fee/event same store, event confirmed; filter source/fee/event patients by legal family when selected",
+  "authorization": 6215375331,
+  "base": "21dc2dc243200336959482fcfa9d3b5f5f5ad271",
+  "controller_scope": "workbench only; settled_page decimal string 1..5 digits and value1..10000; retain old guards; page_url carries settled page and patient; can_export exact current _levels(member)[export]==write",
+  "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "core_proofs": [
+    {
+      "basis": "fields.Domain alias",
+      "end_line": 20,
+      "line": 20,
+      "path": "odoo/fields/__init__.py"
+    },
+    {
+      "basis": "any/not any semantics",
+      "end_line": 101,
+      "line": 81,
+      "path": "odoo/orm/domains.py"
+    },
+    {
+      "basis": "three-argument Domain constructor",
+      "end_line": 224,
+      "line": 207,
+      "path": "odoo/orm/domains.py"
+    },
+    {
+      "basis": "AND and inversion",
+      "end_line": 339,
+      "line": 318,
+      "path": "odoo/orm/domains.py"
+    },
+    {
+      "basis": "x2many comodel env and exists/non-exists query",
+      "end_line": 889,
+      "line": 847,
+      "path": "odoo/orm/fields_relational.py"
+    },
+    {
+      "basis": "search uses model environment, not current record IDs",
+      "end_line": 1447,
+      "line": 1432,
+      "path": "odoo/orm/models.py"
+    },
+    {
+      "basis": "existing gated su environment sees all sources; no hidden foreign source",
+      "end_line": 4890,
+      "line": 4852,
+      "path": "odoo/orm/models.py"
+    }
+  ],
+  "evidence_level": "CODE_ONLY / STATIC_FILE_FIXTURES; not Odoo Domain/ORM/HTTP/QWeb runtime",
+  "existing_environment": "reuse invoices account.move environment already gated by _access and existing sudo; add no sudo and no any! bypass; protected source models have no active field hiding rows",
+  "new_file_allowlist": [
+    "scripts/s10_p0_17_*.py",
+    "docs/s10-p0-17-*.md",
+    "docs/evidence/s10-p0-17/*"
+  ],
+  "old_modified_file_allowlist": [
+    "ydental_settlement/models/ydental_settlement_service.py",
+    "ydental_settlement/controllers/settlement.py",
+    "ydental_settlement/views/ydental_settlement_templates.xml"
+  ],
+  "original_and_dependency_SHA": {
+    "CORE/addons/account/models/account_move.py": {
+      "git": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+      "sha256": "f2c8a85e029e50a3d38401e1b5badc3a2222a344b58788d644e305ad58657fbc"
+    },
+    "CORE/odoo/fields/__init__.py": {
+      "git": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+      "sha256": "994379343ab0e1762a58cba4f51ac7befb15ee4d3286df1d193dd2b1944f11d7"
+    },
+    "CORE/odoo/orm/domains.py": {
+      "git": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+      "sha256": "ea362c166439182c175abc3182d6ecbe15361c97a8a2cab5cd57cb5684f4de7c"
+    },
+    "CORE/odoo/orm/fields_relational.py": {
+      "git": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+      "sha256": "e8239f90f8aa4b874e182565ca3d667ad3f2616ccf918873117e80b67f31e7c3"
+    },
+    "CORE/odoo/orm/models.py": {
+      "git": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+      "sha256": "e84f13aeaf02b61f69a38f4e293400279334386fd7619e64f6a21a6b5a383668"
+    },
+    "ydental_access/models/constants.py": {
+      "git": "21dc2dc243200336959482fcfa9d3b5f5f5ad271",
+      "sha256": "a222305b36a2c7c1002f51aedea48b8f4b2fb6286d3db49dafe7835a806541e3"
+    },
+    "ydental_access/models/ydental_access_service.py": {
+      "git": "21dc2dc243200336959482fcfa9d3b5f5f5ad271",
+      "sha256": "9654000038903522213303fcd9cdc64612cdd335deac6a96afd993c4dfd61132"
+    },
+    "ydental_access/models/ydental_access_source.py": {
+      "git": "21dc2dc243200336959482fcfa9d3b5f5f5ad271",
+      "sha256": "2236034b969fed2a2ceabf15d368a94a081930b0850b8bb0deb6a86fc8d1c517"
+    },
+    "ydental_patient/models/ydental_patient_service.py": {
+      "git": "21dc2dc243200336959482fcfa9d3b5f5f5ad271",
+      "sha256": "2cc72f87a7dd7cf9bf541007bddb2c975458f564599400ae944b63f5ea4513e3"
+    },
+    "ydental_settlement/controllers/settlement.py": {
+      "git": "21dc2dc243200336959482fcfa9d3b5f5f5ad271",
+      "sha256": "bfa051971585369f1585d311cfc4553159d4a42ef23b3c54f35d77e53ab4caa2"
+    },
+    "ydental_settlement/models/ydental_settlement_service.py": {
+      "git": "21dc2dc243200336959482fcfa9d3b5f5f5ad271",
+      "sha256": "1ea27012fd5500fc21891f9e652f4e694cb2e7cce844fa38d08b7f12beff8d2c"
+    },
+    "ydental_settlement/models/ydental_settlement_source.py": {
+      "git": "21dc2dc243200336959482fcfa9d3b5f5f5ad271",
+      "sha256": "cc6cc9326877637747856b06e07714fa9a6eea93a96c2dd2ac2e02679f0249a8"
+    },
+    "ydental_settlement/models/ydental_settlement_source_inverse.py": {
+      "git": "21dc2dc243200336959482fcfa9d3b5f5f5ad271",
+      "sha256": "aa9ae03d8de69de95f91d6cfa5c7b4959c997c2b9b0dfe4584da0e40d711bb46"
+    },
+    "ydental_settlement/views/ydental_settlement_templates.xml": {
+      "git": "21dc2dc243200336959482fcfa9d3b5f5f5ad271",
+      "sha256": "8f74cffa93a3a24f1d4c4f95a2a006fd698050cda8d27a99924de58770feb329"
+    },
+    "ydental_treatment/models/ydental_treatment_event.py": {
+      "git": "21dc2dc243200336959482fcfa9d3b5f5f5ad271",
+      "sha256": "fe68d5869cb8d710466223589debbaf5d094c01ab87f4e08bc831b358925c4b3"
+    },
+    "ydental_treatment/models/ydental_treatment_fee.py": {
+      "git": "21dc2dc243200336959482fcfa9d3b5f5f5ad271",
+      "sha256": "f54016d09713fe4792d2e553f1a08b3e31e9177033008d49465745b21e948636"
+    }
+  },
+  "previous_ruling": 6215317877,
+  "protected": "all other methods including _workbench_page,_invoice,_pdf,_report_payload,PDF controller,POST handlers and all old QWeb elements unchanged",
+  "service_scope": "_workbench only; append settled page/count/list, same _workbench_page limit50; stable invoice_date asc,id asc; audit invoice_view each displayed settled invoice",
+  "settled_header": [
+    "company_id=current store.company",
+    "state=posted",
+    "move_type=out_invoice",
+    "payment_state=paid",
+    "amount_residual=0"
+  ],
+  "static_matrix": [
+    "cross company",
+    "cross store",
+    "same-company mixed source",
+    "missing/foreign/pending fee source",
+    "patient family alias/filter/mixed patient",
+    "no settlement read",
+    "no export write",
+    "manager not exemption",
+    "wrong store/session owner/revision",
+    "revoked next-request grant and old PDF guard unchanged",
+    "invalid/type/overflow/upper page",
+    "50 rows stable/no overlap/repeated page",
+    "patient and other page URL preservation",
+    "old invoices/payment/waive unchanged",
+    "no additional sudo/ORM writes/imports/routes"
+  ],
+  "template_scope": "append section name=settled-bills only; no forms or payment checkbox; ID/date/amount/residual; current internal PDF label; can_export link guard; dedicated nav next<=10000 preserves all old XML"
+}

@@ -1,0 +1,23 @@
+{
+  "status": "CODE_STATIC_CHECKS_PASS_PENDING_GPT",
+  "exit_code": 0,
+  "PASS_count": 3943,
+  "protected_files_count": 3852,
+  "actual_budget": {
+    "BUSINESS_GET_POST": 0,
+    "CREATE": 0,
+    "DATABASE_CONNECTION": 0,
+    "DIRECT_ORM": 0,
+    "EXECUTOR_SUDO": 0,
+    "FIREFOX": 0,
+    "ISSUE_PROJECT_MUTATION": 0,
+    "MERGE_DEPLOY_S11": 0,
+    "ODOO_HTTP": 0,
+    "ODOO_SHELL_INSTALL_UPGRADE_INIT_TEST": 0,
+    "OS_PG_DOCKER_NETWORK_SPECIAL": 0,
+    "PDF_GENERATION": 0
+  },
+  "attempt": 2,
+  "script_sha256": "d8e0bd9ef0e0fe5302b213762e19aa4614be67ff08c589f30c16fe7e56bccf80",
+  "result_sha256": "75276c4c6a7e6ca9a6f26d9d75f4881a60797735b0c107a282f43ca53886e224"
+}

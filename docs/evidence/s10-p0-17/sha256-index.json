@@ -1,0 +1,96 @@
+{
+  "base": "21dc2dc243200336959482fcfa9d3b5f5f5ad271",
+  "files": {
+    "docs/evidence/s10-p0-17/action-contract.json": {
+      "status": "added",
+      "bytes": 4740,
+      "sha256": "e0ae7e81498f99cbe1dc78f2bc0c22a47e3b3b5240380100571534ce02d2d1bc"
+    },
+    "docs/evidence/s10-p0-17/domain-api-static.json": {
+      "status": "added",
+      "bytes": 9634,
+      "sha256": "915d89f549ffb5ad41ffb05619e4d691340952afd687dc0ad2ff8906b5e7bde8"
+    },
+    "docs/evidence/s10-p0-17/github-before-commit.json": {
+      "status": "added",
+      "bytes": 808,
+      "sha256": "f1ad02804902d24d7f1be0f3d8f23751aa486acd950bb4bc5dd705274121da00"
+    },
+    "docs/evidence/s10-p0-17/github-start.json": {
+      "status": "added",
+      "bytes": 66566,
+      "sha256": "035a2d2b8578dd7c038b32fadea4fc6f90a1d17f2f0ca583b369edec81f1bb20"
+    },
+    "docs/evidence/s10-p0-17/preflight-api-readback.json": {
+      "status": "added",
+      "bytes": 509,
+      "sha256": "aaffdbab22fcce34226f8c85907ddf1ba8bf8d20040b5b97f705aadd49dab545"
+    },
+    "docs/evidence/s10-p0-17/preflight-plan.json": {
+      "status": "added",
+      "bytes": 7240,
+      "sha256": "6bf9510d061c3a342e0908fc8e3ed3f9480d56f6a045c632d7c4b08f23e02b59"
+    },
+    "docs/evidence/s10-p0-17/product-diff.patch": {
+      "status": "added",
+      "bytes": 9413,
+      "sha256": "755f5423a27ed9349ba35d0268532dec134e12afd335436ab024d101000b7372"
+    },
+    "docs/evidence/s10-p0-17/python-compatibility.json": {
+      "status": "added",
+      "bytes": 379,
+      "sha256": "238d8604d59e7704cd23d89ac1b6e4aa1811b114b7ab33b13cafa2eaf6eddb54"
+    },
+    "docs/evidence/s10-p0-17/static-attempt-01.json": {
+      "status": "added",
+      "bytes": 497,
+      "sha256": "bdd03aaa2ccac7cd9fa5166afcb31a78ffcf91ea1a2ded049de501eca34bf4c5"
+    },
+    "docs/evidence/s10-p0-17/static-attempt-02.json": {
+      "status": "added",
+      "bytes": 671,
+      "sha256": "a65f8552e20c1cf786ab0f8976504812c90f840dcb6b2397d3e542ce96aae005"
+    },
+    "docs/evidence/s10-p0-17/static-results.json": {
+      "status": "added",
+      "bytes": 688850,
+      "sha256": "9c4d08492a50d632481e8aa270091058d63d76e6359647274c3fea6e011c0f5d"
+    },
+    "docs/evidence/s10-p0-17/verification.json": {
+      "status": "added",
+      "bytes": 1886,
+      "sha256": "7ea01af31586e83a586e06cdee974225029471649e0c5d3dbfbc710ccdf5a2a7"
+    },
+    "docs/s10-p0-17-paid-bill-code-report.md": {
+      "status": "added",
+      "bytes": 13442,
+      "sha256": "418ab78b2a3bba5ef81caec268c5e0af9aae03fbd8865ce12c0bbd8d7a40f6ee"
+    },
+    "docs/s10-p0-17-preflight.md": {
+      "status": "added",
+      "bytes": 6741,
+      "sha256": "a7f656ef86e9599239cb03496e0e01a9243cf6f803ab5ee65641f452c78160fb"
+    },
+    "scripts/s10_p0_17_static_checks.py": {
+      "status": "added",
+      "bytes": 29472,
+      "sha256": "acb81ac56c8bceddea7c442f425c67e4609ce7f02649f1567b4a02889b2058ce"
+    },
+    "ydental_settlement/controllers/settlement.py": {
+      "status": "modified",
+      "bytes": 10188,
+      "sha256": "8cc7a0380a70298c0d8959af614f8101b9a593defcd6b1f777ce7cd0779658b0"
+    },
+    "ydental_settlement/models/ydental_settlement_service.py": {
+      "status": "modified",
+      "bytes": 78352,
+      "sha256": "5bd0a86124b44df8d34d3f2511487850e6768ce8e268649589f444ac126d2031"
+    },
+    "ydental_settlement/views/ydental_settlement_templates.xml": {
+      "status": "modified",
+      "bytes": 21339,
+      "sha256": "f6b1401953d272e48bcc72f2769a580a5b4af4613d761cc746926dd1fe607eff"
+    }
+  },
+  "self_hash": "fixed in final GitHub delivery receipt, avoiding recursive self-hash"
+}

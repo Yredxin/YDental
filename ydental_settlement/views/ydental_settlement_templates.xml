@@ -104,6 +104,24 @@
                     <label>真实线下凭据说明 <input type="text" name="proof" maxlength="200" required="required"/></label>
                     <button type="submit">确认实际收款并原生核销</button>
                 </form>
+                <section name="settled-bills">
+                    <h2>已结清本店账单</h2><p t-if="not settled">本页无已结清本店账单。</p>
+                    <table t-if="settled" class="table">
+                        <thead><tr><th>账单 ID</th><th>原生单号</th><th>业务日</th><th>总额</th><th>已结清余额</th><th>内部账单</th></tr></thead>
+                        <tbody><tr t-foreach="settled" t-as="invoice">
+                            <td t-out="invoice.id"/><td t-out="invoice.name"/><td t-out="invoice.invoice_date"/>
+                            <td t-out="invoice.amount_total"/><td t-out="invoice.amount_residual"/>
+                            <td><a t-if="can_export" t-att-href="'/ydental/settlement/pdf/bill/%s' % invoice.id">下载当前内部账单 PDF</a>
+                                <span t-else="">仅供查阅</span></td>
+                        </tr></tbody>
+                    </table>
+                    <nav t-if="page_counts['settled'] &gt; 50" aria-label="已结清账单分页">
+                        <span>共 <span t-out="page_counts['settled']"/> 条；第 <span t-out="pages['settled']"/> 页</span>
+                        <a t-if="pages['settled'] &gt; 1" t-att-href="page_url('settled', pages['settled'] - 1)">上一页</a>
+                        <a t-if="pages['settled'] &lt; 10000 and pages['settled'] * 50 &lt; page_counts['settled']"
+                           t-att-href="page_url('settled', pages['settled'] + 1)">下一页</a>
+                    </nav>
+                </section>
                 <section><h2>线下付款与退款</h2>
                     <div t-foreach="payments" t-as="payment">
                         <p>付款 <span t-out="payment.id"/> / <span t-out="payment.ydental_payment_id.name"/>：

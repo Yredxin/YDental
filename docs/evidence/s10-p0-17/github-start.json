@@ -1,0 +1,1700 @@
+{
+  "base": "21dc2dc243200336959482fcfa9d3b5f5f5ad271",
+  "comments": {
+    "23": [
+      {
+        "body_sha256": "08ccabbeba9965c4d6d61e3b8bd8f51dae02fb9d42e80eae82a526e1d64c0852",
+        "characters": 2150,
+        "id": 6106072643,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/23#issuecomment-6106072643"
+      },
+      {
+        "body_sha256": "6bf3b024c1447780ed46f57ea9f20ef5226ef9b295b9bd8df1a93dce8e24158f",
+        "characters": 1093,
+        "id": 6110178328,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/23#issuecomment-6110178328"
+      },
+      {
+        "body_sha256": "873f82d998811c29cc15e82792d78a315e808a64cfe439116c6c772ccc18b063",
+        "characters": 1594,
+        "id": 6125774169,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/23#issuecomment-6125774169"
+      }
+    ],
+    "34": [
+      {
+        "body_sha256": "1cb34aadaa37388366500abd1e769fd834942dda0bf6d482c05afdf55436ea9e",
+        "characters": 9583,
+        "id": 6145995580,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6145995580"
+      },
+      {
+        "body_sha256": "a778091c30f5adb44d4c17f01c30e87a03aaf0f34f9766b879af7a27b3d78a49",
+        "characters": 1810,
+        "id": 6146104902,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6146104902"
+      },
+      {
+        "body_sha256": "9455cf4d0c6e88977d4fdf5def7a79ad11edcdc8623b279908cb9845a6b14a4c",
+        "characters": 4643,
+        "id": 6146705755,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6146705755"
+      },
+      {
+        "body_sha256": "c6dbd16222ca22b7f66be28e4e2bd3ed82c834c737675c368e44c11623211e60",
+        "characters": 8947,
+        "id": 6146845983,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6146845983"
+      },
+      {
+        "body_sha256": "e7f2aed442b00f7a8c8cb7f569c2d30877cacb50a874b41502748f281bc1e2c2",
+        "characters": 2280,
+        "id": 6146948301,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6146948301"
+      },
+      {
+        "body_sha256": "690051a81d9215b23c1ce7d6f0010c77967d4a013ba87dfe24ea9629b4c15088",
+        "characters": 3191,
+        "id": 6147131104,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6147131104"
+      },
+      {
+        "body_sha256": "4ce1270a17b1975690b41b14c811676e03500642689b9fc596a1e887aa31eeae",
+        "characters": 7190,
+        "id": 6147246260,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6147246260"
+      },
+      {
+        "body_sha256": "9ec67ec7c390f54796ac7f496793577f4cdfdbfeca0d3a75cb75102e9ed58ca3",
+        "characters": 2269,
+        "id": 6147335402,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6147335402"
+      },
+      {
+        "body_sha256": "d9f21193bcb65904ac5b5a946d55c50316317d806f809c4b0978cfa17dd8c954",
+        "characters": 3297,
+        "id": 6148904073,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6148904073"
+      },
+      {
+        "body_sha256": "f71d641f8da436cbf90631affdb97c404523d6fd1ed225df31ed8cb29e216ded",
+        "characters": 8454,
+        "id": 6149055777,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6149055777"
+      },
+      {
+        "body_sha256": "4701ef018c824c9ff5b6d68880057734e411ba5ab95ff08aa7ce92d8a3e82c20",
+        "characters": 4735,
+        "id": 6158154309,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6158154309"
+      },
+      {
+        "body_sha256": "fd1e0dd794adf6482c5d707e8600f5a95c72074ae06484617595cab322b40bdc",
+        "characters": 8828,
+        "id": 6158230350,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6158230350"
+      },
+      {
+        "body_sha256": "1efc87c958680165048c69e8efbb32f26560817ceb37b5025f5268d139b9bd8e",
+        "characters": 3258,
+        "id": 6158453170,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6158453170"
+      },
+      {
+        "body_sha256": "694b544caa8b3634d1ca9e4dda48da5e5640950883d6c0f009bee97466f63a18",
+        "characters": 4393,
+        "id": 6159362538,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6159362538"
+      },
+      {
+        "body_sha256": "c354b0e46496588cd8ef2a29633bbef1c959b0883d4c863373b3b318f71912ba",
+        "characters": 7173,
+        "id": 6159493421,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6159493421"
+      },
+      {
+        "body_sha256": "d703d385570eed556238b7266fb9cb2cfdc6c377325daf3b2c8a9b10975a175e",
+        "characters": 4114,
+        "id": 6160027673,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6160027673"
+      },
+      {
+        "body_sha256": "ca6adbb77475c21d2096a6a57f5767c96c07eb9a77d1f6c4e6740c7345e0826c",
+        "characters": 5479,
+        "id": 6160238952,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6160238952"
+      },
+      {
+        "body_sha256": "32fff12ecca635376e192ab125eddbd1dc0fb1923b07138de4cebec46346d01c",
+        "characters": 3268,
+        "id": 6160278832,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6160278832"
+      },
+      {
+        "body_sha256": "cafef8bee73f7940dbb628e04591215e3abffd5ea9894c32b207ea6456ec7a54",
+        "characters": 5356,
+        "id": 6160318169,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6160318169"
+      },
+      {
+        "body_sha256": "2da9e09f921ed1c4d40fcb10fc6c4d92082b43aa786f5beb7ce59de45ebe5d85",
+        "characters": 4295,
+        "id": 6160387186,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6160387186"
+      },
+      {
+        "body_sha256": "385e008d1a878a20a4ebb91446a1ec52aa54cce2b8c78fd289477d0204a97497",
+        "characters": 3837,
+        "id": 6160435113,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6160435113"
+      },
+      {
+        "body_sha256": "ab4db807216f7c4e01467afde7eda9eee1f2ea91ee0709f56f4083a11a56b545",
+        "characters": 5301,
+        "id": 6160489830,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6160489830"
+      },
+      {
+        "body_sha256": "bc788e23a54b68e1361fa09af98c48aa26ebdfb9dc9ce0f9ed74aa719d76473c",
+        "characters": 5623,
+        "id": 6160673421,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6160673421"
+      },
+      {
+        "body_sha256": "2f4cb0282fb097b7f79fe47d524eb32ba760b6d9d9071baf3824a5839b155e93",
+        "characters": 4547,
+        "id": 6160723449,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6160723449"
+      },
+      {
+        "body_sha256": "5ad74f89a5c1c9199aef0aaad26f7535ee308efc2527e35ed8c21e855f28ab5a",
+        "characters": 5342,
+        "id": 6160777256,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6160777256"
+      },
+      {
+        "body_sha256": "a73c50828f9ef7bbd4212f550807da0f3f86fc37e8017bd980fb1d53dd4f5fe7",
+        "characters": 2883,
+        "id": 6160855913,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6160855913"
+      },
+      {
+        "body_sha256": "9d7eb8a722bd43501fdc86cc422cefe58c57dad2e06b03a457752f4de0d9c26b",
+        "characters": 4028,
+        "id": 6160890569,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6160890569"
+      },
+      {
+        "body_sha256": "7fa2fe9e6a1cd8b9b89720071bb3c1ff69f8974cf9682190fb6249ce6b70b8a3",
+        "characters": 7161,
+        "id": 6160943711,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6160943711"
+      },
+      {
+        "body_sha256": "132e0cebd4b8f1e588037e60f77b2cd6e1ce945378867e7967bc5bb2056c1c09",
+        "characters": 5152,
+        "id": 6161008700,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6161008700"
+      },
+      {
+        "body_sha256": "a2e315ef11e6c877fbd5a7bd42bd07f64205c446cafc785ce30f0ba51a90525b",
+        "characters": 3496,
+        "id": 6161040277,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6161040277"
+      },
+      {
+        "body_sha256": "cbc0cde4d129d4bb0b0838b72eada1157eb57eeef3208571bb7b5f5115c53855",
+        "characters": 6312,
+        "id": 6161077626,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6161077626"
+      },
+      {
+        "body_sha256": "0c6073595f430c9fe6017b6f4224eb8299d927601c8bb671396a1c0af83bf24a",
+        "characters": 5703,
+        "id": 6161126211,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6161126211"
+      },
+      {
+        "body_sha256": "4596b1185db517cf0c579287a66e9996c0af91cc10bd6b5a274f717e983ff6ed",
+        "characters": 6876,
+        "id": 6161144552,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6161144552"
+      },
+      {
+        "body_sha256": "b3360504491ea9b8a8e2332b1a792b2c9f943876e30388ae75e66982a37dac9a",
+        "characters": 3759,
+        "id": 6161188295,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6161188295"
+      },
+      {
+        "body_sha256": "4a2767d63b9dce1bf3897a386f21290beeb85d5ee08a464ab2747e74c7d68eb1",
+        "characters": 6232,
+        "id": 6161244580,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6161244580"
+      },
+      {
+        "body_sha256": "48e16752eff3f18d5a8c38b77588741d343bd80f12fa333ed092d5a788e679fa",
+        "characters": 2566,
+        "id": 6161294008,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6161294008"
+      },
+      {
+        "body_sha256": "d6697b7907d01b01c676d9c5fa9a28c2bd7216d89b69389068eafc6d5e80411b",
+        "characters": 4392,
+        "id": 6161415892,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6161415892"
+      },
+      {
+        "body_sha256": "9da0e4fe311c15dbc212d2565cc95da9d003ac8acdbca34693e6d88caea3b302",
+        "characters": 7862,
+        "id": 6161475560,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6161475560"
+      },
+      {
+        "body_sha256": "9634e318811bd5ea055996c4922e5588cebd449940c61ae00f2d8ed3f79d49fc",
+        "characters": 4884,
+        "id": 6161576259,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6161576259"
+      },
+      {
+        "body_sha256": "b8f9ea1401a3c5b4dc35b34201d1d03ef2945e58a933cd814102c3b82e8f9e93",
+        "characters": 3793,
+        "id": 6161608003,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6161608003"
+      },
+      {
+        "body_sha256": "ec52e57585ebafc46d9c735bcebe2f534c182bcbe2deaffcdcac2a557829113e",
+        "characters": 4577,
+        "id": 6161650464,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6161650464"
+      },
+      {
+        "body_sha256": "60331331b55a718a1ee98a0516db543418f4289fb6bc2740100084fae030a50d",
+        "characters": 5490,
+        "id": 6161691305,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6161691305"
+      },
+      {
+        "body_sha256": "f9c99694def690fb11c52192c25d7cf04f01ac18e98b6b0332b0fee0c773a54e",
+        "characters": 1140,
+        "id": 6162127891,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6162127891"
+      },
+      {
+        "body_sha256": "54ff6d76d01b0803df4657f897b63e558f45399bc5107bf5182bf7ecdaf89de0",
+        "characters": 3657,
+        "id": 6162472787,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6162472787"
+      },
+      {
+        "body_sha256": "405b22f4d387b91296d863d829d4fb2c999162cf467452c48b0b9d1a59aa31b4",
+        "characters": 3116,
+        "id": 6162562086,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6162562086"
+      },
+      {
+        "body_sha256": "da29022ec36525cd1c2f3383e568e8f29aa3c6a419ae6fd59f25c66b76178761",
+        "characters": 6009,
+        "id": 6162669294,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6162669294"
+      },
+      {
+        "body_sha256": "d71144477bf32106639d127b04463f08173f252df2e8e56974e7ff58d4c923d5",
+        "characters": 2552,
+        "id": 6163037394,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6163037394"
+      },
+      {
+        "body_sha256": "9e6cee4c1bc53fe1f4b54302f6dae1f622fc1373111feef541cb3bb3c64f398a",
+        "characters": 4018,
+        "id": 6163221597,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6163221597"
+      },
+      {
+        "body_sha256": "f913d67cd530c62cf8bbbc5c4a1ae4c1a0e21523ba4639fe91295d90ea05ad2d",
+        "characters": 7285,
+        "id": 6163322228,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6163322228"
+      },
+      {
+        "body_sha256": "0bc198e9b39d7a693c7cf364e5e473a3aa09594bd77667dd0bffc1320cb5a9b8",
+        "characters": 5760,
+        "id": 6163799490,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6163799490"
+      },
+      {
+        "body_sha256": "73a7b7e0d7f425df0f0536e82a3dea1d7681fb7a82b76fda3cbfa74bc258951e",
+        "characters": 3405,
+        "id": 6163928673,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6163928673"
+      },
+      {
+        "body_sha256": "75aa0dca5ac3a24d96b45419355f0c0b250c22fc7183664ed184d79dddbd598f",
+        "characters": 7586,
+        "id": 6164071875,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6164071875"
+      },
+      {
+        "body_sha256": "3029f94b5b8f9e15f077d2f494bc489d46f9b4338485d6126a3ee9d922ec5708",
+        "characters": 4375,
+        "id": 6164241741,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6164241741"
+      },
+      {
+        "body_sha256": "03b6b07c29d2eb75605a35fb401192eb5ff31e353af71c7f24d0bd44a700e715",
+        "characters": 3665,
+        "id": 6164298889,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6164298889"
+      },
+      {
+        "body_sha256": "4817276d5810be2efb32dd3c0b563a795e33bcdcd4ad2bfb01ad122deeaea67a",
+        "characters": 6507,
+        "id": 6164444983,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6164444983"
+      },
+      {
+        "body_sha256": "befb857df2c02d90341363c231a8dcb770f3aa04e81e98ed10b4cb0281d12ddc",
+        "characters": 2601,
+        "id": 6164833376,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6164833376"
+      },
+      {
+        "body_sha256": "33b45c0e0ffe16199a1875607219e2bc2b9ed37294eed0657f24dd650fd9e6b5",
+        "characters": 8497,
+        "id": 6164999858,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6164999858"
+      },
+      {
+        "body_sha256": "14019ae2087f75b81c5c579de325cf551b330c2b35cca4586015e799451ca0b1",
+        "characters": 4537,
+        "id": 6165199842,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6165199842"
+      },
+      {
+        "body_sha256": "87e68810ef40dbd6964a6b7f35eebf6814f0b978456d47d4e1705a77afb767c7",
+        "characters": 2960,
+        "id": 6165290213,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6165290213"
+      },
+      {
+        "body_sha256": "88a144161054a0d3637ad0ab83de9d350e149cf93b09aec1839f5276c3bf4004",
+        "characters": 6710,
+        "id": 6165415202,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6165415202"
+      },
+      {
+        "body_sha256": "ea9ef56dc9ff1125824df9e7d21c10ad19d9e40a3d3ce411789291db77c3f226",
+        "characters": 2317,
+        "id": 6165607184,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6165607184"
+      },
+      {
+        "body_sha256": "017d0a7f54954fa2ba879419c34de1a686f1f32297abc8d66c3ebd0626ba5bd4",
+        "characters": 6955,
+        "id": 6165734052,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6165734052"
+      },
+      {
+        "body_sha256": "4278a043cd00f210c03c056f40d91f19b048dfbac07abee315d2f49bc4f005e0",
+        "characters": 4695,
+        "id": 6166015900,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6166015900"
+      },
+      {
+        "body_sha256": "ecd353962e4d39f08bfcf0ed09a407c40ff9b64a77e37942b46b683eb0750b23",
+        "characters": 3058,
+        "id": 6166122665,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6166122665"
+      },
+      {
+        "body_sha256": "e94ca83e9c734403fa8e27da253c4e1b06a88f0aab8a1d6baded6112c67a655f",
+        "characters": 6895,
+        "id": 6166219654,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6166219654"
+      },
+      {
+        "body_sha256": "fc4538745e1f6497a4e104f4b8b21d2a92f01501b3c37aec5faa894b3cbfab07",
+        "characters": 3039,
+        "id": 6166370155,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6166370155"
+      },
+      {
+        "body_sha256": "451cf3b9972deda73bc5492ce2615648819dcca893815ab8a8dddcbcd5c94794",
+        "characters": 8009,
+        "id": 6166455763,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6166455763"
+      },
+      {
+        "body_sha256": "5ec31fbc989a33dc50612120bd0d50c51664e2a45da21b0c4f4074fce93589e0",
+        "characters": 3599,
+        "id": 6166745140,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6166745140"
+      },
+      {
+        "body_sha256": "4c6c2290d092bdd6030d7ac9a947ce0cada2b362e21108467d681d591705f667",
+        "characters": 2898,
+        "id": 6166791285,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6166791285"
+      },
+      {
+        "body_sha256": "cbb07ee97c1caf8bbb1e71508d7d6e298acd4cfcb58e4ae1c32c16a462079421",
+        "characters": 6370,
+        "id": 6166877292,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6166877292"
+      },
+      {
+        "body_sha256": "9333e2ce5c7fccbe1b898a65f52230acc740e4deeece59885c1e6beead2cb2bd",
+        "characters": 2989,
+        "id": 6167098306,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6167098306"
+      },
+      {
+        "body_sha256": "35ab710f887f243cb4514e47224a63abe41f1381a29ed54e3371bc1058752056",
+        "characters": 3949,
+        "id": 6167210882,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6167210882"
+      },
+      {
+        "body_sha256": "47d9e8da6039e655ff10c25716cf17595b40550be80e44904a8f9e75beee523f",
+        "characters": 3238,
+        "id": 6167531256,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6167531256"
+      },
+      {
+        "body_sha256": "353976f6b005b2616df8d6e2ac9967251be24b59f0a297c2b15f08c6c3d3118a",
+        "characters": 3538,
+        "id": 6167596244,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6167596244"
+      },
+      {
+        "body_sha256": "1c3aa359d388db1383cc8e162f413278e75bae27390f775476ca42ed459c040f",
+        "characters": 4590,
+        "id": 6167682481,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6167682481"
+      },
+      {
+        "body_sha256": "f15404930f7ad27e3537e8bf19d6a8deba38a7cd02599692c334402bebfb3675",
+        "characters": 2680,
+        "id": 6167988670,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6167988670"
+      },
+      {
+        "body_sha256": "a8e03ff42485fdad93dd754b12f96f115dbaf6a0065f87644184104589d09cbd",
+        "characters": 2900,
+        "id": 6168044924,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6168044924"
+      },
+      {
+        "body_sha256": "2cb98c5ca867585d2e6a2fe81a46f6af43034f0c2c51f650b76f0898481cf2d9",
+        "characters": 4138,
+        "id": 6168362347,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6168362347"
+      },
+      {
+        "body_sha256": "3f33d3976de0975d137ecf92ce2a0a195a1fc3bc3119bbbbecd809dd9c92e084",
+        "characters": 1864,
+        "id": 6168458966,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6168458966"
+      },
+      {
+        "body_sha256": "15d79a705a891e3a73a8f119eddccbffe92abca969c77213244a2d7d274eb605",
+        "characters": 3400,
+        "id": 6168502387,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6168502387"
+      },
+      {
+        "body_sha256": "18c182c0d893ba9cee4eba415069af65173e7d2b598fc67c2313eac267d83fb8",
+        "characters": 3441,
+        "id": 6168588702,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6168588702"
+      },
+      {
+        "body_sha256": "a2b0f343b1dc52be7ad95331daaa3ca10087480d274a478fe5e51519526bdbe4",
+        "characters": 4791,
+        "id": 6168713281,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6168713281"
+      },
+      {
+        "body_sha256": "7740f166342e39b05d321900163013c7c16f7d95edcda3e4c12249c621009119",
+        "characters": 1660,
+        "id": 6168763196,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6168763196"
+      },
+      {
+        "body_sha256": "3b939df4ffcef096680c97d195b0e786d35640b0fd1e8816294df6362df24a32",
+        "characters": 1948,
+        "id": 6168774642,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6168774642"
+      },
+      {
+        "body_sha256": "1a522b44a5a1968613ec99920f6d150e0127fc2828ee088ce0c10e66f3007c07",
+        "characters": 2085,
+        "id": 6168836907,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6168836907"
+      },
+      {
+        "body_sha256": "c715130bb878270d3361c91498fd46c5096b122c0d947b3a93fab8ebdd09b84b",
+        "characters": 2553,
+        "id": 6168962080,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6168962080"
+      },
+      {
+        "body_sha256": "461f0235bb173c29b939b0e71e433bc83b4963f201cc9fd2a4e0e26114c9c60c",
+        "characters": 4613,
+        "id": 6169133942,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6169133942"
+      },
+      {
+        "body_sha256": "0cd3a9328286cbd2396adff7b68368fc92dfe4054833b2811c9d4b70bc070a17",
+        "characters": 3296,
+        "id": 6169326455,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6169326455"
+      },
+      {
+        "body_sha256": "db9a4567f546445cca40f6e7621e86018bd1d5d2bd327b91f1569199d8b91824",
+        "characters": 2492,
+        "id": 6169382364,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6169382364"
+      },
+      {
+        "body_sha256": "cf85f6f5d38ba1ba1841a19f2538f974f1c421137e1412620b38a3f1f9b96c7d",
+        "characters": 4213,
+        "id": 6169546255,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6169546255"
+      },
+      {
+        "body_sha256": "98ec2a67ea447b5d5aae906c1b2772f29de55dbb5f9ad878973ea0fb6eece6fe",
+        "characters": 3755,
+        "id": 6169607381,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6169607381"
+      },
+      {
+        "body_sha256": "622b9c84288af7979811af0a1cbd3da002eb32b0b3c6ee9bb436e863c887d07f",
+        "characters": 3352,
+        "id": 6169781624,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6169781624"
+      },
+      {
+        "body_sha256": "53663603135dc259b8fa2fc81c26081e3f969fd4b4072378c758ea998f2aa8c1",
+        "characters": 2797,
+        "id": 6169894354,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6169894354"
+      },
+      {
+        "body_sha256": "0b9d975a139b8afe2cd669a010aab8aecda591faf33fd6b2b142a10d0d5c748c",
+        "characters": 4506,
+        "id": 6170089290,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6170089290"
+      },
+      {
+        "body_sha256": "11cd8ac0f7bb2fed684470bfceb096481719eef333c4799229aa534a43643a87",
+        "characters": 4229,
+        "id": 6170156104,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6170156104"
+      },
+      {
+        "body_sha256": "a1fe9bcd1834ad5e1e107e0644fc589776f644c1344b6c58995aab836945b2ba",
+        "characters": 3430,
+        "id": 6170436108,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6170436108"
+      },
+      {
+        "body_sha256": "ccdc396d4fcda14b2cf44d5a5287d56dbb53245c64c18faf10a9431262980294",
+        "characters": 3158,
+        "id": 6170540431,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6170540431"
+      },
+      {
+        "body_sha256": "ccae6dcea625c26a1bbff1268b5c1cc67f396138a45cbbec0c0f7138cd76d373",
+        "characters": 4430,
+        "id": 6170663929,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6170663929"
+      },
+      {
+        "body_sha256": "2ca50ecbf82c609f79aabc3ac99aa62af5a3ada84fd6d3bdf71afd900637cc34",
+        "characters": 2976,
+        "id": 6170791208,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6170791208"
+      },
+      {
+        "body_sha256": "d9277555c640b1f5fb2364cda968cc6fef409d1962fc56bede581a5dfa55db66",
+        "characters": 4964,
+        "id": 6170892559,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6170892559"
+      },
+      {
+        "body_sha256": "32034671295a2c4717d35e83eb64ba49e933afd27011e6701be8d2df1a54f468",
+        "characters": 3876,
+        "id": 6171084143,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6171084143"
+      },
+      {
+        "body_sha256": "f59c42d6867565a218df74443c38482d3308126b6a60c6d290acac16df2ed070",
+        "characters": 3290,
+        "id": 6171194147,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6171194147"
+      },
+      {
+        "body_sha256": "c9e8ba204bcbb6b1c66dc46c830c2f0da33a17f80e68f65a0c98ce28656206de",
+        "characters": 4574,
+        "id": 6171308225,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6171308225"
+      },
+      {
+        "body_sha256": "abe1935084442ce1437f854404d1e7702169e17e071b414c1e53e2ed27534d07",
+        "characters": 4462,
+        "id": 6171361517,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6171361517"
+      },
+      {
+        "body_sha256": "cbf4380633a46d139376541b4333ac54a24da7dc20c92aab38dcce4b6b75e2b3",
+        "characters": 4783,
+        "id": 6171419484,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6171419484"
+      },
+      {
+        "body_sha256": "a7abef36da29e1db3ea764116ec8c617545a9d4466b04d5ae16f4067901e3f2d",
+        "characters": 4097,
+        "id": 6171566556,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6171566556"
+      },
+      {
+        "body_sha256": "0065690e3c3e53bd3e01b19a8120df5d9524623ec19c7bce630aaf4eaf77e50c",
+        "characters": 3604,
+        "id": 6171657520,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6171657520"
+      },
+      {
+        "body_sha256": "a3e98a9a96e6c7863606793bc5d9389a0df53fe085723b05a2793afc2ff540ab",
+        "characters": 5670,
+        "id": 6173646820,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6173646820"
+      },
+      {
+        "body_sha256": "957e880c6e389005eaf4fd9097601eafebcf9c82fc6b3d7c0f8464b43cd37cd0",
+        "characters": 4720,
+        "id": 6173692695,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6173692695"
+      },
+      {
+        "body_sha256": "e4d1f5baaf87527e2b199e89e2d27a72f9b476b1f46ccab8427a671ce0eb3f8b",
+        "characters": 2864,
+        "id": 6181564664,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6181564664"
+      },
+      {
+        "body_sha256": "cbd2d4faf51a83f59d48c5e3165064bdc5d53d2985d12accf0187bff40bbd377",
+        "characters": 4159,
+        "id": 6181951592,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6181951592"
+      },
+      {
+        "body_sha256": "131c0b3ca2edf1faf75e03201d95d22a2df98c03fc2436ded97483f1541943ff",
+        "characters": 2627,
+        "id": 6182028359,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6182028359"
+      },
+      {
+        "body_sha256": "fbc7d9c806829276cda79c5a381c1c628ed1d80ae01e2f2dc21ab0296d41a1c2",
+        "characters": 5657,
+        "id": 6182095943,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6182095943"
+      },
+      {
+        "body_sha256": "0d628aa8e4173025b7014f735ee410e5b4a0685a6af4d8f1e47af26303938759",
+        "characters": 4966,
+        "id": 6182178103,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6182178103"
+      },
+      {
+        "body_sha256": "ca45b21f78c0820e9fb65bd61b7ef5f60fcf55ac42d1bf8d9664ecedb823bc38",
+        "characters": 2803,
+        "id": 6182200423,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6182200423"
+      },
+      {
+        "body_sha256": "8176357922561bed285bbf943736c8a7f2eb6e5f5238b279685bd06e5605237b",
+        "characters": 6734,
+        "id": 6182293301,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6182293301"
+      },
+      {
+        "body_sha256": "1ce0365cdc96c5c8a218105d06104fe8f4c21baa6a73c43d6c0742edc9bbb115",
+        "characters": 4926,
+        "id": 6182394266,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6182394266"
+      },
+      {
+        "body_sha256": "5a83fb002d38fa5f8bdc759586a78c3784407a0ae61c12f10da8c5318dd398a0",
+        "characters": 2852,
+        "id": 6182452348,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6182452348"
+      },
+      {
+        "body_sha256": "a5318343071eaf42a2214c668f0b09aa2e5d649ae44362293af53ff036ab75a1",
+        "characters": 3811,
+        "id": 6182771191,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6182771191"
+      },
+      {
+        "body_sha256": "0c679036ab3c2d8255d2a44a7ce5aec3b8b507e92c90c7a0308baef4f283ac3a",
+        "characters": 6541,
+        "id": 6182876575,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6182876575"
+      },
+      {
+        "body_sha256": "6b11ef966e61af3770fe2c82f7bc7b54375b88c09807ef7a3810d2b5deaa814f",
+        "characters": 5383,
+        "id": 6183019141,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6183019141"
+      },
+      {
+        "body_sha256": "03b3b71999e57879ce35de2784cf0a434ccc022f7c76fdea1adc2ad9b5a54b16",
+        "characters": 2198,
+        "id": 6183115487,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6183115487"
+      },
+      {
+        "body_sha256": "4af08d799b54212543443c432f6b056137d918352c515631d3e30246230f4652",
+        "characters": 4983,
+        "id": 6183199751,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6183199751"
+      },
+      {
+        "body_sha256": "57aaec9bb52409188e88311bf6989cb04d65ac92fcca94141f6a5f0d81ac169a",
+        "characters": 5440,
+        "id": 6183640723,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6183640723"
+      },
+      {
+        "body_sha256": "be77152ab17e3649e9f46eed0eb70bdb751eceda79bb7d7590f040a3c571ba71",
+        "characters": 4438,
+        "id": 6183755327,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6183755327"
+      },
+      {
+        "body_sha256": "d73685a39313c6702d74f589e76e1b8648a26f86107e9e0c01a699a964f4d6c3",
+        "characters": 3072,
+        "id": 6183815478,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6183815478"
+      },
+      {
+        "body_sha256": "6fc992b28cc375d6e58f6c80ad0f454ebe4d0219a4082baa3ade35654fddf329",
+        "characters": 2905,
+        "id": 6183855658,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6183855658"
+      },
+      {
+        "body_sha256": "da2072b9ff536055ec0da4e87cbeac81f043da6d824bec54780c479ab568c1a3",
+        "characters": 5445,
+        "id": 6183901946,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6183901946"
+      },
+      {
+        "body_sha256": "a3486780bffc4c158674482d97848d634885f06ebbc6c044e8954a3fbe2d6e67",
+        "characters": 3201,
+        "id": 6184273529,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6184273529"
+      },
+      {
+        "body_sha256": "5619a240e153b85c30a5dfec417e0420df22b4fe6bfd3462dc6729d2060148b3",
+        "characters": 2120,
+        "id": 6184336783,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6184336783"
+      },
+      {
+        "body_sha256": "2a21c05883718579009ab6c5271676901671950677a5976a1249570f3c1035e7",
+        "characters": 3910,
+        "id": 6184367704,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6184367704"
+      },
+      {
+        "body_sha256": "2795ebcc3e00731d3e54561e19fb1e940b830fa50374d89d0737c895ddbea042",
+        "characters": 5438,
+        "id": 6184420329,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6184420329"
+      },
+      {
+        "body_sha256": "bbe4e19d77ee6f16e243a16a463be12148e8516c45e4cabcd756db9ff7c724f0",
+        "characters": 3412,
+        "id": 6184494471,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6184494471"
+      },
+      {
+        "body_sha256": "969e6f7a4b21df94fbd2a1965ee1c80a643090b14fa1877c67727ed2167ee113",
+        "characters": 2128,
+        "id": 6184529926,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6184529926"
+      },
+      {
+        "body_sha256": "381231c0fa32e0de43ed33b13c48dcbfec726823d6fff55d14e9f91869aa9cb9",
+        "characters": 3882,
+        "id": 6184556009,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6184556009"
+      },
+      {
+        "body_sha256": "d033c264cf17499bdb6a3e5be43af6e22f4df066c0b9ec4904a2b09e0039abb0",
+        "characters": 5139,
+        "id": 6184612591,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6184612591"
+      },
+      {
+        "body_sha256": "e4723727733f5ba6bac84dad0d682a6171bbfe2da39749fcc5c871a02aade02b",
+        "characters": 3436,
+        "id": 6184663377,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6184663377"
+      },
+      {
+        "body_sha256": "824c5be66c2a36a289c30556ba6f90e921de5e0429abd461780af239b1fd5a2b",
+        "characters": 2042,
+        "id": 6184684022,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6184684022"
+      },
+      {
+        "body_sha256": "1146d8a7cafab16b670699a6c4e0511d6472fafb4b207dbd1c23e4f7f1433b02",
+        "characters": 4282,
+        "id": 6184708258,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6184708258"
+      },
+      {
+        "body_sha256": "0fbff77aacc36f04c29f64c9509ba685394e7b45f2d015aaf44e86ef3abfa38f",
+        "characters": 5306,
+        "id": 6184776579,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6184776579"
+      },
+      {
+        "body_sha256": "7e2b0be0c77c118de245073c6faeb69623dcc46d6d2d94e5ff188b2987a5fa7c",
+        "characters": 3794,
+        "id": 6184932354,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6184932354"
+      },
+      {
+        "body_sha256": "3e95db2712519b8935b590449fd850dcc10a720d0cec025e351f13f359ee2561",
+        "characters": 1507,
+        "id": 6184949645,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6184949645"
+      },
+      {
+        "body_sha256": "494e7d660c2149e1e1b2aa69c675d7bc774139aebe25e0bc6108d2d335bdc310",
+        "characters": 2168,
+        "id": 6185006498,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6185006498"
+      },
+      {
+        "body_sha256": "b1d5ba7fd4ee67d183da8feef0c122003ec468c681653e20141c77a18535abee",
+        "characters": 4142,
+        "id": 6185046690,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6185046690"
+      },
+      {
+        "body_sha256": "02430a5bbd69238a014f88dc691dcb5127855b01096047a0c635331223691792",
+        "characters": 5191,
+        "id": 6185093001,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6185093001"
+      },
+      {
+        "body_sha256": "0a96ae7f4ea3aaa27f0b3ccaaf06a059bde9920614ea08fd40aff6746629bba2",
+        "characters": 2042,
+        "id": 6185184962,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6185184962"
+      },
+      {
+        "body_sha256": "7d6c59bc8caf455f060456c504b7837a2824c15b7e9c81a07bf2df73aef30579",
+        "characters": 4188,
+        "id": 6185255953,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6185255953"
+      },
+      {
+        "body_sha256": "349d577db464cb8ceccddb44f508ba4c3cab51311d47ca45179c542707d2ede6",
+        "characters": 5735,
+        "id": 6185309077,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6185309077"
+      },
+      {
+        "body_sha256": "8996c80cd8d9978c51867a43fcc7652cbdc1a1e31de2ee3f7f1faa2a4c1568ea",
+        "characters": 8285,
+        "id": 6185552492,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6185552492"
+      },
+      {
+        "body_sha256": "235fcf098af09eff9f749594942fb02903bde9cac43ccfb0eb2970f33d46c8a9",
+        "characters": 2634,
+        "id": 6185659254,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6185659254"
+      },
+      {
+        "body_sha256": "1fe0c7b0b853d9f80929cecdb26599df0cef1449e9ac14d651db8f8125960016",
+        "characters": 4996,
+        "id": 6185715797,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6185715797"
+      },
+      {
+        "body_sha256": "a1f70915984b57321d328c4a25fbdd633d2bca48a2a96e55276470b4ae49d220",
+        "characters": 6631,
+        "id": 6185772190,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6185772190"
+      },
+      {
+        "body_sha256": "885f6540c03e5ebb333ba4887d2fd0607994597fc8facce09b096242b920b792",
+        "characters": 3781,
+        "id": 6186047602,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6186047602"
+      },
+      {
+        "body_sha256": "45ed5ce42ff37089c12f624ba015981d7667a3dc1b1d81183c874c44e1ef7406",
+        "characters": 1573,
+        "id": 6186090718,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6186090718"
+      },
+      {
+        "body_sha256": "bdfee25ec8687313977bea9078a05ca6ca272d1592a1421e5973e4eb10482a9e",
+        "characters": 2229,
+        "id": 6186356224,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6186356224"
+      },
+      {
+        "body_sha256": "367a86391d6a8873ad5e8ae9334b2b5b7b05e13da42c2487d7c6c0268ff6233f",
+        "characters": 4978,
+        "id": 6186530230,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6186530230"
+      },
+      {
+        "body_sha256": "388748654ce99e187fdc35256600267d347048ad6d74ef157675c2c230aab0a9",
+        "characters": 6342,
+        "id": 6186596167,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6186596167"
+      },
+      {
+        "body_sha256": "a6b960b31fc426e0595c2392f83d4c1c2a9991dec1c7b8ccb39f0f50cc53dab8",
+        "characters": 2956,
+        "id": 6187223122,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6187223122"
+      },
+      {
+        "body_sha256": "bdaf1a3d97ae4958fc3882b227b3ebef8d1449c28d713756a297aade47fe39f2",
+        "characters": 2277,
+        "id": 6187504862,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6187504862"
+      },
+      {
+        "body_sha256": "1ad452b0cf478ca5dd9618ef6dd3014b6b8d4e2641bccf81d6a5b9d7538653d8",
+        "characters": 4524,
+        "id": 6187844624,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6187844624"
+      },
+      {
+        "body_sha256": "07411718d9fa38f2c9f8a37c226ee27604ac37cd35f4d9746acabe9223da1f92",
+        "characters": 4294,
+        "id": 6187934504,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6187934504"
+      },
+      {
+        "body_sha256": "e54f7fb78ffe8ca8473bbd952fa0a460c9921087cfdeb7d40b0abcd0373a79e4",
+        "characters": 2015,
+        "id": 6188488655,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6188488655"
+      },
+      {
+        "body_sha256": "6a42756d4ac175a7f6d6e5c0957127601aad8d8dd3dedabff4152ce858c71bd0",
+        "characters": 2088,
+        "id": 6188645630,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6188645630"
+      },
+      {
+        "body_sha256": "fd5ee8c648ab71975108448fef6803723f79e3c0dd72a7d3e573b51ad1f2cf79",
+        "characters": 4374,
+        "id": 6188730055,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6188730055"
+      },
+      {
+        "body_sha256": "c033ff499918df7b36442df555ce3bca439ef32e4890a14017b534e12ba07af7",
+        "characters": 5059,
+        "id": 6188802614,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6188802614"
+      },
+      {
+        "body_sha256": "d5c7fda49c7f06facfb5f855bbfbff23391ad12e7e8e7b7c55a3e7398740809f",
+        "characters": 3810,
+        "id": 6189141033,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6189141033"
+      },
+      {
+        "body_sha256": "8b5447fcdeab3c92e2fd7e40d23c728a8cab6c34b44e17cbb22eabebc3eaf6aa",
+        "characters": 2876,
+        "id": 6189230503,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6189230503"
+      },
+      {
+        "body_sha256": "c9570933d69b756e9eab77704349e8776774f21c36a28aba5ccc38ac0d64b9a7",
+        "characters": 5529,
+        "id": 6190103223,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6190103223"
+      },
+      {
+        "body_sha256": "fe8909757a6ff2a7bd1ccac013ae8b3d5238232f4738c82cf268aefafecaf530",
+        "characters": 5338,
+        "id": 6190487418,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6190487418"
+      },
+      {
+        "body_sha256": "650cf97e5cfb14086f214700488ce808ce25e094b8231e03005e9aa8df82a27e",
+        "characters": 1323,
+        "id": 6190538707,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6190538707"
+      },
+      {
+        "body_sha256": "146245582d9205261f1dace773c3344f7000e0bbd2a093adb7dc9bbb81f927a7",
+        "characters": 1714,
+        "id": 6190655039,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6190655039"
+      },
+      {
+        "body_sha256": "68751988293a7636cf6a3d18ab4e431a6a06ebe7cc3ae434ee940ff45a2b29e8",
+        "characters": 4716,
+        "id": 6190766420,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6190766420"
+      },
+      {
+        "body_sha256": "10becc0df6e7d72a58cd73f2282c5418fcee7b0a5251d837b9038d8b1b089676",
+        "characters": 6132,
+        "id": 6190937428,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6190937428"
+      },
+      {
+        "body_sha256": "822744c8746d256eedf7ddf3f940921ebcd73bef303a12d269311082fce25833",
+        "characters": 1432,
+        "id": 6191071835,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6191071835"
+      },
+      {
+        "body_sha256": "bb7abb7f1cbc6a7740189675bdca3caca5949f55e421c624288d705d1df98136",
+        "characters": 1529,
+        "id": 6191092931,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6191092931"
+      },
+      {
+        "body_sha256": "37bf0590d63cccaaec2ef6870992771df868795f4a52b928c61bff393c145a08",
+        "characters": 3855,
+        "id": 6191168034,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6191168034"
+      },
+      {
+        "body_sha256": "b0cbeda712dbfa2645b7745127e641da553dd05b5ae10b51d32419d156f9dcd2",
+        "characters": 7062,
+        "id": 6191214820,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6191214820"
+      },
+      {
+        "body_sha256": "12c3acdddc0242f1b18244468d83243262760defd4e448cb3c2479cbfd178779",
+        "characters": 4178,
+        "id": 6191642977,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6191642977"
+      },
+      {
+        "body_sha256": "e4814db4a057d00bc4c09573540c1f464acdbce16e540b30c372e46331bab1ff",
+        "characters": 2863,
+        "id": 6191738085,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6191738085"
+      },
+      {
+        "body_sha256": "21b2e6d943eb7aef289a3d10084be8f23aa81111f79b17b76d3ac19be23ec85e",
+        "characters": 5060,
+        "id": 6191859832,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6191859832"
+      },
+      {
+        "body_sha256": "4606abe3d95f530107b8264bbc38616f373d6c25c05777456df56c18c9e2f116",
+        "characters": 6200,
+        "id": 6191916076,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6191916076"
+      },
+      {
+        "body_sha256": "53ddec013c8263b87d936369187f04ce55bda32d247696c58a557382749ea7e2",
+        "characters": 4990,
+        "id": 6205549655,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6205549655"
+      },
+      {
+        "body_sha256": "2f61a7df57eabfb8f9d7b24c6f6e72075c88ca1c35dc959bcdb80089b401e2c4",
+        "characters": 3036,
+        "id": 6205597430,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6205597430"
+      },
+      {
+        "body_sha256": "f5457a4f112baaad2813ead030aad1710b170cde977082f699bfc1e699d24b00",
+        "characters": 5261,
+        "id": 6205661305,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6205661305"
+      },
+      {
+        "body_sha256": "b946026c0a6b8abc0e40948336051f32891e71db52e851cf31ebffe4cad1b675",
+        "characters": 7878,
+        "id": 6205786507,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6205786507"
+      },
+      {
+        "body_sha256": "965861ca74f1e0ec4994accd4d9b2e5925f6009f29650821858c0b6934f5b1c8",
+        "characters": 4936,
+        "id": 6205917372,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6205917372"
+      },
+      {
+        "body_sha256": "5a2ebaa35c7c0b572cca6b72fe294420402485a12ab089eab4c3740b2adde5d6",
+        "characters": 2306,
+        "id": 6205929586,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6205929586"
+      },
+      {
+        "body_sha256": "48335fcbf6fe613a819c7adbf3a21d3c494dfdb9849cde3ed874b6072304ad0e",
+        "characters": 3224,
+        "id": 6205982615,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6205982615"
+      },
+      {
+        "body_sha256": "efbb88af05d1b7999abf207067c2dd20b02f10b1f31fb8eb85154ce4e0121f00",
+        "characters": 5665,
+        "id": 6206056107,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6206056107"
+      },
+      {
+        "body_sha256": "437a4d1c2481954229cb4dc746e5eece1e8bc8f8fab51772bdc73e2eb2adf358",
+        "characters": 8147,
+        "id": 6206097763,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6206097763"
+      },
+      {
+        "body_sha256": "da7f2130facb92e4fe9262710ddd1dd1722363fc4477abe3dc83ef671d0a3bb7",
+        "characters": 2896,
+        "id": 6206206391,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6206206391"
+      },
+      {
+        "body_sha256": "57a58d34e34967ac28053cd9868c601efb91be2a0f3afe1b9961325e9b78f12f",
+        "characters": 4071,
+        "id": 6206249428,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6206249428"
+      },
+      {
+        "body_sha256": "cf86a1c5ef3b8f17bf69d74e100aebc1312ba4e5bc6b98637dbd7615bcaf6282",
+        "characters": 8050,
+        "id": 6206287878,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6206287878"
+      },
+      {
+        "body_sha256": "a53bd13f0adf1aa95bce8c1e94669c340043c9124d4ea0f061f16ad9c5c2f470",
+        "characters": 6754,
+        "id": 6206511470,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6206511470"
+      },
+      {
+        "body_sha256": "da155f6aad835104a79cfa080b240bf79e895107161c276cabe8f609da1db774",
+        "characters": 6555,
+        "id": 6206652687,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6206652687"
+      },
+      {
+        "body_sha256": "bf2a9a456e0892259cab31d61fba28e49665aeab74ed3103f67f7f0068d07d22",
+        "characters": 6421,
+        "id": 6206735953,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6206735953"
+      },
+      {
+        "body_sha256": "14289dcc84fe3e81522a12ab1a52b7c15034fd846b52d2744d49f01f46922b44",
+        "characters": 6706,
+        "id": 6206799419,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6206799419"
+      },
+      {
+        "body_sha256": "6dd4f396e5060642bd8f3d1d8b6549051c5aeb0d49f91e1bfcd1c6367b887b31",
+        "characters": 5219,
+        "id": 6207010865,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6207010865"
+      },
+      {
+        "body_sha256": "840d0242265e19a6e53f88d48d063e70b85fa106fa3309d112c588d897eeaa46",
+        "characters": 3891,
+        "id": 6207202440,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6207202440"
+      },
+      {
+        "body_sha256": "edc9586fdecbc1fff2bf8208670f53f89cdf2435ac1a60af89f014c44d40bd7b",
+        "characters": 4893,
+        "id": 6207285901,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6207285901"
+      },
+      {
+        "body_sha256": "03ab487a277cb73d43d17734fb6df48bc38dc8d337f623990fee2cd52687d869",
+        "characters": 7182,
+        "id": 6207347281,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6207347281"
+      },
+      {
+        "body_sha256": "18e704596a948f8682ea99a6d6a95192247ff8a682a749e2691373b14947f2a6",
+        "characters": 6548,
+        "id": 6207559984,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6207559984"
+      },
+      {
+        "body_sha256": "579e5a3a14db7ded3ca9dcbef64cc0f7470addfd939d16f22c61161f67cb9c3b",
+        "characters": 5511,
+        "id": 6207654944,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6207654944"
+      },
+      {
+        "body_sha256": "73ce539375aabced96adc43aef849ce297024a125d4cdaca2535c8e342e4fc21",
+        "characters": 5865,
+        "id": 6208060014,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6208060014"
+      },
+      {
+        "body_sha256": "a7d2c56a6f83bfb86593a9b77b81310818459e5b440439cb31a2761f651d20b4",
+        "characters": 8323,
+        "id": 6208086602,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6208086602"
+      },
+      {
+        "body_sha256": "b1e20d1b79fa13e3c8164fa5e76db3918dc4921ed3c36450c0fd9117a9bb5ac1",
+        "characters": 7230,
+        "id": 6208298195,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6208298195"
+      },
+      {
+        "body_sha256": "d2634d25b33564a8609740cb0471faf594071309322be64b347ff59d9afe3a9d",
+        "characters": 6649,
+        "id": 6208424933,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6208424933"
+      },
+      {
+        "body_sha256": "876fbbf0eb95d7c3c2496958bf90edeb3c4c57fe7de62019ea5a2ca873228f2f",
+        "characters": 6517,
+        "id": 6208483442,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6208483442"
+      },
+      {
+        "body_sha256": "bcdf025db371e49c8a5d33443a87033d7c776ea6ce4bf074c5b38330d4911478",
+        "characters": 7087,
+        "id": 6208516504,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6208516504"
+      },
+      {
+        "body_sha256": "c428140c1f2d6b589f73b3409798f3f5f046e7f86052860db1e17f9b234dd4c3",
+        "characters": 2330,
+        "id": 6208878059,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6208878059"
+      },
+      {
+        "body_sha256": "96125f9e5be6c1cd313adad05d7265af1b6a292a3dc8efa2b3831bb1b6044624",
+        "characters": 7228,
+        "id": 6209075730,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6209075730"
+      },
+      {
+        "body_sha256": "661c09a0e74b904aab5cfc9243f8bfe9b2777a3135c3bf4524ab65219f828b5d",
+        "characters": 5568,
+        "id": 6209255943,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6209255943"
+      },
+      {
+        "body_sha256": "75b2996478ef7d7cad4f3979cca954f9481121bf29705743c4d185f213d97082",
+        "characters": 6328,
+        "id": 6209310360,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6209310360"
+      },
+      {
+        "body_sha256": "4347455541b314615fd858e7f9ee45e29d1e3c34489682f1cf5ea30b2cb4a4dd",
+        "characters": 3355,
+        "id": 6209454407,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6209454407"
+      },
+      {
+        "body_sha256": "38d3758933bcf0c2875d8c889a2a7eefb449f966f8d1e28cf4e2ef36e078df54",
+        "characters": 3493,
+        "id": 6209987413,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6209987413"
+      },
+      {
+        "body_sha256": "142838c1d7908c08f6d9ab606c952662e972f0da287bf45961b7ae6d1f866542",
+        "characters": 5589,
+        "id": 6210167613,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6210167613"
+      },
+      {
+        "body_sha256": "3629c84cd425700cad20e1f74dcd900b05f7bc3e0b14b21db3b6b78360e5d6df",
+        "characters": 7038,
+        "id": 6210207391,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6210207391"
+      },
+      {
+        "body_sha256": "0a2eb4ab1be303cba3990045c4bab6da2165bfafbf9cedb72676042d469af9a8",
+        "characters": 2580,
+        "id": 6210910862,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6210910862"
+      },
+      {
+        "body_sha256": "e5c9a8b021eb588ac18a7041500448cf84bc2112a9ffe3a754ad0f97f30e726c",
+        "characters": 3497,
+        "id": 6211057301,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6211057301"
+      },
+      {
+        "body_sha256": "3eed28a7ac8d4f96b9b43beaae0e4ceae3c69a3d38bf4afa9c2a7bbbfff72344",
+        "characters": 6699,
+        "id": 6211098449,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6211098449"
+      },
+      {
+        "body_sha256": "a1606962a139ba92a42071c40e78194155ee1b740071f31307bf50c107f1c1de",
+        "characters": 9915,
+        "id": 6211482453,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6211482453"
+      },
+      {
+        "body_sha256": "a429b3bbebd4d6aed4c72a40964f3810fa02b7ab5798361c17d690669cd77f1f",
+        "characters": 5375,
+        "id": 6211754121,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6211754121"
+      },
+      {
+        "body_sha256": "7bd38d04622921cf02ed714b9a01586c154847d1a4cc2ddce8e46d9418d5a521",
+        "characters": 4944,
+        "id": 6211928330,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6211928330"
+      },
+      {
+        "body_sha256": "75afc63d01bed82ecee3f217994fb42515dd595cc734d9361e2f89f66b786a38",
+        "characters": 7471,
+        "id": 6212000008,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6212000008"
+      },
+      {
+        "body_sha256": "b11a961e4b506418556fa0976c229dbaa2b3ec1cffb538f0fd78e73158e4cfd4",
+        "characters": 16043,
+        "id": 6212387399,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6212387399"
+      },
+      {
+        "body_sha256": "588dab4017d332258e3503d0a907be60b981b16acabce5690b2084f43f66aa1d",
+        "characters": 8510,
+        "id": 6212629752,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6212629752"
+      },
+      {
+        "body_sha256": "e42f3b896099ea611c6a76ec95b465f3fd1cbb764ab6672849e0bdb47f4c31a8",
+        "characters": 6503,
+        "id": 6213877494,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6213877494"
+      },
+      {
+        "body_sha256": "e6ea637b23daa6104f78e98c228acbe739af2cc0bb4a64952b0880524d7fa68c",
+        "characters": 5280,
+        "id": 6213938772,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6213938772"
+      },
+      {
+        "body_sha256": "a76f6ba21f1ee1ca60d190f1a25cfe25ce2c3b675786d387f957d163adf63e93",
+        "characters": 2840,
+        "id": 6214014587,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6214014587"
+      },
+      {
+        "body_sha256": "4663c01f516ee715e681b326c2e226387a9d026ad3e9b3b13ba8a70b140e4668",
+        "characters": 3109,
+        "id": 6214467721,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6214467721"
+      },
+      {
+        "body_sha256": "2949af072ae40e1c748c02295152e90274afcdb723b4b23ea6b589965894b6c0",
+        "characters": 5429,
+        "id": 6214578731,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6214578731"
+      },
+      {
+        "body_sha256": "c3bd600bb37538481df4705d8c68ddf28a1b76c34602a8565ba1710558e6f9db",
+        "characters": 5900,
+        "id": 6214616229,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6214616229"
+      },
+      {
+        "body_sha256": "232e6de9207152cb7292e466611cc5141f710238e4d73d6c25c3d27ebccb1741",
+        "characters": 28188,
+        "id": 6215025512,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6215025512"
+      },
+      {
+        "body_sha256": "a9cfd725ee6c9df1f8a4b133446e0fb1aa70d305055615381271d4480d88f424",
+        "characters": 3994,
+        "id": 6215198742,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6215198742"
+      },
+      {
+        "body_sha256": "a34f52bf25145640c26224b01bfbbdea983e0a94396f2c9b341ea42be11f2938",
+        "characters": 5573,
+        "id": 6215317877,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6215317877"
+      },
+      {
+        "body_sha256": "7bbff73820d5a3832c9265d03ad67dfccb54785f40025775766fec284c5aaa90",
+        "characters": 5019,
+        "id": 6215375331,
+        "updated_at": null,
+        "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6215375331"
+      }
+    ],
+    "35": []
+  },
+  "issues": {
+    "23": {
+      "body_sha256": "36b3744d1087b38df6970dc584f396bd9c6d3bc66de8229c61f181688353f100",
+      "comments": 3,
+      "state": "open"
+    },
+    "34": {
+      "body_sha256": "80ccb3194249db74284e4391f64f075b9800730bf100c645d56fbe4a9297d6f2",
+      "comments": 236,
+      "state": "open"
+    },
+    "35": {
+      "body_sha256": "a01327196c70b5dcfbb263c2f3c4060eb89868b56133d0b0ddd05ac52d6d6e53",
+      "comments": 0,
+      "state": "open"
+    }
+  }
+}

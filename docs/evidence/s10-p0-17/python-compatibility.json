@@ -1,0 +1,12 @@
+{
+  "python_version": "3.12.15",
+  "command": "PYTHONDONTWRITEBYTECODE=1 ../.venv/bin/python (in-memory AST/compile only)",
+  "files": [
+    "ydental_settlement/models/ydental_settlement_service.py",
+    "ydental_settlement/controllers/settlement.py",
+    "scripts/s10_p0_17_static_checks.py"
+  ],
+  "exit_code": 0,
+  "module_imports_or_execution": 0,
+  "database_HTTP_ORM": 0
+}

@@ -1,0 +1,39 @@
+{
+  "base": "21dc2dc243200336959482fcfa9d3b5f5f5ad271",
+  "remote_sha": "21dc2dc243200336959482fcfa9d3b5f5f5ad271",
+  "issues": {
+    "23": {
+      "body_equal_to_start": true,
+      "state": "open",
+      "comments": 3
+    },
+    "34": {
+      "body_equal_to_start": true,
+      "state": "open",
+      "comments": 237
+    },
+    "35": {
+      "body_equal_to_start": true,
+      "state": "open",
+      "comments": 0
+    }
+  },
+  "comments": {
+    "23": {
+      "count": 3,
+      "old_ids_bodies_updated_at_exact": true,
+      "last_id": 6125774169
+    },
+    "34": {
+      "count": 237,
+      "old_ids_bodies_updated_at_exact": true,
+      "last_id": 6227632581
+    },
+    "35": {
+      "count": 0,
+      "old_ids_bodies_updated_at_exact": true,
+      "last_id": null
+    }
+  },
+  "parallel_update": false
+}

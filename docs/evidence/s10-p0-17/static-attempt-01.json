@@ -1,0 +1,11 @@
+{
+  "attempt": 1,
+  "command": "PYTHONDONTWRITEBYTECODE=1 python3 scripts/s10_p0_17_static_checks.py --test",
+  "exit_code": 1,
+  "layer": "STATIC_FILE_FIXTURE",
+  "script_sha256": "154fea0053874328b744270dd8efe700c4bb9afd67c41844c3a7d5ba4932f089",
+  "failure": "PDF_server_current_store_source_guard_unchanged",
+  "cause": "ast.unparse adds parentheses around the generator expression; string-fragment assertion was too strict",
+  "product_PDF_method_changed": false,
+  "runtime_operations": 0
+}

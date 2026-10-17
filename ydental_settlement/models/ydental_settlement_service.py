@@ -986,11 +986,11 @@ class YDentalSettlementService(models.AbstractModel):
         if patient:
             self.env['ydental.patient.service']._current_relation(patient, store)
         pages = pages or {}
-        if not isinstance(pages, dict) or any(key not in ('today', 'history', 'pending', 'invoices', 'payments', 'refunds', 'closes')
+        if not isinstance(pages, dict) or any(key not in ('today', 'history', 'pending', 'invoices', 'payments', 'refunds', 'closes', 'settled')
                                                or type(value) is not int or not 1 <= value <= 10000
                                                for key, value in pages.items()):
             raise ValidationError(self.env._('Select a valid workbench page.'))
-        page_numbers = {key: pages.get(key, 1) for key in ('today', 'history', 'pending', 'invoices', 'payments', 'refunds', 'closes')}
+        page_numbers = {key: pages.get(key, 1) for key in ('today', 'history', 'pending', 'invoices', 'payments', 'refunds', 'closes', 'settled')}
         family = self._patient_family_ids(patient) if patient else None
         fee_domain = fields.Domain('ydental_store_id', '=', store.id) & fields.Domain(
             'ydental_event_id.state', '=', 'confirmed') & fields.Domain(
@@ -1018,12 +1018,29 @@ class YDentalSettlementService(models.AbstractModel):
             'ydental_settlement_source_ids', 'any', source_domain)
         invoices, invoice_count = self._workbench_page(self.env['account.move'].sudo(),
             invoice_domain, page_numbers['invoices'], 'invoice_date asc, id asc')
+        # Require every source to belong here; one local source cannot admit a mixed invoice.
+        settled_source_domain = source_domain & fields.Domain('ydental_fee_id', '!=', False) & fields.Domain(
+            'ydental_fee_id.ydental_store_id', '=', store.id) & fields.Domain(
+            'ydental_fee_id.ydental_event_id.ydental_store_id', '=', store.id) & fields.Domain(
+            'ydental_fee_id.ydental_event_id.state', '=', 'confirmed')
+        if family is not None:
+            settled_source_domain &= fields.Domain('ydental_fee_id.ydental_patient_id', 'in', family) & fields.Domain(
+                'ydental_fee_id.ydental_event_id.ydental_patient_id', 'in', family)
+        settled_domain = fields.Domain('company_id', '=', store.company_id.id) & fields.Domain(
+            'state', '=', 'posted') & fields.Domain('move_type', '=', 'out_invoice') & fields.Domain(
+            'payment_state', '=', 'paid') & fields.Domain('amount_residual', '=', 0) & fields.Domain(
+            'ydental_settlement_source_ids', 'any', settled_source_domain) & fields.Domain(
+            'ydental_settlement_source_ids', 'not any', ~settled_source_domain)
+        settled, settled_count = self._workbench_page(invoices,
+            settled_domain, page_numbers['settled'], 'invoice_date asc, id asc')
         for fee in today_fees | history:
             self._audit('source_view', fee, store)
         for event in pending:
             self._audit('pending_event_view', event, store,
                         after={'state': event.state, 'reason': event.ydental_pending_reason})
         for invoice in invoices:
+            self._audit('invoice_view', invoice, store)
+        for invoice in settled:
             self._audit('invoice_view', invoice, store)
         payment_domain = fields.Domain('ydental_store_id', '=', store.id)
         refund_domain = fields.Domain('ydental_payment_id.ydental_store_id', '=', store.id)
@@ -1039,10 +1056,10 @@ class YDentalSettlementService(models.AbstractModel):
             page_numbers['closes'], 'id desc')
         return {'store': store, 'patient': patient,
                 'today': today_fees, 'history': history,
-                'pending': pending, 'invoices': invoices,
+                'pending': pending, 'invoices': invoices, 'settled': settled,
                 'pages': page_numbers, 'page_counts': {'today': today_count,
                     'history': history_count, 'pending': pending_count, 'invoices': invoice_count,
-                    'payments': payment_count, 'refunds': refund_count, 'closes': close_count},
+                    'payments': payment_count, 'refunds': refund_count, 'closes': close_count, 'settled': settled_count},
                 'payments': payments, 'refunds': refunds_list, 'closes': closes}
 
     def _other_store_summary(self, patient_id):

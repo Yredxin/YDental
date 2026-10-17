@@ -1,0 +1,123 @@
+{
+  "authorization": 6215375331,
+  "base": "21dc2dc243200336959482fcfa9d3b5f5f5ad271",
+  "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "preflight": {
+    "plan_sha256": "6bf9510d061c3a342e0908fc8e3ed3f9480d56f6a045c632d7c4b08f23e02b59",
+    "characters": 3901,
+    "utf8_bytes": 6741,
+    "body_sha256": "a7f656ef86e9599239cb03496e0e01a9243cf6f803ab5ee65641f452c78160fb",
+    "comment_id": 6227632581,
+    "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6227632581",
+    "created_at": "2026-10-17T00:54:59Z",
+    "readback_at": "2026-10-17T00:55:09.878310+00:00",
+    "verbatim_equal": true,
+    "product_changes_at_readback": 0,
+    "all_runtime_budgets": 0
+  },
+  "methods": {
+    "ydental_settlement/models/ydental_settlement_service.py:_invoice": {
+      "line": 313,
+      "end_line": 320,
+      "source_sha256": "18336da010c696a66f78dec81f6cf25f3504b3970e6b970bcb9e170e2f32ebeb"
+    },
+    "ydental_settlement/models/ydental_settlement_service.py:_workbench_page": {
+      "line": 979,
+      "end_line": 981,
+      "source_sha256": "6dd55da06f49c5198707d9d575d704ca650bbe3abf748013e6698477364b3708"
+    },
+    "ydental_settlement/models/ydental_settlement_service.py:_workbench": {
+      "line": 983,
+      "end_line": 1063,
+      "source_sha256": "6f72e0d3d8ad5a6cde4e27f01b544d075d54199dde2fa5f30fd2e09d0345993c"
+    },
+    "ydental_settlement/models/ydental_settlement_service.py:_report_payload": {
+      "line": 1094,
+      "end_line": 1161,
+      "source_sha256": "d1247ea57d1d96cfc76c8534aa333dd8b669846056d9cda9bcacb8b5501ead1c"
+    },
+    "ydental_settlement/models/ydental_settlement_service.py:_pdf": {
+      "line": 1176,
+      "end_line": 1194,
+      "source_sha256": "f0125791f130e581de041e3737fa2394386fbe9f3039dc68ef449be500ad2503"
+    },
+    "ydental_settlement/controllers/settlement.py:workbench": {
+      "line": 31,
+      "end_line": 80,
+      "source_sha256": "b7ede11caa43464296bb71210a204c9c9a63498c34dbf96587e309b29cd6f1d2"
+    },
+    "ydental_settlement/controllers/settlement.py:pdf": {
+      "line": 139,
+      "end_line": 148,
+      "source_sha256": "65391148c449ec5db590b6dce534d2bfd03c1da29ebf7dcff1083d7bd5d0ff07"
+    }
+  },
+  "changed_products": {
+    "ydental_settlement/models/ydental_settlement_service.py": {
+      "before_sha256": "1ea27012fd5500fc21891f9e652f4e694cb2e7cce844fa38d08b7f12beff8d2c",
+      "after_sha256": "5bd0a86124b44df8d34d3f2511487850e6768ce8e268649589f444ac126d2031",
+      "observed_mtime_epoch": 1792198562.6560595
+    },
+    "ydental_settlement/controllers/settlement.py": {
+      "before_sha256": "bfa051971585369f1585d311cfc4553159d4a42ef23b3c54f35d77e53ab4caa2",
+      "after_sha256": "8cc7a0380a70298c0d8959af614f8101b9a593defcd6b1f777ce7cd0779658b0",
+      "observed_mtime_epoch": 1792198562.6570594
+    },
+    "ydental_settlement/views/ydental_settlement_templates.xml": {
+      "before_sha256": "8f74cffa93a3a24f1d4c4f95a2a006fd698050cda8d27a99924de58770feb329",
+      "after_sha256": "f6b1401953d272e48bcc72f2769a580a5b4af4613d761cc746926dd1fe607eff",
+      "observed_mtime_epoch": 1792198562.6570594
+    }
+  },
+  "query": "exists valid source AND not any invalid source",
+  "record_scope": "current company/store; required genuine fee/event current store+confirmed; selected source/fee/event patients all in legal family",
+  "page_contract": {
+    "parameter": "settled_page",
+    "default": "1",
+    "decimal_digits": [
+      1,
+      5
+    ],
+    "integer_range": [
+      1,
+      10000
+    ],
+    "rows": 50,
+    "order": "invoice_date asc, id asc",
+    "page_context": "settled",
+    "URL_preserves": [
+      "patient_id",
+      "all other page parameters"
+    ]
+  },
+  "new_context": [
+    "settled",
+    "pages.settled",
+    "page_counts.settled",
+    "can_export"
+  ],
+  "export_visibility": "access._levels(member)['export'] == 'write'",
+  "future_allowed_non_economic_effect": "existing S01 settlement.invoice_view for each displayed settled invoice, max50 per requested page; no accounting writes",
+  "current_effect": {
+    "BUSINESS_GET_POST": 0,
+    "CREATE": 0,
+    "DATABASE_CONNECTION": 0,
+    "DIRECT_ORM": 0,
+    "EXECUTOR_SUDO": 0,
+    "FIREFOX": 0,
+    "ISSUE_PROJECT_MUTATION": 0,
+    "MERGE_DEPLOY_S11": 0,
+    "ODOO_HTTP": 0,
+    "ODOO_SHELL_INSTALL_UPGRADE_INIT_TEST": 0,
+    "OS_PG_DOCKER_NETWORK_SPECIAL": 0,
+    "PDF_GENERATION": 0
+  },
+  "not_changed": [
+    "all service methods except _workbench",
+    "all controller methods except workbench",
+    "all pre-existing QWeb elements",
+    "all ACL/schema/core/other product/history files"
+  ],
+  "installed_UI_PDF_ORM_SQL": "NOT_RUN",
+  "proof_boundary": "fixed source AST/text plus independent symbolic fixtures; no Odoo runtime or SQL-compiler execution"
+}
