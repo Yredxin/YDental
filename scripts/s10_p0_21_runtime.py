@@ -119,7 +119,7 @@ def verify_native_facts(env):
 def rank_effects(cr):
     effects=[]
     for callback in cr.postcommit._funcs:
-        if callback.__name__!='increase_partner_rank':continue
+        if getattr(callback,'__name__',None)!='increase_partner_rank':continue
         assert callback.__code__.co_filename.endswith('/addons/account/models/partner.py')
         closure={name:cell.cell_contents for name,cell in zip(callback.__code__.co_freevars,callback.__closure__ or [])}
         field=closure['field'];assert field in ('customer_rank','supplier_rank')

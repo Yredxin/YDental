@@ -1,11 +1,12 @@
 """Readonly verification of known committed chain; never replays an economic action."""
+from decimal import Decimal
 import s10_p0_21_contract as c
 from s10_p0_21_runtime import committed_gate
 c.gate()
 before=c.read(c.PRIVATE/'chain-precommit-full.json');observed=c.read(c.PRIVATE/'chain-independent-RO-rows.json');markers=c.read(c.PRIVATE/'chain-pending-markers-not-success.json');f=markers['b-chain.json']
 partner=next(r for r in observed['tables']['ydental_patient'] if r['id']==f['patient_id'])['ydental_partner_id']
 payments=[r for r in observed['tables']['ydental_settlement_payment'] if r['id'] in (f['payment_first_id'],f['payment_second_id'])]
-assert len(payments)==2 and sorted(str(r['ydental_amount']) for r in payments)==['350.0','390.0']
+assert len(payments)==2 and sorted(Decimal(str(r['ydental_amount'])) for r in payments)==[Decimal('350.00'),Decimal('390.00')]
 native={r['id']:r for r in observed['tables']['account_payment']}
 move_ids=[native[r['ydental_payment_id']]['move_id'] for r in payments]
 assert len(set(move_ids))==2
