@@ -1,0 +1,74 @@
+{
+  "inputs_sha256": "42f6033edb2a547db7980b0e47560266ec39fe56cbdabda93ce49c9d6122a3e4",
+  "files": [
+    {
+      "path": "scripts/s10_p0_23_complete.py",
+      "bytes": 16946,
+      "sha256": "caa0a8f4626171955bac2d0c6704d8f6adba476e2173679c8b8ef972371d31e3"
+    },
+    {
+      "path": "scripts/s10_p0_23_diagnose.py",
+      "bytes": 15044,
+      "sha256": "e426c4c649669b8381a313c8b9734cf94172badf700ab9c3bbe87fda5c012c90"
+    },
+    {
+      "path": "scripts/s10_p0_23_verify.py",
+      "bytes": 22000,
+      "sha256": "5c89930fff75dc972f83b355c4c4befb5855d4d9f92ff7fa8e24a63c6a5dfbce"
+    },
+    {
+      "path": ".local/s10-p0-23/diagnostic-system.exit",
+      "bytes": 2,
+      "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+    },
+    {
+      "path": ".local/s10-p0-23/diagnostic-system.stderr",
+      "bytes": 733,
+      "sha256": "1b10224efcfd813997682a7a8e66530f17b9a5c7cf8b06aefbc4171f84238696"
+    },
+    {
+      "path": ".local/s10-p0-23/diagnostic-system.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/evidence/s10-p0-23/diagnostic-system/arch_prev-precommit.txt",
+      "bytes": 2022,
+      "sha256": "776c4257a3567c92aa3e46aa5dc2c4e5a714989be88ab59714452dfeb4042664"
+    },
+    {
+      "path": "docs/evidence/s10-p0-23/diagnostic-system/arch_prev-readback.txt",
+      "bytes": 2022,
+      "sha256": "75cf739577c6a1977bdd25ddfc4df3a930255243916765abd79b248819248050"
+    },
+    {
+      "path": "docs/evidence/s10-p0-23/diagnostic-system/arch_prev-tail.txt",
+      "bytes": 2022,
+      "sha256": "776c4257a3567c92aa3e46aa5dc2c4e5a714989be88ab59714452dfeb4042664"
+    },
+    {
+      "path": "docs/evidence/s10-p0-23/diagnostic-system/comparisons.json",
+      "bytes": 1263,
+      "sha256": "b9828ee0d48c69154ef399294682480317d76e118f8f5fd40b76137c2f5ea137"
+    },
+    {
+      "path": "docs/evidence/s10-p0-23/diagnostic-system/field-observations.json",
+      "bytes": 79806,
+      "sha256": "951ca412011359f9b6eb3159ad57085cfbf61e0d3073428f2844ff4770bc4eee"
+    },
+    {
+      "path": "docs/evidence/s10-p0-23/diagnostic-system/field-values.json",
+      "bytes": 19346,
+      "sha256": "46b82d9a5e75f5e3c80a06277786af8e337e3ade0b2945557cfc5bc04c8f18ea"
+    },
+    {
+      "path": "docs/evidence/s10-p0-23/diagnostic-system/file-diagnostics.json",
+      "bytes": 16671,
+      "sha256": "f623c7d94faf8797c37d7cf813e834031880233fe00212e44a1bb1f3642a2eb9"
+    }
+  ],
+  "output": "diagnostic-fixed (unused path; no repeat of system or initial verifier)",
+  "runtime_budget": 0,
+  "original_P022_file_changes": 0,
+  "prior_attempts_preserved": true
+}

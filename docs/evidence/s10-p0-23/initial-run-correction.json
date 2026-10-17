@@ -1,0 +1,13 @@
+{
+  "earlier_inference_in_supplement_comment_6230653895_and_initial_run_result": "first parse input intent-before (incorrect inference; retained)",
+  "actual_failed_file": ".local/s10-p0-22/r0-A-fresh-owner-scope-1-after.json",
+  "basis": "initial frozen loop order plus diagnostic-system per-file strict outcomes, matching line/column/character error; preceding two inputs strictly parse",
+  "byte_offset": 41174581,
+  "character_offset": 40931612,
+  "offending_byte": 31,
+  "original_file_SHA256": "221683f576b84ae8903d099b7027ae48ab1d5022faa8d2ee12fc3c153a3624ec",
+  "target_view_array_strict_valid": true,
+  "system_diagnostic_exit": 1,
+  "system_auxiliary_error": "NameError ast missing from explicit helper namespace after all file and field outputs were saved",
+  "no_old_file_change_or_reinterpretation_of_FAIL": true
+}
