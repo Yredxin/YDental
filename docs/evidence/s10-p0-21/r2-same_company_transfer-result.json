@@ -1,0 +1,25 @@
+{
+  "DSNs_observed": [
+    "postgres",
+    "ydental_s10_test_20261017050000_21b0cafe"
+  ],
+  "SIGSEGV": false,
+  "action": "same_company_transfer",
+  "argv": [
+    "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+    "/home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s10_p0_21_native.py",
+    "same_company_transfer"
+  ],
+  "backend_creations": [
+    1421931,
+    1422006
+  ],
+  "exit_code": 0,
+  "log_bytes": 10384,
+  "log_sha256": "a91be05ef7507bfdf3fc8b0f4c2e1ba6ed50da267dae02599b7264856b0c328f",
+  "native_cumulative": 2,
+  "observed_pool_max": 2,
+  "per_PID_DSN": "UNKNOWN if not in creation log",
+  "pid": 809732,
+  "round": 2
+}

@@ -1,0 +1,14 @@
+{
+  "added_group_edges": [
+    22,
+    44,
+    45
+  ],
+  "feature_XMLIDs": [
+    "stock.group_stock_multi_warehouses",
+    "stock.group_stock_multi_locations",
+    "product.group_product_pricelist"
+  ],
+  "initial_only": true,
+  "ordinary_roles_not_administrators": true
+}

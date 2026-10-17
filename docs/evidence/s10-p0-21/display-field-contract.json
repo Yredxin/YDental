@@ -1,0 +1,8 @@
+{
+  "actual observed changes": "must inspect runtime before/after display diff before explanation; never infer P020 cause",
+  "fixed_sources": [
+    "odoo/orm/models.py:_compute_display_name",
+    "odoo/orm/fields_relational.py:Many2one display conversion",
+    "ydental_clinical/models/ydental_clinical_document.py:name/state/version stored separately"
+  ]
+}

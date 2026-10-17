@@ -1,0 +1,8 @@
+{
+  "PASS": true,
+  "detail": {
+    "business_PASS": false,
+    "failed_action_only": true
+  },
+  "full_evidence_before_assertion": true
+}

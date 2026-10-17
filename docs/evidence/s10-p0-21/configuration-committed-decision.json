@@ -1,0 +1,8 @@
+{
+  "PASS": true,
+  "detail": {
+    "every_stored_row_read_back": true,
+    "native_cache_signals_only_if_any": true
+  },
+  "full_evidence_before_assertion": true
+}

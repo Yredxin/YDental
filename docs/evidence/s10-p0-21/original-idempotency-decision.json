@@ -1,0 +1,8 @@
+{
+  "PASS": true,
+  "detail": {
+    "all_stored_amounts_balances_relations_included": true,
+    "economic_storage_exact": true
+  },
+  "full_evidence_before_assertion": true
+}

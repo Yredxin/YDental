@@ -1,0 +1,12 @@
+{
+  "status": "STATIC_BLOCKED_NOT_RUN",
+  "script": "scripts/s10_p0_21_b_audit_integrity.py",
+  "sha256": "fca3745421ededffc99e59ce3b61cd36f090563e11578c95a70741fbd370c22d",
+  "line": 28,
+  "stale_assertion": "payment.ydental_amount == 500",
+  "actual_committed_first_payment": 350,
+  "evidence": "chain-recovered-committed-checkpoint.json; actual b-chain payment_first_id and saved chain-independent snapshot",
+  "reason": "Preflight data-handoff review missed old 500 literal. Two targeted repair rounds exhausted. No contract amendment or scenario execution.",
+  "six_audit_denials": "NOT_RUN_IN_THIS_BATCH",
+  "not_a_product_or_money_failure": true
+}

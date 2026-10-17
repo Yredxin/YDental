@@ -1,0 +1,216 @@
+{
+  "changes": [
+    {
+      "after_count": 1,
+      "after_sha256": "34edece3cb8ea813a5fc5fb26b0e7bc8c0ea585252f640945f117aa213112fec",
+      "before_count": 0,
+      "before_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "columns": [
+        "__physical_oid__",
+        "__physical_table__",
+        "create_date",
+        "create_uid",
+        "id",
+        "write_date",
+        "write_uid",
+        "ydental_after",
+        "ydental_before",
+        "ydental_category",
+        "ydental_event",
+        "ydental_reason",
+        "ydental_result",
+        "ydental_source",
+        "ydental_store_id",
+        "ydental_target_id",
+        "ydental_target_model",
+        "ydental_user_id"
+      ],
+      "duplicate_ID_preserved": false,
+      "economic": false,
+      "physical_key": [
+        "public",
+        "ydental_access_audit",
+        814
+      ],
+      "table": "ydental_access_audit"
+    },
+    {
+      "after_count": 1,
+      "after_sha256": "14b2aea68682b33dbbd9995b0cd238f040849637afdb095390bcae9eef959f1b",
+      "before_count": 1,
+      "before_sha256": "9e235aa5171f32664212fa8d2ea9fce7e9069918508bff797198f570ee38ada9",
+      "columns": [
+        "ydental_revision"
+      ],
+      "duplicate_ID_preserved": false,
+      "economic": true,
+      "physical_key": [
+        "public",
+        "ydental_inventory_mutex",
+        1
+      ],
+      "table": "ydental_inventory_mutex"
+    },
+    {
+      "after_count": 1,
+      "after_sha256": "8f049703baec249f3a66af35395d38cd0d8be3e7b905801439804cfa3a5a3d99",
+      "before_count": 1,
+      "before_sha256": "9e570ad6ba359003c750f48ed343b789d6c4d9c8002f186e00d970663a0d8b13",
+      "columns": [
+        "ydental_revision"
+      ],
+      "duplicate_ID_preserved": false,
+      "economic": false,
+      "physical_key": [
+        "public",
+        "ydental_patient_mutex",
+        1
+      ],
+      "table": "ydental_patient_mutex"
+    },
+    {
+      "after_count": 1,
+      "after_sha256": "42ce3ae7d71ca36e5dfc937564587dccd6a0f567ae6502d7669fee4ef30adcb4",
+      "before_count": 1,
+      "before_sha256": "d05e1b902d74a8b6ab92be15f6506f9ac053899e61c506d6ebe7a078d2d126aa",
+      "columns": [
+        "ydental_revision"
+      ],
+      "duplicate_ID_preserved": false,
+      "economic": false,
+      "physical_key": [
+        "public",
+        "ydental_queue_mutex",
+        1
+      ],
+      "table": "ydental_queue_mutex"
+    },
+    {
+      "after_count": 1,
+      "after_sha256": "9914a2b2a544faa2d39801253c8661d6e73c32661ef1936d3e7b56ab7a0930ae",
+      "before_count": 0,
+      "before_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "columns": [
+        "__physical_oid__",
+        "__physical_table__",
+        "create_date",
+        "create_uid",
+        "id",
+        "name",
+        "state",
+        "write_date",
+        "write_uid",
+        "ydental_actor_id",
+        "ydental_actual_at",
+        "ydental_already_performed",
+        "ydental_business_date",
+        "ydental_catalog_id",
+        "ydental_category",
+        "ydental_document_id",
+        "ydental_document_version",
+        "ydental_exam_material_review",
+        "ydental_exam_material_verified_at",
+        "ydental_execution_id",
+        "ydental_fingerprint",
+        "ydental_kind",
+        "ydental_medication_review",
+        "ydental_medicine_link_id",
+        "ydental_order_line_id",
+        "ydental_parent_id",
+        "ydental_patient_id",
+        "ydental_pending_reason",
+        "ydental_price_review_id",
+        "ydental_price_snapshot_id",
+        "ydental_product_id",
+        "ydental_quantity",
+        "ydental_reason",
+        "ydental_reported_materials",
+        "ydental_source",
+        "ydental_station_id",
+        "ydental_store_id",
+        "ydental_teeth",
+        "ydental_uom_id"
+      ],
+      "duplicate_ID_preserved": false,
+      "economic": true,
+      "physical_key": [
+        "public",
+        "ydental_treatment_event",
+        14
+      ],
+      "table": "ydental_treatment_event"
+    },
+    {
+      "after_count": 1,
+      "after_sha256": "3b7f207b0e0442542acfe6d54ce8a08a58516fbad1c3d52bf3ea8666ecef4729",
+      "before_count": 0,
+      "before_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "columns": [
+        "__physical_oid__",
+        "__physical_table__",
+        "create_date",
+        "create_uid",
+        "id",
+        "name",
+        "write_date",
+        "write_uid",
+        "ydental_actor_id",
+        "ydental_amount",
+        "ydental_category",
+        "ydental_currency_id",
+        "ydental_event_id",
+        "ydental_medicine_link_id",
+        "ydental_parent_id",
+        "ydental_patient_id",
+        "ydental_policy",
+        "ydental_price_review_id",
+        "ydental_price_snapshot_id",
+        "ydental_product_id",
+        "ydental_quantity",
+        "ydental_store_id",
+        "ydental_unit_price"
+      ],
+      "duplicate_ID_preserved": false,
+      "economic": true,
+      "physical_key": [
+        "public",
+        "ydental_treatment_fee",
+        14
+      ],
+      "table": "ydental_treatment_fee"
+    },
+    {
+      "after_count": 1,
+      "after_sha256": "893c00845e8e3713f358d3a3c0a4739fc48434c7255eeee9c95dd23f33803805",
+      "before_count": 0,
+      "before_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "columns": [
+        "__physical_oid__",
+        "__physical_table__",
+        "create_date",
+        "create_uid",
+        "id",
+        "name",
+        "write_date",
+        "write_uid",
+        "ydental_actor_id",
+        "ydental_category",
+        "ydental_fingerprint",
+        "ydental_key",
+        "ydental_patient_id",
+        "ydental_result",
+        "ydental_store_id"
+      ],
+      "duplicate_ID_preserved": false,
+      "economic": true,
+      "physical_key": [
+        "public",
+        "ydental_treatment_receipt",
+        25
+      ],
+      "table": "ydental_treatment_receipt"
+    }
+  ],
+  "full_values_saved_before_gate": true,
+  "schema_changed": false
+}

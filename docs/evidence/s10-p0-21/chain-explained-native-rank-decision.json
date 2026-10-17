@@ -1,0 +1,19 @@
+{
+  "PASS": true,
+  "detail": {
+    "all_economic_storage_exact": true,
+    "all_other_stored_rows_exact_except_precise_native_effects": true,
+    "registered_native_rank_effects": [
+      {
+        "actor_uid": 5,
+        "captured_before_commit": false,
+        "delta": 2,
+        "field": "customer_rank",
+        "partner_id": 15,
+        "scope": "P021 captured before/after rows and exact native source; no inference about missing P020 fields",
+        "source": "two actual posted customer payment entries; fixed account_move.py6370-6386 + partner.py883-917"
+      }
+    ]
+  },
+  "full_evidence_before_assertion": true
+}

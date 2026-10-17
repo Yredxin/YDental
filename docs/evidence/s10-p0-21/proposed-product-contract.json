@@ -1,0 +1,36 @@
+{
+  "files": {
+    "ydental_settlement/models/ydental_settlement_bill_original.py": {
+      "proposed_file": ".local/s10-p0-21/proposed/ydental_settlement_bill_original.py",
+      "sha256": "7361b3a4717d94598ae55aa958176bcb27aedae29f7f8e2557dc46b4c89e7364"
+    },
+    "ydental_settlement/models/ydental_settlement_original_service.py": {
+      "proposed_file": ".local/s10-p0-21/proposed/ydental_settlement_original_service.py",
+      "sha256": "e579903e43a3464107fa35476a97a4520d1b9880724157181833a8a1a303c401"
+    },
+    "ydental_settlement/models/ir_attachment_original.py": {
+      "proposed_file": ".local/s10-p0-21/proposed/ir_attachment_original.py",
+      "sha256": "ada928467b05099a5eb570e1e8f972eabe25f588dfbacee81b7c75985ce73864"
+    },
+    "ydental_settlement/controllers/bill_original.py": {
+      "proposed_file": ".local/s10-p0-21/proposed/bill_original.py",
+      "sha256": "0ab10e3048deb29d1cd7036fcc89b796f6d3f181f8330569d4e9e75c74bb1a17"
+    },
+    "ydental_settlement/views/ydental_settlement_templates.xml": {
+      "proposed_file": ".local/s10-p0-21/proposed/ydental_settlement_templates.xml",
+      "sha256": "b163a1bd3fad170d0f309b624fad216109e90642ca51f66ce5c372bdc0ee27fc"
+    },
+    "ydental_settlement/models/__init__.py": {
+      "proposed_file": ".local/s10-p0-21/proposed/models_init.py",
+      "sha256": "0bbf3e7d893e1fbce3689ae54139e62465db485cd1bd854dc76d02e05a76919a"
+    },
+    "ydental_settlement/controllers/__init__.py": {
+      "proposed_file": ".local/s10-p0-21/proposed/controllers_init.py",
+      "sha256": "0f8e8904c54459108cdd0f49a42a4bae19de57a08ade39ad33fad5b22825ef41"
+    }
+  },
+  "new_model": "ydental.settlement.bill.original",
+  "ordinary_model_ACL": "none/default deny; controlled service only",
+  "attachment_policy": "immutable private native attachment; raw/RPC/native binary tokens denied; controlled live settlement read/export write retrieval only",
+  "existing_current_pdf_service": "unchanged"
+}

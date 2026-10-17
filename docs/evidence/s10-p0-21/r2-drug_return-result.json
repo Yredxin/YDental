@@ -1,0 +1,23 @@
+{
+  "DSNs_observed": [
+    "ydental_s10_test_20261017050000_21b0cafe"
+  ],
+  "SIGSEGV": false,
+  "action": "drug_return",
+  "argv": [
+    "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+    "/home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s10_p0_21_native.py",
+    "drug_return"
+  ],
+  "backend_creations": [
+    1421690
+  ],
+  "exit_code": 0,
+  "log_bytes": 9068,
+  "log_sha256": "4beb6cea0e895040bed9cfac24e0f52182fb8a4288c7919df62702112ff7f224",
+  "native_cumulative": 1,
+  "observed_pool_max": 1,
+  "per_PID_DSN": "UNKNOWN if not in creation log",
+  "pid": 809054,
+  "round": 2
+}

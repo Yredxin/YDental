@@ -1,0 +1,64 @@
+{
+  "changes": [
+    {
+      "after_count": 1,
+      "after_sha256": "055755ac452a78054c870c10112d93d20454d19fe7dfdc3584890af0c17234a0",
+      "before_count": 0,
+      "before_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "columns": [
+        "__physical_oid__",
+        "__physical_table__",
+        "date",
+        "id"
+      ],
+      "duplicate_ID_preserved": false,
+      "economic": false,
+      "physical_key": [
+        "public",
+        "orm_signaling_default",
+        11
+      ],
+      "table": "orm_signaling_default"
+    },
+    {
+      "after_count": 1,
+      "after_sha256": "3ee45e2ee7607854eac86d73a37f65488173aebae2ce595f1d56b7f2f7d65899",
+      "before_count": 0,
+      "before_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "columns": [
+        "__physical_oid__",
+        "__physical_table__",
+        "date",
+        "id"
+      ],
+      "duplicate_ID_preserved": false,
+      "economic": false,
+      "physical_key": [
+        "public",
+        "orm_signaling_stable",
+        11
+      ],
+      "table": "orm_signaling_stable"
+    },
+    {
+      "after_count": 1,
+      "after_sha256": "6702ce7c13b038997ae32e1610fa53b6273d0599a55d7740e4e94560bde3235f",
+      "before_count": 1,
+      "before_sha256": "e6e633795a799a73cf0ea4416a45faff8b4926e069cbffe179d65e04a03f334a",
+      "columns": [
+        "customer_rank",
+        "write_date"
+      ],
+      "duplicate_ID_preserved": false,
+      "economic": false,
+      "physical_key": [
+        "public",
+        "res_partner",
+        25
+      ],
+      "table": "res_partner"
+    }
+  ],
+  "full_values_saved_before_gate": true,
+  "schema_changed": false
+}

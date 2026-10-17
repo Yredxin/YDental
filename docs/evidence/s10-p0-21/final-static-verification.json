@@ -1,0 +1,25 @@
+{
+  "exit_code": 0,
+  "new_python_files_compiled": 28,
+  "product_python_files_compiled": 6,
+  "QWeb_XML_parse": true,
+  "round2_frozen_file_SHA_all_exact": true,
+  "old_dependency_files_all_original_SHA": true,
+  "JSON_parsed": 291,
+  "runtime_tests_not_repeated": true,
+  "no_undefined_execution": true,
+  "known_stale_500_data_contract": "STATIC_BLOCKED_NOT_REPAIRED",
+  "no_third_fix_round": true,
+  "verification_command_attempts": [
+    {
+      "interpreter": "system python3",
+      "exit_code": 1,
+      "cause": "ModuleNotFoundError lxml; offline command only; no artifact or business action"
+    },
+    {
+      "interpreter": "existing ../.venv/bin/python",
+      "exit_code": 0
+    }
+  ],
+  "git_diff_check_exit_code": 0
+}

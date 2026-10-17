@@ -1,0 +1,45 @@
+{
+  "actual_bytes_only_no_new_business_render": true,
+  "PDFs": [
+    {
+      "name": "bill-f2.pdf",
+      "sha256": "0c15412c36b8c39ee07cdbd603ec9a00f6b5ea3a7fe3d4f0f8baddb597f1aacf",
+      "bytes": 27665,
+      "pages": [
+        {
+          "page": 1,
+          "image": "bill-f2-1.png",
+          "text": "内部结算账单\n演⽰线下业务凭据；⾮税务发票、⾮银⾏或⽀付平台到账证明\n法⼈：My Company ⻔店：P021-B Synthetic dbdb1b8df710c602cefdb455\n患者编号：P00000001 经办⼈：P021-B Synthetic manager\n原⽣单号：INV/2026/00001 ⻔店业务⽇：2026-10-17\n费⽤来源\n项⽬\n原价格版本\n⾦额\n1\nP021-B Cleaning\nS05:1\n600.0\n2\nP021-B Panorama\nS05:2\n80.0\n3\nP021-B Take-away synthetic medicine\nS05:3\n40.0\n4\nP021-B Take-away synthetic medicine\nS05:3\n20.0\n明确折扣：0.0 账单总额：740.0 USD\n原⽣实收核销：740.0 当前应收余额：0.0\n此为隔离合成数据库中的演⽰初版，不代表正式税务开票或纸张出纸。\n"
+        }
+      ],
+      "visual_review": "Codex viewed every actual rendered page: Chinese labels, source rows, company/store, amounts/status, no overlap or clipping"
+    },
+    {
+      "name": "receipt-f2.pdf",
+      "sha256": "2d81089eeb8484b2ced6e88e6c5ff401cf2140ff5eb3e5ccc83a94646ff5735b",
+      "bytes": 28273,
+      "pages": [
+        {
+          "page": 1,
+          "image": "receipt-f2-1.png",
+          "text": "实际线下收款⼩票\n演⽰线下业务凭据；⾮税务发票、⾮银⾏或⽀付平台到账证明\n法⼈：My Company ⻔店：P021-B Synthetic dbdb1b8df710c602cefdb455\n患者编号：P00000001 经办⼈：P021-B Synthetic manager\n原⽣单号：PF21/2026/00001 ⻔店业务⽇：2026-10-17\n实际发⽣ UTC：2026-10-17 04:28:13.929529 录⼊ UTC：2026-10-17 04:28:14\n线下登记⽅式：wechat；⽆⽀付接⼝⾃动到账。\n已选原账单\n本次原⽣核销\nINV/2026/00001\n350.0\n本次实际收款：350.0 USD\n已实际退款：100.0 批准或核查在途：0.0\n净实际收款：250.0 已选账单⽬前应收：0.0\n此为隔离合成数据库中的演⽰初版，不代表正式税务开票或纸张出纸。\n"
+        }
+      ],
+      "visual_review": "Codex viewed every actual rendered page: Chinese labels, source rows, company/store, amounts/status, no overlap or clipping"
+    },
+    {
+      "name": "refund-f2.pdf",
+      "sha256": "7d45d1c0c3875c9dbd885732dcc67c65efaea29a215cffb3c018d1fb2fee8349",
+      "bytes": 26480,
+      "pages": [
+        {
+          "page": 1,
+          "image": "refund-f2-1.png",
+          "text": "退款申请与实际退款凭据\n演⽰线下业务凭据；⾮税务发票、⾮银⾏或⽀付平台到账证明\n法⼈：My Company ⻔店：P021-B Synthetic dbdb1b8df710c602cefdb455\n患者编号：P00000001 经办⼈：P021-B Synthetic manager\n原⽣单号：1 ⻔店业务⽇：2026-10-17\n状态：done 原申请额：100.0 USD\n批准∕核查在途：0 已实际退款：100.0\n实际退款 UTC：2026-10-17 04:46:07.219957 原⽣付款号：PF21/2026/00003\n实际退款业务⽇：2026-10-17 原⽣⽇记账渠道：wechat\n原因：Synthetic actual return\n此为隔离合成数据库中的演⽰初版，不代表正式税务开票或纸张出纸。\n"
+        }
+      ],
+      "visual_review": "Codex viewed every actual rendered page: Chinese labels, source rows, company/store, amounts/status, no overlap or clipping"
+    }
+  ],
+  "production_currency_tax_or_paper_not_claimed": true
+}

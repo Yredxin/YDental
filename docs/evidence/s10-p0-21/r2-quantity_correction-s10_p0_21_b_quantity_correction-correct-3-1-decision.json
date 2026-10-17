@@ -1,0 +1,9 @@
+{
+  "PASS": true,
+  "detail": {
+    "business_PASS": false,
+    "business_assertions": "pending scenario result/native accounting invariants before commit",
+    "expected_economic_action_delta_saved": true
+  },
+  "full_evidence_before_assertion": true
+}

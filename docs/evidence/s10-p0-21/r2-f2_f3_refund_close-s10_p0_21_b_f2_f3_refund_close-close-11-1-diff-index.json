@@ -1,0 +1,123 @@
+{
+  "changes": [
+    {
+      "after_count": 1,
+      "after_sha256": "cd0c32cd5e0c92be3c5d2aed0ef10661bffde7c2679e2983385fac47beaf41bb",
+      "before_count": 0,
+      "before_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "columns": [
+        "__physical_oid__",
+        "__physical_table__",
+        "create_date",
+        "create_uid",
+        "id",
+        "write_date",
+        "write_uid",
+        "ydental_after",
+        "ydental_before",
+        "ydental_category",
+        "ydental_event",
+        "ydental_reason",
+        "ydental_result",
+        "ydental_source",
+        "ydental_store_id",
+        "ydental_target_id",
+        "ydental_target_model",
+        "ydental_user_id"
+      ],
+      "duplicate_ID_preserved": false,
+      "economic": false,
+      "physical_key": [
+        "public",
+        "ydental_access_audit",
+        502
+      ],
+      "table": "ydental_access_audit"
+    },
+    {
+      "after_count": 1,
+      "after_sha256": "862a8b97e59af8a2c7f653ec9318b3eb663a3ae960bdff8ab4c01f73fffca1a2",
+      "before_count": 0,
+      "before_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "columns": [
+        "__physical_oid__",
+        "__physical_table__",
+        "create_date",
+        "create_uid",
+        "id",
+        "write_date",
+        "write_uid",
+        "ydental_business_date",
+        "ydental_cashier_id",
+        "ydental_channel",
+        "ydental_confirmed_at",
+        "ydental_currency_id",
+        "ydental_cycle",
+        "ydental_gross",
+        "ydental_pending",
+        "ydental_refunded",
+        "ydental_state",
+        "ydental_store_id",
+        "ydental_unlock_reason",
+        "ydental_unlocked_at",
+        "ydental_unlocked_by_id"
+      ],
+      "duplicate_ID_preserved": false,
+      "economic": true,
+      "physical_key": [
+        "public",
+        "ydental_settlement_close",
+        1
+      ],
+      "table": "ydental_settlement_close"
+    },
+    {
+      "after_count": 1,
+      "after_sha256": "356e018cc0a99b458ee2ee6fd1cfff21484033bf3eb9f3473dd4658a33c34f6d",
+      "before_count": 1,
+      "before_sha256": "3d243152391fd2030e9d31472ef18e2932ed0646d0f490fa3d99b8a0cecd3ca6",
+      "columns": [
+        "ydental_revision"
+      ],
+      "duplicate_ID_preserved": false,
+      "economic": false,
+      "physical_key": [
+        "public",
+        "ydental_settlement_mutex",
+        1
+      ],
+      "table": "ydental_settlement_mutex"
+    },
+    {
+      "after_count": 1,
+      "after_sha256": "fb05ea1d518c16ad30246bceaaa17a3a111b30cab9461172dee17aaa7b7dca9f",
+      "before_count": 0,
+      "before_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "columns": [
+        "__physical_oid__",
+        "__physical_table__",
+        "create_date",
+        "create_uid",
+        "id",
+        "write_date",
+        "write_uid",
+        "ydental_actor_id",
+        "ydental_fingerprint",
+        "ydental_key",
+        "ydental_operation",
+        "ydental_result",
+        "ydental_store_id"
+      ],
+      "duplicate_ID_preserved": false,
+      "economic": false,
+      "physical_key": [
+        "public",
+        "ydental_settlement_receipt",
+        22
+      ],
+      "table": "ydental_settlement_receipt"
+    }
+  ],
+  "full_values_saved_before_gate": true,
+  "schema_changed": false
+}

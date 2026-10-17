@@ -1,0 +1,11 @@
+{
+  "acquire_rolled_back": true,
+  "chain_payments": 2,
+  "document_state": "pending",
+  "editor_id": null,
+  "frozen_failed_doc_gate_not_modified": true,
+  "invoice_residual": "0.00",
+  "native_payments": 2,
+  "originals": 1,
+  "version": 2
+}

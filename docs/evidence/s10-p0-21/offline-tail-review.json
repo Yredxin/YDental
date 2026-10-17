@@ -1,0 +1,388 @@
+{
+  "S10_stage": "BLOCKED",
+  "Web_audits": [
+    {
+      "id": 1149,
+      "ydental_event": "login",
+      "ydental_target_id": 15,
+      "ydental_target_model": "res.users",
+      "ydental_user_id": 15
+    },
+    {
+      "id": 1150,
+      "ydental_event": "login.scope",
+      "ydental_target_id": 105,
+      "ydental_target_model": "ydental.access.session",
+      "ydental_user_id": 15
+    },
+    {
+      "id": 1151,
+      "ydental_event": "store.switch",
+      "ydental_target_id": 105,
+      "ydental_target_model": "ydental.access.session",
+      "ydental_user_id": 15
+    },
+    {
+      "id": 1152,
+      "ydental_event": "settlement.invoice_view",
+      "ydental_target_id": 5,
+      "ydental_target_model": "account.move",
+      "ydental_user_id": 15
+    },
+    {
+      "id": 1153,
+      "ydental_event": "settlement.invoice_view",
+      "ydental_target_id": 6,
+      "ydental_target_model": "account.move",
+      "ydental_user_id": 15
+    },
+    {
+      "id": 1154,
+      "ydental_event": "settlement.invoice_view",
+      "ydental_target_id": 8,
+      "ydental_target_model": "account.move",
+      "ydental_user_id": 15
+    },
+    {
+      "id": 1155,
+      "ydental_event": "settlement.invoice_view",
+      "ydental_target_id": 9,
+      "ydental_target_model": "account.move",
+      "ydental_user_id": 15
+    },
+    {
+      "id": 1156,
+      "ydental_event": "settlement.invoice_view",
+      "ydental_target_id": 4,
+      "ydental_target_model": "account.move",
+      "ydental_user_id": 15
+    },
+    {
+      "id": 1157,
+      "ydental_event": "settlement.invoice_view",
+      "ydental_target_id": 7,
+      "ydental_target_model": "account.move",
+      "ydental_user_id": 15
+    },
+    {
+      "id": 1158,
+      "ydental_event": "settlement.pay",
+      "ydental_target_id": 9,
+      "ydental_target_model": "ydental.settlement.payment",
+      "ydental_user_id": 15
+    },
+    {
+      "id": 1159,
+      "ydental_event": "settlement.invoice_view",
+      "ydental_target_id": 5,
+      "ydental_target_model": "account.move",
+      "ydental_user_id": 15
+    },
+    {
+      "id": 1160,
+      "ydental_event": "settlement.invoice_view",
+      "ydental_target_id": 6,
+      "ydental_target_model": "account.move",
+      "ydental_user_id": 15
+    },
+    {
+      "id": 1161,
+      "ydental_event": "settlement.invoice_view",
+      "ydental_target_id": 8,
+      "ydental_target_model": "account.move",
+      "ydental_user_id": 15
+    },
+    {
+      "id": 1162,
+      "ydental_event": "settlement.invoice_view",
+      "ydental_target_id": 9,
+      "ydental_target_model": "account.move",
+      "ydental_user_id": 15
+    },
+    {
+      "id": 1163,
+      "ydental_event": "settlement.invoice_view",
+      "ydental_target_id": 4,
+      "ydental_target_model": "account.move",
+      "ydental_user_id": 15
+    },
+    {
+      "id": 1164,
+      "ydental_event": "settlement.invoice_view",
+      "ydental_target_id": 7,
+      "ydental_target_model": "account.move",
+      "ydental_user_id": 15
+    },
+    {
+      "id": 1165,
+      "ydental_event": "login",
+      "ydental_target_id": 5,
+      "ydental_target_model": "res.users",
+      "ydental_user_id": 5
+    },
+    {
+      "id": 1166,
+      "ydental_event": "login.scope",
+      "ydental_target_id": 106,
+      "ydental_target_model": "ydental.access.session",
+      "ydental_user_id": 5
+    },
+    {
+      "id": 1167,
+      "ydental_event": "store.switch",
+      "ydental_target_id": 106,
+      "ydental_target_model": "ydental.access.session",
+      "ydental_user_id": 5
+    },
+    {
+      "id": 1168,
+      "ydental_event": "settlement.invoice_view",
+      "ydental_target_id": 1,
+      "ydental_target_model": "account.move",
+      "ydental_user_id": 5
+    },
+    {
+      "id": 1169,
+      "ydental_event": "settlement.report_download",
+      "ydental_target_id": 1,
+      "ydental_target_model": "account.move",
+      "ydental_user_id": 5
+    },
+    {
+      "id": 1170,
+      "ydental_event": "settlement.bill_original_store",
+      "ydental_target_id": 1,
+      "ydental_target_model": "account.move",
+      "ydental_user_id": 5
+    },
+    {
+      "id": 1171,
+      "ydental_event": "settlement.invoice_view",
+      "ydental_target_id": 1,
+      "ydental_target_model": "account.move",
+      "ydental_user_id": 5
+    },
+    {
+      "id": 1172,
+      "ydental_event": "settlement.bill_original_download",
+      "ydental_target_id": 1,
+      "ydental_target_model": "account.move",
+      "ydental_user_id": 5
+    }
+  ],
+  "Web_delta_tables": {
+    "account_move": 2,
+    "account_move_line": 3,
+    "account_partial_reconcile": 1,
+    "account_payment": 1,
+    "hr_employee": 2,
+    "hr_version": 2,
+    "ir_attachment": 8,
+    "mail_followers": 2,
+    "mail_followers_mail_message_subtype_rel": 2,
+    "mail_message": 7,
+    "orm_signaling_default": 2,
+    "res_device_log": 2,
+    "res_partner": 3,
+    "res_users": 2,
+    "res_users_log": 2,
+    "resource_resource": 2,
+    "ydental_access_audit": 24,
+    "ydental_access_session": 2,
+    "ydental_settlement_bill_original": 1,
+    "ydental_settlement_mutex": 1,
+    "ydental_settlement_payment": 1,
+    "ydental_settlement_payment_invoice_rel": 1,
+    "ydental_settlement_receipt": 1
+  },
+  "Web_overall": "BLOCKED",
+  "checks": [
+    {
+      "PASS": true,
+      "label": "exactly_one_Web_payment"
+    },
+    {
+      "PASS": true,
+      "label": "ordinary_frontdesk_3_alipay_same_patient_store"
+    },
+    {
+      "PASS": true,
+      "label": "Web_native_payment_posted_3"
+    },
+    {
+      "PASS": true,
+      "label": "Web_native_double_entry_balanced"
+    },
+    {
+      "PASS": true,
+      "label": "only_selected_invoice_200_to_197"
+    },
+    {
+      "PASS": true,
+      "label": "exact_Web_partial_3_for_selected_invoice"
+    },
+    {
+      "PASS": true,
+      "label": "all_other_existing_invoices_exact"
+    },
+    {
+      "PASS": true,
+      "label": "all_stored_clinical_source_price_stock_refund_close_rows_exact_across_Web"
+    },
+    {
+      "PASS": true,
+      "label": "existing_groups_memberships_companies_and_permissions_exact_across_Web"
+    },
+    {
+      "PASS": true,
+      "label": "two_linked_originals_for_same_invoice_patient_store"
+    },
+    {
+      "PASS": true,
+      "label": "old_original_record_exact"
+    },
+    {
+      "PASS": true,
+      "label": "original_1_private_attachment_checksum"
+    },
+    {
+      "PASS": true,
+      "label": "original_2_private_attachment_checksum"
+    },
+    {
+      "PASS": true,
+      "label": "old_attachment_record_exact"
+    },
+    {
+      "PASS": true,
+      "label": "actual_UI_download_same_saved_original_SHA"
+    },
+    {
+      "PASS": true,
+      "label": "final_posted_move_1_balanced"
+    },
+    {
+      "PASS": true,
+      "label": "final_posted_move_2_balanced"
+    },
+    {
+      "PASS": true,
+      "label": "final_posted_move_3_balanced"
+    },
+    {
+      "PASS": true,
+      "label": "final_posted_move_4_balanced"
+    },
+    {
+      "PASS": true,
+      "label": "final_posted_move_5_balanced"
+    },
+    {
+      "PASS": true,
+      "label": "final_posted_move_6_balanced"
+    },
+    {
+      "PASS": true,
+      "label": "final_posted_move_7_balanced"
+    },
+    {
+      "PASS": true,
+      "label": "final_posted_move_8_balanced"
+    },
+    {
+      "PASS": true,
+      "label": "final_posted_move_9_balanced"
+    },
+    {
+      "PASS": true,
+      "label": "final_posted_move_10_balanced"
+    },
+    {
+      "PASS": true,
+      "label": "final_posted_move_11_balanced"
+    },
+    {
+      "PASS": true,
+      "label": "final_posted_move_12_balanced"
+    },
+    {
+      "PASS": true,
+      "label": "final_posted_move_13_balanced"
+    },
+    {
+      "PASS": true,
+      "label": "final_posted_move_14_balanced"
+    },
+    {
+      "PASS": true,
+      "label": "final_posted_move_15_balanced"
+    },
+    {
+      "PASS": true,
+      "label": "final_posted_move_16_balanced"
+    },
+    {
+      "PASS": true,
+      "label": "final_posted_move_17_balanced"
+    },
+    {
+      "PASS": true,
+      "label": "final_posted_move_18_balanced"
+    },
+    {
+      "PASS": true,
+      "label": "final_posted_move_19_balanced"
+    },
+    {
+      "PASS": true,
+      "label": "final_posted_move_20_balanced"
+    },
+    {
+      "PASS": true,
+      "label": "final_posted_move_21_balanced"
+    },
+    {
+      "PASS": true,
+      "label": "final_posted_move_22_balanced"
+    },
+    {
+      "PASS": true,
+      "label": "final_posted_move_23_balanced"
+    },
+    {
+      "PASS": true,
+      "label": "final_posted_move_24_balanced"
+    },
+    {
+      "PASS": true,
+      "label": "final_posted_move_25_balanced"
+    },
+    {
+      "PASS": true,
+      "label": "final_posted_move_26_balanced"
+    }
+  ],
+  "document_completion": "NOT_RUN_AFTER_ACQUIRE_GATE_FAIL",
+  "no_runtime_contract_repair_or_retry": true,
+  "offline_only": true,
+  "original_files": [
+    {
+      "attachment_id": 161,
+      "bytes": 27665,
+      "original_id": 1,
+      "sha256": "05928780e7d97a06cf29019634f64b010eb4994c2f1c5032d561008a50b059b4",
+      "version": 1
+    },
+    {
+      "attachment_id": 630,
+      "bytes": 27961,
+      "original_id": 2,
+      "sha256": "95e29684404fee7d17c4a9c0b561df6f820e95dae937b1075fbcf8a042cc9499",
+      "version": 2
+    }
+  ],
+  "positive_UI_scope": "actual pay3, explicit v2 original generation, saved v1 link click/SHA only",
+  "post_document_change_original_retake": "NOT_RUN",
+  "thumbnail_response_body": "UNKNOWN_NOT_CAPTURED",
+  "upgrade": "NOT_RUN_AFTER_WEB_FAIL"
+}

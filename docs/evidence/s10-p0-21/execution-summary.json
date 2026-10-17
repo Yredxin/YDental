@@ -1,0 +1,50 @@
+{
+  "parent": "7a4bdb93cb4a2d625f01df7eb0ac41d76c5e0e46",
+  "product": "be1d12a2d21771ca411ca8bdd510437980b68ef3",
+  "initial_test": "bb495b51cf55cd47cd98c06fe6733da4d2fcb1af",
+  "R1_test": "5853a75d6176cf4370c7bc463a6274be26282836",
+  "R2_test": "425ba30455acbd5634fabba863d1bd1c175bfcb1",
+  "execution_HEAD": "39880be1ae4dda46c16815ce3ca7b0ee9803c33e",
+  "offline_seal_scripts": "07e9fb00fbcddffb7c3dd43ff8b9ec76c28b9175",
+  "core_readonly": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "evidence_commit": "fixed by final GitHub delivery; no self-referential SHA",
+  "overall": "S10_TECHNICAL_EXIT_BLOCKED",
+  "actual_runtime_actions_stopped": true,
+  "no_business_after_Web_failure": true,
+  "complete_exit_rows": 22,
+  "main_failure_decisions": [
+    "chain-committed-decision.json",
+    "document-acquire-decision.json",
+    "audit-integrity-static-blocked.json",
+    "Web-result.json"
+  ],
+  "P020_UNKNOWN": "permanent; no retrospective inference",
+  "unrun": [
+    "audit_integrity native scenario",
+    "document confirm/correct/release",
+    "original retake after legal same-source document/master/template change",
+    "S10-only upgrade and before/after native audit processes",
+    "new original cross-company/mixed-source/patient-family negative matrix beyond executed wrong-store and role/service cases",
+    "actual thumbnail response body validation",
+    "new HTTP lost-response financial recovery test",
+    "new concurrent transaction tests"
+  ],
+  "no_replay": [
+    "old500+240",
+    "refund14",
+    "close9",
+    "old permission tests",
+    "refund13 pagination",
+    "old document confirmation",
+    "P020 A"
+  ],
+  "forbidden_zero": [
+    "old business DB connections",
+    "executor sudo",
+    "outside-scope source changes",
+    "OS/PG/Docker/firewall/IPv6 special operations",
+    "Issue/Project mutations",
+    "merge/deploy",
+    "P022/S11"
+  ]
+}

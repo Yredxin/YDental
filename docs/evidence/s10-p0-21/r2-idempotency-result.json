@@ -1,0 +1,24 @@
+{
+  "DSNs_observed": [
+    "ydental_s10_test_20261017050000_21b0cafe"
+  ],
+  "SIGSEGV": false,
+  "action": "idempotency",
+  "argv": [
+    "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+    "/home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s10_p0_21_native.py",
+    "idempotency"
+  ],
+  "backend_creations": [
+    1422264,
+    1422335
+  ],
+  "exit_code": 0,
+  "log_bytes": 10078,
+  "log_sha256": "6cff6fa19295abd977cfe9b92af08b5f618ddf36480d86b15a4bac346df2a247",
+  "native_cumulative": 2,
+  "observed_pool_max": 2,
+  "per_PID_DSN": "UNKNOWN if not in creation log",
+  "pid": 810648,
+  "round": 2
+}

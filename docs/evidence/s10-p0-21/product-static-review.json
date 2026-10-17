@@ -1,0 +1,15 @@
+{
+  "python_symbols_and_compile": true,
+  "QWeb_XML_parse": true,
+  "review_scope": [
+    "ydental_settlement/models/ydental_settlement_bill_original.py",
+    "ydental_settlement/models/ydental_settlement_original_service.py",
+    "ydental_settlement/models/ir_attachment_original.py",
+    "ydental_settlement/controllers/bill_original.py"
+  ],
+  "sudo_judgment": "fixed original model/source authorized first; fixed template read; server PDF bytes linked to one validated source; native attachment metadata inspection only; no generic auth fallback",
+  "RPC_native_binary": "new model default deny, immutable initializer object token; native binary deny before limited tokens; protected attachment read/native access denied via existing parent guard",
+  "route": "auth user, create POST CSRF + revision, retrieval GET SHA without rendering; unchanged dynamic current report",
+  "no_old_ACL_loosened": true,
+  "status": "STATIC_REVIEW_ONLY; native enforcement still to execute"
+}

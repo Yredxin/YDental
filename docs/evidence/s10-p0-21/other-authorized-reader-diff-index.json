@@ -1,0 +1,40 @@
+{
+  "changes": [
+    {
+      "after_count": 1,
+      "after_sha256": "bb9c69a7e293f9900724f1565ec4f6098e57460aa7283d62580fe0e39e93f987",
+      "before_count": 0,
+      "before_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "columns": [
+        "__physical_oid__",
+        "__physical_table__",
+        "create_date",
+        "create_uid",
+        "id",
+        "write_date",
+        "write_uid",
+        "ydental_after",
+        "ydental_before",
+        "ydental_category",
+        "ydental_event",
+        "ydental_reason",
+        "ydental_result",
+        "ydental_source",
+        "ydental_store_id",
+        "ydental_target_id",
+        "ydental_target_model",
+        "ydental_user_id"
+      ],
+      "duplicate_ID_preserved": false,
+      "economic": false,
+      "physical_key": [
+        "public",
+        "ydental_access_audit",
+        1136
+      ],
+      "table": "ydental_access_audit"
+    }
+  ],
+  "full_values_saved_before_gate": true,
+  "schema_changed": false
+}

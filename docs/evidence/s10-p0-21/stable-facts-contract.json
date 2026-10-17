@@ -1,0 +1,13 @@
+{
+  "commit": "owned cursor, prior full snapshot and pending marker private only, commit intent/returned/unknown durable; independent new RO/RR exact row verification before success marker",
+  "display": "explicit id/display_name and selected Many2one tuple only; independent before/after full values and diff, never gate economics",
+  "document_actions": "acquire/confirm/correct/release/PDF/original generation/retake separate flushed snapshots, full private diff before assertions",
+  "economic_storage": "all actual catalog columns in account/stock/inventory/treatment/settlement source-payment-refund-close-correction-trade and price snapshot/price, all relationship rows; stored computed totals/residual retained",
+  "numeric": "PostgreSQL exact JSON numeric parsed Decimal; no epsilon/rounding-away",
+  "old_root_cause": "P020 missing transient fields permanently UNKNOWN",
+  "physical_key": [
+    "schema",
+    "actual tableoid/regclass",
+    "id or full relationship tuple"
+  ]
+}

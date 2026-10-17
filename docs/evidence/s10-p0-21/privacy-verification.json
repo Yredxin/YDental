@@ -1,0 +1,9 @@
+{
+  "exit_code": 0,
+  "contextual_DB_credential_and_session_value_hits": [],
+  "PDFs_and_screenshots": "synthetic only, every published page/image actually viewed",
+  "private_full_values_not_in_Git": true,
+  "initial_naive_substring_scan_exit_code": 1,
+  "initial_scan_false_positive_files": 27,
+  "false_positive_explanation": "Generic substring matches application/module filenames and paths; context-sensitive key/DSN scan used, actual secret never printed."
+}

@@ -1,0 +1,208 @@
+{
+  "all_tables_captured": 645,
+  "chain": {
+    "document_id": 1,
+    "drug_event_ids": [
+      3,
+      4
+    ],
+    "drug_move_ids": [
+      4,
+      5
+    ],
+    "execution_id": 1,
+    "fee_ids": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "invoice_id": 1,
+    "patient_id": 1,
+    "store_id": 1
+  },
+  "checkpoints": {
+    "chain-recovered-committed-checkpoint.json": {
+      "commit_returned_already_recorded": true,
+      "marker_published_only_now": true,
+      "native_postcommit_rank_explained": [
+        {
+          "actor_uid": 5,
+          "captured_before_commit": false,
+          "delta": 2,
+          "field": "customer_rank",
+          "partner_id": 15,
+          "scope": "P021 captured before/after rows and exact native source; no inference about missing P020 fields",
+          "source": "two actual posted customer payment entries; fixed account_move.py6370-6386 + partner.py883-917"
+        }
+      ],
+      "new_independent_RO_RR_exact": true,
+      "no_economic_replay": true,
+      "original_failed_decision_preserved": true
+    },
+    "configuration-committed-checkpoint.json": {
+      "commit_returned": true,
+      "database": "ydental_s10_test_20261017050000_21b0cafe",
+      "economic_storage_exact": true,
+      "independent_RO_RR_verified": true,
+      "markers_published": [],
+      "oid": 2122140
+    },
+    "original-first-committed-checkpoint.json": {
+      "commit_returned": true,
+      "database": "ydental_s10_test_20261017050000_21b0cafe",
+      "economic_storage_exact": true,
+      "independent_RO_RR_verified": true,
+      "markers_published": [
+        "original.json"
+      ],
+      "oid": 2122140
+    },
+    "original-security-committed-checkpoint.json": {
+      "commit_returned": true,
+      "database": "ydental_s10_test_20261017050000_21b0cafe",
+      "economic_storage_exact": true,
+      "independent_RO_RR_verified": true,
+      "markers_published": [],
+      "oid": 2122140
+    },
+    "scenario-discount_waive-committed-checkpoint.json": {
+      "commit_returned": true,
+      "database": "ydental_s10_test_20261017050000_21b0cafe",
+      "economic_storage_exact": true,
+      "independent_RO_RR_verified": true,
+      "markers_published": [],
+      "oid": 2122140
+    },
+    "scenario-drug_return-committed-checkpoint.json": {
+      "commit_returned": true,
+      "database": "ydental_s10_test_20261017050000_21b0cafe",
+      "economic_storage_exact": true,
+      "independent_RO_RR_verified": true,
+      "markers_published": [],
+      "oid": 2122140
+    },
+    "scenario-f2_f3_refund_close-committed-checkpoint.json": {
+      "commit_returned": true,
+      "database": "ydental_s10_test_20261017050000_21b0cafe",
+      "economic_storage_exact": true,
+      "independent_RO_RR_verified": true,
+      "markers_published": [],
+      "oid": 2122140
+    },
+    "scenario-f5_270_200-committed-checkpoint.json": {
+      "commit_returned": true,
+      "database": "ydental_s10_test_20261017050000_21b0cafe",
+      "economic_storage_exact": true,
+      "independent_RO_RR_verified": true,
+      "markers_published": [
+        "b-multi.json"
+      ],
+      "oid": 2122140
+    },
+    "scenario-idempotency-committed-checkpoint.json": {
+      "commit_returned": true,
+      "database": "ydental_s10_test_20261017050000_21b0cafe",
+      "economic_storage_exact": true,
+      "independent_RO_RR_verified": true,
+      "markers_published": [],
+      "oid": 2122140
+    },
+    "scenario-late_close-committed-checkpoint.json": {
+      "commit_returned": true,
+      "database": "ydental_s10_test_20261017050000_21b0cafe",
+      "economic_storage_exact": true,
+      "independent_RO_RR_verified": true,
+      "markers_published": [],
+      "oid": 2122140
+    },
+    "scenario-quantity_correction-committed-checkpoint.json": {
+      "commit_returned": true,
+      "database": "ydental_s10_test_20261017050000_21b0cafe",
+      "economic_storage_exact": true,
+      "independent_RO_RR_verified": true,
+      "markers_published": [],
+      "oid": 2122140
+    },
+    "scenario-same_company_transfer-committed-checkpoint.json": {
+      "commit_returned": true,
+      "database": "ydental_s10_test_20261017050000_21b0cafe",
+      "economic_storage_exact": true,
+      "independent_RO_RR_verified": true,
+      "markers_published": [],
+      "oid": 2122140
+    },
+    "scenario-security_matrix-committed-checkpoint.json": {
+      "commit_returned": true,
+      "database": "ydental_s10_test_20261017050000_21b0cafe",
+      "economic_storage_exact": true,
+      "independent_RO_RR_verified": true,
+      "markers_published": [],
+      "oid": 2122140
+    },
+    "scenario-t09_trade-committed-checkpoint.json": {
+      "commit_returned": true,
+      "database": "ydental_s10_test_20261017050000_21b0cafe",
+      "economic_storage_exact": true,
+      "independent_RO_RR_verified": true,
+      "markers_published": [
+        "trade.json"
+      ],
+      "oid": 2122140
+    }
+  },
+  "cluster": "7694897083368259627",
+  "database": "ydental_s10_test_20261017050000_21b0cafe",
+  "document_completion": "NOT_RUN_AFTER_ACQUIRE_GATE_FAIL",
+  "general_audit_integrity_scenario": "STATIC_BLOCKED_NOT_RUN",
+  "invoice": {
+    "amount_residual": "0.00",
+    "amount_total": "740.00",
+    "company_id": 1,
+    "currency_id": 1,
+    "id": 1,
+    "move_type": "out_invoice",
+    "partner_id": 15,
+    "payment_state": "paid",
+    "state": "posted"
+  },
+  "multi_patient_id": 2,
+  "no_cross_patient_chain_stitching": true,
+  "not_an_independent_GPT_ruling": true,
+  "oid": 2122140,
+  "originals": [
+    {
+      "actor_id": 5,
+      "attachment_id": 161,
+      "company_id": 1,
+      "id": 1,
+      "invoice_id": 1,
+      "patient_id": 1,
+      "pdf_sha256": "05928780e7d97a06cf29019634f64b010eb4994c2f1c5032d561008a50b059b4",
+      "previous_id": null,
+      "source_sha256": "5ec50860ac3a030759b0aed5cf196eb837bb57b8cdddd801d6719696e3457d10",
+      "store_id": 1,
+      "template_sha256": "0e8db559f2c2f5e7a94596b13be4e49a004c132d9008c28e98ed5548ef573693",
+      "version": 1
+    },
+    {
+      "actor_id": 5,
+      "attachment_id": 630,
+      "company_id": 1,
+      "id": 2,
+      "invoice_id": 1,
+      "patient_id": 1,
+      "pdf_sha256": "95e29684404fee7d17c4a9c0b561df6f820e95dae937b1075fbcf8a042cc9499",
+      "previous_id": 1,
+      "source_sha256": "5ec50860ac3a030759b0aed5cf196eb837bb57b8cdddd801d6719696e3457d10",
+      "store_id": 1,
+      "template_sha256": "0e8db559f2c2f5e7a94596b13be4e49a004c132d9008c28e98ed5548ef573693",
+      "version": 2
+    }
+  ],
+  "overall": "S10_TECHNICAL_EXIT_BLOCKED",
+  "payment_amounts": [
+    "350.00",
+    "390.00"
+  ]
+}

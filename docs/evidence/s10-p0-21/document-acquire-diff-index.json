@@ -1,0 +1,98 @@
+{
+  "changes": [
+    {
+      "after_count": 1,
+      "after_sha256": "e9d1ba8ea306dae22745026bd0a59a19d4b68db36d76fd29b869056475c4afc2",
+      "before_count": 0,
+      "before_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "columns": [
+        "__physical_oid__",
+        "__physical_table__",
+        "create_date",
+        "create_uid",
+        "id",
+        "write_date",
+        "write_uid",
+        "ydental_after",
+        "ydental_before",
+        "ydental_category",
+        "ydental_event",
+        "ydental_reason",
+        "ydental_result",
+        "ydental_source",
+        "ydental_store_id",
+        "ydental_target_id",
+        "ydental_target_model",
+        "ydental_user_id"
+      ],
+      "duplicate_ID_preserved": false,
+      "economic": false,
+      "physical_key": [
+        "public",
+        "ydental_access_audit",
+        236
+      ],
+      "table": "ydental_access_audit"
+    },
+    {
+      "after_count": 1,
+      "after_sha256": "16c5af72e1bd92ac17d92b84f891233d412775995b2d869a6b8c1068b160dafd",
+      "before_count": 1,
+      "before_sha256": "a15b1c17f39720f227c20bc2b33fe2aaeabd02fa05fcb8fceab1531141eec094",
+      "columns": [
+        "write_date",
+        "write_uid",
+        "ydental_connection_hash",
+        "ydental_editor_expires",
+        "ydental_editor_hash",
+        "ydental_editor_id",
+        "ydental_session_id",
+        "ydental_session_revision"
+      ],
+      "duplicate_ID_preserved": false,
+      "economic": false,
+      "physical_key": [
+        "public",
+        "ydental_clinical_document",
+        1
+      ],
+      "table": "ydental_clinical_document"
+    },
+    {
+      "after_count": 1,
+      "after_sha256": "9aaa4170de6cf5823945280ec8d563a3a88e7023f9208303d580cf112bed772a",
+      "before_count": 1,
+      "before_sha256": "3bbb6b3273a8f7b4f0f4ed6144083094dbddee8a3c9e05d0498c61ea5f70f872",
+      "columns": [
+        "ydental_revision"
+      ],
+      "duplicate_ID_preserved": false,
+      "economic": false,
+      "physical_key": [
+        "public",
+        "ydental_patient_mutex",
+        1
+      ],
+      "table": "ydental_patient_mutex"
+    },
+    {
+      "after_count": 1,
+      "after_sha256": "2b8db288f8c07b7ad93b828d684c6811362ec29405efd80325631a70c0495fce",
+      "before_count": 1,
+      "before_sha256": "bad8e73abdcc561b745cf4098d17419774b0fa3f7bf42deebc20d2de6e595d8e",
+      "columns": [
+        "ydental_revision"
+      ],
+      "duplicate_ID_preserved": false,
+      "economic": false,
+      "physical_key": [
+        "public",
+        "ydental_queue_mutex",
+        1
+      ],
+      "table": "ydental_queue_mutex"
+    }
+  ],
+  "full_values_saved_before_gate": true,
+  "schema_changed": false
+}

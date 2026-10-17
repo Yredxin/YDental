@@ -1,0 +1,24 @@
+{
+  "changes": [
+    {
+      "after_count": 1,
+      "after_sha256": "79b9cc57c8c7105eba80aa5face8d5d92238c958c591686c5e7de29b302b845b",
+      "before_count": 1,
+      "before_sha256": "64a7e235b0aa0d2aa5000977d4d28512dab3c85c31e6c552335fd08177922f2c",
+      "columns": [
+        "customer_rank",
+        "write_date"
+      ],
+      "duplicate_ID_preserved": false,
+      "economic": false,
+      "physical_key": [
+        "public",
+        "res_partner",
+        25
+      ],
+      "table": "res_partner"
+    }
+  ],
+  "full_values_saved_before_gate": true,
+  "schema_changed": false
+}

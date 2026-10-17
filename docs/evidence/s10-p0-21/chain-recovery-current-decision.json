@@ -1,0 +1,9 @@
+{
+  "PASS": true,
+  "detail": {
+    "all_economic_storage_exact": true,
+    "all_other_stored_rows_exact_except_precise_native_effects": true,
+    "registered_native_rank_effects": []
+  },
+  "full_evidence_before_assertion": true
+}

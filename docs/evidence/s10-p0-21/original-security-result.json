@@ -1,0 +1,29 @@
+{
+  "attachment_id": 161,
+  "checks": [
+    "none_id-retrieve",
+    "none_id-generate",
+    "doctor_id-retrieve",
+    "doctor_id-generate",
+    "pharmacist_id-retrieve",
+    "pharmacist_id-generate",
+    "original-RPC-read",
+    "original-write",
+    "original-unlink",
+    "attachment-RPC-read",
+    "attachment-write",
+    "attachment-unlink",
+    "native-binary-even-authorized",
+    "native-binary-token",
+    "wrong-store-session",
+    "old-bound-service-after-export-revoked",
+    "settlement-read-without-export",
+    "export-without-settlement-read",
+    "missing-original-no-render-fallback"
+  ],
+  "committed_and_independently_read_back": true,
+  "count": 19,
+  "no_ordinary_account_promoted_to_admin": true,
+  "ordinary_frontdesk_revoked_after_verified_authorized_read": true,
+  "original_sha256": "05928780e7d97a06cf29019634f64b010eb4994c2f1c5032d561008a50b059b4"
+}

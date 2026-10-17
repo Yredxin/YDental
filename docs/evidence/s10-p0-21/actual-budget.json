@@ -1,0 +1,425 @@
+{
+  "A_replay": 0,
+  "CREATE": 1,
+  "HTTP_and_browser": {
+    "HTTP_exit_code": 0,
+    "browser_exit_code": 1,
+    "status": "BLOCKED"
+  },
+  "HTTP_backend_cumulative_not_in_control_results": true,
+  "commit_returned_events": 14,
+  "durable_event_counts": {
+    "CREATE_intent": 1,
+    "CREATE_returned": 1,
+    "Web_stop_new_actions": 1,
+    "business_action_intent": 4,
+    "business_action_response": 3,
+    "commit_intent": 14,
+    "commit_returned": 14,
+    "maintenance_intent": 1,
+    "operation_failed": 14,
+    "operation_intent": 77,
+    "operation_returned": 63,
+    "readonly_closed": 17,
+    "readonly_intent": 17
+  },
+  "explicit_RO_RR_cap": 32,
+  "explicit_RO_RR_connections": 17,
+  "final_native_table_counts": {
+    "res_users": 58,
+    "stock_move": 24,
+    "ydental_access_audit": 1169,
+    "ydental_access_store": 13,
+    "ydental_patient": 4,
+    "ydental_settlement_bill_original": 2,
+    "ydental_settlement_payment": 9,
+    "ydental_settlement_refund": 3,
+    "ydental_treatment_fee": 14
+  },
+  "maintenance_connections": 1,
+  "native_HTTP_requests": 37,
+  "native_cumulative_backend_creations": 31,
+  "native_observed_pool_max": 3,
+  "native_processes": [
+    {
+      "DSNs_observed": [
+        "postgres",
+        "ydental_s10_test_20261017050000_21b0cafe"
+      ],
+      "SIGSEGV": false,
+      "action": "install",
+      "argv": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/odoo-bin",
+        "-c",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/ydental_s10_test_20261017050000_21b0cafe/odoo.conf",
+        "-i",
+        "l10n_cn,ydental_settlement_test",
+        "--without-demo=all",
+        "--load-language",
+        "en_US,zh_CN",
+        "--stop-after-init",
+        "--no-http"
+      ],
+      "backend_creations": [
+        1414899,
+        1414901,
+        1414977
+      ],
+      "exit_code": 0,
+      "log_bytes": 254622,
+      "log_sha256": "5e7a516f7d0917382e3ca2e1b60b8ef3e7a072ef6923a290c380620d8ec9e3e5",
+      "native_cumulative": 3,
+      "observed_pool_max": 2,
+      "per_PID_DSN": "UNKNOWN if not in creation log",
+      "pid": 792378,
+      "round": 0
+    },
+    {
+      "DSNs_observed": [
+        "ydental_s10_test_20261017050000_21b0cafe"
+      ],
+      "SIGSEGV": false,
+      "action": "configure",
+      "argv": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s10_p0_21_native.py",
+        "configure"
+      ],
+      "backend_creations": [
+        1415655
+      ],
+      "exit_code": 0,
+      "log_bytes": 7099,
+      "log_sha256": "d05798ad96e1191b99a195eb1d757e7c7a5f1bb3158744165ca9974541316727",
+      "native_cumulative": 1,
+      "observed_pool_max": 1,
+      "per_PID_DSN": "UNKNOWN if not in creation log",
+      "pid": 794230,
+      "round": 1
+    },
+    {
+      "DSNs_observed": [
+        "postgres",
+        "ydental_s10_test_20261017050000_21b0cafe"
+      ],
+      "SIGSEGV": false,
+      "action": "f1_740",
+      "argv": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s10_p0_21_native.py",
+        "f1_740"
+      ],
+      "backend_creations": [
+        1415777,
+        1415782,
+        1415922,
+        1415923
+      ],
+      "exit_code": 1,
+      "log_bytes": 13458,
+      "log_sha256": "a64f2b909225e466a18fd990efddde2aeeb5931aa127c8b7c610fb0b0537b5b6",
+      "native_cumulative": 4,
+      "observed_pool_max": 3,
+      "per_PID_DSN": "UNKNOWN if not in creation log",
+      "pid": 794581,
+      "round": 1
+    },
+    {
+      "DSNs_observed": [
+        "postgres",
+        "ydental_s10_test_20261017050000_21b0cafe"
+      ],
+      "SIGSEGV": false,
+      "action": "discount_waive",
+      "argv": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s10_p0_21_native.py",
+        "discount_waive"
+      ],
+      "backend_creations": [
+        1420772,
+        1420916,
+        1420917
+      ],
+      "exit_code": 0,
+      "log_bytes": 11331,
+      "log_sha256": "b3b5a8df8edbd239878d913282c58af3837aacb6f3eba87d4a5face247e77fea",
+      "native_cumulative": 3,
+      "observed_pool_max": 2,
+      "per_PID_DSN": "UNKNOWN if not in creation log",
+      "pid": 806759,
+      "round": 2
+    },
+    {
+      "DSNs_observed": [
+        "ydental_s10_test_20261017050000_21b0cafe"
+      ],
+      "SIGSEGV": false,
+      "action": "document_original",
+      "argv": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s10_p0_21_native.py",
+        "document_original"
+      ],
+      "backend_creations": [
+        1418756
+      ],
+      "exit_code": 1,
+      "log_bytes": 10904,
+      "log_sha256": "5350e78791d86c749022af8e68c75bf527d28b62f5b8f2f38658d9a21042da6e",
+      "native_cumulative": 1,
+      "observed_pool_max": 1,
+      "per_PID_DSN": "UNKNOWN if not in creation log",
+      "pid": 801794,
+      "round": 2
+    },
+    {
+      "DSNs_observed": [
+        "ydental_s10_test_20261017050000_21b0cafe"
+      ],
+      "SIGSEGV": false,
+      "action": "drug_return",
+      "argv": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s10_p0_21_native.py",
+        "drug_return"
+      ],
+      "backend_creations": [
+        1421690
+      ],
+      "exit_code": 0,
+      "log_bytes": 9068,
+      "log_sha256": "4beb6cea0e895040bed9cfac24e0f52182fb8a4288c7919df62702112ff7f224",
+      "native_cumulative": 1,
+      "observed_pool_max": 1,
+      "per_PID_DSN": "UNKNOWN if not in creation log",
+      "pid": 809054,
+      "round": 2
+    },
+    {
+      "DSNs_observed": [
+        "ydental_s10_test_20261017050000_21b0cafe"
+      ],
+      "SIGSEGV": false,
+      "action": "f2_f3_refund_close",
+      "argv": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s10_p0_21_native.py",
+        "f2_f3_refund_close"
+      ],
+      "backend_creations": [
+        1420271,
+        1420470
+      ],
+      "exit_code": 0,
+      "log_bytes": 12834,
+      "log_sha256": "be6f1f51917f5546bd9c37805dd60d528a7400f4c43a4d606e264de39a84c332",
+      "native_cumulative": 2,
+      "observed_pool_max": 2,
+      "per_PID_DSN": "UNKNOWN if not in creation log",
+      "pid": 805513,
+      "round": 2
+    },
+    {
+      "DSNs_observed": [
+        "postgres",
+        "ydental_s10_test_20261017050000_21b0cafe"
+      ],
+      "SIGSEGV": false,
+      "action": "f5_270_200",
+      "argv": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s10_p0_21_native.py",
+        "f5_270_200"
+      ],
+      "backend_creations": [
+        1419670,
+        1419915,
+        1419916
+      ],
+      "exit_code": 0,
+      "log_bytes": 11785,
+      "log_sha256": "0da9c26e7d8e8fc3efbb792695f97eee1c1a02b322cf9dd44a28bc4ac4b7103d",
+      "native_cumulative": 3,
+      "observed_pool_max": 2,
+      "per_PID_DSN": "UNKNOWN if not in creation log",
+      "pid": 804034,
+      "round": 2
+    },
+    {
+      "DSNs_observed": [
+        "ydental_s10_test_20261017050000_21b0cafe"
+      ],
+      "SIGSEGV": false,
+      "action": "idempotency",
+      "argv": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s10_p0_21_native.py",
+        "idempotency"
+      ],
+      "backend_creations": [
+        1422264,
+        1422335
+      ],
+      "exit_code": 0,
+      "log_bytes": 10078,
+      "log_sha256": "6cff6fa19295abd977cfe9b92af08b5f618ddf36480d86b15a4bac346df2a247",
+      "native_cumulative": 2,
+      "observed_pool_max": 2,
+      "per_PID_DSN": "UNKNOWN if not in creation log",
+      "pid": 810648,
+      "round": 2
+    },
+    {
+      "DSNs_observed": [
+        "ydental_s10_test_20261017050000_21b0cafe"
+      ],
+      "SIGSEGV": false,
+      "action": "late_close",
+      "argv": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s10_p0_21_native.py",
+        "late_close"
+      ],
+      "backend_creations": [
+        1422525,
+        1422615
+      ],
+      "exit_code": 0,
+      "log_bytes": 10020,
+      "log_sha256": "6f97c42b787e48b7d3f5a5482da64ea442246d5f1c6b41cc1463d5fb27fc2392",
+      "native_cumulative": 2,
+      "observed_pool_max": 2,
+      "per_PID_DSN": "UNKNOWN if not in creation log",
+      "pid": 811315,
+      "round": 2
+    },
+    {
+      "DSNs_observed": [
+        "ydental_s10_test_20261017050000_21b0cafe"
+      ],
+      "SIGSEGV": false,
+      "action": "original_security",
+      "argv": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s10_p0_21_native.py",
+        "original_security"
+      ],
+      "backend_creations": [
+        1422716
+      ],
+      "exit_code": 0,
+      "log_bytes": 8746,
+      "log_sha256": "67765d0febda332d748828aaafb41c51d32c6c888f90a3eb15c89fbf676157be",
+      "native_cumulative": 1,
+      "observed_pool_max": 1,
+      "per_PID_DSN": "UNKNOWN if not in creation log",
+      "pid": 811834,
+      "round": 2
+    },
+    {
+      "DSNs_observed": [
+        "postgres",
+        "ydental_s10_test_20261017050000_21b0cafe"
+      ],
+      "SIGSEGV": false,
+      "action": "quantity_correction",
+      "argv": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s10_p0_21_native.py",
+        "quantity_correction"
+      ],
+      "backend_creations": [
+        1421539,
+        1421644,
+        1421645
+      ],
+      "exit_code": 0,
+      "log_bytes": 11292,
+      "log_sha256": "820c0fd4b72b304c8cf1402ec8cb85dc93f9ac4da29db5f62b2b98928cc0de7c",
+      "native_cumulative": 3,
+      "observed_pool_max": 2,
+      "per_PID_DSN": "UNKNOWN if not in creation log",
+      "pid": 808631,
+      "round": 2
+    },
+    {
+      "DSNs_observed": [
+        "postgres",
+        "ydental_s10_test_20261017050000_21b0cafe"
+      ],
+      "SIGSEGV": false,
+      "action": "same_company_transfer",
+      "argv": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s10_p0_21_native.py",
+        "same_company_transfer"
+      ],
+      "backend_creations": [
+        1421931,
+        1422006
+      ],
+      "exit_code": 0,
+      "log_bytes": 10384,
+      "log_sha256": "a91be05ef7507bfdf3fc8b0f4c2e1ba6ed50da267dae02599b7264856b0c328f",
+      "native_cumulative": 2,
+      "observed_pool_max": 2,
+      "per_PID_DSN": "UNKNOWN if not in creation log",
+      "pid": 809732,
+      "round": 2
+    },
+    {
+      "DSNs_observed": [
+        "ydental_s10_test_20261017050000_21b0cafe"
+      ],
+      "SIGSEGV": false,
+      "action": "security_matrix",
+      "argv": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s10_p0_21_native.py",
+        "security_matrix"
+      ],
+      "backend_creations": [
+        1422087
+      ],
+      "exit_code": 0,
+      "log_bytes": 9095,
+      "log_sha256": "bd14fec887415d23ebe3a325199ec83bbeae479b5f863fb314bcb4f62806091e",
+      "native_cumulative": 1,
+      "observed_pool_max": 1,
+      "per_PID_DSN": "UNKNOWN if not in creation log",
+      "pid": 810154,
+      "round": 2
+    },
+    {
+      "DSNs_observed": [
+        "postgres",
+        "ydental_s10_test_20261017050000_21b0cafe"
+      ],
+      "SIGSEGV": false,
+      "action": "t09_trade",
+      "argv": [
+        "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+        "/home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s10_p0_21_native.py",
+        "t09_trade"
+      ],
+      "backend_creations": [
+        1421788,
+        1421884
+      ],
+      "exit_code": 0,
+      "log_bytes": 11045,
+      "log_sha256": "bfed1b902dc5d14fa75470faa1262a2a930198dbeeb26154149700c6eb4a1d1e",
+      "native_cumulative": 2,
+      "observed_pool_max": 2,
+      "per_PID_DSN": "UNKNOWN if not in creation log",
+      "pid": 809339,
+      "round": 2
+    }
+  ],
+  "old_business_connections": 0,
+  "per_PID_DSN": "UNKNOWN where native creation log does not identify DSN; observed DSNs retained per process",
+  "pool_cap": 8,
+  "targeted_fix_rounds": 2
+}

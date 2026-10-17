@@ -1,0 +1,10 @@
+[
+  {
+    "actor_uid": 32,
+    "captured_before_commit": true,
+    "delta": 1,
+    "field": "customer_rank",
+    "fixed_core_source": "addons/account/models/partner.py:883-917",
+    "partner_id": 45
+  }
+]

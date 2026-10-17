@@ -1,0 +1,86 @@
+{
+  "changes": [
+    {
+      "after_count": 1,
+      "after_sha256": "c605704761fdef4f873e3803a25cf1029f42e08ba4d4c085a090ae61370c2271",
+      "before_count": 0,
+      "before_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "columns": [
+        "__physical_oid__",
+        "__physical_table__",
+        "date",
+        "id"
+      ],
+      "duplicate_ID_preserved": false,
+      "economic": false,
+      "physical_key": [
+        "public",
+        "orm_signaling_default",
+        9
+      ],
+      "table": "orm_signaling_default"
+    },
+    {
+      "after_count": 1,
+      "after_sha256": "e2b82c976b64dea0a7224454f946403a8c32375166877fbd1322ad8ccbcf1668",
+      "before_count": 0,
+      "before_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "columns": [
+        "__physical_oid__",
+        "__physical_table__",
+        "date",
+        "id"
+      ],
+      "duplicate_ID_preserved": false,
+      "economic": false,
+      "physical_key": [
+        "public",
+        "orm_signaling_groups",
+        2
+      ],
+      "table": "orm_signaling_groups"
+    },
+    {
+      "after_count": 1,
+      "after_sha256": "f97c4b367408e5156ee9a5a04de5c1c13a16deea13298f5c0d7ca6fc5963b9f5",
+      "before_count": 0,
+      "before_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "columns": [
+        "__physical_oid__",
+        "__physical_table__",
+        "date",
+        "id"
+      ],
+      "duplicate_ID_preserved": false,
+      "economic": false,
+      "physical_key": [
+        "public",
+        "orm_signaling_stable",
+        9
+      ],
+      "table": "orm_signaling_stable"
+    },
+    {
+      "after_count": 1,
+      "after_sha256": "5f660e205f9c95b95cdf6441cc88ea9e01b7a4596f6f1a56c1e200479ab80377",
+      "before_count": 0,
+      "before_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "columns": [
+        "__physical_oid__",
+        "__physical_table__",
+        "date",
+        "id"
+      ],
+      "duplicate_ID_preserved": false,
+      "economic": false,
+      "physical_key": [
+        "public",
+        "orm_signaling_templates",
+        4
+      ],
+      "table": "orm_signaling_templates"
+    }
+  ],
+  "full_values_saved_before_gate": true,
+  "schema_changed": false
+}

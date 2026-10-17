@@ -1,0 +1,42 @@
+{
+  "HTTP_pid": 812085,
+  "HTTP_native_exit_code": 0,
+  "browser_runner_exit_code": 1,
+  "Firefox_native_pid": 812136,
+  "Firefox_native_exit_code": 0,
+  "browser_stderr_warnings_retained_private": true,
+  "HTTP_log_sha256": "bf26a7b4dc647985f08939bf3cb704487b0bfc7c319b23de46aeecf0d528586d",
+  "browser_log_sha256": "749989c1e4313bd06e1d2b9a7956345da54e2ac80681008a3fcd8e373d63aa95",
+  "backend_creations": [
+    1422796,
+    1422799,
+    1422806,
+    1422808,
+    1422809,
+    1422810,
+    1422811,
+    1422812,
+    1422813,
+    1422814,
+    1422818,
+    1422822,
+    1422825,
+    1422834,
+    1422835,
+    1422837,
+    1422838,
+    1422839,
+    1422841,
+    1422842,
+    1422843
+  ],
+  "observed_pool_max": 8,
+  "DSNs_observed": [
+    "postgres",
+    "ydental_s10_test_20261017050000_21b0cafe"
+  ],
+  "per_PID_DSN": "UNKNOWN where native creation line omits DSN",
+  "PDF_render_count_all_native_logs": 5,
+  "no_upgrade_after_Web_FAIL": true,
+  "native_cumulative_backend_creations": 21
+}

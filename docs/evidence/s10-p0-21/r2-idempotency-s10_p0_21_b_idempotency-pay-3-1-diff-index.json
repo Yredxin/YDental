@@ -1,0 +1,23 @@
+{
+  "changes": [
+    {
+      "after_count": 1,
+      "after_sha256": "b34c836b54b04cd64ce19baa0704e345d406a81f310276c2c60f3a87e00af51e",
+      "before_count": 1,
+      "before_sha256": "8c5c155b74f5a1e259b26bf283e0f25d567da191104de6f94c239b214de99f41",
+      "columns": [
+        "ydental_revision"
+      ],
+      "duplicate_ID_preserved": false,
+      "economic": false,
+      "physical_key": [
+        "public",
+        "ydental_settlement_mutex",
+        1
+      ],
+      "table": "ydental_settlement_mutex"
+    }
+  ],
+  "full_values_saved_before_gate": true,
+  "schema_changed": false
+}

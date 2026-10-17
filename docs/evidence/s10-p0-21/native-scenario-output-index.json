@@ -1,0 +1,443 @@
+[
+  {
+    "label": "S10_F1_740",
+    "native_exit_code": 1,
+    "not_commit_proof_by_itself": true,
+    "process": "f1_740",
+    "values": {
+      "bill": {
+        "amount": 740.0,
+        "invoice_id": 1,
+        "residual": 740.0,
+        "result": "accepted"
+      },
+      "drug_events": [
+        3,
+        4
+      ],
+      "fees": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "native_moves": [
+        4,
+        5
+      ],
+      "partials": 2,
+      "pay350": {
+        "allocations": [
+          {
+            "amount": 350.0,
+            "invoice_id": 1,
+            "partial_id": 1
+          }
+        ],
+        "amount": 350.0,
+        "native_payment_id": 1,
+        "payment_id": 1,
+        "residuals": {
+          "1": 390.0
+        },
+        "result": "accepted"
+      },
+      "pay390": {
+        "allocations": [
+          {
+            "amount": 390.0,
+            "invoice_id": 1,
+            "partial_id": 2
+          }
+        ],
+        "amount": 390.0,
+        "native_payment_id": 2,
+        "payment_id": 2,
+        "residuals": {
+          "1": 0.0
+        },
+        "result": "accepted"
+      },
+      "residual": 0.0
+    }
+  },
+  {
+    "label": "S10_T03_T06",
+    "native_exit_code": 0,
+    "not_commit_proof_by_itself": true,
+    "process": "discount_waive",
+    "values": {
+      "bill": {
+        "amount": 80.0,
+        "invoice_id": 16,
+        "residual": 80.0,
+        "result": "accepted"
+      },
+      "fee": 11,
+      "native_invoice": 16,
+      "native_payments_for_patient": 0,
+      "waive": {
+        "actually_refunded": 0,
+        "credit_note_id": 17,
+        "invoice_residual": 0.0,
+        "result": "accepted"
+      },
+      "zero_amount": 0.0,
+      "zero_fee": 12,
+      "zero_native_invoice": 18
+    }
+  },
+  {
+    "label": "S10_DRUG_RETURN",
+    "native_exit_code": 0,
+    "not_commit_proof_by_itself": true,
+    "process": "drug_return",
+    "values": {
+      "fee_refund_delta": [
+        0,
+        0
+      ],
+      "native_move": 19,
+      "original_event": 3,
+      "original_stock_event": 4,
+      "remaining_prescription": 0.0,
+      "return_event": 19
+    }
+  },
+  {
+    "label": "S10_F2_REFUND",
+    "native_exit_code": 0,
+    "not_commit_proof_by_itself": true,
+    "process": "f2_f3_refund_close",
+    "values": {
+      "approved": {
+        "actually_refunded": 0,
+        "refund_id": 1,
+        "reserved": 100.0,
+        "result": "accepted",
+        "state": "approved"
+      },
+      "cancel": {
+        "actually_refunded": 0,
+        "available": 390.0,
+        "refund_id": 3,
+        "released": 80.0,
+        "result": "accepted",
+        "state": "cancelled"
+      },
+      "done": {
+        "actually_refunded": 100.0,
+        "credit_note_ids": [
+          13
+        ],
+        "native_payment_id": 6,
+        "refund_id": 1,
+        "result": "accepted",
+        "state": "done"
+      },
+      "pdfs": {
+        "bill": {
+          "bytes": 27665,
+          "sha256": "0c15412c36b8c39ee07cdbd603ec9a00f6b5ea3a7fe3d4f0f8baddb597f1aacf"
+        },
+        "receipt": {
+          "bytes": 28273,
+          "sha256": "2d81089eeb8484b2ced6e88e6c5ff401cf2140ff5eb3e5ccc83a94646ff5735b"
+        },
+        "refund": {
+          "bytes": 26480,
+          "sha256": "7d45d1c0c3875c9dbd885732dcc67c65efaea29a215cffb3c018d1fb2fee8349"
+        }
+      },
+      "rejected": {
+        "actually_refunded": 0,
+        "credit_note_id": false,
+        "refund_id": 2,
+        "result": "accepted",
+        "state": "rejected"
+      },
+      "request": {
+        "actually_refunded": 0,
+        "refund_id": 1,
+        "reserved": 100.0,
+        "result": "accepted",
+        "state": "requested"
+      },
+      "uncertain": {
+        "actually_refunded": 0,
+        "refund_id": 3,
+        "reserved": 80.0,
+        "result": "accepted",
+        "state": "unknown"
+      }
+    }
+  },
+  {
+    "label": "S10_F3_DAYCLOSE",
+    "native_exit_code": 0,
+    "not_commit_proof_by_itself": true,
+    "process": "f2_f3_refund_close",
+    "values": {
+      "close": {
+        "close_id": 1,
+        "gross": 550.0,
+        "net": 550.0,
+        "pending": 0.0,
+        "refunded": 0.0,
+        "result": "accepted"
+      },
+      "correction": {
+        "actual_cash_refunded": 0,
+        "correction_id": 1,
+        "move_id": 15,
+        "new_channel": "wechat",
+        "old_channel": "cash",
+        "result": "accepted"
+      },
+      "reclose": {
+        "close_id": 2,
+        "gross": 300.0,
+        "net": 300.0,
+        "pending": 0.0,
+        "refunded": 0.0,
+        "result": "accepted"
+      },
+      "unlock": {
+        "close_id": 1,
+        "result": "accepted",
+        "state": "unlocked"
+      }
+    }
+  },
+  {
+    "label": "S10_F5_DATED",
+    "native_exit_code": 0,
+    "not_commit_proof_by_itself": true,
+    "process": "f5_270_200",
+    "values": {
+      "new_date": "2026-10-17",
+      "old_date": "2026-10-16",
+      "only_new": {
+        "allocations": [
+          {
+            "amount": 200.0,
+            "invoice_id": 7,
+            "partial_id": 3
+          }
+        ],
+        "amount": 200.0,
+        "native_payment_id": 3,
+        "payment_id": 3,
+        "residuals": {
+          "7": 0.0
+        },
+        "result": "accepted"
+      },
+      "same_day": {
+        "allocations": [
+          {
+            "amount": 50.0,
+            "invoice_id": 8,
+            "partial_id": 6
+          }
+        ],
+        "amount": 50.0,
+        "native_payment_id": 5,
+        "payment_id": 5,
+        "residuals": {
+          "8": 150.0,
+          "9": 200.0
+        },
+        "result": "accepted"
+      },
+      "selected": {
+        "allocations": [
+          {
+            "amount": 270.0,
+            "invoice_id": 4,
+            "partial_id": 4
+          },
+          {
+            "amount": 30.0,
+            "invoice_id": 6,
+            "partial_id": 5
+          }
+        ],
+        "amount": 300.0,
+        "native_payment_id": 4,
+        "payment_id": 4,
+        "residuals": {
+          "4": 0.0,
+          "6": 170.0
+        },
+        "result": "accepted"
+      }
+    }
+  },
+  {
+    "label": "S10_IDEMPOTENCY",
+    "native_exit_code": 0,
+    "not_commit_proof_by_itself": true,
+    "process": "idempotency",
+    "values": {
+      "bill_replay": {
+        "amount": 740.0,
+        "invoice_id": 1,
+        "result": "accepted"
+      },
+      "native_payment_delta": 1,
+      "payment_first": {
+        "allocations": [
+          {
+            "amount": 5.0,
+            "invoice_id": 6,
+            "partial_id": 10
+          }
+        ],
+        "amount": 5.0,
+        "native_payment_id": 7,
+        "payment_id": 6,
+        "residuals": {
+          "6": 165.0
+        },
+        "result": "accepted"
+      },
+      "payment_replay": {
+        "allocations": [
+          {
+            "amount": 5.0,
+            "invoice_id": 6,
+            "partial_id": 10
+          }
+        ],
+        "amount": 5.0,
+        "native_payment_id": 7,
+        "payment_id": 6,
+        "residuals": {
+          "6": 165.0
+        },
+        "result": "already_accepted"
+      },
+      "source_count": 4
+    }
+  },
+  {
+    "label": "S10_LATE_CLOSE",
+    "native_exit_code": 0,
+    "not_commit_proof_by_itself": true,
+    "process": "late_close",
+    "values": {
+      "actual_at": "2026-10-16 04:55:01.695629",
+      "close": {
+        "close_id": 3,
+        "gross": 10.0,
+        "net": 10.0,
+        "pending": 0.0,
+        "refunded": 0.0,
+        "result": "accepted"
+      },
+      "entered_at": "2026-10-17 04:55:03",
+      "first_payment": 7,
+      "reclose": {
+        "close_id": 4,
+        "gross": 11.0,
+        "net": 11.0,
+        "pending": 0.0,
+        "refunded": 0.0,
+        "result": "accepted"
+      },
+      "supplement": {
+        "allocations": [
+          {
+            "amount": 1.0,
+            "invoice_id": 5,
+            "partial_id": 12
+          }
+        ],
+        "amount": 1.0,
+        "native_payment_id": 9,
+        "payment_id": 8,
+        "residuals": {
+          "5": 259.0
+        },
+        "result": "accepted"
+      }
+    }
+  },
+  {
+    "label": "S10_T08_T15",
+    "native_exit_code": 0,
+    "not_commit_proof_by_itself": true,
+    "process": "quantity_correction",
+    "values": {
+      "actual_refunded": 0,
+      "corrected_text_version": 2,
+      "correction_fee": 14,
+      "credit_note": 20,
+      "frozen_amount": 600,
+      "invoice": 19,
+      "new_price": 620,
+      "original_fee": 13,
+      "residual": 0.0
+    }
+  },
+  {
+    "label": "S10_T09_SAME_COMPANY",
+    "native_exit_code": 0,
+    "not_commit_proof_by_itself": true,
+    "process": "same_company_transfer",
+    "values": {
+      "company": 1,
+      "event": 22,
+      "native_move": 24,
+      "quantity": 5,
+      "source_store": 12,
+      "target_store": 13
+    }
+  },
+  {
+    "label": "S10_SECURITY_MATRIX",
+    "native_exit_code": 0,
+    "not_commit_proof_by_itself": true,
+    "process": "security_matrix",
+    "values": {
+      "allowed": [
+        "manager",
+        "frontdesk"
+      ],
+      "denied": {
+        "doctor": [
+          "board",
+          "bill_pdf",
+          "pay"
+        ],
+        "exam": [
+          "board",
+          "bill_pdf",
+          "pay"
+        ],
+        "none": [
+          "board",
+          "bill_pdf",
+          "pay"
+        ],
+        "pharmacist": [
+          "board",
+          "bill_pdf",
+          "pay"
+        ],
+        "price": [
+          "board",
+          "bill_pdf",
+          "pay"
+        ],
+        "reader": [
+          "board",
+          "bill_pdf",
+          "pay"
+        ]
+      },
+      "native_payment_delta": 0
+    }
+  }
+]

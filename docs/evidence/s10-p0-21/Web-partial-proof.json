@@ -1,0 +1,16 @@
+{
+  "overall": "BLOCKED",
+  "positive_milestones_verified_by_saved_files_and_final_independent_RO": [
+    "ordinary frontdesk true UI payment3 posted and only selected invoice197",
+    "manager true generation POST created linked original2",
+    "actual old original link click produced27665 bytes SHA05928780e7d97a06cf29019634f64b010eb4994c2f1c5032d561008a50b059b4"
+  ],
+  "screenshots_actually_viewed": 2,
+  "UI_original_PDF_pages_actually_viewed": 1,
+  "native_content_HTTP_status": 404,
+  "native_image_HTTP_status": 200,
+  "native_image_response_body": "NOT_CAPTURED; do not claim denial PASS or actual leakage",
+  "fixed_source_inference": "addons/web/controllers/binary.py:189-219 catches UserError (AccessError subclass, odoo/exceptions.py:57) and non-download image falls back to web.image_placeholder, addons/web/data/ir_attachment.xml:3. Consistent with200/6078 log, not an actual response-body checksum proof.",
+  "Web_state_before_each_individual_HTTP_action": "not captured; only durable request ledger, true UI screenshots and complete combined Web-tail full stored delta",
+  "no_second_browser_or_login_or_click": true
+}

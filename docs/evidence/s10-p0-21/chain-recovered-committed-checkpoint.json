@@ -1,0 +1,18 @@
+{
+  "commit_returned_already_recorded": true,
+  "marker_published_only_now": true,
+  "native_postcommit_rank_explained": [
+    {
+      "actor_uid": 5,
+      "captured_before_commit": false,
+      "delta": 2,
+      "field": "customer_rank",
+      "partner_id": 15,
+      "scope": "P021 captured before/after rows and exact native source; no inference about missing P020 fields",
+      "source": "two actual posted customer payment entries; fixed account_move.py6370-6386 + partner.py883-917"
+    }
+  ],
+  "new_independent_RO_RR_exact": true,
+  "no_economic_replay": true,
+  "original_failed_decision_preserved": true
+}

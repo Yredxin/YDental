@@ -1,0 +1,9 @@
+{
+  "PASS": true,
+  "detail": {
+    "business_PASS": false,
+    "complete_combined_Web_window_diff_saved": true,
+    "individual_HTTP_transaction_snapshot": "not captured by frozen browser"
+  },
+  "full_evidence_before_assertion": true
+}

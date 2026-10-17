@@ -1,0 +1,15 @@
+{
+  "P020_missing_transient_difference": "permanently UNKNOWN",
+  "all_economic_storage_differences": [],
+  "checks": [
+    "actual captured full chain financial/source/stock rows exact; only partner15 rank1→3/date and two native signals explainable",
+    "reject_excess_rank",
+    "reject_patient_identity",
+    "reject_stored_total"
+  ],
+  "exit_code": 0,
+  "original_failed_gate_unchanged": true,
+  "outer_cursor_cleanup_connection_error": "occurred after known COMMIT and independent readback; not a demonstrated native SIGSEGV; system cause UNKNOWN, no PG/OS diagnostic or change",
+  "rank_diagnosis": "partner15 native rank1→3, exactly two posted customer payment entries; fixed native delayed callback, not patient identity/money",
+  "targeted_fix": "separate commit-vs-doc predicates; exact captured native callback delta/actor; no idle outer transaction across owned business cursor"
+}

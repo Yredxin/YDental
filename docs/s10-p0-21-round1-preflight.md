@@ -1,0 +1,9 @@
+[CODEX] S10-P0-21 定向验证工程增量 R1（1/最多2轮）
+
+唯一授权6229311739、预检6229577294和首轮执行固定6229596349均已REST逐字读回。本批唯一新库正常安装exit0，尚未执行configure或任何普通账号诊疗/库存/财务/原件动作。旧业务连接仍0。
+
+静态复查确认：observed接收普通服务env时，跨经济模型的ORM展示投影不能借用普通收费/药房角色读取其未授权模型。修正仅展示/只读取证身份：同一个本批新B验证cursor中使用明确Environment(cr,1,lang=zh_CN)采集显式展示字段；完整stored事实仍限定新B真实SQL，业务lambda保持原绑定普通账号/env，日志写真实business_actor_uid，不改角色、ACL、门店grant或业务执行身份，不调用sudo。配置管理员/核验身份绝不用于临床/药房/资金入口。此为运行前主动定位的验证器缺陷修正，不制造权限失败、不用管理员绕业务拒绝。
+
+产品commit仍be1d12a2d21771ca411ca8bdd510437980b68ef3，首轮测试bb495b51cf55cd47cd98c06fe6733da4d2fcb1af与实际install结果保留。本次仅1份测试脚本改动，实际执行commit 5853a75d6176cf4370c7bc463a6274be26282836；新脚本AST/compile通过。其SHA及所有原文件/产品依赖在round1-freeze.json，SHA256 03c6f30ec82df389fef847a78b1405fcb9c2c0c28f5b80fbf521d76b9fd3d573.
+
+初始/首轮冻结不改，首次安装不重跑、不另CREATE。本条REST GET逐字读回后，只继续尚未执行的configure→原14场景/普通Web/升级/尾审，命令/连接/经济动作预算及身份/未知经济/Native停止条件不变。使用1/2定向修复，余额1；未知stored经济变化不能用剩余额度放行。
