@@ -1,0 +1,129 @@
+{
+  "all643_table_sets_captured": true,
+  "change_count": 9,
+  "changes": [
+    {
+      "after_rows": 1,
+      "after_sha256": "7d42b9e336cc6797d03067f652d95be9c549e137ee564a1c10ed54755828cd73",
+      "ambiguous_logical_id": false,
+      "before_rows": 1,
+      "before_sha256": "dbf9975f2bc9e68c889d87f2b06bfc97b7c7a630e0a00acf9d27aa38b431e3e4",
+      "columns": [
+        "write_date"
+      ],
+      "logical_id": 571,
+      "table": "ir_act_url"
+    },
+    {
+      "after_rows": 1,
+      "after_sha256": "617a5447524b3dcdf9ae88e630190a0f07fc40e691aef8bc105e37f661240b30",
+      "ambiguous_logical_id": false,
+      "before_rows": 1,
+      "before_sha256": "caeb65812e5d58411de3760da43901ebcb6c8424b178adad0a403060049f3a2a",
+      "columns": [
+        "write_date"
+      ],
+      "logical_id": 571,
+      "table": "ir_actions"
+    },
+    {
+      "after_rows": 1,
+      "after_sha256": "f5f9b81335fc18dbf30179168d71bb956377b73c0516011d6b2344f46b9ad25f",
+      "ambiguous_logical_id": false,
+      "before_rows": 1,
+      "before_sha256": "ac0e7eb1728e31134a2bd96aed9ddf9e69dce62d9eb955db2ba510b9e8b34bdd",
+      "columns": [
+        "write_date"
+      ],
+      "logical_id": 320,
+      "table": "ir_ui_menu"
+    },
+    {
+      "after_rows": 1,
+      "after_sha256": "c11af5b8dd778317037a8bea34e62c03c2d6d58e4ea0604898d59658e1c496e0",
+      "ambiguous_logical_id": false,
+      "before_rows": 1,
+      "before_sha256": "f52032afc916ae12c49d9efdc1ab2d5880ca9a9a16020c23ee79d29dfe17e9db",
+      "columns": [
+        "arch_prev",
+        "write_date"
+      ],
+      "logical_id": 1597,
+      "table": "ir_ui_view"
+    },
+    {
+      "after_rows": 1,
+      "after_sha256": "9bfa0463e64d7ecd3717c86e94697167b95031128ccbacbae2514c34c7789a66",
+      "ambiguous_logical_id": false,
+      "before_rows": 1,
+      "before_sha256": "376cb0a89866fe446e2d59c21d03ce90b30d964f2465b0072e556f57bbb518dc",
+      "columns": [
+        "write_date"
+      ],
+      "logical_id": 1598,
+      "table": "ir_ui_view"
+    },
+    {
+      "after_rows": 1,
+      "after_sha256": "c7ab7d00428900b0b947d91352997991e0d7cb6c332bec320a98438aff7856a1",
+      "ambiguous_logical_id": false,
+      "before_rows": 1,
+      "before_sha256": "0a54782ad6a2715145ef98e50f73b6d564701fe8cdcba63e28839817948d06e2",
+      "columns": [
+        "arch_db",
+        "arch_prev",
+        "write_date"
+      ],
+      "logical_id": 1599,
+      "table": "ir_ui_view"
+    },
+    {
+      "after_rows": 1,
+      "after_sha256": "160453f76eec3efef2f1b5bd91010489f706dbaf6e46518962a32f7f0a32b2ad",
+      "ambiguous_logical_id": false,
+      "before_rows": 0,
+      "before_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "columns": [
+        "date",
+        "id"
+      ],
+      "logical_id": 15,
+      "table": "orm_signaling_default"
+    },
+    {
+      "after_rows": 1,
+      "after_sha256": "b19bc88d0e2fa2fcc7f24e7c60dac15f8aecac32fd582d5f95b6cd4b6709dd57",
+      "ambiguous_logical_id": false,
+      "before_rows": 0,
+      "before_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "columns": [
+        "date",
+        "id"
+      ],
+      "logical_id": 5,
+      "table": "orm_signaling_templates"
+    },
+    {
+      "after_rows": 1,
+      "after_sha256": "7e29bceb7ceedc7f411e81bcfc243d18b4240c4571aa688047a1af6b499fa155",
+      "before_rows": 1,
+      "before_sha256": "a725700f451d085c6eba63b884d0e3071bc27dac1eb35f27f5ae6e4b2e7f23fd",
+      "columns": [
+        "write_date"
+      ],
+      "duplicate_key": false,
+      "physical_key": [
+        "public",
+        "ir_act_url",
+        571
+      ],
+      "table": "action_projection"
+    }
+  ],
+  "label": "metadata-independent",
+  "private_snapshot_sha256": {
+    "after": "bdc931430087d7b225f2d12f19164e8bb8f31bd1fc7b04ec6b38d1e6a8df6f46",
+    "before": "64b77ada7aaf925c5041a0227364f888757c7fcbd9e169b08b35ed886af27c68",
+    "full-diff": "434e0701cf6ba33dde87f5f48261a7dad2cc750be0ba641eb580d45d0d30e548"
+  }
+}

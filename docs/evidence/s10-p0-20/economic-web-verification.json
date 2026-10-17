@@ -1,0 +1,92 @@
+{
+  "audits": [
+    {
+      "ydental_after": null,
+      "ydental_before": null,
+      "ydental_category": "personnel",
+      "ydental_event": "login",
+      "ydental_result": "accepted",
+      "ydental_source": "native_authenticated_login",
+      "ydental_store_id": null,
+      "ydental_target_id": 5,
+      "ydental_target_model": "res.users",
+      "ydental_user_id": 5
+    },
+    {
+      "ydental_after": null,
+      "ydental_before": null,
+      "ydental_category": "personnel",
+      "ydental_event": "login.scope",
+      "ydental_result": "accepted",
+      "ydental_source": "authenticated_session",
+      "ydental_store_id": null,
+      "ydental_target_id": 16,
+      "ydental_target_model": "ydental.access.session",
+      "ydental_user_id": 5
+    },
+    {
+      "ydental_after": {
+        "store_id": 1
+      },
+      "ydental_before": {
+        "store_id": false
+      },
+      "ydental_category": "personnel",
+      "ydental_event": "store.switch",
+      "ydental_result": "accepted",
+      "ydental_source": "interactive",
+      "ydental_store_id": 1,
+      "ydental_target_id": 16,
+      "ydental_target_model": "ydental.access.session",
+      "ydental_user_id": 5
+    },
+    {
+      "ydental_after": null,
+      "ydental_before": null,
+      "ydental_category": "settlement",
+      "ydental_event": "settlement.invoice_view",
+      "ydental_result": "accepted",
+      "ydental_source": "confirmed_offline_transaction",
+      "ydental_store_id": 1,
+      "ydental_target_id": 1,
+      "ydental_target_model": "account.move",
+      "ydental_user_id": 5
+    },
+    {
+      "ydental_after": null,
+      "ydental_before": null,
+      "ydental_category": "settlement",
+      "ydental_event": "settlement.invoice_view",
+      "ydental_result": "accepted",
+      "ydental_source": "confirmed_offline_transaction",
+      "ydental_store_id": 1,
+      "ydental_target_id": 1,
+      "ydental_target_model": "account.move",
+      "ydental_user_id": 5
+    },
+    {
+      "ydental_after": {
+        "kind": "bill",
+        "pdf_sha256": "645de0b1e465188124cb780c2ea221d409296e290fd788988646c041d1790df8"
+      },
+      "ydental_before": null,
+      "ydental_category": "settlement",
+      "ydental_event": "settlement.report_download",
+      "ydental_result": "accepted",
+      "ydental_source": "confirmed_offline_transaction",
+      "ydental_store_id": 1,
+      "ydental_target_id": 1,
+      "ydental_target_model": "account.move",
+      "ydental_user_id": 5
+    }
+  ],
+  "changed_tables": [
+    "res_device_log",
+    "res_users_log",
+    "ydental_access_audit",
+    "ydental_access_session"
+  ],
+  "economic_clinical_permission_old_attachment_facts_unchanged": true,
+  "new_asset_ids": [],
+  "old_filestore152_unchanged": true
+}

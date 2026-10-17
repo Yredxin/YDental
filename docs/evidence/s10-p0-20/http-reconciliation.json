@@ -1,0 +1,101 @@
+{
+  "browser_requests": 13,
+  "browser_responses": 13,
+  "complete_counter_and_status_equal": true,
+  "redirect_GET_included": true,
+  "server_requests": [
+    {
+      "method": "GET",
+      "path": "/web/login",
+      "query": {
+        "redirect": [
+          "/ydental/settlement"
+        ]
+      },
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/web/assets/c58ad13/web.odoo_ui_icons.min.woff2",
+      "query": {},
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/web/assets/ed6b35f/web.material_symbols_outlined.min.woff2",
+      "query": {},
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/web/assets/15f5270/web.assets_frontend.min.css",
+      "query": {},
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/web/assets/db959f3/web.assets_frontend_minimal.min.js",
+      "query": {},
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/web/assets/c5332a1/web.assets_frontend_lazy.min.js",
+      "query": {},
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/website/translations",
+      "query": {
+        "hash": [
+          ""
+        ],
+        "lang": [
+          "zh_CN"
+        ]
+      },
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/web/login",
+      "query": {},
+      "status": 303
+    },
+    {
+      "method": "GET",
+      "path": "/ydental/settlement",
+      "query": {},
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/web/assets/15f5270/web.assets_frontend.min.css",
+      "query": {},
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/ydental/settlement",
+      "query": {
+        "patient_id": [
+          "1"
+        ]
+      },
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/web/assets/15f5270/web.assets_frontend.min.css",
+      "query": {},
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/ydental/settlement/pdf/bill/1",
+      "query": {},
+      "status": 200
+    }
+  ]
+}

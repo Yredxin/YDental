@@ -1,0 +1,23 @@
+{
+  "all_failed_B_fixture_business_rolled_back": true,
+  "all_remaining_B_scenarios": "NOT_RUN due STOP",
+  "counts": {
+    "account_move": 0,
+    "account_payment": 0,
+    "stock_move": 0,
+    "ydental_access_audit": 0,
+    "ydental_access_store": 0,
+    "ydental_clinical_document": 0,
+    "ydental_clinical_version": 0,
+    "ydental_inventory_event": 0,
+    "ydental_patient": 0,
+    "ydental_settlement_payment": 0,
+    "ydental_settlement_refund": 0,
+    "ydental_settlement_source": 0,
+    "ydental_treatment_event": 0,
+    "ydental_treatment_fee": 0
+  },
+  "full_diff_saved_before_assertion": true,
+  "only_native_feature_setup_committed": true,
+  "transient_text_hash_difference_cause": "UNKNOWN; no transient before/after field evidence retained"
+}

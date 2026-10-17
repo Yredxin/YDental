@@ -1,0 +1,38 @@
+{
+  "metadata": {
+    "cumulative_backend_creation_pids": [
+      1400780
+    ],
+    "cumulative_count": 1,
+    "observed_pool_count_max": 1,
+    "DSN_databases_observed": [
+      "ydental_s10_p020_20261017040000_20a0cafe"
+    ],
+    "individual_PID_to_DSN": "UNKNOWN; creation log does not include DSN",
+    "log_sha256": "a9a44aa0a12309cb132301bc269ba7779230725aafe11ca8584ec42c0683a58e"
+  },
+  "http": {
+    "cumulative_backend_creation_pids": [
+      1400852,
+      1400855,
+      1400867,
+      1400869,
+      1400870,
+      1400871,
+      1400872,
+      1400873,
+      1400874,
+      1400876,
+      1400878,
+      1400881
+    ],
+    "cumulative_count": 12,
+    "observed_pool_count_max": 5,
+    "DSN_databases_observed": [
+      "postgres",
+      "ydental_s10_p020_20261017040000_20a0cafe"
+    ],
+    "individual_PID_to_DSN": "UNKNOWN; creation log does not include DSN",
+    "log_sha256": "8caa1035fd2137e94f01c5e11100c149f10484181e4d1d7e8203de22577befbe"
+  }
+}

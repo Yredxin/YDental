@@ -1,0 +1,15 @@
+{
+  "actor": "new-B native configuration administrator only",
+  "added_implied_ids": [
+    22,
+    44,
+    45
+  ],
+  "allowed_feature_XMLIDs": [
+    "stock.group_stock_multi_warehouses",
+    "stock.group_stock_multi_locations",
+    "product.group_product_pricelist"
+  ],
+  "base_group": 1,
+  "purpose": "normal new-B multi-warehouse/location and pricelist setup prerequisite; no source permissions or business guard changes"
+}

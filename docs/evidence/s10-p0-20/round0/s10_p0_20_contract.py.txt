@@ -1,0 +1,464 @@
+"""P0-20 file contract and exact snapshot comparators; no connections on import."""
+import ast
+import configparser
+import hashlib
+import json
+import os
+from pathlib import Path
+import subprocess
+import time
+from copy import deepcopy
+from collections import Counter, defaultdict
+from lxml import etree
+
+ROOT = Path(__file__).resolve().parents[1]
+CORE_ROOT = ROOT.parent
+BASE = 'a2fa26e37d350910668742869764c9ed102641ca'
+CORE = 'f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb'
+AUTH = 6228862519
+BRANCH = 'codex/s10-settlement-finance-r1-20261013'
+SOURCE = 'ydental_s10_test_20261015073500_e50f4a71'
+SOURCE_OID = 2100310
+CLUSTER = '7694897083368259627'
+NAME = 'ydental_s10_p020_20261017040000_20a0cafe'
+PORT = 18320
+PRIVATE = ROOT / '.local/s10-p0-20'
+OUT = ROOT / 'docs/evidence/s10-p0-20'
+RUN = ROOT / '.local' / NAME
+SOURCE_RUN = ROOT / '.local' / SOURCE
+PYTHON = CORE_ROOT / '.venv/bin/python'
+XML = 'ydental_settlement/views/ydental_settlement_templates.xml'
+IDS = {'ydental_settlement_action': ('ir.actions.act_url', 'ir_act_url', 571, 51384),
+       'ydental_settlement_menu': ('ir.ui.menu', 'ir_ui_menu', 320, 51385),
+       'ydental_settlement_tokens': ('ir.ui.view', 'ir_ui_view', 1597, 51386),
+       'ydental_settlement_page_links': ('ir.ui.view', 'ir_ui_view', 1598, 51387),
+       'ydental_settlement_page': ('ir.ui.view', 'ir_ui_view', 1599, 51388)}
+VIEWS = {1597, 1598, 1599}
+VIEW_FIELDS = {'arch_db', 'arch_prev', 'arch_fs', 'arch_updated', 'write_uid', 'write_date'}
+TECH_FIELDS = {'write_uid', 'write_date'}
+IDENTITY = {'res_users': 5, 'res_partner': 6, 'hr_employee': 1,
+            'hr_version': 1, 'resource_resource': 1}
+ASSETS = {'web.assets_frontend_minimal.min.js': 'application/javascript',
+          'web.assets_frontend_lazy.min.js': 'application/javascript',
+          'web.assets_frontend.min.css': 'text/css',
+          'web.odoo_ui_icons.min.woff2': 'font/woff2',
+          'web.material_symbols_outlined.min.woff2': 'font/woff2'}
+OPTIONS = '-c default_transaction_read_only=on -c statement_timeout=15000 -c lock_timeout=3000 -c idle_in_transaction_session_timeout=15000 -c timezone=UTC'
+ZERO = ['ECONOMIC_OR_CLINICAL_WRITE','HISTORICAL_REPLAY','PRODUCT_CHANGE','BUSINESS_POST',
+        'DIRECT_BUSINESS_ORM','ODOO_SHELL_INSTALL_UPGRADE_INIT_TEST','EXECUTOR_SUDO',
+        'OS_PG_DOCKER_NETWORK_SPECIAL','ISSUE_PROJECT_STATE_CHANGE','MERGE_DEPLOY_S11']
+BUDGET = dict(SOURCE_BEFORE=1,SOURCE_AFTER=1,MAINTENANCE=1,CREATE=1,
+              TARGET_BEFORE=1,TARGET_METADATA_AFTER=1,TARGET_AFTER=1,
+              METADATA_PROCESS=1,XML_IMPORT=1,METADATA_COMMIT=1,HTTP_PROCESS=1,
+              FIREFOX_CONTEXT=1,LOGIN_GET=1,LOGIN_POST=1,STORE_SWITCH_POST=0,
+              WORKBENCH_GET=2,PDF_GET=1,PDF_RENDER=1,DOWNLOAD=1,
+              TRANSLATIONS_GET=1,STATIC_RESOURCE_GET=100,WKHTML_RESOURCE_GET=0,
+              NEW_ASSET_ATTACHMENT=12,NATIVE_POOL_OCCUPANCY=8,LOGIN_AUDIT=1,LOGIN_SCOPE_AUDIT=1,
+              STORE_SWITCH_AUDIT=1,INVOICE_VIEW_AUDIT=2,REPORT_DOWNLOAD_AUDIT=1)
+BUDGET.update(dict.fromkeys(ZERO, 0))
+
+def asset_valid(url,mime):
+    import re
+    name=url.split('/')[-1]
+    return bool(url.startswith('/web/assets/') and re.fullmatch(r'web\.(?:assets_frontend(?:_minimal|_lazy)?|odoo_ui_icons|material_symbols_outlined)\.min\.(?:js|css|woff2)',name) and mime.split(';')[0] == {'js':'application/javascript','css':'text/css','woff2':'font/woff2'}[name.rsplit('.',1)[-1]])
+
+def sha(b):
+    return hashlib.sha256(b).hexdigest()
+
+def read(p):
+    return json.loads(Path(p).read_text())
+
+def save(p, x):
+    p = Path(p)
+    p.parent.mkdir(parents=True, exist_ok=True)
+    with p.open('x') as f:
+        json.dump(x, f, ensure_ascii=False, indent=2, sort_keys=True, default=str)
+        f.write('\n')
+        f.flush()
+        os.fsync(f.fileno())
+
+def git(*args, cwd=ROOT):
+    return subprocess.check_output(['git', '-C', str(cwd), *args])
+
+def repo_gate():
+    assert git('rev-parse','HEAD').decode().strip() == BASE
+    assert git('branch','--show-current').decode().strip() == BRANCH
+    assert git('remote','get-url','origin').decode().strip() == 'https://github.com/Yredxin/YDental.git'
+    assert git('rev-parse','HEAD',cwd=CORE_ROOT).decode().strip() == CORE
+    assert not git('status','--porcelain','--untracked-files=no',cwd=CORE_ROOT).strip()
+    for line in git('status','--porcelain','--untracked-files=all').decode().splitlines():
+        assert line[:2] in ('??','A '), ('OLD_FILE_CHANGE',line)
+        assert line[3:].startswith(('scripts/s10_p0_20_','docs/s10-p0-20-','docs/evidence/s10-p0-20/'))
+
+def seal():
+    expected = {'odoo.conf':'867f761771ecc20931f69103388df699b094b748e6a9d392e15ebe3d406e43c7',
+                'database.json':'1a7f4a2a95e8aa0ea3d6da17abf6033976d2e39754185fa38e441a497351a5fa'}
+    for p,h in expected.items():
+        assert sha((SOURCE_RUN/p).read_bytes()) == h, 'SOURCE_FILE_SEAL'
+    m = read(SOURCE_RUN/'database.json')
+    assert (m['database'],m['oid'],m['cluster'],m['core']) == (SOURCE,SOURCE_OID,CLUSTER,CORE)
+    files = filestore(SOURCE_RUN,SOURCE)
+    digest = sha(''.join(k+'\t'+v+'\n' for k,v in files.items()).encode())
+    assert len(files) == 152 and digest == 'bd0b0fbad15868bbabb836fa7016a91187bb31c6b9b6d934b2a7a0fe035c4283'
+    return expected | {'filestore_files':len(files),'filestore_manifest':digest}
+
+def filestore(folder, name):
+    root = folder/'data/filestore'/name
+    assert root.is_dir() and not root.is_symlink()
+    files = {}
+    for p in sorted(root.rglob('*')):
+        assert not p.is_symlink()
+        if p.is_file(): files[str(p.relative_to(root))] = sha(p.read_bytes())
+    return files
+
+def credentials():
+    p = configparser.ConfigParser(interpolation=None)
+    p.read(SOURCE_RUN/'odoo.conf')
+    o = p['options']
+    assert (o['db_host'],o['db_port'],o['db_user'],o['db_name']) == ('127.0.0.1','5432','odoo',SOURCE)
+    return dict(host='127.0.0.1',port=5432,user='odoo',password=o['db_password'])
+
+def schema():
+    return read(ROOT/'docs/evidence/s10-p0-11/read-only-sql.json')['columns']
+
+def norm(node):
+    return [node.tag,dict(node.attrib),(node.text or '').strip(),
+            [norm(n) for n in node if isinstance(n.tag,str)],(node.tail or '').strip()]
+
+def template(name, old=False):
+    n = etree.fromstring((ROOT/XML).read_bytes()).xpath("template[@id='%s']" % name)[0]
+    n.tag='t';n.attrib.pop('id');n.set('t-name','ydental_settlement.'+name)
+    if old:
+        for child in n.xpath(".//section[@name='settled-bills']"):
+            child.getparent().remove(child)
+    return n
+
+def old_metadata():
+    # Saved W5 metadata only; never a connection to a protected clone.
+    old = read(ROOT/'.local/s10-p0-18/source-after-rows.json')['tables']
+    result = {}
+    for name,(_model,table,ident,xid) in IDS.items():
+        row = next(r for r in old[table] if r['id']==ident)
+        data = next(r for r in old['ir_model_data'] if r['id']==xid)
+        assert (data['name'],data['module'],data['model'],data['res_id'],data['noupdate']) == (name,'ydental_settlement',_model,ident,False)
+        if table == 'ir_ui_view':
+            assert set(row['arch_db']) in ({'en_US'},{'en_US','zh_CN'})
+            if ident==1599:assert set(row['arch_db'])=={'en_US','zh_CN'}
+            assert all(norm(etree.fromstring(v.encode())) == norm(template(name,old=True)) for v in row['arch_db'].values())
+        result[name] = {'record':row,'xmlid':data}
+    return result
+
+IDENTITY_SQL = 'SELECT current_database(),(SELECT oid FROM pg_database WHERE datname=current_database()),(SELECT system_identifier::text FROM pg_control_system()),pg_backend_pid()'
+ACTIVE_SQL = 'SELECT pid FROM pg_stat_activity WHERE datname=current_database() AND pid<>pg_backend_pid()'
+CATALOG_SQL = "SELECT c.relname,a.attname FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace JOIN pg_attribute a ON a.attrelid=c.oid WHERE n.nspname='public' AND c.relkind='r' AND a.attnum>0 AND NOT a.attisdropped ORDER BY c.relname,a.attnum"
+ACTION_CHILDREN = ('ir_act_client','ir_act_report_xml','ir_act_server','ir_act_url','ir_act_window')
+INHERITS_SQL = "WITH RECURSIVE edges AS (SELECT inhparent,inhrelid,1 AS depth FROM pg_inherits WHERE inhparent='public.ir_actions'::regclass UNION ALL SELECT i.inhparent,i.inhrelid,e.depth+1 FROM pg_inherits i JOIN edges e ON i.inhparent=e.inhrelid) SELECT pn.nspname,p.relname,cn.nspname,ch.relname,e.depth FROM edges e JOIN pg_class p ON p.oid=e.inhparent JOIN pg_namespace pn ON pn.oid=p.relnamespace JOIN pg_class ch ON ch.oid=e.inhrelid JOIN pg_namespace cn ON cn.oid=ch.relnamespace ORDER BY pn.nspname,p.relname,cn.nspname,ch.relname,e.depth"
+PROJECTION_SQL = 'SELECT n.nspname,c.relname,c.oid,p.id,to_jsonb(p)::text FROM public.ir_actions p JOIN pg_class c ON c.oid=p.tableoid JOIN pg_namespace n ON n.oid=c.relnamespace ORDER BY n.nspname,c.relname,p.id,to_jsonb(p)::text'
+ONLY_SQL = 'SELECT n.nspname,c.relname,c.oid,p.id,to_jsonb(p)::text FROM ONLY public.ir_actions p JOIN pg_class c ON c.oid=p.tableoid JOIN pg_namespace n ON n.oid=c.relnamespace ORDER BY n.nspname,c.relname,p.id,to_jsonb(p)::text'
+
+def table_sql():
+    return {t:'SELECT to_jsonb(t)::text FROM public."'+t+'" t ORDER BY '+('"id"' if 'id' in cols else 'to_jsonb(t)::text') for t,cols in sorted(schema().items())}
+
+def capture_cursor(cur, name, oid, source=False):
+    started=time.monotonic()
+    cur.execute(IDENTITY_SQL)
+    db,actual,cluster,pid = cur.fetchone()
+    assert (db,actual,cluster) == (name,oid,CLUSTER), 'DATABASE_IDENTITY'
+    if source:
+        cur.execute(ACTIVE_SQL); assert not cur.fetchall(), 'SOURCE_ACTIVE_CONNECTIONS'
+    cur.execute(CATALOG_SQL)
+    cols = {}
+    for t,c in cur.fetchall(): cols.setdefault(t,[]).append(c)
+    assert cols == schema() and len(cols)==643, 'CATALOG_DRIFT'
+    tables, sig = {}, {}
+    for t,q in table_sql().items():
+        assert time.monotonic()-started<150,'SNAPSHOT_WALL_BUDGET'
+        cur.execute(q)
+        raw = [r[0] for r in cur.fetchall()]
+        tables[t] = [json.loads(r) for r in raw]
+        sig[t] = {'rows':len(raw),'sha256':sha(('\n'.join(raw)+'\n').encode())}
+    cur.execute(INHERITS_SQL)
+    edges=[list(r) for r in cur.fetchall()]
+    projected={}
+    for label,query in [('action_projection',PROJECTION_SQL),('action_only',ONLY_SQL)]:
+        assert time.monotonic()-started<150,'SNAPSHOT_WALL_BUDGET'
+        cur.execute(query)
+        projected[label]=[{'schema':s,'physical_table':t,'table_oid':o,'id':i,'row':json.loads(r)} for s,t,o,i,r in cur.fetchall()]
+    return {'database':db,'oid':actual,'cluster':cluster,'backend_pid':pid,'tables':tables,'signatures':sig,'action_inherits':edges,**projected}
+
+def row_map(rows):
+    result={}
+    for r in rows:
+        assert r['id'] not in result,'DUPLICATE_ID_IN_NONINHERITED_TABLE'
+        result[r['id']]=r
+    return result
+
+def fields_changed(a,b):
+    return {k for k in a.keys()|b.keys() if a.get(k)!=b.get(k)}
+
+def append_only(a,b,cap):
+    old,new=row_map(a),row_map(b)
+    assert old.keys()<=new.keys() and all(new[i]==r for i,r in old.items()), 'OLD_ROWS_CHANGED'
+    rows=[r for i,r in new.items() if i not in old]
+    assert len(rows)<=cap, 'APPEND_BUDGET'
+    return rows
+
+def _direct_metadata_gate(a,b,postcommit=False):
+    assert a.keys()==b.keys(),'METADATA_TABLE_SET'
+    diff=[]
+    for t in a:
+        if a[t]==b[t]:continue
+        if t=='ir_actions':
+            continue  # Separately checked using actual physical projection, never waived.
+        if postcommit and t in ('orm_signaling_default','orm_signaling_templates'):
+            for row in append_only(a[t],b[t],1):
+                assert set(row)=={'id','date'} and row['date'],'SIGNAL_FIELDS'
+            continue
+        assert t in {'ir_ui_view','ir_ui_menu','ir_act_url','ir_model_data'}, ('METADATA_TABLE',t)
+        old,new=row_map(a[t]),row_map(b[t]);assert old.keys()==new.keys(), ('METADATA_ROWS',t)
+        allowed_ids = ({1597,1598,1599} if t=='ir_ui_view' else {320} if t=='ir_ui_menu' else {571} if t=='ir_act_url' else {v[3] for v in IDS.values()})
+        for i,r in old.items():
+            f=fields_changed(r,new[i])
+            if not f:continue
+            assert i in allowed_ids
+            assert f<=(VIEW_FIELDS if t=='ir_ui_view' else TECH_FIELDS), ('METADATA_COLUMN',t,i,sorted(f))
+            assert new[i]['write_uid']==1 and new[i]['write_date'], 'METADATA_ACTOR'
+            if t=='ir_ui_view':
+                name=next(n for n,v in IDS.items() if v[2]==i and v[1]==t)
+                assert set(new[i]['arch_db'])==set(r['arch_db'])
+                assert all(norm(etree.fromstring(v.encode()))==norm(template(name)) for v in new[i]['arch_db'].values()), ('VIEW_ARCH',i)
+                assert new[i]['arch_prev']==r['arch_db']['en_US'], ('ARCH_PREV',i)
+                assert new[i]['arch_fs']==XML and new[i]['arch_updated'] is False
+            diff.append({'table':t,'id':i,'fields':sorted(f),'before_sha256':sha(json.dumps(r,sort_keys=True).encode()),'after_sha256':sha(json.dumps(new[i],sort_keys=True).encode())})
+    assert row_map(b['ir_ui_view'])[1599]['arch_db'] != row_map(a['ir_ui_view'])[1599]['arch_db'], 'MAIN_ARCH_NOT_UPDATED'
+    return diff
+
+def canonical(x):
+    return json.dumps(x,sort_keys=True,ensure_ascii=False,separators=(',',':'))
+
+def physical_map(rows):
+    result={}
+    for r in rows:
+        key=(r['schema'],r['physical_table'],r['id'])
+        assert key not in result,'DUPLICATE_PHYSICAL_KEY'
+        assert r['row']['id']==r['id'] and type(r['table_oid']) is int and r['table_oid']>0,'PHYSICAL_IDENTITY'
+        result[key]=r
+    return result
+
+def actions_consistent(s):
+    expected=[['public','ir_actions','public',child,1] for child in ACTION_CHILDREN]
+    assert s['action_inherits']==expected,'INHERITANCE_RELATION_DRIFT'
+    records=physical_map(s['action_projection'])
+    parent_fields=set(schema()['ir_actions'])
+    assert Counter(canonical(r['row']) for r in records.values())==Counter(canonical(r) for r in s['tables']['ir_actions']),'LOGICAL_PARENT_COVERAGE'
+    only=physical_map(s['action_only'])
+    assert all(k[:2]==('public','ir_actions') for k in only),'ONLY_PHYSICAL_SOURCE'
+    own={k:r for k,r in records.items() if k[:2]==('public','ir_actions')}
+    assert own==only,'ONLY_PARENT_INCONSISTENT'
+    oid_map={}
+    for k,r in records.items():
+        assert k[0]=='public' and k[1] in ('ir_actions',*ACTION_CHILDREN),'UNKNOWN_PHYSICAL_SOURCE'
+        assert set(r['row'])==parent_fields,'PARENT_SHARED_COLUMNS'
+        if k[:2] in oid_map:assert oid_map[k[:2]]==r['table_oid'],'TABLEOID_MAP_DRIFT'
+        oid_map[k[:2]]=r['table_oid']
+    assert len(set(oid_map.values()))==len(oid_map),'TABLEOID_NOT_BIJECTIVE'
+    for child in ACTION_CHILDREN:
+        rows=row_map(s['tables'][child])
+        projected={k[2]:r for k,r in records.items() if k[:2]==('public',child)}
+        assert projected.keys()==rows.keys(),'CHILD_PROJECTION_COVERAGE'
+        for i,r in rows.items():
+            assert projected[i]['row']=={k:r[k] for k in parent_fields},'PARENT_CHILD_SHARED_FIELD_MISMATCH'
+    return records
+
+def metadata_gate(before,after,postcommit=False):
+    # Physical identity and complete parent/child agreement are proved first;
+    # only the child-approved action571 projection can then change.
+    old=actions_consistent(before);new=actions_consistent(after)
+    diff=_direct_metadata_gate(before['tables'],after['tables'],postcommit=postcommit)
+    assert old.keys()==new.keys(),'PHYSICAL_ROW_SET_CHANGED'
+    assert before['action_only']==after['action_only'],'ONLY_PARENT_ROWS_CHANGED'
+    for k,r in old.items():
+        assert r['table_oid']==new[k]['table_oid'],'TABLEOID_CHANGED'
+        if r==new[k]:continue
+        assert k==('public','ir_act_url',571),'OTHER_ACTION_PHYSICAL_ROW_CHANGED'
+        fields=fields_changed(r['row'],new[k]['row'])
+        assert fields<=TECH_FIELDS,'PARENT_BUSINESS_FIELD_CHANGED'
+        assert new[k]['row']['write_uid']==1 and new[k]['row']['write_date'],'PARENT_ACTOR'
+        diff.append({'table':'ir_actions','physical_schema':k[0],'physical_table':k[1],'id':k[2],'fields':sorted(fields),'child_gate_passed':True,'all_shared_fields_match_child':True})
+    return diff
+
+def full_diff(before,after):
+    """Complete differences, without silently merging duplicate logical ids."""
+    private=[];public=[]
+    tables=sorted(before['tables'].keys()|after['tables'].keys())
+    for t in tables:
+        a,b=before['tables'].get(t,[]),after['tables'].get(t,[])
+        if a==b:continue
+        groups_a=defaultdict(list);groups_b=defaultdict(list)
+        for r in a:groups_a[r.get('id',canonical(r))].append(r)
+        for r in b:groups_b[r.get('id',canonical(r))].append(r)
+        for key in sorted(groups_a.keys()|groups_b.keys(),key=str):
+            x,y=groups_a.get(key,[]),groups_b.get(key,[])
+            if Counter(map(canonical,x))==Counter(map(canonical,y)):continue
+            changed=sorted(set().union(*(r.keys() for r in x+y)))
+            if len(x)==len(y)==1:changed=sorted(fields_changed(x[0],y[0]))
+            item={'table':t,'logical_id':key if 'id' in schema().get(t,[]) else None,
+                  'before_rows':len(x),'after_rows':len(y),'columns':changed,
+                  'before_sha256':sha(canonical(x).encode()),'after_sha256':sha(canonical(y).encode()),
+                  'ambiguous_logical_id':len(x)>1 or len(y)>1}
+            private.append(item|{'before':x,'after':y});public.append(item)
+    # Keep duplicate physical groups in evidence as lists. The decision gate
+    # rejects duplicates; evidence itself must still be saved on rejection.
+    for label in ('action_projection','action_only'):
+        x,y=before.get(label,[]),after.get(label,[])
+        if x==y:continue
+        ga=defaultdict(list);gb=defaultdict(list)
+        for r in x:ga[(r['schema'],r['physical_table'],r['id'])].append(r)
+        for r in y:gb[(r['schema'],r['physical_table'],r['id'])].append(r)
+        for key in sorted(ga.keys()|gb.keys()):
+            a,b=ga.get(key,[]),gb.get(key,[])
+            if a==b:continue
+            columns=sorted(set().union(*(r['row'].keys() for r in a+b)))
+            if len(a)==len(b)==1:
+                columns=sorted(fields_changed(a[0]['row'],b[0]['row']) | (fields_changed(a[0],b[0])-{'row'}))
+            item={'table':label,'physical_key':list(key),'before_rows':len(a),'after_rows':len(b),
+                  'columns':columns,'before_sha256':sha(canonical(a).encode()),'after_sha256':sha(canonical(b).encode()),
+                  'duplicate_key':len(a)>1 or len(b)>1}
+            private.append(item|{'before':a,'after':b});public.append(item)
+    if before.get('action_inherits')!=after.get('action_inherits'):
+        item={'table':'pg_inherits_projection','columns':['parent_schema','parent_table','child_schema','child_table','depth']}
+        private.append(item|{'before':before.get('action_inherits'),'after':after.get('action_inherits')});public.append(item)
+    return private,public
+
+def persist_review(label,before,after,gate,private_dir=None,out_dir=None):
+    """Persist all evidence before invoking the actual decision comparator."""
+    private_dir=private_dir or PRIVATE;out_dir=out_dir or OUT
+    save(private_dir/(label+'-before.json'),before)
+    save(private_dir/(label+'-after.json'),after)
+    raw,index=full_diff(before,after)
+    save(private_dir/(label+'-full-diff.json'),raw)
+    record={'label':label,'all643_table_sets_captured':len(before['tables'])==len(after['tables'])==643,
+            'changes':index,'change_count':len(index),'private_snapshot_sha256':{part:sha((private_dir/(label+'-'+part+'.json')).read_bytes()) for part in ('before','after','full-diff')}}
+    save(out_dir/(label+'-diff-index.json'),record)
+    # Read back persisted evidence before either PASS or commit is possible.
+    assert read(out_dir/(label+'-diff-index.json'))==record,'EVIDENCE_READBACK'
+    try:
+        detail=gate(before,after)
+    except BaseException as e:
+        save(private_dir/(label+'-rejection.json'),{'error_type':type(e).__name__,'error':str(e)})
+        first=e.args[0] if e.args else 'UNKNOWN'
+        if isinstance(first,tuple):first=first[0]
+        code=first if isinstance(first,str) and first.replace('_','').isalnum() and len(first)<90 else 'GATE_REJECTED'
+        save(out_dir/(label+'-decision.json'),{'PASS':False,'reason_code':code,'error_sha256':sha(str(e).encode()),'evidence_saved_before_decision':True})
+        raise
+    save(out_dir/(label+'-decision.json'),{'PASS':True,'evidence_saved_before_decision':True,'detail':detail})
+    return detail
+
+def same_snapshot(a,b):
+    actions_consistent(a);actions_consistent(b)
+    assert a['tables']==b['tables'],'ALL643_ROWS_CHANGED'
+    for label in ('action_projection','action_only','action_inherits'):
+        assert a[label]==b[label], 'ACTION_SOURCE_PROJECTION_CHANGED'
+    return {'all643_exact':True,'physical_projection_exact':True}
+
+def public_snapshot(s):
+    result={k:v for k,v in s.items() if k not in ('tables','action_projection','action_only')}
+    for label in ('action_projection','action_only'):
+        result[label]=[{k:v for k,v in row.items() if k!='row'}|{'row_sha256':sha(canonical(row['row']).encode())} for row in s[label]]
+    return result
+
+def guarded_import(cr,before,load,capture,private_dir=None,out_dir=None):
+    """Native and fixture paths share the same evidence/commit/rollback order."""
+    private_dir=private_dir or PRIVATE;out_dir=out_dir or OUT
+    try:
+        save(private_dir/'metadata-import-before.json',before)
+        load()
+        after=capture()
+        persist_review('metadata-precommit',before,after,metadata_gate,private_dir,out_dir)
+        assert read(out_dir/'metadata-precommit-decision.json')['PASS'],'NO_PASS_DECISION'
+        save(private_dir/'metadata-commit-intent.json',{'attempt':1,'evidence_saved':True,'gate_passed':True})
+        # The dedicated importer owns this cursor; the only import commit.
+        cr.commit()
+        save(private_dir/'metadata-committed.json',{'commit':1,'precise_diff_checked_before_commit':True})
+        return after
+    except BaseException as error:
+        try:
+            save(private_dir/'metadata-runtime-error.json',{'error':str(error),
+                'after_snapshot_available':(private_dir/'metadata-precommit-after.json').exists(),
+                'complete_diff_available':(private_dir/'metadata-precommit-full-diff.json').exists(),
+                'commit_attempted':(private_dir/'metadata-commit-intent.json').exists(),
+                'committed_marker':(private_dir/'metadata-committed.json').exists()})
+        finally:
+            cr.rollback()
+        raise
+    finally:
+        cr.close()
+
+def audit_expected(event, target_model, target_id, store=None, after=None, before=None, category='settlement', source='confirmed_offline_transaction'):
+    return dict(ydental_event=event,ydental_user_id=5,ydental_store_id=store,
+                ydental_category=category,ydental_target_model=target_model,ydental_target_id=target_id,
+                ydental_source=source,ydental_result='accepted',ydental_before=before,ydental_after=after)
+
+def web_gate(a,b,context):
+    assert a.keys()==b.keys(),'WEB_TABLE_SET'
+    mutable=set(IDENTITY)|{'res_users_log','res_device_log','ydental_access_session','ydental_access_audit','ir_attachment','orm_signaling_default'}
+    changed=[t for t in a if a[t]!=b[t]]
+    assert set(changed)<=mutable, ('WEB_TABLE_DRIFT',sorted(set(changed)-mutable))
+    for t,i in IDENTITY.items():
+        old,new=row_map(a[t]),row_map(b[t]);assert old.keys()==new.keys()
+        for ident,r in old.items():
+            f=fields_changed(r,new[ident]); allowed=TECH_FIELDS | ({'last_modified_uid','last_modified_date'} if t=='hr_version' else set())
+            assert not f or ident==i and f<=allowed, ('IDENTITY_DRIFT',t,ident,sorted(f))
+            if f:
+                assert new[ident]['write_uid']==5
+                if 'last_modified_uid' in f:assert new[ident]['last_modified_uid']==5
+    logs=append_only(a['res_users_log'],b['res_users_log'],1)
+    devices=append_only(a['res_device_log'],b['res_device_log'],1)
+    sessions=append_only(a['ydental_access_session'],b['ydental_access_session'],1)
+    assert len(logs)==len(devices)==len(sessions)==1
+    for r in logs:
+        assert set(r)==set(a['res_users_log'][0]) and r['create_uid']==r['write_uid']==5 and r['create_date']==r['write_date']
+    for r in devices:
+        assert r['user_id']==5 and r['ip_address']=='127.0.0.1' and 'Firefox/' in r['user_agent'] and r['revoked'] is False
+        assert sha(r['session_identifier'].encode())==sessions[0]['ydental_key_hash']
+        assert r['country'] is None and r['city'] is None
+        assert all(r[k] is None for k in ('create_uid','write_uid','create_date','write_date'))
+    s=sessions[0]
+    assert (s['ydental_user_id'],s['ydental_store_id'],s['ydental_revision'],s['create_uid'],s['write_uid'])==(5,1,1,5,5)
+    audits=append_only(a['ydental_access_audit'],b['ydental_access_audit'],6)
+    expected=[audit_expected('login','res.users',5,category='personnel',source='native_authenticated_login'),
+              audit_expected('login.scope','ydental.access.session',s['id'],category='personnel',source='authenticated_session'),
+              audit_expected('store.switch','ydental.access.session',s['id'],store=1,category='personnel',source='interactive',before={'store_id':False},after={'store_id':1})]
+    expected += [audit_expected('settlement.invoice_view','account.move',1,store=1)]*2
+    expected += [audit_expected('settlement.report_download','account.move',1,store=1,after={'kind':'bill','pdf_sha256':context['pdf_sha256']})]
+    assert len(audits)==len(expected)
+    actual=[]
+    for r in audits:
+        assert set(r)==set(a['ydental_access_audit'][0]) and r['create_uid']==r['write_uid']==5 and r['create_date']==r['write_date']
+        assert not r['ydental_reason']
+        actual.append({k:(r[k] or None) if k in ('ydental_before','ydental_after','ydental_store_id') else r[k] for k in expected[0]})
+    key=lambda r:json.dumps(r,sort_keys=True)
+    assert sorted(actual,key=key)==sorted(expected,key=key), ('AUDIT_EXACT',actual)
+    newassets=append_only(a['ir_attachment'],b['ir_attachment'],12)
+    for r in newassets:
+        assert r['res_model']=='ir.ui.view' and not r['res_id'] and r['public'] is True and r['type']=='binary'
+        assert r['create_uid']==r['write_uid']==1 and r['create_date']==r['write_date']
+        assert asset_valid(r['url'],r['mimetype']) and r['name']==r['url'].split('/')[-1]
+        assert not any(r[k] for k in ('res_field','access_token','original_id','description','db_datas'))
+        assert 0<r['file_size']<=5000000 and r['store_fname'] and r['checksum']
+    for r in append_only(a['orm_signaling_default'],b['orm_signaling_default'],1):
+        assert set(r)=={'id','date'} and r['date']
+    return {'changed_tables':changed,'audits':actual,'new_asset_ids':[r['id'] for r in newassets],
+            'economic_clinical_permission_old_attachment_facts_unchanged':True}
+
+def checkpoint():
+    repo_gate();seal()
+    plan=read(OUT/'execution-freeze.json')
+    for p,h in plan['file_sha256'].items():assert sha((ROOT/p).read_bytes())==h, ('FREEZE_DRIFT',p)
+    ck=read(PRIVATE/'preflight-api-readback.json');raw=read(PRIVATE/'preflight-api-raw.json')
+    assert raw['body']==(PRIVATE/'preflight-body.txt').read_text()
+    assert ck['verbatim_equal'] and raw['id']==ck['comment_id']
+    assert sha(raw['body'].encode())==ck['body_sha256']
+    assert ck['freeze_sha256']==sha((OUT/'execution-freeze.json').read_bytes())
+    assert read(PRIVATE/'execution-ready.json')['remote_sha']==BASE
+    return ck

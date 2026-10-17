@@ -1,0 +1,18 @@
+{
+  "counts": {
+    "account_move": 0,
+    "account_payment": 0,
+    "stock_move": 0,
+    "ydental_access_audit": 0,
+    "ydental_access_store": 0,
+    "ydental_inventory_event": 0,
+    "ydental_patient": 0,
+    "ydental_settlement_payment": 0,
+    "ydental_settlement_refund": 0,
+    "ydental_settlement_source": 0,
+    "ydental_treatment_event": 0,
+    "ydental_treatment_fee": 0
+  },
+  "economic_no_commit": true,
+  "evidence_saved_before_gate": true
+}

@@ -1,0 +1,22 @@
+{
+  "actual_visual_review": "PASS",
+  "reviewer": "Codex",
+  "pages_reviewed": [
+    1
+  ],
+  "Chinese_readable": true,
+  "no_overlap_or_clipping": true,
+  "source_amounts": [
+    20,
+    40,
+    80,
+    600
+  ],
+  "total": 740,
+  "received": 740,
+  "residual": 0,
+  "currency_observed": "USD synthetic source; not approved production currency",
+  "label": "current internal bill; not tax invoice or bank proof",
+  "real_multi_page_sample": false,
+  "PDF_sha256": "645de0b1e465188124cb780c2ea221d409296e290fd788988646c041d1790df8"
+}

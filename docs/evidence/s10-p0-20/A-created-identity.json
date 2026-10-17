@@ -1,0 +1,11 @@
+{
+  "checkpoint": 6229023871,
+  "cluster": "7694897083368259627",
+  "config_sha256": "640e3d538be7e53f2add59822399bf43c4dea1076a59ee1b7697e6fb6f5fd4af",
+  "core": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "database": "ydental_s10_p020_20261017040000_20a0cafe",
+  "head": "a2fa26e37d350910668742869764c9ed102641ca",
+  "oid": 2100333,
+  "source": "ydental_s10_test_20261015073500_e50f4a71",
+  "source_oid": 2100310
+}

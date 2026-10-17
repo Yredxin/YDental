@@ -1,0 +1,8 @@
+{
+  "PASS": true,
+  "detail": {
+    "all643_exact": true,
+    "physical_projection_exact": true
+  },
+  "evidence_saved_before_decision": true
+}

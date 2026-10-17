@@ -1,0 +1,44 @@
+{"action": "login_GET", "event": "intent"}
+{"event": "request", "method": "GET", "path": "/web/login", "query": {"redirect": ["/ydental/settlement"]}, "request_id": 135576570708960}
+{"event": "dispatch", "method": "GET", "path": "/web/login", "request_id": 135576570708960}
+{"content_type": "text/html; charset=utf-8", "event": "response", "method": "GET", "path": "/web/login", "pdf_sha256": null, "request_id": 135576570708960, "status": 200}
+{"event": "request", "method": "GET", "path": "/web/assets/ed6b35f/web.material_symbols_outlined.min.woff2", "query": {}, "request_id": 135576570711168}
+{"event": "dispatch", "method": "GET", "path": "/web/assets/ed6b35f/web.material_symbols_outlined.min.woff2", "request_id": 135576570711168}
+{"event": "request", "method": "GET", "path": "/web/assets/c58ad13/web.odoo_ui_icons.min.woff2", "query": {}, "request_id": 135576570714000}
+{"event": "dispatch", "method": "GET", "path": "/web/assets/c58ad13/web.odoo_ui_icons.min.woff2", "request_id": 135576570714000}
+{"event": "request", "method": "GET", "path": "/web/assets/15f5270/web.assets_frontend.min.css", "query": {}, "request_id": 135576570717360}
+{"event": "dispatch", "method": "GET", "path": "/web/assets/15f5270/web.assets_frontend.min.css", "request_id": 135576570717360}
+{"event": "request", "method": "GET", "path": "/web/assets/db959f3/web.assets_frontend_minimal.min.js", "query": {}, "request_id": 135576570720960}
+{"event": "dispatch", "method": "GET", "path": "/web/assets/db959f3/web.assets_frontend_minimal.min.js", "request_id": 135576570720960}
+{"content_type": "font/woff2", "event": "response", "method": "GET", "path": "/web/assets/c58ad13/web.odoo_ui_icons.min.woff2", "pdf_sha256": null, "request_id": 135576570714000, "status": 200}
+{"content_type": "text/css; charset=utf-8", "event": "response", "method": "GET", "path": "/web/assets/15f5270/web.assets_frontend.min.css", "pdf_sha256": null, "request_id": 135576570717360, "status": 200}
+{"content_type": "font/woff2", "event": "response", "method": "GET", "path": "/web/assets/ed6b35f/web.material_symbols_outlined.min.woff2", "pdf_sha256": null, "request_id": 135576570711168, "status": 200}
+{"content_type": "application/javascript; charset=utf-8", "event": "response", "method": "GET", "path": "/web/assets/db959f3/web.assets_frontend_minimal.min.js", "pdf_sha256": null, "request_id": 135576570720960, "status": 200}
+{"event": "request", "method": "GET", "path": "/web/assets/c5332a1/web.assets_frontend_lazy.min.js", "query": {}, "request_id": 135576570748256}
+{"event": "dispatch", "method": "GET", "path": "/web/assets/c5332a1/web.assets_frontend_lazy.min.js", "request_id": 135576570748256}
+{"content_type": "application/javascript; charset=utf-8", "event": "response", "method": "GET", "path": "/web/assets/c5332a1/web.assets_frontend_lazy.min.js", "pdf_sha256": null, "request_id": 135576570748256, "status": 200}
+{"event": "request", "method": "GET", "path": "/website/translations", "query": {"hash": [""], "lang": ["zh_CN"]}, "request_id": 135576570751712}
+{"event": "dispatch", "method": "GET", "path": "/website/translations", "request_id": 135576570751712}
+{"content_type": "application/json; charset=utf-8", "event": "response", "method": "GET", "path": "/website/translations", "pdf_sha256": null, "request_id": 135576570751712, "status": 200}
+{"action": "login_POST", "event": "intent"}
+{"event": "request", "method": "POST", "path": "/web/login", "query": {}, "request_id": 135576570977248}
+{"event": "dispatch", "method": "POST", "path": "/web/login", "request_id": 135576570977248}
+{"content_type": "text/html; charset=utf-8", "event": "response", "method": "POST", "path": "/web/login", "pdf_sha256": null, "request_id": 135576570977248, "status": 303}
+{"event": "request", "method": "GET", "path": "/ydental/settlement", "query": {}, "request_id": 135576522828608}
+{"content_type": "text/html; charset=utf-8", "event": "response", "method": "GET", "path": "/ydental/settlement", "pdf_sha256": null, "request_id": 135576522828608, "status": 200}
+{"event": "request", "method": "GET", "path": "/web/assets/15f5270/web.assets_frontend.min.css", "query": {}, "request_id": 135576522830768}
+{"event": "dispatch", "method": "GET", "path": "/web/assets/15f5270/web.assets_frontend.min.css", "request_id": 135576522830768}
+{"content_type": "text/css; charset=utf-8", "event": "response", "method": "GET", "path": "/web/assets/15f5270/web.assets_frontend.min.css", "pdf_sha256": null, "request_id": 135576522830768, "status": 200}
+{"action": "patient_filter_GET", "event": "intent"}
+{"event": "request", "method": "GET", "path": "/ydental/settlement", "query": {"patient_id": ["1"]}, "request_id": 135576522904144}
+{"event": "dispatch", "method": "GET", "path": "/ydental/settlement", "request_id": 135576522904144}
+{"content_type": "text/html; charset=utf-8", "event": "response", "method": "GET", "path": "/ydental/settlement", "pdf_sha256": null, "request_id": 135576522904144, "status": 200}
+{"event": "request", "method": "GET", "path": "/web/assets/15f5270/web.assets_frontend.min.css", "query": {}, "request_id": 135576522910960}
+{"event": "dispatch", "method": "GET", "path": "/web/assets/15f5270/web.assets_frontend.min.css", "request_id": 135576522910960}
+{"content_type": "text/css; charset=utf-8", "event": "response", "method": "GET", "path": "/web/assets/15f5270/web.assets_frontend.min.css", "pdf_sha256": null, "request_id": 135576522910960, "status": 200}
+{"action": "PDF_real_link_click", "event": "intent"}
+{"event": "request", "method": "GET", "path": "/ydental/settlement/pdf/bill/1", "query": {}, "request_id": 135576523066544}
+{"event": "dispatch", "method": "GET", "path": "/ydental/settlement/pdf/bill/1", "request_id": 135576523066544}
+{"content_type": "application/pdf", "event": "response", "method": "GET", "path": "/ydental/settlement/pdf/bill/1", "pdf_sha256": "645de0b1e465188124cb780c2ea221d409296e290fd788988646c041d1790df8", "request_id": 135576523066544, "status": 200}
+{"browser_open": false, "event": "closing"}
+{"event": "closed"}

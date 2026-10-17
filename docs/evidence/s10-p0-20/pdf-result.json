@@ -1,0 +1,18 @@
+{
+  "bytes": 27904,
+  "historical_500_plus_240_only_verified_from_unchanged_partials": true,
+  "historical_original_reprint": false,
+  "original_source_amounts": [
+    20,
+    40,
+    80,
+    600
+  ],
+  "pages": 1,
+  "readable_Chinese_text_checked": true,
+  "received_total": "740",
+  "residual": "0",
+  "response_sha256": "645de0b1e465188124cb780c2ea221d409296e290fd788988646c041d1790df8",
+  "sha256": "645de0b1e465188124cb780c2ea221d409296e290fd788988646c041d1790df8",
+  "visual_review": "PENDING"
+}

@@ -1,0 +1,13 @@
+{
+  "company": 1,
+  "current_store": 1,
+  "invoice": 1,
+  "invoice_in_unpaid_checkbox": false,
+  "paid_total": "740",
+  "real_href": "/ydental/settlement/pdf/bill/1",
+  "real_link_label": "下载当前内部账单 PDF",
+  "real_multi_page_sample": false,
+  "residual": "0",
+  "scope_revision": 1,
+  "settled_rows": 1
+}

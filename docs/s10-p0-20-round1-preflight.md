@@ -1,0 +1,17 @@
+[CODEX] S10-P0-20 定向修复回归增量 R1（首轮后第1/最多2轮）
+
+唯一授权6228862519及正式预检6229023871范围内；实际产品commit仍a2fa26e37d350910668742869764c9ed102641ca，产品/core/ACL零修改，A已成功并封存，绝不重复登录/导入/点击PDF。B新库OID2100336，安装exit0；首个f1_740在新仓库_setup前因native multi warehouse/location设置未启用而UserError，经济/库存/临床执行入口尚未到达，内层cursor异常rollback，不能仅凭推断当保全PASS。首次独立RO尾审因错误猜测ydental_patient_patient表名失败，finally rollback/close；没有保存完整快照，明确不可得，不伪成功。
+
+本轮先新B唯一RO/RR完整实际catalog/schema逐表快照落盘再断言12个业务来源表全0，失败则STOP。仅此通过后，以new-B配置管理员通过固定native res_groups._apply_group（core res_groups.py399）明确启用三项原生初始演示功能：stock.group_stock_multi_warehouses、stock.group_stock_multi_locations、product.group_product_pricelist。前两项是S07固定_inventory_service.py170—180要求Settings管理员先配置的本批新仓库真实前置；第三项为已批准价目演示流程原生前置。只准base.group_user.implied_ids新增这3个既存feature组ID并逐项核对，不改任何ACL/record rule、不降服务鉴权、不增加旧账号门店业务授权。此前新fixture员工/门店未commit，没有为权限负向测试提权；A/W5所有授权保持不变。原生配置而非产品guard绕过，不调用sudo，不执行res_config全套set_values造成无关副作用。
+
+新增完整只读审计脚本s10_p0_20_b_readonly.py，identity+SHOW+实际CATALOG_SQL+逐表SELECT与先存后判，不再猜表；B独立RO预算改为总3（已失败1、本轮完整前审1、最终尾审1），源前/后各1/A3/maintenance各1/CREATE各1不变。B配置完成正常commit仅初始chart/feature，之后重跑f1_740使用全新随机来源标识；首轮日志/脚本/冻结/失败结果完整保留docs/evidence/s10-p0-20/round0，不复用旧库或旧失败库，本库为本批授权新B、经济未提交且必须先RO确认。后续12场景及安装/升级/普通前台Web仍原预检分组/预算，已提交失败不得覆盖、不盲重复未知款。
+
+控制器每轮独立intent/log/result文件；checkpoint核对增量评论逐字读回、实际commit与逐文件SHA，原初始预检正文/冻结/失败证据不改。若只读发现任何经济或权限意外事实、不明资金结果、Native SIGSEGV或范围外依赖立即STOP。工具/初始配置确定缺失在本批唯一允许的有限定向修复内；本轮使用1/2，仍无整个S10 PASS。
+
+完整增量冻结docs/evidence/s10-p0-20/round1-freeze.json SHA256 db385577f75934834fa64162c0ff8f7c88c35ef8103f6a4dbf2d7d23cd489264
+变更/新增脚本SHA256：
+scripts/s10_p0_20_contract.py a03c847745ea000da358bee01c74abe75c78ea12f47498c83a61600f2f09e455
+scripts/s10_p0_20_b_control.py eee9310df6c27a3dbbc2ad9fdaedf4024487791de8f6e135935ef9abc887373f
+scripts/s10_p0_20_b_native.py 78a0b072341d3d99b553660438338d50a568eaef8b69cb4fcae5784f78b02736
+scripts/s10_p0_20_b_readonly.py c2624d5f3173b82edbf22bbd3cb4133582668363e976125c38ac7aff2b4ad6f4
+命令：B readonly.py round1-before（150s）→b_control.py f1_740（180s）→原预检剩余分组顺序；最后readonly.py final（150s）及唯一W5源后。此增量REST GET逐字读回成功前不运行修复或业务。

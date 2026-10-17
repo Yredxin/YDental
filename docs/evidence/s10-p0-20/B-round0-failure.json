@@ -1,0 +1,9 @@
+{
+  "phase": "fresh native B fixture setup",
+  "error": "configuration_required: Settings administrator must explicitly enable Multiple Warehouses and Storage Locations",
+  "product_guard_path": "ydental_inventory/models/ydental_inventory_service.py:170",
+  "business_stock_fee_payment_attempts_before_failure": 0,
+  "failure_cursor": "native cursor context rollback on exception; independent confirmation pending",
+  "readonly_followup_attempt1": "failed because guessed ydental_patient_patient does not exist; conn rollback/close in finally; counts not saved; no PASS inferred",
+  "scope": "initial normal feature configuration omitted from test engineering; no product/ACL patch"
+}

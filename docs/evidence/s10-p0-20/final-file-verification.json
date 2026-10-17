@@ -1,0 +1,14 @@
+{
+  "checks": [
+    "all final scripts parse and compile without loading Odoo",
+    "execution-freeze.json all frozen bytes match original or archived exact execution source",
+    "round1-freeze.json all frozen bytes match original or archived exact execution source",
+    "preflight REST body exact, initial/increment not overwritten",
+    "round1 REST body exact, initial/increment not overwritten",
+    "actual A HTTP/PDF/economics and W5 final evidence consistent; B rollback capture consistent"
+  ],
+  "count": 6,
+  "exit_code": 0,
+  "runtime_not_reexecuted": true,
+  "scope": "file integrity and consistency, not replacement business PASS"
+}

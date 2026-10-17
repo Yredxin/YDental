@@ -1,0 +1,52 @@
+[
+  {
+    "log": "install.log",
+    "sha256": "4b0be8f2d7ddc29b15ec98184cb8299639e9e41312405d31bbfd912ba7c797e7",
+    "bytes": 254574,
+    "cumulative_backend_creation_pids": [
+      1400994,
+      1400997,
+      1401075
+    ],
+    "count": 3,
+    "observed_pool_max": 2,
+    "DSN_databases_observed": [
+      "postgres",
+      "ydental_s10_test_20261017040000_20b0cafe"
+    ],
+    "each_creation_PID_DSN": "UNKNOWN: native creation event omits DSN",
+    "SIGSEGV_marker": false
+  },
+  {
+    "log": "f1_740.log",
+    "sha256": "b183b9b4cb523798e8d01dd49a650bb8f75dca4f4d4517a572a6e3264ca27efa",
+    "bytes": 9591,
+    "cumulative_backend_creation_pids": [
+      1401300,
+      1401305
+    ],
+    "count": 2,
+    "observed_pool_max": 2,
+    "DSN_databases_observed": [
+      "ydental_s10_test_20261017040000_20b0cafe"
+    ],
+    "each_creation_PID_DSN": "UNKNOWN: native creation event omits DSN",
+    "SIGSEGV_marker": false
+  },
+  {
+    "log": "f1_740-r1.log",
+    "sha256": "62e579af803d52d1dec0fb2bd3521bc99f5c616dea008b828a05f9cacddf66c3",
+    "bytes": 9336,
+    "cumulative_backend_creation_pids": [
+      1402153,
+      1402157
+    ],
+    "count": 2,
+    "observed_pool_max": 2,
+    "DSN_databases_observed": [
+      "ydental_s10_test_20261017040000_20b0cafe"
+    ],
+    "each_creation_PID_DSN": "UNKNOWN: native creation event omits DSN",
+    "SIGSEGV_marker": false
+  }
+]

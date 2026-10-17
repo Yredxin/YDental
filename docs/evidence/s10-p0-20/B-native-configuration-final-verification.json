@@ -1,0 +1,34 @@
+{
+  "added_feature_edges": [
+    {
+      "gid": 1,
+      "hid": 45
+    },
+    {
+      "gid": 1,
+      "hid": 22
+    },
+    {
+      "gid": 1,
+      "hid": 44
+    }
+  ],
+  "all_other_tables_exact": true,
+  "all_transient_economic_facts_rolled_back": true,
+  "base_group_id": 1,
+  "business_scenario_pass": false,
+  "exact_feature_XMLIDs": [
+    "stock.group_stock_multi_warehouses",
+    "stock.group_stock_multi_locations",
+    "product.group_product_pricelist"
+  ],
+  "group_row_change": "base.group_user write_date only; actor1",
+  "native_cache_signal_appends": {
+    "orm_signaling_default": 1,
+    "orm_signaling_groups": 1,
+    "orm_signaling_stable": 1,
+    "orm_signaling_templates": 1
+  },
+  "native_feature_configuration_only": true,
+  "schema_exact": true
+}

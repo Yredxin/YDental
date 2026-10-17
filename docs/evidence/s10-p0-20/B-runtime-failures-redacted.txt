@@ -1,0 +1,26 @@
+===== f1_740.log =====
+Transient output is not committed PASS.
+Traceback (most recent call last):
+  File "/home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s10_p0_20_b_native.py", line 57, in <module>
+    exec(code,{'env':env,'__name__':'__p020_new_B_scenario__'})
+  File "/home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s10_p0_20_b_f1_740.py", line 13, in <module>
+    setup(f)
+  File "/home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s10_p0_20_fixture.py", line 215, in setup
+    cls.stock._operate('setup', {'code': 'B' + str(cls.stores[0].id)}, key())
+  File "/home/redxin/code/odoo/odoo-sd/code/sd-addons/ydental_inventory/models/ydental_inventory_service.py", line 151, in _operate
+    result = dict(handlers[operation](store, **payload), result='accepted')
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/redxin/code/odoo/odoo-sd/code/sd-addons/ydental_inventory/models/ydental_inventory_service.py", line 179, in _setup
+    raise UserError(self.env._(
+odoo.exceptions.UserError: configuration_required: A Settings administrator must explicitly enable Multiple Warehouses and Storage Locations for internal users before adding this warehouse.
+
+===== f1_740-r1.log =====
+Transient output is not committed PASS.
+S10_F1_740 {"fees": [1, 2, 3, 4], "drug_events": [3, 4], "native_moves": [4, 5], "bill": {"invoice_id": 1, "amount": 740.0, "residual": 740.0, "result": "accepted"}, "pay350": {"payment_id": 1, "native_payment_id": 1, "amount": 350.0, "allocations": [{"invoice_id": 1, "partial_id": 1, "amount": 350.0}], "residuals": {"1": 390.0}, "result": "accepted"}, "pay390": {"payment_id": 2, "native_payment_id": 2, "amount": 390.0, "allocations": [{"invoice_id": 1, "partial_id": 2, "amount": 390.0}], "residuals": {"1": 0.0}, "result": "accepted"}, "residual": 0.0, "partials": 2}
+Traceback (most recent call last):
+  File "/home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s10_p0_20_b_native.py", line 63, in <module>
+    exec(code,{'env':env,'__name__':'__p020_new_B_scenario__'})
+  File "/home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s10_p0_20_b_f1_740.py", line 99, in <module>
+    assert signature()==before_text,'TEXT_CHANGED_ECONOMIC_FACTS'
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: TEXT_CHANGED_ECONOMIC_FACTS

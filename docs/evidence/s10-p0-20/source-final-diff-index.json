@@ -1,0 +1,11 @@
+{
+  "all643_table_sets_captured": true,
+  "change_count": 0,
+  "changes": [],
+  "label": "source-final",
+  "private_snapshot_sha256": {
+    "after": "b766ebd13719acdbb0dddc948510db618dc57df4b14b0a327c567ffaca45e17d",
+    "before": "b1baea8832f690a2063eebfea79e9dfbb0bb3fb4e21252aa76be7239f174328b",
+    "full-diff": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+  }
+}

@@ -1,0 +1,232 @@
+{
+  "counts": {
+    "DOWNLOAD": 1,
+    "LOGIN_GET": 1,
+    "LOGIN_POST": 1,
+    "PDF_GET": 1,
+    "STATIC_RESOURCE_GET": 7,
+    "STORE_SWITCH_POST": 0,
+    "TRANSLATIONS_GET": 1,
+    "WORKBENCH_GET": 2
+  },
+  "failure": null,
+  "page_error_sha256": [],
+  "page_errors": 0,
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/web/login",
+      "query": {
+        "redirect": [
+          "/ydental/settlement"
+        ]
+      },
+      "redirected_from": null
+    },
+    {
+      "method": "GET",
+      "path": "/web/assets/ed6b35f/web.material_symbols_outlined.min.woff2",
+      "query": {},
+      "redirected_from": null
+    },
+    {
+      "method": "GET",
+      "path": "/web/assets/c58ad13/web.odoo_ui_icons.min.woff2",
+      "query": {},
+      "redirected_from": null
+    },
+    {
+      "method": "GET",
+      "path": "/web/assets/15f5270/web.assets_frontend.min.css",
+      "query": {},
+      "redirected_from": null
+    },
+    {
+      "method": "GET",
+      "path": "/web/assets/db959f3/web.assets_frontend_minimal.min.js",
+      "query": {},
+      "redirected_from": null
+    },
+    {
+      "method": "GET",
+      "path": "/web/assets/c5332a1/web.assets_frontend_lazy.min.js",
+      "query": {},
+      "redirected_from": null
+    },
+    {
+      "method": "GET",
+      "path": "/website/translations",
+      "query": {
+        "hash": [
+          ""
+        ],
+        "lang": [
+          "zh_CN"
+        ]
+      },
+      "redirected_from": null
+    },
+    {
+      "method": "POST",
+      "path": "/web/login",
+      "query": {},
+      "redirected_from": null
+    },
+    {
+      "method": "GET",
+      "path": "/ydental/settlement",
+      "query": {},
+      "redirected_from": "/web/login"
+    },
+    {
+      "method": "GET",
+      "path": "/web/assets/15f5270/web.assets_frontend.min.css",
+      "query": {},
+      "redirected_from": null
+    },
+    {
+      "method": "GET",
+      "path": "/ydental/settlement",
+      "query": {
+        "patient_id": [
+          "1"
+        ]
+      },
+      "redirected_from": null
+    },
+    {
+      "method": "GET",
+      "path": "/web/assets/15f5270/web.assets_frontend.min.css",
+      "query": {},
+      "redirected_from": null
+    },
+    {
+      "method": "GET",
+      "path": "/ydental/settlement/pdf/bill/1",
+      "query": {},
+      "redirected_from": null
+    }
+  ],
+  "responses": [
+    {
+      "content_type": "text/html; charset=utf-8",
+      "method": "GET",
+      "path": "/web/login",
+      "pdf_sha256": null,
+      "query": {
+        "redirect": [
+          "/ydental/settlement"
+        ]
+      },
+      "status": 200
+    },
+    {
+      "content_type": "font/woff2",
+      "method": "GET",
+      "path": "/web/assets/c58ad13/web.odoo_ui_icons.min.woff2",
+      "pdf_sha256": null,
+      "query": {},
+      "status": 200
+    },
+    {
+      "content_type": "text/css; charset=utf-8",
+      "method": "GET",
+      "path": "/web/assets/15f5270/web.assets_frontend.min.css",
+      "pdf_sha256": null,
+      "query": {},
+      "status": 200
+    },
+    {
+      "content_type": "font/woff2",
+      "method": "GET",
+      "path": "/web/assets/ed6b35f/web.material_symbols_outlined.min.woff2",
+      "pdf_sha256": null,
+      "query": {},
+      "status": 200
+    },
+    {
+      "content_type": "application/javascript; charset=utf-8",
+      "method": "GET",
+      "path": "/web/assets/db959f3/web.assets_frontend_minimal.min.js",
+      "pdf_sha256": null,
+      "query": {},
+      "status": 200
+    },
+    {
+      "content_type": "application/javascript; charset=utf-8",
+      "method": "GET",
+      "path": "/web/assets/c5332a1/web.assets_frontend_lazy.min.js",
+      "pdf_sha256": null,
+      "query": {},
+      "status": 200
+    },
+    {
+      "content_type": "application/json; charset=utf-8",
+      "method": "GET",
+      "path": "/website/translations",
+      "pdf_sha256": null,
+      "query": {
+        "hash": [
+          ""
+        ],
+        "lang": [
+          "zh_CN"
+        ]
+      },
+      "status": 200
+    },
+    {
+      "content_type": "text/html; charset=utf-8",
+      "method": "POST",
+      "path": "/web/login",
+      "pdf_sha256": null,
+      "query": {},
+      "status": 303
+    },
+    {
+      "content_type": "text/html; charset=utf-8",
+      "method": "GET",
+      "path": "/ydental/settlement",
+      "pdf_sha256": null,
+      "query": {},
+      "status": 200
+    },
+    {
+      "content_type": "text/css; charset=utf-8",
+      "method": "GET",
+      "path": "/web/assets/15f5270/web.assets_frontend.min.css",
+      "pdf_sha256": null,
+      "query": {},
+      "status": 200
+    },
+    {
+      "content_type": "text/html; charset=utf-8",
+      "method": "GET",
+      "path": "/ydental/settlement",
+      "pdf_sha256": null,
+      "query": {
+        "patient_id": [
+          "1"
+        ]
+      },
+      "status": 200
+    },
+    {
+      "content_type": "text/css; charset=utf-8",
+      "method": "GET",
+      "path": "/web/assets/15f5270/web.assets_frontend.min.css",
+      "pdf_sha256": null,
+      "query": {},
+      "status": 200
+    },
+    {
+      "content_type": "application/pdf",
+      "method": "GET",
+      "path": "/ydental/settlement/pdf/bill/1",
+      "pdf_sha256": "645de0b1e465188124cb780c2ea221d409296e290fd788988646c041d1790df8",
+      "query": {},
+      "status": 200
+    }
+  ],
+  "status": "NATIVE_UI_PDF_DOWNLOADED_PENDING_VISUAL"
+}

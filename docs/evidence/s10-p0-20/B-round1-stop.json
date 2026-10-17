@@ -1,0 +1,10 @@
+{
+  "status": "BLOCKED_B_TEXT_ECONOMIC_SIGNATURE_MISMATCH_NO_PREASSERT_FULL_DIFF",
+  "stopped_at": "2026-10-17T03:33:15.365026+00:00",
+  "phase": "B first new same-source chain, after confirm/correct before PDF or business commit",
+  "new_actions": "CLOSED",
+  "cause": "UNKNOWN; read-all ORM hashes differ, field-level before/after not persisted before assertion",
+  "economic_commit": "not reached; independent readonly tail required",
+  "A_status": "completed native UI/PDF and invariant gate; no repeat",
+  "remaining_fix_rounds": "not used because unknown economic invariant invokes STOP"
+}

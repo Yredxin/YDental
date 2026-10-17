@@ -1,0 +1,14 @@
+{
+  "SIGSEGV": false,
+  "action": "f1_740",
+  "command": [
+    "/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python",
+    "/home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s10_p0_20_b_native.py",
+    "f1_740"
+  ],
+  "exit_code": 1,
+  "log_bytes": 9591,
+  "log_sha256": "b183b9b4cb523798e8d01dd49a650bb8f75dca4f4d4517a572a6e3264ca27efa",
+  "pid": 758988,
+  "timeout_seconds": 180
+}

@@ -1,0 +1,72 @@
+{
+  "HTTP_reconciliation": true,
+  "actual_attempts": {
+    "browser-process": 1,
+    "create": 1,
+    "http": 1,
+    "maintenance": 1,
+    "metadata-process": 1,
+    "source-after": 0,
+    "source-before": 1,
+    "target-after": 1,
+    "target-before": 1,
+    "target-metadata-after": 1,
+    "xml-import": 1
+  },
+  "authorization": 6228862519,
+  "base": "a2fa26e37d350910668742869764c9ed102641ca",
+  "browser_counts": {
+    "DOWNLOAD": 1,
+    "LOGIN_GET": 1,
+    "LOGIN_POST": 1,
+    "PDF_GET": 1,
+    "STATIC_RESOURCE_GET": 7,
+    "STORE_SWITCH_POST": 0,
+    "TRANSLATIONS_GET": 1,
+    "WORKBENCH_GET": 2
+  },
+  "browser_exit_code": 0,
+  "failed_phase": null,
+  "firefox_exits": [
+    [
+      "0",
+      "null"
+    ]
+  ],
+  "http_exit_code": 0,
+  "metadata_commit_attempts": 1,
+  "metadata_committed_marker": 1,
+  "metadata_exit_code": 0,
+  "native_connections": "Native connection DEBUG backend-create records counted separately; cumulative metadata/Web physical creations fully recorded separately, contemporaneous pool<=8, no retry on failure.",
+  "native_metadata_backend_pids": [
+    1400780
+  ],
+  "native_web_backend_pids": [
+    1400852,
+    1400855,
+    1400867,
+    1400869,
+    1400870,
+    1400871,
+    1400872,
+    1400873,
+    1400874,
+    1400876,
+    1400878,
+    1400881
+  ],
+  "runtime_zero_budget": {
+    "BUSINESS_POST": 0,
+    "DIRECT_BUSINESS_ORM": 0,
+    "ECONOMIC_OR_CLINICAL_WRITE": 0,
+    "EXECUTOR_SUDO": 0,
+    "HISTORICAL_REPLAY": 0,
+    "ISSUE_PROJECT_STATE_CHANGE": 0,
+    "MERGE_DEPLOY_S11": 0,
+    "ODOO_SHELL_INSTALL_UPGRADE_INIT_TEST": 0,
+    "OS_PG_DOCKER_NETWORK_SPECIAL": 0,
+    "PRODUCT_CHANGE": 0
+  },
+  "status": "RUNTIME_COMPLETE_PENDING_PDF_VISUAL_AND_GPT",
+  "target_final_invariants": "PASS"
+}
