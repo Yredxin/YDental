@@ -1,0 +1,19 @@
+{
+  "task_id": "S10-LOG-AND-CLOSEOUT-v2",
+  "message_id": "YD-S10-LC2-EXEC-20261017-01",
+  "revision": "1.1",
+  "sync_status": "SYNCED",
+  "comment_id": 6233527582,
+  "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6233527582",
+  "method": "POST once after message_id/header dedup, REST GET full body, exact UTF8 bytes comparison",
+  "full_body_equal": true,
+  "bytes": 23826,
+  "sha256": "7f7de8e9bf39c02cbe6eb67ae4d852223d56f5559b1553565b0d9a5e06644ee7",
+  "product_commit": "b5d303949d8361a023d7f3c162a5bd40da674484",
+  "test_commit": "fe3a46ee511612b53d4ba231018d1c5f42bab30f",
+  "evidence_commit": "c9e66bef0a991644887deac0a8acd4af8c0e22c1",
+  "at_utc": "2026-10-17T11:48:53.025364+00:00",
+  "private_body_ref": ".local/s10-lc2-exec-20261017/delivery-comment-final.md",
+  "private_readback_ref": ".local/s10-lc2-exec-20261017/delivery-api-full-readback.json",
+  "application_or_business_rerun_for_sync": false
+}
