@@ -1,0 +1,15 @@
+{
+  "default_staged_git_whitespace_check_exit": 2,
+  "only_flagged_files": [
+    "docs/evidence/s10-p0-23/diagnostic-fixed/arch_prev-precommit.txt",
+    "docs/evidence/s10-p0-23/diagnostic-fixed/arch_prev-readback.txt",
+    "docs/evidence/s10-p0-23/diagnostic-fixed/arch_prev-tail.txt",
+    "docs/evidence/s10-p0-23/diagnostic-system/arch_prev-precommit.txt",
+    "docs/evidence/s10-p0-23/diagnostic-system/arch_prev-readback.txt",
+    "docs/evidence/s10-p0-23/diagnostic-system/arch_prev-tail.txt"
+  ],
+  "reason": "exact historical field bytes include a final blank line and four trailing spaces; stripping would change required 2022-byte value and SHA",
+  "check_excluding_only_these_exact_field_texts_exit": 0,
+  "all_six_texts_still_match_published_SHA_hex": true,
+  "old_data_or_integrity_gate_whitelist_changed": false
+}

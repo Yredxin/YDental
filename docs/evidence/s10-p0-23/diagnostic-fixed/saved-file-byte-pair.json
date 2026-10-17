@@ -1,0 +1,18 @@
+{
+  "different_byte_count_in_common_range": 1,
+  "different_byte_offsets_sha256": "50ff87021bc200de5699bb031f9c4723bfa56daf843f238a1da75c4b7b8e6984",
+  "does_not_attribute_a_layer_or_cause": true,
+  "individual_bytes_if_single_difference_only": [
+    {
+      "byte_offset": 41174581,
+      "left": 31,
+      "right": 95,
+      "xor": 64
+    }
+  ],
+  "left": ".local/s10-p0-22/r0-A-fresh-owner-scope-1-after.json",
+  "left_bytes": 58746920,
+  "right": ".local/s10-p0-22/A-owner-scope-precommit.json",
+  "right_bytes": 58746920,
+  "same_length": true
+}

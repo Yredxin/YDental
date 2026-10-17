@@ -1,0 +1,11 @@
+{
+  "command": "PYTHONDONTWRITEBYTECODE=1 ../.venv/bin/python scripts/s10_p0_23_verify.py",
+  "exit_code": 1,
+  "stdout_bytes": 0,
+  "stderr_sha256": "91ff2784d5c658b4aee95b447672e98c56f4a3a35a8befe9decbb67680cf1e62",
+  "stderr": "Traceback (most recent call last):\n  File \"/home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s10_p0_23_verify.py\", line 397, in <module>\n    main()\n  File \"/home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s10_p0_23_verify.py\", line 272, in main\n    data = parse(raw)\n           ^^^^^^^^^^\n  File \"/home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s10_p0_23_verify.py\", line 44, in parse\n    return json.loads(raw.decode('utf-8'), parse_float=Decimal, object_pairs_hook=unique_object)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/redxin/code/odoo/odoo-sd/code/.python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/json/__init__.py\", line 359, in loads\n    return cls(**kw).decode(s)\n           ^^^^^^^^^^^^^^^^^^^\n  File \"/home/redxin/code/odoo/odoo-sd/code/.python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/json/decoder.py\", line 338, in decode\n    obj, end = self.raw_decode(s, idx=_w(s, 0).end())\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/redxin/code/odoo/odoo-sd/code/.python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/json/decoder.py\", line 354, in raw_decode\n    obj, end = self.scan_once(s, idx)\n               ^^^^^^^^^^^^^^^^^^^^^^\njson.decoder.JSONDecodeError: Invalid control character at: line 1321326 column 25 (char 40931612)\n",
+  "input_checks_before_failure": 47,
+  "first_strict_parse_input_inferred_from_frozen_loop_order": ".local/s10-p0-22/r0-A-fresh-owner-scope-1-intent-before.json",
+  "no_target_field_outputs_or_old_file_writes_before_failure": true,
+  "failure_is_preserved_not_replaced_by_later_results": true
+}

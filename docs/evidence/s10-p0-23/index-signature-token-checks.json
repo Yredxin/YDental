@@ -1,0 +1,60 @@
+{
+  "full_diff_vs_public_index": [
+    {
+      "label": "r0-A-fresh-owner-scope-1",
+      "raw_diff_count": 3,
+      "index_exactly_matches_full_diff_projection": true,
+      "old_decision_PASS": true,
+      "old_bytes_unchanged": true
+    },
+    {
+      "label": "A-owner-scope-readback",
+      "raw_diff_count": 1,
+      "index_exactly_matches_full_diff_projection": true,
+      "old_decision_PASS": false,
+      "old_bytes_unchanged": true
+    },
+    {
+      "label": "final-tail-vs-scope-precommit",
+      "raw_diff_count": 0,
+      "index_exactly_matches_full_diff_projection": true,
+      "old_decision_PASS": true,
+      "old_bytes_unchanged": true
+    },
+    {
+      "label": "failed-readback-vs-final-tail",
+      "raw_diff_count": 1,
+      "index_exactly_matches_full_diff_projection": true,
+      "old_decision_PASS": false,
+      "old_bytes_unchanged": true
+    }
+  ],
+  "raw_token_differences": [
+    {
+      "left": "precommit",
+      "right": "readback",
+      "raw_JSON_token_relative_byte_offset": 2093,
+      "left_absolute_file_byte_offset": 46530669,
+      "right_absolute_file_byte_offset": 46519302,
+      "left_byte": 118,
+      "right_byte": 54,
+      "decoded_field_character_and_UTF8_offset": 1992
+    },
+    {
+      "left": "readback",
+      "right": "tail",
+      "raw_JSON_token_relative_byte_offset": 2093,
+      "left_absolute_file_byte_offset": 46519302,
+      "right_absolute_file_byte_offset": 46519302,
+      "left_byte": 54,
+      "right_byte": 118,
+      "decoded_field_character_and_UTF8_offset": 1992
+    }
+  ],
+  "saved_schema_column": {
+    "column": "arch_prev",
+    "type": "text"
+  },
+  "record_type": "Python str; stored SQL schema text, as captured in the existing file",
+  "no_fresh_database_check": true
+}

@@ -1,0 +1,16 @@
+[
+  {
+    "label": "A-owner-scope-readback",
+    "changed_columns_independently_recomputed": [
+      "arch_prev"
+    ],
+    "all_other_target_row_fields_unchanged": true
+  },
+  {
+    "label": "failed-readback-vs-final-tail",
+    "changed_columns_independently_recomputed": [
+      "arch_prev"
+    ],
+    "all_other_target_row_fields_unchanged": true
+  }
+]

@@ -1,0 +1,19 @@
+{
+  "literal_JSON_hex": "7b226f7061717565223a221f227d",
+  "normal_json_dump_escapes_control": true,
+  "strict_result": {
+    "error": {
+      "byte_offset": 11,
+      "character_offset": 11,
+      "column": 12,
+      "line": 1,
+      "message": "Invalid control character at",
+      "offending_codepoint": 31,
+      "type": "JSONDecodeError"
+    },
+    "strict_rejected": true
+  },
+  "synthetic": true,
+  "this_general_serialization_contract_does_not_identify_P022_fault_layer": true,
+  "valid_JSON_hex": "7b226f7061717565223a20225c7530303166227d"
+}

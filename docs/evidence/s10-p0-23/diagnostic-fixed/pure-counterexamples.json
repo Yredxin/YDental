@@ -1,0 +1,21 @@
+{
+  "examples_are_synthetic_not_P022_reconstructed_raw_queries": true,
+  "exit_code": 0,
+  "general_possibility_is_not_root_cause": true,
+  "old_main_capture_readonly_native_fixture_executed": false,
+  "shared_fixture_metadata_can_explain_exact_observed_arch_prev_delta": false,
+  "tests": [
+    "equal independently decoded objects => no diff",
+    "exact v-to-6 synthetic substitution => arch_prev only",
+    "before/after/full-diff/index written before rejection; input unchanged",
+    "later equality does not overwrite earlier FAIL",
+    "exclusive x open refuses duplicate output path",
+    "same physical table/id duplicate is retained, not dictionary overwritten",
+    "row reordering does not make a field delta",
+    "UTF8 multibyte positive counterexample separates character and byte offsets",
+    "independent parser rejects duplicate JSON member names",
+    "fixture pattern shares schema metadata, but deepcopied table rows are independent",
+    "synthetic pre-parse vs post-parse substitution is indistinguishable after object-only save"
+  ],
+  "tests_passed": 11
+}

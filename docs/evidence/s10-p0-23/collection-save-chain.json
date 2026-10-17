@@ -1,0 +1,141 @@
+{
+  "source_functions": [
+    {
+      "file": "scripts/s10_p0_22_contract.py",
+      "function": "canonical",
+      "first_line": 32,
+      "last_line": 33,
+      "source_file_sha256": "84be5b0c860e23bb995e8e64bc44c69da103f624b6fe15ceb3b967e946fb4a21",
+      "AST_sha256": "83efbc70591e78165c484cd45d13a91ee473bcb3757fd3b72d4d2c7dd369660b"
+    },
+    {
+      "file": "scripts/s10_p0_22_contract.py",
+      "function": "save",
+      "first_line": 44,
+      "last_line": 51,
+      "source_file_sha256": "84be5b0c860e23bb995e8e64bc44c69da103f624b6fe15ceb3b967e946fb4a21",
+      "AST_sha256": "d84ffcbd632b73a7323fd802037cb242fbe62bb9ea968a71debda60e4014609c"
+    },
+    {
+      "file": "scripts/s10_p0_22_contract.py",
+      "function": "capture",
+      "first_line": 98,
+      "last_line": 117,
+      "source_file_sha256": "84be5b0c860e23bb995e8e64bc44c69da103f624b6fe15ceb3b967e946fb4a21",
+      "AST_sha256": "a8180893cb638769809813c29577aba526774fbbcee1b07d3e930fe1356fb1b6"
+    },
+    {
+      "file": "scripts/s10_p0_22_contract.py",
+      "function": "diff",
+      "first_line": 120,
+      "last_line": 140,
+      "source_file_sha256": "84be5b0c860e23bb995e8e64bc44c69da103f624b6fe15ceb3b967e946fb4a21",
+      "AST_sha256": "4b2273f1bd4c779bc3ce4bd60759fd9bf377ca8c1ceef83e554f8f0ed404fc76"
+    },
+    {
+      "file": "scripts/s10_p0_22_contract.py",
+      "function": "persist",
+      "first_line": 143,
+      "last_line": 157,
+      "source_file_sha256": "84be5b0c860e23bb995e8e64bc44c69da103f624b6fe15ceb3b967e946fb4a21",
+      "AST_sha256": "e13697f701d236ba60b1da6ddb6699450b15911b05f2f2e94efe76a7129caded"
+    },
+    {
+      "file": "scripts/s10_p0_22_contract.py",
+      "function": "readonly",
+      "first_line": 166,
+      "last_line": 191,
+      "source_file_sha256": "84be5b0c860e23bb995e8e64bc44c69da103f624b6fe15ceb3b967e946fb4a21",
+      "AST_sha256": "1150c7be770a374af1d016893b477bbc86466261448f92d884b9735bc11011b0"
+    },
+    {
+      "file": "scripts/s10_p0_22_runtime.py",
+      "function": "snapshot",
+      "first_line": 24,
+      "last_line": 36,
+      "source_file_sha256": "7485b1ddd71597aa714b3634c9200088460032234b87d5542a0958c59b4ad91b",
+      "AST_sha256": "84cc78df21bd122f36ebaf2e4fcfdac1765c60231f729c7ce2c8f12787183123"
+    },
+    {
+      "file": "scripts/s10_p0_22_runtime.py",
+      "function": "observe",
+      "first_line": 39,
+      "last_line": 56,
+      "source_file_sha256": "7485b1ddd71597aa714b3634c9200088460032234b87d5542a0958c59b4ad91b",
+      "AST_sha256": "5eca65c79f700bb01355e8cb1f7d1f1a2c8caa022a8240934ea68dbdd0371503"
+    },
+    {
+      "file": "scripts/s10_p0_22_runtime.py",
+      "function": "committed_gate",
+      "first_line": 141,
+      "last_line": 162,
+      "source_file_sha256": "7485b1ddd71597aa714b3634c9200088460032234b87d5542a0958c59b4ad91b",
+      "AST_sha256": "71b303906e8325241e2ca4e416b70138c5d13ea362d12fce136d6d95d6e39757"
+    },
+    {
+      "file": "scripts/s10_p0_22_runtime.py",
+      "function": "checkpoint",
+      "first_line": 179,
+      "last_line": 203,
+      "source_file_sha256": "7485b1ddd71597aa714b3634c9200088460032234b87d5542a0958c59b4ad91b",
+      "AST_sha256": "7f3b9b45ac58b622a06ec9d8005d7560a4bd3f8ea7063e6eb7ab0c2383de7538"
+    },
+    {
+      "file": "scripts/s10_p0_22_control.py",
+      "function": "run_native",
+      "first_line": 81,
+      "last_line": 113,
+      "source_file_sha256": "43672666da4752bd3e0a045ffcf3a3e45f89359211715a14a9249123987cecca",
+      "AST_sha256": "0c74cc2eb0b583927adf7057b40ca823fd1182df864e6c6861e5834778b1e8b9"
+    },
+    {
+      "file": "scripts/s10_p0_22_preflight.py",
+      "function": "main",
+      "first_line": 17,
+      "last_line": 143,
+      "source_file_sha256": "218c51359c9b03d0b7ac69032fb4526ab9af9dbbaffa99431e2bea1ace929c39",
+      "AST_sha256": "ae582876a96bbed01ca5af231dfbf9816aeba58cc2ea181a2d591067539d43ba"
+    },
+    {
+      "file": "scripts/s10_p0_22_seal_blocked.py",
+      "function": "save",
+      "first_line": 24,
+      "last_line": 27,
+      "source_file_sha256": "2c51eb225b8036663036184c107237bbc824bde8b375b6b3bf6a3d301c10f4d3",
+      "AST_sha256": "847392a35352d3c839b9fa6830e53fa298f89f660a352133212686102c3c57bc"
+    },
+    {
+      "file": "scripts/s10_p0_22_seal_blocked.py",
+      "function": "main",
+      "first_line": 30,
+      "last_line": 106,
+      "source_file_sha256": "2c51eb225b8036663036184c107237bbc824bde8b375b6b3bf6a3d301c10f4d3",
+      "AST_sha256": "a2a57616b261f47aa27d7b31be9c4b131e60f4bfbfa94ca7ca677fbcb1a360cb"
+    },
+    {
+      "file": "scripts/s10_p0_22_cases.py",
+      "function": "A",
+      "first_line": 54,
+      "last_line": 78,
+      "source_file_sha256": "593b6bbc04c3818327af6e3f0cbe64a2664fb2280a13af24d1293e7e1097da57",
+      "AST_sha256": "c956df17cf3822751e65f47e6fd596e2003169408f3b3743bb0474b11cb63a0c"
+    }
+  ],
+  "old_modules_or_main_executed": false,
+  "raw_SQL_return_text_retained_by_capture": false,
+  "same_statement_server_field_hash_hex_retained": false,
+  "row_json_loaded_then_physical_identity_added": true,
+  "ordinary_save": "exclusive x; json.dump ensure_ascii=False default=str; newline; flush; file fsync; no directory fsync call",
+  "persist_order": [
+    "before",
+    "after",
+    "full-diff",
+    "diff-index",
+    "assertion",
+    "PASS or FAIL decision"
+  ],
+  "readonly_signature_source": "canonical parsed table objects; not original SQL return text",
+  "fixture": "schema metadata shallow reference; selected tables deepcopied; ir_ui_view not selected; own preflight process before DB",
+  "seal": "reads saved tail and baseline; creates additive summary/exit/budget outputs; does not rewrite old snapshots; seal save has context close but no explicit fsync",
+  "possible_risks_are_not_attribution": true
+}

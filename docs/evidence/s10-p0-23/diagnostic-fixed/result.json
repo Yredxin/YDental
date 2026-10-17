@@ -1,0 +1,43 @@
+{
+  "all_same_capture_target_rows_equal": true,
+  "boundary": "离线证据止于采集后对象，数据库/驱动/内存/落盘分层无法由现存材料区分",
+  "cause": "UNKNOWN",
+  "database_cause_or_business_resume_proven": false,
+  "diagnostic_exit": 0,
+  "field_sha256": [
+    "776c4257a3567c92aa3e46aa5dc2c4e5a714989be88ab59714452dfeb4042664",
+    "75cf739577c6a1977bdd25ddfc4df3a930255243916765abd79b248819248050",
+    "776c4257a3567c92aa3e46aa5dc2c4e5a714989be88ab59714452dfeb4042664"
+  ],
+  "initial_strict_failure_preserved": true,
+  "inputs_match_old_manifests": 47,
+  "interpreter": "/home/redxin/code/odoo/odoo-sd/code/sd-addons/../.venv/bin/python",
+  "label": "diagnostic-fixed",
+  "no_permissive_JSON_or_old_input_modification": true,
+  "runtime_operations": 0,
+  "strict_JSON_failures": [
+    {
+      "bytes": 58746920,
+      "error": {
+        "byte_offset": 41174581,
+        "character_offset": 40931612,
+        "column": 25,
+        "line": 1321326,
+        "message": "Invalid control character at",
+        "offending_codepoint": 31,
+        "type": "JSONDecodeError"
+      },
+      "old_manifest_match": true,
+      "path": ".local/s10-p0-22/r0-A-fresh-owner-scope-1-after.json",
+      "sha256": "221683f576b84ae8903d099b7027ae48ab1d5022faa8d2ee12fc3c153a3624ec",
+      "target_array_byte_end_exclusive": 50902137,
+      "target_array_byte_start": 41495724,
+      "target_array_raw_sha256": "bc95f2967172c58c3eb37f2eff06ff895e005d65b5fe9479e1fd2630ee889d10",
+      "target_array_strict_valid": true,
+      "target_table_canonical_sha256": "adf741e6a8a0f6e94f97801b7b716910a19aa38b7f51eabe953b5530c3e3ec88",
+      "whole_JSON_strict_valid": false
+    }
+  ],
+  "strict_target_values_recovered_without_editing": 16,
+  "version": "3.12.15 (main, Oct  3 2026, 01:03:07) [Clang 22.1.3 ]"
+}

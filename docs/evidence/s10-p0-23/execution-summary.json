@@ -1,0 +1,47 @@
+{
+  "FILE_ONLY_task": "completed with definite saved-JSON validity defect and unlocated original capture discrepancy",
+  "parent_HEAD": "42107b731775e239ef516e718f46347382147171",
+  "initial_verifier_commit": "68530112b26b7314a155f3808c1246e950e5fdd0",
+  "supplement_commit": "951348cbf430db69f5e813d09ee34f3c178d55cf",
+  "completion_commit": "7e571df0acd2daded1c1c57de8caa7f28f33487b",
+  "preflight_exact_readbacks": [
+    6230625715,
+    6230653895,
+    6230673816
+  ],
+  "process_exit_codes": [
+    1,
+    1,
+    0
+  ],
+  "strict_JSON_documents_checked": 19,
+  "strict_JSON_valid": 18,
+  "strict_JSON_invalid": 1,
+  "strict_target_arrays_valid": 12,
+  "target_value_occurrences": 16,
+  "same_capture_copy_groups": 4,
+  "common_interpreter_outputs_byte_exact": 7,
+  "fixed_pure_counterexamples_passed": 11,
+  "additional_control_byte_minimal_reproduction": true,
+  "field_value_characters_UTF8_bytes": [
+    2022,
+    2022
+  ],
+  "field_and_UTF8_difference_offset": 1992,
+  "raw_JSON_token_difference_offset": 2093,
+  "existing_raw_control_byte_offset": 41174581,
+  "after_vs_precommit_entire_file_byte_delta": [
+    31,
+    95
+  ],
+  "xor_of_both_observed_single_byte_pairs": 64,
+  "cause": "UNKNOWN; identical XOR does not identify layer or hardware",
+  "boundary": "离线证据止于采集后对象，数据库/驱动/内存/落盘分层无法由现存材料区分",
+  "raw_original_to_jsonb_return_missing": true,
+  "same_statement_server_field_digest_hex_missing": true,
+  "five_groups": "A BLOCKED_BEFORE_DOCUMENT_ACTIONS; B/C/D/E NOT_RUN",
+  "S10_stage_exit": "BLOCKED",
+  "database_integrity_business_resume_or_production_stability_proven": false,
+  "all_native_database_business_product_core_state_change_budgets": 0,
+  "final_delivery_API_readback": "will be saved private after publication; immediate STOP, no further commit"
+}

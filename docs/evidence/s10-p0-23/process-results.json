@@ -1,0 +1,38 @@
+{
+  "runs": [
+    {
+      "label": "verification",
+      "script": "scripts/s10_p0_23_verify.py",
+      "interpreter_command": "../.venv/bin/python",
+      "exit_code": 1,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "91ff2784d5c658b4aee95b447672e98c56f4a3a35a8befe9decbb67680cf1e62",
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"/home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s10_p0_23_verify.py\", line 397, in <module>\n    main()\n  File \"/home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s10_p0_23_verify.py\", line 272, in main\n    data = parse(raw)\n           ^^^^^^^^^^\n  File \"/home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s10_p0_23_verify.py\", line 44, in parse\n    return json.loads(raw.decode('utf-8'), parse_float=Decimal, object_pairs_hook=unique_object)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/redxin/code/odoo/odoo-sd/code/.python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/json/__init__.py\", line 359, in loads\n    return cls(**kw).decode(s)\n           ^^^^^^^^^^^^^^^^^^^\n  File \"/home/redxin/code/odoo/odoo-sd/code/.python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/json/decoder.py\", line 338, in decode\n    obj, end = self.raw_decode(s, idx=_w(s, 0).end())\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/redxin/code/odoo/odoo-sd/code/.python/cpython-3.12.15-linux-x86_64-gnu/lib/python3.12/json/decoder.py\", line 354, in raw_decode\n    obj, end = self.scan_once(s, idx)\n               ^^^^^^^^^^^^^^^^^^^^^^\njson.decoder.JSONDecodeError: Invalid control character at: line 1321326 column 25 (char 40931612)\n",
+      "later_success_does_not_replace_failure": true
+    },
+    {
+      "label": "diagnostic-system",
+      "script": "scripts/s10_p0_23_diagnose.py",
+      "interpreter_command": "python3",
+      "exit_code": 1,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "1b10224efcfd813997682a7a8e66530f17b9a5c7cf8b06aefbc4171f84238696",
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"/home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s10_p0_23_diagnose.py\", line 279, in <module>\n    main()\n    ~~~~^^\n  File \"/home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s10_p0_23_diagnose.py\", line 263, in main\n    save(out / 'pure-counterexamples.json', ns['pure_counterexamples']((ROOT / 'scripts/s10_p0_22_contract.py').read_text(), a))\n                                            ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"P023-PURE-FILE-HELPERS-ONLY\", line 163, in pure_counterexamples\n  File \"P023-PURE-FILE-HELPERS-ONLY\", line 150, in old_functions\nNameError: name 'ast' is not defined. Did you forget to import 'ast'?\n",
+      "later_success_does_not_replace_failure": true
+    },
+    {
+      "label": "diagnostic-fixed",
+      "script": "scripts/s10_p0_23_complete.py",
+      "interpreter_command": "../.venv/bin/python",
+      "exit_code": 0,
+      "stdout_sha256": "546c2ee08a9a7e41f80f4ad4e978c4f4d6dd9a3ad4f0d843ef27aa172429c285",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout": "{\"diagnostic_exit\": 0, \"label\": \"diagnostic-fixed\", \"strict_JSON_failure_count\": 1, \"strict_target_occurrences\": 16, \"field_sha256\": [\"776c4257a3567c92aa3e46aa5dc2c4e5a714989be88ab59714452dfeb4042664\", \"75cf739577c6a1977bdd25ddfc4df3a930255243916765abd79b248819248050\", \"776c4257a3567c92aa3e46aa5dc2c4e5a714989be88ab59714452dfeb4042664\"]}\n",
+      "stderr": "",
+      "later_success_does_not_replace_failure": true
+    }
+  ],
+  "data_acquisition_or_native_processes": 0
+}

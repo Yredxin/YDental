@@ -1,0 +1,16 @@
+{
+  "exit_code": 0,
+  "new_scripts_compile": 3,
+  "old_frozen_inputs_byte_hash_unchanged": 47,
+  "old_public_manifest_and_freeze_Git_objects_unchanged": true,
+  "public_JSON_documents_parsed_before_this_seal": 28,
+  "three_target_text_files_per_interpreter_match_text_SHA_hex": true,
+  "public_scan_no_concrete_credentials_or_session_cookie": true,
+  "core_fixed_tracked_unchanged": true,
+  "only_P023_new_paths": true,
+  "private_root_mode": "0700",
+  "private_files": 36,
+  "old_P022_files_not_rewritten": true,
+  "native_database_business_budgets": 0,
+  "does_not_replace_initial_exit_1_or_whole_JSON_failure": true
+}

@@ -1,0 +1,79 @@
+{
+  "same_old_input_bytes": 47,
+  "common_outputs": [
+    {
+      "file": "arch_prev-precommit.txt",
+      "bytes": 2022,
+      "sha256": "776c4257a3567c92aa3e46aa5dc2c4e5a714989be88ab59714452dfeb4042664",
+      "both_outputs_exact": true
+    },
+    {
+      "file": "arch_prev-readback.txt",
+      "bytes": 2022,
+      "sha256": "75cf739577c6a1977bdd25ddfc4df3a930255243916765abd79b248819248050",
+      "both_outputs_exact": true
+    },
+    {
+      "file": "arch_prev-tail.txt",
+      "bytes": 2022,
+      "sha256": "776c4257a3567c92aa3e46aa5dc2c4e5a714989be88ab59714452dfeb4042664",
+      "both_outputs_exact": true
+    },
+    {
+      "file": "comparisons.json",
+      "bytes": 1263,
+      "sha256": "b9828ee0d48c69154ef399294682480317d76e118f8f5fd40b76137c2f5ea137",
+      "both_outputs_exact": true
+    },
+    {
+      "file": "field-observations.json",
+      "bytes": 79806,
+      "sha256": "951ca412011359f9b6eb3159ad57085cfbf61e0d3073428f2844ff4770bc4eee",
+      "both_outputs_exact": true
+    },
+    {
+      "file": "field-values.json",
+      "bytes": 19346,
+      "sha256": "46b82d9a5e75f5e3c80a06277786af8e337e3ade0b2945557cfc5bc04c8f18ea",
+      "both_outputs_exact": true
+    },
+    {
+      "file": "file-diagnostics.json",
+      "bytes": 16671,
+      "sha256": "f623c7d94faf8797c37d7cf813e834031880233fe00212e44a1bb1f3642a2eb9",
+      "both_outputs_exact": true
+    }
+  ],
+  "strict_JSON_failure": [
+    {
+      "bytes": 58746920,
+      "error": {
+        "byte_offset": 41174581,
+        "character_offset": 40931612,
+        "column": 25,
+        "line": 1321326,
+        "message": "Invalid control character at",
+        "offending_codepoint": 31,
+        "type": "JSONDecodeError"
+      },
+      "old_manifest_match": true,
+      "path": ".local/s10-p0-22/r0-A-fresh-owner-scope-1-after.json",
+      "sha256": "221683f576b84ae8903d099b7027ae48ab1d5022faa8d2ee12fc3c153a3624ec",
+      "target_array_byte_end_exclusive": 50902137,
+      "target_array_byte_start": 41495724,
+      "target_array_raw_sha256": "bc95f2967172c58c3eb37f2eff06ff895e005d65b5fe9479e1fd2630ee889d10",
+      "target_array_strict_valid": true,
+      "target_table_canonical_sha256": "adf741e6a8a0f6e94f97801b7b716910a19aa38b7f51eabe953b5530c3e3ec88",
+      "whole_JSON_strict_valid": false
+    }
+  ],
+  "all_common_outputs_exact": true,
+  "process_exit_codes": [
+    1,
+    1,
+    0
+  ],
+  "fixed_pure_counterexamples": 11,
+  "comparison_scope": "saved files/target arrays/fields, not independent DB measurements",
+  "all_native_database_business_budgets": 0
+}

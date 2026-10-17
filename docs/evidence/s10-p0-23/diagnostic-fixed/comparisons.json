@@ -1,0 +1,53 @@
+{
+  "precommit_to_readback": {
+    "byte_differences": [
+      {
+        "byte_offset": 1992,
+        "left": 118,
+        "right": 54
+      }
+    ],
+    "character_differences": [
+      {
+        "character_offset": 1992,
+        "left": "v",
+        "left_UTF8_offset": 1992,
+        "left_codepoint": 118,
+        "left_context": "iv>\n            </div>\n        </t>\n    <",
+        "right": "6",
+        "right_UTF8_offset": 1992,
+        "right_codepoint": 54,
+        "right_context": "iv>\n            </di6>\n        </t>\n    <"
+      }
+    ],
+    "equal": false
+  },
+  "precommit_to_tail": {
+    "byte_differences": [],
+    "character_differences": [],
+    "equal": true
+  },
+  "readback_to_tail": {
+    "byte_differences": [
+      {
+        "byte_offset": 1992,
+        "left": 54,
+        "right": 118
+      }
+    ],
+    "character_differences": [
+      {
+        "character_offset": 1992,
+        "left": "6",
+        "left_UTF8_offset": 1992,
+        "left_codepoint": 54,
+        "left_context": "iv>\n            </di6>\n        </t>\n    <",
+        "right": "v",
+        "right_UTF8_offset": 1992,
+        "right_codepoint": 118,
+        "right_context": "iv>\n            </div>\n        </t>\n    <"
+      }
+    ],
+    "equal": false
+  }
+}

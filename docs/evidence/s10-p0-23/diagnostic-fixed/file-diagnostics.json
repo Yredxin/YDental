@@ -1,0 +1,406 @@
+{
+  "checks": [
+    {
+      "bytes": 11382,
+      "old_manifest_match": true,
+      "path": "docs/evidence/s10-p0-22/file-sha256.json",
+      "sha256": "04ababfaf68a0e168fa6cb04a815ec3f4c0566041727cbe8562364fe9563bcca"
+    },
+    {
+      "bytes": 67470,
+      "old_manifest_match": true,
+      "path": "docs/evidence/s10-p0-22/private-evidence-manifest.json",
+      "sha256": "2976558d3da437b6d552ec92be078c04285f34646293e91ce9825a090d09043d"
+    },
+    {
+      "bytes": 58744992,
+      "old_manifest_match": true,
+      "path": ".local/s10-p0-22/r0-A-fresh-owner-scope-1-intent-before.json",
+      "sha256": "f38465a6f3aeba069cde55711bb4f4bafb230868628705a6f9221dcffcd9acb6",
+      "target_array_byte_end_exclusive": 50902137,
+      "target_array_byte_start": 41495724,
+      "target_array_raw_sha256": "bc95f2967172c58c3eb37f2eff06ff895e005d65b5fe9479e1fd2630ee889d10",
+      "target_array_strict_valid": true,
+      "target_table_canonical_sha256": "adf741e6a8a0f6e94f97801b7b716910a19aa38b7f51eabe953b5530c3e3ec88",
+      "whole_JSON_strict_valid": true
+    },
+    {
+      "bytes": 58744992,
+      "old_manifest_match": true,
+      "path": ".local/s10-p0-22/r0-A-fresh-owner-scope-1-before.json",
+      "sha256": "f38465a6f3aeba069cde55711bb4f4bafb230868628705a6f9221dcffcd9acb6",
+      "target_array_byte_end_exclusive": 50902137,
+      "target_array_byte_start": 41495724,
+      "target_array_raw_sha256": "bc95f2967172c58c3eb37f2eff06ff895e005d65b5fe9479e1fd2630ee889d10",
+      "target_array_strict_valid": true,
+      "target_table_canonical_sha256": "adf741e6a8a0f6e94f97801b7b716910a19aa38b7f51eabe953b5530c3e3ec88",
+      "whole_JSON_strict_valid": true
+    },
+    {
+      "bytes": 58746920,
+      "error": {
+        "byte_offset": 41174581,
+        "character_offset": 40931612,
+        "column": 25,
+        "line": 1321326,
+        "message": "Invalid control character at",
+        "offending_codepoint": 31,
+        "type": "JSONDecodeError"
+      },
+      "old_manifest_match": true,
+      "path": ".local/s10-p0-22/r0-A-fresh-owner-scope-1-after.json",
+      "sha256": "221683f576b84ae8903d099b7027ae48ab1d5022faa8d2ee12fc3c153a3624ec",
+      "target_array_byte_end_exclusive": 50902137,
+      "target_array_byte_start": 41495724,
+      "target_array_raw_sha256": "bc95f2967172c58c3eb37f2eff06ff895e005d65b5fe9479e1fd2630ee889d10",
+      "target_array_strict_valid": true,
+      "target_table_canonical_sha256": "adf741e6a8a0f6e94f97801b7b716910a19aa38b7f51eabe953b5530c3e3ec88",
+      "whole_JSON_strict_valid": false
+    },
+    {
+      "bytes": 58746920,
+      "old_manifest_match": true,
+      "path": ".local/s10-p0-22/A-owner-scope-precommit.json",
+      "sha256": "974a0bc8352c699bf1e2b3b4f493f02fcdc80b0b4d9f9be9bb224bfe4e13d07a",
+      "target_array_byte_end_exclusive": 50902137,
+      "target_array_byte_start": 41495724,
+      "target_array_raw_sha256": "bc95f2967172c58c3eb37f2eff06ff895e005d65b5fe9479e1fd2630ee889d10",
+      "target_array_strict_valid": true,
+      "target_table_canonical_sha256": "adf741e6a8a0f6e94f97801b7b716910a19aa38b7f51eabe953b5530c3e3ec88",
+      "whole_JSON_strict_valid": true
+    },
+    {
+      "bytes": 58735553,
+      "old_manifest_match": true,
+      "path": ".local/s10-p0-22/A-owner-scope-committed-RO.json",
+      "saved_table_signature_match": true,
+      "sha256": "e81988d2da3ccb010c3e6fcb685b873beaf77cd33baaaa5a12de4af5df3e69b8",
+      "target_array_byte_end_exclusive": 50890770,
+      "target_array_byte_start": 41484357,
+      "target_array_raw_sha256": "177931d84cc387f60f9269569aacab6554fcee3757e5104633571f81c08feb85",
+      "target_array_strict_valid": true,
+      "target_table_canonical_sha256": "c897a4818f74894950d21d90e2a9acad47fa7b2a3c951256203c8601df6a2dc8",
+      "whole_JSON_strict_valid": true
+    },
+    {
+      "bytes": 58746920,
+      "old_manifest_match": true,
+      "path": ".local/s10-p0-22/A-owner-scope-readback-before.json",
+      "sha256": "974a0bc8352c699bf1e2b3b4f493f02fcdc80b0b4d9f9be9bb224bfe4e13d07a",
+      "target_array_byte_end_exclusive": 50902137,
+      "target_array_byte_start": 41495724,
+      "target_array_raw_sha256": "bc95f2967172c58c3eb37f2eff06ff895e005d65b5fe9479e1fd2630ee889d10",
+      "target_array_strict_valid": true,
+      "target_table_canonical_sha256": "adf741e6a8a0f6e94f97801b7b716910a19aa38b7f51eabe953b5530c3e3ec88",
+      "whole_JSON_strict_valid": true
+    },
+    {
+      "bytes": 58735553,
+      "old_manifest_match": true,
+      "path": ".local/s10-p0-22/A-owner-scope-readback-after.json",
+      "sha256": "e81988d2da3ccb010c3e6fcb685b873beaf77cd33baaaa5a12de4af5df3e69b8",
+      "target_array_byte_end_exclusive": 50890770,
+      "target_array_byte_start": 41484357,
+      "target_array_raw_sha256": "177931d84cc387f60f9269569aacab6554fcee3757e5104633571f81c08feb85",
+      "target_array_strict_valid": true,
+      "target_table_canonical_sha256": "c897a4818f74894950d21d90e2a9acad47fa7b2a3c951256203c8601df6a2dc8",
+      "whole_JSON_strict_valid": true
+    },
+    {
+      "bytes": 58735553,
+      "old_manifest_match": true,
+      "path": ".local/s10-p0-22/final-tail-RO.json",
+      "saved_table_signature_match": true,
+      "sha256": "a5c86877e0dfcba311f1fd25758ef31190c2b5862f64da2947a223c1dd79abdd",
+      "target_array_byte_end_exclusive": 50890770,
+      "target_array_byte_start": 41484357,
+      "target_array_raw_sha256": "bc95f2967172c58c3eb37f2eff06ff895e005d65b5fe9479e1fd2630ee889d10",
+      "target_array_strict_valid": true,
+      "target_table_canonical_sha256": "adf741e6a8a0f6e94f97801b7b716910a19aa38b7f51eabe953b5530c3e3ec88",
+      "whole_JSON_strict_valid": true
+    },
+    {
+      "bytes": 58746920,
+      "old_manifest_match": true,
+      "path": ".local/s10-p0-22/final-tail-vs-scope-precommit-before.json",
+      "sha256": "974a0bc8352c699bf1e2b3b4f493f02fcdc80b0b4d9f9be9bb224bfe4e13d07a",
+      "target_array_byte_end_exclusive": 50902137,
+      "target_array_byte_start": 41495724,
+      "target_array_raw_sha256": "bc95f2967172c58c3eb37f2eff06ff895e005d65b5fe9479e1fd2630ee889d10",
+      "target_array_strict_valid": true,
+      "target_table_canonical_sha256": "adf741e6a8a0f6e94f97801b7b716910a19aa38b7f51eabe953b5530c3e3ec88",
+      "whole_JSON_strict_valid": true
+    },
+    {
+      "bytes": 58735553,
+      "old_manifest_match": true,
+      "path": ".local/s10-p0-22/final-tail-vs-scope-precommit-after.json",
+      "sha256": "a5c86877e0dfcba311f1fd25758ef31190c2b5862f64da2947a223c1dd79abdd",
+      "target_array_byte_end_exclusive": 50890770,
+      "target_array_byte_start": 41484357,
+      "target_array_raw_sha256": "bc95f2967172c58c3eb37f2eff06ff895e005d65b5fe9479e1fd2630ee889d10",
+      "target_array_strict_valid": true,
+      "target_table_canonical_sha256": "adf741e6a8a0f6e94f97801b7b716910a19aa38b7f51eabe953b5530c3e3ec88",
+      "whole_JSON_strict_valid": true
+    },
+    {
+      "bytes": 58735553,
+      "old_manifest_match": true,
+      "path": ".local/s10-p0-22/failed-readback-vs-final-tail-before.json",
+      "sha256": "e81988d2da3ccb010c3e6fcb685b873beaf77cd33baaaa5a12de4af5df3e69b8",
+      "target_array_byte_end_exclusive": 50890770,
+      "target_array_byte_start": 41484357,
+      "target_array_raw_sha256": "177931d84cc387f60f9269569aacab6554fcee3757e5104633571f81c08feb85",
+      "target_array_strict_valid": true,
+      "target_table_canonical_sha256": "c897a4818f74894950d21d90e2a9acad47fa7b2a3c951256203c8601df6a2dc8",
+      "whole_JSON_strict_valid": true
+    },
+    {
+      "bytes": 58735553,
+      "old_manifest_match": true,
+      "path": ".local/s10-p0-22/failed-readback-vs-final-tail-after.json",
+      "sha256": "a5c86877e0dfcba311f1fd25758ef31190c2b5862f64da2947a223c1dd79abdd",
+      "target_array_byte_end_exclusive": 50890770,
+      "target_array_byte_start": 41484357,
+      "target_array_raw_sha256": "bc95f2967172c58c3eb37f2eff06ff895e005d65b5fe9479e1fd2630ee889d10",
+      "target_array_strict_valid": true,
+      "target_table_canonical_sha256": "adf741e6a8a0f6e94f97801b7b716910a19aa38b7f51eabe953b5530c3e3ec88",
+      "whole_JSON_strict_valid": true
+    },
+    {
+      "bytes": 4455,
+      "old_manifest_match": true,
+      "path": ".local/s10-p0-22/r0-A-fresh-owner-scope-1-full-diff.json",
+      "sha256": "6ba577ce3db73d11109307f4ff2355449cf09df1c572196adf1f935839243d6e",
+      "whole_JSON_strict_valid": true
+    },
+    {
+      "bytes": 2691,
+      "old_manifest_match": true,
+      "path": "docs/evidence/s10-p0-22/r0-A-fresh-owner-scope-1-diff-index.json",
+      "sha256": "edaee4ac2e75b0e52af7fb1fb4e3ef5837471e8a8081b8f98ef8abea2e88dd0d"
+    },
+    {
+      "bytes": 109,
+      "old_manifest_match": true,
+      "path": "docs/evidence/s10-p0-22/r0-A-fresh-owner-scope-1-decision.json",
+      "sha256": "4475347a7be1e62cd6d1d9320fd87a87e43ffa4ee676b3b9cb494454305cde47"
+    },
+    {
+      "bytes": 14679,
+      "old_manifest_match": true,
+      "path": ".local/s10-p0-22/A-owner-scope-readback-full-diff.json",
+      "sha256": "37758833f42e3beb93435d6937c2bd187378825686cc8ef1535dd0c544cf0446",
+      "whole_JSON_strict_valid": true
+    },
+    {
+      "bytes": 563,
+      "old_manifest_match": true,
+      "path": "docs/evidence/s10-p0-22/A-owner-scope-readback-diff-index.json",
+      "sha256": "808c093e82b09276281b70cd28f4e856cac90b652553359af61cc99007af0366"
+    },
+    {
+      "bytes": 167,
+      "old_manifest_match": true,
+      "path": "docs/evidence/s10-p0-22/A-owner-scope-readback-decision.json",
+      "sha256": "196554680de29be791bb60119a7c5d477e146eb27f15df05031859026289c9c1"
+    },
+    {
+      "bytes": 3,
+      "old_manifest_match": true,
+      "path": ".local/s10-p0-22/final-tail-vs-scope-precommit-full-diff.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "whole_JSON_strict_valid": true
+    },
+    {
+      "bytes": 92,
+      "old_manifest_match": true,
+      "path": "docs/evidence/s10-p0-22/final-tail-vs-scope-precommit-diff-index.json",
+      "sha256": "a5e503316d066afe151a9d8ad4183c8f848d58b5ecad16a7a9956edcce0dcdb6"
+    },
+    {
+      "bytes": 98,
+      "old_manifest_match": true,
+      "path": "docs/evidence/s10-p0-22/final-tail-vs-scope-precommit-decision.json",
+      "sha256": "52fff7125459ac1cf15090da615355995f790d43f56adcbe139fad2aaee6f6fa"
+    },
+    {
+      "bytes": 14679,
+      "old_manifest_match": true,
+      "path": ".local/s10-p0-22/failed-readback-vs-final-tail-full-diff.json",
+      "sha256": "285ecb0f9296a3dc85ddbe98f1eee98ca39c955fb5f51a176c06bd02215d0bc7",
+      "whole_JSON_strict_valid": true
+    },
+    {
+      "bytes": 563,
+      "old_manifest_match": true,
+      "path": "docs/evidence/s10-p0-22/failed-readback-vs-final-tail-diff-index.json",
+      "sha256": "d5e43976968989d9ccff0d7d4070712b3a641fce48297dc388129e0f8eaee59f"
+    },
+    {
+      "bytes": 167,
+      "old_manifest_match": true,
+      "path": "docs/evidence/s10-p0-22/failed-readback-vs-final-tail-decision.json",
+      "sha256": "62ed1756a294c8d85f6748bc4e9d72bcfc997ffbe9a9bc08dd625b0f93de5a78"
+    },
+    {
+      "bytes": 91188,
+      "old_manifest_match": true,
+      "path": "docs/evidence/s10-p0-22/A-owner-scope-committed-RO-signatures.json",
+      "sha256": "379f0d7d5ef624818e1330b3e9ce3c123ce2b56b122b913b6e981037281fdc53"
+    },
+    {
+      "bytes": 91188,
+      "old_manifest_match": true,
+      "path": "docs/evidence/s10-p0-22/final-tail-RO-signatures.json",
+      "sha256": "0a55ed20bc049ee0bdaf58581ae6a971d1c42492b80d46998690609daecc1902"
+    },
+    {
+      "bytes": 1262,
+      "old_manifest_match": true,
+      "path": "docs/evidence/s10-p0-22/integrity-stop.json",
+      "sha256": "82ed2e7cac7c25a0d7f9d2b630af657f2104511d98c56fc31d2e25394fe77a90"
+    },
+    {
+      "bytes": 389,
+      "old_manifest_match": true,
+      "path": "docs/evidence/s10-p0-22/r0-A-result.json",
+      "sha256": "4cd72071726b031e2be111f7d5de02fca5e9749d94ab5040459d5c13c3af433b"
+    },
+    {
+      "bytes": 52931,
+      "old_manifest_match": true,
+      "path": "docs/evidence/s10-p0-22/initial-freeze.json",
+      "sha256": "ff131b9731247e8a6d579de7b0e7a44cc4175cc901242ac12669dea28dbd3b47"
+    },
+    {
+      "bytes": 2191,
+      "old_manifest_match": true,
+      "path": "docs/evidence/s10-p0-22/execution-summary.json",
+      "sha256": "50dbcab0b04b77c32947e892e5bc23960ac3573e3c053015b4ebc091f99715a9"
+    },
+    {
+      "bytes": 1876,
+      "old_manifest_match": true,
+      "path": "docs/evidence/s10-p0-22/static-preflight-result-frozen-candidate.json",
+      "sha256": "7a018d866d1b548a8aee279fc15542fc09896f35e846c5a8ee3284e50b725e89"
+    },
+    {
+      "bytes": 3069,
+      "old_manifest_match": true,
+      "path": "docs/evidence/s10-p0-22/events.jsonl",
+      "sha256": "740245ae1724c4d0cc908b3ed6a896e6bd6f9d8014993b72d6172d040517598b"
+    },
+    {
+      "bytes": 3,
+      "old_manifest_match": true,
+      "path": ".local/s10-p0-22/A-owner-scope-native-effects.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    {
+      "bytes": 9868,
+      "old_manifest_match": true,
+      "path": ".local/ydental_s10_test_20261017060000_22b0cafe/r0-A.log",
+      "sha256": "a68f83279770bad4128e595727f355d785c238dc229ca5657ccb914ae44e0e3a"
+    },
+    {
+      "bytes": 10105,
+      "old_manifest_match": true,
+      "path": "scripts/s10_p0_22_contract.py",
+      "sha256": "84be5b0c860e23bb995e8e64bc44c69da103f624b6fe15ceb3b967e946fb4a21"
+    },
+    {
+      "bytes": 12507,
+      "old_manifest_match": true,
+      "path": "scripts/s10_p0_22_runtime.py",
+      "sha256": "7485b1ddd71597aa714b3634c9200088460032234b87d5542a0958c59b4ad91b"
+    },
+    {
+      "bytes": 6885,
+      "old_manifest_match": true,
+      "path": "scripts/s10_p0_22_control.py",
+      "sha256": "43672666da4752bd3e0a045ffcf3a3e45f89359211715a14a9249123987cecca"
+    },
+    {
+      "bytes": 22089,
+      "old_manifest_match": true,
+      "path": "scripts/s10_p0_22_cases.py",
+      "sha256": "593b6bbc04c3818327af6e3f0cbe64a2664fb2280a13af24d1293e7e1097da57"
+    },
+    {
+      "bytes": 863,
+      "old_manifest_match": true,
+      "path": "scripts/s10_p0_22_native.py",
+      "sha256": "d772a1d2c4a0264ee2cb4dd816f76b09bfd453b72f6568d724756b0df809f542"
+    },
+    {
+      "bytes": 10551,
+      "old_manifest_match": true,
+      "path": "scripts/s10_p0_22_preflight.py",
+      "sha256": "218c51359c9b03d0b7ac69032fb4526ab9af9dbbaffa99431e2bea1ace929c39"
+    },
+    {
+      "bytes": 7060,
+      "old_manifest_match": true,
+      "path": "scripts/s10_p0_22_seal_blocked.py",
+      "sha256": "2c51eb225b8036663036184c107237bbc824bde8b375b6b3bf6a3d301c10f4d3"
+    },
+    {
+      "bytes": 1652781,
+      "old_manifest_match": true,
+      "path": ".local/s10-p0-22/STATIC-evidence-before-rejection-frozen-candidate-before.json",
+      "sha256": "4d21990fc2d3b79a9c0490b16cac4c8a3050460f37063546de67518514683e64",
+      "static_fixture_tables": [
+        "account_move",
+        "ydental_access_audit",
+        "ydental_clinical_document",
+        "ydental_clinical_version",
+        "ydental_intake_mutex",
+        "ydental_patient_mutex",
+        "ydental_queue_mutex",
+        "ydental_supply_mutex"
+      ],
+      "whole_JSON_strict_valid": true
+    },
+    {
+      "bytes": 1653517,
+      "old_manifest_match": true,
+      "path": ".local/s10-p0-22/STATIC-evidence-before-rejection-frozen-candidate-after.json",
+      "sha256": "b2c9d552f0d92914944802fa6291606e258e77ec82ca7e0f84aa1175d90cd246",
+      "static_fixture_tables": [
+        "account_move",
+        "ydental_access_audit",
+        "ydental_clinical_document",
+        "ydental_clinical_version",
+        "ydental_intake_mutex",
+        "ydental_patient_mutex",
+        "ydental_queue_mutex",
+        "ydental_supply_mutex"
+      ],
+      "whole_JSON_strict_valid": true
+    },
+    {
+      "bytes": 9521,
+      "old_manifest_match": true,
+      "path": ".local/s10-p0-22/STATIC-evidence-before-rejection-frozen-candidate-full-diff.json",
+      "sha256": "ddd97bc8769511163f86be8d59176ddbb08de1b339923a75220b55983a77d780",
+      "static_fixture_tables": [
+        "ydental_access_audit",
+        "ydental_clinical_document",
+        "ydental_intake_mutex",
+        "ydental_patient_mutex",
+        "ydental_queue_mutex",
+        "ydental_supply_mutex"
+      ],
+      "whole_JSON_strict_valid": true
+    },
+    {
+      "bytes": 21139,
+      "old_manifest_match": true,
+      "path": "../addons/account/views/account_portal_templates.xml",
+      "sha256": "f798ea1db1ae9fc38ac751047fc7230ada23c94501a9193c21287e7fdcb69dd5"
+    }
+  ],
+  "initial_strict_verifier_exit": 1,
+  "interpretation": "whole-file strict validity, target-array validity, and target-row validity are separate claims"
+}
