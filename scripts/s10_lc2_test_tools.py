@@ -175,6 +175,21 @@ class ToolCase(unittest.TestCase):
             target_guard(name, run, allowed_names=[name], config_path=config)
 
 
+class RendererSchemaCase(unittest.TestCase):
+    """Only JSONL primitives; no renderer, database or application is started."""
+
+    def test_renderer_fields_accept_only_nonnegative_integers_or_null(self):
+        with tempfile.TemporaryDirectory(prefix='s10-lc2-schema-') as directory:
+            path = Path(directory) / 'events.jsonl'
+            for field in ('renderer_pid', 'renderer_exit_code', 'renderer_signal'):
+                for value in (None, 0, 123, True, '11', -1):
+                    with self.subTest(field=field, value=value):
+                        path.write_bytes(json.dumps(record(**{field: value})).encode() + b'\n')
+                        validation = validate_jsonl([path])
+                        expected = 'VALID' if value is None or type(value) is int and value >= 0 else 'INVALID'
+                        self.assertEqual(validation['status'], expected)
+
+
 class FakeCursor:
     def __init__(self, connection):
         self.connection = connection

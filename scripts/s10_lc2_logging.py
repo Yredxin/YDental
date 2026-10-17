@@ -16,6 +16,7 @@ OPTIONAL_TYPES = {
     'error_code': str, 'error_class': str, 'exception_type': str,
     'root_event_id': str, 'commit_observation': str,
     'native_http_log_level': int, 'diagnostic_log_level': int,
+    'renderer_pid': int, 'renderer_exit_code': int, 'renderer_signal': int,
 }
 
 
@@ -71,6 +72,9 @@ def validate_jsonl(paths, *, require_end=True):
                         for key, expected in OPTIONAL_TYPES.items():
                             if row.get(key) is not None and type(row[key]) is not expected:
                                 raise ValueError('INVALID_FIELD_TYPE:' + key)
+                        for key in ('renderer_pid', 'renderer_exit_code', 'renderer_signal'):
+                            if row.get(key) is not None and row[key] < 0:
+                                raise ValueError('INVALID_FIELD_RANGE:' + key)
                         if row['event_id'] in seen:
                             raise ValueError('DUPLICATE_EVENT_ID')
                         process = (row.get('run_id'), row['pid'])
