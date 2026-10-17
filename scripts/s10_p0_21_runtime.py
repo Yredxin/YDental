@@ -10,6 +10,9 @@ pending={}
 
 def snapshot(env,full=False):
     env.flush_all()
+    # Read-only verification projection in this owned new-B cursor; never changes the business service env.
+    from odoo.orm.environments import Environment
+    audit_env=Environment(env.cr,1,{'lang':'zh_CN'})
     snap={}
     # Explicit display-only projection, not used to decide economic equality.
     spec={'ydental.treatment.event':['id','display_name','ydental_document_id'],
@@ -17,7 +20,7 @@ def snapshot(env,full=False):
           'account.move':['id','display_name','partner_id'],
           'stock.move':['id','display_name','product_id'],
           'stock.quant':['id','display_name','product_id','lot_id']}
-    display={m:env[m].search([],order='id').read(fields) for m,fields in spec.items()}
+    display={m:audit_env[m].search([],order='id').read(fields) for m,fields in spec.items()}
     env.flush_all()
     snap=c.capture(env.cr,full=full)
     snap['orm_display']=display
@@ -78,7 +81,7 @@ def observed(env,label,call):
     label=os.environ['YDENTAL_P021_ACTION']+'-'+label
     _counts[label]+=1;label+='-'+str(_counts[label])
     before=snapshot(env);c.save(c.PRIVATE/(label+'-pre-action.json'),before)
-    c.event('operation_intent',label=label)
+    c.event('operation_intent',label=label,business_actor_uid=env.uid,display_verification_actor=1)
     try:result=call()
     except BaseException as e:
         after=snapshot(env)
