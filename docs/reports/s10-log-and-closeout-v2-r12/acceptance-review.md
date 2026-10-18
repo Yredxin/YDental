@@ -838,3 +838,32 @@ post RO exit 0：`C-scratch-configured-verified.json` 778658 字节，SHA256 `43
 首失败索引 SHA256 `79d87c1e888185e29e99e2a9bc6ab12cdf55333453138081725aea68715acb30` 的 8 个具体原件引用已逐一核 bytes/SHA；1414 项复用原件快照索引 SHA256 `0e13981053622f8a3c1b4f46080c923e072943b8878617494470f6683ef3d73a` 保留固定候选和控制字节。此处不声称重新读取所有未变的 1414 项。实际累计 35 Odoo / 163 target RO / 406 HTTP / 8 Firefox / 12 original GET，旧 baseline 和起止时间保持。
 
 当前独立结论：本次六源/五未付账/两原件及适用 D 保全、已实际完成的 19 个正文/摘要/foreign 单元和三 PDF 限定 PASS；C 整体仍 PARTIAL，LOG-03/最终双 E/全 S10 未签。精确余段只消费实际六源/两原件 manifest，先核 live 完整状态，再做未执行 8 probe / 303 / session / terminal；不得重做 upstream、merge、bill、原件或已采 read 前缀。所有历史工具失败与 producer PENDING 保留，独立签署另列。
+
+
+## YD-S10-TECHNICAL-CLOSEOUT-V1｜首 native HTML 的语言 303 与有限保全核验
+
+独立审查者 `/root/acceptance_s10`；保留前 234951 字节 SHA256 `706a361cfbb7ecdcc6d450d218f6d0c38264a48f03227fad9a2c964275ad6501`。本次实际 P 仍 `cc1a395a8254a0b6c2017ceedd9a351d095c590a`，实际 T 为 `a2a223defc419fb06d3f61b327b680b434fcf389`。没有实施产品变更或重做 C/D 业务。
+
+精确 final-probes 首次已经到达 Odoo。普通 reader 11 的原生 session info 先证明 uid 11 / 非管理员 / 非系统 / internal，合法 selected store 4、revision 3；首 `/report/html/ydental_settlement.ydental_settlement_pdf/5` 返回 HTTP **303**、305 字节 text/html、无 PDF。测试仍要求 403，因此产生普通 `C_SYNTHETIC_FOREIGN_TARGET_NOT_DENIED` STOP。真实 wrapper exit 1，owned 原生 PID 1976217 单 parent exit 0 / signal null。原生诊断共 12 条，亲读未找到该首 operation_ref 的报告事件、任何异常或 renderer 事件。故该请求没有可证明的产品 report guard 拒绝，不能以 303 或非 PDF 判定权限 PASS。
+
+首 HTTP 原件保存了 status、redirect_present、body SHA256 `765165b732423024e6a999360980b65bc248b747ce22ecda854484b909d94a5f`，但实际 Location header 与完整 body 当时在 RAM，未保留。不得补造 Location、自动跟随未知 URL 或把这一缺口追溯改成已观察。
+
+独立源码核对 core `http_routing._match`：对 website=True 的原生 report route，非默认语言而缺 URL 语言前缀时，可在真正报告控制器前正常 303 并设置 frontend_lang。另 core HTTP dispatcher 的 SessionExpired / identity 确认也可重定向；实际目标缺失时不能只凭状态码选定原因。tester 用同已安装 Werkzeug 离线生成固定 `/en/report/html/ydental_settlement.ydental_settlement_pdf/5` 的标准 303 body，其 305 字节和上述 SHA 完全一致，`/en_US` 候选不匹配。这是强支持英文 canonical 路径的字节推断，**仍不是原 Location header 的实测记录**。没有为了补摘要重新发首裸路径。
+
+### 普通 STOP 原件保留与有限只读取证
+
+仅将本次普通断言 STOP 原字节 SHA256 `8ade0772b7d50364e7ce6074fb9fffbbf2f2ecfe1eb847ba5e7a1b87870389ec` 精确转存既定 incident 路径，另保原 copy 与 save-once 回执 SHA256 `b03146e5e32afc4fc6afaf1834c6a380dc444896aec51f14c12f61b9bc9cc66b`。原 r12 工具安全 STOP、历史拒绝包、账本、已用次数和原期限不变。此时 scope 只准 target-ro，两个 app action 列表为空；没有用通用 ignore 或扩大 targets 规则放应用。
+
+首语言 RO 实际 exit **1**：复制投影规则时不当要求每个既有 selection 都有 columns，第一张 account_full_reconcile 合法使用原 `to_jsonb(t)` 默认投影，因而在第一表 SQL 前 AssertionError。首 raw SHA256 `657b3116732c2dd5f6ab01ecaaee21438a9b569baafd02ea71ae9fa5cbf1c370` 保存真实只读 RR 身份、rollback / close，业务投影为空、语言未采；不把连接建立当作业务保护已经验证，RO 计数 166 保留。
+
+唯一独立 attempt2 只修复这一适配遗漏：使用原固定 schema 和原 34 表 selections，已有普通 native graph 表按原 to_jsonb(t) 规则，res_users/partner/attachment/session/lease/执行/文书/治疗事件费用仍必须明确投影；无新增范围、连接或字段排除。验收者在 RAM 生成实际 selections 确认默认 11 表与 typed 约束相容后准入。新独占 intent/prefix 绑定首 raw / exit 1，未覆盖原脚本、失败或计数。
+
+attempt2 实际 child 1985762 exit **0**：observed 418321 字节 SHA256 `a1fedf4310b905aa403ca9cc669873d9c08b1419904e9e68e8134520a2e41e0e`；verified 420087 字节 SHA256 `8b1c375535587b5ada17d5e72898acdad3f34d191680723c14b3c735fa2fa864`；真实退出回执 SHA256 `2f21d918d21fead3e4d2ce118a3e18ca899b2c2d25dcf6f2835b62d258eef485`。目标 OID/cluster、readonly / RR、无其他连接、rollback / close 均正确。执行业务动作 0、HTTP 0、应用启动 0。
+
+验收者亲自核前置 capture sealed-index SHA256 `42f980593bfcb3640dbddcf7ac748c22c17b36c79fa5c5e6a0a3d786b365edf7` 及所列文件哈希，并独立逐值比较当前全部 34 表投影：32 表完全相同；审计只新增 id 408，普通 actor 11 对 session 13 正常 store 2→4 的 accepted store.switch；session 只 id 13 / uid 11 的 store 2 / rev 2→store 4 / rev 3，精确对应已保存的原生身份信息 SHA256 `47dd6a7b75fedfd3184098e2f0a2577c8f5bef4bb51b79bfda8750e6c6bf89c5`。其他 session id/字段全同，不宽排整张授权表。六源/五未付账/两原件、D 唯一原生资金链及 partner 19 rank 3 的投影保持；这一结果也说明首 303 之后没有经济漂移。
+
+实际安全语言事实：active zh_CN/url_code zh_CN 与 en_US/url_code en；普通 reader 11 / partner 16 的 lang 为 en_US；res.partner.lang 全局 ir.default 为 zh_CN，公共 user 3 / partner 4 为 zh_CN；http_routing installed，website uninstalled，没有网站级默认配置。它们是本次首次语言物理基线，不是回填旧记录；与 core canonical 语言规则和精确 body digest 的推断相符。
+
+当前独立限定结论：语言元数据与本次 34 表保全 **PASS**，正常授权/session 单行变化已解释。原首次裸 report HTML 的产品拒绝层仍 **NOT_PROVEN**，原 Location 未保存限制保留。可在正常固定 `/en/` native canonical 路径上验证此前没有命中的 4 report guard，并完成尚未执行的 4 native attachment negative、303 表单拒绝、末身份与退出后 terminal RO；入口仍须同源、相同 report/docid/query、真实普通 actor/store，最多一次真实语言 canonical 重定向，禁止登录/identity/任意路径追随。不改 core/auth/lang/DOM，不重源/原件/已采正文，不将这一限定结论提升为全 C / LOG / E / S10 PASS。
+
+实际累计为 36 Odoo / 167 target RO / 418 HTTP / 8 Firefox / 12 original GET；首失败的 RO 166 和之前所有失败/普通 STOP 原件继续保留。本节没有验收尚未完成的新 canonical 补丁或运行。

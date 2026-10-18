@@ -2108,16 +2108,84 @@ def check_c_nonempty_summary(reader, facts, label, expected, *, stop):
     return row
 
 
-def check_c_foreign_target_denied(reader, facts, label, *, path, kind, target_id, stop, case_id='C-SCOPE'):
+def check_c_foreign_target_denied(reader, facts, label, *, path, kind, target_id, stop, case_id='C-SCOPE',
+                                 native_locale=None):
     """The caller has independently proven this target and a valid own scope."""
     response = reader.client.request('GET', path, case_id=case_id,
         operation_ref='C-' + label + '-foreign-' + kind)
+    if native_locale is not None:
+        if (native_locale != 'en' or reader.uid != 11 or reader.store_id != 4
+                or target_id != 5 or case_id != 'C-ATTACHMENT' or not kind.startswith('native-')):
+            raise RuntimeError('C_NATIVE_CANONICAL_ONLY_EXACT_FOREIGN_TARGET')
+        facts.save('C-' + kind + '-first-navigation', {
+            'request_id': response.request_id, 'http_status': response.status,
+            'body_sha256': hashlib.sha256(response.body).hexdigest(),
+            'initial_canonical_path': urlsplit(path).path.startswith('/en/report/'),
+            'historical_bare_html_request_repeated': False})
+        if response.status == 303:
+            location = response.headers.get('location', '')
+            resolved = urlsplit(urljoin(reader.client.base_url + response.request_path, location))
+            original = urlsplit(path)
+            expected_path = '/en' + original.path if original.path.startswith('/report/') else None
+            query = parse_qs(resolved.query, keep_blank_values=True)
+            valid = (bool(location) and resolved.scheme + '://' + resolved.netloc == reader.client.base_url
+                and expected_path is not None and resolved.path == expected_path and not resolved.fragment
+                and query == parse_qs(original.query, keep_blank_values=True))
+            facts.save('C-' + kind + '-actual-language-location', {
+                'request_id': response.request_id, 'http_status': response.status,
+                'actual_Location_header_observed': bool(location),
+                'exact_same_origin_converter_report_id_query_and_locale': valid,
+                'location_path': resolved.path if valid else 'UNEXPECTED_NOT_RETAINED',
+                'location_query_keys': sorted(query), 'follow_count_allowed': 1})
+            if not valid:
+                stop('C_NATIVE_REPORT_REDIRECT_NOT_EXACT_CANONICAL_LANGUAGE', request_id=response.request_id)
+                raise RuntimeError('C_NATIVE_REPORT_REDIRECT_NOT_EXACT_CANONICAL_LANGUAGE')
+            response = reader.client.follow(response, case_id=case_id,
+                operation_ref='C-' + label + '-foreign-' + kind + '-native-canonical')
     row = {'actor_id': reader.uid, 'request_id': response.request_id,
         'foreign_target_id': target_id, 'route_kind': kind, 'http_status': response.status,
         'body_sha256': hashlib.sha256(response.body).hexdigest(),
+        'response_bytes': len(response.body),
         'protected_pdf_returned': response.body.startswith(b'%PDF-'), 'raw_body_retained': False}
+    if native_locale is not None:
+        # Only fixed, non-PHI product denial text is recognized. No page body,
+        # cookies, headers or arbitrary exception text leave RAM.
+        markers = {
+            'server_bound_login_scope': b'access_denied: A server-bound login scope is required.',
+            'bound_settlement_export_scope': b'access_denied: A bound settlement export request is required.',
+            'arbitrary_report_arguments': b'access_denied: Arbitrary settlement report arguments are unavailable.'}
+        row['actual_static_product_scope_denial_markers'] = {
+            name: value in response.body for name, value in markers.items()}
+        actual_text, parse_failure = [], None
+        if (response.status == 403 and not row['protected_pdf_returned']
+                and any(row['actual_static_product_scope_denial_markers'].values())):
+            from lxml import etree, html
+            try:
+                tree = html.fromstring(response.body)
+                allowed = {value.decode('ascii') for value in markers.values()}
+                # Locked http_routing.error_message uses a pre inside p;
+                # lxml repairs that invalid nesting. Select only the native
+                # error container's message pre, never a traceback/QWeb pre.
+                for element in tree.xpath('//title|//p|'
+                        '//*[@id="o_error_block" or @id="error_main"]//pre['
+                        'not(@id="exception_traceback") and '
+                        'not(ancestor::*[@id="error_traceback" or @id="error_qweb"])]'):
+                    text = ''.join(element.itertext()).strip()
+                    if (text in allowed and text not in actual_text
+                            and len(json.dumps(actual_text + [text]).encode('utf-8')) <= 8192):
+                        actual_text.append(text)
+            except (ValueError, TypeError, etree.ParserError, etree.XMLSyntaxError) as error:
+                parse_failure = type(error).__name__
+            facts.save('C-' + kind + '-actual-native-scope-message', {
+                'request_id': response.request_id, 'http_status': response.status,
+                'body_sha256': row['body_sha256'], 'response_bytes': len(response.body),
+                'actual_static_denial_text': actual_text, 'parse_failure': parse_failure,
+                'full_html_trace_headers_or_cookie_retained': False})
+        row['native_scope_denial_observed'] = bool(actual_text)
+        row['authentication_redirect_or_second_redirect'] = response.status in {301, 302, 303, 307, 308}
     facts.save('C-' + label + '-foreign-' + kind + '-minimal', row)
-    if response.status != 403 or row['protected_pdf_returned']:
+    if (response.status != 403 or row['protected_pdf_returned']
+            or native_locale is not None and not row['native_scope_denial_observed']):
         stop('C_SYNTHETIC_FOREIGN_TARGET_NOT_DENIED', request_id=response.request_id,
              evidence='C-' + label + '-foreign-' + kind + '-minimal.json')
         raise RuntimeError('C_SYNTHETIC_FOREIGN_TARGET_NOT_DENIED')
@@ -2187,7 +2255,7 @@ def current_c_read_manifest(directory, source_rows, clinics):
 
 
 def run_current_c_read_cells(reader, facts, manifest, d_source, *, profile, stop, source_ref, source_sha256,
-                             fixed_probe_tail=False):
+                             fixed_probe_tail=False, native_locale=None):
     """Real nonempty family, other-store/company, summary and attachment reads."""
     if fixed_probe_tail and (manifest.get('all_C_fee_ids') != [2, 4, 3, 5, 6, 7]
             or manifest.get('canonical_patient_id') != 4
@@ -2275,7 +2343,8 @@ def run_current_c_read_cells(reader, facts, manifest, d_source, *, profile, stop
             # invoice even when JSON supplies plausible report context/options.
             # An opaque in-process SettlementPdfScope cannot be issued by JSON.
             with reader.client.current_c_target(source_ref=source_ref, source_sha256=source_sha256,
-                    invoice_id=local['invoice_id'], actor_id=reader.uid, active_store_id=cell['store_id']):
+                    invoice_id=local['invoice_id'], actor_id=reader.uid, active_store_id=cell['store_id'],
+                    **(native_locale if native_locale is not None else {})):
                 probes = [('native-html', 'html', {}), ('native-pdf', 'pdf', {}),
                     ('native-pdf-context', 'pdf', {'context': json.dumps(
                         {'ydental_settlement_pdf_scope': {}}, separators=(',', ':'))}),
@@ -2283,10 +2352,15 @@ def run_current_c_read_cells(reader, facts, manifest, d_source, *, profile, stop
                         {'kind': 'bill', 'source_id': local['invoice_id']}, separators=(',', ':'))})]
                 for purpose, converter, query in probes:
                     path = '/report/%s/ydental_settlement.ydental_settlement_pdf/%d' % (converter, local['invoice_id'])
+                    if native_locale is not None and purpose == 'native-html':
+                        # The historical naked HTML URL already returned its
+                        # native language navigation; never repeat that GET.
+                        path = '/en' + path
                     if query:
                         path += '?' + urlencode(query)
                     check_c_foreign_target_denied(reader, facts, label, path=path,
-                        kind=purpose, target_id=local['invoice_id'], stop=halt, case_id='C-ATTACHMENT')
+                        kind=purpose, target_id=local['invoice_id'], stop=halt, case_id='C-ATTACHMENT',
+                        native_locale='en' if native_locale is not None else None)
             from PIL import Image
             placeholder = ROOT.parent / 'addons/web/static/img/placeholder.png'
             for route, suffix in [('content', str(local['attachment_id'])),
@@ -2295,10 +2369,12 @@ def run_current_c_read_cells(reader, facts, manifest, d_source, *, profile, stop
                                   ('image', 'ir.attachment/%d/raw' % local['attachment_id'])]:
                 purpose = 'C-cross-company-native-' + route + ('-model-field' if '/' in suffix else '-id')
                 response = reader.client.request('GET', '/web/' + route + '/' + suffix,
-                    case_id='C-ATTACHMENT', operation_ref=purpose)
+                    case_id='C-ATTACHMENT', operation_ref=purpose, artifact_kind='image')
                 record = {'actor_id': reader.uid, 'store_id': cell['store_id'],
                     'foreign_attachment_id': local['attachment_id'], 'request_id': response.request_id,
                     'http_status': response.status, 'sha256': hashlib.sha256(response.body).hexdigest(),
+                    'artifact_ref': response.metadata.get('artifact_ref'),
+                    'actual_binary_kind': response.metadata.get('actual_binary_kind'),
                     'pdf_returned': response.body.startswith(b'%PDF-'), 'raw_body_retained': False}
                 facts.save(purpose + '-response-minimal', record)
                 if record['pdf_returned']:

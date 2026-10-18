@@ -512,11 +512,16 @@ class Client:
                 or any(ord(character) < 32 for character in path + decoded)
                 or not re.fullmatch(r'/[A-Za-z0-9_./-]*', decoded)
                 or any(part in {'.', '..'} for part in decoded.split('/'))
-                or not decoded.startswith(('/ydental/', '/web/', '/report/'))):
+                or not decoded.startswith(('/ydental/', '/web/', '/report/', '/en/report/'))):
             raise ValueError('HTTP_PATH_NOT_APPROVED')
-        if decoded.startswith('/report/'):
+        if decoded.startswith('/en/report/'):
             target = self._current_c_target
-            match = re.fullmatch(r'/report/(pdf|html)/ydental_settlement\.ydental_settlement_pdf/([1-9][0-9]*)', decoded)
+            if (not target or target.get('native_locale') != 'en'
+                    or (target['actor_id'], target['active_store_id'], target['invoice_id']) != (11, 4, 5)):
+                raise ValueError('CURRENT_C_NATIVE_LANGUAGE_TARGET_NOT_VERIFIED')
+        if decoded.startswith(('/report/', '/en/report/')):
+            target = self._current_c_target
+            match = re.fullmatch(r'/(?:en/)?report/(pdf|html)/ydental_settlement\.ydental_settlement_pdf/([1-9][0-9]*)', decoded)
             if (not target or not match or target['create']
                     or int(match[2]) != target['invoice_id']):
                 raise ValueError('CURRENT_C_NATIVE_REPORT_PROBE_NOT_REGISTERED')
@@ -554,7 +559,8 @@ class Client:
 
     @contextmanager
     def current_c_target(self, *, source_ref, source_sha256, invoice_id, actor_id, active_store_id,
-                         create_original=False, request_key=None):
+                         create_original=False, request_key=None, native_locale_ref=None,
+                         native_locale_sha256=None):
         """Only one newly confirmed C invoice, never the committed D/old main bill."""
         profile = self.task_profile
         if (profile is None or profile.message_id != CURRENT_PLAN or profile.target_role != 'scratch'
@@ -598,6 +604,26 @@ class Client:
         target = {'invoice_id': invoice_id, 'actor_id': actor_id, 'active_store_id': active_store_id,
             'source_ref': source_ref, 'source_sha256': source_sha256,
             'create': create_original, 'key': request_key, 'spent': False}
+        if native_locale_ref is not None or native_locale_sha256 is not None:
+            if type(native_locale_ref) is not str or type(native_locale_sha256) is not str:
+                raise ValueError('CURRENT_C_NATIVE_LOCALE_REFERENCE_SHAPE_INVALID')
+            language = ROOT / native_locale_ref
+            if (create_original or (actor_id, active_store_id, invoice_id) != (11, 4, 5)
+                    or language.is_symlink() or not language.resolve().is_relative_to(profile.root)
+                    or native_locale_sha256 != '8b1c375535587b5ada17d5e72898acdad3f34d191680723c14b3c735fa2fa864'
+                    or hashlib.sha256(language.read_bytes()).hexdigest() != native_locale_sha256):
+                raise ValueError('CURRENT_C_NATIVE_LOCALE_INDEPENDENT_PROOF_INVALID')
+            observed = strict_loads(language.read_bytes())
+            if (observed.get('database') != profile.database or observed.get('oid') != 2144130
+                    or any(observed.get(key) is not True for key in ('rollback_returned',
+                        'connection_closed', 'old_business_projections_exact', 'first_HTTP303_not_repeated'))
+                    or observed.get('other_connections') != []
+                    or not any(row.get('active') is True and row.get('code') == 'en_US'
+                               and row.get('url_code') == 'en' for row in observed['active_res_lang'])
+                    or observed['reader11_language_metadata'][0].get('id') != 11
+                    or observed['reader11_language_metadata'][0].get('lang') != 'en_US'):
+                raise ValueError('CURRENT_C_NATIVE_LOCALE_ACTUAL_LANGUAGE_NOT_PROVEN')
+            target['native_locale'] = 'en'
         self._current_c_target = target
         try:
             yield target
@@ -670,7 +696,7 @@ class Client:
             save_once(self.task_profile.root / ('C-original-invoice-%d-DISPATCHED.json' % target['invoice_id']),
                 {key: value for key, value in target.items() if key not in {'key', 'spent'}})
             target['spent'] = True
-        if decoded.startswith('/report/'):
+        if decoded.startswith(('/report/', '/en/report/')):
             target = self._current_c_target
             query = parse_qs(urlsplit(path).query, keep_blank_values=True)
             allowed = [{}, {'context': [json.dumps({'ydental_settlement_pdf_scope': {}}, separators=(',', ':'))]},

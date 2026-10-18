@@ -980,8 +980,59 @@ def c_native_probe_tail_prefix(profile, request):
     return rows, guard, state, original
 
 
+def c_native_language_tail_prefix(profile, request):
+    rows, guard, _, original = c_native_probe_tail_prefix(profile, request)
+    def fixed(reference, digest):
+        path = ROOT / reference
+        if (path.is_symlink() or not path.resolve().is_relative_to(profile.root)
+                or hashlib.sha256(path.read_bytes()).hexdigest() != digest):
+            raise RuntimeError('C_NATIVE_LANGUAGE_INCIDENT_REFERENCE_CHANGED')
+        return strict_loads(path.read_bytes())
+    language = fixed(request['native_locale_ref'], request['native_locale_sha256'])
+    if request['native_locale_sha256'] != '8b1c375535587b5ada17d5e72898acdad3f34d191680723c14b3c735fa2fa864':
+        raise RuntimeError('C_NATIVE_LANGUAGE_ONLY_EXACT_INDEPENDENT_RO')
+    snapshot = fixed('.local/s10-technical-closeout-v1/C-native-language303-runtime-originals/index.json',
+        '0ac7c2a144ac327fa9c88ea52a4219a985a4691e9903af8ad8afebaae527b89b')
+    fixed('.local/s10-technical-closeout-v1/C-native-language303-RO-runtime-originals/index.json',
+        'ca176725b1fd7f0263a99da29b4160779c9ded89acdd8841fbfd16ec07dbe8ef')
+    first_stop = fixed('.local/s10-technical-closeout-v1/incidents/C-native-language303/HARD-STOP-original.json',
+        '8ade0772b7d50364e7ce6074fb9fffbbf2f2ecfe1eb847ba5e7a1b87870389ec')
+    fixed('.local/s10-technical-closeout-v1/C-SCRATCH-FINAL-PROBES-IN-FLIGHT.json',
+        '5523ac0622fd513fc4c1843799126b6095681b63b73b2789725df9cba26a0a0d')
+    body_match = fixed('.local/s10-technical-closeout-v1/C-native-language303-offline-body-match.json',
+        '4a8403c1b99775ae9803a394d0a011d02139fb55c735046ba8265752759b0fb7')
+    fixed('.local/s10-technical-closeout-v1/C-native-language303-first-RO-error-index.json',
+        '6e6c7e8d2a53a659b89bfcce3cdeffaef3a646d1ec6dc6308aa0f80b7534de55')
+    if (first_stop['reason'] != 'C_SYNTHETIC_FOREIGN_TARGET_NOT_DENIED'
+            or first_stop['request_id'] != '3ed954779c8d4463b7fe45b974d09d63'
+            or body_match['status'] != 'OFFLINE_STANDARD_REDIRECT_BODY_EQUALS_ACTUAL_DIGEST'
+            or body_match['actual_Location_header_observed'] is not False
+            or body_match['actual_body_sha256'] != body_match['local_standard_body_sha256']
+            or body_match['candidate_path'] != '/en/report/html/ydental_settlement.ydental_settlement_pdf/5'
+            or any(language.get(key) is not True for key in ('old_business_projections_exact',
+                'rollback_returned', 'connection_closed', 'first_HTTP303_not_repeated'))
+            or language['other_connections'] != []
+            or language['routing_module_states'] != [
+                {'name': 'http_routing', 'state': 'installed'}, {'name': 'website', 'state': 'uninstalled'}]
+            or language['native_language_default_rows'][0]['json_value'] != '"zh_CN"'):
+        raise RuntimeError('C_NATIVE_LANGUAGE_NAVIGATION_AND_PROTECTION_NOT_PROVEN')
+    state = Path(language['protected_prefix_capture'])
+    if not state.resolve().is_relative_to(profile.root):
+        raise RuntimeError('C_NATIVE_LANGUAGE_PREFIX_BOUNDARY_INVALID')
+    index = fixed(str((state / 'sealed-index.json').relative_to(ROOT)), language['protected_prefix_sealed_sha256'])
+    entries = {item['original_ref']: item for item in snapshot['items']}
+    for item in index['files']:
+        path = state / item['path']
+        if (path.is_symlink() or not path.resolve().is_relative_to(profile.root)
+                or path.stat().st_size != item['bytes']
+                or hashlib.sha256(path.read_bytes()).hexdigest() != item['sha256']
+                or entries[str(path.relative_to(ROOT))]['sha256'] != item['sha256']):
+            raise RuntimeError('C_NATIVE_LANGUAGE_COMPLETE_PREFIX_CHANGED')
+    return rows, guard, state, original
+
+
 def run_c_scratch_sources(profile, approval, authority, requested_path, *, tail_only=False,
-                          fixed_probe_tail=False):
+                          fixed_probe_tail=False, native_language_tail=False):
     from s10_lc2_cases import Actor, Facts, capture, closed_log_report, d_selection, marker, stored_rows, verify_d
     # The following small functions are merged into existing cases.py during
     # the authorized code window; no additional platform/runner is introduced.
@@ -1011,7 +1062,20 @@ def run_c_scratch_sources(profile, approval, authority, requested_path, *, tail_
     facts = Facts(directory)
     immutable = {}
     rank_guard = None
-    if fixed_probe_tail:
+    native_locale = None
+    if native_language_tail:
+        fixed_probe_tail = True
+        rows, rank_guard, old_state, original = c_native_language_tail_prefix(profile, request)
+        if original['fixture_sha256'] != observed['fixture_sha256']:
+            raise RuntimeError('C_NATIVE_LANGUAGE_ORDINARY_FIXTURE_CHANGED')
+        verify_c_sources(old_state, rows, d_source, stored_rows=stored_rows,
+            verify_d=verify_d, profile=profile, immutable_billed=immutable, rank_guard=rank_guard)
+        native_locale = {key: request[key] for key in ('native_locale_ref', 'native_locale_sha256')}
+        save_once(profile.root / 'C-SCRATCH-NATIVE-LANGUAGE-IN-FLIGHT.json', {
+            'directory': str(directory.relative_to(ROOT)), 'native_locale_sha256': request['native_locale_sha256'],
+            'historical_first_Location_header_missing': True, 'bare_html_repeated': False,
+            'business_source_original_and_fund_actions_allowed': False, 'automatic_retry': False})
+    elif fixed_probe_tail:
         rows, rank_guard, old_state, original = c_native_probe_tail_prefix(profile, request)
         if original['fixture_sha256'] != observed['fixture_sha256']:
             raise RuntimeError('C_NATIVE_PROBE_TAIL_ORDINARY_FIXTURE_CHANGED')
@@ -1110,7 +1174,8 @@ def run_c_scratch_sources(profile, approval, authority, requested_path, *, tail_
             actor.login(fixture['clinics'][0]['store_id'])
             actors[role] = actor
         if fixed_probe_tail:
-            observe('final-probes-current-six-source-two-original-prefix', rows)
+            observe('native-language-current-full-prefix' if native_language_tail else
+                    'final-probes-current-six-source-two-original-prefix', rows)
         elif tail_only:
             # All current rows and the native rank bridge are checked before
             # the first not-yet-executed upstream action is dispatched.
@@ -1127,7 +1192,8 @@ def run_c_scratch_sources(profile, approval, authority, requested_path, *, tail_
         facts.save('C-scratch-actual-read-manifest', read_manifest)
         from s10_lc2_launch import stop
         run_current_c_read_cells(actors['reader'], facts, read_manifest, d_source,
-            profile=profile, stop=stop, fixed_probe_tail=fixed_probe_tail, **final_reference)
+            profile=profile, stop=stop, fixed_probe_tail=fixed_probe_tail,
+            native_locale=native_locale, **final_reference)
         manager = actors['manager']
         run_current_c_error303(manager, facts, observe, rows, profile=profile, stop=stop)
         metadata_response = manager.client.request('POST', '/web/session/get_session_info',
@@ -1765,9 +1831,9 @@ def run_final_original_ui(profile, approval, authority, requested_path):
 def execute(args, profile):
     """Caller holds the plan's exclusive runner lock for this whole operation."""
     require_dispatch_unfrozen(profile)
-    if profile.target_role == 'scratch' and args.action not in {'target-ro', 'bootstrap-scratch', 'd-only', 'log-rollback', 'repair-upgrade-scratch-font', 'prepare-c-scratch', 'c-scratch-sources', 'c-scratch-tail', 'c-scratch-final-probes', 'final-upgrade', 'final-scratch-read-only', 'c-company-stage', 'c-remaining-configuration', 'tax-defaults-rollback'}:
+    if profile.target_role == 'scratch' and args.action not in {'target-ro', 'bootstrap-scratch', 'd-only', 'log-rollback', 'repair-upgrade-scratch-font', 'prepare-c-scratch', 'c-scratch-sources', 'c-scratch-tail', 'c-scratch-final-probes', 'c-scratch-native-language', 'final-upgrade', 'final-scratch-read-only', 'c-company-stage', 'c-remaining-configuration', 'tax-defaults-rollback'}:
         raise RuntimeError('CURRENT_SCRATCH_ACTION_NOT_IMPLEMENTED')
-    if profile.target_role == 'main' and args.action in {'bootstrap-scratch', 'd-only', 'log-rollback', 'repair-upgrade-scratch-font', 'prepare-c-scratch', 'c-scratch-sources', 'c-scratch-tail', 'c-scratch-final-probes', 'final-scratch-read-only', 'c-company-stage', 'c-remaining-configuration', 'tax-defaults-rollback'}:
+    if profile.target_role == 'main' and args.action in {'bootstrap-scratch', 'd-only', 'log-rollback', 'repair-upgrade-scratch-font', 'prepare-c-scratch', 'c-scratch-sources', 'c-scratch-tail', 'c-scratch-final-probes', 'c-scratch-native-language', 'final-scratch-read-only', 'c-company-stage', 'c-remaining-configuration', 'tax-defaults-rollback'}:
         raise RuntimeError('CURRENT_D_EXPLICIT_SCRATCH_TARGET_REQUIRED')
     approval = profile.root / ('runtime-approval-scratch.json' if profile.target_role == 'scratch' else 'runtime-approval.json')
     authority = strict_loads(approval.read_bytes())
@@ -1815,6 +1881,8 @@ def execute(args, profile):
         return run_c_scratch_sources(profile, approval, authority, args.requested, tail_only=True)
     if args.action == 'c-scratch-final-probes':
         return run_c_scratch_sources(profile, approval, authority, args.requested, fixed_probe_tail=True)
+    if args.action == 'c-scratch-native-language':
+        return run_c_scratch_sources(profile, approval, authority, args.requested, native_language_tail=True)
     if args.action == 'log-rollback':
         return run_log_rollback_pair(profile, approval, authority, args.requested)
     if args.action == 'bootstrap-scratch':
@@ -1844,14 +1912,14 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('action', choices=['target-ro', 'original-ui', 'prepare-reader',
                                          'initialize-existing-reader', 'b-only', 'c-main', 'repair-upgrade-main',
-                                         'report-parameters-only', 'repair-upgrade-main-font', 'c-main-tail', 'bootstrap-scratch', 'd-only', 'log-rollback', 'repair-upgrade-scratch-font', 'prepare-c-scratch', 'c-scratch-sources', 'c-scratch-tail', 'c-scratch-final-probes', 'final-upgrade', 'final-scratch-read-only', 'log-ui-read', 'final-original-ui', 'inventory-native-read-regression', 'c-company-stage', 'c-remaining-configuration', 'tax-defaults-rollback'])
+                                         'report-parameters-only', 'repair-upgrade-main-font', 'c-main-tail', 'bootstrap-scratch', 'd-only', 'log-rollback', 'repair-upgrade-scratch-font', 'prepare-c-scratch', 'c-scratch-sources', 'c-scratch-tail', 'c-scratch-final-probes', 'c-scratch-native-language', 'final-upgrade', 'final-scratch-read-only', 'log-ui-read', 'final-original-ui', 'inventory-native-read-regression', 'c-company-stage', 'c-remaining-configuration', 'tax-defaults-rollback'])
     parser.add_argument('--target', choices=['main', 'scratch'], default='main')
     parser.add_argument('--selections', type=Path)
     parser.add_argument('--requested', type=Path)
     args = parser.parse_args()
     if args.action == 'target-ro' and args.selections is None:
         parser.error('--selections is required for target-ro')
-    if args.action in {'b-only', 'c-main', 'repair-upgrade-main', 'repair-upgrade-main-font', 'c-main-tail', 'bootstrap-scratch', 'd-only', 'log-rollback', 'repair-upgrade-scratch-font', 'prepare-c-scratch', 'c-scratch-sources', 'c-scratch-tail', 'c-scratch-final-probes', 'final-upgrade', 'final-scratch-read-only', 'log-ui-read', 'final-original-ui', 'inventory-native-read-regression', 'c-company-stage', 'c-remaining-configuration', 'tax-defaults-rollback'} and args.requested is None:
+    if args.action in {'b-only', 'c-main', 'repair-upgrade-main', 'repair-upgrade-main-font', 'c-main-tail', 'bootstrap-scratch', 'd-only', 'log-rollback', 'repair-upgrade-scratch-font', 'prepare-c-scratch', 'c-scratch-sources', 'c-scratch-tail', 'c-scratch-final-probes', 'c-scratch-native-language', 'final-upgrade', 'final-scratch-read-only', 'log-ui-read', 'final-original-ui', 'inventory-native-read-regression', 'c-company-stage', 'c-remaining-configuration', 'tax-defaults-rollback'} and args.requested is None:
         parser.error('--requested is required for this action')
     profile = current_plan_profile(args.target)
     descriptor = os.open(profile.root / 'runner.lock', os.O_RDWR | os.O_CREAT | os.O_NOFOLLOW, 0o600)

@@ -6714,6 +6714,14 @@
           "reviewer": "/root/acceptance_s10",
           "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
           "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
+        },
+        "historical_limit_current_applicability": {
+          "superseded_by": [
+            "https://github.com/Yredxin/YDental/issues/34#issuecomment-6243885093",
+            "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/A-ORIGINAL"
+          ],
+          "scope": "Later formally accepted A-EDITOR confirmedv3 tocorrectv4 supports pure wording change with economic/stock preservation. Actual A pre and required future E post original sameSHA plus old document/price/source preservation supersede only corresponding old document/original missing evidence. Other historical limits remain at their original scope.",
+          "final_post_upgrade_evidence": "NOT_RUN"
         }
       },
       {
@@ -6888,6 +6896,14 @@
           "reviewer": "/root/acceptance_s10",
           "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
           "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
+        },
+        "historical_limit_current_applicability": {
+          "superseded_by": [
+            "https://github.com/Yredxin/YDental/issues/34#issuecomment-6243885093",
+            "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/A-ORIGINAL"
+          ],
+          "scope": "Later formally accepted A-EDITOR confirmedv3 tocorrectv4 supports pure wording change with economic/stock preservation. Actual A pre and required future E post original sameSHA plus old document/price/source preservation supersede only corresponding old document/original missing evidence. Other historical limits remain at their original scope.",
+          "final_post_upgrade_evidence": "NOT_RUN"
         }
       },
       {
@@ -7144,7 +7160,7 @@
     },
     "source_product_candidate": "cc1a395a8254a0b6c2017ceedd9a351d095c590a",
     "scratch_native_admission_ref": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/scratch-native-admission",
-    "current_C_preflight": "Actual C six sources/five unpaid bills/two stored originals independently preserved including new rank3; three-store nonempty read prefix actually dispatched. First native-report preblocked by tool case mismatch: 8native-probes/303/finalsession/terminal not run, precise read-only suffix only.",
+    "current_C_preflight": "Native first report HTML actually returned303 before report guard; native locale explanation supported by exact body digest and actual en_US/en vs defaultzh_CN RO. All34 financial/source projections preserved except normal reader switch audit/session; canonical report protection stillNOT_RUN. Minimal fixed /en normal navigation only; no business replay.",
     "additional_product_impact": "P1545 common inventory system unmanaged read actual6MODEL plus native company creation passed; mutations/ordinary managed restrictions held. Pcc1 default-tax compatibility actual unowned native hooks rollback, controlled native catalog creation in five actual C fees, old owned tax rows/relations preserved. T08/T09/T15 carry retains historical scope; final dual data upgrades and affected regression remain mandatory.",
     "current_engineering_limits_ref": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/current_engineering_limits"
   }

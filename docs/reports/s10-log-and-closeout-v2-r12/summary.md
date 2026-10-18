@@ -1,6 +1,12 @@
 # 当前 S10 技术收口 / YD-S10-TECHNICAL-CLOSEOUT-V1 1.0
 
 
+原生报告语言导航查证（2026-10-18T12:22Z，实际Pcc1/Ta2a223d）：精确final-probes首HTML请求已真正到server，返回303/305B/非PDF，工具先验403触发普通STOP；wrapper1，owned1976217单native exit0/signalNone、12日志sealed，无首report.operation/异常/renderer事件，后3report+4native附件/303form/session终核未运行。首响应Location只在内存，历史未保存，不补造为已观测，也不把303当产品权限拒绝。
+
+锁定环境Werkzeug原生redirect('/en/report/html/ydental_settlement.ydental_settlement_pdf/5',303)离线完整body恰305B/SHA765165b732423024e6a999360980b65bc248b747ce22ecda854484b909d94a5f，同首actual hash，其他候选不符；这是SOURCE+实际摘要推导，不冒原Location捕获。唯一语言/保护RO首轮只读适配器误要求默认selection必须columns，在第一业务查询前exit1/0业务projection，identity/RR/rollback/close保；限定attempt2恢复既有安全默认projection规则，actual exit0/8b1c375535587b5ada17d5e72898acdad3f34d191680723c14b3c735fa2fa864，34表独核32完全同、audit仅普通11合法switch审计408、session13由local2/rev2→other4/rev3与已存native响应同，其余同。实际active en_US/urlen、reader11 partner16语言en_US，全局res.partner默认/public语言zh_CN、http_routing已装且website未装，与锁定core前端语言导航及body摘要一致。六源/五未付账单/两原件/D原生6/2/4/rank3完整保持，acceptance限定PASS。
+
+当前36/167/418/8/12，原首STOP8ade及具体移存回执、旧安全STOP/账本均保；无owned服务，scope只RO/apps[]。当前只做最小固定/en原生导航接线：首HTML直接进入尚未命中的canonical path，其他三原report只允许一次同origin/同converter/report/invoice5/同query/已核urlcode的原生redirect；安全Location组件先落盘，第二跳、登录/identity或目标变化即停。不改core/产品/认证/语言/cookie，不重裸HTML或已提交业务/原件；真正guard仍待实际命中。
+
 C精确尾段实际（Pcc1/T361ac207，2026-10-18T12:01Z）：wrapper exit1/61.76s，owned1969787单parent exit0/signalNone、163条native日志完整seal。先全prefix/D/rank桥接实际通过，再正常完成异公司23费用/账单9及第二原件2/附件237，六源/五未付款账单/两新原件持久；两mixed-store有效403、三店family/正文与非空摘要、独立unrelated正例、受控原件/动态正例及foreign original/bill/D receipt/refund负例已落93facts。独立acceptance离线重核六capture/204sealed文件，D原生6/2/4、六源/五账/两原件及canonical19 rank2→3真实invoice差集/时间窗/非三字段全hash保持，限定通过；其余阅读/日志/PDF仍逐项独审。
 
 首失败为工具预拦截ValueError CURRENT_C_FIXED_NATIVE_REPORT_PROBE_REQUIRED：caller误标C-SCOPE，固定/report门禁正确要求C-ATTACHMENT；首/report/html/.../5请求未到Odoo，不计产品拒绝。原failureindex SHA79d87c1e888185e29e99e2a9bc6ab12cdf55333453138081725aea68715acb30、1414映射snapshot SHA0e13981053622f8a3c1b4f46080c923e072943b8878617494470f6683ef3d73a保持。只修caller分类、不放宽HTTP名单，并仅续4report+4native附件+正常303+末session/终核；不重任何源/家庭合并/原件/已完成GET/D。当前35/163/406/8/12，scope已target-ro/apps[]、无owned进程，原时钟及raw384/全包1GiB保持。最终双E/LOG仍待实测。

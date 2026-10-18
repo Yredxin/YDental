@@ -86,22 +86,22 @@
       "accident_ro": 2,
       "create": 2,
       "firefox": 8,
-      "http": 406,
+      "http": 418,
       "maintenance": 1,
-      "odoo_start": 35,
+      "odoo_start": 36,
       "original_get": 12,
-      "target_ro": 163
+      "target_ro": 167
     },
     "current_plan": {
-      "odoo_start": 25,
-      "target_ro": 133,
-      "http": 374,
+      "odoo_start": 26,
+      "target_ro": 137,
+      "http": 386,
       "firefox": 2,
       "original_get": 12
     },
     "counts_are_not_test_pass_totals": true,
     "http_boundary": "Runner/browser dispatch ledger; not all native renderer internal asset HTTP wire requests.",
-    "as_of_utc": "2026-10-18T12:01:00Z",
+    "as_of_utc": "2026-10-18T12:22:00Z",
     "counts_are_not_test_case_totals": true,
     "prior_as_of_before_tax_model_and_finite_C": {
       "cumulative": {
@@ -139,6 +139,25 @@
         "http": 303,
         "firefox": 2,
         "original_get": 7
+      }
+    },
+    "prior_as_of_case_classification_failure": {
+      "cumulative": {
+        "accident_ro": 2,
+        "create": 2,
+        "firefox": 8,
+        "http": 418,
+        "maintenance": 1,
+        "odoo_start": 36,
+        "original_get": 12,
+        "target_ro": 167
+      },
+      "current_plan": {
+        "odoo_start": 25,
+        "target_ro": 133,
+        "http": 374,
+        "firefox": 2,
+        "original_get": 12
       }
     }
   },
@@ -370,9 +389,9 @@
   },
   "independent_review_reference": {
     "ref": "../../reports/s10-log-and-closeout-v2-r12/acceptance-review.md",
-    "bytes_at_current_signature": 234951,
-    "sha256_at_current_signature": "706a361cfbb7ecdcc6d450d218f6d0c38264a48f03227fad9a2c964275ad6501",
-    "scope": "C six sealed captures/204 files, six sources/five unpaid bills/two originals/rank3/native D preservation,19 read minimal results/native association/163 complete log seal, three current PDFs personally viewed. Native8 probes/303/session/terminal not run. Exact suffix source READY only."
+    "bytes_at_current_signature": 241077,
+    "sha256_at_current_signature": "a9512d3b02a5b6a1f25e017c96bcdb9f88683d1d5ed57d4cfc65d133976db2d3",
+    "scope": "Actual first nativeHTML303 with guard not reached and Location missing, exact-body/source-derived canonical inference, first observer0-table exit1 retained, actual second RR34-table protection and actual native locale independently accepted. Canonical patch SOURCE and actual native guard still pending."
   },
   "B-actual": {
     "status": "PASS_SCOPED_SIX_MODEL_AND_SIX_REAL_RPC",
@@ -842,6 +861,12 @@
       "bytes_at_current_signature": 226244,
       "sha256_at_current_signature": "d7dfdfc408a8f62ceb7f3fc505720d1db7396ae849c6cff50eea6a7b54a1dc7c",
       "scope": "Actual prior A/B/D/LOG02 plus real inventory6MODEL, tax unowned rollback/finite configuration, C committed prefix and rank93d inverse proof scoped acceptance. Precise C tail, final dual E and remaining LOG not signed."
+    },
+    {
+      "ref": "../../reports/s10-log-and-closeout-v2-r12/acceptance-review.md",
+      "bytes_at_current_signature": 234951,
+      "sha256_at_current_signature": "706a361cfbb7ecdcc6d450d218f6d0c38264a48f03227fad9a2c964275ad6501",
+      "scope": "C six sealed captures/204 files, six sources/five unpaid bills/two originals/rank3/native D preservation,19 read minimal results/native association/163 complete log seal, three current PDFs personally viewed. Native8 probes/303/session/terminal not run. Exact suffix source READY only."
     }
   ],
   "D-configuration-and-early-font": {
@@ -1362,5 +1387,62 @@
       "independent_acceptance_personally_viewed_each_page": true
     },
     "independent_read_scope": "19 minimal semantic response facts correlated with actual163 native events and original first pre-dispatch error; historical wrapper1 retained."
+  },
+  "C-native-language303-incident": {
+    "status": "PASS_SCOPED_LANGUAGE_AND_BUSINESS_PRESERVATION_NATIVE_GUARD_NOT_RUN",
+    "product_commit": "cc1a395a8254a0b6c2017ceedd9a351d095c590a",
+    "runtime_test_commit": "a2a223defc419fb06d3f61b327b680b434fcf389",
+    "wrapper_exit_code": 1,
+    "native_pid": 1976217,
+    "native_exit_code": 0,
+    "native_records": 12,
+    "actual_native_html_status": 303,
+    "actual_body_bytes": 305,
+    "actual_body_sha256": "765165b732423024e6a999360980b65bc248b747ce22ecda854484b909d94a5f",
+    "historical_Location_header": "NOT_RETAINED_MEMORY_ONLY_DO_NOT_RECONSTRUCT_AS_OBSERVED",
+    "offline_exact_body_match": {
+      "path": ".local/s10-technical-closeout-v1/C-native-language303-offline-body-match.json",
+      "bytes": 1309,
+      "sha256": "4a8403c1b99775ae9803a394d0a011d02139fb55c735046ba8265752759b0fb7",
+      "access": "Local private evidence; not directly readable from GitHub"
+    },
+    "first_RO": "Actual exit1 on private adapter columns assertion before first business selection,0 projected tables; identity/RR/rollback/close recorded, raw657b retained. No language result claimed.",
+    "attempt2_RO": {
+      "path": ".local/s10-technical-closeout-v1/C-native-language303-protection-attempt2-verified.json",
+      "bytes": 420087,
+      "sha256": "8b1c375535587b5ada17d5e72898acdad3f34d191680723c14b3c735fa2fa864",
+      "access": "Local private evidence; not directly readable from GitHub"
+    },
+    "attempt2_actual_exit_code": 0,
+    "attempt2_protected_projection_tables": 34,
+    "attempt2_changes": "32 exact; only one normal new reader11 store.switch audit408 and session13 store2/rev2 to4/rev3 corresponding to saved native actual response. Six sources/five unpaid bills/two originals/D and rank3 preserved.",
+    "actual_language": {
+      "active_english_code": "en_US",
+      "active_english_url_code": "en",
+      "reader_id": 11,
+      "reader_partner_id": 16,
+      "reader_language": "en_US",
+      "global_partner_default_language": "zh_CN",
+      "public_user_language": "zh_CN",
+      "http_routing_installed": true,
+      "website_installed": false
+    },
+    "independent_reviewer": "/root/acceptance_s10",
+    "NOT_RUN": [
+      "canonical HTML actual protection",
+      "three other native report probes",
+      "four native attachment probes",
+      "normal empty bill error303",
+      "final manager session metadata",
+      "service terminal protection"
+    ],
+    "exact_repair_scope": "Only fixed actual /en/report path and max one native same-origin same-converter/report/invoice5/query redirect; no login/identity/second redirect or auth/lang/cookie mutation. All previous intents/STOP evidence retained; no bare HTML replay.",
+    "RO_runtime_snapshot": {
+      "path": ".local/s10-technical-closeout-v1/C-native-language303-RO-runtime-originals/index.json",
+      "bytes": 7094,
+      "sha256": "ca176725b1fd7f0263a99da29b4160779c9ded89acdd8841fbfd16ec07dbe8ef",
+      "mapped_files": 20,
+      "access": "Private local archive; chains first303/STOP377-file snapshot, not directly readable from GitHub"
+    }
   }
 }
