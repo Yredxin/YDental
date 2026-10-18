@@ -1056,12 +1056,18 @@ def _run_b_only_checks(*, manifest, provider_ref, facts, model_probe, actor_fact
     return {'status': rpc['status'], 'model': model, 'rpc': rpc}
 
 
-def main_c(manager, reader, token, placeholder, facts, attachment_id, scope_actors, *, dynamic_pdf_admitted=False):
+def main_c(manager, reader, token, placeholder, facts, attachment_id, scope_actors, *, dynamic_pdf_admitted=False,
+           profile=None, verify_permission=None, token_applicability=None):
     from PIL import Image
     results = []
-    # Genuine limited token was verified in an owned ordinary fixture cursor.
-    # Tokens stay only in request memory; access transport logging is suppressed.
-    for state, value in [('none', None), ('invalid', 'lc2-invalid-synthetic-token'), ('valid', token)]:
+    # A legal producer may supply a token in RAM; current plan records N/A only
+    # when source and the independently observed attachment relationship agree.
+    token_cases = [('none', None), ('invalid', 'lc2-invalid-synthetic-token')]
+    if token is not None:
+        token_cases.append(('valid', token))
+    elif profile is not None and (not token_applicability or token_applicability.get('valid_token') != 'NOT_APPLICABLE_NO_CURRENT_LEGAL_ISSUER'):
+        raise ValueError('C_TOKEN_APPLICABILITY_EVIDENCE_REQUIRED')
+    for state, value in token_cases:
         query = '?' + urlencode({'access_token': value}) if value is not None else ''
         for route in ['content', 'image']:
             for download in [False, True]:
@@ -1072,7 +1078,7 @@ def main_c(manager, reader, token, placeholder, facts, attachment_id, scope_acto
                        'status': response.status, 'bytes': len(response.body or b''),
                        'sha256': hashlib.sha256(response.body or b'').hexdigest()}
                 if response.body and response.body.startswith(b'%PDF'):
-                    stop('UNAUTHORIZED_ORIGINAL_BINARY_LEAK', request_id=response.request_id)
+                    stop('UNAUTHORIZED_ORIGINAL_BINARY_LEAK', profile=profile, request_id=response.request_id)
                     raise RuntimeError('NATIVE_ATTACHMENT_RETURNED_PROTECTED_PDF')
                 if response.status == 200 and route == 'image':
                     with Image.open(io.BytesIO(response.body)) as actual, Image.open(io.BytesIO(placeholder)) as expected:
@@ -1080,7 +1086,7 @@ def main_c(manager, reader, token, placeholder, facts, attachment_id, scope_acto
                         same = actual.size == expected.size and actual.convert('RGBA').tobytes() == expected.convert('RGBA').tobytes()
                         row.update(image_size=list(actual.size), expected_placeholder_pixels_equal=same)
                     if not same:
-                        stop('NATIVE_IMAGE_UNEXPECTED_CONTENT', request_id=response.request_id)
+                        stop('NATIVE_IMAGE_UNEXPECTED_CONTENT', profile=profile, request_id=response.request_id)
                         raise RuntimeError('IMAGE_200_NOT_VERIFIED_PLACEHOLDER')
                 elif response.status not in {403, 404}:
                     raise AssertionError('NATIVE_PROTECTED_ATTACHMENT_NOT_DENIED')
@@ -1103,7 +1109,7 @@ def main_c(manager, reader, token, placeholder, facts, attachment_id, scope_acto
                             'request_id': response.request_id, 'existing_target_independently_proven': True})
             continue
         if 'result' in result:
-            stop('PROTECTED_SOURCE_RPC_UNEXPECTED_RESULT', model=model, method=method)
+            stop('PROTECTED_SOURCE_RPC_UNEXPECTED_RESULT', profile=profile, model=model, method=method)
             raise RuntimeError('C_NATIVE_SOURCE_RPC_NOT_DENIED')
         error = result.get('error', {}).get('data', {})
         if error.get('name') not in {'odoo.exceptions.AccessError', 'odoo.exceptions.UserError'}:
@@ -1116,6 +1122,8 @@ def main_c(manager, reader, token, placeholder, facts, attachment_id, scope_acto
                           ('export-no-read', {'settlement': 'none', 'export': 'write'}),
                           ('neither', {'settlement': 'none', 'export': 'none'})]:
         manager.action('access', 'grant', {'user_id': reader.uid, 'store_id': 1, 'levels': levels}, case='C-SCOPE')
+        if verify_permission is not None:
+            verify_permission(label, levels)
         reader.refresh()
         page = reader.client.request('GET', '/ydental/settlement?patient_id=1', case_id='C-SCOPE')
         if label == 'read-no-export':
@@ -1139,26 +1147,43 @@ def main_c(manager, reader, token, placeholder, facts, attachment_id, scope_acto
         response = reader.client.request('GET', '/ydental/settlement/bill-original/1', case_id='C-SCOPE')
         response.require_status(403)
         if response.body.startswith(b'%PDF'):
-            stop('READER_SCOPE_ORIGINAL_LEAK')
+            stop('READER_SCOPE_ORIGINAL_LEAK', profile=profile)
             raise RuntimeError('C_SCOPE_LEAK')
         results.append({'permission': label, 'request_id': response.request_id, 'status': response.status})
     manager.action('access', 'grant', {'user_id': reader.uid, 'store_id': 1,
                                       'levels': {'settlement': 'read', 'export': 'write'}}, case='C-SCOPE')
+    if verify_permission is not None:
+        verify_permission('read-and-export', {'settlement': 'read', 'export': 'write'})
     reader.refresh()
+    if profile is not None:
+        positive = reader.client.request('GET', '/ydental/settlement?patient_id=1', case_id='C-SCOPE')
+        positive.require_status(200)
+        if b'href="/ydental/settlement/bill-original/1"' not in positive.body:
+            raise RuntimeError('C_BOTH_PERMISSIONS_EXISTING_ORIGINAL_LINK_MISSING')
+        original = reader.client.request('GET', '/ydental/settlement/bill-original/1',
+            case_id='C-ATTACHMENT', artifact_kind='pdf')
+        original.require_status(200)
+        if not original.body.startswith(b'%PDF-') or hashlib.sha256(original.body).hexdigest() != ORIGINAL_SHA:
+            raise RuntimeError('C_BOTH_PERMISSIONS_EXISTING_ORIGINAL_CHANGED')
+        results.append({'permission': 'read-and-export', 'route': 'controlled-original',
+            'workbench_request_id': positive.request_id, 'request_id': original.request_id,
+            'status': 200, 'sha256': ORIGINAL_SHA, 'nonempty_existing_original': True})
     for kind, target in ([('bill', 1), ('receipt', 1), ('refund', 1)] if dynamic_pdf_admitted else []):
-        response = manager.client.request('GET', '/ydental/settlement/pdf/%s/%s' % (kind, target),
+        report_actor = reader if profile is not None else manager
+        response = report_actor.client.request('GET', '/ydental/settlement/pdf/%s/%s' % (kind, target),
             case_id='C-ATTACHMENT', artifact_kind='pdf')
         response.require_status(200)
         if not response.body.startswith(b'%PDF-'):
             raise RuntimeError('AUTHORIZED_DYNAMIC_PDF_NOT_ACTUAL_PDF')
         results.append({'route': 'dynamic-' + kind, 'source_existing_id': target, 'status': 200,
+                        'actor_id': report_actor.uid,
                         'request_id': response.request_id, 'sha256': hashlib.sha256(response.body).hexdigest(),
                         'stored_original_regenerated': False})
     for route in ['content', 'image']:
         response = reader.client.request('GET', '/web/%s/ir.attachment/%s/raw' % (route, attachment_id),
             case_id='C-ATTACHMENT', artifact_kind='image' if route == 'image' else 'pdf')
         if response.body.startswith(b'%PDF'):
-            stop('NATIVE_MODEL_FIELD_BINARY_LEAK')
+            stop('NATIVE_MODEL_FIELD_BINARY_LEAK', profile=profile)
             raise RuntimeError('NATIVE_MODEL_FIELD_BINARY_LEAK')
         if response.status == 200 and route == 'image':
             with Image.open(io.BytesIO(response.body)) as actual, Image.open(io.BytesIO(placeholder)) as expected:
@@ -1171,18 +1196,91 @@ def main_c(manager, reader, token, placeholder, facts, attachment_id, scope_acto
                         'actual_content_semantics': 'VERIFIED_PLACEHOLDER' if response.status == 200 else 'DENIED'})
     # Actual existing authorized principals in another store/company; no grants
     # or membership of any historical user are changed for these checks.
-    for actor, store, own_patient in scope_actors:
+    for scope_actor in scope_actors:
+        actor, store, own_patient = scope_actor[:3]
+        scope = scope_actor[3] if len(scope_actor) == 4 else {}
         path = '/ydental/settlement' + ('?patient_id=' + str(own_patient) if own_patient else '')
         page = actor.client.request('GET', path, case_id='C-SCOPE')
         page.require_status(200)
+        own_invoice = scope.get('own_invoice_id')
+        if own_invoice and ('/ydental/settlement/pdf/bill/%d' % own_invoice).encode() not in page.body:
+            raise RuntimeError('C_FOREIGN_STORE_NONEMPTY_OWN_INVOICE_NOT_VISIBLE')
         denied_page = actor.client.request('GET', '/ydental/settlement?patient_id=1', case_id='C-SCOPE')
-        denied_page.require_status(403)
+        denied_page.require_status(200 if scope.get('patient1_related') else 403)
+        if denied_page.status == 200 and any(value in denied_page.body for value in (
+                b'/ydental/settlement/bill-original/1"', b'/ydental/settlement/pdf/bill/1"')):
+            stop('C_FOREIGN_STORE_PROTECTED_INVOICE_LINK_LEAK', profile=profile)
+            raise RuntimeError('C_FOREIGN_STORE_PROTECTED_INVOICE_LINK_LEAK')
+        visible_financial = None
+        if denied_page.status == 200:
+            from lxml import html
+            tree = html.fromstring(denied_page.body)
+            visible_financial = {kind: set() for kind in ('invoice', 'payment', 'refund', 'fee', 'event', 'close')}
+            for link in tree.xpath('//a/@href'):
+                match = re.fullmatch(r'/ydental/settlement/pdf/(bill|receipt|refund)/(\d+)', link)
+                if match:
+                    kind = {'bill': 'invoice', 'receipt': 'payment', 'refund': 'refund'}[match[1]]
+                    visible_financial[kind].add(int(match[2]))
+            visible_financial['invoice'].update(int(value.strip()) for value in tree.xpath(
+                '//section[@name="settled-bills"]//tbody/tr/td[1]/text()') if value.strip())
+            for paragraph in tree.xpath('//section[h2[text()="线下付款与退款"]]/div/p'):
+                label = ''.join(paragraph.itertext()).strip()
+                kind = 'payment' if label.startswith('付款') else 'refund' if label.startswith('退款') else None
+                identifiers = paragraph.xpath('./span[1]/text()')
+                if kind and identifiers:
+                    visible_financial[kind].add(int(identifiers[0].strip()))
+            for heading, kind in (('今日未出账费用', 'fee'), ('历史未出账费用', 'fee'), ('待核对，禁止出账', 'event')):
+                visible_financial[kind].update(int(value.strip()) for value in tree.xpath(
+                    '//section[h2[text()=$heading]]//tbody/tr/td[1]/text()', heading=heading) if value.strip())
+            visible_financial['close'].update(int(value.strip()) for value in tree.xpath(
+                '//section[h2[text()="收费员日结"]]/div/p/span[1]/text()') if value.strip())
+            expected_invoices = {row['id']: row for row in scope.get('patient1_visible_invoices', [])}
+            for section, settled in (('//section[h2[text()="已出账未付清"]]', False),
+                                     ('//section[@name="settled-bills"]', True)):
+                for tr in tree.xpath(section + '//tbody/tr'):
+                    links = [match for value in tr.xpath('.//a/@href') if (match := re.fullmatch(
+                        r'/ydental/settlement/pdf/bill/(\d+)', value))]
+                    cells = [''.join(cell.itertext()).strip() for cell in tr.xpath('./td')]
+                    identifier = int(cells[0]) if settled and cells else int(links[0][1]) if len(links) == 1 else None
+                    expected = expected_invoices.get(identifier)
+                    offset = 1 if settled else 0
+                    if (len(links) != 1 or not expected or len(cells) < offset + 4
+                            or cells[offset] != expected['name']
+                            or Decimal(cells[offset + 2].replace(',', '')) != Decimal(str(expected['amount_total']))
+                            or Decimal(cells[offset + 3].replace(',', '')) != Decimal(str(expected['amount_residual']))):
+                        stop('C_FOREIGN_FINANCIAL_ROW_NOT_CORRELATED', profile=profile)
+                        raise RuntimeError('C_FOREIGN_FINANCIAL_ROW_NOT_CORRELATED')
+            if (1 in visible_financial['invoice'] or any(not identifiers <= set(scope.get(
+                    ('store_visible_close_ids' if kind == 'close' else 'patient1_visible_' + kind + '_ids'), []))
+                    for kind, identifiers in visible_financial.items())):
+                stop('C_FOREIGN_STORE_FINANCIAL_BODY_SCOPE_LEAK', profile=profile)
+                raise RuntimeError('C_FOREIGN_STORE_FINANCIAL_BODY_SCOPE_LEAK')
+            visible_financial = {key: sorted(value) for key, value in visible_financial.items()}
+        summary = actor.client.request('GET', '/ydental/settlement/other-stores/' + str(own_patient), case_id='C-SCOPE')
+        summary.require_status(200)
+        summary_rows = summary.json()
+        if (type(summary_rows) is not list or any(type(row) is not dict or set(row) != {
+                'store', 'store_id', 'company', 'currency', 'residual'} for row in summary_rows)):
+            stop('C_OTHER_STORE_SUMMARY_FULL_CONTENT_OR_SHAPE_LEAK', profile=profile)
+            raise RuntimeError('C_OTHER_STORE_SUMMARY_FULL_CONTENT_OR_SHAPE_LEAK')
         response = actor.client.request('GET', '/ydental/settlement/bill-original/1', case_id='C-SCOPE')
         response.require_status(403)
+        dynamic_denials = []
+        for kind in ('bill', 'receipt', 'refund'):
+            denied = actor.client.request('GET', '/ydental/settlement/pdf/' + kind + '/1', case_id='C-SCOPE')
+            denied.require_status(403)
+            dynamic_denials.append({'kind': kind, 'existing_source_id': 1, 'request_id': denied.request_id, 'status': 403})
         results.append({'actor_id': actor.uid, 'store_id': store, 'original_id': 1,
                         'own_patient_workbench_status': page.status, 'foreign_patient_workbench_status': denied_page.status,
+                        'own_invoice_id': own_invoice, 'nonempty_positive_proven': bool(own_invoice),
+                        'summary_request_id': summary.request_id, 'summary_count': len(summary_rows),
+                        'summary_fields_only': True,
+                        'summary_nonempty_status': 'NONEMPTY_SOURCE_SHAPE_VERIFIED' if summary_rows else 'EMPTY_ONLY_PENDING_NONEMPTY_SCRATCH',
+                        'foreign_patient_financial_body_ids': visible_financial,
+                        'dynamic_source_denials': dynamic_denials,
                         'request_id': response.request_id, 'status': response.status})
-    facts.save('C-actual-matrix', {'cells': results, 'valid_limited_signature_used': True,
+    facts.save('C-actual-matrix', {'cells': results, 'valid_limited_signature_used': token is not None,
+                                 'token_applicability': token_applicability,
                                  'dynamic_pdf_positive_admission': 'ADMITTED' if dynamic_pdf_admitted else 'NOT_RUN_INTERNAL_HTTP_ACCOUNTING_GATE',
                                  'source_financial_family_nonempty_positive': 'NOT_RUN_NO_NEW_LEGITIMATE_FINANCIAL_FAMILY_SOURCE'})
 

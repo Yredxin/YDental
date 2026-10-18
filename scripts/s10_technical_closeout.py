@@ -366,6 +366,135 @@ def run_original(profile, approval, authority):
         raise
 
 
+def run_c_main(profile, approval, authority, requested_path):
+    """Current new-reader permissions and native content, using normal S01 actions."""
+    import psycopg2
+    from s10_lc2_browser import Credentials, _DRIVER_ENV_KEYS, run_current_revoked_browser
+    from s10_lc2_cases import Actor, Facts, main_c, marker, stored_rows
+    from s10_lc2_main_a_original_runner import existing_reader5
+    for action in ('C-SCOPE', 'C-ATTACHMENT', 'C-TOKEN', 'C-REVOKED-PAGE'):
+        profile.require_action(action)
+    request = strict_loads(requested_path.read_bytes())
+    manifest_path = ROOT / request['manifest_ref']
+    if manifest_path.is_symlink() or not manifest_path.resolve().is_relative_to(profile.root):
+        raise RuntimeError('C_MANIFEST_REFERENCE_INVALID')
+    raw = manifest_path.read_bytes()
+    if hashlib.sha256(raw).hexdigest() != request['manifest_sha256']:
+        raise RuntimeError('C_MANIFEST_BYTES_CHANGED')
+    manifest = strict_loads(raw)
+    foreign = manifest.get('foreign_stores', [])
+    if (manifest.get('actor_id') != 59 or manifest.get('manager_id') != 5
+            or manifest.get('manager_legal_business_management') is not True
+            or manifest.get('database') != profile.database or manifest.get('oid') != 2144129
+            or manifest.get('rollback_returned') is not True or manifest.get('connection_closed') is not True
+            or type(manifest.get('store1_membership_id')) is not int
+            or manifest.get('original161_mail_links') != []
+            or type(foreign) is not list or len(foreign) > 2
+            or len({row.get('store_id') for row in foreign}) != len(foreign)
+            or len(foreign) < 2 and manifest.get('foreign_scope_status') != 'PARTIAL_NO_NONEMPTY_MAIN_SOURCE'
+            or len(foreign) == 2 and {row.get('company_id') == 1 for row in foreign} != {False, True}
+            or any(type(row.get('store_id')) is not int or row['store_id'] == 1
+                   or type(row.get('own_patient_id')) is not int or row['own_patient_id'] <= 0
+                   or type(row.get('own_invoice_id')) is not int or row['own_invoice_id'] <= 1
+                   or type(row.get('patient1_related')) is not bool
+                   or any(type(row.get('patient1_visible_' + kind + '_ids')) is not list
+                          for kind in ('invoice', 'payment', 'refund'))
+                   or row.get('patient1_related') and (any(type(row.get('patient1_visible_' + kind + '_ids')) is not list
+                          for kind in ('fee', 'event')) or type(row.get('patient1_visible_invoices')) is not list
+                          or type(row.get('store_visible_close_ids')) is not list)
+                   or row.get('company_id') not in manifest.get('manager_allowed_company_ids', []) for row in foreign)):
+        raise RuntimeError('C_NONEMPTY_SCOPE_OR_LEGAL_TOKEN_APPLICABILITY_NOT_PROVEN')
+    directory = profile.root / ('C-main-' + uuid.uuid4().hex[:12])
+    facts = Facts(directory)
+    save_once(profile.root / 'C-MAIN-IN-FLIGHT.json', {'directory': str(directory.relative_to(ROOT)),
+        'actor_id': 59, 'automatic_retry': False, 'scope_manifest_sha256': request['manifest_sha256']})
+    run = profile.run_root / profile.database
+    budget = PackageBudget(profile.root, profile=profile)
+    memberships = {1: manifest['store1_membership_id']}
+    connection_args = credentials()
+    def verify_levels(label, levels, store=1):
+        destination = directory / ('permission-' + label)
+        collect_selection(psycopg2.connect, connection_args, database=profile.database, expected_oid=2144129,
+            selections=[{'table': 'ydental_access_membership', 'columns': [
+                'id', 'ydental_user_id', 'ydental_store_id', 'ydental_employee_id', 'active'],
+                'ids': [memberships[store]]}, {'table': 'ydental_access_grant', 'columns': [
+                'id', 'ydental_membership_id', 'ydental_category', 'ydental_level'],
+                'equals': {'ydental_membership_id': memberships[store]}}],
+            directory=destination, budget=budget, allowed_target_names=[profile.database],
+            target_directory=run, config_path=run / 'odoo.conf', max_rows=64)
+        member = stored_rows(destination, 'ydental_access_membership')
+        actual = {row['ydental_category']: row['ydental_level']
+                  for row in stored_rows(destination, 'ydental_access_grant')}
+        if (len(member) != 1 or member[0]['ydental_user_id'] != 59
+                or member[0]['ydental_store_id'] != store or not member[0]['active']
+                or any(actual.get(category, 'none') != level for category, level in levels.items())):
+            raise RuntimeError('C_NORMAL_PERMISSION_COMMIT_NOT_INDEPENDENTLY_VERIFIED')
+        facts.save('permission-' + label, {'actor_id': 59, 'store_id': store, 'levels': levels,
+            'state_source': str(destination.relative_to(ROOT)), 'layer': 'INDEPENDENT_COMMITTED_RO'})
+    reference, reader_credentials = current_reader(profile)
+    manager_credentials = existing_reader5()
+    with OwnedApplication(marker('main', profile), approval=approval,
+            product_commit=authority['product_commit'], test_commit=authority['test_commit'],
+            action='main-service', profile=profile) as app:
+        app.start([])
+        app.wait_ready(60)
+        manager = Actor('main', 'C-normal-manager', 5, manager_credentials['login'],
+            manager_credentials['password'], budget=budget, directory=directory / 'manager-http')
+        reader = Actor('main', 'C-normal-new-reader', 59, reader_credentials['login'],
+            reader_credentials['password'], budget=budget, directory=directory / 'reader-http')
+        manager.login(1)
+        reader.login(1)
+        # Native placeholder bytes are a public installed core resource, not a fabricated response.
+        placeholder_path = ROOT.parent / 'addons/web/static/img/placeholder.png'
+        def scope_actors():
+            for item in foreign:
+                store = item['store_id']
+                join = manager.action('access', 'join', {'user_id': 59, 'store_id': store}, case='C-SCOPE')
+                memberships[store] = join['membership_id']
+                levels = {'settlement': 'read', 'export': 'write'}
+                manager.action('access', 'grant', {'user_id': 59, 'store_id': store, 'levels': levels}, case='C-SCOPE')
+                verify_levels('foreign-' + str(store), levels, store)
+                reader.refresh()
+                reader.switch(store)
+                yield reader, store, item['own_patient_id'], item
+        main_c(manager, reader, None, placeholder_path.read_bytes(), facts, 161, scope_actors(),
+            dynamic_pdf_admitted=True, profile=profile, verify_permission=verify_levels,
+            token_applicability={'valid_token': 'NOT_APPLICABLE_NO_CURRENT_LEGAL_ISSUER',
+                'mail_links': [], 'scope_manifest_sha256': request['manifest_sha256'],
+                'source': 'ydental_settlement_bill_original has no portal.mixin; no linked mail.message producer'})
+        reader.refresh()
+        reader.switch(1)
+        def set_reader(label, levels):
+            manager.action('access', 'grant', {'user_id': 59, 'store_id': 1, 'levels': levels}, case='C-REVOKED-PAGE')
+            verify_levels(label, levels)
+        async def revoke():
+            set_reader('browser-revoked', {'settlement': 'none', 'export': 'none'})
+        async def restore():
+            set_reader('browser-restored', {'settlement': 'read', 'export': 'write'})
+        ambient = dict(os.environ)
+        try:
+            os.environ.clear()
+            os.environ.update({key: value for key, value in ambient.items() if key in _DRIVER_ENV_KEYS})
+            browser = asyncio.run(run_current_revoked_browser(base_url='http://127.0.0.1:18410',
+                database=profile.database, owned_targets={profile.database: 'http://127.0.0.1:18410'},
+                budget=budget, directory=directory / 'browser-revoked',
+                credentials=Credentials(reader_credentials['login'], reader_credentials['password']),
+                reader_id=59, store_id=1, patient_id=1, invoice_id=1, original_id=1,
+                revoke_reader=revoke, restore_reader=restore))
+        finally:
+            os.environ.clear()
+            os.environ.update(ambient)
+        facts.save('C-browser-revoked-result', browser)
+        app.check()
+    result = {'status': 'C_MAIN_EXECUTED_INDEPENDENT_ACCEPTANCE_PENDING', 'actor_id': 59,
+        'directory': str(directory.relative_to(ROOT)), 'application_directory': str(app.directory.relative_to(ROOT)),
+        'foreign_nonempty_store_cases': len(foreign),
+        'foreign_scope_status': 'EXECUTED_MAIN_SAME_AND_OTHER_COMPANY' if len(foreign) == 2 else 'PARTIAL_NO_NONEMPTY_MAIN_SOURCE',
+        'family_nonempty_scratch_cases': 'NOT_RUN_SEPARATE_AFTER_D', 'valid_token': 'N/A_NO_CURRENT_LEGAL_ISSUER'}
+    save_once(profile.root / 'C-MAIN-COMPLETE.json', result)
+    return result
+
+
 def execute(args, profile):
     """Caller holds the plan's exclusive runner lock for this whole operation."""
     require_dispatch_unfrozen(profile)
@@ -395,20 +524,22 @@ def execute(args, profile):
         return initialize_existing_reader(profile, approval, authority)
     if args.action == 'b-only':
         return run_b(profile, approval, authority, args.requested)
+    if args.action == 'c-main':
+        return run_c_main(profile, approval, authority, args.requested)
     return run_original(profile, approval, authority)
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('action', choices=['target-ro', 'original-ui', 'prepare-reader',
-                                         'initialize-existing-reader', 'b-only'])
+                                         'initialize-existing-reader', 'b-only', 'c-main'])
     parser.add_argument('--selections', type=Path)
     parser.add_argument('--requested', type=Path)
     args = parser.parse_args()
     if args.action == 'target-ro' and args.selections is None:
         parser.error('--selections is required for target-ro')
-    if args.action == 'b-only' and args.requested is None:
-        parser.error('--requested is required for b-only')
+    if args.action in {'b-only', 'c-main'} and args.requested is None:
+        parser.error('--requested is required for b-only/c-main')
     profile = current_plan_profile()
     descriptor = os.open(profile.root / 'runner.lock', os.O_RDWR | os.O_CREAT | os.O_NOFOLLOW, 0o600)
     with os.fdopen(descriptor, 'a+b') as lock:
