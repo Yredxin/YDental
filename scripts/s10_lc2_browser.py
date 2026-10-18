@@ -706,6 +706,7 @@ class BrowserSession:
         """Observe only selected bootstrap configuration and input-state booleans."""
         result = {'phase': 'BEFORE_CREDENTIAL_INPUT', 'configuration_observed': False,
                   'translation_route': 'NOT_OBSERVED', 'bundle_language': 'NOT_OBSERVED',
+                  'configuration_source': 'NOT_OBSERVED',
                   'html_language': 'NOT_OBSERVED',
                   'login_form_exists': False, 'login_form_visible': False,
                   'login_exists': False, 'login_visible': False, 'login_editable': False,
@@ -718,28 +719,55 @@ class BrowserSession:
                   'dom_or_input_values_retained': False}
         try:
             configuration = await self.page.evaluate("""() => {
-                const info = window.odoo?.__session_info__ || {};
+                // require() only returns an already-exported module. Native
+                // @web/session deletes the bootstrap global after exporting it.
+                const exported = window.odoo?.loader?.require('@web/session')?.session;
+                const bootstrap = window.odoo?.__session_info__;
+                const info = exported && typeof exported === 'object' ? exported
+                    : bootstrap && typeof bootstrap === 'object' ? bootstrap : null;
+                const observed = !!info && typeof info.bundle_params?.lang === 'string'
+                    && info.bundle_params.lang.length > 0;
+                const route = observed ? (info.translationURL || '/web/webclient/translations') : null;
+                const language = observed ? info.bundle_params.lang : null;
+                const html = document.documentElement.lang || '';
                 const form = document.querySelector('form.oe_login_form');
                 const passkey = form?.querySelector('[name=webauthn_response]');
-                return {translationURL: info.translationURL || '/web/webclient/translations',
-                    language: info.bundle_params?.lang || '', html_language: document.documentElement.lang || '',
-                    fields: form ? Array.from(form.elements).map(el => el.name).filter(Boolean) : [],
+                const knownFields = new Set(['csrf_token', 'db', 'login', 'password',
+                    'redirect', 'type', 'webauthn_response']);
+                const fields = form ? Array.from(form.elements).map(el => el.name).filter(Boolean) : [];
+                return {configuration_observed: observed,
+                    configuration_source: !info ? 'NOT_OBSERVED' : info === exported ? 'NATIVE_EXPORTED_MODULE'
+                        : info === bootstrap ? 'BOOTSTRAP_GLOBAL' : 'NOT_OBSERVED',
+                    translationURL: route === null ? null :
+                        ['/website/translations', '/web/webclient/translations'].includes(route)
+                            ? route : 'UNRECOGNIZED_TRANSLATION_ROUTE',
+                    language: language === null ? null : ['en_US', 'zh_CN'].includes(language)
+                        ? language : 'UNRECOGNIZED_LANGUAGE',
+                    html_language: !html ? 'EMPTY' :
+                        ['en', 'en-US', 'en_US', 'zh', 'zh-CN', 'zh_CN'].includes(html)
+                            ? html : 'UNRECOGNIZED_LANGUAGE',
+                    fields: fields.filter(name => knownFields.has(name)),
+                    unknown_fields: fields.some(name => !knownFields.has(name)),
                     passkey_empty: !passkey || passkey.value === ''};
             }""")
-            result['configuration_observed'] = True
-            routes = {'/website/translations', '/web/webclient/translations'}
-            result['translation_route'] = (configuration.get('translationURL')
-                if configuration.get('translationURL') in routes else 'UNRECOGNIZED_TRANSLATION_ROUTE')
-            result['bundle_language'] = (configuration.get('language')
-                if configuration.get('language') in {'en_US', 'zh_CN'} else 'UNRECOGNIZED_LANGUAGE')
+            result['configuration_observed'] = configuration.get('configuration_observed') is True
+            source = configuration.get('configuration_source')
+            if source in {'NATIVE_EXPORTED_MODULE', 'BOOTSTRAP_GLOBAL'}:
+                result['configuration_source'] = source
+            if result['configuration_observed']:
+                routes = {'/website/translations', '/web/webclient/translations'}
+                result['translation_route'] = (configuration.get('translationURL')
+                    if configuration.get('translationURL') in routes else 'UNRECOGNIZED_TRANSLATION_ROUTE')
+                result['bundle_language'] = (configuration.get('language')
+                    if configuration.get('language') in {'en_US', 'zh_CN'} else 'UNRECOGNIZED_LANGUAGE')
             html_language = configuration.get('html_language', '')
             result['html_language'] = (html_language if html_language in {
-                'en', 'en-US', 'en_US', 'zh', 'zh-CN', 'zh_CN'}
+                'en', 'en-US', 'en_US', 'zh', 'zh-CN', 'zh_CN', 'EMPTY'}
                 else 'EMPTY' if not html_language else 'UNRECOGNIZED_LANGUAGE')
             known_fields = {'csrf_token', 'db', 'login', 'password', 'redirect', 'type', 'webauthn_response'}
             fields = set(configuration.get('fields', []))
             result['known_form_fields'] = sorted(fields & known_fields)
-            result['unknown_form_fields_present'] = bool(fields - known_fields)
+            result['unknown_form_fields_present'] = configuration.get('unknown_fields') is True or bool(fields - known_fields)
             result['passkey_response_empty'] = configuration.get('passkey_empty') is True
             form = self.page.locator('form.oe_login_form')
             result['login_form_exists'] = await form.count() == 1
