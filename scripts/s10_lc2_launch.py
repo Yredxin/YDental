@@ -142,6 +142,8 @@ def launch_guard(marker, *, approval, product_commit, test_commit, action, profi
                 'data_dir': str(profile.data_dir if profile is not None else run / 'data'), 'logfile': str(run / 'odoo-native.log'),
                 'log_config': str(log_config),
                 'addons_path': str(ROOT.parent / 'addons') + ',' + str(ROOT)}
+    if profile is not None and profile.message_id == CURRENT_PLAN:
+        expected['smtp_server'] = ''
     if any(options.get(key) != value for key, value in expected.items()) or not 18410 <= marker['port'] <= 18419:
         raise RuntimeError('APPLICATION_CONFIG_BOUNDARY_DRIFT')
     if list((run / 'diagnostics').glob('diagnostics-failed-*.txt')):

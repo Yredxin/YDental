@@ -106,7 +106,7 @@ def main(shell_env):
     database = shell_env.cr.dbname
     expected = {'main': 'ydental_s10_test_20261017105432_810a7d9c',
                 'scratch': 'ydental_s10_test_20261017105432_ce6dcbf8'}
-    if mode not in {'main-prepare', 'main-b-only', 'main-reader-only', 'scratch-bootstrap'} or database != expected['scratch' if mode == 'scratch-bootstrap' else 'main']:
+    if mode not in {'main-prepare', 'main-b-only', 'main-reader-only', 'main-reader-password-only', 'scratch-bootstrap'} or database != expected['scratch' if mode == 'scratch-bootstrap' else 'main']:
         raise RuntimeError('FIXTURE_ROLE_MODE_DRIFT')
     import logging
     if logging.getLogger('odoo.http.server').getEffectiveLevel() != logging.CRITICAL:
@@ -146,7 +146,7 @@ def main(shell_env):
             if env.su or env.transaction.default_env.uid != uid or env.transaction.default_env.su:
                 raise RuntimeError('FIXTURE_FIRST_ENV_NOT_ORDINARY_ACTOR')
             _guard(env, str(run))
-            case = ('B-ACTOR-PREPARE' if mode == 'main-reader-only' else
+            case = ('B-ACTOR-PREPARE' if mode in {'main-reader-only', 'main-reader-password-only'} else
                     'B-MODEL-6' if mode == 'main-prepare' and uid == 6 else
                     'C-SCOPE' if mode == 'main-prepare' else 'D-ADMIT')
             with context_scope(case_id=case,
@@ -179,6 +179,68 @@ def main(shell_env):
             record = parameters.search([('key', '=', key)])
             changes.append({'id': record.id, 'key': key, 'before': before, 'after': value})
         return changes
+    if mode == 'main-reader-password-only':
+        import hashlib
+        from odoo.tools import config
+        from s10_lc2_evidence import save_once
+        from s10_lc2_task_profile import CURRENT_PLAN, profile_from_environment
+        profile = profile_from_environment(os.environ)
+        if profile is None or profile.message_id != CURRENT_PLAN:
+            raise RuntimeError('EXISTING_READER_CURRENT_PROFILE_REQUIRED')
+        profile.require_action('initialize-existing-reader')
+        verified_raw = (profile.root / 'reader-pending-verified.json').read_bytes()
+        if hashlib.sha256(verified_raw).hexdigest() != 'e69dd648bd5930b633299316bd1f6140a24a84f61ae4cb85b06d10b021f6fb63':
+            raise RuntimeError('EXISTING_READER_VERIFIED_SOURCE_CHANGED')
+        verified = json.loads(verified_raw)
+        if (verified.get('reader_id') != 59 or verified.get('ordinary_nonadmin') is not True
+                or verified.get('connection_closed') is not True or verified.get('rollback_returned') is not True):
+            raise RuntimeError('EXISTING_READER_VERIFIED_SOURCE_INVALID')
+        checkpoint = run / 'diagnostics/reader-create-commit_returned-1791877.json'
+        if json.loads(checkpoint.read_bytes()).get('user_id') != 59:
+            raise RuntimeError('EXISTING_READER_CREATION_CHECKPOINT_INVALID')
+        provider_path = profile.root / 'credentials/user-59.json'
+        for path, mode_bits in ((provider_path.parent, 0o700), (provider_path, 0o600)):
+            if path.is_symlink() or path.stat().st_uid != os.getuid() or stat.S_IMODE(path.stat().st_mode) != mode_bits:
+                raise RuntimeError('EXISTING_READER_PROVIDER_BOUNDARY_INVALID')
+        provider = json.loads(provider_path.read_bytes())
+        if set(provider) != {'user_id', 'login', 'password'} or provider['user_id'] != 59:
+            raise RuntimeError('EXISTING_READER_PROVIDER_IDENTITY_INVALID')
+        def initialize_existing(env):
+            if env.uid != 2 or env.su or not env.is_system() or not env.user.has_group('base.group_erp_manager'):
+                raise RuntimeError('EXISTING_READER_NATIVE_ADMIN_REQUIRED')
+            if config.get('smtp_server') or env['ir.mail_server'].with_context(active_test=False).search_count([]):
+                raise RuntimeError('EXISTING_READER_OUTBOUND_MAIL_NOT_DISABLED')
+            user = env['res.users'].browse(59).exists()
+            ordinary_groups = set(user.all_group_ids.ids)
+            if (not user or user.create_uid.id != 5 or user.login != provider['login']
+                    or user.name != 'LC2 synthetic C reader' or not user.active or not user._is_internal()
+                    or user.company_id.id != 1 or user.company_id not in env.user.company_ids
+                    or sorted(user.group_ids.ids) != sorted(row['gid'] for row in verified['reader_groups'])
+                    or not {env.ref('base.group_user').id, env.ref('ydental_base.ydental_base_group_user').id} <= ordinary_groups
+                    or ordinary_groups & {env.ref('base.group_erp_manager').id, env.ref('base.group_system').id}):
+                raise RuntimeError('EXISTING_READER_ACTUAL_IDENTITY_CHANGED')
+            env.cr.execute('SELECT password IS NULL FROM res_users WHERE id=%s', [59])
+            if env.cr.fetchone() != (True,):
+                raise RuntimeError('EXISTING_READER_PASSWORD_ALREADY_PRESENT_VERIFY_NO_REWRITE')
+            user.write({'password': provider['password']})
+            env.flush_all()
+            env.cr.execute('SELECT password IS NOT NULL FROM res_users WHERE id=%s', [59])
+            if env.cr.fetchone() != (True,):
+                raise RuntimeError('EXISTING_READER_NATIVE_PASSWORD_NOT_INITIALIZED')
+            return {'user_id': 59, 'native_admin_id': 2, 'native_admin_su': False,
+                    'password_present': True, 'outbound_mail_disabled': True,
+                    'groups_changed': False, 'business_operations': 0}
+        def checkpoint_password(point, value):
+            save_once(run / 'diagnostics' / ('reader-password-admin-%s-%d.json' % (point, os.getpid())),
+                      value | {'point': point, 'independently_committed': False})
+        safe = actor(2, initialize_existing, commit=True, checkpoint=checkpoint_password)
+        del provider
+        with os.fdopen(write_fd, 'wb') as stream:
+            stream.write(json.dumps({'safe': safe | {'mode': mode, 'fixture_commits': 1,
+                'commit_observation': 'COMMIT_RETURNED_NOT_INDEPENDENTLY_VERIFIED'}, 'ram': {}}).encode())
+            stream.flush()
+        return
+
     if mode == 'main-reader-only':
         from s10_lc2_evidence import save_once
         from s10_lc2_task_profile import CURRENT_PLAN, profile_from_environment

@@ -138,3 +138,10 @@ TR01源码接受后在现scratch第一次真实运行五TransactionCase+一HttpC
 
 
 B首失败后实际37e417c一次独立RO exit0：与Aterminal旧域/权限/session/审计完全同，possible_new_reader_rows=[]，rollback/close成立，acceptance亲核。因此本次工具STOP依明确因果、退出和零新增角色事实受控归档，不是忽略STOP或清旧拒绝。代码仅改已有60s启动grace，另补B派发前耐久in-flight/完成索引，保存失败时不盲重派RPC。当前同plan累计Odoo12/RO35/HTTP47/Firefox7/GET1，原事故/维护/CREATE不变。
+
+
+### B 角色59已提交、普通密码初始化契约错误（2f2e0cd）
+
+- create commit已返回并有私有provider/检查点，密码write被锁定core普通字段写权限拒绝。此为旧helper假设错误，非B不可改删产品FAIL；不再创建用户。父run.end后APPLICATION_DIAGNOSTICS_ENDED_NO_DISPATCH及-15为后继，修有限shell退出监视时不得吞非0/native/封存失败。
+- 真实独立RO首事实先保存；wrapper漏列正常授权技术revision而exit1。同raw离线精确核四mutex仅383→384/421→422/403→404/690→691，其余存储列SHA保持；正常_grant→_all_locks源码链与唯一一次新grant对应，独立acceptance亲核。新membership/grant、5条角色审计按ID保全，不使用宽泛排除，不SQL改mutex，不重RO补PASS。
+- 实际59普通非admin/company1/password NULL；恢复仅同一新用户用原生管理员直接ORM password字段初始化，普通59继续被测，不改旧5/7身份。mail密码安全通知会走真实发送路径，已要求owned smtp_server空+全部ir.mail_server数0的前置，保原生失败/技术产物、不删除handler，不开启真实SMTP。

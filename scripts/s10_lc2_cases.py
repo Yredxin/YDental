@@ -335,8 +335,12 @@ def run_fixture(role, *, approval, product_commit, test_commit, mode=None, manif
                     else:
                         raise RuntimeError('B_FIXTURE_PIPE_EVENT_INVALID')
             if app.process.poll() is None:
-                app.check(allow_starting=time.monotonic() - app.started < 60)
+                # A finite shell may have emitted run.end while its interpreter
+                # is still closing. No further HTTP dispatch is requested here.
+                app.check_evidence_markers()
+                app.observe_events(allow_starting=time.monotonic() - app.started < 60)
             else:
+                app.observe_native_exit(app.process.returncode)
                 exited_at = exited_at or time.monotonic()
                 if time.monotonic() - exited_at > 2:
                     raise TimeoutError('FIXTURE_CHILD_EXITED_WITHOUT_PIPE_EOF')

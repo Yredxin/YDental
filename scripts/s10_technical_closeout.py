@@ -99,6 +99,22 @@ def current_reader(profile):
     return reference, reader
 
 
+def initialize_existing_reader(profile, approval, authority):
+    """Initialize only the committed, independently verified pending reader 59."""
+    from s10_lc2_cases import run_fixture
+    profile.require_action('initialize-existing-reader')
+    save_once(profile.root / 'reader-initialize-existing-intent.json', {
+        'user_id': 59, 'operation': 'main-reader-password-only',
+        'account_creation': False, 'native_admin_id': 2, 'automatic_retry': False})
+    result = run_fixture('main', approval=approval, product_commit=authority['product_commit'],
+        test_commit=authority['test_commit'], mode='main-reader-password-only', profile=profile)
+    save_once(profile.root / 'reader-initialize-existing-result.json', result['safe'])
+    reference = {'ref': str((profile.root / 'credentials/user-59.json').relative_to(ROOT)), 'actor_id': 59}
+    save_once(profile.root / 'reader-provider.json', reference)
+    return result['safe'] | {'status': 'EXISTING_READER_PASSWORD_COMMIT_RETURNED_RO_REQUIRED',
+                             'provider_reference': reference}
+
+
 def run_b(profile, approval, authority, requested_path):
     """Normal-session manifest, rollback MODEL probes, then six real RPC probes."""
     from s10_lc2_cases import (Actor, Facts, b_collect_step, b_evidence_callbacks,
@@ -297,6 +313,8 @@ def execute(args, profile):
                 'directory': str(directory.relative_to(ROOT))}
     if args.action == 'prepare-reader':
         return prepare_reader(profile, approval, authority)
+    if args.action == 'initialize-existing-reader':
+        return initialize_existing_reader(profile, approval, authority)
     if args.action == 'b-only':
         return run_b(profile, approval, authority, args.requested)
     return run_original(profile, approval, authority)
@@ -304,7 +322,8 @@ def execute(args, profile):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=['target-ro', 'original-ui', 'prepare-reader', 'b-only'])
+    parser.add_argument('action', choices=['target-ro', 'original-ui', 'prepare-reader',
+                                         'initialize-existing-reader', 'b-only'])
     parser.add_argument('--selections', type=Path)
     parser.add_argument('--requested', type=Path)
     args = parser.parse_args()
