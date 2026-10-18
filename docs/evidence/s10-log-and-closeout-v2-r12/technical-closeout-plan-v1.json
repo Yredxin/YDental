@@ -2,9 +2,9 @@
   "plan_id": "YD-S10-TECHNICAL-CLOSEOUT-V1",
   "version": "1.0",
   "task_id": "S10-LOG-AND-CLOSEOUT-v2",
-  "status": "IN_PROGRESS_A_B_D_AND_LOG02_SCOPED_PASS_C_E_LOG_REMAIN",
+  "status": "IN_PROGRESS_C_AND_LOG17_SCOPED_PASS_NATIVE_UI_AND_FINAL_DUAL_E_PENDING",
   "product_commit": "b1f30aa88365ec85aea15073f08de5d6dfa22a5f",
-  "runtime_test_commit": "dcf2d4f7cd666f8332be778348aaf105967dc64f",
+  "runtime_test_commit": "45e93f38bab8dacd5916c9bdce374b1cc9d0d05f",
   "core_commit": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
   "executor": "/root/tester_s10",
   "reviewer": "/root/acceptance_s10",
@@ -83,25 +83,25 @@
   },
   "counts": {
     "cumulative": {
-      "accident_ro": 2,
-      "create": 2,
-      "firefox": 8,
-      "http": 418,
-      "maintenance": 1,
-      "odoo_start": 36,
+      "odoo_start": 40,
+      "target_ro": 181,
+      "http": 472,
+      "firefox": 9,
       "original_get": 12,
-      "target_ro": 167
+      "accident_ro": 2,
+      "maintenance": 1,
+      "create": 2
     },
     "current_plan": {
-      "odoo_start": 26,
-      "target_ro": 137,
-      "http": 386,
-      "firefox": 2,
+      "odoo_start": 30,
+      "target_ro": 151,
+      "http": 440,
+      "firefox": 3,
       "original_get": 12
     },
     "counts_are_not_test_pass_totals": true,
     "http_boundary": "Runner/browser dispatch ledger; not all native renderer internal asset HTTP wire requests.",
-    "as_of_utc": "2026-10-18T12:22:00Z",
+    "as_of_utc": "2026-10-18T13:02:00Z",
     "counts_are_not_test_case_totals": true,
     "prior_as_of_before_tax_model_and_finite_C": {
       "cumulative": {
@@ -159,6 +159,26 @@
         "firefox": 2,
         "original_get": 12
       }
+    },
+    "prior_as_of_native_locale_incident": {
+      "cumulative": {
+        "accident_ro": 2,
+        "create": 2,
+        "firefox": 8,
+        "http": 418,
+        "maintenance": 1,
+        "odoo_start": 36,
+        "original_get": 12,
+        "target_ro": 167
+      },
+      "current_plan": {
+        "odoo_start": 26,
+        "target_ro": 137,
+        "http": 386,
+        "firefox": 2,
+        "original_get": 12
+      },
+      "as_of_utc": "2026-10-18T12:22:00Z"
     }
   },
   "private_index_references": [
@@ -295,7 +315,12 @@
       "resolution": "Existing project pymupdf read/render of saved current download; no installation, new rendering of original, or repeated click."
     }
   ],
-  "remaining": "C scratch nonempty cross-store/cross-company/family/mixed controls and one main filtered-empty semantic complement; final dual E; current LOG03 UI and LOG06/10/12 independent ON/OFF rollback pair; final LOG/22-finance merge and independent S10 acceptance. No repeat of D funds.",
+  "remaining": [
+    "Native LOG03 WarningDialog real browser and limited new59 metadata explanation",
+    "Final E-MAIN and E-D on same final product with independent preservation and affected regression",
+    "Final twelveLOG aggregate/public export scan/storage/22finance and19case independent acceptance",
+    "Concrete bounded owned user review startup and safe read-only steps; final GitHub delivery"
+  ],
   "B-role-prepare-first": {
     "candidate": "863325e2f48ca073b989711f36012c5da483e42d",
     "status": "TOOL_FAIL_STARTUP_RACE_NO_NEW_ROLE_OBSERVED_AFTER_INDEPENDENT_RO",
@@ -389,9 +414,9 @@
   },
   "independent_review_reference": {
     "ref": "../../reports/s10-log-and-closeout-v2-r12/acceptance-review.md",
-    "bytes_at_current_signature": 241077,
-    "sha256_at_current_signature": "a9512d3b02a5b6a1f25e017c96bcdb9f88683d1d5ed57d4cfc65d133976db2d3",
-    "scope": "Actual first nativeHTML303 with guard not reached and Location missing, exact-body/source-derived canonical inference, first observer0-table exit1 retained, actual second RR34-table protection and actual native locale independently accepted. Canonical patch SOURCE and actual native guard still pending."
+    "bytes_at_current_signature": 252681,
+    "sha256_at_current_signature": "e1ce18c2766d97a60943be96b7e42c7c728ab3535a73c323275ed625922aae1f",
+    "scope": "Actual strict-language C report/native attachment guards and170sealed preservation, LOG17 real ON/OFF same rollback outcomes and33sealed protection, main explicit filtered-empty and Firefox/Odoo actual exit independently accepted at stated scope. Native UI assertion unexecuted, new59 write_date exact cause unresolved, final dual E and fullS10 not signed. Original producer PENDING and first failures remain."
   },
   "B-actual": {
     "status": "PASS_SCOPED_SIX_MODEL_AND_SIX_REAL_RPC",
@@ -867,6 +892,12 @@
       "bytes_at_current_signature": 234951,
       "sha256_at_current_signature": "706a361cfbb7ecdcc6d450d218f6d0c38264a48f03227fad9a2c964275ad6501",
       "scope": "C six sealed captures/204 files, six sources/five unpaid bills/two originals/rank3/native D preservation,19 read minimal results/native association/163 complete log seal, three current PDFs personally viewed. Native8 probes/303/session/terminal not run. Exact suffix source READY only."
+    },
+    {
+      "ref": "../../reports/s10-log-and-closeout-v2-r12/acceptance-review.md",
+      "bytes_at_current_signature": 241077,
+      "sha256_at_current_signature": "a9512d3b02a5b6a1f25e017c96bcdb9f88683d1d5ed57d4cfc65d133976db2d3",
+      "scope": "Actual first nativeHTML303 with guard not reached and Location missing, exact-body/source-derived canonical inference, first observer0-table exit1 retained, actual second RR34-table protection and actual native locale independently accepted. Canonical patch SOURCE and actual native guard still pending."
     }
   ],
   "D-configuration-and-early-font": {
@@ -1144,7 +1175,7 @@
     "odoo_cumulative_maximum": 50,
     "target_ro_new_plan": 180,
     "http_new_plan": 1200,
-    "firefox_new_plan": 4,
+    "firefox_new_plan": 6,
     "original_get_new_plan": 24,
     "reason": "Concrete added tax compatibility rollback and finite configuration split; counts/start/deadline/baseline/historical STOP unchanged. 90% pause concerns raw storage, not dispatch counters.",
     "target_ro_cumulative_maximum": 210,
@@ -1160,6 +1191,14 @@
       "bytes": 2661,
       "sha256": "8aa23054efbac7ac3b181cb65840bb6d9c9220ed3c9703a04c3bf496a7223d39",
       "access": "Local private engineering record; original scope/budget archived before new authority update"
+    },
+    "firefox_cumulative_maximum": 12,
+    "firefox_change_reason": "Current cumulative9=historical6+current3; remaining nativeLOG UI1 + mandatory Eafter originalUI1 + one ordinary tool repair margin. Archive old control bytes; used9/start/deadline/oldSTOP unchanged.",
+    "firefox_change_private_record": {
+      "path": ".local/s10-technical-closeout-v1/resource-firefox6-reason.json",
+      "bytes": 603,
+      "sha256": "7bb8b533da85832209791bd5030dc8cc5699458d6969fc7e09dd38d29a037761",
+      "access": "Local private original; repository summary does not provide raw access."
     }
   },
   "C-tax-and-finite-configuration-actual": {
@@ -1444,5 +1483,209 @@
       "mapped_files": 20,
       "access": "Private local archive; chains first303/STOP377-file snapshot, not directly readable from GitHub"
     }
+  },
+  "C-strict-native-final-actual": {
+    "status": "INDEPENDENT_SCOPED_PASS",
+    "product_commit": "cc1a395a8254a0b6c2017ceedd9a351d095c590a",
+    "test_commit": "45e93f38bab8dacd5916c9bdce374b1cc9d0d05f",
+    "wrapper_exit": 0,
+    "native_pid": 1995715,
+    "native_exit": 0,
+    "diagnostic_records": 29,
+    "diagnostic_bytes": 40163,
+    "diagnostic_seal": "INDEPENDENTLY_REVALIDATED_VALID",
+    "native_report_final_statuses": [
+      403,
+      403,
+      403,
+      403
+    ],
+    "actual_native_message": "access_denied: A bound settlement export request is required.",
+    "normal_locale_redirects": 3,
+    "original_bare_HTML_not_replayed": true,
+    "native_content_statuses": [
+      404,
+      404
+    ],
+    "native_image_statuses": [
+      200,
+      200
+    ],
+    "image_pixel_semantics": "Both actual saved256x256 RGBA equal fixed-core placeholder, not protected PDF content.",
+    "real_empty_bill_form_status": 303,
+    "normal_notice_follow_status": 200,
+    "native_exception": "ValidationError / INPUT_REJECTED",
+    "independent_capture_count": 5,
+    "sealed_files": 170,
+    "original_D_old_rows_preserved": 117,
+    "six_C_fees": [
+      7,
+      11,
+      13,
+      17,
+      19,
+      23
+    ],
+    "C_unpaid_invoice_count": 5,
+    "C_original_count": 2,
+    "extra_C_fund_dispatches": 0,
+    "returned_original": {
+      "path": ".local/s10-technical-closeout-v1/C-scratch-1dc00a7a55a2/C-scratch-native-probe-tail-returned.json",
+      "bytes": 325,
+      "sha256": "abf756656d78078c2c123b32704220cd63b30d8b9db325ddd503b9baf9577737",
+      "access": "Private local original; not remotely readable from repository summary."
+    },
+    "producer_PENDING_retained": true,
+    "reviewer": "/root/acceptance_s10",
+    "review_ref": "../../reports/s10-log-and-closeout-v2-r12/acceptance-review.md",
+    "historical_limits": "Old bare303 Location missing and C Firefox then-exitcode not captured remain unchanged; later process supervision does not rewrite them."
+  },
+  "LOG17-actual": {
+    "status": "INDEPENDENT_SCOPED_MODEL_PASS",
+    "product_commit": "cc1a395a8254a0b6c2017ceedd9a351d095c590a",
+    "test_commit": "45e93f38bab8dacd5916c9bdce374b1cc9d0d05f",
+    "actor": 9,
+    "store": 2,
+    "new_C_fee": 5,
+    "amount": 17,
+    "protected_D_fee": 1,
+    "modes": {
+      "ON": {
+        "pid": 1998921,
+        "exit": 0,
+        "model_elapsed_ns": 1369984120,
+        "diagnostic_events": 17,
+        "diagnostic_bytes": 24203,
+        "integrity": "VALID"
+      },
+      "OFF": {
+        "pid": 2001412,
+        "exit": 0,
+        "model_elapsed_ns": 1331426188,
+        "diagnostic_events": 0,
+        "diagnostic_bytes": 0,
+        "integrity": "EXPECTED_ABSENT_NOT_INTEGRITY_PASS"
+      }
+    },
+    "outcomes": [
+      "posted balanced bill17/source1/audit1 rolled back",
+      "UserError VERSION_CONFLICT rolled back",
+      "UserError DAY_CLOSED rolled back",
+      "mandatory audit ValidationError propagated and rolled back",
+      "synthetic RuntimeError propagated and rolled back"
+    ],
+    "same_outcomes": true,
+    "commits": 0,
+    "independent_RR_captures": 3,
+    "tables_per_capture": 11,
+    "sealed_files": 33,
+    "rows_per_capture": 475,
+    "bytes_per_capture": 128518,
+    "all_before_after_equal": true,
+    "first_pair_wrapper_exit": 1,
+    "OFF_first_failure": "Missing precise optional_diagnostics_off private approval before OFF Popen; ON not replayed.",
+    "OFF_only_wrapper_exit": 0,
+    "first_failure_preserved": true,
+    "pair_complete": {
+      "path": ".local/s10-technical-closeout-v1/LOG-ROLLBACK-PAIR-COMPLETE.json",
+      "bytes": 1525,
+      "sha256": "8a9b61222c9bed6cb37910aa720e2f7b1f663d84f95e6a8717a12e0fb0e79211",
+      "access": "Private local original; not remotely readable from repository summary."
+    },
+    "layered_index": {
+      "path": ".local/s10-technical-closeout-v1/LOG17-real-layered-result-index.json",
+      "bytes": 4199,
+      "sha256": "df13b6761f586f6222f998434c76d50704e0abbdd387abd9905f938b4ff13948",
+      "access": "Private local original; not remotely readable from repository summary."
+    },
+    "immutable_originals": {
+      "path": ".local/s10-technical-closeout-v1/LOG17-complete-runtime-originals/index.json",
+      "bytes": 14817,
+      "sha256": "a3382addbb1d165eda1c88aa91dc30c995d62a48a9581b9417046a19c8e44df2",
+      "access": "Private local original; not remotely readable from repository summary."
+    },
+    "reviewer": "/root/acceptance_s10",
+    "limits": "One MODEL pair only; no statistical SLA, real HTTP program failure or financial race inferred. MODEL request_id=null remains."
+  },
+  "main-LOG-before": {
+    "status": "INDEPENDENT_SCOPED_PROTECTION_PASS",
+    "actual_exit": 0,
+    "verified": {
+      "path": ".local/s10-technical-closeout-v1/main-final-LOG-before-verified.json",
+      "bytes": 614865,
+      "sha256": "f78173a29ea778a78bc682c3c5cf3d20a246de94152ecb558374b0d367ce64a4",
+      "access": "Private local original; not remotely readable from repository summary."
+    },
+    "old_domains": 39,
+    "old_originals": 2,
+    "old_audits_unchanged": true,
+    "inventory_projection_groups": 5,
+    "tax_scope": "First actual physical baseline42templates/84sale/84purchase/8tax/92stored columns, not invented historical equality."
+  },
+  "LOG03-main-first": {
+    "status": "FILTERED_EMPTY_ACTUAL_PASS_NATIVE_UI_NOT_RUN_TO_ASSERTION",
+    "product_commit": "cc1a395a8254a0b6c2017ceedd9a351d095c590a",
+    "test_commit": "45e93f38bab8dacd5916c9bdce374b1cc9d0d05f",
+    "actor": 59,
+    "store": 1,
+    "filtered_empty": {
+      "model": "ir.attachment",
+      "method": "search_read",
+      "attachment": 161,
+      "fields": [
+        "id",
+        "raw"
+      ],
+      "HTTP": 200,
+      "result_type": "list",
+      "result_count": 0,
+      "real_response_sha_retained": true,
+      "replay_authorized": false,
+      "evidence": {
+        "path": ".local/s10-technical-closeout-v1/LOG03-main-da4eee894a82/C-existing-attachment161-filtered-empty.json",
+        "bytes": 377,
+        "sha256": "d2897e4d71ead578b76387dbfd43e97828a42a9046708f2904b41933dba7eba2",
+        "access": "Local private original; repository summary does not provide raw access."
+      }
+    },
+    "wrapper_pid": 2006592,
+    "wrapper_exit": 1,
+    "native_pid": 2006721,
+    "native_exit": 0,
+    "Firefox_pid": 2006812,
+    "Firefox_exit": 0,
+    "Firefox_birth_and_parent_chain_matched": true,
+    "owned_browser_children_remaining": 0,
+    "first_failure": "Two normal boot POSTs preblocked by project CURRENT_LOG03_RPC_OR_ROUTE_NOT_APPROVED/OTHER_ROUTE; exact historical path and payload shape not retained. Native WarningDialog assertion not reached.",
+    "product_denial_claimed": false,
+    "platform_safety_refusal": false,
+    "after_RO_actual_exit": 1,
+    "after_RO_limited_findings": "39 business domains/tax/inventory/old document/originals preserved in actual raw; only new59 res_users.write_date changed. Exact later native bot bootstrap cause candidate requires minimal physical projection in already necessary Ebefore, not an extra RO. Original raw/exit1 retained.",
+    "next": "UI-only bounded safe request classification and normal navigation; no repeat filtered-empty/old economics.",
+    "first_failure_index": {
+      "path": ".local/s10-technical-closeout-v1/main-LOG03-first-boot-failure-index.json",
+      "bytes": 1629,
+      "sha256": "73b24da9a4e3c16c4fcd0175251e82c1e413eb3ddbd8e135c4e7132ea1273f36",
+      "access": "Local private original; repository summary does not provide raw access."
+    },
+    "after_RO_original": {
+      "path": ".local/s10-technical-closeout-v1/main-final-LOG-after-observed.json",
+      "bytes": 618216,
+      "sha256": "74efedad01deafebebdf29ed48da9731cb6139a16e48d44950eb45cff03f56b8",
+      "access": "Local private original; repository summary does not provide raw access."
+    },
+    "first_UI_immutable_snapshot": {
+      "path": ".local/s10-technical-closeout-v1/main-LOG03-first-boot-failure-runtime-originals/index.json",
+      "bytes": 43789,
+      "sha256": "94ca3bfa04a29c483c84e1788a3dfb44d071cd3233dae7a75adc6725eba1bb5e",
+      "access": "Private local immutable archive, not remotely readable from repository summary."
+    },
+    "after_RO_immutable_snapshot": {
+      "path": ".local/s10-technical-closeout-v1/main-LOG-after-first-profile-failure-originals/index.json",
+      "bytes": 2687,
+      "sha256": "fd4c7410cd6f304244c73dc252a5a9824efd70c0c20cf55f777d678117da3179",
+      "access": "Private local immutable archive, not remotely readable from repository summary."
+    },
+    "minimal_diagnostic_patch": "Only LOG03 same-owned-route bounded static path/family and public model/method/argument shapes; guard/network dispatch unchanged, denied request still aborted. One focused privacy/guard PURE check passed, AST/diff checked; no business PASS inferred."
   }
 }

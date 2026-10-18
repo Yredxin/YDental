@@ -165,6 +165,31 @@ class BrowserBoundaryCase(unittest.IsolatedAsyncioTestCase):
         with self.assertRaises(BrowserBoundaryError):
             session._request_allowed(FakeRequest(session.page,'/web/image/res.partner/66/avatar_128'))
 
+    async def test_current_log03_rejection_shape_preserves_deny_and_excludes_values(self):
+        session = self.current_session('LOG-03')
+        request = FakeRequest(session.page, '/web/dataset/call_kw/res.users/write?token=synthetic-query-secret',
+            method='POST', body=json.dumps({'params': {'model': 'res.users', 'method': 'write',
+                'args': [[59], {'password': 'synthetic-password'}],
+                'kwargs': {'context': {'private': 'synthetic-context-secret'}}}}))
+        transport = []
+        route = FakeRoute(session, request, None, transport)
+        await session._native_route(route)
+        self.assertEqual(route.aborted, 'blockedbyclient')
+        self.assertEqual(transport, [])
+        self.assertEqual(session.budget.intents, [])
+        evidence = next(session.directory.glob('*.route-rejection.json')).read_bytes()
+        value = json.loads(evidence)
+        self.assertEqual(value['public_rpc_model'], 'res.users')
+        self.assertEqual(value['public_rpc_method'], 'write')
+        self.assertTrue(value['first_ids_match_current_user59'])
+        self.assertEqual(value['first_eight_arg_types'], ['list', 'dict'])
+        for secret in (b'synthetic-query-secret', b'synthetic-password', b'synthetic-context-secret',
+                       b'synthetic-session-cookie'):
+            self.assertNotIn(secret, evidence)
+        outside = FakeRequest(session.page, 'https://unowned.example/private?secret=synthetic-query-secret')
+        self.assertEqual(session._native_rejection_metadata(outside),
+                         {'native_request_shape_retention': 'UNAVAILABLE_OR_OUTSIDE_OWNED_TARGET'})
+
     async def test_current_native_exit_debug_window_requires_real_exit_line(self):
         session=self.current_session('E-AFFECTED-REGRESSION');session.native_process_debug=True
         log=self.directory/'parent-stderr.log';raw=b'[pid=123] <launched> pid=123\n[pid=123] <process did exit: exitCode=0, signal=null>\n'

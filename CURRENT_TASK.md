@@ -1,11 +1,19 @@
 # YDental 当前任务状态
 
-状态版本：**YD-STATE-20261018-15** · 协议：**YD-COLLAB-V2.0 / WORKFLOW-V3**。
+状态版本：**YD-STATE-20261018-16** · 协议：**YD-COLLAB-V2.0 / WORKFLOW-V3**。
 
 ## 当前 plan 接管与执行（2026-10-18T06:52:51Z）
 
 - plan_id：**YD-S10-TECHNICAL-CLOSEOUT-V1 / 1.0**；task_id 继续 **S10-LOG-AND-CLOSEOUT-v2**。来源是用户在本会话完整交付的 S10 plan 及随后“开始实施吧”；执行模式已生效，不要求新 GPT 评论。用户 plan 全文在本会话；不冒称命名附件已落库。
-- 状态：**IN_PROGRESS / A_B_D_LOG02_SCOPED_PASS_C_E_LOG_REMAIN**。本轮起点本地/远端同 d731711ab48d73177303ced9c040601a206412d9，工作树干净；只读 core 实际 HEAD f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb。main 仍仅路由，不切业务基线。
+- 状态：**IN_PROGRESS / A_B_C_D_LOG17_SCOPED_PASS_NATIVE_UI_FINAL_DUAL_E_PENDING**。本轮起点本地/远端同 d731711ab48d73177303ced9c040601a206412d9，工作树干净；只读 core 实际 HEAD f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb。main 仍仅路由，不切业务基线。
+- 当前实际里程碑（2026-10-18T13:02Z，产品Pcc1 / 实际T45e93f38）：**C严格原生余段与LOG17 ON/OFF已独立限定PASS；原生UI与最终双E仍未完成，#34保持OPEN。** 四report已实际命中原生scope文字403、两content404、两image200为保存后独核的core占位图；正常空选费用表单303/notice200和五capture170sealed保全通过。六C费用/五未付账/两原件持久，D仍只收6退2净4，无C资金。
+
+- LOG17真实普通9/店2/新fee5金额17：ON与OFF五种业务/异常结果完全同，三个独立RR的11表/475行/128518B逐阶段精确相同，全部rollback、0commit。ON17条24203B完整seal，OFF无JSON是EXPECTED_ABSENT，不冒完整性PASS。原pair wrapper1是OFF启动前私有optout元数据遗漏；唯一OFF-only0、ON未重演。实际MODEL耗时1.369984120s/1.331426188s，仅一对样本，不推SLA。
+
+- main LOG03单附件161 search_read已实际HTTP200/list0并耐久保存，禁止重跑。随后正常backend audit228浏览器首次wrapper1：两个boot POST被项目路由门禁预拦，历史具体path/shape未保存，不能猜产品拒绝；原生WarningDialog尚未断言。owned2006721及Firefox2006812均真实exit0，后者PID/birth/父链及无存活子进程已核，不能补写旧C当时缺失退出码。afterRO原exit1保留，39旧域/原件/库存/税保持，仅新59用户write_date更新；nativeOdoobot首次bootstrap为SOURCE候选，后续必要Ebefore同次最小物理投影核，不额外RO或泛放元数据。
+
+- 当前累计Odoo40/RO181/HTTP472/Firefox9/原件GET12，原事故RO2/maintenance1/create2不变。依据最后LOGUI/E后原件UI及普通修复余量，仅当前plan Firefox上限4→6/累计12，已用9/历史6/原时钟/旧STOP保持；Odoo50、RO210累计上限不变。当前安全代码/文档窗口owned服务全停，只修正常UI最小安全拒绝分类，不扩大路由/不造DOM或RPC。双E仍NOT_RUN。
+
 - 原生报告语言导航查证（2026-10-18T12:22Z，实际Pcc1/Ta2a223d）：精确final-probes首HTML请求已真正到server，返回303/305B/非PDF，工具先验403触发普通STOP；wrapper1，owned1976217单native exit0/signalNone、12日志sealed，无首report.operation/异常/renderer事件，后3report+4native附件/303form/session终核未运行。首响应Location只在内存，历史未保存，不补造为已观测，也不把303当产品权限拒绝。
 - 锁定环境Werkzeug原生redirect('/en/report/html/ydental_settlement.ydental_settlement_pdf/5',303)离线完整body恰305B/SHA765165b732423024e6a999360980b65bc248b747ce22ecda854484b909d94a5f，同首actual hash，其他候选不符；这是SOURCE+实际摘要推导，不冒原Location捕获。唯一语言/保护RO首轮只读适配器误要求默认selection必须columns，在第一业务查询前exit1/0业务projection，identity/RR/rollback/close保；限定attempt2恢复既有安全默认projection规则，actual exit0/8b1c375535587b5ada17d5e72898acdad3f34d191680723c14b3c735fa2fa864，34表独核32完全同、audit仅普通11合法switch审计408、session13由local2/rev2→other4/rev3与已存native响应同，其余同。实际active en_US/urlen、reader11 partner16语言en_US，全局res.partner默认/public语言zh_CN、http_routing已装且website未装，与锁定core前端语言导航及body摘要一致。六源/五未付账单/两原件/D原生6/2/4/rank3完整保持，acceptance限定PASS。
 - 当前36/167/418/8/12，原首STOP8ade及具体移存回执、旧安全STOP/账本均保；无owned服务，scope只RO/apps[]。当前只做最小固定/en原生导航接线：首HTML直接进入尚未命中的canonical path，其他三原report只允许一次同origin/同converter/report/invoice5/同query/已核urlcode的原生redirect；安全Location组件先落盘，第二跳、登录/identity或目标变化即停。不改core/产品/认证/语言/cookie，不重裸HTML或已提交业务/原件；真正guard仍待实际命中。

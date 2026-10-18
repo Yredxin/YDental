@@ -658,6 +658,49 @@ class BrowserSession:
         self._requests[request] = metadata
         return metadata
 
+    def _native_rejection_metadata(self, request):
+        """Bounded technical shapes only; never export URL queries or payload values."""
+        if self._current_case != 'LOG-03':
+            return {}
+        try:
+            path = self._target_path(request.url)
+            fixed_paths = {'/mail/store', '/bus/get_model_definitions',
+                '/websocket/on_closed', '/websocket/peek_notifications',
+                '/web/action/load', '/web/action/load_breadcrumbs',
+                '/web/session/get_session_info', '/web/webclient/version_info',
+                '/web/dataset/call_kw', '/web/dataset/search_read'}
+            value = {'request_method': request.method if request.method in {'GET', 'POST'} else 'OTHER',
+                'native_path_family': ('DATASET_CALL_KW' if path.startswith('/web/dataset/call_kw/')
+                    else 'KNOWN_STATIC_NATIVE_ROUTE' if path in fixed_paths else 'OTHER_OWNED_ROUTE'),
+                'known_static_native_path': path if path in fixed_paths else None,
+                'query_headers_cookies_or_argument_values_retained': False}
+            if request.method != 'POST' or len((request.post_data or '').encode()) > 128 * 1024:
+                return value
+            envelope = json.loads(request.post_data or '')
+            params = envelope.get('params')
+            if not isinstance(params, dict):
+                return value
+            for key in ('model', 'method'):
+                symbol = params.get(key)
+                value['public_rpc_' + key] = symbol if (type(symbol) is str
+                    and re.fullmatch(r'[a-z_][a-z0-9_.]{0,95}', symbol)) else None
+            args = params.get('args')
+            value['args_type'] = type(args).__name__
+            if type(args) is list:
+                value['args_count_bounded'] = min(len(args), 64)
+                value['first_eight_arg_types'] = [type(v).__name__ for v in args[:8]]
+                value['first_ids_match_audit228'] = bool(args) and args[0] == [228]
+                value['first_ids_match_current_user59'] = bool(args) and args[0] == [59]
+            fetch = params.get('fetch_params')
+            if type(fetch) is list:
+                names = [item if type(item) is str else item[0]
+                         if type(item) is list and item else None for item in fetch[:16]]
+                value['public_fetch_handler_names'] = [name if type(name) is str
+                    and re.fullmatch(r'[a-z_][a-z0-9_]{0,63}', name) else 'OTHER' for name in names]
+            return value
+        except (BrowserBoundaryError, ValueError, TypeError, AttributeError):
+            return {'native_request_shape_retention': 'UNAVAILABLE_OR_OUTSIDE_OWNED_TARGET'}
+
     async def _native_route(self, route):
         try:
             self._native_intent(route.request)
@@ -672,6 +715,7 @@ class BrowserSession:
                 'reason_code': self._fatal if re.fullmatch(r'[A-Z0-9_]{1,96}', self._fatal) else 'OTHER_FAILURE',
                 'transport': 'NATIVE_BROWSER', 'response_received': False,
                 'query_and_body_retained': False, 'raw_path_retained': False,
+                **self._native_rejection_metadata(route.request),
             })
             await route.abort('blockedbyclient')
 

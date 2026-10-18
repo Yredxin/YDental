@@ -1,3 +1,9 @@
+## 当前plan补充：实际C/LOG17通过与LOG03普通工具首失败（2026-10-18T13:02Z）
+
+C精确native余段实际wrapper0/owned1995715exit0，四scope403/两content404/两固定placeholder image200及正常业务303已独签。LOG17 ON/OFF五结果/三次独立11表保全相同、0commit；原pair1缺OFF精确私有元数据且未Popen，唯一OFF-only0接续，不重ON。
+
+LOG03 首普通工具失败：单attachment161 RPC已实际list0，后两个backend boot POST预拦OTHER_ROUTE，历史path未保、WarningDialog未验。首wrapper1/原raw/快照保持，owned与Firefox实际exit0及PID/birth监督采信但不抹旧C退出限制。afterRO原exit1仅新59 user.write_date变化，其他39域/旧原件/库存/税同；native bot首次bootstrap仅SOURCE候选，当前保持限定待解释，下次必要Ebefore同RO加最小非正文投影，不重完整只读采集或泛放所有变更。只修窄安全诊断/正常导航，产品Pcc1不变、双E未运行，不关闭S10。
+
 ## C-NATIVE-LANGUAGE-REDIRECT：原生前端导航尚未命中报告保护
 
 原生报告语言导航查证（2026-10-18T12:22Z，实际Pcc1/Ta2a223d）：精确final-probes首HTML请求已真正到server，返回303/305B/非PDF，工具先验403触发普通STOP；wrapper1，owned1976217单native exit0/signalNone、12日志sealed，无首report.operation/异常/renderer事件，后3report+4native附件/303form/session终核未运行。首响应Location只在内存，历史未保存，不补造为已观测，也不把303当产品权限拒绝。

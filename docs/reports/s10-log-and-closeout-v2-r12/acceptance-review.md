@@ -867,3 +867,57 @@ attempt2 实际 child 1985762 exit **0**：observed 418321 字节 SHA256 `a1fedf
 当前独立限定结论：语言元数据与本次 34 表保全 **PASS**，正常授权/session 单行变化已解释。原首次裸 report HTML 的产品拒绝层仍 **NOT_PROVEN**，原 Location 未保存限制保留。可在正常固定 `/en/` native canonical 路径上验证此前没有命中的 4 report guard，并完成尚未执行的 4 native attachment negative、303 表单拒绝、末身份与退出后 terminal RO；入口仍须同源、相同 report/docid/query、真实普通 actor/store，最多一次真实语言 canonical 重定向，禁止登录/identity/任意路径追随。不改 core/auth/lang/DOM，不重源/原件/已采正文，不将这一限定结论提升为全 C / LOG / E / S10 PASS。
 
 实际累计为 36 Odoo / 167 target RO / 418 HTTP / 8 Firefox / 12 original GET；首失败的 RO 166 和之前所有失败/普通 STOP 原件继续保留。本节没有验收尚未完成的新 canonical 补丁或运行。
+
+
+## YD-S10-TECHNICAL-CLOSEOUT-V1｜严格语言余段实际闭环与 LOG 回滚实测独立验收
+
+独立审查者 `/root/acceptance_s10`。以下仅记录亲自离线核查原始材料和保全的实际范围；没有执行或实现被验业务。实际 P `cc1a395a8254a0b6c2017ceedd9a351d095c590a` / T `45e93f38bab8dacd5916c9bdce374b1cc9d0d05f`。原 producer PENDING 与首失败、旧 STOP、历史层级全部保留。私有原件受访问限制，仓库摘要与哈希不能被描述成 GPT 可直接读取原件。
+
+### C 严格语言余段
+
+真实 wrapper PID 1995588 exit 0，25.5321846 秒；实际返回材料 SHA256 `498d80ce597d9d0e0dcc6ed29f6f992e2a80d40f56fcfac40ffdda129ae838b7`，退出回执 `b489a780d9ca6baac06b5765611b815c23702a918e5e3d6466102cf9ab0fc747`。owned native PID 1995715 单 parent exit 0 / signal null，parent 原件 SHA256 `8a6d1f353b03367dfa22917acad2a97c0c8e0f825ee9cc5e21ebdba807de2228`。实际 29 条诊断 / 40163 字节，SHA256 `8c95ee7b07969f7a5484b39f37c9243d933f4b05e9f506498d300f46f12bd3c9`，验收者独立重新验证完整 JSONL 与 seal。
+
+首 HTML 直接走正常 `/en/report/html/.../5`，没有为追溯补证重复旧裸 HTML。其余三个 PDF 入口各最多一次实际同源、同目标与同 query 的 `/en/` canonical 跟随；四个最终 HTTP 403 均保留本次实际提取的原生固定 scope 拒绝文字、原 body SHA、字节数和状态，验收者逐件核消息与对应响应，不以 bool 或任意 403 代替 guard。原第一裸 HTML 的 Location 未保存限制继续保留，新成功结果不改写首失败。
+
+四个 native attachment 负例中，content id / model-field 为 404；两种 image 为 200。验收者用已保存本次二进制独立解码，两者 256×256 RGBA 像素均与锁定 core 占位图完全相同（SHA256 `2d2bb80029f05effcb5471ca032c3556ad0b1a45f664a28551624f51070cbb1b`），未以 200 单独判内容泄露或正确。没有追加 GET。
+
+LOG-03 的正常合法空选费用表单产生实际 HTTP 303，正常跟随 notice GET 200；原生 `operation.rejected` 以同一 operation_ref 关联，实际 ValidationError / INPUT_REJECTED，独立前后 C/D 经济证明完全相同。客户端 observation request_id 不冒称原生 server request_id；server RID 未知保留 null。
+
+验收者从固定源码仅在 RAM 重新运行 D/C 图与 canonical rank 验证，对本余段五次独立 capture 的 170 个 sealed 文件逐一核 bytes/SHA，所有业务断言与原保存结果逐值相同；又与原 D 终态 19 表逐原行比较 117 行字段与 row digest，全部保持。六新 C fee 7/11/13/17/19/23、五未付款账、两新原件及原财务归属、partner 19 rank 3 保持；D 仍只收 6 / 退 2 / 净收 4，不再发生资金。全部读路径后的服务退出 terminal RO 已真实完成。
+
+结合先前主库普通 59 的四 read/export 组合和真实旧页下一请求撤权拒绝，以及本次新非空 family、混源、同公司异店、异公司、受控原件、native report/attachment 路径，可签 C 当前必需范围的限定 PASS。历史 C 浏览器只有 API close 和后续 OS 无匹配资源，未采当时 Firefox native exitcode，仍不能回填 0。新的 LOG / E 浏览器必须独立保实际 PID/birth/退出。
+
+### LOG-06 / LOG-10 / LOG-12 同夹具 ON/OFF
+
+同一新未出账 C fee 5（17）、真实普通 actor 9 / store 2 / session 14 / revision 1，独立于 D fee 1。六键 manifest 实际由本次终态 RO 与原生 session 差集生成，SHA256 `18aa77ceff0c72af7dd8b77210025394c7fa0a5a1cc6acf2d18c25d0aaab8f88`，并非猜最大 ID。每个模式使用不同原生进程，均首环境 uid 9 / non-SU，外层 rollback / close，fixture commits 0。
+
+ON 实际 native PID 1998921 exit 0；结果 SHA256 `ad55f9b5d4c5d104dad6795cd2e3f7ac89e9a741865bb964c985e3dff4672f73`。已核真实 bill 17 的 posted / balanced / residual 17、source 1、mandatory audit 1；同 key 变 payload 为原生 UserError / VERSION_CONFLICT；真实新回滚日结后有效 pay 为 UserError / DAY_CLOSED；强制审计故障 ValidationError 必须传播并回滚，独立合成 RuntimeError 也传播并回滚，不吞审计保业务。17 条 / 24203 字节真实 JSONL SHA256 `a1ff9a58ac2e4b1b785c311f5ae7e1d375982958f1834d652f14f476c813e05c` 与 seal 由验收者重新 validate 为 VALID。实际业务拒绝、应用错误、后继 stack 的分类、同 MODEL trace 与原生身份可区分；MODEL 的 HTTP request_id 为 null。原生内部审计采用的 su 状态如实记录，不把该内部实现冒称管理员代替普通被测者。
+
+原 pair wrapper exit 1：ON 完成后，OFF 在 OwnedApplication 构造前置因私有 approval 漏精确可选诊断 OFF 元数据被项目工具拒绝，尚未 Popen / consume OFF Odoo，无新 STOP。原 pair / OFF intent / 首 stderr / 原退出保留。只补现有严格 opt-out 元数据并唯一续接未派发 OFF，未重 ON 或整 pair，不是平台安全拒绝的换入口重试。
+
+OFF-only wrapper PID 2001285 exit 0 / 5.113412 秒；实际 native PID 2001412 单 exit 0 / signal null。OFF 结果 SHA256 `9ab7f5bb1a442a0d8549c6323fa7c107abd92deb772d9f7cc519d32984878806`。原生启动无 DIAGNOSTIC_DIR、无 PidFileHandler、存在 NullHandler，实际该 PID 无 JSON 文件。明确 `EXPECTED_ABSENT_NOT_INTEGRITY_PASS`，不造 JSON 完整性 PASS、不动态关闭 ON logger 或重置 seq。
+
+验收者核 ON/OFF 各 native safe-result 全 25 字段与结果一致，五组成功/异常经济结果完全相同。三个独立只读 RR 的 11 表 before / ON-after / OFF-after 共 33 sealed 文件逐字节、SHA、行数重算完全相同；每阶段 475 行 / 128518 字节。包括 invoice、lines、payment、partial、source、refund、receipt、close、settlement mutex 与 mandatory audit，未提交额外资金或账。
+
+实际 MODEL 耗时 ON 1.369984120 秒 / OFF 1.331426188 秒；诊断 24203B/17 events 对 0B/0 events，仅一对实际样本，不推统计置信、固定 SLA、HTTP 性能或财务竞争。PAIR complete SHA256 `8a9b61222c9bed6cb37910aa720e2f7b1f663d84f95e6a8717a12e0fb0e79211` 保留原 wrapper exit 1 与 OFF-only 接续事实。另亲核完成快照 a3382add 的 44 映射及承接首故障 dd4b7a08 的 60 映射实际 archive bytes/SHA；映射数不是新增测试数。
+
+独立限定结论：当前 LOG-06 的开关不变经济与 mandatory audit 语义、LOG-10 此样本耗时/bytes/events、LOG-12 此原生业务/程序异常分层与回滚 PASS。没有以 RuntimeError 替代已采 NameError/TypeError 的具体历史断言，没有把 MODEL trace 当真实 HTTP request_id。全部 12 LOG 的最终合并、公开导出检查、存储核计、最终双 E 和全 S10 结论另行签署。
+
+### main LOG-before 真实保护
+
+唯一有限 main RO 实际 exit 0；SHA256 `f78173a29ea778a78bc682c3c5cf3d20a246de94152ecb558374b0d367ce64a4`。验收者独立比较 24 关键字段与已采 C 终态原件，39 业务域、文书/版本、授权/公司/组/schema、两旧原件/文件、报告 view/参数均同；五库存配置投影与 6 MODEL 后独立基线同，59 物理 profile 与已采 TZ 事实同；旧 audit 前缀无新行。真实 nonempty audit 228 存在。首次新税 baseline 42 templates、84 sale 与 84 purchase relations、8 taxes、92 stored schema columns，只是本次首次物理基线，不补称历史前后同。该 RO 不单独证明最终产品已经被运行加载；后续实际 native service / upgrade 与固定候选交叉核。
+
+
+### main LOG-03 首次真实执行与后核首失败（独立限定，不签 UI PASS）
+
+实际 wrapper PID 2006592 exit 1 / 54.15 秒。正常普通 59 / partner 65 / store 1 / revision 1 原生身份已保存；单独补缺的原生 `ir.attachment.search_read` 确已到 Odoo，HTTP 200、list、count 0，最小语义原件 SHA256 `d2897e4d71ead578b76387dbfd43e97828a42a9046708f2904b41933dba7eba2`，74 字节响应 SHA256 `575e4e061f886f4eb9cbb47a1b5754e88b714f1dcdda6e0e4999014c6500e971`。验收者核其 request/outcome 的实际状态与 body SHA，以及固定源码先保事实再断言空列表的路径，可采这一缺失 filtered-empty 子断言；不重此 RPC。响应全文未保留，明确证据为最小已观察语义和响应指纹，不声称全文现可重算。
+
+真实 Firefox PID 2006812 / birth ticks 80412005 / parent 2006799 已由本次独立父监督捕捉，和实际 pw:browser launch/exit 同 PID 匹配。保存的 debug 窗口 8997 字节 SHA256 `20b1410c992ecf094e6d9cdd840180a1225904df424fac5ac655a5d5a4c03ef2`，验收者亲核实际 launch 与 exitCode 0 / signal null；无 owned survivor、不杀未知进程。退出材料 SHA256 `025b8bf3efdd0cac44c02bdd025b761fcb4a21ca10057e4b79b63393cc263518`，独立闭包 SHA256 `551e2e49702b25a5ef27a4628019861024d7c205757cdd9788de7f71a27e5930`。这是本次生命周期实证，不回填历史 C Firefox 的未采退出码。Odoo owned PID 2006721 同样单 parent exit 0 / signal null，原件 SHA256 `e7c62a1eae92c299c7ba79ccba7c632c84f625361c73f70cf47aae0db7d80884`。
+
+UI 未完成：两个 route-rejection 保留 `OTHER_ROUTE` / `CURRENT_LOG03_RPC_OR_ROUTE_NOT_APPROVED` / response_received false；原 raw path 和请求 shape 未保。实际 BrowserBoundaryError 为测试工具前拦，不是产品 AccessError、真实 WarningDialog 或业务拒绝 PASS。收到原生 audit RPC response 后 `_response_evidence._check` 只传播先前异步 fatal，不能由该 stack 反推被挡路径就是 audit RPC。此候选推断已撤回，实际首被挡请求仍 UNKNOWN。没有为了补旧路径再次派发请求，也不泛化放行未知 RPC。
+
+随后唯一正常 LOG-after RO 实际 child 2009889 exit 1；首 observed SHA256 `74efedad01deafebebdf29ed48da9731cb6139a16e48d44950eb45cff03f56b8` 保留。首断言为 59 profile metadata drift：只有 user 59 write_date 从 08:56:07.439687 到 12:55:56.481421，write_uid 仍 59；partner 65 write_date 仍原值，lang en_US / tz UTC 均同。验收者对原 raw 离线继续逐键比较 32 项保护：39 业务域、税四组及 stored schema、库存、旧文书/版本/两原件文件、权限组/公司/授权、报告 view 和安全参数全同；旧 audit 前缀保持，恰新增 59 的两组 login / login.scope / store.switch，共六条 accepted，恰新增两正常 store 1 / revision 1 scope。没有重 RO、改 raw 或把 wrapper 1 涂为 0。
+
+锁定 core `web/controllers/home.py` 正常调用 `_on_webclient_bootstrap`，已安装 mail_bot 的 override 对新 internal 用户 False / not_initialized 状态生成 silent 内置 Odoobot chat，继而以保持 uid 的内部 sudo 设置自身 odoobot_state=onboarding_emoji。它可解释用户时间变化而 partner 不变；但实际 odoobot_state 物理 before 未采，本节只列明确源码候选，不签逐字段因果已实证。下一必要 E-before 同一次有限 RO 可补当前 state 与 native bot channel/message 非正文安全关联，禁止读正文、补写恢复、改旧 5/7 或新增诊断平台。当前该单 metadata 项 PENDING，不影响已独核 39 保护子范围。
+
+实际累计 40 Odoo / 181 target RO / 472 HTTP / 9 Firefox / 12 original GET，所有首失败计数保留。主控基于剩余 UI 与正式 E 后 A 调用图，将本 plan Firefox 新增上限 4→6（总 12），原 baseline 6 / 已用 9 / 起止时间与旧 STOP 不变并归档；该正常工程安排不解除真实安全拒绝。当前 UI 余项、两目标正式 E、最终公开导出/存储/入口仍未验收，本节不签 S10 完成。
