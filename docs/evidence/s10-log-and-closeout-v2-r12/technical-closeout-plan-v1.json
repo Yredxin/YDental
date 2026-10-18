@@ -88,16 +88,16 @@
       "firefox": 8,
       "http": 214,
       "maintenance": 1,
-      "odoo_start": 27,
+      "odoo_start": 28,
       "original_get": 7,
-      "target_ro": 127
+      "target_ro": 129
     },
     "current_plan": {
       "firefox": 2,
       "http": 182,
-      "odoo_start": 17,
+      "odoo_start": 18,
       "original_get": 7,
-      "target_ro": 97
+      "target_ro": 99
     },
     "counts_are_not_test_pass_totals": true,
     "http_boundary": "Runner/browser dispatch ledger; not all native renderer internal asset HTTP wire requests."
@@ -624,7 +624,7 @@
     "production_since_cf5": "Settlement workbench/report QWeb and licensed static font resource only as of b1f30aa; financial Python unchanged. Older diagnostic wraps still require native rejection and rollback ON/OFF evidence.",
     "real_competition": "Preserve original formally accepted backend/interleaving assertions only; current D or LOG concurrency does not upgrade them."
   },
-  "source_product_candidate": "b1f30aa88365ec85aea15073f08de5d6dfa22a5f",
+  "source_product_candidate": "1545a6b919b220f1405fc376e6d4c477f476715e",
   "font-config-repair-source": {
     "status": "ACTUAL_CONFIGURATION_AND_FONT_LOADING_SCOPED_PASS_THREE_PDFS_INDEPENDENTLY_PASSED",
     "product_commit": "b1f30aa88365ec85aea15073f08de5d6dfa22a5f",
@@ -979,5 +979,37 @@
       "mapped_files": 155
     },
     "real_C_fixture_execution": "NOT_RUN"
+  },
+  "C-company-create-first": {
+    "status": "FIRST_NATIVE_GUARD_FAIL_ZERO_CONFIGURATION_COMMIT_INDEPENDENTLY_CONFIRMED_REPAIR_PENDING",
+    "runtime_test_commit": "c7055defa2d54f562e97795ee0b287daaad76990",
+    "native_pid": 1922420,
+    "native_exit_code": 1,
+    "native_signal": null,
+    "first_native_error": "odoo.exceptions.AccessError: Native inventory is available only through the scoped workbench.",
+    "first_commit_state": "UNKNOWN_AT_FAILURE_CAPTURE",
+    "independent_post_failure": {
+      "exit_code": 0,
+      "verified_sha256": "c406c516904be9af4afdee3589bcb50873da7f43134669959042a911371f8dbd",
+      "domains_preserved": 46,
+      "D_protected_domains": 19,
+      "new_company_user_window_partner_rows": 0,
+      "six_mutex_and_old_audits_unchanged": true,
+      "conclusion": "ZERO_CONFIGURATION_COMMIT_SCOPED"
+    },
+    "actual_schema": {
+      "tables": 58,
+      "sha256": "06d5928dca9d28d0f274bb8ad1b7dadd21341f5350b4e39ab4282262d71579f5",
+      "original_53_subset_unchanged": true
+    },
+    "failure_index": {
+      "ref": ".local/s10-technical-closeout-v1/C-company-create-first-failure-index.json",
+      "bytes": 1476,
+      "sha256": "c5dec7f7acbd95361a94d6ab9bee4cf9b85d328790faf93b88a35ae844248598"
+    },
+    "repair_status": "PRODUCT_FIXED_SOURCE_READY_ACTUAL_6_MODEL_AND_EXACT_ATTEMPT2_NOT_RUN",
+    "required_impact_regression": "Operation-aware native system unmanaged read positive, ordinary user and managed records negative, write/unlink permission negative; actual MODEL and exact protection. Final dual E at new product Python candidate.",
+    "new_product_commit": "1545a6b919b220f1405fc376e6d4c477f476715e",
+    "product_diff_scope": "Only inventory operation-aware native system unmanaged read; mutations, ordinary users, managed inventory, schema/core unchanged."
   }
 }

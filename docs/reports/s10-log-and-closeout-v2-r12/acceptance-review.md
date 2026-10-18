@@ -678,3 +678,31 @@ developer只在cases脚本中改正常构造顺序，实际diff SOURCE SHA256 **
 新增源collector据真实post schema核类型，再以实际空B各表无行/全fee集合排除B的断言，支持merge前提；同时保存D patient1的非秘密现有资格/continuation/position/hold/execution关系及后续精确保全。此时只有SOURCE能力，不把未来58表或C新角色当已观测。新Cpost还必须实际核原D19图/旧audit前缀、旧58accounts/11journals、旧Dstore/cap/member/grant和全未影响域；正常新company只可按精确关联/安全write元数据解释native1/2改变，不宽排admin表。
 
 本节SOURCE修正已独核AST可解析和diff边界；没有新增实际Odoo/DB/HTTP/Firefox动作或业务/PURE通过数，不改产品b1、旧D717、原53/raw/旧STOP/累计时钟。写权交回后主控再冻结新实际T，执行者核同唯一正常Csetup元数据才可派发。此后仍需配置真实postRO、C真实源/权限、余LOG和最终双E；#34与整个S10均未签完成。
+
+
+## 当前plan：C公司配置首失败、唯一故障RO及58表事实 / 2026-10-18
+
+本节由独立 `/root/acceptance_s10` 追加；实际执行者仍是 `/root/tester_s10`。本人只读固定源码、原始stderr/父退出、命令/范围及观察文件，离线比较哈希与字段，没有启动应用、连接数据库、发送业务请求或读取凭据。前193,913字节原样保留，SHA256 `5930e068fdd461d98f2dc3285b2875ecbe80c9f54069e6f3fe5cfcf2d5e17f83`。本节不签C整体、最终双E、12LOG或S10通过。
+
+实际首次C配置使用产品 `b1f30aa88365ec85aea15073f08de5d6dfa22a5f`、测试/运行 `c7055defa2d54f562e97795ee0b287daaad76990`。wrapper1922312实际exit1；owned native1922420的单条parent.end为exit1、signal None、TRANSACTION_NOT_OBSERVED。首原生stderr SHA256 `01919ab3ef3b85bb5bc70a49f3c76442bd61907c65c3dc5ce985b51e78512fa1` 显示：正常 `res.company.create` 在锁定core stock扩展读取全局 `stock.stock_location_inter_company.active` 时，经原生字段fetch进入自研inventory `check_access('read')`，抛原生AccessError“Native inventory is available only through the scoped workbench”。这是正常系统配置被现有产品读取保护拦截；不是Native信号崩溃或工具安全拒绝。首callback尚未返回到actor的flush/commit/checkpoint，未生成C公共fixture和阶段checkpoint；仅这些现象不能证明零提交，原in-flight及首exit1保留。
+
+唯一故障RO的新增scope/approval、observer `22cadbc40eb5b38f231ad2d14956c3f7e4f522a5b7162b53b718398124b5df58`、wrapper `062dbf322c7105b20deab39828642735dd8bd602a752ce72810922220b10a241`、原失败退出及173项原件snapshot均按命令索引逐项核同；动作仅target-ro，应用actions为空，无STOP待移除。实际child1925031、0.592779636秒、exit0。首观察 `C-company-create-failed-observed.json` SHA256 `37ddf1e9bc91ab50ac3c4e87b600fb763970afbe84ce1b661520fd522e381ebf` 在全部语义断言前保存；验证文件 `C-company-create-failed-verified.json` 629,687字节/SHA256 `c406c516904be9af4afdee3589bcb50873da7f43134669959042a911371f8dbd`。本人实际核其scratch OID2144130/cluster7694897083368259627/odoo/READ ONLY/REPEATABLE READ，rollback及connection close均返回，未有其他连接。
+
+与已采 `4907404a219586f09394fbf10c1255d8c36704f42de600ccb421d43bd9843770` 逐值比较：46个有限域全文hash、已独立确认的D原生19表投影、全部旧审计、六mutex、普通角色/组/公司/授权、58accounts/11journals及旧chart全文、模块、业务配置、已装QWeb/report参数、native1/2安全元数据及公司关联全部相等。新公司、UID>8新用户、首次配置时窗以来新partner安全查询均为空。因此本次限定结论为 **C配置零持久提交、既有保护保持 PASS**；不把原wrapper exit1涂成0，不把此RO说成用户入口成功，也不重放D。累计Odoo28/targetRO129/HTTP214/Firefox8/旧原件GET7及原时钟保留。
+
+同一RO首次取得实际58表schema：`C-active-business-schema.json` 71,071字节/SHA256 `06d5928dca9d28d0f274bb8ad1b7dadd21341f5350b4e39ab4282262d71579f5`。原53表schema文件及原 `15aae82084ce255647e3b67ddffac066c1385e1ce0f05cc0e061a03ae8f570ad` 不覆盖，原53的columns/constraints在58中精确相等。D patient1安全业务关系首基线实存entitlement1、position1、task2、execution1、referral0、hold0；这只是当前存储事实和后续保全基线，不冒称此前已采五表全文。后配置observer仅核同既存58文件，并逐值保全该D关系，不再次save_once同路径。修改后的私有observer SHA256 `537627d77b38d7d605d2e6ceaa666fcc55a678e323abbd62a5e75eeb5b651ac7` 已只读核新增引用边界，尚未运行。
+
+必要修复方向的独立安全审查：只有真实 `env.is_system()`、operation为read时，允许无ydental_store_id的unmanaged原生库存记录，并继续交集原生super ACL/domain；普通YDental业务用户、managed记录、write/unlink/create_guard不放宽。不能以scope/token/sudo绕过正常公司创建。该方向属于S10直接依赖的必要普通产品修复；实际最终差异和有效非空MODEL正负回归仍待固定候选后另核。修复落地后，最终产品将新增inventory生产Python差异，旧“生产Python均未变化”的结论仅保留其历史时点；财务资金、核销、锁、权限配置代码未变化的承接应按实际diff限定，不扩称所有Python均未变。
+
+LOG03具体类型补核：本人重新读取原 `framework6-verification.json` 13,454字节/SHA256 `2510798dc9d56b0efc3b7f162f52ffba3b1ce8e20ca5bd4cf2c2130acba90cb1`、原生日志真实Starting及六项0fail/0error汇总。原生TransactionCase的 `test_service_type_error_is_not_localized_business_rejection` 已以合成TypeError/KeyError/NameError验证APPLICATION_ERROR分类；该MODEL+SYNTHETIC限定证据按原范围承接，不为当前工具SHA重注入。未来LOG12隔离RuntimeError只证明自己的程序异常事务层，不替代具体NameError/TypeError；这些历史结果也不冒真实HTTP编程事故、完整UI或403/409/303矩阵。LOG11按原正式fresh locator的SYNTHETIC_FIXTURE层级承接；当前未改定位query/index格式，不为Tc705重造故障包或假称本人fresh。
+
+
+### 本批最终SOURCE限定审查：库存系统读取修复及零提交接续
+
+已按Odoo安全规则逐行核本批实际三个变更文件：产品 `ydental_inventory/models/ydental_inventory_native.py` SHA256 `a7ba9302425074675ba42c12de5d6b8b0f10f5a21ec2b74574b8e4294d0caacf`，fixture SHA256 `f0084075e830a141840cb917c27401fee7142f28456017a1517b58b406c5244c`，current runner SHA256 `edffc5d6b15cb36e01da38dcc26ca311cc51c71f2c5616404c2d88f0943c3bc4`。产品已单独固定 `1545a6b919b220f1405fc376e6d4c477f476715e`；本次对旧产品仅增加该直接依赖Python读取修复，不改库存写入guard、财务、价源、核销、资金及审计事务代码。后续最终运行/升级须使用该新产品候选，原D真实结果仍属于b1/371，不能追溯改名。
+
+产品 `_inventory_read_domain(operation='read')` 仅在真实Settings系统权限且read时，对原先具有YDental用户组的管理员给出unmanaged域；`_access_domain` 仍与原生super域交集，`check_access` 仍调用原生super。两个调用点均传实际operation，原SU短路保持。普通YDental角色的所有CRUD仍FALSE，具有系统组的YDental管理员write/unlink仍FALSE，managed库存记录对本次系统读取也不放开；create/write/unlink的 `_inventory_guard` 原字节不改。没有新sudo、上下文令牌、SQL权限绕过、ACL表或core/schema修改。本SOURCE范围未发现降低普通业务角色C标准的变化，不冒称已经实际生效或HTTP权限通过。
+
+六MODEL工具只允许当前main，固定真实native2与新普通59，目标从实际有限RO的非空global unmanaged和managed location取得。每项新cursor/首Environment均明确READ ONLY、en_US、uid/default_env一致且非SU，实际read四项及admin的write/unlink权限检查两项分别保存intent/原生结果/cleanup；后两项没有实际write/unlink。预期AccessError必须是原生类型和精确英文消息，不以缺记录或错误参数冒拒绝。每项返回后rollback/关闭，再保存cleanup；最终六项汇总仍要求独立postRO，未运行不得签其MODEL通过。新库存有限RO observer `7b7609d964e3acc5390e260ae5a2704fec4d775337e89632359fc737d4051aa1` 已核实际actor IDs恰main[2,59]/scratch[2]及组闭包、实际stored字段/非空target，保存两个原生库存表全文hash与公司partner两项stock属性的最小安全投影；不采partner正文或秘密。
+
+C唯一attempt2恢复只能消费保留原位的首intent `9ba3b7e731c5317026abedb0d0659008c8d1eb7ea5570ea050441e889bc022ca`、实际c406零配置提交RO、实际1922420 exit1/None的parent文件SHA `74eb9ad7cba94677c8a8604a2b341a7789b0610f1ace3c51f6a08c60de180058` 及原AccessError索引。receipt引用限同私有root且逐字节核hash，要求与本次request同RO及原D来源，显式比原before的domain/D19/mutex/audits/nativeadmin元数据，再save_once独立attempt2 in-flight；原首intent不删，不准第三次，不放行其他旧STOP或工具拒绝。无C公共fixture及新公司/用户/partner为实际前提，不是重置计数或新建替代链。本轮SOURCE结论为 **限定可进入新候选的实际非空库存MODEL/保全与正常C配置接续准备**；真正准入仍须新冻结元数据、实际前RO、六MODEL和postRO证据。两个最终E、余C/LOG及全S10保持未完成。

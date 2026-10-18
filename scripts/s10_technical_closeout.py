@@ -590,21 +590,121 @@ def c_committed_d_source(profile, request):
     return source
 
 
+
+def c_company_create_zero_commit_recovery(profile, request, observed):
+    """Only the preserved company-create read-guard failure permits attempt two."""
+    receipt_path = profile.root / 'C-company-create-recovery.json'
+    receipt = strict_loads(receipt_path.read_bytes())
+    def reference(name):
+        path = ROOT / receipt[name + '_ref']
+        if path.is_symlink() or not path.resolve().is_relative_to(profile.root):
+            raise RuntimeError('C_COMPANY_CREATE_RECOVERY_REFERENCE_INVALID')
+        raw = path.read_bytes()
+        if hashlib.sha256(raw).hexdigest() != receipt[name + '_sha256']:
+            raise RuntimeError('C_COMPANY_CREATE_RECOVERY_BYTES_CHANGED')
+        return raw
+    original_raw = reference('original_intent')
+    failure = strict_loads(reference('failure_index'))
+    ro_raw = reference('zero_commit_ro')
+    exits = [line.split('\t') for line in reference('parent_exit').decode().splitlines()]
+    original = strict_loads(original_raw)
+    if (receipt.get('reason') != 'C_COMPANY_CREATE_NATIVE_UNMANAGED_READ_GUARD_ZERO_CONFIGURATION_COMMIT'
+            or receipt.get('attempt') != 2 or receipt.get('independent_reviewer') != '/root/acceptance_s10'
+            or receipt.get('zero_commit_ro_exit_code') != 0
+            or receipt['original_intent_sha256'] != '9ba3b7e731c5317026abedb0d0659008c8d1eb7ea5570ea050441e889bc022ca'
+            or original_raw != (profile.root / 'C-SCRATCH-CONFIGURATION-IN-FLIGHT.json').read_bytes()
+            or receipt['zero_commit_ro_sha256'] != 'c406c516904be9af4afdee3589bcb50873da7f43134669959042a911371f8dbd'
+            or receipt['zero_commit_ro_ref'] != request['manifest_ref']
+            or receipt['zero_commit_ro_sha256'] != request['manifest_sha256']
+            or strict_loads(ro_raw) != observed
+            or receipt['parent_exit_sha256'] != '74eb9ad7cba94677c8a8604a2b341a7789b0610f1ace3c51f6a08c60de180058'
+            or sum(line[0] == 'parent.end' for line in exits) != 1
+            or not any(line[0] == 'parent.end' and line[2:5] == ['1922420', '1', 'None'] for line in exits)
+            or failure.get('actual_native_pid') != 1922420 or failure.get('actual_native_exit_code') != 1
+            or failure.get('actual_native_signal') is not None
+            or failure.get('first_error_class') != 'odoo.exceptions.AccessError'
+            or failure.get('first_error_code') != 'access_denied: Native inventory is available only through the scoped workbench.'
+            or observed.get('validation_status') != 'CURRENT_C_COMPANY_CREATE_FAILED_ZERO_CONFIGURATION_COMMIT_VERIFIED'
+            or observed.get('actual_failed_C_setup_exit_code') != 1
+            or observed.get('financial_actions_dispatched') != 0 or observed.get('business_operations') != 0
+            or observed.get('possible_new_configuration_or_actor_rows') != {'companies': [], 'users': [], 'partners': []}
+            or any(observed.get(key) is not True for key in ('rollback_returned', 'connection_closed',
+                'normal_C_fixture_not_yet_created', 'unique_D_native_accounting_verified'))
+            or observed.get('other_connections') != []
+            or original.get('D_source_sha256') != request['D_source_sha256']
+            or (profile.root / 'C-fixture-public-identities.json').exists()):
+        raise RuntimeError('C_COMPANY_CREATE_EXACT_ZERO_COMMIT_DISPOSITION_NOT_PROVEN')
+    baseline_path = ROOT / original['before_ref']
+    baseline_raw = baseline_path.read_bytes()
+    if (baseline_path.is_symlink() or not baseline_path.resolve().is_relative_to(profile.root)
+            or hashlib.sha256(baseline_raw).hexdigest() != original['before_sha256']):
+        raise RuntimeError('C_COMPANY_CREATE_ORIGINAL_PROTECTION_BASELINE_CHANGED')
+    baseline = strict_loads(baseline_raw)
+    for key in ('domain_hashes', 'D_native_current_rows', 'mutex_rows', 'configuration_audits',
+                'native_admin_company_assignments', 'native_admin_safe_metadata'):
+        if observed.get(key) != baseline.get(key):
+            raise RuntimeError('C_COMPANY_CREATE_ZERO_COMMIT_BASELINE_DIFFERENCE')
+    save_once(profile.root / 'C-SCRATCH-CONFIGURATION-ATTEMPT2-IN-FLIGHT.json', {
+        'original_intent_sha256': receipt['original_intent_sha256'],
+        'zero_commit_ro_sha256': request['manifest_sha256'],
+        'recovery_sha256': hashlib.sha256(receipt_path.read_bytes()).hexdigest(),
+        'original_intent_retained': True, 'automatic_retry': False})
+
+
+def run_native_inventory_read_regression(profile, approval, authority, requested_path):
+    from s10_lc2_cases import run_fixture
+    profile.require_action('inventory-native-read-regression')
+    if profile.target_role != 'main':
+        raise RuntimeError('NATIVE_INVENTORY_REGRESSION_MAIN_ONLY')
+    request = strict_loads(requested_path.read_bytes())
+    path = ROOT / request['manifest_ref']
+    if (path.is_symlink() or not path.resolve().is_relative_to(profile.root)
+            or hashlib.sha256(path.read_bytes()).hexdigest() != request['manifest_sha256']):
+        raise RuntimeError('NATIVE_INVENTORY_ACTUAL_RO_TARGET_REFERENCE_INVALID')
+    actual = strict_loads(path.read_bytes())
+    if (actual.get('database') != profile.database or actual.get('oid') != 2144129
+            or actual.get('cluster') != '7694897083368259627'
+            or actual.get('validation_status') != 'CURRENT_NATIVE_INVENTORY_NONEMPTY_ROLE_TARGETS_VERIFIED'
+            or any(actual.get(key) is not True for key in ('rollback_returned', 'connection_closed',
+                'native_admin2_verified', 'ordinary_reader59_verified', 'nonempty_unmanaged_and_managed_verified'))):
+        raise RuntimeError('NATIVE_INVENTORY_REAL_ROLES_AND_NONEMPTY_TARGETS_NOT_PROVEN')
+    model = {key: actual[key] for key in ('admin_uid', 'ordinary_uid', 'unmanaged', 'managed')}
+    save_once(profile.root / 'NATIVE-INVENTORY-READ-MODEL-IN-FLIGHT.json', {
+        'before_ref': request['manifest_ref'], 'before_sha256': request['manifest_sha256'],
+        'unmanaged_location_id': model['unmanaged']['id'], 'managed_location_id': model['managed']['id'],
+        'native_mutations': 0, 'automatic_retry': False})
+    result = run_fixture('main', approval=approval, product_commit=authority['product_commit'],
+        test_commit=authority['test_commit'], mode='main-inventory-read-only', manifest=model, profile=profile)['safe']
+    if (result.get('check_count') != 6 or result.get('fixture_commits') != 0
+            or result.get('native_mutations') != 0 or len(result.get('checks', [])) != 6
+            or any(row.get(key) is not True for row in result['checks']
+                   for key in ('expected_result_matches', 'rollback_returned', 'cursor_closed'))):
+        raise RuntimeError('NATIVE_INVENTORY_REAL_MODEL_RESULTS_INCOMPLETE')
+    result['status'] = 'SIX_REAL_NATIVE_INVENTORY_MODEL_CHECKS_PASSED_INDEPENDENT_POST_RO_PENDING'
+    save_once(profile.root / 'NATIVE-INVENTORY-READ-MODEL-RETURNED.json', result)
+    return result
+
+
 def prepare_c_scratch(profile, approval, authority, requested_path):
     from s10_lc2_cases import run_fixture
     profile.require_action('scratch-c-configuration')
     request, observed = scratch_requested(profile, requested_path)
     d_source = c_committed_d_source(profile, request)
-    if (observed.get('validation_status') != 'CURRENT_D_FINISHED_NATIVE_ACCOUNTING_VERIFIED_FOR_UNFUNDED_C'
-            or observed.get('unique_D_native_accounting_verified') is not True
+    previous = profile.root / 'C-SCRATCH-CONFIGURATION-IN-FLIGHT.json'
+    if previous.exists():
+        c_company_create_zero_commit_recovery(profile, request, observed)
+    elif observed.get('validation_status') != 'CURRENT_D_FINISHED_NATIVE_ACCOUNTING_VERIFIED_FOR_UNFUNDED_C':
+        raise RuntimeError('C_NEW_CONFIGURATION_PREDECESSORS_NOT_INDEPENDENTLY_VERIFIED')
+    if (observed.get('unique_D_native_accounting_verified') is not True
             or observed.get('all_mail_servers_count') != 0
             or observed.get('normal_C_fixture_not_yet_created') is not True):
         raise RuntimeError('C_NEW_CONFIGURATION_PREDECESSORS_NOT_INDEPENDENTLY_VERIFIED')
-    save_once(profile.root / 'C-SCRATCH-CONFIGURATION-IN-FLIGHT.json', {
-        'before_ref': request['manifest_ref'], 'before_sha256': request['manifest_sha256'],
-        'D_source_sha256': request['D_source_sha256'], 'D_patient_id': d_source['patient_id'],
-        'D_fee_id': d_source['fee_id'], 'automatic_retry': False,
-        'scope': 'new_C_configuration_only_no_fee_account_move_payment_factory'})
+    if not previous.exists():
+        save_once(previous, {
+            'before_ref': request['manifest_ref'], 'before_sha256': request['manifest_sha256'],
+            'D_source_sha256': request['D_source_sha256'], 'D_patient_id': d_source['patient_id'],
+            'D_fee_id': d_source['fee_id'], 'automatic_retry': False,
+            'scope': 'new_C_configuration_only_no_fee_account_move_payment_factory'})
     result = run_fixture('scratch', approval=approval, product_commit=authority['product_commit'],
         test_commit=authority['test_commit'], mode='scratch-c-configuration-only',
         manifest={'D_source_ids': complete_source_ids(d_source)}, profile=profile)
@@ -1311,6 +1411,8 @@ def execute(args, profile):
         return run_log_ui_read(profile, approval, authority, args.requested)
     if args.action == 'final-original-ui':
         return run_final_original_ui(profile, approval, authority, args.requested)
+    if args.action == 'inventory-native-read-regression':
+        return run_native_inventory_read_regression(profile, approval, authority, args.requested)
     if args.action == 'prepare-c-scratch':
         return prepare_c_scratch(profile, approval, authority, args.requested)
     if args.action == 'c-scratch-sources':
@@ -1344,14 +1446,14 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('action', choices=['target-ro', 'original-ui', 'prepare-reader',
                                          'initialize-existing-reader', 'b-only', 'c-main', 'repair-upgrade-main',
-                                         'report-parameters-only', 'repair-upgrade-main-font', 'c-main-tail', 'bootstrap-scratch', 'd-only', 'log-rollback', 'repair-upgrade-scratch-font', 'prepare-c-scratch', 'c-scratch-sources', 'final-upgrade', 'log-ui-read', 'final-original-ui'])
+                                         'report-parameters-only', 'repair-upgrade-main-font', 'c-main-tail', 'bootstrap-scratch', 'd-only', 'log-rollback', 'repair-upgrade-scratch-font', 'prepare-c-scratch', 'c-scratch-sources', 'final-upgrade', 'log-ui-read', 'final-original-ui', 'inventory-native-read-regression'])
     parser.add_argument('--target', choices=['main', 'scratch'], default='main')
     parser.add_argument('--selections', type=Path)
     parser.add_argument('--requested', type=Path)
     args = parser.parse_args()
     if args.action == 'target-ro' and args.selections is None:
         parser.error('--selections is required for target-ro')
-    if args.action in {'b-only', 'c-main', 'repair-upgrade-main', 'repair-upgrade-main-font', 'c-main-tail', 'bootstrap-scratch', 'd-only', 'log-rollback', 'repair-upgrade-scratch-font', 'prepare-c-scratch', 'c-scratch-sources', 'final-upgrade', 'log-ui-read', 'final-original-ui'} and args.requested is None:
+    if args.action in {'b-only', 'c-main', 'repair-upgrade-main', 'repair-upgrade-main-font', 'c-main-tail', 'bootstrap-scratch', 'd-only', 'log-rollback', 'repair-upgrade-scratch-font', 'prepare-c-scratch', 'c-scratch-sources', 'final-upgrade', 'log-ui-read', 'final-original-ui', 'inventory-native-read-regression'} and args.requested is None:
         parser.error('--requested is required for this action')
     profile = current_plan_profile(args.target)
     descriptor = os.open(profile.root / 'runner.lock', os.O_RDWR | os.O_CREAT | os.O_NOFOLLOW, 0o600)

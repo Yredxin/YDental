@@ -6104,7 +6104,7 @@
       "tester": "/root/tester_s10",
       "acceptance": "/root/acceptance_s10"
     },
-    "candidate_status": "PRODUCT_B1F30AA_D_ACTUAL_371A33B_NEW_CODE_WINDOW_C_E_LOG",
+    "candidate_status": "PRODUCT_1545A6B_INVENTORY_NATIVE_READ_REPAIR_SOURCE_READY_ACTUAL_REGRESSION_PENDING",
     "current_actual_evidence": [
       "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json"
     ],
@@ -7142,8 +7142,8 @@
       "production_since_cf5": "Settlement workbench/report QWeb and licensed static font resource only as of b1f30aa; financial Python unchanged. Older diagnostic wraps still require native rejection and rollback ON/OFF evidence.",
       "real_competition": "Preserve original formally accepted backend/interleaving assertions only; current D or LOG concurrency does not upgrade them."
     },
-    "source_product_candidate": "b1f30aa88365ec85aea15073f08de5d6dfa22a5f",
+    "source_product_candidate": "1545a6b919b220f1405fc376e6d4c477f476715e",
     "scratch_native_admission_ref": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/scratch-native-admission",
-    "current_C_preflight": "Actual C-before at32b/490740 passed independent protection. New synthetic family source reordered to legal one-sided pending merge; C config not dispatched. Old53 schema retained; same planned postconfig RO adds5 actual tables, no extra preRO."
+    "current_C_preflight": "C first native system company-create failed inventory guard at c705; c406 actual postRO independently proves zero configuration commits and protected46/D19/mutex preservation. Actual58 schema retains original53 subset. Operation-aware infrastructure read repair and finite MODEL regression pending; one concrete attempt2 only after fix, never D replay."
   }
 }

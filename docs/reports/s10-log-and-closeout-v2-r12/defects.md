@@ -1,3 +1,7 @@
+## C-NATIVE-SYSTEM-INFRA-READ：正常公司配置误挡
+
+当前普通缺陷（2026-10-18T10:48Z）：C配置首轮T=c7055de native1922420 exit1/signalNone，res.company.create读取全局未托管库存基础location被既有库存guard误挡。原错误/intent/173映射snapshot保持；首次提交结论UNKNOWN未改写。唯一故障后只读RO actual exit0/c406c516904be9af4afdee3589bcb50873da7f43134669959042a911371f8dbd，独立逐值核46域、D19、六mutex及原审计/配置/账套完全保持，新公司/用户/该窗口partner为0，限定证实零持久配置提交。同次实际58表schema06d5928d…精确包含原53 subset与D既有pending关系。当前开最小产品修复：仅operation=read且真实native系统管理员允许按原生ACL读取未托管库存基础记录；普通业务用户、托管记录及write/unlink/create保护不变，待源码和真实非空6项MODEL验证。产品增加直接依赖库存Python差异，最终双E须覆盖它；不另-u inventory、不变schema/core、不重D。累计Odoo28/RO129/HTTP214/Firefox8/GET7。
+
 ## C新合成夹具SOURCE顺序修正（未派发）
 
 当前接续（2026-10-18T10:38Z）：C-before已在32b72b2实际RO exit0/4907404a219586f09394fbf10c1255d8c36704f42de600ccb421d43bd9843770，独立核D全19域、旧配置和26域正常上游/审计变化；累计RO127。Csetup尚未Popen/派发。SOURCE独审发现双边pending continuation会正确阻止family merge；仅重排新合成夹具为A/U有效混源负例→正常空B及独立空业务证明→A原件→正常A合并空B→正常B新费用11，保持A7+B11与U13隔离。不取消pending、不放宽产品保护、不动D患者。旧53表schema/前RO保留，尚未运行的配置后同一次RO补5表实际schema至58；不重前RO凑新SHA。155映射原运行材料快照6a755599…固定。双E及剩余LOG仍NOT_RUN。

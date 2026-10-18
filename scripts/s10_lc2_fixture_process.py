@@ -87,6 +87,75 @@ def _save_b_model_observation(run, value):
 
 
 
+
+def native_inventory_read_regression(actor, manifest, save_once, diagnostics):
+    """Six actual ORM checks on independently proven rows; no native writes."""
+    from odoo.exceptions import AccessError
+    if (set(manifest) != {'admin_uid', 'ordinary_uid', 'unmanaged', 'managed'}
+            or manifest['admin_uid'] != 2 or manifest['ordinary_uid'] != 59):
+        raise RuntimeError('NATIVE_INVENTORY_READ_FIXED_MAIN_ACTORS_REQUIRED')
+    unmanaged, managed = manifest['unmanaged'], manifest['managed']
+    if (any(set(row) != {'id', 'active', 'ydental_store_id'} or type(row['id']) is not int
+            or row['id'] <= 0 or type(row['active']) is not bool for row in (unmanaged, managed))
+            or unmanaged['ydental_store_id'] is not None
+            or type(managed['ydental_store_id']) is not int or managed['ydental_store_id'] <= 0
+            or unmanaged['id'] == managed['id']):
+        raise RuntimeError('NATIVE_INVENTORY_REAL_NONEMPTY_LOCATION_RELATION_REQUIRED')
+    checks = []
+    expected_error = 'access_denied: Native inventory is available only through the scoped workbench.'
+    probes = [('admin-unmanaged-read', 2, unmanaged, 'read', True),
+        ('ordinary-unmanaged-read', 59, unmanaged, 'read', False),
+        ('admin-managed-read', 2, managed, 'read', False),
+        ('ordinary-managed-read', 59, managed, 'read', False),
+        ('admin-unmanaged-write-permission', 2, unmanaged, 'write', False),
+        ('admin-unmanaged-unlink-permission', 2, unmanaged, 'unlink', False)]
+    for label, uid, target, operation, allowed in probes:
+        save_once(diagnostics / ('native-inventory-' + label + '-intent.json'), {
+            'actor_id': uid, 'location_id': target['id'], 'store_id': target['ydental_store_id'],
+            'operation': operation, 'native_mutation_dispatched': False})
+        def check(env):
+            if (env.uid != uid or env.su or env.transaction.default_env.uid != uid
+                    or env.transaction.default_env.su or not env.user.active or not env.user._is_internal()
+                    or not env.user.has_group('ydental_base.ydental_base_group_user')
+                    or (uid == 2 and not env.is_system())
+                    or (uid == 59 and (env.is_admin() or env.is_system()))):
+                raise RuntimeError('NATIVE_INVENTORY_ACTUAL_FIRST_ENV_ROLE_INVALID')
+            row = {'check_id': label, 'actor_id': uid, 'su': env.su,
+                'default_env_uid': env.transaction.default_env.uid,
+                'default_env_su': env.transaction.default_env.su,
+                'location_id': target['id'], 'independent_store_id': target['ydental_store_id'],
+                'operation': operation, 'native_mutation_dispatched': False,
+                'expected_allowed': allowed, 'native_exception': None,
+                'expected_native_message_match': None, 'actual_result': None}
+            try:
+                record = env['stock.location'].browse(target['id'])
+                if operation == 'read':
+                    value = record.read(['id', 'active', 'ydental_store_id'])
+                    row['actual_result'] = value
+                    matched = allowed and value == [{'id': target['id'],
+                        'active': target['active'], 'ydental_store_id': False}]
+                else:
+                    # Permission checks only: no write/unlink call on old stock.
+                    record.check_access(operation)
+                    matched = False
+            except AccessError as error:
+                row['native_exception'] = 'odoo.exceptions.AccessError'
+                row['expected_native_message_match'] = error.args == (expected_error,)
+                matched = not allowed and row['expected_native_message_match']
+            row['expected_result_matches'] = matched
+            save_once(diagnostics / ('native-inventory-' + label + '-observation.json'), row)
+            if not matched:
+                raise RuntimeError('NATIVE_INVENTORY_READ_REGRESSION_ACTUAL_RESULT_MISMATCH')
+            return row
+        result = actor(uid, check, commit=False)
+        result.update(rollback_returned=True, cursor_closed=True)
+        save_once(diagnostics / ('native-inventory-' + label + '-cleanup.json'), result)
+        checks.append(result)
+    return {'checks': checks, 'check_count': 6, 'fixture_commits': 0,
+        'native_mutations': 0, 'evidence_layer': 'REAL_MODEL_FIRST_ENV_ROLLED_BACK',
+        'independent_before_after_preservation': 'PENDING'}
+
+
 def configure_new_c_clinics(actor, checkpoint, providers, save_once):
     from odoo import Command
     from odoo.tools import config
@@ -313,7 +382,7 @@ def main(shell_env):
     database = shell_env.cr.dbname
     expected = {'main': 'ydental_s10_test_20261017105432_810a7d9c',
                 'scratch': 'ydental_s10_test_20261017105432_ce6dcbf8'}
-    if mode not in {'main-prepare', 'main-b-only', 'main-reader-only', 'main-reader-password-only', 'main-report-parameters-only', 'log-rollback-only', 'scratch-bootstrap', 'scratch-c-configuration-only'} or database != expected['scratch' if mode in {'scratch-bootstrap', 'log-rollback-only', 'scratch-c-configuration-only'} else 'main']:
+    if mode not in {'main-prepare', 'main-b-only', 'main-reader-only', 'main-reader-password-only', 'main-report-parameters-only', 'log-rollback-only', 'scratch-bootstrap', 'scratch-c-configuration-only', 'main-inventory-read-only'} or database != expected['scratch' if mode in {'scratch-bootstrap', 'log-rollback-only', 'scratch-c-configuration-only'} else 'main']:
         raise RuntimeError('FIXTURE_ROLE_MODE_DRIFT')
     import logging
     if logging.getLogger('odoo.http.server').getEffectiveLevel() != logging.CRITICAL:
@@ -363,11 +432,13 @@ def main(shell_env):
 
     def actor(uid, operation, *, commit=False, checkpoint=None):
         with registry.cursor() as cr:
-            env = api.Environment(cr, uid, {})
+            if mode == 'main-inventory-read-only':
+                cr.execute('SET TRANSACTION READ ONLY')
+            env = api.Environment(cr, uid, {'lang': 'en_US'} if mode == 'main-inventory-read-only' else {})
             if env.su or env.transaction.default_env.uid != uid or env.transaction.default_env.su:
                 raise RuntimeError('FIXTURE_FIRST_ENV_NOT_ORDINARY_ACTOR')
             _guard(env, str(run))
-            case = ('C-SCOPE' if mode == 'scratch-c-configuration-only' else
+            case = ('C-SCOPE' if mode in {'scratch-c-configuration-only', 'main-inventory-read-only'} else
                     'C-REPORT-CONFIGURATION' if mode == 'main-report-parameters-only' else
                     'B-ACTOR-PREPARE' if mode in {'main-reader-only', 'main-reader-password-only'} else
                     'B-MODEL-6' if mode == 'main-prepare' and uid == 6 else
@@ -385,6 +456,19 @@ def main(shell_env):
                 else:
                     cr.rollback()
                 return result
+
+    if mode == 'main-inventory-read-only':
+        from s10_lc2_evidence import save_once
+        from s10_lc2_task_profile import CURRENT_PLAN, profile_from_environment
+        profile = profile_from_environment(os.environ)
+        if profile is None or profile.message_id != CURRENT_PLAN or profile.target_role != 'main':
+            raise RuntimeError('NATIVE_INVENTORY_REGRESSION_CURRENT_MAIN_REQUIRED')
+        profile.require_action('inventory-native-read-regression')
+        safe = native_inventory_read_regression(actor, request['manifest'], save_once, run / 'diagnostics')
+        with os.fdopen(write_fd, 'wb') as stream:
+            stream.write(json.dumps({'safe': safe, 'ram': {}}).encode())
+            stream.flush()
+        return
 
     if mode == 'scratch-c-configuration-only':
         from s10_lc2_task_profile import CURRENT_PLAN, profile_from_environment
