@@ -13,6 +13,7 @@
 - B 首轮普通59登录及非空/异值manifest已完成，prep owned PID1801097 exit0；MODEL启动前bind18410失败OSError98，Popen/launch-intent/checkpoint均未发生，六MODEL/六RPC仍NOT_RUN。原intent/首失败保留，事后无监听/owned进程；瞬时TIME_WAIT只是可能，未冒事实。团队修普通端口等待并据独立零派发证据接续，不重跑角色/A或清账。
 - B实际接续cccbf577已exit0/0stderr：普通59/店1先6 rollback MODEL与独立终核，再6真实call_kw RPC；全部预期原生AccessError/精确参数，HTTP200与RPC error分别记录，逐项/终核独立保全由runner核实。独立acceptance已亲核37源/6 first-env rollback/6 server received-rejected及args SHA/封存与3退出，签6MODEL+6RPC限定PASS。B逐项为18投影域，不冒39域全库；C前RO补后者。原server scope/company/store null照留，由真实session_info/RO关系另证，不补造。原首失败/latch均保持。
 - 当前累计 Odoo18/RO85/HTTP70/Firefox7/GET1；事故RO2/maintenance1/create2保持。本次B3Odoo/41RO/18HTTP不是18用例；3owned父进程均exit0并已不存在，端口无监听。C/D/双E尚未运行，日志总表及S10不提升；六框架/A-EDITOR/73PURE/旧资金不重跑。
+- C执行前SOURCE发现三处PDF链接缺can_export条件；C/改权尚未运行。补最小QWeb显示条件，正常S10-only修复加载并前后保护核验后再跑C；这是P1加载顺序偏离，另留升级事实，最终E-MAIN/E-D仍在完整C/D及最终候选后执行。下载路由独立权限标准不改，不以隐藏链接代替真实正负请求。
 - 运行修复验证：本地真实socket验证现有listener仍拒、正常关闭后可reserve、非EADDRINUSE原样传播；未启动Odoo/DB。浏览器C/E最小目的与账号约束、未知撤权不恢复的最终6项聚焦PURE通过，不与开发5项累加，也不冒C/E实测。专用B后RO草稿机械替换语法错误在执行前发现并修正，AST/compile通过，未发生DB请求；原raw未改。
 - 12 LOG当前投影承接六原生框架及当前A实际层级，逐项列剩余断言；不因旧表仍写offline而重跑已采框架。C调用图所需受控原件拒绝GET同样计费，当前工程新增原件GET上限4→24，旧/current已用和时钟不变，不削权限矩阵凑额度。
 - 普通工程首失败保留：browser聚焦测试碰到并行编辑中import缩进错误，完整写完后3项通过；launcher旧伪对象少log_config导致7项中2ERROR，补fixture后7项通过。独立发现当前privacy producer漏profile于首次启动前修复，c48d7fb原生日志证明实际通过。PDF后处理pdfinfo/pdftoppm缺命令exit127，改用已存在pymupdf读取本次保存文件，无依赖安装/新点击。以上不是MODEL/产品业务PASS。

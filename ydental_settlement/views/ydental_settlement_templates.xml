@@ -78,7 +78,8 @@
                         <tbody><tr t-foreach="invoices" t-as="invoice">
                             <td t-out="invoice.name"/><td t-out="invoice.invoice_date"/>
                             <td t-out="invoice.amount_total"/><td t-out="invoice.amount_residual"/>
-                            <td><a t-att-href="'/ydental/settlement/pdf/bill/%s' % invoice.id">下载中文 PDF</a>
+                            <td><a t-if="can_export" t-att-href="'/ydental/settlement/pdf/bill/%s' % invoice.id">下载中文 PDF</a>
+                                <span t-else="">仅供查阅</span>
                                 <form t-if="can_write" method="post" action="/ydental/settlement/action">
                                     <t t-call="ydental_settlement.ydental_settlement_tokens"/>
                                     <input type="hidden" name="operation" value="waive"/>
@@ -136,7 +137,8 @@
                     <div t-foreach="payments" t-as="payment">
                         <p>付款 <span t-out="payment.id"/> / <span t-out="payment.ydental_payment_id.name"/>：
                             <span t-out="payment.ydental_amount"/>，<span t-out="payment.ydental_channel"/>，
-                            <a t-att-href="'/ydental/settlement/pdf/receipt/%s' % payment.id">下载小票 PDF</a></p>
+                            <a t-if="can_export" t-att-href="'/ydental/settlement/pdf/receipt/%s' % payment.id">下载小票 PDF</a>
+                            <span t-else="">仅供查阅</span></p>
                         <form t-if="can_write" method="post" action="/ydental/settlement/action">
                             <t t-call="ydental_settlement.ydental_settlement_tokens"/>
                             <input type="hidden" name="operation" value="refund_request"/>
@@ -159,7 +161,8 @@
                     <t t-set="page_kind" t-value="'payments'"/><t t-call="ydental_settlement.ydental_settlement_page_links"/>
                     <div t-foreach="refunds" t-as="refund">
                         <p>退款 <span t-out="refund.id"/>：<span t-out="refund.ydental_amount"/>，状态 <span t-out="refund.ydental_state"/>
-                            <a t-att-href="'/ydental/settlement/pdf/refund/%s' % refund.id">下载退款凭据 PDF</a></p>
+                            <a t-if="can_export" t-att-href="'/ydental/settlement/pdf/refund/%s' % refund.id">下载退款凭据 PDF</a>
+                            <span t-else="">仅供查阅</span></p>
                         <form t-if="can_approve and refund.ydental_state == 'requested'" method="post" action="/ydental/settlement/action">
                             <t t-call="ydental_settlement.ydental_settlement_tokens"/>
                             <input type="hidden" name="refund_id" t-att-value="refund.id"/>

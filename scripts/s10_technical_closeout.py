@@ -495,6 +495,50 @@ def run_c_main(profile, approval, authority, requested_path):
     return result
 
 
+def repair_upgrade_main(profile, approval, authority, requested_path):
+    """Load the ordinary export-link repair; final E-MAIN remains separate."""
+    from s10_lc2_cases import closed_log_report, marker
+    from s10_lc2_launch import keep_primary
+    profile.require_action('repair-upgrade-main')
+    request = strict_loads(requested_path.read_bytes())
+    before = ROOT / request['manifest_ref']
+    if before.is_symlink() or not before.resolve().is_relative_to(profile.root):
+        raise RuntimeError('REPAIR_UPGRADE_BEFORE_REFERENCE_INVALID')
+    raw = before.read_bytes()
+    if hashlib.sha256(raw).hexdigest() != request['manifest_sha256']:
+        raise RuntimeError('REPAIR_UPGRADE_BEFORE_BYTES_CHANGED')
+    protection = strict_loads(raw)
+    if (protection.get('database') != profile.database or protection.get('oid') != 2144129
+            or protection.get('rollback_returned') is not True or protection.get('connection_closed') is not True):
+        raise RuntimeError('REPAIR_UPGRADE_ACTUAL_BEFORE_TARGET_NOT_PROVEN')
+    save_once(profile.root / 'REPAIR-UPGRADE-MAIN-IN-FLIGHT.json', {
+        'before_ref': request['manifest_ref'], 'before_sha256': request['manifest_sha256'],
+        'product_commit': authority['product_commit'], 'test_commit': authority['test_commit'],
+        'target': profile.database, 'automatic_retry': False, 'final_E_MAIN_claimed': False})
+    app = OwnedApplication(marker('main', profile), approval=approval,
+        product_commit=authority['product_commit'], test_commit=authority['test_commit'],
+        action='main-upgrade', profile=profile)
+    try:
+        app.start(['--stop-after-init', '--load-language=zh_CN', '-u', 'ydental_settlement'])
+    except BaseException as error:
+        primary = keep_primary(app.directory, error, stage='repair_upgrade_start')
+        exit_path = app.directory / 'parent-exit.tsv'
+        if not exit_path.exists() or not any(line.startswith(b'parent.end\t') for line in exit_path.read_bytes().splitlines()):
+            app.close(primary=primary)
+        raise
+    # wait owns normal/error cleanup; a context manager would close it twice.
+    code = app.wait(1200)
+    if code != 0:
+        raise RuntimeError('REPAIR_UPGRADE_FAILED_KEEP_SAME_DATABASE_AND_FILES')
+    logs = closed_log_report(app)
+    result = {'status': 'REPAIR_UPGRADE_EXIT_ZERO_INDEPENDENT_POST_RO_REQUIRED',
+        'exit_code': code, 'target': profile.database, 'scope': 'ydental_settlement_only',
+        'application_directory': str(app.directory.relative_to(ROOT)),
+        'diagnostic_records': logs['record_count'], 'final_E_MAIN_claimed': False}
+    save_once(profile.root / 'REPAIR-UPGRADE-MAIN-RESULT.json', result)
+    return result
+
+
 def execute(args, profile):
     """Caller holds the plan's exclusive runner lock for this whole operation."""
     require_dispatch_unfrozen(profile)
@@ -526,20 +570,22 @@ def execute(args, profile):
         return run_b(profile, approval, authority, args.requested)
     if args.action == 'c-main':
         return run_c_main(profile, approval, authority, args.requested)
+    if args.action == 'repair-upgrade-main':
+        return repair_upgrade_main(profile, approval, authority, args.requested)
     return run_original(profile, approval, authority)
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('action', choices=['target-ro', 'original-ui', 'prepare-reader',
-                                         'initialize-existing-reader', 'b-only', 'c-main'])
+                                         'initialize-existing-reader', 'b-only', 'c-main', 'repair-upgrade-main'])
     parser.add_argument('--selections', type=Path)
     parser.add_argument('--requested', type=Path)
     args = parser.parse_args()
     if args.action == 'target-ro' and args.selections is None:
         parser.error('--selections is required for target-ro')
-    if args.action in {'b-only', 'c-main'} and args.requested is None:
-        parser.error('--requested is required for b-only/c-main')
+    if args.action in {'b-only', 'c-main', 'repair-upgrade-main'} and args.requested is None:
+        parser.error('--requested is required for b-only/c-main/repair-upgrade-main')
     profile = current_plan_profile()
     descriptor = os.open(profile.root / 'runner.lock', os.O_RDWR | os.O_CREAT | os.O_NOFOLLOW, 0o600)
     with os.fdopen(descriptor, 'a+b') as lock:

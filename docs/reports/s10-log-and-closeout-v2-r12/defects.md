@@ -6,7 +6,10 @@
 - B首轮48fad024已完成普通59正常登录/店1/非空异值目标manifest；prep owned PID1801097正常exit0。后继MODEL进程在reservation.bind18410处OSError98，位于Popen/Odoo计数前；无launch-intent/native/stdout/checkpoint，六MODEL/六RPC均未派发。原B intent/失败材料保持，事后端口无监听且prep PID不存在；瞬时端口状态未观测，不声称TIME_WAIT已证。最小有界端口修复及独立零派发核验后接续未执行部分，不能清latch盲重跑/换目标或账号。
 - 上述B普通缺陷已闭环：cccbf577采用原生SO_REUSEADDR且不SO_REUSEPORT、仅EADDRINUSE有界等待；真实listener仍拒。零派发后39域RO exit0及独审核实后只续未执行B，最终6MODEL+6真实RPC实际exit0、原生保护与独立保全签署通过。正常重复认证产生相同业务scope的多合法会话按实际native metadata验证，原文件/首失败/latch与43份运行snapshot均保留；不重造59或重演A。
 
-以上是当前plan工程事实，不改变旧安全拒绝/STOP，也不提升B或S10为通过。
+- C-EXPORT-LINK：独立源码审查定位未付账单/收款/退款三处PDF链接缺can_export显示条件（settled已有），C尚未实际运行/改权。普通最小产品修补显示条件，不削read/export断言。正常S10-only修复加载前后完整保全单列，待实际DB arch及C入口复验；不以源码修补或升级exit0冒C/E通过。
+- QWeb最小修复验证首用系统Python缺lxml（exit1），随后用项目既有venv解析及四链接guard断言exit0；未安装依赖。升级helper的wait已负责close，独审在执行前发现with二次close会重复父退出，局部修为单close；尚未实际升级，不虚构失败进程。
+
+以上是当前plan工程事实，旧安全拒绝/STOP保持；B仅按独立签署范围通过，S10整体仍未完成。
 
 旧R1.1两次普通修复、失败原始材料与STOP保持。用户R1.2解除普通轮数限制，不解除真实安全硬停；未为普通问题请求GPT逐项批准。
 
