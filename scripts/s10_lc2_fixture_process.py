@@ -156,12 +156,87 @@ def native_inventory_read_regression(actor, manifest, save_once, diagnostics):
         'independent_before_after_preservation': 'PENDING'}
 
 
-def configure_new_c_clinics(actor, checkpoint, providers, save_once):
+
+def native_unowned_tax_defaults_rollback(actor, manifest, save_once, diagnostics):
+    from odoo import Command
+    from odoo.tools import config
+    if (set(manifest) != {'company_id', 'known_sale_tax_ids', 'known_purchase_tax_ids'}
+            or manifest['company_id'] != 1
+            or any(type(manifest[name]) is not list or not manifest[name]
+                or any(type(value) is not int or value <= 0 for value in manifest[name])
+                for name in ('known_sale_tax_ids', 'known_purchase_tax_ids'))):
+        raise RuntimeError('NATIVE_TAX_DEFAULT_REAL_COMPANY_ONE_DEFAULTS_REQUIRED')
+    def probe(env):
+        if (env.uid != 2 or env.su or env.transaction.default_env.uid != 2
+                or env.transaction.default_env.su or not env.is_system()
+                or not env.user.has_group('base.group_erp_manager') or config.get('smtp_server')
+                or env['ir.mail_server'].with_context(active_test=False).search_count([])):
+            raise RuntimeError('NATIVE_TAX_DEFAULT_FIRST_ENV_ADMIN_INVALID')
+        company = env['res.company'].browse(manifest['company_id']).exists()
+        if (not company or company.account_sale_tax_id.id not in manifest['known_sale_tax_ids']
+                or company.account_purchase_tax_id.id not in manifest['known_purchase_tax_ids']):
+            raise RuntimeError('NATIVE_TAX_DEFAULT_ACTUAL_INPUT_CHANGED')
+        save_once(diagnostics / 'native-tax-default-actual-defaults.json', {
+            'actor_id': env.uid, 'su': env.su, 'company_id': company.id,
+            'actual_sale_default_tax_id': company.account_sale_tax_id.id,
+            'actual_purchase_default_tax_id': company.account_purchase_tax_id.id,
+            'default_ids_provenance': 'REAL_FIRST_ENV_MODEL_READ_NOT_PRIOR_RO',
+            'tax_identity_membership_independently_observed': True})
+        product = env['product.template'].with_company(company).create({
+            'name': 'S10 isolated unowned native tax-default probe', 'type': 'service',
+            'ydental_intake_owned': False, 'company_id': False,
+            'taxes_id': [Command.clear()], 'supplier_taxes_id': [Command.clear()]})
+        # Native create can add other-company defaults. Clear only this new,
+        # unowned rollback fixture before proving each nonempty native addition.
+        product.write({'taxes_id': [Command.clear()], 'supplier_taxes_id': [Command.clear()]})
+        before = {'product_id': product.id, 'intake_owned': product.ydental_intake_owned,
+            'inventory_kind': product.ydental_inventory_kind,
+            'sale_tax_ids': product.taxes_id.ids, 'purchase_tax_ids': product.supplier_taxes_id.ids,
+            'actor_id': env.uid, 'su': env.su, 'default_env_uid': env.transaction.default_env.uid,
+            'default_env_su': env.transaction.default_env.su, 'mutation_context_issued': False}
+        save_once(diagnostics / 'native-tax-default-before.json', before)
+        if before['intake_owned'] or before['inventory_kind'] or before['sale_tax_ids'] or before['purchase_tax_ids']:
+            raise RuntimeError('NATIVE_TAX_DEFAULT_NEW_UNOWNED_EMPTY_CONTROL_INVALID')
+        checks = []
+        for kind, method, field, identifier in [
+                ('sale', product._force_default_sale_tax, 'taxes_id', company.account_sale_tax_id.id),
+                ('purchase', product._force_default_purchase_tax, 'supplier_taxes_id', company.account_purchase_tax_id.id)]:
+            method(company)
+            actual = product[field].ids
+            row = {'kind': kind, 'new_unowned_product_id': product.id, 'expected_tax_ids': [identifier],
+                'actual_tax_ids': actual, 'real_native_addition_observed': actual == [identifier],
+                'old_owned_products_used_as_write_targets': False}
+            save_once(diagnostics / ('native-tax-default-' + kind + '-observed.json'), row)
+            if not row['real_native_addition_observed']:
+                raise RuntimeError('NATIVE_TAX_DEFAULT_REAL_ADDITION_NOT_OBSERVED')
+            checks.append(row)
+        env.flush_all()
+        return {'checks': checks, 'new_unowned_product_id_rolled_back': product.id,
+            'actor_id': 2, 'fixture_commits': 0, 'old_owned_product_writes': 0,
+            'evidence_layer': 'REAL_MODEL_NATIVE_DEFAULT_TAX_ROLLED_BACK'}
+    result = actor(2, probe, commit=False)
+    result.update(rollback_returned=True, cursor_closed=True)
+    save_once(diagnostics / 'native-tax-default-rollback-cleanup.json', result)
+    return result
+
+
+def configure_new_c_clinics(actor, checkpoint, providers, save_once, *, stage='all', initial=None, manager_account=None):
     from odoo import Command
     from odoo.tools import config
 
-    manager_password = secrets.token_urlsafe(32)
-    manager_login = 's10_c_manager_' + secrets.token_hex(10)
+    if stage not in {'all', 'company', 'remaining'}:
+        raise RuntimeError('C_CONFIGURATION_STAGE_INVALID')
+    if stage == 'remaining':
+        if (type(initial) is not dict or type(manager_account) is not dict
+                or set(initial) != {'company1_id', 'company2_id', 'manager_id', 'module_states_sha256',
+                    'new_company_chart', 'new_company_currency_id'}
+                or set(manager_account) != {'user_id', 'login', 'password'}
+                or manager_account['user_id'] != initial['manager_id']):
+            raise RuntimeError('C_EXISTING_FIRST_STAGE_IDENTITY_REQUIRED')
+        manager_password, manager_login = manager_account['password'], manager_account['login']
+    else:
+        manager_password = secrets.token_urlsafe(32)
+        manager_login = 's10_c_manager_' + secrets.token_hex(10)
     passwords = {role: secrets.token_urlsafe(32) for role in ('doctor', 'reader')}
 
     def native_admin(env):
@@ -222,7 +297,31 @@ def configure_new_c_clinics(actor, checkpoint, providers, save_once):
             save_once(providers / ('scratch-user-%d.json' % value['manager_id']), {
                 'user_id': value['manager_id'], 'login': manager_login, 'password': manager_password})
         checkpoint('C-company-and-manager')(point, value)
-    initial = actor(2, company_and_manager, commit=True, checkpoint=initial_checkpoint)
+    if stage == 'remaining':
+        def verify_committed_first_stage(env):
+            native_admin(env)
+            company = env['res.company'].browse(initial['company2_id']).exists()
+            user = env['res.users'].browse(initial['manager_id']).exists()
+            if (not company or company.chart_template != initial['new_company_chart']
+                    or company.currency_id.id != initial['new_company_currency_id']
+                    or not user or user.create_uid.id != 2 or user.login != manager_login
+                    or not user.active or not user._is_internal() or user.has_group('base.group_system')
+                    or user.has_group('base.group_erp_manager')
+                    or not user.has_group('ydental_access.ydental_group_manager')
+                    or set(user.company_ids.ids) != {initial['company1_id'], initial['company2_id']}
+                    or module_snapshot(env) != initial['module_states_sha256']):
+                raise RuntimeError('C_ALREADY_COMMITTED_COMPANY_MANAGER_CHANGED')
+            env.cr.execute('SELECT password IS NOT NULL FROM res_users WHERE id=%s', [user.id])
+            if env.cr.fetchone() != (True,):
+                raise RuntimeError('C_COMMITTED_MANAGER_PASSWORD_MISSING_NO_RESET')
+        actor(2, verify_committed_first_stage, commit=False)
+    else:
+        initial = actor(2, company_and_manager, commit=True, checkpoint=initial_checkpoint)
+    if stage == 'company':
+        return {'safe': {'initial': initial, 'fixture_commits': 1,
+                'commit_observation': 'COMPANY_MANAGER_COMMIT_RETURNED_INDEPENDENT_RO_REQUIRED'},
+            'ram': {'manager': {'uid': initial['manager_id'], 'login': manager_login,
+                                'password': manager_password}}}
 
     def clinics(env):
         if (env.uid != initial['manager_id'] or env.su or env.is_admin() or env.is_system()
@@ -355,7 +454,7 @@ def configure_new_c_clinics(actor, checkpoint, providers, save_once):
     return {'safe': {'company2_id': initial['company2_id'], 'manager_id': initial['manager_id'],
         'doctor_id': prepared['accounts']['doctor']['uid'],
         'reader_id': prepared['accounts']['reader']['uid'], 'clinics': prepared['clinics'],
-        **configured, 'fixture_commits': 5, 'fund_dispatches': 0,
+        **configured, 'fixture_commits': 4 if stage == 'remaining' else 5, 'fund_dispatches': 0,
         'commit_observation': 'COMMIT_RETURNED_REQUIRES_INDEPENDENT_RO'},
         'ram': {'manager': {'uid': initial['manager_id'], 'login': manager_login,
                             'password': manager_password}, **prepared['accounts']}}
@@ -382,7 +481,7 @@ def main(shell_env):
     database = shell_env.cr.dbname
     expected = {'main': 'ydental_s10_test_20261017105432_810a7d9c',
                 'scratch': 'ydental_s10_test_20261017105432_ce6dcbf8'}
-    if mode not in {'main-prepare', 'main-b-only', 'main-reader-only', 'main-reader-password-only', 'main-report-parameters-only', 'log-rollback-only', 'scratch-bootstrap', 'scratch-c-configuration-only', 'main-inventory-read-only'} or database != expected['scratch' if mode in {'scratch-bootstrap', 'log-rollback-only', 'scratch-c-configuration-only'} else 'main']:
+    if mode not in {'main-prepare', 'main-b-only', 'main-reader-only', 'main-reader-password-only', 'main-report-parameters-only', 'log-rollback-only', 'scratch-bootstrap', 'scratch-c-configuration-only', 'main-inventory-read-only', 'scratch-c-company-stage', 'scratch-c-remaining-configuration', 'scratch-tax-defaults-rollback'} or database != expected['scratch' if mode in {'scratch-bootstrap', 'log-rollback-only', 'scratch-c-configuration-only', 'scratch-c-company-stage', 'scratch-c-remaining-configuration', 'scratch-tax-defaults-rollback'} else 'main']:
         raise RuntimeError('FIXTURE_ROLE_MODE_DRIFT')
     import logging
     if logging.getLogger('odoo.http.server').getEffectiveLevel() != logging.CRITICAL:
@@ -438,7 +537,7 @@ def main(shell_env):
             if env.su or env.transaction.default_env.uid != uid or env.transaction.default_env.su:
                 raise RuntimeError('FIXTURE_FIRST_ENV_NOT_ORDINARY_ACTOR')
             _guard(env, str(run))
-            case = ('C-SCOPE' if mode in {'scratch-c-configuration-only', 'main-inventory-read-only'} else
+            case = ('C-SCOPE' if mode in {'scratch-c-configuration-only', 'scratch-c-company-stage', 'scratch-c-remaining-configuration', 'scratch-tax-defaults-rollback', 'main-inventory-read-only'} else
                     'C-REPORT-CONFIGURATION' if mode == 'main-report-parameters-only' else
                     'B-ACTOR-PREPARE' if mode in {'main-reader-only', 'main-reader-password-only'} else
                     'B-MODEL-6' if mode == 'main-prepare' and uid == 6 else
@@ -470,13 +569,27 @@ def main(shell_env):
             stream.flush()
         return
 
-    if mode == 'scratch-c-configuration-only':
+    if mode == 'scratch-tax-defaults-rollback':
+        from s10_lc2_evidence import save_once
+        from s10_lc2_task_profile import CURRENT_PLAN, profile_from_environment
+        profile = profile_from_environment(os.environ)
+        if profile is None or profile.message_id != CURRENT_PLAN or profile.target_role != 'scratch':
+            raise RuntimeError('NATIVE_TAX_DEFAULT_CURRENT_SCRATCH_REQUIRED')
+        profile.require_action('tax-defaults-rollback')
+        safe = native_unowned_tax_defaults_rollback(actor, request['manifest'], save_once, run / 'diagnostics')
+        with os.fdopen(write_fd, 'wb') as stream:
+            stream.write(json.dumps({'safe': safe, 'ram': {}}).encode())
+            stream.flush()
+        return
+
+    if mode in {'scratch-c-configuration-only', 'scratch-c-company-stage', 'scratch-c-remaining-configuration'}:
         from s10_lc2_task_profile import CURRENT_PLAN, profile_from_environment
         from s10_lc2_evidence import save_once
         profile = profile_from_environment(os.environ)
         if profile is None or profile.message_id != CURRENT_PLAN or profile.target_role != 'scratch':
             raise RuntimeError('CURRENT_C_NATIVE_CONFIGURATION_SCRATCH_ONLY')
-        profile.require_action('scratch-c-configuration')
+        profile.require_action({'scratch-c-company-stage': 'scratch-c-company-stage',
+            'scratch-c-remaining-configuration': 'scratch-c-remaining-configuration'}.get(mode, 'scratch-c-configuration'))
         providers = profile.root / 'credentials'
         if (providers.is_symlink() or not providers.is_dir() or providers.stat().st_uid != os.getuid()
                 or stat.S_IMODE(providers.stat().st_mode) != 0o700):
@@ -486,7 +599,10 @@ def main(shell_env):
                 save_once(run / 'diagnostics' / ('C-setup-%s-%s-%d.json' % (stage, point, os.getpid())), {
                     'stage': stage, 'point': point, 'value': value, 'independently_committed': False})
             return save
-        response = configure_new_c_clinics(actor, checkpoint, providers, save_once)
+        response = configure_new_c_clinics(actor, checkpoint, providers, save_once,
+            stage={'scratch-c-company-stage': 'company', 'scratch-c-remaining-configuration': 'remaining'}.get(mode, 'all'),
+            initial=request.get('manifest', {}).get('initial'),
+            manager_account=request.get('manifest', {}).get('manager_account'))
         encoded = json.dumps(response, separators=(',', ':')).encode()
         if len(encoded) > 65536:
             raise RuntimeError('C_NATIVE_CONFIGURATION_PIPE_BOUND')

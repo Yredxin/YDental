@@ -685,6 +685,148 @@ def run_native_inventory_read_regression(profile, approval, authority, requested
     return result
 
 
+
+def run_c_company_stage(profile, approval, authority, requested_path):
+    """Retry only the proven-uncommitted company/manager stage, then stop."""
+    from s10_lc2_cases import run_fixture
+    profile.require_action('scratch-c-company-stage')
+    request, observed = scratch_requested(profile, requested_path)
+    c_committed_d_source(profile, request)
+    receipt = strict_loads((profile.root / 'C-chart-tax-guard-recovery.json').read_bytes())
+    def reference(name):
+        path = ROOT / receipt[name + '_ref']
+        if path.is_symlink() or not path.resolve().is_relative_to(profile.root):
+            raise RuntimeError('C_COMPANY_STAGE_RECOVERY_REFERENCE_INVALID')
+        raw = path.read_bytes()
+        if hashlib.sha256(raw).hexdigest() != receipt[name + '_sha256']:
+            raise RuntimeError('C_COMPANY_STAGE_RECOVERY_BYTES_CHANGED')
+        return raw
+    original = reference('original_intent')
+    attempt2 = reference('attempt2_intent')
+    failure = strict_loads(reference('failure_index'))
+    ro = reference('zero_commit_ro')
+    exits = [line.split('\t') for line in reference('parent_exit').decode().splitlines()]
+    if (receipt.get('reason') != 'C_CHART_DEFAULT_TAX_OWNED_CATALOG_GUARD_ZERO_COMPANY_STAGE_COMMIT'
+            or receipt.get('stage') != 'company-and-manager-only'
+            or receipt.get('independent_reviewer') != '/root/acceptance_s10' or receipt.get('zero_commit_ro_exit_code') != 0
+            or receipt['original_intent_sha256'] != '9ba3b7e731c5317026abedb0d0659008c8d1eb7ea5570ea050441e889bc022ca'
+            or original != (profile.root / 'C-SCRATCH-CONFIGURATION-IN-FLIGHT.json').read_bytes()
+            or strict_loads(original).get('D_source_sha256') != request['D_source_sha256']
+            or receipt['attempt2_intent_sha256'] != 'e8c6b73cc481dca6445b401ba42edc3d97aa2687fd9212967fc8e7faddb13d8b'
+            or attempt2 != (profile.root / 'C-SCRATCH-CONFIGURATION-ATTEMPT2-IN-FLIGHT.json').read_bytes()
+            or receipt['zero_commit_ro_sha256'] != '486ac4ba5fe40ed2e371a591e3e17df2d6fe2c924e6db092ebf9d226d1b3bd48'
+            or receipt['zero_commit_ro_sha256'] != request['manifest_sha256']
+            or receipt['zero_commit_ro_ref'] != request['manifest_ref'] or strict_loads(ro) != observed
+            or receipt['parent_exit_sha256'] != 'ae184ea87d6da37bcd8555a6383760590adbf0329525521595e92ae3ef518029'
+            or sum(line[0] == 'parent.end' for line in exits) != 1
+            or not any(line[0] == 'parent.end' and line[2:5] == ['1933915', '1', 'None'] for line in exits)
+            or failure.get('actual_native_pid') != 1933915 or failure.get('actual_native_exit_code') != 1
+            or failure.get('actual_native_signal') is not None or failure.get('first_native_exception') != 'odoo.exceptions.AccessError'
+            or failure.get('first_native_message') != 'access_denied: Native service data must use the controlled catalog or price action.'
+            or observed.get('validation_status') != 'CURRENT_C_CHART_TAX_GUARD_FAILED_ZERO_CONFIGURATION_COMMIT_VERIFIED'
+            or observed.get('possible_new_configuration_or_actor_rows') != {'companies': [], 'users': [], 'partners': []}
+            or observed.get('financial_actions_dispatched') != 0 or observed.get('business_operations') != 0
+            or observed.get('normal_C_fixture_not_yet_created') is not True
+            or observed.get('unique_D_native_accounting_verified') is not True
+            or (profile.root / 'C-fixture-public-identities.json').exists()):
+        raise RuntimeError('C_COMPANY_STAGE_ONLY_ZERO_COMMIT_RECOVERY_NOT_PROVEN')
+    save_once(profile.root / 'C-COMPANY-MANAGER-STAGE-IN-FLIGHT.json', {
+        'zero_commit_ro_sha256': request['manifest_sha256'],
+        'original_intent_sha256': receipt['original_intent_sha256'],
+        'attempt2_intent_sha256': receipt['attempt2_intent_sha256'],
+        'stage': 'company-and-manager-only', 'remaining_stages_dispatched': False,
+        'automatic_retry': False, 'original_latches_retained': True})
+    response = run_fixture('scratch', approval=approval, product_commit=authority['product_commit'],
+        test_commit=authority['test_commit'], mode='scratch-c-company-stage', profile=profile)
+    initial = response['safe']['initial']
+    manager = response['ram']['manager']
+    if manager['uid'] != initial['manager_id'] or response['safe']['fixture_commits'] != 1:
+        raise RuntimeError('C_FIRST_STAGE_RETURNED_IDENTITY_INVALID')
+    result = {'initial': initial, 'manager_provider_ref': str((profile.root / 'credentials' /
+        ('scratch-user-%d.json' % initial['manager_id'])).relative_to(ROOT)),
+        'fixture_commits': 1, 'product_commit': authority['product_commit'],
+        'D_source_sha256': request['D_source_sha256'],
+        'status': 'C_COMPANY_MANAGER_COMMIT_RETURNED_INDEPENDENT_POST_RO_REQUIRED',
+        'remaining_stages_dispatched': False}
+    save_once(profile.root / 'C-COMPANY-MANAGER-STAGE-RETURNED.json', result)
+    return result
+
+
+def run_c_remaining_configuration(profile, approval, authority, requested_path):
+    from s10_lc2_cases import run_fixture
+    profile.require_action('scratch-c-remaining-configuration')
+    request, observed = scratch_requested(profile, requested_path)
+    c_committed_d_source(profile, request)
+    first_raw = (profile.root / 'C-COMPANY-MANAGER-STAGE-RETURNED.json').read_bytes()
+    first = strict_loads(first_raw)
+    if (observed.get('validation_status') != 'CURRENT_C_COMPANY_MANAGER_STAGE_INDEPENDENTLY_VERIFIED'
+            or observed.get('company_stage_returned_sha256') != hashlib.sha256(first_raw).hexdigest()
+            or observed.get('initial') != first['initial'] or first.get('remaining_stages_dispatched') is not False
+            or first.get('D_source_sha256') != request['D_source_sha256']
+            or first.get('product_commit') != authority['product_commit']
+            or any(observed.get(key) is not True for key in ('company_manager_native_configuration_verified',
+                'ordinary_new_manager_verified', 'owned_catalog_tax_baseline_preserved',
+                'remaining_C_stages_not_run', 'unique_D_native_accounting_verified'))
+            or observed.get('all_mail_servers_count') != 0
+            or (profile.root / 'C-fixture-public-identities.json').exists()):
+        raise RuntimeError('C_EXISTING_FIRST_STAGE_NOT_INDEPENDENTLY_VERIFIED')
+    provider = ROOT / first['manager_provider_ref']
+    if (provider.is_symlink() or provider.parent != profile.root / 'credentials'
+            or provider.stat().st_uid != os.getuid() or stat.S_IMODE(provider.stat().st_mode) != 0o600):
+        raise RuntimeError('C_EXISTING_MANAGER_PROVIDER_BOUNDARY_INVALID')
+    account = strict_loads(provider.read_bytes())
+    if account.get('user_id') != first['initial']['manager_id']:
+        raise RuntimeError('C_EXISTING_MANAGER_PROVIDER_ID_CHANGED')
+    save_once(profile.root / 'C-REMAINING-CONFIGURATION-IN-FLIGHT.json', {
+        'company_stage_returned_sha256': observed['company_stage_returned_sha256'],
+        'before_sha256': request['manifest_sha256'], 'company_and_manager_replayed': False,
+        'stages': ['clinics', 'doctor-password', 'reader-password', 'native-finance-config'],
+        'automatic_retry': False})
+    response = run_fixture('scratch', approval=approval, product_commit=authority['product_commit'],
+        test_commit=authority['test_commit'], mode='scratch-c-remaining-configuration', profile=profile,
+        manifest={'initial': first['initial'], 'manager_account': account})
+    safe, ram = response['safe'], response['ram']
+    if safe.get('fixture_commits') != 4:
+        raise RuntimeError('C_REMAINING_CONFIGURATION_RETURNED_STAGE_COUNT_INVALID')
+    public = {'clinics': safe['clinics'], 'company2_id': safe['company2_id'],
+        'actors': {role: {'user_id': ram[role]['uid'], 'provider_ref': str((profile.root /
+            'credentials' / ('scratch-user-%d.json' % ram[role]['uid'])).relative_to(ROOT))}
+            for role in ('manager', 'doctor', 'reader')}}
+    save_once(profile.root / 'C-fixture-public-identities.json', public)
+    save_once(profile.root / 'C-configuration-returned.json', safe | {'company_stage_replayed': False})
+    return {'status': 'C_REMAINING_CONFIGURATION_COMMIT_RETURNED_POST_RO_REQUIRED',
+        'clinic_count': len(public['clinics']), 'remaining_fixture_commits': 4,
+        'company_and_manager_replayed': False, 'fund_dispatches': 0}
+
+
+def run_native_tax_defaults_rollback(profile, approval, authority, requested_path):
+    from s10_lc2_cases import run_fixture
+    profile.require_action('tax-defaults-rollback')
+    request, observed = scratch_requested(profile, requested_path)
+    if (request['manifest_sha256'] != '486ac4ba5fe40ed2e371a591e3e17df2d6fe2c924e6db092ebf9d226d1b3bd48'
+            or observed.get('validation_status') != 'CURRENT_C_CHART_TAX_GUARD_FAILED_ZERO_CONFIGURATION_COMMIT_VERIFIED'
+            or observed.get('unique_D_native_accounting_verified') is not True):
+        raise RuntimeError('TAX_DEFAULTS_ACTUAL_FIRST_BASELINE_NOT_PROVEN')
+    taxes = observed['account_tax_baseline']
+    model = {'company_id': 1,
+        'known_sale_tax_ids': sorted(row['id'] for row in taxes if row['active'] and row['company_id'] == 1
+            and row['type_tax_use'] in {'sale', 'all'}),
+        'known_purchase_tax_ids': sorted(row['id'] for row in taxes if row['active'] and row['company_id'] == 1
+            and row['type_tax_use'] in {'purchase', 'all'})}
+    save_once(profile.root / 'TAX-DEFAULTS-ROLLBACK-IN-FLIGHT.json', {
+        'before_sha256': request['manifest_sha256'], 'actor_id': 2, 'company_id': 1,
+        'old_owned_product_writes': 0, 'fixture_commits': 0, 'automatic_retry': False})
+    result = run_fixture('scratch', approval=approval, product_commit=authority['product_commit'],
+        test_commit=authority['test_commit'], mode='scratch-tax-defaults-rollback', manifest=model, profile=profile)['safe']
+    if (result.get('fixture_commits') != 0 or result.get('old_owned_product_writes') != 0
+            or any(result.get(key) is not True for key in ('rollback_returned', 'cursor_closed'))
+            or len(result.get('checks', [])) != 2
+            or any(row.get('real_native_addition_observed') is not True for row in result['checks'])):
+        raise RuntimeError('TAX_DEFAULTS_NATIVE_ROLLBACK_RESULTS_INCOMPLETE')
+    save_once(profile.root / 'TAX-DEFAULTS-ROLLBACK-RETURNED.json', result)
+    return result | {'independent_post_RO_preservation': 'PENDING'}
+
+
 def prepare_c_scratch(profile, approval, authority, requested_path):
     from s10_lc2_cases import run_fixture
     profile.require_action('scratch-c-configuration')
@@ -1379,9 +1521,9 @@ def run_final_original_ui(profile, approval, authority, requested_path):
 def execute(args, profile):
     """Caller holds the plan's exclusive runner lock for this whole operation."""
     require_dispatch_unfrozen(profile)
-    if profile.target_role == 'scratch' and args.action not in {'target-ro', 'bootstrap-scratch', 'd-only', 'log-rollback', 'repair-upgrade-scratch-font', 'prepare-c-scratch', 'c-scratch-sources', 'final-upgrade'}:
+    if profile.target_role == 'scratch' and args.action not in {'target-ro', 'bootstrap-scratch', 'd-only', 'log-rollback', 'repair-upgrade-scratch-font', 'prepare-c-scratch', 'c-scratch-sources', 'final-upgrade', 'c-company-stage', 'c-remaining-configuration', 'tax-defaults-rollback'}:
         raise RuntimeError('CURRENT_SCRATCH_ACTION_NOT_IMPLEMENTED')
-    if profile.target_role == 'main' and args.action in {'bootstrap-scratch', 'd-only', 'log-rollback', 'repair-upgrade-scratch-font', 'prepare-c-scratch', 'c-scratch-sources'}:
+    if profile.target_role == 'main' and args.action in {'bootstrap-scratch', 'd-only', 'log-rollback', 'repair-upgrade-scratch-font', 'prepare-c-scratch', 'c-scratch-sources', 'c-company-stage', 'c-remaining-configuration', 'tax-defaults-rollback'}:
         raise RuntimeError('CURRENT_D_EXPLICIT_SCRATCH_TARGET_REQUIRED')
     approval = profile.root / ('runtime-approval-scratch.json' if profile.target_role == 'scratch' else 'runtime-approval.json')
     authority = strict_loads(approval.read_bytes())
@@ -1413,6 +1555,12 @@ def execute(args, profile):
         return run_final_original_ui(profile, approval, authority, args.requested)
     if args.action == 'inventory-native-read-regression':
         return run_native_inventory_read_regression(profile, approval, authority, args.requested)
+    if args.action == 'c-company-stage':
+        return run_c_company_stage(profile, approval, authority, args.requested)
+    if args.action == 'c-remaining-configuration':
+        return run_c_remaining_configuration(profile, approval, authority, args.requested)
+    if args.action == 'tax-defaults-rollback':
+        return run_native_tax_defaults_rollback(profile, approval, authority, args.requested)
     if args.action == 'prepare-c-scratch':
         return prepare_c_scratch(profile, approval, authority, args.requested)
     if args.action == 'c-scratch-sources':
@@ -1446,14 +1594,14 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('action', choices=['target-ro', 'original-ui', 'prepare-reader',
                                          'initialize-existing-reader', 'b-only', 'c-main', 'repair-upgrade-main',
-                                         'report-parameters-only', 'repair-upgrade-main-font', 'c-main-tail', 'bootstrap-scratch', 'd-only', 'log-rollback', 'repair-upgrade-scratch-font', 'prepare-c-scratch', 'c-scratch-sources', 'final-upgrade', 'log-ui-read', 'final-original-ui', 'inventory-native-read-regression'])
+                                         'report-parameters-only', 'repair-upgrade-main-font', 'c-main-tail', 'bootstrap-scratch', 'd-only', 'log-rollback', 'repair-upgrade-scratch-font', 'prepare-c-scratch', 'c-scratch-sources', 'final-upgrade', 'log-ui-read', 'final-original-ui', 'inventory-native-read-regression', 'c-company-stage', 'c-remaining-configuration', 'tax-defaults-rollback'])
     parser.add_argument('--target', choices=['main', 'scratch'], default='main')
     parser.add_argument('--selections', type=Path)
     parser.add_argument('--requested', type=Path)
     args = parser.parse_args()
     if args.action == 'target-ro' and args.selections is None:
         parser.error('--selections is required for target-ro')
-    if args.action in {'b-only', 'c-main', 'repair-upgrade-main', 'repair-upgrade-main-font', 'c-main-tail', 'bootstrap-scratch', 'd-only', 'log-rollback', 'repair-upgrade-scratch-font', 'prepare-c-scratch', 'c-scratch-sources', 'final-upgrade', 'log-ui-read', 'final-original-ui', 'inventory-native-read-regression'} and args.requested is None:
+    if args.action in {'b-only', 'c-main', 'repair-upgrade-main', 'repair-upgrade-main-font', 'c-main-tail', 'bootstrap-scratch', 'd-only', 'log-rollback', 'repair-upgrade-scratch-font', 'prepare-c-scratch', 'c-scratch-sources', 'final-upgrade', 'log-ui-read', 'final-original-ui', 'inventory-native-read-regression', 'c-company-stage', 'c-remaining-configuration', 'tax-defaults-rollback'} and args.requested is None:
         parser.error('--requested is required for this action')
     profile = current_plan_profile(args.target)
     descriptor = os.open(profile.root / 'runner.lock', os.O_RDWR | os.O_CREAT | os.O_NOFOLLOW, 0o600)

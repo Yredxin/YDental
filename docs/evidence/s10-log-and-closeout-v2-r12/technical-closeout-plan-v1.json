@@ -88,16 +88,16 @@
       "firefox": 8,
       "http": 214,
       "maintenance": 1,
-      "odoo_start": 28,
+      "odoo_start": 30,
       "original_get": 7,
-      "target_ro": 129
+      "target_ro": 135
     },
     "current_plan": {
       "firefox": 2,
       "http": 182,
-      "odoo_start": 18,
+      "odoo_start": 20,
       "original_get": 7,
-      "target_ro": 99
+      "target_ro": 105
     },
     "counts_are_not_test_pass_totals": true,
     "http_boundary": "Runner/browser dispatch ledger; not all native renderer internal asset HTTP wire requests."
@@ -624,7 +624,7 @@
     "production_since_cf5": "Settlement workbench/report QWeb and licensed static font resource only as of b1f30aa; financial Python unchanged. Older diagnostic wraps still require native rejection and rollback ON/OFF evidence.",
     "real_competition": "Preserve original formally accepted backend/interleaving assertions only; current D or LOG concurrency does not upgrade them."
   },
-  "source_product_candidate": "1545a6b919b220f1405fc376e6d4c477f476715e",
+  "source_product_candidate": "cc1a395a8254a0b6c2017ceedd9a351d095c590a",
   "font-config-repair-source": {
     "status": "ACTUAL_CONFIGURATION_AND_FONT_LOADING_SCOPED_PASS_THREE_PDFS_INDEPENDENTLY_PASSED",
     "product_commit": "b1f30aa88365ec85aea15073f08de5d6dfa22a5f",
@@ -1011,5 +1011,63 @@
     "required_impact_regression": "Operation-aware native system unmanaged read positive, ordinary user and managed records negative, write/unlink permission negative; actual MODEL and exact protection. Final dual E at new product Python candidate.",
     "new_product_commit": "1545a6b919b220f1405fc376e6d4c477f476715e",
     "product_diff_scope": "Only inventory operation-aware native system unmanaged read; mutations, ordinary users, managed inventory, schema/core unchanged."
+  },
+  "C-native-inventory-read-regression": {
+    "status": "PASS_SCOPED_ACTUAL_INDEPENDENTLY_ACCEPTED",
+    "product_commit": "1545a6b919b220f1405fc376e6d4c477f476715e",
+    "runtime_test_commit": "d16cadf9efaa46ab1db3f8c272c2359d7f0a0a2a",
+    "layer": "REAL_READ_ONLY_MODEL_NOT_HTTP",
+    "checks": 6,
+    "actors": [
+      2,
+      59
+    ],
+    "global_unmanaged_location_id": 3,
+    "managed_location_id": 13,
+    "fresh_environment_each_check_non_sudo": true,
+    "actual_write_unlink_calls": 0,
+    "commits": 0,
+    "rollback_and_close_each": true,
+    "owned_native_pid": 1931331,
+    "native_exit_code": 0,
+    "before_ro_sha256": "4571dd69315fe8d0e425361afe2fe337fff1819df61991bd67bf11e0efb77af8",
+    "after_ro_sha256": "79afa7292f4133983efd1faa2abc1ca0051a214e04d7159ffdaa393eb0c25d82",
+    "stock_configuration_role_and_schema_hashes_unchanged": true,
+    "limit": "Common native mixin exercised with real stock.location; not all inventory model HTTP endpoints."
+  },
+  "C-chart-tax-guard-first": {
+    "status": "NATIVE_PROTECTED_CATALOG_GUARD_REJECTED_ZERO_CONFIGURATION_COMMIT_CONFIRMED_COMPATIBILITY_FIX_PENDING",
+    "product_commit": "1545a6b919b220f1405fc376e6d4c477f476715e",
+    "runtime_test_commit": "d16cadf9efaa46ab1db3f8c272c2359d7f0a0a2a",
+    "native_pid": 1933915,
+    "native_exit_code": 1,
+    "native_signal": null,
+    "initial_outcome": "UNKNOWN_AT_FIRST_FAILURE",
+    "failure_source": "native chart _post_load_data -> _force_default_sale_tax -> product template write -> existing intake-owned guard",
+    "post_failure_actual_exit_code": 0,
+    "post_failure_verified_sha256": "486ac4ba5fe40ed2e371a591e3e17df2d6fe2c924e6db092ebf9d226d1b3bd48",
+    "old_46_domains_D19_mutex_audit_unchanged": true,
+    "stock_configuration_groups_unchanged": 5,
+    "new_company_user_window_partner_rows": 0,
+    "tax_baseline_boundary": "First observation only: one owned product, one sale and one purchase relation, four existing taxes; prior physical tax baseline was not captured.",
+    "failure_index": {
+      "ref": ".local/s10-technical-closeout-v1/C-chart-tax-guard-first-failure-index.json",
+      "bytes": 2460,
+      "sha256": "1849e7e39e0704026e5952078daa72c1831ba38e3d7285a80d5edba3bbc3af02"
+    },
+    "ordinary_repair_scope": "Two native default-tax hooks filter protected intake-owned records for uncontrolled calls and delegate unowned to native super; legal controlled mutation and all CRUD guards unchanged. SOURCE in progress, not actual PASS.",
+    "configuration_continuation": "Finite company-and-manager stage only; independent postRO; remaining never-executed stages only. Both original latches preserved; no third whole setup.",
+    "new_product_commit": "cc1a395a8254a0b6c2017ceedd9a351d095c590a",
+    "compatibility_status": "PRODUCT_SOURCE_FIXED_UNOWNED_MODEL_AND_FINITE_CONFIGURATION_NOT_RUN",
+    "direct_dependency": "Existing installed ydental_intake declared explicitly; no new module installation or inventory/intake module upgrade."
+  },
+  "current_engineering_limits": {
+    "odoo_new_plan": 40,
+    "odoo_cumulative_maximum": 50,
+    "target_ro_new_plan": 160,
+    "http_new_plan": 1200,
+    "firefox_new_plan": 4,
+    "original_get_new_plan": 24,
+    "reason": "Concrete added tax compatibility rollback and finite configuration split; counts/start/deadline/baseline/historical STOP unchanged. 90% pause concerns raw storage, not dispatch counters."
   }
 }

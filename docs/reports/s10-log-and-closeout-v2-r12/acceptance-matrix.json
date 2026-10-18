@@ -6104,7 +6104,7 @@
       "tester": "/root/tester_s10",
       "acceptance": "/root/acceptance_s10"
     },
-    "candidate_status": "PRODUCT_1545A6B_INVENTORY_NATIVE_READ_REPAIR_SOURCE_READY_ACTUAL_REGRESSION_PENDING",
+    "candidate_status": "PRODUCT_CC1A395_NATIVE_TAX_COMPATIBILITY_SOURCE_READY_ACTUAL_ROLLBACK_AND_FINITE_C_PENDING",
     "current_actual_evidence": [
       "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json"
     ],
@@ -7142,8 +7142,9 @@
       "production_since_cf5": "Settlement workbench/report QWeb and licensed static font resource only as of b1f30aa; financial Python unchanged. Older diagnostic wraps still require native rejection and rollback ON/OFF evidence.",
       "real_competition": "Preserve original formally accepted backend/interleaving assertions only; current D or LOG concurrency does not upgrade them."
     },
-    "source_product_candidate": "1545a6b919b220f1405fc376e6d4c477f476715e",
+    "source_product_candidate": "cc1a395a8254a0b6c2017ceedd9a351d095c590a",
     "scratch_native_admission_ref": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/scratch-native-admission",
-    "current_C_preflight": "C first native system company-create failed inventory guard at c705; c406 actual postRO independently proves zero configuration commits and protected46/D19/mutex preservation. Actual58 schema retains original53 subset. Operation-aware infrastructure read repair and finite MODEL regression pending; one concrete attempt2 only after fix, never D replay."
+    "current_C_preflight": "Exact attempt2 nativechart default-tax guarded write failed before first stage completion; original failure/latches preserved. Actual486 postRO independently confirms zero configuration commits and protected46/D19/stock baseline unchanged. Product tax snapshot is first observation. Finite stage continuation pending two native default-tax compatibility hooks, no third whole setup.",
+    "additional_product_impact": "P1545 changes common inventory system unmanaged read only; actual6MODEL passed. Upcoming S10 default-tax hook preserves intake-owned catalog, delegates unowned native defaults, leaves legal controlled mutation unchanged; actual rollback/control, normal C creation and final dual E required. Original finance-impact carry retains its earlier candidate scope."
   }
 }

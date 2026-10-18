@@ -1,3 +1,7 @@
+## C-NATIVE-CHART-PROTECTED-CATALOG：默认税初始化兼容
+
+当前接续（2026-10-18T11:07Z）：P1545/Td16库存6项真实非空MODEL及独立前后RO已限定独签PASS；仅系统unmanaged read正例、ordinary/managed与write/unlink权限仍拒，无实际写删/提交。随后C attempt2 native1933915 exit1/signalNone：新账套默认税批处理触发既有intake-owned目录写保护，首stage未返回；原9ba3及attempt2 latches/失败原件保持，不第三次whole setup。唯一故障后RO486ac4ba5fe40ed2e371a591e3e17df2d6fe2c924e6db092ebf9d226d1b3bd48实际exit0并独核46/D19/六mutex/audit/schema与490保持、库存5组同fa58/global仍False、新公司/用户/窗口partner0，限定零持久C配置。产品税1owned/1sale/1purchase/4tax仅首次实际基线，不冒未知before逐值同。现最小兼容SOURCE窗：仅原生默认税hook对非受控调用跳过owned、原合法MUTATION及CRUD guard保留；配置按company-only→独立RO→remaining首次执行拆有限阶段，旧D不动。累计30/135/214/8/7；因已知新增回滚与拆段进程，当前新增Odoo上限32→40/总50，原baseline/已用/start/deadline/旧STOP和其他上限不变，90%仍仅raw存储。
+
 ## C-NATIVE-SYSTEM-INFRA-READ：正常公司配置误挡
 
 当前普通缺陷（2026-10-18T10:48Z）：C配置首轮T=c7055de native1922420 exit1/signalNone，res.company.create读取全局未托管库存基础location被既有库存guard误挡。原错误/intent/173映射snapshot保持；首次提交结论UNKNOWN未改写。唯一故障后只读RO actual exit0/c406c516904be9af4afdee3589bcb50873da7f43134669959042a911371f8dbd，独立逐值核46域、D19、六mutex及原审计/配置/账套完全保持，新公司/用户/该窗口partner为0，限定证实零持久配置提交。同次实际58表schema06d5928d…精确包含原53 subset与D既有pending关系。当前开最小产品修复：仅operation=read且真实native系统管理员允许按原生ACL读取未托管库存基础记录；普通业务用户、托管记录及write/unlink/create保护不变，待源码和真实非空6项MODEL验证。产品增加直接依赖库存Python差异，最终双E须覆盖它；不另-u inventory、不变schema/core、不重D。累计Odoo28/RO129/HTTP214/Firefox8/GET7。
