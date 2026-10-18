@@ -444,3 +444,22 @@ Guidelines read：odoo-review、odoo-security及Python Imports/Naming、ORM reco
 后续验收仍须实际 A 浏览器下载及逐页内容、六 MODEL 后六 RPC 有效拒绝与逐项独立保全、C 非空权限/跨域/附件及撤权旧页、D 唯一 6/2 原生提交链与先查证后防重、同最终产品候选的双目标带数据 S10-only 升级，以及逐项 12 LOG/22 财务行/19 用例的层级和来源。源码改动须另给固定候选及实际差异，运行材料须可核访问并明确执行者；本轮不签未来代码、测试、GitHub 同步、Issue 关闭或任何运行 PASS。
 
 Guidelines read：odoo-review、odoo-security；本轮仅文档投影与边界核对，尚未启动代码 diff 审查或全 addon 安全审计。
+
+
+## YD-S10-TECHNICAL-CLOSEOUT-V1 / A-ORIGINAL 升级前独立限定通过
+
+签署时间：2026-10-18T07:04:53.645941+00:00。审核者 `/root/acceptance_s10` 未实现或执行被验代码，真实执行者 `/root/tester_s10`，主控 `/root`；角色不是 OS 隔离。结论为 **PASS_A_ORIGINAL_PRE_UPGRADE_SCOPED / PASS_LIMITED_CURRENT_RO_PRESERVATION**。仅采纳本次 main 测试目标的正常原件 UI 与有限保全，不签 S10 整体、B/C/D、日志总表或任何 E 升级结果。旧 117,474B / SHA256 `1b999f514c23c079e2d109c2d39ce0b673cdcb2e2b13243c7bc164da2d5e2a0a` 前缀完整保留。
+
+实际固定运行/测试候选 `c48d7fb23765aaac843739ab276db3138f971bf9`，产品保持 `cf5d63fe510b52ea150d07495bf3062f4ce0961d`，只读 core `f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb`。独立亲审本次最小准入/浏览器/launcher/预算差异、新 runner 及实际私有 observer，12 项冻结文件和 scope/approval/marker/config/observer/命令 SHA；旧 ledger/STOP 字节保持、累计不清零、当前24h期限、runner 全动作独占 flock 及实际 PID/UID/owner、目标 OID/cluster 和动作用途均核对。发现 device privacy producer/consumer 未涵盖当前 profile 的源码缺口后交 developer 修复，在应用执行前固定 c48d7fb；没有运行该已知错误版本。只读 observer 后处理失败会丢首状态的风险亦在首次 RO 前修正为连接关闭后先保存 NOT_YET_VALIDATED 事实，并核固定旧基线 SHA。审核者没有实现这些修复、没有运行 DB/HTTP/浏览器或测试。
+
+实际命令分别为 `PYTHONPATH=scripts:.local/s04-deps PYTHONDONTWRITEBYTECODE=1 ../.venv/bin/python .local/s10-technical-closeout-v1/observe-main-current.py before`、同环境运行 `scripts/s10_technical_closeout.py original-ui`、最后同 observer 的 `terminal`；保存退出码均0。首次 RO 与 terminal 均为真实 main `ydental_s10_test_20261017105432_810a7d9c` / OID2144129 / cluster7694897083368259627 / DB user odoo、readonly on、repeatable read，rollback 返回和连接关闭记录齐全。审核者读取保存结果并自行逐字段比较，没有另开数据库连接。39域/750行业务行签名与最近有效04及本次 before 同；文书 confirmed/v4、作者负责人7、版本9→10、编辑字段严格释放、权限关联、原件和附件、1187旧审计及既有编辑审计均不变。此为有限保护域，不称全库逐行审计。
+
+真实 user5/store1 从 patient1 结算工作台 invoice1 的“下载已留存内部账单原件（版本1）”链接点击。审核者亲读本次 intent/response/original-check/browser-close 并目视链接截图；源码使用正常原生导航、登录、切店、点击和下载事件，不用 fetch/fulfill 伪造响应。15 个请求/15 个响应、2 个自动跳转后验观测，0 上游代理 fetch、0 手动跳转、1 个 context/browser、0 pageerror、boundary_failure null；自动重定向严格网络隔离明确为 false，不作不存在的前置拦截保证。实际设备隐私 attestation 来自 PID1777152，logger level30、native HTTP50、diagnostics20、配置 SHA一致；独立父退出记录该 owned 服务 exit0/signal null。未再次点击原件。
+
+本次文件 `.local/s10-technical-closeout-v1/browser-ui-e2c0167f/binary-artifacts/6ba5bf266ecc4e7a8a8c4ea95fbd68fa.stored-original.pdf` 为27,665B，SHA256 `05928780e7d97a06cf29019634f64b010eb4994c2f1c5032d561008a50b059b4`，与旧附件161基线一致。审核者用已安装 pymupdf 独立打开本次文件核1页/未加密，并亲自 view_image 页1图片与链接图片；中文清晰完整、无可见缺字或截断，内部演示/非税票/非到账证明标识、主体/来源及价版本与保留基线相符，四项600+80+40+20=740、原生实收核销740、余额0。未把旧副本或新生成PDF代替本次下载；升级后重取仍 NOT_RUN。主控 pdfinfo/pdftoppm 不存在 exit127 后使用项目既有 pymupdf 后处理，是普通工具失败，未装依赖、重生成旧原件或重点击。
+
+terminal 仅新增 user5 的 audit1194—1198：login、login.scope、store.switch、settlement.invoice_view、settlement.bill_original_download；下载审计指向 original1/version1/同SHA，新 session112/store1，旧 sessions 不变。before SHA `b64cc9af1002ed6fb33ba53a0e192b909a52801b9f7f1cbfaed1909b987f2ccc`，terminal SHA `9b119b859757c9a7f28efe84283237e0a52c83125be7a9458f52d972de0487b8`。累计 Odoo11/targetRO33/HTTP47/Firefox7/originalGET1；本 plan 新增1/3/15/1/1，其中targetRO含启动身份核验一次。accidentRO2/CREATE2/maintenance1保持。这些是资源次数，不是测试通过数。
+
+公开 `docs/evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json` 与矩阵 A 投影内容方向准确，不含凭据或 PDF/诊疗原文；A pending 状态可据本签署更新为升级前限定通过。签署时提醒主控修正 matrix.candidate_status 的旧 NOT_FROZEN 标记，并刷新已更新私有 first-ro/post-a 索引的 byte/SHA；本签不预认证后续修改字节或远端同步。公开材料仅脱敏断言与索引，私有 raw 位于本机忽略目录、0700/0600；审核者本地可读不等于 GPT 或 GitHub 读者可直接访问。未复算全部历史证据，不签任何未访问的私有材料。后续新候选按影响面复核，禁止为对齐文档SHA重演本次已完成下载或旧经济/文书动作。
+
+Guidelines read：odoo-review、odoo-security；odoo-guidelines Python Imports/Naming、Tests、Changes in a stable version。代码审查范围为本次脚本准入及原件调用链，不冒全 addon 审计或全历史复验。

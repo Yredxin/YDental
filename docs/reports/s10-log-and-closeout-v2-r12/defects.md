@@ -120,3 +120,11 @@ TR01源码接受后在现scratch第一次真实运行五TransactionCase+一HttpC
 |P0-MATRIX-PROJECTION|根与部分 TC 字段仍是历史阻断，A-EDITOR 后续已采。|增加 technical_closeout_plan_v1 当前投影；未改历史字段，未批量标 PASS。|
 
 当前未出现新的产品 FAIL、Native、未知提交或工具安全拒绝；旧事件仍有效保留。本轮所有真实业务层级尚待执行，不以本段记录代表功能进展。
+
+
+### 当前 plan A 实测收口（c48d7fb）
+
+- A 浏览器原件下载与1页视觉、两独立RO/39域750行保全由 acceptance_s10 亲核，升级前限定PASS；E-MAIN 后验证仍 NOT_RUN。正常5新增审计与1187旧审计分列，原件未重渲染，旧经济与编辑不变。
+- CURRENT_PLAN 的 NativePrivacyAttestation producer/launch consumer 遗漏由独立审查在首次服务前发现；c48d7fb 最小接入原证明器，未移除handler，实际PID/privacy level30/nativeHTTP50通过。
+- browser聚焦回归首次中间态import错误、launcher fixture.log_config缺项和PDF后处理命令缺失各保首失败，均在团队内纠正；未冒产品拒绝、Native或工具安全拒绝。
+- B/C/D/双E/剩余LOG尚未实际运行；不因A通过清除历史停止事实或其余缺口。

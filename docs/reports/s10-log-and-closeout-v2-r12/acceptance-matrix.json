@@ -6091,7 +6091,7 @@
     "task_id": "S10-LOG-AND-CLOSEOUT-v2",
     "started_at_utc": "2026-10-18T06:52:51Z",
     "authority": "User supplied full plan in current conversation; execution mode enabled; no new GPT comment prerequisite.",
-    "status": "IN_PROGRESS",
+    "status": "IN_PROGRESS_A_PRE_UPGRADE_RUNTIME_COMPLETE",
     "baseline_commit": "d731711ab48d73177303ced9c040601a206412d9",
     "core_commit": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
     "scope": "S10 only; no S11-S13, merge or deployment",
@@ -6104,17 +6104,21 @@
       "tester": "/root/tester_s10",
       "acceptance": "/root/acceptance_s10"
     },
-    "candidate_status": "NOT_FROZEN_FOR_RUNTIME",
-    "current_actual_evidence": [],
+    "candidate_status": "RUNTIME_CANDIDATE_C48D7FB_A_PRE_UPGRADE_VERIFIED_B_NEXT_CANDIDATE_PENDING",
+    "current_actual_evidence": [
+      "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json"
+    ],
     "cases": {
       "A-STATE": {
-        "status": "HISTORICALLY_ACCEPTED_CURRENT_CHECK_PENDING",
+        "status": "PASS_LIMITED_CURRENT_RO_PRESERVATION",
         "required_layers": [
           "MODEL_NATIVE_COMMITTED"
         ],
         "definition_ref": "#/tc_evidence_requirements/A-STATE",
-        "current_evidence": [],
-        "reason": "Prior limited protection baseline accepted; current target identity/protection RO not executed."
+        "current_evidence": [
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json"
+        ],
+        "reason": "Current before/terminal independent RO exact identity, 39 domains/750 rows and old audits preserved; normal new view/export audit facts listed separately."
       },
       "A-EDITOR": {
         "status": "HISTORICALLY_ACCEPTED_DO_NOT_REPLAY",
@@ -6129,7 +6133,7 @@
         "reason": "Actual HTTP acquire/release and independent committed-state verification previously accepted; current protection checks only."
       },
       "A-ORIGINAL": {
-        "status": "NOT_RUN",
+        "status": "PASS_SCOPED_PRE_UPGRADE",
         "required_layers": [
           "BROWSER",
           "HTTP/RPC",
@@ -6137,8 +6141,10 @@
           "MODEL_NATIVE_COMMITTED"
         ],
         "definition_ref": "#/tc_evidence_requirements/A-ORIGINAL",
-        "current_evidence": [],
-        "reason": "Current plan runtime not yet dispatched; specific prerequisites being checked."
+        "current_evidence": [
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json"
+        ],
+        "reason": "Independent acceptance personally checked actual native workbench download, screenshot and every PDF page (1), before/terminal 39-domain protection, old audits and owned exit; E-MAIN post-upgrade UI remains NOT_RUN."
       },
       "B-MODEL-6": {
         "status": "NOT_RUN",
@@ -6579,6 +6585,7 @@
       "applicability_review": "Old R12 package remains frozen; later separately scoped framework6 and MAIN-A were actually executed. Current plan normal integration requires explicit action/target/owner and preservation checks; no refused request is replayed.",
       "reviewer": "/root/acceptance_s10",
       "current_tool_refusal": null
-    }
+    },
+    "runtime_test_commit": "c48d7fb23765aaac843739ab276db3138f971bf9"
   }
 }

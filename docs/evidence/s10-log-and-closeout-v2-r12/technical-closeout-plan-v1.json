@@ -1,0 +1,131 @@
+{
+  "plan_id": "YD-S10-TECHNICAL-CLOSEOUT-V1",
+  "version": "1.0",
+  "task_id": "S10-LOG-AND-CLOSEOUT-v2",
+  "status": "IN_PROGRESS",
+  "product_commit": "cf5d63fe510b52ea150d07495bf3062f4ce0961d",
+  "runtime_test_commit": "c48d7fb23765aaac843739ab276db3138f971bf9",
+  "core_commit": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+  "executor": "/root/tester_s10",
+  "reviewer": "/root/acceptance_s10",
+  "evidence_boundary": "Public sanitized assertions/index; raw clinical/financial files remain private local references, not remotely readable evidence.",
+  "A-STATE": {
+    "status": "PASS_LIMITED_CURRENT_RO_PRESERVATION",
+    "layers": [
+      "INDEPENDENT_COMMITTED_READ_ONLY"
+    ],
+    "identity": {
+      "cluster": "7694897083368259627",
+      "database": "ydental_s10_test_20261017105432_810a7d9c",
+      "dbuser": "odoo",
+      "isolation": "repeatable read",
+      "oid": 2144129,
+      "readonly": "on"
+    },
+    "protected_tables": 39,
+    "protected_rows": 750,
+    "protected_changes": [],
+    "old_audit_rows_preserved": 1187,
+    "editor_released": true,
+    "exit_codes": [
+      0,
+      0
+    ],
+    "cleanup": "ROLLBACK_RETURNED_CONNECTION_CLOSED",
+    "independent_acceptance": "LIMITED_COMMITTED_RO_PRESERVATION"
+  },
+  "A-ORIGINAL": {
+    "status": "PASS_SCOPED_PRE_UPGRADE",
+    "layers": [
+      "REAL_FIREFOX_UI_NATIVE",
+      "HTTP",
+      "PDF_VISUAL",
+      "INDEPENDENT_COMMITTED_READ_ONLY"
+    ],
+    "actor_id": 5,
+    "store_id": 1,
+    "patient_id": 1,
+    "invoice_id": 1,
+    "original_id": 1,
+    "attachment_id": 161,
+    "normal_workbench_link_clicked": true,
+    "download_bytes": 27665,
+    "download_sha256": "05928780e7d97a06cf29019634f64b010eb4994c2f1c5032d561008a50b059b4",
+    "page_count": 1,
+    "chinese_and_page_content_reviewed_by_coordinator": true,
+    "new_original_rendered": false,
+    "upgrade_post_verification": "NOT_RUN",
+    "new_audit_events": [
+      "login",
+      "login.scope",
+      "store.switch",
+      "settlement.invoice_view",
+      "settlement.bill_original_download"
+    ],
+    "old_audits_preserved": true,
+    "exit_code": 0,
+    "owned_service": "EXITED",
+    "ports_18410_18411": "NO_LISTENER_AFTER_EXECUTION",
+    "independent_acceptance": {
+      "reviewer": "/root/acceptance_s10",
+      "source_diff_implementation_participation": false,
+      "personally_checked": [
+        "actual native browser intent/response/download and close",
+        "workbench link screenshot",
+        "all PDF pages (1)",
+        "before/terminal independent RO",
+        "owned parent exit/native privacy proof"
+      ],
+      "scope": "Only current main pre-upgrade A at c48d7fb; E-MAIN and remaining groups not passed."
+    }
+  },
+  "counts": {
+    "cumulative": {
+      "accident_ro": 2,
+      "create": 2,
+      "firefox": 7,
+      "http": 47,
+      "maintenance": 1,
+      "odoo_start": 11,
+      "original_get": 1,
+      "target_ro": 33
+    },
+    "current_plan": {
+      "firefox": 1,
+      "http": 15,
+      "odoo_start": 1,
+      "original_get": 1,
+      "target_ro": 3
+    },
+    "counts_are_not_test_pass_totals": true
+  },
+  "private_index_references": [
+    {
+      "ref": ".local/s10-technical-closeout-v1/first-ro-result-index.json",
+      "bytes": 1768,
+      "sha256": "069c97ed167563b4d377608fe8ff4d6b5671b4822d25dc787b0cf08ea4d2b386",
+      "access": "PRIVATE_LOCAL_NOT_GITHUB_READABLE"
+    },
+    {
+      "ref": ".local/s10-technical-closeout-v1/post-a-ro-result-index.json",
+      "bytes": 1458,
+      "sha256": "c5ad9ccb74af13332b8a41a7ec3f1a5af1c848730d51b037365de52569e9657e",
+      "access": "PRIVATE_LOCAL_NOT_GITHUB_READABLE"
+    },
+    {
+      "ref": ".local/s10-technical-closeout-v1/original-pdf-review/index.json",
+      "bytes": 890,
+      "sha256": "e0912072b65e44bd02bb15e4d81d02429c72c3954ee99fd3def3b5ad1703b055",
+      "access": "PRIVATE_LOCAL_NOT_GITHUB_READABLE"
+    }
+  ],
+  "ordinary_tool_failures": [
+    {
+      "action": "PDF postprocessing",
+      "commands": "pdfinfo / pdftoppm",
+      "exit_code": 127,
+      "resolution": "Existing project pymupdf read/render of saved current download; no installation, new rendering of original, or repeated click."
+    }
+  ],
+  "remaining": "B MODEL/RPC, C, unique scratch D, E-MAIN/E-D, LOG gaps and finance closure; no S10 completion claimed."
+}
