@@ -16,3 +16,4 @@ from . import ydental_settlement_bill_original
 from . import ydental_settlement_original_service
 from . import ir_attachment_original
 from . import ir_actions_report
+from . import product_template
