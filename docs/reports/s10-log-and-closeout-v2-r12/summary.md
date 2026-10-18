@@ -1,3 +1,33 @@
+# B revision2：证据适配源码与73项组合纯回归交付
+
+本轮为同一task `S10-LOG-AND-CLOSEOUT-v2` 的 **B-CALLER-OFFLINE-REPAIR / revision2 / EVIDENCE_ADAPTERS_CODE_ONLY**，直接依据用户续行与[正式6245528347第3—4节](https://github.com/Yredxin/YDental/issues/34#issuecomment-6245528347)。revision1已经正式采纳并结束，本轮不重审其完整源码，不另交规划。原团队实际恢复响应，clean工作树安全快进远端唯一CURRENT_TASK文档至 `0dc7d8c3ad8e604e4065beaac3f4c83069b794f6`，无新所有权冲突。YD-HANDOFF-V1.0、当前状态09和正式全文同读；主控仅维护同一个状态及现有报告。
+
+固定代码/测试 **T `a55dcee3ec749d2311beb291cced61e3d3a78284`**，改动六文件：既有cases/evidence/fixture_process、测试addon私有helper、受影响旧B纯测和一份聚焦adapter纯测。产品仍cf5d63fe510b52ea150d07495bf3062f4ce0961d，core仍f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb；真正UI执行仍ee73081c09f06e7bae5bc5660061d6391ef977f5，业务证据仍ce3789772be34a3c32426edf309c2ebdd0a3492a。
+
+|本轮具体接线|实际完成及证据边界|
+|---|---|
+|MODEL父子调用|run_fixture显式main-b-only参数、evidence_factory及结果/失败收集，调用原fixture.main早返回路径；同一匿名管道逐项before/after checkpoint/ACK。before实际采完才记probe started；after在原生savepoint回滚及观察保存后才采；terminal在child退出/owned rollback-close后各自采集，不复制最终结果或倒填时间。父失败、outer rollback/close失败、非0退出均保partial/首因类型并阻断六MODEL完成；setup失败收敛四FD，无业务提交。|
+|身份/关系适配|Actor保正常switch request_id、请求store与真实返回revision；session_metadata从同一正常Client的native session_info仅投影uid/db/角色/店名/revision/公司及安全来源，不导出SID、device_salt、cookie/token或摘要。manifest_from_b_source消费已核RO来源；核活跃用户/员工/门店、原生group XMLID及implied闭包、非管理员/application资格、唯一scope、patient/invoice/line/payment/公司关系。execution_store是S06租约语义，未误当普通scope店。真实账号与来源本轮没有采集。|
+|独立RO生产与消费|b_selections/collect_b_source/b_collect_step复用原collect_selection；只选固定B-safe必要表列，res_users不整行/不rowdigest，秘密列只允许指定ISNULL，ID/过滤值绑定且新形状在budget/connect前拒绝。connect前核marker身份及P/T/core，footer保target_ref；原collector关闭ROLLBACK/连接后做大JSON校验封存。read_b_source逐文件bytes/SHA、server row hash、physical table、index、marker候选/目标、关闭记录和measurement去重复核，再由receipt_from_b_source接原R1逐项/终核消费者；编辑实际字段必须严格释放。|
+|原生日志接线|复用实际observed_http、emit_event/JsonlFormatter/PidFileHandler、ProcessLogGuard及validate_jsonl。live只核完整前缀，final在owned close后核run.end/.seal，再验证每个已观察前缀未变；核真实producer的run/task/P/T/core，目标来自已核launch/probe/marker，PID/时点来自既有parent-exit。client与server UUID分开；evidence_ref由校验后的解析器附加，不冒raw logger已有该字段。|
+|耐久引用与生命周期|既有app.directory保存b-log-live-NN.json和b-log-final.json安全来源/locations/prefix及manifest引用；逐项server、before/after及terminal保可回读bytes/SHA描述符，短ref可定位原日志。map写失败保存transport后停止。normal metadata仅before正常获取，after/terminal消费有来源/时间界限cache与新RO；服务关闭后及UNKNOWN后不为取证再派HTTP。|
+
+**最终实际纯回归73/73 PASS，0failure/0error/0skip，exit0，14.528602606秒**：32新适配组合＋30受影响B＋11受影响HTTP。固定T后一次统一运行，12份实现/测试/实际producer合同源码前后SHA相同。使用当前解释器的保存here-doc unittest命令，600秒alarm、输出界限、workspace内0700 synthetic-tmp；不是启动Odoo或重跑原生框架。真实函数覆盖producer/collector→文件/封存→parser/引用→原R1消费者，外部connect/cursor/HTTP/进程仅显式替身；MODEL用线程替代进程而仍经过真实匿名pipe及父/子/helper。未以所有回调手填PASS代替适配，合成环境不冒真实普通用户或已提交业务。
+
+首开发27项为25PASS/2FAIL/0ERROR，首日志/result及修补说明保留，**不与最终73累计**。两FAIL是测试期望：预采旧素材早于native metadata，被fresh gate正确提前拒绝0请求；测试改为首次在实际callback内采，再复用同ref验证拒绝。另一是已关联su=True的实际分类MISMATCH，原测试误写PENDING；只改精确预期，仍只1请求/总体PENDING。原fresh/reuse/su标准没有放宽；原acceptance已独立核这两首因。开发冻结前的来源/PID、清理失败、关闭后HTTP和短ref耐久出口问题均在本包修正，无新P0或平台。
+
+原developer单写四实现，tester单写两聚焦测试并执行73，原acceptance独立核新增diff/实际覆盖/保存结果，未实现或运行被验收代码；root单写状态/其他报告及同步。独立最终签署见acceptance-review本轮追加，仅SOURCE/PURE，不预签GitHub同步。原六框架/150/A-EDITOR及旧资金/文书/原件不重做；B-MODEL-6/B-RPC-6仍NOT_RUN，actual_evidence空。
+
+受控引用仍在既有handoff目录的b-caller-offline-r2：final log13608B/SHA ff7f30ea41a50e5d3e6d3bca91fe2885392a7153e60e9edee8e9c2b7497b156e；result3925B/SHA 744397453fc5ae26dc10b09c176da6ab8a21f3fc46238d50e73b71aa4d76be82；完整command3596B/SHA a04ae1d81a5a5036497f09f1e7dfd49fc1f4fc8eaebfb8628c8e361e9090bb38；index2394B/SHA112e704d39814aa30e79f20b8c869089692a670f00d9ce12c8c1f2e16b743b0a。first/disposition及全部精确引用、0600模式、12源码SHA见matrix::b_caller_offline_repair_revision2。输出快照52387B/64MiB，后续少量同步材料另计；不是全机输出/OS隔离保证。
+
+**剩余条件是正式运行准出与现场事实，停止离线扩建。** run_b_only的B_RUNTIME_PROFILE_INTEGRATION_PENDING、runtime_gate/TaskProfile/PackageBudget/MAIN-A/STOP原样；有效包、profile/owner/预算需要由后续正式范围覆盖后才能接通，不能凭本评论开跑。当前调用图MODEL每项before/after/terminal为18RO，RPC同为18RO，manifest另1，共至少37目标RO，不含服务预检；旧累计30/48仅剩18，不足完整本组，未自行扩预算。真实正常身份/provider可用性、无歧义当前scope、目标/关系与日志现场来源仍须届时测量；六MODEL/六RPC、逐项独立保全尚未执行，不能承诺下一轮一定可运行。原整包正文/blob e8e2140a82ff7776e6d7f975415f4ee544c9b737保持PREPARED_NOT_AUTHORIZED；本轮不处理或重发旧被拒授权。
+
+本轮新增Odoo/registry/DB/业务HTTP/Firefox/provider/资金/编辑/PDF/升级全0，累计仍10/30/32/6/0，事故RO2/维护1/CREATE2不变。仅发生本地合成文件/管道I/O、纯测及Git/GitHub协作同步；SOURCE/PURE收口后不自动转应用、不启S11或合并部署。
+
+---
+
+以下为revision1及更早已采历史原文，限各自时点与范围：
+
 # B调用编排离线修复已交付：SOURCE/PURE通过，业务MODEL/RPC未运行
 
 本轮执行 **B-CALLER-OFFLINE-REPAIR / revision 1**，同task `S10-LOG-AND-CLOSEOUT-v2`，直接依据用户续行要求与[正式6245198569第2—3节](https://github.com/Yredxin/YDental/issues/34#issuecomment-6245198569)。74ad8c6只读交付已正式采纳并结束，本轮完成实际测试代码修改、纯回归和独立审查，没有再交规划。起点 `1490ff5fc1d9c2427126ecf687c906fe3d318967` 仅最新CURRENT_TASK文档，起始工作树干净，安全快进，无新的所有权冲突；沿用原主控/开发/测试/验收，未新建团队或计划。

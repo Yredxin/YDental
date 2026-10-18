@@ -5729,5 +5729,338 @@
     },
     "evidence_index_commit": "8892fcc913d62477e566dfcc174022df98ad975b",
     "work_state": "DELIVERED_AND_STOPPED_NO_APPLICATION_RUNTIME"
+  },
+  "b_caller_offline_repair_revision2": {
+    "work": "B-CALLER-OFFLINE-REPAIR",
+    "revision": 2,
+    "scope": "EVIDENCE_ADAPTERS_CODE_ONLY",
+    "task_id": "S10-LOG-AND-CLOSEOUT-v2",
+    "authority_url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6245528347",
+    "source_parent": "0dc7d8c3ad8e604e4065beaac3f4c83069b794f6",
+    "code_test_candidate": "a55dcee3ec749d2311beb291cced61e3d3a78284",
+    "product_commit": "cf5d63fe510b52ea150d07495bf3062f4ce0961d",
+    "core_commit": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+    "status": "SOURCE_AND_PURE_SCOPED_ACCEPTED_BY_INDEPENDENT_ACCEPTANCE_B_RUNTIME_NOT_RUN",
+    "application_runtime_authorization": "NONE",
+    "pure_result": {
+      "command_file": "tester-r2-final-command.txt",
+      "elapsed_seconds": 14.528602605918422,
+      "errors": 0,
+      "exit_code": 0,
+      "external_boundaries": {
+        "DB": 0,
+        "Firefox": 0,
+        "HTTP": "FakeOpener only",
+        "MODEL": "synthetic thread + real anonymous pipes + fake ORM",
+        "Odoo_starts": 0,
+        "business_HTTP": 0,
+        "connect_and_cursor": "explicit synthetic rows",
+        "native_log": "actual dependency-free producer definitions in synthetic directory",
+        "provider_reads": 0,
+        "registry": 0,
+        "socket_and_subprocess_guarded_in_tests": true
+      },
+      "failures": 0,
+      "first_development_run_separate": {
+        "errors": 0,
+        "failures": 2,
+        "tests": 27
+      },
+      "first_disposition": "tester-r2-first-failure-disposition.json",
+      "fixed_test_commit": "a55dcee3ec749d2311beb291cced61e3d3a78284",
+      "layer": "PURE_SYNTHETIC_ONLY",
+      "limits": {
+        "command_seconds": 600,
+        "new_output_bytes": 67108864
+      },
+      "modules": {
+        "s10_lc2_test_b_adapters": 32,
+        "s10_lc2_test_b_caller": 30,
+        "s10_lc2_test_http": 11
+      },
+      "new_directory_bytes_before_result": 46068,
+      "skipped": 0,
+      "source_after": {
+        "scripts/s10_lc2_cases.py": "95e428bea0779fcf806f6d77054113f92d0b5be1cd0a73b188a6ec8cb7bd9e6e",
+        "scripts/s10_lc2_evidence.py": "af7bb4861b73faba08e9b0ad346b8f1a7ecb20c709d04f2aca7c8c626c9e4645",
+        "scripts/s10_lc2_fixture_process.py": "f2f62c81c897c0977cb78139b0e669a5f9813d3b95d9ce4c30c26ab6d9109741",
+        "scripts/s10_lc2_http.py": "e9827ae44df3b43662ab9302f2b505afb289fe3beac739d08d196047627a208c",
+        "scripts/s10_lc2_logging.py": "df40e7ab6f46cf60a8d5c6baf8e292ced10bde7b74ca90f2d4f8833cc90fac0f",
+        "scripts/s10_lc2_process_guard.py": "93cd07d2a14e0786fc9af0071e1fbab0ac60be6e2dad68eb9261cf07ff5e9a2a",
+        "scripts/s10_lc2_test_b_adapters.py": "6962ad8e8601490fdc41ae39e124d5ecd124508baf7b436f3f9081e73ac25311",
+        "scripts/s10_lc2_test_b_caller.py": "a11f01ebdf470c8e4a8b4086210d45c8aba05453002eb1873ce75a6269ff2b07",
+        "scripts/s10_lc2_test_http.py": "c090890261b58520c0a1e8666dce0c7fc349aac820263c39e757946cb349fead",
+        "ydental_access/controllers/diagnostics.py": "b60095326a9ceec8380dc0945484302be4a8f59eddee710a382cdb5d03812c47",
+        "ydental_access/diagnostics.py": "2c66712610257c3d662bfbbf7bbddd33a7c7985f34598a81d3d8fd2ae32ea0c1",
+        "ydental_settlement_test/models/lc2_fixture.py": "defb8d718706a565f98e19ebb3495ff1c978251ea8dc4db409b7f78abbf88020"
+      },
+      "source_before": {
+        "scripts/s10_lc2_cases.py": "95e428bea0779fcf806f6d77054113f92d0b5be1cd0a73b188a6ec8cb7bd9e6e",
+        "scripts/s10_lc2_evidence.py": "af7bb4861b73faba08e9b0ad346b8f1a7ecb20c709d04f2aca7c8c626c9e4645",
+        "scripts/s10_lc2_fixture_process.py": "f2f62c81c897c0977cb78139b0e669a5f9813d3b95d9ce4c30c26ab6d9109741",
+        "scripts/s10_lc2_http.py": "e9827ae44df3b43662ab9302f2b505afb289fe3beac739d08d196047627a208c",
+        "scripts/s10_lc2_logging.py": "df40e7ab6f46cf60a8d5c6baf8e292ced10bde7b74ca90f2d4f8833cc90fac0f",
+        "scripts/s10_lc2_process_guard.py": "93cd07d2a14e0786fc9af0071e1fbab0ac60be6e2dad68eb9261cf07ff5e9a2a",
+        "scripts/s10_lc2_test_b_adapters.py": "6962ad8e8601490fdc41ae39e124d5ecd124508baf7b436f3f9081e73ac25311",
+        "scripts/s10_lc2_test_b_caller.py": "a11f01ebdf470c8e4a8b4086210d45c8aba05453002eb1873ce75a6269ff2b07",
+        "scripts/s10_lc2_test_http.py": "c090890261b58520c0a1e8666dce0c7fc349aac820263c39e757946cb349fead",
+        "ydental_access/controllers/diagnostics.py": "b60095326a9ceec8380dc0945484302be4a8f59eddee710a382cdb5d03812c47",
+        "ydental_access/diagnostics.py": "2c66712610257c3d662bfbbf7bbddd33a7c7985f34598a81d3d8fd2ae32ea0c1",
+        "ydental_settlement_test/models/lc2_fixture.py": "defb8d718706a565f98e19ebb3495ff1c978251ea8dc4db409b7f78abbf88020"
+      },
+      "source_unchanged": true,
+      "success": true,
+      "temporary_root": "/home/redxin/code/odoo/odoo-sd/code/sd-addons/.local/yd-handoff-v1-20261018/b-caller-offline-r2/synthetic-tmp",
+      "tests": 73
+    },
+    "tester_index": {
+      "application_cumulative_unchanged": {
+        "Firefox": 6,
+        "HTTP": 32,
+        "Odoo": 10,
+        "RO": 30,
+        "original_GET": 0
+      },
+      "directory_bytes_before_index": 49993,
+      "directory_mode": "0700",
+      "final_errors": 0,
+      "final_exit_code": 0,
+      "final_failures": 0,
+      "final_seconds": 14.528602605918422,
+      "final_skipped": 0,
+      "final_tests": 73,
+      "first_development_counts_separate": {
+        "errors": 0,
+        "failures": 2,
+        "tests": 27
+      },
+      "fixed_test_commit": "a55dcee3ec749d2311beb291cced61e3d3a78284",
+      "groups": {
+        "existing_B": 30,
+        "existing_HTTP": 11,
+        "new_adapters": 32
+      },
+      "layer": "SOURCE_AND_PURE_ONLY",
+      "no_further_execution": "tester_source_stopped_final_regression_complete",
+      "real_external_activity": {
+        "DB": 0,
+        "Firefox": 0,
+        "HTTP": 0,
+        "Odoo": 0,
+        "provider": 0,
+        "registry": 0
+      },
+      "refs": [
+        {
+          "bytes": 6335,
+          "mode": "0600",
+          "path": ".local/yd-handoff-v1-20261018/b-caller-offline-r2/tester-r2-first-run.log",
+          "sha256": "aa70821d1018d92732a667ff8ae910f258e656efcc79fe97657a1106757ea034"
+        },
+        {
+          "bytes": 1819,
+          "mode": "0600",
+          "path": ".local/yd-handoff-v1-20261018/b-caller-offline-r2/tester-r2-first-result.json",
+          "sha256": "f7d417d27b3a8335c75993eb03c6d146e0c3b694a7b0a97e559179dbe1ae4dfd"
+        },
+        {
+          "bytes": 1572,
+          "mode": "0600",
+          "path": ".local/yd-handoff-v1-20261018/b-caller-offline-r2/tester-r2-first-failure-disposition.json",
+          "sha256": "12273600c59ab80174463df85bcd6a24d9751f0d99f85025d55b69a9ccec01d3"
+        },
+        {
+          "bytes": 3596,
+          "mode": "0600",
+          "path": ".local/yd-handoff-v1-20261018/b-caller-offline-r2/tester-r2-final-command.txt",
+          "sha256": "a04ae1d81a5a5036497f09f1e7dfd49fc1f4fc8eaebfb8628c8e361e9090bb38"
+        },
+        {
+          "bytes": 13608,
+          "mode": "0600",
+          "path": ".local/yd-handoff-v1-20261018/b-caller-offline-r2/tester-r2-final-run.log",
+          "sha256": "ff7f30ea41a50e5d3e6d3bca91fe2885392a7153e60e9edee8e9c2b7497b156e"
+        },
+        {
+          "bytes": 3925,
+          "mode": "0600",
+          "path": ".local/yd-handoff-v1-20261018/b-caller-offline-r2/tester-r2-final-result.json",
+          "sha256": "744397453fc5ae26dc10b09c176da6ab8a21f3fc46238d50e73b71aa4d76be82"
+        }
+      ],
+      "remaining_business_evidence": "B_MODEL_6_NOT_RUN_B_RPC_6_NOT_RUN",
+      "schema": "LC2_B_CALLER_R2_TESTER_INDEX_1"
+    },
+    "first_failure_disposition": {
+      "changes": [
+        {
+          "actual_requests": 0,
+          "cause": "Test pre-collected before fresh native metadata; actual freshness gate correctly rejected before send.",
+          "first_expected_requests": 1,
+          "patch": "First collection now occurs inside actual callback after native metadata; subsequent after/terminal reuses the same material and actual used-set rejects it.",
+          "test": "test_actual_callback_reused_source_cannot_pass"
+        },
+        {
+          "actual_server_identity": "MISMATCH",
+          "first_expected_server_identity": "PENDING",
+          "patch": "Assert precise MISMATCH from actual server env su flag; retain one request and PENDING overall.",
+          "test": "test_actual_server_env_su_flag_cannot_be_intent_claim"
+        }
+      ],
+      "current_test_sha256": "297941e8e1b80dd23d012b96ac1439461b8903e271a0ee223befef77a6c11b61",
+      "final_regression": "WAIT_FIXED_CANDIDATE",
+      "first_counts": {
+        "errors": 0,
+        "failures": 2,
+        "tests": 27
+      },
+      "first_log": {
+        "bytes": 6335,
+        "path": ".local/yd-handoff-v1-20261018/b-caller-offline-r2/tester-r2-first-run.log",
+        "sha256": "aa70821d1018d92732a667ff8ae910f258e656efcc79fe97657a1106757ea034"
+      },
+      "first_result": {
+        "bytes": 1819,
+        "path": ".local/yd-handoff-v1-20261018/b-caller-offline-r2/tester-r2-first-result.json",
+        "sha256": "f7d417d27b3a8335c75993eb03c6d146e0c3b694a7b0a97e559179dbe1ae4dfd"
+      },
+      "first_test_sha256": "dabdfeb22ddee17a9996fc308bbb63f080da649b79ccd12d63c2dbc932a9dcba",
+      "implementation_was_not_weakened": true,
+      "layer": "PURE_TEST_EXPECTATION_REPAIR"
+    },
+    "references": {
+      "authority-6245528347.md": {
+        "path": ".local/yd-handoff-v1-20261018/b-caller-offline-r2/authority-6245528347.md",
+        "bytes": 7473,
+        "sha256": "718bfac41e95e1bdd0000093d7631d947562e06d27da7556fff2cff5e7d35ab9",
+        "mode": "0o600"
+      },
+      "protected-baseline.json": {
+        "path": ".local/yd-handoff-v1-20261018/b-caller-offline-r2/protected-baseline.json",
+        "bytes": 834,
+        "sha256": "b8c1930805f81aa488cfb2c9786f153b60727a02bc7d01f2430e688ee40e7591",
+        "mode": "0o600"
+      },
+      "tester-r2-first-run.log": {
+        "path": ".local/yd-handoff-v1-20261018/b-caller-offline-r2/tester-r2-first-run.log",
+        "bytes": 6335,
+        "sha256": "aa70821d1018d92732a667ff8ae910f258e656efcc79fe97657a1106757ea034",
+        "mode": "0o600"
+      },
+      "tester-r2-first-result.json": {
+        "path": ".local/yd-handoff-v1-20261018/b-caller-offline-r2/tester-r2-first-result.json",
+        "bytes": 1819,
+        "sha256": "f7d417d27b3a8335c75993eb03c6d146e0c3b694a7b0a97e559179dbe1ae4dfd",
+        "mode": "0o600"
+      },
+      "tester-r2-first-failure-disposition.json": {
+        "path": ".local/yd-handoff-v1-20261018/b-caller-offline-r2/tester-r2-first-failure-disposition.json",
+        "bytes": 1572,
+        "sha256": "12273600c59ab80174463df85bcd6a24d9751f0d99f85025d55b69a9ccec01d3",
+        "mode": "0o600"
+      },
+      "tester-r2-final-command.txt": {
+        "path": ".local/yd-handoff-v1-20261018/b-caller-offline-r2/tester-r2-final-command.txt",
+        "bytes": 3596,
+        "sha256": "a04ae1d81a5a5036497f09f1e7dfd49fc1f4fc8eaebfb8628c8e361e9090bb38",
+        "mode": "0o600"
+      },
+      "tester-r2-final-run.log": {
+        "path": ".local/yd-handoff-v1-20261018/b-caller-offline-r2/tester-r2-final-run.log",
+        "bytes": 13608,
+        "sha256": "ff7f30ea41a50e5d3e6d3bca91fe2885392a7153e60e9edee8e9c2b7497b156e",
+        "mode": "0o600"
+      },
+      "tester-r2-final-result.json": {
+        "path": ".local/yd-handoff-v1-20261018/b-caller-offline-r2/tester-r2-final-result.json",
+        "bytes": 3925,
+        "sha256": "744397453fc5ae26dc10b09c176da6ab8a21f3fc46238d50e73b71aa4d76be82",
+        "mode": "0o600"
+      },
+      "tester-r2-index.json": {
+        "path": ".local/yd-handoff-v1-20261018/b-caller-offline-r2/tester-r2-index.json",
+        "bytes": 2394,
+        "sha256": "112e704d39814aa30e79f20b8c869089692a670f00d9ce12c8c1f2e16b743b0a",
+        "mode": "0o600"
+      }
+    },
+    "source_and_pure_closed": [
+      "MAIN_B_ONLY_PARENT_CHILD_CHECKPOINT_AND_FAILURE_COLLECTION",
+      "NORMAL_SWITCH_NATIVE_SESSION_RO_GROUP_SCOPE_RELATIONS",
+      "SAFE_PROJECTED_ORIGINAL_RO_COLLECTOR_AND_SEALED_REFERENCE_PARSER",
+      "REAL_NATIVE_LOG_FIELDS_LIVE_PREFIX_FINAL_SEAL_WITH_SOURCE_BINDING",
+      "DURABLE_LOCATIONS_AND_RO_TERMINAL_SOURCE_REFERENCE_CONSUMPTION",
+      "ACTUAL_PRODUCER_ADAPTER_PARSER_R1_CONSUMER_COMPOSITION",
+      "ALL_RUNTIME_GATES_AND_INTEGRATION_PENDING_PRESERVED"
+    ],
+    "B-MODEL-6": {
+      "status": "NOT_RUN",
+      "actual_evidence": []
+    },
+    "B-RPC-6": {
+      "status": "NOT_RUN",
+      "actual_evidence": []
+    },
+    "protected_ast_and_files": "UNCHANGED_AGAINST_0dc7d8c",
+    "application_package_status": "PREPARED_NOT_AUTHORIZED",
+    "unchanged_package_blob": "e8e2140a82ff7776e6d7f975415f4ee544c9b737",
+    "remaining_real_conditions": [
+      "VALID_FORMAL_RUNTIME_PACKAGE_AND_CORRESPONDING_PROFILE_OWNER_BUDGET_ADMISSION",
+      "NORMAL_REAL_IDENTITY_PROVIDER_SCOPE_TARGET_RELATION_AND_LOG_SOURCE_MEASUREMENTS",
+      "REAL_SIX_MODEL_SIX_RPC_AND_PER_CASE_INDEPENDENT_PRESERVATION"
+    ],
+    "source_estimated_ro_calls": {
+      "MODEL": 18,
+      "RPC": 18,
+      "manifest": 1,
+      "sum_without_service_preflights": 37,
+      "old_available": 18,
+      "budget_expanded": false
+    },
+    "runtime_counts_added": {
+      "odoo": 0,
+      "registry": 0,
+      "database": 0,
+      "business_http": 0,
+      "firefox": 0,
+      "provider": 0,
+      "finance_editor_pdf_upgrade": 0
+    },
+    "cumulative_unchanged": {
+      "odoo": 10,
+      "target_ro": 30,
+      "business_http": 32,
+      "firefox": 6,
+      "original_get": 0,
+      "accident_ro": 2,
+      "maintenance": 1,
+      "create": 2
+    },
+    "roles": {
+      "controller": "/root",
+      "developer": "/root/developer_autonomy",
+      "tester": "/root/tester_autonomy",
+      "acceptance": "/root/acceptance_autonomy",
+      "same_original_team": true,
+      "os_isolation_claimed": false
+    },
+    "output_snapshot_bytes": 52387,
+    "output_limit_bytes": 67108864,
+    "single_pure_command_limit_seconds": 600,
+    "github_sync": "PENDING_THIS_REAL_REVISION2_DELIVERY_ONLY_NO_AUTHORIZATION_RELAY",
+    "next_action": "DELIVER_SOURCE_PURE_AND_STOP_NO_OFFLINE_EXPANSION_OR_AUTO_RUNTIME",
+    "independent_acceptance": {
+      "reviewer": "/root/acceptance_autonomy",
+      "status": "SOURCE_AND_PURE_SCOPED_ACCEPTED",
+      "report_path": "docs/reports/s10-log-and-closeout-v2-r12/acceptance-review.md",
+      "report_bytes": 113781,
+      "report_sha256": "a6668f1ae88c92d0814be0fd1719f6c8db17fe4d648c8811ee33dc26496cbdc0",
+      "preserved_historical_prefix_bytes": 105248,
+      "preserved_historical_prefix_sha256": "5c9254b08f7d82b85527baedfdff50270b29df70a82a54d6165feff3b6d2e669",
+      "implementation_by_reviewer": false,
+      "future_github_sync_presigned": false,
+      "ownership_returned": true,
+      "final_document_diff_reviewed": true
+    }
   }
 }

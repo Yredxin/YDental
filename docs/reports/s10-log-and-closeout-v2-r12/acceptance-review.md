@@ -401,3 +401,29 @@ RPC Actor在RAM中精确比较原生name和固定公开参数列表，区分格�
 本轮只接受调用者隔离和证据消费的SOURCE/PURE准备项。未来仍缺有效应用包/profile和真实启动adapter、合法普通账号与目标的现场来源、provider加载及正常会话身份核实、server事件/RO真实采集与引用解析，六MODEL/六RPC及独立COMMITTED保全均NOT_RUN。旧应用累计10/30/32/6/0与事故RO2/maintenance1/CREATE2保持；六框架、A-EDITOR和旧资金/文书/原件不重判或重放。原整包仍PREPARED_NOT_AUTHORIZED，S10/S11/生产状态不提升；没有应用start/deadline或后续运行授权。本签署不预认证主控尚未完成的报告同步、证据提交或GitHub评论。Guidelines read：odoo-review/security全文、Python Imports/Naming、ORM recordsets/methods/transactions、Controllers、Tests；只作本次定向审查。
 
 封口文档补核：已只读核状态08和summary/defects/matrix本轮实际差异，SOURCE/PURE、最终41项、未完成真实profile/adapter/引用解析及NOT_RUN边界与证据一致，无必要更正。旧summary完整77,805B后缀、defects完整17,100B前缀、本报告97,967B前缀均保留；矩阵所有旧对象逐值相同，仅新增b_caller_offline_repair，整包blob仍e8e2140a82ff7776e6d7f975415f4ee544c9b737。GitHub同步仍待实际发生，不预签。审核者到此停写，交回本文件所有权，由主控保存并据实同步；本签不授予后续执行权限。
+
+
+## B-CALLER-OFFLINE-REPAIR revision2 独立验收：SOURCE/PURE限定通过，B业务仍NOT_RUN
+
+签署时间：2026-10-18T04:49:09.140343+00:00。审核者为原团队实际角色 `/root/acceptance_autonomy`；协议 `YD-HANDOFF-V1.0`，已完整读状态09及更新状态10、正式[#34/6245528347](https://github.com/Yredxin/YDental/issues/34#issuecomment-6245528347)第3—4节。此为独立工程验收意见，不代替GPT正式裁定或应用授权。developer实现四源码，tester维护两相关测试文件并执行最终回归，主控维护状态/其他报告和同步；审核者只读实际新增链与保存结果，获主控单写权后仅追加本报告，未实现或执行被验收代码。角色不是OS隔离，线程UUID未知；没有读取真实provider、旧拒材料、连接DB/业务HTTP或启动Odoo/registry/浏览器。本次不重审已采R1业务保护、六框架或A-EDITOR。
+
+固定候选为 `a55dcee3ec749d2311beb291cced61e3d3a78284`，相对 `0dc7d8c3ad8e604e4065beaac3f4c83069b794f6` 的六代码/测试路径经本地checkout核验：cases、evidence、fixture_process、测试addon helper、既有b_caller测试及新b_adapters测试。最终cases SHA256 `95e428bea0779fcf806f6d77054113f92d0b5be1cd0a73b188a6ec8cb7bd9e6e`，evidence `af7bb4861b73faba08e9b0ad346b8f1a7ecb20c709d04f2aca7c8c626c9e4645`，新测试 `6962ad8e8601490fdc41ae39e124d5ecd124508baf7b436f3f9081e73ac25311`；其余源码及依赖producer哈希见下述固定结果的12项清单，审核者逐项与当前文件核同。
+
+本轮SOURCE限定核验结论如下。
+
+- MODEL父调用的main-b-only参数、结果与失败收集已接线。实际helper在每项started之前请求before、原生savepoint回滚及观察持久化之后请求after；匿名pipe逐项ACK，不从最终结果倒填时点。terminal在子进程退出、外层owned cursor回滚/关闭之后独立采集。维持普通首Environment/default_env、非admin/system、原生回滚及精确AccessError/固定公共参数语义。六行齐全但外层rollback/close失败、child b.failure或非零退出，均保部分观察并标producer_status FAILED，不构建RPC actor；before拒绝不触碰目标。父准备失败不启动应用并关闭四FD，observer/terminal首异常只保存类型，不保存任意异常文本。旧报告配置、reader/password/token和A/C/D/E分支未被新B路径调用；源码中存在的旧函数不是可用回退。
+- 新manifest适配消费显式目标、RO关系和正常Actor switch/session_metadata来源，检查uid、active/internal、原生admin/system标志、应用组及direct/implied group元数据、门店/员工/公司、patient/invoice/line/payment关系。真实session_info不提供独立active或普通store ID，代码没有捏造这些原生字段；它结合实际switch请求来源、revision/店名与唯一RO scope行核一致性。S06 execution_store_id属执行租约，False不误判普通店选择失败。metadata仅取必要投影，不导出完整session；before获取，after/terminal消费有来源及时间界限的缓存。服务关闭后、UNKNOWN后均不为取证追加HTTP。
+- B采集在连接前使用固定安全表/列/null表达式/digest白名单，res_users仅必要身份列且无整行摘要；不接受任意SQL或秘密列。复用原RO/RR采集、rollback/close与sealed-index工具，大JSON及文件hash在连接关闭后处理。收据绑定run/task/P/T/core与主目标identity，既有marker的P/T/core/OID前置核验并保存byte/SHA引用；解析再核marker、独立RO身份、退出回执、server row hash、索引/文件精确字节及measurement重用。before/after/terminal来自各自步骤，并核check/phase/point/时序、旧审计/必要业务行保全和严格释放的editor字段，不沿用历史宽松编辑排除。
+- 日志解析读取真实dependency-free native producer字段，复用ProcessLogGuard和validate_jsonl，结合真实launcher/probe/marker/PID/启动时点核run/task/P/T/core及目标。实时逐RPC只验证可追加的完整prefix；owned service关闭后才要求run.end及seal，并复核已读prefix原字节。未把raw logger没有的database/check_id/phase或单数evidence_ref说成原生签发字段。解析后派生的短ref在既有app目录保存locations、来源byte/SHA及manifest引用，逐项server结果保留该map引用；before/after/terminal来源与最终seal回执亦持久化。map保存失败不能提升server身份或总PASS。客户端与服务端UUID分别保存并按opref/attempt/时间唯一关联，缺失、歧义、su/uid错配或UNKNOWN不重试、不补通过。
+
+这些是适配源码与明确替身组合的证据，不是现场身份或保全已发生的证明。固定T最终唯一相关回归为 **32新适配 + 30既有B + 11既有HTTP = 73项，0failure/0error/0skip，exit0，14.5286026059秒**。审核者完整读取命令、73项日志和结果；覆盖实际native emit/formatter/handler/observed_http定义产生合成日志，再经live/final解析、实际关联/消费者；实际collect_selection与b_collect_step在fake connect/cursor外部边界产生文件，再经manifest/receipt适配、实际Actor/Client和main_b；实际MODEL父/child函数通过真实匿名pipe与合成线程/ORM进行握手及十二项组合。覆盖错候选/目标、组与关系不符、破损/缺失/重用、编辑未空、中途失败、外层回滚关闭失败、终核不独立、不同UUID、歧义/su、UNKNOWN、map写失败及旧HTTP行为。没有实际子应用、数据库、网络、浏览器或真实provider执行；不把合成线程/假ORM或日志formatter的运行冒成NATIVE_MODEL/HTTP_RPC。
+
+首轮新27项为25PASS/2FAIL/0ERROR，原log/result保留并单独列示，不与最终73累计。两失败是测试期望：提前采集旧材料被新鲜度门正确拦为0请求；真实server su不符被精确标MISMATCH而非PENDING。测试改为在metadata之后首次实际采集再重用、并断言MISMATCH/只一次请求/整体PENDING；未放宽fresh/reuse/su拒绝。首失败disposition是当时中间快照，其WAIT_FIXED_CANDIDATE和中间测试SHA不替代最终固定T结果。
+
+已读受控根 `.local/yd-handoff-v1-20261018/b-caller-offline-r2/` 的最终命令3596B/SHA256 `a04ae1d81a5a5036497f09f1e7dfd49fc1f4fc8eaebfb8628c8e361e9090bb38`、日志13608B/`ff7f30ea41a50e5d3e6d3bca91fe2885392a7153e60e9edee8e9c2b7497b156e`、结果3925B/`744397453fc5ae26dc10b09c176da6ab8a21f3fc46238d50e73b71aa4d76be82`及索引2394B/`112e704d39814aa30e79f20b8c869089692a670f00d9ce12c8c1f2e16b743b0a`。索引6项refs的bytes/SHA/0600及非symlink独立核同，根0700；最终12源码执行前后及当前一致。聚合52,387B、单命令14.53秒低于64MiB/600秒限制。审核者仅做读取/hash/AST比较，未重跑测试。裸python命令不存在后，数据核验改用既有../.venv/bin/python；此只读命令差错没有应用或测试重执。
+
+保护边界已独立核：runtime_gate与run_b_only AST同0dc，后者仍无条件B_RUNTIME_PROFILE_INTEGRATION_PENDING；HTTP/launch/targets、AGENTS及整包正文原字节未变，未增加可启动入口、profile权限、预算或STOP绕行。整包blob仍 `e8e2140a82ff7776e6d7f975415f4ee544c9b737`、PREPARED_NOT_AUTHORIZED。应用累计仍10/30/32/6/0，事故RO2/maintenance1/CREATE2不变；未重判文书/资金/原件、A-EDITOR、六框架或S10/S11。
+
+独立意见：本轮新增来源适配及producer→parser→consumer的SOURCE/PURE工程范围限定通过，revision2可按此层级交付；**B-MODEL-6/B-RPC-6仍NOT_RUN，actual_evidence仍空**。后续须有合法完整运行包及profile/运行入口接线、真实所有权/身份/目标/provider与正常会话、实际服务/原生日志及逐项RO/终核事实。按当前完整六MODEL与六RPC的每项before/after/terminal，至少需要37次目标RO（含一次manifest、不含服务预检），不能挤入或自行扩大旧累计30/48的剩余额度。源码收尾不构成新运行包，不承诺下轮一定可运行；不再创建另一离线阶段替代业务进展。本签署不预签主控尚未发生的证据提交、push、GitHub评论或远端读回。
+
+Guidelines read：odoo-review、odoo-security及Python Imports/Naming、ORM recordsets/methods/transactions、Tests、stable相关规则；仅映射本轮改动与实际调用点，不冒全addon安全审计。此前105,248B/SHA256 `5c9254b08f7d82b85527baedfdff50270b29df70a82a54d6165feff3b6d2e669`历史前缀原字节保留。

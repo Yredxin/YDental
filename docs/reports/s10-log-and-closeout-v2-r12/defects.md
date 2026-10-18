@@ -98,3 +98,11 @@ TR01源码接受后在现scratch第一次真实运行五TransactionCase+一HttpC
 - 已修证据逻辑：MODEL精确异常/公开参数+实际env/check字段/回滚后先存；RPC逐项意图/transport/拒绝层及callback失败、UNKNOWN不重试；消费六MODEL记录、唯一server关联、按check/phase/时序/关闭RO及严格释放字段的before-after/终核，缺/歧义不PASS。
 - 冻结前静审收紧了仅总flag、缺server继续、技术管理员代测及宽松editor/时间关联；首纯运行28PASS，最终T50480008696c360b9afe36ca760ba33959adc879为30新B+11受影响旧HTTP=41PASS/exit0，首测试失败NONE，开发结果不叠加。
 - 尚未修的是运行集成：实际profile/owner/准入、新MODEL模式真实caller、合法provider消费/正常身份及目标来源、原生日志/引用解析、独立RO采集尚未接通；本轮没授权也没执行它们。业务B仍NOT_RUN，原整包仍PREPARED_NOT_AUTHORIZED。详细源码与PURE证据见summary/matrix新增b_caller_offline_repair，未改产品规则/权限/core/旧计数。
+
+
+## B-CALLER-OFFLINE-REPAIR / revision2 / EVIDENCE_ADAPTERS_CODE_ONLY
+
+- 已接实际main-b-only父子checkpoint/ACK与退出后独立terminal、正常切店/native session及RO关系一致、窄安全投影/来源解析、live→final封存与耐久short-ref map。具体函数和层级见summary新顶部及matrix::b_caller_offline_repair_revision2。
+- 冻结T a55dcee3ec749d2311beb291cced61e3d3a78284实际73PURE全PASS(32+30+11)，14.52860s/exit0；首27的两测试预期FAIL及日志完整保留，只改首次采集时点和su精确MISMATCH预期，没有放宽拒绝，不混累计。
+- 本轮实际闭环的适配缺口：source marker/P/T绑定、安全投影预拦、普通group/唯一scope/switch来源、父cleanup失败不能补MODEL完成、首异常类型、metadata关闭/UNKNOWN后禁再HTTP、短引用来源耐久回读。没有产品故障或新P0。
+- 应用准出仍明确未接：INTEGRATION_PENDING/全部门禁不变，原整包PREPARED；当前设计至少37目标RO(不含服务预检)，旧30/48不能承诺足够。真实身份/目标/原生日志和六MODEL/六RPC/独立保全仍NOT_RUN；源码到此停止扩建，待正式运行范围及现场执行。
