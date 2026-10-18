@@ -127,5 +127,33 @@
       "resolution": "Existing project pymupdf read/render of saved current download; no installation, new rendering of original, or repeated click."
     }
   ],
-  "remaining": "B MODEL/RPC, C, unique scratch D, E-MAIN/E-D, LOG gaps and finance closure; no S10 completion claimed."
+  "remaining": "B MODEL/RPC, C, unique scratch D, E-MAIN/E-D, LOG gaps and finance closure; no S10 completion claimed.",
+  "B-role-prepare-first": {
+    "candidate": "863325e2f48ca073b989711f36012c5da483e42d",
+    "status": "TOOL_FAIL_STARTUP_RACE_NO_NEW_ROLE_OBSERVED_AFTER_INDEPENDENT_RO",
+    "exit_code": 1,
+    "owned_pid": 1785486,
+    "owned_returncode": -15,
+    "owned_lifetime_seconds": 0.237,
+    "primary": "Parent fixture log check before startup events existed",
+    "secondary": "DIAGNOSTIC_LOG_MISSING",
+    "native_crash_claimed": false,
+    "tool_security_refusal_claimed": false,
+    "retry_before_independent_check": false,
+    "failed_followup_ro_candidate": "37e417c25fa61c70373dde3a1feef9692c972703",
+    "failed_followup_ro_exit": 0,
+    "failed_followup_ref": {
+      "ref": ".local/s10-technical-closeout-v1/original-after-startup-failure.json",
+      "bytes": 129456,
+      "sha256": "54351c4bcbc7012f742fac194f0f2cde69e550dfbf77f7a70604057f2eb3c0e1",
+      "access": "PRIVATE_LOCAL_NOT_GITHUB_READABLE"
+    },
+    "protected_tables": 39,
+    "protected_rows": 750,
+    "possible_new_reader_rows": [],
+    "independent_reviewer": "/root/acceptance_s10",
+    "old_safety_stop_preserved": true,
+    "specific_tool_stop_bytes_preserved": true,
+    "next": "Minimal bounded startup fix then evidence-constrained reentry; no B probes executed."
+  }
 }

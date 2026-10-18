@@ -335,7 +335,7 @@ def run_fixture(role, *, approval, product_commit, test_commit, mode=None, manif
                     else:
                         raise RuntimeError('B_FIXTURE_PIPE_EVENT_INVALID')
             if app.process.poll() is None:
-                app.check()
+                app.check(allow_starting=time.monotonic() - app.started < 60)
             else:
                 exited_at = exited_at or time.monotonic()
                 if time.monotonic() - exited_at > 2:

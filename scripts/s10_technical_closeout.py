@@ -69,6 +69,8 @@ def run_b(profile, approval, authority, requested_path):
     import psycopg2
     profile.require_action('B-MODEL-6')
     profile.require_action('B-RPC-6')
+    if (profile.root / 'B-ACTION-IN-FLIGHT.json').exists():
+        raise RuntimeError('B_PRIOR_EXECUTION_REVIEW_DURABLE_RESULTS_NO_REPLAY')
     if (profile.root / 'B-ACTION-STOP.json').exists():
         raise RuntimeError('B_PRIOR_OUTCOME_OR_PRESERVATION_REQUIRES_INDEPENDENT_REVIEW')
     reference, reader = current_reader(profile)
@@ -156,6 +158,12 @@ def run_b(profile, approval, authority, requested_path):
             manifest_reference=manifest_ref, session_info=lambda: actor.session_metadata(binding=binding),
             collect_step=collect, log_source=lambda: log_source(app), close_owned_service=close_live)
         return actor
+    save_once(profile.root / 'B-ACTION-IN-FLIGHT.json', {
+        'operation': 'B-MODEL-6_THEN_B-RPC-6', 'target': profile.database,
+        'actor_id': actor.uid, 'stage': 'BEFORE_MODEL_DISPATCH',
+        'directory': str(directory.relative_to(ROOT)),
+        'automatic_retry': False, 'completion_reference': 'B-ACTION-COMPLETE.json',
+        'failure_followup': 'INDEPENDENT_READ_ONLY_REVIEW_BEFORE_ANY_REENTRY'})
     try:
         result = run_b_only(manifest=manifest, provider_ref=reference, approval=approval,
             product_commit=authority['product_commit'], test_commit=authority['test_commit'], facts=facts,
@@ -164,6 +172,12 @@ def run_b(profile, approval, authority, requested_path):
             server_events=lambda *args: callbacks['server_events'](*args),
             terminal=lambda *args: callbacks['terminal'](*args), profile=profile)
         facts.save('result', result)
+        if result['status'] == 'PASS':
+            save_once(profile.root / 'B-ACTION-COMPLETE.json', {
+                'status': 'PASS', 'target': profile.database,
+                'result_reference': str((directory / 'result.json').relative_to(ROOT)),
+                'model_and_rpc_terminal_preservation_verified': True,
+                'automatic_replay_authorized': False})
         rpc = result.get('rpc')
         if isinstance(rpc, dict) and any(
                 row.get('dispatch_state') == 'UNKNOWN'

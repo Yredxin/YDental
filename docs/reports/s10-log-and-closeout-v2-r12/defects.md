@@ -135,3 +135,6 @@ TR01源码接受后在现scratch第一次真实运行五TransactionCase+一HttpC
 - 首业务派发尚未取得结果：run_fixture 每0.1s轮询在app.check默认allow_starting=False下，于事件日志创建前触发DIAGNOSTIC_LOG_MISSING；父端SIGTERM终止owned PID1785486，实际寿命0.24s/returncode-15。
 - stdout/stderr均0B、native日志/reader commit checkpoint/新provider文件不存在；这些支持未入首commit，但不替代失败后独立RO。尚不签无提交，不创建第二账号，不重试经济或文书动作。
 - 团队正在独立核精确普通工具STOP与仅保全RO的恢复路径，原字节保留；旧r12工具拒绝STOP不改。拟在数据保全成立后仅补既有60s startup grace，仍要求真实run.start/封存/独立后核，不移除日志保护。
+
+
+B首失败后实际37e417c一次独立RO exit0：与Aterminal旧域/权限/session/审计完全同，possible_new_reader_rows=[]，rollback/close成立，acceptance亲核。因此本次工具STOP依明确因果、退出和零新增角色事实受控归档，不是忽略STOP或清旧拒绝。代码仅改已有60s启动grace，另补B派发前耐久in-flight/完成索引，保存失败时不盲重派RPC。当前同plan累计Odoo12/RO35/HTTP47/Firefox7/GET1，原事故/维护/CREATE不变。
