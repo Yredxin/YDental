@@ -77,3 +77,16 @@ TR01源码接受后在现scratch第一次真实运行五TransactionCase+一HttpC
 - 末次独立RO39域750行及93模块、身份权限/文书版本作者/费库账款/原件/编辑清空/六已采审计保持，新增认证/会话/审计0。新增资源2/5/7/1/0，累计10/30/32/6/0，A/S10/T12/生产继续BLOCKED。
 
 - 后修工具T `4ff3ccf754f30abab25451d085e65d1a79f4d219` 仅OFFLINE_ONLY：通过原生已导出模块读取白名单配置，未观测等待、空html lang正常，非法lang/route仍在最终gate拒绝。新增8项+受影响原9项=17离线PASS；没有额度作原生/UI复验，actualT ee730及NOT_RUN下载状态不变。
+
+
+## B调用链 STATIC_ONLY / 固定9ebab397（本轮只读，无代码修复）
+
+|缺口|源码与具体影响|最小建议/边界|
+|---|---|---|
+|旧总入口耦合|cases:814/822–844/868–879，旧账号核验、A编辑重放及C/D/E夹具/升级混在B前后|在既有cases分出B-only；不执行existing_main_accounts历史材料，不只改approval续跑。|
+|MODEL入口并非B-only|cases:163→fixture_process:75→lc2_fixture:125；父mode先后commit报告配置、C账号/密码/token|复用fresh-env/六操作/savepoint/rowSHA；独立窄分派，确认actor/目标并补精确AccessError参数与独立终核；未运行。|
+|RPC身份/作用域实证|Actor.uid及main_b.su_flag为意图；B三模型不在_get_sources，revision未走_bind_kwargs；core显式with_context替换request binding|关联现成server observed_http uid/su和正常会话；不得冒scope/过期revision覆盖，不因此判产品漏洞或改权限。|
+|工具可先拦被测请求|generic Client允许call_kw；MAIN_A专用boundary、owner/profile/runtime门可能在opener721前拒|明确TOOL_FAIL/NOT_SENT、Odoo格式/前置拒绝、预期模型拒绝层。未来有效包最小接入，不泛放/跳门。|
+|目标和保全闭环未完成|固定source1/payment1/audit228、MODEL uid6；RPC逐项保全PENDING；批次capture不覆盖逐项旧audit/关系，editor旧mask过宽|可信target manifest、实际ordinary环境、逐项case/request与独立before-after/终核，先保每项结果再断言；不能以空目标或同连接回滚冒提交状态。|
+
+实际可复用函数/原生core行号、最小修复影响面和独立只读范围详见summary本轮顶部及matrix `b_call_chain_readonly`。B-MODEL-6/B-RPC-6仍NOT_RUN且actual_evidence空；本轮不改产品/测试源码、不创建新框架/计划或P0，不运行未授权包，不重判已采六框架/A-EDITOR。

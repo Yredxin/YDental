@@ -366,3 +366,18 @@ A-STATE限本次39保护域750行及已采60域基线的复用。before、失败
 最终运行verification7167B/SHA256 `17f45a58587b37e4ac02f3f5956f5ab33dd3cf4797bb111ac2b6f71189468adc`，raw索引9699B/SHA256 `819ec4c047c6e3c72c5844ab54337bfa49cef7dff051afc82546ae05c83e2c7b` 的56份引用bytes/SHA/0600独立逐项匹配；明确排除provider、含秘密配置、原生raw/stdout/stderr及会话文件。已读04 summary/defects/matrix及唯一入口新状态，与上述实际有限结果一致；旧03结果仍按原层级保留。最终只接受状态保全和已采编辑状态持续成立，不接受原件或A组完成。后续离线候选必须另列OFFLINE_ONLY，不替换ee730实际结果；不预签尚未发生的GitHub同步。本节没有新的运行授权。Guidelines read：Odoo review/security及此前所列Python/ORM/controllers/access/tests材料，定向审查不代表全addon或全部浏览器状态的安全审计。
 
 封口补核：停止全部实际运行后，开发单写最小生命周期修复，固定离线工具T `4ff3ccf754f30abab25451d085e65d1a79f4d219`，**实际执行T仍ee73081，修正版RUNTIME_NOT_RUN**。审核者只读最终diff及原生loader源码：require仅Map.get已导出模块；快照优先既有 `@web/session` 的session对象、消费前bootstrap作回退，只取translationURL/bundle language，配置尚缺保持NOT_OBSERVED等待，不发明语言或绕过真实非法route/lang。JS返回边界仅已知配置分类、表单字段名及布尔，不导出完整session/DOM/输入值，空html lang正常，不改DOM或鉴权。browser SHA256 `9caca2c14bb082331fad2dab2630ea71b8d664e93a6c6d78265ed07e82a19b21`，新增生命周期测试SHA256 `bc2003111e06caf47092e3b8118f1d189b7e0948f12a3a7b8340e33a43ae0130` 与当前文件相同；原生loader+session export/delete+真实Plugin表达式的8项新离线及原9项相关，共17项0.625秒OK，保存结果776B/SHA256 `0a56e667c4e45ad2a0bbe8d3ed39f0aeae77b5a903767907e5c389f1d13fcbad`。其调用就绪函数的替身页面不能冒真实UI兼容；离线新增Odoo/DB/Firefox/provider读取均0，不重跑历史150/六框架。仅接受该SOURCE_AND_OFFLINE_SCOPED层级，不接受下载/登录回归通过，不授权任何后续实际尝试。旧summary完整后缀、defects完整前缀及矩阵全部旧非current对象已独立核同；83,746B验收历史前缀SHA再次核同。审核者最终停写，交回本文件所有权，由主控固定证据并据实同步；本签不预认证未来GitHub评论。
+
+
+## B调用链只读交叉审核 / 源码候选9ebab397
+
+本节由主控根据原实际 `/root/acceptance_autonomy` 的只读回报记录，署名范围为STATIC_CALL_CHAIN_CROSS_REVIEW，不是MODEL/RPC独立运行验收或新的正式GPT裁定。原95002B完整保留。实际原developer/tester/acceptance均响应、读YD-HANDOFF-V1.0及状态05，主控单写文档、子角色无写入权；未创建替代团队。
+
+独立角色核MODEL调用cases.run_fixture→fixture_process.actor→_model_denials：fresh首Environment普通uid/su/default_env断言、非空目标SQL、合法值窄校验、逐项closing(savepoint)与回滚前后rowSHA可复用；helper非已采六项tag，main-prepare带report config与C账号/密码/token提交，不可直接当B-only。当前uid6和targets1/1/228来源、资格/关系仍未实测；MODEL只按AccessError类名判断和同连接回滚不足独立提交后证据。
+
+RPC独立核Actor/Client/控制器/原生call_kw：B三模型不在当前_get_sources，故六write/unlink不消费注册来源分支的revision校验/_bind_kwargs；_pre_dispatch binding与core显式kwargs.context替换须区分，不能宣称scope/过期revision已覆盖或据此判产品漏洞。main_b的六参数和精确native AccessError公开参数可复用；本地actor/su常量不能代服务端实际环境。现成observed_http捕真实uid/su及独立UUID，不需新观察平台。
+
+Client通用路径可发同源call_kw，但MAIN_A专门boundary、case/owner/profile/runtime可能在opener前拒绝。仅B-intent/本地ValueError不算Odoo拒绝；真实格式/身份/ACL前置拒绝与预期模型拒绝分列。RPC逐项独立保全仍PENDING，批次快照不补每项旧audit/关系或当前editor严格空；clientrequestid与serveruuid不可虚构相等。浏览器仅经理一次audit.write，不覆盖六普通RPC。独立审查已纠正最初将一般_bind_kwargs规则套到B的推断。
+
+结论：可复用底层实现已定位，但不存在与当前标准完整匹配、可直接续跑的B-only入口；建议仅在既有cases/fixture/helper/Client任务接入与RO关联处作最小修复，产品字段和改删保护不改。本轮0文件/代码写入（独立角色）、0环境/凭据/测试执行；不重判六框架/A-EDITOR，B-MODEL/B-RPC保持NOT_RUN，整包PREPARED_NOT_AUTHORIZED。主控已在提交前将五份实际文档差异交同一原acceptance只读核，回报无必要更正；独立字节核旧summary64879B完整后缀、defects15219B及本报告95002B完整前缀，matrix旧对象逐值相同，包正文blob仍e8e2140a82ff7776e6d7f975415f4ee544c9b737、产品/测试代码及协议无改动。签署层级仅STATIC_DOCUMENT_DIFF_CROSS_REVIEW；不预签未来提交或远端同步。
+
+Guidelines read：odoo-review、odoo-guidelines Controllers/Tests/ORM recordsets及Transactions、Python Imports/Naming、odoo-security（定向调用/身份/事务审查，非全addon安全审计）。

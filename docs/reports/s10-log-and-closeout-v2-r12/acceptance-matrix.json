@@ -5332,5 +5332,166 @@
       "no_business_rerun": true,
       "only_own_real_task04_delivery": true
     }
+  },
+  "b_call_chain_readonly": {
+    "source_commit": "9ebab39750dc5440b81b5415b3b0e69ad966b469",
+    "core_commit": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+    "protocol": "YD-HANDOFF-V1.0",
+    "authority": "DIRECT_USER_READONLY_SOURCE_AND_EVIDENCE_REVIEW_ONLY",
+    "package_status": "PREPARED_NOT_AUTHORIZED",
+    "status": "STATIC_CALL_CHAIN_CHECKED_RUNTIME_NOT_RUN",
+    "roles": {
+      "controller": "/root",
+      "developer": "/root/developer_autonomy",
+      "tester": "/root/tester_autonomy",
+      "independent_cross_reviewer": "/root/acceptance_autonomy",
+      "sole_document_writer": "/root",
+      "child_file_write_owners": [],
+      "actual_responses_received": true,
+      "new_team_created": false,
+      "thread_uuid": "UNKNOWN"
+    },
+    "entries": {
+      "B-MODEL-6": {
+        "status": "NOT_RUN",
+        "actual_evidence": [],
+        "source_entry": [
+          "scripts/s10_lc2_cases.py:163",
+          "scripts/s10_lc2_fixture_process.py:75",
+          "ydental_settlement_test/models/lc2_fixture.py:125"
+        ],
+        "reusable": [
+          "fresh_first_ordinary_environment_assertions",
+          "nonempty_row_guard",
+          "six_native_orm_calls",
+          "per_case_savepoint_rollback_and_row_sha"
+        ],
+        "limitations": [
+          "MODEL_HELPER_NOT_S10_LC2_COLLECTED_TEST",
+          "MAIN_PREPARE_HAS_UNRELATED_COMMITS",
+          "FIXED_UID6_TARGETS_NOT_CURRENTLY_VALIDATED",
+          "NO_EXACT_EXCEPTION_ARGUMENT_ASSERTION",
+          "SAME_CURSOR_HASH_NOT_INDEPENDENT_COMMITTED_PROOF"
+        ]
+      },
+      "B-RPC-6": {
+        "status": "NOT_RUN",
+        "actual_evidence": [],
+        "source_entry": [
+          "scripts/s10_lc2_cases.py:273",
+          "scripts/s10_lc2_cases.py:116",
+          "scripts/s10_lc2_http.py:813",
+          "ydental_access/controllers/access.py:149",
+          "core:addons/web/controllers/dataset.py:28",
+          "core:odoo/service/model.py:31"
+        ],
+        "reusable": [
+          "six_parameter_shapes",
+          "normal_authenticated_transport",
+          "exact_native_error_arguments_checks",
+          "existing_server_uid_su_context_logging"
+        ],
+        "limitations": [
+          "LEGACY_TOTAL_ENTRY_REPLAYS_ACCEPTED_EDITOR_AND_OLD_ACCOUNT_MATERIALS",
+          "LOCAL_ACTOR_UID_SU_ARE_INTENT_ONLY",
+          "THREE_B_MODELS_DO_NOT_ENTER_REGISTERED_SOURCE_REVISION_BINDING",
+          "TARGET_PROVENANCE_AND_PER_CASE_INDEPENDENT_PRESERVATION_PENDING",
+          "CLIENT_AND_SERVER_REQUEST_UUIDS_NOT_IDENTICAL"
+        ]
+      }
+    },
+    "targets": {
+      "source": 1,
+      "payment": 1,
+      "audit": 228,
+      "status": "SOURCE_CONSTANTS_ONLY_CURRENT_EXISTENCE_QUALIFICATION_RELATIONS_UNKNOWN",
+      "model_uid": 6,
+      "rpc_uid": "FROM_LEGACY_FRONTDESK_METADATA_NOT_ACTUAL_SERVER_PROOF"
+    },
+    "client_classification": {
+      "generic_call_kw": "ALLOWED_BY_RELATIVE_PATH_CHECK_SUBJECT_TO_AUTHORIZED_OWNER_PROFILE_RUNTIME",
+      "MAIN_A_profiles": "REJECT_BEFORE_OPENER_NOT_ODOO_DENIAL",
+      "server_request_received": "EXISTING_observed_http_LOGS_ACTUAL_ENVIRONMENT",
+      "format_or_auth_denial": "DISTINCT_FROM_EXPECTED_MODEL_ACCESSERROR_ARGUMENTS",
+      "transport_unknown": "NO_REPLAY_WITHOUT_INDEPENDENT_STATE"
+    },
+    "correlation": {
+      "client_id": "GENERATED_IN_Client.request",
+      "server_id": "INDEPENDENT_UUID_IN_observed_http",
+      "existing_link_hints": [
+        "case_id",
+        "hashed_operation_ref",
+        "attempt",
+        "time_window"
+      ],
+      "needed": [
+        "phase_and_check_id",
+        "observed_server_actor_su",
+        "trusted_target_manifest",
+        "per_case_before_after_refs",
+        "independent_batch_terminal"
+      ]
+    },
+    "source_sha256": {
+      "scripts/s10_lc2_cases.py": "6005d55ece05d52eea32b84e7be5f593282712b6a493588164ac45c27aee9ff7",
+      "scripts/s10_lc2_fixture_process.py": "6c24f86c032ef96480c122779fce9a38d73bad1010f0bedddefedda01fca858f",
+      "scripts/s10_lc2_http.py": "66ec06136186192f6a1105387ed7bd6825a647f92ac1977fc704a69cd97402f1",
+      "scripts/s10_lc2_browser.py": "9caca2c14bb082331fad2dab2630ea71b8d664e93a6c6d78265ed07e82a19b21",
+      "scripts/s10_lc2_targets.py": "29f94bbc0ebec7925784a7a8106c8296f0b8421ac42ecebd56aeafd467f75150",
+      "scripts/s10_lc2_task_profile.py": "23bd932116b9fa52052e143b13568c4ecb1b38f63c275a263292ef461408bc44",
+      "scripts/s10_lc2_evidence.py": "a753505a9f5d7238a5ebcf5fc9dd7145a01d43190ddd58f157a44023698b4c43",
+      "ydental_settlement_test/models/lc2_fixture.py": "0082fbff67102766683f2a250cf99eb84513469c9637807dccceec02113bda2f",
+      "ydental_settlement_test/tests/test_log_closeout.py": "f7e26ea27ecb957f528b3842c85a7ca27a868c93cca6c023b60cb9969a28aa03",
+      "ydental_access/controllers/access.py": "95763b0c037f8dd519d57668d2f2d70e9311a03a5681c3de149d753bdbc7e85b",
+      "ydental_access/controllers/diagnostics.py": "b60095326a9ceec8380dc0945484302be4a8f59eddee710a382cdb5d03812c47",
+      "ydental_access/models/ir_http.py": "88dcda42a2cd6fad8c3cd52099abf0eb877660d5d9b2b318dc7e24ef061d05f4"
+    },
+    "runtime_counts_added": {
+      "odoo_start": 0,
+      "target_ro": 0,
+      "business_http": 0,
+      "firefox": 0,
+      "original_get": 0,
+      "credential_reads": 0,
+      "editor_or_financial_or_upgrade_actions": 0
+    },
+    "cumulative_unchanged": {
+      "odoo_start": 10,
+      "target_ro": 30,
+      "http": 32,
+      "firefox": 6,
+      "original_get": 0,
+      "accident_ro": 2,
+      "maintenance": 1,
+      "create": 2
+    },
+    "package_blob_unchanged": "e8e2140a82ff7776e6d7f975415f4ee544c9b737",
+    "implementation_changed": false,
+    "runtime_authorization_created": false,
+    "independent_review_layer": "STATIC_CALL_CHAIN_CROSS_REVIEW_ONLY",
+    "next_action": "READONLY_DELIVERY_THEN_STOP_NO_AUTOMATIC_EXECUTION",
+    "document_cross_review": {
+      "reviewer": "/root/acceptance_autonomy",
+      "status": "STATIC_DOCUMENT_DIFF_CROSS_REVIEW_NO_REQUIRED_CORRECTION",
+      "reviewed_document_paths": [
+        "CURRENT_TASK.md",
+        "docs/reports/s10-log-and-closeout-v2-r12/summary.md",
+        "docs/reports/s10-log-and-closeout-v2-r12/defects.md",
+        "docs/reports/s10-log-and-closeout-v2-r12/acceptance-matrix.json",
+        "docs/reports/s10-log-and-closeout-v2-r12/acceptance-review.md"
+      ],
+      "old_report_bytes_preserved": true,
+      "old_matrix_objects_unchanged": true,
+      "native_or_rpc_validation": false,
+      "future_sync_presigned": false
+    },
+    "independent_scope_record": {
+      "path": "docs/reports/s10-log-and-closeout-v2-r12/acceptance-review.md",
+      "bytes": 97967,
+      "sha256": "d26c3225ff91491fa5f9dcae569a7371c67cd144f5202593404d90965c565b44",
+      "written_by": "/root",
+      "review_opinion_from": "/root/acceptance_autonomy",
+      "level": "SOURCE_AND_DOCUMENT_DIFF_ONLY"
+    }
   }
 }

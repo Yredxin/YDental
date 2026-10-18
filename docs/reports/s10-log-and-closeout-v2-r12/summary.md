@@ -1,3 +1,54 @@
+# B组调用链只读交付：可复用探针已定位，完整入口仍需最小拆分
+
+本轮直接依据用户“仅所有权核实及只读源码/证据核查”指令，协议YD-HANDOFF-V1.0，读取默认main规则/路由并完整读取活动状态05。固定源码候选 `9ebab39750dc5440b81b5415b3b0e69ad966b469`，core `f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb`。**本轮没有关闭新的MODEL或RPC业务验收项**，结论为STATIC_CALL_CHAIN_CHECKED / B_MODEL_AND_RPC_NOT_RUN；不将本轮核查写成产品FAIL或RUNTIME_READY。GPT已完成的模型字段及改删保护检查只承接，不重复；六原生框架、150纯测试和A-EDITOR不重审、不重放。
+
+所有权回执：origin `https://github.com/Yredxin/YDental.git`，分支 `codex/s10-settlement-finance-r1-20261013`；初始本地d08bf89、远端9ebab397，工作树干净、无未提交修正，已正常fetch/仅快进协作文档。目录及当前UID/GID为1000/1000；仅查看同工作目录必要comm/cwd/PID，见一个项目Codex控制进程1548760，不读参数/环境/秘密，不终止进程，不外推全机无其他服务。原 `/root/developer_autonomy`、`/root/tester_autonomy`、`/root/acceptance_autonomy` 均实际响应并读相同协议及状态05；没有替代团队。主控 `/root` 唯一写CURRENT_TASK和本轮既有报告；三子角色全部只读、无文件写入/业务执行权。developer追RPC调用/身份，tester追MODEL/fixture/标签/证据，acceptance独立交叉审全部关键结论；角色不代表OS隔离，线程UUID未知。
+
+`docs/execution/S10_REMAINING_CLOSEOUT.md` 保持原blob `e8e2140a82ff7776e6d7f975415f4ee544c9b737`，状态仍PREPARED_NOT_AUTHORIZED，无START/start/deadline。本轮不修改正文、不采用拟定预算，不代发、改写或重试此前被拒的运行授权。#23/#34正文与可信检查点相比未变；重叠分页增量只返回已知协议6244428785和接管6244433031，未发现新增授权或已编辑决定。
+
+|入口|源码真实调用链|可复用及当前不能直接续跑的原因|
+|---|---|---|
+|旧CLI closeout|cases.py:892–905 runtime_gate/allowed_actions → run_closeout:814|只有framework/closeout两种CLI，没有B-only分派。run_closeout:822–827先两库fixture及旧账号路径，:837–844登录多个角色并main_a后才main_b，:868–879又双升级/多角色和B复验；不得用换approval参数续跑。|
+|B-MODEL-6|cases.py:163–203 run_fixture → fixture_process.py:74–79 actor6 → ydental_settlement_test/models/lc2_fixture.py:125–167 _model_denials|真实原生ORM shell helper，不是已采s10_lc2标签自动收集的六项测试。可复用六次调用和原生回滚，但main-prepare:72先提交报告配置，:82–84又提交C reader/password/token；不能把它当纯B入口。|
+|B-RPC-6|cases.py:273–299 main_b → Actor.rpc:116–122 → http.py:813–819 Client.rpc/request → YDentalDataSet → fixed-core DataSet.call_kw → odoo.service.model.call_kw|已有六种合法args及精确错误参数断言可复用，但无当前可信目标/ordinary登录映射和逐项独立保全闭环。B结果当前只有意图和全组结束时的汇总，不能冒运行证据。|
+|浏览器及已采框架补充|browser.py:940–985 native_warning_dialog、:1171–1176经理登录后调用；settlement_test/tests/test_log_closeout.py既有tag|浏览器只一次audit.write，允许写例外也仅该audit；B-RPC-6标签不代表six或ordinary。已采HttpCase是scratch新合成audit.write，不能覆盖main三对象×两操作。本轮只核入口范围，没有重判或重跑六框架。|
+
+上表 `cases.py`、`http.py`、`browser.py` 分别指 `scripts/s10_lc2_cases.py`、`scripts/s10_lc2_http.py`、`scripts/s10_lc2_browser.py`；fixture_process为同scripts目录。**目前没有与现行范围和证据要求完整相符、可直接运行的B6MODEL+B6RPC专用入口；有可复用函数，不是没有测试实现。**
+
+MODEL身份与回滚的实际证明点已经存在于源码：fixture_process:40–54在fresh cursor中以uid创建第一个Environment，检查env.su及transaction.default_env的uid/su；helper:97–104检查普通内部业务身份，:147–149又核被测recordset uid/su。helper:113–122用受限固定表映射和参数化ID确认非空旧行，:137–140限定金额1及非空reason的准确字段形状；:142–165逐项在closing(cr.savepoint())内调用write/unlink并比较回滚前后整行SHA。固定core `odoo/sql_db.py:113–185` 的savepoint.close默认rollback/restore_state支持回滚语义，外层actor还显式rollback。SQL核验不是ordinary ORM读权限证明。helper返回的常量uid/su有上述实断言支撑，**但它当前仅收AccessError类型、不核精确公开参数，同连接回滚SHA也不是独立提交后核验**。这些是源码能力，不证明本轮uid6/目标有效或实际六项运行过。
+
+目标与账号仍缺当前事实：MODEL和RPC均写死source1/payment1/audit228，MODEL入口uid6；RPC账号由existing_main_accounts:125–152读旧chain、扫描旧脚本候选值并核旧保存password字段。这一路径与当前凭据规则冲突，本轮只读源代码，未打开任何旧材料或provider。不能因ID写在源码里就判其无效，也不能据此认定当前存在、关系/门店/公司正确、actor资格成立或凭据可用。后续需要已核合法来源的非敏感target manifest与真实普通actor观察；金额1/reason是测试参数，不是读取到的原金额。helper目前只接受这些固定值，若未来参数变化必须同步窄校验，不能改字段/减弱保护来迎合测试。
+
+RPC scope/revision需按真实分支解释。Actor.refresh:72–79从正常access页取唯一revision，switch:82–85取响应revision，rpc:117送kwargs.context的ydental_revision/lang；Actor.uid来自调用者元数据，未对照原生session_info验证真实HTTP身份。本checkout可见全部_get_sources注册映射没有B的settlement.source/payment/access.audit；`ydental_access/controllers/access.py:149–161` 仅注册来源或特定export走revision检查及_bind_kwargs，故B六个write/unlink不走此分支。`models/ir_http.py:21–28`虽在request.env注入SID binding，core `service/model.py:31–59`依据params browse(ids)后用显式kwargs.context替换context，`orm/models.py:5497–5525`只特别保留allowed_company_ids。因此本B路径**不提供scope/过期revision门禁覆盖**；这不等于现有全局改删保护漏洞，也不要求改产品使测试变绿。正常登录/切店的真实user/store/revision仍须按会话事实核实，不能把未消费的参数写成已验证权限。
+
+|层级|现有源码判定与可保留证据|验收含义|
+|---|---|---|
+|工具预拦截|Client._path及request:585–648校形状/用途；MAIN_A_PROFILES在:596–605额外缩成A，B请求会在opener前被ValueError拒；PackageBudget.consume:77–91还核active owner/profile/STOP；runtime_gate:116–143仍固定旧message或现有profile|本地B-intent、budget intent或ValueError不等于HTTP已到Odoo。记TOOL_FAIL/NOT_SENT；不能跳过runtime/目标/owner门或借旧MAIN-A放行。|
+|实际格式/身份前置拒绝|Client.rpc正确构JSONRPC；Actor要求HTTP200并解析JSON。HTTP非200、断连、JSON解析错误，或Odoo不同native错误/不同公开参数须各记实际层级|格式错误、认证/ACL/scope提前拒绝不等于本题immutable六项命中；不能只按AccessError类名PASS。断连提交未知先核，不重试写。|
+|预期模型拒绝|main_b:284–298检查HTTP200、原生AccessError完整name、无result及精确单个expected argument。MODEL helper现无同等公开参数检查|真实请求/服务端环境/非空目标及前后保全同时关联后才有验收依据；本轮未发送六请求，仍NOT_RUN。|
+
+通用Client并非一概拒绝B：`http.py:500–535`允许同源原生call_kw，:813–819构造正常请求，:712–757保存intent后在:721才opener.open，HTTPError按真实响应保存。MAIN-A专用profile则会先拒；不能混称同一行为。纯HTTP fake测试 `s10_lc2_test_http.py:112–120`仅一条合成audit RPC运输/参数断言，不证明目标/Odoo身份或六项原生结果；本轮未重跑它。
+
+关联链可复用现成机制，缺的是实际接线。Client:649–670发送case/attempt/operation_ref提示，生成自己的request_id；:663–670明确server_request_id/trace_id为None，依据只是CASE_OPERATION_HINT_AND_TIME_WINDOW。`ydental_access/controllers/diagnostics.py:34–60` 已从真实request.env.uid/su记录actor/effective_uid及服务端独立UUID、case/attempt和同前缀hash后的operation_ref。服务端UUID不是Client.request_id，不能假填相等；用固定候选、phase、每个model/method/target的check_id、attempt/opref和有界时间窗关联已有server事件，并对照正常会话身份。无需新observer或代理。
+
+main_b的B-intent:281–283在发请求前保存完整无秘密测试参数；本地actor/su是意图常量。汇总:294–299在六项全成功后才保存Client.request_id/精确错误结果，`independent_old_row_verification`仍PENDING。中途失败时前面已取得的每项结果没有即时完整汇总，应先保存逐项观察再断言。旧`capture/assert_main_preserved:215–256`及run_closeout:859–883只做批次经济/queue/版本核对，不逐B项查旧audit行/关系，且对editor字段的旧通配允许不能替代当前“保持释放”。需要逐项target与关联旧行/关系/审计的独立before/after及batch终核，并连接到该case的MODEL结果或真实RPC响应；不能把同连接回滚SHA、正常认证新增和旧审计保全混作同一种证据。
+
+最小修复建议仅落在既有实现，**本轮没有实施**；B-only指既有整包内部的安全分派，不是另建B授权包或微批次：
+
+1. `scripts/s10_lc2_cases.py::main/run_closeout/run_fixture/existing_main_accounts`：增加或抽出一个B-only分派，复用现有Actor/Client/六断言，排除main_a、用户7登录、C/D/E及旧账号材料路径；执行身份使用有效包明确的provider引用和非敏感目标manifest，不能只改approval重启总runner。
+2. `scripts/s10_lc2_fixture_process.py::main/actor` 与 `ydental_settlement_test/models/lc2_fixture.py::_model_denials`：只调用B探针、首env和原生savepoint，移开report config/C账户/token提交；输入已核actor/三目标；复用RPC的精确错误参数要求、如实记录实际环境/目标/check_id和隔离结果。若以框架标签验收，应把该探针挂入现有测试模块的独立B收集入口；现有s10_lc2标签没有B6，不能借已采六项填格。
+3. `scripts/s10_lc2_cases.py::Actor.login/switch/rpc/main_b`：正常会话user/store/revision实证对照；复用现有observed_http的真实server uid/su，逐项保存请求、响应/拒绝层和独立before/after引用，完成PENDING；不增加产品scope检查来假装覆盖未经过的分支。
+4. `scripts/s10_lc2_http.py::Client.request`、`s10_lc2_task_profile.py`及既有`runtime_gate/PackageBudget`接入调用者：未来仅在真正授权包下让明确六项同源call_kw通过用途检查，保目标/身份/STOP，区别预派发与已发出/响应；一致接入任务、owner、预算，不复用旧MAIN-A窗口，不泛放RPC或取消门禁。已有body/headers/outcome及server事件足以复用，不加框架。
+5. `scripts/s10_lc2_cases.py::capture/assert_main_preserved`：在现有RO机制内按每项少量目标/关系/旧审计绑定check_id及request_id，增加独立终核，保持已采editor严格空且旧资金/原件保全；不用大快照或把旧宽松排除当新基线。影响仅B编排、测试探针和证据接线，产品字段/改删实现不需修改。
+
+独立只读交叉审为 `/root/acceptance_autonomy`：核MODEL首env/回滚、实际RPC继承/显式context、Client提前拒绝、参数/身份/目标与证据缺口，纠正了“B必经_bind_kwargs”的一般化推断；仅STATIC_CALL_CHAIN_CROSS_REVIEW，无任何业务PASS或运行授权。详细署名范围记existing acceptance-review本轮追加；主控维护的五份文档差异已交同一角色只读核，无必要更正；旧报告原字节及矩阵旧对象保持、原包正文blob不变。此为STATIC_DOCUMENT_DIFF_CROSS_REVIEW，不是运行验收，未预签远端同步，验收不自签实现。
+
+本轮应用启动、目标RO、业务HTTP、Firefox、原件GET、凭据读取、资金/编辑/升级均0；累计继续10/30/32/6/0，旧事故RO2/维护1/CREATE2保留。文档更新不重置计数或恢复04窗口，不发布Issue授权/替代评论。完成本次只读交付即停止；后续范围与授权问题仍由GPT处置，不能据此自动转入运行。
+
+---
+
+以下为04及更早历史报告原文，各“当前”表述限原窗口：
+
 # 当前 MAIN-A 原件UI收尾：实际页面已运行，下载未完成
 
 [本轮真实交付6244173596](https://github.com/Yredxin/YDental/issues/34#issuecomment-6244173596)已全文API读回一致：8297B/SHA `c622837a424caaef74330a22bd5b3c157fe3ed01052509113421972f6bea0812`，证据E `ce3789772be34a3c32426edf309c2ebdd0a3492a`。只同步本轮实际结果，无业务重跑。
