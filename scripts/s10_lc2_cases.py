@@ -224,10 +224,11 @@ def existing_main_accounts():
 
 def marker(role, profile=None):
     if profile is not None:
-        if role != 'main':
-            raise RuntimeError('CURRENT_PLAN_MAIN_FIXTURE_ONLY')
+        if role != profile.target_role:
+            raise RuntimeError('CURRENT_PLAN_FIXTURE_TARGET_MISMATCH')
         return strict_loads((profile.run_root / profile.database / 'database.json').read_bytes())
     return next(item for item in strict_loads((LEGACY_EXEC_ROOT / 'owned-target-markers.json').read_bytes())['markers'] if item['role'] == role)
+
 
 
 def reader_levels(fixture, store=1):
@@ -238,6 +239,7 @@ def run_fixture(role, *, approval, product_commit, test_commit, mode=None, manif
                 provider_ref=None, observe=None, terminal=None, evidence_factory=None, profile=None):
     mode = mode or ('main-prepare' if role == 'main' else 'scratch-bootstrap')
     b_only = mode == 'main-b-only'
+    log_off = mode == 'log-rollback-only' and manifest is not None and manifest.get('diagnostics') == 'OFF'
     if b_only:
         validate_b_inputs(manifest, provider_ref)
         if role != 'main' or ((observe is None or terminal is None) and evidence_factory is None):
@@ -248,6 +250,7 @@ def run_fixture(role, *, approval, product_commit, test_commit, mode=None, manif
     try:
         app = OwnedApplication(marker(role, profile), approval=approval, product_commit=product_commit,
                                test_commit=test_commit, action=role + '-fixture',
+                               **({'diagnostics_off': True} if log_off else {}),
                                **({'profile': profile} if profile is not None else {}))
         if b_only and evidence_factory is not None:
             callbacks = evidence_factory(app)
@@ -367,17 +370,34 @@ def run_fixture(role, *, approval, product_commit, test_commit, mode=None, manif
             model['independent_preservation'] = 'VERIFIED' if _b_model_complete(model, manifest) else 'PENDING'
         else:
             result = strict_loads(data)
+        if mode == 'log-rollback-only':
+            result['safe'].update(owned_process_pid=app.process.pid,
+                application_directory=str(app.directory.relative_to(ROOT)),
+                native_exit_code=app.process.returncode)
         save_once(app.directory / 'safe-result.json', result['safe'])
         if code:
             raise RuntimeError('FIXTURE_PROCESS_FAILED_WITH_PRESERVED_STATE')
-        closed_log_report(app)
+        if log_off:
+            app.observe_events(final=True)
+            if result['safe'].get('rollback_returned') is not True or result['safe'].get('cursor_close_returned') is not True:
+                raise RuntimeError('LOG_OFF_REAL_MODEL_ROLLBACK_OR_CURSOR_CLOSE_MISSING')
+            save_once(app.directory / 'optional-json-absence.json', {
+                'status': 'EXPECTED_OPTIONAL_JSON_ABSENT', 'pid': app.process.pid,
+                'native_exit_code': app.process.returncode, 'json_integrity_pass_claimed': False,
+                'native_parent_exit_observed': True, 'rollback_returned': True, 'cursor_close_returned': True})
+        else:
+            closed_log_report(app)
         return result
     except BaseException as error:
         if b_only:
             path = app.directory / 'b-parent-failure.json'
             if not path.exists():
                 save_once(path, partial_b_failure(type(error).__name__)['safe'])
-        app.close(primary={'event_id': None})
+        ended = app.directory / 'parent-exit.tsv'
+        still_live = app.process is not None and app.process.poll() is None
+        if (still_live or not ended.exists() or not any(
+                line.startswith(b'parent.end\t') for line in ended.read_bytes().splitlines())):
+            app.close(primary={'event_id': None})
         raise
     finally:
         for fd in [input_read, input_write, output_read, output_write]:
@@ -385,17 +405,21 @@ def run_fixture(role, *, approval, product_commit, test_commit, mode=None, manif
                 os.close(fd)
 
 
-def capture(role, label, *, selections=None, metadata=False, max_rows=100000):
-    run = RUN_ROOT / NAMES[role]
+def capture(role, label, *, selections=None, metadata=False, max_rows=100000, profile=None):
+    if profile is not None:
+        profile.require_action('target-ro')
+        profile.validate_target(NAMES[role], OIDS[role])
+    run = (profile.run_root if profile is not None else RUN_ROOT) / NAMES[role]
     if selections is None:
         selections = strict_loads((LEGACY_EXEC_ROOT / 'admission-r11-final/admission-selection.json').read_bytes())['tables']
-    directory = EXEC_ROOT / ('capture-' + role + '-' + label)
+    directory = (profile.root if profile is not None else EXEC_ROOT) / ('capture-' + role + '-' + label)
     import psycopg2
     collect_selection(psycopg2.connect, credentials(), database=NAMES[role], expected_oid=OIDS[role],
-                      selections=selections, directory=directory, budget=PackageBudget(EXEC_ROOT),
-                      allowed_target_names=list(NAMES.values()), target_directory=run, config_path=run / 'odoo.conf',
+                      selections=selections, directory=directory, budget=PackageBudget(profile.root, profile=profile) if profile is not None else PackageBudget(EXEC_ROOT),
+                      allowed_target_names=[profile.database] if profile is not None else list(NAMES.values()), target_directory=run, config_path=run / 'odoo.conf',
                       collect_metadata=metadata, max_bytes=64 * 1024 * 1024, max_rows=max_rows)
     return directory
+
 
 
 def stored_rows(directory, table):
@@ -1340,18 +1364,52 @@ def main_c(manager, reader, token, placeholder, facts, attachment_id, scope_acto
                                  'source_financial_family_nonempty_positive': 'NOT_RUN_NO_NEW_LEGITIMATE_FINANCIAL_FAMILY_SOURCE'})
 
 
-def d_selection(schema=None):
+def d_selection(schema=None, *, profile=None):
+    if profile is not None:
+        if schema is None:
+            raise ValueError('CURRENT_D_OBSERVER_SCHEMA_REQUIRED')
+        # Actual current schema, restricted to this new synthetic graph. No
+        # historical package manifest is used to choose the current columns.
+        names = {'ydental_treatment_event', 'ydental_treatment_fee', 'ydental_intake_snapshot',
+                 'ydental_settlement_source', 'ydental_settlement_payment', 'ydental_settlement_refund',
+                 'ydental_settlement_receipt', 'ydental_settlement_payment_invoice_rel',
+                 'ydental_settlement_refund_credit_rel', 'ydental_access_audit',
+                 'account_move', 'account_move_line', 'account_payment', 'account_partial_reconcile',
+                 'account_full_reconcile', 'account_move__account_payment', 'ydental_queue_execution',
+                 'ydental_queue_lease', 'ydental_supply_slot'}
+        if not names <= set(schema):
+            raise RuntimeError('CURRENT_D_NATIVE_GRAPH_SCHEMA_MISSING')
+        projections = {
+            'account_move': 'id name state move_type amount_total amount_residual payment_state company_id currency_id partner_id journal_id invoice_date date',
+            'account_payment': 'id name amount payment_type is_reconciled state company_id currency_id partner_id journal_id move_id',
+            'ydental_queue_lease': 'id ydental_actor_id ydental_store_id ydental_station_id ydental_active ydental_release_reason',
+        }
+        selected = []
+        for name in sorted(names):
+            columns = [item['column'] for item in schema[name]]
+            entry = {'table': name, 'order': ['id'] if 'id' in columns else sorted(columns)}
+            if name in projections:
+                entry['columns'] = projections[name].split()
+                entry['row_digest'] = True
+                if not set(entry['columns']) <= set(columns):
+                    raise RuntimeError('CURRENT_D_NATIVE_PROJECTION_SCHEMA_DRIFT')
+            selected.append(entry)
+        return selected
     if schema is None:
         schema = strict_loads((EXEC_ROOT / 'capture-scratch-framework-state/schema.json').read_bytes())
     initial = strict_loads((LEGACY_EXEC_ROOT / 'admission-r11-final/admission-selection.json').read_bytes())['tables']
     return [item for item in initial if item['table'] in schema]
 
 
-def d_observe(label):
-    return capture('scratch', label, selections=d_selection(), metadata=True)
+def d_observe(label, *, profile=None, schema=None):
+    if profile is not None and schema is None:
+        raise ValueError('CURRENT_D_OBSERVER_SCHEMA_REQUIRED')
+    return capture('scratch', label, selections=d_selection(schema, profile=profile), metadata=profile is None,
+                   max_rows=2000 if profile is not None else 100000, profile=profile)
 
 
-def verify_d(directory, source, *, state, actual_refund):
+
+def verify_d(directory, source, *, state, actual_refund, profile=None, additional_unpaid_fee_ids=()):
     payments = stored_rows(directory, 'ydental_settlement_payment')
     refunds = stored_rows(directory, 'ydental_settlement_refund')
     native = stored_rows(directory, 'account_payment')
@@ -1359,21 +1417,79 @@ def verify_d(directory, source, *, state, actual_refund):
     inbound = next(row for row in native if row['id'] == payment['ydental_payment_id'])
     invoice = next(row for row in stored_rows(directory, 'account_move') if row['id'] == source['invoice_id'])
     fees = stored_rows(directory, 'ydental_treatment_fee')
-    if (len(payments) != 1 or len(fees) != 1 or payment['ydental_amount'] != 6
+    sources = stored_rows(directory, 'ydental_settlement_source')
+    d_fees = [row for row in fees if row['id'] == source['fee_id'] and row['ydental_event_id'] == source['event_id']]
+    d_sources = [row for row in sources if row['ydental_fee_id'] == source['fee_id']]
+    if (len(d_fees) != 1 or d_fees[0]['ydental_amount'] != 6
+            or d_fees[0]['ydental_currency_id'] != source['currency_id']
+            or len(d_sources) != 1 or d_sources[0]['ydental_invoice_id'] != source['invoice_id']
+            or d_sources[0]['ydental_original_amount'] != 6
+            or d_sources[0]['ydental_patient_id'] != source['patient_id']
+            or d_sources[0]['ydental_store_id'] != source['store_id']
+            or {row['id'] for row in fees} != {source['fee_id']} | set(additional_unpaid_fee_ids)):
+        stop('D_EVENT_FEE_SOURCE_RELATION_NOT_UNIQUE', profile=profile)
+        raise RuntimeError('D_EVENT_FEE_SOURCE_RELATION_NOT_UNIQUE')
+    allocation_links = stored_rows(directory, 'ydental_settlement_payment_invoice_rel')
+    if allocation_links != [{'invoice_id': source['invoice_id'], 'settlement_payment_id': payment['id']}]:
+        raise RuntimeError('D_EXACT_SELECTED_INVOICE_PAYMENT_RELATION_MISMATCH')
+    events = [row for row in stored_rows(directory, 'ydental_treatment_event') if row['id'] == source['event_id']]
+    snapshots = [row for row in stored_rows(directory, 'ydental_intake_snapshot')
+                 if row['id'] == d_fees[0]['ydental_price_snapshot_id']]
+    invoice_lines = [row for row in stored_rows(directory, 'account_move_line')
+                     if row['id'] == d_sources[0]['ydental_line_id']]
+    if (len(events) != 1 or events[0]['state'] != 'confirmed'
+            or events[0]['ydental_patient_id'] != source['patient_id']
+            or events[0]['ydental_store_id'] != source['store_id']
+            or events[0]['ydental_catalog_id'] != source['catalog_id']
+            or len(snapshots) != 1 or snapshots[0]['ydental_price_id'] != source['price_id']
+            or snapshots[0]['ydental_amount'] != 6 or snapshots[0]['ydental_unit_price'] != 6
+            or snapshots[0]['ydental_quantity'] != 1
+            or events[0]['ydental_price_snapshot_id'] != snapshots[0]['id']
+            or d_sources[0]['ydental_price_version'] != 'S05:' + str(source['price_id'])
+            or len(invoice_lines) != 1 or invoice_lines[0]['move_id'] != source['invoice_id']
+            or invoice_lines[0]['quantity'] != 1 or invoice_lines[0]['price_subtotal'] != 6):
+        raise RuntimeError('D_CONFIRMED_EVENT_FROZEN_PRICE_NATIVE_LINE_RELATION_MISMATCH')
+    executions = [row for row in stored_rows(directory, 'ydental_queue_execution') if row['id'] == source['execution_id']]
+    leases = [row for row in stored_rows(directory, 'ydental_queue_lease') if row['id'] == source['lease_id']]
+    slots = [row for row in stored_rows(directory, 'ydental_supply_slot') if row['id'] == source['slot_id']]
+    if (len(executions) != 1 or executions[0]['ydental_task_id'] != source['task_id']
+            or executions[0]['ydental_patient_id'] != source['patient_id']
+            or executions[0]['ydental_lease_id'] != source['lease_id'] or executions[0]['state'] != 'handover'
+            or events[0]['ydental_execution_id'] != source['execution_id']
+            or events[0]['ydental_document_id'] != source['document_id']
+            or events[0]['ydental_document_version'] != source['document_version']
+            or events[0]['ydental_actor_id'] != source['doctor_id']
+            or len(leases) != 1 or leases[0]['ydental_actor_id'] != source['doctor_id']
+            or leases[0]['ydental_station_id'] != source['station_id'] or leases[0]['ydental_active']
+            or leases[0]['ydental_release_reason'] != 'holder_exit'
+            or len(slots) != 1 or slots[0]['state'] != 'published'
+            or slots[0]['ydental_coverage'].get('user_ids') != [source['doctor_id']]):
+        raise RuntimeError('D_REAL_PUBLISHED_DOCTOR_EXECUTION_RELATION_NOT_PROVEN')
+    # C controls may create only the explicitly listed unpaid sources. They are
+    # kept separate, and never exempt any extra payment/refund or native funds.
+    c_sources = [row for row in sources if row['ydental_fee_id'] != source['fee_id']]
+    c_moves = {row['ydental_invoice_id'] for row in c_sources}
+    moves = stored_rows(directory, 'account_move')
+    if (any(row['ydental_fee_id'] not in additional_unpaid_fee_ids for row in c_sources)
+            or any(row['move_type'] != 'out_invoice' or row['state'] != 'posted'
+                   or row['amount_total'] <= 0 or row['amount_residual'] != row['amount_total']
+                   for row in moves if row['id'] in c_moves)):
+        raise RuntimeError('D_C_CONTROL_NOT_EXPLICIT_UNPAID_SOURCE')
+    if (len(payments) != 1 or len(native) != 1 + bool(actual_refund) or payment['ydental_amount'] != 6
             or inbound['amount'] != 6 or inbound['payment_type'] != 'inbound'
             or not inbound['is_reconciled'] or inbound['state'] != 'reconciled'
             or invoice['state'] != 'posted' or invoice['amount_total'] != 6 or invoice['amount_residual'] != 0):
-        stop('D_PAYMENT_INTEGRITY_FAILURE')
+        stop('D_PAYMENT_INTEGRITY_FAILURE', profile=profile)
         raise RuntimeError('D_UNIQUE_SIX_NOT_INDEPENDENTLY_VERIFIED')
     parts = stored_rows(directory, 'account_partial_reconcile')
     for row, label in [(invoice, 'invoice'), (inbound, 'inbound')]:
         if row.get('company_id') != source['company_id'] or row.get('currency_id') != source['currency_id']:
-            stop('D_CURRENCY_COMPANY_MISMATCH', layer=label)
+            stop('D_CURRENCY_COMPANY_MISMATCH', profile=profile, layer=label)
             raise RuntimeError('D_CURRENCY_COMPANY_MISMATCH')
     if payment['ydental_store_id'] != source['store_id'] or payment['ydental_currency_id'] != source['currency_id']:
         raise RuntimeError('D_STORE_MISMATCH')
     if not parts or sum((row['amount'] for row in parts), Decimal(0)) != Decimal(6 + actual_refund):
-        stop('D_PARTIAL_RECONCILIATION_MISMATCH')
+        stop('D_PARTIAL_RECONCILIATION_MISMATCH', profile=profile)
         raise RuntimeError('D_NATIVE_PARTIAL_TOTAL_MISMATCH')
     if any(row['company_id'] != source['company_id'] or row['debit_currency_id'] != source['currency_id']
            or row['credit_currency_id'] != source['currency_id'] for row in parts):
@@ -1385,7 +1501,7 @@ def verify_d(directory, source, *, state, actual_refund):
         if refunds or outbound or credits:
             raise RuntimeError('D_PRE_REFUND_UNEXPECTED_FINANCIAL_ROWS')
     else:
-        if not refund or refund['ydental_state'] != state or refund['ydental_amount'] != 2:
+        if len(refunds) != 1 or not refund or refund['ydental_state'] != state or refund['ydental_amount'] != 2:
             raise RuntimeError('D_REFUND_STATE_NOT_VERIFIED')
         if (refund['ydental_currency_id'] != source['currency_id'] or refund['ydental_payment_id'] != payment['id']):
             raise RuntimeError('D_REFUND_SCOPE_MISMATCH')
@@ -1400,7 +1516,7 @@ def verify_d(directory, source, *, state, actual_refund):
                     or refund['ydental_credit_note_id'] != credits[0]['id']
                     or len(receipts) != 1 or len(audits) != 1
                     or refund['ydental_requester_id'] == refund['ydental_approver_id']):
-                stop('D_UNIQUE_REFUND_COMMIT_NOT_VERIFIED')
+                stop('D_UNIQUE_REFUND_COMMIT_NOT_VERIFIED', profile=profile)
                 raise RuntimeError('D_REFUND_UNKNOWN_NO_RETRY_ALLOWED')
             if any(row.get('company_id') != source['company_id'] or row.get('currency_id') != source['currency_id']
                    for row in outbound + credits):
@@ -1408,17 +1524,97 @@ def verify_d(directory, source, *, state, actual_refund):
             if not outbound[0]['is_reconciled'] or outbound[0]['state'] != 'reconciled' or credits[0]['amount_residual'] != 0:
                 raise RuntimeError('D_OUTBOUND_NOT_NATIVE_RECONCILED')
         elif outbound or credits or refund['ydental_native_payment_id'] or refund['ydental_credit_note_id']:
-            stop('D_PRE_EXECUTION_UNEXPECTED_OUTBOUND')
+            stop('D_PRE_EXECUTION_UNEXPECTED_OUTBOUND', profile=profile)
             raise RuntimeError('D_FAILED_RECOVERY_ALREADY_PAID')
+    expected_moves = {source['invoice_id'], inbound['move_id']} | c_moves
+    if actual_refund:
+        expected_moves |= {outbound[0]['move_id'], credits[0]['id']}
+    if {row['id'] for row in moves} != expected_moves:
+        raise RuntimeError('D_UNEXPLAINED_NATIVE_MOVE_OUTSIDE_D_OR_EXPLICIT_UNPAID_C')
+    native_lines = stored_rows(directory, 'account_move_line')
+    move_for_line = {row['id']: row['move_id'] for row in native_lines}
+    actual_partial_edges = {(move_for_line.get(row['debit_move_id']), move_for_line.get(row['credit_move_id']), row['amount']) for row in parts}
+    expected_partial_edges = {(source['invoice_id'], inbound['move_id'], Decimal(6))}
+    credit_links = stored_rows(directory, 'ydental_settlement_refund_credit_rel')
+    if actual_refund:
+        expected_partial_edges.add((outbound[0]['move_id'], credits[0]['id'], Decimal(2)))
+        if credit_links != [{'move_id': credits[0]['id'], 'refund_id': refund['id']}]:
+            raise RuntimeError('D_EXACT_REFUND_CREDIT_RELATION_MISMATCH')
+    elif credit_links:
+        raise RuntimeError('D_PRE_EXECUTION_UNEXPECTED_CREDIT_RELATION')
+    if actual_partial_edges != expected_partial_edges or len(parts) != len(expected_partial_edges):
+        raise RuntimeError('D_NATIVE_PARTIAL_RECONCILIATION_MOVE_EDGES_MISMATCH')
+    if any(sum((row['balance'] for row in native_lines if row['move_id'] == move_id), Decimal(0)) != 0
+           for move_id in expected_moves):
+        raise RuntimeError('D_NATIVE_JOURNAL_MOVE_NOT_BALANCED')
+    reserved = sum((row['ydental_amount'] for row in refunds if row['ydental_state'] in {
+        'requested', 'approved', 'failed', 'unknown'}), Decimal(0))
+    completed = sum((row['ydental_amount'] for row in refunds if row['ydental_state'] == 'done'), Decimal(0))
+    if completed != actual_refund or reserved != (Decimal(2) if state and not actual_refund else Decimal(0)):
+        raise RuntimeError('D_APPROVED_INFLIGHT_OR_ACTUAL_REFUND_TOTAL_MISMATCH')
     return {'layer': 'INDEPENDENT_RO_NATIVE_COMMITTED', 'received': 6, 'actually_refunded': actual_refund,
+            'approved_or_protected_inflight': float(reserved), 'refund_capacity_remaining': float(6 - completed - reserved),
             'net_received': 6 - actual_refund, 'refund_state': state,
             'native_inbound_count': 1, 'native_outbound_count': len(outbound),
             'native_credit_count': len(credits), 'source_fee_count': 1,
+            'additional_explicit_unpaid_control_fee_ids': list(additional_unpaid_fee_ids),
             'company_id': source['company_id'], 'currency_id': source['currency_id'], 'store_id': source['store_id'],
             'real_gateway_claimed': False, 'synthetic_offline_fixture': True}
 
 
-def d_flow(manager, front, doctor, fixture, facts):
+
+def d_flow(manager, front, doctor, fixture, facts, *, profile=None, observe=None, server_pid=None):
+    if profile is not None:
+        profile.require_action('D-ADMIT')
+        save_once(profile.root / 'D-CHAIN-IN-FLIGHT.json', {
+            'stage': 'BEFORE_NEW_SYNTHETIC_UPSTREAM_DISPATCH', 'target': profile.database,
+            'facts': str(facts.directory.relative_to(ROOT)), 'manager_id': manager.uid,
+            'approver_id': front.uid, 'doctor_id': doctor.uid, 'automatic_retry': False})
+        if observe is None:
+            raise ValueError('CURRENT_D_INDEPENDENT_OBSERVER_REQUIRED')
+    observe = observe or d_observe
+    if profile is not None:
+        step = 0
+        def safe_ids(value):
+            if type(value) in (int, float, bool) or value is None:
+                return value
+            if type(value) is list:
+                return [safe_ids(item) for item in value]
+            if type(value) is dict:
+                return {name: safe_ids(item) for name, item in value.items()
+                        if name not in {'token', 'editor_token', 'lease_token', 'connection',
+                                        'csrf_token', 'password', 'login', 'content'}
+                        and (type(item) is not str or name in {'state', 'result', 'channel', 'actual_utc'})}
+            return None
+        class RecordedActor:
+            def __init__(self, actor, label):
+                self.actual, self.uid, self.label = actor, actor.uid, label
+            def __getattr__(self, name):
+                return getattr(self.actual, name)
+            def action(self, endpoint, operation, payload, **options):
+                nonlocal step
+                step += 1
+                name = 'D-step-%02d-%s-%s' % (step, self.label, operation)
+                if endpoint not in {'access', 'queue', 'clinical'}:
+                    options['key'] = options.get('key') or uuid.uuid4().hex
+                options['operation_ref'] = options.get('operation_ref') or name
+                facts.save(name + '-intent', {'actor_id': self.uid, 'store_id': fixture['store_id'],
+                    'endpoint': endpoint, 'operation': operation, 'key': options.get('key'),
+                    'operation_ref': options['operation_ref'], 'case': options['case'],
+                    'business_ids': safe_ids(payload), 'private_runtime_tokens_retained': False,
+                    'automatic_retry': False, 'stage': 'BEFORE_DISPATCH'})
+                try:
+                    result = self.actual.action(endpoint, operation, payload, **options)
+                except BaseException as error:
+                    facts.save(name + '-uncertain', {'outcome': 'UNCONFIRMED_REQUIRES_INDEPENDENT_RO',
+                        'error_type': type(error).__name__, 'automatic_retry': False})
+                    raise
+                facts.save(name + '-returned', {'result': safe_ids(result) if type(result) is dict else {
+                    'request_id': result.request_id, 'outcome': 'UNKNOWN'},
+                    'commit_claimed': False, 'automatic_retry': False})
+                return result
+        manager, front, doctor = (RecordedActor(actor, label) for actor, label in (
+            (manager, 'manager'), (front, 'approver'), (doctor, 'doctor')))
     now = datetime.now(timezone.utc).replace(tzinfo=None, microsecond=0)
     fmt = lambda value: value.strftime('%Y-%m-%d %H:%M:%S')
     catalog = manager.action('intake', 'catalog', {'code': 'lc2-six-' + uuid.uuid4().hex, 'name': 'LC2 independent six-unit care',
@@ -1431,7 +1627,7 @@ def d_flow(manager, front, doctor, fixture, facts):
     start, end = now + timedelta(minutes=5), now + timedelta(minutes=10)
     slot = manager.action('supply', 'slot', {'station_id': fixture['station_id'], 'start': fmt(start), 'end': fmt(end), 'total': 3,
         'capability_ids': [fixture['capability_id']], 'reason': 'LC2 independent synthetic capacity'}, case='D-ADMIT')
-    manager.action('supply', 'publish', {'id': slot['id'], 'version': 1, 'user_ids': [manager.uid], 'reason': 'LC2 qualified synthetic coverage'}, case='D-ADMIT')
+    manager.action('supply', 'publish', {'id': slot['id'], 'version': 1, 'user_ids': [doctor.uid], 'reason': 'LC2 actual qualified synthetic doctor coverage'}, case='D-ADMIT')
     patient = front.action('patients', 'create', {'values': {'name': 'LC2 independent synthetic D patient'}}, case='D-ADMIT')
     qualification = front.action('intake', 'reserve', {'patient_id': patient['id'], 'mapping_id': mapping['id'], 'start': fmt(start), 'end': fmt(end), 'channel': 'reservation'}, case='D-ADMIT')
     front.action('intake', 'arrive', {'patient_id': patient['id']}, case='D-ADMIT')
@@ -1454,48 +1650,167 @@ def d_flow(manager, front, doctor, fixture, facts):
         raise RuntimeError('D_SOURCE_FEE_NOT_SIX')
     doctor.action('clinical', 'handover', {'document_id': document['document_id'], 'editor_token': document['editor_token'], 'expected_version': saved['version'],
         'content': content, 'key': uuid.uuid4().hex, 'lease_id': lease['lease_id'], 'lease_token': lease['token']}, case='D-ADMIT')
+    if profile is not None:
+        doctor.action('queue', 'exit', held, case='D-ADMIT')
     bill = manager.action('settlement', 'bill', {'fee_ids': [event['fee_id']], 'discount': 0, 'reason': ''}, case='D-NORMAL-6')
-    payment = manager.action('settlement', 'pay', {'invoice_ids': [bill['invoice_id']], 'amount': 6, 'channel': 'cash',
-        'actual_utc': datetime.now(timezone.utc).isoformat(), 'proof': 'LC2 synthetic offline six received'}, case='D-NORMAL-6')
-    source = {'patient_id': patient['id'], 'event_id': event['event_id'], 'fee_id': event['fee_id'], 'invoice_id': bill['invoice_id'], 'payment_id': payment['payment_id'],
+    source = {'patient_id': patient['id'], 'event_id': event['event_id'], 'fee_id': event['fee_id'],
+              'invoice_id': bill['invoice_id'], 'catalog_id': catalog['id'], 'price_id': price['id'],
+              'slot_id': slot['id'], 'task_id': qualification['task_id'], 'execution_id': execution['execution_id'],
+              'document_id': document['document_id'], 'document_version': saved['version'],
+              'doctor_id': doctor.uid, 'lease_id': lease['lease_id'], 'station_id': fixture['station_id'],
               'company_id': fixture['company_id'], 'currency_id': fixture['currency_id'], 'store_id': fixture['store_id'],
-              'manager_id': manager.uid, 'approver_id': front.uid}
-    state = d_observe('normal-six')
-    facts.save('D-normal-independent', verify_d(state, source, state=None, actual_refund=0) | source)
+              'manager_id': manager.uid, 'approver_id': front.uid,
+              'pay_key': uuid.uuid4().hex, 'execute_key': uuid.uuid4().hex,
+              'pay_operation_ref': 'current-D-unique-receive-six',
+              'execute_operation_ref': 'current-D-unique-return-two'}
+    pay_payload = {'invoice_ids': [bill['invoice_id']], 'amount': 6, 'channel': 'cash',
+                   'actual_utc': datetime.now(timezone.utc).isoformat(), 'proof': 'LC2 synthetic offline six received'}
+    facts.save('D-pay-before-dispatch', {'source': source, 'payload': pay_payload,
+        'stage': 'NOT_SENT', 'automatic_retry': False, 'actor_id': manager.uid})
+    payment = manager.action('settlement', 'pay', pay_payload, key=source['pay_key'],
+        operation_ref=source['pay_operation_ref'], case='D-NORMAL-6')
+    source['payment_id'] = payment['payment_id']
+    facts.save('D-pay-response-before-independent-check', source)
+    state = observe('normal-six')
+    facts.save('D-normal-independent', verify_d(state, source, state=None, actual_refund=0, profile=profile) | source)
     request = manager.action('settlement', 'refund_request', {'payment_id': source['payment_id'], 'amount': 2, 'reason': 'LC2 synthetic two-unit refund'}, case='D-FAILED-2')
     source['refund_id'] = request['refund_id']
+    facts.save('D-requested-independent', verify_d(observe('requested-two'), source,
+        state='requested', actual_refund=0, profile=profile))
+    self_approval = manager.action('settlement', 'refund_approve', {
+        'refund_id': source['refund_id'], 'reason': 'LC2 requester cannot approve own refund'},
+        case='D-FAILED-2', expect=(403, 409))
+    expected_separation = 'access_denied: A different finance approver must approve a pending request.'
+    if self_approval.get('error') != expected_separation:
+        raise RuntimeError('D_SELF_APPROVAL_DID_NOT_HIT_NATIVE_SEPARATION_GUARD')
+    facts.save('D-self-approval-refused-independent', verify_d(observe('self-approval-denied-two'), source,
+        state='requested', actual_refund=0, profile=profile) | {
+            'requester_approval_permission': fixture['manager_levels']['finance_approval'],
+            'native_separation_message_sha256': hashlib.sha256(expected_separation.encode()).hexdigest()})
     front.action('settlement', 'refund_approve', {'refund_id': source['refund_id'], 'reason': 'LC2 independent authorized approval'}, case='D-FAILED-2')
+    facts.save('D-approved-before-failed-independent', verify_d(observe('approved-two'), source,
+        state='approved', actual_refund=0, profile=profile) | {'approved_in_flight': 2, 'actually_refunded': 0})
     manager.action('settlement', 'refund_uncertain', {'refund_id': source['refund_id'], 'outcome': 'failed', 'reason': 'LC2 synthetic verified unpaid before offline execution'}, case='D-FAILED-2')
-    facts.save('D-failed-independent', verify_d(d_observe('failed-two'), source, state='failed', actual_refund=0))
+    facts.save('D-failed-independent', verify_d(observe('failed-two'), source, state='failed', actual_refund=0, profile=profile))
+    unverified = front.action('settlement', 'refund_recover', {
+        'refund_id': source['refund_id'], 'verified_not_paid': '0',
+        'reason': 'LC2 missing independent no-payment verification must refuse'},
+        case='D-RECOVER-2', expect=(409,))
+    expected_recovery = 'refund_recovery_required: Verify the external offline transfer before re-arming.'
+    if unverified.get('error') != expected_recovery:
+        raise RuntimeError('D_UNVERIFIED_RECOVERY_DID_NOT_HIT_NATIVE_RECOVERY_REQUIRED')
+    facts.save('D-unverified-recovery-refused-independent', verify_d(observe('unverified-recovery-denied-two'),
+        source, state='failed', actual_refund=0, profile=profile) | {
+            'qualified_approver_id': front.uid, 'http_status': 409,
+            'native_recovery_message_sha256': hashlib.sha256(expected_recovery.encode()).hexdigest()})
     front.action('settlement', 'refund_recover', {'refund_id': source['refund_id'], 'verified_not_paid': '1', 'reason': 'LC2 independent verified unpaid synthetic fact'}, case='D-RECOVER-2')
-    facts.save('D-recover-independent', verify_d(d_observe('recovered-two'), source, state='approved', actual_refund=0))
-    source['execute_key'] = uuid.uuid4().hex
+    facts.save('D-recover-independent', verify_d(observe('recovered-two'), source, state='approved', actual_refund=0, profile=profile))
     payload = {'refund_id': source['refund_id'], 'actual_utc': datetime.now(timezone.utc).isoformat(), 'proof': 'LC2 synthetic offline two actually returned'}
+    facts.save('D-refund-execute-before-dispatch', {'source': source, 'payload': payload,
+        'stage': 'NOT_SENT', 'automatic_retry': False, 'actor_id': manager.uid})
     loss = manager.action('settlement', 'refund_execute', payload, key=source['execute_key'], case='D-LOST-REFUND-2',
-                          operation_ref='lc2-unique-refund-execute', discard=True, retry=True)
+                          operation_ref=source['execute_operation_ref'], discard=True, retry=True)
     facts.save('D-loss-observation', {'request_id': loss.request_id, 'outcome': 'UNKNOWN', 'automatic_retry': False})
     # The transport may return headers just before COMMIT. Bounded independent
     # observers can wait for visibility; they never re-dispatch the refund.
     verified = None
     for attempt in range(3):
-        directory = d_observe('lost-independent-' + str(attempt + 1))
+        directory = observe('lost-independent-' + str(attempt + 1))
         refund = next(row for row in stored_rows(directory, 'ydental_settlement_refund') if row['id'] == source['refund_id'])
         if refund['ydental_state'] == 'done':
-            verified = verify_d(directory, source, state='done', actual_refund=2)
+            verified = verify_d(directory, source, state='done', actual_refund=2, profile=profile)
             break
         time.sleep(.2)
     if verified is None:
-        stop('REFUND_COMMIT_UNKNOWN_NO_RETRY')
+        stop('REFUND_COMMIT_UNKNOWN_NO_RETRY', profile=profile)
         raise OutcomeUnknown('REFUND_NOT_VERIFIED_STOP_NO_RETRY')
     facts.save('D-lost-verified-before-retry', verified)
     retry_result = manager.action('settlement', 'refund_execute', payload, key=source['execute_key'], case='D-VERIFY-RETRY',
-                                 operation_ref='lc2-unique-refund-execute', attempt=2, retry=True)
+                                 operation_ref=source['execute_operation_ref'], attempt=2, retry=True)
     if retry_result.get('result') != 'already_accepted':
         raise RuntimeError('D_RETRY_DID_NOT_RETURN_PRIOR_RECEIPT')
-    facts.save('D-idempotent-retry-independent', verify_d(d_observe('retry-unique'), source, state='done', actual_refund=2))
-    safe_source = {key: value for key, value in source.items() if key != 'execute_key'}
+    facts.save('D-idempotent-retry-independent', verify_d(observe('retry-unique'), source, state='done', actual_refund=2, profile=profile))
+    if profile is None:
+        receipt = manager.client.request('GET', '/ydental/settlement/pdf/refund/' + str(source['refund_id']),
+            case_id='D-VERIFY-RETRY', artifact_kind='pdf', operation_ref='current-D-final-two-refund-receipt')
+    else:
+        from concurrent.futures import ThreadPoolExecutor
+        import threading
+        from lxml import html
+        profile.require_action('LOG-02')
+        if (type(server_pid) is not int or server_pid <= 0 or manager.uid == front.uid
+                or manager.client.cookies is front.client.cookies):
+            raise RuntimeError('LOG02_REAL_OWNED_SERVER_AND_TWO_ACTORS_REQUIRED')
+        receipt_operation = 'current-D-final-two-refund-receipt'
+        front_operation = 'LOG-02-current-D-front-workbench'
+        facts.save('LOG02-final-D-read-pair-intent', {'actors': [manager.uid, front.uid],
+            'server_pid': server_pid, 'refund_id': source['refund_id'], 'patient_id': source['patient_id'],
+            'additional_pdf_requests': 0, 'financial_concurrency_claimed': False})
+        barrier = threading.Barrier(2)
+        def fetch_receipt():
+            barrier.wait(timeout=10)
+            return manager.client.request('GET', '/ydental/settlement/pdf/refund/' + str(source['refund_id']),
+                case_id='D-VERIFY-RETRY', artifact_kind='pdf', operation_ref=receipt_operation)
+        def fetch_workbench():
+            barrier.wait(timeout=10)
+            return front.client.request('GET', '/ydental/settlement?patient_id=' + str(source['patient_id']),
+                case_id='LOG-02', operation_ref=front_operation)
+        with ThreadPoolExecutor(max_workers=2) as executor:
+            receipt_future = executor.submit(fetch_receipt)
+            workbench_future = executor.submit(fetch_workbench)
+            receipt = receipt_future.result()
+            workbench = workbench_future.result()
+        workbench.require_status(200)
+        tree = html.fromstring(workbench.body)
+        invoice_ids = sorted(int(value.strip()) for value in tree.xpath(
+            '//section[@name="settled-bills"]//tbody/tr/td[1]/text()') if value.strip())
+        if source['invoice_id'] not in invoice_ids:
+            raise RuntimeError('LOG02_FRONT_NONEMPTY_D_WORKBENCH_NOT_PROVEN')
+        intervals = []
+        for operation, actor_id in ((receipt_operation, manager.uid), (front_operation, front.uid)):
+            operation_hash = hashlib.sha256(('ydental-client-operation:' + operation).encode()).hexdigest()
+            rows = []
+            for path in (profile.run_root / profile.database / 'diagnostics').glob('events-' + str(server_pid) + '-*.jsonl'):
+                rows.extend(row for line in path.read_bytes().splitlines() if (
+                    row := strict_loads(line)).get('operation_ref') == operation_hash)
+            received = [row for row in rows if row.get('event') == 'request.received']
+            returned = [row for row in rows if row.get('event') == 'request.returned']
+            if len(received) != 1 or len(returned) != 1:
+                raise RuntimeError('LOG02_NATIVE_REQUEST_INTERVAL_NOT_UNIQUE')
+            first, last = received[0], returned[0]
+            if (first.get('actor_id') != actor_id or last.get('actor_id') != actor_id
+                    or first.get('request_id') != last.get('request_id')
+                    or first.get('trace_id') != last.get('trace_id')
+                    or not first.get('request_id') or not first.get('trace_id')
+                    or any(row.get('request_id') != first['request_id'] or row.get('trace_id') != first['trace_id']
+                           or row.get('actor_id') != actor_id for row in rows)):
+                raise RuntimeError('LOG02_ACTOR_REQUEST_TRACE_ISOLATION_FAILED')
+            intervals.append({'actor_id': actor_id, 'request_id': first['request_id'], 'trace_id': first['trace_id'],
+                'start_ns': first['monotonic_ns'], 'end_ns': last['monotonic_ns'],
+                'received_event_id': first['event_id'], 'returned_event_id': last['event_id'],
+                'operation_ref_sha256': operation_hash, 'associated_event_count': len(rows)})
+        if (intervals[0]['request_id'] == intervals[1]['request_id']
+                or intervals[0]['trace_id'] == intervals[1]['trace_id']):
+            raise RuntimeError('LOG02_DIFFERENT_REQUEST_CONTEXTS_COLLIDED')
+        overlap = max(row['start_ns'] for row in intervals) < min(row['end_ns'] for row in intervals)
+        facts.save('LOG02-two-real-identity-request-isolation', {'server_pid': server_pid, 'intervals': intervals,
+            'server_intervals_overlap': overlap, 'status': 'PASS' if overlap else 'NOT_PROVEN_NO_SERVER_OVERLAP',
+            'client_request_ids': [receipt.request_id, workbench.request_id],
+            'workbench_invoice_ids': invoice_ids, 'workbench_body_sha256': hashlib.sha256(workbench.body).hexdigest(),
+            'two_distinct_cookie_jars': manager.client.cookies is not front.client.cookies,
+            'financial_competition_claimed': False, 'extra_pdf_download_for_logs': False})
+    receipt.require_status(200)
+    if not receipt.body or not receipt.body.startswith(b'%PDF-'):
+        raise RuntimeError('D_FINAL_REFUND_RECEIPT_NOT_PDF')
+    facts.save('D-final-refund-receipt', {'request_id': receipt.request_id, 'actor_id': manager.uid,
+        'refund_id': source['refund_id'], 'sha256': hashlib.sha256(receipt.body).hexdigest(),
+        'bytes': len(receipt.body), 'artifact_ref': receipt.metadata.get('artifact_ref'),
+        'client_directory': str(manager.client.directory.relative_to(ROOT)),
+        'page_review': 'PENDING_INDEPENDENT_EVERY_PAGE_REVIEW'})
+    safe_source = {key: value for key, value in source.items() if key not in {'execute_key', 'pay_key'}}
     facts.save('D-unique-source-identities', safe_source)
     return source
+
 
 
 def closed_log_report(app):

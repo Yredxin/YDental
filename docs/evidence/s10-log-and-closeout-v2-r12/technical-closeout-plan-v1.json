@@ -3,8 +3,8 @@
   "version": "1.0",
   "task_id": "S10-LOG-AND-CLOSEOUT-v2",
   "status": "IN_PROGRESS",
-  "product_commit": "cf5d63fe510b52ea150d07495bf3062f4ce0961d",
-  "runtime_test_commit": "c48d7fb23765aaac843739ab276db3138f971bf9",
+  "product_commit": "b1f30aa88365ec85aea15073f08de5d6dfa22a5f",
+  "runtime_test_commit": "64371b6ad8530925396379aaf5ed8cf85ac01c57",
   "core_commit": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
   "executor": "/root/tester_s10",
   "reviewer": "/root/acceptance_s10",
@@ -77,27 +77,30 @@
         "owned parent exit/native privacy proof"
       ],
       "scope": "Only current main pre-upgrade A at c48d7fb; E-MAIN and remaining groups not passed."
-    }
+    },
+    "product_commit": "cf5d63fe510b52ea150d07495bf3062f4ce0961d",
+    "runtime_test_commit": "c48d7fb23765aaac843739ab276db3138f971bf9"
   },
   "counts": {
     "cumulative": {
       "accident_ro": 2,
       "create": 2,
-      "firefox": 7,
-      "http": 122,
+      "firefox": 8,
+      "http": 171,
       "maintenance": 1,
-      "odoo_start": 20,
-      "original_get": 5,
-      "target_ro": 94
+      "odoo_start": 23,
+      "original_get": 7,
+      "target_ro": 105
     },
     "current_plan": {
-      "firefox": 1,
-      "http": 90,
-      "odoo_start": 10,
-      "original_get": 5,
-      "target_ro": 64
+      "firefox": 2,
+      "http": 139,
+      "odoo_start": 13,
+      "original_get": 7,
+      "target_ro": 75
     },
-    "counts_are_not_test_pass_totals": true
+    "counts_are_not_test_pass_totals": true,
+    "http_boundary": "Runner/browser dispatch ledger; not all native renderer internal asset HTTP wire requests."
   },
   "private_index_references": [
     {
@@ -193,6 +196,36 @@
       "bytes": 61882,
       "sha256": "517534b5a06d8a2d5aebbadd902ed18c9ed71a6871c9e89f33827cbcee782294",
       "access": "PRIVATE_LOCAL_NOT_GITHUB_READABLE"
+    },
+    {
+      "ref": ".local/s10-technical-closeout-v1/C-tail-pdf-review/index.json",
+      "bytes": 5299,
+      "sha256": "35de2f2e59af927d116d0f65bec5376e975e78b11b6b8f3e4fdf12f00158cd83",
+      "access": "PRIVATE_LOCAL_NOT_GITHUB_READABLE"
+    },
+    {
+      "ref": ".local/s10-technical-closeout-v1/C-tail-terminal-offline-assessment.json",
+      "bytes": 572222,
+      "sha256": "c1135022510b594f41e4ef71515eb881bb26c6d02f210621fccf244daf890c94",
+      "access": "PRIVATE_LOCAL_NOT_GITHUB_READABLE"
+    },
+    {
+      "ref": ".local/s10-technical-closeout-v1/C-tail-browser-post-OS-observation.json",
+      "bytes": 661,
+      "sha256": "b4fd44ab22e546b0d0b090e4909ed30ed2bd477e66a2240384211194d48d740b",
+      "access": "PRIVATE_LOCAL_NOT_GITHUB_READABLE"
+    },
+    {
+      "ref": ".local/s10-technical-closeout-v1/C-MAIN-TAIL-COMPLETE.json",
+      "bytes": 468,
+      "sha256": "717d5de04f28298c47043c157c0212bc2e4aa648313b4e939d64d2e42c481c0c",
+      "access": "PRIVATE_LOCAL_NOT_GITHUB_READABLE"
+    },
+    {
+      "ref": ".local/s10-technical-closeout-v1/C-tail-current-result-index.json",
+      "bytes": 7311,
+      "sha256": "20c1a19136855776ca567fb97d1abf3e87aa989c5fa3b0455269f36fffd74456",
+      "access": "PRIVATE_LOCAL_NOT_GITHUB_READABLE"
     }
   ],
   "ordinary_tool_failures": [
@@ -236,7 +269,8 @@
     "A_pre_upgrade": "c48d7fb23765aaac843739ab276db3138f971bf9",
     "reader_initialize_and_B_preparation": "48fad024dff0460d2936931d811503605d54ca6d",
     "B_actual": "cccbf577c454747f1e60d4de05a6775efe23b137",
-    "P1_load_and_C_first": "70c49c26cf6dac860e674d90a2f36a52b8f45a00"
+    "P1_load_and_C_first": "70c49c26cf6dac860e674d90a2f36a52b8f45a00",
+    "font_repair_C_tail": "64371b6ad8530925396379aaf5ed8cf85ac01c57"
   },
   "B-reader": {
     "actor_id": 59,
@@ -295,9 +329,9 @@
   },
   "independent_review_reference": {
     "ref": "../../reports/s10-log-and-closeout-v2-r12/acceptance-review.md",
-    "bytes_at_current_signature": 150527,
-    "sha256_at_current_signature": "70c04280e1609eff645c58da31ce5ed11f2dbbbabb2207644e8762719b73896a",
-    "scope": "A/B scoped PASS; P1 repair load scoped PASS; C dynamic Chinese first FAIL; incident ONLY_RO scoped protection PASS; 22 finance carry limits; b1f30aa repair SOURCE reviewed, actual repair NOT_RUN."
+    "bytes_at_current_signature": 160296,
+    "sha256_at_current_signature": "3be3a6e6e65d7f354baa90bca42f90a65506f779009b5e327847e8feceb73817",
+    "scope": "C configuration/font loading/PDF3 and applicable C-main business scoped PASS; original terminal wrapper exit1 retained, new59 write_uid pending; filtered-empty semantic, Firefox historical exit and scratch C limits explicit; not whole C/S10."
   },
   "B-actual": {
     "status": "PASS_SCOPED_SIX_MODEL_AND_SIX_REAL_RPC",
@@ -528,7 +562,7 @@
       "source_reconstruction": "Changed tracked files archived from fixed cccbf577 Git bytes only after exact match with actual B frozen SHA; explicitly marked FIXED_COMMIT_BYTE_IDENTICAL_SOURCE."
     }
   },
-  "current_product_commit": "d0d27cf44446e2517a43251236636fd233a50ff6",
+  "current_product_commit": "b1f30aa88365ec85aea15073f08de5d6dfa22a5f",
   "P1-repair-load": {
     "status": "PASS_SCOPED_NOT_FINAL_E",
     "product_commit": "d0d27cf44446e2517a43251236636fd233a50ff6",
@@ -592,7 +626,7 @@
   },
   "source_product_candidate": "b1f30aa88365ec85aea15073f08de5d6dfa22a5f",
   "font-config-repair-source": {
-    "status": "SOURCE_FIXED_ACTUAL_REPAIR_NOT_RUN",
+    "status": "ACTUAL_CONFIGURATION_AND_FONT_LOADING_SCOPED_PASS_THREE_PDFS_INDEPENDENTLY_PASSED",
     "product_commit": "b1f30aa88365ec85aea15073f08de5d6dfa22a5f",
     "font_bytes": 16437364,
     "font_sha256": "2c76254f6fc379fddfce0a7e84fb5385bb135d3e399294f6eeb6680d0365b74b",
@@ -602,6 +636,64 @@
     "core_changed": false,
     "financial_python_changed": false,
     "old_original_regenerated": false,
-    "actual_pdf_validation": "NOT_RUN"
+    "actual_pdf_validation": "ALL_THREE_EACH_PAGE_AND_EMBEDDED_FONT_VERIFIED",
+    "actual_runtime_commit": "64371b6ad8530925396379aaf5ed8cf85ac01c57"
+  },
+  "C-main-tail": {
+    "status": "BUSINESS_SCOPED_ACTUAL_PASS_TERMINAL_PROTECTION_PARTIAL",
+    "product_commit": "b1f30aa88365ec85aea15073f08de5d6dfa22a5f",
+    "runtime_commit": "64371b6ad8530925396379aaf5ed8cf85ac01c57",
+    "exit_code": 0,
+    "http_dispatches": 49,
+    "durable_cells_including_aggregate": 15,
+    "cells_are_not_test_count": true,
+    "prefix_replayed": false,
+    "same_company_foreign_store_nonempty": true,
+    "cross_company_family_mixed_nonempty_summary": "NOT_RUN_PENDING_SCRATCH",
+    "real_browser_revoked_same_old_page_next_request": 403,
+    "permissions_restored": true,
+    "dynamic_pdfs": {
+      "pages": [
+        1,
+        1,
+        1
+      ],
+      "chinese_visual": "INDEPENDENT_EACH_PAGE_CLEAR_NO_SQUARES_NO_TRUNCATION",
+      "embedded_font": "NotoSansCJKsc-Regular subsets independently verified",
+      "native_renderer_exit_codes": [
+        0,
+        0,
+        0
+      ],
+      "native_source_amounts": "Independently matched exact invoice/payment/refund, company/store/currency and partials from terminal first raw"
+    },
+    "terminal_ro": {
+      "actual_wrapper_exit": 1,
+      "first_raw_preserved": true,
+      "new_user59_write_uid": [
+        2,
+        59
+      ],
+      "reason": "Native browser first timezone write candidate requires focused actual metadata; not blindly ignored",
+      "old_business_protection": "Same original raw confirms no unexplained old document/fund/original/other-user grants changes",
+      "four_mutex_actual_delta": 5,
+      "original_preestimate_delta": 6,
+      "tool_preestimate_corrected_by_source_and_same_raw": true
+    },
+    "browser_exit_limit": "APIclose and post-hoc no matching OS resources only; historical Firefox PID/birth/exitcode NOT_CAPTURED",
+    "filtered_empty_rpc": "Actual control-flow supported only; one semantic count0 complement planned in existing LOG03 main service",
+    "owned_service_pid": 1853372,
+    "owned_parent_exit": 0,
+    "independent_reviewer": "/root/acceptance_s10"
+  },
+  "initial_product_commit": "cf5d63fe510b52ea150d07495bf3062f4ce0961d",
+  "initial_runtime_test_commit": "c48d7fb23765aaac843739ab276db3138f971bf9",
+  "D-source": {
+    "status": "SOURCE_READY_ACTUAL_SCRATCH_NOT_RUN",
+    "protected_single_chain": "One new receive6/refund2; no replay after prior intent",
+    "early_scratch_s10_upgrade": "Required if actual database report/workbench arch is old; not final E-D",
+    "log_pair": "Native independent ON/OFF rollback only after separate new unbilled C fixture",
+    "reviewer": "/root/acceptance_s10",
+    "root_implemented_log_helper": "Independent acceptance required, no coordinator self-signature"
   }
 }

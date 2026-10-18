@@ -61,6 +61,7 @@ class TaskProfile:
     deadline_epoch: float
     authority_sha256: str
     message_id: str = FRAMEWORK6
+    target_role: str = 'main'
 
     def current_scope(self):
         """Read the current plan receipt without changing any historical receipt."""
@@ -80,6 +81,11 @@ class TaskProfile:
                 or not self.started_epoch <= time.time() <= self.deadline_epoch
                 or not 0 < self.deadline_epoch - self.started_epoch <= 86400):
             raise RuntimeError('CURRENT_PLAN_SCOPE_OR_WINDOW_INVALID')
+        if self.target_role not in {'main', 'scratch'}:
+            raise RuntimeError('CURRENT_PLAN_TARGET_ROLE_INVALID')
+        if self.target_role == 'scratch' and value.get('targets', {}).get('scratch') != {
+                'database': SCRATCH, 'oid': 2144130, 'port': 18411, 'cluster': '7694897083368259627'}:
+            raise RuntimeError('CURRENT_PLAN_SCRATCH_TARGET_NOT_REVIEWED')
         baseline, limits = value.get('baseline'), value.get('limits')
         protected = {'accident_ro', 'create', 'maintenance'}
         permitted = {'odoo_start', 'target_ro', 'http', 'firefox', 'original_get'}
@@ -133,7 +139,7 @@ class TaskProfile:
     @property
     def database(self):
         if self.message_id == CURRENT_PLAN:
-            return MAIN
+            return MAIN if self.target_role == 'main' else SCRATCH
         return MAIN if self.message_id in MAIN_A_PROFILES else SCRATCH
 
     @property
@@ -163,7 +169,8 @@ class TaskProfile:
     @property
     def allowed_actions(self):
         if self.message_id == CURRENT_PLAN:
-            return set(self.current_scope()['action_reviews']) & {'main-service', 'main-fixture', 'main-upgrade'}
+            return set(self.current_scope()['action_reviews']) & {
+                self.target_role + suffix for suffix in ('-service', '-fixture', '-upgrade')}
         if self.message_id == MAIN_A_AUTONOMY:
             return {'main-service', 'main-credential-setup'}
         return {'main-service'} if self.message_id in MAIN_A_PROFILES else {'scratch-tests'}
@@ -176,7 +183,8 @@ class TaskProfile:
 
     def validate_target(self, database, oid, port=None):
         self.verify()
-        expected = (MAIN, 2144129, 18410) if self.message_id in MAIN_A_PROFILES or self.message_id == CURRENT_PLAN else (SCRATCH, 2144130, 18411)
+        main = self.message_id in MAIN_A_PROFILES or self.message_id == CURRENT_PLAN and self.target_role == 'main'
+        expected = (MAIN, 2144129, 18410) if main else (SCRATCH, 2144130, 18411)
         if (database, oid) != expected[:2] or port is not None and port != expected[2]:
             raise RuntimeError('LC2_TASK_TARGET_SCOPE_INVALID')
 
@@ -234,8 +242,8 @@ def framework6_profile():
     return _profile(FRAMEWORK6)
 
 
-def current_plan_profile():
-    return _profile(CURRENT_PLAN)
+def current_plan_profile(target_role='main'):
+    return _profile(CURRENT_PLAN, target_role=target_role)
 
 
 def main_a_profile():
@@ -254,12 +262,12 @@ def main_a_original_ui_profile():
     return _profile(MAIN_A_ORIGINAL_UI)
 
 
-def _profile(message_id):
+def _profile(message_id, *, target_role='main'):
     if message_id == CURRENT_PLAN:
         raw = (CURRENT_ROOT / 'scope.json').read_bytes()
         value = json.loads(raw)
         profile = TaskProfile(CURRENT_ROOT, value['started_epoch'], value['deadline_epoch'],
-                              hashlib.sha256(raw).hexdigest(), CURRENT_PLAN)
+                              hashlib.sha256(raw).hexdigest(), CURRENT_PLAN, target_role)
         profile.verify()
         return profile
     root_name, started, authorized_scope, parent = _SPECS[message_id]
@@ -289,4 +297,4 @@ def profile_from_environment(environment):
         return None
     if selected not in _SPECS and selected != CURRENT_PLAN:
         raise RuntimeError('UNKNOWN_LC2_TASK_PROFILE')
-    return _profile(selected)
+    return _profile(selected, target_role=environment.get('YDENTAL_LC2_TARGET_ROLE', 'main'))

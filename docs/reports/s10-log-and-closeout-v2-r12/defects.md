@@ -1,3 +1,7 @@
+## 当前更新：中文PDF已实修，C保护元数据待精确补证
+
+b1f30aa/64371b6实际三参数修复与字体加载后，3份当前PDF独立逐页中文清晰且renderer均0，旧中文方框首失败保留并以新实证修复，未全C/S10通过。C终RO wrapper首exit1：新59.write_uid 2→59待核原生首次browser时区写入，其他旧业务无未解释变化；四mutex真实+5，草稿+6预估错误由同raw及5次grant源码解释，不重RO/不改raw。首filtered-empty RPC仅控制流支持，后LOG03同服务补1次语义。C浏览器历史OS退出未采，仅APIclose及当前无匹配资源；未来E/LOG接既有监督，不补造过去。
+
 ## 当前plan：P1加载限定通过、C动态中文PDF失败（2026-10-18）
 
 产品d0d27cf / 实际70c49c2：P1主库S10-only修复加载实际exit0及独立前后保护通过，非最终E。C首动态账单HTTP200生成1页PDF，中文视觉方框、提取CJK为0，必需票据中文标准FAIL。renderer返回1/NONZERO_NOT_NATIVE，原生日志有ConnectionRefusedError；具体请求URL尚未知，不冒因果结论。旧原件SHA仍原值。当前普通STOP保留，仅准精确绑定只读调查；receipt/refund/异店/浏览器未执行，不能报C通过。只读字体匹配回退DejaVu、zh family空，尚待产品资源及报告URL事实决定最小修复。首次原始失败、PDF、进程退出和4授权检查点均保留，不全C重放。

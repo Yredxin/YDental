@@ -29,6 +29,13 @@
 
 - 最小字体/配置修复实现固定b1f30aa88365ec85aea15073f08de5d6dfa22a5f：官方Noto Sans CJK SC Regular静态OTF原字节16437364B/完整OFL随module发布，原PDF article内固定本模块font-face；nativeadmin2三参数only有原值守卫及before/commit停点；C-tail仅两HTML补证及未执行余段，每项立即落盘。仅AST/XML/font字节与字符覆盖检查通过，配置提交/字体加载/新PDF尚NOT_RUN，旧renderer失败不被覆盖。此次仅产品QWeb/字体资源，财务Python未变；实际路径和独立逐页检查仍必需。
 
+- 字体修复实际（P=b1f30aa / T=64371b6）：nativeadmin2仅3报告参数提交exit0，beforeRO exit0；main S10-only字体加载exit0及afterRO exit0/39域保全，独审限定PASS（仍非最终E）。C-tail随后exit0/34.27s，49 runner/browser派发HTTP、15逐cell材料、真实同company1异店3非空对照、普通59同旧页撤权后下一原件请求403与正常恢复均有实证；首C前缀及旧原件正例未重放。3份本次动态PDF各1页中文清晰、Noto子集实嵌、3renderer均0，独立逐页与native金额投影核内容限定PASS。
+- C终RO首wrapper实际exit1（原raw完整/不改）：新59.write_uid从初始化admin2变59尚待正常browser timezone路径事实补证；其余身份/组/公司不变。离线同raw已核39旧业务/2旧原件/非59权限保持，59原store1两grant仅正常write_date、新store3一member两grant及四mutex仅revision各+5；草稿先验+6是工具预估错误，真实仅5次grant触锁、join不触该锁，不改raw凑期望。33新审计逐项独核。当前新59后续请求暂停，既有旧页403实证不抹；独立scratch准备继续。
+- C还有限制：首ir.attachment.search_read空返回只有实际控制流证明，后续LOG03同main服务仅补1次count0语义；跨公司/family/混源/非空摘要待scratch。C browser API已close但该直调未接PID/birth历史监督，原PARENT_SUPERVISOR_REQUIRED保留；事后只读/proc无匹配Firefox/Playwright资源，不能补历史exitcode。后续E/LOG接既有真实父监督，不重跑旧页追证。
+- 当前累计Odoo23/RO105/HTTP171/Firefox8/原件GET7；旧事故/maintenance/CREATE原值不变。C服务1853372单parent exit0及66seal；无当前匹配owned浏览器存活。D尚未执行，代码窗口已开：developer独写D现有5脚本+scratch早期S10-only加载，tester独写browser E/LOG正常原生目的/父监督，root独写无入口LOG rollback helper及当前报告，acceptance独立追加签署。scratch首RO将同核实际report/workbench arch，旧arch须D经济动作前正常修复加载且保全；D后最终E-D仍必做。
+
+- D/LOG真实接线已源码READY、尚未运行：当前plan显式scratch角色/同一个全局预算及STOP；正常bootstrap只新配置/三角色及合法native密码初始化；必要S10-only scratch早期加载；D每步耐久intent，pay/execute完整稳定请求先存，failed后未核查恢复负例、丢响应先独查done再一次同请求防重，真实native账务图/关系表核验。最终必要退款PDF与另一普通角色只读请求复用LOG02真实server间隔交叠检查。LOG ON/OFF仅独立scratch回滚进程/新C未出账fee，不占用D链，仍待实际夹具与独立实测；root实现该小helper，acceptance独立验收，根不自签。D实际启动不等后C/LOG UI全部实现。
+
 后续证据仍归既有本目录、docs/evidence/s10-log-and-closeout-v2-r12/ 和获准私有目录；秘密与原始临床/财务内容不进 Git。最终覆盖 A、真实 B、C、scratch 唯一 D 6/2 链、双 E、12 LOG 与原财务退出标准。S11—S13、merge、部署和生产不在范围。
 
 以下是历史交付，原始正文保留，各结论限其候选、层级和时点。

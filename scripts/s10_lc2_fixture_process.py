@@ -106,12 +106,26 @@ def main(shell_env):
     database = shell_env.cr.dbname
     expected = {'main': 'ydental_s10_test_20261017105432_810a7d9c',
                 'scratch': 'ydental_s10_test_20261017105432_ce6dcbf8'}
-    if mode not in {'main-prepare', 'main-b-only', 'main-reader-only', 'main-reader-password-only', 'main-report-parameters-only', 'scratch-bootstrap'} or database != expected['scratch' if mode == 'scratch-bootstrap' else 'main']:
+    if mode not in {'main-prepare', 'main-b-only', 'main-reader-only', 'main-reader-password-only', 'main-report-parameters-only', 'log-rollback-only', 'scratch-bootstrap'} or database != expected['scratch' if mode in {'scratch-bootstrap', 'log-rollback-only'} else 'main']:
         raise RuntimeError('FIXTURE_ROLE_MODE_DRIFT')
     import logging
     if logging.getLogger('odoo.http.server').getEffectiveLevel() != logging.CRITICAL:
         raise RuntimeError('TOKEN_TRANSPORT_LOG_PRIVACY_NOT_READY')
     registry = shell_env.registry
+
+    if mode == 'log-rollback-only':
+        from s10_lc2_task_profile import CURRENT_PLAN, profile_from_environment
+        from s10_lc2_log_rollback import run_log_rollback
+        profile = profile_from_environment(os.environ)
+        if profile is None or profile.message_id != CURRENT_PLAN or profile.target_role != 'scratch':
+            raise RuntimeError('LOG_ROLLBACK_CURRENT_SCRATCH_PROFILE_REQUIRED')
+        for action in ('LOG-06', 'LOG-10', 'LOG-12'):
+            profile.require_action(action)
+        safe = run_log_rollback(registry, request['manifest'], str(run), guard=_guard)
+        with os.fdopen(write_fd, 'wb') as stream:
+            stream.write(json.dumps({'safe': safe | {'fixture_mode': mode}, 'ram': {}}).encode())
+            stream.flush()
+        return
 
     if mode == 'main-b-only':
         with os.fdopen(write_fd, 'wb') as stream:
@@ -335,7 +349,37 @@ def main(shell_env):
             stream.flush()
         return
 
-    report_parameters = actor(2, report_configuration, commit=True)
+    scratch_profile = None
+    if mode == 'scratch-bootstrap':
+        from odoo.tools import config
+        from s10_lc2_evidence import save_once
+        from s10_lc2_task_profile import CURRENT_PLAN, profile_from_environment
+        scratch_profile = profile_from_environment(os.environ)
+        if scratch_profile is not None and scratch_profile.message_id != CURRENT_PLAN:
+            scratch_profile = None
+        if scratch_profile is not None:
+            if scratch_profile.target_role != 'scratch':
+                raise RuntimeError('CURRENT_D_SCRATCH_PROFILE_REQUIRED')
+            scratch_profile.require_action('scratch-bootstrap')
+            providers = scratch_profile.root / 'credentials'
+            if (providers.is_symlink() or not providers.is_dir() or providers.stat().st_uid != os.getuid()
+                    or stat.S_IMODE(providers.stat().st_mode) != 0o700):
+                raise RuntimeError('CURRENT_D_PROVIDER_DIRECTORY_BOUNDARY_INVALID')
+            def mail_guard(env):
+                if (env.uid != 2 or env.su or not env.is_system()
+                        or not env.user.has_group('base.group_erp_manager')
+                        or config.get('smtp_server')
+                        or env['ir.mail_server'].with_context(active_test=False).search_count([])):
+                    raise RuntimeError('CURRENT_D_NATIVE_SETUP_OR_MAIL_BOUNDARY_INVALID')
+            actor(2, mail_guard)
+    def setup_checkpoint(stage):
+        def save(point, value):
+            if scratch_profile is not None:
+                save_once(run / 'diagnostics' / ('D-setup-%s-%s-%d.json' % (stage, point, os.getpid())), {
+                    'stage': stage, 'point': point, 'value': value, 'independently_committed': False})
+        return save
+    report_parameters = actor(2, report_configuration, commit=True,
+                             checkpoint=setup_checkpoint('report-configuration'))
 
     if mode == 'main-prepare':
         checks = actor(6, lambda env: _model_denials(env, uid=6, targets=[
@@ -379,13 +423,18 @@ def main(shell_env):
             env['ir.config_parameter'].set_str('ydental_queue.heartbeat_seconds', '10')
             env['ir.config_parameter'].set_str('ydental_queue.timeout_seconds', '300')
             user = env['res.users'].with_context(no_reset_password=True).create({
-                'name': 'LC2 synthetic D manager', 'login': login, 'password': password,
+                'name': 'LC2 synthetic D manager', 'login': login, 'password': password, 'lang': 'en_US',
                 'company_id': company.id, 'company_ids': [Command.set([company.id])],
                 'group_ids': [Command.set([env.ref('ydental_access.ydental_group_manager').id])],
             })
             return {'manager_uid': user.id, 'company_id': company.id}
 
-        boot = actor(2, bootstrap, commit=True)
+        def bootstrap_checkpoint(point, value):
+            if scratch_profile is not None and point == 'before_commit':
+                save_once(scratch_profile.root / 'credentials' / ('scratch-user-%d.json' % value['manager_uid']), {
+                    'user_id': value['manager_uid'], 'login': login, 'password': password})
+            setup_checkpoint('manager')(point, value)
+        boot = actor(2, bootstrap, commit=True, checkpoint=bootstrap_checkpoint)
         role_passwords = {name: secrets.token_urlsafe(32) for name in ['frontdesk', 'doctor']}
 
         def clinic(env):
@@ -416,13 +465,43 @@ def main(shell_env):
             supply._operate('business', {'area_id': area.id, 'state': 'open', 'reason': 'LC2 independent synthetic day'}, secrets.token_hex(24))
             return {'store_id': store, 'area_id': area.id, 'station_id': station.id, 'capability_id': cap.id,
                     'uom_id': env.ref('uom.product_uom_unit').id, 'currency_id': env.company.currency_id.id,
-                    'company_id': env.company.id, 'manager': {'uid': env.uid, 'login': login, 'password': password}, **roles}
+                    'company_id': env.company.id, 'manager_levels': access._levels(access._membership(env.uid, store)),
+                    'manager': {'uid': env.uid, 'login': login, 'password': password}, **roles}
 
-        fixture = actor(boot['manager_uid'], clinic, commit=True)
+        def clinic_checkpoint(point, value):
+            if scratch_profile is not None and point == 'before_commit':
+                for role in ('frontdesk', 'doctor'):
+                    account = value[role]
+                    save_once(scratch_profile.root / 'credentials' / ('scratch-user-%d.json' % account['uid']), {
+                        'user_id': account['uid'], 'login': account['login'], 'password': account['password']})
+            setup_checkpoint('clinic')(point, {key: value[key] for key in (
+                'store_id', 'area_id', 'station_id', 'capability_id', 'company_id', 'currency_id', 'uom_id')} |
+                {'manager_id': value['manager']['uid'], 'frontdesk_id': value['frontdesk']['uid'], 'doctor_id': value['doctor']['uid']})
+        fixture = actor(boot['manager_uid'], clinic, commit=True, checkpoint=clinic_checkpoint)
         for role in ['frontdesk', 'doctor']:
             def initialize(env, role=role):
-                env.user.write({'password': fixture[role]['password']})
-            actor(fixture[role]['uid'], initialize, commit=True)
+                if scratch_profile is None:
+                    env.user.write({'password': fixture[role]['password']})
+                    return {'user_id': env.uid}
+                mail_guard(env)
+                account = fixture[role]
+                user = env['res.users'].browse(account['uid']).exists()
+                if (not user or user.create_uid.id != boot['manager_uid'] or user.login != account['login']
+                        or user.company_id.id != fixture['company_id'] or not user.active or not user._is_internal()
+                        or not user.has_group('ydental_base.ydental_base_group_user')
+                        or user.has_group('base.group_system') or user.has_group('base.group_erp_manager')):
+                    raise RuntimeError('CURRENT_D_NEW_ORDINARY_ACTOR_NOT_PROVEN')
+                env.cr.execute('SELECT password IS NULL FROM res_users WHERE id=%s', [user.id])
+                if env.cr.fetchone() != (True,):
+                    raise RuntimeError('CURRENT_D_PASSWORD_PRESENT_NO_REINITIALIZATION')
+                user.write({'password': account['password'], 'lang': 'en_US'})
+                env.flush_all()
+                env.cr.execute('SELECT password IS NOT NULL FROM res_users WHERE id=%s', [user.id])
+                if env.cr.fetchone() != (True,):
+                    raise RuntimeError('CURRENT_D_NATIVE_PASSWORD_NOT_INITIALIZED')
+                return {'user_id': user.id, 'native_admin_id': 2, 'groups_changed': False, 'password_present': True, 'lang': user.lang}
+            actor(2 if scratch_profile is not None else fixture[role]['uid'], initialize,
+                  commit=True, checkpoint=setup_checkpoint(role + '-password'))
 
         def finance_config(env):
             company = env['res.company'].browse(boot['company_id'])
@@ -443,7 +522,7 @@ def main(shell_env):
             # This pre-existing protected factory seeds approved config only.
             # No fee, source, move, payment, receipt or refund factory is used.
             return env['ydental.settlement.config']._new(values).id
-        config_id = actor(2, finance_config, commit=True)
+        config_id = actor(2, finance_config, commit=True, checkpoint=setup_checkpoint('native-finance-config'))
         def verify_no_money(env):
             if any(env[model].search_count([]) for model in [
                     'ydental.treatment.fee', 'ydental.settlement.source', 'ydental.settlement.payment',
@@ -453,6 +532,7 @@ def main(shell_env):
         response = {'safe': {'mode': mode, 'store_id': fixture['store_id'], 'config_id': config_id,
                              'manager_id': fixture['manager']['uid'], 'frontdesk_id': fixture['frontdesk']['uid'], 'doctor_id': fixture['doctor']['uid'],
                              'business_money_dispatches': 0, 'fee_or_transaction_rows_created': 0,
+                             'fixture_commits': 6 if scratch_profile is not None else None,
                              'report_parameters': report_parameters,
                              'commit_observation': 'COMMIT_RETURNED_NOT_INDEPENDENTLY_VERIFIED'}, 'ram': fixture}
     encoded = json.dumps(response, separators=(',', ':')).encode()

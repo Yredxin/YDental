@@ -373,6 +373,233 @@ def run_b(profile, approval, authority, requested_path):
         close_live()
 
 
+def scratch_requested(profile, requested_path):
+    if profile.target_role != 'scratch':
+        raise RuntimeError('CURRENT_D_EXPLICIT_SCRATCH_TARGET_REQUIRED')
+    request = strict_loads(requested_path.read_bytes())
+    path = ROOT / request['manifest_ref']
+    if path.is_symlink() or not path.resolve().is_relative_to(profile.root):
+        raise RuntimeError('CURRENT_D_REFERENCE_INVALID')
+    raw = path.read_bytes()
+    if hashlib.sha256(raw).hexdigest() != request['manifest_sha256']:
+        raise RuntimeError('CURRENT_D_REFERENCE_BYTES_CHANGED')
+    value = strict_loads(raw)
+    if (value.get('database') != profile.database or value.get('oid') != 2144130
+            or value.get('cluster') != '7694897083368259627'
+            or value.get('rollback_returned') is not True or value.get('connection_closed') is not True):
+        raise RuntimeError('CURRENT_D_ACTUAL_TARGET_NOT_PROVEN')
+    return request, value
+
+
+def repair_upgrade_scratch_font(profile, approval, authority, requested_path):
+    """Load the same product PDF repair before D; final data-bearing E-D remains separate."""
+    from s10_lc2_cases import closed_log_report, marker
+    from s10_lc2_launch import keep_primary
+    profile.require_action('repair-upgrade-scratch-font')
+    request, observed = scratch_requested(profile, requested_path)
+    if (observed.get('validation_status') not in {'CURRENT_SCRATCH_EMPTY_CONFIGURATION_VERIFIED',
+            'CURRENT_D_NATIVE_CONFIGURATION_VERIFIED'}
+            or any(observed.get('business_counts', {}).get(name) != 0 for name in (
+                'ydental_treatment_fee', 'ydental_settlement_source', 'ydental_settlement_payment',
+                'ydental_settlement_refund', 'account_move', 'account_payment'))):
+        raise RuntimeError('SCRATCH_FONT_REPAIR_BEFORE_TARGET_NOT_PROVEN')
+    save_once(profile.root / 'FONT-REPAIR-UPGRADE-SCRATCH-IN-FLIGHT.json', {
+        'before_sha256': request['manifest_sha256'], 'target': profile.database,
+        'product_commit': authority['product_commit'], 'test_commit': authority['test_commit'],
+        'final_E_D_claimed': False, 'automatic_retry': False})
+    app = OwnedApplication(marker('scratch', profile), approval=approval,
+        product_commit=authority['product_commit'], test_commit=authority['test_commit'],
+        action='scratch-upgrade', profile=profile)
+    try:
+        app.start(['--stop-after-init', '--load-language=zh_CN', '-u', 'ydental_settlement'])
+    except BaseException as error:
+        primary = keep_primary(app.directory, error, stage='scratch_font_repair_upgrade_start')
+        exit_path = app.directory / 'parent-exit.tsv'
+        if not exit_path.exists() or not any(line.startswith(b'parent.end\t') for line in exit_path.read_bytes().splitlines()):
+            app.close(primary=primary)
+        raise
+    code = app.wait(1200)
+    if code != 0:
+        raise RuntimeError('SCRATCH_FONT_REPAIR_UPGRADE_FAILED_KEEP_SAME_TARGET')
+    logs = closed_log_report(app)
+    result = {'status': 'SCRATCH_FONT_REPAIR_EXIT_ZERO_INDEPENDENT_POST_RO_REQUIRED',
+        'exit_code': code, 'target': profile.database, 'scope': 'ydental_settlement_only',
+        'application_directory': str(app.directory.relative_to(ROOT)),
+        'diagnostic_records': logs['record_count'], 'final_E_D_claimed': False}
+    save_once(profile.root / 'FONT-REPAIR-UPGRADE-SCRATCH-RESULT.json', result)
+    return result
+
+
+def prepare_scratch(profile, approval, authority, requested_path):
+    from s10_lc2_cases import run_fixture
+    profile.require_action('scratch-bootstrap')
+    request, observed = scratch_requested(profile, requested_path)
+    if (observed.get('validation_status') != 'CURRENT_SCRATCH_EMPTY_CONFIGURATION_VERIFIED'
+            or observed.get('stores_count') != 0 or observed.get('all_mail_servers_count') != 0
+            or any(observed.get('business_counts', {}).get(name) != 0 for name in (
+                'ydental_treatment_fee', 'ydental_settlement_source', 'ydental_settlement_payment',
+                'ydental_settlement_refund', 'account_move', 'account_payment'))):
+        raise RuntimeError('CURRENT_D_BOOTSTRAP_NOT_EMPTY_OR_EXTERNAL_MAIL_POSSIBLE')
+    save_once(profile.root / 'D-BOOTSTRAP-IN-FLIGHT.json', {
+        'before_sha256': request['manifest_sha256'], 'target': profile.database,
+        'stage': 'BEFORE_NEW_NATIVE_CONFIGURATION_ONLY', 'automatic_retry': False,
+        'no_financial_source_or_transaction_factory': True})
+    result = run_fixture('scratch', approval=approval, product_commit=authority['product_commit'],
+        test_commit=authority['test_commit'], mode='scratch-bootstrap', profile=profile)
+    fixture = result['ram']
+    safe_fixture = {key: fixture[key] for key in ('store_id', 'area_id', 'station_id', 'capability_id',
+        'uom_id', 'currency_id', 'company_id', 'manager_levels')}
+    safe_fixture['actors'] = {role: {'user_id': fixture[role]['uid'],
+        'provider_ref': str((profile.root / 'credentials' / ('scratch-user-%d.json' % fixture[role]['uid'])).relative_to(ROOT))}
+        for role in ('manager', 'frontdesk', 'doctor')}
+    save_once(profile.root / 'D-fixture-public-identities.json', safe_fixture)
+    save_once(profile.root / 'D-bootstrap-result.json', result['safe'])
+    return result['safe'] | {'status': 'CONFIGURATION_COMMIT_RETURNED_INDEPENDENT_RO_REQUIRED'}
+
+
+def run_d_scratch(profile, approval, authority, requested_path):
+    from s10_lc2_cases import Actor, Facts, closed_log_report, d_flow, d_observe, marker, verify_d
+    for action in ('D-ADMIT', 'D-NORMAL-6', 'D-FAILED-2', 'D-RECOVER-2', 'D-LOST-REFUND-2', 'D-VERIFY-RETRY', 'LOG-02'):
+        profile.require_action(action)
+    request, observed = scratch_requested(profile, requested_path)
+    if (profile.root / 'D-CHAIN-IN-FLIGHT.json').exists() or (profile.root / 'D-CHAIN-COMPLETE.json').exists():
+        raise RuntimeError('CURRENT_D_PRIOR_CHAIN_EXISTS_READ_ONLY_REVIEW_NO_REPLAY')
+    fixture_raw = (profile.root / 'D-fixture-public-identities.json').read_bytes()
+    fixture = strict_loads(fixture_raw)
+    if (observed.get('validation_status') != 'CURRENT_D_NATIVE_CONFIGURATION_VERIFIED'
+            or observed.get('fixture_sha256') != hashlib.sha256(fixture_raw).hexdigest()
+            or observed.get('ordinary_actual_actors_verified') is not True
+            or observed.get('font_view_loaded') is not True
+            or observed.get('report_parameters_expected') is not True
+            or observed.get('all_mail_servers_count') != 0
+            or fixture['manager_levels'].get('finance_approval') != 'write'
+            or any(observed.get('business_counts', {}).get(name) != 0 for name in (
+                'ydental_treatment_fee', 'ydental_settlement_source', 'ydental_settlement_payment',
+                'ydental_settlement_refund', 'account_move', 'account_payment'))):
+        raise RuntimeError('CURRENT_D_ACTORS_OR_EMPTY_FINANCIAL_BASELINE_NOT_PROVEN')
+    schema_path = ROOT / observed['schema_ref']
+    if schema_path.is_symlink() or not schema_path.resolve().is_relative_to(profile.root):
+        raise RuntimeError('CURRENT_D_SCHEMA_REFERENCE_INVALID')
+    schema_raw = schema_path.read_bytes()
+    if hashlib.sha256(schema_raw).hexdigest() != observed['schema_sha256']:
+        raise RuntimeError('CURRENT_D_SCHEMA_BYTES_CHANGED')
+    schema = strict_loads(schema_raw)
+    directory = profile.root / ('D-unique-' + uuid.uuid4().hex[:12])
+    facts = Facts(directory)
+    with OwnedApplication(marker('scratch', profile), approval=approval,
+            product_commit=authority['product_commit'], test_commit=authority['test_commit'],
+            action='scratch-service', profile=profile) as app:
+        app.start([])
+        app.wait_ready(60)
+        actors = {}
+        for role, reference in fixture['actors'].items():
+            path = ROOT / reference['provider_ref']
+            if (path.is_symlink() or not path.resolve().is_relative_to(profile.root / 'credentials')
+                    or path.stat().st_uid != os.getuid() or stat.S_IMODE(path.stat().st_mode) != 0o600):
+                raise RuntimeError('CURRENT_D_PROVIDER_BOUNDARY_INVALID')
+            account = strict_loads(path.read_bytes())
+            if account['user_id'] != reference['user_id']:
+                raise RuntimeError('CURRENT_D_PROVIDER_ACTOR_MISMATCH')
+            actor = Actor('scratch', 'current-D-' + role, account['user_id'], account['login'], account['password'],
+                budget=app.budget, directory=directory / (role + '-http'))
+            actor.login(fixture['store_id'])
+            actors[role] = actor
+        source = d_flow(actors['manager'], actors['frontdesk'], actors['doctor'], fixture, facts,
+            profile=profile, observe=lambda label: d_observe(label, profile=profile, schema=schema),
+            server_pid=app.process.pid)
+        app.check()
+    closed = closed_log_report(app)
+    terminal = d_observe('terminal-after-service-exit', profile=profile, schema=schema)
+    facts.save('D-closed-service-terminal-independent', verify_d(terminal, source,
+        state='done', actual_refund=2, profile=profile) | {
+            'source': str(terminal.relative_to(ROOT)), 'owned_service_closed': True,
+            'closed_diagnostic_records': closed['record_count'], 'service_pid': app.process.pid,
+            'native_exit_code': app.process.returncode})
+    result = {'status': 'D_UNIQUE_SIX_TWO_COMMITTED_NATIVE_ACCOUNTING_INDEPENDENT_ACCEPTANCE_PENDING',
+        'directory': str(directory.relative_to(ROOT)), 'source_ids': {key: value for key, value in source.items()
+            if key not in {'pay_key', 'execute_key'}}, 'received': 6, 'actually_refunded': 2, 'net_received': 4,
+        'application_directory': str(app.directory.relative_to(ROOT)), 'real_gateway_claimed': False}
+    save_once(profile.root / 'D-CHAIN-COMPLETE.json', result)
+    return result
+
+
+
+def run_log_rollback_pair(profile, approval, authority, requested_path):
+    """Two native scratch MODEL processes, each fully rolled back; no new funds."""
+    from s10_lc2_cases import capture, run_fixture, stored_rows
+    from s10_lc2_log_rollback import _TABLES
+    for action in ('LOG-06', 'LOG-10', 'LOG-12'):
+        profile.require_action(action)
+    request, observed = scratch_requested(profile, requested_path)
+    model = observed['log_model_manifest']
+    d = strict_loads((profile.root / 'D-CHAIN-COMPLETE.json').read_bytes())
+    if (observed.get('validation_status') != 'CURRENT_LOG_ROLLBACK_NEW_FEE_VERIFIED'
+            or any(observed.get(key) is not True for key in ('normal_upstream_source_verified',
+                'ordinary_actor_verified', 'native_session_info_verified', 'unbilled_new_fee_verified'))
+            or model.get('d_fee_id') != d['source_ids']['fee_id']
+            or model.get('fee_id') == model.get('d_fee_id')
+            or set(model) != {'actor_id', 'session_id', 'revision', 'store_id', 'fee_id', 'd_fee_id'}):
+        raise RuntimeError('LOG_ROLLBACK_ACTUAL_SEPARATE_FIXTURE_NOT_PROVEN')
+    save_once(profile.root / 'LOG-ROLLBACK-PAIR-IN-FLIGHT.json', {
+        'manifest_sha256': request['manifest_sha256'], 'actor_id': model['actor_id'],
+        'fee_id': model['fee_id'], 'protected_d_fee_id': model['d_fee_id'],
+        'fixture_commits': 0, 'automatic_retry': False})
+    operation_ref = 'LOG06-' + uuid.uuid4().hex
+    selections = [{'table': name, 'columns': ['id'], 'row_digest': True} for name in _TABLES]
+    def independently_stored(label):
+        destination = capture('scratch', label + '-' + operation_ref, selections=selections,
+                              max_rows=2000, profile=profile)
+        rows = {name: stored_rows(destination, name) for name in _TABLES}
+        return destination, rows
+    before_dir, before = independently_stored('log-before')
+    results = []
+    for mode in ('ON', 'OFF'):
+        save_once(profile.root / ('LOG-ROLLBACK-' + mode + '-INTENT.json'), {
+            'operation_ref': operation_ref, 'diagnostics': mode, 'actor_id': model['actor_id'],
+            'fee_id': model['fee_id'], 'd_fee_id': model['d_fee_id'], 'fixture_commits': 0})
+        output = run_fixture('scratch', approval=approval, product_commit=authority['product_commit'],
+            test_commit=authority['test_commit'], mode='log-rollback-only', profile=profile,
+            manifest=model | {'diagnostics': mode, 'operation_ref': operation_ref})['safe']
+        # Store the first actual process result before any postprocessing/RO.
+        save_once(profile.root / ('LOG-ROLLBACK-' + mode + '-PROCESS-RESULT.json'), output)
+        after_dir, after = independently_stored('log-after-' + mode.lower())
+        if after != before:
+            raise RuntimeError('LOG_ROLLBACK_INDEPENDENT_COMMITTED_ROWS_CHANGED')
+        directory = ROOT / output['application_directory']
+        pid = output['owned_process_pid']
+        run = profile.run_root / profile.database
+        files = list((run / 'diagnostics').glob('events-' + str(pid) + '-*.jsonl'))
+        record_count = sum(len(path.read_bytes().splitlines()) for path in files)
+        metrics = {'diagnostic_json_bytes': sum(path.stat().st_size for path in files),
+            'diagnostic_json_records': record_count, 'model_elapsed_ns': output['elapsed_ns'],
+            'native_exit_code': output['native_exit_code'],
+            'independent_before_ref': str(before_dir.relative_to(ROOT)),
+            'independent_after_ref': str(after_dir.relative_to(ROOT)),
+            'independent_committed_rows_same': True}
+        if (output.get('mode') != mode or output.get('fixture_commits') != 0
+                or any(output.get(key) is not True for key in ('rollback_returned', 'cursor_close_returned',
+                    'successful_bill_rolled_back', 'failed_bill_rolled_back'))
+                or output.get('native_exit_code') != 0
+                or mode == 'OFF' and (files or not (directory / 'optional-json-absence.json').is_file())
+                or mode == 'ON' and (not files or record_count <= 0)):
+            raise RuntimeError('LOG_ROLLBACK_NATIVE_PROCESS_CONTRACT_NOT_OBSERVED')
+        result = output | {'metrics': metrics,
+            'json_integrity_status': 'SEALED_VALIDATED_ON' if mode == 'ON' else 'EXPECTED_ABSENT_NOT_INTEGRITY_PASS'}
+        save_once(profile.root / ('LOG-ROLLBACK-' + mode + '-VERIFIED.json'), result)
+        results.append(result)
+    economic_keys = ('success', 'version_conflict', 'day_closed', 'mandatory_audit_failure', 'isolated_program_failure')
+    if any(results[0].get(key) != results[1].get(key) for key in economic_keys):
+        raise RuntimeError('LOG_ON_OFF_ACTUAL_ECONOMIC_OR_NATIVE_EXCEPTION_OUTCOMES_DIFFER')
+    result = {'status': 'REAL_MODEL_ON_OFF_ROLLBACK_INDEPENDENT_COMMITTED_FACTS_EQUAL',
+        'actor_id': model['actor_id'], 'fee_id': model['fee_id'], 'd_fee_id': model['d_fee_id'],
+        'economic_results_equal': True, 'mandatory_audit_failure_propagated_both': True,
+        'modes': [{'mode': row['mode'], 'metrics': row['metrics'],
+                   'model_trace_id': row['model_trace_id']} for row in results],
+        'http_or_financial_competition_claimed': False, 'fixture_commits': 0}
+    save_once(profile.root / 'LOG-ROLLBACK-PAIR-COMPLETE.json', result)
+    return result
+
+
 def run_original(profile, approval, authority):
     from s10_lc2_browser import _DRIVER_ENV_KEYS
     from s10_lc2_main_a_original_runner import already_downloaded, original_ui
@@ -620,7 +847,11 @@ def repair_upgrade_main(profile, approval, authority, requested_path, *, font_re
 def execute(args, profile):
     """Caller holds the plan's exclusive runner lock for this whole operation."""
     require_dispatch_unfrozen(profile)
-    approval = profile.root / 'runtime-approval.json'
+    if profile.target_role == 'scratch' and args.action not in {'target-ro', 'bootstrap-scratch', 'd-only', 'log-rollback', 'repair-upgrade-scratch-font'}:
+        raise RuntimeError('CURRENT_SCRATCH_ACTION_NOT_IMPLEMENTED')
+    if profile.target_role == 'main' and args.action in {'bootstrap-scratch', 'd-only', 'log-rollback', 'repair-upgrade-scratch-font'}:
+        raise RuntimeError('CURRENT_D_EXPLICIT_SCRATCH_TARGET_REQUIRED')
+    approval = profile.root / ('runtime-approval-scratch.json' if profile.target_role == 'scratch' else 'runtime-approval.json')
     authority = strict_loads(approval.read_bytes())
     runtime_gate(approval, product_commit=authority['product_commit'],
                  test_commit=authority['test_commit'], profile=profile)
@@ -631,15 +862,23 @@ def execute(args, profile):
     if args.action == 'target-ro':
         profile.require_action('target-ro')
         import psycopg2
-        directory = profile.root / ('capture-main-' + uuid.uuid4().hex[:12])
+        directory = profile.root / ('capture-' + profile.target_role + '-' + uuid.uuid4().hex[:12])
         run = profile.run_root / profile.database
         collect_selection(psycopg2.connect, credentials(), database=profile.database,
-            expected_oid=2144129, selections=strict_loads(args.selections.read_bytes()),
+            expected_oid=2144129 if profile.target_role == 'main' else 2144130, selections=strict_loads(args.selections.read_bytes()),
             directory=directory, budget=PackageBudget(profile.root, profile=profile),
             allowed_target_names=[profile.database], target_directory=run,
             config_path=run / 'odoo.conf')
         return {'status': 'RO_CAPTURED_NOT_YET_INDEPENDENTLY_REVIEWED',
                 'directory': str(directory.relative_to(ROOT))}
+    if args.action == 'repair-upgrade-scratch-font':
+        return repair_upgrade_scratch_font(profile, approval, authority, args.requested)
+    if args.action == 'log-rollback':
+        return run_log_rollback_pair(profile, approval, authority, args.requested)
+    if args.action == 'bootstrap-scratch':
+        return prepare_scratch(profile, approval, authority, args.requested)
+    if args.action == 'd-only':
+        return run_d_scratch(profile, approval, authority, args.requested)
     if args.action == 'prepare-reader':
         return prepare_reader(profile, approval, authority)
     if args.action == 'initialize-existing-reader':
@@ -663,15 +902,16 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('action', choices=['target-ro', 'original-ui', 'prepare-reader',
                                          'initialize-existing-reader', 'b-only', 'c-main', 'repair-upgrade-main',
-                                         'report-parameters-only', 'repair-upgrade-main-font', 'c-main-tail'])
+                                         'report-parameters-only', 'repair-upgrade-main-font', 'c-main-tail', 'bootstrap-scratch', 'd-only', 'log-rollback', 'repair-upgrade-scratch-font'])
+    parser.add_argument('--target', choices=['main', 'scratch'], default='main')
     parser.add_argument('--selections', type=Path)
     parser.add_argument('--requested', type=Path)
     args = parser.parse_args()
     if args.action == 'target-ro' and args.selections is None:
         parser.error('--selections is required for target-ro')
-    if args.action in {'b-only', 'c-main', 'repair-upgrade-main', 'repair-upgrade-main-font', 'c-main-tail'} and args.requested is None:
-        parser.error('--requested is required for b-only/c-main/repair-upgrade-main')
-    profile = current_plan_profile()
+    if args.action in {'b-only', 'c-main', 'repair-upgrade-main', 'repair-upgrade-main-font', 'c-main-tail', 'bootstrap-scratch', 'd-only', 'log-rollback', 'repair-upgrade-scratch-font'} and args.requested is None:
+        parser.error('--requested is required for this action')
+    profile = current_plan_profile(args.target)
     descriptor = os.open(profile.root / 'runner.lock', os.O_RDWR | os.O_CREAT | os.O_NOFOLLOW, 0o600)
     with os.fdopen(descriptor, 'a+b') as lock:
         try:

@@ -6091,7 +6091,7 @@
     "task_id": "S10-LOG-AND-CLOSEOUT-v2",
     "started_at_utc": "2026-10-18T06:52:51Z",
     "authority": "User supplied full plan in current conversation; execution mode enabled; no new GPT comment prerequisite.",
-    "status": "IN_PROGRESS_A_B_SCOPED_PASS_C_CHINESE_PDF_FAIL_INVESTIGATION",
+    "status": "IN_PROGRESS_A_B_SCOPED_PASS_C_MAIN_REPAIR_VERIFIED_NEW59_METADATA_PENDING_D_NEXT",
     "baseline_commit": "d731711ab48d73177303ced9c040601a206412d9",
     "core_commit": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
     "scope": "S10 only; no S11-S13, merge or deployment",
@@ -6104,7 +6104,7 @@
       "tester": "/root/tester_s10",
       "acceptance": "/root/acceptance_s10"
     },
-    "candidate_status": "FONT_CONFIG_AND_C_TAIL_SOURCE_FIXED_ACTUAL_REPAIR_NOT_RUN",
+    "candidate_status": "PRODUCT_B1F30AA_ACTUAL_64371B6_C_MAIN_BUSINESS_SCOPED_PASS_PRESERVATION_LIMITED",
     "current_actual_evidence": [
       "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json"
     ],
@@ -6174,7 +6174,7 @@
         "reviewer": "/root/acceptance_s10"
       },
       "C-SCOPE": {
-        "status": "PARTIAL_PREFIX_EVIDENCE",
+        "status": "PARTIAL_MAIN_ACTUAL_SCRATCH_PENDING",
         "required_layers": [
           "HTTP/RPC",
           "MODEL_NATIVE_COMMITTED",
@@ -6185,10 +6185,10 @@
           "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json",
           "acceptance-review.md"
         ],
-        "reason": "Four main read/export combinations dispatched; response/control-flow evidence retained, minimal HTML facts incomplete; foreign tail/cross-company/family still pending."
+        "reason": "Four read/export combinations and same-company foreign nonempty source actually exercised, two HTML missing predicates durably completed. Cross-company/family/mixed/nonempty summary pending scratch; new59 metadata preservation pending focused native timezone proof."
       },
       "C-ATTACHMENT": {
-        "status": "FAIL_DYNAMIC_CHINESE_PDF",
+        "status": "PARTIAL_MAIN_CHINESE_PDF_REPAIR_ACTUAL_PASS",
         "required_layers": [
           "HTTP/RPC",
           "MODEL_NATIVE_COMMITTED"
@@ -6198,7 +6198,7 @@
           "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json",
           "acceptance-review.md"
         ],
-        "reason": "Old controlled original remains exact SHA; first dynamic bill HTTP200 PDF has visually unreadable Chinese squares, renderer exit1 non-Native. Receipt/refund tail NOT_RUN."
+        "reason": "Three current dynamic PDFs now independently checked each page, embedded Noto subset and exact native financial sources; renderer0. Original first FAIL retained. One native search_read empty-result semantic complement pending; cross-domain fixtures pending."
       },
       "C-TOKEN": {
         "status": "PARTIAL_SOURCE_AND_HTTP",
@@ -6214,7 +6214,7 @@
         "reason": "None/invalid token negative requests dispatched. Valid token for immutable original attachment161 has no legal issuer by source; that specific entry N/A, not all token scenarios."
       },
       "C-REVOKED-PAGE": {
-        "status": "NOT_RUN",
+        "status": "PASS_SCOPED_REAL_BROWSER_WITH_OS_EXIT_LIMIT",
         "required_layers": [
           "BROWSER",
           "HTTP/RPC",
@@ -6222,8 +6222,11 @@
           "SYNTHETIC_FIXTURE"
         ],
         "definition_ref": "#/tc_evidence_requirements/C-REVOKED-PAGE",
-        "current_evidence": [],
-        "reason": "Current plan runtime not yet dispatched; specific prerequisites being checked."
+        "current_evidence": [
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json",
+          "acceptance-review.md"
+        ],
+        "reason": "Ordinary59 opened real old page; normal grant revoke independently read; same old page next original request403/nonPDF, restoration verified. APIclose/current no matching OS resources observed; original historical PID/birth/exitcode not captured, never fabricated."
       },
       "D-ADMIT": {
         "status": "NOT_RUN",
@@ -7060,7 +7063,7 @@
       "reviewer": "/root/acceptance_s10",
       "current_tool_refusal": null
     },
-    "runtime_test_commit": "70c49c26cf6dac860e674d90a2f36a52b8f45a00",
+    "runtime_test_commit": "64371b6ad8530925396379aaf5ed8cf85ac01c57",
     "runtime_attempts": [
       {
         "stage": "existing_reader_native_administration",

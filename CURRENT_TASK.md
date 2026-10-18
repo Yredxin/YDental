@@ -5,7 +5,7 @@
 ## 当前 plan 接管与执行（2026-10-18T06:52:51Z）
 
 - plan_id：**YD-S10-TECHNICAL-CLOSEOUT-V1 / 1.0**；task_id 继续 **S10-LOG-AND-CLOSEOUT-v2**。来源是用户在本会话完整交付的 S10 plan 及随后“开始实施吧”；执行模式已生效，不要求新 GPT 评论。用户 plan 全文在本会话；不冒称命名附件已落库。
-- 状态：**IN_PROGRESS / A_B_SCOPED_PASS_C_CHINESE_PDF_FAIL_INVESTIGATION**。本轮起点本地/远端同 d731711ab48d73177303ced9c040601a206412d9，工作树干净；只读 core 实际 HEAD f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb。main 仍仅路由，不切业务基线。
+- 状态：**IN_PROGRESS / A_B_SCOPED_PASS_C_MAIN_REPAIR_VERIFIED_NEW59_METADATA_PENDING_D_NEXT**。本轮起点本地/远端同 d731711ab48d73177303ced9c040601a206412d9，工作树干净；只读 core 实际 HEAD f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb。main 仍仅路由，不切业务基线。
 - #23/#34 正文、有效决定与旧收尾 6246470994 已读；本轮重查 #34 最新仍为该回执，无新增需求。S10 OPEN；A/B/C/D/双 E/12 LOG/22 财务行/19 用例的既有采纳与缺口沿下文及原矩阵承接，不用旧统一 BLOCKED 覆盖本轮。
 - 真实团队：/root 主控单写 CURRENT_TASK 与交付报告；/root/developer_s10 接线/修复；/root/tester_s10 唯一实际运行负责人；/root/acceptance_s10 独立验收、不实现被验代码。三个角色已实际创建；首轮只读准入审查已完成。当前 developer 唯一写 scripts/s10_lc2_{task_profile,evidence,targets,launch,http,cases,fixture_process,native_privacy}.py 及 s10_technical_closeout.py 的必要接线，并独占本轮 settlement QWeb/静态字体修复；tester 唯一写 browser.py/相关聚焦测试及当前私有运行元数据，并为唯一运行负责人；acceptance 唯一追加既有 acceptance-review.md。首次 DB/服务/浏览器已在固定 c48d7fb 及独立准入下完成 A；下轮 B 的候选/动作仍须固定并正常独立核对。角色不是 OS 隔离。
 - 当前实际结果（2026-10-18T07:03Z）：c48d7fb 当前候选下首次 main RO 与 A 后 terminal RO 均 exit0，实际 OID/cluster/read-only RR 符合；39域750行、旧1187审计/文书版本/编辑释放/原件/旧权限保持。真实 Firefox 用户5/店1工作台点击原件1下载成功 exit0，本次27665B及固定SHA核同，唯一1页已离线渲染并由主控视觉查看；独立 acceptance_s10 已亲核并给升级前 A 限定 PASS（E-MAIN 后重取尚未做）。新增5条正常登录/切店/查看/导出审计单列。owned服务已退出、两端口无监听。累计Odoo11/RO33/HTTP47/Firefox7/GET1，新增1/3/15/1/1；事故/维护/CREATE原值。B/C/D/双E未运行，B接线现进入实现，禁止旧main-prepare/账号扫描路径；不重跑六框架/A-EDITOR/73PURE。证据见 docs/evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json。
@@ -24,6 +24,13 @@
 
 - 当前后续真实调用图预算复核：main三配置/字体加载/C尾段3进程；scratch原生bootstrap/初始化/D及非空C准备和服务约5；双E与必要只读服务4；LOG两独立ON/OFF和原生UI3，基础15且服务复用尚未实证，另需普通修复余量。主控据此将本plan新增Odoo24→32（累计总上限42），已用20、历史10、事故RO2/maintenance1/create2、原start/deadline均不变；旧scope/budget字节归档。RO/HTTP/Firefox/原件GET上限不变，不删保全凑数，不恢复旧窗口。
 - 最小字体/配置修复实现固定b1f30aa88365ec85aea15073f08de5d6dfa22a5f：官方Noto Sans CJK SC Regular静态OTF原字节16437364B/完整OFL随module发布，原PDF article内固定本模块font-face；nativeadmin2三参数only有原值守卫及before/commit停点；C-tail仅两HTML补证及未执行余段，每项立即落盘。仅AST/XML/font字节与字符覆盖检查通过，配置提交/字体加载/新PDF尚NOT_RUN，旧renderer失败不被覆盖。此次仅产品QWeb/字体资源，财务Python未变；实际路径和独立逐页检查仍必需。
+
+- 字体修复实际（P=b1f30aa / T=64371b6）：nativeadmin2仅3报告参数提交exit0，beforeRO exit0；main S10-only字体加载exit0及afterRO exit0/39域保全，独审限定PASS（仍非最终E）。C-tail随后exit0/34.27s，49 runner/browser派发HTTP、15逐cell材料、真实同company1异店3非空对照、普通59同旧页撤权后下一原件请求403与正常恢复均有实证；首C前缀及旧原件正例未重放。3份本次动态PDF各1页中文清晰、Noto子集实嵌、3renderer均0，独立逐页与native金额投影核内容限定PASS。
+- C终RO首wrapper实际exit1（原raw完整/不改）：新59.write_uid从初始化admin2变59尚待正常browser timezone路径事实补证；其余身份/组/公司不变。离线同raw已核39旧业务/2旧原件/非59权限保持，59原store1两grant仅正常write_date、新store3一member两grant及四mutex仅revision各+5；草稿先验+6是工具预估错误，真实仅5次grant触锁、join不触该锁，不改raw凑期望。33新审计逐项独核。当前新59后续请求暂停，既有旧页403实证不抹；独立scratch准备继续。
+- C还有限制：首ir.attachment.search_read空返回只有实际控制流证明，后续LOG03同main服务仅补1次count0语义；跨公司/family/混源/非空摘要待scratch。C browser API已close但该直调未接PID/birth历史监督，原PARENT_SUPERVISOR_REQUIRED保留；事后只读/proc无匹配Firefox/Playwright资源，不能补历史exitcode。后续E/LOG接既有真实父监督，不重跑旧页追证。
+- 当前累计Odoo23/RO105/HTTP171/Firefox8/原件GET7；旧事故/maintenance/CREATE原值不变。C服务1853372单parent exit0及66seal；无当前匹配owned浏览器存活。D尚未执行，代码窗口已开：developer独写D现有5脚本+scratch早期S10-only加载，tester独写browser E/LOG正常原生目的/父监督，root独写无入口LOG rollback helper及当前报告，acceptance独立追加签署。scratch首RO将同核实际report/workbench arch，旧arch须D经济动作前正常修复加载且保全；D后最终E-D仍必做。
+
+- D/LOG真实接线已源码READY、尚未运行：当前plan显式scratch角色/同一个全局预算及STOP；正常bootstrap只新配置/三角色及合法native密码初始化；必要S10-only scratch早期加载；D每步耐久intent，pay/execute完整稳定请求先存，failed后未核查恢复负例、丢响应先独查done再一次同请求防重，真实native账务图/关系表核验。最终必要退款PDF与另一普通角色只读请求复用LOG02真实server间隔交叠检查。LOG ON/OFF仅独立scratch回滚进程/新C未出账fee，不占用D链，仍待实际夹具与独立实测；root实现该小helper，acceptance独立验收，根不自签。D实际启动不等后C/LOG UI全部实现。
 
 - 资源：旧 detached 工作区和常驻进程保留；18410/18411 前次只读检查无监听，不据此证明全部进程退出。本轮只核实际冲突，不清理未知资源。main实际 OID/cluster/保护域已有独立RO；scratch首次使用前仍须实核，不以旧元数据替代。
 - 本 plan 当前工程资源安排：历史累计基线 Odoo10/RO30/HTTP32/Firefox6/GET0（事故RO2/maintenance1/create2不变），本 plan 新增上限 Odoo32/RO160/HTTP1200/Firefox4/原件GET24；每服务1200s、默认单service/browser/observer、新raw256MiB/完整保留包1GiB、80%提示/90%暂停，当前scope最大24小时。只是主控当前运行安排，不采用旧 PREPARED 窗口、不恢复旧授权，不将用量当业务验收。

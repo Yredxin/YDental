@@ -10,6 +10,7 @@ from pathlib import Path
 import socket
 import stat
 import subprocess
+import threading
 import time
 import uuid
 
@@ -134,6 +135,8 @@ def launch_guard(marker, *, approval, product_commit, test_commit, action, profi
         raise RuntimeError('APPLICATION_ACTION_NOT_DISPATCHED')
     plan = strict_loads((profile.root / 'target-plan.json' if profile is not None else PLAN).read_bytes())
     names = [item['database'] for item in plan['targets']]
+    if profile is not None and profile.message_id == CURRENT_PLAN:
+        names = [name for name in names if name == profile.database]
     if set(names) != set(dispatch.get('allowed_target_names', [])):
         raise RuntimeError('APPLICATION_TARGET_SET_DRIFT')
     expected_role = ACTION_ROLES.get(action)
@@ -238,6 +241,7 @@ def environment(run, product_commit, test_commit, profile=None):
         if 'faketime' in env.get('LD_PRELOAD', '').lower():
             raise RuntimeError('FRAMEWORK6_FAKETIME_PRELOAD_FORBIDDEN')
         env.update(YDENTAL_LC2_PROFILE=profile.message_id,
+                   YDENTAL_LC2_TARGET_ROLE=profile.target_role,
                    YDENTAL_RUN_ID=profile.run_id, YDENTAL_LC2_BUDGET_DIR=str(profile.root))
     return env
 
@@ -259,8 +263,21 @@ def dependency_preflight(env, directory, profile=None):
 
 class OwnedApplication:
     """One exact owned Popen; monitor global raw cap while code runs."""
-    def __init__(self, marker, *, approval, product_commit, test_commit, action, profile=None):
+    def __init__(self, marker, *, approval, product_commit, test_commit, action, profile=None, diagnostics_off=False):
+        if type(diagnostics_off) is not bool:
+            raise ValueError('DIAGNOSTICS_OPTOUT_BOOLEAN_REQUIRED')
+        self.diagnostics_off = diagnostics_off
+        if diagnostics_off:
+            dispatch = strict_loads(Path(approval).read_bytes())
+            if (profile is None or profile.message_id != CURRENT_PLAN or profile.target_role != 'scratch'
+                    or action != 'scratch-fixture' or dispatch.get('optional_diagnostics_off') != {
+                        'mode': 'log-rollback-only', 'target': profile.database, 'fixture_commits': 0}
+                    or not {'scripts/s10_lc2_fixture_process.py', 'scripts/s10_lc2_log_rollback.py'}
+                        <= set(dispatch.get('frozen_files', {}))):
+                raise RuntimeError('DIAGNOSTICS_OPTOUT_ONLY_CURRENT_SCRATCH_ROLLBACK_MODEL')
+            profile.require_action('LOG-06')
         self.profile = profile
+        self._observer_lock = threading.RLock()
         self.exec_root = profile.root if profile is not None else EXEC_ROOT
         self.stop_path = self.exec_root / 'HARD-STOP.json' if profile is not None else STOP
         extra = {'profile': profile} if profile is not None else {}
@@ -280,6 +297,11 @@ class OwnedApplication:
         self.directory = self.exec_root / ('application-' + action + '-' + uuid.uuid4().hex[:8])
         self.directory.mkdir(mode=0o700)
         self.env = environment(self.run, product_commit, test_commit, **extra)
+        if self.diagnostics_off:
+            self.env.pop('YDENTAL_DIAGNOSTIC_DIR', None)
+            save_once(self.directory / 'optional-diagnostics-startup-contract.json', {
+                'mode': 'OFF', 'scope': 'log-rollback-only', 'fixture_commits': 0,
+                'expected_optional_event_json': 'ABSENT', 'json_integrity_pass_claimed': False})
         self.framework_grant_path = self.directory / GRANT_NAME if action == 'scratch-tests' else None
         self.framework_frozen_files = {}
         if self.framework_grant_path is not None:
@@ -321,6 +343,9 @@ class OwnedApplication:
     def start(self, arguments, *, pass_fds=(), stdin_path=None):
         profile = getattr(self, 'profile', None)
         require_dispatch_unfrozen(profile)
+        if self.diagnostics_off and (stdin_path != ROOT / 'scripts/s10_lc2_fixture_process.py'
+                or arguments or len(pass_fds) != 2):
+            raise RuntimeError('DIAGNOSTICS_OPTOUT_ONLY_ANONYMOUS_PIPE_FIXTURE')
         allowed = {
             'scratch-tests': ('--stop-after-init', '--load-language=zh_CN', '-i',
                               'ydental_settlement_test', '--test-enable', '--test-tags=s10_lc2'),
@@ -409,6 +434,13 @@ class OwnedApplication:
         return self
 
     def observe_events(self, *, allow_starting=False, final=False):
+        if self.diagnostics_off:
+            directory = self.run / 'diagnostics'
+            if (list(directory.glob('events-' + str(self.process.pid) + '-*.jsonl'))
+                    or list(directory.glob('diagnostics-failed-' + str(self.process.pid) + '*.txt'))):
+                self._stop('LOG_OFF_UNEXPECTED_JSON_OR_PRODUCER_FAILURE', pid=self.process.pid)
+                raise RuntimeError('LOG_OFF_UNEXPECTED_JSON_OR_PRODUCER_FAILURE')
+            return None  # Optional JSON is absent by contract, never an integrity PASS.
         if self.event_guard is None:
             raise RuntimeError('APPLICATION_EVENT_GUARD_NOT_INITIALIZED')
         try:
@@ -463,6 +495,14 @@ class OwnedApplication:
             raise
 
     def check(self, *, allow_starting=False):
+        # Only the shared incremental observer is serialized; callers dispatch
+        # their normal HTTP requests after this lock has been released.
+        with self._observer_lock:
+            return self._check_observed(allow_starting=allow_starting)
+
+    def _check_observed(self, *, allow_starting=False):
+        if self.diagnostics_off:
+            raise RuntimeError('LOG_OFF_FINITE_MODEL_PROCESS_CANNOT_AUTHORIZE_HTTP')
         self.budget.check_storage()
         selected = getattr(getattr(self, 'profile', None), 'message_id', None)
         maximum = 1200 if selected in MAIN_A_PROFILES or selected == CURRENT_PLAN else 1800
