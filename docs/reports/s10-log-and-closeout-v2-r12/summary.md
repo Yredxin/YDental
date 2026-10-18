@@ -1,3 +1,33 @@
+# 当前 MAIN-A 原件UI收尾：实际页面已运行，下载未完成
+
+本轮 `YD-S10-LC2-MAIN-A-20261018-04` / `MAIN_A_EXISTING_ORIGINAL_UI_ONLY`，父 `980eda60f011b1dec5fbf16ee8f10cc8e7cfa414`。用户直接采用《17_CODEX_MAIN_A_ORIGINAL_UI_CLOSEOUT_20261018.md》全文；仓内无同名附件，不冒称取得其原字节。完整读取[正式复核6243885093](https://github.com/Yredxin/YDental/issues/34#issuecomment-6243885093)、[上一轮交付6243816035](https://github.com/Yredxin/YDental/issues/34#issuecomment-6243816035)、[测试自主权](https://github.com/Yredxin/YDental/issues/23#issuecomment-6243010403)及#23/#34正文和有效增量。本轮[START6243952332](https://github.com/Yredxin/YDental/issues/34#issuecomment-6243952332)已全文API读回，3199B/SHA `4409d7ca41ca6fc6df9491c818a47ee252968d642162e3ca82d88427dd6587c0`；未代发此前被拒GPT评论。
+
+产品 `cf5d63fe510b52ea150d07495bf3062f4ce0961d`，**实际应用及UI执行源码 `ee73081c09f06e7bae5bc5660061d6391ef977f5`**，core保持 `f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb`。运行已停止，两个Odoo启动额度均耗尽，禁止第三次启动或借用其他服务。后续离线修复不冒称实际UI已验证。
+
+|子项|实际结果|层级与边界|
+|---|---|---|
+|A-STATE|PASS，有限保全|前置、启动失败后、末次独立RO；39保护域750行、93模块、身份权限及旧审计保全；复用已采60域基线，不重新全库转储或重设基线。|
+|A-EDITOR|已正式采纳且保持|编辑字段仍空、旧六条认证/临床审计1188–1193保持；用户7登录和编辑操作全0，绝不重做已完成收尾。|
+|A-ORIGINAL|NOT_RUN_DOWNLOAD，工程前提受阻|实际Firefox登录页200、6个响应200，正常翻译GET已准入且开始上游派发但未获响应；观察器错误提前退出。未输入凭据、未登录/切店/工作台/点击/下载；文件字节/MIME/SHA/完整性和逐页查看均NOT_RUN。|
+
+两次可避免的团队工程错误均保首事实：第一次私有初始化漏建既有日志证明必需的 `diagnostics` 目录，服务PID1558643 exit255，未到Firefox/凭据/HTTP。原STOP148B/SHA `aee07d1587817bfecb108a0372af23fe2f7fcbc004f7c263983c7d140287f6eb` 原字节归档；开发/验收独立确认普通配置错误后，仅建本任务0700目录，保修复回执和独立失败后RO，无通用忽略或账本清零。第二服务PID1562985就绪后进入真实UI，新观察器读回缺失bootstrap，将未观测误判无效语言而在fill前退出；源码 `session.js` export后delete全局 `odoo.__session_info__` 支持该生命周期解释，未在运行中直接读取模块来证明delete时序。原生登录布局的空html lang正常；表单存在/隐藏、输入editable是实际布尔，不能推成密码/权限或产品缺陷。此次前置源码/交叉审漏掉session生命周期，主控、开发、测试和验收均不能用已过离线检查代替真实页面结果。没有新的平台工具拒绝、真实Native信号或业务完整性漂移证据。
+
+本轮最小工具实现：核93已装模块及web/http_routing/bus/portal/auth_timeout的真实覆盖链，http_routing有效 `/website/translations` 与默认回退共同进入 `main_a_get_rule`，两层最终判定共享exact路由和hash/lang形状；实际调用真实覆盖方法、JS fetchTranslations producer及最终_request_allowed的9项相关离线检查通过。语言en_US/zh_CN、hash空或40hex、未知/跨目标/错误查询与写请求仍拒绝，普通auth_passkey空隐藏字段按真实XML支持。保留3dc91ed就绪修正、原Firefox子进程库配置和日志精确抑制，不重跑150纯测试/六框架或空白启动诊断。此次真实 `/website/translations` request记录已识别路径、hash/lang键和形状有效、命中规则、上游阶段；无response，不能称服务器翻译失败，也不能把它倒填成上轮两个缺失URL的实测根因。后继route异常与关闭竞态只有推断，不替代首readiness错误。
+
+仅tester程序读取已有用户5 provider一次，未填用户名/密码、无login POST；开发/验收不读取值。无重置密码/新用户/增权/用户7登录/编辑写。末次RO确认新增认证、native login/device、S01审计、access session及业务变化均0，既有session和六审计保持。文书1 confirmed/v4、作者负责人7、版本9→10、费库账款/库存及原件1附件161保全，27665B/application/pdf/固定SHA `05928780e7d97a06cf29019634f64b010eb4994c2f1c5032d561008a50b059b4`仅为**留存基线，不是本次下载验收**。正常页面缓存/文件session未全量计量，不称全库物理只读。
+
+指定device logger仍WARNING30，第二服务actualPID/config证明通过，两个新native日志敏感marker0/0；第一服务未产生该证明，不倒填成功。旧敏感日志受控保全，未公开原行、值或摘要；本轮未登录，不能称新增真实登录回归通过，既有03登录证明继续按原范围采纳。两个Odoo PID均已不存在，exit255/0；已知项目Firefox/driver进程0，正常UI内部Firefox PID/exit仍UNKNOWN，不能用close返回冒逐PID证据。
+
+资源新增 **Odoo2/2、main独立RO5/8、HTTP7/200、Firefox1/3、旧原件GET0/3**；累计10/12、30/48、32/600、6/8、0/12。旧accidentRO2/maintenance1/CREATE2原值保留，无新增。窗口00:53:07Z–04:53:07Z，运行停止，Odoo新任务额度耗尽优先于剩余时间/Firefox额度。空间快照新raw689421B、包141334591B，低于256MiB/1GiB；后续小型离线/回执材料另增。有限verification7167B/SHA `17f45a58587b37e4ac02f3f5956f5ab33dd3cf4797bb111ac2b6f71189468adc`，56refs索引9699B/SHA `819ec4c047c6e3c72c5844ab54337bfa49cef7dff051afc82546ae05c83e2c7b`，不包含provider、配置或原始native日志。
+
+离线后修已固定工具T `4ff3ccf754f30abab25451d085e65d1a79f4d219`，**OFFLINE_ONLY，未原生/UI复验**。快照经真实loader只取已导出 `@web/session` 的白名单配置，消费前才用全局，未观测继续等待；不改产品/DOM/鉴权，空html lang正常。新增8项生命周期检查执行原生loader、session export/delete和实际snapshot/readiness，非法实际配置仍拒；原9项因受browser改动影响一并回归，共17 PASS（非旧150/六框架重跑）。实际执行T仍ee730，两个候选不混用。browser SHA `9caca2c14bb082331fad2dab2630ea71b8d664e93a6c6d78265ed07e82a19b21`；新test SHA `bc2003111e06caf47092e3b8118f1d189b7e0948f12a3a7b8340e33a43ae0130`。未得到原件的验收状态不因离线PASS改变。
+
+真实团队沿用 `/root`、`developer_autonomy`、唯一main执行 `tester_autonomy`、独立 `acceptance_autonomy`，采用同一MAIN-A-ORIGINAL-UI-1.0，不虚构OS隔离。独立签署见矩阵 `main_a_original_ui` 及acceptance-review追加：95002B/SHA `f6e12d250c4b2b5b9827afdb796c45e06fec34650c187ff1350d14ca91e4d088`，原83746B前缀保持；接受有限STATE/既采EDITOR持续保全，拒绝ORIGINAL或整A通过，离线修复只签源码/离线层，不预签GitHub同步。**A组仍未完成，S10/T12和生产BLOCKED**。不为同步重跑业务，不改Issue/Project状态、不扩其他业务组或合并/部署。
+
+---
+
+以下为03及更早历史原文，各“当前”表述限其历史窗口：
+
 # 当前 MAIN-A 工程收尾：编辑释放已完成，原件UI仍受测试工程阻断
 
 最终[本轮真实交付6243816035](https://github.com/Yredxin/YDental/issues/34#issuecomment-6243816035)已API全文读回一致：7098B/SHA `89bb002f27636bcedb0727a659d3a189817a82816058dd7e644afdb9dc3bb6b3`；证据提交 `ae5b1db6170bca0697ebf6118b6633771ddcc6e5`。本次仅同步自身工程结果，未代发GPT评论、未重执业务。

@@ -4221,7 +4221,7 @@
       "business_reexecuted_for_sync": false
     }
   },
-  "current_execution_message_id": "YD-S10-LC2-MAIN-A-20261018-03",
+  "current_execution_message_id": "YD-S10-LC2-MAIN-A-20261018-04",
   "main_a_engineering": {
     "allowed_business_differences": {
       "audit_events": [
@@ -4812,6 +4812,514 @@
     },
     "evidence_commit": "ae5b1db6170bca0697ebf6118b6633771ddcc6e5"
   },
-  "current_execution_status": "A_STATE_AND_A_EDITOR_PASS_A_ORIGINAL_NOT_RUN_LOCAL_UI_INTEGRATION_BLOCKED",
-  "current_execution_status_reason": "03 has no new platform safety refusal or Native; A-original blocked by local browser request integration and exhausted two UI attempts. Historical root message/execution_status and earlier task records are preserved as history."
+  "current_execution_status": "A_ORIGINAL_NOT_RUN_ENGINEERING_PREREQUISITE_BLOCKED_WITH_ODOO_BUDGET_EXHAUSTED",
+  "current_execution_status_reason": "04 attempted real Firefox page; own readiness observer treated consumed native bootstrap as invalid. Both Odoo starts exhausted after an earlier missing diagnostics directory. No credential input/login/store switch/download. Preserved accepted A-EDITOR; no further dispatch.",
+  "main_a_original_ui": {
+    "task_message_id": "YD-S10-LC2-MAIN-A-20261018-04",
+    "scope": "MAIN_A_EXISTING_ORIGINAL_UI_ONLY",
+    "rules_version": "MAIN-A-ORIGINAL-UI-1.0",
+    "parent_commit": "980eda60f011b1dec5fbf16ee8f10cc8e7cfa414",
+    "actual_execution_commit": "ee73081c09f06e7bae5bc5660061d6391ef977f5",
+    "product_commit": "cf5d63fe510b52ea150d07495bf3062f4ce0961d",
+    "core_commit": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+    "status": "A_ORIGINAL_NOT_RUN_ENGINEERING_PREREQUISITE_BLOCKED_WITH_ODOO_BUDGET_EXHAUSTED",
+    "rows": [
+      {
+        "id": "A-STATE",
+        "status": "PASS_FINITE_PRESERVATION",
+        "tables": 39,
+        "rows": 750,
+        "installed_modules": 93,
+        "prior_accepted60_baseline_preserved_not_rerun": true
+      },
+      {
+        "id": "A-EDITOR",
+        "status": "FORMALLY_ACCEPTED_PRESERVED_NOT_RERUN",
+        "new_logins_user7": 0,
+        "new_acquire_release": 0,
+        "terminal_editor_fields_empty": true,
+        "accepted_audits_1188_to1193_preserved": true
+      },
+      {
+        "id": "A-ORIGINAL",
+        "status": "NOT_RUN_DOWNLOAD",
+        "actual_layer": "REAL_FIREFOX_LOGIN_PAGE_GET_200_BEFORE_CREDENTIAL_INPUT",
+        "login": "NOT_RUN",
+        "store_switch": "NOT_RUN",
+        "workbench": "NOT_RUN",
+        "click": "NOT_RUN",
+        "download_events": 0,
+        "file_validation": "NOT_RUN",
+        "pdf_page_views": "NOT_RUN"
+      }
+    ],
+    "observations": {
+      "actual_operation_layers": {
+        "authenticated_user5": "NOT_RUN",
+        "clinical_operations": 0,
+        "download_events": 0,
+        "downloaded_bytes_mime_sha": "NOT_RUN",
+        "dynamic_pdf_calls": 0,
+        "existing_original_link_click": "NOT_RUN",
+        "normal_login_page": "REAL_FIREFOX_GET_200",
+        "original_gets": 0,
+        "pdf_integrity_and_page_views": "NOT_RUN",
+        "settlement_workbench": "NOT_RUN",
+        "store_switch": "NOT_RUN"
+      },
+      "actual_test_commit": "ee73081c09f06e7bae5bc5660061d6391ef977f5",
+      "core_commit": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+      "credential_handling": {
+        "existing_provider": ".local/s10-lc2-main-a-20261018-02/credentials/user-5.json",
+        "login_posts": 0,
+        "password_resets": 0,
+        "provider5_program_loads": 1,
+        "provider_value_or_digest_in_evidence": false,
+        "user7_logins": 0,
+        "username_or_password_form_fills": 0
+      },
+      "credential_not_provided_by_user_was_not_a_blocker": true,
+      "device_log_marker_counts": [
+        0,
+        0
+      ],
+      "firefox_purpose_counts": {
+        "diagnostic": 0,
+        "ui": 1
+      },
+      "first_failure": {
+        "cause": "Missing owned diagnostics directory required by existing native logger attestation",
+        "fact_ref": "startup-failure-facts.json",
+        "post_failure_independent_ro": "original-after-startup-failure.json",
+        "repair_ref": "diagnostics-directory-repair.json",
+        "stage": "OWNED_SERVICE_STARTUP",
+        "stop_original_archive_ref": "startup-failure-archive/HARD-STOP.json",
+        "type": "TESTER_PRIVATE_INITIALIZATION_OMISSION"
+      },
+      "no_additional_application_or_browser_run_authorized_after_exhaustion": true,
+      "process_privacy_ref": "final-owned-process-and-privacy.json",
+      "product_commit": "cf5d63fe510b52ea150d07495bf3062f4ce0961d",
+      "request_chain": [
+        {
+          "asset_bundle_filename": null,
+          "guard_stage": "BEFORE_UPSTREAM_VALIDATED",
+          "intent_ref": "browser-ui-a1278d6c/1c68a30935f34fa6975d26f0ac56da52.intent.json",
+          "matched_rule": "MAIN_A_READ_RESOURCE",
+          "method": "GET",
+          "order_evidence": "INTENT_FILE_CREATION_ORDER_NOT_SERVER_COMMIT_ORDER",
+          "query_keys": [
+            "db",
+            "redirect"
+          ],
+          "request_id": "1c68a30935f34fa6975d26f0ac56da52",
+          "response_received": true,
+          "route_template": "/web/login",
+          "status": 200,
+          "upstream_attempted": true
+        },
+        {
+          "asset_bundle_filename": null,
+          "guard_stage": "BEFORE_UPSTREAM_VALIDATED",
+          "intent_ref": "browser-ui-a1278d6c/1f3a21129bed494a91aebc5027039245.intent.json",
+          "matched_rule": "MAIN_A_READ_RESOURCE",
+          "method": "GET",
+          "order_evidence": "INTENT_FILE_CREATION_ORDER_NOT_SERVER_COMMIT_ORDER",
+          "query_keys": [],
+          "request_id": "1f3a21129bed494a91aebc5027039245",
+          "response_received": true,
+          "route_template": "/web/assets/{resource}",
+          "status": 200,
+          "upstream_attempted": true
+        },
+        {
+          "asset_bundle_filename": null,
+          "guard_stage": "BEFORE_UPSTREAM_VALIDATED",
+          "intent_ref": "browser-ui-a1278d6c/13617727a5d84fae8186be24fe94109e.intent.json",
+          "matched_rule": "MAIN_A_READ_RESOURCE",
+          "method": "GET",
+          "order_evidence": "INTENT_FILE_CREATION_ORDER_NOT_SERVER_COMMIT_ORDER",
+          "query_keys": [],
+          "request_id": "13617727a5d84fae8186be24fe94109e",
+          "response_received": true,
+          "route_template": "/web/assets/{resource}",
+          "status": 200,
+          "upstream_attempted": true
+        },
+        {
+          "asset_bundle_filename": "web.assets_frontend.min.css",
+          "guard_stage": "BEFORE_UPSTREAM_VALIDATED",
+          "intent_ref": "browser-ui-a1278d6c/e00bee309aa442c594170db0cbd60efd.intent.json",
+          "matched_rule": "MAIN_A_READ_RESOURCE",
+          "method": "GET",
+          "order_evidence": "INTENT_FILE_CREATION_ORDER_NOT_SERVER_COMMIT_ORDER",
+          "query_keys": [],
+          "request_id": "e00bee309aa442c594170db0cbd60efd",
+          "response_received": true,
+          "route_template": "/web/assets/{resource}",
+          "status": 200,
+          "upstream_attempted": true
+        },
+        {
+          "asset_bundle_filename": "web.assets_frontend_minimal.min.js",
+          "guard_stage": "BEFORE_UPSTREAM_VALIDATED",
+          "intent_ref": "browser-ui-a1278d6c/776d15cc78504118aee32905381dc942.intent.json",
+          "matched_rule": "MAIN_A_READ_RESOURCE",
+          "method": "GET",
+          "order_evidence": "INTENT_FILE_CREATION_ORDER_NOT_SERVER_COMMIT_ORDER",
+          "query_keys": [],
+          "request_id": "776d15cc78504118aee32905381dc942",
+          "response_received": true,
+          "route_template": "/web/assets/{resource}",
+          "status": 200,
+          "upstream_attempted": true
+        },
+        {
+          "asset_bundle_filename": "web.assets_frontend_lazy.min.js",
+          "guard_stage": "BEFORE_UPSTREAM_VALIDATED",
+          "intent_ref": "browser-ui-a1278d6c/6f76ab03ad0249eaaa86e9dd171644ff.intent.json",
+          "matched_rule": "MAIN_A_READ_RESOURCE",
+          "method": "GET",
+          "order_evidence": "INTENT_FILE_CREATION_ORDER_NOT_SERVER_COMMIT_ORDER",
+          "query_keys": [],
+          "request_id": "6f76ab03ad0249eaaa86e9dd171644ff",
+          "response_received": true,
+          "route_template": "/web/assets/{resource}",
+          "status": 200,
+          "upstream_attempted": true
+        },
+        {
+          "asset_bundle_filename": null,
+          "guard_stage": "BEFORE_UPSTREAM_VALIDATED",
+          "intent_ref": "browser-ui-a1278d6c/b09f1facd75448eeb1011def20bc971e.intent.json",
+          "matched_rule": "NATIVE_TRANSLATIONS",
+          "method": "GET",
+          "order_evidence": "INTENT_FILE_CREATION_ORDER_NOT_SERVER_COMMIT_ORDER",
+          "query_keys": [
+            "hash",
+            "lang"
+          ],
+          "request_id": "b09f1facd75448eeb1011def20bc971e",
+          "response_received": false,
+          "route_template": "/website/translations",
+          "status": null,
+          "upstream_attempted": true
+        }
+      ],
+      "resource_cumulative_counts": {
+        "accident_ro": 2,
+        "create": 2,
+        "firefox": 6,
+        "http": 32,
+        "maintenance": 1,
+        "odoo_start": 10,
+        "original_get": 0,
+        "target_ro": 30
+      },
+      "resource_task_counts": {
+        "firefox": 1,
+        "http": 7,
+        "odoo_start": 2,
+        "target_ro": 5
+      },
+      "second_failure": {
+        "actual_observation": "Form exists, visible false, login/password editable true; password type unchanged; passkey empty; bundle language unrecognized; HTML language empty",
+        "cause_evidence_layer": "SOURCE_SUPPORTED_CONSISTENT_WITH_ACTUAL_METADATA_NOT_DIRECT_SESSION_MODULE_INSPECTION",
+        "later_route_failure": "BROWSER_GUARD_OR_BUDGET_FAILED at UPSTREAM after first readiness exception; close-race relationship inferred, not a measured network root cause",
+        "normal_translation_request": "Exact /website/translations GET passed both guards and was attempted upstream; no response observed",
+        "page_errors": 0,
+        "platform_tool_refusal_observed": false,
+        "source_supported_cause": "web/static/src/session.js exports session then deletes odoo.__session_info__; login layout does not set html lang; observer reads consumed bootstrap and rejects its absence",
+        "stage": "NORMAL_UI_BEFORE_CREDENTIAL_INPUT",
+        "type": "NEW_READINESS_OBSERVER_TREATED_CONSUMED_BOOTSTRAP_AS_INVALID_CONFIGURATION"
+      },
+      "service_processes_gone": true,
+      "state_preservation": {
+        "accepted_editor_audits_1188_to1193_exact": true,
+        "document_versions_authors_permissions_originals_financial_stock_equal": true,
+        "editor_still_released": true,
+        "evidence_layer": "FINITE39_PROTECTION_SUBSET_PLUS_ACCEPTED_PRIOR60_BASELINE",
+        "historical_audit_hashes_equal": true,
+        "independent_before_ref": "original-before.json",
+        "independent_terminal_ref": "original-terminal.json",
+        "installed_modules": 93,
+        "new_editor_or_other_s01_audits": 0,
+        "new_native_login_or_device_records": 0,
+        "new_originals": 0,
+        "other_connections_at_terminal": 0,
+        "protected_domain_changes": [],
+        "protected_rows": 750,
+        "protected_tables": 39,
+        "read_only_transactions_closed": true,
+        "sessions_unchanged": true,
+        "user5_identity_and_auth_metadata_unchanged": true
+      },
+      "status": "A_ORIGINAL_NOT_RUN_ENGINEERING_PREREQUISITE_BLOCKED_WITH_ODOO_BUDGET_EXHAUSTED",
+      "task": "YD-S10-LC2-MAIN-A-20261018-04"
+    },
+    "references": {
+      "original-ui-verification.json": {
+        "path": ".local/s10-lc2-main-a-20261018-04/original-ui-verification.json",
+        "bytes": 7167,
+        "sha256": "17f45a58587b37e4ac02f3f5956f5ab33dd3cf4797bb111ac2b6f71189468adc"
+      },
+      "original-ui-raw-index.json": {
+        "path": ".local/s10-lc2-main-a-20261018-04/original-ui-raw-index.json",
+        "bytes": 9699,
+        "sha256": "819ec4c047c6e3c72c5844ab54337bfa49cef7dff051afc82546ae05c83e2c7b"
+      },
+      "original-before.json": {
+        "path": ".local/s10-lc2-main-a-20261018-04/original-before.json",
+        "bytes": 127306,
+        "sha256": "0c791eb80de93301db1f116532e668e7bcc546b9a21d3f5a944850af968a4eaf"
+      },
+      "original-after-startup-failure.json": {
+        "path": ".local/s10-lc2-main-a-20261018-04/original-after-startup-failure.json",
+        "bytes": 127530,
+        "sha256": "4e1bc77e4565ac3ffcc7a9dd6249553b67317b9a862241c646a0a99850d609eb"
+      },
+      "original-terminal.json": {
+        "path": ".local/s10-lc2-main-a-20261018-04/original-terminal.json",
+        "bytes": 127517,
+        "sha256": "9993541caed010982b6d08ee897559f5442b89e05d84e54af0afc05010245151"
+      },
+      "final-owned-process-and-privacy.json": {
+        "path": ".local/s10-lc2-main-a-20261018-04/final-owned-process-and-privacy.json",
+        "bytes": 1610,
+        "sha256": "c9d9c5a4768300ab60039d6a8f3acdf9559ed37d4715085ce64398f63fb72932"
+      },
+      "final-resource-storage.json": {
+        "path": ".local/s10-lc2-main-a-20261018-04/final-resource-storage.json",
+        "bytes": 402,
+        "sha256": "cda9e7bfff6c87e8a6ae4ccefc8b19414f8a9294fc2e757555f68607716679cd"
+      },
+      "startup-stop-repair-receipt.json": {
+        "path": ".local/s10-lc2-main-a-20261018-04/startup-stop-repair-receipt.json",
+        "bytes": 1226,
+        "sha256": "6061a76541fa041ab7971041fa6faa18d6b27e0c6de31f277e4fa8debf06a681"
+      },
+      "developer-lifecycle-result.json": {
+        "path": ".local/s10-lc2-main-a-20261018-04/developer-lifecycle-result.json",
+        "bytes": 776,
+        "sha256": "0a56e667c4e45ad2a0bbe8d3ed39f0aeae77b5a903767907e5c389f1d13fcbad"
+      },
+      "developer-lifecycle-unittest.log": {
+        "path": ".local/s10-lc2-main-a-20261018-04/developer-lifecycle-unittest.log",
+        "bytes": 116,
+        "sha256": "fd4f134b728d6b0a8eca808bbcbe39e5000374001589c9c87b594b699a617e03"
+      }
+    },
+    "roles": {
+      "controller": "/root",
+      "developer": "/root/developer_autonomy",
+      "sole_main_tester": "/root/tester_autonomy",
+      "independent_acceptance": "/root/acceptance_autonomy",
+      "rules": "MAIN-A-ORIGINAL-UI-1.0",
+      "os_isolation_claimed": false
+    },
+    "new_limits": {
+      "odoo_start": 2,
+      "target_ro": 8,
+      "http": 200,
+      "firefox": 3,
+      "original_get": 3
+    },
+    "new_counts": {
+      "firefox": 1,
+      "http": 7,
+      "odoo_start": 2,
+      "target_ro": 5,
+      "original_get": 0
+    },
+    "cumulative_counts": {
+      "accident_ro": 2,
+      "create": 2,
+      "firefox": 6,
+      "http": 32,
+      "maintenance": 1,
+      "odoo_start": 10,
+      "original_get": 0,
+      "target_ro": 30
+    },
+    "window": {
+      "first_receipt_utc": "2026-10-18T00:53:07Z",
+      "deadline_utc": "2026-10-18T04:53:07Z",
+      "runtime_stopped": true,
+      "odoo_local_limit_exhausted": true
+    },
+    "translation_contract": {
+      "installed_overrides_reviewed": [
+        "web",
+        "http_routing",
+        "bus",
+        "portal",
+        "auth_timeout"
+      ],
+      "effective_translationURL": "/website/translations",
+      "default_fallback": "/web/webclient/translations",
+      "query_keys": [
+        "hash",
+        "lang"
+      ],
+      "languages": [
+        "en_US",
+        "zh_CN"
+      ],
+      "cache_hash": "EMPTY_OR_40_HEX",
+      "shared_predicate": "main_a_get_rule",
+      "actual_final_guard_regressions": 9,
+      "real_native_producer_executed_offline": true,
+      "actual_website_request": "ADMITTED_BOTH_GUARDS_UPSTREAM_ATTEMPTED_RESPONSE_NOT_OBSERVED",
+      "old03_exact_rejected_urls": "UNKNOWN_NOT_BACKFILLED"
+    },
+    "native_logger": {
+      "firefox_internal_exit_or_signal": "UNKNOWN_NORMAL_UI_NO_DEBUG",
+      "firefox_internal_pid": "UNKNOWN_NORMAL_UI_NO_DEBUG",
+      "first_service_actual_privacy_attestation": "NOT_CREATED_HANDLER_PATH_FAILURE",
+      "kind": "FINAL_OWNED_PROCESS_AND_LOG_PRIVACY_OBSERVATION",
+      "known_project_firefox_or_driver_process_ids_present": [],
+      "native_privacy_attestation": {
+        "config_sha256": "abb22fbb1cf1c4bb650f9008a8a48cb84b45725c515cc5d0139b6cbcc0596a86",
+        "effective_level": 30,
+        "kind": "ACTUAL_OWNED_PROCESS_LOGGER_LEVEL",
+        "logger": "odoo.addons.base.models.res_device",
+        "pid": 1562985,
+        "record_payload_retained": false,
+        "task_message_id": "YD-S10-LC2-MAIN-A-20261018-04"
+      },
+      "observed_at": "2026-10-18T01:15:51.175637+00:00",
+      "owned_applications": [
+        {
+          "device_session_prefix_marker_count": 0,
+          "directory": "application-main-service-351e052c",
+          "exit_code": 255,
+          "pid": 1558643,
+          "proc_pid_present": false,
+          "raw_native_log_retention": "PRIVATE_ORIGINAL_NO_PUBLIC_CONTENT_OR_DIGEST"
+        },
+        {
+          "device_session_prefix_marker_count": 0,
+          "directory": "application-main-service-6a97c579",
+          "exit_code": 0,
+          "pid": 1562985,
+          "proc_pid_present": false,
+          "raw_native_log_retention": "PRIVATE_ORIGINAL_NO_PUBLIC_CONTENT_OR_DIGEST"
+        }
+      ],
+      "provider_contents_or_digests_read": false,
+      "raw_native_logs_published": false,
+      "service_lifecycle_events": [
+        {
+          "diagnostic_log_level": 20,
+          "event": "run.start",
+          "native_http_log_level": 50,
+          "pid": 1562985,
+          "test_commit": "ee73081c09f06e7bae5bc5660061d6391ef977f5"
+        },
+        {
+          "diagnostic_log_level": null,
+          "event": "run.end",
+          "native_http_log_level": null,
+          "pid": 1562985,
+          "test_commit": "ee73081c09f06e7bae5bc5660061d6391ef977f5"
+        }
+      ]
+    },
+    "storage_snapshot": {
+      "evidence_layer": "AGGREGATE_METADATA_ONLY_EXISTING_PACKAGE_BUDGET_CHECK",
+      "new_and_old_within_limits": true,
+      "new_task_limit_bytes": 268435456,
+      "new_task_raw_bytes_at_observation": 689421,
+      "provider_values_or_individual_file_sizes_or_digests_retained": false,
+      "retained_package_limit_bytes": 1073741824,
+      "retained_package_raw_bytes_at_observation": 141334591,
+      "runtime_operations_after_terminal": 0
+    },
+    "start_comment": {
+      "id": 6243952332,
+      "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6243952332",
+      "full_api_readback": true,
+      "bytes": 3199,
+      "sha256": "4409d7ca41ca6fc6df9491c818a47ee252968d642162e3ca82d88427dd6587c0"
+    },
+    "no_runtime_after_terminal": true,
+    "historical_150_and_framework6": "ACCEPTED_NOT_RERUN",
+    "s10_t12_production": "BLOCKED",
+    "final_tools_commit": "4ff3ccf754f30abab25451d085e65d1a79f4d219",
+    "final_tools_runtime_validation": "NOT_RUN_ODOO_TASK_CAP_EXHAUSTED",
+    "offline_lifecycle_repair": {
+      "actual_execution_test_commit": "ee73081c09f06e7bae5bc5660061d6391ef977f5",
+      "actual_firefox_starts": 0,
+      "actual_odoo_starts": 0,
+      "actual_target_connections": 0,
+      "invalid_observed_route_or_language_rejected_before_input": "PASS",
+      "kind": "FRONTEND_SESSION_LIFECYCLE_OFFLINE_ONLY",
+      "native_export_delete_loader_require_and_actual_snapshot_readiness": "PASS",
+      "new_native_lifecycle_tests": 8,
+      "provider_reads": 0,
+      "related_existing_original_ui_tests": 9,
+      "runtime_regression": "NOT_RUN_ODOO_TASK_CAP_EXHAUSTED",
+      "source_sha256": {
+        "scripts/s10_lc2_browser.py": "9caca2c14bb082331fad2dab2630ea71b8d664e93a6c6d78265ed07e82a19b21",
+        "scripts/s10_lc2_test_frontend_session_lifecycle.py": "bc2003111e06caf47092e3b8118f1d189b7e0948f12a3a7b8340e33a43ae0130"
+      },
+      "total_tests_passed": 17
+    },
+    "source_sha256": {
+      "scripts/s10_lc2_task_profile.py": {
+        "actual_execution": "23bd932116b9fa52052e143b13568c4ecb1b38f63c275a263292ef461408bc44",
+        "final_tools": "23bd932116b9fa52052e143b13568c4ecb1b38f63c275a263292ef461408bc44",
+        "unchanged": true
+      },
+      "scripts/s10_lc2_evidence.py": {
+        "actual_execution": "a753505a9f5d7238a5ebcf5fc9dd7145a01d43190ddd58f157a44023698b4c43",
+        "final_tools": "a753505a9f5d7238a5ebcf5fc9dd7145a01d43190ddd58f157a44023698b4c43",
+        "unchanged": true
+      },
+      "scripts/s10_lc2_targets.py": {
+        "actual_execution": "29f94bbc0ebec7925784a7a8106c8296f0b8421ac42ecebd56aeafd467f75150",
+        "final_tools": "29f94bbc0ebec7925784a7a8106c8296f0b8421ac42ecebd56aeafd467f75150",
+        "unchanged": true
+      },
+      "scripts/s10_lc2_launch.py": {
+        "actual_execution": "1504e7246e1c224a05c35cfb8609a716acdd3ba6103720c8c3fdfc310a4f64f0",
+        "final_tools": "1504e7246e1c224a05c35cfb8609a716acdd3ba6103720c8c3fdfc310a4f64f0",
+        "unchanged": true
+      },
+      "scripts/s10_lc2_native_privacy.py": {
+        "actual_execution": "09838c1ffd37b13f948136eecd6105b383c1721fc97fe51a5ddc6b78c906d9b9",
+        "final_tools": "09838c1ffd37b13f948136eecd6105b383c1721fc97fe51a5ddc6b78c906d9b9",
+        "unchanged": true
+      },
+      "scripts/s10_lc2_http.py": {
+        "actual_execution": "66ec06136186192f6a1105387ed7bd6825a647f92ac1977fc704a69cd97402f1",
+        "final_tools": "66ec06136186192f6a1105387ed7bd6825a647f92ac1977fc704a69cd97402f1",
+        "unchanged": true
+      },
+      "scripts/s10_lc2_browser.py": {
+        "actual_execution": "3c455b515accb0e981b26815b036e5f31c3375a5bf97efba2f2c623e89e03b82",
+        "final_tools": "9caca2c14bb082331fad2dab2630ea71b8d664e93a6c6d78265ed07e82a19b21",
+        "unchanged": false
+      },
+      "scripts/s10_lc2_main_a_original_runner.py": {
+        "actual_execution": "32ae440b1b855a1222510de0ca7389e179d82450b759e3b5c43adf1f1440c837",
+        "final_tools": "32ae440b1b855a1222510de0ca7389e179d82450b759e3b5c43adf1f1440c837",
+        "unchanged": true
+      },
+      "scripts/s10_lc2_test_original_ui.py": {
+        "actual_execution": "a6a4d7a2549ea944c4dd44eb2dfdf65e8bbaaea8f4666c30165fc9bb1b678b94",
+        "final_tools": "a6a4d7a2549ea944c4dd44eb2dfdf65e8bbaaea8f4666c30165fc9bb1b678b94",
+        "unchanged": true
+      }
+    },
+    "independent_acceptance": {
+      "agent": "/root/acceptance_autonomy",
+      "path": "docs/reports/s10-log-and-closeout-v2-r12/acceptance-review.md",
+      "bytes": 95002,
+      "sha256": "f6e12d250c4b2b5b9827afdb796c45e06fec34650c187ff1350d14ca91e4d088",
+      "old_prefix_preserved": true,
+      "status": "STATE_PRESERVATION_ACCEPTED_EDITOR_PRESERVED_ORIGINAL_NOT_RUN_GROUP_INCOMPLETE",
+      "offline_repair": "SOURCE_AND_OFFLINE_SCOPED_ACCEPTED_RUNTIME_NOT_RUN",
+      "github_sync": "NOT_PRESIGNED"
+    }
+  }
 }

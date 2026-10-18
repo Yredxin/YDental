@@ -66,3 +66,14 @@ TR01源码接受后在现scratch第一次真实运行五TransactionCase+一HttpC
 - A-EDITOR已真实完成：用户7正常HTTP登录，合法新连接acquire后用本次返回令牌release（令牌仅RAM），两HTTP200。独立RO确认旧过期editor失效审计、acquire/release共三条，文书编辑字段合法清空，四mutex各+2；正文confirmed/v4、作者/负责人7、版本9→10及费库账款/库存/原件保全。未重复编辑、改正文/负责人/权限或密码。
 - **A-ORIGINAL仍未完成，团队测试工程遗漏：** UI1 Firefox/context成功但用户名fill超时，本地MAIN_A_BROWSER_REQUEST_FORBIDDEN/pageerror，6GET200、尚无认证POST/原件GET。首次修复只核LocalizationPlugin的默认 `/web/webclient/translations`，窄接hash/lang后离线及交叉审通过。UI2再次出现用户名fill超时，同时有GET/OTHER_ROUTE/同boundary拒绝且upstream_attempted=false；再核发现已装http_routing通过get_frontend_session_info实际覆盖translationURL为 `/website/translations`，原生插件优先此配置。未保留两次被拒确切URL，故具体route仍为源码执行链支持的推断，不能冒实测；UI1表单hidden同为源码支持推断，实测仅fill超时等。修复漏审动态配置，验收准出也未覆盖该继承链，不能归因用户密码、业务权限、产品拒绝、Native或平台安全拒绝。
 - 两次真实UI额度耗尽，服务均正常退出，不第三启动、不热改/换工具或直接GET冒UI。原件点击、GET、下载、完整性与逐页查看均0；仅留存原件继续同27665B/application/pdf/固定SHA。未来最小源码修正应同时覆盖03专用和generic浏览器GET两层的exact `/website/translations` 及真实hash/lang形状，不能泛放 `/website`/RPC；本轮未生成未经运行替代候选。最终独立验收仅接受STATE/EDITOR及工具修复的实际层级，整A/S10/T12/生产不通过。
+
+
+## MAIN-A ORIGINAL-UI / YD-S10-LC2-MAIN-A-20261018-04
+
+- 有效模块覆盖与两层白名单：共享main_a_get_rule，真实http_routing覆盖和JS producer/最终_request_allowed相关9项离线PASS；实际Firefox /website/translations已准入两层并尝试上游，response未观察。旧03确切被拒URL仍UNKNOWN，不倒填根因。日志仅静态路径/模板、键/形状/阶段/状态，未采完整query/DOM/HAR。
+- 首失败 TESTER_PRIVATE_INITIALIZATION_OMISSION：私有初始化漏建run/diagnostics，既有敏感日志证明handler按预期拒绝路径，PID1558643 exit255，未加载凭据/浏览器/HTTP。原STOP/初始化/approval保留，目录唯一最小修复和失败后独立RO通过，不清账或设通用ignore。属于普通配置错误，不冒Native/工具安全拒绝。
+- 第二失败 NEW_READINESS_OBSERVER_TREATED_CONSUMED_BOOTSTRAP_AS_INVALID_CONFIGURATION：原生session.js导出后delete全局bootstrap，新observer仍读该全局并误判缺失语言；空HTML lang本为正常布局。首失败发生在fill前，页面6个响应200/0pageerror，translation请求未获response；后续route异常不能冒白名单首因。团队含前置验收漏审生命周期，属于可避免测试错误，不是用户密码/权限/产品拒绝。
+- 两Odoo额度耗尽并均退出；后修只能离线审查，不声称真实浏览器已过。实际执行T ee73081c09f06e7bae5bc5660061d6391ef977f5。用户5 provider程序读取1但fill/POST0，用户7和编辑动作0；原件点击/GET/下载/文件核验/逐页全NOT_RUN，不用旧副本或HTTP替代。
+- 末次独立RO39域750行及93模块、身份权限/文书版本作者/费库账款/原件/编辑清空/六已采审计保持，新增认证/会话/审计0。新增资源2/5/7/1/0，累计10/30/32/6/0，A/S10/T12/生产继续BLOCKED。
+
+- 后修工具T `4ff3ccf754f30abab25451d085e65d1a79f4d219` 仅OFFLINE_ONLY：通过原生已导出模块读取白名单配置，未观测等待、空html lang正常，非法lang/route仍在最终gate拒绝。新增8项+受影响原9项=17离线PASS；没有额度作原生/UI复验，actualT ee730及NOT_RUN下载状态不变。
