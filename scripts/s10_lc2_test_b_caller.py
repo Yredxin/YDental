@@ -743,13 +743,15 @@ class ActualModelHelper(PureBoundaryCase):
         self.assertEqual(len(self.saved), 1)
         self.assertNotEqual(self.saved[0]['existing_target_sha256'], self.saved[0]['after_sha256'])
 
-    def test_actual_helper_su_defaultenv_missing_target_or_bad_values_refused(self):
-        for invalid in ('uid', 'su', 'default_su', 'target', 'values'):
+    def test_actual_helper_su_defaultenv_admin_system_missing_target_or_bad_values_refused(self):
+        for invalid in ('uid', 'su', 'default_su', 'admin', 'system', 'target', 'values'):
             env = SyntheticEnvironment(SyntheticCursor(), 16, {})
             targets = copy.deepcopy(self.manifest['targets'])
             if invalid == 'uid': env.uid = 1
             if invalid == 'su': env.su = True
             if invalid == 'default_su': env.transaction.default_env = SimpleNamespace(uid=16, su=True)
+            if invalid == 'admin': env.admin = True
+            if invalid == 'system': env.system = True
             if invalid == 'target': targets[0]['id'] = 999
             if invalid == 'values': targets[0]['values'] = {}
             with self.subTest(invalid=invalid), self.assertRaises((RuntimeError, ValueError)):
