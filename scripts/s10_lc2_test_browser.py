@@ -190,6 +190,29 @@ class BrowserBoundaryCase(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(session._native_rejection_metadata(outside),
                          {'native_request_shape_retention': 'UNAVAILABLE_OR_OUTSIDE_OWNED_TARGET'})
 
+    async def test_current_log03_counter_boot_allows_only_native_default_counter_map(self):
+        session = self.current_session('LOG-03')
+        name = '/mail/messaging_menu/initialize_counters'
+        def request(item):
+            return FakeRequest(session.page, '/mail/store', method='POST',
+                body=json.dumps({'params': {'fetch_params': ['init_messaging', 'failures',
+                    'systray_get_activities', item], 'context': {}}}))
+        payload = {'filter_id_by_tab_id_by_record_type': {
+            'mail.message': {'bookmark': None, 'notification': 'notification_unread'},
+            'discuss.channel': {'chat': None, 'channel': None, 'meeting': 'meeting_today'}}}
+        self.assertEqual(session._request_allowed(request([name, payload])), '/mail/store')
+        self.assertEqual(session._native_rejection_metadata(request([name, payload]))[
+            'public_fetch_handler_names'][-1], name)
+        for item in (name, [name, {}], [name, payload, 1],
+                ['/mail/messaging_menu/mail.message/load_more', payload],
+                [name, {'filter_id_by_tab_id_by_record_type': {'res.users': {'bookmark': None}}}],
+                [name, {'filter_id_by_tab_id_by_record_type': {'mail.message': {'bookmark': 59}}}],
+                [name, {'filter_id_by_tab_id_by_record_type': {'discuss.channel': {'meeting': 'meeting_unread'}}}],
+                [name, {'filter_id_by_tab_id_by_record_type': {}, 'message_id': 228}]):
+            with self.assertRaises(BrowserBoundaryError):
+                session._request_allowed(request(item))
+        self.assertEqual(session.budget.intents, [])
+
     async def test_current_native_exit_debug_window_requires_real_exit_line(self):
         session=self.current_session('E-AFFECTED-REGRESSION');session.native_process_debug=True
         log=self.directory/'parent-stderr.log';raw=b'[pid=123] <launched> pid=123\n[pid=123] <process did exit: exitCode=0, signal=null>\n'

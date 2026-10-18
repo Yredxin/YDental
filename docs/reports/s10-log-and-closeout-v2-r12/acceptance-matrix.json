@@ -6091,7 +6091,7 @@
     "task_id": "S10-LOG-AND-CLOSEOUT-v2",
     "started_at_utc": "2026-10-18T06:52:51Z",
     "authority": "User supplied full plan in current conversation; execution mode enabled; no new GPT comment prerequisite.",
-    "status": "IN_PROGRESS_C_AND_LOG17_SCOPED_PASS_NATIVE_UI_AND_FINAL_DUAL_E_PENDING",
+    "status": "IN_PROGRESS_DUAL_UPGRADE_ACTUAL_NATIVE_WARNING_UI_AND_FINAL_AGGREGATE_PENDING",
     "baseline_commit": "d731711ab48d73177303ced9c040601a206412d9",
     "core_commit": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
     "scope": "S10 only; no S11-S13, merge or deployment",
@@ -6104,7 +6104,7 @@
       "tester": "/root/tester_s10",
       "acceptance": "/root/acceptance_s10"
     },
-    "candidate_status": "PRODUCT_CC1_SCOPED_ACTUAL_C_AND_LOG17_PASS_UI_ONLY_ADAPTER_REPAIR_FINAL_E_NOT_RUN",
+    "candidate_status": "FINAL_PRODUCT_CC1_DUAL_S10_ONLY_UPGRADES_ACTUAL_PASSED_UI_ONLY_TOOL_REPAIR_PENDING",
     "current_actual_evidence": [
       "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json"
     ],
@@ -6116,7 +6116,8 @@
         ],
         "definition_ref": "#/tc_evidence_requirements/A-STATE",
         "current_evidence": [
-          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json"
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-MAIN-actual"
         ],
         "reason": "Current before/terminal independent RO exact identity, 39 domains/750 rows and old audits preserved; normal new view/export audit facts listed separately."
       },
@@ -6133,7 +6134,7 @@
         "reason": "Actual HTTP acquire/release and independent committed-state verification previously accepted; current protection checks only."
       },
       "A-ORIGINAL": {
-        "status": "PASS_SCOPED_PRE_UPGRADE",
+        "status": "INDEPENDENT_SCOPED_COMPLETE_PRE_AND_POST_UPGRADE_REAL_UI",
         "required_layers": [
           "BROWSER",
           "HTTP/RPC",
@@ -6142,9 +6143,10 @@
         ],
         "definition_ref": "#/tc_evidence_requirements/A-ORIGINAL",
         "current_evidence": [
-          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json"
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-MAIN-actual"
         ],
-        "reason": "Independent acceptance personally checked actual native workbench download, screenshot and every PDF page (1), before/terminal 39-domain protection, old audits and owned exit; E-MAIN post-upgrade UI remains NOT_RUN."
+        "reason": "Actual normaluser5/store1 workbench clicks saved exact27665/059287 before and after formalupgrade, current saved pages personally reviewed by tester/root/independent acceptance. Finalpost nativeFirefox PID/birth/exit0 and independent terminal protection accepted, no original regeneration or editor replay."
       },
       "B-MODEL-6": {
         "status": "PASS_SCOPED_ACTUAL_RUNTIME",
@@ -6174,7 +6176,7 @@
         "reviewer": "/root/acceptance_s10"
       },
       "C-SCOPE": {
-        "status": "INDEPENDENT_SCOPED_PASS_FINAL_UPGRADE_PENDING",
+        "status": "INDEPENDENT_SCOPED_COMPLETE",
         "required_layers": [
           "HTTP/RPC",
           "MODEL_NATIVE_COMMITTED",
@@ -6189,7 +6191,7 @@
         "reason": "Actual ordinary fourread/export rights, family/mixed-source, nonempty same-company and other-company controls, summaries and fulltext isolation independently accepted. No C funds. Future final E preservation pending; new59 later backend metadata is separately unresolved, not hidden."
       },
       "C-ATTACHMENT": {
-        "status": "INDEPENDENT_SCOPED_PASS_FINAL_UPGRADE_PENDING",
+        "status": "INDEPENDENT_SCOPED_COMPLETE",
         "required_layers": [
           "HTTP/RPC",
           "MODEL_NATIVE_COMMITTED"
@@ -6203,7 +6205,7 @@
         "reason": "Current Chinese bill/receipt/refund each page/native amounts independently accepted;4native report exact-message403,2content404,2image200 actual fixed-core placeholders; original161 RPC list0 now explicit. First tofu/renderer failure and missing old bare303 header retained."
       },
       "C-TOKEN": {
-        "status": "INDEPENDENT_SCOPED_PASS_FINAL_UPGRADE_PENDING",
+        "status": "INDEPENDENT_SCOPED_COMPLETE",
         "required_layers": [
           "STATIC",
           "HTTP/RPC"
@@ -6317,66 +6319,96 @@
         "reviewer": "/root/acceptance_s10"
       },
       "E-PREBASELINE": {
-        "status": "NOT_RUN",
+        "status": "INDEPENDENT_SCOPED_COMPLETE",
         "required_layers": [
           "STATIC",
           "MODEL_NATIVE_COMMITTED"
         ],
         "definition_ref": "#/tc_evidence_requirements/E-PREBASELINE",
-        "current_evidence": [],
-        "reason": "Current plan runtime not yet dispatched; specific prerequisites being checked.",
+        "current_evidence": [
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-D-actual",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-MAIN-actual",
+          "acceptance-review.md"
+        ],
+        "reason": "Both existing data-bearing targets samePcc1/T4e each only-u settlement. Independent before/actual native0/after/affected impact/postDread+refundPDF or actual mainuser5 original UI/terminal all complete and signed. Source/phase limits retained; pending native LOGWarningDialog is separate. Later tool/doc commit does not replay upgrade/economics.",
         "targets": {
           "E-MAIN": {
-            "status": "NOT_RUN",
-            "current_evidence": []
+            "status": "INDEPENDENT_SCOPED_COMPLETE",
+            "current_evidence": [
+              "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-MAIN-actual",
+              "acceptance-review.md"
+            ]
           },
           "E-D": {
-            "status": "NOT_RUN",
-            "current_evidence": []
+            "status": "INDEPENDENT_SCOPED_COMPLETE",
+            "current_evidence": [
+              "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-D-actual",
+              "acceptance-review.md"
+            ]
           }
         }
       },
       "E-UPGRADE-S10-ONLY": {
-        "status": "NOT_RUN",
+        "status": "INDEPENDENT_SCOPED_COMPLETE",
         "required_layers": [
           "STATIC",
           "MODEL_NATIVE_COMMITTED"
         ],
         "definition_ref": "#/tc_evidence_requirements/E-UPGRADE-S10-ONLY",
-        "current_evidence": [],
-        "reason": "Current plan runtime not yet dispatched; specific prerequisites being checked.",
+        "current_evidence": [
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-D-actual",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-MAIN-actual",
+          "acceptance-review.md"
+        ],
+        "reason": "Both existing data-bearing targets samePcc1/T4e each only-u settlement. Independent before/actual native0/after/affected impact/postDread+refundPDF or actual mainuser5 original UI/terminal all complete and signed. Source/phase limits retained; pending native LOGWarningDialog is separate. Later tool/doc commit does not replay upgrade/economics.",
         "targets": {
           "E-MAIN": {
-            "status": "NOT_RUN",
-            "current_evidence": []
+            "status": "INDEPENDENT_SCOPED_COMPLETE",
+            "current_evidence": [
+              "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-MAIN-actual",
+              "acceptance-review.md"
+            ]
           },
           "E-D": {
-            "status": "NOT_RUN",
-            "current_evidence": []
+            "status": "INDEPENDENT_SCOPED_COMPLETE",
+            "current_evidence": [
+              "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-D-actual",
+              "acceptance-review.md"
+            ]
           }
         }
       },
       "E-PRESERVE": {
-        "status": "NOT_RUN",
+        "status": "INDEPENDENT_SCOPED_COMPLETE",
         "required_layers": [
           "MODEL_NATIVE_COMMITTED"
         ],
         "definition_ref": "#/tc_evidence_requirements/E-PRESERVE",
-        "current_evidence": [],
-        "reason": "Current plan runtime not yet dispatched; specific prerequisites being checked.",
+        "current_evidence": [
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-D-actual",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-MAIN-actual",
+          "acceptance-review.md"
+        ],
+        "reason": "Both existing data-bearing targets samePcc1/T4e each only-u settlement. Independent before/actual native0/after/affected impact/postDread+refundPDF or actual mainuser5 original UI/terminal all complete and signed. Source/phase limits retained; pending native LOGWarningDialog is separate. Later tool/doc commit does not replay upgrade/economics.",
         "targets": {
           "E-MAIN": {
-            "status": "NOT_RUN",
-            "current_evidence": []
+            "status": "INDEPENDENT_SCOPED_COMPLETE",
+            "current_evidence": [
+              "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-MAIN-actual",
+              "acceptance-review.md"
+            ]
           },
           "E-D": {
-            "status": "NOT_RUN",
-            "current_evidence": []
+            "status": "INDEPENDENT_SCOPED_COMPLETE",
+            "current_evidence": [
+              "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-D-actual",
+              "acceptance-review.md"
+            ]
           }
         }
       },
       "E-AFFECTED-REGRESSION": {
-        "status": "NOT_RUN",
+        "status": "INDEPENDENT_SCOPED_COMPLETE",
         "required_layers": [
           "MODEL",
           "HTTP/RPC",
@@ -6385,16 +6417,26 @@
           "SYNTHETIC_FIXTURE"
         ],
         "definition_ref": "#/tc_evidence_requirements/E-AFFECTED-REGRESSION",
-        "current_evidence": [],
-        "reason": "Current plan runtime not yet dispatched; specific prerequisites being checked.",
+        "current_evidence": [
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-D-actual",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-MAIN-actual",
+          "acceptance-review.md"
+        ],
+        "reason": "Both existing data-bearing targets samePcc1/T4e each only-u settlement. Independent before/actual native0/after/affected impact/postDread+refundPDF or actual mainuser5 original UI/terminal all complete and signed. Source/phase limits retained; pending native LOGWarningDialog is separate. Later tool/doc commit does not replay upgrade/economics.",
         "targets": {
           "E-MAIN": {
-            "status": "NOT_RUN",
-            "current_evidence": []
+            "status": "INDEPENDENT_SCOPED_COMPLETE",
+            "current_evidence": [
+              "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-MAIN-actual",
+              "acceptance-review.md"
+            ]
           },
           "E-D": {
-            "status": "NOT_RUN",
-            "current_evidence": []
+            "status": "INDEPENDENT_SCOPED_COMPLETE",
+            "current_evidence": [
+              "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-D-actual",
+              "acceptance-review.md"
+            ]
           }
         }
       }
@@ -6724,7 +6766,7 @@
             "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/A-ORIGINAL"
           ],
           "scope": "Later formally accepted A-EDITOR confirmedv3 tocorrectv4 supports pure wording change with economic/stock preservation. Actual A pre and required future E post original sameSHA plus old document/price/source preservation supersede only corresponding old document/original missing evidence. Other historical limits remain at their original scope.",
-          "final_post_upgrade_evidence": "NOT_RUN"
+          "final_post_upgrade_evidence": "INDEPENDENT_COMPLETE_REAL_UI_SAME_ORIGINAL_SHA_VISUAL_AND_TERMINAL_PROTECTION"
         }
       },
       {
@@ -6906,7 +6948,7 @@
             "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/A-ORIGINAL"
           ],
           "scope": "Later formally accepted A-EDITOR confirmedv3 tocorrectv4 supports pure wording change with economic/stock preservation. Actual A pre and required future E post original sameSHA plus old document/price/source preservation supersede only corresponding old document/original missing evidence. Other historical limits remain at their original scope.",
-          "final_post_upgrade_evidence": "NOT_RUN"
+          "final_post_upgrade_evidence": "INDEPENDENT_COMPLETE_REAL_UI_SAME_ORIGINAL_SHA_VISUAL_AND_TERMINAL_PROTECTION"
         }
       },
       {
@@ -6973,7 +7015,7 @@
           "acceptance-review.md"
         ],
         "retained_scope": "Framework native two-language exact exception serialization and one real RPC accepted; A normal UI actual.",
-        "remaining_assertions": "Actual B/C403,D409,C normal emptybill303 now accepted; native main audit228 WarningDialog not reached due two unknown boot POST preblocks. Safe minimal route diagnostic repair and UI-only retry required, filtered-empty never replayed."
+        "remaining_assertions": "Applicable actual403/409/normalform303 accepted. UI-only attempt2 preblocked /mail/store fourth OTHER; exact historical name not retained. Production readonlyinitialize_counters narrow current tool fix required; native WarningDialog still not proved. No repeated filteredempty/A/upgrade."
       },
       {
         "id": "LOG-04",
@@ -7092,7 +7134,7 @@
           "acceptance-review.md"
         ],
         "retained_scope": "A real normal/browser/committed-RO lineage; native synthetic program classification historical scope retained.",
-        "remaining_assertions": "D real committed6/2, B/C real refusals, LOG17 real rollback native audit/program errors accepted at distinct layers; native UI/finaldualE and final aggregate still mandatory."
+        "remaining_assertions": "Normal D committed6/2, B/C native denial, isolated actual program exception and dual upgrades now actual, main post original real browser done; native WarningDialog and final aggregate pending."
       }
     ],
     "safety": {
@@ -7103,7 +7145,7 @@
       "reviewer": "/root/acceptance_s10",
       "current_tool_refusal": null
     },
-    "runtime_test_commit": "45e93f38bab8dacd5916c9bdce374b1cc9d0d05f",
+    "runtime_test_commit": "4e0dc04489bd14b321c7a43c919fbfc8be76076b",
     "runtime_attempts": [
       {
         "stage": "existing_reader_native_administration",
@@ -7164,7 +7206,7 @@
     },
     "source_product_candidate": "cc1a395a8254a0b6c2017ceedd9a351d095c590a",
     "scratch_native_admission_ref": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/scratch-native-admission",
-    "current_C_preflight": "All final native report/attachment guards and normal303 actually reached, independently accepted; main attachment161 search_read list0 now retained. Native UI-only boot preblock is a separate LOG03 tool failure; new59 user time metadata pending limited Ebefore physical explanation.",
+    "current_C_preflight": "C all required ordinary role/read-export/family/cross-company/native guard evidence independently accepted. Main explicit filteredempty done once; new59 bot metadata limited explanation independently accepted. Real final dual upgrades passed; native backend UI-only boot preblock is separate LOG03 ordinary tool defect.",
     "additional_product_impact": "P1545 common inventory system unmanaged read actual6MODEL plus native company creation passed; mutations/ordinary managed restrictions held. Pcc1 default-tax compatibility actual unowned native hooks rollback, controlled native catalog creation in five actual C fees, old owned tax rows/relations preserved. T08/T09/T15 carry retains historical scope; final dual data upgrades and affected regression remain mandatory.",
     "current_engineering_limits_ref": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/current_engineering_limits"
   }

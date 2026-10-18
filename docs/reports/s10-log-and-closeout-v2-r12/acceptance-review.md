@@ -921,3 +921,92 @@ UI 未完成：两个 route-rejection 保留 `OTHER_ROUTE` / `CURRENT_LOG03_RPC_
 锁定 core `web/controllers/home.py` 正常调用 `_on_webclient_bootstrap`，已安装 mail_bot 的 override 对新 internal 用户 False / not_initialized 状态生成 silent 内置 Odoobot chat，继而以保持 uid 的内部 sudo 设置自身 odoobot_state=onboarding_emoji。它可解释用户时间变化而 partner 不变；但实际 odoobot_state 物理 before 未采，本节只列明确源码候选，不签逐字段因果已实证。下一必要 E-before 同一次有限 RO 可补当前 state 与 native bot channel/message 非正文安全关联，禁止读正文、补写恢复、改旧 5/7 或新增诊断平台。当前该单 metadata 项 PENDING，不影响已独核 39 保护子范围。
 
 实际累计 40 Odoo / 181 target RO / 472 HTTP / 9 Firefox / 12 original GET，所有首失败计数保留。主控基于剩余 UI 与正式 E 后 A 调用图，将本 plan Firefox 新增上限 4→6（总 12），原 baseline 6 / 已用 9 / 起止时间与旧 STOP 不变并归档；该正常工程安排不解除真实安全拒绝。当前 UI 余项、两目标正式 E、最终公开导出/存储/入口仍未验收，本节不签 S10 完成。
+
+
+## YD-S10-TECHNICAL-CLOSEOUT-V1｜正式 E-D 带数据升级与当前保全（只读凭据尾验另列）
+
+独立审查者 `/root/acceptance_s10`；P `cc1a395a8254a0b6c2017ceedd9a351d095c590a` / 实际 T `4e0dc04489bd14b321c7a43c919fbfc8be76076b` / core `f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb`。只核既有 scratch OID 2144130 与 cluster 7694897083368259627；不拼接 main 患者链。
+
+### 升级前真实数据与普通观察器矛盾
+
+唯一 E-before child 2015548 实际 RO wrapper exit 1，0.775045 秒；首 raw 936148 字节 SHA256 `76807913b691b98a72aff77b9bd7d9f5f31b61ce8cb3648ea3edf831e1ea36b3`，数据库首事实 SHA256 `3298d99c3fafa4a6fe0155a08503bce7b3007e0c563e4fb56a5b42427da922a1`，退出回执 SHA256 `875fa889ebcdad0c5c64a895639c9fb394833bb7888defdb34841071f3f4d4a5`。目标/readonly/RR/rollback/close 正确；首失败为 observer 自相矛盾：前段已精确允许 inventory mutex 正常 revision +6 并核其他字段，而 unrelated 分类又以整个 ydental_inventory_ 前缀要求 mutex 全 hash 不变。没有产品缺陷、业务写、Native 崩溃或安全拒绝，不重 RO。
+
+从这同一 raw 的离线完整复核仅在 unrelated 条件中排除确切 ydental_inventory_mutex，六 mutex 的完整非 revision 校验和具体计数全部保持，其他库存表全 hash 仍严格。派生 full assessment SHA256 `c917956a755a47d4daca1881fc70523e0f7676be392c2a107cade808f179befc` 明确 REAL_RO_wrapper1 / offline0 / 原 raw 与 source b581c010；future observer v2 SHA256 `2ce65fd323ebfe79fc4c220df7bc51b93c5d7f8ef65a64496fb9539869802670` 只此条件差异。原 source/raw/首退出未改。
+
+验收者亲自在 RAM 重新执行完整后处理，只作上述精确条件修正，全部 34 typed graph / 46 domains / 58 tables schema、角色 6–11 的组/公司/元数据、旧 owned product 1 与税关系、旧库存配置、两新原件/文件及 D 唯一资金链的断言通过。原 current C 终 capture 的 34 sealed 文件 bytes/SHA 再核同。
+
+实际六 mutex revision 为 intake 144 / inventory 7 / patient 176 / queue 158 / settlement 13 / supply 196；配置 4362 基线为 34 / 1 / 39 / 36 / 8 / 62，delta 为 110 / 6 / 137 / 122 / 5 / 134。验收者独立配对两份既有 C 执行目录共 121 个真正 CRecorded intent→returned：每条 care 的 intake 八操作、queue 四操作、clinical 三操作、supply 两操作与 execute 各六次；patient create 三次、request_merge/confirm 各一次，bill 八次中五 posted / 三 mixed 拒绝，另末端 empty bill 拒绝实际已采。锁定源码正常 call graph 与上述具体增量一致，拒绝 savepoint 回滚不留下 revision，两个原件仅 advisory lock。又按 PostgreSQL JSONB 的键字节长度/字典顺序独立逆 revision 重建六个全文 SHA，均精确等 4362 原全文及本次 DB restored SHA，不只采信 bool。原 observer 的 SOURCE_and_operation_count=false 不被改写；这一独立签署另行说明已核的来源和计数。
+
+### 正式同库 S10-only 升级与独立后核
+
+准入 manifest 是绑定上述原 raw / full assessment / 真实独立结论的单独 derived 投影，明确不是新 RO，仅据实际满足的前提设置 predecessor 完成；原物理记录的 pending/exit1 保留。无空库替代、新建/恢复/克隆、SQL 补账、-u all 或其他模块升级。
+
+实际 E-D-UPGRADE-RESULT SHA256 `30acde30cb7b672c83603fc8055f282113384b1964bf3257911c36a670606495`；验收者亲读 launch command，仅正常 `--stop-after-init --load-language=zh_CN -u ydental_settlement`，实际 P/T/core 与固定 gate 一致。owned native PID 2018756 单 parent exit 0 / signal null，原件 SHA256 `54a3937cf6e65074cb5b67ba63ae2d58e9908137dedfc3bcb9e5b807df4e1283`，窗口 ns 1792329203098901129→1792329211107198319。两条原生 JSONL 及 seal 重新独立 validate 完整有效，不将 run.end 本身当事务已提交证明。
+
+后 RO 实际 child 2019174 exit 0，SHA256 `79f09494d377dc38e35a58d7677a8186d5ba2d7b6dae75176dd15ec7943ac4a9`。验收者在 RAM 重新执行 v2 全部实际后断言通过：46 domains / 34 graph / 58 tables schema、税/库存/普通角色/两原件和文件、六 mutex 逐值同 c917。只两个 S10 view 的 loader write_uid=1 与 write_date 正常变化，实际时间处于上述父监督升级窗口，正文/翻译/XML 其余字段全同。模块正常 installed；原五 dependency 的每个字段与 id 全同，只新增已安装的 ydental_intake，实际六依赖精确等最终 manifest（ydental_exam、ydental_print、ydental_intake、account、sale_stock、purchase_stock）。没有把该直接依赖增量称作升级 intake。
+
+本次独立限定结论：正式 E-D native 升级与独立存储/文件保全 PASS。实际普通 6 的工作台/退款 PDF 只读效果、逐页内容和服务退出后 terminal 尚未在本节签署；E-MAIN/main 原件 UI 与全 S10 仍待，不以 exit 0 或此单库结论替代。验收者自己的首 RAM harness 使用 relative root 与真实 absolute profile guard 不同导致一次离线断言，纠正为实际绝对 root 后同断言全通过；没有新数据库操作或改动任何原件。
+
+
+### E-D 升级后实际只读效果与退出终核
+
+此后实际普通 manager 6 / store 1 只执行 workbench(patient1) 与 refundPDF1 两个业务 GET；身份本来有 write 授权，不伪称只读岗位，但本 caller 没有任何资金/来源/原件 POST。实际只读结果 SHA256 `bf22a09f27788a5c8bced5fe729c0b140b25103a68c34df1669710bb67275648`，workbench 200 保存最小金额/ID断言为收 6、退 2、净 4、在途 0；退款 PDF 200、26197B、SHA256 `d8fb1cd2d6587821efd4cb39a46cbcc08fed50995017e30173e94c9f420431b0`，与实际 report_download audit SHA 完全同。
+
+验收者亲自 view 本次保存文件离线渲染的唯一页：中文清晰、无方框/截断，正确公司/店/患者 P0000001、done、实退 2.0 USD、在途 0、既有业务日与原生出款 PLC1/2026/00002、演示/非税票/非到账证明准确，和独立 native 图一致。本次 PDF 页索引 SHA256 `66945743d71947bc7c7c2a5ec4388b509a09e3e31e6b8a3f20607491831f059d`，Noto 已嵌入。仅核已保存文件，未重 GET / 重渲原件 / 重收退款；原 producer PENDING 保留。
+
+owned native PID 2021234 单 parent exit 0 / signal null，父退出原件 SHA256 `58499ef6ee14b9225878bdc3813d04b428c6f9ef641d39cbf72f33a7075b7332`；13 条 JSONL/seal 重新独立 validate 为 VALID，renderer exit 0 / signal null，renderer PID 未知仍 null。
+
+服务退出后的唯一 E-terminal RO 实际 child 2022134 exit 0，full verified 940994B / SHA256 `1a1a8b94aebc81cc1a71867c7d00101ecc05a142deb9610506d33f213dc10902`。验收者在 RAM 重跑全部 v2 terminal assertions，通过。46 域除明确正常新 audit、34 C/D 图除明确新 auth scope、58 schema、税/库存/角色/两原件/六 mutex 全同 actual after 79f；view 整行连 loader 时间也必须同，不允许第二次日期漂移。新增仅 audit 429–433：普通 6 的 login / login.scope / store.switch / invoice_view1 / refund report_download1 五条 accepted，actor、store、target、PDF SHA 逐项核定；唯一新 session 16 为 uid6/store1/rev1，原 session 全同，未猜 max ID。
+
+**E-D 当前全部必需范围独立限定 PASS**：正式带数据 S10-only 升级、保全、D 唯一原生资金/核销关系和适用只读凭据回归完整；本库未发生第二条资金链。E-MAIN、main UI 余项、完整 12 LOG / 22 财务行归并和最终导出/入口仍另验，不由单库 PASS 推全 S10。
+
+
+## YD-S10-TECHNICAL-CLOSEOUT-V1｜main 新用户原生 bot 元数据与正式升级前状态
+
+独立审查者 `/root/acceptance_s10`。P `cc1a395a8254a0b6c2017ceedd9a351d095c590a` / T `4e0dc04489bd14b321c7a43c919fbfc8be76076b`。main 唯一必要 E-before 同一次 RR 补最小新 59 关联证据，未新增 HTTP/浏览器/升级或聊天正文读取。
+
+observer 的 SOURCE 预审在运行前发现一次 8-key bridge 与 12-key 旧 TZ 元数据整字典比较的工具遗漏；修为仅 bridge 已有八个安全字段逐项核旧值（明确单 write_date 除外），额外 active/company/create/share 仍由原 reader 身份与全组/公司基线严格保护。此错误未运行数据库，不计 RO 或业务失败。修后 source SHA256 `1b0875124db9f4f91dfa833c6cfa034b2c5a5c7a4b698d4a9207f5c4aff844a8` 只接受此前实际 74ef 原件中确切 12:55:56.481421 时间，不泛放 profile 漂移；原旧 source 与 after wrapper exit 1 均保留。
+
+实际 child 2025637 exit 0 / 0.74 秒；main-final-E-before-verified 623770B / SHA256 `c5d02a20a426c2c3cb322a0c30b1c900df30ff35f11f81d1902c07d30b86216b`。验收者亲读 raw 和新安全字段，在 RAM 重新运行完整 source 后断言，全部通过。除候选/阶段/耗时/结论标签外，与此前已采 main LOG-after 实际物理字段全部同；39 业务域、角色/组/公司/授权、旧文书/版本/两原件和文件、原生库存/税/schema/views/参数保护通过，readonly/RR/真实 OID2144129/cluster/rollback/close 正确。
+
+本次实际 user59 odoobot_state=onboarding_emoji、odoobot_failed=NULL；native base.partner_root XMLID 为 partner2。实际唯一 message1368 为 discuss.channel3 / author2 / create_uid59 / comment，create_date 12:55:56.481421 与此前 user59 唯一变化的 write_date 精确到微秒相同；该 channel 的实际两成员恰 partner65 与 bot2。已安装 mail_bot 与锁定 web.home→_on_webclient_bootstrap→mail_bot._init_odoobot→保持 uid 的内部 self.sudo().odoobot_state 写入源码链一致。只读安全投影没有选 body、subject、name、header、token 或附件；silent=True 是该原生调用的源码参数，没有虚构它为数据库已测列。
+
+因此可对本次新合成 59 的单 metadata 变化作限定的原生首次后台初始化解释，解除该项未解释漂移；这不授权任意用户或时间变化。旧物理 odoobot_state before 未采仍如实保留，不把源码默认值冒成旧 SQL 快照，也不把原 LOG-after exit 1 改为 0。此新真实前态与独立结论可用于单独 derived 升级准入；原 observer predecessor_evidence_complete=false 不改。
+
+本节限定 PASS 为 main 必要前态/保护与新59正常 bot 关联。未知首 boot POST 路径仍 UNKNOWN，原生 WarningDialog UI 尚未完成；本节不冒该 UI、正式 E-MAIN 或全 S10 PASS，也不补作 A/B/C 旧动作。
+
+
+### 正式 E-MAIN native 升级与后存储保全
+
+已独立核定的 c5d 实际 main 前态用于单独 derived 准入，只完成本次升级的数据和 A/B/C 前置，明确原生 WarningDialog 仍 pending、不称全 S10 完成；原 E-before 的 predecessor=false 不改。实际只有正常 `--stop-after-init --load-language=zh_CN -u ydental_settlement`，未升级 core、库存、intake 或 all。
+
+E-MAIN-UPGRADE-RESULT SHA256 `dd8a4cb4d99f6a938b6ffebab51c6a9a373deea6ebf4d24be48c0c9f266527ff`，actual P/T/core 对齐固定候选。原生 PID 2030208 单 parent exit 0 / signal null，父原件 SHA256 `2971c11523cccdd23a8d014830def34b06027fa421c427c19bb6b3b409b78995`；真实窗口 ns 1792330270916485544→1792330279107010674。验收者亲核 launch argv、父监督和两条实际 JSONL/seal，重新 validate 为 VALID。
+
+独立 after RO actual exit 0；main-final-E-after-verified 624563B / SHA256 `4aa2de7352d7f6b97493afa23b570e09157b8faef607abd9bbfe7e2aaca0c1c4`。验收者在 RAM 重新运行完整 source E-after 后断言，全部通过：39 业务域、旧文书 v4/版本9→10/释放字段、两旧原件记录/附件/真实文件 bytes/SHA、原价源与原生经济/库存/授权/审计保护、当前税全组/schema、59 精确 bot/profile 与角色保持。
+
+仅 S10 工作台 view1609 和报告 view1606 的 loader write_uid=1 / write_date13:31:11.496864 正常变化，时间处于上述真实 native 窗口，其余正文/XML/翻译结构完全同。原五 dependency 的全部字段/id 精确同，只新增 ydental_intake；实际六项等最终 manifest。模块状态 installed。不能以 run.end 或 exit0 单独宣称成功，这里的结论有独立数据库/文件后核支持。
+
+当前正式 E-MAIN 升级与存储保全限定 PASS；升级后正常 user5 的旧原件真实 UI 下载同 059287…、逐页核验和最终 terminal、LOG03 原生 WarningDialog 仍待本节之外的实际验收，不把其他功能 PASS 替代这些必需尾项。
+
+
+### E-MAIN 升级后本次旧原件真实浏览器与终态
+
+正常 user5 / store1 从实际结算工作台 invoice1 的已出账行链接点击 original1，产生真实下载事件；当次文件在 context 关闭前保存。E-MAIN-ORIGINAL-POST-RETURNED SHA256 `e701f91b9a285416254dd34c944ef57ef8597641fde229dbc3cb7257239b86bd`；当次 PDF 27665B / SHA256 `05928780e7d97a06cf29019634f64b010eb4994c2f1c5032d561008a50b059b4`，与受保护旧 attachment161、升级前 A 文件逐字节同。验收者亲核真实 UI 链/点击/下载与结果关联，并用本次保存文件独立 rehash，不以原旧副本或直接 HTTP 代替浏览器。
+
+本次唯一页离线渲染索引 SHA256 `d78cfa7042204fa25f1240bc54977c40ef50424b1de926dbd344ce1ef2fe734e`。验收者亲自 view 此页：中文清晰无方框/截断、公司/门店/患者编号及原经办者原样，四来源 600+80+40+20=740，S05 原价版本与账单原生单号/原创建业务日准确，原冻结实收核销740、原打印时余额0，演示/非税票/非到账证明说明完整。这是原冻结内容，不将它解释成退款之后的当前净现金。没有重生成或覆盖原件。
+
+实际 Firefox PID2032521 / birth80647350 / parent2032487 与原生 PW launch/exit0/signalnull 精确匹配，本次独立父监督无 survivor，验收者亲读 debug 窗口并重算 SHA。Odoo owned PID2032474 单 parent exit0/signalnull；11 条实际 JSONL/seal 由验收者重新 validate 完整有效。不是仅 API close，也不回填历史 C 的未采 native exit。
+
+随后 LOG03 的 UI-only 仍 exit1：真实前拦已缩小到 POST `/mail/store`，实际公开 handler names 为 init_messaging / failures / systray_get_activities / OTHER；第4名字因当时诊断有限 regex 没有保留，不能反签为已观测具体名。失败索引 SHA256 `1c135aa7cfa921ed1ccac5b0bf8ce3d99858fbcbc607a3877c53893c87160b1a`，实际拒绝材料 SHA256 `8d912727448f4032033936c330ac0034b32a2e9086e86bd36b12b17e589d3381`；response_received=false，是项目测试工具门禁，产品 AccessError/WarningDialog 尚未签。真实 Firefox2033324 / birth80652305 exit0 与父监督一致、Odoo单exit0，原 filtered-empty RPC 没有重发，旧 A 下载没有重发。原失败/新 once/136 项复用材料快照索引 `e1a29ea285e8661b8bd0acccd1421a7189202164a053555c6fc0bd5665c4674a` 保留。
+
+两服务/浏览器都退出后，唯一 main E-terminal RO 实际 exit0，full verified SHA256 `06e2a38b38f7f6f85f00e0794ddde1c1a3de5106cc496c42558c6deb8dd5cc29`。验收者在 RAM 重新运行完整 E-terminal assertions，通过；39 业务域、税/原生库存、文书与版本/释放字段、两旧原件文件、组/公司/授权、精确新59 bot/profile、view 整行（包括升级 loader 日期）均保持。新增 audit1264–1271 恰为 user5 login / scope123 / switch1 / invoice1 view / original1 download，随后 user59 login / scope124 / switch1，八条 accepted，身份/门店/target 逐项核。当前 session 安全三字段原 SQL 按 user,id 分组排序，验收者用多重集合比较：无旧安全投影减少，只 user5 与59各新增一条 store1/rev1，和新审计关联；不把不含 id 的安全投影冒成每行 secret/token 全字段证据。user5 login_date 正常增长，其他已采个人字段不变。验收者首离线自己附加的列表前缀比较不适用该分组排序，纠正为 Counter 后断言通过，0 DB/原件改动。
+
+**E-MAIN 当前完整范围独立限定 PASS**：正式带数据升级、旧文书/库存/经济/审计/原件保全、升级后 user5 的真实同旧原件 UI 下载与逐页、退出后终态均有实际证据。两个库在同一最终 Pcc1 上的正式 E 已分别完成，数据仍独立；不因后续仅测试工具/文档变化再升级或重演 D。LOG03 原生 WarningDialog 当前仍缺，其他最后归并/公开导出/存储/入口未签，S10 不因此关闭。
+
+### 下一轮最小原生 counter 启动适配的 SOURCE 限定
+
+验收者亲读锁定 mail_core_public_web 服务 start→messagingMenu.initializeCountersFetcher 的生产启动源码与 MessagingMenu controller：确有正常同 batch 的公开 `/mail/messaging_menu/initialize_counters` store handler；store_handler 默认 readonly=True，服务端仅当前 partner/self-member 权限域下的计数，不创建/写消息、不标读、不调用财务动作，也不返回消息正文。这证明它是合法必要的原生启动路径，不反向证明上次第4 OTHER 实际就是此名。
+
+新工具 diff 只为 LOG03 当前身份允许该确名：两项 item、仅 filter_id_by_tab_id_by_record_type、mail.message/discuss.channel 两类型、bookmark/notification/chat/channel/meeting 的正常默认 filter 有限映射；其他 handler、模型、额外键/data ID/不符 filter 仍拒。安全诊断只多识别这一公开静态名字，不导出 body/query/cookie/参数值。最终 browser SHA256 `bf3e6b655d5de4b82908d268c25e5c2b0ff5459b7e0df4c631a7a77d2df7657e` / test SHA256 `170678285b474de2f9c0d8df91edbeb7227e4ad0a04ff83660b64580498d63d1` 已独读；新增 1 个有意义的 PURE guard case 及八种非法变体仅保工具边界，不能冒业务 UI PASS。没有预放 websocket on_closed/peek 或泛化 mail routes。
+
+SOURCE READY 的范围只支持下一次绑定真实当前 main 状态的精确 UI-only once，保原两个 UI 失败 latch/事实；不 ActorRPC、不重 filtered-empty、E后旧原件、不重双升级/资金。实际 normal59 native WarningDialog、真实 RPC/UI 消息和 PID/birth/退出以及后续保护，仍须下一次真实执行和独立核验。当前累计 45 Odoo / 192 target RO / 516 HTTP / 11 Firefox / 13 original GET，历史计数与原期限不抹除。

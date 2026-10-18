@@ -1,3 +1,9 @@
+## 当前plan：双E实际通过；剩余原生UI boot最小工具适配
+
+main新59用户时间现由必要Ebefore真实bot state/唯一ownmessage/同事务时间+成员/SOURCE有限解释，原beforestate未采与afterRO1保留。scratch最终Ebefore wrapper1仅inventory_mutex既解释revision又被误分类全不变的矛盾，基于原raw一处窄离线修正及独审，不重RO。两正式-u均native0/后RO0并独签，E-D完整只读/凭据/终RO闭环；main Epost旧原件正常UI同27665/059287/三方逐页、真实Firefox退出，终RO0待最后独签。
+
+LOG03 UI-only仍普通工具FAIL：实际/mail/store的第四handler被安全分类为OTHER，历史确名未保存。只能依据锁定生产SOURCE为必要readonly initialize_counters确名/有限model-tab-filter map做窄适配，不说该旧OTHER已实际识别，不放通mail全族。首失败/原件snapshot/everynativeexit保，已采附件RPC和原件不重。当前45/192/516/11/13，最后原生WarningDialog尚未通过，S10不关闭。
+
 ## 当前plan补充：实际C/LOG17通过与LOG03普通工具首失败（2026-10-18T13:02Z）
 
 C精确native余段实际wrapper0/owned1995715exit0，四scope403/两content404/两固定placeholder image200及正常业务303已独签。LOG17 ON/OFF五结果/三次独立11表保全相同、0commit；原pair1缺OFF精确私有元数据且未Popen，唯一OFF-only0接续，不重ON。

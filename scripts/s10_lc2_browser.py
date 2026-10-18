@@ -481,6 +481,25 @@ class BrowserSession:
                     raise ValueError()
                 for item in fetch:
                     name=item if type(item) is str else item[0]
+                    if name == '/mail/messaging_menu/initialize_counters':
+                        # Installed native boot's counter-only store handler, not
+                        # arbitrary messaging routes or message/channel actions.
+                        if type(item) is not list or len(item)!=2 or type(item[1]) is not dict:
+                            raise ValueError()
+                        payload=item[1]
+                        if set(payload)!={'filter_id_by_tab_id_by_record_type'}:
+                            raise ValueError()
+                        counter_map=payload['filter_id_by_tab_id_by_record_type']
+                        defaults={'mail.message': {'bookmark':None,'notification':'notification_unread'},
+                            'discuss.channel': {'chat':None,'channel':None,'meeting':'meeting_today'}}
+                        if type(counter_map) is not dict or not counter_map or not set(counter_map)<=set(defaults):
+                            raise ValueError()
+                        for record_type,tabs in counter_map.items():
+                            if type(tabs) is not dict or not tabs or not set(tabs)<=set(defaults[record_type]):
+                                raise ValueError()
+                            if any(value!=defaults[record_type][tab] for tab,value in tabs.items()):
+                                raise ValueError()
+                        continue
                     if name not in {'init_messaging','failures','systray_get_activities'}:
                         raise ValueError()
                     if type(item) is list and (len(item)>3 or len(item)>1 and item[1] not in (None,{},[])
@@ -696,7 +715,8 @@ class BrowserSession:
                 names = [item if type(item) is str else item[0]
                          if type(item) is list and item else None for item in fetch[:16]]
                 value['public_fetch_handler_names'] = [name if type(name) is str
-                    and re.fullmatch(r'[a-z_][a-z0-9_]{0,63}', name) else 'OTHER' for name in names]
+                    and (re.fullmatch(r'[a-z_][a-z0-9_]{0,63}', name)
+                        or name=='/mail/messaging_menu/initialize_counters') else 'OTHER' for name in names]
             return value
         except (BrowserBoundaryError, ValueError, TypeError, AttributeError):
             return {'native_request_shape_retention': 'UNAVAILABLE_OR_OUTSIDE_OWNED_TARGET'}

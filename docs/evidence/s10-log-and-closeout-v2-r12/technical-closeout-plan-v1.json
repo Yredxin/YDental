@@ -2,9 +2,9 @@
   "plan_id": "YD-S10-TECHNICAL-CLOSEOUT-V1",
   "version": "1.0",
   "task_id": "S10-LOG-AND-CLOSEOUT-v2",
-  "status": "IN_PROGRESS_C_AND_LOG17_SCOPED_PASS_NATIVE_UI_AND_FINAL_DUAL_E_PENDING",
+  "status": "IN_PROGRESS_DUAL_UPGRADE_ACTUAL_NATIVE_WARNING_UI_AND_FINAL_AGGREGATE_PENDING",
   "product_commit": "b1f30aa88365ec85aea15073f08de5d6dfa22a5f",
-  "runtime_test_commit": "45e93f38bab8dacd5916c9bdce374b1cc9d0d05f",
+  "runtime_test_commit": "4e0dc04489bd14b321c7a43c919fbfc8be76076b",
   "core_commit": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
   "executor": "/root/tester_s10",
   "reviewer": "/root/acceptance_s10",
@@ -83,25 +83,25 @@
   },
   "counts": {
     "cumulative": {
-      "odoo_start": 40,
-      "target_ro": 181,
-      "http": 472,
-      "firefox": 9,
-      "original_get": 12,
+      "odoo_start": 45,
+      "target_ro": 192,
+      "http": 516,
+      "firefox": 11,
+      "original_get": 13,
       "accident_ro": 2,
       "maintenance": 1,
       "create": 2
     },
     "current_plan": {
-      "odoo_start": 30,
-      "target_ro": 151,
-      "http": 440,
-      "firefox": 3,
-      "original_get": 12
+      "odoo_start": 35,
+      "target_ro": 162,
+      "http": 484,
+      "firefox": 5,
+      "original_get": 13
     },
     "counts_are_not_test_pass_totals": true,
     "http_boundary": "Runner/browser dispatch ledger; not all native renderer internal asset HTTP wire requests.",
-    "as_of_utc": "2026-10-18T13:02:00Z",
+    "as_of_utc": "2026-10-18T13:41:25.447415+00:00",
     "counts_are_not_test_case_totals": true,
     "prior_as_of_before_tax_model_and_finite_C": {
       "cumulative": {
@@ -179,6 +179,26 @@
         "original_get": 12
       },
       "as_of_utc": "2026-10-18T12:22:00Z"
+    },
+    "prior_as_of_first_main_LOG": {
+      "cumulative": {
+        "odoo_start": 40,
+        "target_ro": 181,
+        "http": 472,
+        "firefox": 9,
+        "original_get": 12,
+        "accident_ro": 2,
+        "maintenance": 1,
+        "create": 2
+      },
+      "current_plan": {
+        "odoo_start": 30,
+        "target_ro": 151,
+        "http": 440,
+        "firefox": 3,
+        "original_get": 12
+      },
+      "as_of_utc": "2026-10-18T13:02:00Z"
     }
   },
   "private_index_references": [
@@ -316,10 +336,10 @@
     }
   ],
   "remaining": [
-    "Native LOG03 WarningDialog real browser and limited new59 metadata explanation",
-    "Final E-MAIN and E-D on same final product with independent preservation and affected regression",
-    "Final twelveLOG aggregate/public export scan/storage/22finance and19case independent acceptance",
-    "Concrete bounded owned user review startup and safe read-only steps; final GitHub delivery"
+    "Native LOG03 WarningDialog actual ordinary59 UI-only with necessary readonly boot counter",
+    "Final public export scan/storage accounting and bounded actual owned review startup/read-only reproduction",
+    "Final GitHub delivery and technical issue closure if all conditions met",
+    "Final 12LOG/22finance/19case independent aggregate after native UI/export/storage/userentry checks"
   ],
   "B-role-prepare-first": {
     "candidate": "863325e2f48ca073b989711f36012c5da483e42d",
@@ -414,9 +434,9 @@
   },
   "independent_review_reference": {
     "ref": "../../reports/s10-log-and-closeout-v2-r12/acceptance-review.md",
-    "bytes_at_current_signature": 252681,
-    "sha256_at_current_signature": "e1ce18c2766d97a60943be96b7e42c7c728ab3535a73c323275ed625922aae1f",
-    "scope": "Actual strict-language C report/native attachment guards and170sealed preservation, LOG17 real ON/OFF same rollback outcomes and33sealed protection, main explicit filtered-empty and Firefox/Odoo actual exit independently accepted at stated scope. Native UI assertion unexecuted, new59 write_date exact cause unresolved, final dual E and fullS10 not signed. Original producer PENDING and first failures remain."
+    "bytes_at_current_signature": 270912,
+    "sha256_at_current_signature": "e929fd0bf22a5666edec08bc630d2a6bc20e6234fb9cebf428bb7b1590c935c6",
+    "scope": "Two final same-product S10-only data-bearing upgrades, independent preservation and post-read/UI/regression/terminal complete at stated synthetic scope. Main59 bot initialization limited explanation, physical beforestate uncaptured preserved. NativeLOG UI/mailstore fourth OTHER remains tool-preblocked; finalcounter patch SOURCE-only ready, no fullS10/12LOG/userentry signature."
   },
   "B-actual": {
     "status": "PASS_SCOPED_SIX_MODEL_AND_SIX_REAL_RPC",
@@ -898,6 +918,12 @@
       "bytes_at_current_signature": 241077,
       "sha256_at_current_signature": "a9512d3b02a5b6a1f25e017c96bcdb9f88683d1d5ed57d4cfc65d133976db2d3",
       "scope": "Actual first nativeHTML303 with guard not reached and Location missing, exact-body/source-derived canonical inference, first observer0-table exit1 retained, actual second RR34-table protection and actual native locale independently accepted. Canonical patch SOURCE and actual native guard still pending."
+    },
+    {
+      "ref": "../../reports/s10-log-and-closeout-v2-r12/acceptance-review.md",
+      "bytes_at_current_signature": 252681,
+      "sha256_at_current_signature": "e1ce18c2766d97a60943be96b7e42c7c728ab3535a73c323275ed625922aae1f",
+      "scope": "Actual strict-language C report/native attachment guards and170sealed preservation, LOG17 real ON/OFF same rollback outcomes and33sealed protection, main explicit filtered-empty and Firefox/Odoo actual exit independently accepted at stated scope. Native UI assertion unexecuted, new59 write_date exact cause unresolved, final dual E and fullS10 not signed. Original producer PENDING and first failures remain."
     }
   ],
   "D-configuration-and-early-font": {
@@ -1199,7 +1225,12 @@
       "bytes": 603,
       "sha256": "7bb8b533da85832209791bd5030dc8cc5699458d6969fc7e09dd38d29a037761",
       "access": "Local private original; repository summary does not provide raw access."
-    }
+    },
+    "original_current_scope_started_epoch": 1792306714.3839557,
+    "original_current_scope_deadline_epoch": 1792393114.3839557,
+    "original_current_scope_started_utc": "2026-10-18T06:58:34.383956+00:00",
+    "original_current_scope_deadline_utc": "2026-10-19T06:58:34.383956+00:00",
+    "scope_clock_note": "Task P0 began06:52:51Z; actual original runtime scope began06:58:34.383956Z and expires next day same time/SG14:58:34.383956. No epoch or counter reset/extension."
   },
   "C-tax-and-finite-configuration-actual": {
     "status": "PASS_SCOPED_INDEPENDENTLY_ACCEPTED",
@@ -1687,5 +1718,281 @@
       "access": "Private local immutable archive, not remotely readable from repository summary."
     },
     "minimal_diagnostic_patch": "Only LOG03 same-owned-route bounded static path/family and public model/method/argument shapes; guard/network dispatch unchanged, denied request still aborted. One focused privacy/guard PURE check passed, AST/diff checked; no business PASS inferred."
+  },
+  "main-bot-and-formal-E-before": {
+    "status": "INDEPENDENT_SCOPED_PASS",
+    "actual_RO_exit": 0,
+    "verified": {
+      "path": ".local/s10-technical-closeout-v1/main-final-E-before-verified.json",
+      "bytes": 623770,
+      "sha256": "c5d02a20a426c2c3cb322a0c30b1c900df30ff35f11f81d1902c07d30b86216b",
+      "access": "Private local original, not directly accessible from repository summary."
+    },
+    "user": 59,
+    "current_odoobot_state": "onboarding_emoji",
+    "message_id": 1368,
+    "channel_id": 3,
+    "author_partner_id": 2,
+    "create_uid": 59,
+    "same_transaction_message_and_user_write_datetime": "2026-10-18T12:55:56.481421",
+    "channel_members_partner_ids": [
+      65,
+      2
+    ],
+    "message_body_read": false,
+    "other_protected_business_domains": 39,
+    "reviewer": "/root/acceptance_s10",
+    "limit": "Physical bot state before the original bootstrap was not collected. Native source plus actual current state, unique own bot message and exact transaction timestamp support limited ordinary new-user initialization explanation; original afterRO wrapper1/raw retained."
+  },
+  "E-D-actual": {
+    "status": "INDEPENDENT_SCOPED_COMPLETE",
+    "product_commit": "cc1a395a8254a0b6c2017ceedd9a351d095c590a",
+    "runtime_test_commit": "4e0dc04489bd14b321c7a43c919fbfc8be76076b",
+    "core_commit": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+    "database_oid": 2144130,
+    "upgrade_modules": [
+      "ydental_settlement"
+    ],
+    "upgrade_options": [
+      "--stop-after-init",
+      "--load-language=zh_CN",
+      "-u",
+      "ydental_settlement"
+    ],
+    "native_upgrade_pid": 2018756,
+    "native_upgrade_exit": 0,
+    "upgrade_diagnostic_records": 2,
+    "before_RO_wrapper_exit": 1,
+    "before_offline_full_assertion_exit": 0,
+    "before_failure": "Exact inventory_mutex had already passed independently explained revision+6 but was mistakenly rechecked as unrelated immutable inventory fullhash. Only this one conflicting condition corrected offline, original raw/script/exit1 retained; no repeat before RO.",
+    "before_raw": {
+      "path": ".local/s10-technical-closeout-v1/scratch-final-E-before-observed.json",
+      "bytes": 936148,
+      "sha256": "76807913b691b98a72aff77b9bd7d9f5f31b61ce8cb3648ea3edf831e1ea36b3",
+      "access": "Private local original, not directly accessible from repository summary."
+    },
+    "before_independently_verified": {
+      "path": ".local/s10-technical-closeout-v1/scratch-final-E-before-reconciled-verified.json",
+      "bytes": 938819,
+      "sha256": "c917956a755a47d4daca1881fc70523e0f7676be392c2a107cade808f179befc",
+      "access": "Private local original, not directly accessible from repository summary."
+    },
+    "actual_C_mutex_deltas": [
+      110,
+      6,
+      137,
+      122,
+      5,
+      134
+    ],
+    "actual_six_mutex_revisions": [
+      144,
+      7,
+      176,
+      158,
+      13,
+      196
+    ],
+    "non_revision_whole_row_hashes_restored_exactly": true,
+    "mutex_source_and_actual_action_pairings": 121,
+    "after_RO_exit": 0,
+    "after_verified": {
+      "path": ".local/s10-technical-closeout-v1/scratch-final-E-after-verified.json",
+      "bytes": 938189,
+      "sha256": "79f09494d377dc38e35a58d7677a8186d5ba2d7b6dae75176dd15ec7943ac4a9",
+      "access": "Private local original, not directly accessible from repository summary."
+    },
+    "protected_domains": 46,
+    "C_D_projections": 34,
+    "protected_schema_tables": 58,
+    "dependency_before": 5,
+    "dependency_after": 6,
+    "only_new_dependency": "ydental_intake already installed; no other module upgrade",
+    "metadata_changes": "Two view loader write_uid/date only inside actual native upgrade window; all other checked rows/schema/roles/oldownedtax/stock/twooriginals preserved.",
+    "post_read_actor": 6,
+    "post_read_business_GETs": 2,
+    "post_read_native_pid": 2021234,
+    "post_read_native_exit": 0,
+    "post_read_diagnostic_records": 13,
+    "normal_new_auth_read_audits": [
+      429,
+      430,
+      431,
+      432,
+      433
+    ],
+    "D_received": 6,
+    "D_refunded": 2,
+    "D_net": 4,
+    "D_inflight": 0,
+    "extra_fund_source_original_actions": 0,
+    "terminal_RO_exit": 0,
+    "terminal_verified": {
+      "path": ".local/s10-technical-closeout-v1/scratch-final-E-terminal-verified.json",
+      "bytes": 940994,
+      "sha256": "1a1a8b94aebc81cc1a71867c7d00101ecc05a142deb9610506d33f213dc10902",
+      "access": "Private local original, not directly accessible from repository summary."
+    },
+    "refund_PDF_index": {
+      "path": ".local/s10-technical-closeout-v1/E-D-post-upgrade-refund-PDF-review/index.json",
+      "bytes": 1124,
+      "sha256": "66945743d71947bc7c7c2a5ec4388b509a09e3e31e6b8a3f20607491831f059d",
+      "access": "Private local original, not directly accessible from repository summary."
+    },
+    "root_actual_page_visual_review": {
+      "path": ".local/s10-technical-closeout-v1/root-E-D-post-upgrade-PDF-visual-review.json",
+      "bytes": 972,
+      "sha256": "ac72e7df79a1a49890b305430fd8f6d630d867617aee6e5cd16d0801258df1f7",
+      "access": "Private local original, not directly accessible from repository summary."
+    },
+    "refund_PDF_bytes": 26197,
+    "refund_PDF_sha256": "d8fb1cd2d6587821efd4cb39a46cbcc08fed50995017e30173e94c9f420431b0",
+    "all_three_roles_personally_reviewed_pages": [
+      1
+    ],
+    "result_index": {
+      "path": ".local/s10-technical-closeout-v1/E-D-real-closeout-result-index.json",
+      "bytes": 2923,
+      "sha256": "71b7d6bb39c777829f5d44b523bae56a0451ec0e00753a816837cf6b3d6de672",
+      "access": "Private local original, not directly accessible from repository summary."
+    },
+    "immutable_originals": {
+      "path": ".local/s10-technical-closeout-v1/E-D-full-closeout-runtime-originals/index.json",
+      "bytes": 29329,
+      "sha256": "d1ef2fb93c295519c06eaf6977f85d48b197608c5bacff41c918a529aea28e02",
+      "access": "Private local original, not directly accessible from repository summary."
+    },
+    "reviewer": "/root/acceptance_s10",
+    "scope": "Synthetic existing scratch target only, neither production nor user effect acceptance. Original producer pending visual fields not modified."
+  },
+  "E-MAIN-actual": {
+    "status": "INDEPENDENT_SCOPED_COMPLETE",
+    "product_commit": "cc1a395a8254a0b6c2017ceedd9a351d095c590a",
+    "runtime_test_commit": "4e0dc04489bd14b321c7a43c919fbfc8be76076b",
+    "core_commit": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+    "database_oid": 2144129,
+    "upgrade_modules": [
+      "ydental_settlement"
+    ],
+    "upgrade_options": [
+      "--stop-after-init",
+      "--load-language=zh_CN",
+      "-u",
+      "ydental_settlement"
+    ],
+    "native_upgrade_pid": 2030208,
+    "native_upgrade_exit": 0,
+    "upgrade_diagnostic_records": 2,
+    "upgrade": {
+      "path": ".local/s10-technical-closeout-v1/E-MAIN-UPGRADE-RESULT.json",
+      "bytes": 455,
+      "sha256": "dd8a4cb4d99f6a938b6ffebab51c6a9a373deea6ebf4d24be48c0c9f266527ff",
+      "access": "Private local original, not directly accessible from repository summary."
+    },
+    "before": {
+      "path": ".local/s10-technical-closeout-v1/main-final-E-before-verified.json",
+      "bytes": 623770,
+      "sha256": "c5d02a20a426c2c3cb322a0c30b1c900df30ff35f11f81d1902c07d30b86216b",
+      "access": "Private local original, not directly accessible from repository summary."
+    },
+    "after_RO_exit": 0,
+    "after": {
+      "path": ".local/s10-technical-closeout-v1/main-final-E-after-verified.json",
+      "bytes": 624563,
+      "sha256": "4aa2de7352d7f6b97493afa23b570e09157b8faef607abd9bbfe7e2aaca0c1c4",
+      "access": "Private local original, not directly accessible from repository summary."
+    },
+    "protected_business_domains": 39,
+    "only_metadata_changes": "Two view write_uid/date in actual upgrade window and installed intake dependency only5to6; roles/schema/oldfinancials/stock/taxes/document/version/releasededitor/originals held.",
+    "post_UI_actor": 5,
+    "store": 1,
+    "patient": 1,
+    "invoice": 1,
+    "original": 1,
+    "attachment": 161,
+    "post_UI_wrapper_exit": 0,
+    "native_UI_service_pid": 2032474,
+    "native_UI_service_exit": 0,
+    "native_UI_diagnostic_records": 11,
+    "Firefox_pid": 2032521,
+    "Firefox_birth": 80647350,
+    "Firefox_exit": 0,
+    "owned_surviving_browser_children": 0,
+    "actual_UI": {
+      "path": ".local/s10-technical-closeout-v1/E-MAIN-ORIGINAL-POST-RETURNED.json",
+      "bytes": 515,
+      "sha256": "e701f91b9a285416254dd34c944ef57ef8597641fde229dbc3cb7257239b86bd",
+      "access": "Private local original, not directly accessible from repository summary."
+    },
+    "original_bytes": 27665,
+    "original_sha256": "05928780e7d97a06cf29019634f64b010eb4994c2f1c5032d561008a50b059b4",
+    "post_original_PDF_index": {
+      "path": ".local/s10-technical-closeout-v1/E-MAIN-post-original-PDF-review/index.json",
+      "bytes": 1010,
+      "sha256": "d78cfa7042204fa25f1240bc54977c40ef50424b1de926dbd344ce1ef2fe734e",
+      "access": "Private local original, not directly accessible from repository summary."
+    },
+    "root_actual_visual_review": {
+      "path": ".local/s10-technical-closeout-v1/root-E-MAIN-post-original-PDF-visual-review.json",
+      "bytes": 767,
+      "sha256": "54b209859dbf249f64d6860a3c287b3460c763e0c6f8a1e0a3869d5111bd8fe0",
+      "access": "Private local original, not directly accessible from repository summary."
+    },
+    "pages_personally_reviewed_by_all_three": [
+      1
+    ],
+    "original_amount_semantics": "Immutable original snapshot740USD/received740/residual0 with four600/80/40/20 frozen lines, not a new statement of current post-refund net.",
+    "terminal_RO_actual_exit": 0,
+    "terminal": {
+      "path": ".local/s10-technical-closeout-v1/main-final-E-terminal-verified.json",
+      "bytes": 632327,
+      "sha256": "06e2a38b38f7f6f85f00e0794ddde1c1a3de5106cc496c42558c6deb8dd5cc29",
+      "access": "Private local original, not directly accessible from repository summary."
+    },
+    "terminal_includes_following_LOG_UI_preblock": true,
+    "reviewer": "/root/acceptance_s10",
+    "pending": "Native LOG WarningDialog and final fullS10 aggregate remain separate unfinished requirements.",
+    "independent_terminal_review": "Full original observer assertions independently rerun in RAM;39domains/taxes/stock/document/originals/59botprofile/view rows held. Exactly8 new normal audits:5 user5 auth/read/export,3 user59 auth; safe session3columns compared as multiset due native user,id ordering, exactly one each user5/59 store1rev1 added, no deletion. No extra DB query.",
+    "terminal_immutable_originals": {
+      "path": ".local/s10-technical-closeout-v1/E-MAIN-terminal-runtime-originals/index.json",
+      "bytes": 3894,
+      "sha256": "1a348c95c7bfeb14bb13195cd295bee7ac22b48ddc5b95645f90738eef2d36a3",
+      "access": "Private local immutable archive, not remotely readable from repository summary."
+    }
+  },
+  "LOG03-main-UI-only-first": {
+    "status": "TOOL_BOOT_PREBLOCK_NOT_PRODUCT_REJECTION",
+    "product_commit": "cc1a395a8254a0b6c2017ceedd9a351d095c590a",
+    "runtime_test_commit": "4e0dc04489bd14b321c7a43c919fbfc8be76076b",
+    "wrapper_exit": 1,
+    "native_service_exit": 0,
+    "Firefox_pid": 2033324,
+    "Firefox_exit": 0,
+    "first_failure": {
+      "path": ".local/s10-technical-closeout-v1/main-LOG03-UI-only-mailstore-first-failure-index.json",
+      "bytes": 1827,
+      "sha256": "1c135aa7cfa921ed1ccac5b0bf8ce3d99858fbcbc607a3877c53893c87160b1a",
+      "access": "Private local original, not directly accessible from repository summary."
+    },
+    "immutable_originals": {
+      "path": ".local/s10-technical-closeout-v1/E-MAIN-post-UI-and-LOG03-UI-only-runtime-originals/index.json",
+      "bytes": 50880,
+      "sha256": "e1a29ea285e8661b8bd0acccd1421a7189202164a053555c6fc0bd5665c4674a",
+      "access": "Private local original, not directly accessible from repository summary."
+    },
+    "actual_preblocked_path": "/mail/store",
+    "actual_fetch_handler_classification": [
+      "init_messaging",
+      "failures",
+      "systray_get_activities",
+      "OTHER"
+    ],
+    "actual_unknown_fourth_name_captured": false,
+    "filteredempty_repeated": false,
+    "A_post_original_repeated": false,
+    "WarningDialog_proved": false,
+    "source_necessary_readonly_boot_handler": "/mail/messaging_menu/initialize_counters",
+    "source_inference_limit": "Production core proves this exact normal readonly counter handler and finite map are necessary valid boot. Historical OTHER does not become an actually captured name. Only this exact new legitimate handler gets narrow shape admission, all unknown handlers remain rejected.",
+    "next": "One UI-only normal59 navigation on new tool candidate; no upgrade, original, attachmentRPC or economic replay."
   }
 }
