@@ -74,7 +74,7 @@ class PackageBudget(Budget):
             kwargs.update(create=False, profile=profile)
         super().__init__(directory, **kwargs)
 
-    def consume(self, kind):
+    def consume(self, kind, *, firefox_purpose=None):
         require_dispatch_unfrozen(self.profile)
         if self.profile is not None and kind not in self.profile.local_limits:
             raise RuntimeError('FRAMEWORK6_RESOURCE_NOT_AUTHORIZED')
@@ -88,7 +88,7 @@ class PackageBudget(Budget):
                     or self.profile is None and type(owner_profile) is TaskProfile):
                 raise RuntimeError('APPLICATION_TASK_PROFILE_MISMATCH')
             _DISPATCH_OWNER.check()
-        return super().consume(kind)
+        return super().consume(kind, firefox_purpose=firefox_purpose)
 
     def check_storage(self):
         if self.profile is not None:
@@ -105,6 +105,7 @@ class PackageBudget(Budget):
                 's10-lc2-r12-20261017', 's10-lc2-caller-adapter-20261017-02',
                 's10-lc2-plan-20261017', 's10-lc2-code-rework-20261017-01',
                 's10-lc2', 's10-lc2-main-a-20261018-01', 's10-lc2-exec-20261017',
+                's10-lc2-main-a-20261018-02',
             )) + (self.profile.root,)
         roots = tuple(dict.fromkeys(roots))
         size = sum(path.stat().st_size for base in roots if base.exists()

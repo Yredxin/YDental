@@ -23,7 +23,7 @@ import uuid
 from s10_lc2_evidence import PROTECTED, save_once
 from s10_lc2_http import _private_directory, _save_bytes, _redacted_json, main_a_request_boundary
 from s10_lc2_supervisor import save_primary
-from s10_lc2_task_profile import MAIN_A_AUTONOMY, MAIN_A_PROFILES, MAIN
+from s10_lc2_task_profile import MAIN_A_AUTONOMY, MAIN_A_ENGINEERING, MAIN_A_PROFILES, MAIN
 
 
 _DATABASE = re.compile(r'ydental_s10_test_[0-9]{14}_[a-f0-9]{8}\Z')
@@ -232,10 +232,10 @@ class BrowserSession:
         if self.task_profile is not None and self.task_profile.message_id in MAIN_A_PROFILES:
             self.task_profile.verify()
             allowed_cases = {'A-ORIGINAL'}
-            if self.task_profile.message_id == MAIN_A_AUTONOMY:
+            if self.task_profile.message_id in {MAIN_A_AUTONOMY, MAIN_A_ENGINEERING}:
                 allowed_cases.add('A-EDITOR')
             if (self.case_id not in allowed_cases
-                    or path == '/ydental/clinical' and self.task_profile.message_id != MAIN_A_AUTONOMY):
+                    or path == '/ydental/clinical' and self.task_profile.message_id not in {MAIN_A_AUTONOMY, MAIN_A_ENGINEERING}):
                 raise BrowserBoundaryError('MAIN_A_BROWSER_CASE_FORBIDDEN')
             form = None
             if request.method == 'POST':
@@ -279,7 +279,7 @@ class BrowserSession:
             if parse_qs(body, keep_blank_values=True).get('operation') == [_INVALID_OPERATION]:
                 return path
         if (path == '/ydental/clinical/action' and self.task_profile is not None
-                and self.task_profile.message_id == MAIN_A_AUTONOMY
+                and self.task_profile.message_id in {MAIN_A_AUTONOMY, MAIN_A_ENGINEERING}
                 and self.case_id == 'A-EDITOR'):
             # The exact acquire/release payload already passed MAIN-A's gate.
             return path
@@ -457,7 +457,10 @@ class BrowserSession:
             if str(self.playwright_root) not in sys.path:
                 sys.path.insert(0, str(self.playwright_root))
             self.factory = importlib.import_module('playwright.async_api').async_playwright
-        self.budget.consume('firefox')
+        if self.task_profile is not None and self.task_profile.message_id == MAIN_A_ENGINEERING:
+            self.budget.consume('firefox', firefox_purpose='ui')
+        else:
+            self.budget.consume('firefox')
         self.started = time.monotonic()
         try:
             child_env = driver_environment(dict(os.environ))

@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "disable_existing_loggers": false,
+  "keep_odoo_default": true,
+  "handlers": {
+    "native_privacy_attestation": {
+      "class": "s10_lc2_native_privacy.NativePrivacyAttestation",
+      "level": "INFO"
+    }
+  },
+  "loggers": {
+    "ydental.events": {
+      "level": "INFO",
+      "handlers": [],
+      "propagate": false
+    },
+    "odoo.addons.base.models.res_device": {
+      "level": "WARNING",
+      "handlers": [],
+      "propagate": true
+    },
+    "odoo.modules.loading": {
+      "level": "INFO",
+      "handlers": ["native_privacy_attestation"],
+      "propagate": true
+    }
+  }
+}

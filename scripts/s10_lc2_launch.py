@@ -21,7 +21,7 @@ from s10_lc2_targets import (EXEC_ROOT, LEGACY_EXEC_ROOT, PLAN, RUN_ROOT, Packag
 from s10_lc2_process_guard import ObservationBlocked, ProcessLogGuard
 from s10_lc2_framework_caller import (GRANT_ENV, GRANT_NAME, check_framework_failure,
                                       framework_failure_facts, issue_framework_grant)
-from s10_lc2_task_profile import FRAMEWORK6, MAIN_A_AUTONOMY, MAIN_A_PROFILES
+from s10_lc2_task_profile import FRAMEWORK6, MAIN_A_AUTONOMY, MAIN_A_ENGINEERING, MAIN_A_PROFILES
 
 ROOT = Path(__file__).resolve().parents[1]
 PYTHON = ROOT.parent / '.venv/bin/python'
@@ -131,12 +131,15 @@ def launch_guard(marker, *, approval, product_commit, test_commit, action, profi
     parser = configparser.ConfigParser(interpolation=None)
     parser.read(run / 'odoo.conf')
     options = parser['options']
+    log_config = ROOT / ('config/logging-s10-main-a-engineering.example.json'
+                         if profile is not None and profile.message_id == MAIN_A_ENGINEERING
+                         else 'config/logging-s10.example.json')
     expected = {'db_host': '127.0.0.1', 'db_port': '5432', 'db_user': 'odoo',
                 'db_name': marker['database'], 'dbfilter': '^' + marker['database'] + '$',
                 'workers': '0', 'max_cron_threads': '0', 'db_maxconn': '4',
                 'http_interface': '127.0.0.1', 'http_port': str(marker['port']),
                 'data_dir': str(profile.data_dir if profile is not None else run / 'data'), 'logfile': str(run / 'odoo-native.log'),
-                'log_config': str(ROOT / 'config/logging-s10.example.json'),
+                'log_config': str(log_config),
                 'addons_path': str(ROOT.parent / 'addons') + ',' + str(ROOT)}
     if any(options.get(key) != value for key, value in expected.items()) or not 18410 <= marker['port'] <= 18419:
         raise RuntimeError('APPLICATION_CONFIG_BOUNDARY_DRIFT')
@@ -261,6 +264,7 @@ class OwnedApplication:
             self.framework_frozen_files = strict_loads(Path(approval).read_bytes()).get('frozen_files', {})
         dependency_preflight(self.env, self.directory, **extra)
         identity_probe(self.marker, options, budget=self.budget, directory=self.directory)
+        self.log_config = Path(options['log_config'])
         self.native_logfile = self.directory / 'odoo-native.log'
         command = [str(PYTHON), str(ROOT.parent / 'odoo-bin')]
         if action in {'main-fixture', 'scratch-fixture', 'main-credential-setup'}:
@@ -351,7 +355,9 @@ class OwnedApplication:
                   'native_postgres_dbname_fallback_allowance': 1 if profile is not None else 0,
                   'native_existence_actual_connections': 'UNKNOWN',
                   'native_system_connection_evidence_layer': 'SOURCE_INFERRED_ALLOWANCE_NOT_ACTUAL_COUNT',
-                  'stdin_sha256': hashlib.sha256(expected_stdin.read_bytes()).hexdigest() if has_stdin else None})
+                  'stdin_sha256': hashlib.sha256(expected_stdin.read_bytes()).hexdigest() if has_stdin else None,
+                  'log_config': str(self.log_config),
+                  'log_config_sha256': hashlib.sha256(self.log_config.read_bytes()).hexdigest()})
         stdin = expected_stdin.open('rb') if has_stdin else subprocess.DEVNULL
         self.started = time.monotonic()
         try:
@@ -482,10 +488,23 @@ class OwnedApplication:
                     starts.append(event)
         if len(starts) != 1 or starts[0].get('native_http_log_level') != 50 or starts[0].get('diagnostic_log_level') != 20:
             raise RuntimeError('ACTUAL_SERVICE_LOG_PRIVACY_LEVEL_NOT_ATTESTED')
+        privacy = None
+        if getattr(getattr(self, 'profile', None), 'message_id', None) == MAIN_A_ENGINEERING:
+            privacy = strict_loads((self.run / 'diagnostics' / (
+                'native-privacy-' + str(self.process.pid) + '.json')).read_bytes())
+            if (privacy.get('pid') != self.process.pid
+                    or privacy.get('task_message_id') != MAIN_A_ENGINEERING
+                    or privacy.get('logger') != 'odoo.addons.base.models.res_device'
+                    or type(privacy.get('effective_level')) is not int
+                    or privacy['effective_level'] != 30
+                    or privacy.get('config_sha256') != hashlib.sha256(self.log_config.read_bytes()).hexdigest()
+                    or privacy.get('record_payload_retained') is not False):
+                raise RuntimeError('ACTUAL_DEVICE_LOG_PRIVACY_LEVEL_NOT_ATTESTED')
         save_once(self.directory / 'actual-log-levels.json', {
             'pid': self.process.pid, 'event_id': starts[0]['event_id'],
             'native_http_log_level': 50, 'diagnostic_log_level': 20,
-            'transport_access_error_detail_retained': False})
+            'transport_access_error_detail_retained': False,
+            'native_device_privacy': privacy})
 
     def wait(self, timeout):
         if getattr(getattr(self, 'profile', None), 'message_id', None) in MAIN_A_PROFILES:

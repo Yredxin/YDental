@@ -26,7 +26,7 @@ import uuid
 from s10_lc2_evidence import PROTECTED, save_once
 from s10_lc2_logging import strict_loads
 from s10_lc2_supervisor import save_primary
-from s10_lc2_task_profile import MAIN_A_PROFILES, MAIN
+from s10_lc2_task_profile import MAIN_A_ENGINEERING, MAIN_A_PROFILES, MAIN
 
 
 _DATABASE = re.compile(r'ydental_s10_test_[0-9]{14}_[a-f0-9]{8}\Z')
@@ -66,7 +66,7 @@ _CASES = frozenset({
 })
 
 
-def main_a_request_boundary(method, path, *, form=None, json_body=None):
+def main_a_request_boundary(method, path, *, form=None, json_body=None, allow_session_info=False):
     """MAIN-A permits normal login, store 1, document 1 and stored original 1.
 
     This gate only narrows the existing transport guard. It never supplies
@@ -87,6 +87,13 @@ def main_a_request_boundary(method, path, *, form=None, json_body=None):
             raise ValueError('MAIN_A_GET_ROUTE_OR_DOCUMENT_FORBIDDEN')
         if route == '/ydental/settlement' and query not in ({}, {'patient_id': ['1']}):
             raise ValueError('MAIN_A_PATIENT_QUERY_FORBIDDEN')
+        return
+    if allow_session_info and method == 'POST' and route == '/web/session/get_session_info':
+        if (form is not None or type(json_body) is not dict
+                or set(json_body) != {'jsonrpc', 'method', 'params', 'id'}
+                or json_body.get('jsonrpc') != '2.0' or json_body.get('method') != 'call'
+                or json_body.get('params') != {} or type(json_body.get('id')) is not int):
+            raise ValueError('MAIN_A_SESSION_INFO_SHAPE_FORBIDDEN')
         return
     if method != 'POST' or type(form) is not dict or json_body is not None:
         raise ValueError('MAIN_A_POST_SHAPE_FORBIDDEN')
@@ -491,7 +498,8 @@ class Client:
         path, decoded = self._path(path)
         if self.task_profile is not None and self.task_profile.message_id in MAIN_A_PROFILES:
             self.task_profile.verify()
-            main_a_request_boundary(method, path, form=form, json_body=json_body)
+            main_a_request_boundary(method, path, form=form, json_body=json_body,
+                allow_session_info=self.task_profile.message_id == MAIN_A_ENGINEERING)
             if (case_id not in {'A-STATE', 'A-EDITOR', 'A-ORIGINAL'}
                     or discard_response or retry_manifest):
                 raise ValueError('MAIN_A_CASE_OR_REPLAY_FORBIDDEN')
