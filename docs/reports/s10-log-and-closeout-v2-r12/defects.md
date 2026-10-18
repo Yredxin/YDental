@@ -128,3 +128,10 @@ TR01源码接受后在现scratch第一次真实运行五TransactionCase+一HttpC
 - CURRENT_PLAN 的 NativePrivacyAttestation producer/launch consumer 遗漏由独立审查在首次服务前发现；c48d7fb 最小接入原证明器，未移除handler，实际PID/privacy level30/nativeHTTP50通过。
 - browser聚焦回归首次中间态import错误、launcher fixture.log_config缺项和PDF后处理命令缺失各保首失败，均在团队内纠正；未冒产品拒绝、Native或工具安全拒绝。
 - B/C/D/双E/剩余LOG尚未实际运行；不因A通过清除历史停止事实或其余缺口。
+
+
+### 当前 B 首次角色准备启动竞态（863325e，未重试）
+
+- 首业务派发尚未取得结果：run_fixture 每0.1s轮询在app.check默认allow_starting=False下，于事件日志创建前触发DIAGNOSTIC_LOG_MISSING；父端SIGTERM终止owned PID1785486，实际寿命0.24s/returncode-15。
+- stdout/stderr均0B、native日志/reader commit checkpoint/新provider文件不存在；这些支持未入首commit，但不替代失败后独立RO。尚不签无提交，不创建第二账号，不重试经济或文书动作。
+- 团队正在独立核精确普通工具STOP与仅保全RO的恢复路径，原字节保留；旧r12工具拒绝STOP不改。拟在数据保全成立后仅补既有60s startup grace，仍要求真实run.start/封存/独立后核，不移除日志保护。
