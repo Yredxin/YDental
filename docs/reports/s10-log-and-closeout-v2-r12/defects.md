@@ -1,3 +1,7 @@
+## 当前plan：P1加载限定通过、C动态中文PDF失败（2026-10-18）
+
+产品d0d27cf / 实际70c49c2：P1主库S10-only修复加载实际exit0及独立前后保护通过，非最终E。C首动态账单HTTP200生成1页PDF，中文视觉方框、提取CJK为0，必需票据中文标准FAIL。renderer返回1/NONZERO_NOT_NATIVE，原生日志有ConnectionRefusedError；具体请求URL尚未知，不冒因果结论。旧原件SHA仍原值。当前普通STOP保留，仅准精确绑定只读调查；receipt/refund/异店/浏览器未执行，不能报C通过。只读字体匹配回退DejaVu、zh family空，尚待产品资源及报告URL事实决定最小修复。首次原始失败、PDF、进程退出和4授权检查点均保留，不全C重放。
+
 # R1.2缺陷、首事实、修正及复核
 
 ## 当前 plan V1 普通运行缺陷增量（历史原文继续保留）

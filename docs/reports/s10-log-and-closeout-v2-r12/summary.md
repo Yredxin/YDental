@@ -18,6 +18,10 @@
 - 12 LOG当前投影承接六原生框架及当前A实际层级，逐项列剩余断言；不因旧表仍写offline而重跑已采框架。C调用图所需受控原件拒绝GET同样计费，当前工程新增原件GET上限4→24，旧/current已用和时钟不变，不削权限矩阵凑额度。
 - 普通工程首失败保留：browser聚焦测试碰到并行编辑中import缩进错误，完整写完后3项通过；launcher旧伪对象少log_config导致7项中2ERROR，补fixture后7项通过。独立发现当前privacy producer漏profile于首次启动前修复，c48d7fb原生日志证明实际通过。PDF后处理pdfinfo/pdftoppm缺命令exit127，改用已存在pymupdf读取本次保存文件，无依赖安装/新点击。以上不是MODEL/产品业务PASS。
 
+- P1修复加载已实测并获独立限定PASS：产品d0d27cf44446e2517a43251236636fd233a50ff6 / 运行70c49c26cf6dac860e674d90a2f36a52b8f45a00；实际main原生-u ydental_settlement exit0，前后39域752行/旧审计/资金/库存/文书/原件/schema保持，双语言QWeb仅三can_export与三只读span变化。该RO亦补B后39域全局保全；不替代最终E-MAIN/E-D。
+- C首次真实执行部分完成后失败：4次正常新59授权+4次独立RO、52 HTTP；旧受控原件仍原27665B/SHA。首动态账单HTTP200且有PDF，但独立逐页检查中文均方框，判FAIL。原生renderer exit1/NONZERO_NOT_NATIVE，无已知signal/Native崩溃，具体child PID/reap未实测。实际receipt/refund正例、异店尾段和撤权浏览器尚未运行；前缀响应与已通过控制流保留，但缺部分最小HTML断言快照，不能全C通过。当前普通renderer STOP原位原字节保留，仅准备与本事件精确绑定的一次只读诊断，未解冻HTTP/renderer。
+- 当前累计Odoo20/RO93/HTTP122/Firefox7/原件GET5；事故RO2/maintenance1/create2保持。C owned PID1829480正常parent exit0，无owned服务/两端口无监听。只读字体诊断exit0：Noto CJK匹配回退DejaVu，zh字体family查询空；这是同ambient重建，非旧renderer完整env记录，不证明全机绝无字体文件。不安装OS字体/依赖。下一步只核三报告URL键和保护状态，再做最小产品修复与缺项接续；不重放A/B或旧资金。
+
 后续证据仍归既有本目录、docs/evidence/s10-log-and-closeout-v2-r12/ 和获准私有目录；秘密与原始临床/财务内容不进 Git。最终覆盖 A、真实 B、C、scratch 唯一 D 6/2 链、双 E、12 LOG 与原财务退出标准。S11—S13、merge、部署和生产不在范围。
 
 以下是历史交付，原始正文保留，各结论限其候选、层级和时点。

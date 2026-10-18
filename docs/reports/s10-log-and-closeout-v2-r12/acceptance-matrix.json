@@ -6091,7 +6091,7 @@
     "task_id": "S10-LOG-AND-CLOSEOUT-v2",
     "started_at_utc": "2026-10-18T06:52:51Z",
     "authority": "User supplied full plan in current conversation; execution mode enabled; no new GPT comment prerequisite.",
-    "status": "IN_PROGRESS_A_PRE_UPGRADE_AND_B_SCOPED_PASS_C_INTEGRATION",
+    "status": "IN_PROGRESS_A_B_SCOPED_PASS_C_CHINESE_PDF_FAIL_INVESTIGATION",
     "baseline_commit": "d731711ab48d73177303ced9c040601a206412d9",
     "core_commit": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
     "scope": "S10 only; no S11-S13, merge or deployment",
@@ -6104,7 +6104,7 @@
       "tester": "/root/tester_s10",
       "acceptance": "/root/acceptance_s10"
     },
-    "candidate_status": "B_CCCBF577_SIX_MODEL_SIX_REAL_RPC_INDEPENDENTLY_ACCEPTED_C_NEXT",
+    "candidate_status": "PRODUCT_D0D27CF_RUNTIME_70C49C2_P1_LOAD_SCOPED_PASS_C_FIRST_DYNAMIC_PDF_FAIL",
     "current_actual_evidence": [
       "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json"
     ],
@@ -6174,35 +6174,44 @@
         "reviewer": "/root/acceptance_s10"
       },
       "C-SCOPE": {
-        "status": "NOT_RUN",
+        "status": "PARTIAL_PREFIX_EVIDENCE",
         "required_layers": [
           "HTTP/RPC",
           "MODEL_NATIVE_COMMITTED",
           "SYNTHETIC_FIXTURE"
         ],
         "definition_ref": "#/tc_evidence_requirements/C-SCOPE",
-        "current_evidence": [],
-        "reason": "Current plan runtime not yet dispatched; specific prerequisites being checked."
+        "current_evidence": [
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json",
+          "acceptance-review.md"
+        ],
+        "reason": "Four main read/export combinations dispatched; response/control-flow evidence retained, minimal HTML facts incomplete; foreign tail/cross-company/family still pending."
       },
       "C-ATTACHMENT": {
-        "status": "NOT_RUN",
+        "status": "FAIL_DYNAMIC_CHINESE_PDF",
         "required_layers": [
           "HTTP/RPC",
           "MODEL_NATIVE_COMMITTED"
         ],
         "definition_ref": "#/tc_evidence_requirements/C-ATTACHMENT",
-        "current_evidence": [],
-        "reason": "Current plan runtime not yet dispatched; specific prerequisites being checked."
+        "current_evidence": [
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json",
+          "acceptance-review.md"
+        ],
+        "reason": "Old controlled original remains exact SHA; first dynamic bill HTTP200 PDF has visually unreadable Chinese squares, renderer exit1 non-Native. Receipt/refund tail NOT_RUN."
       },
       "C-TOKEN": {
-        "status": "NOT_RUN",
+        "status": "PARTIAL_SOURCE_AND_HTTP",
         "required_layers": [
           "STATIC",
           "HTTP/RPC"
         ],
         "definition_ref": "#/tc_evidence_requirements/C-TOKEN",
-        "current_evidence": [],
-        "reason": "Current plan runtime not yet dispatched; specific prerequisites being checked."
+        "current_evidence": [
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json",
+          "acceptance-review.md"
+        ],
+        "reason": "None/invalid token negative requests dispatched. Valid token for immutable original attachment161 has no legal issuer by source; that specific entry N/A, not all token scenarios."
       },
       "C-REVOKED-PAGE": {
         "status": "NOT_RUN",
@@ -6666,7 +6675,7 @@
       "reviewer": "/root/acceptance_s10",
       "current_tool_refusal": null
     },
-    "runtime_test_commit": "cccbf577c454747f1e60d4de05a6775efe23b137",
+    "runtime_test_commit": "70c49c26cf6dac860e674d90a2f36a52b8f45a00",
     "runtime_attempts": [
       {
         "stage": "existing_reader_native_administration",
@@ -6707,6 +6716,15 @@
         "actual_result_sha256": "fb8de48914c38722359458f3713a6f116f94b3f51a5abd49c34d0c9176e02e1b",
         "reviewer": "/root/acceptance_s10"
       }
-    ]
+    ],
+    "P1-repair-load": {
+      "status": "PASS_SCOPED_NOT_FINAL_E",
+      "product_commit": "d0d27cf44446e2517a43251236636fd233a50ff6",
+      "runtime_commit": "70c49c26cf6dac860e674d90a2f36a52b8f45a00",
+      "upgrade_exit": 0,
+      "protected_domains": 39,
+      "protected_rows": 752,
+      "independent_reviewer": "/root/acceptance_s10"
+    }
   }
 }

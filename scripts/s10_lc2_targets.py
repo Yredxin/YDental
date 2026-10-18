@@ -5,8 +5,10 @@ from datetime import datetime, timezone
 import hashlib
 from itertools import zip_longest
 import json
+import os
 from pathlib import Path
 import secrets
+import sys
 import time
 
 from s10_lc2_admission import verify_admission
@@ -39,11 +41,74 @@ def freeze_dispatch(failure, profile=None):
         _DISPATCH_FAILURE = dict(failure)
 
 
-def require_dispatch_unfrozen(profile=None):
+def _current_c_renderer_incident_read_only(profile):
+    """Only the preserved C renderer exit-one incident permits its one RO observer."""
+    if profile.message_id != CURRENT_PLAN:
+        return False
+    scope = profile.current_scope()
+    incident = scope.get('incident_read_only', {})
+    if (set(scope['action_reviews']) != {'target-ro'}
+            or incident.get('incident') != 'C_RENDERER_EXIT_ONE'
+            or incident.get('stop_sha256') != 'c32c0944ec6eb0fa543082d6ecfb928d1cc33bf943c54d47ebf0afc06619eae6'
+            or incident.get('event_log_sha256') != 'd92f47b506b77767439e31baeac85b5b69d8ff121528d7aedc841506bd16763c'):
+        return False
+    stop_path = profile.root / 'HARD-STOP.json'
+    if stop_path.is_symlink() or not stop_path.is_file() or stop_path.stat().st_uid != os.getuid():
+        return False
+    stop_raw = stop_path.read_bytes()
+    if hashlib.sha256(stop_raw).hexdigest() != incident['stop_sha256']:
+        return False
+    stopped = strict_loads(stop_raw)
+    if stopped != {'pid': 1829480, 'primary_event_id': '6208b49b9433427bb9ca2d4020f7c775',
+            'reason': 'RENDERER_NONZERO_REQUIRES_VERIFICATION', 'root_event_id': None,
+            'ts_utc': '2026-10-18T08:19:09.431668+00:00'}:
+        return False
+    def verified_reference(name):
+        path = ROOT / incident[name + '_ref']
+        if (path.is_symlink() or not path.resolve().is_relative_to(profile.root)
+                or path.stat().st_uid != os.getuid()):
+            raise RuntimeError('C_INCIDENT_RO_REFERENCE_INVALID')
+        raw = path.read_bytes()
+        if hashlib.sha256(raw).hexdigest() != incident[name + '_sha256']:
+            raise RuntimeError('C_INCIDENT_RO_REFERENCE_BYTES_CHANGED')
+        return path.resolve(), raw
+    event_path, event_raw = verified_reference('event_log')
+    expected_log = profile.run_root / profile.database / 'diagnostics/events-1829480-bc23047e96cd45a29feb546b90ce42bb-000.jsonl'
+    if event_path != expected_log or profile.database != 'ydental_s10_test_20261017105432_810a7d9c':
+        return False
+    events = [strict_loads(line) for line in event_raw.splitlines()]
+    matches = [row for row in events if row.get('event_id') == stopped['primary_event_id']]
+    if len(matches) != 1 or any(matches[0].get(key) != value for key, value in {
+            'event': 'renderer.exit', 'pid': 1829480, 'renderer_exit_code': 1,
+            'renderer_signal': None, 'outcome': 'NONZERO_NOT_NATIVE', 'actor_id': 59,
+            'effective_uid': 59, 'su_flag': False, 'case_id': 'C-ATTACHMENT',
+            'run_id': profile.run_id, 'scope_revision': 1}.items()):
+        return False
+    approval = strict_loads((profile.root / 'runtime-approval.json').read_bytes())
+    if (approval.get('allowed_actions') != [] or approval.get('allowed_target_names') != [profile.database]
+            or approval.get('authority_sha256') != profile.authority_sha256
+            or approval.get('runtime_dispatched') is not True):
+        return False
+    entries = []
+    for name in ('observer', 'wrapper'):
+        path, _ = verified_reference(name)
+        if approval.get('frozen_files', {}).get(incident[name + '_ref']) != incident[name + '_sha256']:
+            return False
+        entries.append(path)
+    return len(set(entries)) == 2 and Path(sys.argv[0]).resolve() in entries
+
+
+def require_dispatch_unfrozen(profile=None, *, read_only=False):
+    if type(read_only) is not bool:
+        raise ValueError('DISPATCH_READ_ONLY_FLAG_INVALID')
     if profile is not None:
         profile.verify()
         if (profile.root / FAILURE_NAME).exists():
             freeze_dispatch(framework_failure_facts(profile.root), profile)
+        if ((profile.root / 'HARD-STOP.json').exists() and read_only
+                and profile.message_id not in _PROFILE_FAILURES
+                and _current_c_renderer_incident_read_only(profile)):
+            return
         if (profile.root / 'HARD-STOP.json').exists() or profile.message_id in _PROFILE_FAILURES:
             raise RuntimeError('FRAMEWORK6_DISPATCH_FROZEN')
         return
@@ -75,7 +140,7 @@ class PackageBudget(Budget):
         super().__init__(directory, **kwargs)
 
     def consume(self, kind, *, firefox_purpose=None):
-        require_dispatch_unfrozen(self.profile)
+        require_dispatch_unfrozen(self.profile, read_only=kind == 'target_ro')
         if self.profile is not None and kind not in self.profile.local_limits:
             raise RuntimeError('FRAMEWORK6_RESOURCE_NOT_AUTHORIZED')
         if kind in {'accident_ro', 'maintenance', 'create'}:

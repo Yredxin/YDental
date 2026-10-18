@@ -84,18 +84,18 @@
       "accident_ro": 2,
       "create": 2,
       "firefox": 7,
-      "http": 70,
+      "http": 122,
       "maintenance": 1,
-      "odoo_start": 18,
-      "original_get": 1,
-      "target_ro": 85
+      "odoo_start": 20,
+      "original_get": 5,
+      "target_ro": 93
     },
     "current_plan": {
       "firefox": 1,
-      "http": 38,
-      "odoo_start": 8,
-      "original_get": 1,
-      "target_ro": 55
+      "http": 90,
+      "odoo_start": 10,
+      "original_get": 5,
+      "target_ro": 63
     },
     "counts_are_not_test_pass_totals": true
   },
@@ -151,6 +151,18 @@
       "bytes": 8982,
       "sha256": "dff52e783276d26bc9f83fd67e002440d84627a2e14d15558593a9e448f8e0fa",
       "access": "PRIVATE_LOCAL_NOT_GITHUB_READABLE"
+    },
+    {
+      "ref": ".local/s10-technical-closeout-v1/P1-repair-main-result-index.json",
+      "bytes": 2393,
+      "sha256": "89288c9179b8ab794af56961bb1112559bb0d4d41847e76a3323c0a5a1d655b8",
+      "access": "PRIVATE_LOCAL_NOT_GITHUB_READABLE"
+    },
+    {
+      "ref": ".local/s10-technical-closeout-v1/C-first-renderer-pdf-review/index.json",
+      "bytes": 930,
+      "sha256": "53cfb0878c0f3e3b97f3700f876e295cfe5008a665db8699a7f9cf6fb33fb0e2",
+      "access": "PRIVATE_LOCAL_NOT_GITHUB_READABLE"
     }
   ],
   "ordinary_tool_failures": [
@@ -193,7 +205,8 @@
   "runtime_test_candidates": {
     "A_pre_upgrade": "c48d7fb23765aaac843739ab276db3138f971bf9",
     "reader_initialize_and_B_preparation": "48fad024dff0460d2936931d811503605d54ca6d",
-    "B_actual": "cccbf577c454747f1e60d4de05a6775efe23b137"
+    "B_actual": "cccbf577c454747f1e60d4de05a6775efe23b137",
+    "P1_load_and_C_first": "70c49c26cf6dac860e674d90a2f36a52b8f45a00"
   },
   "B-reader": {
     "actor_id": 59,
@@ -252,9 +265,9 @@
   },
   "independent_review_reference": {
     "ref": "../../reports/s10-log-and-closeout-v2-r12/acceptance-review.md",
-    "bytes_at_current_signature": 136027,
-    "sha256_at_current_signature": "1b09a8120b99ab271496a148cb0d89470c584234343abc9bd99cd84118edb780",
-    "scope": "Current pre-upgrade A and B six MODEL/six real RPC; historical setup/failure preservation; no C/D/E pass."
+    "bytes_at_current_signature": 142288,
+    "sha256_at_current_signature": "c9df8323ec19410ca24b6a2ab013b77a4781d6f7106688a7608f330d35c3fa14",
+    "scope": "A/B scoped PASS; P1 repair load scoped PASS, not final E; C first dynamic Chinese PDF FAIL and prefix limitations."
   },
   "B-actual": {
     "status": "PASS_SCOPED_SIX_MODEL_AND_SIX_REAL_RPC",
@@ -484,5 +497,35 @@
       "marker_sha256": "26bd0a4b10cb969c852686a9ce37588fb40581fbb5b7d03fde872b8af63cd7d7",
       "source_reconstruction": "Changed tracked files archived from fixed cccbf577 Git bytes only after exact match with actual B frozen SHA; explicitly marked FIXED_COMMIT_BYTE_IDENTICAL_SOURCE."
     }
+  },
+  "current_product_commit": "d0d27cf44446e2517a43251236636fd233a50ff6",
+  "P1-repair-load": {
+    "status": "PASS_SCOPED_NOT_FINAL_E",
+    "product_commit": "d0d27cf44446e2517a43251236636fd233a50ff6",
+    "runtime_commit": "70c49c26cf6dac860e674d90a2f36a52b8f45a00",
+    "upgrade_exit": 0,
+    "protected_domains": 39,
+    "protected_rows": 752,
+    "independent_reviewer": "/root/acceptance_s10"
+  },
+  "C-first": {
+    "status": "FAIL_DYNAMIC_CHINESE_PDF_WITH_PARTIAL_PREFIX",
+    "runtime_commit": "70c49c26cf6dac860e674d90a2f36a52b8f45a00",
+    "normal_grant_changes": 4,
+    "independent_grant_ro": 4,
+    "http_requests": 52,
+    "dynamic_bill_http_status": 200,
+    "dynamic_bill_pdf_bytes": 17269,
+    "pdf_pages": 1,
+    "chinese_visual": "UNREADABLE_SQUARES_INDEPENDENTLY_CHECKED",
+    "renderer_exit_code": 1,
+    "renderer_outcome": "NONZERO_NOT_NATIVE",
+    "renderer_child_pid": "NOT_MEASURED",
+    "old_original_exact_sha_preserved": true,
+    "current_stop_original_bytes_retained": true,
+    "owned_parent_exit": 0,
+    "browser_dispatched": false,
+    "receipt_refund_foreign_tail": "NOT_RUN",
+    "prefix_limit": "Some HTML assertion facts only supported by control flow; missing minimal persisted evidence requires targeted recheck, not full PASS."
   }
 }
