@@ -19,7 +19,8 @@ import threading
 from contextlib import contextmanager
 from urllib.parse import urlencode
 
-from s10_lc2_evidence import collect_selection, runtime_gate, save_once
+from s10_lc2_evidence import (collect_b_source, collect_selection, parse_b_server_events,
+                             read_b_source, runtime_gate, save_once, verify_b_log_prefixes)
 from s10_lc2_http import Client, OutcomeUnknown, RequestNotSent, csrf_from
 from s10_lc2_launch import ACTION_ROLES, OwnedApplication, ROOT, stop
 from s10_lc2_logging import strict_loads, validate_jsonl
@@ -62,6 +63,7 @@ class Actor:
                              target_role=role, budget=budget, directory=directory)
         self.connection = uuid.uuid4().hex
         self.revision, self.csrf = None, None
+        self.store_id, self.scope_request_id = None, None
 
     def login(self, store_id):
         response = self.client.login(self.login_name, self.password)
@@ -82,7 +84,10 @@ class Actor:
 
     def switch(self, store_id):
         value = self.action('access', 'switch', {'store_id': store_id}, case='C-SCOPE')
+        if type(value.get('revision')) is not int or value['revision'] < 0:
+            raise RuntimeError('ACCESS_SWITCH_REVISION_INVALID')
         self.revision = value['revision']
+        self.store_id = store_id
         return self.revision
 
     def action(self, endpoint, operation, payload, *, case, key=None, expect=(200,), discard=False,
@@ -112,6 +117,8 @@ class Actor:
         value = response.json()
         if response.status == 200 and 'error' in value:
             raise AssertionError('APPLICATION_RETURNED_ERROR_AT_SUCCESS_STATUS')
+        if endpoint == 'access' and operation == 'switch':
+            self.scope_request_id = response.request_id
         return value
 
     def rpc(self, model, method, args, *, case='C-SCOPE', attempt=1, kwargs=None):
@@ -165,6 +172,24 @@ class Actor:
         observed['ended_utc'] = datetime.now(timezone.utc).isoformat()
         return observed
 
+    def session_metadata(self, *, binding):
+        """Normal authenticated native metadata, with no SID/token export."""
+        started = datetime.now(timezone.utc).isoformat()
+        response = self.client.request('POST', '/web/session/get_session_info',
+            json_body={'jsonrpc': '2.0', 'id': uuid.uuid4().hex, 'method': 'call', 'params': {}},
+            case_id='B-RPC-6', operation_ref='B-session-metadata')
+        response.require_status(200)
+        info = response.json()['result']
+        safe = {key: info.get(key) for key in ('uid', 'db', 'is_admin', 'is_system', 'is_internal_user', 'ydental_store_name')}
+        safe['user_context'] = {'ydental_revision': info.get('user_context', {}).get('ydental_revision')}
+        safe['user_companies'] = {'allowed_companies': {str(key): {'id': value['id']}
+            for key, value in info.get('user_companies', {}).get('allowed_companies', {}).items()}}
+        safe['source'] = {'binding': binding, 'request_id': response.request_id,
+                          'started_utc': started, 'ended_utc': datetime.now(timezone.utc).isoformat(),
+                          'switch_request_id': self.scope_request_id, 'requested_store_id': self.store_id,
+                          'switch_revision': self.revision}
+        return safe
+
 
 def existing_main_accounts():
     # Static data read only: never import, execute or reuse the old runner/session.
@@ -204,22 +229,64 @@ def reader_levels(fixture, store=1):
     return dict(dict(fixture['initial_levels'])[store])
 
 
-def run_fixture(role, *, approval, product_commit, test_commit):
+def run_fixture(role, *, approval, product_commit, test_commit, mode=None, manifest=None,
+                provider_ref=None, observe=None, terminal=None, evidence_factory=None):
+    mode = mode or ('main-prepare' if role == 'main' else 'scratch-bootstrap')
+    b_only = mode == 'main-b-only'
+    if b_only:
+        validate_b_inputs(manifest, provider_ref)
+        if role != 'main' or ((observe is None or terminal is None) and evidence_factory is None):
+            raise ValueError('B_FIXTURE_PARENT_DEPENDENCIES_REQUIRED')
     input_read, input_write = os.pipe()
     output_read, output_write = os.pipe()
-    app = OwnedApplication(marker(role), approval=approval, product_commit=product_commit,
-                           test_commit=test_commit, action=role + '-fixture')
+    app = None
+    try:
+        app = OwnedApplication(marker(role), approval=approval, product_commit=product_commit,
+                               test_commit=test_commit, action=role + '-fixture')
+        if b_only and evidence_factory is not None:
+            callbacks = evidence_factory(app)
+            observe, terminal = callbacks['observe'], callbacks['terminal']
+    except BaseException as error:
+        try:
+            if app is not None:
+                try:
+                    save_once(app.directory / 'b-parent-setup-failure.json', {'failure_type': type(error).__name__,
+                              'status': 'NOT_SENT', 'application_started': False})
+                finally:
+                    app.close(primary={'event_id': None})
+        finally:
+            for fd in (input_read, input_write, output_read, output_write):
+                os.close(fd)
+        if b_only:
+            raise RuntimeError('B_FIXTURE_SETUP_FAILED_NOT_SENT') from None
+        raise
     app.env.update(YDENTAL_LC2_INPUT_FD=str(input_read), YDENTAL_LC2_OUTPUT_FD=str(output_write))
-    request = json.dumps({'mode': 'main-prepare' if role == 'main' else 'scratch-bootstrap'}).encode()
+    request = json.dumps({'mode': mode, **({'manifest': manifest} if b_only else {})}).encode()
     data = bytearray()
+    b_result, checkpoints, checkpoint_index = None, {}, 0
+    expected = [(point, 'B-MODEL-%d-%s' % (index, method), target)
+                for index, target in enumerate(manifest['targets'], 1)
+                for method in ('write', 'unlink') for point in ('before', 'after')] if b_only else []
+    def partial_b_failure(error_type):
+        partial = []
+        for _, check_id, _ in expected[::2]:
+            path = app.run / 'diagnostics' / (check_id + '-observation.json')
+            if path.is_file() and not path.is_symlink() and path.stat().st_size <= 16384:
+                row = strict_loads(path.read_bytes())
+                partial.append(row | checkpoints.get(check_id, {}))
+        return {'safe': {'mode': mode, 'status': 'PENDING', 'failure_type': error_type,
+            'fixture_commits': 0, 'model_checks': {'checks': partial, 'producer_status': 'FAILED',
+            'actor_id': manifest['actor']['uid'], 'identity': manifest['identity'] | {'core': 'f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb'},
+            'independent_preservation': 'PENDING'}}, 'ram': {}}
     deadline = time.monotonic() + 600
     exited_at = None
     try:
         app.start([], pass_fds=(input_read, output_write), stdin_path=ROOT / 'scripts/s10_lc2_fixture_process.py')
         os.close(input_read); input_read = None
         os.close(output_write); output_write = None
-        os.write(input_write, request)
-        os.close(input_write); input_write = None
+        os.write(input_write, request + (b'\n' if b_only else b''))
+        if not b_only:
+            os.close(input_write); input_write = None
         while True:
             app.budget.check_storage()
             if time.monotonic() >= deadline:
@@ -234,6 +301,33 @@ def run_fixture(role, *, approval, product_commit, test_commit):
                 data.extend(chunk)
                 if len(data) > 65536:
                     raise RuntimeError('FIXTURE_RAM_OUTPUT_BOUND_EXCEEDED')
+                while b_only and b'\n' in data:
+                    line, _, tail = data.partition(b'\n')
+                    data = bytearray(tail)
+                    message = strict_loads(line)
+                    if message.get('event') == 'b.checkpoint':
+                        triple = (message.get('point'), message.get('check_id'), message.get('target'))
+                        if checkpoint_index >= len(expected) or triple != expected[checkpoint_index]:
+                            raise RuntimeError('B_FIXTURE_CHECKPOINT_ORDER_DRIFT')
+                        point, check_id, target = triple
+                        observer_error_type = None
+                        try:
+                            receipt = observe(point, check_id, target)
+                        except Exception as error:
+                            receipt = None
+                            observer_error_type = type(error).__name__
+                        accepted = _b_snapshot_valid(receipt, manifest, target,
+                            check_id=check_id, phase='B-model', point=point)
+                        checkpoints.setdefault(check_id, {})[point] = receipt if accepted else None
+                        save_once(app.directory / (check_id + '-' + point + '.json'),
+                            {'receipt': receipt if accepted else None, 'accepted': accepted,
+                             'observer_error_type': observer_error_type})
+                        os.write(input_write, json.dumps({'accepted': accepted, 'check_id': check_id, 'point': point}).encode() + b'\n')
+                        checkpoint_index += 1
+                    elif message.get('event') in {'b.result', 'b.failure'} and b_result is None:
+                        b_result = message
+                    else:
+                        raise RuntimeError('B_FIXTURE_PIPE_EVENT_INVALID')
             if app.process.poll() is None:
                 app.check()
             else:
@@ -241,13 +335,38 @@ def run_fixture(role, *, approval, product_commit, test_commit):
                 if time.monotonic() - exited_at > 2:
                     raise TimeoutError('FIXTURE_CHILD_EXITED_WITHOUT_PIPE_EOF')
         code = app.wait(600)
+        if code and not b_only:
+            raise RuntimeError('FIXTURE_PROCESS_FAILED_WITH_PRESERVED_STATE')
+        if b_only:
+            if data or b_result is None:
+                raise RuntimeError('B_FIXTURE_RESULT_INCOMPLETE')
+            result = {key: b_result[key] for key in ('safe', 'ram')}
+            model = result['safe'].get('model_checks')
+            if model is None:
+                result = partial_b_failure(result['safe'].get('failure_type', 'ChildFailure'))
+                model = result['safe']['model_checks']
+            model['producer_status'] = 'SUCCESS' if b_result['event'] == 'b.result' and not code else 'FAILED'
+            try:
+                final = terminal(manifest)
+            except Exception as error:
+                final = []
+                result['safe']['terminal_error_type'] = type(error).__name__
+            for index, row in enumerate(model['checks']):
+                row.update(checkpoints.get(row['check_id'], {}))
+                row['terminal'] = final[index] if type(final) is list and index < len(final) else None
+            model['independent_preservation'] = 'VERIFIED' if _b_model_complete(model, manifest) else 'PENDING'
+        else:
+            result = strict_loads(data)
+        save_once(app.directory / 'safe-result.json', result['safe'])
         if code:
             raise RuntimeError('FIXTURE_PROCESS_FAILED_WITH_PRESERVED_STATE')
-        result = strict_loads(data)
-        save_once(app.directory / 'safe-result.json', result['safe'])
         closed_log_report(app)
         return result
-    except BaseException:
+    except BaseException as error:
+        if b_only:
+            path = app.directory / 'b-parent-failure.json'
+            if not path.exists():
+                save_once(path, partial_b_failure(type(error).__name__)['safe'])
         app.close(primary={'event_id': None})
         raise
     finally:
@@ -374,6 +493,263 @@ def validate_b_inputs(manifest, provider_ref):
     return manifest
 
 
+def b_selections(requested, *, old_audit_ids=None):
+    """Only the explicit B targets, native relationships and protected old rows."""
+    keys = {'uid', 'store_id', 'patient_id', 'source_id', 'payment_id', 'audit_id',
+            'invoice_id', 'line_id', 'native_payment_id'}
+    if (type(requested) is not dict or set(requested) != keys
+            or any(type(value) is not int or value <= 0 for value in requested.values())
+            or requested['uid'] in {1, 7}):
+        raise ValueError('B_EXPLICIT_RELATION_TARGETS_REQUIRED')
+    def item(table, columns, *, ids=None, equals=None, digest=False, nulls=None, order=None):
+        return {'table': table, 'columns': columns, 'row_digest': digest,
+            **({'ids': ids} if ids is not None else {}), **({'equals': equals} if equals else {}),
+            **({'null_columns': nulls} if nulls else {}), **({'order': order} if order else {})}
+    return [
+        item('res_users', ['id', 'active', 'company_id'], ids=[requested['uid']]),
+        item('res_groups_users_rel', ['uid', 'gid'], equals={'uid': requested['uid']}, order=['uid', 'gid']),
+        item('res_groups_implied_rel', ['gid', 'hid'], order=['gid', 'hid']),
+        item('ir_model_data', ['id', 'module', 'name', 'model', 'res_id']) | {'xmlids': [
+            'base.group_user', 'base.group_system', 'base.group_erp_manager', 'ydental_base.ydental_base_group_user']},
+        item('ydental_access_store', ['id', 'name', 'active', 'company_id'], ids=[requested['store_id']]),
+        item('ydental_access_membership', ['id', 'active', 'ydental_user_id', 'ydental_store_id', 'ydental_employee_id'],
+             equals={'ydental_user_id': requested['uid'], 'ydental_store_id': requested['store_id']}),
+        item('hr_employee', ['id', 'active', 'user_id', 'company_id'], equals={'user_id': requested['uid']}),
+        item('ydental_access_session', ['ydental_user_id', 'ydental_store_id', 'ydental_revision'],
+             equals={'ydental_user_id': requested['uid']}),
+        item('ydental_settlement_source', ['id', 'ydental_store_id', 'ydental_patient_id', 'ydental_invoice_id', 'ydental_line_id'],
+             ids=[requested['source_id']], digest=True),
+        item('ydental_settlement_payment', ['id', 'ydental_store_id', 'ydental_patient_id', 'ydental_payment_id'],
+             ids=[requested['payment_id']], digest=True),
+        item('ydental_settlement_payment_invoice_rel', ['settlement_payment_id', 'invoice_id'],
+             equals={'settlement_payment_id': requested['payment_id']}, digest=True,
+             order=['settlement_payment_id', 'invoice_id']),
+        item('ydental_access_audit', ['id', 'ydental_user_id', 'ydental_store_id', 'ydental_target_model', 'ydental_target_id'],
+             ids=old_audit_ids, digest=True),
+        item('ydental_patient', ['id', 'ydental_partner_id'], ids=[requested['patient_id']]),
+        item('account_move', ['id', 'company_id', 'partner_id'], ids=[requested['invoice_id']], digest=True),
+        item('account_move_line', ['id', 'move_id'], ids=[requested['line_id']], digest=True),
+        item('account_payment', ['id', 'company_id'], ids=[requested['native_payment_id']], digest=True),
+        item('ydental_clinical_document', ['id', 'state', 'ydental_version', 'ydental_author_id', 'ydental_responsible_id',
+             'ydental_editor_id', 'ydental_session_id', 'ydental_session_revision', 'ydental_editor_expires', 'ydental_editor_lease_id'],
+             ids=[1], digest=True, nulls=['ydental_connection_hash', 'ydental_editor_hash']),
+        item('ydental_clinical_version', ['id'], equals={'ydental_document_id': 1}, digest=True),
+    ]
+
+
+def _b_one(rows, table, record_id):
+    found = [row for row in rows.get(table, []) if row.get('id') == record_id]
+    if len(found) != 1:
+        raise ValueError('B_SOURCE_TARGET_MISSING_OR_AMBIGUOUS')
+    return found[0]
+
+
+def _b_relations(source, info, requested):
+    """Native session info is only read in RAM; return its small safe projection."""
+    rows, uid = source['rows'], requested['uid']
+    user = _b_one(rows, 'res_users', uid)
+    store = _b_one(rows, 'ydental_access_store', requested['store_id'])
+    context = info.get('user_context', {})
+    revision = context.get('ydental_revision')
+    allowed = info.get('user_companies', {}).get('allowed_companies', {})
+    provenance = info.get('source', {})
+    try:
+        started, ended = (_b_time(provenance[key]) for key in ('started_utc', 'ended_utc'))
+        collected = _b_time(source['started_utc'])
+        fresh = 0 <= ended - started <= 30 and 0 <= collected - ended <= 120
+    except (KeyError, ValueError, TypeError):
+        fresh = False
+    if (info.get('uid') != uid or info.get('db') != source['binding']['identity']['database']
+            or info.get('is_admin') is not False or info.get('is_system') is not False
+            or info.get('is_internal_user') is not True or user.get('active') is not True
+            or store.get('active') is not True or info.get('ydental_store_name') != store.get('name')
+            or type(revision) is not int or revision < 0
+            or str(store['company_id']) not in {str(key) for key in allowed}
+            or provenance.get('binding') != source['binding'] or not _b_ref(provenance.get('request_id')) or not fresh):
+        raise ValueError('B_NORMAL_SESSION_IDENTITY_OR_STORE_DRIFT')
+    if (provenance.get('requested_store_id') != store['id'] or provenance.get('switch_revision') != revision
+            or not _b_ref(provenance.get('switch_request_id'))):
+        raise ValueError('B_NORMAL_SWITCH_PROVENANCE_REQUIRED')
+    xmlids = {row['module'] + '.' + row['name']: row['res_id'] for row in rows.get('ir_model_data', [])
+              if row.get('model') == 'res.groups'}
+    needed = {'base.group_user', 'base.group_system', 'base.group_erp_manager', 'ydental_base.ydental_base_group_user'}
+    if set(xmlids) != needed:
+        raise ValueError('B_NATIVE_GROUP_METADATA_MISSING')
+    groups = {row['gid'] for row in rows.get('res_groups_users_rel', []) if row['uid'] == uid}
+    while True:
+        expanded = groups | {row['hid'] for row in rows.get('res_groups_implied_rel', []) if row['gid'] in groups}
+        if expanded == groups:
+            break
+        groups = expanded
+    if (not {xmlids['base.group_user'], xmlids['ydental_base.ydental_base_group_user']} <= groups
+            or groups & {xmlids['base.group_system'], xmlids['base.group_erp_manager']}):
+        raise ValueError('B_CURRENT_NONADMIN_APPLICATION_GROUP_REQUIRED')
+    members = [row for row in rows.get('ydental_access_membership', [])
+               if row.get('active') is True and row.get('ydental_user_id') == uid
+               and row.get('ydental_store_id') == store['id']]
+    if len(members) != 1:
+        raise ValueError('B_CURRENT_MEMBERSHIP_REQUIRED')
+    employee = _b_one(rows, 'hr_employee', members[0]['ydental_employee_id'])
+    if employee.get('active') is not True or employee.get('user_id') != uid or employee.get('company_id') != store['company_id']:
+        raise ValueError('B_EMPLOYEE_COMPANY_RELATION_DRIFT')
+    if sum(row == {'ydental_user_id': uid, 'ydental_store_id': store['id'], 'ydental_revision': revision}
+           for row in rows.get('ydental_access_session', [])) != 1:
+        raise ValueError('B_NORMAL_SESSION_SCOPE_NOT_OBSERVED')
+    fee = _b_one(rows, 'ydental_settlement_source', requested['source_id'])
+    payment = _b_one(rows, 'ydental_settlement_payment', requested['payment_id'])
+    audit = _b_one(rows, 'ydental_access_audit', requested['audit_id'])
+    invoice = _b_one(rows, 'account_move', requested['invoice_id'])
+    line = _b_one(rows, 'account_move_line', requested['line_id'])
+    native_payment = _b_one(rows, 'account_payment', requested['native_payment_id'])
+    patient = _b_one(rows, 'ydental_patient', requested['patient_id'])
+    if (any(row.get('ydental_store_id') != store['id'] for row in (fee, payment, audit))
+            or fee.get('ydental_patient_id') != patient['id'] or payment.get('ydental_patient_id') != patient['id']
+            or fee.get('ydental_invoice_id') != invoice['id'] or fee.get('ydental_line_id') != line['id']
+            or line.get('move_id') != invoice['id'] or invoice.get('partner_id') != patient['ydental_partner_id']
+            or payment.get('ydental_payment_id') != native_payment['id']
+            or invoice.get('company_id') != store['company_id'] or native_payment.get('company_id') != store['company_id']
+            or not any(row['settlement_payment_id'] == payment['id'] and row['invoice_id'] == invoice['id']
+                       for row in rows.get('ydental_settlement_payment_invoice_rel', []))):
+        raise ValueError('B_TARGET_PATIENT_INVOICE_COMPANY_RELATION_DRIFT')
+    return {'uid': uid, 'store_id': store['id'], 'company_id': store['company_id'], 'revision': revision}
+
+
+def manifest_from_b_source(reference, *, binding, session_info, provider_ref, requested):
+    source = read_b_source(reference, binding=binding)
+    if source['point'] != 'manifest' or source['selections'] != b_selections(requested):
+        raise ValueError('B_MANIFEST_SOURCE_SELECTION_DRIFT')
+    scope = _b_relations(source, session_info, requested)
+    ref = 'b-source:' + reference['sha256']
+    actor = {'uid': scope['uid'], 'active': True, 'internal': True, 'application_user': True,
+             'su': False, 'is_admin': False, 'is_system': False, 'metadata_ref': ref}
+    targets = [{'model': model, 'id': requested[key], 'values': {column: 'LC2 denied tampering' if column == 'ydental_reason' else 1},
+                'source_ref': ref} for model, key, column in (
+        ('ydental.settlement.source', 'source_id', 'ydental_original_amount'),
+        ('ydental.settlement.payment', 'payment_id', 'ydental_amount'),
+        ('ydental.access.audit', 'audit_id', 'ydental_reason'))]
+    manifest = {'schema': 'LC2_B_MANIFEST_1', 'identity': binding['identity'], 'actor': actor,
+                'store_id': scope['store_id'], 'targets': targets, 'source_ref': ref}
+    validate_b_inputs(manifest, provider_ref)
+    return manifest
+
+
+def receipt_from_b_source(reference, *, binding, manifest, requested, session_info,
+                          check_id, phase, point, target, old_audit_ids, used):
+    if (manifest['identity'] != binding['identity'] or manifest['actor']['uid'] != requested['uid']
+            or manifest['store_id'] != requested['store_id'] or target not in manifest['targets']):
+        raise ValueError('B_RECEIPT_MANIFEST_RELATION_DRIFT')
+    source = read_b_source(reference, binding=binding, used=used)
+    if (source['point'], source['check_id'], source['phase']) != (point, check_id, phase):
+        raise ValueError('B_RECEIPT_CHECKPOINT_DRIFT')
+    if source['selections'] != b_selections(requested, old_audit_ids=old_audit_ids):
+        raise ValueError('B_RECEIPT_PROTECTION_SELECTION_DRIFT')
+    _b_relations(source, session_info, requested)
+    rows = source['rows']
+    row = _b_one(rows, target['model'].replace('.', '_'), target['id'])
+    doc = _b_one(rows, 'ydental_clinical_document', 1)
+    editor = {key: doc[key] for key in ('ydental_editor_id', 'ydental_session_id', 'ydental_session_revision',
+        'ydental_connection_hash_is_null', 'ydental_editor_hash_is_null', 'ydental_editor_expires', 'ydental_editor_lease_id')}
+    editor.update(document_id=doc['id'], state=doc['state'], version=doc['ydental_version'],
+                  author_id=doc['ydental_author_id'], responsible_id=doc['ydental_responsible_id'])
+    def digest(tables):
+        values = {table: rows[table] for table in tables}
+        return hashlib.sha256(json.dumps(values, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
+    audit_ids = [item['id'] for item in rows['ydental_access_audit']]
+    if sorted(audit_ids) != sorted(old_audit_ids):
+        raise ValueError('B_OLD_AUDIT_SELECTION_DRIFT')
+    receipt = {'layer': 'INDEPENDENT_RO', 'independent': True, 'check_id': check_id, 'phase': phase,
+        'point': point, 'baseline_ref': manifest['source_ref'], 'ref': 'b-source:' + reference['sha256'],
+        'source_reference': reference,
+        'connection_ref': source['connection_ref'], 'identity': binding['identity'], 'actor': manifest['actor'],
+        'source_ref': target['source_ref'], 'model': target['model'], 'id': target['id'],
+        'captured_utc': source['captured_utc'], 'transaction': {'read_only': True, 'closed': True, 'outcome': 'ROLLBACK'},
+        'row_sha256': row['__row_sha256'], 'old_audit_sha256': digest(['ydental_access_audit']),
+        'protected_sha256': digest(['ydental_settlement_source', 'ydental_settlement_payment',
+            'ydental_settlement_payment_invoice_rel', 'account_move', 'account_move_line', 'account_payment',
+            'ydental_clinical_document', 'ydental_clinical_version', 'res_users', 'res_groups_users_rel',
+            'res_groups_implied_rel', 'ir_model_data', 'ydental_access_store', 'ydental_access_membership',
+            'hr_employee', 'ydental_patient']), 'editor': editor}
+    if not _b_snapshot_valid(receipt, manifest, target, check_id=check_id, phase=phase, point=point):
+        raise ValueError('B_PROTECTION_RECEIPT_INVALID')
+    return receipt
+
+
+def b_evidence_callbacks(*, binding, manifest, requested, manifest_reference, session_info,
+                         collect_step, log_source, close_owned_service, phase='B-pre'):
+    """Connect existing producers/parsers to R1 consumers, with no live defaults.
+
+    collect_step receives the exact projection and checkpoint and must call the
+    existing collector. It returns a file reference, never a fabricated receipt.
+    log_source is the owned app/target/PID argument set for the existing parser.
+    The runtime entry remains closed; these are explicit composition dependencies.
+    """
+    baseline = read_b_source(manifest_reference, binding=binding)
+    if manifest['source_ref'] != 'b-source:' + manifest_reference['sha256']:
+        raise ValueError('B_CALLBACK_BASELINE_REFERENCE_DRIFT')
+    if (manifest['actor']['uid'] != requested['uid'] or manifest['store_id'] != requested['store_id']
+            or manifest['identity'] != binding['identity']):
+        raise ValueError('B_CALLBACK_MANIFEST_RELATION_DRIFT')
+    old_ids = [row['id'] for row in baseline['rows']['ydental_access_audit']]
+    observed, used, prefixes, terminal_done = [], {baseline['measurement_id']}, [], False
+    last_info = session_info if not callable(session_info) else None
+
+    def observe(point, check_id, target):
+        nonlocal last_info
+        if point == 'before':
+            last_info = session_info() if callable(session_info) else session_info
+        current_info = last_info
+        reference = collect_step(point=point, check_id=check_id, phase=phase,
+                                 selections=b_selections(requested, old_audit_ids=old_ids))
+        receipt = receipt_from_b_source(reference, binding=binding, manifest=manifest, requested=requested,
+            session_info=current_info, check_id=check_id, phase=phase, point=point,
+            target=target, old_audit_ids=old_ids, used=used)
+        if point == 'before':
+            observed.append((check_id, target))
+        return receipt
+
+    def server_events(intent, observation):
+        options = log_source() if callable(log_source) else log_source
+        parsed = parse_b_server_events(binding=binding, **options, final=False)
+        durable = save_once(Path(options['app_directory']) / ('b-log-live-%02d.json' % len(prefixes)),
+            {**{key: parsed[key] for key in ('binding', 'locations', 'prefixes', 'launch_refs', 'final')},
+             'manifest_source_reference': manifest_reference})
+        prefixes.append(parsed)
+        return [event | {'source_reference': durable} for event in parsed['events']]
+
+    def terminal(current_manifest):
+        nonlocal terminal_done, last_info
+        if terminal_done or current_manifest != manifest:
+            raise ValueError('B_TERMINAL_REPLAY_OR_MANIFEST_DRIFT')
+        terminal_done = True
+        # Reuse the last bounded normal metadata observation. In particular,
+        # UNKNOWN never causes another HTTP request merely to collect evidence.
+        # No fabricated run.end: close the one owned service, then check seals.
+        close_owned_service()
+        options = log_source() if callable(log_source) else log_source
+        final = parse_b_server_events(binding=binding, **options, final=True)
+        verify_b_log_prefixes(prefixes, final)
+        durable = save_once(Path(options['app_directory']) / 'b-log-final.json', {
+            **{key: final[key] for key in ('binding', 'locations', 'prefixes', 'launch_refs', 'final')},
+            'live_prefixes_verified': True, 'manifest_source_reference': manifest_reference})
+        receipts = [observe('terminal', check_id, target) for check_id, target in observed]
+        for receipt in receipts:
+            receipt['sealed_log_sources'] = final['launch_refs'] + final['prefixes']
+            receipt['sealed_log_reference'] = durable
+        return receipts
+
+    return {'observe': observe, 'server_events': server_events, 'terminal': terminal}
+
+
+def b_collect_step(*, binding, connect, connection_args, directory, budget, target_directory, config_path):
+    """Bind existing collector I/O once; each checkpoint gets a new measurement."""
+    def collect(*, point, check_id, phase, selections):
+        output = Path(directory) / (phase + '-' + check_id + '-' + point + '-' + uuid.uuid4().hex[:8])
+        return collect_b_source(connect, connection_args, binding=binding, point=point,
+            check_id=check_id, phase=phase, selections=selections, directory=output, budget=budget,
+            target_directory=target_directory, config_path=config_path)
+    return collect
+
+
 def _b_time(value):
     parsed = datetime.fromisoformat(value)
     if parsed.tzinfo is None or parsed.utcoffset() is None:
@@ -428,7 +804,8 @@ def _b_preserved(before, after, manifest, target, *, check_id, phase, point='aft
 
 def _b_model_complete(model, manifest):
     """A producer summary flag cannot substitute for the six native observations."""
-    if (type(model) is not dict or model.get('identity') != manifest['identity'] | {'core': 'f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb'}
+    if (type(model) is not dict or model.get('producer_status') == 'FAILED'
+            or model.get('identity') != manifest['identity'] | {'core': 'f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb'}
             or model.get('actor_id') != manifest['actor']['uid']
             or type(model.get('checks')) is not list or len(model['checks']) != 6):
         return False
@@ -496,7 +873,7 @@ def correlate_b_server(intent, observation, events):
         return None
     event = matches[0]
     return {key: event.get(key) for key in ('request_id', 'trace_id', 'actor_id', 'effective_uid',
-                                           'su_flag', 'evidence_ref')}
+                                           'su_flag', 'evidence_ref', 'source_reference')}
 
 
 def main_b(ordinary, facts, *, manifest=None, provider_ref=None, observe=None,
@@ -548,6 +925,7 @@ def main_b(ordinary, facts, *, manifest=None, provider_ref=None, observe=None,
                 break
             baselines.append((target, before))
             row['before_ref'] = before['ref']
+            row['before_source'] = before.get('source_reference')
             try:
                 observation = ordinary.rpc_observed(target['model'], method, intent['args'],
                                                     operation_ref=operation_ref, attempt=1)
@@ -588,6 +966,7 @@ def main_b(ordinary, facts, *, manifest=None, provider_ref=None, observe=None,
                 after = None
                 row['evidence_gaps'].append('AFTER_OBSERVER_FAILED')
             row['after_ref'] = after.get('ref') if type(after) is dict else None
+            row['after_source'] = after.get('source_reference') if type(after) is dict else None
             if _b_preserved(before, after, manifest, target, check_id=check_id, phase=phase, observation=observation):
                 row['preservation'] = 'VERIFIED'
             facts.save(check_id + '-observation', row)
@@ -613,6 +992,9 @@ def main_b(ordinary, facts, *, manifest=None, provider_ref=None, observe=None,
                           for index, ((target, before), end) in enumerate(zip(baselines, final))))
     summary = {'checks': results, 'terminal_preservation': 'VERIFIED' if terminal_ok else 'PENDING',
         'terminal_refs': [item['ref'] for item in final] if terminal_ok else [],
+        'terminal_sources': [{'source_reference': item.get('source_reference'),
+                              'sealed_log_reference': item.get('sealed_log_reference')}
+                             for item in final] if terminal_ok else [],
         'status': 'PASS' if len(results) == 6 and terminal_ok and all(
             item['classification'] == 'EXPECTED_MODEL_DENIAL' and item['server_identity'] == 'VERIFIED'
             and item['preservation'] == 'VERIFIED' for item in results) else 'PENDING',

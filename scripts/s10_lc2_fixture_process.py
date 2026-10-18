@@ -12,7 +12,8 @@ import stat
 from urllib.parse import urlsplit
 
 
-def run_b_model_only(registry, request, run, *, environment, guard, model_denials, scope, observe):
+def run_b_model_only(registry, request, run, *, environment, guard, model_denials, scope, observe,
+                     checkpoint=None):
     """One B-only ordinary first Environment and rollback, no configuration writes.
 
     Explicit dependencies allow offline contract tests without an Odoo registry.
@@ -61,7 +62,8 @@ def run_b_model_only(registry, request, run, *, environment, guard, model_denial
         try:
             with scope(case_id='B-MODEL-6', actor_id=env.uid, effective_uid=env.uid, su_flag=env.su):
                 return model_denials(env, uid=uid, targets=manifest['targets'],
-                                     run_directory=str(run), phase='B-model', observe=observe)
+                                     run_directory=str(run), phase='B-model', observe=observe,
+                                     **({'checkpoint': checkpoint} if checkpoint is not None else {}))
         finally:
             # This adapter owns this fresh cursor. Never commits a B probe.
             cr.rollback()
@@ -93,12 +95,14 @@ def main(shell_env):
     read_fd, write_fd = (int(os.environ[name]) for name in ['YDENTAL_LC2_INPUT_FD', 'YDENTAL_LC2_OUTPUT_FD'])
     if read_fd == write_fd or any(fd < 3 or not stat.S_ISFIFO(os.fstat(fd).st_mode) for fd in [read_fd, write_fd]):
         raise RuntimeError('FIXTURE_ANONYMOUS_PIPE_REQUIRED')
-    with os.fdopen(read_fd, 'rb') as stream:
-        raw = stream.read(65537)
+    input_stream = os.fdopen(read_fd, 'rb')
+    raw = input_stream.readline(65537)
     if len(raw) > 65536:
         raise RuntimeError('FIXTURE_INPUT_BOUND_EXCEEDED')
     request = json.loads(raw)
     mode = request['mode']
+    if mode != 'main-b-only':
+        input_stream.close()
     database = shell_env.cr.dbname
     expected = {'main': 'ydental_s10_test_20261017105432_810a7d9c',
                 'scratch': 'ydental_s10_test_20261017105432_ce6dcbf8'}
@@ -110,16 +114,30 @@ def main(shell_env):
     registry = shell_env.registry
 
     if mode == 'main-b-only':
-        checks = run_b_model_only(registry, request, run, environment=api.Environment,
-            guard=_guard, model_denials=_model_denials, scope=context_scope,
-            observe=lambda value: _save_b_model_observation(run, value))
-        encoded = json.dumps({'safe': {'mode': mode, 'model_checks': checks,
-                                      'fixture_commits': 0}, 'ram': {}}).encode()
-        if len(encoded) > 65536:
-            raise RuntimeError('FIXTURE_RAM_OUTPUT_BOUND_EXCEEDED')
         with os.fdopen(write_fd, 'wb') as stream:
-            stream.write(encoded)
+            def checkpoint(point, check_id, target):
+                stream.write(json.dumps({'event': 'b.checkpoint', 'point': point,
+                    'check_id': check_id, 'target': target}).encode() + b'\n')
+                stream.flush()
+                ack = input_stream.readline(1025)
+                if len(ack) > 1024 or json.loads(ack) != {'accepted': True, 'check_id': check_id, 'point': point}:
+                    raise RuntimeError('B_PARENT_OBSERVATION_NOT_ACKNOWLEDGED')
+            try:
+                checks = run_b_model_only(registry, request, run, environment=api.Environment,
+                    guard=_guard, model_denials=_model_denials, scope=context_scope,
+                    observe=lambda value: _save_b_model_observation(run, value), checkpoint=checkpoint)
+                response = {'event': 'b.result', 'safe': {'mode': mode, 'model_checks': checks,
+                                                        'fixture_commits': 0}, 'ram': {}}
+            except Exception as error:
+                # Full exception strings and native stderr never enter the pipe.
+                response = {'event': 'b.failure', 'safe': {'mode': mode, 'fixture_commits': 0,
+                    'failure_type': type(error).__name__, 'status': 'PENDING'}, 'ram': {}}
+            encoded = json.dumps(response).encode()
+            if len(encoded) > 65536:
+                raise RuntimeError('FIXTURE_RAM_OUTPUT_BOUND_EXCEEDED')
+            stream.write(encoded + b'\n')
             stream.flush()
+        input_stream.close()
         return
 
     def actor(uid, operation, *, commit=False):

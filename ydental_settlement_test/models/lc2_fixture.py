@@ -124,7 +124,7 @@ def _row_sha(env, table, record_id):
 
 
 def _model_denials(env, *, uid, targets, run_directory, config_path=None,
-                   phase='B-model', observe=None):
+                   phase='B-model', observe=None, checkpoint=None):
     """Exactly six real MODEL negatives; all attempts roll back independently."""
     identity = _guard(env, run_directory, config_path)
     _ordinary_actor(env, uid)
@@ -147,6 +147,8 @@ def _model_denials(env, *, uid, targets, run_directory, config_path=None,
             raise ValueError('LC2_PROBE_VALUES_NOT_APPROVED')
         for operation in ('write', 'unlink'):
             check_id = 'B-MODEL-%d-%s' % (index, operation)
+            if checkpoint is not None:
+                checkpoint('before', check_id, target)
             started_utc = datetime.now(timezone.utc).isoformat()
             before = _row_sha(env, table, record_id)
             denied, exception_name, arguments = False, None, None
@@ -186,6 +188,8 @@ def _model_denials(env, *, uid, targets, run_directory, config_path=None,
             results.append(result)
             if observe is not None:
                 observe(result)
+            if checkpoint is not None:
+                checkpoint('after', check_id, target)
             if before != after:
                 raise RuntimeError('LC2_PROBE_TARGET_STORAGE_CHANGED')
             if not exact:

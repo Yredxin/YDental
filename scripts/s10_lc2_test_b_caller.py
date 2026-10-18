@@ -19,6 +19,7 @@ import socket
 import stat
 import subprocess
 import tempfile
+import threading
 import time
 from types import SimpleNamespace
 import unittest
@@ -789,14 +790,30 @@ class ActualFixtureDispatch(PureBoundaryCase):
         (self.directory / 'diagnostics').mkdir(mode=0o700)
         input_read, input_write = os.pipe()
         output_read, output_write = os.pipe()
+        worker_errors = []
         try:
-            os.write(input_write, json.dumps({'mode': 'main-b-only', 'manifest': manifest}).encode())
-            os.close(input_write)
+            os.write(input_write, json.dumps({'mode': 'main-b-only', 'manifest': manifest}).encode() + b'\n')
             with patch.dict(os.environ, {'YDENTAL_S10_RUN_DIR': str(self.directory),
                     'YDENTAL_LC2_INPUT_FD': str(input_read), 'YDENTAL_LC2_OUTPUT_FD': str(output_write)}):
-                ns['main'](SimpleNamespace(cr=SimpleNamespace(dbname=MAIN), registry=registry))
-            raw = os.read(output_read, 65537)
-            response = json.loads(raw)
+                def child():
+                    try:
+                        ns['main'](SimpleNamespace(cr=SimpleNamespace(dbname=MAIN), registry=registry))
+                    except BaseException as error:
+                        worker_errors.append(error)
+                worker = threading.Thread(target=child, daemon=True)
+                worker.start()
+                with os.fdopen(os.dup(output_read), 'rb') as stream:
+                    while True:
+                        message = json.loads(stream.readline(65537))
+                        if message['event'] == 'b.checkpoint':
+                            os.write(input_write, json.dumps({'accepted': True,
+                                'point': message['point'], 'check_id': message['check_id']}).encode() + b'\n')
+                        else:
+                            response = message
+                            break
+                worker.join(5)
+                self.assertFalse(worker.is_alive())
+                self.assertEqual(worker_errors, [])
         finally:
             for fd in (input_read, input_write, output_read, output_write):
                 try: os.close(fd)

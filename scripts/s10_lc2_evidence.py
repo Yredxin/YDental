@@ -1,6 +1,7 @@
 """Bounded independent RO evidence and explicit runtime-budget gates."""
 import fcntl
 from decimal import Decimal
+from datetime import datetime, timezone
 import hashlib
 import json
 import os
@@ -8,6 +9,7 @@ from pathlib import Path
 import re
 import subprocess
 import time
+import uuid
 
 from s10_lc2_logging import strict_loads
 from s10_lc2_supervisor import append_plain, private_file, safe_plain, save_primary
@@ -191,7 +193,25 @@ def collect_selection(connect, connection_args, *, database, expected_oid, selec
             or set(connection_args) - {'host', 'port', 'user', 'password', 'sslmode', 'application_name'}):
         raise ValueError('UNAPPROVED_CONNECTION_ARGUMENT')
     for selection in selections:
-        for name in [selection['table'], *selection.get('order', ['id'])]:
+        if any(key in selection for key in ('columns', 'null_columns', 'equals', 'row_digest')):
+            for key in ('columns', 'null_columns'):
+                if key in selection and (type(selection[key]) is not list
+                        or key == 'columns' and not selection[key]
+                        or any(type(name) is not str for name in selection[key])
+                        or len(selection[key]) != len(set(selection[key]))):
+                    raise ValueError('INVALID_SELECTION_PROJECTION')
+            if ('columns' not in selection or type(selection.get('row_digest', False)) is not bool
+                    or type(selection.get('equals', {})) is not dict
+                    or any(type(value) is not int for value in selection.get('equals', {}).values())):
+                raise ValueError('INVALID_SELECTION_PROJECTION')
+        if 'xmlids' in selection and (selection['table'] != 'ir_model_data'
+                or type(selection['xmlids']) is not list or not selection['xmlids']
+                or any(type(value) is not str or not re.fullmatch(r'[a-z_][a-z0-9_]*\.[a-z_][a-z0-9_]*', value)
+                       for value in selection['xmlids'])):
+            raise ValueError('INVALID_SELECTION_XMLIDS')
+        for name in [selection['table'], *selection.get('order', ['id']),
+                     *selection.get('columns', []), *selection.get('null_columns', []),
+                     *selection.get('equals', {})]:
             if not re.fullmatch(r'[a-z_][a-z0-9_]*', name):
                 raise ValueError('UNSAFE_SELECTION_IDENTIFIER')
     budget.consume('accident_ro' if database == ACCIDENT else 'target_ro')
@@ -258,13 +278,31 @@ def collect_selection(connect, connection_args, *, database, expected_oid, selec
                 order = ','.join('"' + name + '"' for name in selection.get('order', ['id'])) or 'to_jsonb(t)::text'
                 ids = selection.get('ids')
                 where = ' WHERE t.id = ANY(%s)' if ids is not None else ''
+                parameters = [list(ids)] if ids is not None else []
+                for name, value in selection.get('equals', {}).items():
+                    if type(value) is not int:
+                        raise ValueError('UNSAFE_SELECTION_VALUE')
+                    where += (' AND ' if where else ' WHERE ') + 't."' + name + '"=%s'
+                    parameters.append(value)
+                if selection.get('xmlids'):
+                    where += (' AND ' if where else ' WHERE ') + '(' + ' OR '.join(
+                        '(t.module=%s AND t.name=%s)' for _ in selection['xmlids']) + ')'
+                    parameters += [part for value in selection['xmlids'] for part in value.split('.')]
+                projected = 'to_jsonb(t)'
+                if 'columns' in selection:
+                    pairs = ["'%s',t.\"%s\"" % (name, name) for name in selection['columns']]
+                    pairs += ["'%s_is_null',t.\"%s\" IS NULL" % (name, name)
+                              for name in selection.get('null_columns', [])]
+                    if selection.get('row_digest'):
+                        pairs.append("'__row_sha256',encode(sha256(convert_to(to_jsonb(t)::text,'UTF8')),'hex')")
+                    projected = 'jsonb_build_object(' + ','.join(pairs) + ')'
                 path = directory / (selection['table'] + '.rows.jsonl')
                 acquired_digest, acquired_rows, acquired_bytes = hashlib.sha256(), 0, 0
                 # A named server cursor prevents libpq from buffering the full selection.
                 with connection.cursor(name='lc2_' + selection['table']) as row_cursor, private_file(path) as stream:
                     row_cursor.itersize = 8
-                    row_cursor.execute("SELECT t.tableoid::regclass::text,t.tableoid,to_jsonb(t)::text,encode(sha256(convert_to(to_jsonb(t)::text,'UTF8')),'hex') FROM public." + table + ' t' + where + ' ORDER BY ' + order + ' LIMIT ' + str(max_rows + 1),
-                                       [list(ids)] if ids is not None else None)
+                    row_cursor.execute("SELECT t.tableoid::regclass::text,t.tableoid," + projected + "::text,encode(sha256(convert_to(" + projected + "::text,'UTF8')),'hex') FROM public." + table + ' t' + where + ' ORDER BY ' + order + ' LIMIT ' + str(max_rows + 1),
+                                       parameters or None)
                     while True:
                         cursor.execute("SELECT set_config('statement_timeout', %s, true)", [str(remaining_ms())])
                         rows = row_cursor.fetchmany(8)
@@ -337,3 +375,261 @@ def collect_selection(connect, connection_args, *, database, expected_oid, selec
     save_once(directory / 'sealed-index.json', {'files': index, 'total_rows': total_rows,
                                               'total_bytes': total_bytes, 'independent_measurement': True})
     return index
+
+
+def b_source_binding(value):
+    """Fixed non-secret source identity shared by B's existing evidence tools."""
+    keys = {'run_id', 'task_id', 'product_commit', 'test_commit', 'core_commit', 'identity'}
+    if (type(value) is not dict or set(value) != keys
+            or any(type(value[key]) is not str or not re.fullmatch(r'[A-Za-z0-9_.:-]{1,96}', value[key])
+                   for key in ('run_id', 'task_id'))
+            or any(type(value[key]) is not str or not re.fullmatch(r'[0-9a-f]{40}', value[key])
+                   for key in ('product_commit', 'test_commit', 'core_commit'))
+            or value['core_commit'] != CORE
+            or value['identity'] != {'database': 'ydental_s10_test_20261017105432_810a7d9c',
+                                     'oid': 2144129, 'cluster': CLUSTER}):
+        raise ValueError('B_SOURCE_BINDING_INVALID')
+    return value
+
+
+def _b_file(path, limit=32 * 1024 * 1024):
+    path = Path(path)
+    if not path.is_absolute() or path.resolve() != path or not path.is_file() or path.stat().st_size > limit:
+        raise ValueError('B_SOURCE_FILE_INVALID')
+    raw = path.read_bytes()
+    if len(raw) > limit:
+        raise ValueError('B_SOURCE_FILE_BOUND')
+    return raw
+
+
+def _b_file_ref(path):
+    raw = _b_file(Path(path).absolute())
+    return {'path': str(Path(path).absolute()), 'bytes': len(raw), 'sha256': hashlib.sha256(raw).hexdigest()}
+
+
+_B_PROJECTIONS = {
+    'res_users': ('id active company_id', False),
+    'res_groups_users_rel': ('uid gid', False),
+    'res_groups_implied_rel': ('gid hid', False),
+    'ir_model_data': ('id module name model res_id', False),
+    'ydental_access_store': ('id name active company_id', False),
+    'ydental_access_membership': ('id active ydental_user_id ydental_store_id ydental_employee_id', False),
+    'hr_employee': ('id active user_id company_id', False),
+    'ydental_access_session': ('ydental_user_id ydental_store_id ydental_revision', False),
+    'ydental_settlement_source': ('id ydental_store_id ydental_patient_id ydental_invoice_id ydental_line_id', True),
+    'ydental_settlement_payment': ('id ydental_store_id ydental_patient_id ydental_payment_id', True),
+    'ydental_settlement_payment_invoice_rel': ('settlement_payment_id invoice_id', True),
+    'ydental_access_audit': ('id ydental_user_id ydental_store_id ydental_target_model ydental_target_id', True),
+    'ydental_patient': ('id ydental_partner_id', False),
+    'account_move': ('id company_id partner_id', True),
+    'account_move_line': ('id move_id', True),
+    'account_payment': ('id company_id', True),
+    'ydental_clinical_document': ('id state ydental_version ydental_author_id ydental_responsible_id ydental_editor_id ydental_session_id ydental_session_revision ydental_editor_expires ydental_editor_lease_id', True),
+    'ydental_clinical_version': ('id', True),
+}
+
+
+def _b_projection_guard(selections):
+    if type(selections) is not list or not selections or any(type(item) is not dict for item in selections):
+        raise ValueError('B_SOURCE_SAFE_PROJECTION_REQUIRED')
+    if len({item.get('table') for item in selections}) != len(selections):
+        raise ValueError('B_SOURCE_DUPLICATE_SELECTION')
+    for item in selections:
+        spec = _B_PROJECTIONS.get(item.get('table'))
+        if (spec is None or item.get('columns') != spec[0].split()
+                or item.get('row_digest') is not spec[1]
+                or item.get('null_columns', []) != (['ydental_connection_hash', 'ydental_editor_hash']
+                    if item['table'] == 'ydental_clinical_document' else [])
+                or set(item) - {'table', 'columns', 'row_digest', 'null_columns', 'ids', 'equals', 'order', 'xmlids'}
+                or 'ids' in item and (type(item['ids']) is not list or any(type(value) is not int or value <= 0 for value in item['ids']))):
+            raise ValueError('B_SOURCE_SAFE_PROJECTION_REQUIRED')
+        if item['table'] == 'ir_model_data' and item.get('xmlids') != [
+                'base.group_user', 'base.group_system', 'base.group_erp_manager', 'ydental_base.ydental_base_group_user']:
+            raise ValueError('B_SOURCE_SAFE_XMLIDS_REQUIRED')
+
+
+def collect_b_source(connect, connection_args, *, binding, point, check_id, phase, selections,
+                     directory, budget, target_directory, config_path):
+    """Existing RO collector plus a check-bound receipt AFTER rollback/close.
+
+    All I/O is explicit. There is no credential loader, target discovery or
+    admission shortcut here. Callers must have the existing execution grant.
+    """
+    b_source_binding(binding)
+    if (point not in {'manifest', 'before', 'after', 'terminal'}
+            or any(type(value) is not str or not re.fullmatch(r'[A-Za-z0-9_-]{1,40}', value)
+                   for value in (check_id, phase))):
+        raise ValueError('B_SOURCE_POINT_INVALID')
+    _b_projection_guard(selections)
+    marker = target_guard(binding['identity']['database'], target_directory,
+        allowed_names=[binding['identity']['database']], config_path=config_path)
+    if (any(marker.get(key) != value for key, value in binding['identity'].items())
+            or any(marker.get(key) != binding[key] for key in ('product_commit', 'test_commit'))
+            or marker.get('core') != binding['core_commit']):
+        raise ValueError('B_SOURCE_MARKER_CANDIDATE_DRIFT')
+    target_ref = _b_file_ref(Path(target_directory) / 'database.json')
+    started = datetime.now(timezone.utc).isoformat()
+    collect_selection(connect, connection_args, database=binding['identity']['database'],
+        expected_oid=binding['identity']['oid'], selections=selections, directory=directory, budget=budget,
+        allowed_target_names=[binding['identity']['database']], target_directory=target_directory,
+        config_path=config_path, max_rows=2048, max_bytes=8 * 1024 * 1024)
+    directory = Path(directory).absolute()
+    paths = ['identity.json', 'observer-exit.tsv', 'sealed-index.json'] + [item['table'] + '.rows.jsonl' for item in selections]
+    receipt = {'schema': 'LC2_B_SOURCE_1', 'binding': binding, 'measurement_id': uuid.uuid4().hex,
+        'point': point, 'check_id': check_id, 'phase': phase, 'started_utc': started,
+        'captured_utc': datetime.now(timezone.utc).isoformat(), 'selections': selections,
+        'target_ref': target_ref,
+        'files': {name: _b_file_ref(directory / name) for name in paths}}
+    save_once(directory / 'b-source.json', receipt)
+    return _b_file_ref(directory / 'b-source.json')
+
+
+def read_b_source(reference, *, binding, used=None):
+    """Resolve and verify exact bytes; never trust a pre-filled VERIFIED flag."""
+    b_source_binding(binding)
+    raw = _b_file(reference['path'])
+    if len(raw) != reference.get('bytes') or hashlib.sha256(raw).hexdigest() != reference.get('sha256'):
+        raise ValueError('B_SOURCE_REFERENCE_DRIFT')
+    source = strict_loads(raw)
+    if source.get('schema') != 'LC2_B_SOURCE_1' or source.get('binding') != binding:
+        raise ValueError('B_SOURCE_CANDIDATE_OR_TARGET_DRIFT')
+    target = source['target_ref']
+    target_raw = _b_file(target['path'])
+    marker = strict_loads(target_raw)
+    if (Path(target['path']).name != 'database.json' or Path(target['path']).parent.name != binding['identity']['database']
+            or len(target_raw) != target['bytes'] or hashlib.sha256(target_raw).hexdigest() != target['sha256']
+            or any(marker.get(key) != value for key, value in binding['identity'].items())
+            or any(marker.get(key) != binding[key] for key in ('product_commit', 'test_commit'))
+            or marker.get('core') != binding['core_commit']):
+        raise ValueError('B_SOURCE_MARKER_REFERENCE_DRIFT')
+    measurement = source.get('measurement_id')
+    if type(measurement) is not str or not re.fullmatch(r'[a-f0-9]{32}', measurement) or used is not None and measurement in used:
+        raise ValueError('B_SOURCE_MEASUREMENT_REUSED')
+    for field in ('started_utc', 'captured_utc'):
+        stamp = datetime.fromisoformat(source[field])
+        if stamp.tzinfo is None:
+            raise ValueError('B_SOURCE_TIMEZONE_REQUIRED')
+    if not 0 <= (datetime.fromisoformat(source['captured_utc']) - datetime.fromisoformat(source['started_utc'])).total_seconds() <= 60:
+        raise ValueError('B_SOURCE_TIME_INVALID')
+    directory = Path(reference['path']).parent
+    files = source['files']
+    contents = {}
+    expected_names = {'identity.json', 'observer-exit.tsv', 'sealed-index.json'} | {
+        item['table'] + '.rows.jsonl' for item in source['selections']}
+    if set(files) != expected_names:
+        raise ValueError('B_SOURCE_FILE_SET_DRIFT')
+    for name, item in files.items():
+        if Path(name).name != name or item['path'] != str(directory / name):
+            raise ValueError('B_SOURCE_REFERENCE_OUTSIDE_CAPTURE')
+        contents[name] = _b_file(item['path'])
+        if len(contents[name]) != item['bytes'] or hashlib.sha256(contents[name]).hexdigest() != item['sha256']:
+            raise ValueError('B_SOURCE_SEALED_BYTES_DRIFT')
+    identity = strict_loads(contents['identity.json'])
+    if (any(identity.get(key) != value for key, value in binding['identity'].items())
+            or identity.get('read_only') != 'on' or identity.get('isolation') != 'repeatable read'):
+        raise ValueError('B_SOURCE_RO_IDENTITY_DRIFT')
+    exits = [line.split('\t')[0] for line in contents['observer-exit.tsv'].decode('ascii').splitlines()]
+    if exits != ['ROLLBACK_RETURNED', 'CLOSED']:
+        raise ValueError('B_SOURCE_TRANSACTION_NOT_CLOSED')
+    index = strict_loads(contents['sealed-index.json'])
+    if index.get('independent_measurement') is not True:
+        raise ValueError('B_SOURCE_INDEX_INVALID')
+    rows = {}
+    if {item['path'] for item in index['files']} != expected_names - {'identity.json', 'observer-exit.tsv', 'sealed-index.json'}:
+        raise ValueError('B_SOURCE_SELECTION_DRIFT')
+    for entry in index['files']:
+        body = contents[entry['path']]
+        if len(body) != entry['bytes'] or hashlib.sha256(body).hexdigest() != entry['sha256'] or not body.endswith(b'\n') and body:
+            raise ValueError('B_SOURCE_INDEX_BYTES_DRIFT')
+        table_rows = []
+        for line in body.splitlines():
+            wrapped = strict_loads(line)
+            text = wrapped['server_json_text']
+            if hashlib.sha256(text.encode()).hexdigest() != wrapped['server_sha256']:
+                raise ValueError('B_SOURCE_SERVER_ROW_DRIFT')
+            if wrapped['physical_table'].removeprefix('public.') != entry['path'].removesuffix('.rows.jsonl'):
+                raise ValueError('B_SOURCE_PHYSICAL_TABLE_DRIFT')
+            table_rows.append(strict_loads(text))
+        if len(table_rows) != entry['rows']:
+            raise ValueError('B_SOURCE_ROW_COUNT_DRIFT')
+        rows[entry['path'].removesuffix('.rows.jsonl')] = table_rows
+    if used is not None:
+        used.add(measurement)
+    return source | {'rows': rows, 'reference': reference,
+                     'connection_ref': 'ro:' + str(identity['backend_pid']) + ':' + measurement}
+
+
+def parse_b_server_events(*, binding, app_directory, target_directory, pid, final=False):
+    """Parse the actual logger contract, binding its missing target via launch.
+
+    Live observations validate a bounded immutable prefix, not a final seal.
+    The caller must verify these prefixes against final sealed logs at terminal.
+    """
+    from s10_lc2_logging import validate_jsonl
+    from s10_lc2_process_guard import ProcessLogGuard
+
+    b_source_binding(binding)
+    app_directory, target_directory = Path(app_directory).absolute(), Path(target_directory).absolute()
+    launch_path = app_directory / 'launch-intent.json'
+    probe_path = app_directory / 'identity-probe.json'
+    launch, probe = (strict_loads(_b_file(path)) for path in (launch_path, probe_path))
+    marker = target_guard(binding['identity']['database'], target_directory,
+        allowed_names=[binding['identity']['database']], config_path=target_directory / 'odoo.conf')
+    if (any(launch.get(key) != binding[key] for key in ('product_commit', 'test_commit', 'core_commit'))
+            or any(launch.get(key) != binding['identity'][key] for key in ('database', 'oid'))
+            or launch.get('effective_db_system') != binding['identity']['database']
+            or any(probe.get(key) != value for key, value in binding['identity'].items())
+            or any(marker.get(key) != value for key, value in binding['identity'].items())
+            or probe.get('read_only') != 'on' or probe.get('rollback_returned') is not True
+            or any(marker.get(key) != binding[key] for key in ('product_commit', 'test_commit', 'core_commit') if key != 'core_commit')
+            or marker.get('core') != binding['core_commit']):
+        raise ValueError('B_LOG_LAUNCH_CANDIDATE_OR_TARGET_DRIFT')
+    probe_exit = _b_file(app_directory / 'identity-probe-exit.tsv').decode('ascii').splitlines()
+    if len(probe_exit) != 1 or probe_exit[0].split('\t')[0] != 'CLOSED':
+        raise ValueError('B_LOG_LAUNCH_PROBE_NOT_CLOSED')
+    parent_path = app_directory / 'parent-exit.tsv'
+    parent = [line.split('\t') for line in _b_file(parent_path).decode('ascii').splitlines()]
+    starts = [row for row in parent if row[0] == 'child.start']
+    ends = [row for row in parent if row[0] == 'parent.end']
+    if (len(starts) != 1 or len(starts[0]) != 3 or starts[0][2] != str(pid)
+            or final and (len(ends) != 1 or len(ends[0]) != 6 or ends[0][2] != str(pid)
+                          or ends[0][3] not in {'0', '-2'})):
+        raise ValueError('B_LOG_OWNED_PID_OR_EXIT_DRIFT')
+    started_epoch = int(starts[0][1]) / 1e9
+    guard = ProcessLogGuard(target_directory / 'diagnostics', pid, binding['run_id'])
+    guard.observe(final=final)
+    paths = sorted((target_directory / 'diagnostics').glob('events-%s-*.jsonl' % pid))
+    validation = validate_jsonl(paths, require_end=final)
+    if validation['status'] != 'VALID':
+        raise ValueError('B_LOG_INTEGRITY_INVALID')
+    events, locations = [], {}
+    for item in validation['records']:
+        row = item['record']
+        if any(row.get(key) != binding[key] for key in ('run_id', 'task_id', 'product_commit', 'test_commit', 'core_commit')):
+            raise ValueError('B_LOG_PRODUCER_CANDIDATE_DRIFT')
+        stamp = datetime.fromisoformat(row['ts_utc'])
+        if stamp.tzinfo is None or stamp.timestamp() < started_epoch - 1:
+            raise ValueError('B_LOG_OLD_PROCESS_OBSERVATION')
+        if row['event'] == 'request.received' and row.get('case_id') == 'B-RPC-6':
+            # Singular evidence_ref is an adapter reference, not a producer key.
+            ref = 'b-log:' + hashlib.sha256(json.dumps(item['location'], sort_keys=True).encode()).hexdigest()
+            locations[ref] = item['location']
+            events.append(row | {'evidence_ref': ref})
+    return {'events': events, 'prefixes': [_b_file_ref(path) for path in paths],
+            'binding': binding, 'final': final, 'locations': locations,
+            'launch_refs': [_b_file_ref(path) for path in (launch_path, probe_path, parent_path, target_directory / 'database.json')]}
+
+
+def verify_b_log_prefixes(live, final):
+    """An appended live segment is valid; replacement of any observed byte is not."""
+    if final.get('final') is not True or any(item.get('binding') != final['binding'] for item in live):
+        raise ValueError('B_LOG_FINAL_SOURCE_MISSING')
+    final_paths = {item['path'] for item in final['prefixes']}
+    for observation in live:
+        for prefix in observation['prefixes']:
+            if prefix['path'] not in final_paths:
+                raise ValueError('B_LOG_PREFIX_SEGMENT_MISSING')
+            raw = _b_file(prefix['path'])[:prefix['bytes']]
+            if len(raw) != prefix['bytes'] or hashlib.sha256(raw).hexdigest() != prefix['sha256']:
+                raise ValueError('B_LOG_LIVE_PREFIX_CHANGED')
+    return True
