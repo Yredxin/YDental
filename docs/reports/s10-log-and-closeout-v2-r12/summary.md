@@ -2,6 +2,8 @@
 
 本轮执行 **B-CALLER-OFFLINE-REPAIR / revision 1**，同task `S10-LOG-AND-CLOSEOUT-v2`，直接依据用户续行要求与[正式6245198569第2—3节](https://github.com/Yredxin/YDental/issues/34#issuecomment-6245198569)。74ad8c6只读交付已正式采纳并结束，本轮完成实际测试代码修改、纯回归和独立审查，没有再交规划。起点 `1490ff5fc1d9c2427126ecf687c906fe3d318967` 仅最新CURRENT_TASK文档，起始工作树干净，安全快进，无新的所有权冲突；沿用原主控/开发/测试/验收，未新建团队或计划。
 
+本轮真实[工程交付6245453238](https://github.com/Yredxin/YDental/issues/34#issuecomment-6245453238)已发布并API全文核同，4490B/body SHA256 `ba91b9b87495f95d15f3c2dcf15c26cb263b50df971664c7b2cd3e22891799bc`。文档/证据索引E `8892fcc913d62477e566dfcc174022df98ad975b`已正常推送，fetch后十变更文件远端内容逐字节核同；初次TLS握手超时后最终读取成功，无安全拒绝。工程工作已结束，不转应用。
+
 最终代码/测试T **`50480008696c360b9afe36ca760ba33959adc879`**；主实现提交d856edd56f5a7dfaf4f159c63d664d77aab73410，后一提交仅补实际helper管理员拒绝子场景。产品保持cf5d63fe510b52ea150d07495bf3062f4ce0961d，core保持f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb。最新真实UI执行仍ee730，UI支线后修4ff3仅离线；本轮不是UI或应用运行。原整包S10_REMAINING_CLOSEOUT.md仍PREPARED_NOT_AUTHORIZED，blob e8e2140a82ff7776e6d7f975415f4ee544c9b737未动，不发布/代发/改写旧授权，不启动START或应用时钟。
 
 |已完成源码项|实际改动与纯验证边界|
