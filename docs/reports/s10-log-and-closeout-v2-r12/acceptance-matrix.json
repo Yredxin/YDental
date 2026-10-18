@@ -6091,7 +6091,7 @@
     "task_id": "S10-LOG-AND-CLOSEOUT-v2",
     "started_at_utc": "2026-10-18T06:52:51Z",
     "authority": "User supplied full plan in current conversation; execution mode enabled; no new GPT comment prerequisite.",
-    "status": "IN_PROGRESS_A_PRE_UPGRADE_RUNTIME_COMPLETE",
+    "status": "IN_PROGRESS_A_PRE_UPGRADE_PASS_B_ORDINARY_STARTUP_REPAIR",
     "baseline_commit": "d731711ab48d73177303ced9c040601a206412d9",
     "core_commit": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
     "scope": "S10 only; no S11-S13, merge or deployment",
@@ -6104,7 +6104,7 @@
       "tester": "/root/tester_s10",
       "acceptance": "/root/acceptance_s10"
     },
-    "candidate_status": "RUNTIME_CANDIDATE_C48D7FB_A_PRE_UPGRADE_VERIFIED_B_NEXT_CANDIDATE_PENDING",
+    "candidate_status": "A_C48D7FB_VERIFIED_B_48FAD024_PREPARATION_ONLY_ZERO_MODEL_RPC_DISPATCH",
     "current_actual_evidence": [
       "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json"
     ],
@@ -6152,8 +6152,10 @@
           "MODEL"
         ],
         "definition_ref": "#/tc_evidence_requirements/B-MODEL-6",
-        "current_evidence": [],
-        "reason": "Current plan runtime not yet dispatched; specific prerequisites being checked."
+        "current_evidence": [
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json"
+        ],
+        "reason": "Ordinary reader 59 is independently ready; first B preparation completed but MODEL port reservation failed before Popen. Both six-probe phases were not dispatched. First failure and durable intent retained; bounded tool repair and independent zero-dispatch preservation review precede continuation."
       },
       "B-RPC-6": {
         "status": "NOT_RUN",
@@ -6162,8 +6164,10 @@
           "MODEL_NATIVE_COMMITTED"
         ],
         "definition_ref": "#/tc_evidence_requirements/B-RPC-6",
-        "current_evidence": [],
-        "reason": "Current plan runtime not yet dispatched; specific prerequisites being checked."
+        "current_evidence": [
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json"
+        ],
+        "reason": "Ordinary reader 59 is independently ready; first B preparation completed but MODEL port reservation failed before Popen. Both six-probe phases were not dispatched. First failure and durable intent retained; bounded tool repair and independent zero-dispatch preservation review precede continuation."
       },
       "C-SCOPE": {
         "status": "NOT_RUN",
@@ -6497,85 +6501,157 @@
         "id": "LOG-01",
         "definition_ref": "#/logs/0",
         "historical_status": "PARTIAL_OFFLINE_ONLY",
-        "status": "HISTORICAL_LAYER_RETAINED_CURRENT_GAPS_PENDING",
-        "current_evidence": []
+        "status": "PARTIAL_HISTORICAL_AND_CURRENT_LAYERS_RETAINED",
+        "current_evidence": [
+          "#/framework6",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json",
+          "acceptance-review.md"
+        ],
+        "retained_scope": "Native framework initialization; actual A process PID/config/logger levels; prior repeated-initialization PURE retained.",
+        "remaining_assertions": "Merge actual lifecycle/config observations and independent final current log review."
       },
       {
         "id": "LOG-02",
         "definition_ref": "#/logs/1",
         "historical_status": "PARTIAL_OFFLINE_ONLY",
-        "status": "HISTORICAL_LAYER_RETAINED_CURRENT_GAPS_PENDING",
-        "current_evidence": []
+        "status": "PARTIAL_HISTORICAL_AND_CURRENT_LAYERS_RETAINED",
+        "current_evidence": [
+          "#/framework6",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json",
+          "acceptance-review.md"
+        ],
+        "retained_scope": "Prior context isolation PURE retained; A real request lineage available.",
+        "remaining_assertions": "Two real short concurrent read requests with different actors/traces and no cross-association."
       },
       {
         "id": "LOG-03",
         "definition_ref": "#/logs/2",
         "historical_status": "PARTIAL_STATIC_OFFLINE_ONLY",
-        "status": "HISTORICAL_LAYER_RETAINED_CURRENT_GAPS_PENDING",
-        "current_evidence": []
+        "status": "PARTIAL_HISTORICAL_AND_CURRENT_LAYERS_RETAINED",
+        "current_evidence": [
+          "#/framework6",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json",
+          "acceptance-review.md"
+        ],
+        "retained_scope": "Framework native two-language exact exception serialization and one real RPC accepted; A normal UI actual.",
+        "remaining_assertions": "Applicable real 403/409/303 plus native UI denial; do not replace with DOM/form/response manipulation."
       },
       {
         "id": "LOG-04",
         "definition_ref": "#/logs/3",
         "historical_status": "PASS_SCOPED_SYNTHETIC_ONLY",
-        "status": "HISTORICAL_LAYER_RETAINED_CURRENT_GAPS_PENDING",
-        "current_evidence": []
+        "status": "PARTIAL_HISTORICAL_AND_CURRENT_LAYERS_RETAINED",
+        "current_evidence": [
+          "#/framework6",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json",
+          "acceptance-review.md"
+        ],
+        "retained_scope": "Framework native chained exception plus accepted cause/context/secondary PURE; current first failure and secondary exit separately retained.",
+        "remaining_assertions": "Current primary/secondary evidence cross-reference and final independent review; no replay of unaffected synthetic tests."
       },
       {
         "id": "LOG-05",
         "definition_ref": "#/logs/4",
         "historical_status": "PARTIAL_OFFLINE_ONLY",
-        "status": "HISTORICAL_LAYER_RETAINED_CURRENT_GAPS_PENDING",
-        "current_evidence": []
+        "status": "PARTIAL_HISTORICAL_AND_CURRENT_LAYERS_RETAINED",
+        "current_evidence": [
+          "#/framework6",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json",
+          "acceptance-review.md"
+        ],
+        "retained_scope": "Stored facts and client outcome separated in current evidence.",
+        "remaining_assertions": "Real B rollback and D failed/recover/UNKNOWN-to-independent-commit/idempotent retry."
       },
       {
         "id": "LOG-06",
         "definition_ref": "#/logs/5",
         "historical_status": "PARTIAL_STATIC_OFFLINE_ONLY",
-        "status": "HISTORICAL_LAYER_RETAINED_CURRENT_GAPS_PENDING",
-        "current_evidence": []
+        "status": "PARTIAL_HISTORICAL_AND_CURRENT_LAYERS_RETAINED",
+        "current_evidence": [
+          "#/framework6",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json",
+          "acceptance-review.md"
+        ],
+        "retained_scope": "Framework mandatory audit exception propagation and environment identity accepted.",
+        "remaining_assertions": "Same isolated rollback business fixture with diagnostics on/off: equal economic outcome; mandatory audit failure transaction rollback."
       },
       {
         "id": "LOG-07",
         "definition_ref": "#/logs/6",
         "historical_status": "PASS_SCOPED_PARENT_ONLY",
-        "status": "HISTORICAL_LAYER_RETAINED_CURRENT_GAPS_PENDING",
-        "current_evidence": []
+        "status": "PARTIAL_HISTORICAL_AND_CURRENT_LAYERS_RETAINED",
+        "current_evidence": [
+          "#/framework6",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json",
+          "acceptance-review.md"
+        ],
+        "retained_scope": "Framework and A actual independent parent exits and seals; current ordinary failed parent records retained.",
+        "remaining_assertions": "Aggregate current owned process exit/seal results; no native crash injection into protected business."
       },
       {
         "id": "LOG-08",
         "definition_ref": "#/logs/7",
         "historical_status": "PARTIAL_OFFLINE_ONLY",
-        "status": "HISTORICAL_LAYER_RETAINED_CURRENT_GAPS_PENDING",
-        "current_evidence": []
+        "status": "PARTIAL_HISTORICAL_AND_CURRENT_LAYERS_RETAINED",
+        "current_evidence": [
+          "#/framework6",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json",
+          "acceptance-review.md"
+        ],
+        "retained_scope": "Accepted strict JSONL synthetic cases; A real complete process validation available.",
+        "remaining_assertions": "Validate final actual complete logs/seals without rewriting original bad evidence."
       },
       {
         "id": "LOG-09",
         "definition_ref": "#/logs/8",
         "historical_status": "PARTIAL_STATIC_OFFLINE_ONLY",
-        "status": "HISTORICAL_LAYER_RETAINED_CURRENT_GAPS_PENDING",
-        "current_evidence": []
+        "status": "PARTIAL_HISTORICAL_AND_CURRENT_LAYERS_RETAINED",
+        "current_evidence": [
+          "#/framework6",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json",
+          "acceptance-review.md"
+        ],
+        "retained_scope": "Accepted synthetic privacy/injection cases; actual A native privacy attestation and restricted driver environment.",
+        "remaining_assertions": "Final public export scan and manual review of current evidence boundary."
       },
       {
         "id": "LOG-10",
         "definition_ref": "#/logs/9",
         "historical_status": "PARTIAL_OFFLINE_ONLY",
-        "status": "HISTORICAL_LAYER_RETAINED_CURRENT_GAPS_PENDING",
-        "current_evidence": []
+        "status": "PARTIAL_HISTORICAL_AND_CURRENT_LAYERS_RETAINED",
+        "current_evidence": [
+          "#/framework6",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json",
+          "acceptance-review.md"
+        ],
+        "retained_scope": "Accepted synthetic bounded writing/rotation; current resource ledger retained.",
+        "remaining_assertions": "Isolated on/off fixture latency, bytes/event measurements and retained-package storage accounting, no invented SLA."
       },
       {
         "id": "LOG-11",
         "definition_ref": "#/logs/10",
         "historical_status": "PASS_SCOPED_SYNTHETIC_SNAPSHOT_ONLY",
-        "status": "HISTORICAL_LAYER_RETAINED_CURRENT_GAPS_PENDING",
-        "current_evidence": []
+        "status": "PARTIAL_HISTORICAL_AND_CURRENT_LAYERS_RETAINED",
+        "current_evidence": [
+          "#/framework6",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json",
+          "acceptance-review.md"
+        ],
+        "retained_scope": "Accepted independent fresh locator 71.282 seconds retained at original snapshot.",
+        "remaining_assertions": "Assess current source/index changes for impact; fresh independent locator only where the changed references require it."
       },
       {
         "id": "LOG-12",
         "definition_ref": "#/logs/11",
         "historical_status": "BLOCKED_NOT_RUN",
-        "status": "HISTORICAL_LAYER_RETAINED_CURRENT_GAPS_PENDING",
-        "current_evidence": []
+        "status": "PARTIAL_HISTORICAL_AND_CURRENT_LAYERS_RETAINED",
+        "current_evidence": [
+          "#/framework6",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json",
+          "acceptance-review.md"
+        ],
+        "retained_scope": "A real normal/browser/committed-RO lineage; native synthetic program classification historical scope retained.",
+        "remaining_assertions": "B/C actual denial, D committed lineage and isolated program exception correlation; retain unknown fields explicitly."
       }
     ],
     "safety": {
@@ -6586,6 +6662,32 @@
       "reviewer": "/root/acceptance_s10",
       "current_tool_refusal": null
     },
-    "runtime_test_commit": "c48d7fb23765aaac843739ab276db3138f971bf9"
+    "runtime_test_commit": "48fad024dff0460d2936931d811503605d54ca6d",
+    "runtime_attempts": [
+      {
+        "stage": "existing_reader_native_administration",
+        "candidate": "48fad024dff0460d2936931d811503605d54ca6d",
+        "actor_id": 59,
+        "setup_actor_id": 2,
+        "setup_su": false,
+        "exit_code": 0,
+        "post_ro_exit_code": 0,
+        "independent_reviewer": "/root/acceptance_s10",
+        "status": "ROLE_READY_ORDINARY_NO_OLD_IDENTITY_CHANGE"
+      },
+      {
+        "stage": "B_first_execution",
+        "candidate": "48fad024dff0460d2936931d811503605d54ca6d",
+        "status": "PREPARATION_SUCCEEDED_MODEL_RPC_NOT_DISPATCHED",
+        "primary": "OSError EADDRINUSE during reservation before MODEL Popen",
+        "preparation_pid": 1801097,
+        "preparation_exit_code": 0,
+        "model_probes_dispatched": 0,
+        "rpc_probes_dispatched": 0,
+        "durable_intent_retained": true,
+        "incident_ref": ".local/s10-technical-closeout-v1/B-first-execution-failure-index.json",
+        "independent_reviewer": "/root/acceptance_s10"
+      }
+    ]
   }
 }

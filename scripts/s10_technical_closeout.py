@@ -115,6 +115,75 @@ def initialize_existing_reader(profile, approval, authority):
                              'provider_reference': reference}
 
 
+def b_zero_dispatch_recovery(profile):
+    """Only the preserved first prelaunch bind failure can enter one new attempt."""
+    root = profile.root
+    receipt = strict_loads((root / 'B-zero-dispatch-recovery.json').read_bytes())
+    def referenced(name):
+        path = ROOT / receipt[name + '_ref']
+        if path.is_symlink() or not path.resolve().is_relative_to(root):
+            raise RuntimeError('B_ZERO_DISPATCH_REFERENCE_INVALID')
+        raw = path.read_bytes()
+        if hashlib.sha256(raw).hexdigest() != receipt[name + '_sha256']:
+            raise RuntimeError('B_ZERO_DISPATCH_REFERENCE_BYTES_CHANGED')
+        return strict_loads(raw)
+    latch_sha = hashlib.sha256((root / 'B-ACTION-IN-FLIGHT.json').read_bytes()).hexdigest()
+    failure = referenced('failure_index')
+    observation = referenced('zero_dispatch_ro')
+    baseline_raw = (root / 'reader-password-verified.json').read_bytes()
+    if hashlib.sha256(baseline_raw).hexdigest() != 'c29b8f2e81d5116e7094190819728e6f9944d7e6a2e7eeb9a099e729e7b4f3e6':
+        raise RuntimeError('B_ZERO_DISPATCH_PASSWORD_BASELINE_CHANGED')
+    baseline = strict_loads(baseline_raw)
+    failed_app = root / 'application-main-fixture-55c98bb3'
+    prep_exit = root / 'application-main-service-b47973a0/parent-exit.tsv'
+    for relative, digest in failure.get('material_refs', {}).items():
+        path = root / relative
+        if not path.resolve().is_relative_to(root) or hashlib.sha256(path.read_bytes()).hexdigest() != digest:
+            raise RuntimeError('B_ZERO_DISPATCH_ORIGINAL_FAILURE_BYTES_CHANGED')
+    partial = strict_loads((failed_app / 'b-parent-failure.json').read_bytes())
+    exits = [row.split('\t') for row in prep_exit.read_text().splitlines()]
+    fixture_exits = [row.split('\t') for row in (failed_app / 'parent-exit.tsv').read_text().splitlines()]
+    audit_delta = observation.get('new_fixture_audits', [])
+    prior_audits = baseline.get('audits_since_a_before', [])
+    if (receipt.get('reason') != 'FIXED_PORT_PRELAUNCH_EADDRINUSE_ZERO_B_DISPATCH'
+            or receipt.get('attempt') != 2 or receipt.get('independent_reviewer') != '/root/acceptance_s10'
+            or receipt.get('original_latch_sha256') != latch_sha
+            or latch_sha != '1d73aea894c3b3b599c69e9589878520ee86e8b821bc175486cd54edb13e527d'
+            or receipt.get('failure_index_sha256') != '1813b62f55a81dee9ad47ec1d796b945d77c0a70256efa4e249efa8a48c936b3'
+            or failure.get('first_failure_errno') != 98 or failure.get('first_failure_type') != 'OSError'
+            or any(failure.get(key) != 0 for key in ('B_model_checks_dispatched', 'B_rpc_checks_dispatched'))
+            or not any(row[0] == 'parent.end' and row[2:4] == ['1801097', '0'] for row in exits)
+            or len(fixture_exits) != 1 or fixture_exits[0][0] != 'parent.end'
+            or fixture_exits[0][2:5] != ['None', 'None', 'None']
+            or partial.get('fixture_commits') != 0 or partial.get('model_checks', {}).get('checks') != []
+            or any((failed_app / name).exists() for name in ('launch-intent.json', 'stdout.log', 'stderr-faulthandler.log', 'odoo-native.log'))
+            or list((root / 'targets' / profile.database / 'diagnostics').glob('B-MODEL-*-observation.json'))
+            or receipt.get('zero_dispatch_ro_exit_code') != 0
+            or observation.get('validation_status') != 'B_ZERO_MODEL_DISPATCH_OLD_PROTECTION_VERIFIED'
+            or observation.get('reader_id') != 59
+            or observation.get('identity') != {'database': profile.database, 'oid': 2144129,
+                'cluster': '7694897083368259627', 'dbuser': 'odoo', 'readonly': 'on',
+                'isolation': 'repeatable read'}
+            or observation.get('reader') != [{'id': 59, 'active': True, 'share': False,
+                'company_id': 1, 'create_uid': 5, 'write_uid': 2, 'password_present': True}]
+            or any(observation.get(key) is not True for key in ('ordinary_nonadmin_preserved',
+                'no_extra_role_created', 'rollback_returned', 'connection_closed'))
+            or observation.get('other_connections') != []
+            or len(observation.get('domain_hashes', {})) != 39
+            or any(observation.get(key) != baseline.get(key) for key in ('domain_hashes', 'old_audit_hashes',
+                'reader_groups', 'group_xmlids', 'implied_groups', 'memberships', 'grants',
+                'companies', 'groups', 'reader5', 'document', 'modules', 'c_original161_mail_links'))
+            or observation.get('audits_since_a_before', [])[:len(prior_audits)] != prior_audits
+            or len(audit_delta) != 3
+            or {row.get('ydental_event') for row in audit_delta} != {'login', 'login.scope', 'store.switch'}
+            or any(row.get('ydental_user_id') != 59 or row.get('ydental_result') != 'accepted' for row in audit_delta)
+            or observation.get('reader_session') != [{'ydental_user_id': 59,
+                'ydental_store_id': 1, 'ydental_revision': 1}]
+            or (root / 'B-ACTION-ATTEMPT2.json').exists() or (root / 'B-ACTION-COMPLETE.json').exists()):
+        raise RuntimeError('B_ZERO_DISPATCH_RECOVERY_NOT_VERIFIED')
+    return receipt
+
+
 def run_b(profile, approval, authority, requested_path):
     """Normal-session manifest, rollback MODEL probes, then six real RPC probes."""
     from s10_lc2_cases import (Actor, Facts, b_collect_step, b_evidence_callbacks,
@@ -123,8 +192,7 @@ def run_b(profile, approval, authority, requested_path):
     import psycopg2
     profile.require_action('B-MODEL-6')
     profile.require_action('B-RPC-6')
-    if (profile.root / 'B-ACTION-IN-FLIGHT.json').exists():
-        raise RuntimeError('B_PRIOR_EXECUTION_REVIEW_DURABLE_RESULTS_NO_REPLAY')
+    recovery = b_zero_dispatch_recovery(profile) if (profile.root / 'B-ACTION-IN-FLIGHT.json').exists() else None
     if (profile.root / 'B-ACTION-STOP.json').exists():
         raise RuntimeError('B_PRIOR_OUTCOME_OR_PRESERVATION_REQUIRES_INDEPENDENT_REVIEW')
     reference, reader = current_reader(profile)
@@ -134,6 +202,12 @@ def run_b(profile, approval, authority, requested_path):
     b_selections(requested)
     directory = profile.root / ('B-' + uuid.uuid4().hex[:12])
     facts = Facts(directory)
+    if recovery is not None:
+        save_once(profile.root / 'B-ACTION-ATTEMPT2.json', {
+            'original_latch_sha256': recovery['original_latch_sha256'],
+            'zero_dispatch_ro_sha256': recovery['zero_dispatch_ro_sha256'],
+            'directory': str(directory.relative_to(ROOT)), 'actor_id': 59,
+            'stage': 'BEFORE_FRESH_AUTHENTICATION_FOR_UNSENT_MODEL_AND_RPC', 'automatic_retry': False})
     run = profile.run_root / profile.database
     binding = {'run_id': profile.run_id, 'task_id': 'S10-LOG-AND-CLOSEOUT-v2',
         'product_commit': authority['product_commit'], 'test_commit': authority['test_commit'],
@@ -212,12 +286,16 @@ def run_b(profile, approval, authority, requested_path):
             manifest_reference=manifest_ref, session_info=lambda: actor.session_metadata(binding=binding),
             collect_step=collect, log_source=lambda: log_source(app), close_owned_service=close_live)
         return actor
-    save_once(profile.root / 'B-ACTION-IN-FLIGHT.json', {
+    dispatch_intent = {
         'operation': 'B-MODEL-6_THEN_B-RPC-6', 'target': profile.database,
         'actor_id': actor.uid, 'stage': 'BEFORE_MODEL_DISPATCH',
         'directory': str(directory.relative_to(ROOT)),
         'automatic_retry': False, 'completion_reference': 'B-ACTION-COMPLETE.json',
-        'failure_followup': 'INDEPENDENT_READ_ONLY_REVIEW_BEFORE_ANY_REENTRY'})
+        'failure_followup': 'INDEPENDENT_READ_ONLY_REVIEW_BEFORE_ANY_REENTRY'}
+    if recovery is None:
+        save_once(profile.root / 'B-ACTION-IN-FLIGHT.json', dispatch_intent)
+    else:
+        facts.save('B-attempt2-dispatch-intent', dispatch_intent)
     try:
         result = run_b_only(manifest=manifest, provider_ref=reference, approval=approval,
             product_commit=authority['product_commit'], test_commit=authority['test_commit'], facts=facts,

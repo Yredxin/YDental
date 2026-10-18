@@ -182,7 +182,7 @@ class BrowserSession:
 
     def __init__(self, base_url, *, database, owned_targets, budget, directory,
                  executable_path=None, playwright_root=None, locale='zh-CN',
-                 playwright_factory=None, maximum_seconds=1200):
+                 playwright_factory=None, maximum_seconds=1200, current_case='A-ORIGINAL'):
         parsed = urlsplit(base_url)
         if (parsed.scheme != 'http' or parsed.hostname != '127.0.0.1'
                 or parsed.port not in range(18410, 18420) or parsed.username or parsed.password
@@ -201,7 +201,9 @@ class BrowserSession:
         self.base_url, self.database, self.budget = base_url, database, budget
         self.task_profile = getattr(budget, 'profile', None)
         if self.native_transport:
-            self.task_profile.require_action('A-ORIGINAL')
+            if current_case not in {'A-ORIGINAL', 'C-REVOKED-PAGE', 'E-AFFECTED-REGRESSION'}:
+                raise BrowserBoundaryError('CURRENT_PLAN_BROWSER_CASE_NOT_DISPATCHED')
+            self.task_profile.require_action(current_case)
             self.task_profile.validate_target(database, 2144129, parsed.port)
             if set(owned_targets) != {MAIN}:
                 raise BrowserBoundaryError('CURRENT_PLAN_BROWSER_TARGET_SCOPE_INVALID')
@@ -215,7 +217,8 @@ class BrowserSession:
         self.factory = playwright_factory
         self.browser = self.context = self.page = self.playwright = None
         self.started = None
-        self.case_id = 'A-ORIGINAL'
+        self.case_id = current_case if self.native_transport else 'A-ORIGINAL'
+        self._current_case = self.case_id
         self.operation_ref = uuid.uuid4().hex
         self._fatal = None
         self._requests = {}
@@ -267,7 +270,7 @@ class BrowserSession:
     def _request_allowed(self, request):
         path = self._target_path(request.url)
         if self.native_transport:
-            if self.case_id not in {'A-ORIGINAL', 'E-AFFECTED-REGRESSION'}:
+            if self.case_id != self._current_case:
                 raise BrowserBoundaryError('CURRENT_PLAN_BROWSER_CASE_NOT_DISPATCHED')
             self.task_profile.require_action(self.case_id)
             form = None
@@ -276,8 +279,9 @@ class BrowserSession:
                 if any(len(values) != 1 for values in parsed_form.values()):
                     raise BrowserBoundaryError('CURRENT_PLAN_BROWSER_DUPLICATE_FORM_FIELD')
                 form = {key: values[0] for key, values in parsed_form.items()}
-                if path == '/web/login' and self._declared_login_user_id != 5:
-                    raise BrowserBoundaryError('ORIGINAL_UI_LOGIN_REQUIRES_USER5_PROVIDER')
+                expected_user = 59 if self.case_id == 'C-REVOKED-PAGE' else 5
+                if path == '/web/login' and self._declared_login_user_id != expected_user:
+                    raise BrowserBoundaryError('CURRENT_PLAN_BROWSER_LOGIN_ACTOR_MISMATCH')
             try:
                 main_a_request_boundary(request.method, request.url, form=form,
                                         allow_translations=True, original_ui=True)
@@ -689,6 +693,8 @@ class BrowserSession:
     def label(self, case_id):
         if case_id not in _CASES:
             raise BrowserBoundaryError('BROWSER_CASE_NOT_APPROVED')
+        if self.native_transport and case_id != self._current_case:
+            raise BrowserBoundaryError('CURRENT_PLAN_BROWSER_PURPOSE_SWITCH_FORBIDDEN')
         self.case_id, self.operation_ref = case_id, uuid.uuid4().hex
 
     async def _navigate_once(self, page, url):
@@ -916,8 +922,11 @@ class BrowserSession:
             await self._new_context()
         original_ui = self.task_profile is not None and self.task_profile.message_id == MAIN_A_ORIGINAL_UI
         current_ui = self.native_transport
-        if (original_ui or current_ui) and (type(user_id) is not int or user_id != 5):
+        if original_ui and (type(user_id) is not int or user_id != 5):
             raise BrowserBoundaryError('ORIGINAL_UI_LOGIN_REQUIRES_USER5_PROVIDER')
+        if current_ui and (type(user_id) is not int
+                or user_id != (59 if self._current_case == 'C-REVOKED-PAGE' else 5)):
+            raise BrowserBoundaryError('CURRENT_PLAN_BROWSER_LOGIN_ACTOR_MISMATCH')
         self._declared_login_user_id = user_id
         try:
             await self._goto('/web/login?' + urlencode({'db': self.database,
@@ -1016,6 +1025,7 @@ class BrowserSession:
         link = await self._original_link(invoice_id, original_id, patient_id)
         before = await self._screenshot(link)
         path = '/ydental/settlement/bill-original/%d' % original_id
+        verified_denial = False
         try:
             # No reload: the same already-authorized page and real link remain.
             await revoke_callback()
@@ -1029,11 +1039,16 @@ class BrowserSession:
             save_once(self.directory / (uuid.uuid4().hex + '.revoked-page.json'), evidence)
             if response.status != 403 or raw.startswith(b'%PDF'):
                 raise BrowserBoundaryError('REVOKED_PAGE_DID_NOT_DENY_NEXT_REQUEST')
+            verified_denial = True
             return evidence
         finally:
             # Caller implements normal S01 grants for the new reader only.
             # No retry or public fixture bypass is performed by this adapter.
-            await self._cleanup(restore_callback, 'reader.restore')
+            # The current caller independently confirms each S01 grant before
+            # returning. Unknown grants or unexpected content stop this path;
+            # do not issue another permission write from a failure finally.
+            if not self.native_transport or verified_denial:
+                await self._cleanup(restore_callback, 'reader.restore')
 
     async def native_warning_dialog(self, audit_id, *, expected_name='odoo.exceptions.AccessError',
                                     expected_message='审计事件不可修改。'):
@@ -1302,11 +1317,11 @@ async def run_main_a_browser(*, base_url, database, owned_targets, budget, direc
         raise BrowserBoundaryError('MAIN_A_ORIGINAL_SCOPE_INVALID')
     profile.verify()
     if current:
-        profile.require_action('A-ORIGINAL')
-        if phase == 'post':
-            profile.require_action('E-AFFECTED-REGRESSION')
+        profile.require_action('A-ORIGINAL' if phase == 'pre' else 'E-AFFECTED-REGRESSION')
     async with BrowserSession(base_url, database=database, owned_targets=owned_targets,
-                              budget=budget, directory=directory, **session_options) as session:
+                              budget=budget, directory=directory,
+                              current_case='A-ORIGINAL' if phase == 'pre' else 'E-AFFECTED-REGRESSION',
+                              **session_options) as session:
         await session.login(credentials.login, credentials.password,
                             **({'user_id': 5} if current or profile.message_id == MAIN_A_ORIGINAL_UI else {}))
         await session.switch_store(store_id)
@@ -1319,3 +1334,35 @@ async def run_main_a_browser(*, base_url, database, owned_targets, budget, direc
                'independent_verification': 'PENDING'}
     save_once(Path(directory) / (uuid.uuid4().hex + '.main-a-browser-results.json'), results)
     return results
+
+
+@_safe_browser_entrypoint('browser.current_revoked_page')
+async def run_current_revoked_browser(*, base_url, database, owned_targets, budget,
+                                      directory, credentials, reader_id, store_id,
+                                      patient_id, invoice_id, original_id,
+                                      revoke_reader, restore_reader, **session_options):
+    """Only new reader59's next real request from one already-open page.
+
+    Both callbacks must use manager5's normal S01 action and independently
+    verify the committed new-reader permission state before returning.
+    This entry does not download the original while it is authorized.
+    """
+    profile = getattr(budget, 'profile', None)
+    if (getattr(profile, 'message_id', None) != CURRENT_PLAN
+            or (reader_id, store_id, patient_id, invoice_id, original_id) != (59, 1, 1, 1, 1)
+            or not callable(revoke_reader) or not callable(restore_reader)):
+        raise BrowserBoundaryError('CURRENT_REVOKED_PAGE_SCOPE_INVALID')
+    profile.verify()
+    profile.require_action('C-REVOKED-PAGE')
+    async with BrowserSession(base_url, database=database, owned_targets=owned_targets,
+                              budget=budget, directory=directory,
+                              current_case='C-REVOKED-PAGE', **session_options) as session:
+        await session.login(credentials.login, credentials.password, user_id=reader_id)
+        await session.switch_store(store_id)
+        observation = await session.revoked_old_page(invoice_id, original_id,
+            patient_id=patient_id, revoke_callback=revoke_reader, restore_callback=restore_reader)
+    result = {'case_id': 'C-REVOKED-PAGE', 'actor_id': reader_id,
+              'evidence_kind': 'REAL_FIREFOX_UI_NATIVE', 'same_previously_open_page': True,
+              'next_request': observation, 'independent_verification': 'PENDING'}
+    save_once(Path(directory) / (uuid.uuid4().hex + '.current-revoked-browser-results.json'), result)
+    return result

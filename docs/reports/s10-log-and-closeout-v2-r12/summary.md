@@ -6,10 +6,14 @@
 - 已核 GitHub #23/#34 正文及有效增量、旧收尾回执 6246470994；S10 OPEN，未出现新需求。
 - 真实团队：root 主控；developer_s10 最小当前准入/既有 B 接线；tester_s10 唯一运行负责人并维护 browser 工具；acceptance_s10 独立审查、不参与被验实现。角色不冒 OS 隔离。
 - 当前 [矩阵](acceptance-matrix.json) 的 technical_closeout_plan_v1 是本 plan 唯一当前投影，保留原 22 财务行、12 LOG、19 用例和全部历史失败/采纳。旧根状态及历史用例字段不作为当前事实；A-EDITOR 后续已正式采纳，禁止重演。
-- P0 已核工作区/远端/core；两目标 marker/config 权限及身份元数据由 tester 只读检查符合；尚未连接 DB，因此实际 OID/cluster/保护域未宣称通过。18410/18411 无监听；未知旧进程及 detached 工作区保留。
+- P0 已核工作区/远端/core；main 当前实际 OID/cluster/只读隔离与保护域由首次和后续独立RO证实；scratch当前实际身份/基线尚待首次使用核验。未知旧进程及 detached 工作区保留。
 - P1 发现具体 B_RUNTIME_PROFILE_INTEGRATION_PENDING、历史固定 profile/窗口及旧账号扫描路径，正在接当前 plan 的真实用途/owner/目标/观察来源。不得使用 existing_main_accounts 扫旧账号，不删 STOP、不激活旧 PREPARED 整包。
 - **A 升级前已独立限定通过**：实际运行/测试 c48d7fb，正常 Firefox user5→店1→工作台 invoice1 原件1链接点击下载，27665B/固定SHA一致；本次PDF1页中文/来源/原价格版本/金额完整，执行者、主控及独立acceptance均核本次文件，未用旧副本。before/terminal各自真实RO exit0，39域750行/旧1187审计/文书与已释放编辑/旧原件及身份权限不变，只新增user5预期5审计。owned PID1777152 parent exit0、两端口无监听。细节见 [本plan脱敏证据](../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json) 与既有 [独立验收](acceptance-review.md)。
-- 当前累计 Odoo11/RO33/HTTP47/Firefox7/GET1；本plan新增1/3/15/1/1，事故RO2/maintenance1/create2保持。浏览器15真实请求/15响应；不把HTTP请求数当测试通过数。B/C/D/双E仍未运行，日志总表及S10不提升；六框架/A-EDITOR/73PURE/旧资金不重跑。
+- B 新普通账号59现已就绪：正常新membership/read授权只使四mutex各+1，逐字段全文hash独立解释，旧业务保持；首密码self-write失败保留，随后原生admin2仅初始化同59（48fad024，exit0），实际SMTP空/全部mailserver0，独立后RO及acceptance核普通身份与39域保持。B被测始终普通59，无第二账号或旧5/7改权。
+- B 首轮普通59登录及非空/异值manifest已完成，prep owned PID1801097 exit0；MODEL启动前bind18410失败OSError98，Popen/launch-intent/checkpoint均未发生，六MODEL/六RPC仍NOT_RUN。原intent/首失败保留，事后无监听/owned进程；瞬时TIME_WAIT只是可能，未冒事实。团队修普通端口等待并据独立零派发证据接续，不重跑角色/A或清账。
+- 当前累计 Odoo15/RO43/HTTP52/Firefox7/GET1；事故RO2/maintenance1/create2保持。不把HTTP请求数当通过数。C/D/双E尚未运行，日志总表及S10不提升；六框架/A-EDITOR/73PURE/旧资金不重跑。
+- 运行修复验证：本地真实socket验证现有listener仍拒、正常关闭后可reserve、非EADDRINUSE原样传播；未启动Odoo/DB。浏览器C/E最小目的与账号约束、未知撤权不恢复的最终6项聚焦PURE通过，不与开发5项累加，也不冒C/E实测。专用B后RO草稿机械替换语法错误在执行前发现并修正，AST/compile通过，未发生DB请求；原raw未改。
+- 12 LOG当前投影承接六原生框架及当前A实际层级，逐项列剩余断言；不因旧表仍写offline而重跑已采框架。C调用图所需受控原件拒绝GET同样计费，当前工程新增原件GET上限4→24，旧/current已用和时钟不变，不削权限矩阵凑额度。
 - 普通工程首失败保留：browser聚焦测试碰到并行编辑中import缩进错误，完整写完后3项通过；launcher旧伪对象少log_config导致7项中2ERROR，补fixture后7项通过。独立发现当前privacy producer漏profile于首次启动前修复，c48d7fb原生日志证明实际通过。PDF后处理pdfinfo/pdftoppm缺命令exit127，改用已存在pymupdf读取本次保存文件，无依赖安装/新点击。以上不是MODEL/产品业务PASS。
 
 后续证据仍归既有本目录、docs/evidence/s10-log-and-closeout-v2-r12/ 和获准私有目录；秘密与原始临床/财务内容不进 Git。最终覆盖 A、真实 B、C、scratch 唯一 D 6/2 链、双 E、12 LOG 与原财务退出标准。S11—S13、merge、部署和生产不在范围。

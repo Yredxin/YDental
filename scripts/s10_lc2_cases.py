@@ -602,8 +602,14 @@ def _b_relations(source, info, requested):
     employee = _b_one(rows, 'hr_employee', members[0]['ydental_employee_id'])
     if employee.get('active') is not True or employee.get('user_id') != uid or employee.get('company_id') != store['company_id']:
         raise ValueError('B_EMPLOYEE_COMPANY_RELATION_DRIFT')
-    if sum(row == {'ydental_user_id': uid, 'ydental_store_id': store['id'], 'ydental_revision': revision}
-           for row in rows.get('ydental_access_session', [])) != 1:
+    sessions = rows.get('ydental_access_session', [])
+    expected_scope = {'ydental_user_id': uid, 'ydental_store_id': store['id'], 'ydental_revision': revision}
+    # Current native metadata proves the current business scope. Several normal
+    # sessions may witness the same tuple; none may contradict that scope.
+    current_plan = source['binding'].get('run_id') == 's10-technical-closeout-v1'
+    valid_scope = (bool(sessions) and all(row == expected_scope for row in sessions)
+                   if current_plan else sum(row == expected_scope for row in sessions) == 1)
+    if not valid_scope:
         raise ValueError('B_NORMAL_SESSION_SCOPE_NOT_OBSERVED')
     fee = _b_one(rows, 'ydental_settlement_source', requested['source_id'])
     payment = _b_one(rows, 'ydental_settlement_payment', requested['payment_id'])

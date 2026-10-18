@@ -84,18 +84,18 @@
       "accident_ro": 2,
       "create": 2,
       "firefox": 7,
-      "http": 47,
+      "http": 52,
       "maintenance": 1,
-      "odoo_start": 11,
+      "odoo_start": 15,
       "original_get": 1,
-      "target_ro": 33
+      "target_ro": 43
     },
     "current_plan": {
       "firefox": 1,
-      "http": 15,
-      "odoo_start": 1,
+      "http": 20,
+      "odoo_start": 5,
       "original_get": 1,
-      "target_ro": 3
+      "target_ro": 13
     },
     "counts_are_not_test_pass_totals": true
   },
@@ -117,6 +117,34 @@
       "bytes": 890,
       "sha256": "e0912072b65e44bd02bb15e4d81d02429c72c3954ee99fd3def3b5ad1703b055",
       "access": "PRIVATE_LOCAL_NOT_GITHUB_READABLE"
+    },
+    {
+      "ref": ".local/s10-technical-closeout-v1/B-reader-pending-result-index.json",
+      "bytes": 3073,
+      "sha256": "017bab1a89fade81724e0123cb6c7a6fe9df2d65071748e76005cad2827838f5",
+      "access": "PRIVATE_LOCAL_NOT_GITHUB_READABLE",
+      "original_index_acceptance_field": "PENDING_AT_CAPTURE; subsequent independent signature is in acceptance-review.md"
+    },
+    {
+      "ref": ".local/s10-technical-closeout-v1/B-existing-reader-initialize-result-index.json",
+      "bytes": 1130,
+      "sha256": "f189b722919b07d68fe6699530cbdb49ee890cfaf177f6d2f8d2b6f4f6799224",
+      "access": "PRIVATE_LOCAL_NOT_GITHUB_READABLE",
+      "original_index_acceptance_field": "PENDING_AT_CAPTURE; subsequent independent signature is in acceptance-review.md"
+    },
+    {
+      "ref": ".local/s10-technical-closeout-v1/B-first-execution-failure-index.json",
+      "bytes": 1881,
+      "sha256": "1813b62f55a81dee9ad47ec1d796b945d77c0a70256efa4e249efa8a48c936b3",
+      "access": "PRIVATE_LOCAL_NOT_GITHUB_READABLE",
+      "original_index_acceptance_field": "PENDING_AT_CAPTURE; subsequent independent signature is in acceptance-review.md"
+    },
+    {
+      "ref": ".local/s10-technical-closeout-v1/B-first-failure-continuity-index.json",
+      "bytes": 2088,
+      "sha256": "ede52c65afa32e437c0ca9957870812e0c06775de903882c133cbd28211e8028",
+      "access": "PRIVATE_LOCAL_NOT_GITHUB_READABLE",
+      "original_index_acceptance_field": "PENDING_AT_CAPTURE; subsequent independent signature is in acceptance-review.md"
     }
   ],
   "ordinary_tool_failures": [
@@ -155,5 +183,70 @@
     "old_safety_stop_preserved": true,
     "specific_tool_stop_bytes_preserved": true,
     "next": "Minimal bounded startup fix then evidence-constrained reentry; no B probes executed."
+  },
+  "runtime_test_candidates": {
+    "A_pre_upgrade": "c48d7fb23765aaac843739ab276db3138f971bf9",
+    "reader_initialize_and_B_preparation": "48fad024dff0460d2936931d811503605d54ca6d"
+  },
+  "B-reader": {
+    "actor_id": 59,
+    "status": "ORDINARY_ROLE_READY_AFTER_NATIVE_ADMINISTRATION_AND_INDEPENDENT_RO",
+    "original_create_candidate": "2f2e0cd65bb4d3b92c0c6be024b423cfaeb248e2",
+    "first_password_initialization": "Native ordinary self-write AccessError; original failure retained; role already committed, no recreation",
+    "initialization_candidate": "48fad024dff0460d2936931d811503605d54ca6d",
+    "native_setup_actor_id": 2,
+    "setup_su": false,
+    "initialization_exit_code": 0,
+    "post_initialization_ro_exit_code": 0,
+    "tested_actor_is_ordinary": true,
+    "protected_domains_unchanged": 39,
+    "expected_new_grant_mutex_changes": {
+      "intake": [
+        383,
+        384
+      ],
+      "patient": [
+        421,
+        422
+      ],
+      "queue": [
+        403,
+        404
+      ],
+      "supply": [
+        690,
+        691
+      ]
+    },
+    "other_mutex_columns_unchanged": true,
+    "smtp_server_config_empty": true,
+    "all_native_mail_server_count": 0,
+    "old_user_5_7_unchanged": true,
+    "independent_reviewer": "/root/acceptance_s10"
+  },
+  "B-first-execution": {
+    "candidate": "48fad024dff0460d2936931d811503605d54ca6d",
+    "status": "ORDINARY_TOOL_FAILURE_MODEL_RPC_NOT_DISPATCHED",
+    "exit_code": 1,
+    "preparation_actor_id": 59,
+    "preparation_login_store_manifest_distinct_nonempty_probes": "COMPLETED",
+    "preparation_owned_pid": 1801097,
+    "preparation_exit_code": 0,
+    "primary": "OSError errno98 at MODEL port reservation, before Popen and Odoo start reservation",
+    "model_probes_dispatched": 0,
+    "rpc_probes_dispatched": 0,
+    "product_denial_claimed": false,
+    "first_failure_and_durable_intent_retained": true,
+    "post_failure_ports_no_listener": true,
+    "failure_instant_port_state": "NOT_OBSERVED",
+    "native_crash_claimed": false,
+    "tool_security_refusal_claimed": false,
+    "independent_reviewer": "/root/acceptance_s10"
+  },
+  "independent_review_reference": {
+    "ref": "../../reports/s10-log-and-closeout-v2-r12/acceptance-review.md",
+    "bytes_at_current_signature": 129961,
+    "sha256_at_current_signature": "3a5d0edfb6ac72d4e01fff2985e66f542d45becbc4e8e9706cc99e8bbc2691e5",
+    "scope": "Pre-upgrade A; ordinary reader setup and preserved state; B first bind failure zero MODEL/RPC dispatch. No B probe PASS."
   }
 }

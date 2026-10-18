@@ -11,7 +11,7 @@ from types import SimpleNamespace
 import tempfile
 import traceback
 import unittest
-from unittest.mock import patch
+from unittest.mock import AsyncMock, patch
 from urllib.parse import urlencode
 
 from s10_lc2_browser import BrowserBoundaryError, BrowserSession, Credentials, run_browser
@@ -134,12 +134,12 @@ class BrowserBoundaryCase(unittest.IsolatedAsyncioTestCase):
                 for value in forbidden:
                     self.assertNotIn(value, path.read_bytes(), path.name)
 
-    def current_session(self):
+    def current_session(self, case='A-ORIGINAL'):
         budget = FakeBudget()
         budget.profile = SimpleNamespace(message_id='YD-S10-TECHNICAL-CLOSEOUT-V1',
             require_action=lambda action: None, validate_target=lambda *args: None)
         session = BrowserSession(BASE, database=DATABASE, owned_targets={DATABASE: BASE},
-                                 budget=budget, directory=self.directory / 'current')
+                                 budget=budget, directory=self.directory / 'current', current_case=case)
         session.page = SimpleNamespace()
         return session
 
@@ -184,6 +184,43 @@ class BrowserBoundaryCase(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(intent['guard_stage'], 'REDIRECT_OBSERVED_AFTER_DISPATCH')
         self.assertFalse(intent['strict_redirect_network_isolation'])
         self.assert_no_secrets(session)
+
+    async def test_current_revoked_browser_keeps_actor_and_purpose_narrow(self):
+        session = self.current_session('C-REVOKED-PAGE')
+        session._declared_login_user_id = 59
+        request = FakeRequest(session.page, '/web/login', method='POST', body=urlencode({
+            'db': DATABASE, 'login': 'synthetic-reader', 'password': 'synthetic-password',
+            'csrf_token': 'synthetic-csrf', 'redirect': '/ydental/access'}))
+        self.assertEqual(session._request_allowed(request), '/web/login')
+        session._declared_login_user_id = 5
+        with self.assertRaisesRegex(BrowserBoundaryError, 'LOGIN_ACTOR_MISMATCH'):
+            session._request_allowed(request)
+        with self.assertRaisesRegex(BrowserBoundaryError, 'PURPOSE_SWITCH_FORBIDDEN'):
+            session.label('A-ORIGINAL')
+
+    async def test_current_upgrade_original_needs_its_own_action(self):
+        budget = FakeBudget()
+        actions = []
+        budget.profile = SimpleNamespace(message_id='YD-S10-TECHNICAL-CLOSEOUT-V1',
+            require_action=actions.append, validate_target=lambda *args: None)
+        session = BrowserSession(BASE, database=DATABASE, owned_targets={DATABASE: BASE},
+            budget=budget, directory=self.directory / 'post', current_case='E-AFFECTED-REGRESSION')
+        self.assertEqual(actions, ['E-AFFECTED-REGRESSION'])
+        self.assertEqual(session.case_id, 'E-AFFECTED-REGRESSION')
+        session._declared_login_user_id = 59
+        with self.assertRaisesRegex(BrowserBoundaryError, 'LOGIN_ACTOR_MISMATCH'):
+            session._request_allowed(FakeRequest(session.page, '/web/login', method='POST', body=''))
+
+    async def test_current_revocation_unknown_does_not_issue_restore(self):
+        session = self.current_session('C-REVOKED-PAGE')
+        session._original_link = AsyncMock(return_value=object())
+        session._screenshot = AsyncMock(return_value='synthetic-before.png')
+        revoke = AsyncMock(side_effect=RuntimeError('SYNTHETIC_GRANT_OUTCOME_UNKNOWN'))
+        restore = AsyncMock()
+        with self.assertRaisesRegex(RuntimeError, 'SYNTHETIC_GRANT_OUTCOME_UNKNOWN'):
+            await session.revoked_old_page(1, 1, patient_id=1,
+                revoke_callback=revoke, restore_callback=restore)
+        restore.assert_not_awaited()
 
     async def test_actual_nonredirect_upstream_is_forwarded_unchanged(self):
         upstream = FakeUpstream(409, b'{"error":"synthetic-password"}', {

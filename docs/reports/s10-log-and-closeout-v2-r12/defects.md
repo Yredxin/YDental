@@ -1,5 +1,12 @@
 # R1.2缺陷、首事实、修正及复核
 
+## 当前 plan V1 普通运行缺陷增量（历史原文继续保留）
+
+- 新普通用户59已提交后，锁定core拒绝普通self.write(password)，不是账号未创建；保留第一次AccessError和后继父端退出，禁止重新create。独立RO证明仅正常membership/grant及四mutex各+1，随后48fad024通过原生admin2/非sudo只初始化已有59；SMTP配置空/全部mailserver0，无真实通知通道。初始化及独立后RO均exit0，acceptance确认普通身份/39域/旧5和7/审计保持。
+- B首轮48fad024已完成普通59正常登录/店1/非空异值目标manifest；prep owned PID1801097正常exit0。后继MODEL进程在reservation.bind18410处OSError98，位于Popen/Odoo计数前；无launch-intent/native/stdout/checkpoint，六MODEL/六RPC均未派发。原B intent/失败材料保持，事后端口无监听且prep PID不存在；瞬时端口状态未观测，不声称TIME_WAIT已证。最小有界端口修复及独立零派发核验后接续未执行部分，不能清latch盲重跑/换目标或账号。
+
+以上是当前plan工程事实，不改变旧安全拒绝/STOP，也不提升B或S10为通过。
+
 旧R1.1两次普通修复、失败原始材料与STOP保持。用户R1.2解除普通轮数限制，不解除真实安全硬停；未为普通问题请求GPT逐项批准。
 
 |ID|首事实及原因|补丁与实际复核|当前边界|

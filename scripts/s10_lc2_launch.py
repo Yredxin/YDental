@@ -1,6 +1,7 @@
 """Owned LC2 application launch with fresh identity, fixed candidate and raw limits."""
 import argparse
 import configparser
+import errno
 import hashlib
 import json
 from datetime import datetime, timezone
@@ -29,6 +30,23 @@ STOP = EXEC_ROOT / 'HARD-STOP.json'
 ACTION_ROLES = {'scratch-tests': 'scratch', 'upgrade': 'main', 'main-upgrade': 'main',
                 'main-service': 'main', 'scratch-service': 'scratch', 'scratch-upgrade': 'scratch',
                 'main-fixture': 'main', 'scratch-fixture': 'scratch', 'main-credential-setup': 'main'}
+
+
+def reserve_owned_port(port, *, timeout=5):
+    """Match native socket.create_server reuse semantics without sharing listeners."""
+    if not 0 < timeout <= 5:
+        raise ValueError('PORT_RESERVATION_TIMEOUT_INVALID')
+    deadline = time.monotonic() + timeout
+    with socket.socket() as reservation:
+        reservation.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        while True:
+            try:
+                reservation.bind(('127.0.0.1', port))
+                return
+            except OSError as error:
+                if error.errno != errno.EADDRINUSE or time.monotonic() >= deadline:
+                    raise
+                time.sleep(.1)
 
 
 def keep_primary(directory, error, *, stage, root_event_id=None):
@@ -340,8 +358,7 @@ class OwnedApplication:
         elif stdin_path is not None or pass_fds:
             raise ValueError('NON_FIXTURE_STDIN_FORBIDDEN')
         has_stdin = fixture or self.action == 'main-credential-setup'
-        with socket.socket() as reservation:
-            reservation.bind(('127.0.0.1', self.marker['port']))
+        reserve_owned_port(self.marker['port'])
         self.budget.consume('odoo_start')
         save_once(self.directory / 'launch-intent.json', {'command': self.command + arguments,
                   'database': self.marker['database'], 'oid': self.marker['oid'],
