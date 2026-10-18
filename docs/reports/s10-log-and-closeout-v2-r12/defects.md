@@ -56,3 +56,13 @@ TR01源码接受后在现scratch第一次真实运行五TransactionCase+一HttpC
 - A-ORIGINAL具体阻断：唯一Firefox launch Error，context/工作台点击/原件GET/下载/视觉均0，具体原因/内部PID退出UNKNOWN；启动Error文字未留是工具可诊断性限制。Firefox1额度耗尽，不换浏览器/工具或直接GET替代。
 - 实际隐私缺陷：base res_device INFO在本轮normal login记录一次session标识前缀；raw0700/0600私有保全，未公开值/行/摘要。http.server CRITICAL证明不足覆盖该logger，不称绝无token日志；未见密码输出证据，不称外传。抑制修复和运行回归NOT_RUN，当前无应用额度。
 - 终核60表1034行/93模块、旧1178审计、正文/版本/作者/费库账款/原件及四mutex同基线；新增认证配置、native登录/device各1、session110及3个S01认证/切店审计明确分列。A组/S10/生产不通过。
+
+
+## MAIN-A ENGINEERING CLOSEOUT / YD-S10-LC2-MAIN-A-20261018-03
+
+- 实际runner契约已修并入版本：switch仅revision，刷新access后用原生session_info核uid7/store1/revision1；错误/过期revision或身份/店铺不匹配不acquire。15项相关离线回归执行真实controller/service片段和原生JS查询生成函数，PASS；仅该范围，不与旧150/六原生结果叠加。旧失败runner及未运行修正版保留。最终T `f90ad2ab48e922f3e45caff6fe95d1f3d4470bb5`，实际编辑执行T `24f9e84156a1c4c9deee7a2d2d13b71000f7508e`；后续仅翻译边界/相关测试改变，编辑与日志源码相同。
+- 无凭据诊断首失败是supervisor注入PYTHONFAULTHANDLER=1与诊断worker局部环境契约不一致，在driver/Firefox前退出；保留首异常并保守计一次诊断尝试。另离线核真实DEBUG退出格式并修parser，Firefox子进程定向接项目既有库目录（不改driver全局白名单、不安装依赖）。第二次空白页诊断PASS，实际Firefox PID1526959退出0/signal null且已不存在，0业务网络/0provider。旧-02仅Error的根因和内部PID/退出仍UNKNOWN，不能把本次配对/库加载观察倒填成历史根因。
+- res_device真实logger为 `odoo.addons.base.models.res_device`；本任务本地配置WARNING，合成敏感INFO抑制而ERROR/普通日志/审计保留。两真实owned服务在run.start、socket及actualPID/logger30/configSHA证明齐备后才准入；实际用户7登录新增native device记录，两个新native日志敏感marker均0。core、设备及S01认证逻辑未改，旧受控日志不删、不公开原行/标识/凭据摘要，不宣称历史绝无泄漏或已外泄。
+- A-EDITOR已真实完成：用户7正常HTTP登录，合法新连接acquire后用本次返回令牌release（令牌仅RAM），两HTTP200。独立RO确认旧过期editor失效审计、acquire/release共三条，文书编辑字段合法清空，四mutex各+2；正文confirmed/v4、作者/负责人7、版本9→10及费库账款/库存/原件保全。未重复编辑、改正文/负责人/权限或密码。
+- **A-ORIGINAL仍未完成，团队测试工程遗漏：** UI1 Firefox/context成功但用户名fill超时，本地MAIN_A_BROWSER_REQUEST_FORBIDDEN/pageerror，6GET200、尚无认证POST/原件GET。首次修复只核LocalizationPlugin的默认 `/web/webclient/translations`，窄接hash/lang后离线及交叉审通过。UI2再次出现用户名fill超时，同时有GET/OTHER_ROUTE/同boundary拒绝且upstream_attempted=false；再核发现已装http_routing通过get_frontend_session_info实际覆盖translationURL为 `/website/translations`，原生插件优先此配置。未保留两次被拒确切URL，故具体route仍为源码执行链支持的推断，不能冒实测；UI1表单hidden同为源码支持推断，实测仅fill超时等。修复漏审动态配置，验收准出也未覆盖该继承链，不能归因用户密码、业务权限、产品拒绝、Native或平台安全拒绝。
+- 两次真实UI额度耗尽，服务均正常退出，不第三启动、不热改/换工具或直接GET冒UI。原件点击、GET、下载、完整性与逐页查看均0；仅留存原件继续同27665B/application/pdf/固定SHA。未来最小源码修正应同时覆盖03专用和generic浏览器GET两层的exact `/website/translations` 及真实hash/lang形状，不能泛放 `/website`/RPC；本轮未生成未经运行替代候选。最终独立验收仅接受STATE/EDITOR及工具修复的实际层级，整A/S10/T12/生产不通过。

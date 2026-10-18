@@ -4221,5 +4221,586 @@
       "business_reexecuted_for_sync": false
     }
   },
-  "current_execution_message_id": "YD-S10-LC2-MAIN-A-20261018-02"
+  "current_execution_message_id": "YD-S10-LC2-MAIN-A-20261018-03",
+  "main_a_engineering": {
+    "allowed_business_differences": {
+      "audit_events": [
+        "login",
+        "login.scope",
+        "store.switch",
+        "clinical.editor_invalidated",
+        "clinical.edit_acquire",
+        "clinical.edit_release"
+      ],
+      "document_editor_and_write_metadata_only": {
+        "connection_hash_is_null": {
+          "after": true,
+          "before": false
+        },
+        "editor_hash_is_null": {
+          "after": true,
+          "before": false
+        },
+        "write_date": {
+          "after": "2026-10-18T00:19:53.300403",
+          "before": "2026-10-17T08:59:48.617108"
+        },
+        "ydental_editor_expires": {
+          "after": null,
+          "before": "2026-10-17T09:09:51"
+        },
+        "ydental_editor_id": {
+          "after": null,
+          "before": 7
+        },
+        "ydental_session_id": {
+          "after": null,
+          "before": 109
+        },
+        "ydental_session_revision": {
+          "after": 0,
+          "before": 1
+        }
+      },
+      "four_mutexes_each_plus_two": true,
+      "funds_stock_text_version_or_original_mutations": 0
+    },
+    "authentication": {
+      "core_user_metadata_equal": true,
+      "manual_timezone_or_permission_writes": 0,
+      "native_new_device_metadata": [
+        {
+          "first_activity": "2026-10-18T00:19:52",
+          "id": 4,
+          "last_activity": "2026-10-18T00:19:52",
+          "revoked": false,
+          "user_id": 7
+        }
+      ],
+      "native_new_user_login_metadata": [
+        {
+          "create_date": "2026-10-18T00:19:51.992399",
+          "create_uid": 7,
+          "id": 4,
+          "write_date": "2026-10-18T00:19:51.992399",
+          "write_uid": 7
+        }
+      ],
+      "native_timezone_initialization_branch_applied": false,
+      "new_s01_audits": [
+        {
+          "create_date": "2026-10-18T00:19:51.992399",
+          "id": 1188,
+          "ydental_after": null,
+          "ydental_before": null,
+          "ydental_category": "personnel",
+          "ydental_event": "login",
+          "ydental_result": "accepted",
+          "ydental_source": "native_authenticated_login",
+          "ydental_store_id": null,
+          "ydental_target_id": 7,
+          "ydental_target_model": "res.users",
+          "ydental_user_id": 7
+        },
+        {
+          "create_date": "2026-10-18T00:19:52.408345",
+          "id": 1189,
+          "ydental_after": null,
+          "ydental_before": null,
+          "ydental_category": "personnel",
+          "ydental_event": "login.scope",
+          "ydental_result": "accepted",
+          "ydental_source": "authenticated_session",
+          "ydental_store_id": null,
+          "ydental_target_id": 111,
+          "ydental_target_model": "ydental.access.session",
+          "ydental_user_id": 7
+        },
+        {
+          "create_date": "2026-10-18T00:19:52.408345",
+          "id": 1190,
+          "ydental_after": {
+            "store_id": 1
+          },
+          "ydental_before": {
+            "store_id": false
+          },
+          "ydental_category": "personnel",
+          "ydental_event": "store.switch",
+          "ydental_result": "accepted",
+          "ydental_source": "interactive",
+          "ydental_store_id": 1,
+          "ydental_target_id": 111,
+          "ydental_target_model": "ydental.access.session",
+          "ydental_user_id": 7
+        },
+        {
+          "create_date": "2026-10-18T00:19:53.150115",
+          "id": 1191,
+          "ydental_after": {
+            "previous_editor_id": 7
+          },
+          "ydental_before": null,
+          "ydental_category": "medical",
+          "ydental_event": "clinical.editor_invalidated",
+          "ydental_result": "accepted",
+          "ydental_source": "clinical_document",
+          "ydental_store_id": 1,
+          "ydental_target_id": 1,
+          "ydental_target_model": "ydental.clinical.document",
+          "ydental_user_id": 7
+        },
+        {
+          "create_date": "2026-10-18T00:19:53.150115",
+          "id": 1192,
+          "ydental_after": null,
+          "ydental_before": null,
+          "ydental_category": "medical",
+          "ydental_event": "clinical.edit_acquire",
+          "ydental_result": "accepted",
+          "ydental_source": "clinical_document",
+          "ydental_store_id": 1,
+          "ydental_target_id": 1,
+          "ydental_target_model": "ydental.clinical.document",
+          "ydental_user_id": 7
+        },
+        {
+          "create_date": "2026-10-18T00:19:53.300403",
+          "id": 1193,
+          "ydental_after": null,
+          "ydental_before": null,
+          "ydental_category": "medical",
+          "ydental_event": "clinical.edit_release",
+          "ydental_result": "accepted",
+          "ydental_source": "clinical_document",
+          "ydental_store_id": 1,
+          "ydental_target_id": 1,
+          "ydental_target_model": "ydental.clinical.document",
+          "ydental_user_id": 7
+        }
+      ],
+      "new_s01_sessions": [
+        {
+          "id": 111,
+          "write_date": "2026-10-18T00:19:52.408345",
+          "write_uid": 7,
+          "ydental_revision": 1,
+          "ydental_store_id": 1,
+          "ydental_user_id": 7
+        }
+      ],
+      "old_refused_materials_accessed": false,
+      "password_resets_or_new_users": 0,
+      "provider": "Existing root02 credentials for user7/5 only",
+      "provider_contents_or_password_hash_or_digest_exported": false,
+      "user5_existing_timezone_and_login_present_before_UI2": true,
+      "user5_normal_login_not_submitted": true,
+      "user7_normal_http_login": true
+    },
+    "cluster": "7694897083368259627",
+    "contract_regressions": {
+      "coverage_gap": "Default translation producer covered; installed http_routing session override omitted in both UI admission reviews",
+      "kind": "SOURCE_DERIVED_OFFLINE_RELATED_TESTS_NOT_APPLICATION_OR_ALL_FRONTEND_INHERITANCE_ACCEPTANCE",
+      "old150_and_framework6": "ACCEPTED_UNCHANGED_NOT_RERUN",
+      "successful": true,
+      "tests": 15
+    },
+    "core_commit": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+    "cumulative_counts": {
+      "accident_ro": 2,
+      "create": 2,
+      "firefox": 5,
+      "http": 25,
+      "maintenance": 1,
+      "odoo_start": 8,
+      "original_get": 0,
+      "target_ro": 25
+    },
+    "database": "ydental_s10_test_20261017105432_810a7d9c",
+    "diagnostic2_and_editor_candidate": "24f9e84156a1c4c9deee7a2d2d13b71000f7508e",
+    "diagnostics": {
+      "diagnostic1": "SUPERVISOR_PYTHON_FLAG_CONTRACT_ERROR_BEFORE_DRIVER_OR_FIREFOX",
+      "diagnostic1_worker_exit": 1,
+      "diagnostic1_worker_pid": 1524233,
+      "diagnostic2": "PASS_BLANK_PAGE_NO_NETWORK_OR_CREDENTIALS",
+      "diagnostic2_firefox_exit": 0,
+      "diagnostic2_firefox_pid": 1526959,
+      "diagnostic2_firefox_pid_gone": true,
+      "diagnostic2_firefox_signal": null,
+      "diagnostic2_worker_exit": 0,
+      "diagnostic2_worker_pid": 1526945,
+      "existing_dependency_fix": "Only selected Firefox child env fixed two existing library directories; Node/normal driver whitelist unchanged; no install/sandbox flags/OS change",
+      "old_02_firefox_error_root_cause": "UNKNOWN_NOT_RECONSTRUCTED",
+      "pairing": "Playwright1.63.0 requires Firefox1543/version155.0; selected and reported155.0 match"
+    },
+    "independent_acceptance": {
+      "canonical": "/root/acceptance_autonomy",
+      "status": "A_STATE_SCOPED_ACCEPTED / A_EDITOR_REAL_HTTP_AND_COMMITTED_RELEASE_ACCEPTED / NATIVE_DEVICE_LOG_SUPPRESSION_SCOPED_VERIFIED / A_ORIGINAL_DOWNLOAD_NOT_RUN / A_GROUP_INCOMPLETE / S10_T12_PRODUCTION_BLOCKED",
+      "report": "docs/reports/s10-log-and-closeout-v2-r12/acceptance-review.md",
+      "bytes": 83746,
+      "sha256": "4016f179bb0114fd5ce2ce85594e8c99cc6139304d4cf5f1ebf98834838309fe",
+      "historical_prefix_bytes": 72919,
+      "historical_prefix_preserved": true,
+      "scope": "INDEPENDENT_SOURCE_AND_SAVED_FINITE_EVIDENCE_REVIEW_NOT_IMPLEMENTATION_OR_APPLICATION_EXECUTION",
+      "github_delivery_presigned": false
+    },
+    "initial_candidate": "cfeb7df30278c43e29b17b202ca17702e7871139",
+    "native_cli_internal_system_connections_actual": "UNKNOWN_SOURCE_INFERRED_ALLOWANCE_NOT_ACTUAL_COUNT",
+    "native_privacy": {
+      "actual_process_attested_device_logger_levels": [
+        30,
+        30
+      ],
+      "all_possible_secrets_globally_absent_claimed": false,
+      "native_device_session_prefix_marker_counts": [
+        0,
+        0
+      ],
+      "normal_user7_login_and_device_created_with_marker_absent": true,
+      "old_sensitive_logs_preserved_no_values_lines_or_digest_exported": true,
+      "specific_log_suppression_verified": true
+    },
+    "new_firefox_purpose_counts": {
+      "diagnostic": 2,
+      "ui": 2
+    },
+    "new_resource_counts": {
+      "clinical_acquire": 1,
+      "clinical_release": 1,
+      "create": 0,
+      "dynamic_pdf": 0,
+      "firefox": 4,
+      "funds": 0,
+      "http": 20,
+      "maintenance": 0,
+      "odoo_start": 2,
+      "original_get": 0,
+      "password_reset": 0,
+      "stock": 0,
+      "target_ro": 6,
+      "upgrade": 0
+    },
+    "no_more_runtime_dispatch": true,
+    "oid": 2144129,
+    "original_ui2_final_candidate": "f90ad2ab48e922f3e45caff6fe95d1f3d4470bb5",
+    "owned_odoo": [
+      {
+        "currently_exists": false,
+        "directory": ".local/s10-lc2-main-a-20261018-03/application-main-service-330aa53f",
+        "elapsed_seconds": 36.888,
+        "exit_evidence": {
+          "bytes": 111,
+          "path": ".local/s10-lc2-main-a-20261018-03/application-main-service-330aa53f/parent-exit.tsv",
+          "sha256": "e181245c0678bcbb6f2a1a2d77d24ed378023ff73fc554ee16a6e9330403113d"
+        },
+        "pid": 1527646,
+        "returncode": 0,
+        "signal": null,
+        "start_epoch_ns": 1792282790371772694
+      },
+      {
+        "currently_exists": false,
+        "directory": ".local/s10-lc2-main-a-20261018-03/application-main-service-065f0560",
+        "elapsed_seconds": 34.967,
+        "exit_evidence": {
+          "bytes": 111,
+          "path": ".local/s10-lc2-main-a-20261018-03/application-main-service-065f0560/parent-exit.tsv",
+          "sha256": "6e44734182c8755e5f211761e81984deb9743a98006c2eff46393ee5fbb3d23a"
+        },
+        "pid": 1532853,
+        "returncode": 0,
+        "signal": null,
+        "start_epoch_ns": 1792283226190367582
+      }
+    ],
+    "port": 18410,
+    "product_commit": "cf5d63fe510b52ea150d07495bf3062f4ce0961d",
+    "rows": [
+      {
+        "all_other_domains_equal": true,
+        "baseline_equal_before": true,
+        "evidence_layers": [
+          "INDEPENDENT_MAIN_RO_BEFORE_AFTER_EDITOR_BEFORE_ORIGINAL_TERMINAL",
+          "NATIVE_RETAINED_FILE_BASELINE_NOT_DOWNLOAD"
+        ],
+        "execution": "EXECUTED",
+        "historical_audit_rows_preserved": 1181,
+        "id": "A-STATE",
+        "identity_groups_companies_memberships_grants_capabilities_equal": true,
+        "installed_modules": 93,
+        "normalized_domains_equal": true,
+        "rows": 1034,
+        "status": "PASS_SCOPED_PROTECTED_STATE_WITH_EXPLICIT_EDITOR_DIFFERENCES",
+        "tables": 60,
+        "terminal_changed_domains": [
+          "ydental_clinical_document",
+          "ydental_intake_mutex",
+          "ydental_patient_mutex",
+          "ydental_queue_mutex",
+          "ydental_supply_mutex"
+        ],
+        "terminal_document": {
+          "connection_hash_is_null": true,
+          "editor_hash_is_null": true,
+          "id": 1,
+          "state": "confirmed",
+          "write_date": "2026-10-18T00:19:53.300403",
+          "write_uid": 7,
+          "ydental_author_id": 7,
+          "ydental_current_execution_id": 1,
+          "ydental_editor_expires": null,
+          "ydental_editor_id": null,
+          "ydental_editor_lease_id": null,
+          "ydental_patient_id": 1,
+          "ydental_responsible_id": 7,
+          "ydental_session_id": null,
+          "ydental_session_revision": 0,
+          "ydental_store_id": 1,
+          "ydental_version": 4
+        },
+        "versions9_10_and_old_authors_and_responsible_equal": true
+      },
+      {
+        "acquire_http": 200,
+        "actor_id": 7,
+        "execution": "EXECUTED",
+        "firefox_button_claimed": false,
+        "four_mutex_deltas": {
+          "ydental_intake_mutex": 2,
+          "ydental_patient_mutex": 2,
+          "ydental_queue_mutex": 2,
+          "ydental_supply_mutex": 2
+        },
+        "id": "A-EDITOR",
+        "independent_release_observed": true,
+        "layers": [
+          "STANDARD_LOGIN_FORM_HTTP",
+          "NATIVE_AUTHENTICATED_SESSION_INFO_UID_STORE_REVISION",
+          "EXISTING_CLINICAL_SERVICE_ACQUIRE_RELEASE_NEW_TOKEN",
+          "INDEPENDENT_MAIN_RO_AUDIT_AND_STATE"
+        ],
+        "new_editor_token_consumed_by_matching_release": true,
+        "old_expired_editor_invalidated_by_service": true,
+        "release_http": 200,
+        "repeat_count": 0,
+        "revision": 1,
+        "session_id": 111,
+        "status": "PASS_REAL_HTTP_NORMAL_LOGIN_AND_INDEPENDENT_COMMITTED_STATE",
+        "store_id": 1,
+        "token_retention": "RAM_ONLY_NOT_EXPORTED"
+      },
+      {
+        "actor_id": 5,
+        "candidate_route_causal_status": "SOURCE_SUPPORTED_INFERENCE_NOT_CAPTURED_REQUEST_OR_VERIFIED_FIX",
+        "computed_login_form_visibility": "NOT_OBSERVED_INITIAL_D_NONE_AND_BOOTSTRAP_MOUNT_ARE_SOURCE_INFERENCE",
+        "direct_http_or_old_copy_substitution": false,
+        "download_sha256": null,
+        "downloads": 0,
+        "execution": "NOT_RUN",
+        "id": "A-ORIGINAL",
+        "layers": [
+          "TWO_REAL_FIREFOX_UI_LOGIN_PAGE_ATTEMPTS_FAILED_BEFORE_FORM_SUBMISSION",
+          "REAL_SOURCE_FRONTEND_BOOTSTRAP_CONTRACT_REVIEW",
+          "RETAINED_ORIGINAL_BYTES_ONLY"
+        ],
+        "original_gets": 0,
+        "pdf_visual_pages": 0,
+        "reason": "BOTH_UI_ATTEMPTS_BLOCKED_BY_LOCAL_REQUEST_ALLOWLIST_BEFORE_USERNAME_FIELD_FILL_COMPLETED; ONLY_FALLBACK_TRANSLATION_URL_WAS_ADMITTED; INSTALLED_HTTP_ROUTING_OVERRIDES_FRONTEND_TRANSLATION_URL",
+        "retained_original_baseline": {
+          "attachment_id": 161,
+          "bytes": 27665,
+          "sha256": "05928780e7d97a06cf29019634f64b010eb4994c2f1c5032d561008a50b059b4"
+        },
+        "source_supported_candidate": "http_routing.get_frontend_session_info supplies /website/translations; LocalizationPlugin prefers session.translationURL; existing gate and generic browser GET lack it",
+        "status": "BLOCKED",
+        "ui2_exact_rejected_url": "NOT_RETAINED_NOT_RECONSTRUCTED",
+        "ui2_observed_rejected_path_class": "OTHER_ROUTE",
+        "user5_native_login_posts": 0,
+        "workbench_clicks": 0
+      }
+    ],
+    "rules_version": "MAIN-A-ENGINEERING-1.0",
+    "s10_t12_production": "BLOCKED",
+    "scope": "MAIN_A_TEST_ENGINEERING_AND_CLOSEOUT",
+    "status": "A_STATE_AND_A_EDITOR_PASS_A_ORIGINAL_NOT_RUN_LOCAL_UI_INTEGRATION_BLOCKED",
+    "storage_ref": "final-storage-metadata.json",
+    "task_message_id": "YD-S10-LC2-MAIN-A-20261018-03",
+    "ui_attempts": [
+      {
+        "actual_visibility_or_exact_rejected_route_observed": false,
+        "close": {
+          "actual_upstream_fetches": 6,
+          "blocked_websocket_handshakes": 0,
+          "boundary_failure": "MAIN_A_BROWSER_REQUEST_FORBIDDEN",
+          "browser_storage_exported": false,
+          "credentials_retention": "MEMORY_ONLY",
+          "elapsed_seconds": 33.305,
+          "firefox_launches": 1,
+          "manual_redirect_hops": 0,
+          "observed_responses": 6,
+          "pageerror_count": 1,
+          "process_exit_observation": "PARENT_SUPERVISOR_REQUIRED",
+          "redirect_policy": "MANUAL_REDIRECT",
+          "routed_requests": 6,
+          "serial_ram_contexts": 1,
+          "transport": "BROWSER_UPSTREAM_FORWARDED"
+        },
+        "directory": ".local/s10-lc2-main-a-20261018-03/browser-ui-82ac8a38",
+        "download": 0,
+        "login_post": 0,
+        "original_get": 0,
+        "rejection_classifications": [],
+        "visual_pages": 0,
+        "workbench_clicks": 0
+      },
+      {
+        "actual_visibility_or_exact_rejected_route_observed": false,
+        "close": {
+          "actual_upstream_fetches": 6,
+          "blocked_websocket_handshakes": 0,
+          "boundary_failure": "MAIN_A_BROWSER_REQUEST_FORBIDDEN",
+          "browser_storage_exported": false,
+          "credentials_retention": "MEMORY_ONLY",
+          "elapsed_seconds": 33.396,
+          "firefox_launches": 1,
+          "manual_redirect_hops": 0,
+          "observed_responses": 6,
+          "pageerror_count": 1,
+          "process_exit_observation": "PARENT_SUPERVISOR_REQUIRED",
+          "redirect_policy": "MANUAL_REDIRECT",
+          "routed_requests": 6,
+          "serial_ram_contexts": 1,
+          "transport": "BROWSER_UPSTREAM_FORWARDED"
+        },
+        "directory": ".local/s10-lc2-main-a-20261018-03/browser-ui-bdec7c23",
+        "download": 0,
+        "login_post": 0,
+        "original_get": 0,
+        "rejection_classifications": [
+          {
+            "kind": "BROWSER_ROUTE_REJECTION_CLASSIFICATION",
+            "method": "GET",
+            "path_class": "OTHER_ROUTE",
+            "query_and_body_retained": false,
+            "raw_path_retained": false,
+            "reason_code": "MAIN_A_BROWSER_REQUEST_FORBIDDEN",
+            "upstream_attempted": false
+          }
+        ],
+        "visual_pages": 0,
+        "workbench_clicks": 0
+      }
+    ],
+    "ui_process_exit_codes": "UNKNOWN_NOT_CAPTURED_BUT_CURRENT_KNOWN_PROJECT_BROWSER_DRIVER_EXECUTABLE_MATCHES_ZERO",
+    "message_id": "YD-S10-LC2-MAIN-A-20261018-03",
+    "parent_commit": "4554545e99375dd9b6c0552b0611cd550a717808",
+    "test_tools_commit": "f90ad2ab48e922f3e45caff6fe95d1f3d4470bb5",
+    "start_comment": {
+      "id": 6243516872,
+      "api_full_readback_exact": true,
+      "body_bytes": 3313,
+      "body_sha256": "dfe5c24d48de88ab7d99794987745dd6c4be4e2a252da2423977400ed2fd8303"
+    },
+    "window": {
+      "first_received": "2026-10-18T00:03:25Z",
+      "deadline": "2026-10-18T04:03:25Z",
+      "runtime_stopped": true,
+      "unused_budget_does_not_authorize_continuation": true
+    },
+    "new_limits": {
+      "odoo_start": 4,
+      "target_ro": 12,
+      "http": 200,
+      "firefox": 4,
+      "firefox_diagnostic": 2,
+      "firefox_ui": 2,
+      "original_get": 3
+    },
+    "roles": {
+      "controller": "/root",
+      "developer": "/root/developer_autonomy",
+      "tester": "/root/tester_autonomy",
+      "acceptance": "/root/acceptance_autonomy",
+      "single_db_executor": "/root/tester_autonomy",
+      "os_isolation_claimed": false
+    },
+    "source_sha256": {
+      "scripts/s10_lc2_main_a_browser_diag.py": "a18affb9b5e037eca6536d873b57d42bdebce960cff6df5ea0372f8199e7fcf8",
+      "scripts/s10_lc2_main_a_runner.py": "922262852ca545223fdd79704a0f1c587ed04e1bc240b10951dae12f9b3a2905",
+      "scripts/s10_lc2_test_main_a_runner.py": "85f476f9fee065a22492b70a0e84eec01dc1e8a8f94d60e5c4ae1255a8a36741"
+    },
+    "logging_config_sha256": "abb22fbb1cf1c4bb650f9008a8a48cb84b45725c515cc5d0139b6cbcc0596a86",
+    "storage_snapshot": {
+      "measured_utc": "2026-10-18T00:30:46.685035+00:00",
+      "metadata_only_no_credential_content_or_per_credential_measurement": true,
+      "new_limit": 268435456,
+      "new_root_bytes": 717341,
+      "package_limit": 1073741824,
+      "retained_package_bytes": 140540917,
+      "roots": [
+        {
+          "bytes": 13586,
+          "root": ".local/s10-lc2-safety-triage-20261017-01"
+        },
+        {
+          "bytes": 507927,
+          "root": ".local/s10-lc2-framework6-20261017-01"
+        },
+        {
+          "bytes": 15254942,
+          "root": ".local/s10-lc2-r12-20261017"
+        },
+        {
+          "bytes": 341943,
+          "root": ".local/s10-lc2-caller-adapter-20261017-02"
+        },
+        {
+          "bytes": 6177106,
+          "root": ".local/s10-lc2-plan-20261017"
+        },
+        {
+          "bytes": 125944,
+          "root": ".local/s10-lc2-code-rework-20261017-01"
+        },
+        {
+          "bytes": 68391635,
+          "root": ".local/s10-lc2"
+        },
+        {
+          "bytes": 3403831,
+          "root": ".local/s10-lc2-main-a-20261018-01"
+        },
+        {
+          "bytes": 41820179,
+          "root": ".local/s10-lc2-exec-20261017"
+        },
+        {
+          "bytes": 3786483,
+          "root": ".local/s10-lc2-main-a-20261018-02"
+        },
+        {
+          "bytes": 717341,
+          "root": ".local/s10-lc2-main-a-20261018-03"
+        }
+      ]
+    },
+    "verification": {
+      "path": ".local/s10-lc2-main-a-20261018-03/main-a-engineering-verification.json",
+      "bytes": 13060,
+      "sha256": "ddb20a24d3c9638f60f3b1fe984b9d576b1a4d8b74cac4ead0eb4a9939510c53"
+    },
+    "private_raw_index": {
+      "path": ".local/s10-lc2-main-a-20261018-03/main-a-engineering-raw-index.json",
+      "bytes": 8301,
+      "sha256": "661fa4b7513dc6f57ac2c20f75c24c5b461973de0f3c9c02e230595fc657c72e",
+      "root_independently_verified_entries": 43
+    },
+    "github_sync": {
+      "status": "DELIVERY_PENDING",
+      "gpt_unsuccessful_comment_relayed": false,
+      "business_reexecuted_for_sync": false
+    }
+  },
+  "current_execution_status": "A_STATE_AND_A_EDITOR_PASS_A_ORIGINAL_NOT_RUN_LOCAL_UI_INTEGRATION_BLOCKED",
+  "current_execution_status_reason": "03 has no new platform safety refusal or Native; A-original blocked by local browser request integration and exhausted two UI attempts. Historical root message/execution_status and earlier task records are preserved as history."
 }

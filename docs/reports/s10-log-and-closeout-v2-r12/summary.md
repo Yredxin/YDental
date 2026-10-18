@@ -1,3 +1,35 @@
+# 当前 MAIN-A 工程收尾：编辑释放已完成，原件UI仍受测试工程阻断
+
+本轮 `YD-S10-LC2-MAIN-A-20261018-03` / `MAIN_A_TEST_ENGINEERING_AND_CLOSEOUT`，父 `4554545e99375dd9b6c0552b0611cd550a717808`。直接依据用户提供的《16_CODEX_MAIN_A_ENGINEERING_CLOSEOUT_20261018.md》全文，承接[上一轮真实交付6243358235](https://github.com/Yredxin/YDental/issues/34#issuecomment-6243358235)、[自主权](https://github.com/Yredxin/YDental/issues/23#issuecomment-6243010403)及[既有MAIN-A范围](https://github.com/Yredxin/YDental/issues/34#issuecomment-6243026115)。不代发GPT未成功写入的评论。START[6243516872](https://github.com/Yredxin/YDental/issues/34#issuecomment-6243516872)已API全文读回：3313B/SHA `dfe5c24d48de88ab7d99794987745dd6c4be4e2a252da2423977400ed2fd8303`。
+
+Product仍 `cf5d63fe510b52ea150d07495bf3062f4ce0961d`；最终测试源码T `f90ad2ab48e922f3e45caff6fe95d1f3d4470bb5`；真实编辑执行及首次UI候选 `24f9e84156a1c4c9deee7a2d2d13b71000f7508e`；后续只改翻译请求边界及相关回归，runner/编辑/日志实现相同。core只读 `f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb`；证据提交及最终评论回执由本轮交付固定，不将文书或产品提交重新标成测试修复。当前唯一入口MAIN-A-ENGINEERING-1.0，原入口归档和旧STOP/账本保留；未找到命名附件原文件，未冒称读取其原字节。
+
+|子项|本轮实际结果|证据层级与边界|
+|---|---|---|
+|A-STATE|PASS，限定保全|必要main身份/来源新鲜性和动作后独立RO；60域/1034行/93模块，只有文书编辑字段及四mutex允许差异，归一化域及其余55域相同。用户身份/业务权限、正文/版本/作者、资金库存、原件及既有审计保全，不称全库无变化。|
+|A-EDITOR|PASS，已提交并独立核实|用户7正常HTTP登录，native session_info确认uid7/store1/revision1；既有服务新连接acquire并用返回token release，均200。独立RO确认editor字段清空及三临床审计；未重做编辑。不是Firefox临床UI验收。|
+|A-ORIGINAL|BLOCKED / NOT_RUN_DOWNLOAD|两次Firefox可启动/context建立，均在正常登录提交前被本地测试路由白名单挡住，用户名fill超时；用户5未登录、工作台未到、点击/原件GET/下载/下载文件逐页查看均0。不是密码失效、产品权限或平台安全拒绝。|
+
+实际提交差异：正常用户7登录/native login及device各新增1（id4），access session111/store1/revision1及S01 audit1188 login、1189 login.scope、1190 store.switch；1191 clinical.editor_invalidated、1192 clinical.edit_acquire、1193 clinical.edit_release均actor7/doc1。旧editor7/session109由既有服务合法失效并释放，编辑字段为空/0（hash仅取ISNULL布尔），文书write_date正常更新、write_uid仍7。四mutex：intake381→383、patient419→421、queue401→403、supply688→690，各+2。正文仍confirmed/v4、作者/负责人7、版本9 confirm/v3→10 correct/v4/previous9不变；资金/库存/原件无业务变化。标准认证/会话变化与编辑权分别列，应用缓存及文件会话未全量计量，不冒全库只读。密码设置0、新增用户0、加权0；仅沿用既有02私有provider，开发/验收不读值。用户5原tz UTC和既有login_date已核，未发生认证写入。
+
+实际runner已纳入版本，依据真实controller switch只取合法revision，再刷新access及核原生会话；错误/过期revision及身份/店不匹配不acquire。15项本轮相关离线契约回归PASS，调用真实源码片段及执行真实JS查询producer；不冒原生应用测试或UI验收，不重跑旧150/六框架。正常就绪仍需run.start+socket+正确日志级别。旧失败runner与未运行修正版及本轮首失败均保留。
+
+精确日志修复：仅 `odoo.addons.base.models.res_device` WARNING（30），config SHA `abb22fbb1cf1c4bb650f9008a8a48cb84b45725c515cc5d0139b6cbcc0596a86`；两个owned PID1527646/1532853实际level证明在登录前通过，新native日志session敏感marker0/0，实际登录产生device记录；ERROR/其他必要日志及S01审计保留。不改core或设备记录，不公开旧原行/会话标识/凭据摘要。旧-02一次session前缀日志继续私有保全；没有密码外泄或会话被盗证据，也不宣称历史绝无敏感日志。
+
+无凭据诊断：Playwright1.63.0与选定Firefox1543/155.0匹配。首worker因supervisor注入PYTHONFAULTHANDLER=1与局部环境检查不一致，未到driver/Firefox，仍保守计诊断1；修契约及真实退出parser后，Firefox子进程仅接既有项目库目录，driver全局环境白名单未改、未安装依赖/关sandbox。诊断2空白页PASS，0provider/0网络，Firefox PID1526959 exit0/signal null且已不存在。DEBUG仅独立无凭据进程；正常UI无详细输入日志。旧-02 Error的具体根因及内部PID/退出仍UNKNOWN，不用新诊断倒填旧记录。
+
+两次UI的具体工程问题：UI1本地guard拒绝但未记录确切URL，源码支持翻译bootstrap被拦的推断；只修默认 `/web/webclient/translations` 后，UI2又记录GET/OTHER_ROUTE/guard拒绝/upstream_attempted=false。后续核已装http_routing及原生frontend_layout调用链发现 `translationURL='/website/translations'` 覆盖，LocalizationPlugin优先它。前次实现和交叉准出均漏审动态producer配置；15离线只覆盖fallback不足以证明真实登录。两次被拒确切URL没有保留，不能把源码推断或hidden-form推断称作实测。未来最小修复需两层exact只读路由/真实hash-lang形状，本轮未生成未运行替代候选。
+
+旧原件1/附件161仍27665B/application/pdf/SHA `05928780e7d97a06cf29019634f64b010eb4994c2f1c5032d561008a50b059b4`；这是留存及基线保全，**不是本轮下载或视觉验收**，无旧本地副本冒充。未调用动态PDF、新建/覆盖原件、正文确认或资金链。
+
+资源：本轮Odoo2/4、独立mainRO6/12、HTTP20/200、Firefox尝试4/4（诊断2/2、真实UI2/2）、旧原件GET0/3；累计Odoo8/12、RO25/48、HTTP25/600、Firefox5/5、GET0/12，旧accidentRO2/maintenance1/CREATE2只继承。00:30:46Z空间快照新raw717341B/包140540917B，低于256MiB/1GiB，后续索引/同步小文件另增。两个Odoo PID1527646/1532853 exit0且已不存在，各约37/35秒；UI browser.close和driver.stop返回，选定项目浏览器/driver当前无匹配进程，正常UI内部PID/退出码未捕获，不能宣称已逐个PID核实。CLI内部系统连接实际数仍UNKNOWN，不回造旧账本。窗口00:03:25Z—04:03:25Z，运行已停止；UI/诊断额度耗尽，不自动续用其他余量。
+
+真实团队保持 `/root` 主控、`/root/developer_autonomy` 工具开发、`/root/tester_autonomy` 唯一main执行、`/root/acceptance_autonomy` 独立源码及保存证据验收；均采用同一MAIN-A-ENGINEERING-1.0，角色非OS隔离，验收不签自己实现。独立验收已签署限定STATE/EDITOR及指定日志效果；验收报告83746B/SHA `4016f179bb0114fd5ce2ce85594e8c99cc6139304d4cf5f1ebf98834838309fe`，原72919B前缀完整保留，未预签GitHub同步。有限verification/index、空间快照及独立签署见矩阵 `main_a_engineering` 和现有acceptance-review.md本轮追加。**A组仍未完成；S10/T12及生产BLOCKED。** 不进入其他业务组/生产、不改Issue/Project状态、不合并/强推/部署，不为同步重执业务。
+
+---
+
+以下为-02及更早历史原文，结论限各自当时范围：
+
 # 当前 MAIN-A 自主管理交付：凭据准备与正常登录成功，A组仍未完成
 
 最终[本轮交付6243358235](https://github.com/Yredxin/YDental/issues/34#issuecomment-6243358235)已API全文读回一致：7086B/SHA `f4e4f7398cdb77f1584c1ccea2154b39442b0f18ceaa70f32aa82885ab376db9`；证据提交 `abfd1a74232739617a7e7d34637118da02fc7dd2`。本次同步未重执业务。
