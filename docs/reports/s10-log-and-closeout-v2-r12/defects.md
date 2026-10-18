@@ -90,3 +90,11 @@ TR01源码接受后在现scratch第一次真实运行五TransactionCase+一HttpC
 |目标和保全闭环未完成|固定source1/payment1/audit228、MODEL uid6；RPC逐项保全PENDING；批次capture不覆盖逐项旧audit/关系，editor旧mask过宽|可信target manifest、实际ordinary环境、逐项case/request与独立before-after/终核，先保每项结果再断言；不能以空目标或同连接回滚冒提交状态。|
 
 实际可复用函数/原生core行号、最小修复影响面和独立只读范围详见summary本轮顶部及matrix `b_call_chain_readonly`。B-MODEL-6/B-RPC-6仍NOT_RUN且actual_evidence空；本轮不改产品/测试源码、不创建新框架/计划或P0，不运行未授权包，不重判已采六框架/A-EDITOR。
+
+
+## B-CALLER-OFFLINE-REPAIR / revision 1 / CODE_AND_PURE_ONLY
+
+- 已修测试调用图：新增B-only纯组合及fixture earlyreturn，排除旧账号/A/用户7/报告配置/C/D/E；真实run_b_only保原准入后明确INTEGRATION_PENDING，不新增授权形状。
+- 已修证据逻辑：MODEL精确异常/公开参数+实际env/check字段/回滚后先存；RPC逐项意图/transport/拒绝层及callback失败、UNKNOWN不重试；消费六MODEL记录、唯一server关联、按check/phase/时序/关闭RO及严格释放字段的before-after/终核，缺/歧义不PASS。
+- 冻结前静审收紧了仅总flag、缺server继续、技术管理员代测及宽松editor/时间关联；首纯运行28PASS，最终T50480008696c360b9afe36ca760ba33959adc879为30新B+11受影响旧HTTP=41PASS/exit0，首测试失败NONE，开发结果不叠加。
+- 尚未修的是运行集成：实际profile/owner/准入、新MODEL模式真实caller、合法provider消费/正常身份及目标来源、原生日志/引用解析、独立RO采集尚未接通；本轮没授权也没执行它们。业务B仍NOT_RUN，原整包仍PREPARED_NOT_AUTHORIZED。详细源码与PURE证据见summary/matrix新增b_caller_offline_repair，未改产品规则/权限/core/旧计数。

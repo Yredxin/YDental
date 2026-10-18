@@ -1,3 +1,35 @@
+# B调用编排离线修复已交付：SOURCE/PURE通过，业务MODEL/RPC未运行
+
+本轮执行 **B-CALLER-OFFLINE-REPAIR / revision 1**，同task `S10-LOG-AND-CLOSEOUT-v2`，直接依据用户续行要求与[正式6245198569第2—3节](https://github.com/Yredxin/YDental/issues/34#issuecomment-6245198569)。74ad8c6只读交付已正式采纳并结束，本轮完成实际测试代码修改、纯回归和独立审查，没有再交规划。起点 `1490ff5fc1d9c2427126ecf687c906fe3d318967` 仅最新CURRENT_TASK文档，起始工作树干净，安全快进，无新的所有权冲突；沿用原主控/开发/测试/验收，未新建团队或计划。
+
+最终代码/测试T **`50480008696c360b9afe36ca760ba33959adc879`**；主实现提交d856edd56f5a7dfaf4f159c63d664d77aab73410，后一提交仅补实际helper管理员拒绝子场景。产品保持cf5d63fe510b52ea150d07495bf3062f4ce0961d，core保持f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb。最新真实UI执行仍ee730，UI支线后修4ff3仅离线；本轮不是UI或应用运行。原整包S10_REMAINING_CLOSEOUT.md仍PREPARED_NOT_AUTHORIZED，blob e8e2140a82ff7776e6d7f975415f4ee544c9b737未动，不发布/代发/改写旧授权，不启动START或应用时钟。
+
+|已完成源码项|实际改动与纯验证边界|
+|---|---|
+|B编排拆分|cases.py新增run_b_only与私有_run_b_only_checks；前者先走不变的runtime_gate/dispatch/STOP检查，然后明确B_RUNTIME_PROFILE_INTEGRATION_PENDING，当前无真实执行入口。后者只组合显式model_probe/actor_factory/RO与server事件依赖，无服务/loader实现。fixture_process.main增加main-b-only earlyreturn，只调用run_b_model_only，报告配置、C reader/password/token、旧账号检查、A/用户7、D资金、E升级均不在B新调用图中。旧总入口历史保留，但不能继续运行或用其旧参数代新合同。|
+|身份与目标接口|validate_b_inputs消费明确非敏感manifest和provider引用，不读provider、不猜固定目标、不回退旧材料。约束main身份、三对象/非空目标/有效字段参数、普通active/internal/application身份、非su且非技术管理员/非用户7及来源引用。缺/错输入拒绝；这些是可校验接口，未生成现场manifest或声称外部引用已真实解析。|
+|六MODEL探针|lc2_fixture._model_denials保持真实普通首env/default_env/savepoint/rollback语义，不sudo、不改uid或default_env、不commit；核完整原生AccessError name及固定公开参数，增加check_id/phase/时间及实际env观察。逐项回滚后先保存观察，再断言精确拒绝和rowSHA。独立保全仍PENDING，由消费者逐项校验；没有六项MODEL实测。|
+|逐RPC保存与分类|Actor.rpc_observed复用真实Client，先保存每项intent和transport再断言；NOT_SENT、RESPONSE_RECEIVED、认证/格式前置拒绝、预期精确模型拒绝、其他native结果及UNKNOWN分开。Client仅增加optional dispatch_observer，无callback旧行为不变；guard/budget/intent之后、open之前为INTENT_READY，不冒server已收到。callback自身失败明确RequestNotSent，断连或开后未知只保UNKNOWN，不重试。|
+|server关联/保全消费|复用observed_http实际uid/su与独立UUID字段；phase/check_id/target/actor/baseline绑进opref，按hash/attempt/有时区有限时间窗唯一匹配，歧义/缺事件/身份不符即停。client/server ID无需相等。before/after/terminal需同check/phase/point/目标/来源、独立RO完成并ROLLBACK/close、不同引用/连接、旧行/审计/保护SHA相同、严格editor各字段空，终核晚于整批请求。六MODEL记录也逐项消费精确异常/环境/目标/回滚及独立证据，不能只信six_denied或VERIFIED总flag。缺证据不填PASS，UNKNOWN不发下一项。|
+
+上述cases.py、fixture_process.py、http.py均位于scripts；helper为ydental_settlement_test/models/lc2_fixture.py。新聚焦纯测试是scripts/s10_lc2_test_b_caller.py，未新增runner/日志/秘密管理平台。未修改产品addon、core、权限/来源注册、runtime_gate、TaskProfile、PackageBudget、MAIN-A规则或STOP。B不消费revision的既采静态事实保持，代码不借添加产品scope检查制造“权限通过”。
+
+最终实际纯回归 **41 tests / 0failure / 0error / 0skip / exit0，1.86093s**：新B30＋受影响旧HTTP11。首轮开发28PASS单独保存，不累计成69；首测试失败NONE。独立审查补了实际helper admin/system子场景后才固定最终T并统一跑41；没有运行中热改源码。命令为 `PYTHONPATH=scripts timeout 600 ../.venv/bin/python -B -` 的实际unittest loader，加载s10_lc2_test_b_caller和s10_lc2_test_http；完整here-doc命令4104B/SHA `aa98cc02eaeb2445760afae06d075d435e00cd5c2b088e571f52c8dfa5177549` 保存在受控引用。测试执行真实修订函数、Client/request、Actor、fixture.main早分支和helper；实际源码AST只为注入明确合成依赖，不仿写业务逻辑。外层socket/进程/provider读取拒绝边界启用；测试夹具只在临时合成目录/内存，不写实际授权或业务证据目录。未载入odoo/psycopg2/playwright应用模块，外部网络/进程/provider尝试0；六份源码before/after SHA一致。此为PURE执行事实，不是操作系统隔离保证。
+
+最低负例均有实际函数覆盖：B分派不触发A/C/D/E/旧账号；缺manifest、目标/actor错误、管理员/用户7、缺/错/歧义server事件、缺独立before-after/终核、editor未清空、错check/phase/时区/时序/未关闭RO不得过；工具预拦不算Odoo拒绝，异常类型或参数不符先保存再拒，中途回调失败保此前与当前观察，client/server ID不同仍能唯一关联，UNKNOWN无重试；缺准入、已有STOP和旧MAIN-A规格仍阻止B。旧HTTP11只因optional接口变化作影响面回归，没有重跑全部150或六原生框架。
+
+实际分工：/root单写CURRENT_TASK/summary/defects/matrix及GitHub同步；原developer_autonomy独占四实现文件；原tester_autonomy独占聚焦纯测并执行41；原acceptance_autonomy未实现被验收代码，仅审最终diff、实际调用覆盖、保存日志/六源码与零应用边界，独占追加acceptance-review。均读YD-HANDOFF-V1.0及状态07/正式评论，真实原团队响应，不冒OS隔离。开发首稿中仅总flag消费、server缺失后继续、过宽editor/时序等问题在冻结前经交叉审收紧；没有把临时草稿当交付或应用失败。独立验收结论SOURCE_AND_PURE_SCOPED_ACCEPTED，详细范围由acceptance-review本轮追加固定；最终105248B/SHA `5c9254b08f7d82b85527baedfdff50270b29df70a82a54d6165feff3b6d2e669`，历史97967B前缀完整，已交回所有权，不预签未来同步。
+
+证据均在既有受控目录.local/yd-handoff-v1-20261018/b-caller-offline/：最终log7575B/SHA `7f8089df85842ba6faa9d50783b33109e193f527284fea6706ad58e81c128ec2`，result2450B/SHA `aaba4fd303b259d5eb328a398f2125e909baf3522f8e508593cb64e3393bda7c`，四引用索引916B/SHA `dceb7b4f3b3802927e3df1a17ace489b9de5906a616b8cac1e5ab8fae17d05b8`。索引各bytes/SHA/0600与目录0700已独立核；新增输出快照37628B，远低64MiB，随后小型索引/同步材料另增，不含真实provider值、cookie、token、原件或真实患者数据。
+
+**剩余运行集成具体未完成**：当前run_b_only仍明确拒绝；新main-b-only模式未接cases.run_fixture的真实调用者。未来有效应用包的profile/owner/预算接入、合法普通账号正常登录和当前store/revision采集、现场目标/关系manifest、实际MODEL执行及六真实call_kw、已校验原生日志/来源引用解析器、每项独立RO采集/终核仍未连接。schema通过不代表引用真实性已核，纯测试中的合同PASS不写入真实业务格。外部server事件须由未来采集器先核原生日志完整性并解析evidence_ref；不新造平台或绕准入。本轮不能解决或重发原整包授权问题。
+
+本轮Odoo/registry/DB/业务HTTP/Firefox/provider读取、资金/编辑/PDF/升级全0，旧累计Odoo10/RO30/HTTP32/Firefox6/原件GET0及事故RO2/维护1/CREATE2保持。B-MODEL-6/B-RPC-6依旧NOT_RUN、actual_evidence空；六框架/A-EDITOR/历史财务采纳保持，A原件及其余S10缺项未补填。源码和纯回归工作至此收口，交付后停止，不自动转应用、不启S11或合并部署。
+
+---
+
+以下为已采74ad8c6只读交付及更早历史原文，限原任务与时点：
+
 # B组调用链只读交付：可复用探针已定位，完整入口仍需最小拆分
 
 本轮直接依据用户“仅所有权核实及只读源码/证据核查”指令，协议YD-HANDOFF-V1.0，读取默认main规则/路由并完整读取活动状态05。固定源码候选 `9ebab39750dc5440b81b5415b3b0e69ad966b469`，core `f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb`。**本轮没有关闭新的MODEL或RPC业务验收项**，结论为STATIC_CALL_CHAIN_CHECKED / B_MODEL_AND_RPC_NOT_RUN；不将本轮核查写成产品FAIL或RUNTIME_READY。GPT已完成的模型字段及改删保护检查只承接，不重复；六原生框架、150纯测试和A-EDITOR不重审、不重放。

@@ -5493,5 +5493,218 @@
       "review_opinion_from": "/root/acceptance_autonomy",
       "level": "SOURCE_AND_DOCUMENT_DIFF_ONLY"
     }
+  },
+  "b_caller_offline_repair": {
+    "work": "B-CALLER-OFFLINE-REPAIR",
+    "revision": 1,
+    "task_id": "S10-LOG-AND-CLOSEOUT-v2",
+    "authority_comment": 6245198569,
+    "authority_url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6245198569",
+    "authority_layer": "CODE_ONLY_PURE_NOT_APPLICATION_RUNTIME",
+    "source_parent": "1490ff5fc1d9c2427126ecf687c906fe3d318967",
+    "implementation_commit": "d856edd56f5a7dfaf4f159c63d664d77aab73410",
+    "final_code_test_candidate": "50480008696c360b9afe36ca760ba33959adc879",
+    "product_commit": "cf5d63fe510b52ea150d07495bf3062f4ce0961d",
+    "core_commit": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+    "status": "SOURCE_AND_PURE_SCOPED_ACCEPTED_RUNTIME_NOT_RUN",
+    "pure_result": {
+      "actual_model_rpc_browser_or_committed_claimed": false,
+      "candidate": "50480008696c360b9afe36ca760ba33959adc879",
+      "command": "PYTHONPATH=scripts timeout 600 ../.venv/bin/python -B - [actual unittest loader: s10_lc2_test_b_caller + s10_lc2_test_http; outer process/network/provider guards]",
+      "elapsed_seconds": 1.8609286590944976,
+      "errors": 0,
+      "exit_code": 0,
+      "external_guards": {
+        "credential_provider_read_attempts": 0,
+        "network_or_process_attempts": 0
+      },
+      "failures": 0,
+      "first_development_28_not_added_to_final_count": true,
+      "first_development_run_ref": "tester-first-run.log",
+      "forbidden_application_modules_loaded": [],
+      "kind": "B_CALLER_OFFLINE_REPAIR_FINAL_PURE",
+      "module_counts": {
+        "s10_lc2_test_b_caller": 30,
+        "s10_lc2_test_http": 11
+      },
+      "outer_timeout_seconds": 600,
+      "passed": true,
+      "real_odoo_registry_database_http_firefox_provider_operations": 0,
+      "skips": 0,
+      "source_after_sha256": {
+        "scripts/s10_lc2_cases.py": "857be170c4533cbafbc9340f17d339d49b45fcc1fbd4b0f7d28a02bb7c92d8cf",
+        "scripts/s10_lc2_fixture_process.py": "3ff587fee6c7bd484fb851bd5d6279df1c8f7ad841c43574506296d2597dec85",
+        "scripts/s10_lc2_http.py": "e9827ae44df3b43662ab9302f2b505afb289fe3beac739d08d196047627a208c",
+        "scripts/s10_lc2_test_b_caller.py": "5fadf76c19db91867a825768e8efaad538ae349b1eb05548c015f6df73d9b73a",
+        "scripts/s10_lc2_test_http.py": "c090890261b58520c0a1e8666dce0c7fc349aac820263c39e757946cb349fead",
+        "ydental_settlement_test/models/lc2_fixture.py": "b096966982552e479c3d4dfa2ecaa55991702076d96733b1b37a336885b71090"
+      },
+      "source_before_sha256": {
+        "scripts/s10_lc2_cases.py": "857be170c4533cbafbc9340f17d339d49b45fcc1fbd4b0f7d28a02bb7c92d8cf",
+        "scripts/s10_lc2_fixture_process.py": "3ff587fee6c7bd484fb851bd5d6279df1c8f7ad841c43574506296d2597dec85",
+        "scripts/s10_lc2_http.py": "e9827ae44df3b43662ab9302f2b505afb289fe3beac739d08d196047627a208c",
+        "scripts/s10_lc2_test_b_caller.py": "5fadf76c19db91867a825768e8efaad538ae349b1eb05548c015f6df73d9b73a",
+        "scripts/s10_lc2_test_http.py": "c090890261b58520c0a1e8666dce0c7fc349aac820263c39e757946cb349fead",
+        "ydental_settlement_test/models/lc2_fixture.py": "b096966982552e479c3d4dfa2ecaa55991702076d96733b1b37a336885b71090"
+      },
+      "source_unchanged": true,
+      "started_at": "2026-10-18T03:50:34.510884+00:00",
+      "stdout_ref": {
+        "bytes": 7575,
+        "path": "tester-final-run.log",
+        "sha256": "7f8089df85842ba6faa9d50783b33109e193f527284fea6706ad58e81c128ec2"
+      },
+      "test_modules": [
+        "s10_lc2_test_b_caller",
+        "s10_lc2_test_http"
+      ],
+      "tests_run": 41
+    },
+    "pure_index": {
+      "final_tests": 41,
+      "first_development_tests": 28,
+      "first_test_failure": "NONE",
+      "new_output_root_mode": "0o700",
+      "not_combined_test_total": true,
+      "output_limit_bytes": 67108864,
+      "output_root_aggregate_bytes_at_observation": 37628,
+      "refs": [
+        {
+          "bytes": 5034,
+          "mode": "0o600",
+          "path": "tester-first-run.log",
+          "sha256": "63540279fb948da29d59db7405f0f7a4d2d68042b9028ea8c699c84772eaf705"
+        },
+        {
+          "bytes": 7575,
+          "mode": "0o600",
+          "path": "tester-final-run.log",
+          "sha256": "7f8089df85842ba6faa9d50783b33109e193f527284fea6706ad58e81c128ec2"
+        },
+        {
+          "bytes": 2450,
+          "mode": "0o600",
+          "path": "tester-final-result.json",
+          "sha256": "aaba4fd303b259d5eb328a398f2125e909baf3522f8e508593cb64e3393bda7c"
+        },
+        {
+          "bytes": 4104,
+          "mode": "0o600",
+          "path": "tester-final-command.txt",
+          "sha256": "aa98cc02eaeb2445760afae06d075d435e00cd5c2b088e571f52c8dfa5177549"
+        }
+      ],
+      "rules": "YD-HANDOFF-V1.0",
+      "test_candidate": "50480008696c360b9afe36ca760ba33959adc879"
+    },
+    "references": {
+      "authority-6245198569.md": {
+        "path": ".local/yd-handoff-v1-20261018/b-caller-offline/authority-6245198569.md",
+        "bytes": 7237,
+        "sha256": "9916e6eaf9ad76fb4811f11b9d61871c225ecc248492bf7d21b2ec48276e95df"
+      },
+      "tester-first-run.log": {
+        "path": ".local/yd-handoff-v1-20261018/b-caller-offline/tester-first-run.log",
+        "bytes": 5034,
+        "sha256": "63540279fb948da29d59db7405f0f7a4d2d68042b9028ea8c699c84772eaf705"
+      },
+      "tester-final-run.log": {
+        "path": ".local/yd-handoff-v1-20261018/b-caller-offline/tester-final-run.log",
+        "bytes": 7575,
+        "sha256": "7f8089df85842ba6faa9d50783b33109e193f527284fea6706ad58e81c128ec2"
+      },
+      "tester-final-result.json": {
+        "path": ".local/yd-handoff-v1-20261018/b-caller-offline/tester-final-result.json",
+        "bytes": 2450,
+        "sha256": "aaba4fd303b259d5eb328a398f2125e909baf3522f8e508593cb64e3393bda7c"
+      },
+      "tester-final-command.txt": {
+        "path": ".local/yd-handoff-v1-20261018/b-caller-offline/tester-final-command.txt",
+        "bytes": 4104,
+        "sha256": "aa98cc02eaeb2445760afae06d075d435e00cd5c2b088e571f52c8dfa5177549"
+      },
+      "tester-output-index.json": {
+        "path": ".local/yd-handoff-v1-20261018/b-caller-offline/tester-output-index.json",
+        "bytes": 916,
+        "sha256": "dceb7b4f3b3802927e3df1a17ace489b9de5906a616b8cac1e5ab8fae17d05b8"
+      }
+    },
+    "closed_source_items": [
+      "B_ONLY_EXPLICIT_DEPENDENCY_COMPOSITION",
+      "FIXTURE_B_EARLY_RETURN_WITHOUT_UNRELATED_COMMITS",
+      "MODEL_EXACT_NATIVE_ERROR_AND_ACTUAL_ENV_SAVE_BEFORE_ASSERT",
+      "RPC_PER_CASE_SAVE_CLASSIFY_UNKNOWN_NO_RETRY",
+      "EXPLICIT_MANIFEST_PROVIDER_REFERENCE_NO_LOADER",
+      "UNIQUE_SERVER_UUID_CORRELATION",
+      "PER_CASE_AND_TERMINAL_INDEPENDENT_RECEIPT_CONSUMPTION",
+      "STRICT_EDITOR_RELEASE_CONSUMPTION",
+      "UNCHANGED_RUNTIME_GATE_PROFILE_BUDGET_MAIN_A_STOP"
+    ],
+    "not_implemented_runtime_integration": [
+      "APPLICATION_AUTHORIZATION_PROFILE_OWNER_AND_BUDGET_INTEGRATION",
+      "LIVE_MAIN_B_ONLY_ADAPTER_CALLER",
+      "NORMAL_AUTHENTICATED_ORDINARY_USER_STORE_REVISION",
+      "CURRENT_TARGET_SOURCE_AND_RELATION_MANIFEST",
+      "NATIVE_MODEL_SIX_AND_REAL_CALL_KW_SIX",
+      "VALIDATED_SERVER_LOG_AND_EVIDENCE_REF_RESOLVER",
+      "INDEPENDENT_RO_BEFORE_AFTER_TERMINAL_COLLECTOR"
+    ],
+    "application_package_status": "PREPARED_NOT_AUTHORIZED",
+    "package_blob_unchanged": "e8e2140a82ff7776e6d7f975415f4ee544c9b737",
+    "B-MODEL-6": {
+      "status": "NOT_RUN",
+      "actual_evidence": []
+    },
+    "B-RPC-6": {
+      "status": "NOT_RUN",
+      "actual_evidence": []
+    },
+    "runtime_counts_added": {
+      "odoo_start": 0,
+      "target_ro": 0,
+      "business_http": 0,
+      "firefox": 0,
+      "original_get": 0,
+      "registry": 0,
+      "provider_reads": 0,
+      "financial_editor_pdf_upgrade": 0
+    },
+    "cumulative_unchanged": {
+      "odoo_start": 10,
+      "target_ro": 30,
+      "http": 32,
+      "firefox": 6,
+      "original_get": 0,
+      "accident_ro": 2,
+      "maintenance": 1,
+      "create": 2
+    },
+    "roles": {
+      "controller": "/root",
+      "developer": "/root/developer_autonomy",
+      "tester": "/root/tester_autonomy",
+      "acceptance": "/root/acceptance_autonomy",
+      "same_original_team": true,
+      "os_isolation_claimed": false
+    },
+    "first_pure_failure": "NONE",
+    "development_28_separate_not_added_to_final41": true,
+    "single_pure_command_limit_seconds": 600,
+    "new_output_limit_bytes": 67108864,
+    "output_snapshot_bytes": 37628,
+    "github_sync": "PENDING_REAL_CODE_DELIVERY_ONLY_NO_AUTHORIZATION_RELAY",
+    "independent_acceptance": {
+      "reviewer": "/root/acceptance_autonomy",
+      "status": "SOURCE_AND_PURE_SCOPED_ACCEPTED",
+      "runtime_business_status": "NOT_RUN",
+      "report_path": "docs/reports/s10-log-and-closeout-v2-r12/acceptance-review.md",
+      "report_bytes": 105248,
+      "report_sha256": "5c9254b08f7d82b85527baedfdff50270b29df70a82a54d6165feff3b6d2e669",
+      "preserved_historical_prefix_bytes": 97967,
+      "preserved_historical_prefix_sha256": "d26c3225ff91491fa5f9dcae569a7371c67cd144f5202593404d90965c565b44",
+      "final_document_diff_reviewed": true,
+      "ownership_returned": true,
+      "future_github_sync_presigned": false
+    }
   }
 }
