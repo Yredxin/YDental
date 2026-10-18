@@ -84,18 +84,18 @@
       "accident_ro": 2,
       "create": 2,
       "firefox": 7,
-      "http": 52,
+      "http": 70,
       "maintenance": 1,
-      "odoo_start": 15,
+      "odoo_start": 18,
       "original_get": 1,
-      "target_ro": 43
+      "target_ro": 85
     },
     "current_plan": {
       "firefox": 1,
-      "http": 20,
-      "odoo_start": 5,
+      "http": 38,
+      "odoo_start": 8,
       "original_get": 1,
-      "target_ro": 13
+      "target_ro": 55
     },
     "counts_are_not_test_pass_totals": true
   },
@@ -145,6 +145,12 @@
       "sha256": "ede52c65afa32e437c0ca9957870812e0c06775de903882c133cbd28211e8028",
       "access": "PRIVATE_LOCAL_NOT_GITHUB_READABLE",
       "original_index_acceptance_field": "PENDING_AT_CAPTURE; subsequent independent signature is in acceptance-review.md"
+    },
+    {
+      "ref": ".local/s10-technical-closeout-v1/B-actual-result-index.json",
+      "bytes": 8982,
+      "sha256": "dff52e783276d26bc9f83fd67e002440d84627a2e14d15558593a9e448f8e0fa",
+      "access": "PRIVATE_LOCAL_NOT_GITHUB_READABLE"
     }
   ],
   "ordinary_tool_failures": [
@@ -155,7 +161,7 @@
       "resolution": "Existing project pymupdf read/render of saved current download; no installation, new rendering of original, or repeated click."
     }
   ],
-  "remaining": "B MODEL/RPC, C, unique scratch D, E-MAIN/E-D, LOG gaps and finance closure; no S10 completion claimed.",
+  "remaining": "C; unique scratch D; E-MAIN/E-D; remaining LOG assertions and finance technical closure. No S10 completion claimed.",
   "B-role-prepare-first": {
     "candidate": "863325e2f48ca073b989711f36012c5da483e42d",
     "status": "TOOL_FAIL_STARTUP_RACE_NO_NEW_ROLE_OBSERVED_AFTER_INDEPENDENT_RO",
@@ -186,7 +192,8 @@
   },
   "runtime_test_candidates": {
     "A_pre_upgrade": "c48d7fb23765aaac843739ab276db3138f971bf9",
-    "reader_initialize_and_B_preparation": "48fad024dff0460d2936931d811503605d54ca6d"
+    "reader_initialize_and_B_preparation": "48fad024dff0460d2936931d811503605d54ca6d",
+    "B_actual": "cccbf577c454747f1e60d4de05a6775efe23b137"
   },
   "B-reader": {
     "actor_id": 59,
@@ -245,8 +252,237 @@
   },
   "independent_review_reference": {
     "ref": "../../reports/s10-log-and-closeout-v2-r12/acceptance-review.md",
-    "bytes_at_current_signature": 129961,
-    "sha256_at_current_signature": "3a5d0edfb6ac72d4e01fff2985e66f542d45becbc4e8e9706cc99e8bbc2691e5",
-    "scope": "Pre-upgrade A; ordinary reader setup and preserved state; B first bind failure zero MODEL/RPC dispatch. No B probe PASS."
+    "bytes_at_current_signature": 136027,
+    "sha256_at_current_signature": "1b09a8120b99ab271496a148cb0d89470c584234343abc9bd99cd84118edb780",
+    "scope": "Current pre-upgrade A and B six MODEL/six real RPC; historical setup/failure preservation; no C/D/E pass."
+  },
+  "B-actual": {
+    "status": "PASS_SCOPED_SIX_MODEL_AND_SIX_REAL_RPC",
+    "candidate": "cccbf577c454747f1e60d4de05a6775efe23b137",
+    "product_commit": "cf5d63fe510b52ea150d07495bf3062f4ce0961d",
+    "core_commit": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+    "actor_id": 59,
+    "store_id": 1,
+    "model_count": 6,
+    "rpc_count": 6,
+    "model_first_then_rpc": true,
+    "actual_wrapper_exit_code": 0,
+    "stderr_bytes": 0,
+    "model_terminal_preservation": "VERIFIED",
+    "rpc_terminal_preservation": "VERIFIED",
+    "pure_tests_counted_as_real": false,
+    "owned_parents": [
+      {
+        "application_directory": "application-main-service-f605ef4a",
+        "exit_code": 0,
+        "pid": 1810581,
+        "pid_no_longer_exists": true
+      },
+      {
+        "application_directory": "application-main-fixture-043dbdbb",
+        "exit_code": 0,
+        "pid": 1810723,
+        "pid_no_longer_exists": true
+      },
+      {
+        "application_directory": "application-main-service-def1c909",
+        "exit_code": 0,
+        "pid": 1810901,
+        "pid_no_longer_exists": true
+      }
+    ],
+    "ports_currently_not_listening": true,
+    "model_checks": [
+      {
+        "check_id": "B-MODEL-1-write",
+        "model": "ydental.settlement.source",
+        "id": 1,
+        "operation": "write",
+        "exception_name": "odoo.exceptions.AccessError",
+        "native_public_arguments_exact_expected": true,
+        "effective_uid": 59,
+        "su_flag": false,
+        "is_admin": false,
+        "is_system": false,
+        "rollback_observed": true
+      },
+      {
+        "check_id": "B-MODEL-1-unlink",
+        "model": "ydental.settlement.source",
+        "id": 1,
+        "operation": "unlink",
+        "exception_name": "odoo.exceptions.AccessError",
+        "native_public_arguments_exact_expected": true,
+        "effective_uid": 59,
+        "su_flag": false,
+        "is_admin": false,
+        "is_system": false,
+        "rollback_observed": true
+      },
+      {
+        "check_id": "B-MODEL-2-write",
+        "model": "ydental.settlement.payment",
+        "id": 1,
+        "operation": "write",
+        "exception_name": "odoo.exceptions.AccessError",
+        "native_public_arguments_exact_expected": true,
+        "effective_uid": 59,
+        "su_flag": false,
+        "is_admin": false,
+        "is_system": false,
+        "rollback_observed": true
+      },
+      {
+        "check_id": "B-MODEL-2-unlink",
+        "model": "ydental.settlement.payment",
+        "id": 1,
+        "operation": "unlink",
+        "exception_name": "odoo.exceptions.AccessError",
+        "native_public_arguments_exact_expected": true,
+        "effective_uid": 59,
+        "su_flag": false,
+        "is_admin": false,
+        "is_system": false,
+        "rollback_observed": true
+      },
+      {
+        "check_id": "B-MODEL-3-write",
+        "model": "ydental.access.audit",
+        "id": 228,
+        "operation": "write",
+        "exception_name": "odoo.exceptions.AccessError",
+        "native_public_arguments_exact_expected": true,
+        "effective_uid": 59,
+        "su_flag": false,
+        "is_admin": false,
+        "is_system": false,
+        "rollback_observed": true
+      },
+      {
+        "check_id": "B-MODEL-3-unlink",
+        "model": "ydental.access.audit",
+        "id": 228,
+        "operation": "unlink",
+        "exception_name": "odoo.exceptions.AccessError",
+        "native_public_arguments_exact_expected": true,
+        "effective_uid": 59,
+        "su_flag": false,
+        "is_admin": false,
+        "is_system": false,
+        "rollback_observed": true
+      }
+    ],
+    "rpc_checks": [
+      {
+        "check_id": "B-RPC-1-write",
+        "classification": "EXPECTED_MODEL_DENIAL",
+        "dispatch_state": "RESPONSE_RECEIVED",
+        "http_status": 200,
+        "intended_actor_id": 59,
+        "method": "write",
+        "model": "ydental.settlement.source",
+        "native_error_name": "odoo.exceptions.AccessError",
+        "native_public_arguments_exact_expected": true,
+        "preservation": "VERIFIED",
+        "target_existing_id": 1
+      },
+      {
+        "check_id": "B-RPC-1-unlink",
+        "classification": "EXPECTED_MODEL_DENIAL",
+        "dispatch_state": "RESPONSE_RECEIVED",
+        "http_status": 200,
+        "intended_actor_id": 59,
+        "method": "unlink",
+        "model": "ydental.settlement.source",
+        "native_error_name": "odoo.exceptions.AccessError",
+        "native_public_arguments_exact_expected": true,
+        "preservation": "VERIFIED",
+        "target_existing_id": 1
+      },
+      {
+        "check_id": "B-RPC-2-write",
+        "classification": "EXPECTED_MODEL_DENIAL",
+        "dispatch_state": "RESPONSE_RECEIVED",
+        "http_status": 200,
+        "intended_actor_id": 59,
+        "method": "write",
+        "model": "ydental.settlement.payment",
+        "native_error_name": "odoo.exceptions.AccessError",
+        "native_public_arguments_exact_expected": true,
+        "preservation": "VERIFIED",
+        "target_existing_id": 1
+      },
+      {
+        "check_id": "B-RPC-2-unlink",
+        "classification": "EXPECTED_MODEL_DENIAL",
+        "dispatch_state": "RESPONSE_RECEIVED",
+        "http_status": 200,
+        "intended_actor_id": 59,
+        "method": "unlink",
+        "model": "ydental.settlement.payment",
+        "native_error_name": "odoo.exceptions.AccessError",
+        "native_public_arguments_exact_expected": true,
+        "preservation": "VERIFIED",
+        "target_existing_id": 1
+      },
+      {
+        "check_id": "B-RPC-3-write",
+        "classification": "EXPECTED_MODEL_DENIAL",
+        "dispatch_state": "RESPONSE_RECEIVED",
+        "http_status": 200,
+        "intended_actor_id": 59,
+        "method": "write",
+        "model": "ydental.access.audit",
+        "native_error_name": "odoo.exceptions.AccessError",
+        "native_public_arguments_exact_expected": true,
+        "preservation": "VERIFIED",
+        "target_existing_id": 228
+      },
+      {
+        "check_id": "B-RPC-3-unlink",
+        "classification": "EXPECTED_MODEL_DENIAL",
+        "dispatch_state": "RESPONSE_RECEIVED",
+        "http_status": 200,
+        "intended_actor_id": 59,
+        "method": "unlink",
+        "model": "ydental.access.audit",
+        "native_error_name": "odoo.exceptions.AccessError",
+        "native_public_arguments_exact_expected": true,
+        "preservation": "VERIFIED",
+        "target_existing_id": 228
+      }
+    ],
+    "independent_acceptance": {
+      "reviewer": "/root/acceptance_s10",
+      "source_implementation_participation": false,
+      "status": "PASS_SCOPED",
+      "personally_checked": [
+        "actual ordinary first-environment identity and six rollback MODEL checks",
+        "six actual server received/rejected RPC and exact public exception arguments",
+        "1 manifest plus 36 distinct per-step read-only observations and their bytes/SHA/SQL sealing/rollback/close",
+        "18 projected protected domains and original audit targets preserved",
+        "three owned process logs/complete chains/seals and exits",
+        "24 indexed evidence references"
+      ],
+      "limitations": [
+        "18 projected B protection domains; not a claim of 39-domain full post-B database preservation",
+        "Native server store/company/scope log fields remained null; current normal session_info and independent relationship evidence establish scope",
+        "C/D/E and remaining LOG/finance not signed by B acceptance"
+      ]
+    },
+    "producer_flags_retained": {
+      "model_check_independent_preservation": "PENDING as emitted by child; independent parent source receipts and reviewer conclusion are separate",
+      "rpc_native_runtime_claimed": false,
+      "interpretation": "Original reusable producer flags were not rewritten to manufacture PASS. Actual HTTP/server/RO evidence and independent current-plan acceptance establish the runtime layer."
+    },
+    "runtime_snapshot": {
+      "ref": ".local/s10-technical-closeout-v1/B-d9b7e3ca3ad6/runtime-snapshot/index.json",
+      "bytes": 15635,
+      "sha256": "633bec340a8cd4fe9e4250811027c834e41e07e1795ad1bb9b5e34e85e788b25",
+      "access": "PRIVATE_LOCAL_NOT_GITHUB_READABLE",
+      "mapping": "43 oldPath/expectedSHA to archivedPath references; original B raw not rewritten",
+      "marker_sha256": "26bd0a4b10cb969c852686a9ce37588fb40581fbb5b7d03fde872b8af63cd7d7",
+      "source_reconstruction": "Changed tracked files archived from fixed cccbf577 Git bytes only after exact match with actual B frozen SHA; explicitly marked FIXED_COMMIT_BYTE_IDENTICAL_SOURCE."
+    }
   }
 }

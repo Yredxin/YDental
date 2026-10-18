@@ -482,3 +482,22 @@ pending-role 一次真实RO首wrapper退出1，raw `reader-pending-observed.json
 B-ACTION-IN-FLIGHT 原SHA `1d73aea894c3b3b599c69e9589878520ee86e8b821bc175486cd54edb13e527d` 保留，无COMPLETE，不授权盲重试；必须精确核未派发边界、候选和必要保全后才可续未执行B。当前累计Odoo15/targetRO43/HTTP52/Firefox7/originalGET1，protected accidentRO2/CREATE2/maintenance1未变；包含已失败启动/观察，不累计为测试PASS。A已签事实不重演；既存59不重建、不再初始化密码。所有私有raw仍在本机忽略目录，审核者本地访问不等于远程GPT/GitHub读者可读；公开只保脱敏索引及真实层级。本签不认证后续报告修改、push或Issue状态。
 
 Guidelines read：odoo-review、odoo-security；Python Imports/Naming、ORM Recordsets/Methods/Transactions、Fields、Tests、stable规则；锁定core实际 Savepoint、res.users字段/原生密码inverse及mail SMTP、当前queue/intake/patient/supply锁调用链。范围限本次角色/工具/保全及B未派发边界，不冒全addon或全历史审计。
+
+
+## YD-S10-TECHNICAL-CLOSEOUT-V1：B 真实六 MODEL / 六 RPC 独立结果（升级前）
+
+独立验收者：`acceptance_s10`；未实现本次被验代码，未使用凭据、连接数据库或发送业务请求。本人实际读取固定候选代码及私有原始材料，离线重算引用/逐行内容/时序与日志链；不是以 tester 的 `status=PASS` 作为独立结论。结论为 **B-MODEL-6 PASS / B-RPC-6 PASS，限定本次普通账号59、main现有三目标、升级前候选**。不扩展为 C、D、E 或 S10 全体通过。
+
+实际运行/测试候选 `cccbf577c454747f1e60d4de05a6775efe23b137`，产品 `cf5d63fe510b52ea150d07495bf3062f4ce0961d`，只读 core `f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb`；main 测试库后缀 `810a7d9c`、OID2144129、cluster7694897083368259627。账号59为本 plan 新合成内部普通应用用户，非 admin/system、非 sudo，store1/company1 的正常员工/成员及有效 read 授权；初始化已由上一段独立核验，不修改旧用户5/7。正常认证和原生 metadata 接线、有效来源/支付/审计及关联由 manifest-source 原始行核实；多个正常 session 投影全部一致为59/store1/revision1，不能宣称仅一条 session。
+
+本次原始目录 `.local/s10-technical-closeout-v1/B-d9b7e3ca3ad6/`：`result.json` 66054B / SHA256 `fb8de48914c38722359458f3713a6f116f94b3f51a5abd49c34d0c9176e02e1b`；`B-model-observation.json` 48055B / `60b18d5f2320e0abf1c125c0734e9e226701373854ccd7c75048a94d093da449`；`B-six-real-RPC.json` 17962B / `2990ee7b6839b73ee5e7a21d63930a275b5c90e0f6d5ff155011b46b41c93922`。脱敏执行索引 `B-actual-result-index.json` SHA256 `dff52e783276d26bc9f83fd67e002440d84627a2e14d15558593a9e448f8e0fa` 的24个 bytes/SHA引用均亲自重算。原始内容在本机私有0700/0600边界内，本段不把这些路径称作 GPT 可直接读取的公开证据。
+
+六 MODEL 按 source1 的 `ydental_original_amount` write/unlink、payment1 的 `ydental_amount` write/unlink、audit228 的 `ydental_reason` write/unlink 顺序真实执行。三项 write 的实际有限投影均非空，值合法且与探针不同；不是缺目标或 no-op。原生 fresh cursor 的第一个 Environment/default_env 均为59、su=False；每项保存原生 `odoo.exceptions.AccessError` 与准确公开 args，命中 settlement history_immutable / audit 不可改删保护；每项原生 flushing savepoint 关闭回滚，外层 cursor 最终 rollback，不提交探针。亲核每项 before→调用开始/结束→after 时序及目标完整行 SHA 恒定；六项 terminal 独立采集在 owned MODEL进程1810723 exit0之后。本次 MODEL进程仅原生 run.start/run.end 两条诊断，不冒称六个 MODEL request 事件；六项动作身份/异常/回滚由实际 producer observation 与独立存储核验支持。
+
+六真实 `call_kw` RPC 均通过正常账号59会话到达 Odoo；每项 HTTP200 与 JSON-RPC原生 AccessError分列记录，无 result，无工具预拦截。本人检查六份 request/response脱敏事实、保存响应的字节指纹及原生公开 args SHA，逐项与预期异常文本重算相符。六个真实服务端 request.received 与 operation.rejected 由实际 operation_ref哈希、server request_id/trace_id 和 actor/effective_uid59、su=False配对；拒绝为 BUSINESS_REJECTION / AUTHZ_DENIED / AccessError。客户端 request_id 与原生 server request_id 是不同标识，不伪称相等；store/company/scope 在原生诊断事件中为 null，合法业务上下文另由正常 metadata 与独立真实关系核验支持，不补造日志字段。
+
+本人读取 manifest独立来源及36个互不复用的 before/after/terminal measurement（MODEL18 + RPC18），逐一验证 source文件、sealed-index、各原始 server_json_text及server SHA、文件SHA、实际库身份、read_only=on/repeatable read、独立backend、ROLLBACK_RETURNED/CLOSED。18张有限投影表的完整保存行在所有 measurement间保持一致（正常session允许全部等价投影）；涵盖三目标完整行hash、来源/患者/账单/费用/原生凭证关系、旧审计与本次基线已存在审计、文书 confirmed/v4及已释放编辑字段、版本链、普通账号/组闭包/员工/成员/店/公司。source1/payment1/audit228目标完整行SHA分别为 `edd2ed38e52dbb4c09465bdc5b24e7035ebe4d4bbc3642b181a0d3f1e094c386`、`0b9f868efa3ffffc98c4bd74b124fc236229405bd60fef6962e5e3fae87ec91b`、`41c2369ae25ab272e2dbc5315b923ffc33258da38b59ed0e2ea27bedf09a2767`，改删未生效。RPC六项terminal同样在服务1810901关闭后采集。本次是有限保护域证据，不能据此声称又做了39域全库保全或替代双目标带数据升级。
+
+亲核三个本次 owned父进程1810581/1810723/1810901实际 parent.end exit0、候选/目标launch绑定，原生日志分别5/2/14条，完整链/最终run.end与seal有效；六份 live原生日志前缀和最终封存字节一致。live parent-exit.tsv是当时40B child.start前缀，最终正常追加为111B含parent.end，已按原前缀及最终完整引用分别验证。wrapper实际PID1810457、退出0、stderr0；执行索引另保存执行者的最终PID不存在/两端口无监听观察，本人没有重新启动服务或杀未知进程。累计 Odoo18/RO85/HTTP70/Firefox7/原件GET1，本次实际增量3/41/18/0/0；不把73 PURE或历史失败尝试累加为本次12项真实通过。
+
+此前 startup普通失败、账号59创建后 own-password ACL失败、初始化修复、首B端口bind失败及其 zero-dispatch独立RO均按原事实保留；原 IN-FLIGHT、精确 ATTEMPT2 与最终 COMPLETE同时保留，不清旧账本/安全STOP。原 B首失败0MODEL/0RPC不被本次成功抹除。本次完成后不再重放这12项以补摘要；后续新候选仅按实际影响面重验。B原始材料里的 `independent_preservation=PENDING` 单项producer字段及通用 `native_runtime_claimed=false` 不被回写冒充预先验收；本段独立结论来自上述亲核原始证据，与root当前矩阵投影分开记录。

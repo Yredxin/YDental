@@ -6091,7 +6091,7 @@
     "task_id": "S10-LOG-AND-CLOSEOUT-v2",
     "started_at_utc": "2026-10-18T06:52:51Z",
     "authority": "User supplied full plan in current conversation; execution mode enabled; no new GPT comment prerequisite.",
-    "status": "IN_PROGRESS_A_PRE_UPGRADE_PASS_B_ORDINARY_STARTUP_REPAIR",
+    "status": "IN_PROGRESS_A_PRE_UPGRADE_AND_B_SCOPED_PASS_C_INTEGRATION",
     "baseline_commit": "d731711ab48d73177303ced9c040601a206412d9",
     "core_commit": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
     "scope": "S10 only; no S11-S13, merge or deployment",
@@ -6104,7 +6104,7 @@
       "tester": "/root/tester_s10",
       "acceptance": "/root/acceptance_s10"
     },
-    "candidate_status": "A_C48D7FB_VERIFIED_B_48FAD024_PREPARATION_ONLY_ZERO_MODEL_RPC_DISPATCH",
+    "candidate_status": "B_CCCBF577_SIX_MODEL_SIX_REAL_RPC_INDEPENDENTLY_ACCEPTED_C_NEXT",
     "current_actual_evidence": [
       "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json"
     ],
@@ -6147,27 +6147,31 @@
         "reason": "Independent acceptance personally checked actual native workbench download, screenshot and every PDF page (1), before/terminal 39-domain protection, old audits and owned exit; E-MAIN post-upgrade UI remains NOT_RUN."
       },
       "B-MODEL-6": {
-        "status": "NOT_RUN",
+        "status": "PASS_SCOPED_ACTUAL_RUNTIME",
         "required_layers": [
           "MODEL"
         ],
         "definition_ref": "#/tc_evidence_requirements/B-MODEL-6",
         "current_evidence": [
-          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json"
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json",
+          "acceptance-review.md"
         ],
-        "reason": "Ordinary reader 59 is independently ready; first B preparation completed but MODEL port reservation failed before Popen. Both six-probe phases were not dispatched. First failure and durable intent retained; bounded tool repair and independent zero-dispatch preservation review precede continuation."
+        "reason": "Independent acceptance personally verified ordinary59/store1 actual first-env six MODEL with rollback, six actual server RPC and exact native AccessError arguments, manifest and 36 different per-step read-only sources, 18 projected protected domains and original target audit preservation, complete logs/seals and three normal owned exits. Limited to cccbf577 B; no C/D/E or 39-domain global post-B assertion.",
+        "reviewer": "/root/acceptance_s10"
       },
       "B-RPC-6": {
-        "status": "NOT_RUN",
+        "status": "PASS_SCOPED_ACTUAL_RUNTIME",
         "required_layers": [
           "HTTP/RPC",
           "MODEL_NATIVE_COMMITTED"
         ],
         "definition_ref": "#/tc_evidence_requirements/B-RPC-6",
         "current_evidence": [
-          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json"
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json",
+          "acceptance-review.md"
         ],
-        "reason": "Ordinary reader 59 is independently ready; first B preparation completed but MODEL port reservation failed before Popen. Both six-probe phases were not dispatched. First failure and durable intent retained; bounded tool repair and independent zero-dispatch preservation review precede continuation."
+        "reason": "Independent acceptance personally verified ordinary59/store1 actual first-env six MODEL with rollback, six actual server RPC and exact native AccessError arguments, manifest and 36 different per-step read-only sources, 18 projected protected domains and original target audit preservation, complete logs/seals and three normal owned exits. Limited to cccbf577 B; no C/D/E or 39-domain global post-B assertion.",
+        "reviewer": "/root/acceptance_s10"
       },
       "C-SCOPE": {
         "status": "NOT_RUN",
@@ -6662,7 +6666,7 @@
       "reviewer": "/root/acceptance_s10",
       "current_tool_refusal": null
     },
-    "runtime_test_commit": "48fad024dff0460d2936931d811503605d54ca6d",
+    "runtime_test_commit": "cccbf577c454747f1e60d4de05a6775efe23b137",
     "runtime_attempts": [
       {
         "stage": "existing_reader_native_administration",
@@ -6687,6 +6691,21 @@
         "durable_intent_retained": true,
         "incident_ref": ".local/s10-technical-closeout-v1/B-first-execution-failure-index.json",
         "independent_reviewer": "/root/acceptance_s10"
+      },
+      {
+        "stage": "B_actual_attempt2_after_verified_zero_dispatch",
+        "candidate": "cccbf577c454747f1e60d4de05a6775efe23b137",
+        "status": "PASS_SCOPED_INDEPENDENTLY_ACCEPTED",
+        "exit_code": 0,
+        "model_count": 6,
+        "rpc_count": 6,
+        "model_first_then_rpc": true,
+        "ordinary_actor_id": 59,
+        "store_id": 1,
+        "prior_latch_and_failure_retained": true,
+        "actual_result_ref": ".local/s10-technical-closeout-v1/B-d9b7e3ca3ad6/result.json",
+        "actual_result_sha256": "fb8de48914c38722359458f3713a6f116f94b3f51a5abd49c34d0c9176e02e1b",
+        "reviewer": "/root/acceptance_s10"
       }
     ]
   }
