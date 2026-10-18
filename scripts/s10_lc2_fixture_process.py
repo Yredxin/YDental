@@ -51,7 +51,7 @@ def run_b_model_only(registry, request, run, *, environment, guard, model_denial
                 or type(target['values'][column]) is not type(value) or not reference(target['source_ref'])):
             raise ValueError('B_MODEL_TARGET_MANIFEST_REQUIRED')
     with registry.cursor() as cr:
-        env = environment(cr, uid, {})
+        env = environment(cr, uid, {'lang': 'en_US'})
         if (env.su or env.transaction.default_env.uid != uid or env.transaction.default_env.su):
             raise RuntimeError('FIXTURE_FIRST_ENV_NOT_ORDINARY_ACTOR')
         if (env.uid != uid or env.is_admin() or env.is_system() or env.user.active is not True or not env.user._is_internal()
@@ -106,7 +106,7 @@ def main(shell_env):
     database = shell_env.cr.dbname
     expected = {'main': 'ydental_s10_test_20261017105432_810a7d9c',
                 'scratch': 'ydental_s10_test_20261017105432_ce6dcbf8'}
-    if mode not in {'main-prepare', 'main-b-only', 'scratch-bootstrap'} or database != expected['scratch' if mode == 'scratch-bootstrap' else 'main']:
+    if mode not in {'main-prepare', 'main-b-only', 'main-reader-only', 'scratch-bootstrap'} or database != expected['scratch' if mode == 'scratch-bootstrap' else 'main']:
         raise RuntimeError('FIXTURE_ROLE_MODE_DRIFT')
     import logging
     if logging.getLogger('odoo.http.server').getEffectiveLevel() != logging.CRITICAL:
@@ -140,18 +140,25 @@ def main(shell_env):
         input_stream.close()
         return
 
-    def actor(uid, operation, *, commit=False):
+    def actor(uid, operation, *, commit=False, checkpoint=None):
         with registry.cursor() as cr:
             env = api.Environment(cr, uid, {})
             if env.su or env.transaction.default_env.uid != uid or env.transaction.default_env.su:
                 raise RuntimeError('FIXTURE_FIRST_ENV_NOT_ORDINARY_ACTOR')
             _guard(env, str(run))
-            with context_scope(case_id='B-MODEL-6' if mode == 'main-prepare' and uid == 6 else 'C-SCOPE' if mode == 'main-prepare' else 'D-ADMIT',
+            case = ('B-ACTOR-PREPARE' if mode == 'main-reader-only' else
+                    'B-MODEL-6' if mode == 'main-prepare' and uid == 6 else
+                    'C-SCOPE' if mode == 'main-prepare' else 'D-ADMIT')
+            with context_scope(case_id=case,
                                actor_id=uid, effective_uid=uid, su_flag=False):
                 result = operation(env)
                 if commit:
                     env.flush_all()
+                    if checkpoint is not None:
+                        checkpoint('before_commit', result)
                     cr.commit()
+                    if checkpoint is not None:
+                        checkpoint('commit_returned', result)
                 else:
                     cr.rollback()
                 return result
@@ -172,6 +179,45 @@ def main(shell_env):
             record = parameters.search([('key', '=', key)])
             changes.append({'id': record.id, 'key': key, 'before': before, 'after': value})
         return changes
+    if mode == 'main-reader-only':
+        from s10_lc2_evidence import save_once
+        from s10_lc2_task_profile import CURRENT_PLAN, profile_from_environment
+        profile = profile_from_environment(os.environ)
+        if profile is None or profile.message_id != CURRENT_PLAN:
+            raise RuntimeError('CURRENT_PLAN_READER_PROFILE_REQUIRED')
+        profile.require_action('main-reader-prepare')
+        provider_dir = profile.root / 'credentials'
+        if (provider_dir.is_symlink() or not provider_dir.is_dir()
+                or stat.S_IMODE(provider_dir.stat().st_mode) != 0o700):
+            raise RuntimeError('CURRENT_READER_PROVIDER_DIRECTORY_INVALID')
+        def created(point, value):
+            if point == 'before_commit':
+                save_once(provider_dir / ('user-%d.json' % value.user_id), {
+                    'user_id': value.user_id, 'login': value.login, 'password': value.password})
+            save_once(run / 'diagnostics' / ('reader-create-%s-%d.json' % (point, os.getpid())), {
+                'kind': 'CURRENT_PLAN_READER_COMMIT_CHECKPOINT', 'point': point,
+                'user_id': value.user_id, 'manager_id': 5, 'store_id': 1,
+                'independently_committed': False, 'password_retained': False})
+        def password(point, value):
+            save_once(run / 'diagnostics' / ('reader-password-%s-%d.json' % (point, os.getpid())), {
+                'kind': 'CURRENT_PLAN_READER_PASSWORD_CHECKPOINT', 'point': point,
+                'user_id': value['user_id'], 'own_password_initialized': True,
+                'independently_committed': False, 'password_retained': False})
+        reader = actor(5, lambda env: _create_reader(env, manager_uid=5,
+            store_ids=[1], initial_levels={'settlement': 'read', 'export': 'none'},
+            run_directory=str(run)), commit=True, checkpoint=created)
+        initialized = actor(reader.user_id, lambda env: _initialize_reader_password(
+            env, reader, run_directory=str(run)), commit=True, checkpoint=password)
+        response = {'safe': {'mode': mode, 'new_reader_id': reader.user_id,
+            'manager_id': 5, 'store_ids': [1], 'fixture_commits': 2,
+            'own_password_initialized': initialized['own_password_initialized'],
+            'commit_observation': 'COMMIT_RETURNED_NOT_INDEPENDENTLY_VERIFIED'},
+            'ram': {'reader': {name: getattr(reader, name) for name in reader.__dataclass_fields__}}}
+        with os.fdopen(write_fd, 'wb') as stream:
+            stream.write(json.dumps(response).encode())
+            stream.flush()
+        return
+
     report_parameters = actor(2, report_configuration, commit=True)
 
     if mode == 'main-prepare':

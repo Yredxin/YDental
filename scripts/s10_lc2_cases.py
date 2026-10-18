@@ -26,6 +26,7 @@ from s10_lc2_launch import ACTION_ROLES, OwnedApplication, ROOT, stop
 from s10_lc2_logging import strict_loads, validate_jsonl
 from s10_lc2_targets import (EXEC_ROOT, LEGACY_EXEC_ROOT, PLAN, RUN_ROOT, PackageBudget,
                             credentials, require_dispatch_unfrozen)
+from s10_lc2_task_profile import CURRENT_PLAN
 
 ORIGINAL_SHA = '05928780e7d97a06cf29019634f64b010eb4994c2f1c5032d561008a50b059b4'
 NAMES = {'main': 'ydental_s10_test_20261017105432_810a7d9c', 'scratch': 'ydental_s10_test_20261017105432_ce6dcbf8'}
@@ -221,7 +222,11 @@ def existing_main_accounts():
             'cross_company': {'uid': 41, 'login': users[41], 'password': passwords[41]}}
 
 
-def marker(role):
+def marker(role, profile=None):
+    if profile is not None:
+        if role != 'main':
+            raise RuntimeError('CURRENT_PLAN_MAIN_FIXTURE_ONLY')
+        return strict_loads((profile.run_root / profile.database / 'database.json').read_bytes())
     return next(item for item in strict_loads((LEGACY_EXEC_ROOT / 'owned-target-markers.json').read_bytes())['markers'] if item['role'] == role)
 
 
@@ -230,7 +235,7 @@ def reader_levels(fixture, store=1):
 
 
 def run_fixture(role, *, approval, product_commit, test_commit, mode=None, manifest=None,
-                provider_ref=None, observe=None, terminal=None, evidence_factory=None):
+                provider_ref=None, observe=None, terminal=None, evidence_factory=None, profile=None):
     mode = mode or ('main-prepare' if role == 'main' else 'scratch-bootstrap')
     b_only = mode == 'main-b-only'
     if b_only:
@@ -241,8 +246,9 @@ def run_fixture(role, *, approval, product_commit, test_commit, mode=None, manif
     output_read, output_write = os.pipe()
     app = None
     try:
-        app = OwnedApplication(marker(role), approval=approval, product_commit=product_commit,
-                               test_commit=test_commit, action=role + '-fixture')
+        app = OwnedApplication(marker(role, profile), approval=approval, product_commit=product_commit,
+                               test_commit=test_commit, action=role + '-fixture',
+                               **({'profile': profile} if profile is not None else {}))
         if b_only and evidence_factory is not None:
             callbacks = evidence_factory(app)
             observe, terminal = callbacks['observe'], callbacks['terminal']
@@ -291,7 +297,7 @@ def run_fixture(role, *, approval, product_commit, test_commit, mode=None, manif
             app.budget.check_storage()
             if time.monotonic() >= deadline:
                 raise TimeoutError('FIXTURE_RAM_PIPE_TOTAL_DEADLINE')
-            if (EXEC_ROOT / 'HARD-STOP.json').exists():
+            if app.stop_path.exists():
                 raise RuntimeError('FIXTURE_HARD_STOP')
             ready, _, _ = select.select([output_read], [], [], .1)
             if ready:
@@ -1004,19 +1010,22 @@ def main_b(ordinary, facts, *, manifest=None, provider_ref=None, observe=None,
 
 
 def run_b_only(*, manifest, provider_ref, approval, product_commit, test_commit, facts,
-               model_probe, actor_factory, observe, server_events, terminal):
-    """Future B-only composition; current profiles do not grant this dispatch.
-
-    The unchanged native admission gate runs before any injected dependency.
-    No CLI shortcut, profile grant or provider loader is introduced here.
-    """
+               model_probe, actor_factory, observe, server_events, terminal, profile=None):
+    """Current-plan B composition; historical profiles remain ineligible."""
     validate_b_inputs(manifest, provider_ref)
-    runtime_gate(approval, product_commit=product_commit, test_commit=test_commit)
-    require_dispatch_unfrozen()
-    if (EXEC_ROOT / 'HARD-STOP.json').exists():
+    extra = {'profile': profile} if profile is not None else {}
+    runtime_gate(approval, product_commit=product_commit, test_commit=test_commit, **extra)
+    require_dispatch_unfrozen(**extra)
+    stop_path = profile.root / 'HARD-STOP.json' if profile is not None else EXEC_ROOT / 'HARD-STOP.json'
+    if stop_path.exists():
         raise RuntimeError('B_EXISTING_HARD_STOP')
-    # No existing profile integrates B. Offline source approval cannot open it.
-    raise RuntimeError('B_RUNTIME_PROFILE_INTEGRATION_PENDING')
+    if profile is None or profile.message_id != CURRENT_PLAN:
+        raise RuntimeError('B_RUNTIME_PROFILE_INTEGRATION_PENDING')
+    profile.require_action('B-MODEL-6')
+    profile.require_action('B-RPC-6')
+    return _run_b_only_checks(manifest=manifest, provider_ref=provider_ref, facts=facts,
+        model_probe=model_probe, actor_factory=actor_factory, observe=observe,
+        server_events=server_events, terminal=terminal)
 
 
 def _run_b_only_checks(*, manifest, provider_ref, facts, model_probe, actor_factory,
