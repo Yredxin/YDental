@@ -2,6 +2,8 @@
 
 本轮为同一task `S10-LOG-AND-CLOSEOUT-v2` 的 **B-CALLER-OFFLINE-REPAIR / revision2 / EVIDENCE_ADAPTERS_CODE_ONLY**，直接依据用户续行与[正式6245528347第3—4节](https://github.com/Yredxin/YDental/issues/34#issuecomment-6245528347)。revision1已经正式采纳并结束，本轮不重审其完整源码，不另交规划。原团队实际恢复响应，clean工作树安全快进远端唯一CURRENT_TASK文档至 `0dc7d8c3ad8e604e4065beaac3f4c83069b794f6`，无新所有权冲突。YD-HANDOFF-V1.0、当前状态09和正式全文同读；主控仅维护同一个状态及现有报告。
 
+本轮真实[revision2工程交付6245831810](https://github.com/Yredxin/YDental/issues/34#issuecomment-6245831810)已发表并API全文核同，5715B/body SHA256 `1c3d3c48a235f66829e5b3555182699e544864f171efb9d74b848e79eb766d90`。文档/证据索引E `c003b06c3b3a5c97b34295756917a46de38e8830`已正常推送，fetch后11变更文件远端内容逐字节核同。独立验收113781B/SHA256 `a6668f1ae88c92d0814be0fd1719f6c8db17fe4d648c8811ee33dc26496cbdc0`与历史前缀完整；本任务交付并停止，不转应用。
+
 固定代码/测试 **T `a55dcee3ec749d2311beb291cced61e3d3a78284`**，改动六文件：既有cases/evidence/fixture_process、测试addon私有helper、受影响旧B纯测和一份聚焦adapter纯测。产品仍cf5d63fe510b52ea150d07495bf3062f4ce0961d，core仍f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb；真正UI执行仍ee73081c09f06e7bae5bc5660061d6391ef977f5，业务证据仍ce3789772be34a3c32426edf309c2ebdd0a3492a。
 
 |本轮具体接线|实际完成及证据边界|

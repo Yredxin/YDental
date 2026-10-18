@@ -6047,7 +6047,27 @@
     "output_snapshot_bytes": 52387,
     "output_limit_bytes": 67108864,
     "single_pure_command_limit_seconds": 600,
-    "github_sync": "PENDING_THIS_REAL_REVISION2_DELIVERY_ONLY_NO_AUTHORIZATION_RELAY",
+    "github_sync": {
+      "status": "POSTED_AND_API_FULL_BODY_VERIFIED",
+      "receipt": {
+        "comment_id": 6245831810,
+        "html_url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6245831810",
+        "created_at": "2026-10-18T04:52:41Z",
+        "updated_at": "2026-10-18T04:52:41Z",
+        "body_bytes": 5715,
+        "body_sha256": "1c3d3c48a235f66829e5b3555182699e544864f171efb9d74b848e79eb766d90",
+        "api_full_body_equal": true
+      },
+      "receipt_ref": ".local/yd-handoff-v1-20261018/b-caller-offline-r2/delivery-api-receipt.json",
+      "full_body_ref": ".local/yd-handoff-v1-20261018/b-caller-offline-r2/delivery-api-readback.json",
+      "remote_git_readback_ref": ".local/yd-handoff-v1-20261018/b-caller-offline-r2/remote-git-content-readback.json",
+      "remote_evidence_commit": "c003b06c3b3a5c97b34295756917a46de38e8830",
+      "remote_changed_files_byte_equal": 11,
+      "issue34_prepublication_increment": "ONLY_6245528347_UPDATED_2026-10-18T04:12:02Z",
+      "issue23_increment": "ONLY_6244428785_UPDATED_2026-10-18T01:50:39Z",
+      "tool_safety_refusal": false,
+      "old_authorization_relayed": false
+    },
     "next_action": "DELIVER_SOURCE_PURE_AND_STOP_NO_OFFLINE_EXPANSION_OR_AUTO_RUNTIME",
     "independent_acceptance": {
       "reviewer": "/root/acceptance_autonomy",
@@ -6061,6 +6081,8 @@
       "future_github_sync_presigned": false,
       "ownership_returned": true,
       "final_document_diff_reviewed": true
-    }
+    },
+    "evidence_index_commit": "c003b06c3b3a5c97b34295756917a46de38e8830",
+    "work_state": "DELIVERED_AND_STOPPED_NO_APPLICATION_RUNTIME"
   }
 }

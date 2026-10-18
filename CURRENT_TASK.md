@@ -12,10 +12,10 @@
 | task_id | S10-LOG-AND-CLOSEOUT-v2 |
 | 活动分支 | codex/s10-settlement-finance-r1-20261013 |
 | 工作目录 | /home/redxin/code/odoo/odoo-sd/code/sd-addons |
-| 最新工程交付 | [6245453238](https://github.com/Yredxin/YDental/issues/34#issuecomment-6245453238)，2026-10-18T04:02:40Z；最终交付HEAD 19f3b4f99bb2f967a8f877645490a1f81b40a376 |
+| 最新工程交付 | [6245831810](https://github.com/Yredxin/YDental/issues/34#issuecomment-6245831810)，2026-10-18T04:52:41Z；revision2代码/测试a55dcee，证据索引c003b06c3b3a5c97b34295756917a46de38e8830，已推送/远端核同 |
 | 最新工程正式复核 | [6245528347](https://github.com/Yredxin/YDental/issues/34#issuecomment-6245528347)，2026-10-18T04:12:02Z；SOURCE_AND_PURE_SCOPED_ACCEPTED / REVISION1_COMPLETE / B_RUNTIME_NOT_RUN；已另行API GET全文读回核对 |
 | 当前可执行工程工作 | B-CALLER-OFFLINE-REPAIR / revision 2 / EVIDENCE_ADAPTERS_CODE_ONLY；仅按上述评论第3—4节修改测试适配源码与纯离线回归 |
-| revision2执行状态 | SOURCE_PURE_COMPLETE_SYNC_PENDING；固定a55dcee完成73PURE及原acceptance独立限定签署，源码/测试已停写，待交付同步；无应用执行 |
+| revision2执行状态 | DELIVERED_AND_STOPPED_SOURCE_PURE；固定a55dcee完成73PURE及原acceptance独立限定签署，6245831810已API全文读回核同；本工程结束，无应用执行 |
 | 当前有效应用运行包 | 无；MAIN-A-04已结束，原整包没有START、start/deadline或生效的新预算 |
 | 已有整包正文 | [docs/execution/S10_REMAINING_CLOSEOUT.md](docs/execution/S10_REMAINING_CLOSEOUT.md)；固定提交8ea609c3c08ff8ddf7ed262b52be8d05e222d16f，blob e8e2140a82ff7776e6d7f975415f4ee544c9b737 |
 | 整包标识及状态 | YD-S10-LC2-CLOSEOUT-20261018-01 / revision2.0；PREPARED_NOT_AUTHORIZED。正文未改；6245198569/6245528347均不得作为其运行批准凭据 |
@@ -35,6 +35,8 @@
 本轮GPT实时核远端HEAD 19f3b4f，1490ff5→19f3b4f为ahead4/behind0，净变更10路径：四个实现/测试辅助文件、一份新纯测及五份现有状态报告。读取交付全文、当前状态、d856edd/5048000补丁、8892fcc报告增量及独立acceptance追加；定向核B输入、RPC、MODEL、fixture、保全与关联消费者、聚焦纯测试和现成diagnostic producer字段。接受revision1原限定范围，不将未授权运行集成倒判为当轮返工。
 
 发表前#34从2026-10-18T04:02:39Z重叠查询只返回交付6245453238，#23从01:50:38Z只返回协议6244428785。最新工程复核6245528347成功发表并另行API GET全文读回核对。有效评论游标：#23/6244428785（updated_at 2026-10-18T01:50:39Z），#34/6245528347（updated_at 2026-10-18T04:12:02Z）；后续保留重叠查新增和已编辑评论，不机械重读全部历史。
+
+Codex revision2同步事实：本轮发表前重叠GET #34自04:12:00Z只返回正式6245528347，#23自01:50:38Z只返回协议6244428785，无重复revision2交付。已正常发表本轮真实6245831810，并单独API GET全文与拟稿5715B核同，body SHA256 `1c3d3c48a235f66829e5b3555182699e544864f171efb9d74b848e79eb766d90`。证据提交c003b06已fetch读取远端11变更blob逐字节核同；回执在既有r2受控目录。本轮没有工具安全拒绝，没有代发旧授权。#34游标新增6245831810/updated_at 2026-10-18T04:52:41Z仅为工程交付，不冒GPT裁定；#23游标不变。本状态只记实际同步，不追写自身提交。
 
 GPT未访问Ubuntu、重跑41纯测或任何应用、连接数据库、读取provider或复算私有日志哈希。当地工作树/进程/原团队响应、私有材料核验和测试结果按Codex及独立acceptance署名层级采纳，不冒现场验证。用户回传及交付记录19f3b4f已推、远端核同、工作树干净，仍是时间限定事实。远端状态更新不代表本地已同步或revision2已启动。
 
@@ -111,7 +113,7 @@ d08bf89规范同步、74ad8c6只读交付及19f3b4f本轮同步事实按Git历�
 | 分类 | 当前事实 |
 |---|---|
 | revision1工程 | 已按6245528347限定采纳并结束，不返工已采范围 |
-| revision2工程 | 适配源码及73PURE完成，原acceptance限定通过；交付同步中，真实集成未运行 |
+| revision2工程 | 适配源码及73PURE完成，原acceptance限定通过，工程交付及API全文读回已完成；真实集成未运行 |
 | 04工具错误 | diagnostics目录漏初始化、readiness误判；4ff3ccf只有离线后修，不归因测试密码或新产品权限失败 |
 | 项目运行流程 | MAIN-A-04结束且局部Odoo2/2耗尽，原整包新范围/预算未生效；不是平台算力或机器容量耗尽结论 |
 | 真实工具拒绝 | 上一会话原整包授权评论被拒、无ID、触发原因UNKNOWN，未重试。本次不同的工程复核写入成功，不证明旧限制解除 |
