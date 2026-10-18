@@ -8,6 +8,8 @@ from contextlib import nullcontext
 from dataclasses import dataclass
 import json
 import inspect
+import re
+import subprocess
 from pathlib import Path
 from types import SimpleNamespace
 import unittest
@@ -202,6 +204,37 @@ GATE = {'identity_valid': True, 'clinical_user7_eligible': True,
 
 
 class RunnerContractTests(unittest.TestCase):
+    def test_native_translation_producer_shape_reaches_actual_browser_guard_only_new_scope(self):
+        from s10_lc2_http import main_a_request_boundary
+        from s10_lc2_browser import BrowserSession, BrowserBoundaryError
+        from s10_lc2_task_profile import MAIN_A_ENGINEERING, MAIN_A_AUTONOMY, MAIN
+        urls = (ROOT.parent / 'addons/web/static/src/core/utils/urls.js').read_text()
+        producer = (ROOT.parent / 'addons/web/static/src/core/l10n/localization_plugin.js').read_text()
+        self.assertIn('objectToUrlEncodedString({ hash, lang: this.lang })', producer)
+        function = re.search(r'export function objectToUrlEncodedString\(obj\) \{[\s\S]*?\n\}', urls).group(0)
+        script = function.removeprefix('export ') + '\nconsole.log(JSON.stringify([' \
+            'objectToUrlEncodedString({hash:undefined,lang:"en_US"}),' \
+            'objectToUrlEncodedString({hash:"a".repeat(40),lang:"en_US"})]));'
+        node = browser_diag.PLAYWRIGHT_ROOT / 'playwright/driver/node'
+        result = subprocess.run([str(node), '-e', script], check=True, stdout=subprocess.PIPE,
+                                stderr=subprocess.PIPE, timeout=10)
+        queries = json.loads(result.stdout)
+        self.assertEqual(queries[0], 'hash=&lang=en_US')
+        session = object.__new__(BrowserSession)
+        session.base_url, session.database, session.case_id = 'http://127.0.0.1:18410', MAIN, 'A-ORIGINAL'
+        session.task_profile = SimpleNamespace(message_id=MAIN_A_ENGINEERING, verify=lambda: None)
+        for query in queries:
+            path = '/web/webclient/translations?' + query
+            main_a_request_boundary('GET', path, allow_translations=True)
+            request = SimpleNamespace(method='GET', url=session.base_url + path, post_data=None)
+            self.assertEqual(session._request_allowed(request), '/web/webclient/translations')
+        session.task_profile = SimpleNamespace(message_id=MAIN_A_AUTONOMY, verify=lambda: None)
+        with self.assertRaises(BrowserBoundaryError):
+            session._request_allowed(request)
+        with self.assertRaises(ValueError):
+            main_a_request_boundary('GET', '/web/webclient/translations?hash=&lang=en_US&mods=web',
+                                    allow_translations=True)
+
     def test_diag_handles_actual_supervisor_python_flag_without_driver_whitelist_change(self):
         source = (ROOT / 'scripts/s10_lc2_supervisor.py').read_text()
         self.assertIn("child_env['PYTHONFAULTHANDLER'] = '1'", source)

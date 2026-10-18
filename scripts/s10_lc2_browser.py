@@ -269,7 +269,8 @@ class BrowserSession:
                     raise BrowserBoundaryError('MAIN_A_BROWSER_DUPLICATE_FORM_FIELD')
                 form = {key: values[0] for key, values in parsed_form.items()}
             try:
-                main_a_request_boundary(request.method, request.url, form=form)
+                main_a_request_boundary(request.method, request.url, form=form,
+                    allow_translations=self.task_profile.message_id == MAIN_A_ENGINEERING)
             except (TypeError, ValueError):
                 raise BrowserBoundaryError('MAIN_A_BROWSER_REQUEST_FORBIDDEN') from None
         if request.method == 'GET':
@@ -351,9 +352,28 @@ class BrowserSession:
             return 'RPC'
         return 'APPLICATION'
 
+    @staticmethod
+    def _rejected_path_class(url):
+        # Return only fixed classifications; never retain the URL or query.
+        path = urlsplit(url).path
+        if path == '/web/webclient/translations':
+            return 'NATIVE_TRANSLATIONS'
+        if path == '/web/login':
+            return 'NATIVE_LOGIN'
+        if path.startswith('/web/session/'):
+            return 'NATIVE_SESSION_ROUTE'
+        if _ORIGINAL.fullmatch(path):
+            return 'STORED_ORIGINAL'
+        if path.startswith(('/web/assets/', '/web/static/')):
+            return 'STATIC_ASSET'
+        if path == '/ydental/clinical/action':
+            return 'CLINICAL_ACTION'
+        return 'OTHER_ROUTE'
+
     async def _route(self, route):
         request = route.request
         upstream = None
+        upstream_attempted = False
         try:
             self._check()
             path = self._request_allowed(request)
@@ -381,6 +401,7 @@ class BrowserSession:
             # A fetch with zero automatic redirects is the only network dispatch
             # here. Its exact response is forwarded unless navigation must stop.
             self._upstream_count += 1
+            upstream_attempted = True
             upstream = await route.fetch(headers=headers, max_redirects=0, max_retries=0, timeout=15000)
             raw = await upstream.body()
             if len(raw) > 16 * 1024 * 1024:
@@ -418,6 +439,17 @@ class BrowserSession:
         except Exception as error:
             self._fatal = (str(error) if isinstance(error, BrowserBoundaryError)
                            else 'BROWSER_GUARD_OR_BUDGET_FAILED')
+            try:
+                save_once(self.directory / (uuid.uuid4().hex + '.route-rejection.json'), {
+                    'kind': 'BROWSER_ROUTE_REJECTION_CLASSIFICATION',
+                    'path_class': self._rejected_path_class(request.url),
+                    'method': request.method if request.method in {'GET', 'POST'} else 'OTHER',
+                    'upstream_attempted': upstream_attempted,
+                    'reason_code': self._fatal if re.fullmatch(r'[A-Z0-9_]{1,96}', self._fatal) else 'OTHER_FAILURE',
+                    'query_and_body_retained': False, 'raw_path_retained': False,
+                })
+            except Exception:
+                self._fatal = self._fatal or 'BROWSER_ROUTE_REJECTION_EVIDENCE_FAILED'
             await route.abort('blockedbyclient')
         finally:
             if upstream is not None:

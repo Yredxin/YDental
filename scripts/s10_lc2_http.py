@@ -66,7 +66,8 @@ _CASES = frozenset({
 })
 
 
-def main_a_request_boundary(method, path, *, form=None, json_body=None, allow_session_info=False):
+def main_a_request_boundary(method, path, *, form=None, json_body=None, allow_session_info=False,
+                            allow_translations=False):
     """MAIN-A permits normal login, store 1, document 1 and stored original 1.
 
     This gate only narrows the existing transport guard. It never supplies
@@ -76,6 +77,15 @@ def main_a_request_boundary(method, path, *, form=None, json_body=None, allow_se
     route = parsed.path
     query = parse_qs(parsed.query, keep_blank_values=True)
     if method == 'GET':
+        if route == '/web/webclient/translations' and allow_translations:
+            # Native LocalizationPlugin always sends hash and lang. A fresh
+            # context has an empty hash; the server produces a SHA-1 cache key.
+            if (set(query) != {'hash', 'lang'}
+                    or any(len(values) != 1 for values in query.values())
+                    or query['lang'][0] not in {'en_US', 'zh_CN'}
+                    or query['hash'][0] and not re.fullmatch(r'[0-9a-f]{40}', query['hash'][0])):
+                raise ValueError('MAIN_A_TRANSLATIONS_QUERY_FORBIDDEN')
+            return
         allowed = route in {'/web/login', '/ydental/access', '/ydental/clinical',
                             '/ydental/settlement', '/ydental/settlement/bill-original/1',
                             '/web/binary/company_logo', '/logo.png', '/web/manifest.webmanifest',
@@ -499,7 +509,8 @@ class Client:
         if self.task_profile is not None and self.task_profile.message_id in MAIN_A_PROFILES:
             self.task_profile.verify()
             main_a_request_boundary(method, path, form=form, json_body=json_body,
-                allow_session_info=self.task_profile.message_id == MAIN_A_ENGINEERING)
+                allow_session_info=self.task_profile.message_id == MAIN_A_ENGINEERING,
+                allow_translations=self.task_profile.message_id == MAIN_A_ENGINEERING)
             if (case_id not in {'A-STATE', 'A-EDITOR', 'A-ORIGINAL'}
                     or discard_response or retry_manifest):
                 raise ValueError('MAIN_A_CASE_OR_REPLAY_FORBIDDEN')
