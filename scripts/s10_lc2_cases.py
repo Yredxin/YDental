@@ -2108,9 +2108,9 @@ def check_c_nonempty_summary(reader, facts, label, expected, *, stop):
     return row
 
 
-def check_c_foreign_target_denied(reader, facts, label, *, path, kind, target_id, stop):
+def check_c_foreign_target_denied(reader, facts, label, *, path, kind, target_id, stop, case_id='C-SCOPE'):
     """The caller has independently proven this target and a valid own scope."""
-    response = reader.client.request('GET', path, case_id='C-SCOPE',
+    response = reader.client.request('GET', path, case_id=case_id,
         operation_ref='C-' + label + '-foreign-' + kind)
     row = {'actor_id': reader.uid, 'request_id': response.request_id,
         'foreign_target_id': target_id, 'route_kind': kind, 'http_status': response.status,
@@ -2186,8 +2186,14 @@ def current_c_read_manifest(directory, source_rows, clinics):
         'legal_issuer_basis': 'actual access_token NULL + no mail attachment relationship; no portal.mixin producer'}
 
 
-def run_current_c_read_cells(reader, facts, manifest, d_source, *, profile, stop, source_ref, source_sha256):
+def run_current_c_read_cells(reader, facts, manifest, d_source, *, profile, stop, source_ref, source_sha256,
+                             fixed_probe_tail=False):
     """Real nonempty family, other-store/company, summary and attachment reads."""
+    if fixed_probe_tail and (manifest.get('all_C_fee_ids') != [2, 4, 3, 5, 6, 7]
+            or manifest.get('canonical_patient_id') != 4
+            or manifest.get('local_original', {}).get('invoice_id') != 5
+            or manifest.get('other_company_original', {}).get('invoice_id') != 9):
+        raise RuntimeError('C_NATIVE_PROBE_TAIL_ONLY_FIXED_SIX_SOURCE_INCIDENT')
     def halt(reason, **metadata):
         return stop(reason, profile=profile, **metadata)
     def authorized_pdf(label, source, *, original):
@@ -2215,6 +2221,8 @@ def run_current_c_read_cells(reader, facts, manifest, d_source, *, profile, stop
         return result
     for cell in manifest['cells']:
         label = cell['label']
+        if fixed_probe_tail and label != 'other-company':
+            continue
         facts.save('C-' + label + '-reader-switch-intent', {
             'actor_id': reader.uid, 'store_id': cell['store_id'], 'automatic_retry': False})
         reader.refresh()
@@ -2235,32 +2243,33 @@ def run_current_c_read_cells(reader, facts, manifest, d_source, *, profile, stop
                 or identity['is_internal_user'] is not True or identity['revision'] != reader.revision
                 or not identity['store_name_matches_independent_source']):
             raise RuntimeError('C_NATIVE_CURRENT_SESSION_IDENTITY_SCOPE_NOT_PROVEN')
-        check_c_nonempty_workbench(reader, facts, label + '-family', cell, stop=halt)
-        check_c_nonempty_summary(reader, facts, label, cell, stop=halt)
         local = manifest['local_original']
         foreign = manifest['other_company_original']
-        if label == 'local':
-            check_c_nonempty_workbench(reader, facts, 'unrelated-local-positive', manifest['unrelated'], stop=halt)
-            authorized_pdf('family-premerge-original', local, original=True)
-            target = foreign
-        elif label == 'other-company':
-            authorized_pdf('other-company-own-original', foreign, original=True)
-            authorized_pdf('other-company-own-dynamic', foreign, original=False)
-            target = local
-        else:
-            target = local
-        check_c_foreign_target_denied(reader, facts, label,
-            path='/ydental/settlement/bill-original/%d' % target['original_id'],
-            kind='original', target_id=target['original_id'], stop=halt)
-        check_c_foreign_target_denied(reader, facts, label,
-            path='/ydental/settlement/pdf/bill/%d' % target['invoice_id'],
-            kind='bill', target_id=target['invoice_id'], stop=halt)
-        # Nonempty receipt/refund controls exist only on the one D chain. These
-        # are read-only valid foreign-scope denials, never another fund fixture.
-        for kind, identifier in [('receipt', d_source['payment_id']), ('refund', d_source['refund_id'])]:
+        if not fixed_probe_tail:
+            check_c_nonempty_workbench(reader, facts, label + '-family', cell, stop=halt)
+            check_c_nonempty_summary(reader, facts, label, cell, stop=halt)
+            if label == 'local':
+                check_c_nonempty_workbench(reader, facts, 'unrelated-local-positive', manifest['unrelated'], stop=halt)
+                authorized_pdf('family-premerge-original', local, original=True)
+                target = foreign
+            elif label == 'other-company':
+                authorized_pdf('other-company-own-original', foreign, original=True)
+                authorized_pdf('other-company-own-dynamic', foreign, original=False)
+                target = local
+            else:
+                target = local
             check_c_foreign_target_denied(reader, facts, label,
-                path='/ydental/settlement/pdf/%s/%d' % (kind, identifier),
-                kind=kind, target_id=identifier, stop=halt)
+                path='/ydental/settlement/bill-original/%d' % target['original_id'],
+                kind='original', target_id=target['original_id'], stop=halt)
+            check_c_foreign_target_denied(reader, facts, label,
+                path='/ydental/settlement/pdf/bill/%d' % target['invoice_id'],
+                kind='bill', target_id=target['invoice_id'], stop=halt)
+            # Nonempty receipt/refund controls exist only on the one D chain. These
+            # are read-only valid foreign-scope denials, never another fund fixture.
+            for kind, identifier in [('receipt', d_source['payment_id']), ('refund', d_source['refund_id'])]:
+                check_c_foreign_target_denied(reader, facts, label,
+                    path='/ydental/settlement/pdf/%s/%d' % (kind, identifier),
+                    kind=kind, target_id=identifier, stop=halt)
         if label == 'other-company':
             # The native report route must independently reject a real foreign
             # invoice even when JSON supplies plausible report context/options.
@@ -2277,7 +2286,7 @@ def run_current_c_read_cells(reader, facts, manifest, d_source, *, profile, stop
                     if query:
                         path += '?' + urlencode(query)
                     check_c_foreign_target_denied(reader, facts, label, path=path,
-                        kind=purpose, target_id=local['invoice_id'], stop=halt)
+                        kind=purpose, target_id=local['invoice_id'], stop=halt, case_id='C-ATTACHMENT')
             from PIL import Image
             placeholder = ROOT.parent / 'addons/web/static/img/placeholder.png'
             for route, suffix in [('content', str(local['attachment_id'])),
@@ -2305,9 +2314,10 @@ def run_current_c_read_cells(reader, facts, manifest, d_source, *, profile, stop
                 if response.status not in {403, 404} and not same_placeholder:
                     halt('C_CROSS_COMPANY_NATIVE_ATTACHMENT_NOT_DENIED', request_id=response.request_id)
                     raise RuntimeError('C_CROSS_COMPANY_NATIVE_ATTACHMENT_NOT_DENIED')
-    facts.save('C-scratch-read-cells-returned', {
+    facts.save('C-scratch-native-probe-tail-returned' if fixed_probe_tail else 'C-scratch-read-cells-returned', {
         'scope_cases': [cell['label'] for cell in manifest['cells']],
         'family_ids': manifest['family_ids'], 'canonical_patient_id': manifest['canonical_patient_id'],
+        'prior_positive_controls_inherited': fixed_probe_tail,
         'all_positive_controls_nonempty': True, 'all_C_fund_dispatches': 0,
         'valid_token': manifest['valid_token'], 'independent_acceptance': 'PENDING'})
 

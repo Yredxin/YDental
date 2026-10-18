@@ -1,6 +1,10 @@
 # 当前 S10 技术收口 / YD-S10-TECHNICAL-CLOSEOUT-V1 1.0
 
 
+C精确尾段实际（Pcc1/T361ac207，2026-10-18T12:01Z）：wrapper exit1/61.76s，owned1969787单parent exit0/signalNone、163条native日志完整seal。先全prefix/D/rank桥接实际通过，再正常完成异公司23费用/账单9及第二原件2/附件237，六源/五未付款账单/两新原件持久；两mixed-store有效403、三店family/正文与非空摘要、独立unrelated正例、受控原件/动态正例及foreign original/bill/D receipt/refund负例已落93facts。独立acceptance离线重核六capture/204sealed文件，D原生6/2/4、六源/五账/两原件及canonical19 rank2→3真实invoice差集/时间窗/非三字段全hash保持，限定通过；其余阅读/日志/PDF仍逐项独审。
+
+首失败为工具预拦截ValueError CURRENT_C_FIXED_NATIVE_REPORT_PROBE_REQUIRED：caller误标C-SCOPE，固定/report门禁正确要求C-ATTACHMENT；首/report/html/.../5请求未到Odoo，不计产品拒绝。原failureindex SHA79d87c1e888185e29e99e2a9bc6ab12cdf55333453138081725aea68715acb30、1414映射snapshot SHA0e13981053622f8a3c1b4f46080c923e072943b8878617494470f6683ef3d73a保持。只修caller分类、不放宽HTTP名单，并仅续4report+4native附件+正常303+末session/终核；不重任何源/家庭合并/原件/已完成GET/D。当前35/163/406/8/12，scope已target-ro/apps[]、无owned进程，原时钟及raw384/全包1GiB保持。最终双E/LOG仍待实测。
+
 当前实际进展（2026-10-18T11:51Z）：产品P=cc1a395a8254a0b6c2017ceedd9a351d095c590a、实际测试T=6ee0e0f6618629496ecf06f00433fd8a680200b0。默认税兼容的新unowned原生MODEL已真实回滚通过，独立后RO7a1017保持旧owned目录/税关系；随后company-only正常commit1及remaining正常commit4，独立核原46域/D19与库存/税/角色保全。新公司4、普通manager9/doctor10/reader11及店2/3/4已就绪。company首RO wrapper实际exit1，原raw保留；仅新company partner13及新Scrap20的native flush元数据通过SOURCE+逆算解释，派生d5aed另列，不改原exit。remaining实际RO4362exit0，正常84新配置审计及四mutex仅revision变化逐项解释。
 
 C首次真实source阶段已提交五费用、四未付账单、一次合法family合并和首份新原件，未执行任何收退款。native1956193正常exit0，wrapper实际exit1：过严的整行partner hash把正常posted invoice触发customer_rank/写元数据视为业务漂移。独立唯一窄RO93d757实际exit0，canonical partner19仅rank及write_uid/write_date变化；在PostgreSQL中用实际前一invoice7创建时间/actor9/rank1逆算精确恢复原whole-row hash，全部其他字段/费用来源/原生账务/D旧行保持。原失败2842B/SHA44a618d47b7f3276d88f84c7727beda5c5bf7ea9c95c09f6a554f0ed22f69712及1617映射快照3fa41325…、15映射后核a73cb673…保持。只修canonical19窄断言并绑定原事实续未执行尾段，不重跑A/U/B/LOG17/同店19、合并、首原件或D。跨公司23/第二新原件/混店负例/读取矩阵/303尚NOT_RUN。

@@ -797,3 +797,44 @@ post RO exit 0：`C-scratch-configured-verified.json` 778658 字节，SHA256 `43
 下一步仅允许团队内最小验证器修复与精确未执行后缀设计：canonical 19 的全行 hash 保留，新增固定排除三字段的稳定 hash 与实际三字段，只有真实新增 posted out_invoice 才能按张数、真实 actor 和该请求/postcommit 时间窗解释变化；其余伙伴和没有新账的 19 仍需全行严格保持。首次桥接须绑定上述实际窄 RO、旧 capture 与当前全行 hash，不改历史原件、不写通用 ignore。此处不是未来补丁或运行准入签署。
 
 私有 raw 均位于既有获准本地证据目录；报告仅保脱敏结构、引用与完整性哈希，外部 GPT 不能仅凭本机路径直接读取原件。未读取或上传密码、cookie、token、完整请求/患者正文；没有更换账号/工具重试历史安全拒绝，旧账本、原时钟与旧 r12 STOP 保持。
+
+
+## YD-S10-TECHNICAL-CLOSEOUT-V1｜C 精确后缀真实前缀验收与第二工具预拦截
+
+独立审查者仍为 `/root/acceptance_s10`，未实现本轮工具或产品；本节保持前 226244 字节 SHA256 `d7dfdfc408a8f62ceb7f3fc505720d1db7396ae849c6cff50eea6a7b54a1dc7c` 原样。实际产品 `cc1a395a8254a0b6c2017ceedd9a351d095c590a`，实际运行/测试 `361ac207f7b8b12111961f2c7deda86c46686abb`。真实目录为获准私有 `C-scratch-de319dc82ee4`；本机引用不是外部审查者天然可读的公开原件。
+
+本次 SOURCE 已在执行前独立审过：只能为新 C canonical partner 19 添加固定三字段之外的 PostgreSQL 稳定 hash，原始 fullrowSHA 始终保留；必须真实新增 posted out_invoice、rank 按新增张数递增、actor 9 且 write_date 位于真实 bill 请求/postcommit 窗口，最多 5 分钟；没有新增账时仍要求原 fullrowSHA。D partner 另加全行保护，其他旧 partner 没有此例外。原失败 raw、原 C 全链 latch `5737815…`、93d757 窄 RO 均保留，初次真实完整五源/四账/第一原件与 D 核完后，才执行未派发的异公司 23 后缀。CURRENT raw 上限由主控依据实际存储/剩余必要证据调整到 384MiB，旧 profiles 256MiB、整包 1GiB、80/90 比例、累计计数和原时钟均保留，不是安全 STOP 解除。
+
+### 实际正常完成且可限定采纳的范围
+
+第一原件、A/U/B/LOG17/同公司19 的旧提交没有重做。新增异公司 23 通过真实上游确认、价源冻结、费用与原生未付款账单正常提交；实际 fee 7 / source 6 / invoice 9 / company 4 / store 4 / patient 4。随后仅新增该账单的原件 2 / attachment 237。全 C 为六独立源金额 7、11、13、17、19、23；只有 17 保持未出账，其余五账单均 posted、residual 等于 total，无 C 收退款。
+
+验收者亲自离线重执行固定运行源码中的 `stored_rows` / `verify_d` / `verify_c_canonical_rank` / `verify_c_sources`，依次覆盖六个实际 capture：首完整 prefix+rank bridge、异公司未付款账单、第二原件、同公司混源拒绝后、异公司混源拒绝后、最终完整源。204 个 sealed 文件逐项核 bytes / SHA；全部断言通过，重算对象与实际保存 JSON 完全相等。该重核只读文件、RAM 执行，没有 DB、HTTP、业务动作或文件输出。首次离线调用误用 D-source 外层导致 KeyError，改取原已存 `source` 对象后通过；这不是产品或本次实际业务运行失败。
+
+最终源证明 `C-independent-tail-financial-sources-complete.json` SHA256 `ecfc41ad1cb2903023a88095a9056997cf9eb6d54f1e50033fa6e8ed38300f69`，实际 source manifest SHA256 `2de91d1414c0c2bba86f377203fd5f57b59500d036c7c9b689a21675fc6b561a`。canonical partner 19 的 rank 实际 2→3，新增 invoice 精确为 9，固定非三字段 hash 始终 `324c5c0f01bc1b6900432d223be14a1f2b27ad9979056de5a5077d8ddeced1f5`，原生 write actor/time 在该请求实际窗口。旧来源/费用/事件/价格快照/原生账单/原件/附件、D patient 及其 continuation 与 partner 全行保持。D 仍唯一收 6 / 退 2 / 净 4，原生 inbound/outbound/credit 各 1，在途 0；只允许列举的 C 未付款账单出现在全库原生凭证集合，不宽排其他账务。
+
+普通 reader 11 在实际 local/same-company/other-company 会话下完成真实非空工作台、family、无关患者对照和必要摘要。local 患者 4 显示 family 发票 5+7 与未账 fee 5；同公司异店仅 invoice 8；异公司仅 invoice 9；无关 patient 3 仅 invoice 6，不并入 family。三店摘要均为真实非空，严格字段集 company/currency/residual/store/store_id，实际店集合及标签和正常合成欠款相符。每个正文保存实际金融行 ID 集、计数、摘要字段集/店集合、必要匹配谓词及 body SHA，未存整页患者正文。三店各四项 foreign controlled original / dynamic bill / D receipt / D refund 均实际 HTTP 403，不返回保护 PDF。
+
+亲核上述 19 个 `*-minimal.json` 均与对应实际 HTTP outcome 的 status/body SHA 相等，并通过精确 operation_ref 唯一关联到本次 native `request.received` / `request.returned`，入口 actor 11 / non-SU；12 个 foreign 拒绝均有实际原生 AccessError。客户端 observation request_id 与原生服务 request_id 不是同一 ID，不能混写；当前关联按实际 operation_ref、同一固定 native 进程及用例时窗，未伪填客户端 null 的 server_request_id/trace。原生内部强制审计使用 sudo 的记录不是被测入口身份替代，不把所有内部事件都写成 non-SU。
+
+### 三份已存 PDF：逐页独立核验限定 PASS
+
+仅使用本次已保存文件离线读取和页图，没有再次 GET、点击或调用 Odoo 渲染。索引 `C-scratch-three-saved-PDF-review/index.json` SHA256 `da294a510b418e432bd970934cbea8e215daff08d52c06cb2707fadf1337e0d1`；producer 的视觉 PENDING 保留，本节独立记录验收。
+
+1. family merge 前创建、merge 后 reader 11 依法下载的原件：26868 字节，SHA256 `25307d7f705dfbea40a70a10d14bbfb53d883a9b3bd67e4900f0b024c2f9e5e0`，精确等创建时原件字节。亲看唯一页：旧 source patient P0000002、local 店/公司 1、费用来源 2、价格 S05:2、invoice 5 的真实原生号，金额/欠款 7、实收 0，经办人仍为创建时 manager。merge 未把原件改成 canonical P4 或另生版本。
+2. 异公司当前动态账单：26670 字节，SHA256 `7a8ae6d25ba42c4eabc9a95cf26868cb3dbd45ad79f756264225712b6f397650`，唯一页显示独立公司 4 / other-company 店 / P0000004，费用来源 7、S05:7、原生 invoice 9，金额/欠款 23、实收 0，当前经办为合法 reader。
+3. 同一异公司已留存原件：26940 字节，SHA256 `ba2f1fdbb42551e1fe2614b414e7ecf8755ef7acf9175ffc4e837790f924f6e6`，精确等实际创建时字节；同金额、来源、身份/门店法人，创建经办仍为 manager。
+
+三份均亲自逐页 view_image，中文清晰、无缺字方框/截断，标题、演示及非税票/非到账证明提示完整；页数均 1，实际嵌入 NotoSansCJKsc-Regular。已核源 PDF、页 PNG、提取文本的索引 SHA 与原生来源/金额关系。不以“含 CJK 文本”单独代替视觉核验，不上传原始 PDF/页图或正文。
+
+### 保留的首失败与未执行后缀
+
+本次 wrapper 实际 exit **1**、61.76 秒，owned Odoo `application-scratch-service-75880ff3` / PID 1969787 单次 parent exit **0**、signal null。229273 字节 native JSONL SHA256 `13b90e54cf6b4c65238f0c690fb2819e3be042d595824276c62714ffe509d7af`，163 条记录；验收者重新运行原 `validate_jsonl` 得 VALID，完整 run.start/run.end、连续 seq 与 seal 可核。两个新动态/原件渲染的 renderer 退出 0，没有新 Native 崩溃或安全拒绝 STOP。
+
+首异常明确是工具预派发 `ValueError CURRENT_C_FIXED_NATIVE_REPORT_PROBE_REQUIRED`：foreign helper 固定 case_id `C-SCOPE`，但正常 native `/report` 工程门禁要求 `C-ATTACHMENT`。首 native report 请求尚未到 Odoo，**不能计作产品保护拒绝**。应修调用分类，不能放宽原 HTTP 允许目标/角色/查询或把工具预拦截写成业务通过。
+
+未执行清单精确为：4 个 native report negative（html/pdf/opaque-empty-context/options）、其后的 4 个跨公司 native attachment negative（content/image、id/model-field）、正常空选费 bill 的 303 拒绝、末 manager native session info，以及全部读路径结束/服务退出后的 terminal RO。第一个缺项之前的正文/摘要/PDF/foreign 结果如上限定采纳；terminal 未跑，不能把最后完整经济 capture 前的保全冒称已经覆盖其后全部请求。
+
+首失败索引 SHA256 `79d87c1e888185e29e99e2a9bc6ab12cdf55333453138081725aea68715acb30` 的 8 个具体原件引用已逐一核 bytes/SHA；1414 项复用原件快照索引 SHA256 `0e13981053622f8a3c1b4f46080c923e072943b8878617494470f6683ef3d73a` 保留固定候选和控制字节。此处不声称重新读取所有未变的 1414 项。实际累计 35 Odoo / 163 target RO / 406 HTTP / 8 Firefox / 12 original GET，旧 baseline 和起止时间保持。
+
+当前独立结论：本次六源/五未付账/两原件及适用 D 保全、已实际完成的 19 个正文/摘要/foreign 单元和三 PDF 限定 PASS；C 整体仍 PARTIAL，LOG-03/最终双 E/全 S10 未签。精确余段只消费实际六源/两原件 manifest，先核 live 完整状态，再做未执行 8 probe / 303 / session / terminal；不得重做 upstream、merge、bill、原件或已采 read 前缀。所有历史工具失败与 producer PENDING 保留，独立签署另列。

@@ -1,3 +1,9 @@
+## C-NATIVE-REPORT-CASE：固定探针被工具分类预拦截
+
+C精确尾段实际（Pcc1/T361ac207，2026-10-18T12:01Z）：wrapper exit1/61.76s，owned1969787单parent exit0/signalNone、163条native日志完整seal。先全prefix/D/rank桥接实际通过，再正常完成异公司23费用/账单9及第二原件2/附件237，六源/五未付款账单/两新原件持久；两mixed-store有效403、三店family/正文与非空摘要、独立unrelated正例、受控原件/动态正例及foreign original/bill/D receipt/refund负例已落93facts。独立acceptance离线重核六capture/204sealed文件，D原生6/2/4、六源/五账/两原件及canonical19 rank2→3真实invoice差集/时间窗/非三字段全hash保持，限定通过；其余阅读/日志/PDF仍逐项独审。
+
+首失败为工具预拦截ValueError CURRENT_C_FIXED_NATIVE_REPORT_PROBE_REQUIRED：caller误标C-SCOPE，固定/report门禁正确要求C-ATTACHMENT；首/report/html/.../5请求未到Odoo，不计产品拒绝。原failureindex SHA79d87c1e888185e29e99e2a9bc6ab12cdf55333453138081725aea68715acb30、1414映射snapshot SHA0e13981053622f8a3c1b4f46080c923e072943b8878617494470f6683ef3d73a保持。只修caller分类、不放宽HTTP名单，并仅续4report+4native附件+正常303+末session/终核；不重任何源/家庭合并/原件/已完成GET/D。当前35/163/406/8/12，scope已target-ro/apps[]、无owned进程，原时钟及raw384/全包1GiB保持。最终双E/LOG仍待实测。
+
 ## C-PARTNER-RANK：普通原生账单元数据被整行断言误判
 
 当前实际进展（2026-10-18T11:51Z）：产品P=cc1a395a8254a0b6c2017ceedd9a351d095c590a、实际测试T=6ee0e0f6618629496ecf06f00433fd8a680200b0。默认税兼容的新unowned原生MODEL已真实回滚通过，独立后RO7a1017保持旧owned目录/税关系；随后company-only正常commit1及remaining正常commit4，独立核原46域/D19与库存/税/角色保全。新公司4、普通manager9/doctor10/reader11及店2/3/4已就绪。company首RO wrapper实际exit1，原raw保留；仅新company partner13及新Scrap20的native flush元数据通过SOURCE+逆算解释，派生d5aed另列，不改原exit。remaining实际RO4362exit0，正常84新配置审计及四mutex仅revision变化逐项解释。

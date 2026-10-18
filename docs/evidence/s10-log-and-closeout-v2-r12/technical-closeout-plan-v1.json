@@ -86,22 +86,22 @@
       "accident_ro": 2,
       "create": 2,
       "firefox": 8,
-      "http": 335,
+      "http": 406,
       "maintenance": 1,
-      "odoo_start": 34,
-      "original_get": 7,
-      "target_ro": 155
+      "odoo_start": 35,
+      "original_get": 12,
+      "target_ro": 163
     },
     "current_plan": {
-      "odoo_start": 24,
-      "target_ro": 125,
-      "http": 303,
+      "odoo_start": 25,
+      "target_ro": 133,
+      "http": 374,
       "firefox": 2,
-      "original_get": 7
+      "original_get": 12
     },
     "counts_are_not_test_pass_totals": true,
     "http_boundary": "Runner/browser dispatch ledger; not all native renderer internal asset HTTP wire requests.",
-    "as_of_utc": "2026-10-18T11:51:00Z",
+    "as_of_utc": "2026-10-18T12:01:00Z",
     "counts_are_not_test_case_totals": true,
     "prior_as_of_before_tax_model_and_finite_C": {
       "cumulative": {
@@ -120,6 +120,25 @@
         "odoo_start": 20,
         "original_get": 7,
         "target_ro": 105
+      }
+    },
+    "prior_as_of_rank_explanation": {
+      "cumulative": {
+        "accident_ro": 2,
+        "create": 2,
+        "firefox": 8,
+        "http": 406,
+        "maintenance": 1,
+        "odoo_start": 35,
+        "original_get": 12,
+        "target_ro": 163
+      },
+      "current_plan": {
+        "odoo_start": 24,
+        "target_ro": 125,
+        "http": 303,
+        "firefox": 2,
+        "original_get": 7
       }
     }
   },
@@ -351,9 +370,9 @@
   },
   "independent_review_reference": {
     "ref": "../../reports/s10-log-and-closeout-v2-r12/acceptance-review.md",
-    "bytes_at_current_signature": 226244,
-    "sha256_at_current_signature": "d7dfdfc408a8f62ceb7f3fc505720d1db7396ae849c6cff50eea6a7b54a1dc7c",
-    "scope": "Actual prior A/B/D/LOG02 plus real inventory6MODEL, tax unowned rollback/finite configuration, C committed prefix and rank93d inverse proof scoped acceptance. Precise C tail, final dual E and remaining LOG not signed."
+    "bytes_at_current_signature": 234951,
+    "sha256_at_current_signature": "706a361cfbb7ecdcc6d450d218f6d0c38264a48f03227fad9a2c964275ad6501",
+    "scope": "C six sealed captures/204 files, six sources/five unpaid bills/two originals/rank3/native D preservation,19 read minimal results/native association/163 complete log seal, three current PDFs personally viewed. Native8 probes/303/session/terminal not run. Exact suffix source READY only."
   },
   "B-actual": {
     "status": "PASS_SCOPED_SIX_MODEL_AND_SIX_REAL_RPC",
@@ -817,6 +836,12 @@
       "bytes_at_current_signature": 187475,
       "sha256_at_current_signature": "b90387dab7e24c83d574cbe44ffac77a6ada2d7c56d92fcb2975a5385270b316",
       "scope": "Actual prior A/B/C and D/LOG02 scoped conclusions retained; current new C/E/LOG source independently reviewed, engineering10+7 hermetic checks only. Future C/E/LOG actual tests not signed."
+    },
+    {
+      "ref": "../../reports/s10-log-and-closeout-v2-r12/acceptance-review.md",
+      "bytes_at_current_signature": 226244,
+      "sha256_at_current_signature": "d7dfdfc408a8f62ceb7f3fc505720d1db7396ae849c6cff50eea6a7b54a1dc7c",
+      "scope": "Actual prior A/B/D/LOG02 plus real inventory6MODEL, tax unowned rollback/finite configuration, C committed prefix and rank93d inverse proof scoped acceptance. Precise C tail, final dual E and remaining LOG not signed."
     }
   ],
   "D-configuration-and-early-font": {
@@ -1196,5 +1221,146 @@
     "rank_scope": "Only new canonical partner19 changed customer_rank/write_uid/write_date through actual invoice8 posting. Inverse in PostgreSQL using rank1/actor9/actual prior invoice7 create_date restores exact old whole-row SHA; all other partner fields and old financial/source/D rows unchanged. Physical prior rank was not individually projected.",
     "continuation": "Precisely bind original prefix and actual inverse proof; execute only other-company23/new second original/mixed-store negatives/read cells/error303. No repeat committed prefix or D.",
     "independent_reviewer": "/root/acceptance_s10"
+  },
+  "C-cross-company-tail-actual": {
+    "status": "PASS_SCOPED_REAL_SOURCES_AND_READ_PREFIX_NATIVE_SUFFIX_NOT_RUN",
+    "product_commit": "cc1a395a8254a0b6c2017ceedd9a351d095c590a",
+    "runtime_test_commit": "361ac207f7b8b12111961f2c7deda86c46686abb",
+    "wrapper_exit_code": 1,
+    "native_exit_code": 0,
+    "native_pid": 1969787,
+    "native_records": 163,
+    "owned_http_dispatches": 71,
+    "durable_facts": 93,
+    "new_C_money_dispatches": 0,
+    "sources": [
+      {
+        "amount": "7",
+        "attachment_id": 236,
+        "company_id": 1,
+        "event_id": 2,
+        "fee_id": 2,
+        "invoice_id": 5,
+        "original_id": 1,
+        "patient_id": 2,
+        "source_id": 2,
+        "store_id": 2
+      },
+      {
+        "amount": "11",
+        "company_id": 1,
+        "event_id": 4,
+        "fee_id": 4,
+        "invoice_id": 7,
+        "patient_id": 4,
+        "source_id": 4,
+        "store_id": 2
+      },
+      {
+        "amount": "13",
+        "company_id": 1,
+        "event_id": 3,
+        "fee_id": 3,
+        "invoice_id": 6,
+        "patient_id": 3,
+        "source_id": 3,
+        "store_id": 2
+      },
+      {
+        "amount": "17",
+        "company_id": 1,
+        "event_id": 5,
+        "fee_id": 5,
+        "patient_id": 4,
+        "store_id": 2
+      },
+      {
+        "amount": "19",
+        "company_id": 1,
+        "event_id": 6,
+        "fee_id": 6,
+        "invoice_id": 8,
+        "patient_id": 4,
+        "source_id": 5,
+        "store_id": 3
+      },
+      {
+        "amount": "23",
+        "attachment_id": 237,
+        "company_id": 4,
+        "event_id": 7,
+        "fee_id": 7,
+        "invoice_id": 9,
+        "original_id": 2,
+        "patient_id": 4,
+        "source_id": 6,
+        "store_id": 4
+      }
+    ],
+    "stored_originals": [
+      {
+        "attachment_id": 236,
+        "id": 1,
+        "invoice_id": 5,
+        "pdf_sha256": "25307d7f705dfbea40a70a10d14bbfb53d883a9b3bd67e4900f0b024c2f9e5e0"
+      },
+      {
+        "attachment_id": 237,
+        "id": 2,
+        "invoice_id": 9,
+        "pdf_sha256": "ba2f1fdbb42551e1fe2614b414e7ecf8755ef7acf9175ffc4e837790f924f6e6"
+      }
+    ],
+    "actual_executed_read_cells": [
+      "family-body",
+      "same-company-body",
+      "other-company-body",
+      "each-nonempty-summary",
+      "authorized-original-and-dynamic",
+      "controlled-foreign-original-bill-receipt-refund-denied"
+    ],
+    "first_failure_layer": "TOOL_PRE_DISPATCH_NOT_PRODUCT_DENIAL",
+    "failure_code": "CURRENT_C_FIXED_NATIVE_REPORT_PROBE_REQUIRED",
+    "NOT_RUN": [
+      "native-report-html",
+      "native-report-pdf",
+      "native-report-pdf-context",
+      "native-report-pdf-options",
+      "cross-company-attachment-content-id",
+      "cross-company-attachment-image-id",
+      "cross-company-attachment-content-model-field",
+      "cross-company-attachment-image-model-field",
+      "normal-empty-bill-303",
+      "final-manager-session-info",
+      "source-service-terminal-RO"
+    ],
+    "failure_index": {
+      "path": ".local/s10-technical-closeout-v1/C-native-probe-first-failure-index.json",
+      "bytes": 4974,
+      "sha256": "79d87c1e888185e29e99e2a9bc6ab12cdf55333453138081725aea68715acb30",
+      "access": "Local private evidence; not directly readable from GitHub"
+    },
+    "runtime_snapshot": {
+      "path": ".local/s10-technical-closeout-v1/C-scratch-tail-first-failure-runtime-originals/index.json",
+      "bytes": 560011,
+      "sha256": "0e13981053622f8a3c1b4f46080c923e072943b8878617494470f6683ef3d73a",
+      "access": "Local private evidence; not directly readable from GitHub"
+    },
+    "independent_source_preservation_scope": "Acceptance re-executed existing pure verification on six actual sealed captures/204 files: six sources/five unpaid bills/two original bytes/native D/partner rank exact2→3 preserved. Real read-prefix response/log/PDF review remains separate.",
+    "repair": "Only caller case classification for fixed native report probes, no HTTP whitelist broadening; resume only never-executed8probes/303/session/terminal.",
+    "saved_PDF_review": {
+      "index_path": ".local/s10-technical-closeout-v1/C-scratch-three-saved-PDF-review/index.json",
+      "index_bytes": 5124,
+      "index_sha256": "da294a510b418e432bd970934cbea8e215daff08d52c06cb2707fadf1337e0d1",
+      "documents": 3,
+      "pages_each": 1,
+      "current_downloads_match_stored_original_SHA": true,
+      "root_personally_viewed_each_page": true,
+      "visual_summary": "Premerge original retains source patient2/local company/store/frozen version/7 USD with0 received and7 due. Other-company stored original and current dynamic report show company4/store4/patient4/frozen version/23 USD with0 received and23 due. Chinese readable. Independent acceptance recorded separately.",
+      "new_HTTP_for_review": 0,
+      "local_private_not_GitHub_readable": true,
+      "independent_acceptance_personally_viewed_each_page": true
+    },
+    "independent_read_scope": "19 minimal semantic response facts correlated with actual163 native events and original first pre-dispatch error; historical wrapper1 retained."
   }
 }

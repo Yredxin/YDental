@@ -6174,7 +6174,7 @@
         "reviewer": "/root/acceptance_s10"
       },
       "C-SCOPE": {
-        "status": "PARTIAL_MAIN_ACTUAL_SCRATCH_PENDING",
+        "status": "PARTIAL_MAIN_AND_SCRATCH_REAL_NATIVE_SUFFIX_PENDING",
         "required_layers": [
           "HTTP/RPC",
           "MODEL_NATIVE_COMMITTED",
@@ -6185,7 +6185,7 @@
           "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json",
           "acceptance-review.md"
         ],
-        "reason": "Four read/export combinations and same-company foreign nonempty source actually exercised, two HTML predicates durably completed. Cross-company/family/mixed/nonempty summary pending scratch. New59 native login timezone metadata independently explained with same-transaction timestamp; original terminal wrapper exit1 retained and physical before timezone was not captured. Scratch ordinary roles/configuration and legal family/source/bill prefix now actually committed and independently preserved; cross-company/read cells/mixed-store tail still NOT_RUN. First partner rank assertion FAIL retained and exact inverse proof separately accepted."
+        "reason": "Four read/export combinations and same-company foreign nonempty source actually exercised, two HTML predicates durably completed. Cross-company/family/mixed/nonempty summary pending scratch. New59 native login timezone metadata independently explained with same-transaction timestamp; original terminal wrapper exit1 retained and physical before timezone was not captured. Scratch ordinary roles/configuration and legal family/source/bill prefix now actually committed and independently preserved; cross-company/read cells/mixed-store tail still NOT_RUN. First partner rank assertion FAIL retained and exact inverse proof separately accepted. T361 actual other-company23/second original/mixed-store403/nonempty family and three-store summary dispatched; sources independently accepted, read-prefix independent review pending. Tool pre-dispatch case mismatch retained;8native probes/303/session/terminal NOT_RUN."
       },
       "C-ATTACHMENT": {
         "status": "PARTIAL_MAIN_CHINESE_PDF_REPAIR_ACTUAL_PASS",
@@ -7144,7 +7144,7 @@
     },
     "source_product_candidate": "cc1a395a8254a0b6c2017ceedd9a351d095c590a",
     "scratch_native_admission_ref": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/scratch-native-admission",
-    "current_C_preflight": "Actual company-only and remaining commits independently preserved; first C source commits five fees/four unpaid bills/family merge/one original. Actual wrapper1/native0 rank-only assertion failure independently explained by93d inverse proof; precise never-executed tail only.",
+    "current_C_preflight": "Actual C six sources/five unpaid bills/two stored originals independently preserved including new rank3; three-store nonempty read prefix actually dispatched. First native-report preblocked by tool case mismatch: 8native-probes/303/finalsession/terminal not run, precise read-only suffix only.",
     "additional_product_impact": "P1545 common inventory system unmanaged read actual6MODEL plus native company creation passed; mutations/ordinary managed restrictions held. Pcc1 default-tax compatibility actual unowned native hooks rollback, controlled native catalog creation in five actual C fees, old owned tax rows/relations preserved. T08/T09/T15 carry retains historical scope; final dual data upgrades and affected regression remain mandatory.",
     "current_engineering_limits_ref": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/current_engineering_limits"
   }
