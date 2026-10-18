@@ -1203,7 +1203,7 @@ def main_c(manager, reader, token, placeholder, facts, attachment_id, scope_acto
         page = actor.client.request('GET', path, case_id='C-SCOPE')
         page.require_status(200)
         own_invoice = scope.get('own_invoice_id')
-        if own_invoice and ('/ydental/settlement/pdf/bill/%d' % own_invoice).encode() not in page.body:
+        if own_invoice and ('href="/ydental/settlement/pdf/bill/%d"' % own_invoice).encode() not in page.body:
             raise RuntimeError('C_FOREIGN_STORE_NONEMPTY_OWN_INVOICE_NOT_VISIBLE')
         denied_page = actor.client.request('GET', '/ydental/settlement?patient_id=1', case_id='C-SCOPE')
         denied_page.require_status(200 if scope.get('patient1_related') else 403)
