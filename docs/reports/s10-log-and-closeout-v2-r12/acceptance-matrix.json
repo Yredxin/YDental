@@ -5320,6 +5320,17 @@
       "status": "STATE_PRESERVATION_ACCEPTED_EDITOR_PRESERVED_ORIGINAL_NOT_RUN_GROUP_INCOMPLETE",
       "offline_repair": "SOURCE_AND_OFFLINE_SCOPED_ACCEPTED_RUNTIME_NOT_RUN",
       "github_sync": "NOT_PRESIGNED"
+    },
+    "evidence_commit": "ce3789772be34a3c32426edf309c2ebdd0a3492a",
+    "github_sync": {
+      "id": 6244173596,
+      "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6244173596",
+      "bytes": 8297,
+      "sha256": "c622837a424caaef74330a22bd5b3c157fe3ed01052509113421972f6bea0812",
+      "full_api_readback_equal": true,
+      "evidence_commit": "ce3789772be34a3c32426edf309c2ebdd0a3492a",
+      "no_business_rerun": true,
+      "only_own_real_task04_delivery": true
     }
   }
 }

@@ -1,5 +1,7 @@
 # 当前 MAIN-A 原件UI收尾：实际页面已运行，下载未完成
 
+[本轮真实交付6244173596](https://github.com/Yredxin/YDental/issues/34#issuecomment-6244173596)已全文API读回一致：8297B/SHA `c622837a424caaef74330a22bd5b3c157fe3ed01052509113421972f6bea0812`，证据E `ce3789772be34a3c32426edf309c2ebdd0a3492a`。只同步本轮实际结果，无业务重跑。
+
 本轮 `YD-S10-LC2-MAIN-A-20261018-04` / `MAIN_A_EXISTING_ORIGINAL_UI_ONLY`，父 `980eda60f011b1dec5fbf16ee8f10cc8e7cfa414`。用户直接采用《17_CODEX_MAIN_A_ORIGINAL_UI_CLOSEOUT_20261018.md》全文；仓内无同名附件，不冒称取得其原字节。完整读取[正式复核6243885093](https://github.com/Yredxin/YDental/issues/34#issuecomment-6243885093)、[上一轮交付6243816035](https://github.com/Yredxin/YDental/issues/34#issuecomment-6243816035)、[测试自主权](https://github.com/Yredxin/YDental/issues/23#issuecomment-6243010403)及#23/#34正文和有效增量。本轮[START6243952332](https://github.com/Yredxin/YDental/issues/34#issuecomment-6243952332)已全文API读回，3199B/SHA `4409d7ca41ca6fc6df9491c818a47ee252968d642162e3ca82d88427dd6587c0`；未代发此前被拒GPT评论。
 
 产品 `cf5d63fe510b52ea150d07495bf3062f4ce0961d`，**实际应用及UI执行源码 `ee73081c09f06e7bae5bc5660061d6391ef977f5`**，core保持 `f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb`。运行已停止，两个Odoo启动额度均耗尽，禁止第三次启动或借用其他服务。后续离线修复不冒称实际UI已验证。
