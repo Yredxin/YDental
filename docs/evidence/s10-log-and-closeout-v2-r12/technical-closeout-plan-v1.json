@@ -355,10 +355,7 @@
       "resolution": "Existing project pymupdf read/render of saved current download; no installation, new rendering of original, or repeated click."
     }
   ],
-  "remaining": [
-    "Normal final GitHub record and technical#34 closure/readback;#37 remains separate",
-    "Final documentation HEAD private metadata alignment only; no new runtime or S11-S13"
-  ],
+  "remaining": [],
   "B-role-prepare-first": {
     "candidate": "863325e2f48ca073b989711f36012c5da483e42d",
     "status": "TOOL_FAIL_STARTUP_RACE_NO_NEW_ROLE_OBSERVED_AFTER_INDEPENDENT_RO",
@@ -2181,11 +2178,35 @@
     }
   },
   "record_sync": {
-    "status": "PENDING",
+    "status": "SYNCED_TECHNICAL_DELIVERY_AND_ISSUE_CLOSURE_VERIFIED",
+    "technical_delivery_commit": "3af889d475fe8fcd88b56cc63db5cfed79a4b7e9",
+    "comment_url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6250858664",
+    "comment_exact_body_readback": true,
     "technical_issue": 34,
-    "actual_issue_state": "OPEN",
+    "actual_issue_state": "CLOSED",
+    "state_reason": "completed",
+    "closed_at": "2026-10-18T14:06:38Z",
     "user_effect_issue": 37,
     "user_effect_issue_state": "OPEN",
-    "no_merge_deployment_or_next_stage": true
+    "no_merge_deployment_or_next_stage": true,
+    "private_readback_refs": [
+      {
+        "path": ".local/s10-technical-closeout-v1/final-issue-comment-readback.json",
+        "bytes": 285,
+        "sha256": "33575c72a1c07563759a7a160b2123c06ad8fc2f990e6a1d6f6edf06e970baed"
+      },
+      {
+        "path": ".local/s10-technical-closeout-v1/final-issues-state-readback.json",
+        "bytes": 446,
+        "sha256": "b09e070a4cb4385061097c8084e7aadb5eacb19a24d3c4933eaa55e08d73f64c"
+      }
+    ]
+  },
+  "plan_end": {
+    "technical_work_complete": true,
+    "all_owned_runtime_stopped": true,
+    "final_documentation_metadata_alignment_only": true,
+    "historical_unknown_unowned_resources_retained": true,
+    "no_following_plan_started": true
   }
 }
