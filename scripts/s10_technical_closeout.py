@@ -568,6 +568,199 @@ def run_d_scratch(profile, approval, authority, requested_path):
 
 
 
+
+def c_committed_d_source(profile, request):
+    from s10_lc2_evidence import save_once
+    path = ROOT / request['D_source_ref']
+    if path.is_symlink() or not path.resolve().is_relative_to(profile.root):
+        raise RuntimeError('C_COMMITTED_D_SOURCE_REFERENCE_INVALID')
+    raw = path.read_bytes()
+    if hashlib.sha256(raw).hexdigest() != request['D_source_sha256']:
+        raise RuntimeError('C_COMMITTED_D_SOURCE_BYTES_CHANGED')
+    # This is the original durable pre-execute record, read only after its
+    # matching whole-chain COMPLETE and terminal independent commit evidence.
+    source = strict_loads(raw)['source']
+    complete = strict_loads((profile.root / 'D-CHAIN-COMPLETE.json').read_bytes())
+    if (complete.get('status') != 'D_UNIQUE_SIX_TWO_COMMITTED_NATIVE_ACCOUNTING_INDEPENDENT_ACCEPTANCE_PENDING'
+            or complete.get('received') != 6 or complete.get('actually_refunded') != 2
+            or complete.get('net_received') != 4
+            or complete.get('source_ids') != {key: value for key, value in source.items()
+                                             if key not in {'pay_key', 'execute_key'}}):
+        raise RuntimeError('C_UNIQUE_COMMITTED_D_SOURCE_AND_KEYS_NOT_PROVEN')
+    return source
+
+
+def prepare_c_scratch(profile, approval, authority, requested_path):
+    from s10_lc2_cases import run_fixture
+    profile.require_action('scratch-c-configuration')
+    request, observed = scratch_requested(profile, requested_path)
+    d_source = c_committed_d_source(profile, request)
+    if (observed.get('validation_status') != 'CURRENT_D_FINISHED_NATIVE_ACCOUNTING_VERIFIED_FOR_UNFUNDED_C'
+            or observed.get('unique_D_native_accounting_verified') is not True
+            or observed.get('all_mail_servers_count') != 0
+            or observed.get('normal_C_fixture_not_yet_created') is not True):
+        raise RuntimeError('C_NEW_CONFIGURATION_PREDECESSORS_NOT_INDEPENDENTLY_VERIFIED')
+    save_once(profile.root / 'C-SCRATCH-CONFIGURATION-IN-FLIGHT.json', {
+        'before_ref': request['manifest_ref'], 'before_sha256': request['manifest_sha256'],
+        'D_source_sha256': request['D_source_sha256'], 'D_patient_id': d_source['patient_id'],
+        'D_fee_id': d_source['fee_id'], 'automatic_retry': False,
+        'scope': 'new_C_configuration_only_no_fee_account_move_payment_factory'})
+    result = run_fixture('scratch', approval=approval, product_commit=authority['product_commit'],
+        test_commit=authority['test_commit'], mode='scratch-c-configuration-only',
+        manifest={'D_source_ids': complete_source_ids(d_source)}, profile=profile)
+    safe, ram = result['safe'], result['ram']
+    public = {'clinics': safe['clinics'], 'company2_id': safe['company2_id'],
+              'actors': {role: {'user_id': ram[role]['uid'], 'provider_ref': str((profile.root /
+                  'credentials' / ('scratch-user-%d.json' % ram[role]['uid'])).relative_to(ROOT))}
+                  for role in ('manager', 'doctor', 'reader')}}
+    save_once(profile.root / 'C-fixture-public-identities.json', public)
+    save_once(profile.root / 'C-configuration-returned.json', safe)
+    return {'status': 'C_NATIVE_CONFIGURATION_COMMIT_RETURNED_INDEPENDENT_RO_REQUIRED',
+            'clinic_count': len(public['clinics']), 'fund_dispatches': 0}
+
+
+def complete_source_ids(source):
+    return {key: value for key, value in source.items() if key not in {'pay_key', 'execute_key'}}
+
+
+def run_c_scratch_sources(profile, approval, authority, requested_path):
+    from s10_lc2_cases import Actor, Facts, capture, closed_log_report, d_selection, marker, stored_rows, verify_d
+    # The following small functions are merged into existing cases.py during
+    # the authorized code window; no additional platform/runner is introduced.
+    from s10_lc2_cases import (CRecordedActor, new_c_confirmed_fee, run_new_c_fixture_flow,
+                              c_source_selections, current_c_read_manifest, run_current_c_read_cells,
+                              run_current_c_error303, verify_c_sources)
+    for action in ('C-SCOPE', 'C-ATTACHMENT', 'LOG-03', 'scratch-c-sources'):
+        profile.require_action(action)
+    request, observed = scratch_requested(profile, requested_path)
+    d_source = c_committed_d_source(profile, request)
+    fixture_raw = (profile.root / 'C-fixture-public-identities.json').read_bytes()
+    fixture = strict_loads(fixture_raw)
+    if (observed.get('validation_status') != 'CURRENT_C_NATIVE_CONFIGURATION_VERIFIED'
+            or observed.get('fixture_sha256') != hashlib.sha256(fixture_raw).hexdigest()
+            or any(observed.get(key) is not True for key in ('ordinary_actual_C_actors_verified',
+                'new_C_clinics_native_configuration_verified', 'unique_D_native_accounting_verified',
+                'font_view_loaded', 'report_parameters_expected'))
+            or observed.get('all_mail_servers_count') != 0):
+        raise RuntimeError('C_NEW_ORDINARY_ROLES_CLINICS_AND_D_PRESERVATION_NOT_PROVEN')
+    schema_path = ROOT / observed['schema_ref']
+    if (schema_path.is_symlink() or not schema_path.resolve().is_relative_to(profile.root)
+            or hashlib.sha256(schema_path.read_bytes()).hexdigest() != observed['schema_sha256']):
+        raise RuntimeError('C_CURRENT_ACTUAL_SCHEMA_REFERENCE_CHANGED')
+    schema = strict_loads(schema_path.read_bytes())
+    selections = c_source_selections(schema, d_selection=d_selection, profile=profile)
+    directory = profile.root / ('C-scratch-' + uuid.uuid4().hex[:12])
+    facts = Facts(directory)
+    save_once(profile.root / 'C-SCRATCH-SOURCE-CHAIN-IN-FLIGHT.json', {
+        'directory': str(directory.relative_to(ROOT)), 'fixture_sha256': observed['fixture_sha256'],
+        'D_source_sha256': request['D_source_sha256'], 'automatic_retry': False})
+    immutable = {}
+    final_observation, final_state, final_reference = None, None, None
+    def observe(label, rows):
+        nonlocal final_observation, final_state, final_reference
+        state = capture('scratch', 'C-' + label, selections=selections,
+            metadata=False, max_rows=2000, profile=profile)
+        result = verify_c_sources(state, rows, d_source, stored_rows=stored_rows,
+            verify_d=verify_d, profile=profile, immutable_billed=immutable)
+        saved = facts.save('C-independent-' + label, result | {'source': str(state.relative_to(ROOT))})
+        final_reference = {'source_ref': str(Path(saved['path']).relative_to(ROOT)),
+                           'source_sha256': saved['sha256']}
+        final_observation, final_state = result, state
+        return result
+    def store_original(manager, source, *, label):
+        key = uuid.uuid4().hex
+        facts.save('C-' + label + '-original-intent', {
+            'actor_id': manager.uid, 'invoice_id': source['invoice_id'],
+            'store_id': source['store_id'], 'company_id': source['company_id'],
+            'stable_original_key': key, 'operation_ref': 'C-' + label + '-original-create',
+            'stage': 'BEFORE_DISPATCH', 'automatic_retry': False})
+        with manager.client.current_c_target(**final_reference, invoice_id=source['invoice_id'],
+                actor_id=manager.uid, active_store_id=manager.store_id,
+                create_original=True, request_key=key):
+            response = manager.client.request('POST',
+                '/ydental/settlement/bill-original/create/%d' % source['invoice_id'],
+                form={'revision': manager.revision, 'csrf_token': manager.csrf, 'key': key},
+                case_id='C-ATTACHMENT', operation_ref='C-' + label + '-original-create')
+        facts.save('C-' + label + '-original-response', {
+            'actor_id': manager.uid, 'invoice_id': source['invoice_id'],
+            'request_id': response.request_id, 'status': response.status,
+            'body_sha256': hashlib.sha256(response.body).hexdigest(), 'commit_claimed': False})
+        response.require_status(303)
+        # The caller currently owns rows; it will observe immediately below.
+        # A bounded separate selection discovers the original by this invoice,
+        # rather than predicting or borrowing an existing original ID.
+        original_state = capture('scratch', 'C-' + label + '-original-discovery',
+            selections=[entry for entry in selections if entry['table'] in {
+                'ydental_settlement_bill_original', 'ir_attachment', 'message_attachment_rel'}],
+            metadata=False, max_rows=2000, profile=profile)
+        found = [row for row in stored_rows(original_state, 'ydental_settlement_bill_original')
+                 if row['invoice_id'] == source['invoice_id']]
+        if len(found) != 1 or found[0]['actor_id'] != manager.uid:
+            raise RuntimeError('C_NORMAL_NEW_ORIGINAL_NOT_INDEPENDENTLY_DISCOVERED')
+        original = found[0]
+        return {'original_id': original['id'], 'attachment_id': original['attachment_id'],
+                'pdf_sha256': original['pdf_sha256'],
+                'original_discovery_ref': str(original_state.relative_to(ROOT))}
+    with OwnedApplication(marker('scratch', profile), approval=approval,
+            product_commit=authority['product_commit'], test_commit=authority['test_commit'],
+            action='scratch-service', profile=profile) as app:
+        app.start([])
+        app.wait_ready(60)
+        actors = {}
+        for role, reference in fixture['actors'].items():
+            path = ROOT / reference['provider_ref']
+            if (path.is_symlink() or not path.resolve().is_relative_to(profile.root / 'credentials')
+                    or path.stat().st_uid != os.getuid() or stat.S_IMODE(path.stat().st_mode) != 0o600):
+                raise RuntimeError('C_PRIVATE_NORMAL_PROVIDER_BOUNDARY_INVALID')
+            account = strict_loads(path.read_bytes())
+            if account['user_id'] != reference['user_id']:
+                raise RuntimeError('C_PRIVATE_NORMAL_PROVIDER_ID_CHANGED')
+            actor = Actor('scratch', 'current-C-' + role, account['user_id'], account['login'],
+                account['password'], budget=app.budget, directory=directory / (role + '-http'))
+            actor.login(fixture['clinics'][0]['store_id'])
+            actors[role] = actor
+        observe('before-first-C-source', [])
+        rows, source_manifest = run_new_c_fixture_flow(actors['manager'], actors['doctor'],
+            fixture['clinics'], facts, d_source, observe=observe,
+            new_c_confirmed_fee=new_c_confirmed_fee, recorded_actor=CRecordedActor,
+            store_original=store_original)
+        read_manifest = current_c_read_manifest(final_state, rows, fixture['clinics'])
+        facts.save('C-scratch-actual-read-manifest', read_manifest)
+        from s10_lc2_launch import stop
+        run_current_c_read_cells(actors['reader'], facts, read_manifest, d_source,
+            profile=profile, stop=stop, **final_reference)
+        manager = actors['manager']
+        run_current_c_error303(manager, facts, observe, rows, profile=profile, stop=stop)
+        metadata_response = manager.client.request('POST', '/web/session/get_session_info',
+            json_body={'jsonrpc': '2.0', 'id': uuid.uuid4().hex, 'method': 'call', 'params': {}},
+            case_id='C-SCOPE', operation_ref='C-manager-native-session-for-log')
+        metadata_response.require_status(200)
+        native = metadata_response.json()['result']
+        metadata = {key: native.get(key) for key in ('uid', 'db', 'is_admin', 'is_system', 'is_internal_user')}
+        metadata.update(request_id=metadata_response.request_id, switch_request_id=manager.scope_request_id,
+            revision=native.get('user_context', {}).get('ydental_revision'),
+            store_id=manager.store_id,
+            store_name_matches_independent_source=native.get('ydental_store_name') == read_manifest['cells'][0]['store_name'])
+        facts.save('C-manager-native-session-for-log', metadata)
+        if (metadata['uid'] != manager.uid or metadata['db'] != profile.database
+                or metadata['is_admin'] is not False or metadata['is_system'] is not False
+                or metadata['is_internal_user'] is not True or metadata['revision'] != manager.revision
+                or metadata['store_id'] != fixture['clinics'][0]['store_id']
+                or not metadata['store_name_matches_independent_source']):
+            raise RuntimeError('C_MANAGER_ACTUAL_NATIVE_SESSION_FOR_ROLLBACK_LOG_NOT_PROVEN')
+        observe('all-C-read-cells-complete', rows)
+        app.check()
+    closed = closed_log_report(app)
+    terminal = observe('terminal-after-source-service-exit', rows)
+    result = {'status': 'C_NEW_UNFUNDED_SOURCES_AND_SCOPE_CELLS_EXECUTED_INDEPENDENT_ACCEPTANCE_PENDING',
+        'directory': str(directory.relative_to(ROOT)), 'sources': rows,
+        'manifest': terminal, 'owned_service_closed': True,
+        'native_exit_code': app.process.returncode, 'diagnostic_records': closed['record_count'],
+        'C_fund_dispatches': 0, 'D_funds_globally_unique': True}
+    save_once(profile.root / 'C-SCRATCH-SOURCE-CHAIN-RETURNED.json', result)
+    return result
+
+
 def run_log_rollback_pair(profile, approval, authority, requested_path):
     """Two native scratch MODEL processes, each fully rolled back; no new funds."""
     from s10_lc2_cases import capture, run_fixture, stored_rows
@@ -888,12 +1081,207 @@ def repair_upgrade_main(profile, approval, authority, requested_path, *, font_re
     return result
 
 
+
+def run_final_s10_upgrade(profile, approval, authority, requested_path):
+    """Final data-bearing upgrade of exactly one already verified current target."""
+    from s10_lc2_cases import marker, closed_log_report
+    from s10_lc2_launch import keep_primary
+    profile.require_action('E-UPGRADE-S10-ONLY')
+    role = profile.target_role
+    expected_oid = 2144129 if role == 'main' else 2144130
+    request = strict_loads(requested_path.read_bytes())
+    before = ROOT / request['manifest_ref']
+    if before.is_symlink() or not before.resolve().is_relative_to(profile.root):
+        raise RuntimeError('FINAL_E_BEFORE_REFERENCE_INVALID')
+    raw = before.read_bytes()
+    if hashlib.sha256(raw).hexdigest() != request['manifest_sha256']:
+        raise RuntimeError('FINAL_E_BEFORE_REFERENCE_CHANGED')
+    state = strict_loads(raw)
+    if (state.get('database') != profile.database or state.get('oid') != expected_oid
+            or state.get('cluster') != '7694897083368259627'
+            or state.get('product_commit') != authority['product_commit']
+            or any(state.get(key) is not True for key in ('rollback_returned', 'connection_closed',
+                'protected_baseline_complete', 'predecessor_evidence_complete'))
+            or role == 'scratch' and state.get('unique_D_native_accounting_verified') is not True):
+        raise RuntimeError('FINAL_E_ACTUAL_DATA_AND_PREREQUISITES_NOT_PROVEN')
+    tag = 'E-MAIN' if role == 'main' else 'E-D'
+    save_once(profile.root / (tag + '-IN-FLIGHT.json'), {
+        'before_ref': request['manifest_ref'], 'before_sha256': request['manifest_sha256'],
+        'product_commit': authority['product_commit'], 'test_commit': authority['test_commit'],
+        'target': profile.database, 'automatic_retry': False, 'scope': 'ydental_settlement_only'})
+    app = OwnedApplication(marker(role, profile), approval=approval,
+        product_commit=authority['product_commit'], test_commit=authority['test_commit'],
+        action=role + '-upgrade', profile=profile)
+    try:
+        app.start(['--stop-after-init', '--load-language=zh_CN', '-u', 'ydental_settlement'])
+    except BaseException as error:
+        primary = keep_primary(app.directory, error, stage=tag + '_upgrade_start')
+        exit_path = app.directory / 'parent-exit.tsv'
+        if not exit_path.exists() or not any(line.startswith(b'parent.end\t') for line in exit_path.read_bytes().splitlines()):
+            app.close(primary=primary)
+        raise
+    code = app.wait(1200)
+    if code != 0:
+        raise RuntimeError('FINAL_E_UPGRADE_FAILED_PRESERVE_SAME_DATABASE_AND_FILES')
+    logs = closed_log_report(app)
+    result = {'status': 'UPGRADE_EXIT_ZERO_INDEPENDENT_POST_RO_AND_REGRESSION_REQUIRED',
+        'case': tag, 'exit_code': code, 'target': profile.database,
+        'product_commit': authority['product_commit'], 'test_commit': authority['test_commit'],
+        'application_directory': str(app.directory.relative_to(ROOT)),
+        'diagnostic_records': logs['record_count'], 'no_financial_or_document_action_replayed': True}
+    save_once(profile.root / (tag + '-UPGRADE-RESULT.json'), result)
+    return result
+
+
+def run_log_ui_read(profile, approval, authority, requested_path):
+    from s10_lc2_browser import Credentials, _DRIVER_ENV_KEYS, run_current_log03_browser
+    from s10_lc2_cases import Actor, Facts, closed_log_report, marker
+    from s10_lc2_launch import stop
+    for action in ('LOG-03', 'C-ATTACHMENT'):
+        profile.require_action(action)
+    if profile.target_role != 'main':
+        raise RuntimeError('LOG03_EXISTING_MAIN_NEW_READER_ONLY')
+    request = strict_loads(requested_path.read_bytes())
+    before = ROOT / request['manifest_ref']
+    if (before.is_symlink() or not before.resolve().is_relative_to(profile.root)
+            or hashlib.sha256(before.read_bytes()).hexdigest() != request['manifest_sha256']):
+        raise RuntimeError('LOG03_ACTUAL_READER_REFERENCE_INVALID')
+    observed = strict_loads(before.read_bytes())
+    if (observed.get('database') != profile.database or observed.get('oid') != 2144129
+            or observed.get('reader_id') != 59 or type(observed.get('reader_partner_id')) is not int
+            or any(observed.get(key) is not True for key in ('rollback_returned', 'connection_closed',
+                'ordinary59_retained', 'original161_preserved', 'native_audit228_exists'))):
+        raise RuntimeError('LOG03_ACTUAL_ORDINARY_READER_AND_NONEMPTY_TARGETS_NOT_PROVEN')
+    _, account = current_reader(profile)
+    facts = Facts(profile.root / ('LOG03-main-' + uuid.uuid4().hex[:12]))
+    save_once(profile.root / 'LOG03-MAIN-IN-FLIGHT.json', {
+        'before_sha256': request['manifest_sha256'], 'directory': str(facts.directory.relative_to(ROOT)),
+        'reader_id': 59, 'attachment_id': 161, 'audit_id': 228, 'automatic_retry': False})
+    with OwnedApplication(marker('main', profile), approval=approval,
+            product_commit=authority['product_commit'], test_commit=authority['test_commit'],
+            action='main-service', profile=profile) as app:
+        app.start([])
+        app.wait_ready(60)
+        reader = Actor('main', 'current-LOG03-reader', 59, account['login'], account['password'],
+            budget=app.budget, directory=facts.directory / 'reader-http')
+        reader.login(1)
+        response = reader.client.request('POST', '/web/session/get_session_info',
+            json_body={'jsonrpc': '2.0', 'id': uuid.uuid4().hex, 'method': 'call', 'params': {}},
+            case_id='LOG-03', operation_ref='current-LOG03-native-session-info')
+        response.require_status(200)
+        info = response.json()['result']
+        session = {key: info.get(key) for key in ('uid', 'db', 'partner_id', 'is_admin', 'is_system', 'is_internal_user')}
+        session.update(request_id=response.request_id,
+            revision=info.get('user_context', {}).get('ydental_revision'),
+            switch_request_id=reader.scope_request_id, requested_store_id=1)
+        facts.save('LOG03-native-session-metadata', session)
+        if (session['uid'] != 59 or session['db'] != profile.database
+                or session['partner_id'] != observed['reader_partner_id']
+                or session['is_admin'] is not False or session['is_system'] is not False
+                or session['is_internal_user'] is not True or session['revision'] != reader.revision):
+            raise RuntimeError('LOG03_NATIVE_AUTHENTICATED_IDENTITY_OR_SCOPE_MISMATCH')
+        rpc_response, result = reader.rpc('ir.attachment', 'search_read',
+            [[['id', '=', 161]], ['id', 'raw']], case='C-ATTACHMENT')
+        value = result.get('result')
+        filtered = {'request_id': rpc_response.request_id, 'actor_id': 59, 'store_id': 1,
+            'model': 'ir.attachment', 'method': 'search_read', 'existing_target_id': 161,
+            'http_status': rpc_response.status, 'result_type': type(value).__name__,
+            'result_count': len(value) if type(value) is list else None,
+            'response_sha256': hashlib.sha256(rpc_response.body).hexdigest(),
+            'raw_response_retained': False, 'layer': 'REAL_RPC_FILTERED_EMPTY'}
+        facts.save('C-existing-attachment161-filtered-empty', filtered)
+        if type(value) is not list or value != []:
+            stop('LOG03_PROTECTED_ATTACHMENT_RPC_UNEXPECTED_RESULT', profile=profile,
+                 request_id=rpc_response.request_id)
+            raise RuntimeError('LOG03_PROTECTED_ATTACHMENT_RPC_NOT_FILTERED_EMPTY')
+        ambient = dict(os.environ)
+        try:
+            os.environ.clear()
+            os.environ.update({key: value for key, value in ambient.items() if key in _DRIVER_ENV_KEYS})
+            browser = asyncio.run(run_current_log03_browser(
+                base_url='http://127.0.0.1:18410', database=profile.database,
+                owned_targets={profile.database: 'http://127.0.0.1:18410'},
+                budget=app.budget, directory=facts.directory / 'native-browser',
+                credentials=Credentials(account['login'], account['password']),
+                reader_id=59, reader_partner_id=session['partner_id'], store_id=1))
+        finally:
+            os.environ.clear()
+            os.environ.update(ambient)
+        facts.save('LOG03-native-browser-result', browser)
+        app.check()
+    logs = closed_log_report(app)
+    result = {'status': 'LOG03_AND_ATTACHMENT_RPC_EXECUTED_INDEPENDENT_ACCEPTANCE_PENDING',
+        'actor_id': 59, 'directory': str(facts.directory.relative_to(ROOT)),
+        'application_directory': str(app.directory.relative_to(ROOT)),
+        'owned_service_exited': True, 'native_exit_code': app.process.returncode,
+        'diagnostic_records': logs['record_count'], 'attachment_filtered_empty_request_id': rpc_response.request_id}
+    save_once(profile.root / 'LOG03-MAIN-RETURNED.json', result)
+    return result
+
+
+def run_final_original_ui(profile, approval, authority, requested_path):
+    from s10_lc2_browser import Credentials, _DRIVER_ENV_KEYS, run_main_a_browser
+    from s10_lc2_cases import Facts, ORIGINAL_SHA, closed_log_report, marker
+    from s10_lc2_main_a_original_runner import existing_reader5
+    profile.require_action('E-AFFECTED-REGRESSION')
+    if profile.target_role != 'main':
+        raise RuntimeError('E_POST_ORIGINAL_UI_EXISTING_MAIN_ONLY')
+    request = strict_loads(requested_path.read_bytes())
+    path = ROOT / request['manifest_ref']
+    if (path.is_symlink() or not path.resolve().is_relative_to(profile.root)
+            or hashlib.sha256(path.read_bytes()).hexdigest() != request['manifest_sha256']):
+        raise RuntimeError('E_POST_ORIGINAL_UI_INDEPENDENT_BEFORE_REFERENCE_INVALID')
+    observed = strict_loads(path.read_bytes())
+    if (observed.get('database') != profile.database or observed.get('oid') != 2144129
+            or observed.get('product_commit') != authority['product_commit']
+            or any(observed.get(key) is not True for key in ('rollback_returned', 'connection_closed',
+                'normal_modules_verified', 'old_protected_state_preserved', 'original161_preserved'))):
+        raise RuntimeError('E_POST_UPGRADE_ORIGINAL_PROTECTION_NOT_INDEPENDENTLY_VERIFIED')
+    upgrade = strict_loads((profile.root / 'E-MAIN-UPGRADE-RESULT.json').read_bytes())
+    if upgrade.get('exit_code') != 0 or upgrade.get('product_commit') != authority['product_commit']:
+        raise RuntimeError('E_POST_ORIGINAL_REQUIRES_ACTUAL_MATCHING_S10_ONLY_UPGRADE')
+    facts = Facts(profile.root / ('E-main-original-post-' + uuid.uuid4().hex[:12]))
+    save_once(profile.root / 'E-MAIN-ORIGINAL-POST-IN-FLIGHT.json', {
+        'before_sha256': request['manifest_sha256'], 'directory': str(facts.directory.relative_to(ROOT)),
+        'reader_id': 5, 'original_id': 1, 'original_sha256': ORIGINAL_SHA,
+        'upgrade_product_commit': upgrade['product_commit'], 'automatic_retry': False})
+    account = existing_reader5()
+    with OwnedApplication(marker('main', profile), approval=approval,
+            product_commit=authority['product_commit'], test_commit=authority['test_commit'],
+            action='main-service', profile=profile) as app:
+        app.start([])
+        app.wait_ready(60)
+        ambient = dict(os.environ)
+        try:
+            os.environ.clear()
+            os.environ.update({key: value for key, value in ambient.items() if key in _DRIVER_ENV_KEYS})
+            browser = asyncio.run(run_main_a_browser(base_url='http://127.0.0.1:18410',
+                database=profile.database, owned_targets={profile.database: 'http://127.0.0.1:18410'},
+                budget=app.budget, directory=facts.directory / 'native-browser',
+                credentials=Credentials(account['login'], account['password']), store_id=1,
+                invoice_id=1, original_id=1, original_sha256=ORIGINAL_SHA, patient_id=1, phase='post'))
+        finally:
+            os.environ.clear()
+            os.environ.update(ambient)
+        facts.save('E-main-post-original-browser-result', browser)
+        app.check()
+    logs = closed_log_report(app)
+    result = {'status': 'E_POST_ORIGINAL_UI_DOWNLOADED_INDEPENDENT_PDF_AND_TERMINAL_RO_PENDING',
+        'actor_id': 5, 'original_id': 1, 'original_sha256': ORIGINAL_SHA,
+        'directory': str(facts.directory.relative_to(ROOT)),
+        'application_directory': str(app.directory.relative_to(ROOT)),
+        'owned_service_exited': True, 'native_exit_code': app.process.returncode,
+        'diagnostic_records': logs['record_count'], 'financial_or_document_state_action_replayed': False}
+    save_once(profile.root / 'E-MAIN-ORIGINAL-POST-RETURNED.json', result)
+    return result
+
+
 def execute(args, profile):
     """Caller holds the plan's exclusive runner lock for this whole operation."""
     require_dispatch_unfrozen(profile)
-    if profile.target_role == 'scratch' and args.action not in {'target-ro', 'bootstrap-scratch', 'd-only', 'log-rollback', 'repair-upgrade-scratch-font'}:
+    if profile.target_role == 'scratch' and args.action not in {'target-ro', 'bootstrap-scratch', 'd-only', 'log-rollback', 'repair-upgrade-scratch-font', 'prepare-c-scratch', 'c-scratch-sources', 'final-upgrade'}:
         raise RuntimeError('CURRENT_SCRATCH_ACTION_NOT_IMPLEMENTED')
-    if profile.target_role == 'main' and args.action in {'bootstrap-scratch', 'd-only', 'log-rollback', 'repair-upgrade-scratch-font'}:
+    if profile.target_role == 'main' and args.action in {'bootstrap-scratch', 'd-only', 'log-rollback', 'repair-upgrade-scratch-font', 'prepare-c-scratch', 'c-scratch-sources'}:
         raise RuntimeError('CURRENT_D_EXPLICIT_SCRATCH_TARGET_REQUIRED')
     approval = profile.root / ('runtime-approval-scratch.json' if profile.target_role == 'scratch' else 'runtime-approval.json')
     authority = strict_loads(approval.read_bytes())
@@ -917,6 +1305,16 @@ def execute(args, profile):
                 'directory': str(directory.relative_to(ROOT))}
     if args.action == 'repair-upgrade-scratch-font':
         return repair_upgrade_scratch_font(profile, approval, authority, args.requested)
+    if args.action == 'final-upgrade':
+        return run_final_s10_upgrade(profile, approval, authority, args.requested)
+    if args.action == 'log-ui-read':
+        return run_log_ui_read(profile, approval, authority, args.requested)
+    if args.action == 'final-original-ui':
+        return run_final_original_ui(profile, approval, authority, args.requested)
+    if args.action == 'prepare-c-scratch':
+        return prepare_c_scratch(profile, approval, authority, args.requested)
+    if args.action == 'c-scratch-sources':
+        return run_c_scratch_sources(profile, approval, authority, args.requested)
     if args.action == 'log-rollback':
         return run_log_rollback_pair(profile, approval, authority, args.requested)
     if args.action == 'bootstrap-scratch':
@@ -946,14 +1344,14 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('action', choices=['target-ro', 'original-ui', 'prepare-reader',
                                          'initialize-existing-reader', 'b-only', 'c-main', 'repair-upgrade-main',
-                                         'report-parameters-only', 'repair-upgrade-main-font', 'c-main-tail', 'bootstrap-scratch', 'd-only', 'log-rollback', 'repair-upgrade-scratch-font'])
+                                         'report-parameters-only', 'repair-upgrade-main-font', 'c-main-tail', 'bootstrap-scratch', 'd-only', 'log-rollback', 'repair-upgrade-scratch-font', 'prepare-c-scratch', 'c-scratch-sources', 'final-upgrade', 'log-ui-read', 'final-original-ui'])
     parser.add_argument('--target', choices=['main', 'scratch'], default='main')
     parser.add_argument('--selections', type=Path)
     parser.add_argument('--requested', type=Path)
     args = parser.parse_args()
     if args.action == 'target-ro' and args.selections is None:
         parser.error('--selections is required for target-ro')
-    if args.action in {'b-only', 'c-main', 'repair-upgrade-main', 'repair-upgrade-main-font', 'c-main-tail', 'bootstrap-scratch', 'd-only', 'log-rollback', 'repair-upgrade-scratch-font'} and args.requested is None:
+    if args.action in {'b-only', 'c-main', 'repair-upgrade-main', 'repair-upgrade-main-font', 'c-main-tail', 'bootstrap-scratch', 'd-only', 'log-rollback', 'repair-upgrade-scratch-font', 'prepare-c-scratch', 'c-scratch-sources', 'final-upgrade', 'log-ui-read', 'final-original-ui'} and args.requested is None:
         parser.error('--requested is required for this action')
     profile = current_plan_profile(args.target)
     descriptor = os.open(profile.root / 'runner.lock', os.O_RDWR | os.O_CREAT | os.O_NOFOLLOW, 0o600)

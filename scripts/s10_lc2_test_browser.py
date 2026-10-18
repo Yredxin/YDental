@@ -139,9 +139,78 @@ class BrowserBoundaryCase(unittest.IsolatedAsyncioTestCase):
         budget.profile = SimpleNamespace(message_id='YD-S10-TECHNICAL-CLOSEOUT-V1',
             require_action=lambda action: None, validate_target=lambda *args: None)
         session = BrowserSession(BASE, database=DATABASE, owned_targets={DATABASE: BASE},
-                                 budget=budget, directory=self.directory / 'current', current_case=case)
+                                 budget=budget, directory=self.directory / 'current', current_case=case,
+                                 reader_partner_id=65 if case=='LOG-03' else None)
         session.page = SimpleNamespace()
         return session
+
+    async def test_current_log03_normal_deeplink_restricts_record_and_write(self):
+        session=self.current_session('LOG-03')
+        def request(model,method,args):
+            return FakeRequest(session.page,'/web/dataset/call_kw/'+model+'/'+method,
+                method='POST',body=json.dumps({'params':{'model':model,'method':method,'args':args,'kwargs':{}}}))
+        self.assertEqual(session._request_allowed(FakeRequest(session.page,
+            '/odoo/ydental.access.audit/228')),'/odoo/ydental.access.audit/228')
+        self.assertEqual(session._request_allowed(request('ydental.access.audit','web_read',[[228]])),
+            '/web/dataset/call_kw/ydental.access.audit/web_read')
+        self.assertEqual(session._request_allowed(request('ydental.access.audit','has_access',[[],'read'])),
+            '/web/dataset/call_kw/ydental.access.audit/has_access')
+        for call in (request('ydental.access.audit','web_read',[[229]]),
+                     request('ydental.access.audit','has_access',[[229],'read']),
+                     request('ydental.access.audit','write',[[228],{'ydental_reason':'tamper'}]),
+                     request('ydental.settlement.payment','read',[[1]])):
+            with self.assertRaises(BrowserBoundaryError):session._request_allowed(call)
+        self.assertEqual(session._request_allowed(FakeRequest(session.page,
+            '/web/image/res.partner/65/avatar_128')),'/web/image/res.partner/65/avatar_128')
+        with self.assertRaises(BrowserBoundaryError):
+            session._request_allowed(FakeRequest(session.page,'/web/image/res.partner/66/avatar_128'))
+
+    async def test_current_native_exit_debug_window_requires_real_exit_line(self):
+        session=self.current_session('E-AFFECTED-REGRESSION');session.native_process_debug=True
+        log=self.directory/'parent-stderr.log';raw=b'[pid=123] <launched> pid=123\n[pid=123] <process did exit: exitCode=0, signal=null>\n'
+        log.write_bytes(b'prefix-before-this-ui\n'+raw)
+        session._native_debug_file=log;session._native_debug_offset=len(b'prefix-before-this-ui\n')
+        session._finish_native_debug()
+        self.assertEqual((session.directory/'native-browser-debug-window.log').read_bytes(),raw)
+        facts=json.loads((session.directory/'native-browser-native-exit.json').read_bytes())
+        self.assertEqual(facts['browser_native_processes'],[{'pid':123,'debug_exit_code':'0','debug_exit_signal':'null'}])
+        session.directory=self.directory/'missing-exit';session.directory.mkdir(mode=0o700)
+        log.write_bytes(b'[pid=123] <launched> pid=123\n');session._native_debug_offset=0
+        with self.assertRaisesRegex(BrowserBoundaryError,'NATIVE_BROWSER_EXIT_NOT_CONFIRMED_ZERO'):
+            session._finish_native_debug()
+
+    async def test_current_parent_supervisor_correlates_exact_native_pid_and_birth(self):
+        from s10_lc2_browser import _current_native_process_supervision
+        import os,threading
+        parent_thread=threading.current_thread()
+        rows={123:{'pid':123,'parent_pid':os.getpid(),'birth_ticks':456,'exe_basename':'firefox'}}
+        for label,debug_pid in [('same-owned-pid',123),('unobserved-pid',124)]:
+            directory=self.directory/label;directory.mkdir(mode=0o700)
+            (directory/'native-browser-native-exit.json').write_text(json.dumps({
+                'browser_native_processes':[{'pid':debug_pid,'debug_exit_code':'0','debug_exit_signal':'null'}]}))
+            async def operation():await asyncio.sleep(.12);return 'actual-callback-result'
+            def tree():return {} if threading.current_thread()is parent_thread else rows
+            with patch('s10_lc2_cases.process_tree',side_effect=tree):
+                if debug_pid==123:
+                    self.assertEqual(await _current_native_process_supervision(operation,directory),'actual-callback-result')
+                    facts=json.loads((directory/'independent-process-closure.json').read_bytes())
+                    self.assertEqual(facts['native_debug_owned_PID_birth_matches'][0]['birth_ticks'],456)
+                    self.assertTrue(facts['current_owned_process_closure_observed'])
+                else:
+                    with self.assertRaisesRegex(BrowserBoundaryError,'NATIVE_BROWSER_DEBUG_PID_BIRTH_NOT_CORRELATED'):
+                        await _current_native_process_supervision(operation,directory)
+
+    async def test_current_process_supervisor_keeps_primary_if_evidence_write_fails(self):
+        from s10_lc2_browser import _current_native_process_supervision
+        primary=ValueError('synthetic-private-primary')
+        async def operation():raise primary
+        with patch('s10_lc2_cases.process_tree',return_value={}), \
+             patch('s10_lc2_browser.save_once',side_effect=OSError('synthetic-private-secondary')), \
+             patch('s10_lc2_browser.os.write') as stderr:
+            with self.assertRaises(ValueError) as caught:
+                await _current_native_process_supervision(operation,self.directory/'supervised')
+        self.assertIs(caught.exception,primary)
+        self.assertNotIn('synthetic-private',repr(stderr.call_args_list))
 
     async def test_current_plan_uses_native_request_without_fetch_or_fulfill(self):
         session = self.current_session()

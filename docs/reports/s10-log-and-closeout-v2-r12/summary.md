@@ -2,7 +2,10 @@
 
 2026-10-18T06:52:51Z 开始实际接管，task_id 继续 S10-LOG-AND-CLOSEOUT-v2。用户在本会话交付完整 plan；本轮执行模式已启用，范围内无需逐批 GPT 评论。当前 **IN_PROGRESS**，不是交付 PASS。
 
-- 最新状态（2026-10-18T09:42Z）：**A/B限定通过；C主体已验、剩余scratch场景及最小RPC补证；scratch初始化普通启动失败已独核零提交，正做最小接续修复；D资金/最终双E尚未执行**。当前产品b1f30aa，最新实际运行/测试dcf2d4f；早期字体加载不是最终E。无owned业务服务/观察进程在跑，S10保持OPEN。
+- 最新里程碑（2026-10-18T10:05Z）：**A/B/D与LOG-02独立限定PASS，C剩余scratch与单RPC语义补证、最终双E和其余LOG待完成**。D实际P=b1f30aa / T=371a33b：同scratch新patient/event/fee/invoice/payment/refund各1，正常上游→收6→不同人员批退2→failed/恢复→唯一execute受控丢响应→独立证实done后同key/payload/operation_ref防重，净收4。10个独立19表capture+1启动身份RO、43HTTP/76facts、native入款/出款/贷项各1、4move平衡/partial6与2、退出后终核及当前1页中文退款PDF均已独立亲核。原D_COMPLETE producer PENDING原件保留，独签另列；不再收退款/重造链。
+- LOG-02：D最终必要退款PDF与另身份只读workbench真实请求区间重叠41,304,042ns，actor6/7不同cookie/RID/trace由实际server事件证明；非资金竞争。owned1895540单exit0/110完整seal、所有owned服务已停；累计Odoo27/RO126/HTTP214/Firefox8/原件GET7，原事故RO2/maintenance1/create2不变。717映射原字节snapshot d6962c…固定，当前开启C/E/LOG代码与原报告窗口，不中途派新app。
+- scratch配置补充：第二次正常setup六stage已commit，最后未bound nativeadmin fee计数被S01正确拒，原exit1保留。实际26c707配置RO独核旧50/7保持、新8account4journal与新角色6/7/8正确、六经济0；只FS恢复真实publicfixture e39b…，不伪造setup成功/不第三次bootstrap。早期S10-only字体加载1891604exit0/sealed2、postRO7f33…精确保全，仅2view产品差异，非最终E-D。
+- 较早状态（2026-10-18T09:42Z）：**A/B限定通过；C主体已验、剩余scratch场景及最小RPC补证；scratch初始化普通启动失败已独核零提交，正做最小接续修复；D资金/最终双E尚未执行**。当前产品b1f30aa，最新实际运行/测试dcf2d4f；早期字体加载不是最终E。无owned业务服务/观察进程在跑，S10保持OPEN。
 - 故障后RO独立限定PASS：46域及modules/schema/views/三报告参数同首次scratch基线，旧50科目/7日记账全文hash保持；新增用户0、店0、六经济表0、mail0。actual exit0/SHA d31d1ff258994ed489b6ee0983f80031d9a711fcb4c0179fbf34b436696aa823。原普通STOP精确归档，105项后核快照固定；原D intent仍在位，仅允许绑定此零提交事实的唯一attempt2，不删失败/账本。累计Odoo24/RO111/HTTP171/Firefox8/原件GET7，事故RO2/maintenance1/create2原值。
 
 - 补证：新59元数据聚焦RO（dcf2d4f）：actual exit0、只读RR/rollback/close与目标身份符合。user59及related partner65的UTC/write_uid59/write_date与native users_log12同一登录事务时间相符，锁定core登录按浏览器时区cookie写related字段；独立验收接受限定正常登录元数据解释。初始物理TZ未采，NULL前态仅source推论，C首terminal wrapper exit1/原raw原封保留。跨company/family/混源/非空异店摘要仍待scratch，附件filtered-empty最小HTTP语义补证安排未来同一LOG主服务。

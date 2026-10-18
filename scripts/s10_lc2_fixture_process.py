@@ -3,6 +3,7 @@
 Not imported by ordinary Python or addons. Each mutable actor owns a fresh native
 cursor whose FIRST Environment is its actual uid; no default_env replacements.
 """
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -85,6 +86,212 @@ def _save_b_model_observation(run, value):
         os.fsync(stream.fileno())
 
 
+
+def configure_new_c_clinics(actor, checkpoint, providers, save_once):
+    from odoo import Command
+    from odoo.tools import config
+
+    manager_password = secrets.token_urlsafe(32)
+    manager_login = 's10_c_manager_' + secrets.token_hex(10)
+    passwords = {role: secrets.token_urlsafe(32) for role in ('doctor', 'reader')}
+
+    def native_admin(env):
+        if (env.uid != 2 or env.su or env.transaction.default_env.uid != 2
+                or env.transaction.default_env.su or not env.is_system()
+                or not env.user.has_group('base.group_erp_manager')
+                or config.get('smtp_server')
+                or env['ir.mail_server'].with_context(active_test=False).search_count([])):
+            raise RuntimeError('C_NEW_CONFIGURATION_NATIVE_ADMIN_OR_MAIL_GUARD_FAILED')
+
+    def module_snapshot(env):
+        rows = env['ir.module.module'].with_context(active_test=False).search_read(
+            [], ['name', 'state'], order='name')
+        return hashlib.sha256(json.dumps(
+            [(row['name'], row['state']) for row in rows], separators=(',', ':')).encode()).hexdigest()
+
+    def company_and_manager(env):
+        native_admin(env)
+        modules_before = module_snapshot(env)
+        company1 = env['res.company'].browse(1).exists()
+        if not company1 or company1.chart_template != 'generic_coa':
+            raise RuntimeError('C_EXISTING_SCRATCH_NATIVE_CHART_CHANGED')
+        template = env['account.chart.template']
+        mapping = template._get_chart_template_mapping().get('generic_coa', {})
+        module_name = mapping.get('module')
+        module = env['ir.module.module'].search([('name', '=', module_name)])
+        if (not module_name or len(module) != 1 or module.state != 'installed'
+                or mapping.get('country_id')):
+            raise RuntimeError('C_GENERIC_NATIVE_CHART_NOT_INSTALLED_COUNTRYLESS_SOURCE')
+        # Standalone, no inherited parent/chart; no country at creation means
+        # base.res_company.create cannot request automatic l10n installation.
+        company2 = env['res.company'].create({
+            'name': 'S10 separate C synthetic company', 'country_id': False,
+            'currency_id': company1.currency_id.id, 'parent_id': False})
+        if company2.chart_template or company2.parent_id or company2.country_id:
+            raise RuntimeError('C_NEW_COMPANY_NOT_EMPTY_STANDALONE_CONFIGURATION')
+        # Locked core _load only invokes module installation for an uninstalled
+        # mapping module; the exact mapping above is already installed.
+        template.try_loading('generic_coa', company2, install_demo=False)
+        env.flush_all()
+        if (company2.chart_template != 'generic_coa' or company2.parent_id
+                or modules_before != module_snapshot(env)):
+            raise RuntimeError('C_NEW_COMPANY_CHART_OR_MODULE_STATES_UNEXPECTED')
+        user = env['res.users'].with_context(no_reset_password=True).create({
+            'name': 'S10 independent C manager', 'login': manager_login,
+            'password': manager_password, 'lang': 'en_US',
+            'company_id': company1.id, 'company_ids': [Command.set([company1.id, company2.id])],
+            'group_ids': [Command.set([env.ref('ydental_access.ydental_group_manager').id])]})
+        if user.has_group('base.group_system') or user.has_group('base.group_erp_manager'):
+            raise RuntimeError('C_NEW_BUSINESS_MANAGER_MUST_REMAIN_ORDINARY')
+        return {'company1_id': company1.id, 'company2_id': company2.id,
+            'manager_id': user.id, 'module_states_sha256': modules_before,
+            'new_company_chart': company2.chart_template,
+            'new_company_currency_id': company2.currency_id.id}
+
+    def initial_checkpoint(point, value):
+        if point == 'before_commit':
+            save_once(providers / ('scratch-user-%d.json' % value['manager_id']), {
+                'user_id': value['manager_id'], 'login': manager_login, 'password': manager_password})
+        checkpoint('C-company-and-manager')(point, value)
+    initial = actor(2, company_and_manager, commit=True, checkpoint=initial_checkpoint)
+
+    def clinics(env):
+        if (env.uid != initial['manager_id'] or env.su or env.is_admin() or env.is_system()
+                or not env.user.has_group('ydental_access.ydental_group_manager')
+                or set(env.user.company_ids.ids) != {initial['company1_id'], initial['company2_id']}):
+            raise RuntimeError('C_NEW_MANAGER_NATIVE_ORDINARY_QUALIFICATION_FAILED')
+        access = env['ydental.access.service']
+        session = access._session_for_key(secrets.token_hex(24))
+        access = access._bind(session)
+        cap = env['ydental.access.capability'].create({
+            'name': 'S10 independent C care capability',
+            'ydental_code': 's10_c_cap_' + secrets.token_hex(8)})
+        access._update_profile(env.uid, 'S10 ordinary C manager', [cap.id])
+        result = []
+        accounts = {}
+        for label, company_id in [('local', initial['company1_id']),
+                                   ('same-company', initial['company1_id']),
+                                   ('other-company', initial['company2_id'])]:
+            store = access._create_store('S10 independent C ' + label, company_id, 'UTC')['store_id']
+            levels = dict.fromkeys(['frontdesk', 'patient', 'price', 'medical', 'capacity',
+                                   'space', 'export', 'settlement', 'finance_approval'], 'write')
+            access._grant(env.uid, store, levels, source='s10_new_c_configuration')
+            access._switch(store)
+            access = access._bind(session)
+            for role in ('doctor', 'reader'):
+                new_account = role not in accounts
+                if new_account:
+                    login = 's10_c_' + role + '_' + secrets.token_hex(10)
+                    uid = access._create_account('S10 independent C ' + role, login, store)['user_id']
+                    accounts[role] = {'uid': uid, 'login': login, 'password': passwords[role]}
+                else:
+                    uid = accounts[role]['uid']
+                    access._join(uid, store)
+                role_levels = {'medical': 'write'} if role == 'doctor' else {
+                    'settlement': 'read', 'export': 'write'}
+                access._grant(uid, store, role_levels, source='s10_new_c_configuration')
+                if role == 'doctor' and new_account:
+                    access._update_profile(uid, 'S10 independent C doctor', [cap.id])
+            floor = access.env['ydental.space.floor'].create({
+                'name': 'S10 C ' + label + ' floor', 'ydental_store_id': store})
+            area = access.env['ydental.space.area'].create({
+                'name': 'S10 C ' + label + ' care', 'ydental_store_id': store,
+                'ydental_floor_id': floor.id, 'ydental_reporting': True,
+                'ydental_purpose': 'care', 'ydental_missed_limit': 2})
+            station = access.env['ydental.space.station'].create({
+                'name': 'S10 C ' + label + ' station', 'ydental_store_id': store,
+                'ydental_floor_id': floor.id, 'ydental_area_id': area.id,
+                'ydental_kind': 'care', 'ydental_add_capability_ids': [Command.set([cap.id])]})
+            supply = access.env['ydental.supply.service']
+            supply._operate('policy', {
+                'name': 'S10 independent C supply policy', 'mode': 'demo', 'rounding': 'floor',
+                'phone_pool': 'reservation', 'cutoff_minutes': 0,
+                'reason': 'S10 separate C configuration'}, secrets.token_hex(24))
+            supply._operate('business', {'area_id': area.id, 'state': 'open',
+                'reason': 'S10 separate C normal business day'}, secrets.token_hex(24))
+            company = access.env['res.company'].browse(company_id)
+            result.append({'label': label, 'store_id': store, 'company_id': company_id,
+                'currency_id': company.currency_id.id, 'area_id': area.id,
+                'station_id': station.id, 'capability_id': cap.id,
+                'uom_id': env.ref('uom.product_uom_unit').id})
+        return {'clinics': result, 'manager_id': env.uid, 'accounts': accounts}
+
+    def clinic_checkpoint(point, value):
+        if point == 'before_commit':
+            for role in ('doctor', 'reader'):
+                account = value['accounts'][role]
+                save_once(providers / ('scratch-user-%d.json' % account['uid']), {
+                    'user_id': account['uid'], 'login': account['login'], 'password': account['password']})
+        checkpoint('C-clinics')(point, {
+            'clinics': value['clinics'], 'manager_id': value['manager_id'],
+            'doctor_id': value['accounts']['doctor']['uid'],
+            'reader_id': value['accounts']['reader']['uid']})
+    prepared = actor(initial['manager_id'], clinics, commit=True, checkpoint=clinic_checkpoint)
+
+    for role in ('doctor', 'reader'):
+        def initialize(env, role=role):
+            native_admin(env)
+            account = prepared['accounts'][role]
+            user = env['res.users'].browse(account['uid']).exists()
+            if (not user or not user.active or not user._is_internal()
+                    or user.create_uid.id != initial['manager_id'] or user.login != account['login']
+                    or user.has_group('base.group_system') or user.has_group('base.group_erp_manager')
+                    or set(user.company_ids.ids) != {initial['company1_id'], initial['company2_id']}):
+                raise RuntimeError('C_NATIVE_PASSWORD_NEW_ORDINARY_OWNERSHIP_NOT_PROVEN')
+            env.cr.execute('SELECT password IS NULL FROM res_users WHERE id=%s', [user.id])
+            if env.cr.fetchone() != (True,):
+                raise RuntimeError('C_PASSWORD_PRESENT_NO_REINITIALIZATION')
+            user.write({'password': account['password'], 'lang': 'en_US'})
+            env.flush_all()
+            env.cr.execute('SELECT password IS NOT NULL FROM res_users WHERE id=%s', [user.id])
+            if env.cr.fetchone() != (True,):
+                raise RuntimeError('C_NATIVE_PASSWORD_INITIALIZATION_FAILED')
+            return {'user_id': user.id, 'password_present': True, 'groups_changed': False}
+        actor(2, initialize, commit=True, checkpoint=checkpoint('C-' + role + '-password'))
+
+    def finance(env):
+        native_admin(env)
+        result = []
+        for clinic in prepared['clinics']:
+            company = env['res.company'].browse(clinic['company_id'])
+            income = env['account.account'].search([
+                ('account_type', '=', 'income'), ('company_ids', 'in', company.id)], limit=1)
+            sales = env['account.journal'].search([
+                ('type', '=', 'sale'), ('company_id', '=', company.id)], limit=1)
+            general = env['account.journal'].search([
+                ('type', '=', 'general'), ('company_id', '=', company.id)], limit=1)
+            if not (income and sales and general):
+                raise RuntimeError('C_NATIVE_COMPANY_CHART_INCOMPLETE')
+            values = {'ydental_store_id': clinic['store_id'], 'company_id': company.id,
+                'ydental_policy': 'demo_confirmation', 'ydental_sales_journal_id': sales.id,
+                'ydental_income_account_id': income.id, 'ydental_adjustment_journal_id': general.id}
+            for index, channel in enumerate(('cash', 'wechat', 'alipay', 'card'), 1):
+                code = 'C%d%d' % (clinic['store_id'], index)
+                outstanding = env['account.account'].create({
+                    'name': 'S10 C synthetic outstanding ' + channel, 'code': code,
+                    'account_type': 'asset_current', 'company_ids': [Command.link(company.id)]})
+                journal = env['account.journal'].create({
+                    'name': 'S10 C synthetic offline ' + channel, 'code': code,
+                    'type': 'bank', 'company_id': company.id})
+                methods = journal.inbound_payment_method_line_ids | journal.outbound_payment_method_line_ids
+                methods.filtered(lambda line: line.payment_method_id.code == 'manual').write({
+                    'payment_account_id': outstanding.id})
+                values['ydental_' + channel + '_journal_id'] = journal.id
+            configuration = env['ydental.settlement.config']._new(values)
+            result.append({'store_id': clinic['store_id'], 'config_id': configuration.id})
+        if module_snapshot(env) != initial['module_states_sha256']:
+            raise RuntimeError('C_CONFIGURATION_MUST_NOT_CHANGE_MODULE_STATES')
+        return {'configurations': result, 'module_states_sha256': initial['module_states_sha256']}
+    configured = actor(2, finance, commit=True, checkpoint=checkpoint('C-native-finance-config'))
+    return {'safe': {'company2_id': initial['company2_id'], 'manager_id': initial['manager_id'],
+        'doctor_id': prepared['accounts']['doctor']['uid'],
+        'reader_id': prepared['accounts']['reader']['uid'], 'clinics': prepared['clinics'],
+        **configured, 'fixture_commits': 5, 'fund_dispatches': 0,
+        'commit_observation': 'COMMIT_RETURNED_REQUIRES_INDEPENDENT_RO'},
+        'ram': {'manager': {'uid': initial['manager_id'], 'login': manager_login,
+                            'password': manager_password}, **prepared['accounts']}}
+
+
 def main(shell_env):
     from odoo import Command, api
     from odoo.addons.ydental_access.diagnostics import context_scope
@@ -106,7 +313,7 @@ def main(shell_env):
     database = shell_env.cr.dbname
     expected = {'main': 'ydental_s10_test_20261017105432_810a7d9c',
                 'scratch': 'ydental_s10_test_20261017105432_ce6dcbf8'}
-    if mode not in {'main-prepare', 'main-b-only', 'main-reader-only', 'main-reader-password-only', 'main-report-parameters-only', 'log-rollback-only', 'scratch-bootstrap'} or database != expected['scratch' if mode in {'scratch-bootstrap', 'log-rollback-only'} else 'main']:
+    if mode not in {'main-prepare', 'main-b-only', 'main-reader-only', 'main-reader-password-only', 'main-report-parameters-only', 'log-rollback-only', 'scratch-bootstrap', 'scratch-c-configuration-only'} or database != expected['scratch' if mode in {'scratch-bootstrap', 'log-rollback-only', 'scratch-c-configuration-only'} else 'main']:
         raise RuntimeError('FIXTURE_ROLE_MODE_DRIFT')
     import logging
     if logging.getLogger('odoo.http.server').getEffectiveLevel() != logging.CRITICAL:
@@ -160,7 +367,8 @@ def main(shell_env):
             if env.su or env.transaction.default_env.uid != uid or env.transaction.default_env.su:
                 raise RuntimeError('FIXTURE_FIRST_ENV_NOT_ORDINARY_ACTOR')
             _guard(env, str(run))
-            case = ('C-REPORT-CONFIGURATION' if mode == 'main-report-parameters-only' else
+            case = ('C-SCOPE' if mode == 'scratch-c-configuration-only' else
+                    'C-REPORT-CONFIGURATION' if mode == 'main-report-parameters-only' else
                     'B-ACTOR-PREPARE' if mode in {'main-reader-only', 'main-reader-password-only'} else
                     'B-MODEL-6' if mode == 'main-prepare' and uid == 6 else
                     'C-SCOPE' if mode == 'main-prepare' else 'D-ADMIT')
@@ -177,6 +385,31 @@ def main(shell_env):
                 else:
                     cr.rollback()
                 return result
+
+    if mode == 'scratch-c-configuration-only':
+        from s10_lc2_task_profile import CURRENT_PLAN, profile_from_environment
+        from s10_lc2_evidence import save_once
+        profile = profile_from_environment(os.environ)
+        if profile is None or profile.message_id != CURRENT_PLAN or profile.target_role != 'scratch':
+            raise RuntimeError('CURRENT_C_NATIVE_CONFIGURATION_SCRATCH_ONLY')
+        profile.require_action('scratch-c-configuration')
+        providers = profile.root / 'credentials'
+        if (providers.is_symlink() or not providers.is_dir() or providers.stat().st_uid != os.getuid()
+                or stat.S_IMODE(providers.stat().st_mode) != 0o700):
+            raise RuntimeError('CURRENT_C_NEW_PROVIDER_BOUNDARY_INVALID')
+        def checkpoint(stage):
+            def save(point, value):
+                save_once(run / 'diagnostics' / ('C-setup-%s-%s-%d.json' % (stage, point, os.getpid())), {
+                    'stage': stage, 'point': point, 'value': value, 'independently_committed': False})
+            return save
+        response = configure_new_c_clinics(actor, checkpoint, providers, save_once)
+        encoded = json.dumps(response, separators=(',', ':')).encode()
+        if len(encoded) > 65536:
+            raise RuntimeError('C_NATIVE_CONFIGURATION_PIPE_BOUND')
+        with os.fdopen(write_fd, 'wb') as stream:
+            stream.write(encoded)
+            stream.flush()
+        return
 
     def report_configuration(env):
         if not env.is_system():

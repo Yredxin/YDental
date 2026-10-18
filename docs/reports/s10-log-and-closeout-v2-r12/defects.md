@@ -1,3 +1,7 @@
+## 最新结果：唯一D6/2已独立限定通过（2026-10-18T10:05Z）
+
+原两次setup失败保留：第二次六正常配置已提交，末尾不适用scope自检拒绝；独立26c707核配置/零资金后仅恢复真实公有索引。早期scratch S10-only升级及7f33后核限定通过，非finalE-D。随后371a真实D链wrapperexit0，收6/退2净4及failed/核查恢复/丢响应独立确认再exactkey防重均有原生账务、退出后独立终核与独签；不再重执行。LOG02真实不同身份读请求重叠且关联隔离独签。C/E/LOG其余必需项未完成，S10仍OPEN。
+
 ## 最新补证与普通启动缺陷（2026-10-18T09:42Z）
 
 新59原生登录related时区元数据已独核限定解释，初始物理TZ未采，C首terminal wrapper exit1不改为exit0。C三份中文PDF修复已实际逐页通过；跨company/family/混源/非空摘要与最小filtered-empty语义补证仍待。

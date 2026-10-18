@@ -2,7 +2,7 @@
   "plan_id": "YD-S10-TECHNICAL-CLOSEOUT-V1",
   "version": "1.0",
   "task_id": "S10-LOG-AND-CLOSEOUT-v2",
-  "status": "IN_PROGRESS_A_B_SCOPED_PASS_C_PARTIAL_D_BOOTSTRAP_REPAIR_ZERO_COMMIT",
+  "status": "IN_PROGRESS_A_B_D_AND_LOG02_SCOPED_PASS_C_E_LOG_REMAIN",
   "product_commit": "b1f30aa88365ec85aea15073f08de5d6dfa22a5f",
   "runtime_test_commit": "dcf2d4f7cd666f8332be778348aaf105967dc64f",
   "core_commit": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
@@ -86,18 +86,18 @@
       "accident_ro": 2,
       "create": 2,
       "firefox": 8,
-      "http": 171,
+      "http": 214,
       "maintenance": 1,
-      "odoo_start": 24,
+      "odoo_start": 27,
       "original_get": 7,
-      "target_ro": 111
+      "target_ro": 126
     },
     "current_plan": {
       "firefox": 2,
-      "http": 139,
-      "odoo_start": 14,
+      "http": 182,
+      "odoo_start": 17,
       "original_get": 7,
-      "target_ro": 81
+      "target_ro": 96
     },
     "counts_are_not_test_pass_totals": true,
     "http_boundary": "Runner/browser dispatch ledger; not all native renderer internal asset HTTP wire requests."
@@ -236,7 +236,7 @@
       "resolution": "Existing project pymupdf read/render of saved current download; no installation, new rendering of original, or repeated click."
     }
   ],
-  "remaining": "C; unique scratch D; E-MAIN/E-D; remaining LOG assertions and finance technical closure. No S10 completion claimed.",
+  "remaining": "C scratch nonempty cross-store/cross-company/family/mixed controls and one main filtered-empty semantic complement; final dual E; current LOG03 UI and LOG06/10/12 independent ON/OFF rollback pair; final LOG/22-finance merge and independent S10 acceptance. No repeat of D funds.",
   "B-role-prepare-first": {
     "candidate": "863325e2f48ca073b989711f36012c5da483e42d",
     "status": "TOOL_FAIL_STARTUP_RACE_NO_NEW_ROLE_OBSERVED_AFTER_INDEPENDENT_RO",
@@ -329,9 +329,9 @@
   },
   "independent_review_reference": {
     "ref": "../../reports/s10-log-and-closeout-v2-r12/acceptance-review.md",
-    "bytes_at_current_signature": 167151,
-    "sha256_at_current_signature": "fa3c216a42efa214a281c44209280124822617b9f39a8398ff76160d019206a4",
-    "scope": "Prior scoped A/B/C assertions retained; new59 native profile metadata limited explanation, scratch actual identity/chart/groups, ordinary startup path failure and zero setup/business postRO independently checked. Two-file minimal startup recovery SOURCE only; future bootstrap/D/C-scratch/LOG/E not signed."
+    "bytes_at_current_signature": 187475,
+    "sha256_at_current_signature": "b90387dab7e24c83d574cbe44ffac77a6ada2d7c56d92fcb2975a5385270b316",
+    "scope": "Actual prior A/B/C and D/LOG02 scoped conclusions retained; current new C/E/LOG source independently reviewed, engineering10+7 hermetic checks only. Future C/E/LOG actual tests not signed."
   },
   "B-actual": {
     "status": "PASS_SCOPED_SIX_MODEL_AND_SIX_REAL_RPC",
@@ -777,6 +777,189 @@
       "bytes_at_current_signature": 160296,
       "sha256_at_current_signature": "3be3a6e6e65d7f354baa90bca42f90a65506f779009b5e327847e8feceb73817",
       "scope": "C configuration/font loading/PDF3 and applicable C-main business scoped PASS; original terminal wrapper exit1 retained, new59 write_uid pending; filtered-empty semantic, Firefox historical exit and scratch C limits explicit; not whole C/S10."
+    },
+    {
+      "ref": "../../reports/s10-log-and-closeout-v2-r12/acceptance-review.md",
+      "bytes_at_current_signature": 167151,
+      "sha256_at_current_signature": "fa3c216a42efa214a281c44209280124822617b9f39a8398ff76160d019206a4",
+      "scope": "Prior scoped A/B/C assertions retained; new59 native profile metadata limited explanation, scratch actual identity/chart/groups, ordinary startup path failure and zero setup/business postRO independently checked. Two-file minimal startup recovery SOURCE only; future bootstrap/D/C-scratch/LOG/E not signed."
+    },
+    {
+      "ref": "../../reports/s10-log-and-closeout-v2-r12/acceptance-review.md",
+      "bytes_at_current_signature": 179441,
+      "sha256_at_current_signature": "ecb4753e3f0cd50ed3bbdb8617c0cb82f444a28e5149b8a83f76275cbed5a8c5",
+      "scope": "Actual scratch configuration recovery/early upgrade and real unique D6/2 plus LOG02 independently scoped PASS; prior A/B/C conclusions and failures retained. C scratch/LOG06-10-12 pair/LOG03 UI and final dual E not yet executed."
     }
-  ]
+  ],
+  "D-configuration-and-early-font": {
+    "status": "INDEPENDENTLY_ACCEPTED_SCOPED_SETUP_AND_EARLY_LOAD",
+    "runtime_test_commit": "371a33b5e5f7a5773769b9f4ae0964d1dcc12b25",
+    "configuration_commits_returned": 6,
+    "original_bootstrap_wrapper_exit_code": 1,
+    "original_failure": "Final unbound admin fee count correctly refused by S01; test helper error after six configuration commits.",
+    "replayed_setup_stages": 0,
+    "new_actor_ids": {
+      "manager": 6,
+      "frontdesk": 7,
+      "doctor": 8
+    },
+    "target_role": "scratch",
+    "main_legacy_users_5_7_changed": false,
+    "existing_accounts_preserved": 50,
+    "existing_journals_preserved": 7,
+    "normal_new_accounts": 8,
+    "normal_new_journals": 4,
+    "economic_rows_before_D": 0,
+    "public_fixture_recovered_from": "Actual independent configuration RO plus original commit checkpoints and existing private provider identities; filesystem only.",
+    "early_upgrade_module": "ydental_settlement",
+    "early_upgrade_exit_code": 0,
+    "early_upgrade_is_final_E_D": false,
+    "post_upgrade_verified_sha256": "7f33ca524ccf7c41fe289ea694b3b0847de2cccee0ab98deb82f30c56ab9d477",
+    "private_index": {
+      "path": ".local/s10-technical-closeout-v1/D-configuration-and-early-font-result-index.json",
+      "bytes": 4818,
+      "sha256": "478e86a3f3aaa762f79c914f531df84957d3e92552c377e096d299f3cfbd61d0",
+      "access": "Local private raw evidence; not directly readable from GitHub"
+    }
+  },
+  "D-actual": {
+    "status": "PASS_SCOPED_INDEPENDENT_ACCEPTANCE",
+    "product_commit": "b1f30aa88365ec85aea15073f08de5d6dfa22a5f",
+    "runtime_test_commit": "371a33b5e5f7a5773769b9f4ae0964d1dcc12b25",
+    "core_commit": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+    "target_role": "scratch",
+    "oid": 2144130,
+    "cluster": "7694897083368259627",
+    "actor_ids": {
+      "manager": 6,
+      "approver": 7,
+      "doctor": 8
+    },
+    "same_new_chain_ids": {
+      "patient": 1,
+      "event": 1,
+      "fee": 1,
+      "invoice": 1,
+      "payment": 1,
+      "refund": 1
+    },
+    "received": 6,
+    "actually_refunded": 2,
+    "net_received": 4,
+    "refund_state": "done",
+    "approved_or_protected_inflight": 0,
+    "native_inbound_count": 1,
+    "native_outbound_count": 1,
+    "native_credit_count": 1,
+    "native_moves": 4,
+    "native_balances_zero": true,
+    "native_partial_reconciliation_amounts": [
+      6,
+      2
+    ],
+    "ordinary_self_approval_refused": true,
+    "unverified_recovery_refused": true,
+    "failed_has_no_native_outbound_or_credit": true,
+    "client_lost_response_outcome": "OUTCOME_UNKNOWN",
+    "independent_done_verification_before_retry": true,
+    "same_actor_store_key_payload_operation_ref_retry": "already_accepted",
+    "repeated_money_executions": 0,
+    "real_gateway_claimed": false,
+    "wrapper_exit_code": 0,
+    "elapsed_seconds": 28.0,
+    "facts": 76,
+    "http_runner_dispatches": 43,
+    "target_ro_accounting": {
+      "total_new": 11,
+      "independent_19_table_capture_connections": 10,
+      "startup_identity_connection": 1
+    },
+    "owned_service": {
+      "pid": 1895540,
+      "native_exit_code": 0,
+      "sealed_diagnostic_records": 110,
+      "stopped": true
+    },
+    "private_complete": {
+      "path": ".local/s10-technical-closeout-v1/D-CHAIN-COMPLETE.json",
+      "bytes": 821,
+      "sha256": "7022b72c8600a3117cb5d3cfd8fa6796845ef0175df153d6c35cd4a164501b86",
+      "access": "Local private raw evidence; not directly readable from GitHub"
+    },
+    "private_snapshot": {
+      "path": ".local/s10-technical-closeout-v1/D-unique-be7664490147/runtime-snapshot/index.json",
+      "bytes": 344647,
+      "sha256": "d6962c0143c8313cc0fc54bbe85d6a9b9104ee7462267a2ce792c111f45b8171",
+      "access": "Local private raw evidence; not directly readable from GitHub"
+    },
+    "private_pdf_review": {
+      "path": ".local/s10-technical-closeout-v1/D-final-refund-pdf-review/index.json",
+      "bytes": 1148,
+      "sha256": "ee07fe05c481ee33c6d077bbf4f0eeb2f4ab77a0a4e4f34b431f9a406c2b3853",
+      "access": "Local private raw evidence; not directly readable from GitHub"
+    },
+    "root_visual_review": "Personally inspected this one current PDF page; Chinese legible, no squares/truncation, done/refund2/inflight0 and native reference/channel/time visible; independent acceptance still signs separately.",
+    "producer_status": "D_UNIQUE_SIX_TWO_COMMITTED_NATIVE_ACCOUNTING_INDEPENDENT_ACCEPTANCE_PENDING (original immutable result retained)",
+    "independent_reviewer": "/root/acceptance_s10",
+    "independent_scope": "All76 facts,43HTTP,10x19 sealed stored-table captures,29 intents/returned, source-to-native accounting/actor lineage, exact failed/recovery/UNKNOWN/idempotent retry, final post-exit state and717 snapshot mappings,110 complete native events, actual one-page refund PDF.",
+    "private_final_result_index": {
+      "path": ".local/s10-technical-closeout-v1/D-real-unique-chain-result-index.json",
+      "bytes": 3939,
+      "sha256": "c294118b2948b39a13ed44088c48aec0b82ee70ed98814b04bbbc6e82e2d53f3",
+      "access": "Local private evidence; not directly readable from GitHub"
+    }
+  },
+  "LOG02-actual": {
+    "status": "PASS_SCOPED_TWO_REAL_IDENTITIES_READ_REQUESTS",
+    "actors": [
+      6,
+      7
+    ],
+    "actual_server_pid": 1895540,
+    "same_service_as_D": true,
+    "two_distinct_cookie_jars": true,
+    "server_intervals_overlap": true,
+    "distinct_request_and_trace_ids": true,
+    "extra_pdf_download_for_logs": false,
+    "financial_competition_claimed": false,
+    "private_evidence": {
+      "path": ".local/s10-technical-closeout-v1/D-unique-be7664490147/LOG02-two-real-identity-request-isolation.json",
+      "bytes": 1234,
+      "sha256": "2cba147276c21d4a94511775994d18255d2bc6f4e5db1b1b84c0b8ee4b27fab4",
+      "access": "Local private raw evidence; not directly readable from GitHub"
+    },
+    "independent_reviewer": "/root/acceptance_s10",
+    "actual_overlap_nanoseconds": 41304042
+  },
+  "C-E-LOG-source-ready": {
+    "status": "INDEPENDENT_SOURCE_REVIEWED_ACTUAL_C_E_LOG_NOT_RUN",
+    "product_candidate_unchanged": "b1f30aa88365ec85aea15073f08de5d6dfa22a5f",
+    "previous_D_runtime_retained": "371a33b5e5f7a5773769b9f4ae0964d1dcc12b25",
+    "normal_existing_runner_paths": [
+      "Independent new C configuration and normal upstream unpaid fees/invoices, family/mixed/store/company controls",
+      "Normal new C original POST only actual independent confirmed target/actor/store, excludes D and old main; fixed native report negative requests",
+      "Normal no-selected-fee HTML form to real error303/notice, independent no-economic-change facts",
+      "Two final existing-target S10-only upgrades and main phasepost actual browser old-original download",
+      "Main ordinary59 filtered-empty single RPC complement and native WarningDialog by backend navigation",
+      "Two independent scratch rollback MODEL processes with native diagnostics ON/OFF, separate unbilled Cfee"
+    ],
+    "hermetic_checks_only": {
+      "browser_final": 7,
+      "http_guard_final": 10,
+      "actual_Odoo_HTTP_browser_or_business_count": 0,
+      "not_added_to_B73_or_business_totals": true
+    },
+    "developer_verification": {
+      "path": ".local/s10-technical-closeout-v1/developer-next/http-guard-check/final-source-verification.json",
+      "bytes": 839,
+      "sha256": "2b0cd71953a2d70ee5581f531623b79028d851a3b9d07587884e959ae6009c94",
+      "access": "Local engineering evidence; not directly readable from GitHub"
+    },
+    "browser_verification": {
+      "path": ".local/s10-technical-closeout-v1/browser-E-LOG-source-focused-checks-final.json",
+      "bytes": 2279,
+      "sha256": "0b12baebf11d9adffd40ef750e91ce5d854aceb2ab4fabee6c3ac5538171d335",
+      "access": "Local engineering evidence; not directly readable from GitHub"
+    }
+  }
 }

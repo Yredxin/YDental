@@ -1,12 +1,16 @@
 # YDental 当前任务状态
 
-状态版本：**YD-STATE-20261018-14** · 协议：**YD-COLLAB-V2.0 / WORKFLOW-V3**。
+状态版本：**YD-STATE-20261018-15** · 协议：**YD-COLLAB-V2.0 / WORKFLOW-V3**。
 
 ## 当前 plan 接管与执行（2026-10-18T06:52:51Z）
 
 - plan_id：**YD-S10-TECHNICAL-CLOSEOUT-V1 / 1.0**；task_id 继续 **S10-LOG-AND-CLOSEOUT-v2**。来源是用户在本会话完整交付的 S10 plan 及随后“开始实施吧”；执行模式已生效，不要求新 GPT 评论。用户 plan 全文在本会话；不冒称命名附件已落库。
-- 状态：**IN_PROGRESS / A_B_SCOPED_PASS_C_PARTIAL_D_BOOTSTRAP_REPAIR_ZERO_COMMIT**。本轮起点本地/远端同 d731711ab48d73177303ced9c040601a206412d9，工作树干净；只读 core 实际 HEAD f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb。main 仍仅路由，不切业务基线。
-- 最新状态（2026-10-18T09:42Z）：**A/B限定通过；C主体已验、剩余scratch场景及最小RPC补证；scratch初始化普通启动失败已独核零提交，正做最小接续修复；D资金/最终双E尚未执行**。当前产品b1f30aa，最新实际运行/测试dcf2d4f；早期字体加载不是最终E。无owned业务服务/观察进程在跑，S10保持OPEN。
+- 状态：**IN_PROGRESS / A_B_D_LOG02_SCOPED_PASS_C_E_LOG_REMAIN**。本轮起点本地/远端同 d731711ab48d73177303ced9c040601a206412d9，工作树干净；只读 core 实际 HEAD f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb。main 仍仅路由，不切业务基线。
+- 最新里程碑（2026-10-18T10:05Z）：**A/B/D与LOG-02独立限定PASS，C剩余scratch与单RPC语义补证、最终双E和其余LOG待完成**。D实际P=b1f30aa / T=371a33b：同scratch新patient/event/fee/invoice/payment/refund各1，正常上游→收6→不同人员批退2→failed/恢复→唯一execute受控丢响应→独立证实done后同key/payload/operation_ref防重，净收4。10个独立19表capture+1启动身份RO、43HTTP/76facts、native入款/出款/贷项各1、4move平衡/partial6与2、退出后终核及当前1页中文退款PDF均已独立亲核。原D_COMPLETE producer PENDING原件保留，独签另列；不再收退款/重造链。
+- 当前接续源码已READY：C独立新配置/正常未收费源与权限矩阵、正常error303、双E、main post原件UI、普通59原生WarningDialog与单附件RPC、scratch独立ON/OFF回滚。产品不改，D实际371a固定；10个HTTP工程门禁+7个browser聚焦检查均仅SOURCE/PURE，不代真实用例。正在固定新测试候选，之后直接C-before实际RO及C配置，不回GPT微批。
+- LOG-02：D最终必要退款PDF与另身份只读workbench真实请求区间重叠41,304,042ns，actor6/7不同cookie/RID/trace由实际server事件证明；非资金竞争。owned1895540单exit0/110完整seal、所有owned服务已停；累计Odoo27/RO126/HTTP214/Firefox8/原件GET7，原事故RO2/maintenance1/create2不变。717映射原字节snapshot d6962c…固定，当前开启C/E/LOG代码与原报告窗口，不中途派新app。
+- scratch配置补充：第二次正常setup六stage已commit，最后未bound nativeadmin fee计数被S01正确拒，原exit1保留。实际26c707配置RO独核旧50/7保持、新8account4journal与新角色6/7/8正确、六经济0；只FS恢复真实publicfixture e39b…，不伪造setup成功/不第三次bootstrap。早期S10-only字体加载1891604exit0/sealed2、postRO7f33…精确保全，仅2view产品差异，非最终E-D。
+- 较早状态（2026-10-18T09:42Z）：**A/B限定通过；C主体已验、剩余scratch场景及最小RPC补证；scratch初始化普通启动失败已独核零提交，正做最小接续修复；D资金/最终双E尚未执行**。当前产品b1f30aa，最新实际运行/测试dcf2d4f；早期字体加载不是最终E。无owned业务服务/观察进程在跑，S10保持OPEN。
 - 故障后RO独立限定PASS：46域及modules/schema/views/三报告参数同首次scratch基线，旧50科目/7日记账全文hash保持；新增用户0、店0、六经济表0、mail0。actual exit0/SHA d31d1ff258994ed489b6ee0983f80031d9a711fcb4c0179fbf34b436696aa823。原普通STOP精确归档，105项后核快照固定；原D intent仍在位，仅允许绑定此零提交事实的唯一attempt2，不删失败/账本。累计Odoo24/RO111/HTTP171/Firefox8/原件GET7，事故RO2/maintenance1/create2原值。
 - 聚焦说明：新59元数据聚焦RO（dcf2d4f）：actual exit0、只读RR/rollback/close与目标身份符合。user59及related partner65的UTC/write_uid59/write_date与native users_log12同一登录事务时间相符，锁定core登录按浏览器时区cookie写related字段；独立验收接受限定正常登录元数据解释。初始物理TZ未采，NULL前态仅source推论，C首terminal wrapper exit1/原raw原封保留。跨company/family/混源/非空异店摘要仍待scratch，附件filtered-empty最小HTTP语义补证安排未来同一LOG主服务。
 - scratch首次实核（dcf2d4f）：OID2144130/cluster7694897083368259627正确，stores0/all mail servers0/六经济表0，46域/schema/模块/旧DB视图基线保存。已有50accounts/7journals不是空配置；窄补证实际generic_coa，nativeadmin2真实implied closure含system+ERPmanager，首次direct组False不代表native has_group False。首窄observer错选非存储country_id导致UndefinedColumn/exit1/RO108，属只读普通错误；精确attempt2 exit0/RO109，只补必要缺项，保留首失败不重跑46域。后续正常bootstrap复用旧账套，不自动重建，不把初始化或早期字体加载当最终E-D。

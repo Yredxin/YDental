@@ -6091,7 +6091,7 @@
     "task_id": "S10-LOG-AND-CLOSEOUT-v2",
     "started_at_utc": "2026-10-18T06:52:51Z",
     "authority": "User supplied full plan in current conversation; execution mode enabled; no new GPT comment prerequisite.",
-    "status": "IN_PROGRESS_A_B_SCOPED_PASS_C_PARTIAL_D_BOOTSTRAP_REPAIR_ZERO_COMMIT",
+    "status": "IN_PROGRESS_A_B_D_AND_LOG02_SCOPED_PASS_C_E_LOG_REMAIN",
     "baseline_commit": "d731711ab48d73177303ced9c040601a206412d9",
     "core_commit": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
     "scope": "S10 only; no S11-S13, merge or deployment",
@@ -6104,7 +6104,7 @@
       "tester": "/root/tester_s10",
       "acceptance": "/root/acceptance_s10"
     },
-    "candidate_status": "PRODUCT_B1F30AA_C_ACTUAL_64371B6_D_STARTUP_FAILURE_DCF_ZERO_COMMIT_VERIFIED",
+    "candidate_status": "PRODUCT_B1F30AA_D_ACTUAL_371A33B_NEW_CODE_WINDOW_C_E_LOG",
     "current_actual_evidence": [
       "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json"
     ],
@@ -6229,7 +6229,7 @@
         "reason": "Ordinary59 opened real old page; normal grant revoke independently read; same old page next original request403/nonPDF, restoration verified. APIclose/current no matching OS resources observed; original historical PID/birth/exitcode not captured, never fabricated."
       },
       "D-ADMIT": {
-        "status": "PARTIAL_REAL_SCRATCH_ADMISSION_STARTUP_REPAIR_ZERO_COMMIT",
+        "status": "PASS_SCOPED_ACTUAL_INDEPENDENTLY_ACCEPTED",
         "required_layers": [
           "STATIC",
           "HTTP/RPC",
@@ -6237,63 +6237,81 @@
           "SYNTHETIC_FIXTURE"
         ],
         "definition_ref": "#/tc_evidence_requirements/D-ADMIT",
-        "current_evidence": [],
-        "reason": "Actual scratch OID/cluster/chart/native admin closure verified. First normal bootstrap failed before fixture at missing owned diagnostics directory; real child exit1/no signal, fault postRO independent zero setup/business commit. Original failure/latch retained; minimal normal startup repair and exact one attempt2 pending, no D funds dispatched."
+        "current_evidence": [
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/D-actual"
+        ],
+        "reason": "Actual scratch identity/configuration/ordinary manager6-front7-doctor8 and each native grant verified, normal synthetic upstream used no direct fee or account.move factory. Early font upgrade independently preserved configuration; original setup failures retained.",
+        "reviewer": "/root/acceptance_s10"
       },
       "D-NORMAL-6": {
-        "status": "NOT_RUN",
+        "status": "PASS_SCOPED_ACTUAL_INDEPENDENTLY_ACCEPTED",
         "required_layers": [
           "HTTP/RPC",
           "MODEL_NATIVE_COMMITTED",
           "SYNTHETIC_FIXTURE"
         ],
         "definition_ref": "#/tc_evidence_requirements/D-NORMAL-6",
-        "current_evidence": [],
-        "reason": "Current plan runtime not yet dispatched; specific prerequisites being checked."
+        "current_evidence": [
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/D-actual"
+        ],
+        "reason": "Normal synthetic upstream event1 to frozen price to fee1/invoice1; actual HTTP receive6 exactly once and independent native inbound/reconciliation6. Fixed371a, no legacy business replay.",
+        "reviewer": "/root/acceptance_s10"
       },
       "D-FAILED-2": {
-        "status": "NOT_RUN",
+        "status": "PASS_SCOPED_ACTUAL_INDEPENDENTLY_ACCEPTED",
         "required_layers": [
           "HTTP/RPC",
           "MODEL_NATIVE_COMMITTED",
           "SYNTHETIC_FIXTURE"
         ],
         "definition_ref": "#/tc_evidence_requirements/D-FAILED-2",
-        "current_evidence": [],
-        "reason": "Current plan runtime not yet dispatched; specific prerequisites being checked."
+        "current_evidence": [
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/D-actual"
+        ],
+        "reason": "Same new refund1 requested2; valid ordinary manager self-approval refused403 AccessError, different front7 approved with inflight2/refunded0; failed observation preserved2 capacity with native outbound/credit0.",
+        "reviewer": "/root/acceptance_s10"
       },
       "D-RECOVER-2": {
-        "status": "NOT_RUN",
+        "status": "PASS_SCOPED_ACTUAL_INDEPENDENTLY_ACCEPTED",
         "required_layers": [
           "HTTP/RPC",
           "MODEL_NATIVE_COMMITTED",
           "SYNTHETIC_FIXTURE"
         ],
         "definition_ref": "#/tc_evidence_requirements/D-RECOVER-2",
-        "current_evidence": [],
-        "reason": "Current plan runtime not yet dispatched; specific prerequisites being checked."
+        "current_evidence": [
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/D-actual"
+        ],
+        "reason": "Ordinary different front7 false verified_not_paid was refused409 native UserError; actual evidence-backed true recovery restored approved, no duplicate approved capacity/native funds.",
+        "reviewer": "/root/acceptance_s10"
       },
       "D-LOST-REFUND-2": {
-        "status": "NOT_RUN",
+        "status": "PASS_SCOPED_ACTUAL_INDEPENDENTLY_ACCEPTED",
         "required_layers": [
           "HTTP/RPC",
           "MODEL_NATIVE_COMMITTED",
           "SYNTHETIC_FIXTURE"
         ],
         "definition_ref": "#/tc_evidence_requirements/D-LOST-REFUND-2",
-        "current_evidence": [],
-        "reason": "Current plan runtime not yet dispatched; specific prerequisites being checked."
+        "current_evidence": [
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/D-actual"
+        ],
+        "reason": "Manager6 executed refund2 once with controlled client response discard; durable OUTCOME_UNKNOWN then independent stored/native done proof before any retry. No network/proxy changes.",
+        "reviewer": "/root/acceptance_s10"
       },
       "D-VERIFY-RETRY": {
-        "status": "NOT_RUN",
+        "status": "PASS_SCOPED_ACTUAL_INDEPENDENTLY_ACCEPTED",
         "required_layers": [
           "HTTP/RPC",
           "MODEL_NATIVE_COMMITTED",
           "SYNTHETIC_FIXTURE"
         ],
         "definition_ref": "#/tc_evidence_requirements/D-VERIFY-RETRY",
-        "current_evidence": [],
-        "reason": "Current plan runtime not yet dispatched; specific prerequisites being checked."
+        "current_evidence": [
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/D-actual"
+        ],
+        "reason": "Same actor6/store1/key/full payload/operation_ref request returned already_accepted only after actual committed proof; one outbound/credit2 and partial2, one inbound/partial6, all4 native moves balanced. Terminal independent RO after owned exit0 confirms received6/refunded2/net4. No economic replay.",
+        "reviewer": "/root/acceptance_s10"
       },
       "E-PREBASELINE": {
         "status": "NOT_RUN",
@@ -6915,14 +6933,15 @@
         "id": "LOG-02",
         "definition_ref": "#/logs/1",
         "historical_status": "PARTIAL_OFFLINE_ONLY",
-        "status": "PARTIAL_HISTORICAL_AND_CURRENT_LAYERS_RETAINED",
+        "status": "PASS_SCOPED_TWO_REAL_IDENTITIES_READ_REQUESTS",
         "current_evidence": [
           "#/framework6",
           "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json",
-          "acceptance-review.md"
+          "acceptance-review.md",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/LOG02-actual"
         ],
         "retained_scope": "Prior context isolation PURE retained; A real request lineage available.",
-        "remaining_assertions": "Two real short concurrent read requests with different actors/traces and no cross-association."
+        "remaining_assertions": "Actual native server intervals overlapped41304042ns; actor6 versus7/request IDs/traces independently verified. This proves log isolation for two read requests, not financial competition."
       },
       {
         "id": "LOG-03",
@@ -6958,10 +6977,11 @@
         "current_evidence": [
           "#/framework6",
           "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json",
-          "acceptance-review.md"
+          "acceptance-review.md",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/D-actual"
         ],
         "retained_scope": "Stored facts and client outcome separated in current evidence.",
-        "remaining_assertions": "Real B rollback and D failed/recover/UNKNOWN-to-independent-commit/idempotent retry."
+        "remaining_assertions": "B rollback and real D failed/recover/UNKNOWN-before-independent-done/exact-retry independently accepted; final cross-index log-row review pending."
       },
       {
         "id": "LOG-06",
@@ -7063,7 +7083,7 @@
       "reviewer": "/root/acceptance_s10",
       "current_tool_refusal": null
     },
-    "runtime_test_commit": "dcf2d4f7cd666f8332be778348aaf105967dc64f",
+    "runtime_test_commit": "371a33b5e5f7a5773769b9f4ae0964d1dcc12b25",
     "runtime_attempts": [
       {
         "stage": "existing_reader_native_administration",

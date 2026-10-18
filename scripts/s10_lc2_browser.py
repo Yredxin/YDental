@@ -16,6 +16,8 @@ import os
 from pathlib import Path
 import re
 import sys
+import stat
+import threading
 import time
 from urllib.parse import parse_qs, unquote, urlencode, urljoin, urlsplit
 import uuid
@@ -42,7 +44,7 @@ _READ_METHODS = frozenset({
     'searchpanel_select_range', 'searchpanel_select_multi_range', 'get_metadata',
 })
 _CASES = frozenset({'A-ORIGINAL', 'A-EDITOR', 'B-RPC-6', 'C-REVOKED-PAGE',
-                    'E-AFFECTED-REGRESSION', 'C-SCOPE'})
+                    'E-AFFECTED-REGRESSION', 'C-SCOPE', 'LOG-03'})
 _NATIVE = frozenset({'odoo.exceptions.AccessError', 'odoo.exceptions.UserError',
                      'odoo.exceptions.ValidationError'})
 _INVALID_OPERATION = 'lc2_invalid_operation'
@@ -182,7 +184,8 @@ class BrowserSession:
 
     def __init__(self, base_url, *, database, owned_targets, budget, directory,
                  executable_path=None, playwright_root=None, locale='zh-CN',
-                 playwright_factory=None, maximum_seconds=1200, current_case='A-ORIGINAL'):
+                 playwright_factory=None, maximum_seconds=1200, current_case='A-ORIGINAL',
+                 reader_partner_id=None, native_process_debug=False):
         parsed = urlsplit(base_url)
         if (parsed.scheme != 'http' or parsed.hostname != '127.0.0.1'
                 or parsed.port not in range(18410, 18420) or parsed.username or parsed.password
@@ -201,7 +204,7 @@ class BrowserSession:
         self.base_url, self.database, self.budget = base_url, database, budget
         self.task_profile = getattr(budget, 'profile', None)
         if self.native_transport:
-            if current_case not in {'A-ORIGINAL', 'C-REVOKED-PAGE', 'E-AFFECTED-REGRESSION'}:
+            if current_case not in {'A-ORIGINAL', 'C-REVOKED-PAGE', 'E-AFFECTED-REGRESSION', 'LOG-03'}:
                 raise BrowserBoundaryError('CURRENT_PLAN_BROWSER_CASE_NOT_DISPATCHED')
             self.task_profile.require_action(current_case)
             self.task_profile.validate_target(database, 2144129, parsed.port)
@@ -211,6 +214,15 @@ class BrowserSession:
             self.task_profile.validate_target(database, 2144129, parsed.port)
             if set(owned_targets) != {MAIN}:
                 raise BrowserBoundaryError('MAIN_A_BROWSER_TARGET_SCOPE_INVALID')
+        if (type(native_process_debug) is not bool or native_process_debug and
+                (not self.native_transport or current_case not in {'E-AFFECTED-REGRESSION','LOG-03'})):
+            raise BrowserBoundaryError('CURRENT_NATIVE_DEBUG_PURPOSE_INVALID')
+        if current_case == 'LOG-03' and (type(reader_partner_id) is not int or reader_partner_id <= 0):
+            raise BrowserBoundaryError('CURRENT_LOG03_PARTNER_SOURCE_REQUIRED')
+        self.reader_partner_id = reader_partner_id
+        self.native_process_debug = native_process_debug
+        self._native_debug_file = None
+        self._native_debug_offset = None
         self.directory = _private_directory(directory)
         self.artifacts = _private_directory(self.directory / 'binary-artifacts')
         self.locale, self.maximum_seconds = locale, maximum_seconds
@@ -273,6 +285,8 @@ class BrowserSession:
             if self.case_id != self._current_case:
                 raise BrowserBoundaryError('CURRENT_PLAN_BROWSER_CASE_NOT_DISPATCHED')
             self.task_profile.require_action(self.case_id)
+            if self.case_id == 'LOG-03':
+                return self._current_log03_request_allowed(request)
             form = None
             if request.method == 'POST':
                 parsed_form = parse_qs(request.post_data or '', keep_blank_values=True)
@@ -381,6 +395,101 @@ class BrowserSession:
                     '/web/dataset/search_read', '/web/webclient/load_menus'}:
             return path
         raise BrowserBoundaryError('BROWSER_POST_ROUTE_NOT_APPROVED')
+
+    def _current_log03_request_allowed(self, request):
+        """Installed native backend boot plus one known audit form, all read-only."""
+        path = self._target_path(request.url)
+        query = parse_qs(urlsplit(request.url).query, keep_blank_values=True)
+        if request.method == 'GET':
+            approved = (path in {'/odoo/ydental.access.audit/228','/web','/odoo','/web/login',
+                '/ydental/access','/web/manifest.webmanifest','/web/service-worker.js',
+                '/web/binary/company_logo','/logo.png','/web/webclient/load_menus',
+                '/web/webclient/translations','/bus/websocket_worker_bundle'}
+                or path.startswith(('/web/assets/','/web/static/','/mail/static/',
+                    '/bus/static/','/base/static/','/web/webclient/load_menus/'))
+                or path == '/web/image/res.partner/%s/avatar_128' % self.reader_partner_id
+                or path == '/web/image' and query.get('model') == ['res.users']
+                    and query.get('field') == ['avatar_128'] and query.get('id') == ['59'])
+            if approved:
+                return path
+            # Reuse exact native login/frontend translation rules, not arbitrary website routes.
+            if path in {'/website/translations'}:
+                try:
+                    main_a_get_rule(request.url, allow_translations=True, original_ui=True)
+                    return path
+                except ValueError:
+                    pass
+            raise BrowserBoundaryError('CURRENT_LOG03_GET_NOT_APPROVED')
+        if request.method != 'POST' or len((request.post_data or '').encode()) > 128 * 1024:
+            raise BrowserBoundaryError('CURRENT_LOG03_METHOD_OR_SIZE_INVALID')
+        if path in {'/web/login','/ydental/access/action'}:
+            if self._declared_login_user_id != 59:
+                raise BrowserBoundaryError('CURRENT_LOG03_LOGIN_ACTOR_MISMATCH')
+            parsed = parse_qs(request.post_data or '', keep_blank_values=True)
+            if any(len(items)!=1 for items in parsed.values()):
+                raise BrowserBoundaryError('CURRENT_LOG03_DUPLICATE_FORM_FIELD')
+            try:
+                main_a_request_boundary(request.method, request.url,
+                    form={key:items[0] for key,items in parsed.items()},
+                    allow_translations=True, original_ui=True)
+            except (TypeError,ValueError):
+                raise BrowserBoundaryError('CURRENT_LOG03_NATIVE_FORM_FORBIDDEN') from None
+            return path
+        if path == '/bus/get_model_definitions':
+            form = parse_qs(request.post_data or '', keep_blank_values=True)
+            try:
+                names = json.loads(form['model_names_to_fetch'][0])
+                if (type(names) is list and 0 < len(names) <= 64 and all(type(name) is str
+                        and re.fullmatch(r'(?:mail|discuss|bus)\.[a-z0-9_.]+|res\.(?:partner|users|groups)|ir\.(?:attachment|model)',name)
+                        for name in names)):
+                    return path
+            except (KeyError,IndexError,ValueError,TypeError):
+                pass
+            raise BrowserBoundaryError('CURRENT_LOG03_BUS_METADATA_FORBIDDEN')
+        try:
+            envelope = json.loads(request.post_data or '')
+            params = envelope['params']
+            if type(params) is not dict:
+                raise ValueError()
+            if path.startswith('/web/dataset/call_kw/'):
+                model,method = params['model'],params['method']
+                allowed = {'res.users': {'has_group','has_groups','context_get',
+                        'get_discuss_settings','systray_get_activities'},
+                    'ydental.access.audit': {'get_views','get_view','fields_get',
+                        'read','web_read','get_metadata','has_access'}}
+                if path != '/web/dataset/call_kw/'+model+'/'+method or method not in allowed.get(model,set()):
+                    raise ValueError()
+                args = params.get('args',[])
+                if model == 'ydental.access.audit':
+                    if method in {'read','web_read','get_metadata'} and (not args or args[0]!=[228]):
+                        raise ValueError()
+                    if method == 'get_views' and args!=[]:
+                        raise ValueError()
+                    if method == 'get_view' and args not in ([],[False,'form']):
+                        raise ValueError()
+                    if method == 'has_access' and (len(args)!=2 or args[0] not in ([],[228])
+                            or args[1] not in {'read','write','create','unlink'}):
+                        raise ValueError()
+                return path
+            if path in {'/web/session/get_session_info','/web/webclient/version_info'} and not params:
+                return path
+            if path in {'/web/action/load','/web/action/load_breadcrumbs'}:
+                return path
+            if path == '/mail/store':
+                fetch=params['fetch_params']
+                if type(fetch) is not list or not fetch:
+                    raise ValueError()
+                for item in fetch:
+                    name=item if type(item) is str else item[0]
+                    if name not in {'init_messaging','failures','systray_get_activities'}:
+                        raise ValueError()
+                    if type(item) is list and (len(item)>3 or len(item)>1 and item[1] not in (None,{},[])
+                            or len(item)>2 and (type(item[2]) is not int or item[2]<=0)):
+                        raise ValueError()
+                return path
+        except (KeyError,TypeError,ValueError,IndexError):
+            pass
+        raise BrowserBoundaryError('CURRENT_LOG03_RPC_OR_ROUTE_NOT_APPROVED')
 
     @staticmethod
     def _category(path):
@@ -626,6 +735,40 @@ class BrowserSession:
             except Exception:
                 self._fatal = 'BROWSER_DEADLINE_CLOSE_FAILED_STOP'
 
+    def _begin_native_debug(self):
+        if not self.native_process_debug:
+            return
+        # Existing wrapper owns stderr0600. pw:browser logs lifecycle only, not
+        # pw:api/protocol, request headers, credentials or browser storage.
+        path = Path(os.readlink('/proc/self/fd/2'))
+        if (not path.is_absolute() or not path.resolve().is_relative_to(self.task_profile.root)
+                or path.is_symlink() or not path.is_file() or path.stat().st_uid!=os.getuid()
+                or stat.S_IMODE(path.stat().st_mode)!=0o600):
+            raise BrowserBoundaryError('NATIVE_BROWSER_PRIVATE_PARENT_STDERR_REQUIRED')
+        self._native_debug_file = path
+        self._native_debug_offset = path.stat().st_size
+
+    def _finish_native_debug(self):
+        if not self.native_process_debug or self._native_debug_file is None:
+            return
+        from s10_lc2_main_a_browser_diag import parse_browser_debug
+        with self._native_debug_file.open('rb') as stream:
+            stream.seek(self._native_debug_offset)
+            raw=stream.read(2*1024*1024+1)
+        if len(raw)>2*1024*1024:
+            raise BrowserBoundaryError('NATIVE_BROWSER_DEBUG_WINDOW_EXCEEDS_BOUND')
+        path=self.directory/'native-browser-debug-window.log'
+        _save_bytes(path,raw)
+        facts=parse_browser_debug(raw.decode(errors='replace'))
+        save_once(self.directory/'native-browser-native-exit.json',{
+            'scope':'pw:browser_only','maximum_seconds':self.maximum_seconds,
+            'source_parent_stderr_ref':str(self._native_debug_file),
+            'source_offset':self._native_debug_offset,'bytes':len(raw),
+            'sha256':hashlib.sha256(raw).hexdigest(),'browser_native_processes':facts,
+            'PW_API_OR_PROTOCOL_DEBUG_ENABLED':False,'credentials_or_cookie_exported':False})
+        if not facts or any(row['debug_exit_code']!='0' or row['debug_exit_signal']!='null' for row in facts):
+            raise BrowserBoundaryError('NATIVE_BROWSER_EXIT_NOT_CONFIRMED_ZERO')
+
     async def __aenter__(self):
         if self.started is not None:
             raise BrowserBoundaryError('BROWSER_SESSION_ALREADY_STARTED')
@@ -649,12 +792,24 @@ class BrowserSession:
         self.started = time.monotonic()
         try:
             child_env = driver_environment(dict(os.environ))
-            self.playwright = await self.factory().start()
+            self._begin_native_debug()
+            prior_debug=os.environ.get('DEBUG')
+            if self.native_process_debug:
+                os.environ['DEBUG']='pw:browser'
+            try:
+                self.playwright = await self.factory().start()
+            finally:
+                if self.native_process_debug:
+                    if prior_debug is None:os.environ.pop('DEBUG',None)
+                    else:os.environ['DEBUG']=prior_debug
+
             # No sandbox-disabling flags, preferences, proxy, persistent profile
             # or dependency installation. Capability refusal is a hard STOP.
             firefox_env = (firefox_environment(child_env, self.executable)
                 if self.native_transport or self.task_profile is not None and self.task_profile.message_id in MAIN_A_PRIVATE_LOG_PROFILES
                 else child_env)
+            if self.native_process_debug:
+                firefox_env=firefox_environment(child_env|{'DEBUG':'pw:browser'},self.executable,diagnostic=True)
             self.browser = await self.playwright.firefox.launch(
                 executable_path=str(self.executable), headless=True, env=firefox_env)
             self._watchdog = asyncio.create_task(self._deadline())
@@ -925,7 +1080,7 @@ class BrowserSession:
         if original_ui and (type(user_id) is not int or user_id != 5):
             raise BrowserBoundaryError('ORIGINAL_UI_LOGIN_REQUIRES_USER5_PROVIDER')
         if current_ui and (type(user_id) is not int
-                or user_id != (59 if self._current_case == 'C-REVOKED-PAGE' else 5)):
+                or user_id != (59 if self._current_case in {'C-REVOKED-PAGE','LOG-03'} else 5)):
             raise BrowserBoundaryError('CURRENT_PLAN_BROWSER_LOGIN_ACTOR_MISMATCH')
         self._declared_login_user_id = user_id
         try:
@@ -1049,6 +1204,87 @@ class BrowserSession:
             # do not issue another permission write from a failure finally.
             if not self.native_transport or verified_denial:
                 await self._cleanup(restore_callback, 'reader.restore')
+
+    async def current_native_warning_by_navigation(self):
+        if self._current_case!='LOG-03' or self._declared_login_user_id!=59:
+            raise BrowserBoundaryError('CURRENT_LOG03_ACTOR_OR_PURPOSE_INVALID')
+        queue=asyncio.Queue()
+        def observe(response):
+            try:
+                params=json.loads(response.request.post_data or '')['params']
+                if (response.request.method=='POST' and params.get('model')=='ydental.access.audit'
+                        and params.get('method') in {'get_views','get_view','fields_get','read','web_read','get_metadata'}):
+                    queue.put_nowait(response)
+            except (KeyError,TypeError,ValueError):
+                pass
+        self.page.on('response',observe)
+        try:
+            await self._goto('/odoo/ydental.access.audit/228')
+            deadline=time.monotonic()+30
+            while True:
+                response=await asyncio.wait_for(queue.get(),timeout=max(.01,deadline-time.monotonic()))
+                raw=await response.body()
+                evidence=await self._response_evidence(response,body=raw,label='LOG03_NATIVE_DEEPLINK_RPC')
+                value=json.loads(raw);data=value.get('error',{}).get('data',{})
+                method=json.loads(response.request.post_data)['params']['method']
+                if data.get('name')=='odoo.exceptions.AccessError':
+                    break
+                if 'error' in value or method in {'read','web_read'} and 'result' in value:
+                    save_once(self.directory/(uuid.uuid4().hex+'.native-read-unexpected.json'),
+                        evidence|{'native_method':method,'status':'UNEXPECTED_NATIVE_READ_RESULT_STOP'})
+                    raise BrowserBoundaryError('LOG03_NATIVE_READ_NOT_EXPECTED_ACCESS_ERROR')
+        finally:
+            self.page.remove_listener('response',observe)
+        message=data.get('message');args=data.get('arguments')
+        if type(message) is not str or not 0<len(message)<=8192 or args!=[message]:
+            raise BrowserBoundaryError('LOG03_NATIVE_EXCEPTION_MESSAGE_SHAPE_INVALID')
+        request_envelope=json.loads(response.request.post_data)
+        request_params=request_envelope['params']
+        request_id=request_envelope.get('id');response_id=value.get('id')
+        if (type(request_id) not in (int,str,type(None)) or type(response_id)is not type(request_id)
+                or response_id!=request_id or isinstance(request_id,str)and len(request_id)>128):
+            raise BrowserBoundaryError('LOG03_NATIVE_JSONRPC_ID_NOT_CORRELATED')
+        private_message={
+            'native_exception_name':data['name'],'native_message':message,'native_arguments':args,
+            'native_message_sha256':hashlib.sha256(message.encode()).hexdigest(),
+            'actual_request_JSONRPC_id':request_id,'actual_response_JSONRPC_id':response_id,
+            'native_model':request_params['model'],'native_method':request_params['method'],
+            'actual_record_ids':request_params['args'][0] if request_params['method']in {'read','web_read','get_metadata','has_access'}else [],
+            'normal_navigation_target_record_id':228,'response_sha256':evidence['sha256'],
+            'debug_traceback_headers_cookies_or_successful_read_result_retained':False}
+        private_message_path=self.directory/(uuid.uuid4().hex+'.native-message-private.json')
+        save_once(private_message_path,private_message)
+        dialog=self.page.locator('.o_error_dialog')
+        await dialog.wait_for(state='visible',timeout=15000)
+        body=dialog.locator('[role=alert] p.text-prewrap')
+        body_text=await body.inner_text()
+        if len(body_text)>8192:
+            raise BrowserBoundaryError('LOG03_NATIVE_UI_MESSAGE_EXCEEDS_BOUND')
+        private_ui_path=self.directory/(uuid.uuid4().hex+'.native-message-ui-private.json')
+        save_once(private_ui_path,{
+            'native_message_private_ref':str(private_message_path),
+            'native_message_private_sha256':hashlib.sha256(private_message_path.read_bytes()).hexdigest(),
+            'actual_UI_message':body_text,'actual_UI_message_sha256':hashlib.sha256(body_text.encode()).hexdigest(),
+            'native_message_sha256':private_message['native_message_sha256'],
+            'messages_equal_after_outer_whitespace_trim':body_text.strip()==message.strip(),
+            'debug_traceback_headers_cookies_or_successful_read_result_retained':False})
+        if (body_text.strip()!=message.strip()
+                or await dialog.locator('details,pre,code').count()
+                or await dialog.locator('button.o-default-button').count()!=1):
+            raise BrowserBoundaryError('LOG03_NATIVE_WARNING_DIALOG_CONTRACT_MISMATCH')
+        evidence.update(native_exception_name=data['name'],message_sha256=hashlib.sha256(message.encode()).hexdigest(),
+            normal_deeplink_navigation=True,backend_target='ydental.access.audit/228',actor_id=59,
+            dialog_observed='NATIVE_WARNING_DIALOG',registry_contract='web.WarningDialog',
+            ui_message_matches_actual_rpc_arguments=True,handmade_dialog=False,injected_ORM_or_dialog=False,
+            actual_UI_message_sha256=hashlib.sha256(body_text.encode()).hexdigest(),
+            private_native_message_ref=str(private_message_path),private_native_UI_message_ref=str(private_ui_path),
+            actual_JSONRPC_id=request_id,native_model=request_params['model'],native_method=request_params['method'],
+            screenshot=await self._screenshot(dialog,mask=(body,)),
+            bus_compatibility='NOT_TESTED_OWNED_WEBSOCKET_CLOSED_BEFORE_NETWORK')
+        save_once(self.directory/(uuid.uuid4().hex+'.current-native-dialog.json'),evidence)
+        await dialog.locator('button.o-default-button').click()
+        self._check()
+        return evidence
 
     async def native_warning_dialog(self, audit_id, *, expected_name='odoo.exceptions.AccessError',
                                     expected_message='审计事件不可修改。'):
@@ -1238,6 +1474,7 @@ class BrowserSession:
                     await self.browser.close()
             finally:
                 await self._cleanup(stop_driver, 'driver.stop')
+            self._finish_native_debug()
             save_once(self.directory / (uuid.uuid4().hex + '.browser-close.json'), {
                 'firefox_launches': int(self.started is not None), 'serial_ram_contexts': self._context_count,
                 'routed_requests': len(self._requests), 'observed_responses': len(self._responses),
@@ -1250,7 +1487,8 @@ class BrowserSession:
                 'pageerror_count': self._pageerrors, 'boundary_failure': self._fatal,
                 'elapsed_seconds': round(time.monotonic() - self.started, 3) if self.started else 0,
                 'credentials_retention': 'MEMORY_ONLY', 'browser_storage_exported': False,
-                'process_exit_observation': 'PARENT_SUPERVISOR_REQUIRED',
+                'process_exit_observation': ('NATIVE_PW_EXIT_RECORDED_PARENT_PID_BIRTH_SUPERVISOR_FOLLOWS'
+                    if self.native_process_debug else 'PARENT_SUPERVISOR_REQUIRED'),
             })
             self._closed = True
         finally:
@@ -1318,22 +1556,27 @@ async def run_main_a_browser(*, base_url, database, owned_targets, budget, direc
     profile.verify()
     if current:
         profile.require_action('A-ORIGINAL' if phase == 'pre' else 'E-AFFECTED-REGRESSION')
-    async with BrowserSession(base_url, database=database, owned_targets=owned_targets,
-                              budget=budget, directory=directory,
-                              current_case='A-ORIGINAL' if phase == 'pre' else 'E-AFFECTED-REGRESSION',
-                              **session_options) as session:
-        await session.login(credentials.login, credentials.password,
-                            **({'user_id': 5} if current or profile.message_id == MAIN_A_ORIGINAL_UI else {}))
-        await session.switch_store(store_id)
-        original = await session.download_original(invoice_id, original_id, original_sha256,
-                                                    patient_id=patient_id, phase=phase)
-    results = {'case_id': 'A-ORIGINAL' if phase == 'pre' else 'E-AFFECTED-REGRESSION', 'original': original,
-               'evidence_kind': 'REAL_FIREFOX_UI_NATIVE' if current else 'REAL_FIREFOX_UI_UPSTREAM_FORWARDED',
-               'redirect_policy': 'NATIVE_AUTOMATIC' if current else 'MANUAL_REDIRECT',
-               'native_automatic_redirect_acceptance': current,
-               'independent_verification': 'PENDING'}
-    save_once(Path(directory) / (uuid.uuid4().hex + '.main-a-browser-results.json'), results)
-    return results
+    async def execute():
+        async with BrowserSession(base_url, database=database, owned_targets=owned_targets,
+                                  budget=budget, directory=directory,
+                                  current_case='A-ORIGINAL' if phase == 'pre' else 'E-AFFECTED-REGRESSION',
+                                  native_process_debug=(current and phase=='post'),
+                                  **session_options) as session:
+            await session.login(credentials.login, credentials.password,
+                                **({'user_id': 5} if current or profile.message_id == MAIN_A_ORIGINAL_UI else {}))
+            await session.switch_store(store_id)
+            original = await session.download_original(invoice_id, original_id, original_sha256,
+                                                        patient_id=patient_id, phase=phase)
+        results = {'case_id': 'A-ORIGINAL' if phase == 'pre' else 'E-AFFECTED-REGRESSION', 'original': original,
+                   'evidence_kind': 'REAL_FIREFOX_UI_NATIVE' if current else 'REAL_FIREFOX_UI_UPSTREAM_FORWARDED',
+                   'redirect_policy': 'NATIVE_AUTOMATIC' if current else 'MANUAL_REDIRECT',
+                   'native_automatic_redirect_acceptance': current,
+                   'independent_verification': 'PENDING'}
+        save_once(Path(directory) / (uuid.uuid4().hex + '.main-a-browser-results.json'), results)
+        return results
+    if current and phase=='post':
+        return await _current_native_process_supervision(execute,directory)
+    return await execute()
 
 
 @_safe_browser_entrypoint('browser.current_revoked_page')
@@ -1366,3 +1609,85 @@ async def run_current_revoked_browser(*, base_url, database, owned_targets, budg
               'next_request': observation, 'independent_verification': 'PENDING'}
     save_once(Path(directory) / (uuid.uuid4().hex + '.current-revoked-browser-results.json'), result)
     return result
+
+
+async def _current_native_process_supervision(operation,directory):
+    """Reuse the existing LC2 parent PID/PPID/birth watcher for this exact UI."""
+    from s10_lc2_cases import process_tree
+    directory=_private_directory(directory)
+    baseline=process_tree();observed={};births={};finished=threading.Event();parent=os.getpid();watch_errors=[]
+    def watch():
+        try:
+            while not finished.wait(.05):
+                rows=process_tree();descendants={parent}
+                while True:
+                    expanded=descendants|{pid for pid,row in rows.items() if row['parent_pid'] in descendants}
+                    if expanded==descendants:break
+                    descendants=expanded
+                for pid in descendants-{parent}-set(baseline):
+                    row=rows[pid]
+                    if row['exe_basename'] in {'firefox','firefox-bin','node','plugin-container','RDD Process','Web Content','Socket Process'}:
+                        observed[pid]=row
+                        births.setdefault(pid,set()).add(row['birth_ticks'])
+        except BaseException as error:
+            watch_errors.append(type(error).__name__)
+    thread=threading.Thread(target=watch,daemon=True);thread.start()
+    try:
+        return await operation()
+    finally:
+        primary=sys.exc_info()[1]
+        try:
+            finished.set();thread.join(timeout=2);current=process_tree()
+            survivors=[row for pid,row in observed.items() if pid in current and current[pid]['birth_ticks']==row['birth_ticks']]
+            native=json.loads((directory/'native-browser-native-exit.json').read_bytes())
+            native_matches=[]
+            for item in native['browser_native_processes']:
+                pid=item['pid'];row=observed.get(pid)
+                if (row is None or not row['exe_basename'].startswith('firefox')
+                        or len(births.get(pid,set()))!=1 or item['debug_exit_code']!='0'
+                        or item['debug_exit_signal']!='null'):
+                    raise BrowserBoundaryError('NATIVE_BROWSER_DEBUG_PID_BIRTH_NOT_CORRELATED')
+                native_matches.append({'pid':pid,'birth_ticks':row['birth_ticks'],
+                    'parent_pid':row['parent_pid'],'exe_basename':row['exe_basename'],
+                    'PW_native_exit_code':0,'PW_native_exit_signal':None,
+                    'owned_descendant_observed_during_this_UI_window':True})
+            complete=(not thread.is_alive() and not watch_errors and not survivors and bool(native_matches))
+            save_once(directory/'independent-process-closure.json',{'observer_pid':parent,
+                'observed_owned_descendants':list(observed.values()),'surviving_owned_descendants':survivors,
+                'pid_reuse_checked_by_birth':True,'browser_api_close_is_only_exit_evidence':False,
+                'watch_errors':watch_errors,'observer_thread_joined':not thread.is_alive(),
+                'native_debug_owned_PID_birth_matches':native_matches,
+                'current_owned_process_closure_observed':complete,
+                'native_exit_code_evidence':'native-browser-native-exit.json actual PW browser stderr window',
+                'unknown_processes_killed':False})
+            if not complete:
+                raise BrowserBoundaryError('NATIVE_BROWSER_PROCESS_CLOSURE_UNCONFIRMED')
+        except BaseException as secondary:
+            if primary is None:
+                raise
+            try:
+                save_once(directory/'independent-process-closure-secondary.json',{
+                    'primary_preserved':True,'secondary_exception_type':type(secondary).__name__,
+                    'secondary_reason':'NATIVE_BROWSER_PROCESS_CLOSURE_UNCONFIRMED'})
+            except BaseException:
+                try:os.write(2,b'LC2_BROWSER_PROCESS_CLOSURE_EVIDENCE_SECONDARY_FAILED\n')
+                except OSError:pass
+
+
+
+@_safe_browser_entrypoint('browser.current_log03')
+async def run_current_log03_browser(*,base_url,database,owned_targets,budget,directory,credentials,
+                                    reader_id,reader_partner_id,store_id=1,**session_options):
+    profile=getattr(budget,'profile',None)
+    if getattr(profile,'message_id',None)!=CURRENT_PLAN or reader_id!=59 or store_id!=1:
+        raise BrowserBoundaryError('CURRENT_LOG03_SCOPE_INVALID')
+    profile.require_action('LOG-03')
+    async def execute():
+        async with BrowserSession(base_url,database=database,owned_targets=owned_targets,budget=budget,
+                directory=directory,current_case='LOG-03',reader_partner_id=reader_partner_id,
+                native_process_debug=True,**session_options) as session:
+            await session.login(credentials.login,credentials.password,user_id=59)
+            await session.switch_store(1)
+            result=await session.current_native_warning_by_navigation()
+        return result
+    return await _current_native_process_supervision(execute,directory)

@@ -28,7 +28,7 @@ import uuid
 from s10_lc2_evidence import PROTECTED, save_once
 from s10_lc2_logging import strict_loads
 from s10_lc2_supervisor import save_primary
-from s10_lc2_task_profile import MAIN_A_ENGINEERING, MAIN_A_ORIGINAL_UI, MAIN_A_PROFILES, MAIN
+from s10_lc2_task_profile import CURRENT_PLAN, ROOT, MAIN_A_ENGINEERING, MAIN_A_ORIGINAL_UI, MAIN_A_PROFILES, MAIN
 
 
 _DATABASE = re.compile(r'ydental_s10_test_[0-9]{14}_[a-f0-9]{8}\Z')
@@ -485,6 +485,7 @@ class Client:
         self.database = database
         self.target_role = target_role
         self._family_ticket = None
+        self._current_c_target = None
         self.budget = budget
         self.task_profile = getattr(budget, 'profile', None)
         if self.task_profile is not None and self.task_profile.message_id in MAIN_A_PROFILES:
@@ -511,16 +512,25 @@ class Client:
                 or any(ord(character) < 32 for character in path + decoded)
                 or not re.fullmatch(r'/[A-Za-z0-9_./-]*', decoded)
                 or any(part in {'.', '..'} for part in decoded.split('/'))
-                or not decoded.startswith(('/ydental/', '/web/'))):
+                or not decoded.startswith(('/ydental/', '/web/', '/report/'))):
             raise ValueError('HTTP_PATH_NOT_APPROVED')
+        if decoded.startswith('/report/'):
+            target = self._current_c_target
+            match = re.fullmatch(r'/report/(pdf|html)/ydental_settlement\.ydental_settlement_pdf/([1-9][0-9]*)', decoded)
+            if (not target or not match or target['create']
+                    or int(match[2]) != target['invoice_id']):
+                raise ValueError('CURRENT_C_NATIVE_REPORT_PROBE_NOT_REGISTERED')
         if decoded.startswith('/web/') and not (
                 decoded in {'/web/login', '/web/session/authenticate', '/web/session/get_session_info',
                             '/web/content', '/web/image'}
                 or decoded.startswith(('/web/dataset/call_kw', '/web/content/', '/web/image/',
                                        '/web/assets/', '/web/static/', '/web/webclient/translations'))):
             raise ValueError('HTTP_NATIVE_ADMIN_PATH_FORBIDDEN')
+        original_create = re.fullmatch(r'/ydental/settlement/bill-original/create/([1-9][0-9]*)', decoded)
         if decoded.startswith('/ydental/settlement/bill-original/create/'):
-            raise ValueError('ORIGINAL_REGENERATION_FORBIDDEN')
+            target = self._current_c_target
+            if not original_create or not target or not target['create'] or int(original_create[1]) != target['invoice_id']:
+                raise ValueError('ORIGINAL_REGENERATION_FORBIDDEN')
         if decoded.startswith('/ydental/'):
             main_path = (decoded in {'/ydental/access', '/ydental/access/action',
                                     '/ydental/clinical', '/ydental/clinical/action',
@@ -534,12 +544,65 @@ class Client:
                 '/ydental/supply', '/ydental/supply/action', '/ydental/queue', '/ydental/queue/action',
                 '/ydental/treatment', '/ydental/treatment/action',
             }
+            scratch_path = scratch_path or bool(self.target_role == 'scratch' and original_create and self._current_c_target)
             family_path = decoded == '/ydental/patients/action' and self._family_ticket is not None
             if not (main_path or scratch_path or family_path):
                 raise ValueError('HTTP_APPLICATION_ROUTE_NOT_APPROVED_FOR_TARGET_ROLE')
         if any(value != self.database for value in parse_qs(parsed.query, keep_blank_values=True).get('db', [])):
             raise ValueError('HTTP_DATABASE_QUERY_DRIFT')
         return path, decoded
+
+    @contextmanager
+    def current_c_target(self, *, source_ref, source_sha256, invoice_id, actor_id, active_store_id,
+                         create_original=False, request_key=None):
+        """Only one newly confirmed C invoice, never the committed D/old main bill."""
+        profile = self.task_profile
+        if (profile is None or profile.message_id != CURRENT_PLAN or profile.target_role != 'scratch'
+                or self.target_role != 'scratch' or self.database != profile.database
+                or self._current_c_target is not None or type(create_original) is not bool):
+            raise ValueError('CURRENT_C_TARGET_ONLY_EXPLICIT_CURRENT_SCRATCH')
+        profile.require_action('C-ATTACHMENT')
+        path = ROOT / source_ref
+        if path.is_symlink() or not path.resolve().is_relative_to(profile.root):
+            raise ValueError('CURRENT_C_TARGET_INDEPENDENT_REFERENCE_INVALID')
+        raw = path.read_bytes()
+        if hashlib.sha256(raw).hexdigest() != source_sha256:
+            raise ValueError('CURRENT_C_TARGET_INDEPENDENT_BYTES_CHANGED')
+        proof = strict_loads(raw)
+        d_source = strict_loads((profile.root / 'D-CHAIN-COMPLETE.json').read_bytes())['source_ids']
+        fixture = strict_loads((profile.root / 'C-fixture-public-identities.json').read_bytes())
+        selected = [row for row in proof.get('source_rows', []) if row.get('invoice_id') == invoice_id]
+        known_stores = {row['store_id'] for row in fixture['clinics']}
+        if (proof.get('validation_status') != 'CURRENT_C_NORMAL_SOURCES_AND_UNIQUE_D_FUNDS_INDEPENDENTLY_OBSERVED'
+                or proof.get('evidence_layer') != 'INDEPENDENT_COMMITTED_RO'
+                or proof.get('no_new_C_funds') is not True or len(selected) != 1
+                or type(invoice_id) is not int or invoice_id == d_source['invoice_id']
+                or selected[0].get('patient_id') == d_source['patient_id']
+                or selected[0].get('store_id') not in known_stores or active_store_id not in known_stores
+                or actor_id not in {row['user_id'] for row in fixture['actors'].values()}):
+            raise ValueError('CURRENT_C_TARGET_NOT_REAL_SEPARATE_UNPAID_NATIVE_SOURCE')
+        selected = selected[0]
+        invoice = selected.get('invoice', {})
+        if (invoice.get('id') != invoice_id or invoice.get('state') != 'posted'
+                or invoice.get('move_type') != 'out_invoice'
+                or invoice.get('company_id') != selected.get('company_id')
+                or invoice.get('currency_id') != selected.get('currency_id')
+                or float(invoice.get('amount_total', 0)) <= 0
+                or invoice.get('amount_residual') != invoice.get('amount_total')):
+            raise ValueError('CURRENT_C_TARGET_NATIVE_INVOICE_RELATION_INVALID')
+        if create_original and (actor_id != fixture['actors']['manager']['user_id']
+                or invoice.get('create_uid') != actor_id or active_store_id != selected['store_id']
+                or selected.get('original_expected') or selected.get('original_id')
+                or type(request_key) is not str or not re.fullmatch(r'[a-f0-9]{32}', request_key)):
+            raise ValueError('CURRENT_C_NEW_ORIGINAL_ACTOR_STORE_OR_UNIQUE_KEY_INVALID')
+        target = {'invoice_id': invoice_id, 'actor_id': actor_id, 'active_store_id': active_store_id,
+            'source_ref': source_ref, 'source_sha256': source_sha256,
+            'create': create_original, 'key': request_key, 'spent': False}
+        self._current_c_target = target
+        try:
+            yield target
+        finally:
+            self._current_c_target = None
 
     @contextmanager
     def _family_request(self, scope, operation, payload):
@@ -597,6 +660,24 @@ class Client:
                 or type(discard_response) is not bool or type(retry_manifest) is not bool):
             raise ValueError('HTTP_REQUEST_CONTAINER_OR_FLAGS_INVALID')
         path, decoded = self._path(path)
+        if decoded.startswith('/ydental/settlement/bill-original/create/'):
+            target = self._current_c_target
+            if (method != 'POST' or case_id != 'C-ATTACHMENT' or json_body is not None
+                    or type(form) is not dict or set(form) != {'revision', 'csrf_token', 'key'}
+                    or form.get('key') != target['key'] or not isinstance(form.get('csrf_token'), str)
+                    or not form['csrf_token'] or type(form.get('revision')) is not int or target['spent']):
+                raise ValueError('CURRENT_C_NEW_ORIGINAL_FIXED_NORMAL_FORM_REQUIRED')
+            save_once(self.task_profile.root / ('C-original-invoice-%d-DISPATCHED.json' % target['invoice_id']),
+                {key: value for key, value in target.items() if key not in {'key', 'spent'}})
+            target['spent'] = True
+        if decoded.startswith('/report/'):
+            target = self._current_c_target
+            query = parse_qs(urlsplit(path).query, keep_blank_values=True)
+            allowed = [{}, {'context': [json.dumps({'ydental_settlement_pdf_scope': {}}, separators=(',', ':'))]},
+                       {'options': [json.dumps({'kind': 'bill', 'source_id': target['invoice_id']}, separators=(',', ':'))]}]
+            if (method != 'GET' or case_id != 'C-ATTACHMENT' or form is not None or json_body is not None
+                    or query not in allowed):
+                raise ValueError('CURRENT_C_FIXED_NATIVE_REPORT_PROBE_REQUIRED')
         if self.task_profile is not None and self.task_profile.message_id in MAIN_A_PROFILES:
             self.task_profile.verify()
             main_a_request_boundary(method, path, form=form, json_body=json_body,

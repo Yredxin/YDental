@@ -17,7 +17,7 @@ import uuid
 import re
 import threading
 from contextlib import contextmanager
-from urllib.parse import urlencode
+from urllib.parse import parse_qs, urlencode, urljoin, urlsplit
 
 from s10_lc2_evidence import (collect_b_source, collect_selection, parse_b_server_events,
                              read_b_source, runtime_gate, save_once, verify_b_log_prefixes)
@@ -1362,6 +1362,860 @@ def main_c(manager, reader, token, placeholder, facts, attachment_id, scope_acto
                                  'token_applicability': token_applicability,
                                  'dynamic_pdf_positive_admission': 'ADMITTED' if dynamic_pdf_admitted else 'NOT_RUN_INTERNAL_HTTP_ACCOUNTING_GATE',
                                  'source_financial_family_nonempty_positive': 'NOT_RUN_NO_NEW_LEGITIMATE_FINANCIAL_FAMILY_SOURCE'})
+
+
+
+class CRecordedActor:
+    """Retain each C-only persistent intent before its actual native HTTP call."""
+
+    def __init__(self, actor, facts, label, fixture):
+        if not re.fullmatch(r'[a-z][a-z0-9-]{0,35}', label):
+            raise ValueError('C_SYNTHETIC_STEP_LABEL_INVALID')
+        self.actor, self.facts, self.label, self.fixture = actor, facts, label, fixture
+        self.uid, self.step = actor.uid, 0
+
+    def __getattr__(self, name):
+        return getattr(self.actor, name)
+
+    def action(self, endpoint, operation, payload, **options):
+        self.step += 1
+        name = 'C-%s-%02d-%s' % (self.label, self.step, operation)
+        options.setdefault('case', 'C-SCOPE')
+        options.setdefault('operation_ref', name)
+        if endpoint not in {'access', 'queue', 'clinical'}:
+            options.setdefault('key', uuid.uuid4().hex)
+        # Only the fixed new-fixture IDs/amounts leave this in-memory call.
+        # Authentication, lease/editor tokens and synthetic text remain RAM-only.
+        identifiers = {key: value for key, value in payload.items()
+                       if (key.endswith('_id') and type(value) is int)
+                       or (key.endswith('_ids') and type(value) is list
+                           and all(type(item) is int for item in value))
+                       or key in {'quantity', 'discount', 'unit_price', 'amount'}}
+        self.facts.save(name + '-intent', {
+            'stage': 'BEFORE_DISPATCH', 'actor_id': self.uid,
+            'store_id': self.fixture['store_id'], 'company_id': self.fixture['company_id'],
+            'endpoint': endpoint, 'operation': operation, 'business_ids': identifiers,
+            'key': options.get('key'), 'operation_ref': options['operation_ref'],
+            'case': options['case'], 'automatic_retry': False})
+        try:
+            result = self.actor.action(endpoint, operation, payload, **options)
+        except BaseException as error:
+            self.facts.save(name + '-unconfirmed', {
+                'outcome': 'UNCONFIRMED_REQUIRES_INDEPENDENT_RO',
+                'error_type': type(error).__name__, 'automatic_retry': False})
+            raise
+        safe = {key: value for key, value in result.items()
+                if (type(value) in (int, float, bool) or value is None)
+                and key not in {'password', 'content', 'token', 'editor_token', 'lease_token'}}
+        self.facts.save(name + '-returned', {
+            'business_ids': safe, 'commit_claimed': False, 'automatic_retry': False})
+        return result
+
+
+def new_c_confirmed_fee(manager, doctor, fixture, facts, *, label, amount, d_source,
+                        patient_id=None, schedule_offset=0):
+    """Normal S05→S06→S07→S08 path for one independent uncollected C fee.
+
+    All actors must already be switched to this new C clinic. The caller must
+    exclude the committed D patient, source, fee and bill from every fixture.
+    This helper never bills, collects, refunds, merges or touches the D chain.
+    """
+    if (not re.fullmatch(r'[a-z][a-z0-9-]{0,24}', label)
+            or Decimal(str(amount)) <= 0 or Decimal(str(amount)) > 100
+            or type(schedule_offset) is not int or not 0 <= schedule_offset <= 40
+            or any(type(d_source.get(key)) is not int or d_source[key] <= 0
+                   for key in ('patient_id', 'event_id', 'fee_id', 'invoice_id'))
+            or patient_id is not None and (type(patient_id) is not int or patient_id <= 0
+                                           or patient_id == d_source['patient_id'])):
+        raise ValueError('C_NEW_UPSTREAM_PARAMETERS_INVALID')
+    facts.save('C-' + label + '-upstream-in-flight', {
+        'store_id': fixture['store_id'], 'company_id': fixture['company_id'],
+        'existing_new_c_patient_id': patient_id, 'amount': str(amount),
+        'manager_id': manager.uid, 'doctor_id': doctor.uid,
+        'd_patient_allowed': False, 'automatic_retry': False})
+    manager = CRecordedActor(manager, facts, label + '-manager', fixture)
+    doctor = CRecordedActor(doctor, facts, label + '-doctor', fixture)
+    now = datetime.now(timezone.utc).replace(tzinfo=None, microsecond=0)
+    fmt = lambda value: value.strftime('%Y-%m-%d %H:%M:%S')
+    catalog = manager.action('intake', 'catalog', {
+        'code': 'current-c-' + uuid.uuid4().hex, 'name': 'S10 independent C synthetic care',
+        'kind': 'care', 'capability_id': fixture['capability_id'], 'uom_id': fixture['uom_id']})
+    mapping = manager.action('intake', 'mapping', {
+        'catalog_id': catalog['id'], 'area_id': fixture['area_id'],
+        'execution_area_id': fixture['area_id']})
+    price = manager.action('intake', 'price', {
+        'catalog_id': catalog['id'], 'currency_id': fixture['currency_id'],
+        'unit_price': amount, 'start': fmt(now - timedelta(minutes=1)),
+        'end': fmt(now + timedelta(days=1)), 'reason': 'S10 separate C frozen synthetic price'})
+    reviewed = manager.action('intake', 'review', {
+        'record_id': price['id'], 'version': price['version'],
+        'reason': 'S10 C synthetic price review'})
+    manager.action('intake', 'publish', {
+        'record_id': reviewed['id'], 'version': reviewed['version'],
+        'reason': 'S10 C synthetic price publication'})
+    start = now + timedelta(minutes=5 + schedule_offset)
+    end = start + timedelta(minutes=4)
+    slot = manager.action('supply', 'slot', {
+        'station_id': fixture['station_id'], 'start': fmt(start), 'end': fmt(end), 'total': 3,
+        'capability_ids': [fixture['capability_id']], 'reason': 'S10 separate C real capacity'})
+    manager.action('supply', 'publish', {
+        'id': slot['id'], 'version': 1, 'user_ids': [doctor.uid],
+        'reason': 'S10 actual qualified C doctor coverage'})
+    if patient_id is None:
+        patient_id = manager.action('patients', 'create', {
+            'values': {'name': 'S10 independent C synthetic ' + label}})['id']
+    if patient_id == d_source['patient_id']:
+        raise RuntimeError('C_NEW_PATIENT_UNEXPECTEDLY_EQUALS_PROTECTED_D_PATIENT')
+    qualified = manager.action('intake', 'reserve', {
+        'patient_id': patient_id, 'mapping_id': mapping['id'],
+        'start': fmt(start), 'end': fmt(end), 'channel': 'reservation'})
+    manager.action('intake', 'arrive', {'patient_id': patient_id})
+    manager.action('intake', 'report', {
+        'task_id': qualified['task_id'], 'version': qualified['task_version']})
+    lease = doctor.action('queue', 'enter', {'station_id': fixture['station_id']})
+    held = {'lease_id': lease['lease_id'], 'token': lease['token']}
+    called = doctor.action('queue', 'call', held)
+    if called['task_id'] != qualified['task_id']:
+        raise RuntimeError('C_QUEUE_SELECTED_UNEXPECTED_TASK_NO_SUBSTITUTION')
+    execution = doctor.action('queue', 'start', held | {'entry_id': called['entry_id']})
+    document = doctor.action('clinical', 'open', {
+        'execution_id': execution['execution_id'], 'lease_id': lease['lease_id'],
+        'lease_token': lease['token']})
+    content = document['content'] | {'chief_complaint': 'S10 separate C synthetic care'}
+    saved = doctor.action('clinical', 'save', {
+        'document_id': document['document_id'], 'editor_token': document['editor_token'],
+        'expected_version': document['version'], 'content': content, 'key': uuid.uuid4().hex})
+    event = doctor.action('treatment', 'execute', {
+        'execution_id': execution['execution_id'], 'lease_id': lease['lease_id'],
+        'lease_token': lease['token'], 'document_id': document['document_id'],
+        'document_version': saved['version'], 'catalog_id': catalog['id'], 'quantity': 1,
+        'source': 'S10 C independent ' + uuid.uuid4().hex,
+        'reason': 'S10 independently performed C synthetic care',
+        'materials': [], 'teeth': [], 'already_performed': False, 'policy': 'demo_confirmation'})
+    facts.save('C-' + label + '-event-returned', {
+        'patient_id': patient_id, 'event_id': event['event_id'], 'fee_id': event['fee_id'],
+        'expected_amount': str(amount), 'actual_amount': str(event['amount']),
+        'independent_commit_verification_required': True})
+    if (Decimal(str(event['amount'])) != Decimal(str(amount))
+            or event['fee_id'] == d_source['fee_id'] or event['event_id'] == d_source['event_id']):
+        raise RuntimeError('C_FROZEN_SOURCE_AMOUNT_MISMATCH')
+    doctor.action('clinical', 'handover', {
+        'document_id': document['document_id'], 'editor_token': document['editor_token'],
+        'expected_version': saved['version'], 'content': content, 'key': uuid.uuid4().hex,
+        'lease_id': lease['lease_id'], 'lease_token': lease['token']})
+    doctor.action('queue', 'exit', held)
+    source = {key: fixture[key] for key in ('store_id', 'company_id', 'currency_id')}
+    source.update(patient_id=patient_id, event_id=event['event_id'], fee_id=event['fee_id'],
+        catalog_id=catalog['id'], price_id=price['id'], amount=str(amount),
+        task_id=qualified['task_id'], execution_id=execution['execution_id'],
+        document_id=document['document_id'], doctor_id=doctor.uid, lease_id=lease['lease_id'])
+    facts.save('C-' + label + '-upstream-returned', source | {
+        'fund_dispatches': 0, 'billed': False, 'independent_commit_verification_required': True})
+    return source
+
+
+def run_new_c_fixture_flow(manager, doctor, clinics, facts, d_source, *, observe,
+                           new_c_confirmed_fee, recorded_actor, store_original):
+    """Create separate C sources, never a second persistent funds chain.
+
+    Independent observe(label, source_rows) must preserve the exact D graph and
+    prove every C source's patient/event/snapshot/fee/invoice and no extra funds.
+    It returns the actual-current manifest for subsequent normal reader cells.
+    """
+    if ([item['label'] for item in clinics] != ['local', 'same-company', 'other-company']
+            or clinics[0]['company_id'] != clinics[1]['company_id']
+            or clinics[0]['company_id'] == clinics[2]['company_id']
+            or any(item['store_id'] == d_source['store_id'] for item in clinics)):
+        raise RuntimeError('C_THREE_NEW_INDEPENDENT_CLINICS_REQUIRED')
+    facts.save('C-SCRATCH-SOURCES-IN-FLIGHT', {
+        'd_patient_id': d_source['patient_id'], 'd_fee_id': d_source['fee_id'],
+        'd_invoice_id': d_source['invoice_id'], 'clinics': clinics,
+        'fund_actions_allowed': False, 'automatic_retry': False})
+    switch_step = 0
+    def switch(actor, clinic):
+        nonlocal switch_step
+        switch_step += 1
+        name = 'C-scope-switch-%02d' % switch_step
+        facts.save(name + '-intent', {'actor_id': actor.uid, 'store_id': clinic['store_id'],
+            'previous_store_id': actor.store_id, 'revision_before': actor.revision,
+            'operation_ref': 'switch', 'automatic_retry': False})
+        actor.refresh()
+        revision = actor.switch(clinic['store_id'])
+        facts.save(name + '-returned', {'actor_id': actor.uid, 'store_id': actor.store_id,
+            'revision': revision, 'request_id': actor.scope_request_id})
+    local, same_company, other_company = clinics
+    switch(manager, local)
+    switch(doctor, local)
+    fee_a = new_c_confirmed_fee(manager, doctor, local, facts, label='family-source',
+        amount=7, d_source=d_source, schedule_offset=0)
+    fee_b = new_c_confirmed_fee(manager, doctor, local, facts, label='family-target',
+        amount=11, d_source=d_source, schedule_offset=6)
+    rows = [fee_a, fee_b]
+    observe('two-separate-unbilled-patients', rows)
+    local_manager = recorded_actor(manager, facts, 'local-post-care', local)
+    # Valid nonempty same-store fees, different current patients and no prior
+    # source: native _same_patient guard must be the actual refusal.
+    mixed_key = uuid.uuid4().hex
+    mixed = local_manager.action('settlement', 'bill', {
+        'fee_ids': [fee_a['fee_id'], fee_b['fee_id']], 'discount': 0, 'reason': ''},
+        key=mixed_key, expect=(403,), operation_ref='current-C-mixed-new-patients')
+    facts.save('C-mixed-patient-bill-refusal', {
+        'actor_id': manager.uid, 'store_id': local['store_id'],
+        'fee_ids': [fee_a['fee_id'], fee_b['fee_id']], 'stable_key': mixed_key,
+        'expected_native_message_match': mixed.get('error') ==
+            'access_denied: Mixed patient fees cannot be billed.',
+        'operation_ref': 'current-C-mixed-new-patients',
+        'denial_layer_claimed': 'REAL_HTTP_PRODUCT_SCOPE_GUARD_PENDING_NATIVE_CORRELATION'})
+    if mixed.get('error') != 'access_denied: Mixed patient fees cannot be billed.':
+        raise RuntimeError('C_MIXED_FEES_DID_NOT_HIT_NATIVE_SAME_PATIENT_GUARD')
+    observe('mixed-refused-no-C-invoice-or-source', rows)
+    for label, source in [('source', fee_a), ('target', fee_b)]:
+        billed = local_manager.action('settlement', 'bill', {
+            'fee_ids': [source['fee_id']], 'discount': 0, 'reason': ''},
+            operation_ref='current-C-family-' + label + '-bill')
+        source['invoice_id'] = billed['invoice_id']
+        facts.save('C-family-' + label + '-bill-returned', {
+            **source, 'no_payment_or_refund_dispatched': True,
+            'independent_commit_verification_required': True})
+        observe('family-' + label + '-unpaid-invoice', rows)
+        if label == 'source':
+            # Normal native original creation before the synthetic merge gives
+            # a real nonempty immutable file whose old identity/bytes must be
+            # retained when the new target family subsequently reads it.
+            source['original_expected'] = True
+            original = store_original(manager, source, label='family-source-before-merge')
+            source.update(original)
+            facts.save('C-family-source-original-committed', {
+                'invoice_id': source['invoice_id'], **original,
+                'original_patient_id': source['patient_id'], 'new_render_after_merge_allowed': False})
+            observe('new-C-original-before-family-merge', rows)
+    requested = local_manager.action('patients', 'request_merge', {
+        'source_id': fee_a['patient_id'], 'target_id': fee_b['patient_id'],
+        'reason': 'S10 explicit verification of two independent synthetic C identities'},
+        operation_ref='current-C-new-patients-family-request')
+    merged = local_manager.action('patients', 'confirm', {
+        'request_id': requested['id'], 'version': requested['version'],
+        'reason': 'S10 verified synthetic C family only; no D identity or funds'},
+        operation_ref='current-C-new-patients-family-confirm')
+    facts.save('C-new-family-confirmed-returned', {
+        'merge_id': requested['id'], 'source_patient_id': fee_a['patient_id'],
+        'target_patient_id': fee_b['patient_id'], 'result_patient_id': merged.get('patient_id'),
+        'state_is_accepted': merged.get('result') == 'accepted',
+        'expected_source_invoice_id': fee_a['invoice_id'],
+        'expected_target_invoice_id': fee_b['invoice_id'],
+        'old_D_patient_excluded': True, 'independent_commit_verification_required': True})
+    if merged.get('result') != 'accepted' or merged.get('patient_id') != fee_b['patient_id']:
+        raise RuntimeError('C_NEW_SYNTHETIC_FAMILY_MERGE_NOT_CONFIRMED')
+    observe('new-family-source-financial-ownership-preserved', rows)
+    unrelated = new_c_confirmed_fee(manager, doctor, local, facts, label='unrelated',
+        amount=13, d_source=d_source, schedule_offset=12)
+    rows.append(unrelated)
+    billed = local_manager.action('settlement', 'bill', {
+        'fee_ids': [unrelated['fee_id']], 'discount': 0, 'reason': ''},
+        operation_ref='current-C-unrelated-nonempty-bill')
+    unrelated['invoice_id'] = billed['invoice_id']
+    observe('unrelated-new-C-patient-unpaid-invoice', rows)
+    log_fee = new_c_confirmed_fee(manager, doctor, local, facts, label='log-unbilled',
+        amount=17, d_source=d_source, patient_id=fee_b['patient_id'], schedule_offset=18)
+    rows.append(log_fee)
+    observe('new-C-log-unbilled-fee', rows)
+    for clinic, amount, label in [(same_company, 19, 'same-company'),
+                                   (other_company, 23, 'other-company')]:
+        switch(manager, clinic)
+        switch(doctor, clinic)
+        source = new_c_confirmed_fee(manager, doctor, clinic, facts, label=label,
+            amount=amount, d_source=d_source, patient_id=fee_b['patient_id'])
+        rows.append(source)
+        actor = recorded_actor(manager, facts, label + '-post-care', clinic)
+        billed = actor.action('settlement', 'bill', {
+            'fee_ids': [source['fee_id']], 'discount': 0, 'reason': ''},
+            operation_ref='current-C-' + label + '-nonempty-unpaid-bill')
+        source['invoice_id'] = billed['invoice_id']
+        facts.save('C-' + label + '-bill-returned', {
+            **source, 'no_payment_or_refund_dispatched': True,
+            'independent_commit_verification_required': True})
+        observe('new-C-' + label + '-native-unpaid-bill', rows)
+        if label == 'other-company':
+            source['original_expected'] = True
+            original = store_original(manager, source, label='other-company-own-positive')
+            source.update(original)
+            facts.save('C-other-company-original-committed', {
+                'invoice_id': source['invoice_id'], **original,
+                'company_id': source['company_id'], 'ordinary_actor_id': manager.uid})
+            observe('new-C-other-company-original-own-positive', rows)
+    switch(manager, local)
+    mixed_manager = recorded_actor(manager, facts, 'cross-scope-mixed', local)
+    for label, foreign in [('same-company', rows[-2]), ('other-company', rows[-1])]:
+        rejected = mixed_manager.action('settlement', 'bill', {
+            'fee_ids': [log_fee['fee_id'], foreign['fee_id']], 'discount': 0, 'reason': ''},
+            expect=(403,), operation_ref='current-C-mixed-store-' + label)
+        exact = rejected.get('error') == 'access_denied: Select a confirmed fee in this store.'
+        facts.save('C-mixed-store-' + label + '-refusal', {
+            'actor_id': manager.uid, 'selected_store_id': local['store_id'],
+            'local_unbilled_fee_id': log_fee['fee_id'], 'foreign_fee_id': foreign['fee_id'],
+            'foreign_store_id': foreign['store_id'], 'foreign_company_id': foreign['company_id'],
+            'ordinary_actor_legally_assigned_both_stores': True,
+            'expected_native_message_match': exact,
+            'operation_ref': 'current-C-mixed-store-' + label,
+            'denial_layer_claimed': 'REAL_HTTP_PRODUCT_SCOPE_GUARD_PENDING_NATIVE_CORRELATION'})
+        if not exact:
+            raise RuntimeError('C_MIXED_FOREIGN_FEE_DID_NOT_HIT_NATIVE_CURRENT_STORE_GUARD')
+        observe('mixed-store-' + label + '-refused-no-economic-change', rows)
+    final = observe('C-independent-new-financial-sources-complete', rows)
+    facts.save('C-SCRATCH-SOURCES-RETURNED', {
+        'sources': rows, 'family_source_patient_id': fee_a['patient_id'],
+        'family_target_patient_id': fee_b['patient_id'], 'unrelated_patient_id': unrelated['patient_id'],
+        'unbilled_log_fee_id': log_fee['fee_id'], 'fund_dispatches': 0,
+        'd_patient_id': d_source['patient_id'], 'd_fee_id': d_source['fee_id'],
+        'normal_sources_independent_verification_complete': bool(final)})
+    return rows, final
+
+
+def c_source_selections(schema, *, d_selection, profile):
+    selected = d_selection(schema, profile=profile)
+    for entry in selected:
+        if entry['table'] == 'account_move':
+            if 'create_uid' not in {row['column'] for row in schema['account_move']}:
+                raise RuntimeError('C_CURRENT_NATIVE_INVOICE_CREATOR_SCHEMA_REQUIRED')
+            entry['columns'].append('create_uid')
+        if entry['table'] in {'ydental_treatment_fee', 'ydental_treatment_event',
+                              'ydental_intake_snapshot', 'ydental_settlement_source'}:
+            entry.update(columns=[row['column'] for row in schema[entry['table']]], row_digest=True)
+    additions = {
+        'ydental_patient': 'id active ydental_merged_into_id ydental_partner_id ydental_store_id ydental_version',
+        'ydental_patient_relation': 'id ydental_patient_id ydental_store_id ydental_superseded_by_id',
+        'res_partner': 'id company_id ydental_patient_owner_id',
+        'ydental_access_store': 'id name company_id ydental_timezone',
+        'res_company': 'id name currency_id chart_template',
+        'res_currency': 'id name',
+        'ydental_access_session': 'id ydental_user_id ydental_store_id ydental_revision',
+        'ydental_settlement_bill_original': 'id invoice_id patient_id store_id company_id currency_id actor_id version previous_id source_sha256 template_sha256 pdf_sha256 attachment_id',
+        'ir_attachment': 'id res_model res_id company_id public mimetype file_size checksum',
+    }
+    for table, fields in additions.items():
+        columns = fields.split()
+        if table not in schema or not set(columns) <= {row['column'] for row in schema[table]}:
+            raise RuntimeError('C_CURRENT_INDEPENDENT_PROJECTION_SCHEMA_MISSING')
+        entry = {'table': table, 'columns': columns, 'order': ['id'], 'row_digest': True}
+        if table == 'ir_attachment':
+            entry['null_columns'] = ['access_token']
+            entry['row_digest'] = False
+        if table == 'ydental_access_session':
+            entry['row_digest'] = False
+        selected.append(entry)
+    if (not {'attachment_id', 'message_id'} <= {
+            row['column'] for row in schema.get('message_attachment_rel', [])}):
+        raise RuntimeError('C_CURRENT_LEGAL_TOKEN_RELATION_SCHEMA_MISSING')
+    selected.append({'table': 'message_attachment_rel', 'columns': ['attachment_id', 'message_id'],
+                     'order': ['attachment_id', 'message_id']})
+    return selected
+
+
+def verify_c_sources(directory, rows, d_source, *, stored_rows, verify_d, profile,
+                     immutable_billed=None):
+    """Use actual rows/edges and globally unique D funds, never a passed-ID waiver."""
+    protection = verify_d(directory, d_source, state='done', actual_refund=2, profile=profile,
+        additional_unpaid_fee_ids=tuple(row['fee_id'] for row in rows))
+    tables = {name: {row['id']: row for row in stored_rows(directory, name)} for name in (
+        'ydental_treatment_fee', 'ydental_treatment_event', 'ydental_intake_snapshot',
+        'ydental_settlement_source', 'account_move', 'account_move_line',
+        'ydental_patient', 'res_partner', 'ydental_settlement_bill_original', 'ir_attachment')}
+    fees = tables['ydental_treatment_fee']
+    sources = tables['ydental_settlement_source']
+    actual_originals, actual_rows = [], []
+    immutable_billed = immutable_billed if immutable_billed is not None else {}
+    expected_original_invoice_ids = set()
+    for claimed in rows:
+        fee = fees.get(claimed['fee_id'])
+        event = tables['ydental_treatment_event'].get(claimed['event_id'])
+        if (not fee or not event or fee['ydental_event_id'] != event['id']
+                or event['state'] != 'confirmed' or fee['ydental_patient_id'] != claimed['patient_id']
+                or event['ydental_patient_id'] != claimed['patient_id']
+                or event['ydental_catalog_id'] != claimed['catalog_id']
+                or fee['ydental_store_id'] != claimed['store_id']
+                or event['ydental_store_id'] != claimed['store_id']
+                or fee['ydental_currency_id'] != claimed['currency_id']
+                or Decimal(str(fee['ydental_amount'])) != Decimal(claimed['amount'])
+                or fee['ydental_quantity'] != 1 or fee['ydental_unit_price'] != fee['ydental_amount']
+                or claimed['patient_id'] == d_source['patient_id']
+                or claimed['event_id'] == d_source['event_id'] or claimed['fee_id'] == d_source['fee_id']):
+            raise RuntimeError('C_NORMAL_EVENT_PATIENT_FEE_RELATION_OR_D_SEPARATION_NOT_PROVEN')
+        snapshot = tables['ydental_intake_snapshot'].get(fee['ydental_price_snapshot_id'])
+        if (not snapshot or event['ydental_price_snapshot_id'] != snapshot['id']
+                or snapshot['ydental_price_id'] != claimed['price_id']
+                or snapshot['ydental_catalog_id'] != claimed['catalog_id']
+                or snapshot['ydental_currency_id'] != claimed['currency_id']
+                or Decimal(str(snapshot['ydental_amount'])) != Decimal(claimed['amount'])
+                or snapshot['ydental_unit_price'] != snapshot['ydental_amount']
+                or snapshot['ydental_quantity'] != 1):
+            raise RuntimeError('C_NORMAL_FROZEN_PRICE_SOURCE_NOT_PROVEN')
+        linked = [row for row in sources.values() if row['ydental_fee_id'] == fee['id']]
+        invoice = None
+        if 'invoice_id' not in claimed:
+            if linked:
+                raise RuntimeError('C_EXPLICIT_UNBILLED_FEE_ALREADY_HAS_SOURCE')
+        else:
+            invoice = tables['account_move'].get(claimed['invoice_id'])
+            patient = tables['ydental_patient'].get(claimed['patient_id'])
+            partner = tables['res_partner'].get(patient['ydental_partner_id']) if patient else None
+            if (len(linked) != 1 or not invoice or not partner
+                    or invoice['id'] == d_source['invoice_id']
+                    or invoice['company_id'] != claimed['company_id']
+                    or invoice['currency_id'] != claimed['currency_id']
+                    or invoice['partner_id'] != partner['id']
+                    or partner['ydental_patient_owner_id'] != claimed['patient_id']
+                    or invoice['state'] != 'posted' or invoice['move_type'] != 'out_invoice'
+                    or Decimal(str(invoice['amount_total'])) != Decimal(claimed['amount'])
+                    or invoice['amount_residual'] != invoice['amount_total']
+                    or linked[0]['ydental_invoice_id'] != invoice['id']
+                    or linked[0]['ydental_store_id'] != claimed['store_id']
+                    or linked[0]['ydental_patient_id'] != claimed['patient_id']
+                    or linked[0]['ydental_original_amount'] != fee['ydental_amount']
+                    or linked[0]['ydental_discount'] != 0
+                    or linked[0]['ydental_currency_id'] != claimed['currency_id']
+                    or linked[0]['ydental_price_version'] != 'S05:' + str(claimed['price_id'])):
+                raise RuntimeError('C_EXPLICIT_NATIVE_UNPAID_BILL_OR_ORIGINAL_FINANCIAL_OWNER_NOT_PROVEN')
+            line = tables['account_move_line'].get(linked[0]['ydental_line_id'])
+            if (not line or line['move_id'] != invoice['id'] or line['quantity'] != 1
+                    or line['price_subtotal'] != fee['ydental_amount']):
+                raise RuntimeError('C_EXPLICIT_NATIVE_INVOICE_FEE_LINE_NOT_PROVEN')
+            # Each old billed source stays byte-for-byte the same through later
+            # C family merge, scope changes, reads and new independent C bills.
+            digest = {name: record['__row_sha256'] for name, record in (
+                ('fee', fee), ('event', event), ('snapshot', snapshot),
+                ('source', linked[0]), ('invoice', invoice), ('partner', partner))}
+            previous = immutable_billed.setdefault(fee['id'], digest)
+            if previous != digest:
+                raise RuntimeError('C_BILLED_SOURCE_OR_FINANCIAL_OWNER_MUTATED_BY_LATER_C_ACTION')
+        originals = [row for row in tables['ydental_settlement_bill_original'].values()
+                     if row['invoice_id'] == claimed.get('invoice_id')]
+        if claimed.get('original_expected') is True:
+            expected_original_invoice_ids.add(claimed['invoice_id'])
+        if bool(originals) != bool(claimed.get('original_expected')):
+            raise RuntimeError('C_EXPLICIT_ORIGINAL_CREATION_EXPECTATION_MISMATCH')
+        if originals:
+            if len(originals) != 1:
+                raise RuntimeError('C_NEW_SYNTHETIC_ORIGINAL_NOT_UNIQUE')
+            original = originals[0]
+            attachment = tables['ir_attachment'].get(original['attachment_id'])
+            if (original['version'] != 1 or original['previous_id'] is not None
+                    or original['patient_id'] != claimed['patient_id']
+                    or original['store_id'] != claimed['store_id']
+                    or original['company_id'] != claimed['company_id']
+                    or original['currency_id'] != claimed['currency_id']
+                    or not attachment or attachment['res_model'] != 'ydental.settlement.bill.original'
+                    or attachment['res_id'] != original['id'] or attachment['public']
+                    or attachment['company_id'] != claimed['company_id']
+                    or not attachment['access_token_is_null'] or attachment['mimetype'] != 'application/pdf'
+                    or any(link['attachment_id'] == attachment['id'] for link in stored_rows(
+                        directory, 'message_attachment_rel'))):
+                raise RuntimeError('C_NEW_ORIGINAL_ATTACHMENT_OR_LEGAL_TOKEN_RELATION_INVALID')
+            if ('original_id' in claimed and (original['id'] != claimed['original_id']
+                    or original['pdf_sha256'] != claimed['pdf_sha256']
+                    or original['attachment_id'] != claimed['attachment_id'])):
+                raise RuntimeError('C_PREMERGE_ORIGINAL_ID_OR_BYTES_CHANGED')
+            original_digest = {'original': original['__row_sha256'],
+                               'attachment_metadata': hashlib.sha256(json.dumps(
+                                   attachment, sort_keys=True, ensure_ascii=True).encode()).hexdigest()}
+            previous = immutable_billed.setdefault(('original', original['id']), original_digest)
+            if previous != original_digest:
+                raise RuntimeError('C_PREMERGE_ORIGINAL_OR_ATTACHMENT_MUTATED')
+            actual_originals.append(original)
+        invoice_safe = None if not invoice else {
+            key: (str(value) if key in {'amount_total', 'amount_residual'} else value)
+            for key, value in invoice.items()}
+        actual_rows.append(dict(claimed, **({'source_id': linked[0]['id'], 'invoice': invoice_safe} if invoice else {})))
+    if {row['invoice_id'] for row in tables['ydental_settlement_bill_original'].values()} != expected_original_invoice_ids:
+        raise RuntimeError('C_UNEXPLAINED_SYNTHETIC_ORIGINAL_OUTSIDE_EXPLICIT_NEW_BILLS')
+    return {'validation_status': 'CURRENT_C_NORMAL_SOURCES_AND_UNIQUE_D_FUNDS_INDEPENDENTLY_OBSERVED',
+        'source_rows': actual_rows, 'originals': actual_originals,
+        'D_native_accounting': protection, 'evidence_layer': 'INDEPENDENT_COMMITTED_RO',
+        'no_new_C_funds': True, 'scope_manifest_requires_actual_patient_relations': True}
+
+
+def check_c_nonempty_workbench(reader, facts, label, expected, *, stop):
+    """Record minimal nonsecret facts BEFORE any disclosure assertion can stop."""
+    from lxml import etree, html
+    response = reader.client.request('GET', '/ydental/settlement?patient_id=%d' % expected['patient_id'],
+        case_id='C-SCOPE', operation_ref='C-' + label + '-workbench')
+    row = {'actor_id': reader.uid, 'store_id': expected['store_id'],
+        'company_id': expected['company_id'], 'patient_id': expected['patient_id'],
+        'request_id': response.request_id, 'http_status': response.status,
+        'body_sha256': hashlib.sha256(response.body).hexdigest(), 'raw_body_retained': False,
+        'expected_invoice_ids': sorted(item['id'] for item in expected['invoices']),
+        'expected_fee_ids': sorted(expected['unbilled_fee_ids']),
+        'actual_ids': {}, 'financial_rows_match': False}
+    invoices = {item['id']: item for item in expected['invoices']}
+    actual = {kind: set() for kind in ('invoice', 'fee', 'event', 'payment', 'refund', 'close')}
+    matched = []
+    parse_failure = None
+    try:
+        tree = html.fromstring(response.body)
+        for heading in ('今日未出账费用', '历史未出账费用'):
+            actual['fee'].update(int(value.strip()) for value in tree.xpath(
+                '//section[h2[text()=$heading]]//tbody/tr/td[1]/text()', heading=heading) if value.strip())
+        actual['event'].update(int(value.strip()) for value in tree.xpath(
+            '//section[h2[text()="待核对，禁止出账"]]//tbody/tr/td[1]/text()') if value.strip())
+        # All these isolated C bills remain unpaid; a settled row is unexpected.
+        settled = tree.xpath('//section[@name="settled-bills"]//tbody/tr')
+        for tr in tree.xpath('//section[h2[text()="已出账未付清"]]//tbody/tr'):
+            links = [match for value in tr.xpath('.//a/@href') if (match := re.fullmatch(
+                r'/ydental/settlement/pdf/bill/(\d+)', value))]
+            cells = [''.join(cell.itertext()).strip() for cell in tr.xpath('./td')]
+            identifier = int(links[0][1]) if len(links) == 1 else None
+            if identifier is not None:
+                actual['invoice'].add(identifier)
+            selected = invoices.get(identifier)
+            matched.append(bool(selected and len(cells) >= 4 and cells[0] == selected['name']
+                and Decimal(cells[2].replace(',', '')) == Decimal(str(selected['amount_total']))
+                and Decimal(cells[3].replace(',', '')) == Decimal(str(selected['amount_residual']))))
+        for href in tree.xpath('//a/@href'):
+            match = re.fullmatch(r'/ydental/settlement/pdf/(receipt|refund)/(\d+)', href)
+            if match:
+                actual['payment' if match[1] == 'receipt' else 'refund'].add(int(match[2]))
+        for paragraph in tree.xpath('//section[h2[text()="线下付款与退款"]]/div/p'):
+            text = ''.join(paragraph.itertext()).strip()
+            kind = 'payment' if text.startswith('付款') else 'refund' if text.startswith('退款') else None
+            identifiers = paragraph.xpath('./span[1]/text()')
+            if kind and identifiers:
+                actual[kind].add(int(identifiers[0].strip()))
+        actual['close'].update(int(value.strip()) for value in tree.xpath(
+            '//section[h2[text()="收费员日结"]]/div/p/span[1]/text()') if value.strip())
+        row.update(actual_ids={key: sorted(value) for key, value in actual.items()},
+                   financial_rows_match=bool(matched) and all(matched),
+                   settled_row_count=len(settled), invoice_row_count=len(matched))
+    except (ValueError, TypeError, ArithmeticError, etree.ParserError, etree.XMLSyntaxError) as error:
+        parse_failure = type(error).__name__
+        row.update(parse_failure=parse_failure, actual_ids={key: sorted(value) for key, value in actual.items()})
+    facts.save('C-' + label + '-workbench-minimal', row)
+    if (response.status != 200 or parse_failure or row.get('settled_row_count') != 0
+            or not row['financial_rows_match'] or len(matched) != len(invoices)
+            or actual['invoice'] != set(invoices)
+            or actual['fee'] != set(expected['unbilled_fee_ids'])
+            or any(actual[key] for key in ('event', 'payment', 'refund', 'close'))):
+        stop('C_SYNTHETIC_WORKBENCH_SCOPE_OR_CONTENT_MISMATCH',
+             request_id=response.request_id, evidence='C-' + label + '-workbench-minimal.json')
+        raise RuntimeError('C_SYNTHETIC_WORKBENCH_SCOPE_OR_CONTENT_MISMATCH')
+    return row
+
+
+def check_c_nonempty_summary(reader, facts, label, expected, *, stop):
+    response = reader.client.request('GET', '/ydental/settlement/other-stores/%d' % expected['patient_id'],
+        case_id='C-SCOPE', operation_ref='C-' + label + '-summary')
+    allowed_keys = {'store', 'store_id', 'company', 'currency', 'residual'}
+    body = None
+    parse_failure = None
+    try:
+        body = response.json()
+    except (ValueError, TypeError) as error:
+        parse_failure = type(error).__name__
+    shape_ok = type(body) is list and all(type(item) is dict and set(item) == allowed_keys for item in body)
+    actual_ids = [item.get('store_id') if type(item.get('store_id')) is int else 'INVALID_TYPE'
+                  for item in body if type(item) is dict] if type(body) is list else []
+    actual_fields = [sorted(item) for item in body if type(item) is dict] if type(body) is list else []
+    totals_ok = False
+    if shape_ok and len(actual_ids) == len(set(actual_ids)) and 'INVALID_TYPE' not in actual_ids:
+        try:
+            totals_ok = ({item['store_id']: Decimal(str(item['residual'])) for item in body}
+                         == {int(key): Decimal(str(value)) for key, value in expected['summary_residuals'].items()})
+        except (ValueError, TypeError, ArithmeticError) as error:
+            parse_failure = type(error).__name__
+    metadata_ok = bool(shape_ok) and all(
+        all(item.get(key) == value for key, value in expected.get('summary_metadata', {}).get(str(item['store_id']), {}).items())
+        and str(item['store_id']) in expected.get('summary_metadata', {}) for item in body)
+    row = {'actor_id': reader.uid, 'store_id': expected['store_id'],
+        'company_id': expected['company_id'], 'request_id': response.request_id,
+        'http_status': response.status, 'body_sha256': hashlib.sha256(response.body).hexdigest(),
+        'raw_body_retained': False, 'actual_store_ids': actual_ids,
+        'expected_store_ids': sorted(int(key) for key in expected['summary_residuals']),
+        'actual_field_sets': actual_fields, 'strict_summary_shape': shape_ok,
+        'synthetic_expected_totals_match': totals_ok, 'actual_store_company_currency_labels_match': metadata_ok,
+        'parse_failure': parse_failure}
+    facts.save('C-' + label + '-summary-minimal', row)
+    if (response.status != 200 or not shape_ok or not totals_ok or not metadata_ok or not actual_ids):
+        stop('C_SYNTHETIC_NONEMPTY_SUMMARY_SCOPE_OR_SHAPE_MISMATCH',
+             request_id=response.request_id, evidence='C-' + label + '-summary-minimal.json')
+        raise RuntimeError('C_SYNTHETIC_NONEMPTY_SUMMARY_SCOPE_OR_SHAPE_MISMATCH')
+    return row
+
+
+def check_c_foreign_target_denied(reader, facts, label, *, path, kind, target_id, stop):
+    """The caller has independently proven this target and a valid own scope."""
+    response = reader.client.request('GET', path, case_id='C-SCOPE',
+        operation_ref='C-' + label + '-foreign-' + kind)
+    row = {'actor_id': reader.uid, 'request_id': response.request_id,
+        'foreign_target_id': target_id, 'route_kind': kind, 'http_status': response.status,
+        'body_sha256': hashlib.sha256(response.body).hexdigest(),
+        'protected_pdf_returned': response.body.startswith(b'%PDF-'), 'raw_body_retained': False}
+    facts.save('C-' + label + '-foreign-' + kind + '-minimal', row)
+    if response.status != 403 or row['protected_pdf_returned']:
+        stop('C_SYNTHETIC_FOREIGN_TARGET_NOT_DENIED', request_id=response.request_id,
+             evidence='C-' + label + '-foreign-' + kind + '-minimal.json')
+        raise RuntimeError('C_SYNTHETIC_FOREIGN_TARGET_NOT_DENIED')
+    return row
+
+
+def current_c_read_manifest(directory, source_rows, clinics):
+    """Project real committed C relationships into the expected read-only cells."""
+    patients = {row['id']: row for row in stored_rows(directory, 'ydental_patient')}
+    stores = {row['id']: row for row in stored_rows(directory, 'ydental_access_store')}
+    companies = {row['id']: row for row in stored_rows(directory, 'res_company')}
+    currencies = {row['id']: row for row in stored_rows(directory, 'res_currency')}
+    links = stored_rows(directory, 'ydental_settlement_source')
+    moves = {row['id']: row for row in stored_rows(directory, 'account_move')}
+    relations = stored_rows(directory, 'ydental_patient_relation')
+    original_source, target_source, unrelated, log_fee = source_rows[:4]
+    source_patient, target = original_source['patient_id'], target_source['patient_id']
+    if (len(source_rows) != 6 or patients[source_patient]['active']
+            or patients[source_patient]['ydental_merged_into_id'] != target
+            or not patients[target]['active'] or patients[target]['ydental_merged_into_id'] is not None
+            or log_fee['patient_id'] != target):
+        raise RuntimeError('C_ACTUAL_NEW_FAMILY_MERGE_RELATION_NOT_PROVEN')
+    family = {source_patient, target}
+    family_bills = {}
+    for link in links:
+        if link['ydental_patient_id'] in family:
+            family_bills.setdefault(link['ydental_store_id'], set()).add(link['ydental_invoice_id'])
+    cells = []
+    for clinic in clinics:
+        store_id = clinic['store_id']
+        store = stores[store_id]
+        if (store['company_id'] != clinic['company_id']
+                or not any(row['ydental_patient_id'] == target and row['ydental_store_id'] == store_id
+                           and row['ydental_superseded_by_id'] is None for row in relations)):
+            raise RuntimeError('C_ACTUAL_CANONICAL_PATIENT_CURRENT_STORE_RELATION_NOT_PROVEN')
+        own = [moves[identifier] for identifier in sorted(family_bills.get(store_id, set()))]
+        if not own:
+            raise RuntimeError('C_NONEMPTY_OWN_FAMILY_INVOICE_CONTROL_MISSING')
+        residuals, metadata = {}, {}
+        for other, identifiers in family_bills.items():
+            if other == store_id:
+                continue
+            other_store = stores[other]
+            company = companies[other_store['company_id']]
+            residuals[str(other)] = str(sum((moves[identifier]['amount_residual'] for identifier in identifiers), Decimal(0)))
+            metadata[str(other)] = {'store': other_store['name'], 'company': company['name'],
+                                   'currency': currencies[company['currency_id']]['name']}
+        cells.append({'label': clinic['label'], 'store_id': store_id, 'store_name': store['name'],
+            'company_id': clinic['company_id'], 'patient_id': target,
+            'invoices': [{key: (str(value) if key in {'amount_total', 'amount_residual'} else value)
+                          for key, value in move.items()} for move in own],
+            'unbilled_fee_ids': [log_fee['fee_id']] if clinic['label'] == 'local' else [],
+            'summary_residuals': residuals, 'summary_metadata': metadata})
+    foreign = source_rows[-1]
+    if any(key not in original_source or key not in foreign for key in ('original_id', 'attachment_id', 'pdf_sha256')):
+        raise RuntimeError('C_REAL_LOCAL_AND_OTHER_COMPANY_ORIGINAL_CONTROLS_REQUIRED')
+    unrelated_invoice = moves[unrelated['invoice_id']]
+    unrelated_cell = {'store_id': clinics[0]['store_id'], 'company_id': clinics[0]['company_id'],
+        'patient_id': unrelated['patient_id'], 'unbilled_fee_ids': [],
+        'invoices': [{key: (str(value) if key in {'amount_total', 'amount_residual'} else value)
+                      for key, value in unrelated_invoice.items()}]}
+    return {'cells': cells, 'family_ids': sorted(family), 'canonical_patient_id': target,
+        'unrelated': unrelated_cell, 'local_original': original_source,
+        'other_company_original': foreign, 'all_C_fee_ids': [row['fee_id'] for row in source_rows],
+        'valid_token': 'N/A_NO_LEGAL_ISSUER_FOR_TYPED_SETTLEMENT_ORIGINAL',
+        'legal_issuer_basis': 'actual access_token NULL + no mail attachment relationship; no portal.mixin producer'}
+
+
+def run_current_c_read_cells(reader, facts, manifest, d_source, *, profile, stop, source_ref, source_sha256):
+    """Real nonempty family, other-store/company, summary and attachment reads."""
+    def halt(reason, **metadata):
+        return stop(reason, profile=profile, **metadata)
+    def authorized_pdf(label, source, *, original):
+        path = ('/ydental/settlement/bill-original/%d' % source['original_id'] if original else
+                '/ydental/settlement/pdf/bill/%d' % source['invoice_id'])
+        facts.save('C-' + label + '-authorized-pdf-intent', {
+            'actor_id': reader.uid, 'store_id': reader.store_id,
+            'invoice_id': source['invoice_id'], 'original_id': source.get('original_id') if original else None,
+            'stored_original_regeneration': False, 'automatic_retry': False})
+        response = reader.client.request('GET', path, case_id='C-ATTACHMENT',
+            artifact_kind='pdf', operation_ref='C-' + label + '-authorized-pdf')
+        digest = hashlib.sha256(response.body).hexdigest()
+        result = {'actor_id': reader.uid, 'store_id': reader.store_id,
+            'request_id': response.request_id, 'status': response.status,
+            'bytes': len(response.body), 'pdf_magic': response.body.startswith(b'%PDF-'),
+            'pdf_content_type': response.headers.get('content-type', '').split(';')[0] == 'application/pdf',
+            'sha256': digest, 'artifact_ref': response.metadata.get('artifact_ref'),
+            'same_original_bytes': digest == source['pdf_sha256'] if original else None,
+            'every_page_review': 'PENDING_INDEPENDENT_REVIEW', 'stored_original_regenerated': False}
+        facts.save('C-' + label + '-authorized-pdf-returned', result)
+        if (response.status != 200 or not result['pdf_magic'] or not result['pdf_content_type']
+                or original and not result['same_original_bytes']):
+            halt('C_AUTHORIZED_ORIGINAL_OR_DYNAMIC_REPORT_FAILED', request_id=response.request_id)
+            raise RuntimeError('C_AUTHORIZED_ORIGINAL_OR_DYNAMIC_REPORT_FAILED')
+        return result
+    for cell in manifest['cells']:
+        label = cell['label']
+        facts.save('C-' + label + '-reader-switch-intent', {
+            'actor_id': reader.uid, 'store_id': cell['store_id'], 'automatic_retry': False})
+        reader.refresh()
+        reader.switch(cell['store_id'])
+        info_response = reader.client.request('POST', '/web/session/get_session_info',
+            json_body={'jsonrpc': '2.0', 'id': uuid.uuid4().hex, 'method': 'call', 'params': {}},
+            case_id='C-SCOPE', operation_ref='C-' + label + '-native-session')
+        info_response.require_status(200)
+        info = info_response.json()['result']
+        identity = {key: info.get(key) for key in ('uid', 'db', 'is_admin', 'is_system', 'is_internal_user')}
+        identity.update(request_id=info_response.request_id, switch_request_id=reader.scope_request_id,
+            revision=info.get('user_context', {}).get('ydental_revision'),
+            store_name_matches_independent_source=info.get('ydental_store_name') == cell['store_name'],
+            selected_store_id=cell['store_id'])
+        facts.save('C-' + label + '-native-session', identity)
+        if (identity['uid'] != reader.uid or identity['db'] != profile.database
+                or identity['is_admin'] is not False or identity['is_system'] is not False
+                or identity['is_internal_user'] is not True or identity['revision'] != reader.revision
+                or not identity['store_name_matches_independent_source']):
+            raise RuntimeError('C_NATIVE_CURRENT_SESSION_IDENTITY_SCOPE_NOT_PROVEN')
+        check_c_nonempty_workbench(reader, facts, label + '-family', cell, stop=halt)
+        check_c_nonempty_summary(reader, facts, label, cell, stop=halt)
+        local = manifest['local_original']
+        foreign = manifest['other_company_original']
+        if label == 'local':
+            check_c_nonempty_workbench(reader, facts, 'unrelated-local-positive', manifest['unrelated'], stop=halt)
+            authorized_pdf('family-premerge-original', local, original=True)
+            target = foreign
+        elif label == 'other-company':
+            authorized_pdf('other-company-own-original', foreign, original=True)
+            authorized_pdf('other-company-own-dynamic', foreign, original=False)
+            target = local
+        else:
+            target = local
+        check_c_foreign_target_denied(reader, facts, label,
+            path='/ydental/settlement/bill-original/%d' % target['original_id'],
+            kind='original', target_id=target['original_id'], stop=halt)
+        check_c_foreign_target_denied(reader, facts, label,
+            path='/ydental/settlement/pdf/bill/%d' % target['invoice_id'],
+            kind='bill', target_id=target['invoice_id'], stop=halt)
+        # Nonempty receipt/refund controls exist only on the one D chain. These
+        # are read-only valid foreign-scope denials, never another fund fixture.
+        for kind, identifier in [('receipt', d_source['payment_id']), ('refund', d_source['refund_id'])]:
+            check_c_foreign_target_denied(reader, facts, label,
+                path='/ydental/settlement/pdf/%s/%d' % (kind, identifier),
+                kind=kind, target_id=identifier, stop=halt)
+        if label == 'other-company':
+            # The native report route must independently reject a real foreign
+            # invoice even when JSON supplies plausible report context/options.
+            # An opaque in-process SettlementPdfScope cannot be issued by JSON.
+            with reader.client.current_c_target(source_ref=source_ref, source_sha256=source_sha256,
+                    invoice_id=local['invoice_id'], actor_id=reader.uid, active_store_id=cell['store_id']):
+                probes = [('native-html', 'html', {}), ('native-pdf', 'pdf', {}),
+                    ('native-pdf-context', 'pdf', {'context': json.dumps(
+                        {'ydental_settlement_pdf_scope': {}}, separators=(',', ':'))}),
+                    ('native-pdf-options', 'pdf', {'options': json.dumps(
+                        {'kind': 'bill', 'source_id': local['invoice_id']}, separators=(',', ':'))})]
+                for purpose, converter, query in probes:
+                    path = '/report/%s/ydental_settlement.ydental_settlement_pdf/%d' % (converter, local['invoice_id'])
+                    if query:
+                        path += '?' + urlencode(query)
+                    check_c_foreign_target_denied(reader, facts, label, path=path,
+                        kind=purpose, target_id=local['invoice_id'], stop=halt)
+            from PIL import Image
+            placeholder = ROOT.parent / 'addons/web/static/img/placeholder.png'
+            for route, suffix in [('content', str(local['attachment_id'])),
+                                  ('image', str(local['attachment_id'])),
+                                  ('content', 'ir.attachment/%d/raw' % local['attachment_id']),
+                                  ('image', 'ir.attachment/%d/raw' % local['attachment_id'])]:
+                purpose = 'C-cross-company-native-' + route + ('-model-field' if '/' in suffix else '-id')
+                response = reader.client.request('GET', '/web/' + route + '/' + suffix,
+                    case_id='C-ATTACHMENT', operation_ref=purpose)
+                record = {'actor_id': reader.uid, 'store_id': cell['store_id'],
+                    'foreign_attachment_id': local['attachment_id'], 'request_id': response.request_id,
+                    'http_status': response.status, 'sha256': hashlib.sha256(response.body).hexdigest(),
+                    'pdf_returned': response.body.startswith(b'%PDF-'), 'raw_body_retained': False}
+                facts.save(purpose + '-response-minimal', record)
+                if record['pdf_returned']:
+                    halt('C_CROSS_COMPANY_NATIVE_ATTACHMENT_PDF_LEAK', request_id=response.request_id)
+                    raise RuntimeError('C_CROSS_COMPANY_NATIVE_ATTACHMENT_PDF_LEAK')
+                same_placeholder = False
+                if route == 'image' and response.status == 200:
+                    with Image.open(io.BytesIO(response.body)) as image, Image.open(placeholder) as expected:
+                        image.load(); expected.load()
+                        same_placeholder = image.size == expected.size and image.convert('RGBA').tobytes() == expected.convert('RGBA').tobytes()
+                    facts.save(purpose + '-content-semantics', {
+                        'request_id': response.request_id, 'actual_placeholder_pixels_match': same_placeholder})
+                if response.status not in {403, 404} and not same_placeholder:
+                    halt('C_CROSS_COMPANY_NATIVE_ATTACHMENT_NOT_DENIED', request_id=response.request_id)
+                    raise RuntimeError('C_CROSS_COMPANY_NATIVE_ATTACHMENT_NOT_DENIED')
+    facts.save('C-scratch-read-cells-returned', {
+        'scope_cases': [cell['label'] for cell in manifest['cells']],
+        'family_ids': manifest['family_ids'], 'canonical_patient_id': manifest['canonical_patient_id'],
+        'all_positive_controls_nonempty': True, 'all_C_fund_dispatches': 0,
+        'valid_token': manifest['valid_token'], 'independent_acceptance': 'PENDING'})
+
+
+
+def run_current_c_error303(manager, facts, observe, rows, *, profile, stop):
+    """A valid new manager's empty normal bill form: native error -> 303 notice."""
+    from lxml import etree, html
+    profile.require_action('LOG-03')
+    before = observe('LOG03-before-empty-bill-form', rows)
+    page = manager.client.request('GET', '/ydental/settlement', case_id='LOG-03',
+        operation_ref='LOG03-valid-manager-bill-form')
+    revisions = PageFacts(page.body).revisions if page.status == 200 else set()
+    facts.save('LOG03-empty-bill-form-page', {
+        'actor_id': manager.uid, 'store_id': manager.store_id,
+        'request_id': page.request_id, 'http_status': page.status,
+        'body_sha256': hashlib.sha256(page.body).hexdigest(),
+        'actual_page_revision_matches_bound_actor': revisions == {manager.revision},
+        'raw_body_retained': False})
+    page.require_status(200)
+    if revisions != {manager.revision}:
+        raise RuntimeError('LOG03_NORMAL_FORM_CURRENT_SCOPE_NOT_PROVEN')
+    key = uuid.uuid4().hex
+    facts.save('LOG03-empty-bill-form-intent', {
+        'actor_id': manager.uid, 'store_id': manager.store_id,
+        'operation': 'bill', 'selected_fee_count': 0, 'output': 'html',
+        'stable_key': key, 'automatic_retry': False,
+        'expected_native_exception': 'odoo.exceptions.ValidationError',
+        'expected_native_message': 'Select distinct confirmed fee sources.'})
+    denied = manager.client.request('POST', '/ydental/settlement/action',
+        form={'operation': 'bill', 'revision': manager.revision,
+              'csrf_token': csrf_from(page), 'key': key, 'output': 'html',
+              'discount': '0', 'reason': ''},
+        case_id='LOG-03', operation_ref='LOG03-empty-normal-bill-html')
+    location = denied.headers.get('location', '')
+    resolved = urlsplit(urljoin(manager.client.base_url + denied.request_path, location))
+    query = parse_qs(resolved.query, keep_blank_values=True)
+    location_ok = (bool(location) and resolved.scheme + '://' + resolved.netloc == manager.client.base_url
+        and resolved.path == '/ydental/settlement' and not resolved.fragment
+        and set(query) == {'notice'} and len(query['notice']) == 1 and bool(query['notice'][0]))
+    facts.save('LOG03-empty-bill-form-303', {
+        'actor_id': manager.uid, 'store_id': manager.store_id,
+        'request_id': denied.request_id, 'http_status': denied.status,
+        'body_sha256': hashlib.sha256(denied.body).hexdigest(),
+        'same_origin_settlement_location': location_ok,
+        'location_path': resolved.path, 'location_query_keys': sorted(query),
+        'notice_token_present_not_retained': bool(query.get('notice')),
+        'product_exception_requires_native_correlation': True})
+    if denied.status != 303 or not location_ok:
+        stop('LOG03_NORMAL_FORM_ERROR_303_NOT_OBSERVED', profile=profile, request_id=denied.request_id)
+        raise RuntimeError('LOG03_NORMAL_FORM_ERROR_303_NOT_OBSERVED')
+    notice = manager.client.follow(denied, case_id='LOG-03', operation_ref='LOG03-native-denied-notice')
+    messages, parse_failure = [], None
+    try:
+        tree = html.fromstring(notice.body)
+        messages = [''.join(element.itertext()).strip()
+                    for element in tree.xpath('//p[@data-ui1-feedback="1"]')]
+    except (ValueError, TypeError, etree.ParserError, etree.XMLSyntaxError) as error:
+        parse_failure = type(error).__name__
+    expected = '请求未完成，请核对权限、门店或输入后重试。'
+    notice_ok = messages == [expected]
+    facts.save('LOG03-empty-bill-form-denied-notice', {
+        'actor_id': manager.uid, 'store_id': manager.store_id,
+        'request_id': notice.request_id, 'http_status': notice.status,
+        'body_sha256': hashlib.sha256(notice.body).hexdigest(),
+        'actual_denied_notice_match': notice_ok, 'message_count': len(messages),
+        'parse_failure': parse_failure, 'raw_body_or_notice_token_retained': False})
+    after = observe('LOG03-after-empty-bill-form-denial', rows)
+    unchanged = before == after
+    facts.save('LOG03-empty-bill-form-independent-preservation', {
+        'independent_same_committed_C_sources_and_unique_D_funds': unchanged,
+        'native_request_id': denied.request_id, 'http_status': denied.status,
+        'mandatory_rejected_business_audit_claimed': False,
+        'native_rejection_and_normal_view_audits': 'REQUIRES_INDEPENDENT_LOG_AUDIT_CORRELATION'})
+    if notice.status != 200 or parse_failure or not notice_ok or not unchanged:
+        stop('LOG03_DENIED_NOTICE_OR_NO_BILL_PRESERVATION_FAILED', profile=profile, request_id=notice.request_id)
+        raise RuntimeError('LOG03_DENIED_NOTICE_OR_NO_BILL_PRESERVATION_FAILED')
 
 
 def d_selection(schema=None, *, profile=None):
