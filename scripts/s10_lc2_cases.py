@@ -20,10 +20,11 @@ from contextlib import contextmanager
 from urllib.parse import urlencode
 
 from s10_lc2_evidence import collect_selection, runtime_gate, save_once
-from s10_lc2_http import Client, OutcomeUnknown, csrf_from
+from s10_lc2_http import Client, OutcomeUnknown, RequestNotSent, csrf_from
 from s10_lc2_launch import ACTION_ROLES, OwnedApplication, ROOT, stop
 from s10_lc2_logging import strict_loads, validate_jsonl
-from s10_lc2_targets import EXEC_ROOT, LEGACY_EXEC_ROOT, PLAN, RUN_ROOT, PackageBudget, credentials
+from s10_lc2_targets import (EXEC_ROOT, LEGACY_EXEC_ROOT, PLAN, RUN_ROOT, PackageBudget,
+                            credentials, require_dispatch_unfrozen)
 
 ORIGINAL_SHA = '05928780e7d97a06cf29019634f64b010eb4994c2f1c5032d561008a50b059b4'
 NAMES = {'main': 'ydental_s10_test_20261017105432_810a7d9c', 'scratch': 'ydental_s10_test_20261017105432_ce6dcbf8'}
@@ -120,6 +121,49 @@ class Actor:
                                    case_id=case, attempt=attempt, operation_ref=(model + '.' + method)[:96])
         response.require_status(200)
         return response, response.json()
+
+    def rpc_observed(self, model, method, args, *, operation_ref, attempt=1):
+        """Observe one B request without assertions or automatic replay.
+
+        INTENT_READY is a local boundary, never proof that Odoo received bytes.
+        No exception messages, arbitrary response bodies or credentials escape.
+        """
+        dispatch = {}
+        observed = {'started_utc': datetime.now(timezone.utc).isoformat(),
+                    'dispatch_state': 'NOT_SENT', 'request_id': None,
+                    'http_status': None, 'native_error_name': None,
+                    'native_public_arguments_exact_expected': False}
+        try:
+            response = self.client.rpc(model, method, args,
+                kwargs={'context': {'ydental_revision': self.revision, 'lang': 'en_US'}},
+                case_id='B-RPC-6', attempt=attempt, operation_ref=operation_ref,
+                dispatch_observer=dispatch.update)
+        except Exception as error:
+            observed.update(dispatch_state='NOT_SENT' if not dispatch or isinstance(error, RequestNotSent) else 'UNKNOWN',
+                            request_id=dispatch.get('request_id'), local_exception_type=type(error).__name__)
+        else:
+            observed.update(request_id=response.request_id, http_status=response.status,
+                            dispatch_state='RESPONSE_RECEIVED' if response.transport_outcome == 'RETURNED' else 'UNKNOWN')
+            if observed['dispatch_state'] == 'RESPONSE_RECEIVED':
+                try:
+                    result = response.json()
+                    valid = (type(result) is dict and result.get('jsonrpc') == '2.0'
+                             and 'id' in result and ('error' in result) != ('result' in result))
+                    observed['response_format_valid'] = valid
+                    if not valid:
+                        raise ValueError('B_RPC_RESPONSE_SHAPE_INVALID')
+                    data = result.get('error', {}).get('data', {})
+                    name = data.get('name')
+                    allowed = {'odoo.exceptions.AccessError', 'odoo.exceptions.AccessDenied',
+                               'odoo.exceptions.UserError', 'odoo.exceptions.ValidationError',
+                               'odoo.http.SessionExpiredException', 'builtins.TypeError', 'builtins.ValueError'}
+                    observed.update(native_error_name=name if name in allowed else 'OTHER',
+                        result_present='result' in result,
+                        native_public_arguments_exact_expected=data.get('arguments') == [_b_message(model, method)])
+                except (ValueError, TypeError, AttributeError):
+                    observed['response_format_valid'] = False
+        observed['ended_utc'] = datetime.now(timezone.utc).isoformat()
+        return observed
 
 
 def existing_main_accounts():
@@ -270,33 +314,345 @@ def main_a(manager, doctor, facts):
                                 'release_result_keys': sorted(released), 'independent_verification': 'PENDING'})
 
 
-def main_b(ordinary, facts):
-    targets = [('ydental.settlement.source', 1, {'ydental_original_amount': 1}),
-               ('ydental.settlement.payment', 1, {'ydental_amount': 1}),
-               ('ydental.access.audit', 228, {'ydental_reason': 'LC2 denied tampering'})]
-    results = []
-    for model, target, values in targets:
-        for method in ['write', 'unlink']:
-            args = [[target], values] if method == 'write' else [[target]]
-            intent = {'layer': 'REAL_HTTP_RPC', 'model': model, 'method': method, 'target_existing_id': target,
-                      'args': args, 'actor_id': ordinary.uid, 'su_flag': False}
-            facts.save('B-intent-' + model.replace('.', '-') + '-' + method, intent)
-            response, result = ordinary.rpc(model, method, args, case='B-RPC-6')
-            error = result.get('error', {}).get('data', {})
-            if error.get('name') != 'odoo.exceptions.AccessError' or 'result' in result:
-                stop('B_ORDINARY_RPC_MUTATION_NOT_NATIVE_DENIED')
-                raise RuntimeError('B_RPC_DENIAL_FAILED')
-            arguments = error.get('arguments')
-            expected_message = ('Audit events cannot be changed.' if method == 'write' else 'Audit events cannot be deleted.') if model == 'ydental.access.audit' else (
-                'history_immutable: Settlement evidence cannot be overwritten.' if method == 'write' else 'history_immutable: Settlement evidence cannot be deleted.')
-            if arguments != [expected_message]:
-                raise RuntimeError('B_NATIVE_PUBLIC_ARGUMENTS_CHANGED')
-            results.append(intent | {'request_id': response.request_id, 'http_status': response.status,
-                'native_error_name': error['name'], 'arguments_sha256': hashlib.sha256(json.dumps(arguments, ensure_ascii=False, separators=(',', ':')).encode()).hexdigest(),
-                'arguments_count': len(arguments) if isinstance(arguments, (list, tuple)) else None,
-                'native_public_arguments_exact_expected': True,
-                'actual_layer': 'RPC_DENIED_NATIVE_ACCESSERROR', 'independent_old_row_verification': 'PENDING'})
-    facts.save('B-six-real-RPC', {'checks': results, 'six_denied': len(results) == 6})
+B_TARGET_FIELDS = {
+    'ydental.settlement.source': 'ydental_original_amount',
+    'ydental.settlement.payment': 'ydental_amount',
+    'ydental.access.audit': 'ydental_reason',
+}
+
+
+def _b_ref(value):
+    return type(value) is str and bool(re.fullmatch(r'[A-Za-z0-9_./:-]{1,240}', value)) and '..' not in value.split('/')
+
+
+def _b_sha(value):
+    return type(value) is str and bool(re.fullmatch(r'[a-f0-9]{64}', value))
+
+
+def _b_message(model, method):
+    if model == 'ydental.access.audit':
+        return 'Audit events cannot be changed.' if method == 'write' else 'Audit events cannot be deleted.'
+    return ('history_immutable: Settlement evidence cannot be overwritten.' if method == 'write'
+            else 'history_immutable: Settlement evidence cannot be deleted.')
+
+
+def validate_b_inputs(manifest, provider_ref):
+    """Validate non-secret inputs only; their referenced measurements remain external.
+
+    This never opens a provider or manufactures current identities/targets. A
+    future authorized caller must supply independently observed source receipts.
+    """
+    if (type(manifest) is not dict or set(manifest) != {'schema', 'identity', 'actor', 'store_id', 'targets', 'source_ref'}
+            or manifest['schema'] != 'LC2_B_MANIFEST_1'
+            or manifest['identity'] != {'database': NAMES['main'], 'oid': OIDS['main'], 'cluster': '7694897083368259627'}
+            or not _b_ref(manifest['source_ref'])):
+        raise ValueError('B_CURRENT_MANIFEST_REQUIRED')
+    actor = manifest['actor']
+    if (type(actor) is not dict or set(actor) != {'uid', 'active', 'internal', 'application_user', 'su', 'is_admin', 'is_system', 'metadata_ref'}
+            or type(actor['uid']) is not int or actor['uid'] <= 1 or actor['uid'] == 7
+            or any(actor[key] is not True for key in ('active', 'internal', 'application_user'))
+            or actor['su'] is not False or actor['is_admin'] is not False or actor['is_system'] is not False
+            or not _b_ref(actor['metadata_ref'])
+            or type(manifest['store_id']) is not int or manifest['store_id'] <= 0):
+        raise ValueError('B_ORDINARY_CURRENT_IDENTITY_REQUIRED')
+    if (type(provider_ref) is not dict or set(provider_ref) != {'ref', 'actor_id'}
+            or provider_ref['actor_id'] != actor['uid'] or not _b_ref(provider_ref['ref'])
+            or not provider_ref['ref'].startswith('.local/')):
+        raise ValueError('B_EXPLICIT_PRIVATE_PROVIDER_REFERENCE_REQUIRED')
+    targets = manifest['targets']
+    if (type(targets) is not list or len(targets) != 3
+            or any(type(item) is not dict for item in targets)
+            or {item.get('model') for item in targets} != set(B_TARGET_FIELDS)):
+        raise ValueError('B_EXACT_CURRENT_TARGETS_REQUIRED')
+    for item in targets:
+        column = B_TARGET_FIELDS[item['model']]
+        expected = 'LC2 denied tampering' if column == 'ydental_reason' else 1
+        if (set(item) != {'model', 'id', 'values', 'source_ref'} or type(item['id']) is not int or item['id'] <= 0
+                or type(item['values']) is not dict or item['values'] != {column: expected}
+                or type(item['values'][column]) is not type(expected) or not _b_ref(item['source_ref'])):
+            raise ValueError('B_NONEMPTY_TARGET_AND_VALID_WRITE_REQUIRED')
+    return manifest
+
+
+def _b_time(value):
+    parsed = datetime.fromisoformat(value)
+    if parsed.tzinfo is None or parsed.utcoffset() is None:
+        raise ValueError('B_TIMEZONE_REQUIRED')
+    return parsed.timestamp()
+
+
+def _b_snapshot_valid(value, manifest, target, *, check_id, phase, point):
+    """Consume a narrow independent-RO receipt, not a whole database snapshot."""
+    if type(value) is not dict:
+        return False
+    try:
+        _b_time(value['captured_utc'])
+    except (KeyError, ValueError, TypeError):
+        return False
+    return (value.get('check_id') == check_id and value.get('phase') == phase and value.get('point') == point
+            and value.get('baseline_ref') == manifest['source_ref']
+            and value.get('transaction') == {'read_only': True, 'closed': True, 'outcome': 'ROLLBACK'}
+            and value.get('layer') == 'INDEPENDENT_RO' and value.get('independent') is True
+            and _b_ref(value.get('ref')) and _b_ref(value.get('connection_ref'))
+            and value.get('identity') == manifest['identity']
+            and value.get('actor') == manifest['actor']
+            and value.get('source_ref') == target['source_ref']
+            and value.get('model') == target['model'] and type(value.get('id')) is int and value.get('id') == target['id']
+            and all(_b_sha(value.get(key)) for key in ('row_sha256', 'old_audit_sha256', 'protected_sha256'))
+            and value.get('editor') == {'document_id': 1, 'state': 'confirmed', 'version': 4,
+                                      'author_id': 7, 'responsible_id': 7,
+                'ydental_editor_id': None, 'ydental_session_id': None, 'ydental_session_revision': 0,
+                'ydental_connection_hash_is_null': True, 'ydental_editor_hash_is_null': True,
+                'ydental_editor_expires': None, 'ydental_editor_lease_id': None})
+
+
+def _b_preserved(before, after, manifest, target, *, check_id, phase, point='after', observation=None):
+    if not (_b_snapshot_valid(before, manifest, target, check_id=check_id, phase=phase, point='before')
+            and _b_snapshot_valid(after, manifest, target, check_id=check_id, phase=phase, point=point)
+            and before['ref'] != after['ref']
+            and before['connection_ref'] != after['connection_ref']
+            and all(before[key] == after[key] for key in ('row_sha256', 'old_audit_sha256', 'protected_sha256'))):
+        return False
+    try:
+        before_time, after_time = _b_time(before['captured_utc']), _b_time(after['captured_utc'])
+        if not 0 <= after_time - before_time <= 300:
+            return False
+        if observation is not None:
+            started, ended = _b_time(observation['started_utc']), _b_time(observation['ended_utc'])
+            if not before_time <= started <= ended <= after_time or ended - started > 120:
+                return False
+    except (KeyError, ValueError, TypeError):
+        return False
+    return True
+
+
+def _b_model_complete(model, manifest):
+    """A producer summary flag cannot substitute for the six native observations."""
+    if (type(model) is not dict or model.get('identity') != manifest['identity'] | {'core': 'f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb'}
+            or model.get('actor_id') != manifest['actor']['uid']
+            or type(model.get('checks')) is not list or len(model['checks']) != 6):
+        return False
+    uid = manifest['actor']['uid']
+    try:
+        batch_end = max(_b_time(row['ended_utc']) for row in model['checks'])
+    except (KeyError, ValueError, TypeError):
+        return False
+    for index, (row, (target, method)) in enumerate(zip(model['checks'], [
+            (target, method) for target in manifest['targets'] for method in ('write', 'unlink')])):
+        check_id = 'B-MODEL-%d-%s' % (index // 2 + 1, method)
+        if (type(row) is not dict or row.get('check_id') != check_id or row.get('phase') != 'B-model'
+                or row.get('layer') != 'MODEL' or row.get('model') != target['model']
+                or row.get('id') != target['id'] or row.get('operation') != method
+                or any(type(row.get(key)) is not int for key in ('actor_id', 'effective_uid', 'default_env_uid'))
+                or row.get('actor_id') != uid or row.get('effective_uid') != uid
+                or row.get('default_env_uid') != uid or row.get('su_flag') is not False
+                or row.get('default_env_su') is not False or row.get('is_admin') is not False
+                or row.get('is_system') is not False or row.get('rollback_observed') is not True
+                or row.get('exception_name') != 'odoo.exceptions.AccessError'
+                or row.get('native_public_arguments') != [_b_message(target['model'], method)]
+                or row.get('native_public_arguments_exact_expected') is not True or row.get('denied') is not True):
+            return False
+        before, after, terminal = (row.get(key) for key in ('before', 'after', 'terminal'))
+        if (not _b_preserved(before, after, manifest, target, check_id=check_id, phase='B-model', observation=row)
+                or not _b_preserved(before, terminal, manifest, target, check_id=check_id, phase='B-model', point='terminal', observation=row)
+                or terminal['ref'] == after['ref']
+                or _b_time(terminal['captured_utc']) < batch_end
+                or row.get('existing_target_sha256') != before['row_sha256']
+                or row.get('after_sha256') != before['row_sha256']):
+            return False
+    return True
+
+
+def correlate_b_server(intent, observation, events):
+    """Use existing producer fields; server/client request UUIDs are independent.
+
+    check_id and phase are encoded in the bounded operation label, since the
+    existing server producer has no separate fields with those names.
+    """
+    if type(events) is not list or observation.get('dispatch_state') == 'NOT_SENT':
+        return None
+    try:
+        lower = _b_time(observation['started_utc'])
+        upper = _b_time(observation['ended_utc'])
+        if not 0 <= upper - lower <= 120:
+            return None
+    except (KeyError, ValueError, TypeError):
+        return None
+    matches = []
+    for event in events:
+        if type(event) is not dict:
+            continue
+        try:
+            timestamp = _b_time(event['ts_utc'])
+        except (KeyError, ValueError, TypeError):
+            continue
+        if (event.get('event') == 'request.received' and event.get('case_id') == 'B-RPC-6'
+                and event.get('operation_ref') == intent['operation_ref_sha256']
+                and event.get('attempt') == intent['attempt'] and lower - 1 <= timestamp <= upper + 1
+                and _b_ref(event.get('request_id')) and _b_ref(event.get('trace_id'))
+                and _b_ref(event.get('evidence_ref'))):
+            matches.append(event)
+    if len(matches) != 1:
+        return None
+    event = matches[0]
+    return {key: event.get(key) for key in ('request_id', 'trace_id', 'actor_id', 'effective_uid',
+                                           'su_flag', 'evidence_ref')}
+
+
+def main_b(ordinary, facts, *, manifest=None, provider_ref=None, observe=None,
+           server_events=None, terminal=None, phase='B-pre'):
+    """Six explicit B calls with save-first evidence and no retry on uncertainty.
+
+    Callbacks are supplied by the caller; this function never starts services,
+    reads credentials, queries a database, or interprets a receipt as authority.
+    """
+    validate_b_inputs(manifest, provider_ref)
+    if (ordinary.uid != manifest['actor']['uid'] or getattr(ordinary, 'role', None) != 'main'
+            or type(ordinary.revision) is not int or ordinary.revision < 0
+            or not re.fullmatch(r'[A-Za-z0-9_-]{1,24}', phase)):
+        raise ValueError('B_ACTOR_OR_REVISION_MISMATCH')
+    results, baselines, halted = [], [], False
+    for index, target in enumerate(manifest['targets'], 1):
+        for method in ('write', 'unlink'):
+            check_id = 'B-RPC-%d-%s' % (index, method)
+            binding = json.dumps({'phase': phase, 'check_id': check_id, 'model': target['model'],
+                'target_id': target['id'], 'actor_id': ordinary.uid, 'baseline_ref': manifest['source_ref']},
+                sort_keys=True, separators=(',', ':'))
+            operation_ref = phase + '.' + check_id + '.' + hashlib.sha256(binding.encode()).hexdigest()[:24]
+            intent = {'layer': 'HTTP_RPC', 'case_id': 'B-RPC-6', 'check_id': check_id, 'phase': phase,
+                'created_utc': datetime.now(timezone.utc).isoformat(),
+                'attempt': 1, 'model': target['model'], 'method': method, 'target_existing_id': target['id'],
+                'args': [[target['id']], target['values']] if method == 'write' else [[target['id']]],
+                'context': {'ydental_revision': ordinary.revision, 'lang': 'en_US'},
+                'intended_actor_id': ordinary.uid, 'source_ref': target['source_ref'],
+                'operation_ref': operation_ref,
+                'operation_ref_sha256': hashlib.sha256(('ydental-client-operation:' + operation_ref).encode()).hexdigest()}
+            facts.save(check_id + '-intent', intent)
+            row = intent | {'classification': 'NOT_SENT', 'preservation': 'PENDING',
+                            'server_identity': 'PENDING', 'before_ref': None, 'after_ref': None,
+                            'evidence_gaps': []}
+            try:
+                before = observe('before', check_id, target) if observe else None
+            except Exception:
+                before = None
+                row['evidence_gaps'].append('BEFORE_OBSERVER_FAILED')
+            baseline_valid = _b_snapshot_valid(before, manifest, target, check_id=check_id, phase=phase, point='before')
+            if baseline_valid:
+                baseline_valid = (_b_time(intent['created_utc']) - 1 <= _b_time(before['captured_utc'])
+                                  <= datetime.now(timezone.utc).timestamp() + 1)
+            if not baseline_valid:
+                row['reason'] = 'MISSING_CURRENT_INDEPENDENT_BASELINE'
+                facts.save(check_id + '-observation', row)
+                results.append(row)
+                halted = True
+                break
+            baselines.append((target, before))
+            row['before_ref'] = before['ref']
+            try:
+                observation = ordinary.rpc_observed(target['model'], method, intent['args'],
+                                                    operation_ref=operation_ref, attempt=1)
+            except Exception:
+                observation = {'dispatch_state': 'UNKNOWN', 'request_id': None, 'http_status': None}
+                row['evidence_gaps'].append('RPC_OBSERVER_FAILED_OUTCOME_UNKNOWN')
+
+            # Save the available transport observation before interpreting it.
+            facts.save(check_id + '-transport', observation)
+            row.update(observation)
+            row['classification'] = observation['dispatch_state']
+            if observation['dispatch_state'] == 'RESPONSE_RECEIVED':
+                if (observation.get('http_status') == 200 and observation.get('native_error_name') == 'odoo.exceptions.AccessError'
+                        and observation.get('native_public_arguments_exact_expected') is True
+                        and observation.get('result_present') is False and observation.get('response_format_valid') is True):
+                    row['classification'] = 'EXPECTED_MODEL_DENIAL'
+                else:
+                    if observation.get('http_status') in {301, 302, 303, 307, 308, 401, 403} or observation.get('native_error_name') in {
+                            'odoo.exceptions.AccessDenied', 'odoo.http.SessionExpiredException'}:
+                        row['classification'] = 'AUTHENTICATION_OR_AUTHORIZATION_PRECONDITION'
+                    elif observation.get('response_format_valid') is not True or observation.get('native_error_name') in {'builtins.TypeError', 'builtins.ValueError'}:
+                        row['classification'] = 'FORMAT_PRECONDITION'
+                    else:
+                        row['classification'] = 'OTHER_NATIVE_RESULT_OR_REJECTION'
+            try:
+                events = server_events(intent, observation) if server_events else []
+            except Exception:
+                events = []
+                row['evidence_gaps'].append('SERVER_EVENT_OBSERVER_FAILED')
+            server = correlate_b_server(intent, observation, events)
+            if server:
+                row['server'] = server
+                row['server_identity'] = ('VERIFIED' if server['actor_id'] == ordinary.uid
+                    and server['effective_uid'] == ordinary.uid and server['su_flag'] is False else 'MISMATCH')
+            try:
+                after = observe('after', check_id, target) if observe else None
+            except Exception:
+                after = None
+                row['evidence_gaps'].append('AFTER_OBSERVER_FAILED')
+            row['after_ref'] = after.get('ref') if type(after) is dict else None
+            if _b_preserved(before, after, manifest, target, check_id=check_id, phase=phase, observation=observation):
+                row['preservation'] = 'VERIFIED'
+            facts.save(check_id + '-observation', row)
+            results.append(row)
+            if (row['classification'] != 'EXPECTED_MODEL_DENIAL' or row['server_identity'] != 'VERIFIED'
+                    or row['preservation'] != 'VERIFIED'):
+                halted = True
+                break
+        if halted:
+            break
+    try:
+        final = terminal(manifest) if terminal else None
+    except Exception:
+        final = None
+    # Raw receipts stay at their explicit private references. Persist only the
+    # check-bound safe source refs and validation result here.
+    terminal_ok = (bool(baselines) and type(final) is list and len(final) == len(baselines)
+                  and all(_b_preserved(before, end, manifest, target, check_id=results[index]['check_id'],
+                                       phase=phase, point='terminal', observation=results[index])
+                          and end['ref'] != results[index]['after_ref']
+                          and all(_b_time(end['captured_utc']) >= _b_time(item['ended_utc'])
+                                  for item in results if item.get('ended_utc'))
+                          for index, ((target, before), end) in enumerate(zip(baselines, final))))
+    summary = {'checks': results, 'terminal_preservation': 'VERIFIED' if terminal_ok else 'PENDING',
+        'terminal_refs': [item['ref'] for item in final] if terminal_ok else [],
+        'status': 'PASS' if len(results) == 6 and terminal_ok and all(
+            item['classification'] == 'EXPECTED_MODEL_DENIAL' and item['server_identity'] == 'VERIFIED'
+            and item['preservation'] == 'VERIFIED' for item in results) else 'PENDING',
+        'layer': 'HTTP_RPC', 'native_runtime_claimed': False}
+    facts.save('B-six-real-RPC', summary)
+    return summary
+
+
+def run_b_only(*, manifest, provider_ref, approval, product_commit, test_commit, facts,
+               model_probe, actor_factory, observe, server_events, terminal):
+    """Future B-only composition; current profiles do not grant this dispatch.
+
+    The unchanged native admission gate runs before any injected dependency.
+    No CLI shortcut, profile grant or provider loader is introduced here.
+    """
+    validate_b_inputs(manifest, provider_ref)
+    runtime_gate(approval, product_commit=product_commit, test_commit=test_commit)
+    require_dispatch_unfrozen()
+    if (EXEC_ROOT / 'HARD-STOP.json').exists():
+        raise RuntimeError('B_EXISTING_HARD_STOP')
+    # No existing profile integrates B. Offline source approval cannot open it.
+    raise RuntimeError('B_RUNTIME_PROFILE_INTEGRATION_PENDING')
+
+
+def _run_b_only_checks(*, manifest, provider_ref, facts, model_probe, actor_factory,
+                       observe, server_events, terminal):
+    """Pure composition seam: all effects must be explicit caller dependencies.
+
+    It neither grants admission nor supplies a live launcher/provider/observer.
+    Only the future runtime integration may connect it to real dependencies.
+    """
+    validate_b_inputs(manifest, provider_ref)
+    model = model_probe(manifest)
+    facts.save('B-model-observation', model)
+    if not _b_model_complete(model, manifest):
+        return {'status': 'PENDING', 'model': model, 'rpc': 'NOT_RUN'}
+    ordinary = actor_factory(provider_ref, manifest)
+    rpc = main_b(ordinary, facts, manifest=manifest, provider_ref=provider_ref,
+                 observe=observe, server_events=server_events, terminal=terminal)
+    return {'status': rpc['status'], 'model': model, 'rpc': rpc}
 
 
 def main_c(manager, reader, token, placeholder, facts, attachment_id, scope_actors, *, dynamic_pdf_admitted=False):

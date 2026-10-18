@@ -233,6 +233,10 @@ class HttpEvidenceError(RuntimeError):
     """Evidence/parse failure; says nothing about transaction outcome."""
 
 
+class RequestNotSent(RuntimeError):
+    """The optional local observer failed before opener.open was called."""
+
+
 class OutcomeUnknown(RuntimeError):
     """Caller must independently verify before any repeat economic request."""
 
@@ -584,7 +588,7 @@ class Client:
 
     def request(self, method, path, *, form=None, json_body=None, case_id=None,
                 attempt=1, operation_ref=None, discard_response=False,
-                artifact_kind=None, retry_manifest=False):
+                artifact_kind=None, retry_manifest=False, dispatch_observer=None):
         method = method.upper()
         if method not in {'GET', 'POST'} or form is not None and json_body is not None:
             raise ValueError('HTTP_REQUEST_SHAPE_NOT_APPROVED')
@@ -711,6 +715,11 @@ class Client:
             })
         save_once(self.directory / (request_id + '-intent.public.json'), safe | {'event': 'http.dispatch.intent'})
         request = Request(self.base_url + path, data=data, headers=headers, method=method)
+        if dispatch_observer is not None:
+            try:
+                dispatch_observer(dict(safe) | {'dispatch_stage': 'INTENT_READY'})
+            except Exception as error:
+                raise RequestNotSent('HTTP_LOCAL_OBSERVER_FAILED_NOT_SENT') from error
         response = None
         status = None
         actual_headers = {}
@@ -810,10 +819,12 @@ class Client:
             'csrf_token': token, 'redirect': '/ydental/settlement',
         }, case_id=case_id)
 
-    def rpc(self, model, method, args, *, kwargs=None, case_id=None, attempt=1, operation_ref=None):
+    def rpc(self, model, method, args, *, kwargs=None, case_id=None, attempt=1, operation_ref=None,
+            dispatch_observer=None):
         if not _MODEL.fullmatch(model) or not _METHOD.fullmatch(method):
             raise ValueError('RPC_MODEL_OR_METHOD_SHAPE_INVALID')
         body = {'jsonrpc': '2.0', 'method': 'call', 'id': uuid.uuid4().hex,
                 'params': {'model': model, 'method': method, 'args': args, 'kwargs': kwargs or {}}}
         return self.request('POST', '/web/dataset/call_kw/' + model + '.' + method,
-                            json_body=body, case_id=case_id, attempt=attempt, operation_ref=operation_ref)
+                            json_body=body, case_id=case_id, attempt=attempt, operation_ref=operation_ref,
+                            dispatch_observer=dispatch_observer)

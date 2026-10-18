@@ -6,9 +6,81 @@ cursor whose FIRST Environment is its actual uid; no default_env replacements.
 import json
 import os
 from pathlib import Path
+import re
 import secrets
 import stat
 from urllib.parse import urlsplit
+
+
+def run_b_model_only(registry, request, run, *, environment, guard, model_denials, scope, observe):
+    """One B-only ordinary first Environment and rollback, no configuration writes.
+
+    Explicit dependencies allow offline contract tests without an Odoo registry.
+    The real caller remains the existing gated Odoo-shell launch path.
+    """
+    manifest = request['manifest']
+    uid = manifest['actor']['uid']
+    if (request['mode'] != 'main-b-only' or type(uid) is not int or uid <= 1 or uid == 7
+            or manifest['identity']['database'] != 'ydental_s10_test_20261017105432_810a7d9c'):
+        raise ValueError('B_MODEL_ONLY_INPUT_INVALID')
+    actor = manifest['actor']
+    reference = lambda value: (type(value) is str and bool(re.fullmatch(r'[A-Za-z0-9_./:-]{1,240}', value))
+                               and '..' not in value.split('/'))
+    fields = {'ydental.settlement.source': 'ydental_original_amount',
+              'ydental.settlement.payment': 'ydental_amount', 'ydental.access.audit': 'ydental_reason'}
+    if (set(manifest) != {'schema', 'identity', 'actor', 'store_id', 'targets', 'source_ref'}
+            or manifest['schema'] != 'LC2_B_MANIFEST_1' or not reference(manifest['source_ref'])
+            or manifest['identity'] != {'database': 'ydental_s10_test_20261017105432_810a7d9c',
+                                       'oid': 2144129, 'cluster': '7694897083368259627'}
+            or set(actor) != {'uid', 'active', 'internal', 'application_user', 'su', 'is_admin', 'is_system', 'metadata_ref'}
+            or any(actor[key] is not True for key in ('active', 'internal', 'application_user'))
+            or actor['su'] is not False or actor['is_admin'] is not False or actor['is_system'] is not False
+            or not reference(actor['metadata_ref'])
+            or type(manifest['store_id']) is not int or manifest['store_id'] <= 0
+            or type(manifest['targets']) is not list or len(manifest['targets']) != 3
+            or any(type(item) is not dict for item in manifest['targets'])
+            or {item.get('model') for item in manifest['targets']} != set(fields)):
+        raise ValueError('B_MODEL_MANIFEST_REQUIRED')
+    for target in manifest['targets']:
+        column = fields[target['model']]
+        value = 'LC2 denied tampering' if column == 'ydental_reason' else 1
+        if (set(target) != {'model', 'id', 'values', 'source_ref'}
+                or type(target['id']) is not int or target['id'] <= 0
+                or type(target['values']) is not dict or target['values'] != {column: value}
+                or type(target['values'][column]) is not type(value) or not reference(target['source_ref'])):
+            raise ValueError('B_MODEL_TARGET_MANIFEST_REQUIRED')
+    with registry.cursor() as cr:
+        env = environment(cr, uid, {})
+        if (env.su or env.transaction.default_env.uid != uid or env.transaction.default_env.su):
+            raise RuntimeError('FIXTURE_FIRST_ENV_NOT_ORDINARY_ACTOR')
+        if (env.uid != uid or env.is_admin() or env.is_system() or env.user.active is not True or not env.user._is_internal()
+                or not env.user.has_group('ydental_base.ydental_base_group_user')):
+            raise RuntimeError('B_MODEL_CURRENT_ACTOR_METADATA_MISMATCH')
+        if guard(env, str(run)) != manifest['identity'] | {'core': 'f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb'}:
+            raise RuntimeError('B_MODEL_MANIFEST_IDENTITY_DRIFT')
+        try:
+            with scope(case_id='B-MODEL-6', actor_id=env.uid, effective_uid=env.uid, su_flag=env.su):
+                return model_denials(env, uid=uid, targets=manifest['targets'],
+                                     run_directory=str(run), phase='B-model', observe=observe)
+        finally:
+            # This adapter owns this fresh cursor. Never commits a B probe.
+            cr.rollback()
+
+
+def _save_b_model_observation(run, value):
+    name = value['check_id']
+    if name not in {'B-MODEL-%d-%s' % (index, operation)
+                    for index in range(1, 4) for operation in ('write', 'unlink')}:
+        raise ValueError('B_MODEL_CHECK_ID_INVALID')
+    path = run / 'diagnostics' / (name + '-observation.json')
+    raw = json.dumps(value, ensure_ascii=True, allow_nan=False, separators=(',', ':')).encode()
+    if len(raw) > 16384:
+        raise ValueError('B_MODEL_OBSERVATION_BOUND')
+    fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW, 0o600)
+    with os.fdopen(fd, 'wb') as stream:
+        stream.write(raw)
+        stream.flush()
+        os.fsync(stream.fileno())
 
 
 def main(shell_env):
@@ -30,12 +102,25 @@ def main(shell_env):
     database = shell_env.cr.dbname
     expected = {'main': 'ydental_s10_test_20261017105432_810a7d9c',
                 'scratch': 'ydental_s10_test_20261017105432_ce6dcbf8'}
-    if mode not in {'main-prepare', 'scratch-bootstrap'} or database != expected['main' if mode == 'main-prepare' else 'scratch']:
+    if mode not in {'main-prepare', 'main-b-only', 'scratch-bootstrap'} or database != expected['scratch' if mode == 'scratch-bootstrap' else 'main']:
         raise RuntimeError('FIXTURE_ROLE_MODE_DRIFT')
     import logging
     if logging.getLogger('odoo.http.server').getEffectiveLevel() != logging.CRITICAL:
         raise RuntimeError('TOKEN_TRANSPORT_LOG_PRIVACY_NOT_READY')
     registry = shell_env.registry
+
+    if mode == 'main-b-only':
+        checks = run_b_model_only(registry, request, run, environment=api.Environment,
+            guard=_guard, model_denials=_model_denials, scope=context_scope,
+            observe=lambda value: _save_b_model_observation(run, value))
+        encoded = json.dumps({'safe': {'mode': mode, 'model_checks': checks,
+                                      'fixture_commits': 0}, 'ram': {}}).encode()
+        if len(encoded) > 65536:
+            raise RuntimeError('FIXTURE_RAM_OUTPUT_BOUND_EXCEEDED')
+        with os.fdopen(write_fd, 'wb') as stream:
+            stream.write(encoded)
+            stream.flush()
+        return
 
     def actor(uid, operation, *, commit=False):
         with registry.cursor() as cr:

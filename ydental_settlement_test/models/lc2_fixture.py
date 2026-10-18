@@ -7,6 +7,7 @@ send them through the caller's anonymous pipe, never stdout or evidence JSON.
 """
 from contextlib import closing
 from dataclasses import dataclass, field
+from datetime import datetime, timezone
 import hashlib
 import json
 import os
@@ -122,15 +123,20 @@ def _row_sha(env, table, record_id):
     return row[0]
 
 
-def _model_denials(env, *, uid, targets, run_directory, config_path=None):
+def _model_denials(env, *, uid, targets, run_directory, config_path=None,
+                   phase='B-model', observe=None):
     """Exactly six real MODEL negatives; all attempts roll back independently."""
     identity = _guard(env, run_directory, config_path)
     _ordinary_actor(env, uid)
+    if uid == 7 or env.is_admin() or env.is_system():
+        raise RuntimeError('LC2_B_NONADMIN_ORDINARY_ACTOR_REQUIRED')
+    if not re.fullmatch(r'[A-Za-z0-9_-]{1,24}', phase):
+        raise ValueError('LC2_PROBE_PHASE_INVALID')
     if (type(targets) is not list or len(targets) != 3
             or {item.get('model') for item in targets} != set(_TARGETS)):
         raise ValueError('LC2_EXACT_THREE_PROBE_TARGETS_REQUIRED')
     results = []
-    for target in targets:
+    for index, target in enumerate(targets, 1):
         model = target['model']
         table, column = _TARGETS[model]
         record_id, values = target.get('id'), target.get('values')
@@ -140,11 +146,19 @@ def _model_denials(env, *, uid, targets, run_directory, config_path=None):
                 or (column != 'ydental_reason' and (type(values[column]) not in (int, float) or values[column] != 1))):
             raise ValueError('LC2_PROBE_VALUES_NOT_APPROVED')
         for operation in ('write', 'unlink'):
+            check_id = 'B-MODEL-%d-%s' % (index, operation)
+            started_utc = datetime.now(timezone.utc).isoformat()
             before = _row_sha(env, table, record_id)
-            denied, exception_name = False, None
+            denied, exception_name, arguments = False, None, None
+            expected = ('Audit events cannot be changed.' if operation == 'write' else 'Audit events cannot be deleted.') if model == 'ydental.access.audit' else (
+                'history_immutable: Settlement evidence cannot be overwritten.' if operation == 'write' else 'history_immutable: Settlement evidence cannot be deleted.')
+            actual = {'actor_id': env.uid, 'effective_uid': env.uid, 'su_flag': env.su,
+                      'default_env_uid': env.transaction.default_env.uid,
+                      'default_env_su': env.transaction.default_env.su,
+                      'is_admin': env.is_admin(), 'is_system': env.is_system()}
             with closing(env.cr.savepoint()):
                 # Native flushing savepoint + restore_state, no default_env patch.
-                ordinary = env[model].browse(record_id).with_user(uid)
+                ordinary = env[model].browse(record_id)
                 if ordinary.env.uid != uid or ordinary.env.su:
                     raise RuntimeError('LC2_PROBE_NOT_ORDINARY')
                 try:
@@ -152,18 +166,33 @@ def _model_denials(env, *, uid, targets, run_directory, config_path=None):
                         ordinary.write(values)
                     else:
                         ordinary.unlink()
-                except AccessError as error:
-                    denied = True
+                except Exception as error:
+                    # This negative probe records unexpected native errors too;
+                    # the assertion below runs only after rollback and saving.
+                    denied = isinstance(error, AccessError)
                     exception_name = type(error).__module__ + '.' + type(error).__name__
+                    arguments = list(error.args)
             after = _row_sha(env, table, record_id)
+            exact = exception_name == 'odoo.exceptions.AccessError' and arguments == [expected]
+            result = {'layer': 'MODEL', 'check_id': check_id, 'phase': phase,
+                            'started_utc': started_utc, 'ended_utc': datetime.now(timezone.utc).isoformat(),
+                            'model': model, 'id': record_id, 'operation': operation, **actual,
+                            'denied': denied, 'exception_name': exception_name,
+                            'native_public_arguments': [expected] if exact else None,
+                            'native_public_arguments_exact_expected': exact,
+                            'existing_target_sha256': before, 'after_sha256': after,
+                            'rollback_observed': True,
+                            'independent_preservation': 'PENDING'}
+            results.append(result)
+            if observe is not None:
+                observe(result)
             if before != after:
                 raise RuntimeError('LC2_PROBE_TARGET_STORAGE_CHANGED')
-            results.append({'layer': 'MODEL', 'model': model, 'id': record_id,
-                            'operation': operation, 'actor_id': uid, 'effective_uid': uid,
-                            'su_flag': False, 'denied': denied, 'exception_name': exception_name,
-                            'existing_target_sha256': before, 'after_sha256': after,
-                            'rollback_observed': True})
-    return {'identity': identity, 'checks': results, 'six_denied': all(item['denied'] for item in results),
+            if not exact:
+                raise RuntimeError('LC2_PROBE_NATIVE_EXCEPTION_MISMATCH')
+    return {'identity': identity, 'actor_id': env.uid, 'checks': results,
+            'six_denied': len(results) == 6 and all(item['native_public_arguments_exact_expected'] for item in results),
+            'independent_preservation': 'PENDING',
             'rpc_claimed': False}
 
 
