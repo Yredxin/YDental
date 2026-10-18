@@ -1,3 +1,62 @@
+# [CODEX-FINAL] YD-S10-TECHNICAL-CLOSEOUT-V1 / 1.0
+
+结论：**COMPLETE / S10 技术完成，独立验收通过**。记录同步：PENDING；#34 此刻仍 OPEN，主控正在发布最终记录并关闭。范围仅 S10，#37 用户效果验收另列。
+
+当前分支 `codex/s10-settlement-finance-r1-20261013`；接管锚点 `d731711ab48d73177303ced9c040601a206412d9`。最终产品 `cc1a395a8254a0b6c2017ceedd9a351d095c590a`；最后 UI/复现服务实际工具 `b9527b89574e9fc0da823bea1c15885913f3e738`；两库正式升级实际工具 `4e0dc04489bd14b321c7a43c919fbfc8be76076b`；core `f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb`。后续提交是交付文档及同步记录，不改写这些实际执行身份。
+
+|范围|实际结果与证据层级|
+|---|---|
+|A|升级前/后正常用户5从患者1工作台点击原件1真实下载，均27665B/SHA059287…；本次逐页中文及内容三方核验，旧文书v4/版本9→10/释放editor保全，未重演编辑。|
+|B|普通59六项有效MODEL回滚，再六项正常认证call_kw RPC真实原生拒绝；独立逐项前后及最终旧域保护，非73PURE替代。|
+|C|四read/export组合、真实旧页撤权下一请求、非空family/混源/同异公司门店、受控与原生report/附件路由；图片200逐像素核core占位。合法validtoken无发行路径的特定原件入口N/A，其余token/权限场景实际验证。|
+|D|scratch唯一新合成链：实际HTTP收6、不同人批退2、failed/核查恢复、唯一execute受控丢响应先UNKNOWN、独立证实提交后同actor/store/key/payload/opref防重；原生入/出款及贷项各1、4move平衡、partial6/2、实退2净4。后续只读。|
+|E-MAIN/E-D|各自带真实数据仅-u ydental_settlement，native0+独立模块/schema/权限/旧业务保全+实际后续UI/只读+退出后终核；同Pcc1。依赖5→6仅新增已装intake，无其它模块升级；两view正常loader元数据单列。|
+|LOG|真实两身份HTTP只读请求重叠、正常/拒绝/程序异常分层、真实ON/OFF同夹具回滚经济差异0、原生WarningDialog、独立parent/Firefox退出、严格JSONL/seal；原SYNTHETIC定位等按原层级承接。最终LOG09有限模式扫描与人工审查通过，范围和限制见独签。|
+
+完整逐行投影见[验收矩阵](acceptance-matrix.json)的 `technical_closeout_plan_v1`：22财务行、12LOG、19证据用例是重叠的需求覆盖结构，不能相加为测试数量。每行注明历史正式采纳层级、当前实际断言和证据；旧并发只按原真实双backend范围承接，本次LOG双请求不冒财务竞争。未复算旧私有原生ledger。
+
+主控 `/root` 协调/归并/Git，并实现隔离LOG回滚小helper；`developer_s10` 最小产品与接线修复；`tester_s10` 唯一运行负责人；`acceptance_s10` 未实现被验内容，亲核代码/原件/保全和逐行覆盖。独立结论见[acceptance-review](acceptance-review.md)，执行原件脱敏引用见[固定证据索引](../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json)。角色不代表OS隔离；私有本机原件不能被说成GPT可直接读取。
+
+实现与偏离：三处PDF链接补export条件；官方静态Noto CJK及OFL随模块解决实际中文方框；库存仅native系统账号读取unmanaged全局配置的最小兼容；原生默认税hook跳过非受控intake-owned目录而保持原CRUD/合法MUTATION；必要真实runner/UI接线。原生业务异常类型/审计/权限/事务标准保持。旧首失败、Native历史UNKNOWN、旧安全STOP/PREPARED文档、计数及原时钟保留。普通端口/路径/断言/原生语言303/boot门禁错误按具体原件精确接续，未重旧资金、旧文书或成功原件下载。详细首因与修复在[defects](defects.md)。
+
+当前保护：main旧文书1 confirmed/v4、作者负责人7、version9→10/previous9、编辑字段释放、旧1187审计及原件/库存/资金/日结保全；用户7旧业务登录/动作0。新D只收6退2；C六费用7/11/13/17/19/23、五未付账、两新原件，不收退款。新59正常OdooBot初始化仅以实际state/唯一ownmessage/同事务时间/SOURCE有限解释，物理beforestate未采限制不抹。旧C浏览器当时仅APIclose、未采真实PIDexit的限制仍保留，不由后续Firefox0反填。
+
+最终运行计数（不是PASS数）：累计 Odoo47 / RO195 / HTTP539 / Firefox12 / 原件GET13；历史事故RO2/maintenance1/CREATE2不变，本plan新增建库0。HTTP是runner/browser dispatch账，不冒所有renderer内部wire请求。独立stat13根当前276033792B、全保留427932944B/15764files，低于当前384MiB/全1GiB90%界；后续小文档字节另计，无删除旧证据。全部owned服务/观察/浏览器已停止，18410/18411采样无listener、runner锁可用；旧未归属Python/Codex与detached工作区保留，未宣称全机进程退出。
+
+<a id="user-review"></a>
+## 用户效果复现（默认只读）
+
+当前服务**已停止**。在同一Ubuntu主机/已有获准访问方式下使用本机loopback，不能把127.0.0.1当其他机器天然可访问的地址。以下launcher只启动一个受控现有测试服务，TTL默认600秒、可60–1200秒，持有唯一runner锁；脚本不会把有写权的manager变成服务器级只读角色。原scope实际截止 **2026-10-19 06:58:34.383956 UTC / 14:58:34.383956 Asia/Singapore**，不自动续期；P0任务开工06:52:51与该原scope起点06:58:34分列。
+
+在 `/home/redxin/code/odoo/odoo-sd/code/sd-addons` 运行：
+
+```sh
+../.venv/bin/python .local/s10-technical-closeout-v1/review-owned-service.py --target main --ttl-seconds 600
+```
+
+main启动wrapper已实际60秒ready/TTL/exit0/seal独立核验，脚本SHA72ff7c…；换 `--target scratch` 使用相同已审函数，此launcher的scratch参数未另做smoke，scratch正常服务及升级后两业务GET已实际验过。原运行候选之后只按最终文档HEAD正常对齐私有冻结元数据，不重业务或升级。若当前守卫/期限不满足，以真实拒绝为准，不改参数绕过或运行旧PREPARED入口。
+
+1. main启动后打开 `http://127.0.0.1:18410/web/login`。用正常测试用户5，在 `/ydental/access` 确认合法门店1，再打开 `/ydental/settlement?patient_id=1`；预期可看到本店结算工作台和invoice1。
+2. 在该工作台invoice1行点击原件1链接下载。预期仍附件161、27665B、SHA256 `05928780e7d97a06cf29019634f64b010eb4994c2f1c5032d561008a50b059b4`，中文单页及原价格600/80/40/20、总740USD。原实收740/欠0是不可变历史快照，不等于当前退款后的净收。
+3. 正常切换登录为最小普通read/export用户59，在合法门店3打开 `/ydental/settlement?patient_id=2`。查看旧invoice4（原270）/新invoice6（原200）与选中payment4的历史核销270+30；payment3/5及其它补款是独立记录，当前余额按实际页面，不能要求恢复最初170或再次收300。此定位来自已采业务marker与当前C真实门店3正例，未宣称本plan重做该支付UI。这些历史定位未在本plan逐项重演；当前页面若不显示某历史项，以既有原证据为准，勿重复资金动作。
+4. 仍用59正常导航 `/odoo/ydental.access.audit/228`，预期标准Access Error警告对话框。该拒绝的原生RPC/真实UI已在本plan验证；无需编辑/删除该审计，也不更改权限。
+5. 让main launcher正常结束/TTL到期后，以同一命令换 `--target scratch`。打开 `http://127.0.0.1:18411/web/login`，用已有普通manager6，选择门店1 `LC2 independent synthetic D clinic`，进入 `/ydental/settlement?patient_id=1`。
+6. 只查看D invoice1/payment1/refund1。预期收6、实退2、净收4、批准/核查在途0、refund done；查看failed/verified recovery与相同请求防重的既有审计。点击已有退款1凭据的查看/下载链接，预期中文单页、请求2USD/实退2/在途0及原生付款关联。manager6本身有写权限，本复现步骤只查看/下载。
+7. 正常换普通reader11，在门店2 `S10 independent C local` 查看 `/ydental/settlement?patient_id=4`：family原患者2的invoice5=7与新invoice7=11；原件1保持原患者历史来源，17费用仍未出账。无关患者3/invoice6=13不应被混进这个family。门店3的invoice8=19只按合法跨店摘要范围查看。
+8. reader11合法切门店4 `S10 independent C other-company` 后，同patient4可查看本店invoice9=23欠23和原件2；切回门店2时不应泄露异法人财务全文。C均未收款，不需要点击任何生成账单或资金按钮。
+
+无值的本机私有凭据provider：main用户5 `.local/s10-lc2-main-a-20261018-02/credentials/user-5.json`；普通59 `.local/s10-technical-closeout-v1/credentials/user-59.json`；scratch manager6/reader11分别同root的 `credentials/scratch-user-6.json` / `scratch-user-11.json`。值不在Git/聊天。缺物理保存显示名的门店保持真实ID定位，不编造下拉名称。
+
+上述步骤只读查看与受控下载；不得再次执行D收退款、旧日结解锁/确认、旧文书acquire/release/save/confirm/correct或重新生成旧原件。权限撤销/恢复等已在测试中完成并留证，用户无需再执行。当前截图/逐页页图与原始日志在私有索引可定位；仓库仅保存脱敏结构与哈希。
+
+## 最终记录状态
+
+独立验收者 `/root/acceptance_s10` 已签 TECHNICAL PASS，亲核全部22财务/12LOG/19用例及适用层级；最终公开6文件945109B/7模式0匹配并人工核全差异，172本地引用/JSON片段有效。独签289044B/SHA256 `bd08dd3cf8cada2d5a5e4c21a73b691d5de2058587e9e452b52f54d4766efeea`；pattern0不证明未知秘密绝不存在，后续仅状态/指针/Issue文字做定向复核。#34发布/关闭回执尚待实际读回，记录同步暂PENDING。#37用户效果保持待验，生产部署/真实患者资金/渠道/正式临床财务政策未纳入；不启动S11–S13，不合并、不部署。已提交的源/纯测试/真实MODEL/HTTP/RPC/浏览器/历史真实竞争/独立提交层级分别保留。最终材料所属Git提交固定本报告，不用文档SHA变化重演业务。
+
+以下为本plan执行时点与更早历史原文；其中“当前”“待运行”等只对应各自候选和时点，最终状态以上述最新投影和最终独签为准。
+
+---
+
 # 当前 S10 技术收口 / YD-S10-TECHNICAL-CLOSEOUT-V1 1.0
 
 当前里程碑（正式双E实际Pcc1/T4e0dc044，2026-10-18）：**两库最终S10-only升级及升级后保全已独立限定通过，E-D完整闭环；main旧原件升级后真实UI/逐页/退出后终RO0均已独签完整通过。LOG原生WarningDialog和最终归并尚未完成，S10保持OPEN。**

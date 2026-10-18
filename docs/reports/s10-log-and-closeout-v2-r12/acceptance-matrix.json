@@ -6091,7 +6091,7 @@
     "task_id": "S10-LOG-AND-CLOSEOUT-v2",
     "started_at_utc": "2026-10-18T06:52:51Z",
     "authority": "User supplied full plan in current conversation; execution mode enabled; no new GPT comment prerequisite.",
-    "status": "IN_PROGRESS_DUAL_UPGRADE_ACTUAL_NATIVE_WARNING_UI_AND_FINAL_AGGREGATE_PENDING",
+    "status": "COMPLETE",
     "baseline_commit": "d731711ab48d73177303ced9c040601a206412d9",
     "core_commit": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
     "scope": "S10 only; no S11-S13, merge or deployment",
@@ -6104,7 +6104,7 @@
       "tester": "/root/tester_s10",
       "acceptance": "/root/acceptance_s10"
     },
-    "candidate_status": "FINAL_PRODUCT_CC1_DUAL_S10_ONLY_UPGRADES_ACTUAL_PASSED_UI_ONLY_TOOL_REPAIR_PENDING",
+    "candidate_status": "FINAL_PRODUCT_CC1_REQUIRED_LAYERS_COMPLETE_INDEPENDENTLY_ACCEPTED",
     "current_actual_evidence": [
       "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json"
     ],
@@ -6188,7 +6188,7 @@
           "acceptance-review.md",
           "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/C-strict-native-final-actual"
         ],
-        "reason": "Actual ordinary fourread/export rights, family/mixed-source, nonempty same-company and other-company controls, summaries and fulltext isolation independently accepted. No C funds. Future final E preservation pending; new59 later backend metadata is separately unresolved, not hidden."
+        "reason": "Four ordinaryread/export combinations, real oldpage-nextrequest revocation, nonempty family/mixed-source, same-company/foreign-company summary/fulltext separation independently accepted. Both final upgrades protect current data/ACLs. New59 later bot initialization metadata is independently explained at limited scope; physical prior botstate was not collected. No new C funds."
       },
       "C-ATTACHMENT": {
         "status": "INDEPENDENT_SCOPED_COMPLETE",
@@ -6330,7 +6330,7 @@
           "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-MAIN-actual",
           "acceptance-review.md"
         ],
-        "reason": "Both existing data-bearing targets samePcc1/T4e each only-u settlement. Independent before/actual native0/after/affected impact/postDread+refundPDF or actual mainuser5 original UI/terminal all complete and signed. Source/phase limits retained; pending native LOGWarningDialog is separate. Later tool/doc commit does not replay upgrade/economics.",
+        "reason": "Both existing data-bearing targets samePcc1/T4e each only-u settlement. Independent before/actual native0/after/affected impact/postDread+refundPDF or actual mainuser5 original UI/terminal all complete and signed. Source/phase limits retained; native LOGWarningDialog was subsequently verified at actual Tb952; formal upgrade actual T4e remains unchanged. Later tool/doc commit does not replay upgrade/economics.",
         "targets": {
           "E-MAIN": {
             "status": "INDEPENDENT_SCOPED_COMPLETE",
@@ -6360,7 +6360,7 @@
           "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-MAIN-actual",
           "acceptance-review.md"
         ],
-        "reason": "Both existing data-bearing targets samePcc1/T4e each only-u settlement. Independent before/actual native0/after/affected impact/postDread+refundPDF or actual mainuser5 original UI/terminal all complete and signed. Source/phase limits retained; pending native LOGWarningDialog is separate. Later tool/doc commit does not replay upgrade/economics.",
+        "reason": "Both existing data-bearing targets samePcc1/T4e each only-u settlement. Independent before/actual native0/after/affected impact/postDread+refundPDF or actual mainuser5 original UI/terminal all complete and signed. Source/phase limits retained; native LOGWarningDialog was subsequently verified at actual Tb952; formal upgrade actual T4e remains unchanged. Later tool/doc commit does not replay upgrade/economics.",
         "targets": {
           "E-MAIN": {
             "status": "INDEPENDENT_SCOPED_COMPLETE",
@@ -6389,7 +6389,7 @@
           "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-MAIN-actual",
           "acceptance-review.md"
         ],
-        "reason": "Both existing data-bearing targets samePcc1/T4e each only-u settlement. Independent before/actual native0/after/affected impact/postDread+refundPDF or actual mainuser5 original UI/terminal all complete and signed. Source/phase limits retained; pending native LOGWarningDialog is separate. Later tool/doc commit does not replay upgrade/economics.",
+        "reason": "Both existing data-bearing targets samePcc1/T4e each only-u settlement. Independent before/actual native0/after/affected impact/postDread+refundPDF or actual mainuser5 original UI/terminal all complete and signed. Source/phase limits retained; native LOGWarningDialog was subsequently verified at actual Tb952; formal upgrade actual T4e remains unchanged. Later tool/doc commit does not replay upgrade/economics.",
         "targets": {
           "E-MAIN": {
             "status": "INDEPENDENT_SCOPED_COMPLETE",
@@ -6422,7 +6422,7 @@
           "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-MAIN-actual",
           "acceptance-review.md"
         ],
-        "reason": "Both existing data-bearing targets samePcc1/T4e each only-u settlement. Independent before/actual native0/after/affected impact/postDread+refundPDF or actual mainuser5 original UI/terminal all complete and signed. Source/phase limits retained; pending native LOGWarningDialog is separate. Later tool/doc commit does not replay upgrade/economics.",
+        "reason": "Both existing data-bearing targets samePcc1/T4e each only-u settlement. Independent before/actual native0/after/affected impact/postDread+refundPDF or actual mainuser5 original UI/terminal all complete and signed. Source/phase limits retained; native LOGWarningDialog was subsequently verified at actual Tb952; formal upgrade actual T4e remains unchanged. Later tool/doc commit does not replay upgrade/economics.",
         "targets": {
           "E-MAIN": {
             "status": "INDEPENDENT_SCOPED_COMPLETE",
@@ -6445,8 +6445,11 @@
       {
         "id": "F1",
         "historical_adoption_ref": "#/s10/0/historical_formal_adoption",
-        "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
-        "current_evidence": [],
+        "status": "SATISFIED_FORMAL_CARRY_PLUS_CURRENT_EVIDENCE_INDEPENDENTLY_ACCEPTED",
+        "current_evidence": [
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-MAIN-actual",
+          "acceptance-review.md"
+        ],
         "current_mandatory_projection": [
           "E-MAIN preserve 740/350+390 chain and native partial/source/stock graph; no new receipt"
         ],
@@ -6459,15 +6462,21 @@
         "historical_compatibility_limit": "文书完善另见F4；未把新350/390称旧500/240重放。",
         "independent_impact_review": {
           "reviewer": "/root/acceptance_s10",
-          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
-          "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
-        }
+          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-final-independent-working-projection",
+          "scope": "ORIGINAL_FORMAL_ADOPTION_AND_PERSONALLY_REVIEWED_CURRENT_IMPACT_AND_PROTECTION_NOT_OLD_LEDGER_RECOMPUTATION"
+        },
+        "current_assertions_verified": "Original formally accepted740/350+390 native chain remains distinct from historical500+240; final main39-domain protection retains events/frozenprices/fees/invoice/nativepartial/stock links. No new legacy receipt."
       },
       {
         "id": "F2",
         "historical_adoption_ref": "#/s10/1/historical_formal_adoption",
-        "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
-        "current_evidence": [],
+        "status": "SATISFIED_FORMAL_CARRY_PLUS_CURRENT_EVIDENCE_INDEPENDENTLY_ACCEPTED",
+        "current_evidence": [
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/D-actual",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-MAIN-actual",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-D-actual",
+          "acceptance-review.md"
+        ],
         "current_mandatory_projection": [
           "D actual HTTP requested/approved pending2/failed/recovered/done2 and no extra funds; does not replace historical100/50/unknown80",
           "E-MAIN historical refund preservation; E-D newchain preservation"
@@ -6482,15 +6491,20 @@
         "historical_compatibility_limit": "仅合成原生记账，不证明真实平台到账；传输未知分支见T05。",
         "independent_impact_review": {
           "reviewer": "/root/acceptance_s10",
-          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
-          "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
-        }
+          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-final-independent-working-projection",
+          "scope": "ORIGINAL_FORMAL_ADOPTION_AND_PERSONALLY_REVIEWED_CURRENT_IMPACT_AND_PROTECTION_NOT_OLD_LEDGER_RECOMPUTATION"
+        },
+        "current_assertions_verified": "Original refund limits retained; newD actual requested/approved2,failed,verified recovery,done2/0pending and native account graph independently confirmed and final both-target preservation complete."
       },
       {
         "id": "F3",
         "historical_adoption_ref": "#/s10/2/historical_formal_adoption",
-        "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
-        "current_evidence": [],
+        "status": "SATISFIED_FORMAL_CARRY_PLUS_CURRENT_EVIDENCE_INDEPENDENTLY_ACCEPTED",
+        "current_evidence": [
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/LOG17-actual",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-MAIN-actual",
+          "acceptance-review.md"
+        ],
         "current_mandatory_projection": [
           "LOG current DAY_CLOSED native rejection in isolated rollback fixture",
           "E-MAIN preserve original close/unlock/reclassification and separate physical return"
@@ -6504,15 +6518,20 @@
         "historical_compatibility_limit": "未重放旧close9；药品库存与财务更正分离。",
         "independent_impact_review": {
           "reviewer": "/root/acceptance_s10",
-          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
-          "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
-        }
+          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-final-independent-working-projection",
+          "scope": "ORIGINAL_FORMAL_ADOPTION_AND_PERSONALLY_REVIEWED_CURRENT_IMPACT_AND_PROTECTION_NOT_OLD_LEDGER_RECOMPUTATION"
+        },
+        "current_assertions_verified": "Original dayclose/unlock/reclassification and separate physical return facts retained by final main protection; actual isolated DAY_CLOSED nativeUserError with full rollback covers current logging path."
       },
       {
         "id": "F4",
         "historical_adoption_ref": "#/s10/3/historical_formal_adoption",
-        "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
-        "current_evidence": [],
+        "status": "SATISFIED_FORMAL_CARRY_PLUS_CURRENT_EVIDENCE_INDEPENDENTLY_ACCEPTED",
+        "current_evidence": [
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/A-ORIGINAL",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-MAIN-actual",
+          "acceptance-review.md"
+        ],
         "current_mandatory_projection": [
           "A pre-upgrade actual original UI PASS; A-EDITOR historical accepted/released state verified, do not replay",
           "E-MAIN final upgrade preservation and post-upgrade user5 actual oldoriginal UI"
@@ -6528,15 +6547,29 @@
         "historical_compatibility_limit": "补合法同源confirm/correct/release后的逐字段零经济验证及同一原件重取；不能用另患者数量例代替。",
         "independent_impact_review": {
           "reviewer": "/root/acceptance_s10",
-          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
-          "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
+          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-final-independent-working-projection",
+          "scope": "ORIGINAL_FORMAL_ADOPTION_AND_PERSONALLY_REVIEWED_CURRENT_IMPACT_AND_PROTECTION_NOT_OLD_LEDGER_RECOMPUTATION"
+        },
+        "current_assertions_verified": "Later formally accepted same-source confirmedv3 tocorrectv4/editor release retained; actual pre/postupgrade workbench original UI same27665/059287 and allpage content/independent terminal preserve oldeconomics and document.",
+        "historical_limit_current_applicability": {
+          "historical_text_retained": true,
+          "current_resolution": "Later formally accepted same-source confirmedv3 tocorrectv4/editor release retained; actual pre/postupgrade workbench original UI same27665/059287 and allpage content/independent terminal preserve oldeconomics and document.",
+          "superseded_only_for_assertions_supported_by": [
+            "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/A-ORIGINAL",
+            "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-MAIN-actual",
+            "acceptance-review.md"
+          ],
+          "scope": "Original missing-evidence words remain historically true for their old batch; specified currentplan evidence resolves only matching technical gaps. Productionpolicy and other original limits retained."
         }
       },
       {
         "id": "F5",
         "historical_adoption_ref": "#/s10/4/historical_formal_adoption",
-        "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
-        "current_evidence": [],
+        "status": "SATISFIED_FORMAL_CARRY_PLUS_CURRENT_EVIDENCE_INDEPENDENTLY_ACCEPTED",
+        "current_evidence": [
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-MAIN-actual",
+          "acceptance-review.md"
+        ],
         "current_mandatory_projection": [
           "E-MAIN preserve independent270+200/300 distribution and selected-only native partial; no receipt replay"
         ],
@@ -6551,15 +6584,22 @@
         "historical_compatibility_limit": "Web整体FAIL保留；这里只采已由尾审证明的支付子断言。",
         "independent_impact_review": {
           "reviewer": "/root/acceptance_s10",
-          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
-          "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
-        }
+          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-final-independent-working-projection",
+          "scope": "ORIGINAL_FORMAL_ADOPTION_AND_PERSONALLY_REVIEWED_CURRENT_IMPACT_AND_PROTECTION_NOT_OLD_LEDGER_RECOMPUTATION"
+        },
+        "current_assertions_verified": "Original selected270+200/payment300 native allocation270+30/selected-only/date-ID order retained by final main. Historical separate frontdesk3 subassertion stays scoped; later payments remain distinct and current residual is not asserted as original170."
       },
       {
         "id": "F6",
         "historical_adoption_ref": "#/s10/5/historical_formal_adoption",
-        "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
-        "current_evidence": [],
+        "status": "SATISFIED_FORMAL_CARRY_PLUS_CURRENT_EVIDENCE_INDEPENDENTLY_ACCEPTED",
+        "current_evidence": [
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/C-strict-native-final-actual",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/C-main-tail",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-MAIN-actual",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-D-actual",
+          "acceptance-review.md"
+        ],
         "current_mandatory_projection": [
           "C finish normal role4permissions and genuine oldpage revocation; actual company/store context and nonempty summary/fulltext isolation",
           "E-MAIN current permission and UI impact regression"
@@ -6576,15 +6616,20 @@
         "historical_compatibility_limit": "跨店摘要/普通旧页分支限历史兼容证据；新增原件的完整跨公司、混店/患者family负向及图片响应取证未闭环。",
         "independent_impact_review": {
           "reviewer": "/root/acceptance_s10",
-          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
-          "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
-        }
+          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-final-independent-working-projection",
+          "scope": "ORIGINAL_FORMAL_ADOPTION_AND_PERSONALLY_REVIEWED_CURRENT_IMPACT_AND_PROTECTION_NOT_OLD_LEDGER_RECOMPUTATION"
+        },
+        "current_assertions_verified": "Actual ordinary four permission combinations, oldpage revoke nextrequest, nonempty family/mixed and same/other company scope plus native attachment/report guards complete; final upgrades preserve ACL/data."
       },
       {
         "id": "T01",
         "historical_adoption_ref": "#/s10/6/historical_formal_adoption",
-        "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
-        "current_evidence": [],
+        "status": "SATISFIED_FORMAL_CARRY_PLUS_CURRENT_EVIDENCE_INDEPENDENTLY_ACCEPTED",
+        "current_evidence": [
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/LOG17-actual",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-MAIN-actual",
+          "acceptance-review.md"
+        ],
         "current_mandatory_projection": [
           "E-MAIN source uniqueness and receipt preservation; carry original actual C two-backend bill race only at original scope",
           "LOG06/12 diagnostic _operate savepoint/receipt wrapper regression; no new concurrency PASS inferred"
@@ -6599,15 +6644,21 @@
         "historical_compatibility_limit": "本批未运行双后端并发，不宣称新并发PASS。",
         "independent_impact_review": {
           "reviewer": "/root/acceptance_s10",
-          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
-          "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
-        }
+          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-final-independent-working-projection",
+          "scope": "ORIGINAL_FORMAL_ADOPTION_AND_PERSONALLY_REVIEWED_CURRENT_IMPACT_AND_PROTECTION_NOT_OLD_LEDGER_RECOMPUTATION"
+        },
+        "current_assertions_verified": "Carry original real two-backend bill race at original candidate/target only. Final main source/receipt uniqueness preserved; actual LOG bill17 sourcecount1/audit1 rollback validates instrumentation, not a new race."
       },
       {
         "id": "T02",
         "historical_adoption_ref": "#/s10/7/historical_formal_adoption",
-        "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
-        "current_evidence": [],
+        "status": "SATISFIED_FORMAL_CARRY_PLUS_CURRENT_EVIDENCE_INDEPENDENTLY_ACCEPTED",
+        "current_evidence": [
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/D-actual",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-MAIN-actual",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-D-actual",
+          "acceptance-review.md"
+        ],
         "current_mandatory_projection": [
           "E-MAIN preserve original partials and idempotent receipt rows",
           "D fresh6/2 only adds current HTTP known-commit/retry proof, never stands for500+240 or350+390"
@@ -6621,15 +6672,19 @@
         "historical_compatibility_limit": "未重收旧款；外部到账不在合成证明内。",
         "independent_impact_review": {
           "reviewer": "/root/acceptance_s10",
-          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
-          "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
-        }
+          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-final-independent-working-projection",
+          "scope": "ORIGINAL_FORMAL_ADOPTION_AND_PERSONALLY_REVIEWED_CURRENT_IMPACT_AND_PROTECTION_NOT_OLD_LEDGER_RECOMPUTATION"
+        },
+        "current_assertions_verified": "Original partial350+390/receipt rows/native reconciliation retained; currentD HTTP6 payment/knowncommit and final6/2 graph preserved separately, with no historical receipt replay."
       },
       {
         "id": "T03",
         "historical_adoption_ref": "#/s10/8/historical_formal_adoption",
-        "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
-        "current_evidence": [],
+        "status": "SATISFIED_FORMAL_CARRY_PLUS_CURRENT_EVIDENCE_INDEPENDENTLY_ACCEPTED",
+        "current_evidence": [
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-MAIN-actual",
+          "acceptance-review.md"
+        ],
         "current_mandatory_projection": [
           "Carry original illegal discount/full discount zero native payment facts; LOG current rollback bill fixture is no new paid or zero-bill proof",
           "E-MAIN preserved posted0 and denial/audit; if affected regression needed only rollback fixture, no persistent second chain"
@@ -6644,15 +6699,22 @@
         "historical_compatibility_limit": "生产折扣/税策未批准。",
         "independent_impact_review": {
           "reviewer": "/root/acceptance_s10",
-          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
-          "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
-        }
+          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-final-independent-working-projection",
+          "scope": "ORIGINAL_FORMAL_ADOPTION_AND_PERSONALLY_REVIEWED_CURRENT_IMPACT_AND_PROTECTION_NOT_OLD_LEDGER_RECOMPUTATION"
+        },
+        "current_assertions_verified": "Original illegal-discount denial/reason and zeroinvoice without fake payment remain at formally accepted layer and final main protected values. LOG bill17 is not promoted into zero/discount evidence; productionpolicy remains excluded."
       },
       {
         "id": "T04",
         "historical_adoption_ref": "#/s10/9/historical_formal_adoption",
-        "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
-        "current_evidence": [],
+        "status": "SATISFIED_FORMAL_CARRY_PLUS_CURRENT_EVIDENCE_INDEPENDENTLY_ACCEPTED",
+        "current_evidence": [
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/D-actual",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/LOG17-actual",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-MAIN-actual",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-D-actual",
+          "acceptance-review.md"
+        ],
         "current_mandatory_projection": [
           "Carry FC1-A real two-native-backend same-refund approval serialization/one approval audit and original capacity race, not source-only",
           "D new authorized requester self-approve native denial/different approver/pending2/actual0 supports only newchain; no concurrency substitute",
@@ -6668,15 +6730,21 @@
         "historical_compatibility_limit": "新原件产品不改变退款原子性；本批并发0。",
         "independent_impact_review": {
           "reviewer": "/root/acceptance_s10",
-          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
-          "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
-        }
+          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-final-independent-working-projection",
+          "scope": "ORIGINAL_FORMAL_ADOPTION_AND_PERSONALLY_REVIEWED_CURRENT_IMPACT_AND_PROTECTION_NOT_OLD_LEDGER_RECOMPUTATION"
+        },
+        "current_assertions_verified": "Original FC1-A actual two-backend refund approval/capacity evidence retained scoped. NewD selfapproval403/differentapprover/pending2/paid0 and exact done2 plus mandatoryaudit failure propagation complement it; final stored approvals/limits unchanged."
       },
       {
         "id": "T05",
         "historical_adoption_ref": "#/s10/10/historical_formal_adoption",
-        "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
-        "current_evidence": [],
+        "status": "SATISFIED_FORMAL_CARRY_PLUS_CURRENT_EVIDENCE_INDEPENDENTLY_ACCEPTED",
+        "current_evidence": [
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/D-actual",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-MAIN-actual",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-D-actual",
+          "acceptance-review.md"
+        ],
         "current_mandatory_projection": [
           "D exact failed/verified recovery/lost HTTP response/independent committed confirmation/same actor-store-key-payload-opref retry required",
           "E-MAIN historical unknown/done/rejected; E-D newchain native funds and receipt preservation"
@@ -6691,15 +6759,30 @@
         "historical_compatibility_limit": "本批未覆盖实际HTTP响应丢失后的核实/重试和全部failed状态出口；历史终态幂等只按原范围。不得将unknown未付取消当所有失败路径PASS。",
         "independent_impact_review": {
           "reviewer": "/root/acceptance_s10",
-          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
-          "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
+          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-final-independent-working-projection",
+          "scope": "ORIGINAL_FORMAL_ADOPTION_AND_PERSONALLY_REVIEWED_CURRENT_IMPACT_AND_PROTECTION_NOT_OLD_LEDGER_RECOMPUTATION"
+        },
+        "current_assertions_verified": "CurrentD exact failed->verified_not_paid recovery->single execute discardedresponse->OUTCOME_UNKNOWN->independentdone->sameactor/store/key/payload/opref retry now proven. Exactly one real out2/credit/partial; finalD preservation complete; historicalunknown80 separate.",
+        "historical_limit_current_applicability": {
+          "historical_text_retained": true,
+          "current_resolution": "CurrentD exact failed->verified_not_paid recovery->single execute discardedresponse->OUTCOME_UNKNOWN->independentdone->sameactor/store/key/payload/opref retry now proven. Exactly one real out2/credit/partial; finalD preservation complete; historicalunknown80 separate.",
+          "superseded_only_for_assertions_supported_by": [
+            "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/D-actual",
+            "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-MAIN-actual",
+            "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-D-actual",
+            "acceptance-review.md"
+          ],
+          "scope": "Original missing-evidence words remain historically true for their old batch; specified currentplan evidence resolves only matching technical gaps. Productionpolicy and other original limits retained."
         }
       },
       {
         "id": "T06",
         "historical_adoption_ref": "#/s10/11/historical_formal_adoption",
-        "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
-        "current_evidence": [],
+        "status": "SATISFIED_FORMAL_CARRY_PLUS_CURRENT_EVIDENCE_INDEPENDENTLY_ACCEPTED",
+        "current_evidence": [
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-MAIN-actual",
+          "acceptance-review.md"
+        ],
         "current_mandatory_projection": [
           "E-MAIN preserve historical unpaid80 credit/reduced receivable/actualrefund0; D actualrefund2 is not waiver proof"
         ],
@@ -6712,15 +6795,20 @@
         "historical_compatibility_limit": "不把贷项称现金退款。",
         "independent_impact_review": {
           "reviewer": "/root/acceptance_s10",
-          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
-          "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
-        }
+          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-final-independent-working-projection",
+          "scope": "ORIGINAL_FORMAL_ADOPTION_AND_PERSONALLY_REVIEWED_CURRENT_IMPACT_AND_PROTECTION_NOT_OLD_LEDGER_RECOMPUTATION"
+        },
+        "current_assertions_verified": "Original unpaid80 credit/reduced receivable and actualrefund0 preserved in final main; currentD actualrefund2 remains a different scenario, not a waiver substitute."
       },
       {
         "id": "T07",
         "historical_adoption_ref": "#/s10/12/historical_formal_adoption",
-        "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
-        "current_evidence": [],
+        "status": "SATISFIED_FORMAL_CARRY_PLUS_CURRENT_EVIDENCE_INDEPENDENTLY_ACCEPTED",
+        "current_evidence": [
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/LOG17-actual",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-MAIN-actual",
+          "acceptance-review.md"
+        ],
         "current_mandatory_projection": [
           "LOG current real DAY_CLOSED rollback negative to cover native_error instrumentation",
           "E-MAIN original cash/WeChat reclassification/close values and native balanced adjustment retained; no old unlock"
@@ -6734,15 +6822,21 @@
         "historical_compatibility_limit": "未解锁旧close9。",
         "independent_impact_review": {
           "reviewer": "/root/acceptance_s10",
-          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
-          "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
-        }
+          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-final-independent-working-projection",
+          "scope": "ORIGINAL_FORMAL_ADOPTION_AND_PERSONALLY_REVIEWED_CURRENT_IMPACT_AND_PROTECTION_NOT_OLD_LEDGER_RECOMPUTATION"
+        },
+        "current_assertions_verified": "Original locked-dayclose/reclassification balanced entries retained; isolated current realDAY_CLOSED refusal rolled back with optionaldiagnostics on/off. Old dayclose/unlock not replayed."
       },
       {
         "id": "T08",
         "historical_adoption_ref": "#/s10/13/historical_formal_adoption",
-        "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
-        "current_evidence": [],
+        "status": "SATISFIED_FORMAL_CARRY_PLUS_CURRENT_EVIDENCE_INDEPENDENTLY_ACCEPTED",
+        "current_evidence": [
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/A-ORIGINAL",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/C-native-inventory-read-regression",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-MAIN-actual",
+          "acceptance-review.md"
+        ],
         "current_mandatory_projection": [
           "A historical actual v3/v4 pure wording accepted; current released editor/old economics read-only preserved",
           "E-MAIN quantity reversal price600 relation, separate quarantine physical return and stock graph; no old treatment/edit replay"
@@ -6757,23 +6851,32 @@
         "historical_compatibility_limit": "主链确认文书纯文字correct仍NOT_RUN；独立数量例的draft save不冒称已确认文书更正零副作用。",
         "independent_impact_review": {
           "reviewer": "/root/acceptance_s10",
-          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
-          "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
+          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-final-independent-working-projection",
+          "scope": "ORIGINAL_FORMAL_ADOPTION_AND_PERSONALLY_REVIEWED_CURRENT_IMPACT_AND_PROTECTION_NOT_OLD_LEDGER_RECOMPUTATION"
         },
         "historical_limit_current_applicability": {
-          "superseded_by": [
-            "https://github.com/Yredxin/YDental/issues/34#issuecomment-6243885093",
-            "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/A-ORIGINAL"
+          "historical_text_retained": true,
+          "current_resolution": "Formally accepted docv3->v4 purewording/release and original quantity/reversal600/quarantine physical return remain distinct. Final old document/financial/stock graph held; P1545 six actual permissionMODEL and final stock protection support bounded inventory-read impact.",
+          "superseded_only_for_assertions_supported_by": [
+            "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/A-ORIGINAL",
+            "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/C-native-inventory-read-regression",
+            "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-MAIN-actual",
+            "acceptance-review.md"
           ],
-          "scope": "Later formally accepted A-EDITOR confirmedv3 tocorrectv4 supports pure wording change with economic/stock preservation. Actual A pre and required future E post original sameSHA plus old document/price/source preservation supersede only corresponding old document/original missing evidence. Other historical limits remain at their original scope.",
-          "final_post_upgrade_evidence": "INDEPENDENT_COMPLETE_REAL_UI_SAME_ORIGINAL_SHA_VISUAL_AND_TERMINAL_PROTECTION"
-        }
+          "scope": "Original missing-evidence words remain historically true for their old batch; specified currentplan evidence resolves only matching technical gaps. Productionpolicy and other original limits retained."
+        },
+        "current_assertions_verified": "Formally accepted docv3->v4 purewording/release and original quantity/reversal600/quarantine physical return remain distinct. Final old document/financial/stock graph held; P1545 six actual permissionMODEL and final stock protection support bounded inventory-read impact."
       },
       {
         "id": "T09",
         "historical_adoption_ref": "#/s10/14/historical_formal_adoption",
-        "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
-        "current_evidence": [],
+        "status": "SATISFIED_FORMAL_CARRY_PLUS_CURRENT_EVIDENCE_INDEPENDENTLY_ACCEPTED",
+        "current_evidence": [
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/C-strict-native-final-actual",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/C-native-inventory-read-regression",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-MAIN-actual",
+          "acceptance-review.md"
+        ],
         "current_mandatory_projection": [
           "Carry original native same-company qty5 and cross-company sale/purchase/stock/posted accounting matched facts",
           "C must still prove nonempty foreign company/store access separation; main company1/store3 alone is not cross-company",
@@ -6790,15 +6893,22 @@
         "historical_compatibility_limit": "各为独立合成来源，不与W/R3拼链。",
         "independent_impact_review": {
           "reviewer": "/root/acceptance_s10",
-          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
-          "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
-        }
+          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-final-independent-working-projection",
+          "scope": "ORIGINAL_FORMAL_ADOPTION_AND_PERSONALLY_REVIEWED_CURRENT_IMPACT_AND_PROTECTION_NOT_OLD_LEDGER_RECOMPUTATION"
+        },
+        "current_assertions_verified": "Original native same-companyqty5/cross-company paired trade, physical movement and accounting formally retained; currentC nonempty foreigncompany/store segregation proven and final old stock/native links preserved. No new stock trade."
       },
       {
         "id": "T10",
         "historical_adoption_ref": "#/s10/15/historical_formal_adoption",
-        "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
-        "current_evidence": [],
+        "status": "SATISFIED_FORMAL_CARRY_PLUS_CURRENT_EVIDENCE_INDEPENDENTLY_ACCEPTED",
+        "current_evidence": [
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/C-strict-native-final-actual",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/LOG03-main-first",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-MAIN-actual",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-D-actual",
+          "acceptance-review.md"
+        ],
         "current_mandatory_projection": [
           "C mandatory broad real read/export/native attachment/content-image/token applicable paths, nonempty positive/negative and foreigncompany plus family/mixed-source legal cases",
           "Existing C prefix 8 token and10RPC actual statuses/2 placeholder image pixels support partial; HTML minimum features and remaining paths still to record",
@@ -6815,15 +6925,24 @@
         "historical_compatibility_limit": "保存实际图片响应体/类型/哈希，区分固定原生占位图和内容泄露；补新原件跨公司、患者family及混店来源反例。不放宽通用白名单。",
         "independent_impact_review": {
           "reviewer": "/root/acceptance_s10",
-          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
-          "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
-        }
+          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-final-independent-working-projection",
+          "scope": "ORIGINAL_FORMAL_ADOPTION_AND_PERSONALLY_REVIEWED_CURRENT_IMPACT_AND_PROTECTION_NOT_OLD_LEDGER_RECOMPUTATION"
+        },
+        "current_assertions_verified": "Ordinary fourrights/modelRPC/native report and content/image routes/no-invalid tokens/typedvalidtokenlegalN-A now have genuine nonempty controls; actual image200 is fixedcoreplaceholder. Explicit main attachment161 search_read list0 fills old semantic gap. Both final upgrades hold data/rights."
       },
       {
         "id": "T11",
         "historical_adoption_ref": "#/s10/16/historical_formal_adoption",
-        "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
-        "current_evidence": [],
+        "status": "SATISFIED_FORMAL_CARRY_PLUS_CURRENT_EVIDENCE_INDEPENDENTLY_ACCEPTED",
+        "current_evidence": [
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/A-ORIGINAL",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/C-main-tail",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/C-cross-company-tail-actual",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/D-actual",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-MAIN-actual",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-D-actual",
+          "acceptance-review.md"
+        ],
         "current_mandatory_projection": [
           "A oldoriginal actual UI + visual pre-upgrade PASS; E-MAIN post-upgrade actual UI still mandatory",
           "Current C dynamic bill actual200 + Chinese tofu visual FAIL must be fixed and revalidated; receipt/refund and actual amounts/identity/state per page still missing",
@@ -6843,15 +6962,20 @@
         "historical_compatibility_limit": "本批新增四份/四页仅列已查看内容；其他在途/长票面只限历史兼容子证据，币种实际USD，非税票/纸张/平台证明。",
         "independent_impact_review": {
           "reviewer": "/root/acceptance_s10",
-          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
-          "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
-        }
+          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-final-independent-working-projection",
+          "scope": "ORIGINAL_FORMAL_ADOPTION_AND_PERSONALLY_REVIEWED_CURRENT_IMPACT_AND_PROTECTION_NOT_OLD_LEDGER_RECOMPUTATION"
+        },
+        "current_assertions_verified": "Actual oldoriginal pre/post UI, repaired Chinese native bill/receipt/refund pages, newC originals andD finalrefund2 pages each reviewed with actual native amounts/identities. Initialtofu failure retained; no PDF200-only pass or realtax/bank claim."
       },
       {
         "id": "T12",
         "historical_adoption_ref": "#/s10/17/historical_formal_adoption",
-        "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
-        "current_evidence": [],
+        "status": "SATISFIED_FORMAL_CARRY_PLUS_CURRENT_EVIDENCE_INDEPENDENTLY_ACCEPTED",
+        "current_evidence": [
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-MAIN-actual",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-D-actual",
+          "acceptance-review.md"
+        ],
         "current_mandatory_projection": [
           "Carry original actual install and already committed treatment/exam/pharmacy native full graph; do not splice scratchD into mainpatient1",
           "Final E-MAIN and E-D same final product with distinct baselines/native upgrade/module/schema/invariants/affected tests; P1 repair-u is separate and insufficient"
@@ -6866,15 +6990,29 @@
         "historical_compatibility_limit": "主链文书分支阻断，带已提交数据的S10-only升级因Web失败NOT_RUN；不能以安装或比较器PASS替代。",
         "independent_impact_review": {
           "reviewer": "/root/acceptance_s10",
-          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
-          "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
+          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-final-independent-working-projection",
+          "scope": "ORIGINAL_FORMAL_ADOPTION_AND_PERSONALLY_REVIEWED_CURRENT_IMPACT_AND_PROTECTION_NOT_OLD_LEDGER_RECOMPUTATION"
+        },
+        "current_assertions_verified": "Original actual install and committed upstream exam/treatment/pharmacy graph retained at original layers. Final main andscratch each actualS10-only data-bearing upgrade sameproduct/native0/independentbefore-after-schema-ACL-protection and postreads/UI complete; no emptyinstall substitute or crossDB splicedpatient chain.",
+        "historical_limit_current_applicability": {
+          "historical_text_retained": true,
+          "current_resolution": "Original actual install and committed upstream exam/treatment/pharmacy graph retained at original layers. Final main andscratch each actualS10-only data-bearing upgrade sameproduct/native0/independentbefore-after-schema-ACL-protection and postreads/UI complete; no emptyinstall substitute or crossDB splicedpatient chain.",
+          "superseded_only_for_assertions_supported_by": [
+            "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-MAIN-actual",
+            "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-D-actual",
+            "acceptance-review.md"
+          ],
+          "scope": "Original missing-evidence words remain historically true for their old batch; specified currentplan evidence resolves only matching technical gaps. Productionpolicy and other original limits retained."
         }
       },
       {
         "id": "T13",
         "historical_adoption_ref": "#/s10/18/historical_formal_adoption",
-        "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
-        "current_evidence": [],
+        "status": "SATISFIED_FORMAL_CARRY_PLUS_CURRENT_EVIDENCE_INDEPENDENTLY_ACCEPTED",
+        "current_evidence": [
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-MAIN-actual",
+          "acceptance-review.md"
+        ],
         "current_mandatory_projection": [
           "E-MAIN independent270+200/300 chronological+ID native partial270+30, selected-only and frontdesk3 retained; D6 is unrelated"
         ],
@@ -6889,15 +7027,22 @@
         "historical_compatibility_limit": "后续card5/跨日11为独立明确付款，不将最终余额误写为最初170。",
         "independent_impact_review": {
           "reviewer": "/root/acceptance_s10",
-          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
-          "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
-        }
+          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-final-independent-working-projection",
+          "scope": "ORIGINAL_FORMAL_ADOPTION_AND_PERSONALLY_REVIEWED_CURRENT_IMPACT_AND_PROTECTION_NOT_OLD_LEDGER_RECOMPUTATION"
+        },
+        "current_assertions_verified": "Original patient2/store3 invoices4(270)/6(200),selectedpayment4 historicalallocation270+30/date-ID and onlynew selection kept. Payment3/5/frontdesk3 are separate subcases; current balance not inferred as170. Final main immutable old native graph protection supports carry."
       },
       {
         "id": "T14",
         "historical_adoption_ref": "#/s10/19/historical_formal_adoption",
-        "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
-        "current_evidence": [],
+        "status": "SATISFIED_FORMAL_CARRY_PLUS_CURRENT_EVIDENCE_INDEPENDENTLY_ACCEPTED",
+        "current_evidence": [
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/C-main-tail",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/C-strict-native-final-actual",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-MAIN-actual",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/LOG03-final-native-UI",
+          "acceptance-review.md"
+        ],
         "current_mandatory_projection": [
           "C genuine ordinary four permission combinations, lawful current scopes/nonempty summary/foreign isolation/revoked oldpage next request",
           "Current C grant snapshots and later checkpoints prove prefix assertions ran but do not provide retained HTML semantic facts; record necessary two target GET DOM predicates without whole replay",
@@ -6915,15 +7060,22 @@
         "historical_compatibility_limit": "普通跨店财务摘要/旧页只复用历史限定证据；新增原件直接HTTP负向图片未完整取证，见T10。",
         "independent_impact_review": {
           "reviewer": "/root/acceptance_s10",
-          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
-          "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
-        }
+          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-final-independent-working-projection",
+          "scope": "ORIGINAL_FORMAL_ADOPTION_AND_PERSONALLY_REVIEWED_CURRENT_IMPACT_AND_PROTECTION_NOT_OLD_LEDGER_RECOMPUTATION"
+        },
+        "current_assertions_verified": "Original ordinary frontdesk payment subassertions kept at original scope; actual currentC fourread/export rights, lawful scope/nonempty summaries/foreign isolation and realoldpage revocation complete. Final workbench/original/API compatibility/native ordinary59 WarningDialog deny passed."
       },
       {
         "id": "T15",
         "historical_adoption_ref": "#/s10/20/historical_formal_adoption",
-        "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
-        "current_evidence": [],
+        "status": "SATISFIED_FORMAL_CARRY_PLUS_CURRENT_EVIDENCE_INDEPENDENTLY_ACCEPTED",
+        "current_evidence": [
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/A-ORIGINAL",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/C-tax-and-finite-configuration-actual",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-MAIN-actual",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-D-actual",
+          "acceptance-review.md"
+        ],
         "current_mandatory_projection": [
           "A oldoriginal immutable byte/content PASS pre-upgrade; historical600 frozen after620 and rejected50 native no-credit facts retained",
           "E-MAIN after-upgrade original UI/price/source/refund rejection preservation; no repricing/reprinting stored original"
@@ -6939,23 +7091,33 @@
         "historical_compatibility_limit": "留存后合法同源文书/允许主档或模板变更再重取尚缺；不能把退款后的重取当文书更正链通过。",
         "independent_impact_review": {
           "reviewer": "/root/acceptance_s10",
-          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
-          "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
+          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-final-independent-working-projection",
+          "scope": "ORIGINAL_FORMAL_ADOPTION_AND_PERSONALLY_REVIEWED_CURRENT_IMPACT_AND_PROTECTION_NOT_OLD_LEDGER_RECOMPUTATION"
         },
         "historical_limit_current_applicability": {
-          "superseded_by": [
-            "https://github.com/Yredxin/YDental/issues/34#issuecomment-6243885093",
-            "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/A-ORIGINAL"
+          "historical_text_retained": true,
+          "current_resolution": "Original600 frozen after620/rejected50 no-credit facts held; same original pre/post27665/059287 and releaseddocv4/sourceprice preserved. Pcc1 native unownedtax rollback+normal newcompany/chart/Ccatalog/oldownedtax preserved supports only bounded taxhook compatibility.",
+          "superseded_only_for_assertions_supported_by": [
+            "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/A-ORIGINAL",
+            "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/C-tax-and-finite-configuration-actual",
+            "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-MAIN-actual",
+            "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-D-actual",
+            "acceptance-review.md"
           ],
-          "scope": "Later formally accepted A-EDITOR confirmedv3 tocorrectv4 supports pure wording change with economic/stock preservation. Actual A pre and required future E post original sameSHA plus old document/price/source preservation supersede only corresponding old document/original missing evidence. Other historical limits remain at their original scope.",
-          "final_post_upgrade_evidence": "INDEPENDENT_COMPLETE_REAL_UI_SAME_ORIGINAL_SHA_VISUAL_AND_TERMINAL_PROTECTION"
-        }
+          "scope": "Original missing-evidence words remain historically true for their old batch; specified currentplan evidence resolves only matching technical gaps. Productionpolicy and other original limits retained."
+        },
+        "current_assertions_verified": "Original600 frozen after620/rejected50 no-credit facts held; same original pre/post27665/059287 and releaseddocv4/sourceprice preserved. Pcc1 native unownedtax rollback+normal newcompany/chart/Ccatalog/oldownedtax preserved supports only bounded taxhook compatibility."
       },
       {
         "id": "T16",
         "historical_adoption_ref": "#/s10/21/historical_formal_adoption",
-        "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
-        "current_evidence": [],
+        "status": "SATISFIED_FORMAL_CARRY_PLUS_CURRENT_EVIDENCE_INDEPENDENTLY_ACCEPTED",
+        "current_evidence": [
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/B-actual",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/LOG17-actual",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-MAIN-actual",
+          "acceptance-review.md"
+        ],
         "current_mandatory_projection": [
           "B current cccbf57 six MODEL+six real RPC independent scoped PASS; no need repeat on QWeb-only change",
           "Carry historical dual times and FC1/FC2 specified close/refund/reclass serialization only within original source",
@@ -6971,8 +7133,20 @@
         "historical_compatibility_limit": "普通单据/审计六项write/unlink新脚本仍旧500断言，与真实350冲突，静态BLOCKED未执行；需从真实marker核金额后补纯负向，不重收款。",
         "independent_impact_review": {
           "reviewer": "/root/acceptance_s10",
-          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
-          "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
+          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-final-independent-working-projection",
+          "scope": "ORIGINAL_FORMAL_ADOPTION_AND_PERSONALLY_REVIEWED_CURRENT_IMPACT_AND_PROTECTION_NOT_OLD_LEDGER_RECOMPUTATION"
+        },
+        "current_assertions_verified": "Current actual ordinary59 sixMODEL+sixauthenticatedRPC legalchangedfield probes hit native correctprotection with independent preservation, replacing old500static mismatch only. Original dualtimes/locks/history retained; actual DAY_CLOSED/auditfailure propagation and final immutable oldaudit/source/payment protection complete.",
+        "historical_limit_current_applicability": {
+          "historical_text_retained": true,
+          "current_resolution": "Current actual ordinary59 sixMODEL+sixauthenticatedRPC legalchangedfield probes hit native correctprotection with independent preservation, replacing old500static mismatch only. Original dualtimes/locks/history retained; actual DAY_CLOSED/auditfailure propagation and final immutable oldaudit/source/payment protection complete.",
+          "superseded_only_for_assertions_supported_by": [
+            "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/B-actual",
+            "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/LOG17-actual",
+            "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-MAIN-actual",
+            "acceptance-review.md"
+          ],
+          "scope": "Original missing-evidence words remain historically true for their old batch; specified currentplan evidence resolves only matching technical gaps. Productionpolicy and other original limits retained."
         }
       }
     ],
@@ -6981,160 +7155,187 @@
         "id": "LOG-01",
         "definition_ref": "#/logs/0",
         "historical_status": "PARTIAL_OFFLINE_ONLY",
-        "status": "PARTIAL_HISTORICAL_AND_CURRENT_LAYERS_RETAINED",
+        "status": "SATISFIED_REQUIRED_LAYERS_INDEPENDENTLY_ACCEPTED",
         "current_evidence": [
           "#/framework6",
-          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json",
-          "acceptance-review.md"
+          "acceptance-review.md",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/LOG17-actual",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/D-bootstrap-first-failure"
         ],
         "retained_scope": "Native framework initialization; actual A process PID/config/logger levels; prior repeated-initialization PURE retained.",
-        "remaining_assertions": "Merge actual lifecycle/config observations and independent final current log review."
+        "remaining_assertions": "None within this plan required layers; historical scope/limitations remain.",
+        "current_layered_resolution": "Six-framework actual native initialization + actual current app config/lifecycle/seal; repeated-init and compatibility historical PURE unchanged."
       },
       {
         "id": "LOG-02",
         "definition_ref": "#/logs/1",
         "historical_status": "PARTIAL_OFFLINE_ONLY",
-        "status": "PASS_SCOPED_TWO_REAL_IDENTITIES_READ_REQUESTS",
+        "status": "SATISFIED_REQUIRED_LAYERS_INDEPENDENTLY_ACCEPTED",
         "current_evidence": [
           "#/framework6",
-          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json",
           "acceptance-review.md",
           "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/LOG02-actual"
         ],
         "retained_scope": "Prior context isolation PURE retained; A real request lineage available.",
-        "remaining_assertions": "Actual native server intervals overlapped41304042ns; actor6 versus7/request IDs/traces independently verified. This proves log isolation for two read requests, not financial competition."
+        "remaining_assertions": "None within this plan required layers; historical scope/limitations remain.",
+        "current_layered_resolution": "Actual D two HTTP read server intervals overlap41304042ns actor6vs7 distinct trace/request; actual normal/denied MODEL/HTTP context and null context retained. Not a financial race."
       },
       {
         "id": "LOG-03",
         "definition_ref": "#/logs/2",
         "historical_status": "PARTIAL_STATIC_OFFLINE_ONLY",
-        "status": "PARTIAL_HISTORICAL_AND_CURRENT_LAYERS_RETAINED",
+        "status": "SATISFIED_REQUIRED_LAYERS_INDEPENDENTLY_ACCEPTED",
         "current_evidence": [
           "#/framework6",
-          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json",
-          "acceptance-review.md"
+          "acceptance-review.md",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/LOG03-final-native-UI",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/LOG17-actual",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/C-strict-native-final-actual"
         ],
         "retained_scope": "Framework native two-language exact exception serialization and one real RPC accepted; A normal UI actual.",
-        "remaining_assertions": "Applicable actual403/409/normalform303 accepted. UI-only attempt2 preblocked /mail/store fourth OTHER; exact historical name not retained. Production readonlyinitialize_counters narrow current tool fix required; native WarningDialog still not proved. No repeated filteredempty/A/upgrade."
+        "remaining_assertions": "None within this plan required layers; historical scope/limitations remain.",
+        "current_layered_resolution": "Actual native framework NameError/TypeError/two-language serialization; B native AccessError; D403/409; C303; current ordinary59 genuine get_views/WarningDialog exact199B message and JSONRPCid0; final post81a6."
       },
       {
         "id": "LOG-04",
         "definition_ref": "#/logs/3",
         "historical_status": "PASS_SCOPED_SYNTHETIC_ONLY",
-        "status": "PARTIAL_HISTORICAL_AND_CURRENT_LAYERS_RETAINED",
+        "status": "SATISFIED_REQUIRED_LAYERS_INDEPENDENTLY_ACCEPTED",
         "current_evidence": [
           "#/framework6",
-          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json",
-          "acceptance-review.md"
+          "acceptance-review.md",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/LOG17-actual",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/LOG03-main-first"
         ],
         "retained_scope": "Framework native chained exception plus accepted cause/context/secondary PURE; current first failure and secondary exit separately retained.",
-        "remaining_assertions": "Current primary/secondary evidence cross-reference and final independent review; no replay of unaffected synthetic tests."
+        "remaining_assertions": "None within this plan required layers; historical scope/limitations remain.",
+        "current_layered_resolution": "Original exact cause/context/secondary fixtures accepted; current first errors and secondary collection failures preserved separately. No new fault package needed."
       },
       {
         "id": "LOG-05",
         "definition_ref": "#/logs/4",
         "historical_status": "PARTIAL_OFFLINE_ONLY",
-        "status": "PARTIAL_HISTORICAL_AND_CURRENT_LAYERS_RETAINED",
+        "status": "SATISFIED_REQUIRED_LAYERS_INDEPENDENTLY_ACCEPTED",
         "current_evidence": [
           "#/framework6",
-          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json",
           "acceptance-review.md",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/B-actual",
           "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/D-actual"
         ],
         "retained_scope": "Stored facts and client outcome separated in current evidence.",
-        "remaining_assertions": "B rollback and real D failed/recover/UNKNOWN-before-independent-done/exact-retry independently accepted; final cross-index log-row review pending."
+        "remaining_assertions": "None within this plan required layers; historical scope/limitations remain.",
+        "current_layered_resolution": "B fresh MODEL rollback and D actual client UNKNOWN -> independent committed native done -> exact idempotent retry. Never infer commit from app run.end."
       },
       {
         "id": "LOG-06",
         "definition_ref": "#/logs/5",
         "historical_status": "PARTIAL_STATIC_OFFLINE_ONLY",
-        "status": "INDEPENDENT_SCOPED_MODEL_PASS_FINAL_AGGREGATE_PENDING",
+        "status": "SATISFIED_REQUIRED_LAYERS_INDEPENDENTLY_ACCEPTED",
         "current_evidence": [
           "#/framework6",
-          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json",
           "acceptance-review.md",
-          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/LOG17-actual"
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/LOG17-actual",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/D-actual",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/LOG03-final-native-UI"
         ],
         "retained_scope": "Framework mandatory audit exception propagation and environment identity accepted.",
-        "remaining_assertions": "Actual ON/OFF same five outcomes/three RR eleven-table captures exact/0commit; first pair1 and OFF-only0 retained. HTTP/native committed D remains separate accepted layer; final native UI and aggregate pending."
+        "remaining_assertions": "None within this plan required layers; historical scope/limitations remain.",
+        "current_layered_resolution": "Diagnostics SOURCE no ORM/uid/flush/lock/commit; actual ON/OFF two processes exact economic outcomes and independent eleven-table before/after; mandatory audit failure native rollback. Current native UI now filled."
       },
       {
         "id": "LOG-07",
         "definition_ref": "#/logs/6",
         "historical_status": "PASS_SCOPED_PARENT_ONLY",
-        "status": "PARTIAL_HISTORICAL_AND_CURRENT_LAYERS_RETAINED",
+        "status": "SATISFIED_REQUIRED_LAYERS_INDEPENDENTLY_ACCEPTED",
         "current_evidence": [
           "#/framework6",
-          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json",
-          "acceptance-review.md"
+          "acceptance-review.md",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-MAIN-actual",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/LOG03-final-native-UI",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/owned-user-review-entry"
         ],
         "retained_scope": "Framework and A actual independent parent exits and seals; current ordinary failed parent records retained.",
-        "remaining_assertions": "Aggregate current owned process exit/seal results; no native crash injection into protected business."
+        "remaining_assertions": "None within this plan required layers; historical scope/limitations remain.",
+        "current_layered_resolution": "Accepted safe synthetic normal/error/timeout/signal independent parent tests plus actual app parents and current Firefox PID/birth/nativeexit supervision. Historical C old Firefox exit gap retained."
       },
       {
         "id": "LOG-08",
         "definition_ref": "#/logs/7",
         "historical_status": "PARTIAL_OFFLINE_ONLY",
-        "status": "PARTIAL_HISTORICAL_AND_CURRENT_LAYERS_RETAINED",
+        "status": "SATISFIED_REQUIRED_LAYERS_INDEPENDENTLY_ACCEPTED",
         "current_evidence": [
           "#/framework6",
-          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json",
-          "acceptance-review.md"
+          "acceptance-review.md",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/B-actual",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/D-actual",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/LOG17-actual",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/LOG03-final-native-UI"
         ],
         "retained_scope": "Accepted strict JSONL synthetic cases; A real complete process validation available.",
-        "remaining_assertions": "Validate final actual complete logs/seals without rewriting original bad evidence."
+        "remaining_assertions": "None within this plan required layers; historical scope/limitations remain.",
+        "current_layered_resolution": "Original strict JSONL invalid-fixture acceptance retained; actual reviewed process logs/seals independently validated including lastUI7records9319B VALID. OFF JSON absence is expected, never integrity PASS."
       },
       {
         "id": "LOG-09",
         "definition_ref": "#/logs/8",
         "historical_status": "PARTIAL_STATIC_OFFLINE_ONLY",
-        "status": "PARTIAL_HISTORICAL_AND_CURRENT_LAYERS_RETAINED",
+        "status": "SATISFIED_REQUIRED_LAYERS_INDEPENDENTLY_ACCEPTED",
         "current_evidence": [
           "#/framework6",
-          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json",
-          "acceptance-review.md"
+          "acceptance-review.md",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/final_acceptance"
         ],
         "retained_scope": "Accepted synthetic privacy/injection cases; actual A native privacy attestation and restricted driver environment.",
-        "remaining_assertions": "Final public export scan and manual review of current evidence boundary."
+        "remaining_assertions": "None within this plan required layers; historical scope/limitations remain.",
+        "current_layered_resolution": "Independent final six public files945109B/seven finite patterns zero matches plus manual full-diff review;172 local evidence references/JSON fragments valid; prospective Issue body3869B similarly reviewed. Scan snapshot09c863c4139b7f08d4623f69fd3d7ded95bf54ae48e244c18b7113df797256ac; subsequent status/ref/Issue text changes receive targeted recheck. No universal unknown-secret absence claim; no credential/raw clinical content read or exported."
       },
       {
         "id": "LOG-10",
         "definition_ref": "#/logs/9",
         "historical_status": "PARTIAL_OFFLINE_ONLY",
-        "status": "PARTIAL_HISTORICAL_AND_CURRENT_LAYERS_RETAINED",
+        "status": "SATISFIED_REQUIRED_LAYERS_INDEPENDENTLY_ACCEPTED",
         "current_evidence": [
           "#/framework6",
-          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json",
-          "acceptance-review.md"
+          "acceptance-review.md",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/LOG17-actual",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/final-runtime-summary",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/owned-user-review-entry"
         ],
         "retained_scope": "Accepted synthetic bounded writing/rotation; current resource ledger retained.",
-        "remaining_assertions": "Actual one ON/OFF MODEL pair1.369984120s/1.331426188s,17events24203B vs0; original synthetic two-writer evidence retained. Final retained-package stat-only storage pending; no SLA or financial competition claim."
+        "remaining_assertions": "None within this plan required layers; historical scope/limitations remain.",
+        "current_layered_resolution": "Original two-writer/rotation/space-failure synthetic scope retained; actual ON1.369984120s24203B17events vs OFF1.331426188s0B0events, identical business. One pair is not SLA.  Final independent stat13roots current276033792B/all427932944B well under current384MiB/global1GiB90percent; logicalbytes not physicalusage. Main60slifecycle independently passed, scratchlauncherSOURCEonly."
       },
       {
         "id": "LOG-11",
         "definition_ref": "#/logs/10",
         "historical_status": "PASS_SCOPED_SYNTHETIC_SNAPSHOT_ONLY",
-        "status": "PARTIAL_HISTORICAL_AND_CURRENT_LAYERS_RETAINED",
+        "status": "SATISFIED_REQUIRED_LAYERS_INDEPENDENTLY_ACCEPTED",
         "current_evidence": [
           "#/framework6",
-          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json",
+          "locator-review.md",
           "acceptance-review.md"
         ],
         "retained_scope": "Accepted independent fresh locator 71.282 seconds retained at original snapshot.",
-        "remaining_assertions": "Assess current source/index changes for impact; fresh independent locator only where the changed references require it."
+        "remaining_assertions": "None within this plan required layers; historical scope/limitations remain.",
+        "current_layered_resolution": "Original fresh independent locator71.282s12/12 hashes retained at that snapshot; native query/index format not changed. This producer-aware reviewer does not claim a fresh locator of all current incidents. No fresh rerun of this plan entire private incident collection; prior fresh locator71.282s/12hashes remains SYNTHETIC at its original source. Current timeline/schema/query/index source unchanged."
       },
       {
         "id": "LOG-12",
         "definition_ref": "#/logs/11",
         "historical_status": "BLOCKED_NOT_RUN",
-        "status": "PARTIAL_HISTORICAL_AND_CURRENT_LAYERS_RETAINED",
+        "status": "SATISFIED_REQUIRED_LAYERS_INDEPENDENTLY_ACCEPTED",
         "current_evidence": [
           "#/framework6",
-          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json",
-          "acceptance-review.md"
+          "acceptance-review.md",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/D-actual",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/LOG17-actual",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/LOG03-final-native-UI",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-MAIN-actual",
+          "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/E-D-actual"
         ],
         "retained_scope": "A real normal/browser/committed-RO lineage; native synthetic program classification historical scope retained.",
-        "remaining_assertions": "Normal D committed6/2, B/C native denial, isolated actual program exception and dual upgrades now actual, main post original real browser done; native WarningDialog and final aggregate pending."
+        "remaining_assertions": "None within this plan required layers; historical scope/limitations remain.",
+        "current_layered_resolution": "A/E real normal UI+state, D real committed6/2, B/C real denials, isolated actual RuntimeError MODEL+rollback, final genuine native WarningDialog and process closure; synthetic/program/native commit layers explicitly separate."
       }
     ],
     "safety": {
@@ -7145,7 +7346,7 @@
       "reviewer": "/root/acceptance_s10",
       "current_tool_refusal": null
     },
-    "runtime_test_commit": "4e0dc04489bd14b321c7a43c919fbfc8be76076b",
+    "runtime_test_commit": "b9527b89574e9fc0da823bea1c15885913f3e738",
     "runtime_attempts": [
       {
         "stage": "existing_reader_native_administration",
@@ -7206,8 +7407,34 @@
     },
     "source_product_candidate": "cc1a395a8254a0b6c2017ceedd9a351d095c590a",
     "scratch_native_admission_ref": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/scratch-native-admission",
-    "current_C_preflight": "C all required ordinary role/read-export/family/cross-company/native guard evidence independently accepted. Main explicit filteredempty done once; new59 bot metadata limited explanation independently accepted. Real final dual upgrades passed; native backend UI-only boot preblock is separate LOG03 ordinary tool defect.",
+    "current_C_preflight": "All required real C evidence independently accepted and both final data-bearing upgrades preserved it. New59 bot initialization is limited SOURCE+actual state/message/time proof; physical before-bot-state uncaptured remains a historical limit. NativeWarningDialog now independently passed on Tb952; old OTHER names never rewritten as actually observed.",
     "additional_product_impact": "P1545 common inventory system unmanaged read actual6MODEL plus native company creation passed; mutations/ordinary managed restrictions held. Pcc1 default-tax compatibility actual unowned native hooks rollback, controlled native catalog creation in five actual C fees, old owned tax rows/relations preserved. T08/T09/T15 carry retains historical scope; final dual data upgrades and affected regression remain mandatory.",
-    "current_engineering_limits_ref": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/current_engineering_limits"
+    "current_engineering_limits_ref": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/current_engineering_limits",
+    "final_coverage": {
+      "finance_rows": 22,
+      "LOG_rows": 12,
+      "evidence_cases": 19,
+      "these_are_overlapping_requirement_structures_not_test_counts": true,
+      "independent_reviewer": "/root/acceptance_s10",
+      "status": "COMPLETE_INDEPENDENT_TECHNICAL_ACCEPTANCE",
+      "historical_ledger_recomputed": false,
+      "new_financial_race_claimed": false,
+      "independent_review_ref": {
+        "path": "docs/reports/s10-log-and-closeout-v2-r12/acceptance-review.md",
+        "bytes": 289044,
+        "sha256": "bd08dd3cf8cada2d5a5e4c21a73b691d5de2058587e9e452b52f54d4766efeea",
+        "reviewer": "/root/acceptance_s10",
+        "conclusion": "TECHNICAL_PASS_S10_PLAN_REQUIRED_LAYERS",
+        "historical_limitations_retained": true
+      }
+    },
+    "final_acceptance": {
+      "path": "docs/reports/s10-log-and-closeout-v2-r12/acceptance-review.md",
+      "bytes": 289044,
+      "sha256": "bd08dd3cf8cada2d5a5e4c21a73b691d5de2058587e9e452b52f54d4766efeea",
+      "reviewer": "/root/acceptance_s10",
+      "conclusion": "TECHNICAL_PASS_S10_PLAN_REQUIRED_LAYERS",
+      "historical_limitations_retained": true
+    }
   }
 }

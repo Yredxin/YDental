@@ -1010,3 +1010,68 @@ E-MAIN-UPGRADE-RESULT SHA256 `dd8a4cb4d99f6a938b6ffebab51c6a9a373deea6ebf4d24be4
 新工具 diff 只为 LOG03 当前身份允许该确名：两项 item、仅 filter_id_by_tab_id_by_record_type、mail.message/discuss.channel 两类型、bookmark/notification/chat/channel/meeting 的正常默认 filter 有限映射；其他 handler、模型、额外键/data ID/不符 filter 仍拒。安全诊断只多识别这一公开静态名字，不导出 body/query/cookie/参数值。最终 browser SHA256 `bf3e6b655d5de4b82908d268c25e5c2b0ff5459b7e0df4c631a7a77d2df7657e` / test SHA256 `170678285b474de2f9c0d8df91edbeb7227e4ad0a04ff83660b64580498d63d1` 已独读；新增 1 个有意义的 PURE guard case 及八种非法变体仅保工具边界，不能冒业务 UI PASS。没有预放 websocket on_closed/peek 或泛化 mail routes。
 
 SOURCE READY 的范围只支持下一次绑定真实当前 main 状态的精确 UI-only once，保原两个 UI 失败 latch/事实；不 ActorRPC、不重 filtered-empty、E后旧原件、不重双升级/资金。实际 normal59 native WarningDialog、真实 RPC/UI 消息和 PID/birth/退出以及后续保护，仍须下一次真实执行和独立核验。当前累计 45 Odoo / 192 target RO / 516 HTTP / 11 Firefox / 13 original GET，历史计数与原期限不抹除。
+
+
+## YD-S10-TECHNICAL-CLOSEOUT-V1｜最终原生 UI、后核与 owned 入口独立验收（阶段签署，最终公开归并仍待核）
+
+本节审查者仍为 `/root/acceptance_s10`，未实现被验产品、浏览器、runner、私有 observer 或 review-service。亲自审查本节所列实际原件、固定源码和安全元数据；未连接数据库、启动应用、发送 HTTP/RPC、运行浏览器、读取凭据 provider 或重放资金/旧文书/原件生成。实际执行者为 `/root/tester_s10`。本节新增运行固定产品 P=`cc1a395a8254a0b6c2017ceedd9a351d095c590a`、工具/测试 T=`b9527b89574e9fc0da823bea1c15885913f3e738`；前节双 E 实际 T=`4e0dc04489bd14b321c7a43c919fbfc8be76076b`，不随文档/工具提交追改。以下签署限定实际范围，最终六份公开文件的逐行归并、导出扫描与全 S10 技术关闭结论另列，尚不由本节自行宣告。
+
+### LOG-03 最后一项真实 native WarningDialog：限定 PASS
+
+1. 已独核正常 ordinary user59、partner65、store1 的原生后端深链 `ydental.access.audit/228`。本次确到 Odoo 的方法是 `get_views`，其原生请求 record IDs 为 `[]`，导航目标为228；不能把它写成成功读取 audit228 正文或 `read([228])`。实际 JSONRPC request/response ID 均0，HTTP200原生错误 envelope 为 `odoo.exceptions.AccessError`。受限0600原件中的 `native_arguments == [native_message]`，199B原生权限消息与实际 WarningDialog body 逐值相同，二者 SHA256 均 `6d7239df66105af0664fa461261b3424d0fc00d5efd037cbcc45ccbbea169622`。消息含原生 audit 模型访问及组权限说明；本人实际校验文字、参数、模型/方法、目标、双id与摘要对应，不只采 producer 的相等布尔。
+2. 原件在 `.local/s10-technical-closeout-v1/LOG03-UI-counter-boot-17789855464c/native-browser/`：`d97034f15b82484a9accd38e2bcef965.current-native-dialog.json` 指向仅原生异常消息/参数与 UI 文字的两个私有最小文件；无 headers、cookie、debug traceback、成功记录正文。本人核文件0600，并亲看 `binary-artifacts/0d63ab66ca0147cf9e763b00ad0d3aaf.redacted-ui.png`：标准 Access Error/Close 对话框，正文遮罩。截图正文不用于猜测消息，实际文字证据来自上述私有对照。没有手工 DOM/dialog、注入 ORM、伪响应或注入认证。
+3. 实际 returned 索引 `LOG03-UI-ONLY-COUNTER-BOOT-RETURNED.json` SHA `75710279672a9ef8c19bb64b82927bc80ae25b61461292a35f6bf11240dc6957`。`filtered_empty_rpc_replayed=false`，未重放已采 attachment161 list0、Epost原件或任一模块升级。原始 UI-only失败 latch、已知 `/mail/store` 预拦和第四名 `OTHER` 缺失限制全部保留；新增正常 readonly counter handler 的 SOURCE 证明不反签旧第四名已实际观测。
+4. 本次 Firefox PID2041973/birth80729569/parent2041960 的实际 PW native exit0/signal null，与本 UI 窗口独立父监督已观测 PID/birth 唯一交集一致；其 node/Firefox 后代无幸存，watch_errors=[]，未杀未知进程。不能用本次证明追补历史 C 旧浏览器未采的具体 native PID/exit。浏览器实际23个 routed requests/23 responses、pageerror0；原始有界技术记录保留，未输出认证/请求负载。
+5. owned Odoo `application-main-service-c917086e` PID2041946：单一 child.start→parent.end0/None，时间窗1792331301508658237→1792331354809598534ns。本人对该实际 JSONL 重跑既有 `validate_jsonl`：VALID，7 records/9319B，SHA `c7e1937fea4d9252470b4ca22a23fe2ec13efa1dbbe838adeddef4f02fd10b99`，无 defects；seal/parent/returned一致。run.end 不被当作业务提交。
+6. 完整后核实际 wrapper exit0，`main-final-LOG03-completion-E-terminal-verified.json` SHA `81a6b422d7d7f3e2943d6e1b5e591c1b53c38676b1ba1de2dcb6eea064a1672c`。本人在已保存原始 observed 上离线重跑全部原 post-query assertions，不连接 DB、不改 observer/raw：39域756行、原1193条旧审计摘要及后续原前缀、组/公司/权限、税产品/库存、旧文书/版本/释放状态、两原件文件、模块/schema、两 view 整行、user59/bot有限实证、audit228全文摘要皆与已签06e2前态一致。只有1272–1274三条普通59 accepted login/login.scope125/store.switch1，以及现有限定三字段会话投影多一个59/store1/revision1；旧投影 Counter 无丢失。该查询不含 session ID/token，不能据三字段投影声称已验证所有旧 session 秘密字段。旧 profile/bot physical-before-state未采限制保持。
+
+本人一次离线复核先因把 directory 构造成相对路径触发 `is_relative_to` 断言；改用原实际 observer 的绝对目录构造后全部原断言通过。首离线命令/错误保留在工具记录，0 DB/HTTP/业务动作，未修改业务原件；不能把此验收后处理错误写成实际 RO 或产品失败。查看截图的首本地路径漏 `binary-artifacts`，仅更正现存文件路径后查看，无重截图/重请求。
+
+**裁定：LOG-03 本次真实原生 UI 与完整后核限定 PASS，补齐此前尚缺的 WarningDialog 层。** 原生 NameError/TypeError、双语言序列化沿原已采 native framework6；本次不以另一个 RuntimeError 替代它们。实际 B403、D403/409、C303与程序 MODEL/事务/真实提交各证据层按既有签署分列，不能把当前一个对话框说成重验所有分支。
+
+### 当前可复现 owned 入口：一次 main60s 实际生命周期限定 PASS
+
+- 已审并固定现有私有入口 `review-owned-service.py` SHA `72ff7c25a994c8367c6a1b9a6edddf99d96d5aee6bfa6464ff38e2af01873168`，正常 gate/STOP/budget/runner flock/候选与 target。只启动既有 owned 测试服务，不派 fixture、报告生成、资金、浏览器或 HTTP 业务；TTL60–1200s，包含启动在内总上限1200s，首异常与 finally 回执分开。界面操作要求只读，但服务本身不会重新定义用户权限或强制变成只读数据库。
+- 本次唯一 actual smoke 是 main，命令索引 `owned-review-lifecycle-main60-command.json` SHA `d5e7df96726dfa74e4c1590bdd5d5f315c385bae8d9f68519906cab368a3bfd9`，wrapper `execute-owned-main-review60.py` SHA `2939216c9b3a9c8d2c62f75a024ab5cf9e91ec52baeed591866243e66d0ce6b1`。真实 wrapper PID2044264 exit0/63.354074478s；没有额外业务 HTTP、Firefox、凭据导出或资金动作。scratch 同函数入口只 SOURCE 核验，未运行其 smoke，不冒称两目标入口都在本次启动过。
+- ready `owned-review-main-62d126796d20-ready.json` SHA `d4b31f34a16e08c6d9bbc773354c4d15732fd5e7fd9cd990aa7c7a7bd0006c97`：实际 owned PID2044392，main localhost18410，明确只在该主机 loopback 可访问；到期 UTC2026-10-18T13:52:34.753739+00:00 / Singapore2026-10-18T21:52:34.753739+08:00。不是其他机器天然可访问的公开 URL。
+- closed `owned-review-main-62d126796d20-closed.json` SHA `82a60a44dd57f04a30243b63696ea55c09bcb9f9a6ce98e75e5c041a587632c9`：13:52:35.174004Z CLOSED_NORMALLY/native0/2records/sealverified。`application-main-service-4d212dec` 单一 parent.end2044392/0/None，1792331493231981862→1792331555169297208ns。本人复验实际2-record JSONL为VALID，无缺陷，并在当前 `/proc` 核2044392不存在。服务现已停止，不能把已过期 ready 当作仍可打开。
+- 当前调用仍须在既有 scope 真期限、固定源码/配置和实际工具权限内，用该 owned 入口正常启动；不能裸 odoo CLI、启共享服务、换入口重放被拒请求，不能从此建立常驻/生产服务。最终用户只读复现另给实际角色、门店、菜单和合成 ID，不要求再收6/退2、生成原件、编辑旧文书或重日结。
+
+### LOG-10 最终保全存储：stat-only 限定 PASS
+
+实际执行者最终 `final-runtime-owned-and-storage-stat.json` SHA `96be59f049215651d1eb11892fc18b72c005b7208123d60699073116864e5710` 采于13:52:51.675176Z：两测试端口18410/18411 `ss` 只表头无 listener、runner flock可用、owned PID不存在；累计 Odoo47 / targetRO195 / HTTP539 / Firefox12 / originalGET13，事故RO2/create2/maintenance1原值保留。review服务正常身份核验使RO增加，未把累计清零。
+
+本人对 PackageBudget 指定13个 roots 仅逐文件 stat 再算，不读旧内容：旧12 roots的每项文件数/逻辑字节精确等该采样；其后新索引使当前 root 为276033792B/12785files，全13包427932944B/15764files。当前384MiB上限90%为362387865.6B，全包1GiB上限90%为966367641.6B，均低于阈值。此为留存文件逻辑长度（包含原件快照复用映射/实际副本），不是物理磁盘占用、全机容量或长期备份证明。未删原件、关 pause、复位预算或改历史256MiB配置。后续最小文档/签署索引会使这些 stat 采样数小幅增加，应按采样时间表述。
+
+LOG-06/10/12 已采两独立 MODEL进程 ON/OFF：1.369984120s/17events24203B vs1.331426188s/0events0B，五经济结果一致、三次独立11表捕获全同/0commit；OFF原生无JSON为 EXPECTED_ABSENT_NOT_INTEGRITY_PASS。仅一次实际配对，不是 SLA/统计性能结论；原两写者/轮转/空间失败只按原 SYNTHETIC/PURE层承接。D实际两HTTP读重叠属于关联隔离，不替代财务真实竞争。
+
+### 最终覆盖归并审查范围（不代替最后公开导出签署）
+
+私有工作稿 `acceptance-final-coverage-working.json`19502B/SHA `4c1014f52d997fdebd874a1101b15a55fa3300d6054f0bc8ba28a46e002d69ce` 已逐22财务映射、12LOG、19A–E定义评估：22行原正式采纳按原层级、候选、身份及子范围承接；本 plan 实际 A前/后原件UI、C权限/非空跨店跨公司/family混源/native附件、D唯一6/2/UNKNOWN与核销、LOG实际DAY_CLOSED与ON/OFF、双E带数据升级补齐对应当前要求。该稿是影响面与采纳投影，不是本人复算旧私有原生 ledger，不制造新财务并发证明。
+
+最终产品相较早期基线还含必要直接依赖库存 Python read 修复，不能再称“所有生产 Python 未变”：P1545操作感知真实系统管理员仅 unmanaged原生读，普通/managed与write/unlink仍拒，原六fresh MODEL及独立全库存前后已验。Pcc1 两默认税hook保旧owned/私有合法MUTATION，actual unowned回滚、新公司完整原生chart、六条正常C价源/临床/结算及旧owned税全文保全已验。实际财务资金/锁/核销/幂等代码未改；旧真实两PG后端竞争只按原范围承接，不以新LOG02读并行代替。
+
+F4/T08/T12/T15的早期主链文书/原件或升级NOT_RUN原句应保留，并在 current_applicability 标明后续正式 A-EDITOR confirmedv3→correctv4、原件两次实际UI同SHA和当前双E/文书价源保护已消解的对应旧缺项。T05旧HTTP丢响应缺项由本次D具体分支补齐，不泛称所有外部通道失败路径已验。T13/card5/跨日11保持独立，最初170不得误写当前余额。旧500拒绝按后来有效350真实6MODEL+6RPC补证承接，不重演旧500。
+
+12LOG按各自 required layers：01原生配置/框架，02真实关联隔离，03真实native异常/RPC/UI/403/409/303，04首因secondary合成要求，05实际事务结果，06无业务副作用，07独立退出，08严格JSONL，10有界保存/一次实测开销，11原正式fresh locator71.282s/12of12原snapshot，12正常/拒绝/程序异常分层，现均有相应已采或本 plan实证。LOG11 query/index格式未改，不为新文档SHA重造故障包；本人已知producer，不冒新fresh定位者。19cases按各自实际范围技术条件已满足，历史C浏览器OS退出缺证、旧303 Location缺失、初始私有税/bot物理before未采等历史限制不擦除。当前必要缺项是最终公开6文件逐行归并/指针一致与LOG09自动扫描+人工复核，以及最终关闭签署；本节不自行关闭#34，也不把#37用户效果/生产政策纳入技术PASS。
+
+LOG09已对当时六份公开文件886395B作PEM/Bearer/Cookie值/secret赋值/GitHub token/临床原文字段/旧合成sentinel模式预扫0匹配；这是预最终固定快照，最后文件变更后必须重核变化并人工审查。未扫描或读取旧被拒凭据，无原生消息、临床全文、原PDF/页图或私有原始SQL行上传公共报告。pattern0不证明所有未知秘密不存在。最终Git固定文件与签署ref将用于避免自引用hash循环。
+
+
+## YD-S10-TECHNICAL-CLOSEOUT-V1｜S10 最终独立技术验收总签署
+
+**结论：TECHNICAL PASS（用户本 plan 明定的 S10 技术范围与各证据要求层级）。** `/root/acceptance_s10` 独立验收者于2026-10-18签署；未实现被签内容。P=`cc1a395a8254a0b6c2017ceedd9a351d095c590a` 为最终累计产品；双目标正式升级实际T4e0dc044、最后原生UI/owned入口实际Tb9527b89，core固定f0c5a9b4。历史A/B/D等仍沿各自真实候选与采纳范围，不把文档最终Git提交当作曾运行的新候选。实际运行及私有原件执行者为 tester；本人的源码/原件/逐页/退出/哈希/离线断言复核范围及限制已逐阶段记于此前全文。
+
+本次亲自逐条核最终 overlay 的 **22财务映射、12LOG、19A–E证据用例**及原适用定义/正式采纳/后续有效证据，确认对应层级与当前断言匹配。它们是重叠覆盖结构，不是53项可累加的新测试或成功数。旧矩阵除 `technical_closeout_plan_v1` 外所有根字段与d731锚点JSON语义精确相等；172处当前本地证据链接及JSON片段逐项解析有效。22财务行逐一有相应A/C/D/E/LOG断言及原历史层级，未用唯一D替所有旧财务场景或把PURE当MODEL；完整逐行解释见最终矩阵。原子性/并发旧证据按原真实PG backend范围承接，本人没有重新复算旧私有native ledger。当前产品库存/税hook直接依赖影响已由实际有限MODEL、正常native新公司/新价源路径、全旧业务保护及最终双E覆盖，未改业务验收标准。
+
+A前后真实workbench点击同原件SHA及逐页、已采A-EDITOR和当前released保护；B六freshMODEL与六真实RPC及逐项独立保全；C四权/旧页撤权/非空family混源/同异公司摘要及全文/受控及原生附件报告/合法token适用性；D唯一收6退2/failed恢复/丢响应UNKNOWN→独立提交核实→同请求防重/原生账务平衡；同最终P两既有带数据目标各自S10-only正式升级及前后/影响面/后续效果/退出后保全；12LOG各原生/合成/实际关联/首因/事务/ON-OFF/退出/JSONL/隐私/有界保存/原fresh定位/最小样例层级，均达到本 plan 对应适用技术退出要求。LOG03最后原生WarningDialog已由本节之前的实际记录补齐，不再列未运行。
+
+公开导出最终前检查：恰限定 CURRENT_TASK、summary、defects、acceptance-matrix、acceptance-review 和 public technical-closeout-plan-v1.json 六文件，合945109B，PEM/Bearer/Cookie值/secret赋值/GitHub token/临床原文字段/旧合成secret-sentinel七类模式 **0匹配**。本人同时人工审阅本轮全部公开差异、逐行结论、当前角色/ID/门店及8步默认只读复现，确认只保脱敏结构/哈希/私有来源指针，不上传原生异常/UI私有正文、真实凭据/token/cookie、临床全文、原PDF/页图或原始SQL业务行。主控已按反馈修正E旧待办、最终GET账含义、LOG11来源、F5历史定位复现限制、顶层最终P及旧锚点分列，未改实际层级。无值provider路径仅stat存在/非symlink检查，未读取其值。此检查限定已读公开输出与这些模式，不证明所有未知秘密不存在，也不声称全仓或全私有原件扫描。
+
+自动检查快照为私有 `acceptance-final-public-export-before-total-signature.json`（SHA `09c863c4139b7f08d4623f69fd3d7ded95bf54ae48e244c18b7113df797256ac`）；其中固定六文件本节追加前字节/哈希。acceptance-review的283299B/1ec0a0f1前缀保留，最终append后的独签SHA另由主控正常引用，避免自引用hash循环。主控随后只将已有PENDING投影/LOG09/总状态改为本次已签结论、更新本签指针、Issue交付/关闭/读回及最终Git身份；这些末次公开变更仍须最终定向pattern检查和人工确认不引入新材料。若新业务实现/验收标准/原件或保护事实变化，本签不自动延伸。
+
+8步复现已核为本机loopback/实际已停止/原scope期限/单服务TTL的真实入口：main正常5与普通59、scratch普通6与11，指定旧原件1/附件161、D invoice1/payment1/refund1及C family/本店/跨公司合成ID；不以再次收退款、编辑或释放旧文书、旧日结、生成旧原件为前提。F5历史270/200/300定位注明本plan未逐项重演历史付款画面，当前余额按实际页面/原证据，不把旧170当现余额。main60s launcher实际已验正常ready/TTL/native0/seal，scratch同函数只SOURCE；服务本身不强制有写权角色变只读。最终47/195/539/12/13为资源累计，不是PASS数。owned全退出/采样端口空/runner锁可用，未知旧进程和detached工作区保留。原24h scope不续期；过期或实际工具拒绝不能换入口绕过。
+
+保留限制不被总签抹去：旧C浏览器当时未采nativePID退出；最初bare303未存Location；新59bot及首次税物理before若未采即未采；LOG11 fresh71.282s限定原合成snapshot；旧程序/Native历史UNKNOWN、真正工具拒绝/STOP及首失败exit1均原样留存。这些不是本次已提交资金未知、未解释业务漂移或当前尚未完成的必需技术步骤。真实患者/真实资金到账、税务/支付/签署/通知通道、正式临床财务政策、生产发布、#37用户效果与S11–S13均未获本签批准。
+
+**按AGENTS和用户本plan，S10 #34可由主控记录本次技术完成并关闭；关闭及GitHub回执须以真实操作读回为准，不能由本签伪造已关闭。#37继续单列。** 本plan至此技术验收完成；最终文档/同步事实完成后停止，不启动下一阶段、不合并main、不部署。本签是独立技术验收，不代替用户效果和生产批准。
