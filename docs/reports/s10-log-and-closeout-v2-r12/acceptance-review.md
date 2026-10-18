@@ -520,3 +520,32 @@ Guidelines read：odoo-review、odoo-security；Python Imports/Naming、ORM Reco
 首动态bill请求实际HTTP200且保存PDF，不应报成产品500/未知提交。受控旧原件也已本次正常HTTP下载，同27665B/059287…，不为补摘要再下载。动态bill本次保存17269B/SHA256 `dace185726377e1f867ebef0331fb6c5ba7ebf81b5c7a2b48b2f5329d990e513`，路径 `C-main-82e034343561/reader-http/binary-artifacts/43b371e86afc4733821098cd58bed715-pdf.bin`。本人实际view_image本次页1 `C-first-renderer-pdf-review/page-01.png`：标题、红色声明、中文字段及页尾均显示方框，数字/英文可读。因此本次中文动态凭据内容验收明确 **FAIL**，不能由PDF可打开/HTTP200推成PASS；420字符提取/CJK0本身不是结论依据，亲自视觉才支持该结论。文件完整单页，本段不在聊天/仓库输出其私有正文。页索引 `C-first-renderer-pdf-review/index.json` SHA256 `53cfb0878c0f3e3b97f3700f876e295cfe5008a665db8699a7f9cf6fb33fb0e2`。
 
 实际 renderer.exit code1、signal=null、renderer_pid=null（未捕获，不补造）、outcome NONZERO_NOT_NATIVE；原生有限技术日志命中 ConnectionRefusedError，尚未证明具体URL因果。runner随后以 `RENDERER_NONZERO_REQUIRES_VERIFICATION` 停止，不是Native崩溃或平台工具安全拒绝。当前STOP194B/SHA256 `c32c0944ec6eb0fa543082d6ecfb928d1cc33bf943c54d47ebf0afc06619eae6` 保持原位置/原字节，旧r12安全STOP亦保留。该首renderer1、已有HTTP200/PDF及C未完成事实都不得被后继修复抹除。下一步只允许经实际窄准入的一次有限RO核report参数安全组件、当前59已提交状态及39域；不据推断改网络/安装字体，不whole重放C。配置/产品原因确认后，动态PDF按真实影响面复验中文；旧A原件及最终E要求另列。当前既非C整体PASS，亦非S10技术完成。
+
+
+## YD-S10-TECHNICAL-CLOSEOUT-V1：C 事故唯一只读取证、财务承接与字体修复源码独审
+
+独立验收者 `acceptance_s10`，未实现本节被验产品、runner 或 observer，未连接数据库、读取凭据、发送业务请求、启动服务。本节亲查固定源码、已保存实际原始观察、审计逐项内容、有限 hash/关系、私有材料与官方字体原字节；不以执行者 `PASS` 字段替代独立判断。前142288B原字节及历史失败保持。
+
+**实际 ONLY_RO 限定 PASS。** 实际候选 `70359b861370e2aecfb27cc4cd6622d4ea2fdcff`，产品仍 `d0d27cf44446e2517a43251236636fd233a50ff6`，锁定 core 不变，main OID2144129 / cluster7694897083368259627。普通 renderer 非零事故 STOP 原位194B / SHA256 `c32c0944ec6eb0fa543082d6ecfb928d1cc33bf943c54d47ebf0afc06619eae6`；其实际 native event log SHA256 `d92f47b506b77767439e31baeac85b5b69d8ff121528d7aedc841506bd16763c`，事件 exit1、signal null、NONZERO_NOT_NATIVE。源码默认仍拒绝 dispatch；只在当前 plan、精确 STOP/event/actor59/store1/非su、scope仅target-ro、应用actions空、observer和wrapper精确 frozen/argv 条件下准一次只读取证。其余服务、HTTP、renderer、browser及旧 r12 工具安全拒绝均未放行，不移动或删除原 STOP。
+
+实际唯一 RO 子进程1840164、exit0、stderr0、约0.416秒，RR/read-only，核实际库/OID/cluster/dbuser，结束 rollback 和连接关闭；没有 HTTP、应用或 renderer。`C-renderer-incident-verified.json` SHA256 `a37901af09a55be018c760cf02471ecff318d29ecc18eab9ddc3dc47b9409ffb` 及其首 observed、原命令/真实退出已亲查。39域的差异逐字段有界：新59授权正常变动，四mutex各仅revision+4，旧manager5仅正常认证login_date，其余旧文书、版本9→10、释放编辑字段、资金/库存/日结/审计前缀、schema/modules、普通59组公司、两个原件字节与工作台语义均保全。四mutex不是整表排除：已核旧完整JSONB行/行SHA/aggregate并与新行逐字段比对，无补写恢复。
+
+新增15条业务审计 id1210—1224 亲自分类：manager5正常login/login.scope/store.switch三条；普通59同类三条；59 invoice1查看两条；manager5仅对新59 membership98 authorization.change五条；59旧原件下载一条、动态报告下载一条。均accepted、实际目标/门店正确，无新经济或旧文书动作。原审计及此前已采前缀不改。
+
+**配置是事实，完整网络因果未捕获。** 实查report.url缺失；web.base.url为http、localhost、port18322、根路径，无userinfo/query/fragment；freeze缺失。亲核锁定core `_get_report_url` 正常使用report.url否则get_base_url，因此与 owned18410不一致成立，但不把该事实写成已捕获 renderer 具体失败 URL。字体诊断只证明当前字体选择退回DejaVu且中文字体枚举为空，不声称搜索全机所有字体。先前实际动态bill PDF中文方框FAIL、HTTP200、renderer exit1和原位STOP继续保留；ONLY_RO不签C整体、动态PDF或E。
+
+原始材料在本机 `.local/s10-technical-closeout-v1/` 私有0700/0600边界。首C、ONLY_RO runtime snapshot保持实际旧候选字节；可变tracked源码按固定Git取回且逐项同实际frozen SHA的归档明确来源。私有路径不代表GPT可直接访问，不上传原始患者/财务正文或配置秘密。累计实际20 Odoo / 94 RO / 122 HTTP / Firefox7 / originalGET5，未因事故清零。
+
+**22财务行承接独审。** 私有逐行投影 `acceptance-finance-impact-carry-v1.json` 61882B / SHA256 `517534b5a06d8a2d5aebbadd902ed18c9ed71a6871c9e89f33827cbcee782294`，保留原22行身份、正式采纳、历史层级、旧未证明条件及本plan A/B/C/D/E/LOG缺口，不改全表PASS。亲核原矩阵、#34正文和适用引用，读FC1/FC2报告与verification及生产影响diff；未重新连接历史数据库或复算全部历史私有账本。cf5d63fe至d0d27cf生产Python/ACL/资金/锁/核销未变，生产差异仅QWeb三guard/三span，支持按原裁定继承未受影响历史证据；更早P021 AST基线与当前 `_operate` / `_close_guard` / `_refund_recover` 有诊断上下文及native_error改动，不能说所有旧源码字节相同，仍须真实LOG06/12与D补相关影响面。
+
+T01原C两个真实PG backend365784/365785唯一出账证据按原范围承接，后R3崩溃不能升为新增竞争通过。T04原FC1-A backend547513/547555确有等待/竞争，一次批准及一条审计，另一方40001回滚；不虚构第二次成功。FC1-C/FC2-C仅各自日结/退款/更正锁顺序，不扩成所有竞争。旧MODEL或19 service用例不升为19 RPC。D唯一新6/2不替代旧270+200选收300、740分摊、免单/库存/跨法人或真实竞争。当前main店3实际同company1，不能填跨公司；中文PDF已FAIL，最终双E未完成。历史未采纳或未证明边界逐项保留，不以普通carry抹除。
+
+**下一最小修复 SOURCE 审查完成，实际运行 NOT_RUN。** 实现固定 `b1f30aa`（本节写入时产品/工具提交，最终runtime文档候选另列）。亲查 `s10_lc2_fixture_process.py`、`s10_technical_closeout.py`、`s10_lc2_cases.py`、report QWeb及字体/OFL/README，和私有 `observe-C-font-repair.py` SHA256 `799dc163b7fccc145aaebc405aa4daedb8d0fc599eb5850b425a7905937ed0b6` 及五个正常CLI wrapper。此SOURCE结论不是应用准入自动生效；最终scope/approval/frozen/具体事故处置字节尚须与新候选核同。
+
+官方Noto Sans CJK SC Regular OTF为原字节16437364B / SHA256 `2c76254f6fc379fddfce0a7e84fb5385bb135d3e399294f6eeb6680d0365b74b`，官方Sans2.004固定commit523d033d6cb47f4a80c58a35753646f5c3608a78；完整OFL LICENSE SHA256 `6a73f9541c2de74158c0e7cf6b0a58ef774f5a780bf191f2d7ec9cc53efe2bf2`。本人复核sfnt内版本/版权/OFL元数据保留；未转换字体、安装OS字体或改core。QWeb只改article family并在article内加固定本模块静态字体的单一@font-face；锁定core实际提取article，故样式保留于被渲染body。cmap/结构检查只为SOURCE，不证明中文实际绘制、字体嵌入或所有页完整。
+
+正常nativeadmin2仅三参数配置分支在旧角色创建之前提前return，真实首env/defaultenv及suFalse、system/ERP资格，绑定a379实际参数前状态，normal ORM set_str仅report.url/web.base.url指向owned127.0.0.1:18410与freeze true。一次耐久intent和commit前/返回checkpoint，未知提交先RO，不重建59。后续before-font RO对照a379精确保全39域/权限/审计/原件并采旧report实际arch；font S10-only升级独立新intent，不覆盖前次P1升级；after-font RO绑定实际before SHA，工作台canonical保持，report只允许family+单style的精确canonical差异。loader write_uid/date差异仅列明待实际时窗独审，不能据源码预签。此修复升级不是最终E-MAIN。
+
+C-tail保留首失败/latch，正常仅新59可逆授权，补两个缺少独立留存的workbench DOM谓词、三份必需动态PDF、未执行的model-field负例、真实店3同公司正反/摘要及浏览器同旧页下一请求撤权。首8token/10RPC及四组合路由前缀不整段重跑，不重复旧原件GET，不动旧5/7权限或旧资金。每个C-cell必须在下个请求前立即保存；本人发现foreign段最初仍末尾聚合，已由developer在b1f30aa前修为每个workbench/body-ID/摘要/原件403/各动态403各自即时record，末尾aggregate只追溯不累计测试数。无非空跨公司/family/混源或摘要时保持具体缺口。浏览器撤权UNKNOWN/实际泄露不得自动restore掩盖；实际PDF仍须每页独立目视与字节/来源核对，不能以HTTP200或text非空替代。
+
+审查使用 odoo-review / odoo-guidelines / odoo-security；Guidelines read：Python Imports/Naming、ORM、Fields、Tests、Stable changes、XML、Reports；固定core相关Environment、report HTML提取/URL来源正常接口。静态字体/OFL为原始资产及许可核查，无JavaScript/Owl/SCSS改动。最终结论维持：ONLY_RO有限保护PASS；财务按原层级有条件承接；新字体/配置/加载/C-tail仅SOURCE已审，实际PDF/C/双E/S10完整验收均未签通过。

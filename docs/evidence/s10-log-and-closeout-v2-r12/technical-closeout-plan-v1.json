@@ -88,14 +88,14 @@
       "maintenance": 1,
       "odoo_start": 20,
       "original_get": 5,
-      "target_ro": 93
+      "target_ro": 94
     },
     "current_plan": {
       "firefox": 1,
       "http": 90,
       "odoo_start": 10,
       "original_get": 5,
-      "target_ro": 63
+      "target_ro": 64
     },
     "counts_are_not_test_pass_totals": true
   },
@@ -162,6 +162,36 @@
       "ref": ".local/s10-technical-closeout-v1/C-first-renderer-pdf-review/index.json",
       "bytes": 930,
       "sha256": "53cfb0878c0f3e3b97f3700f876e295cfe5008a665db8699a7f9cf6fb33fb0e2",
+      "access": "PRIVATE_LOCAL_NOT_GITHUB_READABLE"
+    },
+    {
+      "ref": ".local/s10-technical-closeout-v1/C-first-renderer-failure-index.json",
+      "bytes": 31695,
+      "sha256": "53e328323407de2ecc3e3327bec58526c3427401972d594e0bd3e027e082acfe",
+      "access": "PRIVATE_LOCAL_NOT_GITHUB_READABLE"
+    },
+    {
+      "ref": ".local/s10-technical-closeout-v1/C-main-82e034343561/runtime-snapshot/index.json",
+      "bytes": 192079,
+      "sha256": "4b2a29730654b39078ccd6a01c5660d35e7bdf1171ddc9347e1b44bd89579f05",
+      "access": "PRIVATE_LOCAL_NOT_GITHUB_READABLE"
+    },
+    {
+      "ref": ".local/s10-technical-closeout-v1/C-renderer-font-diagnostic.json",
+      "bytes": 1023,
+      "sha256": "5413b65353705eff413a5b2b967206d96ad2aaf235dd8919b9bc61c502a6581c",
+      "access": "PRIVATE_LOCAL_NOT_GITHUB_READABLE"
+    },
+    {
+      "ref": ".local/s10-technical-closeout-v1/C-renderer-incident-RO-result-index.json",
+      "bytes": 5975,
+      "sha256": "70bd58ea0e496efe04498972762ce8b46db41a999daa82121d11a4d0e3f308c6",
+      "access": "PRIVATE_LOCAL_NOT_GITHUB_READABLE"
+    },
+    {
+      "ref": ".local/s10-technical-closeout-v1/acceptance-finance-impact-carry-v1.json",
+      "bytes": 61882,
+      "sha256": "517534b5a06d8a2d5aebbadd902ed18c9ed71a6871c9e89f33827cbcee782294",
       "access": "PRIVATE_LOCAL_NOT_GITHUB_READABLE"
     }
   ],
@@ -265,9 +295,9 @@
   },
   "independent_review_reference": {
     "ref": "../../reports/s10-log-and-closeout-v2-r12/acceptance-review.md",
-    "bytes_at_current_signature": 142288,
-    "sha256_at_current_signature": "c9df8323ec19410ca24b6a2ab013b77a4781d6f7106688a7608f330d35c3fa14",
-    "scope": "A/B scoped PASS; P1 repair load scoped PASS, not final E; C first dynamic Chinese PDF FAIL and prefix limitations."
+    "bytes_at_current_signature": 150527,
+    "sha256_at_current_signature": "70c04280e1609eff645c58da31ce5ed11f2dbbbabb2207644e8762719b73896a",
+    "scope": "A/B scoped PASS; P1 repair load scoped PASS; C dynamic Chinese first FAIL; incident ONLY_RO scoped protection PASS; 22 finance carry limits; b1f30aa repair SOURCE reviewed, actual repair NOT_RUN."
   },
   "B-actual": {
     "status": "PASS_SCOPED_SIX_MODEL_AND_SIX_REAL_RPC",
@@ -527,5 +557,51 @@
     "browser_dispatched": false,
     "receipt_refund_foreign_tail": "NOT_RUN",
     "prefix_limit": "Some HTML assertion facts only supported by control flow; missing minimal persisted evidence requires targeted recheck, not full PASS."
+  },
+  "C-incident-read-only": {
+    "status": "PASS_SCOPED_INCIDENT_PROTECTION_DIAGNOSIS_NOT_C_PASS",
+    "candidate": "70359b861370e2aecfb27cc4cd6622d4ea2fdcff",
+    "exit_code": 0,
+    "protected_domains": 39,
+    "new_audit_events_independently_explained": 15,
+    "renderer_child_restart": false,
+    "http_dispatched": false,
+    "stop_original_path_and_bytes_retained": true,
+    "report_url_exists": false,
+    "web_base_url_safe_components": {
+      "scheme": "http",
+      "hostname": "localhost",
+      "port": 18322,
+      "path_is_empty_or_root": true
+    },
+    "web_base_url_freeze_exists": false,
+    "owned_report_port": 18410,
+    "connection_refused_exact_url": "NOT_CAPTURED",
+    "fontconfig_match": "DejaVu Sans",
+    "fontconfig_zh_family_count": 0,
+    "font_diagnostic_limit": "Same ambient reconstructed; not full renderer environment record or proof that every filesystem font is absent.",
+    "reviewer": "/root/acceptance_s10"
+  },
+  "finance-impact-review": {
+    "coverage_count": 22,
+    "reviewer": "/root/acceptance_s10",
+    "all_pass_claimed": false,
+    "historical_private_ledger_recomputed": false,
+    "production_since_cf5": "Settlement workbench/report QWeb and licensed static font resource only as of b1f30aa; financial Python unchanged. Older diagnostic wraps still require native rejection and rollback ON/OFF evidence.",
+    "real_competition": "Preserve original formally accepted backend/interleaving assertions only; current D or LOG concurrency does not upgrade them."
+  },
+  "source_product_candidate": "b1f30aa88365ec85aea15073f08de5d6dfa22a5f",
+  "font-config-repair-source": {
+    "status": "SOURCE_FIXED_ACTUAL_REPAIR_NOT_RUN",
+    "product_commit": "b1f30aa88365ec85aea15073f08de5d6dfa22a5f",
+    "font_bytes": 16437364,
+    "font_sha256": "2c76254f6fc379fddfce0a7e84fb5385bb135d3e399294f6eeb6680d0365b74b",
+    "font_license": "SIL Open Font License 1.1, full upstream license included",
+    "source": "../../../ydental_settlement/static/fonts/README.md",
+    "system_font_installation": false,
+    "core_changed": false,
+    "financial_python_changed": false,
+    "old_original_regenerated": false,
+    "actual_pdf_validation": "NOT_RUN"
   }
 }

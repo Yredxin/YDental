@@ -22,6 +22,13 @@
 - C首次真实执行部分完成后失败：4次正常新59授权+4次独立RO、52 HTTP；旧受控原件仍原27665B/SHA。首动态账单HTTP200且有PDF，但独立逐页检查中文均方框，判FAIL。原生renderer exit1/NONZERO_NOT_NATIVE，无已知signal/Native崩溃，具体child PID/reap未实测。实际receipt/refund正例、异店尾段和撤权浏览器尚未运行；前缀响应与已通过控制流保留，但缺部分最小HTML断言快照，不能全C通过。当前普通renderer STOP原位原字节保留，仅准备与本事件精确绑定的一次只读诊断，未解冻HTTP/renderer。
 - 当前累计Odoo20/RO93/HTTP122/Firefox7/原件GET5；事故RO2/maintenance1/create2保持。C owned PID1829480正常parent exit0，无owned服务/两端口无监听。只读字体诊断exit0：Noto CJK匹配回退DejaVu，zh字体family查询空；这是同ambient重建，非旧renderer完整env记录，不证明全机绝无字体文件。不安装OS字体/依赖。下一步只核三报告URL键和保护状态，再做最小产品修复与缺项接续；不重放A/B或旧资金。
 
+- C事故只读诊断（70359b8）实际exit0/0stderr，累计20/94/122/7/5；独立验收亲核39域，除新59授权与四mutex各revision+4（其他全部字段不变）、manager5仅login_date外，旧权限/业务/文书/原件/schema保持。15新审计逐项核为6正常认证/5新59授权/2账单查看/1旧原件下载/1动态报告下载，无经济或旧文书动作。原STOP仍原路径原字节。
+- 配置实证report.url缺失、web.base.url=http://localhost:18322、freeze缺；锁定core实际优先report.url否则回退web.base.url，与本owned18410不一致，但未采renderer拒绝连接的具体URL，不能将其冒为中文缺字唯一因果。已进入最小普通修复：nativeadmin仅三报告参数、模块自带官方静态CJK字体/OFL及原报告article内CSS；不装系统字体、不升依赖、不改core。只接C缺项尾段，不重放A/B或原件正例。
+
+- 当前后续真实调用图预算复核：main三配置/字体加载/C尾段3进程；scratch原生bootstrap/初始化/D及非空C准备和服务约5；双E与必要只读服务4；LOG两独立ON/OFF和原生UI3，基础15且服务复用尚未实证，另需普通修复余量。主控据此将本plan新增Odoo24→32（累计总上限42），已用20、历史10、事故RO2/maintenance1/create2、原start/deadline均不变；旧scope/budget字节归档。RO/HTTP/Firefox/原件GET上限不变，不删保全凑数，不恢复旧窗口。
+
+- 最小字体/配置修复实现固定b1f30aa88365ec85aea15073f08de5d6dfa22a5f：官方Noto Sans CJK SC Regular静态OTF原字节16437364B/完整OFL随module发布，原PDF article内固定本模块font-face；nativeadmin2三参数only有原值守卫及before/commit停点；C-tail仅两HTML补证及未执行余段，每项立即落盘。仅AST/XML/font字节与字符覆盖检查通过，配置提交/字体加载/新PDF尚NOT_RUN，旧renderer失败不被覆盖。此次仅产品QWeb/字体资源，财务Python未变；实际路径和独立逐页检查仍必需。
+
 后续证据仍归既有本目录、docs/evidence/s10-log-and-closeout-v2-r12/ 和获准私有目录；秘密与原始临床/财务内容不进 Git。最终覆盖 A、真实 B、C、scratch 唯一 D 6/2 链、双 E、12 LOG 与原财务退出标准。S11—S13、merge、部署和生产不在范围。
 
 以下是历史交付，原始正文保留，各结论限其候选、层级和时点。

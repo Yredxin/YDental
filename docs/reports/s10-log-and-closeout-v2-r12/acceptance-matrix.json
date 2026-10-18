@@ -6104,7 +6104,7 @@
       "tester": "/root/tester_s10",
       "acceptance": "/root/acceptance_s10"
     },
-    "candidate_status": "PRODUCT_D0D27CF_RUNTIME_70C49C2_P1_LOAD_SCOPED_PASS_C_FIRST_DYNAMIC_PDF_FAIL",
+    "candidate_status": "FONT_CONFIG_AND_C_TAIL_SOURCE_FIXED_ACTUAL_REPAIR_NOT_RUN",
     "current_actual_evidence": [
       "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json"
     ],
@@ -6380,133 +6380,518 @@
         "id": "F1",
         "historical_adoption_ref": "#/s10/0/historical_formal_adoption",
         "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
-        "current_evidence": []
+        "current_evidence": [],
+        "current_mandatory_projection": [
+          "E-MAIN preserve 740/350+390 chain and native partial/source/stock graph; no new receipt"
+        ],
+        "current_groups": [
+          "E"
+        ],
+        "historical_layers_retained": [
+          "MODEL_NATIVE_COMMITTED"
+        ],
+        "historical_compatibility_limit": "文书完善另见F4；未把新350/390称旧500/240重放。",
+        "independent_impact_review": {
+          "reviewer": "/root/acceptance_s10",
+          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
+          "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
+        }
       },
       {
         "id": "F2",
         "historical_adoption_ref": "#/s10/1/historical_formal_adoption",
         "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
-        "current_evidence": []
+        "current_evidence": [],
+        "current_mandatory_projection": [
+          "D actual HTTP requested/approved pending2/failed/recovered/done2 and no extra funds; does not replace historical100/50/unknown80",
+          "E-MAIN historical refund preservation; E-D newchain preservation"
+        ],
+        "current_groups": [
+          "D",
+          "E"
+        ],
+        "historical_layers_retained": [
+          "MODEL_NATIVE_COMMITTED"
+        ],
+        "historical_compatibility_limit": "仅合成原生记账，不证明真实平台到账；传输未知分支见T05。",
+        "independent_impact_review": {
+          "reviewer": "/root/acceptance_s10",
+          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
+          "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
+        }
       },
       {
         "id": "F3",
         "historical_adoption_ref": "#/s10/2/historical_formal_adoption",
         "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
-        "current_evidence": []
+        "current_evidence": [],
+        "current_mandatory_projection": [
+          "LOG current DAY_CLOSED native rejection in isolated rollback fixture",
+          "E-MAIN preserve original close/unlock/reclassification and separate physical return"
+        ],
+        "current_groups": [
+          "E"
+        ],
+        "historical_layers_retained": [
+          "MODEL_NATIVE_COMMITTED"
+        ],
+        "historical_compatibility_limit": "未重放旧close9；药品库存与财务更正分离。",
+        "independent_impact_review": {
+          "reviewer": "/root/acceptance_s10",
+          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
+          "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
+        }
       },
       {
         "id": "F4",
         "historical_adoption_ref": "#/s10/3/historical_formal_adoption",
         "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
-        "current_evidence": []
+        "current_evidence": [],
+        "current_mandatory_projection": [
+          "A pre-upgrade actual original UI PASS; A-EDITOR historical accepted/released state verified, do not replay",
+          "E-MAIN final upgrade preservation and post-upgrade user5 actual oldoriginal UI"
+        ],
+        "current_groups": [
+          "A",
+          "E"
+        ],
+        "historical_layers_retained": [
+          "MODEL_NATIVE_COMMITTED",
+          "BROWSER"
+        ],
+        "historical_compatibility_limit": "补合法同源confirm/correct/release后的逐字段零经济验证及同一原件重取；不能用另患者数量例代替。",
+        "independent_impact_review": {
+          "reviewer": "/root/acceptance_s10",
+          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
+          "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
+        }
       },
       {
         "id": "F5",
         "historical_adoption_ref": "#/s10/4/historical_formal_adoption",
         "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
-        "current_evidence": []
+        "current_evidence": [],
+        "current_mandatory_projection": [
+          "E-MAIN preserve independent270+200/300 distribution and selected-only native partial; no receipt replay"
+        ],
+        "current_groups": [
+          "E"
+        ],
+        "historical_layers_retained": [
+          "MODEL_NATIVE_COMMITTED",
+          "HTTP/RPC",
+          "BROWSER"
+        ],
+        "historical_compatibility_limit": "Web整体FAIL保留；这里只采已由尾审证明的支付子断言。",
+        "independent_impact_review": {
+          "reviewer": "/root/acceptance_s10",
+          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
+          "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
+        }
       },
       {
         "id": "F6",
         "historical_adoption_ref": "#/s10/5/historical_formal_adoption",
         "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
-        "current_evidence": []
+        "current_evidence": [],
+        "current_mandatory_projection": [
+          "C finish normal role4permissions and genuine oldpage revocation; actual company/store context and nonempty summary/fulltext isolation",
+          "E-MAIN current permission and UI impact regression"
+        ],
+        "current_groups": [
+          "C",
+          "E"
+        ],
+        "historical_layers_retained": [
+          "MODEL",
+          "HTTP/RPC",
+          "BROWSER"
+        ],
+        "historical_compatibility_limit": "跨店摘要/普通旧页分支限历史兼容证据；新增原件的完整跨公司、混店/患者family负向及图片响应取证未闭环。",
+        "independent_impact_review": {
+          "reviewer": "/root/acceptance_s10",
+          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
+          "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
+        }
       },
       {
         "id": "T01",
         "historical_adoption_ref": "#/s10/6/historical_formal_adoption",
         "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
-        "current_evidence": []
+        "current_evidence": [],
+        "current_mandatory_projection": [
+          "E-MAIN source uniqueness and receipt preservation; carry original actual C two-backend bill race only at original scope",
+          "LOG06/12 diagnostic _operate savepoint/receipt wrapper regression; no new concurrency PASS inferred"
+        ],
+        "current_groups": [
+          "E"
+        ],
+        "historical_layers_retained": [
+          "MODEL",
+          "MODEL_NATIVE_COMMITTED"
+        ],
+        "historical_compatibility_limit": "本批未运行双后端并发，不宣称新并发PASS。",
+        "independent_impact_review": {
+          "reviewer": "/root/acceptance_s10",
+          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
+          "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
+        }
       },
       {
         "id": "T02",
         "historical_adoption_ref": "#/s10/7/historical_formal_adoption",
         "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
-        "current_evidence": []
+        "current_evidence": [],
+        "current_mandatory_projection": [
+          "E-MAIN preserve original partials and idempotent receipt rows",
+          "D fresh6/2 only adds current HTTP known-commit/retry proof, never stands for500+240 or350+390"
+        ],
+        "current_groups": [
+          "E"
+        ],
+        "historical_layers_retained": [
+          "MODEL_NATIVE_COMMITTED"
+        ],
+        "historical_compatibility_limit": "未重收旧款；外部到账不在合成证明内。",
+        "independent_impact_review": {
+          "reviewer": "/root/acceptance_s10",
+          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
+          "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
+        }
       },
       {
         "id": "T03",
         "historical_adoption_ref": "#/s10/8/historical_formal_adoption",
         "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
-        "current_evidence": []
+        "current_evidence": [],
+        "current_mandatory_projection": [
+          "Carry original illegal discount/full discount zero native payment facts; LOG current rollback bill fixture is no new paid or zero-bill proof",
+          "E-MAIN preserved posted0 and denial/audit; if affected regression needed only rollback fixture, no persistent second chain"
+        ],
+        "current_groups": [
+          "E"
+        ],
+        "historical_layers_retained": [
+          "MODEL",
+          "MODEL_NATIVE_COMMITTED"
+        ],
+        "historical_compatibility_limit": "生产折扣/税策未批准。",
+        "independent_impact_review": {
+          "reviewer": "/root/acceptance_s10",
+          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
+          "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
+        }
       },
       {
         "id": "T04",
         "historical_adoption_ref": "#/s10/9/historical_formal_adoption",
         "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
-        "current_evidence": []
+        "current_evidence": [],
+        "current_mandatory_projection": [
+          "Carry FC1-A real two-native-backend same-refund approval serialization/one approval audit and original capacity race, not source-only",
+          "D new authorized requester self-approve native denial/different approver/pending2/actual0 supports only newchain; no concurrency substitute",
+          "E-MAIN preserve original approvals/quotas; LOG mandatory-audit/diagnostic wrapper regression"
+        ],
+        "current_groups": [
+          "E"
+        ],
+        "historical_layers_retained": [
+          "MODEL",
+          "MODEL_NATIVE_COMMITTED"
+        ],
+        "historical_compatibility_limit": "新原件产品不改变退款原子性；本批并发0。",
+        "independent_impact_review": {
+          "reviewer": "/root/acceptance_s10",
+          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
+          "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
+        }
       },
       {
         "id": "T05",
         "historical_adoption_ref": "#/s10/10/historical_formal_adoption",
         "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
-        "current_evidence": []
+        "current_evidence": [],
+        "current_mandatory_projection": [
+          "D exact failed/verified recovery/lost HTTP response/independent committed confirmation/same actor-store-key-payload-opref retry required",
+          "E-MAIN historical unknown/done/rejected; E-D newchain native funds and receipt preservation"
+        ],
+        "current_groups": [
+          "D",
+          "E"
+        ],
+        "historical_layers_retained": [
+          "MODEL_NATIVE_COMMITTED"
+        ],
+        "historical_compatibility_limit": "本批未覆盖实际HTTP响应丢失后的核实/重试和全部failed状态出口；历史终态幂等只按原范围。不得将unknown未付取消当所有失败路径PASS。",
+        "independent_impact_review": {
+          "reviewer": "/root/acceptance_s10",
+          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
+          "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
+        }
       },
       {
         "id": "T06",
         "historical_adoption_ref": "#/s10/11/historical_formal_adoption",
         "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
-        "current_evidence": []
+        "current_evidence": [],
+        "current_mandatory_projection": [
+          "E-MAIN preserve historical unpaid80 credit/reduced receivable/actualrefund0; D actualrefund2 is not waiver proof"
+        ],
+        "current_groups": [
+          "E"
+        ],
+        "historical_layers_retained": [
+          "MODEL_NATIVE_COMMITTED"
+        ],
+        "historical_compatibility_limit": "不把贷项称现金退款。",
+        "independent_impact_review": {
+          "reviewer": "/root/acceptance_s10",
+          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
+          "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
+        }
       },
       {
         "id": "T07",
         "historical_adoption_ref": "#/s10/12/historical_formal_adoption",
         "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
-        "current_evidence": []
+        "current_evidence": [],
+        "current_mandatory_projection": [
+          "LOG current real DAY_CLOSED rollback negative to cover native_error instrumentation",
+          "E-MAIN original cash/WeChat reclassification/close values and native balanced adjustment retained; no old unlock"
+        ],
+        "current_groups": [
+          "E"
+        ],
+        "historical_layers_retained": [
+          "MODEL_NATIVE_COMMITTED"
+        ],
+        "historical_compatibility_limit": "未解锁旧close9。",
+        "independent_impact_review": {
+          "reviewer": "/root/acceptance_s10",
+          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
+          "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
+        }
       },
       {
         "id": "T08",
         "historical_adoption_ref": "#/s10/13/historical_formal_adoption",
         "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
-        "current_evidence": []
+        "current_evidence": [],
+        "current_mandatory_projection": [
+          "A historical actual v3/v4 pure wording accepted; current released editor/old economics read-only preserved",
+          "E-MAIN quantity reversal price600 relation, separate quarantine physical return and stock graph; no old treatment/edit replay"
+        ],
+        "current_groups": [
+          "A",
+          "E"
+        ],
+        "historical_layers_retained": [
+          "MODEL_NATIVE_COMMITTED"
+        ],
+        "historical_compatibility_limit": "主链确认文书纯文字correct仍NOT_RUN；独立数量例的draft save不冒称已确认文书更正零副作用。",
+        "independent_impact_review": {
+          "reviewer": "/root/acceptance_s10",
+          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
+          "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
+        }
       },
       {
         "id": "T09",
         "historical_adoption_ref": "#/s10/14/historical_formal_adoption",
         "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
-        "current_evidence": []
+        "current_evidence": [],
+        "current_mandatory_projection": [
+          "Carry original native same-company qty5 and cross-company sale/purchase/stock/posted accounting matched facts",
+          "C must still prove nonempty foreign company/store access separation; main company1/store3 alone is not cross-company",
+          "E-MAIN preserve native trade/stock links; D has no trade/stock substitute"
+        ],
+        "current_groups": [
+          "C",
+          "E"
+        ],
+        "historical_layers_retained": [
+          "MODEL_NATIVE_COMMITTED",
+          "MODEL"
+        ],
+        "historical_compatibility_limit": "各为独立合成来源，不与W/R3拼链。",
+        "independent_impact_review": {
+          "reviewer": "/root/acceptance_s10",
+          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
+          "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
+        }
       },
       {
         "id": "T10",
         "historical_adoption_ref": "#/s10/15/historical_formal_adoption",
         "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
-        "current_evidence": []
+        "current_evidence": [],
+        "current_mandatory_projection": [
+          "C mandatory broad real read/export/native attachment/content-image/token applicable paths, nonempty positive/negative and foreigncompany plus family/mixed-source legal cases",
+          "Existing C prefix 8 token and10RPC actual statuses/2 placeholder image pixels support partial; HTML minimum features and remaining paths still to record",
+          "E-MAIN affected permission/native bypass regression"
+        ],
+        "current_groups": [
+          "C",
+          "E"
+        ],
+        "historical_layers_retained": [
+          "MODEL",
+          "HTTP/RPC"
+        ],
+        "historical_compatibility_limit": "保存实际图片响应体/类型/哈希，区分固定原生占位图和内容泄露；补新原件跨公司、患者family及混店来源反例。不放宽通用白名单。",
+        "independent_impact_review": {
+          "reviewer": "/root/acceptance_s10",
+          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
+          "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
+        }
       },
       {
         "id": "T11",
         "historical_adoption_ref": "#/s10/16/historical_formal_adoption",
         "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
-        "current_evidence": []
+        "current_evidence": [],
+        "current_mandatory_projection": [
+          "A oldoriginal actual UI + visual pre-upgrade PASS; E-MAIN post-upgrade actual UI still mandatory",
+          "Current C dynamic bill actual200 + Chinese tofu visual FAIL must be fixed and revalidated; receipt/refund and actual amounts/identity/state per page still missing",
+          "D final unique refund2 receipt all pages + native mapping, E-D preserved receipt"
+        ],
+        "current_groups": [
+          "A",
+          "C",
+          "D",
+          "E"
+        ],
+        "historical_layers_retained": [
+          "MODEL_NATIVE_COMMITTED",
+          "PDF_VISUAL",
+          "BROWSER"
+        ],
+        "historical_compatibility_limit": "本批新增四份/四页仅列已查看内容；其他在途/长票面只限历史兼容子证据，币种实际USD，非税票/纸张/平台证明。",
+        "independent_impact_review": {
+          "reviewer": "/root/acceptance_s10",
+          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
+          "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
+        }
       },
       {
         "id": "T12",
         "historical_adoption_ref": "#/s10/17/historical_formal_adoption",
         "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
-        "current_evidence": []
+        "current_evidence": [],
+        "current_mandatory_projection": [
+          "Carry original actual install and already committed treatment/exam/pharmacy native full graph; do not splice scratchD into mainpatient1",
+          "Final E-MAIN and E-D same final product with distinct baselines/native upgrade/module/schema/invariants/affected tests; P1 repair-u is separate and insufficient"
+        ],
+        "current_groups": [
+          "A",
+          "E"
+        ],
+        "historical_layers_retained": [
+          "MODEL_NATIVE_COMMITTED"
+        ],
+        "historical_compatibility_limit": "主链文书分支阻断，带已提交数据的S10-only升级因Web失败NOT_RUN；不能以安装或比较器PASS替代。",
+        "independent_impact_review": {
+          "reviewer": "/root/acceptance_s10",
+          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
+          "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
+        }
       },
       {
         "id": "T13",
         "historical_adoption_ref": "#/s10/18/historical_formal_adoption",
         "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
-        "current_evidence": []
+        "current_evidence": [],
+        "current_mandatory_projection": [
+          "E-MAIN independent270+200/300 chronological+ID native partial270+30, selected-only and frontdesk3 retained; D6 is unrelated"
+        ],
+        "current_groups": [
+          "E"
+        ],
+        "historical_layers_retained": [
+          "MODEL_NATIVE_COMMITTED",
+          "HTTP/RPC",
+          "BROWSER"
+        ],
+        "historical_compatibility_limit": "后续card5/跨日11为独立明确付款，不将最终余额误写为最初170。",
+        "independent_impact_review": {
+          "reviewer": "/root/acceptance_s10",
+          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
+          "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
+        }
       },
       {
         "id": "T14",
         "historical_adoption_ref": "#/s10/19/historical_formal_adoption",
         "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
-        "current_evidence": []
+        "current_evidence": [],
+        "current_mandatory_projection": [
+          "C genuine ordinary four permission combinations, lawful current scopes/nonempty summary/foreign isolation/revoked oldpage next request",
+          "Current C grant snapshots and later checkpoints prove prefix assertions ran but do not provide retained HTML semantic facts; record necessary two target GET DOM predicates without whole replay",
+          "E-MAIN final UI/permission regression; no historical frontdesk payment replay"
+        ],
+        "current_groups": [
+          "C",
+          "E"
+        ],
+        "historical_layers_retained": [
+          "MODEL",
+          "HTTP/RPC",
+          "BROWSER"
+        ],
+        "historical_compatibility_limit": "普通跨店财务摘要/旧页只复用历史限定证据；新增原件直接HTTP负向图片未完整取证，见T10。",
+        "independent_impact_review": {
+          "reviewer": "/root/acceptance_s10",
+          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
+          "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
+        }
       },
       {
         "id": "T15",
         "historical_adoption_ref": "#/s10/20/historical_formal_adoption",
         "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
-        "current_evidence": []
+        "current_evidence": [],
+        "current_mandatory_projection": [
+          "A oldoriginal immutable byte/content PASS pre-upgrade; historical600 frozen after620 and rejected50 native no-credit facts retained",
+          "E-MAIN after-upgrade original UI/price/source/refund rejection preservation; no repricing/reprinting stored original"
+        ],
+        "current_groups": [
+          "A",
+          "E"
+        ],
+        "historical_layers_retained": [
+          "MODEL_NATIVE_COMMITTED",
+          "BROWSER"
+        ],
+        "historical_compatibility_limit": "留存后合法同源文书/允许主档或模板变更再重取尚缺；不能把退款后的重取当文书更正链通过。",
+        "independent_impact_review": {
+          "reviewer": "/root/acceptance_s10",
+          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
+          "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
+        }
       },
       {
         "id": "T16",
         "historical_adoption_ref": "#/s10/21/historical_formal_adoption",
         "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
-        "current_evidence": []
+        "current_evidence": [],
+        "current_mandatory_projection": [
+          "B current cccbf57 six MODEL+six real RPC independent scoped PASS; no need repeat on QWeb-only change",
+          "Carry historical dual times and FC1/FC2 specified close/refund/reclass serialization only within original source",
+          "LOG current native DAY_CLOSED denial and E-MAIN historical lock/audit/source/payment facts; no old unlock/receipt replay"
+        ],
+        "current_groups": [
+          "B",
+          "E"
+        ],
+        "historical_layers_retained": [
+          "MODEL_NATIVE_COMMITTED"
+        ],
+        "historical_compatibility_limit": "普通单据/审计六项write/unlink新脚本仍旧500断言，与真实350冲突，静态BLOCKED未执行；需从真实marker核金额后补纯负向，不重收款。",
+        "independent_impact_review": {
+          "reviewer": "/root/acceptance_s10",
+          "source": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/finance-impact-review",
+          "scope": "SOURCE_AND_PRIOR_FORMAL_ADOPTION_CARRY_ONLY_NOT_CURRENT_ROW_PASS"
+        }
       }
     ],
     "logs": [
@@ -6725,6 +7110,15 @@
       "protected_domains": 39,
       "protected_rows": 752,
       "independent_reviewer": "/root/acceptance_s10"
-    }
+    },
+    "finance_impact_review": {
+      "coverage_count": 22,
+      "reviewer": "/root/acceptance_s10",
+      "all_pass_claimed": false,
+      "historical_private_ledger_recomputed": false,
+      "production_since_cf5": "Settlement workbench/report QWeb and licensed static font resource only as of b1f30aa; financial Python unchanged. Older diagnostic wraps still require native rejection and rollback ON/OFF evidence.",
+      "real_competition": "Preserve original formally accepted backend/interleaving assertions only; current D or LOG concurrency does not upgrade them."
+    },
+    "source_product_candidate": "b1f30aa88365ec85aea15073f08de5d6dfa22a5f"
   }
 }
