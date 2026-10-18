@@ -740,3 +740,60 @@ owned原生JSONL为2行run.start/run.end，2,656字节/SHA256 `51ae47d8f147681e8
 私有阶段observer最终 `84884b8b172bcc49955e3189c2886da0aaacbb909f940f89e3ea683e682b1e6d` 已核绑定未来真实stage-returned字节/当前产品、exact状态/commit1/remainingFalse，provider只核精确新manager路径、当前OS owner/0600/父0700且非symlink，不读取凭据。stage RO仍核实际58/旧46/D19/audit/六mutex及原stock/partner/税基线，并证明新manager无native admin权限且零业务membership/grant；UID1 before组未采限制保留。完整配置post observer `9bf959afeceb42d07b4eda47d4280188bf669fc3865140f1cb79e8655003025f` 仅增加486后的旧owned产品全文、销售/采购关系及旧tax全文精确保全，新税只属实际新公司；不是补造486之前的物理税before。
 
 本批独立SOURCE结论：上述最小兼容及阶段化接线可进入新固定候选的实际准入核验；首先真实unowned回滚与独立post，再首公司阶段/实际RO，后续剩余配置/实际RO及C真实矩阵按依赖接续。未运行项保持NOT_RUN。主控依据后续正常调用图调整本plan Odoo新增32→40、总上限50；实际已用、历史基数、原起止时间与旧STOP均不清零，其他cap未变。计数适用精确上限，既有90%预警只适用raw存储，不误套计数。此资源安排不使任何必需层级自动通过，也不是恢复旧PREPARED窗口。最终双E、余C/LOG和S10关闭仍需真实证据与独立结论。
+
+
+## YD-S10-TECHNICAL-CLOSEOUT-V1｜原生默认税兼容实测、分段 C 配置与客户等级事故独立复核
+
+审查者：`/root/acceptance_s10`，未实现本节产品或执行器。本文为同一 plan 的追加独立结论，保留前 213486 字节及其 SHA256 `e1f7aa80498c99f50ce361f9ad958db797c74b14b85cdaf5af2825ee8b800de3` 原样。亲自检查范围是下列真实原件、源代码、哈希及离线断言；不把 producer 的返回状态作为独立验收。产品候选 `cc1a395a8254a0b6c2017ceedd9a351d095c590a`、实际运行/测试候选 `6ee0e0f6618629496ecf06f00433fd8a680200b0`；core 锁定值不变。以下 scratch 均为既有 OID 2144130、cluster 7694897083368259627 的合成目标，不是 main 旧业务。
+
+### 1. 默认税兼容的真实 MODEL 与独立后核：限定 PASS
+
+源码变更仅 S10 私有 `_force_default_sale_tax` / `_force_default_purchase_tax` 钩子：非真实 intake MUTATION 的原生批量默认税操作只向父类传递非 intake-owned 产品；真正受控操作保持原父类行为。原 intake / inventory 的 create、write、unlink 保护没有改成管理用户或字段白名单，也没有签发 token、SQL 设置税或放宽普通用户权限。manifest 增加已安装的 intake 直接依赖，不表示安装或升级 intake。此项是直接依赖兼容修复，最终产品不能再描述为“只有 QWeb 差异”。
+
+实际 `tax-defaults-rollback`：原生非 SU 用户 2 在首环境正常创建新的 unowned 临时产品 2，明确清空销售/采购税后调用两个真实原生默认税钩子，实际结果分别为 `[1]`、`[2]`。默认税在创建前由该 MODEL 环境读取并保存，核对真实 company/type；来源明确是 MODEL，未冒称更早的 RO 基线。两项均有即时观察和清理，最终 rollback / close，commit 0、旧 owned write 0。返回 `TAX-DEFAULTS-ROLLBACK-RETURNED.json` 为 609 字节，SHA256 `4f3db729ff7afdfc22280afd4c96296f779b06561a0f269848f0032ebfb9ce77`。owned 原生进程 1943455 单次退出 0 / 无信号；实际 21 条 JSONL 完整封口，其中 19 条内部安全拒绝来自原生读域的回退检查，不计作新的 C 权限用例，也不写成“没有拒绝”。
+
+独立后 RO `tax-defaults-rollback-after-verified.json` 为 643633 字节，SHA256 `7a1017c02a5f46b82ced1444d8e8e3d0b055f1bfad441665caa632a228c23602`：旧产品、销售/采购税关系、4 条旧税和 schema 五组逐值同首次物理基线 `486ac4…`；临时产品 2 不存在；旧 46 域、D 19 表、锁、审计和库存 `fa58d8…` 保持。RW 行为只是隔离回滚 MODEL，不是 HTTP、永久新产品或 owned 写入正例。实际原件 231 项索引 `tax-defaults-rollback-runtime-originals/index.json` 的 SHA256 `e0bd311a083bbfc16854096e3a04ca4a7be556da89238f548e3c57e5ba2279eb` 承载当时固定候选和原始日志。
+
+### 2. 公司/管理人唯一分段提交与后 RO：来源保留后的限定 PASS
+
+此恢复保留原两次整段配置 intent、原 exit 1 与 `486ac4…` 零配置提交证明。没有第三次整包重跑。先只执行 `c-company-stage`：正常新公司及其原生 generic_coa 账套、新普通 manager，一次提交后停止，remaining stages 为 false。`C-COMPANY-MANAGER-STAGE-RETURNED.json` 为 602 字节，SHA256 `597c57bd8a75684e5669c4b0805187ed5950fb3000cb19f6fc42524a3c36da03`，实际公司 4、manager 9。owned 原生 1945458 单次退出 0 / 无信号，11 条诊断完整封口；此返回不等于完整 C fixture 已建立。
+
+紧接唯一 post RO 的真实 wrapper exit **1**，首 raw `C-company-stage-observed.json` 为 700808 字节，SHA256 `976fb98147be692c4c7a4f8a8c5469597fe3329a487c79a777ec9e0a91a1ee3b`。它已完整保存只读 RR 事实与 rollback / close；失败是工具把所有新 location 的 write_uid 强断为 2，并把等值时间的小数尾零按字符串比较。实际仅新 Scrap location 20 为 create_uid 2 / write_uid 1、新 company partner 13 为 write_uid 1；新 location 17—19、旧 global 与旧 company partner 均按各自准确原生事实核验，不泛放 UID 1。
+
+独立源码核对的具体链为正常 company default account inverse → `ir.default.with_user(SUPERUSER_ID).set` → `env.invalidate_all()` → 当前 UID 1 环境 flush / stored recompute → ORM 的 `env.uid` / `cr.now` 元数据。四个新 location 与新 partner 的实际事务时刻为同一 datetime；JSONB 小数尾零和 driver 表达相等。该链解释新对象的实际元数据，**没有 SQL 记录最后一组 dirty 字段的逐列轨迹**，不编造此轨迹，也不放宽旧行 hash 或任意系统用户变化。
+
+原 raw 不改、数据库不重读。仅针对这两个工具预期错误，离线继续执行原其余全部断言：`C-company-stage-reconciled-verified.json` 为 703416 字节，SHA256 `d5aed0da3e54f4f13975f400fcbf3f3a70a41b230feac100d46460601e329f96`，明确 `OFFLINE_ASSESSMENT_OF_REAL_RO`、actual RO wrapper exit 1、offline assertions exit 0。首次离线构造结果时的 NameError 也保留；修复其 inert profile 元数据后才得到本离线结果。验收者在 RAM 重执行完整离线断言并核生成对象等于此产物，未运行 DB、HTTP 或业务动作。
+
+实际旧 46 域、D 19 表、审计和六 mutex 同 `490740…`；旧 owned 产品及两税关系、旧 4 税同 `486ac4…`；旧非 global location / warehouse 同 `fa58d8…`。global 只允许已经逐字段逆算还原的 active / 元数据变化；旧 company partner 保留原 JSONB 键、只增加实际新公司 4 的原生 stock property，其他字段 hash 保持。新公司税、4 个基础 location 和新 manager 资格均为真实非空。native 用户 1 的更早物理组集合未采限制仍保留。此处判定“已提交公司/manager 阶段及适用保全可继续”，不把原 RO exit 1 改写成 0。
+
+### 3. remaining 首次四阶段与完整配置独立后核：限定 PASS
+
+仅首次执行尚未提交的四个阶段：3 个 C 门店/相关正常授权、新 doctor、新 reader、原生财务配置。已提交公司 4 与 manager 9 未重建。owned 原生 1951885 单次退出 0 / 无信号，四提交的前后八个 checkpoint、37 条诊断封口可核。实际完整 C fixture SHA256 `3dbdf972a3ad4e90365eedcb191f3d2214c5bfab010030f837c192c0b4fb2971`：普通 manager 9 / doctor 10 / reader 11，store 2、3 属公司 1，store 4 属公司 4；角色、员工、组闭包、门店关联、渠道和 native accounts/journals 由正常流程建立，不重配 main 旧用户 5/7 或 D 角色。
+
+post RO exit 0：`C-scratch-configured-verified.json` 778658 字节，SHA256 `4362b542b607788ee50936a49ab5f36aa2301528721917aac6e6063a7333dc4d`。13 组原生库存、partner、税、native 组/元数据逐值同已核公司阶段；旧 D 19 表中的非审计 18 表完整保持，审计旧前缀保持；旧账套/日记账、D 门店/能力/成员/授权、D patient 1 的五业务表及 execution 关系、58 表 schema 均保持。不能把有正常新增审计的 19 表说成“全部全文不变”。
+
+新增 84 条 accepted 审计全部对应新 C 正常配置，actor 9：login.scope 1、capability 1、profile 2、store 3、employment 9、authorization 36、store.switch 3、account.create 2、source.create 9、space.create 9、supply.policy 3、supply.business 3、queue.business_state 3。source/space 的双层审计不重复计对象。四 mutex 仅 revision 变化：intake 22→34、patient 27→39、queue 24→36、supply 34→62；inventory 1、settlement 8 全文不变。独立核固定源码调用图：公共 12 次为 9 grant 与 3 queue-business 的 `_all_locks`；supply 额外 16 为 policy 3、business super 3、两 profile 的两层锁 4、floor/station 6。每项非 revision 字段均仍以完整哈希保全，没有宽排整表。
+
+本节只验配置已按预期提交并保全，不先签后续六费用、五账单、权限入口、family / 跨公司验收。配置实际原件 248 项索引 SHA256 `5cbda9319d79e9ce3ca4c3e55601abcfb821196ffc3f9c1070429e37d6e28e48` 保存当时字节。
+
+### 4. C 真实源首轮：保留工具失败与已提交前缀；客户等级窄查证限定 PASS
+
+实际 `c-scratch-sources` 已完成新 A7、U13、空 B 的独立无业务证明、A/U 未付款账单、A 原件、正常 A→B merge、合并后 B11、独立 LOG17 未账费用和同公司异店 19 的费用/账单。实际持久映射为 fee `[2,4,3,5,6]`、invoice `[5,7,6,null,8]`；原 A 与 U 保持独立财务归属，B 仅承接正常 family 关系。此映射是本次真实已提交前缀，不是重新执行指令。
+
+首 runner exit **1**：`verify_c_sources` 使用 canonical partner 全行 hash 作为不可变条件，在 same-company 19 账单完成后报 `C_BILLED_SOURCE_OR_FINANCIAL_OWNER_MUTATED_BY_LATER_C_ACTION`。owned 原生 1956193 已正常退出 0，无 Native 信号、无新安全 STOP。other-company 23、第二新原件、后续 mixed-scope / read / attachment / 303 单元当时尚未派发，不能因执行前缀存在即填 PASS。原 intent / latch、stderr、exit 与 1617 项原始索引 `3fa41325fd75a660cdc20a500e5b08fda5b2e03ab2d09ddb10b6984224c0308d` 保持，不整段重跑或重复账单/merge/原件。
+
+随后仅一次独立只读 RR 窄 RO，未启动应用、未写业务。child 1963393 实际 exit 0，退出回执 SHA256 `031fdf8a43aea8d973734761096d205fbde1b4bb293f5a59162b368b6d91e765`；observed 2046 字节 SHA256 `e008308a0b9966b2fc423a75c917f24ec2cea80c475169abc4273a8f0abf8585`；verified 3329 字节 SHA256 `93d757f5250b4ebe99d84de961fe22e9330c64604d94494085b9740e6ceae0c4`。目标身份、readonly / RR、无其他连接、rollback / close 均正确。
+
+实际 canonical partner 19 仍 owner patient 4 / company NULL / commercial self 19，customer_rank 2、supplier_rank 0、write_uid 9；原生 invoice 7 金额 11、invoice 8 金额 19 均 posted、amount_residual 等于 total。当前 partner 全行 hash 精确等首 after `fdd4cb0c8af25c5a7ffe69554797a94a3de4842333f2ad632ede5786becaacc5`。SQL 仅逆 customer_rank 到 1 并逆 write_uid/date 到真实旧 invoice 7 的 create_uid 9 / 事务时间，所得全行 hash 精确等旧 before `f55798df74ecbd390b976fb05ceb5e854a7297aad5975b78d2ba41a349b17035`；只逆 rank 的 hash 不匹配，原样记录，没有忽略后两元数据字段。
+
+亲核 locked account `_post` 与 partner `_increase_rank`：首次 rank 0 在当前账单事务 ORM 写；非零客户等级在 postcommit 新 cursor 由原 actor sudo 环境 ORM 增加，因此也更新 write_uid/date。不是财务归属变化，也不是 SQL 绕保护。窄 RO invoice 7 的全行 hash 又精确等两旧 capture 中同一账单 hash，证明逆算所用旧事务字段没有在后来被改；离线绑定索引 SHA256 `4a2900f023a7b2903b3bd44b3647cf5e0780afedc96b15606ff0f2d5ab216fc9`。**更早 rank 未单独投影**限制保留；结论来自全行逆算和原生源码，不伪造旧字段采集。
+
+验收者还离线逐行比较 log17 与 same19 两 capture 的全部 33 张表：旧费用、事件、冻结价快照、来源、账单、原件、附件、D 收款/退款/核销均无删除或既有行变化；只有正常切店 session 6/7 与 partner 19 的前述旧行变化。新账单及正常上游、收据和审计为当前阶段新对象。此为既存材料离线比较，新增 DB/HTTP 0；不把普通原生变化机械判为永久失败，也不抹首工具失败。
+
+### 5. 当前停止边界与后继要求
+
+本轮可采独立结论为：unowned 默认税 MODEL+回滚保全、公司/manager 阶段（原 RO exit 1 与离线来源明确）、remaining 正常配置、已提交 C 前缀的相关保全及 partner 19 原生等级差异。C 整体、12 LOG 整体、最终 E-MAIN / E-D、S10 关闭仍未签通过。D 唯一 6/2 链和 LOG-02 已采结论沿原候选继承，不再收退。
+
+下一步仅允许团队内最小验证器修复与精确未执行后缀设计：canonical 19 的全行 hash 保留，新增固定排除三字段的稳定 hash 与实际三字段，只有真实新增 posted out_invoice 才能按张数、真实 actor 和该请求/postcommit 时间窗解释变化；其余伙伴和没有新账的 19 仍需全行严格保持。首次桥接须绑定上述实际窄 RO、旧 capture 与当前全行 hash，不改历史原件、不写通用 ignore。此处不是未来补丁或运行准入签署。
+
+私有 raw 均位于既有获准本地证据目录；报告仅保脱敏结构、引用与完整性哈希，外部 GPT 不能仅凭本机路径直接读取原件。未读取或上传密码、cookie、token、完整请求/患者正文；没有更换账号/工具重试历史安全拒绝，旧账本、原时钟与旧 r12 STOP 保持。

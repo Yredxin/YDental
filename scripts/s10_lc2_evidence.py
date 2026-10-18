@@ -202,6 +202,15 @@ def collect_selection(connect, connection_args, *, database, expected_oid, selec
             or set(connection_args) - {'host', 'port', 'user', 'password', 'sslmode', 'application_name'}):
         raise ValueError('UNAPPROVED_CONNECTION_ARGUMENT')
     for selection in selections:
+        if 'c_partner_rank_guard' in selection and (
+                selection['c_partner_rank_guard'] is not True
+                or selection['table'] != 'res_partner'
+                or getattr(getattr(budget, 'profile', None), 'message_id', None) != 'YD-S10-TECHNICAL-CLOSEOUT-V1'
+                or getattr(budget.profile, 'target_role', None) != 'scratch'
+                or selection.get('row_digest') is not True
+                or not {'id', 'customer_rank', 'supplier_rank', 'write_uid', 'write_date',
+                        'commercial_partner_id', 'ydental_patient_owner_id'} <= set(selection.get('columns', []))):
+            raise ValueError('C_CANONICAL_PARTNER_RANK_PROJECTION_INVALID')
         if any(key in selection for key in ('columns', 'null_columns', 'equals', 'row_digest')):
             for key in ('columns', 'null_columns'):
                 if key in selection and (type(selection[key]) is not list
@@ -304,6 +313,10 @@ def collect_selection(connect, connection_args, *, database, expected_oid, selec
                               for name in selection.get('null_columns', [])]
                     if selection.get('row_digest'):
                         pairs.append("'__row_sha256',encode(sha256(convert_to(to_jsonb(t)::text,'UTF8')),'hex')")
+                    if selection.get('c_partner_rank_guard'):
+                        # Fixed native rank fields only; keep the original whole-row hash.
+                        pairs.append("'__c_rank_stable_sha256',encode(sha256(convert_to((to_jsonb(t)"
+                                     "-'customer_rank'-'write_uid'-'write_date')::text,'UTF8')),'hex')")
                     projected = 'jsonb_build_object(' + ','.join(pairs) + ')'
                 path = directory / (selection['table'] + '.rows.jsonl')
                 acquired_digest, acquired_rows, acquired_bytes = hashlib.sha256(), 0, 0

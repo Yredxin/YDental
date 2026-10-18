@@ -865,13 +865,78 @@ def complete_source_ids(source):
     return {key: value for key, value in source.items() if key not in {'pay_key', 'execute_key'}}
 
 
-def run_c_scratch_sources(profile, approval, authority, requested_path):
+def c_rank_tail_prefix(profile, request):
+    """Consume the exact independently proved rank incident, never clear its latch."""
+    def fixed_file(reference, digest):
+        path = ROOT / reference
+        if path.is_symlink() or not path.resolve().is_relative_to(profile.root):
+            raise RuntimeError('C_RANK_TAIL_REFERENCE_BOUNDARY_INVALID')
+        raw = path.read_bytes()
+        if hashlib.sha256(raw).hexdigest() != digest:
+            raise RuntimeError('C_RANK_TAIL_HISTORICAL_BYTES_CHANGED')
+        return strict_loads(raw)
+    bridge = fixed_file(request['rank_bridge_ref'], request['rank_bridge_sha256'])
+    if (request['rank_bridge_sha256'] != '93d757f5250b4ebe99d84de961fe22e9330c64604d94494085b9740e6ceae0c4'
+            or bridge.get('validation_status') != 'CURRENT_NEW_C_CANONICAL_PARTNER_NATIVE_CUSTOMER_RANK_DELTA_VERIFIED'
+            or any(bridge.get(key) is not True for key in ('rollback_returned', 'connection_closed',
+                'only_customer_rank_and_exact_native_write_metadata_changed'))
+            or bridge.get('other_connections') != []):
+        raise RuntimeError('C_RANK_TAIL_EXACT_INDEPENDENT_BRIDGE_REQUIRED')
+    failure = fixed_file('.local/s10-technical-closeout-v1/C-scratch-source-first-failure-index.json',
+        '44a618d47b7f3276d88f84c7727beda5c5bf7ea9c95c09f6a554f0ed22f69712')
+    snapshot = fixed_file('.local/s10-technical-closeout-v1/C-scratch-source-first-failure-runtime-originals/index.json',
+        '3fa41325fd75a660cdc20a500e5b08fda5b2e03ab2d09ddb10b6984224c0308d')
+    entries = {item['original_ref']: item for item in snapshot['items']}
+    def preserved(reference):
+        return fixed_file(reference, entries[reference]['sha256'])
+    original = fixed_file('.local/s10-technical-closeout-v1/C-SCRATCH-SOURCE-CHAIN-IN-FLIGHT.json',
+        '5737815e0ff6adbc07250b21616d232fd1a6a3eff11c73119478ccbb6ea3945b')
+    if (failure['owned_native_returncode'] != 0 or failure['owned_native_signal'] is not None
+            or failure['first_error'] != 'C_BILLED_SOURCE_OR_FINANCIAL_OWNER_MUTATED_BY_LATER_C_ACTION'
+            or original['directory'] != failure['actual_source_directory']
+            or original['D_source_sha256'] != request['D_source_sha256']):
+        raise RuntimeError('C_RANK_TAIL_FIRST_FAILURE_OR_D_REFERENCE_MISMATCH')
+    prior = original['directory']
+    source = preserved(prior + '/C-family-source-bill-returned.json')
+    source.update(preserved(prior + '/C-family-source-original-committed.json'), original_expected=True)
+    rows = [source, preserved(prior + '/C-family-target-bill-returned.json'),
+        preserved(prior + '/C-family-unrelated-bill-returned.json'),
+        preserved(prior + '/C-log-unbilled-upstream-returned.json'),
+        preserved(prior + '/C-same-company-bill-returned.json')]
+    merged = preserved(prior + '/C-new-family-confirmed-returned.json')
+    if (merged['source_patient_id'] != 2 or merged['target_patient_id'] != 4
+            or merged['state_is_accepted'] is not True or source['original_id'] != 1
+            or source['attachment_id'] != 236):
+        raise RuntimeError('C_RANK_TAIL_ACTUAL_MERGE_AND_ORIGINAL_NOT_BOUND')
+    old_state = profile.root / 'capture-scratch-C-new-C-same-company-native-unpaid-bill'
+    index_ref = str((old_state / 'sealed-index.json').relative_to(ROOT))
+    index = preserved(index_ref)
+    for item in index['files']:
+        path = old_state / item['path']
+        raw = path.read_bytes()
+        reference = str(path.relative_to(ROOT))
+        if (path.is_symlink() or len(raw) != item['bytes']
+                or hashlib.sha256(raw).hexdigest() != item['sha256']
+                or entries[reference]['sha256'] != item['sha256']):
+            raise RuntimeError('C_RANK_TAIL_STORED_PREDECESSOR_CAPTURE_CHANGED')
+    for label in ('before', 'after'):
+        path = Path(bridge[label + '_capture_ref'])
+        if (not path.resolve().is_relative_to(profile.root)
+                or hashlib.sha256(path.read_bytes()).hexdigest() != bridge[label + '_capture_sha256']):
+            raise RuntimeError('C_RANK_TAIL_BRIDGE_CAPTURE_CHANGED')
+    guard = {'partner_id': 19, 'actor_id': 9, 'invoice_ids': [7, 8], 'customer_rank': 2,
+        'immutable_partner_sha256': bridge['new_partner_fullrow_sha256'],
+        'last_fullrow_sha256': bridge['new_partner_fullrow_sha256'], 'stable_sha256': None}
+    return rows, guard, old_state, original
+
+
+def run_c_scratch_sources(profile, approval, authority, requested_path, *, tail_only=False):
     from s10_lc2_cases import Actor, Facts, capture, closed_log_report, d_selection, marker, stored_rows, verify_d
     # The following small functions are merged into existing cases.py during
     # the authorized code window; no additional platform/runner is introduced.
     from s10_lc2_cases import (CRecordedActor, new_c_confirmed_fee, run_new_c_fixture_flow,
                               c_source_selections, current_c_read_manifest, run_current_c_read_cells,
-                              run_current_c_error303, verify_c_sources)
+                              run_current_c_error303, run_current_c_rank_tail, verify_c_sources)
     for action in ('C-SCOPE', 'C-ATTACHMENT', 'LOG-03', 'scratch-c-sources'):
         profile.require_action(action)
     request, observed = scratch_requested(profile, requested_path)
@@ -893,17 +958,36 @@ def run_c_scratch_sources(profile, approval, authority, requested_path):
     selections = c_source_selections(schema, d_selection=d_selection, profile=profile)
     directory = profile.root / ('C-scratch-' + uuid.uuid4().hex[:12])
     facts = Facts(directory)
-    save_once(profile.root / 'C-SCRATCH-SOURCE-CHAIN-IN-FLIGHT.json', {
-        'directory': str(directory.relative_to(ROOT)), 'fixture_sha256': observed['fixture_sha256'],
-        'D_source_sha256': request['D_source_sha256'], 'automatic_retry': False})
     immutable = {}
+    rank_guard = None
+    if tail_only:
+        rows, rank_guard, old_state, original = c_rank_tail_prefix(profile, request)
+        if original['fixture_sha256'] != observed['fixture_sha256']:
+            raise RuntimeError('C_RANK_TAIL_ORDINARY_FIXTURE_CHANGED')
+        verify_c_sources(old_state, rows, d_source, stored_rows=stored_rows,
+            verify_d=verify_d, profile=profile, immutable_billed=immutable)
+        facts.save('C-rank-incident-exact-bridge', {
+            'rank_bridge_ref': request['rank_bridge_ref'], 'rank_bridge_sha256': request['rank_bridge_sha256'],
+            'old_fullrow_sha256': 'f55798df74ecbd390b976fb05ceb5e854a7297aad5975b78d2ba41a349b17035',
+            'current_fullrow_sha256': rank_guard['immutable_partner_sha256'],
+            'historical_capture_modified': False, 'immutable_reconstructed_from_verified_committed_prefix': True,
+            'existing_fee_ids': [row['fee_id'] for row in rows],
+            'existing_invoice_ids': [row['invoice_id'] for row in rows if 'invoice_id' in row]})
+        save_once(profile.root / 'C-SCRATCH-RANK-TAIL-IN-FLIGHT.json', {
+            'directory': str(directory.relative_to(ROOT)), 'rank_bridge_sha256': request['rank_bridge_sha256'],
+            'original_directory': original['directory'], 'prefix_replayed': False,
+            'first_original_recreated': False, 'funds_allowed': False, 'automatic_retry': False})
+    else:
+        save_once(profile.root / 'C-SCRATCH-SOURCE-CHAIN-IN-FLIGHT.json', {
+            'directory': str(directory.relative_to(ROOT)), 'fixture_sha256': observed['fixture_sha256'],
+            'D_source_sha256': request['D_source_sha256'], 'automatic_retry': False})
     final_observation, final_state, final_reference = None, None, None
     def observe(label, rows):
         nonlocal final_observation, final_state, final_reference
         state = capture('scratch', 'C-' + label, selections=selections,
             metadata=False, max_rows=2000, profile=profile)
         result = verify_c_sources(state, rows, d_source, stored_rows=stored_rows,
-            verify_d=verify_d, profile=profile, immutable_billed=immutable)
+            verify_d=verify_d, profile=profile, immutable_billed=immutable, rank_guard=rank_guard)
         saved = facts.save('C-independent-' + label, result | {'source': str(state.relative_to(ROOT))})
         final_reference = {'source_ref': str(Path(saved['path']).relative_to(ROOT)),
                            'source_sha256': saved['sha256']}
@@ -961,11 +1045,18 @@ def run_c_scratch_sources(profile, approval, authority, requested_path):
                 account['password'], budget=app.budget, directory=directory / (role + '-http'))
             actor.login(fixture['clinics'][0]['store_id'])
             actors[role] = actor
-        observe('before-first-C-source', [])
-        rows, source_manifest = run_new_c_fixture_flow(actors['manager'], actors['doctor'],
-            fixture['clinics'], facts, d_source, observe=observe,
-            new_c_confirmed_fee=new_c_confirmed_fee, recorded_actor=CRecordedActor,
-            store_original=store_original)
+        if tail_only:
+            # All current rows and the native rank bridge are checked before
+            # the first not-yet-executed upstream action is dispatched.
+            observe('tail-current-full-prefix-and-rank-bridge', rows)
+            rows, source_manifest = run_current_c_rank_tail(actors['manager'], actors['doctor'],
+                fixture['clinics'], facts, d_source, rows, observe=observe, store_original=store_original)
+        else:
+            observe('before-first-C-source', [])
+            rows, source_manifest = run_new_c_fixture_flow(actors['manager'], actors['doctor'],
+                fixture['clinics'], facts, d_source, observe=observe,
+                new_c_confirmed_fee=new_c_confirmed_fee, recorded_actor=CRecordedActor,
+                store_original=store_original)
         read_manifest = current_c_read_manifest(final_state, rows, fixture['clinics'])
         facts.save('C-scratch-actual-read-manifest', read_manifest)
         from s10_lc2_launch import stop
@@ -1375,6 +1466,93 @@ def run_final_s10_upgrade(profile, approval, authority, requested_path):
     return result
 
 
+def run_final_scratch_read_only(profile, approval, authority, requested_path):
+    """Two existing-D read GETs after E-D; no call to any money/fixture flow."""
+    from decimal import Decimal
+    from lxml import html
+    from s10_lc2_cases import Actor, Facts, closed_log_report, marker
+    profile.require_action('E-AFFECTED-REGRESSION')
+    request, observed = scratch_requested(profile, requested_path)
+    upgrade = strict_loads((profile.root / 'E-D-UPGRADE-RESULT.json').read_bytes())
+    fixture_raw = (profile.root / 'D-fixture-public-identities.json').read_bytes()
+    if (observed.get('product_commit') != authority['product_commit']
+            or upgrade.get('exit_code') != 0 or upgrade.get('product_commit') != authority['product_commit']
+            or observed.get('D_fixture_sha256') != hashlib.sha256(fixture_raw).hexdigest()
+            or any(observed.get(key) is not True for key in ('normal_modules_verified',
+                'old_protected_state_preserved', 'unique_D_native_accounting_verified',
+                'ordinary_D_manager_verified'))):
+        raise RuntimeError('E_D_POST_UPGRADE_AND_ORDINARY_D_OWNER_NOT_VERIFIED')
+    fixture = strict_loads(fixture_raw)
+    reference = fixture['actors']['manager']
+    provider = ROOT / reference['provider_ref']
+    if (reference['user_id'] != 6 or fixture['store_id'] != 1
+            or provider.is_symlink() or not provider.resolve().is_relative_to(profile.root / 'credentials')
+            or provider.stat().st_uid != os.getuid() or stat.S_IMODE(provider.stat().st_mode) != 0o600):
+        raise RuntimeError('E_D_EXISTING_ORDINARY_PROVIDER_BOUNDARY_INVALID')
+    account = strict_loads(provider.read_bytes())
+    if account['user_id'] != 6:
+        raise RuntimeError('E_D_ORDINARY_D_MANAGER_ID_CHANGED')
+    facts = Facts(profile.root / ('E-D-read-only-' + uuid.uuid4().hex[:12]))
+    save_once(profile.root / 'E-D-READ-ONLY-IN-FLIGHT.json', {
+        'before_sha256': request['manifest_sha256'], 'directory': str(facts.directory.relative_to(ROOT)),
+        'actor_id': 6, 'patient_id': 1, 'refund_id': 1, 'fund_actions_allowed': False})
+    with OwnedApplication(marker('scratch', profile), approval=approval,
+            product_commit=authority['product_commit'], test_commit=authority['test_commit'],
+            action='scratch-service', profile=profile) as app:
+        app.start([])
+        app.wait_ready(60)
+        actor = Actor('scratch', 'E-D-existing-reader', 6, account['login'], account['password'],
+            budget=app.budget, directory=facts.directory / 'read-http')
+        actor.login(1)
+        response = actor.client.request('POST', '/web/session/get_session_info',
+            json_body={'jsonrpc': '2.0', 'id': uuid.uuid4().hex, 'method': 'call', 'params': {}},
+            case_id='E-AFFECTED-REGRESSION')
+        response.require_status(200)
+        info = response.json()['result']
+        if (info.get('uid') != 6 or info.get('db') != profile.database
+                or info.get('is_admin') is not False or info.get('is_system') is not False
+                or info.get('is_internal_user') is not True
+                or info.get('user_context', {}).get('ydental_revision') != actor.revision):
+            raise RuntimeError('E_D_NATIVE_ORDINARY_IDENTITY_NOT_PROVEN')
+        page = actor.client.request('GET', '/ydental/settlement?patient_id=1', case_id='E-AFFECTED-REGRESSION')
+        facts.save('E-D-workbench-first-response', {'status': page.status, 'request_id': page.request_id,
+            'body_sha256': hashlib.sha256(page.body).hexdigest(), 'raw_body_retained': False})
+        page.require_status(200)
+        tree = html.fromstring(page.body)
+        invoices = [[''.join(td.itertext()).strip() for td in tr.xpath('./td')]
+                    for tr in tree.xpath('//section[@name="settled-bills"]//tbody/tr')]
+        paragraphs = tree.xpath('//section[h2[text()="线下付款与退款"]]/div/p')
+        payments = [p.xpath('./span/text()') for p in paragraphs if ''.join(p.itertext()).strip().startswith('付款')]
+        refunds = [p.xpath('./span/text()') for p in paragraphs if ''.join(p.itertext()).strip().startswith('退款')]
+        valid = (len(invoices) == 1 and len(invoices[0]) >= 5 and invoices[0][0] == '1'
+            and Decimal(invoices[0][3].replace(',', '')) == 6 and Decimal(invoices[0][4].replace(',', '')) == 0
+            and len(payments) == len(refunds) == 1 and len(payments[0]) >= 3 and len(refunds[0]) >= 3
+            and payments[0][0].strip() == refunds[0][0].strip() == '1'
+            and Decimal(payments[0][2].replace(',', '')) == 6 and Decimal(refunds[0][1].replace(',', '')) == 2
+            and refunds[0][2].strip() == 'done')
+        facts.save('E-D-workbench-content', {'exact_existing_D_ids_and_amounts_match': valid,
+            'invoice_id': 1, 'payment_id': 1, 'refund_id': 1,
+            'received': 6 if valid else None, 'refunded': 2 if valid else None,
+            'net_received': 4 if valid else None, 'pending_refund': 0 if valid else None})
+        if not valid:
+            raise RuntimeError('E_D_WORKBENCH_EXISTING_SIX_TWO_STATE_MISMATCH')
+        pdf = actor.client.request('GET', '/ydental/settlement/pdf/refund/1',
+            case_id='E-AFFECTED-REGRESSION', artifact_kind='pdf')
+        facts.save('E-D-refund-PDF-first-response', {'status': pdf.status, 'request_id': pdf.request_id,
+            'sha256': hashlib.sha256(pdf.body).hexdigest(), 'bytes': len(pdf.body)})
+        pdf.require_status(200)
+        if not pdf.body.startswith(b'%PDF-'):
+            raise RuntimeError('E_D_REFUND_DOCUMENT_NOT_PDF')
+        app.check()
+    logs = closed_log_report(app)
+    result = {'status': 'E_D_READ_ONLY_EXECUTED_PDF_AND_TERMINAL_RO_ACCEPTANCE_PENDING',
+        'directory': str(facts.directory.relative_to(ROOT)), 'actor_id': 6,
+        'native_exit_code': app.process.returncode, 'owned_service_exited': True,
+        'diagnostic_records': logs['record_count'], 'fund_actions_replayed': False}
+    save_once(profile.root / 'E-D-READ-ONLY-RETURNED.json', result)
+    return result
+
+
 def run_log_ui_read(profile, approval, authority, requested_path):
     from s10_lc2_browser import Credentials, _DRIVER_ENV_KEYS, run_current_log03_browser
     from s10_lc2_cases import Actor, Facts, closed_log_report, marker
@@ -1521,9 +1699,9 @@ def run_final_original_ui(profile, approval, authority, requested_path):
 def execute(args, profile):
     """Caller holds the plan's exclusive runner lock for this whole operation."""
     require_dispatch_unfrozen(profile)
-    if profile.target_role == 'scratch' and args.action not in {'target-ro', 'bootstrap-scratch', 'd-only', 'log-rollback', 'repair-upgrade-scratch-font', 'prepare-c-scratch', 'c-scratch-sources', 'final-upgrade', 'c-company-stage', 'c-remaining-configuration', 'tax-defaults-rollback'}:
+    if profile.target_role == 'scratch' and args.action not in {'target-ro', 'bootstrap-scratch', 'd-only', 'log-rollback', 'repair-upgrade-scratch-font', 'prepare-c-scratch', 'c-scratch-sources', 'c-scratch-tail', 'final-upgrade', 'final-scratch-read-only', 'c-company-stage', 'c-remaining-configuration', 'tax-defaults-rollback'}:
         raise RuntimeError('CURRENT_SCRATCH_ACTION_NOT_IMPLEMENTED')
-    if profile.target_role == 'main' and args.action in {'bootstrap-scratch', 'd-only', 'log-rollback', 'repair-upgrade-scratch-font', 'prepare-c-scratch', 'c-scratch-sources', 'c-company-stage', 'c-remaining-configuration', 'tax-defaults-rollback'}:
+    if profile.target_role == 'main' and args.action in {'bootstrap-scratch', 'd-only', 'log-rollback', 'repair-upgrade-scratch-font', 'prepare-c-scratch', 'c-scratch-sources', 'c-scratch-tail', 'final-scratch-read-only', 'c-company-stage', 'c-remaining-configuration', 'tax-defaults-rollback'}:
         raise RuntimeError('CURRENT_D_EXPLICIT_SCRATCH_TARGET_REQUIRED')
     approval = profile.root / ('runtime-approval-scratch.json' if profile.target_role == 'scratch' else 'runtime-approval.json')
     authority = strict_loads(approval.read_bytes())
@@ -1549,6 +1727,8 @@ def execute(args, profile):
         return repair_upgrade_scratch_font(profile, approval, authority, args.requested)
     if args.action == 'final-upgrade':
         return run_final_s10_upgrade(profile, approval, authority, args.requested)
+    if args.action == 'final-scratch-read-only':
+        return run_final_scratch_read_only(profile, approval, authority, args.requested)
     if args.action == 'log-ui-read':
         return run_log_ui_read(profile, approval, authority, args.requested)
     if args.action == 'final-original-ui':
@@ -1565,6 +1745,8 @@ def execute(args, profile):
         return prepare_c_scratch(profile, approval, authority, args.requested)
     if args.action == 'c-scratch-sources':
         return run_c_scratch_sources(profile, approval, authority, args.requested)
+    if args.action == 'c-scratch-tail':
+        return run_c_scratch_sources(profile, approval, authority, args.requested, tail_only=True)
     if args.action == 'log-rollback':
         return run_log_rollback_pair(profile, approval, authority, args.requested)
     if args.action == 'bootstrap-scratch':
@@ -1594,14 +1776,14 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('action', choices=['target-ro', 'original-ui', 'prepare-reader',
                                          'initialize-existing-reader', 'b-only', 'c-main', 'repair-upgrade-main',
-                                         'report-parameters-only', 'repair-upgrade-main-font', 'c-main-tail', 'bootstrap-scratch', 'd-only', 'log-rollback', 'repair-upgrade-scratch-font', 'prepare-c-scratch', 'c-scratch-sources', 'final-upgrade', 'log-ui-read', 'final-original-ui', 'inventory-native-read-regression', 'c-company-stage', 'c-remaining-configuration', 'tax-defaults-rollback'])
+                                         'report-parameters-only', 'repair-upgrade-main-font', 'c-main-tail', 'bootstrap-scratch', 'd-only', 'log-rollback', 'repair-upgrade-scratch-font', 'prepare-c-scratch', 'c-scratch-sources', 'c-scratch-tail', 'final-upgrade', 'final-scratch-read-only', 'log-ui-read', 'final-original-ui', 'inventory-native-read-regression', 'c-company-stage', 'c-remaining-configuration', 'tax-defaults-rollback'])
     parser.add_argument('--target', choices=['main', 'scratch'], default='main')
     parser.add_argument('--selections', type=Path)
     parser.add_argument('--requested', type=Path)
     args = parser.parse_args()
     if args.action == 'target-ro' and args.selections is None:
         parser.error('--selections is required for target-ro')
-    if args.action in {'b-only', 'c-main', 'repair-upgrade-main', 'repair-upgrade-main-font', 'c-main-tail', 'bootstrap-scratch', 'd-only', 'log-rollback', 'repair-upgrade-scratch-font', 'prepare-c-scratch', 'c-scratch-sources', 'final-upgrade', 'log-ui-read', 'final-original-ui', 'inventory-native-read-regression', 'c-company-stage', 'c-remaining-configuration', 'tax-defaults-rollback'} and args.requested is None:
+    if args.action in {'b-only', 'c-main', 'repair-upgrade-main', 'repair-upgrade-main-font', 'c-main-tail', 'bootstrap-scratch', 'd-only', 'log-rollback', 'repair-upgrade-scratch-font', 'prepare-c-scratch', 'c-scratch-sources', 'c-scratch-tail', 'final-upgrade', 'final-scratch-read-only', 'log-ui-read', 'final-original-ui', 'inventory-native-read-regression', 'c-company-stage', 'c-remaining-configuration', 'tax-defaults-rollback'} and args.requested is None:
         parser.error('--requested is required for this action')
     profile = current_plan_profile(args.target)
     descriptor = os.open(profile.root / 'runner.lock', os.O_RDWR | os.O_CREAT | os.O_NOFOLLOW, 0o600)

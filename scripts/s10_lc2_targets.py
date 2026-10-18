@@ -159,10 +159,11 @@ class PackageBudget(Budget):
         if self.profile is not None:
             self.profile.verify()
             current_bytes = sum(p.stat().st_size for p in self.profile.root.rglob('*') if p.is_file() and not p.is_symlink())
-            maximum = (.9 if self.profile.message_id == CURRENT_PLAN else 1) * 256 * 1024 ** 2
+            raw_limit = (384 if self.profile.message_id == CURRENT_PLAN else 256) * 1024 ** 2
+            maximum = (.9 if self.profile.message_id == CURRENT_PLAN else 1) * raw_limit
             if current_bytes >= maximum:
                 raise RuntimeError('FRAMEWORK6_RAW_STORAGE_BOUND')
-            if self.profile.message_id == CURRENT_PLAN and current_bytes >= .8 * 256 * 1024 ** 2:
+            if self.profile.message_id == CURRENT_PLAN and current_bytes >= .8 * raw_limit:
                 safe_plain(self.profile.root / 'storage-warning.tsv', ['80_PERCENT', current_bytes])
         elif self.path.exists() and time.time() - strict_loads(self.path.read_bytes())['started_epoch'] > 8 * 3600:
             raise RuntimeError('RUN_WINDOW_EXHAUSTED')

@@ -6104,7 +6104,7 @@
       "tester": "/root/tester_s10",
       "acceptance": "/root/acceptance_s10"
     },
-    "candidate_status": "PRODUCT_CC1A395_NATIVE_TAX_COMPATIBILITY_SOURCE_READY_ACTUAL_ROLLBACK_AND_FINITE_C_PENDING",
+    "candidate_status": "PRODUCT_CC1A395_ACTUAL_TAX_AND_CONFIGURATION_SCOPED_PASS_C_PREFIX_COMMITTED_PRECISE_TAIL_PENDING",
     "current_actual_evidence": [
       "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json"
     ],
@@ -6185,7 +6185,7 @@
           "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json",
           "acceptance-review.md"
         ],
-        "reason": "Four read/export combinations and same-company foreign nonempty source actually exercised, two HTML predicates durably completed. Cross-company/family/mixed/nonempty summary pending scratch. New59 native login timezone metadata independently explained with same-transaction timestamp; original terminal wrapper exit1 retained and physical before timezone was not captured."
+        "reason": "Four read/export combinations and same-company foreign nonempty source actually exercised, two HTML predicates durably completed. Cross-company/family/mixed/nonempty summary pending scratch. New59 native login timezone metadata independently explained with same-transaction timestamp; original terminal wrapper exit1 retained and physical before timezone was not captured. Scratch ordinary roles/configuration and legal family/source/bill prefix now actually committed and independently preserved; cross-company/read cells/mixed-store tail still NOT_RUN. First partner rank assertion FAIL retained and exact inverse proof separately accepted."
       },
       "C-ATTACHMENT": {
         "status": "PARTIAL_MAIN_CHINESE_PDF_REPAIR_ACTUAL_PASS",
@@ -7144,7 +7144,8 @@
     },
     "source_product_candidate": "cc1a395a8254a0b6c2017ceedd9a351d095c590a",
     "scratch_native_admission_ref": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/scratch-native-admission",
-    "current_C_preflight": "Exact attempt2 nativechart default-tax guarded write failed before first stage completion; original failure/latches preserved. Actual486 postRO independently confirms zero configuration commits and protected46/D19/stock baseline unchanged. Product tax snapshot is first observation. Finite stage continuation pending two native default-tax compatibility hooks, no third whole setup.",
-    "additional_product_impact": "P1545 changes common inventory system unmanaged read only; actual6MODEL passed. Upcoming S10 default-tax hook preserves intake-owned catalog, delegates unowned native defaults, leaves legal controlled mutation unchanged; actual rollback/control, normal C creation and final dual E required. Original finance-impact carry retains its earlier candidate scope."
+    "current_C_preflight": "Actual company-only and remaining commits independently preserved; first C source commits five fees/four unpaid bills/family merge/one original. Actual wrapper1/native0 rank-only assertion failure independently explained by93d inverse proof; precise never-executed tail only.",
+    "additional_product_impact": "P1545 common inventory system unmanaged read actual6MODEL plus native company creation passed; mutations/ordinary managed restrictions held. Pcc1 default-tax compatibility actual unowned native hooks rollback, controlled native catalog creation in five actual C fees, old owned tax rows/relations preserved. T08/T09/T15 carry retains historical scope; final dual data upgrades and affected regression remain mandatory.",
+    "current_engineering_limits_ref": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/current_engineering_limits"
   }
 }

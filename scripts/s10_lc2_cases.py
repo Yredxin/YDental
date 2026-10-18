@@ -1704,13 +1704,70 @@ def run_new_c_fixture_flow(manager, doctor, clinics, facts, d_source, *, observe
     return rows, final
 
 
+def run_current_c_rank_tail(manager, doctor, clinics, facts, d_source, rows, *, observe,
+                            store_original):
+    """Resume only the not-dispatched suffix of the fixed C rank incident."""
+    if ([row['amount'] for row in rows] != ['7', '11', '13', '17', '19']
+            or [row['fee_id'] for row in rows] != [2, 4, 3, 5, 6]
+            or [row.get('invoice_id') for row in rows] != [5, 7, 6, None, 8]
+            or [item['label'] for item in clinics] != ['local', 'same-company', 'other-company']):
+        raise RuntimeError('C_RANK_TAIL_EXACT_COMMITTED_PREFIX_REQUIRED')
+    local, same, other = clinics
+    for actor in (manager, doctor):
+        actor.refresh()
+        actor.switch(other['store_id'])
+        facts.save('C-tail-other-company-switch-' + str(actor.uid), {
+            'actor_id': actor.uid, 'store_id': actor.store_id, 'revision': actor.revision,
+            'request_id': actor.scope_request_id})
+    source = new_c_confirmed_fee(manager, doctor, other, facts, label='other-company',
+        amount=23, d_source=d_source, patient_id=4)
+    rows.append(source)
+    actor = CRecordedActor(manager, facts, 'other-company-post-care', other)
+    started = datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
+    billed = actor.action('settlement', 'bill', {
+        'fee_ids': [source['fee_id']], 'discount': 0, 'reason': ''},
+        operation_ref='current-C-other-company-nonempty-unpaid-bill')
+    source.update(invoice_id=billed['invoice_id'], native_rank_window={
+        'after': started, 'before': datetime.now(timezone.utc).replace(tzinfo=None).isoformat()})
+    facts.save('C-other-company-bill-returned', source | {
+        'no_payment_or_refund_dispatched': True, 'independent_commit_verification_required': True})
+    observe('tail-other-company-native-unpaid-bill', rows)
+    source['original_expected'] = True
+    original = store_original(manager, source, label='other-company-own-positive')
+    source.update(original)
+    facts.save('C-other-company-original-committed', {
+        'invoice_id': source['invoice_id'], **original,
+        'company_id': source['company_id'], 'ordinary_actor_id': manager.uid})
+    observe('tail-other-company-original-own-positive', rows)
+    manager.refresh()
+    manager.switch(local['store_id'])
+    mixed_manager = CRecordedActor(manager, facts, 'cross-scope-mixed', local)
+    for label, foreign in [('same-company', rows[-2]), ('other-company', rows[-1])]:
+        rejected = mixed_manager.action('settlement', 'bill', {
+            'fee_ids': [rows[3]['fee_id'], foreign['fee_id']], 'discount': 0, 'reason': ''},
+            expect=(403,), operation_ref='current-C-mixed-store-' + label)
+        exact = rejected.get('error') == 'access_denied: Select a confirmed fee in this store.'
+        facts.save('C-mixed-store-' + label + '-refusal', {
+            'actor_id': manager.uid, 'selected_store_id': local['store_id'],
+            'local_unbilled_fee_id': rows[3]['fee_id'], 'foreign_fee_id': foreign['fee_id'],
+            'foreign_store_id': foreign['store_id'], 'foreign_company_id': foreign['company_id'],
+            'expected_native_message_match': exact, 'prefix_replayed': False})
+        if not exact:
+            raise RuntimeError('C_MIXED_FOREIGN_FEE_DID_NOT_HIT_NATIVE_CURRENT_STORE_GUARD')
+        observe('tail-mixed-store-' + label + '-refused-no-economic-change', rows)
+    final = observe('tail-financial-sources-complete', rows)
+    facts.save('C-SCRATCH-SOURCES-TAIL-RETURNED', {'sources': rows, 'fund_dispatches': 0,
+        'prefix_replayed': False, 'normal_sources_independent_verification_complete': bool(final)})
+    return rows, final
+
+
 def c_source_selections(schema, *, d_selection, profile):
     selected = d_selection(schema, profile=profile)
     for entry in selected:
         if entry['table'] == 'account_move':
-            if 'create_uid' not in {row['column'] for row in schema['account_move']}:
+            if not {'create_uid', 'create_date'} <= {row['column'] for row in schema['account_move']}:
                 raise RuntimeError('C_CURRENT_NATIVE_INVOICE_CREATOR_SCHEMA_REQUIRED')
-            entry['columns'].append('create_uid')
+            entry['columns'] += ['create_uid', 'create_date']
         if entry['table'] in {'ydental_treatment_fee', 'ydental_treatment_event',
                               'ydental_intake_snapshot', 'ydental_settlement_source',
                               'ydental_queue_execution'}:
@@ -1718,7 +1775,7 @@ def c_source_selections(schema, *, d_selection, profile):
     additions = {
         'ydental_patient': 'id active ydental_merged_into_id ydental_partner_id ydental_store_id ydental_version',
         'ydental_patient_relation': 'id ydental_patient_id ydental_store_id ydental_superseded_by_id',
-        'res_partner': 'id company_id ydental_patient_owner_id',
+        'res_partner': 'id company_id ydental_patient_owner_id commercial_partner_id customer_rank supplier_rank write_uid write_date',
         'ydental_access_store': 'id name company_id ydental_timezone',
         'res_company': 'id name currency_id chart_template',
         'res_currency': 'id name',
@@ -1736,6 +1793,8 @@ def c_source_selections(schema, *, d_selection, profile):
         if table not in schema or not set(columns) <= {row['column'] for row in schema[table]}:
             raise RuntimeError('C_CURRENT_INDEPENDENT_PROJECTION_SCHEMA_MISSING')
         entry = {'table': table, 'columns': columns, 'order': ['id'], 'row_digest': True}
+        if table == 'res_partner':
+            entry['c_partner_rank_guard'] = True
         if table == 'ir_attachment':
             entry['null_columns'] = ['access_token']
             entry['row_digest'] = False
@@ -1750,8 +1809,52 @@ def c_source_selections(schema, *, d_selection, profile):
     return selected
 
 
+def verify_c_canonical_rank(tables, rows, guard):
+    """Only partner19's proved native invoice/rank transition is variable."""
+    partner = tables['res_partner'].get(19)
+    expected = {row['invoice_id']: row for row in rows
+                if row.get('invoice_id') and row['patient_id'] == 4}
+    actual = {move['id'] for move in tables['account_move'].values()
+              if move['partner_id'] == 19 and move['move_type'] == 'out_invoice'
+              and move['state'] == 'posted'}
+    if (guard.get('partner_id') != 19 or guard.get('actor_id') != 9
+            or not partner or partner['ydental_patient_owner_id'] != 4
+            or partner['commercial_partner_id'] != 19 or partner['supplier_rank'] != 0
+            or actual != set(expected) or not set(guard['invoice_ids']) <= actual
+            or partner['customer_rank'] != guard['customer_rank'] + len(actual - set(guard['invoice_ids']))):
+        raise RuntimeError('C_CANONICAL_NATIVE_RANK_INVOICE_DELTA_NOT_PROVEN')
+    stable = partner['__c_rank_stable_sha256']
+    if guard.get('stable_sha256') is None:
+        if (actual != {7, 8} or partner['customer_rank'] != 2
+                or partner['__row_sha256'] != guard['immutable_partner_sha256']):
+            raise RuntimeError('C_CANONICAL_FIRST_FULLROW_BRIDGE_NOT_PRESERVED')
+        guard['stable_sha256'] = stable
+    if stable != guard['stable_sha256']:
+        raise RuntimeError('C_CANONICAL_PARTNER_NONRANK_FIELDS_CHANGED')
+    added = actual - set(guard['invoice_ids'])
+    if not added:
+        if partner['__row_sha256'] != guard['last_fullrow_sha256']:
+            raise RuntimeError('C_CANONICAL_PARTNER_CHANGED_WITHOUT_NEW_POSTED_INVOICE')
+    else:
+        if len(added) != 1 or partner['write_uid'] != 9:
+            raise RuntimeError('C_CANONICAL_NATIVE_RANK_ACTOR_OR_COUNT_MISMATCH')
+        invoice_id = next(iter(added))
+        claim = expected[invoice_id]
+        window = claim.get('native_rank_window', {})
+        parse = lambda value: datetime.fromisoformat(value).replace(tzinfo=timezone.utc)
+        start, end = parse(window['after']), parse(window['before'])
+        invoice = tables['account_move'][invoice_id]
+        if (end < start or end - start > timedelta(minutes=5)
+                or not start <= parse(partner['write_date']) <= end
+                or not start <= parse(invoice['create_date']) <= end
+                or invoice['create_uid'] != 9 or invoice['partner_id'] != 19):
+            raise RuntimeError('C_CANONICAL_POSTCOMMIT_RANK_TIME_NOT_IN_REAL_BILL_WINDOW')
+    guard.update(invoice_ids=sorted(actual), customer_rank=partner['customer_rank'],
+                 last_fullrow_sha256=partner['__row_sha256'])
+
+
 def verify_c_sources(directory, rows, d_source, *, stored_rows, verify_d, profile,
-                     immutable_billed=None):
+                     immutable_billed=None, rank_guard=None):
     """Use actual rows/edges and globally unique D funds, never a passed-ID waiver."""
     protection = verify_d(directory, d_source, state='done', actual_refund=2, profile=profile,
         additional_unpaid_fee_ids=tuple(row['fee_id'] for row in rows))
@@ -1764,6 +1867,8 @@ def verify_c_sources(directory, rows, d_source, *, stored_rows, verify_d, profil
     actual_originals, actual_rows = [], []
     immutable_billed = immutable_billed if immutable_billed is not None else {}
     expected_original_invoice_ids = set()
+    if rank_guard is not None:
+        verify_c_canonical_rank(tables, rows, rank_guard)
     for claimed in rows:
         fee = fees.get(claimed['fee_id'])
         event = tables['ydental_treatment_event'].get(claimed['event_id'])
@@ -1823,6 +1928,8 @@ def verify_c_sources(directory, rows, d_source, *, stored_rows, verify_d, profil
             digest = {name: record['__row_sha256'] for name, record in (
                 ('fee', fee), ('event', event), ('snapshot', snapshot),
                 ('source', linked[0]), ('invoice', invoice), ('partner', partner))}
+            if rank_guard is not None and partner['id'] == rank_guard['partner_id']:
+                digest['partner'] = rank_guard['immutable_partner_sha256']
             previous = immutable_billed.setdefault(fee['id'], digest)
             if previous != digest:
                 raise RuntimeError('C_BILLED_SOURCE_OR_FINANCIAL_OWNER_MUTATED_BY_LATER_C_ACTION')
@@ -1877,7 +1984,9 @@ def verify_c_sources(directory, rows, d_source, *, stored_rows, verify_d, profil
             key: row[key] for key in ('id', 'ydental_patient_id', 'state', '__row_sha256')}
             for row in records if row['ydental_patient_id'] == patient['id']]
         for table, records in business_rows.items()} for patient in patients}
-    d_protected = {'patient': tables['ydental_patient'].get(d_source['patient_id']),
+    d_patient = tables['ydental_patient'].get(d_source['patient_id'])
+    d_protected = {'patient': d_patient,
+                   'partner_fullrow_sha256': tables['res_partner'][d_patient['ydental_partner_id']]['__row_sha256'],
                    'business': per_patient.get(str(d_source['patient_id']))}
     previous_d = immutable_billed.setdefault(('D-patient-and-continuation', d_source['patient_id']), d_protected)
     if d_protected != previous_d:
@@ -1885,7 +1994,11 @@ def verify_c_sources(directory, rows, d_source, *, stored_rows, verify_d, profil
     return {'validation_status': 'CURRENT_C_NORMAL_SOURCES_AND_UNIQUE_D_FUNDS_INDEPENDENTLY_OBSERVED',
         'source_rows': actual_rows, 'originals': actual_originals,
         'patients': patients, 'patient_business_rows': per_patient,
-        'D_native_accounting': protection, 'evidence_layer': 'INDEPENDENT_COMMITTED_RO',
+        'D_native_accounting': protection,
+        **({'canonical_partner_rank': {key: rank_guard[key] for key in (
+            'partner_id', 'actor_id', 'invoice_ids', 'customer_rank', 'stable_sha256',
+            'last_fullrow_sha256', 'immutable_partner_sha256')}} if rank_guard is not None else {}),
+        'evidence_layer': 'INDEPENDENT_COMMITTED_RO',
         'no_new_C_funds': True, 'scope_manifest_requires_actual_patient_relations': True}
 
 

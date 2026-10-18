@@ -1,5 +1,12 @@
 # 当前 S10 技术收口 / YD-S10-TECHNICAL-CLOSEOUT-V1 1.0
 
+
+当前实际进展（2026-10-18T11:51Z）：产品P=cc1a395a8254a0b6c2017ceedd9a351d095c590a、实际测试T=6ee0e0f6618629496ecf06f00433fd8a680200b0。默认税兼容的新unowned原生MODEL已真实回滚通过，独立后RO7a1017保持旧owned目录/税关系；随后company-only正常commit1及remaining正常commit4，独立核原46域/D19与库存/税/角色保全。新公司4、普通manager9/doctor10/reader11及店2/3/4已就绪。company首RO wrapper实际exit1，原raw保留；仅新company partner13及新Scrap20的native flush元数据通过SOURCE+逆算解释，派生d5aed另列，不改原exit。remaining实际RO4362exit0，正常84新配置审计及四mutex仅revision变化逐项解释。
+
+C首次真实source阶段已提交五费用、四未付账单、一次合法family合并和首份新原件，未执行任何收退款。native1956193正常exit0，wrapper实际exit1：过严的整行partner hash把正常posted invoice触发customer_rank/写元数据视为业务漂移。独立唯一窄RO93d757实际exit0，canonical partner19仅rank及write_uid/write_date变化；在PostgreSQL中用实际前一invoice7创建时间/actor9/rank1逆算精确恢复原whole-row hash，全部其他字段/费用来源/原生账务/D旧行保持。原失败2842B/SHA44a618d47b7f3276d88f84c7727beda5c5bf7ea9c95c09f6a554f0ed22f69712及1617映射快照3fa41325…、15映射后核a73cb673…保持。只修canonical19窄断言并绑定原事实续未执行尾段，不重跑A/U/B/LOG17/同店19、合并、首原件或D。跨公司23/第二新原件/混店负例/读取矩阵/303尚NOT_RUN。
+
+当前累计Odoo34/RO155/HTTP335/Firefox8/旧原件GET7，事故RO2/maintenance1/create2不变；无owned应用/观察进程。当前工具窗只cases/evidence/runner/targets必要修复及最终E-D既有退款只读入口，产品P不变。按剩余实际调用图，本plan新增RO160→180（总210），历史/current已用及原start/deadline不变。完整13保留根stat-only为356332547B，当前raw214479137B；剩余C/双E/LOG与必要快照预计29—52MB，超过旧raw90%余量27112773B，因此仅CURRENT_PLAN raw256→384MiB、80%提示/90%暂停同比例；历史profile256MiB及完整保留包1GiB保持，不删原件/清计数/复活旧窗口。
+
 2026-10-18T06:52:51Z 开始实际接管，task_id 继续 S10-LOG-AND-CLOSEOUT-v2。用户在本会话交付完整 plan；本轮执行模式已启用，范围内无需逐批 GPT 评论。当前 **IN_PROGRESS**，不是交付 PASS。
 
 - 默认税兼容最小产品P=cc1a395a8254a0b6c2017ceedd9a351d095c590a已单独固定（叠加1545库存只读修复）：S10两个原生tax hook仅非合法MUTATION时过滤intake-owned并super，所有原CRUD guard零改；补直接已安装intake依赖，无新安装/额外模块升级。新unowned默认税真实回滚入口、company-only与remaining有限接续SOURCE READY，均尚NOT_RUN。最终E两目标须覆盖此P，旧D真实P=b1/T371等历史固定不改。

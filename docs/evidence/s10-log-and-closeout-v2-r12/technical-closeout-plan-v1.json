@@ -86,21 +86,42 @@
       "accident_ro": 2,
       "create": 2,
       "firefox": 8,
-      "http": 214,
+      "http": 335,
       "maintenance": 1,
-      "odoo_start": 30,
+      "odoo_start": 34,
       "original_get": 7,
-      "target_ro": 135
+      "target_ro": 155
     },
     "current_plan": {
+      "odoo_start": 24,
+      "target_ro": 125,
+      "http": 303,
       "firefox": 2,
-      "http": 182,
-      "odoo_start": 20,
-      "original_get": 7,
-      "target_ro": 105
+      "original_get": 7
     },
     "counts_are_not_test_pass_totals": true,
-    "http_boundary": "Runner/browser dispatch ledger; not all native renderer internal asset HTTP wire requests."
+    "http_boundary": "Runner/browser dispatch ledger; not all native renderer internal asset HTTP wire requests.",
+    "as_of_utc": "2026-10-18T11:51:00Z",
+    "counts_are_not_test_case_totals": true,
+    "prior_as_of_before_tax_model_and_finite_C": {
+      "cumulative": {
+        "accident_ro": 2,
+        "create": 2,
+        "firefox": 8,
+        "http": 214,
+        "maintenance": 1,
+        "odoo_start": 30,
+        "original_get": 7,
+        "target_ro": 135
+      },
+      "current_plan": {
+        "firefox": 2,
+        "http": 182,
+        "odoo_start": 20,
+        "original_get": 7,
+        "target_ro": 105
+      }
+    }
   },
   "private_index_references": [
     {
@@ -270,7 +291,8 @@
     "reader_initialize_and_B_preparation": "48fad024dff0460d2936931d811503605d54ca6d",
     "B_actual": "cccbf577c454747f1e60d4de05a6775efe23b137",
     "P1_load_and_C_first": "70c49c26cf6dac860e674d90a2f36a52b8f45a00",
-    "font_repair_C_tail": "64371b6ad8530925396379aaf5ed8cf85ac01c57"
+    "font_repair_C_tail": "64371b6ad8530925396379aaf5ed8cf85ac01c57",
+    "C_current_source_actual": "6ee0e0f6618629496ecf06f00433fd8a680200b0"
   },
   "B-reader": {
     "actor_id": 59,
@@ -329,9 +351,9 @@
   },
   "independent_review_reference": {
     "ref": "../../reports/s10-log-and-closeout-v2-r12/acceptance-review.md",
-    "bytes_at_current_signature": 187475,
-    "sha256_at_current_signature": "b90387dab7e24c83d574cbe44ffac77a6ada2d7c56d92fcb2975a5385270b316",
-    "scope": "Actual prior A/B/C and D/LOG02 scoped conclusions retained; current new C/E/LOG source independently reviewed, engineering10+7 hermetic checks only. Future C/E/LOG actual tests not signed."
+    "bytes_at_current_signature": 226244,
+    "sha256_at_current_signature": "d7dfdfc408a8f62ceb7f3fc505720d1db7396ae849c6cff50eea6a7b54a1dc7c",
+    "scope": "Actual prior A/B/D/LOG02 plus real inventory6MODEL, tax unowned rollback/finite configuration, C committed prefix and rank93d inverse proof scoped acceptance. Precise C tail, final dual E and remaining LOG not signed."
   },
   "B-actual": {
     "status": "PASS_SCOPED_SIX_MODEL_AND_SIX_REAL_RPC",
@@ -562,7 +584,7 @@
       "source_reconstruction": "Changed tracked files archived from fixed cccbf577 Git bytes only after exact match with actual B frozen SHA; explicitly marked FIXED_COMMIT_BYTE_IDENTICAL_SOURCE."
     }
   },
-  "current_product_commit": "b1f30aa88365ec85aea15073f08de5d6dfa22a5f",
+  "current_product_commit": "cc1a395a8254a0b6c2017ceedd9a351d095c590a",
   "P1-repair-load": {
     "status": "PASS_SCOPED_NOT_FINAL_E",
     "product_commit": "d0d27cf44446e2517a43251236636fd233a50ff6",
@@ -789,6 +811,12 @@
       "bytes_at_current_signature": 179441,
       "sha256_at_current_signature": "ecb4753e3f0cd50ed3bbdb8617c0cb82f444a28e5149b8a83f76275cbed5a8c5",
       "scope": "Actual scratch configuration recovery/early upgrade and real unique D6/2 plus LOG02 independently scoped PASS; prior A/B/C conclusions and failures retained. C scratch/LOG06-10-12 pair/LOG03 UI and final dual E not yet executed."
+    },
+    {
+      "ref": "../../reports/s10-log-and-closeout-v2-r12/acceptance-review.md",
+      "bytes_at_current_signature": 187475,
+      "sha256_at_current_signature": "b90387dab7e24c83d574cbe44ffac77a6ada2d7c56d92fcb2975a5385270b316",
+      "scope": "Actual prior A/B/C and D/LOG02 scoped conclusions retained; current new C/E/LOG source independently reviewed, engineering10+7 hermetic checks only. Future C/E/LOG actual tests not signed."
     }
   ],
   "D-configuration-and-early-font": {
@@ -1064,10 +1092,109 @@
   "current_engineering_limits": {
     "odoo_new_plan": 40,
     "odoo_cumulative_maximum": 50,
-    "target_ro_new_plan": 160,
+    "target_ro_new_plan": 180,
     "http_new_plan": 1200,
     "firefox_new_plan": 4,
     "original_get_new_plan": 24,
-    "reason": "Concrete added tax compatibility rollback and finite configuration split; counts/start/deadline/baseline/historical STOP unchanged. 90% pause concerns raw storage, not dispatch counters."
+    "reason": "Concrete added tax compatibility rollback and finite configuration split; counts/start/deadline/baseline/historical STOP unchanged. 90% pause concerns raw storage, not dispatch counters.",
+    "target_ro_cumulative_maximum": 210,
+    "current_plan_raw_mib": 384,
+    "historical_profile_raw_mib": 256,
+    "global_retained_mib": 1024,
+    "storage_warning_percent": 80,
+    "storage_pause_percent": 90,
+    "resource_accounting_preserved": true,
+    "storage_reason": "Stat-only 356332547B globally/214479137B current raw; remaining29-52MB exceeds prior90% headroom27112773B. Only current plan raw ceiling changes; historical profiles/global ceiling/counts/start/deadline/STOP unchanged.",
+    "raw_change_private_archive": {
+      "path": ".local/s10-technical-closeout-v1/.resource-change-raw384/reason.json",
+      "bytes": 2661,
+      "sha256": "8aa23054efbac7ac3b181cb65840bb6d9c9220ed3c9703a04c3bf496a7223d39",
+      "access": "Local private engineering record; original scope/budget archived before new authority update"
+    }
+  },
+  "C-tax-and-finite-configuration-actual": {
+    "status": "PASS_SCOPED_INDEPENDENTLY_ACCEPTED",
+    "product_commit": "cc1a395a8254a0b6c2017ceedd9a351d095c590a",
+    "runtime_test_commit": "6ee0e0f6618629496ecf06f00433fd8a680200b0",
+    "unowned_default_tax_actual": "Native default sale/purchase tax hooks restored unowned rollback-only temporary product; no commit. Old owned product full row and both tax relations independently preserved by actual post RO7a1017.",
+    "company_stage": {
+      "native_pid": 1945458,
+      "native_exit_code": 0,
+      "commits": 1,
+      "company_id": 4,
+      "manager_id": 9,
+      "original_post_ro_wrapper_exit_code": 1,
+      "derived_offline_reconciliation": {
+        "path": ".local/s10-technical-closeout-v1/C-company-stage-reconciled-verified.json",
+        "bytes": 703416,
+        "sha256": "d5aed0da3e54f4f13975f400fcbf3f3a70a41b230feac100d46460601e329f96",
+        "access": "Local private evidence; not directly readable from GitHub"
+      },
+      "limitation": "Only new company partner13 and new Scrap20 native flush actor/time explained by precise core source and inverse complete-row hashes; original exit1/raw retained, last dirty SQL column was not observed."
+    },
+    "remaining_configuration": {
+      "native_pid": 1951885,
+      "native_exit_code": 0,
+      "commits": 4,
+      "post_ro_exit_code": 0,
+      "post_ro": {
+        "path": ".local/s10-technical-closeout-v1/C-scratch-configured-verified.json",
+        "bytes": 778658,
+        "sha256": "4362b542b607788ee50936a49ab5f36aa2301528721917aac6e6063a7333dc4d",
+        "access": "Local private evidence; not directly readable from GitHub"
+      },
+      "ordinary_actors": [
+        9,
+        10,
+        11
+      ],
+      "new_stores": [
+        2,
+        3,
+        4
+      ],
+      "preservation": "Old 46 domains and D19: old financial rows unchanged; 83 prior audit prefix preserved, 84 normal new configuration audits mapped. Stock/tax groups and six mutex non-revision fields preserved; normal revision changes individually derived."
+    },
+    "independent_reviewer": "/root/acceptance_s10"
+  },
+  "C-source-first-partial-and-rank": {
+    "status": "PARTIAL_REAL_COMMITTED_PREFIX_RANK_INCIDENT_INDEPENDENTLY_EXPLAINED_TAIL_NOT_RUN",
+    "product_commit": "cc1a395a8254a0b6c2017ceedd9a351d095c590a",
+    "runtime_test_commit": "6ee0e0f6618629496ecf06f00433fd8a680200b0",
+    "native_pid": 1956193,
+    "native_exit_code": 0,
+    "wrapper_exit_code": 1,
+    "fees_committed": 5,
+    "unpaid_invoices_committed": 4,
+    "legal_family_merges": 1,
+    "new_originals_created": 1,
+    "payment_or_refund_dispatches": 0,
+    "first_failure": {
+      "path": ".local/s10-technical-closeout-v1/C-scratch-source-first-failure-index.json",
+      "bytes": 2842,
+      "sha256": "44a618d47b7f3276d88f84c7727beda5c5bf7ea9c95c09f6a554f0ed22f69712",
+      "access": "Local private evidence; not directly readable from GitHub"
+    },
+    "first_runtime_snapshot": {
+      "path": ".local/s10-technical-closeout-v1/C-scratch-source-first-failure-runtime-originals/index.json",
+      "bytes": 647225,
+      "sha256": "3fa41325fd75a660cdc20a500e5b08fda5b2e03ab2d09ddb10b6984224c0308d",
+      "access": "Local private evidence; not directly readable from GitHub"
+    },
+    "rank_incident_read_only": {
+      "path": ".local/s10-technical-closeout-v1/C-partner-rank-incident-verified.json",
+      "bytes": 3329,
+      "sha256": "93d757f5250b4ebe99d84de961fe22e9330c64604d94494085b9740e6ceae0c4",
+      "access": "Local private evidence; not directly readable from GitHub"
+    },
+    "rank_runtime_snapshot": {
+      "path": ".local/s10-technical-closeout-v1/C-partner-rank-incident-runtime-originals/index.json",
+      "bytes": 4978,
+      "sha256": "a73cb6739067d8ff631b39ab8d8e8209ec8b08770ad72736ba312b2501b81677",
+      "access": "Local private evidence; not directly readable from GitHub"
+    },
+    "rank_scope": "Only new canonical partner19 changed customer_rank/write_uid/write_date through actual invoice8 posting. Inverse in PostgreSQL using rank1/actor9/actual prior invoice7 create_date restores exact old whole-row SHA; all other partner fields and old financial/source/D rows unchanged. Physical prior rank was not individually projected.",
+    "continuation": "Precisely bind original prefix and actual inverse proof; execute only other-company23/new second original/mixed-store negatives/read cells/error303. No repeat committed prefix or D.",
+    "independent_reviewer": "/root/acceptance_s10"
   }
 }
