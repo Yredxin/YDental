@@ -29,19 +29,24 @@ class YDentalInventoryNative(models.AbstractModel):
         if self.sudo().filtered('ydental_store_id') or values and values.get('ydental_store_id'):
             raise AccessError(self.env._('access_denied: Managed inventory requires a controlled source.'))
 
-    def _inventory_read_domain(self):
-        if self.env.user.has_group('ydental_base.ydental_base_group_user'):
+    def _inventory_read_domain(self, operation='read'):
+        # Native Settings administration reads shared stock configuration when
+        # creating a company. It still cannot read store-owned inventory or
+        # gain native mutation permission through this metadata read exception.
+        if (self.env.user.has_group('ydental_base.ydental_base_group_user')
+                and (operation != 'read' or not self.env.is_system())):
             return fields.Domain.FALSE
         return fields.Domain('ydental_store_id', '=', False)
 
     def _access_domain(self, operation):
         domain = super()._access_domain(operation)
-        return domain if self.env.su else domain & self._inventory_read_domain()
+        return domain if self.env.su else domain & self._inventory_read_domain(operation)
 
     def check_access(self, operation):
-        if not self.env.su and (self._inventory_read_domain().is_false() or
-                self.sudo().filtered_domain(self._inventory_read_domain()).ids != self.ids):
-            raise AccessError(self.env._('access_denied: Native inventory is available only through the scoped workbench.'))
+        if not self.env.su:
+            domain = self._inventory_read_domain(operation)
+            if domain.is_false() or self.sudo().filtered_domain(domain).ids != self.ids:
+                raise AccessError(self.env._('access_denied: Native inventory is available only through the scoped workbench.'))
         return super().check_access(operation)
 
     def fetch(self, field_names):
