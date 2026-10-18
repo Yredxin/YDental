@@ -60,7 +60,7 @@ def driver_environment(ambient):
     """The Python driver inherits ambient env; refuse rather than mutate it.
 
     async_playwright.start has no env argument. Its coordinator must already
-    have this minimal environment; Firefox receives the same explicit copy.
+    have this minimal environment; Firefox may add only approved local libraries.
     Unknown/debug/preload/proxy variables never silently reach either child.
     """
     if type(ambient) is not dict or any(type(k) is not str or type(v) is not str
@@ -69,6 +69,31 @@ def driver_environment(ambient):
     if set(ambient) - _DRIVER_ENV_KEYS:
         raise BrowserBoundaryError('DRIVER_ENVIRONMENT_NOT_WHITELISTED')
     return dict(ambient)
+
+
+def firefox_environment(ambient, executable_path, *, diagnostic=False):
+    """Only the selected Firefox child receives its existing local library paths."""
+    if type(diagnostic) is not bool or type(ambient) is not dict:
+        raise BrowserBoundaryError('FIREFOX_CHILD_ENVIRONMENT_INVALID')
+    clean = dict(ambient)
+    if diagnostic:
+        if clean.pop('DEBUG', None) != 'pw:browser':
+            raise BrowserBoundaryError('FIREFOX_DIAGNOSTIC_DEBUG_INVALID')
+    clean = driver_environment(clean)
+    root = Path(__file__).resolve().parents[1]
+    dependencies = root / '.local/s00-b-deps'
+    selected = dependencies / 'browsers/firefox-1543/firefox/firefox'
+    libraries = dependencies / 'browser-libs/usr/lib/x86_64-linux-gnu'
+    executable = Path(executable_path)
+    if (executable != selected or not executable.is_file() or executable.is_symlink()
+            or not libraries.is_dir() or libraries.is_symlink()
+            or not selected.parent.resolve().is_relative_to(dependencies)
+            or not libraries.resolve().is_relative_to(dependencies)):
+        raise BrowserBoundaryError('FIREFOX_EXISTING_LOCAL_DEPENDENCIES_INVALID')
+    clean['LD_LIBRARY_PATH'] = os.pathsep.join((str(selected.parent), str(libraries)))
+    if diagnostic:
+        clean['DEBUG'] = 'pw:browser'
+    return clean
 
 
 def _preserve_browser_failure(directory, primary, stage):
@@ -467,8 +492,11 @@ class BrowserSession:
             self.playwright = await self.factory().start()
             # No sandbox-disabling flags, preferences, proxy, persistent profile
             # or dependency installation. Capability refusal is a hard STOP.
+            firefox_env = (firefox_environment(child_env, self.executable)
+                if self.task_profile is not None and self.task_profile.message_id == MAIN_A_ENGINEERING
+                else child_env)
             self.browser = await self.playwright.firefox.launch(
-                executable_path=str(self.executable), headless=True, env=child_env)
+                executable_path=str(self.executable), headless=True, env=firefox_env)
             self._watchdog = asyncio.create_task(self._deadline())
             await self._new_context()
             return self

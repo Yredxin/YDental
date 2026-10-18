@@ -39,6 +39,17 @@ def parse_browser_debug(debug):
     return facts
 
 
+def diagnostic_driver_environment(ambient):
+    """Consume the existing supervisor's Python-only flag before its driver."""
+    from s10_lc2_browser import _DRIVER_ENV_KEYS
+    if ambient.get('PYTHONFAULTHANDLER') != '1':
+        raise RuntimeError('DIAGNOSTIC_SUPERVISOR_ENVIRONMENT_INVALID')
+    child = {key: value for key, value in ambient.items() if key != 'PYTHONFAULTHANDLER'}
+    if set(child) - (_DRIVER_ENV_KEYS | {'DEBUG'}) or child.get('DEBUG') != 'pw:browser':
+        raise RuntimeError('DIAGNOSTIC_ENVIRONMENT_INVALID')
+    return child
+
+
 def pairing_metadata():
     import configparser
     parser = configparser.ConfigParser()
@@ -63,21 +74,24 @@ def pairing_metadata():
 async def blank_page_worker(directory):
     # The parent supplies a clean diagnostic-only environment. No provider or
     # application session path enters this process or the browser context.
-    from s10_lc2_browser import _DRIVER_ENV_KEYS
     from s10_lc2_evidence import save_once
-    if set(os.environ) - (_DRIVER_ENV_KEYS | {'DEBUG'}) or os.environ.get('DEBUG') != 'pw:browser':
-        raise RuntimeError('DIAGNOSTIC_ENVIRONMENT_INVALID')
+    from s10_lc2_browser import firefox_environment
+    clean = diagnostic_driver_environment(dict(os.environ))
+    os.environ.clear()
+    os.environ.update(clean)
     sys.path.insert(0, str(PLAYWRIGHT_ROOT))
     from playwright.async_api import async_playwright
     result = {'credential_provider_read': False, 'application_url_requested': False,
               'network_requests': 0, 'blank_page_pass': False, 'browser_returned': False,
-              'context_created': False, 'driver_stop_returned': False}
+              'context_created': False, 'driver_stop_returned': False,
+              'supervisor_python_flag_removed_before_driver': True}
     driver = browser = context = None
     started = time.monotonic()
     try:
         driver = await async_playwright().start()
         browser = await driver.firefox.launch(executable_path=str(FIREFOX), headless=True,
-                                              env=dict(os.environ), timeout=60000)
+                                              env=firefox_environment(dict(os.environ), FIREFOX, diagnostic=True),
+                                              timeout=60000)
         result['browser_returned'] = True
         result['reported_browser_version'] = browser.version
         context = await browser.new_context()

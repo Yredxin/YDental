@@ -202,6 +202,16 @@ GATE = {'identity_valid': True, 'clinical_user7_eligible': True,
 
 
 class RunnerContractTests(unittest.TestCase):
+    def test_diag_handles_actual_supervisor_python_flag_without_driver_whitelist_change(self):
+        source = (ROOT / 'scripts/s10_lc2_supervisor.py').read_text()
+        self.assertIn("child_env['PYTHONFAULTHANDLER'] = '1'", source)
+        clean = browser_diag.diagnostic_driver_environment({
+            'DEBUG': 'pw:browser', 'PYTHONFAULTHANDLER': '1', 'PATH': '/usr/bin'})
+        self.assertEqual(clean, {'DEBUG': 'pw:browser', 'PATH': '/usr/bin'})
+        with self.assertRaises(RuntimeError):
+            browser_diag.diagnostic_driver_environment({'DEBUG': 'pw:browser',
+                'PYTHONFAULTHANDLER': '1', 'PWDEBUG': '1'})
+
     def test_debug_exit_parser_matches_real_playwright_producer_delimiter(self):
         producer = (browser_diag.PLAYWRIGHT_ROOT / 'playwright/driver/package/lib/coreBundle.js').read_text()
         self.assertIn('<process did exit: exitCode=${exitCode}, signal=${signal}>', producer)
