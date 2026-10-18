@@ -11,7 +11,7 @@ import time
 
 from s10_lc2_logging import strict_loads
 from s10_lc2_supervisor import append_plain, private_file, safe_plain, save_primary
-from s10_lc2_task_profile import MAIN_A_ENGINEERING, TaskProfile
+from s10_lc2_task_profile import MAIN_A_ENGINEERING, MAIN_A_ORIGINAL_UI, TaskProfile
 
 CORE = 'f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb'
 CLUSTER = '7694897083368259627'
@@ -74,8 +74,10 @@ class Budget:
     def consume(self, kind, *, before_reserve=None, after_reserve=None, firefox_purpose=None):
         if kind not in LIMITS:
             raise ValueError('UNAPPROVED_RESOURCE')
-        engineering = self.profile is not None and self.profile.message_id == MAIN_A_ENGINEERING
-        if (engineering and kind == 'firefox' and firefox_purpose not in {'diagnostic', 'ui'}
+        engineering = self.profile is not None and self.profile.message_id in {MAIN_A_ENGINEERING, MAIN_A_ORIGINAL_UI}
+        original_ui = self.profile is not None and self.profile.message_id == MAIN_A_ORIGINAL_UI
+        if (original_ui and kind == 'firefox' and firefox_purpose != 'ui'
+                or engineering and kind == 'firefox' and firefox_purpose not in {'diagnostic', 'ui'}
                 or firefox_purpose is not None and (not engineering or kind != 'firefox')):
             raise ValueError('FIREFOX_PURPOSE_REQUIRED_ONLY_FOR_ENGINEERING')
         self.check_storage()
@@ -92,11 +94,11 @@ class Budget:
             elif time.time() - value['started_epoch'] > 8 * 3600:
                 raise RuntimeError('RUN_WINDOW_EXHAUSTED')
             if engineering and kind == 'firefox':
-                if value['task_firefox_counts'][firefox_purpose] >= 2:
+                if value['task_firefox_counts'][firefox_purpose] >= (3 if original_ui else 2):
                     raise RuntimeError('FIREFOX_PURPOSE_RESOURCE_EXHAUSTED:' + firefox_purpose)
                 value['task_firefox_counts'][firefox_purpose] += 1
             count = value['counts'].get(kind, 0) + 1
-            maximum = 5 if engineering and kind == 'firefox' else LIMITS[kind]
+            maximum = (8 if original_ui else 5) if engineering and kind == 'firefox' else LIMITS[kind]
             if count > maximum:
                 raise RuntimeError('RESOURCE_EXHAUSTED:' + kind)
             value['counts'][kind] = count

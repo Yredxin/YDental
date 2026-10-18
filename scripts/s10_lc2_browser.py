@@ -21,9 +21,11 @@ from urllib.parse import parse_qs, unquote, urlencode, urljoin, urlsplit
 import uuid
 
 from s10_lc2_evidence import PROTECTED, save_once
-from s10_lc2_http import _private_directory, _save_bytes, _redacted_json, main_a_request_boundary
+from s10_lc2_http import (_private_directory, _save_bytes, _redacted_json, main_a_get_rule,
+                          main_a_path_metadata, main_a_request_boundary)
 from s10_lc2_supervisor import save_primary
-from s10_lc2_task_profile import MAIN_A_AUTONOMY, MAIN_A_ENGINEERING, MAIN_A_PROFILES, MAIN
+from s10_lc2_task_profile import (MAIN_A_AUTONOMY, MAIN_A_ENGINEERING, MAIN_A_ORIGINAL_UI,
+                                  MAIN_A_PRIVATE_LOG_PROFILES, MAIN_A_PROFILES, MAIN)
 
 
 _DATABASE = re.compile(r'ydental_s10_test_[0-9]{14}_[a-f0-9]{8}\Z')
@@ -223,6 +225,7 @@ class BrowserSession:
         self._pageerrors = 0
         self._context_count = 0
         self._logged_in = False
+        self._declared_login_user_id = None
         self._allow_audit = None
         self._allow_invalid_settlement = False
         self._allow_invalid_editor = None
@@ -270,10 +273,15 @@ class BrowserSession:
                 form = {key: values[0] for key, values in parsed_form.items()}
             try:
                 main_a_request_boundary(request.method, request.url, form=form,
-                    allow_translations=self.task_profile.message_id == MAIN_A_ENGINEERING)
+                    allow_translations=self.task_profile.message_id in MAIN_A_PRIVATE_LOG_PROFILES,
+                    original_ui=self.task_profile.message_id == MAIN_A_ORIGINAL_UI)
             except (TypeError, ValueError):
                 raise BrowserBoundaryError('MAIN_A_BROWSER_REQUEST_FORBIDDEN') from None
         if request.method == 'GET':
+            if self.task_profile is not None and self.task_profile.message_id == MAIN_A_ORIGINAL_UI:
+                # Reuse the same checked rule rather than a second route list.
+                main_a_get_rule(request.url, allow_translations=True, original_ui=True)
+                return path
             approved = (path in {'/web', '/odoo', '/web/login', '/web/binary/company_logo',
                                  '/web/webclient/load_menus', '/web/webclient/translations',
                                  '/web/manifest.webmanifest', '/logo.png',
@@ -292,6 +300,9 @@ class BrowserSession:
         if len(body.encode()) > 128 * 1024:
             raise BrowserBoundaryError('BROWSER_REQUEST_TOO_LARGE')
         if path == '/web/login':
+            if (self.task_profile is not None and self.task_profile.message_id == MAIN_A_ORIGINAL_UI
+                    and getattr(self, '_declared_login_user_id', None) != 5):
+                raise BrowserBoundaryError('ORIGINAL_UI_LOGIN_REQUIRES_USER5_PROVIDER')
             form = parse_qs(body, keep_blank_values=True)
             if 'db' in form and form['db'] != [self.database]:
                 raise BrowserBoundaryError('BROWSER_LOGIN_DATABASE_DRIFT')
@@ -356,7 +367,7 @@ class BrowserSession:
     def _rejected_path_class(url):
         # Return only fixed classifications; never retain the URL or query.
         path = urlsplit(url).path
-        if path == '/web/webclient/translations':
+        if path in {'/web/webclient/translations', '/website/translations'}:
             return 'NATIVE_TRANSLATIONS'
         if path == '/web/login':
             return 'NATIVE_LOGIN'
@@ -374,9 +385,12 @@ class BrowserSession:
         request = route.request
         upstream = None
         upstream_attempted = False
+        request_shape_valid = False
+        response_status = None
         try:
             self._check()
             path = self._request_allowed(request)
+            request_shape_valid = True
             if request.method == 'GET' and _ORIGINAL.fullmatch(path):
                 self.budget.consume('original_get')
             self.budget.consume('http')
@@ -391,6 +405,12 @@ class BrowserSession:
                         'body_retention': 'MEMORY_ONLY', 'headers_retention': 'NONE',
                         'server_trace_id': None, 'server_request_id': None,
                         'correlation': 'CASE_OPERATION_HINT_AND_TIME_WINDOW'}
+            if self.task_profile is not None and self.task_profile.message_id == MAIN_A_ORIGINAL_UI:
+                metadata.update(main_a_path_metadata(request.method, request.url))
+                metadata.update(guard_stage='BEFORE_UPSTREAM_VALIDATED', request_shape_valid=True)
+                if request.method == 'POST':
+                    metadata['matched_rule'] = ('ORIGINAL_UI_STANDARD_LOGIN_FORM' if path == '/web/login'
+                                                else 'ORIGINAL_UI_STANDARD_STORE_SWITCH')
             save_once(self.directory / (request_id + '.intent.json'), metadata)
             self._requests[request] = metadata
             headers = dict(request.headers)
@@ -403,11 +423,17 @@ class BrowserSession:
             self._upstream_count += 1
             upstream_attempted = True
             upstream = await route.fetch(headers=headers, max_redirects=0, max_retries=0, timeout=15000)
+            response_status = upstream.status
             raw = await upstream.body()
             if len(raw) > 16 * 1024 * 1024:
                 raise BrowserBoundaryError('BROWSER_UPSTREAM_RESPONSE_TOO_LARGE')
             observed = _ForwardedResponse(request, upstream.status, dict(upstream.headers), raw)
             evidence = await self._response_evidence(observed, body=raw, label='REAL_UPSTREAM_RESPONSE')
+            if (self.task_profile is not None and self.task_profile.message_id == MAIN_A_ORIGINAL_UI
+                    and upstream.status >= 400 and request.method == 'GET'
+                    and (path in {'/website/translations', '/web/webclient/translations'}
+                         or path.startswith(('/web/assets/', '/web/static/')))):
+                self._fatal = self._fatal or 'ORIGINAL_UI_BOOTSTRAP_UPSTREAM_HTTP_ERROR'
             if upstream.status in {301, 302, 303, 307, 308}:
                 location = upstream.headers.get('location')
                 evidence['redirect_location_present'] = isinstance(location, str)
@@ -437,7 +463,7 @@ class BrowserSession:
             # what the owned Odoo upstream returned to the real browser code.
             await route.fulfill(response=upstream)
         except Exception as error:
-            self._fatal = (str(error) if isinstance(error, BrowserBoundaryError)
+            self._fatal = self._fatal or (str(error) if isinstance(error, BrowserBoundaryError)
                            else 'BROWSER_GUARD_OR_BUDGET_FAILED')
             try:
                 save_once(self.directory / (uuid.uuid4().hex + '.route-rejection.json'), {
@@ -445,8 +471,13 @@ class BrowserSession:
                     'path_class': self._rejected_path_class(request.url),
                     'method': request.method if request.method in {'GET', 'POST'} else 'OTHER',
                     'upstream_attempted': upstream_attempted,
+                    'request_shape_valid': request_shape_valid,
+                    'guard_stage': 'UPSTREAM' if upstream_attempted else 'REQUEST_GUARD',
+                    'response_received': response_status is not None, 'status': response_status,
                     'reason_code': self._fatal if re.fullmatch(r'[A-Z0-9_]{1,96}', self._fatal) else 'OTHER_FAILURE',
                     'query_and_body_retained': False, 'raw_path_retained': False,
+                    **(main_a_path_metadata(request.method, request.url)
+                       if self.task_profile is not None and self.task_profile.message_id == MAIN_A_ORIGINAL_UI else {}),
                 })
             except Exception:
                 self._fatal = self._fatal or 'BROWSER_ROUTE_REJECTION_EVIDENCE_FAILED'
@@ -482,16 +513,16 @@ class BrowserSession:
 
     def _on_response(self, response):
         if response.request not in self._requests:
-            self._fatal = 'BROWSER_UNBUDGETED_REQUEST_OBSERVED'
+            self._fatal = self._fatal or 'BROWSER_UNBUDGETED_REQUEST_OBSERVED'
         self._responses.append(response)
 
     def _on_finished(self, request):
         if request not in self._requests:
-            self._fatal = 'BROWSER_UNBUDGETED_REQUEST_OBSERVED'
+            self._fatal = self._fatal or 'BROWSER_UNBUDGETED_REQUEST_OBSERVED'
 
     async def _deadline(self):
         await asyncio.sleep(self.maximum_seconds)
-        self._fatal = 'BROWSER_SESSION_DURATION_EXHAUSTED'
+        self._fatal = self._fatal or 'BROWSER_SESSION_DURATION_EXHAUSTED'
         if self.browser:
             try:
                 await self.browser.close()
@@ -514,7 +545,7 @@ class BrowserSession:
             if str(self.playwright_root) not in sys.path:
                 sys.path.insert(0, str(self.playwright_root))
             self.factory = importlib.import_module('playwright.async_api').async_playwright
-        if self.task_profile is not None and self.task_profile.message_id == MAIN_A_ENGINEERING:
+        if self.task_profile is not None and self.task_profile.message_id in MAIN_A_PRIVATE_LOG_PROFILES:
             self.budget.consume('firefox', firefox_purpose='ui')
         else:
             self.budget.consume('firefox')
@@ -525,7 +556,7 @@ class BrowserSession:
             # No sandbox-disabling flags, preferences, proxy, persistent profile
             # or dependency installation. Capability refusal is a hard STOP.
             firefox_env = (firefox_environment(child_env, self.executable)
-                if self.task_profile is not None and self.task_profile.message_id == MAIN_A_ENGINEERING
+                if self.task_profile is not None and self.task_profile.message_id in MAIN_A_PRIVATE_LOG_PROFILES
                 else child_env)
             self.browser = await self.playwright.firefox.launch(
                 executable_path=str(self.executable), headless=True, env=firefox_env)
@@ -546,6 +577,7 @@ class BrowserSession:
             accept_downloads=True, service_workers='block')
         self._context_count += 1
         self._logged_in = False
+        self._declared_login_user_id = None
         await self.context.route('**/*', self._route)
         if not hasattr(self.context, 'route_web_socket'):
             raise BrowserBoundaryError('EXISTING_WEBSOCKET_GUARD_UNAVAILABLE')
@@ -558,6 +590,8 @@ class BrowserSession:
 
     def _count_pageerror(self):
         self._pageerrors += 1  # Never save error text or console output.
+        if self.task_profile is not None and self.task_profile.message_id == MAIN_A_ORIGINAL_UI:
+            self._fatal = self._fatal or 'ORIGINAL_UI_UNHANDLED_PAGEERROR'
 
     def label(self, case_id):
         if case_id not in _CASES:
@@ -650,6 +684,12 @@ class BrowserSession:
                  'transport': 'BROWSER_UPSTREAM_FORWARDED',
                  'redirect_policy': 'MANUAL_REDIRECT',
                  'correlation': 'CASE_OPERATION_HINT_AND_TIME_WINDOW'}
+        if self.task_profile is not None and self.task_profile.message_id == MAIN_A_ORIGINAL_UI:
+            value.update({key: intent[key] for key in (
+                'route_template', 'static_resource_recognized', 'asset_bundle_filename',
+                'query_keys', 'unknown_query_key_present', 'query_single_values',
+                'query_shape_valid', 'matched_rule', 'request_shape_valid') if key in intent})
+            value.update(guard_stage='UPSTREAM_RESPONSE_RECEIVED', upstream_attempted=True, response_received=True)
         save_once(self.directory / (value['observation_ref'] + '.response.json'), value)
         return value
 
@@ -662,16 +702,118 @@ class BrowserSession:
         return {'artifact': path.name, 'bytes': len(raw), 'sha256': hashlib.sha256(raw).hexdigest(),
                 'retention': 'PRIVATE_REDACTED_SCREENSHOT'}
 
+    async def _login_initialization_snapshot(self):
+        """Observe only selected bootstrap configuration and input-state booleans."""
+        result = {'phase': 'BEFORE_CREDENTIAL_INPUT', 'configuration_observed': False,
+                  'translation_route': 'NOT_OBSERVED', 'bundle_language': 'NOT_OBSERVED',
+                  'html_language': 'NOT_OBSERVED',
+                  'login_form_exists': False, 'login_form_visible': False,
+                  'login_exists': False, 'login_visible': False, 'login_editable': False,
+                  'password_exists': False, 'password_visible': False, 'password_editable': False,
+                  'password_type_preserved': False, 'known_form_fields': [],
+                  'unknown_form_fields_present': False, 'passkey_response_empty': True,
+                  'boundary_failure_present': bool(self._fatal),
+                  'observed_response_count': len(self._responses),
+                  'failed_response_count': sum(getattr(row, 'status', 0) >= 400 for row in self._responses),
+                  'dom_or_input_values_retained': False}
+        try:
+            configuration = await self.page.evaluate("""() => {
+                const info = window.odoo?.__session_info__ || {};
+                const form = document.querySelector('form.oe_login_form');
+                const passkey = form?.querySelector('[name=webauthn_response]');
+                return {translationURL: info.translationURL || '/web/webclient/translations',
+                    language: info.bundle_params?.lang || '', html_language: document.documentElement.lang || '',
+                    fields: form ? Array.from(form.elements).map(el => el.name).filter(Boolean) : [],
+                    passkey_empty: !passkey || passkey.value === ''};
+            }""")
+            result['configuration_observed'] = True
+            routes = {'/website/translations', '/web/webclient/translations'}
+            result['translation_route'] = (configuration.get('translationURL')
+                if configuration.get('translationURL') in routes else 'UNRECOGNIZED_TRANSLATION_ROUTE')
+            result['bundle_language'] = (configuration.get('language')
+                if configuration.get('language') in {'en_US', 'zh_CN'} else 'UNRECOGNIZED_LANGUAGE')
+            html_language = configuration.get('html_language', '')
+            result['html_language'] = (html_language if html_language in {
+                'en', 'en-US', 'en_US', 'zh', 'zh-CN', 'zh_CN'}
+                else 'EMPTY' if not html_language else 'UNRECOGNIZED_LANGUAGE')
+            known_fields = {'csrf_token', 'db', 'login', 'password', 'redirect', 'type', 'webauthn_response'}
+            fields = set(configuration.get('fields', []))
+            result['known_form_fields'] = sorted(fields & known_fields)
+            result['unknown_form_fields_present'] = bool(fields - known_fields)
+            result['passkey_response_empty'] = configuration.get('passkey_empty') is True
+            form = self.page.locator('form.oe_login_form')
+            result['login_form_exists'] = await form.count() == 1
+            if result['login_form_exists']:
+                result['login_form_visible'] = await form.is_visible()
+            for label in ('login', 'password'):
+                field = form.locator('input[name=' + label + ']')
+                result[label + '_exists'] = await field.count() == 1
+                if result[label + '_exists']:
+                    result[label + '_visible'] = await field.is_visible()
+                    result[label + '_editable'] = await field.is_editable(timeout=1000)
+                    if label == 'password':
+                        result['password_type_preserved'] = await field.get_attribute('type') == 'password'
+        except Exception as error:
+            result['observation_exception_type'] = type(error).__name__
+        return result
+
+    async def _wait_login_form_ready(self, timeout=15):
+        """Poll first-failure state while native bootstrap exposes its own form."""
+        deadline = time.monotonic() + timeout
+        observation = None
+        try:
+            while True:
+                self._check()
+                observation = await self._login_initialization_snapshot()
+                self._check()
+                if (observation['configuration_observed'] and (
+                        observation['translation_route'] == 'UNRECOGNIZED_TRANSLATION_ROUTE'
+                        or observation['bundle_language'] == 'UNRECOGNIZED_LANGUAGE'
+                        or observation['unknown_form_fields_present']
+                        or not observation['passkey_response_empty'])):
+                    raise BrowserBoundaryError('ORIGINAL_UI_FRONTEND_CONFIGURATION_NOT_ADMITTED')
+                required = ('configuration_observed', 'login_form_exists', 'login_form_visible', 'login_exists',
+                    'login_visible', 'login_editable', 'password_exists', 'password_visible',
+                    'password_editable', 'password_type_preserved')
+                if (all(observation[key] for key in required)
+                        and not observation['unknown_form_fields_present']
+                        and observation['passkey_response_empty']):
+                    return
+                if time.monotonic() >= deadline:
+                    raise BrowserBoundaryError('ORIGINAL_UI_NATIVE_LOGIN_FORM_NOT_READY')
+                await asyncio.sleep(.1)
+        finally:
+            if observation is None:
+                observation = await self._login_initialization_snapshot()
+            save_once(self.directory / (uuid.uuid4().hex + '.login-readiness.json'), observation)
+
     @_safe_browser_entrypoint('browser.login')
-    async def login(self, login, password):
+    async def login(self, login, password, *, user_id=None):
         """Fresh context per persona; login/password/session/csrf stay in RAM."""
         self._check()
         if self._logged_in:
             await self._new_context()
-        await self._goto('/web/login?' + urlencode({'db': self.database, 'redirect': '/ydental/settlement'}))
-        await self.page.locator('input[name=login]').fill(login)
-        await self.page.locator('input[name=password]').fill(password)
+        original_ui = self.task_profile is not None and self.task_profile.message_id == MAIN_A_ORIGINAL_UI
+        if original_ui and (type(user_id) is not int or user_id != 5):
+            raise BrowserBoundaryError('ORIGINAL_UI_LOGIN_REQUIRES_USER5_PROVIDER')
+        self._declared_login_user_id = user_id
+        try:
+            await self._goto('/web/login?' + urlencode({'db': self.database,
+                'redirect': '/ydental/access' if original_ui else '/ydental/settlement'}))
+        finally:
+            if original_ui:
+                save_once(self.directory / (uuid.uuid4().hex + '.login-initialization.json'),
+                          await self._login_initialization_snapshot())
+        if original_ui:
+            await self._wait_login_form_ready()
+            await self._perform(lambda: self.page.locator('input[name=login]').fill(login, timeout=3000))
+            await self._perform(lambda: self.page.locator('input[name=password]').fill(password, timeout=3000))
+        else:
+            await self.page.locator('input[name=login]').fill(login)
+            await self.page.locator('input[name=password]').fill(password)
         await self._perform(self.page.locator('button[type=submit]').click)
+        if original_ui and urlsplit(self.page.url).path == '/web/login':
+            raise BrowserBoundaryError('ORIGINAL_UI_NORMAL_LOGIN_NOT_ACCEPTED')
         await self.page.wait_for_url(lambda url: urlsplit(str(url)).path != '/web/login')
         self._check()
         self._logged_in = True
@@ -1031,7 +1173,8 @@ async def run_main_a_browser(*, base_url, database, owned_targets, budget, direc
     profile.verify()
     async with BrowserSession(base_url, database=database, owned_targets=owned_targets,
                               budget=budget, directory=directory, **session_options) as session:
-        await session.login(credentials.login, credentials.password)
+        await session.login(credentials.login, credentials.password,
+                            **({'user_id': 5} if profile.message_id == MAIN_A_ORIGINAL_UI else {}))
         await session.switch_store(store_id)
         original = await session.download_original(invoice_id, original_id, original_sha256,
                                                     patient_id=patient_id, phase='pre')

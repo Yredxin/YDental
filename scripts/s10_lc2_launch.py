@@ -21,7 +21,7 @@ from s10_lc2_targets import (EXEC_ROOT, LEGACY_EXEC_ROOT, PLAN, RUN_ROOT, Packag
 from s10_lc2_process_guard import ObservationBlocked, ProcessLogGuard
 from s10_lc2_framework_caller import (GRANT_ENV, GRANT_NAME, check_framework_failure,
                                       framework_failure_facts, issue_framework_grant)
-from s10_lc2_task_profile import FRAMEWORK6, MAIN_A_AUTONOMY, MAIN_A_ENGINEERING, MAIN_A_PROFILES
+from s10_lc2_task_profile import FRAMEWORK6, MAIN_A_AUTONOMY, MAIN_A_ENGINEERING, MAIN_A_PRIVATE_LOG_PROFILES, MAIN_A_PROFILES
 
 ROOT = Path(__file__).resolve().parents[1]
 PYTHON = ROOT.parent / '.venv/bin/python'
@@ -132,7 +132,7 @@ def launch_guard(marker, *, approval, product_commit, test_commit, action, profi
     parser.read(run / 'odoo.conf')
     options = parser['options']
     log_config = ROOT / ('config/logging-s10-main-a-engineering.example.json'
-                         if profile is not None and profile.message_id == MAIN_A_ENGINEERING
+                         if profile is not None and profile.message_id in MAIN_A_PRIVATE_LOG_PROFILES
                          else 'config/logging-s10.example.json')
     expected = {'db_host': '127.0.0.1', 'db_port': '5432', 'db_user': 'odoo',
                 'db_name': marker['database'], 'dbfilter': '^' + marker['database'] + '$',
@@ -489,11 +489,11 @@ class OwnedApplication:
         if len(starts) != 1 or starts[0].get('native_http_log_level') != 50 or starts[0].get('diagnostic_log_level') != 20:
             raise RuntimeError('ACTUAL_SERVICE_LOG_PRIVACY_LEVEL_NOT_ATTESTED')
         privacy = None
-        if getattr(getattr(self, 'profile', None), 'message_id', None) == MAIN_A_ENGINEERING:
+        if getattr(getattr(self, 'profile', None), 'message_id', None) in MAIN_A_PRIVATE_LOG_PROFILES:
             privacy = strict_loads((self.run / 'diagnostics' / (
                 'native-privacy-' + str(self.process.pid) + '.json')).read_bytes())
             if (privacy.get('pid') != self.process.pid
-                    or privacy.get('task_message_id') != MAIN_A_ENGINEERING
+                    or privacy.get('task_message_id') != self.profile.message_id
                     or privacy.get('logger') != 'odoo.addons.base.models.res_device'
                     or type(privacy.get('effective_level')) is not int
                     or privacy['effective_level'] != 30

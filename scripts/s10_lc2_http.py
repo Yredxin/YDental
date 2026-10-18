@@ -5,10 +5,12 @@ open(Request, timeout=...) returns a file-like response or raises an exception.
 Credentials/tokens/full payloads remain in memory, never in diagnostic files.
 Explicit approved binary artifacts and minimal D retry facts are separate.
 """
+import ast
 from dataclasses import dataclass, field
 from contextlib import contextmanager
 from datetime import datetime, timezone
 import hashlib
+from functools import lru_cache
 from html.parser import HTMLParser
 from http.client import HTTPException
 from http.cookiejar import CookieJar
@@ -26,7 +28,7 @@ import uuid
 from s10_lc2_evidence import PROTECTED, save_once
 from s10_lc2_logging import strict_loads
 from s10_lc2_supervisor import save_primary
-from s10_lc2_task_profile import MAIN_A_ENGINEERING, MAIN_A_PROFILES, MAIN
+from s10_lc2_task_profile import MAIN_A_ENGINEERING, MAIN_A_ORIGINAL_UI, MAIN_A_PROFILES, MAIN
 
 
 _DATABASE = re.compile(r'ydental_s10_test_[0-9]{14}_[a-f0-9]{8}\Z')
@@ -66,8 +68,105 @@ _CASES = frozenset({
 })
 
 
+def main_a_get_rule(path, *, allow_translations=False, original_ui=False):
+    """One narrow GET predicate shared by MAIN-A transport and browser layers."""
+    parsed = urlsplit(path)
+    route = parsed.path
+    query = parse_qs(parsed.query, keep_blank_values=True)
+    if (route == '/web/webclient/translations' and allow_translations
+            or original_ui and route == '/website/translations'):
+        # Native LocalizationPlugin always sends hash and lang. A fresh
+        # context has an empty hash; the server produces a SHA-1 cache key.
+        if (set(query) != {'hash', 'lang'}
+                or any(len(values) != 1 for values in query.values())
+                or query['lang'][0] not in {'en_US', 'zh_CN'}
+                or query['hash'][0] and not re.fullmatch(r'[0-9a-f]{40}', query['hash'][0])):
+            raise ValueError('MAIN_A_TRANSLATIONS_QUERY_FORBIDDEN')
+        return 'NATIVE_TRANSLATIONS'
+    allowed = route in {'/web/login', '/ydental/access', '/ydental/clinical',
+                        '/ydental/settlement', '/ydental/settlement/bill-original/1',
+                        '/web/binary/company_logo', '/logo.png', '/web/manifest.webmanifest',
+                        '/ydental_clinical/static/src/document/document.js',
+                        '/ydental_clinical/static/src/document/document.css'}
+    allowed = allowed or route.startswith(('/web/assets/', '/web/static/'))
+    allowed = allowed or bool(re.fullmatch(r'/web/image/res\.company/[1-9][0-9]*/logo', route))
+    if original_ui:
+        if route.startswith('/ydental/clinical'):
+            raise ValueError('ORIGINAL_UI_CLINICAL_FORBIDDEN')
+        if any(len(values) != 1 for values in query.values()):
+            raise ValueError('ORIGINAL_UI_DUPLICATE_QUERY_FORBIDDEN')
+        if route == '/web/login':
+            if (set(query) - {'db', 'redirect'}
+                    or query.get('db', [MAIN]) != [MAIN]
+                    or query.get('redirect', ['/ydental/settlement']) not in (['/ydental/settlement'], ['/ydental/access'])):
+                raise ValueError('ORIGINAL_UI_LOGIN_QUERY_FORBIDDEN')
+        elif route == '/web/binary/company_logo':
+            if query not in ({}, {'dbname': [MAIN]}):
+                raise ValueError('ORIGINAL_UI_LOGO_QUERY_FORBIDDEN')
+        elif route != '/ydental/settlement' and query:
+            raise ValueError('ORIGINAL_UI_RESOURCE_QUERY_FORBIDDEN')
+        if route.startswith('/web/image/') and route != '/web/image/res.company/1/logo':
+            raise ValueError('ORIGINAL_UI_COMPANY_LOGO_FORBIDDEN')
+    if not allowed or route == '/ydental/clinical' and query != {'document_id': ['1']}:
+        raise ValueError('MAIN_A_GET_ROUTE_OR_DOCUMENT_FORBIDDEN')
+    if route == '/ydental/settlement' and query not in ({}, {'patient_id': ['1']}):
+        raise ValueError('MAIN_A_PATIENT_QUERY_FORBIDDEN')
+    return 'MAIN_A_READ_RESOURCE'
+
+
+@lru_cache(maxsize=1)
+def _declared_web_asset_bundles():
+    """Read one fixed checkout manifest; never enumerate resource directories."""
+    manifest = Path(__file__).resolve().parents[1].parent / 'addons/web/__manifest__.py'
+    try:
+        value = ast.literal_eval(ast.parse(manifest.read_text()).body[0].value)
+        return frozenset(key for key in value.get('assets', {}) if isinstance(key, str))
+    except (OSError, ValueError, SyntaxError, AttributeError, IndexError):
+        return frozenset()
+
+
+def main_a_path_metadata(method, path):
+    """Non-secret route names/templates and query shape for ORIGINAL-UI only."""
+    parsed = urlsplit(path)
+    route = parsed.path
+    known = {'/website/translations', '/web/webclient/translations', '/web/login',
+             '/ydental/access', '/ydental/access/action', '/ydental/settlement',
+             '/ydental/settlement/bill-original/1', '/web/binary/company_logo',
+             '/web/image/res.company/1/logo', '/logo.png', '/web/manifest.webmanifest'}
+    template = route if route in known else 'UNRECOGNIZED_ROUTE'
+    static_recognized, bundle_filename = False, None
+    if route.startswith('/web/assets/'):
+        template = '/web/assets/{resource}'
+        filename = route.rsplit('/', 1)[-1]
+        match = re.fullmatch(r'(?P<bundle>web\.[A-Za-z0-9_]+)(?:\.min)?\.(?:js|css)', filename)
+        if match and match['bundle'] in _declared_web_asset_bundles():
+            bundle_filename = filename
+    elif route.startswith('/web/static/'):
+        template = '/web/static/{resource}'
+        relative = route.removeprefix('/web/static/')
+        if (re.fullmatch(r'[A-Za-z0-9_./-]+', relative)
+                and all(part not in {'', '.', '..'} for part in relative.split('/'))):
+            checkout = Path(__file__).resolve().parents[1].parent / 'addons/web/static'
+            candidate = checkout / relative
+            if candidate.resolve().is_relative_to(checkout) and candidate.is_file():
+                template, static_recognized = '/web/static/' + relative, True
+    query = parse_qs(parsed.query, keep_blank_values=True)
+    known_keys = {'hash', 'lang', 'db', 'dbname', 'redirect', 'patient_id'}
+    try:
+        rule = main_a_get_rule(path, allow_translations=True, original_ui=True) if method == 'GET' else 'POST_QUERY_METADATA_ONLY'
+        valid = method == 'GET' or not query
+    except ValueError:
+        rule, valid = 'REJECTED', False
+    return {'route_template': template, 'static_resource_recognized': static_recognized,
+            'asset_bundle_filename': bundle_filename, 'query_keys': sorted(set(query) & known_keys),
+            'unknown_query_key_present': bool(set(query) - known_keys),
+            'query_single_values': all(len(values) == 1 for values in query.values()),
+            'query_shape_valid': valid, 'matched_rule': rule,
+            'query_values_retained': False, 'fragment_retained': False}
+
+
 def main_a_request_boundary(method, path, *, form=None, json_body=None, allow_session_info=False,
-                            allow_translations=False):
+                            allow_translations=False, original_ui=False):
     """MAIN-A permits normal login, store 1, document 1 and stored original 1.
 
     This gate only narrows the existing transport guard. It never supplies
@@ -76,28 +175,10 @@ def main_a_request_boundary(method, path, *, form=None, json_body=None, allow_se
     parsed = urlsplit(path)
     route = parsed.path
     query = parse_qs(parsed.query, keep_blank_values=True)
+    if original_ui and (route.startswith('/ydental/clinical') or route.startswith('/web/session/')):
+        raise ValueError('ORIGINAL_UI_EDITOR_OR_SESSION_RPC_FORBIDDEN')
     if method == 'GET':
-        if route == '/web/webclient/translations' and allow_translations:
-            # Native LocalizationPlugin always sends hash and lang. A fresh
-            # context has an empty hash; the server produces a SHA-1 cache key.
-            if (set(query) != {'hash', 'lang'}
-                    or any(len(values) != 1 for values in query.values())
-                    or query['lang'][0] not in {'en_US', 'zh_CN'}
-                    or query['hash'][0] and not re.fullmatch(r'[0-9a-f]{40}', query['hash'][0])):
-                raise ValueError('MAIN_A_TRANSLATIONS_QUERY_FORBIDDEN')
-            return
-        allowed = route in {'/web/login', '/ydental/access', '/ydental/clinical',
-                            '/ydental/settlement', '/ydental/settlement/bill-original/1',
-                            '/web/binary/company_logo', '/logo.png', '/web/manifest.webmanifest',
-                            '/ydental_clinical/static/src/document/document.js',
-                            '/ydental_clinical/static/src/document/document.css'}
-        allowed = allowed or route.startswith(('/web/assets/', '/web/static/'))
-        allowed = allowed or bool(re.fullmatch(r'/web/image/res\.company/[1-9][0-9]*/logo', route))
-        if not allowed or route == '/ydental/clinical' and query != {'document_id': ['1']}:
-            raise ValueError('MAIN_A_GET_ROUTE_OR_DOCUMENT_FORBIDDEN')
-        if route == '/ydental/settlement' and query not in ({}, {'patient_id': ['1']}):
-            raise ValueError('MAIN_A_PATIENT_QUERY_FORBIDDEN')
-        return
+        return main_a_get_rule(path, allow_translations=allow_translations, original_ui=original_ui)
     if allow_session_info and method == 'POST' and route == '/web/session/get_session_info':
         if (form is not None or type(json_body) is not dict
                 or set(json_body) != {'jsonrpc', 'method', 'params', 'id'}
@@ -108,7 +189,13 @@ def main_a_request_boundary(method, path, *, form=None, json_body=None, allow_se
     if method != 'POST' or type(form) is not dict or json_body is not None:
         raise ValueError('MAIN_A_POST_SHAPE_FORBIDDEN')
     if route == '/web/login':
-        if (set(form) - {'db', 'login', 'password', 'csrf_token', 'redirect', 'type'}
+        if original_ui and (form.get('webauthn_response', '') != ''
+                or form.get('type', 'password') != 'password'):
+            raise ValueError('ORIGINAL_UI_PASSWORD_LOGIN_ONLY')
+        allowed_login_fields = {'db', 'login', 'password', 'csrf_token', 'redirect', 'type'}
+        if original_ui:
+            allowed_login_fields.add('webauthn_response')
+        if (set(form) - allowed_login_fields
                 or form.get('db', MAIN) != MAIN
                 or form.get('redirect', '/ydental/settlement') not in {'/ydental/settlement', '/ydental/access'}):
             raise ValueError('MAIN_A_LOGIN_SHAPE_FORBIDDEN')
@@ -510,8 +597,10 @@ class Client:
             self.task_profile.verify()
             main_a_request_boundary(method, path, form=form, json_body=json_body,
                 allow_session_info=self.task_profile.message_id == MAIN_A_ENGINEERING,
-                allow_translations=self.task_profile.message_id == MAIN_A_ENGINEERING)
-            if (case_id not in {'A-STATE', 'A-EDITOR', 'A-ORIGINAL'}
+                allow_translations=self.task_profile.message_id in {MAIN_A_ENGINEERING, MAIN_A_ORIGINAL_UI},
+                original_ui=self.task_profile.message_id == MAIN_A_ORIGINAL_UI)
+            if (case_id not in ({'A-ORIGINAL'} if self.task_profile.message_id == MAIN_A_ORIGINAL_UI
+                                else {'A-STATE', 'A-EDITOR', 'A-ORIGINAL'})
                     or discard_response or retry_manifest):
                 raise ValueError('MAIN_A_CASE_OR_REPLAY_FORBIDDEN')
         if self.target_role == 'main' and decoded == '/ydental/patients/action':

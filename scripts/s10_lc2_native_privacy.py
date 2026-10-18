@@ -16,9 +16,9 @@ class NativePrivacyAttestation(logging.Handler):
     def emit(self, record):
         if self.saved:
             return
-        from s10_lc2_task_profile import MAIN_A_ENGINEERING, ROOT, profile_from_environment
+        from s10_lc2_task_profile import MAIN_A_PRIVATE_LOG_PROFILES, ROOT, profile_from_environment
         profile = profile_from_environment(os.environ)
-        if profile is None or profile.message_id != MAIN_A_ENGINEERING:
+        if profile is None or profile.message_id not in MAIN_A_PRIVATE_LOG_PROFILES:
             raise RuntimeError('NATIVE_PRIVACY_ATTESTATION_TASK_INVALID')
         run = Path(os.environ.get('YDENTAL_S10_RUN_DIR', ''))
         if run != profile.run_root / profile.database or run.is_symlink():

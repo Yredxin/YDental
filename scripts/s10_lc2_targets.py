@@ -105,7 +105,7 @@ class PackageBudget(Budget):
                 's10-lc2-r12-20261017', 's10-lc2-caller-adapter-20261017-02',
                 's10-lc2-plan-20261017', 's10-lc2-code-rework-20261017-01',
                 's10-lc2', 's10-lc2-main-a-20261018-01', 's10-lc2-exec-20261017',
-                's10-lc2-main-a-20261018-02',
+                's10-lc2-main-a-20261018-02', 's10-lc2-main-a-20261018-03',
             )) + (self.profile.root,)
         roots = tuple(dict.fromkeys(roots))
         size = sum(path.stat().st_size for base in roots if base.exists()

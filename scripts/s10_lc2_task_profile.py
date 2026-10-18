@@ -11,7 +11,9 @@ FRAMEWORK6 = 'YD-S10-LC2-FRAMEWORK6-20261017-01'
 MAIN_A = 'YD-S10-LC2-MAIN-A-20261018-01'
 MAIN_A_AUTONOMY = 'YD-S10-LC2-MAIN-A-20261018-02'
 MAIN_A_ENGINEERING = 'YD-S10-LC2-MAIN-A-20261018-03'
-MAIN_A_PROFILES = frozenset({MAIN_A, MAIN_A_AUTONOMY, MAIN_A_ENGINEERING})
+MAIN_A_ORIGINAL_UI = 'YD-S10-LC2-MAIN-A-20261018-04'
+MAIN_A_PROFILES = frozenset({MAIN_A, MAIN_A_AUTONOMY, MAIN_A_ENGINEERING, MAIN_A_ORIGINAL_UI})
+MAIN_A_PRIVATE_LOG_PROFILES = frozenset({MAIN_A_ENGINEERING, MAIN_A_ORIGINAL_UI})
 SCRATCH = 'ydental_s10_test_20261017105432_ce6dcbf8'
 MAIN = 'ydental_s10_test_20261017105432_810a7d9c'
 OLD_EPOCH = 1792238721.801
@@ -28,6 +30,9 @@ MAIN_A_AUTONOMY_BASELINE = MAIN_A_BASELINE | {'target_ro': 11}
 MAIN_A_ENGINEERING_LIMITS = MAIN_A_LIMITS | {'odoo_start': 4, 'target_ro': 12, 'firefox': 4}
 MAIN_A_ENGINEERING_BASELINE = MAIN_A_BASELINE | {
     'odoo_start': 6, 'target_ro': 19, 'http': 5, 'firefox': 1}
+MAIN_A_ORIGINAL_UI_LIMITS = MAIN_A_LIMITS | {'odoo_start': 2, 'firefox': 3}
+MAIN_A_ORIGINAL_UI_BASELINE = MAIN_A_BASELINE | {
+    'odoo_start': 8, 'target_ro': 25, 'http': 25, 'firefox': 5}
 _SPECS = {
     FRAMEWORK6: ('s10-lc2-framework6-20261017-01', 1792250152.972942,
                  'EXISTING_SCRATCH_NATIVE_FRAMEWORK_ONLY',
@@ -41,6 +46,9 @@ _SPECS = {
     MAIN_A_ENGINEERING: ('s10-lc2-main-a-20261018-03', 1792281805.0,
                          'MAIN_A_TEST_ENGINEERING_AND_CLOSEOUT',
                          '4554545e99375dd9b6c0552b0611cd550a717808'),
+    MAIN_A_ORIGINAL_UI: ('s10-lc2-main-a-20261018-04', 1792284787.0,
+                        'MAIN_A_EXISTING_ORIGINAL_UI_ONLY',
+                        '980eda60f011b1dec5fbf16ee8f10cc8e7cfa414'),
 }
 
 
@@ -66,6 +74,8 @@ class TaskProfile:
 
     @property
     def local_limits(self):
+        if self.message_id == MAIN_A_ORIGINAL_UI:
+            return dict(MAIN_A_ORIGINAL_UI_LIMITS)
         if self.message_id == MAIN_A_ENGINEERING:
             return dict(MAIN_A_ENGINEERING_LIMITS)
         if self.message_id == MAIN_A_AUTONOMY:
@@ -74,6 +84,8 @@ class TaskProfile:
 
     @property
     def baseline(self):
+        if self.message_id == MAIN_A_ORIGINAL_UI:
+            return dict(MAIN_A_ORIGINAL_UI_BASELINE)
         if self.message_id == MAIN_A_ENGINEERING:
             return dict(MAIN_A_ENGINEERING_BASELINE)
         if self.message_id == MAIN_A_AUTONOMY:
@@ -102,7 +114,7 @@ class TaskProfile:
         root_name, started, authorized_scope, parent = _SPECS[self.message_id]
         if (self.root != ROOT / '.local' / root_name
                 or self.started_epoch != started
-                or self.deadline_epoch != self.started_epoch + (14400 if self.message_id in {MAIN_A_AUTONOMY, MAIN_A_ENGINEERING} else 7200)):
+                or self.deadline_epoch != self.started_epoch + (14400 if self.message_id in {MAIN_A_AUTONOMY, MAIN_A_ENGINEERING, MAIN_A_ORIGINAL_UI} else 7200)):
             raise RuntimeError('FRAMEWORK6_PROFILE_SCOPE_INVALID')
         raw = (self.root / 'scope.json').read_bytes()
         scope = json.loads(raw)
@@ -124,10 +136,11 @@ class TaskProfile:
                 or type(value.get('task_counts')) is not dict or type(value.get('counts')) is not dict
                 or set(value['task_counts']) - set(self.local_limits)):
             raise RuntimeError('FRAMEWORK6_BUDGET_IDENTITY_INVALID')
-        if self.message_id == MAIN_A_ENGINEERING:
+        if self.message_id in MAIN_A_PRIVATE_LOG_PROFILES:
             kinds = value.get('task_firefox_counts')
             if (type(kinds) is not dict or set(kinds) != {'diagnostic', 'ui'}
-                    or any(type(n) is not int or not 0 <= n <= 2 for n in kinds.values())
+                    or any(type(n) is not int or not 0 <= n <= (3 if self.message_id == MAIN_A_ORIGINAL_UI else 2) for n in kinds.values())
+                    or self.message_id == MAIN_A_ORIGINAL_UI and kinds['diagnostic'] != 0
                     or sum(kinds.values()) != value['task_counts'].get('firefox', 0)):
                 raise RuntimeError('MAIN_A_FIREFOX_PURPOSE_LEDGER_INVALID')
         for kind, maximum in self.local_limits.items():
@@ -158,6 +171,10 @@ def main_a_engineering_profile():
     return _profile(MAIN_A_ENGINEERING)
 
 
+def main_a_original_ui_profile():
+    return _profile(MAIN_A_ORIGINAL_UI)
+
+
 def _profile(message_id):
     root_name, started, authorized_scope, parent = _SPECS[message_id]
     root = ROOT / '.local' / root_name
@@ -170,8 +187,8 @@ def _profile(message_id):
             or value.get('started_epoch') != started):
         raise RuntimeError('FRAMEWORK6_AUTHORITY_SCOPE_INVALID')
     # Scope receipt is fixed; a new profile never edits the old epoch or STOP.
-    duration = 14400 if message_id in {MAIN_A_AUTONOMY, MAIN_A_ENGINEERING} else 7200
-    if (message_id in {MAIN_A_AUTONOMY, MAIN_A_ENGINEERING}
+    duration = 14400 if message_id in {MAIN_A_AUTONOMY, MAIN_A_ENGINEERING, MAIN_A_ORIGINAL_UI} else 7200
+    if (message_id in {MAIN_A_AUTONOMY, MAIN_A_ENGINEERING, MAIN_A_ORIGINAL_UI}
             and value.get('deadline_epoch') != started + duration):
         raise RuntimeError('MAIN_A_AUTONOMY_DEADLINE_DRIFT')
     profile = TaskProfile(root, value['started_epoch'], value['started_epoch'] + duration,
