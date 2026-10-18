@@ -1548,20 +1548,24 @@ def run_new_c_fixture_flow(manager, doctor, clinics, facts, d_source, *, observe
     switch(doctor, local)
     fee_a = new_c_confirmed_fee(manager, doctor, local, facts, label='family-source',
         amount=7, d_source=d_source, schedule_offset=0)
-    fee_b = new_c_confirmed_fee(manager, doctor, local, facts, label='family-target',
-        amount=11, d_source=d_source, schedule_offset=6)
-    rows = [fee_a, fee_b]
+    # A completed care segment legitimately leaves a pending continuation.
+    # A merge may move one side's pending business, but cannot combine two
+    # independently active patients. Keep the mixed-fee negative independent
+    # from the empty canonical target used for the subsequent real merge.
+    unrelated = new_c_confirmed_fee(manager, doctor, local, facts, label='unrelated',
+        amount=13, d_source=d_source, schedule_offset=12)
+    rows = [fee_a, unrelated]
     observe('two-separate-unbilled-patients', rows)
     local_manager = recorded_actor(manager, facts, 'local-post-care', local)
     # Valid nonempty same-store fees, different current patients and no prior
     # source: native _same_patient guard must be the actual refusal.
     mixed_key = uuid.uuid4().hex
     mixed = local_manager.action('settlement', 'bill', {
-        'fee_ids': [fee_a['fee_id'], fee_b['fee_id']], 'discount': 0, 'reason': ''},
+        'fee_ids': [fee_a['fee_id'], unrelated['fee_id']], 'discount': 0, 'reason': ''},
         key=mixed_key, expect=(403,), operation_ref='current-C-mixed-new-patients')
     facts.save('C-mixed-patient-bill-refusal', {
         'actor_id': manager.uid, 'store_id': local['store_id'],
-        'fee_ids': [fee_a['fee_id'], fee_b['fee_id']], 'stable_key': mixed_key,
+        'fee_ids': [fee_a['fee_id'], unrelated['fee_id']], 'stable_key': mixed_key,
         'expected_native_message_match': mixed.get('error') ==
             'access_denied: Mixed patient fees cannot be billed.',
         'operation_ref': 'current-C-mixed-new-patients',
@@ -1569,7 +1573,30 @@ def run_new_c_fixture_flow(manager, doctor, clinics, facts, d_source, *, observe
     if mixed.get('error') != 'access_denied: Mixed patient fees cannot be billed.':
         raise RuntimeError('C_MIXED_FEES_DID_NOT_HIT_NATIVE_SAME_PATIENT_GUARD')
     observe('mixed-refused-no-C-invoice-or-source', rows)
-    for label, source in [('source', fee_a), ('target', fee_b)]:
+    empty_target = local_manager.action('patients', 'create', {
+        'values': {'name': 'S10 independent C empty family target'}},
+        operation_ref='current-C-empty-family-target')
+    target_id = empty_target.get('id')
+    if (type(target_id) is not int or target_id <= 0
+            or target_id in {d_source['patient_id'], fee_a['patient_id'], unrelated['patient_id']}):
+        raise RuntimeError('C_EMPTY_TARGET_MUST_BE_A_DISTINCT_NEW_NORMAL_PATIENT')
+    empty = observe('normal-empty-family-target-before-any-care', rows)
+    targets = [row for row in empty['patients'] if row['id'] == target_id]
+    business = empty['patient_business_rows'].get(str(target_id))
+    facts.save('C-family-target-independent-empty-proof', {
+        'target_patient_id': target_id, 'source_patient_id': fee_a['patient_id'],
+        'unrelated_patient_id': unrelated['patient_id'],
+        'actual_business_row_counts': None if business is None else {
+            table: len(records) for table, records in business.items()},
+        'actual_patient_active': targets[0]['active'] if len(targets) == 1 else None,
+        'actual_not_merged': targets[0]['ydental_merged_into_id'] is None if len(targets) == 1 else False,
+        'no_fee_or_bill_for_target': not any(row['patient_id'] == target_id for row in empty['source_rows']),
+        'evidence_layer': empty['evidence_layer'], 'no_business_cleanup_or_cancellation_attempted': True})
+    if (len(targets) != 1 or not targets[0]['active'] or targets[0]['ydental_merged_into_id'] is not None
+            or targets[0]['ydental_store_id'] != local['store_id'] or business is None
+            or any(business.values()) or any(row['patient_id'] == target_id for row in empty['source_rows'])):
+        raise RuntimeError('C_FAMILY_CANONICAL_TARGET_NOT_INDEPENDENTLY_EMPTY')
+    for label, source in [('source', fee_a), ('unrelated', unrelated)]:
         billed = local_manager.action('settlement', 'bill', {
             'fee_ids': [source['fee_id']], 'discount': 0, 'reason': ''},
             operation_ref='current-C-family-' + label + '-bill')
@@ -1579,9 +1606,8 @@ def run_new_c_fixture_flow(manager, doctor, clinics, facts, d_source, *, observe
             'independent_commit_verification_required': True})
         observe('family-' + label + '-unpaid-invoice', rows)
         if label == 'source':
-            # Normal native original creation before the synthetic merge gives
-            # a real nonempty immutable file whose old identity/bytes must be
-            # retained when the new target family subsequently reads it.
+            # Store the actual A original while its financial identity is still
+            # independent. The later merge may not rewrite or regenerate it.
             source['original_expected'] = True
             original = store_original(manager, source, label='family-source-before-merge')
             source.update(original)
@@ -1590,8 +1616,8 @@ def run_new_c_fixture_flow(manager, doctor, clinics, facts, d_source, *, observe
                 'original_patient_id': source['patient_id'], 'new_render_after_merge_allowed': False})
             observe('new-C-original-before-family-merge', rows)
     requested = local_manager.action('patients', 'request_merge', {
-        'source_id': fee_a['patient_id'], 'target_id': fee_b['patient_id'],
-        'reason': 'S10 explicit verification of two independent synthetic C identities'},
+        'source_id': fee_a['patient_id'], 'target_id': target_id,
+        'reason': 'S10 verified empty synthetic target and one-sided pending continuation'},
         operation_ref='current-C-new-patients-family-request')
     merged = local_manager.action('patients', 'confirm', {
         'request_id': requested['id'], 'version': requested['version'],
@@ -1599,22 +1625,29 @@ def run_new_c_fixture_flow(manager, doctor, clinics, facts, d_source, *, observe
         operation_ref='current-C-new-patients-family-confirm')
     facts.save('C-new-family-confirmed-returned', {
         'merge_id': requested['id'], 'source_patient_id': fee_a['patient_id'],
-        'target_patient_id': fee_b['patient_id'], 'result_patient_id': merged.get('patient_id'),
+        'target_patient_id': target_id, 'result_patient_id': merged.get('patient_id'),
         'state_is_accepted': merged.get('result') == 'accepted',
         'expected_source_invoice_id': fee_a['invoice_id'],
-        'expected_target_invoice_id': fee_b['invoice_id'],
+        'target_was_empty_before_merge': True, 'unrelated_patient_excluded': unrelated['patient_id'],
         'old_D_patient_excluded': True, 'independent_commit_verification_required': True})
-    if merged.get('result') != 'accepted' or merged.get('patient_id') != fee_b['patient_id']:
+    if merged.get('result') != 'accepted' or merged.get('patient_id') != target_id:
         raise RuntimeError('C_NEW_SYNTHETIC_FAMILY_MERGE_NOT_CONFIRMED')
     observe('new-family-source-financial-ownership-preserved', rows)
-    unrelated = new_c_confirmed_fee(manager, doctor, local, facts, label='unrelated',
-        amount=13, d_source=d_source, schedule_offset=12)
-    rows.append(unrelated)
+    # Normal independent qualification/reporting is permitted alongside the
+    # migrated pending continuation: it is not an accepted queue position or
+    # actual serving/verification execution. The normal queue call below must
+    # still select this newly qualified task, never the old continuation.
+    fee_b = new_c_confirmed_fee(manager, doctor, local, facts, label='family-target',
+        amount=11, d_source=d_source, patient_id=target_id, schedule_offset=6)
+    rows.insert(1, fee_b)
     billed = local_manager.action('settlement', 'bill', {
-        'fee_ids': [unrelated['fee_id']], 'discount': 0, 'reason': ''},
-        operation_ref='current-C-unrelated-nonempty-bill')
-    unrelated['invoice_id'] = billed['invoice_id']
-    observe('unrelated-new-C-patient-unpaid-invoice', rows)
+        'fee_ids': [fee_b['fee_id']], 'discount': 0, 'reason': ''},
+        operation_ref='current-C-family-target-postmerge-bill')
+    fee_b['invoice_id'] = billed['invoice_id']
+    facts.save('C-family-target-bill-returned', fee_b | {
+        'new_source_after_canonical_merge': True, 'no_payment_or_refund_dispatched': True,
+        'independent_commit_verification_required': True})
+    observe('family-target-postmerge-unpaid-invoice', rows)
     log_fee = new_c_confirmed_fee(manager, doctor, local, facts, label='log-unbilled',
         amount=17, d_source=d_source, patient_id=fee_b['patient_id'], schedule_offset=18)
     rows.append(log_fee)
@@ -1679,7 +1712,8 @@ def c_source_selections(schema, *, d_selection, profile):
                 raise RuntimeError('C_CURRENT_NATIVE_INVOICE_CREATOR_SCHEMA_REQUIRED')
             entry['columns'].append('create_uid')
         if entry['table'] in {'ydental_treatment_fee', 'ydental_treatment_event',
-                              'ydental_intake_snapshot', 'ydental_settlement_source'}:
+                              'ydental_intake_snapshot', 'ydental_settlement_source',
+                              'ydental_queue_execution'}:
             entry.update(columns=[row['column'] for row in schema[entry['table']]], row_digest=True)
     additions = {
         'ydental_patient': 'id active ydental_merged_into_id ydental_partner_id ydental_store_id ydental_version',
@@ -1689,6 +1723,11 @@ def c_source_selections(schema, *, d_selection, profile):
         'res_company': 'id name currency_id chart_template',
         'res_currency': 'id name',
         'ydental_access_session': 'id ydental_user_id ydental_store_id ydental_revision',
+        'ydental_intake_entitlement': 'id ydental_patient_id state',
+        'ydental_intake_task': 'id ydental_patient_id state ydental_parent_task_id ydental_source_kind ydental_source_execution_id',
+        'ydental_intake_position': 'id ydental_patient_id ydental_active',
+        'ydental_intake_referral': 'id ydental_patient_id state',
+        'ydental_queue_hold': 'id ydental_patient_id state',
         'ydental_settlement_bill_original': 'id invoice_id patient_id store_id company_id currency_id actor_id version previous_id source_sha256 template_sha256 pdf_sha256 attachment_id',
         'ir_attachment': 'id res_model res_id company_id public mimetype file_size checksum',
     }
@@ -1827,8 +1866,25 @@ def verify_c_sources(directory, rows, d_source, *, stored_rows, verify_d, profil
         actual_rows.append(dict(claimed, **({'source_id': linked[0]['id'], 'invoice': invoice_safe} if invoice else {})))
     if {row['invoice_id'] for row in tables['ydental_settlement_bill_original'].values()} != expected_original_invoice_ids:
         raise RuntimeError('C_UNEXPLAINED_SYNTHETIC_ORIGINAL_OUTSIDE_EXPLICIT_NEW_BILLS')
+    # Exact new-table relationships make the empty merge target independently
+    # checkable and preserve D's pending continuation without manipulating it.
+    business_tables = ('ydental_intake_entitlement', 'ydental_intake_task',
+        'ydental_intake_position', 'ydental_intake_referral', 'ydental_queue_hold',
+        'ydental_queue_execution')
+    business_rows = {table: stored_rows(directory, table) for table in business_tables}
+    patients = sorted(tables['ydental_patient'].values(), key=lambda row: row['id'])
+    per_patient = {str(patient['id']): {table: [dict(row) if table != 'ydental_queue_execution' else {
+            key: row[key] for key in ('id', 'ydental_patient_id', 'state', '__row_sha256')}
+            for row in records if row['ydental_patient_id'] == patient['id']]
+        for table, records in business_rows.items()} for patient in patients}
+    d_protected = {'patient': tables['ydental_patient'].get(d_source['patient_id']),
+                   'business': per_patient.get(str(d_source['patient_id']))}
+    previous_d = immutable_billed.setdefault(('D-patient-and-continuation', d_source['patient_id']), d_protected)
+    if d_protected != previous_d:
+        raise RuntimeError('C_NEW_FAMILY_CHANGED_PROTECTED_D_PATIENT_OR_PENDING_CONTINUATION')
     return {'validation_status': 'CURRENT_C_NORMAL_SOURCES_AND_UNIQUE_D_FUNDS_INDEPENDENTLY_OBSERVED',
         'source_rows': actual_rows, 'originals': actual_originals,
+        'patients': patients, 'patient_business_rows': per_patient,
         'D_native_accounting': protection, 'evidence_layer': 'INDEPENDENT_COMMITTED_RO',
         'no_new_C_funds': True, 'scope_manifest_requires_actual_patient_relations': True}
 

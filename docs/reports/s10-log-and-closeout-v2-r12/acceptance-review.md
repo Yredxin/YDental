@@ -657,3 +657,24 @@ LOG-06/10/12使用另一个真实上游、独立未出账C费≠D费，已有nat
 已读取实现方实际SOURCE/PURE验证索引并逐源hash核同：developer `developer-next/http-guard-check/final-source-verification.json` 记录4 AST、CLI help/diffcheck exit0及10个hermetic fake transport checks exit0/network0；tester `browser-E-LOG-source-focused-checks-final.json` SHA256 0b12baebf11d9adffd40ef750e91ce5d854aceb2ab4fabee6c3ac5538171d335，最终7 focused checks exit0（0.305s），全部DB/Odoo/HTTP/Firefox0。7是最终替代数，不累加此前6/7轮；10与7也不求和冒业务通过数。本人亲审相应源码/索引来源，未将这些测试报为亲自执行或真实UI结果。
 
 SOURCE限定结论：上述接线没有发现须改变业务标准的阻断；允许主控冻结新实际候选，再按新增metadata和实际依赖进入唯一C-before RO→独核D新域/技术delta→正常C配置及后RO→真实C来源/权限→LOG/最终双E。C-before observer草稿9e60c840新增UID1/2非秘密company关联/安全metadata，为正常company.create后准确解释技术副作用，仍单RR，真实19表D图与已采terminal精确比、旧chart/config/roles/views不宽排。未审未来实际差异时不以草稿validation_status代签全保护，更不先给Csetup自动通过。原拒绝/旧STOP/累计/起止时间不重置，无第三库、DB克隆恢复、基础设施整治、生产或S11激活。最终S10和#34仍未完成。
+
+
+### C-before实际保全与新C family夹具依赖修正（未执行Csetup）
+
+独立实际审查：冻结T32b72b2a2f2b37665dc20a25708238e60652e6ec/Pb1下，唯一C-before RO实际exit0，`C-scratch-before-verified.json` SHA256 **4907404a219586f09394fbf10c1255d8c36704f42de600ccb421d43bd9843770**，首observed cf16ab06010c70478eb002156a59c34443483ef0a88699e77f1b870bfa6e5e4e。本人核正确scratch OID2144130/cluster/odoo、readonly/RR、无其他连接、rollback-close；19个D current JSONB projection逐字节等已独签D terminal原件，22组旧配置/角色/权限/chart/双lang view/参数精确等7f33，20个未影响域相等。原34条配置audit前缀完全同，新49条逐项等已采D完整83条，均正常auth、上游/临床/资金和最终读取事件；SQL时间文本部分末尾0不同与JSONB时间按精确datetime值相等，未改原件或冒字节一致。新增patient1/document1/version2分别对应D实际create、open/save版本1、handover版本2的原始返回和原生审计，事件冻结引用文书版本1不冒当前文书版本仍1。
+
+26项D正常delta逐项限制在已独核的经济图/上游、新临床关系、追加审计和六mutex。本人重算六mutex当前PG JSONB全文SHA，仅将revision恢复实际font基线4/0/4/4/0/12后，全文摘要及聚合全部精确等已采前基线，其余字段没有豁免。实际当前intake22/inventory1/patient27/queue24/settlement8/supply34；已亲开源码核计数解释：共同_all_locks18次，patient额外5（create、reserve/arrive、report/start），queue额外2（report accept/start void），supply额外4（slot/publish、capacity acquire/consume），inventory空materials治疗入口仍锁1，settlement七个成功经济动作加已验同keyexecute replay在receipt检查前锁1，两拒绝的savepoint锁revision回滚。该有限保护审查PASS，不能扩成所有新C或最终E通过；累计仍27 Odoo/127 RO/214 HTTP/Firefox8/originalGET7，未为解释再RO。
+
+实际新schema仍是原位 `C-current-schema.json` 的53表，SHA256 **15aae82084ce255647e3b67ddffac066c1385e1ce0f05cc0e061a03ae8f570ad**。native UID1/2此刻company关联各只有1，最小安全用户元数据已保存，用于以后正常company.create副作用逐项解释；未读取或hash密码。Csetup尚未派发/Popen，148frozen及未执行controls的155项原件已snapshot：`C-configuration-prelaunch-original-runtime-snapshot/index.json` SHA256 6a7555997e12de6c1c91db868811a967efc4ec6046212b4b35ef5498c20cb135。该旧PREPARED元数据不是运行成功或新角色已创建证明。
+
+冻结后追加SOURCE审查发现普通测试依赖错误：原新C flow让两个family患者各完成care/handover后直接merge。queue_return._continuation创建默认pending task，退出新lease并不取消它；intake/integration._active_business包含pending，patient._merge_conflicts在两侧都有业务时正确阻合并。本人据锁定产品源码提出具体缺陷，执行者未运行这条Csource，因此没有实际merge失败、未知提交或数据损伤。continuation没有可用于本场景的正常cancel入口：intake.cancel针对held entitlement，原资格已started；void也不能把derived continuation结束。团队没有为测试改业务guard、造取消/SQL或触D。
+
+developer只在cases脚本中改正常构造顺序，实际diff SOURCE SHA256 **343bc82accd091410b865b77951f990307cbdfdcc690315085d7e83213071ea4**：A7与始终无关的U13两真实未收fee先有效混源负例；正常新建一个空canonical target B，用同次独立存储证明其无fee/execution及五类上下游活动行；A/U分别未收出账、A原件先正常生成，再A→空B合并，之后在canonical B正常生成11费/账。最终source顺序仍明确[A7,B11,U13,LOG17,same19,other23]，五张未付款账单与原A原件/财务owner保护不变，U不进family，D不变。这个调整改变测试顺序，不改变family/mixed有效正负对照或原验收标准。
+
+本人亲审新顺序及真实业务依赖：A旧execution已handover、原task handed_over、位置由start取消active；continuation pending且未report，没有其queue entry或serving/verify execution。原merge允许仅source一侧有pending，正常migration转其live canonical关系到B，历史财务owner/冻结event不重写。intake._qualify允许新的独立资格，_valid_task不因其他pending就拒绝，只检查真正started/queue执行、当前有效资格/关系；新B report产生自己的entry，已有doctor.call严格核本次task_id，不能猜选旧continuation。无需取消或重放任何旧D/main动作，实际尚未运行的内容不签PASS。
+
+独立查实际53表发现 entitlement/task/position/referral/queue_hold 五表尚未采schema，不能把“模型源码存在”冒作“已采实际物理schema”。tester未执行post草稿保留原def3字节，只复用已计划配置后同一RR RO扩采五表schema与安全ID/state/patient/store/expiry/parent/sourceexecution投影，当前草稿SHA256 **c07514fe6b65ab1aa0dd6297c72db387b4dcfcc9911f6b611e0823c604c92cf7**。本人按模型定义核stored字段；无cookie/token或原始identity/临床正文，相关五表和execution正常业务记录的全文摘要用于保全，不hash认证秘密。原53列/约束subset必须精确相等，原15aae文件原位保留，未来真实58表另save_once `C-active-business-schema.json`并以实际ref/SHA供runner，不覆盖旧schema，不增加RO或复跑C-before。
+
+新增源collector据真实post schema核类型，再以实际空B各表无行/全fee集合排除B的断言，支持merge前提；同时保存D patient1的非秘密现有资格/continuation/position/hold/execution关系及后续精确保全。此时只有SOURCE能力，不把未来58表或C新角色当已观测。新Cpost还必须实际核原D19图/旧audit前缀、旧58accounts/11journals、旧Dstore/cap/member/grant和全未影响域；正常新company只可按精确关联/安全write元数据解释native1/2改变，不宽排admin表。
+
+本节SOURCE修正已独核AST可解析和diff边界；没有新增实际Odoo/DB/HTTP/Firefox动作或业务/PURE通过数，不改产品b1、旧D717、原53/raw/旧STOP/累计时钟。写权交回后主控再冻结新实际T，执行者核同唯一正常Csetup元数据才可派发。此后仍需配置真实postRO、C真实源/权限、余LOG和最终双E；#34与整个S10均未签完成。

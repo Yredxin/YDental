@@ -90,14 +90,14 @@
       "maintenance": 1,
       "odoo_start": 27,
       "original_get": 7,
-      "target_ro": 126
+      "target_ro": 127
     },
     "current_plan": {
       "firefox": 2,
       "http": 182,
       "odoo_start": 17,
       "original_get": 7,
-      "target_ro": 96
+      "target_ro": 97
     },
     "counts_are_not_test_pass_totals": true,
     "http_boundary": "Runner/browser dispatch ledger; not all native renderer internal asset HTTP wire requests."
@@ -961,5 +961,23 @@
       "sha256": "0b12baebf11d9adffd40ef750e91ce5d854aceb2ab4fabee6c3ac5538171d335",
       "access": "Local engineering evidence; not directly readable from GitHub"
     }
+  },
+  "C-before-and-family-source-order": {
+    "status": "ACTUAL_PRE_C_RO_PASS_C_CONFIGURATION_NOT_DISPATCHED",
+    "actual_runtime_test_commit": "32b72b2a2f2b37665dc20a25708238e60652e6ec",
+    "verified_ro_sha256": "4907404a219586f09394fbf10c1255d8c36704f42de600ccb421d43bd9843770",
+    "exit_code": 0,
+    "protected_D_domains": 19,
+    "schema_tables_at_capture": 53,
+    "next_postconfig_schema_tables_expected": 58,
+    "no_repeated_pre_ro_for_docs_or_test_source_sha": true,
+    "source_repair": "Normal synthetic A/U mixed negative, empty B independently proved, A original before legal A-to-empty-B merge, then new B fee11; no product protection change or pending cancellation.",
+    "prelaunch_snapshot": {
+      "ref": ".local/s10-technical-closeout-v1/C-configuration-prelaunch-original-runtime-snapshot/index.json",
+      "bytes": 60409,
+      "sha256": "6a7555997e12de6c1c91db868811a967efc4ec6046212b4b35ef5498c20cb135",
+      "mapped_files": 155
+    },
+    "real_C_fixture_execution": "NOT_RUN"
   }
 }

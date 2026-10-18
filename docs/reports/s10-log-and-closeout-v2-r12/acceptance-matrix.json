@@ -7143,6 +7143,7 @@
       "real_competition": "Preserve original formally accepted backend/interleaving assertions only; current D or LOG concurrency does not upgrade them."
     },
     "source_product_candidate": "b1f30aa88365ec85aea15073f08de5d6dfa22a5f",
-    "scratch_native_admission_ref": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/scratch-native-admission"
+    "scratch_native_admission_ref": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/scratch-native-admission",
+    "current_C_preflight": "Actual C-before at32b/490740 passed independent protection. New synthetic family source reordered to legal one-sided pending merge; C config not dispatched. Old53 schema retained; same planned postconfig RO adds5 actual tables, no extra preRO."
   }
 }
