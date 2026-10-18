@@ -49,6 +49,7 @@ class LaunchCase(unittest.TestCase):
         app.directory = self.directory
         app.run = self.directory
         app.command = ['synthetic-application-command']
+        app.log_config = ROOT / 'config/logging-s10.example.json'
         app.env = {'YDENTAL_PRODUCT_COMMIT': 'synthetic-product', 'YDENTAL_TEST_COMMIT': 'synthetic-test',
                    'YDENTAL_RUN_ID': 'synthetic-run'}
         app.event_guard = None

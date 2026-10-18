@@ -493,7 +493,7 @@ class OwnedApplication:
         if len(starts) != 1 or starts[0].get('native_http_log_level') != 50 or starts[0].get('diagnostic_log_level') != 20:
             raise RuntimeError('ACTUAL_SERVICE_LOG_PRIVACY_LEVEL_NOT_ATTESTED')
         privacy = None
-        if getattr(getattr(self, 'profile', None), 'message_id', None) in MAIN_A_PRIVATE_LOG_PROFILES:
+        if getattr(getattr(self, 'profile', None), 'message_id', None) in MAIN_A_PRIVATE_LOG_PROFILES | {CURRENT_PLAN}:
             privacy = strict_loads((self.run / 'diagnostics' / (
                 'native-privacy-' + str(self.process.pid) + '.json')).read_bytes())
             if (privacy.get('pid') != self.process.pid
