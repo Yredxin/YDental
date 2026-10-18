@@ -202,6 +202,15 @@ GATE = {'identity_valid': True, 'clinical_user7_eligible': True,
 
 
 class RunnerContractTests(unittest.TestCase):
+    def test_debug_exit_parser_matches_real_playwright_producer_delimiter(self):
+        producer = (browser_diag.PLAYWRIGHT_ROOT / 'playwright/driver/package/lib/coreBundle.js').read_text()
+        self.assertIn('<process did exit: exitCode=${exitCode}, signal=${signal}>', producer)
+        actual_format = '[pid=123] <process did exit: exitCode=0, signal=null>'
+        self.assertEqual(browser_diag.parse_browser_debug(actual_format), [
+            {'pid': 123, 'debug_exit_code': '0', 'debug_exit_signal': 'null'}])
+        crashed = '[pid=123] <process did exit: exitCode=null, signal=SIGSEGV>'
+        self.assertEqual(browser_diag.parse_browser_debug(crashed)[0]['debug_exit_signal'], 'SIGSEGV')
+
     def test_diagnostic_admission_requires_worker_and_actual_browser_clean_exit(self):
         outcome = {'returncode': 0, 'timed_out': False, 'native_crash': False}
         process = {'currently_exists': False, 'debug_exit_code': '0', 'debug_exit_signal': 'null'}

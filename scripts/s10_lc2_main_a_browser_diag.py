@@ -28,6 +28,17 @@ def diagnostic_admitted(worker_passed, outcome, process_facts):
                 for item in process_facts))
 
 
+def parse_browser_debug(debug):
+    """Parse the actual Playwright producer's closing ``>`` delimiter."""
+    pids = sorted({int(value) for value in re.findall(r'(?:\[pid=|<launched> pid=)([0-9]+)', debug)})
+    facts = []
+    for pid in pids:
+        exited = re.findall(r'\[pid=%d\].*?process did exit: exitCode=([^,>]+), signal=([^\s\x1b>]+)' % pid, debug)
+        facts.append({'pid': pid, 'debug_exit_code': exited[-1][0] if exited else 'UNKNOWN',
+                      'debug_exit_signal': exited[-1][1] if exited else 'UNKNOWN'})
+    return facts
+
+
 def pairing_metadata():
     import configparser
     parser = configparser.ConfigParser()
@@ -148,10 +159,10 @@ def main():
     # DEBUG belongs only to this credential-free child, so its PID/exit lines
     # may be observed without reading any existing browser or provider state.
     debug = (directory / 'process/stderr-faulthandler.log').read_text(errors='replace')
-    pids = sorted({int(value) for value in re.findall(r'(?:\[pid=|<launched> pid=)([0-9]+)', debug)})
+    parsed = parse_browser_debug(debug)
     process_facts = []
-    for pid in pids:
-        exited = re.findall(r'\[pid=%d\].*?process did exit: exitCode=([^,]+), signal=([^\s\x1b]+)' % pid, debug)
+    for parsed_fact in parsed:
+        pid = parsed_fact['pid']
         try:
             os.kill(pid, 0)
             currently_exists = True
@@ -161,11 +172,10 @@ def main():
                 executable_matches = 'UNKNOWN'
         except ProcessLookupError:
             currently_exists, executable_matches = False, False
-        process_facts.append({'pid': pid, 'debug_exit_code': exited[-1][0] if exited else 'UNKNOWN',
-            'debug_exit_signal': exited[-1][1] if exited else 'UNKNOWN',
+        process_facts.append(parsed_fact | {
             'currently_exists': currently_exists, 'selected_executable_matches_if_alive': executable_matches})
     save_once(directory / 'browser-process-observations.json', {'browser_processes': process_facts,
-        'browser_pid_available': bool(pids), 'global_process_kill': False,
+        'browser_pid_available': bool(parsed), 'global_process_kill': False,
         'observation': 'CURRENT_CREDENTIAL_FREE_ATTEMPT_DEBUG_AND_EXACT_PID_ONLY'})
     native_signals = {'SIGILL', 'SIGABRT', 'SIGBUS', 'SIGFPE', 'SIGSEGV', '4', '6', '7', '8', '11'}
     native = outcome.get('native_crash') is True or any(item['debug_exit_signal'] in native_signals for item in process_facts)
