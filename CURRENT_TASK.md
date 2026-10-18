@@ -1,9 +1,9 @@
 # YDental 当前任务状态
 
-状态版本：YD-STATE-20261018-08 · 协议 YD-HANDOFF-V1.0。
-本文件是唯一当前索引，不单独授予运行权限。长期规范见默认分支[AGENTS.md](https://github.com/Yredxin/YDental/blob/main/AGENTS.md)，新GPT先读[GPT_HANDOFF.md](https://github.com/Yredxin/YDental/blob/main/GPT_HANDOFF.md)。历史快照和完整证据保留在Git及既有报告，不把旧“当前”段落重新当作现行任务。
+状态版本：YD-STATE-20261018-09 · 协议 YD-HANDOFF-V1.0。
+本文件是唯一当前索引，不单独授予运行权限。长期规范见默认分支[AGENTS.md](https://github.com/Yredxin/YDental/blob/main/AGENTS.md)，新GPT先读[GPT_HANDOFF.md](https://github.com/Yredxin/YDental/blob/main/GPT_HANDOFF.md)。历史快照、失败、STOP及完整证据保留在Git和既有报告，不把旧“当前”段落重新当作现行任务。
 
-## 1. 当前定位：离线代码工作与应用运行分开
+## 1. 当前定位：revision1已采，revision2仅源码续行
 
 | 字段 | 当前值 |
 |---|---|
@@ -12,119 +12,107 @@
 | task_id | S10-LOG-AND-CLOSEOUT-v2 |
 | 活动分支 | codex/s10-settlement-finance-r1-20261013 |
 | 工作目录 | /home/redxin/code/odoo/odoo-sd/code/sd-addons |
-| 最新只读工程交付 | 74ad8c6b966be0ebd8fa3f5c2c6a9d25f3d27178；只读源码候选9ebab39750dc5440b81b5415b3b0e69ad966b469，仅五份现有文档变化 |
-| 最新工程复核 | [6245198569](https://github.com/Yredxin/YDental/issues/34#issuecomment-6245198569)，2026-10-18T03:29:25Z；READONLY_DELIVERY_ACCEPTED / B_RUNTIME_NOT_RUN；已另行API GET全文核同 |
-| 当前可执行工程工作 | B-CALLER-OFFLINE-REPAIR / revision 1；上述评论允许测试代码修复与纯离线回归，不是应用运行授权 |
-| 离线工作执行状态 | SOURCE_AND_PURE_COMPLETE_DELIVERED；固定5048000完成41项纯回归及原acceptance独立审核，6245453238已API全文核同；本任务结束，无应用运行START |
-| 本轮离线工程交付 | [6245453238](https://github.com/Yredxin/YDental/issues/34#issuecomment-6245453238)，2026-10-18T04:02:40Z；证据索引提交8892fcc913d62477e566dfcc174022df98ad975b；远端10变更文件逐字节核同 |
+| 最新工程交付 | [6245453238](https://github.com/Yredxin/YDental/issues/34#issuecomment-6245453238)，2026-10-18T04:02:40Z；最终交付HEAD 19f3b4f99bb2f967a8f877645490a1f81b40a376 |
+| 最新工程正式复核 | [6245528347](https://github.com/Yredxin/YDental/issues/34#issuecomment-6245528347)，2026-10-18T04:12:02Z；SOURCE_AND_PURE_SCOPED_ACCEPTED / REVISION1_COMPLETE / B_RUNTIME_NOT_RUN；已另行API GET全文读回核对 |
+| 当前可执行工程工作 | B-CALLER-OFFLINE-REPAIR / revision 2 / EVIDENCE_ADAPTERS_CODE_ONLY；仅按上述评论第3—4节修改测试适配源码与纯离线回归 |
+| revision2执行状态 | AUTHORIZED_CODE_ONLY_NOT_STARTED；截至本次状态维护没有新的实际开工/交付回执，不假称已直接唤醒原Codex |
 | 当前有效应用运行包 | 无；MAIN-A-04已结束，原整包没有START、start/deadline或生效的新预算 |
 | 已有整包正文 | [docs/execution/S10_REMAINING_CLOSEOUT.md](docs/execution/S10_REMAINING_CLOSEOUT.md)；固定提交8ea609c3c08ff8ddf7ed262b52be8d05e222d16f，blob e8e2140a82ff7776e6d7f975415f4ee544c9b737 |
-| 整包标识及状态 | YD-S10-LC2-CLOSEOUT-20261018-01 / revision2.0；PREPARED_NOT_AUTHORIZED，正文未改；6245198569不得作为其运行批准凭据 |
+| 整包标识及状态 | YD-S10-LC2-CLOSEOUT-20261018-01 / revision2.0；PREPARED_NOT_AUTHORIZED。正文未改；6245198569/6245528347均不得作为其运行批准凭据 |
+| 已采B代码/测试候选 | 50480008696c360b9afe36ca760ba33959adc879；主实现d856edd56f5a7dfaf4f159c63d664d77aab73410，后一提交仅补实际helper管理员拒绝纯测 |
+| 本轮工程证据索引 | 8892fcc913d62477e566dfcc174022df98ad975b；最后同步事实19f3b4f，仅文档 |
 | 产品采纳基线 | cf5d63fe510b52ea150d07495bf3062f4ce0961d |
 | 最新实际UI运行候选 | ee73081c09f06e7bae5bc5660061d6391ef977f5 |
-| 最新B代码/测试候选 | 50480008696c360b9afe36ca760ba33959adc879；主实现d856edd56f5a7dfaf4f159c63d664d77aab73410，后补helper admin/system纯测试；SOURCE/PURE，非应用候选实测 |
-| UI支线既有离线后修 | 4ff3ccf754f30abab25451d085e65d1a79f4d219；原17项离线结果，UI未复验，本轮未重做 |
-| 最新业务证据 | ce3789772be34a3c32426edf309c2ebdd0a3492a |
+| UI支线离线后修 | 4ff3ccf754f30abab25451d085e65d1a79f4d219；17项相关离线结果，UI未复验，不因本轮B交付重做 |
+| 最新实际业务证据 | ce3789772be34a3c32426edf309c2ebdd0a3492a |
 | 固定只读core | f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb |
-| 最近业务交付 | [6244173596](https://github.com/Yredxin/YDental/issues/34#issuecomment-6244173596)，2026-10-18T01:22:25Z |
-| 最近正式业务裁定 | [6244237100](https://github.com/Yredxin/YDental/issues/34#issuecomment-6244237100)，2026-10-18T01:30:15Z；不重复复核 |
+| 最近业务交付/裁定 | [6244173596](https://github.com/Yredxin/YDental/issues/34#issuecomment-6244173596) / [6244237100](https://github.com/Yredxin/YDental/issues/34#issuecomment-6244237100)；不重复复核 |
+| 已采只读调用链 | 74ad8c6b966be0ebd8fa3f5c2c6a9d25f3d27178及[6245198569](https://github.com/Yredxin/YDental/issues/34#issuecomment-6245198569)，已结束，不重做完整盘点 |
 | 长期协议发布 | [#23/6244428785](https://github.com/Yredxin/YDental/issues/23#issuecomment-6244428785)、[#34/6244433031](https://github.com/Yredxin/YDental/issues/34#issuecomment-6244433031) |
 | 阶段状态 | S10未通过，S11未启用；不合并、不部署生产 |
 
-本轮GPT实际核远端HEAD 74ad8c6及9ebab397→74ad8c6比较：ahead1/behind0，仅CURRENT_TASK、summary、defects、acceptance-matrix、acceptance-review变化。已读当前状态、五文档新增差异及独立交叉审，定向抽查access.call_kw、observed_http、Client.request、fixture_process.actor/main-prepare及_model_denials；旧run_closeout/main_b沿用本会话此前已核源码事实。接受本次只读交付，不再要求重复所有权盘点或重写泛化方案。
+本轮GPT实时核远端HEAD 19f3b4f，1490ff5→19f3b4f为ahead4/behind0，净变更10路径：四个实现/测试辅助文件、一份新纯测及五份现有状态报告。读取交付全文、当前状态、d856edd/5048000补丁、8892fcc报告增量及独立acceptance追加；定向核B输入、RPC、MODEL、fixture、保全与关联消费者、聚焦纯测试和现成diagnostic producer字段。接受revision1原限定范围，不将未授权运行集成倒判为当轮返工。
 
-本轮已核#23/#34现行正文；仓库评论自2026-10-18T01:50:00Z重叠查询只返回原协议两锚点，发表前#34仍312评论。新工程复核6245198569已成功发布并单独GET全文核同。有效评论游标更新为#23/6244428785（updated_at 2026-10-18T01:50:39Z）、#34/6245198569（updated_at 2026-10-18T03:29:25Z）；后续重叠查新增及已编辑评论，不机械重读全部历史。
+发表前#34从2026-10-18T04:02:39Z重叠查询只返回交付6245453238，#23从01:50:38Z只返回协议6244428785。最新工程复核6245528347成功发表并另行API GET全文读回核对。有效评论游标：#23/6244428785（updated_at 2026-10-18T01:50:39Z），#34/6245528347（updated_at 2026-10-18T04:12:02Z）；后续保留重叠查新增和已编辑评论，不机械重读全部历史。
 
-Codex本轮交付同步：#34自03:29:00Z增量仅原复核6245198569，无重复工程DELIVERY；#23自01:50:00Z增量仅协议6244428785。初次API GET遇普通TLS握手超时，最终GET均成功，未遇工具安全拒绝。已正常发表本轮真实6245453238，并另行API GET全文与拟稿4490B核同，body SHA256 `ba91b9b87495f95d15f3c2dcf15c26cb263b50df971664c7b2cd3e22891799bc`；回执在既有受控目录。#23游标仍6244428785；#34新增游标为本轮交付6245453238/updated_at 2026-10-18T04:02:40Z，不把自发交付当GPT裁定。证据提交8892fcc已fetch后读取远端十变更blob逐字节核同；本状态只追加同步事实，不追写自身提交。
-
-GPT没有访问Ubuntu、执行纯测试或应用、连接数据库、读取provider或复算私有原始文件。本地工作树/进程/团队响应及完整固定core/MRO分析按Codex和原acceptance的署名范围采纳，不冒现场核验。远端文档提交不等于本地同步或代码已经实施。
+GPT未访问Ubuntu、重跑41纯测或任何应用、连接数据库、读取provider或复算私有日志哈希。当地工作树/进程/原团队响应、私有材料核验和测试结果按Codex及独立acceptance署名层级采纳，不冒现场验证。用户回传及交付记录19f3b4f已推、远端核同、工作树干净，仍是时间限定事实。远端状态更新不代表本地已同步或revision2已启动。
 
 ## 2. 已采成果与剩余验收
 
 | 验收/能力 | 当前结果 | 证据层级和边界 |
 |---|---|---|
-| 六项原生框架 | 已采纳 | [6242631423](https://github.com/Yredxin/YDental/issues/34#issuecomment-6242631423)：五TransactionCase+一真实HttpCase；不等于完整UI或财务通过 |
-| 测试凭据 | 既有用户7/5已准备 | 既有私有provider；用户7真实HTTP登录曾通过，用户5尚无已验证浏览器登录；本轮不读取、不重置，不据此假定B普通actor凭据就绪 |
+| 六项原生框架 | 已正式采纳 | [6242631423](https://github.com/Yredxin/YDental/issues/34#issuecomment-6242631423)：五TransactionCase+一真实HttpCase；不重跑，不替代完整B/UI/财务 |
+| 测试凭据 | 既有用户7/5已准备 | 用户7有既有HTTP登录证据、用户5浏览器登录未完成；不据此假定B普通actor凭据就绪，本工程不读取/重置 |
 | A-STATE | 有限保全成立 | 最近39域750行/93模块，复用已采60域；不是全库无变化 |
-| A-EDITOR | 已提交、已正式采纳且保持 | [6243885093](https://github.com/Yredxin/YDental/issues/34#issuecomment-6243885093)；禁止重做 |
-| 指定设备日志输出 | 已限定修复 | res_device WARNING30及03真实登录验证，不是全局秘密不存在证明 |
-| Firefox启动 | 当前配置已有启动证据 | 空白页及实际UI context有证据；历史异常根因及未捕获PID/退出仍UNKNOWN |
-| A-ORIGINAL | NOT_RUN_DOWNLOAD / TOOL_FAIL | 用户5浏览器登录、工作台点击、原件下载及逐页核验未完成；留存文件不能代替 |
-| B工程只读核查 | 已接受并结束 | 74ad8c6及6245198569；实际调用链与缺口已定位，不再交一轮相同盘点 |
-| B离线源码修复 | SOURCE_AND_PURE_SCOPED_ACCEPTED | 5048000，30新B+11受影响旧HTTP=41PASS；原团队实际实现/测试/独立审，详第5节 |
-| B业务验收 | B-MODEL-6 / B-RPC-6均NOT_RUN | 实际身份/目标/原生六MODEL与六RPC及逐项独立保全未运行；纯合同结果不新增业务PASS |
-| C | 剩余未验收 | 源read/export、撤权旧页、跨店公司、family/混源、附件/图片/RPC/token；B改删不替代revision/撤权验收 |
-| D | 剩余未验收 | scratch独立新合成收6退2、failed恢复、丢响应先核实与防重 |
-| E及日志缺口 | 剩余未验收 | 两库分别带数据S10-only升级、保全、影响面回归及原12LOG尚缺的真实层级 |
+| A-EDITOR | 已提交、已正式采纳且保持 | [6243885093](https://github.com/Yredxin/YDental/issues/34#issuecomment-6243885093)；严禁重放 |
+| 指定设备日志 | 已限定修复 | res_device WARNING30及03真实登录验证，不是全局秘密不存在证明 |
+| Firefox启动 | 当前配置已有证据 | 空白页及实际UI context已运行；历史异常根因/未捕获PID仍UNKNOWN |
+| A-ORIGINAL | NOT_RUN_DOWNLOAD / TOOL_FAIL | 用户5浏览器登录、工作台点击、下载及逐页核验未完成；旧留存文件不代替 |
+| B只读工程 | 已正式采纳、结束 | 74ad8c6 / 6245198569，不再同内容盘点 |
+| B离线revision1 | 已正式采纳、结束 | 5048000 / 6245528347，30新B+11受影响HTTP=41项SOURCE/PURE限定支持 |
+| B离线revision2 | CODE_ONLY未开始 | 现有采集适配、来源解析与生产/消费接线源码；不是实际采集授权 |
+| B业务验收 | B-MODEL-6 / B-RPC-6均NOT_RUN | actual_evidence仍空；实际身份/目标/六MODEL/六RPC及独立保全未完成 |
+| C | 剩余未验收 | read/export、撤权旧页、跨店/公司、family/混源、附件/图片/token；B改删不替代revision/撤权 |
+| D | 剩余未验收 | scratch独立合成收6退2、failed恢复、丢响应先核实与防重；尚未运行 |
+| E及日志缺口 | 剩余未验收 | 两库分别带数据S10-only升级、保全、回归及原12LOG缺的真实层级 |
 
-完整历史F1—F6/T01—T16、12LOG、19TC见[acceptance-matrix](docs/reports/s10-log-and-closeout-v2-r12/acceptance-matrix.json)及同目录summary/acceptance-review。历史财务子证据按原裁定保留，不能整体清零。旧矩阵顶层BLOCKED_TOOL_AGENT_SAFETY_REFUSAL及旧reason是历史时点，不能覆盖所有当前业务；纯离线结果另列，不回填真实MODEL/RPC格。
+完整F1—F6/T01—T16、12LOG、19TC见[acceptance-matrix](docs/reports/s10-log-and-closeout-v2-r12/acceptance-matrix.json)及同目录summary/acceptance-review。历史财务子证据不清零；旧顶层BLOCKED_TOOL_AGENT_SAFETY_REFUSAL及reason不是所有当前工作的统一原因。纯合成合同PASS不回填MODEL/HTTP/RPC/COMMITTED业务格。
 
 ## 3. 不得重放的已提交事实
 
-main文书1 confirmed/v4，作者/负责人7；版本9=confirm/v3，版本10=correct/v4且previous9。用户7释放编辑权已提交：audit1191 editor_invalidated、1192 edit_acquire、1193 edit_release；认证审计1188—1190另列。编辑字段空，四mutex在03各+2，之后保持。不再登录用户7、acquire/release或save/confirm/correct/handover/transfer来“再证明一次”。当前编辑保全是严格释放，不能沿用旧runner的宽松editor排除。
+main文书1 confirmed/v4，作者/负责人7；版本9=confirm/v3，版本10=correct/v4且previous9。用户7释放已提交：audit1191 editor_invalidated、1192 edit_acquire、1193 edit_release；认证审计1188—1190另列。编辑字段空，四mutex在03各+2后保持。不再登录用户7、acquire/release或save/confirm/correct/handover/transfer来再证明；编辑保全是严格释放，不沿用旧runner宽松editor排除。
 
-旧原件1/附件161/invoice1/patient1/store1/company1：27665字节、application/pdf，SHA256 05928780e7d97a06cf29019634f64b010eb4994c2f1c5032d561008a50b059b4。这里只是留存基线，剩余验收需要真实工作台下载文件及逐页检查；不生成替代原件、不用直接HTTP或旧副本冒UI。
+旧原件1/附件161/invoice1/patient1/store1/company1：27665字节、application/pdf，SHA256 05928780e7d97a06cf29019634f64b010eb4994c2f1c5032d561008a50b059b4。这是留存基线，不是剩余UI下载证据；不生成替代原件、不用直接HTTP/旧副本冒UI。
 
-旧文书版本、治疗发药、收退款、日结、更正、库存及审计不重放。执行记录不完整不是重试许可；未知提交先独立核实。旧来源库、事故副本、固定core、odoo-12及历史证据不操作。
+旧文书版本、治疗发药、收退款、日结、更正、库存及审计不重放。执行记录不完整不是重试许可，未知提交先独立核实。旧来源库/事故副本、固定core、odoo-12和历史证据不操作。
 
-## 4. 环境与现有团队所有权
+## 4. 环境与原团队所有权
 
-| 对象 | 非敏感定位/最后实际观察 |
+| 对象 | 定位/最近署名事实 |
 |---|---|
 | main | ydental_s10_test_20261017105432_810a7d9c / OID2144129 / 127.0.0.1:18410 |
 | scratch | ydental_s10_test_20261017105432_ce6dcbf8 / OID2144130 / 127.0.0.1:18411 |
-| cluster | 7694897083368259627；未来合法应用运行仍需实测身份，本轮不连接 |
-| 私有provider | .local/s10-lc2-main-a-20261018-02/credentials/；0700/0600、Git忽略；本轮只定义接口，不读取值或密码摘要 |
-| 当前原团队 | /root主控、/root/developer_autonomy、/root/tester_autonomy、/root/acceptance_autonomy；74ad8c6交付记录全部实际响应、读取YD-HANDOFF-V1.0及状态05。无替代团队，子线程UUID未知，不代表OS隔离 |
-| 最近现场所有权观察 | 2026-10-18T03:08:09Z前由Codex核：origin/分支正确，初始工作树干净、无未提交修正，本地d08bf89→9ebab397仅文档快进；UID/GID1000/1000，必要同cwd元数据仅见Codex控制进程1548760。不读参数/秘密、不终止进程，不外推全机无其他服务 |
-| 只读交付文件所有者 | /root唯一写CURRENT_TASK及四份既有报告，三子角色仅只读；acceptance交叉审实际差异，由主控记录其意见，不冒验收者直接写入 |
-| 本轮GPT动作 | GitHub只读独立复核、发布6245198569及维护本状态；未接管Ubuntu线程/调度 |
-| 当前工程分工/写入权 | 原developer_autonomy单写cases.py、fixture_process.py、lc2_fixture.py及http.py可选无副作用dispatch_observer；原tester_autonomy单写scripts/s10_lc2_test_b_caller.py并执行纯回归；原acceptance_autonomy独立审，仅最终追加既有acceptance-review.md。主控单写状态/summary/defects/matrix并调度；均已实际响应，未创建替代团队 |
+| cluster | 7694897083368259627；未来合法应用运行仍须核身份，本工程不连接 |
+| 既有私有provider | .local/s10-lc2-main-a-20261018-02/credentials/；0700/0600、Git忽略；本工程不读值或摘要、不轮换 |
+| 原团队 | /root主控、/root/developer_autonomy、/root/tester_autonomy、/root/acceptance_autonomy；本轮交付均实际响应，无替代团队，线程UUID未知、不是OS隔离 |
+| 最近现场元数据核验 | 2026-10-18T03:08:09Z前Codex核origin/分支正确、初始工作树干净；UID/GID1000/1000，同cwd必要元数据仅见Codex控制进程1548760。不读参数/秘密、不终止进程、不外推全机无服务 |
+| revision1实际分工 | developer单写cases/fixture_process/http/测试addon helper四实现；tester单写聚焦纯测试并执行41；acceptance独立审差异/保存结果并追加既有验收，未实现或运行被验收代码；root维护其他文档/同步 |
+| 独立验收锚点 | acceptance-review.md追加2026-10-18T03:57:12Z及封口补核，105248B/SHA256 5c9254b08f7d82b85527baedfdff50270b29df70a82a54d6165feff3b6d2e669；此前97967B完整前缀保留 |
+| 本轮GPT动作 | 远端复核、发布6245528347、维护同一状态；没有Ubuntu调度或团队唤醒能力实证 |
+| 下一分工 | 沿用原团队及单文件单写者，只核新的冲突/未提交增量，不重做全部所有权报告；尚无revision2实际开工回执 |
 
-d08bf89规范接管事实保留：曾从532030b安全快进到b7c7468，仅协作文档变化，读取父级AGENTS、仓内无嵌套override；当时04两Odoo PID不存在。74ad8c6及用户回传声明本次五份远端文件核同、终工作树干净。以上均按时间限定的Codex署名事实承接，不当永久实时保证。
+d08bf89规范同步、74ad8c6只读交付及19f3b4f本轮同步事实按Git历史保留，不当永久实时所有权保证。新的文档提交不覆盖本地未提交工作；角色不能响应时如实记，不创建第二个调度者规避。
 
-## 5. 当前B离线工程交付与剩余运行集成
+## 5. 下一具体工程动作：已有采集适配的SOURCE/PURE接线
 
-正式依据为[#34/6245198569](https://github.com/Yredxin/YDental/issues/34#issuecomment-6245198569)第2—3节：B-CALLER-OFFLINE-REPAIR / revision1。74ad8c6只读任务已采纳并结束；本轮实际修改代码、纯回归及独立验收已完成，没有重提泛化方案。原整包依然PREPARED_NOT_AUTHORIZED，正文/预算/START/准入不变，本工程评论不能用作runtime凭据。
+正式依据为[#34/6245528347](https://github.com/Yredxin/YDental/issues/34#issuecomment-6245528347)第3—4节。继续同一B-CALLER-OFFLINE-REPAIR / revision2，不另造执行包、P0、泛化方案或编号交接附件。
 
-固定代码与测试T `50480008696c360b9afe36ca760ba33959adc879`；主实现提交d856edd，后一提交仅补实际helper admin/system拒绝子场景。原developer单写四实现文件，tester单写聚焦纯测，acceptance独立只读源码/PURE证据并追加既有验收，root维护其它文档/同步，实际角色非OS隔离。
+revision1已经完成B组合隔离、精确异常及逐项消费合同。run_b_only仍经准入/冻结/STOP后报B_RUNTIME_PROFILE_INTEGRATION_PENDING；_run_b_only_checks有显式回调而无默认真实依赖；main-b-only早分支排除报告配置和C等提交；MODEL保持首env与回滚；Client observer只报告INTENT_READY，不冒服务端收到。原B不进入注册来源revision分支的事实保持，不为测试修改产品来源/权限。
 
-|源码收口项|实际行为与层级|
+本轮一次补齐已列明的适配源码：main-b-only父调用参数/结果及正确观测时点；身份/目标manifest与正常会话元数据一致性；已有日志完整性/封存引用解析、真实producer字段与来源run/task/固定候选/目标绑定；逐项必要保护域before/after/独立终核与现有消费者的衔接。server消费用的evidence_ref应来自核验后的解析器，不假称raw logger已有此单数字段。不同UUID分别保存，引用形状不当实际真实性；不从最终结果复制观测或倒填时间。复用既有evidence/logging/RO工具，不建新的日志、代理、快照或调度平台。
+
+实际采集适配函数可以编写源码，但本轮纯测在外部I/O边界用明确合成替身；不查询现场目标、不产生现场manifest、不读取或准备真实凭据。回归实际producer/adapter→parser→consumer链，不能把所有回调直接替换为手填PASS收据而称适配完成。缺来源、错候选/目标、破损、歧义、旧测量重用、身份不符、编辑未释放、中途异常、UNKNOWN不重试均有真实函数层组合验证；已有41按改动影响面回归，无关六框架/150/旧业务不跑。
+
+运行状态不开放：不去除run_b_only的B_RUNTIME_PROFILE_INTEGRATION_PENDING，不修改runtime_gate、TaskProfile、PackageBudget、MAIN-A允许范围或STOP，不增加另一个可启动入口；私有组合不能作为绕行入口。本评论只授予源码/纯测工作，不能用于应用批准。原整包仍PREPARED_NOT_AUTHORIZED，旧拒绝不通过改名/换入口/代发重试。
+
+原主控内部完成适配实现、纯回归、普通错误修复、独立验收，再交固定源码/测试/证据SHA、具体调用接线和剩余真实条件。只有源码/纯测层级可收口，B实际MODEL/RPC仍NOT_RUN。补完后若仅剩有效授权与现场执行，就停止源码扩建，不再造一轮离线任务冒充业务进展，也不承诺届时必可运行。没有要求用户重答业务或提供测试密码。
+
+## 6. 阻断与用量分层
+
+| 分类 | 当前事实 |
 |---|---|
-|B-only编排|cases.run_b_only保原runtime_gate/STOP，随后明确B_RUNTIME_PROFILE_INTEGRATION_PENDING；私有_run_b_only_checks仅显式依赖的组合。fixture_process.main的main-b-only earlyreturn仅普通首env和owned cursor rollback，不进入报告配置/C账号/password/token/A/用户7/D/E/旧账号路径。没有新增CLI准出或加载器。|
-|MODEL探针|lc2_fixture._model_denials精确native异常name/公开参数，实际env/default_env、check_id/phase/时间；保持原生savepoint与rollback、回滚后先保存再断言，禁止su/技术管理员/用户7代测。独立保全仍需外部采集，不把同连接SHA当已提交证据。|
-|输入与逐RPC观察|validate_b_inputs只校明确manifest/provider引用及目标/普通身份合同，不读值、不猜ID、不回退旧材料；Actor.rpc_observed+main_b先逐项保存，区分NOT_SENT/响应/格式认证前提/expected denial/UNKNOWN。Client可选observer只在guard/budget/intent后open前报告INTENT_READY，自身失败明确NOT_SENT，不声称server收到，不retry。|
-|证据消费|六MODEL实际记录逐项核，不只信six_denied/VERIFIED总flag；server UUID独立于client ID，以绑定phase/check/目标/actor/baseline的opref、attempt及有时区有限时间唯一匹配。缺/歧义/错身份即停；before-after/terminal要同check/phase/point/来源、独立已关闭RO/ROLLBACK、旧行/审计/保护SHA一致、实际editor字段严格空，终核晚于整批观察。外部引用形状不是现场真实性证明。|
+| revision1工程 | 已按6245528347限定采纳并结束，不返工已采范围 |
+| revision2工程 | 可继续无应用执行的适配源码/纯测；尚未开工，不称集成已完成 |
+| 04工具错误 | diagnostics目录漏初始化、readiness误判；4ff3ccf只有离线后修，不归因测试密码或新产品权限失败 |
+| 项目运行流程 | MAIN-A-04结束且局部Odoo2/2耗尽，原整包新范围/预算未生效；不是平台算力或机器容量耗尽结论 |
+| 真实工具拒绝 | 上一会话原整包授权评论被拒、无ID、触发原因UNKNOWN，未重试。本次不同的工程复核写入成功，不证明旧限制解除 |
 
-未改产品addon/core/业务权限/来源注册、runtime_gate、TaskProfile、PackageBudget、MAIN-A范围或STOP；原B不验证revision门禁的静态事实保持，不给产品加scope检查使测试变绿。具体改动函数/实际调用覆盖见既有summary本轮顶部、defects、matrix::b_caller_offline_repair、acceptance-review本轮追加，不另建runner/日志/审批平台。
+应用累计仍Odoo10/12、独立目标RO30/48、HTTP32/600、Firefox6/8、原件GET0/12；旧事故RO2/维护1/CREATE2原样。04窗口2026-10-18T00:53:07Z—04:53:07Z且已交付结束。revision1新增Odoo/registry/DB/业务HTTP/Firefox/provider/资金/编辑/PDF/升级全0；revision2也不授权这些动作，不启动整包12小时计时。
 
-### 真实纯回归与独立结论
+revision1固定41纯测exit0、0failure/error/skip，首开发28另列不累计、首失败NONE。已存命令4104B、日志7575B、result2450B及索引916B，位于既有.local/yd-handoff-v1-20261018/b-caller-offline/，完整引用及SHA见matrix::b_caller_offline_repair和独立验收。输出聚合快照37628B，后续同步小文件另增；GPT未复算私有字节。
 
-最终T单次实际运行：30项新B+11项受影响旧HTTP，共41，0failure/0error/0skip，exit0，1.86093秒；首开发28PASS另存，不叠加。首纯测试失败NONE。只因Client可选接口变化回归旧11，不重跑全部150或六原生框架。真实修改函数/分派/Client/Actor/fixture.main/helper通过显式合成依赖执行，非字符串断言或独立仿写；合成数据仅临时测试目录/内存。
-
-命令PYTHONPATH=scripts timeout600 ../.venv/bin/python -B -的真实unittest loader，完整4104B here-doc命令及log/result/index受控保存于.local/yd-handoff-v1-20261018/b-caller-offline/。最终log7575B/SHA7f8089df85842ba6faa9d50783b33109e193f527284fea6706ad58e81c128ec2，result2450B/SHAaaba4fd303b259d5eb328a398f2125e909baf3522f8e508593cb64e3393bda7c。六源码前后SHA相同；外层network/process/provider guard触发0，未加载Odoo/psycopg2/playwright应用模块。不是全系统隔离保证。
-
-最低负例已覆盖缺输入/错目标身份/非普通env、缺或歧义server、不同client/server ID、旧MAIN-A提前拒/已有STOP/无准入、错误native类或参数、UNKNOWN不重试、中途回调失败保结果、错check/phase/时序/未关闭RO/未释放editor/缺终核不得过。原acceptance核最终源码、测试实际调用覆盖、41结果及受控证据，只签SOURCE_AND_PURE_SCOPED_ACCEPTED，不是NATIVE_MODEL/HTTP_RPC/COMMITTED验收；未预签GitHub同步。
-
-### 明确尚缺的运行集成与终点
-
-真实入口仍拒绝。新main-b-only模式尚未接cases.run_fixture真实caller；应用授权profile/owner/预算接入、合法普通actor正常登录/current store/revision采集、现场目标与关系manifest、实际六MODEL/六call_kw、先核完整性的server日志/来源引用解析器、逐项独立RO采集/终核均未连接或运行。不能把pure中完整合成合同返回PASS写入原业务格，也不承诺已有运行准出。
-
-本次SOURCE/PURE交付后停止，原整包授权问题不由此解决；不补发此前被拒评论、不使用本工程评论起应用、不启S11或重放已采业务。后续范围/应用授权仍由GPT处置。
-
-## 6. 阻断分类及用量
-
-| 分类 | 当前含义 |
-|---|---|
-| 离线工程收口 | 已按6245198569实现并纯回归/独立审核，SOURCE/PURE限定接受；剩余为上述真实运行集成和证据，不是代码规划未做 |
-| 04既有测试错误 | diagnostics目录漏初始化、readiness误判；4ff3ccf仅离线后修，真实UI未复验，不归因用户密码或新产品拒绝 |
-| 应用流程限制 | MAIN-A-04已结束且局部Odoo2/2耗尽；现有整包未授权，不能采用拟定范围/预算。这不是平台算力或机器容量耗尽结论 |
-| 上一实际工具拒绝 | 原整包运行授权评论写入被拒，无评论ID，触发原因UNKNOWN；未重试。此次不同范围的工程评论写入成功，不证明旧限制解除 |
-
-应用累计仍为Odoo10/12、独立目标RO30/48、HTTP32/600、Firefox6/8、原件GET0/12；旧事故RO2/维护1/CREATE2原样。04窗口2026-10-18T00:53:07Z—04:53:07Z且已交付结束。只读交付与GPT复核没有新增应用运行；本轮离线代码/41纯回归无应用、DB/业务HTTP/浏览器/provider/资金/编辑/PDF/升级动作，也不重置这些计数或启动整包时钟。
-
-离线工作仅使用当前工作区与已装依赖；纯测试单命令不超过10分钟，新增测试输出/证据总量不超过64MiB，普通失败在范围内自主修复，不另加逐次启动审批。本轮新增输出聚合快照37628B/64MiB，索引及后续少量同步文件另增。原空间快照约141334591字节仅代表当时计量。原整包12小时及其他拟定资源修订仍未生效，没有新的应用start/deadline。真实拒绝或越界停止受影响动作，不换入口重发。
+继续使用当前工作区和已装依赖，纯测试单命令≤10分钟、输出受控≤64MiB，保留既有材料；普通错误包内自主修复，不加逐次启动审批。不改OS/共享服务、不安装依赖；真正工具拒绝或越界停止受影响动作，不换入口重发。旧LC2空间快照约141334591B仅当时计量，不伪称现在已重测。
 
 ## 7. 维护约定
 
-Codex维护实际执行、所有权、工具/证据候选及禁止重放清单；GPT维护正式复核和工程/运行授权指针。修改前读最新文件与远端ref，避免覆盖。长期AGENTS/GPT_HANDOFF与默认分支路由保持稳定，仅同一个活动CURRENT_TASK维护当前索引，不为新会话另造编号附件。本状态不追写自身提交SHA制造循环提交；远端读回确认与应用运行是两回事。
+Codex维护实际执行、所有权、候选/证据及禁止重放清单；GPT维护正式裁定和工程/运行授权指针。写前核最新ref和文件，防双方覆盖。长期AGENTS/GPT_HANDOFF与默认分支路由不随本轮改写；只维护同一个活动CURRENT_TASK，不追写自身提交SHA制造循环提交。评论/文件写后读回与应用执行是不同事实。
