@@ -2,9 +2,9 @@
   "plan_id": "YD-S10-TECHNICAL-CLOSEOUT-V1",
   "version": "1.0",
   "task_id": "S10-LOG-AND-CLOSEOUT-v2",
-  "status": "IN_PROGRESS",
+  "status": "IN_PROGRESS_A_B_SCOPED_PASS_C_PARTIAL_D_BOOTSTRAP_REPAIR_ZERO_COMMIT",
   "product_commit": "b1f30aa88365ec85aea15073f08de5d6dfa22a5f",
-  "runtime_test_commit": "64371b6ad8530925396379aaf5ed8cf85ac01c57",
+  "runtime_test_commit": "dcf2d4f7cd666f8332be778348aaf105967dc64f",
   "core_commit": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
   "executor": "/root/tester_s10",
   "reviewer": "/root/acceptance_s10",
@@ -88,16 +88,16 @@
       "firefox": 8,
       "http": 171,
       "maintenance": 1,
-      "odoo_start": 23,
+      "odoo_start": 24,
       "original_get": 7,
-      "target_ro": 105
+      "target_ro": 111
     },
     "current_plan": {
       "firefox": 2,
       "http": 139,
-      "odoo_start": 13,
+      "odoo_start": 14,
       "original_get": 7,
-      "target_ro": 75
+      "target_ro": 81
     },
     "counts_are_not_test_pass_totals": true,
     "http_boundary": "Runner/browser dispatch ledger; not all native renderer internal asset HTTP wire requests."
@@ -329,9 +329,9 @@
   },
   "independent_review_reference": {
     "ref": "../../reports/s10-log-and-closeout-v2-r12/acceptance-review.md",
-    "bytes_at_current_signature": 160296,
-    "sha256_at_current_signature": "3be3a6e6e65d7f354baa90bca42f90a65506f779009b5e327847e8feceb73817",
-    "scope": "C configuration/font loading/PDF3 and applicable C-main business scoped PASS; original terminal wrapper exit1 retained, new59 write_uid pending; filtered-empty semantic, Firefox historical exit and scratch C limits explicit; not whole C/S10."
+    "bytes_at_current_signature": 167151,
+    "sha256_at_current_signature": "fa3c216a42efa214a281c44209280124822617b9f39a8398ff76160d019206a4",
+    "scope": "Prior scoped A/B/C assertions retained; new59 native profile metadata limited explanation, scratch actual identity/chart/groups, ordinary startup path failure and zero setup/business postRO independently checked. Two-file minimal startup recovery SOURCE only; future bootstrap/D/C-scratch/LOG/E not signed."
   },
   "B-actual": {
     "status": "PASS_SCOPED_SIX_MODEL_AND_SIX_REAL_RPC",
@@ -695,5 +695,88 @@
     "log_pair": "Native independent ON/OFF rollback only after separate new unbilled C fixture",
     "reviewer": "/root/acceptance_s10",
     "root_implemented_log_helper": "Independent acceptance required, no coordinator self-signature"
-  }
+  },
+  "C-reader59-native-metadata": {
+    "status": "EXPLAINED_LIMITED_NATIVE_LOGIN_METADATA",
+    "independent_reviewer": "/root/acceptance_s10",
+    "original_terminal_wrapper_exit_code": 1,
+    "original_failure_retained": true,
+    "physical_before_timezone_captured": false,
+    "initial_null_timezone": "SOURCE_INFERENCE_ONLY",
+    "observed_correlation": "User59 and related partner65 UTC/write_uid59/write_date matched native login transaction timestamp; current native core implements related timezone profile update on login.",
+    "evidence": {
+      "private_path": ".local/s10-technical-closeout-v1/root-current-ro-admission-index.json",
+      "bytes": 2603,
+      "sha256": "0891a5f196ec2be7eb401d8dfd938b0227d9db4afbec58bb721a003c2e2bf383",
+      "access": "Local private evidence; not directly readable from GitHub"
+    }
+  },
+  "scratch-native-admission": {
+    "status": "READ_ONLY_IDENTITY_AND_EXISTING_NATIVE_CONFIGURATION_VERIFIED",
+    "runtime_test_commit": "dcf2d4f7cd666f8332be778348aaf105967dc64f",
+    "database_role": "scratch",
+    "oid": 2144130,
+    "cluster": "7694897083368259627",
+    "existing_accounts": 50,
+    "existing_journals": 7,
+    "chart_template": "generic_coa",
+    "native_admin2_system_and_erp_manager_closure": true,
+    "native_ORM_guard_still_required": true,
+    "bootstrap_or_D_execution_claimed": false,
+    "final_E_D_claimed": false,
+    "initial_observer_error": "Nonstored related res_company.country_id selected; actual readonly SQL UndefinedColumn before missing fields were read, preserved exit1/RO108.",
+    "focused_repair_exit_code": 0,
+    "evidence": {
+      "private_path": ".local/s10-technical-closeout-v1/root-current-ro-admission-index.json",
+      "bytes": 2603,
+      "sha256": "0891a5f196ec2be7eb401d8dfd938b0227d9db4afbec58bb721a003c2e2bf383",
+      "access": "Local private evidence; not directly readable from GitHub"
+    }
+  },
+  "D-bootstrap-first-failure": {
+    "status": "ORDINARY_STARTUP_FAILURE_PRESERVED",
+    "product_commit": "b1f30aa88365ec85aea15073f08de5d6dfa22a5f",
+    "runtime_test_commit": "dcf2d4f7cd666f8332be778348aaf105967dc64f",
+    "owned_odoo_exit_code": 1,
+    "owned_odoo_signal": null,
+    "primary_exception": "RuntimeError: NATIVE_PRIVACY_ATTESTATION_PATH_INVALID",
+    "primary_cause": "Owned scratch run/diagnostics missing before registry first INFO; existing handler path guard preserved.",
+    "successor": "DIAGNOSTIC_LOG_MISSING",
+    "checkpoint_or_provider_absence_does_not_prove_zero_commit": true,
+    "D_economic_dispatched": false,
+    "native_crash_claimed": false,
+    "whole_bootstrap_retry_performed_at_first_failure": false,
+    "raw_snapshot_items": 114,
+    "private_index": {
+      "path": ".local/s10-technical-closeout-v1/D-bootstrap-first-failure-index.json",
+      "bytes": 3543,
+      "sha256": "59e5d7cadc2587daa34c031a1b07511190e340315902eacb13b86c8b55248599",
+      "access": "Local private evidence; not directly readable from GitHub"
+    },
+    "independent_post_failure_read_only": {
+      "status": "PASS_SCOPED_ZERO_CONFIGURATION_AND_BUSINESS_COMMIT",
+      "verified_sha256": "d31d1ff258994ed489b6ee0983f80031d9a711fcb4c0179fbf34b436696aa823",
+      "domains": 46,
+      "ordinary_added_users": 0,
+      "stores": 0,
+      "six_economic_tables": 0,
+      "existing_chart_rows_preserved": {
+        "accounts": 50,
+        "journals": 7
+      },
+      "modules_schema_views_three_report_parameters": "Equal to first actual scratch baseline",
+      "read_only_exit_code": 0,
+      "reviewer": "/root/acceptance_s10",
+      "original_first_failure_retained": true,
+      "whole_bootstrap_retry_or_funds_execution_claimed": false
+    }
+  },
+  "independent_review_prior_signatures": [
+    {
+      "ref": "../../reports/s10-log-and-closeout-v2-r12/acceptance-review.md",
+      "bytes_at_current_signature": 160296,
+      "sha256_at_current_signature": "3be3a6e6e65d7f354baa90bca42f90a65506f779009b5e327847e8feceb73817",
+      "scope": "C configuration/font loading/PDF3 and applicable C-main business scoped PASS; original terminal wrapper exit1 retained, new59 write_uid pending; filtered-empty semantic, Firefox historical exit and scratch C limits explicit; not whole C/S10."
+    }
+  ]
 }

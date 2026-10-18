@@ -6091,7 +6091,7 @@
     "task_id": "S10-LOG-AND-CLOSEOUT-v2",
     "started_at_utc": "2026-10-18T06:52:51Z",
     "authority": "User supplied full plan in current conversation; execution mode enabled; no new GPT comment prerequisite.",
-    "status": "IN_PROGRESS_A_B_SCOPED_PASS_C_MAIN_REPAIR_VERIFIED_NEW59_METADATA_PENDING_D_NEXT",
+    "status": "IN_PROGRESS_A_B_SCOPED_PASS_C_PARTIAL_D_BOOTSTRAP_REPAIR_ZERO_COMMIT",
     "baseline_commit": "d731711ab48d73177303ced9c040601a206412d9",
     "core_commit": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
     "scope": "S10 only; no S11-S13, merge or deployment",
@@ -6104,7 +6104,7 @@
       "tester": "/root/tester_s10",
       "acceptance": "/root/acceptance_s10"
     },
-    "candidate_status": "PRODUCT_B1F30AA_ACTUAL_64371B6_C_MAIN_BUSINESS_SCOPED_PASS_PRESERVATION_LIMITED",
+    "candidate_status": "PRODUCT_B1F30AA_C_ACTUAL_64371B6_D_STARTUP_FAILURE_DCF_ZERO_COMMIT_VERIFIED",
     "current_actual_evidence": [
       "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json"
     ],
@@ -6185,7 +6185,7 @@
           "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json",
           "acceptance-review.md"
         ],
-        "reason": "Four read/export combinations and same-company foreign nonempty source actually exercised, two HTML missing predicates durably completed. Cross-company/family/mixed/nonempty summary pending scratch; new59 metadata preservation pending focused native timezone proof."
+        "reason": "Four read/export combinations and same-company foreign nonempty source actually exercised, two HTML predicates durably completed. Cross-company/family/mixed/nonempty summary pending scratch. New59 native login timezone metadata independently explained with same-transaction timestamp; original terminal wrapper exit1 retained and physical before timezone was not captured."
       },
       "C-ATTACHMENT": {
         "status": "PARTIAL_MAIN_CHINESE_PDF_REPAIR_ACTUAL_PASS",
@@ -6229,7 +6229,7 @@
         "reason": "Ordinary59 opened real old page; normal grant revoke independently read; same old page next original request403/nonPDF, restoration verified. APIclose/current no matching OS resources observed; original historical PID/birth/exitcode not captured, never fabricated."
       },
       "D-ADMIT": {
-        "status": "NOT_RUN",
+        "status": "PARTIAL_REAL_SCRATCH_ADMISSION_STARTUP_REPAIR_ZERO_COMMIT",
         "required_layers": [
           "STATIC",
           "HTTP/RPC",
@@ -6238,7 +6238,7 @@
         ],
         "definition_ref": "#/tc_evidence_requirements/D-ADMIT",
         "current_evidence": [],
-        "reason": "Current plan runtime not yet dispatched; specific prerequisites being checked."
+        "reason": "Actual scratch OID/cluster/chart/native admin closure verified. First normal bootstrap failed before fixture at missing owned diagnostics directory; real child exit1/no signal, fault postRO independent zero setup/business commit. Original failure/latch retained; minimal normal startup repair and exact one attempt2 pending, no D funds dispatched."
       },
       "D-NORMAL-6": {
         "status": "NOT_RUN",
@@ -7063,7 +7063,7 @@
       "reviewer": "/root/acceptance_s10",
       "current_tool_refusal": null
     },
-    "runtime_test_commit": "64371b6ad8530925396379aaf5ed8cf85ac01c57",
+    "runtime_test_commit": "dcf2d4f7cd666f8332be778348aaf105967dc64f",
     "runtime_attempts": [
       {
         "stage": "existing_reader_native_administration",
@@ -7122,6 +7122,7 @@
       "production_since_cf5": "Settlement workbench/report QWeb and licensed static font resource only as of b1f30aa; financial Python unchanged. Older diagnostic wraps still require native rejection and rollback ON/OFF evidence.",
       "real_competition": "Preserve original formally accepted backend/interleaving assertions only; current D or LOG concurrency does not upgrade them."
     },
-    "source_product_candidate": "b1f30aa88365ec85aea15073f08de5d6dfa22a5f"
+    "source_product_candidate": "b1f30aa88365ec85aea15073f08de5d6dfa22a5f",
+    "scratch_native_admission_ref": "../../evidence/s10-log-and-closeout-v2-r12/technical-closeout-plan-v1.json#/scratch-native-admission"
   }
 }

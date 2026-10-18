@@ -434,16 +434,60 @@ def prepare_scratch(profile, approval, authority, requested_path):
     from s10_lc2_cases import run_fixture
     profile.require_action('scratch-bootstrap')
     request, observed = scratch_requested(profile, requested_path)
-    if (observed.get('validation_status') != 'CURRENT_SCRATCH_EMPTY_CONFIGURATION_VERIFIED'
+    intent = profile.root / 'D-BOOTSTRAP-IN-FLIGHT.json'
+    expected_status = ('CURRENT_SCRATCH_FIRST_BOOTSTRAP_ZERO_SETUP_COMMIT_INDEPENDENTLY_OBSERVED'
+                       if intent.exists() else 'CURRENT_SCRATCH_EMPTY_CONFIGURATION_VERIFIED')
+    if (observed.get('validation_status') != expected_status
             or observed.get('stores_count') != 0 or observed.get('all_mail_servers_count') != 0
             or any(observed.get('business_counts', {}).get(name) != 0 for name in (
                 'ydental_treatment_fee', 'ydental_settlement_source', 'ydental_settlement_payment',
                 'ydental_settlement_refund', 'account_move', 'account_payment'))):
         raise RuntimeError('CURRENT_D_BOOTSTRAP_NOT_EMPTY_OR_EXTERNAL_MAIL_POSSIBLE')
-    save_once(profile.root / 'D-BOOTSTRAP-IN-FLIGHT.json', {
-        'before_sha256': request['manifest_sha256'], 'target': profile.database,
-        'stage': 'BEFORE_NEW_NATIVE_CONFIGURATION_ONLY', 'automatic_retry': False,
-        'no_financial_source_or_transaction_factory': True})
+    if intent.exists():
+        recovery = strict_loads((profile.root / 'D-bootstrap-startup-recovery.json').read_bytes())
+        def recovered_reference(name):
+            path = ROOT / recovery[name + '_ref']
+            if (path.is_symlink() or not path.resolve().is_relative_to(profile.root)
+                    or path.stat().st_uid != os.getuid()):
+                raise RuntimeError('D_FIRST_BOOTSTRAP_RECOVERY_REFERENCE_INVALID')
+            raw = path.read_bytes()
+            if hashlib.sha256(raw).hexdigest() != recovery[name + '_sha256']:
+                raise RuntimeError('D_FIRST_BOOTSTRAP_RECOVERY_REFERENCE_CHANGED')
+            return raw
+        stop_raw = recovered_reference('archived_stop')
+        parent = recovered_reference('parent_exit').decode('ascii').splitlines()
+        recovered_ro = strict_loads(recovered_reference('zero_commit_ro'))
+        if (recovery.get('reason') != 'SCRATCH_NATIVE_PRIVACY_DIRECTORY_MISSING_ZERO_COMMIT'
+                or recovery.get('attempt') != 2 or recovery.get('independent_reviewer') != '/root/acceptance_s10'
+                or recovery.get('original_intent_sha256') != hashlib.sha256(intent.read_bytes()).hexdigest()
+                or recovery['original_intent_sha256'] != 'a95a198cfbf483c3b114f7bf2504cec97c3adf4a8598092046bed42355f43b27'
+                or hashlib.sha256(stop_raw).hexdigest() != '7964f3d01119fae1b7bdd2a070fb9d14e56b3ae6e794835d2974db583e470a61'
+                or strict_loads(stop_raw) != {'pid': 1877689, 'primary_event_id': None,
+                    'reason': 'DIAGNOSTIC_LOG_MISSING', 'root_event_id': None,
+                    'ts_utc': '2026-10-18T09:33:44.306305+00:00'}
+                or recovery.get('zero_commit_ro_exit_code') != 0
+                or recovery.get('zero_commit_ro_sha256') != request['manifest_sha256']
+                or recovery['zero_commit_ro_sha256'] != 'd31d1ff258994ed489b6ee0983f80031d9a711fcb4c0179fbf34b436696aa823'
+                or recovered_ro != observed
+                or recovery.get('parent_exit_ref') != str((profile.root / 'application-scratch-fixture-8555cfde/parent-exit.tsv').relative_to(ROOT))
+                or not any(row.split('\t')[:1] == ['parent.end'] and row.split('\t')[2:5] == ['1877689', '1', 'None'] for row in parent)
+                or any(observed.get(key) is not True for key in ('old_46_domains_preserved',
+                    'old_module_schema_view_parameters_preserved', 'old_50_accounts_7_journals_preserved',
+                    'no_new_users_or_business_configuration', 'rollback_returned', 'connection_closed'))
+                or observed.get('new_users_since_initial') != []
+                or (profile.root / 'D-fixture-public-identities.json').exists()
+                or (profile.root / 'D-bootstrap-result.json').exists()
+                or any((profile.root / 'credentials').glob('scratch-user-*.json'))
+                or any((profile.run_root / profile.database / 'diagnostics').glob('D-setup-*.json'))):
+            raise RuntimeError('D_FIRST_BOOTSTRAP_STARTUP_ZERO_COMMIT_NOT_VERIFIED')
+        save_once(profile.root / 'D-bootstrap-attempt2-intent.json', {
+            'attempt': 2, 'original_intent_sha256': recovery['original_intent_sha256'],
+            'zero_commit_ro_sha256': recovery['zero_commit_ro_sha256'],
+            'failure_pid': 1877689, 'automatic_retry': False})
+    else:
+        save_once(intent, {'before_sha256': request['manifest_sha256'], 'target': profile.database,
+            'stage': 'BEFORE_NEW_NATIVE_CONFIGURATION_ONLY', 'automatic_retry': False,
+            'no_financial_source_or_transaction_factory': True})
     result = run_fixture('scratch', approval=approval, product_commit=authority['product_commit'],
         test_commit=authority['test_commit'], mode='scratch-bootstrap', profile=profile)
     fixture = result['ram']

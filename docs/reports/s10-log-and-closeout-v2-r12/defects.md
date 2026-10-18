@@ -1,3 +1,9 @@
+## 最新补证与普通启动缺陷（2026-10-18T09:42Z）
+
+新59原生登录related时区元数据已独核限定解释，初始物理TZ未采，C首terminal wrapper exit1不改为exit0。C三份中文PDF修复已实际逐页通过；跨company/family/混源/非空摘要与最小filtered-empty语义补证仍待。
+
+scratch首bootstrap在registry日志时因owned诊断目录不存在触发NATIVE_PRIVACY_ATTESTATION_PATH_INVALID，native exit1/signalNone；父DIAGNOSTIC_LOG_MISSING为后继。故障后RO exit0/d31d…独核46域/原chart50+7/模块schema及参数同初、新用户/门店/六资金均0。首失败、STOP原件、原D intent与105项后核快照保留；当前只做启动前正常目录0700/owner检查及精确零提交唯一attempt2，不删保护检查。第二次初始化及D资金未执行，S10未关闭。
+
 ## 当前更新：中文PDF已实修，C保护元数据待精确补证
 
 b1f30aa/64371b6实际三参数修复与字体加载后，3份当前PDF独立逐页中文清晰且renderer均0，旧中文方框首失败保留并以新实证修复，未全C/S10通过。C终RO wrapper首exit1：新59.write_uid 2→59待核原生首次browser时区写入，其他旧业务无未解释变化；四mutex真实+5，草稿+6预估错误由同raw及5次grant源码解释，不重RO/不改raw。首filtered-empty RPC仅控制流支持，后LOG03同服务补1次语义。C浏览器历史OS退出未采，仅APIclose及当前无匹配资源；未来E/LOG接既有监督，不补造过去。

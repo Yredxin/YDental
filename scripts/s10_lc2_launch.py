@@ -340,6 +340,20 @@ class OwnedApplication:
         self.close(primary=primary)
         return False
 
+    def _prepare_native_privacy_directory(self):
+        """Privacy attestation runs before the optional JSON producer is loaded."""
+        profile = getattr(self, 'profile', None)
+        if profile is not None and profile.message_id in MAIN_A_PRIVATE_LOG_PROFILES | {CURRENT_PLAN}:
+            directory = self.run / 'diagnostics'
+            if directory.is_symlink():
+                raise RuntimeError('NATIVE_PRIVACY_PARENT_DIAGNOSTIC_PATH_INVALID')
+            directory.mkdir(mode=0o700, exist_ok=True)
+            status = directory.stat()
+            if (not stat.S_ISDIR(status.st_mode) or status.st_uid != os.getuid()
+                    or stat.S_IMODE(status.st_mode) != 0o700
+                    or directory.resolve() != profile.run_root / profile.database / 'diagnostics'):
+                raise RuntimeError('NATIVE_PRIVACY_PARENT_DIAGNOSTIC_BOUNDARY_INVALID')
+
     def start(self, arguments, *, pass_fds=(), stdin_path=None):
         profile = getattr(self, 'profile', None)
         require_dispatch_unfrozen(profile)
@@ -383,6 +397,7 @@ class OwnedApplication:
         elif stdin_path is not None or pass_fds:
             raise ValueError('NON_FIXTURE_STDIN_FORBIDDEN')
         has_stdin = fixture or self.action == 'main-credential-setup'
+        self._prepare_native_privacy_directory()
         reserve_owned_port(self.marker['port'])
         self.budget.consume('odoo_start')
         save_once(self.directory / 'launch-intent.json', {'command': self.command + arguments,
