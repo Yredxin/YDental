@@ -4796,10 +4796,21 @@
       "root_independently_verified_entries": 43
     },
     "github_sync": {
-      "status": "DELIVERY_PENDING",
+      "message_id": "YD-S10-LC2-MAIN-A-20261018-03",
+      "comment_id": 6243816035,
+      "url": "https://github.com/Yredxin/YDental/issues/34#issuecomment-6243816035",
+      "api_full_readback_exact": true,
+      "body_bytes": 7098,
+      "body_sha256": "89bb002f27636bcedb0727a659d3a189817a82816058dd7e644afdb9dc3bb6b3",
+      "product_commit": "cf5d63fe510b52ea150d07495bf3062f4ce0961d",
+      "test_tools_commit": "f90ad2ab48e922f3e45caff6fe95d1f3d4470bb5",
+      "evidence_commit": "ae5b1db6170bca0697ebf6118b6633771ddcc6e5",
+      "status": "SYNCED_PARTIAL_A_DELIVERY",
       "gpt_unsuccessful_comment_relayed": false,
+      "main_a_complete": false,
       "business_reexecuted_for_sync": false
-    }
+    },
+    "evidence_commit": "ae5b1db6170bca0697ebf6118b6633771ddcc6e5"
   },
   "current_execution_status": "A_STATE_AND_A_EDITOR_PASS_A_ORIGINAL_NOT_RUN_LOCAL_UI_INTEGRATION_BLOCKED",
   "current_execution_status_reason": "03 has no new platform safety refusal or Native; A-original blocked by local browser request integration and exhausted two UI attempts. Historical root message/execution_status and earlier task records are preserved as history."

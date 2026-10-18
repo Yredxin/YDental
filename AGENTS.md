@@ -8,7 +8,7 @@
 - 读取[实际上一轮交付6243358235](https://github.com/Yredxin/YDental/issues/34#issuecomment-6243358235)、[开发测试自主权6243010403](https://github.com/Yredxin/YDental/issues/23#issuecomment-6243010403)、[原MAIN-A范围6243026115](https://github.com/Yredxin/YDental/issues/34#issuecomment-6243026115)及#23/#34有效增量。GPT新的评论写入未成功，无新编号；不得代发、改述或补发该被拒评论。
 - 固定父 `4554545e99375dd9b6c0552b0611cd550a717808`；分支 `codex/s10-settlement-finance-r1-20261013`；产品保持 `cf5d63fe510b52ea150d07495bf3062f4ce0961d`；core只读 `f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb`。目录 `/home/redxin/code/odoo/odoo-sd/code/sd-addons`。
 - 上轮用户7/5凭据准备及用户7真实HTTP登录已完成；60表1034行/93模块保全已采。A-EDITOR因runner错误断言未执行，A-ORIGINAL因Firefox启动Error未执行；旧editor7/session109过期仍不等于release。旧窗口已结束，旧账本/STOP/原始证据保留。
-- 本轮运行已停止：A-STATE终核保全、A-EDITOR真实用户7 acquire/release及独立提交核验通过；原生device日志精确修复经实际登录验证。A-ORIGINAL两次Firefox UI均在登录提交前被测试路由白名单拦截，未下载；漏审已装http_routing的前端翻译地址覆盖，具体被拒URL未保留，不冒称已实测。UI额度2/2及无凭据诊断2/2已耗，A组仍未完成；保留已释放编辑状态，不自动续跑或重做。最终候选 `f90ad2ab48e922f3e45caff6fe95d1f3d4470bb5`，详见现有报告及独立验收。
+- 本轮运行已停止：A-STATE终核保全、A-EDITOR真实用户7 acquire/release及独立提交核验通过；原生device日志精确修复经实际登录验证。A-ORIGINAL两次Firefox UI均在登录提交前被测试路由白名单拦截，未下载；漏审已装http_routing的前端翻译地址覆盖，具体被拒URL未保留，不冒称已实测。UI额度2/2及无凭据诊断2/2已耗，A组仍未完成；保留已释放编辑状态，不自动续跑或重做。最终候选 `f90ad2ab48e922f3e45caff6fe95d1f3d4470bb5`，证据 `ae5b1db6170bca0697ebf6118b6633771ddcc6e5`；[本轮实际交付6243816035](https://github.com/Yredxin/YDental/issues/34#issuecomment-6243816035)已全文API读回，详见现有报告及独立验收。
 - 六项原生框架及150项纯测试已采，不无变更重跑/重判。S10/T12及生产仍BLOCKED。
 
 ## 本包工程修正与实际收尾
