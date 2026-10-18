@@ -6084,5 +6084,501 @@
     },
     "evidence_index_commit": "c003b06c3b3a5c97b34295756917a46de38e8830",
     "work_state": "DELIVERED_AND_STOPPED_NO_APPLICATION_RUNTIME"
+  },
+  "technical_closeout_plan_v1": {
+    "plan_id": "YD-S10-TECHNICAL-CLOSEOUT-V1",
+    "version": "1.0",
+    "task_id": "S10-LOG-AND-CLOSEOUT-v2",
+    "started_at_utc": "2026-10-18T06:52:51Z",
+    "authority": "User supplied full plan in current conversation; execution mode enabled; no new GPT comment prerequisite.",
+    "status": "IN_PROGRESS",
+    "baseline_commit": "d731711ab48d73177303ced9c040601a206412d9",
+    "core_commit": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
+    "scope": "S10 only; no S11-S13, merge or deployment",
+    "historical_fields_retained": true,
+    "executor": "/root/tester_s10",
+    "reviewer": "/root/acceptance_s10",
+    "team": {
+      "coordinator": "/root",
+      "developer": "/root/developer_s10",
+      "tester": "/root/tester_s10",
+      "acceptance": "/root/acceptance_s10"
+    },
+    "candidate_status": "NOT_FROZEN_FOR_RUNTIME",
+    "current_actual_evidence": [],
+    "cases": {
+      "A-STATE": {
+        "status": "HISTORICALLY_ACCEPTED_CURRENT_CHECK_PENDING",
+        "required_layers": [
+          "MODEL_NATIVE_COMMITTED"
+        ],
+        "definition_ref": "#/tc_evidence_requirements/A-STATE",
+        "current_evidence": [],
+        "reason": "Prior limited protection baseline accepted; current target identity/protection RO not executed."
+      },
+      "A-EDITOR": {
+        "status": "HISTORICALLY_ACCEPTED_DO_NOT_REPLAY",
+        "required_layers": [
+          "HTTP/RPC",
+          "MODEL_NATIVE_COMMITTED"
+        ],
+        "definition_ref": "#/tc_evidence_requirements/A-EDITOR",
+        "current_evidence": [
+          "https://github.com/Yredxin/YDental/issues/34#issuecomment-6243885093"
+        ],
+        "reason": "Actual HTTP acquire/release and independent committed-state verification previously accepted; current protection checks only."
+      },
+      "A-ORIGINAL": {
+        "status": "NOT_RUN",
+        "required_layers": [
+          "BROWSER",
+          "HTTP/RPC",
+          "PDF_VISUAL",
+          "MODEL_NATIVE_COMMITTED"
+        ],
+        "definition_ref": "#/tc_evidence_requirements/A-ORIGINAL",
+        "current_evidence": [],
+        "reason": "Current plan runtime not yet dispatched; specific prerequisites being checked."
+      },
+      "B-MODEL-6": {
+        "status": "NOT_RUN",
+        "required_layers": [
+          "MODEL"
+        ],
+        "definition_ref": "#/tc_evidence_requirements/B-MODEL-6",
+        "current_evidence": [],
+        "reason": "Current plan runtime not yet dispatched; specific prerequisites being checked."
+      },
+      "B-RPC-6": {
+        "status": "NOT_RUN",
+        "required_layers": [
+          "HTTP/RPC",
+          "MODEL_NATIVE_COMMITTED"
+        ],
+        "definition_ref": "#/tc_evidence_requirements/B-RPC-6",
+        "current_evidence": [],
+        "reason": "Current plan runtime not yet dispatched; specific prerequisites being checked."
+      },
+      "C-SCOPE": {
+        "status": "NOT_RUN",
+        "required_layers": [
+          "HTTP/RPC",
+          "MODEL_NATIVE_COMMITTED",
+          "SYNTHETIC_FIXTURE"
+        ],
+        "definition_ref": "#/tc_evidence_requirements/C-SCOPE",
+        "current_evidence": [],
+        "reason": "Current plan runtime not yet dispatched; specific prerequisites being checked."
+      },
+      "C-ATTACHMENT": {
+        "status": "NOT_RUN",
+        "required_layers": [
+          "HTTP/RPC",
+          "MODEL_NATIVE_COMMITTED"
+        ],
+        "definition_ref": "#/tc_evidence_requirements/C-ATTACHMENT",
+        "current_evidence": [],
+        "reason": "Current plan runtime not yet dispatched; specific prerequisites being checked."
+      },
+      "C-TOKEN": {
+        "status": "NOT_RUN",
+        "required_layers": [
+          "STATIC",
+          "HTTP/RPC"
+        ],
+        "definition_ref": "#/tc_evidence_requirements/C-TOKEN",
+        "current_evidence": [],
+        "reason": "Current plan runtime not yet dispatched; specific prerequisites being checked."
+      },
+      "C-REVOKED-PAGE": {
+        "status": "NOT_RUN",
+        "required_layers": [
+          "BROWSER",
+          "HTTP/RPC",
+          "MODEL_NATIVE_COMMITTED",
+          "SYNTHETIC_FIXTURE"
+        ],
+        "definition_ref": "#/tc_evidence_requirements/C-REVOKED-PAGE",
+        "current_evidence": [],
+        "reason": "Current plan runtime not yet dispatched; specific prerequisites being checked."
+      },
+      "D-ADMIT": {
+        "status": "NOT_RUN",
+        "required_layers": [
+          "STATIC",
+          "HTTP/RPC",
+          "MODEL_NATIVE_COMMITTED",
+          "SYNTHETIC_FIXTURE"
+        ],
+        "definition_ref": "#/tc_evidence_requirements/D-ADMIT",
+        "current_evidence": [],
+        "reason": "Current plan runtime not yet dispatched; specific prerequisites being checked."
+      },
+      "D-NORMAL-6": {
+        "status": "NOT_RUN",
+        "required_layers": [
+          "HTTP/RPC",
+          "MODEL_NATIVE_COMMITTED",
+          "SYNTHETIC_FIXTURE"
+        ],
+        "definition_ref": "#/tc_evidence_requirements/D-NORMAL-6",
+        "current_evidence": [],
+        "reason": "Current plan runtime not yet dispatched; specific prerequisites being checked."
+      },
+      "D-FAILED-2": {
+        "status": "NOT_RUN",
+        "required_layers": [
+          "HTTP/RPC",
+          "MODEL_NATIVE_COMMITTED",
+          "SYNTHETIC_FIXTURE"
+        ],
+        "definition_ref": "#/tc_evidence_requirements/D-FAILED-2",
+        "current_evidence": [],
+        "reason": "Current plan runtime not yet dispatched; specific prerequisites being checked."
+      },
+      "D-RECOVER-2": {
+        "status": "NOT_RUN",
+        "required_layers": [
+          "HTTP/RPC",
+          "MODEL_NATIVE_COMMITTED",
+          "SYNTHETIC_FIXTURE"
+        ],
+        "definition_ref": "#/tc_evidence_requirements/D-RECOVER-2",
+        "current_evidence": [],
+        "reason": "Current plan runtime not yet dispatched; specific prerequisites being checked."
+      },
+      "D-LOST-REFUND-2": {
+        "status": "NOT_RUN",
+        "required_layers": [
+          "HTTP/RPC",
+          "MODEL_NATIVE_COMMITTED",
+          "SYNTHETIC_FIXTURE"
+        ],
+        "definition_ref": "#/tc_evidence_requirements/D-LOST-REFUND-2",
+        "current_evidence": [],
+        "reason": "Current plan runtime not yet dispatched; specific prerequisites being checked."
+      },
+      "D-VERIFY-RETRY": {
+        "status": "NOT_RUN",
+        "required_layers": [
+          "HTTP/RPC",
+          "MODEL_NATIVE_COMMITTED",
+          "SYNTHETIC_FIXTURE"
+        ],
+        "definition_ref": "#/tc_evidence_requirements/D-VERIFY-RETRY",
+        "current_evidence": [],
+        "reason": "Current plan runtime not yet dispatched; specific prerequisites being checked."
+      },
+      "E-PREBASELINE": {
+        "status": "NOT_RUN",
+        "required_layers": [
+          "STATIC",
+          "MODEL_NATIVE_COMMITTED"
+        ],
+        "definition_ref": "#/tc_evidence_requirements/E-PREBASELINE",
+        "current_evidence": [],
+        "reason": "Current plan runtime not yet dispatched; specific prerequisites being checked.",
+        "targets": {
+          "E-MAIN": {
+            "status": "NOT_RUN",
+            "current_evidence": []
+          },
+          "E-D": {
+            "status": "NOT_RUN",
+            "current_evidence": []
+          }
+        }
+      },
+      "E-UPGRADE-S10-ONLY": {
+        "status": "NOT_RUN",
+        "required_layers": [
+          "STATIC",
+          "MODEL_NATIVE_COMMITTED"
+        ],
+        "definition_ref": "#/tc_evidence_requirements/E-UPGRADE-S10-ONLY",
+        "current_evidence": [],
+        "reason": "Current plan runtime not yet dispatched; specific prerequisites being checked.",
+        "targets": {
+          "E-MAIN": {
+            "status": "NOT_RUN",
+            "current_evidence": []
+          },
+          "E-D": {
+            "status": "NOT_RUN",
+            "current_evidence": []
+          }
+        }
+      },
+      "E-PRESERVE": {
+        "status": "NOT_RUN",
+        "required_layers": [
+          "MODEL_NATIVE_COMMITTED"
+        ],
+        "definition_ref": "#/tc_evidence_requirements/E-PRESERVE",
+        "current_evidence": [],
+        "reason": "Current plan runtime not yet dispatched; specific prerequisites being checked.",
+        "targets": {
+          "E-MAIN": {
+            "status": "NOT_RUN",
+            "current_evidence": []
+          },
+          "E-D": {
+            "status": "NOT_RUN",
+            "current_evidence": []
+          }
+        }
+      },
+      "E-AFFECTED-REGRESSION": {
+        "status": "NOT_RUN",
+        "required_layers": [
+          "MODEL",
+          "HTTP/RPC",
+          "BROWSER",
+          "PDF_VISUAL",
+          "SYNTHETIC_FIXTURE"
+        ],
+        "definition_ref": "#/tc_evidence_requirements/E-AFFECTED-REGRESSION",
+        "current_evidence": [],
+        "reason": "Current plan runtime not yet dispatched; specific prerequisites being checked.",
+        "targets": {
+          "E-MAIN": {
+            "status": "NOT_RUN",
+            "current_evidence": []
+          },
+          "E-D": {
+            "status": "NOT_RUN",
+            "current_evidence": []
+          }
+        }
+      }
+    },
+    "finance": [
+      {
+        "id": "F1",
+        "historical_adoption_ref": "#/s10/0/historical_formal_adoption",
+        "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
+        "current_evidence": []
+      },
+      {
+        "id": "F2",
+        "historical_adoption_ref": "#/s10/1/historical_formal_adoption",
+        "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
+        "current_evidence": []
+      },
+      {
+        "id": "F3",
+        "historical_adoption_ref": "#/s10/2/historical_formal_adoption",
+        "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
+        "current_evidence": []
+      },
+      {
+        "id": "F4",
+        "historical_adoption_ref": "#/s10/3/historical_formal_adoption",
+        "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
+        "current_evidence": []
+      },
+      {
+        "id": "F5",
+        "historical_adoption_ref": "#/s10/4/historical_formal_adoption",
+        "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
+        "current_evidence": []
+      },
+      {
+        "id": "F6",
+        "historical_adoption_ref": "#/s10/5/historical_formal_adoption",
+        "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
+        "current_evidence": []
+      },
+      {
+        "id": "T01",
+        "historical_adoption_ref": "#/s10/6/historical_formal_adoption",
+        "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
+        "current_evidence": []
+      },
+      {
+        "id": "T02",
+        "historical_adoption_ref": "#/s10/7/historical_formal_adoption",
+        "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
+        "current_evidence": []
+      },
+      {
+        "id": "T03",
+        "historical_adoption_ref": "#/s10/8/historical_formal_adoption",
+        "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
+        "current_evidence": []
+      },
+      {
+        "id": "T04",
+        "historical_adoption_ref": "#/s10/9/historical_formal_adoption",
+        "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
+        "current_evidence": []
+      },
+      {
+        "id": "T05",
+        "historical_adoption_ref": "#/s10/10/historical_formal_adoption",
+        "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
+        "current_evidence": []
+      },
+      {
+        "id": "T06",
+        "historical_adoption_ref": "#/s10/11/historical_formal_adoption",
+        "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
+        "current_evidence": []
+      },
+      {
+        "id": "T07",
+        "historical_adoption_ref": "#/s10/12/historical_formal_adoption",
+        "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
+        "current_evidence": []
+      },
+      {
+        "id": "T08",
+        "historical_adoption_ref": "#/s10/13/historical_formal_adoption",
+        "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
+        "current_evidence": []
+      },
+      {
+        "id": "T09",
+        "historical_adoption_ref": "#/s10/14/historical_formal_adoption",
+        "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
+        "current_evidence": []
+      },
+      {
+        "id": "T10",
+        "historical_adoption_ref": "#/s10/15/historical_formal_adoption",
+        "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
+        "current_evidence": []
+      },
+      {
+        "id": "T11",
+        "historical_adoption_ref": "#/s10/16/historical_formal_adoption",
+        "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
+        "current_evidence": []
+      },
+      {
+        "id": "T12",
+        "historical_adoption_ref": "#/s10/17/historical_formal_adoption",
+        "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
+        "current_evidence": []
+      },
+      {
+        "id": "T13",
+        "historical_adoption_ref": "#/s10/18/historical_formal_adoption",
+        "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
+        "current_evidence": []
+      },
+      {
+        "id": "T14",
+        "historical_adoption_ref": "#/s10/19/historical_formal_adoption",
+        "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
+        "current_evidence": []
+      },
+      {
+        "id": "T15",
+        "historical_adoption_ref": "#/s10/20/historical_formal_adoption",
+        "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
+        "current_evidence": []
+      },
+      {
+        "id": "T16",
+        "historical_adoption_ref": "#/s10/21/historical_formal_adoption",
+        "status": "HISTORICAL_SCOPED_ACCEPTANCE_RETAINED_CURRENT_CLOSEOUT_PENDING",
+        "current_evidence": []
+      }
+    ],
+    "logs": [
+      {
+        "id": "LOG-01",
+        "definition_ref": "#/logs/0",
+        "historical_status": "PARTIAL_OFFLINE_ONLY",
+        "status": "HISTORICAL_LAYER_RETAINED_CURRENT_GAPS_PENDING",
+        "current_evidence": []
+      },
+      {
+        "id": "LOG-02",
+        "definition_ref": "#/logs/1",
+        "historical_status": "PARTIAL_OFFLINE_ONLY",
+        "status": "HISTORICAL_LAYER_RETAINED_CURRENT_GAPS_PENDING",
+        "current_evidence": []
+      },
+      {
+        "id": "LOG-03",
+        "definition_ref": "#/logs/2",
+        "historical_status": "PARTIAL_STATIC_OFFLINE_ONLY",
+        "status": "HISTORICAL_LAYER_RETAINED_CURRENT_GAPS_PENDING",
+        "current_evidence": []
+      },
+      {
+        "id": "LOG-04",
+        "definition_ref": "#/logs/3",
+        "historical_status": "PASS_SCOPED_SYNTHETIC_ONLY",
+        "status": "HISTORICAL_LAYER_RETAINED_CURRENT_GAPS_PENDING",
+        "current_evidence": []
+      },
+      {
+        "id": "LOG-05",
+        "definition_ref": "#/logs/4",
+        "historical_status": "PARTIAL_OFFLINE_ONLY",
+        "status": "HISTORICAL_LAYER_RETAINED_CURRENT_GAPS_PENDING",
+        "current_evidence": []
+      },
+      {
+        "id": "LOG-06",
+        "definition_ref": "#/logs/5",
+        "historical_status": "PARTIAL_STATIC_OFFLINE_ONLY",
+        "status": "HISTORICAL_LAYER_RETAINED_CURRENT_GAPS_PENDING",
+        "current_evidence": []
+      },
+      {
+        "id": "LOG-07",
+        "definition_ref": "#/logs/6",
+        "historical_status": "PASS_SCOPED_PARENT_ONLY",
+        "status": "HISTORICAL_LAYER_RETAINED_CURRENT_GAPS_PENDING",
+        "current_evidence": []
+      },
+      {
+        "id": "LOG-08",
+        "definition_ref": "#/logs/7",
+        "historical_status": "PARTIAL_OFFLINE_ONLY",
+        "status": "HISTORICAL_LAYER_RETAINED_CURRENT_GAPS_PENDING",
+        "current_evidence": []
+      },
+      {
+        "id": "LOG-09",
+        "definition_ref": "#/logs/8",
+        "historical_status": "PARTIAL_STATIC_OFFLINE_ONLY",
+        "status": "HISTORICAL_LAYER_RETAINED_CURRENT_GAPS_PENDING",
+        "current_evidence": []
+      },
+      {
+        "id": "LOG-10",
+        "definition_ref": "#/logs/9",
+        "historical_status": "PARTIAL_OFFLINE_ONLY",
+        "status": "HISTORICAL_LAYER_RETAINED_CURRENT_GAPS_PENDING",
+        "current_evidence": []
+      },
+      {
+        "id": "LOG-11",
+        "definition_ref": "#/logs/10",
+        "historical_status": "PASS_SCOPED_SYNTHETIC_SNAPSHOT_ONLY",
+        "status": "HISTORICAL_LAYER_RETAINED_CURRENT_GAPS_PENDING",
+        "current_evidence": []
+      },
+      {
+        "id": "LOG-12",
+        "definition_ref": "#/logs/11",
+        "historical_status": "BLOCKED_NOT_RUN",
+        "status": "HISTORICAL_LAYER_RETAINED_CURRENT_GAPS_PENDING",
+        "current_evidence": []
+      }
+    ],
+    "safety": {
+      "old_package_not_activated": true,
+      "old_stop_and_ledgers_unchanged": true,
+      "old_tool_refusal_last_command": "UNKNOWN",
+      "applicability_review": "Old R12 package remains frozen; later separately scoped framework6 and MAIN-A were actually executed. Current plan normal integration requires explicit action/target/owner and preservation checks; no refused request is replayed.",
+      "reviewer": "/root/acceptance_s10",
+      "current_tool_refusal": null
+    }
   }
 }

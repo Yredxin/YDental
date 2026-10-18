@@ -27,6 +27,8 @@ from s10_lc2_supervisor import save_primary
 from s10_lc2_task_profile import (MAIN_A_AUTONOMY, MAIN_A_ENGINEERING, MAIN_A_ORIGINAL_UI,
                                   MAIN_A_PRIVATE_LOG_PROFILES, MAIN_A_PROFILES, MAIN)
 
+CURRENT_PLAN = 'YD-S10-TECHNICAL-CLOSEOUT-V1'
+
 
 _DATABASE = re.compile(r'ydental_s10_test_[0-9]{14}_[a-f0-9]{8}\Z')
 _SHA256 = re.compile(r'[a-f0-9]{64}\Z')
@@ -170,14 +172,12 @@ class _ForwardedResponse:
 
 
 class BrowserSession:
-    """One Firefox launch, at most 1200 seconds, with serial RAM-only personas.
+    """One Firefox launch with serial RAM-only personas.
 
-    Firefox's existing interception excludes automatic redirect hops. Therefore
-    each real UI request is fetched upstream with redirects/retries disabled;
-    actual non-redirect responses are forwarded unchanged. Redirect responses
-    are saved and native follow is aborted, then the adapter navigates each
-    guarded Location as a fresh GET. This is BROWSER_UPSTREAM_FORWARDED with
-    MANUAL_REDIRECT, not native automatic-redirect transport acceptance.
+    Historical profiles retain their forwarded transport. The current plan uses
+    native navigation and downloads, guarding intercepted requests and observing
+    automatic redirect hops. Firefox does not intercept every redirect hop; this
+    is target validation and observation, not strict network isolation.
     """
 
     def __init__(self, base_url, *, database, owned_targets, budget, directory,
@@ -200,6 +200,11 @@ class BrowserSession:
         self.playwright_root = Path(playwright_root) if playwright_root else root / '.local/s00-b-deps/verify-lib'
         self.base_url, self.database, self.budget = base_url, database, budget
         self.task_profile = getattr(budget, 'profile', None)
+        if self.native_transport:
+            self.task_profile.require_action('A-ORIGINAL')
+            self.task_profile.validate_target(database, 2144129, parsed.port)
+            if set(owned_targets) != {MAIN}:
+                raise BrowserBoundaryError('CURRENT_PLAN_BROWSER_TARGET_SCOPE_INVALID')
         if self.task_profile is not None and self.task_profile.message_id in MAIN_A_PROFILES:
             self.task_profile.validate_target(database, 2144129, parsed.port)
             if set(owned_targets) != {MAIN}:
@@ -233,6 +238,10 @@ class BrowserSession:
         self._closing = False
         self._watchdog = None
 
+    @property
+    def native_transport(self):
+        return getattr(self.task_profile, 'message_id', None) == CURRENT_PLAN
+
     def _check(self):
         if self._fatal:
             raise BrowserBoundaryError(self._fatal)
@@ -257,6 +266,24 @@ class BrowserSession:
 
     def _request_allowed(self, request):
         path = self._target_path(request.url)
+        if self.native_transport:
+            if self.case_id not in {'A-ORIGINAL', 'E-AFFECTED-REGRESSION'}:
+                raise BrowserBoundaryError('CURRENT_PLAN_BROWSER_CASE_NOT_DISPATCHED')
+            self.task_profile.require_action(self.case_id)
+            form = None
+            if request.method == 'POST':
+                parsed_form = parse_qs(request.post_data or '', keep_blank_values=True)
+                if any(len(values) != 1 for values in parsed_form.values()):
+                    raise BrowserBoundaryError('CURRENT_PLAN_BROWSER_DUPLICATE_FORM_FIELD')
+                form = {key: values[0] for key, values in parsed_form.items()}
+                if path == '/web/login' and self._declared_login_user_id != 5:
+                    raise BrowserBoundaryError('ORIGINAL_UI_LOGIN_REQUIRES_USER5_PROVIDER')
+            try:
+                main_a_request_boundary(request.method, request.url, form=form,
+                                        allow_translations=True, original_ui=True)
+            except (TypeError, ValueError):
+                raise BrowserBoundaryError('CURRENT_PLAN_BROWSER_REQUEST_FORBIDDEN') from None
+            return path
         if self.task_profile is not None and self.task_profile.message_id in MAIN_A_PROFILES:
             self.task_profile.verify()
             allowed_cases = {'A-ORIGINAL'}
@@ -382,6 +409,9 @@ class BrowserSession:
         return 'OTHER_ROUTE'
 
     async def _route(self, route):
+        if self.native_transport:
+            await self._native_route(route)
+            return
         request = route.request
         upstream = None
         upstream_attempted = False
@@ -491,6 +521,47 @@ class BrowserSession:
                     # to repeat a request that already reached the server.
                     self._fatal = self._fatal or 'BROWSER_UPSTREAM_BUFFER_CLEANUP_FAILED_STOP'
 
+    def _native_intent(self, request, *, redirect_observed=False):
+        """Reserve before dispatch, or explicitly mark a native redirect observation."""
+        self._check()
+        path = self._request_allowed(request)
+        if request in self._requests:
+            return self._requests[request]
+        if request.method == 'GET' and _ORIGINAL.fullmatch(path):
+            self.budget.consume('original_get')
+        self.budget.consume('http')
+        request_id = uuid.uuid4().hex
+        metadata = {'request_id': request_id, 'case_id': self.case_id,
+                    'operation_ref': self.operation_ref, 'method': request.method,
+                    'category': self._category(path), 'dispatched_epoch_ns': time.time_ns(),
+                    'redirect_hop': request.redirected_from is not None,
+                    'transport': 'NATIVE_BROWSER', 'redirect_policy': 'NATIVE_AUTOMATIC',
+                    'guard_stage': 'REDIRECT_OBSERVED_AFTER_DISPATCH' if redirect_observed else 'BEFORE_DISPATCH',
+                    'strict_redirect_network_isolation': False,
+                    'body_retention': 'MEMORY_ONLY', 'headers_retention': 'NONE',
+                    'server_trace_id': None, 'server_request_id': None,
+                    'correlation': 'CASE_OPERATION_HINT_AND_TIME_WINDOW'}
+        save_once(self.directory / (request_id + '.intent.json'), metadata)
+        self._requests[request] = metadata
+        return metadata
+
+    async def _native_route(self, route):
+        try:
+            self._native_intent(route.request)
+            # Preserve native request headers, cookies, bodies and responses.
+            await route.continue_()
+        except Exception as error:
+            self._fatal = self._fatal or (str(error) if isinstance(error, BrowserBoundaryError)
+                                         else 'BROWSER_GUARD_OR_BUDGET_FAILED')
+            save_once(self.directory / (uuid.uuid4().hex + '.route-rejection.json'), {
+                'kind': 'BROWSER_ROUTE_REJECTION_CLASSIFICATION',
+                'path_class': self._rejected_path_class(route.request.url),
+                'reason_code': self._fatal if re.fullmatch(r'[A-Z0-9_]{1,96}', self._fatal) else 'OTHER_FAILURE',
+                'transport': 'NATIVE_BROWSER', 'response_received': False,
+                'query_and_body_retained': False, 'raw_path_retained': False,
+            })
+            await route.abort('blockedbyclient')
+
     async def _websocket(self, socket):
         parsed = urlsplit(socket.url)
         if parsed.scheme != 'ws':
@@ -512,6 +583,28 @@ class BrowserSession:
         await socket.close(code=1008, reason='LC2 boundary')
 
     def _on_response(self, response):
+        if self.native_transport:
+            try:
+                if response.request not in self._requests and response.request.redirected_from is not None:
+                    self._native_intent(response.request, redirect_observed=True)
+                intent = self._requests.get(response.request)
+                if intent is None:
+                    raise BrowserBoundaryError('BROWSER_UNBUDGETED_REQUEST_OBSERVED')
+                location = response.headers.get('location')
+                if response.status in {301, 302, 303, 307, 308} and location:
+                    self._target_path(urljoin(response.url, location))
+                save_once(self.directory / (uuid.uuid4().hex + '.native-response.json'), {
+                    'request_id': intent['request_id'], 'case_id': intent['case_id'],
+                    'status': response.status, 'transport': 'NATIVE_BROWSER',
+                    'redirect_policy': 'NATIVE_AUTOMATIC', 'transaction_commit': 'NOT_OBSERVED',
+                    'body_retention': 'NONE', 'headers_retention': 'NONE',
+                })
+                for predicate, future in tuple(self._forward_waiters):
+                    if not future.done() and predicate(response):
+                        future.set_result(response)
+            except Exception as error:
+                self._fatal = self._fatal or (str(error) if isinstance(error, BrowserBoundaryError)
+                                             else 'BROWSER_NATIVE_RESPONSE_OBSERVATION_FAILED')
         if response.request not in self._requests:
             self._fatal = self._fatal or 'BROWSER_UNBUDGETED_REQUEST_OBSERVED'
         self._responses.append(response)
@@ -556,7 +649,7 @@ class BrowserSession:
             # No sandbox-disabling flags, preferences, proxy, persistent profile
             # or dependency installation. Capability refusal is a hard STOP.
             firefox_env = (firefox_environment(child_env, self.executable)
-                if self.task_profile is not None and self.task_profile.message_id in MAIN_A_PRIVATE_LOG_PROFILES
+                if self.native_transport or self.task_profile is not None and self.task_profile.message_id in MAIN_A_PRIVATE_LOG_PROFILES
                 else child_env)
             self.browser = await self.playwright.firefox.launch(
                 executable_path=str(self.executable), headless=True, env=firefox_env)
@@ -681,8 +774,8 @@ class BrowserSession:
                  'body_retention': 'NONE' if raw is None else 'REDACTED_ONLY',
                  'redacted': {} if raw is None else _redacted_json(raw),
                  'transaction_commit': 'NOT_OBSERVED', 'server_trace_id': None,
-                 'transport': 'BROWSER_UPSTREAM_FORWARDED',
-                 'redirect_policy': 'MANUAL_REDIRECT',
+                 'transport': 'NATIVE_BROWSER' if self.native_transport else 'BROWSER_UPSTREAM_FORWARDED',
+                 'redirect_policy': 'NATIVE_AUTOMATIC' if self.native_transport else 'MANUAL_REDIRECT',
                  'correlation': 'CASE_OPERATION_HINT_AND_TIME_WINDOW'}
         if self.task_profile is not None and self.task_profile.message_id == MAIN_A_ORIGINAL_UI:
             value.update({key: intent[key] for key in (
@@ -822,12 +915,13 @@ class BrowserSession:
         if self._logged_in:
             await self._new_context()
         original_ui = self.task_profile is not None and self.task_profile.message_id == MAIN_A_ORIGINAL_UI
-        if original_ui and (type(user_id) is not int or user_id != 5):
+        current_ui = self.native_transport
+        if (original_ui or current_ui) and (type(user_id) is not int or user_id != 5):
             raise BrowserBoundaryError('ORIGINAL_UI_LOGIN_REQUIRES_USER5_PROVIDER')
         self._declared_login_user_id = user_id
         try:
             await self._goto('/web/login?' + urlencode({'db': self.database,
-                'redirect': '/ydental/access' if original_ui else '/ydental/settlement'}))
+                'redirect': '/ydental/access' if original_ui or current_ui else '/ydental/settlement'}))
         finally:
             if original_ui:
                 save_once(self.directory / (uuid.uuid4().hex + '.login-initialization.json'),
@@ -837,9 +931,13 @@ class BrowserSession:
             await self._perform(lambda: self.page.locator('input[name=login]').fill(login, timeout=3000))
             await self._perform(lambda: self.page.locator('input[name=password]').fill(password, timeout=3000))
         else:
-            await self.page.locator('input[name=login]').fill(login)
-            await self.page.locator('input[name=password]').fill(password)
-        await self._perform(self.page.locator('button[type=submit]').click)
+            # Native actionability waits decide readiness. Bootstrap diagnostics
+            # never become an extra authentication prerequisite for this plan.
+            form = self.page.locator('form.oe_login_form')
+            await form.locator('input[name=login]').fill(login)
+            await form.locator('input[name=password]').fill(password)
+        submit = self.page.locator('form.oe_login_form button[type=submit]') if current_ui else self.page.locator('button[type=submit]')
+        await self._perform(submit.click)
         if original_ui and urlsplit(self.page.url).path == '/web/login':
             raise BrowserBoundaryError('ORIGINAL_UI_NORMAL_LOGIN_NOT_ACCEPTED')
         await self.page.wait_for_url(lambda url: urlsplit(str(url)).path != '/web/login')
@@ -1131,7 +1229,9 @@ class BrowserSession:
                 'actual_upstream_fetches': self._upstream_count,
                 'manual_redirect_hops': self._manual_hop_count,
                 'blocked_websocket_handshakes': self._blocked_websockets,
-                'transport': 'BROWSER_UPSTREAM_FORWARDED', 'redirect_policy': 'MANUAL_REDIRECT',
+                'transport': 'NATIVE_BROWSER' if self.native_transport else 'BROWSER_UPSTREAM_FORWARDED',
+                'redirect_policy': 'NATIVE_AUTOMATIC' if self.native_transport else 'MANUAL_REDIRECT',
+                'strict_redirect_network_isolation': False if self.native_transport else None,
                 'pageerror_count': self._pageerrors, 'boundary_failure': self._fatal,
                 'elapsed_seconds': round(time.monotonic() - self.started, 3) if self.started else 0,
                 'credentials_retention': 'MEMORY_ONLY', 'browser_storage_exported': False,
@@ -1191,24 +1291,31 @@ async def run_browser(*, base_url, database, owned_targets, budget, directory, p
 @_safe_browser_entrypoint('browser.main_a')
 async def run_main_a_browser(*, base_url, database, owned_targets, budget, directory,
                              credentials, store_id, invoice_id, original_id,
-                             original_sha256, patient_id, **session_options):
+                             original_sha256, patient_id, phase='pre', **session_options):
     """Only the authorized MAIN-A existing-v1 workbench click and download."""
     profile = getattr(budget, 'profile', None)
-    if (profile is None or profile.message_id not in MAIN_A_PROFILES
+    current = getattr(profile, 'message_id', None) == CURRENT_PLAN
+    if (phase not in {'pre', 'post'} or phase == 'post' and not current
+            or profile is None or profile.message_id not in MAIN_A_PROFILES and not current
             or (store_id, invoice_id, original_id, patient_id) != (1, 1, 1, 1)
             or original_sha256 != '05928780e7d97a06cf29019634f64b010eb4994c2f1c5032d561008a50b059b4'):
         raise BrowserBoundaryError('MAIN_A_ORIGINAL_SCOPE_INVALID')
     profile.verify()
+    if current:
+        profile.require_action('A-ORIGINAL')
+        if phase == 'post':
+            profile.require_action('E-AFFECTED-REGRESSION')
     async with BrowserSession(base_url, database=database, owned_targets=owned_targets,
                               budget=budget, directory=directory, **session_options) as session:
         await session.login(credentials.login, credentials.password,
-                            **({'user_id': 5} if profile.message_id == MAIN_A_ORIGINAL_UI else {}))
+                            **({'user_id': 5} if current or profile.message_id == MAIN_A_ORIGINAL_UI else {}))
         await session.switch_store(store_id)
         original = await session.download_original(invoice_id, original_id, original_sha256,
-                                                    patient_id=patient_id, phase='pre')
-    results = {'case_id': 'A-ORIGINAL', 'original': original,
-               'evidence_kind': 'REAL_FIREFOX_UI_UPSTREAM_FORWARDED',
-               'redirect_policy': 'MANUAL_REDIRECT', 'native_automatic_redirect_acceptance': False,
+                                                    patient_id=patient_id, phase=phase)
+    results = {'case_id': 'A-ORIGINAL' if phase == 'pre' else 'E-AFFECTED-REGRESSION', 'original': original,
+               'evidence_kind': 'REAL_FIREFOX_UI_NATIVE' if current else 'REAL_FIREFOX_UI_UPSTREAM_FORWARDED',
+               'redirect_policy': 'NATIVE_AUTOMATIC' if current else 'MANUAL_REDIRECT',
+               'native_automatic_redirect_acceptance': current,
                'independent_verification': 'PENDING'}
     save_once(Path(directory) / (uuid.uuid4().hex + '.main-a-browser-results.json'), results)
     return results

@@ -12,6 +12,8 @@ MAIN_A = 'YD-S10-LC2-MAIN-A-20261018-01'
 MAIN_A_AUTONOMY = 'YD-S10-LC2-MAIN-A-20261018-02'
 MAIN_A_ENGINEERING = 'YD-S10-LC2-MAIN-A-20261018-03'
 MAIN_A_ORIGINAL_UI = 'YD-S10-LC2-MAIN-A-20261018-04'
+CURRENT_PLAN = 'YD-S10-TECHNICAL-CLOSEOUT-V1'
+CURRENT_ROOT = ROOT / '.local/s10-technical-closeout-v1'
 MAIN_A_PROFILES = frozenset({MAIN_A, MAIN_A_AUTONOMY, MAIN_A_ENGINEERING, MAIN_A_ORIGINAL_UI})
 MAIN_A_PRIVATE_LOG_PROFILES = frozenset({MAIN_A_ENGINEERING, MAIN_A_ORIGINAL_UI})
 SCRATCH = 'ydental_s10_test_20261017105432_ce6dcbf8'
@@ -60,6 +62,66 @@ class TaskProfile:
     authority_sha256: str
     message_id: str = FRAMEWORK6
 
+    def current_scope(self):
+        """Read the current plan receipt without changing any historical receipt."""
+        if self.message_id != CURRENT_PLAN or self.root != CURRENT_ROOT:
+            raise RuntimeError('CURRENT_PLAN_PROFILE_INVALID')
+        raw = (self.root / 'scope.json').read_bytes()
+        value = json.loads(raw)
+        if (hashlib.sha256(raw).hexdigest() != self.authority_sha256
+                or value.get('plan_id') != CURRENT_PLAN or value.get('version') != '1.0'
+                or value.get('scope') != 'CURRENT_PLAN_EXISTING_MAIN'
+                or value.get('identity') != {'database': MAIN, 'oid': 2144129,
+                    'port': 18410, 'cluster': '7694897083368259627'}
+                or value.get('direct_user_authority') is not True
+                or not isinstance(value.get('execution_owner'), str) or not value['execution_owner']
+                or value.get('started_epoch') != self.started_epoch
+                or value.get('deadline_epoch') != self.deadline_epoch
+                or not self.started_epoch <= time.time() <= self.deadline_epoch
+                or not 0 < self.deadline_epoch - self.started_epoch <= 86400):
+            raise RuntimeError('CURRENT_PLAN_SCOPE_OR_WINDOW_INVALID')
+        baseline, limits = value.get('baseline'), value.get('limits')
+        protected = {'accident_ro', 'create', 'maintenance'}
+        permitted = {'odoo_start', 'target_ro', 'http', 'firefox', 'original_get'}
+        if (type(baseline) is not dict or set(baseline) != protected | permitted
+                or any(type(n) is not int or n < 0 for n in baseline.values())
+                or type(limits) is not dict or set(limits) != permitted
+                or any(type(n) is not int or n <= 0 for n in limits.values())):
+            raise RuntimeError('CURRENT_PLAN_RESOURCE_SCOPE_INVALID')
+        def historical(item):
+            if type(item) is not dict or set(item) != {'ref', 'sha256'}:
+                raise RuntimeError('CURRENT_PLAN_HISTORY_REFERENCE_INVALID')
+            path = ROOT / item['ref']
+            if (not str(item['ref']).startswith('.local/') or '..' in Path(item['ref']).parts
+                    or path.is_symlink() or not path.resolve().is_relative_to(ROOT / '.local')):
+                raise RuntimeError('CURRENT_PLAN_HISTORY_PATH_INVALID')
+            content = path.read_bytes()
+            if hashlib.sha256(content).hexdigest() != item['sha256']:
+                raise RuntimeError('CURRENT_PLAN_HISTORY_BYTES_CHANGED')
+            return json.loads(content)
+        ledgers = value.get('history_ledgers')
+        if type(ledgers) is not list or not ledgers:
+            raise RuntimeError('CURRENT_PLAN_HISTORY_LEDGER_REQUIRED')
+        prior = [historical(item)['counts'] for item in ledgers]
+        if baseline != {kind: max(row.get(kind, 0) for row in prior) for kind in baseline}:
+            raise RuntimeError('CURRENT_PLAN_HISTORICAL_COUNTS_DRIFT')
+        if historical(value.get('history_stop')).get('reason') != 'TOOL_SAFETY_REFUSAL':
+            raise RuntimeError('CURRENT_PLAN_HISTORICAL_REFUSAL_REQUIRED')
+        reviews = value.get('action_reviews')
+        if type(reviews) is not dict or not reviews:
+            raise RuntimeError('CURRENT_PLAN_ACTION_REVIEW_REQUIRED')
+        for review in reviews.values():
+            if (type(review) is not dict or review.get('current_refusal_stops') is not True
+                    or any(not isinstance(review.get(key), str) or not review[key].strip()
+                           for key in ('purpose', 'historical_refusal_boundary'))):
+                raise RuntimeError('CURRENT_PLAN_ACTION_REVIEW_INVALID')
+        return value
+
+    def require_action(self, action):
+        if self.message_id == CURRENT_PLAN and action not in self.current_scope()['action_reviews']:
+            raise RuntimeError('CURRENT_PLAN_ACTION_NOT_REVIEWED')
+        self.verify()
+
     @property
     def run_root(self):
         return self.root / 'targets'
@@ -70,10 +132,14 @@ class TaskProfile:
 
     @property
     def database(self):
+        if self.message_id == CURRENT_PLAN:
+            return MAIN
         return MAIN if self.message_id in MAIN_A_PROFILES else SCRATCH
 
     @property
     def local_limits(self):
+        if self.message_id == CURRENT_PLAN:
+            return dict(self.current_scope()['limits'])
         if self.message_id == MAIN_A_ORIGINAL_UI:
             return dict(MAIN_A_ORIGINAL_UI_LIMITS)
         if self.message_id == MAIN_A_ENGINEERING:
@@ -84,6 +150,8 @@ class TaskProfile:
 
     @property
     def baseline(self):
+        if self.message_id == CURRENT_PLAN:
+            return dict(self.current_scope()['baseline'])
         if self.message_id == MAIN_A_ORIGINAL_UI:
             return dict(MAIN_A_ORIGINAL_UI_BASELINE)
         if self.message_id == MAIN_A_ENGINEERING:
@@ -94,21 +162,28 @@ class TaskProfile:
 
     @property
     def allowed_actions(self):
+        if self.message_id == CURRENT_PLAN:
+            return set(self.current_scope()['action_reviews']) & {'main-service', 'main-fixture', 'main-upgrade'}
         if self.message_id == MAIN_A_AUTONOMY:
             return {'main-service', 'main-credential-setup'}
         return {'main-service'} if self.message_id in MAIN_A_PROFILES else {'scratch-tests'}
 
     @property
     def run_id(self):
+        if self.message_id == CURRENT_PLAN:
+            return 's10-technical-closeout-v1'
         return _SPECS[self.message_id][0].removeprefix('s10-')
 
     def validate_target(self, database, oid, port=None):
         self.verify()
-        expected = (MAIN, 2144129, 18410) if self.message_id in MAIN_A_PROFILES else (SCRATCH, 2144130, 18411)
+        expected = (MAIN, 2144129, 18410) if self.message_id in MAIN_A_PROFILES or self.message_id == CURRENT_PLAN else (SCRATCH, 2144130, 18411)
         if (database, oid) != expected[:2] or port is not None and port != expected[2]:
             raise RuntimeError('LC2_TASK_TARGET_SCOPE_INVALID')
 
     def verify(self):
+        if self.message_id == CURRENT_PLAN:
+            self.current_scope()
+            return
         if self.message_id not in _SPECS:
             raise RuntimeError('UNKNOWN_LC2_TASK_PROFILE')
         root_name, started, authorized_scope, parent = _SPECS[self.message_id]
@@ -151,12 +226,16 @@ class TaskProfile:
         for kind in set(self.baseline) - set(self.local_limits):
             if value['counts'].get(kind) != self.baseline[kind]:
                 raise RuntimeError('FRAMEWORK6_PROTECTED_RESOURCE_DRIFT')
-        if self.message_id in MAIN_A_PROFILES and set(value['counts']) != set(self.baseline):
+        if (self.message_id in MAIN_A_PROFILES or self.message_id == CURRENT_PLAN) and set(value['counts']) != set(self.baseline):
             raise RuntimeError('MAIN_A_CUMULATIVE_RESOURCE_SET_DRIFT')
 
 
 def framework6_profile():
     return _profile(FRAMEWORK6)
+
+
+def current_plan_profile():
+    return _profile(CURRENT_PLAN)
 
 
 def main_a_profile():
@@ -176,6 +255,13 @@ def main_a_original_ui_profile():
 
 
 def _profile(message_id):
+    if message_id == CURRENT_PLAN:
+        raw = (CURRENT_ROOT / 'scope.json').read_bytes()
+        value = json.loads(raw)
+        profile = TaskProfile(CURRENT_ROOT, value['started_epoch'], value['deadline_epoch'],
+                              hashlib.sha256(raw).hexdigest(), CURRENT_PLAN)
+        profile.verify()
+        return profile
     root_name, started, authorized_scope, parent = _SPECS[message_id]
     root = ROOT / '.local' / root_name
     raw = (root / 'scope.json').read_bytes()
@@ -201,6 +287,6 @@ def profile_from_environment(environment):
     selected = environment.get('YDENTAL_LC2_PROFILE')
     if selected is None:
         return None
-    if selected not in _SPECS:
+    if selected not in _SPECS and selected != CURRENT_PLAN:
         raise RuntimeError('UNKNOWN_LC2_TASK_PROFILE')
     return _profile(selected)

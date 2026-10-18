@@ -15,7 +15,7 @@ from s10_lc2_logging import strict_loads
 from s10_lc2_runtime import create_targets, prepare_target, source_filestore_inventory
 from s10_lc2_supervisor import safe_plain
 from s10_lc2_framework_caller import FAILURE_NAME, framework_failure_facts
-from s10_lc2_task_profile import TaskProfile
+from s10_lc2_task_profile import CURRENT_PLAN, TaskProfile
 
 ROOT = Path(__file__).resolve().parents[1]
 LEGACY_EXEC_ROOT = ROOT / '.local/s10-lc2-exec-20261017'
@@ -93,8 +93,12 @@ class PackageBudget(Budget):
     def check_storage(self):
         if self.profile is not None:
             self.profile.verify()
-            if sum(p.stat().st_size for p in self.profile.root.rglob('*') if p.is_file() and not p.is_symlink()) >= 256 * 1024 ** 2:
+            current_bytes = sum(p.stat().st_size for p in self.profile.root.rglob('*') if p.is_file() and not p.is_symlink())
+            maximum = (.9 if self.profile.message_id == CURRENT_PLAN else 1) * 256 * 1024 ** 2
+            if current_bytes >= maximum:
                 raise RuntimeError('FRAMEWORK6_RAW_STORAGE_BOUND')
+            if self.profile.message_id == CURRENT_PLAN and current_bytes >= .8 * 256 * 1024 ** 2:
+                safe_plain(self.profile.root / 'storage-warning.tsv', ['80_PERCENT', current_bytes])
         elif self.path.exists() and time.time() - strict_loads(self.path.read_bytes())['started_epoch'] > 8 * 3600:
             raise RuntimeError('RUN_WINDOW_EXHAUSTED')
         roots = (LEGACY_EXEC_ROOT, EXEC_ROOT, RUN_ROOT)
@@ -106,6 +110,7 @@ class PackageBudget(Budget):
                 's10-lc2-plan-20261017', 's10-lc2-code-rework-20261017-01',
                 's10-lc2', 's10-lc2-main-a-20261018-01', 's10-lc2-exec-20261017',
                 's10-lc2-main-a-20261018-02', 's10-lc2-main-a-20261018-03',
+                's10-lc2-main-a-20261018-04',
             )) + (self.profile.root,)
         roots = tuple(dict.fromkeys(roots))
         size = sum(path.stat().st_size for base in roots if base.exists()

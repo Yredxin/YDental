@@ -88,6 +88,9 @@ class FakeRoute:
     async def abort(self, reason):
         self.aborted = reason
 
+    async def continue_(self):
+        self.transport.append(self.request)
+
 
 class FakePage:
     def __init__(self, session, responses):
@@ -130,6 +133,57 @@ class BrowserBoundaryCase(unittest.IsolatedAsyncioTestCase):
             if path.is_file():
                 for value in forbidden:
                     self.assertNotIn(value, path.read_bytes(), path.name)
+
+    def current_session(self):
+        budget = FakeBudget()
+        budget.profile = SimpleNamespace(message_id='YD-S10-TECHNICAL-CLOSEOUT-V1',
+            require_action=lambda action: None, validate_target=lambda *args: None)
+        session = BrowserSession(BASE, database=DATABASE, owned_targets={DATABASE: BASE},
+                                 budget=budget, directory=self.directory / 'current')
+        session.page = SimpleNamespace()
+        return session
+
+    async def test_current_plan_uses_native_request_without_fetch_or_fulfill(self):
+        session = self.current_session()
+        request = FakeRequest(session.page, '/web/login?db=' + DATABASE)
+        transport = []
+        route = FakeRoute(session, request, None, transport)
+        await session._route(route)
+        self.assertEqual(transport, [request])
+        self.assertIsNone(route.fulfilled)
+        self.assertIsNone(route.aborted)
+        self.assertEqual(session.budget.intents, ['http'])
+        intent = json.loads(next(session.directory.glob('*.intent.json')).read_bytes())
+        self.assertEqual(intent['transport'], 'NATIVE_BROWSER')
+        self.assertEqual(intent['guard_stage'], 'BEFORE_DISPATCH')
+        self.assertFalse(intent['strict_redirect_network_isolation'])
+        self.assert_no_secrets(session)
+
+    async def test_current_plan_native_route_keeps_scope_before_dispatch(self):
+        session = self.current_session()
+        transport = []
+        for path in ('http://127.0.0.1:18411/web/login', '/ydental/clinical/action',
+                     '/ydental/settlement/bill-original/create'):
+            route = FakeRoute(session, FakeRequest(session.page, path), None, transport)
+            await session._route(route)
+            self.assertEqual(route.aborted, 'blockedbyclient')
+            session._fatal = None
+        self.assertEqual(transport, [])
+        self.assertEqual(session.budget.intents, [])
+
+    async def test_current_plan_redirect_is_observed_without_claiming_preinterception(self):
+        session = self.current_session()
+        previous = FakeRequest(session.page, '/web/login', method='POST')
+        request = FakeRequest(session.page, '/ydental/access')
+        request.redirected_from = previous
+        response = SimpleNamespace(request=request, url=request.url, status=200,
+                                   headers={'content-type': 'text/html'})
+        session._on_response(response)
+        self.assertIsNone(session._fatal)
+        intent = session._requests[request]
+        self.assertEqual(intent['guard_stage'], 'REDIRECT_OBSERVED_AFTER_DISPATCH')
+        self.assertFalse(intent['strict_redirect_network_isolation'])
+        self.assert_no_secrets(session)
 
     async def test_actual_nonredirect_upstream_is_forwarded_unchanged(self):
         upstream = FakeUpstream(409, b'{"error":"synthetic-password"}', {

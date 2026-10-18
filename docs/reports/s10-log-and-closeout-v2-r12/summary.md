@@ -1,3 +1,21 @@
+# 当前 S10 技术收口 / YD-S10-TECHNICAL-CLOSEOUT-V1 1.0
+
+2026-10-18T06:52:51Z 开始实际接管，task_id 继续 S10-LOG-AND-CLOSEOUT-v2。用户在本会话交付完整 plan；本轮执行模式已启用，范围内无需逐批 GPT 评论。当前 **IN_PROGRESS**，不是交付 PASS。
+
+- 起点本地/远端活动 HEAD d731711ab48d73177303ced9c040601a206412d9，工作树 clean；core 实际 f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb。没有从 main 重开业务。
+- 已核 GitHub #23/#34 正文及有效增量、旧收尾回执 6246470994；S10 OPEN，未出现新需求。
+- 真实团队：root 主控；developer_s10 最小当前准入/既有 B 接线；tester_s10 唯一运行负责人并维护 browser 工具；acceptance_s10 独立审查、不参与被验实现。角色不冒 OS 隔离。
+- 当前 [矩阵](acceptance-matrix.json) 的 technical_closeout_plan_v1 是本 plan 唯一当前投影，保留原 22 财务行、12 LOG、19 用例和全部历史失败/采纳。旧根状态及历史用例字段不作为当前事实；A-EDITOR 后续已正式采纳，禁止重演。
+- P0 已核工作区/远端/core；两目标 marker/config 权限及身份元数据由 tester 只读检查符合；尚未连接 DB，因此实际 OID/cluster/保护域未宣称通过。18410/18411 无监听；未知旧进程及 detached 工作区保留。
+- P1 发现具体 B_RUNTIME_PROFILE_INTEGRATION_PENDING、历史固定 profile/窗口及旧账号扫描路径，正在接当前 plan 的真实用途/owner/目标/观察来源。不得使用 existing_main_accounts 扫旧账号，不删 STOP、不激活旧 PREPARED 整包。
+- 本轮 MODEL/RPC/browser/经济链/升级均尚未执行。旧六框架、A-EDITOR、73 PURE 与旧资金/文书/原件不重跑。独立技术验收尚未签本轮运行结果。
+
+后续证据仍归既有本目录、docs/evidence/s10-log-and-closeout-v2-r12/ 和获准私有目录；秘密与原始临床/财务内容不进 Git。最终覆盖 A、真实 B、C、scratch 唯一 D 6/2 链、双 E、12 LOG 与原财务退出标准。S11—S13、merge、部署和生产不在范围。
+
+以下是历史交付，原始正文保留，各结论限其候选、层级和时点。
+
+---
+
 # B revision2：证据适配源码与73项组合纯回归交付
 
 本轮为同一task `S10-LOG-AND-CLOSEOUT-v2` 的 **B-CALLER-OFFLINE-REPAIR / revision2 / EVIDENCE_ADAPTERS_CODE_ONLY**，直接依据用户续行与[正式6245528347第3—4节](https://github.com/Yredxin/YDental/issues/34#issuecomment-6245528347)。revision1已经正式采纳并结束，本轮不重审其完整源码，不另交规划。原团队实际恢复响应，clean工作树安全快进远端唯一CURRENT_TASK文档至 `0dc7d8c3ad8e604e4065beaac3f4c83069b794f6`，无新所有权冲突。YD-HANDOFF-V1.0、当前状态09和正式全文同读；主控仅维护同一个状态及现有报告。

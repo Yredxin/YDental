@@ -21,7 +21,7 @@ from s10_lc2_targets import (EXEC_ROOT, LEGACY_EXEC_ROOT, PLAN, RUN_ROOT, Packag
 from s10_lc2_process_guard import ObservationBlocked, ProcessLogGuard
 from s10_lc2_framework_caller import (GRANT_ENV, GRANT_NAME, check_framework_failure,
                                       framework_failure_facts, issue_framework_grant)
-from s10_lc2_task_profile import FRAMEWORK6, MAIN_A_AUTONOMY, MAIN_A_ENGINEERING, MAIN_A_PRIVATE_LOG_PROFILES, MAIN_A_PROFILES
+from s10_lc2_task_profile import CURRENT_PLAN, FRAMEWORK6, MAIN_A_AUTONOMY, MAIN_A_ENGINEERING, MAIN_A_PRIVATE_LOG_PROFILES, MAIN_A_PROFILES
 
 ROOT = Path(__file__).resolve().parents[1]
 PYTHON = ROOT.parent / '.venv/bin/python'
@@ -106,6 +106,7 @@ def launch_guard(marker, *, approval, product_commit, test_commit, action, profi
     extra = {'profile': profile} if profile is not None else {}
     if profile is not None:
         profile.validate_target(marker.get('database'), marker.get('oid'), marker.get('port'))
+        profile.require_action(action)
         if action not in profile.allowed_actions:
             raise RuntimeError('LC2_TASK_APPLICATION_SCOPE_INVALID')
     if (profile.root / 'HARD-STOP.json' if profile is not None else STOP).exists():
@@ -132,7 +133,7 @@ def launch_guard(marker, *, approval, product_commit, test_commit, action, profi
     parser.read(run / 'odoo.conf')
     options = parser['options']
     log_config = ROOT / ('config/logging-s10-main-a-engineering.example.json'
-                         if profile is not None and profile.message_id in MAIN_A_PRIVATE_LOG_PROFILES
+                         if profile is not None and (profile.message_id in MAIN_A_PRIVATE_LOG_PROFILES or profile.message_id == CURRENT_PLAN)
                          else 'config/logging-s10.example.json')
     expected = {'db_host': '127.0.0.1', 'db_port': '5432', 'db_user': 'odoo',
                 'db_name': marker['database'], 'dbfilter': '^' + marker['database'] + '$',
@@ -151,6 +152,8 @@ def launch_guard(marker, *, approval, product_commit, test_commit, action, profi
 def identity_probe(marker, options, *, budget, directory):
     """Fresh owned-target RO connection before every launch, never an old source."""
     import psycopg2
+    if budget.profile is not None:
+        budget.profile.require_action('target-ro')
     budget.consume('target_ro')
     started = time.monotonic()
     connection, primary = None, None
@@ -442,7 +445,8 @@ class OwnedApplication:
 
     def check(self, *, allow_starting=False):
         self.budget.check_storage()
-        maximum = 1200 if getattr(getattr(self, 'profile', None), 'message_id', None) in MAIN_A_PROFILES else 1800
+        selected = getattr(getattr(self, 'profile', None), 'message_id', None)
+        maximum = 1200 if selected in MAIN_A_PROFILES or selected == CURRENT_PLAN else 1800
         if time.monotonic() - self.started > maximum:
             self._stop('OWNED_SERVICE_WINDOW_EXHAUSTED', pid=self.process.pid)
             raise TimeoutError('OWNED_SERVICE_WINDOW_EXHAUSTED')
