@@ -106,7 +106,7 @@ def main(shell_env):
     database = shell_env.cr.dbname
     expected = {'main': 'ydental_s10_test_20261017105432_810a7d9c',
                 'scratch': 'ydental_s10_test_20261017105432_ce6dcbf8'}
-    if mode not in {'main-prepare', 'main-b-only', 'main-reader-only', 'main-reader-password-only', 'scratch-bootstrap'} or database != expected['scratch' if mode == 'scratch-bootstrap' else 'main']:
+    if mode not in {'main-prepare', 'main-b-only', 'main-reader-only', 'main-reader-password-only', 'main-report-parameters-only', 'scratch-bootstrap'} or database != expected['scratch' if mode == 'scratch-bootstrap' else 'main']:
         raise RuntimeError('FIXTURE_ROLE_MODE_DRIFT')
     import logging
     if logging.getLogger('odoo.http.server').getEffectiveLevel() != logging.CRITICAL:
@@ -146,7 +146,8 @@ def main(shell_env):
             if env.su or env.transaction.default_env.uid != uid or env.transaction.default_env.su:
                 raise RuntimeError('FIXTURE_FIRST_ENV_NOT_ORDINARY_ACTOR')
             _guard(env, str(run))
-            case = ('B-ACTOR-PREPARE' if mode in {'main-reader-only', 'main-reader-password-only'} else
+            case = ('C-REPORT-CONFIGURATION' if mode == 'main-report-parameters-only' else
+                    'B-ACTOR-PREPARE' if mode in {'main-reader-only', 'main-reader-password-only'} else
                     'B-MODEL-6' if mode == 'main-prepare' and uid == 6 else
                     'C-SCOPE' if mode == 'main-prepare' else 'D-ADMIT')
             with context_scope(case_id=case,
@@ -179,6 +180,60 @@ def main(shell_env):
             record = parameters.search([('key', '=', key)])
             changes.append({'id': record.id, 'key': key, 'before': before, 'after': value})
         return changes
+    if mode == 'main-report-parameters-only':
+        from s10_lc2_evidence import save_once
+        from s10_lc2_task_profile import CURRENT_PLAN, profile_from_environment
+        profile = profile_from_environment(os.environ)
+        if profile is None or profile.message_id != CURRENT_PLAN:
+            raise RuntimeError('REPORT_PARAMETERS_CURRENT_PROFILE_REQUIRED')
+        profile.require_action('report-parameters-only')
+        expected_before = request['manifest']['report_config_safe_components']
+        def repair_parameters(env):
+            if env.uid != 2 or env.su or not env.is_system() or not env.user.has_group('base.group_erp_manager'):
+                raise RuntimeError('REPORT_PARAMETERS_NATIVE_ADMIN_REQUIRED')
+            parameters = env['ir.config_parameter']
+            keys = ('report.url', 'web.base.url', 'web.base.url.freeze')
+            before = []
+            for key in keys:
+                record = parameters.search([('key', '=', key)])
+                expected = expected_before[key]
+                if len(record) > 1 or bool(record) != expected['present'] or (record and record.id != expected['row_id']):
+                    raise RuntimeError('REPORT_PARAMETERS_OBSERVED_IDENTITY_CHANGED')
+                value = record.value if record else None
+                if key != 'web.base.url.freeze':
+                    parsed = urlsplit(value or '')
+                    actual = {'present': bool(record), 'row_id': record.id or None,
+                        'nonempty': bool(value), 'scheme': parsed.scheme or None, 'hostname': parsed.hostname,
+                        'port': parsed.port, 'userinfo_present': parsed.username is not None or parsed.password is not None,
+                        'query_present': bool(parsed.query), 'fragment_present': bool(parsed.fragment),
+                        'path_is_empty_or_root': parsed.path in ('', '/'), 'raw_value_retained': False}
+                    if actual != expected or actual['userinfo_present'] or actual['query_present'] or actual['fragment_present']:
+                        raise RuntimeError('REPORT_PARAMETERS_OBSERVED_VALUE_CHANGED')
+                elif record:
+                    raise RuntimeError('REPORT_PARAMETERS_FREEZE_DRIFTED_FROM_ABSENT_BASELINE')
+                before.append({'key': key, 'id': record.id or None, 'value': value})
+            save_once(run / 'diagnostics' / ('report-parameters-before-write-%d.json' % os.getpid()),
+                {'native_admin_id': 2, 'su': False, 'before': before, 'source_sha256': request['manifest']['source_sha256']})
+            changes = []
+            for key, value in (('report.url', 'http://127.0.0.1:18410'),
+                               ('web.base.url', 'http://127.0.0.1:18410'), ('web.base.url.freeze', 'True')):
+                parameters.set_str(key, value)
+                record = parameters.search([('key', '=', key)])
+                if len(record) != 1 or record.value != value:
+                    raise RuntimeError('REPORT_PARAMETERS_NATIVE_WRITE_NOT_OBSERVED')
+                changes.append({'id': record.id, 'key': key, 'after': value})
+            return {'native_admin_id': 2, 'native_admin_su': False, 'changes': changes,
+                    'account_writes': 0, 'economic_operations': 0}
+        def checkpoint_parameters(point, value):
+            save_once(run / 'diagnostics' / ('report-parameters-%s-%d.json' % (point, os.getpid())),
+                value | {'point': point, 'independently_committed': False})
+        safe = actor(2, repair_parameters, commit=True, checkpoint=checkpoint_parameters)
+        with os.fdopen(write_fd, 'wb') as stream:
+            stream.write(json.dumps({'safe': safe | {'mode': mode, 'fixture_commits': 1,
+                'commit_observation': 'COMMIT_RETURNED_NOT_INDEPENDENTLY_VERIFIED'}, 'ram': {}}).encode())
+            stream.flush()
+        return
+
     if mode == 'main-reader-password-only':
         import hashlib
         from odoo.tools import config

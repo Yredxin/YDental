@@ -115,6 +115,53 @@ def initialize_existing_reader(profile, approval, authority):
                              'provider_reference': reference}
 
 
+def c_renderer_resolution(profile):
+    """Consume only the independently classified current C renderer incident."""
+    receipt = strict_loads((profile.root / 'C-renderer-resolution.json').read_bytes())
+    def reference(name):
+        path = ROOT / receipt[name + '_ref']
+        if path.is_symlink() or not path.resolve().is_relative_to(profile.root) or path.stat().st_uid != os.getuid():
+            raise RuntimeError('C_RENDERER_RESOLUTION_REFERENCE_INVALID')
+        raw = path.read_bytes()
+        if hashlib.sha256(raw).hexdigest() != receipt[name + '_sha256']:
+            raise RuntimeError('C_RENDERER_RESOLUTION_REFERENCE_CHANGED')
+        return strict_loads(raw)
+    original = reference('original_stop')
+    observed = reference('only_ro_verified')
+    reference('failure_index')
+    reference('original_runtime_snapshot')
+    if (receipt.get('reason') != 'C_RENDERER_EXIT_ONE_NORMAL_PRODUCT_CONFIG_REPAIR'
+            or receipt.get('original_stop_sha256') != 'c32c0944ec6eb0fa543082d6ecfb928d1cc33bf943c54d47ebf0afc06619eae6'
+            or receipt.get('only_ro_verified_sha256') != 'a37901af09a55be018c760cf02471ecff318d29ecc18eab9ddc3dc47b9409ffb'
+            or original.get('reason') != 'RENDERER_NONZERO_REQUIRES_VERIFICATION'
+            or original.get('pid') != 1829480 or original.get('primary_event_id') != '6208b49b9433427bb9ca2d4020f7c775'
+            or receipt.get('only_ro_exit_code') != 0 or receipt.get('independent_reviewer') != '/root/acceptance_s10'
+            or receipt.get('allowed_resolution_actions') != ['report-parameters-only', 'repair-upgrade-main-font', 'c-main-tail']
+            or any(receipt.get(key) is not True for key in ('no_native_crash', 'no_tool_refusal', 'old_r12_retained'))
+            or any(observed.get(key) is not True for key in ('rollback_returned', 'connection_closed', 'ordinary59_retained'))
+            or observed.get('other_connections') != []
+            or observed.get('identity', {}).get('database') != profile.database
+            or observed.get('identity', {}).get('oid') != 2144129):
+        raise RuntimeError('C_RENDERER_ORDINARY_REPAIR_NOT_INDEPENDENTLY_RESOLVED')
+    return receipt, observed
+
+
+def repair_report_parameters(profile, approval, authority):
+    from s10_lc2_cases import run_fixture
+    profile.require_action('report-parameters-only')
+    receipt, observed = c_renderer_resolution(profile)
+    save_once(profile.root / 'REPORT-PARAMETERS-IN-FLIGHT.json', {
+        'native_admin_id': 2, 'keys': ['report.url', 'web.base.url', 'web.base.url.freeze'],
+        'observed_sha256': receipt['only_ro_verified_sha256'], 'automatic_retry': False,
+        'economic_operations': 0})
+    result = run_fixture('main', approval=approval, product_commit=authority['product_commit'],
+        test_commit=authority['test_commit'], mode='main-report-parameters-only', profile=profile,
+        manifest={'report_config_safe_components': observed['report_config_safe_components'],
+                  'source_sha256': receipt['only_ro_verified_sha256']})
+    save_once(profile.root / 'REPORT-PARAMETERS-RESULT.json', result['safe'])
+    return result['safe'] | {'status': 'NATIVE_REPORT_PARAMETERS_COMMIT_RETURNED_POST_RO_REQUIRED'}
+
+
 def b_zero_dispatch_recovery(profile):
     """Only the preserved first prelaunch bind failure can enter one new attempt."""
     root = profile.root
@@ -366,15 +413,30 @@ def run_original(profile, approval, authority):
         raise
 
 
-def run_c_main(profile, approval, authority, requested_path):
+def run_c_main(profile, approval, authority, requested_path, *, tail_only=False):
     """Current new-reader permissions and native content, using normal S01 actions."""
     import psycopg2
     from s10_lc2_browser import Credentials, _DRIVER_ENV_KEYS, run_current_revoked_browser
     from s10_lc2_cases import Actor, Facts, main_c, marker, stored_rows
     from s10_lc2_main_a_original_runner import existing_reader5
+    if tail_only:
+        profile.require_action('c-main-tail')
     for action in ('C-SCOPE', 'C-ATTACHMENT', 'C-TOKEN', 'C-REVOKED-PAGE'):
         profile.require_action(action)
     request = strict_loads(requested_path.read_bytes())
+    if tail_only:
+        c_renderer_resolution(profile)
+        repair = ROOT / request['repair_post_ro_ref']
+        if repair.is_symlink() or not repair.resolve().is_relative_to(profile.root):
+            raise RuntimeError('C_TAIL_REPAIR_POST_RO_REFERENCE_INVALID')
+        repair_raw = repair.read_bytes()
+        if hashlib.sha256(repair_raw).hexdigest() != request['repair_post_ro_sha256']:
+            raise RuntimeError('C_TAIL_REPAIR_POST_RO_BYTES_CHANGED')
+        repair_state = strict_loads(repair_raw)
+        if (repair_state.get('database') != profile.database or repair_state.get('oid') != 2144129
+                or any(repair_state.get(key) is not True for key in ('rollback_returned', 'connection_closed',
+                    'report_parameters_expected', 'font_view_loaded'))):
+            raise RuntimeError('C_TAIL_REPAIR_NOT_INDEPENDENTLY_VERIFIED')
     manifest_path = ROOT / request['manifest_ref']
     if manifest_path.is_symlink() or not manifest_path.resolve().is_relative_to(profile.root):
         raise RuntimeError('C_MANIFEST_REFERENCE_INVALID')
@@ -406,8 +468,16 @@ def run_c_main(profile, approval, authority, requested_path):
         raise RuntimeError('C_NONEMPTY_SCOPE_OR_LEGAL_TOKEN_APPLICABILITY_NOT_PROVEN')
     directory = profile.root / ('C-main-' + uuid.uuid4().hex[:12])
     facts = Facts(directory)
-    save_once(profile.root / 'C-MAIN-IN-FLIGHT.json', {'directory': str(directory.relative_to(ROOT)),
-        'actor_id': 59, 'automatic_retry': False, 'scope_manifest_sha256': request['manifest_sha256']})
+    if tail_only:
+        prior = profile.root / 'C-MAIN-IN-FLIGHT.json'
+        if not prior.is_file() or (profile.root / 'C-MAIN-COMPLETE.json').exists():
+            raise RuntimeError('C_TAIL_FIRST_FAILURE_NOT_PRESERVED')
+        save_once(profile.root / 'C-MAIN-TAIL-IN-FLIGHT.json', {'directory': str(directory.relative_to(ROOT)),
+            'actor_id': 59, 'automatic_retry': False, 'first_intent_sha256': hashlib.sha256(prior.read_bytes()).hexdigest(),
+            'repair_post_ro_sha256': request['repair_post_ro_sha256'], 'prefix_replayed': False})
+    else:
+        save_once(profile.root / 'C-MAIN-IN-FLIGHT.json', {'directory': str(directory.relative_to(ROOT)),
+            'actor_id': 59, 'automatic_retry': False, 'scope_manifest_sha256': request['manifest_sha256']})
     run = profile.run_root / profile.database
     budget = PackageBudget(profile.root, profile=profile)
     memberships = {1: manifest['store1_membership_id']}
@@ -458,7 +528,7 @@ def run_c_main(profile, approval, authority, requested_path):
                 reader.switch(store)
                 yield reader, store, item['own_patient_id'], item
         main_c(manager, reader, None, placeholder_path.read_bytes(), facts, 161, scope_actors(),
-            dynamic_pdf_admitted=True, profile=profile, verify_permission=verify_levels,
+            dynamic_pdf_admitted=True, profile=profile, verify_permission=verify_levels, tail_only=tail_only,
             token_applicability={'valid_token': 'NOT_APPLICABLE_NO_CURRENT_LEGAL_ISSUER',
                 'mail_links': [], 'scope_manifest_sha256': request['manifest_sha256'],
                 'source': 'ydental_settlement_bill_original has no portal.mixin; no linked mail.message producer'})
@@ -486,20 +556,27 @@ def run_c_main(profile, approval, authority, requested_path):
             os.environ.update(ambient)
         facts.save('C-browser-revoked-result', browser)
         app.check()
+    from s10_lc2_cases import closed_log_report
+    logs = closed_log_report(app)
+    facts.save('C-application-closed-log-seal', {'diagnostic_records': logs['record_count'],
+        'application_directory': str(app.directory.relative_to(ROOT)), 'owned_service_exited': True})
     result = {'status': 'C_MAIN_EXECUTED_INDEPENDENT_ACCEPTANCE_PENDING', 'actor_id': 59,
         'directory': str(directory.relative_to(ROOT)), 'application_directory': str(app.directory.relative_to(ROOT)),
         'foreign_nonempty_store_cases': len(foreign),
         'foreign_scope_status': 'EXECUTED_MAIN_SAME_AND_OTHER_COMPANY' if len(foreign) == 2 else 'PARTIAL_NO_NONEMPTY_MAIN_SOURCE',
         'family_nonempty_scratch_cases': 'NOT_RUN_SEPARATE_AFTER_D', 'valid_token': 'N/A_NO_CURRENT_LEGAL_ISSUER'}
-    save_once(profile.root / 'C-MAIN-COMPLETE.json', result)
+    save_once(profile.root / ('C-MAIN-TAIL-COMPLETE.json' if tail_only else 'C-MAIN-COMPLETE.json'),
+              result | {'prefix_replayed': False} if tail_only else result)
     return result
 
 
-def repair_upgrade_main(profile, approval, authority, requested_path):
+def repair_upgrade_main(profile, approval, authority, requested_path, *, font_repair=False):
     """Load the ordinary export-link repair; final E-MAIN remains separate."""
     from s10_lc2_cases import closed_log_report, marker
     from s10_lc2_launch import keep_primary
-    profile.require_action('repair-upgrade-main')
+    profile.require_action('repair-upgrade-main-font' if font_repair else 'repair-upgrade-main')
+    if font_repair:
+        c_renderer_resolution(profile)
     request = strict_loads(requested_path.read_bytes())
     before = ROOT / request['manifest_ref']
     if before.is_symlink() or not before.resolve().is_relative_to(profile.root):
@@ -509,9 +586,10 @@ def repair_upgrade_main(profile, approval, authority, requested_path):
         raise RuntimeError('REPAIR_UPGRADE_BEFORE_BYTES_CHANGED')
     protection = strict_loads(raw)
     if (protection.get('database') != profile.database or protection.get('oid') != 2144129
-            or protection.get('rollback_returned') is not True or protection.get('connection_closed') is not True):
+            or protection.get('rollback_returned') is not True or protection.get('connection_closed') is not True
+            or font_repair and protection.get('report_parameters_expected') is not True):
         raise RuntimeError('REPAIR_UPGRADE_ACTUAL_BEFORE_TARGET_NOT_PROVEN')
-    save_once(profile.root / 'REPAIR-UPGRADE-MAIN-IN-FLIGHT.json', {
+    save_once(profile.root / ('FONT-REPAIR-UPGRADE-MAIN-IN-FLIGHT.json' if font_repair else 'REPAIR-UPGRADE-MAIN-IN-FLIGHT.json'), {
         'before_ref': request['manifest_ref'], 'before_sha256': request['manifest_sha256'],
         'product_commit': authority['product_commit'], 'test_commit': authority['test_commit'],
         'target': profile.database, 'automatic_retry': False, 'final_E_MAIN_claimed': False})
@@ -535,7 +613,7 @@ def repair_upgrade_main(profile, approval, authority, requested_path):
         'exit_code': code, 'target': profile.database, 'scope': 'ydental_settlement_only',
         'application_directory': str(app.directory.relative_to(ROOT)),
         'diagnostic_records': logs['record_count'], 'final_E_MAIN_claimed': False}
-    save_once(profile.root / 'REPAIR-UPGRADE-MAIN-RESULT.json', result)
+    save_once(profile.root / ('FONT-REPAIR-UPGRADE-MAIN-RESULT.json' if font_repair else 'REPAIR-UPGRADE-MAIN-RESULT.json'), result)
     return result
 
 
@@ -570,6 +648,12 @@ def execute(args, profile):
         return run_b(profile, approval, authority, args.requested)
     if args.action == 'c-main':
         return run_c_main(profile, approval, authority, args.requested)
+    if args.action == 'report-parameters-only':
+        return repair_report_parameters(profile, approval, authority)
+    if args.action == 'c-main-tail':
+        return run_c_main(profile, approval, authority, args.requested, tail_only=True)
+    if args.action == 'repair-upgrade-main-font':
+        return repair_upgrade_main(profile, approval, authority, args.requested, font_repair=True)
     if args.action == 'repair-upgrade-main':
         return repair_upgrade_main(profile, approval, authority, args.requested)
     return run_original(profile, approval, authority)
@@ -578,13 +662,14 @@ def execute(args, profile):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('action', choices=['target-ro', 'original-ui', 'prepare-reader',
-                                         'initialize-existing-reader', 'b-only', 'c-main', 'repair-upgrade-main'])
+                                         'initialize-existing-reader', 'b-only', 'c-main', 'repair-upgrade-main',
+                                         'report-parameters-only', 'repair-upgrade-main-font', 'c-main-tail'])
     parser.add_argument('--selections', type=Path)
     parser.add_argument('--requested', type=Path)
     args = parser.parse_args()
     if args.action == 'target-ro' and args.selections is None:
         parser.error('--selections is required for target-ro')
-    if args.action in {'b-only', 'c-main', 'repair-upgrade-main'} and args.requested is None:
+    if args.action in {'b-only', 'c-main', 'repair-upgrade-main', 'repair-upgrade-main-font', 'c-main-tail'} and args.requested is None:
         parser.error('--requested is required for b-only/c-main/repair-upgrade-main')
     profile = current_plan_profile()
     descriptor = os.open(profile.root / 'runner.lock', os.O_RDWR | os.O_CREAT | os.O_NOFOLLOW, 0o600)
