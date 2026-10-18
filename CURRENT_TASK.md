@@ -12,7 +12,8 @@
 - B 首次角色准备（实际863325e）：父端在进程启动0.24s、尚无diagnostic events时按默认非starting检查触发 DIAGNOSTIC_LOG_MISSING，父端终止 owned PID1785486，实际signal15/returncode-15；无stdout/stderr/native日志、reader commit checkpoint或新provider文件。此为已定位普通fixture启动竞态，不冒Native/工具安全拒绝；尚不能仅由缺文件称无提交。准备动作不盲重试，当前只安排保留原STOP/退出/intent原字节并限制target-ro的失败后独立核验；旧r12安全STOP和累计账本不改。无新MODEL/RPC结果。
 - B 首失败后独立RO（实际37e417c）已exit0并由acceptance亲核：39域750行、全部旧事实+A五审计、用户/权限/session与Aterminal一致，possible_new_reader_rows为空；支持此首prepare无新角色提交。只本次普通STOP原字节归档后以target-ro-only核查，旧r12 STOP原值不变。当前修复仅fixture既有60s启动宽限和B派发前耐久in-flight/完成停点；待新固定候选后按已证零提交的具体事实恢复同一角色准备，不盲造第二账号。累计12/35/47/7/1，当前无owned服务。
 - 资源：旧 detached 工作区和常驻进程保留；18410/18411 前次只读检查无监听，不据此证明全部进程退出。本轮只核实际冲突，不清理未知资源。首次使用目标前仍须核库 OID/cluster/保护域，尚不声称已核数据库。
-- 本 plan 当前工程资源安排：历史累计基线 Odoo10/RO30/HTTP32/Firefox6/GET0（事故RO2/maintenance1/create2不变），本 plan 新增上限 Odoo12/RO160/HTTP1200/Firefox4/原件GET4；每服务1200s、默认单service/browser/observer、新raw256MiB/完整保留包1GiB、80%提示/90%暂停，当前scope最大24小时。只是主控当前运行安排，不采用旧 PREPARED 窗口、不恢复旧授权，不将用量当业务验收。
+- 本 plan 当前工程资源安排：历史累计基线 Odoo10/RO30/HTTP32/Firefox6/GET0（事故RO2/maintenance1/create2不变），本 plan 新增上限 Odoo24/RO160/HTTP1200/Firefox4/原件GET4；每服务1200s、默认单service/browser/observer、新raw256MiB/完整保留包1GiB、80%提示/90%暂停，当前scope最大24小时。只是主控当前运行安排，不采用旧 PREPARED 窗口、不恢复旧授权，不将用量当业务验收。
+- 当前工程资源调整：按已核 A/B 角色及三段进程、C、scratch bootstrap/D/C未收款对照、双升级/post-UI及普通修复的实际调用图，当前新增 Odoo 上限由12调24；旧scope/ledger字节归档，原start/deadline和历史/当前累计不变，其余上限不变。不是恢复旧PREPARED预算或清账。角色准备重入仅验证原intent/具体普通STOP/零提交RO和固定Aterminal审计一致的attempt2；A五条审计仍保留，不错误要求历史new_audits为空。
 - 历史计数/安全拒绝/STOP 和旧 PREPARED 文档保持；旧窗口不恢复、不激活旧整包、不重发拒绝请求、不扫描旧账号材料。新 plan 的普通工程准入与真实安全停止分开判断；仅允许且无依赖的工作继续。
 - 范围固定 S10；不启 S11—S13、不合 main、不部署。旧文书、原件、费库款、日结、审计及 D 唯一 6/2 链约束全部保持。详细执行结果继续维护原 docs/reports/s10-log-and-closeout-v2-r12/ 四份报告。
 

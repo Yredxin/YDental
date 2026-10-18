@@ -6,6 +6,7 @@ This entrypoint does not activate the historical closeout execution package.
 import argparse
 import asyncio
 import fcntl
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -24,9 +25,46 @@ def prepare_reader(profile, approval, authority):
     profile.require_action('main-reader-prepare')
     intent = profile.root / 'reader-prepare-intent.json'
     if intent.exists():
-        raise RuntimeError('READER_PREPARATION_ALREADY_ATTEMPTED_VERIFY_COMMIT_FIRST')
-    save_once(intent, {'operation': 'main-reader-only', 'manager_id': 5, 'store_id': 1,
-                      'economic_operations': 0, 'commit_observation': 'NOT_OBSERVED'})
+        recovery = strict_loads((profile.root / 'reader-prepare-recovery.json').read_bytes())
+        def recovered_reference(name):
+            path = ROOT / recovery[name + '_ref']
+            if path.is_symlink() or not path.resolve().is_relative_to(profile.root):
+                raise RuntimeError('READER_STARTUP_RECOVERY_REFERENCE_INVALID')
+            raw = path.read_bytes()
+            if hashlib.sha256(raw).hexdigest() != recovery[name + '_sha256']:
+                raise RuntimeError('READER_STARTUP_RECOVERY_BYTES_CHANGED')
+            return raw
+        stop_raw = recovered_reference('archived_stop')
+        ro = strict_loads(recovered_reference('zero_commit_ro'))
+        terminal_raw = (profile.root / 'original-terminal.json').read_bytes()
+        if hashlib.sha256(terminal_raw).hexdigest() != '9b119b859757c9a7f28efe84283237e0a52c83125be7a9458f52d972de0487b8':
+            raise RuntimeError('READER_STARTUP_RECOVERY_A_TERMINAL_CHANGED')
+        terminal = strict_loads(terminal_raw)
+        parent = recovered_reference('parent_exit').decode('ascii').splitlines()
+        if (recovery.get('reason') != 'STARTUP_OBSERVER_RACE_ZERO_ROLE_COMMIT'
+                or recovery.get('attempt') != 2 or recovery.get('independent_reviewer') != '/root/acceptance_s10'
+                or recovery.get('original_intent_sha256') != hashlib.sha256(intent.read_bytes()).hexdigest()
+                or recovery.get('original_intent_sha256') != 'b8423aa53b846457c2e9646a007825a047ce8dfc20b2a18def56adfddc7f6b4e'
+                or len(stop_raw) != 148 or hashlib.sha256(stop_raw).hexdigest() != 'd975cab019ec817aea70e735c797b6b0cd08bf9336e52e889bf093b87736689a'
+                or strict_loads(stop_raw).get('reason') != 'DIAGNOSTIC_LOG_MISSING'
+                or recovery.get('zero_commit_ro_sha256') != '54351c4bcbc7012f742fac194f0f2cde69e550dfbf77f7a70604057f2eb3c0e1'
+                or recovery.get('zero_commit_ro_exit_code') != 0
+                or not str(recovery.get('zero_commit_ro_candidate', '')).startswith('37e417c')
+                or not any(row.split('\t')[0:1] == ['parent.end'] and row.split('\t')[2:5] == ['1785486', '-15', '15'] for row in parent)
+                or any(ro.get(key) is not True for key in ('no_new_reader_observed', 'known_historical_audits_unchanged',
+                    'zero_business_changes_asserted', 'rollback_returned', 'connection_closed'))
+                or any(ro.get(key) != [] for key in ('possible_new_reader_rows', 'protected_domain_changes',
+                    'new_native_devices', 'new_native_user_logins'))
+                or any(ro.get(key) != terminal.get(key) for key in ('new_audits', 'audit_checkpoint'))
+                or (profile.root / 'reader-provider.json').exists()
+                or any((profile.root / 'credentials').glob('*.json'))):
+            raise RuntimeError('READER_STARTUP_RECOVERY_NOT_VERIFIED_ZERO_COMMIT')
+        save_once(profile.root / 'reader-prepare-attempt2-intent.json', {
+            'attempt': 2, 'original_intent_sha256': recovery['original_intent_sha256'],
+            'zero_commit_ro_sha256': recovery['zero_commit_ro_sha256'], 'automatic_retry': False})
+    else:
+        save_once(intent, {'operation': 'main-reader-only', 'manager_id': 5, 'store_id': 1,
+                          'economic_operations': 0, 'commit_observation': 'NOT_OBSERVED'})
     directory = profile.root / 'credentials'
     directory.mkdir(mode=0o700, exist_ok=True)
     if (directory.is_symlink() or directory.stat().st_uid != os.getuid()
