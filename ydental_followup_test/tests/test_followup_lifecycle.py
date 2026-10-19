@@ -363,4 +363,9 @@ class TestFollowupLifecycle(TransactionCase):
         repeated = frontdesk._operate('reschedule', payload, operation_key)
         self.assertEqual(repeated['result'], 'already_accepted')
         self.assertEqual(row.ydental_schedule_version, old_version + 1)
-        self.assertEqual(current_jobs.search_count([('ydental_state', '=', 'pending')]), 1)
+        self.assertEqual(self.root['ydental.notification.job'].sudo().search_count([
+            ('ydental_followup_id', '=', followup_id),
+            ('ydental_source_version', '=', row.ydental_schedule_version),
+            ('ydental_event_type', '=', 'appointment_reminder'),
+            ('ydental_state', '=', 'pending'),
+        ]), 1)
