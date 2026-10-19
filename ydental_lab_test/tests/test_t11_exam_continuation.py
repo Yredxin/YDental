@@ -154,5 +154,7 @@ class TestS11NextDayExaminationContinuation(TransactionCase):
         self.assertEqual(self.root['ydental.treatment.line'].browse(issued['line_ids'][0]).state, 'done')
         self.assertEqual(self.root['ydental.treatment.fee'].search_count([
             ('ydental_event_id', '=', panorama['event_id'])]), 1)
-        self.assertEqual(self.root['ydental.treatment.fee'].search_count([
-            ('ydental_order_line_id', '=', issued['line_ids'][1])]), 1)
+        cbct_event = self.root['ydental.treatment.event'].browse(cbct['event_id'])
+        cbct_fee = self.root['ydental.treatment.fee'].browse(cbct['fee_id'])
+        self.assertEqual(cbct_event.ydental_order_line_id.id, issued['line_ids'][1])
+        self.assertEqual(cbct_fee.ydental_event_id, cbct_event)
