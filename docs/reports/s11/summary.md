@@ -2,14 +2,14 @@
 
 Conclusion: **PARTIAL**
 Issue #35: **OPEN**
-Sync: **PENDING** (current continuation changes are not yet committed or pushed)
+Sync: **SYNCED** (`3b3f14a41de5ca6d94c4b5df584930d04e2f6904` pushed and fetched back from `origin/codex/s11-followup-lab-r1`)
 
 ## Fixed context and candidate
 
 - Plan: `YD-S11-FOLLOWUP-LAB-V1 / 1.0`, including [supplement v1.1](../../execution/YD_S11_PLAN_SUPPLEMENT_V1_1.md).
 - Accepted S10 business baseline: `aa2caefcf63cefc3deb367caf55a387ffb1ce013`.
 - Branch: `codex/s11-followup-lab-r1`; continuation began at HEAD `b62cfe5d528f696e8ac8e8e4a266a5c661d0a39c`.
-- Existing S11 product/test candidate remains `86673b8`; current uncommitted work adds the cycle-bound additional-charge bridge, native credit adjustments, and the S11 launcher. A final code candidate has not yet been frozen.
+- S11 continuation product/test and launcher candidate: `3b3f14a41de5ca6d94c4b5df584930d04e2f6904` (includes the prior `86673b8` S11 work plus this continuation). It is pushed and the remote branch was fetched back at the same commit.
 - Locked Odoo core: `f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb`. No core or `odoo-12` modifications.
 
 ## Implemented in this continuation
