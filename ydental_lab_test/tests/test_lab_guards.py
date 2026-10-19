@@ -84,10 +84,11 @@ class TestLaboratoryGuards(TransactionCase):
             patch.object(type(service), '_get_order', return_value=order),
             patch.object(type(service), '_record_action', return_value={'state': 'received'}) as record_action,
             patch.object(type(service), '_check_vendor', side_effect=AssertionError('must not recheck current qualification')),
-            patch.object(type(service), '_purchase_cost_snapshot', return_value=None),
+            patch.object(type(service), '_purchase_cost_snapshot', return_value=None) as purchase_snapshot,
         ):
             result = service._receive(store, 12)
         self.assertEqual(result['state'], 'received')
+        purchase_snapshot.assert_called_once_with(order)
         record_action.assert_called_once()
         self.assertEqual(record_action.call_args.args[:2], (order, 'received'))
         self.assertEqual(record_action.call_args.kwargs['values']['state'], 'received')
