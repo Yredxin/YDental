@@ -6,5 +6,6 @@ from . import (
     test_lab_guards,
     test_no_patient_fee_rework,
     test_post_fit_repair,
+    test_t11_exam_continuation,
     test_vendor_notification_activity,
 )
