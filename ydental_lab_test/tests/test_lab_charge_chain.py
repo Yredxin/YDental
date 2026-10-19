@@ -23,6 +23,13 @@ class TestLabChargeNativeChain(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        # The S10 adapter intentionally refuses to open its own demo runner in
+        # the S11-preserved scratch. Keep the override inside this S11 test
+        # class and exercise all real supply/queue/treatment logic unchanged.
+        cls.demo_policy_patch = patch.object(
+            type(cls.env['ydental.supply.service']), '_allow_demo_supply', return_value=True)
+        cls.demo_policy_patch.start()
+        cls.addClassCleanup(cls.demo_policy_patch.stop)
         # This fixture creates a second native stock warehouse. Configure the
         # ordinary internal-user groups through the Settings-owned group model,
         # matching the production prerequisite enforced by inventory setup.
