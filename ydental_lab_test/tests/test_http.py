@@ -139,10 +139,14 @@ class TestLaboratoryHTTP(HttpCase):
             self.assertEqual(response['result'], [])
         else:
             self.assertIn('error', response)
-        self.assertNotIn('patient', json.dumps(response).lower())
+        serialized = json.dumps(response).lower()
+        for prohibited in ('ydental_patient_id', 'ydental_source_event_id', 'phone', 'email', 's11 synthetic'):
+            self.assertNotIn(prohibited, serialized)
         denied = self.rpc('ydental.lab.vendor', 'create', [{
             'qualification_reference': 'S11 HTTP unauthorized vendor',
             'valid_until': '2099-12-31',
         }])
         self.assertIn('error', denied)
-        self.assertNotIn('patient', json.dumps(denied).lower())
+        serialized = json.dumps(denied).lower()
+        for prohibited in ('ydental_patient_id', 'ydental_source_event_id', 'phone', 'email', 's11 http unauthorized'):
+            self.assertNotIn(prohibited, serialized)

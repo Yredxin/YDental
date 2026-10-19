@@ -23,6 +23,14 @@ class TestLabChargeNativeChain(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        # This fixture creates a second native stock warehouse. Configure the
+        # ordinary internal-user groups through the Settings-owned group model,
+        # matching the production prerequisite enforced by inventory setup.
+        internal_users = cls.env.ref('base.group_user')
+        internal_users.write({'implied_ids': [
+            Command.link(cls.env.ref('stock.group_stock_multi_warehouses').id),
+            Command.link(cls.env.ref('stock.group_stock_multi_locations').id),
+        ]})
         treatment_setup(cls)
         cls.root = cls.root.sudo()
         # The test actor uses the existing synthetic manager role, with the

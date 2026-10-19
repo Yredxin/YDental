@@ -49,7 +49,7 @@ class TestFollowupNotification(TransactionCase):
         })
         self.job._save({'ydental_state': 'unknown', 'ydental_request_id': 's11-test-request-identifier'})
         self.secret = 's11-synthetic-callback-secret-only-for-tests'
-        self.env['ir.config_parameter'].sudo().set_param('ydental_followup.callback_secret', self.secret)
+        self.env['ir.config_parameter'].sudo().set_str('ydental_followup.callback_secret', self.secret)
 
     def _callback(self, event_id, status):
         body = json.dumps({

@@ -71,6 +71,7 @@ class TestLaboratoryGuards(TransactionCase):
         service = self.env['ydental.lab.service']
         store = SimpleNamespace(id=47)
         order = SimpleNamespace(
+            id=12,
             state='processing',
             ydental_vendor_id=SimpleNamespace(state='draft', valid_until=False),
             ydental_cooperation_id=SimpleNamespace(id=93, active=False),
@@ -83,6 +84,7 @@ class TestLaboratoryGuards(TransactionCase):
             patch.object(type(service), '_get_order', return_value=order),
             patch.object(type(service), '_record_action', return_value={'state': 'received'}) as record_action,
             patch.object(type(service), '_check_vendor', side_effect=AssertionError('must not recheck current qualification')),
+            patch.object(type(service), '_purchase_cost_snapshot', return_value=None),
         ):
             result = service._receive(store, 12)
         self.assertEqual(result['state'], 'received')
@@ -105,7 +107,7 @@ class TestLaboratoryGuards(TransactionCase):
             with self.assertRaises(ValidationError):
                 service._assert_purchase_line_exclusive(order, line)
 
-        self.assertEqual(model.call_args.args[1], 'order')
+        self.assertEqual(model.call_args.args[0], 'order')
 
     def test_vendor_approval_expiry_task_uses_governance_hook_for_each_active_cooperation(self):
         service = self.env['ydental.lab.service']
@@ -182,7 +184,8 @@ class TestLaboratoryGuards(TransactionCase):
 
         class InventoryService:
             def _lab_workflow_move(self, source, reason):
-                self.source, self.reason = source, reason
+                captured['inventory_source'] = source
+                captured['inventory_reason'] = reason
                 return {'id': 131}
 
         inventory_event_model = self.env['ydental.inventory.event']
@@ -317,6 +320,6 @@ class TestLaboratoryGuards(TransactionCase):
 
         self.assertTrue(order.ydental_additional_performance_recorded)
         self.assertEqual(result['state'], 'performed')
-        self.assertEqual(confirm.call_args.args[1], charge)
+        self.assertEqual(confirm.call_args.args[1], order.ydental_charge_ids)
         self.assertEqual(confirm.call_args.args[2], performed_at.replace(tzinfo=timezone.utc).isoformat())
         self.assertEqual(confirm.call_args.args[3], 'vendor-work-proof-synthetic-01')
