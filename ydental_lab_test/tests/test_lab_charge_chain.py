@@ -18,6 +18,11 @@ from odoo.addons.ydental_treatment_test.tests.treatment_common import (
 )
 
 
+def _s11_key(label, record_id):
+    """Keep synthetic action keys stable and above the service minimum."""
+    return 's11-lab-chain-%s-%s' % (label, record_id)
+
+
 @tagged('post_install', '-at_install')
 class TestLabChargeNativeChain(TransactionCase):
     @classmethod
@@ -188,10 +193,10 @@ class TestLabChargeNativeChain(TransactionCase):
         lab = self.group.env['ydental.lab.service']
         lab._operate('confirm_zero_supplier_cost', {
             'order_id': child.id, 'reason': 'No added supplier charge; patient terms remain separate',
-        }, 's11-zero-cost-' + str(child.id))
+        }, _s11_key('zero-cost', child.id))
         self.assertTrue(child.ydental_zero_supplier_cost_confirmed)
         self.assertFalse(child.ydental_purchase_line_id)
-        lab._operate('approve_charge_terms', {'order_id': child.id}, 's11-terms-' + str(child.id))
+        lab._operate('approve_charge_terms', {'order_id': child.id}, _s11_key('terms', child.id))
         charge = child.ydental_charge_ids.ensure_one()
         amount_before_reprice = charge.ydental_amount
         snapshot = charge.ydental_price_snapshot_id
@@ -200,12 +205,12 @@ class TestLabChargeNativeChain(TransactionCase):
               catalog=catalog, replace=original_price)
         self.assertEqual(charge.ydental_amount, amount_before_reprice)
         self.assertEqual(snapshot.ydental_amount, amount_before_reprice)
-        lab._operate('send', {'order_id': child.id}, 's11-send-' + str(child.id))
+        lab._operate('send', {'order_id': child.id}, _s11_key('send', child.id))
         child.write({
             'ydental_additional_performed_at': fields.Datetime.now() - timedelta(seconds=1),
             'ydental_additional_performance_evidence_reference': 'SYNTHETIC-ACTUAL-PERFORMANCE-' + key(),
         })
-        lab._operate('confirm_charge_performed', {'order_id': child.id}, 's11-performed-' + str(child.id))
+        lab._operate('confirm_charge_performed', {'order_id': child.id}, _s11_key('performed', child.id))
         charge.invalidate_recordset()
         self.assertEqual(charge.state, 'performed')
         self.assertEqual(charge.ydental_category, 'medical')
@@ -291,8 +296,8 @@ class TestLabChargeNativeChain(TransactionCase):
         self.assertEqual(purchase_line.uom_id, purchase_line.product_id.uom_id)
 
         lab = self.group.env['ydental.lab.service']
-        lab._operate('approve_charge_terms', {'order_id': child.id}, 's11-po-terms-' + str(child.id))
-        lab._operate('send', {'order_id': child.id}, 's11-po-send-' + str(child.id))
+        lab._operate('approve_charge_terms', {'order_id': child.id}, _s11_key('po-terms', child.id))
+        lab._operate('send', {'order_id': child.id}, _s11_key('po-send', child.id))
         sent = self.root['ydental.lab.event'].sudo().search([
             ('ydental_order_id', '=', child.id), ('ydental_kind', '=', 'sent')], limit=1)
         snapshot = sent.ydental_purchase_cost_snapshot
@@ -315,7 +320,7 @@ class TestLabChargeNativeChain(TransactionCase):
         purchase.button_unlock()
         purchase_line.with_user(self.users['manager']).write({'price_unit': 43.75})
         with self.assertRaises(UserError):
-            lab._operate('processing', {'order_id': child.id}, 's11-po-cost-changed-' + str(child.id))
+            lab._operate('processing', {'order_id': child.id}, _s11_key('po-cost-changed', child.id))
         child.invalidate_recordset()
         sent.invalidate_recordset()
         self.assertEqual(child.state, 'sent')
@@ -330,21 +335,22 @@ class TestLabChargeNativeChain(TransactionCase):
         lab = self.group.env['ydental.lab.service']
         lab._operate('confirm_zero_supplier_cost', {
             'order_id': child.id, 'reason': 'No added vendor cost; patient charge is separate',
-        }, 's11-credit-zero-' + str(child.id))
-        lab._operate('approve_charge_terms', {'order_id': child.id}, 's11-credit-terms-' + str(child.id))
+        }, _s11_key('credit-zero', child.id))
+        lab._operate('approve_charge_terms', {'order_id': child.id}, _s11_key('credit-terms', child.id))
         charge = child.ydental_charge_ids.ensure_one()
-        lab._operate('send', {'order_id': child.id}, 's11-credit-send-' + str(child.id))
+        lab._operate('send', {'order_id': child.id}, _s11_key('credit-send', child.id))
         child.write({
             'ydental_additional_performed_at': fields.Datetime.now() - timedelta(seconds=1),
             'ydental_additional_performance_evidence_reference': 'SYNTHETIC-CREDIT-CHAIN-' + key(),
         })
-        lab._operate('confirm_charge_performed', {'order_id': child.id}, 's11-credit-performed-' + str(child.id))
+        lab._operate('confirm_charge_performed', {'order_id': child.id}, _s11_key('credit-performed', child.id))
         settlement = self.group.env['ydental.settlement.service']
         billed = settlement._operate('bill_lab_charge', {
             'charge_ids': [charge.id], 'reason': 'Synthetic billed patient charge',
         }, 's11-credit-bill-' + str(charge.id))
         original = self.root['account.move'].browse(billed['invoice_id']).exists()
         original_amount = charge.ydental_amount
+        original_receivable = self.group.env['ydental.settlement.service']._receivable(original, debit=True)
         payment_model = self.root['account.payment'].sudo()
         payments_before = payment_model.search_count([])
 
@@ -371,8 +377,10 @@ class TestLabChargeNativeChain(TransactionCase):
         self.assertEqual(source.ydental_invoice_id, credit)
         self.assertEqual(source.ydental_line_id, adjustment.ydental_credit_line_id)
         self.assertEqual(source.ydental_original_amount, -10.0)
+        credit_receivable = settlement._receivable(credit, debit=False)
         reconcile = self.root['account.partial.reconcile'].sudo().search([
-            ('credit_move_id', '=', adjustment.ydental_credit_line_id.id)], limit=1)
+            ('debit_move_id', '=', original_receivable.id),
+            ('credit_move_id', '=', credit_receivable.id)], limit=1)
         self.assertTrue(reconcile)
         self.assertEqual(reconcile.amount, 10.0)
         self.assertEqual(original.amount_residual, original_amount - 10.0)
