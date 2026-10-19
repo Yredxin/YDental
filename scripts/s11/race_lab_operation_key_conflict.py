@@ -195,23 +195,27 @@ def main() -> int:
         receipt.update({"phase": "WORKER_TIMEOUT_REQUIRES_READBACK", "worker_results": results})
         common.write_private(receipt_path, receipt)
         raise common.Refusal(f"bounded race timed out; independently read back before retry: {receipt_path}")
+    receipt.update({"phase": "WORKERS_COMPLETE_READBACK_PENDING", "worker_results": results})
+    common.write_private(receipt_path, receipt)
 
     with registry.cursor() as cr:
         cr.execute("SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY")
         env = api.Environment(cr, args.actor_id, {})
         after = snapshot(env, order_ids, args.store_id, key)
         cr.rollback()
+    receipt.update({"phase": "POST_RACE_READBACK_COMPLETE", "after": after})
+    common.write_private(receipt_path, receipt)
 
     outcomes = sorted(row["kind"] for row in results)
     changed = [row for row in after["orders"] if row["package_code"]]
     accepted = next((row for row in results if row["kind"] == "accepted"), {})
     winner = next((row for row in after["orders"]
                    if row["order_id"] == accepted.get("order_id")), {})
-    expected_fingerprint = common.fingerprint([
+    winner_index = order_ids.index(accepted["order_id"]) if accepted.get("order_id") in order_ids else None
+    expected_fingerprint = hashlib.sha256(json.dumps([
         "bind_code", args.store_id,
-        {"order_id": accepted.get("order_id"),
-         "code": codes[order_ids.index(accepted.get("order_id", -1))]},
-    ]) if accepted else None
+        {"order_id": accepted["order_id"], "code": codes[winner_index]},
+    ], sort_keys=True, ensure_ascii=True).encode()).hexdigest() if winner_index is not None else None
     operation = after["operations"][0] if len(after["operations"]) == 1 else {}
     collision_retry_count = sum(
         row["kind"] == "version_conflict" and row["retry_errors"] == ["ConcurrencyError"]
