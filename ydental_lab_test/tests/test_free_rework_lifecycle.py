@@ -8,7 +8,7 @@ from odoo import Command, fields
 from odoo.tests import TransactionCase, tagged
 
 from odoo.addons.ydental_treatment_test.tests.common import (
-    arrive_report, bind, key, price, qualify, save_args, serving,
+    arrive_report, bind, handover_args, key, price, qualify, save_args, serving,
 )
 from odoo.addons.ydental_treatment_test.tests.treatment_common import (
     execute_args, opened_actual, receive as receive_material, setup as treatment_setup,
@@ -53,12 +53,15 @@ class TestFreeReworkLifecycle(TransactionCase):
     def _real_treatment_event(self):
         receive_material(self)
         price(self, amount=137.25)
-        treatment, _clinical, _queue, _lease, execution, _data, args = opened_actual(self)
+        treatment, clinical, _queue, lease, execution, data, args = opened_actual(self)
         result = treatment._operate('execute', execute_args(self, args, actual=True), key())
         self.assertEqual(result['state'], 'confirmed')
         event = self.root['ydental.treatment.event'].browse(result['event_id']).exists()
         self.assertTrue(event and event.state == 'confirmed' and event.ydental_kind == 'treatment')
         self.assertEqual(event.ydental_execution_id, execution)
+        clinical._operate('handover', handover_args(data, lease) | {
+            'reason': 'Synthetic source treatment ended before the laboratory lifecycle',
+        })
         return event
 
     def _another_real_treatment_event(self, patient_id, complaint):
@@ -88,6 +91,9 @@ class TestFreeReworkLifecycle(TransactionCase):
         self.assertTrue(event and event.state == 'confirmed' and event.ydental_kind == 'treatment')
         self.assertEqual(event.ydental_patient_id.id, patient_id)
         self.assertEqual(event.ydental_execution_id, execution)
+        clinical._operate('handover', handover_args(document, lease) | {
+            'reason': 'Synthetic follow-up encounter ended after confirmed treatment',
+        })
         return event
 
     def _vendor_and_purchase_cost(self):

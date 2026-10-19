@@ -18,6 +18,10 @@ class TestFollowupLifecycle(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls.demo_policy_patch = patch.object(
+            type(cls.env['ydental.supply.service']), '_allow_demo_supply', return_value=True)
+        cls.demo_policy_patch.start()
+        cls.addClassCleanup(cls.demo_policy_patch.stop)
         # This populated scratch already has native warehouses. Set the stock
         # group prerequisites only inside this rollback-only Odoo test class,
         # matching the existing S08 integration fixture.
