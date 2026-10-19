@@ -3,7 +3,7 @@
 Conclusion: **PARTIAL**
 Issue #35: **OPEN**
 Sync: **SYNCED** (`3b3f14a41de5ca6d94c4b5df584930d04e2f6904` pushed and fetched back from `origin/codex/s11-followup-lab-r1`)
-Issue #35 partial-status receipt: [comment 6257832325](https://github.com/Yredxin/YDental/issues/35#issuecomment-6257832325), read back and verified; Issue remains OPEN.
+Issue #35 partial-status receipt: [comment 6257832325](https://github.com/Yredxin/YDental/issues/35#issuecomment-6257832325), read back and verified. Runtime wording correction: [comment 6257941307](https://github.com/Yredxin/YDental/issues/35#issuecomment-6257941307), read back and verified; Issue remains OPEN.
 
 ## Fixed context and candidate
 
@@ -32,7 +32,7 @@ The continuation also adds a versioned, fail-closed S11 foreground launcher and 
 
 ## Required evidence still missing
 
-No target database connection or Odoo service was attempted. The machine has no importable Odoo runtime at the project venv. `.local/s11/runtime.json` and `admission.json` are absent, so the planned runtime cannot pass its own admission checks. Port 18411 was previously verified free. The specified scratch database name/OID/cluster, database role/grants, installed module state and old-object preservation checkpoint have not been independently verified in this continuation. The unrelated `127.0.0.1:8069` / PID 42433 remains untouched.
+No target database connection or Odoo service was attempted. Running `import odoo` directly from the addon-directory interpreter fails because the sibling Odoo source tree is not installed into that venv's site-packages or on that invocation's `sys.path`; however, `../.venv/bin/python ../odoo-bin --help` succeeds and reports Odoo 20.0. The Odoo source/CLI is present. `.local/s11/runtime.json` and `admission.json` are absent, so the owned launcher refuses to start. A scoped read-only inventory found no S11 or stage-neutral credential/scope/admission provider, no matching environment variable names and no S11 account source in the relevant config path. Old-stage provider files were not opened. We did not create placeholder JSON: the required database credentials, actually issued scope, independently verified target/grants, allowed company/store set, installed modules and S10 checkpoint cannot be inferred, and writing guesses would fabricate admission. Port 18411 was previously verified free. The specified scratch database name/OID/cluster, database role/grants, installed module state and old-object preservation checkpoint have not been independently verified in this continuation. The unrelated `127.0.0.1:8069` / PID 42433 remains untouched.
 
 Accordingly, no S11 Odoo MODEL test, installation, data-bearing upgrade, HTTP/RPC, browser, real two-connection race, native stock/procurement/charge flow, independent committed-state readback, or S10 impact regression ran. The successful S05-price → performed service → native invoice/source → native credit/reconciliation path remains unverified, as do transaction rollback, retry/concurrency and old invoice readback for the new source type. The independent reviewer has not signed technical acceptance of this continuation.
 
