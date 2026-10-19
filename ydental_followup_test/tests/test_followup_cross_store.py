@@ -169,7 +169,7 @@ class TestFollowupCrossStore(TransactionCase):
         # target visit can record a normal confirmed S06/S08 treatment event.
         target_manager = bind(self, self.users['manager'], target_store)
         target_stock = target_manager.env['ydental.inventory.service']
-        target_stock._operate('setup', {'code': 'S11X' + str(target_store.id)}, key())
+        target_stock._operate('setup', {'code': 'S11' + str(target_store.id)}, key())
         target_product = target_stock._operate('product', {
             'code': 'S11X-MAT-' + key()[:8], 'name': 'S11 synthetic target material',
             'kind': 'material', 'stock_uom_id': self.uom.id, 'issue_uom_id': self.uom.id,

@@ -59,7 +59,7 @@ class TestLaboratoryAttachmentFieldHTTP(HttpCase):
 
         cls.marker = ('S11_SYNTHETIC_VENDOR_QUALIFICATION_' + suffix).encode()
         cls.vendor_name = 'S11 synthetic laboratory vendor ' + suffix
-        partner = access.env['res.partner'].create({'name': cls.vendor_name})
+        partner = cls.root['res.partner'].create({'name': cls.vendor_name})
         vendor = access.env['ydental.lab.vendor'].create({
             'partner_id': partner.id,
             'company_ids': [fields.Command.set([cls.root.company.id])],
