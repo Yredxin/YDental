@@ -3,7 +3,7 @@
 ## 当前活动计划：S11（2026-10-19）
 
 - plan_id：**YD-S11-FOLLOWUP-LAB-V1 / 1.0**；task_id：`S11-FOLLOWUP-LAB-V1`；状态：**PARTIAL / OPEN**。范围仍为 S11-A 复诊/通知可靠性及 S11-B 内部外加工；需求为 #23、#35 正文与 #35 有效增量 `6246232594`。S10 按 #34 / `6250858664` 技术完成；#37 用户效果继续 OPEN。
-- 业务基线：`aa2caefcf63cefc3deb367caf55a387ffb1ce013`；当前分支 `codex/s11-followup-lab-r1`；产品/测试候选提交 `86673b8`。S11 代码/检查结果/缺口见 [S11 当前报告](docs/reports/s11/summary.md)；完整实施范围见 [S11 实施计划](docs/execution/S11_IMPLEMENTATION_PLAN.md)。新增 addon 由实现者分别冻结，主控整合；只读独立源码复核完成，没有运行/数据库/浏览器验收。
+- 业务基线：`aa2caefcf63cefc3deb367caf55a387ffb1ce013`；当前分支 `codex/s11-followup-lab-r1`；产品/测试候选提交 `86673b8`；报告/状态提交 `a427c57` 已推送并 fetch 读回一致。S11 代码/检查结果/缺口见 [S11 当前报告](docs/reports/s11/summary.md)；完整实施范围见 [S11 实施计划](docs/execution/S11_IMPLEMENTATION_PLAN.md)。新增 addon 由实现者分别冻结，主控整合；只读独立源码复核完成，没有运行/数据库/浏览器验收。
 - 当前代码实现包含复诊工作台/联系历史/受控选择器、持久通知任务及 unknown/回调/防重处理、厂商与门店合作治理、加工单/识别码扫描、收货入库及原生库存、免费返工和异常处置入口。额外收费返工明确不可用：原生治疗费用必须有真实接诊及已审价目来源，现有系统没有周期绑定费用来源；不得伪造治疗或新增未经批准的定价/财务政策。T07 和该分支仍未完成。
 - 静态检查在 41 个文件上通过 Python AST、XML、CSV、manifest 解析、空白检查；独立 reviewer 未发现其他当前高置信源码安全阻断，具体审查快照/限制见报告。Odoo tests、数据库安装/带数据升级、HTTP/RPC、浏览器、真实多连接竞争、原生库存/费用链均未运行，因此不是技术验收 PASS。
 - 运行准入仍受阻于没有已核实的 S11 专属 scope/launcher/目标身份，且 `127.0.0.1:8069` 的 Python PID 42433 用途/所有权未知。保留该进程，不另启服务或连接数据库。旧 S10 scope、测试目标及 STOP 不续期/清除；不得重放旧文书、原件、资金、库存、日结、审计或 D 收6/退2/净4链。scratch 仍须先核目标实际 name/OID/cluster/grant 和旧对象保护。
