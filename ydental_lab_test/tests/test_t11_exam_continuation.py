@@ -34,8 +34,8 @@ class TestS11NextDayExaminationContinuation(TransactionCase):
         service = self.group.env['ydental.exam.service']
         self.admin._grant(self.users['manager'].id, self.stores[0].id, {'exam': 'write'})
         for catalog, code, family in (
-            (self.catalogs[2], 's11-panorama-demo', 'panorama'),
-            (self.catalogs[3], 's11-cbct-demo', 'cbct'),
+            (self.catalogs[2], 'panorama-demo-1', 'panorama'),
+            (self.catalogs[3], 'cbct-demo-1', 'cbct'),
         ):
             service._operate('review_capability', {
                 'capability_id': catalog.ydental_capability_id.id,
