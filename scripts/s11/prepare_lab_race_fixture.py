@@ -81,7 +81,7 @@ def preflight(env, args, admission):
     common.validate_actor(env, admission, args.warehouse_actor_id, args.store_id)
     if args.warehouse_actor_id == args.purchase_actor_id:
         raise common.Refusal("use distinct ordinary purchase setup and warehouse action actors")
-    if (not vendor or not vendor.active or vendor.state != "approved" or
+    if (not vendor or vendor.state != "approved" or
             not vendor.valid_until or vendor.valid_until < fields.Date.context_today(env) or
             store.company_id not in vendor.company_ids):
         raise common.Refusal("vendor must have current approved qualification for this company")
