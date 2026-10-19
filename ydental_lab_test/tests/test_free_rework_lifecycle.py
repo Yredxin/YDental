@@ -44,6 +44,9 @@ class TestFreeReworkLifecycle(TransactionCase):
         cls.admin._grant(cls.users['manager'].id, cls.stores[0].id, {
             'medical': 'write', 'price': 'write', 'warehouse': 'write', 'followup': 'write',
         })
+        cls.admin._grant(cls.users['frontdesk'].id, cls.stores[0].id, {
+            'medical': 'write', 'warehouse': 'write',
+        })
         cls.group = bind(cls, cls.users['manager'])
         cls.stock = cls.group.env['ydental.inventory.service']
 
@@ -208,7 +211,9 @@ class TestFreeReworkLifecycle(TransactionCase):
             'ydental_rework_kind': 'free',
             'ydental_exception_reason': 'Synthetic no-charge laboratory correction',
         })
-        returned = lab._operate('rework', {'order_id': order.id}, _action_key('rework-parent', order.id))
+        warehouse_lab = bind(self, self.users['frontdesk']).env['ydental.lab.service']
+        returned = warehouse_lab._operate(
+            'rework', {'order_id': order.id}, _action_key('rework-parent', order.id))
         child = self.root['ydental.lab.order'].browse(returned['repair_order_id']).exists()
         order.invalidate_recordset()
         parent_followup.invalidate_recordset()

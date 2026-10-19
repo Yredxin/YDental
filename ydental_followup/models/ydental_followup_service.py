@@ -660,13 +660,14 @@ class YDentalFollowupService(models.AbstractModel):
         if order._name != 'ydental.lab.order' or len(order) != 1:
             raise AccessError(self.env._('access_denied: A real laboratory rework order is required.'))
         order.check_access('read')
+        store = order.ydental_store_id
+        _authorize_passive_lab_write(self.env['ydental.access.service'], store)
         parent = order.ydental_parent_order_id
         if not parent or not parent.ydental_followup_id:
             return self.env['ydental.followup']
-        row = parent.ydental_followup_id
+        row = parent.ydental_followup_id.sudo()
         reason = self._text(reason, required=True, maximum=300)
-        authorized = self._followup(row.id, write=True)
-        if authorized.ydental_store_id != order.ydental_store_id:
+        if row.ydental_store_id != store or row.ydental_lab_order_id != parent.id:
             raise AccessError(self.env._('access_denied: The parent follow-up belongs to another store.'))
         if row.state in ('done', 'closed'):
             return row

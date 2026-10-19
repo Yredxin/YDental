@@ -1,7 +1,7 @@
 from datetime import timedelta
 from unittest.mock import patch
 
-from odoo import fields
+from odoo import Command, fields
 from odoo.exceptions import AccessError
 from odoo.tests import TransactionCase, tagged
 
@@ -18,6 +18,14 @@ class TestFollowupLifecycle(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        # This populated scratch already has native warehouses. Set the stock
+        # group prerequisites only inside this rollback-only Odoo test class,
+        # matching the existing S08 integration fixture.
+        internal_users = cls.env.ref('base.group_user')
+        internal_users.write({'implied_ids': [
+            Command.link(cls.env.ref('stock.group_stock_multi_warehouses').id),
+            Command.link(cls.env.ref('stock.group_stock_multi_locations').id),
+        ]})
         treatment_setup(cls)
         for store in cls.stores:
             cls.admin._grant(cls.users['manager'].id, store.id, {'followup': 'write'})
