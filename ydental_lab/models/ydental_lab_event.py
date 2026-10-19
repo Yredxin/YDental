@@ -19,6 +19,7 @@ class YDentalLabEvent(models.Model):
         ('rework', 'Rework cycle opened'), ('rework_return', 'Returned to supplier'),
         ('additional_terms_approved', 'Additional service terms approved'),
         ('additional_service_performed', 'Additional service actually performed'),
+        ('zero_supplier_cost_confirmed', 'No additional supplier cost confirmed'),
         ('cancelled', 'Cancelled'), ('exception', 'Exception closed'), ('fit', 'Actually fitted'),
         ('code_bound', 'Package code bound'),
     ], required=True)
@@ -29,6 +30,9 @@ class YDentalLabEvent(models.Model):
     ydental_purchase_line_id = fields.Many2one('purchase.order.line', ondelete='restrict', groups='purchase.group_purchase_user')
     ydental_vendor_cost = fields.Monetary(currency_field='ydental_cost_currency_id', groups='purchase.group_purchase_user')
     ydental_cost_currency_id = fields.Many2one('res.currency', ondelete='restrict')
+    ydental_purchase_cost_snapshot = fields.Json(groups='purchase.group_purchase_user', readonly=True)
+    ydental_purchase_state_at_dispatch = fields.Selection(
+        [('purchase', 'Purchase confirmed'), ('done', 'Purchase done')], groups='purchase.group_purchase_user', readonly=True)
     ydental_patient_fee_id = fields.Many2one('ydental.treatment.fee', ondelete='restrict')
     ydental_patient_fee_amount = fields.Monetary(currency_field='ydental_fee_currency_id', groups='ydental_access.ydental_group_manager')
     ydental_fee_currency_id = fields.Many2one('res.currency', ondelete='restrict')

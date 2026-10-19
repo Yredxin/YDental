@@ -60,6 +60,11 @@ class YDentalLabOrder(models.Model):
     ydental_additional_performed_at = fields.Datetime(string='Additional service performed at')
     ydental_additional_performance_evidence_reference = fields.Char(string='Additional service performance evidence reference')
     ydental_additional_performance_recorded = fields.Boolean(readonly=True, default=False)
+    ydental_zero_supplier_cost_confirmed = fields.Boolean(readonly=True, default=False)
+    ydental_zero_supplier_cost_reason = fields.Char(readonly=True)
+    ydental_zero_supplier_cost_actor_id = fields.Many2one('res.users', readonly=True, ondelete='restrict')
+    ydental_zero_supplier_cost_at = fields.Datetime(readonly=True)
+    ydental_zero_supplier_cost_confirmation_reason = fields.Char(string='Reason for no additional vendor cost')
     ydental_fit_event_id = fields.Many2one('ydental.treatment.event', ondelete='restrict')
     ydental_followup_id = fields.Many2one('ydental.followup', ondelete='restrict', readonly=True)
     ydental_receipt_at = fields.Datetime(readonly=True)
@@ -125,6 +130,7 @@ class YDentalLabOrder(models.Model):
             'ydental_purchase_line_id', 'ydental_additional_service_id',
             'ydental_additional_service_quantity', 'ydental_additional_consent_reference',
             'ydental_additional_terms_reason',
+            'ydental_zero_supplier_cost_confirmation_reason',
         }
         stage_fields = {'ydental_lot_id', 'ydental_rework_kind', 'ydental_fit_event_id',
                         'ydental_exception_disposition', 'ydental_exception_reason',
@@ -132,6 +138,26 @@ class YDentalLabOrder(models.Model):
         if not vals or set(vals) - (draft_fields | stage_fields) or not (
                 set(vals) <= draft_fields or set(vals) <= stage_fields):
             raise AccessError(self.env._('access_denied: Only documented laboratory work fields can be edited.'))
+        terms_fields = {
+            'ydental_additional_service_id', 'ydental_additional_service_quantity',
+            'ydental_additional_consent_reference', 'ydental_additional_terms_reason',
+        }
+        serialized_fields = terms_fields | {
+            'ydental_purchase_line_id', 'ydental_zero_supplier_cost_confirmation_reason',
+        }
+        if serialized_fields & vals.keys():
+            # Approval and zero-cost attestation use this row lock too.
+            # Serialize their source edits before validation so a competing
+            # action cannot freeze a quote/cost fact against stale order data.
+            self.env.cr.execute(
+                'SELECT id FROM ydental_lab_order WHERE id = ANY(%s) ORDER BY id FOR UPDATE',
+                [self.ids],
+            )
+            self.invalidate_recordset([
+                'state', 'ydental_parent_order_id', 'ydental_rework_kind',
+                'ydental_additional_terms_frozen', 'ydental_purchase_line_id',
+                'ydental_zero_supplier_cost_confirmed', *terms_fields,
+            ])
         if set(vals) <= draft_fields and any(order.state != 'draft' for order in self):
             raise AccessError(self.env._('access_denied: Only draft order details can be edited.'))
         if set(vals) <= stage_fields and any(order.state not in ('draft', 'sent', 'processing', 'received', 'available') for order in self):
@@ -161,7 +187,15 @@ class YDentalLabOrder(models.Model):
                         service._text(vals['ydental_additional_consent_reference'], 'Explicit terms confirmation reference', 120)
                     if vals.get('ydental_additional_terms_reason'):
                         service._text(vals['ydental_additional_terms_reason'], 'Additional terms reason', 240)
+                if 'ydental_zero_supplier_cost_confirmation_reason' in vals:
+                    if not order.ydental_parent_order_id or order.ydental_rework_kind != 'additional':
+                        raise AccessError(self.env._('access_denied: Zero supplier-cost confirmation applies only to an additional rework cycle.'))
+                    if order.ydental_zero_supplier_cost_confirmed:
+                        raise AccessError(self.env._('history_immutable: Zero supplier-cost confirmation is already recorded.'))
+                    service._text(vals['ydental_zero_supplier_cost_confirmation_reason'], 'Zero added supplier cost reason')
                 if vals.get('ydental_purchase_line_id'):
+                    if order.ydental_zero_supplier_cost_confirmed:
+                        raise AccessError(self.env._('history_immutable: A confirmed zero supplier cost cannot be replaced by a purchase line.'))
                     if not self.env.user.has_group('purchase.group_purchase_user'):
                         raise AccessError(self.env._('access_denied: Purchase authority is required to link a vendor cost source.'))
                     service._validate_purchase_line(order, self.env['purchase.order.line'].sudo().browse(vals['ydental_purchase_line_id']))
@@ -303,6 +337,14 @@ class YDentalLabOrder(models.Model):
         key = 'lab-charge-performed-%s-v1' % self.id
         self.env['ydental.lab.service']._operate(
             'confirm_charge_performed', {'order_id': self.id}, key)
+        return True
+
+    def action_confirm_zero_supplier_cost(self):
+        self.ensure_one()
+        key = 'lab-zero-supplier-cost-%s-v1' % self.id
+        self.env['ydental.lab.service']._operate('confirm_zero_supplier_cost', {
+            'order_id': self.id, 'reason': self.ydental_zero_supplier_cost_confirmation_reason,
+        }, key)
         return True
 
     def action_bind_package_code(self):

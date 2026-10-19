@@ -62,6 +62,22 @@ class YDentalLabService(models.AbstractModel):
         self.env['ydental.access.service']._audit('lab.' + event, 'medical', target, store.id,
             before=before, after=after, reason=reason, source='dental_laboratory')
 
+    def _purchase_cost_values(self, line):
+        purchase = line.order_id
+        product = line.product_id
+        currency = purchase.currency_id
+        return {
+            'purchase_id': purchase.id,
+            'vendor_id': purchase.partner_id.id, 'company_id': purchase.company_id.id,
+            'currency_id': currency.id, 'currency_rounding': currency.rounding,
+            'line_id': line.id, 'product_id': product.id, 'product_type': product.type,
+            'product_company_id': product.company_id.id or False,
+            'uom_id': line.uom_id.id, 'product_uom_id': product.uom_id.id,
+            'quantity': line.product_qty, 'unit_price': line.price_unit,
+            'discount': line.discount, 'subtotal': line.price_subtotal,
+            'tax_total': line.price_tax, 'total': line.price_total,
+        }
+
     def _event(self, order, kind, before, after, reason='', inventory_event=None):
         purchase_line = order.ydental_purchase_line_id if kind == 'sent' else self.env['purchase.order.line']
         fee = order.ydental_source_fee_id if kind == 'sent' and not order.ydental_parent_order_id else self.env['ydental.treatment.fee']
@@ -78,6 +94,8 @@ class YDentalLabService(models.AbstractModel):
             'ydental_purchase_line_id': purchase_line.id,
             'ydental_vendor_cost': purchase_line.price_subtotal if purchase_line else 0.0,
             'ydental_cost_currency_id': purchase_line.order_id.currency_id.id if purchase_line else False,
+            'ydental_purchase_cost_snapshot': self._purchase_cost_values(purchase_line) if purchase_line else False,
+            'ydental_purchase_state_at_dispatch': purchase_line.order_id.state if purchase_line else False,
             'ydental_patient_fee_id': fee.id,
             'ydental_patient_fee_amount': fee.ydental_amount if fee else 0.0,
             'ydental_fee_currency_id': fee.ydental_currency_id.id if fee else False,
@@ -90,9 +108,35 @@ class YDentalLabService(models.AbstractModel):
             if line:
                 raise ValidationError(self.env._('Free rework cannot duplicate the original vendor cost source.'))
             return False
+        if order.ydental_zero_supplier_cost_confirmed and line:
+            raise UserError(self.env._('history_immutable: A zero supplier-cost attestation cannot be combined with a purchase cost source.'))
         if not line:
+            if (order.ydental_parent_order_id and order.ydental_rework_kind == 'additional' and
+                    order.ydental_zero_supplier_cost_confirmed):
+                return False
             raise ValidationError(self.env._('Link a confirmed native vendor purchase line before dispatch.'))
         line = self._validate_purchase_line(order, line)
+        sent = self._model('event').search([
+            ('ydental_order_id', '=', order.id), ('ydental_kind', '=', 'sent')], order='id', limit=1)
+        if sent and sent.ydental_purchase_cost_snapshot != self._purchase_cost_values(line):
+            raise UserError(self.env._('vendor_cost_changed: The confirmed vendor cost line changed after dispatch; reconcile the original cost source.'))
+        return line
+
+    def _purchase_cost_snapshot(self, order):
+        sent = self._model('event').search([
+            ('ydental_order_id', '=', order.id), ('ydental_kind', '=', 'sent')], order='id', limit=1)
+        if not sent:
+            raise UserError(self.env._('vendor_cost_snapshot_missing: Dispatch has no immutable vendor-cost snapshot.'))
+        line = order.ydental_purchase_line_id
+        if not line:
+            if order.ydental_parent_order_id and order.ydental_rework_kind == 'additional' and order.ydental_zero_supplier_cost_confirmed:
+                return False
+            if order.ydental_parent_order_id and order.ydental_rework_kind == 'free':
+                return False
+            raise UserError(self.env._('vendor_cost_snapshot_missing: A vendor cost source is required.'))
+        line = self._validate_purchase_line(order, line)
+        if sent.ydental_purchase_cost_snapshot != self._purchase_cost_values(line):
+            raise UserError(self.env._('vendor_cost_changed: The vendor cost source changed after dispatch.'))
         return line
 
     def _validate_purchase_line(self, order, line):
@@ -101,12 +145,48 @@ class YDentalLabService(models.AbstractModel):
         if not line:
             raise ValidationError(self.env._('Select an existing confirmed vendor purchase line.'))
         purchase = line.order_id
-        if not line or purchase.state not in ('purchase', 'done') or purchase.partner_id != order.ydental_vendor_id.partner_id or (
-                purchase.company_id != order.ydental_store_id.company_id or purchase.currency_id != order.ydental_store_id.company_id.currency_id or
-                line.product_id.type != 'service' or line.product_qty <= 0 or line.price_unit <= 0 or line.price_subtotal <= 0):
+        if (purchase.state not in ('purchase', 'done') or purchase.partner_id != order.ydental_vendor_id.partner_id or
+                purchase.company_id != order.ydental_store_id.company_id or
+                purchase.currency_id != order.ydental_store_id.company_id.currency_id or
+                line.product_id.type != 'service' or
+                (line.product_id.company_id and line.product_id.company_id != purchase.company_id) or
+                not line.uom_id or line.uom_id.category_id != line.product_id.uom_id.category_id or
+                line.product_qty <= 0 or line.price_unit <= 0 or line.price_subtotal <= 0 or
+                line.discount < 0 or line.discount >= 100 or
+                purchase.currency_id.compare_amounts(
+                    line.price_subtotal,
+                    purchase.currency_id.round(line.product_qty * line.price_unit * (1 - line.discount / 100.0))) or
+                line.price_total < line.price_subtotal or
+                purchase.currency_id.compare_amounts(line.price_subtotal, line.price_total - line.price_tax)):
             raise ValidationError(self.env._('Vendor cost must be a nonzero service line on a confirmed purchase for this vendor, store company and currency.'))
         self._assert_purchase_line_exclusive(order, line)
         return line
+
+    def _confirm_zero_supplier_cost(self, store, order_id, reason):
+        order = self._get_order(order_id, store)
+        self.env.cr.execute(
+            'SELECT id FROM ydental_lab_order WHERE id = %s FOR UPDATE', [order.id])
+        order.invalidate_recordset([
+            'state', 'ydental_parent_order_id', 'ydental_rework_kind',
+            'ydental_purchase_line_id', 'ydental_zero_supplier_cost_confirmed',
+        ])
+        if (not self.env.user.has_group('purchase.group_purchase_user') or
+                not order.ydental_parent_order_id or order.ydental_rework_kind != 'additional' or
+                order.state != 'draft' or order.ydental_purchase_line_id):
+            raise AccessError(self.env._('access_denied: Purchase authority may attest zero added supplier cost only on a draft additional rework cycle without a purchase line.'))
+        if order.ydental_zero_supplier_cost_confirmed:
+            raise UserError(self.env._('version_conflict: Zero added supplier cost is already recorded for this cycle.'))
+        reason = self._text(reason, 'Zero added supplier cost reason')
+        self._event(order, 'zero_supplier_cost_confirmed', order.state, order.state, reason)
+        order._save({
+            'ydental_zero_supplier_cost_confirmed': True,
+            'ydental_zero_supplier_cost_reason': reason,
+            'ydental_zero_supplier_cost_actor_id': self.env.uid,
+            'ydental_zero_supplier_cost_at': fields.Datetime.now(),
+        })
+        self._audit('zero_supplier_cost_confirmed', order, store,
+                    after={'supplier_cost': 0.0, 'patient_terms_separate': True}, reason=reason)
+        return {'order_id': order.id, 'zero_supplier_cost_confirmed': True}
 
     def _assert_purchase_line_exclusive(self, order, line):
         domain = [('ydental_purchase_line_id', '=', line.id)]
@@ -123,7 +203,9 @@ class YDentalLabService(models.AbstractModel):
                 'ydental_additional_consent_reference', 'ydental_additional_terms_reason',
                 'ydental_additional_terms_frozen', 'ydental_additional_performed_at',
                 'ydental_additional_performance_evidence_reference',
-                'ydental_additional_performance_recorded'} & vals.keys():
+                'ydental_additional_performance_recorded',
+                'ydental_zero_supplier_cost_confirmed', 'ydental_zero_supplier_cost_reason',
+                'ydental_zero_supplier_cost_actor_id', 'ydental_zero_supplier_cost_at'} & vals.keys():
             raise AccessError(self.env._('access_denied: Additional service terms can be created only through the guarded rework-cycle workflow.'))
         event = self.env['ydental.treatment.event'].sudo().browse(event_id).exists()
         if not event or event.ydental_store_id != store or event.ydental_category != 'medical' or event.state != 'confirmed' or event.ydental_kind != 'treatment':
@@ -248,6 +330,7 @@ class YDentalLabService(models.AbstractModel):
             'exception': self._exception, 'fit': self._fit, 'bind_code': self._bind_code,
             'approve_charge_terms': self._approve_charge_terms,
             'confirm_charge_performed': self._confirm_charge_performed,
+            'confirm_zero_supplier_cost': self._confirm_zero_supplier_cost,
         }
         if operation not in handlers or not isinstance(payload, dict) or not isinstance(key, str) or not 16 <= len(key) <= 128:
             raise ValidationError(self.env._('Supply a documented laboratory action and stable request key.'))
@@ -377,6 +460,7 @@ class YDentalLabService(models.AbstractModel):
         order = self._get_order(order_id, store)
         if order.state != 'sent':
             raise UserError(self.env._('Only a sent order can enter processing.'))
+        self._purchase_cost_snapshot(order)
         return self._record_action(order, 'processing', values={'state': 'processing'})
 
     def _receive(self, store, order_id):
@@ -384,6 +468,7 @@ class YDentalLabService(models.AbstractModel):
         order = self._get_order(order_id, store)
         if order.state not in ('sent', 'processing'):
             raise UserError(self.env._('Only an active external order can be physically received.'))
+        self._purchase_cost_snapshot(order)
         if (not order.ydental_cooperation_id or not order.ydental_vendor_qualification_version or
                 not order.ydental_vendor_qualification_valid_until or
                 not order.ydental_cooperation_active_at_dispatch):
@@ -398,6 +483,7 @@ class YDentalLabService(models.AbstractModel):
         order = self._get_order(order_id, store)
         if order.state != 'received' or not order.ydental_lot_id or order.ydental_lot_id.product_id != order.ydental_product_id:
             raise UserError(self.env._('Physical receipt and the matching native prosthesis lot are required before put-away.'))
+        self._purchase_cost_snapshot(order)
         inventory = self.env['ydental.inventory.service']
         stock = inventory._operate('receive', {
             'lot_id': order.ydental_lot_id.id, 'quantity': order.ydental_quantity,

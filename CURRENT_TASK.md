@@ -2,20 +2,14 @@
 
 ## 当前活动计划：S11（2026-10-19）
 
-- plan_id：**YD-S11-FOLLOWUP-LAB-V1 / 1.0**；task_id：`S11-FOLLOWUP-LAB-V1`；状态：**PARTIAL / OPEN**。范围仍为 S11-A 复诊/通知可靠性及 S11-B 内部外加工；需求为 #23、#35 正文与 #35 有效增量 `6246232594`。S10 按 #34 / `6250858664` 技术完成；#37 用户效果继续 OPEN。
-- 业务基线：`aa2caefcf63cefc3deb367caf55a387ffb1ce013`；当前分支 `codex/s11-followup-lab-r1`；S11 产品候选仍为 `3b3f14a41de5ca6d94c4b5df584930d04e2f6904`，当前代码/协作规则 HEAD 为 `143581f148f0228442bce9038fc54792533465cf`。该 HEAD 只新增全局主机/凭据协作规则，不改变产品候选。默认分支同一 `AGENTS.md` 已单独同步为 `e99f5ac2b04c362d879573be15c1df892c48ce77`，没有合并 S11 产品代码。当前结果见 [S11 当前报告](docs/reports/s11/summary.md)；完整实施范围及 v1.1 输入见 [S11 实施计划](docs/execution/S11_IMPLEMENTATION_PLAN.md)。
-- 既有 S11-A/B 实现保留；本次新增了周期绑定追加收费来源 `ydental.lab.charge`，依 S05 已发布门店价冻结快照，独立记录实际附加服务履行，再通过 S10 `_operate` 创建原生账单来源；另加入不可变贷项修正记录，累计不超过原收费，只冲减未付余额、不自动现金退款。供应商采购成本仍独立于患者费用。该代码仅有源码/结构检查，完整成功收费、贷项与核销链尚未在 Odoo 中运行，故 F2/T07 未通过。
-- 本次源码检查通过 `compileall`、51 个相关 Python 文件 AST、3 个 XML 文件、20 行 ACL CSV 与 `git diff --check`；owned launcher 的 6 个本机子进程测试通过，含合成 start_service 的回执/owner/config 清理及忽略 SIGTERM 后仅停止本 launcher 精确拥有的子进程。Odoo TransactionCase 定义未运行，MODEL、安装/带数据升级、HTTP/RPC、浏览器、真实多连接竞争、原生库存/采购/收费联调均未运行。独立源码复核未发现静态来源桥/权限阻断，并确认 launcher 的精确子进程有界停止；它未运行 Odoo 或其它 runtime。独立验收 PASS 尚未成立。本次代码与报告已推送并核读回，具体回执见 [S11 当前报告](docs/reports/s11/summary.md)。
-- 用户于 2026-10-19 明确确认本机是项目专用主机、S10 私有凭据可跨阶段复用，并要求不得只因软性资源额度停止；同日已将该规则加入活动及默认分支 `AGENTS.md`。凭据只存忽略的 `.local`，未上传或输出。S11 未复用 S10 scope/STOP。
-- 已从 S10 scratch 的既有 `odoo.conf` 读取私有数据库登录配置，并在只读事务中现场核验：scratch 名称 `ydental_s10_test_20261017105432_ce6dcbf8`、OID `2144130`、cluster system id `7694897083368259627` 均精确匹配；登录角色仅有 `odoo`，其 `SUPERUSER/CREATEDB/CREATEROLE=true`。HTTP `18411` 检查空闲。S11 私有 `runtime.json` 已创建，权限 `0600`，绑定当前 HEAD、独立生成的 S11 scope id `s11-local-d38b6091feb54dbbbb2ff7bb07b5d41a`（至 `2026-10-19T03:57:21Z`）及目标；没有启动 Odoo 或写数据库。
-- 独立只读验收者使用 `REPEATABLE READ READ ONLY` 复核同一数据库身份与角色，并对 224 个相关表计数及 91 个已安装模块做摘要，事务 `ROLLBACK`。保全检查点 `.local/s11/s10-scratch-preservation-checkpoint.json` SHA-256 `4070c6bb3fe512d0364a7f193d3c533acbda53bc9acd9bce26843e5f467755ec`，文件 `0600`/目录 `0700`，不含业务行明文。该 scratch 已含旧结算/文书/附件/审计数据，之后必须按表解释增量。
-- S11 v1.1 admission contract 明确要求 `database_role_not_superuser=true`；当前唯一可登录角色为 superuser，因此该事实尚不符合准入。未生成虚假的 admission 断言，未创建集群角色，`admission.json` 尚未完成；当前 Odoo 模块安装/升级及业务 runtime 未运行。直接 `import odoo` 的旧表述不构成原因：`../.venv/bin/python ../odoo-bin --help` 已成功，Odoo 20.0 CLI 存在。未知 `127.0.0.1:8069` / PID 42433 仍未触碰。
-- 用户授权后续以明确选择决定是否在本机测试集群创建受限角色；在其答复前，继续无 DB 写入依赖的源码/测试检查。独立 scope 和凭据发现均不自动解除 v1.1 的数据库角色准入条件。
-- S10 文书、原件、资金、库存、日结、审计及 D 收6/退2/净4继续保护；S10 scope/STOP 不续期或清除。真实短信/消息供应商、厂商门户同步、支付/税务/签署、生产未启用；本地 sink 不代表患者送达。不合并、不部署、不启动 S12/S13。技术实证和独立验收不完整，#35 保持 OPEN；#37 用户效果继续 OPEN。
-- 已在 [#35 记录本次 PARTIAL 及运行缺口](https://github.com/Yredxin/YDental/issues/35#issuecomment-6257832325)，评论全文读回一致；Issue 状态实读仍为 OPEN。
-- 又在 [#35 更正 Odoo CLI 状态及实际准入阻断](https://github.com/Yredxin/YDental/issues/35#issuecomment-6257941307)，评论全文读回一致；Issue 仍为 OPEN。
-- 外部短信/消息供应商、厂商门户/同步、支付/税务/签署及生产均未启用；受控 sink 只代表测试供应商受理，不代表患者送达。未进行 merge/deploy；不启动 S12/S13。M5/独立技术验收和 #35 关闭条件未满足，#35 保持 OPEN。
-- 原始 S10 历史状态、失败、STOP 和证据完整保留于以下历史段落与原报告，不以当前摘要覆盖。
+- plan_id：**YD-S11-FOLLOWUP-LAB-V1 / 1.0**，含已接收的 v1.1 补充输入；task_id：`S11-FOLLOWUP-LAB-V1`；状态：**IN_PROGRESS / OPEN**。范围为 S11-A 复诊/通知可靠性及 S11-B 内部外加工；需求为 #23、#35 正文与有效增量 `6246232594`。S10 按 #34 / `6250858664` 技术完成；#37 用户效果仍 OPEN。
+- 业务基线：`aa2caefcf63cefc3deb367caf55a387ffb1ce013`；分支 `codex/s11-followup-lab-r1`，接管以来不回退；当前工作 HEAD `6e3e3cf9809765a26b9e23b6f6cac0fd9cbfd63a`。S11 产品候选为 `3b3f14a41de5ca6d94c4b5df584930d04e2f6904`；本轮随后代码变更尚未冻结。当前结果见 [S11 当前报告](docs/reports/s11/summary.md)，完整范围及 v1.1 输入见 [S11 实施计划](docs/execution/S11_IMPLEMENTATION_PLAN.md)。
+- 用户已授权本机为项目专用主机，在计划范围内跨阶段复用适用项目凭据、创建 S11 专用 scope/launcher，并不因软性资源额度停止；另授权在既有测试集群创建只用于指定 scratch 的受限登录角色。凭据仅保存在忽略的 `.local` 私有配置；本仓库为 Public，不向 GitHub、聊天、日志或截图写入秘密。实施问题直接在对话反馈，不向 Issue 发布过程问题/进度供 GPT 中间审查；plan 结束后才格式化并推送最终实施结果与补充说明。活动及默认分支 AGENTS.md 均已按此更新，默认分支仅同步协作规则、未合并产品代码。
+- scratch 名称 `ydental_s10_test_20261017105432_ce6dcbf8`、OID `2144130`、cluster system id `7694897083368259627` 已现场核实；main DB OID `2144129` 未安装/写入；未知 `127.0.0.1:8069` / PID `42433` 未触碰。18411 初核空闲。原 S10 scratch 登录角色为 cluster superuser；新建角色 `ydental_s11_scratch_2144130`，LOGIN，仅拥有目标 scratch，cluster 级 SUPERUSER/CREATEDB/CREATEROLE/REPLICATION/BYPASSRLS 均关闭，无角色成员；目标库非系统对象归新角色所有，因而其在该 scratch 内仍有宽泛 DDL/DML 权限。原身份、模块及表计数经独立只读事务核验保全；Odoo 普通角色权限仍须单独实测。秘密只在 `.local/s11/runtime.json`。
+- S11 私有 runtime 与 admission 已建立，记录匹配目标和 scope；admission 独立核验当前模块/公司门店边界、外部 SMTP/provider 禁用和 scratch 保全摘要。它们不是 Odoo 本身的依赖。实际受控安装尝试两次均在模块事务提交前失败并回滚：第一次缺 `phonenumbers` 外部 Python 依赖；第二次暴露 Odoo 20 不再从 `odoo` 根导出 `registry` 的兼容问题。独立复核确认两次后旧 224 表计数及 91 已安装模块摘要未变，S11 addon 仍未安装；没有业务动作成功提交。依赖已装入本地 venv，并记录在 S11 专用 `scripts/s11/requirements.txt`；`ydental_followup_service.py` 已改用 `odoo.orm.registry.Registry`，尚待随代码候选重验/重装。
+- 当前代码工作树由主控与 developer 在约定不同文件范围协作：主控负责 followup Registry 兼容及运行/状态；developer 正在追加收费周期来源桥、供应商采购快照与适用 TransactionCase，未获准其启动 DB 操作。静态检查通过主控修改文件 compileall 与 launcher help，完整候选/测试尚未通过。Odoo MODEL、安装/带数据升级、HTTP/RPC、浏览器、真实 PostgreSQL 双连接竞争、原生库存/采购/收费联调及独立最终验收均未完成。
+- 保全检查点位于 `.local/s11/s10-scratch-preservation-checkpoint.json`，mode 0600/目录 0700；旧文书、原件、资金、库存、日结、审计及 D 收6/退2/净4仍受保护，不重演/覆盖。S10 scope/STOP 不续期/清除；真实消息供应商、厂商门户/平台同步、真实资金政策和生产均未启用；本地测试 sink 不代表患者送达。不合并、不部署、不启动 S12/S13；未满足技术关闭条件前 #35 保持 OPEN。
+- 当前实施同步按用户要求仅在本地状态/报告和当前对话中进行；不向 GitHub Issue 发布中间问题/进度。GitHub 最终实施结果、补充说明和 #35 状态只在本 plan 结束时依条件处理。
 
 以下为 S10 历史状态记录；历史结论、失败、STOP、运行账本与证据均保留，不覆盖本节 S11 当前状态。
 

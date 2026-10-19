@@ -44,6 +44,13 @@ historical stage configuration.
 
 ## Fixed launch contract
 
+Before installing or testing the S11 addons, install the pinned S11 Python
+dependency into the project virtualenv:
+
+```sh
+/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python -m pip install -r /home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s11/requirements.txt
+```
+
 The launcher checks the S11 plan ID, branch, clean current HEAD, locked core
 commit, private input ownership/modes, scope lifetime (maximum 24 hours), fresh
 admission (maximum 30 minutes), exact DB name/OID/cluster, and exact hashes. It

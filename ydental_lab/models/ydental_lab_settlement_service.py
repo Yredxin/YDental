@@ -4,6 +4,7 @@ import json
 
 from odoo import Command, fields, models
 from odoo.exceptions import AccessError, UserError, ValidationError
+from odoo.tools.float_utils import float_compare, float_round
 
 
 class YDentalSettlementService(models.AbstractModel):
@@ -17,10 +18,11 @@ class YDentalSettlementService(models.AbstractModel):
 
     def _settled_source_domain(self, source_domain, store, family):
         fee_domain = super()._settled_source_domain(source_domain, store, family)
+        # A real performed-and-billed service remains a valid financial fact
+        # even if its laboratory order later closes as cancelled/exception.
         charge_domain = source_domain & fields.Domain('ydental_lab_charge_id', '!=', False) & fields.Domain(
             'ydental_lab_charge_id.ydental_store_id', '=', store.id) & fields.Domain(
-            'ydental_lab_charge_id.state', '=', 'billed') & fields.Domain(
-            'ydental_lab_charge_id.ydental_order_id.state', 'not in', ('cancelled', 'exception'))
+            'ydental_lab_charge_id.state', '=', 'billed')
         if family is not None:
             charge_domain &= fields.Domain('ydental_lab_charge_id.ydental_patient_id', 'in', family)
         adjustment_domain = source_domain & fields.Domain(
@@ -104,28 +106,29 @@ class YDentalSettlementService(models.AbstractModel):
         if len(charges) != len(charge_ids):
             raise AccessError(self.env._('access_denied: A selected laboratory charge is unavailable.'))
         charges = charges.sorted('id')
-        if any(charge.ydental_store_id != store or charge.state != 'performed' for charge in charges):
+        if any(charge.ydental_store_id != store for charge in charges):
+            raise AccessError(self.env._('access_denied: Only charges from the current store can be billed.'))
+        # A retry with a fresh operation key must resolve to the already posted
+        # native invoice before the state check below (which sees ``billed``).
+        prior = self._model('source').search([('ydental_lab_charge_id', 'in', charge_ids)])
+        if prior:
+            if (len(prior) == len(charges) and set(prior.ydental_lab_charge_id.ids) == set(charge_ids)
+                    and len(prior.ydental_invoice_id) == 1
+                    and prior.ydental_invoice_id.state == 'posted'
+                    and all(charge.state == 'billed' and
+                            charge.ydental_settlement_source_id in prior for charge in charges)):
+                return {'invoice_id': prior.ydental_invoice_id.id,
+                        'amount': prior.ydental_invoice_id.amount_total,
+                        'residual': prior.ydental_invoice_id.amount_residual}
+            raise UserError(self.env._('charge_already_billed: A selected charge is already attached to another native invoice.'))
+        if any(charge.state != 'performed' for charge in charges):
             raise AccessError(self.env._('access_denied: Only performed charges from the current store can be billed.'))
-        if any(charge.ydental_currency_id != store.company_id.currency_id or
-               charge.ydental_order_id.ydental_parent_order_id.ydental_patient_id != charge.ydental_patient_id or
-               charge.ydental_price_snapshot_id.ydental_price_id != charge.ydental_price_id or
-               charge.ydental_price_snapshot_id.ydental_catalog_id != charge.ydental_catalog_id or
-               charge.ydental_price_snapshot_id.ydental_quantity != charge.ydental_quantity
-               for charge in charges):
+        if any(not self._validate_lab_charge_snapshot(charge, store) for charge in charges):
             raise UserError(self.env._('charge_source_invalid: Frozen price, cycle, currency or patient source no longer matches.'))
         patients = charges.mapped('ydental_patient_id')
         if len(patients) != 1:
             raise AccessError(self.env._('access_denied: Charges for different patients cannot share one invoice.'))
         patient = self._patient(patients.id)
-        prior = self._model('source').search([('ydental_lab_charge_id', 'in', charge_ids)])
-        if prior:
-            if (len(prior) == len(charges) and set(prior.ydental_lab_charge_id.ids) == set(charge_ids)
-                    and len(prior.ydental_invoice_id) == 1
-                    and prior.ydental_invoice_id.state == 'posted'):
-                return {'invoice_id': prior.ydental_invoice_id.id,
-                        'amount': prior.ydental_invoice_id.amount_total,
-                        'residual': prior.ydental_invoice_id.amount_residual}
-            raise UserError(self.env._('charge_already_billed: A selected charge is already attached to another native invoice.'))
         currency = store.company_id.currency_id
         amount = currency.round(sum(charges.mapped('ydental_amount')))
         if currency.is_zero(amount) or any(currency.is_zero(charge.ydental_amount) for charge in charges):
@@ -176,6 +179,49 @@ class YDentalSettlementService(models.AbstractModel):
                     after={'charge_ids': charge_ids, 'amount': amount}, reason=reason)
         return {'invoice_id': invoice.id, 'amount': invoice.amount_total,
                 'residual': invoice.amount_residual, 'charge_ids': charge_ids}
+
+    def _validate_lab_charge_snapshot(self, charge, store):
+        snapshot = charge.ydental_price_snapshot_id
+        price = charge.ydental_price_id
+        catalog = charge.ydental_catalog_id
+        currency = charge.ydental_currency_id
+        quoted_at = fields.Datetime.to_datetime(charge.ydental_quoted_at) if charge.ydental_quoted_at else False
+        if not snapshot or not price or not catalog or not currency or not quoted_at:
+            return False
+        digits = snapshot.ydental_quantity_digits
+        if type(digits) is not int or digits < 0 or digits > 8:
+            return False
+        amount = currency.round(charge.ydental_unit_price * charge.ydental_quantity)
+        order = charge.ydental_order_id
+        parent = order.ydental_parent_order_id
+        return bool(
+            charge.ydental_currency_id == store.company_id.currency_id and
+            parent and parent.ydental_patient_id == charge.ydental_patient_id and
+            parent.ydental_source_event_id == order.ydental_source_event_id and
+            parent.ydental_source_document_id == order.ydental_source_document_id and
+            order.ydental_source_event_id.ydental_patient_id == charge.ydental_patient_id and
+            charge.ydental_store_id == store and
+            snapshot.ydental_store_id == store and price.ydental_store_id == store and
+            price.ydental_store_id.company_id == store.company_id and
+            snapshot.ydental_price_id == price and snapshot.ydental_catalog_id == catalog and
+            price.ydental_catalog_id == catalog and price.state == 'published' and
+            price.ydental_published_by_id and price.ydental_published_at and
+            price.ydental_start <= quoted_at < price.ydental_end and
+            snapshot.ydental_quoted_at == quoted_at and
+            snapshot.ydental_policy == 'demo_confirmation' and
+            price.ydental_currency_id == currency and snapshot.ydental_currency_id == currency and
+            price.ydental_uom_id == snapshot.ydental_uom_id == charge.ydental_uom_id == catalog.ydental_product_id.uom_id and
+            (not catalog.ydental_product_id.company_id or catalog.ydental_product_id.company_id == store.company_id) and
+            currency.rounding == snapshot.ydental_currency_rounding and
+            float_compare(snapshot.ydental_quantity, charge.ydental_quantity, precision_digits=digits) == 0 and
+            float_compare(snapshot.ydental_unit_price, charge.ydental_unit_price, precision_rounding=currency.rounding) == 0 and
+            float_compare(price.ydental_unit_price, charge.ydental_unit_price, precision_rounding=currency.rounding) == 0 and
+            float_compare(snapshot.ydental_amount, charge.ydental_amount, precision_rounding=currency.rounding) == 0 and
+            float_compare(snapshot.ydental_amount, amount, precision_rounding=currency.rounding) == 0 and
+            float_compare(float_round(charge.ydental_quantity, precision_digits=digits), charge.ydental_quantity,
+                          precision_digits=digits) == 0 and
+            not currency.is_zero(charge.ydental_amount)
+        )
 
     def _validate_lab_charge_credit_total(self, currency, original_amount, previous_amounts, requested_amount):
         total = currency.round(sum(previous_amounts) + requested_amount)
@@ -263,7 +309,7 @@ class YDentalSettlementService(models.AbstractModel):
         revision = (adjustments[-1].ydental_revision if adjustments else 0) + 1
         adjustment = self.env['ydental.lab.charge.adjustment']._new({
             'name': '%s / credit %s' % (charge.name, revision),
-            'ydental_category': 'medical', 'ydental_charge_id': charge.id,
+            'ydental_category': 'settlement', 'ydental_charge_id': charge.id,
             'ydental_revision': revision, 'ydental_store_id': store.id,
             'ydental_patient_id': patient.id, 'ydental_currency_id': currency.id,
             'ydental_amount': amount, 'ydental_reason': reason,

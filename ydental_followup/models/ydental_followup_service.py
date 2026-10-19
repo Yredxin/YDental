@@ -8,8 +8,9 @@ from datetime import datetime, time, timedelta
 import pytz
 from psycopg2 import IntegrityError
 
-from odoo import SUPERUSER_ID, api, fields, models, registry
+from odoo import SUPERUSER_ID, api, fields, models
 from odoo.exceptions import AccessError, UserError, ValidationError
+from odoo.orm.registry import Registry
 
 
 _logger = logging.getLogger(__name__)
@@ -973,7 +974,7 @@ class YDentalFollowupService(models.AbstractModel):
 def _dispatch_after_commit(dbname, job_ids):
     """Run dispatch from a fresh transaction after the source transaction committed."""
     try:
-        with registry(dbname).cursor() as cr:
+        with Registry(dbname).cursor() as cr:
             env = api.Environment(cr, SUPERUSER_ID, {})
             env['ydental.followup.service']._dispatch_ids(job_ids)
     except Exception:
@@ -982,7 +983,7 @@ def _dispatch_after_commit(dbname, job_ids):
 
 def _claim_dispatch(dbname, job_id):
     """Persist the stable request key before invoking any transport code."""
-    with registry(dbname).cursor() as cr:
+    with Registry(dbname).cursor() as cr:
         env = api.Environment(cr, SUPERUSER_ID, {})
         service = env['ydental.followup.service']
         Job = env['ydental.notification.job'].sudo()
@@ -1092,7 +1093,7 @@ def _claim_dispatch(dbname, job_id):
 
 def _dispatch_claimed(dbname, job_id, request_id):
     """Transport and result persistence run after the durable claim transaction."""
-    with registry(dbname).cursor() as cr:
+    with Registry(dbname).cursor() as cr:
         env = api.Environment(cr, SUPERUSER_ID, {})
         service = env['ydental.followup.service']
         cr.execute('SELECT id FROM ydental_notification_job WHERE id=%s FOR UPDATE', [job_id])

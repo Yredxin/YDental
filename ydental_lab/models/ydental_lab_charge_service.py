@@ -101,6 +101,8 @@ class YDentalLabChargeService(models.AbstractModel):
                 ydental_policy='demo_confirmation', ydental_actor_id=self.env.uid))
         charge = self._model()._new({
             'name': '%s / %s' % (order.name, catalog.name),
+            # The source contains patient identity, so keep its medical care
+            # domain and additionally require price read authority below.
             'ydental_store_id': store.id, 'ydental_category': 'medical',
             'ydental_order_id': order.id, 'ydental_patient_id': order.ydental_patient_id.id,
             'ydental_catalog_id': catalog.id, 'ydental_price_id': price.id,

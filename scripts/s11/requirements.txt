@@ -1,0 +1,3 @@
+# Python dependency declared by ydental_patient/__manifest__.py.
+# Install into the project virtualenv before installing S11 addons.
+phonenumbers==9.0.41

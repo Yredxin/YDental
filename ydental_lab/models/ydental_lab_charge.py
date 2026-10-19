@@ -1,6 +1,7 @@
+import uuid
+
 from odoo import api, fields, models
 from odoo.exceptions import AccessError
-import uuid
 
 
 _MUTATION = object()
@@ -12,8 +13,22 @@ class YDentalLabCharge(models.Model):
     _inherit = 'ydental.access.source'
     _order = 'id desc'
 
+    def _source_domain(self, operation):
+        domain = super()._source_domain(operation)
+        if operation != 'read' or self.env.su or domain.is_false():
+            return domain
+        # The row contains patient/order identity and the frozen charge. Both
+        # medical and price read authority are required; medical-only and
+        # price-only users must not enumerate the combined patient/fee source.
+        access = self.env['ydental.access.service']
+        session = access._scope()
+        member = access._membership(self.env.uid, session.ydental_store_id.id)
+        if not member or access._levels(member).get('price') not in ('read', 'write'):
+            return fields.Domain.FALSE
+        return domain
+
     name = fields.Char(required=True, readonly=True)
-    ydental_category = fields.Selection(default='price', readonly=True)
+    ydental_category = fields.Selection(default='medical', readonly=True)
     ydental_order_id = fields.Many2one('ydental.lab.order', required=True, readonly=True, ondelete='restrict', index=True)
     ydental_patient_id = fields.Many2one('ydental.patient', required=True, readonly=True, ondelete='restrict', index=True)
     ydental_catalog_id = fields.Many2one('ydental.intake.catalog', required=True, readonly=True, ondelete='restrict')
