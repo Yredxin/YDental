@@ -7,14 +7,14 @@ Issue #35：**OPEN**
 
 ## 当前候选与运行边界
 
-- 分支 `codex/s11-followup-lab-r1`；最近已提交候选 `43af67a796aa98ce762920f821b6f4a583d82f2b`；本报告更新时工作树含待验收的 T02/T10 代码、回归与状态文档，尚未形成新固定候选；分支比 origin 多55个已提交本地提交，未回退接管时 HEAD `b62cfe5d528f696e8ac8e8e4a266a5c661d0a39c`。锁定 Odoo core `f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb`。
+- 分支 `codex/s11-followup-lab-r1`；当前已提交候选 `22ea0cd73b1a4f1458bf06675f9abf5a690f3d71`；分支比 origin 多56个已提交本地提交，未回退接管时 HEAD `b62cfe5d528f696e8ac8e8e4a266a5c661d0a39c`。该候选已提交但尚未获得匹配的新准入或 Odoo 实测；锁定 Odoo core `f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb`。
 - 使用的目标为指定 scratch OID 2144130 / cluster `7694897083368259627`。S11 runtime、admission 与 launcher 位于本机忽略的 `.local/s11`，mode 0600；本机凭据不进入 Git、聊天、报告或请求日志。S10 main DB OID 2144129 未安装或写入；未知 8069/PID42433 未操作。
 - launcher 在本候选启动过 owned Odoo 服务并执行过只读 HTTP/RPC 和浏览器工作台检查，随后正常停止。外部 SMTP、SMS、供应商、支付均未启用；本地受控 sink 只代表内部测试受理，不代表患者送达。
 - 首次安装中的依赖和 Odoo 20 Registry 导入问题已在普通开发中修复；保留两次先前失败及只读保全记录，不覆写历史。当前候选成功完成带数据模块升级和测试，详见下文。
 
 ## 已取得的候选匹配证据
 
-- **SOURCE/PURE：** addon、权限、XML、launcher 与依赖检查及本地 launcher 测试曾通过；产品测试定义不计作实际业务 PASS。
+- **SOURCE/PURE：** addon、权限、XML、launcher 与依赖检查及本地 launcher 测试曾通过。候选 `22ea0cd` 新增代码的 Ruff、compileall 与 diff 检查通过；不计作实际业务 PASS。
 - **MODEL / 安装升级：** `.local/s11/operations/20261019T102519Z-7f03f49-followup-lab-upgrade-test/result.json`：固定候选 `7f03f495db404a700361a156132873563a6bfef0`，退出码0；60个 Odoo post-tests、0 failed、0 errors。日志 SHA-256 `59cb704de7cfc824acfca2cea75d3b8d7485e1109f1c83b0acd41c0c7596617f`。该候选含完整S11产品及T11回归；其后 `43af67a` 只增加扫码竞争取证脚本，无产品或测试代码改动。模块集是 S11 两产品 addon、两 test addon、必要结算扩展及因已安装核心 SMS 功能新增的 `ydental_lab_sms_guard`；没有 `-u all` 或升级 core。
 - **T11 / 独立升级后状态：** 新增 `ydental_lab_test.tests.test_t11_exam_continuation.TestS11NextDayExaminationContinuation.test_yesterday_completed_panorama_today_revalidates_cbct`，通过真实 S06/S08 检查、队列、临床、治疗服务，证明昨日全景完成后次日 CBCT 旧任务先拒绝，必须重新接诊并复核后才实际确认；不安装或绕过 `ydental_exam_test` 的 S09-only 门禁。独立读回 `.local/s11/receipts/s11-independent-post-upgrade-7f03f49-20261019T102809Z.json`，SHA `ac950a915ef7c78a991fad737f7f15280c88bf32812fa015ee34905a12acbc05`，确认60项0错、T11用例日志、96模块版本和旧对象投影保全。独立读回确认当前模块数96、旧224项保护计数未下降、S10 D/C 摘要一致、既有 S11 订单/库存/通知/费用来源投影未变。该证据注明旧行内容的限制，计数不等于逐行全库证明。
 - **通知任务：** job450 的原稳定 request-id 在候选 6706 同 key 恢复；独立读回 `.local/s11/receipts/s11-independent-job450-same-key-recovery-readback-6706bc7-20261019T095200Z.json`，SHA `7211f9d83d06b1566cb7701bfbb0bbbcaa8a7d5ba3127167d8b5447844004e7f`。任务 accepted、delivered=false、attempt=1，新增一条指派给负责人的内部 vendor activity；`mail.mail` 不变；SMTP/外部 provider 仍关闭。另有先前候选的真实双连接领取结果，但在较早版本的 activity 写路径上失败，随后才以原 key 做恢复；不把较早 race 直接称为当前候选完整成功 dispatch race。
@@ -28,7 +28,7 @@ Issue #35：**OPEN**
 
 ## F1–F5 与 T01–T18 覆盖状态
 
-59 是一次测试命令实际通过数，不是 59 个需求，也不能把下列部分证据升级成场景全 PASS。候选及层级按独立审查与原始结果限定：
+候选 `7f03f49` 的一次测试命令实际通过60个post-tests，不是60个需求，也不能把下列部分证据升级成场景全PASS。候选及层级按独立审查与原始结果限定：
 
 | 项目 | 当前证据与缺口 |
 |---|---|
