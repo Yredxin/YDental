@@ -3,6 +3,8 @@ from odoo import Command, fields
 from odoo.exceptions import AccessError, UserError
 from odoo.tests import tagged
 
+from odoo.addons.ydental_treatment_test.tests.common import bind
+
 from .test_free_rework_lifecycle import TestFreeReworkLifecycle, _action_key, key
 
 
