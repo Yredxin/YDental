@@ -94,6 +94,12 @@ class TestFreeReworkLifecycle(TransactionCase):
         clinical._operate('handover', handover_args(document, lease) | {
             'reason': 'Synthetic follow-up encounter ended after confirmed treatment',
         })
+        # Clinical handover preserves the queue holder for workstation
+        # continuity. This test ends the synthetic encounter explicitly so
+        # the next real encounter can acquire the same station.
+        queue._operate('exit', {
+            'lease_id': lease['lease_id'], 'token': lease['token'],
+        })
         return event
 
     def _vendor_and_purchase_cost(self):

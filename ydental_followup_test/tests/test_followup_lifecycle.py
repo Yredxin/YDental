@@ -5,7 +5,7 @@ from odoo import Command, fields
 from odoo.exceptions import AccessError
 from odoo.tests import TransactionCase, tagged
 
-from odoo.addons.ydental_treatment_test.tests.common import key, bind, handover_args
+from odoo.addons.ydental_treatment_test.tests.common import key, bind, handover_args, price
 from odoo.addons.ydental_treatment_test.tests.treatment_common import (
     execute_args, opened_actual, receive, setup as treatment_setup,
 )
@@ -38,6 +38,7 @@ class TestFollowupLifecycle(TransactionCase):
         # Build the source through the same intake, queue, clinical and treatment
         # actions used by the synthetic treatment suite. No event or appointment
         # state is directly manufactured in this test.
+        price(self, amount=137.25)
         receive(self)
         treatment, clinical, _queue, lease, execution, document, args = opened_actual(self)
         treatment_result = treatment._operate(
@@ -186,6 +187,7 @@ class TestFollowupLifecycle(TransactionCase):
         self.assertEqual(linked_row.ydental_completed_event_id, event)
 
     def test_expired_appointment_distinguishes_arrived_without_treatment_from_no_arrival(self):
+        price(self, amount=137.25)
         receive(self)
         treatment, clinical, _queue, lease, execution, document, args = opened_actual(self)
         treatment_result = treatment._operate('execute', execute_args(self, args), key())
