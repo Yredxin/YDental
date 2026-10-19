@@ -3,7 +3,7 @@
 ## 当前活动计划：S11（2026-10-19）
 
 - plan_id：**YD-S11-FOLLOWUP-LAB-V1 / 1.0**；task_id：`S11-FOLLOWUP-LAB-V1`；状态：**IN_PROGRESS**。用户已交付并启用 S11-A 复诊/通知可靠性与 S11-B 内部人工外加工完整实施范围；需求与验收取 #23、#35 正文及 #35 有效增量 `6246232594`。S10 已按 #34 / `6250858664` 技术完成；#37 用户效果继续 OPEN。
-- 业务基线：`aa2caefcf63cefc3deb367caf55a387ffb1ce013`。本工作区经核干净后从该 HEAD 建立 `codex/s11-followup-lab-r1`。origin 为 `https://github.com/Yredxin/YDental.git`；当前产品/测试尚未修改。main 路由目前仍是 S10 旧投影，待本分支初始状态提交并推送后同步。
+- 业务基线：`aa2caefcf63cefc3deb367caf55a387ffb1ce013`。本工作区经核干净后从该 HEAD 建立 `codex/s11-followup-lab-r1`。origin 为 `https://github.com/Yredxin/YDental.git`；当前产品/测试尚未修改。main 路由和 `GPT_HANDOFF.md` 已由 docs-only 提交 `de58f446005f9ffe864ce4ec57ed707a50a531a0` 更新并从 origin 读回确认。
 - 执行记录与验收范围：[S11 实施计划](docs/execution/S11_IMPLEMENTATION_PLAN.md)。当前实现拆分：followup agent 负责复诊/通知 addon；lab agent 负责厂商/外加工 addon；独立 reviewer 已完成只读架构核对，后续独立检查最终差异。所有 agent 共享同一工作区；无 OS 隔离声明。主控统一状态文档与集成/运行所有权。
 - 代码接口约束：复诊完成必须关联明确真实治疗事件；预约/到店/报到不等于接诊。身份/门店授权复用 `ydental_access.service`，跨店沿受控来源链；库存收发复用 `ydental_inventory.service`，不得直接写原生数量；通知失败不得回滚真实临床或入库事实。S11 不引入 OCA 或平行患者/权限/库存/财务/日志平台。
 - 环境边界：计划复用 scratch `ydental_s10_test_20261017105432_ce6dcbf8`（OID 2144130），须先核目标真实身份、访问权、进程/所有权与旧对象状态。旧 S10 main 文书、原件、资金、库存、日结、审计及 D 收6/退2/净4链不可重放/覆盖；不得续旧 scope、清历史 STOP、建/删/克隆/恢复第三库。任何不明提交先核实。
