@@ -130,12 +130,25 @@ class TestFollowupNotification(TransactionCase):
         self.assertFalse(_daily_cap_attempt_counts(1, day_end, day_start, day_end))
 
     def test_after_commit_dispatch_does_not_hold_an_extra_registry_cursor(self):
-        with patch.object(followup_service_module, '_claim_dispatch', return_value=('stable-request', False)) as claim, \
-                patch.object(followup_service_module, '_dispatch_claimed') as dispatch, \
+        call_order = []
+
+        def claim(dbname, job_id):
+            call_order.append(('claim', dbname, job_id))
+            return 'stable-request', False
+
+        def dispatch(dbname, job_id, request_id):
+            call_order.append(('dispatch', dbname, job_id, request_id))
+
+        with patch.object(followup_service_module, '_claim_dispatch', side_effect=claim) as claim_mock, \
+                patch.object(followup_service_module, '_dispatch_claimed', side_effect=dispatch) as dispatch_mock, \
                 patch.object(followup_service_module.Registry, 'cursor') as cursor:
             followup_service_module._dispatch_after_commit('s11_test_db', (41, 41))
-        claim.assert_called_once_with('s11_test_db', 41)
-        dispatch.assert_called_once_with('s11_test_db', 41, 'stable-request')
+        claim_mock.assert_called_once_with('s11_test_db', 41)
+        dispatch_mock.assert_called_once_with('s11_test_db', 41, 'stable-request')
+        self.assertEqual(call_order, [
+            ('claim', 's11_test_db', 41),
+            ('dispatch', 's11_test_db', 41, 'stable-request'),
+        ])
         cursor.assert_not_called()
 
     def test_supplier_expiry_claim_requires_current_approved_qualification_and_cooperation(self):
