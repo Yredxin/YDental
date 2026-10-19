@@ -84,7 +84,7 @@ class TestLaboratoryHTTP(HttpCase):
                 'jsonrpc': '2.0', 'id': 1, 'method': 'call',
                 'params': {
                     'model': model, 'method': method, 'args': args,
-                    'kwargs': {'context': {'ydental_revision': self.revision, **(context or {})}},
+                    'kwargs': {'context': {**(context or {}), 'ydental_revision': self.revision}},
                 },
             }),
             headers={'Content-Type': 'application/json'},
