@@ -9,7 +9,7 @@ from datetime import timedelta
 from unittest.mock import patch
 
 from odoo import Command, fields
-from odoo.exceptions import UserError
+from odoo.exceptions import AccessError, UserError
 from odoo.tests import TransactionCase, tagged
 
 from odoo.addons.ydental_treatment_test.tests.common import bind, key, price
@@ -216,9 +216,11 @@ class TestLabChargeNativeChain(TransactionCase):
         self.assertEqual(charge.ydental_category, 'medical')
         self.assertEqual(self.group.env['ydental.lab.charge'].search_count([('id', '=', charge.id)]), 1)
         medical_only = bind(self, self.users['doctor']).env['ydental.lab.charge']
-        self.assertEqual(medical_only.search_count([('id', '=', charge.id)]), 0)
+        with self.assertRaises(AccessError):
+            medical_only.search_count([('id', '=', charge.id)])
         price_only = bind(self, self.users['price']).env['ydental.lab.charge']
-        self.assertEqual(price_only.search_count([('id', '=', charge.id)]), 0)
+        with self.assertRaises(AccessError):
+            price_only.search_count([('id', '=', charge.id)])
         settlement = self.group.env['ydental.settlement.service']
         move_count = self.root['account.move'].sudo().search_count([])
         source_count = self.root['ydental.settlement.source'].sudo().search_count([

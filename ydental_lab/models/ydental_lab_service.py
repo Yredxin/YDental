@@ -150,7 +150,7 @@ class YDentalLabService(models.AbstractModel):
                 purchase.currency_id != order.ydental_store_id.company_id.currency_id or
                 line.product_id.type != 'service' or
                 (line.product_id.company_id and line.product_id.company_id != purchase.company_id) or
-                not line.uom_id or line.uom_id.category_id != line.product_id.uom_id.category_id or
+                not line.uom_id or not line.uom_id._has_common_reference(line.product_id.uom_id) or
                 line.product_qty <= 0 or line.price_unit <= 0 or line.price_subtotal <= 0 or
                 line.discount < 0 or line.discount >= 100 or
                 purchase.currency_id.compare_amounts(
