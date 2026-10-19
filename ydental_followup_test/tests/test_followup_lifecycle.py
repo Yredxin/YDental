@@ -5,11 +5,21 @@ from odoo import Command, fields
 from odoo.exceptions import AccessError
 from odoo.tests import TransactionCase, tagged
 
-from odoo.addons.ydental_treatment_test.tests.common import key, bind, handover_args, price
-from odoo.addons.ydental_treatment_test.tests.treatment_common import (
-    execute_args, opened_actual, receive, setup as treatment_setup,
+from odoo.addons.ydental_treatment_test.tests.common import (
+    bind,
+    handover_args,
+    key,
+    make_slot,
+    price,
 )
-from odoo.addons.ydental_treatment_test.tests.common import make_slot
+from odoo.addons.ydental_treatment_test.tests.treatment_common import (
+    execute_args,
+    opened_actual,
+    receive,
+)
+from odoo.addons.ydental_treatment_test.tests.treatment_common import (
+    setup as treatment_setup,
+)
 
 
 @tagged('post_install', '-at_install')
@@ -269,3 +279,88 @@ class TestFollowupLifecycle(TransactionCase):
             ('res_model', '=', 'ydental.followup'), ('res_id', '=', no_arrival_id),
         ])
         self.assertTrue(activities, 'a missed appointment must remain visible for manual follow-up')
+
+    def test_intake_appointment_reschedule_replaces_pending_followup_reminder(self):
+        price(self, amount=137.25)
+        receive(self)
+        treatment, clinical, _queue, lease, execution, document, args = opened_actual(self)
+        result = treatment._operate('execute', execute_args(self, args), key())
+        event = self.root['ydental.treatment.event'].browse(result['event_id'])
+        clinical._operate('handover', handover_args(document, lease) | {
+            'reason': 'Synthetic completed encounter before a rescheduled follow-up appointment',
+        })
+        patient = execution.ydental_patient_id
+        bind(self, self.users['manager']).env['ydental.patient.service']._operate('edit', {
+            'patient_id': patient.id,
+            'version': patient.ydental_version,
+            'values': {'phone': '+14155550139', 'phone_region': 'US'},
+        }, key())
+
+        manager = bind(self, self.users['manager'])
+        frontdesk = bind(self, self.users['frontdesk'])
+        service = manager.env['ydental.followup.service']
+        mapping = self.mappings[0][0]
+        station = self.stations[0][0]
+        now = fields.Datetime.now().replace(microsecond=0)
+        old_start = now + timedelta(days=2)
+        old_end = old_start + timedelta(minutes=5)
+        new_start = now + timedelta(days=3)
+        new_end = new_start + timedelta(minutes=5)
+        make_slot(self, manager, station, old_start, old_end)
+        make_slot(self, manager, station, new_start, new_end)
+        reservation = manager._operate('reserve', {
+            'patient_id': patient.id, 'mapping_id': mapping.id,
+            'start': fields.Datetime.to_string(old_start), 'end': fields.Datetime.to_string(old_end),
+            'channel': 'reservation',
+        }, key())
+        followup_id = service._operate('create', {
+            'patient_id': patient.id, 'source_event_id': event.id,
+            'followup_type': 'post_visit', 'planned_at': fields.Datetime.to_string(now),
+            'responsible_id': self.users['manager'].id,
+        })['id']
+        linked = service._operate('link_appointment', {
+            'followup_id': followup_id, 'appointment_id': reservation['id'], 'status': 'booked',
+        })
+        self.assertEqual(linked['appointment_id'], reservation['id'])
+        row = self.root['ydental.followup'].browse(followup_id)
+        old_version = row.ydental_schedule_version
+        old_job = self.root['ydental.notification.job'].sudo().search([
+            ('ydental_followup_id', '=', followup_id),
+            ('ydental_source_version', '=', old_version),
+            ('ydental_event_type', '=', 'appointment_reminder'),
+        ], limit=1)
+        self.assertTrue(old_job)
+        self.assertEqual(old_job.ydental_state, 'pending')
+
+        payload = {
+            'record_id': reservation['id'], 'version': reservation['version'],
+            'mapping_id': mapping.id, 'start': fields.Datetime.to_string(new_start),
+            'end': fields.Datetime.to_string(new_end),
+            'reason': 'Synthetic appointment moved to the next local business date',
+        }
+        operation_key = key()
+        frontdesk._operate('reschedule', payload, operation_key)
+        reservation_record = self.root['ydental.intake.entitlement'].browse(reservation['id'])
+        reservation_record.invalidate_recordset(['state', 'ydental_claim_id'])
+        self.assertEqual(reservation_record.state, 'held')
+        row.invalidate_recordset(['ydental_appointment_at', 'ydental_deadline_at', 'ydental_schedule_version'])
+        self.assertEqual(row.ydental_appointment_id.id, reservation['id'])
+        self.assertEqual(row.ydental_appointment_status, 'booked')
+        self.assertEqual(row.ydental_appointment_at, new_start)
+        self.assertEqual(row.ydental_deadline_at, new_start)
+        self.assertEqual(row.ydental_schedule_version, old_version + 1)
+        old_job.invalidate_recordset(['ydental_state'])
+        self.assertEqual(old_job.ydental_state, 'cancelled')
+        current_jobs = self.root['ydental.notification.job'].sudo().search([
+            ('ydental_followup_id', '=', followup_id),
+            ('ydental_source_version', '=', row.ydental_schedule_version),
+            ('ydental_event_type', '=', 'appointment_reminder'),
+        ])
+        self.assertEqual(len(current_jobs), 1)
+        self.assertEqual(current_jobs.ydental_state, 'pending')
+        self.assertLessEqual(current_jobs.ydental_due_at, new_start)
+
+        repeated = frontdesk._operate('reschedule', payload, operation_key)
+        self.assertEqual(repeated['result'], 'already_accepted')
+        self.assertEqual(row.ydental_schedule_version, old_version + 1)
+        self.assertEqual(current_jobs.search_count([('ydental_state', '=', 'pending')]), 1)

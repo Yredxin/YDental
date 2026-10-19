@@ -5,3 +5,4 @@ from . import ydental_followup_preference
 from . import ydental_notification_job
 from . import ydental_notification_callback
 from . import ydental_followup_service
+from . import ydental_intake_service

@@ -431,6 +431,45 @@ class YDentalFollowupService(models.AbstractModel):
         return {'id': row.id, 'state': row.state, 'appointment_status': row.ydental_appointment_status,
                 'appointment_id': row.ydental_appointment_id.id}
 
+    def _refresh_appointment_schedule(self, entitlement, previous_start=False):
+        """Refresh linked follow-up reminders in the same intake reschedule transaction."""
+        access = self.env['ydental.access.service']
+        access._require_internal()
+        session = access._scope(write=True)
+        store = entitlement.ydental_store_id
+        if (entitlement._name != 'ydental.intake.entitlement' or not entitlement.exists() or
+                session.ydental_store_id != store):
+            raise AccessError(self.env._('access_denied: Appointment reschedule source is unavailable.'))
+        access._check('frontdesk', 'write', store.id, write=True)
+        if entitlement.state != 'held' or entitlement.ydental_channel != 'reservation':
+            return 0
+        rows = self.env['ydental.followup'].sudo().search([
+            ('ydental_store_id', '=', store.id),
+            ('ydental_patient_id', '=', entitlement.ydental_patient_id.id),
+            ('ydental_appointment_id', '=', entitlement.id),
+            ('ydental_appointment_status', '=', 'booked'),
+            ('state', 'not in', ('done', 'closed')),
+        ], order='id')
+        slot = entitlement.ydental_claim_id.ydental_slot_id
+        for row in rows:
+            row.invalidate_recordset(['ydental_appointment_at'])
+            before = {'appointment_id': entitlement.id,
+                      'appointment_at': fields.Datetime.to_string(previous_start) if previous_start else False,
+                      'deadline_at': fields.Datetime.to_string(row.ydental_deadline_at),
+                      'schedule_version': row.ydental_schedule_version}
+            row._save({'ydental_deadline_at': slot.ydental_start,
+                       'ydental_schedule_version': row.ydental_schedule_version + 1})
+            self._cancel_pending_jobs(row, 'Linked appointment rescheduled')
+            self._schedule(row)
+            self._audit('appointment_reschedule', row, before=before,
+                        after={'appointment_id': entitlement.id,
+                               'appointment_at': fields.Datetime.to_string(slot.ydental_start),
+                               'deadline_at': fields.Datetime.to_string(row.ydental_deadline_at),
+                               'schedule_version': row.ydental_schedule_version},
+                        reason='Appointment moved through the authorized intake service',
+                        source='intake_appointment_reschedule')
+        return len(rows)
+
     def _record_arrival(self, followup_id, arrival_id):
         row = self._followup(followup_id, True)
         if not row.ydental_appointment_id or row.ydental_appointment_status not in ('booked', 'not_arrived'):
