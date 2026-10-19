@@ -46,7 +46,7 @@ class TestNoPatientFeeRework(TestFreeReworkLifecycle):
         })
         opened = lab._operate(
             'rework', {'order_id': order.id}, _action_key('no-fee-rework', order.id))
-        child = self.root['ydental.lab.order'].browse(opened['repair_order_id']).exists()
+        child = self.group.env['ydental.lab.order'].browse(opened['repair_order_id']).exists()
         self.assertTrue(child and child.ydental_parent_order_id == order)
         self.assertEqual(child.ydental_rework_kind, 'additional')
         with self.assertRaises(UserError):
@@ -73,8 +73,9 @@ class TestNoPatientFeeRework(TestFreeReworkLifecycle):
         })
         purchase.button_confirm()
         added_cost_line = purchase.order_line.ensure_one()
+        frontdesk_order = bind(self, self.users['frontdesk']).env['ydental.lab.order'].browse(child.id)
         with self.assertRaises(AccessError):
-            child.with_user(self.users['frontdesk']).write({
+            frontdesk_order.write({
                 'ydental_no_patient_fee_declaration': True,
                 'ydental_no_patient_fee_confirmation_reason': 'No commercial authority',
             })

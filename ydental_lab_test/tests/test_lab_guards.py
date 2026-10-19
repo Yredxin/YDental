@@ -144,8 +144,11 @@ class TestLaboratoryGuards(TransactionCase):
         service = self.env['ydental.lab.service']
         store = SimpleNamespace(id=31)
         order = SimpleNamespace(
+            id=999999,
             state='draft', ydental_parent_order_id=SimpleNamespace(id=12),
             ydental_rework_kind='additional', ydental_additional_terms_frozen=False,
+            ydental_no_patient_fee_confirmed=False,
+            invalidate_recordset=lambda _fields: None,
         )
         with (
             patch.object(type(service), '_get_order', return_value=order),
@@ -165,7 +168,7 @@ class TestLaboratoryGuards(TransactionCase):
         source_fee = SimpleNamespace(id=101)
         responsible = SimpleNamespace(id=111)
         order = SimpleNamespace(
-            id=19, name='Synthetic first cycle', state='available', ydental_rework_kind='additional',
+            id=999999, name='Synthetic first cycle', state='available', ydental_rework_kind='additional',
             ydental_exception_reason='Synthetic patient-requested repair', ydental_vendor_id=vendor,
             ydental_product_id=product, ydental_patient_id=patient, ydental_source_event_id=source_event,
             ydental_source_document_id=source_document, ydental_source_fee_id=source_fee,
@@ -252,12 +255,15 @@ class TestLaboratoryGuards(TransactionCase):
                 return 1
 
         order = MutableRecord(
-            id=19, state='draft', ydental_parent_order_id=SimpleNamespace(id=12),
+            id=999999, state='draft', ydental_parent_order_id=SimpleNamespace(id=12),
             ydental_rework_kind='additional', ydental_additional_terms_frozen=False,
             ydental_additional_service_id=catalog, ydental_additional_service_quantity=1,
             ydental_additional_consent_reference='consent-ref-synthetic-001',
             ydental_additional_terms_reason='Synthetic additional repair service',
+            ydental_no_patient_fee_declaration=False,
+            ydental_no_patient_fee_confirmed=False,
             ydental_patient_id=patient,
+            invalidate_recordset=lambda _fields: None,
         )
         charge = Charge(
             _name='ydental.lab.charge', id=91, state='terms_confirmed',
