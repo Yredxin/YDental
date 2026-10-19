@@ -5,7 +5,7 @@
     'category': 'Services',
     'author': 'YDental',
     'license': 'LGPL-3',
-    'depends': ['ydental_base', 'ydental_access', 'ydental_followup', 'ydental_treatment',
+    'depends': ['mail', 'ydental_base', 'ydental_access', 'ydental_followup', 'ydental_treatment',
                 'ydental_intake', 'ydental_inventory', 'ydental_settlement', 'purchase_stock'],
     'data': [
         'security/ir.access.csv',

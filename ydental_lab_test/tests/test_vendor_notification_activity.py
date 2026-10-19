@@ -25,6 +25,14 @@ class TestVendorNotificationActivity(TransactionCase):
             company_id=root.company.id,
             company_ids=[Command.set([root.company.id])],
         )
+        ordinary_user = new_test_user(
+            root,
+            name='S11 synthetic vendor outbound reader',
+            login='s11_vendor_outbound_reader',
+            groups='ydental_base.ydental_base_group_user',
+            company_id=root.company.id,
+            company_ids=[Command.set([root.company.id])],
+        )
         partner = root['res.partner'].create({
             'name': 'S11 synthetic activity vendor',
         })
@@ -62,6 +70,28 @@ class TestVendorNotificationActivity(TransactionCase):
                     getattr(vendor_as_manager, method)(*kwargs)
                 else:
                     getattr(vendor_as_manager, method)(**kwargs)
+
+        composer = root['mail.compose.message'].with_user(ordinary_user).with_context(
+            default_model='ydental.lab.vendor',
+            default_res_ids=[vendor.id],
+            default_composition_mode='mass_mail',
+        ).create({'composition_mode': 'mass_mail'})
+        self.assertEqual(composer.model, 'ydental.lab.vendor')
+        with self.assertRaises(AccessError):
+            composer.action_send_mail()
+        with self.assertRaises(AccessError):
+            composer.action_schedule_message()
+
+        template = root['mail.template'].sudo().create({
+            'name': 'S11 synthetic blocked vendor email',
+            'model_id': root['ir.model']._get_id('ydental.lab.vendor'),
+            'subject': 'S11 synthetic notice',
+            'body_html': '<p>S11 synthetic content</p>',
+            'email_to': 'outside@example.invalid',
+        })
+        with self.assertRaises(AccessError):
+            template.with_user(ordinary_user).send_mail(vendor.id, force_send=True)
+        self.assertEqual(root['mail.mail'].sudo().search_count([]), mail_count)
 
         activity.with_user(manager).write({'user_id': reassignee.id})
         activity.invalidate_recordset(['user_id', 'active', 'date_done'])
