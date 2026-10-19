@@ -682,6 +682,32 @@ class YDentalFollowupService(models.AbstractModel):
                     after={'state': 'closed', 'parent_order_id': parent.id}, reason=reason)
         return row
 
+    def _close_lab_followup_after_exception(self, order, reason):
+        """Stop stale patient arrival notices and leave an internal resolution task."""
+        if order._name != 'ydental.lab.order' or len(order) != 1:
+            raise AccessError(self.env._('access_denied: A real laboratory order is required.'))
+        order.check_access('read')
+        store = order.ydental_store_id
+        _authorize_passive_lab_write(self.env['ydental.access.service'], store)
+        row = order.ydental_followup_id
+        if not row:
+            return self.env['ydental.followup']
+        reason = self._text(reason, required=True, maximum=300)
+        row = row.sudo()
+        if row.ydental_store_id != store or row.ydental_lab_order_id != order.id:
+            raise AccessError(self.env._('access_denied: The laboratory follow-up belongs to another order or store.'))
+        if row.state in ('done', 'closed'):
+            return row
+        previous = row.state
+        row._save({'state': 'closed', 'ydental_closed_reason': reason,
+                   'ydental_schedule_version': row.ydental_schedule_version + 1})
+        self._cancel_pending_jobs(row, 'Laboratory item exception closed the arrival notice')
+        self._create_contact_activity(
+            row, 'Laboratory item was returned or written off. Review the patient communication and fee disposition.')
+        self._audit('lab_exception_followup_close', row, before={'state': previous},
+                    after={'state': 'closed', 'lab_order_id': order.id}, reason=reason)
+        return row
+
     def _run_due(self):
         """Cron-safe, bounded scan. Jobs are still unique in SQL and are row-claimed below."""
         now = fields.Datetime.now()

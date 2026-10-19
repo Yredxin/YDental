@@ -106,5 +106,6 @@ class TestPostFitRepair(TestFreeReworkLifecycle):
 
         # The repair category is a deliberate user choice after opening the
         # draft; it is never copied from the completed cycle.
-        repair.write({'ydental_rework_kind': 'free'})
-        self.assertEqual(repair.ydental_rework_kind, 'free')
+        manager_repair = self.group.env['ydental.lab.order'].browse(repair.id)
+        manager_repair.write({'ydental_rework_kind': 'free'})
+        self.assertEqual(manager_repair.ydental_rework_kind, 'free')

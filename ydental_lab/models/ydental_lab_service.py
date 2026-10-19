@@ -561,10 +561,12 @@ class YDentalLabService(models.AbstractModel):
         source = LabStockSource(self.env.uid, store.id, order.id, disposition)
         result = self.env['ydental.inventory.service']._lab_workflow_move(source, reason)
         inventory_event = inventory_event.sudo().browse(result['id']).exists()
-        return self._record_action(order, 'exception', reason, inventory_event, {
+        result = self._record_action(order, 'exception', reason, inventory_event, {
             'state': 'exception', 'ydental_exception_disposition': disposition,
             'ydental_exception_reason': reason,
         })
+        self.env['ydental.followup.service']._close_lab_followup_after_exception(order, reason)
+        return result
 
     def _fit(self, store, order_id, fit_event_id):
         self._warehouse_write(store)

@@ -281,7 +281,10 @@ class TestFreeReworkLifecycle(TransactionCase):
             ('ydental_order_id', '=', order.id),
         ])
         credit_count = self.root['ydental.lab.charge.adjustment'].sudo().search_count([
-            ('ydental_lab_charge_id.ydental_order_id', '=', order.id),
+            ('ydental_charge_id.ydental_order_id', '=', order.id),
+        ])
+        pending_jobs = self.root['ydental.notification.job'].sudo().search([
+            ('ydental_followup_id', '=', followup.id), ('ydental_state', '=', 'pending'),
         ])
         lab._operate('exception', {
             'order_id': order.id,
@@ -292,6 +295,14 @@ class TestFreeReworkLifecycle(TransactionCase):
         followup.invalidate_recordset()
         self.assertEqual(order.state, 'exception')
         self.assertEqual(order.ydental_exception_disposition, 'discard')
+        self.assertEqual(followup.state, 'closed')
+        self.assertTrue(followup.ydental_closed_reason)
+        self.assertTrue(all(job.ydental_state == 'cancelled' for job in pending_jobs))
+        resolution_activity = self.root['mail.activity'].sudo().search([
+            ('res_model', '=', 'ydental.followup'), ('res_id', '=', followup.id),
+            ('user_id', '=', order.ydental_responsible_id.id), ('active', '=', True),
+        ], limit=1)
+        self.assertTrue(resolution_activity, 'the closed arrival task leaves an assigned internal resolution activity')
         self.assertEqual(order.ydental_source_fee_id, original_fee)
         self.assertFalse(order.ydental_fit_event_id)
         self.assertFalse(order.ydental_fit_inventory_event_id)
@@ -303,7 +314,7 @@ class TestFreeReworkLifecycle(TransactionCase):
             ('ydental_order_id', '=', order.id),
         ]), charge_count, 'discard must not create a patient fee or an automatic refund')
         self.assertEqual(self.root['ydental.lab.charge.adjustment'].sudo().search_count([
-            ('ydental_lab_charge_id.ydental_order_id', '=', order.id),
+            ('ydental_charge_id.ydental_order_id', '=', order.id),
         ]), credit_count)
         exception_event = self.root['ydental.lab.event'].sudo().search([
             ('ydental_order_id', '=', order.id), ('ydental_kind', '=', 'exception'),
