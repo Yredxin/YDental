@@ -44,7 +44,8 @@ class TestLabChargeNativeChain(TransactionCase):
         # native purchase group required for a zero-cost supplier attestation.
         cls.users['manager'].write({'group_ids': [Command.link(cls.root.ref('purchase.group_purchase_manager').id)]})
         cls.admin._grant(cls.users['manager'].id, cls.stores[0].id,
-                         {'settlement': 'write', 'medical': 'write', 'price': 'write', 'warehouse': 'write'})
+                         {'settlement': 'write', 'medical': 'write', 'price': 'write',
+                          'warehouse': 'write', 'followup': 'write'})
 
     def _real_treatment_source(self):
         receive(self)
@@ -127,6 +128,10 @@ class TestLabChargeNativeChain(TransactionCase):
         purchase_line = self.root['purchase.order.line']
         if with_purchase_cost:
             token = key()
+            incoming_type = self.root['stock.picking.type'].sudo().search([
+                ('code', '=', 'incoming'), ('warehouse_id.company_id', '=', store.company_id.id),
+            ], limit=1)
+            self.assertTrue(incoming_type)
             service_product = self.root['product.template'].sudo().create({
                 'name': 'S11 synthetic vendor service ' + token, 'type': 'service',
                 'purchase_ok': True, 'sale_ok': False, 'uom_id': self.uom.id,
@@ -135,6 +140,7 @@ class TestLabChargeNativeChain(TransactionCase):
             purchase = self.root['purchase.order'].with_user(manager).with_company(store.company_id).create({
                 'partner_id': partner.id, 'company_id': store.company_id.id,
                 'currency_id': store.company_id.currency_id.id,
+                'picking_type_id': incoming_type.id,
                 'date_order': fields.Datetime.now(),
                 'order_line': [Command.create({
                     'name': 'Synthetic confirmed external lab service cost',
