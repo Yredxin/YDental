@@ -1,0 +1,123 @@
+<odoo>
+    <record id="ydental_lab_charge_order_form" model="ir.ui.view">
+        <field name="name">ydental.lab.order.form.charge.sources</field>
+        <field name="model">ydental.lab.order</field>
+        <field name="inherit_id" ref="ydental_lab.ydental_lab_order_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='ydental_additional_performance_recorded']" position="after">
+                <field name="ydental_charge_ids" readonly="1" invisible="not ydental_parent_order_id or ydental_rework_kind != 'additional'">
+                    <list create="0" edit="0" delete="0">
+                        <field name="ydental_catalog_id"/>
+                        <field name="ydental_price_id"/>
+                        <field name="ydental_price_snapshot_id"/>
+                        <field name="ydental_quantity"/>
+                        <field name="ydental_uom_id"/>
+                        <field name="ydental_unit_price"/>
+                        <field name="ydental_amount"/>
+                        <field name="ydental_currency_id"/>
+                        <field name="state"/>
+                        <field name="ydental_settlement_source_id"/>
+                    </list>
+                </field>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="ydental_lab_charge_view_list" model="ir.ui.view">
+        <field name="name">ydental.lab.charge.list</field>
+        <field name="model">ydental.lab.charge</field>
+        <field name="arch" type="xml">
+            <list create="0" edit="0" delete="0">
+                <field name="ydental_order_id"/>
+                <field name="ydental_patient_id"/>
+                <field name="ydental_catalog_id"/>
+                <field name="ydental_amount"/>
+                <field name="ydental_currency_id"/>
+                <field name="state"/>
+                <field name="ydental_performed_at"/>
+                <field name="ydental_invoice_id"/>
+            </list>
+        </field>
+    </record>
+    <record id="ydental_lab_charge_view_form" model="ir.ui.view">
+        <field name="name">ydental.lab.charge.form</field>
+        <field name="model">ydental.lab.charge</field>
+        <field name="arch" type="xml">
+            <form create="0" edit="0" delete="0">
+                <header>
+                    <button name="action_bill" type="object" string="Create native settlement invoice"
+                            class="btn-primary" invisible="state != 'performed'"/>
+                    <button name="action_open_credit_wizard" type="object" string="Correct billed amount"
+                            invisible="state != 'billed'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="terms_confirmed,performed,billed"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="ydental_order_id"/>
+                        <field name="ydental_patient_id"/>
+                        <field name="ydental_catalog_id"/>
+                        <field name="ydental_price_id"/>
+                        <field name="ydental_price_snapshot_id"/>
+                        <field name="ydental_quantity"/>
+                        <field name="ydental_uom_id"/>
+                        <field name="ydental_unit_price"/>
+                        <field name="ydental_amount"/>
+                        <field name="ydental_currency_id"/>
+                        <field name="ydental_quoted_at"/>
+                        <field name="ydental_terms_confirmed_by_id"/>
+                        <field name="ydental_terms_confirmed_at"/>
+                        <field name="ydental_confirmation_reference"/>
+                        <field name="ydental_reason"/>
+                        <field name="ydental_performed_by_id"/>
+                        <field name="ydental_performed_at"/>
+                        <field name="ydental_performance_evidence_reference"/>
+                        <field name="ydental_settlement_source_id"/>
+                        <field name="ydental_invoice_id"/>
+                        <field name="ydental_invoice_line_id"/>
+                        <field name="ydental_adjustment_ids" readonly="1">
+                            <list create="0" edit="0" delete="0">
+                                <field name="name"/>
+                                <field name="ydental_revision"/>
+                                <field name="ydental_amount"/>
+                                <field name="ydental_reason"/>
+                                <field name="ydental_actor_id"/>
+                                <field name="ydental_created_at"/>
+                                <field name="ydental_credit_move_id"/>
+                                <field name="ydental_credit_line_id"/>
+                                <field name="ydental_settlement_source_id"/>
+                            </list>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="ydental_lab_charge_credit_wizard_form" model="ir.ui.view">
+        <field name="name">ydental.lab.charge.credit.wizard.form</field>
+        <field name="model">ydental.lab.charge.credit.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Correct billed cycle charge">
+                <group>
+                    <field name="ydental_charge_id"/>
+                    <field name="ydental_currency_id" invisible="1"/>
+                    <field name="ydental_amount"/>
+                    <field name="ydental_reason"/>
+                    <field name="ydental_request_key" invisible="1"/>
+                </group>
+                <footer>
+                    <button name="action_apply" type="object" string="Create native credit note"
+                            class="btn-primary"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="ydental_lab_charge_action" model="ir.actions.act_window">
+        <field name="name">Additional patient service charges</field>
+        <field name="res_model">ydental.lab.charge</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <menuitem id="ydental_lab_charge_menu" name="Additional patient service charges"
+              parent="ydental_lab.ydental_lab_menu_root" action="ydental_lab_charge_action" sequence="18"
+              groups="ydental_base.ydental_base_group_user"/>
+</odoo>

@@ -3,6 +3,7 @@ import inspect
 import json
 import math
 import secrets
+from datetime import timezone
 from urllib.parse import urlsplit
 
 from odoo import api, fields, models
@@ -104,11 +105,26 @@ class YDentalLabService(models.AbstractModel):
                 purchase.company_id != order.ydental_store_id.company_id or purchase.currency_id != order.ydental_store_id.company_id.currency_id or
                 line.product_id.type != 'service' or line.product_qty <= 0 or line.price_unit <= 0 or line.price_subtotal <= 0):
             raise ValidationError(self.env._('Vendor cost must be a nonzero service line on a confirmed purchase for this vendor, store company and currency.'))
+        self._assert_purchase_line_exclusive(order, line)
         return line
+
+    def _assert_purchase_line_exclusive(self, order, line):
+        domain = [('ydental_purchase_line_id', '=', line.id)]
+        if type(order.id) is int and order.id > 0:
+            domain.append(('id', '!=', order.id))
+        if self._model('order').search(domain, limit=1):
+            raise ValidationError(self.env._('A confirmed vendor purchase line can fund only one laboratory cycle.'))
+        return True
 
     def _order_identity(self, event_id, vals, store):
         if type(event_id) is not int or event_id <= 0:
             raise ValidationError(self.env._('Select a confirmed clinical treatment source.'))
+        if {'ydental_additional_service_id', 'ydental_additional_service_quantity',
+                'ydental_additional_consent_reference', 'ydental_additional_terms_reason',
+                'ydental_additional_terms_frozen', 'ydental_additional_performed_at',
+                'ydental_additional_performance_evidence_reference',
+                'ydental_additional_performance_recorded'} & vals.keys():
+            raise AccessError(self.env._('access_denied: Additional service terms can be created only through the guarded rework-cycle workflow.'))
         event = self.env['ydental.treatment.event'].sudo().browse(event_id).exists()
         if not event or event.ydental_store_id != store or event.ydental_category != 'medical' or event.state != 'confirmed' or event.ydental_kind != 'treatment':
             raise AccessError(self.env._('access_denied: A confirmed treatment source in the selected store is required.'))
@@ -230,6 +246,8 @@ class YDentalLabService(models.AbstractModel):
             'send': self._send, 'processing': self._processing, 'receive': self._receive,
             'putaway': self._putaway, 'rework': self._rework, 'cancel': self._cancel,
             'exception': self._exception, 'fit': self._fit, 'bind_code': self._bind_code,
+            'approve_charge_terms': self._approve_charge_terms,
+            'confirm_charge_performed': self._confirm_charge_performed,
         }
         if operation not in handlers or not isinstance(payload, dict) or not isinstance(key, str) or not 16 <= len(key) <= 128:
             raise ValidationError(self.env._('Supply a documented laboratory action and stable request key.'))
@@ -261,6 +279,9 @@ class YDentalLabService(models.AbstractModel):
         order = self._get_order(order_id, store)
         if order.state != 'draft':
             raise UserError(self.env._('Only a draft can be sent to the laboratory.'))
+        if (order.ydental_parent_order_id and order.ydental_rework_kind == 'additional' and
+                not order.ydental_additional_terms_frozen):
+            raise UserError(self.env._('Freeze the published additional-service terms with explicit approval before dispatch.'))
         vendor = self._check_vendor(order.ydental_vendor_id, store, order.ydental_product_id)
         cooperation = self._model('cooperation').search([
             ('ydental_store_id', '=', store.id),
@@ -281,6 +302,75 @@ class YDentalLabService(models.AbstractModel):
             'ydental_vendor_qualification_valid_until': vendor.valid_until,
             'ydental_cooperation_active_at_dispatch': True,
         })
+
+    def _approve_charge_terms(self, store, order_id):
+        order = self._get_order(order_id, store)
+        if (order.state != 'draft' or not order.ydental_parent_order_id or
+                order.ydental_rework_kind != 'additional'):
+            raise UserError(self.env._('Additional-service terms can be approved only for a draft additional-charge rework cycle.'))
+        if order.ydental_additional_terms_frozen:
+            raise UserError(self.env._('Additional-service terms are already frozen for this cycle.'))
+        catalog = order.ydental_additional_service_id
+        if not catalog or not catalog.active:
+            raise ValidationError(self.env._('Select an active S05 service before approving additional terms.'))
+        quantity = self._validate_positive_quantity(order.ydental_additional_service_quantity)
+        confirmation_reference = self._text(
+            order.ydental_additional_consent_reference, 'Explicit terms confirmation reference', 120)
+        reason = self._text(order.ydental_additional_terms_reason, 'Additional terms reason', 240)
+        bridge_model = 'ydental.lab.charge.service'
+        if bridge_model not in self.env.registry.models:
+            raise UserError(self.env._('The cycle-bound laboratory charge bridge is not installed; no patient charge was created.'))
+        charge = self.env[bridge_model]._prepare_terms(
+            order, catalog.id, quantity, confirmation_reference, reason)
+        if (not charge or charge._name != 'ydental.lab.charge' or len(charge) != 1 or
+                charge.ydental_order_id != order or charge.ydental_store_id != store or
+                charge.ydental_patient_id != order.ydental_patient_id or
+                charge.ydental_catalog_id != catalog or charge.ydental_quantity != quantity or
+                charge.state != 'terms_confirmed'):
+            raise AccessError(self.env._('access_denied: The native charge bridge returned a source outside this approved cycle.'))
+        order._save({'ydental_additional_terms_frozen': True})
+        self._event(order, 'additional_terms_approved', order.state, order.state, reason)
+        self._audit('additional_terms_approved', order, store,
+                    after={'charge_source_id': charge.id, 'catalog_id': catalog.id,
+                           'quantity': quantity, 'currency_id': charge.ydental_currency_id.id}, reason=reason)
+        return {'order_id': order.id, 'charge_source_id': charge.id, 'terms_frozen': True,
+                'state': charge.state}
+
+    def _confirm_charge_performed(self, store, order_id):
+        order = self._get_order(order_id, store)
+        if (not order.ydental_parent_order_id or order.ydental_rework_kind != 'additional' or
+                not order.ydental_additional_terms_frozen or order.ydental_additional_performance_recorded or
+                order.state not in ('sent', 'processing', 'received', 'available')):
+            raise UserError(self.env._('Actual additional-service confirmation requires an approved active child rework cycle.'))
+        if not order.ydental_additional_performed_at:
+            raise ValidationError(self.env._('Enter the actual additional-service performance time.'))
+        performed_at = fields.Datetime.to_datetime(order.ydental_additional_performed_at)
+        if not performed_at or performed_at > fields.Datetime.now():
+            raise ValidationError(self.env._('Enter a valid actual service time that is not in the future.'))
+        evidence_reference = self._text(
+            order.ydental_additional_performance_evidence_reference,
+            'Additional service performance evidence reference', 160)
+        if 'ydental.lab.charge.service' not in self.env.registry.models:
+            raise UserError(self.env._('The cycle-bound laboratory charge bridge is not installed; no performed charge was recorded.'))
+        charges = order.ydental_charge_ids
+        if len(charges) != 1 or charges.state != 'terms_confirmed':
+            raise UserError(self.env._('One cycle-bound approved charge source is required before confirming performed service.'))
+        charge = self.env['ydental.lab.charge.service']._confirm_performed(
+            charges, performed_at.replace(tzinfo=timezone.utc).isoformat(), evidence_reference)
+        if (not charge or charge._name != 'ydental.lab.charge' or len(charge) != 1 or
+                charge.ydental_order_id != order or charge.ydental_store_id != store or
+                charge.ydental_patient_id != order.ydental_patient_id or
+                charge.ydental_catalog_id != order.ydental_additional_service_id or
+                charge.ydental_quantity != order.ydental_additional_service_quantity or
+                charge.state != 'performed'):
+            raise AccessError(self.env._('access_denied: The native charge bridge did not confirm the exact cycle source.'))
+        order._save({'ydental_additional_performance_recorded': True})
+        self._event(order, 'additional_service_performed', order.state, order.state, evidence_reference)
+        self._audit('additional_service_performed', order, store,
+                    after={'charge_source_id': charge.id,
+                           'performed_at': fields.Datetime.to_string(performed_at)}, reason=evidence_reference)
+        return {'order_id': order.id, 'charge_source_id': charge.id,
+                'state': charge.state, 'performed_at': fields.Datetime.to_string(performed_at)}
 
     def _processing(self, store, order_id):
         self._warehouse_write(store)
@@ -332,8 +422,6 @@ class YDentalLabService(models.AbstractModel):
             raise UserError(self.env._('Rework requires an actual put-away item that has not been fitted.'))
         if not order.ydental_rework_kind:
             raise ValidationError(self.env._('Select whether this cycle is free or has separately agreed additional terms.'))
-        if order.ydental_rework_kind == 'additional':
-            raise UserError(self.env._('Additional-charge rework is unavailable until a cycle-bound native patient fee source can be created and reviewed.'))
         reason = self._text(order.ydental_exception_reason, 'Rework reason')
         self._check_vendor(order.ydental_vendor_id, store, order.ydental_product_id)
         source = LabStockSource(self.env.uid, store.id, order.id, 'supplier_return')

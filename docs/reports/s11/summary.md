@@ -1,51 +1,48 @@
-# [CODEX-FINAL] YD-S11-FOLLOWUP-LAB-V1 / 1.0
+# [CODEX-FINAL] YD-S11-FOLLOWUP-LAB-V1 / 1.0 — continuation report
 
-结论：**PARTIAL**
-记录：SYNCED（分支推送并 fetch 读回确认）
-范围：S11-A 复诊/联系与通知可靠性；S11-B 厂商治理及内部外加工。真实外部通知通道未启用。
+Conclusion: **PARTIAL**
+Issue #35: **OPEN**
+Sync: **PENDING** (current continuation changes are not yet committed or pushed)
 
-## 候选与保全
+## Fixed context and candidate
 
-- 基线：`aa2caefcf63cefc3deb367caf55a387ffb1ce013`
-- 实施分支：`codex/s11-followup-lab-r1`
-- 产品/测试候选：`86673b8`（S11 源码与测试提交）；报告/状态更新提交 `a427c57`，已推送并从 origin fetch 读回一致。
-- 锁定 Odoo core：`f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb`；本次没有修改 core 或 `odoo-12`。
-- S10 文书、原件、资金、库存、日结、审计与 D 收6/退2/净4保护对象未被触碰；没有重演旧业务、连接数据库或启动服务。
+- Plan: `YD-S11-FOLLOWUP-LAB-V1 / 1.0`, including [supplement v1.1](../../execution/YD_S11_PLAN_SUPPLEMENT_V1_1.md).
+- Accepted S10 business baseline: `aa2caefcf63cefc3deb367caf55a387ffb1ce013`.
+- Branch: `codex/s11-followup-lab-r1`; continuation began at HEAD `b62cfe5d528f696e8ac8e8e4a266a5c661d0a39c`.
+- Existing S11 product/test candidate remains `86673b8`; current uncommitted work adds the cycle-bound additional-charge bridge, native credit adjustments, and the S11 launcher. A final code candidate has not yet been frozen.
+- Locked Odoo core: `f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb`. No core or `odoo-12` modifications.
 
-## 当前实现
+## Implemented in this continuation
 
-新增 `ydental_followup`、`ydental_followup_test`、`ydental_lab`、`ydental_lab_test`。S11-A 包含复诊工作台、受控来源/预约/接诊选择器、可读的追加联系历史、人工联系、超期任务、持久通知任务、版本失效、提交后派发、unknown 核查、签名回调、防重与回调状态单调推进。日上限按患者、门店本地日及实际持久发送尝试计数，失败尝试同样占额。
+The S11-B additional-charge rework path now has a separate immutable `ydental.lab.charge` source bound to a genuine additional rework child cycle. It freezes an effective S05 store price snapshot only after same-store medical and price authority and explicit synthetic terms confirmation. A separate action records actual additional-service performance; dispatch, scan, physical receipt, put-away, procurement and prosthesis fit do not create patient charges. Purchase lines remain cycle-exclusive and supplier costs do not automatically become patient fees.
 
-S11-B 包含厂商资质/审核与门店合作、加工单和外部引用、识别码绑定/受限扫描、物理收货与原生入库分离、实际接诊关联戴用、免费返工周期、入库前取消和有实物处置的异常出口。派单时保留厂商/合作资质快照，既有合法外发单在资质到期或合作停用后仍可收货。库存通过现有 inventory service 记录，不直接写库存余额。
+Patient billing is registered as a narrow extension of S10 settlement `_operate`. It creates and posts a native invoice only for a performed cycle charge, then links the exact settlement source, account move and line. Price/cycle identity is checked before billing. A separate immutable adjustment revision can create a native credit note against that charge; cumulative credits are capped at the original charge and only reduce an unpaid receivable. The action does not transfer cash or rewrite the posted original invoice. A settlement source kind constraint distinguishes original treatment fees, lab charges and lab-charge adjustments.
 
-## 未完成项与决策
+The continuation also adds a versioned, fail-closed S11 foreground launcher and private admission contract. It is pinned to the specified scratch target, local port 18411, clean committed candidate and fresh independent admission. It does not install modules, run cron, create identities or execute business actions. No private S11 runtime/admission files or credential source were present; the launcher has not started Odoo.
 
-- **追加费用返工不可用。** 现有治疗收费必须由真实接诊及经过审查的价格快照生成；现有原生服务没有绑定外加工返工周期的独立费用来源。把其他治疗费用挂到返工单会伪造收费来源。实现目前在库存退回或新周期创建前拒绝该分支。需要产品/财务授权定义周期绑定费用来源及定价依据后才能完成该路径。F2/T07 不通过，不能关闭 #35。
-- 没有 S11 专用的获准运行 scope/launcher 与已核实目标身份；未知 PID 42433 继续保留。依计划未连接 DB/HTTP、未安装或带数据升级、未执行真实多连接竞争、HTTP/RPC、浏览器及业务链验收。tester 既有只读预检确认旧 S10 scope 不适用。
-- 本机 Python 没有 Odoo runtime；两组 Odoo `TransactionCase` 没有执行。源码测试及 XML 视图需在正常授权目标安装后验证。
-- 真实短信/消息供应商、厂商门户同步、支付/税务/签署和生产均未启用。受控 sink 结果仅表示测试接收端结果，不代表患者送达。
+## Checks actually run
 
-## 检查与独立复核
+- `python3 -m compileall -q ydental_lab ydental_lab_test ydental_settlement scripts/s11`: passed.
+- Python AST, relevant XML and strict CSV parsing: passed (44 Python files; 2 charge/settlement XML files; 19 ACL rows), as recorded by the implementation agent.
+- `git diff --check`: passed.
+- `python3 -m unittest scripts.s11.test_launcher -v`: 6 local launcher subprocess tests passed. They include the production `start_service` supervisor with a synthetic child, exit receipt/config/owner cleanup checks, and a SIGTERM-ignoring synthetic child that the supervisor stops only through its retained `Popen` handle after bounded grace.
+- Odoo `TransactionCase` additions cover guards, source/schema projection and credit-cap helper behavior, but **were not executed**. They do not constitute passing model tests.
+- Independent static review found no permission bypass or settlement-source consumer blocker in the charge/credit bridge. It caught and the implementation corrected an outdated two-source SQL assertion; the final assertion checks the three-way fee/charge/adjustment source constraint. The reviewer also checked the launcher escalation targets only its exact `Popen` child and preserves the owner marker if stop cannot be confirmed. This is a source review, not independent runtime acceptance.
 
-主控检查快照包含 41 个 addon 源码、测试、XML、CSV 和 manifest 文件，Python AST、XML、CSV 列宽、manifest literal、无尾随空白及 `git diff --check` 通过。源码树 SHA256：`a6190cfda50d778d73d94c641b7b0007ec47758b9489139c48e4ecd679422672`。这不是 Odoo 测试或数据库验证。
+## Required evidence still missing
 
-独立 reviewer 对候选树做只读源码/安全检查；复查了权限守卫、跨店来源、unknown/回调状态、每日发送上限、供应商资质失效、到货授权快照和工作台用户入口。该复核没有运行应用、数据库、HTTP、浏览器或外部供应商，不构成独立技术验收 PASS。独立 reviewer 确认的剩余产品缺口是追加费用返工，且指出完整业务链、普通用户 runtime、竞争和升级证据尚未提供。
+No target database connection or Odoo service was attempted. The machine has no importable Odoo runtime at the project venv. `.local/s11/runtime.json` and `admission.json` are absent, so the planned runtime cannot pass its own admission checks. Port 18411 was previously verified free. The specified scratch database name/OID/cluster, database role/grants, installed module state and old-object preservation checkpoint have not been independently verified in this continuation. The unrelated `127.0.0.1:8069` / PID 42433 remains untouched.
 
-## 用例映射与实际层级
+Accordingly, no S11 Odoo MODEL test, installation, data-bearing upgrade, HTTP/RPC, browser, real two-connection race, native stock/procurement/charge flow, independent committed-state readback, or S10 impact regression ran. The successful S05-price → performed service → native invoice/source → native credit/reconciliation path remains unverified, as do transaction rollback, retry/concurrency and old invoice readback for the new source type. The independent reviewer has not signed technical acceptance of this continuation.
 
-| 项目 | 源码覆盖/当前状态 | 实际执行层级 |
-|---|---|---|
-| F1/T01–T05/T13–T14 复诊、通知、unknown、回调与上限 | 有实现及 helper/callback/视图检查；没有完整真实链 | SOURCE/静态；未 MODEL/HTTP/浏览器/DB 并发 |
-| F2/T06–T07 返工、扫码、库存/费用 | 码绑定/重复入口与免费周期有实现；追加费用分支拒绝；没有原生库存成本实测 | SOURCE/静态；未真实多连接/库存/财务 |
-| F3/T08 异常终止 | 有实际处置守卫和视图字段；没有完整状态/库存链运行证据 | SOURCE/静态 |
-| F4/T15–T16 资质、取消、过期单收货 | 有资质/合作检查与派单快照回归源码；未执行 Odoo 测试 | SOURCE/静态 |
-| F5/T10/T17 码绑定/扫描与非披露 | 有门店范围扫描、拒绝未授权码和源码测试；无真实普通身份 HTTP/UI 验证 | SOURCE/静态 |
-| T11–T12 S10/S06–S10 联动与带数据升级 | 有依赖和集成钩子；未访问/升级 scratch，旧对象仅通过约束保全 | 未运行 |
+F1–F5 and T01–T18 remain coverage requirements, not PASS counts. The earlier S11 source review and existing source-level checks do not replace the runtime evidence. The work does not meet the technical-closeout criteria; #35 must remain OPEN.
 
-本表是需求覆盖现状，不是 PASS 项数量。受控供应商测试尚未运行；所有真实外部通道均为 `NOT_RUN / OUT_OF_CURRENT_ACTIVATION`。
+## Scope and protection
 
-## 用户效果与当前状态
+Only independent synthetic S11 business objects are permitted in the designated scratch after normal admission. No database was connected and no economic operation was executed. Existing S10 D 6/2/net4, main documents/originals, receipts/refunds, stock, daily closes and audit history remain protected; no S10 STOP or scope was changed or reused. No real notification provider, vendor portal/API, payment, tax, signing, production, merge, deployment, S12 or S13 was activated.
 
-安装前不提供可重开的运行 URL。下一步应先建立正常 S11-only scope/owned launcher，核验 scratch 实际身份、cluster、授权与旧对象，再按实施计划执行安装/带数据升级、业务流程和独立验收。当前不关闭 #35；继续保持 OPEN。#37 仍只承接用户效果验收。
+## Next action within this plan
 
-本 plan 尚未完成；不合并、不部署、不启动 S12/S13。
+Complete independent source review and freeze/commit the code and documentation candidate. Then continue with the real target admission if a legitimate S11 runtime/scope and credentials become available through their normal provider; otherwise keep the target work stopped and report the exact runtime gap. Do not infer platform access from this plan or copy S10 private credentials. After admission, execute the applicable installation and data-bearing upgrade, F1–F5/T01–T18, real multi-connection races, native stock/settlement paths, S10 preservation reads, and independent acceptance. Close #35 only after all applicable internal technical conditions and independent review pass; otherwise leave it OPEN.
+
+No merge, deployment, S12 or S13 is part of this plan.

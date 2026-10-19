@@ -6,10 +6,11 @@
     'author': 'YDental',
     'license': 'LGPL-3',
     'depends': ['ydental_base', 'ydental_access', 'ydental_followup', 'ydental_treatment',
-                'ydental_inventory', 'purchase_stock'],
+                'ydental_intake', 'ydental_inventory', 'ydental_settlement', 'purchase_stock'],
     'data': [
         'security/ir.access.csv',
         'views/ydental_lab_views.xml',
+        'views/ydental_lab_charge_views.xml',
     ],
     'application': False,
     'installable': True,

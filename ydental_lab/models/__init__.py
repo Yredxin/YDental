@@ -9,3 +9,7 @@ from . import ydental_lab_code_bind
 from . import ydental_lab_code_scan
 from . import ydental_lab_service
 from . import ydental_inventory_service
+from . import ydental_lab_charge
+from . import ydental_lab_charge_order
+from . import ydental_lab_charge_service
+from . import ydental_lab_settlement_service

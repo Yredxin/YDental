@@ -22,7 +22,7 @@
                     <table style="width:100%;border-collapse:collapse">
                         <thead><tr><th>费用来源</th><th>项目</th><th>原价格版本</th><th>金额</th></tr></thead>
                         <tbody><tr t-foreach="p['lines']" t-as="line">
-                            <td t-out="line['fee_id']"/><td t-out="line['name']"/>
+                            <td t-out="line.get('fee_id') or line.get('lab_charge_id') or line.get('lab_charge_adjustment_id')"/><td t-out="line['name']"/>
                             <td t-out="line['price_version']"/><td t-out="line['amount']"/>
                         </tr></tbody>
                     </table>

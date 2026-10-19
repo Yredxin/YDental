@@ -129,6 +129,7 @@ class YDentalSettlementService(models.AbstractModel):
             'unlock': self._unlock, 'reclassify': self._reclassify,
             'waive': self._waive, 'trade': self._trade,
         }
+        handlers.update(self._extension_operation_handlers())
         if operation not in handlers or not isinstance(payload, dict) or not isinstance(key, str) or not 1 <= len(key) <= 120:
             raise ValidationError(self.env._('invalid_action: Supply a documented operation and key.'))
         try:
@@ -166,6 +167,10 @@ class YDentalSettlementService(models.AbstractModel):
                 })
                 emit_event('business.returned', component='settlement.service', stage='business.returned', outcome='accepted')
                 return dict(result, result='accepted')
+
+    def _extension_operation_handlers(self):
+        """Narrow server-side registration point for controlled native source types."""
+        return {}
 
     def _fee(self, fee_id, store):
         fee = self.env['ydental.treatment.fee'].sudo().browse(self._positive_id(fee_id)).exists()
@@ -331,6 +336,22 @@ class YDentalSettlementService(models.AbstractModel):
                 or invoice.company_id != store.company_id):
             raise AccessError(self.env._('access_denied: Select a posted invoice from this store.'))
         return invoice, sources
+
+    def _settled_source_domain(self, source_domain, store, family):
+        domain = source_domain & fields.Domain('ydental_fee_id', '!=', False) & fields.Domain(
+            'ydental_fee_id.ydental_store_id', '=', store.id) & fields.Domain(
+            'ydental_fee_id.ydental_event_id.ydental_store_id', '=', store.id) & fields.Domain(
+            'ydental_fee_id.ydental_event_id.state', '=', 'confirmed')
+        if family is not None:
+            domain &= fields.Domain('ydental_fee_id.ydental_patient_id', 'in', family) & fields.Domain(
+                'ydental_fee_id.ydental_event_id.ydental_patient_id', 'in', family)
+        return domain
+
+    def _bill_summary_line(self, source):
+        return {'name': source.ydental_fee_id.name,
+                'fee_id': source.ydental_fee_id.id,
+                'amount': source.ydental_original_amount,
+                'price_version': source.ydental_price_version}
 
     def _close_guard(self, store, cashier_id, business_date, channel):
         closed = self._model('close').search([
@@ -1034,13 +1055,7 @@ class YDentalSettlementService(models.AbstractModel):
         invoices, invoice_count = self._workbench_page(self.env['account.move'].sudo(),
             invoice_domain, page_numbers['invoices'], 'invoice_date asc, id asc')
         # Require every source to belong here; one local source cannot admit a mixed invoice.
-        settled_source_domain = source_domain & fields.Domain('ydental_fee_id', '!=', False) & fields.Domain(
-            'ydental_fee_id.ydental_store_id', '=', store.id) & fields.Domain(
-            'ydental_fee_id.ydental_event_id.ydental_store_id', '=', store.id) & fields.Domain(
-            'ydental_fee_id.ydental_event_id.state', '=', 'confirmed')
-        if family is not None:
-            settled_source_domain &= fields.Domain('ydental_fee_id.ydental_patient_id', 'in', family) & fields.Domain(
-                'ydental_fee_id.ydental_event_id.ydental_patient_id', 'in', family)
+        settled_source_domain = self._settled_source_domain(source_domain, store, family)
         settled_domain = fields.Domain('company_id', '=', store.company_id.id) & fields.Domain(
             'state', '=', 'posted') & fields.Domain('move_type', '=', 'out_invoice') & fields.Domain(
             'payment_state', '=', 'paid') & fields.Domain('amount_residual', '=', 0) & fields.Domain(
@@ -1126,9 +1141,7 @@ class YDentalSettlementService(models.AbstractModel):
                 'business_date': str(invoice.invoice_date), 'total': invoice.amount_total,
                 'residual': invoice.amount_residual,
                 'received': currency.round(sum(received_partials.mapped('amount'))),
-                'lines': [{'name': link.ydental_fee_id.name,
-                           'fee_id': link.ydental_fee_id.id, 'amount': link.ydental_original_amount,
-                           'price_version': link.ydental_price_version} for link in sources],
+                'lines': [self._bill_summary_line(link) for link in sources],
                 'discount': currency.round(sum(sources.mapped('ydental_discount')))})
             target = invoice
         elif kind == 'receipt':

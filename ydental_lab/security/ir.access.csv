@@ -1,4 +1,9 @@
 id,name,model_id/id,group_id/id,operation,domain
+ydental_lab_charge_read,Lab additional charge read,model_ydental_lab_charge,ydental_base.ydental_base_group_user,r,
+ydental_lab_charge_scope,Lab additional charge company restriction,model_ydental_lab_charge,,r,"[('ydental_store_id.company_id', 'in', company_ids)]"
+ydental_lab_charge_adjustment_read,Lab charge correction read,model_ydental_lab_charge_adjustment,ydental_base.ydental_base_group_user,r,
+ydental_lab_charge_adjustment_scope,Lab charge correction company restriction,model_ydental_lab_charge_adjustment,,r,"[('ydental_store_id.company_id', 'in', company_ids)]"
+ydental_lab_charge_credit_wizard,Lab charge credit wizard,model_ydental_lab_charge_credit_wizard,ydental_base.ydental_base_group_user,crud,
 ydental_lab_vendor_read,Lab vendor read,model_ydental_lab_vendor,ydental_base.ydental_base_group_user,r,
 ydental_lab_vendor_manager,Lab vendor governance,model_ydental_lab_vendor,ydental_access.ydental_group_manager,crud,
 ydental_lab_cooperation_read,Lab cooperation read,model_ydental_lab_cooperation,ydental_base.ydental_base_group_user,r,

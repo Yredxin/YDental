@@ -50,6 +50,16 @@ class YDentalLabOrder(models.Model):
         ('free', 'No additional charge recorded'),
         ('additional', 'Additional commercial terms recorded separately'),
     ])
+    ydental_additional_service_id = fields.Many2one(
+        'ydental.intake.catalog', ondelete='restrict', string='Additional service')
+    ydental_additional_service_quantity = fields.Float(
+        digits='Product Unit', string='Additional service quantity')
+    ydental_additional_consent_reference = fields.Char(string='Explicit terms confirmation reference')
+    ydental_additional_terms_reason = fields.Char(string='Additional terms reason')
+    ydental_additional_terms_frozen = fields.Boolean(readonly=True, default=False)
+    ydental_additional_performed_at = fields.Datetime(string='Additional service performed at')
+    ydental_additional_performance_evidence_reference = fields.Char(string='Additional service performance evidence reference')
+    ydental_additional_performance_recorded = fields.Boolean(readonly=True, default=False)
     ydental_fit_event_id = fields.Many2one('ydental.treatment.event', ondelete='restrict')
     ydental_followup_id = fields.Many2one('ydental.followup', ondelete='restrict', readonly=True)
     ydental_receipt_at = fields.Datetime(readonly=True)
@@ -112,10 +122,13 @@ class YDentalLabOrder(models.Model):
             'ydental_responsible_id', 'ydental_planned_at', 'ydental_external_mode',
             'ydental_external_reference', 'ydental_external_url', 'ydental_internal_code',
             'ydental_external_actor', 'ydental_external_evidence', 'ydental_external_evidence_name',
-            'ydental_purchase_line_id',
+            'ydental_purchase_line_id', 'ydental_additional_service_id',
+            'ydental_additional_service_quantity', 'ydental_additional_consent_reference',
+            'ydental_additional_terms_reason',
         }
         stage_fields = {'ydental_lot_id', 'ydental_rework_kind', 'ydental_fit_event_id',
-                        'ydental_exception_disposition', 'ydental_exception_reason'}
+                        'ydental_exception_disposition', 'ydental_exception_reason',
+                        'ydental_additional_performed_at', 'ydental_additional_performance_evidence_reference'}
         if not vals or set(vals) - (draft_fields | stage_fields) or not (
                 set(vals) <= draft_fields or set(vals) <= stage_fields):
             raise AccessError(self.env._('access_denied: Only documented laboratory work fields can be edited.'))
@@ -131,6 +144,23 @@ class YDentalLabOrder(models.Model):
             if set(vals) <= draft_fields:
                 order._check_edit_authority(vals)
                 service = self.env['ydental.lab.service']
+                if {'ydental_additional_service_id', 'ydental_additional_service_quantity',
+                        'ydental_additional_consent_reference', 'ydental_additional_terms_reason'} & vals.keys():
+                    if not order.ydental_parent_order_id or order.ydental_rework_kind != 'additional':
+                        raise AccessError(self.env._('access_denied: Additional patient terms apply only to an additional-charge rework cycle.'))
+                    if order.ydental_additional_terms_frozen:
+                        raise AccessError(self.env._('history_immutable: Approved additional terms cannot be edited.'))
+                    if vals.get('ydental_additional_service_id'):
+                        catalog = self.env['ydental.intake.catalog'].sudo().browse(
+                            vals['ydental_additional_service_id']).exists()
+                        if not catalog or not catalog.active:
+                            raise ValidationError(self.env._('Select an active published service catalog entry.'))
+                    if 'ydental_additional_service_quantity' in vals:
+                        service._validate_positive_quantity(vals['ydental_additional_service_quantity'])
+                    if vals.get('ydental_additional_consent_reference'):
+                        service._text(vals['ydental_additional_consent_reference'], 'Explicit terms confirmation reference', 120)
+                    if vals.get('ydental_additional_terms_reason'):
+                        service._text(vals['ydental_additional_terms_reason'], 'Additional terms reason', 240)
                 if vals.get('ydental_purchase_line_id'):
                     if not self.env.user.has_group('purchase.group_purchase_user'):
                         raise AccessError(self.env._('access_denied: Purchase authority is required to link a vendor cost source.'))
@@ -164,6 +194,19 @@ class YDentalLabOrder(models.Model):
                     if order.state not in allowed_states:
                         raise AccessError(self.env._('access_denied: Completed laboratory history cannot be edited.'))
                     self.env['ydental.lab.service']._text(vals['ydental_exception_reason'], 'Disposition or cancellation reason')
+                if {'ydental_additional_performed_at', 'ydental_additional_performance_evidence_reference'} & vals.keys():
+                    if (not order.ydental_parent_order_id or order.ydental_rework_kind != 'additional' or
+                            not order.ydental_additional_terms_frozen or order.ydental_additional_performance_recorded or
+                            order.state not in ('sent', 'processing', 'received', 'available')):
+                        raise AccessError(self.env._('access_denied: Record additional service evidence only for an approved active rework cycle.'))
+                    if vals.get('ydental_additional_performance_evidence_reference'):
+                        self.env['ydental.lab.service']._text(
+                            vals['ydental_additional_performance_evidence_reference'],
+                            'Additional service performance evidence reference', 160)
+                    if vals.get('ydental_additional_performed_at'):
+                        performed_at = fields.Datetime.to_datetime(vals['ydental_additional_performed_at'])
+                        if not performed_at or performed_at > fields.Datetime.now():
+                            raise ValidationError(self.env._('Enter a valid actual service time that is not in the future.'))
         return super(YDentalLabOrder, self.with_context(ydental_lab_mutation=MUTATION)).write(vals)
 
     def _check_edit_authority(self, vals):
@@ -246,6 +289,20 @@ class YDentalLabOrder(models.Model):
         self.env['ydental.lab.service']._operate('fit', {
             'order_id': self.id, 'fit_event_id': self.ydental_fit_event_id.id,
         }, self.env['ydental.lab.service']._new_key())
+        return True
+
+    def action_approve_additional_terms(self):
+        self.ensure_one()
+        key = 'lab-charge-terms-%s-v1' % self.id
+        self.env['ydental.lab.service']._operate(
+            'approve_charge_terms', {'order_id': self.id}, key)
+        return True
+
+    def action_confirm_additional_service_performed(self):
+        self.ensure_one()
+        key = 'lab-charge-performed-%s-v1' % self.id
+        self.env['ydental.lab.service']._operate(
+            'confirm_charge_performed', {'order_id': self.id}, key)
         return True
 
     def action_bind_package_code(self):
