@@ -288,7 +288,7 @@ class TestLabChargeNativeChain(TransactionCase):
         self.assertEqual(purchase_line.order_id.partner_id, child.ydental_vendor_id.partner_id)
         self.assertEqual(purchase_line.order_id.company_id, child.ydental_store_id.company_id)
         self.assertEqual(purchase_line.product_id.type, 'service')
-        self.assertEqual(purchase_line.uom_id.category_id, purchase_line.product_id.uom_id.category_id)
+        self.assertEqual(purchase_line.uom_id, purchase_line.product_id.uom_id)
 
         lab = self.group.env['ydental.lab.service']
         lab._operate('approve_charge_terms', {'order_id': child.id}, 's11-po-terms-' + str(child.id))

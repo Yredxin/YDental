@@ -335,7 +335,10 @@ class YDentalLabService(models.AbstractModel):
         if operation not in handlers or not isinstance(payload, dict) or not isinstance(key, str) or not 16 <= len(key) <= 128:
             raise ValidationError(self.env._('Supply a documented laboratory action and stable request key.'))
         try:
-            inspect.signature(handlers[operation]).bind(**payload)
+            # Each private handler receives the current store explicitly from
+            # this dispatcher; bind a placeholder for that server-owned value
+            # while validating only the client-supplied payload here.
+            inspect.signature(handlers[operation]).bind(None, **payload)
         except TypeError as error:
             raise ValidationError(self.env._('Unknown or missing laboratory action arguments.')) from error
         store = self._access(write=True)
