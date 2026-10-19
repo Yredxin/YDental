@@ -53,7 +53,7 @@ class TestFreeReworkLifecycle(TransactionCase):
     def _real_treatment_event(self):
         receive_material(self)
         price(self, amount=137.25)
-        treatment, clinical, _queue, lease, execution, data, args = opened_actual(self)
+        treatment, clinical, queue, lease, execution, data, args = opened_actual(self)
         result = treatment._operate('execute', execute_args(self, args, actual=True), key())
         self.assertEqual(result['state'], 'confirmed')
         event = self.root['ydental.treatment.event'].browse(result['event_id']).exists()
