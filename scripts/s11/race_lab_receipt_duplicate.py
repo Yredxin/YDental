@@ -61,13 +61,19 @@ def require_private_directory(path: Path) -> None:
     os.chmod(path, 0o700)
 
 
+def json_default(value: Any) -> Any:
+    if isinstance(value, (dt.datetime, dt.date)):
+        return value.isoformat()
+    raise TypeError(f"unsupported private S11 receipt value: {type(value).__name__}")
+
+
 def write_private(path: Path, data: dict[str, Any]) -> None:
     require_private_directory(path.parent)
     temp = path.with_name(path.name + ".tmp-" + secrets.token_hex(6))
     fd = os.open(temp, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
     try:
         with os.fdopen(fd, "w", encoding="utf-8") as stream:
-            json.dump(data, stream, sort_keys=True, indent=2)
+            json.dump(data, stream, sort_keys=True, indent=2, default=json_default)
             stream.write("\n")
             stream.flush()
             os.fsync(stream.fileno())
