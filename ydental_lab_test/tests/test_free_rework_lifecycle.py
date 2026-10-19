@@ -62,6 +62,9 @@ class TestFreeReworkLifecycle(TransactionCase):
         clinical._operate('handover', handover_args(data, lease) | {
             'reason': 'Synthetic source treatment ended before the laboratory lifecycle',
         })
+        queue._operate('exit', {
+            'lease_id': lease['lease_id'], 'token': lease['token'],
+        })
         return event
 
     def _another_real_treatment_event(self, patient_id, complaint):

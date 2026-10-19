@@ -116,7 +116,10 @@ class YDentalFollowupService(models.AbstractModel):
         row = self.env['ydental.followup'].browse(self._id(followup_id)).exists()
         if not row:
             raise AccessError(self.env._('access_denied: Follow-up is unavailable.'))
-        row.check_access('write' if write else 'read')
+        # Model-level access intentionally grants ordinary staff read only;
+        # authorized mutations go through this service's followup:write scope
+        # and the model's private _save path.
+        row.check_access('read')
         if row.ydental_store_id != session.ydental_store_id:
             raise AccessError(self.env._('access_denied: Follow-up belongs to another store.'))
         self.env['ydental.patient.service']._current_relation(row.ydental_patient_id, session.ydental_store_id)
