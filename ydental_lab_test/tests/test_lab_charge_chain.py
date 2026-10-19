@@ -269,7 +269,7 @@ class TestLabChargeNativeChain(TransactionCase):
             'order_id': child.id, 'reason': 'Synthetic cancellation after separate service performance',
         }, 's11-cancel-after-charge-' + str(child.id))
         projected = settlement._settled_source_domain(fields.Domain.TRUE, self.stores[0], None)
-        self.assertIn(source.id, self.group.env['ydental.settlement.source'].search(projected).ids)
+        self.assertIn(source.id, self.root['ydental.settlement.source'].sudo().search(projected).ids)
 
     def test_missing_effective_price_rolls_back_without_charge_or_snapshot(self):
         event = self._real_treatment_source()
@@ -319,12 +319,13 @@ class TestLabChargeNativeChain(TransactionCase):
 
         purchase = purchase_line.order_id.with_user(self.users['manager'])
         purchase.button_unlock()
-        purchase_line.with_user(self.users['manager']).write({'price_unit': 43.75})
-        with self.assertRaises(UserError):
-            lab._operate('processing', {'order_id': child.id}, _s11_key('po-cost-changed', child.id))
+        with self.assertRaises(AccessError):
+            purchase_line.with_user(self.users['manager']).write({'price_unit': 43.75})
         child.invalidate_recordset()
         sent.invalidate_recordset()
+        purchase_line.invalidate_recordset()
         self.assertEqual(child.state, 'sent')
+        self.assertEqual(purchase_line.price_unit, 42.75)
         self.assertEqual(sent.ydental_purchase_cost_snapshot, snapshot)
 
     def test_native_credit_revisions_are_linked_capped_replayable_and_never_cash_refunds(self):
