@@ -6,6 +6,8 @@ import secrets
 from datetime import timezone
 from urllib.parse import urlsplit
 
+from psycopg2.errors import UniqueViolation
+
 from odoo import api, fields, models
 from odoo.exceptions import AccessError, UserError, ValidationError
 
@@ -718,7 +720,17 @@ class YDentalLabService(models.AbstractModel):
         if order.ydental_package_code == code:
             return {'order_id': order.id, 'code_bound': True}
         before = order.state
-        order._save({'ydental_package_code': code})
+        try:
+            # Under REPEATABLE READ a concurrent transaction can hold an older
+            # snapshot after waiting for the service lock. The unique index is
+            # the final arbiter; translate only its package-code collision to
+            # the same non-disclosing business conflict as the pre-check.
+            with self.env.cr.savepoint():
+                order._save({'ydental_package_code': code})
+        except UniqueViolation as error:
+            if error.diag.constraint_name != 'ydental_lab_order_package_code_unique':
+                raise
+            raise UserError(self.env._('code_conflict: This package code is already bound.')) from error
         self._event(order, 'code_bound', before, order.state, 'Package identification only; no access authorization')
         self._audit('code_bound', order, store, after={'code_bound': True})
         return {'order_id': order.id, 'code_bound': True}

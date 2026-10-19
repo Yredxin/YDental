@@ -169,7 +169,8 @@ def readonly_identity(cr, launcher, database: dict) -> dict[str, Any]:
             "role_createdb": can_createdb, "role_createrole": can_createrole}
 
 
-def _order_snapshot(env, order_ids: tuple[int, int], store_id: int) -> dict[str, Any]:
+def _order_snapshot(env, order_ids: tuple[int, int], store_id: int,
+                    require_unbound: bool = True) -> dict[str, Any]:
     Order = env["ydental.lab.order"].sudo()
     orders = Order.browse(order_ids).exists()
     if len(orders) != 2 or set(orders.ids) != set(order_ids):
@@ -180,7 +181,7 @@ def _order_snapshot(env, order_ids: tuple[int, int], store_id: int) -> dict[str,
         raise Refusal("race targets must be explicitly S11 synthetic work orders (S11- internal-code prefix)")
     if any(order.state not in ("draft", "sent", "processing", "received") for order in orders):
         raise Refusal("only active synthetic work orders may be used; completed/cancelled history is protected")
-    if any(order.ydental_package_code for order in orders):
+    if require_unbound and any(order.ydental_package_code for order in orders):
         raise Refusal("both synthetic work orders must have no package code before the race")
     for order in orders:
         source = order.ydental_source_event_id
@@ -214,7 +215,7 @@ def _order_snapshot(env, order_ids: tuple[int, int], store_id: int) -> dict[str,
         } for row in quant_rows)
     if len(set(order.ydental_source_event_id.ydental_patient_id.id for order in orders)) != 1:
         raise Refusal("race targets must have the same synthetic patient source to avoid mixing fixtures")
-    if audit or events.filtered(lambda event: event.ydental_kind == "code_bound"):
+    if require_unbound and (audit or events.filtered(lambda event: event.ydental_kind == "code_bound")):
         raise Refusal("race targets already have package-code binding history")
     return {
         "orders": [{
@@ -388,7 +389,8 @@ def readback(registry, api, args: argparse.Namespace, race_result: dict[str, Any
     with _connection(registry) as cr:
         cr.execute("SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY")
         env = api.Environment(cr, args.actor_id, {})
-        after = _order_snapshot(env, (args.order_a, args.order_b), args.store_id)
+        after = _order_snapshot(env, (args.order_a, args.order_b), args.store_id,
+                                require_unbound=False)
         bound = env["ydental.lab.order"].sudo().search([
             ("ydental_store_id", "=", args.store_id),
             ("ydental_package_code", "=", race_result["synthetic_package_code"]),
@@ -414,6 +416,12 @@ def readback(registry, api, args: argparse.Namespace, race_result: dict[str, Any
             raise Refusal("independent committed readback found non-unique bind/event/audit/operation facts")
         if bound.id != code_events.ydental_order_id.id or bound.id != audits.ydental_target_id:
             raise Refusal("independent readback bind, workflow event, and audit target disagree")
+        accepted = [row for row in race_result["outcomes"] if row.get("kind") == "accepted"]
+        conflicts = [row for row in race_result["outcomes"] if row.get("kind") == "code_conflict"]
+        if (len(accepted) != 1 or len(conflicts) != 1 or
+                accepted[0].get("order_id") != bound.id or
+                conflicts[0].get("order_id") == bound.id):
+            raise Refusal("the race must record one accepted bind and one ordinary code conflict")
         if after["linked_stock_event_ids"] != race_result["before"]["linked_stock_event_ids"]:
             raise Refusal("package-code binding unexpectedly changed linked native stock facts")
         if after["purchase_line_ids"] != race_result["before"]["purchase_line_ids"]:
@@ -426,6 +434,9 @@ def readback(registry, api, args: argparse.Namespace, race_result: dict[str, Any
             raise Refusal("independent readback order set changed")
         for order_id, old in before_by_id.items():
             new = after_by_id[order_id]
+            if (order_id == bound.id and new["package_code"] != race_result["synthetic_package_code"] or
+                    order_id != bound.id and new["package_code"]):
+                raise Refusal("only the accepted work order may retain the raced package code")
             for field_name in ("state", "internal_code", "product_id", "lot_id", "quantity",
                                "purchase_line_id", "source_fee_id", "inventory_event_id",
                                "fit_inventory_event_id", "followup_id"):
