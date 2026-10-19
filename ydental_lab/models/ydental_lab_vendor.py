@@ -6,6 +6,7 @@ from .ydental_lab_record import MUTATION
 
 class YDentalLabVendor(models.Model):
     _name = 'ydental.lab.vendor'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Qualified external dental laboratory'
     _rec_name = 'name'
     _order = 'name'
