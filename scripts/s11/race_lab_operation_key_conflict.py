@@ -64,12 +64,11 @@ def validate_targets(env, order_ids: tuple[int, int], store_id: int,
     if before["operations"]:
         raise common.Refusal("random operation key unexpectedly exists")
     orders = env["ydental.lab.order"].sudo().browse(order_ids).exists().sorted("id")
-    if (len({order.ydental_source_event_id.id for order in orders}) != 2 or
-            any(not (order.ydental_internal_code or "").startswith("S11-") or
-                order.ydental_parent_order_id or order.ydental_package_code or
+    if (any(not (order.ydental_internal_code or "").startswith("S11-") or
+                order.ydental_package_code or
                 row["code_bound_events"] or row["code_bound_audits"]
                 for order, row in zip(orders, before["orders"], strict=True))):
-        raise common.Refusal("targets must be distinct, unbound, root S11 synthetic orders")
+        raise common.Refusal("targets must be distinct, unbound S11 synthetic laboratory cycles")
     if env["ydental.lab.order"].sudo().search_count([("ydental_package_code", "in", codes)]):
         raise common.Refusal("generated package code unexpectedly exists")
     return before

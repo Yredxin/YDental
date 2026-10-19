@@ -95,7 +95,7 @@ def snapshot(env, order_id: int, store_id: int) -> dict[str, Any]:
         if move_record:
             move = {"id": move_record.id, "state": move_record.state,
                     "product_id": move_record.product_id.id, "product_uom_qty": move_record.product_uom_qty,
-                    "uom_id": move_record.product_uom.id, "location_id": move_record.location_id.id,
+                    "uom_id": move_record.uom_id.id, "location_id": move_record.location_id.id,
                     "location_dest_id": move_record.location_dest_id.id,
                     "company_id": move_record.company_id.id, "store_id": move_record.ydental_store_id.id}
     config = env["ydental.inventory.config"].sudo().search(
@@ -322,6 +322,8 @@ def main() -> int:
                       "finished_at_utc": common.utc_now()})
         common.write_private(receipt_path, phase)
         raise common.Refusal(f"bounded put-away race timed out; preserve receipt and independently read back before retry: {receipt_path}")
+    phase.update({"phase": "WORKERS_COMPLETE_READBACK_PENDING", "worker_results": outcomes})
+    common.write_private(receipt_path, phase)
 
     with registry.cursor() as cr:
         cr.execute("SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY")
@@ -337,6 +339,10 @@ def main() -> int:
         )
         movement_quantity = after["inventory_events"][0]["ydental_quantity"] if len(after["inventory_events"]) == 1 else 0.0
         cr.rollback()
+    phase.update({"phase": "POST_RACE_READBACK_COMPLETE", "after": after,
+                  "committed_lab_operations": lab_operations,
+                  "committed_inventory_operations": inventory_operations})
+    common.write_private(receipt_path, phase)
 
     putaway_events = [row for row in after["lab_events"] if row["ydental_kind"] == "putaway"]
     receipt_events = [row for row in after["lab_events"] if row["ydental_kind"] == "received"]

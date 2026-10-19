@@ -392,6 +392,8 @@ def main() -> int:
                       "finished_at_utc": utc_now()})
         write_private(receipt_path, phase)
         raise Refusal(f"bounded race timed out; preserve receipt and independently read back before any retry: {receipt_path}")
+    phase.update({"phase": "WORKERS_COMPLETE_READBACK_PENDING", "worker_results": results})
+    write_private(receipt_path, phase)
 
     with registry.cursor() as cr:
         cr.execute("SET TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY")
@@ -403,6 +405,9 @@ def main() -> int:
             ["id", "ydental_fingerprint", "ydental_result", "ydental_actor_id"])
         audit = after["receipt_audits"]
         cr.rollback()
+    phase.update({"phase": "POST_RACE_READBACK_COMPLETE", "after": after,
+                  "committed_operation_rows": operations, "matching_audit_rows": audit})
+    write_private(receipt_path, phase)
 
     outcomes = sorted(row.get("kind") for row in results)
     received_events = [row for row in after["lab_events"] if row["ydental_kind"] == "received"]
