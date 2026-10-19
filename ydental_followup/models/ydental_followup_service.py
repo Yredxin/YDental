@@ -604,6 +604,10 @@ class YDentalFollowupService(models.AbstractModel):
             ('active', '=', True),
         ], limit=1)
         if prior:
+            # An active activity is the current work queue entry. Refresh its
+            # instruction when the follow-up advances so workers do not keep
+            # seeing an obsolete no-contact note after a physical exception.
+            prior.write({'note': note})
             return prior
         return self.env['mail.activity'].sudo().create({
             'activity_type_id': activity_type.id, 'res_model_id': activity_model, 'res_id': row.id,

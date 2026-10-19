@@ -244,6 +244,15 @@ class TestFreeReworkLifecycle(TransactionCase):
 
     def test_post_putaway_discard_closes_stock_without_faking_fit_or_refund(self):
         source_event = self._real_treatment_event()
+        patient = source_event.ydental_execution_id.ydental_patient_id
+        patient_service = self.group.env['ydental.patient.service']
+        patient_service._operate('edit', {
+            'patient_id': patient.id,
+            'version': patient.ydental_version,
+            'values': {'phone': '+14155550139', 'phone_region': 'US'},
+        }, key())
+        patient.invalidate_recordset(['ydental_phone', 'ydental_phone_normalized', 'ydental_version'])
+        self.assertTrue(patient.ydental_phone_normalized)
         vendor, _cooperation, purchase_line = self._vendor_and_purchase_cost()
         product, lot_id = self._prosthesis_product_and_lot()
         store = self.stores[0]
@@ -286,6 +295,9 @@ class TestFreeReworkLifecycle(TransactionCase):
         pending_jobs = self.root['ydental.notification.job'].sudo().search([
             ('ydental_followup_id', '=', followup.id), ('ydental_state', '=', 'pending'),
         ])
+        self.assertTrue(pending_jobs, 'a verified synthetic contact path must create a real pending arrival reminder')
+        stale_activity = self.group.env['ydental.followup.service']._create_contact_activity(
+            followup, 'Laboratory item arrived; no verified patient contact path is available.')
         lab._operate('exception', {
             'order_id': order.id,
             'disposition': 'discard',
@@ -303,6 +315,9 @@ class TestFreeReworkLifecycle(TransactionCase):
             ('user_id', '=', order.ydental_responsible_id.id), ('active', '=', True),
         ], limit=1)
         self.assertTrue(resolution_activity, 'the closed arrival task leaves an assigned internal resolution activity')
+        self.assertEqual(resolution_activity, stale_activity)
+        self.assertIn('returned or written off', resolution_activity.note)
+        self.assertNotIn('no verified patient contact path', resolution_activity.note)
         self.assertEqual(order.ydental_source_fee_id, original_fee)
         self.assertFalse(order.ydental_fit_event_id)
         self.assertFalse(order.ydental_fit_inventory_event_id)
