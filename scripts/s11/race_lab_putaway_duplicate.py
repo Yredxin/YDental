@@ -224,6 +224,9 @@ def quant_effect_is_exact(before: dict[str, Any], after: dict[str, Any], movemen
     new = {(row["location_id"], row["owner_id"], row["package_id"]): row
            for row in after["stock_quant_projection"]}
     target_key = (before["target_location_id"], None, None)
+    source_key = (before["supplier_location_id"], None, None)
+    if source_key == target_key:
+        return False
     keys = set(old) | set(new)
     if target_key not in keys:
         return False
@@ -237,9 +240,13 @@ def quant_effect_is_exact(before: dict[str, Any], after: dict[str, Any], movemen
         reserved_delta = current["reserved_quantity"] - previous["reserved_quantity"]
         if abs(delta) > tolerance or abs(reserved_delta) > tolerance:
             changed.append((key, delta, reserved_delta))
-    return (len(changed) == 1 and changed[0][0] == target_key and
-            math.isclose(changed[0][1], movement_quantity, rel_tol=0.0, abs_tol=tolerance) and
-            abs(changed[0][2]) <= tolerance)
+    deltas = {key: (quantity, reserved) for key, quantity, reserved in changed}
+    target_delta = deltas.get(target_key)
+    source_delta = deltas.get(source_key)
+    return (len(changed) == 2 and target_delta is not None and source_delta is not None and
+            math.isclose(target_delta[0], movement_quantity, rel_tol=0.0, abs_tol=tolerance) and
+            math.isclose(source_delta[0], -movement_quantity, rel_tol=0.0, abs_tol=tolerance) and
+            abs(target_delta[1]) <= tolerance and abs(source_delta[1]) <= tolerance)
 
 
 def main() -> int:
