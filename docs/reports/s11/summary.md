@@ -7,14 +7,14 @@ Issue #35：**OPEN**
 
 ## 当前候选与运行边界
 
-- 分支 `codex/s11-followup-lab-r1`；当前固定的产品/测试候选 `caabf67cb0b5f50d098081dc5c6d72124f8f35e2`；分支比 origin 多59个已提交本地提交，未回退接管时 HEAD `b62cfe5d528f696e8ac8e8e4a266a5c661d0a39c`。候选与锁定 Odoo core `f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb` 一致。
+- 分支 `codex/s11-followup-lab-r1`；本报告当前文档 HEAD `f3fadab2b732ecd01b36d1726bdfd1ed3a9aa8e6`，最近通过适用产品/测试实证的固定候选 `caabf67cb0b5f50d098081dc5c6d72124f8f35e2`；当前分支比 origin 多60个已提交本地提交，未回退接管时 HEAD `b62cfe5d528f696e8ac8e8e4a266a5c661d0a39c`。候选与锁定 Odoo core `f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb` 一致。
 - 使用的目标为指定 scratch OID 2144130 / cluster `7694897083368259627`。S11 runtime、admission 与 launcher 位于本机忽略的 `.local/s11`，mode 0600；本机凭据不进入 Git、聊天、报告或请求日志。S10 main DB OID 2144129 未安装或写入；未知 8069/PID42433 未操作。
 - launcher 在本候选启动过 owned Odoo 服务并执行过只读 HTTP/RPC 和浏览器工作台检查，随后正常停止。外部 SMTP、SMS、供应商、支付均未启用；本地受控 sink 只代表内部测试受理，不代表患者送达。
 - 首次安装中的依赖和 Odoo 20 Registry 导入问题已在普通开发中修复；保留两次先前失败及只读保全记录，不覆写历史。当前候选成功完成带数据模块升级和测试，详见下文。
 
 ## 已取得的候选匹配证据
 
-- **SOURCE/PURE：** addon、权限、XML、launcher 与依赖检查及本地 launcher 测试曾通过。候选 `22ea0cd` 新增代码的 Ruff、compileall 与 diff 检查通过；不计作实际业务 PASS。
+- **SOURCE/PURE：** addon、权限、XML、launcher 与依赖检查及本地 launcher 测试曾通过。候选 `caabf67` 新增代码的 Ruff、compileall 与 diff 检查通过；不计作实际业务 PASS。
 - **MODEL / 安装升级：** `.local/s11/operations/20261019T104659Z-caabf67-followup-lab-upgrade-test/result.json`：候选 `caabf67cb0b5f50d098081dc5c6d72124f8f35e2`，退出码0；62个 Odoo post-tests、0 failed、0 errors。日志 SHA-256 `4b5810ce679579d169726724dd5292c4eedbe7a2a6c0ed9166fd890d7f28b8c9`。模块集是 S11 两产品 addon、两 test addon、必要结算扩展及因已安装核心 SMS 功能新增的 `ydental_lab_sms_guard`；没有 `-u all` 或升级 core。较早候选 `cb02075` 有一次失败升级尝试，具体错误和独立失败后保护读回见下方，保留其原始日志。
 - **T11 / 独立升级后状态：** 新增 `ydental_lab_test.tests.test_t11_exam_continuation.TestS11NextDayExaminationContinuation.test_yesterday_completed_panorama_today_revalidates_cbct`，通过真实 S06/S08 检查、队列、临床、治疗服务，证明昨日全景完成后次日 CBCT 旧任务先拒绝，必须重新接诊并复核后才实际确认；不安装或绕过 `ydental_exam_test` 的 S09-only 门禁。独立读回 `.local/s11/receipts/s11-independent-post-upgrade-7f03f49-20261019T102809Z.json`，SHA `ac950a915ef7c78a991fad737f7f15280c88bf32812fa015ee34905a12acbc05`，确认60项0错、T11用例日志、96模块版本和旧对象投影保全。独立读回确认当前模块数96、旧224项保护计数未下降、S10 D/C 摘要一致、既有 S11 订单/库存/通知/费用来源投影未变。该证据注明旧行内容的限制，计数不等于逐行全库证明。
 - **通知任务：** job450 的原稳定 request-id 在候选 6706 同 key 恢复；独立读回 `.local/s11/receipts/s11-independent-job450-same-key-recovery-readback-6706bc7-20261019T095200Z.json`，SHA `7211f9d83d06b1566cb7701bfbb0bbbcaa8a7d5ba3127167d8b5447844004e7f`。任务 accepted、delivered=false、attempt=1，新增一条指派给负责人的内部 vendor activity；`mail.mail` 不变；SMTP/外部 provider 仍关闭。另有先前候选的真实双连接领取结果，但在较早版本的 activity 写路径上失败，随后才以原 key 做恢复；不把较早 race 直接称为当前候选完整成功 dispatch race。
@@ -26,19 +26,20 @@ Issue #35：**OPEN**
 - **真实浏览器：** `.local/s11/operations/20261019T0954Z-6706-browser.json`，同普通用户、真实 Chromium、只读打开复诊工作台并读到既有 `to_notify` 行；HTTP 200、无页面异常。此项没有在浏览器中完成复诊业务变更。
 - **原生追加费用与核销：** 已提交的合成收费来源51绑定真实追加周期202，冻结演示 S05 价37.80，在实际服务确认后关联 S10 原生已过账发票97 / 来源79 / 行193。现有非费用源和供应商成本独立读回仍按旧候选路径复核；具体独立收费读回见 `.local/s11/receipts/s11-independent-charge-acceptance-b08d493-20261019T080200Z.json`，收费实现自该候选至6706未变。候选6706新增了真实 1.80 合成贷项143、不可变调整源116与部分核销54，将发票余额从37.80降到36.00；无付款或现金退款。独立当前候选读回 `.local/s11/receipts/s11-independent-charge-credit-acceptance-6706bc7-20261019T101200Z.json`，SHA `180e1d89cc409d166d27327b70ae2930e1612a214b7cb3fc666e44221cdf6b16`。
 - **收费幂等竞争：** 两个真实 PostgreSQL backend 同时调用同一已提交收费修正键，经 Odoo 原生事务重试层后均返回 `already_accepted` 和同一贷项/调整ID，且只保留一条调整、发票余额不再变化。私有操作 `.local/s11/operations/20261019T1015Z-charge-credit-idempotent-race-result.json`；独立状态读回 `.local/s11/receipts/s11-independent-charge-credit-idempotent-replay-6706bc7-20261019T101052Z.json`，SHA `68f9cd70dceb6bf90460139f69ccc765c85ff177430151f1d19064fa215bc7e1`。另一次首次写竞争中直接调用 `_operate` 的一方遇到 serialization failure；未盲重试，独立只读核实最终仅一条贷项后，才对已知稳定键进行上述无副作用幂等重放。
+- **新增真实竞争工具（未执行）：** `scripts/s11/race_lab_receipt_duplicate.py` 限定同键双连接收货，只对明确数据库 SerializationFailure 做最多3次重试，并核事件/唯一动作/审计/库存成本不变；`scripts/s11/race_lab_putaway_duplicate.py` 限定已收货单同键双连接入库，并核唯一入库、原生库存移动、批次数量、被动复诊和成本快照；`scripts/s11/race_lab_cancel_receive.py` 用不同稳定键竞态“收货”与“收货前取消”，核最终恰一个合法状态变更及无库存/复诊副作用。三个脚本静态检查通过，尚未在数据库运行，需候选匹配的实际先决对象和独立准入。业务状态机中取消限于 `draft/sent/processing`，入库要求 `received`，因此不能在同一初始订单上并行“取消与入库”；本轮以合法的取消/收货竞争验证该出口。
 - **S10保护：** 独立收费/通知读回均核了 D/C 财务链摘要及相关 S10 计数。旧D6收款、2退款、净4链没有重演；S10原文书、附件原件、旧日结与审计没有为 S11 重新操作。
 
 ## F1–F5 与 T01–T18 覆盖状态
 
-候选 `7f03f49` 的一次测试命令实际通过60个post-tests，不是60个需求，也不能把下列部分证据升级成场景全PASS。候选及层级按独立审查与原始结果限定：
+候选 `caabf67` 的一次测试命令实际通过62个post-tests，不是62个需求，也不能把下列部分证据升级成场景全PASS。候选及层级按独立审查与原始结果限定：
 
 | 项目 | 当前证据与缺口 |
 |---|---|
 | F1 / T01、T13 | 生命周期模型测试涵盖提醒、未接通、联系成功、超期、预约关联/改期和真实接诊关联；普通 HTTP/RPC、浏览器工作台可读但浏览器没有执行完整闭环。跨店接诊 T02 新模型闭环在 `caabf67` 运行通过；浏览器端到端仍缺。 |
 | F2 / T07、T18 | 免费返工、成本与患者收费分离、S05冻结价、实际服务后原生出账及版本贷项模型测试通过；旧候选真实供应商成本/收货读回、当前候选追加收费/部分核销/幂等并发读回可用。尚无当前候选两连接收费首次确认/首张发票并发证据，也未独立读回完整 unknown 通知→返工周期链。 |
-| F3 / T08、T16 | 异常终止/遗失/报废模型场景通过；没有该异常完整持久状态独立读回。入库前取消与 putaway 的真实两连接竞争缺失。 |
-| F4 / T15 | 资质审核、合作/开单约束、过期旧单与内部活动消息测试通过；双店端到端合作矩阵和厂商资质附件鉴权缺证。 |
-| F5 / T06、T14、T17 | 包装码冲突、预约版本和未知码保护有模型/HTTP证据；当前候选43af真实双连接并发扫描同一码、两请求均限于同一合成订单，独立读回库存/成本/采购/事件均不变。收货/入库竞争或取消/入库竞争仍缺。成功码绑定竞争仍只在较早候选9a7记录，绑定逻辑后续未改。 |
+| F3 / T08、T16 | 异常终止/遗失/报废模型场景通过；没有该异常完整持久状态独立读回。T16真实两连接取消/收货工具已写但尚未运行。取消/入库并非合法同一状态竞争（取消仅实物收货前，入库要求已收货）；实际竞态会使用合法的取消/收货分支，并单独覆盖收货后入库。 |
+| F4 / T15 | 资质审核、合作/开单约束、过期旧单与内部活动消息测试通过；T10 HTTP回归验证普通仓库用户不能下载管理组限定厂商资质附件。双店端到端合作矩阵仍缺。 |
+| F5 / T06、T14、T17 | 包装码冲突、预约版本和未知码保护有模型/HTTP证据；候选43af真实双连接并发扫描同一码，两请求均限于同一合成订单，独立读回库存/成本/采购/事件均不变。新的同键收货及收货后同键入库双连接工具静态通过但尚未执行；成功码绑定竞争仍只在较早候选9a7记录，绑定逻辑后续未改。 |
 | T03、T04 | unknown、受控回调签名/重复/乱序的模型测试通过；当前候选 job450 同 key恢复独立读回。HTTP回调拒绝仅有较早候选证据，无真实供应商通道。 |
 | T05、T12 | 策略/退订/未配置及通知不阻断人工加工有模型测试和相关持久状态；没有端到端日上限/免打扰/失败派发完整浏览器链。安装/带数据升级通过。真实通道 NOT_RUN。 |
 | T09 | 完成后关联返修单的模型测试通过；独立只读读回 `.local/s11/receipts/s11-independent-t09-post-fit-repair-43af67a-20261019T103711Z.json`（SHA `8b052154098557d4e43eec8eb1c58f88f7449f8f5e336f8315bd43eea4a99e09`）确认父订单200仍完成、治疗与义齿出库事件保留，恰有一个独立返修子单249并有自身收货/采购成本/复诊待办。此为持久状态读回，不是新操作或并发测试，也未证明每条历史记录内容不变。 |
