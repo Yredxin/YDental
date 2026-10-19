@@ -100,8 +100,12 @@ def verify_prior_race_order(env, target_id: int, prior_id: int, store_id: int) -
 def validate_cancel_receive_target(env, order_id: int, store_id: int) -> dict[str, Any]:
     before = common.snapshot(env, order_id, store_id)
     before["version"] = env["ydental.lab.order"].sudo().browse(order_id).ydental_version
+    if before["state"] not in ("sent", "processing"):
+        raise common.Refusal("cancel/receive race requires an active sent or processing order")
     if not before["lot_id"]:
         raise common.Refusal("cancel/receive target must have a matching receiving lot")
+    if any(row["ydental_kind"] == "cancelled" for row in before["lab_events"]):
+        raise common.Refusal("target already has a cancellation event; do not replay")
     if before["inventory_events"] or before["followups"] or before["receipt_audits"]:
         raise common.Refusal("target has a previous receipt audit, stock event, or follow-up; do not replay")
     return before
@@ -119,7 +123,7 @@ def worker(registry, api, actor_id: int, session_key: str, store_id: int,
                 cr.execute("SELECT pg_backend_pid()")
                 backend_pid = cr.fetchone()[0]
                 first_pid = first_pid or backend_pid
-                env = api.Environment(cr, actor_id, {})
+                env = api.Environment(cr, actor_id, {"lang": "en_US"})
                 access = env["ydental.access.service"]
                 session = access._existing_session_for_key(session_key)
                 if not session:

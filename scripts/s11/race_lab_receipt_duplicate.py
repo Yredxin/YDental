@@ -120,6 +120,17 @@ def readonly_identity(cr, launcher, database: dict[str, Any]) -> dict[str, Any]:
     cr.execute("""
         SELECT current_database(), d.oid::bigint, current_user,
                r.rolsuper, r.rolcreatedb, r.rolcreaterole,
+               r.rolreplication, r.rolbypassrls, r.rolcanlogin,
+               pg_get_userbyid(d.datdba),
+               EXISTS (SELECT 1 FROM pg_auth_members m
+                        WHERE m.member = r.oid OR m.roleid = r.oid),
+               (SELECT count(*) FROM pg_database other
+                 WHERE other.datname <> d.datname AND other.datdba = r.oid),
+               (SELECT count(*) FROM pg_database other
+                  CROSS JOIN LATERAL aclexplode(
+                      COALESCE(other.datacl, acldefault('d', other.datdba))) acl
+                 WHERE other.datname <> d.datname AND acl.grantee = r.oid
+                   AND acl.privilege_type IN ('CONNECT', 'CREATE', 'TEMPORARY')),
                (SELECT system_identifier::text FROM pg_control_system())
           FROM pg_database d
           JOIN pg_roles r ON r.rolname = current_user
@@ -128,16 +139,26 @@ def readonly_identity(cr, launcher, database: dict[str, Any]) -> dict[str, Any]:
     row = cr.fetchone()
     if not row:
         raise Refusal("database identity query returned no row")
-    name, oid, role, is_super, can_createdb, can_createrole, cluster_ref = row
+    (name, oid, role, is_super, can_createdb, can_createrole, can_replicate,
+     can_bypass_rls, can_login, database_owner, has_role_membership,
+     other_owned_databases, other_database_grants, cluster_ref) = row
     expected = (launcher.EXPECTED_DATABASE, launcher.EXPECTED_OID,
                 launcher.EXPECTED_CLUSTER, database["user"])
     if (name, oid, cluster_ref, role) != expected:
         raise Refusal("live database identity differs from the current S11 admission contract")
-    if is_super or can_createdb or can_createrole:
-        raise Refusal("database role has a cluster-wide privilege forbidden by S11 admission")
+    if (is_super or can_createdb or can_createrole or can_replicate or can_bypass_rls or
+            not can_login or database_owner != role or has_role_membership or
+            other_owned_databases or other_database_grants):
+        raise Refusal("database role has privileges or ownership outside its dedicated S11 scratch boundary")
     return {"database_name": name, "database_oid": oid, "cluster_ref": cluster_ref,
             "database_role": role, "role_is_superuser": is_super,
-            "role_createdb": can_createdb, "role_createrole": can_createrole}
+            "role_createdb": can_createdb, "role_createrole": can_createrole,
+            "role_replication": can_replicate, "role_bypassrls": can_bypass_rls,
+            "role_can_login": can_login, "scratch_is_role_owned_database": database_owner == role,
+            "role_membership_absent": not has_role_membership,
+            "other_owned_databases": other_owned_databases,
+            "other_explicit_database_grants": other_database_grants,
+            "public_connect_acl_unchanged": True}
 
 
 def snapshot(env, order_id: int, store_id: int, *, after_race: bool = False) -> dict[str, Any]:
@@ -369,7 +390,8 @@ def main() -> int:
         after = snapshot(env, args.order_id, args.store_id, after_race=True)
         operations = env["ydental.lab.operation"].sudo().search_read(
             [("ydental_store_id", "=", args.store_id),
-             ("ydental_key", "=", action_key)], ["id", "ydental_fingerprint", "ydental_result"])
+             ("ydental_key", "=", action_key)],
+            ["id", "ydental_fingerprint", "ydental_result", "ydental_actor_id"])
         audit = after["receipt_audits"]
         cr.rollback()
 
@@ -382,6 +404,7 @@ def main() -> int:
                          received_events[0]["ydental_actor_id"][0] == args.actor_id)
     one_operation = (len(operations) == 1 and
                      operations[0]["ydental_result"] == expected_ids and
+                     operations[0]["ydental_actor_id"][0] == args.actor_id and
                      operations[0]["ydental_fingerprint"] == hashlib.sha256(
                          json.dumps(["receive", args.store_id, {"order_id": args.order_id}],
                                     sort_keys=True, ensure_ascii=True).encode()).hexdigest())
@@ -389,6 +412,8 @@ def main() -> int:
     pids = [row.get("backend_pid") for row in results]
     passed = (len(results) == 2 and len(set(pids)) == 2 and
               outcomes == ["accepted", "already_accepted"] and one_receipt_delta and
+              all(row.get("state") == "received" and row.get("order_id") == args.order_id
+                  for row in results) and
               one_operation and one_audit and
               after["inventory_event_id"] is None and after["followup_id"] is None and
               after["stock_quants"] == before["stock_quants"] and

@@ -414,7 +414,8 @@ def main() -> int:
     pids = [row.get("backend_pid") for row in outcomes]
     passed = (len(outcomes) == 2 and len(set(pids)) == 2 and
               sorted(row.get("kind") for row in outcomes) == ["accepted", "already_accepted"] and
-              all(row.get("state") == "available" and row.get("order_id") == args.order_id
+              all(row.get("state") == "available" and row.get("order_id") == args.order_id and
+                  row.get("inventory_event_id") == inventory_event.get("id")
                   for row in outcomes) and one_putaway and one_stock_event and one_followup and
               one_lab_operation and one_inventory_operation and one_audit and quant_exact and cost_unchanged)
     phase.update({
