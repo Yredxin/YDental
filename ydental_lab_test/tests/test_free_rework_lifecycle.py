@@ -242,6 +242,75 @@ class TestFreeReworkLifecycle(TransactionCase):
             ('ydental_purchase_line_id', '=', purchase_line.id),
         ]), 1)
 
+        lab._operate('send', {'order_id': child.id}, _action_key('send-child', child.id))
+        lab._operate('processing', {'order_id': child.id}, _action_key('processing-child', child.id))
+        lab._operate('receive', {'order_id': child.id}, _action_key('receive-child', child.id))
+        child.invalidate_recordset()
+        self.assertEqual(child.state, 'received')
+        self.assertFalse(child.ydental_inventory_event_id)
+        lab._operate('putaway', {'order_id': child.id}, _action_key('putaway-child', child.id))
+        child.invalidate_recordset()
+        self.assertEqual(child.state, 'available')
+        self.assertEqual(self._on_hand(lot_id), 1)
+        child_sent = self.root['ydental.lab.event'].sudo().search([
+            ('ydental_order_id', '=', child.id), ('ydental_kind', '=', 'sent'),
+        ], limit=1)
+        self.assertFalse(child_sent.ydental_purchase_line_id)
+        self.assertFalse(child_sent.ydental_purchase_cost_snapshot)
+        self.assertEqual(child_sent.ydental_vendor_cost, 0)
+        self.assertFalse(child_sent.ydental_patient_fee_id)
+        self.assertEqual(child.ydental_source_fee_id, order.ydental_source_fee_id)
+        self.assertEqual(self.root['ydental.lab.charge'].sudo().search_count([
+            ('ydental_order_id', 'in', [order.id, child.id]),
+        ]), 0, 'free rework must not create a second patient charge source')
+
+        passive_rows = self.root['ydental.followup'].sudo().search([
+            ('ydental_lab_order_id', '=', child.id),
+        ])
+        self.assertEqual(len(passive_rows), 1, 'the child cycle has exactly one passive arrival follow-up')
+        child_followup = passive_rows.ensure_one()
+        self.assertEqual(child.ydental_followup_id, child_followup)
+        self.assertNotEqual(child_followup, parent_followup)
+        self.assertNotEqual(child_followup.state, 'done')
+        self.assertFalse(child_followup.ydental_completed_event_id)
+
+        fit_event = self._another_real_treatment_event(
+            source_event.ydental_patient_id.id, 'Synthetic actual prosthesis fit visit')
+        lab._operate('fit', {
+            'order_id': child.id, 'fit_event_id': fit_event.id,
+        }, _action_key('fit-child', child.id))
+        child.invalidate_recordset()
+        child_followup.invalidate_recordset()
+        self.assertEqual(child.state, 'done')
+        self.assertEqual(child.ydental_fit_event_id, fit_event)
+        self.assertTrue(child.ydental_fit_inventory_event_id)
+        self.assertEqual(self._on_hand(lot_id), 0)
+        self.assertNotEqual(child_followup.state, 'done', 'fitting the item must not close follow-up by itself')
+        self.assertFalse(child_followup.ydental_completed_event_id)
+
+        completion_event = self._another_real_treatment_event(
+            source_event.ydental_patient_id.id, 'Synthetic separate follow-up completion visit')
+        followup_service = self.group.env['ydental.followup.service']
+        followup_service._operate('complete', {
+            'followup_id': child_followup.id,
+            'event_id': completion_event.id,
+            'confirmed_unlinked': True,
+            'reason': 'Synthetic same-patient actual encounter association confirmed',
+        })
+        child_followup.invalidate_recordset()
+        self.assertEqual(child_followup.state, 'done')
+        self.assertEqual(child_followup.ydental_completed_event_id, completion_event)
+        self.assertNotEqual(child_followup.ydental_completed_event_id, child.ydental_fit_event_id)
+        self.assertEqual(child.ydental_fit_event_id, fit_event)
+
+        parent_sent.invalidate_recordset()
+        child_sent.invalidate_recordset()
+        self.assertEqual(parent_sent.ydental_purchase_line_id, purchase_line)
+        self.assertFalse(child_sent.ydental_purchase_line_id)
+        self.assertEqual(self.root['ydental.lab.order'].sudo().search_count([
+            ('ydental_purchase_line_id', '=', purchase_line.id),
+        ]), 1)
+
     def test_post_putaway_discard_closes_stock_without_faking_fit_or_refund(self):
         source_event = self._real_treatment_event()
         patient = source_event.ydental_execution_id.ydental_patient_id
@@ -344,72 +413,3 @@ class TestFreeReworkLifecycle(TransactionCase):
         self.assertEqual(sent_event.ydental_purchase_line_id, purchase_line)
         self.assertEqual(sent_event.ydental_vendor_cost, 42.75)
         self.assertEqual(followup.ydental_responsible_id, order.ydental_responsible_id)
-
-        lab._operate('send', {'order_id': child.id}, _action_key('send-child', child.id))
-        lab._operate('processing', {'order_id': child.id}, _action_key('processing-child', child.id))
-        lab._operate('receive', {'order_id': child.id}, _action_key('receive-child', child.id))
-        child.invalidate_recordset()
-        self.assertEqual(child.state, 'received')
-        self.assertFalse(child.ydental_inventory_event_id)
-        lab._operate('putaway', {'order_id': child.id}, _action_key('putaway-child', child.id))
-        child.invalidate_recordset()
-        self.assertEqual(child.state, 'available')
-        self.assertEqual(self._on_hand(lot_id), 1)
-        child_sent = self.root['ydental.lab.event'].sudo().search([
-            ('ydental_order_id', '=', child.id), ('ydental_kind', '=', 'sent'),
-        ], limit=1)
-        self.assertFalse(child_sent.ydental_purchase_line_id)
-        self.assertFalse(child_sent.ydental_purchase_cost_snapshot)
-        self.assertEqual(child_sent.ydental_vendor_cost, 0)
-        self.assertFalse(child_sent.ydental_patient_fee_id)
-        self.assertEqual(child.ydental_source_fee_id, order.ydental_source_fee_id)
-        self.assertEqual(self.root['ydental.lab.charge'].sudo().search_count([
-            ('ydental_order_id', 'in', [order.id, child.id]),
-        ]), 0, 'free rework must not create a second patient charge source')
-
-        passive_rows = self.root['ydental.followup'].sudo().search([
-            ('ydental_lab_order_id', '=', child.id),
-        ])
-        self.assertEqual(len(passive_rows), 1, 'the child cycle has exactly one passive arrival follow-up')
-        child_followup = passive_rows.ensure_one()
-        self.assertEqual(child.ydental_followup_id, child_followup)
-        self.assertNotEqual(child_followup, parent_followup)
-        self.assertNotEqual(child_followup.state, 'done')
-        self.assertFalse(child_followup.ydental_completed_event_id)
-
-        fit_event = self._another_real_treatment_event(
-            source_event.ydental_patient_id.id, 'Synthetic actual prosthesis fit visit')
-        lab._operate('fit', {
-            'order_id': child.id, 'fit_event_id': fit_event.id,
-        }, _action_key('fit-child', child.id))
-        child.invalidate_recordset()
-        child_followup.invalidate_recordset()
-        self.assertEqual(child.state, 'done')
-        self.assertEqual(child.ydental_fit_event_id, fit_event)
-        self.assertTrue(child.ydental_fit_inventory_event_id)
-        self.assertEqual(self._on_hand(lot_id), 0)
-        self.assertNotEqual(child_followup.state, 'done', 'fitting the item must not close follow-up by itself')
-        self.assertFalse(child_followup.ydental_completed_event_id)
-
-        completion_event = self._another_real_treatment_event(
-            source_event.ydental_patient_id.id, 'Synthetic separate follow-up completion visit')
-        followup_service = self.group.env['ydental.followup.service']
-        followup_service._operate('complete', {
-            'followup_id': child_followup.id,
-            'event_id': completion_event.id,
-            'confirmed_unlinked': True,
-            'reason': 'Synthetic same-patient actual encounter association confirmed',
-        })
-        child_followup.invalidate_recordset()
-        self.assertEqual(child_followup.state, 'done')
-        self.assertEqual(child_followup.ydental_completed_event_id, completion_event)
-        self.assertNotEqual(child_followup.ydental_completed_event_id, child.ydental_fit_event_id)
-        self.assertEqual(child.ydental_fit_event_id, fit_event)
-
-        parent_sent.invalidate_recordset()
-        child_sent.invalidate_recordset()
-        self.assertEqual(parent_sent.ydental_purchase_line_id, purchase_line)
-        self.assertFalse(child_sent.ydental_purchase_line_id)
-        self.assertEqual(self.root['ydental.lab.order'].sudo().search_count([
-            ('ydental_purchase_line_id', '=', purchase_line.id),
-        ]), 1)
