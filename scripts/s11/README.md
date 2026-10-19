@@ -54,8 +54,11 @@ dependency into the project virtualenv:
 The launcher checks the S11 plan ID, branch, clean current HEAD, locked core
 commit, private input ownership/modes, scope lifetime (maximum 24 hours), fresh
 admission (maximum 30 minutes), exact DB name/OID/cluster, and exact hashes. It
-then verifies that port `18411` is free and starts the sibling Odoo wrapper with
-an ephemeral mode-`0600` configuration. The config fixes loopback binding,
+then checks that port `18411` has no active TCP listener and starts the sibling
+Odoo wrapper with an ephemeral mode-`0600` configuration. A refused loopback
+connect is considered free; TIME_WAIT sockets from a recently closed owned test
+do not block a restart. An active listener or an inconclusive probe fails closed.
+The config fixes loopback binding,
 `workers=0`, `max_cron_threads=0`, `db_maxconn=4`, exact `db_name` and `dbfilter`,
 `list_db=False`, and SMTP to the non-listening loopback port 1. The admission must
 confirm no configured SMTP servers and no external message provider. Only the

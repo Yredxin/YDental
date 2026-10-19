@@ -11,6 +11,7 @@ from __future__ import annotations
 import argparse
 import configparser
 import datetime as dt
+import errno
 import hashlib
 import json
 import os
@@ -374,10 +375,15 @@ class SecretRedactor:
 def validate_loopback_port() -> None:
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
-        sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 0)
-        sock.bind((EXPECTED_HTTP_HOST, EXPECTED_HTTP_PORT))
+        sock.settimeout(1.0)
+        result = sock.connect_ex((EXPECTED_HTTP_HOST, EXPECTED_HTTP_PORT))
+        if result == errno.ECONNREFUSED:
+            return
+        if result == 0:
+            raise Refusal("127.0.0.1:18411 has an active TCP listener")
+        raise Refusal(f"127.0.0.1:18411 listener check was inconclusive (socket error {result})")
     except OSError as exc:
-        raise Refusal("127.0.0.1:18411 is not free for the owned S11 server") from exc
+        raise Refusal("127.0.0.1:18411 listener check failed; refusing to start") from exc
     finally:
         sock.close()
 

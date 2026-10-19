@@ -1,5 +1,6 @@
 import importlib.util
 import datetime as dt
+import errno
 import json
 import os
 from pathlib import Path
@@ -18,6 +19,19 @@ SPEC.loader.exec_module(launcher)
 
 
 class LauncherSupervisorTests(unittest.TestCase):
+    def test_listener_check_allows_refused_connect_but_rejects_active_listener(self):
+        with patch.object(launcher.socket, 'socket') as socket_factory:
+            sock = socket_factory.return_value
+            sock.connect_ex.return_value = errno.ECONNREFUSED
+            launcher.validate_loopback_port()
+            sock.close.assert_called_once()
+
+        with patch.object(launcher.socket, 'socket') as socket_factory:
+            sock = socket_factory.return_value
+            sock.connect_ex.return_value = 0
+            with self.assertRaisesRegex(launcher.Refusal, 'active TCP listener'):
+                launcher.validate_loopback_port()
+
     def test_odoo_config_uses_stable_private_s11_filestore(self):
         with tempfile.TemporaryDirectory(prefix='s11-config-test-') as temporary:
             root = Path(temporary)
