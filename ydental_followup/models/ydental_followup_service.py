@@ -862,15 +862,7 @@ class YDentalFollowupService(models.AbstractModel):
         This method is called only from a post-commit callback. It owns fresh cursors and
         never commits the caller's source or cron transaction.
         """
-        dbname = self.env.cr.dbname
-        for job_id in dict.fromkeys(job_ids):
-            claimed = _claim_dispatch(dbname, job_id)
-            if not claimed:
-                continue
-            request_id, terminal = claimed
-            if terminal:
-                continue
-            _dispatch_claimed(dbname, job_id, request_id)
+        _dispatch_notification_jobs(self.env.cr.dbname, job_ids)
 
     def _send_transport(self, job):
         """No external transport is enabled in S11. A dependent test addon may override this method."""
@@ -1045,13 +1037,23 @@ class YDentalFollowupService(models.AbstractModel):
 
 
 def _dispatch_after_commit(dbname, job_ids):
-    """Run dispatch from a fresh transaction after the source transaction committed."""
+    """Run dispatch after commit without holding an unnecessary outer cursor."""
     try:
-        with Registry(dbname).cursor() as cr:
-            env = api.Environment(cr, SUPERUSER_ID, {})
-            env['ydental.followup.service']._dispatch_ids(job_ids)
+        _dispatch_notification_jobs(dbname, job_ids)
     except Exception:
         _logger.exception('Committed follow-up notification dispatch will be retried by cron job ids=%s', job_ids)
+
+
+def _dispatch_notification_jobs(dbname, job_ids):
+    """Use only the claim and result cursors, preserving durable claim-before-send."""
+    for job_id in dict.fromkeys(job_ids):
+        claimed = _claim_dispatch(dbname, job_id)
+        if not claimed:
+            continue
+        request_id, terminal = claimed
+        if terminal:
+            continue
+        _dispatch_claimed(dbname, job_id, request_id)
 
 
 def _claim_dispatch(dbname, job_id):

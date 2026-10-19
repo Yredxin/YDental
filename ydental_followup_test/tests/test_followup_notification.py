@@ -4,14 +4,18 @@ import json
 import secrets
 from datetime import datetime, timedelta
 from types import SimpleNamespace
+from unittest.mock import patch
 
 from odoo import fields
 from odoo.exceptions import AccessError, UserError
 from odoo.tests import TransactionCase, new_test_user, tagged
 
+from odoo.addons.ydental_followup.models import (
+    ydental_followup_service as followup_service_module,
+)
 from odoo.addons.ydental_followup.models.ydental_followup_service import (
-    _callback_matches_current_request,
     _authorize_passive_lab_write,
+    _callback_matches_current_request,
     _daily_cap_attempt_counts,
     _reconciliation_action,
     _supplier_expiry_authorized,
@@ -124,6 +128,15 @@ class TestFollowupNotification(TransactionCase):
         self.assertTrue(_daily_cap_attempt_counts(1, started, day_start, day_end))
         self.assertFalse(_daily_cap_attempt_counts(0, started, day_start, day_end))
         self.assertFalse(_daily_cap_attempt_counts(1, day_end, day_start, day_end))
+
+    def test_after_commit_dispatch_does_not_hold_an_extra_registry_cursor(self):
+        with patch.object(followup_service_module, '_claim_dispatch', return_value=('stable-request', False)) as claim, \
+                patch.object(followup_service_module, '_dispatch_claimed') as dispatch, \
+                patch.object(followup_service_module.Registry, 'cursor') as cursor:
+            followup_service_module._dispatch_after_commit('s11_test_db', (41, 41))
+        claim.assert_called_once_with('s11_test_db', 41)
+        dispatch.assert_called_once_with('s11_test_db', 41, 'stable-request')
+        cursor.assert_not_called()
 
     def test_supplier_expiry_claim_requires_current_approved_qualification_and_cooperation(self):
         self.assertTrue(_supplier_qualification_is_current(7, 7, 'approved', '2026-11-01', '2026-11-01', True, True))
