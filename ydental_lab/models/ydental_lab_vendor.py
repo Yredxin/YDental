@@ -39,6 +39,21 @@ class YDentalLabVendor(models.Model):
     _partner_category_unique = models.Constraint(
         'UNIQUE(partner_id, category)', 'A vendor has one qualification record per service category.')
 
+    def _deny_external_message(self, *args, **kwargs):
+        raise AccessError(self.env._('access_denied: Vendor records do not support outbound messages.'))
+
+    def message_post(self, *args, **kwargs):
+        return self._deny_external_message(*args, **kwargs)
+
+    def message_notify(self, *args, **kwargs):
+        return self._deny_external_message(*args, **kwargs)
+
+    def message_post_with_source(self, *args, **kwargs):
+        return self._deny_external_message(*args, **kwargs)
+
+    def message_mail_with_source(self, *args, **kwargs):
+        return self._deny_external_message(*args, **kwargs)
+
     @api.model_create_multi
     def create(self, vals_list):
         access = self.env['ydental.access.service']

@@ -1,6 +1,7 @@
 from datetime import timedelta
 
 from odoo import Command, fields
+from odoo.exceptions import AccessError
 from odoo.tests import TransactionCase, new_test_user, tagged
 
 
@@ -27,8 +28,9 @@ class TestVendorNotificationActivity(TransactionCase):
             'valid_until': fields.Date.context_today(self) + timedelta(days=1),
         })
 
+        mail_count = root['mail.mail'].sudo().search_count([])
         activity = self.env['ydental.followup.service']._create_source_activity(
-            'ydental.lab.vendor', vendor.id, self.env.user,
+            'ydental.lab.vendor', vendor.id, manager,
             'Supplier qualification expiry review',
             'Synthetic internal review activity; no external notification is sent.',
         )
@@ -36,5 +38,19 @@ class TestVendorNotificationActivity(TransactionCase):
         self.assertTrue(activity)
         self.assertEqual(activity.res_model_id.model, 'ydental.lab.vendor')
         self.assertEqual(activity.res_id, vendor.id)
-        self.assertEqual(activity.user_id, self.env.user)
+        self.assertEqual(activity.user_id, manager)
         self.assertIn(activity, vendor.activity_ids)
+        self.assertEqual(root['mail.mail'].sudo().search_count([]), mail_count)
+
+        vendor_as_manager = vendor.with_user(manager)
+        for method, kwargs in (
+            ('message_post', {'body': 'No vendor email'}),
+            ('message_notify', {'partner_ids': partner.ids, 'body': 'No external recipient'}),
+            ('message_post_with_source', ('mail.mail_notification_layout',)),
+            ('message_mail_with_source', ('mail.mail_notification_layout',)),
+        ):
+            with self.subTest(method=method), self.assertRaises(AccessError):
+                if isinstance(kwargs, tuple):
+                    getattr(vendor_as_manager, method)(*kwargs)
+                else:
+                    getattr(vendor_as_manager, method)(**kwargs)

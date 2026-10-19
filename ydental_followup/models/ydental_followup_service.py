@@ -648,7 +648,7 @@ class YDentalFollowupService(models.AbstractModel):
             # seeing an obsolete no-contact note after a physical exception.
             prior.write({'note': note})
             return prior
-        return self.env['mail.activity'].sudo().create({
+        return self.env['mail.activity'].sudo().with_context(mail_activity_quick_update=True).create({
             'activity_type_id': activity_type.id, 'res_model_id': activity_model, 'res_id': row.id,
             'user_id': row.ydental_responsible_id.id, 'summary': 'Follow-up contact required',
             'note': note, 'date_deadline': fields.Date.context_today(row),
@@ -908,7 +908,7 @@ class YDentalFollowupService(models.AbstractModel):
         activity_type = self.env.ref('mail.mail_activity_data_todo', raise_if_not_found=False)
         if not model or not activity_type:
             return False
-        return self.env['mail.activity'].sudo().create({
+        return self.env['mail.activity'].sudo().with_context(mail_activity_quick_update=True).create({
             'activity_type_id': activity_type.id, 'res_model_id': model, 'res_id': res_id,
             'user_id': user.id, 'summary': summary, 'note': note,
             'date_deadline': fields.Date.context_today(self),
