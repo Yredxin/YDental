@@ -1,16 +1,25 @@
 from datetime import timedelta
 
 from odoo import Command, fields
-from odoo.tests import TransactionCase, tagged
+from odoo.tests import TransactionCase, new_test_user, tagged
 
 
 @tagged('post_install', '-at_install')
 class TestVendorNotificationActivity(TransactionCase):
     def test_supplier_expiry_activity_uses_native_vendor_thread(self):
-        partner = self.env['res.partner'].sudo().create({
+        root = self.env['base'].sudo().env
+        manager = new_test_user(
+            root,
+            name='S11 synthetic vendor activity manager',
+            login='s11_vendor_activity_manager',
+            groups='ydental_base.ydental_base_group_user,ydental_access.ydental_group_manager',
+            company_id=root.company.id,
+            company_ids=[Command.set([root.company.id])],
+        )
+        partner = root['res.partner'].create({
             'name': 'S11 synthetic activity vendor',
         })
-        vendor = self.env['ydental.lab.vendor'].sudo().create({
+        vendor = root['ydental.lab.vendor'].with_user(manager).create({
             'partner_id': partner.id,
             'company_ids': [Command.set([self.env.company.id])],
             'category': 'other',
