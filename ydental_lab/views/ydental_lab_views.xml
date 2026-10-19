@@ -299,7 +299,7 @@
             </form>
         </field>
     </record>
-    <menuitem id="ydental_lab_menu_root" name="Dental Laboratory" parent="ydental_base.ydental_base_menu_root" sequence="75" groups="ydental_base.ydental_base_group_user"/>
+    <menuitem id="ydental_lab_menu_root" name="Dental Laboratory" action="ydental_lab_order_action" sequence="75" groups="ydental_base.ydental_base_group_user"/>
     <menuitem id="ydental_lab_order_menu" name="Work orders" parent="ydental_lab_menu_root" action="ydental_lab_order_action" sequence="10"/>
     <menuitem id="ydental_lab_code_scan_menu" name="Scan package code" parent="ydental_lab_menu_root" action="ydental_lab_code_scan_action" sequence="15"/>
     <menuitem id="ydental_lab_cooperation_menu" name="Store cooperation" parent="ydental_lab_menu_root" action="ydental_lab_cooperation_action" sequence="20"/>

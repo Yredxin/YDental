@@ -4,7 +4,7 @@
         <field name="url">/ydental/followups</field>
         <field name="target">self</field>
     </record>
-    <menuitem id="ydental_followup_menu" name="Follow-ups" parent="ydental_base.ydental_base_menu_root"
+    <menuitem id="ydental_followup_menu" name="Follow-ups"
               action="ydental_followup_action" sequence="45" groups="ydental_base.ydental_base_group_user"/>
 
     <record id="ydental_followup_policy_view_list" model="ir.ui.view">
@@ -41,6 +41,6 @@
         <field name="res_model">ydental.followup.policy</field>
         <field name="view_mode">list,form</field>
     </record>
-    <menuitem id="ydental_followup_policy_menu" name="Notification policy" parent="ydental_base.ydental_base_menu_root"
+    <menuitem id="ydental_followup_policy_menu" name="Notification policy"
               action="ydental_followup_policy_action" sequence="46" groups="ydental_access.ydental_group_manager"/>
 </odoo>
