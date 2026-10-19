@@ -128,6 +128,8 @@ def configure_odoo(database: dict):
     from odoo.orm.registry import Registry  # noqa: PLC0415
     from odoo.tools import config  # noqa: PLC0415
 
+    config["addons_path"] = ",".join((str(ODOO_ROOT / "odoo" / "addons"), str(REPO_ROOT)))
+    config["data_dir"] = str(PRIVATE_ROOT / "data")
     config["db_host"] = database["host"]
     config["db_port"] = str(database["port"])
     config["db_user"] = database["user"]
