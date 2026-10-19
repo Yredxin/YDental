@@ -3,12 +3,14 @@
 ## 当前活动计划：S11（2026-10-19）
 
 - plan_id：**YD-S11-FOLLOWUP-LAB-V1 / 1.0**；task_id：`S11-FOLLOWUP-LAB-V1`；状态：**IN_PROGRESS**。用户已交付并启用 S11-A 复诊/通知可靠性与 S11-B 内部人工外加工完整实施范围；需求与验收取 #23、#35 正文及 #35 有效增量 `6246232594`。S10 已按 #34 / `6250858664` 技术完成；#37 用户效果继续 OPEN。
-- 业务基线：`aa2caefcf63cefc3deb367caf55a387ffb1ce013`。本工作区经核干净后从该 HEAD 建立 `codex/s11-followup-lab-r1`。origin 为 `https://github.com/Yredxin/YDental.git`；当前产品/测试尚未修改。main 路由和 `GPT_HANDOFF.md` 已由 docs-only 提交 `de58f446005f9ffe864ce4ec57ed707a50a531a0` 更新并从 origin 读回确认。
+- 业务基线：`aa2caefcf63cefc3deb367caf55a387ffb1ce013`。本工作区经核干净后从该 HEAD 建立 `codex/s11-followup-lab-r1`；S11 状态提交 `e88c7f6`、`31a9087` 已推送。origin 为 `https://github.com/Yredxin/YDental.git`。main 路由和 `GPT_HANDOFF.md` 已由 docs-only 提交 `de58f446005f9ffe864ce4ec57ed707a50a531a0` 更新并从 origin 读回确认。
 - 执行记录与验收范围：[S11 实施计划](docs/execution/S11_IMPLEMENTATION_PLAN.md)。当前实现拆分：followup agent 负责复诊/通知 addon；lab agent 负责厂商/外加工 addon；独立 reviewer 已完成只读架构核对，后续独立检查最终差异。所有 agent 共享同一工作区；无 OS 隔离声明。主控统一状态文档与集成/运行所有权。
 - 代码接口约束：复诊完成必须关联明确真实治疗事件；预约/到店/报到不等于接诊。身份/门店授权复用 `ydental_access.service`，跨店沿受控来源链；库存收发复用 `ydental_inventory.service`，不得直接写原生数量；通知失败不得回滚真实临床或入库事实。S11 不引入 OCA 或平行患者/权限/库存/财务/日志平台。
 - 环境边界：计划复用 scratch `ydental_s10_test_20261017105432_ce6dcbf8`（OID 2144130），须先核目标真实身份、访问权、进程/所有权与旧对象状态。旧 S10 main 文书、原件、资金、库存、日结、审计及 D 收6/退2/净4链不可重放/覆盖；不得续旧 scope、清历史 STOP、建/删/克隆/恢复第三库。任何不明提交先核实。
 - 范围：S11-A + S11-B；真实供应商短信/消息、门户/平台同步、支付/税务/签署和生产均未启用；不做 S12/S13、不合并、不部署。最终报告分别标明测试替身与真实外部通道状态。
-- 当前里程碑：M0 已核本地基线、origin、工作树及既有 detached worktree；尚未连接/启动应用或数据库，尚未安装/升级、尚无实际业务候选。下一步完成正常本阶段准入与可复现启动入口后，进入首条可用业务闭环。
+- 当前里程碑：M0 已建立分支、更新入口和状态、保存 S11 计划索引，且已完成只读架构/运行环境核验。A/B 源码实现正在进行，当前新增代码尚未提交；未连接/启动应用或数据库，未安装/升级，尚无实际业务候选。
+- 准入核验停止点（tester 2026-10-19 00:40 UTC，只读）：旧 S10 目标准入只覆盖 S10，不可用于本阶段；当前未发现 S11 专属 runtime scope/launcher。`127.0.0.1:8069` 有用途/所有权未确认的 Python PID 42433（cwd `/home/redxin/code/odoo/odoo-sd/code`），因此不停止它，也不另启服务或连接数据库。18410/18411/8072 无监听。scratch 本地目录未找到不证明数据库不存在。tester 未读凭据、未连接 DB/HTTP、未改文件/服务。
+- 可继续工作：实现、SOURCE/PURE 检查、建立明确的 S11-only launcher/scope 设计；不得迁移/复用 S10 scope、旧时钟、STOP、launcher 或权限事实。真实测试须在新 S11 scope、明确 owned 启动入口、无冲突资源，并完成只读 target name/OID/cluster/grant 及旧对象保护核验后再进行。
 
 以下为 S10 历史状态记录；历史结论、失败、STOP、运行账本与证据均保留，不覆盖本节 S11 当前状态。
 
