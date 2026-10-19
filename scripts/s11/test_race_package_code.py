@@ -55,6 +55,17 @@ class TestRacePackageCode(unittest.TestCase):
             "stock_facts_unchanged": False,
         }))
 
+    def test_actor_must_have_both_medical_and_warehouse_write(self):
+        self.assertTrue(runner.actor_has_required_grants({"medical": "write", "warehouse": "write"}))
+        for levels in (
+            {"medical": "read", "warehouse": "write"},
+            {"medical": None, "warehouse": "write"},
+            {"medical": "write", "warehouse": "read"},
+            {},
+        ):
+            with self.subTest(levels=levels):
+                self.assertFalse(runner.actor_has_required_grants(levels))
+
     def test_receipt_writer_uses_private_atomic_json(self):
         with tempfile.TemporaryDirectory() as temp:
             path = Path(temp) / "nested" / "race.json"

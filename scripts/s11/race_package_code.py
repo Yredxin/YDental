@@ -103,6 +103,11 @@ def race_outcome_matches(race_result: dict[str, Any], readback_result: dict[str,
     )
 
 
+def actor_has_required_grants(levels: dict[str, Any]) -> bool:
+    """The lab service needs medical authority before bind_code checks warehouse authority."""
+    return levels.get("medical") == "write" and levels.get("warehouse") == "write"
+
+
 def load_admitted_runtime(candidate: str):
     sys.path.insert(0, str(REPO_ROOT / "scripts" / "s11"))
     import launcher  # noqa: PLC0415 - admission contract is the existing S11 launcher.
@@ -261,8 +266,8 @@ def preflight(launcher, admission: dict, registry, api, database: dict,
         if not membership or not membership.ydental_employee_id.active:
             raise Refusal("the selected actor has no active store membership")
         levels = access._levels(membership)
-        if levels.get("warehouse") != "write":
-            raise Refusal("the selected actor lacks an actual warehouse-write grant in the store")
+        if not actor_has_required_grants(levels):
+            raise Refusal("the selected actor needs medical-write and warehouse-write grants in the store")
         allowed_companies = set(admission["allowed_company_ids"])
         allowed_stores = set(admission["allowed_store_ids"])
         if store.company_id.id not in allowed_companies or store.id not in allowed_stores:

@@ -11,8 +11,9 @@ through the normal S11 workflow. The runner refuses to act unless both have an
 `S11-` internal code, are active, belong to the selected admitted store, point
 to actual confirmed treatment events for the same synthetic patient, and have
 no existing package code or code-binding audit. It also requires an existing
-non-superuser internal actor with an actual warehouse-write grant, within the
-fresh S11 admitted company/store set. The runner does not provision those
+non-superuser internal actor with actual medical-write and warehouse-write
+grants, within the fresh S11 admitted company/store set. The lab service checks
+medical authority before the package-code-specific warehouse check. The runner does not provision those
 fixtures. Creating full source events and work orders remains a separate
 runtime-preparation task.
 
