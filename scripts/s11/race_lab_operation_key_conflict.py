@@ -66,7 +66,9 @@ def validate_targets(env, order_ids: tuple[int, int], store_id: int,
     orders = env["ydental.lab.order"].sudo().browse(order_ids).exists().sorted("id")
     if (len({order.ydental_source_event_id.id for order in orders}) != 2 or
             any(not (order.ydental_internal_code or "").startswith("S11-") or
-                order.ydental_parent_order_id or order.ydental_package_code for order in orders)):
+                order.ydental_parent_order_id or order.ydental_package_code or
+                row["code_bound_events"] or row["code_bound_audits"]
+                for order, row in zip(orders, before["orders"], strict=True))):
         raise common.Refusal("targets must be distinct, unbound, root S11 synthetic orders")
     if env["ydental.lab.order"].sudo().search_count([("ydental_package_code", "in", codes)]):
         raise common.Refusal("generated package code unexpectedly exists")
@@ -77,6 +79,7 @@ def worker(registry, api, retryable_error, actor_id: int, session_key: str,
            order_id: int, code: str, key: str, barrier: threading.Barrier,
            results: list[dict[str, Any]]) -> None:
     backend = None
+    retry_errors = []
     for attempt in range(1, MAX_RETRIES + 1):
         try:
             with registry.cursor() as cr:
@@ -96,7 +99,8 @@ def worker(registry, api, retryable_error, actor_id: int, session_key: str,
                     response = bound.env["ydental.lab.service"]._operate(
                         "bind_code", {"order_id": order_id, "code": code}, key)
                     result = {"kind": response.get("result"), "order_id": response.get("order_id")}
-                except (SerializationFailure, retryable_error):
+                except (SerializationFailure, retryable_error) as error:
+                    retry_errors.append(type(error).__name__)
                     raise
                 except BaseException as error:
                     if type(error).__name__ == "UserError" and "version_conflict:" in str(error):
@@ -104,14 +108,18 @@ def worker(registry, api, retryable_error, actor_id: int, session_key: str,
                     else:
                         result = {"kind": "action_error", "error_type": type(error).__name__}
                 cr.commit()
-                results.append({"backend_pid": backend, "attempts": attempt, **result})
+                results.append({"backend_pid": backend, "attempts": attempt,
+                                "retry_errors": retry_errors, **result})
                 return
-        except (SerializationFailure, retryable_error):
+        except (SerializationFailure, retryable_error) as error:
+            if not retry_errors or retry_errors[-1] != type(error).__name__:
+                retry_errors.append(type(error).__name__)
             if attempt == MAX_RETRIES:
                 results.append({"backend_pid": backend, "attempts": attempt,
-                                "kind": "retry_exhausted"})
+                                "retry_errors": retry_errors, "kind": "retry_exhausted"})
         except BaseException as error:
             results.append({"backend_pid": backend, "attempts": attempt,
+                            "retry_errors": retry_errors,
                             "kind": "worker_error", "error_type": type(error).__name__})
             return
 
@@ -199,14 +207,30 @@ def main() -> int:
     accepted = next((row for row in results if row["kind"] == "accepted"), {})
     winner = next((row for row in after["orders"]
                    if row["order_id"] == accepted.get("order_id")), {})
+    expected_fingerprint = common.fingerprint([
+        "bind_code", args.store_id,
+        {"order_id": accepted.get("order_id"),
+         "code": codes[order_ids.index(accepted.get("order_id", -1))]},
+    ]) if accepted else None
+    operation = after["operations"][0] if len(after["operations"]) == 1 else {}
+    collision_retry_count = sum(
+        row["kind"] == "version_conflict" and row["retry_errors"] == ["ConcurrencyError"]
+        for row in results
+    )
     passed = (len(results) == 2 and len({row["backend_pid"] for row in results}) == 2 and
               outcomes == ["accepted", "version_conflict"] and len(changed) == 1 and
+              collision_retry_count == 1 and
               len(after["operations"]) == 1 and
               sum(len(row["code_bound_events"]) for row in after["orders"]) == 1 and
               sum(len(row["code_bound_audits"]) for row in after["orders"]) == 1 and
               winner.get("package_code") == codes[order_ids.index(accepted.get("order_id", -1))] and
               len(winner.get("code_bound_events", [])) == 1 and
+              winner["code_bound_events"][0]["ydental_actor_id"][0] == args.actor_id and
               len(winner.get("code_bound_audits", [])) == 1 and
+              winner["code_bound_audits"][0]["ydental_user_id"][0] == args.actor_id and
+              operation.get("ydental_fingerprint") == expected_fingerprint and
+              operation.get("ydental_result") == {"order_id": accepted.get("order_id"), "code_bound": True} and
+              operation.get("ydental_actor_id", [None])[0] == args.actor_id and
               all(not row["package_code"] and not row["code_bound_events"] and
                   not row["code_bound_audits"] for row in after["orders"] if row != winner))
     receipt.update({
@@ -216,6 +240,7 @@ def main() -> int:
             sum(len(row["code_bound_events"]) for row in after["orders"]) == 1 and
             sum(len(row["code_bound_audits"]) for row in after["orders"]) == 1,
         "one_operation_row": len(after["operations"]) == 1,
+        "unique_conflict_translated_and_retried": collision_retry_count == 1,
         "outcome": "PASS" if passed else "FAIL",
         "finished_at_utc": dt.datetime.now(dt.UTC).isoformat(),
     })
@@ -224,7 +249,9 @@ def main() -> int:
                       "worker_outcomes": outcomes,
                       "two_distinct_postgresql_backends": receipt["two_distinct_postgresql_backends"],
                       "one_code_binding_and_event": receipt["one_code_binding_and_event"],
-                      "one_operation_row": receipt["one_operation_row"]}, sort_keys=True))
+                      "one_operation_row": receipt["one_operation_row"],
+                      "unique_conflict_translated_and_retried": receipt[
+                          "unique_conflict_translated_and_retried"]}, sort_keys=True))
     return 0 if passed else 3
 
 
