@@ -1,3 +1,6 @@
-from . import test_followup_notification
-from . import test_followup_lifecycle
-from . import test_http
+from . import (
+    test_followup_cross_store,
+    test_followup_lifecycle,
+    test_followup_notification,
+    test_http,
+)

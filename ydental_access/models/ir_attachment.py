@@ -14,7 +14,13 @@ class IrAttachment(models.Model):
             session = service._scope()
             source = self.env[self.sudo().res_model].browse(self.sudo().res_id)
             source.check_access('read')
-            service._audit('source.download', source.sudo().ydental_category, source,
+            attachment = self.sudo()
+            if attachment.res_field:
+                field = source._fields.get(attachment.res_field)
+                if not field or not source.has_field_access(field, 'read'):
+                    raise AccessError(self.env._('access_denied: Attached source field is unavailable.'))
+            category = 'supplier' if source._name == 'ydental.lab.vendor' else source.sudo().ydental_category
+            service._audit('source.download', category, source,
                            session.ydental_store_id.id, source='native_attachment')
             return True
         return super()._can_return_content(field_name, access_token)
