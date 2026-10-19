@@ -1,6 +1,7 @@
 import importlib.util
 import datetime as dt
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -17,6 +18,18 @@ SPEC.loader.exec_module(launcher)
 
 
 class LauncherSupervisorTests(unittest.TestCase):
+    def test_owner_match_accepts_relative_invocation_of_exact_launcher(self):
+        relative_script = os.path.relpath(launcher.SCRIPT_PATH, Path.cwd())
+        with (patch.object(launcher, 'proc_start_ticks', return_value=1234),
+              patch.object(launcher, 'proc_cmdline', return_value=[sys.executable, relative_script, 'start'])):
+            self.assertTrue(launcher.own_process_matches(42, 1234, expected_script=True))
+
+    def test_owner_match_rejects_different_script_with_same_basename(self):
+        other_script = Path('/tmp/launcher.py')
+        with (patch.object(launcher, 'proc_start_ticks', return_value=1234),
+              patch.object(launcher, 'proc_cmdline', return_value=[sys.executable, str(other_script), 'start'])):
+            self.assertFalse(launcher.own_process_matches(42, 1234, expected_script=True))
+
     def test_owned_start_path_writes_exit_receipt_and_clears_only_its_owner(self):
         with tempfile.TemporaryDirectory(prefix='s11-launcher-test-') as temporary:
             root = Path(temporary)
