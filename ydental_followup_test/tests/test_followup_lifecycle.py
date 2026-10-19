@@ -360,7 +360,7 @@ class TestFollowupLifecycle(TransactionCase):
         self.assertEqual(current_jobs.ydental_state, 'pending')
         self.assertLessEqual(current_jobs.ydental_due_at, new_start)
         audit = self.root['ydental.access.audit'].sudo().search([
-            ('ydental_event', '=', 'appointment_reschedule'),
+            ('ydental_event', '=', 'followup.appointment_reschedule'),
             ('ydental_category', '=', 'followup'),
             ('ydental_target_model', '=', 'ydental.followup'),
             ('ydental_target_id', '=', followup_id),
