@@ -9,7 +9,7 @@ from urllib.parse import urlsplit
 from psycopg2.errors import UniqueViolation
 
 from odoo import api, fields, models
-from odoo.exceptions import AccessError, UserError, ValidationError
+from odoo.exceptions import AccessError, ConcurrencyError, UserError, ValidationError
 
 from ..source import LabStockSource
 from .ydental_lab_record import MUTATION
@@ -400,11 +400,22 @@ class YDentalLabService(models.AbstractModel):
                     raise UserError(self.env._('version_conflict: This key belongs to a different laboratory action.'))
                 return dict(prior.ydental_result, result='already_accepted')
             result = handlers[operation](store, **payload)
-            self._model('operation')._new({
-                'name': operation, 'ydental_store_id': store.id, 'ydental_category': 'medical',
-                'ydental_key': key, 'ydental_fingerprint': digest, 'ydental_result': result,
-                'ydental_actor_id': self.env.uid,
-            })
+            try:
+                # Under REPEATABLE READ the losing transaction cannot see the
+                # winner's row after waiting on the unique index. Roll back
+                # this action's savepoint and let Odoo retry the whole request
+                # with a fresh snapshot, where it will return the stored result.
+                with self.env.cr.savepoint():
+                    self._model('operation')._new({
+                        'name': operation, 'ydental_store_id': store.id, 'ydental_category': 'medical',
+                        'ydental_key': key, 'ydental_fingerprint': digest, 'ydental_result': result,
+                        'ydental_actor_id': self.env.uid,
+                    })
+            except UniqueViolation as error:
+                if error.diag.constraint_name != 'ydental_lab_operation_store_key_unique':
+                    raise
+                message = 'Concurrent laboratory request key was committed by another transaction.'
+                raise ConcurrencyError(message) from error
             return dict(result, result='accepted')
 
     def _send(self, store, order_id):

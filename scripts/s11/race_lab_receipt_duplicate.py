@@ -268,7 +268,7 @@ def prepare_session(registry, api, actor_id: int, store_id: int, key: str) -> in
     return session_id
 
 
-def _worker(registry, api, actor_id: int, session_key: str, order_id: int,
+def _worker(registry, api, retryable_error, actor_id: int, session_key: str, order_id: int,
             action_key: str, barrier: threading.Barrier, results: list[dict[str, Any]]) -> None:
     first_pid = None
     for attempt in range(1, MAX_SERIALIZATION_RETRIES + 1):
@@ -292,16 +292,16 @@ def _worker(registry, api, actor_id: int, session_key: str, order_id: int,
                         "receive", {"order_id": order_id}, action_key)
                     outcome = {"kind": response.get("result"), "state": response.get("state"),
                                "order_id": response.get("order_id")}
-                except SerializationFailure:
+                except (SerializationFailure, retryable_error):
                     raise
                 except BaseException as error:
                     outcome = {"kind": "action_error", "error_type": type(error).__name__}
                 cr.commit()
                 results.append({"backend_pid": first_pid, "attempts": attempt, **outcome})
                 return
-        except SerializationFailure:
-            # PostgreSQL explicitly aborted this transaction; only this known
-            # non-commit outcome is eligible for the native bounded retry.
+        except (SerializationFailure, retryable_error):
+            # PostgreSQL or Odoo explicitly marked this request for retry; only
+            # these known non-commit outcomes are eligible for bounded retry.
             if attempt == MAX_SERIALIZATION_RETRIES:
                 results.append({"backend_pid": first_pid, "attempts": attempt,
                                 "kind": "serialization_retry_exhausted"})
@@ -326,6 +326,9 @@ def main() -> int:
 
     launcher, runtime, admission, database, branch, commit = load_admitted_runtime(args.candidate)
     api, Registry = configure_odoo(launcher, database)
+    from odoo.exceptions import ConcurrencyError  # noqa: PLC0415
+
+    retryable_error = ConcurrencyError
     registry = Registry(database["name"])
     with registry.cursor() as cr:
         identity = readonly_identity(cr, launcher, database)
@@ -376,7 +379,7 @@ def main() -> int:
     results: list[dict[str, Any]] = []
     threads = [threading.Thread(
         target=_worker,
-        args=(registry, api, args.actor_id, session_keys[index], args.order_id,
+        args=(registry, api, retryable_error, args.actor_id, session_keys[index], args.order_id,
               action_key, barrier, results),
         name=f"s11-receipt-race-{index + 1}", daemon=True,
     ) for index in range(2)]
