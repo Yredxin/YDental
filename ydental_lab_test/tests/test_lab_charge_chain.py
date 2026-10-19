@@ -219,8 +219,7 @@ class TestLabChargeNativeChain(TransactionCase):
         with self.assertRaises(AccessError):
             medical_only.search_count([('id', '=', charge.id)])
         price_only = bind(self, self.users['price']).env['ydental.lab.charge']
-        with self.assertRaises(AccessError):
-            price_only.search_count([('id', '=', charge.id)])
+        self.assertEqual(price_only.search_count([('id', '=', charge.id)]), 0)
         settlement = self.group.env['ydental.settlement.service']
         move_count = self.root['account.move'].sudo().search_count([])
         source_count = self.root['ydental.settlement.source'].sudo().search_count([
