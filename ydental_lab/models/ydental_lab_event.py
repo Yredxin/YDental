@@ -17,6 +17,7 @@ class YDentalLabEvent(models.Model):
         ('created', 'Created'), ('sent', 'Sent'), ('processing', 'Processing started'),
         ('received', 'Physical receipt'), ('putaway', 'Stock put away'),
         ('rework', 'Rework cycle opened'), ('rework_return', 'Returned to supplier'),
+        ('post_fit_repair', 'Post-fit repair cycle opened'),
         ('additional_terms_approved', 'Additional service terms approved'),
         ('additional_service_performed', 'Additional service actually performed'),
         ('zero_supplier_cost_confirmed', 'No additional supplier cost confirmed'),

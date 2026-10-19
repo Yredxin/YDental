@@ -205,8 +205,9 @@ class YDentalLabService(models.AbstractModel):
                 'ydental_additional_performance_evidence_reference',
                 'ydental_additional_performance_recorded',
                 'ydental_zero_supplier_cost_confirmed', 'ydental_zero_supplier_cost_reason',
-                'ydental_zero_supplier_cost_actor_id', 'ydental_zero_supplier_cost_at'} & vals.keys():
-            raise AccessError(self.env._('access_denied: Additional service terms can be created only through the guarded rework-cycle workflow.'))
+                'ydental_zero_supplier_cost_actor_id', 'ydental_zero_supplier_cost_at',
+                'ydental_post_fit_repair'} & vals.keys():
+            raise AccessError(self.env._('access_denied: Repair-cycle fields can be created only through the guarded laboratory workflow.'))
         event = self.env['ydental.treatment.event'].sudo().browse(event_id).exists()
         if not event or event.ydental_store_id != store or event.ydental_category != 'medical' or event.state != 'confirmed' or event.ydental_kind != 'treatment':
             raise AccessError(self.env._('access_denied: A confirmed treatment source in the selected store is required.'))
@@ -328,6 +329,7 @@ class YDentalLabService(models.AbstractModel):
             'send': self._send, 'processing': self._processing, 'receive': self._receive,
             'putaway': self._putaway, 'rework': self._rework, 'cancel': self._cancel,
             'exception': self._exception, 'fit': self._fit, 'bind_code': self._bind_code,
+            'post_fit_repair': self._post_fit_repair,
             'approve_charge_terms': self._approve_charge_terms,
             'confirm_charge_performed': self._confirm_charge_performed,
             'confirm_zero_supplier_cost': self._confirm_zero_supplier_cost,
@@ -582,6 +584,65 @@ class YDentalLabService(models.AbstractModel):
         return self._record_action(order, 'fit', inventory_event=inventory_event, values={
             'state': 'done', 'ydental_fit_event_id': event.id, 'ydental_fit_inventory_event_id': inventory_event.id,
         })
+
+    def _post_fit_repair(self, store, order_id, reason):
+        """Open a new draft cycle after a real fit without changing the completed source."""
+        self._warehouse_write(store)
+        order = self._get_order(order_id, store)
+        reason = self._text(reason, 'Post-fit repair reason')
+        self.env.cr.execute('SELECT id FROM ydental_lab_order WHERE id=%s FOR UPDATE', [order.id])
+        order.invalidate_recordset()
+        fit_event = order.ydental_fit_event_id
+        if (order.state != 'done' or not fit_event or fit_event.state != 'confirmed' or
+                fit_event.ydental_kind != 'treatment' or fit_event.ydental_store_id != store or
+                fit_event.ydental_patient_id != order.ydental_patient_id or
+                fit_event.ydental_execution_id.ydental_patient_id != order.ydental_patient_id or
+                not order.ydental_fit_inventory_event_id):
+            raise UserError(self.env._('A post-fit repair requires an actually fitted order with its confirmed treatment and stock issue.'))
+        open_repair = self._model('order').search([
+            ('ydental_parent_order_id', '=', order.id), ('ydental_post_fit_repair', '=', True),
+            ('state', 'not in', ('done', 'cancelled', 'exception')),
+        ], limit=1)
+        if open_repair:
+            raise UserError(self.env._('An unfinished post-fit repair cycle is already linked to this completed order.'))
+        prior_cycles = self._model('order').search([
+            ('ydental_parent_order_id', '=', order.id),
+        ], order='ydental_rework_no desc, id desc', limit=1)
+        repair_no = prior_cycles.ydental_rework_no + 1 if prior_cycles else 1
+        child = self._model('order')._new({
+            'name': self.env._('%s / Post-fit repair %s', order.name, repair_no),
+            'ydental_store_id': store.id, 'ydental_category': 'medical',
+            'ydental_patient_id': order.ydental_patient_id.id,
+            'ydental_source_event_id': order.ydental_source_event_id.id,
+            'ydental_source_document_id': order.ydental_source_document_id.id,
+            # The original fee remains on the completed source order only. A
+            # post-fit repair starts with no patient charge or supplier cost.
+            'ydental_vendor_id': order.ydental_vendor_id.id,
+            'ydental_product_id': order.ydental_product_id.id,
+            'ydental_lot_id': order.ydental_lot_id.id,
+            'ydental_quantity': order.ydental_quantity,
+            'ydental_teeth': order.ydental_teeth,
+            'ydental_material': order.ydental_material,
+            'ydental_shade': order.ydental_shade,
+            'ydental_instructions': order.ydental_instructions,
+            'ydental_responsible_id': order.ydental_responsible_id.id,
+            'ydental_planned_at': fields.Datetime.now(),
+            'ydental_external_mode': order.ydental_external_mode,
+            'ydental_internal_code': 'PF-%s-%s-%s' % (order.ydental_internal_code[:32], order.id, repair_no),
+            'ydental_parent_order_id': order.id,
+            'ydental_rework_no': repair_no,
+            'ydental_post_fit_repair': True,
+        })
+        self.env['ydental.followup.service']._supersede_lab_followup(
+            self.env['ydental.lab.order'].browse(child.id),
+            'A post-fit repair cycle supersedes the completed order follow-up.')
+        self._event(child, 'post_fit_repair', 'done', 'draft', reason)
+        self._audit('post_fit_repair_open', child, store,
+                    before={'parent_order_id': order.id, 'parent_state': 'done'},
+                    after={'repair_order_id': child.id, 'repair_no': repair_no, 'state': 'draft'},
+                    reason=reason)
+        return {'order_id': order.id, 'repair_order_id': child.id,
+                'repair_no': repair_no, 'state': 'draft', 'parent_state': order.state}
 
     def _bind_code(self, store, order_id, code):
         self._warehouse_write(store)

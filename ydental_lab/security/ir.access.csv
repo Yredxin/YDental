@@ -18,3 +18,4 @@ ydental_lab_event_company,Lab event company boundary,model_ydental_lab_event,,cr
 ydental_lab_operation_company,Lab operation company boundary,model_ydental_lab_operation,,crud,"[('ydental_store_id.company_id', 'in', company_ids)]"
 ydental_lab_code_bind_access,Lab package code binding,model_ydental_lab_code_bind,ydental_base.ydental_base_group_user,crud,
 ydental_lab_code_scan_access,Lab package code scan,model_ydental_lab_code_scan,ydental_base.ydental_base_group_user,crud,
+ydental_lab_post_fit_repair_wizard,Post-fit repair cycle wizard,model_ydental_lab_post_fit_repair,ydental_base.ydental_base_group_user,crud,

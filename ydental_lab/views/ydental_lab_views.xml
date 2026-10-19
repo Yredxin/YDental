@@ -110,6 +110,7 @@
                     <button name="action_receive" type="object" string="Record physical receipt" invisible="state not in ('sent', 'processing')"/>
                     <button name="action_putaway" type="object" string="Put away into stock" class="btn-primary" invisible="state != 'received'"/>
                     <button name="action_rework" type="object" string="Return for rework" invisible="state != 'available'"/>
+                    <button name="action_open_post_fit_repair_wizard" type="object" string="Open post-fit repair" invisible="state != 'done'"/>
                     <button name="action_fit" type="object" string="Record actual fit" class="btn-primary" invisible="state != 'available'"/>
                     <button name="action_cancel" type="object" string="Cancel before receipt" invisible="state not in ('draft', 'sent', 'processing')"/>
                     <button name="action_close_exception" type="object" string="Close exception" invisible="state != 'available'"/>
@@ -136,6 +137,7 @@
                                    domain="[('order_id.state', 'in', ('purchase', 'done')), ('order_id.partner_id', '=', ydental_vendor_id.partner_id), ('order_id.company_id', '=', ydental_store_id.company_id)]"/>
                             <field name="ydental_parent_order_id" readonly="1"/>
                             <field name="ydental_rework_no" readonly="1"/>
+                            <field name="ydental_post_fit_repair" readonly="1" invisible="not ydental_post_fit_repair"/>
                         </group>
                         <group>
                             <field name="ydental_vendor_id" readonly="state != 'draft'"/>
@@ -164,7 +166,8 @@
                         <field name="ydental_package_code" readonly="1"/>
                     </group>
                     <group string="Rework and disposition">
-                        <field name="ydental_rework_kind" readonly="state != 'available'"/>
+                        <field name="ydental_rework_kind"
+                               readonly="state != 'available' and not (state == 'draft' and ydental_post_fit_repair and not ydental_rework_kind)"/>
                         <group string="Additional patient service terms"
                                invisible="not ydental_parent_order_id or ydental_rework_kind != 'additional'">
                             <field name="ydental_additional_service_id" domain="[('active', '=', True), ('ydental_kind', 'in', ('care', 'procedure'))]"
@@ -225,6 +228,15 @@
                             <field name="ydental_fee_currency_id" groups="ydental_access.ydental_group_manager"/>
                         </list>
                     </field>
+                    <field name="ydental_repair_order_ids" readonly="1" invisible="not ydental_repair_order_ids">
+                        <list>
+                            <field name="name"/>
+                            <field name="ydental_rework_no"/>
+                            <field name="ydental_post_fit_repair"/>
+                            <field name="ydental_rework_kind"/>
+                            <field name="state"/>
+                        </list>
+                    </field>
                 </sheet>
             </form>
         </field>
@@ -270,6 +282,22 @@
         <field name="res_model">ydental.lab.code.scan</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
+    </record>
+    <record id="ydental_lab_post_fit_repair_view_form" model="ir.ui.view">
+        <field name="name">ydental.lab.post.fit.repair.view.form</field>
+        <field name="model">ydental.lab.post.fit.repair</field>
+        <field name="arch" type="xml">
+            <form string="Open linked post-fit repair">
+                <group>
+                    <field name="order_id"/>
+                    <field name="reason" placeholder="Required reason for the new repair cycle"/>
+                </group>
+                <footer>
+                    <button name="action_apply" type="object" string="Create draft repair cycle" class="btn-primary"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
     </record>
     <menuitem id="ydental_lab_menu_root" name="Dental Laboratory" parent="ydental_base.ydental_base_menu_root" sequence="75" groups="ydental_base.ydental_base_group_user"/>
     <menuitem id="ydental_lab_order_menu" name="Work orders" parent="ydental_lab_menu_root" action="ydental_lab_order_action" sequence="10"/>

@@ -45,7 +45,10 @@ class YDentalLabOrder(models.Model):
     ydental_internal_code = fields.Char(required=True, index=True)
     ydental_package_code = fields.Char(index=True, readonly=True)
     ydental_parent_order_id = fields.Many2one('ydental.lab.order', ondelete='restrict', index=True, string='Rework of')
+    ydental_repair_order_ids = fields.One2many(
+        'ydental.lab.order', 'ydental_parent_order_id', string='Linked repair cycles', readonly=True)
     ydental_rework_no = fields.Integer(default=0, readonly=True)
+    ydental_post_fit_repair = fields.Boolean(default=False, readonly=True)
     ydental_rework_kind = fields.Selection([
         ('free', 'No additional charge recorded'),
         ('additional', 'Additional commercial terms recorded separately'),
@@ -211,8 +214,16 @@ class YDentalLabOrder(models.Model):
                     lot = self.env['ydental.inventory.service']._lot(vals['ydental_lot_id'], store) if vals['ydental_lot_id'] else False
                     if lot and lot.product_id != order.ydental_product_id:
                         raise ValidationError(self.env._('The receiving lot must match the ordered prosthesis product.'))
-                if 'ydental_rework_kind' in vals and order.state != 'available':
-                    raise AccessError(self.env._('access_denied: Select rework terms only for an available item.'))
+                if 'ydental_rework_kind' in vals:
+                    selecting_available_rework = order.state == 'available'
+                    selecting_post_fit_terms = bool(
+                        order.state == 'draft' and order.ydental_parent_order_id and
+                        order.ydental_post_fit_repair and not order.ydental_rework_kind)
+                    if not (selecting_available_rework or selecting_post_fit_terms):
+                        raise AccessError(self.env._('access_denied: Select repair terms only for an available item or an unclassified post-fit repair draft.'))
+                    if vals['ydental_rework_kind'] not in ('free', 'additional'):
+                        raise ValidationError(self.env._('Choose free or additional terms for this repair cycle.'))
+                    self.env['ydental.lab.service']._warehouse_write(stage_access)
                 if 'ydental_fit_event_id' in vals and order.state != 'available':
                     raise AccessError(self.env._('access_denied: Link the fitting event only for an available item.'))
                 if 'ydental_fit_event_id' in vals and vals['ydental_fit_event_id']:
@@ -304,6 +315,17 @@ class YDentalLabOrder(models.Model):
         self.ensure_one()
         self.env['ydental.lab.service']._operate('rework', {'order_id': self.id}, self.env['ydental.lab.service']._new_key())
         return True
+
+    def action_open_post_fit_repair_wizard(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': self.env._('Open linked post-fit repair'),
+            'res_model': 'ydental.lab.post.fit.repair',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': {'default_order_id': self.id},
+        }
 
     def action_cancel(self):
         self.ensure_one()
