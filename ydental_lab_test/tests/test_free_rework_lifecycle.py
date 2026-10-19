@@ -242,6 +242,83 @@ class TestFreeReworkLifecycle(TransactionCase):
             ('ydental_purchase_line_id', '=', purchase_line.id),
         ]), 1)
 
+    def test_post_putaway_discard_closes_stock_without_faking_fit_or_refund(self):
+        source_event = self._real_treatment_event()
+        vendor, _cooperation, purchase_line = self._vendor_and_purchase_cost()
+        product, lot_id = self._prosthesis_product_and_lot()
+        store = self.stores[0]
+        order = self.group.env['ydental.lab.order'].create({
+            'name': 'S11 synthetic discarded laboratory cycle',
+            'ydental_source_event_id': source_event.id,
+            'ydental_vendor_id': vendor.id,
+            'ydental_product_id': product.id,
+            'ydental_lot_id': lot_id,
+            'ydental_purchase_line_id': purchase_line.id,
+            'ydental_quantity': 1,
+            'ydental_teeth': [26],
+            'ydental_material': 'Synthetic ceramic',
+            'ydental_instructions': 'Synthetic exception test only',
+            'ydental_internal_code': 'S11-DISCARD-' + key(),
+            'ydental_responsible_id': self.users['manager'].id,
+            'ydental_planned_at': fields.Datetime.now(),
+        })
+        lab = self.group.env['ydental.lab.service']
+        lab._operate('send', {'order_id': order.id}, _action_key('discard-send', order.id))
+        lab._operate('processing', {'order_id': order.id}, _action_key('discard-processing', order.id))
+        lab._operate('receive', {'order_id': order.id}, _action_key('discard-receive', order.id))
+        lab._operate('putaway', {'order_id': order.id}, _action_key('discard-putaway', order.id))
+        order.invalidate_recordset()
+        self.assertEqual(order.state, 'available')
+        self.assertEqual(self._on_hand(lot_id), 1)
+        followup = order.ydental_followup_id
+        self.assertTrue(followup and followup.ydental_responsible_id)
+
+        original_fee = order.ydental_source_fee_id
+        fee_count = self.root['ydental.treatment.fee'].sudo().search_count([
+            ('ydental_event_id', '=', source_event.id),
+        ])
+        charge_count = self.root['ydental.lab.charge'].sudo().search_count([
+            ('ydental_order_id', '=', order.id),
+        ])
+        credit_count = self.root['ydental.lab.charge.adjustment'].sudo().search_count([
+            ('ydental_lab_charge_id.ydental_order_id', '=', order.id),
+        ])
+        lab._operate('exception', {
+            'order_id': order.id,
+            'disposition': 'discard',
+            'reason': 'Synthetic patient abandoned the item; physical write-off recorded',
+        }, _action_key('discard-exception', order.id))
+        order.invalidate_recordset()
+        followup.invalidate_recordset()
+        self.assertEqual(order.state, 'exception')
+        self.assertEqual(order.ydental_exception_disposition, 'discard')
+        self.assertEqual(order.ydental_source_fee_id, original_fee)
+        self.assertFalse(order.ydental_fit_event_id)
+        self.assertFalse(order.ydental_fit_inventory_event_id)
+        self.assertEqual(self._on_hand(lot_id), 0)
+        self.assertEqual(self.root['ydental.treatment.fee'].sudo().search_count([
+            ('ydental_event_id', '=', source_event.id),
+        ]), fee_count)
+        self.assertEqual(self.root['ydental.lab.charge'].sudo().search_count([
+            ('ydental_order_id', '=', order.id),
+        ]), charge_count, 'discard must not create a patient fee or an automatic refund')
+        self.assertEqual(self.root['ydental.lab.charge.adjustment'].sudo().search_count([
+            ('ydental_lab_charge_id.ydental_order_id', '=', order.id),
+        ]), credit_count)
+        exception_event = self.root['ydental.lab.event'].sudo().search([
+            ('ydental_order_id', '=', order.id), ('ydental_kind', '=', 'exception'),
+        ], limit=1)
+        self.assertTrue(exception_event and exception_event.ydental_inventory_event_id)
+        self.assertEqual(exception_event.ydental_inventory_event_id.ydental_move_id.state, 'done')
+        self.assertEqual(exception_event.ydental_inventory_event_id.ydental_move_id.location_dest_id,
+                         self.stock._config(store).ydental_loss_id)
+        sent_event = self.root['ydental.lab.event'].sudo().search([
+            ('ydental_order_id', '=', order.id), ('ydental_kind', '=', 'sent'),
+        ], limit=1)
+        self.assertEqual(sent_event.ydental_purchase_line_id, purchase_line)
+        self.assertEqual(sent_event.ydental_vendor_cost, 42.75)
+        self.assertEqual(followup.ydental_responsible_id, order.ydental_responsible_id)
+
         lab._operate('send', {'order_id': child.id}, _action_key('send-child', child.id))
         lab._operate('processing', {'order_id': child.id}, _action_key('processing-child', child.id))
         lab._operate('receive', {'order_id': child.id}, _action_key('receive-child', child.id))
