@@ -188,6 +188,44 @@ class YDentalLabService(models.AbstractModel):
                     after={'supplier_cost': 0.0, 'patient_terms_separate': True}, reason=reason)
         return {'order_id': order.id, 'zero_supplier_cost_confirmed': True}
 
+    def _confirm_no_patient_fee(self, store, order_id):
+        order = self._get_order(order_id, store)
+        self.env.cr.execute(
+            'SELECT id FROM ydental_lab_order WHERE id = %s FOR UPDATE', [order.id])
+        order.invalidate_recordset([
+            'state', 'ydental_parent_order_id', 'ydental_rework_kind',
+            'ydental_additional_terms_frozen', 'ydental_no_patient_fee_declaration',
+            'ydental_no_patient_fee_confirmed', 'ydental_no_patient_fee_confirmation_reason',
+            'ydental_purchase_line_id',
+        ])
+        if (not order.ydental_parent_order_id or order.ydental_rework_kind != 'additional' or
+                order.state != 'draft' or order.ydental_additional_terms_frozen or
+                order.ydental_no_patient_fee_confirmed):
+            raise UserError(self.env._('No-patient-fee terms can be confirmed only once on a draft additional rework cycle.'))
+        price_store = self.env['ydental.access.service']._check('price', 'write', write=True).ydental_store_id
+        if price_store != store:
+            raise AccessError(self.env._('access_denied: No-patient-fee approval requires commercial authority at this same store.'))
+        if not order.ydental_no_patient_fee_declaration:
+            raise ValidationError(self.env._('Explicitly declare that no patient fee will be charged.'))
+        if (order.ydental_additional_service_id or order.ydental_additional_service_quantity or
+                order.ydental_additional_consent_reference or order.ydental_additional_terms_reason):
+            raise UserError(self.env._('Clear priced-service inputs before confirming a no-patient-fee cycle.'))
+        reason = self._text(
+            order.ydental_no_patient_fee_confirmation_reason,
+            'Reason no patient fee will be charged', 240)
+        if order.ydental_charge_ids:
+            raise UserError(self.env._('A patient charge source already exists for this cycle; no-patient-fee confirmation is unavailable.'))
+        self._event(order, 'no_patient_fee_confirmed', order.state, order.state, reason)
+        order._save({
+            'ydental_no_patient_fee_confirmed': True,
+            'ydental_no_patient_fee_reason': reason,
+            'ydental_no_patient_fee_actor_id': self.env.uid,
+            'ydental_no_patient_fee_at': fields.Datetime.now(),
+        })
+        self._audit('no_patient_fee_confirmed', order, store,
+                    after={'patient_fee': 0.0, 'supplier_cost_independent': True}, reason=reason)
+        return {'order_id': order.id, 'no_patient_fee_confirmed': True}
+
     def _assert_purchase_line_exclusive(self, order, line):
         domain = [('ydental_purchase_line_id', '=', line.id)]
         if type(order.id) is int and order.id > 0:
@@ -206,6 +244,9 @@ class YDentalLabService(models.AbstractModel):
                 'ydental_additional_performance_recorded',
                 'ydental_zero_supplier_cost_confirmed', 'ydental_zero_supplier_cost_reason',
                 'ydental_zero_supplier_cost_actor_id', 'ydental_zero_supplier_cost_at',
+                'ydental_no_patient_fee_declaration', 'ydental_no_patient_fee_confirmation_reason',
+                'ydental_no_patient_fee_confirmed', 'ydental_no_patient_fee_reason',
+                'ydental_no_patient_fee_actor_id', 'ydental_no_patient_fee_at',
                 'ydental_post_fit_repair'} & vals.keys():
             raise AccessError(self.env._('access_denied: Repair-cycle fields can be created only through the guarded laboratory workflow.'))
         event = self.env['ydental.treatment.event'].sudo().browse(event_id).exists()
@@ -333,6 +374,7 @@ class YDentalLabService(models.AbstractModel):
             'approve_charge_terms': self._approve_charge_terms,
             'confirm_charge_performed': self._confirm_charge_performed,
             'confirm_zero_supplier_cost': self._confirm_zero_supplier_cost,
+            'confirm_no_patient_fee': self._confirm_no_patient_fee,
         }
         if operation not in handlers or not isinstance(payload, dict) or not isinstance(key, str) or not 16 <= len(key) <= 128:
             raise ValidationError(self.env._('Supply a documented laboratory action and stable request key.'))
@@ -365,11 +407,18 @@ class YDentalLabService(models.AbstractModel):
 
     def _send(self, store, order_id):
         order = self._get_order(order_id, store)
+        self.env.cr.execute(
+            'SELECT id FROM ydental_lab_order WHERE id = %s FOR UPDATE', [order.id])
+        order.invalidate_recordset([
+            'state', 'ydental_parent_order_id', 'ydental_rework_kind',
+            'ydental_additional_terms_frozen', 'ydental_no_patient_fee_confirmed',
+            'ydental_purchase_line_id', 'ydental_zero_supplier_cost_confirmed',
+        ])
         if order.state != 'draft':
             raise UserError(self.env._('Only a draft can be sent to the laboratory.'))
-        if (order.ydental_parent_order_id and order.ydental_rework_kind == 'additional' and
-                not order.ydental_additional_terms_frozen):
-            raise UserError(self.env._('Freeze the published additional-service terms with explicit approval before dispatch.'))
+        if order.ydental_parent_order_id and order.ydental_rework_kind == 'additional':
+            if order.ydental_additional_terms_frozen == order.ydental_no_patient_fee_confirmed:
+                raise UserError(self.env._('Confirm either published patient-fee terms or an explicit no-patient-fee declaration before dispatch.'))
         vendor = self._check_vendor(order.ydental_vendor_id, store, order.ydental_product_id)
         cooperation = self._model('cooperation').search([
             ('ydental_store_id', '=', store.id),
@@ -393,11 +442,22 @@ class YDentalLabService(models.AbstractModel):
 
     def _approve_charge_terms(self, store, order_id):
         order = self._get_order(order_id, store)
+        self.env.cr.execute(
+            'SELECT id FROM ydental_lab_order WHERE id = %s FOR UPDATE', [order.id])
+        order.invalidate_recordset([
+            'state', 'ydental_parent_order_id', 'ydental_rework_kind',
+            'ydental_additional_terms_frozen', 'ydental_no_patient_fee_declaration',
+            'ydental_no_patient_fee_confirmed', 'ydental_additional_service_id',
+            'ydental_additional_service_quantity', 'ydental_additional_consent_reference',
+            'ydental_additional_terms_reason',
+        ])
         if (order.state != 'draft' or not order.ydental_parent_order_id or
                 order.ydental_rework_kind != 'additional'):
             raise UserError(self.env._('Additional-service terms can be approved only for a draft additional-charge rework cycle.'))
         if order.ydental_additional_terms_frozen:
             raise UserError(self.env._('Additional-service terms are already frozen for this cycle.'))
+        if order.ydental_no_patient_fee_declaration or order.ydental_no_patient_fee_confirmed:
+            raise UserError(self.env._('A no-patient-fee declaration is selected for this cycle; it cannot also create patient charge terms.'))
         catalog = order.ydental_additional_service_id
         if not catalog or not catalog.active:
             raise ValidationError(self.env._('Select an active S05 service before approving additional terms.'))

@@ -4,3 +4,4 @@ from . import test_lab_charge_chain
 from . import test_http
 from . import test_free_rework_lifecycle
 from . import test_post_fit_repair
+from . import test_no_patient_fee_rework

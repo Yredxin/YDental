@@ -121,6 +121,8 @@
                             invisible="not ydental_parent_order_id or ydental_rework_kind != 'additional' or not ydental_additional_terms_frozen or ydental_additional_performance_recorded or state not in ('sent', 'processing', 'received', 'available')"/>
                     <button name="action_confirm_zero_supplier_cost" type="object" string="Confirm no added supplier cost" groups="purchase.group_purchase_user"
                             invisible="not ydental_parent_order_id or ydental_rework_kind != 'additional' or state != 'draft' or ydental_purchase_line_id or ydental_zero_supplier_cost_confirmed"/>
+                    <button name="action_confirm_no_patient_fee" type="object" string="Confirm no patient fee" class="btn-primary"
+                            invisible="not ydental_parent_order_id or ydental_rework_kind != 'additional' or state != 'draft' or ydental_no_patient_fee_confirmed or ydental_additional_terms_frozen"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,sent,processing,received,available,done"/>
                 </header>
                 <sheet>
@@ -179,12 +181,21 @@
                             <field name="ydental_additional_terms_reason"
                                    maxlength="240" readonly="state != 'draft' or ydental_additional_terms_frozen"/>
                             <field name="ydental_additional_terms_frozen" readonly="1"/>
+                            <separator string="No-patient-fee alternative"/>
+                            <field name="ydental_no_patient_fee_declaration"
+                                   readonly="state != 'draft' or ydental_additional_terms_frozen or ydental_no_patient_fee_confirmed"/>
+                            <field name="ydental_no_patient_fee_confirmation_reason" maxlength="240"
+                                   readonly="state != 'draft' or ydental_additional_terms_frozen or ydental_no_patient_fee_confirmed"/>
+                            <field name="ydental_no_patient_fee_confirmed" readonly="1"/>
+                            <field name="ydental_no_patient_fee_reason" readonly="1"/>
+                            <field name="ydental_no_patient_fee_actor_id" readonly="1"/>
+                            <field name="ydental_no_patient_fee_at" readonly="1"/>
                             <field name="ydental_additional_performed_at"
                                    readonly="not ydental_additional_terms_frozen or ydental_additional_performance_recorded or state not in ('sent', 'processing', 'received', 'available')"/>
                             <field name="ydental_additional_performance_evidence_reference"
                                    maxlength="160" readonly="not ydental_additional_terms_frozen or ydental_additional_performance_recorded or state not in ('sent', 'processing', 'received', 'available')"/>
                             <field name="ydental_additional_performance_recorded" readonly="1"/>
-                            <p class="text-muted">Approval freezes only the effective published S05 service price and recorded terms. A separate actual-performance confirmation with evidence is required before normal S10 settlement billing; scan, receipt, put-away, prosthesis fitting and the supplier purchase line do not confirm this additional service.</p>
+                            <p class="text-muted">Choose exactly one patient-fee path: freeze the effective published S05 service price and terms, or explicitly confirm no patient fee with a reason. The no-fee path is independent of supplier cost and creates no patient charge. Priced terms require separate actual-performance evidence before normal S10 settlement billing.</p>
                         </group>
                         <group string="Supplier cost for this rework cycle"
                                invisible="not ydental_parent_order_id or ydental_rework_kind != 'additional'">

@@ -68,6 +68,12 @@ class YDentalLabOrder(models.Model):
     ydental_zero_supplier_cost_actor_id = fields.Many2one('res.users', readonly=True, ondelete='restrict')
     ydental_zero_supplier_cost_at = fields.Datetime(readonly=True)
     ydental_zero_supplier_cost_confirmation_reason = fields.Char(string='Reason for no additional vendor cost')
+    ydental_no_patient_fee_declaration = fields.Boolean(string='No patient fee will be charged')
+    ydental_no_patient_fee_confirmation_reason = fields.Char(string='Reason no patient fee will be charged')
+    ydental_no_patient_fee_confirmed = fields.Boolean(readonly=True, default=False)
+    ydental_no_patient_fee_reason = fields.Char(readonly=True)
+    ydental_no_patient_fee_actor_id = fields.Many2one('res.users', readonly=True, ondelete='restrict')
+    ydental_no_patient_fee_at = fields.Datetime(readonly=True)
     ydental_fit_event_id = fields.Many2one('ydental.treatment.event', ondelete='restrict')
     ydental_followup_id = fields.Many2one('ydental.followup', ondelete='restrict', readonly=True)
     ydental_receipt_at = fields.Datetime(readonly=True)
@@ -134,6 +140,7 @@ class YDentalLabOrder(models.Model):
             'ydental_additional_service_quantity', 'ydental_additional_consent_reference',
             'ydental_additional_terms_reason',
             'ydental_zero_supplier_cost_confirmation_reason',
+            'ydental_no_patient_fee_declaration', 'ydental_no_patient_fee_confirmation_reason',
         }
         stage_fields = {'ydental_lot_id', 'ydental_rework_kind', 'ydental_fit_event_id',
                         'ydental_exception_disposition', 'ydental_exception_reason',
@@ -147,6 +154,7 @@ class YDentalLabOrder(models.Model):
         }
         serialized_fields = terms_fields | {
             'ydental_purchase_line_id', 'ydental_zero_supplier_cost_confirmation_reason',
+            'ydental_no_patient_fee_declaration', 'ydental_no_patient_fee_confirmation_reason',
         }
         if serialized_fields & vals.keys():
             # Approval and zero-cost attestation use this row lock too.
@@ -160,6 +168,8 @@ class YDentalLabOrder(models.Model):
                 'state', 'ydental_parent_order_id', 'ydental_rework_kind',
                 'ydental_additional_terms_frozen', 'ydental_purchase_line_id',
                 'ydental_zero_supplier_cost_confirmed', *terms_fields,
+                'ydental_no_patient_fee_declaration', 'ydental_no_patient_fee_confirmed',
+                'ydental_no_patient_fee_confirmation_reason',
             ])
         if set(vals) <= draft_fields and any(order.state != 'draft' for order in self):
             raise AccessError(self.env._('access_denied: Only draft order details can be edited.'))
@@ -179,6 +189,9 @@ class YDentalLabOrder(models.Model):
                         raise AccessError(self.env._('access_denied: Additional patient terms apply only to an additional-charge rework cycle.'))
                     if order.ydental_additional_terms_frozen:
                         raise AccessError(self.env._('history_immutable: Approved additional terms cannot be edited.'))
+                    if (order.ydental_no_patient_fee_declaration or order.ydental_no_patient_fee_confirmed or
+                            vals.get('ydental_no_patient_fee_declaration')):
+                        raise AccessError(self.env._('version_conflict: Patient charge terms and no-patient-fee declaration are mutually exclusive.'))
                     if vals.get('ydental_additional_service_id'):
                         catalog = self.env['ydental.intake.catalog'].sudo().browse(
                             vals['ydental_additional_service_id']).exists()
@@ -196,6 +209,30 @@ class YDentalLabOrder(models.Model):
                     if order.ydental_zero_supplier_cost_confirmed:
                         raise AccessError(self.env._('history_immutable: Zero supplier-cost confirmation is already recorded.'))
                     service._text(vals['ydental_zero_supplier_cost_confirmation_reason'], 'Zero added supplier cost reason')
+                if {'ydental_no_patient_fee_declaration', 'ydental_no_patient_fee_confirmation_reason'} & vals.keys():
+                    if not order.ydental_parent_order_id or order.ydental_rework_kind != 'additional':
+                        raise AccessError(self.env._('access_denied: No-patient-fee confirmation applies only to an additional rework cycle.'))
+                    if order.ydental_no_patient_fee_confirmed:
+                        raise AccessError(self.env._('history_immutable: No-patient-fee confirmation is already recorded.'))
+                    if order.ydental_additional_terms_frozen:
+                        raise AccessError(self.env._('history_immutable: Frozen priced terms cannot be replaced by a no-patient-fee declaration.'))
+                    price_store = self.env['ydental.access.service']._check(
+                        'price', 'write', write=True).ydental_store_id
+                    if price_store != order.ydental_store_id:
+                        raise AccessError(self.env._('access_denied: No-patient-fee declaration requires commercial authority at this same store.'))
+                    declared_no_fee = vals.get(
+                        'ydental_no_patient_fee_declaration', order.ydental_no_patient_fee_declaration)
+                    if declared_no_fee and (
+                            vals.get('ydental_additional_service_id', order.ydental_additional_service_id.id) or
+                            vals.get('ydental_additional_service_quantity', order.ydental_additional_service_quantity) or
+                            vals.get('ydental_additional_consent_reference', order.ydental_additional_consent_reference) or
+                            vals.get('ydental_additional_terms_reason', order.ydental_additional_terms_reason)):
+                        raise AccessError(self.env._('version_conflict: Clear patient charge inputs before declaring no patient fee.'))
+                    if ('ydental_no_patient_fee_declaration' in vals and
+                            type(vals['ydental_no_patient_fee_declaration']) is not bool):
+                        raise ValidationError(self.env._('Make an explicit yes/no declaration for patient fees.'))
+                    if vals.get('ydental_no_patient_fee_confirmation_reason'):
+                        service._text(vals['ydental_no_patient_fee_confirmation_reason'], 'No-patient-fee reason')
                 if vals.get('ydental_purchase_line_id'):
                     if order.ydental_zero_supplier_cost_confirmed:
                         raise AccessError(self.env._('history_immutable: A confirmed zero supplier cost cannot be replaced by a purchase line.'))
@@ -366,6 +403,14 @@ class YDentalLabOrder(models.Model):
         key = 'lab-zero-supplier-cost-%s-v1' % self.id
         self.env['ydental.lab.service']._operate('confirm_zero_supplier_cost', {
             'order_id': self.id, 'reason': self.ydental_zero_supplier_cost_confirmation_reason,
+        }, key)
+        return True
+
+    def action_confirm_no_patient_fee(self):
+        self.ensure_one()
+        key = 'lab-no-patient-fee-%s-v1' % self.id
+        self.env['ydental.lab.service']._operate('confirm_no_patient_fee', {
+            'order_id': self.id,
         }, key)
         return True
 

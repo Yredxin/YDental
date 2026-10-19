@@ -21,6 +21,7 @@ class YDentalLabEvent(models.Model):
         ('additional_terms_approved', 'Additional service terms approved'),
         ('additional_service_performed', 'Additional service actually performed'),
         ('zero_supplier_cost_confirmed', 'No additional supplier cost confirmed'),
+        ('no_patient_fee_confirmed', 'No patient fee confirmed'),
         ('cancelled', 'Cancelled'), ('exception', 'Exception closed'), ('fit', 'Actually fitted'),
         ('code_bound', 'Package code bound'),
     ], required=True)
