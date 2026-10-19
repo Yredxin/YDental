@@ -52,6 +52,10 @@ class TestFollowupNotification(TransactionCase):
         self.env['ir.config_parameter'].sudo().set_str('ydental_followup.callback_secret', self.secret)
 
     def _callback(self, event_id, status):
+        # The callback emulates a later HTTP transaction, which would see this
+        # dispatch request after commit. Flush the pending ORM write before the
+        # production callback's locking SQL lookup in this same test cursor.
+        self.job.flush_recordset(['ydental_request_id'])
         body = json.dumps({
             'request_id': self.job.ydental_request_id, 'event_id': event_id, 'status': status,
         }, separators=(',', ':')).encode()

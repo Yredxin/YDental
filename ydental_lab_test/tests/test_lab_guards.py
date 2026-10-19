@@ -190,7 +190,11 @@ class TestLaboratoryGuards(TransactionCase):
                 return {'id': 131}
 
         inventory_event_model = self.env['ydental.inventory.event']
-        inventory_event = SimpleNamespace(id=131)
+        class InventoryEvent(SimpleNamespace):
+            def exists(self):
+                return self
+
+        inventory_event = InventoryEvent(id=131)
         followup_service = self.env['ydental.followup.service']
         with (
             patch.object(type(service), '_warehouse_write', return_value=store),
