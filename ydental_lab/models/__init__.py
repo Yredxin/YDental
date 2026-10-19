@@ -1,4 +1,5 @@
 from . import ir_attachment
+from . import ydental_access_service
 from . import ydental_lab_record
 from . import ydental_lab_vendor
 from . import ydental_lab_cooperation

@@ -9,6 +9,17 @@ from odoo.tests import TransactionCase, tagged
 
 @tagged('post_install', '-at_install')
 class TestLaboratoryGuards(TransactionCase):
+    def test_dataset_source_registry_and_patient_care_paths_are_installed(self):
+        access = self.env['ydental.access.service']
+        sources = access._get_sources()
+        self.assertEqual(sources['lab_order'], 'ydental.lab.order')
+        self.assertEqual(sources['lab_code_scan'], 'ydental.lab.code.scan')
+        self.assertEqual(sources['lab_charge'], 'ydental.lab.charge')
+        care = access._get_patient_care_sources()
+        self.assertEqual(care['ydental.lab.order'], 'ydental_patient_id')
+        self.assertEqual(care['ydental.lab.event'], 'ydental_order_id.ydental_patient_id')
+        self.assertEqual(care['ydental.lab.charge'], 'ydental_patient_id')
+
     def test_unknown_action_rejected_before_scope_or_side_effect(self):
         service = self.env['ydental.lab.service']
         with self.assertRaises(ValidationError):

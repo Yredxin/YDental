@@ -1,4 +1,5 @@
 import json
+import re
 import secrets
 
 from odoo import fields
@@ -57,9 +58,24 @@ class TestLaboratoryHTTP(HttpCase):
         })
         cls.manager = manager
 
-    def login(self, role='warehouse'):
+    def select(self, role='warehouse'):
         user = self.users[role]
         self.authenticate(user.login, 's11-lab-http-test-password')
+        page = self.url_open('/ydental/access')
+        self.assertEqual(page.status_code, 200, page.text)
+        csrf = re.search(r'name="csrf_token" value="([^"]+)"', page.text)
+        revision = re.search(r'name="revision" value="([0-9]+)"', page.text)
+        self.assertTrue(csrf, 'access page must expose its request CSRF token')
+        self.assertTrue(revision, 'access page must expose its current revision')
+        response = self.url_open('/ydental/access/action', data={
+            'csrf_token': csrf.group(1),
+            'revision': int(revision.group(1)),
+            'operation': 'switch',
+            'payload': json.dumps({'store_id': self.store.id}),
+            'output': 'json',
+        })
+        self.assertEqual(response.status_code, 200, response.text)
+        self.revision = response.json()['revision']
 
     def rpc(self, model, method, args, context=None):
         response = self.url_open(
@@ -68,7 +84,7 @@ class TestLaboratoryHTTP(HttpCase):
                 'jsonrpc': '2.0', 'id': 1, 'method': 'call',
                 'params': {
                     'model': model, 'method': method, 'args': args,
-                    'kwargs': {'context': context or {}},
+                    'kwargs': {'context': {'ydental_revision': self.revision, **(context or {})}},
                 },
             }),
             headers={'Content-Type': 'application/json'},
@@ -77,7 +93,7 @@ class TestLaboratoryHTTP(HttpCase):
         return response.json()
 
     def test_http_authenticated_backend_and_read_only_vendor_lookup(self):
-        self.login()
+        self.select()
         page = self.url_open('/web')
         self.assertEqual(page.status_code, 200, page.text)
         response = self.rpc('ydental.lab.vendor', 'search_read', [[], ['name', 'category', 'state']])
@@ -85,7 +101,7 @@ class TestLaboratoryHTTP(HttpCase):
         self.assertIsInstance(response['result'], list)
 
     def test_http_native_order_create_cannot_forge_clinical_source(self):
-        self.login()
+        self.select()
         response = self.rpc('ydental.lab.order', 'create', [{
             'name': 'Forged S11 HTTP laboratory order',
             'ydental_source_event_id': 999999991,
@@ -101,7 +117,7 @@ class TestLaboratoryHTTP(HttpCase):
         self.assertNotIn('contact details', json.dumps(response).lower())
 
     def test_http_unknown_package_scan_does_not_return_patient_content(self):
-        self.login()
+        self.select()
         transient = self.rpc('ydental.lab.code.scan', 'create', [{
             'code': 'S11-UNKNOWN-PACKAGE-' + _key(),
         }])
@@ -114,12 +130,16 @@ class TestLaboratoryHTTP(HttpCase):
             self.assertNotIn(prohibited, serialized)
 
     def test_http_model_read_is_limited_by_native_access_control(self):
-        self.login('no_grant')
+        self.select('no_grant')
         # The model's read ACL is intentionally available to internal staff;
         # workflow writes still require a live server-bound store scope.
         response = self.rpc('ydental.lab.order', 'search_read', [[], ['name', 'state']])
-        self.assertIn('result', response)
-        self.assertIsInstance(response['result'], list)
+        if 'result' in response:
+            self.assertIsInstance(response['result'], list)
+            self.assertEqual(response['result'], [])
+        else:
+            self.assertIn('error', response)
+        self.assertNotIn('patient', json.dumps(response).lower())
         denied = self.rpc('ydental.lab.vendor', 'create', [{
             'qualification_reference': 'S11 HTTP unauthorized vendor',
             'valid_until': '2099-12-31',
