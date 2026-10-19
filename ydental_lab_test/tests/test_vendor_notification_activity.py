@@ -17,6 +17,14 @@ class TestVendorNotificationActivity(TransactionCase):
             company_id=root.company.id,
             company_ids=[Command.set([root.company.id])],
         )
+        reassignee = new_test_user(
+            root,
+            name='S11 synthetic vendor activity reassignee',
+            login='s11_vendor_activity_reassignee',
+            groups='ydental_base.ydental_base_group_user,ydental_access.ydental_group_manager',
+            company_id=root.company.id,
+            company_ids=[Command.set([root.company.id])],
+        )
         partner = root['res.partner'].create({
             'name': 'S11 synthetic activity vendor',
         })
@@ -54,3 +62,13 @@ class TestVendorNotificationActivity(TransactionCase):
                     getattr(vendor_as_manager, method)(*kwargs)
                 else:
                     getattr(vendor_as_manager, method)(**kwargs)
+
+        activity.with_user(manager).write({'user_id': reassignee.id})
+        activity.invalidate_recordset(['user_id', 'active', 'date_done'])
+        self.assertEqual(activity.user_id, reassignee)
+        activity.with_user(reassignee).action_feedback(feedback='Synthetic review completed internally')
+        activity.invalidate_recordset(['active', 'date_done', 'feedback'])
+        self.assertFalse(activity.active)
+        self.assertTrue(activity.date_done)
+        self.assertEqual(activity.feedback, 'Synthetic review completed internally')
+        self.assertEqual(root['mail.mail'].sudo().search_count([]), mail_count)

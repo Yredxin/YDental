@@ -40,19 +40,39 @@ class YDentalLabVendor(models.Model):
         'UNIQUE(partner_id, category)', 'A vendor has one qualification record per service category.')
 
     def _deny_external_message(self, *args, **kwargs):
-        raise AccessError(self.env._('access_denied: Vendor records do not support outbound messages.'))
+        raise AccessError(self.env._('access_denied: Vendor records do not support external messaging.'))
 
     def message_post(self, *args, **kwargs):
+        if self.env.context.get('ydental_lab_internal_activity_done'):
+            return super().message_post(*args, **kwargs)
         return self._deny_external_message(*args, **kwargs)
 
     def message_notify(self, *args, **kwargs):
-        return self._deny_external_message(*args, **kwargs)
+        partner_ids = kwargs.get('partner_ids')
+        partners = self.env['res.partner'].browse(partner_ids or []).exists()
+        if (not partners or len(partners) != len(set(partner_ids or [])) or
+                any(not partner.user_ids.filtered(lambda user: user.active and user._is_internal())
+                    for partner in partners)):
+            return self._deny_external_message(*args, **kwargs)
+        return super().message_notify(*args, **kwargs)
 
-    def message_post_with_source(self, *args, **kwargs):
-        return self._deny_external_message(*args, **kwargs)
+    def message_post_with_source(self, source_ref, *args, **kwargs):
+        if source_ref != 'mail.message_activity_done':
+            return self._deny_external_message(*args, **kwargs)
+        return super(YDentalLabVendor, self.with_context(
+            ydental_lab_internal_activity_done=True,
+        )).message_post_with_source(source_ref, *args, **kwargs)
 
     def message_mail_with_source(self, *args, **kwargs):
         return self._deny_external_message(*args, **kwargs)
+
+    def _notify_thread(self, message, **kwargs):
+        recipients = self._notify_get_recipients(message, **kwargs)
+        internal_recipients = [recipient for recipient in recipients if recipient.get('uid') and
+                               self.env['res.users'].browse(recipient['uid'])._is_internal()]
+        if internal_recipients:
+            self._notify_thread_by_inbox(message, internal_recipients, **kwargs)
+        return internal_recipients
 
     @api.model_create_multi
     def create(self, vals_list):
