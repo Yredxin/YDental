@@ -359,6 +359,19 @@ class TestFollowupLifecycle(TransactionCase):
         self.assertEqual(len(current_jobs), 1)
         self.assertEqual(current_jobs.ydental_state, 'pending')
         self.assertLessEqual(current_jobs.ydental_due_at, new_start)
+        audit = self.root['ydental.access.audit'].sudo().search([
+            ('ydental_event', '=', 'appointment_reschedule'),
+            ('ydental_category', '=', 'followup'),
+            ('ydental_target_model', '=', 'ydental.followup'),
+            ('ydental_target_id', '=', followup_id),
+            ('ydental_source', '=', 'intake_appointment_reschedule'),
+            ('ydental_result', '=', 'accepted'),
+        ], order='id desc', limit=1)
+        self.assertTrue(audit, 'rescheduling a linked appointment must leave a follow-up audit row')
+        self.assertEqual(audit.ydental_user_id, self.users['frontdesk'])
+        self.assertEqual(audit.ydental_before['schedule_version'], old_version)
+        self.assertEqual(audit.ydental_after['schedule_version'], old_version + 1)
+        self.assertEqual(audit.ydental_after['appointment_at'], fields.Datetime.to_string(new_start))
 
         repeated = frontdesk._operate('reschedule', payload, operation_key)
         self.assertEqual(repeated['result'], 'already_accepted')
