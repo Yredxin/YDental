@@ -93,6 +93,21 @@ class TestVendorNotificationActivity(TransactionCase):
             template.with_user(ordinary_user).send_mail(vendor.id, force_send=True)
         self.assertEqual(root['mail.mail'].sudo().search_count([]), mail_count)
 
+        sms_count = root['sms.sms'].sudo().search_count([])
+        sms_composer = root['sms.composer'].with_user(ordinary_user).create({
+            'res_model': 'ydental.lab.vendor',
+            'res_ids': repr([vendor.id]),
+            'composition_mode': 'mass',
+            'body': 'S11 synthetic message must not leave Odoo',
+        })
+        with self.assertRaises(AccessError):
+            sms_composer.action_send_sms_mass_now()
+        with self.assertRaises(AccessError):
+            sms_composer.action_send_sms()
+        with self.assertRaises(AccessError):
+            sms_composer.action_schedule_message()
+        self.assertEqual(root['sms.sms'].sudo().search_count([]), sms_count)
+
         activity.with_user(manager).write({'user_id': reassignee.id})
         activity.invalidate_recordset(['user_id', 'active', 'date_done'])
         self.assertEqual(activity.user_id, reassignee)

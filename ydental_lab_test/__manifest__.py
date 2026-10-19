@@ -5,7 +5,7 @@
     'category': 'Services',
     'author': 'YDental',
     'license': 'LGPL-3',
-    'depends': ['ydental_lab'],
+    'depends': ['ydental_lab', 'ydental_lab_sms_guard'],
     'installable': True,
     'application': False,
 }

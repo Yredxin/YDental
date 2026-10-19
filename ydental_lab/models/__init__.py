@@ -1,19 +1,19 @@
-from . import (
-    ir_attachment,
-    mail_outbound_guard,
-    ydental_access_service,
-    ydental_inventory_service,
-    ydental_lab_charge,
-    ydental_lab_charge_order,
-    ydental_lab_charge_service,
-    ydental_lab_code_bind,
-    ydental_lab_code_scan,
-    ydental_lab_cooperation,
-    ydental_lab_event,
-    ydental_lab_operation,
-    ydental_lab_order,
-    ydental_lab_record,
-    ydental_lab_service,
-    ydental_lab_settlement_service,
-    ydental_lab_vendor,
-)
+# Import order is intentional: base lab models must exist before their extensions load.
+# ruff: noqa: I001
+from . import ir_attachment
+from . import ydental_access_service
+from . import ydental_lab_record
+from . import ydental_lab_vendor
+from . import ydental_lab_cooperation
+from . import ydental_lab_order
+from . import ydental_lab_event
+from . import ydental_lab_operation
+from . import ydental_lab_code_bind
+from . import ydental_lab_code_scan
+from . import ydental_lab_service
+from . import ydental_inventory_service
+from . import ydental_lab_charge
+from . import ydental_lab_charge_order
+from . import ydental_lab_charge_service
+from . import ydental_lab_settlement_service
+from . import mail_outbound_guard
