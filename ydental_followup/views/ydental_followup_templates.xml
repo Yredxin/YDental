@@ -1,0 +1,225 @@
+<odoo>
+    <template id="followup_list" name="Follow-up workbench">
+        <t t-call="web.frontend_layout">
+            <main class="container py-4">
+                <h1>Follow-up workbench</h1>
+                <p>Store: <strong t-out="store.name"/>. Appointment, actual arrival, treatment and contact status remain separate.</p>
+                <section class="card my-3">
+                    <div class="card-body">
+                        <h2>Create follow-up from an actual treatment event</h2>
+                        <form action="/ydental/followups/action" method="post" class="row g-2">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <input type="hidden" name="revision" t-att-value="revision"/>
+                            <input type="hidden" name="operation" value="create"/>
+                            <label class="col-md-3">Patient
+                                <select class="form-select" name="patient_id" required="required">
+                                    <option value="">Choose a patient with a confirmed visit</option>
+                                    <t t-foreach="patients" t-as="patient"><option t-att-value="patient.id"><t t-out="patient.name"/> — <t t-out="patient.ydental_number"/></option></t>
+                                </select>
+                            </label>
+                            <label class="col-md-3">Confirmed treatment event
+                                <select class="form-select" name="source_event_id" required="required">
+                                    <option value="">Choose a completed treatment event</option>
+                                    <t t-foreach="source_events" t-as="event">
+                                        <t t-set="event_patient" t-value="event.ydental_execution_id.ydental_patient_id"/>
+                                        <option t-att-value="event.id"><t t-out="event_patient.name"/> — <t t-out="event.ydental_business_date"/> — <t t-out="event.ydental_catalog_id.name"/> — event <t t-out="event.id"/></option>
+                                    </t>
+                                </select>
+                            </label>
+                            <label class="col-md-2">Type
+                                <select class="form-select" name="followup_type"><option value="post_visit">Post-visit</option><option value="other">Other</option></select>
+                            </label>
+                            <label class="col-md-2">Planned at <input class="form-control" name="planned_at" type="datetime-local" required="required"/></label>
+                            <label class="col-md-2">Deadline <input class="form-control" name="deadline_at" type="datetime-local"/></label>
+                            <input type="hidden" name="responsible_id" t-att-value="current_user.id"/>
+                            <div class="col-12"><button class="btn btn-primary" type="submit">Create plan</button></div>
+                        </form>
+                    </div>
+                </section>
+                <section class="table-responsive">
+                    <table class="table table-striped">
+                        <thead><tr><th>Patient</th><th>Type</th><th>Planned</th><th>Appointment</th><th>Appointment status</th><th>Follow-up state</th><th>Responsible</th><th>Actions</th></tr></thead>
+                        <tbody>
+                            <t t-foreach="rows" t-as="row">
+                                <tr t-att-id="'followup-%s' % row.id">
+                                    <td t-out="row.ydental_patient_id.name"/>
+                                    <td t-out="row.ydental_followup_type"/>
+                                    <td t-out="row.ydental_planned_at"/>
+                                    <td t-out="row.ydental_appointment_at or ''"/>
+                                    <td t-out="row.ydental_appointment_status"/>
+                                    <td t-out="row.state"/>
+                                    <td t-out="row.ydental_responsible_id.name"/>
+                                    <td>
+                                        <details><summary>Record contact</summary>
+                                            <form action="/ydental/followups/action" method="post">
+                                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                                <input type="hidden" name="revision" t-att-value="revision"/>
+                                                <input type="hidden" name="operation" value="contact"/>
+                                                <input type="hidden" name="followup_id" t-att-value="row.id"/>
+                                                <select class="form-select" name="method"><option value="phone">Telephone</option><option value="message">Message</option><option value="other">Other</option></select>
+                                                <select class="form-select" name="outcome"><option value="no_answer">No answer</option><option value="failed">Failed</option><option value="accepted">Accepted</option><option value="delivered">Confirmed delivered</option><option value="unknown">Unknown</option></select>
+                                                <input class="form-control" name="note" maxlength="300" placeholder="Brief operational note"/>
+                                                <button class="btn btn-secondary" type="submit">Save contact result</button>
+                                            </form>
+                                        </details>
+                                        <details><summary>Contact preference</summary>
+                                            <form action="/ydental/followups/action" method="post">
+                                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                                <input type="hidden" name="revision" t-att-value="revision"/>
+                                                <input type="hidden" name="operation" value="set_preference"/>
+                                                <input type="hidden" name="patient_id" t-att-value="row.ydental_patient_id.id"/>
+                                                <label><input type="checkbox" name="opt_out" value="yes"/> Opt out of automatic messages</label>
+                                                <select class="form-select" name="preferred_channel"><option value="manual">Manual contact only</option><option value="phone">Telephone</option><option value="email">Email</option><option value="message">Message</option></select>
+                                                <button class="btn btn-secondary" type="submit">Save preference</button>
+                                            </form>
+                                        </details>
+                                        <details><summary>Reschedule contact</summary>
+                                            <form action="/ydental/followups/action" method="post">
+                                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                                <input type="hidden" name="revision" t-att-value="revision"/>
+                                                <input type="hidden" name="operation" value="reschedule"/>
+                                                <input type="hidden" name="followup_id" t-att-value="row.id"/>
+                                                <input class="form-control" name="planned_at" type="datetime-local" required="required"/>
+                                                <input class="form-control" name="deadline_at" type="datetime-local"/>
+                                                <button class="btn btn-secondary" type="submit">Reschedule</button>
+                                            </form>
+                                        </details>
+                                        <details><summary>Link a reservation</summary>
+                                            <form action="/ydental/followups/action" method="post">
+                                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                                <input type="hidden" name="revision" t-att-value="revision"/>
+                                                <input type="hidden" name="operation" value="link_appointment"/>
+                                                <input type="hidden" name="followup_id" t-att-value="row.id"/>
+                                                <label>Existing reservation for this patient
+                                                    <select class="form-select" name="appointment_id" required="required">
+                                                        <option value="">Choose an active reservation</option>
+                                                        <t t-foreach="appointments_by_patient.get(row.ydental_patient_id.id, [])" t-as="appointment">
+                                                            <option t-att-value="appointment.id"><t t-out="appointment.ydental_claim_id.ydental_slot_id.ydental_start"/> — reservation <t t-out="appointment.id"/></option>
+                                                        </t>
+                                                    </select>
+                                                </label>
+                                                <button class="btn btn-secondary" type="submit">Link reservation</button>
+                                            </form>
+                                        </details>
+                                        <details><summary>Clear intake-cancelled reservation</summary>
+                                            <form action="/ydental/followups/action" method="post">
+                                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                                <input type="hidden" name="revision" t-att-value="revision"/>
+                                                <input type="hidden" name="operation" value="link_appointment"/>
+                                                <input type="hidden" name="followup_id" t-att-value="row.id"/>
+                                                <input type="hidden" name="status" value="cancelled"/>
+                                                <button class="btn btn-secondary" type="submit">Clear cancelled link</button>
+                                            </form>
+                                        </details>
+                                        <details><summary>Record actual arrival</summary>
+                                            <form action="/ydental/followups/action" method="post">
+                                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                                <input type="hidden" name="revision" t-att-value="revision"/>
+                                                <input type="hidden" name="operation" value="record_arrival"/>
+                                                <input type="hidden" name="followup_id" t-att-value="row.id"/>
+                                                <label>Actual arrival for this patient
+                                                    <select class="form-select" name="arrival_id" required="required">
+                                                        <option value="">Choose an actual arrival</option>
+                                                        <t t-foreach="arrivals_by_patient.get(row.ydental_patient_id.id, [])" t-as="arrival">
+                                                            <option t-att-value="arrival.id"><t t-out="arrival.ydental_date"/> — <t t-out="arrival.ydental_occurred_at"/></option>
+                                                        </t>
+                                                    </select>
+                                                </label>
+                                                <button class="btn btn-secondary" type="submit">Link actual arrival</button>
+                                            </form>
+                                        </details>
+                                        <details><summary>Complete from actual treatment</summary>
+                                            <form action="/ydental/followups/action" method="post">
+                                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                                <input type="hidden" name="revision" t-att-value="revision"/>
+                                                <input type="hidden" name="operation" value="complete"/>
+                                                <input type="hidden" name="followup_id" t-att-value="row.id"/>
+                                                <label>Confirmed treatment from this patient's actual visit
+                                                    <select class="form-select" name="event_id" required="required">
+                                                        <option value="">Choose a completed treatment event</option>
+                                                        <t t-foreach="events_by_patient.get(row.ydental_patient_id.id, [])" t-as="event">
+                                                            <option t-att-value="event.id"><t t-out="event.ydental_business_date"/> — <t t-out="event.ydental_catalog_id.name"/> — event <t t-out="event.id"/></option>
+                                                        </t>
+                                                    </select>
+                                                </label>
+                                                <label><input type="checkbox" name="confirmed_unlinked" value="yes"/> Confirm encounter association when no reservation is linked</label>
+                                                <input class="form-control" name="reason" maxlength="300" placeholder="Required when unlinked"/>
+                                                <button class="btn btn-secondary" type="submit">Complete from event</button>
+                                            </form>
+                                        </details>
+                                        <details><summary>Contact history</summary>
+                                            <p class="text-muted">Latest readable attempts, up to 1,000 for this page.</p>
+                                            <ul class="list-group list-group-flush">
+                                                <t t-foreach="contacts_by_followup.get(row.id, [])" t-as="contact">
+                                                    <li class="list-group-item">
+                                                        <strong t-out="contact.ydental_contacted_at"/> —
+                                                        <t t-out="contact.ydental_method"/> / <t t-out="contact.ydental_outcome"/>
+                                                        — <t t-out="contact.ydental_actor_id.name"/>
+                                                        <p t-if="contact.ydental_note" t-out="contact.ydental_note" class="mb-0"/>
+                                                    </li>
+                                                </t>
+                                                <li t-if="not contacts_by_followup.get(row.id, [])" class="list-group-item text-muted">No contact attempts are available in this view.</li>
+                                            </ul>
+                                        </details>
+                                        <details><summary>Close with reason</summary>
+                                            <form action="/ydental/followups/action" method="post">
+                                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                                <input type="hidden" name="revision" t-att-value="revision"/>
+                                                <input type="hidden" name="operation" value="close"/>
+                                                <input type="hidden" name="followup_id" t-att-value="row.id"/>
+                                                <input class="form-control" name="reason" maxlength="300" required="required" placeholder="Reason"/>
+                                                <button class="btn btn-secondary" type="submit">Close plan</button>
+                                            </form>
+                                        </details>
+                                        <t t-if="row.state == 'closed'">
+                                            <details><summary>Reopen with reason</summary>
+                                                <form action="/ydental/followups/action" method="post">
+                                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                                    <input type="hidden" name="revision" t-att-value="revision"/>
+                                                    <input type="hidden" name="operation" value="reopen"/>
+                                                    <input type="hidden" name="followup_id" t-att-value="row.id"/>
+                                                    <input class="form-control" name="reason" maxlength="300" required="required" placeholder="Reason"/>
+                                                    <button class="btn btn-secondary" type="submit">Reopen plan</button>
+                                                </form>
+                                            </details>
+                                        </t>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </section>
+                <section class="card my-3">
+                    <div class="card-body">
+                        <h2>Notification failures and unknown outcomes</h2>
+                        <p>Unknown outcomes must be reconciled before another send. A controlled test sink never proves patient delivery.</p>
+                        <table class="table table-sm">
+                            <thead><tr><th>Event</th><th>Due</th><th>State</th><th>Request identifier</th><th>Detail</th><th>Reconcile</th></tr></thead>
+                            <tbody>
+                                <t t-foreach="jobs" t-as="job">
+                                    <tr>
+                                        <td t-out="job.ydental_event_type"/><td t-out="job.ydental_due_at"/>
+                                        <td t-out="job.ydental_state"/><td t-out="job.ydental_request_id or '-'"/>
+                                        <td t-out="job.ydental_last_error or ''"/>
+                                        <td t-if="job.ydental_state == 'unknown'">
+                                            <form action="/ydental/followups/action" method="post">
+                                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                                <input type="hidden" name="revision" t-att-value="revision"/>
+                                                <input type="hidden" name="operation" value="reconcile_unknown"/>
+                                                <input type="hidden" name="job_id" t-att-value="job.id"/>
+                                                <select class="form-select" name="outcome"><option value="accepted">Accepted</option><option value="delivered">Confirmed delivered</option><option value="failed">Failed</option></select>
+                                                <input class="form-control" name="evidence" required="required" maxlength="300" placeholder="Query evidence or manual verification"/>
+                                                <button class="btn btn-secondary" type="submit">Reconcile</button>
+                                            </form>
+                                        </td>
+                                        <td t-else="">Manual contact required</td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </main>
+        </t>
+    </template>
+</odoo>

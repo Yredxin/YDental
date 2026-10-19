@@ -1,0 +1,15 @@
+id,name,model_id/id,group_id/id,operation,domain
+ydental_lab_vendor_read,Lab vendor read,model_ydental_lab_vendor,ydental_base.ydental_base_group_user,r,
+ydental_lab_vendor_manager,Lab vendor governance,model_ydental_lab_vendor,ydental_access.ydental_group_manager,crud,
+ydental_lab_cooperation_read,Lab cooperation read,model_ydental_lab_cooperation,ydental_base.ydental_base_group_user,r,
+ydental_lab_cooperation_create,Lab cooperation create,model_ydental_lab_cooperation,ydental_base.ydental_base_group_user,c,
+ydental_lab_order_access,Lab order workbench,model_ydental_lab_order,ydental_base.ydental_base_group_user,cru,
+ydental_lab_event_read,Lab event read,model_ydental_lab_event,ydental_base.ydental_base_group_user,r,
+ydental_lab_operation_read,Lab operation read,model_ydental_lab_operation,ydental_base.ydental_base_group_user,r,
+ydental_lab_vendor_company,Lab vendor company boundary,model_ydental_lab_vendor,,crud,"[('company_ids', 'in', company_ids)]"
+ydental_lab_cooperation_company,Lab cooperation company boundary,model_ydental_lab_cooperation,,crud,"[('ydental_store_id.company_id', 'in', company_ids)]"
+ydental_lab_order_company,Lab order company boundary,model_ydental_lab_order,,crud,"[('ydental_store_id.company_id', 'in', company_ids)]"
+ydental_lab_event_company,Lab event company boundary,model_ydental_lab_event,,crud,"[('ydental_store_id.company_id', 'in', company_ids)]"
+ydental_lab_operation_company,Lab operation company boundary,model_ydental_lab_operation,,crud,"[('ydental_store_id.company_id', 'in', company_ids)]"
+ydental_lab_code_bind_access,Lab package code binding,model_ydental_lab_code_bind,ydental_base.ydental_base_group_user,crud,
+ydental_lab_code_scan_access,Lab package code scan,model_ydental_lab_code_scan,ydental_base.ydental_base_group_user,crud,

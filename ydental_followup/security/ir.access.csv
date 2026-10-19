@@ -1,0 +1,8 @@
+id,name,model_id/id,group_id/id,operation,domain
+ydental_followup_read,Follow-up read,model_ydental_followup,ydental_base.ydental_base_group_user,r,
+ydental_followup_contact_read,Follow-up contact read,model_ydental_followup_contact,ydental_base.ydental_base_group_user,r,
+ydental_notification_job_read,Notification job read,model_ydental_notification_job,ydental_base.ydental_base_group_user,r,
+ydental_notification_callback_read,Notification callback read,model_ydental_notification_callback,ydental_base.ydental_base_group_user,r,
+ydental_followup_preference_read,Follow-up preference read,model_ydental_followup_preference,ydental_base.ydental_base_group_user,r,
+ydental_followup_policy_admin,Follow-up policy administration,model_ydental_followup_policy,ydental_access.ydental_group_manager,crud,"[('ydental_store_id.company_id','in',company_ids)]"
+ydental_followup_policy_company,Follow-up policy company restriction,model_ydental_followup_policy,,crud,"[('ydental_store_id.company_id','in',company_ids)]"

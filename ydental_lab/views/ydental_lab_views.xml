@@ -1,0 +1,243 @@
+<odoo>
+    <record id="ydental_lab_vendor_view_list" model="ir.ui.view">
+        <field name="name">ydental.lab.vendor.view.list</field>
+        <field name="model">ydental.lab.vendor</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="category"/>
+                <field name="qualification_reference"/>
+                <field name="valid_until"/>
+                <field name="state"/>
+                <field name="company_ids" widget="many2many_tags"/>
+            </list>
+        </field>
+    </record>
+    <record id="ydental_lab_vendor_view_form" model="ir.ui.view">
+        <field name="name">ydental.lab.vendor.view.form</field>
+        <field name="model">ydental.lab.vendor</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_approve" type="object" string="Approve qualification" class="btn-primary" groups="ydental_access.ydental_group_manager" invisible="state == 'approved'"/>
+                    <button name="action_reject" type="object" string="Reject qualification" groups="ydental_access.ydental_group_manager" invisible="state == 'rejected'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,approved,rejected"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="partner_id"/>
+                        <field name="category"/>
+                        <field name="qualification_reference"/>
+                        <field name="qualification_evidence" filename="qualification_evidence_name" groups="ydental_access.ydental_group_manager" widget="binary"/>
+                        <field name="qualification_evidence_name" groups="ydental_access.ydental_group_manager" invisible="1"/>
+                        <field name="valid_until"/>
+                        <field name="company_ids" widget="many2many_tags" groups="ydental_access.ydental_group_manager"/>
+                        <field name="review_reason" groups="ydental_access.ydental_group_manager"/>
+                        <field name="reviewed_by_id"/>
+                        <field name="reviewed_at"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="ydental_lab_vendor_action" model="ir.actions.act_window">
+        <field name="name">Laboratory qualifications</field>
+        <field name="res_model">ydental.lab.vendor</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <record id="ydental_lab_cooperation_view_list" model="ir.ui.view">
+        <field name="name">ydental.lab.cooperation.view.list</field>
+        <field name="model">ydental.lab.cooperation</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="ydental_vendor_id"/>
+                <field name="active"/>
+                <field name="local_reference"/>
+                <field name="responsible_id"/>
+            </list>
+        </field>
+    </record>
+    <record id="ydental_lab_cooperation_view_form" model="ir.ui.view">
+        <field name="name">ydental.lab.cooperation.view.form</field>
+        <field name="model">ydental.lab.cooperation</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_toggle" type="object" string="Enable / disable cooperation" class="btn-primary"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name" readonly="1"/>
+                        <field name="ydental_vendor_id"/>
+                        <field name="active" readonly="1"/>
+                        <field name="local_reference"/>
+                        <field name="responsible_id" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="ydental_lab_cooperation_action" model="ir.actions.act_window">
+        <field name="name">Store laboratory cooperation</field>
+        <field name="res_model">ydental.lab.cooperation</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <record id="ydental_lab_order_view_list" model="ir.ui.view">
+        <field name="name">ydental.lab.order.view.list</field>
+        <field name="model">ydental.lab.order</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="ydental_internal_code"/>
+                <field name="ydental_patient_id"/>
+                <field name="ydental_vendor_id"/>
+                <field name="ydental_source_event_id"/>
+                <field name="ydental_planned_at"/>
+                <field name="state"/>
+                <field name="ydental_parent_order_id"/>
+            </list>
+        </field>
+    </record>
+    <record id="ydental_lab_order_view_form" model="ir.ui.view">
+        <field name="name">ydental.lab.order.view.form</field>
+        <field name="model">ydental.lab.order</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_send" type="object" string="Send to laboratory" class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_start_processing" type="object" string="Start processing" invisible="state != 'sent'"/>
+                    <button name="action_receive" type="object" string="Record physical receipt" invisible="state not in ('sent', 'processing')"/>
+                    <button name="action_putaway" type="object" string="Put away into stock" class="btn-primary" invisible="state != 'received'"/>
+                    <button name="action_rework" type="object" string="Return for rework" invisible="state != 'available'"/>
+                    <button name="action_fit" type="object" string="Record actual fit" class="btn-primary" invisible="state != 'available'"/>
+                    <button name="action_cancel" type="object" string="Cancel before receipt" invisible="state not in ('draft', 'sent', 'processing')"/>
+                    <button name="action_close_exception" type="object" string="Close exception" invisible="state != 'available'"/>
+                    <button name="action_bind_package_code" type="object" string="Bind package code"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,sent,processing,received,available,done"/>
+                </header>
+                <sheet>
+                    <field name="ydental_store_id" invisible="1"/>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="ydental_internal_code" readonly="state != 'draft'"/>
+                            <field name="ydental_source_event_id" domain="[('state', '=', 'confirmed'), ('ydental_kind', '=', 'treatment')]" readonly="state != 'draft'"/>
+                            <field name="ydental_source_document_id" readonly="1"/>
+                            <field name="ydental_patient_id" readonly="1"/>
+                            <field name="ydental_source_fee_id" readonly="1"/>
+                            <field name="ydental_purchase_line_id" readonly="state != 'draft'" groups="purchase.group_purchase_user"
+                                   domain="[('order_id.state', 'in', ('purchase', 'done')), ('order_id.partner_id', '=', ydental_vendor_id.partner_id), ('order_id.company_id', '=', ydental_store_id.company_id)]"/>
+                            <field name="ydental_parent_order_id" readonly="1"/>
+                            <field name="ydental_rework_no" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="ydental_vendor_id" readonly="state != 'draft'"/>
+                            <field name="ydental_cooperation_id" readonly="1"/>
+                            <field name="ydental_vendor_qualification_version" readonly="1"/>
+                            <field name="ydental_vendor_qualification_valid_until" readonly="1"/>
+                            <field name="ydental_cooperation_active_at_dispatch" readonly="1"/>
+                            <field name="ydental_product_id" readonly="state != 'draft'"/>
+                            <field name="ydental_lot_id" readonly="state not in ('draft', 'received')"/>
+                            <field name="ydental_quantity" readonly="state != 'draft'"/>
+                            <field name="ydental_teeth" readonly="state != 'draft'"/>
+                            <field name="ydental_material" readonly="state != 'draft'"/>
+                            <field name="ydental_shade" readonly="state != 'draft'"/>
+                            <field name="ydental_instructions" readonly="state != 'draft'"/>
+                            <field name="ydental_responsible_id" readonly="state != 'draft'"/>
+                            <field name="ydental_planned_at" readonly="state != 'draft'"/>
+                        </group>
+                    </group>
+                    <group string="External coordination">
+                        <field name="ydental_external_mode" readonly="state != 'draft'"/>
+                        <field name="ydental_external_reference" readonly="state != 'draft'"/>
+                        <field name="ydental_external_url" readonly="state != 'draft'"/>
+                        <field name="ydental_external_actor" readonly="state != 'draft'"/>
+                        <field name="ydental_external_evidence" filename="ydental_external_evidence_name" widget="binary" readonly="state != 'draft'"/>
+                        <field name="ydental_external_evidence_name" invisible="1"/>
+                        <field name="ydental_package_code" readonly="1"/>
+                    </group>
+                    <group string="Rework and disposition">
+                        <field name="ydental_rework_kind" readonly="state != 'available'"/>
+                        <field name="ydental_exception_disposition" readonly="state != 'available'"/>
+                        <field name="ydental_exception_reason" readonly="state in ('done', 'cancelled', 'exception', 'rework_returned')"/>
+                        <field name="ydental_receipt_at" readonly="1"/>
+                        <field name="ydental_receipt_actor_id" readonly="1"/>
+                        <field name="ydental_inventory_event_id" readonly="1"/>
+                        <field name="ydental_fit_event_id" readonly="state != 'available'"/>
+                        <field name="ydental_fit_inventory_event_id" readonly="1"/>
+                        <field name="ydental_followup_id" readonly="1"/>
+                    </group>
+                    <field name="ydental_event_ids" readonly="1">
+                        <list>
+                            <field name="ydental_kind"/>
+                            <field name="ydental_before_state"/>
+                            <field name="ydental_after_state"/>
+                            <field name="ydental_actor_id"/>
+                            <field name="ydental_recorded_at"/>
+                            <field name="ydental_reason"/>
+                            <field name="ydental_inventory_event_id"/>
+                            <field name="ydental_cooperation_id"/>
+                            <field name="ydental_vendor_qualification_version"/>
+                            <field name="ydental_vendor_qualification_valid_until"/>
+                            <field name="ydental_cooperation_active_at_dispatch"/>
+                            <field name="ydental_purchase_line_id" groups="purchase.group_purchase_user"/>
+                            <field name="ydental_vendor_cost" groups="purchase.group_purchase_user"/>
+                            <field name="ydental_cost_currency_id" groups="purchase.group_purchase_user"/>
+                            <field name="ydental_patient_fee_id" groups="ydental_access.ydental_group_manager"/>
+                            <field name="ydental_patient_fee_amount" groups="ydental_access.ydental_group_manager"/>
+                            <field name="ydental_fee_currency_id" groups="ydental_access.ydental_group_manager"/>
+                        </list>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="ydental_lab_order_action" model="ir.actions.act_window">
+        <field name="name">External laboratory orders</field>
+        <field name="res_model">ydental.lab.order</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <record id="ydental_lab_code_bind_view_form" model="ir.ui.view">
+        <field name="name">ydental.lab.code.bind.view.form</field>
+        <field name="model">ydental.lab.code.bind</field>
+        <field name="arch" type="xml">
+            <form string="Bind external package code">
+                <group>
+                    <field name="order_id"/>
+                    <field name="code"/>
+                </group>
+                <footer>
+                    <button name="action_apply" type="object" string="Bind identification code" class="btn-primary"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="ydental_lab_code_scan_view_form" model="ir.ui.view">
+        <field name="name">ydental.lab.code.scan.view.form</field>
+        <field name="model">ydental.lab.code.scan</field>
+        <field name="arch" type="xml">
+            <form string="Find laboratory order by package code">
+                <group>
+                    <field name="code"/>
+                </group>
+                <footer>
+                    <button name="action_scan" type="object" string="Find authorized work order" class="btn-primary"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="ydental_lab_code_scan_action" model="ir.actions.act_window">
+        <field name="name">Scan package code</field>
+        <field name="res_model">ydental.lab.code.scan</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+    <menuitem id="ydental_lab_menu_root" name="Dental Laboratory" parent="ydental_base.ydental_base_menu_root" sequence="75" groups="ydental_base.ydental_base_group_user"/>
+    <menuitem id="ydental_lab_order_menu" name="Work orders" parent="ydental_lab_menu_root" action="ydental_lab_order_action" sequence="10"/>
+    <menuitem id="ydental_lab_code_scan_menu" name="Scan package code" parent="ydental_lab_menu_root" action="ydental_lab_code_scan_action" sequence="15"/>
+    <menuitem id="ydental_lab_cooperation_menu" name="Store cooperation" parent="ydental_lab_menu_root" action="ydental_lab_cooperation_action" sequence="20"/>
+    <menuitem id="ydental_lab_vendor_menu" name="Vendor qualifications" parent="ydental_lab_menu_root" action="ydental_lab_vendor_action" sequence="30" groups="ydental_access.ydental_group_manager"/>
+</odoo>

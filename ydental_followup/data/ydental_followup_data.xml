@@ -1,0 +1,11 @@
+<odoo>
+    <record id="ir_cron_ydental_followup_dispatch" model="ir.cron">
+        <field name="name">YDental Follow-up Notification Dispatch</field>
+        <field name="model_id" ref="model_ydental_followup"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_run_due()</field>
+        <field name="interval_number">5</field>
+        <field name="interval_type">minutes</field>
+        <field name="active">True</field>
+    </record>
+</odoo>

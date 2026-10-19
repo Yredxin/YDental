@@ -1,0 +1,46 @@
+<odoo>
+    <record id="ydental_followup_action" model="ir.actions.act_url">
+        <field name="name">Follow-up workbench</field>
+        <field name="url">/ydental/followups</field>
+        <field name="target">self</field>
+    </record>
+    <menuitem id="ydental_followup_menu" name="Follow-ups" parent="ydental_base.ydental_base_menu_root"
+              action="ydental_followup_action" sequence="45" groups="ydental_base.ydental_base_group_user"/>
+
+    <record id="ydental_followup_policy_view_list" model="ir.ui.view">
+        <field name="name">ydental.followup.policy.list</field>
+        <field name="model">ydental.followup.policy</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/><field name="ydental_store_id"/><field name="ydental_timezone"/>
+                <field name="ydental_enabled"/><field name="ydental_channel_mode"/>
+                <field name="ydental_lead_hours"/><field name="ydental_daily_limit"/>
+                <field name="ydental_unbooked_window_hours"/>
+            </list>
+        </field>
+    </record>
+    <record id="ydental_followup_policy_view_form" model="ir.ui.view">
+        <field name="name">ydental.followup.policy.form</field>
+        <field name="model">ydental.followup.policy</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/><field name="ydental_store_id"/><field name="ydental_timezone" readonly="1"/>
+                        <field name="ydental_enabled"/><field name="ydental_channel_mode"/>
+                        <field name="ydental_lead_hours"/><field name="ydental_quiet_start"/><field name="ydental_quiet_end"/>
+                        <field name="ydental_daily_limit"/><field name="ydental_unbooked_window_hours"/>
+                    </group>
+                    <div class="alert alert-info">S11 enables only a disabled channel or the controlled test sink. This policy does not configure a real messaging provider.</div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="ydental_followup_policy_action" model="ir.actions.act_window">
+        <field name="name">Follow-up notification policies</field>
+        <field name="res_model">ydental.followup.policy</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <menuitem id="ydental_followup_policy_menu" name="Notification policy" parent="ydental_base.ydental_base_menu_root"
+              action="ydental_followup_policy_action" sequence="46" groups="ydental_access.ydental_group_manager"/>
+</odoo>
