@@ -9,8 +9,8 @@
     "expected_cluster_ref": "7694897083368259627",
     "host": "127.0.0.1",
     "port": 5432,
-    "user": "<verified S11-only database role>",
-    "password": "<secret from an authorized S11 source>"
+    "user": "<verified database role for the authorized YDental project target>",
+    "password": "<secret from an authorized private YDental project provider>"
   },
   "scope": {
     "plan_id": "YD-S11-FOLLOWUP-LAB-V1",

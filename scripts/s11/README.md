@@ -12,8 +12,10 @@ present and match the current clean product candidate.
 The launcher refuses to start unless both files exist beneath the ignored path
 `.local/s11/`:
 
-- `runtime.json`, based on `runtime.example.json`, contains the real S11-only DB
-  login and issued scope metadata. It must be owned by the current user and mode
+- `runtime.json`, based on `runtime.example.json`, contains the verified DB
+  login and newly issued S11 scope metadata. The login may be sourced from an
+  authorized shared YDental project credential provider; this does not reuse an
+  S10 runtime scope or approval. It must be owned by the current user and mode
   `0600`; `.local/s11` must be a user-owned private directory with no group or
   other access.
 - `admission.json`, based on `admission.example.json`, records a fresh independent
@@ -25,10 +27,11 @@ The launcher refuses to start unless both files exist beneath the ignored path
 
 These examples contain placeholders and intentionally cannot pass validation.
 They do not create or assert credentials, scope, database access, or verification.
-Do not copy S10 private material into these files. Do not store secrets in Git,
-logs, shell history, screenshots, or chat. No `.local/s11` runtime or admission
-files were present when this launcher was added; no credentials or scope have
-been acquired or inferred.
+An authorized shared project credential may be read into the ignored private
+S11 runtime file; never reuse an S10 scope, approval, STOP state, or expired
+runtime window. Do not store secrets in Git, logs, shell history, screenshots,
+or chat. The GitHub repository is public, so never upload credential values or
+recoverable secret configuration.
 
 The admission receipt is a binding check, not a database probe or cryptographic
 attestation. The named independent verifier must retain the evidence and confirm

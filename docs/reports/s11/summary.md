@@ -13,6 +13,18 @@ Issue #35 partial-status receipt: [comment 6257832325](https://github.com/Yredxi
 - S11 continuation product/test and launcher candidate: `3b3f14a41de5ca6d94c4b5df584930d04e2f6904` (includes the prior `86673b8` S11 work plus this continuation). It is pushed and the remote branch was fetched back at the same commit.
 - Locked Odoo core: `f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb`. No core or `odoo-12` modifications.
 
+## 2026-10-19 continuation after user host/credential clarification
+
+The earlier “Required evidence still missing” section below records the status at the prior report cut. It is superseded for target identity and credential availability by this read-only continuation; it remains accurate that no Odoo service, S11 business write, install, upgrade, HTTP/RPC or browser test has run.
+
+The user confirmed this is a YDental-dedicated host and authorized cross-stage reuse of applicable local project credentials and host resources. The shared rule is recorded on the S11 branch and separately on `main` in `AGENTS.md`. The credential was read from the existing ignored S10 scratch provider and copied only into ignored `.local/s11/runtime.json` (mode `0600`); it was not printed, committed or uploaded. A new local S11 application scope was created; no S10 scope, approval, STOP or expiry was reused.
+
+Using read-only transactions, the primary controller and independent reviewer separately confirmed the target database name, OID `2144130` and cluster system identifier `7694897083368259627`. The independent reviewer used `REPEATABLE READ READ ONLY` and rolled back. Port `127.0.0.1:18411` was free at the preflight. The S11 protection checkpoint is `.local/s11/s10-scratch-preservation-checkpoint.json` (SHA-256 `4070c6bb3fe512d0364a7f193d3c533acbda53bc9acd9bce26843e5f467755ec`, mode `0600` in a `0700` directory), containing counts for 224 relevant tables and a SHA-256 summary of 91 installed module names/states; it contains no business-row text. This scratch has existing S10 financial, document, attachment and audit data and must be compared table by table after any future S11 writes.
+
+The current DB login role `odoo` is the only LOGIN role and has PostgreSQL `SUPERUSER`, `CREATEDB` and `CREATEROLE` set. The S11 v1.1 admission contract includes `database_role_not_superuser=true`; the observed role therefore does not satisfy that admission fact. No admission receipt has been fabricated, no cluster role has been changed, and no Odoo service has started. A decision request is pending on whether Codex may create a restricted login role for this scratch. While that decision is pending, no DB-write-dependent runtime work runs.
+
+The private `runtime.json` currently binds the S11 branch/HEAD, fixed scratch identity and a new local S11 scope. It will need regeneration after any candidate change. The launcher’s six local supervisor tests passed, as did `compileall` and `git diff --check`; these are SOURCE/PURE checks only and do not establish Odoo runtime acceptance.
+
 ## Implemented in this continuation
 
 The S11-B additional-charge rework path now has a separate immutable `ydental.lab.charge` source bound to a genuine additional rework child cycle. It freezes an effective S05 store price snapshot only after same-store medical and price authority and explicit synthetic terms confirmation. A separate action records actual additional-service performance; dispatch, scan, physical receipt, put-away, procurement and prosthesis fit do not create patient charges. Purchase lines remain cycle-exclusive and supplier costs do not automatically become patient fees.

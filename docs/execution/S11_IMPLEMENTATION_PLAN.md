@@ -42,3 +42,9 @@
 用户于 2026-10-19 提供的 [YD_S11_PLAN_SUPPLEMENT_V1_1.md](YD_S11_PLAN_SUPPLEMENT_V1_1.md) 并入本计划。它继续使用 `YD-S11-FOLLOWUP-LAB-V1 / 1.0`，不改变 S12/S13、合并或部署边界。该增量细化追加收费返工来源：周期绑定不可变收费源、S05 已审核发布价目冻结、附加服务实际完成后经 S10 受控原生出账；并补充 S11 scope/launcher、指定 scratch 准入及模型、HTTP/RPC、浏览器、短时多连接和 S10 保全验收要求。价目/来源字段、拒绝条件、数据库定位锚点、launcher 约束与首连门禁详见补充文件。
 
 该增量给出测试范围，不创建凭据、scope ID 或运行权限。实际工具可用性和数据库身份仍须现场核验；真实权限不足或安全拒绝按具体动作停止。当前不得回退已交付候选 `86673b8`，以实时 S11 分支 HEAD 和后续合法增量为准。
+
+## 用户后续澄清：项目专用主机与跨阶段凭据（2026-10-19）
+
+用户明确本机是 YDental 项目专用主机，允许 Codex 在计划范围内跨阶段读取/复用适用的本机项目凭据并调度本机资源（包括项目数据库内容），不得仅因项目自设软性额度停止工作。此项已同步至活动分支和默认分支的 `AGENTS.md`。凭据值只能留在 `.local` 等本机私有 provider；GitHub 仓库为 Public，故不能按用户建议上传/暴露口令、token、密钥或可反向恢复秘密的配置。旧 S10 scope、审批、STOP 和生命周期不随凭据复用而继承。
+
+本机 S10 scratch provider 已用于本阶段私有 `runtime.json`。主控与独立验收者均以只读数据库事务核验目标 DB/OID/cluster；独立者保存逐表与模块摘要 checkpoint。当前 PostgreSQL 唯一 LOGIN 角色 `odoo` 为 superuser。v1.1 私有 admission 示例明确包含 `database_role_not_superuser=true`，因此当前角色事实不能被写成通过；在获得是否创建受限测试角色的明确选择前，不启动依赖该角色策略的 Odoo/runtime 写操作。无数据库写入依赖的实现检查可继续。
