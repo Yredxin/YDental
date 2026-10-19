@@ -164,12 +164,12 @@ def main() -> int:
     if (len(args.candidate) != 40 or
             any(char not in "0123456789abcdef" for char in args.candidate)):
         raise common.Refusal("candidate must be a full lowercase 40-character commit SHA")
-    common.require_private_directory(common.RECEIPT_ROOT)
-    prior_receipts = sorted(common.RECEIPT_ROOT.glob("*-lab-race-fixture.json"))
+    common.require_private_directory(RECEIPT_ROOT)
+    prior_receipts = sorted(RECEIPT_ROOT.glob("*-lab-race-fixture.json"))
     if prior_receipts:
         raise common.Refusal(
             "a prior one-shot fixture intent exists; independently reconcile it before any new fixture action")
-    lock_path = common.RECEIPT_ROOT / "lab-race-fixture-setup.lock"
+    lock_path = RECEIPT_ROOT / "lab-race-fixture-setup.lock"
     if lock_path.exists():
         info = lock_path.lstat()
         if (not stat.S_ISREG(info.st_mode) or info.st_uid != os.getuid() or
