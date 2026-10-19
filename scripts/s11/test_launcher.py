@@ -18,6 +18,28 @@ SPEC.loader.exec_module(launcher)
 
 
 class LauncherSupervisorTests(unittest.TestCase):
+    def test_odoo_config_uses_stable_private_s11_filestore(self):
+        with tempfile.TemporaryDirectory(prefix='s11-config-test-') as temporary:
+            root = Path(temporary)
+            private = root / 'private'
+            private.mkdir(mode=0o700)
+            run_dir = root / 'run'
+            run_dir.mkdir(mode=0o700)
+            with (patch.object(launcher, 'PRIVATE_ROOT', private),
+                  patch.object(launcher, 'DATA_DIR', private / 'data'),
+                  patch.object(launcher, 'CORE_ADDONS', root / 'core-addons'),
+                  patch.object(launcher, 'REPO_ROOT', root)):
+                config_path = launcher.render_odoo_config(
+                    {'host': '127.0.0.1', 'port': 5432, 'user': 'synthetic', 'password': 'test-only'},
+                    run_dir,
+                )
+            parser = launcher.configparser.ConfigParser(interpolation=None)
+            parser.read(config_path)
+            self.assertEqual(parser['options']['data_dir'], str(private / 'data'))
+            self.assertTrue((private / 'data').is_dir())
+            self.assertEqual(os.stat(private / 'data').st_mode & 0o777, 0o700)
+            self.assertEqual(os.stat(config_path).st_mode & 0o777, 0o600)
+
     def test_owner_match_accepts_relative_invocation_of_exact_launcher(self):
         relative_script = os.path.relpath(launcher.SCRIPT_PATH, Path.cwd())
         with (patch.object(launcher, 'proc_start_ticks', return_value=1234),

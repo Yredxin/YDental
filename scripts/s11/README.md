@@ -65,6 +65,11 @@ enabled.
 The service is supervised in the foreground for at most 20 minutes and never
 past scope expiry. One service log is capped at 32 MiB. The ephemeral Odoo config
 containing the DB password is deleted on exit; run metadata excludes secrets.
+The Odoo filestore uses the stable private `.local/s11/data/` directory across
+owned restarts. This is required because the scratch DB stores attachment hashes
+for web bundles in PostgreSQL; a fresh per-run data directory would return empty
+web assets and leave the authenticated browser client blank. The path is S11
+owned and mode `0700`; it is separate from the prior S10 launcher data directory.
 Run history is append-only and capped at 64 runs / 512 MiB; reaching either bound
 refuses a new run and requires review rather than automatic deletion.
 The stop command signals only the recorded supervisor PID with matching Linux

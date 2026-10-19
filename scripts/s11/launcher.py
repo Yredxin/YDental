@@ -46,6 +46,7 @@ PRIVATE_ROOT = REPO_ROOT / ".local" / "s11"
 RUNTIME_CONFIG = PRIVATE_ROOT / "runtime.json"
 ADMISSION = PRIVATE_ROOT / "admission.json"
 RUNS = PRIVATE_ROOT / "runs"
+DATA_DIR = PRIVATE_ROOT / "data"
 ACTIVE = PRIVATE_ROOT / "active.json"
 ODOO_ROOT = REPO_ROOT.parent
 ODOO_BIN = ODOO_ROOT / "odoo-bin"
@@ -420,7 +421,10 @@ def render_odoo_config(database: dict, run_dir: Path) -> Path:
     parser = configparser.ConfigParser(interpolation=None)
     parser["options"] = {
         "addons_path": ",".join((str(CORE_ADDONS), str(REPO_ROOT))),
-        "data_dir": str(run_dir / "data"),
+        # Odoo attachment rows store stable filestore hashes in PostgreSQL.
+        # Keep the S11-owned filestore across launcher runs so normal web
+        # assets and S11-owned attachments remain available after restart.
+        "data_dir": str(DATA_DIR),
         "db_host": database["host"],
         "db_port": str(database["port"]),
         "db_user": database["user"],
@@ -442,7 +446,7 @@ def render_odoo_config(database: dict, run_dir: Path) -> Path:
         "smtp_port": "1",
         "smtp_ssl": "False",
     }
-    ensure_private_dir(run_dir / "data")
+    ensure_private_dir(DATA_DIR)
     fd = os.open(config_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL | getattr(os, "O_NOFOLLOW", 0), 0o600)
     try:
         with os.fdopen(fd, "w", encoding="utf-8", newline="\n") as stream:
