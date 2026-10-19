@@ -113,7 +113,7 @@ def snapshot(env, order_id: int, store_id: int) -> dict[str, Any]:
         "source_event_id": order.ydental_source_event_id.id,
         "responsible_id": order.ydental_responsible_id.id,
         "product_id": order.ydental_product_id.id,
-        "product_rounding": order.ydental_product_id.uom_id.rounding,
+        "product_rounding": 10.0 ** -env["decimal.precision"].precision_get("Product Unit"),
         "product_uom_id": order.ydental_product_id.uom_id.id,
         "company_id": order.ydental_store_id.company_id.id,
         "lot_id": order.ydental_lot_id.id or None,
