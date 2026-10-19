@@ -82,7 +82,8 @@ def preflight(env, args, admission):
     if args.warehouse_actor_id == args.purchase_actor_id:
         raise common.Refusal("use distinct ordinary purchase setup and warehouse action actors")
     if (not vendor or vendor.state != "approved" or
-            not vendor.valid_until or vendor.valid_until < fields.Date.context_today(env) or
+            not vendor.valid_until or vendor.valid_until < fields.Date.context_today(
+                env["res.users"].browse(env.uid)) or
             store.company_id not in vendor.company_ids):
         raise common.Refusal("vendor must have current approved qualification for this company")
     if not cooperation or cooperation.ydental_vendor_id != vendor:
