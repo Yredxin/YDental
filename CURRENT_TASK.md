@@ -8,6 +8,7 @@
 - 本次源码检查通过 `compileall`、51 个相关 Python 文件 AST、3 个 XML 文件、20 行 ACL CSV 与 `git diff --check`；owned launcher 的 6 个本机子进程测试通过，含合成 start_service 的回执/owner/config 清理及忽略 SIGTERM 后仅停止本 launcher 精确拥有的子进程。Odoo TransactionCase 定义未运行，MODEL、安装/带数据升级、HTTP/RPC、浏览器、真实多连接竞争、原生库存/采购/收费联调均未运行。独立源码复核未发现静态来源桥/权限阻断，并确认 launcher 的精确子进程有界停止；它未运行 Odoo 或其它 runtime。独立验收 PASS 尚未成立。本次代码与报告已推送并核读回，具体回执见 [S11 当前报告](docs/reports/s11/summary.md)。
 - 已加入 S11 专用 fail-closed launcher 与私有 admission 契约；当前 `.local/s11/runtime.json` / `admission.json` 不存在，也无可核的本阶段凭据/scope 来源。本机 Odoo Python runtime 未安装。未连接目标、未启动服务/浏览器、未访问数据库。端口 `18411` 预检为空闲；未知 `127.0.0.1:8069` / PID 42433 完全未触碰。指定 scratch 的 name/OID/cluster/DB 权限和旧对象保护快照尚未独立实核，因而 M5 暂停于真实运行准入；launcher `status` 仅报告无私有目录/STOPPED，不构成服务核验。
 - S10 文书、原件、资金、库存、日结、审计及 D 收6/退2/净4继续保护；S10 scope/STOP 不续期或清除。真实短信/消息供应商、厂商门户同步、支付/税务/签署、生产未启用；本地 sink 不代表患者送达。不合并、不部署、不启动 S12/S13。技术实证和独立验收不完整，#35 保持 OPEN；#37 用户效果继续 OPEN。
+- 已在 [#35 记录本次 PARTIAL 及运行缺口](https://github.com/Yredxin/YDental/issues/35#issuecomment-6257832325)，评论全文读回一致；Issue 状态实读仍为 OPEN。
 - 外部短信/消息供应商、厂商门户/同步、支付/税务/签署及生产均未启用；受控 sink 只代表测试供应商受理，不代表患者送达。未进行 merge/deploy；不启动 S12/S13。M5/独立技术验收和 #35 关闭条件未满足，#35 保持 OPEN。
 - 原始 S10 历史状态、失败、STOP 和证据完整保留于以下历史段落与原报告，不以当前摘要覆盖。
 

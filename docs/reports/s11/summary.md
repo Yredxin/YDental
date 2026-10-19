@@ -3,6 +3,7 @@
 Conclusion: **PARTIAL**
 Issue #35: **OPEN**
 Sync: **SYNCED** (`3b3f14a41de5ca6d94c4b5df584930d04e2f6904` pushed and fetched back from `origin/codex/s11-followup-lab-r1`)
+Issue #35 partial-status receipt: [comment 6257832325](https://github.com/Yredxin/YDental/issues/35#issuecomment-6257832325), read back and verified; Issue remains OPEN.
 
 ## Fixed context and candidate
 
