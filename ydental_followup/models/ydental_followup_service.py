@@ -850,7 +850,7 @@ class YDentalFollowupService(models.AbstractModel):
         })
 
     def _callback_signature(self, raw_body, signature):
-        secret = self.env['ir.config_parameter'].sudo().get_param('ydental_followup.callback_secret')
+        secret = self.env['ir.config_parameter'].sudo().get_str('ydental_followup.callback_secret')
         if not secret or not isinstance(signature, str) or not signature.startswith('sha256='):
             raise AccessError(self.env._('access_denied: Notification callback authentication is not configured.'))
         expected = 'sha256=' + hmac.new(secret.encode(), raw_body, hashlib.sha256).hexdigest()
