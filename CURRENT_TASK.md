@@ -1,5 +1,12 @@
 # YDental 当前任务状态
 
+## S11 授权后续行快照（2026-10-20 08:43 UTC）
+
+- 收到用户“授权”，按其范围推进合成场景；当前仍为原分支 `codex/s11-followup-lab-r1`，HEAD `284984004f3527d823fd25efe036560af33782e7`，产品/测试候选 `789619fa76674caa1f8eab6db2eaf559847f16bf`，工作树跟踪文件干净。新HEAD fresh admission PASS：`.local/s11/verification/admission-2849840-independent-ro-recheck.json` SHA-256 `20b37c69b2a38195f8b4a41f4c8950dc238922ea5836ad75272b844c4d13a7a9`；目标身份/OID、受限DB角色、保护计数/D-C、外发关闭、STOPPED/18411空闲、launcher校验均通过。仅本地私有runtime/admission候选元数据更新，不含DB业务写入。
+- 新鲜RR只读角色/资源预检未查PO：Store2 user9有patient/frontdesk/medical write；user10只有medical write；user2318有medical/followup write。Store2映射2/价源455仍发布、$7 care；slot1594发布且余reservation1/walk-in2。这个价源不是义齿价源。第一次只读探针误读slot状态字段而抛AttributeError，关闭cursor回滚；修正后的只读查询成功，无业务提交。
+- 合成通知场景当前被普通登录凭证阻断：创建合成患者需要patient-write actor9；其既有本地session key曾在此前会话意外回显，按保全规则不得复用；本机当前没有该actor新鲜正常登录scope。现有actor10/2318权限不含patient write，不能冒充actor9或借用superuser。用户已授权合成测试资料/偏好，但此授权不替代真实登录凭证，也不授权伪造身份。
+- T08仍另缺合格义齿来源/价源、供应商采购与可用操作员组合；当前care映射和价源不能作义齿来源。尚未创建合成患者、联系方式、治疗、采购单或其他业务对象；未测试、未重放slot1594/followup272，未查询PO147–149。计划PARTIAL/IN_PROGRESS、#35 OPEN、无push/merge/deploy；继续前需通过正常私有provider刷新Store2 user9登录scope，或指定已有正常认证且具patient/frontdesk写权的普通Store2用户。
+
 ## S11 调查续行快照（2026-10-20 08:37 UTC）
 
 - 当前分支 `codex/s11-followup-lab-r1`，HEAD `3e408d00edd2b95305b2ebef36ca750a7b629cdc`，产品/测试候选 `789619fa76674caa1f8eab6db2eaf559847f16bf`；本次唯一差异为CURRENT_TASK和S11报告文档，本机只读代码/报告调查，无数据库访问、测试或业务写入。此前slot1594与followup272事实不重放。

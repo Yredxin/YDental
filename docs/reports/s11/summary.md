@@ -5,6 +5,12 @@ Issue #35：**OPEN**
 同步：本次继续实施的代码和状态尚未推送；依用户要求只在 plan 结束时发布最终结果与说明。
 计划范围：S11-A 复诊和通知可靠性 + S11-B 内部外加工，含补充输入 v1.1。真实外部通知、生产、合并、部署、S12/S13 均未启用。
 
+## 2026-10-20 授权后续行：合成路径准入与登录阻断
+
+用户授权继续调查并使用S11 scratch内的明确合成测试场景。针对HEAD `284984004f3527d823fd25efe036560af33782e7` 的fresh admission通过：`.local/s11/verification/admission-2849840-independent-ro-recheck.json` SHA-256 `20b37c69b2a38195f8b4a41f4c8950dc238922ea5836ad75272b844c4d13a7a9`。独立复核确认检查通过且为RR只读/rollback/close；无业务数据库写入。角色和资源预检只读确认Store2 user9可建患者/处理前台/医疗，user10医疗，user2318医疗/复诊；当前发布映射2/价源455是$7 care，不能充当义齿来源。slot1594仍有余量但不重用已完成操作。
+
+本次没有创建合成业务对象。原因是patient-write/前台actor9只有曾用于既有本机服务session；该session key先前曾在工具输出中回显，依保全约束不可复用。user10/2318现有正常scope没有patient-write；不以代码直接构造新认证身份或superuser绕过。fresh admission与role/resource检查无生产或业务写入。首次只读检查因脚本使用不存在的slot状态字段失败并自动关闭只读游标；修正后结果通过。后续需要通过获准私有provider建立actor9新scope，或确认另一名真实认证的Store2普通用户具patient/frontdesk write。T08还需另有合格义齿临床场景、义齿价源/有效采购行和相应操作员授权；purchase group的company级ACL可能使受保护PO147–149可见，既有明确限制仍禁止读取、使用或修改这些PO。S11保持PARTIAL/OPEN。
+
 ## 最新续行状态（2026-10-20 08:33 UTC）
 
 分支仍为`codex/s11-followup-lab-r1`；本节证据核验时HEAD为`210a2ca275caf6cff4e5256f186fbdebe210b814`，本次文档更新不改产品代码；已测代码/测试候选为`789619fa76674caa1f8eab6db2eaf559847f16bf`。789到210只有报告/状态文档变化；7bd到789增加报告和F4测试，没有产品源码变化。HEAD210独立fresh admission PASS：`.local/s11/verification/admission-210a2ca-independent-ro-recheck.json` SHA-256 `3d4a5d0921d7d9b3fc2c22d2bf450cfd87568053a2c801d7d4172929942a119d`。
