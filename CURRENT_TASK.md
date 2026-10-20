@@ -1,5 +1,16 @@
 # YDental 当前任务状态
 
+
+## S11 最新续行快照（2026-10-20 05:59 UTC；以本节覆盖下方旧候选状态）
+
+- 计划 `YD-S11-FOLLOWUP-LAB-V1 / 1.0` 仍 `IN_PROGRESS / OPEN`；活动分支 `codex/s11-followup-lab-r1`，实施前HEAD `81daa65be1f158dea930a3dd76b4559015176c62`，工作树干净，分支领先origin 104个提交；无push/merge/deploy。产品候选仍为 `2df07373fa5257589115d39f4354dcd4c25c2997`，32项临床/队列post-tests和1项followup regression此前通过。
+- actor10基于已有arrival359，通过原生queue/clinical/treatment事务一次完成task940/entry545：execution536/doc507/event416/fee414 $7、price455/snapshot513；handover生成task941 pending，lease543以holder_exit释放。原event414/fee412保留，无材料消耗。独立RR只读读回PASS：`.local/s11/verification/task940-clinical-attempt2-independent-readback.json` SHA-256 `62ce4fcd59bcd8db068fd5e03a47d58c8cccf2d651befd08bd2eeda45b3da152`。followup265仍`to_notify`并保持source event414；尚未完成。
+- 首次临床脚本在提交前因错误假设event含task字段而回滚。独立读回证明无execution/event/fee/document/audit/material副作用；证据 `.local/s11/verification/task940-clinical-attempt-rollback-readback.json` SHA-256 `36b729914936eb890b42bf8cc2f05ef00789397634fa2a6b602033ac45debe12`。attempt2数据库事务已提交，但脚本在cursor关闭后读取延迟ORM字段，退出时只留`COMMIT_PENDING_READBACK_REQUIRED`。原始receipt保留，独立状态已核实；补充closeout `.local/s11/operations/task940-continuation-native-clinical-attempt2-independent-closeout.json`。
+- 后续真实浏览器仅完成actor2318登录并到达`/odoo`认证页；脚本因期待`/web`而未识别实际`/odoo`地址，超时发生在followup页面及完成POST之前。独立RR读回确认followup265未变、event416来源未变；没有contact/job/outgoing mail/SMS/outbox，但认证产生1条内部discuss comment、3条access audit及1个access session（计数相应+1/+3/+1）。证据 `.local/s11/verification/browser-timeout-followup-final-independent-readback.json` SHA-256 `a2d3b8b3425ca2ab8a1eccb7d13adfd1f8f2731c1c6aa0e67b83a9a0d64302c1`。
+- owned Odoo run `20261020T055248Z-18909ba92aa6` child以exit `-11` (SIGSEGV)结束；launcher已停止，18411无监听。日志只能确认登录POST 303、`/odoo`认证页、session rotation/registry cache invalidation后`/web/webclient/load_menus`返回403；两条missing-filestore FileNotFoundError后静态asset请求200；日志未给出native崩溃原因，也未见followup业务POST。只读日志审查 `.local/s11/verification/run-20261020T055248Z-18909ba92aa6-crash-log-review.json` SHA-256 `dd0eeb3f44e5872a18d3c95208432ff4e97c29b954453df7bbbe57c0d49c0d43`；依项目规则不重启该HTTP/browser通道。
+- #35保持OPEN。剩余S11缺口仍包括followup265真实浏览器完成、通知unknown/策略端到端、T08 supplier_return及采购范围决策、F4双店合作矩阵、F2首次收费并发、计划影响回归和独立最终验收。继续处理不依赖崩溃HTTP/browser通道的独立事项；不重放任何已提交动作。
+
+
 ## S11 续行快照（2026-10-20 05:32 UTC；覆盖下方较早候选字段）
 
 - 当前活动 plan 仍为 `YD-S11-FOLLOWUP-LAB-V1 / 1.0`、`IN_PROGRESS / OPEN`；分支 `codex/s11-followup-lab-r1`。产品候选 `2df07373fa5257589115d39f4354dcd4c25c2997` 上的过期预约过滤改动及其32项兼容回归、1项followup回归均已完成；当前HEAD `64d841f357b66dbe76e5de91b1a5cf51271ffd47` 为仅文档增量提交，工作区核验干净。产品候选运行前需按计划执行当前HEAD准入刷新。
