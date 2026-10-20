@@ -1,5 +1,13 @@
 # [CODEX-STATUS] YD-S11-FOLLOWUP-LAB-V1 / 1.0
 
+## 2026-10-20 10:06 UTC：预约后通知来源的只读源码审查
+
+恢复核验确认仍在原分支 `codex/s11-followup-lab-r1`、HEAD `f2aa841404c07c6fff553d0077f6b899d1cc9964`、工作区干净。既有25项follow-up addon回归与patient650预约及独立读回均保留，不重放。
+
+子Agent对原生来源路径作只读源码审查，未查DB、未启动服务、未跑测试、未改文件。预约本身不能当作到店；原生业务需按arrival、report/queue FIFO、station capability和临床权限完成真实临床文书及治疗，再由confirmed treatment event支持显式followup创建。actor2466目前缺medical:read；clinical执行人还需medical:write及对应station能力。没有contact时followup走人工联系兜底；存在contact时才排入postcommit dispatcher路径。建job或controlled sink内部accepted均不代表已送达；`.invalid`地址不表示所有权或同意。
+
+因此patient650的arrival不得为测试方便而伪造；既有area2活动queue entry身份不读取且顺序不绕过。已有HTTP/browser Native SIGSEGV STOP不重启，亦不以伪造binding或裸ORM替代正常认证。下一步只审查测试代码是否能用隔离用例补足source commit至dispatcher的覆盖；其结论不改变本轮已完成业务事实。S11仍PARTIAL/IN_PROGRESS、#35 OPEN，未push/merge/deploy。
+
 ## 2026-10-20 10:04 UTC：follow-up addon全套回归
 
 候选 `ea1928c410697d8e68e533d9630a82efd5e879b7` 的新鲜admission receipt哈希链初审被独立验收指出错误：私有receipt自带自引用`receipt_sha256`，且`admission.json`尚绑定旧receipt hash。没有启动服务或进行业务动作。按无循环方式移除receipt内的self/admission哈希字段，将最终receipt SHA-256 `ffe0dfc9c7b3652e33137ca36fe76c96b37c86a8d6629528a7dd54ef418a947f`写在私有admission绑定中；`launcher.validate_pair()`通过，独立review复核PASS。receipt `.local/s11/verification/admission-ea1928c-independent-ro-recheck.json`。

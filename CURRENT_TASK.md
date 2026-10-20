@@ -1,5 +1,11 @@
 # YDental 当前任务状态
 
+## S11 最新续行（2026-10-20 10:06 UTC）
+
+- 最小恢复核验：活动分支 `codex/s11-followup-lab-r1`，HEAD `f2aa841404c07c6fff553d0077f6b899d1cc9964`，工作区干净；未推送、未合并、未部署。先前完成的25项 `ydental_followup_test` 全套回归和patient650预约均不重跑。S11计划仍 `PARTIAL / IN_PROGRESS`、#35 OPEN。
+- 独立只读源码审查结论（子Agent未访问DB/启动服务/运行测试/改文件）：patient650后续需保持Store2 reservation/claim有效，按原生 arrive→report 排队，再由有相应medical权限及station capability的角色完成clinical document、treatment并产生confirmed event，才能显式创建followup。actor2466虽有patient/frontdesk/followup写权限，但缺medical:read；治疗角色需medical:write与站点能力。创建followup需`followup:write`、`medical:read`、同店confirmed treatment及有效负责人。contact缺失时只产生人工兜底；有contact时job由postcommit dispatcher尝试，不等于已发送。`.invalid`合成地址不证明所有权或同意，controlled sink accepted不代表送达。
+- patient650的预约不是到店事实，不能为推进测试而虚构arrival；area2现有活动队列entry身份仍不读取，FIFO保持。已有HTTP/browser Native SIGSEGV STOP不重启；不得以裸ORM/伪造binding绕过正常server-bound session。后续测试代码审查将仅寻找可用的隔离测试覆盖路径，不会重放已完成业务副作用。task720/event417/patient364、PO147–149继续受保护。无push/merge/deploy。
+
 ## S11 最新续行（2026-10-20 10:04 UTC）
 
 - 上一节patient650预约证据已独立验收通过。提交后候选 `ea1928c410697d8e68e533d9630a82efd5e879b7` 的 fresh admission经过哈希链修复和独立PASS；其receipt为`.local/s11/verification/admission-ea1928c-independent-ro-recheck.json`，最终SHA-256 `ffe0dfc9c7b3652e33137ca36fe76c96b37c86a8d6629528a7dd54ef418a947f`。准入只更新了ignored私有runtime/admission候选绑定；scratch/OID/cluster/受限角色、224保护计数、D/C、模块、外发与service状态均通过。初始receipt哈希误含自引用字段，独立review拒绝后改为外部哈希绑定，并由reviewer复核PASS；无业务动作发生在首次review拒绝期间。
