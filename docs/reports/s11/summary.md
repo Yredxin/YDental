@@ -5,6 +5,12 @@ Issue #35：**OPEN**
 同步：本次继续实施的代码和状态尚未推送；依用户要求只在 plan 结束时发布最终结果与说明。
 计划范围：S11-A 复诊和通知可靠性 + S11-B 内部外加工，含补充输入 v1.1。真实外部通知、生产、合并、部署、S12/S13 均未启用。
 
+## 2026-10-20 续行：followup265 完成前置核验
+
+fc0测试及独立post-test读回之后，状态/报告提交为 `e73bcd72535d651e9662db2f08cb6438472ec8cd`（工作台实现候选不变）。e73 fresh admission与followup265/event416同一只读事务预检PASS：`.local/s11/verification/admission-e73bcd-readonly.json` SHA-256 `eb2cddd966829cfcba5c521ee7113a5d96cc8a89d6e7315c060a1673d148a37d`。RR READ ONLY显式rollback并关闭；目标、受限角色、模块/外发、224项保护计数和D/C pin、服务停止均通过。
+
+读回确认followup265仍`to_notify`、无预约/完成事件/执行、无联系记录或通知job；actor2318仍为active store2内部用户并具followup与medical写权，patient364当前store2关系存在。event416为confirmed treatment，执行536于2026-10-20 05:50:14 UTC handover结束，document507、patient364和store2链匹配；原生`_complete`允许该事件，但要求明确勾选无预约关联并填写非空原因，不要求文书状态confirmed。该次只读预检未触碰PO147–149、未写数据库。attempt5只有workbench GET 403、无completion POST，不能重放；在状态/准入按新HEAD刷新后，新的浏览器attempt6才可使用该前置事实。
+
 ## 2026-10-20 最新续行：工作台权限修复候选 fc0f614
 
 分支 `codex/s11-followup-lab-r1`，候选 `fc0f614f2af90c4e0714ed6c9db5ae0bb5918175`，core仍锁定 `f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb`。`ydental.intake.service._followup_reservation_options()` 限定当前store、授权patient relation、reservation entitlement和精确引用的claim/slot；校验reservation pool、来源task/source_key、store/patient/entitlement关联及held→held、started→consumed状态，只返回最少展示DTO。followup controller/template不再直接读取受保护capacity记录，未扩大ACL。患者canonical关系批量解析保留旧ID→合并链最终患者当前门店关系，并检查循环和缺失记录。

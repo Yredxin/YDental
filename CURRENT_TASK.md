@@ -1,6 +1,13 @@
 # YDental 当前任务状态
 
 
+## S11 最新核验快照（2026-10-20 07:29 UTC；覆盖下方历史快照）
+
+- 分支 `codex/s11-followup-lab-r1`，当前HEAD `e73bcd72535d651e9662db2f08cb6438472ec8cd`（fc0实现/测试及结果后仅状态文档提交）；工作树本次更新前干净；尚未执行attempt6。owned Odoo为STOPPED，18411空闲。
+- e73 fresh准入与followup265/event416同次RR只读预检PASS：`.local/s11/verification/admission-e73bcd-readonly.json` SHA-256 `eb2cddd966829cfcba5c521ee7113a5d96cc8a89d6e7315c060a1673d148a37d`；launcher.validate_pair通过。核实followup265仍`to_notify`、预约为空、completed event/execution为空、无contact/job；actor2318为active internal store2 member，followup与medical均write，patient364当前store2 relation存在。event416为confirmed treatment、执行536已于2026-10-20 05:50:14 UTC `handover`结束，document507/患者364/Store2链匹配。原生_complete要求`confirmed_unlinked=true`并填写原因；不要求document state confirmed。无已完成关联，未触碰PO147–149。数据库已显式rollback并关闭；224保护计数、D/C pin、外发关闭、服务停止/18411空闲均通过。
+- 基于该前置，新建的attempt6将是followup265→event416的一次性真实浏览器提交；attempt5仍不重放。开始前仍需将本状态同步到HEAD并按新HEAD新鲜准入/预检；之后记录回执并独立核验实际提交。
+
+
 ## S11 最新核验快照（2026-10-20 07:27 UTC；覆盖下方历史快照）
 
 - 原分支 `codex/s11-followup-lab-r1`，HEAD `fc0f614f2af90c4e0714ed6c9db5ae0bb5918175`，工作树仅有本状态/报告待提交；产品/测试候选为fc0。S11仍`PARTIAL / IN_PROGRESS`、#35 OPEN；无push/merge/deploy。
