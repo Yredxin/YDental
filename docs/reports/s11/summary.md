@@ -13,6 +13,10 @@ Issue #35：**OPEN**
 
 候选e373上followup265/event416 fresh只读资格预检PASS `.local/s11/verification/followup265-preflight-e3732fd.json` SHA-256 `380544dc4331f68394055bbbbbf4e15ea8e8b3772f5be3705cbca451b7f4ba7b`：followup265仍to_notify且未关联预约/完成事件/执行，没有contact/job；event416仍是同Store2患者治疗事件，execution536已handover结束、文书507关联一致；actor2318仍为active internal user且有medical/followup写权；无已有链接或外发，预约来源校验正常，服务STOPPED/18411空闲。该只读预检在状态提交前，后续需对新HEAD重新admit并fresh preflight。确认后可使用新attempt ID做一次真实浏览器完成；attempt6仍`do_not_retry`且不重放。#35仍OPEN、无push/merge/deploy。
 
+## 2026-10-20 followup265 attempt11：折叠表单中的选择器不可见
+
+attempt11通过认证并打开Store2 access/workbench；唯一complete marker定位至正确表单，但表单位于`details`中且尚未展开，选择event416时Playwright报不可见超时。未发生业务action POST；attempt11 receipt为`OUTCOME_REQUIRES_READBACK`/`do_not_retry=true`。独立RR只读/rollback/close读回PASS `.local/s11/verification/followup265-attempt11-independent-readback.json` SHA-256 `b34316e6c38df7ddc6cc15f57f903dfd92e6045756d3ab9e5cc7724ac17f3d95`：保留login/store及16条accepted source.view审计、两条设备记录；保护计数仅access_session+1/access_audit+19。followup265/event416、contacts/jobs/完成链接、D/C和外发/mail计数不变；服务STOPPED/18411空闲。后续全新attempt应点击对应details summary展开，再进行一次性表单提交。
+
 ## 2026-10-20 followup265 attempt10：工作台GET通过、表单定位停止
 
 attempt10使用新准入和资格预检，HTTP认证后Playwright成功GET Store2 access和followup workbench（均200）；由于`form.filter(has=...)`没有唯一匹配完成表单，在任何业务action POST前停止。receipt为`OUTCOME_REQUIRES_READBACK`/`do_not_retry=true`，attempt10和锁不重用。独立RR只读/rollback/close读回PASS `.local/s11/verification/followup265-attempt10-independent-readback.json` SHA-256 `62cb4bc31607c3aa2fce8fb06e17367aedc9a237bfb2266f81683e23485ad775`：followup265/event416、contacts/jobs/completion link、D/C和outbound/mail计数不变；保留登录/范围切换、两条设备记录及16条accepted source.view审计；服务STOPPED/18411空闲。接下来修正为唯一操作input locator并用其ancestor form精确定位，验证followup_id=265及event416选项，随后全新attempt ID/准入/预检。
