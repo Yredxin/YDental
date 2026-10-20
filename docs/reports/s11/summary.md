@@ -1,5 +1,15 @@
 # [CODEX-STATUS] YD-S11-FOLLOWUP-LAB-V1 / 1.0
 
+## 2026-10-20 12:36 UTC：capability队列读回及依赖业务阻断
+
+固定分支 `codex/s11-followup-lab-r1`、候选HEAD `dedbc2bbe0945e5b302b9167630fa75485850c0b`，当次准入前工作树clean、origin ahead167；当前product source candidate仍为`9425d999aaeba7a0e8af12cf419acb4aa91a5194`。此提交与`b9f75517`间是报告/状态变更；queue代码和测试tree与产品候选一致。未push。
+
+对先前area/state聚合所见的Store2 area2一个active waiting位置，用户范围内执行一次修正后的能力维度只读聚合。独立fresh admission `.local/s11/verification/admission-dedbc2-independent-ro-queue-aggregate.json` PASS，SHA `38b3d85966986a60ae8a3e69d02fab3fce542d29b54b1a52b9c2b9f5bc6a241c`；精确scratch/OID2144130/cluster/受限role、scope、D/C pin、保护计数、模块、外发和service STOPPED均通过，`launcher.validate_pair()` PASS。唯一最终查询receipt `.local/s11/verification/store2-queue-capability2-aggregate-final-dedbc2.json` PASS SHA `44dfbaa484b0babd60f354ad4e0c457dbe1caa736cec3dbcbd2947b351c8e3ac`；所执行runner `.local/s11/verification/store2-queue-capability2-aggregate-final-dedbc2.py` SHA `c7270a5b08cc3ae03558640ea67a704cc21796ab3884bb5a6fddab3dbdc4b9e1`。SQL仅针对Store2当前business date的`ydental_queue_entry`选取并group by `area_id, capability_id, state`与`count(*)`，不选取或关联patient/task/姓名/联系/文书字段。实际结果area2/capability2：`waiting=1`、`handover=3`、`void=1`。RR READ ONLY事务显式rollback、连接关闭；service STOPPED、18411 free。先前三次本地适配器NameError/KeyError回执保持INDETERMINATE；一次脏工作树导致的准入拒绝在数据库连接前停止，没有读数。此次锁定项目venv的执行唯一成功；较早system Python因缺psycopg2在数据库连接前退出。
+
+该聚合确认当前待处理位置与唯一callable station的capability2一致；Store2没有替代可调用区域。严格按正常FIFO，禁止让合成patient682越过未知现有队列位置。slot1693保持draft，不发布、不预约、不到店/不入队；不操作或查明等待项身份。由此依赖真实临床来源的postcommit通知、义齿采购/收发/供应商退回返工及新并发场景均不能在当前合法队列条件下完成。不得把历史generic-care event417、protected task720或旧PO147–149拿来补源。
+
+这不是运行恢复失败：已批准的限定GET及patient read-only browser访问通过，然而原SIGSEGV仍`ROOT_CAUSE_UNDETERMINED`，未修复声明。42项MODEL、限定带数据升级与保护验收不重跑；F2旧竞争仍为`EVIDENCE_GAP`、不重放。S11最后状态PARTIAL/IN_PROGRESS、#35 OPEN；不push/merge/deploy/S12/S13。
+
 ## 2026-10-20 12:31 UTC：有界恢复后续及Store2合成流程状态
 
 当前固定branch `codex/s11-followup-lab-r1`、HEAD `b9f75517c612b71b4073012545545b3dea7df460`；运行时代码候选仍是 `9425d999aaeba7a0e8af12cf419acb4aa91a5194`，之后HEAD变化为状态/报告和已记录测试变更。工作树续行前干净，branch比origin ahead166，尚未push。
