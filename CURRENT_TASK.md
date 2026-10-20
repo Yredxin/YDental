@@ -1,6 +1,17 @@
 # YDental 当前任务状态
 
 
+## S11 最新续行快照（2026-10-20 06:25 UTC；以本节覆盖下方旧候选状态）
+
+- 计划 `YD-S11-FOLLOWUP-LAB-V1 / 1.0` 仍 `IN_PROGRESS / OPEN`；活动分支 `codex/s11-followup-lab-r1`，当前HEAD `1776c4e3520b742ac47ba874c5616bfe3240991f`，本次文档更新前工作区干净；产品候选仍是 `2df07373fa5257589115d39f4354dcd4c25c2997`，既有32项post-tests与1项followup regression通过。无push/merge/deploy。
+- task941 在 actor9 普通 store2 会话下仅report一次，新增position/entry546、task版本3；提交后独立RR只读核验PASS：`.local/s11/verification/task941-report-committed-independent-readback-1776c4e.json` SHA-256 `8110c9aa0a794bf39cdec5c5f7efa85e400a4bcdf9539aac46facfc43b9e21b7`。arrival359保留；entry431/task759仍由原生过期资格排除。随后actor10沿原生queue/clinical/treatment路径一次完成task941：execution537/document508/event417/fee415 `$7`、snapshot514冻结price455；handover生成task942 pending，lease544以`holder_exit`释放。无材料消耗。
+- task941独立读回最终补充 `.local/s11/verification/task941-final-independent-ro-recheck2.json` SHA-256 `785da3fb188c5511aacb66cbf6e77fdc74f4f89f9a55b6c1fe1af345d37f17ae`，RR READ ONLY、explicit ROLLBACK、connection closed；确认event417/fee415/snapshot514唯一、task941/942 handover lineage、lease释放，task940及event416/fee414旧链保持，stock/inventory/material/financial protected counts无意外变化，fee415尚未已有settlement source，D/C及外发边界保持。较早独立报告 `.local/s11/verification/task941-clinical-committed-independent-readback-1776c4e.json` 原样保留为FAIL；其三个失败检查用了错误的正常handover投影/操作receipt数量假设，后续单独复核解释于 `.local/s11/verification/task941-clinical-readback-reconciliation-1776c4e.json`，不得覆盖原件。
+- 首次fee415发票竞争使用actor9两条独立native数据库连接与barrier；一方提交invoice179，另一方在更新原生结算mutex时收到PostgreSQL `SerializationFailure`。race脚本随后在关闭只读回读cursor后因延迟ORM字段读取退出，故未耐久保存当次backend PID与两路返回值；不重跑race。独立RR只读读回确认只有一个posted unpaid invoice179 `$7`、residual `$7`、payment_count 0、仅一个fee415 settlement source；另一key无receipt且没有第二经济事实。核实该key未提交后，用同一key单独调用原生bill，返回既有invoice179并生成第二receipt，不再造发票。最终独立RR readback `.local/s11/verification/task941-first-invoice-race-final-independent-readback-1776c4e.json` SHA-256 `a345374fccf743834506374beeed59fdbf99402bfd6d0aa6e7288a8f43c55af2`确认两个key均指向invoice179；moves +1、lines +2、source +1、settlement receipt +2，payment/外发/库存/material/D/C计数保持。该项可证明数据库竞争和经核实后幂等恢复；因未保存原始PID及loser响应，不写成两路并发调用均直接成功。
+- T08 supplier_return只读可行性评估已更新：store2当前有vendor98/cooperation235但无lab order；warehouse actor2043与medical actors权限不重合。完整PO成本链需要`purchase.group_purchase_user`；公司规则按company1会使新store2 actor可访问受保护store1 PO147–149。未加组、未操作受保护订单。证据 `.local/s11/verification/t08-supplier-return-feasibility-1776c4e-final.json` SHA-256 `169b8b38070e6909757e15866ff1572bba3fc8bb45c66af45e148b14c88b0552`。仅需对是否扩大该ORM访问范围作明确业务/安全决定。
+- F4只读复核找到旧矩阵快照：vendor98曾在store1有cooperation98、store2有cooperation235；store2另有合成vendor249/cooperation236及仅受控sink接受的到期提醒。证据候选分别为4a4591b与853e173，早于当前产品候选，不能证明当前状态或闭合双店E2E。复核没有改权限/业务数据；可另补隔离MODEL矩阵断言，但这不能替代T15端到端矩阵。
+- HTTP/browser Odoo run `20261020T055248Z-18909ba92aa6`仍是native SIGSEGV、服务STOPPED/18411空闲；根因未定，不恢复HTTP/browser通道。followup265真实完成、T03/T04/T05/T12通知端到端、F4双店合作矩阵、T08 supplier_return仍未完成；F2 task941首次发票竞争已有真实双连接与确认后幂等恢复证据，限制详见上文；最终独立整体验收待做。通知模型测试已覆盖部分语义，但不替代HTTP证据。#35保持OPEN，未发Issue过程更新；无push/merge/deploy。
+
+
 ## S11 最新续行快照（2026-10-20 05:59 UTC；以本节覆盖下方旧候选状态）
 
 - 计划 `YD-S11-FOLLOWUP-LAB-V1 / 1.0` 仍 `IN_PROGRESS / OPEN`；活动分支 `codex/s11-followup-lab-r1`，实施前HEAD `81daa65be1f158dea930a3dd76b4559015176c62`，工作树干净，分支领先origin 104个提交；无push/merge/deploy。产品候选仍为 `2df07373fa5257589115d39f4354dcd4c25c2997`，32项临床/队列post-tests和1项followup regression此前通过。

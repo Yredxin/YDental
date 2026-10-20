@@ -5,9 +5,11 @@ Issue #35：**OPEN**
 同步：本次继续实施的代码和状态尚未推送；依用户要求只在 plan 结束时发布最终结果与说明。
 计划范围：S11-A 复诊和通知可靠性 + S11-B 内部外加工，含补充输入 v1.1。真实外部通知、生产、合并、部署、S12/S13 均未启用。
 
+当前续行快照（2026-10-20 06:25 UTC）：分支 `codex/s11-followup-lab-r1`，HEAD `1776c4e3520b742ac47ba874c5616bfe3240991f`，产品候选 `2df07373fa5257589115d39f4354dcd4c25c2997`；当前工作区文档待提交。候选既有32项临床/队列post-tests和1项followup regression通过。#35仍OPEN；无push、merge、deploy。
+
 ## 当前候选与运行边界
 
-- 分支 `codex/s11-followup-lab-r1`；当前实现/工具 HEAD `98412e7014e26dcc033b2a1ffb3ce88790c1dd62`，领先 origin 84 个本地提交、未推送；最近通过带数据产品升级/模型回归的 addon 候选为 `caabf67cb0b5f50d098081dc5c6d72124f8f35e2`。`377ae373` 仅修复 T16 工具的前后事件字段快照并增加3项纯测试，不改 addon 产品代码。锁定 core `f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb`。HEAD `98412e7` 为记录临床站点阻塞与S11剩余缺口的文档提交；最新产品代码仍未变。候选98412e7 fresh admission通过，证据 `.local/s11/receipts/s11-candidate-98412e7-fresh-admission-20261020T024212Z.json` SHA `238de9ffe241d4c7949ad715e291b22ba621874db50a55b994bd89aed040beb9`；保护计数无下降，仅queue audit/outbox按预期增加，D/C pin一致，owned service停止且18411空闲。
+- 分支 `codex/s11-followup-lab-r1`；最新续行 HEAD `1776c4e3520b742ac47ba874c5616bfe3240991f`，本轮文档修改待提交；产品候选为 `2df07373fa5257589115d39f4354dcd4c25c2997`。该产品候选已通过32项临床/队列 post-tests、1项followup regression及fresh admission；锁定 core `f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb`。较早候选 `caabf67` 的62 post-tests、旧 `98412e7` admission及前述报告内容保留作历史证据，不代表当前 HEAD 的运行态准入。分支未推送；无merge/deploy。
 - 使用的目标为指定 scratch OID 2144130 / cluster `7694897083368259627`。S11 runtime、admission 与 launcher 位于本机忽略的 `.local/s11`，mode 0600；本机凭据不进入 Git、聊天、报告或请求日志。S10 main DB OID 2144129 未安装或写入；未知 8069/PID42433 未操作。
 - launcher 在本候选启动过 owned Odoo 服务并执行过只读 HTTP/RPC 和浏览器工作台检查，随后正常停止。外部 SMTP、SMS、供应商、支付均未启用；本地受控 sink 只代表内部测试受理，不代表患者送达。
 - 首次安装中的依赖和 Odoo 20 Registry 导入问题已在普通开发中修复；保留两次先前失败及只读保全记录，不覆写历史。当前候选成功完成带数据模块升级和测试，详见下文。
@@ -44,9 +46,9 @@ Issue #35：**OPEN**
 | 项目 | 当前证据与缺口 |
 |---|---|
 | F1 / T01、T13 | 生命周期模型测试涵盖提醒、未接通、联系成功、超期、预约关联/改期和真实接诊关联；actor2318已通过浏览器对confirmed event414创建followup265，独立持久读回PASS。POST后的浏览器投影断言未确认，另一次只读工作台预期heading未出现；尚无后续合格治疗event完成followup，故浏览器完整生命周期仍PARTIAL。跨店接诊 T02 新模型闭环在 `caabf67` 运行通过。 |
-| F2 / T07、T18 | 免费返工、成本与患者收费分离、S05冻结价、实际服务后原生出账及版本贷项模型测试通过；旧候选真实供应商成本/收货读回、当前候选追加收费/部分核销/幂等并发读回可用。尚无当前候选两连接收费首次确认/首张发票并发证据，也未独立读回完整 unknown 通知→返工周期链。 |
+| F2 / T07、T18 | 免费返工、成本与患者收费分离、S05冻结价、实际服务后原生出账及版本贷项模型测试通过；task941首次收费两连接竞争中一方提交invoice179，另一方收到mutex更新SerializationFailure。独立读回先确认无loser receipt且无第二经济事实，再对未提交的同一幂等key单次恢复，最终两个receipt key指向唯一posted unpaid $7 invoice179；payment=0、库存/材料与D/C不变。runner未保存原始backend PID及loser响应，故限称数据库竞争加核实后的幂等恢复，不称两路并发直接成功。完整 unknown 通知→返工周期链仍缺。 |
 | F3 / T08、T16 | T08 discard/报废分支有模型覆盖并已有真实持久状态独立读回，验证实物损耗去向、成本与患者费用未变、待办关闭且无假戴牙/退款；supplier_return分支尚未实测。T16 首次在 order433 执行时 runner 退出3；根因为 before/after 事件字典使用了不对称字段投影。独立读回确认当次恰一收货业务结果，但赛前两列不可证明。提交 `377ae373` 统一补读并新增纯测试后，order434 的 T16 race runner 与独立读回均 PASS：两 backend，收货一胜；取消在明确 SerializationFailure 后有界重试并观察状态冲突；旧 event1069 的 before/after 原始值两侧一致，新 event1071、audit40283、operation1019 唯一，无库存/复诊/成本/费用副作用。独立证据 `.local/s11/verification/race-cancel-receive-order434-independent-readback.log` SHA `dba6892be4087d13d3acac8bf4339120ebf73387e264e08a51d094fc1d5064d4`。|
-| F4 / T15 | 资质审核、合作/开单约束、过期旧单与内部活动消息测试通过；T10 HTTP回归验证普通仓库用户不能下载管理组限定厂商资质附件。双店端到端合作矩阵仍缺。 |
+| F4 / T15 | 资质审核、合作/开单约束、过期旧单与内部活动消息测试通过；T10 HTTP回归验证普通仓库用户不能下载管理组限定厂商资质附件。双店端到端合作矩阵仍缺。只读矩阵快照显示vendor98在store1有cooperation98、store2有cooperation235；另有store2 synthetic vendor249/cooperation236（旧快照称资格有效至2026-10-20且到期任务job1051仅被受控sink接受）。证据分别为 `.local/s11/verification/f4-vendor98-store1-store2-matrix-readback.json` SHA `a66b9ac183ee69b5d40dfca5703263bf8e483a56a117da84606645f3f7ca54e3`（候选4a4591b）与 `.local/s11/verification/store2-synthetic-vendor-precron-independent-readback.json` SHA `563d408c638018db29e7c33793398bc92490186f3b952e4c3e1f827420eb404b`（候选853e173）；均早于当前候选，不能作当前资格/有效性证明。T08可行性快照仍缺store2 lab order及同actor的medical+warehouse权限；新增purchase组会扩大company级可见范围到受保护PO147–149。无权限扩张或PO写入。 |
 | F5 / T06、T14、T17 | T06 order432 收货及入库 duplicate races 在候选 `03949443` 已实测并独立读回；order434 在 `73ec1c7` 的入库 duplicate race 也完成 runner 与独立持久读回，详见前述 SHA。T17 在 `377ae373` 对 order433/434 执行两个 backend 同码竞争：433 唯一绑定，434 收到 `code_conflict`；event1070/audit40278/operation1018 各唯一，数据库 unique constraint 报错经产品冲突映射对应 loser 结果；库存、成本、费用与 D/C 未变。独立读回 `.local/s11/verification/race-package-code-433-434-independent-readback.log` SHA `b467643311661cf57a7e087c64101abcdacb04b102a78be122f096ee7716c0f4`。T14预约版本仍只有模型证据。|
 | T03、T04 | unknown、受控回调签名/重复/乱序的模型测试通过；当前候选 job450 同 key恢复独立读回。HTTP回调拒绝仅有较早候选证据，无真实供应商通道。 |
 | T05、T12 | 策略/退订/未配置及通知不阻断人工加工有模型测试和相关持久状态；没有端到端日上限/免打扰/失败派发完整浏览器链。安装/带数据升级通过。真实通道 NOT_RUN。 |
@@ -58,7 +60,7 @@ Issue #35：**OPEN**
 
 ## 独立验收、状态与下一步
 
-独立代码/证据审查（实现者未给自己签收）确认：追加收费来源、供应商成本分离和 S10 原生出账/贷项代码契约通过；候选6706的升级、通知恢复、收费核销及幂等竞争读回通过；T09持久状态、候选caabf67的T02/T10 HTTP/RPC及升级保全读回通过；T06、T16、T17真实多连接动作与独立持久读回通过；T08 discard异常处置及其独立持久读回通过。当前仍为 **PARTIAL**：F1浏览器闭环、T08 supplier_return处置分支、通知 unknown/策略端到端、F4双店资质合作矩阵、T18返工/返库闭环（task720在clinical.open前停止并按timeout转verify；待合格临床站点恢复）、F2首次收费并发及必要最终回归仍缺；#35保持OPEN。
+独立代码/证据审查（实现者未给自己签收）确认：追加收费来源、供应商成本分离和 S10 原生出账/贷项代码契约通过；候选6706的升级、通知恢复、收费核销及幂等竞争读回通过；T09持久状态、候选caabf67的T02/T10 HTTP/RPC及升级保全读回通过；T06、T16、T17真实多连接动作与独立持久读回通过；T08 discard异常处置及其独立持久读回通过；task941首次收费竞争后的持久状态独立读回通过。当前仍为 **PARTIAL**：F1浏览器闭环、T08 supplier_return处置分支、通知 unknown/策略端到端、F4双店资质合作矩阵、T18返工/返库闭环（task720在clinical.open前停止并按timeout转verify）、SIGSEGV后的HTTP/browser验证、最终影响面回归和最终独立验收仍缺；#35保持OPEN。
 
 已知差错与修复保留：早期安装缺 Python `phonenumbers`；Odoo20 registry import路径已修；ruff排序曾破坏模型依赖import顺序并导致模块注册失败，已恢复依赖顺序；Odoo mail.activity默认消息可能触发邮件，现通过 quick-update 抑制活动邮件并限制 vendor message API；通用 composer/template及可选 SMS模块存在外发路径，新增 vendor guard 与 `ydental_lab_sms_guard`，普通 reader 负测确认不会增加短信/邮件。各失败、候选、日志与保全读回仍在本地 ignored `.local/s11/operations`/`receipts`，最终交付前需生成不含秘密的可发布证据索引。
 
@@ -112,3 +114,15 @@ followup265仍`to_notify`，源event414/doc505、无预约关联；不得用even
 owned launcher run `20261020T055248Z-18909ba92aa6` Odoo child退出码`-11`。owned service已停止且18411无监听。日志审查 `.local/s11/verification/run-20261020T055248Z-18909ba92aa6-crash-log-review.json` SHA-256 `dd0eeb3f44e5872a18d3c95208432ff4e97c29b954453df7bbbe57c0d49c0d43`：登录POST 303和`/odoo`页面后出现session rotation/registry cache invalidation，随后load_menus 403；两个missing-filestore FileNotFoundError附近静态asset后续200。日志未定位native crash原因，也没有业务action POST。依停止规则不重启HTTP/browser链路。HTTP后续失败证据与差错保留，不把导航错误当业务失败，也不重试followup。
 
 当前S11仍PARTIAL/OPEN。除followup265真实完成、HTTP/browser影响面回归外，T03/T04/T05/T12通知端到端、T08 supplier_return、F4双店合作矩阵、F2首次收费并发以及计划整体独立最终验收仍待处理；真实供应商/短信仍NOT_RUN。无push/merge/deploy，未向#35发过程评论。
+
+## 2026-10-20 S11续行：task941完成与首次收费竞争
+
+当前固定产品候选 `2df07373fa5257589115d39f4354dcd4c25c2997`，活动HEAD `1776c4e3520b742ac47ba874c5616bfe3240991f`。fresh task941资格核验通过：actor10具store2医疗权限/capability，task941仍pending且来源、到店、活动区域/站点和有效价源匹配；过期entry431/task759按原生规则排除。actor9有普通store2 settlement写权限及有效演示会计配置。一次report提交将task941更新至v3并生成position/entry546，arrival359复用；report回执 `.local/s11/operations/task941-native-report.json` SHA-256 `0435f67f3ed4af45f1495c3ceb35ec8069bbcbc8859f92b6bfab9912369de358`，独立readback `.local/s11/verification/task941-report-committed-independent-readback-1776c4e.json` SHA-256 `8110c9aa0a794bf39cdec5c5f7efa85e400a4bcdf9539aac46facfc43b9e21b7`。
+
+actor10随后沿原生队列/临床/治疗路径一次完成task941，生成execution537、document508、event417、fee415（$7）、price snapshot514（锁定price455）；handover生成pending task942，lease544按`holder_exit`释放，没有材料消耗。操作receipt `.local/s11/operations/task941-native-clinical.json` SHA-256 `340b5c831219f5d2b7ae0926e33ac40ef408640b686d7082a5418eaaec046de5`。最终独立RR只读复核 `.local/s11/verification/task941-final-independent-ro-recheck2.json` SHA-256 `785da3fb188c5511aacb66cbf6e77fdc74f4f89f9a55b6c1fe1af345d37f17ae` PASS，显式ROLLBACK并关闭连接；核实新链唯一、旧event416/fee414及task940保留、task942待办和lease状态正确，保护库存/材料/财务计数与D/C pin符合预期，无fee415结算来源或外发副作用。早期独立读回FAIL因错误假设handover投影和receipt数量，保留原件并以复核解释，不覆盖历史；首次收费runner两个前置脚本错误均发生在数据库业务调用前，已修正后仅运行一次。
+
+fee415首次发票竞争以两个同步barrier的独立数据库连接调用原生settlement。一次操作提交invoice179；另一操作在更新原生结算mutex时收到PostgreSQL `SerializationFailure`。runner随后在cursor关闭后延迟访问ORM字段，导致结果组装失败，未持久保存backend PID和loser原始返回值，因此没有重跑竞争。独立RR状态核验先确认fee415仅关联一张posted `out_invoice` invoice179（$7、residual $7、`not_paid`、payment_count 0），仅一条settlement source；loser key没有receipt，也没有第二张票、退款、贷项、付款或外发。基于该独立事实，仅对缺失的同一幂等key调用一次原生bill，得到既有invoice179并新增该key receipt，没有新增经济事实。最终独立只读读回 `.local/s11/verification/task941-first-invoice-race-final-independent-readback-1776c4e.json` SHA-256 `a345374fccf743834506374beeed59fdbf99402bfd6d0aa6e7288a8f43c55af2` PASS：两receipt key映射同一invoice179；move +1、line +2、source +1、settlement receipt +2、payment不变；库存/材料/D/C及邮件、短信、job、outbox无非预期变化。该证据代表真实数据库竞争和基于核实的幂等恢复；不代表两路并发调用均直接成功。首轮失败审计 `.local/s11/verification/task941-first-invoice-race-independent-status-audit-1776c4e.json` 保留为不完整的历史观察，不覆盖。
+
+T08 supplier_return仍未运行。只读评估 `.local/s11/verification/t08-supplier-return-feasibility-1776c4e-final.json` SHA-256 `169b8b38070e6909757e15866ff1572bba3fc8bb45c66af45e148b14c88b0552` 显示store2有vendor98/cooperation235但无lab order；warehouse actor2043权限与medical actor不重合。supplier_return需要同时具store2 warehouse/medical权限的同一actor和已入库订单；完整PO成本来源还需要`purchase.group_purchase_user`，其ACL为CRUD、规则按company过滤，会覆盖company1受保护的store1 PO147–149。未授予该组、未触碰这些PO。此前用户的“授权”未指明是否接受这一company级访问扩展，因此不作为扩大访问权限的决定；其余不依赖该范围的计划项继续独立推进。
+
+HTTP/browser owned run `20261020T055248Z-18909ba92aa6`在followup真实完成POST之前以SIGSEGV停止，launcher已停、18411空闲。当前不恢复该HTTP/browser通道。故followup265真实完成、T03/T04回调HTTP、T05/T12端到端策略链、SIGSEGV后影响回归均仍缺；模型覆盖不替代这些层级。F4双店合作矩阵复核中。真实外部短信/供应商未启用；#35保持OPEN，无Issue中间更新或push/merge/deploy。

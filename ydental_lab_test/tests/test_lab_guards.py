@@ -1,4 +1,4 @@
-from datetime import date, timedelta, timezone
+from datetime import UTC, date, timedelta
 from types import SimpleNamespace
 from unittest.mock import patch
 
@@ -144,6 +144,42 @@ class TestLaboratoryGuards(TransactionCase):
         self.assertEqual(args[1:], (vendor, store, '2026-11-30T00:00:00', responsible.id))
         self.assertNotIn('ydental_store_id', [term[0] for term in cooperation_model.domain])
 
+    def test_vendor_cooperation_is_store_scoped_within_shared_company(self):
+        service = self.env['ydental.lab.service']
+        company = SimpleNamespace(id=8)
+        store1 = SimpleNamespace(id=31, company_id=company)
+        store2 = SimpleNamespace(id=32, company_id=company)
+        vendor = SimpleNamespace(
+            id=19, state='approved',
+            valid_until=fields.Date.context_today(service) + timedelta(days=1),
+            company_ids=[company],
+        )
+
+        class VendorModel:
+            def browse(self, vendor_id):
+                return SimpleNamespace(exists=lambda: vendor if vendor_id == vendor.id else False)
+
+        class CooperationModel:
+            def __init__(self):
+                self.store_ids = []
+
+            def search(self, domain, limit=1):
+                self.store_ids.append(next(term[2] for term in domain if term[0] == 'ydental_store_id'))
+                active = next(term[2] for term in domain if term[0] == 'active')
+                vendor_id = next(term[2] for term in domain if term[0] == 'ydental_vendor_id')
+                if self.store_ids[-1] == store1.id and active and vendor_id == vendor.id:
+                    return SimpleNamespace(id=93)
+                return None
+
+        cooperation_model = CooperationModel()
+        models = {'vendor': VendorModel(), 'cooperation': cooperation_model}
+        with patch.object(type(service), '_model', side_effect=lambda entity: models[entity]):
+            self.assertIs(service._check_vendor_id(vendor.id, store1, None), vendor)
+            with self.assertRaises(AccessError):
+                service._check_vendor_id(vendor.id, store2, None)
+
+        self.assertEqual(cooperation_model.store_ids, [store1.id, store2.id])
+
     def test_vendor_expiry_for_store_writer_only_queues_current_store(self):
         service = self.env['ydental.lab.service']
         store1 = SimpleNamespace(id=31, company_id=SimpleNamespace(id=8))
@@ -237,6 +273,7 @@ class TestLaboratoryGuards(TransactionCase):
                 return {'id': 131}
 
         inventory_event_model = self.env['ydental.inventory.event']
+
         class InventoryEvent(SimpleNamespace):
             def exists(self):
                 return self
@@ -376,5 +413,5 @@ class TestLaboratoryGuards(TransactionCase):
         self.assertTrue(order.ydental_additional_performance_recorded)
         self.assertEqual(result['state'], 'performed')
         self.assertEqual(confirm.call_args.args[1], order.ydental_charge_ids)
-        self.assertEqual(confirm.call_args.args[2], performed_at.replace(tzinfo=timezone.utc).isoformat())
+        self.assertEqual(confirm.call_args.args[2], performed_at.replace(tzinfo=UTC).isoformat())
         self.assertEqual(confirm.call_args.args[3], 'vendor-work-proof-synthetic-01')
