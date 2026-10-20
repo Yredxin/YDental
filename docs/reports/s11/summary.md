@@ -7,9 +7,11 @@ Issue #35：**OPEN**
 
 ## 2026-10-20 候选2afd515验证进度
 
-当前仍在原分支 `codex/s11-followup-lab-r1`。候选 `2afd5156c9b9b4e9a3a778df9b04d6f001f309f4` fresh admission PASS，证据 `.local/s11/verification/admission-2afd515-readonly.json` SHA-256 `8348e9809d7edc4a7f795b6c8ef202cfda98d016359ddc94f80cd15b4db3cfcc`；包含scratch身份/受限角色、224保护计数、D/C、模块集、外发关闭及服务STOPPED/18411空闲核验，未读取PO147–149。
+当前仍在原分支 `codex/s11-followup-lab-r1`，修正测试payload后的HEAD为 `353e0fa3f99bfc6e7c02fe952a724d0dbc0ea8bd`，实现候选仍为 `2afd5156c9b9b4e9a3a778df9b04d6f001f309f4`。353 fresh admission PASS，证据 `.local/s11/verification/admission-353e0fa-readonly.json` SHA-256 `3598bfe0c9acb35e5eb7dec107252a1cafea825910209bf5b4484c7885527534`；包含scratch身份/受限角色、224保护计数、D/C、模块集、外发关闭及服务STOPPED/18411空闲核验，未读取PO147–149。
 
-32项临床/队列回归通过，私有运行目录 `.local/s11/operations/20261020T073326Z-clinical-queue-expiry-handover-regression/`，日志SHA-256 `90760db94c761cb159956acf1e8b2e0d9b1ab6a7b1cc5381b5528b0b5523fd41`。Followup生命周期测试因新加测试调用把reschedule的`record_id`误写成`id`而报1 error、0 failures，日志SHA-256 `e2d20e634ef9f05f017e02a6901ce52f8c0247161accb35919baaaaccb96c693`；已将测试参数修正为原生接口要求的`record_id`，尚待独立失败后读回、提交、重新准入及复测。HTTP测试组因前组失败未启动。该结果不计为候选通过；未启动owned HTTP服务或执行业务浏览器动作，attempt6不重放。#35仍OPEN、无push/merge/deploy。
+三组定向回归均exit 0：32项临床/队列回归 `.local/s11/operations/20261020T073544Z-clinical-queue-expiry-handover-regression/`（日志SHA-256 `a808911cd9a3b1018a5c3ad9989034af64a0a97e2608913c5a39d7b043e7ed5e`）、followup生命周期1项 `.local/s11/operations/20261020T073625Z-followup-completion-regression/`（`31e7550a5b39fbb109da4508f44d7b4faba6e53aeb292807e7fa949ec707a82d`）、无frontdesk医疗角色HTTP工作台1项 `.local/s11/operations/20261020T073639Z-followup-http-medical-without-frontdesk/`（`155f81268665033a52526b75aa6cfb8891085d680f992765b52f1b2eec28619f`）。HTTP日志记录`GET /ydental/followups`=200；生命周期用例执行原生reservation reschedule并验证新slot DTO。独立post-test只读/rollback/close读回PASS `.local/s11/verification/posttest-353e0fa-readback.json` SHA-256 `b086cfccc26741735facb61b42b2655bcc027bea3e05978095ae38144945ef3d`：224保护计数、D/C、模块、SMTP/SMS及mail/outbox与测试前一致，owned服务STOPPED/18411空闲。之前2afd运行因测试调用参数错误报1 error的失败记录及独立读回保留；修复已在353e0fa提交，不计为PASS。
+
+下一步为followup265/event416重新做只读资格预检和精确HEAD fresh admission，然后用全新attempt ID进行一次真实浏览器完成；attempt6仍`do_not_retry`且不重放。#35仍OPEN、无push/merge/deploy。
 
 ## 2026-10-20 followup265 attempt6：已定位并保全的GET拒绝
 
