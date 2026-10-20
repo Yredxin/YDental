@@ -11,7 +11,7 @@ Issue #35：**OPEN**
 
 三组定向回归均exit 0：32项临床/队列回归 `.local/s11/operations/20261020T073544Z-clinical-queue-expiry-handover-regression/`（日志SHA-256 `a808911cd9a3b1018a5c3ad9989034af64a0a97e2608913c5a39d7b043e7ed5e`）、followup生命周期1项 `.local/s11/operations/20261020T073625Z-followup-completion-regression/`（`31e7550a5b39fbb109da4508f44d7b4faba6e53aeb292807e7fa949ec707a82d`）、无frontdesk医疗角色HTTP工作台1项 `.local/s11/operations/20261020T073639Z-followup-http-medical-without-frontdesk/`（`155f81268665033a52526b75aa6cfb8891085d680f992765b52f1b2eec28619f`）。HTTP日志记录`GET /ydental/followups`=200；生命周期用例执行原生reservation reschedule并验证新slot DTO。独立post-test只读/rollback/close读回PASS `.local/s11/verification/posttest-353e0fa-readback.json` SHA-256 `b086cfccc26741735facb61b42b2655bcc027bea3e05978095ae38144945ef3d`：224保护计数、D/C、模块、SMTP/SMS及mail/outbox与测试前一致，owned服务STOPPED/18411空闲。之前2afd运行因测试调用参数错误报1 error的失败记录及独立读回保留；修复已在353e0fa提交，不计为PASS。
 
-下一步为followup265/event416重新做只读资格预检和精确HEAD fresh admission，然后用全新attempt ID进行一次真实浏览器完成；attempt6仍`do_not_retry`且不重放。#35仍OPEN、无push/merge/deploy。
+候选e373上followup265/event416 fresh只读资格预检PASS `.local/s11/verification/followup265-preflight-e3732fd.json` SHA-256 `380544dc4331f68394055bbbbbf4e15ea8e8b3772f5be3705cbca451b7f4ba7b`：followup265仍to_notify且未关联预约/完成事件/执行，没有contact/job；event416仍是同Store2患者治疗事件，execution536已handover结束、文书507关联一致；actor2318仍为active internal user且有medical/followup写权；无已有链接或外发，预约来源校验正常，服务STOPPED/18411空闲。该只读预检在状态提交前，后续需对新HEAD重新admit并fresh preflight。确认后可使用新attempt ID做一次真实浏览器完成；attempt6仍`do_not_retry`且不重放。#35仍OPEN、无push/merge/deploy。
 
 ## 2026-10-20 followup265 attempt6：已定位并保全的GET拒绝
 
