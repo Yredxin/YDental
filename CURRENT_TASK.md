@@ -1,6 +1,15 @@
 # YDental 当前任务状态
 
 
+## S11 最新核验快照（2026-10-20 07:27 UTC；覆盖下方历史快照）
+
+- 原分支 `codex/s11-followup-lab-r1`，HEAD `fc0f614f2af90c4e0714ed6c9db5ae0bb5918175`，工作树仅有本状态/报告待提交；产品/测试候选为fc0。S11仍`PARTIAL / IN_PROGRESS`、#35 OPEN；无push/merge/deploy。
+- 独立fresh准入PASS：`.local/s11/verification/admission-fc0f614-readonly.json` SHA-256 `73f5e0f0fee0e8608990155468a0b4a1d394e2f2244584941ad9bb781b4dae68`；目标OID2144130/cluster/受限角色、模块集、外发关闭、224项保护计数、D/C pin、service STOPPED/18411 free通过，`launcher.validate_pair()` PASS。测试后独立RR只读/显式ROLLBACK/close读回PASS：`.local/s11/verification/fc0f614-post-test-readback-attempt2.json` SHA-256 `b988064fd4c4c869295a7ff28e8474c8975e114b838f8b665b2266239a8010f5`；保护计数、D/C、模块集不变，外发0，服务停止。
+- fc0候选退出码0测试：临床/队列/过期预约/交接回归32项、followup真实生命周期（含原生A→B→C患者合并和预约held/started选项）1项、无frontdesk医疗角色HTTP工作台1项，均0 failed/0 error。operation/result/log：`.local/s11/operations/20261020T072253Z-clinical-queue-expiry-handover-regression/`（log SHA `9bd94fde886ae7102fc3edd0394ec5f7a86d379536153e2bd860dc1027c576de`）、`20261020T072335Z-followup-completion-regression/`（`82c6069c93a9e092c4e1cb7490dee0f1415325253ac1cae08e6d34fff80e4ba9`）、`20261020T072348Z-followup-http-medical-without-frontdesk/`（`443504860db78d4404f51ef120e28c1c56fd21bc26f2cdbe354c64bf4570a001`）。没有真实预约option的HTTP渲染断言；模型测试覆盖held及started DTO。独立读回首轮FAIL `.local/s11/verification/fc0f614-post-test-readback.json` SHA `282890ebbb7a64cbbe6e22fda812b91488e65a05db6714fb90046c328c0beac2` 是核验器预期4条而实际3条，保留原件并由attempt2按真实运行数复核。
+- 早一候选d6的patient专用测试选择器实际0 tests，明确不计通过；其模块`ydental_patient_test`未安装且pre_init仅允许S04新库，未在S11 scratch安装/绕过。移除S04-only测试改动，改由S11 followup集成回归实际测A→B→C链。attempt5仍禁止重放；其GET403无完成POST事实由前一节保留。当前候选已通过HTTP目标测试，具备继续做全新followup265只读预检和fresh attempt6的代码准入前置。
+- task942 T08适配性结论不变：固定mapping2/catalog2是care、event417/doc508没有义齿临床语义、entry431/task759先排队；不制造义齿来源、不查PO147–149。T03/T04回调HTTP、T05/T12策略端到端、T08合格supplier_return、F4双店E2E、T18后续、F1真实完成、最终影响回归及独立总验收仍未完成。
+
+
 ## S11 最新核验快照（2026-10-20 07:20 UTC；覆盖下方历史快照）
 
 - 原分支 `codex/s11-followup-lab-r1`、HEAD `f2e320b78cf11e912f6ea129f6ddb3754dc02090`；addon候选仍为 `2df07373fa5257589115d39f4354dcd4c25c2997`。当前工作树有7个已追踪文件的实现/测试增量，尚未提交：followup工作台安全投影、患者current relation批量解析及相应回归。`git diff --check` 与 Python 3.12 compileall通过；独立代码审查PASS。未运行本次diff对应测试，未提交、push/merge/deploy。

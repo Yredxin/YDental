@@ -5,6 +5,16 @@ Issue #35：**OPEN**
 同步：本次继续实施的代码和状态尚未推送；依用户要求只在 plan 结束时发布最终结果与说明。
 计划范围：S11-A 复诊和通知可靠性 + S11-B 内部外加工，含补充输入 v1.1。真实外部通知、生产、合并、部署、S12/S13 均未启用。
 
+## 2026-10-20 最新续行：工作台权限修复候选 fc0f614
+
+分支 `codex/s11-followup-lab-r1`，候选 `fc0f614f2af90c4e0714ed6c9db5ae0bb5918175`，core仍锁定 `f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb`。`ydental.intake.service._followup_reservation_options()` 限定当前store、授权patient relation、reservation entitlement和精确引用的claim/slot；校验reservation pool、来源task/source_key、store/patient/entitlement关联及held→held、started→consumed状态，只返回最少展示DTO。followup controller/template不再直接读取受保护capacity记录，未扩大ACL。患者canonical关系批量解析保留旧ID→合并链最终患者当前门店关系，并检查循环和缺失记录。
+
+候选fc0 fresh admission PASS（`.local/s11/verification/admission-fc0f614-readonly.json` SHA `73f5e0f0fee0e8608990155468a0b4a1d394e2f2244584941ad9bb781b4dae68`）。测试结果：32项临床/队列回归、1项含原生A→B→C合并链和held/started预约DTO的followup生命周期测试、1项无frontdesk能力医疗角色的HTTP工作台测试均exit 0，0 failures/errors。私有运行目录和日志SHA见 `CURRENT_TASK.md` 当前快照。曾对S04专用`ydental_patient_test`选择器跑出0 tests，未计PASS且未在S11安装/绕过其pre_init约束；最终A→B→C覆盖已迁至已安装的S11 followup生命周期测试并在fc0通过。
+
+独立测试后读回PASS：`.local/s11/verification/fc0f614-post-test-readback-attempt2.json` SHA `b988064fd4c4c869295a7ff28e8474c8975e114b838f8b665b2266239a8010f5`。RR只读/rollback/close确认224保护计数不变，D/C pin和安装模块集一致，SMTP/SMS为零，服务停止且18411空闲。首次post-test读回FAIL原件 `.local/s11/verification/fc0f614-post-test-readback.json`（SHA `282890ebbb7a64cbbe6e22fda812b91488e65a05db6714fb90046c328c0beac2`）因预期4条而本次真实3条；保留后由第二独立读回对三条日志/退出码和保护事实完整复核。
+
+attempt5验证了followup265在未修候选下的页面403；独立读回确认没有completion POST，attempt5不可重放。fc0覆盖该权限路径的HTTP测试已通过。下一步需在同步当前状态文档并对新HEAD重新准入后，为followup265执行新的只读资格核验，再决定是否开展全新浏览器attempt6。计划仍PARTIAL/OPEN；task942固定care映射和event417/doc508不支持义齿临床场景，不能当作T08义齿来源，也不查询PO147–149。通知回调/策略端到端、适用supplier_return、F4双店E2E、T18后续、F1完成、影响回归和最终独立验收仍待完成。
+
 ## 2026-10-20 续行：followup 工作台容量权限修复（实现待测）
 
 当前分支仍为 `codex/s11-followup-lab-r1`，HEAD `f2e320b78cf11e912f6ea129f6ddb3754dc02090`；下述实现/测试增量尚未提交，工作树有7个tracked文件改动。候选未冻结，也未运行该增量的数据库测试。`git diff --check` 与Python 3.12 `compileall`通过；独立代码审查未发现确定安全、数据流或ORM缺陷。
