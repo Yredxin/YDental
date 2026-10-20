@@ -5,6 +5,10 @@ Issue #35：**OPEN**
 同步：本次继续实施的代码和状态尚未推送；依用户要求只在 plan 结束时发布最终结果与说明。
 计划范围：S11-A 复诊和通知可靠性 + S11-B 内部外加工，含补充输入 v1.1。真实外部通知、生产、合并、部署、S12/S13 均未启用。
 
+当前续行快照（2026-10-20 06:45 UTC）：原分支 `codex/s11-followup-lab-r1`、HEAD `5e961f7a36dac100351ef6b4d3e2d1c6a56ef758`，产品addon候选 `2df07373fa5257589115d39f4354dcd4c25c2997`。用户已明确授权给独立S11 Store2合成采购测试用户加入 `purchase.group_purchase_user`，接受原生ACL使PO147–149可见；仍禁止查询、读取、使用或修改这些PO。该组尚未实际授予，执行计划将采购用户与医疗/仓库操作用户分开。当前候选新鲜准入 `.local/s11/receipts/s11-fresh-admission-5e961f7-20261020T064523Z.json` SHA `e915cd4f522300734144a1b37149ebc2232f2a4fd7ae663d7ba5769b4ac66ea6`，经独立review PASS；范围包括受限scratch身份、97个已安装模块、外发关闭、S10保护计数及D/C pin。SMS guard模块已安装，代码仅阻断厂商记录SMS composer发送/排程。
+
+获准的单次HTTP调查 run `20261020T064355Z-8dcdb386fe49` 只完成actor2318登录、`GET /odoo`与`GET /web/webclient/load_menus`：200、200、403；owned child正常exit0，服务STOPPED/18411空闲，未复现SIGSEGV。faulthandler没有fatal crash栈；日志中的`Stack`是Odoo导入测试框架路径触发的`stack_info`。请求记录 `.local/s11/operations/http-faulthandler-diagnostic-5e961f7.json` SHA `29eb324ac74bc2626f6bfa2757c8490e81bf495b9a6a5b10b1200b30f216cf45`；server log SHA `f63aeaa9b6b374f45293a1e7a7c1ccbfc2444cebfed8ef159e9ab414a62cd17d`；exit receipt SHA `d5320f258815c9c29c9ed3d32ae5aaef03678edef345f753da8628279a7539a3`。独立RR只读、显式rollback/close结果 `.local/s11/verification/http-faulthandler-diagnostic-5e961f7-independent-readback-reconciled.json` SHA `6011d2c19ca04ea9892c10c1315c85230f8533e2fa9da56655ab652aef713c76`确认只有正常登录device log、session和3条认证/门店切换审计，业务followup/lab/purchase/财务无变化。403不是HTTP E2E PASS；SIGSEGV根因未定，不再复现。
+
 当前续行快照（2026-10-20 06:38 UTC）：分支 `codex/s11-followup-lab-r1`，报告修改前文档HEAD `24f9b63664db01f4137813f923340d9d51ae8cc8`，最近实现/测试候选 `57a3fcbc5d093de92f5f2aa13423ca3bfcff238d`，产品addon候选 `2df07373fa5257589115d39f4354dcd4c25c2997`。候选既有32项临床/队列post-tests、1项followup regression及新增F4单项MODEL regression通过；F4独立post-test保护状态读回PASS（范围有限）。当前F4资质/合作/任务只读快照见 `.local/s11/verification/f4-vendor-current-readonly-08a1050-attempt2.json`。HEAD08a及24f9为文档增量；私有runtime/admission仍绑定57a，未为只读文档HEAD重绑准入。#35仍OPEN；无push、merge、deploy。
 
 ## 当前候选与运行边界

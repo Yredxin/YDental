@@ -1,6 +1,14 @@
 # YDental 当前任务状态
 
 
+## S11 授权后续行快照（2026-10-20 06:45 UTC；覆盖本文件下方 06:38 及更早状态）
+
+- 当前仍在分支 `codex/s11-followup-lab-r1`，HEAD `5e961f7a36dac100351ef6b4d3e2d1c6a56ef758`，产品候选仍为 `2df07373fa5257589115d39f4354dcd4c25c2997`；本快照记录前工作树干净。plan `IN_PROGRESS / OPEN`，#35 OPEN；未push/merge/deploy。用户明确授权为专用S11 Store2合成测试角色授予 `purchase.group_purchase_user`，并接受其ACL可使PO147–149可见；仍禁止查询、读取、使用或改动这些受保护PO。采购组尚未实际授予；后续采用独立采购用户和门店操作员权限，避免将公司级采购ACL加到医疗/仓库操作身份。
+- 继续前完成当前HEAD新鲜准入：`.local/s11/receipts/s11-fresh-admission-5e961f7-20261020T064523Z.json` SHA-256 `e915cd4f522300734144a1b37149ebc2232f2a4fd7ae663d7ba5769b4ac66ea6`；独立review结论PASS。scratch OID2144130、cluster7694897083368259627、受限角色/有效scope、97个已安装模块、S10保护计数与D/C pin、外发关闭、服务STOPPED/18411空闲均符合。模块集含 `ydental_lab_sms_guard`；代码只对厂商记录阻断SMS composer发送/排程。复核轻微限制：数据库具体identity在 admission 文件而非receipt本体，admission引用receipt路径但未内嵌其SHA；最终报告保留该证据结构限制。
+- 用户授权调查既有SIGSEGV后，唯一一次 `PYTHONFAULTHANDLER=1` owned HTTP诊断 run `20261020T064355Z-8dcdb386fe49`。仅actor2318登录、GET `/odoo`、GET `/web/webclient/load_menus`，未提交业务POST；HTTP依次200、200、403；服务正常停止，child exit0，未复现SIGSEGV，faulthandler没有fatal crash堆栈。日志内 `Stack` 是Odoo导入测试框架时普通 `stack_info`，不属于崩溃栈。诊断请求 `.local/s11/operations/http-faulthandler-diagnostic-5e961f7.json` SHA `29eb324ac74bc2626f6bfa2757c8490e81bf495b9a6a5b10b1200b30f216cf45`；服务日志 `.local/s11/runs/20261020T064355Z-8dcdb386fe49/server.log` SHA `f63aeaa9b6b374f45293a1e7a7c1ccbfc2444cebfed8ef159e9ab414a62cd17d`；exit receipt SHA `d5320f258815c9c29c9ed3d32ae5aaef03678edef345f753da8628279a7539a3`。独立RR READ ONLY / ROLLBACK / close读回 `.local/s11/verification/http-faulthandler-diagnostic-5e961f7-independent-readback-reconciled.json` SHA `6011d2c19ca04ea9892c10c1315c85230f8533e2fa9da56655ab652aef713c76`：仅正常登录设备日志、session及3条认证/门店切换审计；followup/lab/purchase/财务业务行未变化。403不是产品HTTP E2E PASS；根因仍未定，不再复现HTTP崩溃。
+- T08授权已解除此前采购组授权缺口。下一步先对event417/doc508/fee415、资质/合作、商品/库存和新订单唯一性做新鲜只读适用性核验；只对新建Store2合成PO/加工单运行supplier_return，并独立读回。不查询PO147–149。此前race/F4证据不重跑；F1真实后续完成、T03/T04通知HTTP、T05/T12策略E2E、F4双店E2E、T18后续、影响回归和最终独立验收仍未完成。
+
+
 ## S11 最新续行快照（2026-10-20 06:38 UTC；以本节覆盖下方旧候选状态）
 
 - 当前分支 `codex/s11-followup-lab-r1`，文档HEAD `24f9b63664db01f4137813f923340d9d51ae8cc8`；最近实现/测试候选 `57a3fcbc5d093de92f5f2aa13423ca3bfcff238d`，产品addon候选 `2df07373fa5257589115d39f4354dcd4c25c2997`。报告与状态更新待提交；不push/merge/deploy。
