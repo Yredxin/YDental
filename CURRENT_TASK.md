@@ -1,6 +1,14 @@
 # YDental 当前任务状态
 
 
+## S11 最新核验快照（2026-10-20 06:50 UTC；覆盖下方历史快照）
+
+- 保持原分支 `codex/s11-followup-lab-r1`，当前HEAD `e65c078a4807b3ef6842a7df8d991c9aa861cd23`；当前产品addon候选仍为 `2df07373fa5257589115d39f4354dcd4c25c2997`。上一轮授权与HTTP诊断已记录，下文6:45准入绑定被本次纯文档提交推进；最新HEAD准入 `.local/s11/receipts/s11-fresh-admission-e65c078-20261020T064816Z.json` SHA `9c86da547cfd573ca5b744aabf1add91d17c1d6a3403b1ac27ec585df016e420` 已由独立review PASS，admission包含该receipt SHA。工作树当前干净；分支领先origin 110；无push/merge/deploy。
+- T08用户授权有效，但采购组尚未授予。新鲜来源只读核验 `.local/s11/verification/t08-source-417-preflight-5e961f7.json` SHA `2f7898802139626724125eed4c1cd0a9d806a31a124b8bc35768a66449d36a79`（来源候选5e，之后仅文档提交）：event417/doc508/fee415身份关系一致，初始lab order不存在；但event417与记录均是generic synthetic continuation，未有义齿产品、订单行或材料依据，不能据此推导prosthesis临床适应证。没有查询PO147–149。不得将此来源拿来建立义齿外加工单；按原生临床流程形成明确标注的合成义齿场景和新文书/治疗来源后再进入T08。
+- 只读路径评估：task942仍是patient364/store2、pending v1、来自task941；mapping2/catalog2为“S10 independent C synthetic care”、kind=care/capability=care。正常continuation可生成新文书与event，不改event417/doc508；但须当前准入重核task/slot/arrival/qualification/价源，并确认该固定mapping适合新合成义齿场景。若不适合，不能改其快照，需另选正常合格的新合成任务。source-route评估无DB写/无PO读取；临床文字需明确为合成测试且确实表达义齿场景，不可由代码校验替代人工语义核对。
+- 下一动作仅做当前task942及Store2临床/价源/到店资格和外加工资源只读预检；完成后再决定是否有满足计划和规则的正常执行路径。若既有catalog/price不支持义齿场景，列为具体需求/业务配置阻塞并继续其它独立任务，不制造临床事实。F1后续完成、通知HTTP/策略、T08 supplier_return、F4双店E2E、T18后续、影响回归及最终独立验收仍未完成；#35 OPEN。
+
+
 ## S11 授权后续行快照（2026-10-20 06:45 UTC；覆盖本文件下方 06:38 及更早状态）
 
 - 当前仍在分支 `codex/s11-followup-lab-r1`，HEAD `5e961f7a36dac100351ef6b4d3e2d1c6a56ef758`，产品候选仍为 `2df07373fa5257589115d39f4354dcd4c25c2997`；本快照记录前工作树干净。plan `IN_PROGRESS / OPEN`，#35 OPEN；未push/merge/deploy。用户明确授权为专用S11 Store2合成测试角色授予 `purchase.group_purchase_user`，并接受其ACL可使PO147–149可见；仍禁止查询、读取、使用或改动这些受保护PO。采购组尚未实际授予；后续采用独立采购用户和门店操作员权限，避免将公司级采购ACL加到医疗/仓库操作身份。
