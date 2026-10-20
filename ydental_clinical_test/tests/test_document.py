@@ -4,8 +4,9 @@ from unittest.mock import patch
 from odoo import fields
 from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.tests import TransactionCase, tagged
+from odoo.addons.ydental_queue.models.ydental_queue_service import StartPermit
 
-from .common import setup, opened, save_args, handover_args, bind, key, queue_bind, serving
+from .common import setup, opened, save_args, handover_args, bind, key, queue_bind, serving, accepted, lease_args
 
 
 @tagged('post_install', '-at_install')
@@ -18,6 +19,44 @@ class TestClinicalDocument(TransactionCase):
 
     def counts(self):
         return {m: self.root[m].search_count([]) for m in ('stock.move', 'stock.quant', 'ydental.inventory.event', 'ydental.intake.snapshot', 'ydental.supply.event')}
+
+    def test_expired_reserved_appointment_is_skipped_during_call(self):
+        task = accepted(self)
+        entry = self.root['ydental.queue.entry'].search([('ydental_task_id', '=', task.id)])
+        claim = task.ydental_entitlement_id.ydental_claim_id
+        queue = queue_bind(self)
+        expired_at = claim.ydental_slot_id.ydental_end + timedelta(seconds=1)
+        with patch.object(type(queue), '_now', return_value=expired_at):
+            lease = queue._operate('enter', {'station_id': self.stations[0][0].id})
+            with self.assertRaises(UserError):
+                queue._operate('call', lease_args(lease))
+        self.assertEqual((entry.state, task.state, task.ydental_entitlement_id.state, claim.state),
+                         ('waiting', 'accepted', 'held', 'held'))
+        self.assertFalse(entry.ydental_opportunity_used)
+        self.assertFalse(self.root['ydental.supply.event'].search_count([
+            ('ydental_claim_id', '=', claim.id), ('ydental_operation', '=', 'consume')]))
+
+    def test_start_and_start_permit_recheck_expiry_after_call(self):
+        task = accepted(self)
+        claim = task.ydental_entitlement_id.ydental_claim_id
+        slot_end = claim.ydental_slot_id.ydental_end
+        queue = queue_bind(self)
+        before_expiry = slot_end - timedelta(seconds=10)
+        with patch.object(type(queue), '_now', return_value=before_expiry):
+            lease = queue._operate('enter', {'station_id': self.stations[0][0].id})
+            call = queue._operate('call', lease_args(lease))
+        with patch.object(type(queue), '_now', return_value=slot_end + timedelta(seconds=1)):
+            intake = queue.env['ydental.intake.service'].with_context(
+                ydental_queue_start=StartPermit(self.users['doctor'].id, task.id, lease['lease_id']))
+            with self.assertRaises(UserError):
+                intake._valid_task(task, task.ydental_store_id)
+            with self.assertRaises(AccessError):
+                queue._operate('start', dict(lease_args(lease), entry_id=call['entry_id']))
+        entry = self.root['ydental.queue.entry'].browse(call['entry_id'])
+        self.assertEqual((entry.state, task.state, task.ydental_entitlement_id.state, claim.state),
+                         ('calling', 'accepted', 'held', 'held'))
+        self.assertFalse(self.root['ydental.supply.event'].search_count([
+            ('ydental_claim_id', '=', claim.id), ('ydental_operation', '=', 'consume')]))
 
     def test_three_real_saves_cas_and_economic_invariance(self):
         s,q,l,e,d = opened(self); before=self.counts()
