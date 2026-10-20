@@ -1,5 +1,11 @@
 # YDental 当前任务状态
 
+## S11 调查续行快照（2026-10-20 08:37 UTC）
+
+- 当前分支 `codex/s11-followup-lab-r1`，HEAD `3e408d00edd2b95305b2ebef36ca750a7b629cdc`，产品/测试候选 `789619fa76674caa1f8eab6db2eaf559847f16bf`；本次唯一差异为CURRENT_TASK和S11报告文档，本机只读代码/报告调查，无数据库访问、测试或业务写入。此前slot1594与followup272事实不重放。
+- 独立覆盖审阅结论已写入S11报告“本次只读覆盖调查”：F4/T15已有合格ORM及独立读回；T08无supplier_return业务测试且无合格义齿来源；T18合成事务用例不替代不可重开的task720；T05/T12无contact浏览器兜底不证明自动派发。没有找到新来源消除这些缺口。
+- 当前工作区仅有上述两份文档待提交，`git diff --check`通过。S11仍PARTIAL/IN_PROGRESS、#35 OPEN；不push/merge/deploy。
+
 
 ## S11 最新续行快照（2026-10-20 08:33 UTC；覆盖下方历史快照）
 
@@ -9,6 +15,7 @@
 - 为覆盖无联系渠道安全分支，通过actor2318正常浏览器工作台对event417只提交一次post_visit计划，创建followup272。HTTP POST=303、刷新GET=200且行可见；脚本receipt `.local/s11/operations/event417-manual-followup-browser-once.json` SHA-256 `0e43dd055e67f8a561956c44b7ac9adf6def435b0e4807332f57591dcb6ec245`，stdout SHA `8ea2f76f08cdf7e563d1bb7b4dc28936b6b7794a1133466d5f4be9799fc15fa3`。独立RR读回PASS `.local/s11/verification/followup272-event417-browser-independent-readback-finalized.json` SHA `a23f9cfd1075933ea19b44f4be72052475fc78506895da0622621b0ee0cd0bd2`：状态`to_notify`、源唯一、内部人工activity恰1、contact/job=0；followup265/event416未变；有1条内部mail.message跟踪，mail/SMS/outbox无外发。controlled sink派发E2E仍不能运行；不伪造联系方式/偏好、不启真实通道。
 - 本机读取私有会话文件时曾有一次未脱敏工具输出回显scope key值；该值没有进入Git或operation receipt。停止复述/复用该已回显值；其余凭据未显示。既有私有配置与服务会话均未被清理或改写。
 - T03/T04 signed callback HTTP、F1 followup265实际浏览器完成、F4/T15 ORM资质审批/双店合作隔离证据见下方及报告顶部。仍未完成T05/T12有联系条件的策略派发、合格义齿supplier_return、F4完整采购/接收链、T18、必要综合影响回归及独立最终验收。#35 OPEN；无push/merge/deploy。
+- 后续有界覆盖调查（只读代码/报告审阅，无DB查询、测试或业务操作）：F4/T15候选789619f已有真实ORM审批及双店隔离测试与独立post-test读回，避免重复执行；T08当前无supplier_return业务测试且event417为generic care，不能作为义齿来源；T18有隔离事务合成闭环测试，但task720已超时转verify，合成测试不能替代原业务续行。T05/T12自动sink仍需合法联系和偏好，现有无contact浏览器兜底证据不证明自动派发；本次未重跑已经完成的回归。审计依据：`docs/reports/s11/summary.md` 覆盖矩阵及 `.local/s11/verification/t18-native-timeout-expiry400-independent-readback.log`；独立只读审计无新数据证据。
 
 ## S11 最新续行快照（2026-10-20 08:09 UTC；覆盖下方历史快照）
 

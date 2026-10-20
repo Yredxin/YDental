@@ -15,6 +15,10 @@ Store2 source preflight证实event417是已提交、有效且未被复诊使用�
 
 执行期间的一次本机私有session文件核对发生了未脱敏工具输出，短暂回显一个scope key值；该值未进入仓库或业务操作收据，后续不会复述或复用。私有运行配置保持原状，此事项列为本地会话凭据处理风险，未推送GitHub。T05/T12的无contact人工兜底分支现有浏览器/持久状态证据；policy controlled sink的自动派发、免打扰/退订/日上限完整端到端仍未完成，因为没有已验证患者联系渠道，不能伪造联系方式或同意偏好。合格义齿来源、supplier_return、F4完整采购/接收、T18返工/返库与最终影响回归/独立计划验收仍未完成；#35 OPEN，无push/merge/deploy。下方按时间记录的历史进度保留当时事实；如与本节或覆盖矩阵冲突，以本节及矩阵当前候选为准。
 
+### 本次只读覆盖调查
+
+独立覆盖审阅未运行测试、未查询数据库、未读取PO147–149。F4/T15候选789619f的真实ORM资质审批/双店隔离测试已有通过记录及独立post-test读回，因此不重复执行。代码和测试中没有supplier_return实际业务链；现有event417是generic care，不能转作义齿临床来源。T18有隔离事务合成闭环用例，但task720已超时进入verify，不能重开/重放；隔离用例不能替代task720实际后续。T05/T12已有无联系路径的浏览器持久状态证据，不能据此声称controlled-sink自动派发通过；自动路径仍需合法联系/偏好。此次没有发现可安全推进以上真实闭环的新来源，因此这些范围仍保持NOT_RUN/PARTIAL。
+
 ## 2026-10-20 followup265 attempt12：浏览器完成与独立状态读回通过
 
 候选/HEAD `f2e159e0093f2cde0af29c7117ab6780b8a13fa5` 的fresh admission、followup265/event416专用preflight和独立静态审查均PASS。preflight `.local/s11/verification/followup265-preflight-f2e159e-attempt12.json` SHA-256 `a591ff56e3697b5c9a6f8e167044a2fca2ba7ab1654c902d43b7655bd7e3dbe6`；attempt12 receipt `.local/s11/operations/followup265-completion-browser-attempt12.json` SHA `b97b653da9764264fedc3bd05f6f3ba37a77b29ab0caf2c0a1443f6ab44bf9d8`。actor2318在Store2展开“Complete from actual treatment”表单，选定event416并只提交一次；HTTP返回303，workbench刷新GET=200且followup265不再出现在开放列表。页面无JS错误。此前attempt7–11的不可重放收据/失败与只读读回均保留。
