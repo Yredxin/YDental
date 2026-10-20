@@ -76,11 +76,36 @@ owned and mode `0700`; it is separate from the prior S10 launcher data directory
 Run history is append-only and capped at 64 runs / 512 MiB; reaching either bound
 refuses a new run and requires review rather than automatic deletion.
 The stop command signals only the recorded supervisor PID with matching Linux
-process birth time and launcher command. The supervisor first gives its exact
-`Popen`-owned Odoo child a bounded SIGTERM grace; if that child ignores SIGTERM,
-the supervisor may force-stop only that same child through its retained `Popen`
-handle. It never signals an unverified child or unknown service. A stale owner
-record is preserved for review.
+process birth time and launcher command. In direct mode the supervisor controls
+its exact `Popen`-owned Odoo child. In GDB mode, the debugger and inferior share
+a fresh private session and may occupy separate process groups; the verified
+supervisor signals and verifies both groups. It never signals an unverified
+process or unknown service. A stale owner record is preserved for review.
+
+For an authorized diagnostic run after the exact committed candidate has a fresh
+independent admission, use `start --gdb`. This starts the same fixed Odoo target
+under GDB in the owned run directory. On an actual `SIGSEGV`, GDB records all
+thread backtraces, process mappings, loaded libraries, and a core snapshot. The
+run directory is mode `0700`; files are mode `0600`. Core generation is capped
+at 256 MiB by the GDB process file-size limit, and startup reserves the log/core
+allowance both in run-history capacity and on disk. GDB version, inferior PID,
+capture outcome, and core size are recorded in the exit receipt; `native-crash.json`
+identifies the inferior, signal, each collection step, and whether all required
+artifacts completed. GDB's size limit applies to core capture; the private
+inferior wrapper restores the original file-size allowance before executing
+Odoo. GDB capture remains optional and is never enabled implicitly. Do not
+upload or commit core files or raw runtime logs.
+
+GDB starts in a private session; its inferior may use a separate process group
+inside that session. The private inferior wrapper records its PID, process
+birth ticks, group ID, and session ID before exec. Before signaling either
+owned group or releasing the active-owner record, the supervisor verifies the
+session/group identities and confirms both groups have no live members; a
+missing or ambiguous identity keeps the owner record for review. The exit receipt records
+the debugger separately from the inferior. If GDB cannot be resolved or its
+Python event/core support cannot be verified, the run is refused before
+creating the service. This diagnostic option requires the same fresh admission
+and does not authorize additional business requests or writes.
 
 ## Normal use after admission
 
@@ -90,6 +115,8 @@ runs; use another terminal for status or stop:
 
 ```sh
 /home/redxin/code/odoo/odoo-sd/code/.venv/bin/python /home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s11/launcher.py start
+# For a separately admitted native-diagnostic run:
+/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python /home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s11/launcher.py start --gdb
 /home/redxin/code/odoo/odoo-sd/code/.venv/bin/python /home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s11/launcher.py status
 /home/redxin/code/odoo/odoo-sd/code/.venv/bin/python /home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s11/launcher.py stop
 ```

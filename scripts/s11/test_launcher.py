@@ -61,6 +61,104 @@ class LauncherSupervisorTests(unittest.TestCase):
             self.assertEqual(os.stat(private / 'data').st_mode & 0o777, 0o700)
             self.assertEqual(os.stat(config_path).st_mode & 0o777, 0o600)
 
+    def test_gdb_script_is_private_and_captures_sigsegv_stack_mappings_and_core(self):
+        with tempfile.TemporaryDirectory(prefix='s11-gdb-script-test-') as temporary:
+            run_dir = Path(temporary)
+            script = launcher.write_gdb_commands(run_dir, None)
+            body = script.read_text(encoding='utf-8')
+            self.assertEqual(os.stat(script).st_mode & 0o777, 0o600)
+            self.assertIn('handle SIGSEGV stop print nopass', body)
+            self.assertIn('info threads', body)
+            self.assertIn('thread apply all bt full', body)
+            self.assertIn('info proc mappings', body)
+            self.assertIn('generate-core-file ' + str(run_dir / 'core.dump'), body)
+            self.assertNotIn('db_password', body)
+
+    def test_gdb_owned_group_stop_verifies_pid_ticks_and_reaps_members(self):
+        with tempfile.TemporaryDirectory(prefix='s11-gdb-group-test-') as temporary:
+            run_dir = Path(temporary)
+            process = subprocess.Popen(
+                [sys.executable, '-c', 'import time; time.sleep(30)'],
+                start_new_session=True, stdin=subprocess.DEVNULL,
+                stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+            )
+            try:
+                ticks = launcher.proc_start_ticks(process.pid)
+                self.assertIsNotNone(ticks)
+                identity = {
+                    'pid': process.pid, 'start_ticks': ticks,
+                    'pgid': process.pid, 'sid': os.getsid(process.pid),
+                }
+                (run_dir / 'inferior.json').write_text(json.dumps(identity), encoding='utf-8')
+                (run_dir / 'inferior.json').chmod(0o600)
+                self.assertTrue(launcher.ensure_gdb_group_stopped(run_dir, process.pid, ticks))
+                process.wait(timeout=2)
+                self.assertEqual(launcher.process_group_members(process.pid, identity['sid']), [])
+            finally:
+                if process.poll() is None:
+                    process.kill()
+                    process.wait(timeout=2)
+
+    def test_gdb_group_without_inferior_identity_fails_closed(self):
+        with tempfile.TemporaryDirectory(prefix='s11-gdb-identity-missing-') as temporary:
+            run_dir = Path(temporary)
+            process = subprocess.Popen(
+                [sys.executable, '-c', 'import time; time.sleep(30)'],
+                start_new_session=True, stdin=subprocess.DEVNULL,
+                stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+            )
+            try:
+                ticks = launcher.proc_start_ticks(process.pid)
+                self.assertFalse(launcher.ensure_gdb_group_stopped(run_dir, process.pid, ticks))
+                self.assertIsNone(process.poll())
+                identity_path = run_dir / 'inferior.json'
+                identity_path.write_text('null\n', encoding='utf-8')
+                identity_path.chmod(0o600)
+                self.assertFalse(launcher.ensure_gdb_group_stopped(run_dir, process.pid, ticks))
+            finally:
+                process.kill()
+                process.wait(timeout=2)
+
+    def test_gdb_early_exit_reaps_inferior_in_separate_group(self):
+        with tempfile.TemporaryDirectory(prefix='s11-gdb-separate-groups-') as temporary:
+            run_dir = Path(temporary)
+            identity_path = run_dir / 'inferior.json'
+            child_code = (
+                'import json, os, time; os.setpgid(0, 0); '
+                'raw=open("/proc/self/stat").read(); fields=raw[raw.rfind(")")+2:].split(); '
+                'info={"pid":os.getpid(),"start_ticks":int(fields[19]),"pgid":os.getpgid(0),"sid":os.getsid(0)}; '
+                f'fd=os.open({str(identity_path)!r},os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600); '
+                'stream=os.fdopen(fd,"w"); json.dump(info,stream); stream.close(); time.sleep(30)'
+            )
+            debugger = subprocess.Popen(
+                [sys.executable, '-c',
+                 'import os,time; pid=os.fork(); '
+                 f'os.execv({sys.executable!r},[{sys.executable!r},"-c",{child_code!r}]) if pid==0 else time.sleep(30)'],
+                start_new_session=True, stdin=subprocess.DEVNULL,
+                stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+            )
+            ticks = launcher.proc_start_ticks(debugger.pid)
+            try:
+                deadline = time.monotonic() + 3
+                while not identity_path.exists() and time.monotonic() < deadline:
+                    time.sleep(0.01)
+                identity = json.loads(identity_path.read_text(encoding='utf-8'))
+                debugger.kill()
+                debugger.wait(timeout=2)
+                self.assertTrue(launcher.ensure_gdb_group_stopped(run_dir, debugger.pid, ticks))
+                self.assertEqual(launcher.process_group_members(identity['pgid'], identity['sid']), [])
+                self.assertEqual(launcher.process_group_members(identity['sid'], identity['sid']), [])
+            finally:
+                if debugger.poll() is None:
+                    debugger.kill()
+                    debugger.wait(timeout=2)
+                if identity_path.exists():
+                    identity = json.loads(identity_path.read_text(encoding='utf-8'))
+                    try:
+                        os.killpg(identity['pgid'], 9)
+                    except ProcessLookupError:
+                        pass
+
     def test_owner_match_accepts_relative_invocation_of_exact_launcher(self):
         relative_script = os.path.relpath(launcher.SCRIPT_PATH, Path.cwd())
         with (patch.object(launcher, 'proc_start_ticks', return_value=1234),

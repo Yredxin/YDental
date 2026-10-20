@@ -1,12 +1,16 @@
 # S11 F/T evidence index
 
+## 下次受控运行的GDB/core能力（2026-10-20）
+
+`launcher.py start --gdb`已实现并通过独立代码审阅及16项定向测试。SIGSEGV时收集线程表/TID、完整多线程回溯、mappings、loaded libraries和受限core；capture步骤、文件类型/大小/0600权限单独核验，部分失败标记不冒PASS。GDB与inferior在S11私有session内，可使用不同PGID；wrapper记录inferior PID/start ticks/PGID/SID。只有确认两组都无存活成员才清除ACTIVE；缺失/损坏身份保留owner marker。合成SIGSEGV与debugger早退清理证据见[summary.md](summary.md) 2026-10-20 13:16 UTC节。此项未启动Odoo或访问数据库，不能证明旧崩溃根因/修复。代码提交后需为精确HEAD重新fresh-admit，后续最小HTTP验证必须通过`start --gdb`。
+
 ## 队列前置源码更正（2026-10-20）
 
 前述2026-10-20历史匿名聚合中的area2/capability2 waiting=1只是当时快照，不是当前状态，也不阻止新合成patient682正常预约、实际到店或报到入队。服务端正常呼叫按queue order和station/actor eligibility挑选首个合格项；不手动呼叫新病例或读取旧entry身份。详细源码核验、正常推进步骤与其他独立缺口见[summary.md](summary.md)“2026-10-20 13:00 UTC：更正队列阻塞判断”。slot1693历史上为draft，仍须fresh preflight后走正常发布/预约流程。无需真实获批的替代接诊区。
 
 ## 下一次崩溃取证与剩余阻塞（2026-10-20）
 
-下一次全新受控测试应在fresh admission、正常运行许可与S11 owned child条件下启用GDB/core记录；先核验解释器BuildID、GDB/core策略、私有目录权限和空间。发生崩溃时留存完整线程backtrace、映射库、PID/TGID/TID、原始退出和请求/run关联；core保存在`.local/s11/`，不进入Git/Issue/聊天。该配置尚未启用或测试。
+下一次全新受控测试应在fresh admission、正常运行许可与S11 owned process条件下启用GDB/core记录；先核验解释器BuildID、GDB/core策略、私有目录权限和空间。发生崩溃时留存完整线程backtrace、映射库、PID/TGID/TID、原始退出和请求/run关联；core保存在`.local/s11/`，不进入Git/Issue/聊天。此前“配置尚未启用”的状态已被本索引13:16节更新为已实现、已做独立合成捕获验证；真实Odoo HTTP的GDB验证仍未执行。
 
 当前主要业务阻塞为Store2 area2/capability2 FIFO队列存在1个waiting且无替代区域，slot1693仍draft，patient682未arrival/queue/clinical。仍未完成的独立验收项及其业务依赖见[summary.md](summary.md) 2026-10-20 12:51 UTC补充；计划`PARTIAL / IN_PROGRESS`、#35 OPEN，F2旧loser/PID保持`EVIDENCE_GAP`且不重放。
 

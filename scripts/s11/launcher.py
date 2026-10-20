@@ -18,7 +18,9 @@ import json
 import os
 from pathlib import Path
 import re
+import resource
 import select
+import shutil
 import signal
 import socket
 import stat
@@ -41,6 +43,7 @@ MAX_SERVER_SECONDS = 20 * 60
 MAX_LOG_BYTES = 32 * 1024 * 1024
 MAX_RUNS = 64
 MAX_TOTAL_RUN_BYTES = 512 * 1024 * 1024
+MAX_CORE_BYTES = 256 * 1024 * 1024
 STOP_GRACE_SECONDS = 30
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -55,6 +58,8 @@ ODOO_BIN = ODOO_ROOT / "odoo-bin"
 PYTHON = ODOO_ROOT / ".venv" / "bin" / "python"
 CORE_ADDONS = ODOO_ROOT / "odoo" / "addons"
 SCRIPT_PATH = Path(__file__).resolve()
+LOCAL_GDB = PRIVATE_ROOT / "tooling" / "gdb-root" / "usr" / "bin" / "gdb"
+LOCAL_GDB_DATA = PRIVATE_ROOT / "tooling" / "gdb-root" / "usr" / "share" / "gdb"
 
 
 class Refusal(RuntimeError):
@@ -448,7 +453,7 @@ def child_exit_diagnostics(
     return reason, None
 
 
-def ensure_run_capacity() -> None:
+def ensure_run_capacity(reserve_bytes: int = MAX_LOG_BYTES) -> None:
     run_dirs = list(RUNS.iterdir())
     if len(run_dirs) >= MAX_RUNS:
         raise Refusal("S11 run history reached its 64-run retention bound; preserve it and review capacity")
@@ -463,8 +468,271 @@ def ensure_run_capacity() -> None:
                 total += child_info.st_size
             elif not stat.S_ISDIR(child_info.st_mode):
                 raise Refusal("S11 run history contains a special entry; preserve it for review")
-    if total + MAX_LOG_BYTES > MAX_TOTAL_RUN_BYTES:
+    if total + reserve_bytes > MAX_TOTAL_RUN_BYTES:
         raise Refusal("S11 run history exceeded the 512 MiB retention bound; preserve it for review")
+
+
+def resolve_gdb() -> tuple[Path, dict[str, str], str]:
+    """Find GDB and return its path, private runtime environment, and version."""
+    candidate = shutil.which("gdb")
+    local = candidate is None
+    binary = Path(candidate) if candidate else LOCAL_GDB
+    if not binary.is_file() or not os.access(binary, os.X_OK):
+        raise Refusal("GDB capture requested but no executable GDB is available")
+    env = os.environ.copy()
+    if local:
+        libdirs = [
+            PRIVATE_ROOT / "tooling" / "gdb-root" / "usr" / "lib" / "x86_64-linux-gnu",
+            PRIVATE_ROOT / "tooling" / "gdb-root" / "lib" / "x86_64-linux-gnu",
+        ]
+        env["LD_LIBRARY_PATH"] = os.pathsep.join(
+            [*(str(path) for path in libdirs), env.get("LD_LIBRARY_PATH", "")]
+        ).rstrip(os.pathsep)
+        env["S11_GDB_DATA_DIRECTORY"] = str(LOCAL_GDB_DATA)
+    try:
+        result = subprocess.run(
+            [str(binary), "--version"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+            text=True, timeout=10, check=True, env=env,
+        )
+    except (OSError, subprocess.SubprocessError) as exc:
+        raise Refusal("GDB version could not be verified") from exc
+    version = result.stdout.splitlines()[0] if result.stdout else ""
+    if not version.startswith("GNU gdb "):
+        raise Refusal("GDB version output is not recognizable")
+    probe = [str(binary), "--batch", "--quiet", "--nx"]
+    if "S11_GDB_DATA_DIRECTORY" in env:
+        probe.extend(["--data-directory", env["S11_GDB_DATA_DIRECTORY"]])
+    probe.extend([
+        "-ex", "python import gdb; assert hasattr(gdb.events, 'stop')",
+        "-ex", "help generate-core-file",
+    ])
+    try:
+        capability = subprocess.run(
+            probe, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True,
+            timeout=10, check=True, env=env,
+        )
+    except (OSError, subprocess.SubprocessError) as exc:
+        raise Refusal("GDB Python events/core-generation capability could not be verified") from exc
+    if "generate-core-file" not in capability.stdout:
+        raise Refusal("GDB does not advertise generate-core-file support")
+    return binary, env, version
+
+
+def prepare_gdb_process() -> None:
+    _soft, hard = resource.getrlimit(resource.RLIMIT_FSIZE)
+    soft_limit = MAX_CORE_BYTES if hard == resource.RLIM_INFINITY else min(MAX_CORE_BYTES, hard)
+    resource.setrlimit(resource.RLIMIT_FSIZE, (soft_limit, hard))
+    os.umask(0o077)
+
+
+def write_gdb_inferior_wrapper(run_dir: Path) -> Path:
+    """Record the inferior identity, then restore its original file-size limit."""
+    path = run_dir / "inferior-wrapper.py"
+    source = '''import datetime, json, os, resource, sys
+raw = open("/proc/self/stat", encoding="ascii").read()
+fields = raw[raw.rfind(")") + 2:].split()
+identity = {"pid": os.getpid(), "start_ticks": int(fields[19]), "pgid": os.getpgid(0), "sid": os.getsid(0), "started_at_utc": datetime.datetime.now(datetime.timezone.utc).isoformat().replace("+00:00", "Z")}
+fd = os.open(sys.argv[1], os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+with os.fdopen(fd, "w", encoding="utf-8") as stream:
+    json.dump(identity, stream, sort_keys=True)
+    stream.write("\\n")
+soft, hard = resource.getrlimit(resource.RLIMIT_FSIZE)
+resource.setrlimit(resource.RLIMIT_FSIZE, (hard, hard))
+os.execv(sys.argv[2], [sys.argv[2], *sys.argv[3:]])
+'''
+    fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL | getattr(os, "O_NOFOLLOW", 0), 0o600)
+    with os.fdopen(fd, "w", encoding="utf-8", newline="\n") as stream:
+        stream.write(source)
+        stream.flush()
+        os.fsync(stream.fileno())
+    return path
+
+
+def process_group_members(pgid: int, sid: int) -> list[int] | None:
+    members = []
+    for entry in Path("/proc").iterdir():
+        if not entry.name.isdigit():
+            continue
+        try:
+            raw = (entry / "stat").read_text(encoding="ascii")
+            fields = raw[raw.rfind(")") + 2:].split()
+            if int(fields[2]) == pgid:
+                if int(fields[3]) != sid:
+                    return None
+                if fields[0] not in ("Z", "X"):
+                    members.append(int(entry.name))
+        except FileNotFoundError:
+            continue
+        except (OSError, ValueError, IndexError):
+            return None
+    return members
+
+
+def ensure_gdb_group_stopped(run_dir: Path, debugger_pid: int, debugger_ticks: int) -> bool:
+    """Stop and verify the private GDB/inferior group before releasing ownership."""
+    identity_path = run_dir / "inferior.json"
+    try:
+        identity_file = identity_path.lstat()
+    except FileNotFoundError:
+        return False
+    if identity_file is not None:
+        if (not stat.S_ISREG(identity_file.st_mode) or identity_file.st_uid != os.getuid()
+                or stat.S_IMODE(identity_file.st_mode) != 0o600):
+            return False
+        try:
+            identity = json.loads(identity_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            return False
+        if not isinstance(identity, dict):
+            return False
+    else:
+        identity = None
+
+    if identity is not None:
+        try:
+            inferior_pid = identity["pid"]
+            inferior_ticks = identity["start_ticks"]
+            inferior_pgid = identity["pgid"]
+            inferior_sid = identity["sid"]
+            if any(type(value) is not int or value <= 0 for value in (inferior_pid, inferior_ticks, inferior_pgid, inferior_sid)):
+                return False
+            if inferior_pgid != inferior_pid or inferior_sid != debugger_pid:
+                return False
+        except (KeyError, TypeError):
+            return False
+    groups = {debugger_pid}
+    groups.add(inferior_pgid)
+
+    def members_by_group() -> dict[int, list[int]] | None:
+        result = {}
+        for pgid in groups:
+            members = process_group_members(pgid, debugger_pid)
+            if members is None:
+                return None
+            result[pgid] = members
+        return result
+
+    members = members_by_group()
+    if members == {pgid: [] for pgid in groups}:
+        return True
+    if members is None:
+        return False
+    for pgid, group_members in members.items():
+        if group_members:
+            try:
+                if pgid == debugger_pid and proc_start_ticks(debugger_pid) == debugger_ticks:
+                    if os.getsid(debugger_pid) != debugger_pid:
+                        return False
+                if identity is not None and pgid == inferior_pgid:
+                    if proc_start_ticks(inferior_pid) == inferior_ticks:
+                        if os.getpgid(inferior_pid) != inferior_pgid or os.getsid(inferior_pid) != debugger_pid:
+                            return False
+                os.killpg(pgid, signal.SIGTERM)
+            except ProcessLookupError:
+                pass
+    deadline = time.monotonic() + STOP_GRACE_SECONDS
+    while time.monotonic() < deadline:
+        current = members_by_group()
+        if current == {group: [] for group in groups}:
+            return True
+        if current is None:
+            return False
+        time.sleep(0.1)
+    current = members_by_group()
+    if current is None:
+        return False
+    for pgid, group_members in current.items():
+        if group_members:
+            try:
+                if (pgid == debugger_pid and proc_start_ticks(debugger_pid) == debugger_ticks
+                        and os.getsid(debugger_pid) != debugger_pid):
+                    return False
+                if identity is not None and pgid == inferior_pgid:
+                    if proc_start_ticks(inferior_pid) == inferior_ticks:
+                        if os.getpgid(inferior_pid) != inferior_pgid or os.getsid(inferior_pid) != debugger_pid:
+                            return False
+                os.killpg(pgid, signal.SIGKILL)
+            except ProcessLookupError:
+                pass
+    deadline = time.monotonic() + 5
+    while time.monotonic() < deadline:
+        current = members_by_group()
+        if current == {group: [] for group in groups}:
+            return True
+        time.sleep(0.1)
+    return members_by_group() == {pgid: [] for pgid in groups}
+
+
+def write_gdb_commands(run_dir: Path, original_ld_library_path: str | None) -> Path:
+    """Create a private GDB script that captures only an actual SIGSEGV."""
+    core_path = str(run_dir / "core.dump")
+    evidence_path = str(run_dir / "native-crash.json")
+    max_core_bytes = MAX_CORE_BYTES
+    run_id = run_dir.name
+    original_ld_code = "None" if original_ld_library_path is None else repr(original_ld_library_path)
+    script = f'''set pagination off
+set confirm off
+set debuginfod enabled off
+set print thread-events off
+handle SIGSEGV stop print nopass
+python
+import datetime, gdb, json, os, stat
+_s11_original_ld = {original_ld_code}
+if _s11_original_ld is None:
+    gdb.execute("unset environment LD_LIBRARY_PATH")
+else:
+    gdb.execute("set environment LD_LIBRARY_PATH " + _s11_original_ld)
+def _s11_capture_sigsegv(event):
+    if getattr(event, "stop_signal", None) != "SIGSEGV":
+        return
+    inferior = gdb.selected_inferior()
+    record = {{"run_id": {json.dumps(run_id)}, "signal": "SIGSEGV", "pid": inferior.pid, "threads": [{{"global_num": thread.global_num, "ptid": list(thread.ptid), "name": thread.name}} for thread in inferior.threads()], "captured_at_utc": datetime.datetime.now(datetime.timezone.utc).isoformat().replace("+00:00", "Z"), "steps": {{}}}}
+    gdb.write("\\nS11_NATIVE_SIGSEGV_CAPTURE_BEGIN\\n")
+    for name, command in (("thread_table", "info threads"), ("backtraces", "thread apply all bt full"), ("mappings", "info proc mappings"), ("shared_libraries", "info sharedlibrary"), ("core", "generate-core-file {core_path}")):
+        try:
+            gdb.execute(command)
+            record["steps"][name] = {{"ok": True}}
+        except Exception as error:
+            record["steps"][name] = {{"ok": False, "error": str(error)}}
+    try:
+        os.chmod({json.dumps(core_path)}, 0o600)
+    except OSError as error:
+        record["steps"]["core_permissions"] = {{"ok": False, "error": str(error)}}
+    else:
+        record["steps"]["core_permissions"] = {{"ok": (os.stat({json.dumps(core_path)}).st_mode & 0o777) == 0o600}}
+        if not record["steps"]["core_permissions"]["ok"]:
+            record["steps"]["core_permissions"]["error"] = "core mode is not 0600"
+    try:
+        core_stat = os.stat({json.dumps(core_path)})
+        record["core_bytes"] = core_stat.st_size
+        record["core_mode"] = oct(os.stat({json.dumps(core_path)}).st_mode & 0o777)
+        record["steps"]["core_bound"] = {{"ok": stat.S_ISREG(core_stat.st_mode) and 0 < core_stat.st_size <= {max_core_bytes}}}
+        if not record["steps"]["core_bound"]["ok"]:
+            record["steps"]["core_bound"]["error"] = "core is absent or exceeds the 256 MiB limit"
+    except OSError as error:
+        record["core_bytes"] = 0
+        record["steps"]["core_bound"] = {{"ok": False, "error": str(error)}}
+    record["capture_complete"] = all(item.get("ok") for item in record["steps"].values())
+    try:
+        with open({json.dumps(evidence_path)}, "x", encoding="utf-8") as stream:
+            json.dump(record, stream, sort_keys=True)
+            stream.write("\\n")
+        os.chmod({json.dumps(evidence_path)}, 0o600)
+        gdb.write("S11_NATIVE_SIGSEGV_CAPTURE_END\\n" if record["capture_complete"] else "S11_NATIVE_SIGSEGV_CAPTURE_INCOMPLETE\\n")
+    except Exception as error:
+        gdb.write("S11_NATIVE_SIGSEGV_SIDECAR_ERROR: " + str(error) + "\\n", gdb.STDERR)
+gdb.events.stop.connect(_s11_capture_sigsegv)
+end
+run
+quit
+'''
+    path = run_dir / "capture.gdb"
+    fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL | getattr(os, "O_NOFOLLOW", 0), 0o600)
+    with os.fdopen(fd, "w", encoding="utf-8", newline="\n") as stream:
+        stream.write(script)
+        stream.flush()
+        os.fsync(stream.fileno())
+    return path
 
 
 def render_odoo_config(database: dict, run_dir: Path) -> Path:
@@ -534,10 +802,14 @@ def own_process_matches(pid: int, start_ticks: int, expected_script: bool = Fals
     return False
 
 
-def start_service() -> int:
+def start_service(gdb_capture: bool = False) -> int:
     runtime, admission, database, branch, commit = validate_pair()
     ensure_private_dir(RUNS)
-    ensure_run_capacity()
+    gdb_info = resolve_gdb() if gdb_capture else None
+    reserve_bytes = MAX_LOG_BYTES + MAX_CORE_BYTES if gdb_capture else MAX_LOG_BYTES
+    ensure_run_capacity(reserve_bytes)
+    if gdb_capture and shutil.disk_usage(RUNS).free < reserve_bytes + 64 * 1024 * 1024:
+        raise Refusal("insufficient free space for the bounded private GDB/core evidence allowance")
     if ACTIVE.exists():
         raise Refusal("an S11 active-owner record already exists; inspect with status, do not replace it")
     validate_loopback_port()
@@ -548,6 +820,8 @@ def start_service() -> int:
     os.chmod(run_dir, 0o700)
     log_path = run_dir / "server.log"
     config_path = render_odoo_config(database, run_dir)
+    gdb_script = write_gdb_commands(run_dir, os.environ.get("LD_LIBRARY_PATH")) if gdb_capture else None
+    inferior_wrapper = write_gdb_inferior_wrapper(run_dir) if gdb_capture else None
     started_at = utc_now()
     supervisor_pid = os.getpid()
     supervisor_ticks = proc_start_ticks(supervisor_pid)
@@ -571,6 +845,8 @@ def start_service() -> int:
         "supervisor_start_ticks": supervisor_ticks,
         "child_pid": None,
         "child_start_ticks": None,
+        "debugger_mode": "gdb" if gdb_capture else "direct",
+        "gdb_version": gdb_info[2] if gdb_info else None,
         "config_path": str(config_path),
         "log_path": str(log_path),
         "started_at_utc": started_at.isoformat().replace("+00:00", "Z"),
@@ -584,8 +860,18 @@ def start_service() -> int:
             pass
         raise
 
-    argv = [str(PYTHON), str(ODOO_BIN), "-c", str(config_path)]
+    if gdb_capture:
+        gdb_binary, gdb_env, _gdb_version = gdb_info
+        argv = [str(gdb_binary), "--batch", "--quiet", "--nx"]
+        if "S11_GDB_DATA_DIRECTORY" in gdb_env:
+            argv.extend(["--data-directory", gdb_env["S11_GDB_DATA_DIRECTORY"]])
+        argv.extend(["--command", str(gdb_script), "--args", str(PYTHON), str(inferior_wrapper), str(run_dir / "inferior.json"), str(PYTHON), str(ODOO_BIN), "-c", str(config_path)])
+    else:
+        gdb_env = None
+        argv = [str(PYTHON), str(ODOO_BIN), "-c", str(config_path)]
     child = None
+    child_ticks = None
+    gdb_group_stopped = not gdb_capture
     reason = "normal_exit"
     bytes_written = 0
     stopping = False
@@ -598,7 +884,12 @@ def start_service() -> int:
             stop_deadline = time.monotonic() + STOP_GRACE_SECONDS
         if child is not None and child.poll() is None:
             try:
-                child.send_signal(signal.SIGTERM)
+                if gdb_capture:
+                    if child_ticks is None or proc_start_ticks(child.pid) != child_ticks or os.getpgid(child.pid) != child.pid:
+                        return
+                    os.killpg(child.pid, signal.SIGTERM)
+                else:
+                    child.send_signal(signal.SIGTERM)
             except ProcessLookupError:
                 pass
 
@@ -616,11 +907,16 @@ def start_service() -> int:
             start_new_session=True,
             shell=False,
             bufsize=0,
+            env=gdb_env,
+            preexec_fn=prepare_gdb_process if gdb_capture else None,
         )
         child_ticks = proc_start_ticks(child.pid)
         if child_ticks is None:
             stop_child()
             raise Refusal("cannot establish the Odoo child process birth identity")
+        if gdb_capture and os.getpgid(child.pid) != child.pid:
+            stop_child()
+            raise Refusal("cannot verify the owned GDB process group")
         marker["child_pid"] = child.pid
         marker["child_start_ticks"] = child_ticks
         write_json_replace(ACTIVE, marker)
@@ -642,7 +938,13 @@ def start_service() -> int:
                         # This is the exact Odoo child created by this supervisor;
                         # Popen retains its process identity, so escalation cannot
                         # target an unrelated PID or a replacement process.
-                        child.kill()
+                        if gdb_capture:
+                            if child_ticks is None or proc_start_ticks(child.pid) != child_ticks or os.getpgid(child.pid) != child.pid:
+                                reason = "stop_group_identity_unverified"
+                                break
+                            os.killpg(child.pid, signal.SIGKILL)
+                        else:
+                            child.kill()
                         child.wait(timeout=5)
                     except (OSError, subprocess.TimeoutExpired):
                         reason = "stop_grace_expired_child_still_running"
@@ -651,6 +953,18 @@ def start_service() -> int:
                 # buffered blocking read can wait forever for a full pipe
                 # buffer and would defeat both the run bound and stop path.
                 chunk = read_child_chunk(child)
+                if gdb_capture and not marker.get("inferior_pid"):
+                    identity_path = run_dir / "inferior.json"
+                    try:
+                        inferior_identity = json.loads(identity_path.read_text(encoding="utf-8"))
+                    except (OSError, json.JSONDecodeError):
+                        inferior_identity = None
+                    if isinstance(inferior_identity, dict):
+                        marker["inferior_pid"] = inferior_identity.get("pid")
+                        marker["inferior_start_ticks"] = inferior_identity.get("start_ticks")
+                        marker["inferior_pgid"] = inferior_identity.get("pgid")
+                        marker["inferior_sid"] = inferior_identity.get("sid")
+                        write_json_replace(ACTIVE, marker)
                 if chunk is None:
                     if child.poll() is not None:
                         break
@@ -687,6 +1001,29 @@ def start_service() -> int:
             reason = "stop_grace_expired_child_still_running"
             child_exit = None
         reason, child_signal = child_exit_diagnostics(child_exit, reason, stopping)
+        native_crash_path = run_dir / "native-crash.json"
+        try:
+            native_crash = json.loads(native_crash_path.read_text(encoding="utf-8")) if native_crash_path.exists() else None
+        except (OSError, json.JSONDecodeError):
+            native_crash = None
+        inferior_path = run_dir / "inferior.json"
+        try:
+            inferior_info = json.loads(inferior_path.read_text(encoding="utf-8")) if inferior_path.exists() else None
+        except (OSError, json.JSONDecodeError):
+            inferior_info = None
+        if gdb_capture:
+            if isinstance(inferior_info, dict):
+                marker["inferior_pid"] = inferior_info.get("pid")
+                marker["inferior_start_ticks"] = inferior_info.get("start_ticks")
+                marker["inferior_pgid"] = inferior_info.get("pgid")
+                marker["inferior_sid"] = inferior_info.get("sid")
+                write_json_replace(ACTIVE, marker)
+            gdb_group_stopped = ensure_gdb_group_stopped(run_dir, child.pid, child_ticks)
+            if not gdb_group_stopped:
+                reason = "owned_gdb_group_still_running_or_unverified"
+        core_path = run_dir / "core.dump"
+        if native_crash and reason == "normal_exit":
+            reason = "inferior_sigsegv_observed"
         receipt = {
             "plan_id": PLAN_ID,
             "run_id": run_id,
@@ -695,13 +1032,24 @@ def start_service() -> int:
             "child_start_ticks": child_ticks,
             "child_exit_code": child_exit,
             "child_signal_number": child_signal,
+            "debugger_mode": "gdb" if gdb_capture else "direct",
+            "gdb_version": gdb_info[2] if gdb_info else None,
+            "native_crash_evidence": native_crash is not None,
+            "capture_complete": native_crash.get("capture_complete") if native_crash else None,
+            "inferior_pid": native_crash.get("pid") if native_crash else inferior_info.get("pid") if inferior_info else None,
+            "inferior_signal": native_crash.get("signal") if native_crash else None,
+            "inferior_start_ticks": inferior_info.get("start_ticks") if isinstance(inferior_info, dict) else None,
+            "inferior_pgid": inferior_info.get("pgid") if isinstance(inferior_info, dict) else None,
+            "inferior_sid": inferior_info.get("sid") if isinstance(inferior_info, dict) else None,
+            "owned_process_group_stopped": gdb_group_stopped,
+            "core_bytes": core_path.stat().st_size if core_path.exists() else 0,
             "reason": reason,
             "log_bytes": bytes_written,
             "log_limit_bytes": MAX_LOG_BYTES,
             "finished_at_utc": utc_now().isoformat().replace("+00:00", "Z"),
         }
         write_json_exclusive(run_dir / "exit.json", receipt)
-        if child_exit is None:
+        if child_exit is None or not gdb_group_stopped:
             print(f"S11 service stop incomplete; owned child still requires inspection: run_id={run_id}", file=sys.stderr)
             return 3
         return child_exit
@@ -711,15 +1059,25 @@ def start_service() -> int:
         # If setup or supervision raises unexpectedly, this exact child was
         # created by this supervisor and must not be left detached.
         child_stopped = child is None or child.poll() is not None
-        if child is not None and child.poll() is None:
+        if gdb_capture and child is not None:
+            if child.poll() is None and not stopping:
+                try:
+                    stop_child()
+                    child.wait(timeout=STOP_GRACE_SECONDS)
+                except (OSError, subprocess.SubprocessError):
+                    # Preserve the owner marker for later inspection; never
+                    # escalate to an unverified force kill.
+                    pass
+            if child.poll() is not None and child_ticks is not None:
+                gdb_group_stopped = ensure_gdb_group_stopped(run_dir, child.pid, child_ticks)
+            child_stopped = child.poll() is not None and gdb_group_stopped
+        elif child is not None and child.poll() is None:
             if not stopping:
                 try:
                     child.send_signal(signal.SIGTERM)
                     child.wait(timeout=STOP_GRACE_SECONDS)
                     child_stopped = child.poll() is not None
                 except (OSError, subprocess.TimeoutExpired):
-                    # Preserve the owner marker for later inspection; never
-                    # escalate to an unverified force kill.
                     child_stopped = child.poll() is not None
         # Do not delete a marker unless this exact supervisor owns it.
         if child_stopped:
@@ -796,10 +1154,13 @@ def stop_service() -> int:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("command", choices=("start", "stop", "status"))
+    parser.add_argument("--gdb", action="store_true", help="run the owned S11 service under GDB and capture a private core on SIGSEGV")
     args = parser.parse_args()
     try:
         if args.command == "start":
-            return start_service()
+            return start_service(gdb_capture=args.gdb)
+        if args.gdb:
+            raise Refusal("--gdb is valid only with the start command")
         if args.command == "stop":
             return stop_service()
         return status_service()
