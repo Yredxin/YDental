@@ -1,5 +1,11 @@
 # [CODEX-STATUS] YD-S11-FOLLOWUP-LAB-V1 / 1.0
 
+## 2026-10-20 11:07 UTC：结算来源约束元数据只读核验
+
+为精确区分升级日志的schema warning与费用去重约束，在新固定docs candidate `23e23bd0484e1d32a6ad5005b23ee099aedc1f93`及fresh admission下，只读查询 `pg_attribute`、`pg_constraint`、`pg_index` 和目标身份。receipt `.local/s11/verification/settlement-source-constraint-catalog-23e23bd.json` PASS，SHA-256 `3b7fef148c37aaf693ef10cf677944199b16cdfae34dcf406d285966b806ae87`；独立review PASS。结果为 `ydental_settlement_source.ydental_fee_id.attnotnull=false`，`ydental_settlement_source_fee_once` 的唯一约束定义 `UNIQUE (ydental_fee_id)` 存在，对应unique btree index存在。事务为RR READ ONLY、显式rollback并close。未查询settlement source业务行、fee/invoice记录或计数；nullable列状态不能说明现有记录内容。
+
+结合Odoo `fields.Many2one(required=True)`与schema代码，upgrade warning是NOT NULL标记未能加上；不能把它解释成unique去重约束缺失。保留数据库现有内容，不清理历史null行；新S11业务操作仍须通过正常ORM要求该字段。该元数据核验不代表任何实际账务或lab业务链完成。
+
 ## 2026-10-20 11:04 UTC：最终候选带数据升级与升级后影响回归
 
 候选固定为 `bed99cfe9fae52c6584c5424eb128b2d5bd9fa88`，与前序模型测试候选相比只有状态/报告文档提交。Upgrade前独立fresh admission `.local/s11/verification/admission-bed99cfe-independent-ro-recheck.json` SHA-256 `7f0a438f07f22bf5e700c23dd62eb96159aeac9b990313d32cb4b2a69b2120fd` PASS；目标scratch OID2144130、受限角色、其他DB权限、224保护计数、D/C pin、模块集、外发和停止服务均通过。升级后另行fresh admission receipt `.local/s11/verification/admission-bed99cfe-post-upgrade-independent-ro-recheck.json` SHA-256 `94d08876fc68b192faf6b5f1dd8a07aea3e553fe501f5f12e6f6371b9f55cf16` PASS；scope与DB secret保真，原pre-upgrade receipt未覆盖。

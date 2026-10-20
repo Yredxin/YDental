@@ -1,3 +1,9 @@
+## S11 最新续行（2026-10-20 11:07 UTC）
+
+- 为解释upgrade warning，候选 `23e23bd0484e1d32a6ad5005b23ee099aedc1f93` 的独立只读schema catalog收据 `.local/s11/verification/settlement-source-constraint-catalog-23e23bd.json` PASS，SHA-256 `3b7fef148c37aaf693ef10cf677944199b16cdfae34dcf406d285966b806ae87`；独立review PASS。只查询schema/catalog和目标身份，没读取`ydental_settlement_source`业务行、费用/发票记录或行数。
+- catalog表明 `ydental_fee_id.attnotnull=false`，但唯一约束`ydental_settlement_source_fee_once UNIQUE (ydental_fee_id)`及同名unique btree index存在。升级warning具体是历史列未能施加NOT NULL；不影响/不推断现存null行，也不声称数据已清理。新业务ORM路径仍须满足required字段；并发去重唯一约束存在。
+- 本次catalog检查没有改变业务数据或tracked文件；同一原分支继续，HTTP/browser仍因未知SIGSEGV根因STOP。#35保持OPEN。
+
 ## S11 最新续行（2026-10-20 11:04 UTC）
 
 - 固定分支 `codex/s11-followup-lab-r1`、候选 `bed99cfe9fae52c6584c5424eb128b2d5bd9fa88`。post-upgrade fresh RO admission `.local/s11/verification/admission-bed99cfe-post-upgrade-independent-ro-recheck.json` PASS，SHA-256 `94d08876fc68b192faf6b5f1dd8a07aea3e553fe501f5f12e6f6371b9f55cf16`；确认目标/OID2144130/受限角色/保护与D-C pin/97模块/外发禁用、scope和服务停止，原upgrade admission保持不变。
