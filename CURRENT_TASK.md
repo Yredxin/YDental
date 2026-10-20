@@ -1,3 +1,12 @@
+## S11 最新续行（2026-10-20 10:34 UTC）
+
+- 保持原分支 `codex/s11-followup-lab-r1`；当前固定候选/HEAD `35608b53450797b349aa49d2881c8d117f117e66`（`[S11] cover rollback of deferred notification`），产品逻辑未改；提交增加通知入队事务回滚测试及T02/T11证据映射。`ruff check`（项目venv）、compileall、`git diff --check`通过。测试代码独立review PASS：registry cursor为TransactionCase savepoint TestCursor；仅回滚其savepoint会清空postcommit callback，不会回滚外层测试事务。
+- 独立fresh RO admission针对精确候选通过：`.local/s11/verification/admission-35608b5-independent-ro-recheck.json` SHA-256 `74cd0b793a77697d9c36056db52a8319e3b5777c9a0f94e9a83a9382e1c0dc7e`；review PASS。指定scratch/OID2144130/cluster及受限LOGIN角色匹配，224保护计数与D/C pin通过，其他DB无对象读写权限、外发关闭、service STOPPED/18411空闲。
+- 准入复核工具曾意外回显私有runtime行；已将本S11 scratch LOGIN角色口令轮换为本机新随机值，使用新登录验证成功并仅更新ignored私有runtime。无权限扩张、无业务表写入；重新生成的准入收据即上项。秘密值未复制到Git或项目报告。
+- 对 `TestFollowupNotification.test_enqueue_rollback_discards_postcommit_dispatch` 精确定向运行一次，`--no-http --stop-after-init -u ydental_followup_test`，1 post-test、exit 0、0 failed/0 errors。operation `.local/s11/operations/20261020T103242Z-followup-enqueue-rollback-35608b5/`；log SHA-256 `f9b103d79f48b1017724bb43f1345461b71d412fd0201bfe3f2977713e94338a`；result SHA `d0c04045fb8fa1e975fe242212accb1224dfee8720d4c92cfbde0c115984ed67`。完整日志私下保存。
+- 独立RR READ ONLY/ROLLBACK/close测后读回PASS `.local/s11/verification/followup-enqueue-rollback-posttest-readback.json` SHA-256 `a885e33965fd67d1c43e8166bb7854a10e10e1678b6a38a8b9b91ede0e343c3e`，独立审查PASS：224保护计数零差异、D/C pin `33f8730…202ae8`、模块集一致、测试时段mail/activity/followup/contact/preference/job/outbox/SMS无新增，外发关闭，RR回滚/关闭，service STOPPED/18411空闲。`mail_notification`无`create_date`，仅记录当前count，不归因于该时段。读回适配器的语法、时间列及operation元数据假设曾各失败一次；均为本地只读/记录适配器问题，没有重跑测试或业务写入，细节见 `.local/s11/verification/followup-enqueue-rollback-readback-attempts.log`。
+- 新增测试只证明MODEL/ORM回滚会丢弃postcommit callback，不证明真实事务提交、独立claim、controlled sink、HTTP/RPC、浏览器或患者送达。T05/T12完整通知链仍缺；F1/T01/T13/T18后续、F2原loser响应、F3/T08合格supplier_return、F4完整双店业务链、T14并发/计划级影响回归及独立计划总验收仍未完成。S11 PARTIAL/IN_PROGRESS、#35 OPEN；无push/merge/deploy。
+
 # YDental 当前任务状态
 
 ## S11 最新续行（2026-10-20 10:26 UTC）

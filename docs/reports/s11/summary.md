@@ -1,5 +1,15 @@
 # [CODEX-STATUS] YD-S11-FOLLOWUP-LAB-V1 / 1.0
 
+## 2026-10-20 10:34 UTC：通知入队回滚语义补测
+
+在候选 `35608b53450797b349aa49d2881c8d117f117e66` 增加 `TestFollowupNotification.test_enqueue_rollback_discards_postcommit_dispatch`：通过测试自行开启的registry cursor/TestCursor savepoint创建合成store并调用`_enqueue`，确认一个postcommit hook被注册；回滚该savepoint后hook被清空且mock dispatcher未调用。独立代码review PASS；项目venv `ruff check`、compileall、`git diff --check`通过。候选fresh admission receipt `.local/s11/verification/admission-35608b5-independent-ro-recheck.json` SHA-256 `74cd0b793a77697d9c36056db52a8319e3b5777c9a0f94e9a83a9382e1c0dc7e` 经独立复核PASS，scratch/OID/角色/保护投影/外发关闭/service状态均通过。
+
+只运行该单测一次，使用`--no-http --stop-after-init -u ydental_followup_test --test-enable --test-tags /ydental_followup_test:TestFollowupNotification.test_enqueue_rollback_discards_postcommit_dispatch`：1 post-test、exit 0、0 failed/0 error。operation/result/log位于 `.local/s11/operations/20261020T103242Z-followup-enqueue-rollback-35608b5/`，完整日志SHA-256 `f9b103d79f48b1017724bb43f1345461b71d412fd0201bfe3f2977713e94338a`，result SHA `d0c04045fb8fa1e975fe242212accb1224dfee8720d4c92cfbde0c115984ed67`。独立RR READ ONLY/ROLLBACK/close测后读回PASS `.local/s11/verification/followup-enqueue-rollback-posttest-readback.json` SHA `a885e33965fd67d1c43e8166bb7854a10e10e1678b6a38a8b9b91ede0e343c3e`，独立审查PASS：224保护计数无差异、D/C pin与模块集匹配、测试窗口受查通知/mail/activity/followup/outbox/SMS表无新增、外发关闭、service STOPPED/18411空闲。`mail_notification`无`create_date`，只记录当前count，不做测试时间归因。读回脚本的三次失败分别为语法错误、假设该表有`create_date`、operation元数据缺admission hash；均未重跑测试，最终适配器显式RR rollback/close并PASS，失败说明在`.local/s11/verification/followup-enqueue-rollback-readback-attempts.log`。
+
+准入复核工具曾意外回显私有runtime行，故将S11 scratch LOGIN角色密码轮换为本机新随机值并验证新登录；仅更新ignored private runtime，未扩大权限或触碰业务表，之后按同一候选重新准入。秘密值没有写入Git或本报告。
+
+该测试仅补充MODEL/ORM回滚不会派发的证据；不证明真实提交→postcommit→独立claim→controlled sink、HTTP/RPC、浏览器或送达。T05/T12仍有原完整链缺口，S11继续PARTIAL/IN_PROGRESS，#35 OPEN。
+
 ## 2026-10-20 10:26 UTC：#35 Python 中文翻译增量
 
 按Issue #35 10-20 P2 定向复核，`ydental_base/i18n/zh_CN.po` 中 `Dental | YDental` 与 `YDental application access is required.` 两条 Python 文案缺少 Odoo 导出标记。候选 `9425d999aaeba7a0e8af12cf419acb4aa91a5194`（`[S11] mark Python entry translations`）仅为两个条目补 `#. odoo-python`，不改变源字符串、译文或访问判断。
