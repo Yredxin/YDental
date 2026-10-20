@@ -1,5 +1,15 @@
 # [CODEX-STATUS] YD-S11-FOLLOWUP-LAB-V1 / 1.0
 
+## 2026-10-20 13:35 UTC：准入失败定位与跨库schema权限
+
+对候选`6a7869eb080d25451f511118d403c42e929a36eb`的第一次fresh admission在跨库catalog扫描后因`connection_failures`非空退出，exit 1；失败收据`.local/s11/operations/fresh-admission-6a7869e-failure-20261020T133028Z.json` SHA-256 `f20c801bd54c538625738fbd83da16622aba3ee8084cbf6a1ef8f5a49c315c4e`未保留具体失败DB/异常，故不推断原因。
+
+之后独立的一次有界定位以同一restricted role/cluster逐库检查所有200个effective CONNECT数据库，仅查询系统目录/权限函数，每库一次；全部200连接与目录查询成功，未复现SQLSTATE或权限拒绝。证据`.local/s11/verification/cross-db-admission-failure-locate-6a7869e-20261020.json` SHA-256 `2c83d3e6dc337bf46a58ad2f6ef05ee679beba1a623061774e233b4ebe3b2935`，脚本SHA `5c837557a9fa584b5a81a3bb3a7e8825a32e7a6f06ad511c6276056d3a0d2d61`。但快照发现`odoo20_dev`存在effective schema CREATE；所有其他数据库CREATE为false，relation/sequence读写及role拥有的relation/schema/routine均为0。故首次连接失败的因果仍UNKNOWN。
+
+对`odoo20_dev`补做一次受限ACL provenance查询，只读`pg_namespace`：effective `public` schema CREATE来自PUBLIC ACL条目（另有`pg_database_owner`条目），无restricted login直接grant。receipt `.local/s11/verification/odoo20-dev-public-schema-acl-provenance-6a7869e.json` SHA `457c0c700eb6eba53d2fb711f7458864a56f9d5a143849a8b5a25b23dd86855a`。其中一个辅助`role_owns_schema`表达式有误，已由更正摘要 `.local/s11/verification/odoo20-dev-public-schema-acl-provenance-corrected-6a7869e.json` SHA `7f740c1e97f344a9315f8a3f7304babb60f621846e314ae7618098695627a20a`作废说明；使用独立新鲜目录扫描`owned_schemas=0`与原始ACL条目。PUBLIC CREATE使该role能够在此数据库创建对象并向新对象写入数据，违反当前受限跨库边界。所有连接均READ ONLY/REPEATABLE READ并显式ROLLBACK/关闭；未读应用行、未改ACL、未改runtime/admission、未写业务数据或启服务。
+
+准入保持FAIL/BLOCKED，当前旧private pair不适用于候选HEAD；S11 `PARTIAL / RUNTIME_BLOCKED`、#35 OPEN。需要用户决定是否接受该PUBLIC schema CREATE能力或授权主机级ACL策略调整；不擅自撤改全局ACL。没有push/merge/deploy/S12/S13。
+
 ## 2026-10-20 13:32 UTC：准入复核与启动前实时数据库身份保护
 
 独立准入审核发现私有runtime/admission仍绑定旧候选`dedbc2b`，且准入超过30分钟、launcher SHA已失效；scope仍有效，但旧pair不可用于当前HEAD。审核还发现原`validate_connected_database`只由synthetic测试addon的`pre_init_hook`调用，并非launcher每次启动都会执行。

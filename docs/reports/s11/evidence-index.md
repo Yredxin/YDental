@@ -1,5 +1,11 @@
 # S11 F/T evidence index
 
+## 2026-10-20 13:35 UTC：fresh admission阻断
+
+候选`6a7869eb080d25451f511118d403c42e929a36eb`的第一次fresh admission在跨库检查因未落盘的`connection_failures`非空而退出（exit 1；`.local/s11/operations/fresh-admission-6a7869e-failure-20261020T133028Z.json`, SHA `f20c801bd54c538625738fbd83da16622aba3ee8084cbf6a1ef8f5a49c315c4e`）。随后一次单次定位扫描200个effective CONNECT DB全部成功，未复现SQLSTATE或权限拒绝；不能据此倒推首次原因。扫描发现`odoo20_dev` effective schema CREATE=true；其余database CREATE、所有relation/sequence读写及role拥有对象计数为0。跨库扫描receipt SHA `2c83d3e6dc337bf46a58ad2f6ef05ee679beba1a623061774e233b4ebe3b2935`。
+
+对`odoo20_dev`补充的一次public schema ACL查询确认PUBLIC CREATE、无login直接grant；raw ACL receipt SHA `457c0c700eb6eba53d2fb711f7458864a56f9d5a143849a8b5a25b23dd86855a`。其`role_owns_schema`派生字段无效，修正摘要 SHA `7f740c1e97f344a9315f8a3f7304babb60f621846e314ae7618098695627a20a`；fresh cross-DB扫描owned_schemas为0。PUBLIC CREATE意味着该role可创建新对象并写入新对象数据；按当前隔离要求阻断fresh admission。未改ACL、runtime/admission、业务数据或service。S11 `PARTIAL / RUNTIME_BLOCKED`、#35 OPEN；需用户决定是否接受该权限边界或授权主机级ACL策略调整。
+
 ## 2026-10-20 13:32 UTC：启动前实时数据库身份探测
 
 准入审查确认旧私有pair绑定`dedbc2b`且准入超过30分钟，不能用于当前候选；审查还发现原连接侧辅助校验只在测试addon pre-init时触发。提交`2e187a5c693b84f26b21efb6f1cd0b4da53108ab`新增`start_service`启动前只读REPEATABLE READ数据库身份探测，绑定DB名/OID、角色、服务端IP/端口、真实PostgreSQL system_identifier；成功ROLLBACK/IDLE/close，身份/权限/连接异常在任何run目录、owner marker、Odoo进程之前拒绝。独立代码审查通过。19项launcher测试exit 0，日志`launcher-live-db-guard-tests-final.log` SHA-256 `0ad4707946a9b2e18148006bca8c55a27a4e20716040b39fea6a089c51ef07e1`；含错cluster关闭和启动拒绝无副作用。mock验证未连接数据库。启动前probe与Odoo连接之间存在短TOCTOU窗口。
