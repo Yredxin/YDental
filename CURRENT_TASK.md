@@ -1,6 +1,14 @@
 # YDental 当前任务状态
 
 
+## S11 最新续行快照（2026-10-20 06:38 UTC；以本节覆盖下方旧候选状态）
+
+- 当前分支 `codex/s11-followup-lab-r1`，文档HEAD `24f9b63664db01f4137813f923340d9d51ae8cc8`；最近实现/测试候选 `57a3fcbc5d093de92f5f2aa13423ca3bfcff238d`，产品addon候选 `2df07373fa5257589115d39f4354dcd4c25c2997`。报告与状态更新待提交；不push/merge/deploy。
+- F4 store-scoped MODEL测试与独立post-test事实核验均PASS、范围有限；最新当前vendor/合作/job快照 `.local/s11/verification/f4-vendor-current-readonly-08a1050-attempt2.json` SHA-256 `63b6df0a7215490e8a1cd8aced69888ebbf64f8b45fab9985638171d85e330a8`。runtime/admission仍绑定测试候选57a，不因文档HEAD变化而重绑。
+- SIGSEGV排查只读检查了run log/exit记录和本机dump入口。`coredumpctl`无对应条目，`/var/crash`、`/var/lib/apport/coredump`、`/var/lib/systemd/coredump`无可用dump；无native栈可供定因。已有日志证据 `.local/s11/verification/run-20261020T055248Z-18909ba92aa6-crash-log-review.json` SHA-256 `dd0eeb3f44e5872a18d3c95208432ff4e97c29b954453df7bbbe57c0d49c0d43`仍只说明登录后`/odoo`、load_menus 403及SIGSEGV。HTTP/browser服务保持STOPPED，18411无监听，不复现崩溃。
+- 需求/权限边界下其余缺口：followup265真实浏览器完成、T03/T04回调HTTP及T05/T12策略端到端、T08 supplier_return（company级采购组会开放受保护PO147–149）、F4真实双店开单/收货矩阵、T18返工/戴用及完整followup、最终影响回归/独立验收。#35 OPEN，无Issue中间评论。
+
+
 ## S11 最新续行快照（2026-10-20 06:36 UTC；以本节覆盖下方旧候选状态）
 
 - 当前分支 `codex/s11-followup-lab-r1`，文档HEAD `08a1050513de56020edd8f9709ddbe18a7b7722b`；最近实现/测试候选 `57a3fcbc5d093de92f5f2aa13423ca3bfcff238d`，产品addon候选 `2df07373fa5257589115d39f4354dcd4c25c2997`。候选57a的F4模型用例1/1通过且独立保护状态读回PASS，前述证据保持固定。文档增量未push。
