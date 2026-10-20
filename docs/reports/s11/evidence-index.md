@@ -1,5 +1,9 @@
 # S11 F/T evidence index
 
+## SIGSEGV 日志调查补充（2026-10-20）
+
+原runner receipt和bounded Odoo日志哈希、内容边界及现存缺证已记录于[summary.md](summary.md)及`CURRENT_TASK.md`。新增内核日志 `/var/log/kern.log:65`、`/var/log/syslog:2070` 记录task ID 3538542在原child 3536662退出前约1.13秒收到SIGSEGV。task ID不同于runner child PID；可能是另一进程或同线程组TID，目前没有TGID/PPID/进程树/请求关联，不能确认关联或排除关联。离线符号映射仅在该task使用项目同一Python ELF时，将故障IP映射到CPython `visit_decref`字段读取指令；不构成根因或修复证据。无可用core/native backtrace，故 `ROOT_CAUSE_UNDETERMINED` 保持。没有重启服务、重放旧请求或更改产品代码。
+
 ## Live continuation state (2026-10-20 12:36 UTC)
 
 Tracked HEAD at the read-only admission was `dedbc2bbe0945e5b302b9167630fa75485850c0b` on `codex/s11-followup-lab-r1`, with a clean worktree; branch ahead 167 and not pushed. Product candidate remains `9425d999aaeba7a0e8af12cf419acb4aa91a5194`.

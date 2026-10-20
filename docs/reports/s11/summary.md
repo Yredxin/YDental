@@ -1,5 +1,17 @@
 # [CODEX-STATUS] YD-S11-FOLLOWUP-LAB-V1 / 1.0
 
+## 2026-10-20 12:45 UTC：SIGSEGV 系统日志关联与指令定位
+
+原S11 run `.local/s11/runs/20261020T055248Z-18909ba92aa6/` 的runner记录直接child PID3536662、start ticks95156031、return -11、结束时间05:55:45.911Z（exit receipt SHA `4949fb84277ac17f6354e42509e15cc90b1e4793223ad69160fe11a524d153f4`）。此负值表示child以信号11状态退出，但该run没有同PID的内核crash entry；`reason=normal_exit`字段与该child exit值不一致，应以实际return为准。server log SHA `0a3c75dc015872b417c7bc5c7877fc95993e0024fe836ae77f93defadba46854`的最后HTTP行为05:55:43.709 `GET /web/webclient/load_menus`→403。此前登录POST→303、`/odoo`和前端资源GET→200；session rotation、cache invalidation已记录。两条缺失filestore blob的`FileNotFoundError`在资源读取上下文出现，资源HTTP仍成功返回。认证路径的Python栈包括YDental `res.users.write`、registry relation-trigger解析，并有`ydental.space.station.ydental_capability_ids` dependency searchable warning；日志未显示该warning之后的Python exception，也没有native stack。
+
+本轮新增核查`/var/log/kern.log:65`与`/var/log/syslog:2070`：journald事件时间2026-10-20T05:55:44.780116Z，内核记录`python[3538542]` fault at `0x36f237ab66a8`、IP `0x1800744`、error 4。内核task ID 3538542与runner直接child PID 3536662不同，时间仅相差约1.13秒；该task ID可能是其他进程，也可能是同一线程组中的TID。现有材料没有TGID/PPID/进程树/请求ID可以关联或排除两者，不能断言它属于或不属于原Odoo进程。
+
+本机Odoo项目解释器`../.python/cpython-3.12.15-linux-x86_64-gnu/bin/python3.12` BuildID `7713d416ece8f53a2b37e61dd06defd7bf795954`、SHA-256 `0886fb76ceec8ff568d23079b5da6342bb41675e216e11525d4d6a9e65988d10`。对该二进制在记录IP `0x1800744`执行离线`addr2line`与objdump得到符号`visit_decref`和指令`mov 0x8(%rdi),%rax`。若崩溃task使用该二进制，故障指令与CPython cyclic-GC traversal visitor读取对象字段相符；无core及调用栈，无法判断对象为何不可读，也无法区分扩展`tp_traverse`错误、先前内存破坏、解释器缺陷或与S11/Odoo进程无关。CPython中`visit_decref`用于循环垃圾回收的引用遍历，见[CPython GC源码](https://github.com/python/cpython/blob/main/Python/gc.c)。由于task尚未关联到原run，该指令线索不能当作原run的根因证明或代码修复依据。
+
+有限系统取证结果：`journalctl _PID=3536662`无记录；针对3536662及3538542的COREDUMP_PID日志查询均空；系统无`coredumpctl`命令，`/var/lib/systemd/coredump`与`/var/crash`当前无保存文件。原run目录只含exit.json/server.log，无parent PID和request-side raw receipt。既存独立crash-log review `.local/s11/verification/run-20261020T055248Z-18909ba92aa6-crash-log-review.json` SHA `dd0eeb3f44e5872a18d3c95208432ff4e97c29b954453df7bbbe57c0d49c0d43`范围仅覆盖runner receipt与bounded server log，确认提交状态未核实。后续faulthandler run在另一候选上exit0，没有native stack、未复现本故障。
+
+结论仍为`ROOT_CAUSE_UNDETERMINED`。本轮没有修改产品代码；特别是不把searchable warning当作SIGSEGV修复目标。可形成决定性关联的下一证据是目标PID的进程树/PPID与映射库清单、崩溃core和native backtrace。按用户约束，不启动受影响服务、不重放旧请求；没有新增证据支持安全代码修复。
+
 ## 2026-10-20 12:36 UTC：capability队列读回及依赖业务阻断
 
 固定分支 `codex/s11-followup-lab-r1`、候选HEAD `dedbc2bbe0945e5b302b9167630fa75485850c0b`，当次准入前工作树clean、origin ahead167；当前product source candidate仍为`9425d999aaeba7a0e8af12cf419acb4aa91a5194`。此提交与`b9f75517`间是报告/状态变更；queue代码和测试tree与产品候选一致。未push。
