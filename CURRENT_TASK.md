@@ -1,5 +1,12 @@
 # YDental 当前任务状态
 
+## S11 最新状态（2026-10-20 09:27 UTC）
+
+- 原生 Store2 session 独立读回后，在固定候选 `0c864ae063bb31c05c4dcde9e492880cabfa11d8` 的新鲜准入通过及独立文件核验下，复用该正常会话只请求一次 `/ydental/patients` GET；HTTP 200。准入 `.local/s11/verification/admission-0c864ae-current-http-preflight.json` SHA-256 `b3cbe009ff4de349c834ea075bb4ba683fc1da71a3aa6e7264b301158b46fcf7`。
+- 独立RR回执 `.local/s11/verification/patient-route-readonly-0c864ae-independent-readback.json` SHA-256 `fafc17b31f5f2812ef1509cc5175f82ef72e9e5322caff8ca8b8c2e7da00344d`：该GET只新增8条user2466/Store2的accepted `patient/source.view`审计；其他224项保护计数无变化，D/C pin匹配，外发关闭。未读取或保存页面内容、cookie或session key。服务已停止、18411空闲。
+- `load_menus` 的403来自业务权限检查；新角色仍有patient/frontdesk write，直接患者工作台GET成功。接下来可在更新候选准入下通过正常页面执行明确标记的合成patient创建；未创建 patient/contact/treatment 或通知对象，不能把路由GET当作业务闭环完成。
+- 更新同一状态与报告后形成新HEAD；下一写操作必须用该最终HEAD新鲜准入，继续满足计划合成场景和对象保护条件。S11仍PARTIAL/IN_PROGRESS、#35 OPEN；不重放session switch、测试、task720、PO147–149，无push/merge/deploy。
+
 ## S11 最新状态（2026-10-20 09:21 UTC）
 
 - 原分支继续为 `codex/s11-followup-lab-r1`。修复已提交 `13be1084d1cc9915c3ffe428872909b7e87f596c`；包含 launcher 子进程 signal/非零退出诊断和单测，12项通过。崩溃根因仍未定位，本轮两次有界诊断都未复现 SIGSEGV。
