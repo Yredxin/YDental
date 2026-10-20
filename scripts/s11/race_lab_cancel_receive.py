@@ -35,6 +35,24 @@ LOCK_TIMEOUT_SECONDS = 10
 MAX_SERIALIZATION_RETRIES = 3
 
 
+def add_transition_columns(cr, events: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Attach persisted transition values omitted from the ORM projection."""
+    if not events:
+        return events
+    event_ids = [row["id"] for row in events]
+    cr.execute(
+        "SELECT id, ydental_before_state, ydental_after_state "
+        "FROM ydental_lab_event WHERE id = ANY(%s) ORDER BY id",
+        [event_ids],
+    )
+    transitions = {event_id: (before, after) for event_id, before, after in cr.fetchall()}
+    if set(transitions) != set(event_ids):
+        raise common.Refusal("lab event transition readback did not match ORM event IDs")
+    for row in events:
+        row["ydental_before_state"], row["ydental_after_state"] = transitions[row["id"]]
+    return events
+
+
 def state_snapshot(env, order_id: int, store_id: int) -> dict[str, Any]:
     order = env["ydental.lab.order"].sudo().browse(order_id).exists()
     if not order or order.ydental_store_id.id != store_id:
@@ -49,6 +67,10 @@ def state_snapshot(env, order_id: int, store_id: int) -> dict[str, Any]:
          "ydental_inventory_event_id", "ydental_purchase_line_id", "ydental_vendor_cost",
          "ydental_recorded_at", "ydental_actor_id"], order="id",
     )
+    # Read these persisted transition columns on the same transaction so
+    # before/after snapshots compare database values, including SQL NULL,
+    # rather than differing ORM field projections.
+    add_transition_columns(env.cr, events)
     inventory_events = env["ydental.inventory.event"].sudo().search_read(
         [("ydental_store_id", "=", store_id), ("ydental_source_namespace", "=", "warehouse"),
          ("ydental_source_key", "=", "lab-receipt-%s" % order.id)],
@@ -99,6 +121,9 @@ def verify_prior_race_order(env, target_id: int, prior_id: int, store_id: int) -
 
 def validate_cancel_receive_target(env, order_id: int, store_id: int) -> dict[str, Any]:
     before = common.snapshot(env, order_id, store_id)
+    # common.snapshot intentionally requests a smaller event projection than
+    # state_snapshot; normalize the baseline through the same persisted read.
+    add_transition_columns(env.cr, before["lab_events"])
     before["version"] = env["ydental.lab.order"].sudo().browse(order_id).ydental_version
     if before["state"] not in ("sent", "processing"):
         raise common.Refusal("cancel/receive race requires an active sent or processing order")
