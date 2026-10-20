@@ -26,7 +26,8 @@ def pre_init_hook(env):
         if (branch == 'codex/s11-followup-lab-r1' and candidate == admission['candidate_commit'] and
                 database['name'] == env.cr.dbname and admission['database_oid'] == 2144130 and
                 admission['cluster_ref'] == '7694897083368259627' and row and row[0] == 2144130 and
-                row[1] == database['user'] and row[2] == database['host'] and row[3] == database['port'] and
+                row[1] == database['user'] and row[2] == admission.get('database_server_addr') and
+                row[3] == database['port'] and
                 runtime['database']['expected_cluster_ref'] == admission['cluster_ref']):
             return
         raise AccessError('S11 clinical verification target does not match the authorized scratch database.')

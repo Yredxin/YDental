@@ -18,6 +18,7 @@
   "cluster_ref": "7694897083368259627",
   "database_host": "127.0.0.1",
   "database_port": 5432,
+  "database_server_addr": "<independently observed PostgreSQL inet_server_addr()> via the loopback route",
   "database_user": "<same verified S11-only database role>",
   "dbfilter": "^ydental_s10_test_20261017105432_ce6dcbf8$",
   "http_host": "127.0.0.1",
