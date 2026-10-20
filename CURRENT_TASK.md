@@ -534,3 +534,10 @@ main文书1 confirmed/v4，作者/负责人7；version9=confirm/v3，version10=c
 main和活动分支AGENTS应同字节；main默认CURRENT_TASK仍只路由活动状态，GPT_HANDOFF只读并保持原值。普通同步故障保留可核本地结果、记录未同步，不冒成功或拖成新plan；实际工具拒绝停止该写入，不换入口重发或代发此前被拒内容。收尾仅做必要文档差异/链接、提交、推送及修改文件读回，在#34留一条简短实际回执并全文读回；不更改Issue/Project状态，不测试/连接业务或读取凭据。本状态不循环追写自身SHA。
 
 本轮实际同步：收尾前重叠GET #34自06:03:00Z仅正式6246363733，无重复收尾回执；已发表6246470994并单独API GET全文与拟稿核同，1999B/body SHA256 `f65d0a90987f3df382209fd2642a52ffc250202120bae48580fa610990cf2eee`。两处分支规则及活动状态已fetch读取远端blob逐字节确认；main仅AGENTS、活动分支仅AGENTS/CURRENT_TASK，本轮GPT_HANDOFF与产品/测试/既有报告未改。只新增这条当前状态同步，不追写自身提交SHA；原三子任务completed、不再派发，当前任务交付后结束。
+## S11 状态续行（2026-10-20，SIGSEGV 有界恢复决策）
+
+- 用户决定停止无新增证据的循环根因排查，改为有界恢复评估；不把恢复门槛设为必须定位精确根因。已将原崩溃正式登记为 `ROOT_CAUSE_UNDETERMINED`。原始 run `.local/s11/runs/20261020T055248Z-18909ba92aa6/` 固定于候选 `81daa65be1f158dea930a3dd76b4559015176c62`；exit receipt SHA-256 `4949fb84277ac17f6354e42509e15cc90b1e4793223ad69160fe11a524d153f4`，记录子 PID `3536662`、start ticks `95156031`、exit `-11`、结束时间 `2026-10-20T05:55:45.911374Z`。日志 SHA-256 `0a3c75dc015872b417c7bc5c7877fc95993e0024fe836ae77f93defadba46854`；审阅收据 SHA-256 `dd0eeb3f44e5872a18d3c95208432ff4e97c29b954453df7bbbe57c0d49c0d43`。
+- 有界日志显示登录 POST 303、认证后 GET `/odoo` 200、资源 GET 200、`load_menus` GET 403，以及两条无关业务字段可识别信息的 filestore `FileNotFoundError`。无业务变更 POST、无 native stack；日志本身不证明数据库提交状态，故不宣称旧会话/认证数据零提交。run 目录仅保存 `exit.json` 与 `server.log`，父进程 PID 未采集（`NOT_CAPTURED`），不得推断。旧操作不重放。此前 faulthandler run exit 0、未复现/未提供崩溃栈；`13be108`只调整 launcher signal/exit 归因，不是根因修复。
+- 根因文档状态现为 `ROOT_CAUSE_UNDETERMINED`；阶段一有界收束，不再重复扫描。42 项 post-upgrade MODEL、限定带数据升级、224项保护及 D/C pin 读回保持原证据与状态，详见下方既有条目，不重跑。
+- 下一步只做独立恢复门槛审查：核实本地候选/工作区、指定 scratch/OID2144130、旧业务提交证据、保护证据、活动进程/端口归属及运行权限。未通过前不得启动 HTTP/browser；若存在真实拒绝、未知提交或完整性异常，停止受影响路径。审查即使通过，也只授权一次全新、loopback、只读、最小范围 HTTP GET 稳定性探测；不登录、不请求旧 `/odoo`/菜单路径、不做临床/经济写入。崩溃或数据异常即停并固定证据。
+- 当前本地 HEAD `f5c64a8d7b3e2b053a6c190c335939cd5c4747b6`，原分支 `codex/s11-followup-lab-r1`，工作区核验 clean，ahead 162；不 push，直至 plan 完成及最终交付同步。#35 仍 OPEN；不合并、部署或启动 S12/S13。
