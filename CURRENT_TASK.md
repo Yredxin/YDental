@@ -1,9 +1,9 @@
 # YDental 当前任务状态
 
 
-## S11 最新续行快照（2026-10-20 08:07 UTC；覆盖下方历史快照）
+## S11 最新续行快照（2026-10-20 08:09 UTC；覆盖下方历史快照）
 
-- 当前仍为原分支 `codex/s11-followup-lab-r1`，候选/HEAD `7bd9f0d09173288ee748c56227501f10be9329fe`；commit前工作区干净。fresh admission PASS：`.local/s11/receipts/s11-admission-7bd9f0d-20261020T080601Z.json` SHA-256 `d67e422953b5fb63fe4c0467ae581133930596a24671247852752ac9867b8322`，`launcher.validate_pair()`通过。
+- 当前仍为原分支 `codex/s11-followup-lab-r1`；最新HEAD `36b07d1272e628ecee4cf5fbe107af6206ddbf8b`（仅同步T03/T04回归证据/状态文档），代码候选 `7bd9f0d09173288ee748c56227501f10be9329fe`，工作区干净。候选7bd fresh admission及定向HttpCase运行/独立读回均PASS，具体收据和SHA见下方08:07快照；HEAD36b尚未重新admit，后续数据库动作前须fresh admission。
 - 新增T03/T04测试HTTP用例，覆盖signed public callback route的有效HMAC接受、同provider-event重复去重、invalid HMAC拒绝。candidate的定向HttpCase运行exit0：1 post-test、0 failed、0 error，命令更新`ydental_followup,ydental_followup_test`并使用tag `/ydental_followup_test:TestFollowupNotificationHTTP.test_signed_callback_route_accepts_deduplicates_and_rejects_invalid_signature`。operation/result/log目录 `.local/s11/operations/20261020T080614Z-followup-callback-http/`，log SHA-256 `9ed5d5b101babf5f23975b81d66e044f2e85ae6c465ce620a861db2d09921f0c`。独立RR只读/rollback/close读回PASS `.local/s11/verification/followup-callback-http-7bd9f0d-posttest-readback.json` SHA `2a78569c12f53579ad3ec6610b0c7c76bf399ea733fc7710855056a8e337ffd3`：224保护计数零增量、D/C与模块集匹配，测试store/job/callback/audit无残留，测试secret无残留，SMTP/SMS关闭且mail/outbox 1080/10未变，service STOPPED/18411空闲。独立代码审查、compileall及ruff通过。未触及PO147–149；无外发。
 - F1 followup265 attempt12已浏览器完成并独立持久读回通过（详见下方08:02快照）。T03/T04现有回调HTTP路由层有限范围通过；T05/T12策略端到端、合格supplier_return、F4双店合作E2E、T18后续返工/返库、最终影响回归及独立总验收仍未完成。#35 OPEN；无push/merge/deploy。
 
