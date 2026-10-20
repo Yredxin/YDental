@@ -7,7 +7,7 @@ Issue #35：**OPEN**
 
 ## 当前候选与运行边界
 
-- 分支 `codex/s11-followup-lab-r1`；当前实现/工具 HEAD `5c698556d90b3b450aec102c9df5056c6cabc262`，领先 origin 79 个本地提交、未推送；最近通过带数据产品升级/模型回归的 addon 候选为 `caabf67cb0b5f50d098081dc5c6d72124f8f35e2`。`377ae373` 仅修复 T16 工具的前后事件字段快照并增加3项纯测试，不改 addon 产品代码。锁定 core `f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb`。该 HEAD 为记录 T06/T08/T16/T17 的文档提交；本次报告提交不改变addon代码。
+- 分支 `codex/s11-followup-lab-r1`；当前实现/工具 HEAD `15a662436a5030454a4b8f5ee69631f85b7d8f6f`，领先 origin 83 个本地提交、未推送；最近通过带数据产品升级/模型回归的 addon 候选为 `caabf67cb0b5f50d098081dc5c6d72124f8f35e2`。`377ae373` 仅修复 T16 工具的前后事件字段快照并增加3项纯测试，不改 addon 产品代码。锁定 core `f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb`。HEAD `15a6624` 为记录 T18 lease timeout 收尾的文档提交；最新产品代码仍未变。候选15a fresh admission通过，证据 `.local/s11/receipts/s11-candidate-15a6624-fresh-admission-20261020T023824Z.json` SHA `c93e7aba1e2966a48f94174dc10d62ba5af04936ba6d68283548858bf93dd6b1`；保护计数无下降，仅queue audit/outbox按预期增加，D/C pin一致，owned service停止且18411空闲。
 - 使用的目标为指定 scratch OID 2144130 / cluster `7694897083368259627`。S11 runtime、admission 与 launcher 位于本机忽略的 `.local/s11`，mode 0600；本机凭据不进入 Git、聊天、报告或请求日志。S10 main DB OID 2144129 未安装或写入；未知 8069/PID42433 未操作。
 - launcher 在本候选启动过 owned Odoo 服务并执行过只读 HTTP/RPC 和浏览器工作台检查，随后正常停止。外部 SMTP、SMS、供应商、支付均未启用；本地受控 sink 只代表内部测试受理，不代表患者送达。
 - 首次安装中的依赖和 Odoo 20 Registry 导入问题已在普通开发中修复；保留两次先前失败及只读保全记录，不覆写历史。当前候选成功完成带数据模块升级和测试，详见下文。
@@ -31,6 +31,12 @@ Issue #35：**OPEN**
 - **T17 夹具与保护：** 为取得第二张合格活动订单，按正常 S06/S08 与采购流程新建 event388/doc388/fee386（$137.25）和 PO149/line149/order434（$42.75）。source 独立读回 `.local/s11/verification/source388-independent-readback.log` SHA `a0db668353629134c2a018a854d90bb9a208c26cab95fbd7cf24acb416aca9a`；fixture 独立读回 `.local/s11/verification/fixture-source388-independent-readback.log` SHA `b9bf933f4956e68c1f171df982be1cd2767f773f9bcca28820c2db29a3cd6f6f`。两阶段均无库存/外加工/复诊/通知副作用；D/C 标量投影保持 `33f8730aa39cc869e749827e66f10505a0fe9e5aedd5677c9cb1b17718202ae8`。
 - **S10保护：** 独立收费/通知读回均核了 D/C 财务链摘要及相关 S10 计数。旧D6收款、2退款、净4链没有重演；S10原文书、附件原件、旧日结与审计没有为 S11 重新操作。
 
+## 2026-10-20 continuation checkpoint
+
+本轮在候选 `1b8f5b6` 上将task720正常报告至queue position408/entry408；queue enter/call/start已提交为execution400/lease400。resume runner因clinical service参数签名错误在clinical.open之前停止，未创建clinical document、treatment event、fee或material consumption。原token不在receipt中且不能从hash恢复；expired lease经固定原生`ydental.queue.service._timeout()`按唯一expired active ID 400回收。timeout receipt `.local/s11/races/20261020T-native-timeout-lease400.json` SHA `f20a744923d68aa4676f2cfc5f3843f32178c1484a350bc18dafe4e911a44e4f`；独立RR READ ONLY回读 `.local/s11/verification/t18-native-timeout-expiry400-independent-readback.log` SHA `5e00d0ff195b0f8bd0b459c34291ce925a514a478b29c223b0ca42d9f70cc22`确认lease400 timeout释放、execution400/entry408为verify、task720仍started v6、position408 inactive、唯一自动审计40339；lot144 qty1/reserved0、area1294 open v10。临床模块的takeover要求先有已保存真实文书；这次失败发生于open前，故不takeover、不重报、不重开task720，station1继续被verify execution保护。
+
+当前candidate `15a6624` fresh admission PASS，服务停止且scope有效；receipt见上。独立RO资源核验：store1只有station1，user8的execution400仍verify；user6具station capability但不能越过站点fence，users539/952没有该capability。store2有station2和合格普通clinicians users9/10，但其mapping/catalog对应的published prices 2–5均已于2026-10-19过期，vendor98没有store2 cooperation，且未发现普通warehouse-write actor。候选S11 synthetic confirmed treatment event扫描没有安全可复用记录：13条S11合成治疗事件属于patient150/orders432–435/source388保护链；其他无followup事件属于S10保护链。扫描证据 `.local/s11/verification/f1-followup-candidate-search-15a6624.json` SHA `fb4c5ecc3354c280b4d6629494acf4a77ca95a18a706431c3c9ef89022a1143c`。因此F1、T08 supplier_return、通知端到端、F4双店合作、T18戴用/followup及F2首次收费并发仍未完成；这些下一步都需要建立真实的新合成治疗来源并有合格服务站/价源/普通操作权限。未改业务语义、未触及S10保留对象、未运行外部通道。`#35`保持OPEN，状态 **PARTIAL / IN_PROGRESS**。
+
 ## F1–F5 与 T01–T18 覆盖状态
 
 候选 `caabf67` 的一次测试命令实际通过62个post-tests，不是62个需求，也不能把下列部分证据升级成场景全PASS。候选及层级按独立审查与原始结果限定：
@@ -52,7 +58,7 @@ Issue #35：**OPEN**
 
 ## 独立验收、状态与下一步
 
-独立代码/证据审查（实现者未给自己签收）确认：追加收费来源、供应商成本分离和 S10 原生出账/贷项代码契约通过；候选6706的升级、通知恢复、收费核销及幂等竞争读回通过；T09持久状态、候选caabf67的T02/T10 HTTP/RPC及升级保全读回通过；T06、T16、T17真实多连接动作与独立持久读回通过；T08 discard异常处置及其独立持久读回通过。当前仍为 **PARTIAL**：F1浏览器闭环、T08 supplier_return处置分支、通知 unknown/策略端到端、F4双店资质合作矩阵、T18返工/返库闭环、F2首次收费并发及必要最终回归仍缺；#35保持OPEN。
+独立代码/证据审查（实现者未给自己签收）确认：追加收费来源、供应商成本分离和 S10 原生出账/贷项代码契约通过；候选6706的升级、通知恢复、收费核销及幂等竞争读回通过；T09持久状态、候选caabf67的T02/T10 HTTP/RPC及升级保全读回通过；T06、T16、T17真实多连接动作与独立持久读回通过；T08 discard异常处置及其独立持久读回通过。当前仍为 **PARTIAL**：F1浏览器闭环、T08 supplier_return处置分支、通知 unknown/策略端到端、F4双店资质合作矩阵、T18返工/返库闭环（task720在clinical.open前停止并按timeout转verify；待合格临床站点恢复）、F2首次收费并发及必要最终回归仍缺；#35保持OPEN。
 
 已知差错与修复保留：早期安装缺 Python `phonenumbers`；Odoo20 registry import路径已修；ruff排序曾破坏模型依赖import顺序并导致模块注册失败，已恢复依赖顺序；Odoo mail.activity默认消息可能触发邮件，现通过 quick-update 抑制活动邮件并限制 vendor message API；通用 composer/template及可选 SMS模块存在外发路径，新增 vendor guard 与 `ydental_lab_sms_guard`，普通 reader 负测确认不会增加短信/邮件。各失败、候选、日志与保全读回仍在本地 ignored `.local/s11/operations`/`receipts`，最终交付前需生成不含秘密的可发布证据索引。
 
