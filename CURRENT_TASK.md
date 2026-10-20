@@ -1,3 +1,12 @@
+## S11 续行（2026-10-20 10:51 UTC）：用户阻断处置决定与既有证据复核
+
+- 收到用户对原S11 plan的补充决定：批准新建独立标记的合成病例并按正常身份/登记/到店/报到/队列/接诊/文书/治疗流程形成来源；批准有效义齿临床来源、合法厂商/产品和原生已确认采购服务行的独立合成流程；F2历史loser缺口只查现有索引，缺失则保留EVIDENCE_GAP，之后可用独立合成场景取证。上述授权不解除SIGSEGV运行停止；无HTTP/browser动作，patient650/task720、PO147–149及旧资金库存审计继续保留。
+- 只读SIGSEGV复核确认原run `.local/s11/runs/20261020T055248Z-18909ba92aa6/` candidate `81daa65…` child PID3536662以exit -11结束，exit SHA `4949fb84277ac17f6354e42509e15cc90b1e4793223ad69160fe11a524d153f4`、server log SHA `0a3c75dc015872b417c7bc5c7877fc95993e0024fe836ae77f93defadba46854`。有界日志有login POST303、`/odoo`和assets 200、`load_menus` 403、两条filestore FileNotFoundError；无业务POST、native fatal stack或可确认事务提交。日志review SHA `dd0eeb3f44e5872a18d3c95208432ff4e97c29b954453df7bbbe57c0d49c0d43`明确不能定位根因。未找到匹配core dump或可用OS dump。
+- 既有有界faulthandler run `.local/s11/runs/20261020T064355Z-8dcdb386fe49/` exit0，未复现SIGSEGV、无native stack；receipt `.local/s11/verification/http-faulthandler-diagnostic-5e961f7-independent-readback-reconciled.json` SHA `6011d2c19ca04ea9892c10c1315c85230f8533e2fa9da56655ab652aef713c76`。日志中“Stack”是测试框架导入时普通stack_info，不是崩溃栈。`13be108`只修正launcher的signal/exit归因与日志测试，非产品SIGSEGV修复。独立审查结论：证据不支持具体修复，HTTP/browser仍STOP；继续收集已有原件之外的可信native stack或根因证据前不恢复。
+- F2只读核对确认没有原始loser响应或其backend PID；intent、后续同key recovery receipt及最终readback不能推导原响应。按用户决定标记历史EVIDENCE_GAP，不回填、不重放。未来新并发须标记独立合成，留存双请求/双原始响应、两端PID/连接身份、提交结果和独立终态读回。
+- 静态业务路径审查确认：新病例真实业务入口要求正常Store2 server-bound identity/session、前台登记到店和报到、队列station/能力与lease、接诊execution、文书确认和有效治疗事件。义齿lab订单还要求同患者/同店有效义齿治疗文书、有效产品/厂商/合作、关联同公司原生confirmed采购服务行；收货/返工/异常等lab动作要求同一操作员medical:write与warehouse:write，采购行要求purchase角色。此为源码路径图，不代表当前数据库前置已通过。
+- 当前继续只执行无HTTP依赖的模型回归和静态工作；真实合成业务对象等待独立安全恢复审查。S11保持PARTIAL/IN_PROGRESS、#35 OPEN；无合并、部署、S12/S13。
+
 ## S11 最新续行（2026-10-20 10:34 UTC）
 
 - 保持原分支 `codex/s11-followup-lab-r1`；固定测试候选 `35608b53450797b349aa49d2881c8d117f117e66`（`[S11] cover rollback of deferred notification`），测试在该精确HEAD执行。其后的 `1379ae6` 为本地报告/状态文档提交，不含源码改动；产品逻辑未改，测试提交增加通知入队事务回滚测试及T02/T11证据映射。`ruff check`（项目venv）、compileall、`git diff --check`通过。测试代码独立review PASS：registry cursor为TransactionCase savepoint TestCursor；仅回滚其savepoint会清空postcommit callback，不会回滚外层测试事务。

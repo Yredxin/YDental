@@ -1,5 +1,15 @@
 # [CODEX-STATUS] YD-S11-FOLLOWUP-LAB-V1 / 1.0
 
+## 2026-10-20 10:51 UTC：用户补充决定及SIGSEGV/F2只读复核
+
+用户明确批准独立标记的合成患者及必要业务对象，通过正常身份、登记、到店、报到、排队、接诊、文书、治疗流程形成来源；批准正常义齿临床来源和原生已确认采购服务行建立独立lab/收发/返工流程。此业务数据授权不解除SIGSEGV运行STOP。patient650与task720不重用，PO147–149和旧财务/库存/审计原件保留。F2按用户决定只审既有证据；找不到原loser响应/PID时记EVIDENCE_GAP，未来并发使用独立标记合成场景并完整记录双请求及终态。
+
+只读SIGSEGV核验：原run `.local/s11/runs/20261020T055248Z-18909ba92aa6/` candidate `81daa65…`，child PID3536662，exit -11；exit receipt SHA `4949fb84277ac17f6354e42509e15cc90b1e4793223ad69160fe11a524d153f4`，bounded server log SHA `0a3c75dc015872b417c7bc5c7877fc95993e0024fe836ae77f93defadba46854`，独立日志review SHA `dd0eeb3f44e5872a18d3c95208432ff4e97c29b954453df7bbbe57c0d49c0d43`。既有日志记录login POST303、`/odoo`及assets 200、`load_menus` 403和两条filestore `FileNotFoundError`；没有业务POST、native fatal stack或可确认提交。未找到匹配core/OS dump。之后有界faulthandler诊断exit0、未复现且无native stack；独立读回 SHA `6011d2c19ca04ea9892c10c1315c85230f8533e2fa9da56655ab652aef713c76`。其中“Stack”是普通Odoo stack_info。`13be108` launcher变化仅提升child signal/exit归因，不是崩溃修复。独立source/evidence审查没有支持具体产品修复，故保持HTTP/browser STOP，直到取得根因证据和独立审核的恢复条件。
+
+新病例源码路径静态审查确认了normal session/Store2身份→patient registration/arrival→intake report→queue station/lease→execution→clinical document confirmation→confirmed treatment→follow-up source的顺序。义齿lab需要有效同患者治疗文书、义齿产品、approved/cooperating vendor和同公司已确认的原生采购服务行；采购行链接需purchase角色；lab接收/返工动作需要当前操作人同时有medical与warehouse写权。它们是代码前置，尚未核实当前DB合格资源/actor。此项授权不允许裸ORM、伪造session或跳过原生流程。
+
+原F2 loser response与backend PID不在历史索引或artifact中；later same-key reconciliation及终态读回只能证明已存在invoice179，不能重建竞争响应。明确保留历史EVIDENCE_GAP，不重放。剩余无HTTP工作继续推进；不宣布运行恢复。
+
 ## 2026-10-20 10:34 UTC：通知入队回滚语义补测
 
 在候选 `35608b53450797b349aa49d2881c8d117f117e66` 增加 `TestFollowupNotification.test_enqueue_rollback_discards_postcommit_dispatch`：通过测试自行开启的registry cursor/TestCursor savepoint创建合成store并调用`_enqueue`，确认一个postcommit hook被注册；回滚该savepoint后hook被清空且mock dispatcher未调用。独立代码review PASS；项目venv `ruff check`、compileall、`git diff --check`通过。候选fresh admission receipt `.local/s11/verification/admission-35608b5-independent-ro-recheck.json` SHA-256 `74cd0b793a77697d9c36056db52a8319e3b5777c9a0f94e9a83a9382e1c0dc7e` 经独立复核PASS，scratch/OID/角色/保护投影/外发关闭/service状态均通过。
