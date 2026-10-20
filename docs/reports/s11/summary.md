@@ -1,5 +1,15 @@
 # [CODEX-STATUS] YD-S11-FOLLOWUP-LAB-V1 / 1.0
 
+## 2026-10-20 09:53 UTC：controlled sink handler MODEL/ORM 覆盖结果
+
+候选 `60d1bad343b3f9cb0f59ab1aa246dc4655c36410`，新增用例已提交为`[S11] cover controlled follow-up sink handler`。fresh admission `.local/s11/verification/admission-60d1bad-independent-ro-recheck.json` SHA-256 `7be1f07434c293c8d5739d30fb02d63e9f5ba13ac59db89e4443206082faa6d7`；receipt哈希与私有admission一致，独立准入review PASS。
+
+仅运行新增定向测试 `/ydental_followup_test:TestFollowupLifecycle.test_controlled_sink_records_internal_acceptance_without_delivery`，模型/ORM层1 post-test、exit 0、0 failures/errors。operation `.local/s11/operations/20261020T095020Z-followup-notification-model-tests/operation.json` SHA-256 `a3310fd0a830c91103b5507e51fc875a2e13e0c0ed5150d20ffb1e605e4343ac`，result `a0347842f3ec52f9680f6e2029f5f52ec93ff89da9f82172980feb17fca25e0e`，完整私有日志SHA-256 `9b5fc11a43db20fedcba0dfe9f618ac23f8cc14c7fdce95aea86264bd7b274ab`。新增用例经正常合成 intake→queue→clinical→treatment链生成confirmed事件，在事务测试中验证controlled sink内部accepted、唯一联系记录、activity、followup状态/request推进及mail.mail无新增。
+
+独立RR READ ONLY测后读回PASS：`.local/s11/verification/controlled-sink-model-posttest-readback-60d1bad-attempt2.json` SHA-256 `5c8436f9f8db2d7d287314dcec0a47e8aa5f605f833fe471bf279ae21c1c3cd4`。224项保全计数全零变化、D/C pin一致；测试窗口和持久状态均无本测试患者/偏好/followup/job/contact/mail/activity/SMS记录，外发相关计数均为0；只读RR事务rollback/close、服务STOPPED、18411空闲。独立测后验收PASS。第一次测后读回因本地检查脚本把多列结果按标量读取而失败；该工具失败原件 `.local/s11/verification/controlled-sink-model-posttest-readback-60d1bad.json` SHA-256 `66da36f7e97883c711b7d0085063ed3fe2a656ba36d38d6bce349b5a209646b8`保留，修正的attempt2通过，测试没有重跑。
+
+测试仅补足controlled sink内部handler的MODEL/ORM证据，不验证post-commit/claim事务、来源事务提交后的自动触发、HTTP/provider或患者送达；controlled sink `accepted`仍不是delivery。S11仍PARTIAL/IN_PROGRESS、#35 OPEN；无push/merge/deploy。
+
 ## 2026-10-20 09:49 UTC：controlled sink handler模型覆盖（待运行）
 
 只读计划/源码审计发现现有14项通知模型回归没有直接调用患者follow-up的controlled test sink handler。已新增 `ydental_followup_test/tests/test_followup_lifecycle.py::TestFollowupLifecycle.test_controlled_sink_records_internal_acceptance_without_delivery`。用例在TransactionCase事务中经正常合成intake→queue→clinical→treatment路径产生confirmed source，再用`.invalid`地址和合成email偏好创建followup/job，直接执行transport handler并断言内部accepted、唯一contact、activity、followup状态与request绑定，以及`mail.mail`无增量。独立只读源码审阅通过；没有数据库访问、服务启动或业务提交。测试尚未执行，固定候选和准入待提交后建立。

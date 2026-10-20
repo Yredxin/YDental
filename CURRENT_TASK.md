@@ -6,6 +6,13 @@
 - 独立代码review通过（当前源码约248–307行）；测试尚未运行。当前只是测试代码与状态候选，需先提交固定候选，再进行精确HEAD fresh admission、独立准入审查及一次定向MODEL/ORM测试。未启动服务、未访问数据库或改变业务数据；现有patient650及其它已完成操作均未重放。
 - 原分支 `codex/s11-followup-lab-r1`，本次起始HEAD `abc5bf857a9e1714e9080fa9e1e5575d027ebfe5`。S11仍 PARTIAL/IN_PROGRESS、#35 OPEN；T05/T12真实来源/触发闭环、T08/F4合格采购/收货链、F1及T18后续、最终影响面回归与综合独立验收仍缺。保护对象、无外发、无push/merge/deploy规则不变。
 
+## S11 最新状态（2026-10-20 09:53 UTC）
+
+- 新增用例固定候选 `60d1bad343b3f9cb0f59ab1aa246dc4655c36410`（commit `[S11] cover controlled follow-up sink handler`），独立代码审阅通过。fresh admission receipt `.local/s11/verification/admission-60d1bad-independent-ro-recheck.json` SHA-256 `7be1f07434c293c8d5739d30fb02d63e9f5ba13ac59db89e4443206082faa6d7`，与私有admission哈希绑定一致，独立准入review PASS。
+- 定向 MODEL/ORM 测试 `TestFollowupLifecycle.test_controlled_sink_records_internal_acceptance_without_delivery` 在指定scratch以`--test-tags /ydental_followup_test:TestFollowupLifecycle.test_controlled_sink_records_internal_acceptance_without_delivery`运行一次：1 post-test，exit 0，0 failed/0 error。operation `.local/s11/operations/20261020T095020Z-followup-notification-model-tests/operation.json` SHA-256 `a3310fd0a830c91103b5507e51fc875a2e13e0c0ed5150d20ffb1e605e4343ac`；result SHA-256 `a0347842f3ec52f9680f6e2029f5f52ec93ff89da9f82172980feb17fca25e0e`；log SHA-256 `9b5fc11a43db20fedcba0dfe9f618ac23f8cc14c7fdce95aea86264bd7b274ab`。
+- 独立RR测后读回 PASS `.local/s11/verification/controlled-sink-model-posttest-readback-60d1bad-attempt2.json` SHA-256 `5c8436f9f8db2d7d287314dcec0a47e8aa5f605f833fe471bf279ae21c1c3cd4`；224项保护计数全为零变化，D/C pin一致，测试窗口及持久计数均未留下合成联系方式/偏好/followup/job/contact/mail/activity/SMS，所有通道计数为0，事务只读RR rollback/close，service STOPPED/18411空闲。独立测后验收PASS。首次读回因脚本多列查询取值错误而FAIL，证据 `.local/s11/verification/controlled-sink-model-posttest-readback-60d1bad.json` SHA-256 `66da36f7e97883c711b7d0085063ed3fe2a656ba36d38d6bce349b5a209646b8`保留；修正为attempt2后未重跑测试。该MODEL/ORM handler结果不覆盖post-commit触发、HTTP/provider或患者送达。
+- 当前分支 `codex/s11-followup-lab-r1`，测试候选commit之后仅本状态更新待提交。S11仍 PARTIAL/IN_PROGRESS、#35 OPEN；其余来源/通知、F1、T08/F4、T18、影响面回归和总验收缺口不变；不push/merge/deploy。
+
 ## S11 最新状态（2026-10-20 09:40 UTC）
 
 - 保持原分支 `codex/s11-followup-lab-r1`、候选HEAD `cf516304d086eb231e0bee5ebcb9ea1f094680b3`；实施前fresh admission及独立审查PASS：`.local/s11/verification/admission-cf51630-post-session-preference.json` SHA-256 `7716d388922f2703e0ccd1983ea64e071d1fd0bb92445c3c7b68b3e2015bf8ef`。本轮没有跟踪文件代码变更。
