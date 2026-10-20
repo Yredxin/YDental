@@ -19,7 +19,7 @@ class YDentalIntakeService(models.AbstractModel):
         """Return a read-only reason when a held appointment cannot enter service."""
         # Once queue start consumes the reservation, keep its original execution
         # eligible for document work until that execution is legitimately ended.
-        if task.state == 'started':
+        if task.state in ('started', 'suspended', 'handed_over', 'done'):
             return ''
         entitlement = task.ydental_entitlement_id
         if not entitlement:
