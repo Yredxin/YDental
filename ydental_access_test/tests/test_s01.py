@@ -461,3 +461,57 @@ class TestS01(TransactionCase):
                     target.with_user(native_limited).write({'ydental_job_title': 'Combined forbidden profile', **company_vals})
                 self.assertEqual(target.company_ids, self.company_a)
                 self.assertNotEqual(target.ydental_job_title, 'Combined forbidden profile')
+
+    def test_account_create_only_fails_closed_on_existing_login(self):
+        admin = self.bound(self.group_admin, 'account-create-only', self.a)
+        result = admin._create_account(
+            'S01 create-only operator', 's01_create_only_operator', self.a.id, create_only=True,
+        )
+        user = self.env['res.users'].sudo().browse(result['user_id']).exists()
+        self.assertTrue(user)
+        self.assertEqual(user.company_ids, self.company_a)
+        created = self.env['ydental.access.audit'].sudo().search([
+            ('ydental_user_id', '=', self.group_admin.id),
+            ('ydental_store_id', '=', self.a.id),
+            ('ydental_event', '=', 'account.create'),
+            ('ydental_category', '=', 'personnel'),
+            ('ydental_target_model', '=', 'res.users'),
+            ('ydental_target_id', '=', user.id),
+            ('ydental_result', '=', 'accepted'),
+        ])
+        self.assertEqual(len(created), 1)
+        membership = self.admin._membership(user.id, self.a.id)
+        membership_count = self.env['ydental.access.membership'].sudo().search_count([
+            ('ydental_user_id', '=', user.id), ('ydental_store_id', '=', self.a.id),
+        ])
+        employee_id = membership.ydental_employee_id.id
+        grant_count = self.env['ydental.access.grant'].sudo().search_count([
+            ('ydental_membership_id', '=', membership.id),
+        ])
+        employee_count = self.env['hr.employee'].sudo().search_count([])
+        admin_audit_count = self.env['ydental.access.audit'].sudo().search_count([
+            ('ydental_user_id', '=', self.group_admin.id), ('ydental_store_id', '=', self.a.id),
+        ])
+
+        with self.assertRaises(UserError):
+            admin._create_account(
+                'S01 create-only operator', 's01_create_only_operator', self.a.id, create_only=True,
+            )
+        self.assertEqual(user.company_ids, self.company_a)
+        self.assertEqual(len(created), 1)
+        self.assertEqual(self.env['ydental.access.membership'].sudo().search_count([
+            ('ydental_user_id', '=', user.id), ('ydental_store_id', '=', self.a.id),
+        ]), membership_count)
+        self.assertEqual(self.admin._membership(user.id, self.a.id).ydental_employee_id.id, employee_id)
+        self.assertEqual(self.env['ydental.access.grant'].sudo().search_count([
+            ('ydental_membership_id', '=', membership.id),
+        ]), grant_count)
+        self.assertEqual(self.env['hr.employee'].sudo().search_count([]), employee_count)
+        self.assertEqual(self.env['ydental.access.audit'].sudo().search_count([
+            ('ydental_user_id', '=', self.group_admin.id), ('ydental_store_id', '=', self.a.id),
+        ]), admin_audit_count)
+
+        reused = admin._create_account(
+            'S01 create-only operator', 's01_create_only_operator', self.a.id,
+        )
+        self.assertEqual(reused['user_id'], user.id)

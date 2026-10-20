@@ -69,14 +69,18 @@ class YDentalAccessService(models.AbstractModel):
             ('ydental_user_id', '=', self.env.uid),
         ], limit=1)
 
-    def _create_account(self, name, login, store_id):
+    def _create_account(self, name, login, store_id, create_only=False):
         self._check_personnel(store_id)
+        if not isinstance(create_only, bool):
+            raise ValidationError(self.env._('Account creation mode must be boolean.'))
         if not isinstance(name, str) or not isinstance(login, str) or not name.strip() or not login.strip():
             raise ValidationError(self.env._('Name and login are required.'))
         if len(name) > 100 or len(login) > 200:
             raise ValidationError(self.env._('Name or login is too long.'))
         Users = self.env['res.users'].sudo().with_context(no_reset_password=True)
         user = Users.with_context(active_test=False).search([('login', '=', login.strip())], limit=1)
+        if user and create_only:
+            raise UserError(self.env._('An account with this login already exists.'))
         if user and (not user.active or not user._is_internal()):
             raise AccessError(self.env._('access_denied: Select an active internal account.'))
         if not user:
