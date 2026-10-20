@@ -1,5 +1,13 @@
 # YDental 当前任务状态
 
+## S11 最新状态（2026-10-20 09:21 UTC）
+
+- 原分支继续为 `codex/s11-followup-lab-r1`。修复已提交 `13be1084d1cc9915c3ffe428872909b7e87f596c`；包含 launcher 子进程 signal/非零退出诊断和单测，12项通过。崩溃根因仍未定位，本轮两次有界诊断都未复现 SIGSEGV。
+- 用户授权的第一轮普通认证：新合成 user2466 登录HTTP200、`/odoo` 200、`load_menus` 403。独立读回 `.local/s11/verification/http-session-diagnostic-13be108-independent-readback-final.json` SHA-256 `81e688c1570d598cde8b1c696a5507fd203c13de92c4a00a0ad57067d487454f`：创建了认证session但 `store_id=NULL/revision=0`，没有Store2 binding。该轮只增access session +1、access audit +2和一条内部chatter消息；患者、临床、复诊、采购、库存及通知发送业务窗口无写入，D/C及保护计数符合要求。
+- 更新数据库状态后，固定HEAD `13be108…` 的新鲜准入 `.local/s11/verification/admission-13be108-store-scope-preflight.json` SHA-256 `4e0fc6ac2f2125d2d1d57c57ffbedf1fe662de1d08c088b126c8f366fee721d4` 经独立复核通过。随后沿原生 access dashboard `/ydental/access` (GET 200) 一次提交Store2 switch (POST 303) 并读回dashboard (GET 200)。独立RR只读证据 `.local/s11/verification/store2-session-select-13be108-independent-readback-finalized.json` SHA-256 `de844f9f03dd66840872f6b4c807f47fe2a3c0bb8e39db37201d056a38edc690` 确认 user2466 唯一session绑定Store2、revision 1，存在接受的 `login.scope` 与 `store.switch` 审计；业务及外发窗口无写入，D/C和保护计数匹配。
+- 该轮 `load_menus` 仍返回403，服务日志显示“需要相应业务权限”；这不是SIGSEGV，亦不推翻access会话Store2绑定。owned service已STOPPED、18411空闲；新run日志SHA-256 `4dad0baf1063967f562ccd449b4e4038ea1c4e3d6c5dc0f87e6c3725f3df7cb3`，exit为child 0 / `stop_requested`，无Python traceback/faulthandler native stack。尚未证明菜单/浏览器业务可用或通知闭环。
+- 当前提交前工作树仅待更新本状态与S11报告。下一步根据计划继续核验用户角色可用的原生HTTP/RPC业务入口；任何业务创建前仍须针对最终HEAD新鲜准入、限定合成对象并独立读回。S11保持PARTIAL/IN_PROGRESS、#35 OPEN；不重复既有角色创建、session switch或测试，不触及task720、PO147–149，无push/merge/deploy。
+
 ## S11 最新状态（2026-10-20 09:13 UTC）
 
 - 用户已明确授权：只读诊断并修复此前 HTTP child SIGSEGV 后，在新鲜准入通过后建立新的正常 Store2 测试 session。仍禁止重开/接管/重放 task720、PO147–149 或既有业务动作；本次 session 仅限认证和已授权的最小 HTTP 诊断，不提交业务 POST。

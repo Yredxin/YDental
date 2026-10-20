@@ -1,5 +1,15 @@
 # [CODEX-STATUS] YD-S11-FOLLOWUP-LAB-V1 / 1.0
 
+## 2026-10-20 S11续行：正常Store2测试session与原生门店绑定
+
+修复提交 `13be1084d1cc9915c3ffe428872909b7e87f596c` 补充launcher对子进程信号/非零退出的准确归因及单测。`python3 scripts/s11/test_launcher.py` 12项通过，日志 `.local/s11/operations/20261020T0914Z-launcher-child-exit-diagnostics-test.log` SHA-256 `00c0b6fa9c2e40d2f67fc4d1fdf0c91039ea872eb2740f9dadb830fce3e4d5f0`。此前HTTP child SIGSEGV根因仍未定位；此修复不声称解决Native根因。
+
+用户明确授权的受限诊断/正常Store2 session建立已继续。第一次普通认证作为诊断仅成功登录user2466 (`/web/session/authenticate` HTTP 200、`/odoo` 200)，未选Store时 `load_menus` 403；独立RR读回 `.local/s11/verification/http-session-diagnostic-13be108-independent-readback-final.json` SHA-256 `81e688c1570d598cde8b1c696a5507fd203c13de92c4a00a0ad57067d487454f` 确认server session未绑定Store (`NULL/revision 0`)。仅有session +1、认证审计 +2和内部chatter +1；无患者/临床/复诊/采购/库存/通知业务写入，无mail发送/SMS/outbox增量；S10保护计数与D/C pin匹配。未重用旧会话key或重放业务动作。
+
+基于更新后scratch状态、同一候选 `13be108…` 的再次fresh admission通过，并由独立审阅确认文件SHA正确绑定：`.local/s11/verification/admission-13be108-store-scope-preflight.json` SHA-256 `4e0fc6ac2f2125d2d1d57c57ffbedf1fe662de1d08c088b126c8f366fee721d4`。第二次正常认证后通过原生access dashboard读取并提交一次Store2 switch（`GET /ydental/access` 200、`POST /ydental/access/action` 303、dashboard刷新200）。独立RR只读回执 `.local/s11/verification/store2-session-select-13be108-independent-readback-finalized.json` SHA-256 `de844f9f03dd66840872f6b4c807f47fe2a3c0bb8e39db37201d056a38edc690` 确认user2466的唯一新会话绑定 `store_id=2/revision=1`，`login.scope` 与 `store.switch` 审计accepted；无业务对象写入或外发，D/C与保护计数匹配，服务停止且18411空闲。认证cookie不写入回执；原始session key没有输出。
+
+Store2绑定后 `/web/webclient/load_menus` 返回403，日志为“需要相应业务权限”；同轮认证、access dashboard与门店切换均正常，服务child退出码0且reason为`stop_requested`，无faulthandler崩溃栈。此结果证明正常Store2 server-bound scope建立，不证明菜单/浏览器业务测试通过；继续前需确认user2466具备计划所需业务入口/权限，并维持每次实际业务写入前的fresh admission和独立状态读回。task720、PO147–149及其他保留事实继续禁止触碰。
+
 ## 2026-10-20 S11续行：SIGSEGV退出诊断修复
 
 用户明确授权对既有 HTTP child SIGSEGV 做只读诊断和必要修复，并在新鲜准入后建立新的正常 Store2 测试 session。原始崩溃 run 保持只读、不重放；授权不覆盖 task720、PO147–149、业务POST、外部通道、生产、合并或部署。
