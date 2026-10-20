@@ -5,6 +5,14 @@ Issue #35：**OPEN**
 同步：本次继续实施的代码和状态尚未推送；依用户要求只在 plan 结束时发布最终结果与说明。
 计划范围：S11-A 复诊和通知可靠性 + S11-B 内部外加工，含补充输入 v1.1。真实外部通知、生产、合并、部署、S12/S13 均未启用。
 
+## 2026-10-20 followup265 attempt12：浏览器完成与独立状态读回通过
+
+候选/HEAD `f2e159e0093f2cde0af29c7117ab6780b8a13fa5` 的fresh admission、followup265/event416专用preflight和独立静态审查均PASS。preflight `.local/s11/verification/followup265-preflight-f2e159e-attempt12.json` SHA-256 `a591ff56e3697b5c9a6f8e167044a2fca2ba7ab1654c902d43b7655bd7e3dbe6`；attempt12 receipt `.local/s11/operations/followup265-completion-browser-attempt12.json` SHA `b97b653da9764264fedc3bd05f6f3ba37a77b29ab0caf2c0a1443f6ab44bf9d8`。actor2318在Store2展开“Complete from actual treatment”表单，选定event416并只提交一次；HTTP返回303，workbench刷新GET=200且followup265不再出现在开放列表。页面无JS错误。此前attempt7–11的不可重放收据/失败与只读读回均保留。
+
+独立RR只读/显式rollback/close持久状态验收PASS `.local/s11/verification/followup265-attempt12-independent-readback.json` SHA-256 `f2c5587b6b504c832855a8f93ceae14de02cb89302452d2355c102f59da661f7`：followup265=`done/seen`，唯一关联event416/execution536；event为同Store2/患者364的confirmed treatment，执行为handover；恰一条actor2318/store2的accepted `followup.complete` audit；contacts和notification jobs为空。已有activity232未改变。页面读取审计38条及正常session/device记录保留。保护计数增加仅包含访问审计/session与1条`mail_message`；独立检查确认这条message为本次followup状态变更生成的内部tracking message，mail_outbox仍10，SMTP/SMS关闭、无外发。D/C pin匹配；service STOPPED/18411空闲；未查询PO147–149，也未重试。
+
+此结果完成F1中followup265从人工联系至实际接诊关联的浏览器操作及已提交状态验收。S11仍PARTIAL/IN_PROGRESS，#35 OPEN；通知HTTP回调/策略端到端、适用supplier_return、F4双店E2E、T18后续、最终影响回归和独立总验收仍待完成。无push/merge/deploy。
+
 ## 2026-10-20 候选2afd515验证进度
 
 当前仍在原分支 `codex/s11-followup-lab-r1`，修正测试payload后的HEAD为 `353e0fa3f99bfc6e7c02fe952a724d0dbc0ea8bd`，实现候选仍为 `2afd5156c9b9b4e9a3a778df9b04d6f001f309f4`。353 fresh admission PASS，证据 `.local/s11/verification/admission-353e0fa-readonly.json` SHA-256 `3598bfe0c9acb35e5eb7dec107252a1cafea825910209bf5b4484c7885527534`；包含scratch身份/受限角色、224保护计数、D/C、模块集、外发关闭及服务STOPPED/18411空闲核验，未读取PO147–149。
@@ -119,7 +127,7 @@ task942的当前T08只读评估显示固定mapping2/catalog2属于care、event41
 
 | 项目 | 当前证据与缺口 |
 |---|---|
-| F1 / T01、T13 | 生命周期模型测试涵盖提醒、未接通、联系成功、超期、预约关联/改期和真实接诊关联；actor2318已通过浏览器对confirmed event414创建followup265，独立持久读回PASS。POST后的浏览器投影断言未确认，另一次只读工作台预期heading未出现；尚无后续合格治疗event完成followup，故浏览器完整生命周期仍PARTIAL。跨店接诊 T02 新模型闭环在 `caabf67` 运行通过。 |
+| F1 / T01、T13 | 生命周期模型测试涵盖提醒、未接通、联系成功、超期、预约关联/改期和真实接诊关联；actor2318对confirmed event414创建followup265，并在attempt12通过真实浏览器关联后续合格event416。POST返回303、工作台刷新200/条目消失，独立已提交状态读回确认done/seen、唯一event416/execution536及唯一完成审计；attempt12详情见本报告顶部。跨店接诊 T02 新模型闭环在 `caabf67` 运行通过。 |
 | F2 / T07、T18 | 免费返工、成本与患者收费分离、S05冻结价、实际服务后原生出账及版本贷项模型测试通过；task941首次收费两连接竞争中一方提交invoice179，另一方收到mutex更新SerializationFailure。独立读回先确认无loser receipt且无第二经济事实，再对未提交的同一幂等key单次恢复，最终两个receipt key指向唯一posted unpaid $7 invoice179；payment=0、库存/材料与D/C不变。runner未保存原始backend PID及loser响应，故限称数据库竞争加核实后的幂等恢复，不称两路并发直接成功。完整 unknown 通知→返工周期链仍缺。 |
 | F3 / T08、T16 | T08 discard/报废分支有模型覆盖并已有真实持久状态独立读回，验证实物损耗去向、成本与患者费用未变、待办关闭且无假戴牙/退款；supplier_return分支尚未实测。T16 首次在 order433 执行时 runner 退出3；根因为 before/after 事件字典使用了不对称字段投影。独立读回确认当次恰一收货业务结果，但赛前两列不可证明。提交 `377ae373` 统一补读并新增纯测试后，order434 的 T16 race runner 与独立读回均 PASS：两 backend，收货一胜；取消在明确 SerializationFailure 后有界重试并观察状态冲突；旧 event1069 的 before/after 原始值两侧一致，新 event1071、audit40283、operation1019 唯一，无库存/复诊/成本/费用副作用。独立证据 `.local/s11/verification/race-cancel-receive-order434-independent-readback.log` SHA `dba6892be4087d13d3acac8bf4339120ebf73387e264e08a51d094fc1d5064d4`。|
 | F4 / T15 | 资质审核、合作/开单约束、过期旧单与内部活动消息测试通过；T10 HTTP回归验证普通仓库用户不能下载管理组限定厂商资质附件。当前候选新增模型用例 `TestLaboratoryGuards.test_vendor_cooperation_is_store_scoped_within_shared_company` 通过1项post-test、0错，检查同公司门店不能复用对方的合作；operation/result/log在 `.local/s11/operations/20261020T063019Z-f4-store-scoped-model-test/`，log SHA `129dd9c2f0c0b4975e384bb5da6e7c5205ccfde6ad893dc2cd21758a71494384`。独立post-test RR读回PASS（限定范围）：`.local/s11/verification/f4-posttest-independent-readback-facts.json` SHA `f9632b35fc463bf18746ded9bbca7e4e5eb1ceeecf44b9a97099cccb5318672a`，核对224保护计数无下降、D/C pin、测试窗口业务表零增量、T08/T18相关投影、PO成本和job语义、service stopped/18411空闲；explicit rollback/close。原自动读回FAIL `.local/s11/verification/f4-posttest-independent-readback.json` SHA `d172ef5e8def3537081488e8d10ee69d86ba5d582d5cd57469e73980da4e4ec2`保留；原脚本将旧投影字段名硬匹配且要求工作树clean，而主控同步中的两处仅文档变更导致其总判定FAIL，候选与测试/运行/准入绑定本身一致，补充事实读回修正该解释。这仍非双店端到端合作矩阵。最新当前数据只读快照 `.local/s11/verification/f4-vendor-current-readonly-08a1050-attempt2.json` SHA `63b6df0a7215490e8a1cd8aced69888ebbf64f8b45fab9985638171d85e330a8`（HEAD08a、RR READ ONLY/ROLLBACK/close）：vendor98为approved/company1、有效至2026-11-18，cooperation98(store1)、235(store2)均active；vendor249为approved/company1、valid_until 2026-10-20，cooperation236(store2) active。job450(store1/vendor98) accepted/attempt1/no delivery timestamp；job1050(store2/vendor98) pending/attempt0/due 2026-11-18；job1051(store2/vendor249) accepted/attempt1/no delivery timestamp。均无外部送达事实。该快照早于当前HEAD，但当前HEAD08a仅增加报告/状态文档；不把快照当E2E验收。T08可行性快照仍缺store2 lab order及同actor的medical+warehouse权限；新增purchase组会扩大company级可见范围到受保护PO147–149。无权限扩张或PO写入。 |
@@ -134,7 +142,7 @@ task942的当前T08只读评估显示固定mapping2/catalog2属于care、event41
 
 ## 独立验收、状态与下一步
 
-独立代码/证据审查（实现者未给自己签收）确认：追加收费来源、供应商成本分离和 S10 原生出账/贷项代码契约通过；候选6706的升级、通知恢复、收费核销及幂等竞争读回通过；T09持久状态、候选caabf67的T02/T10 HTTP/RPC及升级保全读回通过；T06、T16、T17真实多连接动作与独立持久读回通过；T08 discard异常处置及其独立持久读回通过；task941首次收费竞争后的持久状态独立读回通过。F4新隔离MODEL回归1项通过，测试后独立状态读回待完成。当前仍为 **PARTIAL**：F1浏览器闭环、T08 supplier_return处置分支、通知 unknown/策略端到端、F4双店资质合作端到端矩阵、T18返工/返库闭环（task720在clinical.open前停止并按timeout转verify）、SIGSEGV后的HTTP/browser验证、最终影响面回归和最终独立验收仍缺；#35保持OPEN。
+独立代码/证据审查（实现者未给自己签收）确认：追加收费来源、供应商成本分离和 S10 原生出账/贷项代码契约通过；候选6706的升级、通知恢复、收费核销及幂等竞争读回通过；T09持久状态、候选caabf67的T02/T10 HTTP/RPC及升级保全读回通过；T06、T16、T17真实多连接动作与独立持久读回通过；T08 discard异常处置及其独立持久读回通过；task941首次收费竞争后的持久状态独立读回通过；F1 followup265浏览器完成及持久状态读回通过。F4新隔离MODEL回归1项通过，测试后独立状态读回待完成。当前仍为 **PARTIAL**：T08 supplier_return处置分支、通知 unknown/策略端到端、F4双店资质合作端到端矩阵、T18返工/返库闭环（task720在clinical.open前停止并按timeout转verify）、SIGSEGV后的HTTP/browser验证、最终影响面回归和最终独立验收仍缺；#35保持OPEN。
 
 已知差错与修复保留：早期安装缺 Python `phonenumbers`；Odoo20 registry import路径已修；ruff排序曾破坏模型依赖import顺序并导致模块注册失败，已恢复依赖顺序；Odoo mail.activity默认消息可能触发邮件，现通过 quick-update 抑制活动邮件并限制 vendor message API；通用 composer/template及可选 SMS模块存在外发路径，新增 vendor guard 与 `ydental_lab_sms_guard`，普通 reader 负测确认不会增加短信/邮件。各失败、候选、日志与保全读回仍在本地 ignored `.local/s11/operations`/`receipts`，最终交付前需生成不含秘密的可发布证据索引。
 

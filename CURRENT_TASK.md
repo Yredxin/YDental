@@ -1,6 +1,12 @@
 # YDental 当前任务状态
 
 
+## S11 最新续行快照（2026-10-20 08:02 UTC；覆盖下方历史快照）
+
+- 保持原分支 `codex/s11-followup-lab-r1`；候选/HEAD `f2e159e0093f2cde0af29c7117ab6780b8a13fa5`。Fresh admission PASS：`.local/s11/receipts/s11-admission-f2e159e-20261020T075745Z.json` SHA-256 `99f0740ef2d2d545d1c2f89e90ca16c73abfb1265f2f35495efbd6bcb4c0e767`；attempt12 preflight PASS `.local/s11/verification/followup265-preflight-f2e159e-attempt12.json` SHA `a591ff56e3697b5c9a6f8e167044a2fca2ba7ab1654c902d43b7655bd7e3dbe6`。独立静态审查 PASS（runner SHA-256 `74565ac6…73844f`）。
+- attempt12一次真实浏览器表单完成：actor2318/store2将followup265关联到event416；HTTP POST返回303，随后workbench GET 200且followup265消失。receipt `.local/s11/operations/followup265-completion-browser-attempt12.json` SHA-256 `b97b653da9764264fedc3bd05f6f3ba37a77b29ab0caf2c0a1443f6ab44bf9d8`；runner stdout SHA `7f29079b4e2c668e96d7e077c19d1d20c9dd755e6fd8cf9b38b64e8b1073e245`，stderr为空。独立RR只读/rollback/close读回PASS `.local/s11/verification/followup265-attempt12-independent-readback.json` SHA-256 `f2c5587b6b504c832855a8f93ceae14de02cb89302452d2355c102f59da661f7`：followup为`done/seen`，唯一关联event416/execution536，唯一accepted `followup.complete`审计；contacts/jobs为空。新增`mail_message`恰1条，为本次状态变更产生的内部tracking message；mail_outbox仍10，SMTP/SMS关闭。保留38条source.view审计、正常登录/session/device及状态审计；224保护计数/D/C通过。未查询PO147–149；服务STOPPED、18411空闲；attempt12不重放。
+- F1真实浏览器完成与持久状态验收现已通过。剩余S11范围仍包括通知HTTP回调/策略端到端、合格supplier_return来源、F4双店端到端合作矩阵、T18后续返工/返库、其他未覆盖并发/业务影响回归、带数据升级候选确认及独立最终验收；#35继续OPEN。当前没有push/merge/deploy。
+
 ## S11 最新续行快照（2026-10-20 07:58 UTC；覆盖下方历史快照）
 
 - 保持原分支 `codex/s11-followup-lab-r1`；最新提交 `353e0fa3f99bfc6e7c02fe952a724d0dbc0ea8bd`，代码候选 `2afd5156c9b9b4e9a3a778df9b04d6f001f309f4`。候选353 fresh independent admission PASS：`.local/s11/verification/admission-353e0fa-readonly.json` SHA-256 `3598bfe0c9acb35e5eb7dec107252a1cafea825910209bf5b4484c7885527534`，`launcher.validate_pair()` PASS；scratch身份/受限角色、224保护计数、D/C、模块、外发关闭、服务STOPPED及18411空闲均通过，未读PO147–149。
