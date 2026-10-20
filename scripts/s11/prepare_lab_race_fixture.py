@@ -20,6 +20,7 @@ import hashlib
 import json
 import math
 import os
+import re
 import secrets
 import stat
 import sys
@@ -28,9 +29,12 @@ from typing import Any
 import race_lab_receipt_duplicate as common
 
 CONFIRMATION = "S11-SYNTHETIC-LAB-RACE-FIXTURE-V1"
-EXPECTED_SYNTHETIC_PATIENT_ID = 150
 EXPECTED_SYNTHETIC_SOURCE_EVENT_ID = 187
 RECEIPT_ROOT = common.PRIVATE_ROOT / "fixtures"
+_S11_TOKEN = re.compile(r"(?<![A-Za-z0-9])S11(?![A-Za-z0-9])", re.IGNORECASE)
+_SYNTHETIC_MARKER = re.compile(
+    r"(?<![A-Za-z])(?:synthetic|test|fixture)(?![A-Za-z])|合成|测试", re.IGNORECASE,
+)
 
 
 def utc_now() -> str:
@@ -43,11 +47,12 @@ def require_order_actor(env, admission: dict[str, Any], actor_id: int, store_id:
         raise common.Refusal("fixture setup actor must have native purchase-user rights to attach its own cost line")
 
 
-def take_one_shot_lock(path, candidate: str, nonce: str) -> None:
+def take_one_shot_lock(path, candidate: str, nonce: str, source_event_id: int) -> None:
     fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
     try:
         with os.fdopen(fd, "w", encoding="utf-8") as stream:
             json.dump({"plan_id": "YD-S11-FOLLOWUP-LAB-V1", "candidate": candidate,
+                       "source_event_id": source_event_id,
                        "fixture_nonce": nonce, "created_at_utc": utc_now()}, stream,
                       sort_keys=True)
             stream.write("\n")
@@ -61,6 +66,56 @@ def take_one_shot_lock(path, candidate: str, nonce: str) -> None:
         raise
 
 
+def source_lock_path(source_event_id: int, receipt_root=RECEIPT_ROOT):
+    if type(source_event_id) is not int or source_event_id <= 0:
+        raise common.Refusal("source event ID must be a positive integer")
+    return receipt_root / f"lab-race-fixture-source-{source_event_id}.lock"
+
+
+def source_receipt_pattern(source_event_id: int) -> str:
+    if type(source_event_id) is not int or source_event_id <= 0:
+        raise common.Refusal("source event ID must be a positive integer")
+    return f"*-source-{source_event_id}-lab-race-fixture.json"
+
+
+def legacy_lock_blocks_source(source_event_id: int) -> bool:
+    return source_event_id == EXPECTED_SYNTHETIC_SOURCE_EVENT_ID
+
+
+def is_explicit_synthetic_source(patient_name: str, event_source: str, event_reason: str) -> bool:
+    """Require S11 and synthetic markers on both the patient and treatment source."""
+    patient_marked = bool(_S11_TOKEN.search(patient_name or "")) and bool(
+        _SYNTHETIC_MARKER.search(patient_name or ""),
+    )
+    source_marked = bool(_S11_TOKEN.search(event_source or "")) and bool(
+        _SYNTHETIC_MARKER.search(event_reason or ""),
+    )
+    return patient_marked and source_marked
+
+
+def has_prior_source_receipt(source_event_id: int, receipt_root=RECEIPT_ROOT) -> bool:
+    """Match legacy receipt identity without making it a global one-shot gate."""
+    if any(receipt_root.glob(source_receipt_pattern(source_event_id))):
+        return True
+    for path in receipt_root.glob("*-lab-race-fixture.json"):
+        if re.fullmatch(r".*-source-\d+-lab-race-fixture\.json", path.name):
+            continue
+        try:
+            receipt = json.loads(path.read_text(encoding="utf-8"))
+            receipt_source_id = receipt["intent"]["source_event_id"]
+        except (OSError, ValueError, KeyError, TypeError) as error:
+            raise common.Refusal(
+                "legacy fixture receipt cannot be safely attributed; do not create another fixture",
+            ) from error
+        if type(receipt_source_id) is not int or receipt_source_id <= 0:
+            raise common.Refusal(
+                "legacy fixture receipt has no valid source identity; do not create another fixture",
+            )
+        if receipt_source_id == source_event_id:
+            return True
+    return False
+
+
 def preflight(env, args, admission):
     from odoo import fields  # noqa: PLC0415
 
@@ -71,6 +126,7 @@ def preflight(env, args, admission):
         ("ydental_vendor_id", "=", args.vendor_id), ("active", "=", True),
     ], limit=1)
     event = env["ydental.treatment.event"].sudo().browse(args.source_event_id).exists()
+    patient = env["ydental.patient"].sudo().browse(args.patient_id).exists()
     prosthesis = env["product.product"].sudo().browse(args.prosthesis_product_id).exists()
     lot = env["stock.lot"].sudo().browse(args.lot_id).exists()
     service = env["product.product"].sudo().browse(args.service_product_id).exists()
@@ -88,15 +144,19 @@ def preflight(env, args, admission):
         raise common.Refusal("vendor must have current approved qualification for this company")
     if not cooperation or cooperation.ydental_vendor_id != vendor:
         raise common.Refusal("an active cooperation for this vendor and store is required")
-    if (not event or event.state != "confirmed" or event.ydental_kind != "treatment" or
+    if (not patient or not event or event.state != "confirmed" or event.ydental_kind != "treatment" or
             event.ydental_store_id != store or event.ydental_category != "medical"):
         raise common.Refusal("source must be a confirmed treatment event in this selected store")
-    if (event.id != EXPECTED_SYNTHETIC_SOURCE_EVENT_ID or
-            event.ydental_patient_id.id != EXPECTED_SYNTHETIC_PATIENT_ID):
-        raise common.Refusal("fixture source must be the independently identified synthetic patient150/event187 pair")
+    if event.ydental_patient_id != patient:
+        raise common.Refusal("source event must belong to the explicitly selected synthetic patient")
+    if not is_explicit_synthetic_source(patient.name, event.ydental_source, event.ydental_reason):
+        raise common.Refusal("patient and treatment source must carry explicit S11 synthetic markers")
     document = event.ydental_document_id.exists()
-    if not document or document.ydental_patient_id != event.ydental_patient_id:
+    if not document or document.ydental_patient_id != patient:
         raise common.Refusal("source treatment must link its existing same-patient clinical document")
+    fee = env["ydental.treatment.fee"].sudo().search([("ydental_event_id", "=", event.id)], limit=2)
+    if len(fee) != 1 or fee.ydental_amount <= 0 or fee.ydental_currency_id != store.company_id.currency_id:
+        raise common.Refusal("source treatment must have exactly one positive same-company confirmed fee")
     if env["ydental.lab.order"].sudo().search_count([
             ("ydental_source_event_id", "=", event.id), ("ydental_parent_order_id", "=", False)]):
         raise common.Refusal("treatment event already has an initial lab order; do not reuse it")
@@ -126,10 +186,10 @@ def preflight(env, args, admission):
     env["ydental.lab.service"]._order_identity(event.id, order_vals, store)
     return {
         "store_id": store.id, "company_id": store.company_id.id,
-        "source_event_id": event.id, "patient_id": event.ydental_patient_id.id,
+        "source_event_id": event.id, "patient_id": patient.id,
         "source_document_id": document.id,
-        "source_fee_id": env["ydental.treatment.fee"].sudo().search(
-            [("ydental_event_id", "=", event.id)], limit=1).id or None,
+        "source_fee_id": fee.id, "source_fee_amount": fee.ydental_amount,
+        "source_fee_currency_id": fee.ydental_currency_id.id,
         "vendor_id": vendor.id, "vendor_partner_id": vendor.partner_id.id,
         "qualification_version": vendor.qualification_version,
         "cooperation_id": cooperation.id, "product_id": prosthesis.id,
@@ -148,6 +208,8 @@ def main() -> int:
     parser.add_argument("--warehouse-actor-id", type=int, required=True)
     parser.add_argument("--store-id", type=int, required=True)
     parser.add_argument("--vendor-id", type=int, required=True)
+    parser.add_argument("--patient-id", type=int, required=True,
+                        help="explicitly verified S11 synthetic patient ID for the treatment source")
     parser.add_argument("--source-event-id", type=int, required=True)
     parser.add_argument("--prosthesis-product-id", type=int, required=True)
     parser.add_argument("--lot-id", type=int, required=True)
@@ -156,7 +218,7 @@ def main() -> int:
     parser.add_argument("--unit-price", type=float, required=True)
     parser.add_argument("--confirm", required=True)
     args = parser.parse_args()
-    ids = [args.purchase_actor_id, args.warehouse_actor_id, args.store_id, args.vendor_id,
+    ids = [args.purchase_actor_id, args.warehouse_actor_id, args.store_id, args.vendor_id, args.patient_id,
            args.source_event_id, args.prosthesis_product_id, args.lot_id,
            args.service_product_id, args.incoming_type_id]
     if (args.confirm != CONFIRMATION or min(ids) <= 0 or
@@ -166,17 +228,25 @@ def main() -> int:
             any(char not in "0123456789abcdef" for char in args.candidate)):
         raise common.Refusal("candidate must be a full lowercase 40-character commit SHA")
     common.require_private_directory(RECEIPT_ROOT)
-    prior_receipts = sorted(RECEIPT_ROOT.glob("*-lab-race-fixture.json"))
-    if prior_receipts:
-        raise common.Refusal(
-            "a prior one-shot fixture intent exists; independently reconcile it before any new fixture action")
-    lock_path = RECEIPT_ROOT / "lab-race-fixture-setup.lock"
+    if has_prior_source_receipt(args.source_event_id):
+        raise common.Refusal("a receipt already exists for this treatment source; do not replay it")
+    # This historical lock belongs to event187. Preserve it as a permanent
+    # stop for that source while permitting independent sources.
+    if legacy_lock_blocks_source(args.source_event_id):
+        lock_path = RECEIPT_ROOT / "lab-race-fixture-setup.lock"
+        if lock_path.exists():
+            info = lock_path.lstat()
+            if (not stat.S_ISREG(info.st_mode) or info.st_uid != os.getuid() or
+                    stat.S_IMODE(info.st_mode) != 0o600):
+                raise common.Refusal("existing event187 fixture lock has an unsafe owner or mode")
+            raise common.Refusal("the original event187 one-shot fixture lock exists; do not replay it")
+    lock_path = source_lock_path(args.source_event_id)
     if lock_path.exists():
         info = lock_path.lstat()
         if (not stat.S_ISREG(info.st_mode) or info.st_uid != os.getuid() or
                 stat.S_IMODE(info.st_mode) != 0o600):
-            raise common.Refusal("existing one-shot fixture lock has an unsafe owner or mode")
-        raise common.Refusal("one-shot fixture lock already exists; read back its checkpoint and do not retry")
+            raise common.Refusal("existing source-specific fixture lock has an unsafe owner or mode")
+        raise common.Refusal("source-specific fixture lock already exists; read back its checkpoint and do not retry")
 
     launcher, runtime, admission, database, branch, commit = common.load_admitted_runtime(args.candidate)
     api, Registry = common.configure_odoo(launcher, database)
@@ -190,11 +260,12 @@ def main() -> int:
         cr.rollback()
 
     nonce = secrets.token_hex(8).upper()
-    take_one_shot_lock(lock_path, commit, nonce)
+    take_one_shot_lock(lock_path, commit, nonce, args.source_event_id)
     purchase_key = "S11-RACE-COST-" + nonce
     internal_code = "S11-RACE-" + nonce
     send_action_key = "s11-race-fixture-send-" + nonce.lower()
-    receipt_path = RECEIPT_ROOT / (utc_now().replace(":", "") + "-lab-race-fixture.json")
+    receipt_path = RECEIPT_ROOT / (utc_now().replace(":", "") +
+                                   f"-source-{args.source_event_id}-lab-race-fixture.json")
     receipt: dict[str, Any] = {
         "schema": "YD-S11-LAB-RACE-FIXTURE-V1", "plan_id": launcher.PLAN_ID,
         "candidate_commit": commit, "branch": branch,
@@ -203,7 +274,8 @@ def main() -> int:
         "database_identity": identity,
         "actors": {"purchase_setup": args.purchase_actor_id,
                    "warehouse": args.warehouse_actor_id},
-        "intent": before, "synthetic_purchase_key": purchase_key,
+        "intent": before, "patient_id": args.patient_id,
+        "source_event_id": args.source_event_id, "synthetic_purchase_key": purchase_key,
         "internal_order_code": internal_code,
         "send_action_key_sha256": hashlib.sha256(send_action_key.encode()).hexdigest(),
         "phase": "READY_BEFORE_NATIVE_PURCHASE", "business_mutation_started": False,
