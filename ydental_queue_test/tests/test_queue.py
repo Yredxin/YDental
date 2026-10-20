@@ -68,7 +68,7 @@ class TestQueue(TransactionCase):
         entry = self.root['ydental.queue.entry'].browse(call['entry_id'])
         claim = task.ydental_entitlement_id.ydental_claim_id
         expired_queue = queue.with_context(ydental_queue_test_clock=Clock(self.end + timedelta(seconds=1)))
-        intake = bind(self, self.users['doctor']).with_context(
+        intake = queue.env['ydental.intake.service'].with_context(
             ydental_queue_test_clock=Clock(self.end + timedelta(seconds=1)),
             ydental_queue_start=StartPermit(self.users['doctor'].id, task.id, lease['lease_id']))
         with self.assertRaises(UserError):
