@@ -1,5 +1,13 @@
 # YDental 当前任务状态
 
+## S11 续行快照（2026-10-20 04:42 UTC；覆盖下方较早候选字段）
+
+- 当前活动 plan 仍是 `YD-S11-FOLLOWUP-LAB-V1 / 1.0`，状态 `IN_PROGRESS / OPEN`；分支 `codex/s11-followup-lab-r1`，HEAD `2df07373fa5257589115d39f4354dcd4c25c2997`，本次开始时 tracked 工作树干净。代码候选包含过期预约过滤与已消费容量生命周期兼容修复；不改范围、业务要求或原分支。
+- 候选 `2df0737` 上 S11 兼容的临床/队列回归 32 post-tests、0失败、0错误；followup lifecycle 1 post-test、0失败、0错误。证据和完整失败修复过程见下方本地报告追加记录；独立 RR 已提交状态读回通过，尚不等于全部 S11 验收通过。
+- 通过 actor9 本店普通前台权限，对已有今日到店记录的合成 patient364/task799 以原生 intake `report` 提交一次，task799 从 pending v2 至 accepted v4/position544 waiting；未重复登记到店。操作回执 `.local/s11/operations/store2-patient364-task799-report.json`。独立 RR READ ONLY/ROLLBACK 读回通过：position544/queue entry544唯一 waiting，arrival359和预约held状态未变；仅新增一条内部queue outbox通知，无外发或临床/费用/库存副作用。证据 `.local/s11/verification/task799-report-independent-readback.json` SHA-256 `0cde1b127951444179efa57e38f190092c57ae92b6d4b21a0bbce0b18e55eeef`。后续队列/接诊须遵守预约1297的05:09–05:39 UTC时段、原生排队和站点授权。
+- 尚未关闭的范围：T08 supplier_return、F1完整浏览器闭环、通知 unknown/策略端到端、F4双店矩阵、T18合格新临床闭环、F2首次收费并发及必要最终候选回归/独立验收。严禁把上述测试绿灯当全计划完成。#35保持OPEN；无GitHub过程更新、无push/merge/deploy。
+
+
 ## 当前活动计划：S11（2026-10-19）
 
 - plan_id：**YD-S11-FOLLOWUP-LAB-V1 / 1.0**，含已接收的 v1.1 补充输入；task_id：`S11-FOLLOWUP-LAB-V1`；状态：**IN_PROGRESS / OPEN**。范围为 S11-A 复诊/通知可靠性及 S11-B 内部外加工；需求为 #23、#35 正文与有效增量 `6246232594`。S10 按 #34 / `6250858664` 技术完成；#37 用户效果仍 OPEN。

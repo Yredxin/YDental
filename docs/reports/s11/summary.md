@@ -65,3 +65,16 @@ Issue #35：**OPEN**
 剩余工作继续限于 S11：补齐适用异常、通知、资质/合作与返工闭环，并完成浏览器业务步骤、必要影响面回归及独立最终验收。任何需改业务语义或放宽安全门禁的事项不自行处理。plan结束时更新本文件与同一 `CURRENT_TASK.md`，然后统一同步 GitHub 最终结果并按证据处理 #35；此前不发布 Issue 中间评论。
 
 当前 owned Odoo 已停止；正式效果入口仍需在最终报告列出正常 launcher、普通角色及可复现步骤。无生产批准，不合并、不部署，不启动 S12/S13。
+
+
+## 2026-10-20 S11续行：过期预约队列守卫与实际到店报告
+
+固定候选 `2df07373fa5257589115d39f4354dcd4c25c2997`，分支 `codex/s11-followup-lab-r1`。新增只读预约资格检查：预约结束、资质/发布价失效或预约业务日期不符时，未开始的保留任务不进入 queue call 候选，queue start 再次核验并拒绝已过期资格；已开始、暂停、交接、完成的任务保留已消费预约容量语义，避免过期原时段阻断当前执行或后续流程。队列返回服务资格复用同一检查。修改涉及 `ydental_queue/models/ydental_intake_service.py`、`ydental_queue/models/ydental_queue_return.py`、中文翻译和 `ydental_clinical_test/tests/test_document.py`。
+
+本候选的 S11 兼容临床/队列升级回归为 32 post-tests、0 failed、0 error；完整私有日志 `.local/s11/operations/20261020T043731Z-clinical-queue-expiry-handover-regression/odoo.log`，摘要 `result.json`，日志 SHA-256 `131ad44f558fd0fe56300aa1d21792e07225ec9bc98dc70bfb0597d2013ecf16`。followup 生命周期精确回归 1 post-test、0 failed、0 error；证据 `.local/s11/operations/20261020T043813Z-followup-completion-regression/result.json`，日志 SHA-256 `a171d64a18fcbd1ce2a6f64718ae24d2c0fe150aa0d64e068249c879ec4d1927`。更早的错误测试选择（0 tests）不计通过；32测套件发现的 suspended 任务错误已通过同一容量语义修复解决。此前 started 状态错误及后续修复细节不覆盖，原始日志留在 `.local/s11/operations`。
+
+独立 post-suite RR READ ONLY/ROLLBACK 读回通过：候选/DB身份匹配；task758 recovery→execution421/entry430/lease421→task799/ent485/claim503链保全；task759/entry431、slot1297/1299、protected counts与D/C摘要未变；无新增治疗、费用、库存或通知外发事实。一个 inventory mutex 内部时间戳触碰（revision0/write_uid1）被准确记录，不伪称完全无DB写痕。证据 `.local/s11/verification/queue-clinical-followup-postsuite-readback.json`，SHA-256 `faf3d15caf24cdad930e2d3d784f6341af5a5e82ee5e84f41219bcef62e7abba`。独立准入复核确认候选/受限角色/DB与运行时绑定有效，无ACL更改；其他数据库上仅继承PUBLIC CONNECT，`odoo20_dev.public`另有继承PUBLIC USAGE/CREATE且已记录，未撤销全局权限。见 `.local/s11/verification/admission-2df0737-ro-recheck.json`，SHA-256 `ab2c17485d825c348e800356b29248d6560ef1442aaa3c9d4c4d8ebc43fef61a`。
+
+本轮 RO 前置核实后，以actor9本店普通前台身份，通过原生 `ydental.intake.service._operate('report', ...)` 对patient364/task799 version2登记排队，复用已存在的当天arrival359，没有重复arrive。动作发生于 `2026-10-20T04:41:51.779672Z`，返回position544、task v4、waiting。受限于待排 slot1297在05:09 UTC开始，后续接诊不得提前调用或跳过原生队列。执行receipt `.local/s11/operations/store2-patient364-task799-report.json`。独立RR提交状态读回待本节续记；本次report不构成治疗、戴用、followup完成或计划完成证明。
+
+当前仍未完成：T08 supplier_return；F1完整浏览器闭环；通知 unknown/策略端到端；F4双店资质合作矩阵；T18合格的新治疗、戴用和独立followup；F2首次收费并发；以及最终影响回归、独立验收与计划收尾。原task720在clinical.open前失败后已timeout转verify，不takeover/不重报/不重用。真实供应商/短信仍NOT_RUN / OUT_OF_CURRENT_ACTIVATION。#35保持OPEN，未向GitHub发布中间更新；无push、合并或部署。
