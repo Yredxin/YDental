@@ -1,5 +1,11 @@
 # [CODEX-STATUS] YD-S11-FOLLOWUP-LAB-V1 / 1.0
 
+## 2026-10-20 S11续行：创建全新合成患者
+
+写入前fresh admission固定候选 `ef6607840d531ddda12f625202d79b1e6b6f3152`，独立核对通过；receipt `.local/s11/verification/admission-ef66078-patient-create-preflight.json` SHA-256 `3db72d31eea78d03833a9d23cb4116e63912b4d2a06d07f46f25b05c2c50764b`。沿正常Store2 actor2466/session row3975/revision1访问患者表单GET 200；原生create POST仅一次，303重定向到patient650。HTTP receipt `.local/s11/operations/s11-synthetic-patient-create-ef66078-20261020T092846Z.json`。显式synthetic名称 `S11 synthetic followup patient 20261020 A` 和 `s11-followup-20261020-a@synthetic.invalid`；电话、出生日期空。邮箱只是机制测试值，不是所有权验证或患者同意。未创建联系偏好，未记录预约、实际到店、签署或临床事实。
+
+独立RR READ ONLY/ROLLBACK/close复核PASS：`.local/s11/verification/synthetic-patient650-independent-readback-final.json` SHA-256 `b06685569e0fff93cd45e4dd3f63117b4944fd7d291c18bab92aed468c2950bd`。确认patient650仅属Store2，partner/号码/关系一致，operation763唯一，accepted `patient.create` audit恰1。无预约、arrival、clinical document/event、treatment、fee、followup/task/lab order、purchase/stock、notification/mail/SMS/outbox新增。保护计数增量仅access audit+9和patient/number/relation/operation各+1，D/C匹配；服务STOPPED、18411空闲。此建档不代表M1或T05闭环。
+
 ## 2026-10-20 S11续行：患者原生HTTP入口
 
 在最终准入HEAD `0c864ae063bb31c05c4dcde9e492880cabfa11d8`（纯状态/报告文档变更，产品候选未变）下，受限正常Store2 session访问 `/ydental/patients` 一次，只读GET返回HTTP 200。准入 `.local/s11/verification/admission-0c864ae-current-http-preflight.json` SHA-256 `b3cbe009ff4de349c834ea075bb4ba683fc1da71a3aa6e7264b301158b46fcf7`，由独立review核对最终收据/配置哈希、目标、保护、角色、外发和service状态。

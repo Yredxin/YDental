@@ -1,5 +1,12 @@
 # YDental 当前任务状态
 
+## S11 最新状态（2026-10-20 09:31 UTC）
+
+- 最终写操作前fresh admission固定候选 `ef6607840d531ddda12f625202d79b1e6b6f3152` 并由独立审查通过：`.local/s11/verification/admission-ef66078-patient-create-preflight.json` SHA-256 `3db72d31eea78d03833a9d23cb4116e63912b4d2a06d07f46f25b05c2c50764b`。
+- 沿正常Store2 session row3975/revision1，一次读取原生患者表单(GET 200)，一次提交合成创建(POST 303)，新patient ID 650；operation `.local/s11/operations/s11-synthetic-patient-create-ef66078-20261020T092846Z.json`。名称为 `S11 synthetic followup patient 20261020 A`，联系仅 `.invalid` 合成域，电话、出生日期留空；本次没有预约/到店/签署或临床意图。
+- 独立RR只读读回PASS `.local/s11/verification/synthetic-patient650-independent-readback-final.json` SHA-256 `b06685569e0fff93cd45e4dd3f63117b4944fd7d291c18bab92aed468c2950bd`：patient650仅属Store2，partner/号码/关系一致；operation 763唯一、`patient.create` accepted审计恰1；没有arrival/appointment/document/event/treatment/fee/followup/task/lab order、purchase/stock、notification、mail/SMS/outbox增量。保护计数增量仅access audit +9和patient/number/relation/operation各+1，D/C匹配。服务STOPPED/18411空闲，RR事务rollback/close。
+- 尚未创建该患者的联系偏好/受控通知、到店、临床来源或复诊；不能把患者建档当M1/T05闭环。接续前记录到同一报告，随后以最终HEAD重新fresh admission。S11仍PARTIAL/IN_PROGRESS、#35 OPEN；不重用patient364/event417/task720或PO147–149，无push/merge/deploy。
+
 ## S11 最新状态（2026-10-20 09:27 UTC）
 
 - 原生 Store2 session 独立读回后，在固定候选 `0c864ae063bb31c05c4dcde9e492880cabfa11d8` 的新鲜准入通过及独立文件核验下，复用该正常会话只请求一次 `/ydental/patients` GET；HTTP 200。准入 `.local/s11/verification/admission-0c864ae-current-http-preflight.json` SHA-256 `b3cbe009ff4de349c834ea075bb4ba683fc1da71a3aa6e7264b301158b46fcf7`。
