@@ -1,5 +1,15 @@
 # [CODEX-STATUS] YD-S11-FOLLOWUP-LAB-V1 / 1.0
 
+## 2026-10-20 10:26 UTC：#35 Python 中文翻译增量
+
+按Issue #35 10-20 P2 定向复核，`ydental_base/i18n/zh_CN.po` 中 `Dental | YDental` 与 `YDental application access is required.` 两条 Python 文案缺少 Odoo 导出标记。候选 `9425d999aaeba7a0e8af12cf419acb4aa91a5194`（`[S11] mark Python entry translations`）仅为两个条目补 `#. odoo-python`，不改变源字符串、译文或访问判断。
+
+纯Odoo `CodeTranslations._read_code_translations_file` 验证两项均通过 `PYTHON_TRANSLATION_COMMENT` 过滤，结果日志 `.local/s11/operations/20261020T1022Z-ydental-base-translation-loader-check/result.log` SHA-256 `5efd5532559bd6dac52080e6fbe558ce2b5df86a13a15aef002befe22c6b5bcf`。Odoo `get_translation` 对zh_CN返回完整中文译文、对en_US返回原字符串，脚本 `.local/s11/operations/20261020T1025Z-ydental-base-runtime-translation-lookup/check_translation.py` SHA `a6c015869c03f11b6de4f084154d3cfd9e944e1cdf9c358600619152fe9b7520`，结果日志SHA `111df72fc5f062a5a5b170f26385d25907a589cd999ff697a1849a8a8ea3ddcf`。首次纯查找未注册workspace addon路径而失败，未访问数据库或服务；attempt1说明保留在同目录，修正查找路径后的纯翻译调用通过。独立代码审查结论PASS（范围限PO过滤和解析）。
+
+fresh RO准入 `.local/s11/verification/admission-9425d999-independent-ro-recheck.json` SHA `a75ebd79af3e5e302e4edb6eb2d4f67e5e1264d834ab30a65caff3b35ffe51d3` 经独立审查PASS后，仅升级已安装 `ydental_base` 一次：`--no-http --stop-after-init -u ydental_base`，exit 0。operation `.local/s11/operations/20261020T102403Z-ydental-base-translation-upgrade/`，完整日志SHA `49d0dc09abe4e29f8cdb90dc42b93481dc9067052d60b182244abb58a111f762`，其中明确记录加载`ydental_base/i18n/zh_CN.po`，97模块加载并registry正常结束。升级日志仍包含已安装test addon在非test mode导入`odoo.tests.common`产生的ERROR级诊断和字段依赖/schema警告；完整日志保留，升级exit 0，本次没有将该既存诊断归因于PO改动。
+
+独立RR READ ONLY/ROLLBACK/close测后读回PASS `.local/s11/verification/ydental-base-translation-upgrade-postreadback-9425d999.json` SHA `1abd0e366bab12f9f08217f94407358b6beb467129837341dc3c1ede5033754c`：数据库/OID、224保护计数、D/C pin、97模块集一致，外发关闭，服务STOPPED且18411空闲。数据库没有`ir_translation`表，故没有声称存在持久翻译行读回；没有启动HTTP/browser或验证实际页面标题/403渲染。该运行时页面验证仍受已记录Native SIGSEGV STOP约束。没有新增角色/权限，没有触及受保护患者或PO，没有Issue过程评论、push、merge或deploy。plan仍PARTIAL/IN_PROGRESS、#35 OPEN。
+
 ## 2026-10-20 10:16 UTC：follow-up addon完整回归复核
 
 在当前文档HEAD `a1e35b7c8eb529ec7456836f2eef47ab0871a49c` fresh RO admission receipt `.local/s11/verification/admission-a1e35b7-independent-ro-recheck.json` SHA-256 `f766c72053bc1cb526dd542ad829b162e3750a12381cdbfdca9bcee725a9c7e7` 经独立审查PASS后，完整运行 `--stop-after-init -u ydental_followup_test --test-enable --test-tags /ydental_followup_test` 一次：26 post-tests，exit 0，0 failed/0 error。operation/result/log在`.local/s11/operations/20261020T101527Z-followup-full-addon-7576985/`，完整日志SHA-256 `c627cb075b35285296a45ce9b26462e1353a91c067d0eb0641b8df65a52bfa8b`。这是Odoo addon suite，包含HttpCase测试客户端覆盖；不等于真实浏览器/provider/患者送达。

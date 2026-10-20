@@ -1,5 +1,13 @@
 # YDental 当前任务状态
 
+## S11 最新续行（2026-10-20 10:26 UTC）
+
+- 保持原分支 `codex/s11-followup-lab-r1`。本次新增 GitHub #35 的 10-20 P2 增量：`ydental_base/i18n/zh_CN.po` 两条 Python 消息补齐 `#. odoo-python`，固定产品候选 `9425d999aaeba7a0e8af12cf419acb4aa91a5194`（commit `[S11] mark Python entry translations`）；未更改权限行为或英文源文本。
+- Odoo `CodeTranslations` 精确过滤器对两条译文断言PASS，日志 `.local/s11/operations/20261020T1022Z-ydental-base-translation-loader-check/result.log` SHA-256 `5efd5532559bd6dac52080e6fbe558ce2b5df86a13a15aef002befe22c6b5bcf`；纯 `get_translation` 返回zh_CN期望译文及en_US原文回退，脚本SHA `a6c015869c03f11b6de4f084154d3cfd9e944e1cdf9c358600619152fe9b7520`、结果SHA `111df72fc5f062a5a5b170f26385d25907a589cd999ff697a1849a8a8ea3ddcf`。首次纯查找未注册本工作区addon路径而断言失败，未访问DB/服务；修正路径后通过，原失败说明保存在同目录`attempt1.log`。
+- 对精确候选完成fresh RO admission，`.local/s11/verification/admission-9425d999-independent-ro-recheck.json` SHA-256 `a75ebd79af3e5e302e4edb6eb2d4f67e5e1264d834ab30a65caff3b35ffe51d3`，独立PASS。仅对已安装 `ydental_base` 执行一次 `--no-http --stop-after-init -u ydental_base`，exit 0；日志证实更新时加载`zh_CN.po`，operation `.local/s11/operations/20261020T102403Z-ydental-base-translation-upgrade/`，日志SHA `49d0dc09abe4e29f8cdb90dc42b93481dc9067052d60b182244abb58a111f762`。独立RR只读测后读回PASS `.local/s11/verification/ydental-base-translation-upgrade-postreadback-9425d999.json` SHA `1abd0e366bab12f9f08217f94407358b6beb467129837341dc3c1ede5033754c`：scratch/OID正确、224保护计数无变化、D/C pin与97模块集一致、外发关闭、rollback/close、service STOPPED/18411空闲。
+- 升级日志含Odoo既有的测试框架导入ERROR（已安装`ydental_followup_test`非test mode导入`odoo.tests.common`时触发），并继续完成97模块加载、registry加载且退出0；另有字段依赖/schema告警。原始日志完整保留，不把这些记成翻译通过或新修复。无HTTP/浏览器请求、没有验证授权页面标题和403错误的运行时展示；此项仍受既有Native SIGSEGV STOP约束。GitHub Issue不更新过程评论。
+- S11保持 PARTIAL/IN_PROGRESS、#35 OPEN：自动postcommit→claim→sink仍无安全可用实证路径；T08 supplier_return、完整F4、T18 task720后续和计划级影响回归/独立总验收仍缺。无新角色或应用权限扩张，无业务对象重放；无push/merge/deploy。
+
 ## S11 最新续行（2026-10-20 10:16 UTC）
 
 - 本次全套回归固定候选/HEAD `a1e35b7c8eb529ec7456836f2eef47ab0871a49c`，原分支，测试前工作树干净。基于该精确HEAD fresh RO admission `.local/s11/verification/admission-a1e35b7-independent-ro-recheck.json` SHA-256 `f766c72053bc1cb526dd542ad829b162e3750a12381cdbfdca9bcee725a9c7e7`，独立review PASS。
