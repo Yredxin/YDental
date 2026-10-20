@@ -1,8 +1,15 @@
+# S11 续行（2026-10-20 13:20 UTC）：GDB提交完成，准备候选准入复核
+
+- 当前分支 `codex/s11-followup-lab-r1`，HEAD `68dec3724f326738722c439484796ccce21493d8`（`[S11] add bounded GDB crash capture`），工作树干净，ahead origin 175，尚未push。产品代码候选仍为 `9425d999aaeba7a0e8af12cf419acb4aa91a5194`。GDB launcher、16项定向测试、合成SIGSEGV/core和独立代码审查证据已提交；本次工作未启动Odoo、连接数据库或执行业务写入。
+- 更正下方13:16及13:10记录中的“当前HEAD仍80bdce4/本批未提交”：GDB实现已在`68dec37`提交。为防止状态文件滞后，本次记录本身将随普通文档提交；之后必须针对最终精确HEAD和launcher SHA重新独立准入，旧`.local/s11/admission.json`及旧receipt不能直接用于运行。
+- 独立只读准入复核进行中。只有工作树固定、有效scope、S11 scratch的数据库/集群OID/角色权限/保护检查、无ACTIVE owner和端口空闲均通过，且新admission绑定最终HEAD及launcher SHA，才能用`start --gdb`做新鲜只读最小HTTP稳定性验证。该验证不重放原请求、不做临床或经济写入；异常立即停止并保全证据。
+- 其余业务项按现有计划逐项续行，不把“队列已有waiting”当作预约/到店/报到阻断；新patient682需正常入队并由原生队列顺序决定何时呼叫。S11仍`PARTIAL / IN_PROGRESS`、#35 OPEN；不push/merge/deploy/S12/S13。
+
 # S11 续行（2026-10-20 13:16 UTC）：GDB双进程组停止验收完成
 
 - 在独立审查要求下进一步收紧：GDB及inferior共用新建私有session，但可位于不同PGID；wrapper在exec Odoo前记录inferior PID、start ticks、PGID和SID。正常退出/停止时分别核对两组，只在两组均无存活成员后清除ACTIVE。身份缺失、格式错误（含JSON null）、权限不符、跨session成员或身份含混时保留ACTIVE；不会把debugger退出当作inferior已退出。GDB能力探测要求Python stop event与`generate-core-file`。
 - 独立审查者最终结论：双组早退清理/marker语义无剩余阻断。`python3 scripts/s11/test_launcher.py` 16 tests通过、exit 0，SHA-256 `.local/s11/operations/launcher-gdb-tests-final-review.log` 为 `2ba37648822b74db262a6c734b84c815bbbc5f45f675a536c20c6ac0abebb98a`；含identity缺失/null fail-closed、不同PGID早退清理。另次实际GDB17.1隔离合成SIGSEGV：7个线程表/回溯/映射/共享库/core/权限/大小检查步骤通过，native sidecar的PID与inferior PID匹配，core 10,931,832 bytes、0600，SHA `c1eb4b08ce3d8330a4a28c1d06a15eeb07214b4dd8d25a9b7bfc7ef0b5ed49d5`；摘要 `.local/s11/operations/launcher-gdb-capture-final.log` SHA `59e4b0dba21c98b9150af88867a275911466b08ca2907ca93e9f05bf47d69fdd`。另强制提前SIGKILL debugger，supervisor helper清理独立inferior PGID并确认两组为空，摘要 `.local/s11/operations/launcher-gdb-orphan-stop-final.log` SHA `b0357248c57aa5ccff761dbaf7fe5bfbfa77a36b997c90c7e6e1308348a60830`。core和raw GDB日志仅在ignored `.local/s11/tooling/`。
-- 当前 tracked HEAD仍`80bdce4aa625490c859957d76d05cee13a3e289c`，本批修改未提交。完成提交后必须对精确HEAD重新fresh-admit；此前独立恢复标准只允许全新、只读、最小HTTP稳定性验证，且要以`start --gdb`启动。当前合成测试未启动Odoo/数据库，没有复现或修复原SIGSEGV。其他业务闭环与回归未完成，S11 `PARTIAL / IN_PROGRESS`、#35 OPEN；不push/merge/deploy/S12/S13。
+- 本节记录写入时HEAD为`80bdce4aa625490c859957d76d05cee13a3e289c`、本批未提交；随后已在`68dec3724f326738722c439484796ccce21493d8`提交。提交后的fresh admission仍须绑定精确HEAD。此前独立恢复标准只允许全新、只读、最小HTTP稳定性验证，且要以`start --gdb`启动。合成测试未启动Odoo/数据库，没有复现或修复原SIGSEGV。其他业务闭环与回归未完成，S11 `PARTIAL / IN_PROGRESS`、#35 OPEN；不push/merge/deploy/S12/S13。
 
 # S11 续行（2026-10-20 13:10 UTC）：独立审查修正 GDB/core 限制
 

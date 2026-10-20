@@ -1,12 +1,20 @@
 # [CODEX-STATUS] YD-S11-FOLLOWUP-LAB-V1 / 1.0
 
+## 2026-10-20 13:20 UTC：提交后续行状态
+
+GDB/core launcher实现已提交于`68dec3724f326738722c439484796ccce21493d8`（`[S11] add bounded GDB crash capture`），位于`codex/s11-followup-lab-r1`；该提交后工作树干净，分支ahead origin 175、未push。对应16项launcher测试、合成SIGSEGV捕获及独立审查摘要见下节与`.local/s11/operations/`私有日志。此提交没有启动Odoo或连接数据库。
+
+先前13:16、13:10段落中“未提交/HEAD仍80bdce4”是写入当时的状态，不能作为当前状态。当前只读准入独立复核针对精确提交进行；旧admission/runtime/receipt绑定旧候选，不能直接启动。状态文档提交后还需按最终HEAD和`launcher.py` SHA重新执行新鲜独立准入。通过后可执行先前获准的全新只读最小HTTP稳定性检查，并使用`start --gdb`；不重演旧失败请求、不做业务写入。
+
+S11其他合成业务闭环、义齿采购来源、通知postcommit、并发及影响面回归尚未全部完成。计划保持`PARTIAL / IN_PROGRESS`、#35 OPEN；不push/merge/deploy/S12/S13。
+
 ## 2026-10-20 13:16 UTC：GDB双进程组与崩溃捕获验收
 
 独立代码审阅提出并促成的修正已完成。GDB与inferior处于专用session，运行期间可分属两个process group。wrapper在exec Odoo前以0600写入inferior PID、start ticks、PGID、SID；debugger PID/start ticks来自Popen。任何正常退出、信号停止或GDB早退后，launcher都需确认两个私有组均无存活成员才删除ACTIVE。inferior身份缺失、非对象/JSON损坏、权限或session/group不符时fail-closed，保留owner marker，不猜测目标已退出。独立审查最终确认该marker移除语义无剩余阻断。
 
 最终定向验证：`python3 -m py_compile scripts/s11/launcher.py scripts/s11/test_launcher.py`通过；`python3 scripts/s11/test_launcher.py`运行16 tests、全部通过/exit 0，日志SHA-256 `2ba37648822b74db262a6c734b84c815bbbc5f45f675a536c20c6ac0abebb98a`。覆盖identity missing/null、独立inferior PGID以及debugger提前退出后的owned group清理。GDB 17.1对独立`ctypes.string_at(0)`测试inferior捕获真实SIGSEGV：7项thread table/backtrace/mappings/shared-library/core/permission/bound检查通过，sidecar及core mode 0600，PID匹配，core 10,931,832 bytes、SHA-256 `c1eb4b08ce3d8330a4a28c1d06a15eeb07214b4dd8d25a9b7bfc7ef0b5ed49d5`；摘要 `.local/s11/operations/launcher-gdb-capture-final.log` SHA `59e4b0dba21c98b9150af88867a275911466b08ca2907ca93e9f05bf47d69fdd`。对长驻合成inferior只杀debugger后，清理器分别清除inferior PGID并确认session两组为空；摘要 `.local/s11/operations/launcher-gdb-orphan-stop-final.log` SHA `b0357248c57aa5ccff761dbaf7fe5bfbfa77a36b997c90c7e6e1308348a60830`。另有一次无效core目标证明部分采集会明确`capture_complete=false`，不冒充完整；原始core/日志留在ignored `.local/s11/tooling/`，未进入Git。
 
-仅验证了GDB捕获组件及其进程归属，没有启动Odoo或连接数据库，不能据此宣布HTTP稳定、原SIGSEGV根因已知或已修复。普通代码/文档变更待提交；提交后需针对固定新HEAD重新fresh-admit，方可开始此前授权的全新只读最小HTTP验证，并以`start --gdb`启动。S11其余业务闭环、采购义齿、通知postcommit、影响面回归仍未完成，保持`PARTIAL / IN_PROGRESS`、#35 OPEN；不push/merge/deploy/S12/S13。
+仅验证了GDB捕获组件及其进程归属，没有启动Odoo或连接数据库，不能据此宣布HTTP稳定、原SIGSEGV根因已知或已修复。该批代码/文档之后已提交于`68dec3724f326738722c439484796ccce21493d8`；13:20状态节记录了当前准入要求。S11其余业务闭环、采购义齿、通知postcommit、影响面回归仍未完成，保持`PARTIAL / IN_PROGRESS`、#35 OPEN；不push/merge/deploy/S12/S13。
 
 ## 2026-10-20 13:00 UTC：更正队列阻塞判断
 

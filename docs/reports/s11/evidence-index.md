@@ -1,5 +1,9 @@
 # S11 F/T evidence index
 
+## 2026-10-20 13:20 UTC：GDB候选提交及准入状态
+
+GDB/core launcher已提交于`68dec3724f326738722c439484796ccce21493d8`，当前HEAD对应工作树干净且未push。13:16证据所称“代码提交后fresh-admit”已进入执行；既有`.local/s11/admission.json`/runtime/receipt均为旧候选，不能启动当前候选。须重新核验scope、准确scratch目标与角色权限、保护检查、服务/ACTIVE/端口，并将最终准入绑定最终HEAD和launcher SHA。通过后仅做新鲜只读最小HTTP验证并以`start --gdb`启动。尚未启动Odoo/访问数据库；S11其余业务项未完成，#35 OPEN。
+
 ## 下次受控运行的GDB/core能力（2026-10-20）
 
 `launcher.py start --gdb`已实现并通过独立代码审阅及16项定向测试。SIGSEGV时收集线程表/TID、完整多线程回溯、mappings、loaded libraries和受限core；capture步骤、文件类型/大小/0600权限单独核验，部分失败标记不冒PASS。GDB与inferior在S11私有session内，可使用不同PGID；wrapper记录inferior PID/start ticks/PGID/SID。只有确认两组都无存活成员才清除ACTIVE；缺失/损坏身份保留owner marker。合成SIGSEGV与debugger早退清理证据见[summary.md](summary.md) 2026-10-20 13:16 UTC节。此项未启动Odoo或访问数据库，不能证明旧崩溃根因/修复。代码提交后需为精确HEAD重新fresh-admit，后续最小HTTP验证必须通过`start --gdb`。
