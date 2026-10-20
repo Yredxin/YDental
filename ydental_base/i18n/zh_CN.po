@@ -17,6 +17,7 @@ msgid "Dental"
 msgstr "牙科"
 
 #. module: ydental_base
+#. odoo-python
 #: code:addons/ydental_base/controllers/baseline.py:0
 msgid "Dental | YDental"
 msgstr "牙科 | YDental"
@@ -57,6 +58,7 @@ msgid "Back to applications"
 msgstr "返回应用列表"
 
 #. module: ydental_base
+#. odoo-python
 #: code:addons/ydental_base/controllers/baseline.py:0
 #: code:addons/ydental_base/models/ir_actions_report.py:0
 msgid "YDental application access is required."
