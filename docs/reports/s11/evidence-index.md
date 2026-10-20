@@ -1,5 +1,11 @@
 # S11 F/T evidence index
 
+## 2026-10-20 13:42 UTC：odoo20_dev public schema ACL处置
+
+用户授权后，针对`odoo20_dev`（OID `16388`，cluster system_identifier `7694897083368259627`）执行`REVOKE CREATE ON SCHEMA public FROM PUBLIC RESTRICT`。前置快照：`.local/s11/operations/odoo20-public-create-preflight.txt` SHA-256 `2b4f77b11cd805ca594bd8956a0947b16922e7fe26504e884c918fdf18139721`。执行日志：`.local/s11/operations/odoo20-public-create-revoke.log` SHA-256 `565b9dbb5aa0e414e79cab73e58f353ae2e761113ae7741f616b5c18504e1f7a`。后验：`.local/s11/operations/odoo20-public-create-postverify.log` SHA-256 `e9d8bcecfc9c349bc97c00bb0dc17a40298a6e409ca5504daa82694fc4349558`。保存的SQL `.local/s11/operations/odoo20-public-create-revoke.sql` SHA-256 `a9670f13b22130d6c150fd87d73bdb9e776035af5ff089124c3045af8e333b9c` 为执行后重构保存；独立审阅说明日志不能独立证明使用了`RESTRICT`，该子句为执行者报告。
+
+ACL由`{pg_database_owner=UC/pg_database_owner,=UC/pg_database_owner}`变为`{pg_database_owner=UC/pg_database_owner,=U/pg_database_owner}`。PUBLIC CREATE被撤销、USAGE保留；数据库CONNECT保留；S11 login在public上的有效CREATE=false、USAGE=true。影响此数据库中所有原先依赖PUBLIC CREATE的主体；不改其他数据库或集群ACL。此前`postgres`角色尝试失败、无DB变更，退出码未记录。无业务数据、runtime/admission或服务动作。Fresh admission仍待基于新HEAD/launcher SHA执行；S11 `PARTIAL / RUNTIME_BLOCKED`、#35 OPEN；`ROOT_CAUSE_UNDETERMINED`不变。
+
 ## 2026-10-20 13:35 UTC：fresh admission阻断
 
 候选`6a7869eb080d25451f511118d403c42e929a36eb`的第一次fresh admission在跨库检查因未落盘的`connection_failures`非空而退出（exit 1；`.local/s11/operations/fresh-admission-6a7869e-failure-20261020T133028Z.json`, SHA `f20c801bd54c538625738fbd83da16622aba3ee8084cbf6a1ef8f5a49c315c4e`）。随后一次单次定位扫描200个effective CONNECT DB全部成功，未复现SQLSTATE或权限拒绝；不能据此倒推首次原因。扫描发现`odoo20_dev` effective schema CREATE=true；其余database CREATE、所有relation/sequence读写及role拥有对象计数为0。跨库扫描receipt SHA `2c83d3e6dc337bf46a58ad2f6ef05ee679beba1a623061774e233b4ebe3b2935`。

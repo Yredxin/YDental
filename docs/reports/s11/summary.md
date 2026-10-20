@@ -1,5 +1,13 @@
 # [CODEX-STATUS] YD-S11-FOLLOWUP-LAB-V1 / 1.0
 
+## 2026-10-20 13:42 UTC：经用户授权收紧跨库PUBLIC schema权限
+
+用户已明确授权在S11专用测试集群范围内实施需要的权限调整。目标库`odoo20_dev`，OID `16388`、cluster system_identifier `7694897083368259627`。管理员实际执行`REVOKE CREATE ON SCHEMA public FROM PUBLIC RESTRICT`。执行日志`.local/s11/operations/odoo20-public-create-revoke.log` SHA-256 `565b9dbb5aa0e414e79cab73e58f353ae2e761113ae7741f616b5c18504e1f7a`；后验日志`.local/s11/operations/odoo20-public-create-postverify.log` SHA-256 `e9d8bcecfc9c349bc97c00bb0dc17a40298a6e409ca5504daa82694fc4349558`；前置快照`.local/s11/operations/odoo20-public-create-preflight.txt` SHA-256 `2b4f77b11cd805ca594bd8956a0947b16922e7fe26504e884c918fdf18139721`。保存SQL `.local/s11/operations/odoo20-public-create-revoke.sql` SHA-256 `a9670f13b22130d6c150fd87d73bdb9e776035af5ff089124c3045af8e333b9c` 在执行后重构保存。独立审阅指出REVOKE日志本身不能证明`RESTRICT`子句；实际命令使用RESTRICT是执行者报告，不把它描述为日志独立证明的事实。
+
+精确ACL差异是`{pg_database_owner=UC/pg_database_owner,=UC/pg_database_owner}`→`{pg_database_owner=UC/pg_database_owner,=U/pg_database_owner}`：只撤销`PUBLIC` CREATE，保留PUBLIC USAGE。后验确认目标库CONNECT仍有效；S11 restricted login对public的有效CREATE为false、USAGE为true。管理员/`pg_database_owner`权限保留。影响范围为`odoo20_dev.public`中依赖该PUBLIC授权的所有角色失去创建对象能力，不改变其它数据库或集群权限。
+
+执行前曾尝试使用`postgres`角色；尝试失败且无数据库变化，退出码未捕获，未推断错误原因。无业务表或行写入，无runtime/admission变更，无服务或外发动作。准入状态仍pending fresh admission：必须用新文档HEAD和当前launcher SHA重新准入并独立复核后，才能恢复运行；S11 `PARTIAL / RUNTIME_BLOCKED`、#35 OPEN。`ROOT_CAUSE_UNDETERMINED`保持，fresh admission尚未证明通过。
+
 ## 2026-10-20 13:35 UTC：准入失败定位与跨库schema权限
 
 对候选`6a7869eb080d25451f511118d403c42e929a36eb`的第一次fresh admission在跨库catalog扫描后因`connection_failures`非空退出，exit 1；失败收据`.local/s11/operations/fresh-admission-6a7869e-failure-20261020T133028Z.json` SHA-256 `f20c801bd54c538625738fbd83da16622aba3ee8084cbf6a1ef8f5a49c315c4e`未保留具体失败DB/异常，故不推断原因。

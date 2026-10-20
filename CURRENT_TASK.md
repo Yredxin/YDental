@@ -1,4 +1,11 @@
-# S11 续行（2026-10-20 13:35 UTC）：准入失败定位与跨库schema权限
+# S11 续行（2026-10-20 13:42 UTC）：跨库PUBLIC CREATE处置与fresh admission待办
+
+- 用户已明确授权在S11专用测试集群范围内执行所需权限调整。经核验的目标为`odoo20_dev`，OID `16388`，PostgreSQL cluster system_identifier `7694897083368259627`。管理员实际执行`REVOKE CREATE ON SCHEMA public FROM PUBLIC RESTRICT`；执行记录为`.local/s11/operations/odoo20-public-create-revoke.log`（SHA-256 `565b9dbb5aa0e414e79cab73e58f353ae2e761113ae7741f616b5c18504e1f7a`），后验为`.local/s11/operations/odoo20-public-create-postverify.log`（SHA-256 `e9d8bcecfc9c349bc97c00bb0dc17a40298a6e409ca5504daa82694fc4349558`）。前置身份/ACL快照`.local/s11/operations/odoo20-public-create-preflight.txt` SHA-256 `2b4f77b11cd805ca594bd8956a0947b16922e7fe26504e884c918fdf18139721`。保存的SQL `.local/s11/operations/odoo20-public-create-revoke.sql` SHA-256 `a9670f13b22130d6c150fd87d73bdb9e776035af5ff089124c3045af8e333b9c` 是操作后重构保存；独立审阅指出REVOKE日志自身不证明`RESTRICT`，因此将“实际命令带RESTRICT”记为执行者报告，不能称日志独立证明该子句。
+- 后验显示`public` ACL从`{pg_database_owner=UC/pg_database_owner,=UC/pg_database_owner}`变为`{pg_database_owner=UC/pg_database_owner,=U/pg_database_owner}`：撤销普通`PUBLIC`的CREATE并保留USAGE。目标数据库CONNECT未撤销，S11 restricted login对public的有效CREATE为false、USAGE/CONNECT为true；数据库所有者和`pg_database_owner`既有权限保持。该ACL是`odoo20_dev`数据库内的PUBLIC变更，会影响所有依赖该PUBLIC条目的角色在该schema创建对象的能力；不改变集群ACL或其它数据库。
+- 操作前曾尝试用`postgres`角色执行；失败且没有数据库变更，退出码未捕获，未据此推断具体失败原因。没有改角色或扩大跨库ACL。仅记录本条目列明的既有收据；未触及业务表/行、runtime/admission、服务或外发配置。
+- 原因结论`ROOT_CAUSE_UNDETERMINED`不变。S11状态为`PARTIAL / RUNTIME_BLOCKED`，fresh admission仍待针对新的文档HEAD与当前launcher SHA重新执行、独立核验；在此之前不启动服务。#35保持OPEN，不push/merge/deploy/S12/S13。
+
+# S11 续行（2026-10-20 13:35 UTC）：准入失败定位与跨库schema权限（历史状态，见上方ACL处置更新）
 
 - 针对精确HEAD `6a7869eb080d25451f511118d403c42e929a36eb` 的fresh admission未通过：私有准入候选执行到跨库catalog扫描后，因`connection_failures`非空在断言退出（exit 1）。失败收据 `.local/s11/operations/fresh-admission-6a7869e-failure-20261020T133028Z.json` SHA-256 `f20c801bd54c538625738fbd83da16622aba3ee8084cbf6a1ef8f5a49c315c4e`；该次未持久化具体数据库/异常，不能判断权限拒绝。
 - 后续一次有界定位使用同一restricted role/cluster，对所有200个当时effective CONNECT的其他数据库逐库只尝试一次，只读系统目录/有效权限函数；全部200成功、0连接/查询错误、无SQLSTATE/权限拒绝复现。receipt `.local/s11/verification/cross-db-admission-failure-locate-6a7869e-20261020.json` SHA-256 `2c83d3e6dc337bf46a58ad2f6ef05ee679beba1a623061774e233b4ebe3b2935`；定位脚本 SHA-256 `5c837557a9fa584b5a81a3bb3a7e8825a32e7a6f06ad511c6276056d3a0d2d61`。因此首次异常原因仍UNKNOWN，不倒推为权限拒绝或瞬态。
