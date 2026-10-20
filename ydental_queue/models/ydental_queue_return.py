@@ -11,7 +11,8 @@ class YDentalQueueService(models.AbstractModel):
         return super()._handlers() | {'reserve': self._reserve, 'restore': self._restore, 'handover': self._handover}
 
     def _operate(self, operation, payload):
-        onsite = {'takeover_verify': self._takeover_verify, 'handover_verify_hold': self._handover_verify_hold}
+        onsite = {'takeover_verify': self._takeover_verify, 'handover_verify_hold': self._handover_verify_hold,
+                  'recover_empty_execution': self._recover_empty_execution}
         handlers = onsite | {'query_return': self._query_return, 'append': self._append, 'revoke': self._revoke}
         if operation not in handlers:
             return super()._operate(operation, payload)
@@ -30,7 +31,10 @@ class YDentalQueueService(models.AbstractModel):
             if operation != 'query_return':
                 if operation not in onsite:
                     self._append_access()
-                self._expire()
+                # A recovery acts on a lease already released by the fixed timeout
+                # service. Avoid sweeping unrelated expired leases here.
+                if operation != 'recover_empty_execution':
+                    self._expire()
             result = handlers[operation](**payload)
             return dict(result, result='accepted') if operation in onsite else result
 
@@ -124,7 +128,7 @@ class YDentalQueueService(models.AbstractModel):
             valid = execution.state == 'verify'
         if not valid or execution.ydental_lease_id.ydental_active:
             raise UserError(self.env._('version_conflict: This verification was already handled or is not ready.'))
-        station, member, category = self._station(execution.ydental_lease_id.ydental_station_id.id)
+        station, _member, category = self._station(execution.ydental_lease_id.ydental_station_id.id)
         entry = self._execution_entry(execution)
         failure = self._service_eligibility(entry, station)
         if failure:
@@ -141,7 +145,7 @@ class YDentalQueueService(models.AbstractModel):
         return execution, hold, station, category, reason
 
     def _takeover_verify(self, execution_id, confirmed, reason):
-        execution, hold, station, category, reason = self._onsite_source(execution_id, confirmed, reason)
+        execution, _hold, station, category, reason = self._onsite_source(execution_id, confirmed, reason)
         if self._save_before_handover(execution) is not True:
             raise AccessError(self.env._('save_required: A trusted server document save integration is required.'))
         self._release_execution_documents(execution)
@@ -173,6 +177,71 @@ class YDentalQueueService(models.AbstractModel):
             'old_lease_id': execution.ydental_lease_id.id, 'new_lease_id': lease['lease_id'],
             'continuation_task_id': task.id, 'reason': reason})
         return dict(lease, hold_id=hold.id, continuation_task_id=task.id, state='handover')
+
+    def _recover_empty_execution(self, execution_id, confirmed, replacement_slot_id, reason):
+        execution, _hold, station, _category, reason = self._onsite_source(execution_id, confirmed, reason)
+        lease = execution.ydental_lease_id
+        task = execution.ydental_task_id
+        entry = self._execution_entry(execution)
+        if (execution.state != 'verify' or lease.ydental_active or lease.ydental_release_reason != 'timeout' or
+                lease.ydental_expires_at > self._now() or not entry or entry.state != 'verify' or
+                entry.ydental_task_id != task or task.state != 'started' or task.ydental_store_id != execution.ydental_store_id):
+            raise UserError(self.env._('version_conflict: Only a timed-out, unresolved execution can be recovered.'))
+        if self.env['ydental.intake.position'].sudo().search_count([
+                ('ydental_patient_id', '=', task.ydental_patient_id.id), ('ydental_active', '=', True)]):
+            raise UserError(self.env._('version_conflict: An active intake position prevents recovery.'))
+        if self._hold(patient_id=task.ydental_patient_id.id):
+            raise UserError(self.env._('handover_required: Resolve the reserved patient before recovery.'))
+
+        evidence_models = ('ydental.clinical.document', 'ydental.treatment.event', 'ydental.treatment.order',
+                           'ydental.treatment.segment', 'ydental.exam.result')
+        if any(model not in self.env.registry.models for model in evidence_models):
+            raise AccessError(self.env._('access_denied: All clinical evidence services must be active for recovery.'))
+        if (self.env['ydental.clinical.document'].sudo().search_count([
+                '|', ('ydental_execution_id', '=', execution.id),
+                ('ydental_current_execution_id', '=', execution.id)]) or
+                self.env['ydental.treatment.event'].sudo().search_count([('ydental_execution_id', '=', execution.id)]) or
+                self.env['ydental.treatment.order'].sudo().search_count([('ydental_execution_id', '=', execution.id)]) or
+                self.env['ydental.treatment.segment'].sudo().search_count([('ydental_execution_id', '=', execution.id)]) or
+                self.env['ydental.exam.result'].sudo().search_count([('ydental_execution_id', '=', execution.id)])):
+            raise AccessError(self.env._('save_required: Recovery is limited to an execution with no clinical or treatment record.'))
+
+        intake = self.env['ydental.intake.service']
+        old_entitlement = task.ydental_entitlement_id
+        if not old_entitlement or old_entitlement.state != 'started' or old_entitlement.ydental_claim_id.state != 'consumed':
+            raise UserError(self.env._('version_conflict: The original appointment capacity is not in a recoverable state.'))
+        replacement_slot = self.env['ydental.supply.slot'].sudo().browse(intake._id(replacement_slot_id)).exists()
+        mapping = task.ydental_mapping_id
+        if (not replacement_slot or replacement_slot.ydental_store_id != task.ydental_store_id or
+                replacement_slot.ydental_station_id != station or replacement_slot.ydental_area_id != mapping.ydental_area_id or
+                replacement_slot.state != 'published' or replacement_slot.ydental_start <= self._now() or
+                replacement_slot.ydental_end <= replacement_slot.ydental_start or
+                mapping.ydental_catalog_id.ydental_capability_id not in replacement_slot.ydental_capability_ids or
+                not self.env['ydental.supply.service']._coverage_valid(replacement_slot)):
+            raise AccessError(self.env._('access_denied: Select a future published appointment at the original workstation.'))
+        if self.env['ydental.supply.service']._date(task.ydental_store_id, replacement_slot.ydental_start) != \
+                self.env['ydental.supply.service']._date(task.ydental_store_id):
+            raise UserError(self.env._('reporting_date_mismatch: Recover into a future appointment on the current store business date.'))
+
+        # Retain the started entitlement and consumed claim as historical facts.
+        # The expired slot is never reopened; the new task acquires current capacity.
+        task._save({'state': 'cancelled', 'ydental_reason': 'Interrupted before a clinical document was opened.'})
+        entry._save({'state': 'void', 'ydental_lease_id': False})
+        execution._save({'state': 'interrupted', 'ydental_ended_at': self._now()})
+        replacement = intake._qualify(task.ydental_store_id, task.ydental_patient_id.id, mapping.id,
+            replacement_slot.ydental_start, replacement_slot.ydental_end, old_entitlement.ydental_channel,
+            source_task=task, slot_id=replacement_slot.id)
+        self._audit('empty_execution_recovered', execution, {
+            'old_task_id': task.id, 'old_entry_id': entry.id, 'old_entitlement_id': old_entitlement.id,
+            'old_claim_id': old_entitlement.ydental_claim_id.id,
+            'replacement_task_id': replacement['task_id'], 'replacement_entitlement_id': replacement['id'],
+            'replacement_claim_id': replacement['claim_id'], 'replacement_slot_id': replacement_slot.id,
+            'clinical_document_created': False, 'treatment_event_created': False,
+            'fee_or_inventory_created': False, 'reason': reason})
+        return {'execution_id': execution.id, 'state': execution.state, 'task_id': task.id,
+                'entry_id': entry.id, 'replacement_task_id': replacement['task_id'],
+                'replacement_entitlement_id': replacement['id'], 'replacement_claim_id': replacement['claim_id'],
+                'replacement_slot_id': replacement_slot.id}
 
     def _external_target_authorized(self, execution, target_task):
         # S08/S09 must verify the actual frozen order/prescription source.

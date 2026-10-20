@@ -370,12 +370,15 @@ class YDentalIntakeService(models.AbstractModel):
         permit = CapacityPermit(self.env.uid, store.id, operation, fingerprint(payload))
         return self.env['ydental.supply.service'].with_context(ydental_intake_capacity=permit)._capacity_action(operation, payload, key)
 
-    def _capacity_args(self, mapping, channel, start, end, source_key):
-        return {'area_id': mapping.ydental_area_id.id, 'capability_id': mapping.ydental_catalog_id.ydental_capability_id.id,
+    def _capacity_args(self, mapping, channel, start, end, source_key, slot_id=None):
+        values = {'area_id': mapping.ydental_area_id.id, 'capability_id': mapping.ydental_catalog_id.ydental_capability_id.id,
             'start': fields.Datetime.to_string(self._instant(start)), 'end': fields.Datetime.to_string(self._instant(end)),
             'channel': channel, 'source': 'ydental.intake.entitlement', 'source_key': source_key}
+        if slot_id is not None:
+            values['slot_id'] = slot_id
+        return values
 
-    def _qualify(self, store, patient_id, mapping_id, start, end, channel, source_task=None):
+    def _qualify(self, store, patient_id, mapping_id, start, end, channel, source_task=None, slot_id=None):
         mapping = self._target(mapping_id, store)
         patient = self._patient(patient_id, store)
         if channel == 'walkin':
@@ -386,7 +389,8 @@ class YDentalIntakeService(models.AbstractModel):
         # The task ID is a stable source for the S03 claim; all new rows roll back
         # with acquisition failure, including a newly established relationship.
         task = self._new('task', store, dict(identity, name=mapping.name, ydental_mapping_id=mapping.id))
-        result = self._capacity(store, 'acquire', self._capacity_args(mapping, channel, start, end, str(task.id)), 'intake-acquire-' + str(task.id))
+        result = self._capacity(store, 'acquire', self._capacity_args(
+            mapping, channel, start, end, str(task.id), slot_id=slot_id), 'intake-acquire-' + str(task.id))
         entitlement = self._new('entitlement', store, dict(identity, name=mapping.name,
             ydental_mapping_id=mapping.id, ydental_claim_id=result['id'], ydental_channel=channel,
             ydental_source_task_id=source_task.id if source_task else False))
