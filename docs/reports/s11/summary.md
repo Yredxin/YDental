@@ -1,5 +1,15 @@
 # [CODEX-STATUS] YD-S11-FOLLOWUP-LAB-V1 / 1.0
 
+## 2026-10-20 13:32 UTC：准入复核与启动前实时数据库身份保护
+
+独立准入审核发现私有runtime/admission仍绑定旧候选`dedbc2b`，且准入超过30分钟、launcher SHA已失效；scope仍有效，但旧pair不可用于当前HEAD。审核还发现原`validate_connected_database`只由synthetic测试addon的`pre_init_hook`调用，并非launcher每次启动都会执行。
+
+修复提交`2e187a5c693b84f26b21efb6f1cd0b4da53108ab`把实时只读目标探测接到`start_service`：在run目录、ACTIVE owner marker和Odoo进程创建前，以私有受限S11 role连接固定loopback scratch DB，使用只读REPEATABLE READ查询并核数据库名/OID、current role、server addr/port及实际cluster system_identifier。成功路径ROLLBACK并确认事务IDLE后关闭；连接拒绝、权限不足或任一身份不符时fail-closed。探测与Odoo后续连接之间仍有极短时间窗；它降低错库风险但不构成数据库集群锁。
+
+独立审查通过、无阻断。定向验证：py_compile通过；`python3 scripts/s11/test_launcher.py` 19 tests全部通过/exit 0，摘要日志`.local/s11/operations/launcher-live-db-guard-tests-final.log` SHA-256 `0ad4707946a9b2e18148006bca8c55a27a4e20716040b39fea6a089c51ef07e1`。mock用例验证正确目标、system_identifier SQL、只读/RR、rollback/idle/close；cluster mismatch关闭连接；启动probe拒绝时不创建runs目录/ACTIVE且不调用Popen。一次首轮test harness因系统Python未装psycopg2而顶层导入失败(exit 1)；将测试改为隔离mock依赖后，19项重跑全过。未连接数据库、未启动Odoo或写业务数据。
+
+文档提交后必须以最终HEAD重新fresh-admit，旧pair不可复用；新pair通过后才运行`start --gdb`和全新只读最小HTTP稳定性验证。S11仍`PARTIAL / IN_PROGRESS`、#35 OPEN；不push/merge/deploy/S12/S13。
+
 ## 2026-10-20 13:20 UTC：提交后续行状态
 
 GDB/core launcher实现已提交于`68dec3724f326738722c439484796ccce21493d8`（`[S11] add bounded GDB crash capture`），位于`codex/s11-followup-lab-r1`；该提交后工作树干净，分支ahead origin 175、未push。对应16项launcher测试、合成SIGSEGV捕获及独立审查摘要见下节与`.local/s11/operations/`私有日志。此提交没有启动Odoo或连接数据库。

@@ -1,3 +1,10 @@
+# S11 续行（2026-10-20 13:32 UTC）：提交实时数据库目标启动前核验
+
+- 独立准入复核发现旧`.local/s11/runtime.json`和`admission.json`仍绑定旧HEAD `dedbc2b`，准入超过30分钟且launcher SHA过期；scope本身有效，但旧pair不能启动。复核也确认`validate_connected_database`只在测试addon安装pre-init时调用，不是每次launcher启动调用。
+- 已在`2e187a5c693b84f26b21efb6f1cd0b4da53108ab`提交安全收紧：`start_service`在准入pair、ACTIVE owner核验后，且在创建run目录/owner marker、启动Odoo之前，使用私有受限角色开启只读REPEATABLE READ连接，核验数据库名、OID、角色、服务端地址/端口和真实PostgreSQL system_identifier；成功后ROLLBACK、确认事务IDLE、关闭连接。错配、权限拒绝或连接失败会fail-closed，不会创建run/owner或启动进程。
+- 独立代码审查通过；py_compile通过；`python3 scripts/s11/test_launcher.py` 19项通过/exit 0，日志`.local/s11/operations/launcher-live-db-guard-tests-final.log` SHA-256 `0ad4707946a9b2e18148006bca8c55a27a4e20716040b39fea6a089c51ef07e1`。覆盖实际system_identifier查询、只读/RR/rollback/关闭、错配拒绝和probe失败时无run/owner/Popen。合成单测未连接数据库或启动Odoo。
+- 旧准入不可复用。当前状态文档提交后需针对最终HEAD重做独立fresh-admit；通过后方可`start --gdb`做全新只读最小HTTP检查。尚未连接数据库或启动服务。S11仍`PARTIAL / IN_PROGRESS`、#35 OPEN；不push/merge/deploy/S12/S13。
+
 # S11 续行（2026-10-20 13:20 UTC）：GDB提交完成，准备候选准入复核
 
 - 当前分支 `codex/s11-followup-lab-r1`，HEAD `68dec3724f326738722c439484796ccce21493d8`（`[S11] add bounded GDB crash capture`），工作树干净，ahead origin 175，尚未push。产品代码候选仍为 `9425d999aaeba7a0e8af12cf419acb4aa91a5194`。GDB launcher、16项定向测试、合成SIGSEGV/core和独立代码审查证据已提交；本次工作未启动Odoo、连接数据库或执行业务写入。

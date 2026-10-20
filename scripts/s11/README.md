@@ -33,11 +33,13 @@ runtime window. Do not store secrets in Git, logs, shell history, screenshots,
 or chat. The GitHub repository is public, so never upload credential values or
 recoverable secret configuration.
 
-The admission receipt is a binding check, not a database probe or cryptographic
-attestation. The named independent verifier must retain the evidence and confirm
-the target identity and grants before producing the private file. A stale or
-changed target requires a new admission receipt. The launcher does not connect to
-PostgreSQL before admission; starting Odoo is the first application connection.
+The admission receipt is a binding check, not a cryptographic attestation. The
+named independent verifier must retain the evidence and confirm the target
+identity and grants before producing the private file. A stale or changed target
+requires a new admission receipt. The launcher does not connect to PostgreSQL
+before admission. After validating the current pair, each start performs a fresh
+read-only identity probe using the same restricted S11 DB role before creating
+run artifacts or launching Odoo.
 The example's PostgreSQL port is illustrative only and must be replaced with the
 independently verified S11 target value; no port or login is inferred from
 historical stage configuration.

@@ -1,5 +1,11 @@
 # S11 F/T evidence index
 
+## 2026-10-20 13:32 UTC：启动前实时数据库身份探测
+
+准入审查确认旧私有pair绑定`dedbc2b`且准入超过30分钟，不能用于当前候选；审查还发现原连接侧辅助校验只在测试addon pre-init时触发。提交`2e187a5c693b84f26b21efb6f1cd0b4da53108ab`新增`start_service`启动前只读REPEATABLE READ数据库身份探测，绑定DB名/OID、角色、服务端IP/端口、真实PostgreSQL system_identifier；成功ROLLBACK/IDLE/close，身份/权限/连接异常在任何run目录、owner marker、Odoo进程之前拒绝。独立代码审查通过。19项launcher测试exit 0，日志`launcher-live-db-guard-tests-final.log` SHA-256 `0ad4707946a9b2e18148006bca8c55a27a4e20716040b39fea6a089c51ef07e1`；含错cluster关闭和启动拒绝无副作用。mock验证未连接数据库。启动前probe与Odoo连接之间存在短TOCTOU窗口。
+
+状态文档提交后，以最终HEAD重新做fresh independent admission；旧admission不可复用。通过后才允许GDB受控只读HTTP验证。
+
 ## 2026-10-20 13:20 UTC：GDB候选提交及准入状态
 
 GDB/core launcher已提交于`68dec3724f326738722c439484796ccce21493d8`，当前HEAD对应工作树干净且未push。13:16证据所称“代码提交后fresh-admit”已进入执行；既有`.local/s11/admission.json`/runtime/receipt均为旧候选，不能启动当前候选。须重新核验scope、准确scratch目标与角色权限、保护检查、服务/ACTIVE/端口，并将最终准入绑定最终HEAD和launcher SHA。通过后仅做新鲜只读最小HTTP验证并以`start --gdb`启动。尚未启动Odoo/访问数据库；S11其余业务项未完成，#35 OPEN。
