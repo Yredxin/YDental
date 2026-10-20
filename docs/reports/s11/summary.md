@@ -1,5 +1,17 @@
 # [CODEX-STATUS] YD-S11-FOLLOWUP-LAB-V1 / 1.0
 
+## 2026-10-20 09:04 UTC：剩余闭环认证路径复核与停止边界
+
+本次为本地只读源码/证据调查；没有数据库连接、业务写入、服务启动、测试重跑或产品代码修改。核验基线为原分支 `codex/s11-followup-lab-r1`、HEAD `698220d06c533257c1d4c0a3fe67d37d9532e79d`，产品测试候选 `789619fa76674caa1f8eab6db2eaf559847f16bf`。既有2项T18选择用例、14项followup notification模型测试及独立读回仍是最近测试结果，见08:58节。
+
+独立认证可行性审查确认：新用户2466只完成Odoo原生密码校验，尚无 `ydental.access.session` 与Store2 server-bound scope；user10有medical权限但没有patient写权限。直接从裸ORM用 `with_user`、构造binding或复用已回显session key会绕过服务身份边界，不采用。新角色的正常业务调用要求HTTP adapter建立session；此前owned HTTP child以SIGSEGV退出的STOP仍有效，因此不重启服务、不重跑浏览器登录。task720已timeout进入verify，不重开、不takeover、不重放。
+
+独立通知可行性审查确认，完整T05/T12 controlled sink需要新合成患者自己的confirmed treatment event、Store2联系字段及偏好、medical读权限和followup责任角色。`.invalid`地址/偏好只能作为明确合成测试数据，不能报告成真实邮箱所有权已验证或真实患者同意；controlled sink状态`accepted`仅说明内部测试sink接收，不等于患者送达。patient364的event417不能复用于其他患者，受保护event/task继续保全。当前14项通知回归没有直接覆盖controlled sink send handler，因此不将这14项扩大解释为受控sink端到端通过。
+
+独立源码路径复核确认T08初始lab order派单要求关联confirmed purchase line；purchase group原生company ACL会使独立合成采购用户可见PO147–149。历史用户授权允许在S11 Store2合成采购用户授予 `purchase.group_purchase_user`，但仍严格禁止查询、读取、使用或修改PO147–149；未以该授权访问这些记录。目前没有可安全复用的义齿confirmed treatment source，也没有新角色正常服务scope。新合成前置对象授权本身不构成临床适应证或已确认采购链，不能把generic event417或task720改作义齿来源。
+
+结论：现有证据与授权下可继续准备明确标记的合成患者、联系方式/偏好以及价目/合作/仓库前置，但没有已验证的HTTP-free普通用户session路径来完成患者、临床和自动通知闭环；Native crash STOP禁止启动新HTTP/browser会话，T08还受confirmed采购行流程约束。当前无法满足S11 M1–M5技术关闭条件，保持 **PARTIAL / IN_PROGRESS**、#35 **OPEN**。需要用户决定是否单独批准对既有HTTP child Native SIGSEGV做只读诊断及修复，并在新鲜准入后建立新的正常Store2测试session；未获决定前不触发HTTP/browser链。未启用真实供应商、短信、生产、push/merge/deploy；没有读取PO147–149。
+
 ## 2026-10-20 08:58 UTC：T18与通知模型回归、独立测后读回
 
 续行核验：分支 `codex/s11-followup-lab-r1`，HEAD `81fe5cd2f836696a0e16898d973838e294579103`，产品/测试候选 `789619fa76674caa1f8eab6db2eaf559847f16bf`；开始核验时跟踪工作区干净。前序用户授权创建的Store2有限权限合成操作员仍为唯一新建角色，本轮不重复创建、不创建患者、不重放已完成的业务动作。无产品代码变更。

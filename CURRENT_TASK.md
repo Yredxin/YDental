@@ -6,7 +6,14 @@
 - 用户授权后创建的Store2合成普通用户2466和有限 `patient:write` / `frontdesk:write` 仍有效；创建回执及角色独立读回、邮件副作用详见下方08:52记录和 `docs/reports/s11/summary.md`。不重建账号、不登录HTTP/browser。
 - 固定候选 `81fe5cd` 的隔离MODEL/ORM测试：T18所选2项通过（exit 0、0 failures/errors），结果 `.local/s11/operations/20261020T085331Z-t18-free-rework-isolated-tests/result.json` SHA-256 `6c098df107f622ff8aa765ec417a7fbee83bd8c10c49cb0a5c1f1bc76394c267`；followup notification 14项通过（exit 0、0 failures/errors），结果 `.local/s11/operations/20261020T085502Z-followup-notification-model-tests/result.json` SHA-256 `91f5276519d3d2ee61c0e360bd02bd47965a9eafa8dee0d0f6a121556da35205`。操作/日志摘要及命令在S11报告；未运行HTTP、浏览器、provider或controlled-sink E2E。
 - 测后独立RR只读核验PASS：`.local/s11/verification/s11-model-test-suites-postrun-readback-81fe5cd.json` SHA-256 `8e53ccfc0d06296fc98c05ee10a771b413ea4c7709cae8b819fa7a662704c742`；两批测试前后七项通知/邮件/outbox计数零增量，保护计数及D/C pin一致，事务rollback/close，服务停止。最新admission `.local/s11/verification/admission-81fe5cd-post-followup-model-independent-ro-recheck.json` SHA-256 `f3f67253b43225309c9473a15e60d85b4e4cc1ac5e4b1a4732ef14ae01c16958` PASS，目标仍为指定scratch/OID2144130及受限角色。
-- 独立计划覆盖复核（仅文档/证据审查）确认：F1 followup265浏览器完成、followup272无contact人工兜底、T03/T04签名回调HTTP、F4/T15部分ORM、T06/T16/T17竞争、T08 discard、F2首次收费竞争后的核实和幂等恢复均有证据；F2有一方提交而另一方遇SerializationFailure，不能写成两路都直接成功。全计划M1–M5/技术关闭条件未满足，状态仍PARTIAL/OPEN。具体剩余：T08 supplier_return及完整外加工费用/入库前置、合法联系偏好下自动通知策略端到端、task720后续临床（受Native crash STOP限制）、F1其余生命周期、F4完整双店采购/收货/成本/患者费用链、最终影响面回归和带数据升级范围的总验收。细节见 `docs/reports/s11/summary.md` 覆盖矩阵；不伪造业务事实、不查询PO147–149。
+
+## S11 最新状态（2026-10-20 09:04 UTC）
+
+- 继续只读核对认证与剩余路径，没有数据库访问、业务提交、服务启动、测试重跑或工作区代码修改。原分支保持 `codex/s11-followup-lab-r1`；本轮核验基线HEAD `698220d06c533257c1d4c0a3fe67d37d9532e79d`，产品/测试候选仍是 `789619fa76674caa1f8eab6db2eaf559847f16bf`。
+- 新用户2466的原生凭据校验已通过，但没有建立 Odoo server-bound `ydental.access.session` / Store2 scope。`user10`有medical、无patient写权；不能用裸ORM `with_user`、手造binding或旧session key冒充正常认证。新角色正常业务scope需HTTP adapter建立；既有HTTP child SIGSEGV STOP禁止重启/重跑浏览器登录链。task720已timeout/verify，仍不得重开、takeover或重放。
+- 通知调查确认，完整T05/T12自动受控sink需要该合成患者自己的confirmed treatment event、有效联系方式字段/Store2偏好、medical读取与followup负责角色。`.invalid`邮箱和合成偏好只能证明测试数据与策略路径，不能称真实地址已验证或患者同意；controlled sink只记录accepted，不代表送达。不得将patient364的event417借给新患者。
+- T08只读代码审查确认初始lab order派单要求已关联confirmed purchase line，采购组原生company ACL会看见PO147–149；用户旧授权允许独立S11合成采购用户加入该组，但仍禁止查询/读取/使用/修改受保护PO。当前没有合格的新义齿confirmed source与正常Store2服务scope；不造clinical事实、不绕过采购链，已有task720/event417和PO对象均不重用。
+- 新增安全路径审查结论：受限Store2 synthetic patient/联系方式/偏好和价目/合作/仓库前置在授权范围内可准备，但目前无法通过正常角色session完成患者、临床和自动通知闭环；加上task720 STOP及T08采购行条件，S11不能达到M1–M5关闭。S11保持PARTIAL/OPEN、#35 OPEN；外部供应商/短信、生产、push/merge/deploy均未启用。需用户决定是否单独批准“只读诊断并修复既有HTTP child Native SIGSEGV后，再按新准入建立正常Store2测试session”的工作；在收到决定前不启动该HTTP/browser链。
 
 ## S11 最新状态（2026-10-20 08:52 UTC）
 
