@@ -1,5 +1,13 @@
 # [CODEX-STATUS] YD-S11-FOLLOWUP-LAB-V1 / 1.0
 
+## 2026-10-20 10:57 UTC：义齿/返工/采购模型回归
+
+在固定候选 `b3402c3bc0084266d6bc8c5e18f74fdae59514aa`、指定scratch数据库和`--no-http`条件下，运行 `ydental_lab_test` 的 `TestLaboratoryGuards`、`TestFreeReworkLifecycle` 与 `TestLabChargeNativeChain`。26 post-tests，退出码0、0 failed、0 errors。完整operation/result/log目录 `.local/s11/operations/20261020T105627Z-lab-guards-rework-purchase-models-b3402c3/`；result SHA-256 `51c4326eac6dd795bc8e788e77ba28f7972118717c80985051a4f17282db4499`，Odoo日志SHA-256 `227d33414c8bb6bafb9403bc89de3ed18373823e31312fc8f376ec54c576fd31`。operation绑定fresh admission `.local/s11/verification/admission-b3402c3-independent-ro-recheck.json`，SHA-256 `125521a36cba4d30c9ba6f24c37b37876c64fbe3de4babf6233659ed0b153348`。
+
+独立RR只读测后读回 `.local/s11/verification/lab-model-regression-b3402c3-readback.json` PASS，SHA-256 `0567b16775a75573229c288c758ba94db5e4612ea557d5d3994803f29cb4afa3`；独立review PASS。224项保护计数无变化、D/C pin匹配、受查测试窗口side rows为0、外发关闭、模块集不变、事务显式ROLLBACK并关闭连接，owned service STOPPED且18411空闲。`mail_notification`没有`create_date`，只记录当前计数而不归因测试时段。初次系统Python调用在导入psycopg2前退出，未连接数据库；使用仓库venv仅完成只读测后检查，没有重跑测试。
+
+本证据是MODEL/ORM回归，`--no-http`。它不证明正常用户工作流产生临床治疗源、已确认原生采购服务行、义齿收发/退货/返工的持久业务结果，也不证明HTTP/RPC、浏览器、真实并发、postcommit通知或患者送达。用户已批准的合成业务对象还需等SIGSEGV对应运行STOP解除并经过独立安全恢复审查；不使用patient650/task720，不读取/修改PO147–149。S11保持PARTIAL/IN_PROGRESS，#35 OPEN。
+
 ## 2026-10-20 10:54 UTC：通知模型类回归
 
 在candidate b6845bbd25170b208579966a7685505d4939da9f运行整个TestFollowupNotification TransactionCase类一次，使用--no-http。结果16 post-tests、exit 0、0 failed/0 error；operation目录为.local/s11/operations/20261020T105304Z-followup-notification-models-b6845bb，完整日志SHA-256 eb2cdd522128ccadeebcc4d388e6ca21d4dbebd5796c9e8c3601b8983f9972cb。fresh admission SHA 4470ed85c5e72418c6dd5850d839eaefb089533d3b2dc3f969108f0f9d22f89b，独立review及launcher pair PASS。

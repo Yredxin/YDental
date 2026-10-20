@@ -1,3 +1,11 @@
+## S11 最新续行（2026-10-20 10:57 UTC）
+
+- 继续原分支 `codex/s11-followup-lab-r1`，测试固定HEAD `b3402c3bc0084266d6bc8c5e18f74fdae59514aa`；原工作树核验为clean，当前报告/状态文档尚待提交。该HEAD是在此前状态文档提交后执行本轮验证的固定候选。
+- 在指定scratch、`--no-http`下运行 `ydental_lab_test` 的 `TestLaboratoryGuards`、`TestFreeReworkLifecycle`、`TestLabChargeNativeChain`：26 post-tests，exit 0，0 failed/0 errors。operation `.local/s11/operations/20261020T105627Z-lab-guards-rework-purchase-models-b3402c3/`；完整Odoo日志SHA-256 `227d33414c8bb6bafb9403bc89de3ed18373823e31312fc8f376ec54c576fd31`，result SHA-256 `51c4326eac6dd795bc8e788e77ba28f7972118717c80985051a4f17282db4499`。操作绑定独立fresh admission `.local/s11/verification/admission-b3402c3-independent-ro-recheck.json`（SHA-256 `125521a36cba4d30c9ba6f24c37b37876c64fbe3de4babf6233659ed0b153348`）。
+- 独立RR只读测后读回 `.local/s11/verification/lab-model-regression-b3402c3-readback.json` PASS，SHA-256 `0567b16775a75573229c288c758ba94db5e4612ea557d5d3994803f29cb4afa3`；独立review PASS。核验224项保护计数零差异、D/C pin匹配、受查测试窗口副作用行零新增、外发关闭、模块集不变、RR显式ROLLBACK/连接关闭、服务STOPPED且18411空闲。`mail_notification`无`create_date`，只记录当前计数，不归因于测试窗口。
+- 层级仅为MODEL/ORM，不证明正常身份下的临床来源、原生采购/义齿收发返工业务、HTTP/RPC、浏览器或真实并发；不关闭T08/F3/F4业务链缺口。此前用系统Python启动只读适配器时因缺`psycopg2`在连接前退出；改用仓库venv后只读回读成功，没有重跑测试。
+- 仍不重启HTTP/browser、不重放旧业务；真实合成病例、postcommit通知闭环、义齿采购/收发/返工、后续新合成并发及影响面回归需对应运行条件安全满足后继续。S11 PARTIAL/IN_PROGRESS、#35 OPEN；不push/merge/deploy，不启动S12/S13。
+
 ## S11 最新续行（2026-10-20 10:54 UTC）
 
 - 用户新决定已记入10:51报告：批准独立合成病例及义齿/原生采购服务行；F2只查既有索引，无原loser/PID即保留EVIDENCE_GAP。批准不解除HTTP/browser SIGSEGV STOP；不重用patient650/task720，不碰PO147–149。
