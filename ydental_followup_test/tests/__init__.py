@@ -1,4 +1,5 @@
 from . import (
+    test_followup_callback_http,
     test_followup_cross_store,
     test_followup_lifecycle,
     test_followup_notification,
