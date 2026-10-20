@@ -1,5 +1,11 @@
 # YDental 当前任务状态
 
+## S11 最新状态（2026-10-20 09:49 UTC）
+
+- 只读plan/源码复核确认可独立推进 T05/T12 controlled test sink 的MODEL/ORM handler 覆盖；不依赖patient650拥有临床来源，也不复用patient364/event417/task720。已在 `ydental_followup_test/tests/test_followup_lifecycle.py` 增加一个TransactionCase：经正常合成intake→queue→clinical→treatment测试路径生成confirmed event，再以`.invalid`合成邮箱/偏好创建followup及通知任务，直接验证controlled sink内部`accepted`、唯一contact、activity和followup状态推进，mail.mail计数不增。用例明确不覆盖post-commit dispatcher/claim、HTTP/provider或患者送达。
+- 独立代码review通过（当前源码约248–307行）；测试尚未运行。当前只是测试代码与状态候选，需先提交固定候选，再进行精确HEAD fresh admission、独立准入审查及一次定向MODEL/ORM测试。未启动服务、未访问数据库或改变业务数据；现有patient650及其它已完成操作均未重放。
+- 原分支 `codex/s11-followup-lab-r1`，本次起始HEAD `abc5bf857a9e1714e9080fa9e1e5575d027ebfe5`。S11仍 PARTIAL/IN_PROGRESS、#35 OPEN；T05/T12真实来源/触发闭环、T08/F4合格采购/收货链、F1及T18后续、最终影响面回归与综合独立验收仍缺。保护对象、无外发、无push/merge/deploy规则不变。
+
 ## S11 最新状态（2026-10-20 09:40 UTC）
 
 - 保持原分支 `codex/s11-followup-lab-r1`、候选HEAD `cf516304d086eb231e0bee5ebcb9ea1f094680b3`；实施前fresh admission及独立审查PASS：`.local/s11/verification/admission-cf51630-post-session-preference.json` SHA-256 `7716d388922f2703e0ccd1983ea64e071d1fd0bb92445c3c7b68b3e2015bf8ef`。本轮没有跟踪文件代码变更。

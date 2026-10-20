@@ -245,6 +245,68 @@ class TestFollowupLifecycle(TransactionCase):
         self.assertEqual(linked_row.ydental_appointment_status, 'seen')
         self.assertEqual(linked_row.ydental_completed_event_id, event)
 
+    def test_controlled_sink_records_internal_acceptance_without_delivery(self):
+        price(self)
+        receive(self)
+        treatment, _clinical, _queue, _lease, execution, _document, args = opened_actual(self)
+        treatment_result = treatment._operate('execute', execute_args(self, args), key())
+        event = self.root['ydental.treatment.event'].browse(treatment_result['event_id'])
+        patient = execution.ydental_patient_id
+
+        patient_service = bind(self, self.users['manager']).env['ydental.patient.service']
+        patient_service._operate('edit', {
+            'patient_id': patient.id,
+            'version': patient.ydental_version,
+            'values': {'email': 's11-controlled-sink@synthetic.invalid'},
+        }, key())
+        followup_service = bind(self, self.users['manager']).env['ydental.followup.service']
+        followup_service._operate('set_preference', {
+            'patient_id': patient.id, 'opt_out': False, 'preferred_channel': 'email',
+        })
+        self.root['ydental.followup.policy'].with_user(self.users['manager']).create({
+            'name': 'S11 synthetic controlled sink policy',
+            'ydental_store_id': self.stores[0].id,
+            'ydental_enabled': True,
+            'ydental_channel_mode': 'controlled_test_sink',
+            'ydental_daily_limit': 2,
+        })
+        followup_result = followup_service._operate('create', {
+            'patient_id': patient.id,
+            'source_event_id': event.id,
+            'followup_type': 'post_visit',
+            'planned_at': fields.Datetime.to_string(fields.Datetime.now()),
+            'responsible_id': self.users['manager'].id,
+        })
+        followup = self.root['ydental.followup'].browse(followup_result['id'])
+        job = self.root['ydental.notification.job'].sudo().search([
+            ('ydental_followup_id', '=', followup.id), ('ydental_state', '=', 'pending'),
+        ], limit=1)
+        self.assertTrue(job)
+        request_id = 's11-controlled-' + key()
+        # This direct handler test supplies the claimed state and durable
+        # request ID; it does not invoke the post-commit dispatcher or claim transaction.
+        job._save({'ydental_state': 'dispatching', 'ydental_request_id': request_id})
+
+        mail_count_before = self.root['mail.mail'].sudo().search_count([])
+        result = followup_service._send_transport(job)
+
+        followup.invalidate_recordset([
+            'state', 'ydental_schedule_version', 'ydental_active_notification_request_id',
+        ])
+        job.invalidate_recordset(['ydental_activity_id'])
+        contact = self.root['ydental.followup.contact'].sudo().search([
+            ('ydental_followup_id', '=', followup.id), ('ydental_request_key', '=', 'controlled:' + request_id),
+        ])
+        self.assertEqual(result, 'accepted')
+        self.assertEqual(followup.state, 'notified')
+        self.assertEqual(followup.ydental_active_notification_request_id, request_id)
+        self.assertEqual(len(contact), 1)
+        self.assertEqual(contact.ydental_outcome, 'accepted')
+        self.assertEqual(contact.ydental_actor_id.id, self.root.uid)
+        self.assertTrue(job.ydental_activity_id)
+        self.assertIn('patient delivery is not asserted', job.ydental_activity_id.note)
+        self.assertEqual(self.root['mail.mail'].sudo().search_count([]), mail_count_before)
+
     def test_expired_appointment_distinguishes_arrived_without_treatment_from_no_arrival(self):
         price(self, amount=137.25)
         receive(self)

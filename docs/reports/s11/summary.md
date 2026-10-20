@@ -1,5 +1,11 @@
 # [CODEX-STATUS] YD-S11-FOLLOWUP-LAB-V1 / 1.0
 
+## 2026-10-20 09:49 UTC：controlled sink handler模型覆盖（待运行）
+
+只读计划/源码审计发现现有14项通知模型回归没有直接调用患者follow-up的controlled test sink handler。已新增 `ydental_followup_test/tests/test_followup_lifecycle.py::TestFollowupLifecycle.test_controlled_sink_records_internal_acceptance_without_delivery`。用例在TransactionCase事务中经正常合成intake→queue→clinical→treatment路径产生confirmed source，再用`.invalid`地址和合成email偏好创建followup/job，直接执行transport handler并断言内部accepted、唯一contact、activity、followup状态与request绑定，以及`mail.mail`无增量。独立只读源码审阅通过；没有数据库访问、服务启动或业务提交。测试尚未执行，固定候选和准入待提交后建立。
+
+此用例仅填MODEL/ORM内部handler覆盖，不包含post-commit dispatcher/claim、源事务提交后的触发、HTTP/provider或患者送达；真实M1/T05/T12闭环仍缺patient650自己的confirmed source、followup和自动任务端到端实证。不得把受控sink accepted表述为送达。后续仅在精确候选fresh admission及独立审查通过后运行一次定向用例；S11保持PARTIAL/IN_PROGRESS、#35 OPEN，无push/merge/deploy。
+
 ## 2026-10-20 S11续行：合成患者联系偏好
 
 候选HEAD `cf516304d086eb231e0bee5ebcb9ea1f094680b3`；写入前fresh admission及独立复核PASS：`.local/s11/verification/admission-cf51630-post-session-preference.json` SHA-256 `7716d388922f2703e0ccd1983ea64e071d1fd0bb92445c3c7b68b3e2015bf8ef`。沿已有actor2466/Store2原生HTTP身份，使用access服务为membership仅增加`followup:write`；保留`patient:write`和`frontdesk:write`，其它自定义权限none、无manager/system/purchase组。独立RR读回PASS `.local/s11/verification/grant-store2-followup-actor2466-independent-readback-attempt2.json` SHA-256 `0e1c07003f8513e0389c5f5912905b5e28e75a83774cbe082811afea09bbf797`；授权grant与accepted审计各1，无mail/activity/job/SMS/outbox副作用。
