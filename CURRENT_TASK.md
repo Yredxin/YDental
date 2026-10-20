@@ -1,6 +1,13 @@
 # YDental 当前任务状态
 
 
+## S11 最新续行快照（2026-10-20 08:18 UTC；覆盖下方历史快照）
+
+- 保持原分支 `codex/s11-followup-lab-r1`；候选/HEAD `789619fa76674caa1f8eab6db2eaf559847f16bf`，代码和测试提交后工作区干净。fresh admission PASS `.local/s11/verification/admission-789619f-independent-ro-recheck.json` SHA-256 `c4bcca927a630ee0dfa5bb2078718bb6b5239ef9498cf000856ac036b38a0fa8`；scratch身份/受限role、224保护计数、D/C、模块/外发状态、服务STOPPED及18411空闲通过。
+- 候选789新增实际ORM双店供应商资质/合作用例`TestLaboratoryGuards.test_vendor_qualification_and_cooperation_use_real_store_scoped_records`。定向运行exit0：1 post-test、0 failed/error；operation/result/log `.local/s11/operations/20261020T081641Z-f4-real-cooperation-matrix/`，log SHA-256 `d7052e73305485959ab978ab2e22459108a8abe5bcc0aa42e9c178c37477ce8e`。用例通过原生审核流程批准合成资质，两位普通仓库用户在同公司不同门店分别创建合作，并验证当前store scope、合作记录隔离和有效供应商检查。独立post-test RO/rollback/close读回PASS `.local/s11/verification/f4-real-cooperation-789619f-posttest-readback.json` SHA `16c47dca90f2888aa1f4621d6c294dbfede9c4f1d126cf408677060cd78fe67f`：224保护计数未降、D/C/modules/external状态匹配，合成store/user/vendor/cooperation/audit/mail/activity/notification job均无测试残留，service STOPPED/18411空闲，无PO读取。未创建临床/采购对象；因此仍非完整F4开单/收货E2E。
+- 测试日志额外记录3条auth_signup “Signup email sent”提示及一次filestore GC `3 checked, 3 removed`。独立读回确认测试前后mail/message/outbox/SMTP/SMS/provider无变化、无外部送达证据；GC基于Odoo测试清理checklist删除未被ir.attachment引用的文件，但操作日志没有文件路径/hash，故不据此断言每个被清理文件的精确归属。此细节须在最终风险说明中保留。
+- T03/T04 HTTP callback回归见下一层08:09快照；F1浏览器闭环见08:02快照。剩余T05/T12策略派发E2E、合格supplier_return、完整F4/T15采购/接收链、T18后续、最终综合影响回归/独立验收仍未完成。#35 OPEN；无push/merge/deploy。
+
 ## S11 最新续行快照（2026-10-20 08:09 UTC；覆盖下方历史快照）
 
 - 当前仍为原分支 `codex/s11-followup-lab-r1`；最新HEAD `36b07d1272e628ecee4cf5fbe107af6206ddbf8b`（仅同步T03/T04回归证据/状态文档），代码候选 `7bd9f0d09173288ee748c56227501f10be9329fe`，工作区干净。候选7bd fresh admission及定向HttpCase运行/独立读回均PASS，具体收据和SHA见下方08:07快照；HEAD36b尚未重新admit，后续数据库动作前须fresh admission。
