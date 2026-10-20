@@ -1,5 +1,13 @@
 # [CODEX-STATUS] YD-S11-FOLLOWUP-LAB-V1 / 1.0
 
+## 2026-10-20 10:54 UTC：通知模型类回归
+
+在candidate b6845bbd25170b208579966a7685505d4939da9f运行整个TestFollowupNotification TransactionCase类一次，使用--no-http。结果16 post-tests、exit 0、0 failed/0 error；operation目录为.local/s11/operations/20261020T105304Z-followup-notification-models-b6845bb，完整日志SHA-256 eb2cdd522128ccadeebcc4d388e6ca21d4dbebd5796c9e8c3601b8983f9972cb。fresh admission SHA 4470ed85c5e72418c6dd5850d839eaefb089533d3b2dc3f969108f0f9d22f89b，独立review及launcher pair PASS。
+
+独立RR READ ONLY/ROLLBACK/close测后读回PASS .local/s11/verification/followup-notification-models-b6845bb-readback-attempt2.json，SHA 7c50f0ad5fd9b81ead3d23ec471e1e3fa0038d7b012558042bf764f9401d3d84。224保护计数无差异，D/C pin匹配，测试时段受查mail/activity/followup/job/outbox/SMS行零新增，外发关闭、模块集不变，服务停止且18411空闲。mail_notification无create_date，只记录当前count。两次readback adapter错误原件见.local/s11/verification/followup-notification-models-b6845bb-readback-attempts.log；没有重跑测试。
+
+这是MODEL/ORM且HTTP disabled，不证明真实postcommit、claim、transport或患者送达。该项不关闭T05/T12；SIGSEGV和F2只读复核见10:51节，S11仍PARTIAL/IN_PROGRESS、#35 OPEN。
+
 ## 2026-10-20 10:51 UTC：用户补充决定及SIGSEGV/F2只读复核
 
 用户明确批准独立标记的合成患者及必要业务对象，通过正常身份、登记、到店、报到、排队、接诊、文书、治疗流程形成来源；批准正常义齿临床来源和原生已确认采购服务行建立独立lab/收发/返工流程。此业务数据授权不解除SIGSEGV运行STOP。patient650与task720不重用，PO147–149和旧财务/库存/审计原件保留。F2按用户决定只审既有证据；找不到原loser响应/PID时记EVIDENCE_GAP，未来并发使用独立标记合成场景并完整记录双请求及终态。

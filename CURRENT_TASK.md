@@ -1,3 +1,11 @@
+## S11 最新续行（2026-10-20 10:54 UTC）
+
+- 用户新决定已记入10:51报告：批准独立合成病例及义齿/原生采购服务行；F2只查既有索引，无原loser/PID即保留EVIDENCE_GAP。批准不解除HTTP/browser SIGSEGV STOP；不重用patient650/task720，不碰PO147–149。
+- SIGSEGV只读审计核实原child PID3536662 exit -11；日志有login POST303、/odoo与assets 200、load_menus 403和两条filestore FileNotFoundError，无native栈、业务POST或可确认提交；没有可用core/OS dump。faulthandler run exit0且未复现；13be108只改launcher信号归因。独立审查不支持具体修复，运行路径继续停止，详见summary 10:51和既有证据收据。
+- F2历史索引和原件未找到loser响应/backend PID；同key恢复和invoice179终态不能重建原始响应。保留EVIDENCE_GAP，不推断、不重放。
+- 在candidate b6845bbd25170b208579966a7685505d4939da9f 对整个TestFollowupNotification类运行一次--no-http回归：16 post-tests，exit 0，0 failed/0 errors；日志SHA eb2cdd522128ccadeebcc4d388e6ca21d4dbebd5796c9e8c3601b8983f9972cb。fresh admission SHA 4470ed85c5e72418c6dd5850d839eaefb089533d3b2dc3f969108f0f9d22f89b，独立review及launcher pair通过。RR只读测后读回PASS SHA 7c50f0ad5fd9b81ead3d23ec471e1e3fa0038d7b012558042bf764f9401d3d84：224保护计数无差异、D/C pin匹配、测试时段受查副作用行零新增、外发关闭、模块集不变、服务停止/18411空闲。mail_notification无create_date，仅记当前count。readback脚本失败原件保留，无测试重跑。
+- 该回归是MODEL/ORM，不证明真实postcommit claim/transport或患者送达。合成复诊及义齿流程的正常业务前置见summary 10:51；当前无业务对象查询/创建。S11 PARTIAL/IN_PROGRESS、#35 OPEN；无合并、部署或S12/S13。
+
 ## S11 续行（2026-10-20 10:51 UTC）：用户阻断处置决定与既有证据复核
 
 - 收到用户对原S11 plan的补充决定：批准新建独立标记的合成病例并按正常身份/登记/到店/报到/队列/接诊/文书/治疗流程形成来源；批准有效义齿临床来源、合法厂商/产品和原生已确认采购服务行的独立合成流程；F2历史loser缺口只查现有索引，缺失则保留EVIDENCE_GAP，之后可用独立合成场景取证。上述授权不解除SIGSEGV运行停止；无HTTP/browser动作，patient650/task720、PO147–149及旧资金库存审计继续保留。
