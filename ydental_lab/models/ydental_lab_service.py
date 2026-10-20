@@ -354,9 +354,16 @@ class YDentalLabService(models.AbstractModel):
         """Create store-scoped internal review tasks for active vendor cooperations."""
         if not vendor or len(vendor) != 1 or vendor.state != 'approved' or not vendor.valid_until:
             return
-        cooperations = self._model('cooperation').search([
+        access = self.env['ydental.access.service']
+        domain = [
             ('ydental_vendor_id', '=', vendor.id), ('active', '=', True),
-        ])
+        ]
+        if not access._is_group_manager():
+            session = access._scope()
+            if not session.ydental_store_id:
+                return
+            domain.append(('ydental_store_id', '=', session.ydental_store_id.id))
+        cooperations = self._model('cooperation').search(domain)
         for cooperation in cooperations:
             store = cooperation.ydental_store_id
             if store.company_id not in vendor.company_ids:

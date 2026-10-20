@@ -127,11 +127,14 @@ class TestLaboratoryGuards(TransactionCase):
 
         class CooperationModel:
             def search(self, _domain):
+                self.domain = _domain
                 return [cooperation]
 
+        cooperation_model = CooperationModel()
         followup_service = self.env['ydental.followup.service']
         with (
-            patch.object(type(service), '_model', autospec=True, return_value=CooperationModel()),
+            patch.object(type(service), '_model', autospec=True, return_value=cooperation_model),
+            patch.object(type(self.env['ydental.access.service']), '_is_group_manager', return_value=True),
             patch.object(type(followup_service), '_queue_supplier_expiry', autospec=True) as queue_expiry,
         ):
             service._queue_vendor_expiry(vendor)
@@ -139,6 +142,47 @@ class TestLaboratoryGuards(TransactionCase):
         queue_expiry.assert_called_once()
         args = queue_expiry.call_args.args
         self.assertEqual(args[1:], (vendor, store, '2026-11-30T00:00:00', responsible.id))
+        self.assertNotIn('ydental_store_id', [term[0] for term in cooperation_model.domain])
+
+    def test_vendor_expiry_for_store_writer_only_queues_current_store(self):
+        service = self.env['ydental.lab.service']
+        store1 = SimpleNamespace(id=31, company_id=SimpleNamespace(id=8))
+        store2 = SimpleNamespace(id=32, company_id=SimpleNamespace(id=8))
+        responsible1 = SimpleNamespace(id=44)
+        responsible2 = SimpleNamespace(id=45)
+        cooperations = [
+            SimpleNamespace(ydental_store_id=store1, responsible_id=responsible1),
+            SimpleNamespace(ydental_store_id=store2, responsible_id=responsible2),
+        ]
+
+        class Vendor(SimpleNamespace):
+            def __len__(self):
+                return 1
+
+        vendor = Vendor(
+            id=19, state='approved', valid_until=date(2026, 11, 30),
+            company_ids=[store1.company_id],
+        )
+
+        class CooperationModel:
+            def search(self, domain):
+                store_id = next((value for field, operator, value in domain if field == 'ydental_store_id'), None)
+                return [cooperation for cooperation in cooperations
+                        if store_id is None or cooperation.ydental_store_id.id == store_id]
+
+        access = self.env['ydental.access.service']
+        followup_service = self.env['ydental.followup.service']
+        with (
+            patch.object(type(service), '_model', autospec=True, return_value=CooperationModel()),
+            patch.object(type(access), '_is_group_manager', return_value=False),
+            patch.object(type(access), '_scope', return_value=SimpleNamespace(ydental_store_id=store2)),
+            patch.object(type(followup_service), '_queue_supplier_expiry', autospec=True) as queue_expiry,
+        ):
+            service._queue_vendor_expiry(vendor)
+
+        queue_expiry.assert_called_once()
+        args = queue_expiry.call_args.args
+        self.assertEqual(args[1:], (vendor, store2, '2026-11-30T00:00:00', responsible2.id))
 
     def test_additional_rework_cannot_dispatch_before_terms_are_frozen(self):
         service = self.env['ydental.lab.service']
