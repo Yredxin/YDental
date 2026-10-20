@@ -47,7 +47,22 @@ class TestFollowupLifecycle(TransactionCase):
             cls.admin._grant(cls.users['manager'].id, store.id, {'followup': 'write'})
 
     def test_real_treatment_followup_contact_overdue_appointment_and_close(self):
-        held_patient_id = create_patient(self)
+        patient_service = bind(self, self.users['manager']).env['ydental.patient.service']
+        source_a, source_b, held_patient_id = (create_patient(self) for _ in range(3))
+        for source_id, target_id in ((source_a, source_b), (source_b, held_patient_id)):
+            request = patient_service._operate('request_merge', {
+                'source_id': source_id, 'target_id': target_id,
+                'reason': 'Synthetic S11 canonical relation regression',
+            }, key())
+            patient_service._operate('confirm', {
+                'request_id': request['id'], 'version': request['version'],
+                'reason': 'Verified synthetic identity chain',
+            }, key())
+        canonical_relations = patient_service._current_relations([source_a, source_b], self.stores[0])
+        self.assertEqual(set(canonical_relations), {source_a, source_b})
+        self.assertEqual(canonical_relations[source_a].ydental_patient_id.id, held_patient_id)
+        self.assertEqual(canonical_relations[source_b].ydental_patient_id.id, held_patient_id)
+
         held_reservation = qualify(self, patient_id=held_patient_id)
         intake = bind(self, self.users['manager'])
         held_options = intake._followup_reservation_options([held_patient_id])
@@ -89,7 +104,6 @@ class TestFollowupLifecycle(TransactionCase):
         self.assertEqual(entitlement.ydental_channel, 'reservation')
 
         service = bind(self, self.users['manager']).env['ydental.followup.service']
-        patient_service = bind(self, self.users['manager']).env['ydental.patient.service']
         patient = execution.ydental_patient_id
         current_relations = patient_service._current_relations(
             [held_patient_id, patient.id], self.stores[0])
