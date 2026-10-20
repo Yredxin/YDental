@@ -2,7 +2,14 @@
 
 Current product candidate `9425d999aaeba7a0e8af12cf419acb4aa91a5194`: **PARTIAL / IN_PROGRESS**, Issue #35 OPEN. This index distinguishes limited passing evidence from scenario completion. The detailed command/result history and earlier failures are in [summary.md](summary.md); private receipts, logs, and database snapshots remain under ignored `.local/s11/` and are not published.
 
-Latest run candidate `b3402c3bc0084266d6bc8c5e18f74fdae59514aa` is a documentation/status candidate; the tested addon sources were unchanged from the admitted source tree. The targeted S11 lab model regression and independent post-test readback are recorded in summary.md (2026-10-20 10:57 UTC). This does not upgrade any lab scenario to a committed business-flow PASS.
+Earlier targeted lab regression candidate `b3402c3bc0084266d6bc8c5e18f74fdae59514aa` was a documentation/status candidate; addon sources were unchanged from the admitted tree. The latest fixed M5 integration candidate is `bed99cfe9fae52c6584c5424eb128b2d5bd9fa88`; it adds status/report commits only after the tested source candidate. M5 upgrade and post-upgrade regression evidence are above. No lab scenario is upgraded to a committed business-flow PASS.
+
+## Current fixed-candidate M5 evidence
+
+| Finding | Evidence and layer | Remaining gap |
+|---|---|---|
+| M5 final data upgrade | Candidate `bed99cf`; seven named installed S11 modules upgraded with `--stop-after-init --no-http`, exit 0; logs end with `Modules loaded.`. Pre/post fresh admission and independent RR readback verify target, 224 protected counts, D/C pin, unchanged 97-module set, no pending module actions, closed external channels, no upgrade-window S11/notification side rows, rollback/close and stopped service. Readback SHA `30af497d…141813ff`. | Log contains a recurring test-framework import ERROR diagnostic and a schema warning: existing NULL values prevented applying NOT NULL to `ydental_fee_id`. This does not claim the constraint was installed or that logs are error-free. Upgrade operation records module list/flags but omits raw argv; private runner retained. |
+| Post-upgrade T05/T08 model regression | At the same product candidate and upgraded scratch, 42 post-tests across `TestFollowupNotification`, `TestLaboratoryGuards`, `TestFreeReworkLifecycle`, `TestLabChargeNativeChain`; HTTP disabled, 0 failed/0 errors, log SHA `88475174…6bc71d91`. Independent RR readback SHA `166892b3…cb9fdb4`. | MODEL/ORM only. Does not establish normal authenticated business sources, committed postcommit transport, supplier_return, native purchase/receipt/rework business flow, HTTP/browser, concurrency, or patient delivery. |
 
 ## Issue #35 increment: Python entry translations
 
