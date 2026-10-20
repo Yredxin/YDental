@@ -1,5 +1,15 @@
 # [CODEX-STATUS] YD-S11-FOLLOWUP-LAB-V1 / 1.0
 
+## 2026-10-20 S11续行：合成患者联系偏好
+
+候选HEAD `cf516304d086eb231e0bee5ebcb9ea1f094680b3`；写入前fresh admission及独立复核PASS：`.local/s11/verification/admission-cf51630-post-session-preference.json` SHA-256 `7716d388922f2703e0ccd1983ea64e071d1fd0bb92445c3c7b68b3e2015bf8ef`。沿已有actor2466/Store2原生HTTP身份，使用access服务为membership仅增加`followup:write`；保留`patient:write`和`frontdesk:write`，其它自定义权限none、无manager/system/purchase组。独立RR读回PASS `.local/s11/verification/grant-store2-followup-actor2466-independent-readback-attempt2.json` SHA-256 `0e1c07003f8513e0389c5f5912905b5e28e75a83774cbe082811afea09bbf797`；授权grant与accepted审计各1，无mail/activity/job/SMS/outbox副作用。
+
+新正常认证产生Store2 session3976/revision1，native `store.switch` accepted。第一次followup workbench GET为403，没有偏好POST；独立读回 `.local/s11/verification/store2-session-pref-no-post-independent-readback-attempt2.json` SHA-256 `1b2a791e0f6a60f2f606e214918ab4ba1b8fa0f47abcd7dd16732f3a9b7f498b`确认无偏好及通知副作用。源码检查指出该workbench GET还搜索/读取同店医疗治疗事件，missing `medical:read`是403最可能原因；这是源码推断，未据此扩大授权。服务停止后复用同一个session3976与Store2 binding，不重复认证或switch；只GET access页面取得CSRF并向原生followup action提交一次`set_preference`。HTTP POST返回303。
+
+patient650/Store2偏好当前唯一记录为`opt_out=false`、`preferred_channel=email`、actor2466；独立RR READ ONLY读回PASS `.local/s11/verification/patient650-email-preference-independent-readback-attempt2.json` SHA-256 `e536163a1b05aa4d4a09f4de2b7d7bbadc096eb81dd458f5f1a63ab402644f25`。操作回执 `.local/s11/operations/set_patient650_email_preference_existing_session_cf51630.json` SHA-256 `061451ea988f50e18588a14b77f2ddef02e9c537f933684d8108913ac1fa60ae`。`.invalid`值仅用于机制测试，不代表真实邮箱所有权或患者同意；没有创建notification job、mail、activity、SMS或outbox，外部发送关闭。该事实不等于T05/T12自动通知端到端完成；patient650尚无confirmed treatment source或followup。
+
+此前`/ydental/followups`的403与直接原生`set_preference`成功分开记录；本轮未授予medical读权限、未改变产品代码。protected counts未下降，D/C匹配；service STOPPED、18411空闲。S11继续PARTIAL/IN_PROGRESS、#35 OPEN；无push/merge/deploy。
+
 ## 2026-10-20 S11续行：创建全新合成患者
 
 写入前fresh admission固定候选 `ef6607840d531ddda12f625202d79b1e6b6f3152`，独立核对通过；receipt `.local/s11/verification/admission-ef66078-patient-create-preflight.json` SHA-256 `3db72d31eea78d03833a9d23cb4116e63912b4d2a06d07f46f25b05c2c50764b`。沿正常Store2 actor2466/session row3975/revision1访问患者表单GET 200；原生create POST仅一次，303重定向到patient650。HTTP receipt `.local/s11/operations/s11-synthetic-patient-create-ef66078-20261020T092846Z.json`。显式synthetic名称 `S11 synthetic followup patient 20261020 A` 和 `s11-followup-20261020-a@synthetic.invalid`；电话、出生日期空。邮箱只是机制测试值，不是所有权验证或患者同意。未创建联系偏好，未记录预约、实际到店、签署或临床事实。

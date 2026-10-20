@@ -1,5 +1,13 @@
 # YDental 当前任务状态
 
+## S11 最新状态（2026-10-20 09:40 UTC）
+
+- 保持原分支 `codex/s11-followup-lab-r1`、候选HEAD `cf516304d086eb231e0bee5ebcb9ea1f094680b3`；实施前fresh admission及独立审查PASS：`.local/s11/verification/admission-cf51630-post-session-preference.json` SHA-256 `7716d388922f2703e0ccd1983ea64e071d1fd0bb92445c3c7b68b3e2015bf8ef`。本轮没有跟踪文件代码变更。
+- 通过原生 access 服务仅为actor2466 / Store2补授 `followup:write`；原有`patient:write`、`frontdesk:write`保留，其他自定义授权仍为none，无manager/system/purchase组。权限审计恰1、grant恰1，独立RR读回PASS：`.local/s11/verification/grant-store2-followup-actor2466-independent-readback-attempt2.json` SHA-256 `0e1c07003f8513e0389c5f5912905b5e28e75a83774cbe082811afea09bbf797`。操作回执 `.local/s11/operations/grant_store2_followup_write_actor2466_cf51630.json` SHA-256 `e573b4c11d105686fa13fcd4d9a709e2a4f5a7787f847b0699a0a243a0d057dc`；授权仅为S11合成通知偏好准备。
+- 正常HTTP认证建立session3976并原生切换Store2、revision1。`/ydental/followups` GET返回403；没有followup偏好POST。独立读回PASS `.local/s11/verification/store2-session-pref-no-post-independent-readback-attempt2.json` SHA-256 `1b2a791e0f6a60f2f606e214918ab4ba1b8fa0f47abcd7dd16732f3a9b7f498b`。源码审查认为工作台查询同店医疗事件可能需要`medical:read`；未授予该额外权限。复用同一session3976，改从成功GET的`/ydental/access`页面取得CSRF并直接调用原生`/ydental/followups/action` `set_preference`，单次POST 303；没有重复认证、门店切换或工作台读取。
+- patient650/Store2新偏好已持久化：`opt_out=false`、`preferred_channel=email`、actor2466。独立RR READ ONLY读回PASS `.local/s11/verification/patient650-email-preference-independent-readback-attempt2.json` SHA-256 `e536163a1b05aa4d4a09f4de2b7d7bbadc096eb81dd458f5f1a63ab402644f25`；唯一accepted偏好审计，无notification job、mail、activity、SMS或outbox新增，保护计数未下降且D/C匹配。操作回执 `.local/s11/operations/set_patient650_email_preference_existing_session_cf51630.json` SHA-256 `061451ea988f50e18588a14b77f2ddef02e9c537f933684d8108913ac1fa60ae`。
+- 联系值属`.invalid`合成域，不证明地址所有权或患者同意；external delivery关闭。该偏好仍不构成通知自动派发证据，患者650尚无确认治疗来源/复诊记录。owned service已STOPPED、18411空闲；#35继续OPEN、S11 PARTIAL/IN_PROGRESS，不push/merge/deploy，不重用patient364/event417/task720或PO147–149。
+
 ## S11 最新状态（2026-10-20 09:31 UTC）
 
 - 最终写操作前fresh admission固定候选 `ef6607840d531ddda12f625202d79b1e6b6f3152` 并由独立审查通过：`.local/s11/verification/admission-ef66078-patient-create-preflight.json` SHA-256 `3db72d31eea78d03833a9d23cb4116e63912b4d2a06d07f46f25b05c2c50764b`。
