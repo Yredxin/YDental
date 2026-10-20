@@ -19,6 +19,13 @@ SPEC.loader.exec_module(launcher)
 
 
 class LauncherSupervisorTests(unittest.TestCase):
+    def test_server_address_requires_a_valid_non_empty_ip(self):
+        self.assertEqual(launcher.parse_server_address('172.18.0.2/32', 'server'), '172.18.0.2')
+        self.assertEqual(launcher.parse_server_address('::1', 'server'), '::1')
+        for value in (None, '', 'not-an-ip'):
+            with self.subTest(value=value), self.assertRaises(launcher.Refusal):
+                launcher.parse_server_address(value, 'server')
+
     def test_listener_check_allows_refused_connect_but_rejects_active_listener(self):
         with patch.object(launcher.socket, 'socket') as socket_factory:
             sock = socket_factory.return_value

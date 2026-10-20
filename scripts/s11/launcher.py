@@ -13,6 +13,7 @@ import configparser
 import datetime as dt
 import errno
 import hashlib
+import ipaddress
 import json
 import os
 from pathlib import Path
@@ -74,6 +75,15 @@ def parse_utc(value: object, label: str) -> dt.datetime:
     if result.tzinfo is None or result.utcoffset() != dt.timedelta(0):
         raise Refusal(f"{label} must use UTC")
     return result.astimezone(dt.timezone.utc)
+
+
+def parse_server_address(value: object, label: str) -> str:
+    if not isinstance(value, str) or not value.strip():
+        raise Refusal(f"{label} must be a non-empty IP address")
+    try:
+        return ipaddress.ip_interface(value).ip.compressed
+    except ValueError as exc:
+        raise Refusal(f"{label} must be a valid IP address") from exc
 
 
 def file_sha256(path: Path) -> str:
@@ -246,6 +256,7 @@ def validate_pair() -> tuple[dict, dict, dict, str, str]:
     for key, expected in exact_admission.items():
         if admission.get(key) != expected:
             raise Refusal(f"independent admission does not confirm {key}")
+    parse_server_address(admission.get("database_server_addr"), "database_server_addr")
     if admission.get("target_identity_verified") is not True:
         raise Refusal("admission must affirm independent target identity verification")
     for fact in (
