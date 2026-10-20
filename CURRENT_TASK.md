@@ -1,5 +1,13 @@
 # YDental 当前任务状态
 
+## S11 最新续行（2026-10-20 10:00 UTC）
+
+- 保持原分支 `codex/s11-followup-lab-r1`；操作前候选 `59f0ceee26881c475759972f2e3fb2742612a3b0`，起始工作树干净。控制sink定向MODEL/ORM用例仅运行一次，1 post-test/exit0/0失败0错误；独立测后读回PASS，详见下方09:53记录及报告。当前操作完成后只更新状态文档；下一业务写操作必须绑定新的文档提交HEAD重新做fresh admission与独立复核。
+- slot1594/patient650新鲜RR只读预检PASS：`.local/s11/verification/patient650-slot1594-fresh-preflight-59f0cee.json` SHA-256 `29e01ac982818e169e28ac2b62865246d2675e84551fa2c4c1659619f37cc9f3`；DB为指定scratch/OID2144130、受限角色，patient650在Store2且无arrival/entitlement/task；slot1594发布、mapping2/catalog2/price455为当前$7 care、预约余量1、无claim历史/lease。area2有1条活动queue entry，本轮不查询其patient/task身份且不授予优先级。独立准入review PASS。
+- actor2466沿已有原生Store2 session3976/revision1，仅提交一次 `/ydental/intake/action` `reserve`，patient650→mapping2，slot1594，HTTP200；操作 `.local/s11/operations/patient650-reservation-slot1594-59f0cee.json`，POST尝试数=1，response `entitlement740/task1128/version2`。没有重试。独立RR只读验收PASS `.local/s11/verification/patient650-reservation-independent-readback-59f0cee-attempt5.json` SHA-256 `e7eafc284c357d8f4417660c1fc1c29b6fb0298546af34bd175ce2b2007a792c`，独立review PASS：task1128 pending→entitlement740 held→claim760 held→slot1594；reservation_free 1→0，walkin_free仍2；仅3条accepted审计与每项intake task/entitlement/operation、supply claim/event/operation各1个预期增量。224项保全计数除此以外全不变；D/C pin相同；没有arrival、active position、临床/治疗/费用/followup/通知或外部数据增加。area2 active queue count仍1且身份未读取。RR事务rollback/close、service STOPPED、18411空闲。
+- 独立只读验收脚本前两次分别因表名假设和queue_outbox基线来源错误停止，未执行POST；后续一次断言未把三条允许的业务审计计入预期增量，均保留对应attempt evidence，修正后attempt5全PASS。预约POST未因读回脚本错误重放。保留受控sink测试和patient650联系方式仅为合成机制证据；`.invalid`不证明邮箱所有权/同意，controlled sink accepted不代表送达。
+- 当前S11仍PARTIAL/IN_PROGRESS、#35 OPEN；F1尚缺正常到店/排队顺序下服务与复诊关联、T05/T12 source→post-commit→策略自动任务HTTP闭环、T08 supplier_return及合格采购来源、F4完整双店合作/采购实测、F2首次收费直接竞态缺口、T18既有verify停止边界后续临床治疗/followup、最终影响面回归及独立总验收。task720/event417/patient364与PO147–149均未触碰；无push/merge/deploy。slot1594时段10:24–10:54Z；未到店/叫号/治疗。继续前先以文档提交形成的新HEAD重新fresh admission；按计划原生排队，不识别或绕过既有area2队列记录。
+
 ## S11 最新状态（2026-10-20 09:49 UTC）
 
 - 只读plan/源码复核确认可独立推进 T05/T12 controlled test sink 的MODEL/ORM handler 覆盖；不依赖patient650拥有临床来源，也不复用patient364/event417/task720。已在 `ydental_followup_test/tests/test_followup_lifecycle.py` 增加一个TransactionCase：经正常合成intake→queue→clinical→treatment测试路径生成confirmed event，再以`.invalid`合成邮箱/偏好创建followup及通知任务，直接验证controlled sink内部`accepted`、唯一contact、activity和followup状态推进，mail.mail计数不增。用例明确不覆盖post-commit dispatcher/claim、HTTP/provider或患者送达。

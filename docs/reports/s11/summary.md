@@ -1,5 +1,17 @@
 # [CODEX-STATUS] YD-S11-FOLLOWUP-LAB-V1 / 1.0
 
+## 2026-10-20 10:00 UTC：patient650原生预约来源与独立读回
+
+在候选 `59f0ceee26881c475759972f2e3fb2742612a3b0` 上，slot1594/patient650新鲜RR READ ONLY预检PASS：`.local/s11/verification/patient650-slot1594-fresh-preflight-59f0cee.json` SHA-256 `29e01ac982818e169e28ac2b62865246d2675e84551fa2c4c1659619f37cc9f3`。scratch identity/OID2144130及受限角色匹配；patient650为当前Store2合成关系且无arrival/entitlement/task；mapping2/catalog2与发布价455有效（$7 care）；slot1594发布、预约余量1、无既往claim或active lease。Store2 area2有1条活动队列entry；没有查询其patient/task身份。
+
+沿actor2466既有原生Store2 session row3976/revision1，仅POST一次正常 `/ydental/intake/action` `reserve`，使用patient650、mapping2、slot1594及 `reservation` channel，HTTP200，operation receipt `.local/s11/operations/patient650-reservation-slot1594-59f0cee.json`。结果为entitlement740/task1128。没有重试、没有 arrival/check-in/queue-position/call 或临床业务事实。
+
+独立RR READ ONLY/ROLLBACK/close读回PASS：`.local/s11/verification/patient650-reservation-independent-readback-59f0cee-attempt5.json` SHA-256 `e7eafc284c357d8f4417660c1fc1c29b6fb0298546af34bd175ce2b2007a792c`；独立review PASS。确认 task1128 pending→entitlement740 held→claim760 held→slot1594，原生capacity event/operation各唯一，预约余量1减为0、walk-in余量保持2。共3条accepted业务审计（frontdesk reserve、patient relation intake、capacity acquire）；224个S10保护表的其余217项为零差异，七个变更表恰为3条业务审计及上述6个intake/supply实体/操作/事件，无其它差异。D/C projection SHA仍为 `33f8730aa39cc869e749827e66f10505a0fe9e5aedd5677c9cb1b17718202ae8`。area2活动队列计数仍1，身份不明且未访问；patient650无arrival/active position/event/treatment/followup。SMTP、SMS、payment provider、mail、notification、outbox均未增加；服务STOPPED、18411空闲。
+
+读回脚本的前两次未能形成收据：一次用错followup SQL表名，一次引用了错误的outbox基线键；随后一次脚本断言将这次正确的三条业务审计误按一条计，修正后attempt5通过。失败均属RR只读核验脚本问题，没有再次发送业务POST；原件和修正版本均留在私有verification目录。预约流程证实的是合成的资格/容量来源，不等于实际到店、候诊完成、治疗或复诊，不给予患者越过活动队列的优先级。
+
+下一步仅在新文档候选fresh admission及独立复核后继续slot1594时段的原生到店/队列流程，严格保留现有队列顺序；不查认队列中既有对象。此候选仍仅是S11范围内的患者预约。S11仍PARTIAL/IN_PROGRESS、#35 OPEN，尚缺计划要求的来源及自动通知闭环、supplier_return、完整F4、T18后续、最终回归及独立总验收；无push/merge/deploy。
+
 ## 2026-10-20 09:53 UTC：controlled sink handler MODEL/ORM 覆盖结果
 
 候选 `60d1bad343b3f9cb0f59ab1aa246dc4655c36410`，新增用例已提交为`[S11] cover controlled follow-up sink handler`。fresh admission `.local/s11/verification/admission-60d1bad-independent-ro-recheck.json` SHA-256 `7be1f07434c293c8d5739d30fb02d63e9f5ba13ac59db89e4443206082faa6d7`；receipt哈希与私有admission一致，独立准入review PASS。
