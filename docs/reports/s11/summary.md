@@ -13,6 +13,12 @@ Issue #35：**OPEN**
 
 候选e373上followup265/event416 fresh只读资格预检PASS `.local/s11/verification/followup265-preflight-e3732fd.json` SHA-256 `380544dc4331f68394055bbbbbf4e15ea8e8b3772f5be3705cbca451b7f4ba7b`：followup265仍to_notify且未关联预约/完成事件/执行，没有contact/job；event416仍是同Store2患者治疗事件，execution536已handover结束、文书507关联一致；actor2318仍为active internal user且有medical/followup写权；无已有链接或外发，预约来源校验正常，服务STOPPED/18411空闲。该只读预检在状态提交前，后续需对新HEAD重新admit并fresh preflight。确认后可使用新attempt ID做一次真实浏览器完成；attempt6仍`do_not_retry`且不重放。#35仍OPEN、无push/merge/deploy。
 
+## 2026-10-20 followup265 attempt8：认证后等待超时
+
+候选1ad7a1f上的attempt8使用正确的CPython3.12 Playwright/greenlet导入顺序，普通用户登录成功，但Playwright等待`/web` URL匹配超时，尚未访问Store2业务工作台，更未提交followup完成POST。receipt `.local/s11/operations/followup265-completion-browser-attempt8.json` 标记`OUTCOME_REQUIRES_READBACK`/`do_not_retry=true`，attempt8不重放；owned service `20261020T074613Z-4ed754dd6c47`已正常停止。独立只读读回PASS `.local/s11/verification/followup265-attempt8-independent-readback.json` SHA-256 `39bebe854a4e128730bf5d01f5e5cc316c56599201c0f779fc22cd2dbeb871fc`：登录成功产生session3924、device81和三条正常认证/范围审计；除这些认证副作用外保护数据未变。followup265仍to_notify/unlinked，event416未变，无contact/job/完成链接，D/C及SMTP/SMS/mail/outbox计数不变；运行日志无access或followup应用路由，服务STOPPED/18411空闲。
+
+下一attempt需使用独立新ID及fresh admission/preflight；可沿用已验证的普通登录HTTP/RPC认证，核实其uid严格为2318并将该session cookie交给Playwright，然后直接访问已授权Store2 access/workbench页和提交一次表单。此前attempt7导入失败原件保留且不重用。
+
 ## 2026-10-20 followup265 attempt7：浏览器运行时导入失败
 
 候选506b019上的一次性attempt7在Playwright导入`greenlet._greenlet`时失败；浏览器未登录，没有followup workbench GET或completion POST。运行 receipt `.local/s11/operations/followup265-completion-browser-attempt7.json` 标记`OUTCOME_REQUIRES_READBACK`，attempt7和锁均不重用。owned service `20261020T074259Z-aa6268eeb9c2`已停止。独立RR只读/rollback/close读回PASS `.local/s11/verification/followup265-attempt7-independent-readback.json` SHA-256 `af4ace34f0ee301968d0625eb94e7da9b2c21e69a508a873ecb1e14b02ed9446`：仅有预期未认证`/web/login` GET；无认证session、访问审计、设备记录、复诊动作；followup265/event416和contact/job/完成链接未变；保护计数、D/C、外发及mail/outbox未变，服务STOPPED/18411空闲。
