@@ -6,7 +6,9 @@
 
 独立认证可行性审查确认：新用户2466只完成Odoo原生密码校验，尚无 `ydental.access.session` 与Store2 server-bound scope；user10有medical权限但没有patient写权限。直接从裸ORM用 `with_user`、构造binding或复用已回显session key会绕过服务身份边界，不采用。新角色的正常业务调用要求HTTP adapter建立session；此前owned HTTP child以SIGSEGV退出的STOP仍有效，因此不重启服务、不重跑浏览器登录。task720已timeout进入verify，不重开、不takeover、不重放。
 
-独立通知可行性审查确认，完整T05/T12 controlled sink需要新合成患者自己的confirmed treatment event、Store2联系字段及偏好、medical读权限和followup责任角色。`.invalid`地址/偏好只能作为明确合成测试数据，不能报告成真实邮箱所有权已验证或真实患者同意；controlled sink状态`accepted`仅说明内部测试sink接收，不等于患者送达。patient364的event417不能复用于其他患者，受保护event/task继续保全。当前14项通知回归没有直接覆盖controlled sink send handler，因此不将这14项扩大解释为受控sink端到端通过。
+独立通知可行性审查确认，完整T05/T12 controlled sink需要新合成患者自己的confirmed treatment event、Store2联系字段及偏好、medical读权限和followup责任角色。用户已授权的合成测试联系方式/偏好可用明确标记的`.invalid`字段检验路径，但不能报告成真实邮箱所有权已验证或真实患者同意；controlled sink状态`accepted`仅说明内部测试sink接收，不等于患者送达。patient364的event417不能复用于其他患者，受保护event/task继续保全。当前14项通知回归没有直接覆盖controlled sink send handler，因此不将这14项扩大解释为受控sink端到端通过。
+
+独立原生runner复核确认Queue→Clinical→Treatment可以通过Registry/model runner、不启动HTTP/browser来生成一条全新的合成治疗事件；前提是相关普通角色已有正常、server-bound Store2登录scope。禁止从裸ORM直接赋UID、手造binding或借旧session绕过认证。既有 `run_task941_native_clinical_once.py` 绑定patient364/task941/旧arrival与slot，只能作为序列参考、不可重跑或复用。旧只读资源证据中的slot1594为2026-10-20 10:24–10:54Z未来时段，mapping/catalog2 + published price455仅为$7 care；执行前必须刷新资格、容量和状态，该价不能作为义齿来源。独立复核未读数据库、凭据或PO，也未执行操作/测试。
 
 独立源码路径复核确认T08初始lab order派单要求关联confirmed purchase line；purchase group原生company ACL会使独立合成采购用户可见PO147–149。历史用户授权允许在S11 Store2合成采购用户授予 `purchase.group_purchase_user`，但仍严格禁止查询、读取、使用或修改PO147–149；未以该授权访问这些记录。目前没有可安全复用的义齿confirmed treatment source，也没有新角色正常服务scope。新合成前置对象授权本身不构成临床适应证或已确认采购链，不能把generic event417或task720改作义齿来源。
 

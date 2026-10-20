@@ -11,7 +11,8 @@
 
 - 继续只读核对认证与剩余路径，没有数据库访问、业务提交、服务启动、测试重跑或工作区代码修改。原分支保持 `codex/s11-followup-lab-r1`；本轮核验基线HEAD `698220d06c533257c1d4c0a3fe67d37d9532e79d`，产品/测试候选仍是 `789619fa76674caa1f8eab6db2eaf559847f16bf`。
 - 新用户2466的原生凭据校验已通过，但没有建立 Odoo server-bound `ydental.access.session` / Store2 scope。`user10`有medical、无patient写权；不能用裸ORM `with_user`、手造binding或旧session key冒充正常认证。新角色正常业务scope需HTTP adapter建立；既有HTTP child SIGSEGV STOP禁止重启/重跑浏览器登录链。task720已timeout/verify，仍不得重开、takeover或重放。
-- 通知调查确认，完整T05/T12自动受控sink需要该合成患者自己的confirmed treatment event、有效联系方式字段/Store2偏好、medical读取与followup负责角色。`.invalid`邮箱和合成偏好只能证明测试数据与策略路径，不能称真实地址已验证或患者同意；controlled sink只记录accepted，不代表送达。不得将patient364的event417借给新患者。
+- 通知调查确认，完整T05/T12自动受控sink需要该合成患者自己的confirmed treatment event、联系方式字段/Store2偏好、medical读取与followup负责角色。用户授权合成联系方式/偏好时可用明确标记的`.invalid`合成字段验机制，但不能称真实地址所有权已验证或真实患者同意；controlled sink只记录accepted，不代表送达。不得将patient364的event417借给新患者。独立runner复核确认Queue→Clinical→Treatment可经既有原生model runner（无HTTP）生成新事件，但前提是正常已认证Store2 session；不能裸ORM赋UID或手造binding绕过认证。
+- 现有只读slot1594证据只覆盖2026-10-20 10:24–10:54Z的未来时段，使用价455（$7 care）；新业务操作前必须重新核容/状态。该价不是义齿价，不能用于T08。新患者的合成治疗源尚未建立，task941旧runner绑定患者364/task941/旧arrival/slot，不可复用。
 - T08只读代码审查确认初始lab order派单要求已关联confirmed purchase line，采购组原生company ACL会看见PO147–149；用户旧授权允许独立S11合成采购用户加入该组，但仍禁止查询/读取/使用/修改受保护PO。当前没有合格的新义齿confirmed source与正常Store2服务scope；不造clinical事实、不绕过采购链，已有task720/event417和PO对象均不重用。
 - 新增安全路径审查结论：受限Store2 synthetic patient/联系方式/偏好和价目/合作/仓库前置在授权范围内可准备，但目前无法通过正常角色session完成患者、临床和自动通知闭环；加上task720 STOP及T08采购行条件，S11不能达到M1–M5关闭。S11保持PARTIAL/OPEN、#35 OPEN；外部供应商/短信、生产、push/merge/deploy均未启用。需用户决定是否单独批准“只读诊断并修复既有HTTP child Native SIGSEGV后，再按新准入建立正常Store2测试session”的工作；在收到决定前不启动该HTTP/browser链。
 
