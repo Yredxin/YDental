@@ -307,7 +307,8 @@ def validate_connected_database(env: object) -> None:
     runtime, admission, database, branch, candidate = validate_pair()
     admitted_server_addr = parse_server_address(
         admission.get("database_server_addr"), "database_server_addr")
-    env.cr.execute("""SELECT db.oid, current_user, inet_server_addr()::text, inet_server_port()
+    env.cr.execute("""SELECT db.oid, current_user, inet_server_addr()::text, inet_server_port(),
+        (pg_control_system()).system_identifier::text
         FROM pg_database db WHERE db.datname=current_database()""")
     row = env.cr.fetchone()
     connected_server_addr = parse_server_address(row[2], "connected server address") if row else None
@@ -315,9 +316,50 @@ def validate_connected_database(env: object) -> None:
             database["name"] != env.cr.dbname or admission["database_oid"] != EXPECTED_OID or
             admission["cluster_ref"] != EXPECTED_CLUSTER or not row or row[0] != EXPECTED_OID or
             row[1] != database["user"] or connected_server_addr != admitted_server_addr or
-            row[3] != database["port"] or
+            row[3] != database["port"] or row[4] != EXPECTED_CLUSTER or
             runtime["database"]["expected_cluster_ref"] != admission["cluster_ref"]):
         raise Refusal("connected database does not match the authorized S11 scratch admission")
+
+
+def validate_live_database(database: dict, admission: dict) -> None:
+    """Reconfirm the admitted target through a fresh read-only DB connection."""
+    import psycopg2
+    from psycopg2.extras import RealDictCursor
+
+    connection = None
+    try:
+        connection = psycopg2.connect(
+            dbname=database["name"], host=database["host"], port=database["port"],
+            user=database["user"], password=database["password"], connect_timeout=5,
+            options="-c default_transaction_read_only=on -c statement_timeout=10000",
+        )
+        connection.set_session(readonly=True, isolation_level="REPEATABLE READ")
+        cursor = connection.cursor(cursor_factory=RealDictCursor)
+        cursor.execute("""SELECT current_database() AS name,
+            (SELECT oid FROM pg_database WHERE datname=current_database()) AS oid,
+            current_user AS role, inet_server_addr()::text AS server_addr,
+            inet_server_port() AS server_port,
+            (pg_control_system()).system_identifier::text AS cluster_ref""")
+        identity = cursor.fetchone()
+        if (not identity or identity["name"] != EXPECTED_DATABASE or
+                identity["oid"] != EXPECTED_OID or identity["role"] != database["user"] or
+                parse_server_address(identity["server_addr"], "live server address") !=
+                parse_server_address(admission["database_server_addr"], "admitted server address") or
+                identity["server_port"] != database["port"] or
+                identity["cluster_ref"] != EXPECTED_CLUSTER or
+                admission.get("cluster_ref") != identity["cluster_ref"]):
+            raise Refusal("live PostgreSQL connection does not match the admitted S11 scratch target")
+        cursor.close()
+        connection.rollback()
+        if connection.get_transaction_status() != psycopg2.extensions.TRANSACTION_STATUS_IDLE:
+            raise Refusal("live PostgreSQL identity probe did not return to an idle transaction")
+    except Refusal:
+        raise
+    except Exception as exc:
+        raise Refusal("cannot verify the live PostgreSQL identity using the restricted S11 role") from exc
+    finally:
+        if connection is not None:
+            connection.close()
 
 
 def ensure_private_dir(path: Path) -> None:
@@ -804,14 +846,15 @@ def own_process_matches(pid: int, start_ticks: int, expected_script: bool = Fals
 
 def start_service(gdb_capture: bool = False) -> int:
     runtime, admission, database, branch, commit = validate_pair()
+    if ACTIVE.exists():
+        raise Refusal("an S11 active-owner record already exists; inspect with status, do not replace it")
+    validate_live_database(database, admission)
     ensure_private_dir(RUNS)
     gdb_info = resolve_gdb() if gdb_capture else None
     reserve_bytes = MAX_LOG_BYTES + MAX_CORE_BYTES if gdb_capture else MAX_LOG_BYTES
     ensure_run_capacity(reserve_bytes)
     if gdb_capture and shutil.disk_usage(RUNS).free < reserve_bytes + 64 * 1024 * 1024:
         raise Refusal("insufficient free space for the bounded private GDB/core evidence allowance")
-    if ACTIVE.exists():
-        raise Refusal("an S11 active-owner record already exists; inspect with status, do not replace it")
     validate_loopback_port()
 
     run_id = utc_now().strftime("%Y%m%dT%H%M%SZ") + "-" + uuid.uuid4().hex[:12]
