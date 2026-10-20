@@ -1,5 +1,13 @@
 # YDental 当前任务状态
 
+## S11 最新续行（2026-10-20 10:13 UTC）
+
+- 固定产品/测试候选 `75769854a75b0944b66f66f3b1dfba56450f42b5`（`[S11] test deferred follow-up dispatch wiring`），原分支不变。新增MODEL测试 `TestFollowupNotification.test_enqueue_registers_deferred_postcommit_dispatch`：确认`_enqueue`注册当前cursor postcommit闭包，闭包被单独调用且`_dispatch_after_commit`为mock。独立代码review PASS。它只证实callback wiring，不证实事务真实提交/回滚生命周期、独立claim、transport、HTTP/RPC或送达。
+- 新鲜RO准入 `.local/s11/verification/admission-7576985-independent-ro-recheck.json` SHA-256 `40fbe366464140736069530a9106d16eb66e9ef686684843f40387aeaa3edcdd`；launcher pair验证PASS，独立准入review PASS。指定scratch/OID2144130/cluster/受限DB角色、224保护计数、D/C pin、97模块、外发禁用、service STOPPED/18411空闲均核验通过。
+- 精确定向测试只运行一次：`/ydental_followup_test:TestFollowupNotification.test_enqueue_registers_deferred_postcommit_dispatch`，1 post-test、exit 0、0 failed/0 error。operation/result/log在`.local/s11/operations/20261020T101323Z-followup-postcommit-hook-7576985/`；日志SHA-256 `c3e56fdca2e76a2c7827f5067c95faa7c1a91ac8b13cee4a0288bfd7ea724cc1`。
+- 独立RR READ ONLY/ROLLBACK/close测后读回PASS `.local/s11/verification/followup-postcommit-hook-posttest-readback-7576985.json` SHA-256 `b21b4e003091ae4adbc1f880b0c42cd58d4fada677ef2e916660562caba059e5`，独立review PASS：224保护计数零差异、D/C与97模块不变，测试窗口mail/activity/contact/preference/job/outbox/SMS零持久增量，事务关闭，service停止、18411空闲。
+- `ruff check ydental_followup_test/tests/test_followup_notification.py`发现文件既存`raw-string-in-exception`告警在第220行，本次改动未触及；新增文件语法编译和`git diff --check`通过。S11仍PARTIAL/IN_PROGRESS、#35 OPEN；T05/T12真实postcommit claim/dispatch仍缺，F/T索引见`docs/reports/s11/evidence-index.md`。无push/merge/deploy。
+
 ## S11 最新续行（2026-10-20 10:08 UTC）
 
 - 当前候选 `55f8b124ea9c825d6b8571899b55fe470483c4db`，仍为原分支；状态文件/报告更新已提交，工作区干净。子Agent只读审查现有测试：`test_after_commit_dispatch_does_not_hold_an_extra_registry_cursor` mock了claim和dispatch，只测调用顺序；controlled-sink lifecycle测试手工设job为dispatching并直接调`_send_transport`；另一用例创建pending job但不派发。因此没有source事务真实提交→原生postcommit→独立claim→controlled sink整链证据。

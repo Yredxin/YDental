@@ -1,5 +1,17 @@
 # [CODEX-STATUS] YD-S11-FOLLOWUP-LAB-V1 / 1.0
 
+## 2026-10-20 10:13 UTC：enqueue至postcommit callback接线测试
+
+固定候选 `75769854a75b0944b66f66f3b1dfba56450f42b5`新增MODEL测试 `TestFollowupNotification.test_enqueue_registers_deferred_postcommit_dispatch`。测试在隔离`TransactionCase`内通过`_enqueue`创建唯一pending job，捕获当前cursor注册的postcommit callback，确认dispatcher在callback执行前未调用；随后只调用捕获闭包，并mock `_dispatch_after_commit`验证数据库名及job ID参数。独立代码审阅PASS。
+
+此断言仅验证`enqueue → callback registration/wiring`，callback由测试直接调用；不验证真实事务提交/回滚后回调生命周期、`_claim_dispatch`独立事务、`_dispatch_claimed`、controlled sink transport、HTTP/RPC或患者送达。原生完整自动链仍未验证。
+
+新鲜RO admission receipt `.local/s11/verification/admission-7576985-independent-ro-recheck.json` SHA-256 `40fbe366464140736069530a9106d16eb66e9ef686684843f40387aeaa3edcdd`，launcher pair及独立准入review PASS。指定scratch/OID2144130/cluster/受限角色、224保护计数、D/C pin、97安装模块、外发禁用和service stopped状态通过。
+
+精确定向命令仅运行一次，test tag `/ydental_followup_test:TestFollowupNotification.test_enqueue_registers_deferred_postcommit_dispatch`，1 post-test，exit 0，0 failed/0 error。operation/result/log `.local/s11/operations/20261020T101323Z-followup-postcommit-hook-7576985/`，完整日志SHA-256 `c3e56fdca2e76a2c7827f5067c95faa7c1a91ac8b13cee4a0288bfd7ea724cc1`。独立RR READ ONLY/ROLLBACK/close测后读回 `.local/s11/verification/followup-postcommit-hook-posttest-readback-7576985.json` SHA-256 `b21b4e003091ae4adbc1f880b0c42cd58d4fada677ef2e916660562caba059e5`，独立验收PASS：224保护计数、D/C pin、97模块集无差异；测试窗口notification/contact/preference/mail/activity/message/outbox/SMS无持久新增；事务回滚关闭，service STOPPED、18411空闲。
+
+当前逐项层级及不完整证据的索引见[独立证据索引](evidence-index.md)。S11仍PARTIAL/IN_PROGRESS、#35 OPEN；此小测不把T05/T12升级为PASS。无push/merge/deploy。
+
 ## 2026-10-20 10:08 UTC：postcommit自动派发测试覆盖审计
 
 只读测试/源码审计（未查DB、启停服务、运行测试或改代码）确认当前测试尚未连通来源提交与真实dispatch：`TestFollowupNotification.test_after_commit_dispatch_does_not_hold_an_extra_registry_cursor` mock了`_claim_dispatch`及`_dispatch_claimed`；`TestFollowupLifecycle.test_controlled_sink_records_internal_acceptance_without_delivery` 手动将job置为`dispatching`后直接调用`_send_transport`；生命周期另一测试只确认pending job创建、未派发。因此既有证据分别覆盖回调顺序和sink handler内部行为，但不证明source transaction commit后触发postcommit callback、独立claim和sink处理。
