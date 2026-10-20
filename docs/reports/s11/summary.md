@@ -1,5 +1,20 @@
 # [CODEX-STATUS] YD-S11-FOLLOWUP-LAB-V1 / 1.0
 
+## 2026-10-20 08:58 UTC：T18与通知模型回归、独立测后读回
+
+续行核验：分支 `codex/s11-followup-lab-r1`，HEAD `81fe5cd2f836696a0e16898d973838e294579103`，产品/测试候选 `789619fa76674caa1f8eab6db2eaf559847f16bf`；开始核验时跟踪工作区干净。前序用户授权创建的Store2有限权限合成操作员仍为唯一新建角色，本轮不重复创建、不创建患者、不重放已完成的业务动作。无产品代码变更。
+
+在目标scratch OID2144130、固定候选81fe5cd上运行两个隔离 `--stop-after-init` MODEL/ORM批次，未启动HTTP服务：
+
+- T18免费返工/返修关联所选测试2项通过，exit 0、0 failures/errors。operation `.local/s11/operations/20261020T085331Z-t18-free-rework-isolated-tests/operation.json` SHA-256 `d383a28a4b6393ecadeb855ce13d994194901b0985aacc5e02b0e1abd8701491`；result SHA-256 `6c098df107f622ff8aa765ec417a7fbee83bd8c10c49cb0a5c1f1bc76394c267`；log SHA-256 `a920b706ade9480b182b132b099a99bc01bae8a549825f299ff4dfc563a6b3d4`。
+- `ydental_followup_test:TestFollowupNotification` 14项通过，exit 0、0 failures/errors。operation `.local/s11/operations/20261020T085502Z-followup-notification-model-tests/operation.json` SHA-256 `c1bc21e17839d429bd8dda383b18af0aa890c485991d58bbab747c0c578f53ec`；result SHA-256 `91f5276519d3d2ee61c0e360bd02bd47965a9eafa8dee0d0f6a121556da35205`；log SHA-256 `fddca7529fa885372f989f7b0113ef8ed1ad31c85dc0f84be25b5887954fa9b2`。
+
+独立测后只读读回 `.local/s11/verification/s11-model-test-suites-postrun-readback-81fe5cd.json` SHA-256 `8e53ccfc0d06296fc98c05ee10a771b413ea4c7709cae8b819fa7a662704c742` PASS；独立审阅者核对六项operation/result/log哈希。读回确认测试前后mail.mail、mail.message、mail.activity、mail.notification、SMS、notification job、queue outbox七项计数零增量，D/C pin和保护计数一致，只读RR事务显式rollback/close，服务停止。准入 `.local/s11/verification/admission-81fe5cd-post-followup-model-independent-ro-recheck.json` SHA-256 `f3f67253b43225309c9473a15e60d85b4e4cc1ac5e4b1a4732ef14ae01c16958` PASS，确认scratch身份、受限角色和外发关闭。
+
+证据范围限于所选合成MODEL/ORM测试，不证明task720完整T18临床续行，不证明HTTP/RPC、浏览器或controlled-sink/provider端到端。此前task720的Native crash STOP仍生效，不重启或takeover。S11仍PARTIAL/IN_PROGRESS，#35 OPEN；F1剩余闭环、supplier_return适用场景、合法联系方式下的通知策略端到端、T18实际戴用/独立followup、最终影响面回归及独立总验收均未完成。不得虚构义齿来源、联系方式或患者偏好，不读PO147–149。无push/merge/deploy。
+
+本次独立计划覆盖复核仅检查现有计划、状态文档和固定证据，不访问数据库、不运行操作或测试。确认已有有限证据包括：F1 followup265浏览器完成及followup272无contact人工兜底、T03/T04 signed callback HTTP、F4/T15部分ORM、T06/T16/T17真实竞争、T08 discard、T18返工前段；F2首次收费竞争中一方提交、另一方遇SerializationFailure，先独立确认无第二经济事实，再对同一幂等键作有界恢复并读回唯一invoice。F2证据不等于两路并发均直接成功。依据 [S11实施计划](../../execution/S11_IMPLEMENTATION_PLAN.md) M1–M5及技术结束条件，独立验收结论为 **NOT ACCEPTED / PARTIAL**：仍缺T08 supplier_return及合格来源/入库链、有效联系与偏好下自动通知策略端到端、受Native crash STOP约束的task720后续临床戴用/followup、F1其余生命周期、F4完整双店采购/收货/成本/患者费链、最终影响面回归及涵盖完整计划范围的独立最终验收。不得把历史分项PASS叠加成计划整体完成。保持#35 OPEN。
+
 ## 2026-10-20 08:52 UTC：合成Store2患者/前台授权角色
 
 用户授权在开发/测试阶段自行认证，并在缺少可用角色时创建并授予权限。保持分支`codex/s11-followup-lab-r1`、HEAD `d02a2363269aed29d7abde419d461890326f7d56`，产品测试候选`789619fa76674caa1f8eab6db2eaf559847f16bf`。针对HEAD的scratch admission PASS：`.local/s11/verification/admission-d02a236-independent-ro-recheck.json` SHA-256 `d3d17a92a6e779ffd98ed0983462d439569c56bd42a10ddcd13b981ed6ed8cd4`；覆盖分支/候选、DB/OID2144130/cluster、受限数据库角色、保护计数/D-C、外发关闭、服务停止与18411空闲。
@@ -243,7 +258,7 @@ followup265仍`to_notify`，源event414/doc505、无预约关联；不得用even
 
 owned launcher run `20261020T055248Z-18909ba92aa6` Odoo child退出码`-11`。owned service已停止且18411无监听。日志审查 `.local/s11/verification/run-20261020T055248Z-18909ba92aa6-crash-log-review.json` SHA-256 `dd0eeb3f44e5872a18d3c95208432ff4e97c29b954453df7bbbe57c0d49c0d43`：登录POST 303和`/odoo`页面后出现session rotation/registry cache invalidation，随后load_menus 403；两个missing-filestore FileNotFoundError附近静态asset后续200。日志未定位native crash原因，也没有业务action POST。依停止规则不重启HTTP/browser链路。HTTP后续失败证据与差错保留，不把导航错误当业务失败，也不重试followup。
 
-当前S11仍PARTIAL/OPEN。除followup265真实完成、HTTP/browser影响面回归外，T03/T04/T05/T12通知端到端、T08 supplier_return、F4双店合作矩阵、F2首次收费并发以及计划整体独立最终验收仍待处理；真实供应商/短信仍NOT_RUN。无push/merge/deploy，未向#35发过程评论。
+本段对应task941首次收费竞争及其最终读回之前的状态快照；其后的续行已补做F2有限竞争与恢复验证，故本句不代表当前F2状态。T03/T04/T05/T12通知端到端、T08 supplier_return、F4完整双店业务矩阵及计划整体独立最终验收仍待处理；真实供应商/短信仍NOT_RUN。无push/merge/deploy，未向#35发过程评论。
 
 ## 2026-10-20 S11续行：task941完成与首次收费竞争
 

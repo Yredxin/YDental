@@ -1,5 +1,13 @@
 # YDental 当前任务状态
 
+## S11 最新状态（2026-10-20 08:58 UTC）
+
+- 原分支 `codex/s11-followup-lab-r1`；本次测试准入/独立读回候选HEAD `81fe5cd2f836696a0e16898d973838e294579103`，产品与测试候选仍为 `789619fa76674caa1f8eab6db2eaf559847f16bf`。本次状态核验开始时跟踪工作区干净，未改产品代码、未重跑角色创建或已完成测试。分支本地领先origin 135个提交，不推送。
+- 用户授权后创建的Store2合成普通用户2466和有限 `patient:write` / `frontdesk:write` 仍有效；创建回执及角色独立读回、邮件副作用详见下方08:52记录和 `docs/reports/s11/summary.md`。不重建账号、不登录HTTP/browser。
+- 固定候选 `81fe5cd` 的隔离MODEL/ORM测试：T18所选2项通过（exit 0、0 failures/errors），结果 `.local/s11/operations/20261020T085331Z-t18-free-rework-isolated-tests/result.json` SHA-256 `6c098df107f622ff8aa765ec417a7fbee83bd8c10c49cb0a5c1f1bc76394c267`；followup notification 14项通过（exit 0、0 failures/errors），结果 `.local/s11/operations/20261020T085502Z-followup-notification-model-tests/result.json` SHA-256 `91f5276519d3d2ee61c0e360bd02bd47965a9eafa8dee0d0f6a121556da35205`。操作/日志摘要及命令在S11报告；未运行HTTP、浏览器、provider或controlled-sink E2E。
+- 测后独立RR只读核验PASS：`.local/s11/verification/s11-model-test-suites-postrun-readback-81fe5cd.json` SHA-256 `8e53ccfc0d06296fc98c05ee10a771b413ea4c7709cae8b819fa7a662704c742`；两批测试前后七项通知/邮件/outbox计数零增量，保护计数及D/C pin一致，事务rollback/close，服务停止。最新admission `.local/s11/verification/admission-81fe5cd-post-followup-model-independent-ro-recheck.json` SHA-256 `f3f67253b43225309c9473a15e60d85b4e4cc1ac5e4b1a4732ef14ae01c16958` PASS，目标仍为指定scratch/OID2144130及受限角色。
+- 独立计划覆盖复核（仅文档/证据审查）确认：F1 followup265浏览器完成、followup272无contact人工兜底、T03/T04签名回调HTTP、F4/T15部分ORM、T06/T16/T17竞争、T08 discard、F2首次收费竞争后的核实和幂等恢复均有证据；F2有一方提交而另一方遇SerializationFailure，不能写成两路都直接成功。全计划M1–M5/技术关闭条件未满足，状态仍PARTIAL/OPEN。具体剩余：T08 supplier_return及完整外加工费用/入库前置、合法联系偏好下自动通知策略端到端、task720后续临床（受Native crash STOP限制）、F1其余生命周期、F4完整双店采购/收货/成本/患者费用链、最终影响面回归和带数据升级范围的总验收。细节见 `docs/reports/s11/summary.md` 覆盖矩阵；不伪造业务事实、不查询PO147–149。
+
 ## S11 最新状态（2026-10-20 08:52 UTC）
 
 - 保持原分支 `codex/s11-followup-lab-r1`，固定HEAD `d02a2363269aed29d7abde419d461890326f7d56`，产品测试候选仍为 `789619fa76674caa1f8eab6db2eaf559847f16bf`。工作区状态文档正在更新；本轮无产品源码改动。
