@@ -1,5 +1,15 @@
 # [CODEX-STATUS] YD-S11-FOLLOWUP-LAB-V1 / 1.0
 
+## 2026-10-20 08:52 UTC：合成Store2患者/前台授权角色
+
+用户授权在开发/测试阶段自行认证，并在缺少可用角色时创建并授予权限。保持分支`codex/s11-followup-lab-r1`、HEAD `d02a2363269aed29d7abde419d461890326f7d56`，产品测试候选`789619fa76674caa1f8eab6db2eaf559847f16bf`。针对HEAD的scratch admission PASS：`.local/s11/verification/admission-d02a236-independent-ro-recheck.json` SHA-256 `d3d17a92a6e779ffd98ed0983462d439569c56bd42a10ddcd13b981ed6ed8cd4`；覆盖分支/候选、DB/OID2144130/cluster、受限数据库角色、保护计数/D-C、外发关闭、服务停止与18411空闲。
+
+经原生`ydental.access.service._create_account()`、`_grant()`创建普通合成用户2466，Store2 membership3871 / employee2434 / company1。仅有`ydental_base.ydental_base_group_user`原生组，仅授予Store2 `patient:write`与`frontdesk:write`，其余本店自定义授权均为none；无manager/system/purchase组、无其他门店membership。随机密码只写入ignored私有文件；通过Odoo原生`res.users.authenticate()`凭据校验，返回uid2466。没有建立HTTP浏览器session或创建患者/临床数据。
+
+操作回执`.local/s11/operations/create_store2_synthetic_patient_frontdesk_operator_d02a236.json` SHA-256 `e74b1ce4e8bb23c64448932157da770758a5a675e8106fad00c532af8a838156`；独立RO/RR提交状态读回`.local/s11/verification/store2-patient-frontdesk-role-d02a236-independent-readback-attempt5.json` SHA-256 `afbeef401b11671c365fa41e6d76705492eeba94b31b92b070cc821968fcf7db`，14项权限、身份、审计、认证、渠道和回滚检查PASS，独立agent交叉核对通过。
+
+实际副作用须保留：`mail.mail`+1，新行2461状态`exception`；`mail.message`+6。该邮件未发送/未排队，SMTP为0，未重试或删除；SMS、mail.notification、activity、notification job、queue outbox无新增。因先前HTTP子进程SIGSEGV后已有Native crash STOP，未重启服务或执行浏览器登录；当前只有模型层正常凭据校验。受此边界影响的HTTP/browser测试保持未验证。S11仍PARTIAL/OPEN、#35 OPEN；无push/merge/deploy。
+
 结论：**PARTIAL / IN_PROGRESS**
 Issue #35：**OPEN**
 同步：本次继续实施的代码和状态尚未推送；依用户要求只在 plan 结束时发布最终结果与说明。

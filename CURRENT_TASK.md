@@ -1,5 +1,13 @@
 # YDental 当前任务状态
 
+## S11 最新状态（2026-10-20 08:52 UTC）
+
+- 保持原分支 `codex/s11-followup-lab-r1`，固定HEAD `d02a2363269aed29d7abde419d461890326f7d56`，产品测试候选仍为 `789619fa76674caa1f8eab6db2eaf559847f16bf`。工作区状态文档正在更新；本轮无产品源码改动。
+- 按用户授权，经原生访问服务创建普通合成 Store2 患者/前台测试账号2466，唯一active Store2 membership3871 / employee2434/company1；只含 `ydental_base.ydental_base_group_user`，Store2仅授予`patient:write`、`frontdesk:write`，其余自定义授权none，无manager/system/purchase组。随机密码仅保存在ignored私有文件，Odoo原生凭据校验uid=2466成功；未建立HTTP浏览器session，也未访问任何患者。
+- 独立RR READ ONLY/ROLLBACK读回14项检查全部PASS：`.local/s11/verification/store2-patient-frontdesk-role-d02a236-independent-readback-attempt5.json` SHA-256 `afbeef401b11671c365fa41e6d76705492eeba94b31b92b070cc821968fcf7db`；创建回执 `.local/s11/operations/create_store2_synthetic_patient_frontdesk_operator_d02a236.json` SHA-256 `e74b1ce4e8bb23c64448932157da770758a5a675e8106fad00c532af8a838156`。独立agent交叉验收通过。
+- 确认的创建副作用：`mail.mail` +1（唯一新行2461状态`exception`）、`mail.message` +6；未删除/重试。SMTP为0；SMS、mail.notification、mail.activity、通知job、队列outbox无新增。本轮凭据校验在模型层完成；因更早Odoo HTTP子进程SIGSEGV后的现有STOP边界，未重启HTTP/browser服务，因此尚未建立正常浏览器会话。
+- 当前没有合成患者或患者业务记录。继续独立可推进的测试；任何新的HTTP/browser链路仍遵守Native crash STOP。T08缺有效义齿临床来源/采购接收链的业务前置依旧未满足，不能用generic care替代。#35保持OPEN；不push/merge/deploy。
+
 ## S11 最新状态（2026-10-20 08:46 UTC）
 
 - 原分支 `codex/s11-followup-lab-r1`；当前HEAD `e08e3a527f708c5caf34d755f408017eea7eb9a3`，已测产品/测试候选仍为 `789619fa76674caa1f8eab6db2eaf559847f16bf`，工作树干净。本次继续只做了新HEAD准入和 Store2角色/资源RR只读查询，无业务DB写入、测试、服务启动或外发。
