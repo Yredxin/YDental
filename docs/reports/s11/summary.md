@@ -1,5 +1,13 @@
 # [CODEX-STATUS] YD-S11-FOLLOWUP-LAB-V1 / 1.0
 
+## 2026-10-20 13:00 UTC：更正队列阻塞判断
+
+独立源码审阅发现此前把area2/capability2的一个waiting推断为阻止slot发布、预约、实际到店和报到，范围过宽；12:51记录中的这部分阻断结论撤回。当前历史聚合只证明当时有一项waiting，不能代表现在状态。正常预约检查已发布slot、窗口、能力和容量，不检查队列是否为空；到店根据patient/store/date创建事实；报到在有效qualification及实际arrival后创建或恢复queue entry。队列呼叫再按area顺序排序并筛选当前station/actor可服务的项，选择首个合格项。排序还含未用返工/回访机会优先级，因此应遵守原生排序，不称为无条件FIFO。源码位置见`ydental_supply_service.py:524-552`、`ydental_intake_service.py:485-494,545-571`、`ydental_queue/models/ydental_intake_service.py:114-150`和`ydental_queue_service.py:244-247,312-329`。
+
+实施路径是fresh admission后先只读确认现时slot/队列，再由正常capacity角色发布当前有效时段，正常预约；仅在合成患者实际到店后记录arrival并report入队。用独立读回来确认新task/entry和顺序，不读取旧waiting身份。绝不手动呼叫patient682或让其越序接诊；等原生队列服务正常到它时，才继续接诊、文书和治疗。slot1693历史读回为draft，只有fresh核实政策、日期窗口及容量后才可发布；若已失效，按正常流程创建合适时段。无需创建替代area。这个waiting约束的是合成任务何时可被正常服务，不构成预约、到店或入队的空队列前置。
+
+因此Store2 waiting不直接阻止其他无关工作。仍独立未完成的业务包括通知commit→postcommit→claim→controlled sink完整链、T08义齿专属来源及原生采购/收发/返工、F4完整双店经济链、task720之外的独立合成T18实际戴用与后续复诊、F1适用生命周期、全量影响面回归和独立总验收；各项仍受自身来源/角色/运行条件约束。F2旧loser/PID保留`EVIDENCE_GAP`，#35保持OPEN。
+
 ## 2026-10-20 12:51 UTC：下次 SIGSEGV 取证与当前剩余阻塞
 
 用户要求下一次受控测试开启 GDB 与 core 记录。该项是未来新测试的运行前置，本次不启服务、不改主机级 core 配置。开始前需对新鲜候选重新做准入，并验证精确解释器/BuildID、GDB版本、core limit与`core_pattern`实际生效、私有目录权限及空间；测试必须由S11 owned child运行。若发生崩溃，保留run和请求关联、PID/TGID/TID、原始退出信号、GDB全线程`bt full`、进程映射/已加载库和core文件，并先独立只读核实业务提交，不重放。core可能包含凭据或患者资料，只能放在权限受限的`.local/s11/`私有目录，不进入Git、Issue或聊天。该取证配置用于下一次新测试，不代表恢复一般HTTP/browser或自动重跑旧失败路径。

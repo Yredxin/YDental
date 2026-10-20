@@ -1,3 +1,9 @@
+# S11 续行更正（2026-10-20 13:00 UTC）：Store2 waiting 不阻止正常入队
+
+- 独立源码审阅纠正12:51记录中过宽的“队列阻止预约/到店/入队”结论。旧聚合只是2026-10-20当时的area2/capability2计数，非当前快照。源码显示预约只依赖已发布slot/窗口/能力/容量，到店只依赖实际患者与当日门店记录，报到要求有效资格及实际到店后创建queue entry；均无“队列必须为空”的条件。新合成任务可正常入队，系统会按自身规则排序并选择首个符合工作站/操作者资格的项目。排序含return机会优先级，再按业务顺序/时间/ID，不能简化为无条件FIFO。独立审阅证据路径：`ydental_supply/models/ydental_supply_service.py:524-552`、`ydental_intake/models/ydental_intake_service.py:485-494,545-571`、`ydental_queue/models/ydental_intake_service.py:114-150`、`ydental_queue/models/ydental_queue_service.py:244-247,312-329`。
+- 正常续行：fresh admission与匿名只读复核当前capacity2队列及slot。slot1693曾被读回为draft，不能预约；若时段仍有效且政策允许，由正常capacity角色发布并经正常预约、实际到店和task report流程将patient682排入队列。独立读回仅核实新task/entry/顺序，不读旧waiting身份。不得直接呼叫或接诊patient682；等待正常队列服务轮到它后再继续临床写入。无需新建替代area，也不得为了测试跳过或改动旧entry。
+- 上一节12:51将waiting计数说成阻止发布/预约/到店的说法撤回；这是一条保守推断，不是代码限制或业务规则。队列只阻断越序呼叫，不阻断正常入队。T08仍需义齿专属有效临床来源和采购链；通知、T18、F4等其他缺口各按其独立业务前置推进。
+
 # S11 续行记录（2026-10-20 12:51 UTC）：下次崩溃取证与当前阻塞
 
 - 用户要求下次受控运行开启 GDB 与 core 文件记录。此要求仅登记为下一次新测试的运行前置；本轮未启动服务、未改系统级 core 配置。运行前在当前有效候选和fresh admission上核验项目解释器/BuildID、GDB版本、`ulimit -c`/实际core策略、`core_pattern`、私有core目录权限与可用空间；仅通过S11自有进程启动并在私有忽略目录保留core、GDB全线程backtrace、进程映射/已加载库、PID/TGID/TID、请求与run关联及原始退出状态。core可能含凭据或患者数据，不进Git/Issue/聊天。崩溃后停止该路径并先独立只读核实提交，不重放请求。
