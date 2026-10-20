@@ -1,6 +1,13 @@
 # YDental 当前任务状态
 
 
+## S11 最新续行快照（2026-10-20 06:36 UTC；以本节覆盖下方旧候选状态）
+
+- 当前分支 `codex/s11-followup-lab-r1`，文档HEAD `08a1050513de56020edd8f9709ddbe18a7b7722b`；最近实现/测试候选 `57a3fcbc5d093de92f5f2aa13423ca3bfcff238d`，产品addon候选 `2df07373fa5257589115d39f4354dcd4c25c2997`。候选57a的F4模型用例1/1通过且独立保护状态读回PASS，前述证据保持固定。文档增量未push。
+- 当前HEAD的F4 vendor快照 `.local/s11/verification/f4-vendor-current-readonly-08a1050-attempt2.json` SHA-256 `63b6df0a7215490e8a1cd8aced69888ebbf64f8b45fab9985638171d85e330a8`（RR READ ONLY、explicit ROLLBACK、closed）：vendor98 approved/company1/有效至2026-11-18，cooperation98(store1)与235(store2)均active；vendor249 approved/company1/valid_until 2026-10-20，cooperation236(store2) active。job450(store1/vendor98) accepted attempts1、无delivered_at；job1050(store2/vendor98) pending attempts0、due 2026-11-18；job1051(store2/vendor249) accepted attempts1、无delivered_at。无外部送达。运行runtime/admission仍绑定候选57a，快照只读绑定HEAD08a；未更新admission。
+- F4端到端双店开单/收货矩阵仍缺。T08 supplier_return仍受同actor权限和采购访问边界限制；purchase组会打开受保护PO147–149读写范围，未授组。HTTP/browser服务SIGSEGV后保持停止。followup265浏览器完成、HTTP通知/策略、T18续行戴用/复诊、最终影响回归和全计划独立验收均未完成。#35 OPEN；无push/merge/deploy或Issue中间评论。
+
+
 ## S11 最新续行快照（2026-10-20 06:31 UTC；以本节覆盖下方旧候选状态）
 
 - 分支 `codex/s11-followup-lab-r1`，固定候选 `57a3fcbc5d093de92f5f2aa13423ca3bfcff238d`；本轮改动含一项隔离的F4 MODEL regression，外加报告/状态文档。该候选独立fresh admission PASS：`.local/s11/verification/admission-57a3fcb-independent-ro-recheck.json` SHA-256 `76813c58c3c2c86cd29c241325630682c7415fc93a24fe01e738c568552622cf`。
