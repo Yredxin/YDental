@@ -35,12 +35,20 @@ class TestClinicalEmptyExecutionRecovery(TransactionCase):
 
         claims = self.root['ydental.supply.claim']
         claims_before = claims.search_count([])
+        tasks_before = self.root['ydental.intake.task'].search_count([])
+        entitlements_before = self.root['ydental.intake.entitlement'].search_count([])
+        recoveries_before = self.root['ydental.access.audit'].search_count([
+            ('ydental_event', '=', 'queue.empty_execution_recovered')])
         reservation_free = replacement_slot.ydental_reservation_free
         replacement_slot._save({'ydental_reservation_free': 0})
         with self.assertRaises(UserError):
             resolver._operate('recover_empty_execution', args | {'confirmed': True})
         self.assertEqual((execution.state, task.state, entry.state), ('verify', 'started', 'verify'))
         self.assertEqual(claims.search_count([]), claims_before)
+        self.assertEqual(self.root['ydental.intake.task'].search_count([]), tasks_before)
+        self.assertEqual(self.root['ydental.intake.entitlement'].search_count([]), entitlements_before)
+        self.assertEqual(self.root['ydental.access.audit'].search_count([
+            ('ydental_event', '=', 'queue.empty_execution_recovered')]), recoveries_before)
         replacement_slot._save({'ydental_reservation_free': reservation_free})
 
         stock_before = (self.root['stock.move'].search_count([]), self.root['stock.quant'].search_count([]))
@@ -68,6 +76,36 @@ class TestClinicalEmptyExecutionRecovery(TransactionCase):
         with self.assertRaises(UserError):
             resolver._operate('recover_empty_execution', args | {'confirmed': True})
         self.assertEqual(claims.search_count([]), claims_after_recovery)
+        self.assertEqual(self.root['ydental.intake.task'].search_count([]), tasks_before + 1)
+        self.assertEqual(self.root['ydental.intake.entitlement'].search_count([]), entitlements_before + 1)
 
         replacement_lease = queue._operate('enter', {'station_id': self.stations[0][0].id})
         queue._operate('exit', {'lease_id': replacement_lease['lease_id'], 'token': replacement_lease['token']})
+
+    def test_document_immutable_execution_source_blocks_recovery(self):
+        queue, lease, execution = serving(self)
+        clinical = queue.env['ydental.clinical.service']
+        document = clinical._operate('open', {
+            'execution_id': execution.id,
+            'lease_id': lease['lease_id'],
+            'lease_token': lease['token'],
+        })
+        doc = self.root['ydental.clinical.document'].browse(document['document_id'])
+
+        _, _, other_execution = serving(self, station=self.other_station)
+        doc._save({'ydental_current_execution_id': other_execution.id})
+        lease_record = queue._model('lease').browse(lease['lease_id'])
+        lease_record._save({'ydental_expires_at': queue._now() - timedelta(seconds=1)})
+        queue._timeout()
+
+        resolver = queue_bind(self, self.second)
+        with self.assertRaises(AccessError):
+            resolver._operate('recover_empty_execution', {
+                'execution_id': execution.id,
+                'confirmed': True,
+                'replacement_slot_id': self.slots[0][0].id,
+                'reason': 'Synthetic recovery must preserve the immutable document source',
+            })
+        self.assertEqual(doc.ydental_execution_id, execution)
+        self.assertEqual(doc.ydental_current_execution_id, other_execution)
+        self.assertEqual(execution.state, 'verify')
