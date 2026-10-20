@@ -43,7 +43,7 @@ Issue #35：**OPEN**
 
 | 项目 | 当前证据与缺口 |
 |---|---|
-| F1 / T01、T13 | 生命周期模型测试涵盖提醒、未接通、联系成功、超期、预约关联/改期和真实接诊关联；普通 HTTP/RPC、浏览器工作台可读但浏览器没有执行完整闭环。跨店接诊 T02 新模型闭环在 `caabf67` 运行通过；浏览器端到端仍缺。 |
+| F1 / T01、T13 | 生命周期模型测试涵盖提醒、未接通、联系成功、超期、预约关联/改期和真实接诊关联；actor2318已通过浏览器对confirmed event414创建followup265，独立持久读回PASS。POST后的浏览器投影断言未确认，另一次只读工作台预期heading未出现；尚无后续合格治疗event完成followup，故浏览器完整生命周期仍PARTIAL。跨店接诊 T02 新模型闭环在 `caabf67` 运行通过。 |
 | F2 / T07、T18 | 免费返工、成本与患者收费分离、S05冻结价、实际服务后原生出账及版本贷项模型测试通过；旧候选真实供应商成本/收货读回、当前候选追加收费/部分核销/幂等并发读回可用。尚无当前候选两连接收费首次确认/首张发票并发证据，也未独立读回完整 unknown 通知→返工周期链。 |
 | F3 / T08、T16 | T08 discard/报废分支有模型覆盖并已有真实持久状态独立读回，验证实物损耗去向、成本与患者费用未变、待办关闭且无假戴牙/退款；supplier_return分支尚未实测。T16 首次在 order433 执行时 runner 退出3；根因为 before/after 事件字典使用了不对称字段投影。独立读回确认当次恰一收货业务结果，但赛前两列不可证明。提交 `377ae373` 统一补读并新增纯测试后，order434 的 T16 race runner 与独立读回均 PASS：两 backend，收货一胜；取消在明确 SerializationFailure 后有界重试并观察状态冲突；旧 event1069 的 before/after 原始值两侧一致，新 event1071、audit40283、operation1019 唯一，无库存/复诊/成本/费用副作用。独立证据 `.local/s11/verification/race-cancel-receive-order434-independent-readback.log` SHA `dba6892be4087d13d3acac8bf4339120ebf73387e264e08a51d094fc1d5064d4`。|
 | F4 / T15 | 资质审核、合作/开单约束、过期旧单与内部活动消息测试通过；T10 HTTP回归验证普通仓库用户不能下载管理组限定厂商资质附件。双店端到端合作矩阵仍缺。 |
@@ -77,7 +77,7 @@ Issue #35：**OPEN**
 
 本轮 RO 前置核实后，以actor9本店普通前台身份，通过原生 `ydental.intake.service._operate('report', ...)` 对patient364/task799 version2登记排队，复用已存在的当天arrival359，没有重复arrive。动作发生于 `2026-10-20T04:41:51.779672Z`，返回position544、task v4、waiting。受限于待排 slot1297在05:09 UTC开始，后续接诊不得提前调用或跳过原生队列。执行receipt `.local/s11/operations/store2-patient364-task799-report.json`。独立RR提交状态读回待本节续记；本次report不构成治疗、戴用、followup完成或计划完成证明。
 
-当前仍未完成：T08 supplier_return；F1完整浏览器闭环；通知 unknown/策略端到端；F4双店资质合作矩阵；T18 continuation/followup后续及最终影响回归；F2首次收费并发；以及独立最终验收与计划收尾。原task720在clinical.open前失败后已timeout转verify，不takeover/不重报/不重用。真实供应商/短信仍NOT_RUN / OUT_OF_CURRENT_ACTIVATION。#35保持OPEN，未向GitHub发布中间更新；无push、合并或部署。
+当前仍未完成：T08 supplier_return；F1完整浏览器生命周期（followup265已建但未由后续合格事件完成，浏览器POST后投影未确认）；通知 unknown/策略端到端；F4双店资质合作矩阵；T18 continuation/followup后续及最终影响回归；F2首次收费并发；以及独立最终验收与计划收尾。原task720在clinical.open前失败后已timeout转verify，不takeover/不重报/不重用。真实供应商/短信仍NOT_RUN / OUT_OF_CURRENT_ACTIVATION。#35保持OPEN，未向GitHub发布中间更新；无push、合并或部署。
 
 ## 2026-10-20 S11续行：task799原生治疗与handover
 
@@ -89,6 +89,13 @@ T08 supplier_return前置仍有实际权限缺口：采购组ACL对purchase.orde
 
 ## 2026-10-20 S11续行：store2 followup浏览器操作员
 
-store2现无followup writer。使用现有actor9 group-manager经原生访问服务创建合成user2318，company1范围、store2 membership3600/employee2287、session3589；仅授权store2 `followup:write` 和 `medical:write`，仅base internal group，无采购/manager/system组。账号回执 `.local/s11/operations/create_store2_followup_operator_attempt2.json`；独立RR READ ONLY读回 `.local/s11/verification/followup-operator-attempt2-independent-readback.json` SHA-256 `9112f562bd7dfd4254273c19d60b28689fbae044cba5849f0cfbfb96a68541d5`。224项保护计数无下降、D/C pin匹配，权限和session符合预期。
+当时store2无followup writer。使用现有actor9 group-manager经原生访问服务创建合成user2318，company1范围、store2 membership3600/employee2287、session3589；仅授权store2 `followup:write` 和 `medical:write`，仅base internal group，无采购/manager/system组。账号回执 `.local/s11/operations/create_store2_followup_operator_attempt2.json`；独立RR READ ONLY读回 `.local/s11/verification/followup-operator-attempt2-independent-readback.json` SHA-256 `9112f562bd7dfd4254273c19d60b28689fbae044cba5849f0cfbfb96a68541d5`。224项保护计数无下降、D/C pin匹配，权限和session符合预期。
 
 账号创建同时产生1条 `mail.mail`（state=`exception`）及6条mail.message；mail记录没有已发送状态，外发SMTP server为0，未见短信、notification job或queue outbox增量。该失败投递记录按原样保留，不删除或重试邮件；独立读回按“无外发副作用”严格检查标记FAIL，报告按事实区分“邮件失败记录存在”和“无投递”。第一次账号尝试由新用户自身执行 `_join` 而被拒，事务回滚；独立RR读回确认无账号、membership、grant、session或通知计数残留，证据 `.local/s11/verification/followup-operator-attempt1-rollback-readback.json` SHA-256 `6b1b2fc278d71e1b6f8f9c34a40c256f2143ff44258bf200a7383dba1b9bd8f7`。该工具/脚本错误已修正为管理员actor9授权加入，不重放已提交操作。
+
+
+## 2026-10-20 S11续行：event414 followup创建
+
+候选HEAD `64d841f357b66dbe76e5de91b1a5cf51271ffd47`（纯文档变更，产品代码仍为 `2df07373fa5257589115d39f4354dcd4c25c2997`）。owned launcher准入刷新后启动局部S11服务，actor2318以真实浏览器表单仅提交一次patient364 / confirmed event414的post_visit计划，计划时间2026-10-27 09:00。首次Playwright启动缺少libatk私有动态库时在表单前退出；使用仓库私有依赖路径后执行。POST后客户端投影断言未能确认结果，未重放。独立RR READ ONLY/ROLLBACK核实followup265恰一条，store2、patient364、source event414、created/responsible actor2318、state `to_notify`，证据 `.local/s11/verification/followup-265-browser-independent-readback.json` SHA-256 `9a69d9eed29eb2bab99aacf0ea2aeb4bee3313dd85ae1d838061f9d38fdf4dc3`；本地核对记录 `.local/s11/verification/followup-event414-browser-ambiguous-readback.json` SHA-256 `77ce401907712ffab9f2a45c0aa26af260b795981c826575125ec4b15aa5dd5b`。
+
+创建仅新增1条内部activity及1条内部notification message；无notification job、outbox、email或SMS增量，外发渠道仍禁用。随后浏览器只读UI核验未找到预期workbench heading，故不报浏览器UI读回PASS；数据库独立已提交状态确认创建成功。该followup没有新的合格治疗事件，禁止用source event414自行完成。owned Odoo服务已由launcher正常停止，18411端口空闲。保护计数224项无下降、D/C pin匹配。
