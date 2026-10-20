@@ -1,5 +1,11 @@
 # YDental 当前任务状态
 
+## S11 最新续行（2026-10-20 10:08 UTC）
+
+- 当前候选 `55f8b124ea9c825d6b8571899b55fe470483c4db`，仍为原分支；状态文件/报告更新已提交，工作区干净。子Agent只读审查现有测试：`test_after_commit_dispatch_does_not_hold_an_extra_registry_cursor` mock了claim和dispatch，只测调用顺序；controlled-sink lifecycle测试手工设job为dispatching并直接调`_send_transport`；另一用例创建pending job但不派发。因此没有source事务真实提交→原生postcommit→独立claim→controlled sink整链证据。
+- 当前可靠的完整链必须由正常HTTP/RPC业务请求提交来源事务后自动执行postcommit，再以独立claim结果做RR读回。TransactionCase/TestCursor提交不构成独立已提交状态；现有HTTP/browser Native SIGSEGV STOP不允许重启该路径。继续使用新合成患者要求真实到店/接诊/治疗事实、合成联系/偏好和正常认证请求，不能手造arrival或伪造binding。T05/T12自动受控通知E2E继续未验证，当前不以模型handler测试冒充完成。
+- 此轮审查仅读源码/测试，未查DB、启动服务、跑测试或改产品代码。继续评估不依赖HTTP/browser STOP、不会新增业务事实或访问保护对象的S11实质性工作；候选和测试完成后仍按固定候选/分层证据/独立验收记录。#35 OPEN；无push/merge/deploy。
+
 ## S11 最新续行（2026-10-20 10:06 UTC）
 
 - 最小恢复核验：活动分支 `codex/s11-followup-lab-r1`，HEAD `f2aa841404c07c6fff553d0077f6b899d1cc9964`，工作区干净；未推送、未合并、未部署。先前完成的25项 `ydental_followup_test` 全套回归和patient650预约均不重跑。S11计划仍 `PARTIAL / IN_PROGRESS`、#35 OPEN。

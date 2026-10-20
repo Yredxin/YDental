@@ -1,5 +1,11 @@
 # [CODEX-STATUS] YD-S11-FOLLOWUP-LAB-V1 / 1.0
 
+## 2026-10-20 10:08 UTC：postcommit自动派发测试覆盖审计
+
+只读测试/源码审计（未查DB、启停服务、运行测试或改代码）确认当前测试尚未连通来源提交与真实dispatch：`TestFollowupNotification.test_after_commit_dispatch_does_not_hold_an_extra_registry_cursor` mock了`_claim_dispatch`及`_dispatch_claimed`；`TestFollowupLifecycle.test_controlled_sink_records_internal_acceptance_without_delivery` 手动将job置为`dispatching`后直接调用`_send_transport`；生命周期另一测试只确认pending job创建、未派发。因此既有证据分别覆盖回调顺序和sink handler内部行为，但不证明source transaction commit后触发postcommit callback、独立claim和sink处理。
+
+完整证明需正常HTTP/RPC业务请求形成真实提交，postcommit回调另开事务claim并dispatch，再独立RR读回job/contact/activity与零外发。TransactionCase/TestCursor的测试提交不能冒充此实证。现有HTTP/browser Native SIGSEGV STOP仍约束正常请求路径；不得重启该通道、伪造arrival/binding或用裸ORM绕过。T05/T12自动controlled-sink E2E因此保持未验证。后续仅推进不依赖此STOP且不造假业务事实/访问保护对象的计划工作；S11 PARTIAL/IN_PROGRESS、#35 OPEN，无push/merge/deploy。
+
 ## 2026-10-20 10:06 UTC：预约后通知来源的只读源码审查
 
 恢复核验确认仍在原分支 `codex/s11-followup-lab-r1`、HEAD `f2aa841404c07c6fff553d0077f6b899d1cc9964`、工作区干净。既有25项follow-up addon回归与patient650预约及独立读回均保留，不重放。
