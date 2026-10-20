@@ -482,3 +482,12 @@ HTTP/browser owned run `20261020T055248Z-18909ba92aa6`在followup真实完成POS
 在候选`e6b60e6ca8da112d42609e6f1d9c2995cd56afa1`上启动自有run `20261020T112044Z-fc4811c5b7a9`（child PID3763917/start ticks97123683），以无cookie、无认证、无redirect、无JS的`http.client`恰发一次 `GET http://127.0.0.1:18411/ydental/queue/screen`。返回HTTP200，1505 bytes，body SHA-256 `f17ee1d5e161ada80313ce7fb00cc7f62d1020e0160342ecff4adf5fad8afec8`，client exit0。probe收据 `.local/s11/operations/http-probe-e6b60e6-20261020T112044Z-once.json` SHA `39335ddd8585cea1890f7f264c7cea34705bf62f5dee5d55683fe5413781850a`。服务由正常S11 launcher owner验证后停止，exit0/`stop_requested`，exit receipt SHA `9cfbd0708adbef24f4162bdc0f715f541f1c5d2149532f8b1ec0ceff0d8de424`，server log SHA `b3efb594bdb604466328c11ec12cce8c1bdffb8d821bff6f0230bbd3a81164d9`；日志中恰一条请求，无SIGSEGV标记。启动仍记录既有test-framework import ERROR级诊断，未隐去。
 
 独立post-probe RO读回 `.local/s11/verification/postprobe-e6b60e6-20261020T112044Z-readback.json` PASS，SHA `cd0baef793cccdbbe645b848181cc8cc2afc9ee3f23d12cbb2d77bfa4bab912d`：224保护计数、D/C、模块、15张S11副作用表、外发及runtime hash均未变化；服务停止、18411空闲；只读事务显式rollback/close。此结果证明本次单个静态screen GET与服务观察成功，**不证明SIGSEGV已修复、不解除一般HTTP/browser STOP、不证明临床/经济写路径稳定**。根因继续为`ROOT_CAUSE_UNDETERMINED`。接下来只按用户批准逐步做独立合成业务；每阶段须 fresh admission、真实业务身份、逐项幂等与独立提交读回。#35仍OPEN，不push/merge/deploy/S12/S13。
+## 2026-10-20 11:32 UTC｜合成前台身份预备操作
+
+针对精确候选`b22e88d3cea18b970ac650b95ae20c64e2455638`的fresh RO准入和actor2466 Store2写权限复核均通过（receipt SHA分别为`9b7fd973…f0386d27906`、`643ff69f…c2474c74`）。正常JSON-RPC认证返回actor2466；访问`/ydental/access`后，登录scope自动绑定Store2并记录正常审计；一次`POST /ydental/access/action`返回HTTP200。
+
+客户端在处理该原生JSON revision响应时错误地期待mapping/object，提前退出，患者创建请求未发送。不得把这次客户端错误算作业务拒绝或患者业务失败。唯一运行`20261020T113011Z-07c127de8445`的子进程正常退出0/`stop_requested`。原请求收据SHA `22bcf2e0…df50670`，exit SHA `22717a17…b38`，server log SHA `2f252fd9…fe0c`。
+
+独立RR只读回执 `.local/s11/verification/synthetic-patient-create-b22-postattempt-ro-corrected.json` PASS，SHA `b30ac502…14b3d3`：确认仅创建一条新的actor2466 Store2 session/revision1，login、login.scope、store.switch三条成功审计及设备/登录记录；本次拟用patient create key没有操作记录，patient.create审计为0；224保护业务计数无变化。事务显式rollback/close。初次只读回执因本地断言字段写错被保留；校正回执使用同次查询结果及原始run receipt，没有重查或重新发HTTP。
+
+完整Odoo log还记录4条actor2466 `source.read`权限拒绝信息；真实目标未记录，故不推断。它们不是该次登录或Store2切换的HTTP拒绝（认证、页面、切换都返回200）。保持权限缺口事实。下一步需修正仅客户端revision解码，使用新session与唯一患者key；未创建患者，patient650/task720保护保持。该预备操作不是临床闭环通过。
