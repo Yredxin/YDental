@@ -1,3 +1,9 @@
+# S11 续行记录（2026-10-20 12:51 UTC）：下次崩溃取证与当前阻塞
+
+- 用户要求下次受控运行开启 GDB 与 core 文件记录。此要求仅登记为下一次新测试的运行前置；本轮未启动服务、未改系统级 core 配置。运行前在当前有效候选和fresh admission上核验项目解释器/BuildID、GDB版本、`ulimit -c`/实际core策略、`core_pattern`、私有core目录权限与可用空间；仅通过S11自有进程启动并在私有忽略目录保留core、GDB全线程backtrace、进程映射/已加载库、PID/TGID/TID、请求与run关联及原始退出状态。core可能含凭据或患者数据，不进Git/Issue/聊天。崩溃后停止该路径并先独立只读核实提交，不重放请求。
+- 当前SIGSEGV之外仍有S11计划阻塞：Store2 area2/capability2同一FIFO队列已有1个waiting且无替代可调用区；slot1693仍draft，patient682未到店/入队/接诊。不得跳过既有队列或将预约当到店。这阻止相依的真实临床闭环、postcommit通知、T08义齿有效临床来源、真实业务并发继续。
+- 其他未完成项仍按`docs/reports/s11/summary.md`与F/T矩阵：合法联系方式/偏好下的通知策略端到端；T08独立合成义齿临床来源、确认采购行及收发/返工（PO147–149保护不动）；F4完整双店采购/收货/成本/患者收费链；task720受保护的T18实际戴用/后续复诊（不得重开/重放）；F1其余生命周期、最终影响面回归及独立整体验收。F2旧loser/PID历史证据缺口保持`EVIDENCE_GAP`，不重放。S11 `PARTIAL / IN_PROGRESS`，#35 OPEN。
+
 # S11 SIGSEGV 日志排查（2026-10-20 12:45 UTC）
 
 - 原run `.local/s11/runs/20261020T055248Z-18909ba92aa6/`：`exit.json` SHA `4949fb84277ac17f6354e42509e15cc90b1e4793223ad69160fe11a524d153f4`记录直接child PID3536662、start ticks95156031、exit -11、结束05:55:45.911Z；`reason=normal_exit`不得覆盖-11。bounded `server.log` SHA `0a3c75dc015872b417c7bc5c7877fc95993e0024fe836ae77f93defadba46854`最后记录05:55:43.709 GET `/web/webclient/load_menus` 403；前有login POST303、`/odoo`与assets GET200。两条filestore `FileNotFoundError`对应资源，请求仍返回200。登录期间有custom `res.users.write`/registry field trigger栈和`ydental_capability_ids`可搜索性warning；它不是native stack。

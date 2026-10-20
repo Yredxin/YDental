@@ -1,5 +1,11 @@
 # [CODEX-STATUS] YD-S11-FOLLOWUP-LAB-V1 / 1.0
 
+## 2026-10-20 12:51 UTC：下次 SIGSEGV 取证与当前剩余阻塞
+
+用户要求下一次受控测试开启 GDB 与 core 记录。该项是未来新测试的运行前置，本次不启服务、不改主机级 core 配置。开始前需对新鲜候选重新做准入，并验证精确解释器/BuildID、GDB版本、core limit与`core_pattern`实际生效、私有目录权限及空间；测试必须由S11 owned child运行。若发生崩溃，保留run和请求关联、PID/TGID/TID、原始退出信号、GDB全线程`bt full`、进程映射/已加载库和core文件，并先独立只读核实业务提交，不重放。core可能包含凭据或患者资料，只能放在权限受限的`.local/s11/`私有目录，不进入Git、Issue或聊天。该取证配置用于下一次新测试，不代表恢复一般HTTP/browser或自动重跑旧失败路径。
+
+当前可确认的业务阻塞与S11剩余缺口：Store2 area2/capability2的同一FIFO队列仍有1个waiting、没有替代可调用区；slot1693仍是draft，patient682尚未arrival/queue/clinical，不能跳过等待项或伪造业务事实。依赖合法临床来源的真实闭环、postcommit通知、义齿流程及适用并发暂不能推进。其余未完成项包括合法联系方式/偏好下的通知策略端到端；独立合成义齿来源、确认采购行和收发/返工；F4完整双店采购/收货/成本/患者费链；task720受保护的T18实际戴用/后续followup；F1剩余生命周期、最终影响面回归及独立整体验收。F2历史loser/PID继续`EVIDENCE_GAP`，不重放；PO147–149及task720保护不变。S11保持`PARTIAL / IN_PROGRESS`、#35 OPEN。
+
 ## 2026-10-20 12:45 UTC：SIGSEGV 系统日志关联与指令定位
 
 原S11 run `.local/s11/runs/20261020T055248Z-18909ba92aa6/` 的runner记录直接child PID3536662、start ticks95156031、return -11、结束时间05:55:45.911Z（exit receipt SHA `4949fb84277ac17f6354e42509e15cc90b1e4793223ad69160fe11a524d153f4`）。此负值表示child以信号11状态退出，但该run没有同PID的内核crash entry；`reason=normal_exit`字段与该child exit值不一致，应以实际return为准。server log SHA `0a3c75dc015872b417c7bc5c7877fc95993e0024fe836ae77f93defadba46854`的最后HTTP行为05:55:43.709 `GET /web/webclient/load_menus`→403。此前登录POST→303、`/odoo`和前端资源GET→200；session rotation、cache invalidation已记录。两条缺失filestore blob的`FileNotFoundError`在资源读取上下文出现，资源HTTP仍成功返回。认证路径的Python栈包括YDental `res.users.write`、registry relation-trigger解析，并有`ydental.space.station.ydental_capability_ids` dependency searchable warning；日志未显示该warning之后的Python exception，也没有native stack。

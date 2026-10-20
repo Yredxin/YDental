@@ -1,5 +1,11 @@
 # S11 F/T evidence index
 
+## 下一次崩溃取证与剩余阻塞（2026-10-20）
+
+下一次全新受控测试应在fresh admission、正常运行许可与S11 owned child条件下启用GDB/core记录；先核验解释器BuildID、GDB/core策略、私有目录权限和空间。发生崩溃时留存完整线程backtrace、映射库、PID/TGID/TID、原始退出和请求/run关联；core保存在`.local/s11/`，不进入Git/Issue/聊天。该配置尚未启用或测试。
+
+当前主要业务阻塞为Store2 area2/capability2 FIFO队列存在1个waiting且无替代区域，slot1693仍draft，patient682未arrival/queue/clinical。仍未完成的独立验收项及其业务依赖见[summary.md](summary.md) 2026-10-20 12:51 UTC补充；计划`PARTIAL / IN_PROGRESS`、#35 OPEN，F2旧loser/PID保持`EVIDENCE_GAP`且不重放。
+
 ## SIGSEGV 日志调查补充（2026-10-20）
 
 本次报告更新前HEAD为 `d007b057e0ce05d31886c0457b31aad49d6378c5`，位于 `codex/s11-followup-lab-r1`，工作树干净、ahead 171、未push；产品代码候选仍为 `9425d999aaeba7a0e8af12cf419acb4aa91a5194`。计划保持 `PARTIAL / IN_PROGRESS`、#35 OPEN。
