@@ -13,6 +13,12 @@ Issue #35：**OPEN**
 
 候选e373上followup265/event416 fresh只读资格预检PASS `.local/s11/verification/followup265-preflight-e3732fd.json` SHA-256 `380544dc4331f68394055bbbbbf4e15ea8e8b3772f5be3705cbca451b7f4ba7b`：followup265仍to_notify且未关联预约/完成事件/执行，没有contact/job；event416仍是同Store2患者治疗事件，execution536已handover结束、文书507关联一致；actor2318仍为active internal user且有medical/followup写权；无已有链接或外发，预约来源校验正常，服务STOPPED/18411空闲。该只读预检在状态提交前，后续需对新HEAD重新admit并fresh preflight。确认后可使用新attempt ID做一次真实浏览器完成；attempt6仍`do_not_retry`且不重放。#35仍OPEN、无push/merge/deploy。
 
+## 2026-10-20 followup265 attempt7：浏览器运行时导入失败
+
+候选506b019上的一次性attempt7在Playwright导入`greenlet._greenlet`时失败；浏览器未登录，没有followup workbench GET或completion POST。运行 receipt `.local/s11/operations/followup265-completion-browser-attempt7.json` 标记`OUTCOME_REQUIRES_READBACK`，attempt7和锁均不重用。owned service `20261020T074259Z-aa6268eeb9c2`已停止。独立RR只读/rollback/close读回PASS `.local/s11/verification/followup265-attempt7-independent-readback.json` SHA-256 `af4ace34f0ee301968d0625eb94e7da9b2c21e69a508a873ecb1e14b02ed9446`：仅有预期未认证`/web/login` GET；无认证session、访问审计、设备记录、复诊动作；followup265/event416和contact/job/完成链接未变；保护计数、D/C、外发及mail/outbox未变，服务STOPPED/18411空闲。
+
+根因是运行脚本把私有browser_runtime放在site-packages前，导致CPython3.14的greenlet扩展覆盖`.venv`内兼容CPython3.12的greenlet。后续独立纯导入核验应采用先加载venv site-packages、再加载browser_runtime的顺序；对attempt7不重试，后续只能使用fresh admission/preflight和全新attempt ID。
+
 ## 2026-10-20 followup265 attempt6：已定位并保全的GET拒绝
 
 候选 `2d87dba95b90c3601b558bbcda3f37975e514842` 的fresh admission与followup265/event416前置读回曾通过，但新的单次browser attempt6在唯一工作台GET遇到403，完成POST未发送。receipt `.local/s11/operations/followup265-completion-browser-attempt6.json` 为`OUTCOME_REQUIRES_READBACK`、`do_not_retry=true`；owned run `20261020T072753Z-f01909785bf8`已正常停止。独立RO回读 `.local/s11/verification/followup265-attempt6-independent-readback.json` SHA-256 `76182b60ff97cb951ba4effdc858952d7af94927b3f09d3b7ba42e6794f22f0a`确认followup265/event416没有业务变化；仅有本次预期认证session、设备记录和3条认证/门店审计，外发0，保护表与D/C保全通过。
