@@ -8,6 +8,16 @@
 
 执行前曾尝试使用`postgres`角色；尝试失败且无数据库变化，退出码未捕获，未推断错误原因。无业务表或行写入，无runtime/admission变更，无服务或外发动作。准入状态仍pending fresh admission：必须用新文档HEAD和当前launcher SHA重新准入并独立复核后，才能恢复运行；S11 `PARTIAL / RUNTIME_BLOCKED`、#35 OPEN。`ROOT_CAUSE_UNDETERMINED`保持，fresh admission尚未证明通过。
 
+## 2026-10-20 14:20 UTC：权限收紧后的fresh admission及只读HTTP探测
+
+分支仍为`codex/s11-followup-lab-r1`，候选`80766954eb5c6301c8cfdfa4749aec44561de1d4`。在目标`odoo20_dev`（OID 16388、cluster system_identifier `7694897083368259627`）按用户授权撤销PUBLIC在`public` schema的CREATE、保留USAGE；DB CONNECT未撤销。受限S11登录的有效CREATE=false。ACL变更及执行证据见本报告13:42节和`CURRENT_TASK.md`；不触及其他数据库/集群权限或业务数据。
+
+候选fresh admission PASS，receipt `.local/s11/receipts/s11-fresh-admission-8076695-20261020T140501Z-f3f0a82a887ecf36.json` SHA-256 `31ef8838efa95d287f679ec416f9dec9a6315b37cdfa8dfa39f14a9ed52406f9`。目标scratch/OID/cluster、受限角色/跨库权限、224保护表、D/C投影、模块集、外发关闭及受控run条件通过。随后使用S11 launcher `start --gdb`启动owned run `20261020T140705Z-a70d12d5c6d9`，只对loopback发起一次无认证`GET /ydental/queue/screen`。HTTP 200，响应1505 bytes、无重定向；client receipt SHA `ee29f19a062e44f313e368ce15d7ae85a898f0bdffab4085b2de24105cbbb040`。GDB child exit 0、无signal、无core；服务由launcher正常停止。server log保留一条Odoo test-framework import ERROR级诊断。
+
+第一份独立读回因工具将`inet_server_addr()`返回的CIDR文本传给纯IP解析器失败，保留FAIL收据，不代表服务/业务拒绝。修复后的v2 verifier由独立审阅，双侧均用`ip_interface(...).ip`核验，SHA-256 `2c46899c42614dba602c6667a9b8cc411227dc7bd4aa0ba1213bb406ddb6be87`，mode 0600。v2独立RR读回PASS：`.local/s11/verification/post-http-readback-8076695-20261020T140705Z-a70d12d5c6d9-v2.json` SHA `4784921a14fc98de952bfd5f0b3d0c3c4e4f14778f397aecf40676887840e3f7`。确认224保护计数、D/C、97模块、领域副作用计数、外发状态不变，显式ROLLBACK/IDLE/close，服务STOPPED、ACTIVE absent、18411拒绝连接。没有把缺少HTTP access-log行解释为零请求；客户端和服务端请求计数均UNKNOWN。完整私有日志及原失败receipt保存在忽略目录`.local/s11/`。
+
+该证据仅支持一个只读endpoint和该次服务启动/停止观察成功，不证明SIGSEGV已修复、其他HTTP/browser路径稳定或业务写路径安全。`ROOT_CAUSE_UNDETERMINED`保持，S11仍`PARTIAL / IN_PROGRESS`、#35 OPEN。下一项按正常流程推进合成patient682预约：先更新提交文档并对新HEAD做独立fresh admission，再只读核对actor2466的Store2权限、有效slot及容量；旧slot1693已过时，不复用。遵守area2/capability2当前waiting FIFO，不手动越序呼叫；预约和后续到店/报到各用唯一幂等键并做独立持久读回。不得触碰patient364/event417/task720、patient650或PO147–149。无push/merge/deploy/S12/S13。
+
 ## 2026-10-20 13:35 UTC：准入失败定位与跨库schema权限
 
 对候选`6a7869eb080d25451f511118d403c42e929a36eb`的第一次fresh admission在跨库catalog扫描后因`connection_failures`非空退出，exit 1；失败收据`.local/s11/operations/fresh-admission-6a7869e-failure-20261020T133028Z.json` SHA-256 `f20c801bd54c538625738fbd83da16622aba3ee8084cbf6a1ef8f5a49c315c4e`未保留具体失败DB/异常，故不推断原因。
