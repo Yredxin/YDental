@@ -13,6 +13,10 @@ Issue #35：**OPEN**
 
 候选e373上followup265/event416 fresh只读资格预检PASS `.local/s11/verification/followup265-preflight-e3732fd.json` SHA-256 `380544dc4331f68394055bbbbbf4e15ea8e8b3772f5be3705cbca451b7f4ba7b`：followup265仍to_notify且未关联预约/完成事件/执行，没有contact/job；event416仍是同Store2患者治疗事件，execution536已handover结束、文书507关联一致；actor2318仍为active internal user且有medical/followup写权；无已有链接或外发，预约来源校验正常，服务STOPPED/18411空闲。该只读预检在状态提交前，后续需对新HEAD重新admit并fresh preflight。确认后可使用新attempt ID做一次真实浏览器完成；attempt6仍`do_not_retry`且不重放。#35仍OPEN、无push/merge/deploy。
 
+## 2026-10-20 followup265 attempt10：工作台GET通过、表单定位停止
+
+attempt10使用新准入和资格预检，HTTP认证后Playwright成功GET Store2 access和followup workbench（均200）；由于`form.filter(has=...)`没有唯一匹配完成表单，在任何业务action POST前停止。receipt为`OUTCOME_REQUIRES_READBACK`/`do_not_retry=true`，attempt10和锁不重用。独立RR只读/rollback/close读回PASS `.local/s11/verification/followup265-attempt10-independent-readback.json` SHA-256 `62cb4bc31607c3aa2fce8fb06e17367aedc9a237bfb2266f81683e23485ad775`：followup265/event416、contacts/jobs/completion link、D/C和outbound/mail计数不变；保留登录/范围切换、两条设备记录及16条accepted source.view审计；服务STOPPED/18411空闲。接下来修正为唯一操作input locator并用其ancestor form精确定位，验证followup_id=265及event416选项，随后全新attempt ID/准入/预检。
+
 ## 2026-10-20 followup265 attempt9：access页面文本断言停止
 
 attempt9经HTTP认证成功（uid2318）并读取`/ydental/access`=200；脚本因用英文响应正文查找“Store 2”未匹配，在Playwright打开前安全停止，无followup workbench GET或completion POST。receipt `.local/s11/operations/followup265-completion-browser-attempt9.json` 为`OUTCOME_REQUIRES_READBACK`/`do_not_retry=true`，owned service `20261020T075100Z-be97da6ffcdc`已正常停止。独立RR只读/rollback/close读回PASS `.local/s11/verification/followup265-attempt9-independent-readback.json` SHA-256 `531bfc03b3672b3d55d264dcd81a6fb0ba0cf252c8d5bdfe9d495f0c40b68b8d`：保留session3925、device82及三条accepted登录/范围审计；保护计数仅access_session+1/access_audit+3。followup265/event416、contact/job/完成链接、D/C、外发计数不变，18411空闲。错误是普通本地化断言，不是业务拒绝；后续新attempt应删除该文本断言，交由浏览器检查Store2选择器。

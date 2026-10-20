@@ -1,11 +1,11 @@
 # YDental 当前任务状态
 
 
-## S11 最新续行快照（2026-10-20 07:52 UTC；覆盖下方历史快照）
+## S11 最新续行快照（2026-10-20 07:54 UTC；覆盖下方历史快照）
 
 - 保持原分支 `codex/s11-followup-lab-r1`；最新提交 `353e0fa3f99bfc6e7c02fe952a724d0dbc0ea8bd`，代码候选 `2afd5156c9b9b4e9a3a778df9b04d6f001f309f4`。候选353 fresh independent admission PASS：`.local/s11/verification/admission-353e0fa-readonly.json` SHA-256 `3598bfe0c9acb35e5eb7dec107252a1cafea825910209bf5b4484c7885527534`，`launcher.validate_pair()` PASS；scratch身份/受限角色、224保护计数、D/C、模块、外发关闭、服务STOPPED及18411空闲均通过，未读PO147–149。
 - 353e0fa下三组定向回归均exit 0：32项临床/队列回归 `.local/s11/operations/20261020T073544Z-clinical-queue-expiry-handover-regression/`（log SHA-256 `a808911cd9a3b1018a5c3ad9989034af64a0a97e2608913c5a39d7b043e7ed5e`）；含原生reschedule provenance的followup lifecycle 1项 `.local/s11/operations/20261020T073625Z-followup-completion-regression/`（`31e7550a5b39fbb109da4508f44d7b4faba6e53aeb292807e7fa949ec707a82d`）；医疗角色HTTP workbench 1项 `.local/s11/operations/20261020T073639Z-followup-http-medical-without-frontdesk/`（`155f81268665033a52526b75aa6cfb8891085d680f992765b52f1b2eec28619f`）。HTTP日志实际GET `/ydental/followups`=200。先前2afd515运行的测试调用参数错误（`id`应为`record_id`）有独立保全读回，证据 `.local/s11/verification/posttest-2afd515-readback.json` SHA-256 `545639e805599c5ae7ce5bd870ff1fc3333001e18e0ff6ddf47bdfd097c3a6ab`，不计PASS；修正由353e0fa提交。
-- attempt8与9均不得重放。attempt8登录成功后在`/web` URL等待超时，独立读回见上节；attempt9在同一HEAD的fresh admission/preflight下通过HTTP普通认证成功，`/ydental/access`=200，但不必要的英文文本断言未匹配页面内容，未启动Playwright或访问followup。独立读回PASS `.local/s11/verification/followup265-attempt9-independent-readback.json` SHA-256 `531bfc03b3672b3d55d264dcd81a6fb0ba0cf252c8d5bdfe9d495f0c40b68b8d`：登录session3925、device82及3条login/login.scope/store.switch审计；保护计数仅access_session+1、access_audit+3；无followup GET/POST。followup265/event416、contacts/jobs/completion link、D/C、外发不变，服务STOPPED/18411空闲。下个全新attempt使用Fresh HEAD准入/只读资格预检，移除本地化文本断言并直接由Playwright核Store2 selector及workbench，再唯一提交表单；保留此前登录审计。#35 OPEN，无push/merge/deploy。
+- attempt10经HTTP认证并由Playwright成功打开Store2 access和followup workbench（均200），但原完成form locator未唯一匹配，在任何完成POST前停止。receipt禁止重放。独立读回PASS `.local/s11/verification/followup265-attempt10-independent-readback.json` SHA-256 `62cb4bc31607c3aa2fce8fb06e17367aedc9a237bfb2266f81683e23485ad775`：followup265/event416、contacts/jobs/completion links、D/C、outbound/mail计数不变，服务STOPPED/18411空闲；新增2条device（83/84）及login/scope/store切换和16条accepted source.view审计，保护计数仅access_session+1、access_audit+19。attempt10不可重放。根因是Playwright `filter(has=...)` 表单筛选方式不稳；下一候选改为精确唯一的`input[name=operation][value=complete]`并沿DOM取最近form，同时核followup_id=265，仍需新HEAD admission和fresh preflight。#35 OPEN，无push/merge/deploy。
 
 ## S11 最新核验快照（2026-10-20 07:39 UTC；覆盖下方历史快照）
 
