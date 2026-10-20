@@ -1,3 +1,11 @@
+## 2026-10-20 17:16 UTC｜当前队列无备用叫号 lane 的只读核实
+
+Candidate `7217b672bdec449ce7159cfb4255071314f9ec61` fresh admission PASS，receipt SHA `f12b571804839e1bae0bc770b7c670c3e13ba07039fc22879996e3517ab77033`，candidate admission SHA `49cef8d5a44801e8aa24e2c78e2756dd328e6a2afdfc1e9fc53853393095aa1c`；独立静态审查通过，覆盖scratch/OID2144130、224保护表、D/C、200个跨库catalog权限检查、停止服务和空端口。GDB/HTTP服务没有启动。
+
+随后进行一项独立静态审查通过的Odoo ORM只读聚合检查（核验器SHA `897ebdc5bff15bd77b435130c70650c6dd336e4b94356cb6943e5269ceb8473c`；receipt `.local/s11/verification/queue-lane-feasibility-7217b67.json` SHA `5acac475fe63c64b3799a1c93f57c8f762c74e40682efa212125f75091f8c05d`）。Store2仅有1个active area与1个enabled/callable station，能力2；不存在已发布未来capacity。area2/capability2是唯一live lane，waiting=2，其余calling/serving/verify/reserved=0。事务RR READ ONLY、显式rollback/close；没有读取patient/task身份或业务写入。
+
+因此clinical flow不能换用另一个现有callable lane，也不能新建同lane业务来越过现有FIFO。不能处理匿名旧等待项，不能skip或改写既有队列。依赖临床source的T05/T08及病人闭环保持未完成；需要经授权的额外测试lane，或业务确认最早等待项身份/合成属性并授权按原FIFO正常接诊。#35仍OPEN，ROOT_CAUSE_UNDETERMINED。
+
 ## 2026-10-20 17:05 UTC｜合成采购/义齿权限设置及独立读回
 
 专用合成操作员以 user 2666、Store2 membership 4166、employee 2636在scratch上通过原生流程创建；唯一公司为1，Store2 `medical:write`且有原生`purchase.group_purchase_user`。purchase manager/system/Store2 manager均false。warehouse actor2043保留warehouse:write并按批准增加medical:write。整个权限变化保留原生 account.create、employment.join、authorization.change、login.scope及store.switch记录，写操作由GDB runner一次完成并正常退出；helper禁止重跑。

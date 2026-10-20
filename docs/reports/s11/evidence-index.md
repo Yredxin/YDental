@@ -1,3 +1,9 @@
+## Queue-lane feasibility for current synthetic clinical work (2026-10-20)
+
+At exact candidate `7217b672bdec449ce7159cfb4255071314f9ec61`, fresh admission PASS (receipt SHA `f12b571804839e1bae0bc770b7c670c3e13ba07039fc22879996e3517ab77033`; admission SHA `49cef8d5a44801e8aa24e2c78e2756dd328e6a2afdfc1e9fc53853393095aa1c`). Independent read-only feasibility script SHA `897ebdc5bff15bd77b435130c70650c6dd336e4b94356cb6943e5269ceb8473c`, static review PASS; actual private receipt SHA `5acac475fe63c64b3799a1c93f57c8f762c74e40682efa212125f75091f8c05d`. It queried only Store2 area/station/slot metadata and queue counts grouped by area/capability/state, never patient/task identity. Findings: 1 active area, 1 enabled/callable station (capability 2), no future published slot; sole live lane area2/capability2 has two waiting entries and zero calling/serving/verify/reserved. RR READ ONLY rollback/close; service STOPPED and 18411 free.
+
+This is a concrete FIFO/business precondition, not a runtime or SIGSEGV stop. Do not skip or alter the earlier unknown waiting entries. To resume dependent clinical/postcommit/T08 flows, require either another explicitly authorized callable test lane while preserving this queue, or an authorized determination that the oldest item is a safe synthetic record for normal FIFO service. Existing scope only approves a new synthetic patient; it does not identify or authorize the earlier waiting patients. #35 stays OPEN.
+
 ## Current permission and GDB MODEL evidence (2026-10-20)
 
 - Candidate `8dfaaee23a2c053f758ea87a12ae3f7036eb78e8`, branch `codex/s11-followup-lab-r1`. `ydental_access_test` focused MODEL test under GDB: 1 test, 0 failures/errors; log SHA-256 `a19690d667e831a9d682c099fb867ca47df2de1e2f9fd41148e48775419be833`; service stopped, no crash/core. Post-test admission PASS receipt SHA `1cc0cc825a0c5bb6246fa7bdadcabcaf58b254716b7ed4f741a2ff710b966d7e`.

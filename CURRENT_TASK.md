@@ -1,3 +1,11 @@
+# S11 最新续行（2026-10-20 17:18 UTC）：只读确认 Store2 无可绕过 FIFO 的备用叫号 lane
+
+- 角色权限回读已在前一节固定。随后对文档候选 `7217b672bdec449ce7159cfb4255071314f9ec61` 完成新的独立 fresh admission：静态审查 PASS（脚本SHA `8f32b025dfe75f14b033f8e8b618cbfcae4be80b2955301371b1a4cd521ceea3`）；实跑 PASS receipt `.local/s11/receipts/s11-fresh-admission-7217b67-20261020T171606Z-5074674aca42a792.json` SHA `f12b571804839e1bae0bc770b7c670c3e13ba07039fc22879996e3517ab77033`，candidate admission SHA `49cef8d5a44801e8aa24e2c78e2756dd328e6a2afdfc1e9fc53853393095aa1c`。目标scratch/OID2144130/cluster、受保护224表、D/C pin、200个跨库catalog检查及服务停止/18411空闲均通过；本次未启动HTTP服务。
+- 为判断新合成临床来源是否可合法进入另一FIFO lane，独立验收者静态PASS只读核验器 `.local/s11/verification/queue_lane_feasibility_7217b67.py` SHA `897ebdc5bff15bd77b435130c70650c6dd336e4b94356cb6943e5269ceb8473c`。实跑回执 `.local/s11/verification/queue-lane-feasibility-7217b67.json` SHA `5acac475fe63c64b3799a1c93f57c8f762c74e40682efa212125f75091f8c05d`：Store2仅1个active area、1个enabled/callable station，capability为2；没有已发布未来时段；其唯一live lane（area2/capability2）有2个waiting、calling/serving/verify/reserved均为0。只查询area/station/slot元信息及队列按store/area/capability/state的COUNT；**未查询任何patient/task身份、未写业务数据**。只读事务已rollback/close，服务仍STOPPED且18411空闲。
+- 这证实当前patient682后续及新合成病人的临床source均不能通过改用另一现有门诊叫号区域继续；新建同一lane的时段也不会让其越过现有2个等待项。不得跳过FIFO、撤销/修改未知等待项、重用旧预约或task720。也不得在未确认身份与授权范围时接诊更早的未知等待项。当前真实停止点因此具体是 **Store2 仅有的 area2/capability2 lane 中存在两个优先等待项，且没有第二个可叫号站点**。
+- S11仍 `PARTIAL / IN_PROGRESS`、#35 OPEN。已完成的42项MODEL、限定upgrade、恢复门槛、单一只读HTTP探测、GDB测试配置、focused access MODEL及权限设置/readback均保留，不重跑。待完成项仍有真实临床/治疗来源、postcommit dispatch/claim/controlled sink、T08合成义齿采购/收发/返工闭环、适用新F2并发、F1/F4其余业务矩阵及最终影响回归/独立总验收。旧F2 loser/PID继续`EVIDENCE_GAP`，`ROOT_CAUSE_UNDETERMINED`；未push/merge/deploy/S12/S13。
+- 继续执行这些依赖临床来源的部分，需要改变实际业务前置：在保留本lane原生FIFO的前提下提供第二个经授权的可叫号Store2测试lane，或由业务负责人确认最早等待项确属可安全完成的合成记录及对应身份/权限。当前批准仅涵盖新合成患者，并不允许假设或操作匿名旧等待项。
+
 # S11 最新续行（2026-10-20 17:15 UTC）：采购/义齿合成测试角色权限已创建并独立核实
 
 - 分支 `codex/s11-followup-lab-r1`；产品候选 `8dfaaee23a2c053f758ea87a12ae3f7036eb78e8`；本续行的状态/证据文档待提交。此候选包含已提交的账户创建 fail-closed 行为及 inactive employee 重复检测回归。没有 push、merge、deploy 或启动 S12/S13。
