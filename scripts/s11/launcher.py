@@ -298,6 +298,23 @@ def validate_pair() -> tuple[dict, dict, dict, str, str]:
     return runtime, admission, database, branch, commit
 
 
+def validate_connected_database(env: object) -> None:
+    runtime, admission, database, branch, candidate = validate_pair()
+    admitted_server_addr = parse_server_address(
+        admission.get("database_server_addr"), "database_server_addr")
+    env.cr.execute("""SELECT db.oid, current_user, inet_server_addr()::text, inet_server_port()
+        FROM pg_database db WHERE db.datname=current_database()""")
+    row = env.cr.fetchone()
+    connected_server_addr = parse_server_address(row[2], "connected server address") if row else None
+    if (branch != EXPECTED_BRANCH or candidate != admission["candidate_commit"] or
+            database["name"] != env.cr.dbname or admission["database_oid"] != EXPECTED_OID or
+            admission["cluster_ref"] != EXPECTED_CLUSTER or not row or row[0] != EXPECTED_OID or
+            row[1] != database["user"] or connected_server_addr != admitted_server_addr or
+            row[3] != database["port"] or
+            runtime["database"]["expected_cluster_ref"] != admission["cluster_ref"]):
+        raise Refusal("connected database does not match the authorized S11 scratch admission")
+
+
 def ensure_private_dir(path: Path) -> None:
     if path.exists():
         info = path.lstat()
