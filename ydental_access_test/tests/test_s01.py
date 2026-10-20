@@ -488,7 +488,7 @@ class TestS01(TransactionCase):
         grant_count = self.env['ydental.access.grant'].sudo().search_count([
             ('ydental_membership_id', '=', membership.id),
         ])
-        employee_count = self.env['hr.employee'].sudo().search_count([])
+        employee_count = self.env['hr.employee'].sudo().with_context(active_test=False).search_count([])
         admin_audit_count = self.env['ydental.access.audit'].sudo().search_count([
             ('ydental_user_id', '=', self.group_admin.id), ('ydental_store_id', '=', self.a.id),
         ])
@@ -506,7 +506,9 @@ class TestS01(TransactionCase):
         self.assertEqual(self.env['ydental.access.grant'].sudo().search_count([
             ('ydental_membership_id', '=', membership.id),
         ]), grant_count)
-        self.assertEqual(self.env['hr.employee'].sudo().search_count([]), employee_count)
+        self.assertEqual(
+            self.env['hr.employee'].sudo().with_context(active_test=False).search_count([]), employee_count,
+        )
         self.assertEqual(self.env['ydental.access.audit'].sudo().search_count([
             ('ydental_user_id', '=', self.group_admin.id), ('ydental_store_id', '=', self.a.id),
         ]), admin_audit_count)
