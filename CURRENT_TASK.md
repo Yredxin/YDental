@@ -1,10 +1,11 @@
 # YDental 当前任务状态
 
-## S11 续行快照（2026-10-20 05:14 UTC；覆盖下方较早候选字段）
+## S11 续行快照（2026-10-20 05:26 UTC；覆盖下方较早候选字段）
 
-- 当前活动 plan 仍为 `YD-S11-FOLLOWUP-LAB-V1 / 1.0`、`IN_PROGRESS / OPEN`；分支 `codex/s11-followup-lab-r1`。产品候选 `2df07373fa5257589115d39f4354dcd4c25c2997` 上的过期预约过滤改动及其32项兼容回归、1项followup回归均已完成；当前文档提交前HEAD `f423cc7363b399e0e1713f5674e33d62eb94e590` 只含文档增量，工作区原先干净。
+- 当前活动 plan 仍为 `YD-S11-FOLLOWUP-LAB-V1 / 1.0`、`IN_PROGRESS / OPEN`；分支 `codex/s11-followup-lab-r1`。产品候选 `2df07373fa5257589115d39f4354dcd4c25c2997` 上的过期预约过滤改动及其32项兼容回归、1项followup回归均已完成；当前文档HEAD `fdf8a0770d4b0f5cd7a4036d7592a6f6dcc43242` 只含文档增量；本快照的状态续记仍在工作区，提交前须检查。
 - actor9复用arrival359为patient364/task799执行原生report，task799 v4/position544/entry544 waiting；receipt与独立读回见下方本地报告记录。
 - 预约1297进入有效时段后，actor10完成task799/entry544接诊、execution534、clinical document505保存、一次合成治疗event414、price snapshot511/price455（$7）和fee412（$7），再handover至continuation940 pending并释放lease541。独立RR只读最终读回PASS，证据 `.local/s11/verification/task799-clinical-handover-independent-readback-attempt4.json` SHA-256 `7dd2c6515b06d32a2768558a2141db13b5e08ee614f7bc1654039f13077cd04b`。无材料/库存变化、invoice/payment、outbound；224张保护表相对checkpoint无计数下降，D/C pin匹配。该证据不等于continuation或整个T18完成。
+- 已用actor9原生访问服务建立合成followup操作员user2318，store2 membership3600/employee2287，session3589；仅store2 `followup:write` + `medical:write`，仅base internal组，无purchase/manager/system组。独立RR读回确认224项保护计数无下降、D/C pin匹配；证据 `.local/s11/verification/followup-operator-attempt2-independent-readback.json` SHA-256 `9112f562bd7dfd4254273c19d60b28689fbae044cba5849f0cfbfb96a68541d5`。账号创建原生流程产生1条mail.mail state=exception及6条内部mail.message；没有SMTP服务器、已发送记录、SMS或queue outbox增量。保留该失败投递记录，不重试。第一次join调用错误主体已回滚，独立确认login/membership/grant/session均不存在，证据 `.local/s11/verification/followup-operator-attempt1-rollback-readback.json` SHA-256 `6b1b2fc278d71e1b6f8f9c34a40c256f2143ff44258bf200a7383dba1b9bd8f7`。
 - T08 supplier_return尚有采购组权限缺口：新增 `purchase.group_purchase_user` 会按company规则读写store1受保护采购单147–149；未增加该角色，未扩跨店权限。若要接受company级读取/写入范围，需用户据具体事实授权；本轮继续推进其余独立可做任务。其他未完成项与历史失败见下方计划/报告。#35保持OPEN；不发Issue过程更新，无push/merge/deploy。
 
 

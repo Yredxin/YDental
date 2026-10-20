@@ -86,3 +86,9 @@ Issue #35：**OPEN**
 独立RR READ ONLY/ROLLBACK读回最终PASS；attempt4证据 `.local/s11/verification/task799-clinical-handover-independent-readback-attempt4.json` SHA-256 `7dd2c6515b06d32a2768558a2141db13b5e08ee614f7bc1654039f13077cd04b`。核实DB/OID/cluster/受限角色与候选匹配；task799/entry544/execution534 handover，lease541 inactive，position inactive；entitlement485已started、claim503 consumed、slot1297 reservation_free仍0；event414 confirmed关联doc505 v1和snapshot511/price455，fee412 $7；continuation940 pending且来源为execution534/parent task799。无消费、库存事件或stock move；224张保全表相对checkpoint无计数下降；D/C pin匹配；提交后mail/activity/message/SMS/notification/outbox均0；owned service stopped、18411空闲。早期两次核验查询错误及attempt3断言投影形状错误保留原FAIL证据，attempt4通过，不把验证器错误升级为业务失败。
 
 T08 supplier_return前置仍有实际权限缺口：采购组ACL对purchase.order与purchase.order.line为CRUD，规则仅限制company，store1受保护单147–149也在company1。新授予store2合成用户 `purchase.group_purchase_user` 会让其获得这些记录读写范围；未创建该角色、未扩大跨店权限。继续处理不依赖该权限的范围；是否接受该company级访问须由用户在具体事实基础上决定。
+
+## 2026-10-20 S11续行：store2 followup浏览器操作员
+
+store2现无followup writer。使用现有actor9 group-manager经原生访问服务创建合成user2318，company1范围、store2 membership3600/employee2287、session3589；仅授权store2 `followup:write` 和 `medical:write`，仅base internal group，无采购/manager/system组。账号回执 `.local/s11/operations/create_store2_followup_operator_attempt2.json`；独立RR READ ONLY读回 `.local/s11/verification/followup-operator-attempt2-independent-readback.json` SHA-256 `9112f562bd7dfd4254273c19d60b28689fbae044cba5849f0cfbfb96a68541d5`。224项保护计数无下降、D/C pin匹配，权限和session符合预期。
+
+账号创建同时产生1条 `mail.mail`（state=`exception`）及6条mail.message；mail记录没有已发送状态，外发SMTP server为0，未见短信、notification job或queue outbox增量。该失败投递记录按原样保留，不删除或重试邮件；独立读回按“无外发副作用”严格检查标记FAIL，报告按事实区分“邮件失败记录存在”和“无投递”。第一次账号尝试由新用户自身执行 `_join` 而被拒，事务回滚；独立RR读回确认无账号、membership、grant、session或通知计数残留，证据 `.local/s11/verification/followup-operator-attempt1-rollback-readback.json` SHA-256 `6b1b2fc278d71e1b6f8f9c34a40c256f2143ff44258bf200a7383dba1b9bd8f7`。该工具/脚本错误已修正为管理员actor9授权加入，不重放已提交操作。
