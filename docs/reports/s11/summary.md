@@ -1,5 +1,12 @@
 # [CODEX-STATUS] YD-S11-FOLLOWUP-LAB-V1 / 1.0
 
+## 2026-10-20 10:16 UTC：follow-up addon完整回归复核
+
+在当前文档HEAD `a1e35b7c8eb529ec7456836f2eef47ab0871a49c` fresh RO admission receipt `.local/s11/verification/admission-a1e35b7-independent-ro-recheck.json` SHA-256 `f766c72053bc1cb526dd542ad829b162e3750a12381cdbfdca9bcee725a9c7e7` 经独立审查PASS后，完整运行 `--stop-after-init -u ydental_followup_test --test-enable --test-tags /ydental_followup_test` 一次：26 post-tests，exit 0，0 failed/0 error。operation/result/log在`.local/s11/operations/20261020T101527Z-followup-full-addon-7576985/`，完整日志SHA-256 `c627cb075b35285296a45ce9b26462e1353a91c067d0eb0641b8df65a52bfa8b`。这是Odoo addon suite，包含HttpCase测试客户端覆盖；不等于真实浏览器/provider/患者送达。
+
+独立RR READ ONLY/ROLLBACK/close读回最终PASS `.local/s11/verification/followup-full-addon-posttest-readback-7576985-attempt2.json` SHA-256 `0c0cd1e70a4c7fe72a0a7d96e1d16f4a4abc3a2b5d995852e8ee4d1c81e4ad59`，独立review PASS：224保护计数与准入基线一致；D/C projection SHA `33f8730aa39cc869e749827e66f10505a0fe9e5aedd5677c9cb1b17718202ae8`、97模块集匹配；测试窗口activity/contact/preference/job/mail/message/notification/outbox/SMS零持久新增；SMTP/provider关闭，RR显式rollback/close，service STOPPED、18411空闲。首次测后读回使用了上轮admission引用，候选校验失败，其余只读项已通过；receipt `.local/s11/verification/followup-full-addon-posttest-readback-7576985.json` SHA `9bceb7e6bd785ca471e01e6d49a31967f42db436010430d139c6db6f5ec0baea`保留。修正准入引用后只重做读回，没有重跑测试。
+
+## 2026-10-20 10:13 UTC：enqueue至postcommit callback接线测试
 ## 2026-10-20 10:13 UTC：enqueue至postcommit callback接线测试
 
 固定候选 `75769854a75b0944b66f66f3b1dfba56450f42b5`新增MODEL测试 `TestFollowupNotification.test_enqueue_registers_deferred_postcommit_dispatch`。测试在隔离`TransactionCase`内通过`_enqueue`创建唯一pending job，捕获当前cursor注册的postcommit callback，确认dispatcher在callback执行前未调用；随后只调用捕获闭包，并mock `_dispatch_after_commit`验证数据库名及job ID参数。独立代码审阅PASS。

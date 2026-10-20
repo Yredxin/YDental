@@ -1,5 +1,12 @@
 # YDental 当前任务状态
 
+## S11 最新续行（2026-10-20 10:16 UTC）
+
+- 本次全套回归固定候选/HEAD `a1e35b7c8eb529ec7456836f2eef47ab0871a49c`，原分支，测试前工作树干净。基于该精确HEAD fresh RO admission `.local/s11/verification/admission-a1e35b7-independent-ro-recheck.json` SHA-256 `f766c72053bc1cb526dd542ad829b162e3750a12381cdbfdca9bcee725a9c7e7`，独立review PASS。
+- 新增enqueue/postcommit callback wiring测试后，完整 `ydental_followup_test` addon套件运行一次：26 post-tests、exit 0、0 failed、0 errors。operation/result/log `.local/s11/operations/20261020T101527Z-followup-full-addon-7576985/`；完整日志SHA-256 `c627cb075b35285296a45ce9b26462e1353a91c067d0eb0641b8df65a52bfa8b`。含Odoo HttpCase test-client覆盖，不是实际浏览器或真实外部回调。
+- 独立测后RR读回最终PASS `.local/s11/verification/followup-full-addon-posttest-readback-7576985-attempt2.json` SHA-256 `0c0cd1e70a4c7fe72a0a7d96e1d16f4a4abc3a2b5d995852e8ee4d1c81e4ad59`，独立review PASS：224保护计数0差异、D/C pin和97模块集一致，外发关闭、测试窗口activity/mail/notification/contact/preference/job/outbox/SMS无持久增量、RR显式rollback/close、service STOPPED/18411空闲。attempt1因只读脚本还引用旧candidate admission而候选断言FAIL；原receipt `.local/s11/verification/followup-full-addon-posttest-readback-7576985.json` SHA `9bceb7e6bd785ca471e01e6d49a31967f42db436010430d139c6db6f5ec0baea`保留；修正receipt引用后仅重做只读读回，未重跑测试。
+- 新的callback单测仍只验证MODEL层callback wiring（dispatch mock），不证明source transaction提交→postcommit生命周期→独立claim→sink的自动链，也不证明通知送达。S11继续PARTIAL/IN_PROGRESS、#35 OPEN；no push/merge/deploy。
+
 ## S11 最新续行（2026-10-20 10:13 UTC）
 
 - 固定产品/测试候选 `75769854a75b0944b66f66f3b1dfba56450f42b5`（`[S11] test deferred follow-up dispatch wiring`），原分支不变。新增MODEL测试 `TestFollowupNotification.test_enqueue_registers_deferred_postcommit_dispatch`：确认`_enqueue`注册当前cursor postcommit闭包，闭包被单独调用且`_dispatch_after_commit`为mock。独立代码review PASS。它只证实callback wiring，不证实事务真实提交/回滚生命周期、独立claim、transport、HTTP/RPC或送达。
