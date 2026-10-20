@@ -70,7 +70,7 @@ class TestFollowupLifecycle(TransactionCase):
         rescheduled_slot = make_slot(
             self, intake, self.stations[0][0], rescheduled_start, rescheduled_end)
         intake._operate('reschedule', {
-            'id': held_reservation['id'], 'version': held_reservation['version'],
+            'record_id': held_reservation['id'], 'version': held_reservation['version'],
             'mapping_id': self.mappings[0][0].id,
             'start': fields.Datetime.to_string(rescheduled_start),
             'end': fields.Datetime.to_string(rescheduled_end),

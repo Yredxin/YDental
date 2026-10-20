@@ -5,6 +5,12 @@ Issue #35：**OPEN**
 同步：本次继续实施的代码和状态尚未推送；依用户要求只在 plan 结束时发布最终结果与说明。
 计划范围：S11-A 复诊和通知可靠性 + S11-B 内部外加工，含补充输入 v1.1。真实外部通知、生产、合并、部署、S12/S13 均未启用。
 
+## 2026-10-20 候选2afd515验证进度
+
+当前仍在原分支 `codex/s11-followup-lab-r1`。候选 `2afd5156c9b9b4e9a3a778df9b04d6f001f309f4` fresh admission PASS，证据 `.local/s11/verification/admission-2afd515-readonly.json` SHA-256 `8348e9809d7edc4a7f795b6c8ef202cfda98d016359ddc94f80cd15b4db3cfcc`；包含scratch身份/受限角色、224保护计数、D/C、模块集、外发关闭及服务STOPPED/18411空闲核验，未读取PO147–149。
+
+32项临床/队列回归通过，私有运行目录 `.local/s11/operations/20261020T073326Z-clinical-queue-expiry-handover-regression/`，日志SHA-256 `90760db94c761cb159956acf1e8b2e0d9b1ab6a7b1cc5381b5528b0b5523fd41`。Followup生命周期测试因新加测试调用把reschedule的`record_id`误写成`id`而报1 error、0 failures，日志SHA-256 `e2d20e634ef9f05f017e02a6901ce52f8c0247161accb35919baaaaccb96c693`；已将测试参数修正为原生接口要求的`record_id`，尚待独立失败后读回、提交、重新准入及复测。HTTP测试组因前组失败未启动。该结果不计为候选通过；未启动owned HTTP服务或执行业务浏览器动作，attempt6不重放。#35仍OPEN、无push/merge/deploy。
+
 ## 2026-10-20 followup265 attempt6：已定位并保全的GET拒绝
 
 候选 `2d87dba95b90c3601b558bbcda3f37975e514842` 的fresh admission与followup265/event416前置读回曾通过，但新的单次browser attempt6在唯一工作台GET遇到403，完成POST未发送。receipt `.local/s11/operations/followup265-completion-browser-attempt6.json` 为`OUTCOME_REQUIRES_READBACK`、`do_not_retry=true`；owned run `20261020T072753Z-f01909785bf8`已正常停止。独立RO回读 `.local/s11/verification/followup265-attempt6-independent-readback.json` SHA-256 `76182b60ff97cb951ba4effdc858952d7af94927b3f09d3b7ba42e6794f22f0a`确认followup265/event416没有业务变化；仅有本次预期认证session、设备记录和3条认证/门店审计，外发0，保护表与D/C保全通过。

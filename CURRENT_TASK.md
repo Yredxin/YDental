@@ -1,6 +1,12 @@
 # YDental 当前任务状态
 
 
+## S11 最新续行快照（2026-10-20 07:35 UTC；覆盖下方历史快照）
+
+- 保持原分支 `codex/s11-followup-lab-r1`。候选 `2afd5156c9b9b4e9a3a778df9b04d6f001f309f4` 的fresh independent admission PASS：`.local/s11/verification/admission-2afd515-readonly.json` SHA-256 `8348e9809d7edc4a7f795b6c8ef202cfda98d016359ddc94f80cd15b4db3cfcc`，`launcher.validate_pair()` PASS；scratch身份/受限角色、224保护计数、D/C、模块、外发关闭、服务STOPPED及18411空闲均通过，未读PO147–149。
+- 本轮定向回归第一组32项通过（`.local/s11/operations/20261020T073326Z-clinical-queue-expiry-handover-regression/`，log SHA-256 `90760db94c761cb159956acf1e8b2e0d9b1ab6a7b1cc5381b5528b0b5523fd41`）。第二组followup lifecycle 1项因新增测试payload使用`id`而`reschedule` handler要求`record_id`，出现1 error、0 failures；日志 `.local/s11/operations/20261020T073407Z-followup-completion-regression/odoo.log` SHA-256 `e2d20e634ef9f05f017e02a6901ce52f8c0247161accb35919baaaaccb96c693`。第三组HTTP测试未运行。本测试错误已定位为普通测试调用参数问题，测试源已修正为`record_id`，尚未提交/复测。独立失败后数据库保全读回进行中；不得把该运行计作PASS。
+- 本轮未启动owned HTTP服务，没有业务浏览器动作；attempt6保持`do_not_retry`且不重放。下一步待独立失败后读回完成，提交测试调用修正及本快照，再对新HEAD做fresh admission后重跑三组定向回归。plan仍PARTIAL/OPEN，#35 OPEN；无push/merge/deploy。
+
 ## S11 最新核验快照（2026-10-20 07:39 UTC；覆盖下方历史快照）
 
 - 原分支 `codex/s11-followup-lab-r1`，已提交基线HEAD `2d87dba95b90c3601b558bbcda3f37975e514842`。工作树当前另有intake来源校验和followup生命周期用例2个修改，尚未提交/测试；候选2d87代码逻辑仍是fc0。owned服务已正常停止，18411空闲。
