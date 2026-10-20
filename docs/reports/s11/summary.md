@@ -5,6 +5,16 @@ Issue #35：**OPEN**
 同步：本次继续实施的代码和状态尚未推送；依用户要求只在 plan 结束时发布最终结果与说明。
 计划范围：S11-A 复诊和通知可靠性 + S11-B 内部外加工，含补充输入 v1.1。真实外部通知、生产、合并、部署、S12/S13 均未启用。
 
+## 2026-10-20 续行：followup 工作台容量权限修复（实现待测）
+
+当前分支仍为 `codex/s11-followup-lab-r1`，HEAD `f2e320b78cf11e912f6ea129f6ddb3754dc02090`；下述实现/测试增量尚未提交，工作树有7个tracked文件改动。候选未冻结，也未运行该增量的数据库测试。`git diff --check` 与Python 3.12 `compileall`通过；独立代码审查未发现确定安全、数据流或ORM缺陷。
+
+attempt5实际登录成功，但 `/ydental/followups` 返回403：工作台模板读取当前预约所关联的受保护capacity claim/slot，触发原生ACL拒绝。独立只读/显式回滚读回证据 `.local/s11/verification/followup265-attempt5-independent-readback-v2.json`（SHA-256 `8def40fc69a105579ee32e0ee7c3a2ee347f08a8e50471ae90d4748b24f9421c`）确认没有提交followup完成动作，followup265仍`to_notify`、event416未变，也没有contact、notification job/outbox、邮件或SMS副作用。登录的用户日志、设备日志、session及三条认证审计真实存在并予以保留。原attempt receipt与锁不重用。
+
+本次改动在intake服务中以当前授权关系和同店reservation entitlement为边界，只沿精确claim/slot引用做受限读取并校验来源、任务、门店与状态，controller/template只传递患者ID、entitlement ID和slot start DTO；未扩大访问组。另将患者current relation lookup批处理，避免workbench每个patient重复查canonical chain。新增模型层held及started/consumed预约选项断言、合并别名A/B→C解析断言，以及无frontdesk能力但有医疗只读/复诊写能力的HTTP工作台测试。尚未证明带真实预约选项的HTTP渲染；需后续实测和独立状态读回。
+
+task942的当前T08只读评估显示固定mapping2/catalog2属于care、event417/doc508没有义齿临床语义，且entry431/task759先排队；因此不把现有来源改作义齿采购，不访问PO147–149。S11仍PARTIAL/OPEN，通知HTTP/策略、T08适用外加工分支、F4双店端到端、T18后续、F1完成动作、影响回归及最终独立验收仍待推进。
+
 当前续行快照（2026-10-20 06:50 UTC）：保持原分支 `codex/s11-followup-lab-r1`，HEAD `e65c078a4807b3ef6842a7df8d991c9aa861cd23`，产品addon候选 `2df07373fa5257589115d39f4354dcd4c25c2997`；分支ahead 110，未push/merge/deploy。e65为状态/报告文档提交。最新HEAD准入 `.local/s11/receipts/s11-fresh-admission-e65c078-20261020T064816Z.json` SHA `9c86da547cfd573ca5b744aabf1add91d17c1d6a3403b1ac27ec585df016e420` 经独立review PASS；receipt SHA亦绑定在当前 admission。
 
 用户明确授权给专用S11 Store2合成采购测试用户加入`purchase.group_purchase_user`，接受原生ACL可见PO147–149；仍禁止查询、读取、使用或修改这些PO。采购组尚未授予。T08来源event417/doc508/fee415的当前只读适用性证据 `.local/s11/verification/t08-source-417-preflight-5e961f7.json` SHA `2f7898802139626724125eed4c1cd0a9d806a31a124b8bc35768a66449d36a79` 确认关系正确、无既有lab order，但原记录只有generic synthetic continuation；无义齿产品/订单行/材料语义，不能作为义齿外加工临床来源，禁止据此直接建单。

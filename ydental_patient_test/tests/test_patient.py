@@ -347,6 +347,10 @@ class TestPatient(TransactionCase):
             self.group._operate('confirm', {'request_id': request['id'], 'version': 1, 'reason': 'Verified chain'}, secrets.token_hex(8))
         self.assertEqual(self.service._patient(a['id']).id, c['id'])
         self.assertEqual(self.service._business_patient(a['id']).id, c['id'])
+        current_relations = self.service._current_relations([a['id'], b['id']], self.stores[0])
+        self.assertEqual(set(current_relations), {a['id'], b['id']})
+        self.assertEqual(current_relations[a['id']].ydental_patient_id.id, c['id'])
+        self.assertEqual(current_relations[b['id']].ydental_patient_id.id, c['id'])
         for number in (a['number'], b['number'], c['number']):
             self.assertEqual(self.root['ydental.patient.number'].search([('name', '=', number)]).ydental_patient_id.id, c['id'])
         with self.assertRaises(UserError):

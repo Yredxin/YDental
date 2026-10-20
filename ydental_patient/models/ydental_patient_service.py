@@ -50,14 +50,58 @@ class YDentalPatientService(models.AbstractModel):
         return True
 
     def _current_relation(self, patient, store, required=True):
-        patient = self._patient(patient.id)
-        relation = self.env['ydental.patient.relation'].sudo().search([
-            ('ydental_patient_id', '=', patient.id), ('ydental_store_id', '=', store.id),
+        return self._current_relations([patient.id], store, required=required).get(patient.id,
+            self.env['ydental.patient.relation'])
+
+    def _current_relations(self, patient_ids, store, required=True):
+        """Resolve current store relations for many patients with bounded reads."""
+        if not isinstance(patient_ids, (list, tuple)):
+            raise ValidationError(self.env._('A patient list is required.'))
+        ids = list(dict.fromkeys(self._id(patient_id) for patient_id in patient_ids))
+        if not ids:
+            return {}
+
+        patients = self.env['ydental.patient'].sudo().with_context(active_test=False).browse(ids).exists()
+        if set(patients.ids) != set(ids):
+            raise AccessError(self.env._('access_denied: Select an existing patient.'))
+
+        # Load merge chains level by level so field reads are batched even when
+        # several requested identities have been merged through multiple steps.
+        known = {patient.id: patient for patient in patients}
+        frontier = patients
+        while frontier:
+            targets = frontier.mapped('ydental_merged_into_id')
+            unseen = targets.filtered(lambda target: target.id not in known)
+            if not unseen:
+                break
+            known.update({patient.id: patient for patient in unseen})
+            frontier = unseen
+
+        canonical_by_id = {}
+        for patient in patients:
+            canonical = patient
+            seen = set()
+            while canonical.ydental_merged_into_id:
+                if canonical.id in seen:
+                    raise UserError(self.env._('Patient identity mapping requires group review.'))
+                seen.add(canonical.id)
+                canonical = known[canonical.ydental_merged_into_id.id]
+            canonical_by_id[patient.id] = canonical
+
+        canonical_ids = sorted({patient.id for patient in canonical_by_id.values()})
+        relations = self.env['ydental.patient.relation'].sudo().search([
+            ('ydental_patient_id', 'in', canonical_ids), ('ydental_store_id', '=', store.id),
             ('ydental_superseded_by_id', '=', False),
-        ], limit=1)
-        if required and not relation:
-            raise AccessError(self.env._('access_denied: Establish the current store patient relationship first.'))
-        return relation
+        ])
+        relations_by_patient = {relation.ydental_patient_id.id: relation for relation in relations}
+        result = {}
+        for patient_id, canonical in canonical_by_id.items():
+            relation = relations_by_patient.get(canonical.id)
+            if required and not relation:
+                raise AccessError(self.env._('access_denied: Establish the current store patient relationship first.'))
+            if relation:
+                result[patient_id] = relation
+        return result
 
     def _lock(self):
         # Advisory locking alone does not refresh a repeatable-read snapshot.

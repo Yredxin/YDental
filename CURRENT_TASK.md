@@ -1,6 +1,14 @@
 # YDental 当前任务状态
 
 
+## S11 最新核验快照（2026-10-20 07:20 UTC；覆盖下方历史快照）
+
+- 原分支 `codex/s11-followup-lab-r1`、HEAD `f2e320b78cf11e912f6ea129f6ddb3754dc02090`；addon候选仍为 `2df07373fa5257589115d39f4354dcd4c25c2997`。当前工作树有7个已追踪文件的实现/测试增量，尚未提交：followup工作台安全投影、患者current relation批量解析及相应回归。`git diff --check` 与 Python 3.12 compileall通过；独立代码审查PASS。未运行本次diff对应测试，未提交、push/merge/deploy。
+- attempt5已确实到达followup页面请求：actor2318登录POST、`/ydental/access` GET为200；`/ydental/followups`因读取`ydental.supply.claim`权限拒绝而403。根因是页面沿appointment→claim→slot取显示字段；服务已正常停止、18411空闲。没有发completion POST；独立RR只读/rollback读回PASS `.local/s11/verification/followup265-attempt5-independent-readback-v2.json` SHA-256 `8def40fc69a105579ee32e0ee7c3a2ee347f08a8e50471ae90d4748b24f9421c`：followup265仍`to_notify`、event416不变，无contact/job/activity/mail/SMS/outbox增量；本次登录只留下原生用户日志、设备日志/session3595及3条认证/门店审计，完整保留。attempt5 receipt为`OUTCOME_REQUIRES_READBACK`/`do_not_retry=true`；不重放该attempt。错误页诊断与修复不等同浏览器业务验收。
+- 新增修复让followup模板只消费窄预约DTO；容量claim/slot只按已授权同店entitlement的精确引用读取并验证task/source/store/state，不扩ACL。患者current relation增加批量canonical merge-chain解析以消除每行N+1。已加held、started/consumed、A/B→C别名及无frontdesk医疗角色HTTP测试。attempt4/5及其不可重放锁、receipt、原始运行日志均保留。当前准入/运行文件绑定旧HEAD f2，不能用于之后候选；提交后需新鲜准入和独立复核再测试。
+- task942的现有只读T08适配性结论仍有效（`.local/s11/verification/task942-t08-source-preflight-f2e320b.json`）：mapping2/catalog2是care而非义齿；event417/doc508没有义齿临床语义；entry431/task759先于task942排队。未查询PO147–149。不得据此合成义齿来源或采购。其余T03/T04 HTTP、T05/T12策略端到端、T08适用supplier_return、F4双店E2E、T18后续、F1真实后续完成、影响回归和最终独立验收仍未完成；#35 OPEN。
+
+
 ## S11 最新核验快照（2026-10-20 06:50 UTC；覆盖下方历史快照）
 
 - 保持原分支 `codex/s11-followup-lab-r1`，当前HEAD `e65c078a4807b3ef6842a7df8d991c9aa861cd23`；当前产品addon候选仍为 `2df07373fa5257589115d39f4354dcd4c25c2997`。上一轮授权与HTTP诊断已记录，下文6:45准入绑定被本次纯文档提交推进；最新HEAD准入 `.local/s11/receipts/s11-fresh-admission-e65c078-20261020T064816Z.json` SHA `9c86da547cfd573ca5b744aabf1add91d17c1d6a3403b1ac27ec585df016e420` 已由独立review PASS，admission包含该receipt SHA。工作树当前干净；分支领先origin 110；无push/merge/deploy。

@@ -28,6 +28,7 @@ class TestFollowupHTTP(HttpCase):
         for role, groups in (
             ('manager', 'ydental_base.ydental_base_group_user,ydental_access.ydental_group_manager'),
             ('desk', 'ydental_base.ydental_base_group_user'),
+            ('clinician', 'ydental_base.ydental_base_group_user'),
             ('none', 'ydental_base.ydental_base_group_user'),
         ):
             cls.users[role] = new_test_user(
@@ -52,6 +53,9 @@ class TestFollowupHTTP(HttpCase):
             })
             admin._grant(cls.users['desk'].id, store.id, {
                 'patient': 'write', 'frontdesk': 'write', 'followup': 'write', 'medical': 'read',
+            })
+            admin._grant(cls.users['clinician'].id, store.id, {
+                'followup': 'write', 'medical': 'read',
             })
 
         # The route action uses a current store patient relation. Establish this
@@ -115,6 +119,14 @@ class TestFollowupHTTP(HttpCase):
         self.assertEqual(response.status_code, 200, response.text)
         page = self.url_open('/ydental/followups')
         self.assertEqual(page.status_code, 200, page.text)
+        self.assertIn('Cache-Control', page.headers)
+        self.assertIn('no-store', page.headers['Cache-Control'])
+
+    def test_http_followup_medical_actor_without_frontdesk_can_open_workbench(self):
+        self.select('clinician')
+        page = self.url_open('/ydental/followups')
+        self.assertEqual(page.status_code, 200, page.text)
+        self.assertIn('Follow-up workbench', page.text)
         self.assertIn('Cache-Control', page.headers)
         self.assertIn('no-store', page.headers['Cache-Control'])
 

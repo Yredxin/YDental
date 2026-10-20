@@ -52,6 +52,73 @@ class YDentalIntakeService(models.AbstractModel):
                     return access._check(category, 'read').ydental_store_id
         raise AccessError(self.env._('access_denied: Patient intake read permission is required.'))
 
+    def _followup_reservation_options(self, patient_ids):
+        """Return only same-store reservation display facts for authorized patients.
+
+        Intake entitlements are readable to the current store's medical staff.
+        Their capacity claim and slot remain capacity-protected, so the only
+        elevated reads below are exact IDs already referenced by those scoped
+        entitlements. No capacity record leaves this method.
+        """
+        store = self._business_read_access()
+        if not isinstance(patient_ids, (list, tuple)) or any(
+                type(patient_id) is not int or patient_id <= 0 for patient_id in patient_ids):
+            raise ValidationError(self.env._('A valid patient list is required.'))
+
+        patient_service = self.env['ydental.patient.service']
+        current_relations = patient_service._current_relations(patient_ids, store)
+        current_patient_ids = {relation.ydental_patient_id.id for relation in current_relations.values()}
+        if not current_patient_ids:
+            return []
+
+        entitlements = self.env['ydental.intake.entitlement'].search_fetch([
+            ('ydental_store_id', '=', store.id),
+            ('ydental_patient_id', 'in', sorted(current_patient_ids)),
+            ('ydental_channel', '=', 'reservation'),
+            ('state', 'in', ('held', 'started')),
+        ], ['ydental_patient_id', 'ydental_claim_id', 'state'],
+            limit=500, order='id desc')
+        # _qualify() stores the provenance task on source_task_id only for
+        # referrals. For every reservation, its newly created task points back
+        # through ydental_entitlement_id and supplies the claim source_key.
+        tasks = self.env['ydental.intake.task'].search_fetch([
+            ('ydental_store_id', '=', store.id),
+            ('ydental_patient_id', 'in', sorted(current_patient_ids)),
+            ('ydental_entitlement_id', 'in', entitlements.ids),
+        ], ['ydental_patient_id', 'ydental_entitlement_id'], limit=500)
+        tasks_by_source_key = {str(task.id): task for task in tasks}
+        claim_ids = entitlements.mapped('ydental_claim_id').ids
+        # These are exact references from the already authorized entitlement
+        # set, never a company/store-wide capacity search.
+        claims = self.env['ydental.supply.claim'].sudo().browse(claim_ids).exists()
+        claims_by_id = {claim.id: claim for claim in claims}
+        slot_ids = claims.mapped('ydental_slot_id').ids
+        slots = self.env['ydental.supply.slot'].sudo().browse(slot_ids).exists()
+        slots_by_id = {slot.id: slot for slot in slots}
+
+        options = []
+        for entitlement in entitlements:
+            claim = claims_by_id.get(entitlement.ydental_claim_id.id)
+            if not claim or claim.ydental_store_id != store or claim.ydental_pool != 'reservation':
+                continue
+            task = tasks_by_source_key.get(claim.ydental_source_key)
+            if claim.ydental_source != 'ydental.intake.entitlement' or not task or \
+                    task.ydental_store_id != store or task.ydental_patient_id != entitlement.ydental_patient_id or \
+                    task.ydental_entitlement_id != entitlement:
+                raise AccessError(self.env._('access_denied: Reservation source integrity requires review.'))
+            expected_claim_state = 'held' if entitlement.state == 'held' else 'consumed'
+            if claim.state != expected_claim_state:
+                continue
+            slot = slots_by_id.get(claim.ydental_slot_id.id)
+            if not slot or slot.ydental_store_id != store:
+                continue
+            options.append({
+                'patient_id': entitlement.ydental_patient_id.id,
+                'id': entitlement.id,
+                'slot_start': slot.ydental_start,
+            })
+        return options
+
     def _catalog_access(self, write=False):
         access = self.env['ydental.access.service']
         session = access._scope(write=write)

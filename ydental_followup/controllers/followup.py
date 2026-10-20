@@ -32,10 +32,8 @@ class YDentalFollowup(http.Controller):
         ], ['ydental_execution_id', 'ydental_business_date', 'ydental_catalog_id', 'state'],
             limit=500, order='ydental_business_date desc, id desc')
         event_patients = events.mapped('ydental_execution_id.ydental_patient_id')
-        appointments = service.env['ydental.intake.entitlement'].search_fetch([
-            ('ydental_store_id', '=', session.ydental_store_id.id), ('ydental_channel', '=', 'reservation'),
-            ('state', 'in', ('held', 'started')),
-        ], ['ydental_patient_id', 'ydental_claim_id', 'state'], limit=500, order='id desc')
+        appointments = service.env['ydental.intake.service']._followup_reservation_options(
+            rows.mapped('ydental_patient_id').ids)
         arrivals = service.env['ydental.intake.arrival'].search_fetch([
             ('ydental_store_id', '=', session.ydental_store_id.id),
         ], ['ydental_patient_id', 'ydental_date', 'ydental_occurred_at'], limit=500,
@@ -80,7 +78,7 @@ class YDentalFollowup(http.Controller):
                 ], limit=100, order='ydental_business_date desc, id desc')
                 events_by_patient.setdefault(row.ydental_patient_id.id, []).extend(referred_events)
         for appointment in appointments:
-            appointments_by_patient.setdefault(appointment.ydental_patient_id.id, []).append(appointment)
+            appointments_by_patient.setdefault(appointment['patient_id'], []).append(appointment)
         for arrival in arrivals:
             arrivals_by_patient.setdefault(arrival.ydental_patient_id.id, []).append(arrival)
         for contact in contacts:

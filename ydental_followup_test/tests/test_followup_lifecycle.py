@@ -11,7 +11,9 @@ from odoo.addons.ydental_treatment_test.tests.common import (
     key,
     make_slot,
     price,
+    qualify,
 )
+from odoo.addons.ydental_treatment_test.tests.common import patient as create_patient
 from odoo.addons.ydental_treatment_test.tests.treatment_common import (
     execute_args,
     opened_actual,
@@ -45,12 +47,30 @@ class TestFollowupLifecycle(TransactionCase):
             cls.admin._grant(cls.users['manager'].id, store.id, {'followup': 'write'})
 
     def test_real_treatment_followup_contact_overdue_appointment_and_close(self):
+        held_patient_id = create_patient(self)
+        held_reservation = qualify(self, patient_id=held_patient_id)
+        intake = bind(self, self.users['manager'])
+        held_options = intake._followup_reservation_options([held_patient_id])
+        held_option = next((option for option in held_options
+                            if option['id'] == held_reservation['id']), None)
+        self.assertTrue(held_option, 'a native held reservation must resolve through its linked intake task')
+        self.assertEqual(held_option['slot_start'], self.slots[0][0].ydental_start)
+
         # Build the source through the same intake, queue, clinical and treatment
         # actions used by the synthetic treatment suite. No event or appointment
         # state is directly manufactured in this test.
         price(self, amount=137.25)
         receive(self)
         treatment, clinical, _queue, lease, execution, document, args = opened_actual(self)
+        started_task = execution.ydental_task_id
+        started_entitlement = started_task.ydental_entitlement_id
+        self.assertEqual(started_entitlement.state, 'started')
+        self.assertEqual(started_entitlement.ydental_claim_id.state, 'consumed')
+        started_options = intake._followup_reservation_options([started_task.ydental_patient_id.id])
+        started_option = next((option for option in started_options
+                               if option['id'] == started_entitlement.id), None)
+        self.assertTrue(started_option, 'a started reservation must retain its workbench option')
+        self.assertEqual(started_option['slot_start'], started_entitlement.ydental_claim_id.ydental_slot_id.ydental_start)
         treatment_result = treatment._operate(
             'execute', execute_args(self, args), key())
         event = self.root['ydental.treatment.event'].browse(treatment_result['event_id'])
@@ -71,6 +91,10 @@ class TestFollowupLifecycle(TransactionCase):
         service = bind(self, self.users['manager']).env['ydental.followup.service']
         patient_service = bind(self, self.users['manager']).env['ydental.patient.service']
         patient = execution.ydental_patient_id
+        current_relations = patient_service._current_relations(
+            [held_patient_id, patient.id], self.stores[0])
+        self.assertEqual(set(current_relations), {held_patient_id, patient.id})
+        self.assertEqual(current_relations[patient.id].ydental_patient_id, patient)
         patient_service._operate('edit', {
             'patient_id': patient.id,
             'version': patient.ydental_version,

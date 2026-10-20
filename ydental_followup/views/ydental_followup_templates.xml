@@ -94,7 +94,7 @@
                                                     <select class="form-select" name="appointment_id" required="required">
                                                         <option value="">Choose an active reservation</option>
                                                         <t t-foreach="appointments_by_patient.get(row.ydental_patient_id.id, [])" t-as="appointment">
-                                                            <option t-att-value="appointment.id"><t t-out="appointment.ydental_claim_id.ydental_slot_id.ydental_start"/> — reservation <t t-out="appointment.id"/></option>
+                                                            <option t-att-value="appointment['id']"><t t-out="appointment['slot_start']"/> — reservation <t t-out="appointment['id']"/></option>
                                                         </t>
                                                     </select>
                                                 </label>
