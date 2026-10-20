@@ -835,7 +835,7 @@ def own_process_matches(pid: int, start_ticks: int, expected_script: bool = Fals
     if not argv:
         return False
     if expected_script:
-        if len(argv) < 3 or argv[2] != "start":
+        if len(argv) < 3 or argv[2:] not in (["start"], ["start", "--gdb"], ["--gdb", "start"]):
             return False
         try:
             return Path(argv[1]).resolve(strict=True) == SCRIPT_PATH

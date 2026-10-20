@@ -1,3 +1,11 @@
+## 2026-10-20 14:30 UTC：GDB owner 参数识别修复
+
+- 固定操作候选：`cd85e4972728f7b21c0ebee0297c78166b9daecb`；修改文件：`scripts/s11/launcher.py`、`scripts/s11/test_launcher.py`。
+- launcher unit log：`.local/s11/operations/launcher-gdb-argv-fix-tests-final.log` SHA-256 `4b7bd99b3a637835ec1ef7630d139668b2fb78354c2475b89e8697bb717dd739`，21项通过。
+- 启动日志：`.local/s11/operations/assignment-gdb-launch-cd85e49.log` SHA-256 `b513add808e30f4e520c640dd44b4192f972e239db168cd4456f996ae5baeba4`；exit receipt：`.local/s11/runs/20261020T142835Z-107cde1bd9f5/exit.json` SHA-256 `03c3834cc724b8a0bd73f2e79b835c8e63c1630a740ebddbf9ee75db48458334`；server log SHA-256 `3758d350115a26cff3273ad19076f505af03dcd68e43286178929967247f68c5`。无HTTP或业务写入；status/stop后服务停止。
+- `assignment-actor2466-timezone-cd85e49.json` 只读收据确认Store2时区UTC；actor2466 membership active及`capacity=write`；actor9 membership/employee active、`capacity=write`、capability2。收据SHA-256 `924fe8766f8ef09896237427d7342ec944a6e383cb80d20a843a755a066c58e5`。独立静态核对指出该receipt未序列化数据库角色/地址/cluster值，也未记录rollback/close后的连接状态；准入身份由`validate_connected_database`断言，不把缺少这些字段描述成receipt直证。
+- 当前代码改动未提交；提交后fresh admission与独立验收是再次启动前置。
+
 # S11 F/T evidence index
 
 ## 2026-10-20 14:20 UTC：收紧跨库schema ACL后的只读HTTP probe

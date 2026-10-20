@@ -1,3 +1,11 @@
+# S11 续行（2026-10-20 14:30 UTC）：GDB owner 参数识别修复与受控停止
+
+- 当前分支 `codex/s11-followup-lab-r1`，操作候选 `cd85e4972728f7b21c0ebee0297c78166b9daecb`，起始工作树干净（ahead origin 181）。已针对下一次合成预约准备正常浏览器流程；尚未发送任何浏览器/业务HTTP请求。
+- 使用参数顺序 `launcher.py --gdb start` 启动S11 owned GDB run `20261020T142835Z-107cde1bd9f5`， supervisor PID 3906070 / GDB PID 3906097 / Odoo PID 3906104。第一次`status`因`own_process_matches`只认`argv[2] == start`而报告`STALE_OWNER_RECORD`，没有发信号；run启动日志证明该PID/路径来自本次launcher。
+- 已修复`own_process_matches`：仅接受既有合法命令参数序列`start`、`start --gdb`、`--gdb start`，仍要求精确launcher脚本路径、PID birth ticks。新增顺序回归用例。`py_compile` exit 0；`python scripts/s11/test_launcher.py` 21项通过、exit 0，日志`.local/s11/operations/launcher-gdb-argv-fix-tests-final.log` SHA-256 `4b7bd99b3a637835ec1ef7630d139668b2fb78354c2475b89e8697bb717dd739`。独立代码审查待完成。
+- 修复后原生launcher `status`确认RUNNING，`stop`正常请求并等待supervisor退出；复查`STOPPED`、ACTIVE已清除。GDB exit receipt `.local/s11/runs/20261020T142835Z-107cde1bd9f5/exit.json` SHA-256 `03c3834cc724b8a0bd73f2e79b835c8e63c1630a740ebddbf9ee75db48458334`：child exit 0、无signal、无core、owned process group清理完成，reason=`stop_requested`；`capture_complete=null`表示未发生crash、无crash capture阶段。启动日志SHA-256 `b513add808e30f4e520c640dd44b4192f972e239db168cd4456f996ae5baeba4`，server log SHA-256 `3758d350115a26cff3273ad19076f505af03dcd68e43286178929967247f68c5`。此次没有HTTP请求、临床/财务/业务写入或外发。
+- 下一步提交launcher修复及此记录后，必须对新HEAD/launcher SHA重新fresh-admit并独立审阅；通过前不启动。继续既定合成patient682正常预约流程。`ROOT_CAUSE_UNDETERMINED`保持；既有旧F2 loser/PID缺口不重放。S11仍`PARTIAL / IN_PROGRESS`、#35 OPEN；不push/merge/deploy/S12/S13。
+
 # S11 续行（2026-10-20 14:20 UTC）：只读HTTP稳定性读回通过，转入合成预约流程
 
 - 当前分支 `codex/s11-followup-lab-r1`，HEAD `80766954eb5c6301c8cfdfa4749aec44561de1d4`，跟踪工作区clean、ahead origin 180；保留未推送状态。S11目标数据库权限调整已按明确授权完成：`odoo20_dev` OID 16388 / cluster `7694897083368259627` 的 `public` ACL撤销PUBLIC CREATE并保留USAGE，CONNECT保留；受限S11登录的有效CREATE=false、USAGE=true。修改影响该数据库中依赖PUBLIC CREATE的主体；不修改其他数据库/集群权限。证据及RESTRICT限制见下方13:42节。

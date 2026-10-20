@@ -280,6 +280,20 @@ class LauncherSupervisorTests(unittest.TestCase):
               patch.object(launcher, 'proc_cmdline', return_value=[sys.executable, relative_script, 'start'])):
             self.assertTrue(launcher.own_process_matches(42, 1234, expected_script=True))
 
+    def test_owner_match_accepts_gdb_option_before_start(self):
+        relative_script = os.path.relpath(launcher.SCRIPT_PATH, Path.cwd())
+        with (patch.object(launcher, 'proc_start_ticks', return_value=1234),
+              patch.object(launcher, 'proc_cmdline', return_value=[sys.executable, relative_script, '--gdb', 'start'])):
+            self.assertTrue(launcher.own_process_matches(42, 1234, expected_script=True))
+
+    def test_owner_match_rejects_non_start_or_extra_arguments(self):
+        relative_script = os.path.relpath(launcher.SCRIPT_PATH, Path.cwd())
+        for arguments in (['stop'], ['status'], ['start', '--gdb', '--unexpected'], ['--gdb', 'start', 'extra']):
+            with self.subTest(arguments=arguments), \
+                    patch.object(launcher, 'proc_start_ticks', return_value=1234), \
+                    patch.object(launcher, 'proc_cmdline', return_value=[sys.executable, relative_script, *arguments]):
+                self.assertFalse(launcher.own_process_matches(42, 1234, expected_script=True))
+
     def test_owner_match_rejects_different_script_with_same_basename(self):
         other_script = Path('/tmp/launcher.py')
         with (patch.object(launcher, 'proc_start_ticks', return_value=1234),

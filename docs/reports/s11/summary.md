@@ -1,5 +1,9 @@
 # [CODEX-STATUS] YD-S11-FOLLOWUP-LAB-V1 / 1.0
 
+## 2026-10-20 14:30 UTC：GDB owner 参数识别修复
+
+固定候选`cd85e4972728f7b21c0ebee0297c78166b9daecb`。用参数顺序`launcher.py --gdb start`启动的owned run `20261020T142835Z-107cde1bd9f5`曾被`own_process_matches`误报STALE_OWNER_RECORD；状态工具未发送信号。修复只接受三种明确合法参数序列（`start`、`start --gdb`、`--gdb start`），且仍精确核对launcher路径与PID birth ticks。新增回归用例；py_compile成功，launcher 20项测试通过，日志见CURRENT_TASK本节所列SHA。修复后原生status/stop确认owner并正常停止。GDB exit receipt SHA `03c3834cc724b8a0bd73f2e79b835c8e63c1630a740ebddbf9ee75db48458334`记录exit 0、无signal/core；此次没有HTTP/业务请求或写入。代码变更待独立review和提交；提交后须新HEAD fresh admission再继续，不将此结果表述为SIGSEGV根因修复。S11 `PARTIAL / IN_PROGRESS`、#35 OPEN。
+
 ## 2026-10-20 13:42 UTC：经用户授权收紧跨库PUBLIC schema权限
 
 用户已明确授权在S11专用测试集群范围内实施需要的权限调整。目标库`odoo20_dev`，OID `16388`、cluster system_identifier `7694897083368259627`。管理员实际执行`REVOKE CREATE ON SCHEMA public FROM PUBLIC RESTRICT`。执行日志`.local/s11/operations/odoo20-public-create-revoke.log` SHA-256 `565b9dbb5aa0e414e79cab73e58f353ae2e761113ae7741f616b5c18504e1f7a`；后验日志`.local/s11/operations/odoo20-public-create-postverify.log` SHA-256 `e9d8bcecfc9c349bc97c00bb0dc17a40298a6e409ca5504daa82694fc4349558`；前置快照`.local/s11/operations/odoo20-public-create-preflight.txt` SHA-256 `2b4f77b11cd805ca594bd8956a0947b16922e7fe26504e884c918fdf18139721`。保存SQL `.local/s11/operations/odoo20-public-create-revoke.sql` SHA-256 `a9670f13b22130d6c150fd87d73bdb9e776035af5ff089124c3045af8e333b9c` 在执行后重构保存。独立审阅指出REVOKE日志本身不能证明`RESTRICT`子句；实际命令使用RESTRICT是执行者报告，不把它描述为日志独立证明的事实。
