@@ -1,10 +1,12 @@
+import base64
+import secrets
 from datetime import UTC, date, timedelta
 from types import SimpleNamespace
 from unittest.mock import patch
 
 from odoo import fields
 from odoo.exceptions import AccessError, UserError, ValidationError
-from odoo.tests import TransactionCase, tagged
+from odoo.tests import TransactionCase, new_test_user, tagged
 
 
 @tagged('post_install', '-at_install')
@@ -179,6 +181,91 @@ class TestLaboratoryGuards(TransactionCase):
                 service._check_vendor_id(vendor.id, store2, None)
 
         self.assertEqual(cooperation_model.store_ids, [store1.id, store2.id])
+
+    def test_vendor_qualification_and_cooperation_use_real_store_scoped_records(self):
+        root = self.env['base'].sudo().env
+        company = root.company
+        key = secrets.token_hex(8)
+        stores = root['ydental.access.store'].create([
+            {'name': 'S11 actual cooperation A ' + key, 'company_id': company.id,
+             'ydental_timezone': 'UTC'},
+            {'name': 'S11 actual cooperation B ' + key, 'company_id': company.id,
+             'ydental_timezone': 'UTC'},
+        ])
+        users = [new_test_user(
+            root,
+            name='S11 actual cooperation warehouse ' + str(index),
+            login='s11_actual_cooperation_' + str(index) + '_' + key,
+            groups='ydental_base.ydental_base_group_user',
+            company_id=company.id,
+            company_ids=[fields.Command.set([company.id])],
+        ) for index in (1, 2)]
+        manager = new_test_user(
+            root,
+            name='S11 actual cooperation manager ' + key,
+            login='s11_actual_cooperation_manager_' + key,
+            groups='ydental_base.ydental_base_group_user,ydental_access.ydental_group_manager',
+            company_id=company.id,
+            company_ids=[fields.Command.set([company.id])],
+        )
+        manager_access = root['ydental.access.service'].with_user(manager)
+        manager_access = manager_access._bind(manager_access._session_for_key('s11-actual-cooperation-' + key))
+        for store, user in zip(stores, users):
+            manager_access._join(user.id, store.id)
+            manager_access._grant(user.id, store.id, {'medical': 'write', 'warehouse': 'write'})
+
+        partner = root['res.partner'].create({'name': 'S11 synthetic laboratory ' + key})
+        vendor = root['ydental.lab.vendor'].with_user(manager).create({
+            'partner_id': partner.id,
+            'company_ids': [fields.Command.set([company.id])],
+            'category': 'denture',
+            'qualification_reference': 'S11 synthetic qualification ' + key,
+            'qualification_evidence': base64.b64encode(b'S11 synthetic evidence').decode(),
+            'qualification_evidence_name': 'synthetic-evidence.txt',
+            'valid_until': fields.Date.to_string(fields.Date.context_today(root['ydental.lab.service']) + timedelta(days=90)),
+        })
+        vendor.action_approve()
+        self.assertEqual(vendor.state, 'approved')
+        self.assertEqual(vendor.reviewed_by_id, manager)
+
+        store_accesses = []
+        for store, user in zip(stores, users):
+            access = root['ydental.access.service'].with_user(user)
+            session = access._session_for_key('s11-actual-cooperation-' + key + '-' + str(store.id))
+            access = access._bind(session)
+            access._switch(store.id)
+            store_accesses.append(access._bind(session))
+
+        cooperation1 = store_accesses[0].env['ydental.lab.cooperation'].create({
+            'ydental_vendor_id': vendor.id,
+        })
+        self.assertEqual(cooperation1.ydental_store_id, stores[0])
+        self.assertEqual(cooperation1.responsible_id, users[0])
+        store1_service = store_accesses[0].env['ydental.lab.service']
+        store2_service = store_accesses[1].env['ydental.lab.service']
+        self.assertEqual(store1_service._access(write=True), stores[0])
+        self.assertEqual(store2_service._access(write=True), stores[1])
+        self.assertEqual(store_accesses[0].env['ydental.lab.service']._check_vendor_id(
+            vendor.id, stores[0], None), vendor)
+        with self.assertRaises(AccessError):
+            store_accesses[0].env['ydental.lab.service']._check_vendor_id(vendor.id, stores[1], None)
+
+        cooperation2 = store_accesses[1].env['ydental.lab.cooperation'].create({
+            'ydental_vendor_id': vendor.id,
+        })
+        self.assertEqual(cooperation2.ydental_store_id, stores[1])
+        self.assertEqual(cooperation2.responsible_id, users[1])
+        self.assertEqual(
+            store_accesses[0].env['ydental.lab.cooperation'].search([
+                ('ydental_vendor_id', '=', vendor.id),
+            ]), cooperation1,
+        )
+        self.assertEqual(
+            store_accesses[1].env['ydental.lab.cooperation'].search([
+                ('ydental_vendor_id', '=', vendor.id),
+            ]), cooperation2,
+        )
+        self.assertEqual(store2_service._check_vendor_id(vendor.id, stores[1], None), vendor)
 
     def test_vendor_expiry_for_store_writer_only_queues_current_store(self):
         service = self.env['ydental.lab.service']
