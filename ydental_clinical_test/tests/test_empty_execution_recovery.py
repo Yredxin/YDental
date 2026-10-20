@@ -92,7 +92,7 @@ class TestClinicalEmptyExecutionRecovery(TransactionCase):
         })
         doc = self.root['ydental.clinical.document'].browse(document['document_id'])
 
-        _, _, other_execution = serving(self, station=self.other_station)
+        _, _, other_execution = serving(self, user=self.users['manager'], station=self.other_station)
         doc._save({'ydental_current_execution_id': other_execution.id})
         lease_record = queue._model('lease').browse(lease['lease_id'])
         lease_record._save({'ydental_expires_at': queue._now() - timedelta(seconds=1)})
