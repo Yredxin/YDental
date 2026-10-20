@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 from types import SimpleNamespace
 from unittest.mock import patch
 
-from odoo import fields
+from odoo import SUPERUSER_ID, api, fields
 from odoo.exceptions import AccessError, UserError
 from odoo.tests import TransactionCase, new_test_user, tagged
 
@@ -100,6 +100,34 @@ class TestFollowupNotification(TransactionCase):
             # independent claiming, transport, or patient delivery.
             registered[0]()
             dispatch.assert_called_once_with(self.env.cr.dbname, (job.id,))
+
+    def test_enqueue_rollback_discards_postcommit_dispatch(self):
+        # Use a cursor opened by this test so rollback is confined to its
+        # savepoint and cannot commit or roll back the TransactionCase cursor.
+        with self.env.registry.cursor() as cr:
+            env = api.Environment(cr, SUPERUSER_ID, {})
+            store = env['ydental.access.store'].create({
+                'name': 'S11 rollback callback test store',
+                'company_id': env.company.id,
+                'ydental_timezone': 'UTC',
+            })
+            service = env['ydental.followup.service']
+
+            with patch.object(followup_service_module, '_dispatch_after_commit') as dispatch:
+                job = service._enqueue(
+                    store=store,
+                    source_model='ydental.followup',
+                    source_id=999997,
+                    source_version=1,
+                    event_type='followup_contact',
+                    due_at=fields.Datetime.now(),
+                )
+
+                self.assertEqual(job.ydental_state, 'pending')
+                self.assertEqual(len(cr.postcommit), 1)
+                cr.rollback()
+                self.assertEqual(len(cr.postcommit), 0)
+                dispatch.assert_not_called()
 
     def test_callback_deduplicates_and_late_acceptance_does_not_regress_delivery(self):
         first = self._callback('provider-event-delivered', 'delivered')
@@ -217,7 +245,8 @@ class TestFollowupNotification(TransactionCase):
             def _check(self, category, level, store_id, write=False):
                 self.calls.append((category, level, store_id, write))
                 if category != 'warehouse' or level != 'write' or not write:
-                    raise AssertionError('The hook must not require follow-up write from the putaway actor.')
+                    message = 'The hook must not require follow-up write from the putaway actor.'
+                    raise AssertionError(message)
 
         access = WarehouseOnlyAccess()
         _authorize_passive_lab_write(access, store)
