@@ -1,5 +1,11 @@
 # YDental 当前任务状态
 
+## S11 最新状态（2026-10-20 08:46 UTC）
+
+- 原分支 `codex/s11-followup-lab-r1`；当前HEAD `e08e3a527f708c5caf34d755f408017eea7eb9a3`，已测产品/测试候选仍为 `789619fa76674caa1f8eab6db2eaf559847f16bf`，工作树干净。本次继续只做了新HEAD准入和 Store2角色/资源RR只读查询，无业务DB写入、测试、服务启动或外发。
+- 新候选准入PASS：`.local/s11/verification/admission-e08e3a5-independent-ro-recheck.json` SHA-256 `28b4df9812cb214b175327eca5fb3aabe801bca00aef4fc8881450bb08ee1f00`。Store2合成路径权限/资源快照PASS：`.local/s11/verification/store2-role-resource-preflight-2849840.json` SHA-256 `9da69b68a867d6d1a9f1f513d21b0f9880a9b08d47d1a8d1dc9009246edd4d7c`：user9具patient/frontdesk/medical write但无可安全复用的新session；user10只有medical；user2318有medical/followup；当前映射2/价源455为$7 care，slot1594发布且reservation/walk-in余1/2。
+- 已确认无需重放既有slot/followup；创建新合成患者必须先取得真实、正常认证的Store2 patient/frontdesk actor scope。被回显过的旧service key不得复用。用户已授权合成场景；这不替代账号认证，也不改变T08对有效义齿临床源/价源/采购行/操作员的要求。#35保持OPEN、S11 PARTIAL；无push/merge/deploy。
+
 ## S11 授权后续行快照（2026-10-20 08:43 UTC）
 
 - 收到用户“授权”，按其范围推进合成场景；当前仍为原分支 `codex/s11-followup-lab-r1`，HEAD `284984004f3527d823fd25efe036560af33782e7`，产品/测试候选 `789619fa76674caa1f8eab6db2eaf559847f16bf`，工作树跟踪文件干净。新HEAD fresh admission PASS：`.local/s11/verification/admission-2849840-independent-ro-recheck.json` SHA-256 `20b37c69b2a38195f8b4a41f4c8950dc238922ea5836ad75272b844c4d13a7a9`；目标身份/OID、受限DB角色、保护计数/D-C、外发关闭、STOPPED/18411空闲、launcher校验均通过。仅本地私有runtime/admission候选元数据更新，不含DB业务写入。

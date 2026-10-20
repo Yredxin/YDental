@@ -11,6 +11,10 @@ Issue #35：**OPEN**
 
 本次没有创建合成业务对象。原因是patient-write/前台actor9只有曾用于既有本机服务session；该session key先前曾在工具输出中回显，依保全约束不可复用。user10/2318现有正常scope没有patient-write；不以代码直接构造新认证身份或superuser绕过。fresh admission与role/resource检查无生产或业务写入。首次只读检查因脚本使用不存在的slot状态字段失败并自动关闭只读游标；修正后结果通过。后续需要通过获准私有provider建立actor9新scope，或确认另一名真实认证的Store2普通用户具patient/frontdesk write。T08还需另有合格义齿临床场景、义齿价源/有效采购行和相应操作员授权；purchase group的company级ACL可能使受保护PO147–149可见，既有明确限制仍禁止读取、使用或修改这些PO。S11保持PARTIAL/OPEN。
 
+更新到HEAD `e08e3a527f708c5caf34d755f408017eea7eb9a3`后重新准入PASS：`.local/s11/verification/admission-e08e3a5-independent-ro-recheck.json` SHA-256 `28b4df9812cb214b175327eca5fb3aabe801bca00aef4fc8881450bb08ee1f00`；新鲜角色/资源RR只读读回PASS `.local/s11/verification/store2-role-resource-preflight-2849840.json` SHA-256 `9da69b68a867d6d1a9f1f513d21b0f9880a9b08d47d1a8d1dc9009246edd4d7c`。两证据确认S11 scratch/OID和受限角色、保护计数/D-C、外发关闭、服务停止；当前Store2 patient/frontdesk写权限仅在actor9，但缺安全可用的新鲜认证scope。user10/2318的现存scope不具patient write。映射2/价源455为care而不是义齿，slot1594仍发布且有capacity；本轮没有业务写入或已完成测试。
+
+独立审阅复核了上述两份证据的SHA、候选/分支、权限/资源及只读事务标记，确认准入和资源检查PASS；没有查询数据库或凭据。
+
 ## 最新续行状态（2026-10-20 08:33 UTC）
 
 分支仍为`codex/s11-followup-lab-r1`；本节证据核验时HEAD为`210a2ca275caf6cff4e5256f186fbdebe210b814`，本次文档更新不改产品代码；已测代码/测试候选为`789619fa76674caa1f8eab6db2eaf559847f16bf`。789到210只有报告/状态文档变化；7bd到789增加报告和F4测试，没有产品源码变化。HEAD210独立fresh admission PASS：`.local/s11/verification/admission-210a2ca-independent-ro-recheck.json` SHA-256 `3d4a5d0921d7d9b3fc2c22d2bf450cfd87568053a2c801d7d4172929942a119d`。
