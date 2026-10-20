@@ -1,5 +1,12 @@
 # YDental 当前任务状态
 
+## S11 最新续行（2026-10-20 10:04 UTC）
+
+- 上一节patient650预约证据已独立验收通过。提交后候选 `ea1928c410697d8e68e533d9630a82efd5e879b7` 的 fresh admission经过哈希链修复和独立PASS；其receipt为`.local/s11/verification/admission-ea1928c-independent-ro-recheck.json`，最终SHA-256 `ffe0dfc9c7b3652e33137ca36fe76c96b37c86a8d6629528a7dd54ef418a947f`。准入只更新了ignored私有runtime/admission候选绑定；scratch/OID/cluster/受限角色、224保护计数、D/C、模块、外发与service状态均通过。初始receipt哈希误含自引用字段，独立review拒绝后改为外部哈希绑定，并由reviewer复核PASS；无业务动作发生在首次review拒绝期间。
+- 按精确候选`ea1928c`仅运行一次完整 `ydental_followup_test` addon套件：`--stop-after-init -u ydental_followup_test --test-enable --test-tags /ydental_followup_test`。结果25 post-tests、exit0、0 failed/0 error，含Odoo `HttpCase`测试客户端覆盖，不是浏览器或真实provider。operation/result/log在`.local/s11/operations/20261020T100258Z-followup-full-addon-suite-ea1928c/`；完整日志SHA-256 `ee026c69198e3814444821b85f107382f6bf6d3f1ed727c5fa7fc60b1e3b8cc1`。
+- 独立测后RR READ ONLY/ROLLBACK/close通过：`.local/s11/verification/followup-full-addon-posttest-readback-ea1928c-attempt4.json` SHA-256 `c397312df1f5c42ab97851f3ec107719537dbf4f198831d4d83e78a30378cc31`；独立review PASS。224保护计数与测试前完全一致，D/C pin与模块集一致，测试窗口followup/contact/preference/mail/activity/message/notification/outbox/SMS均0增量，外发关闭，service STOPPED/18411空闲。读回前3个attempt是只读核验脚本字段/基线引用错误，均未重跑Odoo测试，原错误证据保留；attempt4通过。
+- 此处仍未证明浏览器、真实外部回调/provider或患者送达。当前S11仍PARTIAL/IN_PROGRESS、#35 OPEN；下一业务动作之前须对状态文档形成的新HEAD重新准入和独立复核。slot1594预约时段仍为10:24–10:54Z，patient650尚未到店、排队或治疗；area2原有1条queue entry身份仍未读取。不重用patient364/event417/task720或PO147–149；无push/merge/deploy。
+
 ## S11 最新续行（2026-10-20 10:00 UTC）
 
 - 保持原分支 `codex/s11-followup-lab-r1`；操作前候选 `59f0ceee26881c475759972f2e3fb2742612a3b0`，起始工作树干净。控制sink定向MODEL/ORM用例仅运行一次，1 post-test/exit0/0失败0错误；独立测后读回PASS，详见下方09:53记录及报告。当前操作完成后只更新状态文档；下一业务写操作必须绑定新的文档提交HEAD重新做fresh admission与独立复核。

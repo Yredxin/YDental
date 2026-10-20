@@ -1,5 +1,15 @@
 # [CODEX-STATUS] YD-S11-FOLLOWUP-LAB-V1 / 1.0
 
+## 2026-10-20 10:04 UTC：follow-up addon全套回归
+
+候选 `ea1928c410697d8e68e533d9630a82efd5e879b7` 的新鲜admission receipt哈希链初审被独立验收指出错误：私有receipt自带自引用`receipt_sha256`，且`admission.json`尚绑定旧receipt hash。没有启动服务或进行业务动作。按无循环方式移除receipt内的self/admission哈希字段，将最终receipt SHA-256 `ffe0dfc9c7b3652e33137ca36fe76c96b37c86a8d6629528a7dd54ef418a947f`写在私有admission绑定中；`launcher.validate_pair()`通过，独立review复核PASS。receipt `.local/s11/verification/admission-ea1928c-independent-ro-recheck.json`。
+
+使用Odoo项目venv，在指定scratch仅升级/测试已安装 `ydental_followup_test`：`--stop-after-init -u ydental_followup_test --test-enable --test-tags /ydental_followup_test`。全套25 post-tests、exit 0、0 failed/0 error。operation `.local/s11/operations/20261020T100258Z-followup-full-addon-suite-ea1928c/operation.json`，result SHA-256 `7f3b14c2138819dee033dd28489689353b2e921993cbace12730f94896ad0cce`，完整日志SHA-256 `ee026c69198e3814444821b85f107382f6bf6d3f1ed727c5fa7fc60b1e3b8cc1`。套件包含Odoo `HttpCase`测试客户端（包括原生signed callback HTTP路由），未使用真实浏览器/provider，不代表真实外部回调或患者送达。
+
+独立RR READ ONLY/ROLLBACK/close测后读回PASS `.local/s11/verification/followup-full-addon-posttest-readback-ea1928c-attempt4.json` SHA-256 `c397312df1f5c42ab97851f3ec107719537dbf4f198831d4d83e78a30378cc31`；独立验收PASS。核对exact candidate/admission/test log、全部224项保护计数与测试前一致、D/C pin、97个已安装模块不变；测试时间窗中followup/contact/preference/mail/activity/message/notification/queue_outbox/SMS均无持久新增，外发关闭，service STOPPED/18411空闲，RR事务rollback/close。测后读回三次脚本错误（时间戳列假设、基线取值来源）仅影响本地核验，均保留错误证据，未重跑测试；第四次读回通过。
+
+这填补follow-up addon测试回归证据，但不等于完整M5影响面或独立S11总验收。S11维持PARTIAL/IN_PROGRESS、#35 OPEN；下一业务动作前对状态文档新候选重新准入。slot1594预约流程仍未到店/排队/治疗，维持原活动队列顺序；无push/merge/deploy。
+
 ## 2026-10-20 10:00 UTC：patient650原生预约来源与独立读回
 
 在候选 `59f0ceee26881c475759972f2e3fb2742612a3b0` 上，slot1594/patient650新鲜RR READ ONLY预检PASS：`.local/s11/verification/patient650-slot1594-fresh-preflight-59f0cee.json` SHA-256 `29e01ac982818e169e28ac2b62865246d2675e84551fa2c4c1659619f37cc9f3`。scratch identity/OID2144130及受限角色匹配；patient650为当前Store2合成关系且无arrival/entitlement/task；mapping2/catalog2与发布价455有效（$7 care）；slot1594发布、预约余量1、无既往claim或active lease。Store2 area2有1条活动队列entry；没有查询其patient/task身份。
