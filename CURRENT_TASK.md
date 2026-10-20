@@ -1,6 +1,15 @@
 # YDental 当前任务状态
 
 
+## S11 最新核验快照（2026-10-20 07:39 UTC；覆盖下方历史快照）
+
+- 原分支 `codex/s11-followup-lab-r1`，已提交基线HEAD `2d87dba95b90c3601b558bbcda3f37975e514842`。工作树当前另有intake来源校验和followup生命周期用例2个修改，尚未提交/测试；候选2d87代码逻辑仍是fc0。owned服务已正常停止，18411空闲。
+- 新的followup265 browser attempt6使用候选2d87、event416，尝试唯一工作台GET但被403拦截，未提交完成POST。attempt receipt `.local/s11/operations/followup265-completion-browser-attempt6.json` 标记`OUTCOME_REQUIRES_READBACK`/`do_not_retry=true`；不能重放。owned run `20261020T072753Z-f01909785bf8` 正常停止，GET `/ydental/followups`返回403，原生日志错误为`access_denied: Reservation source integrity requires review.`
+- 独立RR只读/显式rollback/close读回PASS `.local/s11/verification/followup265-attempt6-independent-readback.json` SHA-256 `76182b60ff97cb951ba4effdc858952d7af94927b3f09d3b7ba42e6794f22f0a`：followup265仍`to_notify`、event416仍confirmed/handover、无completed link/contact/job；无业务表变化。认证仅产生session3762、三条登录/作用域/切店审计及两条设备记录；外发0、224保护表无非认证变化、D/C pin匹配。服务STOPPED/18411空闲。
+- GET失败原因已独立识别：同店entitlement475仍started、claim493 consumed，但合法reschedule把claim source key改为`475-v1`，task758保留为cancelled；entitlement485/claim503/task799则是正常task-ID source。attempt6前fresh admission/资格证据 `.local/s11/verification/admission-2d87dba-readonly.json` SHA `259ff66dcd2ebb34043ffca60e2a9762740afe87a6dfe3359d9a65da9b93f05f`仍证明event416及actor2318完成前置有效；本次失败非业务拒绝、无提交。
+- 未扩大权限的普通修复处理中：按entitlement精确关联任务，并接受原生初次task-ID或精确重排`entitlement.id-v(version-1)` source key；其他不匹配capacity option不返回，以免单个旧预约拦截整个工作台。S11生命周期测试将通过原生重排验证重排后的slot DTO。该修订测试后再准入；不能重放attempt6，修复后的F1需新attempt ID和新鲜读回。其他plan缺口保持未完成；#35 OPEN。
+
+
 ## S11 最新核验快照（2026-10-20 07:29 UTC；覆盖下方历史快照）
 
 - 分支 `codex/s11-followup-lab-r1`，当前HEAD `e73bcd72535d651e9662db2f08cb6438472ec8cd`（fc0实现/测试及结果后仅状态文档提交）；工作树本次更新前干净；尚未执行attempt6。owned Odoo为STOPPED，18411空闲。

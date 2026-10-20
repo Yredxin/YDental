@@ -76,17 +76,21 @@ class YDentalIntakeService(models.AbstractModel):
             ('ydental_patient_id', 'in', sorted(current_patient_ids)),
             ('ydental_channel', '=', 'reservation'),
             ('state', 'in', ('held', 'started')),
-        ], ['ydental_patient_id', 'ydental_claim_id', 'state'],
+        ], ['ydental_patient_id', 'ydental_claim_id', 'state', 'ydental_version'],
             limit=500, order='id desc')
-        # _qualify() stores the provenance task on source_task_id only for
-        # referrals. For every reservation, its newly created task points back
-        # through ydental_entitlement_id and supplies the claim source_key.
+        # _qualify() uses its task ID as the initial claim source key, while
+        # _reschedule() replaces that key with the entitlement's prior version.
+        # Resolve tasks by their exact entitlement relation, then validate either
+        # native source-key form without treating a stale unrelated option as a
+        # reason to deny the whole workbench.
         tasks = self.env['ydental.intake.task'].search_fetch([
             ('ydental_store_id', '=', store.id),
             ('ydental_patient_id', 'in', sorted(current_patient_ids)),
             ('ydental_entitlement_id', 'in', entitlements.ids),
         ], ['ydental_patient_id', 'ydental_entitlement_id'], limit=500)
-        tasks_by_source_key = {str(task.id): task for task in tasks}
+        tasks_by_entitlement = {}
+        for task in tasks:
+            tasks_by_entitlement.setdefault(task.ydental_entitlement_id.id, []).append(task)
         claim_ids = entitlements.mapped('ydental_claim_id').ids
         # These are exact references from the already authorized entitlement
         # set, never a company/store-wide capacity search.
@@ -101,11 +105,16 @@ class YDentalIntakeService(models.AbstractModel):
             claim = claims_by_id.get(entitlement.ydental_claim_id.id)
             if not claim or claim.ydental_store_id != store or claim.ydental_pool != 'reservation':
                 continue
-            task = tasks_by_source_key.get(claim.ydental_source_key)
-            if claim.ydental_source != 'ydental.intake.entitlement' or not task or \
-                    task.ydental_store_id != store or task.ydental_patient_id != entitlement.ydental_patient_id or \
-                    task.ydental_entitlement_id != entitlement:
-                raise AccessError(self.env._('access_denied: Reservation source integrity requires review.'))
+            linked_tasks = [task for task in tasks_by_entitlement.get(entitlement.id, [])
+                            if task.ydental_store_id == store and
+                            task.ydental_patient_id == entitlement.ydental_patient_id and
+                            task.ydental_entitlement_id == entitlement]
+            valid_source_keys = {str(task.id) for task in linked_tasks}
+            if entitlement.ydental_version > 1:
+                valid_source_keys.add(f'{entitlement.id}-v{entitlement.ydental_version - 1}')
+            if (claim.ydental_source != 'ydental.intake.entitlement' or not linked_tasks or
+                    claim.ydental_source_key not in valid_source_keys):
+                continue
             expected_claim_state = 'held' if entitlement.state == 'held' else 'consumed'
             if claim.state != expected_claim_state:
                 continue

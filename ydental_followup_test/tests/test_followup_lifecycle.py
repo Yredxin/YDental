@@ -65,11 +65,22 @@ class TestFollowupLifecycle(TransactionCase):
 
         held_reservation = qualify(self, patient_id=held_patient_id)
         intake = bind(self, self.users['manager'])
+        rescheduled_start = self.end + timedelta(minutes=5)
+        rescheduled_end = rescheduled_start + timedelta(minutes=5)
+        rescheduled_slot = make_slot(
+            self, intake, self.stations[0][0], rescheduled_start, rescheduled_end)
+        intake._operate('reschedule', {
+            'id': held_reservation['id'], 'version': held_reservation['version'],
+            'mapping_id': self.mappings[0][0].id,
+            'start': fields.Datetime.to_string(rescheduled_start),
+            'end': fields.Datetime.to_string(rescheduled_end),
+            'reason': 'Synthetic follow-up reservation reschedule provenance regression',
+        }, key())
         held_options = intake._followup_reservation_options([held_patient_id])
         held_option = next((option for option in held_options
                             if option['id'] == held_reservation['id']), None)
         self.assertTrue(held_option, 'a native held reservation must resolve through its linked intake task')
-        self.assertEqual(held_option['slot_start'], self.slots[0][0].ydental_start)
+        self.assertEqual(held_option['slot_start'], rescheduled_slot.ydental_start)
 
         # Build the source through the same intake, queue, clinical and treatment
         # actions used by the synthetic treatment suite. No event or appointment

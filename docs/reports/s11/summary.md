@@ -5,6 +5,12 @@ Issue #35：**OPEN**
 同步：本次继续实施的代码和状态尚未推送；依用户要求只在 plan 结束时发布最终结果与说明。
 计划范围：S11-A 复诊和通知可靠性 + S11-B 内部外加工，含补充输入 v1.1。真实外部通知、生产、合并、部署、S12/S13 均未启用。
 
+## 2026-10-20 followup265 attempt6：已定位并保全的GET拒绝
+
+候选 `2d87dba95b90c3601b558bbcda3f37975e514842` 的fresh admission与followup265/event416前置读回曾通过，但新的单次browser attempt6在唯一工作台GET遇到403，完成POST未发送。receipt `.local/s11/operations/followup265-completion-browser-attempt6.json` 为`OUTCOME_REQUIRES_READBACK`、`do_not_retry=true`；owned run `20261020T072753Z-f01909785bf8`已正常停止。独立RO回读 `.local/s11/verification/followup265-attempt6-independent-readback.json` SHA-256 `76182b60ff97cb951ba4effdc858952d7af94927b3f09d3b7ba42e6794f22f0a`确认followup265/event416没有业务变化；仅有本次预期认证session、设备记录和3条认证/门店审计，外发0，保护表与D/C保全通过。
+
+日志显示工作台403原因不是ACL而是attempt5修复中错误假设claim source key始终等于task ID。独立RO核实同店entitlement475/claim493在合法重排后source key为`475-v1`，所关联task758为cancelled；另一有效entitlement485/claim503/task799使用task ID `799`。该 source key格式来自原生 `_reschedule()`（`entitlement.id-v<prior version>`）。当前dirty修订改为按entitlement精确关联任务，校验初始ID或精确重排key；任何其他不匹配capacity选项只被省略，不放宽权限或中断整个工作台。S11生命周期测试现以原生服务执行reservation reschedule并核对新的slot DTO；该修订尚待候选冻结、fresh admission、测试和独立post-test读回。attempt6不重放；F1后续新尝试必须使用新ID。
+
 ## 2026-10-20 续行：followup265 完成前置核验
 
 fc0测试及独立post-test读回之后，状态/报告提交为 `e73bcd72535d651e9662db2f08cb6438472ec8cd`（工作台实现候选不变）。e73 fresh admission与followup265/event416同一只读事务预检PASS：`.local/s11/verification/admission-e73bcd-readonly.json` SHA-256 `eb2cddd966829cfcba5c521ee7113a5d96cc8a89d6e7315c060a1673d148a37d`。RR READ ONLY显式rollback并关闭；目标、受限角色、模块/外发、224项保护计数和D/C pin、服务停止均通过。
