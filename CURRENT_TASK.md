@@ -1,6 +1,14 @@
 # YDental 当前任务状态
 
 
+## S11 最新续行快照（2026-10-20 06:31 UTC；以本节覆盖下方旧候选状态）
+
+- 分支 `codex/s11-followup-lab-r1`，固定候选 `57a3fcbc5d093de92f5f2aa13423ca3bfcff238d`；本轮改动含一项隔离的F4 MODEL regression，外加报告/状态文档。该候选独立fresh admission PASS：`.local/s11/verification/admission-57a3fcb-independent-ro-recheck.json` SHA-256 `76813c58c3c2c86cd29c241325630682c7415fc93a24fe01e738c568552622cf`。
+- F4 测试 `ydental_lab_test:TestLaboratoryGuards.test_vendor_cooperation_is_store_scoped_within_shared_company` 退出码0：1 post-test、0 failed、0 error；以 `--no-http` 运行。operation/result/log在 `.local/s11/operations/20261020T063019Z-f4-store-scoped-model-test/`，日志 SHA-256 `129dd9c2f0c0b4975e384bb5da6e7c5205ccfde6ad893dc2cd21758a71494384`。它验证同公司下门店合作仍精确按门店过滤，属于MODEL层，不等于F4双店真实开单/收货端到端。独立RR READ ONLY post-test读回PASS（范围有限）：`.local/s11/verification/f4-posttest-independent-readback-facts.json` SHA-256 `f9632b35fc463bf18746ded9bbca7e4e5eb1ceeecf44b9a97099cccb5318672a`，确认目标/候选/测试绑定、224保护计数无下降、D/C pin、测试窗口零业务表写入、T08/T18语义投影、service stopped/18411空闲，并explicit rollback/close。自动首份readback FAIL原样保留 `.local/s11/verification/f4-posttest-independent-readback.json` SHA-256 `d172ef5e8def3537081488e8d10ee69d86ba5d582d5cd57469e73980da4e4ec2`；原因是旧字段映射/工作树clean假设，补充事实性读回已更正，不覆盖失败件。
+- task941真实治疗与首张发票竞争及确认后幂等恢复、限制、证据已在下方06:25快照记载；F4历史资格矩阵快照早于当前候选。T08采购组权限扩大仍未经授权，未授组/未操作store1受保护PO147–149。
+- HTTP/browser owned run `20261020T055248Z-18909ba92aa6`仍SIGSEGV STOPPED/18411空闲，未重启。followup265浏览器完成、通知HTTP/策略端到端、T08 supplier_return、F4 E2E矩阵、T18返工/戴用闭环、最终影响回归及独立整体验收仍未完成。#35 OPEN，无Issue过程更新，无push/merge/deploy。
+
+
 ## S11 最新续行快照（2026-10-20 06:25 UTC；以本节覆盖下方旧候选状态）
 
 - 计划 `YD-S11-FOLLOWUP-LAB-V1 / 1.0` 仍 `IN_PROGRESS / OPEN`；活动分支 `codex/s11-followup-lab-r1`，当前HEAD `1776c4e3520b742ac47ba874c5616bfe3240991f`，本次文档更新前工作区干净；产品候选仍是 `2df07373fa5257589115d39f4354dcd4c25c2997`，既有32项post-tests与1项followup regression通过。无push/merge/deploy。
