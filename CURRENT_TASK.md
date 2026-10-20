@@ -1,3 +1,13 @@
+# S11 最新续行（2026-10-20 17:15 UTC）：采购/义齿合成测试角色权限已创建并独立核实
+
+- 分支 `codex/s11-followup-lab-r1`；产品候选 `8dfaaee23a2c053f758ea87a12ae3f7036eb78e8`；本续行的状态/证据文档待提交。此候选包含已提交的账户创建 fail-closed 行为及 inactive employee 重复检测回归。没有 push、merge、deploy 或启动 S12/S13。
+- 在用户明确批准的 S11 scratch 范围内，已通过受限 S11 LOGIN、正常原生访问服务与 Odoo ORM 建立专用合成采购/义齿测试员工账号 `s11-store2-prosthesis-purchase-operator@synthetic.invalid`（user 2666、Store2 membership 4166、公司 1、员工 2636）。其 Store2 `medical:write`、原生 `purchase.group_purchase_user=true`；`purchase_manager=false`、`base.group_system=false`、membership manager=false，Store2 是其唯一公司。既有仓库角色 actor2043保留`warehouse:write`并增加经批准的`medical:write`。授权动作使用既有具人员管理权限的 actor6 会话；保留新建账号、入职、权限变化、认证和门店切换原生审计。写入由一次性GDB runner执行，GDB与Odoo均正常退出，无SIGSEGV/core，owned groups停止且18411端口空闲；不得重跑 helper。
+- **真实权限边界：** 原生采购用户组基于公司过滤，因此 user2666 可访问公司1的采购单，范围包含受保护的 PO147–149。创建/读回脚本没有查询或修改这些PO；后续 S11 操作不得使用它们。该授权仅用于新合成采购对象，不构成对旧订单操作的授权。
+- 独立验收者对最终只读核验器 SHA `cdca56907a47672c3fd19481bcc2c79039fbdd0a0f14708c8f3483f400db83b7` 作静态 PASS；随后项目虚拟环境实跑 PASS，receipt `.local/s11/verification/s11-prosthesis-role-postsetup-readback-8dfaaee-v3.json` SHA `512285d099ee559ddb3ca4a3e1493feec359835b1201d444559ba482ef27f2cf`。核对目标库/OID2144130/cluster、user/employee/唯一公司/有效组、非管理员角色、membership/session、六条确切审计、224张保护表精确增量、10个仅关联新partner/employee的metadata-only附件、6条新mail_message metadata、resource+1、无新增外发通知job、外发渠道关闭、D/C pin不变、连接显式rollback/关闭、服务停止及端口空闲。业务数据未读取附件内容、消息正文或任何采购订单。
+- 对应普通1项 `ydental_access_test` MODEL 测试在同候选由一次性GDB runner通过：1 test / 0 failures / 0 errors；日志SHA `a19690d667e831a9d682c099fb867ca47df2de1e2f9fd41148e48775419be833`，GDB无崩溃、service停止。测试安装模块导致唯一模块集增量`ydental_access_test`；紧接的 fresh post-test admission `.local/s11/admission-8dfaaee-20261020T170328Z-2d60ef7996b16910.json` PASS，SHA `1cc0cc825a0c5bb6246fa7bdadcabcaf58b254716b7ed4f741a2ff710b966d7e`；receipt SHA `8c32ec7969ddee9ba0db84e71d3fa768344097c8304e4ba747d97ee105aae8c9`。旧角色操作的预先 admission 不作为最终读回证据。
+- 修正独立只读核验器时，早期尝试分别因CIDR文本标准化、实际六条审计高于旧断言、Odoo cursor wrapper API、精确保护表预期和RealDictRow tuple取值造成断言停止；全是RO核验器问题，无业务写入。早期失败的断言点、只读性质及修复原因已记入此续行；最终通过输出固定于私有核验收据。使用实际DB端点与审计事实校正后，最终 SHA 与通过回执如上。reviewer最终PASS包含session审计字段、global `login.scope` 的`store_id=NULL`和Store2 `store.switch` 的`store_id=2`。
+- **剩余实施状态：** `ROOT_CAUSE_UNDETERMINED`，不称崩溃已修复。patient682 已到店、报到并按原生 FIFO 入队，但同 area2/capability2 有更早匿名 wait item；不得绕过或改动此项，也不得把 task720 拉回。其临床文书/治疗来源、postcommit通知闭环、独立义齿/采购链目前未完成。T05/T12 postcommit→claim→controlled sink、T08合成义齿专属来源/已确认原生采购服务行/收发与supplier_return、追加费用返工、适用F2新并发、F1/F4剩余业务矩阵、最终影响面回归及独立总验收仍待完成。F2旧loser/PID保持`EVIDENCE_GAP`，不重放。#35 OPEN。
+
 # S11 续行（2026-10-20 15:00 UTC）：预约 UI 自动化两次未提交，GDB退出记录完成
 
 - 当前仍在分支 `codex/s11-followup-lab-r1`，候选 HEAD `993ee508cff5d5f4d4630d1217481d9ea258c1ee`；无产品代码改动。本节保留既有 CURRENT_TASK 路由和S11范围。

@@ -1,3 +1,10 @@
+## Current permission and GDB MODEL evidence (2026-10-20)
+
+- Candidate `8dfaaee23a2c053f758ea87a12ae3f7036eb78e8`, branch `codex/s11-followup-lab-r1`. `ydental_access_test` focused MODEL test under GDB: 1 test, 0 failures/errors; log SHA-256 `a19690d667e831a9d682c099fb867ca47df2de1e2f9fd41148e48775419be833`; service stopped, no crash/core. Post-test admission PASS receipt SHA `1cc0cc825a0c5bb6246fa7bdadcabcaf58b254716b7ed4f741a2ff710b966d7e`.
+- Synthetic company-1 Store2 employee account user 2666 has `purchase.group_purchase_user`, medical:write, one company; no purchase manager/system/store manager. Warehouse actor2043 has warehouse:write + authorized medical:write. Independent readback v3 SHA `512285d099ee559ddb3ca4a3e1493feec359835b1201d444559ba482ef27f2cf`, verifier source SHA `cdca56907a47672c3fd19481bcc2c79039fbdd0a0f14708c8f3483f400db83b7`; independent static review PASS, actual RO receipt PASS. 224 protected tables have exact expected deltas: audit+6, grant+2, membership+1, session+1, mail_message+6, ir_attachment+10, resource_resource+1. Metadata assertions bind messages/attachments/resource to only the newly created user/partner/employee; no message body or attachment content read. D/C pin unchanged; notification job/outbound channels remain closed; stopped service/port; no purchase orders read.
+- **Scope boundary:** native company-level purchase access includes protected PO147–149 for the new account. These orders were neither queried nor changed, and are prohibited for later S11 actions. Never describe this group as order-isolated.
+- Role setup runner was a one-shot GDB transaction; helper phase is `COMMIT_RETURNED_READBACK_REQUIRED`, so never rerun. Readback evidence path: `.local/s11/verification/s11-prosthesis-role-postsetup-readback-8dfaaee-v3.json`. S11 is still incomplete; see latest `CURRENT_TASK.md`/`summary.md`. ROOT_CAUSE_UNDETERMINED, old F2 loser/PID EVIDENCE_GAP, #35 OPEN; no push/merge/deploy/S12/S13.
+
 ## 2026-10-20 14:30 UTC：GDB owner 参数识别修复
 
 - 固定操作候选：`cd85e4972728f7b21c0ebee0297c78166b9daecb`；修改文件：`scripts/s11/launcher.py`、`scripts/s11/test_launcher.py`。

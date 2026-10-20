@@ -1,3 +1,13 @@
+## 2026-10-20 17:05 UTC｜合成采购/义齿权限设置及独立读回
+
+专用合成操作员以 user 2666、Store2 membership 4166、employee 2636在scratch上通过原生流程创建；唯一公司为1，Store2 `medical:write`且有原生`purchase.group_purchase_user`。purchase manager/system/Store2 manager均false。warehouse actor2043保留warehouse:write并按批准增加medical:write。整个权限变化保留原生 account.create、employment.join、authorization.change、login.scope及store.switch记录，写操作由GDB runner一次完成并正常退出；helper禁止重跑。
+
+purchase user的原生公司规则使新账号对company1采购单有效，包含受保护PO147–149。设置与读回均未查询/修改这些订单，后续合成流程也必须避开。不得把“未查询”描述成角色无访问权限。
+
+最终独立RO回读脚本SHA `cdca56907a47672c3fd19481bcc2c79039fbdd0a0f14708c8f3483f400db83b7`获独立静态PASS并实跑PASS。回执 `.local/s11/verification/s11-prosthesis-role-postsetup-readback-8dfaaee-v3.json` SHA `512285d099ee559ddb3ca4a3e1493feec359835b1201d444559ba482ef27f2cf`。核验目标数据库身份、有效组/公司/employee/membership、非管理员、精确审计、224张保护表及合理side effects（audit+6、grant+2、membership+1、session+1、mail_message+6、attachment+10、resource+1），无通知job/SMTP/SMS/provider外发，D/C不变、事务rollback/close、服务STOPPED/18411空闲。附件内容和消息正文未读取；没有任何PO查询。
+
+同候选GDB下`ydental_access_test`单项MODEL测试通过（1/0/0；日志SHA `a19690d667e831a9d682c099fb867ca47df2de1e2f9fd41148e48775419be833`）。模块安装后的fresh admission PASS。早期回读尝试的只读核验器断言失败是适配/预期错误，未写业务数据；最终修正的准确脚本及静态复审结果取代早期失败，不覆盖其事实。当前plan仍PARTIAL，FIFO队列临床后续、postcommit/通知、T08新合成采购/义齿链、追加返工费用、适用并发/影响回归及总验收待完成；旧F2证据缺口不重放，ROOT_CAUSE_UNDETERMINED，#35 OPEN。
+
 # [CODEX-STATUS] YD-S11-FOLLOWUP-LAB-V1 / 1.0
 
 ## 2026-10-20 15:01 UTC：预约浏览器自动化前置两次退出，GDB服务已停止
