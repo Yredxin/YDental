@@ -70,6 +70,37 @@ class TestFollowupNotification(TransactionCase):
         with self.assertRaises(AccessError):
             self.env['ydental.followup'].sudo().create({'name': 'Bypass attempt'})
 
+    def test_enqueue_registers_deferred_postcommit_dispatch(self):
+        callbacks = self.env.cr.postcommit
+        registered = []
+        add_callback = type(callbacks).add
+
+        def capture_callback(queue, callback):
+            if queue is callbacks:
+                registered.append(callback)
+            return add_callback(queue, callback)
+
+        with patch.object(followup_service_module, '_dispatch_after_commit') as dispatch:
+            with patch.object(type(callbacks), 'add', autospec=True, side_effect=capture_callback):
+                job = self.followup_service._enqueue(
+                    store=self.store,
+                    source_model='ydental.followup',
+                    source_id=999998,
+                    source_version=1,
+                    event_type='followup_contact',
+                    due_at=fields.Datetime.now(),
+                )
+
+            self.assertEqual(job.ydental_state, 'pending')
+            self.assertEqual(len(registered), 1)
+            dispatch.assert_not_called()
+
+            # This invokes only the newly registered callback. The dispatcher is
+            # mocked, so this proves callback wiring, not transaction commit,
+            # independent claiming, transport, or patient delivery.
+            registered[0]()
+            dispatch.assert_called_once_with(self.env.cr.dbname, (job.id,))
+
     def test_callback_deduplicates_and_late_acceptance_does_not_regress_delivery(self):
         first = self._callback('provider-event-delivered', 'delivered')
         self.assertEqual(first['state'], 'delivered')
