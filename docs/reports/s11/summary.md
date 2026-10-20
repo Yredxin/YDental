@@ -1,5 +1,13 @@
 # [CODEX-STATUS] YD-S11-FOLLOWUP-LAB-V1 / 1.0
 
+## 2026-10-20 S11续行：SIGSEGV退出诊断修复
+
+用户明确授权对既有 HTTP child SIGSEGV 做只读诊断和必要修复，并在新鲜准入后建立新的正常 Store2 测试 session。原始崩溃 run 保持只读、不重放；授权不覆盖 task720、PO147–149、业务POST、外部通道、生产、合并或部署。
+
+已修复 `scripts/s11/launcher.py` 的退出归因：子进程非零退出标为 `child_nonzero_exit`，意外信号标为 `child_signaled` 并记录 signal number；监督器主动停止记录 `stop_requested`，更具体的超时/强杀原因不被覆盖。测试 `scripts/s11/test_launcher.py` 覆盖这些分支。`python3 scripts/s11/test_launcher.py`：退出码0，12项通过；日志 `.local/s11/operations/20261020T0914Z-launcher-child-exit-diagnostics-test.log` SHA-256 `00c0b6fa9c2e40d2f67fc4d1fdf0c91039ea872eb2740f9dadb830fce3e4d5f0`。`git diff --check`通过。独立审阅通过。该修复提升未来诊断记录准确性，不构成既有Native崩溃根因修复；此前启用Python faulthandler的认证链未复现SIGSEGV且无native stack。
+
+本次状态更新时新 session 尚未启动。下一步固定文档与代码候选、提交本地变更，再执行精确HEAD的只读fresh admission和独立复核；准入通过后才进行有界登录与只读HTTP路由诊断。S11原有业务缺口、task720 verify边界及#35 OPEN均保持。
+
 ## 2026-10-20 09:04 UTC：剩余闭环认证路径复核与停止边界
 
 本次为本地只读源码/证据调查；没有数据库连接、业务写入、服务启动、测试重跑或产品代码修改。核验基线为原分支 `codex/s11-followup-lab-r1`、HEAD `698220d06c533257c1d4c0a3fe67d37d9532e79d`，产品测试候选 `789619fa76674caa1f8eab6db2eaf559847f16bf`。既有2项T18选择用例、14项followup notification模型测试及独立读回仍是最近测试结果，见08:58节。

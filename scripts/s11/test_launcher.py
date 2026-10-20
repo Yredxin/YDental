@@ -196,6 +196,19 @@ class LauncherSupervisorTests(unittest.TestCase):
             child.wait(timeout=2)
             child.stdout.close()
 
+    def test_child_exit_diagnostics_preserve_signal_and_nonzero_status(self):
+        self.assertEqual(launcher.child_exit_diagnostics(0, 'normal_exit'), ('normal_exit', None))
+        self.assertEqual(launcher.child_exit_diagnostics(2, 'normal_exit'), ('child_nonzero_exit', None))
+        self.assertEqual(launcher.child_exit_diagnostics(-11, 'normal_exit'), ('child_signaled', 11))
+        self.assertEqual(launcher.child_exit_diagnostics(-15, 'normal_exit', stop_requested=True),
+                         ('stop_requested', 15))
+        self.assertEqual(launcher.child_exit_diagnostics(0, 'normal_exit', stop_requested=True),
+                         ('stop_requested', None))
+        self.assertEqual(launcher.child_exit_diagnostics(-9, 'stop_grace_expired_child_killed'),
+                         ('stop_grace_expired_child_killed', 9))
+        self.assertEqual(launcher.child_exit_diagnostics(None, 'stop_grace_expired_child_still_running'),
+                         ('stop_grace_expired_child_still_running', None))
+
     def test_available_child_output_is_read_without_waiting_for_eof(self):
         child = subprocess.Popen(
             [sys.executable, '-c', 'import os, time; os.write(1, b"ready"); time.sleep(3)'],

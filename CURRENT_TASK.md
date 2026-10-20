@@ -1,5 +1,13 @@
 # YDental 当前任务状态
 
+## S11 最新状态（2026-10-20 09:13 UTC）
+
+- 用户已明确授权：只读诊断并修复此前 HTTP child SIGSEGV 后，在新鲜准入通过后建立新的正常 Store2 测试 session。仍禁止重开/接管/重放 task720、PO147–149 或既有业务动作；本次 session 仅限认证和已授权的最小 HTTP 诊断，不提交业务 POST。
+- 继续原分支 `codex/s11-followup-lab-r1`；起始 HEAD `cbb5740ddccb513b0681e4bf3e35501b72ae6236`，起始工作区仅有 `scripts/s11/launcher.py` 与 `scripts/s11/test_launcher.py` 的 32 行修复/测试差异。修复 launcher 将非零退出和负信号退出记录为准确 reason，并增加 `child_signal_number`；主动停止标为 `stop_requested`，不覆盖超时/强杀原因。
+- `python3 scripts/s11/test_launcher.py` 退出码0，12项通过；完整日志 `.local/s11/operations/20261020T0914Z-launcher-child-exit-diagnostics-test.log` SHA-256 `00c0b6fa9c2e40d2f67fc4d1fdf0c91039ea872eb2740f9dadb830fce3e4d5f0`。`git diff --check`通过。独立代码审阅确认主动停止、意外信号和原有超时原因均能区分；未执行第二次测试。
+- 已有 faulthandler 诊断尝试没有复现崩溃，故目前没有根因结论；此次只修复退出诊断信息，不能宣称 SIGSEGV 根因已修复。新 session 及HTTP请求尚未开始，必须先以最终固定 HEAD 新鲜准入并独立复核。
+- 原计划其余缺口不变：S11 为 PARTIAL/IN_PROGRESS、#35 OPEN；后续还需结合可安全建立的新 Store2 scope，推进适用通知/HTTP、T08/F4来源限制、剩余生命周期及影响面回归、独立最终验收。无 push/merge/deploy。
+
 ## S11 最新状态（2026-10-20 08:58 UTC）
 
 - 原分支 `codex/s11-followup-lab-r1`；本次测试准入/独立读回候选HEAD `81fe5cd2f836696a0e16898d973838e294579103`，产品与测试候选仍为 `789619fa76674caa1f8eab6db2eaf559847f16bf`。本次状态核验开始时跟踪工作区干净，未改产品代码、未重跑角色创建或已完成测试。分支本地领先origin 135个提交，不推送。

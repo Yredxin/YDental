@@ -431,6 +431,23 @@ def stop_grace_elapsed(stopping: bool, stop_deadline: float | None, now: float |
     return bool(stopping and stop_deadline is not None and (time.monotonic() if now is None else now) >= stop_deadline)
 
 
+def child_exit_diagnostics(
+    exit_code: int | None, reason: str, stop_requested: bool = False,
+) -> tuple[str, int | None]:
+    """Report spontaneous child failures without overwriting an intentional stop reason."""
+    if stop_requested and reason == "normal_exit":
+        reason = "stop_requested"
+    if exit_code is None:
+        return reason, None
+    if exit_code < 0:
+        if reason == "normal_exit":
+            reason = "child_signaled"
+        return reason, -exit_code
+    if exit_code != 0 and reason == "normal_exit":
+        return "child_nonzero_exit", None
+    return reason, None
+
+
 def ensure_run_capacity() -> None:
     run_dirs = list(RUNS.iterdir())
     if len(run_dirs) >= MAX_RUNS:
@@ -669,6 +686,7 @@ def start_service() -> int:
         except subprocess.TimeoutExpired:
             reason = "stop_grace_expired_child_still_running"
             child_exit = None
+        reason, child_signal = child_exit_diagnostics(child_exit, reason, stopping)
         receipt = {
             "plan_id": PLAN_ID,
             "run_id": run_id,
@@ -676,6 +694,7 @@ def start_service() -> int:
             "child_pid": child.pid,
             "child_start_ticks": child_ticks,
             "child_exit_code": child_exit,
+            "child_signal_number": child_signal,
             "reason": reason,
             "log_bytes": bytes_written,
             "log_limit_bytes": MAX_LOG_BYTES,
