@@ -8,6 +8,12 @@
 
 # S11 F/T evidence index
 
+## 2026-10-20 15:01 UTC：预约浏览器attempt无业务POST
+
+Candidate `993ee508cff5d5f4d4630d1217481d9ea258c1ee`, branch `codex/s11-followup-lab-r1` (ahead 182). Two patient682/slot1694 browser receipts are PREPARED with `post_attempts=0`; neither trace has `/ydental/intake/action`. Attempt1 completed only normal Store2 context switch; attempt2 confirmed Store2 and skipped it. Independent readback found no arrival, entitlement, task, active queue position, or treatment event; slot1694 still had 1 reservation and 2 walk-in places. It has since passed its 15:00–15:30 UTC window and is not reusable. Receipt hashes: attempt1 `c80ce77db30f0818ae9ad1957fb120b5cdc42d87dfe7414635cac031f2f75e6b`, attempt2 `4890265014b9b92a3881fd0ceae717ed81b2d74e33bffe7bb06efb0f206d3c79`.
+
+Attempt2 stopped client-side because Playwright `fill()` waited for a hidden idempotency-key input to become visible. This is an automation defect, not a product denial or ambiguous booking commit. The next helper should assign the hidden input DOM property and verify the resulting form value before entering the existing one-POST gate. Do not replay either attempt. Fresh admission receipt SHA `6afe91029afc1c778b3161dab4404ad17e51d0ab4aeb8c4894c2057ff3a8a741`. Owned GDB run `20261020T145630Z-0ff86d87f167` was stopped by the launcher: exit 0, no signal/core, reason `stop_requested`, receipt SHA `8dfbd2707bc2d1418e47b7c4353e578676dab290bb4be5dcd8bb2a3cffade948`. `ROOT_CAUSE_UNDETERMINED` remains. Plan remains PARTIAL/IN_PROGRESS, #35 OPEN.
+
 ## 2026-10-20 14:20 UTC：收紧跨库schema ACL后的只读HTTP probe
 
 Candidate `80766954eb5c6301c8cfdfa4749aec44561de1d4` fresh admission PASS: `.local/s11/receipts/s11-fresh-admission-8076695-20261020T140501Z-f3f0a82a887ecf36.json`, SHA-256 `31ef8838efa95d287f679ec416f9dec9a6315b37cdfa8dfa39f14a9ed52406f9`. Scope is the named scratch/OID 2144130/cluster `7694897083368259627`; protected counts, D/C, modules, external state, and cross-database restricted-role checks passed after PUBLIC CREATE was removed from `odoo20_dev.public` while USAGE/CONNECT remained.

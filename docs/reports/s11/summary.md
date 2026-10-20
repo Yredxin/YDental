@@ -1,5 +1,13 @@
 # [CODEX-STATUS] YD-S11-FOLLOWUP-LAB-V1 / 1.0
 
+## 2026-10-20 15:01 UTC：预约浏览器自动化前置两次退出，GDB服务已停止
+
+候选HEAD `993ee508cff5d5f4d4630d1217481d9ea258c1ee`，分支 `codex/s11-followup-lab-r1`，ahead origin 182。patient682针对slot1694的两次预约浏览器attempt均未发送`/ydental/intake/action` POST，receipt分别为`.local/s11/operations/patient682-slot1694-reservation-browser-993ee50.json`（SHA `c80ce77db30f0818ae9ad1957fb120b5cdc42d87dfe7414635cac031f2f75e6b`）及attempt2（SHA `4890265014b9b92a3881fd0ceae717ed81b2d74e33bffe7bb06efb0f206d3c79`）。均为PREPARED、`post_attempts=0`；独立RO读回确认patient682无arrival/entitlement/task/active position/treatment event，slot1694剩余reservation/walkin为1/2。attempt1做过正常Store2切换，attempt2验证已处于Store2后跳过；只存在该正常访问scope状态，不存在预约业务提交。原slot时间15:00–15:30 UTC已过，不可再用。
+
+attempt2客户端退出原因是Playwright `fill()`作用于hidden幂等key字段并等待可见性超时；这不是产品拒绝或未知业务提交。下一版自动化应以DOM property设置hidden key、提交前核对字段，并保留单次POST闸门。旧attempt不重放。候选993ee50 fresh admission PASS（receipt SHA `6afe91029afc1c778b3161dab4404ad17e51d0ab4aeb8c4894c2057ff3a8a741`）。GDB run `20261020T145630Z-0ff86d87f167`由launcher正常stop，exit0、无signal/core（exit SHA `8dfbd2707bc2d1418e47b7c4353e578676dab290bb4be5dcd8bb2a3cffade948`）；前次run也正常bounded expiry。`ROOT_CAUSE_UNDETERMINED`不变，这些退出不构成崩溃修复。
+
+独立审查已确认最新状态和可独立推进项（plan remaining audit）；预约下一步需新slot、更新候选fresh admission及只读核验slot/capacity/actor/policy，再单次正常操作。整个S11仍PARTIAL/IN_PROGRESS，#35 OPEN；不push/merge/deploy/S12/S13。
+
 ## 2026-10-20 14:30 UTC：GDB owner 参数识别修复
 
 固定候选`cd85e4972728f7b21c0ebee0297c78166b9daecb`。用参数顺序`launcher.py --gdb start`启动的owned run `20261020T142835Z-107cde1bd9f5`曾被`own_process_matches`误报STALE_OWNER_RECORD；状态工具未发送信号。修复只接受三种明确合法参数序列（`start`、`start --gdb`、`--gdb start`），且仍精确核对launcher路径与PID birth ticks。新增回归用例；py_compile成功，launcher 20项测试通过，日志见CURRENT_TASK本节所列SHA。修复后原生status/stop确认owner并正常停止。GDB exit receipt SHA `03c3834cc724b8a0bd73f2e79b835c8e63c1630a740ebddbf9ee75db48458334`记录exit 0、无signal/core；此次没有HTTP/业务请求或写入。代码变更待独立review和提交；提交后须新HEAD fresh admission再继续，不将此结果表述为SIGSEGV根因修复。S11 `PARTIAL / IN_PROGRESS`、#35 OPEN。
