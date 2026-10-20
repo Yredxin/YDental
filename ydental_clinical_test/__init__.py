@@ -17,14 +17,17 @@ def pre_init_hook(env):
         launcher = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(launcher)
         try:
-            _, admission, database, branch, candidate = launcher.validate_pair()
+            runtime, admission, database, branch, candidate = launcher.validate_pair()
         except launcher.Refusal as error:
             raise AccessError('S11 clinical verification requires a valid private scratch admission.') from error
-        env.cr.execute('SELECT oid FROM pg_database WHERE datname=current_database()')
+        env.cr.execute('''SELECT db.oid, current_user, inet_server_addr()::text, inet_server_port()
+            FROM pg_database db WHERE db.datname=current_database()''')
         row = env.cr.fetchone()
         if (branch == 'codex/s11-followup-lab-r1' and candidate == admission['candidate_commit'] and
                 database['name'] == env.cr.dbname and admission['database_oid'] == 2144130 and
-                admission['cluster_ref'] == '7694897083368259627' and row and row[0] == 2144130):
+                admission['cluster_ref'] == '7694897083368259627' and row and row[0] == 2144130 and
+                row[1] == database['user'] and row[2] == database['host'] and row[3] == database['port'] and
+                runtime['database']['expected_cluster_ref'] == admission['cluster_ref']):
             return
         raise AccessError('S11 clinical verification target does not match the authorized scratch database.')
 
