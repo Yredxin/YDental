@@ -15,6 +15,24 @@ class Admission:
 class YDentalIntakeService(models.AbstractModel):
     _inherit = 'ydental.intake.service'
 
+    def _queue_reservation_error(self, task, store):
+        """Return a read-only reason when a held appointment cannot enter service."""
+        entitlement = task.ydental_entitlement_id
+        if not entitlement:
+            return ''
+        claim = entitlement.ydental_claim_id
+        slot = claim.ydental_slot_id
+        if entitlement.state != 'held' or claim.state != 'held':
+            return self.env._('qualification_required: Review the original held qualification.')
+        if slot.ydental_end <= self.env['ydental.queue.service']._now():
+            return self.env._('qualification_expired: The reserved appointment has ended.')
+        supply = self.env['ydental.supply.service']
+        if slot.state != 'published' or not supply._coverage_valid(slot):
+            return self.env._('qualification_required: Review the original held qualification.')
+        if supply._date(store, slot.ydental_start) != supply._date(store):
+            return self.env._('reporting_date_mismatch: Report on the reservation store business date.')
+        return ''
+
     def _business_read_access(self):
         try:
             return super()._business_read_access()
@@ -38,10 +56,9 @@ class YDentalIntakeService(models.AbstractModel):
                 raise UserError(self.env._('version_conflict: Refresh the canonical task identity.'))
             self.env['ydental.patient.service']._current_relation(patient, store)
             self._target(task.ydental_mapping_id.id, store)
-            if task.ydental_entitlement_id and (task.ydental_entitlement_id.state != 'held' or
-                    task.ydental_entitlement_id.ydental_claim_id.state != 'held' or
-                    task.ydental_entitlement_id.ydental_claim_id.ydental_slot_id.state != 'published'):
-                raise UserError(self.env._('qualification_required: Review the original held qualification.'))
+            reservation_error = self._queue_reservation_error(task, store)
+            if reservation_error:
+                raise UserError(reservation_error)
             return patient
         service = self.with_context(ydental_queue_admission=Admission(self.env.uid, task.id))
         patient = super(YDentalIntakeService, service)._valid_task(task, store)

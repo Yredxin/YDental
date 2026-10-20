@@ -446,6 +446,9 @@ class YDentalQueueService(models.AbstractModel):
         if reason:
             return reason
         task = entry.ydental_task_id
+        reservation_error = self.env['ydental.intake.service']._queue_reservation_error(task, entry.ydental_store_id)
+        if reservation_error:
+            return reservation_error
         kind = task.ydental_mapping_id.ydental_catalog_id.ydental_kind
         expected = {'exam': 'exam', 'medicine': 'pharmacy'}.get(kind, 'medical')
         if self._category(station) != expected:

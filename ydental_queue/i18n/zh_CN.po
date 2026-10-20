@@ -1748,6 +1748,12 @@ msgstr "qualification_required: 请核对原有有效资格。"
 
 #. module: ydental_queue
 #. odoo-python
+#: code:addons/ydental_queue/models/ydental_intake_service.py:0
+msgid "qualification_expired: The reserved appointment has ended."
+msgstr "qualification_expired: 预约时段已结束。"
+
+#. module: ydental_queue
+#. odoo-python
 #: code:addons/ydental_queue/models/ydental_queue_day.py:0
 msgid ""
 "queue_not_empty: Clear waiting and calling before closing ordinary calling."

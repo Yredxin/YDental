@@ -5,6 +5,8 @@ from odoo import fields
 from odoo.exceptions import AccessError, UserError
 from odoo.tests import TransactionCase, tagged
 
+from odoo.addons.ydental_queue.models.ydental_queue_service import StartPermit
+
 from .common import setup, queue_bind, enter, lease_args, accepted, qualify, arrive_report, key, bind, patient, price
 from ..models.adapter import DocumentSource, Clock
 
@@ -42,6 +44,41 @@ class TestQueue(TransactionCase):
         with self.assertRaises(UserError):
             a._operate('start', dict(lease_args(lease), entry_id=call['entry_id']))
         self.assertEqual(self.root['ydental.supply.event'].search_count([('ydental_claim_id', '=', claim.id), ('ydental_operation', '=', 'consume')]), 1)
+
+    def test_expired_reserved_appointment_is_skipped_during_call(self):
+        task = accepted(self)
+        entry = self.root['ydental.queue.entry'].search([('ydental_task_id', '=', task.id)])
+        claim = task.ydental_entitlement_id.ydental_claim_id
+        queue = queue_bind(self).with_context(ydental_queue_test_clock=Clock(self.end + timedelta(seconds=1)))
+        queue, lease = enter(self, service=queue)
+        with self.assertRaises(UserError):
+            queue._operate('call', lease_args(lease))
+        self.assertEqual((entry.state, task.state, task.ydental_entitlement_id.state, claim.state),
+                         ('waiting', 'accepted', 'held', 'held'))
+        self.assertFalse(entry.ydental_opportunity_used)
+        self.assertFalse(self.root['ydental.supply.event'].search_count([
+            ('ydental_claim_id', '=', claim.id), ('ydental_operation', '=', 'consume')]))
+
+    def test_start_rechecks_appointment_if_it_expires_after_call(self):
+        task = accepted(self)
+        start_clock = Clock(self.end - timedelta(seconds=10))
+        queue = queue_bind(self).with_context(ydental_queue_test_clock=start_clock)
+        queue, lease = enter(self, service=queue)
+        call = queue._operate('call', lease_args(lease))
+        entry = self.root['ydental.queue.entry'].browse(call['entry_id'])
+        claim = task.ydental_entitlement_id.ydental_claim_id
+        expired_queue = queue.with_context(ydental_queue_test_clock=Clock(self.end + timedelta(seconds=1)))
+        intake = bind(self, self.users['doctor']).with_context(
+            ydental_queue_test_clock=Clock(self.end + timedelta(seconds=1)),
+            ydental_queue_start=StartPermit(self.users['doctor'].id, task.id, lease['lease_id']))
+        with self.assertRaises(UserError):
+            intake._valid_task(task, task.ydental_store_id)
+        with self.assertRaises(UserError):
+            expired_queue._operate('start', dict(lease_args(lease), entry_id=entry.id))
+        self.assertEqual((entry.state, task.state, task.ydental_entitlement_id.state, claim.state),
+                         ('calling', 'accepted', 'held', 'held'))
+        self.assertFalse(self.root['ydental.supply.event'].search_count([
+            ('ydental_claim_id', '=', claim.id), ('ydental_operation', '=', 'consume')]))
 
     def test_t03_panorama_never_cbct(self):
         task = accepted(self, self.mappings[0][2])
