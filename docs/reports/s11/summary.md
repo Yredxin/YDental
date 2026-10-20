@@ -77,4 +77,12 @@ Issue #35：**OPEN**
 
 本轮 RO 前置核实后，以actor9本店普通前台身份，通过原生 `ydental.intake.service._operate('report', ...)` 对patient364/task799 version2登记排队，复用已存在的当天arrival359，没有重复arrive。动作发生于 `2026-10-20T04:41:51.779672Z`，返回position544、task v4、waiting。受限于待排 slot1297在05:09 UTC开始，后续接诊不得提前调用或跳过原生队列。执行receipt `.local/s11/operations/store2-patient364-task799-report.json`。独立RR提交状态读回待本节续记；本次report不构成治疗、戴用、followup完成或计划完成证明。
 
-当前仍未完成：T08 supplier_return；F1完整浏览器闭环；通知 unknown/策略端到端；F4双店资质合作矩阵；T18合格的新治疗、戴用和独立followup；F2首次收费并发；以及最终影响回归、独立验收与计划收尾。原task720在clinical.open前失败后已timeout转verify，不takeover/不重报/不重用。真实供应商/短信仍NOT_RUN / OUT_OF_CURRENT_ACTIVATION。#35保持OPEN，未向GitHub发布中间更新；无push、合并或部署。
+当前仍未完成：T08 supplier_return；F1完整浏览器闭环；通知 unknown/策略端到端；F4双店资质合作矩阵；T18 continuation/followup后续及最终影响回归；F2首次收费并发；以及独立最终验收与计划收尾。原task720在clinical.open前失败后已timeout转verify，不takeover/不重报/不重用。真实供应商/短信仍NOT_RUN / OUT_OF_CURRENT_ACTIVATION。#35保持OPEN，未向GitHub发布中间更新；无push、合并或部署。
+
+## 2026-10-20 S11续行：task799原生治疗与handover
+
+固定产品候选 `f423cc7363b399e0e1713f5674e33d62eb94e590`，原分支不变。预约1297真实开放后（DB UTC 05:09:25），普通store2医疗角色actor10在单一原生事务中接诊已等待的task799/entry544，建立execution534、打开并保存临床文书505，执行一次合成catalog2治疗并按 `demo_confirmation` 形成event414、price snapshot511（price455，USD 7.00）及fee412（$7）；无材料、库存、invoice/payment。handover创建/复用 continuation task940 并退出lease541。操作回执 `.local/s11/operations/task799-native-clinical-handover.json`；运行摘要 `.local/s11/operations/task799-native-clinical-handover-run.log`。文书handover后为pending v2；治疗事件固定关联handover前保存的v1，immutable versions 1/2各一条。task799进入handed_over v7、continuation940仍pending，因此不冒充后续continuation完成。
+
+独立RR READ ONLY/ROLLBACK读回最终PASS；attempt4证据 `.local/s11/verification/task799-clinical-handover-independent-readback-attempt4.json` SHA-256 `7dd2c6515b06d32a2768558a2141db13b5e08ee614f7bc1654039f13077cd04b`。核实DB/OID/cluster/受限角色与候选匹配；task799/entry544/execution534 handover，lease541 inactive，position inactive；entitlement485已started、claim503 consumed、slot1297 reservation_free仍0；event414 confirmed关联doc505 v1和snapshot511/price455，fee412 $7；continuation940 pending且来源为execution534/parent task799。无消费、库存事件或stock move；224张保全表相对checkpoint无计数下降；D/C pin匹配；提交后mail/activity/message/SMS/notification/outbox均0；owned service stopped、18411空闲。早期两次核验查询错误及attempt3断言投影形状错误保留原FAIL证据，attempt4通过，不把验证器错误升级为业务失败。
+
+T08 supplier_return前置仍有实际权限缺口：采购组ACL对purchase.order与purchase.order.line为CRUD，规则仅限制company，store1受保护单147–149也在company1。新授予store2合成用户 `purchase.group_purchase_user` 会让其获得这些记录读写范围；未创建该角色、未扩大跨店权限。继续处理不依赖该权限的范围；是否接受该company级访问须由用户在具体事实基础上决定。

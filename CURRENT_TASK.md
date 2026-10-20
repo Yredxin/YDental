@@ -1,11 +1,11 @@
 # YDental 当前任务状态
 
-## S11 续行快照（2026-10-20 04:42 UTC；覆盖下方较早候选字段）
+## S11 续行快照（2026-10-20 05:14 UTC；覆盖下方较早候选字段）
 
-- 当前活动 plan 仍是 `YD-S11-FOLLOWUP-LAB-V1 / 1.0`，状态 `IN_PROGRESS / OPEN`；分支 `codex/s11-followup-lab-r1`，HEAD `2df07373fa5257589115d39f4354dcd4c25c2997`，本次开始时 tracked 工作树干净。代码候选包含过期预约过滤与已消费容量生命周期兼容修复；不改范围、业务要求或原分支。
-- 候选 `2df0737` 上 S11 兼容的临床/队列回归 32 post-tests、0失败、0错误；followup lifecycle 1 post-test、0失败、0错误。证据和完整失败修复过程见下方本地报告追加记录；独立 RR 已提交状态读回通过，尚不等于全部 S11 验收通过。
-- 通过 actor9 本店普通前台权限，对已有今日到店记录的合成 patient364/task799 以原生 intake `report` 提交一次，task799 从 pending v2 至 accepted v4/position544 waiting；未重复登记到店。操作回执 `.local/s11/operations/store2-patient364-task799-report.json`。独立 RR READ ONLY/ROLLBACK 读回通过：position544/queue entry544唯一 waiting，arrival359和预约held状态未变；仅新增一条内部queue outbox通知，无外发或临床/费用/库存副作用。证据 `.local/s11/verification/task799-report-independent-readback.json` SHA-256 `0cde1b127951444179efa57e38f190092c57ae92b6d4b21a0bbce0b18e55eeef`。后续队列/接诊须遵守预约1297的05:09–05:39 UTC时段、原生排队和站点授权。
-- 尚未关闭的范围：T08 supplier_return、F1完整浏览器闭环、通知 unknown/策略端到端、F4双店矩阵、T18合格新临床闭环、F2首次收费并发及必要最终候选回归/独立验收。严禁把上述测试绿灯当全计划完成。#35保持OPEN；无GitHub过程更新、无push/merge/deploy。
+- 当前活动 plan 仍为 `YD-S11-FOLLOWUP-LAB-V1 / 1.0`、`IN_PROGRESS / OPEN`；分支 `codex/s11-followup-lab-r1`。产品候选 `2df07373fa5257589115d39f4354dcd4c25c2997` 上的过期预约过滤改动及其32项兼容回归、1项followup回归均已完成；当前文档提交前HEAD `f423cc7363b399e0e1713f5674e33d62eb94e590` 只含文档增量，工作区原先干净。
+- actor9复用arrival359为patient364/task799执行原生report，task799 v4/position544/entry544 waiting；receipt与独立读回见下方本地报告记录。
+- 预约1297进入有效时段后，actor10完成task799/entry544接诊、execution534、clinical document505保存、一次合成治疗event414、price snapshot511/price455（$7）和fee412（$7），再handover至continuation940 pending并释放lease541。独立RR只读最终读回PASS，证据 `.local/s11/verification/task799-clinical-handover-independent-readback-attempt4.json` SHA-256 `7dd2c6515b06d32a2768558a2141db13b5e08ee614f7bc1654039f13077cd04b`。无材料/库存变化、invoice/payment、outbound；224张保护表相对checkpoint无计数下降，D/C pin匹配。该证据不等于continuation或整个T18完成。
+- T08 supplier_return尚有采购组权限缺口：新增 `purchase.group_purchase_user` 会按company规则读写store1受保护采购单147–149；未增加该角色，未扩跨店权限。若要接受company级读取/写入范围，需用户据具体事实授权；本轮继续推进其余独立可做任务。其他未完成项与历史失败见下方计划/报告。#35保持OPEN；不发Issue过程更新，无push/merge/deploy。
 
 
 ## 当前活动计划：S11（2026-10-19）
