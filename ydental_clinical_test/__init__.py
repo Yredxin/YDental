@@ -1,3 +1,4 @@
+import importlib.util
 import os
 import re
 from pathlib import Path
@@ -7,6 +8,26 @@ from odoo.tools import config
 
 
 def pre_init_hook(env):
+    if env.cr.dbname == 'ydental_s10_test_20261017105432_ce6dcbf8':
+        repo_root = Path(__file__).resolve().parents[1]
+        launcher_path = repo_root / 'scripts' / 's11' / 'launcher.py'
+        spec = importlib.util.spec_from_file_location('ydental_s11_test_launcher', launcher_path)
+        if not spec or not spec.loader:
+            raise AccessError('S11 clinical verification requires a valid private scratch admission.')
+        launcher = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(launcher)
+        try:
+            _, admission, database, branch, candidate = launcher.validate_pair()
+        except launcher.Refusal as error:
+            raise AccessError('S11 clinical verification requires a valid private scratch admission.') from error
+        env.cr.execute('SELECT oid FROM pg_database WHERE datname=current_database()')
+        row = env.cr.fetchone()
+        if (branch == 'codex/s11-followup-lab-r1' and candidate == admission['candidate_commit'] and
+                database['name'] == env.cr.dbname and admission['database_oid'] == 2144130 and
+                admission['cluster_ref'] == '7694897083368259627' and row and row[0] == 2144130):
+            return
+        raise AccessError('S11 clinical verification target does not match the authorized scratch database.')
+
     s09 = Path(os.environ.get('YDENTAL_S09_RUN_DIR', '/nonexistent'))
     if re.fullmatch(r'ydental_s09_test_[0-9]{14}_[a-f0-9]{8}', env.cr.dbname) and s09.name == env.cr.dbname and (s09 / 'database.json').is_file():
         import json
