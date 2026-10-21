@@ -1,5 +1,13 @@
 ## S11 状态续行（2026-10-21 08:36 UTC）：session-scoped debug business clock
 
+## S11 状态续行（2026-10-21 11:50 UTC）：debug clock 数据库连接核验与安全停止
+
+- 固定候选仍 `8aa3ea880ea0844682000e87f7938714132fb16d`，分支 `codex/s11-followup-lab-r1`，工作区无 tracked 修改；服务保持 STOPPED。session-scoped debug business clock addon/入口已提交并安装，但operator组尚未授给测试浏览器用户UID539，debug页面/设置/清除及任何合成临床流程都尚未实测。用户授权的合成业务时间仍只覆盖受控S11 session，不改本机、PostgreSQL或全局时间。
+- 独立核了Odoo 20源码：`Registry.cursor(readonly=True)`可能回退到读写主库； attempt8因此在真正授权或组写入前 fail closed，helper SHA `f13f478c3a0c25b38a9729347a9e1e30f7ef429d6b577ad2210479701618e956`，runner/exit SHA `a8a04ed597891ebd957609f8eeb3e9f3930800a656c708cc2a7d093f8d55b375`；其准确证据链和源码依据见`docs/reports/s11/summary.md`。正确只读连接需显式走`sql_db.db_connect(DB, readonly=True)`并核对`cr.readonly`、`SHOW transaction_read_only`、目标DB/OID/cluster、RR、rollback/close/idle。
+- 后续只读diagnostic attempt1因runner与helper共用一次性marker路径，在helper SQL连接前拒绝；GDB run `20261021T114421Z-rodb-diagnostic-8aa3ea8-attempt1-11f414f83c79`，日志SHA `0bcddc4877f5bd41229cff3d8c3d2ece0930e07d78dbbb7c74e2ac27243e369b`，runner/exit SHA `6617fcfbf53459b2639fcc6d2a17d666648e05560f7fe239b2a2a5602c21b136`。attempt2修复marker分离后，仍因runner marker字段 `attempt1_failure_evidence_hashes` 与helper校验期望 `attempt1_evidence_hashes` 不一致，在 `sql_db.db_connect`前退出；日志SHA `ebff1f57f7335e86cf6fa8ec5c8a8b4df590701694d3db75d314d0121d2edf5e`，runner/exit SHA `8521572864a95b69dcd16a3975d5081f66d6523c1386b8e49a22035d264c39b0`。独立复核确认两次均无诊断SQL、业务写入、commit、SIGSEGV或core；但Odoo shell启动时加载Registry/context，不能表述为完全没有DB访问。attempt1/2所有一次性证据保留且不重放。
+- 受限scratch没有业务或保护数据变更；但旧fresh-admission pair于11:18 UTC过期，下一次DB动作必须先获得更新后的全新read-only admission并固定其hash。准备全新一次性授权入口，合并预检和一次性组授权，避免独立诊断重复启动；静态代码必须完全校验runner/helper marker schema，独立审阅PASS前不运行。UID539仍未获clock operator组，故不声称入口已端到端工作。
+- 未改变S11其他业务状态：SIGSEGV `ROOT_CAUSE_UNDETERMINED`，旧F2 loser/PID `EVIDENCE_GAP`，PO147–149/patient650/task720不动；T08到货/义齿来源、合成临床闭环、postcommit、返工收费、适用并发与影响面回归仍未完成。#35 OPEN，S11 PARTIAL/IN_PROGRESS；不push、merge、deploy或启动S12/S13。
+
 - 用户最新决定批准为日期触发测试创建debug入口，不等待物理日历时间；此决定更新早先“不得改本地/操作系统时钟、仅物理时间推进”的S11测试方式。实施为明确标记的 `S11_SESSION_CLOCK`：仅固定S11 scratch、GDB-owned run、被授权的登录浏览器session/actor/active store内的应用业务时间前进；不会改OS/PostgreSQL/ORM审计/真实费用截止/外部provider时钟。临床和义齿动作可形成合成时间记录，均不得表述为物理实际发生。原始物理时间始终保留。
 - 本候选代码新增独立addon `ydental_s11_clock_test`、入口 `scripts/s11/debug_clock.py` 和页面 `/ydental/s11/debug-clock`。时钟只可单调前进、UTC、距离物理时间最多30天、8小时物理超时；clear后恢复物理业务时间。专用入口要求固定候选与admission、服务停止、端口/DB/cluster核验，并以GDB运行及按需初始化addon。不能跳过正常身份、来源、权限、队列FIFO、采购库存及受保护对象规则。
 - `ydental_followup` due/quiet-hour用合成业务时间；stale timeout、dispatch attempt及每日外发上限窗口仍使用物理时间。真实资金校验/cutoff与ORM/audit物理时间不变；audit携带模拟业务UTC及物理审计UTC。通知仍限制于controlled test sink。
