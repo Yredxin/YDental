@@ -1,3 +1,12 @@
+## S11 状态续行（2026-10-21 05:43 UTC）：T08 采购 attempt6 无提交对账
+
+- 分支 `codex/s11-followup-lab-r1`，HEAD `204a0c209c8f61bd485e069d3075a63f70185224`，工作区在记录前干净，origin ahead 205。未push/merge/deploy。原计划及既有证据继续沿用。
+- 用户已批准独立合成义齿工坊及测试价格/工期。attempt4已因Store2原生库存配置缺失在业务写入前停止；attempt5因Odoo rollback callback后连接未idle在写入前停止；均已各自读回无提交。一次原生、Store2范围的设置操作已通过专门warehouse:write actor新建库存仓/配置和7个空库位，独立DB readback PASS；0库存/库存事件。该既有必要设置保留。
+- GDB下T08 PO attempt6于`2026-10-21T05:39:33Z`一次性执行。业务辅助代码使用不存在的`purchase.order.line.product_uom`字段；锁定Odoo原生模型字段为`uom_id`，故在创建草稿行时ValueError。GDB result `.local/s11/operations/20261021T053933Z-s11-t08-synthetic-initial-po-204a0c2-attempt6-gdb/result.json` SHA-256 `7faa032e41986071dafbcee0ba7cb8e2bb29be12be81ccab771dc50b7b724f7b`；日志 SHA-256 `10b342c6cebbb48c4e76e68d3419c57a28b3bde724e840ccc205aa4b17d7b90e`；exit 0、无SIGSEGV、受管进程组及服务已停、授权已撤销。intent `.local/s11/operations/s11-t08-synthetic-initial-po-204a0c2-attempt6.json` SHA `bf666e15cc494a0a5b0696bce2aaa07958aca8ed1ff3b9ca03b07345af05db1b`记录COMMIT_RESULT_REQUIRES_READBACK、无PO/line ID。
+- 修订后的只读RR对账 `.local/s11/verification/t08-attempt6-no-submit-postsetup-ro.json` SHA `acad28f41ccc3b5c30e03f4718a3dd88d454f41513cb5372bc91b6bfc30a008d` PASS_NO_SUBMISSION：核对确切scratch/OID/cluster，精确origin PO查询为空，Store2配置仍为id182/warehouse192，显式rollback/idle/close。验证脚本SHA `899b8b5846604fc3670d49c3a59e64f42adf82225ae48efa61efd3395e43841b`，静态独立审查PASS；第二位验收者`/root/gdb_core_runner_review`已独立复核PASS_NO_SUBMISSION：哈希匹配、旧进程退出、ACTIVE absent、18411无监听；结论仅限精确origin与本次读回时点。此对账不触及旧PO或PO lines。
+- 下一步：更新本记录/报告形成正常新commit，再对新精确HEAD fresh-admit；按Odoo原生字段`uom_id`制作独立attempt7，先静态独立审核，限定新PO origin和Store2。不得重跑attempt6。物理UTC日期持续有效：金额USD125、实际提交日起5个日历日。
+- S11仍PARTIAL/IN_PROGRESS、#35 OPEN。剩余包括合成临床来源、T08已确认原生PO与义齿收货/返工、postcommit controlled sink闭环、追加收费返工与来源互斥、适用的并发和影响面回归、独立综合验收；patient650/task720、PO147–149及旧资金/库存/审计均保护。`ROOT_CAUSE_UNDETERMINED`与历史F2 `EVIDENCE_GAP`保留。
+
 ## S11 状态续行（2026-10-21 04:24 UTC）：合成义齿工坊语义核验
 
 - 当前分支 `codex/s11-followup-lab-r1`，前置候选 `bc963b2097ea88d602a2f5c614be57a4435b6317`，未push/merge/deploy；工作树仅有本状态文档待提交，`.local/`证据仍为忽略文件。用户已明确授权在scratch建立标记清楚的合成义齿工坊/测试角色，并由Codex定义测试价格与工期；真实厂家/凭证不作为该合成场景前置。测试假设USD125/件、5个日历日；所有日期按物理UTC计算，不改任何时钟。

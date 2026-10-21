@@ -744,3 +744,11 @@ attempt3使用新的私有cookie session和独立幂等key；run `20261020T11413
 纯本地离线语义对账回执 `.local/s11/verification/t08-synthetic-workshop-setup-semantic-reconciliation-bc963b2.json` SHA-256 `661e2005283dace2c33bc1c042def60a44e872b9b4f0c4639a9c176e9c11d320`，结果 `PASS_WITH_EXPECTATION_CORRECTION`，9项检查PASS。它固定原始读回和intent哈希、辅助源码语义、合成partner非患者/公司归属、vendor审核状态及审核人、合作负责角色、审计标记和通知边界；没有连接Odoo/数据库、没有触发请求、没有改写历史收据。原notification job是未来到期的单条internal pending job（attempt 0，无request/activity id）；没有 claim 或交付。外部邮件服务器与live/published payment provider均为0。
 
 因此本次解释无需真实义齿厂商：合成工坊与合成资格已被正常工作流创建/审核，且仍清楚标记为非真实凭证。下一步必须在文档提交后的新候选重新fresh-admit，随后才可继续采购/义齿流程。PO147–149未读取或更改。历史 `ROOT_CAUSE_UNDETERMINED` 与F2 `EVIDENCE_GAP`保留；S11 PARTIAL/IN_PROGRESS、#35 OPEN。不推送、不合并、不部署、不启动S12/S13。
+
+## 2026-10-21 05:43 UTC｜T08采购 attempt6 无提交对账
+
+- 固定HEAD `204a0c209c8f61bd485e069d3075a63f70185224`，当前分支 `codex/s11-followup-lab-r1`，无tracked代码改动。原计划不变。
+- PO attempt6 使用新幂等尝试标识，在GDB受管运行中调用正常采购路径一次；因helper错误提供不存在的`purchase.order.line.product_uom`字段，Odoo原生字段应为`uom_id`，在草稿行缓存更新时报`ValueError`。没有SIGSEGV；GDB退出0、owned process group停止、服务STOPPED、授权撤销。结果SHA `7faa032e41986071dafbcee0ba7cb8e2bb29be12be81ccab771dc50b7b724f7b`，GDB日志SHA `10b342c6cebbb48c4e76e68d3419c57a28b3bde724e840ccc205aa4b17d7b90e`。
+- 原intent SHA `bf666e15cc494a0a5b0696bce2aaa07958aca8ed1ff3b9ca03b07345af05db1b`保留COMMIT_RESULT_REQUIRES_READBACK。经静态独立审查后的精确origin只读RR对账PASS_NO_SUBMISSION，receipt SHA `acad28f41ccc3b5c30e03f4718a3dd88d454f41513cb5372bc91b6bfc30a008d`：目标PO为空；Store2 native config仍有效；指定DB/OID/cluster正确；显式ROLLBACK/idle/close。只查询目标origin，不读PO lines；没有重试attempt6。第二独立验收`/root/gdb_core_runner_review` PASS_NO_SUBMISSION；复核所有证据哈希并另核旧GDB/runner进程退出、ACTIVE absent、18411无监听。
+- 后续将更正为原生`uom_id`，先独立静态审查，再按文档提交后的新HEAD fresh-admit才可尝试一次新幂等attempt。Store2原生库存setup的先前独立读回见本报告前节，0库存和库存事件。
+- 当前S11仍PARTIAL/IN_PROGRESS、#35 OPEN；SIGSEGV `ROOT_CAUSE_UNDETERMINED`、历史F2 `EVIDENCE_GAP`。未提交采购服务费或义齿收货等后续状态；S11其他缺口按当前任务状态保留。

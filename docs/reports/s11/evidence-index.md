@@ -245,3 +245,12 @@ At candidate `4d126a6`, fresh pre-create admission passed (receipt SHA `93c21c58
 |T08合成义齿工坊提交读回|`.local/s11/verification/t08-synthetic-workshop-setup-readback-bc963b2-attempt2-retry1.json`|`09757bde229a55c0d61afd3a99c6add1183e0d2135e0023f436cafa9bfb17188`|原件保留，FAIL仅指验证器两个预期与原生字段语义不符；不是修改业务数据的授权|
 |T08字段语义对账|`.local/s11/verification/t08-synthetic-workshop-setup-semantic-reconciliation-bc963b2.json`|`661e2005283dace2c33bc1c042def60a44e872b9b4f0c4639a9c176e9c11d320`|9项离线检查PASS；无服务/数据库访问；`PASS_WITH_EXPECTATION_CORRECTION`|
 |独立验收|`/root/plan_remaining_audit` 当前回合结论|会话协作记录|PASS；复核partner VAT计算、vendor准入、原生审核reason默认值，无业务执行|
+
+## 2026-10-21 05:43 UTC｜T08采购 attempt6
+
+| 范围 | 证据 | SHA-256 | 结果/限定 |
+|---|---|---|---|
+| GDB run result | `.local/s11/operations/20261021T053933Z-s11-t08-synthetic-initial-po-204a0c2-attempt6-gdb/result.json` | `7faa032e41986071dafbcee0ba7cb8e2bb29be12be81ccab771dc50b7b724f7b` | exit 0；无SIGSEGV；`RECONCILE_REQUIRED`，不自行代表无提交 |
+| GDB log | `.local/s11/operations/20261021T053933Z-s11-t08-synthetic-initial-po-204a0c2-attempt6-gdb/gdb-setup.log` | `10b342c6cebbb48c4e76e68d3419c57a28b3bde724e840ccc205aa4b17d7b90e` | Odoo ValueError：line字段`product_uom`无效；正常字段`uom_id`；不是根因/崩溃证据 |
+| Attempt intent | `.local/s11/operations/s11-t08-synthetic-initial-po-204a0c2-attempt6.json` | `bf666e15cc494a0a5b0696bce2aaa07958aca8ed1ff3b9ca03b07345af05db1b` | 原件保留；读回前标记提交结果待确认 |
+| 独立只读对账脚本/receipt | `.local/s11/verification/t08-attempt6-no-submit-postsetup-ro.py` / `.local/s11/verification/t08-attempt6-no-submit-postsetup-ro.json` | `899b8b5846604fc3670d49c3a59e64f42adf82225ae48efa61efd3395e43841b` / `acad28f41ccc3b5c30e03f4718a3dd88d454f41513cb5372bc91b6bfc30a008d` | 静态review PASS；独立只读RR核准DB/OID/cluster，精确origin无PO，Store2 setup在，rollback/idle/close；第二验收者`/root/gdb_core_runner_review`独立PASS_NO_SUBMISSION |
