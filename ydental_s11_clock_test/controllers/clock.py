@@ -48,13 +48,17 @@ class S11ClockController(http.Controller):
         request.env.cr.execute('SELECT id FROM ydental_s11_clock_session WHERE session_hash=%s FOR UPDATE', [key])
         request.env.cr.fetchone()
         row = ClockSession.search([('session_hash', '=', key)], limit=1)
-        old = row.simulated_now if row else False
         now_real = datetime.now(timezone.utc).replace(tzinfo=None)
+        stored_now = row.simulated_now if row else False
+        active_row = bool(row and row.actor_id.id == request.env.uid
+                          and row.store_id.id == access_session.ydental_store_id.id
+                          and row.run_id == run_id() and row.expires_at > now_real)
+        old = row.simulated_now if active_row else False
         if operation == 'clear':
             if row:
                 row.unlink()
             Event.create({'run_id': run_id(), 'actor_id': request.env.uid, 'store_id': access_session.ydental_store_id.id,
-                          'operation': 'clear', 'old_now': old, 'physical_at': now_real, 'reason': reason.strip()})
+                          'operation': 'clear', 'old_now': stored_now, 'physical_at': now_real, 'reason': reason.strip()})
             response = request.make_json_response({'status': 'cleared', 'physical_now_utc': now_real.isoformat() + 'Z'})
         else:
             try:
