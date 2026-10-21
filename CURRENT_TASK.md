@@ -1,3 +1,11 @@
+## S11 状态续行（2026-10-21 06:07 UTC）：费用来源约束核实与下一步
+
+- 保持原分支 `codex/s11-followup-lab-r1`；状态核验起点HEAD为`102e50f2d9857bd7b8aaed01c6259e165e233007`，tracked工作区干净、未push；最新代码与业务证据不回滚或重做。一次候选fresh admission通过，receipt `.local/s11/receipts/s11-fresh-admission-102e50f-20261021T055926Z-2eb0fb14c9a6c148.json` SHA-256 `ba1cbabf0c1547cab25ecacafeb313c75b91dfbf85d273dad5d1e72b89049506`，离线独立复核PASS。目标 scratch/OID2144130、cluster、受限角色、224保护项、D/C投影、200库检查、外发关闭及服务停止均匹配。
+- 在该精确候选下，对 `ydental_settlement_source` 仅做一次RR/READ ONLY数据库catalog审计，无业务行读写。验证器 `.local/s11/verification/fee_source_constraint_audit_102e50f.py` SHA-256 `6aff13f2d79daa63b16c9f59996c8976566a4ab9782071d6f0f2856d9c24d42c`；回执 `.local/s11/verification/fee-source-constraint-audit-102e50f.json` SHA-256 `70f9470507e1d7293375475f5095008505599629b88091ad8806ccdb8d9a578d`，exit 0 / PASS。实时identity核对DB/OID/角色/cluster/端口与admission相符；数据库实际存在已验证的三来源恰一非空CHECK，以及`ydental_fee_id`、`ydental_lab_charge_id`、`ydental_lab_charge_adjustment_id`各自唯一约束；三列皆nullable。事务显式ROLLBACK、回到IDLE并关闭；服务停止。`/root/plan_remaining_audit`离线验收PASS。receipt顶层配置摘要`database.cluster_ref`为空（配置未包含该字段），但`database_identity.cluster_ref=7694897083368259627`实际读取值与admission一致；不影响检查结果。原生源码也已定义同一约束，无需添加重复约束。不得将列改为NOT NULL或清理历史NULL。
+- postcommit独立源码审阅确认：现有模型覆盖拆分证明callback wiring、claim与sink，但没有证明独立已提交来源事务触发自动postcommit→durable claim→controlled sink。普通`TransactionCase`外层事务由测试框架回滚，不能以外层commit触发该链。建议等待新的合成患者正常临床来源，再在本scratch采用`controlled_test_sink`及隔离独立事务，逐步独立核验claim与内部activity、邮件/短信/外部计数不变；不使用patient364/event417等受保护来源，不创建本计划未授权的其他数据库，不以技术可提交的孤儿测试行替代业务来源。
+- T08的PO P00169仍须等真实物理UTC交期`2026-10-26 05:51:53`后才可接收。patient682已在原生队列中等待、不能越序；patient683须等实际预约窗口。队列/业务状态不做时钟模拟。其余合成临床来源、收货/返工、postcommit受控sink、追加收费返工实测、适用并发、影响面回归与最终独立验收仍待实际业务前置。
+- #35仍OPEN，S11仍PARTIAL/IN_PROGRESS；SIGSEGV `ROOT_CAUSE_UNDETERMINED`、旧F2 loser/PID `EVIDENCE_GAP`保留。不得重放旧失败请求或竞争，不合并、不部署、不启动S12/S13。完整详细记录见`docs/reports/s11/summary.md`与`docs/reports/s11/evidence-index.md`。
+
 ## S11 状态续行（2026-10-21 05:55 UTC）：T08 合成采购确认及独立读回
 
 - 保持 `codex/s11-followup-lab-r1`，业务候选 `6c86964a1adb5c899c6ea4d26aa3bd29a2c49a13`，本记录待正常提交；未push/merge/deploy。candidate fresh admission `.local/s11/receipts/s11-fresh-admission-6c86964-20261021T054819Z-a9d2226c16b61c62.json` SHA `1f965d2c2dcc8f4789e688848beab57e881ca6f85689e6324a4abdc0b25310d1` PASS，独立离线收据审查PASS：224保护表、D/C、200库跨库权限/目录扫描、模块与外发状态匹配；服务STOPPED/18411空闲。

@@ -753,6 +753,16 @@ attempt3使用新的私有cookie session和独立幂等key；run `20261020T11413
 - 后续将更正为原生`uom_id`，先独立静态审查，再按文档提交后的新HEAD fresh-admit才可尝试一次新幂等attempt。Store2原生库存setup的先前独立读回见本报告前节，0库存和库存事件。
 - 当前S11仍PARTIAL/IN_PROGRESS、#35 OPEN；SIGSEGV `ROOT_CAUSE_UNDETERMINED`、历史F2 `EVIDENCE_GAP`。未提交采购服务费或义齿收货等后续状态；S11其他缺口按当前任务状态保留。
 
+## 2026-10-21 06:07 UTC｜返工收费来源三类约束核验与postcommit路径复核
+
+当前branch保持`codex/s11-followup-lab-r1`，核验候选`102e50f2d9857bd7b8aaed01c6259e165e233007`，tracked工作区在本节记录前干净，未push/merge/deploy。对候选做fresh admission后，receipt `.local/s11/receipts/s11-fresh-admission-102e50f-20261021T055926Z-2eb0fb14c9a6c148.json` SHA-256 `ba1cbabf0c1547cab25ecacafeb313c75b91dfbf85d273dad5d1e72b89049506` PASS；独立离线收据审核PASS。目标scratch/OID2144130及真实cluster、受限角色、224 protected counts、D/C projection、200数据库扫描、服务STOPPED/端口空闲及外发关闭均通过。
+
+用户计划要求确认返工费用三类来源的真实数据库互斥约束。已执行一次只读catalog审计，脚本 `.local/s11/verification/fee_source_constraint_audit_102e50f.py` SHA-256 `6aff13f2d79daa63b16c9f59996c8976566a4ab9782071d6f0f2856d9c24d42c`，exit0；实际receipt `.local/s11/verification/fee-source-constraint-audit-102e50f.json` SHA-256 `70f9470507e1d7293375475f5095008505599629b88091ad8806ccdb8d9a578d` PASS，`/root/plan_remaining_audit`独立离线验收PASS。连接前核目标和服务状态；实际PostgreSQL身份与admission匹配。目标库中已验证validated CHECK精确要求`ydental_fee_id`、`ydental_lab_charge_id`、`ydental_lab_charge_adjustment_id`三列恰一非NULL，并且三列各有validated UNIQUE；三列数据库标记仍nullable。RR READ ONLY事务显式ROLLBACK、IDLE、关闭。脚本的一处摘要字段`database.cluster_ref`取自runtime配置而为空；实际查询的`database_identity.cluster_ref`为`7694897083368259627`并与admission一致。此记录不将摘要空值误称实际cluster缺失。无需添加重复约束；不得为消除既有NOT NULL升级警告而改变合法费用来源/历史NULL。
+
+独立postcommit代码审查：现有代码分别测试callback注册/回滚、dispatcher claim、controlled sink，但没有测试真实提交触发的完整`source commit → cursor postcommit → committed claim → controlled sink`。普通Odoo`TransactionCase`主事务在测试框架中回滚，不应对其外层cursor执行commit来伪造此覆盖。最小可信业务路径应使用一个新的合成患者实际治疗事件/复诊来源，正常创建对应job，在独立边界的已提交事务中触发现有postcommit，sink固定为内部`controlled_test_sink`；在sink dispatch期间核claim提交状态，结束后读回job终态、唯一内部activity以及无SMTP/email/SMS/provider/outbox副作用。现有受保护patient364/event417等不复用；不建未授权独立数据库、不留下无业务来源的孤儿job。具体运行等待patient682原生队列正常推进或其他合法合成临床来源。
+
+S11仍`PARTIAL / IN_PROGRESS`、#35 OPEN。T08 P00169的物理收货不得早于实际UTC `2026-10-26 05:51:53`；旧F2 loser/PID为`EVIDENCE_GAP`不重放，SIGSEGV为`ROOT_CAUSE_UNDETERMINED`。剩余仍包括真实临床来源、义齿收发/返工、真实postcommit受控sink、追加费用返工、适用并发、剩余影响面回归与独立最终验收。不得合并、部署或启动S12/S13。
+
 ## 2026-10-21 05:55 UTC｜T08 合成采购确认及独立读回
 
 - fixed candidate `6c86964a1adb5c899c6ea4d26aa3bd29a2c49a13`; fresh admission PASS，receipt SHA-256 `1f965d2c2dcc8f4789e688848beab57e881ca6f85689e6324a4abdc0b25310d1`; offline independent receipt review PASS. 224 protected tables, D/C projection, 200-database permission/catalog sweep, modules/external channels and service STOP/port-free facts match.

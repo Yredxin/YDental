@@ -1,3 +1,9 @@
+## 2026-10-21 06:07 UTC：fresh admission与返工费用来源约束
+
+- 候选`102e50f2d9857bd7b8aaed01c6259e165e233007`的fresh admission `.local/s11/receipts/s11-fresh-admission-102e50f-20261021T055926Z-2eb0fb14c9a6c148.json` SHA-256 `ba1cbabf0c1547cab25ecacafeb313c75b91dfbf85d273dad5d1e72b89049506` PASS，离线独立核验PASS。scratch/OID2144130、224保护表、D/C、200库扫描、cluster/角色、service STOPPED/port free及外发关闭匹配。
+- 费用来源catalog脚本 `.local/s11/verification/fee_source_constraint_audit_102e50f.py` SHA-256 `6aff13f2d79daa63b16c9f59996c8976566a4ab9782071d6f0f2856d9c24d42c` 经`/root/gdb_core_runner_review`静态审查PASS后执行一次。receipt `.local/s11/verification/fee-source-constraint-audit-102e50f.json` SHA-256 `70f9470507e1d7293375475f5095008505599629b88091ad8806ccdb8d9a578d` PASS，`/root/plan_remaining_audit`离线验收PASS：exactly-one validated CHECK、三类独立validated UNIQUE、三来源列nullable、actual cluster/OID/role/port匹配、RR READ ONLY rollback/idle/close。未读业务行或写数据库。实际identity cluster id为`7694897083368259627`；receipt配置摘要字段为空，但实际核验/准入cluster匹配。
+- 此项仅完成数据库约束存在性证据，不代表追加费用返工业务链完成。不得清理历史NULL或强制NOT NULL。详见[summary.md](summary.md)“2026-10-21 06:07 UTC｜返工收费来源三类约束核验与postcommit路径复核”。
+
 # 2026-10-21 03:52 UTC：post-HTTP RO核验与T08权限预检
 
 - GDB run `20261021T031235Z-06f93a2c106d` post-run独立RR READ ONLY核验PASS：`.local/s11/verification/post-http-readback-4f3798d-run-05c51e0-20261021T031235Z-06f93a2c106d-ro.json`，SHA-256 `b8fe773cf0844c7b69bbc0213008c87687dbf3c86a3a42e31d06587d6b270991`。224项保护计数、D/C、模块/external、副作用视图、当前admission、GDB无崩溃及service STOPPED均匹配，显式rollback/close；server access line不完整，服务端请求数/状态UNKNOWN。只读GET HTTP200不代表SIGSEGV根因修复或全HTTP/browser恢复。
