@@ -28,6 +28,21 @@ class TestInventory(TransactionCase):
         self.assertEqual(issue(self, source_key=source)['id'], issued['id'])
         self.assertEqual(quantity(self), 7)
 
+    def test_t08_purchase_receipt_type_is_bound_to_exact_store(self):
+        results = []
+        for store in self.stores[:2]:
+            service = bind(self, self.users['stock'], store=store)
+            result = service._purchase_receipt_type()
+            warehouse = self.root['stock.warehouse'].search([('ydental_store_id', '=', store.id)], limit=1)
+            self.assertTrue(warehouse)
+            self.assertEqual(result, {'store_id': store.id, 'company_id': store.company_id.id,
+                'picking_type_id': warehouse.in_type_id.id})
+            results.append(result['picking_type_id'])
+        self.assertNotEqual(results[0], results[1])
+
+        with self.assertRaises(AccessError):
+            self.env['ydental.inventory.service']._purchase_receipt_type()
+
     def test_t01_key_collision_rolls_back(self):
         receive(self); k = key(); issue(self, request_key=k)
         before = self.root['ydental.inventory.event'].search_count([])
