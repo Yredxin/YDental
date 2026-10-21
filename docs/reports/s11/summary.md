@@ -1,3 +1,15 @@
+## 2026-10-21 02:16 UTC｜用户授权的合成义齿工坊与角色创建
+
+用户明确表示不能提供真实义齿厂家，批准在S11 scratch中创建明确标记的合成义齿工坊和专用角色，由Codex定义测试价及工期，并要求保持真实物理时间推进、不改本地时钟。暂定测试价USD 125/单件、5个日历日，仅为合成场景假设；不代表真实市场价格、真实厂家承诺或现实监管资质。公司1/USD、Store2和产品/角色可用性由`.local/s11/verification/t08-synthetic-workshop-scope-preflight-3558a7b-v2.json`只读PASS确认（SHA `61d70a605ea52d5d79d304d16746c5cace9e507406d0fb9abf0be0fc81098fb4`）；没有查PO或PO line。
+
+角色准备helper SHA `7333358a04d3c97a47d0c512e9e36588a0345c28f808243954327f6223d1c68c`与GDB wrapper SHA `e0a6eabcef4093ce60aee9155b619c75d52410034c9c7fd1ba8b751164295e07`经独立静态PASS。wrapper创建单次私有授权，校验GDB/inferior PID、start ticks、PGID/SID及空闲loopback；helper直接调用无法绕过该授权。一次性GDB run `.local/s11/operations/20261021T020308Z-synthetic-denture-workshop-role-gdb-3558a7b/` exit0、无崩溃/core，服务和process group均停止。result SHA `7fa6bd544422264158e99c68c9aab2b65440b25f125d7793a08044b9b5cc65b4`，日志SHA `11f7e00df0f73f2214728d5b07cb69097ac212fb64c0ecb21e1cef101f6a5260`，intent SHA `d97bc97263d7b380951784bef287c385cc59fd49e5744bc7fdb9eb2a3a759606`。
+
+新角色user2670/membership4170，仅company1、Store2及`medical:write`；其他15类自定义权限none，无采购/仓库/管理员全局组。`purchase.order`四项有效模型权限均false。采购仍由已有独立user2666、仓储由既有user2043处理；旧PO147–149未读取/修改。独立RR READ ONLY读回PASS：`.local/s11/verification/synthetic-denture-workshop-role-3558a7b-independent-readback-attempt3.json` SHA `e8568222c38d57f0254fc97d0e80c00c1c5d85630921ee2ee7b111999e6a0529`，审核器SHA `b767c325223d2948a111fc9a71e816abbd398b54f4d0fe58edbb483d03387250`；access audit五类各一条，正常新账户流程新增五条仅关联新partner/user/employee/hr.version的内部chatter metadata，没有读正文。SMTP、SMS、payment provider、followup外发参数均为零/关闭。
+
+修正记录：helper原始intent中的`session_id=false`是把access service model recordset写成session id的报告字段错误。独立按私有session key只读解析出真实Store2 session4247，session正常有效；原始intent/文件未覆盖，生成reconciled私有session副本SHA `7cc052baabbe729cc7741886e807464b9406eb90f34565f223cf91d027dd28d6`。readback曾有一个因关联chatter白名单过窄导致的FAIL receipt（保留，SHA `e951c73a2c2f323d6fc334f2e8f238075dc9875a2189498940f4d3eb097262f2`）；后续验收器改为读取目标限定的message metadata且正确核验hr.version与employee，独立审查PASS。另有scope过期和旧ACL API的只读核验失败，均无业务重试/写入；fresh admission新receipt SHA `b50b5b07e7c4131b3dfb2ef961679605c7eb9576e6a646473eedf9ef08a5510f`覆盖224保护表、200跨库catalog和不变D/C pin。
+
+尚未创建合成vendor/qualification/cooperation/PO/采购行或义齿加工单；仍需在新提交候选fresh-admit后按正常业务流程逐项实施。patient683 slot1697窗口15:00–15:30 UTC，当前尚未开放；不调时、不提前做临床来源。`ROOT_CAUSE_UNDETERMINED`和旧F2 `EVIDENCE_GAP`保留；S11 PARTIAL/IN_PROGRESS、#35 OPEN。
+
 ## 2026-10-21 01:26 UTC｜patient683 合成预约提交与读回
 
 当前候选 `dd5421a402a676910e3e425231609e0d3c4103e7`、原分支。patient683/slot1697 只读资格预检实跑并独立审计PASS；一次性helper经独立静态审查后，仅通过正常actor2466/Store2业务UI提交一次预约，HTTP303。预约后RR READ ONLY读回及离线独立审计PASS：唯一operation7191、entitlement778、task1184、held claim802；slot reservation容量1→0、walk-in=2、version2→3。读回核实审计和原生source/event链、保护表增量、D/C及财务不变、无到店/临床/队列/外发变化，GDB exit0无崩溃且服务停止。队列只检查aggregate count=2，未取身份；15:00 UTC前不做arrival/report。完整命令、receipt/verifier SHA、失败修正与遗留范围见仓库根 [CURRENT_TASK.md](../../../CURRENT_TASK.md) 顶部本节。此结果不声称SIGSEGV根因已修复；S11仍PARTIAL/IN_PROGRESS、#35 OPEN，无push/merge/deploy。
