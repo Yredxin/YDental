@@ -681,3 +681,16 @@ attempt3使用新的私有cookie session和独立幂等key；run `20261020T11413
 - 对固定候选 `0f03ef910c46688f56e51afed93a5cbdf76479f4` 执行只读资格预检。脚本 `.local/s11/verification/t08_prosthesis_supplier_service_feasibility_0f03ef9.py` SHA-256 `32db11bfc23487f90214faff54ef377373ae0b47151caf1ba41ee3de2eb8df10`；独立静态审核该精确SHA PASS。静态范围确认未读取PO/PO line，company/store admission allowlist在目标ORM读取前校验，supplierinfo按通用记录或具体变体匹配。
 - 首次运行因脚本常量名错误在DB连接前退出，stderr保留于 `.local/s11/verification/t08-prosthesis-supplier-service-feasibility-run-0f03ef9.stderr`；改正并复核后的一次只读执行结果为BLOCKED，收据 `.local/s11/verification/t08-prosthesis-supplier-service-feasibility-0f03ef9.json` SHA-256 `53fc28c03fa82326a93eecec48112e236cc4fb3fa8253157610fe058d603fce4`。受限目标库身份、准入scope、采购/医疗角色和服务停止检查通过；没有有效已审核义齿厂商，合法的同公司服务价源组合为0。尚不能新建正常采购服务行或义齿加工单；旧PO147–149不访问。
 - 此核验是MODEL/ORM只读数据调查，不是HTTP、浏览器或采购业务实测。READ ONLY和REPEATABLE READ显示通过，显式rollback调用、cursor关闭；但`rollback_idle=false`，该项保留为未通过证据且整体不标PASS。没有业务写入；不为此重复查询。具体执行错误、范围和待解条件记录于根目录`CURRENT_TASK.md`同名状态续行。
+
+## 当前剩余任务与推进条件（固定候选：文档HEAD `4a106f3e94e7de89259fb057d28822b4df3a1d9e`；最近业务候选 `0f03ef910c46688f56e51afed93a5cbdf76479f4`）
+
+| 计划项 | 已实证层级 | 尚缺内容 | 真实推进条件 |
+|---|---|---|---|
+| M1 合成患者临床闭环 | MODEL、预约HTTP/浏览器、到店与原生报到/FIFO已分别实证 | patient683到店、接诊、文书和治疗确认；patient682仍排在原生FIFO中 | patient683预约窗开放后按正常前台流程；只处理原生FIFO允许的下一条，不能跳过未知前序项 |
+| T05/T12 followup通知 | MODEL callback/dispatch/claim/sink组件有覆盖 | 真实来源提交→postcommit→独立claim→controlled sink，及HTTP/browser来源事务 | 需要合法确认的合成临床来源和当前HEAD fresh admission；内部sink不等于真实患者送达 |
+| T08/F3/F4 义齿、采购、收发与返工 | 现阶段仅完成只读资格调查 | 无审核有效的义齿厂商及同公司合法服务价源；因此无义齿加工单、采购确认、收发/返工/供应商退回 | 需有可验证的真实厂商资格及价目来源；然后由适当采购/仓库/医疗角色走正常流程。PO147–149永久保持受保护 |
+| F2 原竞争 | 新测试前置/产品不变量和既有部分证据 | 历史 loser response/backend PID不存在，标记 `EVIDENCE_GAP`；新的独立真实竞争尚未完成 | 不重放旧竞争；在有合法独立来源和运行条件时只运行新标记场景并保存双请求及独立终态 |
+| M5 最终影响面回归 | 42项MODEL、限定带数据升级及保护核验已完成 | 业务闭环后的固定候选升级/影响面、适用并发及独立总验收 | 先完成适用产品业务链，再对最终候选做一次完整而不重复的验收 |
+| SIGSEGV恢复状态 | 有界恢复评估与少量只读HTTP/GDB观察 | 精确根因未确定；历史错误不作为已修复 | 保持 `ROOT_CAUSE_UNDETERMINED`；下一次受影响运行按已授权GDB/core方式记录，异常即停 |
+
+静态复核确认现有 followup 测试分别覆盖 callback 注册、去重/领取和受控sink行为，但不能合并推断为完整端到端证据。尝试构造供应商到期的测试源也必须建立真实有效资格事实；不能用合成“已批准”数据替代缺失的业务凭证。已有升级与42项模型结果不重复运行。以上缺项意味着S11仍 `PARTIAL / IN_PROGRESS`、#35保持OPEN。
