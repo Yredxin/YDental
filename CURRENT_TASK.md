@@ -885,3 +885,10 @@ main和活动分支AGENTS应同字节；main默认CURRENT_TASK仍只路由活动
 
 - attempt21 helper `.local/s11/verification/fresh_admission_32ecd9a_attempt21_readonly.py` SHA-256 `77b22469b54987fb66835cef69b2f4d4e8af65594b4015f2bfb432a9059b630c`经独立审查后执行一次，exit1。它在`verify_clock_postrun_evidence()`把固定的历史源码摘要`007a3b5d…`误与当前已修复源码比较，断言失败；该断言位于DB `connect()`之前，未连接数据库、未运行SQL或写业务数据。日志stdout/stderr SHA分别`0908e207f68d83ed06cbf69e8886400e924490d1aa8e385959ee7196f2c59ed0`、`676ef0474a0cc9623f4238333b6f785462653cc8e8bd606e00d155edbeb68f43`；attempt21 O_EXCL runlock保留，不重跑。
 - 根因核实：历史candidate `8aa3ea880ea0844682000e87f7938714132fb16d`的10个addon `.py/.xml`源码Git tree摘要确为`007a3b5d011e5b501a6feca9bb98ab7afa0dccd6b7386ca83eaed8ed6451ec74`；当前树摘要另由`CURRENT_CLOCK_SOURCE_SHA256=b5514f24…`固定。attempt22须从Git历史tree验证旧摘要、保持当前tree单独固定，并绑定attempt21的准确失败证据，再独立审查后一次执行。service状态STOPPED。
+
+## S11 状态续行（2026-10-21 16:19 UTC）：debug clock 实际时间推进完成，独立DB回执待重核
+
+- 当前固定代码候选 `b589f558e8eef9841c64455aa50394b87cf637f9`、原分支不变。GDB addon update exit0/core0/no SIGSEGV捕获，模块对象/保护检查的post-update只读独立回执PASS，细节见[summary.md](docs/reports/s11/summary.md)。SIGSEGV根因仍未知。
+- 用户要求的debug入口已通过当前候选GDB本地服务及UID539原始认证session实际操作：恰好一次标准UI `set` POST，将仅该session的应用业务UTC设为`2026-10-27T05:51:53Z`。页面初始/POST/最终读回PASS、无其他路由、无临床/经济动作，OS/PostgreSQL物理时钟未改。operation SHA `92a99a97b836e936fc67500ce3754237c5ba234b9cad8a9efc189c988549ed78`；clock run `20261021T160323Z-6815301404dc`。
+- 独立只读数据库查询实际观察到唯一当前run session和唯一`start` event，actor539/store1/time匹配；224保护计数、D/C、外部发送禁用状态均与准入快照一致，事务READ ONLY/RR/UTC并回滚idle、游标/连接关闭。原执行receipt因helper finally状态覆盖标`FAIL/CleanupNotConfirmed`，不升级为PASS。修正后attempt4因原attempt34准入年龄超过30分钟，在DB连接前退出；未重放set。服务已launcher停止，当前STOPPED。所有helper尝试与receipt保留，详见report。
+- 当前不应复用过期admission发起下一批读写。下一步以新fresh admission继续：只读核验本次session/event；随后按计划完成合成临床来源与文书、postcommit controlled sink、T08收发/返工/追加收费、适用并发及影响面回归。测试时间走应用合成clock；物理/OS/PostgreSQL时钟和审计时间保持真实。#35 OPEN，S11 PARTIAL/IN_PROGRESS；不push/merge/deploy/S12/S13。
