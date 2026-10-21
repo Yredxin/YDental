@@ -1,3 +1,12 @@
+## S11 状态续行（2026-10-21 17:46 UTC）：session 时钟首次 UI 实测与只读回读
+
+- 分支 `codex/s11-followup-lab-r1`，候选 `5cece72427d8f5798365f557918d7f0526fd5628`；本次开始时 tracked 工作区干净，HEAD 未变。合成 session 时钟入口已安装并由 GDB run `20261021T172025Z-e0b3b2e02623` 承载，clock run `20261021T172025Z-8f671beb469d`。
+- UID539/Store1 正常登录 UI 只提交一次设置，将本 session 合成业务时间设为 `2026-10-27T05:51:53Z`；GET/POST/GET 均绑定该 run，POST 200，0 非预期请求、0 临床/经济动作，浏览器成功回读。receipt `.local/s11/operations/debug-clock-5cece72-20261021T172025Z-8f671beb469d-attempt1.json` SHA-256 `38e4decb2541f0537000a280a54718f1d31fd421f2700f5d85bcee12da93f8fa`；intent SHA-256 `5912ddfd2866d696ded368f72d16b0b89252739ec5bf565100cfff4831e05bda`。
+- 独立只读数据库回读 PASS：receipt `.local/s11/receipts/clock-session-db-diagnostic-20261021T172025Z-attempt12.json` SHA-256 `9fcbc979fc594b86c519be339ea9fd7eb91db6f1ae180f9db8464ed6cdebfd77`；helper `.local/s11/verification/clock_session_db_diagnostic_20261021T172025Z_attempt12_readonly.py` SHA-256 `4669cd30c47c12cf7815e9610516cccb14eaad476f45208746b27c3ded9ad931`，独立静态复核 PASS。run 内 session 唯一一条、actor539/Store1、合成时间正确且未过期；本次 `write_date` 在 UI 物理窗口，唯一 `start` 事件的物理时间也在窗口。session `create_date` 是既有正常登录绑定，早于本次动作；不得把它误当本次设置时间。未读取/返回session hash或行ID。224保护表计数匹配、D/C pin匹配、外发通道计数为零，RR/READ ONLY/UTC且显式rollback/idle/close。
+- 早期 attempt5–9 只读auditor的工具自检/比较断言失败均保留；失败事务完成rollback/close，无业务写入。地址差异是IP与CIDR文本比较，已以 launcher 规范化方式纠正；session验收从 `create_date` 调整为UI设置窗口的 `write_date` 与审计事件物理时间。
+- GDB run 于 `2026-10-21T17:40:25.524887Z` 达到有界运行上限并正常退出：exit 0、无信号、core 0、`native_crash_evidence=false`、进程组停止；exit receipt SHA-256 `dd7dbab3122f8f4d0d65b16ff5dd27f368bb4bf1169f9026de838f508821dff4`，server log SHA-256 `124da583d0e00a672bfddc6feb5afe0f8991c31ace5e4ce3961149ef4f0d4c0a`。这不是SIGSEGV或根因修复。未重启服务。
+- 下一步：提交本状态和报告后，以新候选重新fresh-admit并建立新clock/service run；按最小角色范围授予合成时钟组、对新run各自session正常设置模拟时间，再继续合成临床/通知、T08义齿及采购闭环。旧run/设置不重放。原SIGSEGV仍`ROOT_CAUSE_UNDETERMINED`、旧F2 loser/PID仍`EVIDENCE_GAP`；patient650/task720、PO147–149不动。S11 PARTIAL/IN_PROGRESS，#35 OPEN；不push/merge/deploy/S12/S13。
+
 ## S11 状态续行（2026-10-21 08:36 UTC）：session-scoped debug business clock
 
 ## S11 状态续行（2026-10-21 11:50 UTC）：debug clock 数据库连接核验与安全停止
