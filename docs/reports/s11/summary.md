@@ -730,3 +730,6 @@ attempt3使用新的私有cookie session和独立幂等key；run `20261020T11413
 ## 2026-10-21 04:09 UTC｜T08预检聚合断言缺陷
 
 在候选5891e17的只读T08预检attempt3中，scratch/OID/cluster、角色、产品来源、READ ONLY rollback/close及service STOPPED核实通过；没有PO读取或业务写入。BLOCKED聚合中发现本地预检器使用了错误的XML ID `ydental_access.ydental_base_group_user`，源码实际ID为`ydental_base.ydental_base_group_user`，导致user2670已有基础组时仍判定合成marker唯一检查失败。这是验证器错误，不是业务权限或数据缺失。直接cooperation create ACL确实不存在，后续须使用已授权warehouse:write绑定会话的原生服务。partner联系人只用字段白名单的一次性初始化方案，不授宽泛管理组；详见`CURRENT_TASK.md`顶部。原回执保留，不重跑写入。
+## 2026-10-21 04:17 UTC｜T08 one-shot脚本缺陷及无提交读回
+
+合成工坊partner/vendor/cooperation的GDB helper因`Environment.sudo()`调用错误而中止；没有对象ID，runner为`RECONCILE_REQUIRED`，GDB正常退出、服务停止、无native crash。独立复核的RR READ ONLY读回确认精确partner、义齿资格、Store2合作及对应partner sudo审计均不存在，回执`NO_TARGET_BUSINESS_COMMIT_OBSERVED`。原attempt与intent保持不可重放；修正脚本后必须新建独立路径及当前候选fresh admission。证据SHA和路径见`CURRENT_TASK.md`顶部。
