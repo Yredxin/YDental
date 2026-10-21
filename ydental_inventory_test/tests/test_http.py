@@ -46,6 +46,19 @@ class TestInventoryHTTP(HttpCase):
         self.assertIn('error',self.rpc('stock.lot','read',[[self.lots['medicine']],['product_qty','quant_ids']]))
         self.assertIn('error',self.rpc('ydental.inventory.event','write',[[1],{'state':'done'}],{'ydental_inventory_mutation':True}))
 
+    def test_http_purchase_type_is_bound_to_warehouse_store(self):
+        self.select('stock')
+        warehouse = self.root['stock.warehouse'].search([('ydental_store_id', '=', self.stores[0].id)], limit=1)
+        self.assertTrue(warehouse)
+        response = self.url_open('/ydental/inventory/purchase-type?revision=%s' % self.revision)
+        self.assertEqual(response.status_code, 200, response.text)
+        self.assertEqual(response.json(), {'store_id': self.stores[0].id,
+            'company_id': self.stores[0].company_id.id, 'picking_type_id': warehouse.in_type_id.id})
+
+        self.select('reader')
+        denied = self.url_open('/ydental/inventory/purchase-type?revision=%s' % self.revision)
+        self.assertEqual(denied.status_code, 403, denied.text)
+
     def test_http_t07_stock_manager_native_bypass(self):
         receive(self); self.select('stock2')
         self.assertIn('error',self.rpc('stock.quant','search_count',[[]]))

@@ -94,6 +94,20 @@ class YDentalInventory(http.Controller):
         result = self._service(int(revision))._scan(code)
         return request.make_json_response(result, headers=[('Cache-Control', 'no-store')])
 
+    @http.route('/ydental/inventory/purchase-type', type='http', auth='user', methods=['GET'])
+    def purchase_type(self, revision, **kwargs):
+        try:
+            access = request.env['ydental.access.service']
+            session = access._existing_session_for_key(request.session.sid[:42])
+            if not session:
+                raise AccessError(request.env._('access_denied: An existing store session is required.'))
+            result = access._bind(session, int(revision)).env['ydental.inventory.service']._purchase_receipt_type()
+        except (AccessError, UserError, ValueError, TypeError) as error:
+            status = 403 if isinstance(error, AccessError) else 409
+            return request.make_json_response({'error': str(error)}, status=status,
+                headers=[('Cache-Control', 'no-store')])
+        return request.make_json_response(result, headers=[('Cache-Control', 'no-store')])
+
 
 class YDentalInventoryDataSet(YDentalIntakeDataSet):
     @http.route()

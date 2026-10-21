@@ -552,3 +552,15 @@ class YDentalInventoryService(models.AbstractModel):
             'products': [{'id': p.id, 'name': p.name, 'kind': p.ydental_inventory_kind, 'code': p.default_code,
                 'specification': p.ydental_specification, 'uom_id': p.uom_id.id, 'issue_uom_id': p.ydental_issue_uom_id.id,
                 'suggested': p.ydental_suggested_quantity, 'active': p.active} for p in products]}
+
+    def _purchase_receipt_type(self):
+        """Resolve this bound store's incoming type for a native purchase handoff."""
+        store = self._access()
+        config = self._config(store)
+        warehouse = config.ydental_warehouse_id
+        picking_type = warehouse.in_type_id
+        if (warehouse.ydental_store_id != store or warehouse.company_id != store.company_id or not picking_type
+                or not picking_type.active or picking_type.code != 'incoming'
+                or picking_type.company_id != store.company_id or picking_type.warehouse_id != warehouse):
+            raise UserError(self.env._('configuration_required: The current store has no valid incoming operation type.'))
+        return {'store_id': store.id, 'company_id': store.company_id.id, 'picking_type_id': picking_type.id}
