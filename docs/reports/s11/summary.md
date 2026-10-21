@@ -773,6 +773,16 @@ T08现有独立合成工坊已通过原生资质/合作流程创建，且已由�
 
 尚未取得有效合成临床event/文书，因此不能安全创建初始lab order、治疗收费、真实来源postcommit job或返工。patient682旧entry已day_closed；patient683仍只能在实际预约时段和FIFO条件满足后推进。继续推进不依赖物理交期的源代码/离线影响审阅及适用测试，不重复既有42项MODEL或upgrade。最终条件仍缺：有效临床闭环、真实postcommit链、物理收货/入库及适用返工、适用新并发、其余回归和独立总验收。SIGSEGV `ROOT_CAUSE_UNDETERMINED`及F2历史 `EVIDENCE_GAP`保留，#35 OPEN；不push、合并、部署或启动S12/S13。
 
+## 2026-10-21 07:37 UTC｜HTTP运行后的迟到只读累计对账
+
+在文档候选 `322a50091655f48f40cfc6313e5bf8d798154aaa` 上重新fresh admission一次并通过独立收据核对。目标scratch/OID/cluster、受限数据库身份、224表、D/C pin、200库目录权限扫描及受控服务停止均通过。执行前静态review发现private recovery脚本先逐个验证并立即写回备份；将新副本改成先验证两份备份，再写任一pair成员并再次独立审查PASS。系统Python缺psycopg2导致的第一次命令在连接前退出；使用README指定的项目venv完成实际审计。
+
+对03:12 UTC窄HTTP GDB GET的第一次迟到回读未通过，receipt仅为通用AssertionError，未出具业务影响结论。原因是原验证器要求当前计数仍与03:12运行前完全相同；当时之后S11已按授权创建合成工坊、库存配置并确认P00169，所以该前提错误。固定前中后准入receipt离线比较出实际受保护表差异：4f→6c为已独立读回的合成工坊/库存前置11表增量；6c→322为PO确认阶段`mail_message +1`。因此没有即时post-HTTP快照，不能证明在那个时间点没有状态变化或将后来变化归因于GET；本次只核对当前数据库与当前准入快照，并验证两段已记录中间增量。
+
+全新attempt2静态复核PASS后，一次RR/READ ONLY、显式ROLLBACK的迟到对账通过16项：目标数据库身份正确，当前224保护表和D/C/modules/external状态匹配fresh admission，已知历史增量符合固定snapshot receipts，连接idle并关闭、pair不变、owned service停、ACTIVE不存在且port空闲。它同时核验原HTTP客户端receipt为单个GET HTTP200及原GDB exit0/no signal/no core。server access log不完整，服务端请求数仍为UNKNOWN；记录中已有一个test-framework导入ERROR，所以不称日志无错误。独立离线receipt review PASS，重算7项输入hash并确认所有checks为true；回执未嵌入自身verifier SHA，故来源链依赖已静态审查的script SHA及固定输入。此结果不等于即时HTTP后状态证明、一般HTTP/browser恢复或SIGSEGV根因修复，`ROOT_CAUSE_UNDETERMINED`不变。
+
+本节之后候选仍为`322a500`直到本报告提交；S11剩余临床/F1/F4/T05/T08/F2/F3和影响面任务如06:46节所列，保持`PARTIAL / IN_PROGRESS`、#35 OPEN；不push/merge/deploy/S12/S13。
+
 ## 2026-10-21 05:55 UTC｜T08 合成采购确认及独立读回
 
 - fixed candidate `6c86964a1adb5c899c6ea4d26aa3bd29a2c49a13`; fresh admission PASS，receipt SHA-256 `1f965d2c2dcc8f4789e688848beab57e881ca6f85689e6324a4abdc0b25310d1`; offline independent receipt review PASS. 224 protected tables, D/C projection, 200-database permission/catalog sweep, modules/external channels and service STOP/port-free facts match.
