@@ -1,3 +1,12 @@
+# S11 最新续行（2026-10-21 00:30 UTC）：修复 GDB run 容量误计数；合成患者只读预检通过
+
+- 分支仍为 `codex/s11-followup-lab-r1`。本节实施前HEAD `5d606c25cab5de6a04d5df4c4a0a6fdb9acd57f9`，既有工作树干净；未push/merge/deploy/S12/S13。指定scratch数据库 `ydental_s10_test_20261017105432_ce6dcbf8` / OID `2144130` / cluster `7694897083368259627`。
+- 独立静态PASS的合成病人创建前置核验器 SHA `b586ccdf2eb97dd0227e4ac525858085e64a0fef3b8c9ac31b202d7f3fdee125`，实跑PASS receipt `.local/s11/verification/s11-synthetic-patient-5d606c2-preflight.json` SHA `77dbe72a7d2a4708e129017d66fcaa7f18819646d224b2b76a411a96760c3f18`。只读RR事务核对用户2466、Store2启用/公司1、非manager有效membership、patient/frontdesk写权限、禁用有效管理员/采购/仓库组、精确synthetic姓名及幂等键未占用、目标DB身份、服务STOPPED及18411空闲；事务rollback并关闭。无业务写入。
+- 随后的 `launcher.py --gdb start` 在建立run或启动服务前拒绝：`S11 run history reached its 64-run retention bound`。调查发现 `.local/s11/runs/` 有62个run目录、3个既有普通日志文件（共65个顶层条目），所有历史文件仅1,252,679 bytes；`ensure_run_capacity()` 将普通日志也误算为run。服务没有启动、HTTP没有请求，病人创建helper未运行，未发生业务副作用。保留拒绝记录和所有run材料。
+- 修复 `scripts/s11/launcher.py::ensure_run_capacity`：仅目录计入64-run数量；顶层及run内普通文件全部继续计入512 MiB字节上限；symlink/特殊文件仍fail-closed。`scripts/s11/test_launcher.py` 增加目录计数、保留现有文件、顶层日志计入bytes及拒绝symlink回归。`py_compile`通过，launcher共25项测试通过，0失败/错误；日志SHA `5f74ad61db55760b902561432c6512df91f641260c96d34f31e99dce619290cc`。两位独立静态验收者均PASS；第二轮包含保留内容与symlink拒绝断言。
+- 当前工作树存在上述未提交实现及状态记录；提交形成新HEAD后，必须以新候选刷新admission/独立审查，再决定是否能启动GDB。**没有重试启动器、没有运行一次性病人创建操作。**ROOT_CAUSE_UNDETERMINED、原F2 loser/PID EVIDENCE_GAP不变。
+- 业务缺口不变：patient682的临床后续受area2原生排序/等待项约束；T05/T12真实source transaction→postcommit→独立claim→controlled sink、T08合成义齿来源与原生采购/收发/返工、追加收费返工、适用新F2并发、F1/F4剩余矩阵及最终影响回归/独立验收仍待做。既有队列身份未知，不跳过、不修改；task720/patient650及PO147–149保护不变。#35保持OPEN。
+
 # S11 最新续行（2026-10-20 17:18 UTC）：只读确认 Store2 无可绕过 FIFO 的备用叫号 lane
 
 - 角色权限回读已在前一节固定。随后对文档候选 `7217b672bdec449ce7159cfb4255071314f9ec61` 完成新的独立 fresh admission：静态审查 PASS（脚本SHA `8f32b025dfe75f14b033f8e8b618cbfcae4be80b2955301371b1a4cd521ceea3`）；实跑 PASS receipt `.local/s11/receipts/s11-fresh-admission-7217b67-20261020T171606Z-5074674aca42a792.json` SHA `f12b571804839e1bae0bc770b7c670c3e13ba07039fc22879996e3517ab77033`，candidate admission SHA `49cef8d5a44801e8aa24e2c78e2756dd328e6a2afdfc1e9fc53853393095aa1c`。目标scratch/OID2144130/cluster、受保护224表、D/C pin、200个跨库catalog检查及服务停止/18411空闲均通过；本次未启动HTTP服务。

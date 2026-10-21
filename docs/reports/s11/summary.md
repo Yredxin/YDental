@@ -1,3 +1,13 @@
+## 2026-10-21 00:30 UTC｜GDB run容量误计数修复与合成患者预检
+
+candidate `5d606c25cab5de6a04d5df4c4a0a6fdb9acd57f9` 下，独立静态审查PASS的合成患者只读预检器SHA `b586ccdf2eb97dd0227e4ac525858085e64a0fef3b8c9ac31b202d7f3fdee125` 实跑PASS；receipt `.local/s11/verification/s11-synthetic-patient-5d606c2-preflight.json` SHA `77dbe72a7d2a4708e129017d66fcaa7f18819646d224b2b76a411a96760c3f18`。核验指定scratch/OID/cluster、actor2466及Store2非manager有效权限、禁用管理员/采购/仓库组、唯一synthetic姓名/幂等键、HTTP服务与端口停止。RR READ ONLY事务回滚关闭，无业务写入。
+
+尝试以GDB启动新的S11 owned service时，launcher在创建run/启动服务前拒绝：64-run保留上限。检查发现runs目录有62个run目录与3个顶层普通日志文件（总普通文件1,252,679 bytes）；旧逻辑把普通日志误计入run数量。没有服务进程、HTTP请求或患者创建动作。本次保留所有原始run和日志。
+
+修复 `ensure_run_capacity()`：仅目录计run，顶层与run内regular file仍计入512 MiB总字节，symlink/special仍拒绝。新增四个容量回归覆盖目录计数、保留旧文件内容、普通文件字节限额和symlink拒绝。`py_compile`及25项launcher测试全通过。最终测试日志SHA `5f74ad61db55760b902561432c6512df91f641260c96d34f31e99dce619290cc`。独立静态复审PASS。
+
+实现和本段报告改变候选；提交后须在新HEAD刷新准入和独立审核。尚未重启服务或执行一次性患者创建。ROOT_CAUSE_UNDETERMINED与旧F2 loser/PID `EVIDENCE_GAP`保持；S11继续PARTIAL/IN_PROGRESS，临床FIFO后续、postcommit链、T08独立义齿/采购来源及收发返工、追加收费返工、适用并发、F1/F4和影响面回归/总验收未完成；#35 OPEN。
+
 ## 2026-10-20 17:16 UTC｜当前队列无备用叫号 lane 的只读核实
 
 Candidate `7217b672bdec449ce7159cfb4255071314f9ec61` fresh admission PASS，receipt SHA `f12b571804839e1bae0bc770b7c670c3e13ba07039fc22879996e3517ab77033`，candidate admission SHA `49cef8d5a44801e8aa24e2c78e2756dd328e6a2afdfc1e9fc53853393095aa1c`；独立静态审查通过，覆盖scratch/OID2144130、224保护表、D/C、200个跨库catalog权限检查、停止服务和空端口。GDB/HTTP服务没有启动。

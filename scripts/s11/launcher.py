@@ -496,20 +496,25 @@ def child_exit_diagnostics(
 
 
 def ensure_run_capacity(reserve_bytes: int = MAX_LOG_BYTES) -> None:
-    run_dirs = list(RUNS.iterdir())
-    if len(run_dirs) >= MAX_RUNS:
-        raise Refusal("S11 run history reached its 64-run retention bound; preserve it and review capacity")
+    entries = list(RUNS.iterdir())
+    run_dirs = 0
     total = 0
-    for item in run_dirs:
+    for item in entries:
         info = item.lstat()
+        if stat.S_ISREG(info.st_mode):
+            total += info.st_size
+            continue
         if not stat.S_ISDIR(info.st_mode):
-            raise Refusal("S11 run history contains a non-directory entry; preserve it for review")
+            raise Refusal("S11 run history contains a special entry; preserve it for review")
+        run_dirs += 1
         for child in item.rglob("*"):
             child_info = child.lstat()
             if stat.S_ISREG(child_info.st_mode):
                 total += child_info.st_size
             elif not stat.S_ISDIR(child_info.st_mode):
                 raise Refusal("S11 run history contains a special entry; preserve it for review")
+    if run_dirs >= MAX_RUNS:
+        raise Refusal("S11 run history reached its 64-run retention bound; preserve it and review capacity")
     if total + reserve_bytes > MAX_TOTAL_RUN_BYTES:
         raise Refusal("S11 run history exceeded the 512 MiB retention bound; preserve it for review")
 

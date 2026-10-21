@@ -458,6 +458,45 @@ class LauncherSupervisorTests(unittest.TestCase):
         self.assertFalse(launcher.stop_grace_elapsed(True, 10.0, now=9.9))
         self.assertTrue(launcher.stop_grace_elapsed(True, 10.0, now=10.0))
 
+    def test_run_capacity_counts_run_directories_and_preserves_top_level_logs(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            (root / 'run-1').mkdir()
+            (root / 'run-1' / 'exit.json').write_text('{}', encoding='utf-8')
+            (root / 'admission.log').write_text('evidence', encoding='utf-8')
+            with patch.object(launcher, 'RUNS', root), patch.object(launcher, 'MAX_RUNS', 2):
+                launcher.ensure_run_capacity(reserve_bytes=0)
+            self.assertEqual((root / 'admission.log').read_text(encoding='utf-8'), 'evidence')
+            self.assertEqual((root / 'run-1' / 'exit.json').read_text(encoding='utf-8'), '{}')
+
+    def test_run_capacity_rejects_at_run_directory_limit(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            (root / 'run-1').mkdir()
+            (root / 'run-2').mkdir()
+            (root / 'admission.log').write_text('evidence', encoding='utf-8')
+            with patch.object(launcher, 'RUNS', root), patch.object(launcher, 'MAX_RUNS', 2):
+                with self.assertRaisesRegex(launcher.Refusal, '64-run retention bound'):
+                    launcher.ensure_run_capacity(reserve_bytes=0)
+
+    def test_run_capacity_counts_top_level_files_against_byte_limit(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            (root / 'admission.log').write_text('evidence', encoding='utf-8')
+            with patch.object(launcher, 'RUNS', root), patch.object(launcher, 'MAX_TOTAL_RUN_BYTES', 4):
+                with self.assertRaisesRegex(launcher.Refusal, '512 MiB retention bound'):
+                    launcher.ensure_run_capacity(reserve_bytes=0)
+
+    def test_run_capacity_rejects_symlink_entries(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            target = root / 'target.log'
+            target.write_text('evidence', encoding='utf-8')
+            (root / 'linked.log').symlink_to(target)
+            with patch.object(launcher, 'RUNS', root):
+                with self.assertRaisesRegex(launcher.Refusal, 'special entry'):
+                    launcher.ensure_run_capacity(reserve_bytes=0)
+
 
 if __name__ == '__main__':
     unittest.main()
