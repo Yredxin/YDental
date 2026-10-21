@@ -476,7 +476,27 @@ class LauncherSupervisorTests(unittest.TestCase):
             (root / 'run-2').mkdir()
             (root / 'admission.log').write_text('evidence', encoding='utf-8')
             with patch.object(launcher, 'RUNS', root), patch.object(launcher, 'MAX_RUNS', 2):
-                with self.assertRaisesRegex(launcher.Refusal, '64-run retention bound'):
+                with self.assertRaisesRegex(launcher.Refusal, '2-directory retention bound'):
+                    launcher.ensure_run_capacity(reserve_bytes=0)
+
+    def test_default_run_retention_bound_is_128_directories(self):
+        self.assertEqual(launcher.MAX_RUNS, 128)
+
+    def test_run_capacity_allows_127_directories_at_default_bound(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            for index in range(127):
+                (root / f'run-{index}').mkdir()
+            with patch.object(launcher, 'RUNS', root):
+                launcher.ensure_run_capacity(reserve_bytes=0)
+
+    def test_run_capacity_rejects_at_default_128_directory_bound(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            for index in range(128):
+                (root / f'run-{index}').mkdir()
+            with patch.object(launcher, 'RUNS', root):
+                with self.assertRaisesRegex(launcher.Refusal, '128-directory retention bound'):
                     launcher.ensure_run_capacity(reserve_bytes=0)
 
     def test_run_capacity_counts_top_level_files_against_byte_limit(self):

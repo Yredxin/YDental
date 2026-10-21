@@ -41,7 +41,7 @@ EXPECTED_CORE_COMMIT = "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb"
 MAX_SCOPE_SECONDS = 24 * 60 * 60
 MAX_SERVER_SECONDS = 20 * 60
 MAX_LOG_BYTES = 32 * 1024 * 1024
-MAX_RUNS = 64
+MAX_RUNS = 128
 MAX_TOTAL_RUN_BYTES = 512 * 1024 * 1024
 MAX_CORE_BYTES = 256 * 1024 * 1024
 STOP_GRACE_SECONDS = 30
@@ -514,7 +514,9 @@ def ensure_run_capacity(reserve_bytes: int = MAX_LOG_BYTES) -> None:
             elif not stat.S_ISDIR(child_info.st_mode):
                 raise Refusal("S11 run history contains a special entry; preserve it for review")
     if run_dirs >= MAX_RUNS:
-        raise Refusal("S11 run history reached its 64-run retention bound; preserve it and review capacity")
+        raise Refusal(
+            f"S11 run history reached its {MAX_RUNS}-directory retention bound; preserve it and review capacity"
+        )
     if total + reserve_bytes > MAX_TOTAL_RUN_BYTES:
         raise Refusal("S11 run history exceeded the 512 MiB retention bound; preserve it for review")
 
