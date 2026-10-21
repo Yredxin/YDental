@@ -675,3 +675,9 @@ attempt3使用新的私有cookie session和独立幂等key；run `20261020T11413
 在候选 `2dbfa5c67f511d501bf7bb028222210a19cf3b01` fresh admission PASS、独立准入读回PASS后，使用GDB 17.1 owned service和actor2466正常Store2权限，仅执行一次合成患者登记。患者683/version1；operation receipt SHA-256 `7d59493e8aff9c1873b3d5ffc5feb4c56b623045dcb6c94d19bb20c9d686aadf`。独立RR READ ONLY postcreate回读16项全PASS，receipt SHA-256 `41bbbc3f6b02c55997912ab009797b8f8e284f72345f4874cd8213a0dc606b53`；224张保护表仅出现登记及正常认证审计/会话增量，D/C、模块和外发参数不变。GDB退出0、无signal/core，服务停止；exit receipt SHA-256 `c9ad718c4fd60d15de757cd09be4cc311a366d805fab5d1cd8a4e1ab91554dbd`。
 
 该患者只完成登记，未预约、到店、报到、排队或接受临床/治疗/费用/通知操作。辅助只读核验器attempt1–5的断言/时间窗口适配失败均保留；业务POST未重放，attempt6通过。独立验收提示操作源SHA未嵌入运行回执，来源依赖run ID与执行前mtime关联。新文档提交会改变候选，下一次运行前重新fresh admission。S11仍PARTIAL/IN_PROGRESS，#35 OPEN；ROOT_CAUSE_UNDETERMINED与历史F2 loser/PID EVIDENCE_GAP不变。
+
+## 2026-10-21 01:36 UTC：T08义齿供应商与原生服务价源资格预检
+
+- 对固定候选 `0f03ef910c46688f56e51afed93a5cbdf76479f4` 执行只读资格预检。脚本 `.local/s11/verification/t08_prosthesis_supplier_service_feasibility_0f03ef9.py` SHA-256 `32db11bfc23487f90214faff54ef377373ae0b47151caf1ba41ee3de2eb8df10`；独立静态审核该精确SHA PASS。静态范围确认未读取PO/PO line，company/store admission allowlist在目标ORM读取前校验，supplierinfo按通用记录或具体变体匹配。
+- 首次运行因脚本常量名错误在DB连接前退出，stderr保留于 `.local/s11/verification/t08-prosthesis-supplier-service-feasibility-run-0f03ef9.stderr`；改正并复核后的一次只读执行结果为BLOCKED，收据 `.local/s11/verification/t08-prosthesis-supplier-service-feasibility-0f03ef9.json` SHA-256 `53fc28c03fa82326a93eecec48112e236cc4fb3fa8253157610fe058d603fce4`。受限目标库身份、准入scope、采购/医疗角色和服务停止检查通过；没有有效已审核义齿厂商，合法的同公司服务价源组合为0。尚不能新建正常采购服务行或义齿加工单；旧PO147–149不访问。
+- 此核验是MODEL/ORM只读数据调查，不是HTTP、浏览器或采购业务实测。READ ONLY和REPEATABLE READ显示通过，显式rollback调用、cursor关闭；但`rollback_idle=false`，该项保留为未通过证据且整体不标PASS。没有业务写入；不为此重复查询。具体执行错误、范围和待解条件记录于根目录`CURRENT_TASK.md`同名状态续行。

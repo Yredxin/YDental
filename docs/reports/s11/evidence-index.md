@@ -201,3 +201,9 @@ At candidate `4d126a6`, fresh pre-create admission passed (receipt SHA `93c21c58
 - GDB run `20261021T003327Z-42b31b28cbb1`，inferior PID 94152，GDB 17.1。一次正常认证/Store2切换及一次 `/ydental/patients/action` 登记，患者683/version1。操作receipt `.local/s11/operations/s11-synthetic-patient-create-5d606c2-once.json` SHA-256 `7d59493e8aff9c1873b3d5ffc5feb4c56b623045dcb6c94d19bb20c9d686aadf`；helper SHA-256 `d87e398ed62482f8c189e3704f7a54d3738c7a624822bda82db23dddb1c47b29`。GDB exit receipt `.local/s11/runs/20261021T003327Z-42b31b28cbb1/exit.json` SHA-256 `c9ad718c4fd60d15de757cd09be4cc311a366d805fab5d1cd8a4e1ab91554dbd`，exit0、无signal/core。
 - 独立postcreate只读核验器attempt6 PASS：`.local/s11/verification/s11-synthetic-patient-2dbfa5c-independent-postcreate-ro-attempt6.json` SHA-256 `41bbbc3f6b02c55997912ab009797b8f8e284f72345f4874cd8213a0dc606b53`；16 checks全PASS。独立验收PASS。source SHA未嵌入业务运行receipt，来源链依赖run ID及运行前mtime，记录为轻微provenance限制。attempt1–5适配失败保留，无重复业务POST。
 - 状态：patient683只有身份登记，后续临床依赖正常预约、到店、报到和既有FIFO，不得跳过既有等待项；无文书、治疗、费用、postcommit或通知。新文档候选提交后需重新准入。ROOT_CAUSE_UNDETERMINED、历史F2 EVIDENCE_GAP保留，S11 PARTIAL/IN_PROGRESS，#35 OPEN。
+
+## 2026-10-21 01:36 UTC：T08资格只读调查
+
+- 固定候选 `0f03ef910c46688f56e51afed93a5cbdf76479f4`。脚本 `.local/s11/verification/t08_prosthesis_supplier_service_feasibility_0f03ef9.py` SHA-256 `32db11bfc23487f90214faff54ef377373ae0b47151caf1ba41ee3de2eb8df10`；独立精确SHA静态复核PASS。公司/门店scope前置检查及供应商价目变体约束通过；不读PO或订单行，不做业务写入。
+- 一次只读执行回执 `.local/s11/verification/t08-prosthesis-supplier-service-feasibility-0f03ef9.json` SHA-256 `53fc28c03fa82326a93eecec48112e236cc4fb3fa8253157610fe058d603fce4`；结果BLOCKED：有效审核义齿厂商数0、合法同公司服务价源组合0；`rollback_idle=false`且cursor关闭，未将其判为PASS。受限库scope、只读事务、角色与服务停止均通过。首个DB连接前的脚本属性错误stderr `.local/s11/verification/t08-prosthesis-supplier-service-feasibility-run-0f03ef9.stderr` SHA-256 `848b8b3bceada577622976b73beb84d9978600eedfb66466a0ee56913d5ca9a7`保留。
+- 结论：没有合法输入来源可供后续义齿采购测试。没有确认/创建采购单，没有访问PO147–149，未重复资格查询。详见根目录`CURRENT_TASK.md`及`summary.md`。
