@@ -2,7 +2,7 @@
 
 - 当前分支 `codex/s11-followup-lab-r1`，实施前 HEAD `fe3fffad51269e631da9d2c0b56016f66857d0bb`；工作树原仅有本节记录的launcher容量改动。运行历史已有64个run目录、约1.29 MB；没有移动或删除任何证据。既有启动器拒绝已达到64目录上限的下一次启动。为保留全部历史并继续已授权的S11测试，将目录上限由64调至128；独立512 MiB字节上限、顶层及run内普通文件计数、symlink/特殊项拒绝逻辑保持有效。
 - 独立静态审查者 `/root/gdb_core_runner_review` 对实现首轮结论PASS，并指出缺少真实默认边界测试；已增加127目录允许和128目录拒绝两项覆盖。最终 `python3 -m py_compile scripts/s11/launcher.py scripts/s11/test_launcher.py` 通过；`python3 -m unittest scripts.s11.test_launcher` 28项通过、0失败/错误，完整日志 `.local/s11/operations/launcher-retention-tests-20261021-final.log`（SHA-256 `3735e40283c509075601e7d9bb4a6ea611db2000aa57eb742f66989a3a9866da`）。独立最终静态审查PASS。测试使用隔离测试服务，不触碰业务库。
-- 本次没有重试此前因run容量拒绝的业务启动，没有发HTTP请求或业务写入。运行目录中的旧证据全部保留。代码与本状态记录提交后形成新候选；下一次任何GDB运行前须按新HEAD fresh admission并独立核准。
+- README同步记录128个run目录/512 MiB上限。本次没有重试此前因run容量拒绝的业务启动，没有发HTTP请求或业务写入。运行目录中的旧证据全部保留。代码与本状态记录提交后形成新候选；下一次任何GDB运行前须按新HEAD fresh admission并独立核准。
 - 已有 patient683、Store2 business day 1756及slot前置事实沿用前节记录。slot preflight attempt5证明日期/容量/员工覆盖成立，但尚未创建slot；受影响的run path仍需新候选准入后才能继续。S11其他缺口和保护不变：实际预约/到店/report及保留原生FIFO；通知源事务至postcommit/claim/受控sink；T08合法义齿临床来源及原生采购/收发/返工；追加费用返工与来源互斥核验；适用的新F2竞争、F1/F4剩余矩阵、影响面回归和独立总验收。旧F2 loser/PID保持`EVIDENCE_GAP`，SIGSEGV保持`ROOT_CAUSE_UNDETERMINED`；不重放历史失败或受保护对象，#35保持OPEN，不push/merge/deploy/S12/S13。
 
 # S11 最新续行（2026-10-21 00:42 UTC）：GDB下合成患者683登记与独立读回通过

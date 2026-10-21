@@ -75,7 +75,7 @@ owned restarts. This is required because the scratch DB stores attachment hashes
 for web bundles in PostgreSQL; a fresh per-run data directory would return empty
 web assets and leave the authenticated browser client blank. The path is S11
 owned and mode `0700`; it is separate from the prior S10 launcher data directory.
-Run history is append-only and capped at 64 runs / 512 MiB; reaching either bound
+Run history is append-only and capped at 128 run directories / 512 MiB; reaching either bound
 refuses a new run and requires review rather than automatic deletion.
 The stop command signals only the recorded supervisor PID with matching Linux
 process birth time and launcher command. In direct mode the supervisor controls
