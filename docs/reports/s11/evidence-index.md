@@ -254,3 +254,13 @@ At candidate `4d126a6`, fresh pre-create admission passed (receipt SHA `93c21c58
 | GDB log | `.local/s11/operations/20261021T053933Z-s11-t08-synthetic-initial-po-204a0c2-attempt6-gdb/gdb-setup.log` | `10b342c6cebbb48c4e76e68d3419c57a28b3bde724e840ccc205aa4b17d7b90e` | Odoo ValueError：line字段`product_uom`无效；正常字段`uom_id`；不是根因/崩溃证据 |
 | Attempt intent | `.local/s11/operations/s11-t08-synthetic-initial-po-204a0c2-attempt6.json` | `bf666e15cc494a0a5b0696bce2aaa07958aca8ed1ff3b9ca03b07345af05db1b` | 原件保留；读回前标记提交结果待确认 |
 | 独立只读对账脚本/receipt | `.local/s11/verification/t08-attempt6-no-submit-postsetup-ro.py` / `.local/s11/verification/t08-attempt6-no-submit-postsetup-ro.json` | `899b8b5846604fc3670d49c3a59e64f42adf82225ae48efa61efd3395e43841b` / `acad28f41ccc3b5c30e03f4718a3dd88d454f41513cb5372bc91b6bfc30a008d` | 静态review PASS；独立只读RR核准DB/OID/cluster，精确origin无PO，Store2 setup在，rollback/idle/close；第二验收者`/root/gdb_core_runner_review`独立PASS_NO_SUBMISSION |
+
+## 2026-10-21 05:55 UTC｜T08 合成采购确认
+
+|范围|证据|SHA-256|结果/限定|
+|---|---|---|---|
+|fresh admission|`.local/s11/receipts/s11-fresh-admission-6c86964-20261021T054819Z-a9d2226c16b61c62.json`|`1f965d2c2dcc8f4789e688848beab57e881ca6f85689e6324a4abdc0b25310d1`|PASS；224保护计数、D/C及200 DB权限/目录检查；服务停止、外发关闭|
+|attempt7 GDB result/log|`.local/s11/operations/20261021T055152Z-s11-t08-synthetic-initial-po-6c86964-attempt7-gdb/result.json` / `gdb-setup.log`|`6144a16ee219533a3a959efe64e74bd66f52bd12526f15c2c91461001c54416f` / `58054d8b52636a33d9fe7d5b1711690d45b23e9fc1d904a70b35b00290c662cf`|原生采购确认返回；exit0、无SIGSEGV；服务/进程停止、auth revoke|
+|PO intent|`.local/s11/operations/s11-t08-synthetic-initial-po-6c86964-attempt7.json`|`9ee8277f467fb9ab56578f972a5b954ed5b1af596b063a3b8e996fbaa834e135`|PO164/P00169，confirmed，Store2/vendor/company/product/amount/date真实请求来源；交期5个实际日历日|
+|首个独立读回|`.local/s11/verification/t08-attempt7-purchase-confirmed-independent-ro.json`|`23909b1e544ab3fbc068dcb17b0d9b12c3d0b3d038ab85109cdffb42bda25360`|保留FAIL_REQUIRES_RECONCILIATION；Odoo DB秒级精度导致一个比较预期错误，无副作用|
+|校正后独立读回|`.local/s11/verification/t08-attempt7-purchase-confirmed-independent-ro-attempt2.json`|`248b4f31423d2894a88053f08188fb4a7174296f78a3a0ca4a994309b7db0ff8`|PASS；唯一PO/单条服务行、Store2 incoming映射、confirmed状态、USD125、DB实际+5日、RR rollback/idle/close；独立验收PASS|

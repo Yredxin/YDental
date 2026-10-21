@@ -1,3 +1,13 @@
+## S11 状态续行（2026-10-21 05:55 UTC）：T08 合成采购确认及独立读回
+
+- 保持 `codex/s11-followup-lab-r1`，业务候选 `6c86964a1adb5c899c6ea4d26aa3bd29a2c49a13`，本记录待正常提交；未push/merge/deploy。candidate fresh admission `.local/s11/receipts/s11-fresh-admission-6c86964-20261021T054819Z-a9d2226c16b61c62.json` SHA `1f965d2c2dcc8f4789e688848beab57e881ca6f85689e6324a4abdc0b25310d1` PASS，独立离线收据审查PASS：224保护表、D/C、200库跨库权限/目录扫描、模块与外发状态匹配；服务STOPPED/18411空闲。
+- 经独立静态审查后，attempt7使用原生buyer角色2666在正常Odoo采购路径一次创建并确认新的合成义齿加工采购服务行：PO `P00169`/ID164，唯一origin `S11-SYNTH-DENTURE-INITIAL-01`，vendor partner3634/qualified vendor267/Store2 cooperation257，product564（service），单行USD125/qty1，buyer2666。PO使用picking type1529、Store2 native inventory config182→warehouse192/S2D。合成workshop明确不代表真实供应商承诺；外部发送未请求。
+- GDB run `.local/s11/operations/20261021T055152Z-s11-t08-synthetic-initial-po-6c86964-attempt7-gdb/result.json` SHA `6144a16ee219533a3a959efe64e74bd66f52bd12526f15c2c91461001c54416f`，log SHA `58054d8b52636a33d9fe7d5b1711690d45b23e9fc1d904a70b35b00290c662cf`，exit0、`COMMIT_RETURNED_READBACK_REQUIRED`、无SIGSEGV、owned group/service已停、18411空闲、授权撤销。intent SHA `9ee8277f467fb9ab56578f972a5b954ed5b1af596b063a3b8e996fbaa834e135`记录实际下单UTC `2026-10-21 05:51:53.939916Z`、计划交期 `2026-10-26 05:51:53.939916Z`，5日由实际提交时刻计算。
+- 独立读回首次receipt `.local/s11/verification/t08-attempt7-purchase-confirmed-independent-ro.json` SHA `23909b1e544ab3fbc068dcb17b0d9b12c3d0b3d038ab85109cdffb42bda25360`保留为`FAIL_REQUIRES_RECONCILIATION`：除一个精度比较外均通过；Odoo数据库datetime以秒存储，原断言错误地保留intent微秒。未重做任何业务写入。经独立静态审核的修正验证器按秒比对下单时间，并以已提交DB `date_order + 5天` 精确比对行交期；receipt `.local/s11/verification/t08-attempt7-purchase-confirmed-independent-ro-attempt2.json` PASS，SHA `248b4f31423d2894a88053f08188fb4a7174296f78a3a0ca4a994309b7db0ff8`。核唯一confirmed PO/line、vendor/company/currency/buyer、product/UOM/价格/数量、Store2仓库映射与incoming类型、数据库实际五日交期、RR READ ONLY显式rollback/idle/close。`/root/gdb_core_runner_review`独立实测证据验收PASS；`/root/plan_remaining_audit`独立静态审核PASS。
+- 不得在物理交期 `2026-10-26 05:51:53 UTC` 前录入义齿到货/入库；真实收发、返工/供应商退回尚未发生，库存与费用未证实。attempt4/5/6无提交记录各自保留；attempt7成功不可重放。PO147–149及旧资金/库存/审计不触碰。
+- 下一步：本节报告提交后fresh-admit新候选；在不违反原生FIFO和物理时序下继续合法合成临床来源、postcommit、返工费用来源互斥/并发与影响回归。 patient682已arrive并在area2 queue entry716等待，旧entry身份不得读取或越序；patient683预约15:00–15:30 UTC，未到物理时段不得到店/临床。若队列在交期前仍未到达合成任务，继续无依赖工作，不能伪造接诊。
+- S11保持PARTIAL/IN_PROGRESS、#35 OPEN；SIGSEGV `ROOT_CAUSE_UNDETERMINED`、旧F2 `EVIDENCE_GAP`不变。
+
 ## S11 状态续行（2026-10-21 05:43 UTC）：T08 采购 attempt6 无提交对账
 
 - 分支 `codex/s11-followup-lab-r1`，HEAD `204a0c209c8f61bd485e069d3075a63f70185224`，工作区在记录前干净，origin ahead 205。未push/merge/deploy。原计划及既有证据继续沿用。
