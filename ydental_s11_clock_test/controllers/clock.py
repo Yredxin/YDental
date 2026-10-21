@@ -25,7 +25,12 @@ class S11ClockController(http.Controller):
     @http.route('/ydental/s11/debug-clock', type='http', auth='user', methods=['GET'])
     def page(self, **kwargs):
         service, access_session, key = self._authorize()
-        row = request.env['ydental.s11.clock.session'].sudo().search([('session_hash', '=', key)], limit=1)
+        physical_now = datetime.now(timezone.utc).replace(tzinfo=None)
+        row = request.env['ydental.s11.clock.session'].sudo().search([
+            ('session_hash', '=', key), ('actor_id', '=', request.env.uid),
+            ('store_id', '=', access_session.ydental_store_id.id), ('run_id', '=', run_id()),
+            ('expires_at', '>', physical_now),
+        ], limit=1)
         response = request.render('ydental_s11_clock_test.clock_page', {
             'simulated_now': row.simulated_now if row else False,
             'run_id': run_id(), 'csrf_token': request.csrf_token(),
