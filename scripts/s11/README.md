@@ -138,3 +138,39 @@ opening browser sessions, or executing business tests require their own bounded
 S11 commands and checkpoints; this launcher performs none of them. Main DB,
 S10 private scopes/launchers, PostgreSQL cluster administration, core changes,
 external delivery, and production remain out of scope.
+
+## Session-scoped S11 synthetic business clock
+
+To test date-triggered S11 behavior without waiting for wall-clock dates, use
+the dedicated debug entry only after committing the candidate and obtaining a
+fresh independently reviewed admission. It verifies the fixed scratch database,
+OID/cluster, private admission and stopped-service conditions, then starts the
+owned Odoo process under GDB and initializes `ydental_s11_clock_test`:
+
+```sh
+/home/redxin/code/odoo/odoo-sd/code/.venv/bin/python /home/redxin/code/odoo/odoo-sd/code/sd-addons/scripts/s11/debug_clock.py
+```
+
+From an authenticated, authorized S11 test account on the local browser, open
+`http://127.0.0.1:18411/ydental/s11/debug-clock`. Enter an ISO-8601 UTC time
+and a reason. The clock is bound to that browser session, actor and active
+store; it can only move forward, must be within 30 days of physical UTC, and
+expires after eight physical hours. Use “Clear this session clock” to return
+that session to physical business time. The run has an explicit `S11_SESSION_CLOCK`
+manifest and GDB capture; it is not an OS or PostgreSQL clock change.
+
+Only application business-time seams in the listed S11 service addons consume
+this value. Clinical/lab action dates in the scratch are synthetic and must be
+read as such. Access audit metadata retains both simulated business UTC and
+physical audit UTC. ORM creation/write timestamps, GDB elapsed/stale time,
+notification attempt/daily-cap timestamps, settlement/fund cutoffs, host time,
+PostgreSQL time and any external provider time remain physical. The follow-up
+adapter only uses the synthetic time for due/quiet-hour eligibility and keeps
+the existing controlled sink boundary; it does not authorize real delivery.
+
+This debug entrance does not bypass patient/task/source rules, queue FIFO,
+permissions, purchase/stock controls, protected records or the normal business
+workflow. It does not make synthetic events evidence of physical attendance or
+physical supplier delivery. If cluster inspection is denied, a target check
+fails, a crash occurs, or data changes unexpectedly, stop the affected run and
+preserve its evidence; do not fall back to changing machine time.

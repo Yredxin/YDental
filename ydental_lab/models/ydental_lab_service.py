@@ -23,6 +23,9 @@ class YDentalLabService(models.AbstractModel):
     _name = 'ydental.lab.service'
     _description = 'Guarded vendor, laboratory order and stock lifecycle'
 
+    def _now(self):
+        return fields.Datetime.now()
+
     def _model(self, entity):
         return self.env['ydental.lab.' + entity].sudo()
 
@@ -101,7 +104,7 @@ class YDentalLabService(models.AbstractModel):
             'ydental_patient_fee_id': fee.id,
             'ydental_patient_fee_amount': fee.ydental_amount if fee else 0.0,
             'ydental_fee_currency_id': fee.ydental_currency_id.id if fee else False,
-            'ydental_recorded_at': fields.Datetime.now(),
+            'ydental_recorded_at': self._now(),
         })
 
     def _check_purchase_line(self, order):
@@ -184,7 +187,7 @@ class YDentalLabService(models.AbstractModel):
             'ydental_zero_supplier_cost_confirmed': True,
             'ydental_zero_supplier_cost_reason': reason,
             'ydental_zero_supplier_cost_actor_id': self.env.uid,
-            'ydental_zero_supplier_cost_at': fields.Datetime.now(),
+            'ydental_zero_supplier_cost_at': self._now(),
         })
         self._audit('zero_supplier_cost_confirmed', order, store,
                     after={'supplier_cost': 0.0, 'patient_terms_separate': True}, reason=reason)
@@ -222,7 +225,7 @@ class YDentalLabService(models.AbstractModel):
             'ydental_no_patient_fee_confirmed': True,
             'ydental_no_patient_fee_reason': reason,
             'ydental_no_patient_fee_actor_id': self.env.uid,
-            'ydental_no_patient_fee_at': fields.Datetime.now(),
+            'ydental_no_patient_fee_at': self._now(),
         })
         self._audit('no_patient_fee_confirmed', order, store,
                     after={'patient_fee': 0.0, 'supplier_cost_independent': True}, reason=reason)
@@ -343,7 +346,7 @@ class YDentalLabService(models.AbstractModel):
         before = vendor.state
         vendor.sudo().with_context(ydental_lab_mutation=MUTATION).write({
                 'state': decision, 'reviewed_by_id': self.env.uid,
-                'reviewed_at': fields.Datetime.now(), 'review_reason': reason,
+                'reviewed_at': self._now(), 'review_reason': reason,
                 'qualification_version': vendor.qualification_version + 1,
             })
         access._audit('lab.vendor.' + decision, 'personnel', vendor, after={'state': decision}, reason=reason, source='dental_laboratory')
@@ -513,7 +516,7 @@ class YDentalLabService(models.AbstractModel):
         if not order.ydental_additional_performed_at:
             raise ValidationError(self.env._('Enter the actual additional-service performance time.'))
         performed_at = fields.Datetime.to_datetime(order.ydental_additional_performed_at)
-        if not performed_at or performed_at > fields.Datetime.now():
+        if not performed_at or performed_at > self._now():
             raise ValidationError(self.env._('Enter a valid actual service time that is not in the future.'))
         evidence_reference = self._text(
             order.ydental_additional_performance_evidence_reference,
@@ -559,7 +562,7 @@ class YDentalLabService(models.AbstractModel):
                 not order.ydental_cooperation_active_at_dispatch):
             raise UserError(self.env._('The dispatch authorization snapshot is missing; stop and reconcile the work order.'))
         return self._record_action(order, 'received', values={
-            'state': 'received', 'ydental_receipt_at': fields.Datetime.now(),
+            'state': 'received', 'ydental_receipt_at': self._now(),
             'ydental_receipt_actor_id': self.env.uid,
         })
 
@@ -708,7 +711,7 @@ class YDentalLabService(models.AbstractModel):
             'ydental_shade': order.ydental_shade,
             'ydental_instructions': order.ydental_instructions,
             'ydental_responsible_id': order.ydental_responsible_id.id,
-            'ydental_planned_at': fields.Datetime.now(),
+            'ydental_planned_at': self._now(),
             'ydental_external_mode': order.ydental_external_mode,
             'ydental_internal_code': 'PF-%s-%s-%s' % (order.ydental_internal_code[:32], order.id, repair_no),
             'ydental_parent_order_id': order.id,

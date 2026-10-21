@@ -1,3 +1,15 @@
+## 2026-10-21 08:36 UTC｜session-scoped synthetic business clock implementation
+
+用户批准为日期触发测试提供debug入口，无需等待物理日历时间。该批准调整S11测试时间控制方式，不授权改主机、PostgreSQL或全局Python时钟。实现增加 `ydental_s11_clock_test` addon 和 `scripts/s11/debug_clock.py`；启动入口固定S11 scratch admission及OID/cluster、私有run manifest、GDB运行和localhost。登录用户需有专用 `S11 Synthetic Clock Operator` 组，路由使用认证、POST+CSRF、loopback校验，按服务端session hash、actor和当前store绑定；客户端RPC context不能自行启用clock。业务时间仅单调前进、与物理UTC差距不超过30日，并在8小时物理时间后过期；事件保留原因、操作者、门店、前后时间、run和物理记录时点。
+
+`Clock` 通过HTTP dispatch对当前会话注入类型化context，并由service `_now()` seam消费，不patch系统/进程时钟。支持queue/intake/supply/patient/inventory/exam/treatment/lab/charge/settlement/followup service。Audit额外记录 `run_id`、`simulated_utc` 和 `physical_audit_utc`。合成clinical/lab action时间属于测试业务时间，不能声称物理执行。ORM create/write审计时点、资金/settlement物理校验、followup dispatch attempt、stale timeout、daily-cap窗口与host/PG时钟仍保持实际时间。Followup due及quiet-hour eligibility使用合成时间；transport仍只支持内部controlled test sink，未开启真实短信/邮件/provider。
+
+入口通过 `.venv/bin/python scripts/s11/debug_clock.py`，随后登录本机 `http://127.0.0.1:18411/ydental/s11/debug-clock` 设置/推进或清除时间。模块首次安装为addon初始化副作用，因此仍必须以提交后的候选、fresh admission及专用S11运行检查执行。live guard会用当前受限数据库会话查询 `pg_control_system().system_identifier` 并同manifest cluster id核对；本轮没有运行数据库验证其实际函数权限。若受限角色被拒绝，则保持失败关闭并记录工具拒绝，不以更高权限绕过。
+
+独立代码验收结果：`/root/gdb_core_runner_review` PASS；`/root/notification_feasibility` PASS。该审查未启动服务、连接数据库或修改业务数据。静态验证：改动Python文件 `py_compile` PASS；`git diff --check` PASS；`python3 scripts/s11/test_launcher.py` 30/30 PASS，日志 `.local/s11/verification/session-clock-launcher-tests.log` SHA-256 `c833f3f766b9a079801ccb20f1fedafd1db1c90f80d8bea5257782ffa08319e0`。Launcher测试里的“service started”是Mock子进程输出，不是实际服务启动。当前不宣称HTTP/browser/时钟路由或业务流程已实测。
+
+仍待安装后验证：restricted-role live cluster probe；debug page和设置/前进/清除路径；合成临床来源；T08已确认PO的义齿收发/返工与采购费用；合成来源的postcommit到controlled sink；追加收费返工；适用并发及影响面回归、独立总验收。所有合成事件按业务来源保真、不触碰patient650/task720或PO147–149。旧SIGSEGV `ROOT_CAUSE_UNDETERMINED`与历史F2 loser/PID `EVIDENCE_GAP`仍保留；#35 OPEN，S11 PARTIAL/IN_PROGRESS；不push、merge、deploy或启动S12/S13。
+
 ## 2026-10-21 03:52 UTC｜窄HTTP后读回及T08 ACL边界
 
 GDB owned run `20261021T031235Z-06f93a2c106d` 的独立post-run只读核验最终PASS：receipt `.local/s11/verification/post-http-readback-4f3798d-run-05c51e0-20261021T031235Z-06f93a2c106d-ro.json` SHA-256 `b8fe773cf0844c7b69bbc0213008c87687dbf3c86a3a42e31d06587d6b270991`。224项保护计数、D/C、模块/外发状态、副作用计数、准入与服务停止均匹配；READ ONLY事务rollback/close。客户端一次GET返回HTTP200，但server access log不完整，服务端请求状态仍UNKNOWN；不据此称SIGSEGV已修复或一般HTTP/browser稳定。

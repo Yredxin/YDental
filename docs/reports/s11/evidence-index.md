@@ -1,3 +1,13 @@
+## Session-scoped S11 synthetic business clock (2026-10-21)
+
+- Code scope: `ydental_s11_clock_test/`, `scripts/s11/debug_clock.py`, launcher gate in `scripts/s11/launcher.py`, and business-clock seams in exam/followup/lab/settlement/treatment services.
+- Independent source reviews: `/root/gdb_core_runner_review` PASS (identity, session binding, physical-time boundaries); `/root/notification_feasibility` PASS (postcommit due path, daily cap and no real transport path).
+- Static validation: `py_compile` PASS; `git diff --check` PASS; 30 launcher tests PASS. Private test log: `.local/s11/verification/session-clock-launcher-tests.log`, SHA-256 `c833f3f766b9a079801ccb20f1fedafd1db1c90f80d8bea5257782ffa08319e0`.
+- Runtime proof: NONE. Addon was not installed, and Odoo/HTTP/browser/DB were not started or accessed. The restricted DB role's permission to read `pg_control_system()` remains unverified. The launcher test's mocked “service started” line is not runtime evidence.
+- Time semantics: only typed S11 session context changes scoped application business time. Host, PostgreSQL, ORM timestamps, physical audit time, fund/settlement checks, notification attempts/stale/daily-cap remain physical. Clinical/lab operation timestamps under the synthetic session are synthetic business records. No real external delivery.
+- Entry instructions: `scripts/s11/README.md`, section “Session-scoped S11 synthetic business clock”.
+- Remaining required evidence: fresh admission for committed candidate; live restricted-role cluster probe; debug route set/advance/clear; complete remaining synthetic clinical, denture, postcommit sink, repair-fee, applicable concurrency and influence regression. #35 stays OPEN until required S11 evidence and independent final acceptance pass.
+
 ## 2026-10-21 06:07 UTC：fresh admission与返工费用来源约束
 
 - 候选`102e50f2d9857bd7b8aaed01c6259e165e233007`的fresh admission `.local/s11/receipts/s11-fresh-admission-102e50f-20261021T055926Z-2eb0fb14c9a6c148.json` SHA-256 `ba1cbabf0c1547cab25ecacafeb313c75b91dfbf85d273dad5d1e72b89049506` PASS，离线独立核验PASS。scratch/OID2144130、224保护表、D/C、200库扫描、cluster/角色、service STOPPED/port free及外发关闭匹配。

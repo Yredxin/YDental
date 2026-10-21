@@ -842,7 +842,8 @@ def own_process_matches(pid: int, start_ticks: int, expected_script: bool = Fals
     if not argv:
         return False
     if expected_script:
-        if len(argv) < 3 or argv[2:] not in (["start"], ["start", "--gdb"], ["--gdb", "start"]):
+        if len(argv) < 3 or argv[2:] not in (["start"], ["start", "--gdb"], ["--gdb", "start"],
+                                             ["start", "--gdb", "--s11-clock"]):
             return False
         try:
             return Path(argv[1]).resolve(strict=True) == SCRIPT_PATH
@@ -851,8 +852,51 @@ def own_process_matches(pid: int, start_ticks: int, expected_script: bool = Fals
     return False
 
 
-def start_service(gdb_capture: bool = False) -> int:
+def validate_s11_clock_debug(branch: str, commit: str, gdb_capture: bool) -> dict | None:
+    names = ('YDENTAL_S11_CLOCK_RUN_ID', 'YDENTAL_S11_CLOCK_RUN_DIR', 'YDENTAL_S11_CLOCK_MANIFEST_SHA256')
+    if not any(os.environ.get(name) for name in names):
+        return None
+    if not gdb_capture or not all(os.environ.get(name) for name in names):
+        raise Refusal('S11 session clock startup requires its complete manifest and GDB capture')
+    run_id = os.environ['YDENTAL_S11_CLOCK_RUN_ID']
+    if not re.fullmatch(r'[0-9]{8}T[0-9]{6}Z-[a-f0-9]{12}', run_id):
+        raise Refusal('S11 session clock run id is malformed')
+    run_dir = Path(os.environ['YDENTAL_S11_CLOCK_RUN_DIR'])
+    expected = PRIVATE_ROOT / 'clock-runs' / run_id
+    try:
+        if run_dir.resolve(strict=True) != expected.resolve(strict=True):
+            raise Refusal('S11 session clock run directory is outside the fixed scope')
+        directory_info = run_dir.lstat()
+        manifest_path = run_dir / 'clock.json'
+        manifest_info = manifest_path.lstat()
+    except OSError as exc:
+        raise Refusal('S11 session clock manifest is absent or unsafe') from exc
+    if (not stat.S_ISDIR(directory_info.st_mode) or directory_info.st_uid != os.getuid()
+            or stat.S_IMODE(directory_info.st_mode) != 0o700
+            or not stat.S_ISREG(manifest_info.st_mode) or manifest_info.st_uid != os.getuid()
+            or stat.S_IMODE(manifest_info.st_mode) != 0o600):
+        raise Refusal('S11 session clock files must be private user-owned paths')
+    manifest, raw = read_private_json(manifest_path)
+    digest = hashlib.sha256(raw).hexdigest()
+    if digest != os.environ['YDENTAL_S11_CLOCK_MANIFEST_SHA256']:
+        raise Refusal('S11 session clock manifest digest mismatch')
+    if (manifest.get('mode') != 'S11_SESSION_CLOCK' or manifest.get('run_id') != run_id
+            or manifest.get('branch') != branch or manifest.get('candidate_commit') != commit
+            or manifest.get('database_name') != EXPECTED_DATABASE
+            or manifest.get('database_oid') != EXPECTED_OID
+            or manifest.get('database_cluster') != EXPECTED_CLUSTER
+            or manifest.get('runtime_sha256') != file_sha256(RUNTIME_CONFIG)
+            or manifest.get('admission_sha256') != file_sha256(ADMISSION)):
+        raise Refusal('S11 session clock manifest does not match the admitted candidate and database')
+    return {'mode': manifest['mode'], 'run_id': run_id,
+            'manifest_sha256': digest, 'manifest_path': str(manifest_path.relative_to(REPO_ROOT))}
+
+
+def start_service(gdb_capture: bool = False, s11_clock: bool = False) -> int:
     runtime, admission, database, branch, commit = validate_pair()
+    clock_run = validate_s11_clock_debug(branch, commit, gdb_capture)
+    if bool(clock_run) != s11_clock:
+        raise Refusal("use the dedicated S11 debug-clock entry to enable the session clock")
     if ACTIVE.exists():
         raise Refusal("an S11 active-owner record already exists; inspect with status, do not replace it")
     validate_live_database(database, admission)
@@ -897,6 +941,7 @@ def start_service(gdb_capture: bool = False) -> int:
         "child_start_ticks": None,
         "debugger_mode": "gdb" if gdb_capture else "direct",
         "gdb_version": gdb_info[2] if gdb_info else None,
+        "s11_session_clock": clock_run,
         "config_path": str(config_path),
         "log_path": str(log_path),
         "started_at_utc": started_at.isoformat().replace("+00:00", "Z"),
@@ -916,6 +961,8 @@ def start_service(gdb_capture: bool = False) -> int:
         if "S11_GDB_DATA_DIRECTORY" in gdb_env:
             argv.extend(["--data-directory", gdb_env["S11_GDB_DATA_DIRECTORY"]])
         argv.extend(["--command", str(gdb_script), "--args", str(PYTHON), str(inferior_wrapper), str(run_dir / "inferior.json"), str(PYTHON), str(ODOO_BIN), "-c", str(config_path)])
+        if clock_run:
+            argv.append("--init=ydental_s11_clock_test")
     else:
         gdb_env = None
         argv = [str(PYTHON), str(ODOO_BIN), "-c", str(config_path)]
@@ -1205,12 +1252,13 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("command", choices=("start", "stop", "status"))
     parser.add_argument("--gdb", action="store_true", help="run the owned S11 service under GDB and capture a private core on SIGSEGV")
+    parser.add_argument("--s11-clock", action="store_true", help="install/enable the session-scoped S11 synthetic clock")
     args = parser.parse_args()
     try:
         if args.command == "start":
-            return start_service(gdb_capture=args.gdb)
-        if args.gdb:
-            raise Refusal("--gdb is valid only with the start command")
+            return start_service(gdb_capture=args.gdb, s11_clock=args.s11_clock)
+        if args.gdb or args.s11_clock:
+            raise Refusal("--gdb and --s11-clock are valid only with the start command")
         if args.command == "stop":
             return stop_service()
         return status_service()

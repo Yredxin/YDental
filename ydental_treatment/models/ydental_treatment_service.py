@@ -35,6 +35,9 @@ class YDentalTreatmentService(models.AbstractModel):
     _name = 'ydental.treatment.service'
     _description = 'Actual treatment, frozen orders and pharmacy transactions'
 
+    def _now(self):
+        return fields.Datetime.now()
+
     def _model(self, entity):
         # All entities are fixed literals selected by this service. No public
         # endpoint accepts a model, domain, arbitrary values or mutation token.
@@ -181,7 +184,7 @@ class YDentalTreatmentService(models.AbstractModel):
             'ydental_catalog_id': catalog.id, 'ydental_uom_id': product.uom_id.id,
             'ydental_price_id': version.id, 'ydental_currency_id': version.ydental_currency_id.id,
             'ydental_product_name': product.name, 'ydental_evidence': evidence,
-            'ydental_published_at': fields.Datetime.now(), 'ydental_policy': policy})
+            'ydental_published_at': self._now(), 'ydental_policy': policy})
         self._audit('medicine_price_published', link, {'product_id': product.id, 'catalog_id': catalog.id, 'price_id': version.id}, evidence)
         return {'link_id': link.id, 'product_id': product.id, 'catalog_id': catalog.id, 'price_id': version.id}
 
@@ -292,8 +295,8 @@ class YDentalTreatmentService(models.AbstractModel):
         rows = self._material_rows(rows, execution.ydental_category, execution.ydental_store_id)
         if actual_at is not None and (not isinstance(actual_at, str) or len(actual_at) != 19):
             raise ValidationError(self.env._('invalid_time: Supply an explicit UTC date and time with seconds.'))
-        moment = fields.Datetime.to_datetime(actual_at) if actual_at else fields.Datetime.now()
-        if moment < execution.ydental_started_at or moment > fields.Datetime.now():
+        moment = fields.Datetime.to_datetime(actual_at) if actual_at else self._now()
+        if moment < execution.ydental_started_at or moment > self._now():
             raise ValidationError(self.env._('invalid_time: Actual time must fall within this started service and cannot be in the future.'))
         digest = fingerprint([actual_at, execution.id, catalog.id, quantity, reason, rows, doc.id if doc else False,
             doc.ydental_version if doc else 0, teeth, already_performed, kind, line.id if line else False, parent.id if parent else False])
@@ -385,7 +388,7 @@ class YDentalTreatmentService(models.AbstractModel):
             config = inventory._config(event.ydental_store_id)
             stock_quantity, unit, unit_snapshot = inventory._unit(lot.product_id, row.ydental_quantity, row.ydental_uom_id.id)
             batch = inventory._batch(lot, event.ydental_store_id)
-            unusable = not batch.ydental_enabled or not lot.product_id.active or not lot.expiration_date or lot.expiration_date <= fields.Datetime.now()
+            unusable = not batch.ydental_enabled or not lot.product_id.active or not lot.expiration_date or lot.expiration_date <= self._now()
             short = lot.product_id.uom_id.compare(inventory._quantity(lot, inventory._location(config, lot.product_id)), stock_quantity) < 0
             if unusable or short:
                 unavailable |= row
@@ -462,7 +465,7 @@ class YDentalTreatmentService(models.AbstractModel):
             raise ValidationError(self.env._('missing_price: An evidenced positive historical price and source currency are required.'))
         review = self._new('price.review', event, {'name': event.name, 'ydental_event_id': event.id,
             'ydental_currency_id': currency.id, 'ydental_unit_price': unit_price,
-            'ydental_evidence': self.env['ydental.intake.service']._text(evidence), 'ydental_reviewed_at': fields.Datetime.now()})
+            'ydental_evidence': self.env['ydental.intake.service']._text(evidence), 'ydental_reviewed_at': self._now()})
         event._save({'ydental_price_review_id': review.id})
         self._audit('historical_price_review', event, {'review_id': review.id}, evidence)
         return {'review_id': review.id, 'event_id': event.id, 'state': 'pending'}
@@ -674,7 +677,7 @@ class YDentalTreatmentService(models.AbstractModel):
             raise UserError(self.env._('reconcile_required: Reconcile this actual dispensing segment before finishing.'))
         queue = self.env['ydental.queue.service']
         queue._finish_pharmacy_segment(execution)
-        segment._save({'state': 'done', 'ydental_finished_at': fields.Datetime.now()})
+        segment._save({'state': 'done', 'ydental_finished_at': self._now()})
         segment.flush_recordset(['state'])
         following = self._next_segment(order)
         if not following:

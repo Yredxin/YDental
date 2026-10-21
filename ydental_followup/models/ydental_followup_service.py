@@ -64,6 +64,9 @@ class YDentalFollowupService(models.AbstractModel):
     _name = 'ydental.followup.service'
     _description = 'Authorized follow-up, notification and reconciliation actions'
 
+    def _now(self):
+        return fields.Datetime.now()
+
     def _scope(self, write=False):
         access = self.env['ydental.access.service']
         member = access._check('followup', 'write' if write else 'read', write=write)
@@ -202,7 +205,8 @@ class YDentalFollowupService(models.AbstractModel):
         if not job_ids:
             return
         dbname = self.env.cr.dbname
-        self.env.cr.postcommit.add(lambda: _dispatch_after_commit(dbname, tuple(job_ids)))
+        clock = self.env.context.get('ydental_s11_clock')
+        self.env.cr.postcommit.add(lambda: _dispatch_after_commit(dbname, tuple(job_ids), clock))
 
     def _schedule(self, row):
         jobs = self._job_model().search([
@@ -753,11 +757,11 @@ class YDentalFollowupService(models.AbstractModel):
 
     def _run_due(self):
         """Cron-safe, bounded scan. Jobs are still unique in SQL and are row-claimed below."""
-        now = fields.Datetime.now()
+        now = self._now()
         self._expire_appointments(now)
         self._expire_cancelled_reservations()
         self._expire_unbooked_followups(now)
-        stale_before = fields.Datetime.to_datetime(now) - timedelta(minutes=5)
+        stale_before = fields.Datetime.to_datetime(fields.Datetime.now()) - timedelta(minutes=5)
         stale = self._job_model().search([
             ('ydental_state', '=', 'dispatching'), ('ydental_attempt_started_at', '<', stale_before),
         ], limit=100, order='ydental_attempt_started_at, id')
@@ -1036,18 +1040,18 @@ class YDentalFollowupService(models.AbstractModel):
         return {'job_id': job.id, 'state': outcome, 'result': 'reconciled'}
 
 
-def _dispatch_after_commit(dbname, job_ids):
+def _dispatch_after_commit(dbname, job_ids, clock=None):
     """Run dispatch after commit without holding an unnecessary outer cursor."""
     try:
-        _dispatch_notification_jobs(dbname, job_ids)
+        _dispatch_notification_jobs(dbname, job_ids, clock)
     except Exception:
         _logger.exception('Committed follow-up notification dispatch will be retried by cron job ids=%s', job_ids)
 
 
-def _dispatch_notification_jobs(dbname, job_ids):
+def _dispatch_notification_jobs(dbname, job_ids, clock=None):
     """Use only the claim and result cursors, preserving durable claim-before-send."""
     for job_id in dict.fromkeys(job_ids):
-        claimed = _claim_dispatch(dbname, job_id)
+        claimed = _claim_dispatch(dbname, job_id, clock)
         if not claimed:
             continue
         request_id, terminal = claimed
@@ -1056,10 +1060,10 @@ def _dispatch_notification_jobs(dbname, job_ids):
         _dispatch_claimed(dbname, job_id, request_id)
 
 
-def _claim_dispatch(dbname, job_id):
+def _claim_dispatch(dbname, job_id, clock=None):
     """Persist the stable request key before invoking any transport code."""
     with Registry(dbname).cursor() as cr:
-        env = api.Environment(cr, SUPERUSER_ID, {})
+        env = api.Environment(cr, SUPERUSER_ID, {'ydental_s11_clock': clock} if clock else {})
         service = env['ydental.followup.service']
         Job = env['ydental.notification.job'].sudo()
         cr.execute('SELECT id FROM ydental_notification_job WHERE id=%s FOR UPDATE SKIP LOCKED', [job_id])
@@ -1068,9 +1072,10 @@ def _claim_dispatch(dbname, job_id):
         job = Job.browse(job_id).exists()
         if not job:
             return None
-        now = fields.Datetime.to_datetime(fields.Datetime.now())
+        business_now = fields.Datetime.to_datetime(service._now())
+        physical_now = fields.Datetime.to_datetime(fields.Datetime.now())
         if job.ydental_state == 'dispatching':
-            if job.ydental_attempt_started_at and job.ydental_attempt_started_at <= now - timedelta(minutes=5):
+            if job.ydental_attempt_started_at and job.ydental_attempt_started_at <= physical_now - timedelta(minutes=5):
                 job._save({'ydental_state': 'unknown',
                            'ydental_last_error': 'Worker stopped after durable dispatch claim; reconcile using the existing request identifier.'})
                 service._followup_to_notify(job, 'Notification outcome is unknown; reconcile the existing request before retrying.')
@@ -1078,7 +1083,10 @@ def _claim_dispatch(dbname, job_id):
             return None
         if job.ydental_state != 'pending':
             return None
-        if job.ydental_due_at > now:
+        clock = env.context.get('ydental_s11_clock')
+        if clock and clock.store_id != job.ydental_store_id.id:
+            return None
+        if job.ydental_due_at > business_now:
             return None
         followup = job.ydental_followup_id
         if job.ydental_source_model == 'ydental.lab.vendor':
@@ -1115,8 +1123,8 @@ def _claim_dispatch(dbname, job_id):
             cr.commit()
             return None
         if job.ydental_channel_key == 'patient':
-            adjusted_due = service._quiet_hour_due(now, policy)
-            if adjusted_due > now:
+            adjusted_due = service._quiet_hour_due(business_now, policy)
+            if adjusted_due > business_now:
                 job._save({'ydental_due_at': adjusted_due})
                 cr.commit()
                 return None
@@ -1139,7 +1147,7 @@ def _claim_dispatch(dbname, job_id):
             # Lock the patient so two concurrent dispatchers cannot both pass the cap.
             cr.execute('SELECT id FROM ydental_patient WHERE id=%s FOR UPDATE', [followup.ydental_patient_id.id])
             timezone = pytz.timezone(job.ydental_store_id.ydental_timezone)
-            local_now = pytz.UTC.localize(now).astimezone(timezone)
+            local_now = pytz.UTC.localize(physical_now).astimezone(timezone)
             local_start = timezone.localize(datetime.combine(local_now.date(), time.min)).astimezone(pytz.UTC).replace(tzinfo=None)
             local_end = timezone.localize(datetime.combine(local_now.date() + timedelta(days=1), time.min)).astimezone(pytz.UTC).replace(tzinfo=None)
             # A durable claim is conservatively counted as an outbound attempt, including

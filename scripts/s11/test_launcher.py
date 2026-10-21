@@ -20,6 +20,74 @@ SPEC.loader.exec_module(launcher)
 
 
 class LauncherSupervisorTests(unittest.TestCase):
+    def test_s11_clock_manifest_requires_fixed_candidate_and_private_paths(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            private_root = root / '.local' / 's11'
+            run_id = '20261021T090000Z-' + 'a' * 12
+            run_dir = private_root / 'clock-runs' / run_id
+            run_dir.mkdir(parents=True, mode=0o700)
+            os.chmod(private_root, 0o700)
+            os.chmod(private_root.parent, 0o700)
+            manifest = {
+                'mode': 'S11_SESSION_CLOCK', 'run_id': run_id,
+                'branch': launcher.EXPECTED_BRANCH, 'candidate_commit': 'b' * 40,
+                'database_name': launcher.EXPECTED_DATABASE, 'database_oid': launcher.EXPECTED_OID,
+                'database_cluster': launcher.EXPECTED_CLUSTER,
+                'runtime_sha256': 'c' * 64, 'admission_sha256': 'd' * 64,
+            }
+            raw = (json.dumps(manifest, sort_keys=True, indent=2) + '\n').encode()
+            manifest_path = run_dir / 'clock.json'
+            manifest_path.write_bytes(raw)
+            os.chmod(manifest_path, 0o600)
+            with patch.object(launcher, 'REPO_ROOT', root), \
+                 patch.object(launcher, 'PRIVATE_ROOT', private_root), \
+                 patch.object(launcher, 'RUNTIME_CONFIG', root / 'runtime.json'), \
+                 patch.object(launcher, 'ADMISSION', root / 'admission.json'), \
+                 patch.object(launcher, 'file_sha256', side_effect=['c' * 64, 'd' * 64]), \
+                 patch.dict(os.environ, {
+                     'YDENTAL_S11_CLOCK_RUN_ID': run_id,
+                     'YDENTAL_S11_CLOCK_RUN_DIR': str(run_dir),
+                     'YDENTAL_S11_CLOCK_MANIFEST_SHA256': __import__('hashlib').sha256(raw).hexdigest(),
+                 }, clear=False):
+                result = launcher.validate_s11_clock_debug(launcher.EXPECTED_BRANCH, 'b' * 40, True)
+                self.assertEqual(result['run_id'], run_id)
+                with self.assertRaisesRegex(launcher.Refusal, 'GDB capture'):
+                    launcher.validate_s11_clock_debug(launcher.EXPECTED_BRANCH, 'b' * 40, False)
+
+    def test_s11_clock_manifest_rejects_unmatched_candidate(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            private_root = root / '.local' / 's11'
+            run_id = '20261021T090000Z-' + 'e' * 12
+            run_dir = private_root / 'clock-runs' / run_id
+            run_dir.mkdir(parents=True, mode=0o700)
+            os.chmod(private_root, 0o700)
+            os.chmod(private_root.parent, 0o700)
+            manifest = {
+                'mode': 'S11_SESSION_CLOCK', 'run_id': run_id,
+                'branch': launcher.EXPECTED_BRANCH, 'candidate_commit': 'f' * 40,
+                'database_name': launcher.EXPECTED_DATABASE, 'database_oid': launcher.EXPECTED_OID,
+                'database_cluster': launcher.EXPECTED_CLUSTER,
+                'runtime_sha256': 'c' * 64, 'admission_sha256': 'd' * 64,
+            }
+            raw = (json.dumps(manifest, sort_keys=True, indent=2) + '\n').encode()
+            manifest_path = run_dir / 'clock.json'
+            manifest_path.write_bytes(raw)
+            os.chmod(manifest_path, 0o600)
+            with patch.object(launcher, 'REPO_ROOT', root), \
+                 patch.object(launcher, 'PRIVATE_ROOT', private_root), \
+                 patch.object(launcher, 'RUNTIME_CONFIG', root / 'runtime.json'), \
+                 patch.object(launcher, 'ADMISSION', root / 'admission.json'), \
+                 patch.object(launcher, 'file_sha256', side_effect=['c' * 64, 'd' * 64]), \
+                 patch.dict(os.environ, {
+                     'YDENTAL_S11_CLOCK_RUN_ID': run_id,
+                     'YDENTAL_S11_CLOCK_RUN_DIR': str(run_dir),
+                     'YDENTAL_S11_CLOCK_MANIFEST_SHA256': __import__('hashlib').sha256(raw).hexdigest(),
+                 }, clear=False):
+                with self.assertRaisesRegex(launcher.Refusal, 'candidate and database'):
+                    launcher.validate_s11_clock_debug(launcher.EXPECTED_BRANCH, 'b' * 40, True)
+
     def test_connected_database_must_match_admitted_cluster_identifier(self):
         runtime = {'database': {'expected_cluster_ref': launcher.EXPECTED_CLUSTER}}
         admission = {

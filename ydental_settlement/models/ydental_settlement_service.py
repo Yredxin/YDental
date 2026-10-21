@@ -34,6 +34,12 @@ class YDentalSettlementService(models.AbstractModel):
     _name = 'ydental.settlement.service'
     _description = 'Bound offline settlement and native account reconciliation'
 
+    def _now(self):
+        return fields.Datetime.now()
+
+    def _now_utc(self):
+        return fields.Datetime.to_datetime(self._now()).replace(tzinfo=timezone.utc)
+
     def _model(self, name):
         # Only internal constants reach this helper; no model name comes from RPC.
         return self.env['ydental.settlement.' + name].sudo()
@@ -429,7 +435,7 @@ class YDentalSettlementService(models.AbstractModel):
             'ydental_payment_id': payment.id, 'ydental_cashier_id': self.env.uid,
             'ydental_channel': channel, 'ydental_amount': amount, 'ydental_currency_id': currency.id,
             'ydental_actual_at': actual.replace(tzinfo=None),
-            'ydental_entered_at': fields.Datetime.now(),
+            'ydental_entered_at': self._now(),
             'ydental_business_date': business_date, 'ydental_proof': proof,
             'ydental_key': str(payment.id),
             'ydental_invoice_ids': [Command.set(invoice_ids)],
@@ -464,7 +470,7 @@ class YDentalSettlementService(models.AbstractModel):
         amount = self._money(amount, payment.ydental_currency_id)
         if payment.ydental_currency_id.compare_amounts(amount, self._refund_capacity(payment)) > 0:
             raise UserError(self.env._('refund_exceeds_received: Actual and protected refunds exceed this offline receipt.'))
-        requested_at = fields.Datetime.now()
+        requested_at = self._now()
         self._close_guard(store, self.env.uid,
                           self._local_date(store, requested_at.replace(tzinfo=timezone.utc)),
                           self._effective_channel(payment))
@@ -498,7 +504,7 @@ class YDentalSettlementService(models.AbstractModel):
             raise AccessError(self.env._('access_denied: A different finance approver must reject a pending request.'))
         refund._save({'ydental_state': 'rejected', 'ydental_approver_id': self.env.uid,
                       'ydental_decision_reason': self._text(reason),
-                      'ydental_terminal_at': fields.Datetime.now()})
+                      'ydental_terminal_at': self._now()})
         self._audit('refund.reject', refund, store, after={'state': 'rejected'}, reason=reason)
         return {'refund_id': refund.id, 'state': 'rejected', 'credit_note_id': False,
                 'actually_refunded': 0}
@@ -536,7 +542,7 @@ class YDentalSettlementService(models.AbstractModel):
         if verified_not_paid is not True or refund.ydental_native_payment_id or refund.ydental_credit_note_ids:
             raise UserError(self.env._('refund_recovery_required: Verify no offline refund or native reversal occurred.'))
         payment = refund.ydental_payment_id
-        cancellation_at = fields.Datetime.now()
+        cancellation_at = self._now()
         self._close_guard(store, self.env.uid,
                           self._local_date(store, cancellation_at.replace(tzinfo=timezone.utc)),
                           self._effective_channel(payment))
@@ -723,7 +729,7 @@ class YDentalSettlementService(models.AbstractModel):
         if channel not in CHANNELS or not isinstance(business_date, str):
             raise ValidationError(self.env._('Select a business date and offline payment category.'))
         day = fields.Date.to_date(business_date)
-        if not day or day > self._local_date(store, datetime.now(timezone.utc)):
+        if not day or day > self._local_date(store, self._now_utc()):
             raise ValidationError(self.env._('Select a valid past or current business date.'))
         existing = self._model('close').search([
             ('ydental_store_id', '=', store.id), ('ydental_cashier_id', '=', self.env.uid),
@@ -746,7 +752,7 @@ class YDentalSettlementService(models.AbstractModel):
             and (not refund.ydental_refund_business_date or refund.ydental_refund_business_date == day))
         # A pending refund is an exposure snapshot, never a recorded cash flow.
         # A later actual refund cannot retroactively enter an earlier day.
-        # Odoo's fields.Datetime.now() deliberately drops microseconds. An
+        # Odoo's self._now() deliberately drops microseconds. An
         # actual refund keeps its supplied UTC microseconds, so using that
         # helper here can count an already posted refund as still pending in
         # a close confirmed during the same second.
@@ -773,7 +779,7 @@ class YDentalSettlementService(models.AbstractModel):
             'ydental_business_date': day, 'ydental_channel': channel,
             'ydental_state': 'confirmed', 'ydental_gross': gross,
             'ydental_refunded': refunded, 'ydental_pending': pending,
-            'ydental_currency_id': currency.id, 'ydental_confirmed_at': fields.Datetime.now(),
+            'ydental_currency_id': currency.id, 'ydental_confirmed_at': self._now(),
             'ydental_cycle': existing.ydental_cycle + 1 if existing else 1,
         })
         self._audit('close', record, store,
@@ -796,7 +802,7 @@ class YDentalSettlementService(models.AbstractModel):
             raise UserError(self.env._('version_conflict: Unlock the latest close cycle.'))
         record._save({'ydental_state': 'unlocked', 'ydental_unlocked_by_id': self.env.uid,
                       'ydental_unlock_reason': self._text(reason),
-                      'ydental_unlocked_at': fields.Datetime.now()})
+                      'ydental_unlocked_at': self._now()})
         self._audit('unlock', record, store, after={'cycle': record.ydental_cycle}, reason=reason)
         return {'close_id': record.id, 'state': 'unlocked'}
 
@@ -841,7 +847,7 @@ class YDentalSettlementService(models.AbstractModel):
             'ydental_payment_id': payment.id, 'ydental_old_channel': old_channel,
             'ydental_new_channel': new_channel, 'ydental_move_id': move.id,
             'ydental_reason': reason, 'ydental_actor_id': self.env.uid,
-            'ydental_recorded_at': fields.Datetime.now(),
+            'ydental_recorded_at': self._now(),
         })
         self._audit('reclassify', correction, store, after={'move_id': move.id,
             'old_channel': old_channel, 'new_channel': new_channel}, reason=reason)
@@ -925,7 +931,7 @@ class YDentalSettlementService(models.AbstractModel):
             'origin': sale.name, 'partner_ref': sale.name,
             'order_line': [Command.create({'product_id': product.id, 'product_qty': qty,
                 'uom_id': product.uom_id.id, 'price_unit': price,
-                'date_planned': fields.Datetime.now(), 'tax_ids': [Command.clear()]})],
+                'date_planned': self._now(), 'tax_ids': [Command.clear()]})],
         })
         purchase.button_confirm()
         if sale.state != 'sale' or purchase.state != 'purchase':

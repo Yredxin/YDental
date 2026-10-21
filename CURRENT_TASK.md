@@ -1,3 +1,12 @@
+## S11 状态续行（2026-10-21 08:36 UTC）：session-scoped debug business clock
+
+- 用户最新决定批准为日期触发测试创建debug入口，不等待物理日历时间；此决定更新早先“不得改本地/操作系统时钟、仅物理时间推进”的S11测试方式。实施为明确标记的 `S11_SESSION_CLOCK`：仅固定S11 scratch、GDB-owned run、被授权的登录浏览器session/actor/active store内的应用业务时间前进；不会改OS/PostgreSQL/ORM审计/真实费用截止/外部provider时钟。临床和义齿动作可形成合成时间记录，均不得表述为物理实际发生。原始物理时间始终保留。
+- 本候选代码新增独立addon `ydental_s11_clock_test`、入口 `scripts/s11/debug_clock.py` 和页面 `/ydental/s11/debug-clock`。时钟只可单调前进、UTC、距离物理时间最多30天、8小时物理超时；clear后恢复物理业务时间。专用入口要求固定候选与admission、服务停止、端口/DB/cluster核验，并以GDB运行及按需初始化addon。不能跳过正常身份、来源、权限、队列FIFO、采购库存及受保护对象规则。
+- `ydental_followup` due/quiet-hour用合成业务时间；stale timeout、dispatch attempt及每日外发上限窗口仍使用物理时间。真实资金校验/cutoff与ORM/audit物理时间不变；audit携带模拟业务UTC及物理审计UTC。通知仍限制于controlled test sink。
+- 独立只读源码验收：`/root/gdb_core_runner_review` PASS（cluster live identity、session/actor/store权限绑定、物理时钟保留、合成临床字段边界）；`/root/notification_feasibility` PASS（postcommit/quiet-hours/daily-cap时间分界、无外发路径）。修正了两处review指出的followup未定义 `now` 及live cluster system_identifier核验。
+- `python3 -m py_compile` 覆盖launcher、debug entry、新addon及本轮改动服务通过；`git diff --check`通过；`python3 scripts/s11/test_launcher.py` 30项通过，日志 `.local/s11/verification/session-clock-launcher-tests.log` SHA-256 `c833f3f766b9a079801ccb20f1fedafd1db1c90f80d8bea5257782ffa08319e0`。该日志中的service-start文字由mock测试产生，不代表启动服务。
+- 尚未安装addon、启动Odoo/HTTP/browser、检查当前受限DB角色是否有 `pg_control_system()`读取权限或改动任何业务数据。代码按review后的正常流程提交并完成fresh admission后，方可评估一次debug入口运行；工具拒绝必须停止受影响路径，不能提权绕过。仍需验证debug页面/时钟数据路径及S11合成临床来源、义齿收发/采购费用、postcommit sink、返工收费、并发与影响面回归。SIGSEGV为`ROOT_CAUSE_UNDETERMINED`，旧F2为`EVIDENCE_GAP`；S11 PARTIAL/IN_PROGRESS、#35 OPEN。无push/merge/deploy，不启动S12/S13。
+
 ## S11 状态续行（2026-10-21 06:07 UTC）：费用来源约束核实与下一步
 
 - 保持原分支 `codex/s11-followup-lab-r1`；状态核验起点HEAD为`102e50f2d9857bd7b8aaed01c6259e165e233007`，tracked工作区干净、未push；最新代码与业务证据不回滚或重做。一次候选fresh admission通过，receipt `.local/s11/receipts/s11-fresh-admission-102e50f-20261021T055926Z-2eb0fb14c9a6c148.json` SHA-256 `ba1cbabf0c1547cab25ecacafeb313c75b91dfbf85d273dad5d1e72b89049506`，离线独立复核PASS。目标 scratch/OID2144130、cluster、受限角色、224保护项、D/C投影、200库检查、外发关闭及服务停止均匹配。

@@ -287,7 +287,7 @@ class YDentalLabOrder(models.Model):
                             'Additional service performance evidence reference', 160)
                     if vals.get('ydental_additional_performed_at'):
                         performed_at = fields.Datetime.to_datetime(vals['ydental_additional_performed_at'])
-                        if not performed_at or performed_at > fields.Datetime.now():
+                        if not performed_at or performed_at > self.env['ydental.lab.service']._now():
                             raise ValidationError(self.env._('Enter a valid actual service time that is not in the future.'))
         return super(YDentalLabOrder, self.with_context(ydental_lab_mutation=MUTATION)).write(vals)
 

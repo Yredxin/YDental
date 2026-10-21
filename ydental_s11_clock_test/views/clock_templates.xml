@@ -1,0 +1,31 @@
+<odoo>
+    <template id="clock_page" name="S11 Debug Clock">
+        <t t-call="web.layout">
+            <main class="container py-4">
+                <h1>S11 Synthetic Business Clock</h1>
+                <p>Run: <code t-esc="run_id"/></p>
+                <p>Physical UTC: <code id="physical-now"/></p>
+                <p>Session business UTC: <code t-esc="simulated_now or 'not started'"/></p>
+                <form action="/ydental/s11/debug-clock/action" method="post" class="mt-3">
+                    <input type="hidden" name="csrf_token" t-att-value="csrf_token"/>
+                    <input type="hidden" name="operation" value="set"/>
+                    <label for="simulated_at">Set or advance UTC</label>
+                    <input id="simulated_at" name="simulated_at" type="text" placeholder="2026-10-26T05:51:53Z" required="required"/>
+                    <label for="reason">Reason</label>
+                    <input id="reason" name="reason" maxlength="240" required="required"/>
+                    <button type="submit">Apply business time</button>
+                </form>
+                <form action="/ydental/s11/debug-clock/action" method="post" class="mt-3">
+                    <input type="hidden" name="csrf_token" t-att-value="csrf_token"/>
+                    <input type="hidden" name="operation" value="clear"/>
+                    <input type="hidden" name="reason" value="End S11 synthetic clock session"/>
+                    <button type="submit">Clear this session clock</button>
+                </form>
+                <p>Only application business-time checks in this browser session use this value. Host, PostgreSQL, ORM audit timestamps, and elapsed-time clocks remain physical.</p>
+            </main>
+            <script>
+                document.getElementById('physical-now').textContent = new Date().toISOString();
+            </script>
+        </t>
+    </template>
+</odoo>

@@ -285,7 +285,7 @@ class YDentalSettlementService(models.AbstractModel):
                     'adjustment_id': replay.id}
         self._validate_lab_charge_credit_total(
             currency, charge.ydental_amount, adjustments.mapped('ydental_amount'), amount)
-        business_date = self._local_date(store, fields.Datetime.to_datetime(fields.Datetime.now()).replace(tzinfo=timezone.utc))
+        business_date = self._local_date(store, fields.Datetime.to_datetime(self._now()).replace(tzinfo=timezone.utc))
         self._close_guard_any(store, self.env.uid, business_date)
         patient = self._patient(charge.ydental_patient_id.id)
         credit = self.env['account.move'].sudo().with_company(store.company_id).create({
@@ -314,7 +314,7 @@ class YDentalSettlementService(models.AbstractModel):
             'ydental_patient_id': patient.id, 'ydental_currency_id': currency.id,
             'ydental_amount': amount, 'ydental_reason': reason,
             'ydental_request_key': request_key, 'ydental_fingerprint': fingerprint,
-            'ydental_actor_id': self.env.uid, 'ydental_created_at': fields.Datetime.now(),
+            'ydental_actor_id': self.env.uid, 'ydental_created_at': self._now(),
             'ydental_credit_move_id': credit.id, 'ydental_credit_line_id': credit_line.id,
         })
         adjustment_source = self._model('source')._new({
@@ -325,7 +325,7 @@ class YDentalSettlementService(models.AbstractModel):
             'ydental_original_amount': -amount, 'ydental_currency_id': currency.id,
             'ydental_discount': 0, 'ydental_discount_reason': False,
             'ydental_source_business_date': business_date,
-            'ydental_source_actual_at': fields.Datetime.now(),
+            'ydental_source_actual_at': self._now(),
             'ydental_price_version': 'S05:%s/credit:v%s' % (charge.ydental_price_id.id, revision),
         })
         adjustment._link_source(adjustment_source)

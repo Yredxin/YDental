@@ -43,6 +43,9 @@ class YDentalExamService(models.AbstractModel):
     _name = 'ydental.exam.service'
     _description = 'Frozen examination line, actual execution and independent result authority'
 
+    def _now(self):
+        return fields.Datetime.now()
+
     def _model(self, name):
         return self.env['ydental.exam.' + name].sudo()
 
@@ -140,7 +143,7 @@ class YDentalExamService(models.AbstractModel):
             return {'capability_id': capability.id, 'family': family}
         capability.with_context(ydental_exam_profile_guard=PROFILE_GUARD).write({
             'ydental_exam_family': family, 'ydental_exam_review_actor_id': self.env.uid,
-            'ydental_exam_reviewed_at': fields.Datetime.now(), 'ydental_exam_review_reason': reason})
+            'ydental_exam_reviewed_at': self._now(), 'ydental_exam_review_reason': reason})
         self.env['ydental.access.service']._audit('exam.capability_reviewed', 'exam', capability, store.id,
             after={'capability_id': capability.id, 'family': family}, reason=reason,
             source='examination_capability_review')
@@ -189,7 +192,7 @@ class YDentalExamService(models.AbstractModel):
         return execution
 
     def _qualification(self, code, store, user_id):
-        now = fields.Datetime.now()
+        now = self._now()
         return bool(self._model('qualification').search_count([
             ('ydental_code', '=', code), ('ydental_store_id', '=', store.id),
             ('ydental_user_id', '=', user_id), ('ydental_revoked', '=', False),
@@ -201,14 +204,14 @@ class YDentalExamService(models.AbstractModel):
             raise AccessError(self.env._('responsibility_required: Take over this result with an explicit reason before editing.'))
         if type(version) is not int or result.ydental_version != version:
             raise UserError(self.env._('version_conflict: Refresh the examination result before editing.'))
-        if result.ydental_current_editor_id and result.ydental_edit_until > fields.Datetime.now() and (
+        if result.ydental_current_editor_id and result.ydental_edit_until > self._now() and (
                 result.ydental_current_editor_id.id != self.env.uid or result.ydental_edit_session_id != session or
                 result.ydental_edit_revision != session.ydental_revision or
                 not consteq(result.ydental_edit_connection_hash, connection.key_hash)):
             raise AccessError(self.env._('editor_busy: This result is held by another live editor.'))
         result._save({'ydental_current_editor_id': self.env.uid, 'ydental_edit_session_id': session.id,
             'ydental_edit_revision': session.ydental_revision, 'ydental_edit_connection_hash': connection.key_hash,
-            'ydental_edit_until': fields.Datetime.now() + timedelta(minutes=5)})
+            'ydental_edit_until': self._now() + timedelta(minutes=5)})
 
     def _release_editor(self, line_id, version):
         line = self._line(line_id, write=True)
@@ -230,7 +233,7 @@ class YDentalExamService(models.AbstractModel):
         result = self._result(line)
         if not result or result.ydental_version != version or result.ydental_responsible_id.id == self.env.uid:
             raise UserError(self.env._('version_conflict: Select another operator current result version.'))
-        if result.ydental_current_editor_id and result.ydental_edit_until > fields.Datetime.now():
+        if result.ydental_current_editor_id and result.ydental_edit_until > self._now():
             raise AccessError(self.env._('editor_busy: The current editor must release or expire first.'))
         reason = self.env['ydental.intake.service']._text(reason)
         previous = result.ydental_responsible_id.id
@@ -263,7 +266,7 @@ class YDentalExamService(models.AbstractModel):
             'ydental_result_id': result.id, 'ydental_number': result.ydental_version,
             'ydental_kind': kind, 'ydental_findings': result.ydental_findings,
             'ydental_measurements': result.ydental_measurements, 'ydental_conclusion': result.ydental_conclusion,
-            'ydental_reason': reason, 'ydental_recorded_at': fields.Datetime.now(),
+            'ydental_reason': reason, 'ydental_recorded_at': self._now(),
             'ydental_previous_id': previous.id if previous else False})
         self._audit(kind, version, {'result_id': result.id, 'version': result.ydental_version}, reason)
         return version
@@ -317,7 +320,7 @@ class YDentalExamService(models.AbstractModel):
             's09-exam-line-' + str(line.id), reason, materials, already_performed=True,
             kind='exam', line=line, actual_at=actual_at)
         result._save({'ydental_execution_id': execution.id, 'ydental_event_id': event['event_id'],
-            'ydental_started_at': fields.Datetime.now(), 'ydental_business_date': self.env['ydental.supply.service']._date(line.ydental_store_id),
+            'ydental_started_at': self._now(), 'ydental_business_date': self.env['ydental.supply.service']._date(line.ydental_store_id),
             'ydental_station_id': execution.ydental_lease_id.ydental_station_id.id, 'state': 'pending'})
         line._save({'state': 'done'})
         response = dict(event, result_id=result.id, line_id=line.id,
@@ -333,7 +336,7 @@ class YDentalExamService(models.AbstractModel):
             raise UserError(self.env._('result_required: Actual execution and reviewed findings are required.'))
         self._editor(result, version)
         reason = self.env['ydental.intake.service']._text(reason)
-        result._save({'state': 'confirmed', 'ydental_completed_at': fields.Datetime.now(), 'ydental_version': version + 1})
+        result._save({'state': 'confirmed', 'ydental_completed_at': self._now(), 'ydental_version': version + 1})
         self._version(result, 'confirm', reason)
         return {'result_id': result.id, 'version': result.ydental_version, 'state': result.state}
 
@@ -363,12 +366,12 @@ class YDentalExamService(models.AbstractModel):
         if result.state in ('aborted', 'partial', 'confirmed'):
             raise UserError(self.env._('version_conflict: This actual examination is already resolved.'))
         if result.ydental_event_id:
-            result._save({'state': 'partial', 'ydental_completed_at': fields.Datetime.now()})
+            result._save({'state': 'partial', 'ydental_completed_at': self._now()})
             line._save({'state': 'partial'})
             state = 'partial'
         else:
             result._save({'state': 'aborted', 'ydental_started_at': execution.ydental_started_at,
-                'ydental_completed_at': fields.Datetime.now()})
+                'ydental_completed_at': self._now()})
             line._save({'state': 'aborted'})
             state = 'aborted'
         self._audit('actual_aborted', result, {'state': state, 'execution_id': execution.id}, reason)
@@ -433,7 +436,7 @@ class YDentalExamService(models.AbstractModel):
                 'ydental_quantity': row['quantity'], 'ydental_uom_id': row['uom_id'],
                 'ydental_kind': row['kind']})
         event._save({'ydental_exam_material_review': reason,
-            'ydental_exam_material_verified_at': fields.Datetime.now(), 'ydental_pending_reason': False})
+            'ydental_exam_material_verified_at': self._now(), 'ydental_pending_reason': False})
         treatment._bookkeep(event)
         response = treatment._event_result(event)
         self._audit('materials_verified', result, {'event_id': event.id,

@@ -10,6 +10,9 @@ class YDentalLabChargeService(models.AbstractModel):
     _name = 'ydental.lab.charge.service'
     _description = 'Cycle-bound published-price laboratory additional service'
 
+    def _now(self):
+        return fields.Datetime.now()
+
     def _model(self):
         return self.env['ydental.lab.charge'].sudo()
 
@@ -78,7 +81,7 @@ class YDentalLabChargeService(models.AbstractModel):
             raise UserError(self.env._('service_unavailable: The exact service must be active at the originating store.'))
         intake = self.env['ydental.intake.service']
         currency = store.company_id.currency_id
-        now = fields.Datetime.now()
+        now = self._now()
         price, values = intake._quote(store, catalog.id, currency.id, quantity, instant=now)
         if price.ydental_store_id != store or price.ydental_currency_id != currency or price.ydental_catalog_id != catalog:
             raise UserError(self.env._('price_mismatch: The published price must match this store, service and company currency.'))
@@ -140,7 +143,7 @@ class YDentalLabChargeService(models.AbstractModel):
         if moment.tzinfo is None or moment.utcoffset().total_seconds() != 0:
             raise ValidationError(self.env._('Provide a timezone-explicit UTC time.'))
         moment = moment.astimezone(timezone.utc).replace(tzinfo=None)
-        if moment > fields.Datetime.now():
+        if moment > self._now():
             raise ValidationError(self.env._('A performed service cannot have a future timestamp.'))
         evidence = self._text(evidence_reference, 'performed-service evidence reference', 160)
         self.env.cr.execute('SELECT id FROM ydental_lab_charge WHERE id = %s FOR UPDATE', [charge.id])
