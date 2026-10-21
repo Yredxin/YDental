@@ -763,6 +763,16 @@ attempt3使用新的私有cookie session和独立幂等key；run `20261020T11413
 
 S11仍`PARTIAL / IN_PROGRESS`、#35 OPEN。T08 P00169的物理收货不得早于实际UTC `2026-10-26 05:51:53`；旧F2 loser/PID为`EVIDENCE_GAP`不重放，SIGSEGV为`ROOT_CAUSE_UNDETERMINED`。剩余仍包括真实临床来源、义齿收发/返工、真实postcommit受控sink、追加费用返工、适用并发、剩余影响面回归与独立最终验收。不得合并、部署或启动S12/S13。
 
+## 2026-10-21 06:46 UTC｜当前状态与原生队列诊断
+
+当前branch `codex/s11-followup-lab-r1`、HEAD `1cf5c6c06aae72629d1766d687de07203721269d`、tracked工作区干净，领先远端208提交；未push。fee-source catalog审计与代码核对已独立通过：三类来源列为nullable，数据库有“恰一来源”validated CHECK及各列独立validated UNIQUE；不应改NOT NULL或增加重复约束。回执和摘要字段缺失限制详见 evidence-index；真实数据库身份匹配准入，事务回滚后关闭。
+
+原生队列只读诊断针对patient682/task1183/entry716：目标任务与队列项匹配，但原生eligibility为 `day_closed`、eligible count为0，所以不得call。attempt3诊断证据已由独立离线检查核实目标、限输出和事务回滚/关闭；审查同时发现脚本文件mode为0664且receipt未绑定verifier SHA，receipt只保留服务连接前STOPPED。结论限定为“只读阻断诊断通过，业务readiness未通过”，不把低层代码/证据限制隐去。旧队列项不能通过改时间或直接重开复用；后续使用真实开放业务日中的新合成预约及实际到店，遵循原生FIFO。
+
+T08现有独立合成工坊已通过原生资质/合作流程创建，且已由正常采购角色确认初始加工服务PO `P00169`（PO164），USD125，五实际日历天交期。PO提交时数据库时间为 `2026-10-21 05:51:53.939916 UTC`，允许最早的物理到货时间是 `2026-10-26 05:51:53.939916 UTC`；不得调系统或数据库时钟。采购单并不生成临床来源或物理义齿，也不能单独支持lab order。供应商、workshop、价格及工期定义为明确的S11合成测试实体，不宣称为真实外部厂商服务承诺。
+
+尚未取得有效合成临床event/文书，因此不能安全创建初始lab order、治疗收费、真实来源postcommit job或返工。patient682旧entry已day_closed；patient683仍只能在实际预约时段和FIFO条件满足后推进。继续推进不依赖物理交期的源代码/离线影响审阅及适用测试，不重复既有42项MODEL或upgrade。最终条件仍缺：有效临床闭环、真实postcommit链、物理收货/入库及适用返工、适用新并发、其余回归和独立总验收。SIGSEGV `ROOT_CAUSE_UNDETERMINED`及F2历史 `EVIDENCE_GAP`保留，#35 OPEN；不push、合并、部署或启动S12/S13。
+
 ## 2026-10-21 05:55 UTC｜T08 合成采购确认及独立读回
 
 - fixed candidate `6c86964a1adb5c899c6ea4d26aa3bd29a2c49a13`; fresh admission PASS，receipt SHA-256 `1f965d2c2dcc8f4789e688848beab57e881ca6f85689e6324a4abdc0b25310d1`; offline independent receipt review PASS. 224 protected tables, D/C projection, 200-database permission/catalog sweep, modules/external channels and service STOP/port-free facts match.

@@ -270,3 +270,12 @@ At candidate `4d126a6`, fresh pre-create admission passed (receipt SHA `93c21c58
 |PO intent|`.local/s11/operations/s11-t08-synthetic-initial-po-6c86964-attempt7.json`|`9ee8277f467fb9ab56578f972a5b954ed5b1af596b063a3b8e996fbaa834e135`|PO164/P00169，confirmed，Store2/vendor/company/product/amount/date真实请求来源；交期5个实际日历日|
 |首个独立读回|`.local/s11/verification/t08-attempt7-purchase-confirmed-independent-ro.json`|`23909b1e544ab3fbc068dcb17b0d9b12c3d0b3d038ab85109cdffb42bda25360`|保留FAIL_REQUIRES_RECONCILIATION；Odoo DB秒级精度导致一个比较预期错误，无副作用|
 |校正后独立读回|`.local/s11/verification/t08-attempt7-purchase-confirmed-independent-ro-attempt2.json`|`248b4f31423d2894a88053f08188fb4a7174296f78a3a0ca4a994309b7db0ff8`|PASS；唯一PO/单条服务行、Store2 incoming映射、confirmed状态、USD125、DB实际+5日、RR rollback/idle/close；独立验收PASS|
+
+## 2026-10-21 06:46 UTC｜返工收费来源约束与队列阻断诊断
+
+|范围|证据|SHA-256|结果/限定|
+|---|---|---|---|
+|fee来源约束脚本/回执|`.local/s11/verification/fee_source_constraint_audit_102e50f.py` / `.local/s11/verification/fee-source-constraint-audit-102e50f.json`|`6aff13f2d79daa63b16c9f59996c8976566a4ab9782071d6f0f2856d9c24d42c` / `70f9470507e1d7293375475f5095008505599629b88091ad8806ccdb8d9a578d`|只读catalog PASS；validated恰一来源CHECK、三个独立UNIQUE及列nullable；RR rollback/close；独立离线验收PASS。顶层cluster_ref元数据缺失，嵌套database_identity含真实值并与准入匹配|
+|patient682队列诊断 attempt2|`.local/s11/verification/patient682-native-call-readonly-1cf5c6c-attempt2.py` / `.local/s11/verification/patient682-native-call-readonly-1cf5c6c-attempt2.json`|`77056c851c45104e26ccb09fe08aca3cc6fb72ed5a8891f936d7a528101803f4` / `d32949bd5901ee039aa830a4d44844114ce0a64d23aa3b4029c91f8768d184da`|只读诊断发现Odoo rollback hooks后底层事务未idle；cursor关闭。保留该证据，不当PASS、不重跑|
+|patient682队列诊断 attempt3|`.local/s11/verification/patient682-native-call-readonly-1cf5c6c-attempt3.py` / `.local/s11/verification/patient682-native-call-readonly-1cf5c6c-attempt3.json`|`58d156d33c5cfd1689c5e44db905793861b7b9b0f6801cdad60d4c26181068f2` / `20536148955fb680c73d64381fd89c38c6c18893c515acbffd08673809167dd6`|只读诊断准确发现task1183/entry716为`day_closed`且eligible count=0；显式底层rollback、idle、关闭。独立离线审查确认诊断真实，但脚本0664、receipt未绑定脚本SHA、仅记录连接前service STOPPED；业务readiness仍BLOCKED|
+|fee约束独立源码审查|`ydental_lab/models/ydental_lab_charge.py:134–145`; `ydental_settlement/models/ydental_settlement_source.py:22`|`1cf5c6c`代码候选|核对charge来源三选一、unique和nullable；未改源码或测试|
