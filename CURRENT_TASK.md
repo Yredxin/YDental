@@ -874,5 +874,5 @@ main和活动分支AGENTS应同字节；main默认CURRENT_TASK仍只路由活动
 ## S11 状态续行（2026-10-21 14:59 UTC）：debug clock 动态字段修复待新候选验证
 
 - 固定分支仍 `codex/s11-followup-lab-r1`。上一候选为 `d861c10ef20194b8c1f67b0c92f6a2b913491f97`。attempt20 已通过正常认证浏览器 UI 完成一次 clear 和一次 set；数据库只读读回确认 actor539/store1/current GDB clock run 的 session 时间为 `2026-10-27 05:51:53 UTC`，事件各一条，224 张受保护表计数无变化，READ ONLY/RR、rollback/close。只读回执 `.local/s11/verification/attempt20-clock-readback-ro.json` SHA-256 `e48ee593d1cdeae250e89c0a528f91d8111590bb2f4f5f0c56467f013bfbb754`；数据库状态与HTTP写入一致，但最终GET的两个动态字段 `Run` 和 `Session business UTC` 均空白。写操作不重放。
-- 独立源码审查定位为 QWeb 兼容性：锁定Odoo 20 QWeb提供` t-out`编译器且没有` t-esc`处理器，升级迁移也将` t-esc`改为` t-out`；页面动态内容此前用旧指令。现已将页面两个动态输出改为` t-out`。本地XML解析及`git diff --check`通过。修复尚未提交/尚未运行新候选；提交后须重新完成fresh admission、独立核验、addon更新及最小浏览器GET显示确认，不重放attempt20的清除/设置。
+- 独立源码审查定位为 QWeb 兼容性：锁定Odoo 20 QWeb提供` t-out`编译器且没有` t-esc`处理器，升级迁移也将` t-esc`改为` t-out`；页面动态内容此前用旧指令。两个动态输出改为` t-out`后已提交，代码提交 `57633cf61eacac194a4865661dde281f75abf481`；本地XML解析及`git diff --check`通过。尚未运行新候选；须重新完成fresh admission、独立核验、addon更新及最小浏览器GET显示确认，不重放attempt20的清除/设置。
 - 当前服务STOPPED，attempt20后受保护表计数不变；clock表中的既有合成session与事件保留。继续S11其他不依赖项。SIGSEGV `ROOT_CAUSE_UNDETERMINED`，旧F2 loser/PID `EVIDENCE_GAP`；临床、通知postcommit、T08收发/费用返工、并发及影响面回归仍按plan推进。#35 OPEN；不merge/deploy/启动S12/S13。
