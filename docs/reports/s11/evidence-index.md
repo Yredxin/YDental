@@ -238,3 +238,10 @@ At candidate `4d126a6`, fresh pre-create admission passed (receipt SHA `93c21c58
 - Candidate `59ae3157d6a7f0128af730728726c9c6c7eaa399`; GDB run `.local/s11/operations/20261021T041457Z-s11-t08-synthetic-workshop-setup-59ae315-gdb/`, result SHA-256 `2fed3f21adcdba5810b2985342a257f4e2821be77415ab410b7c5ebd8c0a2cb8`, log SHA-256 `bec4c1b8ff4e25ed9236c383ee757006126b6c93e79c1a9946365748dff19bcb`; exit0, no native crash, owned process group stopped, runner `RECONCILE_REQUIRED`.
 - Intent SHA-256 `25efa211840e5324fa0b57e0c4989809daebe4fa3d530c71109bda50e0653159`, exception `AttributeError`, no created object IDs. Cause is helper defect: `.sudo()` called on an Odoo `Environment` before first mutation.
 - Independent readback source SHA-256 `651bf277dfec1d70ef0ddae4354c9376eacbb1cda282dee24a555cd6817d5c65` (static review PASS). Receipt `.local/s11/verification/t08-synthetic-workshop-interrupted-readback-59ae315.json` SHA-256 `6517916b617890212719db11645df77d118ff31f2b81c61a120491ebd4cfd6b1`, `NO_TARGET_BUSINESS_COMMIT_OBSERVED`: exact partner/vendor/cooperation/audit markers absent, RR READ ONLY rollback/idle/close PASS, no PO/line queries. No rerun of the original attempt.
+# S11追加证据｜2026-10-21 04:24 UTC
+
+|范围|证据|SHA-256|结果/限定|
+|---|---|---|---|
+|T08合成义齿工坊提交读回|`.local/s11/verification/t08-synthetic-workshop-setup-readback-bc963b2-attempt2-retry1.json`|`09757bde229a55c0d61afd3a99c6add1183e0d2135e0023f436cafa9bfb17188`|原件保留，FAIL仅指验证器两个预期与原生字段语义不符；不是修改业务数据的授权|
+|T08字段语义对账|`.local/s11/verification/t08-synthetic-workshop-setup-semantic-reconciliation-bc963b2.json`|`661e2005283dace2c33bc1c042def60a44e872b9b4f0c4639a9c176e9c11d320`|9项离线检查PASS；无服务/数据库访问；`PASS_WITH_EXPECTATION_CORRECTION`|
+|独立验收|`/root/plan_remaining_audit` 当前回合结论|会话协作记录|PASS；复核partner VAT计算、vendor准入、原生审核reason默认值，无业务执行|

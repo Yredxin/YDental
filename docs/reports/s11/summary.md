@@ -733,3 +733,14 @@ attempt3使用新的私有cookie session和独立幂等key；run `20261020T11413
 ## 2026-10-21 04:17 UTC｜T08 one-shot脚本缺陷及无提交读回
 
 合成工坊partner/vendor/cooperation的GDB helper因`Environment.sudo()`调用错误而中止；没有对象ID，runner为`RECONCILE_REQUIRED`，GDB正常退出、服务停止、无native crash。独立复核的RR READ ONLY读回确认精确partner、义齿资格、Store2合作及对应partner sudo审计均不存在，回执`NO_TARGET_BUSINESS_COMMIT_OBSERVED`。原attempt与intent保持不可重放；修正脚本后必须新建独立路径及当前候选fresh admission。证据SHA和路径见`CURRENT_TASK.md`顶部。
+# 2026-10-21 04:24 UTC：合成义齿工坊语义核验
+
+用户确认测试阶段无法提供真实义齿厂家，并授权在既有S11 scratch范围内使用明确标记的独立合成工坊与测试角色，由实施方定义价格/工期；不得改本地、操作系统或数据库时钟。沿用测试假设 USD 125/件、5个日历日。该授权不把合成资质描述为真实厂家资质，不解除真实业务来源、权限、数据库保护或SIGSEGV相关停止条件。
+
+在HEAD `bc963b2097ea88d602a2f5c614be57a4435b6317` 上，一次性T08设置已提交partner 3634、义齿qualification 267、Store2合作257。原始读回 `.local/s11/verification/t08-synthetic-workshop-setup-readback-bc963b2-attempt2-retry1.json` SHA-256 `09757bde229a55c0d61afd3a99c6add1183e0d2135e0023f436cafa9bfb17188` 因 `is_company=false` 及review reason未含synthetic而落为 `FAIL_REQUIRES_RECONCILIATION`。保留原始回执和所有业务字段，不对对象做修补。
+
+独立静态验收者 `/root/plan_remaining_audit` 对源码和回执核对PASS：Odoo `res.partner.is_company`依赖有效VAT与commercial entity；helper未提供VAT，而合成场景不得编造VAT，所以false为原生计算结果。`ydental.lab.vendor.create`只要求外部非患者partner，不要求is_company。`action_approve()`在未提供理由时以 `Qualification reviewed` 调用原生审核动作，审核服务按真实manager执行状态迁移、版本递增、审计和到期通知排队。故FAIL来自过度严格的验证器断言，不是已提交业务对象异常。
+
+纯本地离线语义对账回执 `.local/s11/verification/t08-synthetic-workshop-setup-semantic-reconciliation-bc963b2.json` SHA-256 `661e2005283dace2c33bc1c042def60a44e872b9b4f0c4639a9c176e9c11d320`，结果 `PASS_WITH_EXPECTATION_CORRECTION`，9项检查PASS。它固定原始读回和intent哈希、辅助源码语义、合成partner非患者/公司归属、vendor审核状态及审核人、合作负责角色、审计标记和通知边界；没有连接Odoo/数据库、没有触发请求、没有改写历史收据。原notification job是未来到期的单条internal pending job（attempt 0，无request/activity id）；没有 claim 或交付。外部邮件服务器与live/published payment provider均为0。
+
+因此本次解释无需真实义齿厂商：合成工坊与合成资格已被正常工作流创建/审核，且仍清楚标记为非真实凭证。下一步必须在文档提交后的新候选重新fresh-admit，随后才可继续采购/义齿流程。PO147–149未读取或更改。历史 `ROOT_CAUSE_UNDETERMINED` 与F2 `EVIDENCE_GAP`保留；S11 PARTIAL/IN_PROGRESS、#35 OPEN。不推送、不合并、不部署、不启动S12/S13。

@@ -1,3 +1,10 @@
+## S11 状态续行（2026-10-21 04:24 UTC）：合成义齿工坊语义核验
+
+- 当前分支 `codex/s11-followup-lab-r1`，前置候选 `bc963b2097ea88d602a2f5c614be57a4435b6317`，未push/merge/deploy；工作树仅有本状态文档待提交，`.local/`证据仍为忽略文件。用户已明确授权在scratch建立标记清楚的合成义齿工坊/测试角色，并由Codex定义测试价格与工期；真实厂家/凭证不作为该合成场景前置。测试假设USD125/件、5个日历日；所有日期按物理UTC计算，不改任何时钟。
+- 先前T08 attempt2业务写入已提交并读回，原始回执 `.local/s11/verification/t08-synthetic-workshop-setup-readback-bc963b2-attempt2-retry1.json` SHA-256 `09757bde229a55c0d61afd3a99c6add1183e0d2135e0023f436cafa9bfb17188` 因两个验收期望错误标为 `FAIL_REQUIRES_RECONCILIATION`；原回执不改。独立静态复核结合原生源码确认：`res.partner.is_company`由commercial entity及有效VAT计算，合成partner没有VAT且不得伪造，故false符合Odoo语义；vendor资格不要求is_company=true。`action_approve()`在reason为空时写入原生默认 `Qualification reviewed`；这不是审核失败。新离线语义对账 `.local/s11/verification/t08-synthetic-workshop-setup-semantic-reconciliation-bc963b2.json` 为 `PASS_WITH_EXPECTATION_CORRECTION`、9项检查通过、SHA-256 `661e2005283dace2c33bc1c042def60a44e872b9b4f0c4639a9c176e9c11d320`；不连接DB/服务，不修改业务对象。合成标识、非患者关系、审核状态/审核人、Store2合作、partner审计与未到期的internal notification均符合预期；该future job仍pending，未claim/未发送，外部邮件及live payment渠道为0。
+- 本节独立验收：`/root/plan_remaining_audit`按明确范围静态核对Odoo源码、原intent和回执，PASS；未自行实现或执行任何业务写入。没有重跑一号attempt、没有编辑已提交partner/vendor/cooperation、没有访问PO/PO lines；PO147–149继续受保护。初次helper错误attempt和旧SIGSEGV/F2历史缺口均保留。
+- 最新已提交候选需要在提交本状态/报告后重新fresh admission。当前S11仍 `PARTIAL/IN_PROGRESS`，#35 OPEN；`ROOT_CAUSE_UNDETERMINED`、历史F2 loser/PID `EVIDENCE_GAP`保持。未完成项继续包括patient683预约窗口后按native FIFO到店和临床治疗、临床来源与T08新采购/义齿加工收发返工闭环、postcommit通知claim/controlled sink、追加费用返工/来源互斥、允许的并发与影响面回归、独立总验收。不得在物理预约时间前操作patient683；不得重放旧F2或旧业务。详情见 `docs/reports/s11/summary.md` 与 `docs/reports/s11/evidence-index.md`。
+
 ## S11 状态续行（2026-10-21 03:52 UTC）：GDB HTTP读回与T08权限边界核实
 
 - 当前分支 `codex/s11-followup-lab-r1`，HEAD `05c51e050147623b4157c8930337113931582a02`，工作树在本记录前干净，ahead 199。未push/merge/deploy；不启动S12/S13。
