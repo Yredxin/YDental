@@ -3,9 +3,13 @@
         <field name="name">S11 Testing</field>
         <field name="sequence">95</field>
     </record>
+    <record id="privilege_s11_testing" model="res.groups.privilege">
+        <field name="name">S11 Testing</field>
+        <field name="category_id" ref="module_category_s11_testing"/>
+    </record>
     <record id="group_operator" model="res.groups">
         <field name="name">S11 Synthetic Clock Operator</field>
-        <field name="category_id" ref="module_category_s11_testing"/>
+        <field name="privilege_id" ref="privilege_s11_testing"/>
         <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
     </record>
 </odoo>

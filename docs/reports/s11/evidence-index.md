@@ -1,3 +1,11 @@
+## Failed S11 clock addon init reconciliation (2026-10-21)
+
+- Candidate/admission: `a2a6f331a51bf533a9ddaa61a1d0725cea278f7a`; fresh admission `.local/s11/receipts/s11-fresh-admission-a2a6f33-20261021T090249Z-ecf2f261372649b8.json`, SHA-256 `cda6eb8cf76b55dd70d7508d1a96769dc1e3272260083d92226eb9c1adc2ab13`; independent reviews PASS.
+- Failed install attempt: GDB run `20261021T090930Z-924ad881e648`; console log SHA `e51c9aee52db01f5c125b19cdad8e5de4f3809569dd883ebc95b5d65388e52f0`, server log SHA `67752ad021090ba964b5c8f06325cc29e297513ac8cdac138a0af39b6a90abb5`, exit SHA `2b2027449e46d03936f60bd96d679c6e5ca3fdc5955864462f0f315f3d74bc07`. Odoo 20 rejected `res.groups.category_id`; no HTTP/browser/business operation. No SIGSEGV/core; owner stop succeeded and port is free.
+- First reconciliation receipt FAIL due to address string normalization only: `.local/s11/verification/clock-addon-failed-init-reconcile-20261021T092826Z.json`, SHA `df122cb225bdaef3ce52f6dad1d88a0a066102075b3ea8ca215e1b4fe4eafbeb`. It records READ ONLY RR rollback/close and service post-check; no pair or DB writes.
+- Corrected reconciliation PASS: `.local/s11/verification/clock-addon-failed-init-reconcile-20261021T093221Z.json`, SHA `f02779f256813aba0d3775d4a4dced5ea171f889af9dddd2e860aef59bc60d8d`; helper SHA `e349356253803fded0db4fb3667fa92fa49a8a18b8cbea551e835f934d9f1c3f`; independent offline review PASS. Addon not installed; no model/table/XMLID residue; installed modules unchanged; all 224 protection counts nondecreasing; D/C pinned projection and external state unchanged; exact target role/endpoint, transaction rollback/close, service stop and port checks PASS. A subsequent revision uses Odoo 20 `res.groups.privilege`; its installation requires a new candidate/fresh admission.
+- Current status: no repeat install yet. The prior install run remains preserved; #35 stays OPEN.
+
 ## Session-scoped S11 synthetic business clock (2026-10-21)
 
 - Code scope: `ydental_s11_clock_test/`, `scripts/s11/debug_clock.py`, launcher gate in `scripts/s11/launcher.py`, and business-clock seams in exam/followup/lab/settlement/treatment services.
