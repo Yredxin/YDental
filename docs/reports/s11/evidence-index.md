@@ -1,3 +1,10 @@
+# 2026-10-21 03:52 UTC：post-HTTP RO核验与T08权限预检
+
+- GDB run `20261021T031235Z-06f93a2c106d` post-run独立RR READ ONLY核验PASS：`.local/s11/verification/post-http-readback-4f3798d-run-05c51e0-20261021T031235Z-06f93a2c106d-ro.json`，SHA-256 `b8fe773cf0844c7b69bbc0213008c87687dbf3c86a3a42e31d06587d6b270991`。224项保护计数、D/C、模块/external、副作用视图、当前admission、GDB无崩溃及service STOPPED均匹配，显式rollback/close；server access line不完整，服务端请求数/状态UNKNOWN。只读GET HTTP200不代表SIGSEGV根因修复或全HTTP/browser恢复。
+- T08预检attempt2 `.local/s11/verification/t08-synthetic-workshop-scope-preflight-05c51e0-attempt2.json` SHA-256 `bd0857dd9b03d264f3b297d054393f6a2d54587fd6ab8859b2f701db01d439c1` BLOCKED；独立脚本静态审核SHA `9b534ea7d1bbce71fc0489c66d7413d303e95f162b5a4ef3834794d30eb462f5` PASS。无PO/line读取及业务写入。company1/Store2/USD、prosthesis515、10个service product、purchase buyer及warehouse actor在回执中通过；partner create、直接cooperation ACL、product/supplierinfo create权限未通过。RR READ ONLY/rollback/close为真，但`rollback_idle=false`。
+- 独立代码核验：vendor qualification需group manager正常action；cooperation需warehouse:write bound-session服务；buyer2666 native权限包含且因此威胁旧PO147–149隔离，后续仅可新建目标、不能搜索或读旧单。宽泛product manager当前不授；先考虑复用既有合格service产品并由buyer在新PO正常录入USD125、按实际时间设5日后的计划日期。partner联系人创建的最小ACL/角色还须只读核清再实施。
+- S11仍PARTIAL/IN_PROGRESS；ROOT_CAUSE_UNDETERMINED，历史F2 loser/PID `EVIDENCE_GAP`，#35 OPEN；不push/merge/deploy/S12/S13。
+
 ## 2026-10-21 00:30 UTC：GDB run capacity refusal and correction
 
 - Candidate before this source/document update: `5d606c25cab5de6a04d5df4c4a0a6fdb9acd57f9`.

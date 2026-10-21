@@ -1,3 +1,13 @@
+## 2026-10-21 03:52 UTC｜窄HTTP后读回及T08 ACL边界
+
+GDB owned run `20261021T031235Z-06f93a2c106d` 的独立post-run只读核验最终PASS：receipt `.local/s11/verification/post-http-readback-4f3798d-run-05c51e0-20261021T031235Z-06f93a2c106d-ro.json` SHA-256 `b8fe773cf0844c7b69bbc0213008c87687dbf3c86a3a42e31d06587d6b270991`。224项保护计数、D/C、模块/外发状态、副作用计数、准入与服务停止均匹配；READ ONLY事务rollback/close。客户端一次GET返回HTTP200，但server access log不完整，服务端请求状态仍UNKNOWN；不据此称SIGSEGV已修复或一般HTTP/browser稳定。
+
+T08 current-candidate只读预检attempt2 `.local/s11/verification/t08-synthetic-workshop-scope-preflight-05c51e0-attempt2.json` SHA-256 `bd0857dd9b03d264f3b297d054393f6a2d54587fd6ab8859b2f701db01d439c1` 为BLOCKED：scratch/scope、产品可用性及buyer PO/line create权通过；partner create、直接cooperation ACL及产品/supplierinfo create权不通过。未读PO/line、无业务写入。receipt中的`rollback_idle=false`仍是取证限制，即使显式rollback和close均发生也不写为PASS。
+
+独立静态审查确认vendor由group manager按正常资格流程审核，Store2合作用warehouse:write角色的bound session调用原生服务；旧vendor98 one-shot已消费，不能重跑。现阶段选择经新候选只读确认后复用合格的Odoo service产品，由独立buyer2666只创建一张新的USD125/一件PO行，计划日期按提交时实际UTC加5个日历日。该日期只代表合成测试假设。buyer的原生公司级权限包含受保护PO147–149，后续路径必须create-only，绝不检索/读取旧单。partner-create角色方案尚未实施，未授权任何广泛partner-manager或product-manager提权。细节与下一动作见根目录`CURRENT_TASK.md`顶部。
+
+合成工坊user2670已创建、独立读回且不重复操作；未授采购/仓储/产品管理员权。当前无新vendor、qualif、合作、PO或义齿单写入。`ROOT_CAUSE_UNDETERMINED`、历史F2 `EVIDENCE_GAP`保持，S11 PARTIAL/IN_PROGRESS、#35 OPEN。
+
 ## 2026-10-21 02:16 UTC｜用户授权的合成义齿工坊与角色创建
 
 用户明确表示不能提供真实义齿厂家，批准在S11 scratch中创建明确标记的合成义齿工坊和专用角色，由Codex定义测试价及工期，并要求保持真实物理时间推进、不改本地时钟。暂定测试价USD 125/单件、5个日历日，仅为合成场景假设；不代表真实市场价格、真实厂家承诺或现实监管资质。公司1/USD、Store2和产品/角色可用性由`.local/s11/verification/t08-synthetic-workshop-scope-preflight-3558a7b-v2.json`只读PASS确认（SHA `61d70a605ea52d5d79d304d16746c5cace9e507406d0fb9abf0be0fc81098fb4`）；没有查PO或PO line。

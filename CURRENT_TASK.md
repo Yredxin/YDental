@@ -1,3 +1,13 @@
+## S11 状态续行（2026-10-21 03:52 UTC）：GDB HTTP读回与T08权限边界核实
+
+- 当前分支 `codex/s11-followup-lab-r1`，HEAD `05c51e050147623b4157c8930337113931582a02`，工作树在本记录前干净，ahead 199。未push/merge/deploy；不启动S12/S13。
+- 对03:12 GDB owned run的独立HTTP后读回已成功：`.local/s11/verification/post-http-readback-4f3798d-run-05c51e0-20261021T031235Z-06f93a2c106d-ro.json` SHA-256 `b8fe773cf0844c7b69bbc0213008c87687dbf3c86a3a42e31d06587d6b270991`。224保护表计数、D/C、modules、external channels、副作用表、current admission及服务停止/18411空闲均通过；RR READ ONLY显式ROLLBACK/CLOSE。client单GET HTTP200；服务端访问日志行不完整，服务端请求计数/状态UNKNOWN。该结果只证明窄只读路径观察成功，不证明崩溃根因修复或一般HTTP/browser恢复。
+- T08当前候选只读预检 attempt2 receipt `.local/s11/verification/t08-synthetic-workshop-scope-preflight-05c51e0-attempt2.json` SHA-256 `bd0857dd9b03d264f3b297d054393f6a2d54587fd6ab8859b2f701db01d439c1`；结果BLOCKED。指定scratch/OID2144130、company1/Store2/USD、义齿产品515、10个合格采购服务产品、manager9及buyer2666采购单/行create、warehouse2043存在均核实；未读PO或PO line。manager9没有res.partner create；现有参与者均没有直接`ydental.lab.cooperation` create ACL；无当前参与者可创建product.template或supplierinfo。RR READ ONLY/显式rollback/cursor close为真，但`rollback_idle=false`，不得称此事务完整PASS。脚本SHA `9b534ea7d1bbce71fc0489c66d7413d303e95f162b5a4ef3834794d30eb462f5`经独立静态review PASS；回执哈希按实际文件固定。
+- 独立T08源代码审查确认：vendor资格必须由group manager按正常action审核；合作应由Store2 warehouse:write角色经已验证的bound session和原生`ydental.lab.cooperation.create`服务流程建立，旧vendor98 one-shot已消费，禁止重跑。Purchase buyer2666有公司级原生PO/行权限且可见旧PO147–149，后续仅用新单create-only步骤，禁止search/list/read旧单。product/supplierinfo若专门新建则需要`product.group_product_manager`宽权限；当前选择优先复用当前候选预检已识别的既有合法Odoo service product，以正常buyer在新PO行输入批准的USD125及按真实UTC推算的期望日期，避免扩大产品主数据权限。须在新候选fresh readback确认所选商品/公司/类型，再做写入。
+- 已存在且独立核实的工坊操作员user2670/membership4170仅company1、Store2、medical:write；禁止给该用户purchase、warehouse、product manager或系统权限。创建合成外部联系人所需的contact create仍待解决；下一项只做候选绑定的只读组/ACL核对和最小角色方案，确认后才做一次性写入。不会授予广泛partner-manager或product-manager权限来绕过预检。用户已授权S11测试角色和权限配置。
+- 合成测试价/工期仍为USD125、5个日历日；按物理时间设定native PO行日期（当前拟议实际日期2026-10-26 UTC，实际提交时按当前UTC重新计算），不改本地/操作系统/数据库时钟。此前建成的user2670不重复创建。patient683仍须遵循已预约时窗及原生FIFO，不能提前到店/报到/临床。
+- `ROOT_CAUSE_UNDETERMINED`和历史F2 loser/PID `EVIDENCE_GAP`不变；旧失败和受保护提交不重放。业务流程未开始新增写入。计划仍PARTIAL/IN_PROGRESS、#35 OPEN。
+
 ## S11 状态续行（2026-10-21 02:16 UTC）：合成义齿工坊角色获准并通过独立读回
 
 - 用户明确授权本阶段建立标为合成测试、非真实供应商/非现实资质的义齿工坊及专用角色，并由Codex定义测试价格和工期；不得改本地/操作系统时钟，所有预约、计划时间及工期只能按实际物理时间推进。此决定解除“必须提供真实义齿厂家”的S11测试前置，但不改变旧SIGSEGV、数据保护、权限和实际工具停止条件。测试假设暂定 USD 125/单件、5个日历日；不声称这是市场价格、法定资质或真实供应商承诺。公司1货币USD由当前scratch只读预检确认。义齿订单计划时间按真实UTC计算；模块没有独立结构化工期字段，原生供应商lead time是否采用仍在T08实施时按产品/采购模型确认。
