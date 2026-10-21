@@ -1,3 +1,12 @@
+## S11 状态续行（2026-10-21 18:08 UTC）：当前候选时钟UI记录、管理组权限核查与真实阻断
+
+- 分支 `codex/s11-followup-lab-r1`，当前候选/HEAD `3205daab42d6abae5591f94e08ca00682c2830b8`；此前提交的session debug clock实际UI设置和DB回读证据均保留。入口已在正常认证UI中把单一session的应用业务时间设到未来，不需等待物理日期；OS、PostgreSQL、ORM审计和真实费用时间未修改。此前UI evidence及本节前的clock run证据在下方历史记录与`docs/reports/s11/summary.md`。
+- 在新候选fresh admission `s11-fresh-admission-3205daa-attempt47-20261021T175603Z-c4482abdb201ce84` 上，对UID539仅核查 `base.group_erp_manager` 与 `base.group_system` 的直接/有效组布尔值。attempt49因独立review要求补足listener全部PID所有者检查而未运行；attempt50该门禁已修正但其一次venv运行在DB连接前因attempt47 receipt digest常量漏写`cb`而失败，保留helper、runlock及日志；system Python调用在导入`psycopg2`前失败、未进入helper。没有DB查询或权限写入。
+- 修正并独立静态验收的attempt51 helper `.local/s11/verification/role_manager_membership_3205daa_attempt51_readonly.py` SHA-256 `a1ea068676a7304839f7d47b2b743e39b335f56dec159f36ec00415157ab1c5f`，一次执行exit0。只读RR/UTC回执 `.local/s11/receipts/clock-role-manager-membership-3205daa-attempt51.json` SHA-256 `73966d84cebc5b2cf6062d28c938c456c0a46118a81e3454ea401ad1549281c1`确认UID539对两个管理组均direct=false/effective=false；独立审查PASS。其SQL只查固定base XMLID并返回布尔值，显式rollback/idle/close，不返回用户行或秘密。attempt51前后服务身份一致；随后owned service正常stop，`launcher status`为STOPPED。
+- 独立源码核对：Odoo原生`res.users`全局Access Rights由有效`base.group_erp_manager`管理，`base.group_system`隐含该组；YDental业务`personnel:write`仅管理门店业务类别grant，不负责`res.users.group_ids`。当前`.local/s11`已授权测试账号凭据中没有ERP/system manager登录；README所述共享provider指向数据库runtime凭据，不能证明有Odoo管理员登录。因此没有用UID539尝试越权、没有把actor6/9业务group-manager当作Odoo系统管理员，也没有用sudo/SQL/GDB runner写角色组。
+- 当前实际阻断仅为：若要让UID2466、临床actor及UID2043在各自身份下使用session clock，必须由正常认证的Odoo ERP manager/system用户通过原生用户权限UI仅授予`ydental_s11_clock_test.group_operator`；目前缺该正常管理员登录凭据/具体已授权provider路径。业务时间debug入口已实现且UI/只读DB实测，后续无需等真实时间，但不能把UID539的session时间转借给其它actor。并行源码审计确认现有supplier-expiry job1050交期为2026-11-18，未来且无clock授权的UID2043不能在当前物理时间claim；无其它可安全立即完成的真实postcommit路径，不伪造来源或外发policy。
+- 需要用户给出当前scratch中已授权的正常ERP manager/system登录凭据的私有provider路径，或在本机建立/授权一个正常管理员登录（凭据不得发到聊天、Git或Issue）。拿到后继续只授时钟组给实际执行合成流程的测试角色，按新run分别设置session time，再做临床、通知controlled sink、T08收发返工/收费、适用并发及影响回归。#35 OPEN、S11 PARTIAL/IN_PROGRESS；不push/merge/deploy/S12/S13。
+
 ## S11 状态续行（2026-10-21 17:46 UTC）：session 时钟首次 UI 实测与只读回读
 
 - 分支 `codex/s11-followup-lab-r1`，候选 `5cece72427d8f5798365f557918d7f0526fd5628`；本次开始时 tracked 工作区干净，HEAD 未变。合成 session 时钟入口已安装并由 GDB run `20261021T172025Z-e0b3b2e02623` 承载，clock run `20261021T172025Z-8f671beb469d`。
