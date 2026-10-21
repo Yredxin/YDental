@@ -214,3 +214,11 @@ At candidate `4d126a6`, fresh pre-create admission passed (receipt SHA `93c21c58
 - 已完成一次GDB role setup，result `.local/s11/operations/20261021T020308Z-synthetic-denture-workshop-role-gdb-3558a7b/result.json` SHA `7fa6bd544422264158e99c68c9aab2b65440b25f125d7793a08044b9b5cc65b4`，log SHA `11f7e00df0f73f2214728d5b07cb69097ac212fb64c0ecb21e1cef101f6a5260`；exit0、无native crash/core、owned group/service停止。权限helper/wrapper静态独审PASS，哈希见summary。
 - 独立RR READ ONLY角色核验PASS `.local/s11/verification/synthetic-denture-workshop-role-3558a7b-independent-readback-attempt3.json` SHA `e8568222c38d57f0254fc97d0e80c00c1c5d85630921ee2ee7b111999e6a0529`。session实际为4247；原one-shot intent的session_id字段false属报告缺陷，原件保留并有reconciled私有副本。没有读取或更改PO147–149，没有外发。
 - 仍无vendor/cooperation/已确认原生采购服务行/义齿加工与收发。S11 PARTIAL/IN_PROGRESS；ROOT_CAUSE_UNDETERMINED与F2历史loser/PID EVIDENCE_GAP不变；#35 OPEN，无push/merge/deploy/S12/S13。
+# 2026-10-21 03:30 UTC：GDB 下窄只读HTTP证据
+
+- fresh admission：`.local/s11/receipts/s11-fresh-admission-4f3798d-20261021T025205Z-597ad045e2e7a887.json`，SHA-256 `e4f70bcc8a4126f79cb33cea159c9f3bd5354f565c4ad755448d96bce4b8f620`；候选`4f3798d`，224保护表，D/C pin `33f8730…202ae8`，跨库检查200项，service STOPPED/18411空闲。静态审阅脚本SHA `21fc26d0…a4544`。
+- 独立恢复gate `/root/gdb_core_runner_review`：PASS for exactly one anonymous raw GET `/ydental/queue/screen` under `start --gdb`; PID42433只读配置指向`odoo20_dev`，未操作。
+- 客户端receipt `.local/s11/operations/http-probe-4f3798d-20261021T031235Z-once.json` SHA `6f199b8a…fd68f`：client single GET、200、1505 bytes、无认证/cookie/JS。一次建连前owner路径预检失败，未发请求，不重试该失败操作。
+- GDB launcher exit `.local/s11/runs/20261021T031235Z-06f93a2c106d/exit.json` SHA `cd25c5a0…df529`：child exit0、无signal/native crash/core、owned groups stopped；server log SHA `7107acdf…e3ee74`。服务端访问日志行不完整，server request count/status UNKNOWN。模块加载完成；有既有test-framework ERROR诊断。
+- 独立post-run verifier SHA `30ce3a0b…887b18`，失败回执 `.local/s11/verification/post-http-readback-4f3798d-20261021T031235Z-06f93a2c106d-ro.json` SHA `8277a1e0…4969d8`：因admission超过30分钟freshness在DB连接前拒绝；无DB查询或pair/service写入。重新fresh-admit后，再独立读回保护和side-effect视图，之后才能安排T08等业务写入。
+- 不代表SIGSEGV根因修复或一般HTTP/browser恢复。`ROOT_CAUSE_UNDETERMINED`、旧F2 `EVIDENCE_GAP`、S11 PARTIAL、#35 OPEN；无push/merge/deploy/S12/S13。详见[summary.md](summary.md)本节。
