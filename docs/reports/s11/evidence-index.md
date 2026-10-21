@@ -29,6 +29,13 @@ This is a concrete FIFO/business precondition, not a runtime or SIGSEGV stop. Do
 
 # S11 F/T evidence index
 
+## 2026-10-21 01:26 UTC｜合成预约证据
+
+- 资格预检：`.local/s11/verification/patient683-slot1697-preflight-dd5421a.json` SHA-256 `28156aa893e389f0fb5be901f69b6c15900ab24f249b7b10e917ad24f3f0aa6b`；只读核验器SHA `1bd961cf85c4082beee686391657eaaa7149965a21d07b7fe92582bd6a88d74c`；独立静态/离线审计PASS。
+- 一次性预约执行：helper SHA-256 `6b7cb8986f2631bd8c6dc6dc4bea2dffabeff2701cd480f29654186b3394736c`；browser receipt `.local/s11/operations/patient683-slot1697-reservation-browser-dd5421a.json` SHA-256 `40e377af1cfbcf88e3fd7f73d7fed558ab0be78844aa11e4c3ac9f81005bfaf8`；intent receipt SHA-256 `9d8aaf030d4cb6b1bfdb65cbc1a48538491cdd0649a4550a778bede3191d893f`。HTTP303、仅一次POST、无请求重放。
+- 测后核验：`.local/s11/verification/patient683-slot1697-reservation-independent-readback.json` SHA-256 `973d1c7f1ded65654e881f4e646ff7440751682ec5c57e0ff2dbe430c7c038bd`；核验器SHA `8da67221e7c433da69df2dcd48a3ced5164196d70295b81156aa42c0d7cb17d5`；离线独立审计PASS，18项断言通过。GDB exit receipt `.local/s11/runs/20261021T012054Z-7f44d092e436/exit.json` SHA-256 `76d96d364aac6a215b57ade06c7f7be8c9369db90ad5335b48df5cf0c1efb480`，exit0无signal/core，服务已停止。
+- patient683只完成预约，不代表已到店。预约时段15:00–15:30 UTC；排队aggregate count=2且未取身份，预约容量已满、walk-in仍2。不得提前arrival/report或绕过FIFO。
+
 ## 2026-10-20 15:01 UTC：预约浏览器attempt无业务POST
 
 Candidate `993ee508cff5d5f4d4630d1217481d9ea258c1ee`, branch `codex/s11-followup-lab-r1` (ahead 182). Two patient682/slot1694 browser receipts are PREPARED with `post_attempts=0`; neither trace has `/ydental/intake/action`. Attempt1 completed only normal Store2 context switch; attempt2 confirmed Store2 and skipped it. Independent readback found no arrival, entitlement, task, active queue position, or treatment event; slot1694 still had 1 reservation and 2 walk-in places. It has since passed its 15:00–15:30 UTC window and is not reusable. Receipt hashes: attempt1 `c80ce77db30f0818ae9ad1957fb120b5cdc42d87dfe7414635cac031f2f75e6b`, attempt2 `4890265014b9b92a3881fd0ceae717ed81b2d74e33bffe7bb06efb0f206d3c79`.

@@ -1,3 +1,7 @@
+## 2026-10-21 01:26 UTC｜patient683 合成预约提交与读回
+
+当前候选 `dd5421a402a676910e3e425231609e0d3c4103e7`、原分支。patient683/slot1697 只读资格预检实跑并独立审计PASS；一次性helper经独立静态审查后，仅通过正常actor2466/Store2业务UI提交一次预约，HTTP303。预约后RR READ ONLY读回及离线独立审计PASS：唯一operation7191、entitlement778、task1184、held claim802；slot reservation容量1→0、walk-in=2、version2→3。读回核实审计和原生source/event链、保护表增量、D/C及财务不变、无到店/临床/队列/外发变化，GDB exit0无崩溃且服务停止。队列只检查aggregate count=2，未取身份；15:00 UTC前不做arrival/report。完整命令、receipt/verifier SHA、失败修正与遗留范围见仓库根 [CURRENT_TASK.md](../../../CURRENT_TASK.md) 顶部本节。此结果不声称SIGSEGV根因已修复；S11仍PARTIAL/IN_PROGRESS、#35 OPEN，无push/merge/deploy。
+
 ## 2026-10-21 00:30 UTC｜GDB run容量误计数修复与合成患者预检
 
 candidate `5d606c25cab5de6a04d5df4c4a0a6fdb9acd57f9` 下，独立静态审查PASS的合成患者只读预检器SHA `b586ccdf2eb97dd0227e4ac525858085e64a0fef3b8c9ac31b202d7f3fdee125` 实跑PASS；receipt `.local/s11/verification/s11-synthetic-patient-5d606c2-preflight.json` SHA `77dbe72a7d2a4708e129017d66fcaa7f18819646d224b2b76a411a96760c3f18`。核验指定scratch/OID/cluster、actor2466及Store2非manager有效权限、禁用管理员/采购/仓库组、唯一synthetic姓名/幂等键、HTTP服务与端口停止。RR READ ONLY事务回滚关闭，无业务写入。
