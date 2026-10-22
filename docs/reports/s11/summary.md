@@ -1,3 +1,9 @@
+## 2026-10-22 UTC｜测试账号管理授权澄清与Store2操作者准备
+
+用户明确授权Codex在S11 scratch合成测试范围内自行创建测试用户/凭据并配置必要company、membership、应用组及测试角色；准备可经获准Odoo管理入口或受支持ORM完成，单独记录且不冒充UI验收。无需依赖UID9旧密码；不涉及生产/真实人员/OS或数据库服务凭据。该澄清替代上一节把UID9凭据作为唯一前置的解释。
+
+attempt14已把`ydental_base.ydental_base_group_user`授给UID2672并独立读回；不重复。依据用户新授权，准备最小S11 Store2人员管理测试操作者：基础YDental用户组、company1、Store2 active employee/membership、仅`personnel:write`，无经理/Odoo管理员/其他业务权限；随机凭据只写0600忽略文件。测试模块的default-store fixture仅用于建议Store2，服务端仍校验真实membership且会建立真实认证session。准备过程以ORM provisioning receipt单独记录，clock组仍必须由UID2672原生Users UI完成，之后独立读回和验证。此前UID6/9旧凭据限制不再阻止该路径；本轮尚无账号或DB写入，等待受审查准备helper及fresh scope核验。
+
 ## 2026-10-22 UTC｜UID2672临时membership授权确认与原生操作者前置
 
 用户已批准UID2672仅为clock Users UI恢复临时加入company1/Store2，并在原生流程需要时建立对应合成员工关联；授权范围不含额外业务权限。此确认取代前文“等待用户决定”的状态。当前工作树现场为分支`codex/s11-followup-lab-r1`、HEAD `de9206c39c89af3a69cf7ce9486ed3b8cbae4387`、ahead 257、干净；与旧记录中的报告HEAD差异仅为后续本地文档提交。本轮未启动服务或执行写入。

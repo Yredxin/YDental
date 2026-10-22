@@ -1,3 +1,11 @@
+# 2026-10-22 14:03 UTC｜测试账号自主管理授权更新
+
+- 用户明确扩展/澄清S11测试账号管理授权：可按需要在scratch内创建测试用户和私有凭据、配置已批准测试角色/company/store membership；准备过程可用已批准Odoo管理入口或受支持ORM，独立于原生UI验收；不需要UID9旧密码，不可重置/修改生产或真实人员账号。本决定替代上节以既有UID9凭据/会话为前置的解释。
+- 当前已核UID2672的YDental基础用户组已由attempt14授予并独立读回；不重复授组。最新attempt12证明其没有活动Store2 membership；此前查询未覆盖无关联员工全表，因此执行前需新鲜ORM只读核UID2672员工记录。
+- 按最小权限准备新的S11 Store2人事测试操作者：仅YDental基础用户组、company1、Store2 active employee/membership及`personnel:write`；不加manager/global/Odoo admin组或其他业务grant。凭据只保存在0600私有文件。设置测试模块提供的建议默认Store2仅为登录配置；登录session由Odoo真实认证创建，服务端仍验证membership。准备日志明确标为ORM provisioning，不算原生UI验收。
+- 后续由该操作者正常登录并经`/ydental/access`原生UI将UID2672加入Store2；再由UID2672正常登录、经原生Users UI授予clock组给UID `[2466,9,2043,2670]`，独立读回并验证。完成必要管理后，回收新操作者的临时权限并移除UID2672临时membership/停用管理员，均先核依赖及保护条件。任何实际权限拒绝、未知提交或完整性异常按原止损规则处理。
+- 当前尚未准备账号或写DB；HEAD/候选、admission与证据在执行前重核。S11仍`PARTIAL / RUNTIME_BLOCKED`，#35 OPEN；不push/merge/deploy/S12/S13。
+
 # 2026-10-22 13:50 UTC｜UID2672临时门店membership授权已确认，原生操作者路径核验
 
 - 用户已明确批准：为UID2672临时建立company1/Store2 membership，并仅在原生流程要求时建立对应合成员工关联；用途仅为恢复正常Users UI会话、完成已批准clock测试组授权与读回，随后移除临时membership并停用临时管理员。不得扩大业务权限，不触碰旧保护对象。此前“等待用户决定”的状态已结束。
