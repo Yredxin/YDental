@@ -1,12 +1,14 @@
 # S11 attempt102阻断修复及attempt106最小GET（2026-10-22 UTC）
 
 - 继续同一`YD-S11-FOLLOWUP-LAB-V1` / #35。现场branch=`codex/s11-followup-lab-r1`，HEAD=`966c6bc44b1ee3df4dfa4188d00285d00cfe36f0`，tracked工作区干净，ahead origin 242；不回退、不清理、不推送、不合并、不部署。执行候选仍固定为`7510f03838a276be3e572af6e25c9826b6a74955`，仅文档HEAD变化；本地报告记录在summary/evidence-index。
+- 此报告已本地固定提交`317c8d903e9d399e582f8ec9ea3f95ec80bb2dc7`；当前执行前候选状态以此提交后的现场Git为准，产品执行候选仍为`7510f03838a276be3e572af6e25c9826b6a74955`。本轮没有在该报告提交后启动新运行或重复副作用。
 - **attempt102根因与修复：** 原请求前失败在GDB inferior PGID与GDB child PID比较错误（实际PGID应等于inferior PID，SID才等于GDB child PID）。另修复纯文档报告变化不应让admission执行候选失效；候选差异仍严格限定在CURRENT_TASK及S11报告。launcher/3项纯窄测提交`7510f03…`通过独立审查。
 - **准入：** runtime候选绑定及fresh只读准入完成。准入receipt `.local/s11/receipts/s11-fresh-admission-7510f03-attempt1-20261022T102957Z-e5c6a414be8a3748.json` SHA `a161380fb2339fea07eb2e79ca3b5576ec30acd6ed3346dff9cce7a131966ad3`，224保护计数、D/C、RO/RR/UTC rollback-close及service stopped均PASS；独立post-readback确认active runtime/admission pair精确匹配候选，STOPPED且port free。
 - **attempt103–105具体runner缺陷均已定位且保留原FAIL：** attempt103/104在响应头后误把`HTTPConnection.sock is None`判为总时限到期；`Connection: close`时`http.client.getresponse()`正常移交socket。attempt104保存到HTTP 200 / Content-Length 1505。attempt105完整读入1505字节并保存，随后在多余EOF探测中对已关闭socket再次`settimeout`而EBADF。各失败运行均唯一正常stop exit0、GDB exit0无signal/core、受保护状态独立读回一致；没有重跑旧attempt。
 - **attempt106最小读取验证：PASS，待后核标志由独立receipt补足。** receipt `.local/s11/receipts/s11-http-stability-7510f03-attempt106.json` SHA `193d1f224c5cfc3aaab44aaaf2aa68f1b170df417e7e5c15c8cd6a50d2e45aca`；执行helper SHA `cb15d80c257cbbb1f85e0852e25e43a2113574c11fbad52d1f4863d127f23e2c`。固定15秒总时限内1次匿名GET `/ydental/queue/screen`收到HTTP 200，1505/1505字节完整私有保存（SHA `6b4cf458a639c5fed00543adeeffd3cbdf9bf3f3bee85796cf999543fbf74677`）；一次已验证owner stop exit0，GDB exit0、无signal/core，服务STOPPED。独立后核receipt `.local/s11/verification/s11-http-stability-attempt106-independent-postreadback.json` SHA `ad833bc842777ffea60d819857eb7644e77fb0d02e940081a57499cff4c9a91a`：224保护计数及D/C一致、事务回滚/关闭、pair/端口/停止状态通过；DB查询结果保持ephemeral，未保存行级数据。
 - attempt103–105原始FAIL不升级或改写；attempt102原FAIL/request_count=0及唯一stop/postreadback完整保留。以上单一GET只证明这一固定候选的匿名页面响应及owned-process正常停止，不替代浏览器、真实并发、业务闭环或总体稳定性验收。
 - **后续计划：** 按同一#35继续最小权限YDental UI组/clock组授权与独立读回、禁用临时管理员；合成临床来源与提交→postcommit→claim→controlled sink；义齿临床来源、lab order、合成收货/入库/返工/退回、追加收费和原生账务读回；新标记F2竞争；影响面回归和独立总验收。每项仍核依赖和保护条件，不重放患者650/task720/PO147–149及旧F2。#35保持OPEN，阶段为PARTIAL（剩余业务/浏览器/并发及总验收）；不启动S12/S13。
+- **下一项已知依赖：** UID2672目前缺`ydental_base.ydental_base_group_user`，因此原生Users UI返回403。先按既有批准的窄ORM bootstrap仅链接该应用组并独立读回（不添加`base.group_system`、门店grant或clock组）；之后由UID2672走原生Users UI为批准的合成测试身份授予clock operator组，再独立读回并disable临时管理员。attempt15的403前没有保存dispatch，不重放attempt15。
 
 ---
 
