@@ -1,3 +1,13 @@
+## 2026-10-22 UTC｜应用组权限含义漂移与停止条件
+
+|证据|路径 / SHA-256|结果与范围|
+|---|---|---|
+|RO角色基线|`.local/s11/verification/admin-clock-groups-7510f03-pregrant-readonly.json` / `b475b91a50be8969163c569b7ec16898298ebde86ab3463657b475b2f4dcb96d`|现场DB关系表记录app group直接指向`base.group_allow_export`、`base.group_user`、`base.group_user_regular`；只读事务，不写库。独立离线验收PASS。|
+|锁定候选模块定义|`ydental_base/security/ydental_base_security.xml:2-5`|XML仅声明`ydental_base_group_user -> base.group_user`，与RO DB关系多出两条直接边。|
+|Odoo核心权限定义|`../odoo/addons/base/security/base_groups.xml` 与 `../odoo/addons/base/security/ir.access.csv`|`base.group_allow_export`源码声明由`base.group_system` imply；该组取得`ir.exports` CRUD。UID2672当前有效组无allow_export，因此按RO数据库图链接app group将实际扩权。|
+|一次性授权helper / runner|`.local/s11/operations/grant_ydental_base_access_uid2672_7510f03_admin_appgroup_attempt1_once.py` / `3ef3225c2c5f7b59db81ef66e842f49febb65b14284877f3f7dbbe7a47418fd2`；`.local/s11/operations/run_grant_ydental_base_access_uid2672_7510f03_admin_appgroup_attempt1_gdb.py` / `d994093a96b1f605aca3e36de8d6e18d7df8cf6c97d6d2bf6b5821ac139faeff`|独立静态审查FAIL；**未执行**。授权/提交/运行收据latches不存在，未写库。因预期权限超出已批准范围，不会通过删改implied relation绕开。|
+|attempt15失效历史|`.local/s11/operations/clock-operator-users-ui-c981cd0-attempt15.json` / `fe0e5376f06c95ef5750976e7653832478195ceb4786b1afc46c7bd8815e3007` 与 `.local/s11/runs/20261022T020546Z-4cd35dca0462/server.log`|attempt15 receipt记`login_submit` TimeoutError及translations `ERR_EMPTY_RESPONSE`；server.log另有login POST303、`load_menus` HTTP403、目标只读web_read 200。保存派发仍为0。保留receipt/日志阶段差异，不重放。|
+
 ## 2026-10-22 UTC｜clock角色前置只读核验
 
 |证据|路径 / SHA-256|结果与范围|
