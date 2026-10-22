@@ -1,3 +1,17 @@
+# 2026-10-22 10:42 UTC｜attempt102阻断修复至attempt106最小GET证据
+
+- 执行候选`7510f03838a276be3e572af6e25c9826b6a74955`；本轮开始HEAD `966c6bc44b1ee3df4dfa4188d00285d00cfe36f0`，branch`codex/s11-followup-lab-r1`，tracked tree clean/ahead origin 242。准入receipt `.local/s11/receipts/s11-fresh-admission-7510f03-attempt1-20261022T102957Z-e5c6a414be8a3748.json` SHA `a161380fb2339fea07eb2e79ca3b5576ec30acd6ed3346dff9cce7a131966ad3`；224表、D/C、RO/RR/UTC rollback-close、service stop等检查PASS，独立读回pair及端口有效。
+- attempt102原件不变：FAIL/request_count=0/no HTTP response、一次stop exit0、独立post-readback原件保留。首因是错误PGID/SID比较；修复代码和候选docs-only report drift检查在`7510f03…`。
+
+|新attempt|receipt SHA-256 / 结果|HTTP与响应|结束/独立后核|
+|---|---|---|---|
+|103|`.local/s11/receipts/s11-http-stability-7510f03-attempt103.json` / `99399b918c3020d6353773f395cd1b3a4abc5f1fc56228ae9ac5911d21c6b87a` / FAIL|request-call count 1；响应阶段TimeoutError；旧实现未保留status/body|GDB exit0/no signal/core；单次stop exit0；独立224/D-C只读后核PASS。执行时helper哈希`396a012fa2b120db3d157e5619125956c2e8d66669534e3da9f62700f3814ad1`；之后模板更新，receipt未嵌此字段|
+|104|`.local/s11/receipts/s11-http-stability-7510f03-attempt104.json` / `c4abd85677198984c7e03bc2d3f10be2835574ed5fd5103df93d473bacaf4288` / FAIL|HTTP 200，Content-Length 1505，读体前错误检查`HTTPConnection.sock is None`；耗时记0.774s，与Connection: close socket移交语义不符|一次stop exit0；GDB exit0/no signal/core；独立后核保护状态PASS。执行helper SHA `f98a2cafea0f6054a86d334ad3c6e6f65be92d3cecb67356f6f72d34a0986cd9`|
+|105|`.local/s11/receipts/s11-http-stability-7510f03-attempt105.json` / `367a3ce61c992a9975075aa079d05bf6a0bbf9fd15a01db20e35d690dd5051ab` / FAIL|HTTP 200；1505/1505字节已保存；下一循环对已关闭socket再settimeout报EBADF，故`body_complete=false`保留FAIL|response partial file SHA `f950c0f4ae6500145f6423a1c7e82778406328c2a1ae9db26b0d05a936f0a38b`；一次stop exit0；GDB exit0/no signal/core；独立224/D-C后核PASS。helper SHA `af005ead627b445ac7517e1c07757274218c79168013a4c5456becf3597e0621`|
+|106|`.local/s11/receipts/s11-http-stability-7510f03-attempt106.json` / `193d1f224c5cfc3aaab44aaaf2aa68f1b170df417e7e5c15c8cd6a50d2e45aca` / `HTTP_GET_PASS_POST_READBACK_REQUIRED`|单次匿名GET HTTP 200；1505/1505完整保存，SHA `6b4cf458a639c5fed00543adeeffd3cbdf9bf3f3bee85796cf999543fbf74677`；固定15s总时限，耗时0.796s|一次stop exit0；GDB exit0/no signal/core；独立post-readback receipt SHA `ad833bc842777ffea60d819857eb7644e77fb0d02e940081a57499cff4c9a91a`核实文件0600/size/hash、pair、224保护digest `a151b65c9faf62050759f9a9f0883850f357c35f64d73affbdaba15f4397b3f7`、D/C `33f8730aa39cc869e749827e66f10505a0fe9e5aedd5677c9cb1b17718202ae8`、事务清理与STOPPED/port free。独立快照ephemeral、无行级输出落盘|
+
+- attempt106 helper SHA `cb15d80c257cbbb1f85e0852e25e43a2113574c11fbad52d1f4863d127f23e2c`，静态独立PASS。用户要求的最小单次GET已通过；它不等同browser/并发或S11全计划验收。各旧attempt失败收据仍是原始结果，不改写。S11 `PARTIAL`、#35 OPEN；临床与lab业务、browser、F2、影响回归及总验收仍未完成。受保护对象/资金/库存/审计未重放，未启动S12/S13。
+
 # 2026-10-22 10:04 UTC｜V2修复完成批次执行证据（HTTP仍BLOCKED）
 
 - 固定候选：`73384ff7efa175b3715dbcd6b5e8ef1c77b587cf`，branch`codex/s11-followup-lab-r1`，执行前clean/ahead 238。launcher zombie退出观察修复及其3项PURE窄测、独立源码审查见本索引下一节。
@@ -375,4 +389,5 @@ At candidate `4d126a6`, fresh pre-create admission passed (receipt SHA `93c21c58
 |attempt102 GDB exit|`.local/s11/runs/20261022T100111Z-226e66600705/exit.json` / `f61d63bdbf5215dc3ddbafade907bd7e24835d0fdb49bcb796c25a390e4f0c68`|GDB child 1409320 exit0/no signal；inferior 1409326、PGID 1409326、SID 1409320；无signal/core/native crash；owned group stopped|
 |attempt102 independent post-readback|`.local/s11/verification/s11-http-stability-73384ff-attempt102-independent-postreadback-ro.json` / `01e1bda657434f1e1738c87bc0c20d11cb4e028d502609c4228c8269d2da5f8e`|独立只读保护数据与关停后态PASS；不构成HTTP PASS|
 |实现候选|`7510f03838a276be3e572af6e25c9826b6a74955`，`scripts/s11/launcher.py` / `11258b209806bcdfd35afc7319fecb629664b68df55f82130f059b7d909dbec5`，`scripts/s11/test_launcher.py` / `8b33a3402060106aa0971e1d982ade59085f8f07022a709f33c959a670a0f6b8`|PGID/SID校验修复；docs-only候选漂移验证；report HEAD/delta保留；本地3项纯窄测PASS。独立review通过这组实现SHA；后续报告候选返回小修需要按最终HEAD复核|
-|attempt103 helper template|`.local/s11/verification/s11_http_stability_73384ff_attempt103.py` / SHA待最终固定|尚未执行。当前模板记录首异常/phase/process timeline、request-call语义与受限response保存；待绑定新候选/准入并独立复核|
+|attempt103 helper template（本节编写时状态）|`.local/s11/verification/s11_http_stability_73384ff_attempt103.py` / SHA当时待最终固定|本节编写时尚未执行；后续attempt103–106的实际结果、固定hash和修复记录见本索引顶部10:42 UTC节|
+# 2026-10-22 10:04 UTC｜V2修复完成批次执行证据（HTTP当时BLOCKED）

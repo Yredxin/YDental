@@ -1,3 +1,20 @@
+## 2026-10-22 10:42 UTC｜继续S11修复：attempt102阻断定位，attempt106有界GET完成
+
+继续现有`YD-S11-FOLLOWUP-LAB-V1` / #35，不建立新plan或改变验收标准。候选固定为`7510f03838a276be3e572af6e25c9826b6a74955`；branch=`codex/s11-followup-lab-r1`。实施前现场HEAD为`966c6bc44b1ee3df4dfa4188d00285d00cfe36f0`，tracked工作区干净，ahead origin 242。全部工作均本地执行，不push/merge/deploy。
+
+### 修复及恢复证据
+
+- attempt102原receipt继续保持FAIL、`request_count=0`、无HTTP响应、一次stop exit0及既有独立post-readback。首个失败来自runner错误比较GDB inferior的PGID和GDB child PID；正确关系是PGID等于inferior PID、SID等于GDB child PID。该错误发生在listener/HTTP前，不是SIGSEGV；GDB exit0、无signal/core。该修复、candidate docs-only delta约束和3项窄纯测固定在launcher候选提交`7510f03…`。
+- 运行候选绑定后的fresh只读准入receipt `.local/s11/receipts/s11-fresh-admission-7510f03-attempt1-20261022T102957Z-e5c6a414be8a3748.json` SHA `a161380fb2339fea07eb2e79ca3b5576ec30acd6ed3346dff9cce7a131966ad3`，结果`READ_ONLY_CHECKS_PASS`，保护表224项；RO/RR/UTC、显式rollback-idle-close、外发状态、目标身份、service STOPPED/port free均成立。独立回读确认active pair候选及admission副本一致。
+- 新runner attempt103、104、105分别出现并修复普通客户端/响应读取契约问题，均保留FAIL，不修改receipt、不重放同一attempt。attempt103 receipt SHA `99399b918c3020d6353773f395cd1b3a4abc5f1fc56228ae9ac5911d21c6b87a`：`request_count=1`（进入`HTTPConnection.request()`，不声称wire确认），响应阶段超时；未记录status/body。attempt104 receipt SHA `c4abd85677198984c7e03bc2d3f10be2835574ed5fd5103df93d473bacaf4288`：收到HTTP 200和Content-Length 1505，读体前错误把`HTTPConnection.sock is None`（Connection: close的正常socket移交状态）当作超时。attempt105 receipt SHA `367a3ce61c992a9975075aa079d05bf6a0bbf9fd15a01db20e35d690dd5051ab`：完整读入并保存1505字节，但之后多余EOF探测对关闭的socket调用`settimeout`而报EBADF；独立核实response文件长度与SHA吻合。
+- 最终attempt106静态审查PASS后，固定15秒总时限执行唯一匿名GET `/ydental/queue/screen`。receipt `.local/s11/receipts/s11-http-stability-7510f03-attempt106.json` SHA `193d1f224c5cfc3aaab44aaaf2aa68f1b170df417e7e5c15c8cd6a50d2e45aca`，结果`HTTP_GET_PASS_POST_READBACK_REQUIRED`；helper SHA `cb15d80c257cbbb1f85e0852e25e43a2113574c11fbad52d1f4863d127f23e2c`。状态200，Content-Length/读取/保存长度均1505，响应文件SHA `6b4cf458a639c5fed00543adeeffd3cbdf9bf3f3bee85796cf999543fbf74677`。GET总耗时约0.796秒。一次正常owned stop exit0；GDB child exit0、无signal/core，owned group stopped；服务STOPPED、18411空闲。
+- 独立后核receipt `.local/s11/verification/s11-http-stability-attempt106-independent-postreadback.json` SHA `ad833bc842777ffea60d819857eb7644e77fb0d02e940081a57499cff4c9a91a`，确认response文件mode0600/长度/SHA，active pair候选，224保护表digest `a151b65c9faf62050759f9a9f0883850f357c35f64d73affbdaba15f4397b3f7`，D/C digest `33f8730aa39cc869e749827e66f10505a0fe9e5aedd5677c9cb1b17718202ae8`，RR只读事务rollback-idle-close，stop和端口状态。独立SQL快照为ephemeral、没有保存行级结果。attempt106原receipt的`post_readback_required.performed`仍为false；上述独立receipt补充其外部独立读回结果，不改写原运行收据。
+- attempt103脚本在执行后继续改进响应诊断，故执行时静态审查固定SHA `396a012fa2b120db3d157e5619125956c2e8d66669534e3da9f62700f3814ad1`，当前同路径后续模板哈希不同；attempt104–106各自receipt绑定实际helper SHA。所有执行均使用唯一attempt路径。没有SIGSEGV/core证据或数据库业务写入。
+
+### 当前状态与剩余范围
+
+attempt106证明一次固定候选的有界匿名GET成功并正常停止，不等于浏览器/HTTP稳定性全测或业务闭环完成。S11为`PARTIAL`，#35保持OPEN。继续原范围：最小权限UI/clock授权及独立读回、临时管理员disable、合成临床/文书/治疗真实来源到postcommit/claim/controlled sink、义齿临床来源与lab order/合成收货入库及适用返工退回、返工追加收费和原生账务读回、新标记F2并发、影响面回归和独立总验收。病人650/task720、patient364/event417、PO147–149及既有资金/库存/审计和旧F2 EVIDENCE_GAP继续保护。未启动S12/S13。
+
 ## 2026-10-22 10:04 UTC｜修复完成计划V2执行：fresh admission通过，attempt102运行门失败
 
 本批继续现有`YD-S11-FOLLOWUP-LAB-V1` / #35，执行批次标识`YD-S11-REPAIR-COMPLETION-V2`不改需求与验收标准。候选为`73384ff7efa175b3715dbcd6b5e8ef1c77b587cf`，分支`codex/s11-followup-lab-r1`；执行前现场branch/HEAD/worktree与交接一致，tracked工作区干净，领先origin 238。已有launcher修复提交`b6f064c34e71f8641ca58a31fde3c17f0a9b3fd7`及三项窄纯测试/独立源码审查PASS；不重跑42项MODEL、已接受升级、费用来源catalog审计或旧attempt90/101。
