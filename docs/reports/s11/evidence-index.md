@@ -494,3 +494,52 @@ At candidate `4d126a6`, fresh pre-create admission passed (receipt SHA `93c21c58
 |attempt7 admission verifier pre-service refusal|调用 `.local/s11/verification/fresh_admission_7510f03_attempt7_readonly.py` SHA `7c8c742f8fd8f83994bbf8248b88bf548943330473e33a3271a41d525510dca0`|launcher `verify_repository`要求owned service前工作树干净；当前三份本地报告未提交，因此在DB前拒绝。无attempt7 lock、service start/stop、DB查询/admission发布。保留FAIL_CLOSED，不重跑。|
 |UID2672临时membership授权及原生流程复核|用户在本对话明确批准company1/Store2临时membership及原生所需的合成员工关联；源码`ydental_access/models/ydental_access_service.py:352-360,450-485`、`ydental_access/controllers/access.py:62-70,94-99`；独立审查消息来自`admin_app_group_grant`与`plan_gap_static_audit`|授权有效；本轮未执行写入。UID6现有证据是Store1 session且无Store2 membership；UID9虽有历史Store2 membership/group-manager证据，但未证明本轮有效session/凭据。须只读核实可正常经原生UI选择Store2的已有操作者；不得伪造store_id或调用底层路径绕过。|
 |测试账号管理范围更新|用户明确授权在S11 scratch内自行创建合成测试用户/私有凭据及必要角色/membership；允许支持的Odoo ORM作准备，但授权组的验收动作仍须原生Users UI|替代依赖UID9现成凭据的解释。拟准备Store2人员操作员（company1、app user、Store2 membership、仅personnel:write、默认门店测试fixture）；尚未执行，独立review和fresh admission待完成。|
+
+## 2026-10-22 16:48 UTC｜Store2原生操作者准备 attempt25/26
+
+|证据|路径 / SHA-256|结果/限制|
+|---|---|---|
+|attempt26 GDB runner|`.local/s11/operations/s11-store2-join-uid2672-attempt26.runner.json` / `5ddd606f79fe172d34731a0780fa0e5fb9b20630a4ed17c06e0e2d1fd7cb3ccf`|FAIL；唯一loopback listener精确归属inferior且READY；helper退出1，未生成helper收据；launcher stop一次exit0，GDB child exit0、无signal/core，service STOPPED/portfree。|
+|attempt26首拒绝文本|`.local/s11/operations/s11-store2-join-uid2672-attempt26.runner-helper.stderr`|`attempt25 failure/clean-stop facts mismatch`；发生在Playwright初始化、认证及请求之前。顶层`helper_exit`不存在；实际exit字段在`helper_process_group.exit_code`。|
+|attempt26 request ledger 状态|`.local/s11/operations/s11-store2-join-uid2672-attempt26.runner-helper.stdout`为空；无`.local/s11/operations/s11-store2-join-uid2672-attempt26.json`及`.post-pending.json`|request_count=0，未发登录或业务HTTP请求、未发Store2 membership POST。不得重跑attempt26。|
+|attempt26执行源码|helper `b1390d67c6cfb4f0c2bfb95bad69263d0e8ca3f4a165cbbb7ec1067b9cac829a`；runner `6a0eedf49b2415e293d297d20375596513a373c07971dabb1b18dcf92e9045b4`|独立静态审查PASS后执行；tuple解包修正已通过审查，但prior attempt25嵌套exit字段漏修。新attempt需修复并审查，且需fresh admission。|
+|UID2673密码后读回|`.local/s11/verification/store2-operator-password-attempt29-postcommit-independent-ro.json` / `fb45f19185572ae456b3478573dee0dd15ba7f237796fec32c42fdbc8b8557b5`|独立只读PASS：用户active/company1/YDental基础组/password auth已配置；未执行登录验证。|
+
+## 2026-10-22 17:00 UTC｜fresh-admission attempt35–38与attempt39/40只读复核准备
+
+|证据|路径 / SHA-256|结果/限制|
+|---|---|---|
+|attempt35 preflight拒绝|`.local/s11/verification/fresh-admission-7510f03-attempt35-failure-diagnostic.json` / `c3222845c0938cc38d62e08d68241c3d5fdd33ee7b5b955955cdf93649a030ff`|报告门同时要求clean tree与三份文档差异，逻辑冲突；数据库连接未开始、admission未发布、活动哈希不变。|
+|attempt36 preflight拒绝|`.local/s11/verification/fresh-admission-7510f03-attempt36-failure-diagnostic.json` / `e64aedfd7736efad5d6f07dfbffdeb86d51bcb7ee7c003fda1f96c6f5ab8fcc3`|诊断字段层级读取错误；未连接DB、未写入/发布。|
+|attempt37 preflight拒绝|`.local/s11/verification/fresh-admission-7510f03-attempt37-failure-diagnostic.json` / `2cad3a501c45ea03dbaa1824081f8fe4d479638bd76ef8c330da6039961400a7`|git status wrapper strip首行前缀，误拒exact three docs状态；未连接DB、未发布。|
+|attempt38 fresh-admission读回|`.local/s11/verification/fresh-admission-7510f03-attempt38-failure-diagnostic.json` / `b0ad120bbf57fdec50d396a858340cfd900ad5483e66c5fc35e1498fc597cc8d`|RO/RR/UTC检查及rollback-idle-close完成；保护表delta `mail_message` +6 vs expected +5，其他计划内delta匹配；因此FAIL_CLOSED、无admission发布。|
+|attempt39独立只读核验脚本|`.local/s11/verification/mail-message-delta-attempt39-independent-ro.py` / `ec3025845b392a098468e034067fb3c7862d0f87cf2ebc8813f174539cc67a2c`|未执行；两位独立review指出活动准入/上界/恰一行断言及异常receipt处理不足，保留BLOCK。|
+|attempt40独立只读核验脚本|`.local/s11/verification/mail-message-delta-attempt40-independent-ro.py` / `ae512ab2fedb6798ed086827e6021d210e5c87c54aad642748a1246a9f751095`|待独立静态审查；拟限制attempt29运行时间窗内单条UID2673 native tracking message元数据，且记录rollback/cleanup/service/repo状态。只读连接使用受限runtime DB credential，不读取UID2673浏览器登录凭据；不选消息body/地址。|
+
+
+## 2026-10-22 17:04 UTC｜attempt40 时间窗相关性结果
+
+|证据|路径 / SHA-256|结果/限制|
+|---|---|---|
+|attempt40 最终只读脚本|`.local/s11/verification/mail-message-delta-attempt40-independent-ro.py` / `195822ba630c0f257a29229a68a7beb01b848c56d2c6404a381f7c3e60965ab5`|两位未参与实现的审查者独立静态PASS；报告时间窗相关性，不主张因果归因。RO/RR/UTC、scratch身份、事务清理与服务/工作区门禁固定。|
+|attempt40 运行回执|`.local/s11/verification/mail-message-delta-attempt40-independent-ro.json` / `00dce848a26d97bb7da5d2903d5677b77e1e5ea2594d279e919f74c2ebf8ec4e`|单次只读运行`FAIL_CLOSED`，attempt29运行时间窗0行；首异常为窗口记录数不等于1。rollback idle、cursor/connection closed、service STOPPED及后核状态PASS，无DB写入或admission发布。|
+|attempt38差异状态|`.local/s11/verification/fresh-admission-7510f03-attempt38-failure-diagnostic.json` / `b0ad120bbf57fdec50d396a858340cfd900ad5483e66c5fc35e1498fc597cc8d`|`mail_message +6`相对attempt14基线、attempt20预期+5。已知attempt20五行分布1 partner/1 user/1 hr.version/2 employee；attempt29窗口无行，额外一行来源继续未证。不得改预期、不得继续依赖该fresh admission写入。|
+
+
+## S11 状态续行（2026-10-22 17:10 UTC）：定位额外消息行但来源未证
+
+- attempt41脚本 `.local/s11/verification/mail-message-delta-attempt41-independent-ro.py` SHA-256 `ba45f9234930007d7fc3e78f17b1e48c97db7b73feba4f9f55a0c7466bd91787` 两位独立审查PASS并单次执行；receipt `.local/s11/verification/mail-message-delta-attempt41-independent-ro.json` SHA-256 `07dad6347c3f6495550e4d48aee466de13676c851867922fc2f7df9c15afe786`。attempt20精确0.971922秒时间窗内恰有既知五行（ID 21286–21290），没有第六行；RO/RR/UTC、rollback-idle-close、service STOPPED及文档工作区后核通过。这只核了短窗。
+- attempt42脚本 `.local/s11/verification/mail-message-delta-attempt42-independent-ro.py` SHA-256 `2fad98be82200d0831d8e8caf763b54bfc44e09cefc6428a79c69497e2b7142f` 经两位独立静态PASS后单次执行；receipt `.local/s11/verification/mail-message-delta-attempt42-independent-ro.json` SHA-256 `b108e3a6de34d139ae32c7e1b9962d31a055df44c74fb338a8644c4a4609d402`。同一RO/RR快照中，attempt14基线1114行→现1120行，基线后恰见6行：已知attempt20五行及唯一额外ID21291。查询仅读metadata/收件队列计数，不读正文或地址；目标OID2144130/角色/cluster正确，rollback idle、cursor/connection关闭、service STOPPED、postflight通过。
+- ID21291元数据：`create_date=2026-10-22 16:36:18.521875 UTC`，`message_type=email_outgoing`，`model/res_id/subtype_id=NULL`，`author_id=3`、`create_uid=2`，队列关联数1、partner/cc/notification计数0、`outgoing_email_to`非空标志false。attempt29 helper latch时间为16:36:18.578552 UTC（此行时间早约56.7ms），runner结束16:36:19.500872 UTC。当前只可称为attempt14基线后的唯一时间候选；没有行级证据证明其来源，不能归因于attempt29、不能清除/补录该行，也不证明邮件是否实际发送。Odoo本地`res.users.write({'password':...})`源码本身不是该行因果证明。
+- 该行与attempt38的净增量差值吻合，但来源/提交边界仍未证明；继续保持受保护计数阻断，不调整预期、不做用户授权POST、临床/采购/收费/F2写操作。下一步只从attempt29 runner/launcher与该邮件行的原生创建路径做有限离线源码及时序核对；若不能以固定证据证明来源，则保持 `PARTIAL / RUNTIME_BLOCKED`。不开展SMTP/收件人追查，不读取正文/地址，不清队列，不重跑attempt29/40/41/42。
+
+# 2026-10-22 17:24 UTC｜测试账号授权澄清与fresh-admission attempt43–45
+
+- 用户再次澄清并授权：S11 scratch内测试账号/私有凭据、必要membership/company/应用角色可由Codex按需准备；UID9现成凭据不是前置。准备操作者不冒充原生Users UI验收。UID2673已由此前attempt20准备为合成Store2 personnel操作者（company1、基础组、active employee/membership、仅personnel:write），attempt29密码轮换的独立只读后核已通过；凭据留在忽略的0600私有文件。本轮未读取凭据、未登录、未发UI请求。后续正常路径仍是UID2673正常登录→原生Store2 UI加入UID2672→独立读回；再由UID2672的原生Users UI仅向`[2466,9,2043,2670]`授予`ydental_s11_clock_test.group_operator`，不含UID2666/2672。
+- 现场分支`codex/s11-followup-lab-r1`、报告HEAD `7bd3b7fb4fc2efe8ca2464e1ece6be6a295e93e7`、ahead 259；工作区在本记录前仅三份既有报告文档有未提交修改。S11服务STOPPED。执行候选仍`7510f03838a276be3e572af6e25c9826b6a74955`；active admission原SHA `ff5d83613a0f704abd289f7bfcc92e2d9d3a5a0c1ffbe18ae935185307922b49`，runtime SHA `0550688402dfbe459e6f50e3b2c1f812a986e293c1a261d8aa4b0f89b88a1872`。
+- attempt42只读库存的唯一额外`mail_message`行ID21291，已由两个未实现者独立确认其来源是attempt29 UID2673密码写入触发的原生安全通知邮件记录创建。attempt43 helper SHA `33c2b39ccf9685c460cf63267fd5ad534a65367cce7e3c8dbe5b5314f1089c86`经两位静态PASS，保持attempt20五行原窗口核验，并在同一RO/RR事务按attempt29固定时间窗/源码hash/精确metadata+mail关联数验证21291；预期`mail_message +6`。不读正文/地址，不声称送达。attempt29 runner exit0/no signal/no native crash；旧attempt42/attempt29均不重跑。
+- attempt43执行原FAIL保留：`.local/s11/verification/fresh-admission-7510f03-attempt43-failure-diagnostic.json` SHA `259d8525f7e0b21f47cb20eccb70269f590a7976590e7d553d919113c47a71dd`，首异常`RuntimeError: private file gate`，阶段PREFLIGHT；DB连接、事务、准入发布均未开始。原因是attempt42非秘密源码文件mode0664被错误套用私有receipt的0600门禁。修订为attempt44，不改变原件。
+- attempt44源SHA `7d381d40fc874c81f45de13c48d09d26508e31560d2a76cfe4491a95dcec39cb`，两位静态PASS；以普通文件读取非秘密attempt42源码并固定hash、receipt仍严格0600。执行FAIL原件 `.local/s11/verification/fresh-admission-7510f03-attempt44-failure-diagnostic.json` SHA `2db7c679cc64399cbffc033bbf8f3310fc6c96565f23161881696677db1737b3`；PREFLIGHT因源码断言误写`def now(self):`，固定`../odoo/sql_db.py`实际声明`def now(self) -> datetime:`。未连接DB、未发布准入、服务未启动。attempt44不重跑。
+- attempt45源码SHA `41820266867f0d4732a43fcf5890da41af5ab6f84663a0d4736daf4bb383e395`由两位未实现者独立静态PASS；修正needle后一次执行。只读RR/UTC快照的224保护计数、D/C、模块、外部状态、目标身份、attempt20五行+attempt29行21291均通过；显式ROLLBACK→IDLE、cursor/connection关闭，service STOPPED/portfree。receipt `.local/s11/verification/fresh-admission-7510f03-attempt45.json` SHA `f4ddeeec85084b7642539c653db314ee8ce7c44135d886ce5363f73018b8ca2a`结果`READ_ONLY_CHECKS_PASS`，其中mail_message delta 6；不表示active admission已更新。
+- attempt45在admission原子发布返回后，launcher配对校验尝试启动服务，实际安全拒绝`Refusal: S11 worktree must be clean before an owned service can start`。failure诊断 `.local/s11/verification/fresh-admission-7510f03-attempt45-failure-diagnostic.json` SHA `f556425871093bf5ebd16e293e6e2170455a9a240a448ed9cbfd3b4ac2c3d519`；attempt45 recovery manifest SHA `9c80156c5cb39ea1a3df36b127d0028c6c86c0bcd5c6f3350218082af8e2ff25`状态PREPARED，backup SHA `ff5d83613a0f704abd289f7bfcc92e2d9d3a5a0c1ffbe18ae935185307922b49`。独立本地只读核对当前active admission已恢复/仍等于该旧SHA，服务STOPPED；不绕过launcher拒绝、不重跑attempt45。
+- 为满足launcher的真实clean-worktree前置，将三份本地报告按已批准正常本地提交规则做文档提交；不push。新候选仍仅docs差异，之后按新报告HEAD准备全新fresh-admission attempt，不重用43–45。fresh admission通过后，独立后核UID2673/UID2672当前状态并审查新的唯一membership UI runner；不得重复attempt26或密码轮换。S11仍`PARTIAL / RUNTIME_BLOCKED`、#35 OPEN。临床来源/文书→postcommit/claim/sink、义齿lab收发/返工退回/追加收费账务读回、新F2并发、最终入口常规运行验证、影响回归和独立总验收仍待完成；不合并/部署/启动S12/S13。
