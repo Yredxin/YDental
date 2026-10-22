@@ -946,3 +946,19 @@ main和活动分支AGENTS应同字节；main默认CURRENT_TASK仍只路由活动
 - 用户要求的debug入口已通过当前候选GDB本地服务及UID539原始认证session实际操作：恰好一次标准UI `set` POST，将仅该session的应用业务UTC设为`2026-10-27T05:51:53Z`。页面初始/POST/最终读回PASS、无其他路由、无临床/经济动作，OS/PostgreSQL物理时钟未改。operation SHA `92a99a97b836e936fc67500ce3754237c5ba234b9cad8a9efc189c988549ed78`；clock run `20261021T160323Z-6815301404dc`。
 - 独立只读数据库查询实际观察到唯一当前run session和唯一`start` event，actor539/store1/time匹配；224保护计数、D/C、外部发送禁用状态均与准入快照一致，事务READ ONLY/RR/UTC并回滚idle、游标/连接关闭。原执行receipt因helper finally状态覆盖标`FAIL/CleanupNotConfirmed`，不升级为PASS。修正后attempt4因原attempt34准入年龄超过30分钟，在DB连接前退出；未重放set。服务已launcher停止，当前STOPPED。所有helper尝试与receipt保留，详见report。
 - 当前不应复用过期admission发起下一批读写。下一步以新fresh admission继续：只读核验本次session/event；随后按计划完成合成临床来源与文书、postcommit controlled sink、T08收发/返工/追加收费、适用并发及影响面回归。测试时间走应用合成clock；物理/OS/PostgreSQL时钟和审计时间保持真实。#35 OPEN，S11 PARTIAL/IN_PROGRESS；不push/merge/deploy/S12/S13。
+
+## S11 状态续行（2026-10-22 04:19 UTC）：fresh admission attempt1 在数据库连接前固定证据失败
+
+- 活动候选 `b08592a7ef92f8871c4bd0feb00323902c8e63ac`，分支 `codex/s11-followup-lab-r1`。离线核验确认 attempt1 helper 在获取单次锁之前因历史回执哈希断言退出，未连接数据库、未执行SQL，未生成admission receipt或运行锁；runtime与既有admission文件哈希未变，服务仍STOPPED。attempt1日志 `.local/s11/verification/fresh-admission-b08592a-attempt1-run.log` 仅含 `FAIL_CLOSED/AssertionError`。
+- 离线根因定位：helper误把attempt89 recovery manifest中的admission备份哈希固定成admission copy哈希。manifest记录备份SHA-256 `db1171ebe2c2fd46998dad4191c1fb4ddc2ae33fe428d4431a1d50e31102e684`。helper还引用错误命名的c799 attempt90回执；实际固定证据为 `.local/s11/receipts/s11-http-stability-d5e35aa-attempt90.json`，SHA-256 `d7d9ebe4e32eb63704a0a0e6608909430d0`。attempt1保留，不重跑。
+- 正在准备独立attempt2 helper，使用manifest记录的真实哈希、attempt90实际回执路径和全新的attempt2锁/产物名；执行前先由未参与实现者静态审查精确helper SHA。attempt90的stop exit 2仍是未解决拒绝，不重试停止命令；fresh admission本身不解除HTTP路径停止条件。
+- 临时测试管理员UID2672已由Codex创建并独立读回为active/internal、company1、ERP manager且非system admin。运行恢复评估通过后，由Codex经正常获准应用路径添加S11所需最小YDental用户组；不要求用户手工建号或授予角色。
+- 当前仍 `PARTIAL / RUNTIME_BLOCKED`，`ROOT_CAUSE_UNDETERMINED`；旧F2 loser/PID `EVIDENCE_GAP`；#35保持OPEN。未启动服务、未发HTTP、未重放业务写入；不push/merge/deploy/S12/S13。
+
+## S11 状态续行（2026-10-22 04:27 UTC）：attempt4 只读准入 fail-closed
+
+- Attempt2及attempt3均只做离线准备、因独立静态审查发现锁/命名空间问题而弃用，未运行。Attempt4 helper `.local/s11/verification/fresh_admission_b08592a_attempt4_readonly.py` SHA-256 `c22bdac942a9b56f062cec41896af39a46e96618d8cf6202af1a84810f6470b2`、权限0600，经独立静态审查PASS后仅执行一次。其锁在所有退出结果下保留。
+- Attempt4以 `FAIL_CLOSED/KeyError`、exit1结束。输出 `.local/s11/operations/fresh-admission-b08592a-attempt4.stdout` SHA-256 `08ca8a3e2b52433c77a826afd6357fcb3a6d67cf105a127e9f4bb37e71cc3245`；stderr为空SHA-256 `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`；runner log `.local/s11/verification/fresh-admission-b08592a-attempt4-runner.log` SHA-256 `dc8dde9d9cc6db8004cf16b1f764c7afb5074f17180c2cc0b291cb9dc881b0a7`。Attempt4 runlock已保留；没有attempt4 admission/receipt/recovery manifest。runtime哈希仍 `e1044582…f0a7f47`，既有admission哈希仍 `ef148e83…52d310db`；未发生准入配对提交。
+- 离线根因已定位为preconnect历史receipt键名不一致：attempt89回执有`admin_attribution_delta`而无`attempt63_admin_attribution`；helper line5833读取了错误的后者，映射表则正确指向前者。该KeyError发生于helper的`connect(db)`之前，所以此次未连接数据库、未执行SQL。未启动服务、HTTP请求数为0、没有临床或经济写入。Attempt4不能重跑。
+- 正在仅修复该离线确定的键映射并制作新attempt5；执行前仍需独立审查精确helper及一次性锁。attempt90 stop exit2拒绝仍不重试。
+- 临时管理员UID2672由Codex建立并读回；最小YDental应用用户组尚待运行恢复评估和正常UI路径。

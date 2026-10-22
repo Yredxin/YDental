@@ -1,3 +1,9 @@
+## S11 fresh admission attempt4（2026-10-22 04:28 UTC）
+
+- Attempt2/3静态审查阻断，未执行。Attempt4 helper SHA `c22bdac942a9b56f062cec41896af39a46e96618d8cf6202af1a84810f6470b2`、mode0600，经独立静态审查PASS后执行一次，exit1、`FAIL_CLOSED/KeyError`。stdout SHA `08ca8a3e2b52433c77a826afd6357fcb3a6d67cf105a127e9f4bb37e71cc3245`；stderr为空SHA `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`；runner log SHA `dc8dde9d9cc6db8004cf16b1f764c7afb5074f17180c2cc0b291cb9dc881b0a7`。
+- 离线定位到connect前receipt字段索引错误：attempt89来源名`admin_attribution_delta`与attempt4内部名`attempt63_admin_attribution`未通过映射读取。无DB连接/SQL，无准入pair提交；runtime/admission哈希不变。attempt4 O_EXCL锁保留，禁止重跑。attempt90 stop exit2保持未解决，不重试。
+- 下一attempt5仅修正字段映射并加schema regression；仍需精确SHA独立审查后才能一次性运行RO准入。
+
 ## S11 runtime凭据轮换与准入刷新（2026-10-22）
 
 - 一次内部工具输出意外包含了runtime数据库对象中的密码字段；值未写入仓库、Issue或交付文字。受限S11 scratch登录的自身密码已通过经独立静态审查的one-shot libpq `PQchangePassword`流程轮换；原role权限和业务对象不变，私有runtime mode 0600，改后只读登录核验通过。
