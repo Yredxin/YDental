@@ -194,6 +194,13 @@ This is a concrete FIFO/business precondition, not a runtime or SIGSEGV stop. Do
 
 # S11 F/T evidence index
 
+# 2026-10-22 23:57 UTC｜新空白S11库入口与模块依赖静态核查
+
+- 范围：只读检查当前仓库S11建库/安装入口、launcher约束和本地管理provider元数据；未连接数据库、未读取/输出秘密、未启动/停止服务、未写业务。现场branch `codex/s11-followup-lab-r1`、HEAD `4235fa3e2574e0890a68b4611c4703c97f36fcc2`、工作区干净/ahead 265；5432监听，18411空闲。
+- `scripts/s11/README.md`、`scripts/s11/launcher.py`：launcher固定旧scratch且明确不建库、不安装或升级模块；S11 runtime example只描述受限应用DB登录。已授权的建库角色/provider在本地未找到；普通DB管理路径需要既有CREATEDB/等效身份，不能由旧scratch角色提权代替。没有尝试创建，因此无建库失败/拒绝回执。
+- 模块依赖初步清单（静态manifest闭包，不是安装或运行证据）：S11 roots为`ydental_followup`、`ydental_lab`、`ydental_followup_test`、`ydental_lab_test`；日期场景适用时另需`ydental_s11_clock_test`。YDental传递闭包为`ydental_access, ydental_base, ydental_clinical, ydental_exam, ydental_followup, ydental_followup_test, ydental_intake, ydental_inventory, ydental_lab, ydental_lab_sms_guard, ydental_lab_test, ydental_patient, ydental_print, ydental_queue, ydental_settlement, ydental_space, ydental_supply, ydental_treatment`。Core依赖根包括`base, web, mail, hr, auth_signup, auth_timeout, auth_password_policy, auth_totp_mail, base_report_wkhtmltox, product, stock, uom, product_expiry, phone_validation, bus, account, sale_stock, purchase_stock, sms, resource`；最终安装顺序/依赖需在新目标上按实际锁定core和manifest复核。
+- 下一动作需获得现有获准管理入口/provider；之后仅创建一个template0/空白新库，固定真实身份及权限，锁定核心与S11依赖模块，明确禁止外发，并从新库建立自己的配置/保护起点。新库成功不解释attempt30消息历史或证明SIGSEGV已修复。
+
 ## 2026-10-21 01:26 UTC｜合成预约证据
 
 - 资格预检：`.local/s11/verification/patient683-slot1697-preflight-dd5421a.json` SHA-256 `28156aa893e389f0fb5be901f69b6c15900ab24f249b7b10e917ad24f3f0aa6b`；只读核验器SHA `1bd961cf85c4082beee686391657eaaa7149965a21d07b7fe92582bd6a88d74c`；独立静态/离线审计PASS。

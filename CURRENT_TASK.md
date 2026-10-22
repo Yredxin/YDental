@@ -1,3 +1,13 @@
+# S11 范围修订｜新空白合成测试库管理入口核查（2026-10-22 23:57 UTC）
+
+- 用户修订同一 `YD-S11-FOLLOWUP-LAB-V1`：允许现有获准测试环境内新增一个空白 S11 合成库；不复制/恢复/删除/重建任何旧库。旧 scratch 自此不承载新增 S11 写入；attempt48原基线、attempt30 FAIL及三表差异、attempt32 FAIL、attempt33观察和审查均保留。历史mail归因UNPROVEN、21292/21293未证明为精确差集；PO147–149继续不读不改，不再为同一缺失前态循环调查或fresh admission。
+- 现场核验：分支 `codex/s11-followup-lab-r1`，HEAD `4235fa3e2574e0890a68b4611c4703c97f36fcc2`，ahead origin 265，工作区干净。PostgreSQL 5432正在监听，S11端口18411未监听。本轮无数据库连接、服务启动、stop、HTTP/UI或业务写入。
+- 受跟踪入口核验：`scripts/s11/README.md`及`launcher.py`明确launcher只接受固定旧scratch，不建库、不装模块、不升级；S11 runtime样例仅为应用DB登录凭据占位。受跟踪S11脚本未提供DB管理provider或建库路径。只列出本地私有credential/provider文件元数据、检查标准PG service/pass文件存在性和credential相关环境变量名称；没有发现DB管理provider/service/pass文件或相关环境变量。未读取/输出任何秘密。旧角色`ydental_s11_scratch_2144130`受限，禁止提权或拿来建库。
+- 两个只读协作核查一致：PostgreSQL建空库需要当前获准的`CREATEDB`维护身份或等效正常管理入口；Odoo DB manager也需要已存在、已授权的master password和可建库DB角色，当前S11 launcher关闭该入口。历史S10建库记录只证明过去路径，不能证明当前可用授权。不得通过OS sudo/peer切换、提权旧角色、借用旧runtime scope或试错入口来建库。
+- **具体阻断：**当前可见S11范围没有获准的数据库管理身份/provider，因而尚不能安全创建新目标；没有新库ID、OID、连接角色、模块初始化、保护起点或业务闭环。本轮未尝试创建，所以无数据库错误/权限拒绝回执可报告。实现准确停止在找到有效正常管理入口之前；不将能力缺失表述成数据库拒绝。
+- 后续可继续条件：已有获准私有provider/正常数据库管理入口可供使用，且其权限允许仅创建一个空白库；届时固定新DB名/OID/cluster、受限应用连接角色和模块清单，建立独立配置/保护起点再开始S11写入。锁定依赖候选初步清单由只读审查者列于`docs/reports/s11/summary.md`本节；不修改core、odoo-12、不`-u all`、外发关闭。新库成功不证明SIGSEGV已修复，也不解开实际工具拒绝。
+- S11仍`PARTIAL / RUNTIME_BLOCKED`，#35 OPEN。旧scratch/attempt30历史限制继续单独保留；新库尚未建立，故新环境临床/postcommit/claim/sink、lab采购收货入库返工追加收费、新对象并发、HTTP/RPC/浏览器、带数据升级/影响回归及独立验收均未做。未push/merge/deploy，未启动S12/S13。
+
 # S11 最新会话交接（2026-10-22 23:28 UTC）
 
 # S11 续行｜attempt30未决差异当前观察与独立出口（2026-10-22）

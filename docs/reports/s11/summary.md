@@ -1,3 +1,11 @@
+# 2026-10-22 23:57 UTC｜新空白合成测试库入口核查与实际阻断
+
+用户修订同一S11计划，允许在获准测试环境中新建一个空白合成库，并明确旧scratch冻结新增S11写入；本节记录该范围的首次实现检查。现场分支`codex/s11-followup-lab-r1`、HEAD `4235fa3e2574e0890a68b4611c4703c97f36fcc2`、ahead 265、工作区干净；5432有监听，18411无监听。本轮没有DB连接、服务操作、业务写入或凭据读取/输出。
+
+只读核验`scripts/s11/README.md`及`launcher.py`确认launcher仅固定旧scratch，不建库/安装/升级；runtime示例是应用DB登录占位，不提供管理能力。列举私有provider文件元数据、检查标准PG service/pass路径存在性及环境变量名后，未发现已配置的DB管理身份/provider。受跟踪S11脚本亦无新库初始化程序。独立静态核查者复核：正常创建空白PostgreSQL库需已有获准的CREATEDB维护身份或等效管理入口；DB manager需已授权的master password及可建库角色，S11 launcher当前关闭此入口。旧scratch角色不能提权或用于建库；历史S10管理连接示例不是当前S11授权凭据。没有尝试建库，故没有数据库拒绝或操作错误回执。
+
+当前缺口为“尚无可识别的已授权数据库管理入口/provider”，不是数据库已拒绝建库。仅在能从获准私有provider/正常管理入口取得相应身份后，继续创建唯一空白库并验证DB名/OID/cluster/连接角色、安装明确锁定的core和S11模块、外发关闭及独立保护起点。初步模块闭包审查见evidence-index；尚未运行安装、也未固定产品初始化候选。旧scratch/attempt30历史UNPROVEN和保全缺口保持独立，不被新目标覆盖。S11 `PARTIAL / RUNTIME_BLOCKED`，#35 OPEN；禁止push/merge/deploy/S12/S13。
+
 ## 2026-10-22 UTC｜测试账号管理授权澄清与Store2操作者准备
 
 用户明确授权Codex在S11 scratch合成测试范围内自行创建测试用户/凭据并配置必要company、membership、应用组及测试角色；准备可经获准Odoo管理入口或受支持ORM完成，单独记录且不冒充UI验收。无需依赖UID9旧密码；不涉及生产/真实人员/OS或数据库服务凭据。该澄清替代上一节把UID9凭据作为唯一前置的解释。
