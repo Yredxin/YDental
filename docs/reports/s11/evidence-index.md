@@ -1,5 +1,7 @@
 # 2026-10-22 10:42 UTC｜attempt102阻断修复至attempt106最小GET证据
 
+续行现场HEAD `07d2713d6cd413a3b9f60c891883c4e381648da0`，branch`codex/s11-followup-lab-r1`，工作区干净/ahead origin 244。attempt106未重跑。其receipt `.local/s11/receipts/s11-http-stability-7510f03-attempt106.json` SHA `193d1f224c5cfc3aaab44aaaf2aa68f1b170df417e7e5c15c8cd6a50d2e45aca`绑定实际helper/runner `.local/s11/verification/s11_http_stability_7510f03_attempt106.py` SHA `cb15d80c257cbbb1f85e0852e25e43a2113574c11fbad52d1f4863d127f23e2c`及launcher `scripts/s11/launcher.py` SHA `11258b209806bcdfd35afc7319fecb629664b68df55f82130f059b7d909dbec5`；后一文件属于执行候选提交7510f03，前者为私有attempt runner并显式固定CANDIDATE=`7510f03…`，不在Git中。
+
 - 执行候选`7510f03838a276be3e572af6e25c9826b6a74955`；本轮开始HEAD `966c6bc44b1ee3df4dfa4188d00285d00cfe36f0`，branch`codex/s11-followup-lab-r1`，tracked tree clean/ahead origin 242。准入receipt `.local/s11/receipts/s11-fresh-admission-7510f03-attempt1-20261022T102957Z-e5c6a414be8a3748.json` SHA `a161380fb2339fea07eb2e79ca3b5576ec30acd6ed3346dff9cce7a131966ad3`；224表、D/C、RO/RR/UTC rollback-close、service stop等检查PASS，独立读回pair及端口有效。
 - attempt102原件不变：FAIL/request_count=0/no HTTP response、一次stop exit0、独立post-readback原件保留。首因是错误PGID/SID比较；修复代码和候选docs-only report drift检查在`7510f03…`。
 

@@ -1,5 +1,11 @@
 ## 2026-10-22 10:42 UTC｜继续S11修复：attempt102阻断定位，attempt106有界GET完成
 
+### 本次续行起点与文件绑定
+
+现场branch=`codex/s11-followup-lab-r1`，HEAD=`07d2713d6cd413a3b9f60c891883c4e381648da0`，tracked/untracked工作区干净，ahead origin 244。 attempt106未重跑。其实际一次性helper/runner `.local/s11/verification/s11_http_stability_7510f03_attempt106.py` SHA-256 `cb15d80c257cbbb1f85e0852e25e43a2113574c11fbad52d1f4863d127f23e2c`，与attempt106 receipt的`runner_helper_sha256`一致；实际launcher `.local`外的` scripts/s11/launcher.py` SHA-256 `11258b209806bcdfd35afc7319fecb629664b68df55f82130f059b7d909dbec5`，由产品候选`7510f03838a276be3e572af6e25c9826b6a74955`固定。一次性helper源码常量和receipt均绑定该候选，并记录当时报告HEAD和三条文档delta；helper本身是忽略的私有文件，没有Git提交SHA。
+
+本次角色准备从批准记录核对的范围开始：UID2672先只补YDental应用组，然后通过原生Users UI授予精确批准的clock测试组目标。历史attempt15仍为未派发任何组保存的403；没有把它重放或提升为当前权限结果。
+
 继续现有`YD-S11-FOLLOWUP-LAB-V1` / #35，不建立新plan或改变验收标准。候选固定为`7510f03838a276be3e572af6e25c9826b6a74955`；branch=`codex/s11-followup-lab-r1`。实施前现场HEAD为`966c6bc44b1ee3df4dfa4188d00285d00cfe36f0`，tracked工作区干净，ahead origin 242。全部工作均本地执行，不push/merge/deploy。
 
 ### 修复及恢复证据

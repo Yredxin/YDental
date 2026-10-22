@@ -1,5 +1,8 @@
 # S11 attempt102阻断修复及attempt106最小GET（2026-10-22 UTC）
 
+- 续行现场：branch=`codex/s11-followup-lab-r1`，HEAD=`07d2713d6cd413a3b9f60c891883c4e381648da0`，tracked/untracked工作区干净，ahead origin 244。仅在既有产品候选`7510f03838a276be3e572af6e25c9826b6a74955`上继续；candidate与报告HEAD差异仍限S11文档，不重跑attempt106。
+- attempt106实际执行文件已核：helper/runner `.local/s11/verification/s11_http_stability_7510f03_attempt106.py` SHA-256 `cb15d80c257cbbb1f85e0852e25e43a2113574c11fbad52d1f4863d127f23e2c`，receipt内`runner_helper_sha256`完全匹配；实际launcher `scripts/s11/launcher.py` SHA-256 `11258b209806bcdfd35afc7319fecb629664b68df55f82130f059b7d909dbec5`，由候选7510f03的源码提交提供。helper固定`CANDIDATE=7510f03…`，receipt记录report HEAD `966c6bc…`与仅三份文档差异；这是忽略文件的attempt专用runner，不属于Git提交。
+- 新续行仅先核身份/组授权：预期临时admin UID2672已存在；clock组批准范围依历史批准记录为UID2466、9、2043、2670，明确排除采购UID2666。尚未进行任何新的组授予或业务请求。attempt15的403和`NO_SAVE_DISPATCHED`历史保留。
 - 继续同一`YD-S11-FOLLOWUP-LAB-V1` / #35。现场branch=`codex/s11-followup-lab-r1`，HEAD=`966c6bc44b1ee3df4dfa4188d00285d00cfe36f0`，tracked工作区干净，ahead origin 242；不回退、不清理、不推送、不合并、不部署。执行候选仍固定为`7510f03838a276be3e572af6e25c9826b6a74955`，仅文档HEAD变化；本地报告记录在summary/evidence-index。
 - 此报告已本地固定提交`317c8d903e9d399e582f8ec9ea3f95ec80bb2dc7`；当前执行前候选状态以此提交后的现场Git为准，产品执行候选仍为`7510f03838a276be3e572af6e25c9826b6a74955`。本轮没有在该报告提交后启动新运行或重复副作用。
 - **attempt102根因与修复：** 原请求前失败在GDB inferior PGID与GDB child PID比较错误（实际PGID应等于inferior PID，SID才等于GDB child PID）。另修复纯文档报告变化不应让admission执行候选失效；候选差异仍严格限定在CURRENT_TASK及S11报告。launcher/3项纯窄测提交`7510f03…`通过独立审查。
