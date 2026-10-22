@@ -1,3 +1,11 @@
+## 2026-10-22 UTC｜UID2672临时membership授权确认与原生操作者前置
+
+用户已批准UID2672仅为clock Users UI恢复临时加入company1/Store2，并在原生流程需要时建立对应合成员工关联；授权范围不含额外业务权限。此确认取代前文“等待用户决定”的状态。当前工作树现场为分支`codex/s11-followup-lab-r1`、HEAD `de9206c39c89af3a69cf7ce9486ed3b8cbae4387`、ahead 257、干净；与旧记录中的报告HEAD差异仅为后续本地文档提交。本轮未启动服务或执行写入。
+
+两位未实现者独立核对原生路径：`ydental_access_service.py:450-485`的`_join`会为UID2672复用/创建company1员工关联，并建立Store2 membership（manager=false）；它不授予业务类别权限。入口`ydental_access/controllers/access.py`的普通UI表单从当前绑定session取得store_id；必须由已授权且能在正常UI选择Store2的操作者发起，禁止直接SQL/ORM/RPC绕过。UID6证据显示group manager、company1范围，但session在Store1且无Store2 membership；UID9历史上有Store2 membership与group manager角色，但本轮没有其新鲜登录/session/权限证据。还需只读核实可用操作者，前置未证实前不执行membership写入。
+
+clock目标仍为UID `[2466,9,2043,2670]`、`ydental_s11_clock_test.group_operator`，排除UID2666和UID2672。clock组授权/读回、身份验证、membership回收和停用管理员均未完成；没有新的业务闭环。S11保持`PARTIAL / RUNTIME_BLOCKED`、#35 OPEN；原attempt18 FAIL及此前attempt历史不重跑。
+
 ## 2026-10-22 UTC｜attempt18门店范围403与attempt13只读delta对账
 
 attempt18保留原`FAILED_PRECOMMIT`：UID2672的原生Users UI导航在`/web/webclient/load_menus`收到HTTP403“请选择有效门店”。没有发出组保存（`save_dispatched_uids=[]`），没有未决提交；这属于当前会话的门店范围配置缺项，不能靠扩大角色或改写结果解决。此次正常登录原生创建一条session（store_id=null）及两条原生审计记录；不是组授权。

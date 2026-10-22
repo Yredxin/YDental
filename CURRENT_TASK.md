@@ -1,3 +1,12 @@
+# 2026-10-22 13:50 UTC｜UID2672临时门店membership授权已确认，原生操作者路径核验
+
+- 用户已明确批准：为UID2672临时建立company1/Store2 membership，并仅在原生流程要求时建立对应合成员工关联；用途仅为恢复正常Users UI会话、完成已批准clock测试组授权与读回，随后移除临时membership并停用临时管理员。不得扩大业务权限，不触碰旧保护对象。此前“等待用户决定”的状态已结束。
+- 固定当前仓库现场：分支`codex/s11-followup-lab-r1`、HEAD `de9206c39c89af3a69cf7ce9486ed3b8cbae4387`，工作树干净、ahead 257；与13:38记录中的HEAD不一致是后续本地文档提交，不回退。候选仍`7510f03838a276be3e572af6e25c9826b6a74955`。本轮未启动应用、未创建membership、未重复attempt。
+- 离线核对`ydental_access_service.py:352-360,450-485`：membership必须由有权限并绑定有效server session的YDental操作者经`_join`建立；流程会仅复用/创建UID2672与company1关联的active employee，再新增Store2 membership，manager默认false，不产生业务类别grant。普通`/ydental/access`表单从当前session store取得store_id；不得用伪造store_id、直接ORM/RPC或SQL绕过。
+- 两位未实现者分别检查操作者证据。UID6已有group-manager和company1范围证据，但其当前证据为session Store1、没有Store2 membership，不能通过原生switch选择Store2。UID9历史证据有Store2 membership且具group-manager组，但缺当前有效session/凭据及新鲜角色读回。二者均不能据此直接假定本次可执行。接续前需用只读新鲜核验固定一个能正常登录且可在原生UI选择Store2的已有授权操作者；若该前置不存在，停止依赖它的写入，不越权替代。
+- attempt18仍原FAIL，attempt13计数与attempt12 admission结果保持原始分类及限制；UID2672尚无active store membership。其clock组范围仍仅UID `[2466,9,2043,2670]`、XMLID `ydental_s11_clock_test.group_operator`，排除UID2666和UID2672。clock组授予、独立读回、获批身份验证、临时membership回收及管理员停用均未完成。
+- S11仍`PARTIAL / RUNTIME_BLOCKED`，#35 OPEN。业务临床来源→postcommit/claim/sink、义齿来源/lab采购收货/返工追加收费与账务读回、新F2并发、普通入口稳定性、影响回归及独立总验收仍待完成。禁止push/merge/deploy/S12/S13。
+
 # 2026-10-22 13:38 UTC｜fresh admission与UID2672门店范围核验
 
 - 保持 S11 原计划、候选 `7510f03838a276be3e572af6e25c9826b6a74955`、本地HEAD `02e5d6f71c23b5e0f77847f750738308e69097a2`、分支 `codex/s11-followup-lab-r1`；不重跑attempt102–106，不push/merge/deploy。attempt102–105原FAIL保留；attempt106 GDB监督下匿名GET原结果不重跑。
