@@ -1,3 +1,8 @@
+# S11 文档候选固定（2026-10-22 10:06 UTC）
+
+- V2执行报告及README stop等待说明已本地提交`62390373f0f573e0d565ab1b759e4097b01da982`；当前HEAD为该提交，branch仍`codex/s11-followup-lab-r1`，ahead origin 239。
+- attempt102运行、admission及独立readback均绑定前一源码候选`73384ff7efa175b3715dbcd6b5e8ef1c77b587cf`。该提交之后的README/报告提交使它不再是当前HEAD；服务保持STOPPED，不再运行。任何后续新运行需对最终HEAD重新fresh admission及独立审查；attempt102/101/90不重放。
+
 # S11 实施计划执行续行（2026-10-22 10:04 UTC）：V2 修复完成计划启动与运行门结果
 
 继续现有项目`YD-S11-FOLLOWUP-LAB-V1` / #35。当前执行批次标识为`YD-S11-REPAIR-COMPLETION-V2`；它只组织#35内尚未完成的实现顺序，不改需求或验收标准、不新建Issue。
