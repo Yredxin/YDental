@@ -1,3 +1,9 @@
+## attempt90零请求、停止拒绝与launcher等待上限（2026-10-22）
+
+- Attempt90精确回执 `.local/s11/receipts/s11-http-stability-d5e35aa-attempt90.json` SHA-256 `d7d9ebe4e32eb63704a0a0e6608909430d0`：PID归属断言在HTTP dispatch前失败，request_count=0、无HTTP状态；GDB child正常exit，无signal/core。`stop_command_exit=2`仍为未解决拒绝，不因事后STOPPED/端口空闲读数而消除。
+- 独立只读后核验 `.local/s11/verification/s11-http-stability-attempt90-post-readback.json` SHA-256 `d56a55656e30895c99513d450a6a6003c26054b2ffaef3834582fdc1e515150b`：224保护计数、固定D/C投影、runtime/admission哈希及事务rollback/idle/close通过；证据不外推为数据库完整性全证明。
+- `launcher.py`将外部停止等待由35秒改为75秒，覆盖child 30+5、GDB组30+5、额外5秒调度余量。单测日志 `.local/s11/verification/launcher-stop-bound-d5e35aa-final2-unittest.log` SHA-256 `5604da592f7f774ce74b6ac149daf478855315df7bedcd68b2f81290c9590eea`：31项通过；py_compile/diff-check通过；Ruff不可用。独立静态代码review PASS。没有重启服务或重试HTTP。
+
 ## Failed S11 clock addon init reconciliation (2026-10-21)
 
 - Candidate/admission: `a2a6f331a51bf533a9ddaa61a1d0725cea278f7a`; fresh admission `.local/s11/receipts/s11-fresh-admission-a2a6f33-20261021T090249Z-ecf2f261372649b8.json`, SHA-256 `cda6eb8cf76b55dd70d7508d1a96769dc1e3272260083d92226eb9c1adc2ab13`; independent reviews PASS.

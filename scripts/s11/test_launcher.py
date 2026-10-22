@@ -20,6 +20,13 @@ SPEC.loader.exec_module(launcher)
 
 
 class LauncherSupervisorTests(unittest.TestCase):
+    def test_stop_command_wait_covers_nested_gdb_shutdown_bounds(self):
+        child_stop_bound = launcher.STOP_GRACE_SECONDS + 5
+        gdb_group_stop_bound = launcher.STOP_GRACE_SECONDS + 5
+        scheduling_margin = 5
+        nested_cleanup_bound = child_stop_bound + gdb_group_stop_bound + scheduling_margin
+        self.assertGreaterEqual(launcher.STOP_COMMAND_WAIT_SECONDS, nested_cleanup_bound)
+
     def test_s11_clock_manifest_requires_fixed_candidate_and_private_paths(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)

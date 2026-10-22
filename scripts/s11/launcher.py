@@ -45,6 +45,9 @@ MAX_RUNS = 128
 MAX_TOTAL_RUN_BYTES = 512 * 1024 * 1024
 MAX_CORE_BYTES = 256 * 1024 * 1024
 STOP_GRACE_SECONDS = 30
+# The supervisor may spend one grace interval stopping its child and another
+# interval verifying/stopping GDB's process groups before removing its owner record.
+STOP_COMMAND_WAIT_SECONDS = STOP_GRACE_SECONDS * 2 + 15
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 PRIVATE_ROOT = REPO_ROOT / ".local" / "s11"
@@ -1239,7 +1242,7 @@ def stop_service() -> int:
             print(f"S11 owned service already exited: run_id={marker.get('run_id')}")
             return 0
         raise Refusal("verified supervisor disappeared before stop signal; no retry performed")
-    deadline = time.monotonic() + STOP_GRACE_SECONDS + 5
+    deadline = time.monotonic() + STOP_COMMAND_WAIT_SECONDS
     while time.monotonic() < deadline:
         if proc_start_ticks(pid) != ticks:
             print(f"S11 owned service stop requested and supervisor exited: run_id={marker.get('run_id')}")

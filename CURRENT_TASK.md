@@ -1,3 +1,12 @@
+# S11 状态续行（2026-10-22 03:54 UTC）：attempt90零请求失败与launcher停止等待修复
+
+- 当前分支 `codex/s11-followup-lab-r1`。attempt90运行候选为 `d5e35aaa903a8da14472cc2d6a5f55c3dcf819c1`；停止等待修复、测试与本状态记录已作为本地技术提交保存，不推送。新HEAD尚无fresh admission，服务仍STOPPED；受限scratch身份和既有数据保护不变。
+- attempt90只读HTTP稳定性探测在发送前因helper错误地把GDB supervisor PID当作Odoo listener PID而终止，实际 `request_count=0`、HTTP状态为空；不是HTTP失败或业务失败。run `20261022T034715Z-89cba07c6797` 的GDB child exit 0、无signal/core、`native_crash_evidence=false`。其stop命令exit 2，虽之后服务状态为STOPPED且18411拒绝连接，独立验收明确该停止拒绝未被后续状态消除；不得重启受影响服务。attempt90收据 `.local/s11/receipts/s11-http-stability-d5e35aa-attempt90.json` SHA-256 `d7d9ebe4e32eb63704a0a0a1e773a75ddb5a385cb6090326320e6608909430d0`。独立RO/RR后读回 `.local/s11/verification/s11-http-stability-attempt90-post-readback.json` SHA-256 `d56a55656e30895c99513d450a6a6003c26054b2ffaef3834582fdc1e515150b`：224保护计数、D/C投影、runtime/admission哈希一致，rollback/idle/close通过；只证明这些检查项，未证明完整数据库不可变。
+- 对launcher清理等待上限做普通技术修复：`stop_service()` 原等待35秒，小于supervisor最坏嵌套的子进程停止30秒+升级后等待5秒、GDB组停止30秒+5秒以及调度余量。现改为 `2 * STOP_GRACE_SECONDS + 15`（75秒），测试显式覆盖 `30+5+30+5+5`。这只修正外层等待时间，不宣称attempt90的停止拒绝已复现或根因已修复。
+- `python3 scripts/s11/test_launcher.py` 31/31通过，日志 `.local/s11/verification/launcher-stop-bound-d5e35aa-final2-unittest.log` SHA-256 `5604da592f7f774ce74b6ac149daf478855315df7bedcd68b2f81290c9590eea`；`py_compile`与`git diff --check`通过。Ruff命令不可用（当前system Python无ruff模块，预期venv亦无ruff可执行文件），未安装依赖。`launcher status`为STOPPED，loopback 18411连接被拒绝。独立代码复核PASS：确认75秒覆盖`30+5+30+5+5`最坏时序，停止路径仍只等已核验supervisor且不强制kill；review未启动服务、数据库或执行测试。
+- 自建临时ERP管理员UID2672此前已由Codex创建并独立只读验收；不会要求用户创建账号或提供凭据。其YDental应用组补充及目标clock组UI授权仍未执行；所有需HTTP/受影响运行路径均因attempt90的stop exit 2保持停止，须待该实际拒绝通过安全路径处置并针对新HEAD完成准入和独立复核后再评估。attempt90不重放。
+- `ROOT_CAUSE_UNDETERMINED`、旧F2 `EVIDENCE_GAP`保持。S11 `PARTIAL / RUNTIME_BLOCKED`、#35 OPEN；不push/merge/deploy/S12/S13。
+
 # S11 状态续行（2026-10-22 02:12 UTC）：自建管理员权限组与S11 scope续期
 
 - 分支 `codex/s11-followup-lab-r1`，当前HEAD `6910d8c9df96966a91865ea87303684c743f3164`，ahead 226、未push；本段状态文档尚待本次提交。指定scratch、OID 2144130、restricted role与cluster不变，owned service STOPPED，当前HEAD尚无fresh admission。原24小时scope于02:10:55Z到期后，按AGENTS本机S11授权续期至2026-10-23 02:12:34Z；receipt `.local/s11/receipts/scope-renewal-20261022T021234Z.json` SHA `d29c7ea4e73314b80c1690934026a3e98f78cc3c34d6c367c01c379fcde6d991`，runtime SHA `6058b1e819eb797ffb12d50705674e24978b7572e90336b9ff71f29e29af342c`。只更新本地scope和候选绑定，无数据库/OS时钟操作。

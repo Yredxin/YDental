@@ -1,3 +1,11 @@
+## 2026-10-22 03:54 UTC｜attempt90零请求边界与停止等待上限修复
+
+Attempt90的只读HTTP稳定性检查在发送前被本地PID绑定断言拦截，`request_count=0`、HTTP状态为空，因此没有HTTP结果或业务写入。GDB child exit 0、无signal/core、无native crash证据；但launcher stop返回exit 2，后续观察到STOPPED与端口空闲不能消除该真实拒绝，故保持受影响服务路径停止，不重试服务/HTTP。只读后核验PASS的范围为224保护计数、固定D/C投影、runtime/admission哈希和只读事务收尾，并非完整数据库不可变性证明。
+
+针对launcher自身可确认的时序缺陷，将外部stop等待上限从35秒改为75秒，以覆盖child停止30+升级等待5秒、GDB进程组停止30+5秒及5秒调度余量。新增测试显式校验这组边界。`python3 scripts/s11/test_launcher.py` 31项通过；py_compile与diff-check通过；Ruff未安装。独立静态代码复核PASS，没有运行服务或数据库。此代码修复不宣称attempt90的exit 2已被复现或根因已确认。临时管理员UID2672已由Codex创建并独立验收，用户无需提供账号或代建；其应用组授权仍受运行停止条件阻断。
+
+Evidence: attempt90 receipt `.local/s11/receipts/s11-http-stability-d5e35aa-attempt90.json` SHA-256 `d7d9ebe4e32eb63704a0a0e6608909430d0`; post-readback `.local/s11/verification/s11-http-stability-attempt90-post-readback.json` SHA-256 `d56a55656e30895c99513d450a6a6003c26054b2ffaef3834582fdc1e515150b`; test log `.local/s11/verification/launcher-stop-bound-d5e35aa-final2-unittest.log` SHA-256 `5604da592f7f774ce74b6ac149daf478855315df7bedcd68b2f81290c9590eea`. S11 remains `PARTIAL / RUNTIME_BLOCKED`; `ROOT_CAUSE_UNDETERMINED`; old F2 `EVIDENCE_GAP`; #35 OPEN. No push/merge/deploy/S12/S13.
+
 ## 2026-10-22 00:09 UTC｜合成ERP管理用户创建与独立读回
 
 用户授权Codex在S11指定scratch内自行建立测试管理员，以通过Odoo正常“Settings / Users”界面授予session clock测试组；本记录仅授权当前S11测试用途。代码候选`22d10130bc7e715fac629a11bf7d7b5b43013104`，分支`codex/s11-followup-lab-r1`。目标为`ydental_s10_test_20261017105432_ce6dcbf8`、OID 2144130、固定测试cluster，未访问生产/main。
