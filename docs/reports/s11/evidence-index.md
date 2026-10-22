@@ -1,3 +1,9 @@
+## S11 runtime凭据轮换与准入刷新（2026-10-22）
+
+- 一次内部工具输出意外包含了runtime数据库对象中的密码字段；值未写入仓库、Issue或交付文字。受限S11 scratch登录的自身密码已通过经独立静态审查的one-shot libpq `PQchangePassword`流程轮换；原role权限和业务对象不变，私有runtime mode 0600，改后只读登录核验通过。
+- Receipt `.local/s11/receipts/rotate-scratch-runtime-credential-c799-attempt1.json` SHA-256 `e1cb0984b3df4a09c53c2990aed6853888f1c34b4a7628b71ba4c02428273ba6`；新runtime SHA-256 `26763e9839aca1ad1fef3c4dc0082372faafe5ea10e1d9e7374d8ac11cfb3131`。没有输出或记录密码值。
+- `sudo -n -u postgres`的一次只读身份检查因需交互认证而未执行；未通过其他身份/入口重试。现有admission不匹配轮换后的runtime，需对文档提交后的最终HEAD重新RO准入和独立复核。服务STOPPED，HTTP运行门继续关闭。
+
 ## attempt90零请求、停止拒绝与launcher等待上限（2026-10-22）
 
 - Attempt90精确回执 `.local/s11/receipts/s11-http-stability-d5e35aa-attempt90.json` SHA-256 `d7d9ebe4e32eb63704a0a0e6608909430d0`：PID归属断言在HTTP dispatch前失败，request_count=0、无HTTP状态；GDB child正常exit，无signal/core。`stop_command_exit=2`仍为未解决拒绝，不因事后STOPPED/端口空闲读数而消除。

@@ -1,3 +1,11 @@
+## 2026-10-22 04:02 UTC｜S11 runtime凭据轮换与新准入边界
+
+独立准备任务的一次内部工具输出包含了本机S11 runtime数据库对象中的密码字段。密码本身不写入仓库报告、GitHub、聊天或交付内容，读取任务立即停止。为处理暴露，在指定scratch中仅由受限S11登录修改自身密码，角色权限和业务数据未变。改密helper由独立审查静态PASS，使用libpq `PQchangePassword`（依服务器 `password_encryption` 设置加密后提交），在更新私有runtime前核对原哈希，未知结果保留mode 0600 staged文件；运行后使用新凭据只读核验了scratch DB/OID/current role。凭据只存内存和mode 0600本机文件，未进入回执/日志。
+
+轮换回执 `.local/s11/receipts/rotate-scratch-runtime-credential-c799-attempt1.json` SHA-256 `e1cb0984b3df4a09c53c2990aed6853888f1c34b4a7628b71ba4c02428273ba6`，状态 `ROTATED_AND_RUNTIME_UPDATED`；新runtime SHA-256 `26763e9839aca1ad1fef3c4dc0082372faafe5ea10e1d9e7374d8ac11cfb3131`、mode 0600。一次 `sudo -n -u postgres` 的只读集群身份检查被本机以需交互认证拒绝，未执行SQL，未改走其他身份/入口重试；cluster依据限定为attempt90已独立核验且哈希固定的只读读回。改密不等于fresh admission，现存admission与新runtime SHA不匹配，全部旧pair不复用。
+
+本节及补充状态提交后，需对最终文档HEAD和新runtime单独做只读fresh admission并独立复核。服务仍STOPPED；stop exit 2仍未解决，HTTP/browser与业务写路径保持阻断。数据库完整性证据仅覆盖相应保护计数和固定投影，未宣称全库不变。#35 OPEN，S11 `PARTIAL / RUNTIME_BLOCKED`。
+
 ## 2026-10-22 03:54 UTC｜attempt90零请求边界与停止等待上限修复
 
 Attempt90的只读HTTP稳定性检查在发送前被本地PID绑定断言拦截，`request_count=0`、HTTP状态为空，因此没有HTTP结果或业务写入。GDB child exit 0、无signal/core、无native crash证据；但launcher stop返回exit 2，后续观察到STOPPED与端口空闲不能消除该真实拒绝，故保持受影响服务路径停止，不重试服务/HTTP。只读后核验PASS的范围为224保护计数、固定D/C投影、runtime/admission哈希和只读事务收尾，并非完整数据库不可变性证明。

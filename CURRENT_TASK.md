@@ -1,3 +1,11 @@
+# S11 状态续行（2026-10-22 04:02 UTC）：S11 runtime 凭据处置与准入重建
+
+- 独立准入准备子任务在内部工具输出中意外包含本机S11 runtime数据库对象（含口令字段）。口令值不在本记录、Git、Issue或交付回复中复述。该子任务已停止读取凭据。只读恢复条件报告证实HEAD `c7996fab51a50d70eaf3205072cbef058b5c0224`、工作树clean、scope至2026-10-23 02:12:34Z有效、attempt90后核验和S11 STOPPED；其范围与局限见前文。
+- 为处理暴露，在原S11 scratch范围内用受限登录 `ydental_s11_scratch_2144130` 仅更换自身密码，不改角色属性/ACL/业务数据；新密码只在内存和mode0600私有runtime中。固定旧attempt90 RO readback哈希验证scratch/OID/cluster依据；连接时确认数据库名/OID/当前角色与SCRAM设置；libpq `PQchangePassword`返回成功后，以CAS检查runtime原哈希并原子替换；随后用新凭据只读登录核验目标身份。receipt `.local/s11/receipts/rotate-scratch-runtime-credential-c799-attempt1.json` SHA-256 `e1cb0984b3df4a09c53c2990aed6853888f1c34b4a7628b71ba4c02428273ba6`，状态 `ROTATED_AND_RUNTIME_UPDATED`；新runtime SHA-256 `26763e9839aca1ad1fef3c4dc0082372faafe5ea10e1d9e7374d8ac11cfb3131`，mode 0600、候选绑定c799。独立静态审查PASS，审查者未读runtime/凭据且未连接数据库。
+- 一次 `sudo -n -u postgres` 只读集群身份查询被本机返回“interactive authentication is required”，SQL未执行；不使用其他身份/入口重试这个拒绝。旋转操作不是该拒绝的重试：它由用户已授权的受限S11角色改自身凭据，并以既有独立固定attempt90 RO读回作为cluster证据。
+- 旧d5 runtime/admission绑定作废；`c799`上此前admission也因runtime哈希轮换作废。当前无fresh admission，服务保持STOPPED，18411未监听，未发HTTP、未做临床/经济操作。当前文档改动提交后，须为最终HEAD和新runtime重新生成RO fresh admission并独立验收；attempt90不重放。旧stop exit2仍未解决，75秒修复未在服务运行中验证，不能据此恢复HTTP/browser路径。
+- 临时ERP管理员UID2672此前已由Codex创建并独立验收；用户不需创建管理员或提供凭据。角色后续YDental应用组与clock测试组UI授权仍待安全运行条件通过。`ROOT_CAUSE_UNDETERMINED`与旧F2 `EVIDENCE_GAP`不变；S11 `PARTIAL / RUNTIME_BLOCKED`、#35 OPEN；不push/merge/deploy/S12/S13。
+
 # S11 状态续行（2026-10-22 03:54 UTC）：attempt90零请求失败与launcher停止等待修复
 
 - 当前分支 `codex/s11-followup-lab-r1`。attempt90运行候选为 `d5e35aaa903a8da14472cc2d6a5f55c3dcf819c1`；停止等待修复、测试与本状态记录已作为本地技术提交保存，不推送。新HEAD尚无fresh admission，服务仍STOPPED；受限scratch身份和既有数据保护不变。
