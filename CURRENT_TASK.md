@@ -1,3 +1,14 @@
+# S11 attempt14 UID2672应用组授权及独立读回（2026-10-22 UTC）
+
+- 现场核验：branch=`codex/s11-followup-lab-r1`，实施前HEAD=`bf7bc9d69c931ba20dc542b5d3cc7a45c72afb13`，工作区干净，ahead origin 250；产品候选`7510f03838a276be3e572af6e25c9826b6a74955`。不回退或覆盖已完成成果，不重跑attempt102–106，不push/merge/deploy。
+- attempt14 runner/helper源分别为`.local/s11/operations/run_grant_ydental_base_access_uid2672_7510f03_admin_appgroup_attempt14_gdb.py` SHA `0860fa93959fb04312a2578c4be1f523c71ad33cdd1ed570adae49350d061474`及`grant_ydental_base_access_uid2672_7510f03_admin_appgroup_attempt14_once.py` SHA `b842bbdcb43c1e930a6bbfc7b700e50883b29b29761b02cd4ecd5a6a88dc93c4`，由未实现者静态审查PASS。它固定fresh admission attempt5（receipt SHA `ad71001f6bb50ace44585a025368efeb1e82e6830dcf17e20f9d12d1589b08df`），使用绝对Python/script argv。
+- 唯一新的一次性attempt14于`2026-10-22T12:07:18Z`开始，只对UID2672执行ORM `Command.link`到`ydental_base.ydental_base_group_user`。helper receipt `.local/s11/operations/ydental-base-group-uid2672-7510f03-admin-appgroup-attempt14.json` SHA `9315a9f89738afbe14eb53175e328d6944def5be44be5e5a7107a4f6440ddc5e`；runner receipt `.local/s11/operations/ydental-base-group-uid2672-7510f03-admin-appgroup-attempt14-runner.json` SHA `a53c39b0823b50b7b2e2ebe22b47a1b19e204d43d86d8360f988d93e1640586d`；GDB日志SHA `cf916c98ab15265047c93d5454359a4dd72d01b7ecb6ab50b1e11f54fded8662`。runner及helper初始状态为`COMMITTED_PENDING_INDEPENDENT_READBACK`；GDB/runner exit 0、无Native crash，owner服务STOPPED。没有HTTP请求。
+- 未实现者的独立只读读回PASS：`.local/s11/verification/uid2672-attempt14-postgrant-independent-ro-20261022T120946Z-8df4fb26.json` SHA `371bd5c94465572e1a6daf6b3bd8aae5859bf2f31bf6184871db38f75c93dd2d`。UID2672 active/company1；direct groups从仅`base.group_erp_manager`增为再加批准应用组；effective delta仅应用组和native `base.group_allow_export`（其他隐含base用户组早已有效）；无`base.group_system`。目标clock组四UID `[2466,9,2043,2670]`都仍未获组，排除UID2666未变化。99个模块、D/C及外部状态匹配准入。
+- 224保护计数中223项不变；`mail_message` +1已调查并独立归因于attempt14原生tracking审计行（id 21285，model=`res.users`、res_id=2672，时间比helper提交早0.210秒；GDB log记录同一UID和group 17的`Command.LINK`）。不是未知业务提交；这项native审计变化明确保留在receipt。RO/RR/UTC事务显式rollback、idle/close；service STOPPED、端口空闲。
+- 下一步：按批准范围只用原生Users UI向UID `[2466,9,2043,2670]`授`ydental_s11_clock_test.group_operator`，不得包括UID2666/2672；保留attempt15未发保存的历史，使用唯一新attempt。runner必须绑定attempt14独立读回和当前fresh admission/报告HEAD，先独立静态复核。授权后独立读回，用批准身份验证clock可用，再禁用UID2672并独立确认。之后按原plan继续合成临床、postcommit/claim/sink、lab收发/返工追加收费、新F2、影响回归及独立总验收。attempt102–105仍原FAIL；attempt106只证明GDB监督下的匿名GET，不作普通运行稳定性通过。S11仍PARTIAL，#35 OPEN。
+
+---
+
 # S11 attempt11 权限授予前置故障（2026-10-22 UTC）
 
 - 现场核验：branch=`codex/s11-followup-lab-r1`，HEAD=`517981a550600b3fd6a3e2d40ca6fd2dd35f8f4e`，工作区干净，ahead origin 249；产品候选`7510f03838a276be3e572af6e25c9826b6a74955`。不回退或覆盖已完成成果，不重跑attempt102–106，不push/merge/deploy。

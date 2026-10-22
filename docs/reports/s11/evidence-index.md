@@ -1,3 +1,13 @@
+## 2026-10-22 UTC｜UID2672 attempt14应用组授权独立核验
+
+|证据|路径 / SHA-256|结果与限制|
+|---|---|---|
+|attempt14 helper|`.local/s11/operations/grant_ydental_base_access_uid2672_7510f03_admin_appgroup_attempt14_once.py` / `b842bbdcb43c1e930a6bbfc7b700e50883b29b29761b02cd4ecd5a6a88dc93c4`|只链接UID2672的`ydental_base.ydental_base_group_user`；独立静态复核PASS。|
+|attempt14 runner|`.local/s11/operations/run_grant_ydental_base_access_uid2672_7510f03_admin_appgroup_attempt14_gdb.py` / `0860fa93959fb04312a2578c4be1f523c71ad33cdd1ed570adae49350d061474`|绑定fresh admission attempt5、候选7510f03、报告HEAD bf7bc9d和固定helper；exit0、service STOPPED、无Native crash。|
+|ORM helper receipt|`.local/s11/operations/ydental-base-group-uid2672-7510f03-admin-appgroup-attempt14.json` / `9315a9f89738afbe14eb53175e328d6944def5be44be5e5a7107a4f6440ddc5e`|唯一ORM `Command.link` 已提交；状态保守标记`COMMITTED_PENDING_INDEPENDENT_READBACK`。|
+|runner receipt / GDB log|`.local/s11/operations/ydental-base-group-uid2672-7510f03-admin-appgroup-attempt14-runner.json` / `a53c39b0823b50b7b2e2ebe22b47a1b19e204d43d86d8360f988d93e1640586d`；GDB log SHA `cf916c98ab15265047c93d5454359a4dd72d01b7ecb6ab50b1e11f54fded8662`|run id `20261022T120718Z-ydental-base-uid2672-attempt14-67da19c46c1a`；执行成功，不含HTTP。|
+|独立未实现者postgrant RO|`.local/s11/verification/uid2672-attempt14-postgrant-independent-ro-20261022T120946Z-8df4fb26.json` / `371bd5c94465572e1a6daf6b3bd8aae5859bf2f31bf6184871db38f75c93dd2d`|PASS：直接新增app group；有效新增该组和原生`base.group_allow_export`，无system组；批准clock UID仍未授权。224计数中仅`mail_message`+1，经时间、UID、模型与GDB变更行确认为该次native tracking记录；D/C、模块、外发状态及只读事务/停止核验PASS。|
+
 ## 2026-10-22 UTC｜UID2672 app group attempt1 no-commit核验
 
 |证据|路径 / SHA-256|结果与限制|

@@ -1,3 +1,15 @@
+## 2026-10-22 UTC｜UID2672 YDental应用组授权闭环
+
+现场branch=`codex/s11-followup-lab-r1`，实施前HEAD `bf7bc9d69c931ba20dc542b5d3cc7a45c72afb13`，工作树干净/ahead origin 250；执行候选仍为`7510f03838a276be3e572af6e25c9826b6a74955`。attempt102–105保留原FAIL，attempt106不重跑，且仅是GDB监督的一次匿名GET证据。
+
+在既有fresh admission attempt5和未实现者静态复核PASS后，唯一一次性attempt14通过Odoo ORM只给UID2672的`group_ids`链接`ydental_base.ydental_base_group_user`。helper receipt SHA `9315a9f89738afbe14eb53175e328d6944def5be44be5e5a7107a4f6440ddc5e`，runner receipt SHA `a53c39b0823b50b7b2e2ebe22b47a1b19e204d43d86d8360f988d93e1640586d`，GDB log SHA `cf916c98ab15265047c93d5454359a4dd72d01b7ecb6ab50b1e11f54fded8662`。runner/helper原标记`COMMITTED_PENDING_INDEPENDENT_READBACK`；执行exit0、无Native crash、服务STOPPED。
+
+未实现者独立只读读回PASS：`.local/s11/verification/uid2672-attempt14-postgrant-independent-ro-20261022T120946Z-8df4fb26.json` SHA `371bd5c94465572e1a6daf6b3bd8aae5859bf2f31bf6184871db38f75c93dd2d`。UID2672身份及company1不变；direct group仅新增批准应用组。effective delta为应用组及本地模块定义的native `base.group_allow_export`；没有`base.group_system`。批准clock目标UID2466、9、2043、2670仍未授权，排除UID2666未变化。224保护计数中223不变；`mail_message` +1通过只读行级检查确认为UID2672同一组变更的原生tracking记录（id21285、`res.users`、时间差约0.210s），在receipt单列；D/C、99模块和external state匹配admission。RO/RR/UTC显式rollback、idle-close及STOPPED/portfree均PASS。
+
+下一步为唯一新attempt经原生Users UI向批准四UID授`ydental_s11_clock_test.group_operator`，attempt15零保存派发历史保留；授权后独立读回，验证获批身份的clock功能并禁用UID2672，再继续原plan临床来源→提交→postcommit/claim/sink、义齿lab/收货入库/返工追加收费、新F2并发、影响回归和独立总验收。S11仍PARTIAL、#35 OPEN；不push/merge/deploy/S12/S13。
+
+---
+
 ## 2026-10-22 UTC｜UID2672 app group attempt1失败后独立确认未提交
 
 现场branch=`codex/s11-followup-lab-r1`、HEAD=`8c84d574ad8ab5eeb63144960922c9e85391286c`，产品候选固定`7510f03…`，scope有效至2026-10-23T02:12:34Z。
