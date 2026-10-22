@@ -1,3 +1,16 @@
+## 2026-10-22 UTC｜clock角色授权前置只读基线 PASS
+
+续行时现场HEAD=`4bc979b07e71b05feb27e011acdd67cfdf1e6ea6`，分支`codex/s11-followup-lab-r1`，tracked工作区clean，ahead origin 245；产品候选仍为`7510f03838a276be3e572af6e25c9826b6a74955`。未启动应用。
+
+- helper `.local/s11/verification/admin_clock_groups_7510f03_pregrant_readonly.py` SHA `043d0d9c86d40d6affbe437be1dddabbeebfcce4dbc75468a9881d6271bd2f5c`由`plan_gap_static_audit`静态审查PASS后运行一次。此前一次系统Python调用因缺少psycopg2在数据库连接前退出；无连接、写入或授权变化，不重放。receipt `.local/s11/verification/admin-clock-groups-7510f03-pregrant-readonly.json` SHA `b475b91a50be8969163c569b7ec16898298ebde86ab3463657b475b2f4dcb96d`获独立离线核验PASS。
+- 实读身份：DB/OID2144130、cluster ref 7694897083368259627、角色`ydental_s11_scratch_2144130`。UID2672 login与批准记录相符，active/internal/company1，直接组只有`base.group_erp_manager`，有效组没有`base.group_system`。应用组`ydental_base.ydental_base_group_user`存在，当前DB ID17；clock组`ydental_s11_clock_test.group_operator`为批准ID69。目标UID2466、9、2043、2670均active/internal/company1且clock组不在有效组；排除UID2666也无clock组有效权限。
+- 唯一拟做变更仍为通过正常授权入口向UID2672的`group_ids`追加`Command.link(ydental_base.ydental_base_group_user)`。该组隐含`base.group_allow_export`、`base.group_user`及`base.group_user_regular`；后两者已在管理员有效组，所以预期有效权限增量还包括`base.group_allow_export`。尚未执行任何组写入。READ ONLY/RR/UTC事务显式回滚；helper运行时检查idle及cursor/connection关闭，但receipt没有存这些字段。receipt的`no_business_sql_or_write`标记命名过宽，真实事实为执行目录身份只读SELECT、无业务写入。
+- 后续顺序：独立审查且一次性完成唯一ORM组链接；独立读回后通过原生Users UI仅向批准四身份授clock组；独立读回并以获批测试身份验证clock只读使用；最后禁用UID2672并读回。attempt15仍是原生Users菜单403、零目标保存dispatch，不重放。
+
+S11仍PARTIAL、#35 OPEN。attempt102–105仍原FAIL；attempt106仅为GDB监督下的一次匿名GET成功，不代表普通运行稳定性。业务临床来源、postcommit/claim/sink、义齿采购收发/返工追加收费、新F2并发、影响面回归和独立总验收仍未完成。
+
+---
+
 ## 2026-10-22 10:42 UTC｜继续S11修复：attempt102阻断定位，attempt106有界GET完成
 
 ### 本次续行起点与文件绑定

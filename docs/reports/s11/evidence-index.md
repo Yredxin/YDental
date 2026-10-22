@@ -1,3 +1,11 @@
+## 2026-10-22 UTC｜clock角色前置只读核验
+
+|证据|路径 / SHA-256|结果与范围|
+|---|---|---|
+|角色基线只读helper|`.local/s11/verification/admin_clock_groups_7510f03_pregrant_readonly.py` / `043d0d9c86d40d6affbe437be1dddabbeebfcce4dbc75468a9881d6271bd2f5c`|独立静态审查PASS；强制项目venv、候选/pair哈希、UID与组范围、只读SQL/回滚、错误脱敏。执行一次。|
+|角色基线receipt|`.local/s11/verification/admin-clock-groups-7510f03-pregrant-readonly.json` / `b475b91a50be8969163c569b7ec16898298ebde86ab3463657b475b2f4dcb96d`|独立离线读回PASS；DB/OID/角色匹配；UID2672直接只有ERP manager、无system；clock ID69；UID2466/9/2043/2670均active/internal/company1且无clock有效组；排除UID2666也无clock有效组；service STOPPED/port free前后。没有业务写入。receipt未记录cursor/connection关闭字段，但helper执行逻辑检查了idle并关闭。|
+|准备中的最小授权|尚未执行|仅允许ORM链接`ydental_base.ydental_base_group_user`到UID2672。预期有效组新增包括`base.group_allow_export`，已在当前有效集的base user/regular不算新增。需独立实现后验收，再做原生Users UI clock组授予。|
+
 # 2026-10-22 10:42 UTC｜attempt102阻断修复至attempt106最小GET证据
 
 续行现场HEAD `07d2713d6cd413a3b9f60c891883c4e381648da0`，branch`codex/s11-followup-lab-r1`，工作区干净/ahead origin 244。attempt106未重跑。其receipt `.local/s11/receipts/s11-http-stability-7510f03-attempt106.json` SHA `193d1f224c5cfc3aaab44aaaf2aa68f1b170df417e7e5c15c8cd6a50d2e45aca`绑定实际helper/runner `.local/s11/verification/s11_http_stability_7510f03_attempt106.py` SHA `cb15d80c257cbbb1f85e0852e25e43a2113574c11fbad52d1f4863d127f23e2c`及launcher `scripts/s11/launcher.py` SHA `11258b209806bcdfd35afc7319fecb629664b68df55f82130f059b7d909dbec5`；后一文件属于执行候选提交7510f03，前者为私有attempt runner并显式固定CANDIDATE=`7510f03…`，不在Git中。
