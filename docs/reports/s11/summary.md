@@ -937,3 +937,39 @@ The prior 24-hour S11 scope expired at `2026-10-22T02:10:55Z`. Under the local S
 - Attempt4 helper `.local/s11/verification/fresh_admission_b08592a_attempt4_readonly.py`, SHA-256 `c22bdac942a9b56f062cec41896af39a46e96618d8cf6202af1a84810f6470b2`, mode 0600, passed exact-SHA independent static review. It used a persistent O_EXCL latch and was executed once under private staged capture. Exit 1, output `FAIL_CLOSED/KeyError`; stdout SHA-256 `08ca8a3e2b52433c77a826afd6357fcb3a6d67cf105a127e9f4bb37e71cc3245`, empty stderr SHA-256 `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`, runner metadata SHA-256 `dc8dde9d9cc6db8004cf16b1f764c7afb5074f17180c2cc0b291cb9dc881b0a7`.
 - Offline source/data comparison found the precise pre-connect cause: the attempt89 receipt has `admin_attribution_delta`, while attempt4 line 5833 indexed nonexistent `attempt63_admin_attribution`; the normalized history mapping already maps the latter internal name to the former receipt key. This exception occurred before `connect(db)`, so attempt4 made no DB connection or SQL call. The attempt4 latch remains; no attempt4 admission receipt or recovery manifest exists. Runtime SHA remains `e1044582a16236833087dbf0a4527798989e96f00ee4a2b7087ad5a39f0a7f47`, and admission SHA remains `ef148e8345a5792856acce0dd1f3becdde80da22a383c84aab3de73952d310db`.
 - Next: fix the receipt-key access in a new attempt5 helper, add a local schema regression check, freeze and independently review its exact SHA before a single RO/RR admission run. No service start, HTTP, or business write has occurred in attempts1–4. The unresolved attempt90 stop exit 2 remains a separate recovery-evaluation item.
+
+## 2026-10-22 09:13 UTC｜attempt101 stop 拒绝与 S11 剩余影响矩阵
+
+状态核验保持原分支 `codex/s11-followup-lab-r1`、候选 HEAD `282dfa0bc065749be3387f5328b9e5598064953e`；本节写入前tracked工作树干净，ahead origin 232。此次未重放任何旧业务或失败请求。
+
+### SIGSEGV / 有界恢复事实
+
+attempt101 helper `.local/s11/verification/s11_http_stability_282dfa0_attempt101.py` SHA-256 `aa4a1aedbd05c943bf2534af7645edeb906fec4d2d0d0e35eda6dad51bdf74be` 经独立静态审查PASS，review `.local/s11/verification/s11-http-stability-attempt101-static-review.json` SHA-256 `2177350c66041568a8c2d3a58c36b42c11cb8b1cb4a656251761e20efcad9f37`。一次运行在dispatch前停止，GET `/ydental/queue/screen` `request_count=0`，没有HTTP响应；不构成HTTP稳定性PASS。
+
+run `20261022T091000Z-fbe7345b5861` 的GDB exit receipt `.local/s11/runs/20261022T091000Z-fbe7345b5861/exit.json` SHA-256 `71d794509bfd3377abe4ab7f9a4428809e0f611e7ff445fef5baa76c858c02ba`：child exit 0、无signal、无core、`native_crash_evidence=false`、最终owned process group stopped。launcher stop命令只调用一次但exit 2；保存stderr `.local/s11/operations/s11-http-stability-attempt101-stop.stderr` SHA-256 `8337f0b871f59c512d4a7a28489c2d300acc03871c43f5b594283bd93e85f608`，明确记录supervisor未在有界等待内退出、未发force kill。attempt101业务回执 `.local/s11/receipts/s11-http-stability-282dfa0-attempt101.json` SHA-256 `77649a312a6d8b227eb04ae5092386ece98977e0e82f8b553c4833df11fda326`记录STOPPED。receipt中的pre/post RR READ ONLY核验对比224保护计数、D/C摘要及目标身份一致，且显式rollback/idle/close；单独字段 `post_readback_required.performed=false` 表示额外命名的后读回核验未运行。独立运行证据审阅确认server metadata未发现目标GET记录。STOPPED与端口空闲的已留存证据不抹去stop exit 2。
+
+按真实工具拒绝和既定停止条件，不重启该路径、不再次调用stop、不改命令入口规避拒绝，也不重试attempt101/90。attempt4 fresh admission只读准入成功但已过运行时限，且本身不等于恢复评估通过。`ROOT_CAUSE_UNDETERMINED`保持；本次没有复现或修复SIGSEGV。
+
+独立运行证据审阅为 `FAIL / NO HTTP REQUEST`，未连接数据库、服务或端口，也未重跑命令；证据源为上述attempt101回执、GDB exit、stop捕获及runner日志。该审阅确认回执记录的pre/post保护投影匹配，同时限定服务端目标GET没有日志证据，不将无访问日志解释成产品HTTP拒绝或请求已处理。
+
+### 已完成且不重做
+
+- 42项MODEL、限定带数据升级及保护检查沿用已有独立证据。
+- 真实数据库费用来源约束审计已在候选102e50f完成，见本报告2026-10-21 06:07节及 `CURRENT_TASK.md`：三来源validated CHECK恰一非空；fee、lab charge、adjustment三列各有validated UNIQUE；数据库列保持nullable；RR/READ ONLY显式ROLLBACK/IDLE/close。不能为历史NOT NULL升级warning改列或清理合法NULL，也不重复审计。
+- 合成ERP管理员UID2672已由Codex建立并独立读回；当前没有要求用户建号。YDental用户界面组及测试角色clock组未授权，等待运行前置和正常Users UI路径。
+- session-scoped debug clock入口已实现，已有SOURCE和部分UI/持久化读回记录。按用户最新决定，后续在运行门解除后可推进合成session业务日期以触发预约/交期测试；不改本机、PostgreSQL或真实审计时钟。记录必须同时保留模拟业务时间和真实系统/审计时间。
+- 用户批准并已完成独立合成义齿工坊/资质及原生采购服务行准备；PO164/P00169 USD125、5个日历日，原生计划交期为2026-10-26 05:51:53.939916 UTC。运行恢复后可将合成业务时钟推进到交期并通过正常应用流程测试收货/入库；结果必须标记为合成测试动作，不得表述成现实供应商已实际送货。该采购单不替代临床义齿来源，PO147–149不读不改。
+
+### 剩余影响面与验收门槛
+
+| 范围 | 已有真实证据 | 尚缺验收 | 依赖 / 停止条件 |
+|---|---|---|---|
+| F1 / 合成临床 lifecycle | patient682正常预约、到店和task1183报到，产生原生FIFO entry716；patient683登记；此前patient265 follow-up真实浏览器闭环 | 合法按FIFO接诊、文书/治疗确认与收费来源；新合成event的已提交状态独立读回 | 运行路径恢复；原生队列可接诊且不越序；可用获批session debug clock推进patient683的合成预约业务日期；保护patient650/task720 |
+| T05/T12 postcommit通知 | callback接线、dispatch/claim/sink有分层MODEL证据；受控sink源码路径存在 | 正常来源提交→postcommit自动派发→独立已提交claim→controlled sink终态及无外部邮件/短信/provider的真实链 | 合法临床来源与运行恢复；不得造孤儿job或将模型测试冒充提交链 |
+| T08 / F3-F4 义齿采购与收发 | 合成workshop/vendor已按原生流程建立/核验；PO164/P00169已由正常采购角色确认；T08 discard与T16竞态有既有证据 | 临床义齿来源、lab order、合成收货/入库、适用返工或supplier_return的来源与库存/成本/费用读回 | HTTP/数据库运行恢复、合格测试角色和原生来源；session debug clock可将合成业务日期推进至PO交期，receipt需同时保留真实审计时间并标明为合成，不冒充现实供货；不接触PO147–149 |
+| 返工追加收费 | 三来源互斥catalog约束已验收，既有返工/费用模型覆盖 | 来自真实已完成来源的追加费用写入、原生发票及贷项/返工不变量读回 | 合法临床/返工来源、价格权限和正常账务角色；不手造来源或改历史账务 |
+| F2 新竞争 | 旧loser响应/backend PID已确认缺失，历史状态为 `EVIDENCE_GAP` | 全新、独立标记的双请求、原始两路结果/backend PID/事务状态和唯一经济终态 | 只在运行恢复评估通过后；不得重放历史竞争 |
+| F5 / 影响面 | T06/T16/T17已有各自限定并发与提交态读回；42 MODEL及限定升级已通过 | 适用并发、此次最终候选受影响模块回归及独立综合验收 | 先有固定候选和安全运行许可；只补受影响/未验收范围，不重做已接受事实 |
+| Debug clock / 用户授权 | session-scoped入口已实现；临时admin已创建 | 给最小测试角色按正常UI授权；在新owned run验证set/advance/clear及临床页面读取 | 运行门、正常YDental UI访问组及独立读回；仅推进合成session业务时间，系统/数据库/审计时间保持真实 |
+
+当前真正阻断是attempt101 launcher stop exit 2触发的运行路径停止门，而非缺少管理员或外部义齿厂商：前者已由Codex创建，后者已由用户批准合成实体。不能把STOPPED后态说成恢复成功。#35保持OPEN，S11 `PARTIAL / RUNTIME_BLOCKED`；不push/merge/deploy/S12/S13。
