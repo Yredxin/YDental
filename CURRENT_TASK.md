@@ -1,3 +1,11 @@
+# S11 会话续行（2026-10-22 09:29 UTC）：attempt101 离线独立复核完成；运行门不变
+
+- 文档更新前现场核验：分支 `codex/s11-followup-lab-r1`，HEAD `c41446e91147ec96fadb5bc95fdb5554552df781`，tracked/untracked 工作区干净，领先 `origin/codex/s11-followup-lab-r1` 234个提交。与用户提供的已知交接一致；无切换、重置、清理或副作用重放。
+- 已离线核对 attempt101 receipt、GDB exit、runner/launcher输出、stop输出及当前 `scripts/s11/launcher.py`。文件哈希与 `docs/reports/s11/summary.md` 一致；GET `request_count=0`，GDB child exit0、无signal/core，process group最终停止；唯一 stop 调用 exit2，stderr明确记录75秒有界等待未见 supervisor退出且未force-kill。receipt虽记录最终STOPPED，但 `post_readback_required.performed=false`，不能抹去stop拒绝。
+- 独立静态复核认为现有证据不能证明安全恢复条件：未能确定有界等待超时原因；单纯增加等待或把事后STOPPED当成功均属猜测。遵守停止条件，不重启、不再次stop、不改入口、不重跑attempt90/101；运行路径保持阻断。
+- 独立T05/T12源码审查确认postcommit、独立claim及controlled sink源码路径存在，但现有测试分别mock回调/claim或直接调用sink；无合法临床来源提交到sink的完整实证，也没有可通过代码修改关闭该证据缺口的安全产品变更。其余临床、义齿、账务、新F2和运行回归仍依赖恢复门、正常UI授权/FIFO/原生来源，暂没有可独立完成的业务操作。
+- 本次只做离线只读审查；未运行测试、服务、HTTP、浏览器或数据库，也未做业务写入。更新本文件、`docs/reports/s11/summary.md`与`docs/reports/s11/evidence-index.md`后固定本地文档候选；S11仍 `PARTIAL / RUNTIME_BLOCKED`，#35保持OPEN。只允许正常本地提交，不push/merge/deploy，不启动S12/S13。
+
 # S11 会话交接（2026-10-22 09:21 UTC）：剩余范围与条件阻断
 
 - 用户准备更换Codex会话。此交接继续现有`YD-S11-FOLLOWUP-LAB-V1`，不新建计划。交接前分支 `codex/s11-followup-lab-r1`、HEAD `22cf90793cb9fb799ef25b88132f7c823cde99c0`、tracked工作树干净、ahead origin 233；本节是待提交的文档更新。不要切分支、reset/clean/强推、重复业务操作或重放失败attempt。

@@ -1,3 +1,15 @@
+## 2026-10-22 09:29 UTC｜attempt101 独立离线复核与可继续范围
+
+文档更新前现场基线为 `c41446e91147ec96fadb5bc95fdb5554552df781`，分支 `codex/s11-followup-lab-r1`，tracked/untracked 工作区干净，ahead origin 234；与交接状态一致。仅作离线核验，没有运行测试、服务、HTTP/browser、数据库或业务动作。
+
+attempt101回执 `.local/s11/receipts/s11-http-stability-282dfa0-attempt101.json` SHA-256 `77649a312a6d8b227eb04ae5092386ece98977e0e82f8b553c4833df11fda326`、GDB exit `.local/s11/runs/20261022T091000Z-fbe7345b5861/exit.json` SHA-256 `71d794509bfd3377abe4ab7f9a4428809e0f611e7ff445fef5baa76c858c02ba`、stop stderr SHA-256 `8337f0b871f59c512d4a7a28489c2d300acc03871c43f5b594283bd93e85f608`及attempt helper SHA-256 `aa4a1aedbd05c943bf2534af7645edeb906fec4d2d0d0e35eda6dad51bdf74be`均与原记录吻合。request_count为0；GDB child exit0、signal/core均无、process group最终停止。唯一launcher stop调用exit2，明确为75秒内未见owned supervisor退出且未force-kill。receipt记录最终STOPPED及pre/post RR READ ONLY投影一致、rollback/idle/close，但独立命名的`post_readback_required.performed=false`。这些最终状态不能覆盖真实stop拒绝，也不能证明HTTP稳定性或SIGSEGV修复。
+
+独立静态复核比对固定候选源码与attempt101 launcher哈希一致，确认源码发送一次SIGTERM、轮询75秒后拒绝，不force-kill；现存证据不能确定超时原因。延长等待或将事后STOPPED视为成功没有证据基础，因此没有安全源代码修复/正常恢复条件可以授权后续runtime动作。保持停止门，不重启、不再次stop、不切换入口、不重跑attempt90/101，`ROOT_CAUSE_UNDETERMINED`不变。
+
+另一个独立源码审查映射T05/T12：正常来源事务的postcommit注册、独立durable claim及controlled sink分层源码路径存在；现有测试只覆盖mock callback/claim或直接以预置dispatching状态调用sink。缺口仍是正常临床来源提交→自动postcommit→独立claim→controlled sink的真实完整链。源码未显示可安全以产品代码修改替代该实证；依赖模型或新增mock测试不能关闭。其余临床/收费/T08/F2新并发与browser工作仍受运行门及FIFO、正常角色授权和来源事实约束，本轮没有可独立执行的业务副作用。
+
+结论：继续维持S11 `PARTIAL / RUNTIME_BLOCKED`、#35 OPEN。具体剩余项与保护条件见上文2026-10-22 09:13影响矩阵及`CURRENT_TASK.md`。仅文档状态更新，不push、merge、deploy或启动S12/S13。
+
 ## 2026-10-22 07:14 UTC｜c583 当前候选准入通过；HTTP恢复仍阻断
 
 当前docs-only候选 `c58367db75b3ca18ca9cb4c2253cd55f305f5636` 的fresh-admission delta helper SHA-256 `e1fda3067ea06e93a6156a20fe384babb2ba3b9d191b1be780472dfd8867bb68` 经未参与实施者独立静态PASS后只运行一次。准入PASS，receipt SHA-256 `7342d1af30af4b1faafbd88512746d0f2e3a9d00486bcb83a7f1ef713f9623fd`，admission SHA-256 `7c17edf60a4af51db5e34b0402604daba4ee32629ea5b0bd4fdb53389cae1f33`，恢复清单COMPLETED。检查指定scratch DB/OID/受限LOGIN属性和零角色membership、224张保护表、D/C投影、installed modules、外发渠道、READ ONLY/REPEATABLE READ/UTC显式rollback/idle/close；service执行前后STOPPED。cluster ID沿用attempt28固定证据并由活动连接的DB/OID/role/address/port比对，未在本次权限下直接读取`pg_control_system()`；跨库对象权限核验也沿用attempt28。本次没有HTTP、启动服务或业务写入。

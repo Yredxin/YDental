@@ -1,3 +1,9 @@
+# 2026-10-22 09:29 UTC｜当前交接状态
+
+- 本轮审查基线：`c41446e91147ec96fadb5bc95fdb5554552df781`，分支`codex/s11-followup-lab-r1`；审查开始时工作区干净、ahead origin 234。当前文档更新待本地提交。plan `YD-S11-FOLLOWUP-LAB-V1`仍为`PARTIAL / RUNTIME_BLOCKED`，Issue #35保持OPEN。
+- attempt101离线独立复核：GET请求数0；GDB child exit0、无signal/core，owned process group最终停止；单次launcher stop exit2，75秒有界等待拒绝，事后STOPPED不消除拒绝。没有可证明安全的恢复条件；不重启/再次stop/改入口/重跑attempt90或101。
+- 复核结论及剩余条件见[summary.md](summary.md) 2026-10-22 09:29 UTC；旧F1–F5/T01–T18分层证据与缺口继续有效。此索引不把来源源码、mock测试或STOPPED后态提升为HTTP、提交链或运行恢复通过。
+
 ## S11 c583 当前候选只读准入与独立恢复评估（2026-10-22 07:11–07:14 UTC）
 
 - delta verifier `.local/s11/verification/fresh_admission_c58367d_delta_attempt1_readonly.py` SHA `e1fda3067ea06e93a6156a20fe384babb2ba3b9d191b1be780472dfd8867bb68`：独立静态PASS；仅执行一次；只读RR/UTC检查、rollback/idle/close PASS。receipt `.local/s11/receipts/s11-fresh-admission-c58367d-delta-attempt1-20261022T071126Z-93aa46943cfce45d.json` SHA `7342d1af30af4b1faafbd88512746d0f2e3a9d00486bcb83a7f1ef713f9623fd`；admission copy SHA `7c17edf60a4af51db5e34b0402604daba4ee32629ea5b0bd4fdb53389cae1f33`；recovery manifest `COMPLETED`，runtime未变。cluster identity沿用attempt28并匹配当前DB endpoint，未直接读取系统identifier；跨库对象权限继承attempt28。
