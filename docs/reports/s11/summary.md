@@ -1,11 +1,11 @@
-## 2026-10-22 UTC｜最小权限核对发现 app group implication 漂移，暂停写入
+## 2026-10-22 UTC｜跨模块核实 app group implication，授权范围恢复
 
 现场branch=`codex/s11-followup-lab-r1`，HEAD=`24b9c86ec76bf2110a9362d781533c8c4548fb2a`，工作树在本节编辑前clean；ahead origin 246。产品候选仍固定`7510f03838a276be3e572af6e25c9826b6a74955`。UID2672授权未执行；临时管理员与目标组均未改变。
 
-- 独立review拒绝执行一次性GDB helper，精确helper SHA `3ef3225c2c5f7b59db81ef66e842f49febb65b14284877f3f7dbbe7a47418fd2`、runner SHA `d994093a96b1f605aca3e36de8d6e18d7df8cf6c97d6d2bf6b5821ac139faeff`。尚未启动helper、服务或数据库写入。
-- 已独立读取的只读角色receipt（SHA `b475b91a50be8969163c569b7ec16898298ebde86ab3463657b475b2f4dcb96d`）通过SQL读取`res_groups_implied_rel`，记录应用组ID17分别直接隐含`base.group_allow_export`、`base.group_user`及`base.group_user_regular`。这是现场DB快照事实；原始SQL只读，事务ROLLBACK。
-- 固定执行候选源码`ydental_base/security/ydental_base_security.xml:2-5`仅在`implied_ids`中声明`base.group_user`。固定Odoo核心`../odoo/addons/base/security/base_groups.xml`对`base.group_allow_export`写明`implied_by_ids=base.group_system`；`../odoo/addons/base/security/ir.access.csv`为`base.group_allow_export`赋予`ir.exports` CRUD。故把app group链接到UID2672可能超出批准范围，不能默认为无害或顺手删DB关系。`base.group_user_regular`在manager有效组中已存在，但`base.group_allow_export`当前不在该用户有效组中，预期会新增。
-- attempt16 UI helper可继续离线准备，但不得运行或假定UI grantor授权已完成。clock组目标仍为2466/9/2043/2670、排除2666；attempt15保持原件与`NO_SAVE_DISPATCHED`。后续申请只能按本地源码和目标权限语义解决该漂移后再动作。若需改变权限范围或允许额外export能力，需要用户决定；不从常规工具错误推导新授权。
+- 曾拒绝执行helper的独立review只读取了`ydental_base`和Odoo core。进一步源码审阅发现`ydental_access/security/ydental_access_security.xml:2-4`直接扩展同一个app group，声明隐含`base.group_allow_export`；该模块通过active admission固定的99个已安装模块清单确认已安装。因此它与RO receipt记录的app group→`base.group_allow_export`、`base.group_user`、`base.group_user_regular`三条直接边一致，不是数据库漂移。此前权限漂移判断撤回；无需用户改变授权范围，原问题已解决。
+- 这项有效权限确实包括`ir.exports` CRUD，UID2672授予app group后会新增`base.group_allow_export`有效组；`base.group_user`和regular当前已经有效。按用户批准的唯一直接组链接继续，但独立读回须明确验证direct/effective增量并确保system组仍缺席。
+- 原helper SHA `3ef3225c2c5f7b59db81ef66e842f49febb65b14284877f3f7dbbe7a47418fd2` / runner SHA `d994093a96b1f605aca3e36de8d6e18d7df8cf6c97d6d2bf6b5821ac139faeff`由独立review按初始疑点暂评FAIL；源码补全后正在重新审查，不得运行旧hash。尚未启动helper、服务或数据库写入。
+- attempt16 UI helper继续离线准备。clock组目标仍为2466/9/2043/2670、排除2666；attempt15保持原件与`NO_SAVE_DISPATCHED`。
 
 S11保持PARTIAL，#35 OPEN。临床、postcommit/claim/sink、lab采购收发/返工追加收费、新F2并发、影响回归及独立总验收均未完成。attempt102–105原FAIL不变；attempt106仍只证明GDB监督下一次匿名GET。
 
