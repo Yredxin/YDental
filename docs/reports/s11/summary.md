@@ -1246,3 +1246,24 @@ run `20261022T091000Z-fbe7345b5861` 的GDB exit receipt `.local/s11/runs/2026102
 未实现者独立复核判定BLOCK：两行同时间、作者和create_uid仅为相关性，不是因果证明。遵守既有限制，没有读取消息正文、地址或tracking新旧值。故不能把 `mail_message +2` 视为预期登录副作用，也不能发布新的fresh admission或开始后续写运行。attempt30原FAIL及其request_count=12、无membership POST事实保持不变。本轮不构成HTTP PASS或SIGSEGV复现。
 
 继续状态：`PARTIAL / RUNTIME_BLOCKED`，#35 OPEN。恢复运行的具体前置是取得不依赖敏感tracking值读取的独立来源归因；随后重做当前报告HEAD绑定的fresh admission，并按已审查attempt31流程开展一次新的受限UI运行。此前不启动服务。
+# 2026-10-22｜attempt30未决差异当前观察与独立出口
+
+## 原基线与历史未决项
+
+原基线引用 attempt48 receipt `.local/s11/verification/fresh-admission-7510f03-attempt48.json` SHA-256 `0e056c949db3754298f0b16664512b1e976baff7d9c1054647aec8da52046137`。其 `mail_message` count 为1120，且不含逐ID差集。本次不改 attempt30 原FAIL或保护预期；attempt30 postfailure RO receipt SHA-256 `fb8986adf92faaf6fb221c7f4af7c40b6236991d4386d17b8bdde61766059cf5`记录相对attempt48的 `mail_message +2 / ydental_access_audit +3 / ydental_access_session +1`。
+
+允许材料核查未找到直接操作提交证据。attempt31 metadata receipt列出ID21292 `res.users(2673)`和ID21293 `hr.employee(2641)`，attempt33再次在当前数据库定位到这两条并逐项确认安全metadata未变。因为attempt48没有message ID集合，无法证明这两条正是原基线后的全部新增ID；历史来源与精确ID差集均保持未证实。未读取正文、地址、tracking新旧值。
+
+## 当前观察基线
+
+attempt32只读观察失败回执保留，失败仅为权限继承边排序比较；事务rollback idle、cursor/connection关闭、service STOPPED。随后attempt33脚本 `.local/s11/verification/attempt30_current_observation_attempt33_ro.py` SHA-256 `b19520974d8223c427c9bc38c15475003137f4c057437fff85aae0ea03d9a43b`经独立静态复核后单次运行。receipt `.local/s11/verification/attempt30-current-observation-attempt33-ro.json` SHA-256 `a6e206f2479422caedd75b49ded5c8eefcf695f7b558c99f599c2965526a8068`为 `CURRENT_OBSERVATION_CAPTURED`；RO/RR/UTC、rollback idle、资源关闭、服务前后STOPPED/portfree均通过。
+
+当前224保护表相对attempt48的精确delta仍仅为那三项。D/C projection与attempt48 SHA相同。UID2673受限账号、公司、直接及有效组、employee/resource、Store2 membership/grant、company1 warehouse与组继承边投影匹配attempt48；登录创建的Store2 session与attempt30 postfailure记录匹配。UID2672公司/组/default-store与attempt48匹配，仍无employee或membership。ID21292/21293安全metadata匹配attempt31；recipient/cc/notification/mail_mail关系均为0。SMTP、SMS、live/published provider、followup外部参数四项计数与attempt48相同（均0）。这不证明历史邮件送达或外部接收状态。
+
+## 独立结论与下一步许可
+
+`attempt30_baseline_protection_review`独立结论：A BLOCK/UNPROVEN；B BLOCK；C只对“原生join不会消费或修改现存ID21292/21293”源码判断PASS，但未来路径可能新增tracking消息，且现有attempt31草案尚无完整独立post-readback verifier。另一个未实现者对join源码的独立检查确认：join作用于UID2672及其employee/membership；目前UID2672缺YDental base组，组变更和employee创建可新增chatter记录；不能假设mail_message计数不变。
+
+B未通过的明确缺口：本次没有在已有允许读取范围内对 patient650/task720、patient364/event417、PO147–149及旧资金/库存/审计保护对象逐项核当前字段/关系。attempt48/attempt33计数及D/C投影不能替代这些原保护对象字段/关系的当前检查；PO147–149原禁止读取限制继续生效，不因此扩展权限。
+
+因此不发布fresh admission、不启动服务、不发送新的join UI POST。要重新考虑限定续行，需先完成允许范围内的受保护旧对象字段/关系核验，并为下一操作固定attempt33 pre-state、通过独立审查的post-readback器：确认旧ID21292/21293字段和关系不变；列出并按来源核对所有新message IDs；逐项解释224表差异、目标用户/employee/membership、audit/session、D/C、通知队列和外发配置。任何意外增量均FAIL_CLOSED。当前S11 `PARTIAL / RUNTIME_BLOCKED`，#35 OPEN；新观察基线不减除或掩盖旧+2。

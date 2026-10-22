@@ -1,5 +1,14 @@
 # S11 最新会话交接（2026-10-22 23:28 UTC）
 
+# S11 续行｜attempt30未决差异当前观察与独立出口（2026-10-22）
+
+- 现场：branch `codex/s11-followup-lab-r1`；运行观察时HEAD `8edffd31baa002338ac9adae79ca764a567da2d8`，tracked tree clean；candidate `7510f03838a276be3e572af6e25c9826b6a74955`。服务始终STOPPED/18411空闲；此次只执行RO/RR/UTC观察，没有HTTP/UI/DB写或stop。
+- A历史归因：未找到将attempt30请求直接关联到这两条持久消息的证据。attempt30旧FAIL及postfailure差异不改：相对attempt48 `mail_message +2 / ydental_access_audit +3 / ydental_access_session +1`。当前观察到ID21292 `res.users(2673)`和21293 `hr.employee(2641)`，其安全metadata与attempt31 metadata回执完全匹配；但attempt48没有mail_message逐ID baseline，故不能证明其为精确ID差集，历史来源继续 `UNPROVEN`。
+- attempt32 RO尝试保留FAIL：receipt `.local/s11/verification/attempt30-current-observation-attempt32-ro.json` SHA `db0031f1433e7ec01d31fb76ccba5098b129af1b77e76703a94c8a422bdccbdb`，原因是组继承边列表排序比较不一致；rollback idle、资源关闭、服务停止，不重试该attempt。attempt33源码SHA `b19520974d8223c427c9bc38c15475003137f4c057437fff85aae0ea03d9a43b`经未实现者只读静态复核PASS后单次执行；receipt `.local/s11/verification/attempt30-current-observation-attempt33-ro.json` SHA `a6e206f2479422caedd75b49ded5c8eefcf695f7b558c99f599c2965526a8068`结果 `CURRENT_OBSERVATION_CAPTURED`。
+- 当前基线：224 protected counts相对attempt48的delta精确仍为上述三表变化；D/C projection SHA与attempt48一致。UID2673定义的账号/公司/组/员工/resource/membership/grant/warehouse/implied-edge投影匹配attempt48，登录后Store2 session匹配attempt30 postfailure；UID2672定义的公司/组/default-store投影匹配attempt48且仍无employee/membership。两条消息的recipient/cc/notification/mail_mail关联计数为0。SMTP/SMS/live provider/followup外部参数四项当前值与attempt48相同（均0）。这些只是受限投影：不能证明外部历史送达状态。
+- 独立审查（`attempt30_baseline_protection_review`）：A BLOCK/UNPROVEN；B BLOCK——受限账号、财务D/C、通知关联与外发配置投影已核，但patient650/task720、patient364/event417、PO147–149及旧资金/库存/审计等原保护对象没有在本次范围内做字段/关系的当前逐项读回。计数不能替代；PO147–149仍遵循原有禁止读取范围。C 源码层面PASS仅限“join不会消费/修改ID21292/21293”；计划路径可能新增tracking消息（目标组变化/员工创建及登录副作用），尚无已审查的逐ID post-readback运行器。第二独立源码复核同样判定执行条件不足。
+- 出口：A保留未证；B/C未满足完整限定续行条件，因此当前**不允许**发布fresh admission、启动服务或发下一次join UI POST。需先在既有允许读取范围内完成原保护对象字段/关系的当前核验；为未来POST固定attempt33为pre-state，并有独立审查通过的post-readback器逐项核ID21292/21293安全metadata不变、所有新增message IDs/来源、224表差异、UID2672与employee/membership、audit/session、D/C和通知/外发配置。任何额外未解释delta均FAIL_CLOSED。新观察基线保留旧+2，绝不删除、减去或改写attempt30预期。S11 PARTIAL、#35 OPEN。
+
 # S11 续行｜attempt30邮件来源有限源码复核（2026-10-22）
 
 - 现场核验：分支 `codex/s11-followup-lab-r1`，HEAD `a5ad2d639772ba4181b66eb417298924aa27bedb`，ahead 263，tracked工作区干净；执行候选 `7510f03838a276be3e572af6e25c9826b6a74955`。服务仍STOPPED；本轮未启动服务、未调用UI/HTTP、未写DB、未重跑attempt30/31或stop。

@@ -572,3 +572,13 @@ At candidate `4d126a6`, fresh pre-create admission passed (receipt SHA `93c21c58
 |未实现者独立复核|`attempt30_mail_attribution_review`：BLOCK。员工记录有可能的原生tracking路径，用户记录无已证来源；两条元数据的时间/作者/create_uid相关性不足。|
 |数据限制|未读取邮件正文、收件地址或tracking旧新值；不追加数据库查询、不修改旧receipt。attempt30 `mail_message +2`仍为未知受保护delta，不能计入预期基线。|
 |执行状态|本轮全离线；未启动服务、无HTTP/UI/DB写、未再stop。没有HTTP PASS或SIGSEGV新证据。禁止发布fresh admission或新的写运行，直至有独立安全因果证据。|
+# 2026-10-22｜attempt30未决差异当前观察基线
+
+|项目|固定证据与结论|
+|---|---|
+|原基线|attempt48 `.local/s11/verification/fresh-admission-7510f03-attempt48.json` SHA `0e056c949db3754298f0b16664512b1e976baff7d9c1054647aec8da52046137`，mail_message count 1120，无逐ID baseline。attempt30 postfailure receipt SHA `fb8986adf92faaf6fb221c7f4af7c40b6236991d4386d17b8bdde61766059cf5`原FAIL差异是mail_message+2/access audit+3/access session+1，保留。|
+|失败的观察草案|attempt32源SHA `61fb4209847f359a08684582881aada34f513357ad05872e4e0415105bedb6cc`；receipt `.local/s11/verification/attempt30-current-observation-attempt32-ro.json` SHA `db0031f1433e7ec01d31fb76ccba5098b129af1b77e76703a94c8a422bdccbdb`。只读运行FAIL_CLOSED，问题为受限组继承边列表排序；rollback-idle-close与service STOPPED/portfree通过，不重跑。|
+|当前观察|attempt33源SHA `b19520974d8223c427c9bc38c15475003137f4c057437fff85aae0ea03d9a43b`，未实现者静态审查PASS；receipt `.local/s11/verification/attempt30-current-observation-attempt33-ro.json` SHA `a6e206f2479422caedd75b49ded5c8eefcf695f7b558c99f599c2965526a8068`结果CURRENT_OBSERVATION_CAPTURED。RO/RR/UTC、rollback idle/close、service pre/post STOPPED/portfree通过。224计数delta精确匹配attempt30后核；D/C SHA与attempt48一致；账号/权限定义投影与对应baseline一致；外发配置四项为0并匹配attempt48。|
+|未决消息|当前ID 21292 `res.users(2673)`及21293 `hr.employee(2641)`存在，安全metadata与attempt31 receipt SHA `e3f220e1e1efebed110c56ee21166d4c4d932bfe3f4db01a8f26ab44393edb17`逐字段匹配。recipient/cc/notification/mail_mail关联数均0。未读正文、地址、tracking旧新值。`exact_id_set_difference_from_attempt48_proven=false`：原基线无IDs，不能声称仅新增这两条。|
+|独立A/B/C|独立baseline reviewer：A BLOCK/UNPROVEN；B BLOCK（受限投影通过，但patient650/task720、patient364/event417、PO147–149及旧资金/库存/审计原保护对象没有字段/关系当前读回）；C源码证明join不会消费或修改旧IDs，但新join可能生成tracking rows，现有草案没有逐ID post-readback。PO147–149禁止读取条件仍有效。|
+|许可状态|不发fresh admission、不启动服务、不发送join POST。下一前置：允许读取范围内逐项当前保护对象字段/关系核验；固定attempt33 pre-state并独立审查未来post-readback verifier，要求旧IDs不变、新IDs逐条归因、224 delta/账号关系/D-C/审计会话/通知与外发配置可解释。A仍保留未证，不能被新基线清除。|
