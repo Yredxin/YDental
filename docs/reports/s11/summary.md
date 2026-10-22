@@ -1,3 +1,15 @@
+## 2026-10-22 00:09 UTC｜合成ERP管理用户创建与独立读回
+
+用户授权Codex在S11指定scratch内自行建立测试管理员，以通过Odoo正常“Settings / Users”界面授予session clock测试组；本记录仅授权当前S11测试用途。代码候选`22d10130bc7e715fac629a11bf7d7b5b43013104`，分支`codex/s11-followup-lab-r1`。目标为`ydental_s10_test_20261017105432_ce6dcbf8`、OID 2144130、固定测试cluster，未访问生产/main。
+
+attempt6在Odoo 20 Registry加载后、业务提交前因辅助检查访问不存在的`res.users.mobile`字段而异常；helper执行rollback。GDB正常退出，无SIGSEGV/native crash，服务已STOPPED。独立RO/RR核验确认合成登录匹配数为0，回执`.local/s11/verification/admin-bootstrap-attempt6-reconcile-ro.json` SHA-256 `bb25ab8edc716b0debd3bc61984eae95009f9ea4e23b634cde36b699ec885760`，状态`PASS_NO_USER_PERSISTED`；attempt6被标记消耗且没有重放。锁定Odoo 20源码确认`res.users`存在`email`/`phone`而没有`mobile`。
+
+经独立静态安全审查PASS的新attempt7通过受控GDB-owned Odoo shell及原生ORM创建唯一合成用户`s11_clock_role_admin_22d1013`，UID 2672、partner 3636、启用/internal、公司1；直接组唯一为`base.group_erp_manager`。helper不设置邮件/电话、不发送邀请；密码从owner-only本机私有凭据文件读取，没有输出或进入证据。Odoo有效组闭包包含ERP manager继承的应用组，但不含`base.group_system`。helper回执SHA-256 `c7f5ddf83e9d84882032926d62d79e7aa7a254861cbe82d60e7ad2304f1043c1`，runner回执SHA-256 `042b76e93fec2a9b005d5908ffdb50405a26d874199ac140e5a35fc13ccfc656`，GDB日志SHA-256 `0e59360d661c0dd7cb9f95118ac9a5a4b49846b4594bd05f02d5ec330ebb257d`。runner exit 0、进程组停止、服务STOPPED、无native crash。
+
+独立审查者先静态验收创建脚本，再离线核对实收回执绑定；随后另一个RO/RR查询通过原生`res_users`、`res_groups_users_rel`、`res_groups_implied_rel`、`res_company_users_rel`与外部ID目录独立计算用户和有效组。唯一登录/UID/partner匹配，用户active、internal、公司1唯一、直接manager组唯一、有效组不含system、email/phone均空；ORM effective group IDs与数据库递归结果一致。只读回执`.local/s11/verification/admin-bootstrap-attempt7-readback-ro.json` SHA-256 `6a96b1e6cc5f8a5433f3ea521e189320c703a49c987478b1bc61d7e449048dc7`，事务READ ONLY/REPEATABLE READ并显式rollback→idle/close；owned service与HTTP端口前后均STOPPED。读回脚本和结果未输出秘密。
+
+临时管理员仅用于通过正常用户管理UI，向合成测试UID 2466、9、2043、2670分别授予`ydental_s11_clock_test.group_operator`。不授权采购用户2666，不对其授予业务/采购角色。UI权限变更尚未执行；须在文档提交后的fresh admission下验证现有组状态，完成浏览器UI写入和独立数据库读回后禁用临时管理员。其它S11缺口、SIGSEGV/F2状态与保护对象不变；#35保持OPEN，S11 PARTIAL；无push/merge/deploy/S12/S13。
+
 ## 2026-10-21 18:08 UTC｜current debug clock operation and manager-access boundary
 
 The app-scoped synthetic clock has been proven through the authenticated browser UI: a prior GDB-owned run set only the logged-in actor/store/session business time to 2026-10-27; the browser read it back and an independent RR/READ ONLY query confirmed the matching session/event. Host, PostgreSQL and physical audit time were unchanged. This removes waiting for physical date triggers from future tests; the prior run expired normally and was not reused.
@@ -6,7 +18,7 @@ On candidate `3205daab42d6abae5591f94e08ca00682c2830b8`, UID539 was checked with
 
 Odoo's normal user Access Rights UI requires effective `base.group_erp_manager` (implied by `base.group_system`). Existing YDental personnel managers can adjust store business grants but cannot edit `res.users.group_ids`. Current S11 test-account credential metadata contains no Odoo manager login; the documented shared provider refers to the restricted database runtime and does not establish an Odoo admin credential. No role/group write was attempted through UID539, actor6/9, SQL, sudo, or GDB ORM. The owned 20-minute service was stopped normally after the audit and launcher readback was STOPPED.
 
-**Remaining immediate blocker:** granting `ydental_s11_clock_test.group_operator` to the Store2 front desk, medical and warehouse test actors requires a normal authenticated ERP-manager/system account. UID539's already proven session clock cannot be transferred to another actor. Existing supplier-expiry job1050 is due 2026-11-18, so warehouse actor2043 cannot claim it at current physical time without a separately authorized session clock. No fresh clinical-source/postcommit path is currently available without those roles; no data or external policy was fabricated. To continue, use a currently authorized manager credential from its private provider or establish a normal local manager login; never send a password in chat/Git/Issue. #35 stays OPEN; no push/merge/deploy/S12/S13.
+**Current remaining immediate blocker:** the normal ERP-manager login now exists and has been independently verified, but no `ydental_s11_clock_test.group_operator` grants have yet been made to the four authorized synthetic users through the normal user-management UI. UID539's session clock still cannot be transferred to another actor. The temporary manager will be disabled after the UI grants and independent readback. No fresh clinical-source/postcommit path is considered unblocked until those grants are completed and verified; no data or external policy is fabricated. #35 stays OPEN; no push/merge/deploy/S12/S13.
 
 ## 2026-10-21 09:32 UTC｜S11 clock addon init failure and read-only reconciliation
 

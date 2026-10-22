@@ -1,3 +1,12 @@
+## S11 状态续行（2026-10-22 00:09 UTC）：测试管理员创建并独立验收
+
+- 原分支 `codex/s11-followup-lab-r1`，业务候选/开始时HEAD `22d10130bc7e715fac629a11bf7d7b5b43013104`；文档变更前tracked工作区干净。只在指定S11 scratch DB `ydental_s10_test_20261017105432_ce6dcbf8`（OID 2144130、cluster `7694897083368259627`）执行，受限角色、运行候选和GDB归属均按fresh admission固定；没有访问main/生产库。
+- 一次性管理员 attempt6 未提交：Odoo ORM中 `res.users` 没有 `mobile` 字段，辅助脚本在create后的字段断言抛出AttributeError并回滚；GDB runner/helper回执表明无native crash、服务STOPPED。独立RO/RR核验回执 `.local/s11/verification/admin-bootstrap-attempt6-reconcile-ro.json` SHA-256 `bb25ab8edc716b0debd3bc61984eae95009f9ea4e23b634cde36b699ec885760`，匹配登录计数0，rollback/idle/close通过，结论 `PASS_NO_USER_PERSISTED`。保留attempt6全部日志与一次性标记，不重放。
+- 锁定Odoo 20源码核实 `res.users` 有 `email`/`phone` 而无 `mobile`，修正后使用独立attempt7通过正常Odoo ORM一次创建合成登录 `s11_clock_role_admin_22d1013`。用户UID 2672，partner 3636，active，internal，company_id/company_ids均为1；直接组仅 `base.group_erp_manager`，Odoo有效组闭包不含 `base.group_system`。attempt7 helper receipt SHA-256 `c7f5ddf83e9d84882032926d62d79e7aa7a254861cbe82d60e7ad2304f1043c1`；GDB runner receipt SHA-256 `042b76e93fec2a9b005d5908ffdb50405a26d874199ac140e5a35fc13ccfc656`；GDB日志SHA-256 `0e59360d661c0dd7cb9f95118ac9a5a4b49846b4594bd05f02d5ec330ebb257d`；runner exit0，helper为`COMMITTED_PENDING_INDEPENDENT_READBACK`，进程组干净停止，无native crash。
+- 独立验收者离线核对helper/runner/GDB回执绑定PASS。独立数据库RO/RR实际读回 `.local/s11/verification/admin-bootstrap-attempt7-readback-ro.json` SHA-256 `6a96b1e6cc5f8a5433f3ea521e189320c703a49c987478b1bc61d7e449048dc7`：唯一匹配用户、有效状态、company_ids=[1]、联系方式空、直接manager组唯一、有效组闭包与ORM创建回执一致且没有system；事务READ ONLY/REPEATABLE READ、显式ROLLBACK/IDLE/close，服务/18411前后STOPPED。独立离线review PASS。密码未写入仓库、回执、日志或聊天。
+- 该临时管理员只为原生用户管理UI授权clock测试组，不执行临床、库存或经济操作；授权目标UID 2466、9、2043、2670，排除采购用户2666。上述目标的clock组UI变更尚未开始，需在本状态提交后的新candidate重新fresh-admit并核基线，再正常浏览器操作及独立读回。完成后按独立验收结果禁用临时管理员。
+- 当前 #35 OPEN，S11 `PARTIAL / IN_PROGRESS`；SIGSEGV仍`ROOT_CAUSE_UNDETERMINED`，旧F2 loser/PID仍`EVIDENCE_GAP`。本阶段不push/merge/deploy/S12/S13。
+
 ## S11 状态续行（2026-10-21 18:08 UTC）：当前候选时钟UI记录、管理组权限核查与真实阻断
 
 - 分支 `codex/s11-followup-lab-r1`，当前候选/HEAD `3205daab42d6abae5591f94e08ca00682c2830b8`；此前提交的session debug clock实际UI设置和DB回读证据均保留。入口已在正常认证UI中把单一session的应用业务时间设到未来，不需等待物理日期；OS、PostgreSQL、ORM审计和真实费用时间未修改。此前UI evidence及本节前的clock run证据在下方历史记录与`docs/reports/s11/summary.md`。
