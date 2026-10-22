@@ -1,3 +1,17 @@
+# S11 attempt102 GET前阻断修复（2026-10-22 UTC）
+
+- 继续既有`YD-S11-FOLLOWUP-LAB-V1` / #35；现场分支`codex/s11-followup-lab-r1`。实现候选提交`7510f03838a276be3e572af6e25c9826b6a74955`，tracked工作树在该提交后干净，ahead origin 241；没有reset/clean/push/merge/deploy。attempt102保持原`FAIL`和所有原件，不重跑，不重复stop。
+- attempt102最后成功阶段是只读preflight及owned launcher启动；GDB inferior身份文件成功出现。第一个失败是`.local/s11/verification/s11_http_stability_73384ff_attempt102.py:632`的错误关系断言，触发行640的`RuntimeError("GDB inferior birth identity or debugger group/session relationship is inconsistent")`。该异常消息/trace并未写入原receipt；这里由未变源码字面量、已保存PID/PGID/SID及时间关系重建。预期契约应为inferior PGID=自身PID、SID=GDB child PID；记录值为inferior PID/PGID 1409326、SID 1409320，GDB child PID 1409320，故PGID与GDB PID比较错误。失败发生在listener轮询和HTTP connect/GET前。
+- 原`request_count`在HTTPConnection.connect之前赋1；attempt102的0表示未到该计数赋值，也没有调用connect或`HTTPConnection.request()`。launcher start由Popen异步启动前台常驻supervisor，runner没有等待start退出再发GET；它检查active owner、inferior和`ss` listener PID映射，`start_proc.wait()`在finally stop后执行。status/早期“started”输出未作为应用ready证据；未发现阻塞于stdout读取。
+- attempt102时序与状态：test driver PID 1409275来自PREPARED latch（10:01:11.093013Z）；driver最终进程退出码没有单独持久采集，stdout于10:01:11.949写出FAIL且源码失败返回1。launcher supervisor的PID/birth ticks未在持久receipt留存；其匹配active owner被finally唯一stop清理。launcher输出的GDB child PID 1409320；inferior于10:01:11.485967Z启动。GDB exit receipt于10:01:11.574339Z记录child exit 0、无signal、core_bytes=0、native_crash_evidence=false、owned group stopped；inferior signal null。唯一stop exit 0，stop输出确认supervisor退出。独立post-readback通过保护状态与STOPPED/端口核验。未采集的supervisor身份/driver退出码保持未采集；本次没有SIGSEGV证据。
+- 数据证据：attempt102 receipt `.local/s11/receipts/s11-http-stability-73384ff-attempt102.json` SHA `afbaf1c29bc8618bc343fdf5bb3be1731a76f27b9172c4feac558e20a0c98f3c`；run exit `20261022T100111Z-226e66600705/exit.json` SHA `f61d63bdbf5215dc3ddbafade907bd7e24835d0fdb49bcb796c25a390e4f0c68`；原runner SHA `fa8662abc5e54395f4c0dea8eb27fd6f520925500feaaa81a58f52d8130def1d`；post-readback receipt SHA `01e1bda657434f1e1738c87bc0c20d11cb4e028d502609c4228c8269d2da5f8e`。attempt102的post-readback PASS只限数据库保护与关停状态，不提升HTTP结果。
+- 原候选`73384ff7efa175b3715dbcd6b5e8ef1c77b587cf`到attempt102时报告HEAD `4d13d54d1505605df45843654c1ec1b0b76cb7d2`仅变更`CURRENT_TASK.md`、`docs/reports/s11/{summary.md,evidence-index.md}`、`scripts/s11/README.md`。launcher/执行配置/依赖/目标/权限没有变化。此事实与文件列表保留；launcher现仅容许候选祖先到报告HEAD间这些明确文档路径变化，拒绝rename与任何其他路径，仍绑定并返回admission执行候选，并在active marker与exit receipt记report HEAD和差异路径。
+- 代码补丁本地提交`7510f03838a276be3e572af6e25c9826b6a74955`：修复GDB进程关系检查；新增狭窄candidate报告差异检查；attempt103模板改为记录分阶段状态/首异常类型、脱敏消息、文件/函数/行号、cleanup异常、process identity期望/实际、driver/supervisor/GDB/inferior状态及时间；request_count定义为进入request()调用而非wire确认；受限GET响应体保存到private run dir（mode 0600，≤4 MiB）。正常无崩溃的GDB `capture_complete=null`不再被误判为失败。
+- 窄纯测3项通过（exit 0）：文档差异allowlist；docs-only报告HEAD保留admission候选（mock git契约）；PGID/SID契约（含attempt102实际PID）。`py_compile`和`git diff --check`通过。审查角色对launcher/test/attempt103前一固定哈希版本独立静态PASS；后续candidate-return/report-HEAD小修后须按最终哈希复核。
+- 下一步：更新同一报告/current task记录并本地提交docs；随后将private runtime候选绑定到`7510f03…`并生成真实绑定记录，对新launcher候选进行fresh只读准入、独立审查与读回；静态复核固定后的attempt103 helper。满足准入和恢复条件后再执行唯一新的有界只读GET；不是重跑attempt102。此前未发出attempt103 HTTP请求，也没有HTTP response。S11仍`PARTIAL / RUNTIME_BLOCKED`，#35保持OPEN。
+
+---
+
 # S11 文档候选固定（2026-10-22 10:06 UTC）
 
 - V2执行报告及README stop等待说明已本地提交`62390373f0f573e0d565ab1b759e4097b01da982`；当前HEAD为该提交，branch仍`codex/s11-followup-lab-r1`，ahead origin 239。

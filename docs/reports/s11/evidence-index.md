@@ -366,3 +366,13 @@ At candidate `4d126a6`, fresh pre-create admission passed (receipt SHA `93c21c58
 |只读预检脚本 / receipt|`.local/s11/verification/patient683-price-and-appointment-364b53c-readonly.py` / `.local/s11/verification/patient683-price-and-appointment-364b53c-readonly.json`|`0e880ae402cc5c0faacdbb1925101075956c98f7676ca4a2446bf257cf260438` / `2d61c7c6b740a422430d392eb898566d4b8a841ae030a073f01793f547d0ae9c`|独立静态及离线回执审查PASS；11检查全true；绑定候选、admission/runtime，RR只读、rollback/idle/close。receipt本身未嵌入service/port字段；脚本执行前后检查STOPPED与端口拒连，受限运行日志 `.local/s11/verification/patient683-price-and-appointment-364b53c-readonly.log` SHA `0888dec1f597d26d33a1a6c5e32f532613c49739f8c327d7c077681fda8772de`保存STOPPED输出。仅未来时段/价源/角色预检，不证明FIFO或行动许可|
 |业务事实|patient683/task1184/Store2 slot1697；价源455|receipt内记录|采集08:00:19 UTC；预约15:00–15:30 UTC。预约时唯一原生Store2 USD价源7；队列aggregate 2 waiting/0 in-service，不包含身份及排序。未做arrival、queue、clinical写入|
 |T08合成工坊和采购|partner3634 / cooperation257 / PO164 P00169|既有独立读回见上节；PO attempt7 receipt `248b4f31423d2894a88053f08188fb4a7174296f78a3a0ca4a994309b7db0ff8`|合成测试不需要现实厂商接入；P00169 USD125、五实际日历日，原始PO intent SHA `9ee8277f467fb9ab56578f972a5b954ed5b1af596b063a3b8e996fbaa834e135`记录精确计划交期`2026-10-26 05:51:53.939916 UTC`（独立DB读回仅秒精度，验证五日交期）。不表示到货或库存入库|
+
+## 2026-10-22 UTC｜attempt102 pre-GET故障与最小修复
+
+|证据|路径 / SHA-256|结果与限制|
+|---|---|---|
+|attempt102原receipt|`.local/s11/receipts/s11-http-stability-73384ff-attempt102.json` / `afbaf1c29bc8618bc343fdf5bb3be1731a76f27b9172c4feac558e20a0c98f3c`|保持FAIL；request_count=0；无status/response；唯一stop exit0；failure_class只记RuntimeError，原receipt无完整message/trace|
+|attempt102 GDB exit|`.local/s11/runs/20261022T100111Z-226e66600705/exit.json` / `f61d63bdbf5215dc3ddbafade907bd7e24835d0fdb49bcb796c25a390e4f0c68`|GDB child 1409320 exit0/no signal；inferior 1409326、PGID 1409326、SID 1409320；无signal/core/native crash；owned group stopped|
+|attempt102 independent post-readback|`.local/s11/verification/s11-http-stability-73384ff-attempt102-independent-postreadback-ro.json` / `01e1bda657434f1e1738c87bc0c20d11cb4e028d502609c4228c8269d2da5f8e`|独立只读保护数据与关停后态PASS；不构成HTTP PASS|
+|实现候选|`7510f03838a276be3e572af6e25c9826b6a74955`，`scripts/s11/launcher.py` / `11258b209806bcdfd35afc7319fecb629664b68df55f82130f059b7d909dbec5`，`scripts/s11/test_launcher.py` / `8b33a3402060106aa0971e1d982ade59085f8f07022a709f33c959a670a0f6b8`|PGID/SID校验修复；docs-only候选漂移验证；report HEAD/delta保留；本地3项纯窄测PASS。独立review通过这组实现SHA；后续报告候选返回小修需要按最终HEAD复核|
+|attempt103 helper template|`.local/s11/verification/s11_http_stability_73384ff_attempt103.py` / SHA待最终固定|尚未执行。当前模板记录首异常/phase/process timeline、request-call语义与受限response保存；待绑定新候选/准入并独立复核|

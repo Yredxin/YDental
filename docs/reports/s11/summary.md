@@ -1021,3 +1021,12 @@ run `20261022T091000Z-fbe7345b5861` 的GDB exit receipt `.local/s11/runs/2026102
 | Debug clock / 用户授权 | session-scoped入口已实现；临时admin已创建 | 给最小测试角色按正常UI授权；在新owned run验证set/advance/clear及临床页面读取 | 运行门、正常YDental UI访问组及独立读回；仅推进合成session业务时间，系统/数据库/审计时间保持真实 |
 
 当前真正阻断是attempt101 launcher stop exit 2触发的运行路径停止门，而非缺少管理员或外部义齿厂商：前者已由Codex创建，后者已由用户批准合成实体。不能把STOPPED后态说成恢复成功。#35保持OPEN，S11 `PARTIAL / RUNTIME_BLOCKED`；不push/merge/deploy/S12/S13。
+
+# 2026-10-22 UTC｜attempt102 pre-GET 根因确认与工具修复
+
+- attempt102 保持原 `FAIL`，无HTTP response，`request_count=0`。最后成功阶段为只读preflight及launcher启动；首次失败是原helper的inferior进程组/会话关系断言：`.local/s11/verification/s11_http_stability_73384ff_attempt102.py:632`比较inferior PGID与GDB child PID，错误raise位于`:640`，完整源码消息为`GDB inferior birth identity or debugger group/session relationship is inconsistent`。旧receipt只保存`RuntimeError`类型，没有保存异常消息/trace；实际分支由PID证据确定：inferior pid/pgid=1409326、sid=1409320；GDB child pid=1409320。launcher contract要求PGID=自身PID、SID=GDB child PID。故失败在listener/HTTP connect/request前，finally因owned active marker仍匹配而执行唯一stop。
+- attempt102 receipt `.local/s11/receipts/s11-http-stability-73384ff-attempt102.json` SHA `afbaf1c29bc8618bc343fdf5bb3be1731a76f27b9172c4feac558e20a0c98f3c`；GDB exit `.local/s11/runs/20261022T100111Z-226e66600705/exit.json` SHA `f61d63bdbf5215dc3ddbafade907bd7e24835d0fdb49bcb796c25a390e4f0c68`；独立post-readback `.local/s11/verification/s11-http-stability-73384ff-attempt102-independent-postreadback-ro.json` SHA `01e1bda657434f1e1738c87bc0c20d11cb4e028d502609c4228c8269d2da5f8e`。后者只证明保护状态与STOPPED/空闲读回通过，不改变HTTP FAIL。child exit0、无signal/core；没有本次SIGSEGV证据。
+- launcher start契约现场核实：调用方异步Popen前台常驻supervisor；等待active owner/inferior/listener映射，不会先等start退出；stop后才wait supervisor。status和“service started”输出没有被当作ready证据，stdout也没有在发送前阻塞。`request_count=0`且计数在connect之前置1，说明未调用connect或request。
+- 原attempt candidate `73384ff…`与报告HEAD `4d13d54…`间只有CURRENT_TASK、S11报告和` scripts/s11/README.md`文档变化；无launcher/配置/依赖/目标/权限改动。已提交候选`7510f03838a276be3e572af6e25c9826b6a74955`包含进程契约及candidate核验修复。docs-only candidate guard保留实际execution candidate、记录report HEAD/变化路径，并对非allowlist路径与rename fail closed。
+- 窄测3项PASS（exit0）；py_compile、diff check通过。尝试103 helper仅为修复后模板，新增首异常阶段/类型/脱敏消息/源码定位、cleanup分层、各进程状态/时序、HTTP request-call计数定义及≤4MiB私有响应保存；没有运行attempt103。正常GDB无native crash时`capture_complete=null`不作为失败。
+- 当前仍需对候选7510f03做真实候选绑定与fresh只读准入、独立准入复核、更新并独立固定attempt103 helper；通过后才可启动唯一的新有界GET并保存response，再继续plan业务闭环。S11保持`PARTIAL / RUNTIME_BLOCKED`，#35 OPEN。没有push/merge/deploy，不启动S12/S13。
