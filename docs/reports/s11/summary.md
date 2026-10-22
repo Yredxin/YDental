@@ -1,3 +1,15 @@
+## 2026-10-22 09:34 UTC｜launcher stop 对已退出supervisor zombie的误判修复
+
+本轮按原计划#35和上一轮结束记录重建责任：主控Codex为唯一工作区写者并实现修复；`/root/launcher_repair_review`只读独立审查；`/root/plan_gap_static_audit`独立运行限定纯单测；运行/业务路径无人调度，遵守此前不重启、不再次stop、不重试attempt90/101的边界。
+
+根因不涉及SIGSEGV：attempt101 helper持有`launcher start --gdb`的`Popen`，执行嵌套stop子进程期间尚未调用`start_proc.wait()`。supervisor执行完清理后，Linux可将该已退出子进程保留为zombie，直到父helper回收；zombie的`/proc/<pid>/stat`及birth ticks仍在。旧`stop_service()`只比较ticks，因此可能把已退出supervisor当成活进程并触发75秒exit2。该因果链经独立源码审查确认，与attempt101实测的GDB组停止、launcher stop exit2吻合；不把它扩大成SIGSEGV原因。
+
+修复在`scripts/s11/launcher.py`：新增从同一`/proc/<pid>/stat`快照读取state与start ticks的解析；stop等待仅将匹配记录birth ticks的`Z`、进程条目消失或ticks变化认作该supervisor已退出。活进程继续等待；不可读、坏格式、错误分隔符、非单字符state或非正ticks不会被当成功，仍按原75秒边界拒绝。没有新增信号、强杀或入口绕行。
+
+新增`test_launcher.py`纯单元用例，涵盖同快照解析、坏分隔符和非正ticks，以及匹配zombie/live/复用PID/消失条目/不可读/坏数据。独立执行的精确命令：`python3 scripts/s11/test_launcher.py LauncherSupervisorTests.test_proc_stat_identity_reads_state_and_birth_ticks_from_one_snapshot LauncherSupervisorTests.test_proc_stat_identity_rejects_malformed_delimiter_and_nonpositive_ticks LauncherSupervisorTests.test_owned_process_exit_accepts_only_missing_reused_or_matching_zombie`；exit 0，3 tests，`OK`。测试只构造`/proc`文本并mock读取结果；未启动/停止S11服务，未访问DB或网络。独立源码审查PASS，确认修改只影响stop轮询观察并继续在身份未知时fail-closed。
+
+范围与证据级别：这是launcher SOURCE/PURE修复及单元测试证据；没有真实owned service运行、stop、HTTP/browser或数据库验证，不能据此消除既有运行停止门。attempt101仍为零HTTP请求和stop exit2历史事实，`ROOT_CAUSE_UNDETERMINED`与旧F2 `EVIDENCE_GAP`保留。S11继续`PARTIAL / RUNTIME_BLOCKED`，#35 OPEN；后续临床、授权、postcommit→claim→sink、义齿收货/返工收费、新F2并发、影响面回归和总验收仍待运行边界解决。
+
 ## 2026-10-22 09:29 UTC｜attempt101 独立离线复核与可继续范围
 
 文档更新前现场基线为 `c41446e91147ec96fadb5bc95fdb5554552df781`，分支 `codex/s11-followup-lab-r1`，tracked/untracked 工作区干净，ahead origin 234；与交接状态一致。仅作离线核验，没有运行测试、服务、HTTP/browser、数据库或业务动作。

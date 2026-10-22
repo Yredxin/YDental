@@ -1,3 +1,9 @@
+# 2026-10-22 09:34 UTC｜launcher stop退出观察修复（SOURCE/PURE）
+
+- 在attempt101固定证据上定位到父helper未reap已退出supervisor造成的zombie观察窗口。launcher现将进程state与birth ticks从同一`/proc`快照读取，仅匹配owner birth ticks且state=`Z`时认定已退出；活/未知状态仍等待或拒绝。细节见[summary.md](summary.md) 2026-10-22 09:34 UTC。
+- 独立限定单测3项PASS，exit 0；独立源码审查PASS。没有运行S11 service、调用stop、发HTTP或访问数据库；这是源码/纯单测证据，不是运行恢复许可。
+- 仍禁止重启、再次stop及重放attempt90/101。S11 `PARTIAL / RUNTIME_BLOCKED`，#35 OPEN。
+
 # 2026-10-22 09:29 UTC｜当前交接状态
 
 - 本轮审查基线：`c41446e91147ec96fadb5bc95fdb5554552df781`，分支`codex/s11-followup-lab-r1`；审查开始时工作区干净、ahead origin 234。当前文档更新待本地提交。plan `YD-S11-FOLLOWUP-LAB-V1`仍为`PARTIAL / RUNTIME_BLOCKED`，Issue #35保持OPEN。

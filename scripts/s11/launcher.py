@@ -375,14 +375,47 @@ def ensure_private_dir(path: Path) -> None:
     os.chmod(path, 0o700)
 
 
-def proc_start_ticks(pid: int) -> int | None:
+def parse_proc_stat_identity(raw: str) -> tuple[str, int]:
+    """Return the process state and birth ticks from one /proc stat snapshot."""
+    close = raw.rfind(")")
+    if close < 0 or close + 1 >= len(raw) or raw[close + 1] != " ":
+        raise ValueError("malformed /proc stat command delimiter")
+    fields = raw[close + 2 :].split()
+    if len(fields) <= 19 or len(fields[0]) != 1:
+        raise ValueError("truncated /proc stat fields")
+    start_ticks = int(fields[19])
+    if start_ticks <= 0:
+        raise ValueError("invalid /proc stat birth ticks")
+    return fields[0], start_ticks
+
+
+def proc_state_and_start_ticks(pid: int) -> tuple[str, int] | None:
+    """Read process state and birth ticks atomically with respect to the PID."""
     try:
         raw = Path(f"/proc/{pid}/stat").read_text(encoding="ascii")
-        close = raw.rfind(")")
-        fields = raw[close + 2 :].split()
-        return int(fields[19])
+    except FileNotFoundError:
+        return None
+    return parse_proc_stat_identity(raw)
+
+
+def proc_start_ticks(pid: int) -> int | None:
+    try:
+        identity = proc_state_and_start_ticks(pid)
+        return identity[1] if identity is not None else None
     except (OSError, ValueError, IndexError):
         return None
+
+
+def owned_process_has_exited(pid: int, expected_start_ticks: int) -> bool:
+    """Confirm a recorded process exited, including an unreaped matching zombie."""
+    try:
+        identity = proc_state_and_start_ticks(pid)
+    except (OSError, ValueError, IndexError):
+        return False
+    if identity is None:
+        return True
+    state, start_ticks = identity
+    return start_ticks != expected_start_ticks or state == "Z"
 
 
 def proc_cmdline(pid: int) -> list[str] | None:
@@ -1244,7 +1277,7 @@ def stop_service() -> int:
         raise Refusal("verified supervisor disappeared before stop signal; no retry performed")
     deadline = time.monotonic() + STOP_COMMAND_WAIT_SECONDS
     while time.monotonic() < deadline:
-        if proc_start_ticks(pid) != ticks:
+        if owned_process_has_exited(pid, ticks):
             print(f"S11 owned service stop requested and supervisor exited: run_id={marker.get('run_id')}")
             return 0
         time.sleep(0.2)

@@ -27,6 +27,39 @@ class LauncherSupervisorTests(unittest.TestCase):
         nested_cleanup_bound = child_stop_bound + gdb_group_stop_bound + scheduling_margin
         self.assertGreaterEqual(launcher.STOP_COMMAND_WAIT_SECONDS, nested_cleanup_bound)
 
+    def test_proc_stat_identity_reads_state_and_birth_ticks_from_one_snapshot(self):
+        fields = ['S', *(['0'] * 19)]
+        fields[19] = '12345'
+        raw = '4321 (launcher name ) with paren) ' + ' '.join(fields)
+
+        self.assertEqual(launcher.parse_proc_stat_identity(raw), ('S', 12345))
+
+    def test_proc_stat_identity_rejects_malformed_delimiter_and_nonpositive_ticks(self):
+        fields = ['S', *(['0'] * 19)]
+        fields[19] = '12345'
+        with self.assertRaises(ValueError):
+            launcher.parse_proc_stat_identity('4321 (launcher)X ' + ' '.join(fields))
+
+        for invalid_ticks in ('0', '-1'):
+            with self.subTest(start_ticks=invalid_ticks):
+                fields[19] = invalid_ticks
+                with self.assertRaises(ValueError):
+                    launcher.parse_proc_stat_identity('4321 (launcher) ' + ' '.join(fields))
+
+    def test_owned_process_exit_accepts_only_missing_reused_or_matching_zombie(self):
+        with patch.object(launcher, 'proc_state_and_start_ticks', return_value=('Z', 12345)):
+            self.assertTrue(launcher.owned_process_has_exited(4321, 12345))
+        with patch.object(launcher, 'proc_state_and_start_ticks', return_value=('S', 12345)):
+            self.assertFalse(launcher.owned_process_has_exited(4321, 12345))
+        with patch.object(launcher, 'proc_state_and_start_ticks', return_value=('Z', 54321)):
+            self.assertTrue(launcher.owned_process_has_exited(4321, 12345))
+        with patch.object(launcher, 'proc_state_and_start_ticks', return_value=None):
+            self.assertTrue(launcher.owned_process_has_exited(4321, 12345))
+        with patch.object(launcher, 'proc_state_and_start_ticks', side_effect=PermissionError):
+            self.assertFalse(launcher.owned_process_has_exited(4321, 12345))
+        with patch.object(launcher, 'proc_state_and_start_ticks', side_effect=ValueError):
+            self.assertFalse(launcher.owned_process_has_exited(4321, 12345))
+
     def test_s11_clock_manifest_requires_fixed_candidate_and_private_paths(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)

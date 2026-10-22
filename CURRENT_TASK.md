@@ -1,3 +1,21 @@
+# S11 修复计划续行（2026-10-22 09:34 UTC）：launcher stop zombie 误判修复
+
+计划仍为`YD-S11-FOLLOWUP-LAB-V1`，#35范围不变；本节把上一结束记录转为当前实施责任与顺序，不创建新计划。
+
+## 责任
+
+- **主控 / 唯一写者：** Codex主会话负责范围、单一共享工作区、launcher实现、证据与状态记录；不让多个agent并行改文件或调度runtime。
+- **独立源码审查：** `/root/launcher_repair_review` 只读审查stop语义及最终diff，不实施其审查的代码。其独立审查确认attempt101的父子进程等待次序可留下已退出但未reap的supervisor zombie，旧实现据同一PID birth ticks继续等待；最终diff review PASS。
+- **独立窄测验收：** `/root/plan_gap_static_audit` 先审查测试效果，再运行限定的纯launcher单元用例；该agent不改代码。三项测试exit 0（命令与结果见`docs/reports/s11/summary.md`本节）。
+- **运行/业务验证责任：** 暂不派发。用户此前明确禁止重启、再次stop、改入口重试attempt101/90；新源码及单元测试均不解除此约束。HTTP/browser、UI组授权、临床和义齿/账务/F2流程继续停止。
+
+## 修复步骤与状态
+
+1. **已实现：** launcher将 `/proc/<pid>/stat` 状态和birth ticks从同一快照解析。只有匹配已记录PID birth ticks的`Z`状态才表示进程已退出；PID消失或birth ticks变化表示旧进程已结束；活状态继续等待；无法读取或格式错误继续fail-closed并走原有超时拒绝。解析器拒绝异常分隔符、非单字符state和非正ticks。
+2. **已完成独立窄测与源码审查：**覆盖匹配zombie、live、PID复用、进程消失、不可读/坏数据及`/proc`格式，限定三项单测PASS；独立代码审查PASS。
+3. **下一步：**把源码、测试和本任务报告作为一个本地候选提交并保留固定哈希。此修改只修正launcher的退出观察；不声称服务稳定、SIGSEGV已修或postcommit业务链完成。
+4. **运行停止门保持：**不启动服务、不发送stop。后续所有browser/HTTP/DB写入以及用户角色UI授权仍需在授权条件允许且有独立fresh admission/安全审查后执行；旧attempt90/101绝不重放。当前效果只验收到SOURCE/PURE级别，#35保持OPEN、S11 `PARTIAL / RUNTIME_BLOCKED`。
+
 # S11 会话续行（2026-10-22 09:29 UTC）：attempt101 离线独立复核完成；运行门不变
 
 - 文档更新前现场核验：分支 `codex/s11-followup-lab-r1`，HEAD `c41446e91147ec96fadb5bc95fdb5554552df781`，tracked/untracked 工作区干净，领先 `origin/codex/s11-followup-lab-r1` 234个提交。与用户提供的已知交接一致；无切换、重置、清理或副作用重放。
