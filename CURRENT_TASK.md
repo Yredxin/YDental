@@ -1,3 +1,28 @@
+# S11 会话交接（2026-10-22 09:21 UTC）：剩余范围与条件阻断
+
+- 用户准备更换Codex会话。此交接继续现有`YD-S11-FOLLOWUP-LAB-V1`，不新建计划。交接前分支 `codex/s11-followup-lab-r1`、HEAD `22cf90793cb9fb799ef25b88132f7c823cde99c0`、tracked工作树干净、ahead origin 233；本节是待提交的文档更新。不要切分支、reset/clean/强推、重复业务操作或重放失败attempt。
+- 必读：仓库 `AGENTS.md`、本文件最新续行、`docs/reports/s11/summary.md`末尾的`2026-10-22 09:13` attempt101及剩余影响矩阵、`docs/reports/s11/evidence-index.md`的F1–F5/T01–T18状态。代码候选和历史操作细节以这些本地文档及其指向的`.local/s11`收据为准；完整日志只按路径定点查看，不向会话倾倒。
+
+### 已完成、不得重做
+
+- 42项MODEL、限定带数据升级及保护检查已有验收证据；费用来源数据库约束已做过只读catalog审计：三类来源恰一非空validated CHECK、每类独立validated UNIQUE，列保持nullable。不要重跑这批测试/审计，不要为升级warning增设NOT NULL。
+- patient682已正常预约、到店并报task1183，原生queue entry716仍须遵循FIFO；patient683已登记但未完成后续临床流程。患者650/task720及patient364/event417等旧保护对象不用于补证。
+- 合成义齿workshop/vendor及原生确认PO164/P00169（USD125、5日交期）已完成。它是S11合成业务；不是现实厂商承诺。PO147–149和相关旧资金/库存/审计保持不读不改。
+- 临时ERP管理员UID2672已由Codex创建并独立只读读回；用户无需代建。session-scoped debug clock功能已实现，先前一个UI session设时及只读DB回读通过；OS/PostgreSQL/真实审计时钟没有改动。不要重建管理员或宣称所有测试角色已获UI组授权。
+- SIGSEGV原始证据已做有界整理：`ROOT_CAUSE_UNDETERMINED`；旧F2 losing response/backend PID不存在，历史状态`EVIDENCE_GAP`。不补录、不推断、不重放历史竞争。GDB/core捕获实现已有源码、单元和合成崩溃证据。
+
+### 尚未完成及其真实阻断
+
+1. **运行路径恢复 / HTTP-browser：当前停止门。** attempt101在HTTP dispatch前停止，GET count=0；GDB child exit0/no signal/core。owned launcher stop返回exit2，stderr指出supervisor未在有界等待内退出且未force-kill；之后receipt记录STOPPED，但这不消除stop拒绝。当前fresh admission attempt4已过时效且只证明准入。不要重启、再次stop、改入口绕过或重跑attempt90/101。下一会话先离线读attempt101收据、runner/exit日志与launcher源码，评估是否存在可被独立审查的正常源代码修复/恢复条件；无法证明安全就保持运行停止并以PARTIAL/RUNTIME_BLOCKED交付，不重复SIGSEGV根因循环。
+2. **clock/角色授权：依赖正常Users UI及运行门。** 两步均未完成：先按已批准范围用一次性受限ORM操作仅给UID2672链接`ydental_base.ydental_base_group_user`并独立读回；随后用UID2672通过正常Users UI仅给批准的合成测试身份授clock operator组、独立读回后禁用临时管理员。当前受影响HTTP服务停用且存在stop拒绝，这些操作暂缓；不得用SQL/sudo/ORM直接替UI完成clock角色组授权。debug clock可推进合成session业务时间；不改OS/DB/真实审计时间。
+3. **F1临床来源、postcommit、收费与T08：依赖角色、运行恢复和合法原生来源。** patient682只能由原生FIFO决定下一步；patient683可在获准session clock推进至合成预约窗口后走正常流程。尚缺接诊/临床event、文书/治疗确认及独立提交读回；来源提交→自动postcommit→独立durable claim→controlled sink完整链；义齿lab order、合成收货/入库及适用supplier_return/返工；合法返工追加收费、原生invoice/credit读回。单有PO164不是临床来源或收货证据。不得造孤儿job/费用，不对外发通知。
+4. **F2新竞争、回归与总验收：依赖安全运行与真实新合成用例。** 旧竞争证据缺口永久保留；可在安全运行门通过后创建全新标记场景，保存双请求、原始结果、backend PID、事务终态及独立经济终态。随后只补适用并发、影响面回归和独立综合验收，不重跑已接受的42项MODEL/升级及未受影响业务。
+
+### 保护与交付边界
+
+- 新文档提交后HEAD会变化；任何未来DB或runtime动作需重新按最终HEAD做fresh admission及独立安全评估。旧admission不可复用。只读源代码、文档整理可继续；遇到新的真实工具拒绝、未知提交、数据保护异常时仅停止受影响路径并保全证据。
+- 目前S11 `PARTIAL / RUNTIME_BLOCKED`，#35 OPEN；仅全部必需技术证据和独立验收通过后才能关闭。只提交本地正常Git提交；不push、merge、deploy、不启动S12/S13。无须用户补管理员或真实义齿厂商；相关合成对象已建立。用户效果验收仍归#37。
+
 # S11 状态续行（2026-10-22 09:13 UTC）：attempt101停机工具拒绝；运行路径保持停止
 
 - 最小状态核验：分支 `codex/s11-followup-lab-r1`，HEAD `282dfa0bc065749be3387f5328b9e5598064953e`，跟踪工作区干净，领先origin 232提交；没有切换分支、重置或重复既有业务副作用。
