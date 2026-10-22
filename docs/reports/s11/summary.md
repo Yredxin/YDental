@@ -1,3 +1,9 @@
+## 2026-10-22 06:32 UTC｜attempt28 只读准入通过；运行停止条件仍有效
+
+对精确候选 `5cf12e07d1608dc48117ac53c7531b1f75f3983e` 执行一次只读fresh admission。helper SHA-256 `4c5750f9d563479934913a76d9162c5428f89bb52d50df4629d252bedf579e72` 经独立静态审查PASS。结果PASS：224张保护表、受限scratch身份及非SUPERUSER角色、数据库grant核验、候选模块/权限核验通过；201个其他数据库的CONNECT继承被逐库记录并完成对象权限检查。receipt `.local/s11/receipts/s11-fresh-admission-5cf12e0-attempt28-20261022T063048Z-11d95b13867311f9.json` SHA-256 `adf928fa1e2e58671a9b3a113095920e2d69d78a27b12880468e79c8b821e4bf`；admission `.local/s11/admission-5cf12e0-attempt28-20261022T063048Z-11d95b13867311f9.json` SHA-256 `089b74106a27b6b266c1613d0fe28cef90aad754a3b3a76be79d4cadb58f3605`；recovery manifest SHA-256 `bd404d1ba65a58dc9112fa255e839b163ebd1a45f123bd32d24d53f66416d9f1`。三份证据均mode0600。服务STOPPED、端口18411空闲、无active marker；没有启动服务、发HTTP或业务写入。
+
+attempt28只读准入不等同独立运行恢复评估。attempt90的stop命令exit 2仍是未解决的真实停止条件；不得重启受影响HTTP/browser或业务运行路径。临时ERP管理员UID2672已由Codex创建并完成独立只读提交读回，不需要用户创建；YDental应用组与clock测试组仍未授权加入。已实现的session-scoped synthetic debug clock目前只有代码/静态检查和launcher测试，无运行证据。S11为`PARTIAL / RUNTIME_BLOCKED`，`ROOT_CAUSE_UNDETERMINED`与旧F2 `EVIDENCE_GAP`保留，#35 OPEN。
+
 ## 2026-10-22 04:02 UTC｜S11 runtime凭据轮换与新准入边界
 
 独立准备任务的一次内部工具输出包含了本机S11 runtime数据库对象中的密码字段。密码本身不写入仓库报告、GitHub、聊天或交付内容，读取任务立即停止。为处理暴露，在指定scratch中仅由受限S11登录修改自身密码，角色权限和业务数据未变。改密helper由独立审查静态PASS，使用libpq `PQchangePassword`（依服务器 `password_encryption` 设置加密后提交），在更新私有runtime前核对原哈希，未知结果保留mode 0600 staged文件；运行后使用新凭据只读核验了scratch DB/OID/current role。凭据只存内存和mode 0600本机文件，未进入回执/日志。

@@ -1,3 +1,10 @@
+# S11 状态续行（2026-10-22 06:32 UTC）：attempt28 只读准入通过
+
+- 固定候选为当前分支 `codex/s11-followup-lab-r1` / HEAD `5cf12e07d1608dc48117ac53c7531b1f75f3983e`。attempt28 helper SHA-256 `4c5750f9d563479934913a76d9162c5428f89bb52d50df4629d252bedf579e72`，经独立静态审查PASS后一次执行；只读准入结果PASS，保护表224项，限定模块/权限与目标身份校验通过。201个数据库的CONNECT继承均有检查记录；受限角色非SUPERUSER，数据库grant检查通过。没有HTTP请求、服务启动或业务写入。
+- 收据 `.local/s11/receipts/s11-fresh-admission-5cf12e0-attempt28-20261022T063048Z-11d95b13867311f9.json` SHA-256 `adf928fa1e2e58671a9b3a113095920e2d69d78a27b12880468e79c8b821e4bf`；admission `.local/s11/admission-5cf12e0-attempt28-20261022T063048Z-11d95b13867311f9.json` SHA-256 `089b74106a27b6b266c1613d0fe28cef90aad754a3b3a76be79d4cadb58f3605`；recovery manifest `.local/s11/admission-recovery/fresh-admission-5cf12e0-recovery-attempt28-20261022T063048Z-11d95b13867311f9.json` SHA-256 `bd404d1ba65a58dc9112fa255e839b163ebd1a45f123bd32d24d53f66416d9f1`，三份文件均为mode0600。launcher pair validation PASS；S11 service仍STOPPED、18411空闲、active marker不存在。
+- 临时ERP管理员UID2672此前已经由Codex创建并完成独立只读提交读回；不会要求用户代建。其后续YDental应用组与clock测试组授权仍未执行。attempt28只证明该候选的只读准入，不是独立运行恢复评估；attempt90真实stop exit 2仍未解决，故不启动HTTP/browser或受影响业务写入路径。先前已实现的session-scoped synthetic debug clock仍只有SOURCE/静态与launcher测试证据，尚无运行证据。
+- `ROOT_CAUSE_UNDETERMINED`、旧F2 loser/PID `EVIDENCE_GAP`保持。S11 `PARTIAL / RUNTIME_BLOCKED`、#35 OPEN；不push/merge/deploy/S12/S13。文档提交后attempt28仍作为旧候选证据保存；任何运行前需按最终HEAD重新做准入及独立恢复评估，且不得重放attempt90。
+
 # S11 状态续行（2026-10-22 04:02 UTC）：S11 runtime 凭据处置与准入重建
 
 - 独立准入准备子任务在内部工具输出中意外包含本机S11 runtime数据库对象（含口令字段）。口令值不在本记录、Git、Issue或交付回复中复述。该子任务已停止读取凭据。只读恢复条件报告证实HEAD `c7996fab51a50d70eaf3205072cbef058b5c0224`、工作树clean、scope至2026-10-23 02:12:34Z有效、attempt90后核验和S11 STOPPED；其范围与局限见前文。

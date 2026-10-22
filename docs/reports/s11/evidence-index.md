@@ -1,3 +1,9 @@
+## S11 fresh admission attempt28（2026-10-22 06:30 UTC）
+
+- 精确候选 `5cf12e07d1608dc48117ac53c7531b1f75f3983e`；helper SHA-256 `4c5750f9d563479934913a76d9162c5428f89bb52d50df4629d252bedf579e72`，独立静态review PASS，one-shot结果PASS。receipt `.local/s11/receipts/s11-fresh-admission-5cf12e0-attempt28-20261022T063048Z-11d95b13867311f9.json` SHA-256 `adf928fa1e2e58671a9b3a113095920e2d69d78a27b12880468e79c8b821e4bf`；admission SHA-256 `089b74106a27b6b266c1613d0fe28cef90aad754a3b3a76be79d4cadb58f3605`；恢复清单SHA-256 `bd404d1ba65a58dc9112fa255e839b163ebd1a45f123bd32d24d53f66416d9f1`。全部文件mode0600。
+- 核对224张保护表、受限scratch目标/角色、grant和模块权限；201个跨库CONNECT继承均被检查并记录。service仍STOPPED、18411空闲、无active marker；未发HTTP，未做业务写入。
+- attempt90 stop exit2仍未解决；本准入不授予HTTP/browser恢复。管理员UID2672已由Codex建立并独立验收；应用/clock组授权待运行条件满足。`ROOT_CAUSE_UNDETERMINED`、旧F2 `EVIDENCE_GAP`、S11 `PARTIAL / RUNTIME_BLOCKED`、#35 OPEN保持。
+
 ## S11 fresh admission attempt4（2026-10-22 04:28 UTC）
 
 - Attempt2/3静态审查阻断，未执行。Attempt4 helper SHA `c22bdac942a9b56f062cec41896af39a46e96618d8cf6202af1a84810f6470b2`、mode0600，经独立静态审查PASS后执行一次，exit1、`FAIL_CLOSED/KeyError`。stdout SHA `08ca8a3e2b52433c77a826afd6357fcb3a6d67cf105a127e9f4bb37e71cc3245`；stderr为空SHA `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`；runner log SHA `dc8dde9d9cc6db8004cf16b1f764c7afb5074f17180c2cc0b291cb9dc881b0a7`。
