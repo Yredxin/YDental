@@ -13,7 +13,7 @@
 
 1. **已实现：** launcher将 `/proc/<pid>/stat` 状态和birth ticks从同一快照解析。只有匹配已记录PID birth ticks的`Z`状态才表示进程已退出；PID消失或birth ticks变化表示旧进程已结束；活状态继续等待；无法读取或格式错误继续fail-closed并走原有超时拒绝。解析器拒绝异常分隔符、非单字符state和非正ticks。
 2. **已完成独立窄测与源码审查：**覆盖匹配zombie、live、PID复用、进程消失、不可读/坏数据及`/proc`格式，限定三项单测PASS；独立代码审查PASS。
-3. **下一步：**把源码、测试和本任务报告作为一个本地候选提交并保留固定哈希。此修改只修正launcher的退出观察；不声称服务稳定、SIGSEGV已修或postcommit业务链完成。
+3. **已完成：**源码、测试和报告已在本地提交 `b6f064c34e71f8641ca58a31fde3c17f0a9b3fd7`；该代码候选是launcher修复固定点。此修改只修正launcher的退出观察；不声称服务稳定、SIGSEGV已修或postcommit业务链完成。
 4. **运行停止门保持：**不启动服务、不发送stop。后续所有browser/HTTP/DB写入以及用户角色UI授权仍需在授权条件允许且有独立fresh admission/安全审查后执行；旧attempt90/101绝不重放。当前效果只验收到SOURCE/PURE级别，#35保持OPEN、S11 `PARTIAL / RUNTIME_BLOCKED`。
 
 # S11 会话续行（2026-10-22 09:29 UTC）：attempt101 离线独立复核完成；运行门不变
@@ -24,6 +24,7 @@
 - 独立T05/T12源码审查确认postcommit、独立claim及controlled sink源码路径存在，但现有测试分别mock回调/claim或直接调用sink；无合法临床来源提交到sink的完整实证，也没有可通过代码修改关闭该证据缺口的安全产品变更。其余临床、义齿、账务、新F2和运行回归仍依赖恢复门、正常UI授权/FIFO/原生来源，暂没有可独立完成的业务操作。
 - 本次只做离线只读审查；未运行测试、服务、HTTP、浏览器或数据库，也未做业务写入。更新本文件、`docs/reports/s11/summary.md`与`docs/reports/s11/evidence-index.md`后固定本地文档候选；S11仍 `PARTIAL / RUNTIME_BLOCKED`，#35保持OPEN。只允许正常本地提交，不push/merge/deploy，不启动S12/S13。
 - 文档提交 `6dee84d3c15c4c64ffafe14af67d6c63b5d92074` 已固定这次复核；该提交后工作区干净、分支领先origin 235。随后仅本文件补记提交状态，最终HEAD以现场Git核验为准。
+- 修复提交 `b6f064c34e71f8641ca58a31fde3c17f0a9b3fd7` 已完成独立源码审查及3项窄单测；提交后分支工作区干净、领先origin 237。当前状态记录本身随后作独立docs-only提交，最终HEAD以现场Git核验为准。
 
 # S11 会话交接（2026-10-22 09:21 UTC）：剩余范围与条件阻断
 

@@ -4,7 +4,7 @@
 
 根因不涉及SIGSEGV：attempt101 helper持有`launcher start --gdb`的`Popen`，执行嵌套stop子进程期间尚未调用`start_proc.wait()`。supervisor执行完清理后，Linux可将该已退出子进程保留为zombie，直到父helper回收；zombie的`/proc/<pid>/stat`及birth ticks仍在。旧`stop_service()`只比较ticks，因此可能把已退出supervisor当成活进程并触发75秒exit2。该因果链经独立源码审查确认，与attempt101实测的GDB组停止、launcher stop exit2吻合；不把它扩大成SIGSEGV原因。
 
-修复在`scripts/s11/launcher.py`：新增从同一`/proc/<pid>/stat`快照读取state与start ticks的解析；stop等待仅将匹配记录birth ticks的`Z`、进程条目消失或ticks变化认作该supervisor已退出。活进程继续等待；不可读、坏格式、错误分隔符、非单字符state或非正ticks不会被当成功，仍按原75秒边界拒绝。没有新增信号、强杀或入口绕行。
+修复在`scripts/s11/launcher.py`，代码提交 `b6f064c34e71f8641ca58a31fde3c17f0a9b3fd7`：新增从同一`/proc/<pid>/stat`快照读取state与start ticks的解析；stop等待仅将匹配记录birth ticks的`Z`、进程条目消失或ticks变化认作该supervisor已退出。活进程继续等待；不可读、坏格式、错误分隔符、非单字符state或非正ticks不会被当成功，仍按原75秒边界拒绝。没有新增信号、强杀或入口绕行。
 
 新增`test_launcher.py`纯单元用例，涵盖同快照解析、坏分隔符和非正ticks，以及匹配zombie/live/复用PID/消失条目/不可读/坏数据。独立执行的精确命令：`python3 scripts/s11/test_launcher.py LauncherSupervisorTests.test_proc_stat_identity_reads_state_and_birth_ticks_from_one_snapshot LauncherSupervisorTests.test_proc_stat_identity_rejects_malformed_delimiter_and_nonpositive_ticks LauncherSupervisorTests.test_owned_process_exit_accepts_only_missing_reused_or_matching_zombie`；exit 0，3 tests，`OK`。测试只构造`/proc`文本并mock读取结果；未启动/停止S11服务，未访问DB或网络。独立源码审查PASS，确认修改只影响stop轮询观察并继续在身份未知时fail-closed。
 
