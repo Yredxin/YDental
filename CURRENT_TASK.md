@@ -1,3 +1,14 @@
+# S11 attempt11 权限授予前置故障（2026-10-22 UTC）
+
+- 现场核验：branch=`codex/s11-followup-lab-r1`，HEAD=`517981a550600b3fd6a3e2d40ca6fd2dd35f8f4e`，工作区干净，ahead origin 249；产品候选`7510f03838a276be3e572af6e25c9826b6a74955`。不回退或覆盖已完成成果，不重跑attempt102–106，不push/merge/deploy。
+- attempt106匿名GET仍为既有PASS，绝不重跑：receipt `.local/s11/receipts/s11-http-stability-7510f03-attempt106.json` SHA `193d1f224c5cfc3aaab44aaaf2aa68f1b170df417e7e5c15c8cd6a50d2e45aca`；实际helper `.local/s11/verification/s11_http_stability_7510f03_attempt106.py` SHA `cb15d80c257cbbb1f85e0852e25e43a2113574c11fbad52d1f4863d127f23e2c`。attempt102–105原FAIL保留。
+- UID2672 app-group attempt11未授予，原失败保留。GDB inferior在Odoo Registry加载后运行固定helper；首异常 `NameError: name 'HELPER_ATTEMPT' is not defined`，固定源码还原位置 `.local/s11/operations/grant_ydental_base_access_uid2672_7510f03_admin_appgroup_attempt11_once.py:414`。早于helper显式目标身份SQL、锁、ORM write及commit（分别源行643、658、723、743）；runner receipt `helper_commit_possible=true`是保守值。GDB child exit 1、无signal/core；supervisor正常完成回收并标记`READBACK_OR_COMMIT_RECONCILIATION_REQUIRED`。不要复用attempt11 latch/authorization。
+- 独立未实现者postfailure只读核对确认 UID2672身份/公司/直接组仍是pregrant状态，没有已提交的目标组；224保护表计数、D/C、99模块和外部通道与fresh admission一致；RO/RR/UTC rollback-idle-close通过，owned service STOPPED/port free。证据 `.local/s11/verification/uid2672-attempt11-postfailure-ro-20261022T115515Z-38905933.json` SHA `19d7f64cde1c0af8e142c85c9125ef77d786a531972fe6aa0dbf1ed342fd695b`。这限定当前DB状态，不改变helper自身曾报告提交可能性的原记录。
+- helper SHA `009d5b1fcb3c3773b5cdf041b0c9d2743e8ad70208f0289114d96ae07149ffc0`；attempt11 GDB日志SHA `9daee03fde001fcc10fdfa03d3ccaac6ef3506904e4c1d1e33fe26e0702cb982`；runner receipt SHA `7915866aad3b8a3497761e952fb12a8b72596617297fde1860c8280b559db1d8`。launcher/GDB运行已停止。
+- 后续：仅修正helper中无依赖的前置工件名检查；窄测该guard后由未实现者复核；固定新的一次性runner/helper哈希与新fresh admission，执行单次受限的UID2672目标组补授，再独立读回。之后用原生Users UI仅向批准UID 2466/9/2043/2670授予clock组，独立读回、验证身份可用并禁用UID2672临时管理员。再继续合成临床提交→postcommit→claim→controlled sink、临床义齿收货/库存/返工收费、新F2、影响面回归和独立验收。S11/#35保持PARTIAL/OPEN。
+
+---
+
 # S11 attempt102阻断修复及attempt106最小GET（2026-10-22 UTC）
 
 - 续行现场：branch=`codex/s11-followup-lab-r1`，HEAD=`4bc979b07e71b05feb27e011acdd67cfdf1e6ea6`，tracked工作区干净，ahead origin 245。仅在既有产品候选`7510f03838a276be3e572af6e25c9826b6a74955`上继续；candidate与报告HEAD差异仍限S11文档，不重跑attempt106。

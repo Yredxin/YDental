@@ -1092,3 +1092,12 @@ run `20261022T091000Z-fbe7345b5861` 的GDB exit receipt `.local/s11/runs/2026102
 - 原attempt candidate `73384ff…`与报告HEAD `4d13d54…`间只有CURRENT_TASK、S11报告和` scripts/s11/README.md`文档变化；无launcher/配置/依赖/目标/权限改动。已提交候选`7510f03838a276be3e572af6e25c9826b6a74955`包含进程契约及candidate核验修复。docs-only candidate guard保留实际execution candidate、记录report HEAD/变化路径，并对非allowlist路径与rename fail closed。
 - 窄测3项PASS（exit0）；py_compile、diff check通过。尝试103 helper仅为修复后模板，新增首异常阶段/类型/脱敏消息/源码定位、cleanup分层、各进程状态/时序、HTTP request-call计数定义及≤4MiB私有响应保存；没有运行attempt103。正常GDB无native crash时`capture_complete=null`不作为失败。
 - 当前仍需对候选7510f03做真实候选绑定与fresh只读准入、独立准入复核、更新并独立固定attempt103 helper；通过后才可启动唯一的新有界GET并保存response，再继续plan业务闭环。S11保持`PARTIAL / RUNTIME_BLOCKED`，#35 OPEN。没有push/merge/deploy，不启动S12/S13。
+
+
+## 2026-10-22 UTC｜UID2672 attempt11 前置 helper 错误
+
+- 保留 `attempt11` 原始结果，不重放。runner receipt `.local/s11/operations/ydental-base-group-uid2672-7510f03-admin-appgroup-attempt11-runner.json` SHA-256 `7915866aad3b8a3497761e952fb12a8b72596617297fde1860c8280b559db1d8` 为 `READBACK_OR_COMMIT_RECONCILIATION_REQUIRED`；GDB child exit 1，无 signal/core，service STOPPED。
+- 首异常在helper固定SHA `009d5b1fcb3c3773b5cdf041b0c9d2743e8ad70208f0289114d96ae07149ffc0` 的 `main()`：由固定源码还原为第414行访问未定义的 `HELPER_ATTEMPT`，消息 `NameError: name 'HELPER_ATTEMPT' is not defined`。GDB日志 SHA `9daee03fde001fcc10fdfa03d3ccaac6ef3506904e4c1d1e33fe26e0702cb982`。Odoo Registry已加载；失败早于helper的显式target identity SQL、`FOR UPDATE`、`admin.write`与`env.cr.commit()`。
+- 独立未实现者postfailure RO读回 `.local/s11/verification/uid2672-attempt11-postfailure-ro-20261022T115515Z-38905933.json` SHA `19d7f64cde1c0af8e142c85c9125ef77d786a531972fe6aa0dbf1ed342fd695b` 确认UID2672没有获得目标app group，身份/company/manager direct group符合pregrant；224保护计数、D/C、99模块、外发状态匹配fresh admission；RO/RR/UTC rollback-idle-close、STOPPED/portfree通过。因此目前未观察到授权提交，保留runner的保守`helper_commit_possible=true`原字段。
+- 最小修复候选：修正helper attempt9历史工件断言中未定义的变量引用。以新唯一attempt、全新授权与fresh准入执行；attempt11 authorization及latch绝不重用。此普通工具错误不扩大用户组，也不构成产品失败。
+- attempt106保持原GET成功证据，不重跑；匿名GDB请求不代表普通服务/browser稳定性PASS。临床、postcommit/claim/sink、义齿收货/库存/返工收费、新F2、回归与独立总验收尚未完成。S11为PARTIAL，#35保持OPEN。

@@ -420,3 +420,13 @@ At candidate `4d126a6`, fresh pre-create admission passed (receipt SHA `93c21c58
 |实现候选|`7510f03838a276be3e572af6e25c9826b6a74955`，`scripts/s11/launcher.py` / `11258b209806bcdfd35afc7319fecb629664b68df55f82130f059b7d909dbec5`，`scripts/s11/test_launcher.py` / `8b33a3402060106aa0971e1d982ade59085f8f07022a709f33c959a670a0f6b8`|PGID/SID校验修复；docs-only候选漂移验证；report HEAD/delta保留；本地3项纯窄测PASS。独立review通过这组实现SHA；后续报告候选返回小修需要按最终HEAD复核|
 |attempt103 helper template（本节编写时状态）|`.local/s11/verification/s11_http_stability_73384ff_attempt103.py` / SHA当时待最终固定|本节编写时尚未执行；后续attempt103–106的实际结果、固定hash和修复记录见本索引顶部10:42 UTC节|
 # 2026-10-22 10:04 UTC｜V2修复完成批次执行证据（HTTP当时BLOCKED）
+
+
+## 2026-10-22 UTC｜attempt11 UID2672组授权前置失败及独立对账
+
+|范围|证据|SHA-256|结果/限定|
+|---|---|---|---|
+|attempt11 runner receipt|`.local/s11/operations/ydental-base-group-uid2672-7510f03-admin-appgroup-attempt11-runner.json`|`7915866aad3b8a3497761e952fb12a8b72596617297fde1860c8280b559db1d8`|`READBACK_OR_COMMIT_RECONCILIATION_REQUIRED`；helper authorization发布/消费，commit可能性保守为true；GDB child exit1，无signal/core，服务已停。|
+|固定源码还原首异常/GDB日志|`.local/s11/operations/grant_ydental_base_access_uid2672_7510f03_admin_appgroup_attempt11_once.py`；`.local/s11/operations/20261022T115226Z-ydental-base-uid2672-attempt11-bf7b878a9327/gdb-shell.log`|helper `009d5b1fcb3c3773b5cdf041b0c9d2743e8ad70208f0289114d96ae07149ffc0`；log `9daee03fde001fcc10fdfa03d3ccaac6ef3506904e4c1d1e33fe26e0702cb982`|helper:414 `NameError: name 'HELPER_ATTEMPT' is not defined`；Odoo Registry此前已加载；异常在显式目标身份查询、行锁、write及commit前。异常细节由固定源码与保存GDB日志还原。|
+|独立未实现者 postfailure readback|`.local/s11/verification/uid2672-attempt11-postfailure-ro-20261022T115515Z-38905933.json`|`19d7f64cde1c0af8e142c85c9125ef77d786a531972fe6aa0dbf1ed342fd695b`|UID2672 pregrant unchanged；224 protected counts、D/C、99 modules、external state与fresh admission匹配；只读事务回滚/idle/close，服务STOPPED/portfree。|
+|attempt106已完成GET来源（引用，不重跑）|`.local/s11/receipts/s11-http-stability-7510f03-attempt106.json`；`.local/s11/verification/s11_http_stability_7510f03_attempt106.py`|receipt `193d1f224c5cfc3aaab44aaaf2aa68f1b170df417e7e5c15c8cd6a50d2e45aca`；helper `cb15d80c257cbbb1f85e0852e25e43a2113574c11fbad52d1f4863d127f23e2c`|既有监督下单次匿名GET成功及响应固定证据；不代表普通运行或浏览器稳定性。|
