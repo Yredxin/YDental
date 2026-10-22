@@ -5,6 +5,7 @@
 - 独立静态复核认为现有证据不能证明安全恢复条件：未能确定有界等待超时原因；单纯增加等待或把事后STOPPED当成功均属猜测。遵守停止条件，不重启、不再次stop、不改入口、不重跑attempt90/101；运行路径保持阻断。
 - 独立T05/T12源码审查确认postcommit、独立claim及controlled sink源码路径存在，但现有测试分别mock回调/claim或直接调用sink；无合法临床来源提交到sink的完整实证，也没有可通过代码修改关闭该证据缺口的安全产品变更。其余临床、义齿、账务、新F2和运行回归仍依赖恢复门、正常UI授权/FIFO/原生来源，暂没有可独立完成的业务操作。
 - 本次只做离线只读审查；未运行测试、服务、HTTP、浏览器或数据库，也未做业务写入。更新本文件、`docs/reports/s11/summary.md`与`docs/reports/s11/evidence-index.md`后固定本地文档候选；S11仍 `PARTIAL / RUNTIME_BLOCKED`，#35保持OPEN。只允许正常本地提交，不push/merge/deploy，不启动S12/S13。
+- 文档提交 `6dee84d3c15c4c64ffafe14af67d6c63b5d92074` 已固定这次复核；该提交后工作区干净、分支领先origin 235。随后仅本文件补记提交状态，最终HEAD以现场Git核验为准。
 
 # S11 会话交接（2026-10-22 09:21 UTC）：剩余范围与条件阻断
 
