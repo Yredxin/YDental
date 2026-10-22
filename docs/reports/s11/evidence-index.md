@@ -1,3 +1,12 @@
+## 2026-10-22 UTC｜clock Users UI attempt16就绪前失败与独立后核
+
+|证据|路径 / SHA-256|结果与限制|
+|---|---|---|
+|attempt16 runner receipt|`.local/s11/operations/clock-operator-users-ui-7510f03-attempt16.runner.json` / `1cbec85f863c25725ac4a6c675026dff23b699cab92356409eae4d65288e20f2`|FAIL；helper exit1；GDB child exit0、无signal/core；finally唯一stop exit0，service STOPPED/portfree。报告HEAD 9578e6d，candidate 7510f03。|
+|attempt16首异常stderr|`.local/s11/operations/clock-operator-users-ui-7510f03-attempt16-helper.stderr` / `a40b140ce44a516bf5292697edbf52c6721827426192247c940c3e2cf6d85977`|`RuntimeError: loopback listener ownership differs from the exact S11 inferior`，固定helper `.local/s11/operations/grant_clock_operator_users_ui_7510f03_attempt16.py` SHA `98e276715e3dc55dbb11ee2a33c6af85b93a508b63a8b45959c732221732bd0a` line732。此处立即assert唯一ss listener为`127.0.0.1:18411`且PID/birth ticks精确属GDB inferior；实际ss行/owner未采集。源码调用顺序在helper授权latch、credential读取、登录及UI前。|
+|GDB run exit|`.local/s11/runs/20261022T121519Z-94626d68b27a/exit.json`|child exit0；inferior signal null；core_bytes 0；owned group stopped。GDB日志934字节，不能推断SIGSEGV。|
+|独立未实现者postfailure RO|`.local/s11/verification/clock-ui-attempt16-postfailure-independent-ro-20261022T121758Z-e9feb684.json` / `e4fcb6177864df6df000a7f363a6f65a950f2fb8c0ecd3d298d4499143b1e011`|PASS：UID2672角色/company与attempt14基线一致，四目标clock组仍false，UID2666未变；224保护计数无变化，D/C/modules/external match；RR/RO/UTC rollback-idle-close及STOPPED/portfree。|
+
 ## 2026-10-22 UTC｜UID2672 attempt14应用组授权独立核验
 
 |证据|路径 / SHA-256|结果与限制|

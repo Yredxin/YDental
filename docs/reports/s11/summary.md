@@ -1,3 +1,13 @@
+## 2026-10-22 UTC｜clock Users UI attempt16就绪检查前失败
+
+attempt16仅启动了GDB监督服务，未登录、未读取临时管理员凭据、未发UI/RPC请求，未创建helper attempt/intent/receipt。runner receipt `.local/s11/operations/clock-operator-users-ui-7510f03-attempt16.runner.json` SHA `1cbec85f863c25725ac4a6c675026dff23b699cab92356409eae4d65288e20f2`记录helper exit1、唯一stop exit0、service STOPPED/portfree；GDB child exit0、无signal/core。helper stderr SHA `a40b140ce44a516bf5292697edbf52c6721827426192247c940c3e2cf6d85977`显示首异常为`RuntimeError: loopback listener ownership differs from the exact S11 inferior`，固定helper `.local/s11/operations/grant_clock_operator_users_ui_7510f03_attempt16.py` SHA `98e276715e3dc55dbb11ee2a33c6af85b93a508b63a8b45959c732221732bd0a`第732行。该前置要求唯一loopback listener PID精确匹配GDB inferior且birth ticks相符；实际`ss`行/owner未采集。进程身份记录时间为12:15:20.175Z，GDB stop完成12:15:20.311Z；源码显示runner发现active owner后即运行同步helper，没有listener readiness wait。
+
+独立未实现者只读后核PASS：`.local/s11/verification/clock-ui-attempt16-postfailure-independent-ro-20261022T121758Z-e9feb684.json` SHA `e4fcb6177864df6df000a7f363a6f65a950f2fb8c0ecd3d298d4499143b1e011`。UID2672角色和company与attempt14 postgrant基线一致；clock目标2466/9/2043/2670均仍未授权，排除UID2666未变；224保护计数相同，D/C、99模块和external state匹配。只读事务显式rollback后idle/close，service STOPPED/端口空闲。
+
+下一步修复范围仅限已证实的即时listener就绪断言：新attempt17对同一loopback socket做有界轮询并记录观察；错误地址、多个listener、非inferior owner立即拒绝，只有唯一精确PID及birth ticks匹配时才继续，超时需记录最后实际状态。先窄测再独立复审；attempt16原FAIL保留且不重跑。上一项UID2672应用组授权及独立读回仍有效。S11 PARTIAL、#35 OPEN。
+
+---
+
 ## 2026-10-22 UTC｜UID2672 YDental应用组授权闭环
 
 现场branch=`codex/s11-followup-lab-r1`，实施前HEAD `bf7bc9d69c931ba20dc542b5d3cc7a45c72afb13`，工作树干净/ahead origin 250；执行候选仍为`7510f03838a276be3e572af6e25c9826b6a74955`。attempt102–105保留原FAIL，attempt106不重跑，且仅是GDB监督的一次匿名GET证据。
