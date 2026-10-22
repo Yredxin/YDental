@@ -1,3 +1,14 @@
+# S11 最新会话交接（2026-10-22 17:45 UTC）
+
+- 现场：分支 `codex/s11-followup-lab-r1`，HEAD `ffef12b420cc70f4f4da50569c5572638a6672b0`，ahead 260；本次开始时 tracked 工作区干净。候选代码仍为 `7510f03838a276be3e572af6e25c9826b6a74955`。服务 STOPPED、18411 端口空闲。没有回退、清理或覆盖历史工作。
+- attempt30（UID2673 原生 Store2 join UID2672）保留 `FAIL`：helper `770ee84c0f211bea60412dd3521c6c03bb0c058813f6416b1e37a0a7361e34cb`、runner `edc04a1c38f2db02eef2f2ba4fe52ccc9a018831e4365cc615ce5a3109d3b2b9`。普通登录 POST `/web/login` 返回303，两个 `/ydental/access` GET均200；总 request_count=12，没有 `/ydental/access/action` POST、无 membership post-pending/提交。helper记 `TimeoutError`，但未记录精确子阶段/首异常行；固定源码中疑似发生于第二次 access GET后、join POST前，不能将疑点写成已证根因。GDB child exit0、无signal/core，runner唯一 stop exit0，随后STOPPED/portfree。不得重跑attempt30或再次stop。
+- attempt30独立postfailure RO receipt `.local/s11/verification/store2-join-attempt30-postfailure-independent-ro.json` SHA `fb8986adf92faaf6fb221c7f4af7c40b6236991d4386d17b8bdde61766059cf5` 保持 `FAIL_CLOSED`：相较attempt48精确 `mail_message +2`、`ydental_access_audit +3`、`ydental_access_session +1`。审计/session三条可对应正常认证、scope建立及原生默认Store2选择；UID2672仍无membership/employee/组变化，UID2673身份/员工/membership/grant符合既有最小权限。
+- attempt30额外邮件行用新的attempt31只读metadata核验，不更改旧receipt。源码 SHA `22203a7cee6125fc4ca773ecc2b21c00f3ee84fd2bcb50b5e05301b78d158319`经未实现者PASS后，receipt `.local/s11/verification/store2-join-attempt31-mail-metadata-independent-ro.json` 单次结果 `READ_ONLY_METADATA_CAPTURED`，receipt SHA `e3f220e1e1efebed110c56ee21166d4c4d932bfe3f4db01a8f26ab44393edb17`.两行是同一UTC时刻的 `tracking` 消息：`res.users(2673)` 与 `hr.employee(2641)`，均create_uid2673/author3637/subtype2，无收件人、notification或mail queue；该库无 `mail_tracking_value` 表，未读正文、地址或tracking旧新值。只读查询RO/RR/UTC，rollback-idle-close，service pre/post STOPPED/portfree。
+- 固定Odoo源码显示登录可条件更新user.tz、HR层会同步tz且employee.tz tracked；但独立审查认为同时间/作者和源码路径仅构成相关性，`res.users`具体跟踪字段/两行因果链未证，故attempt30 `mail_message +2` **仍未归因**，不得发布新的fresh admission或进行任何后续DB/UI写入。attempt31元数据receipt不代表来源PASS。
+- 元数据attempt30核验初版receipt `.local/s11/verification/store2-join-attempt30-mail-metadata-independent-ro.json` SHA `6ffde9d3fb3f3545b6a1e0af836c311cfb0c239a3a85ced286d896333a66017e`，保留 `FAIL_CLOSED`：UndefinedTable；RO事务身份/cleanup及service检查均通过。新attempt31明确记录 tracking table 不存在。
+- 下一步无依赖工作：离线继续核对 `res.users`/employee的tracking消息创建链，但不得读取消息正文/地址/旧新值；若仍不能独立证明两行来源，保持 `PARTIAL / RUNTIME_BLOCKED`。同时修订下一版一次性UI helper以逐阶段记录首异常和安全化traceback，并跳过重复的Store2切换仅限已有服务端Store2 scope被源码/回执验证时；需未实现者复核。只有完整保护计数fresh admission和独立审查通过后，才可用新attempt做唯一原生join POST。UID2672 clock组原生Users UI、后续合成临床/文书→postcommit/claim/sink、义齿采购收货/返工追加收费、全新F2并发、影响回归及独立总验收均未完成。S11 `PARTIAL / RUNTIME_BLOCKED`，#35 `OPEN`；不push/merge/deploy/S12/S13。
+
+
 
 # 2026-10-22 17:24 UTC｜测试账号授权澄清与fresh-admission attempt43–45
 
