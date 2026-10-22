@@ -1,3 +1,12 @@
+## 2026-10-22 UTC｜clock Users UI attempt17 inferior identity尚未就绪
+
+|证据|路径 / SHA-256|结果与限制|
+|---|---|---|
+|attempt17 early-stage failure receipt|`.local/s11/operations/clock-operator-users-ui-7510f03-attempt17-early-failure.json` / `d81853f1bc0782ce9f770436500cdbbfa60871da81a3b0f0ccf0214ec5b113f9`|阶段`PRE_CREDENTIAL_PRE_UI_SERVICE_READINESS`；首异常`RuntimeError: GDB inferior/child birth identity failed before listener readiness check`；credential/browser-RPC/save字段均false。错误时active marker各identity字段未被采集。|
+|attempt17 helper / runner|helper `.local/s11/operations/grant_clock_operator_users_ui_7510f03_attempt17.py` SHA `264798d37a65121ec7b946efee70fbddc70a9cbf182cee96f14fd8b1f0164ea9`；runner receipt `.local/s11/operations/clock-operator-users-ui-7510f03-attempt17.runner.json` SHA `2ed9a8133df925688c3562a5769b0d280b3f439e5bd4e1d8b1c85df33d7ef1bb`|child exit0、no signal/core、唯一stop exit0、STOPPED/portfree。helper错误line779；本次未到此前新增listener polling。|
+|launcher publication order|`scripts/s11/launcher.py:1112,1147-1157`; run `.local/s11/runs/20261022T122134Z-ec55cb3d58a2/inferior.json`|源码显示初始owner marker先存在，inferior身份字段在supervisor观察到`inferior.json`后补写。run file时间12:21:34.598275Z，early receipt时间12:21:34.604247Z；此时序支持但不实录active marker字段值。|
+|attempt17 independent postfailure RO|待完成|本次GDB run启动后未进行业务请求；在完整独立读回前不继续attempt18。|
+
 ## 2026-10-22 UTC｜clock Users UI attempt16就绪前失败与独立后核
 
 |证据|路径 / SHA-256|结果与限制|

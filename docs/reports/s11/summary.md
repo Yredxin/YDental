@@ -1,3 +1,13 @@
+## 2026-10-22 UTC｜clock Users UI attempt17 GDB身份发布竞态
+
+attempt17保留FAIL。helper在已存在launcher owner时对active-owner中的GDB inferior PID/PGID/SID/start ticks进行一次即时检查，异常发生在listener检查、credential读取、登录和UI/RPC之前。early failure receipt `.local/s11/operations/clock-operator-users-ui-7510f03-attempt17-early-failure.json` SHA `d81853f1bc0782ce9f770436500cdbbfa60871da81a3b0f0ccf0214ec5b113f9`记录`RuntimeError: GDB inferior/child birth identity failed before listener readiness check`及`credential_read=false/browser_or_rpc_request=false/group_save_dispatch=false`。错误时active marker的PID/PGID/SID/start ticks原值未记录。helper固定SHA `264798d37a65121ec7b946efee70fbddc70a9cbf182cee96f14fd8b1f0164ea9` line779；launcher源码 `scripts/s11/launcher.py:1112,1147-1157`先发布child owner marker，再在supervisor读到`inferior.json`时补齐inferior身份字段。inferior记录12:21:34.598275Z，错误记录12:21:34.604247Z，间隔约6ms，支持字段发布尚未完成的源码时序解释，但不能替代当时active marker实际值。
+
+runner receipt `.local/s11/operations/clock-operator-users-ui-7510f03-attempt17.runner.json` SHA `2ed9a8133df925688c3562a5769b0d280b3f439e5bd4e1d8b1c85df33d7ef1bb`记录唯一stop exit0、GDB child exit0无signal/core、service STOPPED/portfree。attempt17独立postfailure RO尚待完成；不得重跑。
+
+attempt18局部修复先有界等active-owner的inferior身份补齐，并与run目录`inferior.json`及实际PID/birth ticks/PGID/SID相符，然后进入已经核准的有界listener就绪轮询。每个阶段记录原始关键观察；字段未发布可等待，明确不匹配立即拒绝。先本地窄测再独立review。attempt16/17失败原样保留。
+
+---
+
 ## 2026-10-22 UTC｜clock Users UI attempt16就绪检查前失败
 
 attempt16仅启动了GDB监督服务，未登录、未读取临时管理员凭据、未发UI/RPC请求，未创建helper attempt/intent/receipt。runner receipt `.local/s11/operations/clock-operator-users-ui-7510f03-attempt16.runner.json` SHA `1cbec85f863c25725ac4a6c675026dff23b699cab92356409eae4d65288e20f2`记录helper exit1、唯一stop exit0、service STOPPED/portfree；GDB child exit0、无signal/core。helper stderr SHA `a40b140ce44a516bf5292697edbf52c6721827426192247c940c3e2cf6d85977`显示首异常为`RuntimeError: loopback listener ownership differs from the exact S11 inferior`，固定helper `.local/s11/operations/grant_clock_operator_users_ui_7510f03_attempt16.py` SHA `98e276715e3dc55dbb11ee2a33c6af85b93a508b63a8b45959c732221732bd0a`第732行。该前置要求唯一loopback listener PID精确匹配GDB inferior且birth ticks相符；实际`ss`行/owner未采集。进程身份记录时间为12:15:20.175Z，GDB stop完成12:15:20.311Z；源码显示runner发现active owner后即运行同步helper，没有listener readiness wait。
