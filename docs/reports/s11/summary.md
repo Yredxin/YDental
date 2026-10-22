@@ -1230,3 +1230,10 @@ run `20261022T091000Z-fbe7345b5861` 的GDB exit receipt `.local/s11/runs/2026102
 - attempt30独立后核保持 `FAIL_CLOSED`：`mail_message +2`、`ydental_access_audit +3`、`ydental_access_session +1`。新attempt31 metadata-only RO核验精确得到两条同时间tracking行：`res.users(2673)`及`hr.employee(2641)`，create_uid2673/author3637/subtype2；零recipient、notification、mail queue。Postgres确认本库不存在 `mail_tracking_value` 表，因此没有读到tracking field/value。查询RO/RR/UTC、rollback-idle-close及服务前后STOPPED/portfree均通过。
 - 固定本地源码支持“首次登录写浏览器时区，HR同步到员工并追踪”的可能路径；独立审查认为`res.users`消息字段和两条消息因果链仍未证明。保留为未归因delta，不据此通过admission、不进行membership或其他写操作。初版元数据receipt `FAIL_CLOSED/UndefinedTable` 原样保留。
 - 状态：S11 `PARTIAL / RUNTIME_BLOCKED`、#35 OPEN。后续先做有界离线源码核验及改进新helper的分阶段首异常捕获；不要重跑attempt30/再次stop。
+
+
+## 2026-10-22 23:28 UTC｜attempt31 helper异常捕获独立静态复核
+
+- 为不重跑attempt30，生成独立store2-join attempt31 helper/runner草案。Helper SHA `1e86b437a6e18433fb3813ec16e251b01bfa58e499eba7cd394d517408c8b702`，runner SHA `7f86cb4d1ff6fe0a3caa633c5c5fc8d947a213ebc93ff0f829bab141a7799f17`，两文件py_compile通过。
+- 未实现该草案的`launcher_repair_review`按精确SHA静态PASS（非运行批准）：保留分阶段/UTC序列、异常类型、凭据/登录/URL query脱敏消息及helper文件/函数/行号；runner读取并保留失败字段。attempt30原文件及receipt不变。草案只在正常认证后读到当前Store2及execution position=2才准备唯一join POST；去掉冗余switch POST。独立审查指出attempt30自身没有Store2页面读回，不能把它表述为已验证Store2 UI scope。
+- 两入口均`EXECUTION_READY=False`，仍钉在旧attempt48 admission/report HEAD；当前报告HEAD `0aff200d6dc5ff3d32eee444f8a17bd5b92c98b9`与旧receipt不匹配。未运行helper/runner、未启动服务或访问UI。attempt30两条`mail_message`仍缺完整来源归因，所以fresh admission和任何后续数据库/UI写操作仍阻断。

@@ -554,3 +554,13 @@ At candidate `4d126a6`, fresh pre-create admission passed (receipt SHA `93c21c58
 |attempt30邮件初查|`.local/s11/verification/store2-join-attempt30-mail-metadata-independent-ro.json` SHA `6ffde9d3fb3f3545b6a1e0af836c311cfb0c239a3a85ced286d896333a66017e`，`FAIL_CLOSED`，首异常类型`UndefinedTable`；事务只读、rollback idle、资源关闭、service pre/post检查通过。保持原始失败。|
 |attempt31邮件metadata RO|源 `.local/s11/verification/store2_join_attempt31_mail_metadata_independent_ro.py` SHA `22203a7cee6125fc4ca773ecc2b21c00f3ee84fd2bcb50b5e05301b78d158319`，独立静态PASS；receipt `.local/s11/verification/store2-join-attempt31-mail-metadata-independent-ro.json` SHA `e3f220e1e1efebed110c56ee21166d4c4d932bfe3f4db01a8f26ab44393edb17`.两行同一UTC时间戳，model/res_id为`res.users/2673`和`hr.employee/2641`，message_type tracking、create_uid2673、author3637、subtype2；无recipient/notification/mail_queue。DB中无`mail_tracking_value`表，未查询正文、地址或tracking旧新值。RO/RR/UTC、rollback idle、cursor/connection关闭、service pre/post STOPPED。
 |归因结论|源码证明登录可能按条件写`user.tz`，HR同步到employee且employee.tz tracked；独立审查指出user消息tracked field及两行同因果链缺证。仅为时间/源码相关性，不足以通过完整来源归因；保护delta继续阻断admission及后续写入。|
+
+
+## 2026-10-22 store2-join attempt31异常捕获草案
+
+|证据|固定状态|
+|---|---|
+|一次性helper草案|`.local/s11/operations/join_store2_membership_uid2672_attempt31_once.py` SHA `1e86b437a6e18433fb3813ec16e251b01bfa58e499eba7cd394d517408c8b702`；`py_compile` PASS。`EXECUTION_READY=False`；阶段/时间、首异常类型、脱敏消息、helper源码行、请求方法/path/status、是否post/pending保留。|
+|supervisor runner草案|`.local/s11/operations/run_s11_store2_join_uid2672_attempt31.py` SHA `7f86cb4d1ff6fe0a3caa633c5c5fc8d947a213ebc93ff0f829bab141a7799f17`；`py_compile` PASS。`EXECUTION_READY=False`；runner回执保留helper失败阶段和traceback字段。|
+|独立静态审查|`launcher_repair_review`精确哈希PASS，无执行。确认失败消息脱敏、attempt30原件不变、scope读取通过后才可能单次join POST。attempt30 receipt无Store2 UI读回；新草案不得将其当既有实测。|
+|运行限制|当前report HEAD `0aff200d6dc5ff3d32eee444f8a17bd5b92c98b9`，草案仍pin attempt48旧report HEAD；protected `mail_message +2`未归因。尚不能获得fresh admission。未启动服务、未发GET/POST。|
