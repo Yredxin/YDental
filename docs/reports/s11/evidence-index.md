@@ -1,3 +1,10 @@
+## S11 c583 当前候选只读准入与独立恢复评估（2026-10-22 07:11–07:14 UTC）
+
+- delta verifier `.local/s11/verification/fresh_admission_c58367d_delta_attempt1_readonly.py` SHA `e1fda3067ea06e93a6156a20fe384babb2ba3b9d191b1be780472dfd8867bb68`：独立静态PASS；仅执行一次；只读RR/UTC检查、rollback/idle/close PASS。receipt `.local/s11/receipts/s11-fresh-admission-c58367d-delta-attempt1-20261022T071126Z-93aa46943cfce45d.json` SHA `7342d1af30af4b1faafbd88512746d0f2e3a9d00486bcb83a7f1ef713f9623fd`；admission copy SHA `7c17edf60a4af51db5e34b0402604daba4ee32629ea5b0bd4fdb53389cae1f33`；recovery manifest `COMPLETED`，runtime未变。cluster identity沿用attempt28并匹配当前DB endpoint，未直接读取系统identifier；跨库对象权限继承attempt28。
+- 执行捕获stdout `.local/s11/operations/fresh-admission-c58367d-delta-attempt1.stdout` SHA `25b1fa89eb0d0bfacfa83a62f8071c45b6ea278fcc9005fd0bd051f8263cf350`；stderr SHA `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`。执行前后服务STOPPED、18411空闲；HTTP request count为0。
+- 独立恢复复核：BLOCKED for new HTTP dispatch。attempt90 receipt `.local/s11/receipts/s11-http-stability-d5e35aa-attempt90.json`记录stop exit2；readback `.local/s11/verification/s11-http-stability-attempt90-post-readback.json`虽确认0请求、无signal/core、最终进程停止和DB投影/计数一致，但新版75秒stop路径无实跑证据，旧helper外层只有45秒超时。不得重放attempt90；待新候选绑定、>75秒stop waiter的不同helper与独立候选复核。
+- 临时管理员UID2672由Codex建立且独立验收；用户不需创建。最小YDental应用组/clock组仍待恢复正常Users UI路径后授予。
+
 ## S11 fresh admission attempt28（2026-10-22 06:30 UTC）
 
 - 精确候选 `5cf12e07d1608dc48117ac53c7531b1f75f3983e`；helper SHA-256 `4c5750f9d563479934913a76d9162c5428f89bb52d50df4629d252bedf579e72`，独立静态review PASS，one-shot结果PASS。receipt `.local/s11/receipts/s11-fresh-admission-5cf12e0-attempt28-20261022T063048Z-11d95b13867311f9.json` SHA-256 `adf928fa1e2e58671a9b3a113095920e2d69d78a27b12880468e79c8b821e4bf`；admission SHA-256 `089b74106a27b6b266c1613d0fe28cef90aad754a3b3a76be79d4cadb58f3605`；恢复清单SHA-256 `bd404d1ba65a58dc9112fa255e839b163ebd1a45f123bd32d24d53f66416d9f1`。全部文件mode0600。

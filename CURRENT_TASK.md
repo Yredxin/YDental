@@ -1,3 +1,10 @@
+# S11 状态续行（2026-10-22 07:14 UTC）：当前候选只读准入通过，运行恢复评估仍阻断
+
+- 当前候选 `c58367db75b3ca18ca9cb4c2253cd55f305f5636`、分支 `codex/s11-followup-lab-r1`、工作树干净。fresh-admission delta helper `.local/s11/verification/fresh_admission_c58367d_delta_attempt1_readonly.py` SHA-256 `e1fda3067ea06e93a6156a20fe384babb2ba3b9d191b1be780472dfd8867bb68` 经独立静态审查PASS后仅执行一次；只读准入PASS。receipt `.local/s11/receipts/s11-fresh-admission-c58367d-delta-attempt1-20261022T071126Z-93aa46943cfce45d.json` SHA-256 `7342d1af30af4b1faafbd88512746d0f2e3a9d00486bcb83a7f1ef713f9623fd`；admission SHA-256 `7c17edf60a4af51db5e34b0402604daba4ee32629ea5b0bd4fdb53389cae1f33`；恢复清单状态COMPLETED，runtime SHA保持 `345a6098a9d1d6877f6541b2ee7a588617273452f5b975bcc49ca7ca4ed68cfa`。对目标DB/OID/受限角色、224张保护表、D/C投影、已安装模块、外发通道和RO/RR/UTC显式rollback/idle/close核验通过。cluster identifier沿用attempt28固定值并用当前DB/OID/role/address/port匹配，没有在本次以`pg_control_system()`直接重读；跨库grant证据也沿用attempt28。
+- 准入执行stdout `.local/s11/operations/fresh-admission-c58367d-delta-attempt1.stdout` SHA-256 `25b1fa89eb0d0bfacfa83a62f8071c45b6ea278fcc9005fd0bd051f8263cf350`；stderr为空，SHA-256 `e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855`。service仍STOPPED，18411无监听；没有HTTP请求、业务写入或服务启动。
+- 独立恢复复核结论仍为HTTP BLOCKED：attempt90当前证据证明请求数0、GDB子进程干净退出且无signal/core、最终STOPPED和保护快照一致；但其stop命令exit 2仍是未消除的工具停止异常。attempt90使用旧launcher及45秒外层stop timeout，而当前launcher新75秒等待未在服务运行时实测。不得重放attempt90。复核指出下一步只能准备一个新候选绑定、外层stop等待>75秒的只读探测器，并在任何HTTP前取得该精确候选的独立恢复复核；现阶段不启动服务。
+- 合成ERP管理员UID2672已由Codex创建并独立验收；不要求用户建号/供给管理员凭据。其最小YDental应用组与clock测试组授权尚未执行，因为正常Users UI仍依赖受阻的HTTP路径。#35保持OPEN，S11 PARTIAL/RUNTIME_BLOCKED；`ROOT_CAUSE_UNDETERMINED`及历史F2 `EVIDENCE_GAP`不变。文档记录提交会产生新候选；下一次运行前需重新fresh admission。不得push/merge/deploy或启动S12/S13。
+
 # S11 状态续行（2026-10-22 06:32 UTC）：attempt28 只读准入通过
 
 - 固定候选为当前分支 `codex/s11-followup-lab-r1` / HEAD `5cf12e07d1608dc48117ac53c7531b1f75f3983e`。attempt28 helper SHA-256 `4c5750f9d563479934913a76d9162c5428f89bb52d50df4629d252bedf579e72`，经独立静态审查PASS后一次执行；只读准入结果PASS，保护表224项，限定模块/权限与目标身份校验通过。201个数据库的CONNECT继承均有检查记录；受限角色非SUPERUSER，数据库grant检查通过。没有HTTP请求、服务启动或业务写入。

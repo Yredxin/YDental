@@ -1,3 +1,11 @@
+## 2026-10-22 07:14 UTC｜c583 当前候选准入通过；HTTP恢复仍阻断
+
+当前docs-only候选 `c58367db75b3ca18ca9cb4c2253cd55f305f5636` 的fresh-admission delta helper SHA-256 `e1fda3067ea06e93a6156a20fe384babb2ba3b9d191b1be780472dfd8867bb68` 经未参与实施者独立静态PASS后只运行一次。准入PASS，receipt SHA-256 `7342d1af30af4b1faafbd88512746d0f2e3a9d00486bcb83a7f1ef713f9623fd`，admission SHA-256 `7c17edf60a4af51db5e34b0402604daba4ee32629ea5b0bd4fdb53389cae1f33`，恢复清单COMPLETED。检查指定scratch DB/OID/受限LOGIN属性和零角色membership、224张保护表、D/C投影、installed modules、外发渠道、READ ONLY/REPEATABLE READ/UTC显式rollback/idle/close；service执行前后STOPPED。cluster ID沿用attempt28固定证据并由活动连接的DB/OID/role/address/port比对，未在本次权限下直接读取`pg_control_system()`；跨库对象权限核验也沿用attempt28。本次没有HTTP、启动服务或业务写入。
+
+独立候选恢复评估仍BLOCKED于新HTTP dispatch：attempt90旧回执记录`stop_command_exit=2`，虽post-readback证明0请求、GDB子进程退出0且无signal/core、owned process group最终停止、端口空闲及受保护投影/表计数未变化，但stop异常没有通过修复后的路径实际闭环。当前launcher的75秒stop界限只有源码/单测证据；attempt90使用45秒外层调用，不能证明新路径实跑安全。不得重放attempt90。任何新GET前需要新建候选绑定的只读helper，外层stop等待>75秒，并由独立验收对同一个固定候选重新评估。当前仍不启动服务。
+
+合成ERP管理员UID2672由Codex创建且独立只读验收，用户不需建号或提供凭据。YDental应用用户组与clock测试组仍未授予；需恢复正常Users UI路径后才执行获批的最小组授权。`ROOT_CAUSE_UNDETERMINED`、旧F2 `EVIDENCE_GAP`、S11 `PARTIAL / RUNTIME_BLOCKED`和#35 OPEN保持。
+
 ## 2026-10-22 06:32 UTC｜attempt28 只读准入通过；运行停止条件仍有效
 
 对精确候选 `5cf12e07d1608dc48117ac53c7531b1f75f3983e` 执行一次只读fresh admission。helper SHA-256 `4c5750f9d563479934913a76d9162c5428f89bb52d50df4629d252bedf579e72` 经独立静态审查PASS。结果PASS：224张保护表、受限scratch身份及非SUPERUSER角色、数据库grant核验、候选模块/权限核验通过；201个其他数据库的CONNECT继承被逐库记录并完成对象权限检查。receipt `.local/s11/receipts/s11-fresh-admission-5cf12e0-attempt28-20261022T063048Z-11d95b13867311f9.json` SHA-256 `adf928fa1e2e58671a9b3a113095920e2d69d78a27b12880468e79c8b821e4bf`；admission `.local/s11/admission-5cf12e0-attempt28-20261022T063048Z-11d95b13867311f9.json` SHA-256 `089b74106a27b6b266c1613d0fe28cef90aad754a3b3a76be79d4cadb58f3605`；recovery manifest SHA-256 `bd404d1ba65a58dc9112fa255e839b163ebd1a45f123bd32d24d53f66416d9f1`。三份证据均mode0600。服务STOPPED、端口18411空闲、无active marker；没有启动服务、发HTTP或业务写入。
