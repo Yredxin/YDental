@@ -126,7 +126,9 @@ runs; use another terminal for status or stop:
 Record each command's exit code. `start` emits Odoo output only to the capped
 private log and prints a non-secret run ID/PID/port. `status` checks process
 ownership; it does not make an HTTP request or claim readiness. `stop` signals
-only the verified launcher supervisor and waits up to 35 seconds. A refusal or
+only the verified launcher supervisor and waits up to 75 seconds. It treats a
+matching owned PID in Linux zombie state (`Z`) as exited after reading process
+state and birth ticks from the same `/proc/<pid>/stat` snapshot. A refusal or
 stale marker requires inspection; do not remove the marker or signal a PID by
 hand until ownership is independently resolved. After stopping, confirm
 `status` reports STOPPED and separately verify the owned child/port and target

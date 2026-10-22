@@ -1,3 +1,27 @@
+## 2026-10-22 10:04 UTC｜修复完成计划V2执行：fresh admission通过，attempt102运行门失败
+
+本批继续现有`YD-S11-FOLLOWUP-LAB-V1` / #35，执行批次标识`YD-S11-REPAIR-COMPLETION-V2`不改需求与验收标准。候选为`73384ff7efa175b3715dbcd6b5e8ef1c77b587cf`，分支`codex/s11-followup-lab-r1`；执行前现场branch/HEAD/worktree与交接一致，tracked工作区干净，领先origin 238。已有launcher修复提交`b6f064c34e71f8641ca58a31fde3c17f0a9b3fd7`及三项窄纯测试/独立源码审查PASS；不重跑42项MODEL、已接受升级、费用来源catalog审计或旧attempt90/101。
+
+### Fresh runtime绑定与准入
+
+- 一次性私有候选重绑定helper `.local/s11/verification/bind_runtime_candidate_73384ff_attempt1.py` SHA-256 `095a159f37416771e6187aff4fca11d7302400fd23b2a0d21590d1da4d8a819a`，先经独立静态审查后以mode 0600执行。只更改忽略目录`runtime.json`中的candidate字段，不访问DB/service或记录secret值。receipt `.local/s11/receipts/runtime-candidate-bind-73384ff-attempt1.json` SHA-256 `37b38c6ead5e7b89add4e059ad77315ae34a6892ca5f8e86e35fa46723d6e844`；runtime SHA变为`a061f1c614de186dbfe999656094fca4393323a24aa3cf4768c17ec89c2c22a3`，旧admission未变更直至fresh admission发布。
+- Fresh admission helper `.local/s11/verification/fresh_admission_73384ff_attempt1_readonly.py` SHA-256 `f81577637c27a3a1e5ccb27d826df86e4b09f060e0c94bb2954c729b91b3a253`；独立静态审查PASS后仅执行一次。receipt `.local/s11/receipts/s11-fresh-admission-73384ff-attempt1-20261022T095808Z-c5d02baf37bad4dd.json` SHA-256 `d0a04e317058065431c732df127932fda9cec8f166ac8b2d3f959f8d3fc4062d`，结果`READ_ONLY_CHECKS_PASS`。目标为scratch `ydental_s10_test_20261017105432_ce6dcbf8` / OID `2144130` / role `ydental_s11_scratch_2144130` / pinned cluster `7694897083368259627`；role非SUPERUSER/CREATEDB/CREATEROLE/REPLICATION/BYPASSRLS且无role membership。224保护计数、D/C投影、模块和外发状态与已钉基线一致；只读RR/UTC显式rollback后idle并关闭cursor/connection；服务STOPPED，18411空闲。grant/module权限依据明确继承自精确钉住的baseline admission，helper未声称本次重新扫描所有数据库ACL。
+- admission副本`.local/s11/admission-73384ff-attempt1-20261022T095808Z-c5d02baf37bad4dd.json` SHA-256 `14741ac374faf59a9e06a8ceb16fdecccb6146d4bfae612be8d8e892112c5eee`；恢复清单SHA-256 `82ab65ec643484822bcee0cf9ebb82c56d6dcbbbbb13bf0d40a0166b6040981a`，state`COMPLETED`。独立离线receipt核验PASS；active admission与副本字节相同。没有服务启动或HTTP请求发生在该准入步骤。
+
+### 全新owned HTTP稳定性探测 attempt102
+
+- Helper `.local/s11/verification/s11_http_stability_73384ff_attempt102.py` SHA-256 `fa8662abc5e54395f4c0dea8eb27fd6f520925500feaaa81a58f52d8130def1d`，mode 0600，独立安全静态复核PASS。其固定流程是一轮GDB owned launcher start、最多一个匿名GET `/ydental/queue/screen`、最多一次已验证owner stop；GET为15秒、4 MiB上限，不跟随redirect，不发auth/cookie，不保存response body；stop CLI外层等待90秒，高于launcher 75秒边界。启动前后查询只读保护状态并绑定process identities。
+- 运行receipt `.local/s11/receipts/s11-http-stability-73384ff-attempt102.json` SHA-256 `afbaf1c29bc8618bc343fdf5bb3be1731a76f27b9172c4feac558e20a0c98f3c`，helper exit 1，结果`FAIL`，failure class仅记录`RuntimeError`。GDB run `20261022T100111Z-226e66600705`，exit receipt SHA-256 `f61d63bdbf5215dc3ddbafade907bd7e24835d0fdb49bcb796c25a390e4f0c68`：child exit 0、signal null、core 0、owned process group stopped。客户端记录`request_count=0`，无HTTP response；stop恰好调用一次且exit 0。服务停止并释放端口。
+- runner pre/post只读快照均对224保护表、D/C、模块、外发状态相同，RR/UTC rollback/idle/close通过；因独立post-readback标志最初为required，另运行独立helper `.local/s11/verification/attempt102_independent_postreadback_readonly.py` SHA-256 `761f36c564a237301eee883364b62861e000a182766b8ad20fc77c0b585d3d67`。其receipt `.local/s11/verification/s11-http-stability-73384ff-attempt102-independent-postreadback-ro.json` SHA-256 `01e1bda657434f1e1738c87bc0c20d11cb4e028d502609c4228c8269d2da5f8e`结果PASS；独立离线复核确认保护状态与准入及runner快照一致、服务STOPPED/18411空闲。
+- HTTP探测未dispatch，因此失败；post-readback的PASS只代表独立状态读回PASS，不提升HTTP结果。没有证据确定RuntimeError发生在何个细分前置条件，不在此继续调查SIGSEGV或猜测根因。按单次计划停止运行/UI路径，不重试attempt102，不再stop，不换入口，不重放attempt90/101。
+
+### V2剩余矩阵与状态
+
+- 服务/UI前置失败：最小YDental UI组及clock测试组授权、disable临时管理员UID2672未执行；使用ORM/SQL绕过Users UI不允许。
+- 因HTTP/UI门失败而未执行：合法临床接诊/文书/治疗来源、真实source commit→postcommit→durable claim→controlled sink；T08 lab order、PO164合成收货/入库/适用return/rework、追加收费及原生invoice/credit读回；新标记F2竞争、适用回归和独立综合验收。patient682仍遵循原生FIFO。
+- attempt90/101不可重放；旧F2 `EVIDENCE_GAP`及SIGSEGV `ROOT_CAUSE_UNDETERMINED`原样保留。patient650/task720、patient364/event417、PO147–149及既有资金/库存/审计不触碰；UID2672、PO164/P00169、workshop及已经提交业务不重建、不重复。
+- 最终状态`PARTIAL / RUNTIME_BLOCKED`，#35 OPEN；不push/merge/deploy，不启动S12/S13。具体证据索引见[evidence-index.md](evidence-index.md)顶部。
+
 ## 2026-10-22 09:34 UTC｜launcher stop 对已退出supervisor zombie的误判修复
 
 本轮按原计划#35和上一轮结束记录重建责任：主控Codex为唯一工作区写者并实现修复；`/root/launcher_repair_review`只读独立审查；`/root/plan_gap_static_audit`独立运行限定纯单测；运行/业务路径无人调度，遵守此前不重启、不再次stop、不重试attempt90/101的边界。

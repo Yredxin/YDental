@@ -1,3 +1,30 @@
+# S11 实施计划执行续行（2026-10-22 10:04 UTC）：V2 修复完成计划启动与运行门结果
+
+继续现有项目`YD-S11-FOLLOWUP-LAB-V1` / #35。当前执行批次标识为`YD-S11-REPAIR-COMPLETION-V2`；它只组织#35内尚未完成的实现顺序，不改需求或验收标准、不新建Issue。
+
+## 当前职责与已做工作
+
+- **主控/唯一写者/运行调度：** Codex主会话。既有launcher修复候选为`73384ff7efa175b3715dbcd6b5e8ef1c77b587cf`（分支`codex/s11-followup-lab-r1`）；实施前现场HEAD/分支/工作区与交接一致，tracked工作区干净，领先origin 238提交。
+- **独立准入脚本审查：** `/root/attempt101_static_review` 对当前只读fresh-admission helper最终SHA `f81577637c27a3a1e5ccb27d826df86e4b09f060e0c94bb2954c729b91b3a253`复核PASS；仅静态审查、未访问DB/runtime/service。
+- **独立准入receipt复核：** `/root/plan_gap_static_audit` 离线复核PASS：目标scratch/OID/受限role/cluster匹配，224保护计数、D/C、模块和外发状态匹配，RO/RR/UTC显式rollback/idle/close，服务STOPPED/18411空闲。
+- **独立attempt102安全审查：** `/root/launcher_repair_review` 对attempt102 helper SHA `fa8662abc5e54395f4c0dea8eb27fd6f520925500feaaa81a58f52d8130def1d`静态复核PASS；恰有一个固定GDB start、一个匿名GET路径和最多一次stop；外层等待90秒，大于launcher 75秒边界。审查不代表HTTP运行成功。
+- **独立post-readback helper审查：** `/root/attempt101_static_review` 对SHA `761f36c564a237301eee883364b62861e000a182766b8ad20fc77c0b585d3d67`静态复核PASS；执行一次RR只读状态读回。
+- **独立post-readback receipt审查：** `/root/plan_gap_static_audit` 离线复核PASS：run/admission收据和helper哈希绑定，保护计数/D-C/模块/外发状态一致，事务清理和STOPPED/空闲状态成立。它没有把失败的HTTP操作改判PASS。
+
+## 计划执行事实
+
+1. **源码停止修复：已完成。** 固定在launcher zombie观察修复提交`b6f064c34e71f8641ca58a31fde3c17f0a9b3fd7`；3项窄纯测试及独立源码审查PASS，具体历史报告见下节。此修复只说明stop能识别匹配birth ticks的已退出zombie，不声称服务稳定或修复SIGSEGV。
+2. **fresh候选绑定/只读准入：已完成。** 当前candidate为`73384ff…`。私有runtime只重绑定候选字段；fresh read-only admission及独立复核PASS，224张受保护表、D/C、模块、外发、目标身份、事务清理已核。
+3. **全新HTTP候选验证attempt102：已运行但FAIL，停止运行路径。** GDB owned run `20261022T100111Z-226e66600705`；客户端receipt记录匿名GET `request_count=0`，无HTTP response；唯一launcher stop exit 0；GDB子进程exit 0、无signal/core，owned进程组停止；exit receipt的`capture_complete`缺失/null；服务最终STOPPED且18411空闲。失败原因仅收录为`RuntimeError`，helper未记录更细阶段；不推断根因、不重复请求、不再次stop、不通过别的入口重试。这个结果不证明HTTP稳定。独立post-readback PASS只针对保护状态和关停状态。
+4. **UI组授权、clock角色授权、合成临床、T05/T12真实来源提交到postcommit/claim/controlled sink、T08收货/入库/返工/追加收费、全新F2并发、影响面回归和综合验收：未执行。** 它们均受HTTP/UI运行门或合法原生业务来源前置条件约束。本次HTTP门失败后停止受影响运行/UI业务路径，不使用ORM/SQL绕过UI；无依赖的报告和源码证据整理继续。
+
+## 保护状态与结论
+
+- attempt90/101不重放；旧F2 loser/PID保持`EVIDENCE_GAP`；SIGSEGV根因保持`ROOT_CAUSE_UNDETERMINED`。
+- patient682仍遵循FIFO。patient650/task720、patient364/event417、PO147–149和既有资金/库存/审计保持保护。UID2672、PO164/P00169、合成workshop及既有已提交业务不重建、不重做。业务debug clock只影响合成session业务时间；不改OS/PostgreSQL/真实审计时钟。
+- 当前S11 `PARTIAL / RUNTIME_BLOCKED`，#35保持OPEN。后续需新的需求内技术/安全恢复条件才能启动新候选运行；本次失败候选attempt102不重试。旧accepted 42项MODEL、限定升级和已通过数据库约束审计不重复执行。
+- 只保留正常本地提交；不push/merge/deploy，不启动S12/S13，不在计划中途向Issue发布进度。
+
 # S11 修复计划续行（2026-10-22 09:34 UTC）：launcher stop zombie 误判修复
 
 计划仍为`YD-S11-FOLLOWUP-LAB-V1`，#35范围不变；本节把上一结束记录转为当前实施责任与顺序，不创建新计划。
