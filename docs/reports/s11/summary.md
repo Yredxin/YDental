@@ -4,6 +4,8 @@ attempt18保留原`FAILED_PRECOMMIT`：UID2672的原生Users UI导航在`/web/we
 
 attempt9 protected-count FAIL、attempt10解析脚本缺陷、attempt11错误系统解释器导入失败、attempt12未满足干净工作树/launcher哈希审查的失败历史全部保留，均不重放。attempt13只读检查receipt `.local/s11/verification/clock-ui-attempt18-count-delta-independent-ro-20261022T1320Z-attempt13.json` SHA `d013e9da1ad69e690018ac58de5c899e2ca190a90714b706e437f402a336fd6a`：固定目标scratch/OID/角色匹配，224保护表完成计数；事务rollback/idle/cursor-close/connection-close和服务STOPPED/portfree均通过。attempt17后delta为审计+2、session+1；窗口内的`login/native_authenticated_login`与`login.scope/authenticated_session`两条记录分别对应固定源码中的登录hook和首次session初始化。两位独立审查者确认该delta均由attempt18原生认证路径解释。原receipt因期待模型漏算native login仍保留`UNEXPLAINED_DELTA_REQUIRES_RECONCILIATION`，不把它称作PASS；对账说明`.local/s11/verification/attempt18-count-delta-reconciliation.json` SHA `93e4fdf949bcde2618b34cd3cd90ec626153c39753955c06af92dd2da4a694a8`明确解释差异并列明未采审计PK/target_id的限制，未再次查DB。
 
+fresh-admission attempt10因新输出路径误标attempt9而被独立审查阻断，未执行。fresh-admission attempt11保留；通过项目venv调用后在模块初始化因未定义`V`而`NameError`，发生于`main()`/latch/DB/service之前。私有失败记录`.local/s11/operations/fresh-admission-7510f03-attempt11-invocation-failure.json` SHA `2e3f6c131ba40048c8e69c744e38283006bd75f245338d1874b61786add338d6`。不重跑；新helper将修正并绑定该证据，且需绑定最新文档HEAD。
+
 下一步需在独立fresh RO admission中确认UID2672是否已有批准范围membership，以及复核224保护计数、D/C和外部状态；只读，不创建membership。仅当既有正常授权范围可供原生UI选择时，才继续准确授予`ydental_s11_clock_test.group_operator`给UID `[2466,9,2043,2670]`并排除UID2666。若没有现存范围，不绕过403、不扩权；就该具体membership授权缺口询问用户。成功授组后独立读回、验证获批clock身份、禁用UID2672并读回，继续原plan业务闭环。
 
 目前没有完成新的业务闭环；S11仍`PARTIAL / RUNTIME_BLOCKED`，#35 OPEN。attempt102–105保留FAIL；attempt106只证明GDB监督下固定匿名GET，不重复运行，也不冒普通稳定性通过。临床/postcommit/claim/sink、义齿收发/返工追加收费、新F2、影响回归、最终入口验证及独立总验收仍待完成。
