@@ -1,5 +1,13 @@
 # S11 最新会话交接（2026-10-22 23:28 UTC）
 
+# S11 续行｜attempt30邮件来源有限源码复核（2026-10-22）
+
+- 现场核验：分支 `codex/s11-followup-lab-r1`，HEAD `a5ad2d639772ba4181b66eb417298924aa27bedb`，ahead 263，tracked工作区干净；执行候选 `7510f03838a276be3e572af6e25c9826b6a74955`。服务仍STOPPED；本轮未启动服务、未调用UI/HTTP、未写DB、未重跑attempt30/31或stop。
+- 有界源码审查确认：`base.res_users._login` 可按条件写时区并更新登录日志；HR写同步可将tz同步至员工，`hr.employee.tz`有tracking。`mail.res_users`的tracking字段是name/email/phone/login，所示登录路径未写这些字段；mail group chatter要求实际组变化。attempt30未采集浏览器tz cookie、登录前tz/login_date，也没有能解释 `res.users(2673)` tracking消息的已知路径。
+- 未实现者独立源码复核结论BLOCK：当前元数据/时间/作者/创建人相关性不能证明 `mail_message +2` 来自attempt30登录/GET。employee消息只有可能解释；user消息仍无法归因。依照限制不读正文、地址或tracking新旧值；没有可用的决定性安全证据。不得将该delta算作预期登录副作用或刷新准入。
+- 运行目标仍是实际运行通过；目前不得启动新的写运行。实际阻断是 attempt30未解释的受保护 `mail_message +2` 导致无法通过fresh admission，而不是声称HTTP通过或本轮SIGSEGV。attempt30原FAIL、request_count=12、未发join POST及既有post-readback均保持原样。
+- 下一步需获得不读取敏感tracking值的独立因果证据，或在后续合法新运行中以实时阶段捕获方式形成可审查归因；在此之前保持 `PARTIAL / RUNTIME_BLOCKED`。attempt31草案仍禁用；#35 OPEN。不得借运行目标覆盖数据保全条件。
+
 - 现场：分支 `codex/s11-followup-lab-r1`。本轮开始HEAD `ffef12b420cc70f4f4da50569c5572638a6672b0`、ahead 260、tracked工作区干净；报告本地提交 `8ae02684befa3c8d73bf457aba3eeb43db06d05d` 后，接续记录时HEAD已推进、分支ahead 261，工作区干净。执行候选代码仍为 `7510f03838a276be3e572af6e25c9826b6a74955`。服务 STOPPED、18411端口空闲。没有回退、清理或覆盖历史工作。
 - attempt30（UID2673 原生 Store2 join UID2672）保留 `FAIL`：helper `770ee84c0f211bea60412dd3521c6c03bb0c058813f6416b1e37a0a7361e34cb`、runner `edc04a1c38f2db02eef2f2ba4fe52ccc9a018831e4365cc615ce5a3109d3b2b9`。普通登录 POST `/web/login` 返回303，两个 `/ydental/access` GET均200；总 request_count=12，没有 `/ydental/access/action` POST、无 membership post-pending/提交。helper记 `TimeoutError`，但未记录精确子阶段/首异常行；固定源码中疑似发生于第二次 access GET后、join POST前，不能将疑点写成已证根因。GDB child exit0、无signal/core，runner唯一 stop exit0，随后STOPPED/portfree。不得重跑attempt30或再次stop。
 - attempt30独立postfailure RO receipt `.local/s11/verification/store2-join-attempt30-postfailure-independent-ro.json` SHA `fb8986adf92faaf6fb221c7f4af7c40b6236991d4386d17b8bdde61766059cf5` 保持 `FAIL_CLOSED`：相较attempt48精确 `mail_message +2`、`ydental_access_audit +3`、`ydental_access_session +1`。审计/session三条可对应正常认证、scope建立及原生默认Store2选择；UID2672仍无membership/employee/组变化，UID2673身份/员工/membership/grant符合既有最小权限。

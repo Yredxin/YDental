@@ -1237,3 +1237,12 @@ run `20261022T091000Z-fbe7345b5861` 的GDB exit receipt `.local/s11/runs/2026102
 - 为不重跑attempt30，生成独立store2-join attempt31 helper/runner草案。Helper SHA `1e86b437a6e18433fb3813ec16e251b01bfa58e499eba7cd394d517408c8b702`，runner SHA `7f86cb4d1ff6fe0a3caa633c5c5fc8d947a213ebc93ff0f829bab141a7799f17`，两文件py_compile通过。
 - 未实现该草案的`launcher_repair_review`按精确SHA静态PASS（非运行批准）：保留分阶段/UTC序列、异常类型、凭据/登录/URL query脱敏消息及helper文件/函数/行号；runner读取并保留失败字段。attempt30原文件及receipt不变。草案只在正常认证后读到当前Store2及execution position=2才准备唯一join POST；去掉冗余switch POST。独立审查指出attempt30自身没有Store2页面读回，不能把它表述为已验证Store2 UI scope。
 - 两入口均`EXECUTION_READY=False`，仍钉在旧attempt48 admission/report HEAD；当前报告HEAD `0aff200d6dc5ff3d32eee444f8a17bd5b92c98b9`与旧receipt不匹配。未运行helper/runner、未启动服务或访问UI。attempt30两条`mail_message`仍缺完整来源归因，所以fresh admission和任何后续数据库/UI写操作仍阻断。
+# 2026-10-22｜attempt30邮件来源有限源码复核
+
+本轮仅做离线源码复核，没有启动服务、调用UI/HTTP、写数据库或重跑attempt30/31。当前实测目标仍是运行通过，但attempt30 postfailure独立只读回执中的受保护 `mail_message +2` 尚不能通过fresh admission。
+
+固定源码支持一种可能性：`base.res_users._login` 可基于浏览器 `tz` cookie 条件更新 `res.users.tz`；HR的 `res.users.write` 同步tz到员工，且 `hr.employee.tz` 为tracked字段。它最多解释员工消息的可能来源，不能证明本次条件成立。`mail.res_users`本身tracking的是name/email/phone/login，所示登录路径没有写这些字段；group-change chatter也要求组变化。现有 attempt30 证据未记录tz cookie、登录前tz/login_date，且没有解释 `res.users(2673)` tracking消息的路径。
+
+未实现者独立复核判定BLOCK：两行同时间、作者和create_uid仅为相关性，不是因果证明。遵守既有限制，没有读取消息正文、地址或tracking新旧值。故不能把 `mail_message +2` 视为预期登录副作用，也不能发布新的fresh admission或开始后续写运行。attempt30原FAIL及其request_count=12、无membership POST事实保持不变。本轮不构成HTTP PASS或SIGSEGV复现。
+
+继续状态：`PARTIAL / RUNTIME_BLOCKED`，#35 OPEN。恢复运行的具体前置是取得不依赖敏感tracking值读取的独立来源归因；随后重做当前报告HEAD绑定的fresh admission，并按已审查attempt31流程开展一次新的受限UI运行。此前不启动服务。

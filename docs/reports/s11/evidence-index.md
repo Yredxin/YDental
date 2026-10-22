@@ -564,3 +564,11 @@ At candidate `4d126a6`, fresh pre-create admission passed (receipt SHA `93c21c58
 |supervisor runner草案|`.local/s11/operations/run_s11_store2_join_uid2672_attempt31.py` SHA `7f86cb4d1ff6fe0a3caa633c5c5fc8d947a213ebc93ff0f829bab141a7799f17`；`py_compile` PASS。`EXECUTION_READY=False`；runner回执保留helper失败阶段和traceback字段。|
 |独立静态审查|`launcher_repair_review`精确哈希PASS，无执行。确认失败消息脱敏、attempt30原件不变、scope读取通过后才可能单次join POST。attempt30 receipt无Store2 UI读回；新草案不得将其当既有实测。|
 |运行限制|当前report HEAD `0aff200d6dc5ff3d32eee444f8a17bd5b92c98b9`，草案仍pin attempt48旧report HEAD；protected `mail_message +2`未归因。尚不能获得fresh admission。未启动服务、未发GET/POST。|
+# 2026-10-22｜attempt30邮件来源有限源码复核
+
+|证据|固定结果|
+|---|---|
+|源码链|`../odoo/addons/base/models/res_users.py:857-877`：登录可能按条件更新tz；`../addons/hr/models/res_users.py:208-263`：同步tz至关联员工；`../addons/hr/models/hr_employee.py:309`：员工tz tracked；`../addons/mail/models/res_users.py:26-29`：用户tracking字段为name/email/phone/login。源码未证明attempt30的登录条件实际成立，也未解释res.users记录。|
+|未实现者独立复核|`attempt30_mail_attribution_review`：BLOCK。员工记录有可能的原生tracking路径，用户记录无已证来源；两条元数据的时间/作者/create_uid相关性不足。|
+|数据限制|未读取邮件正文、收件地址或tracking旧新值；不追加数据库查询、不修改旧receipt。attempt30 `mail_message +2`仍为未知受保护delta，不能计入预期基线。|
+|执行状态|本轮全离线；未启动服务、无HTTP/UI/DB写、未再stop。没有HTTP PASS或SIGSEGV新证据。禁止发布fresh admission或新的写运行，直至有独立安全因果证据。|
