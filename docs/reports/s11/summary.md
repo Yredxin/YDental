@@ -1,3 +1,16 @@
+## 2026-10-22 UTC｜UID2672 app group attempt1失败后独立确认未提交
+
+现场branch=`codex/s11-followup-lab-r1`、HEAD=`8c84d574ad8ab5eeb63144960922c9e85391286c`，产品候选固定`7510f03…`，scope有效至2026-10-23T02:12:34Z。
+
+- 首次helper/runner调用在本地准入schema guard拒绝（exit1，旧schema期待`PASS`和顶层DB/external字段；实际attempt3 receipt为`READ_ONLY_CHECKS_PASS`且字段嵌套）。第二次系统Python调用在`launcher.validate_live_database`导入`psycopg2`失败（exit1，import前无连接）。两者均没有attempt latch或运行时副作用，保留证据摘要 `.local/s11/operations/ydental-base-group-uid2672-7510f03-admin-appgroup-attempt1-pre-latch-failure.json` SHA `9efabaee0b0ee7ab40b489f9af159a8fc33b7865cb9e2661a8b91ba121c0b0c1`，以及 `.local/s11/operations/ydental-base-group-uid2672-7510f03-admin-appgroup-attempt1-system-python-pre-latch-failure.json` SHA `cff1d919f17629e0a624e16fe8a76fe911b16ce4ae48e0d7b6e28fe11cc34c96`。
+- 项目venv下第三次调用确实执行了attempt1 runner，但helper没有运行。Runner receipt `.local/s11/operations/ydental-base-group-uid2672-7510f03-admin-appgroup-attempt1-runner.json` SHA `8f23281226fda86fa2b9bb3cd759a0a1eded7dc1b766d7decbac7015433c39cd`记`READBACK_OR_COMMIT_RECONCILIATION_REQUIRED`、`runner_exception:OSError`、`exit_code=null`、GDB group stopped/service stopped true、native crash false。run目录`.local/s11/operations/20261022T111328Z-ydental-base-uid2672-fa7e200e720f/`仅有`capture.gdb`、wrapper、`operation.json`、`exit.json`；无`gdb-shell.log`、inferior/auth、helper attempt/receipt。源码顺序结合目录证明失败发生在GDB Popen/helper之前，但receipt只保留OSError类型、没有errno/首函数，故不能进一步推断open/fchmod子阶段。runner的attempt1 latch和目录为一次性保留，禁止再运行attempt1。
+- 独立管理员后核PASS：`.local/s11/verification/uid2672-attempt1-pregrant-independent-readback-20261022T111737Z-99e8e7c2.json` SHA `7ff2136d81e5d045b932b0be81b02fdc46deb357ef06f599241a153e3296c9d3`。只读确认scratch DB/OID/role/cluster/runtime/admission/candidate绑定，UID2672仍为批准login、active/internal/company1，direct group仍仅manager，effective group逐项等于pregrant baseline、system缺席；RR/UTC/read-only显式rollback idle/close，service STOPPED、端口free。故attempt1没有业务组变化或提交。
+- 下一步是唯一新的attempt2，先修runner首异常阶段/errno记录，再由不同角色独立审查；执行前必须重读attempt1 latch并在新路径写入attempt2一发标记。禁止重试attempt1，也不可将其null exit误报commit或崩溃。
+
+S11仍PARTIAL、#35 OPEN；clock UI、合成临床来源及提交闭环、义齿采购收发/返工费用、新F2并发、回归及独立总验收均未完成。
+
+---
+
 ## 2026-10-22 UTC｜跨模块核实 app group implication，授权范围恢复
 
 现场branch=`codex/s11-followup-lab-r1`，HEAD=`24b9c86ec76bf2110a9362d781533c8c4548fb2a`，工作树在本节编辑前clean；ahead origin 246。产品候选仍固定`7510f03838a276be3e572af6e25c9826b6a74955`。UID2672授权未执行；临时管理员与目标组均未改变。

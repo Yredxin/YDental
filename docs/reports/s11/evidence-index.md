@@ -1,3 +1,12 @@
+## 2026-10-22 UTC｜UID2672 app group attempt1 no-commit核验
+
+|证据|路径 / SHA-256|结果与限制|
+|---|---|---|
+|attempt1原Schema拒绝摘要|`.local/s11/operations/ydental-base-group-uid2672-7510f03-admin-appgroup-attempt1-pre-latch-failure.json` / `9efabaee0b0ee7ab40b489f9af159a8fc33b7865cb9e2661a8b91ba121c0b0c1`|attempt3 receipt schema误读，发生在latch之前；仅工具响应摘要，不是原始stdout日志。|
+|system-python未连接拒绝摘要|`.local/s11/operations/ydental-base-group-uid2672-7510f03-admin-appgroup-attempt1-system-python-pre-latch-failure.json` / `cff1d919f17629e0a624e16fe8a76fe911b16ce4ae48e0d7b6e28fe11cc34c96`|缺psycopg2 import，早于DB连接与latch。|
+|项目venv attempt1 runner receipt|`.local/s11/operations/ydental-base-group-uid2672-7510f03-admin-appgroup-attempt1-runner.json` / `8f23281226fda86fa2b9bb3cd759a0a1eded7dc1b766d7decbac7015433c39cd`|runner `OSError`、exit_code未采到、GDB组/service停下、无native crash；持久latch已消费。helper attempt/receipt及GDB日志/inferior不存在；不重跑attempt1。|
+|attempt1独立管理员RO后核|`.local/s11/verification/uid2672-attempt1-pregrant-independent-readback-20261022T111737Z-99e8e7c2.json` / `7ff2136d81e5d045b932b0e81b02fdc46deb357ef06f599241a153e3296c9d3`|PASS；uid2672 direct/effective groups及identity/company与pregrant baseline相同；READ ONLY/RR/UTC rollback/idle/close，service STOPPED/portfree。确认无组授权提交。|
+
 ## 2026-10-22 UTC｜应用组完整继承定义及helper独立复审
 
 |证据|路径 / SHA-256|结果与范围|
