@@ -38,6 +38,15 @@ EXPECTED_CLUSTER = "7694897083368259627"
 EXPECTED_HTTP_HOST = "127.0.0.1"
 EXPECTED_HTTP_PORT = 18411
 EXPECTED_CORE_COMMIT = "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb"
+# These paths contain execution-reporting material only. A later report edit
+# must not silently make an otherwise identical execution candidate unusable.
+# Any code, dependency, configuration, or other path change still requires a
+# new candidate and applicable admission review.
+DOC_ONLY_CANDIDATE_PATHS = (
+    "CURRENT_TASK.md",
+    "docs/reports/s11/",
+    "scripts/s11/README.md",
+)
 MAX_SCOPE_SECONDS = 24 * 60 * 60
 MAX_SERVER_SECONDS = 20 * 60
 MAX_LOG_BYTES = 32 * 1024 * 1024
@@ -177,8 +186,15 @@ def verify_repository(runtime: dict, admission: dict) -> tuple[str, str]:
         raise Refusal("runtime/admission/current branch must all be codex/s11-followup-lab-r1")
     if not re.fullmatch(r"[0-9a-f]{40}", commit):
         raise Refusal("current Git HEAD is not a full commit id")
-    if runtime.get("candidate_commit") != commit or admission.get("candidate_commit") != commit:
-        raise Refusal("runtime/admission candidate must equal the current Git HEAD")
+    candidate = runtime.get("candidate_commit")
+    if (
+        candidate != admission.get("candidate_commit")
+        or not isinstance(candidate, str)
+        or not re.fullmatch(r"[0-9a-f]{40}", candidate)
+    ):
+        raise Refusal("runtime/admission candidate commits must match a full commit id")
+    if candidate != commit:
+        candidate_report_delta(candidate, commit)
     if dirty:
         raise Refusal("S11 worktree must be clean before an owned service can start")
     core_commit = git_value("-C", str(ODOO_ROOT), "rev-parse", "HEAD")
@@ -186,7 +202,44 @@ def verify_repository(runtime: dict, admission: dict) -> tuple[str, str]:
         raise Refusal("Odoo core HEAD does not match the locked S11 core commit")
     if runtime.get("core_commit") != core_commit or admission.get("core_commit") != core_commit:
         raise Refusal("runtime/admission core commit must match the locked Odoo core")
-    return branch, commit
+    return branch, candidate
+
+
+def candidate_delta_is_documentation_only(changed_paths: list[str]) -> bool:
+    """Accept a stale execution candidate only across the narrow report-only path set."""
+    return bool(changed_paths) and all(
+        any(path == allowed or (allowed.endswith("/") and path.startswith(allowed))
+            for allowed in DOC_ONLY_CANDIDATE_PATHS)
+        for path in changed_paths
+    )
+
+
+def candidate_report_delta(candidate: str, report_head: str) -> list[str]:
+    """Return report-only paths after proving candidate ancestry and exact changed paths."""
+    if candidate == report_head:
+        return []
+    try:
+        git_value("merge-base", "--is-ancestor", candidate, report_head)
+        changed_paths = git_value(
+            "diff", "--no-renames", "--name-only", f"{candidate}..{report_head}"
+        ).splitlines()
+    except Refusal as exc:
+        raise Refusal("candidate-to-report-HEAD ancestry/diff could not be verified") from exc
+    if not candidate_delta_is_documentation_only(changed_paths):
+        raise Refusal("candidate differs from current Git HEAD outside the S11 documentation-only allowlist")
+    return changed_paths
+
+
+def valid_gdb_inferior_relationship(
+    inferior_pid: int, inferior_pgid: int, inferior_sid: int, debugger_pid: int
+) -> bool:
+    """The inferior owns its process group and shares GDB's session."""
+    return (
+        inferior_pid > 0
+        and debugger_pid > 0
+        and inferior_pgid == inferior_pid
+        and inferior_sid == debugger_pid
+    )
 
 
 def validate_pair() -> tuple[dict, dict, dict, str, str]:
@@ -681,7 +734,7 @@ def ensure_gdb_group_stopped(run_dir: Path, debugger_pid: int, debugger_ticks: i
             inferior_sid = identity["sid"]
             if any(type(value) is not int or value <= 0 for value in (inferior_pid, inferior_ticks, inferior_pgid, inferior_sid)):
                 return False
-            if inferior_pgid != inferior_pid or inferior_sid != debugger_pid:
+            if not valid_gdb_inferior_relationship(inferior_pid, inferior_pgid, inferior_sid, debugger_pid):
                 return False
         except (KeyError, TypeError):
             return False
@@ -930,6 +983,8 @@ def validate_s11_clock_debug(branch: str, commit: str, gdb_capture: bool) -> dic
 
 def start_service(gdb_capture: bool = False, s11_clock: bool = False) -> int:
     runtime, admission, database, branch, commit = validate_pair()
+    report_head = git_value("rev-parse", "HEAD")
+    candidate_delta = candidate_report_delta(commit, report_head)
     clock_run = validate_s11_clock_debug(branch, commit, gdb_capture)
     if bool(clock_run) != s11_clock:
         raise Refusal("use the dedicated S11 debug-clock entry to enable the session clock")
@@ -963,6 +1018,8 @@ def start_service(gdb_capture: bool = False, s11_clock: bool = False) -> int:
         "run_id": run_id,
         "branch": branch,
         "candidate_commit": commit,
+        "report_head": report_head,
+        "candidate_report_delta": candidate_delta,
         "core_commit": EXPECTED_CORE_COMMIT,
         "database_name": EXPECTED_DATABASE,
         "database_oid": EXPECTED_OID,
@@ -1161,6 +1218,8 @@ def start_service(gdb_capture: bool = False, s11_clock: bool = False) -> int:
             "plan_id": PLAN_ID,
             "run_id": run_id,
             "candidate_commit": commit,
+            "report_head": report_head,
+            "candidate_report_delta": candidate_delta,
             "child_pid": child.pid,
             "child_start_ticks": child_ticks,
             "child_exit_code": child_exit,

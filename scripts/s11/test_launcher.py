@@ -20,6 +20,54 @@ SPEC.loader.exec_module(launcher)
 
 
 class LauncherSupervisorTests(unittest.TestCase):
+    def test_doc_only_candidate_delta_is_limited_to_current_task_and_s11_reports(self):
+        self.assertTrue(launcher.candidate_delta_is_documentation_only([
+            'CURRENT_TASK.md', 'docs/reports/s11/summary.md', 'scripts/s11/README.md',
+        ]))
+        self.assertFalse(launcher.candidate_delta_is_documentation_only([]))
+        self.assertFalse(launcher.candidate_delta_is_documentation_only([
+            'CURRENT_TASK.md', 'scripts/s11/launcher.py',
+        ]))
+        self.assertFalse(launcher.candidate_delta_is_documentation_only(['pyproject.toml']))
+
+    def test_docs_only_report_head_does_not_replace_the_admitted_execution_candidate(self):
+        candidate = 'a' * 40
+        report_head = 'b' * 40
+        def git_result(*args):
+            if args == ('branch', '--show-current'):
+                return launcher.EXPECTED_BRANCH
+            if args == ('rev-parse', 'HEAD'):
+                return report_head
+            if args == ('status', '--porcelain', '--untracked-files=all'):
+                return ''
+            if args == ('merge-base', '--is-ancestor', candidate, report_head):
+                return ''
+            if args == ('diff', '--no-renames', '--name-only', f'{candidate}..{report_head}'):
+                return 'CURRENT_TASK.md\ndocs/reports/s11/summary.md'
+            if args == ('-C', str(launcher.ODOO_ROOT), 'rev-parse', 'HEAD'):
+                return launcher.EXPECTED_CORE_COMMIT
+            raise AssertionError(f'unexpected git query: {args!r}')
+
+        with patch.object(launcher, 'git_value', side_effect=git_result):
+            branch, fixed_candidate = launcher.verify_repository(
+                {'branch': launcher.EXPECTED_BRANCH, 'candidate_commit': candidate,
+                 'core_commit': launcher.EXPECTED_CORE_COMMIT},
+                {'branch': launcher.EXPECTED_BRANCH, 'candidate_commit': candidate,
+                 'core_commit': launcher.EXPECTED_CORE_COMMIT},
+            )
+        self.assertEqual((branch, fixed_candidate), (launcher.EXPECTED_BRANCH, candidate))
+
+    def test_gdb_inferior_uses_own_process_group_and_debugger_session(self):
+        self.assertTrue(launcher.valid_gdb_inferior_relationship(
+            inferior_pid=1409326, inferior_pgid=1409326, inferior_sid=1409320, debugger_pid=1409320,
+        ))
+        self.assertFalse(launcher.valid_gdb_inferior_relationship(
+            inferior_pid=1409326, inferior_pgid=1409326, inferior_sid=1409320, debugger_pid=1409326,
+        ))
+        self.assertFalse(launcher.valid_gdb_inferior_relationship(
+            inferior_pid=1409326, inferior_pgid=1409320, inferior_sid=1409320, debugger_pid=1409320,
+        ))
+
     def test_stop_command_wait_covers_nested_gdb_shutdown_bounds(self):
         child_stop_bound = launcher.STOP_GRACE_SECONDS + 5
         gdb_group_stop_bound = launcher.STOP_GRACE_SECONDS + 5
