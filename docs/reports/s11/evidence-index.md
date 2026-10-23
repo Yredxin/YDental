@@ -1,3 +1,19 @@
+# 2026-10-23｜整合v1.2当前新目标证据
+
+仅 `ydental_s11_synth_20261023_01 / OID2171423`；执行候选 `ee6a56e77aab79af5c63d7f4caae7f81c055a9b0`。旧scratch历史单列，以下不改写旧PASS/FAIL。
+
+|项目|证据指针/SHA256|真实层级与边界|
+|---|---|---|
+|整批70方法|`.local/s11/new-target-tests/full-suite-v1/analysis-v2.json`；独立验收`8ccdd1061c2a15d8ddf99eb8279242b9f2e2f823e75fd22c660da44a063c0a90`|候选27ee645；59 TransactionCase含ORM/mock/PURE及11HttpCase；0fail/error，非browser/持久链；原生RO审计重试ERROR和harness2保留。|
+|最终接口定向|`.local/s11/new-target-tests/local-sink-focused-v1.log`|候选ee6a56e；官方28方法0fail/error，含8个adapter mock；与前批重叠，不叠计。|
+|独立正式准入|`.local/s11/new-target-admission.json` / `0580aa2a62bb2a6dd87c85d1d2f1d9bc43e407a26f9093a4cb24a347bfbe0d79`|身份/受限role/配置/新保护checkpoint，仅准入不代业务。|
+|三岗位真实浏览器|`.local/s11/new-target-tests/browser-w0-first/result.json`；独立`b972e6ddbd391367d326f4800fd84462956c8d2be295c29e34c366176bab6635`|UI登录及A→B→A/代表页面，UID2失败单列；未以clockGET200冒无权测试。|
+|首临床HTTP已提交链|`.local/s11/new-target-tests/http-clinical-source-v2-result.json`；独立`f77f129448566f99b658c1179db7a135c9b114a53655a171009f6ca03376eafc`|patient26/event26/fee26=137.25/material99；doc26 pending/v2，保留continuation58，初reserve409不重建患者。|
+|F1真实UI+postcommit/sink|`.local/s11/verification/new-target-f1-accepted-postcommit-independent-v2.json` / `ad8db60d00b508652c549bd800fb4b4a9fd7cfd33d34f4ddef1a961c4c0511af`|followup24/notified、新job84 accepted一次、旧job83保留；无delivered/患者送达声明，尚非F1全循环。|
+|合成finance/普通条款岗位|`.local/s11/verification/new-target-finance-and-terms-committed-acceptance-v1.json` / `bc39e5de1431c6bbf5900483536fb53fb02b20ef496c7888c7f960df0c04c706`|仅配置和合法权限增量，不代出账/贷项或资金操作。|
+
+---
+
 # 2026-10-23｜新目标一次性管理员准备
 
 |证据|路径 / SHA-256|结论与边界|
