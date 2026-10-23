@@ -1,3 +1,25 @@
+# 2026-10-23｜接管与派发中断诊断增量
+
+仅新合成目标；以下不补签G01/G02/G03或T16，不改原最终矩阵。
+
+|材料|本机路径/源码|SHA256及真实层级|
+|---|---|---|
+|独立接管缺口审计|`.local/s11/verification/s11-takeover-gap-audit-20261023-v1.json`|5d156e8fb404a1edb311763e0181d95b09d66945db9c9f686ed28414d483cc5b；离线37证据hash匹配，PARTIAL，T16不可用无待办案例证明|
+|服务身份审计|`.local/s11/verification/s11-takeover-runtime-audit-20261023-v1.json`|ff38ace67517d7ee07b2be703b2302074edd7834e363aec2bfa9dde3365bcecf；OS只读，supervisor失踪/child孤儿，无信号|
+|唯一目标候选元数据RO|`.local/s11/verification/s11-takeover-target-candidates-ro-20261023-v1.json`|4d231dec56273b6221828783061fc3c3707df3e40288e1f284b42b81dfacc76f；RO/RR实际OID/cluster/role/PID，rollback/close，无旧库/业务写|
+|精确派发中断诊断|`.local/s11/verification/dispatch-interruption-diagnostic-20261023-v1.json`|fa295345cba0dfb1ecc5e841ee58822cca9ba7b6b48a7465a1a1f12117dd02da；5次exact abort，当前4线程有界SQLite只读元数据，不含原始正文/秘密|
+|诊断脚本|`.local/s11/verification/diagnose_s11_dispatch_20261023.py`|脚本SHA在上述回执；实际`../.venv/bin/python`执行exit0，不连接业务数据库|
+|严格direct恢复工具|`scripts/s11/recover_orphan_service.py`|481275355ce2e2428caedae2eabac9bffbbc6573e9f55952ef03b0126728343d；独立SOURCE通过后实际精确孤儿恢复，非业务重放|
+|恢复工具专测|`scripts/s11/test_recover_orphan_service.py`|94934ca5eccdc0480aba070641f9b236b737d5cebe24d2d33b284d5805901ada；作者20项0fail/0error/exit0，临时合成进程实测及patch拒绝分支，不冒实际服务恢复|
+|恢复工具独立SOURCE|`.local/s11/verification/s11-takeover-gap-audit-20261023-v2.json`|582db68c43bf59416230bc2982d4b2c67ff1373c86bbf45c8e8b5198a9a11b95；PASS_SCOPED_SOURCE，独立读取两文件及SHA，含T16需求差异设计|
+|实际孤儿恢复intent/outcome|`.local/s11/new-target-runs/20261023T091624Z-346b6246527e/orphan-recovery-intent.json` / `orphan-recovery-outcome.json`|intent739a63d8a76cc4395187616c0263dd7c9f4bd929735ece854379a50e17cbc785；outcome403a5c4a99c9ab5a9ba2e159f87af00750d11fec961e5ff88aed10e11be0d636；实际pidfd退出已证、端口释放，退出码null|
+|原marker原bytes归档|上述run下`orphan-active-marker-original.json`|50d17f9645a3b99cc18b55773c149bd4d84bd6f078b5b9219d116cf041aceda0；未改旧scope/原时间/业务事实|
+|恢复后独立OS/经济保护|`.local/s11/verification/s11-takeover-gap-audit-20261023-v3.json`|a6cf4d8d0c03fedb45437a2c46274aedeeba24914e3e355ea5dc643ba0b63d79；PASS_SCOPED，唯一新目标RO/RR16条SELECT/rollback idle/close；原生费用/库存/成本/通知示例保持|
+
+G02 prepare私有草案普通修复续行，配置/竞争均NOT_RUN。恢复限定PASS不清除G01/G02/G03/T16缺口；原平台拒绝范围保持。
+
+---
+
 # 2026-10-23｜v1.2最终独立PARTIAL索引
 
 仅新合成目标/OID2171423；产品881194a、执行/测试1bca71d、报告HEAD分列。原始材料本机忽略，不上传原件。

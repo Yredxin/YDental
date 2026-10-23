@@ -1,5 +1,18 @@
 # S11 当前执行状态｜YD-S11-FOLLOWUP-LAB-V1 / 整合v1.2
 
+## 2026-10-23 正常长会话接管与中断诊断（进行中）
+
+- 用户明确交接同一v1.2计划；本地主分支与远端活动分支均核到 `d71f5c938a1f422564bf17bc1dfce77198079505`，工作树接管时干净，无回退。已读main路由、#23/#35正文、#35全部5条评论及最终回执6362150190；没有新的需求增量。
+- 新主控 `/root` 统一写者和运行调度；原有新团队三项结果已收齐。`runtime_audit`仅实现恢复工具与临时合成进程测试；`gap_audit`独立SOURCE复核；`g02_test_review`仅写未就绪私有草案。主控收回接管文档写权。旧团队不在当前可响应agent树；旧Codex进程存活不等于仍持写权或已退出，不对其发信号。
+- 10:27 UTC现场18411监听者2291833仍活，但原supervisor2291813已不存在，status实际exit3 STALE_OWNER_RECORD。原run无exit回执，server.log最后写入09:27:34，原因未定。独立SOURCE审核后，10:34:32真实只读dry-check0、10:34:37精确pidfd单SIGTERM确认child退出并释放18411，原marker原bytes归档，原supervisor/child退出码均null（非子进程不可冒0），没有强杀或重启。当前正常status STOPPED/exit0。新库仅RO/RR，无业务写。
+- 根节点及三子任务共5个工具调用在10:14—10:16 UTC返回准确原文 `aborted before dispatch`。10:14:01/09主控原生日志同时为has_pending_input=true、context/token_limit_reached=false，随后有response.interrupt.failed；10:14:01可见子任务输入。疑似输入/响应中断调度状态交互，未证根因。新用户输入后原主控工具正常恢复，无换入口；不是证明G01/G03解除。诊断回执 `dispatch-interruption-diagnostic-20261023-v1.json` SHA fa295345…；有界本机原生日志未见UsageLimitExceeded/ContextWindowExceeded/429/新cybersecurity标记。当前主机资源未耗尽，内核指定窗口OOM/segfault检索无条目；不据此断言历史从未发生。
+- `recover_orphan_service.py`及专门测试已写，作者20项（含真实临时合成子进程/pidfd，另有patch拒绝分支）exit0；源码SHA48127535…/测试94934ca5…。独立SOURCE v2 PASS_SCOPED_SOURCE（582db68c…）。真实恢复后独立v3 PASS_SCOPED（a6cf4d8d…）：只读OS与唯一新目标16条SELECT核原生账单/贷项/费用来源/payment0/charge4/四done/79库存1及42.75成本/job108unknown等，rollback idle/close，无业务变化。
+- G02私有prepare草案NOT_READY/NOT_RUN：权限读取层级风险未解决，另两工具未写，无配置/竞争执行。原charge4/invoice6不可补作首次出账竞争。原G01四场竞争及G03特定修复的平台停止保持，未重试。
+- T16需求差异已独立确认：计划要求开单关联被动计划、入库触发联系，当前仅putaway建待办；计划允许入库前取消，当前仅接收前取消。取消80原无待办，不能证明处置既有待办；新增具体功能缺口，未削弱标准、未实现、未动态验收。既有经济链不重演，旧禁读目标不访问。
+- 仍为PARTIAL，#35 OPEN。原d71f5c9交付锚点SYNCED；本轮代码/文档增量本地SYNC_PENDING，未commit/push、未发Issue过程评论。保持同一v1.2计划，不合并、不部署、不启S12/S13。
+
+以下保留既有最终部分交付与历史边界，新进展只补本节与既有报告。
+
 ## 范围与当前结论
 
 - 持续执行同一个 [实施计划](docs/execution/S11_IMPLEMENTATION_PLAN.md) W0—W5，不新建平行计划、不逐步骤审批。当前 **PARTIAL / EXTERNAL_LIMITS_REMAIN**，#35保持OPEN；产品及报告a7da0f6已正常push/远端ref读回匹配，不合并、不部署、不启动S12/S13。
