@@ -19,11 +19,9 @@ import json
 import math
 import secrets
 import sys
-import threading
 from typing import Any
 
 import race_lab_receipt_duplicate as common
-from psycopg2.errors import SerializationFailure
 
 CONFIRMATION = "S11-SYNTHETIC-LAB-PUTAWAY-DUPLICATE-RACE-V1"
 THREAD_TIMEOUT_SECONDS = 30
@@ -105,7 +103,7 @@ def snapshot(env, order_id: int, store_id: int) -> dict[str, Any]:
     target_location_id = config.ydental_prosthesis_id.id
     target_location_usage = config.ydental_prosthesis_id.usage
     target_location_company_id = config.ydental_prosthesis_id.company_id.id or None
-    return {
+    data = {
         "order_id": order.id, "store_id": order.ydental_store_id.id,
         "state": order.state, "version": order.ydental_version,
         "internal_code": order.ydental_internal_code,
@@ -136,6 +134,8 @@ def snapshot(env, order_id: int, store_id: int) -> dict[str, Any]:
         "purchase_cost_source": cost, "move": move,
         "putaway_audits": audits,
     }
+    data.update(common.support_snapshot(env, order))
+    return data
 
 
 def validate_target(env, order_id: int, actor_id: int, store_id: int) -> dict[str, Any]:
@@ -150,9 +150,10 @@ def validate_target(env, order_id: int, actor_id: int, store_id: int) -> dict[st
             not before["receipt_at"] or not before["receipt_actor_id"]):
         raise common.Refusal("target must have exactly one committed physical receipt without put-away effects")
     if (any(row["ydental_kind"] == "putaway" for row in before["lab_events"]) or
-            order.ydental_inventory_event_id or order.ydental_followup_id or
-            before["inventory_events"] or before["followups"] or before["putaway_audits"]):
+            order.ydental_inventory_event_id or
+            before["inventory_events"] or before["putaway_audits"]):
         raise common.Refusal("target already has put-away stock, follow-up, or audit; do not replay")
+    common.validate_waiting_plan(before)
     if order.ydental_product_id.ydental_inventory_kind != "prosthesis":
         raise common.Refusal("target product must be configured as a prosthesis")
     if before["target_location_id"] <= 0:
@@ -174,48 +175,6 @@ def prepare_inventory_operation(registry, api, actor_id: int, store_id: int,
             [("ydental_store_id", "=", store_id), ("ydental_key", "=", key)])
         cr.rollback()
     return rows
-
-
-def worker(registry, api, actor_id: int, session_key: str, order_id: int,
-           action_key: str, barrier: threading.Barrier, outcomes: list[dict[str, Any]]) -> None:
-    first_pid = None
-    for attempt in range(1, MAX_SERIALIZATION_RETRIES + 1):
-        try:
-            with registry.cursor() as cr:
-                cr.execute("SET LOCAL statement_timeout = %s", [f"{STATEMENT_TIMEOUT_SECONDS}s"])
-                cr.execute("SET LOCAL lock_timeout = %s", [f"{LOCK_TIMEOUT_SECONDS}s"])
-                cr.execute("SELECT pg_backend_pid()")
-                backend_pid = cr.fetchone()[0]
-                first_pid = first_pid or backend_pid
-                env = api.Environment(cr, actor_id, {})
-                access = env["ydental.access.service"]
-                session = access._existing_session_for_key(session_key)
-                if not session:
-                    raise common.Refusal("worker session is absent")
-                bound = access._bind(session)
-                if attempt == 1:
-                    barrier.wait(timeout=THREAD_TIMEOUT_SECONDS)
-                try:
-                    response = bound.env["ydental.lab.service"]._operate(
-                        "putaway", {"order_id": order_id}, action_key)
-                    result = {"kind": response.get("result"), "state": response.get("state"),
-                              "order_id": response.get("order_id"),
-                              "inventory_event_id": response.get("inventory_event_id")}
-                except SerializationFailure:
-                    raise
-                except Exception as error:
-                    result = {"kind": "action_error", "error_type": type(error).__name__}
-                cr.commit()
-                outcomes.append({"backend_pid": first_pid, "attempts": attempt, **result})
-                return
-        except SerializationFailure:
-            if attempt == MAX_SERIALIZATION_RETRIES:
-                outcomes.append({"backend_pid": first_pid, "attempts": attempt,
-                                 "kind": "serialization_retry_exhausted"})
-        except Exception as error:
-            outcomes.append({"backend_pid": first_pid, "attempts": attempt,
-                             "kind": "worker_error", "error_type": type(error).__name__})
-            return
 
 
 def quant_effect_is_exact(before: dict[str, Any], after: dict[str, Any], movement_quantity: float) -> bool:
@@ -247,6 +206,26 @@ def quant_effect_is_exact(before: dict[str, Any], after: dict[str, Any], movemen
             math.isclose(target_delta[0], movement_quantity, rel_tol=0.0, abs_tol=tolerance) and
             math.isclose(source_delta[0], -movement_quantity, rel_tol=0.0, abs_tol=tolerance) and
             abs(target_delta[1]) <= tolerance and abs(source_delta[1]) <= tolerance)
+
+
+def plan_transition_is_exact(before, after):
+    if len(after['followups']) != 1:
+        return False
+    new = after['followups'][0]
+    if not common.passive_identity_is_exact(after, new):
+        return False
+    if not before['followups']:
+        return new['ydental_lab_contact_stage'] == 'ready' and new['ydental_schedule_version'] == 2
+    old = before['followups'][0]
+    if old['id'] != new['id']:
+        return False
+    # Product deliberately does not change a prior clinical completion.
+    if old['state'] == 'done':
+        return old == new
+    return (new['ydental_lab_contact_stage'] == 'ready' and
+            new['ydental_schedule_version'] == old['ydental_schedule_version'] + 1 and
+            (new['state'] == 'closed' if old['state'] == 'closed' else new['state'] in ('planned', 'to_notify')) and
+            common.jobs_preserve_history(before['jobs'], after['jobs'], cancel_pending=True))
 
 
 def main() -> int:
@@ -312,23 +291,10 @@ def main() -> int:
                   "business_mutation_started": True, "mutation_started_at_utc": common.utc_now()})
     common.write_private(receipt_path, phase)
 
-    barrier = threading.Barrier(2)
-    outcomes: list[dict[str, Any]] = []
-    threads = [threading.Thread(
-        target=worker,
-        args=(registry, api, args.actor_id, session_keys[index], args.order_id,
-              action_key, barrier, outcomes),
-        name=f"s11-putaway-race-{index + 1}", daemon=True,
-    ) for index in range(2)]
-    for thread in threads:
-        thread.start()
-    for thread in threads:
-        thread.join(THREAD_TIMEOUT_SECONDS + 25)
-    if any(thread.is_alive() for thread in threads):
-        phase.update({"phase": "WORKER_TIMEOUT_REQUIRES_READBACK", "worker_results": outcomes,
-                      "finished_at_utc": common.utc_now()})
-        common.write_private(receipt_path, phase)
-        raise common.Refusal(f"bounded put-away race timed out; preserve receipt and independently read back before retry: {receipt_path}")
+    outcomes, race_evidence = common.run_pair(registry, api, args.actor_id, session_keys,
+        [{'operation': 'putaway', 'payload': {'order_id': args.order_id}, 'key': action_key}] * 2,
+        receipt_path)
+    phase['race_evidence'] = race_evidence
     phase.update({"phase": "WORKERS_COMPLETE_READBACK_PENDING", "worker_results": outcomes})
     common.write_private(receipt_path, phase)
 
@@ -405,6 +371,10 @@ def main() -> int:
                                     abs_tol=max(1e-9, before["product_rounding"] * 1e-6)) and
                        move.get("uom_id") == before["product_uom_id"])
     one_followup = (len(after["followups"]) == 1 and followup.get("id") == after["followup_id"] and
+                    (before["followup_id"] is None or after["followup_id"] == before["followup_id"]) and
+                    (followup.get("ydental_lab_contact_stage") == "ready" or
+                     (before["followups"] and before["followups"][0]["state"] == "done" and
+                      followup == before["followups"][0])) and
                     relation_id(followup.get("ydental_lab_order_id")) == args.order_id and
                     followup.get("ydental_lab_cycle_key") == "order" and
                     followup.get("ydental_followup_type") == "lab_arrival" and
@@ -424,13 +394,17 @@ def main() -> int:
     one_audit = len(audit) == 1 and audit[0]["ydental_user_id"][0] == args.actor_id
     quant_exact = quant_effect_is_exact(before, after, movement_quantity)
     cost_unchanged = after["purchase_cost_source"] == before["purchase_cost_source"]
-    pids = [row.get("backend_pid") for row in outcomes]
+    pids = [row["attempts"][0].get("backend_pid") for row in outcomes]
     passed = (len(outcomes) == 2 and len(set(pids)) == 2 and
               sorted(row.get("kind") for row in outcomes) == ["accepted", "already_accepted"] and
               all(row.get("state") == "available" and row.get("order_id") == args.order_id and
                   row.get("inventory_event_id") == inventory_event.get("id")
                   for row in outcomes) and one_putaway and one_stock_event and one_followup and
-              one_lab_operation and one_inventory_operation and one_audit and quant_exact and cost_unchanged)
+              one_lab_operation and one_inventory_operation and one_audit and quant_exact and cost_unchanged and
+              common.physical_history_preserved(before, after) and
+              plan_transition_is_exact(before, after) and
+              race_evidence["first_attempt_action_overlap_ns"] > 0 and
+              race_evidence["native_lab_lock_contention_observed"] and race_evidence["all_worker_cursors_closed"])
     phase.update({
         "phase": "READBACK_COMPLETE", "worker_results": outcomes,
         "two_distinct_postgresql_backends": len(set(pids)) == 2,
