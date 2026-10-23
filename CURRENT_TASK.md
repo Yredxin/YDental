@@ -15,13 +15,20 @@
 - UID2准备receipt `.local/s11/verification/new-target-admin-prepare-attempt1.json` SHA `1c4ac5dcc2bc0d5ad46fa2ab70a24001688590a02edf851238f53bfd2341e7d5`：ADMIN_PREPARED、exit0。私有凭据已存在，不读取/输出密码或哈希，不重复轮换。
 - acceptance本轮独立RO/RR起点 `.local/s11/verification/new-target-acceptance-baseline-20261023T-readonly-v1.json` SHA `e0dcaf33673da110a27b31aec59208be9fc2e66d5a433099d908f61d40979e7d`：身份/受限role/升级所需对象所有权/97模块/SMTP0/rollback idle close通过；company1、门店0、尚无新业务。此为检查点，不能冒完整准入或业务通过。
 - `docs/execution/S11_IMPLEMENTATION_PLAN.md` 已按用户整合v1.2更新，替代旧库、逐批审批、旧UID和历史证据耦合的冲突执行解释。历史版本与失败留Git。
-- 产品/工具候选 `ee6a56e77aab79af5c63d7f4caae7f81c055a9b0`；报告HEAD单列。独立admission SHA `0580aa2a62bb2a6dd87c85d1d2f1d9bc43e407a26f9093a4cb24a347bfbe0d79` 已签；真实scope到2026-10-23T13:30:32Z，发放时间未重写。首次owned应用run `20261023T014844Z-7aef08b6a545`（GDB clock run `20261023T014843Z-dd4e5d42d726`），127.0.0.1:18411运行；本地受控sink18412运行，未真实外发。服务时长改为两小时以复用owned运行，仍受真实scope/身份/权限/log界限约束。
+- 产品候选 `ee6a56e77aab79af5c63d7f4caae7f81c055a9b0`；race工具候选 `8782e409e86d5608cdb598a76bda319575a3de1a`，报告HEAD单列。scope仍到2026-10-23T13:30:32Z、原发放时间未重写。首owned GDB应用run `20261023T014844Z-7aef08b6a545`于02:51:45正常退出（exit0、无signal/core/native crash，提前退出原因未证），当前18411停止；本地受控sink18412已正常重启，仅模拟结果，不真实外发。新运行需实际fresh核验，不沿用旧运行成功推定。
+- UID2真实Users UI登录/切店/菜单及用户列表最终通过，独立receipt `f7ce069d7c1541fde85d9a426e03ac0666b29bd59e0ff034f980d77862bc6f7a`。仅补必要membership和warehouse:read。早期诊断曾意外向工具输出完整管理session标识；原密码通过原生inverse重设令旧token失效，不输出secret/hash/cookie，原私有provider仍留本机。该事件不删改原失败。
 - 已提交2店/14独立身份并独立读回；临床配置published供给、审核发布价格、两店材料各100已独立读回。两次准备工具失败分别为warehouse code长度/native设置未准备，owned事务回滚已独立确认；后续原生管理员显式启用两stock设置后v3成功。新目标正常权限增量有记录，不回读旧库。
-- 首轮浏览器followup11/doctor9/frontdesk8正常UI登录、A→B→A及代表工作台通过；UID2首登录失败保留，已通过stdin真实执行正常ORM修正原私有provider密码，待补充Users UI验证，不改旧ADMIN_PREPARED回执。
+- 首轮浏览器followup11/doctor9/frontdesk8正常UI登录、A→B→A及代表工作台通过；UID2首登录失败及原ADMIN_PREPARED证据不足保留，已通过stdin真实执行正常ORM修正并完成后续Users UI验证，不改旧回执。
 - 首临床HTTP链：patient26；初次reserve当前已开始slot明确409，未生资格；同患者正常register35/task57/arrival23/execution28/event26/唯一fee26=137.25，材料99。doc26真实pending/version2，非已确认；continuation58 pending保留。独立提交读回SHA `f77f129448566f99b658c1179db7a135c9b114a53655a171009f6ca03376eafc`。
 - 真实UI建立followup24，默认无偏好to_notify；设置message偏好并改期后新job84 ver2受理一次、contact accepted、followup notified/schedule3，旧job83 not_configured/attempt0保留。sink仅1条匹配请求，responsible11及activity21可追溯；独立receipt SHA `ad8db60d00b508652c549bd800fb4b4a9fd7cfd33d34f4ddef1a961c4c0511af`。不声称delivered/F1已全循环。
 - 合成finance配置3/4和普通条款确认岗位store_manager6两店medical+price权限已独立核；未出账/收退款。UID2口令修复/临时clock权限/本地sink测试开关均有私有receipt；clock组仅5/7/8/9/10/11/13，交付前回收。
 - 已修复cron审计binding、当地日终、复诊/戴用来源和人工标未到字段，race路径隔离、clock控制器session binding，以及默认关闭/精确目标的本地HTTP sink adapter。新目标批测：候选27ee645官方70方法0失败0错误（59 TransactionCase包含ORM/mock/PURE、11HttpCase）；候选ee6a56e定向28方法0失败0错误，含8个adapter mock；两批有重叠，不能相加当独立用例数。工具PURE50项通过。整批harness原exit2因附件审计RO→RW原生自动重试日志ERROR保留，Odoo实际exit0/HTTP200由独立者核实。实际浏览器/提交链与回滚测试分开。
+
+- 12条独立合成临床来源patient/event27–38及12原单16–27、PO7–18各42.75已真实提交并独立核。实际F4-cancel=18、F4-expiry=19；F5=20/21。真HTTP callback对job84防伪403、重复/乱序及重复delivered后状态保持delivered；独立receipt `3d4cf4f2f2968f20c7094a241e49b48b89650c879f646cd00ed802fba5671b61`。不是完整F1/通知多连接验收。
+- 两真实DB连接竞争已提交：package20胜/21冲突；operation key18胜/19冲突，独立receipt `ccf7997f8a1ee556f76c4f5d180c5197f4cec220313fd2cfdbc633faf7363a95`。首连PID及原结果保留；retry各次PID/每worker区间缺证单列。随后tester代理turn出现平台cyber拒绝，未指向具体shell/SQL；剩余receipt/putaway/scan/cancel四场均未启动，停止且不换入口重放。两场已结束，无unknown/活跃worker。停receipt `496c28e2f8d5972bf7b2b451b501e4d6d55196973d9f91c67520f8c9f47cb07e`；已向用户请求通过平台正式渠道核实能力，不以项目授权代替。无关W3继续。
+- W3已提交免费原单16退回/child28再入库/真戴用；17放弃实际退回、24遗失/25报废分别异常处置；23供应商追加child29独立PO19=18.50、患者无追加费；22追加child30原价28.50冻结、后价39.50、独立确认履行charge4仍performed待出账；26真戴用done后新返修draft31；27已入库待普通UI完成旧followup35。私有逐phase原始/commit/readback在`new-target-tests/lab-business-v1/`，待本批独立签核。两次新fit服务另有真实临床fee39/40各137.25，不冒原费重复。
+- F2首次收货入库已提交inventory67后，主控把Integer误作Many2one导致取证TypeError；原raw/failure保留，只读恢复result `e0327f57e0a636815591dc171373af0c718a0f28b6de65b35a8483463b0a9a51`，未重放业务。job97 timeout unknown后查询原请求accepted、人工核实、attempt仍1。正常free库存68/69及fit71保持可追溯。
+- 为后续真实UI完成准备新接诊event41/42（F1患者26、T18患者38），各独立实际服务fee137.25，并正常给正例doctor9 Store1 followup:write组合临床完成权限；负例角色不变。没有因此自动complete/fit，待实际界面动作。
 
 ## 不可重放事实及历史隔离
 
@@ -33,7 +40,7 @@
 
 ## 当前缺口及证据指针
 
-- 待W0补充岗位/Users UI、W1完整超期/预约/接诊闭环、W2超时失败/核查/回调及多连接、W3采购实物免费及追加费闭环、W4最终带数据升级与影响回归/独立总验收、W5效果入口和最终同步。当前持续IN_PROGRESS，不作为最终交付。
+- 待W1完整超期/预约/接诊闭环、W2失败/政策/四来源及多连接、W3追加费出账/更正及普通界面补证、W4最终带数据升级与影响回归/独立总验收、W5效果入口和最终同步；平台拒绝影响剩余竞争，相关必需项不可补PASS。当前持续IN_PROGRESS，不作为最终交付。
 - 各F1—F5/T01—T18以实际层级报告；源码、回滚MODEL、HTTP/RPC、浏览器、多连接、独立提交读回不得互冒。旧目标PASS不替代新目标。
 - 本机原始证据 `.local/s11/verification/`、`operations/`；报告 [summary](docs/reports/s11/summary.md)、[evidence-index](docs/reports/s11/evidence-index.md)。本文件精简前完整历史可由 `git show 0b5fe48ad95668a1c12acefe911624b5bff5a94f:CURRENT_TASK.md` 读取；历史报告不删改。
 - 产品/工具候选和报告HEAD分开；文档更新不无故重做运行准入。只有执行代码、配置、依赖、目标或权限改变才按影响复核。
