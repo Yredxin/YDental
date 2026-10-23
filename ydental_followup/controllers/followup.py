@@ -60,7 +60,8 @@ class YDentalFollowup(http.Controller):
                 continue
             referrals = service.env['ydental.intake.entitlement'].sudo().search([
                 ('ydental_source_task_id', '=', source_task.id), ('ydental_patient_id', '=', row.ydental_patient_id.id),
-                ('ydental_channel', '=', 'reservation'), ('state', 'in', ('held', 'started')),
+                # Untimed referrals are accepted as walk-ins by native intake.
+                ('ydental_channel', 'in', ('reservation', 'walkin')), ('state', 'in', ('held', 'started')),
             ], limit=100)
             for referral in referrals:
                 target_store = referral.ydental_store_id
@@ -73,6 +74,7 @@ class YDentalFollowup(http.Controller):
                     continue
                 referred_events = service.env['ydental.treatment.event'].sudo().search([
                     ('ydental_store_id', '=', target_store.id), ('ydental_kind', '=', 'treatment'),
+                    ('ydental_patient_id', '=', row.ydental_patient_id.id),
                     ('state', '=', 'confirmed'), ('ydental_execution_id.state', 'in', ('reserved', 'handover', 'interrupted')),
                     ('ydental_execution_id.ydental_task_id.ydental_entitlement_id', '=', referral.id),
                 ], limit=100, order='ydental_business_date desc, id desc')
