@@ -26,6 +26,8 @@ import sys
 import threading
 from typing import Any
 
+from race_lab_receipt_duplicate import is_synthetic_internal_code
+
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 PRIVATE_ROOT = REPO_ROOT / ".local" / "s11"
@@ -188,8 +190,8 @@ def _order_snapshot(env, order_ids: tuple[int, int], store_id: int,
         raise Refusal("both supplied S11 work orders must exist")
     if any(order.ydental_store_id.id != store_id for order in orders):
         raise Refusal("both work orders must belong to the supplied admitted store")
-    if any(not (order.ydental_internal_code or "").startswith("S11-") for order in orders):
-        raise Refusal("race targets must be explicitly S11 synthetic work orders (S11- internal-code prefix)")
+    if any(not is_synthetic_internal_code(order.ydental_internal_code) for order in orders):
+        raise Refusal("race targets must be explicitly S11 synthetic work orders (S11- or S11V12- prefix)")
     if any(order.state not in ("draft", "sent", "processing", "received") for order in orders):
         raise Refusal("only active synthetic work orders may be used; completed/cancelled history is protected")
     if require_unbound and any(order.ydental_package_code for order in orders):

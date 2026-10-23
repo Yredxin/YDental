@@ -22,6 +22,8 @@ import threading
 from pathlib import Path
 from typing import Any
 
+from race_lab_receipt_duplicate import is_synthetic_internal_code
+
 REPO_ROOT = Path(__file__).resolve().parents[2]
 PRIVATE_ROOT = REPO_ROOT / ".local" / "s11"
 RECEIPT_ROOT = PRIVATE_ROOT / "new-target-races"
@@ -91,7 +93,7 @@ def snapshot(cr, api, order_id: int, store_id: int) -> dict[str, Any]:
     if not order or order.ydental_store_id.id != store_id:
         msg = "the target S11 synthetic order is missing or belongs to another store"
         raise Refusal(msg)
-    if not (order.ydental_internal_code or "").startswith("S11-") or not order.ydental_package_code:
+    if not is_synthetic_internal_code(order.ydental_internal_code) or not order.ydental_package_code:
         msg = "the scan target must be an already-bound S11 synthetic package"
         raise Refusal(msg)
     event_rows = env["ydental.lab.event"].sudo().search_read(

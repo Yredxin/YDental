@@ -36,6 +36,14 @@ class TestRacePackageCode(unittest.TestCase):
             with self.subTest(args=args), self.assertRaises(runner.Refusal):
                 runner.validate_cli(args)
 
+    def test_current_and_original_synthetic_internal_code_prefixes_are_explicit(self):
+        for value in ("S11-RACE-ABC", "S11V12-8d8207d00fdaf5a4a0c8"):
+            with self.subTest(value=value):
+                self.assertTrue(runner.is_synthetic_internal_code(value))
+        for value in (None, False, "", "S11", "S11V12", "S110-ABC", "AS11V12-ABC", "REAL-ABC"):
+            with self.subTest(value=value):
+                self.assertFalse(runner.is_synthetic_internal_code(value))
+
     def test_race_result_requires_two_connections_unique_winner_and_unchanged_ledgers(self):
         race = {
             "two_distinct_postgresql_backends": True,

@@ -40,7 +40,7 @@ def snapshot(env, order_id: int, store_id: int) -> dict[str, Any]:
     order = env["ydental.lab.order"].sudo().browse(order_id).exists()
     if not order or order.ydental_store_id.id != store_id:
         raise common.Refusal("target synthetic order is missing or outside the admitted store")
-    if not (order.ydental_internal_code or "").startswith("S11-"):
+    if not common.is_synthetic_internal_code(order.ydental_internal_code):
         raise common.Refusal("target must be an S11-prefixed synthetic laboratory order")
     events = env["ydental.lab.event"].sudo().search_read(
         [("ydental_order_id", "=", order.id)],

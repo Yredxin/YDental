@@ -64,7 +64,7 @@ def validate_targets(env, order_ids: tuple[int, int], store_id: int,
     if before["operations"]:
         raise common.Refusal("random operation key unexpectedly exists")
     orders = env["ydental.lab.order"].sudo().browse(order_ids).exists().sorted("id")
-    if (any(not (order.ydental_internal_code or "").startswith("S11-") or
+    if (any(not common.is_synthetic_internal_code(order.ydental_internal_code) or
                 order.ydental_package_code or
                 row["code_bound_events"] or row["code_bound_audits"]
                 for order, row in zip(orders, before["orders"], strict=True))):

@@ -8,7 +8,7 @@ separate `REPEATABLE READ READ ONLY` readback after the worker commits.
 
 The race targets must already be two committed, synthetic S11 work orders made
 through the normal S11 workflow. The runner refuses to act unless both have an
-`S11-` internal code, are active, belong to the selected admitted store, point
+`S11-` or `S11V12-` internal code, are active, belong to the selected admitted store, point
 to their own actual confirmed treatment events and synthetic patients, and have
 no existing package code or code-binding audit. It also requires an existing
 non-superuser internal actor with actual medical-write and warehouse-write

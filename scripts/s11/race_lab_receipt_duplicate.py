@@ -46,6 +46,10 @@ class Refusal(RuntimeError):
     """A fail-closed preflight or race refusal."""
 
 
+def is_synthetic_internal_code(code: object) -> bool:
+    return isinstance(code, str) and code.startswith(("S11-", "S11V12-"))
+
+
 def utc_now() -> str:
     return dt.datetime.now(dt.UTC).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
@@ -171,7 +175,7 @@ def snapshot(env, order_id: int, store_id: int, *, after_race: bool = False) -> 
     order = env["ydental.lab.order"].sudo().browse(order_id).exists()
     if not order or order.ydental_store_id.id != store_id:
         raise Refusal("target synthetic laboratory order is absent or outside the admitted store")
-    if not (order.ydental_internal_code or "").startswith("S11-"):
+    if not is_synthetic_internal_code(order.ydental_internal_code):
         raise Refusal("receipt race is restricted to an S11-prefixed synthetic work order")
     allowed_states = ("sent", "processing", "received") if after_race else ("sent", "processing")
     if order.state not in allowed_states:

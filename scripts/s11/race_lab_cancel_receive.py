@@ -57,7 +57,7 @@ def state_snapshot(env, order_id: int, store_id: int) -> dict[str, Any]:
     order = env["ydental.lab.order"].sudo().browse(order_id).exists()
     if not order or order.ydental_store_id.id != store_id:
         raise common.Refusal("target synthetic order is missing or outside the admitted store")
-    if not (order.ydental_internal_code or "").startswith("S11-"):
+    if not common.is_synthetic_internal_code(order.ydental_internal_code):
         raise common.Refusal("target must be an S11-prefixed synthetic laboratory work order")
     if order.state not in ("sent", "processing", "received", "cancelled"):
         raise common.Refusal("target order state is outside the cancel/receive race contract")
@@ -115,7 +115,7 @@ def verify_prior_race_order(env, target_id: int, prior_id: int, store_id: int) -
         raise common.Refusal("cancel/receive target must differ from the prior S11 race order")
     previous = env["ydental.lab.order"].sudo().browse(prior_id).exists()
     if (not previous or previous.ydental_store_id.id != store_id or
-            not (previous.ydental_internal_code or "").startswith("S11-")):
+            not common.is_synthetic_internal_code(previous.ydental_internal_code)):
         raise common.Refusal("prior race reference must identify a distinct S11 synthetic order in this store")
 
 
