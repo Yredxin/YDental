@@ -277,8 +277,9 @@ class TestLabCancellation(TestFreeReworkLifecycle):
         arrival = self._jobs(order).filtered(lambda job: job.ydental_state == 'pending').ensure_one()
         self.assertEqual(arrival.ydental_event_type, 'lab_arrival')
         before = (row.ydental_schedule_version, self._jobs(order).ids)
+        warehouse_order = warehouse.env['ydental.lab.order'].browse(order.id)
         warehouse.env['ydental.followup.service']._create_passive_from_lab_order(
-            order, order.ydental_planned_at, order.ydental_responsible_id.id)
+            warehouse_order, warehouse_order.ydental_planned_at, warehouse_order.ydental_responsible_id.id)
         self.assertEqual((row.ydental_schedule_version, self._jobs(order).ids), before)
         with self.assertRaises(UserError):
             warehouse._operate('cancel', {'order_id': order.id, 'reason': 'Stock requires physical exception disposition'}, key())
@@ -321,6 +322,9 @@ class TestLabCancellation(TestFreeReworkLifecycle):
 
     def test_draft_responsible_and_date_follow_plan_without_granting_contact_write(self):
         order = self._new_order(creator=self.users['doctor'], with_cost=False)
+        self.assertNotIn('ydental_lab_mutation', order.env.context)
+        with self.assertRaises(AccessError):
+            order.write({'state': 'available'})
         self.admin._grant(self.users['reader'].id, self.stores[0].id, {'followup': 'write', 'medical': 'read'})
         planned = fields.Datetime.now() + timedelta(days=5)
         order.write({'ydental_responsible_id': self.users['reader'].id, 'ydental_planned_at': planned})

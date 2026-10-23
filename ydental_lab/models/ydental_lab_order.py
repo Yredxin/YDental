@@ -177,7 +177,9 @@ class YDentalLabOrder(models.Model):
             prepared.append(vals)
         records = super(YDentalLabOrder, self.with_context(ydental_lab_mutation=MUTATION)).create(prepared)
         records._attach_planned_followup()
-        return records
+        # Return the public caller's environment, never the private mutation
+        # capability used only while constructing the guarded source records.
+        return records.with_env(self.env)
 
     def _attach_planned_followup(self):
         for order in self:

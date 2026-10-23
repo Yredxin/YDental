@@ -32,11 +32,11 @@ class TestLabCancellationHTTP(TestLabCancellation, HttpCase):
         self.assertEqual(selected.status_code, 200, selected.text)
         self.revision = selected.json()['revision']
 
-    def _rpc(self, model, method, args):
+    def _rpc(self, model, method, args, context=None):
         response = self.url_open('/web/dataset/call_kw/' + model + '/' + method,
             data=json.dumps({'jsonrpc': '2.0', 'id': 1, 'method': 'call', 'params': {
                 'model': model, 'method': method, 'args': args,
-                'kwargs': {'context': {'ydental_revision': self.revision}},
+                'kwargs': {'context': {'ydental_revision': self.revision, **(context or {})}},
             }}), headers={'Content-Type': 'application/json'})
         self.assertEqual(response.status_code, 200)
         return response.json()
@@ -93,6 +93,38 @@ class TestLabCancellationHTTP(TestLabCancellation, HttpCase):
         self.assertNotIn('Complete from actual treatment', summaries)
         denied = self._followup_action('reopen', {'followup_id': row.id, 'reason': 'Cannot revive cancelled cycle'})
         self.assertEqual(denied.status_code, 409, denied.text)
+
+    def test_http_native_activity_scope_rejects_stale_revision_and_forged_binding(self):
+        order = self._new_order()
+        warehouse = self._send_receive(order)
+        warehouse._operate('cancel', {'order_id': order.id, 'reason': 'Synthetic activity binding regression'}, key())
+        activity = self.root['mail.activity'].search([
+            ('res_model', '=', 'ydental.lab.order'), ('res_id', '=', order.id),
+            ('user_id', '=', self.users['frontdesk'].id), ('active', '=', True),
+        ]).ensure_one()
+        self._select('frontdesk')
+        allowed = self._rpc('mail.activity', 'search_read', [[
+            ['res_model', '=', 'ydental.lab.order'], ['res_id', '=', order.id],
+        ], ['id', 'summary']], context={'ydental_binding': {'user_id': self.users['manager'].id}})
+        self.assertIn('result', allowed, allowed)
+        self.assertIn(activity.id, [item['id'] for item in allowed['result']])
+        stale = self._rpc('mail.activity', 'action_feedback', [[activity.id], 'Must not execute'],
+                          context={'ydental_revision': self.revision - 1})
+        self.assertIn('error', stale)
+        missing = self._rpc('mail.activity', 'action_feedback', [[activity.id], 'Must not execute'],
+                            context={'ydental_revision': None})
+        self.assertIn('error', missing)
+        self.env.invalidate_all()
+        self.assertTrue(activity.active)
+        self._select('none')
+        denied = self._rpc('mail.activity', 'search_read', [[
+            ['res_model', '=', 'ydental.lab.order'], ['res_id', '=', order.id],
+        ], ['id']], context={'ydental_binding': {'user_id': self.users['frontdesk'].id}})
+        if 'result' in denied:
+            self.assertNotIn(activity.id, [item['id'] for item in denied['result']])
+        else:
+            self.assertIn('error', denied)
+        self.assertIn('error', self._rpc('ydental.lab.order', 'read', [[order.id], ['name']]))
 
     def test_http_order_direct_messaging_cannot_bypass_internal_activity_boundary(self):
         order = self._new_order()
