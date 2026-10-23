@@ -125,6 +125,7 @@ class YDentalIntakeService(models.AbstractModel):
                 'patient_id': entitlement.ydental_patient_id.id,
                 'id': entitlement.id,
                 'slot_start': slot.ydental_start,
+                'slot_end': slot.ydental_end,
             })
         return options
 

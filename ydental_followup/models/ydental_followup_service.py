@@ -409,6 +409,20 @@ class YDentalFollowupService(models.AbstractModel):
                     after={'planned_at': fields.Datetime.to_string(planned_at), 'version': row.ydental_version})
         return {'id': row.id, 'state': row.state, 'version': row.ydental_version}
 
+    def _appointment_timing(self, row, appointment):
+        """Read exact authorized reservation dates without capacity access."""
+        appointment.check_access('read')
+        if (appointment.ydental_store_id != row.ydental_store_id or
+                appointment.ydental_patient_id != row.ydental_patient_id):
+            raise AccessError(self.env._('access_denied: The reservation does not belong to this follow-up.'))
+        # Intake validates the exact linked claim, source key, state and slot.
+        # Only its display dates leave that existing narrow read bridge.
+        options = self.env['ydental.intake.service']._followup_reservation_options([row.ydental_patient_id.id])
+        for option in options:
+            if option['id'] == appointment.id:
+                return option
+        raise AccessError(self.env._('access_denied: Current reservation timing is unavailable.'))
+
     def _link_appointment(self, followup_id, appointment_id, status='booked'):
         row = self._followup(followup_id, True)
         if row.state in ('done', 'closed'):
@@ -433,7 +447,7 @@ class YDentalFollowupService(models.AbstractModel):
                 'ydental_appointment_status': status,
                 'ydental_schedule_version': row.ydental_schedule_version + 1}
         if appointment:
-            vals['ydental_deadline_at'] = appointment.ydental_claim_id.ydental_slot_id.ydental_start
+            vals['ydental_deadline_at'] = self._appointment_timing(row, appointment)['slot_start']
         row._save(vals)
         self._cancel_pending_jobs(row, 'Appointment linkage changed')
         self._schedule(row)
@@ -490,7 +504,7 @@ class YDentalFollowupService(models.AbstractModel):
         if not arrival:
             raise AccessError(self.env._('access_denied: Select the actual store arrival record.'))
         arrival.check_access('read')
-        slot_start = row.ydental_appointment_id.ydental_claim_id.ydental_slot_id.ydental_start
+        slot_start = self._appointment_timing(row, row.ydental_appointment_id)['slot_start']
         slot_local_date = pytz.UTC.localize(slot_start).astimezone(pytz.timezone(row.ydental_store_id.ydental_timezone)).date()
         if (arrival.ydental_store_id != row.ydental_store_id or arrival.ydental_patient_id != row.ydental_patient_id or
                 arrival.ydental_date != slot_local_date):
@@ -508,12 +522,12 @@ class YDentalFollowupService(models.AbstractModel):
         if (row.state in ('done', 'closed') or not row.ydental_appointment_id or
                 row.ydental_appointment_status != 'booked'):
             raise UserError(self.env._('Only a booked appointment can be marked not arrived.'))
-        slot = row.ydental_appointment_id.ydental_claim_id.ydental_slot_id
+        timing = self._appointment_timing(row, row.ydental_appointment_id)
         timezone = pytz.timezone(row.ydental_store_id.ydental_timezone)
         now = fields.Datetime.to_datetime(self._now())
         local_now = pytz.UTC.localize(now).astimezone(timezone)
-        appointment_day = pytz.UTC.localize(slot.ydental_start).astimezone(timezone).date()
-        if local_now.date() <= appointment_day or now < slot.ydental_end:
+        appointment_day = pytz.UTC.localize(timing['slot_start']).astimezone(timezone).date()
+        if local_now.date() <= appointment_day or now < timing['slot_end']:
             raise UserError(self.env._('The reservation local day has not ended.'))
         arrival = self.env['ydental.intake.arrival'].sudo().search([
             ('ydental_store_id', '=', row.ydental_store_id.id), ('ydental_patient_id', '=', row.ydental_patient_id.id),

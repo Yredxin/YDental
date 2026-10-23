@@ -51,6 +51,67 @@ class TestFollowupLifecycle(TransactionCase):
         for store in cls.stores:
             cls.admin._grant(cls.users['manager'].id, store.id, {'followup': 'write'})
 
+    def test_followup_operator_links_arrival_and_missed_visit_without_capacity_access(self):
+        price(self, amount=137.25)
+        receive(self)
+        treatment, clinical, queue, lease, execution, document, args = opened_actual(self)
+        actual = treatment._operate('execute', execute_args(self, args), key())
+        clinical._operate('handover', handover_args(document, lease) | {
+            'reason': 'Synthetic source encounter ended before ordinary follow-up',
+        })
+        queue._operate('exit', {'lease_id': lease['lease_id'], 'token': lease['token']})
+        patient = execution.ydental_patient_id
+        operator = self.users['doctor']
+        self.admin._grant(operator.id, self.stores[0].id, {'followup': 'write'})
+        service = bind(self, operator).env['ydental.followup.service']
+        membership = service.env['ydental.access.service']._membership(operator.id, self.stores[0].id)
+        self.assertEqual(service.env['ydental.access.service']._levels(membership)['capacity'], 'none')
+        manager = bind(self, self.users['manager'])
+        timezone = pytz.timezone(self.stores[0].ydental_timezone)
+        for offset, arrived in ((2, True), (3, False)):
+            start = fields.Datetime.now().replace(microsecond=0) + timedelta(days=offset)
+            end = start + timedelta(minutes=5)
+            slot = make_slot(self, manager, self.stations[0][0], start, end)
+            reservation = manager._operate('reserve', {
+                'patient_id': patient.id, 'mapping_id': self.mappings[0][0].id,
+                'start': fields.Datetime.to_string(start), 'end': fields.Datetime.to_string(end),
+                'channel': 'reservation',
+            }, key())
+            claim = self.root['ydental.intake.entitlement'].browse(reservation['id']).ydental_claim_id
+            with self.assertRaises(AccessError):
+                service.env['ydental.supply.claim'].browse(claim.id).check_access('read')
+            created = service._operate('create', {
+                'patient_id': patient.id, 'source_event_id': actual['event_id'],
+                'followup_type': 'post_visit', 'planned_at': fields.Datetime.to_string(start),
+                'responsible_id': operator.id,
+            })
+            row = self.root['ydental.followup'].browse(created['id'])
+            linked = service._operate('link_appointment', {
+                'followup_id': row.id, 'appointment_id': reservation['id'],
+            })
+            self.assertEqual(linked['state'], created['state'])
+            self.assertEqual(row.ydental_deadline_at, slot.ydental_start)
+            if arrived:
+                with patch.object(fields.Datetime, 'now', return_value=start + timedelta(minutes=1)):
+                    manager._operate('arrive', {'patient_id': patient.id}, key())
+                local_date = pytz.UTC.localize(start).astimezone(timezone).date()
+                arrival = self.root['ydental.intake.arrival'].search([
+                    ('ydental_patient_id', '=', patient.id), ('ydental_store_id', '=', self.stores[0].id),
+                    ('ydental_date', '=', local_date),
+                ]).ensure_one()
+                result = service._operate('record_arrival', {'followup_id': row.id, 'arrival_id': arrival.id})
+                self.assertEqual((result['state'], result['appointment_status']), (created['state'], 'arrived'))
+                self.assertFalse(row.ydental_completed_event_id)
+            else:
+                local_date = pytz.UTC.localize(start).astimezone(timezone).date()
+                day_end = timezone.localize(datetime.combine(local_date + timedelta(days=1), time.min)).astimezone(pytz.UTC).replace(tzinfo=None)
+                with patch.object(type(service), '_now', return_value=day_end):
+                    result = service._operate('mark_not_arrived', {
+                        'followup_id': row.id, 'reason': 'Synthetic verified absence after the reservation local day',
+                    })
+                self.assertEqual((result['state'], result['appointment_status']), ('to_notify', 'not_arrived'))
+            self.assertEqual(service.env['ydental.access.service']._levels(membership)['capacity'], 'none')
+
     def test_real_treatment_followup_contact_overdue_appointment_and_close(self):
         patient_service = bind(self, self.users['manager']).env['ydental.patient.service']
         source_a, source_b, held_patient_id = (create_patient(self) for _ in range(3))

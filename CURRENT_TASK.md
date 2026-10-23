@@ -8,13 +8,22 @@
 - 主控 `/root` 唯一调度数据库写入、服务启停、提交和状态维护。实现 `/root/business_dev` 负责followup/lab及对应测试；测试 `/root/tester` 负责race工具及调度后的实测；`/root/acceptance` 独立验收、不实现被验代码。共享OS/工作树，不冒OS隔离。
 - 本地维护过程事实；计划完成或真正外部受阻后再同步GitHub。#35远端现场读取为OPEN；#37保留用户效果。当前S11 **PARTIAL / IN_PROGRESS**，没有技术完成结论。
 
-## 最新检查点（2026-10-23 05:40 UTC，继续实施）
+## 最新检查点（2026-10-23 05:39 UTC，后续实际增量见下）
 
 - 固定当前产品/工具候选 `11829daa0fef0502e803b83f253a64daf17e0ef4`；报告HEAD可文档增量。新普通缺陷修正仅quiet当天结束日和精确untimed转诊walkin下拉，未重做被平台拒绝的manualcontact deadline修复。
 - 独立纯带数据upgrade PASS（c3a926d9…）、81方法官方0fail/error（70混合TransactionCase+11HttpCase，独立8eacd96c…），Odoo0/wrapper2原生只读audit重试ERROR保留。
 - 十通知phase独立8772e272…；旧quiet错日明确FAIL，新77/job218实际当天23:59pending0验证成功。到期日有效vendor47/job219内部受理1次。T02新patient79/source86/target87费用各137.25、正常referral4/entitlement106 walkin；无联系followup78→to_notify/owner11/activity67、无job，待普通doctor UI明确complete。
 - 预约52/53仍planned；58已正常明确message演示偏好，Store1 demo lead0/quiet00:00–00:01/daily20，计划新增09:01实际应用clock提醒，再真实前台到店与日终。未假未来报到/接诊。
 - 当前18411停止、sink2132804/18412运行；clock8/9/11/adapter/callback及本地demo政策启用，SMTP0。新缺policy门店和仅缺目标医疗权普通岗位工具在离线准备；未执行。详细原始指针/候选在summary/evidence-index最新节。主控继续调度，无中途GitHub进度。
+
+## 后续运行检查点（2026-10-23，T11两阶段后）
+
+- 服务端恢复后先核已提交事实：新无policy店142/vendor48/cooperation44/job220 not_configured0，责任13；新普通UID335源1medical/followupwrite、目标2全none，无管理/clock，原负例17不变。新acceptance_cont真实独立fresh核后接续，未重放两准备。
+- GDB11829 run `20261023T054527Z-9fc7bc3fdc26` 已按正常owned stop退出0、18411停止/ACTIVE无；原sink2132804在服务端重启后PID不存在，精确旧退出原因未证，正常新owned sink2156744/18412运行，未重发。scope原13:30:32到期不重写。
+- W2普通owner界面通过；T02 UID335真实隐藏target87且HTTP403/业务不变，doctor9真实UI完成78→87/93，独立c90f3ee2…。activity67由原assigned-user11 native反馈归档/history3555，不冒自动清理。
+- T11四actor5/8/9/10真实UIclock两模拟日10/26–27，正常MODEL上游服务真实提交：patient80/order4/lines7、8，pan88/fee88=35.50已做；旧CBCTtask187/queue99先清日终止、旧report实际exam_revalidation_required且原值保持，真实续诊96/doc89重新确认后仅CBCT实际62.75。pan事件/费不重、旧号不复活，protected24/26/35/78保持，四session clock两阶段正常清除；day1独立3d746d8a…，day2待独立签核。不冒自然跨日或全HTTP业务。
+- 预约52关联77首真实普通UI403，容量claim原生read被拒；独立已核52/53仍planned/none/sched1、jobs156/157pending0，未盲重放。主控修复link/arrival/mark_not_arrived对日期的直接容量读取，复用已有intake精确来源桥并增加slot_end，仅返回日期，不加岗位capacity权，不触被拒manualcontactdeadline修复。新候选需单元/实际UI定向回归与影响内数据升级。
+- 临时clock现[5,8,9,10,11]供普通应用clock测试，335/17无clock；adapter/callback及两店本地demo启用、SMTP0，最终正常回收，UID2合法管理保留。迟到旧job158 callback35实际保留、54closed不复活、jobaccepted/attempt1不变，无resend/竞争；待独立签核。
 
 ## 已承接与本轮新增事实
 
