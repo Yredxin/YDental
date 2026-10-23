@@ -505,23 +505,26 @@ class YDentalFollowupService(models.AbstractModel):
     def _mark_not_arrived(self, followup_id, reason):
         row = self._followup(followup_id, True)
         reason = self._text(reason, required=True)
-        if not row.ydental_appointment_id or row.ydental_appointment_status != 'booked':
+        if (row.state in ('done', 'closed') or not row.ydental_appointment_id or
+                row.ydental_appointment_status != 'booked'):
             raise UserError(self.env._('Only a booked appointment can be marked not arrived.'))
         slot = row.ydental_appointment_id.ydental_claim_id.ydental_slot_id
-        local_now = fields.Datetime.context_timestamp(row.with_context(tz=row.ydental_store_id.ydental_timezone), fields.Datetime.now())
-        local_end = pytz.UTC.localize(slot.ydental_end).astimezone(pytz.timezone(row.ydental_store_id.ydental_timezone))
-        if local_now < local_end:
-            raise UserError(self.env._('The reservation window has not ended.'))
+        timezone = pytz.timezone(row.ydental_store_id.ydental_timezone)
+        now = fields.Datetime.to_datetime(self._now())
+        local_now = pytz.UTC.localize(now).astimezone(timezone)
+        appointment_day = pytz.UTC.localize(slot.ydental_start).astimezone(timezone).date()
+        if local_now.date() <= appointment_day or now < slot.ydental_end:
+            raise UserError(self.env._('The reservation local day has not ended.'))
         arrival = self.env['ydental.intake.arrival'].sudo().search([
             ('ydental_store_id', '=', row.ydental_store_id.id), ('ydental_patient_id', '=', row.ydental_patient_id.id),
-            ('ydental_date', '=', local_end.date()),
+            ('ydental_date', '=', appointment_day),
         ], limit=1)
         if arrival:
             raise UserError(self.env._('An actual arrival exists; do not mark this appointment as missed.'))
-        row._save({'ydental_appointment_status': 'not_arrived', 'ydental_state': 'to_notify',
+        row._save({'ydental_appointment_status': 'not_arrived', 'state': 'to_notify',
                    'ydental_schedule_version': row.ydental_schedule_version + 1})
-        self._cancel_pending_jobs(row, 'Reservation window ended without arrival')
-        self._create_contact_activity(row, 'The booked time passed without actual arrival. Contact the patient.')
+        self._cancel_pending_jobs(row, 'Reservation day ended without arrival')
+        self._create_contact_activity(row, 'The reservation local day ended without actual arrival. Contact the patient.')
         self._audit('not_arrived', row, after={'appointment_status': row.ydental_appointment_status,
                     'state': row.state}, reason=reason)
         return {'id': row.id, 'state': row.state, 'appointment_status': row.ydental_appointment_status}

@@ -405,6 +405,11 @@ class TestFollowupLifecycle(TransactionCase):
         local_day = pytz.UTC.localize(later_start).astimezone(timezone).date()
         day_end = timezone.localize(datetime.combine(local_day + timedelta(days=1), time.min)).astimezone(
             pytz.UTC).replace(tzinfo=None)
+        with patch.object(type(service), '_now', return_value=day_end), self.assertRaises(UserError):
+            service._operate('mark_not_arrived', {
+                'followup_id': arrived_id, 'reason': 'Actual arrival must prevent a missed-visit mark',
+            })
+        self.assertEqual(arrived_row.ydental_appointment_status, 'booked')
         service._expire_appointments(day_end - timedelta(seconds=1))
         self.assertEqual(arrived_row.state, 'planned')
         service._expire_appointments(day_end)
@@ -437,6 +442,27 @@ class TestFollowupLifecycle(TransactionCase):
         missed_day = pytz.UTC.localize(no_arrival_start).astimezone(timezone).date()
         missed_day_end = timezone.localize(datetime.combine(missed_day + timedelta(days=1), time.min)).astimezone(
             pytz.UTC).replace(tzinfo=None)
+        manual_row = self.root['ydental.followup'].browse(service._operate('create', base)['id'])
+        service._operate('link_appointment', {
+            'followup_id': manual_row.id, 'appointment_id': reservation['id'], 'status': 'booked',
+        })
+        manual_args = {'followup_id': manual_row.id, 'reason': 'Verified no arrival by local day end'}
+        before_version = manual_row.ydental_version
+        for too_early in (no_arrival_end + timedelta(seconds=1), missed_day_end - timedelta(seconds=1)):
+            with patch.object(type(service), '_now', return_value=too_early), self.assertRaises(UserError):
+                service._operate('mark_not_arrived', manual_args)
+        manual_row.invalidate_recordset()
+        self.assertEqual((manual_row.state, manual_row.ydental_appointment_status), ('planned', 'booked'))
+        self.assertEqual(manual_row.ydental_version, before_version)
+        reader = bind(self, self.users['reader']).env['ydental.followup.service']
+        with self.assertRaises(AccessError):
+            reader._operate('mark_not_arrived', manual_args)
+        with patch.object(type(service), '_now', return_value=missed_day_end):
+            marked = service._operate('mark_not_arrived', manual_args)
+            with self.assertRaises(UserError):
+                service._operate('mark_not_arrived', manual_args)
+        self.assertEqual((marked['state'], marked['appointment_status']), ('to_notify', 'not_arrived'))
+        self.assertFalse(manual_row.ydental_arrival_id)
         with patch.object(type(service), '_now', return_value=missed_day_end):
             self.root['ydental.followup'].with_context({})._cron_run_due()
             self.root['ydental.followup'].with_context({})._cron_run_due()
