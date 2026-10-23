@@ -19,6 +19,7 @@ class S11ClockController(http.Controller):
             raise AccessError('S11 debug clock is available only over loopback.')
         service = request.env['ydental.access.service']
         session = service._session_for_key(request.session.sid[:42])
+        service = service._bind(session)
         service._scope()
         return service, session, session_hash(request.session.sid[:42])
 

@@ -67,7 +67,7 @@ confirm no configured SMTP servers and no external message provider. Only the
 current S11 DB role is supplied to Odoo; no broad cron or public DB manager is
 enabled.
 
-The service is supervised in the foreground for at most 20 minutes and never
+The service is supervised in the foreground for at most two hours and never
 past scope expiry. One service log is capped at 32 MiB. The ephemeral Odoo config
 containing the DB password is deleted on exit; run metadata excludes secrets.
 The Odoo filestore uses the stable private `.local/s11/new-target-data/` directory across

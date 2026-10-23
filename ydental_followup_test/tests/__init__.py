@@ -4,4 +4,5 @@ from . import (
     test_followup_lifecycle,
     test_followup_notification,
     test_http,
+    test_local_sink,
 )
