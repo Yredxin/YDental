@@ -30,6 +30,14 @@
 - F2首次收货入库已提交inventory67后，主控把Integer误作Many2one导致取证TypeError；原raw/failure保留，只读恢复result `e0327f57e0a636815591dc171373af0c718a0f28b6de65b35a8483463b0a9a51`，未重放业务。job97 timeout unknown后查询原请求accepted、人工核实、attempt仍1。正常free库存68/69及fit71保持可追溯。
 - 为后续真实UI完成准备新接诊event41/42（F1患者26、T18患者38），各独立实际服务fee137.25，并正常给正例doctor9 Store1 followup:write组合临床完成权限；负例角色不变。没有因此自动complete/fit，待实际界面动作。
 
+- 执行工具现固定 `f576cb8127654f0409e28a6072f4c7217b969a62`，产品模块仍ee6a56e；应用池4在真实UI引发PoolError，受支持本应用16修复、PURE37通过，未改PG/OS（原生只读max100/当时连接12）。正常direct运行`20261023T043827Z-c28fb03e3392`，04:38:27起至最多约06:38:27 UTC，scope另到13:30:32。仓库/结算普通browser并行读29次CSS200、0HTTP5xx/请求失败/pageerror，独立receipt `c1e546c4352dbcd58fce1cfacc5413aad93df4078f2e2118090bf1c6854083ef`。CJK截图仍方框、DOM中文正确，未声称用户视觉效果通过/未动OS字体。
+- 最终既有suite实际测试候选ca8900b（产品与f576相同、工具连接池增量另验）：78唯一方法=35followup+43lab，67TransactionCase混ORM/mock/PURE+11HttpCase，0fail/error；Odoo0、wrapper2因原生附件审计RO→RW重试日志保留。独立receipt `ac49a76a4b7790ca559ece5059e33ffc4a6314cb1c93fa2cd8a142e570ff5eb2`。
+- 新目标真实带数据限定升级已单次exit0/error0。CLI指定followup/lab/两test/clock五模块，原生依赖传播额外升级已装lab_sms_guard，97仅加载非重装。独立前后140保护表/9技术表/12附件：仅ir.access27行及group69等技术write_date变化，权限含义及业务量金额/来源/文书附件/schema均保持；receipt `d15c2cb66832343570ae31ef2ce1a06622d780465ebe642701661df811056078`。随后合法业务提交另记，不回写升级基线。
+- charge4已由普通14原生出账invoice6/source5=28.50，关联adjustment3/credit7/source6=5.00，剩未付23.50/payment0；credit paid来自冲抵未付，不是资金退款，reversed_entry_id实际NULL，关联以adjustment/source/partial为证。T18旧35 done→42/44、freechild32退回90/再入库91、新36唯一to_notify/job108unknown attempt1、同原请求GET accepted且owner11，旧done不覆盖；独立 `0feece368a8a20080d0592308dc5ece20620cbbf8db41793e5a5e7a4cf89b3ea`。
+- F1真实自然未约期限已到，原生MODEL cron首次仅24变化、overdue审计+1，重复+0（无clock、非自然跨日）；普通UI no_answer保持to_notify→phone成功notified→doctor9明确event41/execution43后24done。普通HTTP native assigned-user反馈21/22/29留下2755–2757并归档，不冒产品自动清理修复，异常费用24/25/26及新unknown30保留；独立 `c5af69044e85ebe78eaa31dee6106692626e53c91e46fc82f3d6be6bb0010837`。feedback最初两次非支持的native parentread预检拒绝保留，未发action；最终独立受限RO预检后走原生允许assigned-user反馈，不伪造Binding。
+- F2新followup26也由doctor9普通UI明确完成到39/41，原child28实际戴用/stock71/原fee成本不重；contact23原生人工反馈→2759并归档。真实SQL约束负例5个非法来源组合CHECK23514＋2个重复charge/adjustment UNIQUE23505，单真实连接、savepoint及外层rollback、显式负id不动sequence、source5/6和invoice6/7前后相同，无持久经济写入；独立 `fc5791945d30782dce0dcf0c3ff5b41ef506ba33e2159baeecf595a759132433`。SQL拒绝不冒ORM/HTTP/竞争。
+- 当前仍连续IN_PROGRESS：仅平台拒绝影响的剩余竞争/特定manualcontact业务deadline修复停止，未把普通预约/当地日终/通知政策与四来源未开展项归因于该拒绝。tester正在离线准备两个独立未来预约病例及普通UI工具，主控继续未受影响W1/W2。现clock权限0、testadapter0/callback未配置/两policydisabled、SMTP0，下一普通测试包如需临时重新启用会按实际记录并最终再回收，不伪称沿用旧clock准入。UID2持续管理入口保留。
+
 ## 不可重放事实及历史隔离
 
 - 原S10 main、原scratch `ydental_s10_test_20261017105432_ce6dcbf8 / OID2144130` 不进入本轮新业务调用；本轮也不为建立新基线回读任何旧禁读对象。

@@ -1,3 +1,18 @@
+# 2026-10-23 04:50 UTC｜新目标追加实际证据（继续实施）
+
+产品ee6a56e，工具f576cb8；此节不宣布整计划完成，平台受限竞争仍停止，未受影响W1/W2继续。
+
+|证据|独立回执SHA256|实际层级与边界|
+|---|---|---|
+|78方法最终既有suite|ac49a76a4b7790ca559ece5059e33ffc4a6314cb1c93fa2cd8a142e570ff5eb2|测试树ca8900b产品相同；67 TransactionCase/11 HttpCase，0fail/error，Odoo0/wrapper2原生重试ERROR保留；非78业务。|
+|限定真实带数据upgrade|d15c2cb66832343570ae31ef2ce1a06622d780465ebe642701661df811056078|140保护表/9metadata/12附件；5显式模块+native downstream lab_sms_guard。只有技术write_date，业务/权限意义/金额数量/来源保持。|
+|T18旧done与新unknown周期、追加费原生invoice/credit|0feece368a8a20080d0592308dc5ece20620cbbf8db41793e5a5e7a4cf89b3ea|35done→42/44；新32/36/job108unknown1、责任出口；charge4→invoice6=28.50/source5、adjust3→credit7=5/source6，未付23.50/payment0；无首次出账竞争证据。|
+|F1自然到期/正常UI及原生人工反馈|c5af69044e85ebe78eaa31dee6106692626e53c91e46fc82f3d6be6bb0010837|cron首次+1/重复+0无clock；UI noanswer/phone/doctor24→41/43 done；21/22/29归档与原生2755–2757，人工处置不冒自动修复。预约日终尚另验。|
+|F2明确接诊完成及SQL约束实际负例|fc5791945d30782dce0dcf0c3ff5b41ef506ba33e2159baeecf595a759132433|26done→39/41，23归档/2759；5CHECK+2UNIQUE实际PG错误均回滚，不动source/invoice/sequence，SQL非ORM/HTTP/竞争。|
+|normal direct pool16入口|c1e546c4352dbcd58fce1cfacc5413aad93df4078f2e2118090bf1c6854083ef|真实仓库12form/结算read，29CSS200、0HTTP5xx/请求失败/pageerror，首pool4失败保留；CJK方框视觉效果未签。|
+
+---
+
 # 2026-10-23｜整合v1.2当前新目标证据
 
 仅 `ydental_s11_synth_20261023_01 / OID2171423`；执行候选 `ee6a56e77aab79af5c63d7f4caae7f81c055a9b0`。旧scratch历史单列，以下不改写旧PASS/FAIL。
