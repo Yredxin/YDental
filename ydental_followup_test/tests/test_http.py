@@ -130,6 +130,16 @@ class TestFollowupHTTP(HttpCase):
         self.assertIn('Cache-Control', page.headers)
         self.assertIn('no-store', page.headers['Cache-Control'])
 
+    def test_native_menus_filter_models_without_grant_instead_of_failing(self):
+        self.select('clinician')
+        menus = self.url_open('/web/webclient/load_menus')
+        self.assertEqual(menus.status_code, 200, menus.text)
+        self.assertIsInstance(menus.json(), dict)
+        # The caller has medical/follow-up read authority, no inventory grant.
+        # Loading the shared native shell does not authorize inventory access.
+        denied = self.rpc('ydental.inventory.event', 'search_read', [[]])
+        self.assertIn('error', denied)
+
     def test_http_followup_denies_missing_business_grant_without_patient_disclosure(self):
         self.select('none')
         page = self.url_open('/ydental/followups')

@@ -1,6 +1,6 @@
 import base64
 import secrets
-from datetime import UTC, date, timedelta
+from datetime import UTC, date, datetime, timedelta
 from types import SimpleNamespace
 from unittest.mock import patch
 
@@ -266,6 +266,12 @@ class TestLaboratoryGuards(TransactionCase):
             ]), cooperation2,
         )
         self.assertEqual(store2_service._check_vendor_id(vendor.id, stores[1], None), vendor)
+        business_tomorrow = datetime.combine(vendor.valid_until + timedelta(days=1), datetime.min.time()).replace(hour=12)
+        with patch.object(type(store1_service), '_now', return_value=business_tomorrow):
+            with self.assertRaises(AccessError):
+                store1_service._check_vendor_id(vendor.id, stores[0], None)
+            with self.assertRaises(ValidationError):
+                vendor.with_user(manager).action_approve()
 
     def test_vendor_expiry_for_store_writer_only_queues_current_store(self):
         service = self.env['ydental.lab.service']

@@ -306,7 +306,7 @@ class YDentalLabService(models.AbstractModel):
         cooperation = self._model('cooperation').search([
             ('ydental_store_id', '=', store.id), ('ydental_vendor_id', '=', vendor.id), ('active', '=', True),
         ], limit=1)
-        today = fields.Date.context_today(self)
+        today = fields.Date.context_today(self, timestamp=self._now())
         if not vendor or store.company_id not in vendor.company_ids or vendor.state != 'approved' or vendor.valid_until < today or not cooperation:
             raise AccessError(self.env._('access_denied: The laboratory must be approved, current and enabled for this store.'))
         return vendor
@@ -338,7 +338,9 @@ class YDentalLabService(models.AbstractModel):
         vendor.check_access('write')
         if not set(vendor.company_ids.ids) <= set(self.env.user.sudo().company_ids.ids):
             raise AccessError(self.env._('access_denied: Vendor qualification is outside allowed companies.'))
-        if not vendor.exists() or vendor.valid_until < fields.Date.context_today(self) or not vendor.qualification_reference.strip():
+        if (not vendor.exists() or
+                vendor.valid_until < fields.Date.context_today(self, timestamp=self._now()) or
+                not vendor.qualification_reference.strip()):
             raise ValidationError(self.env._('Current qualification evidence and a future expiry date are required.'))
         if decision == 'approved' and not vendor.qualification_evidence:
             raise ValidationError(self.env._('Attach the reviewed vendor qualification evidence before approval.'))

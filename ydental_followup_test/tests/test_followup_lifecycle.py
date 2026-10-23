@@ -78,6 +78,7 @@ class TestFollowupLifecycle(TransactionCase):
                 'channel': 'reservation',
             }, key())
             claim = self.root['ydental.intake.entitlement'].browse(reservation['id']).ydental_claim_id
+            self.assertFalse(service.env['ydental.supply.claim'].has_access('read'))
             with self.assertRaises(AccessError):
                 service.env['ydental.supply.claim'].browse(claim.id).check_access('read')
             created = service._operate('create', {

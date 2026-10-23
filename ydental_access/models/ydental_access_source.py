@@ -44,7 +44,17 @@ class YDentalAccessSource(models.AbstractModel):
     def _access_domain(self, operation):
         if self.env.su:
             return super()._access_domain(operation)
-        return super()._access_domain(operation) & self._source_domain(operation)
+        domain = super()._access_domain(operation)
+        if domain.is_false():
+            return domain
+        try:
+            source_domain = self._source_domain(operation)
+        except AccessError:
+            # Core has_access() is a boolean probe, including native menu
+            # filtering. A missing business grant must hide this model only.
+            # Explicit record check_access() keeps its original rejection.
+            return fields.Domain.FALSE
+        return domain & source_domain
 
     def check_access(self, operation):
         if not self.env.su:
