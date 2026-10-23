@@ -37,6 +37,9 @@ EXPECTED_OID = 2171423
 EXPECTED_CLUSTER = "7694897083368259627"
 EXPECTED_HTTP_HOST = "127.0.0.1"
 EXPECTED_HTTP_PORT = 18411
+# A normal browser loads concurrent assets while native routes may retry a
+# read-only cursor on a separate connection. Four slots exhausted under real UI.
+EXPECTED_DB_MAXCONN = 16
 EXPECTED_CORE_COMMIT = "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb"
 # These paths contain execution-reporting material only. A later report edit
 # must not silently make an otherwise identical execution candidate unusable.
@@ -286,7 +289,7 @@ def validate_pair() -> tuple[dict, dict, dict, str, str]:
         "port": EXPECTED_HTTP_PORT,
         "workers": 0,
         "max_cron_threads": 0,
-        "db_maxconn": 4,
+        "db_maxconn": EXPECTED_DB_MAXCONN,
         "dbfilter": "^" + EXPECTED_DATABASE + "$",
         "list_db": False,
     }
@@ -888,7 +891,7 @@ def render_odoo_config(database: dict, run_dir: Path) -> Path:
         "db_password": database["password"],
         "db_name": EXPECTED_DATABASE,
         "dbfilter": "^" + EXPECTED_DATABASE + "$",
-        "db_maxconn": "4",
+        "db_maxconn": str(EXPECTED_DB_MAXCONN),
         "list_db": "False",
         "http_interface": EXPECTED_HTTP_HOST,
         "http_port": str(EXPECTED_HTTP_PORT),

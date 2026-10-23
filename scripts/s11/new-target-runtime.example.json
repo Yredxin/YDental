@@ -23,7 +23,7 @@
     "port": 18411,
     "workers": 0,
     "max_cron_threads": 0,
-    "db_maxconn": 4,
+    "db_maxconn": 16,
     "dbfilter": "^ydental_s11_synth_20261023_01$",
     "list_db": false
   }

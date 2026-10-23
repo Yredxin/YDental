@@ -61,7 +61,7 @@ Odoo wrapper with an ephemeral mode-`0600` configuration. A refused loopback
 connect is considered free; TIME_WAIT sockets from a recently closed owned test
 do not block a restart. An active listener or an inconclusive probe fails closed.
 The config fixes loopback binding,
-`workers=0`, `max_cron_threads=0`, `db_maxconn=4`, exact `db_name` and `dbfilter`,
+`workers=0`, `max_cron_threads=0`, `db_maxconn=16`, exact `db_name` and `dbfilter`,
 `list_db=False`, and SMTP to the non-listening loopback port 1. The admission must
 confirm no configured SMTP servers and no external message provider. Only the
 current S11 DB role is supplied to Odoo; no broad cron or public DB manager is

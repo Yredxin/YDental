@@ -329,6 +329,8 @@ class LauncherSupervisorTests(unittest.TestCase):
             parser = launcher.configparser.ConfigParser(interpolation=None)
             parser.read(config_path)
             self.assertEqual(parser['options']['data_dir'], str(private / 'data'))
+            self.assertEqual(launcher.EXPECTED_DB_MAXCONN, 16)
+            self.assertEqual(parser['options'].getint('db_maxconn'), 16)
             self.assertTrue((private / 'data').is_dir())
             self.assertEqual(os.stat(private / 'data').st_mode & 0o777, 0o700)
             self.assertEqual(os.stat(config_path).st_mode & 0o777, 0o600)
