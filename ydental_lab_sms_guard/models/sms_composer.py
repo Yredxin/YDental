@@ -8,6 +8,8 @@ class SmsComposer(models.TransientModel):
     def _check_vendor_sms(self):
         if any(composer.res_model == 'ydental.lab.vendor' for composer in self):
             raise AccessError(self.env._('access_denied: SMS is disabled for laboratory vendor records.'))
+        if any(composer.res_model == 'ydental.lab.order' for composer in self):
+            raise AccessError(self.env._('access_denied: SMS is disabled for laboratory order records.'))
 
     def action_schedule_message(self):
         self._check_vendor_sms()

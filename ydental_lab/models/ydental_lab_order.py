@@ -4,6 +4,9 @@ from odoo.exceptions import AccessError, ValidationError
 from .ydental_lab_record import MUTATION
 
 
+_ORDER_ACTIVITY_DONE = object()
+
+
 class YDentalLabOrder(models.Model):
     _name = 'ydental.lab.order'
     _description = 'Controlled external dental laboratory work order and cycle'
@@ -103,6 +106,50 @@ class YDentalLabOrder(models.Model):
     _repair_cycle_unique = models.Constraint('UNIQUE(ydental_parent_order_id, ydental_rework_no)', 'Each laboratory order has one child cycle number.')
     _package_code_unique = models.Constraint('UNIQUE(ydental_package_code)', 'An external package code can identify only one laboratory order.')
     _purchase_line_unique = models.Constraint('UNIQUE(ydental_purchase_line_id)', 'A vendor purchase line can fund only one laboratory cycle.')
+
+    def _deny_external_message(self, *args, **kwargs):
+        raise AccessError(self.env._('access_denied: Laboratory orders support internal activities, not external messaging.'))
+
+    def message_post(self, *args, **kwargs):
+        # A client-supplied boolean context cannot impersonate activity feedback.
+        if self.env.context.get('ydental_lab_order_activity_done') is _ORDER_ACTIVITY_DONE:
+            return super().message_post(*args, **kwargs)
+        return self._deny_external_message(*args, **kwargs)
+
+    def message_notify(self, *args, **kwargs):
+        partner_ids = kwargs.get('partner_ids')
+        if (not isinstance(partner_ids, (list, tuple)) or not partner_ids or
+                any(type(partner_id) is not int or partner_id <= 0 for partner_id in partner_ids)):
+            return self._deny_external_message(*args, **kwargs)
+        partners = self.env['res.partner'].browse(partner_ids).exists()
+        if (len(partners) != len(set(partner_ids)) or
+                any(not partner.user_ids.filtered(lambda user: user.active and user._is_internal())
+                    for partner in partners)):
+            return self._deny_external_message(*args, **kwargs)
+        return super().message_notify(*args, **kwargs)
+
+    def message_post_with_source(self, source_ref, *args, **kwargs):
+        if source_ref != 'mail.message_activity_done':
+            return self._deny_external_message(*args, **kwargs)
+        return super(YDentalLabOrder, self.with_context(
+            ydental_lab_order_activity_done=_ORDER_ACTIVITY_DONE,
+        )).message_post_with_source(source_ref, *args, **kwargs)
+
+    def message_mail_with_source(self, *args, **kwargs):
+        return self._deny_external_message(*args, **kwargs)
+
+    def _notify_thread(self, message, **kwargs):
+        # This final boundary never calls email/SMS notification paths, even if
+        # a caller supplies forged context or an internal user prefers email.
+        recipients = self._notify_get_recipients(message, **kwargs)
+        internal = []
+        for recipient in recipients:
+            user = self.env['res.users'].browse(recipient['uid']).exists() if recipient.get('uid') else False
+            if user and user.active and user._is_internal():
+                internal.append(dict(recipient, notif='inbox'))
+        if internal:
+            self._notify_thread_by_inbox(message, internal, **kwargs)
+        return internal
 
     @api.model_create_multi
     def create(self, vals_list):

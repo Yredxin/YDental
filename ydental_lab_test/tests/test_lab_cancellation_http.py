@@ -94,6 +94,31 @@ class TestLabCancellationHTTP(TestLabCancellation, HttpCase):
         denied = self._followup_action('reopen', {'followup_id': row.id, 'reason': 'Cannot revive cancelled cycle'})
         self.assertEqual(denied.status_code, 409, denied.text)
 
+    def test_http_order_direct_messaging_cannot_bypass_internal_activity_boundary(self):
+        order = self._new_order()
+        self._select('manager')
+        before_mail = self.root['mail.mail'].search_count([])
+        before_sms = self.root['sms.sms'].search_count([])
+        external = order.ydental_vendor_id.partner_id
+        for method, args in (
+            ('message_post', [order.ids]),
+            ('message_notify', [order.ids]),
+            ('message_mail_with_source', [order.ids, 'mail.mail_notification_layout']),
+        ):
+            with self.subTest(method=method):
+                denied = self._rpc('ydental.lab.order', method, args)
+                self.assertIn('error', denied)
+        response = self.url_open('/web/dataset/call_kw/ydental.lab.order/message_post',
+            data=json.dumps({'jsonrpc': '2.0', 'id': 1, 'method': 'call', 'params': {
+                'model': 'ydental.lab.order', 'method': 'message_post', 'args': [order.ids],
+                'kwargs': {'body': 'Client context cannot enable external sends', 'partner_ids': external.ids,
+                    'context': {'ydental_revision': self.revision, 'ydental_lab_order_activity_done': True}},
+            }}), headers={'Content-Type': 'application/json'})
+        self.assertIn('error', response.json())
+        self.env.invalidate_all()
+        self.assertEqual(self.root['mail.mail'].search_count([]), before_mail)
+        self.assertEqual(self.root['sms.sms'].search_count([]), before_sms)
+
     def test_http_no_warehouse_authority_and_client_stage_forgery_are_denied(self):
         order = self._new_order()
         row = order.ydental_followup_id

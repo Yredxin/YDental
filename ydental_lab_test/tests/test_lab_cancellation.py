@@ -168,6 +168,8 @@ class TestLabCancellation(TestFreeReworkLifecycle):
         fee_amount = patient_fee.ydental_amount
         before_stock = self._on_hand(order.ydental_lot_id.id)
         before_version = row.ydental_schedule_version
+        before_mail = self.root['mail.mail'].search_count([])
+        before_sms = self.root['sms.sms'].search_count([])
         warehouse._operate('cancel', {'order_id': order.id, 'reason': 'Received package not put away; verify disposition'}, key())
         self.assertEqual(order.state, 'cancelled')
         self.assertEqual((order.ydental_receipt_at, order.ydental_receipt_actor_id.id), receipt)
@@ -194,6 +196,8 @@ class TestLabCancellation(TestFreeReworkLifecycle):
         self.assertNotIn('137.25', physical.note)
         physical.with_user(self.users['frontdesk']).action_feedback(feedback='Synthetic package location verified; financial review remains separate')
         self.assertFalse(physical.active)
+        self.assertEqual(self.root['mail.mail'].search_count([]), before_mail)
+        self.assertEqual(self.root['sms.sms'].search_count([]), before_sms)
         service = self.group.env['ydental.followup.service']
         for operation, payload in (
             ('reopen', {'reason': 'Cannot revive cancelled arrival notices'}),
@@ -327,6 +331,63 @@ class TestLabCancellation(TestFreeReworkLifecycle):
             order.write({'ydental_followup_id': row.id})
         with self.assertRaises(AccessError):
             row.with_user(self.users['reader']).write({'ydental_lab_contact_stage': 'ready'})
+
+    def test_order_external_message_paths_and_forged_context_cannot_queue_delivery(self):
+        order = self._new_order()
+        external = self.root['res.partner'].create({
+            'name': 'Synthetic external laboratory recipient', 'email': 'outside@example.invalid',
+        })
+        before_mail = self.root['mail.mail'].search_count([])
+        before_sms = self.root['sms.sms'].search_count([])
+        for name, args, kwargs in (
+            ('message_post', (), {'body': 'No external order content', 'partner_ids': external.ids}),
+            ('message_notify', (), {'partner_ids': external.ids, 'body': 'No external notification'}),
+            ('message_post_with_source', ('mail.mail_notification_layout',), {}),
+            ('message_mail_with_source', ('mail.mail_notification_layout',), {}),
+        ):
+            with self.subTest(name=name), self.assertRaises(AccessError):
+                getattr(order, name)(*args, **kwargs)
+        with self.assertRaises(AccessError):
+            order.with_context(ydental_lab_order_activity_done=True).message_post(body='A client boolean is not a server token')
+        composer = order.env['mail.compose.message'].with_context(
+            default_model='ydental.lab.order', default_res_ids=order.ids,
+            default_composition_mode='mass_mail',
+        ).create({'composition_mode': 'mass_mail'})
+        for action in (composer.action_send_mail, composer.action_schedule_message):
+            with self.assertRaises(AccessError):
+                action()
+        template = self.root['mail.template'].create({
+            'name': 'Synthetic blocked order email', 'model_id': self.root['ir.model']._get_id('ydental.lab.order'),
+            'subject': 'No external order mail', 'body_html': '<p>Not sent</p>',
+            'email_to': 'outside@example.invalid',
+        })
+        with self.assertRaises(AccessError):
+            template.with_user(self.users['manager']).send_mail(order.id, force_send=True)
+        sms = order.env['sms.composer'].create({
+            'res_model': 'ydental.lab.order', 'res_ids': repr(order.ids),
+            'composition_mode': 'mass', 'body': 'No external order SMS',
+        })
+        for action in (sms.action_send_sms_mass_now, sms.action_send_sms, sms.action_schedule_message):
+            with self.assertRaises(AccessError):
+                action()
+        self.assertEqual(self.root['mail.mail'].search_count([]), before_mail)
+        self.assertEqual(self.root['sms.sms'].search_count([]), before_sms)
+
+    def test_order_internal_notifications_are_forced_to_inbox_and_filter_external_users(self):
+        order = self._new_order()
+        model_type = type(order)
+        user = self.users['frontdesk']
+        recipients = [
+            {'id': user.partner_id.id, 'uid': user.id, 'notif': 'email'},
+            {'id': self.root.ref('base.public_partner').id, 'uid': self.root.ref('base.public_user').id, 'notif': 'email'},
+            {'id': 99999991, 'uid': False, 'notif': 'sms'},
+        ]
+        with (patch.object(model_type, '_notify_get_recipients', return_value=recipients),
+              patch.object(model_type, '_notify_thread_by_inbox') as inbox,
+              patch.object(model_type, '_notify_thread_by_email', side_effect=AssertionError('email path forbidden'))):
+            result = order.with_context(ydental_lab_order_activity_done=True)._notify_thread(False)
+        self.assertEqual(result, [dict(recipients[0], notif='inbox')])
+        inbox.assert_called_once_with(False, result)
 
     def test_manual_default_null_stage_retains_normal_followup_behavior(self):
         order = self._new_order()
