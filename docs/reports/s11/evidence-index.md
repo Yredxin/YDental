@@ -1,3 +1,25 @@
+# 2026-10-23 08:18 UTC｜当前候选实际证据增量
+
+所有原始指针位于本机`.local/s11/`；仅新合成库/OID2171423，无旧库业务调用。报告提交不冒产品候选。
+
+|证据|独立回执SHA256|实际范围|
+|---|---|---|
+|预约关联/仅到店/日终/重复cron|abcbb7d8b52963eca3bffd979af19940e53d8e60cc04607ac0896b3c1606d7b5|真实UI+clock、normal MODEL cron+postcommit HTTP、独立提交；52/53/98/job274，31/33/60全局增量逐源解释|
+|T02跨店普通正负例|c90f3ee267adf479c74820671e51e540ff961f32705150834b854b9698390e0c|335真实UI/HTTP拒绝，9真实UI完成78→87/93，正常walkin来源|
+|T11两日及旧callback|f677fe08a298ce3cd377b4cb94f8babfe89b8818d7111279c77b631708df3452|UIclock+MODEL正常业务/独立提交，不冒自然跨日；pan不重费，CBCT新62.75；callback历史无复活|
+|881七模块真实带数据升级|7f6058e17e0e95fbe9062ae65822363f02e7f043c9b36741d7592e43f470d5ac|显式7/native传播18，140业务/9技术/14附件；mutex XML MVCC fence reset与metadata解释|
+|1bca产品等价与绑定|63621f3cd1573cbf4451ff01c2f2ddb5720a5c1f4f279ed6d366c3b939dc2559|881→1bca仅一行测试模型修正，产品/ACL/配置源码零diff，承接产品升级，不冒新升级|
+|原83suite v5真实FAIL|6976a4f76208424ccb27820530374b7774224f0f2e3d997c3ac0b86a9e0a8899|1failed/0error，错误层新增断言；真实record拒绝仍通过，首因保留|
+|83suite v6|1cc4997b83f542d28bc344ce270d0ce477959a8f4222a77da2beb6ad432040c8|71混合Tx+12Http，0fail/error/Odoo0；wrapper2原生audit RO retry保留，无Native|
+|F4普通串行接收/入库/取消|d9fc5ab9c2099bc260041d09a3f495a7feb00b69f2ddb46741defec0c4d82c03|78stock227、80取消，79draft；不是取消与入库竞争，不含当时expiryPASS|
+|F4旧到期clock缺陷/owned rollback|1b05ba7118295e5e6aeec2915114453a264a1147eeab102eee6be59e72131789|错误接受发现后owned全回滚，首FAIL保留，无未知经济提交|
+|修正后到期实际probe|`new-target-tests/f4-expiry-fixed-v1/expiry_probe/result.json`|明确expired AccessError/4隔离事实/3checks/rollback；实际doctor9UIclock与nativeform，browser-f4-fixed-expiry_probe-v1，待独立终态|
+|真实fresh1bca|126a719b3e32370c26d7871ef020652704155fd28b00c80e044c3ed565fea7f2|08:14:53/current target/角色/97模块/SMTP0，coop43当时暂启，scope原时间不改|
+
+平台拒绝范围、旧scratch/attempt30、真实外部未验继续单列。F5尚未运行，静态工具不算业务PASS。
+
+---
+
 # 2026-10-23 05:39 UTC｜候选11829实际新增证据
 
 |证据|独立回执SHA256|层级与边界|

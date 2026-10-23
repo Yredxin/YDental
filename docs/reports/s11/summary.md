@@ -1,3 +1,19 @@
+# 2026-10-23 08:18 UTC｜同一计划普通业务与最终候选推进
+
+当前产品881194a、实际测试/运行1bca71d（仅修测试断言）、core f0c5a9b；报告HEAD单列。当前仍PARTIAL / IN_PROGRESS，#35 OPEN，没有最终push。
+
+- 预约52/53真实UI仅关联不冒通知，明确电话/真实本地受理job274才notified；真实到店98不冒接诊，日终52未到与53已到均回to_notify、重复cron审计不重。全局cron正常影响31/33/60已逐来源核，独立abcbb7d8…。
+- T02通过真实untimed referral4/walkin106；无目标医疗权335普通UI隐藏+HTTP403，doctor9明确完成78→87/93。T11真实UIclock两模拟日及正常MODEL上游流程，pan88/fee35.50保持，旧CBCT号关闭/需要复核、仅CBCT89新费62.75，独立f677fe08…。不冒自然跨日/全部业务HTTP。
+- 四类提醒来源/版本与迟到历史回调、当地日/quiet/退订/disabled/缺行policy已实测；旧job158迟到delivered记录保留但closed54不复活。只测试本地模拟受理，真实外部未启用。
+- 881七显式模块限定带数据升级0/error0，原生依赖传播18模块。140业务表/9技术表/14附件，权限/临床/金额/来源保持；内部mutex XML重载revision6→0为MVCC fence、技术元数据write_date/arch_prev等另解释。独立7f6058e1…。1bca仅测试一行变化，产品等价63621f3c…，承接升级实际作用域，不声称新跑升级。
+- 83方法v5新增空model has_access断言错层导致真实1FAIL，原始及独立6976a4f7…保留；修正为实际仓库domain模型，保留capacitynone和具体claim record拒绝，v6官方83/0fail0error，71混合TransactionCase+12HttpCase，71.12s、Odoo0。wrapper2仅原生附件audit RO→RW重试ERROR，授权GET200/无权404，独立1cc4997b…。
+- F4普通新78/79/80：旧已发78在合作停用后真实接收与入库分两时点、stock227数量1；80入库前取消保原42.75成本/137.25临床费。独立d9fc5ab9…。早期expiryprobe发现Date未读应用clock， owned事务回滚，无未知提交；修正后真实doctor9/UIclock24日，approved/vendor47有效至23日/合作暂启，send79实际明确过期拒绝、事务全回滚、native exact form正常/clock16清除。合作43已正常13恢复停用；独立终态审查进行中。旧FAIL不改写。
+- GDB实际run20261023T081557Z-3a4022d3abb0/18411运行，fresh126a719b…08:14:53，scope原issue/13:30到期不改；sink18412模拟。F5普通native扫码工具已冻结新候选，尚未执行，不冒竞争。
+- 旧run孤立clock9正常UID2删除被实际ACL拒绝，保留失败/独立无提交读回，不换账号/sudo/SQL删除；保留惰性历史，交付正常撤clock权限核无有效控制。当前临时clock[5,8,9,10,11,13]，17/335无权；最终回收，UID2持续合法管理保留。
+- 平台受拒的剩余竞争与指定future unbooked人工联系deadline修复仍停止，不换工具/AI重放；未受影响普通工作继续。必需内部项未满足前不得技术COMPLETE/#35关闭。旧scratch/attempt30未决不读写/回填，外部/正式政策/用户效果/生产另验。
+
+---
+
 # 2026-10-23 05:39 UTC｜普通通知、升级与跨店继续实施
 
 当前产品/工具候选 `11829daa0fef0502e803b83f253a64daf17e0ef4`，仅新目标/OID2171423；本节是实际进度，不是最终交付。#35仍OPEN，未push/merge/deploy。
