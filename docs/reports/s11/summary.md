@@ -1,3 +1,85 @@
+# 2026-10-23｜同一S11 v1.2技术完成
+
+**当前技术结论：TECHNICALLY_COMPLETE，按明确实测层级完成。** 未实现者独立核F1—F5/T01—T18共23项，当前必需技术缺口0，#35技术关闭eligible；实际GitHub最终评论/状态与同步读回仍待主控收口，未冒已关闭或SYNCED。同一`YD-S11-FOLLOWUP-LAB-V1 / v1.2`，不回填或覆盖以下历史PARTIAL。既有G02、T16、101项回归、真实业务与普通入口按原层级承接。
+
+独立总验收：`s11-final-f52d3f5-23-label-independent-v1.json` SHA `08e129bb379452df21b60c01f1478aafd612753da134592a473def4ae06ab321`。验收者亲核原始事务/截图/固定提交、42个承接证据alias、G03/新物理RO/101原方法集合和最终升级逐列差异，不只复述主控摘要。共享OS不冒隔离；技术完成不等于所有场景均经浏览器/真实外部通道通过。
+
+- 产品修复：`44bf963d78cf55814f697900d8fa6a1fec7f6b32`；G03实际执行报告HEAD`56dd0973c40a319659ae49b059038b55ed4d2d6e`。只将未预约联系成功的期限基准改为`self._now()`，普通时间回退保持；联系/通知/审计物理时间、clock guard和ACL不改。
+- 最终执行/升级候选：`f52d3f5149b1a279b4224f4f257d07efe57ad8cc`；相对44的addon产品文件完全相同，仅新增G01工具及文档。工具独立开发`11ba186`、主控集成`815e3a0`；固定core仍`f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb`。
+- 唯一目标：`ydental_s11_synth_20261023_01 / OID2171423 / cluster7694897083368259627`；受限同名role。本轮没有建库、重装97模块、重置账号、增加权限或重放已提交经济链。
+
+## 本轮实际业务、事务及独立结果
+
+|项目|实际结果与限定层级|
+|---|---|
+|G03时间修复|普通11真实access session1920、可信typed-Clock服务层MODEL夹具，在真实owned clock run/manifest及原guard下新建合成277。实际门店窗口为**1小时**：业务T=`2026-11-02T14:43:24Z`→截止`15:43:24Z`。636真实pending0→cancelled0，联系64/audit32316保物理时间；不是患者实际电话送达声明。最后仅关闭新277，保留历史。夹具进程自身不是GDB进程，未声称HTTP时钟授权或浏览器注入已验。|
+|G03期限边界|真实app_now下，同T和deadline前1秒仍notified，精确deadline首次to_notify/审计1，重复仍审计1；这段全局扫描仅在自开cursor中运行并最终rollback，不持久改旧计划。定向MODEL另覆盖普通时间、no_answer不重算、booked保原截止。|
+|G03提交及保护|prepare/contact/final的Registry池RO复用backend3753808，不能冒三条独立物理连接；另新psycopg2 RO/RR backend3755964核最终closed/version2和唯一联系/任务。旧31计划/48任务、17工单/3账单、经济库存及权限投影与真正before一致。未实现者独立限定PASS，回执96d6e4a0…。|
+|G01收货|工单20；初次PG PID3757049/3757054，真实31911锁holder/waiter及动作交叠62.209109ms。一方初次提交，另一方原生40001在commit前回滚（原生后置查询后status2保留）、关闭cursor，再同key attempt2得到already_accepted并提交；唯一收货event538/op513，无库存增加。|
+|G01入库|工单20；初次PG PID3757342/3757348，真实锁等待及交叠268.131196ms。相同已知中止/同key恢复层级；唯一putaway540/native库存564/move564/inner886，plan278 ready/to_notify、job637 not_configured0，原fee31=137.25/确认PO11成本42.75保持。|
+|G01扫码|已绑定的原工单20；PG PID3757975/3757980，动作交叠28.614390ms，两事务均正常提交解析20，完整before/after业务投影相同。只证明双连接解析和防副作用，**不是库存锁等待或扫码自动入库的独立新证据**；原F5/实际入库事实按原层级承接。21未绑码的v1只读前置失败保留，没有重新绑码或重跑旧码冲突。|
+|G01取消与入库|按既有W4/T16，在18先由普通13单次真实接收并核提交后，以两个连接竞争取消/入库；初次PG PID3758700/3758705，真实锁等待/279.041052ms交叠。实际**入库获胜**：唯一putaway542/native565/plan279 ready、638 not_configured0。取消首次40001回滚/关闭后同key attempt2被产品状态规则拒绝，再rollback；没有取消提交。原接收事实、fee30=137.25和PO9成本42.75保持，不冒该场测试了取消获胜分支。原历史文件名cancel_receive和旧未启动记录保持，当前实际场景明确为cancel/putaway。|
+|G01整体保护|完整140业务/9技术/14附件pre/post逐行重算：仅14个预期业务表变化；旧行只18/20、quants71/72、库存mutex变化，其他旧财务/治疗/费用/采购/权限行完全相同，技术/附件/索引/约束不变。新物理RO/RR PID3761472独立核提交终态。未实现工具者独立限定PASS，回执a5dbbde1…。|
+|影响面回归|44产品实际101唯一方法（原85混合MODEL/TransactionCase＋16HttpCase）官方0failed/0error/Odoo0，方法集合与原101完全相同；新增断言不是新增方法。wrapper2/一条native附件audit只读重试ERROR保留。G01工具另21项PURE，不冒MODEL或真实竞争。|
+|最终带数据升级|f52最终候选在G01新数据之后，先完整140/9/14即时pre成功，再显式四模块升级；实际原生依赖reload6、97loaded，非重装。Odoo/wrapper0、ERROR0、无Native。完整post和逐字段差异独立核：零增删，仅27条ACL/1条group及原生技术元数据共756个write_date单元变化；权限语义、所有业务/附件/配置/约束/索引保持。独立回执5ea7babc…。|
+
+所有竞争均为普通13的两个真实会话/连接，不冒两名不同人员或OS隔离。三场写竞争使用实际pg_locks holder/waiter；记录每attempt原始PID、SQLSTATE、action/commit/rollback/close，保首异常及已知回滚后的串行恢复。时间含取证开销，不冒纯服务器SQL耗时。原来两场码竞争的已有证据层级及历史缺证不被本轮结果反签。
+
+## F/T逐项当前技术映射
+
+下表由未实现者最终矩阵的23行生成；“满足”仅指各行已注明的实测层级。旧status与旧缺口数组在原件中保留，历史PARTIAL不被反签。全部当前`remaining_required_gap_ids=[]`，不是所有层级/外部服务一律PASS。
+
+|标签|当前必需技术条件|本轮新增或承接证据alias|
+|---|---|---|
+|F1|满足，按该行实测层级|`NOTIFICATION_V4`, `G03_FINAL_INDEPENDENT`, `G03_DISTINCT_COMMITTED_RO`, `CURRENT_NORMAL_ENTRY`, `CURRENT_CLOSED_GUARD_RO`|
+|F2|满足，按该行实测层级|`G01_FINAL_INDEPENDENT`, `G01_DISTINCT_COMMITTED_RO`|
+|F3|满足，按该行实测层级|`W3`, `W3ACTIVITY`, `EARLYDIRECT`, `SUITE83`, `NORMALDIRECT`, `RECOVERY`|
+|F4|满足，按该行实测层级|`T16_FINAL96_INDEPENDENT`, `NORMAL_FINAL96_INDEPENDENT`, `G01_FINAL_INDEPENDENT`, `G01_DISTINCT_COMMITTED_RO`, `CURRENT_NORMAL_ENTRY`, `CURRENT_CLOSED_GUARD_RO`|
+|F5|满足，按该行实测层级|`NOTIFICATION_V4`, `FIRST_BILLING_RUNTIME_INDEPENDENT`, `T16_FINAL96_INDEPENDENT`, `NORMAL_FINAL96_INDEPENDENT`, `G01_FINAL_INDEPENDENT`, `G01_DISTINCT_COMMITTED_RO`, `CURRENT_NORMAL_ENTRY`, `CURRENT_CLOSED_GUARD_RO`|
+|T01|满足，按该行实测层级|`G03_FINAL_INDEPENDENT`, `G03_DISTINCT_COMMITTED_RO`|
+|T02|满足，按该行实测层级|`CURRENT_NORMAL_ENTRY`, `CURRENT_CLOSED_GUARD_RO`|
+|T03|满足，按该行实测层级|`NOTIFICATION_V4`, `T16_FINAL96_INDEPENDENT`, `NORMAL_FINAL96_INDEPENDENT`|
+|T04|满足，按该行实测层级|`NOTIFICATION_V4`, `T16_FINAL96_INDEPENDENT`|
+|T05|满足，按该行实测层级|`POLICY10`, `QUIETFIX`, `T02UI`, `APPOINTMENT`|
+|T06|满足，按该行实测层级|`T16_FINAL96_INDEPENDENT`, `G01_FINAL_INDEPENDENT`, `G01_DISTINCT_COMMITTED_RO`, `CURRENT_NORMAL_ENTRY`, `CURRENT_CLOSED_GUARD_RO`|
+|T07|满足，按该行实测层级|`FIRST_BILLING_RUNTIME_INDEPENDENT`, `NORMAL_FINAL96_INDEPENDENT`|
+|T08|满足，按该行实测层级|`W3`, `W3ACTIVITY`, `EARLYDIRECT`, `SUITE83`, `NORMALDIRECT`, `RECOVERY`|
+|T09|满足，按该行实测层级|`FIRST_BILLING_RUNTIME_INDEPENDENT`, `NORMAL_FINAL96_INDEPENDENT`|
+|T10|满足，按该行实测层级|`T16_FINAL96_INDEPENDENT`, `NORMAL_FINAL96_INDEPENDENT`, `CURRENT_NORMAL_ENTRY`, `CURRENT_CLOSED_GUARD_RO`|
+|T11|满足，按该行实测层级|`T11`, `UPGRADE7`, `SUITE83`|
+|T12|满足，按该行实测层级|`NOTIFICATION_V4`, `FIRST_BILLING_RUNTIME_INDEPENDENT`, `T16_FINAL96_INDEPENDENT`, `NORMAL_FINAL96_INDEPENDENT`, `G01_FINAL_INDEPENDENT`, `G01_DISTINCT_COMMITTED_RO`, `G03_FINAL_INDEPENDENT`, `G03_DISTINCT_COMMITTED_RO`, `CURRENT_POPULATED_UPGRADE`, `CURRENT101_RAW_RESULT`, `CURRENT_NORMAL_ENTRY`, `CURRENT_CLOSED_GUARD_RO`|
+|T13|满足，按该行实测层级|`G03_FINAL_INDEPENDENT`, `G03_DISTINCT_COMMITTED_RO`, `CURRENT_NORMAL_ENTRY`, `CURRENT_CLOSED_GUARD_RO`|
+|T14|满足，按该行实测层级|`NOTIFICATION_V4`, `T16_FINAL96_INDEPENDENT`, `NORMAL_FINAL96_INDEPENDENT`|
+|T15|满足，按该行实测层级|`QUIETFIX`, `F4SERIAL`, `F4FIXED`, `SUITE83`|
+|T16|满足，按该行实测层级|`T16_FINAL96_INDEPENDENT`, `NORMAL_FINAL96_INDEPENDENT`, `G01_FINAL_INDEPENDENT`, `G01_DISTINCT_COMMITTED_RO`, `CURRENT_NORMAL_ENTRY`, `CURRENT_CLOSED_GUARD_RO`|
+|T17|满足，按该行实测层级|`G01_FINAL_INDEPENDENT`, `G01_DISTINCT_COMMITTED_RO`, `CURRENT_NORMAL_ENTRY`, `CURRENT_CLOSED_GUARD_RO`|
+|T18|满足，按该行实测层级|`T18CHARGE`, `F2SQL`, `W3ACTIVITY`, `APPOINTMENT`|
+
+alias完整路径/SHA和每行限制见最终独立矩阵及本索引；原42个承接alias已逐一重算匹配，不重复业务。
+
+## 正常入口与保留限制
+
+正常direct run`20261023T151642Z-0bd621c74799`，普通13真实打开18/20原生表单available及chatter；普通11真实打开277 closed、278/279 to_notify/stock ready，共五项新数据只读检查。表单截图仅viewport，chatter由DOM及真实mail/store响应证明，不称底部截图已覆盖。JSON response-body不可查计数按原件保留，不声称所有JSON正文均已检查。精确deadline来自MODEL/已提交读回，未冒该门户已显示截止列。
+
+新工具v1误要求普通closed277隐藏contact form而失败，原件174190c0…不改；原模板本轮未改，非lab closed行仍显示表单这一可用性限制保留。另用普通11、有效CSRF/revision和正常表单仅一次提交负例，产品真实HTTP409及关闭保护提示，非工具预拦/CSRF/ACL拒绝；新物理RO/RR PID3765498核277/version2/deadline不变、contact64唯一、636cancelled0/成功审计1，没有新联系或通知。
+
+G03首轮升级前采证失败ef10f489…后主控仍启动升级，完整即时140表before确实缺失，此执行错误保留；当时仅10表可作即时前后核，新post140/9/14及历史差异不能回填该缺口。上述最终f52完整即时pre→upgrade→post是后来单独验证，不改首轮失败。其他短hash、门店预期、模块初始化、SQL类型表示和DOM预期等普通工具错误原件保留，未用重复已提交业务修报告。
+
+历史G01一次/G03两次cyber_policy及完整支持材料保持原SHA；本轮是按当前允许内容和正常入口实际执行，不宣称官方解除、已确认误拦截或通用平台权限恢复。通用aborted before dispatch先收消息并核wrapper/进程/提交状态，未执行才原入口续接；已完成结果承接，不冒底层异常根治。旧scratch/attempt30、旧F2缺证及历史SIGSEGV未知继续保留，不用新目标反签旧目标。
+
+## 可复现效果入口
+
+- 本机正常provider的warehouse/13选择Store1：`/odoo/ydental.lab.order/18`与20，均available、真实接收/入库历史、原成本42.75及各原患者费137.25；不再点击接收/入库/戴用。
+- followup/11：`/ydental/followups#followup-277`看closed合成时间用例和既有联系；278/279为真实入库激活后的人工联系待办，未配置通道不冒送达。旧226/227及178/179取消责任任务按原指令保留待处理，不假完成实物/费用处置。
+- 本轮正常owned服务已单次正常stop，child0/无Native/ACTIVE不存在，18411/18412释放。`../.venv/bin/python scripts/s11/launcher.py status`可核；再次展示按既有正常fresh准入/项目scope流程启动，不重建环境或重放业务。此处不承诺入口永久在线。
+- 真实外部通知/生产/正式政策未启用；用户效果仍归#37。本计划不合并、不部署、不启动S12/S13。
+
+详细原始路径、SHA和独立结论见[evidence-index](evidence-index.md)。最终同步及#35实际关闭仅在完成正常push、远端ref、评论正文和Issue状态读回后记录，不发布中间Issue评论。
+
+---
+
+以下为此前规则更正、交付和历史检查点，不覆盖本轮新事实。
+
 # 2026-10-23｜项目级停止规则更正，继续同一v1.2
 
 用户更正了项目自设的“一律先取官方支持恢复证明”前置：历史风险提示保留，当前请求按实际内容、当前权限与正常平台响应处理；允许的请求可正常提交明确的小范围工作。不得规避当前生效的访问限制或修改安全/认证控制；新请求若仍被拦，准确保全并停止相应请求。历史G01一次/G03两次失败及支持附件不改，不宣布限制解除或已确认误拦截。先推进G03最小时间修复与定向测试，再补G01实际竞争及影响面/独立验收；仍为PARTIAL、#35 OPEN。下文“正式恢复证明”等是此前检查点要求，已由本次用户更正替代，历史实测和失败结论不变。

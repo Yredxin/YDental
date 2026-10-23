@@ -1,3 +1,49 @@
+# 2026-10-23｜G01/G03当前完成实证与最终收口索引
+
+固定产品44bf963；G03实际执行56dd097；G01/最终升级执行f52d3f5；core及唯一目标OID2171423保持。未实现者独立23项总矩阵结论TECHNICALLY_COMPLETE，当前必需缺口0；最终GitHub实际同步/关闭待收口。以下原始材料均在本机`.local/s11/`且不上传Public。旧平台三失败、首轮升级失败及先前PARTIAL原件不改。
+
+|材料|本机路径|SHA256|真实层级/限制|
+|---|---|---|---|
+|最终独立23项总矩阵|`.local/s11/verification/s11-final-f52d3f5-23-label-independent-v1.json`|`08e129bb379452df21b60c01f1478aafd612753da134592a473def4ae06ab321`|F1—F5/T01—T18当前必需技术缺口0；实际GitHub同步/close由主控后续读回|
+|正常入口独立验收|`.local/s11/verification/normal-final-f52d3f5-independent-v1.json`|`24689255d0e7dc13e5bf7aa5d88f1d7772280fa505b0cf4f67f0d2f209b6ec19`|5正例/6张图/真实closed409及新物理保护/OS和正常stop；body与viewport限制保持|
+|G03定向MODEL|`.local/s11/new-target-tests/g03-44bf963-v1-targeted/result.json`|`7bbd81a3dbfd94c6acae10bed9bbf2c0c33e571fe85d6871d6d44a03980827e7`|既有1方法增强断言，0/ERROR0；seam patch，不冒真实clock|
+|G03真实clock阶段总结果|`.local/s11/new-target-tests/g03-44bf963-bound-clock-v2/result.json`|`ded4ef221c48f54b6477e0dcdb808b656eae13f4f2476be3a1ccdd3a71b3b18d`|普通11+真实app_now/guard MODEL；before/commit/RO同目录；277/window1h|
+|G03新物理最终RO|`.local/s11/verification/g03-44bf963-distinct-final-ro-v1.json`|`bd4a4636f52ab9da6e5e6105759438265b37272a50ac0791e7f00a97d9ebb611`|3755964独立于Registry池3753808；精确保护保持|
+|G03独立限定验收|`.local/s11/verification/g03-44bf963-independent-acceptance-v2.json`|`96d6e4a0828163b76972645e5a9bc02627332ddf3f5014568b299360f193a81e`|SOURCE/MODEL/提交通过；HTTPclock未验、边界只回滚|
+|G01工具独立SOURCE/PURE|`.local/s11/verification/g01-source-11ba186-independent-v1.json`|`83bddcd4c44345eaec33ccb3d6eb5af8e0f92738ed9f863050663e0aebf8218c`|五文件/21 PURE；不是实际竞争|
+|G01执行前独立核验|`.local/s11/verification/g01-f52d3f5-readiness-independent-v1.json`|`5580d7e870824f644439ce8d772991b2005bbb8245b90d8d3a4676bc6de61f8e`|固定f52/pair/完整pre及真实前置|
+|G01收货竞争|`.local/s11/new-target-races/20261023T145615Z-00df2ac4-lab-receipt-duplicate.json`|`568e904ac447a882f6e9c451d7c0257c8a8e55f28be164837d03fd699766b5ff`|20真实锁等待/双PID；accepted及已知回滚同key恢复|
+|G01入库竞争|`.local/s11/new-target-races/20261023T145724Z-1e4b0b02-lab-putaway-duplicate.json`|`a04d4263d2578578676b116640d28daab13a6bdcc7678a855a601ebfa0fe3939`|20唯一库存564/plan278；成本费保持|
+|G01扫码并发|`.local/s11/new-target-races/20261023T145953Z-9514aef4-lab-scan.json`|`1695bb4708360d535cd3cd21795e34ac44e63ad08644be721980f52c07fee924`|20双事务解析/业务无变；无库存锁等待声明|
+|18真实接收准备|`.local/s11/new-target-tests/g01-received18-preparation-v1/result.json`|`27b06fad4b50f9fc1355014bcdc11f4b95563b3ba46d509f3d4ecd423d46fd44`|普通13单次真实接收提交，非竞争/旧动作重放|
+|G01取消与入库竞争|`.local/s11/new-target-races/20261023T150245Z-5529d8f7-lab-cancel-putaway.json`|`944c8379481c07002d74cd55f6a1d3309064b1930e88d684de56ae7904088eb6`|18入库获胜/取消真实产品拒绝；库存565/plan279|
+|G01完整pre|`.local/s11/verification/upgrade-g01-f52d3f5-v1-pre.json`|`46a154838c49cfdb881d88a81ae43fd2386e62b7118713d38038ca8d0bdf875b`|140业务/9技术/14附件，实际竞争前|
+|G01完整post|`.local/s11/verification/upgrade-g01-f52d3f5-v1-post.json`|`f5ec3cb51b1349a1e76b6e9e0734b441175b002f71173fcdf6b90a0b6da6e226`|同scope/候选，实际竞争后|
+|G01业务差异|`.local/s11/verification/g01-f52d3f5-pre-post-business-delta-v1.json`|`8c0da25229fbc559eed0896d48830eb1f1b34643153bb8b490252878ce17699d`|14表预期增量；不是升级无业务变化diff|
+|G01新物理最终RO|`.local/s11/verification/g01-f52d3f5-distinct-final-ro-v1.json`|`8421ff203d9021765cf962e20c1e0b48c3d0711d559f1de1236b6615238c1e5d`|3761472；18/20终态/费137.25/成本42.75及旧保护|
+|G01四场独立验收|`.local/s11/verification/g01-f52d3f5-final-independent-v1.json`|`a5dbbde1e066bed7e67f4a6c3ab8755233ba4131cc39b9f347a79aa4fc911ccd`|未实现者核原始阶段/140表/真实新物理RO，限定PASS|
+|当前101影响面回归|`.local/s11/new-target-tests/g03-44bf963-v1-suite/result.json`|`c590b041b086a0c2e785d09ec54e48c248704f3a0a0222e0f4bcad65ac441860`|原101方法集相同；85混合MODEL+16HTTP；Odoo0/wrapper2/1native ERROR|
+|首轮G03失败pre|`.local/s11/verification/upgrade-g03-44bf963-v1-pre.json`|`ef10f4897d3ed448ccc429ace66500c422db5c03e019b05f8868633671774deb`|ef10失败保留，仅10业务表，不能冒完整140表before|
+|最终带数据升级|`.local/s11/new-target-tests/final-f52d3f5-v1-upgrade/result.json`|`2ae0d5109e5aaabdcdf8301da1a5e891434beb85d7754eee119c0b667905993d`|f52单独最终验证，4显式/6实际reload/97loaded，0/ERROR0|
+|最终升级完整pre|`.local/s11/verification/upgrade-final-f52d3f5-v1-pre.json`|`78f242069d0cadad6232e53bda09d14378a5fbc7b6cf8500bb077c6a5bfa4158`|先完成完整140/9/14才执行；不回填首轮|
+|最终升级完整post|`.local/s11/verification/upgrade-final-f52d3f5-v1-post.json`|`29f458b1c7a95f122593b41686a11f39d2ad791a42a9b11b4357fb542ea8d76d`|业务/权限语义保持|
+|最终升级差异|`.local/s11/verification/upgrade-final-f52d3f5-v1-diff.json`|`52c0a104d101c5b4ad8910585e55cab9b76b127022a3ec35172cc6e27f42d534`|仅756个write_date单元；无增删/附件/配置/约束/索引变化|
+|最终升级独立验收|`.local/s11/verification/g03-final-f52d3f5-upgrade-independent-v1.json`|`5ea7babc75d10f9cfc061774d9b907bd7541e5daa4d4f11c473d64bb031a8b6f`|149表逐行逐列及真实时序/命令独立核|
+|正常browser v1原件|`.local/s11/new-target-tests/browser-final-f52d3f5-readonly-v1/result.json`|`174190c0762b6281a8bbba76dde26cf96c552e51df74f46d7ac1f76c365665ac`|13两原生页通过，11额外DOM预期失败保留；整份非PASS|
+|正常browser 11补充|`.local/s11/new-target-tests/browser-final-f52d3f5-readonly-v2/result.json`|`8a87e2c8e0902937cd0234835304f7050ac1858b46a5a9606128e938d02360c5`|277closed/278279ready三真实行；表单可见及JSONbody限制保留|
+|真实closed联系负例|`.local/s11/new-target-tests/browser-final-f52d3f5-closed-contact-negative-v1/result.json`|`d1d97af8c69cbf8acbbc34e3901af7d34c832784fb5b1824a7fb5ca6de646482`|普通11有效csrf/revision，单次正常表单产品409，无预拦|
+|正常入口后新物理RO|`.local/s11/verification/s11-final-normal-entry-protection-ro-v1.json`|`2504218dcc67c6b9b91f453945422b78cb79b824891d15a7362aa7f11df49961`|3764405；不重放业务|
+|409后新物理RO|`.local/s11/verification/s11-final-closed-guard-protection-ro-v1.json`|`a30da65d0a3ce2ffa7740739338ce2c25e6470ab72281f6f5c6f5b704616ea97`|3765498；277/version2/唯一64/636及截止保持|
+|正常入口owned现场|`.local/s11/verification/s11-final-normal-entry-owned-os-v1.json`|`b836cd0e9bcd4dd1eddfdb9ae7bb4712175141d5415607a91b37d308d1659cba`|真实direct/run151642/PID2517140/无clock，不冒永久运行|
+|正常owned收尾|`.local/s11/verification/s11-final-owned-cleanup-v1.json`|`2887355f8911271ad966071c26ecc661dc78536a2a446737bf5ac3efa8182794`|stop/前台0、child0/无Native/ACTIVE无/18411和18412free|
+|通用abort提交核实|`.local/s11/verification/g01-first-dispatch-abort-no-execution-ro-v1.json`|`fbe107b5aaed6a27e11e1317a261316b592dba96fe62cf77d9c4de8c9aceb1cf`|无wrapper/进程且20仍sent/0receipt后同入口接续；非平台解除证明|
+
+竞争各`.stages.jsonl`的真实动作/锁/commit/rollback/close逐attempt记录及SHA在对应race JSON中；各wrapper保存实际命令、固定全部工具原bytes/SHA及退出码。G03完整before和每次precommit/commit/readback同目录，由独立验收逐件列SHA。模型、HTTP/RPC、浏览器、真实竞争与独立物理已提交状态分层，截图/日志不公开。
+
+---
+
+以下为前次续行、交付及历史索引；不被本轮结果倒填。
+
 # 2026-10-23｜当前续行规则
 
 用户已更正历史cyber_policy后一律等待支持恢复证明的项目要求，按[同一计划第7节](../../execution/S11_IMPLEMENTATION_PLAN.md)处理当前正常请求；不宣布历史误拦截或限制解除。下列证据/原停止原样保留，新G03/G01结果须另行索引，不能反签历史；整体仍PARTIAL、#35 OPEN。
