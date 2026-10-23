@@ -1,3 +1,91 @@
+# 2026-10-23｜v1.2最终独立PARTIAL索引
+
+仅新合成目标/OID2171423；产品881194a、执行/测试1bca71d、报告HEAD分列。原始材料本机忽略，不上传原件。
+
+|回执|本机路径（.local/s11/下）|SHA256|
+|---|---|---|
+|最终独立F/T矩阵|`verification/new-target-independent-final-matrix-v1.json`|17eb9bde82f597cfd23a54e56bdf3b94ca6fbeecf647bbe3f15c974dfb57fb30|
+|最终普通direct/演示/账务保护|`verification/new-target-final-normal-direct-entry-independent-v1.json`|cf56e1adb556fc7c8cde79019b4a418162375b0519e433be4cdfeba17171be16|
+|回收后checkpoint|`verification/new-target-w5-recovery-direct-checkpoint-v1.json`|60bba95360513a9fa13ec6603bf47117909d2f554103108eb0da51db69f743db|
+|F5普通UI/真实撤权/人工关闭|`verification/new-target-f5-manual-revocation-batch-independent-v2.json`|0a66347da851ffa6028f327ffb3c115f953d66cea1d0f53d32e6d9556791d145|
+|修正后真实到期拒绝|`verification/new-target-fixed-expiry1bca-independent-v2.json`|c14c3b977239ddf97740872947f0199d0ca74c2b1bb2f2ec90d529370bb84724|
+|17文件独立SOURCE review|`verification/new-target-final-product-diff-independent-review-v1.json`|f0dbc61702b8f82dcc36e4da06ffe1828d52dca878fd96900f69eef6bb912d7c|
+|未发布761 blobs有界秘密检查|`verification/public-delta-secret-review-v2.json`|c1038d85f0ada626197085af63b5f78280d4b1459ce3286db9fcd99bd19cd2da|
+
+最终矩阵23项引用的原始证据索引（下表层级及详细断言以最终矩阵为准）：
+
+|标签|独立/原始证据键|最终剩余必需缺口|
+|---|---|---|
+|F1|SRC12, F1POST, F1NATURAL, APPOINTMENT, T02UI, T11, F5MANUAL, NORMALDIRECT|G03|
+|F2|W3, F2SQL, T18CHARGE, RACES2, RACESTOP|G01|
+|F3|W3, W3ACTIVITY, EARLYDIRECT, SUITE83, NORMALDIRECT, RECOVERY|无新增普通缺口|
+|F4|QUIETFIX, F4SERIAL, F4FIXED, SUITE83, NORMALDIRECT, RECOVERY|G01|
+|F5|RACES2, RACESTOP, APPOINTMENT, F5PREP, F5BIND, F5RECEIVE, F5PUTAWAY, F5MIDRO, F5MANUAL|G01, G02|
+|T01|F1NATURAL, APPOINTMENT, T02UI, SUITE83, NORMALDIRECT|G03|
+|T02|T02UI, T11, SUITE83, F5MANUAL, NORMALDIRECT|无新增普通缺口|
+|T03|F1POST, W3, T18CHARGE, POLICY10, SUITE83|G02|
+|T04|SRC12, T11, SUITE83|G02|
+|T05|POLICY10, QUIETFIX, T02UI, APPOINTMENT|无新增普通缺口|
+|T06|F5BIND, F5RECEIVE, F5PUTAWAY, F5MIDRO, RACESTOP, F5MANUAL|G01|
+|T07|W3, T18CHARGE, F2SQL, SUITE83|G02|
+|T08|W3, W3ACTIVITY, EARLYDIRECT, SUITE83, NORMALDIRECT, RECOVERY|无新增普通缺口|
+|T09|W3, T09PRESERVE, EARLYDIRECT, SUITE83|无新增普通缺口|
+|T10|NATIVEADMIN, EARLYDIRECT, SUITE83, F5MIDRO, F5MANUAL|无新增普通缺口|
+|T11|T11, UPGRADE7, SUITE83|无新增普通缺口|
+|T12|UPGRADE7, EQUIVALENT, SUITE83, W3, POLICY10, NORMALDIRECT, RECOVERY|G01, G02, G03|
+|T13|F1NATURAL, APPOINTMENT, T02UI, SUITE83, F5MANUAL, NORMALDIRECT|G03|
+|T14|APPOINTMENT, QUIETFIX, T11, POLICY10|G02|
+|T15|QUIETFIX, F4SERIAL, F4FIXED, SUITE83|无新增普通缺口|
+|T16|F4SERIAL, F4FIXED, RACESTOP, SUITE83|G01|
+|T17|RACES2, F4SERIAL, F5BIND, F5RECEIVE, F5PUTAWAY, F5MIDRO, F5MANUAL|G01|
+|T18|T18CHARGE, F2SQL, W3ACTIVITY, APPOINTMENT|无新增普通缺口|
+
+证据键对照（均为本机真实文件及实际SHA）：
+
+|键|路径|SHA256|
+|---|---|---|
+|APPOINTMENT|`.local/s11/verification/new-target-appointment-batch-independent-v1.json`|abcbb7d8b52963eca3bffd979af19940e53d8e60cc04607ac0896b3c1606d7b5|
+|CLOCKDENIAL|`.local/s11/new-target-tests/retired-orphan-clock-cleanup-denial-readback-v1.json`|bfe738ea0a3f5de49ce69e22b6f372520858ba77721e1e1b7ca53958070ea29b|
+|EARLYDIRECT|`.local/s11/verification/new-target-normal-pool16-entry-independent-v1.json`|c1e546c4352dbcd58fce1cfacc5413aad93df4078f2e2118090bf1c6854083ef|
+|EQUIVALENT|`.local/s11/verification/new-target-testonly1bca-candidate-equivalence-v1.json`|63621f3cd1573cbf4451ff01c2f2ddb5720a5c1f4f279ed6d366c3b939dc2559|
+|F1NATURAL|`.local/s11/verification/new-target-f1-natural-cycle-and-native-feedback-independent-v2.json`|c5af69044e85ebe78eaa31dee6106692626e53c91e46fc82f3d6be6bb0010837|
+|F1POST|`.local/s11/verification/new-target-f1-accepted-postcommit-independent-v2.json`|ad8db60d00b508652c549bd800fb4b4a9fd7cfd33d34f4ddef1a961c4c0511af|
+|F2SQL|`.local/s11/verification/new-target-f2-completion-and-schema-negatives-independent-v1.json`|fc5791945d30782dce0dcf0c3ff5b41ef506ba33e2159baeecf595a759132433|
+|F4FIXED|`.local/s11/verification/new-target-fixed-expiry1bca-independent-v2.json`|c14c3b977239ddf97740872947f0199d0ca74c2b1bb2f2ec90d529370bb84724|
+|F4SERIAL|`.local/s11/verification/new-target-f4-ordinary-serial-branches-independent-v1.json`|d9fc5ab9c2099bc260041d09a3f495a7feb00b69f2ddb46741defec0c4d82c03|
+|F5BIND|`.local/s11/new-target-tests/browser-f5-native-bind-v2/result.json`|f897aecede024eb38ca8d198dbb1b27a55c53dbb8ded685e47360080705e873b|
+|F5MANUAL|`.local/s11/verification/new-target-f5-manual-revocation-batch-independent-v2.json`|0a66347da851ffa6028f327ffb3c115f953d66cea1d0f53d32e6d9556791d145|
+|F5MIDRO|`.local/s11/verification/new-target-f5-midbatch-current-checkpoint-v1.json`|7541a53e2567da2dad5d7189706cb5a63149a489d5f40774f0a9f2d3afc1c045|
+|F5PREP|`.local/s11/new-target-tests/f5-native-preparation-v1/result.json`|1ab16f956d9383671c2896d21b8081ccab449b393da641d36b9bb1751a13273f|
+|F5PUTAWAY|`.local/s11/new-target-tests/browser-f5-native-putaway-v2/result.json`|67ca0fbeeb1c73ab1260892124fda1df3142524bc20bcd3bc674e72b88f85686|
+|F5RECEIVE|`.local/s11/new-target-tests/browser-f5-native-scan_receive-v2/result.json`|e4d3ca3a7ff54cea218d794b8d541a60f961717338ddeb74a3a5d7b074e138b9|
+|FINAL_SOURCE|`.local/s11/verification/new-target-final-product-diff-independent-review-v1.json`|f0dbc61702b8f82dcc36e4da06ffe1828d52dca878fd96900f69eef6bb912d7c|
+|NATIVEADMIN|`.local/s11/verification/new-target-native-users-ui-independent-v1.json`|f7ce069d7c1541fde85d9a426e03ac0666b29bd59e0ff034f980d77862bc6f7a|
+|NORMALDIRECT|`.local/s11/verification/new-target-final-normal-direct-entry-independent-v1.json`|cf56e1adb556fc7c8cde79019b4a418162375b0519e433be4cdfeba17171be16|
+|OLD83FAIL|`.local/s11/verification/new-target-83-suite881-failure-independent-v1.json`|6976a4f76208424ccb27820530374b7774224f0f2e3d997c3ac0b86a9e0a8899|
+|OLDBINDFAIL|`.local/s11/verification/new-target-f5-v2-selector-and-first-failure-independent-v1.json`|0c89ecf1e180c31ba2d9f51a8911bc733e2254720b7f87a995713b1fa66d4741|
+|OLDEXPIRYFAIL|`.local/s11/verification/new-target-f4-expiry-gap-rollback-independent-v1.json`|1b05ba7118295e5e6aeec2915114453a264a1147eeab102eee6be59e72131789|
+|OLDQUIETFAIL|`.local/s11/verification/new-target-notification-policy-ten-phases-independent-v1.json`|8772e2723a3deba4c2d2683da883580a59617ddd7a1d0b1534d14bdf704e3961|
+|POLICY10|`.local/s11/verification/new-target-notification-policy-ten-phases-independent-v1.json`|8772e2723a3deba4c2d2683da883580a59617ddd7a1d0b1534d14bdf704e3961|
+|QUIETFIX|`.local/s11/verification/new-target-quiet-fixed-supplier-day-t02-prepared-independent-v2.json`|5ecc813bab30a775328185520fc1070efb18b012de3dc369709e72ca1e003615|
+|RACES2|`.local/s11/verification/new-target-two-races-after-platform-stop-independent-v1.json`|ccf7997f8a1ee556f76c4f5d180c5197f4cec220313fd2cfdbc633faf7363a95|
+|RACESTOP|`.local/s11/new-target-tests/race-batch-stop-platform-agent-turn-v1.json`|496c28e2f8d5972bf7b2b451b501e4d6d55196973d9f91c67520f8c9f47cb07e|
+|RECOVERY|`.local/s11/verification/new-target-w5-recovery-direct-checkpoint-v1.json`|60bba95360513a9fa13ec6603bf47117909d2f554103108eb0da51db69f743db|
+|SECRET_SCOPE|`.local/s11/verification/public-delta-secret-review-v2.json`|c1038d85f0ada626197085af63b5f78280d4b1459ce3286db9fcd99bd19cd2da|
+|SRC12|`.local/s11/verification/new-target-12-sources-lab-dispatch-and-callback-independent-v1.json`|3d4cf4f2f2968f20c7094a241e49b48b89650c879f646cd00ed802fba5671b61|
+|SUITE83|`.local/s11/verification/new-target-83-suite1bca71d-independent-v1.json`|1cc4997b83f542d28bc344ce270d0ce477959a8f4222a77da2beb6ad432040c8|
+|T02UI|`.local/s11/verification/new-target-t02-completed-w2-owner-independent-v1.json`|c90f3ee267adf479c74820671e51e540ff961f32705150834b854b9698390e0c|
+|T09PRESERVE|`.local/s11/verification/new-target-t09-closed-precondition-preservation-independent-v2.json`|3eac29e76cebd153fcaec80a346a582b54bcb665772917ebc5050eb8bfd31887|
+|T11|`.local/s11/verification/new-target-t11-two-days-and-superseded-callback-independent-v2.json`|f677fe08a298ce3cd377b4cb94f8babfe89b8818d7111279c77b631708df3452|
+|T18CHARGE|`.local/s11/verification/new-target-t18-and-native-charge-credit-independent-v3.json`|0feece368a8a20080d0592308dc5ece20620cbbf8db41793e5a5e7a4cf89b3ea|
+|UPGRADE7|`.local/s11/verification/new-target-final881-seven-data-upgrade-independent-v1.json`|7f6058e17e0e95fbe9062ae65822363f02e7f043c9b36741d7592e43f470d5ac|
+|W3|`.local/s11/verification/new-target-w3-grouped-committed-independent-v3.json`|c8ff9e19ef777342d5db3462f7ceec20c72f219c76c6415e2b97b0f9797b4e72|
+|W3ACTIVITY|`.local/s11/verification/new-target-w3-activity-purpose-independent-v3.json`|79872cafaddeeb23e8ef5bce7f15b68b9bd5115632913b8af5e09a57afcbbb8d|
+
+G01四场停止的库存竞争；G02其他所需真实DB竞争未证；G03未来未约人工联系截止缺陷。通用native发票直达页AccessError另列L01，不冒正常结算工作台失败或完整nativeform通过。#35保持OPEN，#37用户效果另验。
+
+---
+
 # 2026-10-23 08:18 UTC｜当前候选实际证据增量
 
 所有原始指针位于本机`.local/s11/`；仅新合成库/OID2171423，无旧库业务调用。报告提交不冒产品候选。

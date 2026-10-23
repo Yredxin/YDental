@@ -2,38 +2,25 @@
 
 ## 范围与当前结论
 
-- 持续执行同一个 [实施计划](docs/execution/S11_IMPLEMENTATION_PLAN.md) W0—W5，不新建平行计划、不逐步骤审批。当前 **PARTIAL / IN_PROGRESS**，#35保持OPEN；尚未最终同步，不合并、不部署、不启动S12/S13。
+- 持续执行同一个 [实施计划](docs/execution/S11_IMPLEMENTATION_PLAN.md) W0—W5，不新建平行计划、不逐步骤审批。当前 **PARTIAL / EXTERNAL_LIMITS_REMAIN**，#35保持OPEN；尚未最终同步，不合并、不部署、不启动S12/S13。
 - 分支 `codex/s11-followup-lab-r1`；起点0b5fe48；产品候选 `881194a73fdfb113165e4587b1befe8ed14ca05c`，实际测试/运行候选 `1bca71df2792e2deca9014f38cf2c041cb22efca`。后者仅修一项空模型权限测试断言，独立等价核63621f3c…；报告HEAD单列。固定core `f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb`。
 - 唯一新业务目标 `ydental_s11_synth_20261023_01 / OID2171423 / cluster7694897083368259627`，127.0.0.1:5432，受限同名role；承接97模块安装，不再建库或重装。
 - 主控/root唯一调度共享目标写入和服务；tester_cont离线普通工具；acceptance_cont独立审查与RO实证，不实现被验产品。共享OS，不冒隔离。
 
-## 最新里程碑（2026-10-23 08:18 UTC）
+## 最终部分交付（2026-10-23）
 
-- 83方法回归实际0fail/0error，71混合TransactionCase+12HttpCase；Odoo0，wrapper2为原生附件审计RO→RW重试日志ERROR，授权GET200/无权404、无Native。独立回执1cc4997b…；此前新增错误层断言导致的v5首FAIL原样保留6976a4f7…，没有以重试抹去。
-- 产品881限定七模块带真实数据升级exit0/error0，原生依赖传播18模块；140业务表/9技术表/14附件受核。权限、临床、账务、来源、文书/附件无业务漂移；内部inventory mutex revision6→0为原生XML重载的MVCC fence，非业务账本。独立7f6058e1…；当前1bca仅测试变化，按实际产品等价承接该升级，不冒新升级。
-- 预约52/53真实UI关联、电话、到店98、日终：仅关联不冒notified；53实际提醒job274 accepted1后notified；仅到店无接诊；当地日终均回to_notify且52未到/53已到分别保留；重复cron逾期审计+0。独立abcbb7d8…，全球cron另影响31/33/60已逐来源核明。
-- T02真实referral4/walkin106/患者79两店事件86→87：UID335缺目标医疗权限真实隐藏+HTTP403；doctor9真实UI完成followup78→87/93，来源费用各137.25保留，独立c90f3ee2…。T11真实UIclock两日、正常MODEL上游流程：patient80，pan88/fee88=35.50昨日已做保持，旧CBCT号day_closed/revalidation_required，次日只CBCT89/fee89=62.75；独立f677fe08…。
-- 四类通知来源版本、失败/unknown/受理/回调、免打扰当天结束、LA当地日上限、退订/人工/disabled以及缺policy店142已真实核；仅本地模拟通道，不声称外部送达。旧job158迟到callback35留历史，closed54不复活。
-- F4新普通对象：78已发后合作停用仍真实接收10/24 10:00、入库10:05，stock227数量1/随访96待联系；80入库前取消、原成本42.75与费用137.25保留；79仍draft。串行分支独立d9fc5ab9…。旧到期probe发现测试时钟日期缺陷，整个owned事务明确回滚，首FAIL保留1b05ba71…。
-- 最新修正后到期probe：正常13暂启合作43隔离到期条件，doctor9真实UIclock10/24，vendor47有效至10/23/approved，send79实际拒绝且明确expired原因；所有业务回滚、native表单正常、clock已clear。原始 `f4-expiry-fixed-v1/expiry_probe/result.json` / `browser-f4-fixed-expiry_probe-v1/result.json`，待独立核；合作43正按正常13恢复停用。F5普通UI工具已绑定1bca，尚未执行业务。
+- 独立结论 **PARTIAL**，#35保持OPEN；本轮受影响必需项须真实平台能力恢复/取得证据后接同一计划，不自动启动下一阶段，不承诺后台继续。最终矩阵 `new-target-independent-final-matrix-v1.json` SHA17eb9bde…；完整F1—F5/T01—T18映射与金额/层级见[summary](docs/reports/s11/summary.md)、[evidence-index](docs/reports/s11/evidence-index.md)。
+- G01剩余四场库存真实竞争停止；G02通知claim/回调/首次出账等所需其他真实独立连接竞争未取得；G03 `_mark_contact_success` L271未来未约联系成功期限仍physicalnow，指定修复被平台拒绝、未另入口重做。实际平台原文和已结束两场竞争保留，不为未试场景虚构各自拒绝。
+- 普通业务/83方法0fail0error/最终产品带数据升级/独立SOURCE17文件/普通真实撤权和失访关闭重开/最终direct已实证。71混合Tx+12Http不是23业务PASS数；原生audit重试日志ERROR及旧v5断言FAIL保留。升级实际881，1bca仅测试变更等价承接；140业务/9技术/14附件的技术变化具体解释，非物理零diff。
+- F4实际expired明确拒绝并全rollback、旧78真实接收与入库/80取消；F5普通native79绑定/扫码/接收/单独入库/重复扫码，stock316/native316 qty1/成本53=42.75/新PO53、未履行旧39正常取消，fee111保持。17在wizard create ACL拒绝/action_scan未达，另实际已知code查询拒绝，不提权冒服务执行。
+- 新130普通失访close/reopen/finalclose、空原因UI拦+HTTP409，335真实撤followupwrite→none后旧sessionPOST/GET403，activity118人工反馈history5850、job378cancelled0。新独立demo131由11在最终direct真实UI建立：source86/p79、to_notify/责任11、一活动/无job/新费用。既有已完成经济链不重演。
+- 最终正常direct **run20261023T091624Z-346b6246527e /127.0.0.1:18411** 实际运行，无GDB/clockmanifest，独立cf56e1ad…。运行上限11:16:24.391394Z，原scope到13:30:32.342242Z；start前fresh09:15:46起30min，后续正常重开需真实新RO回执，不能伪造时间。正常命令 `../.venv/bin/python scripts/s11/launcher.py status|stop|start`（分别单命令）。
+- 普通11随访/9临床/13原生工单79/14结算工作台均可用，17业务和Store2拒绝，全部clock403，UID2 Users正常。14工作台实际账单6=28.50/余额23.50，独立credit7=5/partial3/源5、6/payment0保持；额外genericnative发票form实际既有source guard拒绝，nestedmodel未知，不冒PASS/不改保护。
+- 临时clock成员含inactive关系0，335停用；2active/system与普通角色保留，adapteroff/callback空/policy1、2off/SMTP0，sink正常退出0且18412关闭。退役clock9正常删除ACL拒绝后保留原行，无SQL/sudo删；当前direct不能用旧run时钟。GDB正常ownedstop child0/signalnull/core0，supervisor143单列。
+- 所有原始provider/日志/截图只留本机；Public待提交内容已对761个未发布blob扫描当前五个正常provider精确秘密值及3强模式0发现，最终新报告再核。密码不报告，不搜旧被拒账号材料。本报告同步前状态SYNC_PENDING，实际正常push/远端读回和#35最终评论在最终交付回执记录，不预写SYNCED。
 
-## 已提交业务与不可重放事实
+## 历史与真实外部边界
 
-- F1 followup24真接诊41/43后done；F2原16免费退回/child28再入库/真戴用，followup26→39/41 done；原费用/成本不重。新戴用实际临床费39=137.25单列，不冒原费重复。
-- 17放弃实际退回、24遗失/25报废各异常出口；供应商追加child29独立PO19=18.50/患者无追加费；child30明确履行患者追加28.50冻结，后价39.50不重算，charge4→invoice6/source5，adjust3→credit7/source6=5，未付23.50/payment0，不冒资金退款。T09原26完成后新draft31，followup34已因返修closed，不为补报告改done。T18旧35done→42/44、新child32/随访36/job108unknown1、同请求查询受理、负责人11保留。
-- 两真实DB连接竞争已完成：package20vs21、operationkey18vs19，独立ccf7997f…；第二项retry逐次PID/区间缺证不回填。其余四场未启动；不能拿普通串行F4/F5当竞争PASS。
-- SQL来源5CHECK+2UNIQUE真实拒绝均savepoint/outer rollback、无sequence/资金变动，独立fc579194…。一次已提交库存后的取证Integer错误只RO恢复，不重放业务。所有已提交经济链、接诊、入库、原件、审计不为报告重演。
-- 原S10 main/旧scratch OID2144130及patient650/task720、patient364/event417、PO147–149、旧D/C资金/文书/库存/退款/日结不进入本轮调用，不为新基线回读。旧attempt30 FAIL/邮件来源与loser/PID/完整性未证保持；新目标PASS不代表旧库恢复或迁移。历史SIGSEGV根因未知不改。
+旧main/scratch OID2144130、patient650/task720、patient364/event417、PO147–149、旧D/C/文书/资金/库存/退款/日结不进入本轮业务或新基线回读。attempt30 FAIL、mail来源和loser/PID/完整性未证、历史SIGSEGV根因未知保持；新目标不宣称旧库恢复/迁移/批准使用。
 
-## 真实停止范围与后续工作
-
-- tester及business_dev曾被平台实际cyber拒绝。剩余四库存竞争、新通知领取/回调/首次费用出账竞争，以及指定future unbooked manual-contact deadline修复保持停止，不换AI/工具/账号重放。原始拒绝/停回执496c28e2…保留，用户已获正式反馈渠道说明；项目授权不替代平台能力。不能据此把可做普通用例列N/A。
-- 当前继续未受影响F5普通UI、普通人工关闭/撤权等适用缺口复核、W5正常入口/权限回收、独立总验收与交付整理。所有必需竞争和未修指定缺陷未满足时不得宣称COMPLETE/关闭#35。
-- 原clock session9属于已停止旧run，正常UID2删除被实际ACL拒绝，原intent/失败/独立RO无提交保留；不sudo/SQL/换账号删除。保留其惰性历史，最终正常撤clock组并核无有效控制，不冒已clear。
-
-## 当前运行与私有材料
-
-- GDB owned run `20261023T081557Z-3a4022d3abb0` /18411运行，独立fresh08:14:53/126a719b…；真实scope原发放与13:30:32Z到期未改。本地sink2156744/18412运行，仅模拟，旧sink服务重启后退出原因未证。
-- 临时clock正例[5,8,9,10,11,13]，335/17无clock；本地adapter/callback和两店演示policy启用，SMTP0。最终正常回收不再需要的权限/配置，保留UID2合法管理和普通演示入口。不得提前停用唯一管理入口。
-- 密码仅本机忽略0700/0600 provider，不进入Public Git、聊天、原始请求或截图。私有浏览器字体仅子进程环境，不改OS；尚不冒中文视觉PASS。
-- 详细材料：[summary](docs/reports/s11/summary.md)、[evidence-index](docs/reports/s11/evidence-index.md)，原始`.local/s11/new-target-tests/`及`verification/`；历史CURRENT_TASK可读Git。GitHub只在最终真实结论后正常push/读回，无中间进度发Issue。
+真实短信/SMTP、外部厂商门户/抓取、支付/税务/签署、真实患者/资金/生产未启用未验。演示策略不当正式政策，用户效果由#37另验。最终只正常commit/push，不强推、不合并部署，不启动S12/S13。

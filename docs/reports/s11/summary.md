@@ -1,3 +1,94 @@
+# 2026-10-23｜S11 v1.2 新合成目标最终部分交付
+
+`[CODEX-FINAL] YD-S11-FOLLOWUP-LAB-V1 / 整合修订v1.2`
+
+**结论：PARTIAL。#35保持OPEN。** 普通业务闭环、最终产品回归、带数据升级、角色撤权和正常入口已有实证；必要竞争证据和一项已知应用测试时钟期限缺陷未完成，不能记录“S11内部功能技术完成”。本节为本轮交付，不另开计划。同步结果在最终GitHub评论及本轮最终回执记录，不预写push成功。
+
+## 候选、目标与独立结论
+
+- 实际分支 `codex/s11-followup-lab-r1`；用户起点 `0b5fe48ad95668a1c12acefe911624b5bff5a94f`，没有回退。
+- 产品源码候选 `881194a73fdfb113165e4587b1befe8ed14ca05c`；实际最终测试/运行候选 `1bca71df2792e2deca9014f38cf2c041cb22efca`；产品差异仅一行测试模型修正，独立等价核63621f3c…。报告HEAD为本节所在文档提交，按实际docs-only差异承接，不冒重新执行。
+- 固定core `f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb`；目标 `ydental_s11_synth_20261023_01 / OID2171423 / cluster7694897083368259627`，127.0.0.1:5432，受限运行角色与库同名。没有重建、复制旧scratch或重装97模块。
+- `/root/tester_cont`未实现产品，按odoo-review及对应house/security规则独立两遍审核17个addon差异文件，SOURCE无新增具体阻断；报告SHA `f0dbc61702b8f82dcc36e4da06ffe1828d52dca878fd96900f69eef6bb912d7c`。已知deadline缺陷明确保留。这不是动态或整体PASS。
+- `/root/acceptance_cont`未实现被验产品，按原始结果、独立RO/RR连接、真实请求/截图、候选及保护对象签限定结论。共享OS/工作树，不冒OS隔离。最终普通direct入口及账务保护独立回执SHA `cf56e1adb556fc7c8cde79019b4a418162375b0519e433be4cdfeba17171be16`。23标签最终矩阵SHA `17eb9bde82f597cfd23a54e56bdf3b94ca6fbeecf647bbe3f15c974dfb57fb30`，逐项见evidence-index最终索引；整体仍PARTIAL。
+
+## 业务、实物与费用映射
+
+|链路|实际对象及终态|
+|---|---|
+|F1主动复诊|patient26/source26→followup24；受理与送达分开；自然未约超期一次、重复cron0；未接仍待联系、电话成功、明确新event41/ex43后done。|
+|仅预约、到店与日终|52→appointment77仅关联仍planned，明确电话后notified；53→79仅关联仍planned，job274本地受理后notified。真实arrival98不冒接诊；日终52未到、53已到均回to_notify，逾期审计各一次。|
+|跨店/续检查|patient79/source86→referral4/walkin106/target87，335无目标医疗权真实UI/HTTP拒绝，doctor9明确完成78→87/93。patient80昨日pan88/fee35.50保持；旧CBCT号关闭/需重新确认，次日只CBCT89/fee62.75。UIclock+正常MODEL上游，不冒自然跨日/所有动作HTTP。|
+|免费返工/F2|原16真实入库、unknown后查同请求、免费退回→child28再入库→实际戴用；原成本和原患者费不重。followup26明确39/41 done，新实际戴用临床服务费39=137.25单列。|
+|放弃/遗失/报废|17真实退回异常终止；24遗失、25报废实际处置；成本、原患者费和责任待办分别保留，不假戴用/退款。原生活动24/25/26是费用/处置核实出口，不当垃圾清掉。|
+|供应商追加、患者无追加|原23→child29，独立PO19/line19=18.50，明确患者不收费；库存80可回源。|
+|患者明确追加|原22→child30；供应商无新增费用明确零，患者S05快照28.50，后价格39.50不重算；真实额外服务履行→charge4→原生invoice6/source5=28.50，adjustment3→credit7/source6=5；余额23.50/payment0。贷项冲抵未付，不冒资金退款；reversed_entry_id实际NULL，关系按adjustment/source/partial3证明。|
+|完成后返修/T18|原26真戴用done→新draft31，旧followup34因返修已closed保持；原27旧随访35done→42/44，免费child32再入库、新36/job108unknown1/同请求核实/负责人11，旧done不覆盖。|
+|资质与普通收货取消|vendor47有效至10/23；修正后doctor9实际UIclock10/24明确expired拒绝79，完整rollback。合作43停用后旧78仍真实接收10:00、入库10:05，stock227数量1/责任随访96；80入库前取消，保原42.75成本和137.25临床费。|
+|普通扫码/F5|draft79在到期负例回滚后合法改vendor13；未履行旧PO39原生取消，新PO53/line53确认42.75→processing→绑定→真扫码定位→实际接收→单独入库，stock316/native move316数量1；repeat扫码仅返回原79、无接收/入库按钮，不多成本/库存。随访129仍planned/job377未来pending0，不冒已联系。|
+|撤权与人工关闭|新130 source86/p79：group5真实UI仅撤335 followupwrite→none，335旧页POST/GET403，medicalwrite保持；11空原因UI0POST和HTTP409，然后中文原因close/reopen/finalclose。job378重开pending0→最终cancel0/零sink；activity118正常assigned-user反馈/history5850，不冒自动清理。|
+|独立交互演示|最终normal direct上普通11真实UI建立131，source86/p79、to_notify/负责人11、一条活动、无job/新患者/新临床费。已完成经济对象默认只读展示。|
+
+## F1—F5 / T01—T18逐项结果
+
+“已证”仅指表内层级与业务断言，不把83方法数当23标签通过数，也不把静态/回滚测试冒持久业务。
+
+|编号|当前结果与真实层级|保留缺口|
+|---|---|---|
+|F1|普通UI/HTTP、MODEL cron、本地postcommit/回调、跨店及独立提交闭环|G03未来未约联系期限缺陷|
+|F2|免费退回/再入库/unknown核查/真戴用、原生库存成本、普通UI与独立提交|G01必要收货/入库竞争|
+|F3|放弃异常、实物去向/成本/患者费/待办独立核、正常界面|无额外未结普通分支；不代表整体完成|
+|F4|资质审核/合作/真实到期新单拒绝、旧单接收/入库、入库前取消|G01取消与入库竞争|
+|F5|码竞争已有两连接证据、普通native绑定/扫码/接收/入库/repeat、改期失效|G01/G02其他必要竞争；扫描不冒自动两事实组合按钮|
+|T01|计划/改期/真实到店98/明确关联接诊、失败原值保持|G03与相应截止分支|
+|T02|跨店来源/权限正负例、普通撤权、关闭原因/重开真UI/HTTP|无新增普通缺口|
+|T03|真实postcommit、超时unknown、同请求查询/人工核实、不盲换key|G02通知多连接证据|
+|T04|真实签名入口、防伪、重复/延迟/乱序、delivered不降级|G02所需并发回调证据|
+|T05|LA当地日/quiet/退订/上限/disabled及缺policy行真实任务行为|真实正式政策/外部送达未启用|
+|T06|原生普通扫码、接收、入库、重复扫码库存1/成本1|G01真实收货/入库/扫码竞争|
+|T07|免费/供应商追加患者不收费/患者明确追加三分支；原生出账及关联贷项；7个SQL约束负例全rollback|G02首次出账竞争|
+|T08|放弃/遗失/报废四方面出口、原成本/费用/待办保持|无新增普通缺口|
+|T09|旧done保持、新关联返修draft31、正常原生关系/独立核|无新增普通缺口|
+|T10|17扫码向导create原生ACL拒绝，action_scan未达；另一次实际已知码search_read拒绝、无资料；附件HttpCase正负例|不冒该负例执行了scan服务，不提权补测|
+|T11|两模拟日真实UIclock+正常S06/S08/S09服务/提交读回，只续CBCT，旧pan不重费/旧号不复活|不冒自然跨日|
+|T12|承接97模块安装；最终产品七模块带数据升级及影响回归；失败通知下人工主链|整体G01/G02/G03不因升级PASS消失|
+|T13|完整普通状态循环、两类日终、重复cron审计唯一、人工原因及重开|G03未来未约联系期限|
+|T14|预约/复诊/到货/资质四类来源版本、取消改期旧待发作废、旧已发保留|G02通知领取相关并发|
+|T15|集团审核/门店合作/到期及既有订单正负例|无新增普通缺口|
+|T16|入库前取消、保已有成本/已发历史、未发待办处理|G01取消与入库竞争|
+|T17|外部引用字段/码绑定冲突、接收与入库两事实/时间、码非授权|G01剩余实物竞争；无门户/抓取|
+|T18|旧35done、新免费周期32/随访36唯一、unknown负责人及查询出口|无新增普通缺口|
+
+## 回归、竞争、升级与失败保留
+
+- 当前83唯一方法：71 TransactionCase混合ORM/mock/PURE、12真实HttpCase，官方0failed/0error，Odoo退出0；wrapper2因原生附件audit只读→读写自动重试日志ERROR，授权GET200/无权404，无Native。独立SHA `1cc4997b83f542d28bc344ce270d0ce477959a8f4222a77da2beb6ad432040c8`。各旧70/78/81/82批次有重叠，不累计为通过业务数。
+- 当前产品带数据升级：显式access/intake/followup/lab/两test/clock七模块，原生传播18更新；97仅加载不重装。独立140业务表/9技术表/14附件，来源、状态、数量金额、权限语义及文书附件保持。内部inventory mutex revision6→0为原生XML重载的MVCC fence，技术write_date/arch_prev及NULL默认值变化有源码解释，不假全库零变化。独立SHA `7f6058e17e0e95fbe9062ae65822363f02e7f043c9b36741d7592e43f470d5ac`；与1bca产品等价另核。
+- 真正两连接竞争仅两场完成：package20vs21、operationkey18vs19；实际DB PID及双方结果保留，独立ccf7997f…。后者retry逐次PID/区间缺证单列，历史F2不足不补写。
+- G01：其后tester代理被平台终止，原文含 `Agent errored: This content was flagged for possible cybersecurity risk`；剩余收货/入库/扫码/取消四场均未启动，停记录496c28e2…，不换代理/工具/账号重放。
+- G02：通知claim/回调、费用首次出账等所需真实独立连接竞争未取得；不把源码锁、83方法、并行HTTP或两旧竞争替代，也不为每项虚构单独平台拒绝。
+- G03：`ydental_followup/models/ydental_followup_service.py:271`未约联系成功仍以物理now计算期限，未来应用clock下不正确。指定修复曾遭实际平台拒绝，保持未修，不经别的代理/入口补做。普通自然时间电话成功及已约分支通过不覆盖此缺陷。
+- 原quiet错日、预约直接容量read拒绝、到期clock错误接受后owned rollback、83suite v5一项错层断言FAIL、F5首modal选择器超时、负例wizard create层级偏差、诊断networkidle超时及额外native发票form拒绝均留原始失败，修复/另测明确区分，不抹首因。
+
+## 正常效果入口与权限处置
+
+- 当前实际正常direct服务run `20261023T091624Z-346b6246527e`，`http://127.0.0.1:18411`，不在GDB、不启clock；最后独立核进程/监听及业务界面有效。单run上限 **2026-10-23 11:16:24.391394 UTC**；原scope到 **13:30:32.342242 UTC**，不是无限可用。
+- 正常启停：在本仓库用 `../.venv/bin/python scripts/s11/launcher.py status`、`stop`、`start`。start仍核真实目标及30分钟fresh记录；当前启动前fresh为09:15:46 UTC。过期需按现有受支持独立RO检查形成新唯一实际回执；scope过期需依真实项目权限准备新scope，不改旧发放时间/伪造准入。文档提交不触发重跑业务或重新建库。
+- 普通别名：`followup` UID11→`/ydental/followups`查看24/26/35/78历史和新131；`doctor` UID9→临床/治疗/随访；`warehouse` UID13→原生External laboratory orders/79或78；`settlement` UID14→`/ydental/settlement`查看原生账单6总28.50、余额23.50。`none` UID17业务拒绝，不能切Store2。密码仅本机私有provider，不写报告。
+- 已提交工单/账单默认展示；交互只用独立131联系计划或再明确创建的新合成演示对象，不重复戴用、入库、出账、贷项等经济动作。包装码只识别，不是访问凭证。
+- 五普通角色真实登录/正反页面，11/9切店，17无权切Store2，全部clock GET403，UID2正常Users列表可用。额外generic `/odoo/account.move/6`普通14实际被既有native source guard拒绝，具体嵌套模型未证；不称完整原生发票form通过。已验证正常结算工作台精确账单金额及独立账务不变，未为额外直达页扩权或改保护。
+- 六临时clock组全部撤销（含inactive关系核0），335停用；UID2 active/system和普通岗位保留。adapter关闭/callback清空、两店演示policy禁用、SMTP0；本地sink正常退出0且18412关闭。旧run clock9正常删除被ACL拒绝，保留惰性原行；不sudo/SQL删，不冒已clear，当前direct无clockmanifest。
+- 私有浏览器字体环境已使真实中文输入及结算页样例字形正常；没有修改OS字体、注入DOM/CSS或宣称任意浏览器全局本地化/美化通过。
+
+## 历史与外部边界、同步
+
+旧scratch及attempt30 FAIL/邮件来源、loser/PID/完整性未决保持，未批准继续使用，不为本轮读取旧禁读对象，不宣称恢复或迁移通过。历史SIGSEGV根因未知，不由新目标无崩溃改写。
+
+真实短信/SMTP/厂商门户或抓取/支付/税务/签署/真实患者资金/生产未启用未验；正式策略和用户效果继续单列，由#37承接。公共提交只含代码与脱敏报告，不含原始日志、截图、临床正文、provider或秘密。提交前对全部未发布761 blobs/74.6MB核当前五个获准provider精确秘密值及三类强凭据模式，0发现；这是有界检查，不承诺发现所有未知秘密。最终新报告差异再定向核。
+
+必要项未满足，#35不关闭；最终正常commit/push及远端读回另记录真实结果，失败则SYNC_PENDING。不强推，不合并、不部署、不启动S12/S13。后续恢复仍接同一个计划；本轮不承诺无人值守后台继续。
+
+---
+
 # 2026-10-23 08:18 UTC｜同一计划普通业务与最终候选推进
 
 当前产品881194a、实际测试/运行1bca71d（仅修测试断言）、core f0c5a9b；报告HEAD单列。当前仍PARTIAL / IN_PROGRESS，#35 OPEN，没有最终push。
