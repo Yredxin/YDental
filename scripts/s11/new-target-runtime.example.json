@@ -4,8 +4,8 @@
   "candidate_commit": "<replace with the exact committed 40-character S11 HEAD>",
   "core_commit": "f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb",
   "database": {
-    "name": "ydental_s10_test_20261017105432_ce6dcbf8",
-    "expected_oid": 2144130,
+    "name": "ydental_s11_synth_20261023_01",
+    "expected_oid": 2171423,
     "expected_cluster_ref": "7694897083368259627",
     "host": "127.0.0.1",
     "port": 5432,
@@ -24,7 +24,7 @@
     "workers": 0,
     "max_cron_threads": 0,
     "db_maxconn": 4,
-    "dbfilter": "^ydental_s10_test_20261017105432_ce6dcbf8$",
+    "dbfilter": "^ydental_s11_synth_20261023_01$",
     "list_db": false
   }
 }

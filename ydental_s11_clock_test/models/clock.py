@@ -11,8 +11,9 @@ from odoo import SUPERUSER_ID, api, fields, models
 from odoo.exceptions import AccessError, ValidationError
 
 
-EXPECTED_DB = 'ydental_s10_test_20261017105432_ce6dcbf8'
-EXPECTED_OID = 2144130
+EXPECTED_DB = 'ydental_s11_synth_20261023_01'
+EXPECTED_OID = 2171423
+EXPECTED_CLUSTER = '7694897083368259627'
 
 
 @dataclass(frozen=True)
@@ -37,7 +38,7 @@ def guard(env, live_database=True):
         raise AccessError('S11 debug clock refused outside its admitted scratch run.')
     root = Path(__file__).resolve().parents[2]
     run_dir = Path(os.environ.get('YDENTAL_S11_CLOCK_RUN_DIR', '/nonexistent'))
-    expected_dir = root / '.local' / 's11' / 'clock-runs' / current_run
+    expected_dir = root / '.local' / 's11' / 'new-target-clock-runs' / current_run
     if run_dir.resolve() != expected_dir.resolve():
         raise AccessError('S11 debug clock run directory does not match its fixed scope.')
     info = run_dir.lstat()
@@ -53,7 +54,7 @@ def guard(env, live_database=True):
     manifest = json.loads(raw)
     if manifest.get('run_id') != current_run or manifest.get('mode') != 'S11_SESSION_CLOCK' or manifest.get('database_oid') != EXPECTED_OID:
         raise AccessError('S11 debug clock manifest target does not match.')
-    active_path = root / '.local' / 's11' / 'active.json'
+    active_path = root / '.local' / 's11' / 'new-target-active.json'
     active = json.loads(active_path.read_text())
     active_clock = active.get('s11_session_clock') or {}
     if (active.get('database_name') != EXPECTED_DB or active.get('database_oid') != EXPECTED_OID

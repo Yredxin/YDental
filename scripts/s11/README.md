@@ -3,7 +3,7 @@
 `launcher.py` is a stage-specific foreground supervisor for the S11 scratch
 application. It does not create a database, install or upgrade modules, initialize
 users, perform business actions, or enable an external notification provider.
-It can start only the fixed scratch database at `127.0.0.1:18411` and only when
+It can start only the fixed S11 synthetic database at `127.0.0.1:18411` and only when
 the S11 private configuration and independent target-admission receipt are
 present and match the current clean product candidate.
 
@@ -12,17 +12,17 @@ present and match the current clean product candidate.
 The launcher refuses to start unless both files exist beneath the ignored path
 `.local/s11/`:
 
-- `runtime.json`, based on `runtime.example.json`, contains the verified DB
+- `new-target-runtime.json`, based on `new-target-runtime.example.json`, contains the verified DB
   login and newly issued S11 scope metadata. The login may be sourced from an
   authorized shared YDental project credential provider; this does not reuse an
   S10 runtime scope or approval. It must be owned by the current user and mode
   `0600`; `.local/s11` must be a user-owned private directory with no group or
   other access.
-- `admission.json`, based on `admission.example.json`, records a fresh independent
+- `new-target-admission.json`, based on `new-target-admission.example.json`, records a fresh independent
   verification of the exact DB name/OID/cluster, DB role, dbfilter, companies,
   stores, installed modules, non-superuser grants and upgrade permission, scope,
-  S10 preservation checkpoint, and disabled
-  external message/SMTP configuration. It must also be mode `0600` and attest the
+  new-target pre-write protection checkpoint, and disabled
+  external message/SMTP configuration and this target's protection checkpoint. It must also be mode `0600` and attest the
   hashes of the exact runtime file and committed launcher.
 
 These examples contain placeholders and intentionally cannot pass validation.
@@ -70,7 +70,7 @@ enabled.
 The service is supervised in the foreground for at most 20 minutes and never
 past scope expiry. One service log is capped at 32 MiB. The ephemeral Odoo config
 containing the DB password is deleted on exit; run metadata excludes secrets.
-The Odoo filestore uses the stable private `.local/s11/data/` directory across
+The Odoo filestore uses the stable private `.local/s11/new-target-data/` directory across
 owned restarts. This is required because the scratch DB stores attachment hashes
 for web bundles in PostgreSQL; a fresh per-run data directory would return empty
 web assets and leave the authenticated browser client blank. The path is S11

@@ -113,7 +113,7 @@ class LauncherSupervisorTests(unittest.TestCase):
             root = Path(temp)
             private_root = root / '.local' / 's11'
             run_id = '20261021T090000Z-' + 'a' * 12
-            run_dir = private_root / 'clock-runs' / run_id
+            run_dir = private_root / 'new-target-clock-runs' / run_id
             run_dir.mkdir(parents=True, mode=0o700)
             os.chmod(private_root, 0o700)
             os.chmod(private_root.parent, 0o700)
@@ -148,7 +148,7 @@ class LauncherSupervisorTests(unittest.TestCase):
             root = Path(temp)
             private_root = root / '.local' / 's11'
             run_id = '20261021T090000Z-' + 'e' * 12
-            run_dir = private_root / 'clock-runs' / run_id
+            run_dir = private_root / 'new-target-clock-runs' / run_id
             run_dir.mkdir(parents=True, mode=0o700)
             os.chmod(private_root, 0o700)
             os.chmod(private_root.parent, 0o700)

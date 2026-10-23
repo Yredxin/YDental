@@ -2,7 +2,7 @@
 """Fail-closed, foreground supervisor for the S11 scratch Odoo service.
 
 This launcher intentionally has no database-admission or credential-discovery
-logic. A separately verified S11 runtime.json and admission.json are required.
+logic. The new-target runtime and admission files must be independently verified.
 It never creates a database, installs modules, or enables external delivery.
 """
 
@@ -32,8 +32,8 @@ import uuid
 
 PLAN_ID = "YD-S11-FOLLOWUP-LAB-V1"
 EXPECTED_BRANCH = "codex/s11-followup-lab-r1"
-EXPECTED_DATABASE = "ydental_s10_test_20261017105432_ce6dcbf8"
-EXPECTED_OID = 2144130
+EXPECTED_DATABASE = "ydental_s11_synth_20261023_01"
+EXPECTED_OID = 2171423
 EXPECTED_CLUSTER = "7694897083368259627"
 EXPECTED_HTTP_HOST = "127.0.0.1"
 EXPECTED_HTTP_PORT = 18411
@@ -60,11 +60,11 @@ STOP_COMMAND_WAIT_SECONDS = STOP_GRACE_SECONDS * 2 + 15
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 PRIVATE_ROOT = REPO_ROOT / ".local" / "s11"
-RUNTIME_CONFIG = PRIVATE_ROOT / "runtime.json"
-ADMISSION = PRIVATE_ROOT / "admission.json"
-RUNS = PRIVATE_ROOT / "runs"
-DATA_DIR = PRIVATE_ROOT / "data"
-ACTIVE = PRIVATE_ROOT / "active.json"
+RUNTIME_CONFIG = PRIVATE_ROOT / "new-target-runtime.json"
+ADMISSION = PRIVATE_ROOT / "new-target-admission.json"
+RUNS = PRIVATE_ROOT / "new-target-runs"
+DATA_DIR = PRIVATE_ROOT / "new-target-data"
+ACTIVE = PRIVATE_ROOT / "new-target-active.json"
 ODOO_ROOT = REPO_ROOT.parent
 ODOO_BIN = ODOO_ROOT / "odoo-bin"
 PYTHON = ODOO_ROOT / ".venv" / "bin" / "python"
@@ -324,17 +324,17 @@ def validate_pair() -> tuple[dict, dict, dict, str, str]:
         "database_grants_verified",
         "database_role_not_superuser",
         "module_install_upgrade_permission_verified",
-        "old_s10_protection_verified",
+        "target_protection_checkpoint_verified",
     ):
         if admission.get(fact) is not True:
             raise Refusal(f"admission must independently verify {fact}")
     verifier = admission.get("verified_by")
     receipt = admission.get("verification_receipt")
-    preserve = admission.get("preservation_checkpoint_sha256")
+    preserve = admission.get("target_protection_checkpoint_sha256")
     if not isinstance(verifier, str) or not verifier.strip() or not isinstance(receipt, str) or not receipt.strip():
         raise Refusal("admission must identify an independent verifier and verification receipt")
     if not isinstance(preserve, str) or not re.fullmatch(r"[0-9a-f]{64}", preserve):
-        raise Refusal("admission must reference the S10 preservation checkpoint SHA-256")
+        raise Refusal("admission must reference this target's protection checkpoint SHA-256")
     companies = admission.get("allowed_company_ids")
     stores = admission.get("allowed_store_ids")
     modules = admission.get("installed_modules")
@@ -951,7 +951,7 @@ def validate_s11_clock_debug(branch: str, commit: str, gdb_capture: bool) -> dic
     if not re.fullmatch(r'[0-9]{8}T[0-9]{6}Z-[a-f0-9]{12}', run_id):
         raise Refusal('S11 session clock run id is malformed')
     run_dir = Path(os.environ['YDENTAL_S11_CLOCK_RUN_DIR'])
-    expected = PRIVATE_ROOT / 'clock-runs' / run_id
+    expected = PRIVATE_ROOT / 'new-target-clock-runs' / run_id
     try:
         if run_dir.resolve(strict=True) != expected.resolve(strict=True):
             raise Refusal('S11 session clock run directory is outside the fixed scope')

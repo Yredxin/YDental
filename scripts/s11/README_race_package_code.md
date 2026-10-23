@@ -27,8 +27,8 @@ runner also commits two ordinary scoped access sessions; their IDs are retained
 in the private receipt. It never deletes the resulting business or audit facts.
 
 Before use, complete the normal target admission and update the private
-`.local/s11/runtime.json` and `admission.json` for the exact clean committed
-candidate. Resolve or preserve any existing `.local/s11/active.json` owner
+`.local/s11/new-target-runtime.json` and `new-target-admission.json` for the exact clean committed
+candidate. Resolve or preserve any existing `.local/s11/new-target-active.json` owner
 record; the runner refuses whenever it exists. Supply IDs for two suitable new
 synthetic orders and an ordinary warehouse actor. The command requires both the
 full candidate and a literal execution confirmation:

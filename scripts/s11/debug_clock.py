@@ -39,7 +39,7 @@ def main() -> int:
         if L.ACTIVE.exists() or L.status_service() != 0:
             raise L.Refusal('the S11 service must be stopped before opening the debug-clock entrance')
         L.validate_loopback_port()
-        run_root = L.PRIVATE_ROOT / 'clock-runs'
+        run_root = L.PRIVATE_ROOT / 'new-target-clock-runs'
         L.ensure_private_dir(run_root)
         if len(list(run_root.iterdir())) >= L.MAX_RUNS:
             raise L.Refusal('S11 debug-clock history reached its bound; preserve and review it')
