@@ -1,3 +1,60 @@
+# 2026-10-23｜同一S11 v1.2续行最终增量
+
+**结论：PARTIAL，#35保持OPEN。** 本轮补齐G02所需通知领取、回调及首次费用出账竞争证据，完成T16“已接收、未入库取消”及非空待办/提醒处置修复。当前23标签矩阵仍因G01四场实物竞争及G03指定期限修复的原明确平台限制保持PARTIAL；不记录整体PASS或技术完成。以下是同一`YD-S11-FOLLOWUP-LAB-V1`的有效增量，旧报告及失败不覆盖。
+
+- 产品及最终回归候选：`96e5244b3c4296a58fe6fbbef8d9342a976e9b92`；固定core `f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb`。首账竞争实际候选`788171f7b7f611defeb66921dcdb8238cc8cf5c1`单列，不能冒在96重新执行。用户核对锚点d71f5c9及本地合法增量完整保留。
+- 唯一新目标仍为`ydental_s11_synth_20261023_01 / OID2171423 / cluster7694897083368259627`，受限同名role、127.0.0.1:5432；未建库、未重装97模块、未访问旧禁读对象、未重放旧经济链。
+- root统一服务和业务测试；runtime_audit实现T16，g02_test_review独立SOURCE/回归/升级/T16验收。g02编写首账工具，该项由未实现者runtime独立核原始结果并新RO/RR签限定通过。共享OS不冒隔离；作者不签自身实现。
+
+## 已完成及真实层级
+
+|增量|实际结果与限制|
+|---|---|
+|G02通知两场|承接132/379的双实际连接SKIP LOCKED领取及签名回调竞争、独立v4限定PASS，不重跑。回调首轮一方原生40001回滚后同事件恢复；最后成功区间不交叠。MODEL＋受控本地HTTP供应商，非回调HTTP/浏览器竞争或患者送达。|
+|G02首次出账|合法完成后返修31按普通13/12/6/9推进新的附加服务，冻结price41/39.50→charge20；普通14两session1254/1255、初次DB PID3713336/3713337交叠约0.6301s。B提交invoice33/source27/line65；A原生40001在提交前回滚，采证idle断言退出。新鲜RO确认A未提交、旧连接离开后，仅原A/key一次attempt2续行，最终receipts40/39同指唯一invoice33。借贷均39.50、未付39.50、无新调整/payment0；旧6/7及库存保持。非两不同人员；原生锁观测含hook开销，非纯服务器SQL耗时。|
+|T16产品|新开单及新返工周期关联唯一被动计划waiting；真实原生入库后ready；取消stopped。入库前只允许真实预约提醒，不伪造到货。received未stock允许取消，保接收事实/采购成本/患者费，关闭未完成计划、撤销pending、保已发/unknown历史，创建原生实物/费用和患者沟通责任活动。未退货/退款/贷项/戴用。|
+|T16非空持久证据|source26→order178/PO101 line101=42.75/fee26=137.25/followup226：真实pending545取消为cancelled0。source63→order179/PO102 line102=42.75/fee63=137.25/followup227：预约提醒546模拟accepted1后，真实改约生成pending547，再取消为cancelled0，546原事实保留。两单均真实received actor13、未入库，接收时间/费用成本保持，两个plan closed/stopped；provider只一请求。活动177/180为owner11沟通，178/179为owner13实物/费用核实，保留真实待处理，不假完成处置。供应商成本为已确认PO及sent快照，不冒供应商开票/付款；原80没有待办的历史结论不变。|
+|消息与权限|工单原生活动反馈仅内部inbox，直接邮件/模板/SMS受控；public create返回原调用环境，不泄内部mutation对象。原生mail.activity从真实SID恢复工作区，保留native ACL/源域和写revision要求，无sudo/ACL扩权。|
+|最终回归|101唯一方法=85混合MODEL/TransactionCase＋16 HttpCase；原83保留，新增14 MODEL/4 HTTP。官方0failed/0error，Odoo0，wrapper2因一条native附件audit只读→读写重试ERROR；授权GET200/无权404独立核实，原日志不抹。HttpCase保存点不冒持久业务或真实竞争。|
+|带数据升级|最终96显式四模块followup/lab及两test升级exit0/ERROR0，无Native；独立140业务/9技术/14附件前后核。先前ba198首次加入29条旧followup的NULL stage，旧字段/ID保持；最终96仅原生技术write_date/两个arch_prev变化，无业务增删/经济变化，不冒全库物理零diff。|
+|正常入口|正常direct真实浏览器8个正例页面/任务读取均通过：13工单178/179及原生活动178/179、11被动计划226/227及活动177/180、14结算账单33/6；另17真实登录/Store1后业务403、Store2拒绝、clock403。无工具预拦截或已识别应用/JS错误；各actor有1条response body无法检查且未存路径，不冒所有JSON逐条PASS。原生chatter以DOM+真实/mail/store200证明加载，订单截图仅内层滚动viewport，不冒底部已入图。|
+
+首账原race **wrapper2/Odoo child1**；一次原A恢复**0/0**。恢复工具字段`original_race_wrapper_exit_code_remains=1`误命名，值实际指child1，原件保留且独立回执明确纠正。`idle=false`不能单独判原生rollback失败：核心在rollback后可通过transaction reset/signaling SELECT开启新事务；原A当时具体SQL/数值状态未采，根因未动态证明，未修改core。
+
+首轮ba198回归100方法2failed/1error、Odoo1/wrapper2完整保留：跨actor测试record环境错误、public create内部context泄漏、native活动RPC无工作区绑定。修复后实际101回归覆盖原断言及新增负例；没有通过删断言或放宽ACL取代修复。私有工具执行前的默认model、预约slot重叠及activity ID映射错误已按真实来源纠正，未生成错误业务。
+
+## 独立验收及证据
+
+- 首账独立限定验收：`s11-firstbilling-independent-runtime-v2.json` SHA `641936d8975521f85ba559a1a719fb215183f580ea1c63b261823e6f4d4fde76`；新RO连接及17保护＋23当前查询，唯一账单/来源/明细/两回执/账务平衡逐项核。
+- T16/SOURCE/升级/101回归独立综合：`t16-final96-independent-review-v1.json` SHA `f32d79b9869eded882248d7c7472806134d223a27cd4e35df321d8aa4f10e91f`；17 addon文件两遍审、G03原方法字节保持。
+- 两非空持久场景及精确回收独立RO/RR：`t16-final96-independent-checkpoint-v1.json` SHA `7f204771cbdb7911229ee438aac9e880a4e85f774e891148f6572c0a98d7f606`。活动实际指令另核，不把存在空活动当责任出口。
+- 最终正常入口/OS/保护独立回执：`t16-final96-normal-entry-independent-v1.json` SHA `4bddd72dae67808fac0b2ee294701307e15e3b0d9480cdf024bc190486851566`；视觉/网络限定补充SHA `ae97bf847e469dc752863b5f30a97cfc2415466e89e3d18780c42197aa543db5`。唯一当前23标签矩阵`s11-current-23-label-independent-final-v1.json` SHA `44d7d7a710a5add18195b7f7a01775618ed04455514fe91ad355fb7bbf8c9d95`，原17eb9bde/v4保留并按层级承接。
+- 详细实际命令、固定工具/执行及各phase原始结果、截图哈希在[evidence-index](evidence-index.md)；原始provider、日志、截图及凭据均留本机，不上传Public。
+
+## 仍未完成的必要动作与正式恢复条件
+
+|缺口|事实/保留证据|恢复后仍须完成|
+|---|---|---|
+|G01|receipt/putaway/scan/cancel_receive四场真实独立连接竞争原未启动，原平台停止含`Agent errored: This content was flagged for possible cybersecurity risk`。原`race-batch-stop-platform-agent-turn-v1.json` SHA496c28e2…保留；串行178/179取消不覆盖这些竞争。|平台正式核实原正常入口及受影响动作恢复后，按同计划、唯一目标、固定候选完成实际竞争/提交核查及独立验收。|
+|G03|未来应用测试时钟、未预约联系成功期限仍取physical now；原指定修复被平台明确拒绝，未换执行者/入口补做。当前96方法在319、具体期限行325，旧271为历史位置，方法字节未变。|正式核实该指定修复动作恢复后再修复、定向未来时钟用例、影响回归及独立验收，不能以自然时间或已预约分支通过替代。|
+
+换会话、账号尚有余额或普通工具恢复均不构成上述正式恢复证明。已确认拒绝的动作本轮未重试；未受限的必要工作已持续推进。通用`aborted before dispatch`与具体平台拒绝分开：本轮接收agent消息后同入口恢复，已有完成结果承接，未知提交先核实；仍不宣称底层根因已根治。历史SIGSEGV、旧scratch/attempt30及旧F2缺证保持原结论，新结果不反签旧目标。
+
+## 可复现效果入口
+
+正常direct运行`20261023T124643Z-518416321a69`，`http://127.0.0.1:18411`，非GDB/无clock；原scope真实到期`2026-10-23 13:30:32.342242 UTC`未改。最终实际运行状态及同步读回见CURRENT_TASK/最终回执，不把此时点记录当永久运行。
+
+1. 用本机私有provider的warehouse/13登录并选Store1，打开`/odoo/ydental.lab.order/178`或179：取消状态、接收历史、未入库警示及内部责任活动；原生活动179/178分别对应178/179，勿反馈成已完成实物/费用处置来补报告。
+2. followup/11打开`/ydental/followups`，看226/227 closed/stopped及原生任务180/177；contact/reopen/complete不可用，历史546 accepted保留。
+3. settlement/14打开`/ydental/settlement`，查看新invoice33总额/余额39.50及原invoice6总28.50/余额23.50；原credit7=5独立保持，不重复点击出账/贷项/收款。
+4. 服务状态用`../.venv/bin/python scripts/s11/launcher.py status`。到期/停止后按现有正常fresh独立RO准入及真实scope流程再启动，不伪造旧时间、重建环境或重放业务。
+
+正式通知/SMTP、生产部署及用户效果验收#37边界不变。不合并、不部署、不启动S12/S13；GitHub最终同步与#35最终补充回执只在本次计划级结果收口后发布。
+
+---
+
+以下为既有交付及历史材料，按其原时间和证据层级保留；当前结论以上述续行增量为准。
+
 # 2026-10-23｜同一v1.2接管及工具中断诊断（未完成）
 
 **10:47 UTC增量：用户要求由本会话直接执行诊断后，主控已实际完成新的通知claim/callback竞争及配置回收。** 下文“未执行”保留为此前检查点，不覆盖本增量。

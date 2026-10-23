@@ -1,3 +1,43 @@
+# 2026-10-23｜同一v1.2续行最终证据增量
+
+当前产品/最终回归`96e5244b3c4296a58fe6fbbef8d9342a976e9b92`，首账实际`788171f7b7f611defeb66921dcdb8238cc8cf5c1`分列；唯一新目标OID2171423。整体**PARTIAL / #35 OPEN**，G02证据补齐、T16功能补齐；G01四场实物竞争和G03指定期限缺陷原停止保持。层级、失败及复现见[summary](summary.md)。以下均本机`.local/s11/`，原始日志/截图/provider不公开。
+
+|增量材料|本机路径|SHA256|真实层级/结论|
+|---|---|---|---|
+|G02首次首账准备|`.local/s11/new-target-tests/first-billing-postfit31-root20261023c/prepare/result.json`|`676b78a3adfa966c20807c8512650f6d86c6f5aea37dfb371a801ae2a9e07cfd`|普通角色新附加服务/price41/charge20=39.50；actual788|
+|首轮真实竞争原件|`.local/s11/new-target-tests/first-billing-postfit31-root20261023c/race/workers.json`|`00f6efe912e7b982b21d2b1712c4567b0d590e157b70c8b5c2ff10067eddfe13`|双真实PID/初次交叠/B提交/A原生40001；原失败不改|
+|首轮完整失败|`.local/s11/new-target-tests/first-billing-postfit31-root20261023c/race/failure.json`|`d50d423b312915c90e9877831a4b68102ce099c67396359bb828b869a8362a36`|Odoo child1/外层wrapper2，idle断言失败原件|
+|原A一次合法恢复|`.local/s11/new-target-tests/postfit31-resume-A-attempt2-v1/result.json`|`26fef4c9a9cc4b00d4050510457820404270da3bf68f8821cefe026970aec5d5`|same session/key attempt2；0/0，不冒新竞争；原字段命名纠正见summary|
+|首账未实现者独立验收|`.local/s11/verification/s11-firstbilling-independent-runtime-v2.json`|`641936d8975521f85ba559a1a719fb215183f580ea1c63b261823e6f4d4fde76`|限定PASS：raw结果＋新RO/RR、17保护/23当前查询，非HTTP或两不同人员|
+|T16 prepare|`.local/s11/new-target-tests/t16-committed-v1/prepare/result.json`|`235f08146dd1492610dbb3a5e649063fa18b0461b90edff08ac933aa103da170`|新178/179真实received；545pending0/546模拟accepted1，非空持久来源|
+|T16真实改预约|`.local/s11/new-target-tests/t16-committed-v1/reschedule/result.json`|`13e7d88063b36e69904916fefb8f355ff89193aa34eaf8a8f7575b09137b2736`|真实预约改期→新pending547；旧accepted546保持|
+|T16真实取消|`.local/s11/new-target-tests/t16-committed-v1/cancel/result.json`|`2309f1dc55e09cd812f3a88a3deb49e05e0e1c4503c724a6a407229500658531`|普通13、两单取消/planclosed stopped/545547cancelled0/成本费用接收保持|
+|T16精确配置回收|`.local/s11/new-target-tests/t16-committed-v1/cleanup/result.json`|`601e5122ff8d029dd1656e99354dbbcc57b44486bda65ab51ea579f4d5c15fa4`|policy/params存在性精确恢复；偏好不改、无历史删除|
+|T16已提交独立RO/RR|`.local/s11/verification/t16-final96-independent-checkpoint-v1.json`|`7f204771cbdb7911229ee438aac9e880a4e85f774e891148f6572c0a98d7f606`|fresh精确新目标/原始prestate及终态/1provider请求/各2原生活动|
+|责任任务指令独立核|`.local/s11/verification/t16-final96-responsibility-instructions-ro-v1.json`|`44e7b1e0d059e38aed8af82e03b47c2346dc2e9dd071d7c4f57d13cf2ee9eb30`|实际note仅记录匹配布尔，不泄正文；取消指令非陈旧到货联系|
+|初轮ba198失败回归|`.local/s11/new-target-tests/t16-ba198-v1-suite/result.json`|`77b3deabb26da6c0fdedaa2b4455afaa57ce62b26f1eea607935dc5b3d54d432`|100方法2failed1error、child1/wrapper2，无Native；后续修复真实覆盖|
+|最终96带数据升级|`.local/s11/new-target-tests/t16-96e5244-v1-upgrade/result.json`|`278a9eeb26bce90370c3b14d399e0483f85c5e1eed1be041847011314ec4c81a`|显式4模块，exit0/ERROR0，非97模块重装/业务重放|
+|最终96升级pre|`.local/s11/verification/upgrade-t16-96e5244-v1-pre.json`|`523af019403d6ad2d64b379b98025b4af5a2839ed1f3069004dee9ba7a6df3dd`|140业务/9技术/14附件，实际freeze/候选|
+|最终96升级post|`.local/s11/verification/upgrade-t16-96e5244-v1-post.json`|`a5e76276a67cf53a56d3478295d9bcee80e8965c8b85d233e3bc49f06374e922`|同候选精确目标/配置/附件/经济保护|
+|最终96升级diff|`.local/s11/verification/upgrade-t16-96e5244-v1-diff.json`|`618d1c9a1f018f90f5e642e84ffb010646139c6c1e9bec54c819960290421394`|技术write_date/arch_prev分类，不假全库物理零diff|
+|最终101回归|`.local/s11/new-target-tests/t16-96e5244-v1-suite/result.json`|`cd53bb8bbfade871f825b0d168005b3d9038be6a2951cfee1ffb4f6d5cd6d1fe`|85混合MODEL+16HTTP；官方0/0、Odoo0/wrapper2；1native重试ERROR保留|
+|17文件/升级/回归/T16独立综合|`.local/s11/verification/t16-final96-independent-review-v1.json`|`f32d79b9869eded882248d7c7472806134d223a27cd4e35df321d8aa4f10e91f`|两遍SOURCE/原83+18及原失败闭环/G03原字节保持；作者不自签|
+|正常服务fresh准入|`.local/s11/verification/new-target-t16-final96-fresh-admission-v1.json`|`f0105566e024a866416375a7de15dcd777807ff15a291249c8151d23feb202e2`|独立12:45:47现场RO，scope原13:30:32不改；root集中provider/start|
+|真实browser正常8cases|`.local/s11/new-target-tests/browser-t16-normal-readonly-root-final96-v1/result.json`|`b4f09b951c7135485b1cb30780db17884bcee08469ca3447cb04156878fd6723`|13/11/14实际页面及任务RPC；无业务写，保各actor1条body未能读取限制|
+|真实browser无权17|`.local/s11/new-target-tests/browser-t16-final96-none-v1/result.json`|`a78d1592302e2181cbfe97bddf8deb09beea9f88cc6ff0109e733aa8b7cf5040`|实际登录/切Store1；业务403、Store2拒绝、clock403；截图视觉独立核|
+|最终正常入口/OS/RO独立|`.local/s11/verification/t16-final96-normal-entry-independent-v1.json`|`4bddd72dae67808fac0b2ee294701307e15e3b0d9480cdf024bc190486851566`|12:56:59真实出生ticks/socket/候选/独立RO不变，非永久运行|
+|独立视觉/网络限定|`.local/s11/verification/t16-final96-normal-entry-visual-network-supplement-v1.json`|`ae97bf847e469dc752863b5f30a97cfc2415466e89e3d18780c42197aa543db5`|原生订单截图仅viewport，chatter DOM+mail/store200；3条body unavailable路径未留，不冒全JSON检查|
+|唯一当前23标签最终矩阵|`.local/s11/verification/s11-current-23-label-independent-final-v1.json`|`44d7d7a710a5add18195b7f7a01775618ed04455514fe91ad355fb7bbf8c9d95`|整体PARTIAL/仅G01 G03；原17eb/v4不覆盖，首账引用非作者runtime验收|
+|有界派发诊断v3|`.local/s11/verification/main-session-direct-execution-diagnostic-20261023-v3.json`|`c3e8c181842df9c003d3bdf4fade21e69bbf6afc2f73d137c8ce70c49c20d303`|只限收集时尾部4MB/12:00后可见样本，后续中止不排除；非根因/额度或平台解除证明|
+
+当前源码G03方法319/期限physicalnow行325；旧索引271只为原候选位置。恢复工具里的旧race“wrapper exit1”字段实际为Odoo child1，外层CLI wrapper2，原字节保留。当前方法与旧候选字节一致，不以新结果反签历史。
+
+G01原停止原文/范围见下方RACESTOP496c28e2…；G03原指定修复平台拒绝按原summary及原矩阵保留，不为未试场景虚构单独拒绝，不换执行者/工具重试。当前23矩阵是独立新增结果，不改旧17eb9bde或v4。
+
+---
+
+以下为原有接管/交付及历史索引，按原时间和层级保留。
+
 # 2026-10-23｜接管与派发中断诊断增量
 
 10:47 UTC已追加主控实际新通知竞争，前述/后述NOT_RUN按各自时点保留；独立角色v4已对实际通知两场及回收签限定PASS，整体PARTIAL。

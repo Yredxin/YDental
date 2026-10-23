@@ -1,13 +1,16 @@
 # S11 当前执行状态｜YD-S11-FOLLOWUP-LAB-V1 / 整合v1.2
 
-## 当前续行摘要｜2026-10-23 12:40 UTC
+## 最终部分交付｜2026-10-23 13:00 UTC
 
-- 同一v1.2计划，唯一目标仍`ydental_s11_synth_20261023_01 / OID2171423 / cluster7694897083368259627`；无回退/重建/旧经济重放。产品/最新实测候选`96e5244b3c4296a58fe6fbbef8d9342a976e9b92`，core固定；本地主树只余本状态文档变化，未push新增量/未发Issue过程评论。
-- G02 claim/callback旧本轮限定通过承接；新增首次出账真实初次双连接竞争+已知40001后原请求A一次恢复，未实现者独立限定PASS回执641936d8…。实测候选788，原race wrapper2/Odoo1、恢复0/0分列；只一张新发票33=39.50，原6/7保持。
-- T16新单关联waiting计划、真实入库ready、取消stopped，received未stock取消保接收/成本/患者费并有原生责任活动；普通create不泄内部context、原生活动SID绑定及inbox-only保护已修。独立SOURCE复核；首轮ba198/100项2fail1error保留，修复后96e5244实际101项0fail0error/Odoo0，wrapper2因已知原生审计只读重试ERROR，待独立核层级。四模块带数据升级0/0，两次140业务/9技术/14附件保护快照保留，独立分类不冒全库零diff。
-- 新普通业务两场已提交：source26→order178/PO101 line101=42.75/followup226/job545；source63→order179/PO102 line102=42.75/followup227/模拟accepted546→真实改期新pending547。两单真实received actor13后取消，两个plan closed/stopped，545/547cancelled0、546accepted1保留；患者fee26/63各137.25及旧库存/账务保持，原生责任活动177—180各配owner11/13。不是80补历史，不假退货/退款/戴用；review活动保持真实待处理。
-- 持久用例prepare/reschedule/cancel/cleanup均wrapper/Odoo0；精确policy/params恢复，既有message偏好不改，sink2417205 Ctrl-C正常exit0/18412释放。服务launcher实际STOPPED，正常入口尚未为本候选启动。唯一root调服务/业务；runtime作者不签自身T16，g02独立核原始结果/新RO、最终F/T及正常入口准入中。
-- 正常runtime候选已更新96e5244（SHA81e9afba…），scope原issued/expiry未改，实际到13:30:32.342242 UTC；当前12:40仍有效，admission新候选准入待独立fresh证据后root集中更新。不开clock/真实外部能力。G01四场竞争/G03特定期限修复原明确平台停止保持，不重试、不换入口；整体PARTIAL/#35 OPEN。下一步完成最终普通入口实证、独立总验收及计划级最终GitHub同步，不合并/部署/启动后续阶段。
+- 同一`YD-S11-FOLLOWUP-LAB-V1 / v1.2`，结论**PARTIAL / #35 OPEN**。本轮未受限制的必要业务、修复及验收已完成，仅剩G01四场实物真实竞争和G03指定未来未约联系期限修复的原明确平台限制；没有重试/换入口。正式恢复条件及原证据见[最终summary](docs/reports/s11/summary.md)、[evidence-index](docs/reports/s11/evidence-index.md)。
+- 固定产品/最终回归候选`96e5244b3c4296a58fe6fbbef8d9342a976e9b92`；首账实际`788171f7b7f611defeb66921dcdb8238cc8cf5c1`分列，core固定f0c5a9b4。唯一新目标`ydental_s11_synth_20261023_01 / OID2171423 / cluster7694897083368259627`。用户锚点d71f5c9后的合法增量保留，无回退/重建/97模块重装/旧经济重放。
+- G02通知两场承接v4，新首次出账初次双DB PID交叠＋已知40001后原A/key一次恢复，唯一charge20/source27/invoice33/line65=39.50、receipts39/40；未实现者runtime限定PASS641936d8…。原race CLI wrapper2/Odoo child1，恢复0/0；工具字段误命名不改原件。17保护/账务平衡/旧6、7及库存保持，不冒两不同人员或HTTP/browser竞争。
+- T16新开单关联waiting、实际入库ready、取消stopped；received未stock取消保事实并建原生责任活动。真实新178/179已接收actor13后取消，545/547pending0→cancelled0、546模拟accepted1保留；两个plan226/227closed/stopped，各PO101/102=42.75、原fee26/63各137.25保持、无stock/fit/退款/贷项。活动177/180owner11沟通、178/179owner13实物/费用核实真实待处理，不假完成。80无待办的旧结论不改。
+- 最终101唯一=85混合MODEL/TransactionCase＋16HTTP，原83保留＋18；官方0failed/0error/Odoo0，wrapper2因一条原生附件audit只读→读写重试ERROR保留，授权GET200/无权404已独立核。初轮ba198/100方法2fail1error/exit1及三修复真实闭环保留。最终四模块带数据升级0/ERROR0，140业务/9技术/14附件前后独立分类，非全库物理零diff。
+- g02未实现T16，独立两遍SOURCE17文件及升级/回归/两持久非空场景回执f32d79b9…；最终正常入口/OS/新RO回执4bddd72d…，视觉/网络限定ae97bf84…；唯一当前23矩阵44d7d7a7…整体PARTIAL。共享OS不冒隔离，g02不自签其首账工具，而承接runtime独立6419回执。真实browser8正例及无权17负例通过；每actor1条response body不可查且路径未留、chatter以DOM+mail/store200核，截图只内层viewport，不冒全JSON或底部视觉证明。
+- 正常direct `run20261023T124643Z-518416321a69 /127.0.0.1:18411`，supervisor2423557/child2423593；独立12:56:59核出生ticks/唯一owned socket/实际页面，原scope到13:30:32.342242 UTC未改，非永久运行/非GDB/无clock。policy/adapter/callback精确恢复off、SMTP0/clock成员0，sink2417205正常exit0/18412释放。复现入口13原生178/179、11followups226/227、14结算33/6；凭据只本机provider，勿重放经济动作。
+- 通用aborted before dispatch已按收消息→核实际成果/提交→同原入口接续，独立视觉调用亦正常恢复；不归因已证额度/上下文上限，不宣称底层根因根治。历史SIGSEGV/旧scratch/attempt30/旧F2缺证保留，不用新目标反签旧完整性。
+- 本地最终报告提交及Public秘密检查/正常push/远端ref与#35最终补充回执读回正在收口；**SYNC_PENDING**，尚不冒称已同步。root唯一文档/服务写者，无Issue过程评论；最终一次格式化结果按现行规则同步，不合并/部署/启动S12/S13。
 
 ### 12:09 UTC｜首账真实竞争已提交一方，受控核实后仅接续已中止请求
 
