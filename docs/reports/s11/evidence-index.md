@@ -1,5 +1,21 @@
 # 2026-10-23｜接管与派发中断诊断增量
 
+10:47 UTC已追加主控实际新通知竞争，前述/后述NOT_RUN按各自时点保留；独立角色v4已对实际通知两场及回收签限定PASS，整体PARTIAL。
+
+|主控实际增量|本机路径|SHA256及层级|
+|---|---|---|
+|同sink程序短启停|`.local/s11/verification/main-session-sink-program-probe-20261023-v1.json`|33b30eea39f244bbdb996a8b4969492d543dd201e84dac533a393aacd288c901；真实进程exit0/无stderr/端口释放/无provider增量|
+|普通准备a回滚核|`.local/s11/verification/g02-root-prepare-a-rollback-readback-v1.json`|f7219eb61c957a715bdbcbc721cc8a7f9820b48d4ffbce7f52bac2c507a02b21；argv不匹配RuntimeError、提交未开始，RO/RR配置off/原done保持|
+|新379准备后独立连接|`.local/s11/verification/g02-root-b-preclaim-independent-connection-ro-v1.json`|8dc7e153bb448697c3582b3e6a0895181a7aa6b5f27fb08b712ed21d5b688cc8；132planned/379pending0，PID3694061，旧done/账务保持|
+|新379真实claim|`.local/s11/new-target-tests/g02-root20261023b/claim/result.json`|89c366495a7b05d5c2a4589f6b2a2d4e92808d45aa2eac1f6bdebb5ef619a092；双DB PID/SQL区间交叠/row0、1/provider1，不冒实际外部送达|
+|新379真实callback竞争|`.local/s11/new-target-tests/g02-root20261023b/callback/result.json`|5e82a9d428456fb07694b773e0b705cbb601963ae4555af70bb47ca6935ea0c8；初次双PID交叠/已知回滚后同事件重试/accepted+duplicate，MODEL签名服务非HTTP；最终成功区间不交叠|
+|精确配置回收|`.local/s11/new-target-tests/g02-root20261023b/cleanup/result.json`|9693438fdc83d854d4d041f9507e2c32e73c2c0c3d6f7b8588849d1b3a9aa75a；实际提交exit0，业务历史不删|
+|最终已提交RO/RR|`.local/s11/verification/g02-root-b-final-committed-readback-v1.json`|433aa7ccc5c97261b2ea999713d96938df211ac5c2285ce5a1c79532f8adff65；主控独立连接、经济/旧通知示例保持、配置off/端口释放；后经独立角色v4复核|
+|本会话直接执行诊断|`.local/s11/verification/main-session-direct-execution-diagnostic-20261023-v1.json`|f40ec3cdf9cb07ef12efc88521c93eb8959fb3d707473e23f1378b977ad54683；截至生成时10:40起26个tool outputs/exact abort0，20项主控进程测试、正常错误a与新竞争b分层，不判历史agent根因已解|
+|通知两场及回收独立验收|`.local/s11/verification/s11-takeover-gap-audit-20261023-v4.json`|32a9c6d24ef8a39040ca579cd936282ca1907a7d553d1f71c84b147ad87d7cd1；限定PASS，原始worker/日志/候选及25条RO/RR，旧保护对象保持/配置回收；非整体PASS|
+|新F/T增量映射|`.local/s11/verification/s11-takeover-ft-delta-20261023-v4.json`|ba9256e25ea46c76492a298c86da8730eb4cc9a9d77f7eb781972c5eebf84f35；新增通知竞争补充，原17eb9bde矩阵不覆盖，G02首次出账/G01/G03/T16仍缺|
+|本会话等待异常与同turn恢复|`.local/s11/verification/main-session-direct-execution-diagnostic-20261023-v2.json`|2b39f69f1ba81e3447b63c47eebf6c217e8ea69c80a45450f20014e97a1e8e88；1次wait_agent派发前中止、agent实际完成、随后主控exec恢复，不冒内部根因定论|
+
 仅新合成目标；以下不补签G01/G02/G03或T16，不改原最终矩阵。
 
 |材料|本机路径/源码|SHA256及真实层级|

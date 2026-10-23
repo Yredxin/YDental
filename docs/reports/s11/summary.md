@@ -1,6 +1,15 @@
 # 2026-10-23｜同一v1.2接管及工具中断诊断（未完成）
 
-本节为本地实施事实增量，原d71f5c9最终回执与历史不改写。新业务写入、配置变更及竞争均未执行；唯一新库RO/RR身份及候选元数据核实通过。旧禁读目标未访问。
+**10:47 UTC增量：用户要求由本会话直接执行诊断后，主控已实际完成新的通知claim/callback竞争及配置回收。** 下文“未执行”保留为此前检查点，不覆盖本增量。
+
+- 主控同20项临时合成进程/pidfd测试exit0；同sink程序独立短启停exit0/无stderr/provider历史SHA零变，G02三脚本AST/compile通过，未复现程序崩溃。普通准备a遇相对argv/严格absolute约定不匹配，wrapper2/child1，提交未开始；RO核回滚且原done24/配置off保持。按正确启动方式继续b是普通错误修复，不是重试安全拒绝。
+- 普通11在真实source26/p26新建132，计划自然时间+90s、job379先持久pending0。claim真实PID3694173/3694174、原生SQL区间交叠、SKIP LOCKED row0/1，模拟provider仅1请求。callback初次PID3694232/3694233区间交叠，一方已知事务回滚后同事件正常重试；最终accepted/duplicate、两条callback记录（delivered与迟到accepted），终态保持delivered。最终成功尝试区间不交叠，不掩盖重试。所有阶段exit0，无Native。
+- 主控新独立RO/RR连接核132notified/379delivered1；原24done、108unknown1、377pending0/378cancelled0、账单6总28.50/余23.50、贷项7=5/余0、payment0/charge4billed保持。cleanup精确恢复before，两店policy off/adapteroff/callback空/SMTP0、sink退出0，18411/18412无监听。主控核验SHA433aa7cc…；未实现者独立v4（32a9c6d2…）核原始结果及25条RO/RR查询，对通知两场和回收签限定PASS，整体仍PARTIAL。claim观测时间含hook日志开销，不冒服务器纯SQL耗时；迟到accepted为串行分支。
+- 这是MODEL真实双数据库连接及本地模拟provider HTTP，callback经真实签名服务入口但非HTTP/browser竞争，不证明患者送达。执行候选ccc848b（产品仍等价881/1bca、仅新增恢复工具和报告），三个实际私有helper字节另pin。G02首次出账竞争仍缺，G01/G03原限制、T16功能缺口不清，整体PARTIAL/#35 OPEN。
+- 因果结论保持有界：主控当前路径成功，普通工具错误已具体定位；不足以证明历史agent异常均由程序引起，也不足以将消息与中止的相关性定为客户端根因。不增加新业务审批链。
+- 独立结果到达时wait_agent又出现1次准确派发前中止，agent本身正常完成并留下回执；收取结果后同一turn主控exec恢复成功，无新用户回合/换入口。这是可恢复的工具/消息交互异常观察，不能作为业务程序崩溃或agent均退出的证据。v2诊断保留本次中止及后续成功，原5次诊断原件不覆盖，G01/G03具体安全限制仍原样保留。
+
+以下为主控直接运行前的接管检查点，按当时时点保留，原d71f5c9最终回执与历史不改写。当时新业务写入、配置变更及竞争均未执行；唯一新库RO/RR身份及候选元数据核实通过。旧禁读目标始终未访问。
 
 - 团队三项结果已收齐，既有最终矩阵37份引用SHA全部匹配，独立审计仍PARTIAL。T16另有具体实现缺口：开单未关联被动计划、仅putaway建立；需求允许入库前取消，产品仅准接收前取消。80原无待办的实证不能证明取消既有待办。按现有要求可普通修复，不通过伪造关系补正例。
 - 18411实际监听，但supervisor2291813消失、child2291833/PPID1仍活，正常status为STALE_OWNER_RECORD。原run无exit.json，日志最后写09:27:34，原因未证，不能再依赖原两小时监管期限。内核09:10—10:20指定OOM/segfault检索无条目（exit1），不是完整历史证明。未发服务信号。
