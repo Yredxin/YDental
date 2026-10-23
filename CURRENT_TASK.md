@@ -2,7 +2,7 @@
 
 ## 范围与当前结论
 
-- 持续执行同一个 [实施计划](docs/execution/S11_IMPLEMENTATION_PLAN.md) W0—W5，不新建平行计划、不逐步骤审批。当前 **PARTIAL / EXTERNAL_LIMITS_REMAIN**，#35保持OPEN；尚未最终同步，不合并、不部署、不启动S12/S13。
+- 持续执行同一个 [实施计划](docs/execution/S11_IMPLEMENTATION_PLAN.md) W0—W5，不新建平行计划、不逐步骤审批。当前 **PARTIAL / EXTERNAL_LIMITS_REMAIN**，#35保持OPEN；产品及报告a7da0f6已正常push/远端ref读回匹配，不合并、不部署、不启动S12/S13。
 - 分支 `codex/s11-followup-lab-r1`；起点0b5fe48；产品候选 `881194a73fdfb113165e4587b1befe8ed14ca05c`，实际测试/运行候选 `1bca71df2792e2deca9014f38cf2c041cb22efca`。后者仅修一项空模型权限测试断言，独立等价核63621f3c…；报告HEAD单列。固定core `f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb`。
 - 唯一新业务目标 `ydental_s11_synth_20261023_01 / OID2171423 / cluster7694897083368259627`，127.0.0.1:5432，受限同名role；承接97模块安装，不再建库或重装。
 - 主控/root唯一调度共享目标写入和服务；tester_cont离线普通工具；acceptance_cont独立审查与RO实证，不实现被验产品。共享OS，不冒隔离。
@@ -17,7 +17,7 @@
 - 最终正常direct **run20261023T091624Z-346b6246527e /127.0.0.1:18411** 实际运行，无GDB/clockmanifest，独立cf56e1ad…。运行上限11:16:24.391394Z，原scope到13:30:32.342242Z；start前fresh09:15:46起30min，后续正常重开需真实新RO回执，不能伪造时间。正常命令 `../.venv/bin/python scripts/s11/launcher.py status|stop|start`（分别单命令）。
 - 普通11随访/9临床/13原生工单79/14结算工作台均可用，17业务和Store2拒绝，全部clock403，UID2 Users正常。14工作台实际账单6=28.50/余额23.50，独立credit7=5/partial3/源5、6/payment0保持；额外genericnative发票form实际既有source guard拒绝，nestedmodel未知，不冒PASS/不改保护。
 - 临时clock成员含inactive关系0，335停用；2active/system与普通角色保留，adapteroff/callback空/policy1、2off/SMTP0，sink正常退出0且18412关闭。退役clock9正常删除ACL拒绝后保留原行，无SQL/sudo删；当前direct不能用旧run时钟。GDB正常ownedstop child0/signalnull/core0，supervisor143单列。
-- 所有原始provider/日志/截图只留本机；Public待提交内容已对761个未发布blob扫描当前五个正常provider精确秘密值及3强模式0发现，最终新报告再核。密码不报告，不搜旧被拒账号材料。本报告同步前状态SYNC_PENDING，实际正常push/远端读回和#35最终评论在最终交付回执记录，不预写SYNCED。
+- 所有原始provider/日志/截图只留本机；Public待提交内容已对761个未发布blob扫描当前五个正常provider精确秘密值及3强模式0发现，最终新报告再核。密码不报告，不搜旧被拒账号材料。同步：产品/最终报告提交a7da0f6ac1d8af1cf7f524cec658404cba2be5da已正常push且远端ref独立读回一致；本条状态更新的最终HEAD/readback及#35最终评论在交付回执记录。#35仍OPEN，不将SYNCED冒技术COMPLETE。
 
 ## 历史与真实外部边界
 
