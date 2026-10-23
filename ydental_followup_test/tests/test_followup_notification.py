@@ -70,6 +70,40 @@ class TestFollowupNotification(TransactionCase):
         with self.assertRaises(AccessError):
             self.env['ydental.followup'].sudo().create({'name': 'Bypass attempt'})
 
+    def test_daytime_quiet_hours_end_on_the_same_local_date(self):
+        policy = SimpleNamespace(
+            ydental_store_id=SimpleNamespace(ydental_timezone='UTC'),
+            ydental_quiet_start='09:00', ydental_quiet_end='18:00',
+        )
+        self.assertEqual(
+            self.followup_service._quiet_hour_due(datetime(2026, 10, 23, 10), policy),
+            datetime(2026, 10, 23, 18),
+        )
+        for instant in (datetime(2026, 10, 23, 8), datetime(2026, 10, 23, 18)):
+            self.assertEqual(self.followup_service._quiet_hour_due(instant, policy), instant)
+
+    def test_overnight_quiet_hours_choose_the_next_end(self):
+        policy = SimpleNamespace(
+            ydental_store_id=SimpleNamespace(ydental_timezone='UTC'),
+            ydental_quiet_start='22:00', ydental_quiet_end='08:00',
+        )
+        for instant, expected in (
+            (datetime(2026, 10, 23, 23), datetime(2026, 10, 24, 8)),
+            (datetime(2026, 10, 24, 2), datetime(2026, 10, 24, 8)),
+            (datetime(2026, 10, 24, 8), datetime(2026, 10, 24, 8)),
+        ):
+            self.assertEqual(self.followup_service._quiet_hour_due(instant, policy), expected)
+
+    def test_quiet_hours_use_store_local_date_before_utc_midnight(self):
+        policy = SimpleNamespace(
+            ydental_store_id=SimpleNamespace(ydental_timezone='America/Los_Angeles'),
+            ydental_quiet_start='00:00', ydental_quiet_end='23:59',
+        )
+        self.assertEqual(
+            self.followup_service._quiet_hour_due(datetime(2026, 10, 23, 5), policy),
+            datetime(2026, 10, 23, 6, 59),
+        )
+
     def test_enqueue_registers_deferred_postcommit_dispatch(self):
         callbacks = self.env.cr.postcommit
         registered = []

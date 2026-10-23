@@ -250,7 +250,7 @@ class YDentalFollowupService(models.AbstractModel):
         if not quiet:
             return instant
         target_date = local.date()
-        if start < end or current >= start:
+        if start >= end and current >= start:
             target_date += timedelta(days=1)
         target = datetime.combine(target_date, end)
         return timezone.localize(target, is_dst=None).astimezone(pytz.UTC).replace(tzinfo=None)
