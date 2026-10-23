@@ -281,6 +281,7 @@ class LauncherSupervisorTests(unittest.TestCase):
                   patch.object(launcher, 'ACTIVE', active),
                   patch.object(launcher, 'validate_pair', return_value=(
                       runtime, {}, database, launcher.EXPECTED_BRANCH, 'c' * 40)),
+                  patch.object(launcher, 'git_value', return_value='c' * 40),
                   patch.object(launcher, 'validate_live_database',
                                side_effect=launcher.Refusal('wrong database')),
                   patch.object(launcher.subprocess, 'Popen') as popen):
@@ -482,6 +483,7 @@ class LauncherSupervisorTests(unittest.TestCase):
                   patch.object(launcher, 'PYTHON', Path(sys.executable)),
                   patch.object(launcher, 'validate_pair', return_value=(
                       runtime, {}, database, launcher.EXPECTED_BRANCH, 'a' * 40)),
+                  patch.object(launcher, 'git_value', return_value='a' * 40),
                   patch.object(launcher, 'validate_live_database'),
                   patch.object(launcher, 'validate_loopback_port'),
                   patch.object(launcher, 'render_odoo_config', side_effect=render_config)):
@@ -528,6 +530,7 @@ class LauncherSupervisorTests(unittest.TestCase):
                   patch.object(launcher, 'STOP_GRACE_SECONDS', 0.1),
                   patch.object(launcher, 'validate_pair', return_value=(
                       runtime, {}, database, launcher.EXPECTED_BRANCH, 'b' * 40)),
+                  patch.object(launcher, 'git_value', return_value='b' * 40),
                   patch.object(launcher, 'validate_live_database'),
                   patch.object(launcher, 'validate_loopback_port'),
                   patch.object(launcher, 'render_odoo_config', side_effect=render_config)):

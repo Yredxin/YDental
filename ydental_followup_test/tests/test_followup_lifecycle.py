@@ -1,17 +1,22 @@
-from datetime import timedelta
+from datetime import datetime, time, timedelta
 from unittest.mock import patch
 
+import pytz
+
 from odoo import Command, fields
-from odoo.exceptions import AccessError
+from odoo.exceptions import AccessError, UserError
 from odoo.tests import TransactionCase, tagged
 
 from odoo.addons.ydental_treatment_test.tests.common import (
+    arrive_report,
     bind,
     handover_args,
     key,
     make_slot,
     price,
     qualify,
+    save_args,
+    serving,
 )
 from odoo.addons.ydental_treatment_test.tests.common import patient as create_patient
 from odoo.addons.ydental_treatment_test.tests.treatment_common import (
@@ -110,6 +115,7 @@ class TestFollowupLifecycle(TransactionCase):
         })
         execution.invalidate_recordset(['state', 'ydental_ended_at'])
         self.assertEqual(execution.state, 'handover')
+        _queue._operate('exit', {'lease_id': lease['lease_id'], 'token': lease['token']})
         entitlement = execution.ydental_task_id.ydental_entitlement_id
         self.assertTrue(entitlement)
         self.assertEqual(entitlement.ydental_channel, 'reservation')
@@ -185,10 +191,20 @@ class TestFollowupLifecycle(TransactionCase):
         # Exercise the real repeated-cron transition with an explicit test
         # boundary; this does not change the host clock or pretend time elapsed.
         overdue_at = followup.ydental_deadline_at + timedelta(seconds=1)
-        service._expire_unbooked_followups(overdue_at)
+        cron_model = self.root['ydental.followup'].with_context({})
+        with patch.object(type(service), '_now', return_value=overdue_at):
+            cron_model._cron_run_due()
+            cron_model._cron_run_due()
         followup.invalidate_recordset(['state', 'ydental_schedule_version'])
         self.assertEqual(followup.state, 'to_notify')
         self.assertEqual(job.ydental_state, 'cancelled')
+        overdue_audits = self.root['ydental.access.audit'].search([
+            ('ydental_event', '=', 'followup.overdue_contact'),
+            ('ydental_target_model', '=', 'ydental.followup'), ('ydental_target_id', '=', followup.id),
+        ])
+        self.assertEqual(len(overdue_audits), 1)
+        self.assertEqual(overdue_audits.ydental_store_id, self.stores[0])
+        self.assertEqual(overdue_audits.ydental_source, 'followup_cron')
 
         linked = service._operate('link_appointment', {
             'followup_id': followup.id, 'appointment_id': entitlement.id, 'status': 'booked',
@@ -215,16 +231,23 @@ class TestFollowupLifecycle(TransactionCase):
         self.assertEqual(followup.ydental_closed_reason, 'Synthetic patient declined further follow-up')
         self.assertEqual(followup.ydental_appointment_status, 'booked')
 
-        # Verify the positive appointment path separately: only a real arrival
-        # tied to this exact held reservation permits the actual linked treatment
-        # event to complete follow-up.
+        # Reusing the original visit cannot complete a new follow-up, including
+        # an explicitly confirmed association without an appointment.
         linked_followup = service._operate('create', payload | {
             'planned_at': fields.Datetime.to_string(fields.Datetime.now()),
         })
         linked_row = self.root['ydental.followup'].browse(linked_followup['id'])
+        with self.assertRaises(UserError):
+            service._operate('complete', {
+                'followup_id': linked_row.id, 'event_id': event.id,
+                'confirmed_unlinked': True, 'reason': 'Original visit is not a return encounter',
+            })
+        self.assertNotEqual(linked_row.state, 'done')
+        reservation = qualify(self, patient_id=patient.id)
         service._operate('link_appointment', {
-            'followup_id': linked_row.id, 'appointment_id': entitlement.id, 'status': 'booked',
+            'followup_id': linked_row.id, 'appointment_id': reservation['id'], 'status': 'booked',
         })
+        arrive_report(self, reservation)
         actual_arrival = self.root['ydental.intake.arrival'].sudo().search([
             ('ydental_patient_id', '=', patient.id),
             ('ydental_store_id', '=', execution.ydental_store_id.id),
@@ -236,14 +259,33 @@ class TestFollowupLifecycle(TransactionCase):
         linked_row.invalidate_recordset(['ydental_appointment_status', 'state'])
         self.assertEqual(linked_row.ydental_appointment_status, 'arrived')
         self.assertNotEqual(linked_row.state, 'done', 'arrival alone is not a completed encounter')
+        task = self.root['ydental.intake.task'].browse(reservation['task_id'])
+        queue, next_lease, next_execution = serving(self, task=task)
+        next_clinical = queue.env['ydental.clinical.service']
+        next_document = next_clinical._operate('open', {
+            'execution_id': next_execution.id, 'lease_id': next_lease['lease_id'],
+            'lease_token': next_lease['token'],
+        })
+        next_document.update(next_clinical._operate('save', save_args(next_document)))
+        next_args = {
+            'execution_id': next_execution.id, 'lease_id': next_lease['lease_id'],
+            'lease_token': next_lease['token'], 'document_id': next_document['document_id'],
+            'document_version': next_document['version'],
+        }
+        next_result = queue.env['ydental.treatment.service']._operate('execute', execute_args(self, next_args), key())
+        next_event = self.root['ydental.treatment.event'].browse(next_result['event_id'])
+        next_clinical._operate('handover', handover_args(next_document, next_lease) | {
+            'reason': 'Synthetic return encounter ended after its actual treatment',
+        })
         service._operate('complete', {
             'followup_id': linked_row.id,
-            'event_id': event.id,
+            'event_id': next_event.id,
         })
         linked_row.invalidate_recordset(['ydental_appointment_status', 'state', 'ydental_completed_event_id'])
         self.assertEqual(linked_row.state, 'done')
         self.assertEqual(linked_row.ydental_appointment_status, 'seen')
-        self.assertEqual(linked_row.ydental_completed_event_id, event)
+        self.assertEqual(linked_row.ydental_completed_event_id, next_event)
+        self.assertNotEqual(linked_row.ydental_completed_execution_id, execution)
 
     def test_controlled_sink_records_internal_acceptance_without_delivery(self):
         price(self)
@@ -357,6 +399,15 @@ class TestFollowupLifecycle(TransactionCase):
         with patch.object(fields.Datetime, 'now', return_value=later_start + timedelta(minutes=1)):
             manager._operate('arrive', {'patient_id': patient.id}, key())
         service._expire_appointments(later_end + timedelta(seconds=1))
+        arrived_row.invalidate_recordset(['state', 'ydental_appointment_status'])
+        self.assertEqual(arrived_row.state, 'planned', 'slot end is not local day end')
+        timezone = pytz.timezone(self.stores[0].ydental_timezone)
+        local_day = pytz.UTC.localize(later_start).astimezone(timezone).date()
+        day_end = timezone.localize(datetime.combine(local_day + timedelta(days=1), time.min)).astimezone(
+            pytz.UTC).replace(tzinfo=None)
+        service._expire_appointments(day_end - timedelta(seconds=1))
+        self.assertEqual(arrived_row.state, 'planned')
+        service._expire_appointments(day_end)
         arrived_row.invalidate_recordset(['state', 'ydental_appointment_status', 'ydental_arrival_id'])
         self.assertEqual(arrived_row.state, 'to_notify')
         self.assertEqual(arrived_row.ydental_appointment_status, 'arrived')
@@ -382,6 +433,13 @@ class TestFollowupLifecycle(TransactionCase):
             'followup_id': no_arrival_id, 'appointment_id': reservation['id'], 'status': 'booked',
         })
         service._expire_appointments(no_arrival_end + timedelta(seconds=1))
+        self.assertEqual(no_arrival_row.state, 'planned')
+        missed_day = pytz.UTC.localize(no_arrival_start).astimezone(timezone).date()
+        missed_day_end = timezone.localize(datetime.combine(missed_day + timedelta(days=1), time.min)).astimezone(
+            pytz.UTC).replace(tzinfo=None)
+        with patch.object(type(service), '_now', return_value=missed_day_end):
+            self.root['ydental.followup'].with_context({})._cron_run_due()
+            self.root['ydental.followup'].with_context({})._cron_run_due()
         no_arrival_row.invalidate_recordset(['state', 'ydental_appointment_status', 'ydental_arrival_id'])
         self.assertEqual(no_arrival_row.state, 'to_notify')
         self.assertEqual(no_arrival_row.ydental_appointment_status, 'not_arrived')
@@ -390,6 +448,37 @@ class TestFollowupLifecycle(TransactionCase):
             ('res_model', '=', 'ydental.followup'), ('res_id', '=', no_arrival_id),
         ])
         self.assertTrue(activities, 'a missed appointment must remain visible for manual follow-up')
+        audits = self.root['ydental.access.audit'].search([
+            ('ydental_event', '=', 'followup.appointment_overdue'),
+            ('ydental_target_model', '=', 'ydental.followup'), ('ydental_target_id', '=', no_arrival_id),
+        ])
+        self.assertEqual(len(audits), 1)
+
+        # Cancel through intake, then run the actual cron without a login scope.
+        cancel_start = no_arrival_start + timedelta(days=1)
+        cancel_end = cancel_start + timedelta(minutes=5)
+        make_slot(self, manager, station, cancel_start, cancel_end)
+        cancellable = qualify(self, patient_id=patient.id, service=manager, start=cancel_start, end=cancel_end)
+        cancel_row = self.root['ydental.followup'].browse(service._operate('create', base)['id'])
+        service._operate('link_appointment', {
+            'followup_id': cancel_row.id, 'appointment_id': cancellable['id'], 'status': 'booked',
+        })
+        manager._operate('cancel', {
+            'record_id': cancellable['id'], 'version': cancellable['version'],
+            'reason': 'Synthetic reservation cancellation before its service date',
+        }, key())
+        cron = self.root['ydental.followup'].with_context({})
+        cron._cron_run_due()
+        cron._cron_run_due()
+        cancel_row.invalidate_recordset()
+        self.assertEqual((cancel_row.state, cancel_row.ydental_appointment_status), ('to_notify', 'cancelled'))
+        self.assertFalse(cancel_row.ydental_appointment_id)
+        cancelled_audits = self.root['ydental.access.audit'].search([
+            ('ydental_event', '=', 'followup.appointment_cancelled'),
+            ('ydental_target_model', '=', 'ydental.followup'), ('ydental_target_id', '=', cancel_row.id),
+        ])
+        self.assertEqual(len(cancelled_audits), 1)
+        self.assertEqual(cancelled_audits.ydental_store_id, self.stores[0])
 
     def test_intake_appointment_reschedule_replaces_pending_followup_reminder(self):
         price(self, amount=137.25)

@@ -51,10 +51,16 @@ current restricted login, installed S11 modules, actor/store grant, and all
 synthetic order preconditions in a read-only transaction. A precondition failure
 returns before creating scoped sessions or binding a code. Once session setup
 begins, it writes atomic mode-0600 phase receipts beneath the ignored
-`.local/s11/races/`; after each durable phase, a failure is marked partial and
+`.local/s11/new-target-races/`; after each durable phase, a failure is marked partial and
 must be independently read back before anyone considers another run. Do not
 blindly retry a partial result.
 
+All race tools use the launcher's stable `new-target-data/` filestore and
+`new-target-races/` evidence namespace. Fixture receipts and source locks use
+`new-target-fixtures/`. The old `races/` and `fixtures/` history stays intact;
+the old scratch's event187 protection does not identify event187 in the new
+database. New target source locks still prevent replay of that target's source.
+
 This runner provides MODEL/service-level real-connection concurrency evidence,
-not HTTP/RPC or browser evidence. It has not been executed; compile and pure
-preflight-contract tests do not prove a live race.
+not HTTP/RPC or browser evidence. SOURCE/PURE checks do not prove a live race;
+each actual invocation needs its own worker and independent readback receipt.

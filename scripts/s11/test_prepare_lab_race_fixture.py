@@ -62,6 +62,19 @@ class TestPrepareLabRaceFixture(unittest.TestCase):
             self.assertFalse(fixture.has_prior_source_receipt(189, root))
             self.assertTrue(fixture.legacy_lock_blocks_source(187))
             self.assertFalse(fixture.legacy_lock_blocks_source(188))
+            self.assertFalse(fixture.legacy_lock_blocks_source(
+                187, "ydental_s11_synth_20261023_01"))
+
+    def test_new_target_receipts_do_not_inherit_old_database_source_ids(self):
+        with tempfile.TemporaryDirectory() as temp:
+            old = Path(temp) / "fixtures"
+            new = Path(temp) / "new-target-fixtures"
+            old.mkdir()
+            new.mkdir()
+            (old / "old-source-187-lab-race-fixture.json").write_text("{}")
+            self.assertTrue(fixture.has_prior_source_receipt(187, old))
+            self.assertFalse(fixture.has_prior_source_receipt(187, new))
+            self.assertEqual(fixture.RECEIPT_ROOT.name, "new-target-fixtures")
 
     def test_unattributable_legacy_receipt_fails_closed(self):
         with tempfile.TemporaryDirectory() as temp:

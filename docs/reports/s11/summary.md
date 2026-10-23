@@ -1,3 +1,14 @@
+# 2026-10-23｜整合v1.2连续实施进行中
+
+- 同一 `YD-S11-FOLLOWUP-LAB-V1` 已按用户完整整合文本更新既有实施计划；不是新PLAN_ONLY或新任务链。起点分支/HEAD为 `codex/s11-followup-lab-r1 / 0b5fe48ad95668a1c12acefe911624b5bff5a94f`，core现场匹配锁定值。只以新目标 `ydental_s11_synth_20261023_01 / OID2171423` 继续；旧scratch/attempt30不读写、不回填PASS。
+- 真实团队：主控 `/root`、实现 `/root/business_dev`、测试 `/root/tester`、独立验收 `/root/acceptance`。共享OS/工作树；数据库写入由主控单包调度，验收不实现被验内容。
+- 既有新库/受限role/跨库持久权限/97模块/限定升级/UID2准备回执已核SHA并承接，不重建/重装。acceptance独立新目标RO/RR起点receipt SHA `e0dcaf33673da110a27b31aec59208be9fc2e66d5a433099d908f61d40979e7d`，公司1、门店0、SMTP0、目标身份与对象所有权符合。它不是完整运行或业务验收。
+- 修复进行中：原生cron无交互binding审计、预约当地日终过期、复诊及戴用旧来源拒绝；race数据/证据目录隔离；测试clock参数和launcher mock漂移。当前脚本PURE 50项通过，仅为本机合成子进程/文件/路径层，尚不计Odoo运行或业务PASS。
+- 本轮W0经获准ORM创建合成门店/普通角色，后续真实登录验证；锁定core非TTY shell必须通过stdin执行，不能仅凭`--shell-file`或exit0声称业务脚本执行。
+- 当前结论仍 `PARTIAL / IN_PROGRESS`，#35现场读取OPEN；未push/merge/deploy/S12/S13。后续继续W0—W5，不以本节作为CODEX-FINAL。
+
+---
+
 # 2026-10-23｜新目标临时管理员准备
 
 - 继续固定新目标`ydental_s11_synth_20261023_01`（OID `2171423`，cluster `7694897083368259627`），不触碰旧scratch。管理员ORM helper SHA `577004c7026c9b360a64626efc044907d463f8866a529f480d478cf3d082485c`由未实现者独立PASS后执行；helper运行前核配置`test_enable=false`和目标/SMTP/端口，超时有readback-required receipt。通过Odoo ORM为`base.user_admin` UID2设置本轮私有随机密码，exit0、launcher端口仍关闭。

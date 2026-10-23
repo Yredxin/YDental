@@ -9,7 +9,7 @@ explicitly. Every business mutation is an ordinary guarded lab service action.
 
 The harness is opt-in, never starts Odoo, checks the current S11 launcher
 admission before opening PostgreSQL, requires an exact committed candidate, and
-stores non-secret phase receipts beneath the ignored .local/s11/races directory.
+stores non-secret phase receipts beneath .local/s11/new-target-races.
 """
 
 from __future__ import annotations
@@ -29,7 +29,7 @@ from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 PRIVATE_ROOT = REPO_ROOT / ".local" / "s11"
-RACE_ROOT = PRIVATE_ROOT / "races"
+RACE_ROOT = PRIVATE_ROOT / "new-target-races"
 ODOO_ROOT = REPO_ROOT.parent
 RUNNER_VERSION = 1
 CONFIRMATION = "S11-SYNTHETIC-PACKAGE-CODE-RACE-V1"
@@ -122,14 +122,14 @@ def load_admitted_runtime(candidate: str):
     return launcher, runtime, admission, database, branch, commit
 
 
-def configure_odoo(database: dict):
+def configure_odoo(launcher, database: dict):
     sys.path.insert(0, str(ODOO_ROOT))
     from odoo import api  # noqa: PLC0415
     from odoo.orm.registry import Registry  # noqa: PLC0415
     from odoo.tools import config  # noqa: PLC0415
 
     config["addons_path"] = ",".join((str(ODOO_ROOT / "odoo" / "addons"), str(REPO_ROOT)))
-    config["data_dir"] = str(PRIVATE_ROOT / "data")
+    config["data_dir"] = str(launcher.DATA_DIR)
     config["db_host"] = database["host"]
     config["db_port"] = str(database["port"])
     config["db_user"] = database["user"]
@@ -472,7 +472,7 @@ def readback(registry, api, args: argparse.Namespace, race_result: dict[str, Any
 def execute(args: argparse.Namespace) -> int:
     validate_cli(args)
     launcher, runtime, admission, database, branch, commit = load_admitted_runtime(args.candidate)
-    api, Registry = configure_odoo(database)
+    api, Registry = configure_odoo(launcher, database)
     registry = Registry(database["name"])
 
     # The complete identity, actor, module and synthetic-target checks are read-only.

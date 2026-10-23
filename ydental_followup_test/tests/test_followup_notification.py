@@ -99,7 +99,7 @@ class TestFollowupNotification(TransactionCase):
             # mocked, so this proves callback wiring, not transaction commit,
             # independent claiming, transport, or patient delivery.
             registered[0]()
-            dispatch.assert_called_once_with(self.env.cr.dbname, (job.id,))
+            dispatch.assert_called_once_with(self.env.cr.dbname, (job.id,), None)
 
     def test_enqueue_rollback_discards_postcommit_dispatch(self):
         # Use a cursor opened by this test so rollback is confined to its
@@ -191,7 +191,7 @@ class TestFollowupNotification(TransactionCase):
     def test_after_commit_dispatch_does_not_hold_an_extra_registry_cursor(self):
         call_order = []
 
-        def claim(dbname, job_id):
+        def claim(dbname, job_id, clock=None):
             call_order.append(('claim', dbname, job_id))
             return 'stable-request', False
 
@@ -202,7 +202,7 @@ class TestFollowupNotification(TransactionCase):
                 patch.object(followup_service_module, '_dispatch_claimed', side_effect=dispatch) as dispatch_mock, \
                 patch.object(followup_service_module.Registry, 'cursor') as cursor:
             followup_service_module._dispatch_after_commit('s11_test_db', (41, 41))
-        claim_mock.assert_called_once_with('s11_test_db', 41)
+        claim_mock.assert_called_once_with('s11_test_db', 41, None)
         dispatch_mock.assert_called_once_with('s11_test_db', 41, 'stable-request')
         self.assertEqual(call_order, [
             ('claim', 's11_test_db', 41),

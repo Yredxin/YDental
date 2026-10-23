@@ -30,7 +30,8 @@ import race_lab_receipt_duplicate as common
 
 CONFIRMATION = "S11-SYNTHETIC-LAB-RACE-FIXTURE-V1"
 EXPECTED_SYNTHETIC_SOURCE_EVENT_ID = 187
-RECEIPT_ROOT = common.PRIVATE_ROOT / "fixtures"
+LEGACY_DATABASE = "ydental_s10_test_20261017105432_ce6dcbf8"
+RECEIPT_ROOT = common.PRIVATE_ROOT / "new-target-fixtures"
 _S11_TOKEN = re.compile(r"(?<![A-Za-z0-9])S11(?![A-Za-z0-9])", re.IGNORECASE)
 _SYNTHETIC_MARKER = re.compile(
     r"(?<![A-Za-z])(?:synthetic|test|fixture)(?![A-Za-z])|合成|测试", re.IGNORECASE,
@@ -78,8 +79,9 @@ def source_receipt_pattern(source_event_id: int) -> str:
     return f"*-source-{source_event_id}-lab-race-fixture.json"
 
 
-def legacy_lock_blocks_source(source_event_id: int) -> bool:
-    return source_event_id == EXPECTED_SYNTHETIC_SOURCE_EVENT_ID
+def legacy_lock_blocks_source(source_event_id: int, database_name=LEGACY_DATABASE) -> bool:
+    return (database_name == LEGACY_DATABASE
+            and source_event_id == EXPECTED_SYNTHETIC_SOURCE_EVENT_ID)
 
 
 def is_explicit_synthetic_source(patient_name: str, event_source: str, event_reason: str) -> bool:
@@ -227,13 +229,14 @@ def main() -> int:
     if (len(args.candidate) != 40 or
             any(char not in "0123456789abcdef" for char in args.candidate)):
         raise common.Refusal("candidate must be a full lowercase 40-character commit SHA")
+    launcher, runtime, admission, database, branch, commit = common.load_admitted_runtime(args.candidate)
     common.require_private_directory(RECEIPT_ROOT)
     if has_prior_source_receipt(args.source_event_id):
         raise common.Refusal("a receipt already exists for this treatment source; do not replay it")
-    # This historical lock belongs to event187. Preserve it as a permanent
-    # stop for that source while permitting independent sources.
-    if legacy_lock_blocks_source(args.source_event_id):
-        lock_path = RECEIPT_ROOT / "lab-race-fixture-setup.lock"
+    # Preserve the old target's event187 lock without treating IDs in an
+    # independent database as the same clinical source.
+    if legacy_lock_blocks_source(args.source_event_id, database["name"]):
+        lock_path = common.PRIVATE_ROOT / "fixtures" / "lab-race-fixture-setup.lock"
         if lock_path.exists():
             info = lock_path.lstat()
             if (not stat.S_ISREG(info.st_mode) or info.st_uid != os.getuid() or
@@ -248,7 +251,6 @@ def main() -> int:
             raise common.Refusal("existing source-specific fixture lock has an unsafe owner or mode")
         raise common.Refusal("source-specific fixture lock already exists; read back its checkpoint and do not retry")
 
-    launcher, runtime, admission, database, branch, commit = common.load_admitted_runtime(args.candidate)
     api, Registry = common.configure_odoo(launcher, database)
     from odoo import Command, fields  # noqa: PLC0415
 

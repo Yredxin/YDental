@@ -269,6 +269,7 @@ class YDentalLabOrder(models.Model):
                             event.ydental_store_id != stage_access or event.ydental_patient_id != order.ydental_patient_id or
                             event.ydental_execution_id.ydental_patient_id != order.ydental_patient_id):
                         raise AccessError(self.env._('access_denied: Fit event must be an actual confirmed treatment for this order patient and store.'))
+                    self.env['ydental.lab.service']._check_fit_source(order, event)
                 if 'ydental_exception_disposition' in vals and order.state != 'available':
                     raise AccessError(self.env._('access_denied: Select exception disposition only after put-away.'))
                 if 'ydental_exception_reason' in vals:

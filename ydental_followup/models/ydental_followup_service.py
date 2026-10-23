@@ -79,6 +79,14 @@ class YDentalFollowupService(models.AbstractModel):
             before=before, after=after, reason=reason, source=source,
         )
 
+    def _audit_due(self, action, row, before, after):
+        # Cron has no interactive login binding. Its bounded scan supplies the
+        # exact source row and store, without creating or borrowing a session.
+        return self.env['ydental.access.service']._audit(
+            'followup.' + action, 'followup', row, row.ydental_store_id.id,
+            before=before, after=after, source='followup_cron',
+        )
+
     def _id(self, value):
         if type(value) is not int or value <= 0:
             raise ValidationError(self.env._('A positive record identifier is required.'))
@@ -588,6 +596,10 @@ class YDentalFollowupService(models.AbstractModel):
         execution = event.ydental_execution_id
         if event.state != 'confirmed' or execution.state not in ('reserved', 'handover', 'interrupted'):
             raise UserError(self.env._('Only a confirmed event from an ended actual encounter can complete follow-up.'))
+        source_event = row.ydental_source_event_id
+        if (event == source_event or execution == source_event.ydental_execution_id or
+                event.ydental_actual_at < source_event.ydental_actual_at):
+            raise UserError(self.env._('Follow-up completion requires a subsequent actual encounter, separate from its original treatment source.'))
         linked_entitlement = execution.ydental_task_id.ydental_entitlement_id
         if row.ydental_appointment_id:
             if (cross_store_referral or linked_entitlement != row.ydental_appointment_id or
@@ -801,7 +813,7 @@ class YDentalFollowupService(models.AbstractModel):
                 continue
             row._save({'state': 'to_notify', 'ydental_schedule_version': row.ydental_schedule_version + 1})
             self._create_contact_activity(row, 'The contact window ended without an appointment; contact the patient again.')
-            self._audit('overdue_contact', row, before={'state': 'notified'}, after={'state': 'to_notify'})
+            self._audit_due('overdue_contact', row, before={'state': 'notified'}, after={'state': 'to_notify'})
 
     def _expire_cancelled_reservations(self):
         rows = self.env['ydental.followup'].sudo().search([
@@ -823,8 +835,8 @@ class YDentalFollowupService(models.AbstractModel):
                        'state': 'to_notify', 'ydental_schedule_version': row.ydental_schedule_version + 1})
             self._cancel_pending_jobs(row, 'Reservation was cancelled in intake')
             self._create_contact_activity(row, 'The linked reservation was cancelled; contact the patient to reschedule.')
-            self._audit('appointment_cancelled', row, before={'appointment_id': prior_id, 'status': 'booked'},
-                        after={'appointment_id': False, 'status': 'cancelled', 'state': 'to_notify'})
+            self._audit_due('appointment_cancelled', row, before={'appointment_id': prior_id, 'status': 'booked'},
+                            after={'appointment_id': False, 'status': 'cancelled', 'state': 'to_notify'})
 
     def _expire_appointments(self, now):
         rows = self.env['ydental.followup'].sudo().search([
@@ -833,6 +845,12 @@ class YDentalFollowupService(models.AbstractModel):
             ('ydental_appointment_id.ydental_claim_id.ydental_slot_id.ydental_end', '<=', now),
         ], limit=500, order='ydental_appointment_at, id')
         for row in rows:
+            timezone = pytz.timezone(row.ydental_store_id.ydental_timezone)
+            slot = row.ydental_appointment_id.ydental_claim_id.ydental_slot_id
+            local_date = pytz.UTC.localize(slot.ydental_start).astimezone(timezone).date()
+            local_today = pytz.UTC.localize(fields.Datetime.to_datetime(now)).astimezone(timezone).date()
+            if local_today <= local_date:
+                continue
             self.env.cr.execute(
                 "SELECT id FROM ydental_followup WHERE id=%s AND state IN ('planned','notified') FOR UPDATE SKIP LOCKED",
                 [row.id],
@@ -843,12 +861,11 @@ class YDentalFollowupService(models.AbstractModel):
             if row.state not in ('planned', 'notified') or row.ydental_appointment_status not in ('booked', 'arrived'):
                 continue
             slot = row.ydental_appointment_id.ydental_claim_id.ydental_slot_id
-            local_date = pytz.UTC.localize(slot.ydental_end).astimezone(
-                pytz.timezone(row.ydental_store_id.ydental_timezone)).date()
             arrival = self.env['ydental.intake.arrival'].sudo().search([
                 ('ydental_store_id', '=', row.ydental_store_id.id),
                 ('ydental_patient_id', '=', row.ydental_patient_id.id), ('ydental_date', '=', local_date),
             ], limit=1)
+            before = {'state': row.state, 'appointment_status': row.ydental_appointment_status}
             vals = {'state': 'to_notify', 'ydental_schedule_version': row.ydental_schedule_version + 1}
             if arrival:
                 vals.update({'ydental_arrival_id': arrival.id, 'ydental_appointment_status': 'arrived'})
@@ -856,9 +873,11 @@ class YDentalFollowupService(models.AbstractModel):
                 vals['ydental_appointment_status'] = 'not_arrived'
             row._save(vals)
             self._cancel_pending_jobs(row, 'Reservation window ended')
-            note = ('Actual arrival was recorded, but no treatment event completed the appointment.' if arrival else
-                    'The reservation window ended without an actual arrival; contact the patient.')
+            note = ('Actual arrival was recorded, but no treatment event completed the appointment by local day end.' if arrival else
+                    'The reservation day ended without an actual arrival; contact the patient.')
             self._create_contact_activity(row, note)
+            self._audit_due('appointment_overdue', row, before=before,
+                            after={'state': 'to_notify', 'appointment_status': row.ydental_appointment_status})
 
     def _dispatch_ids(self, job_ids):
         """Claim durably before transport, then persist its result in another transaction.

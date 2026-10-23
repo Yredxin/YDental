@@ -9,7 +9,7 @@ losing action should be rejected after observing the winner's state.
 This is distinct from the duplicate-receipt race. It never puts stock away or
 creates a follow-up. Explicit PostgreSQL serialization aborts alone receive a
 bounded request retry; other errors and uncertain outcomes are preserved for
-readback rather than replayed. Private receipts stay under .local/s11/races.
+readback rather than replayed. Receipts stay under .local/s11/new-target-races.
 """
 
 from __future__ import annotations

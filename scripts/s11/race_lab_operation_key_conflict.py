@@ -153,7 +153,7 @@ def main() -> int:
         cr.rollback()
 
     race_id = dt.datetime.now(dt.UTC).strftime("%Y%m%dT%H%M%SZ") + "-" + secrets.token_hex(4)
-    receipt_path = launcher.PRIVATE_ROOT / "races" / f"{race_id}-lab-operation-key-collision.json"
+    receipt_path = common.RACE_ROOT / f"{race_id}-lab-operation-key-collision.json"
     session_keys = [secrets.token_urlsafe(32), secrets.token_urlsafe(32)]
     receipt: dict[str, Any] = {
         "schema": "YD-S11-LAB-OPERATION-KEY-COLLISION-V1",

@@ -5,6 +5,7 @@ from datetime import timedelta
 from unittest.mock import patch
 
 from odoo import Command, fields
+from odoo.exceptions import UserError
 from odoo.tests import TransactionCase, tagged
 
 from odoo.addons.ydental_treatment_test.tests.common import (
@@ -273,6 +274,22 @@ class TestFreeReworkLifecycle(TransactionCase):
         self.assertNotEqual(child_followup, parent_followup)
         self.assertNotEqual(child_followup.state, 'done')
         self.assertFalse(child_followup.ydental_completed_event_id)
+
+        before_issue_events = self.root['ydental.inventory.event'].search_count([
+            ('ydental_store_id', '=', store.id),
+        ])
+        with self.assertRaises(UserError):
+            self.group.env['ydental.lab.order'].browse(child.id).write({'ydental_fit_event_id': source_event.id})
+        with self.assertRaises(UserError):
+            lab._operate('fit', {'order_id': child.id, 'fit_event_id': source_event.id},
+                         _action_key('reject-source-as-fit', child.id))
+        child.invalidate_recordset()
+        self.assertEqual(child.state, 'available')
+        self.assertFalse(child.ydental_fit_event_id)
+        self.assertEqual(self._on_hand(lot_id), 1)
+        self.assertEqual(self.root['ydental.inventory.event'].search_count([
+            ('ydental_store_id', '=', store.id),
+        ]), before_issue_events)
 
         fit_event = self._another_real_treatment_event(
             source_event.ydental_patient_id.id, 'Synthetic actual prosthesis fit visit')

@@ -659,6 +659,7 @@ class YDentalLabService(models.AbstractModel):
                 event.ydental_store_id != store or event.ydental_patient_id != order.ydental_patient_id or
                 event.ydental_execution_id.ydental_patient_id != order.ydental_patient_id):
             raise AccessError(self.env._('access_denied: Fit completion requires a confirmed actual treatment event for this patient and store.'))
+        self._check_fit_source(order, event)
         stock = self.env['ydental.inventory.service']._operate('issue', {
             'lot_id': order.ydental_lot_id.id, 'quantity': order.ydental_quantity,
             'uom_id': order.ydental_product_id.uom_id.id,
@@ -669,6 +670,23 @@ class YDentalLabService(models.AbstractModel):
         return self._record_action(order, 'fit', inventory_event=inventory_event, values={
             'state': 'done', 'ydental_fit_event_id': event.id, 'ydental_fit_inventory_event_id': inventory_event.id,
         })
+
+    def _check_fit_source(self, order, event):
+        source = order.ydental_source_event_id
+        if (event == source or event.ydental_execution_id == source.ydental_execution_id or
+                event.ydental_actual_at < source.ydental_actual_at):
+            raise UserError(self.env._('Actual fitting requires a subsequent treatment encounter, separate from the fabrication source.'))
+        parent = order.ydental_parent_order_id
+        while parent:
+            prior_fit = parent.ydental_fit_event_id
+            if prior_fit and (event == prior_fit or event.ydental_execution_id == prior_fit.ydental_execution_id):
+                raise UserError(self.env._('A new laboratory cycle cannot reuse a previous cycle fitting encounter.'))
+            parent = parent.ydental_parent_order_id
+        putaway = self._model('event').search([
+            ('ydental_order_id', '=', order.id), ('ydental_kind', '=', 'putaway'),
+        ], limit=1)
+        if not putaway or event.ydental_actual_at < putaway.ydental_recorded_at:
+            raise UserError(self.env._('Actual fitting must follow this cycle recorded put-away.'))
 
     def _post_fit_repair(self, store, order_id, reason):
         """Open a new draft cycle after a real fit without changing the completed source."""

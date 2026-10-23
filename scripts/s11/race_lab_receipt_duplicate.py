@@ -10,7 +10,7 @@ Cancellation and put-away cannot validly race on the same initial order:
 cancellation accepts draft/sent/processing, while put-away requires received.
 This harness does not manufacture an impossible state or race a later action.
 It never starts Odoo, installs/upgrades modules, creates stock, or touches old
-S10 objects. Evidence is private under the ignored .local/s11/races directory.
+S10 objects. Evidence is private under .local/s11/new-target-races.
 """
 
 from __future__ import annotations
@@ -33,7 +33,7 @@ from psycopg2.errors import SerializationFailure
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 PRIVATE_ROOT = REPO_ROOT / ".local" / "s11"
-RACE_ROOT = PRIVATE_ROOT / "races"
+RACE_ROOT = PRIVATE_ROOT / "new-target-races"
 ODOO_ROOT = REPO_ROOT.parent
 CONFIRMATION = "S11-SYNTHETIC-LAB-RECEIPT-DUPLICATE-RACE-V1"
 THREAD_TIMEOUT_SECONDS = 35
@@ -110,7 +110,7 @@ def configure_odoo(launcher, database: dict[str, Any]):
     from odoo.tools import config  # noqa: PLC0415
 
     config["addons_path"] = ",".join((str(launcher.ODOO_ROOT / "odoo" / "addons"), str(REPO_ROOT)))
-    config["data_dir"] = str(PRIVATE_ROOT / "data")
+    config["data_dir"] = str(launcher.DATA_DIR)
     config["db_host"] = database["host"]
     config["db_port"] = str(database["port"])
     config["db_user"] = database["user"]

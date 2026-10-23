@@ -24,7 +24,7 @@ from typing import Any
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 PRIVATE_ROOT = REPO_ROOT / ".local" / "s11"
-RECEIPT_ROOT = PRIVATE_ROOT / "operations"
+RECEIPT_ROOT = PRIVATE_ROOT / "new-target-races"
 CONFIRMATION = "S11-SYNTHETIC-LAB-SCAN-RACE-V1"
 TIMEOUT_SECONDS = 20
 
@@ -74,7 +74,7 @@ def configure(launcher, database: dict[str, Any]):
     from odoo.tools import config  # noqa: PLC0415
 
     config["addons_path"] = ",".join((str(launcher.ODOO_ROOT / "odoo" / "addons"), str(REPO_ROOT)))
-    config["data_dir"] = str(PRIVATE_ROOT / "data")
+    config["data_dir"] = str(launcher.DATA_DIR)
     config["db_host"] = database["host"]
     config["db_port"] = str(database["port"])
     config["db_user"] = database["user"]
