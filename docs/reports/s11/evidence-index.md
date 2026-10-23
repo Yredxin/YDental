@@ -1,3 +1,18 @@
+# 2026-10-23 05:40 UTC｜候选11829实际新增证据
+
+|证据|独立回执SHA256|层级与边界|
+|---|---|---|
+|普通通知十phase|8772e2723a3deba4c2d2683da883580a59617ddd7a1d0b1534d14bdf704e3961|普通角色MODEL、真实postcommit本地HTTP、独立事务；LA窗口[10/22 07:00Z,10/23 07:00Z)。quiet旧due错误独立FAIL，disabled不冒policy缺行。|
+|新候选纯带数据升级|c3a926d94c3125273107c5a6d00016173eeaf9701bc149402c26035cb1765b7c|140业务/9metadata/12附件；仅技术write_date，业务与权限语义保持；29c4中间pre完整留存，不冒最终。|
+|81方法回归|8eacd96c868b73dce918b36705b66b4ab1bf13d7d43a6554c8c1e5d20e0840c5|38followup+43lab，70TransactionCase混合+11HttpCase，69.60s；Odoo0/wrapper2原生audit重试ERROR保留，不冒81业务链。|
+|quiet修复真实新对象|`new-target-tests/notification-policy-v1/quiet_fixed/result.json`|followup77/job218，实际本地当天23:59、pending0/零send；独立签核待补。|
+|到期日内部提醒|`new-target-tests/supplier-expiry-day-v1/result.json`|vendor47/cooperation43/job219 accepted1+原生活动13；仅今日仍有效资格，非已过期新单拒绝。|
+|T02正常跨店来源|`new-target-tests/cross-store-t02-v1/result.json`|patient79、source86/target87/费用各137.25、referral4/source-task181、target entitlement106 walkin，followup78无联系to_notify/activity67；待真实普通doctor UI完成。|
+
+私有指针位于本机`.local/s11/`，不上传原始日志、凭据、截图或正文。真实外部、未运行竞争、旧scratch未决均不补PASS。
+
+---
+
 # 2026-10-23 04:50 UTC｜新目标追加实际证据（继续实施）
 
 产品ee6a56e，工具f576cb8；此节不宣布整计划完成，平台受限竞争仍停止，未受影响W1/W2继续。

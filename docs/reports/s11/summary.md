@@ -1,3 +1,17 @@
+# 2026-10-23 05:40 UTC｜普通通知、升级与跨店继续实施
+
+当前产品/工具候选 `11829daa0fef0502e803b83f253a64daf17e0ef4`，仅新目标/OID2171423；本节是实际进度，不是最终交付。#35仍OPEN，未push/merge/deploy。
+
+- 普通通知十phase已独立核：受理、明确失败、LA当地日上限、退订、仅人工、disabled配置、改期取消旧pending/保留发送历史、显式rollback不派发；无真实患者送达。`missing_policy`旧phase实际是disabled既有policy，缺行分支未冒通过。
+- 免打扰实测发现多推迟一天，修正当天与跨夜结束日并新增3测试。新对象followup77/job218已真实独立读回到LA当天23:59、pending/attempt0/零sink，不回写旧quiet失败。
+- 正常untimed转诊下拉遗漏walkin来源已最小修复，保留精确source-task、患者、目标店医疗权限和当前患者关系。新T02 patient79/source86→referral4→target87，两个真实费用86/87各137.25；followup78无联系方式立即to_notify/owner11/活动67、无job；普通doctor UI完成尚未执行。
+- 新候选纯带数据限定五模块升级exit0/error0，独立140业务表/9metadata/12附件，仅技术write_date变化，业务、权限含义、来源/金额/配置/schema一致。81方法=70 TransactionCase混ORM/mock/PURE+11HttpCase，官方零fail/error；Odoo0/wrapper2的原生附件audit只读重试ERROR保留。
+- 到期日有效厂商47/合作43/job219，正常集团5审核、仓库13合作，实际postcommit本地HTTP受理1次，原生内部activity负责人13；这证明到期日内部提醒，不证明已过期阻新单或外部发送。
+- 服务18411当前停止，sink18412运行。临时clock仅8/9/11、adapter/callback和两店演示policy当前启用，SMTP0；普通预约/跨店UI包完成后正常回收。唯一管理入口UID2保留。
+- 平台受限竞争和特定人工联系deadline修复仍停止；其他普通工作继续。旧scratch/attempt30未决、不回读/回填，正式政策/用户效果/真实外部/生产另验。
+
+---
+
 # 2026-10-23 04:05 UTC｜新目标持久业务推进及局部平台停止
 
 - 当前执行事实以CURRENT_TASK最新摘要为准，后续各节保留历史。产品ee6a56e、工具8782e40；首GDB服务已正常退出，18411当前停止；模拟sink18412正常运行。

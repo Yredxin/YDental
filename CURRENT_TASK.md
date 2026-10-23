@@ -8,6 +8,14 @@
 - 主控 `/root` 唯一调度数据库写入、服务启停、提交和状态维护。实现 `/root/business_dev` 负责followup/lab及对应测试；测试 `/root/tester` 负责race工具及调度后的实测；`/root/acceptance` 独立验收、不实现被验代码。共享OS/工作树，不冒OS隔离。
 - 本地维护过程事实；计划完成或真正外部受阻后再同步GitHub。#35远端现场读取为OPEN；#37保留用户效果。当前S11 **PARTIAL / IN_PROGRESS**，没有技术完成结论。
 
+## 最新检查点（2026-10-23 05:40 UTC，继续实施）
+
+- 固定当前产品/工具候选 `11829daa0fef0502e803b83f253a64daf17e0ef4`；报告HEAD可文档增量。新普通缺陷修正仅quiet当天结束日和精确untimed转诊walkin下拉，未重做被平台拒绝的manualcontact deadline修复。
+- 独立纯带数据upgrade PASS（c3a926d9…）、81方法官方0fail/error（70混合TransactionCase+11HttpCase，独立8eacd96c…），Odoo0/wrapper2原生只读audit重试ERROR保留。
+- 十通知phase独立8772e272…；旧quiet错日明确FAIL，新77/job218实际当天23:59pending0验证成功。到期日有效vendor47/job219内部受理1次。T02新patient79/source86/target87费用各137.25、正常referral4/entitlement106 walkin；无联系followup78→to_notify/owner11/activity67、无job，待普通doctor UI明确complete。
+- 预约52/53仍planned；58已正常明确message演示偏好，Store1 demo lead0/quiet00:00–00:01/daily20，计划新增09:01实际应用clock提醒，再真实前台到店与日终。未假未来报到/接诊。
+- 当前18411停止、sink2132804/18412运行；clock8/9/11/adapter/callback及本地demo政策启用，SMTP0。新缺policy门店和仅缺目标医疗权普通岗位工具在离线准备；未执行。详细原始指针/候选在summary/evidence-index最新节。主控继续调度，无中途GitHub进度。
+
 ## 已承接与本轮新增事实
 
 - 原新库创建、受限角色、202其他数据库持久权限扫描、97模块初始化、限定升级、UID2临时管理准备均承接既有真实回执，无理由不重复；本轮已核五份关键回执SHA，与既有记录一致。
