@@ -7,7 +7,7 @@ from .ydental_lab_record import MUTATION
 class YDentalLabOrder(models.Model):
     _name = 'ydental.lab.order'
     _description = 'Controlled external dental laboratory work order and cycle'
-    _inherit = 'ydental.lab.record'
+    _inherit = ['ydental.lab.record', 'mail.thread', 'mail.activity.mixin']
     _order = 'id desc'
 
     ydental_patient_id = fields.Many2one('ydental.patient', required=True, ondelete='restrict', index=True, readonly=True)
@@ -94,7 +94,7 @@ class YDentalLabOrder(models.Model):
         ('available', 'Put away and awaiting fit'),
         ('rework_returned', 'Returned for rework'),
         ('done', 'Actually fitted'),
-        ('cancelled', 'Cancelled before receipt'),
+        ('cancelled', 'Cancelled before put-away'),
         ('exception', 'Exception closed'),
     ], required=True, default='draft', readonly=True, index=True)
 
@@ -107,7 +107,9 @@ class YDentalLabOrder(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         if self.env.context.get('ydental_lab_mutation') is MUTATION:
-            return super().create(vals_list)
+            records = super().create(vals_list)
+            records._attach_planned_followup()
+            return records
         service = self.env['ydental.lab.service']
         store = service._access(write=True)
         prepared = []
@@ -124,8 +126,16 @@ class YDentalLabOrder(models.Model):
                 service._validate_purchase_line(
                     self.env['ydental.lab.order'].new(vals), self.env['purchase.order.line'].sudo().browse(vals['ydental_purchase_line_id']))
             vals['state'] = 'draft'
+            vals['ydental_followup_id'] = False
             prepared.append(vals)
-        return super(YDentalLabOrder, self.with_context(ydental_lab_mutation=MUTATION)).create(prepared)
+        records = super(YDentalLabOrder, self.with_context(ydental_lab_mutation=MUTATION)).create(prepared)
+        records._attach_planned_followup()
+        return records
+
+    def _attach_planned_followup(self):
+        for order in self:
+            row = self.env['ydental.followup.service']._ensure_planned_from_lab_order(order)
+            order.sudo()._save({'ydental_followup_id': row.id})
 
     def write(self, vals):
         if self.env.context.get('ydental_lab_mutation') is MUTATION:
@@ -290,7 +300,11 @@ class YDentalLabOrder(models.Model):
                         performed_at = fields.Datetime.to_datetime(vals['ydental_additional_performed_at'])
                         if not performed_at or performed_at > self.env['ydental.lab.service']._now():
                             raise ValidationError(self.env._('Enter a valid actual service time that is not in the future.'))
-        return super(YDentalLabOrder, self.with_context(ydental_lab_mutation=MUTATION)).write(vals)
+        result = super(YDentalLabOrder, self.with_context(ydental_lab_mutation=MUTATION)).write(vals)
+        if {'ydental_planned_at', 'ydental_responsible_id'} & vals.keys():
+            for order in self:
+                self.env['ydental.followup.service']._sync_planned_from_lab_order(order)
+        return result
 
     def _check_edit_authority(self, vals):
         service = self.env['ydental.lab.service']

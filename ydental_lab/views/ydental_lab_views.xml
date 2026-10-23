@@ -112,7 +112,7 @@
                     <button name="action_rework" type="object" string="Return for rework" invisible="state != 'available'"/>
                     <button name="action_open_post_fit_repair_wizard" type="object" string="Open post-fit repair" invisible="state != 'done'"/>
                     <button name="action_fit" type="object" string="Record actual fit" class="btn-primary" invisible="state != 'available'"/>
-                    <button name="action_cancel" type="object" string="Cancel before receipt" invisible="state not in ('draft', 'sent', 'processing')"/>
+                    <button name="action_cancel" type="object" string="Cancel before put-away" invisible="state not in ('draft', 'sent', 'processing', 'received')"/>
                     <button name="action_close_exception" type="object" string="Close exception" invisible="state != 'available'"/>
                     <button name="action_bind_package_code" type="object" string="Bind package code"/>
                     <button name="action_approve_additional_terms" type="object" string="Approve additional service terms" class="btn-primary"
@@ -248,7 +248,11 @@
                             <field name="state"/>
                         </list>
                     </field>
+                    <div class="alert alert-warning" invisible="state != 'cancelled' or not ydental_receipt_at">
+                        Physical receipt is preserved. The package remains outside recorded stock pending the assigned cancellation review. No return, write-off, refund or credit was recorded.
+                    </div>
                 </sheet>
+                <chatter/>
             </form>
         </field>
     </record>

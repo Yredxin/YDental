@@ -237,6 +237,11 @@ class TestFreeReworkLifecycle(TransactionCase):
         self.assertEqual(parent_followup.state, 'closed')
         self.assertEqual(child.ydental_parent_order_id, order)
         self.assertEqual(child.ydental_rework_kind, 'free')
+        self.assertTrue(child.ydental_followup_id)
+        self.assertEqual(child.ydental_followup_id.ydental_lab_contact_stage, 'waiting')
+        self.assertFalse(self.root['ydental.notification.job'].sudo().search([
+            ('ydental_followup_id', '=', child.ydental_followup_id.id),
+        ]))
         self.assertFalse(child.ydental_purchase_line_id)
         self.assertEqual(self._on_hand(lot_id), 0)
         self.assertEqual(self.root['ydental.lab.order'].sudo().search_count([
@@ -316,6 +321,15 @@ class TestFreeReworkLifecycle(TransactionCase):
         })
         child_followup.invalidate_recordset()
         self.assertEqual(child_followup.state, 'done')
+        completed_version = child_followup.ydental_schedule_version
+        opened_repair = lab._operate('post_fit_repair', {
+            'order_id': child.id, 'reason': 'Synthetic next cycle after completed follow-up',
+        }, _action_key('postfit-done-followup', child.id))
+        new_cycle = self.root['ydental.lab.order'].browse(opened_repair['repair_order_id'])
+        self.assertEqual(new_cycle.ydental_followup_id.ydental_lab_contact_stage, 'waiting')
+        self.assertNotEqual(new_cycle.ydental_followup_id, child_followup)
+        self.assertEqual((child_followup.state, child_followup.ydental_schedule_version),
+                         ('done', completed_version))
         self.assertEqual(child_followup.ydental_completed_event_id, completion_event)
         self.assertNotEqual(child_followup.ydental_completed_event_id, child.ydental_fit_event_id)
         self.assertEqual(child.ydental_fit_event_id, fit_event)

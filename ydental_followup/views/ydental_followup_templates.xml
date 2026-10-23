@@ -43,14 +43,19 @@
                             <t t-foreach="rows" t-as="row">
                                 <tr t-att-id="'followup-%s' % row.id">
                                     <td t-out="row.ydental_patient_id.name"/>
-                                    <td t-out="row.ydental_followup_type"/>
+                                    <td>
+                                        <t t-out="row.ydental_followup_type"/>
+                                        <p t-if="row.ydental_lab_contact_stage == 'waiting'" class="text-muted mb-0">Waiting for laboratory stock. Only a real linked reservation may be reminded.</p>
+                                        <p t-if="row.ydental_lab_contact_stage == 'ready'" class="text-muted mb-0">Laboratory stock is available.</p>
+                                        <p t-if="row.ydental_lab_contact_stage == 'stopped'" class="text-muted mb-0">Laboratory contact stopped. Existing history and internal review remain.</p>
+                                    </td>
                                     <td t-out="row.ydental_planned_at"/>
                                     <td t-out="row.ydental_appointment_at or ''"/>
                                     <td t-out="row.ydental_appointment_status"/>
                                     <td t-out="row.state"/>
                                     <td t-out="row.ydental_responsible_id.name"/>
                                     <td>
-                                        <details><summary>Record contact</summary>
+                                        <details t-if="lab_contact_allowed[row.id]"><summary>Record contact</summary>
                                             <form action="/ydental/followups/action" method="post">
                                                 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                                                 <input type="hidden" name="revision" t-att-value="revision"/>
@@ -128,7 +133,7 @@
                                                 <button class="btn btn-secondary" type="submit">Link actual arrival</button>
                                             </form>
                                         </details>
-                                        <details><summary>Complete from actual treatment</summary>
+                                        <details t-if="row.ydental_lab_contact_stage not in ('waiting', 'stopped')"><summary>Complete from actual treatment</summary>
                                             <form action="/ydental/followups/action" method="post">
                                                 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                                                 <input type="hidden" name="revision" t-att-value="revision"/>
@@ -171,7 +176,7 @@
                                                 <button class="btn btn-secondary" type="submit">Close plan</button>
                                             </form>
                                         </details>
-                                        <t t-if="row.state == 'closed'">
+                                        <t t-if="row.state == 'closed' and row.ydental_lab_contact_stage != 'stopped'">
                                             <details><summary>Reopen with reason</summary>
                                                 <form action="/ydental/followups/action" method="post">
                                                     <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>

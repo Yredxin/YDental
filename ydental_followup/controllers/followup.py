@@ -92,6 +92,8 @@ class YDentalFollowup(http.Controller):
             'ydental_last_error', 'ydental_request_id'], limit=100, order='id desc')
         return self._render('ydental_followup.followup_list', {
             'rows': rows, 'store': session.ydental_store_id,
+            'lab_contact_allowed': {row.id: row.ydental_lab_contact_stage != 'stopped' and (
+                row.ydental_lab_contact_stage != 'waiting' or service._lab_reservation_is_current(row)) for row in rows},
             'jobs': jobs, 'revision': session.ydental_revision, 'current_user': service.env.user,
             'patients': event_patients, 'source_events': events,
             'events_by_patient': events_by_patient, 'appointments_by_patient': appointments_by_patient,

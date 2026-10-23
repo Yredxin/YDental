@@ -8,6 +8,8 @@ class MailComposeMessage(models.TransientModel):
     def _check_vendor_outbound(self):
         if any(wizard.model == 'ydental.lab.vendor' for wizard in self):
             raise AccessError(self.env._('access_denied: External messages are disabled for laboratory vendors.'))
+        if any(wizard.model == 'ydental.lab.order' for wizard in self):
+            raise AccessError(self.env._('access_denied: External messages are disabled for laboratory orders.'))
 
     def _action_send_mail(self, auto_commit=False):
         self._check_vendor_outbound()
@@ -24,6 +26,8 @@ class MailTemplate(models.Model):
     def _check_vendor_outbound(self):
         if any(template.model == 'ydental.lab.vendor' for template in self):
             raise AccessError(self.env._('access_denied: External messages are disabled for laboratory vendors.'))
+        if any(template.model == 'ydental.lab.order' for template in self):
+            raise AccessError(self.env._('access_denied: External messages are disabled for laboratory orders.'))
 
     def send_mail(self, *args, **kwargs):
         self._check_vendor_outbound()

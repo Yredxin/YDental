@@ -2,6 +2,8 @@ from . import (
     test_attachment_field_http,
     test_free_rework_lifecycle,
     test_http,
+    test_lab_cancellation,
+    test_lab_cancellation_http,
     test_lab_charge_chain,
     test_lab_charge_sources,
     test_lab_guards,

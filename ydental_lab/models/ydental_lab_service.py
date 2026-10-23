@@ -252,7 +252,7 @@ class YDentalLabService(models.AbstractModel):
                 'ydental_no_patient_fee_declaration', 'ydental_no_patient_fee_confirmation_reason',
                 'ydental_no_patient_fee_confirmed', 'ydental_no_patient_fee_reason',
                 'ydental_no_patient_fee_actor_id', 'ydental_no_patient_fee_at',
-                'ydental_post_fit_repair'} & vals.keys():
+                'ydental_post_fit_repair', 'ydental_followup_id'} & vals.keys():
             raise AccessError(self.env._('access_denied: Repair-cycle fields can be created only through the guarded laboratory workflow.'))
         event = self.env['ydental.treatment.event'].sudo().browse(event_id).exists()
         if not event or event.ydental_store_id != store or event.ydental_category != 'medical' or event.state != 'confirmed' or event.ydental_kind != 'treatment':
@@ -582,13 +582,14 @@ class YDentalLabService(models.AbstractModel):
             'reason': 'External laboratory work order %s received and put away' % order.ydental_internal_code,
         }, 'lab-putaway-%s' % order.id)
         inventory_event = self.env['ydental.inventory.event'].sudo().browse(stock['id']).exists()
+        result = self._record_action(order, 'putaway', inventory_event=inventory_event, values={
+            'state': 'available', 'ydental_inventory_event_id': inventory_event.id,
+        })
         accessible_order = self.env['ydental.lab.order'].browse(order.id)
         followup = self.env['ydental.followup.service']._create_passive_from_lab_order(
             accessible_order, order.ydental_planned_at, order.ydental_responsible_id.id)
-        result = self._record_action(order, 'putaway', inventory_event=inventory_event, values={
-            'state': 'available', 'ydental_inventory_event_id': inventory_event.id,
-            'ydental_followup_id': followup.id,
-        })
+        if order.ydental_followup_id != followup:
+            order._save({'ydental_followup_id': followup.id})
         return result
 
     def _rework(self, store, order_id):
@@ -632,9 +633,47 @@ class YDentalLabService(models.AbstractModel):
         self._warehouse_write(store)
         order = self._get_order(order_id, store)
         reason = self._text(reason, 'Cancellation reason')
-        if order.state not in ('draft', 'sent', 'processing'):
-            raise UserError(self.env._('Cancellation is allowed only before physical receipt.'))
-        return self._record_action(order, 'cancelled', reason, values={'state': 'cancelled', 'ydental_exception_reason': reason})
+        self.env.cr.execute('SELECT id FROM ydental_lab_order WHERE id=%s FOR UPDATE', [order.id])
+        order.invalidate_recordset()
+        if order.state not in ('draft', 'sent', 'processing', 'received') or order.ydental_inventory_event_id:
+            raise UserError(self.env._('Cancellation is allowed only before actual put-away.'))
+        needs_review = bool(order.ydental_receipt_at or order.ydental_purchase_line_id or order.ydental_source_fee_id)
+        if not needs_review:
+            needs_review = bool(self.env['ydental.lab.charge'].sudo().search_count([
+                ('ydental_order_id', '=', order.id),
+            ], limit=1))
+        result = self._record_action(order, 'cancelled', reason, values={
+            'state': 'cancelled', 'ydental_exception_reason': reason,
+        })
+        followup_service = self.env['ydental.followup.service']
+        row = followup_service._cancel_passive_lab_plan(order, reason)
+        if needs_review:
+            # Activity instructions expose no purchase/fee amounts or links.
+            # Existing native purchase/fee permissions remain the only reader.
+            physical = followup_service._create_source_activity(
+                'ydental.lab.order', order.id, self.env.user,
+                'Laboratory cancellation: physical and financial review',
+                self.env._('This cycle was cancelled before put-away. Verify the actual package location and disposition. Physical receipt, vendor cost and patient fees remain unchanged. Use authorized native purchase and fee records for any separate review; this cancellation performs no stock movement, return, refund or credit.'),
+            )
+            if row:
+                communication = followup_service._create_contact_activity(
+                    row, self.env._('This laboratory cycle was cancelled before put-away. Review patient communication and agreed fee disposition. Preserve previous contact and sending history; do not notify the patient that the item is available.'),
+                )
+            else:
+                # Legacy orders are not backfilled with a synthetic contact plan.
+                communication = followup_service._create_source_activity(
+                    'ydental.lab.order', order.id, order.ydental_responsible_id,
+                    'Laboratory cancellation: patient communication',
+                    self.env._('Review patient communication and fee disposition for the cancelled cycle. No refund or clinical completion was recorded.'),
+                )
+            if not physical or not communication:
+                raise UserError(self.env._('Cancellation requires native physical/financial and patient communication review activities.'))
+            self._audit('cancellation_review', order, store, after={
+                'physical_review_activity_id': physical.id,
+                'communication_activity_id': communication.id,
+                'physical_receipt_preserved': bool(order.ydental_receipt_at),
+            }, reason=reason)
+        return result
 
     def _exception(self, store, order_id, disposition, reason):
         self._warehouse_write(store)

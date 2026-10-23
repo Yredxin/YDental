@@ -43,6 +43,15 @@ def _daily_cap_attempt_counts(attempt_count, attempt_started_at, local_start, lo
     return bool(attempt_count > 0 and attempt_started_at and local_start <= attempt_started_at < local_end)
 
 
+def _lab_notification_allowed(stage, event_type, current_reservation):
+    """An actual reservation may be reminded before the prosthesis arrives."""
+    if stage == 'stopped':
+        return False
+    if stage == 'waiting':
+        return event_type == 'appointment_reminder' and current_reservation
+    return True
+
+
 def _authorize_passive_lab_write(access, store):
     session = access._scope()
     if session.ydental_store_id != store:
@@ -216,7 +225,44 @@ class YDentalFollowupService(models.AbstractModel):
         clock = self.env.context.get('ydental_s11_clock')
         self.env.cr.postcommit.add(lambda: _dispatch_after_commit(dbname, tuple(job_ids), clock))
 
-    def _schedule(self, row):
+    def _lab_reservation_is_current(self, row):
+        """Check only this plan's retained native reservation/claim provenance.
+
+        Workers have no interactive store session. Exact elevated references
+        below return a boolean, never protected claim or capacity information.
+        """
+        appointment = row.sudo().ydental_appointment_id.exists()
+        if (not appointment or row.ydental_appointment_status != 'booked' or
+                appointment.ydental_channel != 'reservation' or appointment.state not in ('held', 'started') or
+                appointment.ydental_patient_id != row.ydental_patient_id or
+                appointment.ydental_store_id != row.ydental_store_id):
+            return False
+        claim = appointment.ydental_claim_id.exists()
+        tasks = self.env['ydental.intake.task'].sudo().search([
+            ('ydental_entitlement_id', '=', appointment.id),
+            ('ydental_patient_id', '=', row.ydental_patient_id.id),
+            ('ydental_store_id', '=', row.ydental_store_id.id),
+        ])
+        source_keys = {str(task.id) for task in tasks}
+        if appointment.ydental_version > 1:
+            source_keys.add('%s-v%s' % (appointment.id, appointment.ydental_version - 1))
+        return bool(claim and tasks and claim.ydental_store_id == row.ydental_store_id and
+                    claim.ydental_pool == 'reservation' and
+                    claim.ydental_source == 'ydental.intake.entitlement' and
+                    claim.ydental_source_key in source_keys and
+                    claim.state == ('held' if appointment.state == 'held' else 'consumed') and
+                    claim.ydental_slot_id.ydental_store_id == row.ydental_store_id)
+
+    def _lab_job_allowed(self, job):
+        row = job.ydental_followup_id
+        if not row or not row.ydental_lab_contact_stage:
+            return True
+        return _lab_notification_allowed(
+            row.ydental_lab_contact_stage, job.ydental_event_type,
+            self._lab_reservation_is_current(row) if row.ydental_lab_contact_stage == 'waiting' else False,
+        )
+
+    def _schedule(self, row, *, lab_arrival=False):
         jobs = self._job_model().search([
             ('ydental_followup_id', '=', row.id), ('ydental_state', '=', 'pending'),
         ])
@@ -227,6 +273,14 @@ class YDentalFollowupService(models.AbstractModel):
         when = row.ydental_appointment_at or row.ydental_planned_at
         event_type = 'appointment_reminder' if row.ydental_appointment_id and row.ydental_appointment_status == 'booked' else (
             'lab_arrival' if row.ydental_followup_type == 'lab_arrival' else 'followup_contact')
+        if lab_arrival:
+            if row.ydental_lab_contact_stage != 'ready':
+                raise UserError(self.env._('Actual put-away must precede an arrival notice.'))
+            event_type = 'lab_arrival'
+        if not _lab_notification_allowed(
+                row.ydental_lab_contact_stage, event_type,
+                self._lab_reservation_is_current(row) if row.ydental_lab_contact_stage == 'waiting' else False):
+            return
         policy = self.env['ydental.followup.policy'].sudo().search([
             ('ydental_store_id', '=', row.ydental_store_id.id),
         ], limit=1)
@@ -378,6 +432,8 @@ class YDentalFollowupService(models.AbstractModel):
             'name': event.ydental_document_id.name, 'ydental_store_id': store.id,
             'ydental_category': 'followup', 'ydental_patient_id': patient.id,
             'ydental_source_event_id': event.id, 'ydental_followup_type': followup_type,
+            'ydental_lab_order_id': False, 'ydental_lab_cycle_key': False,
+            'ydental_lab_contact_stage': False,
             'ydental_planned_at': planned_at, 'ydental_deadline_at': deadline_at,
             'ydental_responsible_id': user.id, 'ydental_created_by_id': self.env.uid,
         })
@@ -498,6 +554,8 @@ class YDentalFollowupService(models.AbstractModel):
 
     def _record_arrival(self, followup_id, arrival_id):
         row = self._followup(followup_id, True)
+        if row.ydental_lab_contact_stage == 'stopped':
+            raise UserError(self.env._('The laboratory contact plan has ended; its arrival link cannot change.'))
         if not row.ydental_appointment_id or row.ydental_appointment_status not in ('booked', 'not_arrived'):
             raise UserError(self.env._('Link an active reservation before recording appointment arrival.'))
         arrival = self.env['ydental.intake.arrival'].browse(self._id(arrival_id)).exists()
@@ -547,6 +605,10 @@ class YDentalFollowupService(models.AbstractModel):
         row = self._followup(followup_id, True)
         if row.state in ('done', 'closed'):
             raise UserError(self.env._('A completed or closed follow-up cannot accept another contact action.'))
+        if not _lab_notification_allowed(
+                row.ydental_lab_contact_stage, 'appointment_reminder',
+                self._lab_reservation_is_current(row) if row.ydental_lab_contact_stage == 'waiting' else False):
+            raise UserError(self.env._('Before put-away, contact requires a current actual reservation; cancelled laboratory plans cannot be contacted.'))
         if method not in ('phone', 'message', 'other') or outcome not in CONTACT_OUTCOMES:
             raise ValidationError(self.env._('Select a valid contact method and result.'))
         note = self._text(note, maximum=300)
@@ -575,6 +637,8 @@ class YDentalFollowupService(models.AbstractModel):
 
     def _complete(self, followup_id, event_id, confirmed_unlinked=False, reason=''):
         row = self._followup(followup_id, True)
+        if row.ydental_lab_contact_stage in ('waiting', 'stopped'):
+            raise UserError(self.env._('A laboratory arrival follow-up cannot be completed before put-away or after cancellation.'))
         self.env['ydental.access.service']._check('medical', 'write', write=True)
         if row.state in ('done', 'closed'):
             raise UserError(self.env._('A completed or closed follow-up cannot be completed again.'))
@@ -645,15 +709,19 @@ class YDentalFollowupService(models.AbstractModel):
 
     def _reopen(self, followup_id, reason):
         row = self._followup(followup_id, True)
+        if row.ydental_lab_contact_stage == 'stopped':
+            raise UserError(self.env._('The laboratory cycle has ended; its contact plan cannot be reopened.'))
         reason = self._text(reason, required=True)
         if row.state != 'closed':
             raise UserError(self.env._('Only a manually closed follow-up can be reopened.'))
         before = {'state': row.state, 'appointment_status': row.ydental_appointment_status,
                   'appointment_id': row.ydental_appointment_id.id}
-        row._save({'state': 'to_notify', 'ydental_closed_reason': False,
+        waiting = row.ydental_lab_contact_stage == 'waiting'
+        row._save({'state': 'planned' if waiting else 'to_notify', 'ydental_closed_reason': False,
                    'ydental_schedule_version': row.ydental_schedule_version + 1})
         self._schedule(row)
-        self._create_contact_activity(row, 'A manually closed follow-up was reopened. Review existing contact and appointment history.')
+        if not waiting or self._lab_reservation_is_current(row):
+            self._create_contact_activity(row, 'A manually closed follow-up was reopened. Review existing contact and appointment history.')
         self._audit('reopen', row, before=before, after={'state': row.state,
                     'appointment_status': row.ydental_appointment_status, 'appointment_id': row.ydental_appointment_id.id},
                     reason=reason)
@@ -687,51 +755,139 @@ class YDentalFollowupService(models.AbstractModel):
             'note': note, 'date_deadline': fields.Date.context_today(row),
         })
 
-    def _create_passive_from_lab_order(self, order, planned_at, responsible_id):
-        """Trusted in-process hook for the dependent laboratory addon; never an RPC action."""
-        if order._name != 'ydental.lab.order' or len(order) != 1:
+    def _check_passive_lab_order(self, order):
+        if order._name != 'ydental.lab.order' or len(order) != 1 or not order.exists():
             raise AccessError(self.env._('access_denied: A real laboratory order is required.'))
-        order.check_access('read')
+        order.with_user(self.env.uid).check_access('read')
+        store, patient, source = order.ydental_store_id, order.ydental_patient_id, order.sudo().ydental_source_event_id
+        if (not store or not patient or not source or source.state != 'confirmed' or
+                source.ydental_kind != 'treatment' or source.ydental_store_id != store or
+                source.ydental_execution_id.ydental_patient_id != patient):
+            raise ValidationError(self.env._('The immutable laboratory source must be a confirmed treatment for this patient and store.'))
+        return store
+
+    def _passive_lab_plan(self, order, stage):
+        """Called only after an exact medical or warehouse authorization check."""
+        order = order.sudo()
         store = order.ydental_store_id
-        patient = order.ydental_patient_id
-        source_event = order.ydental_source_event_id
-        cycle = 'order'
-        if not store or not patient or not source_event:
-            raise ValidationError(self.env._('The laboratory order must identify its patient and source treatment event.'))
-        access = self.env['ydental.access.service']
-        _authorize_passive_lab_write(access, store)
-        responsible_id = self._id(responsible_id)
-        if order.ydental_responsible_id.id != responsible_id:
-            raise AccessError(self.env._('access_denied: Passive follow-up must use the laboratory order assigned responsible.'))
-        if order.ydental_followup_id:
-            return order.ydental_followup_id
-        existing = self.env['ydental.followup'].sudo().search([
-            ('ydental_lab_order_id', '=', order.id), ('ydental_lab_cycle_key', '=', str(cycle)),
+        row = order.ydental_followup_id or self.env['ydental.followup'].sudo().search([
+            ('ydental_lab_order_id', '=', order.id), ('ydental_lab_cycle_key', '=', 'order'),
         ], limit=1)
-        if existing:
-            return existing
-        source_event = order.sudo().ydental_source_event_id
-        if (source_event.state != 'confirmed' or source_event.ydental_kind != 'treatment' or
-                source_event.ydental_execution_id.ydental_patient_id != patient or
-                source_event.ydental_store_id != store):
-            raise ValidationError(self.env._('The immutable laboratory source is not a confirmed treatment for this patient and store.'))
-        user = self._responsible(responsible_id, store)
-        planned_at = self._date(planned_at, timezone=store.ydental_timezone)
-        deadline_at = self._unbooked_deadline(planned_at, store)
+        if row:
+            if (row.ydental_lab_order_id != order.id or row.ydental_lab_cycle_key != 'order' or
+                    row.ydental_store_id != store or row.ydental_patient_id != order.ydental_patient_id or
+                    row.ydental_source_event_id != order.ydental_source_event_id or
+                    row.ydental_followup_type != 'lab_arrival'):
+                raise AccessError(self.env._('access_denied: The laboratory follow-up source does not match this cycle.'))
+            return row
+        user = self._responsible(order.ydental_responsible_id.id, store)
+        planned_at = self._date(order.ydental_planned_at, timezone=store.ydental_timezone)
         row = self.env['ydental.followup'].sudo()._new({
             'name': order.name, 'ydental_store_id': store.id, 'ydental_category': 'followup',
-            'ydental_patient_id': patient.id, 'ydental_source_event_id': source_event.id,
+            'ydental_patient_id': order.ydental_patient_id.id,
+            'ydental_source_event_id': order.ydental_source_event_id.id,
             'ydental_followup_type': 'lab_arrival', 'ydental_planned_at': planned_at,
-            'ydental_deadline_at': deadline_at,
+            'ydental_deadline_at': self._unbooked_deadline(planned_at, store),
             'ydental_responsible_id': user.id, 'ydental_created_by_id': self.env.uid,
-            'ydental_lab_order_id': order.id, 'ydental_lab_cycle_key': str(cycle),
+            'ydental_lab_order_id': order.id, 'ydental_lab_cycle_key': 'order',
+            'ydental_lab_contact_stage': stage,
         })
-        self._audit('lab_arrival_create', row, after={'lab_order_id': order.id, 'cycle_key': cycle})
-        if self._contact_snapshot(patient.sudo()):
-            self._schedule(row)
+        self._audit('lab_plan_create', row, after={'lab_order_id': order.id, 'cycle_key': 'order', 'stage': stage})
+        return row
+
+    def _ensure_planned_from_lab_order(self, order):
+        """Medical opening bridge; does not grant follow-up or warehouse rights."""
+        store = self._check_passive_lab_order(order)
+        access = self.env['ydental.access.service']
+        session = access._scope(write=True)
+        if session.ydental_store_id != store or order.state != 'draft':
+            raise AccessError(self.env._('access_denied: A new laboratory plan requires the current draft order.'))
+        access._check('medical', 'write', store.id, write=True)
+        return self._passive_lab_plan(order, 'waiting')
+
+    def _sync_planned_from_lab_order(self, order):
+        store = self._check_passive_lab_order(order)
+        access = self.env['ydental.access.service']
+        access._check('medical', 'write', store.id, write=True)
+        if access._scope(write=True).ydental_store_id != store or order.state != 'draft':
+            raise AccessError(self.env._('access_denied: Only the current draft laboratory plan can be synchronized.'))
+        row = order.sudo().ydental_followup_id
+        # A module update never invents plans or stage values for legacy orders.
+        if not row or row.ydental_lab_contact_stage != 'waiting':
+            return
+        row = self._passive_lab_plan(order, 'waiting')
+        user = self._responsible(order.ydental_responsible_id.id, store)
+        planned_at = self._date(order.ydental_planned_at, timezone=store.ydental_timezone)
+        if row.ydental_responsible_id == user and row.ydental_planned_at == planned_at:
+            return
+        deadline_at = (self._appointment_timing(row, row.ydental_appointment_id)['slot_start']
+                       if self._lab_reservation_is_current(row) else self._unbooked_deadline(planned_at, store))
+        row._save({'ydental_responsible_id': user.id, 'ydental_planned_at': planned_at,
+                   'ydental_deadline_at': deadline_at,
+                   'ydental_schedule_version': row.ydental_schedule_version + 1})
+        activities = self.env['mail.activity'].sudo().search([
+            ('res_model', '=', 'ydental.followup'), ('res_id', '=', row.id),
+            ('summary', '=', 'Follow-up contact required'), ('active', '=', True),
+        ])
+        activities.write({'user_id': user.id})
+        self._schedule(row)
+        self._audit('lab_plan_sync', row, after={'lab_order_id': order.id, 'responsible_id': user.id})
+
+    def _create_passive_from_lab_order(self, order, planned_at, responsible_id):
+        """Warehouse activation after the actual native stock receipt was saved."""
+        store = self._check_passive_lab_order(order)
+        _authorize_passive_lab_write(self.env['ydental.access.service'], store)
+        inventory = order.sudo().ydental_inventory_event_id
+        if (order.state != 'available' or not order.ydental_receipt_at or not inventory or
+                inventory.ydental_store_id != store or inventory.state != 'done' or
+                inventory.ydental_kind != 'receipt' or inventory.ydental_source_key != 'lab-receipt-%s' % order.id or
+                inventory.ydental_lot_id != order.ydental_lot_id or
+                inventory.ydental_product_id != order.ydental_product_id or
+                not inventory.ydental_move_id or inventory.ydental_move_id.state != 'done' or
+                order.ydental_responsible_id.id != self._id(responsible_id)):
+            raise AccessError(self.env._('access_denied: Arrival contact requires this cycle actual receipt and native put-away.'))
+        row = self._passive_lab_plan(order, 'waiting')
+        if row.ydental_lab_contact_stage == 'stopped':
+            raise UserError(self.env._('A stopped laboratory contact plan cannot be activated.'))
+        if row.state == 'done' or row.ydental_lab_contact_stage == 'ready':
+            return row
+        values = {'ydental_lab_contact_stage': 'ready',
+                  'ydental_schedule_version': row.ydental_schedule_version + 1,
+                  'ydental_active_notification_request_id': False,
+                  'ydental_active_notification_schedule_version': 0}
+        if row.state != 'closed':
+            values['state'] = 'planned'
+        row._save(values)
+        if row.state == 'closed':
+            return row
+        if self._contact_snapshot(order.sudo().ydental_patient_id):
+            self._schedule(row, lab_arrival=True)
         else:
             row._save({'state': 'to_notify'})
             self._create_contact_activity(row, 'Laboratory item arrived; no verified patient contact path is available.')
+        self._audit('lab_arrival_activate', row, after={'lab_order_id': order.id, 'inventory_event_id': inventory.id})
+        return row
+
+    def _cancel_passive_lab_plan(self, order, reason):
+        store = self._check_passive_lab_order(order)
+        _authorize_passive_lab_write(self.env['ydental.access.service'], store)
+        if order.state != 'cancelled':
+            raise AccessError(self.env._('access_denied: Stop laboratory contact only in the cancellation transaction.'))
+        row = order.sudo().ydental_followup_id
+        if not row:
+            return self.env['ydental.followup']
+        row = self._passive_lab_plan(order, 'stopped')
+        previous = row.state
+        values = {'ydental_lab_contact_stage': 'stopped',
+                  'ydental_schedule_version': row.ydental_schedule_version + 1,
+                  'ydental_active_notification_request_id': False,
+                  'ydental_active_notification_schedule_version': 0}
+        if row.state not in ('done', 'closed'):
+            values.update(state='closed', ydental_closed_reason=reason)
+        row._save(values)
+        self._cancel_pending_jobs(row, 'Laboratory cycle cancelled before put-away')
+        self._audit('lab_cancel_followup', row, before={'state': previous},
+                    after={'state': row.state, 'lab_order_id': order.id}, reason=reason)
         return row
 
     def _supersede_lab_followup(self, order, reason):
@@ -752,6 +908,7 @@ class YDentalFollowupService(models.AbstractModel):
             return row
         previous = row.state
         row._save({'state': 'closed', 'ydental_closed_reason': reason,
+                   'ydental_lab_contact_stage': 'stopped',
                    'ydental_schedule_version': row.ydental_schedule_version + 1})
         self._cancel_pending_jobs(row, 'Passive follow-up superseded by laboratory rework')
         self._audit('lab_rework_supersede', row, before={'state': previous},
@@ -776,6 +933,7 @@ class YDentalFollowupService(models.AbstractModel):
             return row
         previous = row.state
         row._save({'state': 'closed', 'ydental_closed_reason': reason,
+                   'ydental_lab_contact_stage': 'stopped',
                    'ydental_schedule_version': row.ydental_schedule_version + 1})
         self._cancel_pending_jobs(row, 'Laboratory item exception closed the arrival notice')
         self._create_contact_activity(
@@ -906,6 +1064,8 @@ class YDentalFollowupService(models.AbstractModel):
 
     def _send_transport(self, job):
         """No external transport is enabled in S11. A dependent test addon may override this method."""
+        if not self._lab_job_allowed(job):
+            return 'not_configured'
         policy = self.env['ydental.followup.policy'].sudo().search([
             ('ydental_store_id', '=', job.ydental_store_id.id),
         ], limit=1)
@@ -935,7 +1095,7 @@ class YDentalFollowupService(models.AbstractModel):
 
     def _followup_to_notify(self, job, note):
         row = job.ydental_followup_id
-        if row and row.state not in ('done', 'closed'):
+        if row and row.state not in ('done', 'closed') and self._lab_job_allowed(job):
             if row.state != 'to_notify':
                 row._save({'state': 'to_notify'})
             self._create_contact_activity(row, note)
@@ -1010,7 +1170,7 @@ class YDentalFollowupService(models.AbstractModel):
             if status == 'delivered':
                 vals['ydental_delivered_at'] = fields.Datetime.now()
             job._save(vals)
-        if advance and current_schedule and followup.state not in ('done', 'closed'):
+        if advance and current_schedule and followup.state not in ('done', 'closed') and self._lab_job_allowed(job):
                 if status in ('accepted', 'delivered'):
                     request_contact_key = 'provider-request:' + request_id
                     prior_contact = self._contact_model().search([
@@ -1062,7 +1222,8 @@ class YDentalFollowupService(models.AbstractModel):
         job._save(vals)
         if (outcome in ('accepted', 'delivered') and job.ydental_followup_id and
                 job.ydental_followup_id.state not in ('done', 'closed') and
-                job.ydental_source_version == job.ydental_followup_id.ydental_schedule_version):
+                job.ydental_source_version == job.ydental_followup_id.ydental_schedule_version and
+                self._lab_job_allowed(job)):
             self._contact_model()._new({
                 'name': 'Manual notification reconciliation', 'ydental_store_id': job.ydental_store_id.id,
                 'ydental_category': 'followup', 'ydental_followup_id': job.ydental_followup_id.id,
@@ -1146,7 +1307,7 @@ def _claim_dispatch(dbname, job_id, clock=None):
                 return None
         if job.ydental_source_model == 'ydental.followup' and (
                 not followup or followup.state in ('done', 'closed') or
-                followup.ydental_schedule_version != job.ydental_source_version):
+                followup.ydental_schedule_version != job.ydental_source_version or not service._lab_job_allowed(job)):
             job._save({'ydental_state': 'cancelled', 'ydental_last_error': 'Source schedule is no longer current.'})
             cr.commit()
             return None
@@ -1224,9 +1385,10 @@ def _dispatch_claimed(dbname, job_id, request_id):
         followup = job.ydental_followup_id
         if followup:
             cr.execute('SELECT id FROM ydental_followup WHERE id=%s FOR UPDATE', [followup.id])
-            followup.invalidate_recordset(['state', 'ydental_schedule_version'])
+            followup.invalidate_recordset(['state', 'ydental_schedule_version', 'ydental_lab_contact_stage',
+                                           'ydental_appointment_id', 'ydental_appointment_status'])
             if (followup.state in ('done', 'closed') or
-                    followup.ydental_schedule_version != job.ydental_source_version):
+                    followup.ydental_schedule_version != job.ydental_source_version or not service._lab_job_allowed(job)):
                 job._save({'ydental_state': 'cancelled', 'ydental_last_error': 'Source changed before dispatch began.'})
                 cr.commit()
                 return

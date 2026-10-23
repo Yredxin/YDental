@@ -34,6 +34,11 @@ class YDentalFollowup(models.Model):
     ydental_completed_event_id = fields.Many2one('ydental.treatment.event', ondelete='restrict', readonly=True)
     ydental_completed_execution_id = fields.Many2one('ydental.queue.execution', ondelete='restrict', readonly=True)
     ydental_lab_order_id = fields.Integer(index=True)
+    # Empty preserves legacy behavior; only new guarded lab actions assign a stage.
+    ydental_lab_contact_stage = fields.Selection([
+        ('waiting', 'Waiting for laboratory stock'), ('ready', 'Laboratory stock available'),
+        ('stopped', 'Laboratory contact stopped'),
+    ], readonly=True, copy=False)
     ydental_lab_cycle_key = fields.Char(index=True)
     state = fields.Selection([
         ('planned', 'Planned'), ('to_notify', 'Contact required'), ('notified', 'Contacted'),
