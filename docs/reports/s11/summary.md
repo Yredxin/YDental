@@ -1,3 +1,9 @@
+# 2026-10-23｜新目标临时管理员准备
+
+- 继续固定新目标`ydental_s11_synth_20261023_01`（OID `2171423`，cluster `7694897083368259627`），不触碰旧scratch。管理员ORM helper SHA `577004c7026c9b360a64626efc044907d463f8866a529f480d478cf3d082485c`由未实现者独立PASS后执行；helper运行前核配置`test_enable=false`和目标/SMTP/端口，超时有readback-required receipt。通过Odoo ORM为`base.user_admin` UID2设置本轮私有随机密码，exit0、launcher端口仍关闭。
+- 执行receipt `.local/s11/verification/new-target-admin-prepare-attempt1.json` SHA `1c4ac5dcc2bc0d5ad46fa2ab70a24001688590a02edf851238f53bfd2341e7d5`。独立受限DB只读查询确认UID2/login `admin`/active true、SMTP服务器数0，RO/RR rollback/idle/close PASS；未读取密码字段或哈希。凭据只在0600忽略文件。
+- 新DB已建并初始化，但新目标runtime/scope、初始化后业务保护checkpoint、fresh admission未完成；没有启动长期服务或执行HTTP/UI/业务工作流。S11仍PARTIAL、#35 OPEN。创建与初始化依据见下一节；本结果不改变旧scratch/attempt30限制。
+
 # S11 新空白目标一次性准备与应用初始化（2026-10-23）
 
 - 现场：分支 `codex/s11-followup-lab-r1`，开始 HEAD `3af84d19c8e708279679c66bcbe58857d4739f4e`，ahead origin 266。开始时tracked工作区干净；当前有本轮launcher/clock目标绑定及README/样例修改，未覆盖既有提交/成果。没有push、merge、deploy或启动S12/S13。
@@ -1288,3 +1294,6 @@ attempt32只读观察失败回执保留，失败仅为权限继承边排序比�
 B未通过的明确缺口：本次没有在已有允许读取范围内对 patient650/task720、patient364/event417、PO147–149及旧资金/库存/审计保护对象逐项核当前字段/关系。attempt48/attempt33计数及D/C投影不能替代这些原保护对象字段/关系的当前检查；PO147–149原禁止读取限制继续生效，不因此扩展权限。
 
 因此不发布fresh admission、不启动服务、不发送新的join UI POST。要重新考虑限定续行，需先完成允许范围内的受保护旧对象字段/关系核验，并为下一操作固定attempt33 pre-state、通过独立审查的post-readback器：确认旧ID21292/21293字段和关系不变；列出并按来源核对所有新message IDs；逐项解释224表差异、目标用户/employee/membership、audit/session、D/C、通知队列和外发配置。任何意外增量均FAIL_CLOSED。当前S11 `PARTIAL / RUNTIME_BLOCKED`，#35 OPEN；新观察基线不减除或掩盖旧+2。
+- 继续固定新目标`ydental_s11_synth_20261023_01`（OID `2171423`，cluster `7694897083368259627`），不触碰旧scratch。管理员ORM helper SHA `577004c7026c9b360a64626efc044907d463f8866a529f480d478cf3d082485c`由未实现者独立PASS后执行；helper在运行前核配置`test_enable=false`和目标/SMTP/端口，超时有readback-required receipt。通过Odoo ORM为`base.user_admin` UID2设置本轮私有随机密码，业务操作为false，exit0、launcher端口仍关闭。
+- 执行receipt `.local/s11/verification/new-target-admin-prepare-attempt1.json` SHA `1c4ac5dcc2bc0d5ad46fa2ab70a24001688590a02edf851238f53bfd2341e7d5`。独立受限DB只读查询确认UID2/login `admin`/active true、SMTP服务器数0，RO/RR rollback/idle/close PASS；未读取密码字段或哈希。私有凭据路径`.local/s11/new-target-admin-credential.json`，仅0600忽略文件。
+- 新DB已建并初始化，但新目标runtime/scope、初始化后业务保护checkpoint、fresh admission尚未完成；没有启动长期服务或执行HTTP/UI/业务工作流。S11仍PARTIAL、#35 OPEN。数据库创建与初始化依据见本报告上一节和evidence-index对应条目；本结果不改变旧scratch/attempt30限制。

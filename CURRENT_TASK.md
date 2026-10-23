@@ -1,3 +1,9 @@
+# S11 新目标应用初始化后续（2026-10-23）
+
+- 本续行从提交`dadf681acb65dca5f4c8f9546063bd595f27f28e`继续，分支`codex/s11-followup-lab-r1`，ahead origin 267；保留该提交及之前全部成果。上一节记载的新空白库建立、受限角色、模块初始化、launcher新目标适配和全部原始失败均保留；旧scratch/attempt30未再访问业务数据。未push/merge/deploy，不启动S12/S13。
+- 管理员准备attempt1 helper SHA `577004c7026c9b360a64626efc044907d463f8866a529f480d478cf3d082485c`，由未实现者独立PASS：在创建凭据前拒绝`test_enable=true`，超时写0600只读回必需收据并保持单次锁。只用新库Odoo ORM轮换`base.user_admin` UID2的私有临时密码；执行receipt `.local/s11/verification/new-target-admin-prepare-attempt1.json` SHA `1c4ac5dcc2bc0d5ad46fa2ab70a24001688590a02edf851238f53bfd2341e7d5`，状态`ADMIN_PREPARED`、exit0、18411仍关闭。独立受限数据库只读读回UID2/login/active PASS、SMTP服务器0，未读取密码或哈希。凭据仅在忽略目录0600文件。
+- 当前目标进度：数据库`ydental_s11_synth_20261023_01`、实际OID `2171423`、PG cluster `7694897083368259627`、受限运行角色及97模块已读回；临时管理用户可用。尚未建立新目标runtime/scope/admission与post-init保护检查点，未启动launcher、未做HTTP/UI、业务流程或对该新目标的完整影响回归。S11`PARTIAL`、#35 OPEN；不要把库创建/模块安装/UID2密码准备算作业务或运行验收。
+
 # S11 新空白目标一次性准备与应用初始化（2026-10-23）
 
 - 现场：分支 `codex/s11-followup-lab-r1`，开始 HEAD `3af84d19c8e708279679c66bcbe58857d4739f4e`，ahead origin 266。开始时tracked工作区干净；当前有本轮launcher/clock目标绑定及README/样例修改，未覆盖既有提交/成果。没有push、merge、deploy或启动S12/S13。

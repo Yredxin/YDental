@@ -1,3 +1,11 @@
+# 2026-10-23｜新目标一次性管理员准备
+
+|证据|路径 / SHA-256|结论与边界|
+|---|---|---|
+|管理员准备helper|`.local/s11/operations/prepare_new_target_admin_attempt1.py` / `577004c7026c9b360a64626efc044907d463f8866a529f480d478cf3d082485c`|独立复核PASS；test mode拒绝、精确目标/SMTP/端口前置、ORM-only密码设置；超时写私有readback-required receipt。|
+|管理员准备执行|`.local/s11/verification/new-target-admin-prepare-attempt1.json` / `1c4ac5dcc2bc0d5ad46fa2ab70a24001688590a02edf851238f53bfd2341e7d5`|UID2临时密码经Odoo ORM设置，exit0；18411未启动；无业务动作，receipt不含密码。|
+|管理员独立读回|受限角色只读查询|UID2/login/active、SMTP服务器数0；未查询密码或哈希；RO/RR rollback/idle/close通过。|
+
 # S11 新空白目标一次性准备与应用初始化（2026-10-23）
 
 - 现场：分支 `codex/s11-followup-lab-r1`，开始 HEAD `3af84d19c8e708279679c66bcbe58857d4739f4e`，ahead origin 266。开始时tracked工作区干净；当前有本轮launcher/clock目标绑定及README/样例修改，未覆盖既有提交/成果。没有push、merge、deploy或启动S12/S13。
@@ -602,3 +610,8 @@ At candidate `4d126a6`, fresh pre-create admission passed (receipt SHA `93c21c58
 |未决消息|当前ID 21292 `res.users(2673)`及21293 `hr.employee(2641)`存在，安全metadata与attempt31 receipt SHA `e3f220e1e1efebed110c56ee21166d4c4d932bfe3f4db01a8f26ab44393edb17`逐字段匹配。recipient/cc/notification/mail_mail关联数均0。未读正文、地址、tracking旧新值。`exact_id_set_difference_from_attempt48_proven=false`：原基线无IDs，不能声称仅新增这两条。|
 |独立A/B/C|独立baseline reviewer：A BLOCK/UNPROVEN；B BLOCK（受限投影通过，但patient650/task720、patient364/event417、PO147–149及旧资金/库存/审计原保护对象没有字段/关系当前读回）；C源码证明join不会消费或修改旧IDs，但新join可能生成tracking rows，现有草案没有逐ID post-readback。PO147–149禁止读取条件仍有效。|
 |许可状态|不发fresh admission、不启动服务、不发送join POST。下一前置：允许读取范围内逐项当前保护对象字段/关系核验；固定attempt33 pre-state并独立审查未来post-readback verifier，要求旧IDs不变、新IDs逐条归因、224 delta/账号关系/D-C/审计会话/通知与外发配置可解释。A仍保留未证，不能被新基线清除。|
+|证据|路径 / SHA-256|结论与边界|
+|---|---|---|
+|管理员准备helper|`.local/s11/operations/prepare_new_target_admin_attempt1.py` / `577004c7026c9b360a64626efc044907d463f8866a529f480d478cf3d082485c`|独立复核PASS；test mode拒绝、精确目标/SMTP/端口前置、ORM-only密码设置；超时写私有readback-required receipt；不得重跑已锁定attempt。|
+|管理员准备执行|`.local/s11/verification/new-target-admin-prepare-attempt1.json` / `1c4ac5dcc2bc0d5ad46fa2ab70a24001688590a02edf851238f53bfd2341e7d5`|UID2 `admin`临时密码经Odoo ORM设置，exit0；18411未启动；无业务动作。密码值不在receipt。|
+|管理员独立读回|本地执行的受限角色只读查询（未另写业务数据）|UID2/login/active核实，SMTP服务器数0；未查询密码或密码哈希；RO/RR rollback/idle/close通过。|
