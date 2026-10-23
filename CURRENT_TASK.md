@@ -5,6 +5,9 @@
 - 2026-10-23用户明确更正：历史cyber_policy不再一律要求支持恢复证明；先审查当前实际内容，在正常权限/入口内提交明确的小范围允许请求。当前生效限制仍须遵守；若新请求被拦，保存准确提示/返回标识并停止对应请求，不换账号/模型/agent/工具/入口逃避检查，不改平台安全配置。
 - 已核AGENTS及同一v1.2计划并最小更正上述规则；三次历史失败、两份支持附件和主控复核原件不变，不宣布解除或误拦截。既有G02/T16/101项回归等按原层级承接。
 - 主控继续唯一文件写者和环境调度，先检查G03 `_mark_contact_success`、普通时间与既有应用时钟契约，最小修复/定向测试，交未实现者独立复核。随后仅同一合成目标OID2171423补G01四场真实竞争；未完成前PARTIAL、#35 OPEN，不合并/部署/S12/S13。
+- 规则更正已本地提交`9e70551`；G03产品候选`44bf963d78cf55814f697900d8fa6a1fec7f6b32`仅将未预约联系期限基准改为`self._now()`并增强既有MODEL方法，联系/通知/审计物理时间、ACL及clock guard未改。未实现者SOURCE回执`g03-44bf963-source-independent-v1.json` SHA d4083617…无具体源码阻断，未冒动态通过；当前定向MODEL实际运行中，不重放已提交经济业务。
+- 主控新目标RO实际核OID2171423/cluster7694897083368259627/受限role/已安装模块及无外发、无其他目标连接。两普通前置失败保留：短hash精确候选不匹配（DB前），误硬编码门店全UTC（仅RO后rollback/close）；实际三门店与已验final96 post原SHA一致，工具改为绑定该快照，不改门店。现项目调度scope真实14:26:46.299662Z至18:26:46.299662Z，仅项目资源安排、不自证平台恢复；旧pair原bytes本机私有归档，checkpoint SHA328ecba5…，独立离线复核中。服务实际STOPPED；未加账号/组或修改平台控制。
+- 44bf963定向既有lifecycle方法实际MODEL运行exit0、ERROR0、无Native，日志SHA924ed33c…；仅业务时钟seam patch回归，未冒真实session-clock动态证明。前置脚本误查未消费的adapter参数已由未实现者指出，另追加实际local_sink_enabled=false/callback空、policy关闭、clock成员0的RO补证，不倒填原checkpoint。升级pre采证遇未提交CURRENT_TASK的普通clean-tree校验在DB前停止，按现有提交/文档候选规则处理，不改launcher或当作平台拒绝。
 
 ## 此前支持材料整理与停止检查点（历史保留；续行规则以上节为准）
 
