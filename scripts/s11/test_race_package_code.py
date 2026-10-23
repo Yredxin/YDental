@@ -6,6 +6,7 @@ import os
 from pathlib import Path
 import stat
 import tempfile
+from types import SimpleNamespace
 import unittest
 
 import race_package_code as runner
@@ -65,6 +66,36 @@ class TestRacePackageCode(unittest.TestCase):
         ):
             with self.subTest(levels=levels):
                 self.assertFalse(runner.actor_has_required_grants(levels))
+
+    def test_distinct_patients_keep_each_orders_own_confirmed_source(self):
+        store = SimpleNamespace(id=34)
+        patients = [SimpleNamespace(id=71), SimpleNamespace(id=72)]
+        sources = [SimpleNamespace(id=81+i, state="confirmed", ydental_kind="treatment",
+                                   ydental_store_id=store, ydental_patient_id=patient)
+                   for i, patient in enumerate(patients)]
+        orders = [SimpleNamespace(ydental_store_id=store, ydental_patient_id=patient,
+                                  ydental_source_event_id=source)
+                  for patient, source in zip(patients, sources, strict=True)]
+        runner.validate_order_sources(orders, store.id)
+        for field, invalid in (
+            ("ydental_patient_id", patients[0]),
+            ("ydental_patient_id", SimpleNamespace(id=False)),
+            ("ydental_store_id", SimpleNamespace(id=35)),
+            ("state", "draft"),
+            ("ydental_kind", "examination"),
+            ("id", False),
+        ):
+            source = sources[1]
+            before = getattr(source, field)
+            setattr(source, field, invalid)
+            try:
+                with self.subTest(field=field, invalid=invalid), self.assertRaises(runner.Refusal):
+                    runner.validate_order_sources(orders, store.id)
+            finally:
+                setattr(source, field, before)
+        orders[1].ydental_patient_id = SimpleNamespace(id=False)
+        with self.assertRaises(runner.Refusal):
+            runner.validate_order_sources(orders, store.id)
 
     def test_receipt_writer_uses_private_atomic_json(self):
         with tempfile.TemporaryDirectory() as temp:

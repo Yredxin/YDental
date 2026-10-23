@@ -169,6 +169,17 @@ def readonly_identity(cr, launcher, database: dict) -> dict[str, Any]:
             "role_createdb": can_createdb, "role_createrole": can_createrole}
 
 
+def validate_order_sources(orders, store_id: int) -> None:
+    for order in orders:
+        source = order.ydental_source_event_id
+        patient = order.ydental_patient_id
+        if (not source or not source.id or not patient or not patient.id or
+                source.state != "confirmed" or source.ydental_kind != "treatment" or
+                order.ydental_store_id.id != store_id or source.ydental_store_id.id != store_id or
+                source.ydental_patient_id != patient):
+            raise Refusal("each order must point to its actual confirmed same-store synthetic treatment source")
+
+
 def _order_snapshot(env, order_ids: tuple[int, int], store_id: int,
                     require_unbound: bool = True) -> dict[str, Any]:
     Order = env["ydental.lab.order"].sudo()
@@ -183,12 +194,7 @@ def _order_snapshot(env, order_ids: tuple[int, int], store_id: int,
         raise Refusal("only active synthetic work orders may be used; completed/cancelled history is protected")
     if require_unbound and any(order.ydental_package_code for order in orders):
         raise Refusal("both synthetic work orders must have no package code before the race")
-    for order in orders:
-        source = order.ydental_source_event_id
-        if (source.state != "confirmed" or source.ydental_kind != "treatment" or
-                source.ydental_store_id.id != store_id or
-                source.ydental_patient_id != order.ydental_patient_id):
-            raise Refusal("each order must point to its actual confirmed same-store synthetic treatment source")
+    validate_order_sources(orders, store_id)
 
     events = env["ydental.lab.event"].sudo().search([("ydental_order_id", "in", order_ids)])
     audit = env["ydental.access.audit"].sudo().search([
@@ -213,8 +219,6 @@ def _order_snapshot(env, order_ids: tuple[int, int], store_id: int,
             "quantity": row.quantity,
             "reserved_quantity": row.reserved_quantity,
         } for row in quant_rows)
-    if len(set(order.ydental_source_event_id.ydental_patient_id.id for order in orders)) != 1:
-        raise Refusal("race targets must have the same synthetic patient source to avoid mixing fixtures")
     if require_unbound and (audit or events.filtered(lambda event: event.ydental_kind == "code_bound")):
         raise Refusal("race targets already have package-code binding history")
     return {
