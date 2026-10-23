@@ -322,7 +322,7 @@ class YDentalFollowupService(models.AbstractModel):
                 'ydental_active_notification_request_id': request_id or False,
                 'ydental_active_notification_schedule_version': next_schedule_version if request_id else 0}
         if not row.ydental_appointment_id:
-            vals['ydental_deadline_at'] = self._unbooked_deadline(fields.Datetime.to_datetime(fields.Datetime.now()), row.ydental_store_id)
+            vals['ydental_deadline_at'] = self._unbooked_deadline(fields.Datetime.to_datetime(self._now()), row.ydental_store_id)
         row._save(vals)
         self._cancel_pending_jobs(row, 'Successful contact superseded automatic reminder')
 

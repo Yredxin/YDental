@@ -239,6 +239,7 @@ class TestFollowupLifecycle(TransactionCase):
             'no_answer',
         )
 
+        physical_before = fields.Datetime.now()
         contacted = service._operate('contact', {
             'followup_id': followup.id, 'method': 'phone', 'outcome': 'delivered',
             'note': 'Synthetic successful manual call',
@@ -250,10 +251,48 @@ class TestFollowupLifecycle(TransactionCase):
         ]), 2)
         self.assertGreater(followup.ydental_deadline_at, fields.Datetime.now())
 
+        policy = self.root['ydental.followup.policy'].search([
+            ('ydental_store_id', '=', self.stores[0].id),
+        ], limit=1)
+        window = timedelta(hours=policy.ydental_unbooked_window_hours if policy else 72)
+        self.assertGreaterEqual(followup.ydental_deadline_at, physical_before + window)
+        self.assertLessEqual(followup.ydental_deadline_at, fields.Datetime.now() + window)
+
+        # Exercise the business-time seam without changing physical timestamps.
+        # The owned session-clock integration is verified separately; this is
+        # a rollback-only MODEL regression of the ordinary contact operation.
+        future_now = fields.Datetime.now().replace(microsecond=0) + timedelta(days=10)
+        prior_deadline = followup.ydental_deadline_at
+        with patch.object(type(service), '_now', return_value=future_now):
+            service._operate('contact', {
+                'followup_id': followup.id, 'method': 'phone', 'outcome': 'no_answer',
+                'note': 'Synthetic unsuccessful contact leaves the deadline unchanged',
+            })
+        self.assertEqual(followup.ydental_deadline_at, prior_deadline)
+        self.assertEqual(followup.state, 'to_notify')
+        prior_version = followup.ydental_schedule_version
+        physical_before = fields.Datetime.now()
+        with patch.object(type(service), '_now', return_value=future_now):
+            future_contact = service._operate('contact', {
+                'followup_id': followup.id, 'method': 'phone', 'outcome': 'delivered',
+                'note': 'Synthetic business-time contact deadline regression',
+            })
+        self.assertEqual(followup.state, 'notified')
+        self.assertEqual(followup.ydental_schedule_version, prior_version + 1)
+        self.assertFalse(followup.ydental_appointment_id)
+        self.assertEqual(followup.ydental_deadline_at, future_now + window)
+        contact_row = self.root['ydental.followup.contact'].sudo().browse(future_contact['contact_id'])
+        self.assertGreaterEqual(contact_row.ydental_contacted_at, physical_before)
+        self.assertLessEqual(contact_row.ydental_contacted_at, fields.Datetime.now())
+        self.assertEqual(job.ydental_state, 'cancelled')
+
         # Exercise the real repeated-cron transition with an explicit test
         # boundary; this does not change the host clock or pretend time elapsed.
-        overdue_at = followup.ydental_deadline_at + timedelta(seconds=1)
+        overdue_at = followup.ydental_deadline_at
         cron_model = self.root['ydental.followup'].with_context({})
+        with patch.object(type(service), '_now', return_value=overdue_at - timedelta(seconds=1)):
+            cron_model._cron_run_due()
+        self.assertEqual(followup.state, 'notified')
         with patch.object(type(service), '_now', return_value=overdue_at):
             cron_model._cron_run_due()
             cron_model._cron_run_due()
@@ -285,6 +324,15 @@ class TestFollowupLifecycle(TransactionCase):
         self.assertEqual(followup.ydental_appointment_id, entitlement)
         self.assertEqual(followup.ydental_appointment_status, 'booked')
         self.assertEqual(followup.ydental_planned_at, rescheduled_at)
+
+        appointment_deadline = followup.ydental_deadline_at
+        with patch.object(type(service), '_now', return_value=future_now):
+            service._operate('contact', {
+                'followup_id': followup.id, 'method': 'phone', 'outcome': 'delivered',
+                'note': 'Synthetic booked contact retains the appointment deadline',
+            })
+        self.assertEqual(followup.ydental_deadline_at, appointment_deadline)
+        self.assertEqual(followup.ydental_appointment_id, entitlement)
 
         closed = service._operate('close', {
             'followup_id': followup.id, 'reason': 'Synthetic patient declined further follow-up',
