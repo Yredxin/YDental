@@ -6,11 +6,19 @@
 - 唯一启用[DL-P1完整计划](docs/execution/S13_DL_P1_IMPLEMENTATION_PLAN.md)，[设计规范](docs/design/YDENTAL_DESIGN_LANGUAGE_V1.md)；只改`/ydental/documents` GETq和preview的selection/template_id及按钮/必要局部说明。页头/导航/列表/生成/previous_id/管理/批量导出/PDF/其他岗位不改，业务model/controller/权限/金额/状态机不改。**DL-P2—P6 NOT_AUTHORIZED**，交付本阶段即停，完整S13/负载/恢复/实机/正式政策/扫码组合/生产仍未启用。
 - 已读main现行GPT_HANDOFF/AGENTS/CURRENT、活动06c7状态/报告、#23/#37正文/有效增量，S13-UX已结束且不重派UX-01—08。main仅文档路由。origin当前main0b3cf95e1762786f8ccbea48291ef2fa0b630b12，原业务06c7a4639a107e70c3db6352f8f929db80e6f94a无合法新增量，正常承接`codex/s13-dl-p1-documents-query-r1`，不reset/clean/强推。core f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb保持。
 - 单一主控/root管运行/集成/文档，复用documents为产品唯一写者、tester为验证工具/第二引擎、acceptance为未实现产品/测试工具的独立验收者，共享OS不冒隔离。已先采纯旧before，之后documents应用5个指定产品文件，其他区域源码前后逐字不变；未实现者独立验收待运行。
-- 纯旧31ef产品/CSS真实before15图已采，普通doctor9从access菜单进入，q=P00001313/sourceclinical:507:2/模板空，五视口查询与显式preview200各一，另无结果及四旁路页。实际父/子0/signull，before结果2b994d01730a525a42d9fc82eb2691c121004a89c2a2e925d2ce76fa9e937124；旧320px根scroll345/client320，其他视口同宽，后续只验证改区fit/不新增，不扩修旧区。run103549已正常stop。产品仅指定5文件已应用并SOURCE/PURE通过，尚待print-only加载/真实交互，不宣称产品PASS。
+- 纯旧31ef产品/CSS真实before15图已采，普通doctor9从access菜单进入，q=P00001313/sourceclinical:507:2/模板空，五视口查询与显式preview200各一，另无结果及四旁路页。实际父/子0/signull，before结果2b994d01730a525a42d9fc82eb2691c121004a89c2a2e925d2ce76fa9e937124；旧320px根scroll345/client320，其他视口同宽，后续只验证改区fit/不新增，不扩修旧区。run103549已正常stop。固定产品/执行63ae208b09e1c582ed2493f0cba78cc7a94731fb；print-only限定加载实际0/ERROR0/noNative，即时完整pre/post逐项独立核；其后真实17类HTTP与Chromium/Firefox交互已执行，最终视觉仍待补证和独立签收。
 - P1资源工具仅适配既有S13/S12/S11正常probe/ownedlauncher/RO保护/普通HTTP与既有浏览器，新的plan/branch/private路径、原目标/filestore/出生PID/权限与no-clock约束保持；旧scope/STOP/owner不改，旧owner先正常处理。不新增复制改名库。7PURE边界检查通过，尚非实际服务/产品PASS。
 - 唯一既有目标ydental_s11_synth_20261023_01/OID2171423/cluster7694897083368259627及原filestore；从当前全部65内部原件+2外部原件及83实际文件、145业务/13技术投影承接，保护包括全部失败迭代，不只旧17查看件。当前应收旧1073+合法新230=当时1303、lot25310/2/8、旧及新增455/508/880/215/281/282等待责任全保留。本阶段不新经济/库存链、不generate或print_request/签署/新PDF，正常查询预览审计单列。
 - 实施P1-W0—W4、T01—16，普通有权角色真实搜索/预览、Chromium及Firefox或WebKit真实产品关键交互、5视口/200%zoom与根字号分开、AX/IME/降级/未改区与完整保护。secondengine缺能力最终PARTIAL/BROWSER_VALIDATION_PENDING，不改UA冒实测；用户亲手/真实Safari移动设备/屏幕阅读器未验不假通过。
 - 详细事实落同一[summary](docs/reports/s13-dl-p1/summary.md)、[matrix](docs/reports/s13-dl-p1/acceptance-matrix.md)、[index](docs/reports/s13-dl-p1/evidence-index.md)。完成前不发Issue中间进度；结束正常push/ref/必要main文档与#37新一条P1最终记录，旧6382778460不改，#37OPEN/#36CLOSED，不合产品main/部署，不自动P2。
+
+- 重要检查点：真实before15与after15（含五视口查/显式preview、无结果、四旁路）同条件采齐；同页命名未改区域computed与子控件逐项相同，旧320px整页345px溢出保持，未扩修旧区；2个after iframe裁剪实际可见正文。normal HTTP v5为17类实际请求通过，错version/format409、错kind模板/无源/跨店403，实际切授权store2使旧revision409，再正常回store1新revision200。不存在template ID沿原服务fallback合成200单列，不冒拒绝。
+- 正常权限窗口：首次RO连接建立前因角色连接数上限失败，未登录/授权提交；正常stop本项目池后fresh RO probe/未实现者review/rebind，不改角色/集群/旧scope。新ownedrun20261024T111344Z-31555a664ae6，原到期18:32:42UTC。revocation-v2实际0：普通9原form200→正常manager暂撤medical none，独立PG确认→同旧formpreview/95download各403→原write精确恢复且独立PG核身份/公司/组/能力/成员不变→同form200。该正常授权审计/技术日期单列。
+- 仍IN_PROGRESS：独立亲看发现Chrome全页展开截图动作关闭浮层、Firefox私有字体环境tofu；前者补viewport真实展开图，后者正常复用已有CJK字体环境修复，不改产品CSS/共享系统。保留原失败，不能据JSON/AX文本签中文视觉。Chromium真实原生zoom2与Gecko原生fullZoom2均有真实metrics，根字号200另列；IME区分CDP可信组合与物理OS未验。完成剩余效果、final完整保护和独立验收后才总签；尚无P1公共push/Issue中间评论。
+
+- 独立发现真实P1缺陷，63ae尚不能总签：极长来源320px触发器813px高，浮层仅14px；根字号200%仅26px，候选不可读。工具child0/bounds contained不足通过，原失败5eef89bd…保留、T04/T08 FAIL。已正常stop run111344，documents唯一写者修局部可读定位fallback，固定新候选后按影响补验；不缩字/截必需文本/改DB。Firefox字体文件/FreeType已核无损仍tofu原因UNKNOWN，不改安全设置；按计划正常私有准备WebKit作为另一引擎，未发生安全拒绝。原normal63ae证据按真实范围承接，不冒最终新候选通过。
+
+- P1普通修复已完成SOURCE：仅documents_query.js的open/setActive，JS SHA fd5e89476977d26484fbe9f6d07b88297a42a0183ff9144e772e4f543a27952d。正常core定位不变；不足3个普通控件行/当前项高度或超visualViewport时，浮层在视口内可覆盖anchor、扩足可读空间；超高单项从首行露出、全部文字局部滚达，不删字/缩字。新候选冻结后fresh完整pre→正常更新资产实际加载/影响面补验→post；manifest/views/PO/SCSS原样，原print-u前后证据适用，不为JS-only重复-u或旧业务。最终未实现者视觉/多引擎/完整保护仍待，不预签。
 
 ---
 

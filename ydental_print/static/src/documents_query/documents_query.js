@@ -214,7 +214,8 @@ class DocumentQuerySelect {
         this.popup.hidden = false;
         this.trigger.setAttribute("aria-expanded", "true");
         this.popup.style.maxHeight = "20rem";
-        const gutter = parseFloat(getComputedStyle(this.trigger).fontSize) * 0.75;
+        const fontSize = parseFloat(getComputedStyle(this.trigger).fontSize);
+        const gutter = fontSize * 0.75;
         this.popup.style.width = `${Math.max(0, Math.min(
             this.trigger.getBoundingClientRect().width,
             this.document.documentElement.clientWidth - gutter * 2
@@ -224,6 +225,45 @@ class DocumentQuerySelect {
             margin: gutter / 2, flip: true, shrink: true,
         });
         this.popup.dataset.placement = solution.direction;
+
+        // Keep native positioning when it leaves usable reading space. A long
+        // trigger can itself fill the viewport, leaving neither side usable.
+        const viewport = window.visualViewport;
+        const viewportWidth = viewport?.width || this.document.documentElement.clientWidth;
+        const viewportHeight = viewport?.height || window.innerHeight;
+        const inset = Math.min(gutter, viewportWidth / 8, viewportHeight / 8);
+        const left = (viewport?.offsetLeft || 0) + inset;
+        const top = (viewport?.offsetTop || 0) + inset;
+        const width = Math.max(0, viewportWidth - inset * 2);
+        const height = Math.max(0, viewportHeight - inset * 2);
+        if (!width || !height) {
+            this.close(false);
+            return;
+        }
+        const popupStyle = getComputedStyle(this.popup);
+        const chrome = parseFloat(popupStyle.paddingTop) + parseFloat(popupStyle.paddingBottom) +
+            parseFloat(popupStyle.borderTopWidth) + parseFloat(popupStyle.borderBottomWidth);
+        const selectedHeight = this.options[this.select.selectedIndex]?.item.getBoundingClientRect().height || 0;
+        const contentHeight = this.popup.scrollHeight +
+            parseFloat(popupStyle.borderTopWidth) + parseFloat(popupStyle.borderBottomWidth);
+        // At least three ordinary control rows, or the full selected row when
+        // larger, bounded by actual content and the available visual viewport.
+        const readableHeight = Math.min(height, contentHeight,
+            Math.max(fontSize * 2.75 * 3, selectedHeight + chrome));
+        const nativeBounds = this.popup.getBoundingClientRect();
+        if (nativeBounds.height + 1 < readableHeight ||
+            nativeBounds.top < top - 1 || nativeBounds.bottom > top + height + 1 ||
+            nativeBounds.left < left - 1 || nativeBounds.right > left + width + 1) {
+            // This panel may overlap the anchor. Expand within the viewport so
+            // long labels wrap naturally; preserve font size and local scrolling.
+            this.popup.style.width = `${width}px`;
+            this.popup.style.maxHeight = `${height}px`;
+            this.popup.style.left = `${left}px`;
+            const popupHeight = this.popup.getBoundingClientRect().height;
+            const anchorTop = this.trigger.getBoundingClientRect().top;
+            this.popup.style.top = `${Math.max(top, Math.min(anchorTop, top + height - popupHeight))}px`;
+            this.popup.dataset.placement = "viewport";
+        }
         this.setActive(this.select.selectedIndex);
     }
 
@@ -240,10 +280,16 @@ class DocumentQuerySelect {
         // Scroll the popup only, never the document or another page container.
         const bounds = this.popup.getBoundingClientRect();
         const row = item.getBoundingClientRect();
-        if (row.bottom > bounds.bottom) {
-            this.popup.scrollTop += row.bottom - bounds.bottom;
-        } else if (row.top < bounds.top) {
-            this.popup.scrollTop -= bounds.top - row.top;
+        const top = bounds.top + this.popup.clientTop;
+        const bottom = top + this.popup.clientHeight;
+        if (row.height > this.popup.clientHeight) {
+            // An item taller than the viewport starts at its identifying first
+            // line; all remaining text stays reachable by local popup scrolling.
+            this.popup.scrollTop += row.top - top;
+        } else if (row.bottom > bottom) {
+            this.popup.scrollTop += row.bottom - bottom;
+        } else if (row.top < top) {
+            this.popup.scrollTop -= top - row.top;
         }
     }
 
