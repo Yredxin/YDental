@@ -12,6 +12,14 @@ from .ydental_print_service import REPORT, RenderScope
 class IrActionsReport(models.Model):
     _inherit = 'ir.actions.report'
 
+    def get_paperformat(self):
+        scope = self.env.context.get('ydental_print_scope')
+        if len(self) == 1 and self.report_name == REPORT and isinstance(scope, RenderScope) and scope.original:
+            payload = self.env['ydental.print.service']._validate_render_scope()
+            xmlid = 'ydental_print.ydental_pdf_80mm' if payload.get('paper') == '80mm' else 'ydental_print.ydental_pdf_a4'
+            return self.env.ref(xmlid)
+        return super().get_paperformat()
+
     def _get_report(self, report_ref):
         report = super()._get_report(report_ref)
         if report.report_name == REPORT:

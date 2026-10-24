@@ -50,7 +50,6 @@ class YDentalSettlementService(models.AbstractModel):
         if not any(source.ydental_lab_charge_id for source in sources):
             return super()._original_invoice(invoice_id)
         store = self._access()
-        self.env['ydental.access.service']._check('export', 'write')
         patient = self._patient(sources[0].ydental_patient_id.id)
         family = set(self._patient_family_ids(patient))
         if (invoice.partner_id.ydental_patient_owner_id.id not in family or

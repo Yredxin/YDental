@@ -1127,9 +1127,10 @@ class YDentalSettlementService(models.AbstractModel):
         self._audit('other_store_summary', patient, store, after={'store_count': len(rows)})
         return list(rows.values())
 
-    def _report_payload(self, kind, source_id):
+    def _report_payload(self, kind, source_id, require_export=True):
         store = self._access()
-        self.env['ydental.access.service']._check('export', 'write')
+        if require_export:
+            self.env['ydental.access.service']._check('export', 'write')
         source_id = self._positive_id(source_id)
         currency = store.company_id.currency_id
         payload = {'kind': kind, 'source_id': source_id, 'company': store.company_id.name,

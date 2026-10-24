@@ -15,3 +15,4 @@ from . import ydental_exam_service
 from . import ir_actions_report
 from . import report_ydental_exam_pdf
 from . import ir_attachment
+from . import ydental_print_service

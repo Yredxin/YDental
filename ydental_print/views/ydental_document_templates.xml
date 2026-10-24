@@ -1,0 +1,49 @@
+<odoo>
+    <record id="ydental_document_action" model="ir.actions.act_url">
+        <field name="name">Documents and saved originals</field><field name="url">/ydental/documents</field><field name="target">self</field>
+    </record>
+    <menuitem id="ydental_document_menu" name="Documents and saved originals" parent="ydental_base.ydental_base_menu_root" action="ydental_document_action" sequence="84" groups="ydental_base.ydental_base_group_user"/>
+    <template id="ydental_document_page" name="Documents and saved originals">
+        <t t-call="web.frontend_layout"><main class="container o_ydental_document">
+            <h1>Documents and saved originals</h1>
+            <nav><a href="/ydental/clinical">Clinical workbench</a> | <a href="/ydental/treatment">Treatment and pharmacy</a> | <a href="/ydental/exam">Examination</a> | <a href="/ydental/access">Current store and permissions</a></nav>
+            <p class="alert alert-warning">Synthetic software demonstration documents carry an explicit test label. A generated or printed consent is awaiting signature. A print request has no verified physical paper output.</p>
+            <p>Single authorized copies require current source access. Bulk export additionally requires report export permission. Saved originals always return the stored file; current names, prices and templates cannot rewrite it.</p>
+            <form action="/ydental/documents/action" method="post">
+                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/><input type="hidden" name="revision" t-att-value="revision"/><input type="hidden" name="operation" value="preview"/>
+                <label>Source <select name="selection" required="required"><option value="">Select a source</option><option t-foreach="choices" t-as="choice" t-att-value="'%s:%s:%s' % (choice['kind'], choice['id'], choice['version'])"><t t-out="choice['kind_label']"/> #<t t-out="choice['id']"/> / v<t t-out="choice['version']"/> / <t t-out="choice['state']"/></option></select></label>
+                <label>Content template <select name="template_id"><option value="">Explicit synthetic test sample / unreviewed</option><option t-foreach="templates" t-as="template" t-att-value="template.id"><t t-out="template.name"/> / <t t-out="template.kind"/> / <t t-out="template.version"/> / <t t-out="'SYNTHETIC' if template.synthetic else 'Published formal content'"/></option></select></label>
+                <button type="submit">Preview selected source</button>
+            </form>
+            <section t-if="preview">
+                <h2>Reviewed source</h2><p>Source SHA256: <t t-out="preview['source_digest']"/></p><p>Template SHA256: <t t-out="preview['template_digest']"/></p>
+                <iframe title="Document source preview" sandbox="" t-att-srcdoc="preview['html']" width="100%" height="600"/>
+                <form action="/ydental/documents/action" method="post">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/><input type="hidden" name="revision" t-att-value="revision"/><input type="hidden" name="operation" value="generate"/>
+                    <input type="hidden" name="selection" t-att-value="selection"/><input type="hidden" name="expected_digest" t-att-value="preview['source_digest']"/><input type="hidden" name="key" t-att-value="key"/>
+                    <label>Previous original ID for a new version <input name="previous_id" type="number" min="1"/></label><button type="submit">Generate and preserve original PDF</button>
+                </form>
+            </section>
+            <p t-if="result" role="status">Operation result: <t t-out="result"/></p>
+            <h2>Saved originals in the current authorized scope</h2>
+            <table class="table"><thead><tr><th>Original / type / source</th><th>Version / previous</th><th>Generated UTC / SHA256</th><th>Original file</th></tr></thead><tbody>
+                <tr t-foreach="originals" t-as="original"><td>#<t t-out="original['id']"/> / <t t-out="original['kind']"/> / #<t t-out="original['source_id']"/><br/><t t-if="original['synthetic']">SYNTHETIC TEST</t></td><td><t t-out="original['version']"/> / <t t-out="original['previous_id'] or '-'"/></td><td><t t-out="original['generated_at']"/><br/><small t-out="original['sha256']"/></td><td>
+                    <form action="/ydental/documents/action" method="post" target="_blank"><input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/><input type="hidden" name="revision" t-att-value="revision"/><input type="hidden" name="original_id" t-att-value="original['id']"/>
+                        <button name="operation" value="pdf_view">View original</button><button name="operation" value="download">Download original</button><button name="operation" value="print_request">Request printing original</button>
+                    </form>
+                </td></tr>
+            </tbody></table><p t-if="not originals">No saved originals are available in this scope.</p>
+            <details><summary>Template review and publication</summary><p>Only group document policy administrators can perform these actions. Content is plain text and is never executed as a QWeb template. Review and publication apply to this store and this explicit version.</p>
+                <form action="/ydental/documents/action" method="post"><input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/><input type="hidden" name="revision" t-att-value="revision"/><input type="hidden" name="operation" value="template_create"/>
+                    <label>Name <input name="name" required="required" maxlength="120"/></label><label>Type <input name="kind" required="required" maxlength="40"/></label><label>Version <input name="version" required="required" maxlength="80"/></label>
+                    <label>Applicable scope <input name="applicability" required="required" maxlength="240"/></label><label>Plain text body <textarea name="body" required="required" maxlength="40000"/></label>
+                    <label><input type="checkbox" name="synthetic" checked="checked"/>Synthetic software test only</label><label><input type="checkbox" name="allow_excerpt"/>Allow clearly scoped confirmed excerpts</label>
+                    <label>Paper <select name="paper"><option value="a4">A4</option><option value="80mm">80 mm demonstration / no device approval</option></select></label><label>Formal approval reference <input name="approval_reference" maxlength="240"/></label><button>Create unreviewed version</button>
+                </form>
+                <form action="/ydental/documents/action" method="post"><input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/><input type="hidden" name="revision" t-att-value="revision"/><input type="hidden" name="operation" value="template_review"/>
+                    <label>Template ID <input name="template_id" type="number" min="1" required="required"/></label><label>Action <select name="action"><option value="review">Review draft</option><option value="publish">Publish reviewed version</option></select></label><button>Record review action</button>
+                </form>
+            </details>
+        </main></t>
+    </template>
+</odoo>

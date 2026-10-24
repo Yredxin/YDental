@@ -38,6 +38,7 @@ class RenderScope:
     purpose: str | None
     payload: str
     content_digest: str
+    original: bool = False
 
 
 class YDentalPrintService(models.AbstractModel):
@@ -47,13 +48,14 @@ class YDentalPrintService(models.AbstractModel):
     def _id(self, value):
         return self.env['ydental.intake.service']._id(value)
 
-    def _authorize(self, kind, source_id, version, purpose=None):
+    def _authorize(self, kind, source_id, version, purpose=None, require_export=True):
         if kind not in TEMPLATES or type(version) is not int or version < 0 or purpose not in (None, '', 'diagnosis', 'history_review'):
             raise ValidationError(self.env._('invalid_source: Select a documented PDF type, source and version.'))
         access = self.env['ydental.access.service']
         session = access._scope()
         store = session.ydental_store_id
-        access._check('export', 'write')
+        if require_export:
+            access._check('export', 'write')
         if store.company_id not in self.env.user.sudo().company_ids:
             raise AccessError(self.env._('access_denied: The current company is unavailable.'))
         if kind in ('clinical', 'consent'):
@@ -128,8 +130,8 @@ class YDentalPrintService(models.AbstractModel):
     def _pair(self, label, value):
         return [label, str(value) if value is not False and value is not None and value != '' else self.env._('Not recorded')]
 
-    def _source(self, kind, source_id, version, purpose=None):
-        service, source, selected, category = self._authorize(kind, source_id, version, purpose)
+    def _source(self, kind, source_id, version, purpose=None, require_export=True):
+        service, source, selected, category = self._authorize(kind, source_id, version, purpose, require_export=require_export)
         patient_service = service.env['ydental.patient.service']
         patient = patient_service._patient(source.ydental_patient_id.id)
         store = source.ydental_store_id
@@ -238,7 +240,10 @@ class YDentalPrintService(models.AbstractModel):
         session = self.env['ydental.access.service']._scope()
         if not isinstance(scope, RenderScope) or (scope.actor, scope.session, scope.revision) != (self.env.uid, session.id, session.ydental_revision) or digest(scope.payload) != scope.content_digest:
             raise AccessError(self.env._('access_denied: Use the controlled PDF entry with a live source selection.'))
-        self._authorize(scope.kind, scope.source_id, scope.version, scope.purpose)
+        if scope.original:
+            self._original_authorize(scope.kind, scope.source_id, scope.version, scope.purpose)
+        else:
+            self._authorize(scope.kind, scope.source_id, scope.version, scope.purpose)
         return json.loads(scope.payload)
 
     def _audit(self, operation, source, category, payload, signature, job=None, result='accepted'):

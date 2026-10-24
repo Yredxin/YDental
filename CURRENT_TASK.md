@@ -1,3 +1,25 @@
+# S12 当前执行状态｜YD-S12-DOCUMENTS-REPORTS-V1 / 1.0
+
+## 当前：IMPLEMENTING；#36 OPEN
+
+- 用户本会话明确启用S12，替代上一计划“不启动S12”；不启动S13、不合并、不部署。[完整计划](docs/execution/S12_IMPLEMENTATION_PLAN.md)已纳入。计划原文日期2026-10-24，现场系统日期2026-10-23，执行用实际UTC，不倒填。
+- 已完整读main/GPT_HANDOFF、AGENTS、CURRENT_TASK、活动状态、#23及有效评论、#36及6246235470、#35最终6368848927。origin=Yredxin/YDental；工作树干净，本地/远端S11均e100e098dea5b919f3c9ca09454d239189e69ad1，从此建 `codex/s12-documents-reports-r1`。main最小文档同步待做。
+- 主控 `/root` 统一写权/数据库/服务调度并实现财务文书及指标；真实 `/root/developer` 负责临床原件/同意/检查处方标签，`/root/tester` 负责测试/工具，`/root/acceptance` 未实现者独立验收。共享OS不冒隔离，不能自签实现。没有其他活跃团队。
+- 唯一目标 `ydental_s11_synth_20261023_01 / OID2171423 / cluster7694897083368259627`。获调度tester RO/RR实核受限同名LOGIN/无集群高权/只拥有目标、97installed无pending、SMTP0/通知off/local_sinkfalse/callback空/clock成员0，rollback/idle/close；回执 `.local/s12/admission/target-readonly-confirmed.json` SHA d35806698a60e9cfd65a967621fdf1ed05edf3c55bdd50305ea3891266466dbf。尚未启动S12服务或业务写；新scope/配置准备中，旧scope原bytes不动，复用原filestore不复制。
+- 当前临床PDF仅15分钟demo，不能当永久原件；S10 bill.original可复用，但快照/单份权限需扩展。正在真实实现，不是PLAN_ONLY；无S12产品动态PASS或独立总验收。
+- 下一步：完整保护pre、限定模块升级、普通角色新合成来源正常入口PDF→原件下载→改主档/模板→重印SHA不变，随后连续W1—W5。
+- [summary](docs/reports/s12/summary.md)、[evidence-index](docs/reports/s12/evidence-index.md)。
+
+## 保护与未验边界
+
+承接全部S11已提交文书/费库款/原件附件/审计及未完成责任，不重放旧经济链；新增仅S12合成对象正常业务流程。不建库/改名/复制、不重装97模块。旧main/scratch OID2144130、attempt30、旧F2缺证、历史SIGSEGV和原平台失败保留，不进入旧禁读禁写目标、不反签历史完整性。当前真实限制按实际提示停止相应动作，不换入口规避。
+
+S11组合扫码差异单列待产品决定；标签不加接收/入库副作用，closed复诊表单既存UI限制保留。正式正文/政策、真实税务原件/票种及物理设备未提供，对应真实分支NOT_RUN/待审核；合成软件机制继续，真实外发/支付/税务/电子签名/生产未批准。
+
+---
+
+以下完整保留S11交付和历史检查点；S12当前状态以上节为准。
+
 # S11 当前执行状态｜YD-S11-FOLLOWUP-LAB-V1 / 整合v1.2
 
 ## 当前：TECHNICALLY_COMPLETE / SYNCED；#35已技术关闭

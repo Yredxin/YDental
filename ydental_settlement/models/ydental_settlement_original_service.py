@@ -10,7 +10,6 @@ class YDentalSettlementOriginalService(models.AbstractModel):
 
     def _original_invoice(self, invoice_id):
         store = self._access()
-        self.env['ydental.access.service']._check('export', 'write')
         invoice, sources = self._invoice(invoice_id, store)
         patient = self._patient(sources[0].ydental_patient_id.id)
         family = set(self._patient_family_ids(patient))
@@ -108,7 +107,6 @@ class YDentalSettlementOriginalService(models.AbstractModel):
 
     def _bill_original_bytes(self, original_id):
         self._access()
-        self.env['ydental.access.service']._check('export', 'write')
         original = self._model('bill.original').browse(self._positive_id(original_id)).exists()
         if not original:
             raise UserError(self.env._('original_missing: This internal bill original does not exist.'))

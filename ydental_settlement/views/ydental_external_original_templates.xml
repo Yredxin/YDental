@@ -1,0 +1,39 @@
+<odoo>
+    <template id="ydental_external_original_page" name="External originals, separate from internal bills">
+        <t t-call="web.layout">
+            <main class="container o_ydental_settlement_external_originals">
+                <h1>外部税务原件与非税票示例</h1>
+                <p>这里仅关联上传的原文件，不开具税票，不编辑原件。合成示例不表示真实开票。打印请求不证明实际出纸。</p>
+                <nav><a href="/ydental/settlement">结算及内部账单</a> | <a href="/ydental/documents">文书与内部凭据原件</a></nav>
+                <form action="/ydental/settlement/external-originals/upload" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <input type="hidden" name="revision" t-att-value="revision"/>
+                    <input type="hidden" name="key" t-att-value="key"/>
+                    <p><label>本店内部账单ID <input name="invoice_id" type="number" min="1" required="required"/></label></p>
+                    <p><label>材料来源说明 <input name="material_reference" maxlength="240" required="required"/></label></p>
+                    <p><label>分类 <select name="synthetic"><option value="true">醒目标识的非税票合成示例</option><option value="false">实际已提供的外部原件（非本系统签发）</option></select></label></p>
+                    <p><label>更正关联旧原件ID（可空） <input name="previous_id" type="number" min="1"/></label></p>
+                    <p><label>原始PDF/PNG/JPEG <input name="file" type="file" accept="application/pdf,image/png,image/jpeg" required="required"/></label></p>
+                    <button type="submit">保全上传原文件</button>
+                </form>
+                <table class="table"><thead><tr><th>原件 / 内部账单</th><th>文件 / 分类</th><th>来源 / 更正</th><th>SHA-256</th><th>原样操作</th></tr></thead><tbody>
+                    <tr t-foreach="rows" t-as="row">
+                        <td><t t-out="row['id']"/> / <t t-out="row['invoice_id']"/></td>
+                        <td><t t-out="row['filename']"/><br/><t t-out="'非税票合成示例' if row['synthetic'] else '外部提供材料，未由本系统签发或核验票种'"/></td>
+                        <td><t t-out="row['reference']"/> / <t t-out="row['previous_id']"/></td><td t-out="row['sha256']"/>
+                        <td><a t-att-href="'/ydental/settlement/external-originals/%s' % row['id']">下载原文件</a>
+                            <form t-att-action="'/ydental/settlement/external-originals/%s/print-request' % row['id']" method="post">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                <input type="hidden" name="revision" t-att-value="revision"/>
+                                <button type="submit">原样打印请求（出纸未知）</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody></table>
+            </main>
+        </t>
+    </template>
+    <template id="ydental_settlement_page_external_link" inherit_id="ydental_settlement.ydental_settlement_page" name="ydental.settlement.page.inherit.external.originals">
+        <xpath expr="//main" position="inside"><p><a href="/ydental/documents">文书与内部凭据原件</a> | <a href="/ydental/settlement/external-originals">外部原件 / 非税票示例</a></p></xpath>
+    </template>
+</odoo>

@@ -17,3 +17,4 @@ from . import ydental_lab_charge_order
 from . import ydental_lab_charge_service
 from . import ydental_lab_settlement_service
 from . import mail_outbound_guard
+from . import ydental_print_service

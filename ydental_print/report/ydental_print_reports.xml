@@ -14,4 +14,10 @@
         <field name="paperformat_id" ref="ydental_pdf_a4"/>
         <field name="group_ids" eval="[(4, ref('ydental_base.ydental_base_group_user'))]"/>
     </record>
+    <record id="ydental_pdf_80mm" model="report.paperformat">
+        <field name="name">YDental 80 mm demonstration without device approval</field>
+        <field name="format">custom</field><field name="page_width">80</field><field name="page_height">297</field>
+        <field name="orientation">Portrait</field><field name="margin_top">6</field><field name="margin_bottom">10</field>
+        <field name="margin_left">4</field><field name="margin_right">4</field><field name="dpi">96</field><field name="disable_shrinking">True</field>
+    </record>
 </odoo>
