@@ -156,6 +156,8 @@ class TestDocumentOriginals(TransactionCase):
         repeated = self.printing._original_operate('generate', arguments)
         self.assertEqual(first['original_id'], repeated['original_id'])
         self.assertTrue(repeated['duplicate'])
+        with self.assertRaises(UserError):
+            self.printing._original_operate('generate', arguments | {'expected_digest': '0' * 64})
         self.assertEqual(self.root['ydental.document.original'].search_count([]), count + 1)
         self.assertEqual(self.business_counts(), before)
 

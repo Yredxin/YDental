@@ -67,17 +67,8 @@ def main():
             if sock.connect_ex(('127.0.0.1', port)) == 0:
                 raise RuntimeError('A shared test port is occupied; coordinate the owner before execution.')
     launcher.validate_live_database(database, admission)
-    font = runtime.get('fontconfig') or {}
-    if (font.get('family') != 'Noto Sans CJK SC'
-            or launcher.file_sha256(Path(font['font_file'])) != font.get('font_sha256')
-            or launcher.file_sha256(Path(font['fontconfig_file'])) != font.get('fontconfig_sha256')):
-        raise RuntimeError('The verified actual Chinese font/configuration is not bound to this runtime.')
-    child_environment = os.environ.copy()
-    child_environment['FONTCONFIG_FILE'] = font['fontconfig_file']
-    matched = subprocess.run(['fc-match', '-f', '%{family}', 'Noto Sans CJK SC'],
-        env=child_environment, capture_output=True, text=True, timeout=5, check=True)
-    if 'Noto Sans CJK SC' not in matched.stdout:
-        raise RuntimeError('The CLI environment cannot resolve the actual verified Chinese font.')
+    child_environment, environment_proof = launcher.runtime_child_environment(runtime)
+    font = runtime['fontconfig']
     directory = PRIVATE / 'checks' / (args.label + '-' + args.phase)
     directory.mkdir(mode=0o700, parents=True)
     os.chmod(directory.parent, 0o700)
@@ -102,7 +93,9 @@ def main():
         'pre_sha256': launcher.file_sha256(args.pre), 'freeze_sha256': launcher.file_sha256(args.freeze),
         'tool_sha256': launcher.file_sha256(Path(__file__)),
         'fontconfig_sha256': font['fontconfig_sha256'], 'font_sha256': font['font_sha256'],
-        'font_family_observed': matched.stdout, 'test_tag': '/ydental_s12_test' if args.phase == 'suite' else None,
+        'font_family_observed': environment_proof['font_family_observed'],
+        'runtime_environment': environment_proof,
+        'test_tag': '/ydental_s12_test' if args.phase == 'suite' else None,
         'test_transactions_are_not_durable_business_evidence': args.phase == 'suite',
         'no_automatic_retry': True, 'timeout_child_preserved': True}
     write_receipt(directory / 'operation.json', operation)

@@ -3,6 +3,11 @@
 
 No DB connection, admission, service or business action is performed. A scope
 is a scheduling record, not an assertion that platform permissions are granted.
+
+Execution additionally requires explicit fontconfig and pdf_python objects,
+whose schema is documented in README.md and validated by launcher.py. They are
+prepared from actual reviewed local files, never invented during create/rebind.
+Rebinding preserves them and the existing scope expiry without modification.
 """
 
 from __future__ import annotations

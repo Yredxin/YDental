@@ -24,3 +24,8 @@
 |首suite原始FAIL|28post-tests，1failed20errors，child1/wrapper2，无Native|.local/s12/checks/first-suite-suite/result.json|da18d84602c7597c062cb5b0001ddb69df236491aa1cceffba62b77c7824a3c7|
 |首suite独立首因|fixture actor env/原生placeholder预期；不冒产品通过|.local/s12/acceptance/first-suite-failure-independent.json|eebdbff7ee3e9ebd757382906054a52786c9e482c7bcbd3f8fa2f22d63de3928|
 |首suite后独立保护|145业务/15附件等逐值一致，仅模块write_date；非suite PASS|.local/s12/acceptance/first-suite-protection-independent.json|4a7e28078247c4f04be25f41782c7418bf687b6ea22a8482fd65addaf98dd832|
+
+|T12双连接原始工具|双方commit真实返回后收尾digest错误exit2保留，无业务重放|.local/s12/source-version-race/t12-doc273-source-version/|原ec17…/stages da465739…，完整SHA见独立回执|
+|T12离线正确分类|source vs stamped-render摘要分别匹配，无DB/HTTP/重放|同目录tester-offline-digest-classification.json|8711b17dd5f971ca57e1b487fc6743f1df299aa3ae6a116d41a9c67ec197ea05|
+|T12独立验收|真实A16/B9两PG/RR；doc2→3时新original30一致旧v2，native实PDF、旧1/17表/604保持|.local/s12/acceptance/t12-independent.json|ebc047413d21de4742f079c06b107f38659927ea61131bf54049e651ce9cb570|
+|T12新PDF|两页新件亲看，标题/来源footer已复验；不覆盖旧1|.local/s12/source-version-race/t12-doc273-source-version/|529acd19b12c3658487400692f1715aac570dc5547c59239909accdd6fb7267e|

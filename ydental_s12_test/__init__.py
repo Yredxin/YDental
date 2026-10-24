@@ -1,6 +1,8 @@
 from odoo.exceptions import AccessError
 from odoo.tools import config
 
+from . import models
+
 
 def pre_init_hook(env):
     if env.cr.dbname != 'ydental_s11_synth_20261023_01':

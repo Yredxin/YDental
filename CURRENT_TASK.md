@@ -10,7 +10,9 @@
 - 初始333四模块升级0/ERROR0、完整140/11/14即时pre与143/11/14post独立分类，旧事实/文件保持，非最终升级。后续025e65ebe419dedf555029c57f86319580725474限定四模块升级+只新安装reporting/s12_test实际0/ERROR0，现99installed；完整143/13/15pre→145/13/15post，独立3dca2c58…核旧业务仅原生26 access/group write_date、2新空表及模块元数据，原件/附件/权限语义/配置约束保持。非最终升级。
 - **首suite真实FAIL**：025e65e实际官方28 post-tests、1failed/20errors、child1/wrapper2、无Native，result da18d84602c7597c062cb5b0001ddb69df236491aa1cceffba62b77c7824a3c7。独立eebdbff7…确认MODEL首因BaseCommon改变夹具actor env；HTTP一项把原生web/image占位图200误作泄露。已改用上游TransactionCase/原角色，缩略图逐字比原生placeholder且download=1须拒；产品ACL/core不改。失败后完整pre/post独立4a7e2807…：145业务/15附件/配置索引保持，仅模块write_date。修复未冒PASS。
 - 当前已集成永久原件、同意上传/核验/显式旧版政策、完整拟纳集合/摘录与更正链、财务原件/外部非税票示例入口、指标字典与报表源授权/钻取/CSV。SOURCE独立无具体阻断；suite普通fix+一项真实merge回归（29定义，非PASS数）及报表日期下推/新版PDF待新冻结回归。
-- 下一动作：新固定候选完整pre→限定更新→重跑受影响原生suite；随后本阶段新F2/T11正常HTTP经济链、T12实际双连接临床v2→v3一致快照、浏览器及所有交付PDF逐页检查、最终带数据限定升级和16行独立总验收。首链后连续实施，不逐批返回GPT，不向Issue发过程进度。
+- b160修复suite实际29post-tests/1failed0error/child1/wrapper2，无Native，原始3e2a9685…保留；22 MODEL已全部到产品并通过（包含正常merge与财务），6/7 HTTP通过，唯一缩略图取样错误仍使整项FAIL，后半直链/RPC尚未全部执行。两个suite后完整145业务/15附件等均保持，仅模块write_date，独立772648d2…不冒suite PASS。普通静态placeholder取样fix及exam/settlement权限四组合准备中。
+- **T12独立限定通过（实际两连接）**：b160，A普通reader16 backend3908786已冻结doc273v2，B原作者9 backend3908798真实acquire/correct/release提交v3（00:59:29.565620），A29.567090恢复原native renderer、30.828770提交original30/原件version2/previous1，PDF SHA529acd19b12c3658487400692f1715aac570dc5547c59239909accdd6fb7267e仍完整v2。独立新RO3909274核source6fe=preview、render1a7=scope（两者本来不同），新PDF两页亲看无裁切/标题/来源footer问题、oldoriginal1/17经济全字段/continuation604保持。回执ebc047413d21de4742f079c06b107f38659927ea61131bf54049e651ce9cb570。原工具ec17/exit2错把sourceSHA与renderSHA同值断言保留，只离线分类8711b17d…，未重跑业务。层级MODEL真实PG/RR/off+native同步hook，不冒HTTP/browser竞争。
+- 下一动作：新固定候选原生更新与必要测试补证；正常HTTP新F2/T11经济链、T07真实客户端timeout/未知→查提交→同key恢复、同店两区域及RX/exam/标签新源集成、浏览器及所有交付PDF逐页检查、最终带数据限定升级和16行独立总验收。首链后连续实施，不逐批返回GPT，不向Issue发过程进度。
 - 当前owned服务均正常STOPPED、child/前台0、无active。运行记录/凭据/原始文件只本机，默认效果入口下次须真实新准入启动，不承诺永久在线。[summary](docs/reports/s12/summary.md)、[evidence-index](docs/reports/s12/evidence-index.md)、[指标字典](docs/reports/s12/metric-dictionary.md)。
 
 ## 不可重放与未验边界

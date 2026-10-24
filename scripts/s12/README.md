@@ -48,6 +48,47 @@ unknown process outcome or new native crash must be investigated before another
 run. Neither private scope metadata nor a successful probe replaces platform
 permissions or authorizes a business replay.
 
+Normal `start` and `run_checks.py` share `runtime_child_environment`: the runtime
+must bind the actual tracked Chinese font, S12 fontconfig file and one private
+native PDF wheel. Both child environments receive the validated
+`FONTCONFIG_FILE` and prepend only `.local/s12/pdf-deps` to inherited
+`PYTHONPATH`, preserving its other entries. This changes no shell profile,
+shared Python environment, core, ReportLab, platform or system configuration.
+The launcher restores its own two environment variables on exit. It never
+automatically enables the separate T07 renderer-delay flags.
+
+The private runtime schema is:
+
+```json
+{
+  "fontconfig": {
+    "family": "Noto Sans CJK SC",
+    "font_file": "/ABS_REPO/ydental_settlement/static/fonts/NotoSansCJKsc-Regular.otf",
+    "font_sha256": "ACTUAL_SHA256",
+    "fontconfig_file": "/ABS_REPO/.local/s12/fontconfig/fonts.conf",
+    "fontconfig_sha256": "ACTUAL_SHA256"
+  },
+  "pdf_python": {
+    "directory": "/ABS_REPO/.local/s12/pdf-deps",
+    "distribution": "rl-renderPM",
+    "version": "4.0.3",
+    "files": {"RELATIVE_WHEEL_FILE": "ACTUAL_SHA256"}
+  }
+}
+```
+
+`pdf_python.files` must list every exact file in `launcher.PDF_FILES`, including
+the CPython 3.12 `_rl_renderPM` extension, its bundled native libraries and wheel
+metadata. The tool checks each SHA, installed METADATA name/version, owned
+regular files and absence of extra payload files or symlinks (uv's existing
+empty `.lock` is installer metadata). It does not install or
+import the dependency itself. The explicit local `fc-match` probe must resolve
+the bound font family **and its actual file**. These fields require an observed
+installation and a new normal runtime/admission binding; `create` and `rebind`
+neither synthesize the fields nor extend an existing scope's expiry. CLI check
+receipts include the validated environment metadata. Actual QR/PDF rendering
+still requires separate native execution evidence.
+
 `protected_snapshot.py` retains the S11 accepted protection projection and
 committed synthetic anchors, expanding user/company coverage and including new
 S12 tables. Authentication/session/bearer material is excluded, text and binary

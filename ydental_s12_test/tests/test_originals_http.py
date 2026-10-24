@@ -1,11 +1,17 @@
 import hashlib
+import io
 import json
 from unittest.mock import patch
+import zipfile
 
 from odoo.tests import HttpCase, tagged
 
-from odoo.addons.ydental_treatment_test.tests.common import key, setup
+from odoo.addons.ydental_treatment_test.tests.common import key, price, save_args, setup
 from odoo.addons.ydental_treatment_test.tests.test_http import TestClinicalHTTP
+from odoo.addons.ydental_treatment_test.tests.treatment_common import opened_actual
+from odoo.addons.ydental_exam_test.tests.test_exam import TestExamination
+
+from .test_financial_originals import TestFinancialOriginals
 
 
 @tagged('post_install', '-at_install')
@@ -70,17 +76,53 @@ class TestDocumentOriginalsHTTP(TestClinicalHTTP):
         self.assertNotIn('document.paper_printed', events.mapped('ydental_event'))
 
     def test_http_source_and_export_permissions_are_checked_on_each_old_page_request(self):
-        generated, _ = self.generated(self.source())
-        for source_read, export in ((True, True), (True, False), (False, True), (False, False)):
-            with self.subTest(source_read=source_read, export=export):
-                self.admin._grant(self.users['doctor'].id, self.stores[0].id, {
-                    'medical': 'read' if source_read else 'none', 'export': 'write' if export else 'none'})
-                single = self.document_action('download', {'original_id': generated['original_id']})
-                self.assertEqual(single.status_code, 200 if source_read else 403)
-                batch = self.document_action('export', {'original_ids': [generated['original_id']]})
-                self.assertEqual(batch.status_code, 200 if source_read and export else 403)
-                if batch.status_code == 200:
-                    self.assertEqual(batch.headers['Content-Type'], 'application/zip')
+        clinical_original, _ = self.generated(self.source())
+        handover = self.action('handover', self.args() | {
+            'lease_id': self.lease['lease_id'], 'lease_token': self.lease['token']})
+        self.assertEqual(handover.status_code, 200, handover.text[:300])
+        self.assertEqual(self.action('exit', {
+            'lease_id': self.lease['lease_id'], 'token': self.lease['token']}, queue=True).status_code, 200)
+        # These extra sources follow the ordinary MODEL business services in
+        # this rolled-back HttpCase; category delivery below is real HTTP.
+        self.treatment, clinical, queue, self.lease, self.execution, self.document, arguments = opened_actual(self)
+        self.document.update(clinical._operate('confirm', save_args(self.document)))
+        arguments['document_version'] = self.document['version']
+        TestFinancialOriginals.finance_setup(self)
+        bill = TestFinancialOriginals.billed(self, 25)
+        TestExamination._bind_templates(self)
+        price(self, 80, catalog=self.catalogs[2])
+        issued = TestExamination._order(self, self.treatment, arguments, indexes=(2,))
+        clinical._operate('handover', save_args(self.document) | {
+            'lease_id': self.lease['lease_id'], 'lease_token': self.lease['token']})
+        queue._operate('exit', {'lease_id': self.lease['lease_id'], 'token': self.lease['token']})
+        examiner, action = TestExamination._external_start(self, issued)
+        _actual, confirmed = TestExamination._complete_external(self, examiner, action)
+        self.admin._grant(self.users['doctor'].id, self.stores[0].id, {
+            'medical': 'read', 'exam': 'read', 'settlement': 'read', 'export': 'write'})
+        exam_original, _ = self.generated({'kind': 'exam', 'source_id': confirmed['result_id'], 'version': confirmed['version']})
+        bill_original, _ = self.generated({'kind': 'bill', 'source_id': bill['invoice_id'], 'version': 0})
+        originals = {'medical': clinical_original, 'exam': exam_original, 'settlement': bill_original}
+        for category, generated in originals.items():
+            for source_read, export in ((True, True), (True, False), (False, True), (False, False)):
+                with self.subTest(category=category, source_read=source_read, export=export):
+                    # In particular exam has a legitimate medical-read
+                    # fallback, so disable every alternate source category.
+                    permissions = dict.fromkeys(originals, 'none')
+                    permissions[category] = 'read' if source_read else 'none'
+                    permissions['export'] = 'write' if export else 'none'
+                    self.admin._grant(self.users['doctor'].id, self.stores[0].id, permissions)
+                    single = self.document_action('download', {'original_id': generated['original_id']})
+                    self.assertEqual(single.status_code, 200 if source_read else 403)
+                    if source_read:
+                        self.assertTrue(single.content.startswith(b'%PDF-'))
+                        self.assertEqual(hashlib.sha256(single.content).hexdigest(), generated['sha256'])
+                    batch = self.document_action('export', {'original_ids': [generated['original_id']]})
+                    self.assertEqual(batch.status_code, 200 if source_read and export else 403)
+                    if batch.status_code == 200:
+                        self.assertEqual(batch.headers['Content-Type'], 'application/zip')
+                        with zipfile.ZipFile(io.BytesIO(batch.content)) as archive:
+                            self.assertEqual(len(archive.namelist()), 1)
+                            self.assertEqual(archive.read(archive.namelist()[0]), single.content)
 
     def test_http_original_binary_attachment_thumbnail_and_direct_report_denied(self):
         selection = self.source()
@@ -100,7 +142,10 @@ class TestDocumentOriginalsHTTP(TestClinicalHTTP):
         self.assertEqual(image.status_code, 200)
         # Native content_image returns its public placeholder after the source
         # guard raises UserError. A 200 placeholder is not a source thumbnail.
-        placeholder = self.root.ref('web.image_placeholder').raw.content
+        native_placeholder = self.root.ref('web.image_placeholder')
+        self.assertEqual(native_placeholder.type, 'url')
+        self.assertEqual(native_placeholder.url, '/web/static/img/placeholder.png')
+        placeholder = self.root['ir.binary']._placeholder(native_placeholder.url.lstrip('/'))
         self.assertEqual(image.content, placeholder)
         self.assertTrue(image.headers['Content-Type'].startswith('image/'))
         self.assertFalse(image.content.startswith(b'%PDF-'))
