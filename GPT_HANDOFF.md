@@ -1,3 +1,23 @@
+# YDental / odoo-sd｜当前DL-P1交接
+
+YD-COLLAB-V2.0 / WORKFLOW-V3。**YD-S13-DL-P1 / 1.0限定软件 TECHNICALLY_COMPLETE**，仅文书查询与来源/正文模板选择区；当前阶段交付后停止，DL-P2—P6 NOT_AUTHORIZED。用户亲手效果待确认，完整S13未完成，#37 OPEN/#36 CLOSED。main仅文档路由，不含本阶段产品。
+
+先读main AGENTS/CURRENT路由，再读`codex/s13-dl-p1-documents-query-r1`同一CURRENT、`docs/execution/S13_DL_P1_IMPLEMENTATION_PLAN.md`、`docs/design/YDENTAL_DESIGN_LANGUAGE_V1.md`、`docs/reports/s13-dl-p1/{summary,acceptance-matrix,evidence-index}.md`与#23/#37现行正文/有效增量/本阶段新最终评论。P1由用户ZIP正常启用，上一份S13-UX已完成不重派；不从main重建，不reset/clean/强推或覆盖未知工作，不合产品main、不部署。
+
+合法起点06c7a4639a107e70c3db6352f8f929db80e6f94a，公共工具31ef5d7bb8e181bdd044c9bd6d77db20f1dbd5ef，最终产品/执行8dea2647760f6d6738abfc9db132cfa9d7feaee3，core f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb。最终完整报告HEAD及同步以新#37回执实际ref/正文读回为准，文档与被测代码区分。
+
+仅5产品文件；局部A色/相对Grid、两处单选/键盘/required/busy/降级，字段/后端/原件链不变。63ae真实长项14/26px缺陷经8dea视口可读fallback修复，不缩字截字。最终Chromium156.0.8078.4和WebKit27.2真实正常角色/菜单/中文/search/选择取消/preview/nativezoom，5视口/长文全文局部滚读/AX/IME和模拟分层，未实现者独立总回执7286c7ad…；Firefox本机中文tofu UNKNOWN、旧WebKit依赖失败/renderer缺证与警告不反签，不称全部浏览器或用户亲手通过。
+
+唯一既有目标ydental_s11_synth_20261023_01/OID2171423/cluster7694897083368259627及原filestore，145业务/13技术/83文件经新独立物理RO逐值同rootfinal；65内部+2外部原件及全部旧SHA、账款/价源/库存/审计/责任保持，P1新增文书/PDF/打印/经济库存业务0。旧AR1073+前批230=1303、lot25310/2/8、旧draft/current sent时点与未完责任不清零。正常授权负例精确恢复，273正常审计/4fence各+2及技术日期另分类。
+
+私有0400效果包82成员/78PNG、11672801bytes/SHA b125f3440e43e2dc5fa5526b898fa90ec1b2266ce3bc61f43c834d13e6864ff8，原图/配置/provider只本机。末owned服务12:01:36UTC正常0停止、无active，浏览器全退出。scope不表示永久在线或平台许可；复开须正常fresh准入/目标/权限/owned/clean候选，不改旧期/STOP、不共享会话、不装桌面，127地址仅服务器本机。自动化窗口不冒用户已接手。
+
+仅向#37新增一条本P1最终结果并保持OPEN，旧6382778460不改，#36 CLOSED/原回执保持。完整S13、负载/备份恢复/实机/正式政策/扫码组合/真实外部/生产仍未启；S11一次扫码接收并入库待产品决定。当前结果交用户带回GPT审查，不自动P2或后续计划。
+
+---
+
+以下保留上一S13-UX交付历史；其中当前分支/路由以以上DL-P1及main CURRENT为准，不重新启用旧阶段。
+
 # YDental / odoo-sd｜GPT 交接
 
 YD-COLLAB-V2.0 / WORKFLOW-V3。当前为 **YD-S13-UX-DOCUMENTS-V1 / 1.0限定首批适用合成软件范围 TECHNICALLY_COMPLETE**；完整S13和用户亲手效果尚未完成，#37保持OPEN，S12 #36保持CLOSED。用户将本批结果带回GPT最终审查，再决定下一计划；不自动扩范围。
