@@ -61,6 +61,8 @@
 |独立最终保护|`acceptance/final-protection-independent.json`|`0b5d0d276abddfb740d6347529019b134d61e5e537cd26a42ce61d60cc99465c`|未实现者新物理RO与原始文件逐值对照|
 |独立总验收|`acceptance/final-acceptance-independent.json`|`7286c7ad8fd7af8774da6dfb671826843c26cbbad7cd471bfff9ff3e7ff56b9c`|全部P1适用断言和真实限制|
 |独立私有包|`acceptance/view-package-independent.json`|`93821599c06abadc384fe0321565cfe8fb6ac828b10d1c40805ecc415e9aab40`|只读包逐成员/SHA/无秘密/真实图片核|
+|首同步实际读回|`verification/first-final-sync-readback.json`|`ddf05b55f3d47b43a7f9cdd4e042e47901cfac66382f935063fc78fb3aee424a`|业务e3fa/main1558/8正文逐字blob/新6384111913及原Issue评论不变|
+|独立同步|`acceptance/final-sync-independent.json`|`28b66f7b8ed57aebf69298e5bb4ea6fa43fccc82dda221775b4a4a9bf5f757e7`|未实现者正常远端GET/ref/正文与唯一评论和状态独立核|
 
 `tester-browser-index.json`为工具作者索引；独立验收者另签实际读取的receipt。旧非零/缺字/全页截图关闭浮层均保留，最终替代证据不能反签旧失败。源码、HTTP、真实浏览器、组件夹具、模拟触摸/CDP IME、原生AX、独立已提交RO各自分层；真实OS IME/屏幕阅读器/Safari/设备/用户亲手仍未验。
 

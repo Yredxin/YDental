@@ -1,6 +1,6 @@
 # DL-P1 独立验收矩阵
 
-本表由未实现产品或测试工具的 `/root/acceptance` 维护，当前本地软件独立验收为 **TECHNICALLY_COMPLETE（限定P1）**，同步待正常最终读回；用户亲手效果仍待确认。最终产品/执行候选 `8dea2647760f6d6738abfc9db132cfa9d7feaee3`；首产品候选 `63ae208b09e1c582ed2493f0cba78cc7a94731fb` 的长项缺陷及失败证据保留；真实旧产品/旧 CSS 前态候选 `31ef5d7bb8e181bdd044c9bd6d77db20f1dbd5ef`，其 addon 字节与 `06c7a4639a107e70c3db6352f8f929db80e6f94a` 相同。源码、HTTP、真实浏览器、显式组件夹具及独立物理只读保护分别记录，共享 OS 不构成隔离。
+本表由未实现产品或测试工具的 `/root/acceptance` 维护，当前本地软件独立验收为 **TECHNICALLY_COMPLETE（限定P1）**，首轮同步已正常读回，最后仅文档元事实HEAD见同一新#37回执；用户亲手效果仍待确认。最终产品/执行候选 `8dea2647760f6d6738abfc9db132cfa9d7feaee3`；首产品候选 `63ae208b09e1c582ed2493f0cba78cc7a94731fb` 的长项缺陷及失败证据保留；真实旧产品/旧 CSS 前态候选 `31ef5d7bb8e181bdd044c9bd6d77db20f1dbd5ef`，其 addon 字节与 `06c7a4639a107e70c3db6352f8f929db80e6f94a` 相同。源码、HTTP、真实浏览器、显式组件夹具及独立物理只读保护分别记录，共享 OS 不构成隔离。
 
 证据代号均指本机私有原始结果与其图片/正常进程退出，公共仓库只保留脱敏索引。`B`=before-v1；`A`=after-v5；`C`=Chromium complete-v5；`V`=Chromium popup-capture-v1；`E`=edges-v6；`T`=touch-v1；`N`=none-shell-v1；`J`=native-fallback-v2；`F`=Firefox controls-v5；`H`=HTTP-v5；`R`=revocation-v2；`U`=print-only product-v1-upgrade。最终8dea证据另列：`A8`=after-final-v1及before-after-final-comparison；`C8`=controls-final-chromium-core-v1；`V8`=controls-final-chromium-popup-v1；`L8`=controls-final-chromium-long-v1；`LV8`=controls-final-chromium-visible-v2。每份使用实际记录的工具 SHA/运行 ID；旧63证据仅在相应代码/断言未受影响时承接，不把此前失败进程或缺图改写为通过。
 
@@ -21,7 +21,7 @@
 |P1-T13 未改区/旁路|页头/列表/生成/管理内部不改，其他岗位代表入口保持|B与最终A8同条件15对outside regions/computed/后代控件逐字段同，根尺寸同。A8共17图：16张与已逐图亲看A实际PNG字节同SHA；剩余报表图实际另亲看，条件/样式及实收USD1300/3笔500+300+500同，仅query_at更新到11:34:16；结算/仓库/native214前后PNG实际SHA同|PASS（SOURCE+有限computed+BROWSER/视觉）。允许上区自然撑高的y位移；不冒四旁路全DOM或全业务重验|
 |P1-T14 多引擎|实际Chromium完整流程＋Firefox或WebKit之一，同页面搜索/展开/选/取消/预览/实际缩放|最终C8/V8/L8/LV8及WebKit27.2实际keyflow-v1/zoom-capture-v2；WebKit普通doctor9菜单/q搜索、唯一原字段/键盘确认取消、3实际视口、单按钮preview及iframe中文、真实zoom2与独立根字号均已核。6张有效keyflow图＋v2完整1366×768 zoom图逐张亲看，实际outer/main两组均0/signull，pageerrors[]|PASS（Chromium＋WebKit的限定P1软件范围）。Firefox中文tofu、WebKit前三能力失败和原renderer未知保留；keyflow旧半幅zoom图不签，v2另补。Safari/iOS/物理设备/屏幕阅读器未验，不称全浏览器一致|
 |P1-T15 候选/加载/回归|固定候选、必要加载pre/post、实际资产及影响回归|63ae print-only U实际0/ERROR0/noNative，pre db39…→post cdb3…145/13/83保护通过。8dea仅JS局部定位修复，另4产品文件/manifest/controller未变；fresh完整pre d608…及正常owned新进程，不重复-u。C8浏览器实际取新bundle1969552字节，验收者实hash7c94415…，含新module/fallback/visualViewport；最终浏览器绑定8dea|限定加载/资产PASS；第二引擎/最终保护仍分别列。未重派已结束39方法、经济链或生成新PDF|
-|P1-T16 独立收口|全部适用项、私有只读包、5—8步路径、同步与STOP；只签P1|未实现者SOURCE/原始HTTP/AX/真实图片/两个引擎/独立物理保护已核。私有包11,672,801字节、0400、b125f344…、82成员/78PNG/0PDF，全成员SHA和78原源字节独立读回；README普通医生7步可复现。正常status为STOPPED/noactive|本地软件/包/steps/stop PASS；最终push/ref/新#37结果及#36状态正常读回 PENDING，另出同步回执。P2—P6 NOT_AUTHORIZED；不合产品main/部署，旧6382778460不改|
+|P1-T16 独立收口|全部适用项、私有只读包、5—8步路径、同步与STOP；只签P1|未实现者SOURCE/原始HTTP/AX/真实图片/两个引擎/独立物理保护已核。私有包11,672,801字节、0400、b125f344…、82成员/78PNG/0PDF，全成员SHA和78原源字节独立读回；README普通医生7步可复现。正常status为STOPPED/noactive|PASS（适用软件及同步）。正常push业务e3fa/main两文档1558；8份正文与新#37/6384111913全文实际读回同，#37OPEN3/#36CLOSED2与旧正文/评论保持；主控首读回ddf05b55…，未实现者正常远端GET/ref/正文独立回执28b66f7b…；最终纯同步元事实HEAD见同一新评论。P2—P6 NOT_AUTHORIZED；不合产品main/部署，旧6382778460不改|
 
 流程覆盖：F1搜索到明确预览已有真实HTTP/BROWSER/可见iframe；F2键盘确认/取消已有实际组件证据；F3无源/旧页/撤权已有产品层拒绝及恢复；F4五视口前后及未改区已有限通过，最终无副作用保护已由独立新物理RO连接核145/13/83及全部旧责任。用户亲手效果始终待确认。
 

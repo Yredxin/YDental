@@ -3,7 +3,7 @@
 `[CODEX-FINAL] YD-S13-DL-P1 / 1.0`
 
 - 技术：TECHNICALLY_COMPLETE（限定P1软件范围）。
-- 同步：SYNC_PENDING；尚未将本阶段结果写入Issue，不冒已同步。
+- 同步：SYNCED；分支/main文档、完整正文及新最终评论和Issue状态均已实际读回。
 - 用户亲手效果：待确认；自动化浏览器不是已接手窗口。
 - 仅文书查询与选择区。DL-P2—P6 NOT_AUTHORIZED；完整S13未完成，#37保持OPEN，#36保持CLOSED。不合产品main、不部署。
 
@@ -85,6 +85,6 @@ A色surface `#fffbf6`、paper `#fffefa`、正文`#382f28`、说明`#716359`、ac
 
 ## 同步与结束
 
-本地完整独立技术总签`7286c7ad8fd7af8774da6dfb671826843c26cbbad7cd471bfff9ff3e7ff56b9c`；正常Git/main文档/新#37唯一结果评论及实际读回待收口，未冒SYNCED。旧6382778460保持，#36不写、不重开，#37不关闭。Public仅5文件产品代码、必要工具/计划/设计、脱敏报告和索引，原始截图/样张/ZIP/凭据私有。
+本地完整独立技术总签`7286c7ad8fd7af8774da6dfb671826843c26cbbad7cd471bfff9ff3e7ff56b9c`。正常push首轮完整报告`e3fa2722d71388845b2aaf4ea2d1dc044c7f7986`及main仅两路由文档`1558e2561d7a2bf81953e9dc219d3dee1de0cfa7`，ref及8份正文bytes/Gitblob均实际一致。仅新[#37最终回执6384111913](https://github.com/Yredxin/YDental/issues/37#issuecomment-6384111913)正常发布/全文读回，#37 OPEN/3评论，原正文与旧6382778460完全同；#36 CLOSED/2评论，正文及全部旧评论完全同。首实际同步回执`ddf05b55f3d47b43a7f9cdd4e042e47901cfac66382f935063fc78fb3aee424a`。未实现者远端同步独立回执`28b66f7b8ed57aebf69298e5bb4ea6fa43fccc82dda221775b4a4a9bf5f757e7`。此后只补同步元事实报告提交及同一新评论最终HEAD，额外实际读回保留本机；不为文档提交重跑业务。旧6382778460保持，#36不写、不重开，#37不关闭。Public仅5文件产品代码、必要工具/计划/设计、脱敏报告和索引，原始截图/样张/ZIP/凭据私有。
 
 本阶段结果交付后停止。DL-P2—P6、完整S13全链/50活动会话、备份恢复、实机、正式临床/财务政策、真实患者/资金/通知、生产和产品合并未启用；S11一次扫码接收并入库仍待产品决定。用户带结果回GPT最终复核，不自动继续下一计划。

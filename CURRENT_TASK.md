@@ -1,9 +1,9 @@
 # DL-P1当前状态｜YD-S13-DL-P1 / 1.0
 
-## TECHNICALLY_COMPLETE（限定软件范围）/ SYNC_PENDING
+## TECHNICALLY_COMPLETE（限定软件范围）/ SYNCED
 
 - 用户本轮ZIP仅启用[DL-P1完整计划](docs/execution/S13_DL_P1_IMPLEMENTATION_PLAN.md)/[设计规范](docs/design/YDENTAL_DESIGN_LANGUAGE_V1.md)。仅`/ydental/documents`查询q、两处preview来源/正文模板选择及按钮/必要局部说明；页头/导航/原件列表/生成/管理/PDF/其他岗位不改。**P1完成交付后停止，DL-P2—P6 NOT_AUTHORIZED**，完整S13/负载/恢复/实机/正式政策/扫码组合/生产未启用。
-- 本地全部P1-T01—15软件及T16包/步骤/正常服务收尾已获未实现者独立通过，总回执`7286c7ad8fd7af8774da6dfb671826843c26cbbad7cd471bfff9ff3e7ff56b9c`；远端同步仍待实际读回，不冒SYNCED。用户亲手效果待确认，自动化不称已接手窗口。结果/逐项证据见同一[summary](docs/reports/s13-dl-p1/summary.md)、[matrix](docs/reports/s13-dl-p1/acceptance-matrix.md)、[index](docs/reports/s13-dl-p1/evidence-index.md)。
+- 本地全部P1-T01—15软件及T16包/步骤/正常服务收尾已获未实现者独立通过，总回执`7286c7ad8fd7af8774da6dfb671826843c26cbbad7cd471bfff9ff3e7ff56b9c`；正常业务分支/main文档ref及8份正文、新#37评论/Issue状态均已实际读回，首回执ddf05b55f3d47b43a7f9cdd4e042e47901cfac66382f935063fc78fb3aee424a。用户亲手效果待确认，自动化不称已接手窗口。结果/逐项证据见同一[summary](docs/reports/s13-dl-p1/summary.md)、[matrix](docs/reports/s13-dl-p1/acceptance-matrix.md)、[index](docs/reports/s13-dl-p1/evidence-index.md)。
 - 正常从业务06c7a4639a107e70c3db6352f8f929db80e6f94a承接`codex/s13-dl-p1-documents-query-r1`；公共运行工具31ef5d7bb8e181bdd044c9bd6d77db20f1dbd5ef，最终产品/执行`8dea2647760f6d6738abfc9db132cfa9d7feaee3`，报告checkpoint2dd06effea75d7e96039264f23ce77af59f12d8f仅docs。core f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb不改；后续仅报告/必要main路由，不合产品main，不reset/clean/强推/覆盖未知工作。
 - 用户原ZIP SHA c01b0e06736a59016aea4e0beb37bee19c73190bc5ba24fb013019f876fbdfbe，9payload实际同manifest，完整MD/HTML源码已读；原ZIP原地保留，只确切文件名local exclude，原包/HTML私有，不冒先前file页面浏览器视觉。产品仅指定5文件，局部A色/Grid/相对尺寸/两处单选，共用原生Interaction/reposition/normalize/loading机制，真实字段/独立表单/后端权限保持。
 - 63ae首版极长项14/26px浮层经未实现者亲看判FAIL，8dea只JS局部修复视口可读overlay/全文局部滚读，不缩字截断。最终Chromium156.0.8078.4及WebKit27.2正常角色/菜单/search/选择取消/preview中文/原生200%zoom与根字号200分列，5视口/AX/键盘/边缘/长项/降级全部按真实层级。15对before/finalafter、7普通popup、长项起终及两引擎真实图已亲看；同页未改区computed同、三旁路PNG同SHA，旧320整页345px限制保持。
@@ -14,7 +14,7 @@
 - 私有0400效果包`.local/dl-p1/viewing/S13-DL-P1-view-only-20261024.zip`：11672801bytes/SHA b125f3440e43e2dc5fa5526b898fa90ec1b2266ce3bc61f43c834d13e6864ff8，82成员=78PNG+4派生文件，0PDF，全部成员实际读回且未实现者独立核，包回执93821599c06abadc384fe0321565cfe8fb6ac828b10d1c40805ecc415e9aab40。无凭据/Cookie/session/profile/config/raw请求/备份/独立字体/程序，未上传Public。
 - 末run20261024T113302Z-ca515f78a9f8已于12:01:36UTC正常stop，child3278994=0/signull/group stopped，无active；所有browser退出，medical权限精确恢复，无新测试账号/业务租约。原scope18:32:42UTC不改不等于在线；正常复开须核真实目标/filestore/权限/owned冲突/fresh准入/clean候选/有效scope，过期建正常新查看scope，不改旧期/STOP、不复制会话。127.0.0.1仅本机，无用户可见窗口接手声明。
 - Firefox157中文tofu UNKNOWN未签其视觉；WebKit前三data失败/renderer未知保留，明确缺EGLvendor/GLES后仅private official依赖修复、原厂JSON正常搜索，不改host/security/sandbox/prefs/automation/auth/driver/引擎/入口。最终Chrome+WebKit软件范围PASS不称全部平台通过，原警告与错误截图都保留。屏幕阅读器/真实OS IME/Safari/设备/用户亲手NOT_RUN，正式政策/生产仍未启。
-- 结束只向#37新增一份本P1最终回执并保留OPEN，不改旧6382778460，不写/重开#36；正常commit/push/ref/正文读回及必要main文档待完成。没有Issue中间审查评论，不等逐批GPT签字，不启Projects硬门槛、不自动P2。
+- 已正常push首最终e3fa2722d71388845b2aaf4ea2d1dc044c7f7986及main两文档1558e2561d7a2bf81953e9dc219d3dee1de0cfa7，完整8正文逐字/blob同；仅[#37新唯一P1最终回执6384111913](https://github.com/Yredxin/YDental/issues/37#issuecomment-6384111913)正文逐字读回，#37OPEN/3comments、旧6382778460不改，#36CLOSED/2comments/正文原样。未实现者正常远端GET/ref/正文独立回执28b66f7b8ed57aebf69298e5bb4ea6fa43fccc82dda221775b4a4a9bf5f757e7；此后仅同步元事实文档HEAD及同一新评论，不重复业务。没有Issue中间审查评论，不等逐批GPT签字，不启Projects硬门槛、不自动P2。
 
 ---
 
