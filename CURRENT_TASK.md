@@ -19,8 +19,12 @@
 - 浏览器四普通role首轮：settlement/none/reader页面、拒绝、导出边界及新源drill通过；doctor preview成功后download事件未捕获，整体PARTIAL保留。普通GET页面原件1单次真实browser下载SHA一致；preview后点击的普通DOM事件问题由tester继续诊断，不先冒产品/工具PASS。
 - **同店两区域新链已提交，标签有待修产品缺口**：V3 result61852457…：patient524唯一arrival517，care349/area7/event291/fee291=137.25，exam350/area8/event292/fee292=35.50，doc328v2，RX15 issued/未发药、task669 pending，lab214v2 draft/followup280 planned waiting/nojob/no库存。已保存clinical64/RX65/exam66真实PDF。正常label preview成功后generate409，无labeloriginal；已独立提交读回，不重跑来源。根因原生QR PNG同码重复绘制字节非确定，错误纳sourceSHA；最小修将稳定QR语义入source、实际PNG/hash入typed renderfacts，既有原件不覆盖。修后仅续既有label请求和剩余证据。
 - medicine经两次普通guard拒读后，v2纯续证normalprice/catalogUI+明确RO真配置已完成4ca60d00…/newconfig fac25fd4…；原b98/0ac失败保留，配置只建一次。integration原621/V2两轮均在新patient前objects空停止，V3只业务运行一次。
-- 下一动作：QR最小修/必要回归与既有label续证→同意/完整与摘录/长中文FDI跨页表及80mm实际文件→新库存耗用2与加工待交付/复诊待办逐指标对账→实际合并后旧件重印→最终带数据限定升级和16行独立总验收。连续实施，不逐批返回GPT，不向Issue发过程进度。
-- 当前owned服务均已正常STOPPED（20261024T012359Z-38940ba6e97b supervisor/child0），无active；为QR产品修与最终工具固定暂停本服务，不是计划停止。此前loopback18411/cron0/外发off/延迟flag全off。运行/停止与复现条件按最终实际收口。运行记录/凭据/原始文件只本机，不承诺永久在线。[summary](docs/reports/s12/summary.md)、[evidence-index](docs/reports/s12/evidence-index.md)、[指标字典](docs/reports/s12/metric-dictionary.md)。
+- **QR产品缺口已关闭并真实续行**：产品最小0393d41(a0)/工具ac83/测试5cb1e46；限定lab+s12_test升级0/ERROR0，31实际post-tests（旧22MODEL+7HTTP+2明确encoder/auth seam）0fail0error/child0，无Native。完整145/13/27前后仅模块技术write_date；独立18158ffe…。正确label-only原source214/旧失败key续行，仅新original93（source语义稳定，render真实原生PNG180²），newreceipt10f0b3be…；独立c378be85…实际1arrival517/两area/两events291/292、旧64/65/66字节保持、无source重放。原618失败与首因保留。
+- **同意书/合集/长表实际完成（限定合成）**：newreceipt0c54dcf0…，doc354从pendingv2正常确认v3，旧328v2/作者9/arrival517/费库款保持；原670已合法handover，新701仍pending（不再把旧时点670pending冒最终）。原件94长表/95draft/96excerpt/97A4consent/98长80mm/99complete共6文件22页，全部独立逐页亲看，52unknown FDI表跨页重复表头、80mm原生227pt；旧draft/excerpt/consent原bytes保持。evidence10仅synthetic software verified、11 rejected，正式未签；同件幂等/跨件复用拒绝/同店旧版政策与另店不继承已实测，独立113b0899…。未冒正式临床/出纸。
+- **新库存耗用指标完成**：newmaterial884/lot253正常入库10(566)→新patient/正常doctor9耗用2(567)/内部quant8、项目数量与耗材单位分列，无出账/收款/旧lot。normal13报表/CSV/drill仅消费2排除receipt10，23旧表/原件保持，独立2b80ee62…。原13缺export在写前被拒，normal5仅临时store1 exportwrite(0c4cd5f4…)→完成后native恢复none(1f844ebd…)且两audit留存，不改ACL。旧slot697自然到期后新窗口正常创建，原窗口/旧价格不覆盖。
+- 加工待交付正例正在正常native采购/明确send独立流程中，标签本身仍无send/接收入库副作用。原purchase12 native创建productmaster被正确ACL拒且无新master/PO，原4de8失败保留；正常已有admin2产品管理authority仅准备新非库存service885（2d1fa716…），普通12只采购/确认/关联、9明确send，不给12加组/改ACL、不真发货/外发。后续按实际结果读回，不重跑未知提交。
+- 下一动作：加工待交付/复诊待办逐指标对账→实际合并后旧件重印→最终带数据限定升级和16行独立总验收、一次最终正常push/ref/Issue同步。连续实施，不逐批返回GPT，不向Issue发过程进度。
+- 当前正常owned run20261024T020553Z-e4a02bd46111运行，source5cb1e46，loopback18411/cron0/外发off/延迟flag全off，前序owned均正常stop0。最终运行/停止与复现条件按实际收口。运行记录/凭据/原始文件只本机，不承诺永久在线。[summary](docs/reports/s12/summary.md)、[evidence-index](docs/reports/s12/evidence-index.md)、[指标字典](docs/reports/s12/metric-dictionary.md)。
 
 ## 不可重放与未验边界
 

@@ -1,31 +1,138 @@
 # S12 证据索引
 
-原始材料只留本机忽略目录，不公开凭据、会话秘密、临床原件或签名。尚无最终独立验收。
+Plan ID：YD-S12-DOCUMENTS-REPORTS-V1 / 1.0。当前索引冻结到最终带数据升级之前；最终升级、升级后独立总验收及 GitHub 同步仍为 **PENDING**，不据此宣称 TECHNICALLY_COMPLETE。
 
-|证据|层级/结论|私有路径|SHA-256|
+唯一实际目标：`ydental_s11_synth_20261023_01` / OID `2171423` / cluster `7694897083368259627`；锁定 core：`f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb`。业务从 S11 `e100e098dea5b919f3c9ca09454d239189e69ad1` 承接；未重建、改名或复制目标，未使用旧 scratch/attempt30/旧经济链补证。
+
+所有路径均为本机忽略目录中的证据定位符，**不是公共附件或可公开下载链接**。本索引只手工摘录状态、层级、合成对象 ID、候选和文件 SHA-256；不复制原始 JSON、日志、连接配置、会话、凭据或正文。未新增公开原件文件。复现只读查看已生成原件；下列已提交业务不可整链重跑。
+
+关键执行候选：首链 `333ef10`；首次 W2 `025e65e`；第一次普通修复 `b160587d96ab54cb70deb7e6ff11d72bc6556146`；真实财务/超时 `007900f3d4141a5e7a07f21aaf3e972a7126c68c`；QR 修复及当前 31 方法套件 `5cb1e46fbe1e4243c7a292f64ecfd375afb3dce2`。报告 HEAD 与产品候选分列，最终候选由最后升级回执绑定。
+
+## 准入、环境与原生测试
+
+`SOURCE/PURE` 表示源码或无业务运行校验；`MODEL` 表示原生模型测试（套件事务回滚）；`HTTP` 表示正常角色请求；`BROWSER` 表示真实浏览器交互；`RO/RR` 表示另一真实物理连接、只读可重复读事务及 rollback/close。角色分工不构成 OS 隔离证明。下列独立回执由未实现对应内容的 acceptance agent 审核；tester 的结果不能替代独立签署。
+
+## 准入与套件回执
+
+|证据 / 实际结论|层级与限制|私有路径|SHA-256|
 |---|---|---|---|
-|目标准入|真实目标RO/RR，rollback/idle/close；无业务写/服务启动|.local/s12/admission/target-readonly-confirmed.json|d35806698a60e9cfd65a967621fdf1ed05edf3c55bdd50305ea3891266466dbf|
-|首轮探针错误|普通断言误查不存在callback_url；原回执保留，修正真实callback_secret后另采|.local/s12/admission/|见原回执|
-|独立清单|SOURCE F1—F4/T01—T12，不冒动态PASS|.local/s12/acceptance/checklist.md|待固定|
+|唯一目标原生准入|真实 RO/RR，权限/身份核实，rollback/close，无业务写|`.local/s12/admission/target-readonly-confirmed.json`|`d35806698a60e9cfd65a967621fdf1ed05edf3c55bdd50305ea3891266466dbf`|
+|字体与私有 native PDF 依赖|独立 SOURCE/PURE；实际 fontconfig/fc-match、rl-renderPM 4.0.3 项目私有 payload/hash 和负例；不冒 QR HTTP|`.local/s12/acceptance/runtime-environment-source-pure-independent.json`|`d2142bc653b9d3964ba537a770577258771e4850fa581ef0492902fed1010528`|
+|初始限定升级独立回执|限定四模块，child0/ERROR0；旧事实保全，非最终升级|`.local/s12/acceptance/initial-upgrade-independent.json`|`932e7ad196ffd12b5f42e56af1750488af2373270d45f5c74cf09c461e03d04c`|
+|首次 W2 升级独立回执|四模块更新、reporting/test 两模块安装；99 installed；非全模块重装|`.local/s12/acceptance/first-w2-upgrade-independent.json`|`3dca2c580aecb09bfb2b087240c76a8ef98faf95c2618a216ea8672d18e3c67e`|
+|首套件原始 FAIL|28 post-tests：1 failed/20 errors，child1/wrapper2；未发生 Native 崩溃|`.local/s12/checks/first-suite-suite/result.json`|`da18d84602c7597c062cb5b0001ddb69df236491aa1cceffba62b77c7824a3c7`|
+|首套件独立首因|fixture 基类重绑定角色环境及原生 placeholder 预期错误；保留原 FAIL，不修改产品 ACL|`.local/s12/acceptance/first-suite-failure-independent.json`|`eebdbff7ee3e9ebd757382906054a52786c9e482c7bcbd3f8fa2f22d63de3928`|
+|首套件后独立保护|业务/文件/权限/配置保留；仅模块技术时间变化；不把保护通过当套件通过|`.local/s12/acceptance/first-suite-protection-independent.json`|`4a7e28078247c4f04be25f41782c7418bf687b6ea22a8482fd65addaf98dd832`|
+|第二套件原始 FAIL|b160：29 post-tests，1 failed/0 errors，child1；URL placeholder 取值预期仍错|`.local/s12/checks/fixed-suite-suite/result.json`|`3e2a9685a3511eec25d7912f6c019bcfee7a0713763056e3df74634233231c0a`|
+|第二套件独立分类|修精确 native PNG 预期，未删除断言；该失败之后的 RPC 当时未运行|`.local/s12/acceptance/fixed-suite-failure-protection-independent.json`|`772648d24b8fa16532851f2233ec23721ce38d71137117051ac38b46b5b48c3f`|
+|007 原生 29 方法独立回执|0 failed/0 errors；医疗/检查/财务四组合真实类别 HTTP、直链、撤权等；MODEL 非持久业务补证|`.local/s12/acceptance/007900f-29-native-suite-independent.json`|`3baf4687151c7ec695739d26610e4e4eb921d71769fe2118405f708e3611e5c6`|
+|QR 修复限定升级独立保护|旧业务及全部受保护原件保留；非最终全数据收尾|`.local/s12/acceptance/qr-source-fix-upgrade-independent.json`|`45ba056c8b4de8e2e954b1f3117e60d7716e98c55c40b002fa237c5cf626a2bb`|
+|最终产品套件原始结果|5cb：child0；31 post-tests，0 failed/0 errors，无 Native；日志/方法全表见独立回执|`.local/s12/checks/qr-source-fix-suite/result.json`|`035c48fc66834a91db3180ccb571f9d7ad508e49471ed992a1b8034349b68c7d`|
+|31 方法独立验收|22 MODEL + 7 HTTP + 2 受控 encoder/authorization seam；后二者不冒真实 PNG 或普通授权实测|`.local/s12/acceptance/5cb1e46-31-native-suite-independent.json`|`18158ffe369b5b3077f1bd501e375a7239c85a8e487d41dd03f9e79d6c822b85`|
 
-最终16行矩阵须实际产品/文件/请求/独立提交及升级完成后填写；正式正文/真实税票/物理设备分别NOT_RUN。
+关键原生命令入口：`../.venv/bin/python scripts/s12/run_checks.py --phase upgrade|suite --candidate <固定候选> --modules <限定模块> --freeze <完整冻结记录> --pre <即时完整前态> --label <唯一标签>`。suite 实际原生参数包含 `-u ydental_s12_test --test-enable --test-tags /ydental_s12_test`；完整非秘密命令、子进程退出码与日志 SHA 留在对应私有 operation/result 中。31 方法实际官方结果是 `31 post-tests in 84.61s`、`0 failed, 0 error(s) of 31`，不以定义数、查询数或继承 fixture 数代替执行结果。
 
-|证据|层级/结论|私有路径|SHA-256|
+## 首闭环、历史原件、竞争与超时
+
+正常入口是 `/ydental/documents`，preview/generate/download/print_request 经普通角色及真实 CSRF；旧原件下载读保存 bytes。所有失败先保留请求意图并独立核提交，再决定同 key 恢复；未重跑来源、治疗或资金。
+
+## 原件闭环与恢复回执
+
+|证据 / 实际结论|层级与限制|私有路径|SHA-256|
 |---|---|---|---|
-|首chain最终原key恢复|NORMAL_HTTP＋不同物理连接提交读回|.local/s12/first-loop/first-normal-recover-font-20261024/result.json|1a18f99e715d2619b38f2635074fbd314bd10c0cc9b1a0e5c36deca4e4db1a1d|
-|真实PDF前/后|2页A4，改新主档后原bytes相同|同目录original-before.pdf / original-after.pdf|ddb3962685c62ff531360c16edcf1e5ab9d9a829cd616ee81688e7b8a01ac8d1|
-|首链独立总回执|原始19步HTTP、新RO快照/文件/17表逐值、逐页亲看；有旧排版跟进，不冒全S12|.local/s12/acceptance/first-loop-independent.json|3828129241eb8d68da59eaa278c28d340842f76dfb98e0f1a2bf544ec26a1976|
-|首链独立RO|backend3899453/源/模板/render SHA/附件与两HTTP文件/审计/经济保护|.local/s12/acceptance/first-original-readback.json|2ea980e333ac92f13d380e4365f0a48d56ba15b582750355558e2c9d8beb0b5d|
-|首语言失败|真实preview409，无原件无更名；正常管理后续行|.local/s12/first-loop/first-normal-20261024/result.json|2b1c99b12c103509b758fd539fd50421d18b4beeff9537961e01e618151b8c10|
-|首字体失败|真实generate409，独立核原key无提交后同key恢复|.local/s12/first-loop/first-normal-resume-zhcn-20261024/result.json|d5de94a48080908601e2f3ccc19c95c34a52ac0cf56653adeeffd068b3a55e0d|
-|初始升级独立|完整即时pre后限定4模块，0/ERROR0，旧事实/附件保持；非final|.local/s12/acceptance/initial-upgrade-independent.json|932e7ad196ffd12b5f42e56af1750488af2373270d45f5c74cf09c461e03d04c|
+|首语言失败|正常 preview409；无原件/无改名；后由正常管理激活中文后仅续后段|`.local/s12/first-loop/first-normal-20261024/result.json`|`2b1c99b12c103509b758fd539fd50421d18b4beeff9537961e01e618151b8c10`|
+|首字体失败|正常 generate409 font_unavailable；独立核原 key 无提交后恢复；非 Native 崩溃|`.local/s12/first-loop/first-normal-resume-zhcn-20261024/result.json`|`d5de94a48080908601e2f3ccc19c95c34a52ac0cf56653adeeffd068b3a55e0d`|
+|原 key 恢复首闭环|正常 HTTP + 新物理提交核验；新 patient254/doc273，旧件1下载→正常更名→重印同 bytes|`.local/s12/first-loop/first-normal-recover-font-20261024/result.json`|`1a18f99e715d2619b38f2635074fbd314bd10c0cc9b1a0e5c36deca4e4db1a1d`|
+|首链独立动态总回执|实际 HTTP/已提交源/逐页 PDF；旧件1旧排版问题保留，后续新版本复验|`.local/s12/acceptance/first-loop-independent.json`|`3828129241eb8d68da59eaa278c28d340842f76dfb98e0f1a2bf544ec26a1976`|
+|首链独立已提交读回|源/模板/render/附件/两次下载/审计及经济保护|`.local/s12/acceptance/first-original-readback.json`|`2ea980e333ac92f13d380e4365f0a48d56ba15b582750355558e2c9d8beb0b5d`|
+|T12 原始工具 exit2 保留|A/B 两事务均已 commit；收尾把 semantic source SHA 与 stamped render SHA 混比，工具误断言，不重放|`.local/s12/source-version-race/t12-doc273-source-version/result.json`|`ec17a0f99cdd4372ecec5b93a99bfa9c528137febb0ce6da75862a9fcb3c1dee`|
+|T12 离线正确分类|仅离线证据和 PDF；source 与 render 各自匹配，无 DB/HTTP/业务重跑|`.local/s12/source-version-race/t12-doc273-source-version/tester-offline-digest-classification.json`|`8711b17dd5f971ca57e1b487fc6743f1df299aa3ae6a116d41a9c67ec197ea05`|
+|T12 独立通过|真实两个 PG/RR 连接及同步 hook；A reader16 冻结 v2，B author9 正常更正提交 v3；A 原 native renderer 仍输出完整旧 v2 新件30；非 HTTP 并发|`.local/s12/acceptance/t12-independent.json`|`ebc047413d21de4742f079c06b107f38659927ea61131bf54049e651ce9cb570`|
+|T07 真实客户端超时|0.75 秒实际 HTTP ReadTimeout；test-only 默认关闭 seam 延迟后仍原 native PDF；新 RO 确认提交后同 key 恢复，未重复治疗资金|`.local/s12/client-timeout/t07-http-timeout-recovery/result.json`|`9e9addc76a2d227093af381ed69299dd2a7e0168ebd80bbea548bf777acefd3e`|
+|T07 独立验收|实际时序/普通请求/已提交原件57/旧原件保护；延迟是显式 test-only 受控条件，非实机打印失败|`.local/s12/acceptance/t07-independent.json`|`01da7c4beb1e84302d717603de8880e30ae54531fe77af82423b6cc9f1deed1b`|
+|T02 正常合并原始结果|source patient254→本阶段新656，受控 request/confirm；原273作者/版本及未完604保留|`.local/s12/first-loop/s12-verified-merge-originals/result.json`|`4929b97279445391f195393e31e8c5c3041e5bb01452d0402d4c03068ca220fa`|
+|T02 合并独立验收|1/30/57 前后 HTTP bytes 相同、授权按当前 canonical 源重核；新100 v4，旧原件不覆盖|`.local/s12/acceptance/merge-original-independent.json`|`c389e39c584a912ab2e69c1911c0a5a3d05ce253e66953d26d360812c5f4b7d9`|
 
-|W2限定升级独立|四模块更新+两个新模块安装0/ERROR0，99installed，非final|.local/s12/acceptance/first-w2-upgrade-independent.json|3dca2c580aecb09bfb2b087240c76a8ef98faf95c2618a216ea8672d18e3c67e|
-|首suite原始FAIL|28post-tests，1failed20errors，child1/wrapper2，无Native|.local/s12/checks/first-suite-suite/result.json|da18d84602c7597c062cb5b0001ddb69df236491aa1cceffba62b77c7824a3c7|
-|首suite独立首因|fixture actor env/原生placeholder预期；不冒产品通过|.local/s12/acceptance/first-suite-failure-independent.json|eebdbff7ee3e9ebd757382906054a52786c9e482c7bcbd3f8fa2f22d63de3928|
-|首suite后独立保护|145业务/15附件等逐值一致，仅模块write_date；非suite PASS|.local/s12/acceptance/first-suite-protection-independent.json|4a7e28078247c4f04be25f41782c7418bf687b6ea22a8482fd65addaf98dd832|
+原件关键映射（均为合成，不公开 PDF 正文）：
 
-|T12双连接原始工具|双方commit真实返回后收尾digest错误exit2保留，无业务重放|.local/s12/source-version-race/t12-doc273-source-version/|原ec17…/stages da465739…，完整SHA见独立回执|
-|T12离线正确分类|source vs stamped-render摘要分别匹配，无DB/HTTP/重放|同目录tester-offline-digest-classification.json|8711b17dd5f971ca57e1b487fc6743f1df299aa3ae6a116d41a9c67ec197ea05|
-|T12独立验收|真实A16/B9两PG/RR；doc2→3时新original30一致旧v2，native实PDF、旧1/17表/604保持|.local/s12/acceptance/t12-independent.json|ebc047413d21de4742f079c06b107f38659927ea61131bf54049e651ce9cb570|
-|T12新PDF|两页新件亲看，标题/来源footer已复验；不覆盖旧1|.local/s12/source-version-race/t12-doc273-source-version/|529acd19b12c3658487400692f1715aac570dc5547c59239909accdd6fb7267e|
+|原件|来源/前版|实际 PDF SHA-256|结论|
+|---|---|---|---|
+|1|doc273 v2，首 A4 两页|`ddb3962685c62ff531360c16edcf1e5ab9d9a829cd616ee81688e7b8a01ac8d1`|更名及最终合并后重印字节不变；旧排版不覆盖|
+|30 v2|doc273 冻结 v2 / previous1|`529acd19b12c3658487400692f1715aac570dc5547c59239909accdd6fb7267e`|T12 A 输出旧快照；现源已 v3，文件无新更正 marker|
+|57 v3|doc273 v3 / previous30|`51441047b8103b3a8a9bc80a064fcb767a3e24c5b1de5acb8befd51d663d6476`|T07 未知结果核实后同 key 恢复|
+|100 v4|合并后新正常生成 / previous57|`537e8f3887c258a018a70d4eaa56bd032ec501c32f552aea3d47a40752a96e3b`|正常新版本、两页独立视觉；不重渲染旧件冒原版|
+
+T12 实际命令入口：`../.venv/bin/python .local/s12/verification/source_version_race.py --candidate b160587d96ab54cb70deb7e6ff11d72bc6556146 --label t12-doc273-source-version`。原工具 exit2 与离线分类/独立 PASS 同时保留；不把后者写成原工具 exit0。T07 仅在主控明确绑定本阶段目标/actor/source/version 的四个测试环境项时生效，正常启动默认关闭。
+
+## 财务、税务原件机制与指标回源
+
+|证据 / 实际结论|层级与限制|私有路径|SHA-256|
+|---|---|---|---|
+|F2/T05/T11 新真实合成经济链|正常原生出账/付款分摊/退款批准及执行；HTTP PDF + 已提交读回，exit0；旧账链未重放|`.local/s12/first-loop/s12-economics-new-20261024/result.json`|`a4956847b51d8e8142b1591949b7d5ccf12b61a919e21bd5a8969e3c84793e30`|
+|六财务指标逐项对账|正常14 HTTP × 三日期范围全分页/钻取 + 新 RO 原生原单/核销；保护投影显式排敏感列；exit0|`.local/s12/financial-report-reconcile/s12-econ-native-report-reconcile/result.json`|`53f2ca08d6a8bbd4530ab3f3a6932bf29c2722d1e760315fff4ae3f8c8d28729`|
+|财务独立验收|四实际阶段含批准100未执行快照；部分付款/跨日实退/历史价格/原件逐页及账务核对|`.local/s12/acceptance/financial-independent.json`|`65c74ae13234c06d674ebf35462352693ed4438cba334c57e0788e63215b78d5`|
+|非税票原件示例实际链|醒目 SYNTHETIC NOT TAX 有效 PDF；正常上传/授权下载/打印请求/none17拒绝，exit0；不得重传|`.local/s12/tax-original-loop/s12-tax-example-original/result.json`|`50064e440a11e012df080b6c9fa8e78147db43ea618f4e3f68b9db2ba8f160b9`|
+|非税票机制独立验收|原上传 bytes 不变、原件关联、403/审计/unknown paper；真实票种和税务开票 NOT_RUN|`.local/s12/acceptance/tax-original-independent.json`|`e88a9dc47a3886fd84277a926dac2be441ac0d13c817c67eb55d1ca67a48d53a`|
+|真实新物料消耗链|正常新 SKU/lot 收10→真实治疗执行耗2→量8；报表/CSV/钻取只计耗2排收10，非直接 consume 伪事件；exit0|`.local/s12/consumption-loop/s12-new-material-current-window/result.json`|`fba63bd203ea89c5c35f2cde037640261f1bf36b1d2f2566092a9da9546a170f`|
+|库存指标独立验收|native event/move/line/quant/UOM/fee 与报表一致；临时导出权限已正常恢复；非真实物资/盘点效果|`.local/s12/acceptance/consumption-native-independent.json`|`2b80ee6286d00edb5447010938e022d742c269e6e287156634c914be711cd8d1`|
+|加工/复诊待办实际链|新 PO127/line127，native incoming9，显式正常 send214 sent；label 无接收/入库副作用，exit0|`.local/s12/lab-pending-loop-v3/s12-lab-scoped-type-sent/result.json`|`236dd77b2dec08db4a35aa7d3571e9bff90a674858728401ef119fbe09d17b79`|
+|加工/复诊指标独立验收|按真实状态归类与原单；实体发运/接收/入库/付款 NOT_RUN，旧件93冻结 draft 源不改|`.local/s12/acceptance/lab-pending-followup-independent.json`|`b942cb8db0ae2cc765270ce7a5ed33d66c9f54bdc18c2ffceaaa3975c93009a6`|
+|加工/复诊 CSV 和钻取独立核验|实际授权导出及 native 原单链接；不以页面200代替 source 一致|`.local/s12/acceptance/lab-followup-csv-drill-independent.json`|`590cafe18ebe520f29ddbbf9f8bc10d3121fde89810273f29f8774fd06e65b98`|
+
+新财务来源：patient521/522/523；bill72=740、昨日实际合成收500、尚欠240；refund3 批准100时实退0，今日执行100另有凭据。bill76/77=270/200，pay8=300 实际分摊270+30、欠170。bill79 确认600，后正常目录价620，历史费用及原件不变。新贡献：原出账1810、冲销100、实收800、实退100、当前应收1010、批准待退0；授权范围旧背景另列，未当新链补证。当前余额明确为查询时点，未冒历史截至日余额；按实际门店 UTC/单一币种1分别对账，不冒多币种换算政策。
+
+## 临床、同意书、检查/处方/加工标签及视觉
+
+## 文书集成、状态与逐页视觉
+
+|证据 / 实际结论|层级与限制|私有路径|SHA-256|
+|---|---|---|---|
+|两区域真实链原失败|patient524/arrival517、care/exam 已提交、64/65/66 已生成；label409 为 PNG source 摘要不稳定；保留断点，未整链重放|`.local/s12/integration-loop/s12-two-area-live-chain/result.json`|`6185245715799d130daab998757852a3bf4a5345e06b2bc7b61cf5d4b1df7bd2`|
+|标签原 key 续行|5cb 最小修复 semantic source 与 typed native PNG render 分离；只续214标签，原件93；exit0|`.local/s12/integration-label-continuation/s12-label-source-fixed/result.json`|`10f0b3bebae33b32019d92d655a26dd0e7a27a1089ff2c0777d798edca9b110e`|
+|集成及 F4 独立验收|同患者两个区域：真实到店+1、唯一患者+1、确认执行+2；临床64/处方65/检查66/标签93，真实原生 PNG；无发药/接收入库副作用|`.local/s12/acceptance/integration-label-f4-independent.json`|`c378be85120584ee5a06f2cd0a676359c16f1576d4f8e1d47ae698ba354a81fd`|
+|临床/检查/处方逐页独立视觉|实际 PDF 全六页亲看，字段/作者/状态回源；处方开立不冒实际发药|`.local/s12/acceptance/integration-three-pdf-visual-independent.json`|`6741fcaa01ac28c37f1888f1e0d57564c0de34a20cf4bebbaa5a4bee4decc580`|
+|同意书/摘要前置拒绝保留|doctor9读取station配置被正确guard拒（未新建D1或模板） STOPPED；后续只按实际已提交源续行，不编造通过|`.local/s12/consent-summary-loop/s12-consent-summary-long-fdi/result.json`|`0a5cb70cf17841842555ea4765a410da2bc854289e65ae856e0150549c7e65c7`|
+|同意书及完整/部分摘要正常链|D1+D2 complete409；draft/有发布合成政策 excerpt；D1 正常确认后 complete 新版本；上传 pending/受控核验/跨店不继承；exit0|`.local/s12/consent-summary-loop/s12-consent-summary-fdi-ready/result.json`|`0c54dcf092348599d06f61e585e1a40d43432ed82be10b7d92b8ba99f4301d55`|
+|同意书/摘要独立验收|六样张22页全看：临床长表4、draft3、excerpt3、A4同意书4、80mm演示5、complete3；长中文/重复表头/页边界，非物理出纸|`.local/s12/acceptance/consent-summary-independent.json`|`113b0899d0f7707428626ca596345ab93dd5727014a623697ec3baf72f808f5e`|
+
+同意书/摘要原件：94 长表；95 draft v1 → 96 excerpt v2 → 99 complete v3，保存所选来源集合及排除原因；97 A4 / 98 显式80mm演示配置同意书。所有六份在模板/政策/源变化后真实下载重印相同。合成模板仅测试环境审核发布；正式正文未批准不发布。上传件10/11仅合成软件核验流程，不冒真实签署或已临床告知。视觉记录的非阻断限制包括英文单词内折行、部分元数据跨页及 A4 同意书末页仅来源，均未改成“完美纸型”结论。
+
+## 真实浏览器效果与权限
+
+|证据 / 实际结论|层级与限制|私有路径|SHA-256|
+|---|---|---|---|
+|原四角色浏览器结果保留|3角色通过；doctor preview 后下载等待失败；不是凭单个 HTTP200 签通过|`.local/s12/verification/browser-effects-normal-effects-finance-new/result.json`|`221018d1e56e726e38f936cfb33dd48865a19d9eb3fba8d1cf595ffaf7c4e44b`|
+|下载 pointer 诊断|正常9真实 hit-test/pointer/click/submit；等待实际 main navigation/load/fonts 后 GET 与 preview 两场景均下载旧件1；DIAGNOSIS_COMPLETE 非全业务 PASS|`.local/s12/verification/browser-pointer-settled-navigation-pointer/result.json`|`215e3fd8cc14fda28224db054fdfd8aba7a1d636d07b6a3bb00f44375cbe40d8`|
+|doctor 专项正常浏览器补验|真实 preview/原件下载/日期过滤/新 arrival514 点击钻取，exit0；未重跑其他3已通过角色、未 generate/收费|`.local/s12/verification/browser-effects-normal-doctor-settled-navigation/result.json`|`f2bee68d66ff70b4b089d5c6ce7cb37a7d35f9510c84559d61a957ab9f111841`|
+|浏览器独立审阅|四普通角色14/9/16/17，截图亲看、原件SHA及真实403；该阶段仅 scoped，后续缺口由其他独立回执接续|`.local/s12/acceptance/browser-independent.json`|`d86c54a1073b1beeaeac2ab1cb680bad314ddd03d95e949ee620df0fbf250d04`|
+
+正常 HTTP 权限矩阵在31方法实际套件核医疗/检查/财务各自源读取×批量导出四组合；单份下载与批量导出区别；原生附件、缩略图、model binary、report直链、撤权旧页、切店/公司、CSRF、源版本及普通模板无害注入负例。原生 `/web/image` 无权时可200返回**精确原生 placeholder PNG**，验的是该 bytes 非原文件/非隐私图并且 `download=1` 拒绝，未把所有200视为通过。浏览器独立回执是截图/原始请求离线审核，未另冒其本次新数据库连接。
+
+旧 browser tool 的失败、三个初始下载探针及一次 porcelain 工具前置误判均留本机；修的是 navigation 等待及后续 raw porcelain 解析，未改 core、浏览器安全、产品权限或 eval-submit/force click。真实 normal pointer 补验通过不证明每个旧等待失败有单一产品原因。
+
+## 十六行覆盖与最终待办
+
+|要求|本阶段适用软件证据|外部/最终限制|
+|---|---|---|
+|F1|首闭环、T12、consent-summary、merge 独立回执|正式完整病历/摘录政策未批准|
+|F2|financial-independent；新740/500/100及270+200/300原生链|合成资金，非正式财务政策|
+|F3|consent-summary、31方法 print_request/模拟失败|真实签署/设备出纸 NOT_RUN|
+|F4|integration-label-f4、financial、consumption、lab-pending-followup|当前已实现指标语义，正式经营口径待审核|
+|T01|22页同意书/摘要及其他原件逐页独立视觉|80mm仅明确演示，真实设备纸型 NOT_RUN|
+|T02|更名首链、真实合并、模板政策变化、600→620及旧件重印|仅本阶段新对象变更，旧文件不覆盖|
+|T03|实际 D1+D2 complete409→正常补确认→新完整摘要|不把过滤草稿称完整|
+|T04|生成待签→上传 pending→核验/拒绝、跨店/版本政策|软件合成核验，真实临床告知 NOT_RUN|
+|T05|真实新部分付/批准待退/执行退款/原件|真实资金 NOT_RUN|
+|T06|31实际方法三类别权限矩阵/直链/批量；四角色浏览器|不以SOURCE或预拦截冒产品拒绝|
+|T07|真实 ReadTimeout→独立确认提交→同key恢复；生成失败及模拟打印失败|设备失败仅受控模拟，物理故障 NOT_RUN|
+|T08|内部 bill 与显眼非税票原件入口/字节/授权/审计|实际票种/真实税票/开票 NOT_RUN|
+|T09|两区域一次 arrival、跨日实收/退与冲销、去重/源钻取|当前应收不冒历史截至余额|
+|T10|已完成限定安装/升级、注入及撤权；最后完整pre/post **PENDING**|最终带数据升级及其独立总签未完成|
+|T11|270+200收300分摊270+30欠170；600历史与620目录|无税率/毛利/收入确认新政策|
+|T12|真实双PG交错、当前门店发布策略及查看/下载/打印请求审计|并发是 MODEL 真连接同步 harness，非浏览器并发|
+
+最终带数据升级计划限定六模块：`ydental_print,ydental_exam,ydental_settlement,ydental_lab,ydental_reporting,ydental_s12_test`；必须即时完整 pre 成功后才运行；保全全部现有业务、权限/配置/版本/约束及三原件族实际文件，post 逐项分类。**当前 PENDING**：最终执行候选、pre/命令/exit/post/差异分类/独立总验收、正常push及远端Issue读回。本索引冻结不等于上述已执行。
+
+历史原始 17表 whole-row 哈希曾把 `account_move` 的 portal `access_token` 列纳入摘要计算，未输出该值；因此旧材料不能再声称“零认证列被选择”。原工具及结果保留，后续独立分类及新工具从 schema 排除 password/secret/token/credential/session 等列再投影；未搜索旧被拒账号，未借此重放业务或冒称发生原值泄漏。新财务/库存/合并独立核验明确敏感排除和 rollback/close。
+
+所有独立局部 PASS 的边界保持；本索引不是最终独立总签。正式临床正文/发布政策、真实票种及税务原件、物理打印/设备、正式用户效果均单列 NOT_RUN/待审核，承接 #37；不 S13、不合并、不部署。S11 组合扫码需求差异继续待产品决定，标签未增加接收/入库副作用。
