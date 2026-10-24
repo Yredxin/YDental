@@ -99,6 +99,20 @@
             </list>
         </field>
     </record>
+    <record id="ydental_lab_order_view_search" model="ir.ui.view">
+        <field name="name">ydental.lab.order.view.search</field>
+        <field name="model">ydental.lab.order</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="ydental_internal_code"/>
+                <field name="ydental_patient_id"/>
+            </search>
+        </field>
+    </record>
+    <record id="ydental_lab_order_action" model="ir.actions.act_window">
+        <field name="search_view_id" ref="ydental_lab_order_view_search"/>
+    </record>
     <record id="ydental_lab_order_view_form" model="ir.ui.view">
         <field name="name">ydental.lab.order.view.form</field>
         <field name="model">ydental.lab.order</field>

@@ -2,6 +2,10 @@
 
 ## IN_PROGRESS｜仅岗位界面、中文报表与文书版式整理
 
+- 2026-10-24 07:35：293e呈现候选限定print+settlement加载/38方法0/0/exit0均独立通过。211(label layout4)及10份正常新版本已实际提交；全旧SHA保全。逐页效果验收发现新215检查标题/字段英文、214病历纯trace第二页、220/221长同意及summary标题/trace分页缺口，准备layout5/检查原生PO修复，现有211—221均不覆写。服务run072415已正常stop供影响加载，尚未开始任何付款/退款。
+- 新S13工具v1拟slot与09:00未来排期重叠遭真实409，无slot operation/患者提交，原失败保留；v2实际正常slot1115/患者1313/task818/execution482/doc455draft v1已提交，execute因工具误用teeth=[11]遭真实invalid_tooth409；独立RO已核event/fee/payment全0。原lease482真实expires07:37:15，不改期、不清状态，待自然到期用正常合成恢复续同患者，旧455内容/作者/责任保留，不重跑新患者全链。临时frontdesk8/store1 settlementwrite为正常新增测试授权，结束正常恢复原语义；其余身份/权限未改。
+- QR211实际decode与冻结载荷一致；首次工具误将internalcode送外部package-only wizard，实际code_unavailable拒绝（非扫码副作用或系统故障），失败回执保留。root仅补现有native工单searchview按内部业务识别码查找，不改变外包扫码语义、权限或接收/入库动作；后续正常受控定位另验。
+
 - 2026-10-24 07:15后独立效果复核：0d569限定加载/38方法原退出0及原39附件保全已独立核；界面发现外部原件手填ID/主面SHA、医生页若干翻译视图ref、结算费用/日结金额与技术主键仍抢占业务主列，列为真实待修缺口而非总PASS。documents负责外部授权搜索/选择/追溯及PO引用，root负责结算业务名/币种精度/折叠追溯；准备合并后限定print+settlement重新加载及适用回归。911候选尚未加载，服务仍正常停止，无临时导出/前台结算授权及新经济动作。
 
 - 2026-10-24 06:55后：已确认并修正本项目浏览器依赖不满足官方Playwright1.64范围的问题；greenlet3.5.6固定wheel仅本期private，旧snapshot未动，同Python/Playwright/Chromium/API。独立审查e631123e…，唯一无DB/无登录data小验证父子真实0及独立fb6dfc59…；0d569正常readonly完整BROWSER子/外层均0、42页两视口114图/全部子断言0issues（d0f71f714…，外层93eb0d6…）。这不是139根因确诊或用户亲手验收。0d569文书影响38方法再次0/0/进程0，无Native（29eba80…）。

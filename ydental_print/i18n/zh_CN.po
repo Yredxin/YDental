@@ -2405,3 +2405,9 @@ msgstr "所选检查结果正文已确认"
 #: code:addons/ydental_print/models/ydental_print_original_service.py:0
 msgid "Draft result text; incomplete"
 msgstr "所选检查结果正文为草稿，尚未完善"
+
+#. module: ydental_print
+#. odoo-python
+#: code:addons/ydental_print/models/ydental_print_original_service.py:0
+msgid "Synthetic software demonstration only"
+msgstr "仅用于合成软件演示"

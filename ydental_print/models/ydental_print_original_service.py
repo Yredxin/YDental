@@ -115,7 +115,7 @@ class YDentalPrintOriginalService(models.AbstractModel):
         template = self.env['ydental.document.template'].sudo().browse(self._id(template_id)).exists() if template_id else self.env['ydental.document.template']
         if template and (template.kind != kind or template.store_id != store or template.state != 'published'):
             raise AccessError(self.env._('template_unpublished: Select a published template for this type and current store.'))
-        facts = {'code': 'YD-S13-SYNTHETIC-4', 'version': '4', 'state': 'synthetic_unreviewed',
+        facts = {'code': 'YD-S13-SYNTHETIC-5', 'version': '5', 'state': 'synthetic_unreviewed',
             'language': 'zh_CN',
             'synthetic': True, 'paper': 'label100x70' if kind == 'lab_label' else 'a4',
             'body': '', 'applicability': 'Synthetic software demonstration only',
@@ -128,7 +128,7 @@ class YDentalPrintOriginalService(models.AbstractModel):
                 'approval_reference': template.approval_reference, 'reviewer': template.reviewed_by_id.id,
                 'reviewed_at': str(template.reviewed_at), 'publisher': template.published_by_id.id,
                 'published_at': str(template.published_at)})
-        facts['layout_version'] = 'YD-S13-UX-LAYOUT-4'
+        facts['layout_version'] = 'YD-S13-UX-LAYOUT-5'
         facts['qweb'] = {xmlid: self.env.ref(xmlid).sudo().with_context(lang='zh_CN').arch_db for xmlid in (
             'ydental_print.ydental_document_pdf', 'ydental_print.ydental_pdf_layout')}
         paper_xmlid = {'80mm': 'ydental_print.ydental_pdf_80mm',

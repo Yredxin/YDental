@@ -119,7 +119,7 @@ msgstr "实际检查已开始"
 #. module: ydental_exam
 #: model:ir.model.fields.selection,name:ydental_exam.selection__ydental_exam_result__state__pending
 msgid "Actual examination; result pending"
-msgstr "检查已实施，结果待完善"
+msgstr "实际检查已执行，结果待完善"
 
 #. module: ydental_exam
 #: model:ir.model,name:ydental_exam.model_ydental_treatment_service
@@ -215,7 +215,7 @@ msgstr "每条已冻结检查医嘱行只能有一份结果历史。"
 #. module: ydental_exam
 #: model:ir.model.fields.selection,name:ydental_exam.selection__ydental_exam_version__ydental_kind__correction
 msgid "Evidenced correction"
-msgstr "有据更正"
+msgstr "有依据的结果更正"
 
 #. module: ydental_exam
 #: model:ir.actions.act_url,name:ydental_exam.ydental_exam_action
@@ -302,7 +302,7 @@ msgstr "全景检查演示模板"
 #. module: ydental_exam
 #: model:ir.model.fields.selection,name:ydental_exam.selection__ydental_exam_result__state__partial
 msgid "Partially completed"
-msgstr "部分完成"
+msgstr "检查部分完成"
 
 #. module: ydental_exam
 #: model:ir.model.fields.selection,name:ydental_exam.selection__ydental_treatment_line__state__partial
@@ -327,12 +327,12 @@ msgstr "报告动作"
 #. module: ydental_exam
 #: model:ir.model.fields.selection,name:ydental_exam.selection__ydental_exam_version__ydental_kind__confirm
 msgid "Result confirmation"
-msgstr "结果确认"
+msgstr "检查结果确认"
 
 #. module: ydental_exam
 #: model:ir.model.fields.selection,name:ydental_exam.selection__ydental_exam_result__state__confirmed
 msgid "Result confirmed"
-msgstr "结果已确认"
+msgstr "检查结果已确认"
 
 #. module: ydental_exam
 #: model:ir.model.constraint,message:ydental_exam.constraint_ydental_exam_version_number
@@ -1583,3 +1583,136 @@ msgstr "门诊区域"
 #: model_terms:ir.ui.view,arch_db:ydental_exam.ydental_exam_page
 msgid "门诊区域续诊检查待办"
 msgstr "门诊区域续诊检查待办"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_print_service.py:0
+msgid "Examination result PDF"
+msgstr "检查结果报告"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_print_service.py:0
+msgid ""
+"source_required: Select a saved examination result version in this store."
+msgstr "source_required: 请选择本店已保存的检查结果版本。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_print_service.py:0
+msgid "source_required: The examination result is unavailable."
+msgstr "source_required: 此检查结果不可用。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_print_service.py:0
+msgid "version_conflict: The selected examination version is unavailable."
+msgstr "version_conflict: 所选检查结果版本不可用，请刷新后核对。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_print_service.py:0
+msgid "Confirmed result text"
+msgstr "所选检查结果正文已确认"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_print_service.py:0
+msgid "Draft result text; incomplete"
+msgstr "所选检查结果正文为草稿，尚未完善"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_print_service.py:0
+msgid "size_limit: This examination exceeds the document limit."
+msgstr "size_limit: 此检查结果超过单份文书容量限制。"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_print_service.py:0
+msgid "Patient"
+msgstr "患者"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_print_service.py:0
+msgid "Patient number"
+msgstr "患者业务号"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_print_service.py:0
+msgid "Source store"
+msgstr "来源门店"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_print_service.py:0
+msgid "Frozen examination line"
+msgstr "冻结检查项目来源"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_print_service.py:0
+msgid "Examination service"
+msgstr "检查项目"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_print_service.py:0
+msgid "Original author"
+msgstr "原始作者"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_print_service.py:0
+msgid "Selected version author or confirmer"
+msgstr "所选版本实际作者或确认人"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_print_service.py:0
+msgid "Actual operator"
+msgstr "实际执行人"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_print_service.py:0
+msgid "Actual execution UTC"
+msgstr "实际检查执行时间（UTC）"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_print_service.py:0
+msgid "Source template code / version"
+msgstr "来源模板编号／版本"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_print_service.py:0
+msgid "Version correction reason"
+msgstr "版本更正原因"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_print_service.py:0
+msgid "Findings"
+msgstr "检查所见"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_print_service.py:0
+msgid "Conclusion"
+msgstr "检查结论"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_print_service.py:0
+msgid "Examination result"
+msgstr "检查结果"
+
+#. module: ydental_exam
+#. odoo-python
+#: code:addons/ydental_exam/models/ydental_print_service.py:0
+msgid "Not recorded"
+msgstr "未记录"

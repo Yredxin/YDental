@@ -14,6 +14,9 @@
             .label {width: 34%;} .meta {font-size: 8pt; color: #394e60;} .blank {height: 22px; border-bottom: 1px solid #c6cbd0;}
             .o_ydental_print_trace {border-top: 1px solid #bdc5cb; padding-top: 4px; margin-top: 8px;}
             .o_ydental_print_trace p {margin: 1px 0;}
+            .o_ydental_print_flow {white-space: normal; word-wrap: break-word; word-break: break-all; orphans: 2; widows: 2;}
+            .o_ydental_print_field {display: inline; margin-right: 8px;}
+            .o_ydental_print_business {margin: 5px 0; font-size: 9.5pt;}
             .o_ydental_print_rx_line {border-bottom: 1px solid #bdc5cb; padding-bottom: 6px; page-break-inside: auto;}
             .o_ydental_print_rx_intro {page-break-inside: avoid;}
             .o_ydental_print_rx_intro h2 {page-break-after: auto;}
@@ -21,6 +24,9 @@
             .o_ydental_print_rx_field strong {display: block; background: #e8edf0; padding: 3px 5px; page-break-after: avoid;}
             .o_ydental_print_rx_field p {margin: 2px 5px; page-break-inside: auto;}
             .o_ydental_print_section_intro {page-break-inside: avoid;}
+            table.o_ydental_print_section_intro {font-size: 9.5pt; border: 0; margin: 0;}
+            .o_ydental_print_section_intro td {font-size: 9.5pt; border: 0; padding: 0;}
+            .o_ydental_print_source_intro {page-break-after: avoid;}
             .o_ydental_print_label {font-size: 9pt; line-height: 1.2;}
             .o_ydental_print_label h1 {font-size: 11pt; margin-bottom: 2px;}
             .o_ydental_print_label h1 span {font-size: 9pt; font-weight: normal;}
@@ -45,7 +51,7 @@
                     <p style="clear: both"><strong>Processing:</strong> <t t-out="p['label_business']['instructions']"/></p>
                     <p style="clear: both"><strong>Identification code:</strong> <t t-out="p['barcode']['value']"/></p>
                     <p>Identify only; no receipt, put-away or notice. No shipment or receipt is implied.</p>
-                    <p><span>Generated UTC:</span> <t t-out="p['generated_at']"/> / <span>Source v</span><t t-out="p['version']"/> / UX4</p>
+                    <p><span>Generated UTC:</span> <t t-out="p['generated_at']"/> / <span>Source v</span><t t-out="p['version']"/> / UX5</p>
                     <p t-foreach="p.get('template_paragraphs', [])" t-as="paragraph" t-out="paragraph"/>
                     <p><span>Authorized trace:</span> /ydental/documents</p>
                 </article>
@@ -68,11 +74,18 @@
                 <p t-if="financial.get('reason')"><strong>Refund reason:</strong> <t t-out="financial['reason']"/></p>
             </div>
             <section t-if="financial and p.get('template_paragraphs')"><h2>Reviewed template content</h2><p t-foreach="p['template_paragraphs']" t-as="paragraph" t-out="paragraph"/></section>
-            <table t-if="not financial"><tbody><tr t-foreach="p.get('business_identity', p['identity']) + p.get('business_details', p['details'])" t-as="row"><td class="label" t-out="row[0]"/><td t-out="row[1]"/></tr></tbody></table>
+            <p t-if="not financial" class="o_ydental_print_flow o_ydental_print_business"><span t-foreach="p.get('business_identity', p['identity']) + p.get('business_details', p['details'])" t-as="row" class="o_ydental_print_field"><strong t-out="row[0]"/>: <t t-out="row[1]"/>;</span></p>
             <section t-if="not financial" t-foreach="p['sections']" t-as="section">
-                <div class="o_ydental_print_section_intro"><h2 t-out="section['label']"/><p t-if="section['paragraphs']" t-out="section['paragraphs'][0]"/></div>
-                <p t-foreach="section['paragraphs'][1:]" t-as="paragraph" t-out="paragraph"/>
-                <div t-if="p['kind'] == 'consent'" class="blank"/>
+                <t t-set="source_intro" t-value="p['kind'] == 'clinical_summary' and section['paragraphs'] and section['paragraphs'][0] == p['status']"/>
+                <t t-set="intro_count" t-value="len(section['paragraphs']) if source_intro else 2"/>
+                <table t-att-class="'o_ydental_print_section_intro o_ydental_print_source_intro' if source_intro else 'o_ydental_print_section_intro'"><tbody><tr><td>
+                    <h2 t-out="section['label']"/>
+                    <p t-if="source_intro" class="o_ydental_print_flow"><span t-foreach="section['paragraphs']" t-as="paragraph" class="o_ydental_print_field"><t t-out="paragraph"/>;</span></p>
+                    <t t-else=""><p t-foreach="section['paragraphs'][:intro_count]" t-as="paragraph" t-out="paragraph"/></t>
+                    <div t-if="p['kind'] == 'consent' and len(section['paragraphs']) &lt;= intro_count" class="blank"/>
+                </td></tr></tbody></table>
+                <p t-foreach="section['paragraphs'][intro_count:]" t-as="paragraph" t-out="paragraph"/>
+                <div t-if="p['kind'] == 'consent' and len(section['paragraphs']) &gt; intro_count" class="blank"/>
             </section>
             <t t-if="p['kind'] == 'clinical'">
                 <h2>Recorded FDI teeth and surfaces</h2>
@@ -97,12 +110,14 @@
                 </tbody></table><p t-if="not p['events']">No actual dispensing has been recorded.</p>
             </t>
             <div class="o_ydental_print_trace meta">
-                <p t-if="p.get('original')"><strong>Content template / version / review state:</strong> <t t-out="p['content_template']"/> / <t t-out="p['content_template_version']"/> / <t t-out="p.get('template_state_label', p['template_state'])"/>; <span>Applicable scope:</span> <t t-out="p['applicability']"/></p>
-                <p><strong>Source ID / selected version:</strong> <t t-out="p['source_id']"/> / <t t-out="p['version']"/>; <span>Layout:</span> <t t-out="p.get('layout_version', p['template'])"/></p>
-                <p><span>Generated by:</span> <t t-out="p['generated_by']"/>; <span>Generation and extraction time (UTC):</span> <t t-out="p['generated_at']"/></p>
-                <p><span>Normalized source SHA256:</span> <t t-out="p['source_digest']"/></p>
-                <p t-foreach="p.get('version_summary', [])" t-as="reference"><strong t-out="reference['label']"/>: <t t-out="reference['value']"/></p>
-                <p t-if="not financial" t-foreach="p.get('technical_details', [])" t-as="row"><strong t-out="row[0]"/>: <t t-out="row[1]"/></p>
+                <p class="o_ydental_print_flow">
+                    <span t-if="p.get('original')" class="o_ydental_print_field"><strong>Content template / version / review state:</strong> <t t-out="p['content_template']"/> / <t t-out="p['content_template_version']"/> / <t t-out="p.get('template_state_label', p['template_state'])"/>; <span>Applicable scope:</span> <t t-out="p['applicability']"/>;</span>
+                    <span class="o_ydental_print_field"><strong>Source ID / selected version:</strong> <t t-out="p['source_id']"/> / <t t-out="p['version']"/>; <span>Layout:</span> <t t-out="p.get('layout_version', p['template'])"/>;</span>
+                    <span class="o_ydental_print_field"><span>Generated by:</span> <t t-out="p['generated_by']"/>; <span>Generation and extraction time (UTC):</span> <t t-out="p['generated_at']"/>;</span>
+                    <span class="o_ydental_print_field"><span>Normalized source SHA256:</span> <t t-out="p['source_digest']"/>;</span>
+                    <span t-foreach="p.get('version_summary', [])" t-as="reference" class="o_ydental_print_field"><strong t-out="reference['label']"/>: <t t-out="reference['value']"/>;</span>
+                    <t t-if="not financial"><span t-foreach="p.get('technical_details', [])" t-as="row" class="o_ydental_print_field"><strong t-out="row[0]"/>: <t t-out="row[1]"/>;</span></t>
+                </p>
                 <p t-if="not p.get('original')"><span>Source version set:</span> <t t-out="p['versions']"/></p>
                 <p t-if="not p.get('original')">No signature or physical paper output is verified. Temporary demonstration copy; formal archival and original reprinting are not provided.</p>
                 <p t-if="p.get('original')">Immutable original; reprinting reads stored bytes. Generation and print requests do not prove signature or physical paper output.</p>
