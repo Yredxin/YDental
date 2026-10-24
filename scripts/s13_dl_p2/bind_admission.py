@@ -36,7 +36,7 @@ def main():
     reviewer=review.get('reviewer')
     if not isinstance(reviewer,str) or reviewer in ('/root','/root/tester') or not reviewer.strip():
         raise RuntimeError('The actual independent verifier must identify itself.')
-    required={'status':'DLP1_RUNTIME_ADMISSION_REVIEWED','candidate_commit':candidate,
+    required={'status':'DLP2_RUNTIME_ADMISSION_REVIEWED','candidate_commit':candidate,
               'probe_sha256':file_digest(args.probe),'checkpoint_sha256':file_digest(args.checkpoint),
               'runtime_sha256':file_digest(PRIVATE/'runtime.json'),'launcher_sha256':file_digest(Path(launcher.__file__))}
     if any(review.get(key)!=value for key,value in required.items()):
@@ -60,9 +60,9 @@ def main():
            'launcher_sha256':file_digest(Path(launcher.__file__)),'base_launcher_sha256':file_digest(ROOT/'scripts/s11/launcher.py'),
            'pdf_environment_adapter_sha256':file_digest(ROOT/'scripts/s12/launcher.py'),'runtime_environment_proof':proof,
            'probe_path':str(args.probe.resolve().relative_to(ROOT)),'probe_sha256':file_digest(args.probe),
-           'shared_os_not_isolation':True,'purpose':'DL-P1 document query/selection only; no P2-P6, new originals, economic actions or production'}
+           'shared_os_not_isolation':True,'purpose':'DL-P2 document header/navigation/static notices only; no P3-P6, new originals, economic actions or production'}
     digest=write_receipt(args.output,value)
-    print(json.dumps({'status':'DLP1_OBSERVED_FACTS_BOUND_AFTER_INDEPENDENT_REVIEW','output':str(args.output.relative_to(ROOT)),'sha256':digest,'reviewer':reviewer}))
+    print(json.dumps({'status':'DLP2_OBSERVED_FACTS_BOUND_AFTER_INDEPENDENT_REVIEW','output':str(args.output.relative_to(ROOT)),'sha256':digest,'reviewer':reviewer}))
 
 
 if __name__=='__main__':
