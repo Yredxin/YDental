@@ -26,7 +26,7 @@ class YDentalDocuments(http.Controller):
         request.update_context(lang='zh_CN')
         return self._page(self._service())
 
-    @http.route('/ydental/documents/action', type='http', auth='user', methods=['POST'], max_content_length=60000)
+    @http.route('/ydental/documents/action', type='http', auth='user', methods=['POST'], max_content_length=8000000)
     def action(self, operation, revision, payload=None, **kwargs):
         request.update_context(lang='zh_CN')
         try:
@@ -43,19 +43,24 @@ class YDentalDocuments(http.Controller):
                     'previous_id': int(kwargs['previous_id']) if kwargs.get('previous_id') else None})
             elif operation in ('download', 'pdf_view', 'print_request'):
                 arguments = {'original_id': int(kwargs['original_id'])}
+            elif operation == 'export':
+                arguments = {'original_ids': [int(value.strip()) for value in kwargs['original_ids'].split(',')]}
+            elif operation == 'print_failure':
+                arguments = {'request_audit_id': int(kwargs['request_audit_id']), 'reason': kwargs['reason'], 'simulated': True}
             elif operation == 'template_create':
                 arguments = {name: kwargs[name] for name in ('name', 'kind', 'version', 'body', 'applicability')}
                 arguments.update({'synthetic': kwargs.get('synthetic') == 'on', 'paper': kwargs.get('paper', 'a4'),
-                    'allow_excerpt': kwargs.get('allow_excerpt') == 'on', 'approval_reference': kwargs.get('approval_reference') or None})
+                    'allow_excerpt': kwargs.get('allow_excerpt') == 'on', 'approval_reference': kwargs.get('approval_reference') or None,
+                    'accepted_previous_template_ids': [int(value.strip()) for value in kwargs.get('accepted_previous_template_ids', '').split(',') if value.strip()]})
             elif operation == 'template_review':
                 arguments = {'template_id': int(kwargs['template_id']), 'action': kwargs['action']}
             else:
                 arguments = kwargs
             result = service._original_operate(operation, arguments)
-            if operation in ('pdf_view', 'download', 'print_request'):
+            if operation in ('pdf_view', 'download', 'print_request', 'consent_download'):
                 raw, checksum = result
                 return request.make_response(raw, headers=HEADERS + [('Content-Type', 'application/pdf'),
-                    ('Content-Disposition', ('attachment' if operation == 'download' else 'inline') + '; filename="ydental-document-original.pdf"'),
+                    ('Content-Disposition', ('attachment' if operation in ('download', 'consent_download') else 'inline') + '; filename="ydental-document-original.pdf"'),
                     ('X-YDental-PDF-SHA256', checksum)])
             if operation == 'export':
                 return request.make_response(result, headers=HEADERS + [('Content-Type', 'application/zip'),

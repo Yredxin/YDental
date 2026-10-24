@@ -1,0 +1,32 @@
+<odoo>
+    <template id="ydental_document_consent_page" inherit_id="ydental_print.ydental_document_page" name="Consent evidence and explicit clinical scope">
+        <xpath expr="//details[@name='document_template_review']" position="before">
+            <details><summary>Explicit clinical source collection</summary><p>List every intended source. Complete mode refuses any unconfirmed selected source. An excerpt requires a published policy for this store; unconfirmed selected sources remain explicitly listed as excluded.</p>
+                <form action="/ydental/documents/selection" method="post"><input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/><input type="hidden" name="revision" t-att-value="revision"/>
+                    <label>Clinical document IDs, separated by commas <input name="document_ids" required="required" maxlength="400"/></label>
+                    <label>Mode <select name="mode"><option value="complete">Complete within all listed sources</option><option value="draft">Incomplete source collection</option><option value="excerpt">Confirmed excerpt under published policy</option></select></label>
+                    <label>Published clinical_summary template / policy ID <input name="template_id" type="number" min="1"/></label><button>Select source collection</button>
+                </form>
+            </details>
+            <details name="document_simulated_device_failure"><summary>Controlled device failure demonstration</summary>
+                <p>This records a simulated failure linked to your earlier print request. It does not connect to a physical printer or verify paper output.</p>
+                <ul><li t-foreach="print_requests" t-as="print_request">Request audit #<t t-out="print_request['audit_id']"/> / original #<t t-out="print_request['original_id']"/> / UTC <t t-out="print_request['requested_at']"/></li></ul>
+                <form action="/ydental/documents/action" method="post"><input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/><input type="hidden" name="revision" t-att-value="revision"/><input type="hidden" name="operation" value="print_failure"/><label>Request audit ID <input name="request_audit_id" type="number" min="1" required="required"/></label><label>Simulated failure reason <input name="reason" required="required" maxlength="500"/></label><button>Record explicitly simulated device failure</button></form>
+            </details>
+            <details><summary>Consent upload and verification</summary><p>A generated consent is awaiting signature. Uploading a file records pending evidence; it never marks a signature as verified. Synthetic verification is only a software test and does not establish a real clinical signature.</p>
+                <form action="/ydental/documents/consent" method="post" enctype="multipart/form-data"><input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/><input type="hidden" name="revision" t-att-value="revision"/><input type="hidden" name="operation" value="consent_upload"/>
+                    <label>Consent original ID <input name="original_id" type="number" min="1" required="required"/></label><label>PDF evidence <input name="file" type="file" accept="application/pdf" required="required"/></label><button>Upload as awaiting verification</button>
+                </form>
+                <table class="table"><thead><tr><th>Evidence / original</th><th>State / synthetic</th><th>Verifier / UTC</th><th>Stored upload</th></tr></thead><tbody>
+                    <tr t-foreach="consent_evidence" t-as="evidence"><td><t t-out="evidence.id"/> / <t t-out="evidence.original_id.id"/></td><td><t t-out="evidence.state"/> / <t t-out="evidence.synthetic"/></td><td><t t-out="evidence.verified_by_id.name or '-'"/> / <t t-out="evidence.verified_at or '-'"/></td><td>
+                        <form action="/ydental/documents/consent" method="post"><input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/><input type="hidden" name="revision" t-att-value="revision"/><input type="hidden" name="operation" value="consent_download"/><input type="hidden" name="evidence_id" t-att-value="evidence.id"/><button>Download unchanged upload</button></form>
+                    </td></tr>
+                </tbody></table>
+                <form action="/ydental/documents/consent" method="post"><input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/><input type="hidden" name="revision" t-att-value="revision"/><input type="hidden" name="operation" value="consent_verify"/>
+                    <label>Uploaded evidence ID <input name="evidence_id" type="number" min="1" required="required"/></label><label>Verification conclusion <select name="conclusion"><option value="verified">Accept verification</option><option value="rejected">Reject verification</option></select></label><label>Verification reason <input name="reason" maxlength="500" required="required"/></label><button>Record verification conclusion</button>
+                </form>
+                <form action="/ydental/documents/consent" method="post"><input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/><input type="hidden" name="revision" t-att-value="revision"/><input type="hidden" name="operation" value="consent_status"/><label>Patient ID <input name="patient_id" type="number" min="1" required="required"/></label><button>Check current store published consent policies</button></form>
+            </details>
+        </xpath>
+    </template>
+</odoo>

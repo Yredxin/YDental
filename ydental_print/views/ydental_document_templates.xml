@@ -33,16 +33,20 @@
                     </form>
                 </td></tr>
             </tbody></table><p t-if="not originals">No saved originals are available in this scope.</p>
-            <details><summary>Template review and publication</summary><p>Only group document policy administrators can perform these actions. Content is plain text and is never executed as a QWeb template. Review and publication apply to this store and this explicit version.</p>
+            <details name="document_template_review"><summary>Template review and publication</summary><p>Only group document policy administrators can perform these actions. Content is plain text and is never executed as a QWeb template. Review and publication apply to this store and this explicit version.</p>
                 <form action="/ydental/documents/action" method="post"><input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/><input type="hidden" name="revision" t-att-value="revision"/><input type="hidden" name="operation" value="template_create"/>
                     <label>Name <input name="name" required="required" maxlength="120"/></label><label>Type <input name="kind" required="required" maxlength="40"/></label><label>Version <input name="version" required="required" maxlength="80"/></label>
                     <label>Applicable scope <input name="applicability" required="required" maxlength="240"/></label><label>Plain text body <textarea name="body" required="required" maxlength="40000"/></label>
                     <label><input type="checkbox" name="synthetic" checked="checked"/>Synthetic software test only</label><label><input type="checkbox" name="allow_excerpt"/>Allow clearly scoped confirmed excerpts</label>
+                    <label>Explicit accepted earlier same-store consent template IDs, separated by commas <input name="accepted_previous_template_ids" maxlength="300"/></label>
                     <label>Paper <select name="paper"><option value="a4">A4</option><option value="80mm">80 mm demonstration / no device approval</option></select></label><label>Formal approval reference <input name="approval_reference" maxlength="240"/></label><button>Create unreviewed version</button>
                 </form>
                 <form action="/ydental/documents/action" method="post"><input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/><input type="hidden" name="revision" t-att-value="revision"/><input type="hidden" name="operation" value="template_review"/>
                     <label>Template ID <input name="template_id" type="number" min="1" required="required"/></label><label>Action <select name="action"><option value="review">Review draft</option><option value="publish">Publish reviewed version</option></select></label><button>Record review action</button>
                 </form>
+            </details>
+            <details name="document_bulk_export"><summary>Export saved originals</summary><p>Export permission and every selected source read permission are both required.</p>
+                <form action="/ydental/documents/action" method="post"><input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/><input type="hidden" name="revision" t-att-value="revision"/><input type="hidden" name="operation" value="export"/><label>Original IDs separated by commas <input name="original_ids" required="required" maxlength="300"/></label><button>Export authorized originals as ZIP</button></form>
             </details>
         </main></t>
     </template>

@@ -1,3 +1,4 @@
+import json
 import shutil
 import subprocess
 
@@ -35,6 +36,13 @@ class IrActionsReport(models.Model):
         result = super()._build_wkhtmltopdf_args(paperformat_id, landscape, specific_paperformat_args, set_viewport_size)
         if isinstance(self.env.context.get('ydental_print_scope'), RenderScope):
             result += ['--encoding', 'UTF-8', '--disable-javascript', '--footer-right', 'YDental | [page]/[topage]', '--footer-font-size', '8']
+            scope = self.env.context['ydental_print_scope']
+            if scope.original:
+                payload = json.loads(scope.payload)
+                footer = payload['footer_provenance']
+                if payload.get('paper') == '80mm':
+                    footer = '#%s / v%s' % (payload['source_id'], payload['version'])
+                result += ['--footer-left', footer, '--footer-font-name', 'Noto Sans CJK SC']
         return result
 
     def _run_wkhtmltopdf(self, args):

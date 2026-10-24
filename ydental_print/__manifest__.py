@@ -4,7 +4,7 @@
     'license': 'GPL-3',
     'author': 'YDental',
     'depends': ['ydental_treatment', 'base_report_wkhtmltox'],
-    'data': ['report/ydental_print_reports.xml', 'report/ydental_print_templates.xml', 'views/ydental_print_templates.xml', 'views/ydental_document_templates.xml'],
+    'data': ['report/ydental_print_reports.xml', 'report/ydental_print_templates.xml', 'views/ydental_print_templates.xml', 'views/ydental_document_templates.xml', 'views/ydental_consent_templates.xml'],
     'assets': {'web.assets_frontend': ['ydental_print/static/src/print/print.js', 'ydental_print/static/src/print/print.scss']},
     'installable': True,
 }

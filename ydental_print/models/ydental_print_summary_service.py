@@ -7,6 +7,38 @@ from .ydental_print_service import digest, normalized
 class YDentalPrintSummaryService(models.AbstractModel):
     _inherit = 'ydental.print.service'
 
+    def _summary_execution_facts(self, document_ids):
+        orders = self.env['ydental.treatment.order'].sudo().search([
+            ('ydental_document_id', 'in', document_ids)], order='id')
+        lines = self.env['ydental.treatment.line'].sudo().search([
+            ('ydental_order_id', 'in', orders.ids)], order='id')
+        domain = fields.Domain('ydental_document_id', 'in', document_ids) | fields.Domain('ydental_order_line_id', 'in', lines.ids)
+        events = self.env['ydental.treatment.event'].sudo().search(domain, order='id')
+        if len(orders) > 100 or len(lines) > 500 or len(events) > 1000:
+            raise ValidationError(self.env._('size_limit: The selected clinical execution history exceeds the document limit.'))
+        return {'orders': [{'id': row.id, 'document_id': row.ydental_document_id.id,
+                    'document_version': row.ydental_document_version, 'version': row.ydental_version,
+                    'kind': row.ydental_kind, 'state': row.state, 'author_id': row.ydental_actor_id.id,
+                    'author': row.ydental_actor_id.name} for row in orders],
+                'lines': [{'id': row.id, 'order_id': row.ydental_order_id.id, 'state': row.state,
+                    'service': row.ydental_mapping_id.ydental_catalog_id.name, 'quantity': row.ydental_quantity,
+                    'unit': row.ydental_uom_id.name} for row in lines],
+                'events': [{'id': row.id, 'document_id': row.ydental_document_id.id,
+                    'document_version': row.ydental_document_version, 'line_id': row.ydental_order_line_id.id,
+                    'kind': row.ydental_kind, 'state': row.state, 'actor_id': row.ydental_actor_id.id,
+                    'actor': row.ydental_actor_id.name, 'actual_at': str(row.ydental_actual_at),
+                    'business_date': str(row.ydental_business_date), 'quantity': row.ydental_quantity,
+                    'unit': row.ydental_uom_id.name, 'price_snapshot_id': row.ydental_price_snapshot_id.id}
+                    for row in events]}
+
+    def _original_request_template(self, kind, source_id, version, purpose, template_id):
+        if kind != 'clinical_summary':
+            return super()._original_request_template(kind, source_id, version, purpose, template_id)
+        _service, selection, _selected, _category = self._original_authorize(kind, source_id, version, purpose)
+        if template_id and template_id != selection.template_id.id:
+            raise UserError(self.env._('policy_conflict: Use the template and policy version frozen in this explicit source selection.'))
+        return selection.template_id.id or None
+
     def _original_payload(self, kind, source_id, version, purpose=None, template_id=None):
         if kind == 'clinical_summary':
             _service, selection, _selected, _category = self._original_authorize(kind, source_id, version, purpose)
@@ -100,6 +132,21 @@ class YDentalPrintSummaryService(models.AbstractModel):
                 for section in payload['sections']:
                     sections.append({'label': self.env._('Source %s / %s', row['document_id'], section['label']),
                         'paragraphs': section['paragraphs']})
+        included_ids = confirmed if selection.mode == 'excerpt' else [row['id'] for row in selection.documents]
+        execution_facts = self._summary_execution_facts(included_ids)
+        for order in execution_facts['orders']:
+            order_lines = [row for row in execution_facts['lines'] if row['order_id'] == order['id']]
+            sections.append({'label': self.env._('Order %s / source document %s', order['id'], order['document_id']),
+                'paragraphs': [self.env._('Order type: %(kind)s; state: %(state)s; author: %(author)s; source text version: %(version)s',
+                    kind=order['kind'], state=order['state'], author=order['author'], version=order['document_version'])]
+                    + [self.env._('Line %(line)s / %(service)s / state %(state)s / approved quantity %(quantity)s %(unit)s',
+                        line=row['id'], service=row['service'], state=row['state'], quantity=row['quantity'], unit=row['unit'])
+                        for row in order_lines]})
+        sections.append({'label': self.env._('Actual execution and dispensing facts, separate from order issuance'),
+            'paragraphs': [self.env._('Event %(event)s / %(kind)s / operator %(actor)s / UTC %(time)s / actual quantity %(quantity)s %(unit)s / reconciliation %(state)s',
+                event=row['id'], kind=row['kind'], actor=row['actor'], time=row['actual_at'], quantity=row['quantity'],
+                unit=row['unit'], state=row['state']) for row in execution_facts['events']]
+                or [self.env._('No actual execution or dispensing is recorded for these selected sources.')]})
         payload = {'kind': kind, 'title': self.env._('Clinical source collection PDF'), 'template': 'YD-S12-CLINICAL-SUMMARY-1',
             'source_id': selection.id, 'version': 1, 'status': status, 'selected_state': status,
             'identity': [self._pair(self.env._('Patient'), patient.name), self._pair(self.env._('Patient number'), patient.ydental_number),
@@ -110,6 +157,7 @@ class YDentalPrintSummaryService(models.AbstractModel):
                 self._pair(self.env._('Excerpt policy template ID'), selection.template_id.id)],
             'sections': sections, 'teeth': [], 'lines': [], 'events': [],
             'selected_sources': all_payloads,
+            'execution_facts': execution_facts,
             'versions': {'selection': [selection.id, 1, selection.mode],
                 'documents': [[row['document_id'], row['selected_version'], row['confirmed'], row['sha256']] for row in all_payloads],
                 'source_patient': selection.ydental_patient_id.id, 'canonical_patient': patient.id}}

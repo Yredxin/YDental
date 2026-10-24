@@ -60,6 +60,7 @@ class YDentalPrintOriginalService(models.AbstractModel):
         if template and (template.kind != kind or template.store_id != store or template.state != 'published'):
             raise AccessError(self.env._('template_unpublished: Select a published template for this type and current store.'))
         facts = {'code': 'YD-S12-SYNTHETIC-1', 'version': '1', 'state': 'synthetic_unreviewed',
+            'language': 'zh_CN',
             'synthetic': True, 'paper': 'a4', 'body': '', 'applicability': 'Synthetic software demonstration only',
             'allow_excerpt': False, 'approval_reference': False, 'reviewer': False, 'reviewed_at': False,
             'publisher': False, 'published_at': False}
@@ -87,13 +88,36 @@ class YDentalPrintOriginalService(models.AbstractModel):
             content_template=template_facts['code'], content_template_version=template_facts['version'],
             template_state=template_facts['state'], applicability=template_facts['applicability'],
             template_digest=template_sha, template=payload['template'] + ' / ' + template_facts['code'])
+        actors = []
+        for field_name in ('ydental_author_id', 'ydental_actor_id', 'ydental_original_author_id'):
+            if field_name in source._fields and source[field_name]:
+                actors.append(source[field_name].name)
+        state = source.state if 'state' in source._fields else payload['status']
+        payload['footer_provenance'] = '%s #%s / v%s / %s / %s' % (
+            kind[:20], source.id, version, str(state)[:20], ', '.join(dict.fromkeys(actors))[:24])
         if template_facts['body']:
             payload['sections'] = list(payload['sections']) + [{'label': self.env._('Reviewed template content'),
                 'paragraphs': [template_facts['body'][i:i + 350] for i in range(0, len(template_facts['body']), 350)]}]
+        if not template_facts['synthetic']:
+            _authorized, _source, selected, _category = service._original_authorize(kind, source_id, version, purpose)
+            confirmed_text = selected and selected.ydental_kind in ('confirm', 'correct', 'correction')
+            if (kind in ('clinical', 'exam') and not confirmed_text
+                    or kind == 'prescription' and source.state not in ('issued', 'done')
+                    or kind == 'clinical_summary' and source.mode == 'draft'):
+                raise UserError(self.env._('incomplete_sources: Unconfirmed sources cannot be issued with a formal published document template.'))
+            titles = {'clinical': self.env._('Confirmed clinical text PDF'),
+                'prescription': self.env._('Issued prescription PDF'),
+                'consent': self.env._('Consent content awaiting signature'),
+                'exam': self.env._('Confirmed examination report PDF'),
+                'clinical_summary': self.env._('Explicitly scoped clinical source collection PDF')}
+            payload['title'] = titles.get(kind, payload['title'])
         return service, source, category, payload, digest(normalized(payload)), template, template_facts, template_sha
 
     def _original_scope(self, payload, signature, purpose):
         return replace(self._render_scope(payload, signature, purpose), original=True)
+
+    def _original_request_template(self, kind, source_id, version, purpose, template_id):
+        return template_id or None
 
     def _original_preview(self, kind, source_id, version, purpose=None, template_id=None):
         service, source, category, payload, signature, template, facts, template_sha = self._original_payload(kind, source_id, version, purpose, template_id)
@@ -110,18 +134,19 @@ class YDentalPrintOriginalService(models.AbstractModel):
         if (not isinstance(expected_digest, str) or not re.fullmatch('[a-f0-9]{64}', expected_digest)
                 or not isinstance(key, str) or not 16 <= len(key) <= 128):
             raise ValidationError(self.env._('invalid_source: Review a source and supply a stable generation key.'))
-        service, source, category, payload, signature, template, template_facts, template_sha = self._original_payload(kind, source_id, version, purpose, template_id)
+        template_id = self._original_request_template(kind, source_id, version, purpose, template_id)
         originals = self.env['ydental.document.original'].sudo()
-        # Source version chains are serialized without changing any clinical,
-        # accounting or inventory source to acquire a lock.
-        self.env.cr.execute('SELECT pg_advisory_xact_lock(%s, %s)', [32031, source.id])
         prior = originals.search([('actor_id', '=', self.env.uid), ('request_key', '=', key)], limit=1)
         if prior:
             if (prior.kind, prior.source_id, prior.source_version, prior.purpose or None, prior.previous_id.id, prior.template_id.id) != (
                     kind, source_id, version, purpose or None, previous_id or False, template_id or False):
                 raise UserError(self.env._('version_conflict: This original key belongs to another request.'))
-            service._original_bytes(prior.id, 'recovery')
+            self._original_bytes(prior.id, 'recovery')
             return {'original_id': prior.id, 'version': prior.version, 'sha256': prior.pdf_sha256, 'duplicate': True}
+        service, source, category, payload, signature, template, template_facts, template_sha = self._original_payload(kind, source_id, version, purpose, template_id)
+        # Source version chains are serialized without changing any clinical,
+        # accounting or inventory source to acquire a lock.
+        self.env.cr.execute('SELECT pg_advisory_xact_lock(%s, %s)', [32031, source.id])
         if signature != expected_digest:
             raise UserError(self.env._('version_conflict: The source changed. Review before generating an original.'))
         store = service.env['ydental.access.service']._scope().ydental_store_id

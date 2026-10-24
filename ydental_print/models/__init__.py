@@ -3,6 +3,12 @@ from . import ydental_print_service
 from . import ydental_document_template
 from . import ydental_document_original
 from . import ydental_print_original_service
+from . import ydental_document_template_policy
+from . import ydental_consent_evidence
+from . import ydental_print_consent_service
+from . import ydental_document_selection
+from . import ydental_print_summary_service
+from . import ydental_print_request_service
 from . import ir_actions_report
 from . import ir_attachment
 from . import report_ydental_document_pdf
