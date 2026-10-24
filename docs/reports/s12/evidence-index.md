@@ -1,6 +1,6 @@
 # S12 证据索引
 
-Plan ID：YD-S12-DOCUMENTS-REPORTS-V1 / 1.0。最终带数据限定六模块升级已完成并独立通过；最终十六行独立总验收及 GitHub 同步仍为 **PENDING**，不据此单独宣称 TECHNICALLY_COMPLETE。
+Plan ID：YD-S12-DOCUMENTS-REPORTS-V1 / 1.0。最终带数据限定六模块升级已完成并独立通过；最终十六行独立总验收已签 TECHNICALLY_COMPLETE（610053fb…）；GitHub同步仍PENDING，不从技术通过推导SYNCED。
 
 唯一实际目标：`ydental_s11_synth_20261023_01` / OID `2171423` / cluster `7694897083368259627`；锁定 core：`f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb`。业务从 S11 `e100e098dea5b919f3c9ca09454d239189e69ad1` 承接；未重建、改名或复制目标，未使用旧 scratch/attempt30/旧经济链补证。
 
@@ -144,10 +144,18 @@ T12 实际命令入口：`../.venv/bin/python .local/s12/verification/source_ver
 
 独立逐项分类：37附件及业务、PDF bytes、来源/模板/render事实、有效权限语义、配置及索引约束保留。25条 ACL 与1条 group 的差异仅 `write_date`；report/action/menu/module/paperformat 等为原生技术时间；view1591 的 `arch_prev` 是原生升级备份刷新，与有效 en_US arch 一致，有效 arch 未改变。没有把技术差异解释为全库物理零diff，也没有删除旧原件或未完责任任务。
 
-**当前 PENDING**：最终十六行独立总验收、正常 push 及远端 Issue/状态读回；本升级局部独立 PASS 不替代它们。
+**已完成**：最终十六行独立软件总验收610053fb…；**当前PENDING**仅正常push及远端Issue/状态读回。
 
 历史原始 17表 whole-row 哈希曾把 `account_move` 的 portal `access_token` 列纳入摘要计算，未输出该值；因此旧材料不能再声称“零认证列被选择”。原工具及结果保留，后续独立分类及新工具从 schema 排除 password/secret/token/credential/session 等列再投影；未搜索旧被拒账号，未借此重放业务或冒称发生原值泄漏。新财务/库存/合并独立核验明确敏感排除和 rollback/close。
 
 所有独立局部 PASS 的边界保持；本索引不是最终独立总签。正式临床正文/发布政策、真实票种及税务原件、物理打印/设备、正式用户效果均单列 NOT_RUN/待审核，承接 #37；不 S13、不合并、不部署。S11 组合扫码需求差异继续待产品决定，标签未增加接收/入库副作用。
 
 最终16行独立软件总签：`.local/s12/acceptance/final-16-row-independent.json`，SHA `610053fb6bfb995dbf3db6d29580bc6269d79d260bd33b361c21bbccafa2fae8`。TECHNICALLY_COMPLETE；16行适用软件PASS、当前未处置软件缺口0；正式临床/签署/税票/设备/政策/用户效果不包含在该PASS中，仍归#37。GitHub同步当前尚待正常完成，不能从技术总签推导SYNCED。
+
+## 最终正常效果复开
+
+|证据|层级与限制|私有路径|SHA-256|
+|---|---|---|---|
+|最终升级后只读正常浏览器|normal9/14：273当前源、100原件下载537e…、新arrival514/bill72报表钻取；未生成/重付/重退；最终产品字节未变|`.local/s12/verification/browser-effects-final-after-upgrade-readonly/result.json`|`4af881e70f2b571c131678494b525abed4943577dc20718cee8560a205047b68`|
+
+最终正常效果窗口：`.local/s12/verification/final-normal-effect-window.json`，SHA `3d6ca329d14329602b54e581eb75ee1fc6402f5a564ca5ed19b8b06d0602d3b7`。run20261024T025453Z-f8f22a02427f，source执行3127，loopback18411/cron0/测试flag全off，最多至2026-10-24约04:54UTC（或正常提前停止），scope原08:00不延；不保证永久在线。

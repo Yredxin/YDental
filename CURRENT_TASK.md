@@ -10,7 +10,7 @@
 - 最终状态区分历史文件与当前业务：source273历史patient254/confirmedv3/author9不变；正常merge26将254→new656，604仍pending且canonical656，old1/30/57 bytes保持/new100v4 prev57。524仅arrival517、care/exam各执行1；D2=328v2、D1=354正常pendingv2→confirmv3，原件95→96→99 scope链、旧文件保持；670已handover，新701pending。RX15/task669未发药保留；新material884/lot253收10用2余8；库存治疗后续700pending。lab214最终sent/costPO127/line127(合成10)，280planned/waiting/责任11，无接收/入库/戴用；oldlabel93仍draft版本bytes。不要再点击这些旧经济动作来补报告。
 - 新账bill72=740/pay7=500欠240/refund3=100已正常合成执行，76=270/77=200/pay8=300精确270+30欠170，79确认600与原63保持、现价620。新指标1810原出账/100冲销/800实收/100实退/1010当前AR/0待退与原生核；不拿旧68/5/63背景补本轮。tax5仅醒目非税例件。13/store1 export临时write已native恢复none、其它类别不变，正常admin2管理入口保留；mail原有2条未增，SMTP0/policiesoff/cron0。
 - 原始失败保留：首语言/字体409、旧suite(28:1fail20error；29:1fail0error)、T12 tool exit2收尾误把source/render摘要当同值、QR PNG波动引起source409及普通配置/权限前置拒绝。各已按真实提交断点恢复，不重放源/资金、不覆盖旧文件；历史全行hash包含实际NULL认证列的过宽声明已明确更正并用显式非敏感投影补核，不冒已泄漏。QR修0393已normal续label93，非静态样张。详情只在既有报告/私有原材料。
-- 主控/root统一文件、环境与运行；developer负责临床/标签、tester负责测试工具，未实现者acceptance独立SOURCE/raw/nativecommit/file/视觉与最终总签。同OS不冒隔离，验收不自签实现。所有服务目前正常STOPPED（最近run20261024T020553Z-e4a02bd46111退出0）；升级后正常只读效果窗口将按实际启动再更新，不承诺永久在线。
+- 主控/root统一文件、环境与运行；developer负责临床/标签、tester负责测试工具，未实现者acceptance独立SOURCE/raw/nativecommit/file/视觉与最终总签。同OS不冒隔离，验收不自签实现。全部旧owned正常退出0；最终正常只读效果窗口run20261024T025453Z-f8f22a02427f/source3127运行，loopback18411/cron0/外发与全部测试flag off，最多至约2026-10-24 04:54UTC（可正常提前停），scope原08:00未延，不承诺永久在线。升级后normal9/14真实浏览器只读原件100/报表新源drill再次PASS。
 - 下一步只完成正常效果只读复开、最终push/ref/#36回执及技术关闭、main仅文档路由同步；技术已结束，不再新增开发任务。当前GitHub同步尚未完成，不能冒SYNCED。用户效果、正式正文/临床签发及真实签署/税票/设备/价格成本经营口径仍NOT_RUN/待审核归#37；S11组合扫码差异仍待产品决定，标签不暗加接收/入库；closed复诊表单旧限制保留。不启动S13、不合并、不部署、不启真实外部/生产通道。
 
 ## 数据与历史保护

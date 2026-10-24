@@ -92,7 +92,7 @@
 
 ## 9. 正常效果入口与数据
 
-最终数据升级后现为STOPPED（全部旧owned正常退出0）；随后若建立正常只读效果窗口，按实际记录更新；不承诺永久在线。运行配置/凭据仅本机私有provider，不入报告或Git。正常入口为本机loopback18411的Odoo登录，选择store1，再打开：
+最终数据升级后已正常建立只读效果窗口：run `20261024T025453Z-f8f22a02427f`，执行source3127，loopback18411/cron0/外发off/全部测试延迟与S11 clock flag均off，最多至2026-10-24约04:54 UTC（可正常提前停止）；原scope08:00未延，不承诺永久在线。normal doctor/settlement升级后真实浏览器再次只读预览、下载原件100同SHA、过滤/钻新来源均PASS，未重做业务。全部旧owned均正常退出0。运行配置/凭据仅本机私有provider，不入报告或Git。正常入口为本机loopback18411的Odoo登录，选择store1，再打开：
 
 1. `/ydental/documents`（doctor别名）：查看/下载original1、30、57、100，源273历史作者/版本、别名254→656；比较旧原件文件SHA，不重新更名/合并。
 2. 同页查看94—99：D1草稿长表、draft/excerpt/complete与合成同意材料；当前354v3，原件95/96仍冻结旧选择。不要再次确认/接续已采对象。
