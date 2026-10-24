@@ -255,7 +255,7 @@ class YDentalPrintOriginalService(models.AbstractModel):
     def _template_manager(self):
         access = self.env['ydental.access.service']
         store = access._scope(write=True).ydental_store_id
-        if not access._is_group_manager():
+        if not access._is_group_manager() or not store or store.company_id not in self.env.user.sudo().company_ids:
             raise AccessError(self.env._('access_denied: Group document policy administration is required.'))
         return store
 

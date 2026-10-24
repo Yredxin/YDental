@@ -130,10 +130,14 @@ class YDentalPrintConsentService(models.AbstractModel):
                 and row.synthetic == template.synthetic
                 and self.env['ydental.patient.service']._patient(row.patient_id.id) == patient)
             rows.append({'template_id': template.id, 'template_version': template.version,
+                'template_name': template.name, 'applicability': template.applicability,
                 'synthetic': template.synthetic, 'store_id': store.id,
                 'status': 'verified_under_current_published_policy' if current else 'awaiting_current_store_version_verification',
                 'evidence_ids': current.ids, 'accepted_previous_template_ids': template.accepted_previous_template_ids,
                 'prior_version_policy': 'only_explicit_versions_in_this_published_policy'})
+        if not templates:
+            rows.append({'template_id': False, 'store_id': store.id, 'status': 'policy_missing_review_required',
+                'evidence_ids': [], 'prior_version_policy': 'no_current_store_published_policy_no_inherited_signature'})
         access._audit('document.consent_status', 'medical', patient, store.id,
             source='document_original', after={'published_template_ids': templates.ids})
         return rows
