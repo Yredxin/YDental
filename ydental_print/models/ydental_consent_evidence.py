@@ -27,6 +27,8 @@ class YDentalConsentEvidence(models.Model):
     verified_at = fields.Datetime()
     verification_reason = fields.Char()
 
+    _file_once = models.Constraint('UNIQUE(sha256)', 'A consent evidence file is bound to one original and cannot be reused.')
+
     @api.model_create_multi
     def create(self, vals_list):
         if self.env.context.get('ydental_consent_evidence_mutation') is not _EVIDENCE_MUTATION:
