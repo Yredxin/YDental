@@ -1,6 +1,6 @@
 # S12 当前状态｜YD-S12-DOCUMENTS-REPORTS-V1 / 1.0
 
-## TECHNICALLY_COMPLETE（适用合成软件范围）/ SYNC_PENDING；#36仍OPEN待最终同步
+## TECHNICALLY_COMPLETE（适用合成软件范围）/ SYNCED；#36已技术关闭
 
 - 用户2026-10-24明确启用S12、替代旧“不启动S12”；完整[计划](docs/execution/S12_IMPLEMENTATION_PLAN.md)、#23/#36及有效增量6246235470承载需求。业务从S11最终e100e098dea5b919f3c9ca09454d239189e69ad1继续，活动分支`codex/s12-documents-reports-r1`；不从文档main重开业务，不恢复逐批GPT审批。
 - 产品/工具冻结`5cb1e46fbe1e4243c7a292f64ecfd375afb3dce2`；最终升级执行`3127a575b1403ea072c950f1e1d4e79d8055141d`，只多4个报告文档、产品/工具字节一致。core固定f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb，tracked core未改。当前报告HEAD以最终远端ref读回/#36最终回执为准。
@@ -11,7 +11,7 @@
 - 新账bill72=740/pay7=500欠240/refund3=100已正常合成执行，76=270/77=200/pay8=300精确270+30欠170，79确认600与原63保持、现价620。新指标1810原出账/100冲销/800实收/100实退/1010当前AR/0待退与原生核；不拿旧68/5/63背景补本轮。tax5仅醒目非税例件。13/store1 export临时write已native恢复none、其它类别不变，正常admin2管理入口保留；mail原有2条未增，SMTP0/policiesoff/cron0。
 - 原始失败保留：首语言/字体409、旧suite(28:1fail20error；29:1fail0error)、T12 tool exit2收尾误把source/render摘要当同值、QR PNG波动引起source409及普通配置/权限前置拒绝。各已按真实提交断点恢复，不重放源/资金、不覆盖旧文件；历史全行hash包含实际NULL认证列的过宽声明已明确更正并用显式非敏感投影补核，不冒已泄漏。QR修0393已normal续label93，非静态样张。详情只在既有报告/私有原材料。
 - 主控/root统一文件、环境与运行；developer负责临床/标签、tester负责测试工具，未实现者acceptance独立SOURCE/raw/nativecommit/file/视觉与最终总签。同OS不冒隔离，验收不自签实现。全部旧owned正常退出0；最终正常只读效果窗口run20261024T025453Z-f8f22a02427f/source3127运行，loopback18411/cron0/外发与全部测试flag off，最多至约2026-10-24 04:54UTC（可正常提前停），scope原08:00未延，不承诺永久在线。升级后normal9/14真实浏览器只读原件100/报表新源drill再次PASS。
-- 下一步只完成正常效果只读复开、最终push/ref/#36回执及技术关闭、main仅文档路由同步；技术已结束，不再新增开发任务。当前GitHub同步尚未完成，不能冒SYNCED。用户效果、正式正文/临床签发及真实签署/税票/设备/价格成本经营口径仍NOT_RUN/待审核归#37；S11组合扫码差异仍待产品决定，标签不暗加接收/入库；closed复诊表单旧限制保留。不启动S13、不合并、不部署、不启真实外部/生产通道。
+- 正常push/ref/报告正文已实际读回，#36于2026-10-24T02:59:01Z closed/completed，正文原要求保留并最小更新技术状态；唯一[最终回执6379065844](https://github.com/Yredxin/YDental/issues/36#issuecomment-6379065844)逐字读回（共2评论，无过程审查评论）。main仅两路由文档e277ee093e5eaa333134a85afd5e4c9c4e199ae4正常push/ref读回，不合产品。首同步私有回执c4b9d8e6…，最后docs-only元事实提交/ref与同一评论原位更新记录在本机及最终#36回执；当前技术/同步完成，本计划结束，不新增任务。用户效果、正式正文/临床签发及真实签署/税票/设备/价格成本经营口径仍NOT_RUN/待审核归#37；S11组合扫码差异仍待产品决定，标签不暗加接收/入库；closed复诊表单旧限制保留。不启动S13、不合并、不部署、不启真实外部/生产通道。
 
 ## 数据与历史保护
 

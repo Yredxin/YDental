@@ -2,7 +2,7 @@
 
 [CODEX-FINAL] YD-S12-DOCUMENTS-REPORTS-V1 / 1.0
 
-技术结论：TECHNICALLY_COMPLETE（适用合成软件范围）。同步结论：SYNC_PENDING（正常最终push/ref/Issue收尾待完成）。正式启用：未批准。用户效果：待用户按#37确认。
+技术结论：TECHNICALLY_COMPLETE（适用合成软件范围）。同步结论：SYNCED（正常push/ref、#36正文/closed状态及唯一最终评论均实际读回）。正式启用：未批准。用户效果：待用户按#37确认。
 
 ## 1. 固定代码、目标和边界
 
@@ -92,7 +92,7 @@
 
 ## 9. 正常效果入口与数据
 
-最终数据升级后已正常建立只读效果窗口：run `20261024T025453Z-f8f22a02427f`，执行source3127，loopback18411/cron0/外发off/全部测试延迟与S11 clock flag均off，最多至2026-10-24约04:54 UTC（可正常提前停止）；原scope08:00未延，不承诺永久在线。normal doctor/settlement升级后真实浏览器再次只读预览、下载原件100同SHA、过滤/钻新来源均PASS，未重做业务。全部旧owned均正常退出0。运行配置/凭据仅本机私有provider，不入报告或Git。正常入口为本机loopback18411的Odoo登录，选择store1，再打开：
+最终数据升级后已正常建立只读效果窗口：run `20261024T025453Z-f8f22a02427f`，执行source3127，loopback18411/cron0/外发off/全部测试延迟与S11 clock flag均off，最多至2026-10-24约04:54 UTC（可正常提前停止）；原scope08:00未延，不承诺永久在线。该窗的复核操作仅读取，服务仍保留正常角色权限。normal doctor/settlement升级后真实浏览器再次只读预览、下载原件100同SHA、过滤/钻新来源均PASS，未重做业务。全部旧owned均正常退出0。运行配置/凭据仅本机私有provider，不入报告或Git。正常入口为本机loopback18411的Odoo登录，选择store1，再打开：
 
 1. `/ydental/documents`（doctor别名）：查看/下载original1、30、57、100，源273历史作者/版本、别名254→656；比较旧原件文件SHA，不重新更名/合并。
 2. 同页查看94—99：D1草稿长表、draft/excerpt/complete与合成同意材料；当前354v3，原件95/96仍冻结旧选择。不要再次确认/接续已采对象。
@@ -105,4 +105,4 @@
 
 ## 10. 最终同步
 
-技术已完成并取得独立16行总签；GitHub仍SYNC_PENDING：接下来正常commit/push本分支/ref读回，再仅一次#36最终结果及技术状态处理，main只同步文档路由；#37保持用户效果/正式条件承接。当前没有发布#36过程评论，不恢复GPT逐批审批。不以同步显示或Projects当业务验收证明。
+技术已完成并取得独立16行总签；分支正常push、远端ref及报告正文逐字一致。#36于2026-10-24T02:59:01Z正常closed/completed，正文仅最小同步当前技术状态并保留全部原要求；唯一[最终回执6379065844](https://github.com/Yredxin/YDental/issues/36#issuecomment-6379065844)已发布且逐字读回，目前总评论2（原有效增量+本最终结果），没有过程审查评论。main仅CURRENT_TASK/GPT_HANDOFF路由更新至e277ee093e5eaa333134a85afd5e4c9c4e199ae4并正常ref读回；无产品合并。首完整同步回执c4b9d8e6ea72772d4d1969c23196acf708851750e5d3d9d718afe93403e08b3c。最终报告元事实随后正常docs-only提交/ref读回，实际最后full SHA原位更新在同一#36回执，不另发重复评论。#37继续承接正式条件/用户效果，Projects未当许可或验收依据；本计划结束，不新增任务、不自动S13、不合并、不部署。
