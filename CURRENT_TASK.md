@@ -2,6 +2,9 @@
 
 ## IN_PROGRESS｜仅岗位界面、中文报表与文书版式整理
 
+- 首个产品/工具候选已固定 `a711d1edb9b76c3a07a5076e68ef6542510f5b97`。12指标中文呈现/授权选项、财务/标签新布局、岗位搜索及按需办理已落代码；SOURCE/PURE检查通过，尚未声明MODEL/HTTP/PDF/最终验收PASS。未实现者SOURCE指出的语言上下文、分页前版选择和精确来源钻取缺陷已修，继续按实际运行验证。
+- before14张普通角色两视口与初始完整RO保护baseline已采；旧S12 owned服务已正常stop(child0/noNative/18411 free)。新S13独立资源scope正常创建至2026-10-24T17:42:54Z，旧scope未改；完整即时pre145业务/13技术/所有关联原件已成功，尚待限定升级。证据索引见docs/reports/s13-ux/evidence-index.md。服务当前停止，非用户可接手浏览器。
+
 - 2026-10-24 用户在当前对话交付完整计划并明确启用限定子范围，UX-01—08/P1/P2 全部必做；完整 S13/负载/备份恢复/实机/生产未启用。计划载体 `docs/execution/S13_UX_IMPLEMENTATION_PLAN.md`。无需逐批 GPT 签字；实施中不向 Issue 发布过程信息。
 - 起点 `a437464351220605bf14b8f50181132266272d65`，现场 origin/HEAD 一致、工作树干净；正常创建 `codex/s13-ux-documents-r1`，未 reset/clean/强推、未从 main 重建。main 仍为文档路由；S12 产品 `5cb1e46fbe1e4243c7a292f64ecfd375afb3dce2`、回执 #36/6379065844 承接，#36 CLOSED、#37 OPEN 已实时读回。
 - 单一主控 /root；reports 独占 ydental_reporting，documents 独占 print模型/报告/翻译及 settlement PDF，root 负责岗位页面/运行/集成，acceptance 不实现产品或测试工具，负责独立验收。同 OS 共享工作树，不冒隔离；旧 worktree 保留，无其他本团队活动线程。进程名称本身不构成独立主控证明，不终止旧 Codex 客户端。
