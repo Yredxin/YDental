@@ -1,8 +1,11 @@
 #
 msgid ""
 msgstr ""
+"Project-Id-Version: YDental 20.0\n"
 "Language: zh_CN\n"
+"MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. module: ydental_followup
@@ -14,3 +17,930 @@ msgstr "终态历史（只读）"
 #: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
 msgid "Scrollable details"
 msgstr "可局部滚动的明细"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+#: model:ir.actions.act_url,name:ydental_followup.ydental_followup_action
+msgid "Follow-up workbench"
+msgstr "复诊工作台"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Store:"
+msgstr "门店："
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid ""
+". Appointment, actual arrival, treatment and contact status remain separate."
+msgstr "。预约、实际到店、治疗和联系状态分别记录。"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Create follow-up from an actual treatment event"
+msgstr "从实际治疗事件创建复诊计划"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Patient"
+msgstr "患者"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Choose a patient with a confirmed visit"
+msgstr "选择已有实际就诊记录的患者"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "—"
+msgstr "—"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Confirmed treatment event"
+msgstr "已确认的实际治疗事件"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Choose a completed treatment event"
+msgstr "选择已完成的实际治疗事件"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "— event"
+msgstr "— 事件"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Type"
+msgstr "类型"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Post-visit"
+msgstr "就诊后复诊"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_followup__ydental_followup_type__other
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_followup_contact__ydental_method__other
+msgid "Other"
+msgstr "其他"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Planned at"
+msgstr "计划时间"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Deadline"
+msgstr "截止时间"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Create plan"
+msgstr "创建复诊计划"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_followup__state__planned
+msgid "Planned"
+msgstr "已计划"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Appointment"
+msgstr "预约"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Appointment status"
+msgstr "预约状态"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Follow-up state"
+msgstr "复诊状态"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Responsible"
+msgstr "负责人"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Actions"
+msgstr "操作"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid ""
+"Waiting for laboratory stock. Only a real linked reservation may be "
+"reminded."
+msgstr "待加工库存；仅可对真实关联的预约发送相应提醒。"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Laboratory stock is available."
+msgstr "加工品已入库可用。"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid ""
+"Laboratory contact stopped. Existing history and internal review remain."
+msgstr "加工联系已停止，既有历史和内部核查责任继续保留。"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "<strong>Read-only terminal history</strong><br/>"
+msgstr "<strong>终态历史（只读）</strong><br/>"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Record contact"
+msgstr "记录联系"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_followup_contact__ydental_method__phone
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_followup_preference__ydental_preferred_channel__phone
+msgid "Telephone"
+msgstr "电话"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_followup_contact__ydental_method__message
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_followup_preference__ydental_preferred_channel__message
+msgid "Message"
+msgstr "消息"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_followup_contact__ydental_outcome__no_answer
+msgid "No answer"
+msgstr "未接通"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_notification_job__ydental_state__failed
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_followup_contact__ydental_outcome__failed
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_notification_callback__ydental_status__failed
+msgid "Failed"
+msgstr "失败"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_notification_job__ydental_state__accepted
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_notification_callback__ydental_status__accepted
+msgid "Accepted"
+msgstr "已受理"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_notification_job__ydental_state__delivered
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_followup_contact__ydental_outcome__delivered
+msgid "Confirmed delivered"
+msgstr "已确认送达"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Unknown"
+msgstr "结果未知"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Brief operational note"
+msgstr "简要办理备注"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Save contact result"
+msgstr "保存联系结果"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Contact preference"
+msgstr "患者联系偏好"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Opt out of automatic messages"
+msgstr "不接收自动通知消息"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_followup_preference__ydental_preferred_channel__manual
+msgid "Manual contact only"
+msgstr "仅人工联系"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_followup_preference__ydental_preferred_channel__email
+msgid "Email"
+msgstr "电子邮件"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Save preference"
+msgstr "保存联系偏好"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Reschedule contact"
+msgstr "调整联系时间"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Reschedule"
+msgstr "调整联系计划"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Link a reservation"
+msgstr "关联预约"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Existing reservation for this patient"
+msgstr "该患者的已有预约"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Choose an active reservation"
+msgstr "选择有效预约"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "— reservation"
+msgstr "— 预约"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Link reservation"
+msgstr "关联预约"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Clear intake-cancelled reservation"
+msgstr "解除已在预约入口取消的关联"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Clear cancelled link"
+msgstr "清除已取消的预约关联"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Record actual arrival"
+msgstr "记录实际到店"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Actual arrival for this patient"
+msgstr "该患者的实际到店记录"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Choose an actual arrival"
+msgstr "选择实际到店记录"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Link actual arrival"
+msgstr "关联实际到店"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Complete from actual treatment"
+msgstr "按实际治疗完成复诊"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Confirmed treatment from this patient's actual visit"
+msgstr "该患者实际就诊中的已确认治疗"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Confirm encounter association when no reservation is linked"
+msgstr "未关联预约时，明确确认此次就诊关联"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Required when unlinked"
+msgstr "未关联就诊时必填"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Complete from event"
+msgstr "按实际事件完成"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Contact history"
+msgstr "联系历史"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Latest readable attempts, up to 1,000 for this page."
+msgstr "本页展示当前可读的最近联系记录，最多1000条。"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "/"
+msgstr "／"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "No contact attempts are available in this view."
+msgstr "当前视图暂无可读的联系记录。"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Close with reason"
+msgstr "说明原因并关闭"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Reason"
+msgstr "原因"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Close plan"
+msgstr "关闭复诊计划"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Reopen with reason"
+msgstr "说明原因后重新开启"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Reopen plan"
+msgstr "重新开启复诊计划"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Notification failures and unknown outcomes"
+msgstr "通知失败与结果未知"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid ""
+"Unknown outcomes must be reconciled before another send. A controlled test "
+"sink never proves patient delivery."
+msgstr "结果未知时须先核实再发送；受控测试接收端不证明患者已收到。"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Event"
+msgstr "事件"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Due"
+msgstr "到期时间"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup__state
+msgid "State"
+msgstr "状态"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Request identifier"
+msgstr "请求标识"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Detail"
+msgstr "明细"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Reconcile"
+msgstr "核实结果"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Query evidence or manual verification"
+msgstr "查询证据或人工核实说明"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Manual contact required"
+msgstr "需要人工联系"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.ydental_followup_policy_view_form
+msgid ""
+"S11 enables only a disabled channel or the controlled test sink. This policy"
+" does not configure a real messaging provider."
+msgstr "本合成软件范围仅允许禁用通道或受控测试接收端；此政策不配置真实消息服务。"
+
+#. module: ydental_followup
+#: model:ir.actions.act_window,name:ydental_followup.ydental_followup_policy_action
+msgid "Follow-up notification policies"
+msgstr "复诊通知政策"
+
+#. module: ydental_followup
+#: model:ir.ui.menu,name:ydental_followup.ydental_followup_menu
+msgid "Follow-ups"
+msgstr "复诊"
+
+#. module: ydental_followup
+#: model:ir.ui.menu,name:ydental_followup.ydental_followup_policy_menu
+msgid "Notification policy"
+msgstr "通知政策"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup__name
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_notification_job__name
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup_contact__name
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup_policy__name
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup_preference__name
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_notification_callback__name
+msgid "Name"
+msgstr "名称"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup__ydental_category
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_notification_job__ydental_category
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup_contact__ydental_category
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup_preference__ydental_category
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_notification_callback__ydental_category
+msgid "Ydental Category"
+msgstr "业务类别"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup__ydental_patient_id
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup_preference__ydental_patient_id
+msgid "Ydental Patient"
+msgstr "患者"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup__ydental_source_event_id
+msgid "Ydental Source Event"
+msgstr "实际来源事件"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup__ydental_source_document_id
+msgid "Ydental Source Document"
+msgstr "来源文书"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup__ydental_followup_type
+msgid "Ydental Followup Type"
+msgstr "复诊类型"
+
+#. module: ydental_followup
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_followup__ydental_followup_type__post_visit
+msgid "Post-visit follow-up"
+msgstr "就诊后复诊"
+
+#. module: ydental_followup
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_followup__ydental_followup_type__lab_arrival
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_notification_job__ydental_event_type__lab_arrival
+msgid "Laboratory arrival"
+msgstr "加工到货"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup__ydental_planned_at
+msgid "Ydental Planned At"
+msgstr "计划时间"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup__ydental_deadline_at
+msgid "Ydental Deadline At"
+msgstr "截止时间"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup__ydental_responsible_id
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_notification_job__ydental_responsible_id
+msgid "Ydental Responsible"
+msgstr "负责人"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup__ydental_appointment_id
+msgid "Ydental Appointment"
+msgstr "关联预约"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup__ydental_appointment_at
+msgid "Ydental Appointment At"
+msgstr "预约时间"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup__ydental_appointment_status
+msgid "Ydental Appointment Status"
+msgstr "预约状态"
+
+#. module: ydental_followup
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_followup__ydental_appointment_status__none
+msgid "Not booked"
+msgstr "尚未预约"
+
+#. module: ydental_followup
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_followup__ydental_appointment_status__booked
+msgid "Booked"
+msgstr "已预约"
+
+#. module: ydental_followup
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_followup__ydental_appointment_status__not_arrived
+msgid "Did not arrive"
+msgstr "未到店"
+
+#. module: ydental_followup
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_followup__ydental_appointment_status__arrived
+msgid "Arrived, not yet treated"
+msgstr "已到店，尚未治疗"
+
+#. module: ydental_followup
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_followup__ydental_appointment_status__seen
+msgid "Treated"
+msgstr "已实际治疗"
+
+#. module: ydental_followup
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_followup__ydental_appointment_status__cancelled
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_notification_job__ydental_state__cancelled
+msgid "Cancelled"
+msgstr "已取消"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup__ydental_arrival_id
+msgid "Ydental Arrival"
+msgstr "实际到店记录"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup__ydental_completed_event_id
+msgid "Ydental Completed Event"
+msgstr "完成复诊的实际事件"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup__ydental_completed_execution_id
+msgid "Ydental Completed Execution"
+msgstr "完成复诊的实际接诊段"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup__ydental_lab_order_id
+msgid "Ydental Lab Order"
+msgstr "加工工单"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup__ydental_lab_contact_stage
+msgid "Ydental Lab Contact Stage"
+msgstr "加工联系阶段"
+
+#. module: ydental_followup
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_followup__ydental_lab_contact_stage__waiting
+msgid "Waiting for laboratory stock"
+msgstr "待加工库存"
+
+#. module: ydental_followup
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_followup__ydental_lab_contact_stage__ready
+msgid "Laboratory stock available"
+msgstr "加工品已入库可用"
+
+#. module: ydental_followup
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_followup__ydental_lab_contact_stage__stopped
+msgid "Laboratory contact stopped"
+msgstr "加工联系已停止"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup__ydental_lab_cycle_key
+msgid "Ydental Lab Cycle Key"
+msgstr "加工周期标识"
+
+#. module: ydental_followup
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_followup__state__to_notify
+msgid "Contact required"
+msgstr "待联系"
+
+#. module: ydental_followup
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_followup__state__notified
+msgid "Contacted"
+msgstr "已联系"
+
+#. module: ydental_followup
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_followup__state__done
+msgid "Completed at actual visit"
+msgstr "已在实际就诊中完成复诊"
+
+#. module: ydental_followup
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_followup__state__closed
+msgid "Closed with reason"
+msgstr "已关闭（保留原因）"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup__ydental_version
+msgid "Ydental Version"
+msgstr "版本"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup__ydental_schedule_version
+msgid "Ydental Schedule Version"
+msgstr "计划版本"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup__ydental_active_notification_request_id
+msgid "Ydental Active Notification Request"
+msgstr "当前通知请求"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup__ydental_active_notification_schedule_version
+msgid "Ydental Active Notification Schedule Version"
+msgstr "当前通知计划版本"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup__ydental_closed_reason
+msgid "Ydental Closed Reason"
+msgstr "关闭原因"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup__ydental_created_by_id
+msgid "Ydental Created By"
+msgstr "创建人"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_notification_job__ydental_followup_id
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup_contact__ydental_followup_id
+msgid "Ydental Followup"
+msgstr "复诊计划"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_notification_job__ydental_source_model
+msgid "Ydental Source Model"
+msgstr "来源模型"
+
+#. module: ydental_followup
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_notification_job__ydental_source_model__ydental.followup
+msgid "Follow-up"
+msgstr "复诊"
+
+#. module: ydental_followup
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_notification_job__ydental_source_model__ydental.lab.order
+msgid "Laboratory order"
+msgstr "加工工单"
+
+#. module: ydental_followup
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_notification_job__ydental_source_model__ydental.lab.vendor
+msgid "Supplier qualification"
+msgstr "供应商资质"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_notification_job__ydental_source_res_id
+msgid "Ydental Source Res"
+msgstr "来源内部标识"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_notification_job__ydental_event_type
+msgid "Ydental Event Type"
+msgstr "事件类型"
+
+#. module: ydental_followup
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_notification_job__ydental_event_type__appointment_reminder
+msgid "Appointment reminder"
+msgstr "预约提醒"
+
+#. module: ydental_followup
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_notification_job__ydental_event_type__followup_contact
+msgid "Follow-up contact"
+msgstr "复诊联系"
+
+#. module: ydental_followup
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_notification_job__ydental_event_type__supplier_expiry
+msgid "Supplier qualification expiry"
+msgstr "供应商资质到期"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_notification_job__ydental_source_version
+msgid "Ydental Source Version"
+msgstr "来源版本"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_notification_job__ydental_channel_key
+msgid "Ydental Channel Key"
+msgstr "通道标识"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_notification_job__ydental_due_at
+msgid "Ydental Due At"
+msgstr "到期时间"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_notification_job__ydental_state
+msgid "Ydental State"
+msgstr "状态"
+
+#. module: ydental_followup
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_notification_job__ydental_state__pending
+msgid "Pending"
+msgstr "待处理"
+
+#. module: ydental_followup
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_notification_job__ydental_state__dispatching
+msgid "Dispatch in progress"
+msgstr "发送处理中"
+
+#. module: ydental_followup
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_notification_job__ydental_state__unknown
+msgid "Unknown; reconcile"
+msgstr "结果未知，待核实"
+
+#. module: ydental_followup
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_notification_job__ydental_state__not_configured
+msgid "Channel not configured"
+msgstr "尚未配置通道"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_notification_job__ydental_request_id
+msgid "Ydental Request"
+msgstr "请求标识"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_notification_job__ydental_attempt_count
+msgid "Ydental Attempt Count"
+msgstr "尝试次数"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_notification_job__ydental_attempt_started_at
+msgid "Ydental Attempt Started At"
+msgstr "尝试开始时间"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_notification_job__ydental_last_error
+msgid "Ydental Last Error"
+msgstr "最近失败原因"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_notification_job__ydental_accepted_at
+msgid "Ydental Accepted At"
+msgstr "通道受理时间"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_notification_job__ydental_delivered_at
+msgid "Ydental Delivered At"
+msgstr "确认送达时间"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_notification_job__ydental_activity_id
+msgid "Ydental Activity"
+msgstr "关联待办"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup_contact__ydental_contacted_at
+msgid "Ydental Contacted At"
+msgstr "实际联系时间"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup_contact__ydental_actor_id
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup_preference__ydental_actor_id
+msgid "Ydental Actor"
+msgstr "实际经办人"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup_contact__ydental_method
+msgid "Ydental Method"
+msgstr "联系方法"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup_contact__ydental_outcome
+msgid "Ydental Outcome"
+msgstr "联系结果"
+
+#. module: ydental_followup
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_followup_contact__ydental_outcome__accepted
+msgid "Accepted by channel"
+msgstr "通道已受理"
+
+#. module: ydental_followup
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_followup_contact__ydental_outcome__unknown
+msgid "Unknown; reconcile before retry"
+msgstr "结果未知，核实后再重试"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup_contact__ydental_note
+msgid "Ydental Note"
+msgstr "联系备注"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup_contact__ydental_request_key
+msgid "Ydental Request Key"
+msgstr "请求幂等键"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup_policy__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup_contact__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup_preference__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_notification_job__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_notification_callback__ydental_store_id
+msgid "Ydental Store"
+msgstr "门店"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup_policy__ydental_timezone
+msgid "Ydental Timezone"
+msgstr "门店时区"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup_policy__ydental_enabled
+msgid "Ydental Enabled"
+msgstr "启用通知"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup_policy__ydental_channel_mode
+msgid "Ydental Channel Mode"
+msgstr "通道模式"
+
+#. module: ydental_followup
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_followup_policy__ydental_channel_mode__disabled
+msgid "No patient channel"
+msgstr "不启用患者通知通道"
+
+#. module: ydental_followup
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_followup_policy__ydental_channel_mode__controlled_test_sink
+msgid "Controlled test sink only"
+msgstr "仅受控测试接收端"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup_policy__ydental_lead_hours
+msgid "Ydental Lead Hours"
+msgstr "提前提醒小时数"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup_policy__ydental_quiet_start
+msgid "Ydental Quiet Start"
+msgstr "免打扰开始时间"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup_policy__ydental_quiet_end
+msgid "Ydental Quiet End"
+msgstr "免打扰结束时间"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup_policy__ydental_daily_limit
+msgid "Ydental Daily Limit"
+msgstr "每日发送上限"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup_policy__ydental_unbooked_window_hours
+msgid "Ydental Unbooked Window Hours"
+msgstr "未预约复诊等待小时数"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup_preference__ydental_opt_out
+msgid "Ydental Opt Out"
+msgstr "拒收自动通知"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup_preference__ydental_preferred_channel
+msgid "Ydental Preferred Channel"
+msgstr "首选联系通道"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup_preference__ydental_recorded_at
+msgid "Ydental Recorded At"
+msgstr "记录时间"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_notification_callback__ydental_job_id
+msgid "Ydental Job"
+msgstr "通知任务"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_notification_callback__ydental_provider_event_id
+msgid "Ydental Provider Event"
+msgstr "通道事件"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_notification_callback__ydental_status
+msgid "Ydental Status"
+msgstr "状态"
+
+#. module: ydental_followup
+#: model:ir.model.fields.selection,name:ydental_followup.selection__ydental_notification_callback__ydental_status__delivered
+msgid "Delivered"
+msgstr "已送达"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_notification_callback__ydental_received_at
+msgid "Ydental Received At"
+msgstr "收到时间"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Patient contact settings and closed-plan actions"
+msgstr "患者联系设置与关闭计划办理"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup__ydental_source_document_id
+msgid "Ydental Document"
+msgstr "来源文书"
+
+#. module: ydental_followup
+#: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup__ydental_appointment_at
+msgid "Ydental Start"
+msgstr "预约时间"

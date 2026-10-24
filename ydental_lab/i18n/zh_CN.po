@@ -29,30 +29,36 @@ msgstr "加工中"
 #. module: ydental_lab
 #. odoo-python
 #: code:addons/ydental_lab/models/ydental_print_service.py:0
+#: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_order__state__received
 msgid "Physically received"
 msgstr "已实际接收"
 
 #. module: ydental_lab
 #. odoo-python
 #: code:addons/ydental_lab/models/ydental_print_service.py:0
+#: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_order__state__available
 msgid "Put away and awaiting fit"
 msgstr "已入库，待戴用"
 
 #. module: ydental_lab
 #. odoo-python
 #: code:addons/ydental_lab/models/ydental_print_service.py:0
+#: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_order__state__rework_returned
 msgid "Returned for rework"
 msgstr "已退回返工"
 
 #. module: ydental_lab
 #. odoo-python
 #: code:addons/ydental_lab/models/ydental_print_service.py:0
+#: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_order__state__done
+#: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_event__ydental_kind__fit
 msgid "Actually fitted"
 msgstr "已实际戴用"
 
 #. module: ydental_lab
 #. odoo-python
 #: code:addons/ydental_lab/models/ydental_print_service.py:0
+#: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_order__state__cancelled
 msgid "Cancelled before put-away"
 msgstr "入库前已取消"
 
@@ -166,3 +172,1129 @@ msgstr "加工内容"
 #: code:addons/ydental_lab/models/ydental_print_service.py:0
 msgid "Internal laboratory label"
 msgstr "内部加工标签"
+
+#. module: ydental_lab
+#: model_terms:ir.ui.view,arch_db:ydental_lab.ydental_lab_vendor_view_form
+msgid "Approve qualification"
+msgstr "批准资质"
+
+#. module: ydental_lab
+#: model_terms:ir.ui.view,arch_db:ydental_lab.ydental_lab_vendor_view_form
+msgid "Reject qualification"
+msgstr "驳回资质"
+
+#. module: ydental_lab
+#: model_terms:ir.ui.view,arch_db:ydental_lab.ydental_lab_cooperation_view_form
+msgid "Enable / disable cooperation"
+msgstr "启用或停用合作"
+
+#. module: ydental_lab
+#: model_terms:ir.ui.view,arch_db:ydental_lab.ydental_lab_order_view_form
+msgid "Send to laboratory"
+msgstr "发送加工工单"
+
+#. module: ydental_lab
+#: model_terms:ir.ui.view,arch_db:ydental_lab.ydental_lab_order_view_form
+msgid "Start processing"
+msgstr "开始加工"
+
+#. module: ydental_lab
+#: model_terms:ir.ui.view,arch_db:ydental_lab.ydental_lab_order_view_form
+msgid "Record physical receipt"
+msgstr "记录实际接收"
+
+#. module: ydental_lab
+#: model_terms:ir.ui.view,arch_db:ydental_lab.ydental_lab_order_view_form
+msgid "Put away into stock"
+msgstr "办理入库"
+
+#. module: ydental_lab
+#: model_terms:ir.ui.view,arch_db:ydental_lab.ydental_lab_order_view_form
+msgid "Return for rework"
+msgstr "退回返工"
+
+#. module: ydental_lab
+#: model_terms:ir.ui.view,arch_db:ydental_lab.ydental_lab_order_view_form
+msgid "Open post-fit repair"
+msgstr "创建戴用后返修"
+
+#. module: ydental_lab
+#: model_terms:ir.ui.view,arch_db:ydental_lab.ydental_lab_order_view_form
+msgid "Record actual fit"
+msgstr "记录实际戴用"
+
+#. module: ydental_lab
+#: model_terms:ir.ui.view,arch_db:ydental_lab.ydental_lab_order_view_form
+msgid "Cancel before put-away"
+msgstr "入库前取消"
+
+#. module: ydental_lab
+#: model_terms:ir.ui.view,arch_db:ydental_lab.ydental_lab_order_view_form
+msgid "Close exception"
+msgstr "异常终止"
+
+#. module: ydental_lab
+#: model_terms:ir.ui.view,arch_db:ydental_lab.ydental_lab_order_view_form
+msgid "Bind package code"
+msgstr "关联包裹码"
+
+#. module: ydental_lab
+#: model_terms:ir.ui.view,arch_db:ydental_lab.ydental_lab_order_view_form
+msgid "Approve additional service terms"
+msgstr "批准附加项目条款"
+
+#. module: ydental_lab
+#: model_terms:ir.ui.view,arch_db:ydental_lab.ydental_lab_order_view_form
+msgid "Confirm additional service performed"
+msgstr "确认附加项目已实际执行"
+
+#. module: ydental_lab
+#: model_terms:ir.ui.view,arch_db:ydental_lab.ydental_lab_order_view_form
+msgid "Confirm no added supplier cost"
+msgstr "确认无新增供应商成本"
+
+#. module: ydental_lab
+#: model_terms:ir.ui.view,arch_db:ydental_lab.ydental_lab_order_view_form
+msgid "Confirm no patient fee"
+msgstr "确认不向患者收费"
+
+#. module: ydental_lab
+#: model_terms:ir.ui.view,arch_db:ydental_lab.ydental_lab_order_view_form
+msgid "External coordination"
+msgstr "外部协作"
+
+#. module: ydental_lab
+#: model_terms:ir.ui.view,arch_db:ydental_lab.ydental_lab_order_view_form
+msgid "No-patient-fee alternative"
+msgstr "不向患者收费的路径"
+
+#. module: ydental_lab
+#: model_terms:ir.ui.view,arch_db:ydental_lab.ydental_lab_order_view_form
+msgid ""
+"Choose exactly one patient-fee path: freeze the effective published S05 "
+"service price and terms, or explicitly confirm no patient fee with a reason."
+" The no-fee path is independent of supplier cost and creates no patient "
+"charge. Priced terms require separate actual-performance evidence before "
+"normal S10 settlement billing."
+msgstr ""
+"请选择一条患者费用路径：冻结当前有效的已发布项目价格及条款，或说明原因并明确确认不向患者收费。不收费路径独立于供应商成本，且不生成患者费用；收费条款另需真实执行证据，之后才能进入正常结算出账。"
+
+#. module: ydental_lab
+#: model_terms:ir.ui.view,arch_db:ydental_lab.ydental_lab_order_view_form
+msgid "Additional patient service terms"
+msgstr "患者附加项目条款"
+
+#. module: ydental_lab
+#: model_terms:ir.ui.view,arch_db:ydental_lab.ydental_lab_order_view_form
+msgid ""
+"This supplier-cost fact is independent of patient additional-service terms "
+"and charges."
+msgstr "供应商成本事实独立于患者附加项目条款及费用。"
+
+#. module: ydental_lab
+#: model_terms:ir.ui.view,arch_db:ydental_lab.ydental_lab_order_view_form
+msgid "Supplier cost for this rework cycle"
+msgstr "本返工周期供应商成本"
+
+#. module: ydental_lab
+#: model_terms:ir.ui.view,arch_db:ydental_lab.ydental_lab_order_view_form
+msgid "Rework and disposition"
+msgstr "返工及处置"
+
+#. module: ydental_lab
+#: model_terms:ir.ui.view,arch_db:ydental_lab.ydental_lab_order_view_form
+msgid ""
+"Physical receipt is preserved. The package remains outside recorded stock "
+"pending the assigned cancellation review. No return, write-off, refund or "
+"credit was recorded."
+msgstr "实际接收事实继续保留；包裹尚未记入库存，等待已指派的取消核查。此处未记录退回、报损、退款或贷项。"
+
+#. module: ydental_lab
+#: model_terms:ir.ui.view,arch_db:ydental_lab.ydental_lab_code_bind_view_form
+msgid "Bind identification code"
+msgstr "关联识别码"
+
+#. module: ydental_lab
+#: model_terms:ir.ui.view,arch_db:ydental_lab.ydental_lab_code_bind_view_form
+#: model_terms:ir.ui.view,arch_db:ydental_lab.ydental_lab_code_scan_view_form
+#: model_terms:ir.ui.view,arch_db:ydental_lab.ydental_lab_post_fit_repair_view_form
+#: model_terms:ir.ui.view,arch_db:ydental_lab.ydental_lab_charge_credit_wizard_form
+msgid "Cancel"
+msgstr "取消"
+
+#. module: ydental_lab
+#: model_terms:ir.ui.view,arch_db:ydental_lab.ydental_lab_code_bind_view_form
+msgid "Bind external package code"
+msgstr "关联外部包裹码"
+
+#. module: ydental_lab
+#: model_terms:ir.ui.view,arch_db:ydental_lab.ydental_lab_code_scan_view_form
+msgid "Find authorized work order"
+msgstr "定位有权查看的工单"
+
+#. module: ydental_lab
+#: model_terms:ir.ui.view,arch_db:ydental_lab.ydental_lab_code_scan_view_form
+msgid "Find laboratory order by package code"
+msgstr "按包裹码定位加工工单"
+
+#. module: ydental_lab
+#: model_terms:ir.ui.view,arch_db:ydental_lab.ydental_lab_post_fit_repair_view_form
+msgid "Required reason for the new repair cycle"
+msgstr "新返修周期的必填原因"
+
+#. module: ydental_lab
+#: model_terms:ir.ui.view,arch_db:ydental_lab.ydental_lab_post_fit_repair_view_form
+msgid "Create draft repair cycle"
+msgstr "创建返修周期草稿"
+
+#. module: ydental_lab
+#: model_terms:ir.ui.view,arch_db:ydental_lab.ydental_lab_post_fit_repair_view_form
+msgid "Open linked post-fit repair"
+msgstr "创建关联的戴用后返修"
+
+#. module: ydental_lab
+#: model:ir.actions.act_window,name:ydental_lab.ydental_lab_vendor_action
+msgid "Laboratory qualifications"
+msgstr "加工供应商资质"
+
+#. module: ydental_lab
+#: model:ir.actions.act_window,name:ydental_lab.ydental_lab_cooperation_action
+msgid "Store laboratory cooperation"
+msgstr "门店加工合作"
+
+#. module: ydental_lab
+#: model:ir.actions.act_window,name:ydental_lab.ydental_lab_order_action
+msgid "External laboratory orders"
+msgstr "外部加工工单"
+
+#. module: ydental_lab
+#: model:ir.actions.act_window,name:ydental_lab.ydental_lab_code_scan_action
+#: model:ir.ui.menu,name:ydental_lab.ydental_lab_code_scan_menu
+msgid "Scan package code"
+msgstr "识别包裹码"
+
+#. module: ydental_lab
+#: model:ir.ui.menu,name:ydental_lab.ydental_lab_menu_root
+msgid "Dental Laboratory"
+msgstr "义齿加工"
+
+#. module: ydental_lab
+#: model:ir.ui.menu,name:ydental_lab.ydental_lab_order_menu
+msgid "Work orders"
+msgstr "加工工单"
+
+#. module: ydental_lab
+#: model:ir.ui.menu,name:ydental_lab.ydental_lab_cooperation_menu
+msgid "Store cooperation"
+msgstr "门店合作"
+
+#. module: ydental_lab
+#: model:ir.ui.menu,name:ydental_lab.ydental_lab_vendor_menu
+msgid "Vendor qualifications"
+msgstr "供应商资质"
+
+#. module: ydental_lab
+#: model_terms:ir.ui.view,arch_db:ydental_lab.ydental_lab_charge_view_form
+msgid "Create native settlement invoice"
+msgstr "创建原生结算账单"
+
+#. module: ydental_lab
+#: model_terms:ir.ui.view,arch_db:ydental_lab.ydental_lab_charge_view_form
+msgid "Correct billed amount"
+msgstr "更正已出账金额"
+
+#. module: ydental_lab
+#: model_terms:ir.ui.view,arch_db:ydental_lab.ydental_lab_charge_credit_wizard_form
+msgid "Create native credit note"
+msgstr "创建原生贷项通知单"
+
+#. module: ydental_lab
+#: model_terms:ir.ui.view,arch_db:ydental_lab.ydental_lab_charge_credit_wizard_form
+msgid "Correct billed cycle charge"
+msgstr "更正本加工周期已出账费用"
+
+#. module: ydental_lab
+#: model:ir.actions.act_window,name:ydental_lab.ydental_lab_charge_action
+#: model:ir.ui.menu,name:ydental_lab.ydental_lab_charge_menu
+msgid "Additional patient service charges"
+msgstr "患者附加项目费用"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_operation__ydental_key
+msgid "Ydental Key"
+msgstr "请求幂等键"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_operation__ydental_fingerprint
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge__ydental_fingerprint
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge_adjustment__ydental_fingerprint
+msgid "Ydental Fingerprint"
+msgstr "事实摘要"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_operation__ydental_result
+msgid "Ydental Result"
+msgstr "操作结果"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_operation__ydental_actor_id
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge_adjustment__ydental_actor_id
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_event__ydental_actor_id
+msgid "Ydental Actor"
+msgstr "实际经办人"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_patient_id
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge__ydental_patient_id
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge_adjustment__ydental_patient_id
+msgid "Ydental Patient"
+msgstr "患者"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_source_event_id
+msgid "Ydental Source Event"
+msgstr "实际来源事件"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_source_document_id
+msgid "Ydental Source Document"
+msgstr "来源文书"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_source_fee_id
+msgid "Ydental Source Fee"
+msgstr "来源费用"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_purchase_line_id
+msgid "Confirmed vendor processing cost"
+msgstr "已确认的供应商加工成本"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_vendor_id
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_cooperation__ydental_vendor_id
+msgid "Ydental Vendor"
+msgstr "加工供应商"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_cooperation_id
+msgid "Cooperation authorized at dispatch"
+msgstr "发出委托时已授权的合作关系"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_vendor_qualification_version
+msgid "Vendor qualification version at dispatch"
+msgstr "发出委托时供应商资质版本"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_vendor_qualification_valid_until
+msgid "Qualification expiry date at dispatch"
+msgstr "发出委托时资质有效期"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_cooperation_active_at_dispatch
+msgid "Cooperation active at dispatch"
+msgstr "发出委托时合作有效"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_product_id
+msgid "Ydental Product"
+msgstr "加工物料"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_lot_id
+msgid "Receiving lot"
+msgstr "接收批次"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_quantity
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge__ydental_quantity
+msgid "Ydental Quantity"
+msgstr "数量"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_teeth
+msgid "Ydental Teeth"
+msgstr "牙位"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_material
+msgid "Ydental Material"
+msgstr "材料"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_shade
+msgid "Ydental Shade"
+msgstr "色号"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_instructions
+msgid "Ydental Instructions"
+msgstr "加工内容"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_responsible_id
+msgid "Ydental Responsible"
+msgstr "负责人"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_planned_at
+msgid "Ydental Planned At"
+msgstr "计划时间"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_external_mode
+msgid "Ydental External Mode"
+msgstr "外部协作方式"
+
+#. module: ydental_lab
+#: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_order__ydental_external_mode__physical
+msgid "Physical package"
+msgstr "实体包裹"
+
+#. module: ydental_lab
+#: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_order__ydental_external_mode__digital
+msgid "External digital platform"
+msgstr "外部数字平台"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_external_reference
+msgid "Ydental External Reference"
+msgstr "外部参考号"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_external_url
+msgid "Ydental External Url"
+msgstr "外部平台地址"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_external_actor
+msgid "External platform operator"
+msgstr "外部平台经办人"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_external_evidence
+msgid "External action screenshot"
+msgstr "外部操作截图"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_external_evidence_name
+msgid "Screenshot filename"
+msgstr "截图文件名"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_internal_code
+msgid "Ydental Internal Code"
+msgstr "内部识别码"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_package_code
+msgid "Ydental Package Code"
+msgstr "包裹码"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_parent_order_id
+msgid "Rework of"
+msgstr "原始工单"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_repair_order_ids
+msgid "Linked repair cycles"
+msgstr "关联返修周期"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_rework_no
+msgid "Ydental Rework No"
+msgstr "返工周期号"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_post_fit_repair
+msgid "Ydental Post Fit Repair"
+msgstr "戴用后返修"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_rework_kind
+msgid "Ydental Rework Kind"
+msgstr "返工费用类型"
+
+#. module: ydental_lab
+#: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_order__ydental_rework_kind__free
+msgid "No additional charge recorded"
+msgstr "未记录额外收费"
+
+#. module: ydental_lab
+#: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_order__ydental_rework_kind__additional
+msgid "Additional commercial terms recorded separately"
+msgstr "额外商业条款另行记录"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_additional_service_id
+msgid "Additional service"
+msgstr "附加项目"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_additional_service_quantity
+msgid "Additional service quantity"
+msgstr "附加项目数量"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_additional_consent_reference
+msgid "Explicit terms confirmation reference"
+msgstr "明确的条款确认依据"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_additional_terms_reason
+msgid "Additional terms reason"
+msgstr "附加条款原因"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_additional_terms_frozen
+msgid "Ydental Additional Terms Frozen"
+msgstr "附加条款已冻结"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_additional_performed_at
+msgid "Additional service performed at"
+msgstr "附加项目实际执行时间"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_additional_performance_evidence_reference
+msgid "Additional service performance evidence reference"
+msgstr "附加项目执行证据依据"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_additional_performance_recorded
+msgid "Ydental Additional Performance Recorded"
+msgstr "附加项目执行事实已记录"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_zero_supplier_cost_confirmed
+msgid "Ydental Zero Supplier Cost Confirmed"
+msgstr "已确认无新增供应商成本"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_zero_supplier_cost_reason
+msgid "Ydental Zero Supplier Cost Reason"
+msgstr "无新增供应商成本原因"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_zero_supplier_cost_actor_id
+msgid "Ydental Zero Supplier Cost Actor"
+msgstr "无新增供应商成本确认人"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_zero_supplier_cost_at
+msgid "Ydental Zero Supplier Cost At"
+msgstr "无新增供应商成本确认时间"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_zero_supplier_cost_confirmation_reason
+msgid "Reason for no additional vendor cost"
+msgstr "无新增供应商成本的原因"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_no_patient_fee_declaration
+msgid "No patient fee will be charged"
+msgstr "不向患者收费"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_no_patient_fee_confirmation_reason
+msgid "Reason no patient fee will be charged"
+msgstr "不向患者收费的原因"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_no_patient_fee_confirmed
+msgid "Ydental No Patient Fee Confirmed"
+msgstr "已确认不向患者收费"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_no_patient_fee_reason
+msgid "Ydental No Patient Fee Reason"
+msgstr "不收费原因"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_no_patient_fee_actor_id
+msgid "Ydental No Patient Fee Actor"
+msgstr "不收费确认人"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_no_patient_fee_at
+msgid "Ydental No Patient Fee At"
+msgstr "不收费确认时间"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_fit_event_id
+msgid "Ydental Fit Event"
+msgstr "实际戴用事件"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_followup_id
+msgid "Ydental Followup"
+msgstr "复诊计划"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_receipt_at
+msgid "Ydental Receipt At"
+msgstr "实际接收时间"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_receipt_actor_id
+msgid "Ydental Receipt Actor"
+msgstr "实际接收人"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_inventory_event_id
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_event__ydental_inventory_event_id
+msgid "Ydental Inventory Event"
+msgstr "入库事件"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_fit_inventory_event_id
+msgid "Ydental Fit Inventory Event"
+msgstr "戴用库存事件"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_event_ids
+msgid "Ydental Event"
+msgstr "加工事件"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_exception_disposition
+msgid "Ydental Exception Disposition"
+msgstr "异常处置方式"
+
+#. module: ydental_lab
+#: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_order__ydental_exception_disposition__supplier_return
+msgid "Physically returned to supplier"
+msgstr "已实际退回供应商"
+
+#. module: ydental_lab
+#: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_order__ydental_exception_disposition__discard
+msgid "Physically written off"
+msgstr "已实际报损"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_exception_reason
+msgid "Ydental Exception Reason"
+msgstr "异常原因"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__state
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge__state
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_vendor__state
+msgid "State"
+msgstr "状态"
+
+#. module: ydental_lab
+#: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_order__state__draft
+msgid "Draft"
+msgstr "草稿"
+
+#. module: ydental_lab
+#: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_order__state__sent
+msgid "Sent to laboratory"
+msgstr "工单已发送（不代表供应商发货或已收货）"
+
+#. module: ydental_lab
+#: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_order__state__processing
+msgid "Processing"
+msgstr "加工中"
+
+#. module: ydental_lab
+#: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_order__state__exception
+#: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_event__ydental_kind__exception
+msgid "Exception closed"
+msgstr "加工异常终止"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge__name
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge_adjustment__name
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_vendor__name
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__name
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_event__name
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_operation__name
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_cooperation__name
+msgid "Name"
+msgstr "名称"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_version
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_event__ydental_version
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_operation__ydental_version
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_cooperation__ydental_version
+msgid "Ydental Version"
+msgstr "版本"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge__ydental_category
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge_adjustment__ydental_category
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_category
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_event__ydental_category
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_operation__ydental_category
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_cooperation__ydental_category
+msgid "Ydental Category"
+msgstr "业务类别"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge__ydental_order_id
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_event__ydental_order_id
+msgid "Ydental Order"
+msgstr "加工工单"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge__ydental_catalog_id
+msgid "Ydental Catalog"
+msgstr "收费目录项目"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge__ydental_price_id
+msgid "Ydental Price"
+msgstr "原价目来源"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge__ydental_price_snapshot_id
+msgid "Ydental Price Snapshot"
+msgstr "冻结价格快照"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge__ydental_uom_id
+msgid "Ydental Uom"
+msgstr "计量单位"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge__ydental_currency_id
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge_adjustment__ydental_currency_id
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge_credit_wizard__ydental_currency_id
+msgid "Ydental Currency"
+msgstr "币种"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge__ydental_unit_price
+msgid "Ydental Unit Price"
+msgstr "确认单价"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge__ydental_amount
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge_adjustment__ydental_amount
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge_credit_wizard__ydental_amount
+msgid "Ydental Amount"
+msgstr "金额"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge__ydental_quoted_at
+msgid "Ydental Quoted At"
+msgstr "报价时间"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge__ydental_terms_confirmed_by_id
+msgid "Ydental Terms Confirmed By"
+msgstr "条款确认人"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge__ydental_terms_confirmed_at
+msgid "Ydental Terms Confirmed At"
+msgstr "条款确认时间"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge__ydental_confirmation_reference
+msgid "Ydental Confirmation Reference"
+msgstr "确认依据"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge__ydental_reason
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge_adjustment__ydental_reason
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge_credit_wizard__ydental_reason
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_event__ydental_reason
+msgid "Ydental Reason"
+msgstr "原因"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge__ydental_request_key
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge_adjustment__ydental_request_key
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge_credit_wizard__ydental_request_key
+msgid "Ydental Request Key"
+msgstr "请求幂等键"
+
+#. module: ydental_lab
+#: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_charge__state__terms_confirmed
+msgid "Additional terms confirmed"
+msgstr "附加条款已确认"
+
+#. module: ydental_lab
+#: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_charge__state__performed
+msgid "Actual additional service performed"
+msgstr "已实际执行附加项目"
+
+#. module: ydental_lab
+#: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_charge__state__billed
+msgid "Linked to native settlement source"
+msgstr "已关联原生结算来源"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge__ydental_performance_evidence_reference
+msgid "Ydental Performance Evidence Reference"
+msgstr "实际执行证据依据"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge__ydental_settlement_source_id
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge_adjustment__ydental_settlement_source_id
+msgid "Ydental Settlement Source"
+msgstr "结算来源"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge__ydental_invoice_id
+msgid "Ydental Invoice"
+msgstr "原生账单"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge__ydental_invoice_line_id
+msgid "Ydental Invoice Line"
+msgstr "原生账单明细行"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge__ydental_performed_by_id
+msgid "Ydental Performed By"
+msgstr "实际执行人"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge__ydental_performed_at
+msgid "Ydental Performed At"
+msgstr "实际执行时间"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge__ydental_adjustment_ids
+msgid "Ydental Adjustment"
+msgstr "费用更正"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge_adjustment__ydental_charge_id
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge_credit_wizard__ydental_charge_id
+msgid "Ydental Charge"
+msgstr "附加项目费用"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge_adjustment__ydental_revision
+msgid "Ydental Revision"
+msgstr "修订号"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge_adjustment__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_event__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_operation__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_cooperation__ydental_store_id
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge__ydental_store_id
+msgid "Ydental Store"
+msgstr "门店"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge_adjustment__ydental_created_at
+msgid "Ydental Created At"
+msgstr "创建时间"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge_adjustment__ydental_credit_move_id
+msgid "Ydental Credit Move"
+msgstr "原生贷项通知单"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge_adjustment__ydental_credit_line_id
+msgid "Ydental Credit Line"
+msgstr "贷项明细行"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_code_bind__order_id
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_post_fit_repair__order_id
+msgid "Order"
+msgstr "工单"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_code_bind__code
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_code_scan__code
+msgid "Code"
+msgstr "识别码"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_cooperation__active
+msgid "Active"
+msgstr "启用"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_cooperation__local_reference
+msgid "Local Reference"
+msgstr "本地参考号"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_cooperation__responsible_id
+msgid "Responsible"
+msgstr "负责人"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_vendor__partner_id
+msgid "Partner"
+msgstr "供应商联系人"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_vendor__company_ids
+msgid "Authorized companies"
+msgstr "授权法人"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_vendor__category
+msgid "Category"
+msgstr "业务类别"
+
+#. module: ydental_lab
+#: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_vendor__category__crown
+msgid "Crown or bridge"
+msgstr "冠或桥"
+
+#. module: ydental_lab
+#: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_vendor__category__denture
+msgid "Removable prosthesis"
+msgstr "活动修复体"
+
+#. module: ydental_lab
+#: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_vendor__category__implant
+msgid "Implant prosthesis"
+msgstr "种植修复体"
+
+#. module: ydental_lab
+#: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_vendor__category__orthodontic
+msgid "Orthodontic appliance"
+msgstr "正畸矫治器"
+
+#. module: ydental_lab
+#: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_vendor__category__other
+msgid "Other"
+msgstr "其他"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_vendor__qualification_reference
+msgid "Qualification Reference"
+msgstr "资质依据"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_vendor__qualification_evidence
+msgid "Qualification evidence"
+msgstr "资质证明"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_vendor__qualification_evidence_name
+msgid "Qualification Evidence Name"
+msgstr "资质证明文件名"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_vendor__valid_until
+msgid "Valid Until"
+msgstr "有效期至"
+
+#. module: ydental_lab
+#: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_vendor__state__draft
+msgid "Not reviewed"
+msgstr "待审核"
+
+#. module: ydental_lab
+#: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_vendor__state__approved
+msgid "Approved"
+msgstr "已批准"
+
+#. module: ydental_lab
+#: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_vendor__state__rejected
+msgid "Rejected"
+msgstr "已驳回"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_vendor__qualification_version
+msgid "Qualification Version"
+msgstr "资质版本"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_vendor__reviewed_by_id
+msgid "Reviewed By"
+msgstr "审核人"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_vendor__reviewed_at
+msgid "Reviewed At"
+msgstr "审核时间"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_vendor__review_reason
+msgid "Review Reason"
+msgstr "审核原因"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_event__ydental_cooperation_id
+msgid "Ydental Cooperation"
+msgstr "门店合作"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_event__ydental_vendor_qualification_version
+msgid "Ydental Vendor Qualification Version"
+msgstr "委托时供应商资质版本"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_event__ydental_vendor_qualification_valid_until
+msgid "Ydental Vendor Qualification Valid Until"
+msgstr "委托时供应商资质有效期"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_event__ydental_cooperation_active_at_dispatch
+msgid "Ydental Cooperation Active At Dispatch"
+msgstr "发出委托时合作有效"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_event__ydental_kind
+msgid "Ydental Kind"
+msgstr "事件类型"
+
+#. module: ydental_lab
+#: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_event__ydental_kind__created
+msgid "Created"
+msgstr "已创建"
+
+#. module: ydental_lab
+#: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_event__ydental_kind__sent
+msgid "Sent"
+msgstr "工单已发送（不代表供应商发货或已收货）"
+
+#. module: ydental_lab
+#: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_event__ydental_kind__processing
+msgid "Processing started"
+msgstr "已开始加工"
+
+#. module: ydental_lab
+#: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_event__ydental_kind__received
+msgid "Physical receipt"
+msgstr "实际接收"
+
+#. module: ydental_lab
+#: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_event__ydental_kind__putaway
+msgid "Stock put away"
+msgstr "已实际入库"
+
+#. module: ydental_lab
+#: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_event__ydental_kind__rework
+msgid "Rework cycle opened"
+msgstr "已创建返工周期"
+
+#. module: ydental_lab
+#: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_event__ydental_kind__rework_return
+msgid "Returned to supplier"
+msgstr "已退回供应商"
+
+#. module: ydental_lab
+#: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_event__ydental_kind__post_fit_repair
+msgid "Post-fit repair cycle opened"
+msgstr "已创建戴用后返修周期"
+
+#. module: ydental_lab
+#: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_event__ydental_kind__additional_terms_approved
+msgid "Additional service terms approved"
+msgstr "附加项目条款已批准"
+
+#. module: ydental_lab
+#: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_event__ydental_kind__additional_service_performed
+msgid "Additional service actually performed"
+msgstr "附加项目已实际执行"
+
+#. module: ydental_lab
+#: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_event__ydental_kind__zero_supplier_cost_confirmed
+msgid "No additional supplier cost confirmed"
+msgstr "已确认无新增供应商成本"
+
+#. module: ydental_lab
+#: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_event__ydental_kind__no_patient_fee_confirmed
+msgid "No patient fee confirmed"
+msgstr "已确认不向患者收费"
+
+#. module: ydental_lab
+#: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_event__ydental_kind__cancelled
+msgid "Cancelled"
+msgstr "已取消"
+
+#. module: ydental_lab
+#: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_event__ydental_kind__code_bound
+msgid "Package code bound"
+msgstr "包裹码已关联"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_event__ydental_before_state
+msgid "Ydental Before State"
+msgstr "变更前状态"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_event__ydental_after_state
+msgid "Ydental After State"
+msgstr "变更后状态"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_event__ydental_purchase_line_id
+msgid "Ydental Purchase Line"
+msgstr "确认采购明细行"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_event__ydental_vendor_cost
+msgid "Ydental Vendor Cost"
+msgstr "供应商成本"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_event__ydental_cost_currency_id
+msgid "Ydental Cost Currency"
+msgstr "成本币种"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_event__ydental_purchase_cost_snapshot
+msgid "Ydental Purchase Cost Snapshot"
+msgstr "委托时采购成本快照"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_event__ydental_purchase_state_at_dispatch
+msgid "Ydental Purchase State At Dispatch"
+msgstr "发出委托时采购状态"
+
+#. module: ydental_lab
+#: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_event__ydental_purchase_state_at_dispatch__purchase
+msgid "Purchase confirmed"
+msgstr "采购已确认"
+
+#. module: ydental_lab
+#: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_event__ydental_purchase_state_at_dispatch__done
+msgid "Purchase done"
+msgstr "采购已完成"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_event__ydental_patient_fee_id
+msgid "Ydental Patient Fee"
+msgstr "患者费用来源"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_event__ydental_patient_fee_amount
+msgid "Ydental Patient Fee Amount"
+msgstr "患者费用金额"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_event__ydental_fee_currency_id
+msgid "Ydental Fee Currency"
+msgstr "患者费用币种"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_event__ydental_recorded_at
+msgid "Ydental Recorded At"
+msgstr "记录时间"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_post_fit_repair__reason
+msgid "Reason"
+msgstr "原因"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_order__ydental_charge_ids
+msgid "Additional service charges"
+msgstr "附加项目费用"
+
+#. module: ydental_lab
+#: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge__ydental_invoice_line_id
+msgid "Ydental Line"
+msgstr "原生账单明细行"

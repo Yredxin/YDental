@@ -37,7 +37,7 @@ def measure(page):
     return page.evaluate('''() => ({root:{scrollWidth:document.documentElement.scrollWidth,clientWidth:document.documentElement.clientWidth},
         body:{scrollWidth:document.body.scrollWidth,clientWidth:document.body.clientWidth},devicePixelRatio:devicePixelRatio,
         localScrollRegions:[...document.querySelectorAll('[role="region"], .o_ydental_access_scroll')].map(e=>({scrollWidth:e.scrollWidth,clientWidth:e.clientWidth,overflowX:getComputedStyle(e).overflowX})),
-        clippedContainers:[...document.querySelectorAll('main, main *')].filter(e=>getComputedStyle(e).overflowX==='hidden' && e.scrollWidth>e.clientWidth+1).slice(0,20).map(e=>({tag:e.tagName,classes:e.className}))})''')
+        clippedContainers:[...document.querySelectorAll('main, main div, main section, main article, main table, main pre, main details')].filter(e=>getComputedStyle(e).overflowX==='hidden' && e.scrollWidth>e.clientWidth+1).slice(0,20).map(e=>({tag:e.tagName,classes:e.className}))})''')
 
 
 def visit(page,path,directory,label):
@@ -145,6 +145,7 @@ def main():
                             if label=='closed-followup277':
                                 closed=page.locator('#followup-277')
                                 item['closed_row_present']=closed.count()==1
+                                item['closed_row_form_count']=closed.locator('form').count() if closed.count() else None
                                 item['closed_contact_form_count']=closed.locator('input[name="operation"][value="contact"]').count() if closed.count() else None
                             item['chinese_visible_heading']=any(re.search('[\u3400-\u9fff]',value) for value in item['headings'])
                             if label in ('documents','settlement','inventory') and item['status']==200:
@@ -160,7 +161,14 @@ def main():
                                         traces.first.locator('summary').click();source['trace_open_screenshot']=screenshot(page,directory,prefix+'-trace');source['trace_dimensions']=measure(page)
                                     back=page.locator('a[href^="/ydental/reports?"]').first
                                     back.click();page.wait_for_load_state('networkidle',timeout=40000)
-                                    source['return_filters_preserved']=all(parse_qs(urlsplit(page.url).query).get(k)==v for k,v in parse_qs(urlsplit(origin).query).items())
+                                    source['origin_url']=origin;source['returned_url']=page.url
+                                    effective=('metric','date_from','date_to','store_ids','company_id','currency_id','state','page')
+                                    initial=parse_qs(urlsplit(origin).query);returned=parse_qs(urlsplit(page.url).query)
+                                    def normalized(query,key):
+                                        if key=='page':return query.get(key,['1'])
+                                        if key=='store_ids':return sorted(part for value in query.get(key,[]) for part in value.split(','))
+                                        return query.get(key,[''])
+                                    source['return_filters_preserved']=all(normalized(initial,key)==normalized(returned,key) for key in effective)
                                     item['source_drill']=source
                             if '/reports?' in path and item['status']==200 and width==1366:
                                 item['selector_interaction']=report_selector_interaction(page,directory,prefix,parse_qs(urlsplit(path).query)['metric'][0])
@@ -175,7 +183,41 @@ def main():
                                     item['cancel_no_settlement_post']=not any(e['method']=='POST' and e['path']=='/ydental/settlement/action' for e in observer.responses[before:])
                     record['actors'][alias]['observation']=observer.facts();context.close()
             finally:browser.close()
-        issues=[{'alias':p['alias'],'path':p['path'],'status':p['status'],'root_no_overflow':p['root_no_overflow'],'no_clipped_container':p['no_clipped_container']} for p in record['pages'] if p['status']!=200 or not p['root_no_overflow'] or not p['no_clipped_container']]
+        issues=[]
+        def add_issue(item,assertion):
+            issues.append({'alias':item['alias'],'path':item['path'],'viewport':item['viewport'],'assertion':assertion})
+        def check_dimensions(item,dimensions,where):
+            if dimensions['root']['scrollWidth']>dimensions['root']['clientWidth']+1:add_issue(item,where+'_ROOT_OVERFLOW')
+            if dimensions['clippedContainers']:add_issue(item,where+'_CONTENT_CLIPPED')
+        for item in record['pages']:
+            if item['status']!=200:add_issue(item,'HTTP_STATUS')
+            check_dimensions(item,item['dimensions'],'PAGE')
+            if not item.get('chinese_visible_heading') and not ('/odoo/' in item['path']):add_issue(item,'BUSINESS_HEADING_NOT_CHINESE')
+            if '/odoo/' in item['path'] and not any(re.search('[\u3400-\u9fff]',text) for text in item.get('visible_form_labels',[])):
+                add_issue(item,'NATIVE_FORM_LABELS_NOT_CHINESE_OR_NOT_LOADED')
+            if 'source_drill' in item:
+                source=item['source_drill']
+                if not source.get('return_filters_preserved'):add_issue(item,'SOURCE_RETURN_FILTERS_LOST')
+                check_dimensions(item,source['dimensions'],'SOURCE')
+                if 'trace_dimensions' in source:check_dimensions(item,source['trace_dimensions'],'SOURCE_TRACE')
+            if 'search_interaction' in item:
+                search=item['search_interaction']
+                if search.get('query_preserved') is not True:add_issue(item,'BUSINESS_TEXT_SEARCH_NOT_SUBMITTED')
+                if 'dimensions' in search:check_dimensions(item,search['dimensions'],'SEARCH')
+                if 'no_result_dimensions' in search:check_dimensions(item,search['no_result_dimensions'],'NO_RESULT')
+            if 'selector_interaction' in item:
+                selection=item['selector_interaction']
+                if selection.get('result')!='ONLY_ONE_AUTHORIZED_METRIC':
+                    if selection.get('stale_currency_company_state_cleared') is not True:add_issue(item,'METRIC_CHANGE_LEFT_STALE_FILTERS')
+                    selected=selection.get('effective_query',{})
+                    if selected.get('metric')!=[selection['metric']] or selected.get('date_from')!=['2026-10-01'] or selected.get('date_to')!=['2026-11-30'] or selected.get('store_ids')!=['1']:
+                        add_issue(item,'SELECTOR_SUBMIT_EFFECTIVE_FILTERS_DIFFER')
+                    if selection.get('currency_selected_by_label')=='USD' and selected.get('currency_id')!=['1']:add_issue(item,'CURRENCY_SELECTION_NOT_SUBMITTED')
+                    check_dimensions(item,selection['dimensions'],'SELECTOR_SUBMIT')
+            if item.get('default_open_operations',0)!=0:add_issue(item,'WRITE_PANELS_OPEN_BY_DEFAULT')
+            if item.get('cancel_no_settlement_post') is False:add_issue(item,'CANCEL_SUBMITTED_SETTLEMENT_ACTION')
+            if 'operation_dimensions' in item:check_dimensions(item,item['operation_dimensions'],'OPERATION_PANEL')
+            if 'closed_row_present' in item and (item['closed_row_present'] is not True or item.get('closed_contact_form_count')!=0 or item.get('closed_row_form_count')!=0):add_issue(item,'CLOSED_FOLLOWUP_CONTACT_FORM_OR_HISTORY_MISSING')
         record.update(status='BROWSER_ASSERTIONS_PASSED_VISUAL_REVIEW_SEPARATE' if not issues else 'BROWSER_SOFTWARE_ASSERTIONS_FAILED',issues=issues)
     except Exception as error:
         record.update(status='BROWSER_CHECK_FAILED_NO_BUSINESS_REPLAY',error_class=type(error).__name__)

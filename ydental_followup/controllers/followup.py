@@ -97,7 +97,12 @@ class YDentalFollowup(http.Controller):
             'ydental_last_error', 'ydental_request_id'], limit=100, order='id desc')
         return self._render('ydental_followup.followup_list', {
             'rows': rows, 'store': session.ydental_store_id,
+            'can_write': service.env['ydental.access.service']._levels(_member)['followup'] == 'write',
             'state_labels': dict(model._fields['state']._description_selection(service.env)),
+            'contact_method_labels': dict(service.env['ydental.followup.contact']._fields['ydental_method']._description_selection(service.env)),
+            'contact_outcome_labels': dict(service.env['ydental.followup.contact']._fields['ydental_outcome']._description_selection(service.env)),
+            'job_state_labels': dict(service.env['ydental.notification.job']._fields['ydental_state']._description_selection(service.env)),
+            'job_type_labels': dict(service.env['ydental.notification.job']._fields['ydental_event_type']._description_selection(service.env)),
             'type_labels': dict(model._fields['ydental_followup_type']._description_selection(service.env)),
             'appointment_labels': dict(model._fields['ydental_appointment_status']._description_selection(service.env)),
             'lab_contact_allowed': {row.id: row.state not in ('done', 'closed') and row.ydental_lab_contact_stage != 'stopped' and (

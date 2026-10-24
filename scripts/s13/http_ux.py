@@ -6,6 +6,7 @@ and browser/PDF visual results are separate evidence.
 """
 import argparse
 import csv
+from decimal import Decimal
 import hashlib
 import io
 import json
@@ -27,7 +28,22 @@ JOBS={'settlement':MONEY,'doctor':('unique_patients','arrivals','executions','la
 
 
 def signature(row):
-    return json.dumps({k:row[k] for k in ('source_model','source_id','store_id','value','unit','event_date','state','patient_id','facts')},sort_keys=True,ensure_ascii=False)
+    result={}
+    for name in ('source_model','source_id','store_id','company_id','value','unit','event_date','state','patient_id','facts','source_url'):
+        value=row[name]
+        if isinstance(value,str) and len(value)>1 and value[0]=="'" and value[1] in ('=', '+', '-', '@', '\t', '\r'):
+            value=value[1:]
+        if name in ('source_id','store_id','company_id'):
+            value=int(value)
+        elif name=='patient_id':
+            value=False if value in (False,None,'False','None','') else int(value)
+        elif name=='value':
+            value=str(Decimal(str(value)).normalize())
+        elif name=='facts' and isinstance(value,str):
+            value=json.loads(value)
+        result[name]=value
+    return json.dumps(result,sort_keys=True,ensure_ascii=False)
+
 
 
 def main():
@@ -78,15 +94,13 @@ def main():
                         records=list(csv.reader(io.StringIO(exported.content.decode('utf-8-sig'))));columns=records[4];csv_rows=[dict(zip(columns,row)) for row in records[5:]]
                         assert len(csv_rows)==len(rows), 'CSV and all page counts differ'
                         assert json.loads(records[2][1])==data['totals'], 'CSV and normal report totals differ'
-                        signatures=[]
-                        for row in csv_rows:
-                            row.update(source_id=int(row['source_id']),store_id=int(row['store_id']),patient_id=int(row['patient_id']) if row['patient_id'] not in ('False','None','') else False,facts=json.loads(row['facts']),value=float(row['value']))
-                            signatures.append(signature(row))
-                        # API integers and CSV floats represent the same numbers;
-                        # compare actual records by numeric values, not serialization.
-                        csv_keys=[(r['source_model'],r['source_id'],r['store_id'],r['unit'],r['state'],float(r['value'])) for r in csv_rows]
-                        api_keys=[(r['source_model'],r['source_id'],r['store_id'],r['unit'],r['state'],float(r['value'])) for r in rows]
-                        assert csv_keys==api_keys, 'CSV source order or amounts differ'
+                        csv_signatures=[signature(row) for row in csv_rows]
+                        api_signatures=[signature(row) for row in rows]
+                        assert csv_signatures==api_signatures, 'CSV full source facts, identity, dates, amounts or order differ'
+                        item['csv_full_source_signatures_sha256']=hashlib.sha256('\n'.join(csv_signatures).encode()).hexdigest()
+                        item['csv_effective_filters']=json.loads(records[1][1])
+                        assert {key:value for key,value in item['csv_effective_filters'].items() if key!='query_at_utc'}=={key:value for key,value in data['filters'].items() if key!='query_at_utc'}, 'CSV effective scope or timezone boundaries differ'
+                        item['query_time_metadata_may_differ']=True
                         item['csv_matches_all_pages']=True
                     else:
                         assert exported.status_code==403, 'Only explicit source/export refusal is expected'
