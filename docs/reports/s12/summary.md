@@ -92,6 +92,8 @@
 
 ## 9. 正常效果入口与数据
 
+2026-10-24用户在技术交付后另明确授权“用户效果复核准备与现场查看支持”，接收产品/工具5cb及报告8749181。本轮复开和查看准备进行中；下列03:34离线事实与旧孤儿回收历史保留，新运行实况在本节追加，不要求先查明旧监督退出根因。只支持现有成果的正常用户查看，不重跑S12、不重开#36，#37保持OPEN；用户尚未实际反馈的部分全部待用户确认。
+
 最终数据升级后曾正常建立只读效果窗口：run `20261024T025453Z-f8f22a02427f`，执行source3127，loopback18411/cron0/外发off/全部测试延迟与S11 clock flag均off，原定最多至2026-10-24约04:54 UTC；原scope08:00未延，不承诺永久在线。该窗的复核操作仅读取，服务仍保留正常角色权限。normal doctor/settlement升级后真实浏览器再次只读预览、下载原件100同SHA、过滤/钻新来源均PASS，未重做业务。
 
 **当前离线（2026-10-24 03:34 UTC核实）**：用户“继续”后的运行巡检实际返回STALE_OWNER_RECORD；supervisor2939395已不存在，child2939433出生ticks128648511匹配、PPID1，仍独占loopback18411。旧exec session29331实际Unknown process id；原run日志最后02:55:19，ERROR/CRITICAL均0，失去supervisor的原因未定，不能据此推断Native崩溃或业务损坏。主控与未实现者分别dry通过，复用既有精确孤儿回收函数、仅绑定现有S12 launcher常量，没有删改检查。03:34:03—04UTC只发一次pidfd SIGTERM并确认exit/无listener后归档原active字节；status STOPPED/exit0。原supervisor及child退出码均不可得，保留null，不冒正常退出0；回收结果SHA `fd7acbaff92d2dc071a7215c7490564cb41f8932b66868369a34e4ea60b3e63f`。本次没有DB/HTTP业务请求、业务重放或产品更改；未自动复开效果服务。既有技术/独立验收结论保留，历史在线窗口不代表当前在线。
