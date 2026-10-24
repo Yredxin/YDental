@@ -209,6 +209,8 @@ class YDentalPrintOriginalService(models.AbstractModel):
         originals = self.env['ydental.document.original'].sudo()
         prior = originals.search([('actor_id', '=', self.env.uid), ('request_key', '=', key)], limit=1)
         if prior:
+            if expected_digest != prior.source_sha256:
+                raise UserError(self.env._('version_conflict: This generation key belongs to a different reviewed source digest.'))
             if (prior.kind, prior.source_id, prior.source_version, prior.purpose or None, prior.previous_id.id, prior.template_id.id) != (
                     kind, source_id, version, purpose or None, previous_id or False, template_id or False):
                 raise UserError(self.env._('version_conflict: This original key belongs to another request.'))
