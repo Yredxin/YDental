@@ -25,6 +25,11 @@
             <p>Only the explicitly selected source set is included. This is not a complete formal medical record unless the scope and confirmation checks explicitly identify a complete source set.</p>
             <p t-if="p.get('original')"><span>Content template / version / review state:</span> <t t-out="p['content_template']"/> / <t t-out="p['content_template_version']"/> / <t t-out="p['template_state']"/><br/><span>Applicable scope:</span> <t t-out="p['applicability']"/></p>
             <p t-out="p['selected_state']"/>
+            <div t-if="p['kind'] == 'lab_label'" class="o_ydental_print_section_intro">
+                <img t-att-src="'data:image/png;base64,' + p['barcode']['png']" width="180" height="180" alt="Internal package identification QR code"/>
+                <p t-out="p['barcode']['value']"/>
+                <p>Identification only. Scanning this code does not authorize patient access, receive goods or put away stock.</p>
+            </div>
             <table><tbody><tr t-foreach="p['identity'] + p['details']" t-as="row"><td class="label" t-out="row[0]"/><td t-out="row[1]"/></tr></tbody></table>
             <section t-foreach="p['sections']" t-as="section">
                 <div class="o_ydental_print_section_intro"><h2 t-out="section['label']"/><p t-if="section['paragraphs']" t-out="section['paragraphs'][0]"/></div>

@@ -1,3 +1,6 @@
+import base64
+import hashlib
+
 from odoo import models
 from odoo.exceptions import AccessError, UserError
 
@@ -25,6 +28,9 @@ class YDentalPrintService(models.AbstractModel):
         if kind != 'lab_label':
             return super()._original_source(kind, source_id, version, purpose)
         service, order, _selected, category = self._original_authorize(kind, source_id, version, purpose)
+        # Native local barcode rendering encodes only the existing package
+        # identification string, never a patient record URL or bearer token.
+        barcode = self.env['ir.actions.report'].barcode('QR', order.ydental_internal_code, width=180, height=180)
         payload = {'kind': kind, 'title': self.env._('Internal laboratory package identification label'),
             'template': 'YD-S12-LAB-LABEL-1', 'source_id': order.id, 'version': version,
             'identity': [self._pair(self.env._('Source store'), order.ydental_store_id.name),
@@ -40,6 +46,8 @@ class YDentalPrintService(models.AbstractModel):
                 self._pair(self.env._('Responsible person'), order.ydental_responsible_id.name),
                 self._pair(self.env._('Planned UTC'), str(order.ydental_planned_at))],
             'sections': [], 'teeth': [], 'lines': [], 'events': [],
+            'barcode': {'format': 'QR', 'value': order.ydental_internal_code,
+                'png': base64.b64encode(barcode).decode('ascii'), 'sha256': hashlib.sha256(barcode).hexdigest()},
             'versions': {'order': [order.id, order.ydental_version, order.state],
                 'source_patient': order.ydental_patient_id.id, 'source_event': order.ydental_source_event_id.id,
                 'cycle': order.ydental_rework_no, 'parent': order.ydental_parent_order_id.id}}
