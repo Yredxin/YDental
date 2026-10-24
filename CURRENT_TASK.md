@@ -1,7 +1,21 @@
+# DL-P2当前状态｜YD-S13-DL-P2 / 1.0
+
+## IN_PROGRESS / SYNC_PENDING
+
+- 用户2026-10-24明确启用[完整P2计划](docs/execution/S13_DL_P2_IMPLEMENTATION_PLAN.md)：仅文书页标题、用途、既有页内导航及指定三类静态说明。P2-W0—W4连续实施；P3—P6 NOT_AUTHORIZED，P2交付后停止，不合产品main、不部署。P1原交付TECHNICALLY_COMPLETE / SYNCED，用户亲手效果仍待确认。
+- 正常从实际合法HEAD `d421842c9b26de9988be3f7e4c46cd5626cb67ca`承接至`codex/s13-dl-p2-documents-header-r1`，开工工作树仅CURRENT_TASK两条未提交复核补记，已保存diff并原样保留于下方P1历史；本地补记尚未同步，不能与P1原交付SYNCED混同。core/P1选择器JS及业务契约冻结。
+- 主控/root唯一环境运行与集成写者；产品、测试与未实现者独立验收分别指派，不以共享OS冒隔离。当前为W0：核目标、来源、前态及保护；未发生新原件/PDF/打印/经济库存动作。所有保护/未验限制承接下方P1记录，再核合法增量。
+
+---
+
+以下为P1已结束交付及用户回传复核历史；历史P2未授权已被上述本轮明确启用替代，其余范围和保护事实保持。
+
 # DL-P1当前状态｜YD-S13-DL-P1 / 1.0
 
 ## TECHNICALLY_COMPLETE（限定软件范围）/ SYNCED
 
+- 2026-10-24用户回传《YDental DL-P1｜限定仓库与静态效果复核》：采纳产品`8dea2647760f6d6738abfc9db132cfa9d7feaee3`、报告`d421842c9b26de9988be3f7e4c46cd5626cb67ca`的限定技术交付，保留TECHNICALLY_COMPLETE / SYNCED；其检查范围内未发现要求重开P1的阻断项。该复核为仓库/前端源码/上传截图检查，不是重跑P1-T01—16，也不是用户亲手效果验收；用户效果仍待确认。
+- 回传复核记载78PNG可解析、23文件视觉抽查，不称78图逐像素复验；83受保护文件/145业务表结论承接既有独立验收，不称本轮现场复算。320整页345px、Firefox中文tofu UNKNOWN、WebKit不等于Safari/iOS实机、历史Native139 UNKNOWN及全部未验限制保持；离线对照页本地文件打开受管理员策略拦截，未绕过，不影响既有产品测试结论。DL-P2页头/用途范围提示仅为方向建议，P2—P6继续NOT_AUTHORIZED，P1保持交付后停止。本轮仅本地状态记载，未提交/push、未修改GitHub、未启动服务或访问Odoo/数据库，未新增测试或独立验收；上述SYNCED沿用既有交付，不表示本条已远端同步。
 - 用户本轮ZIP仅启用[DL-P1完整计划](docs/execution/S13_DL_P1_IMPLEMENTATION_PLAN.md)/[设计规范](docs/design/YDENTAL_DESIGN_LANGUAGE_V1.md)。仅`/ydental/documents`查询q、两处preview来源/正文模板选择及按钮/必要局部说明；页头/导航/原件列表/生成/管理/PDF/其他岗位不改。**P1完成交付后停止，DL-P2—P6 NOT_AUTHORIZED**，完整S13/负载/恢复/实机/正式政策/扫码组合/生产未启用。
 - 本地全部P1-T01—15软件及T16包/步骤/正常服务收尾已获未实现者独立通过，总回执`7286c7ad8fd7af8774da6dfb671826843c26cbbad7cd471bfff9ff3e7ff56b9c`；正常业务分支/main文档ref及8份正文、新#37评论/Issue状态均已实际读回，首回执ddf05b55f3d47b43a7f9cdd4e042e47901cfac66382f935063fc78fb3aee424a。用户亲手效果待确认，自动化不称已接手窗口。结果/逐项证据见同一[summary](docs/reports/s13-dl-p1/summary.md)、[matrix](docs/reports/s13-dl-p1/acceptance-matrix.md)、[index](docs/reports/s13-dl-p1/evidence-index.md)。
 - 正常从业务06c7a4639a107e70c3db6352f8f929db80e6f94a承接`codex/s13-dl-p1-documents-query-r1`；公共运行工具31ef5d7bb8e181bdd044c9bd6d77db20f1dbd5ef，最终产品/执行`8dea2647760f6d6738abfc9db132cfa9d7feaee3`，报告checkpoint2dd06effea75d7e96039264f23ce77af59f12d8f仅docs。core f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb不改；后续仅报告/必要main路由，不合产品main，不reset/clean/强推/覆盖未知工作。
