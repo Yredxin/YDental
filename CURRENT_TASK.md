@@ -1,3 +1,20 @@
+# DL-P1当前状态｜YD-S13-DL-P1 / 1.0
+
+## IN_PROGRESS｜仅文书查询与选择区试点
+
+- 用户2026-10-24在本对话交付`tmp/YDental_Design_and_Phased_Implementation_v1.zip`，SHA c01b0e06736a59016aea4e0beb37bee19c73190bc5ba24fb013019f876fbdfbe。9个payload的bytes/SHA实核全部同manifest，整包MD/参考HTML源码已读；原ZIP原地保留，仅其确切文件名加入本地Git info/exclude，未忽略整个tmp或清理未知文件。原材料私有`.local/dl-p1/package`；不把小样虚拟患者/计数/筛选搬进产品。
+- 唯一启用[DL-P1完整计划](docs/execution/S13_DL_P1_IMPLEMENTATION_PLAN.md)，[设计规范](docs/design/YDENTAL_DESIGN_LANGUAGE_V1.md)；只改`/ydental/documents` GETq和preview的selection/template_id及按钮/必要局部说明。页头/导航/列表/生成/previous_id/管理/批量导出/PDF/其他岗位不改，业务model/controller/权限/金额/状态机不改。**DL-P2—P6 NOT_AUTHORIZED**，交付本阶段即停，完整S13/负载/恢复/实机/正式政策/扫码组合/生产仍未启用。
+- 已读main现行GPT_HANDOFF/AGENTS/CURRENT、活动06c7状态/报告、#23/#37正文/有效增量，S13-UX已结束且不重派UX-01—08。main仅文档路由。origin当前main0b3cf95e1762786f8ccbea48291ef2fa0b630b12，原业务06c7a4639a107e70c3db6352f8f929db80e6f94a无合法新增量，正常承接`codex/s13-dl-p1-documents-query-r1`，不reset/clean/强推。core f0c5a9b42f544e7f18dc6c8e1c93b957837e0bcb保持。
+- 单一主控/root管运行/集成/文档，复用documents为产品唯一写者、tester为验证工具/第二引擎、acceptance为未实现产品/测试工具的独立验收者，共享OS不冒隔离。当前documents仅私有准备，**产品代码/CSS字节仍等同06c7**；先采真实before后才准落产品，避免上轮静态脏树基线局限。
+- P1资源工具仅适配既有S13/S12/S11正常probe/ownedlauncher/RO保护/普通HTTP与既有浏览器，新的plan/branch/private路径、原目标/filestore/出生PID/权限与no-clock约束保持；旧scope/STOP/owner不改，旧owner先正常处理。不新增复制改名库。7PURE边界检查通过，尚非实际服务/产品PASS。
+- 唯一既有目标ydental_s11_synth_20261023_01/OID2171423/cluster7694897083368259627及原filestore；从当前全部65内部原件+2外部原件及83实际文件、145业务/13技术投影承接，保护包括全部失败迭代，不只旧17查看件。当前应收旧1073+合法新230=当时1303、lot25310/2/8、旧及新增455/508/880/215/281/282等待责任全保留。本阶段不新经济/库存链、不generate或print_request/签署/新PDF，正常查询预览审计单列。
+- 实施P1-W0—W4、T01—16，普通有权角色真实搜索/预览、Chromium及Firefox或WebKit真实产品关键交互、5视口/200%zoom与根字号分开、AX/IME/降级/未改区与完整保护。secondengine缺能力最终PARTIAL/BROWSER_VALIDATION_PENDING，不改UA冒实测；用户亲手/真实Safari移动设备/屏幕阅读器未验不假通过。
+- 详细事实落同一[summary](docs/reports/s13-dl-p1/summary.md)、[matrix](docs/reports/s13-dl-p1/acceptance-matrix.md)、[index](docs/reports/s13-dl-p1/evidence-index.md)。完成前不发Issue中间进度；结束正常push/ref/必要main文档与#37新一条P1最终记录，旧6382778460不改，#37OPEN/#36CLOSED，不合产品main/部署，不自动P2。
+
+---
+
+以下保留刚结束S13-UX及更早历史/不可重放事实；历史阶段“结束不自动下一计划”不取消本次用户明确启用的DL-P1。
+
 # S13 首批当前状态｜YD-S13-UX-DOCUMENTS-V1 / 1.0
 
 ## TECHNICALLY_COMPLETE（限定合成软件范围）/ SYNCED
