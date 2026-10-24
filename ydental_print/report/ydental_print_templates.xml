@@ -18,6 +18,7 @@
             .o_ydental_print_rx_field {margin: 5px 0; page-break-inside: auto;}
             .o_ydental_print_rx_field strong {display: block; background: #e8edf0; padding: 3px 5px; page-break-after: avoid;}
             .o_ydental_print_rx_field p {margin: 2px 5px; page-break-inside: auto;}
+            .o_ydental_print_section_intro {page-break-inside: avoid;}
         </style>
             <h1 t-out="p['title']"/>
             <div class="warning"><span t-if="not p.get('original')">DEMONSTRATION / UNREVIEWED / NO FORMAL SIGNATURE</span><span t-if="p.get('original') and p.get('synthetic')">SYNTHETIC TEST / NOT A FORMAL CLINICAL DOCUMENT / 合成测试，非正式临床文件</span><span t-if="p.get('original') and not p.get('synthetic')">PUBLISHED CONTENT / SIGNATURE AND PHYSICAL OUTPUT ARE SEPARATE FACTS</span><br/><t t-out="p['status']"/></div>
@@ -26,7 +27,8 @@
             <p t-out="p['selected_state']"/>
             <table><tbody><tr t-foreach="p['identity'] + p['details']" t-as="row"><td class="label" t-out="row[0]"/><td t-out="row[1]"/></tr></tbody></table>
             <section t-foreach="p['sections']" t-as="section">
-                <h2 t-out="section['label']"/><p t-foreach="section['paragraphs']" t-as="paragraph" t-out="paragraph"/>
+                <div class="o_ydental_print_section_intro"><h2 t-out="section['label']"/><p t-if="section['paragraphs']" t-out="section['paragraphs'][0]"/></div>
+                <p t-foreach="section['paragraphs'][1:]" t-as="paragraph" t-out="paragraph"/>
                 <div t-if="p['kind'] == 'consent'" class="blank"/>
             </section>
             <t t-if="p['kind'] == 'clinical'">

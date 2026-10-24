@@ -100,6 +100,10 @@ class YDentalPrintOriginalService(models.AbstractModel):
         if template_facts['body']:
             payload['sections'] = list(payload['sections']) + [{'label': self.env._('Reviewed template content'),
                 'paragraphs': [template_facts['body'][i:i + 350] for i in range(0, len(template_facts['body']), 350)]}]
+        payload['sections'] = [dict(section, paragraphs=[
+            block for paragraph in section['paragraphs']
+            for block in ([paragraph[index:index + 350] for index in range(0, len(paragraph), 350)] or [''])])
+            for section in payload['sections']]
         if not template_facts['synthetic']:
             _authorized, _source, selected, _category = service._original_authorize(kind, source_id, version, purpose)
             confirmed_text = selected and selected.ydental_kind in ('confirm', 'correct', 'correction')
