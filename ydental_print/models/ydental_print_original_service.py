@@ -19,6 +19,60 @@ from .ydental_print_service import REPORT, digest, normalized
 class YDentalPrintOriginalService(models.AbstractModel):
     _inherit = 'ydental.print.service'
 
+    def _original_version_summary(self, payload):
+        kind = payload['kind']
+        versions = payload['versions']
+        rows = []
+        def add(label, value):
+            rows.append({'label': label, 'value': str(value)})
+        if kind == 'clinical_summary':
+            selection = versions['selection']
+            add(self.env._('Explicit source collection'), '#%s / %s' % (selection[0], selection[2]))
+            for document_id, selected_version, confirmed, _sha in versions['documents']:
+                add(self.env._('Clinical document %s', document_id),
+                    self.env._('Selected version %(version)s / %(state)s', version=selected_version,
+                        state=self.env._('Confirmed') if confirmed else self.env._('Awaiting confirmation')))
+        elif kind in ('clinical', 'consent'):
+            document = versions['document']
+            selected = versions['selected_version']
+            add(self.env._('Clinical document'), '#%s / selected v%s' % (document[0], payload['version']))
+            add(self.env._('Saved text version record'), '#%s / %s' % (selected[0], selected[2]))
+            add(self.env._('Reception segment'), versions['source_segment'])
+        elif kind == 'prescription':
+            order = versions['order']
+            add(self.env._('Prescription order'), '#%s / v%s / %s' % (order[0], order[1], order[2]))
+            for line_id, state in versions['lines']:
+                add(self.env._('Prescription line %s', line_id), state)
+        elif kind == 'exam':
+            result = versions['result']
+            selected = versions['selected']
+            add(self.env._('Examination result'), '#%s / selected v%s' % (result[0], selected[1]))
+            add(self.env._('Saved result version record'), '#%s / %s' % (selected[0], selected[2]))
+            add(self.env._('Frozen examination line'), versions['line'][0])
+            add(self.env._('Actual examination event'), versions['event'][0] if versions['event'] else self.env._('Not recorded'))
+        elif kind == 'lab_label':
+            order = versions['order']
+            add(self.env._('Laboratory order'), '#%s / v%s / %s' % (order[0], order[1], order[2]))
+            add(self.env._('Source actual event'), versions['source_event'])
+            add(self.env._('Cycle / original order'), '%s / %s' % (versions['cycle'], versions['parent'] or order[0]))
+        elif kind == 'bill':
+            add(self.env._('Original internal bill'), '#%s' % payload['source_id'])
+            for row in versions.get('accounting', {}).get('sources', []):
+                add(self.env._('Bill source %s', row['id']), self.env._(
+                    'Bill %(bill)s / fee %(fee)s / frozen price version %(version)s',
+                    bill=row['ydental_invoice_id'], fee=row['ydental_fee_id'], version=row['ydental_price_version']))
+        elif kind in ('receipt', 'refund'):
+            add(self.env._('Collection record') if kind == 'receipt' else self.env._('Refund record'),
+                '#%s' % payload['source_id'])
+            for allocation in versions.get('allocations', []):
+                add(self.env._('Original bill %s', allocation['invoice_id']),
+                    '%s / source IDs %s' % (allocation['number'], ', '.join(str(value) for value in allocation['source_ids'])))
+            for refund in versions.get('refunds', []):
+                add(self.env._('Refund source %s', refund['id']), refund['ydental_state'])
+        else:
+            add(self.env._('Source record / selected version'), '#%s / v%s' % (payload['source_id'], payload['version']))
+        return rows
+
     def _original_patient(self, source, kind):
         return source.ydental_patient_id
 
@@ -97,6 +151,7 @@ class YDentalPrintOriginalService(models.AbstractModel):
         state = source.state if 'state' in source._fields else payload['status']
         payload['footer_provenance'] = '%s #%s / v%s / %s / %s' % (
             kind[:20], source.id, version, str(state)[:20], ', '.join(dict.fromkeys(actors))[:24])
+        payload['version_summary'] = service._original_version_summary(payload)
         if template_facts['body']:
             payload['sections'] = list(payload['sections']) + [{'label': self.env._('Reviewed template content'),
                 'paragraphs': [template_facts['body'][i:i + 350] for i in range(0, len(template_facts['body']), 350)]}]
