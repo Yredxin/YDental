@@ -35,8 +35,10 @@ class YDentalPrintService(models.AbstractModel):
             'available': self.env._('Put away and awaiting fit'), 'rework_returned': self.env._('Returned for rework'),
             'done': self.env._('Actually fitted'), 'cancelled': self.env._('Cancelled before put-away'),
             'exception': self.env._('Laboratory exception closed')}
+        label_states = dict(state_labels, sent=self.env._('Work order sent'),
+            draft=self.env._('Draft'), processing=self.env._('Processing'))
         payload = {'kind': kind, 'title': self.env._('Internal laboratory package identification label'),
-            'template': 'YD-S13-LAB-LABEL-2', 'source_id': order.id, 'version': version,
+            'template': 'YD-S13-LAB-LABEL-3', 'source_id': order.id, 'version': version,
             'identity': [self._pair(self.env._('Source store'), order.ydental_store_id.name),
                 self._pair(self.env._('Work order ID'), order.id)],
             'status': state_labels[order.state],
@@ -56,6 +58,10 @@ class YDentalPrintService(models.AbstractModel):
                 self._pair(self.env._('Material / shade'), '%s / %s' % (order.ydental_material, order.ydental_shade or '-')),
                 self._pair(self.env._('Quantity'), order.ydental_quantity),
                 self._pair(self.env._('Processing instructions'), order.ydental_instructions)],
+            'label_business': {'store': order.ydental_store_id.name, 'patient_number': patient.ydental_number,
+                'state': label_states[order.state], 'teeth': ', '.join(str(value) for value in order.ydental_teeth),
+                'material': order.ydental_material, 'shade': order.ydental_shade or self.env._('Not recorded'),
+                'quantity': order.ydental_quantity, 'instructions': order.ydental_instructions},
             'barcode': {'format': 'QR', 'value': order.ydental_internal_code, 'width': 180, 'height': 180},
             'versions': {'order': [order.id, order.ydental_version, order.state],
                 'source_patient': order.ydental_patient_id.id, 'source_event': order.ydental_source_event_id.id,

@@ -1196,6 +1196,7 @@ msgstr "处方医嘱"
 #. module: ydental_print
 #. odoo-python
 #: code:addons/ydental_print/models/ydental_print_original_service.py:0
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
 msgid "Reviewed template content"
 msgstr "已审阅模板正文"
 
@@ -2091,3 +2092,93 @@ msgstr "已审核"
 #, python-format
 msgid "Published"
 msgstr "已发布"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+msgid "<strong>Laboratory label</strong>"
+msgstr "<strong>加工标签</strong>"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+msgid "Synthetic demonstration"
+msgstr "合成演示"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+msgid "Internal package identification QR code"
+msgstr "内部包裹识别二维码"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+msgid "<strong>Store:</strong>"
+msgstr "<strong>门店：</strong>"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+msgid "<strong>Patient number:</strong>"
+msgstr "<strong>患者号：</strong>"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+msgid "<strong>Snapshot state:</strong>"
+msgstr "<strong>来源态：</strong>"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+msgid "<strong>Teeth:</strong>"
+msgstr "<strong>牙位：</strong>"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+msgid "/ <strong>Quantity:</strong>"
+msgstr "／<strong>数量：</strong>"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+msgid "<strong>Material / shade:</strong>"
+msgstr "<strong>材料／色号：</strong>"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+msgid "<strong>Processing:</strong>"
+msgstr "<strong>加工：</strong>"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+msgid ""
+"Identify only; no receipt, put-away or notice. No shipment or receipt is "
+"implied."
+msgstr "仅识别，不接收／入库／通知；不代表发货或收货。"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+msgid "/ <span>Source v</span>"
+msgstr "／<span>源v</span>"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+msgid "<span>Authorized trace:</span> /ydental/documents"
+msgstr "<span>授权追溯：</span>/ydental/documents"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+msgid "DEMONSTRATION / UNREVIEWED / NO FORMAL SIGNATURE"
+msgstr "演示／未经审核／无正式签署"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+msgid "SYNTHETIC TEST / NOT A FORMAL CLINICAL DOCUMENT / 合成测试，非正式临床文件"
+msgstr "合成测试，非正式临床文件"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+msgid "PUBLISHED CONTENT / SIGNATURE AND PHYSICAL OUTPUT ARE SEPARATE FACTS"
+msgstr "已发布正文／签署和实际出纸须另行核实"
+
+#. module: ydental_print
+#: model_terms:ir.ui.view,arch_db:ydental_print.ydental_document_pdf
+msgid ""
+"Only the explicitly selected source set is included. This is not a complete "
+"formal medical record unless the scope and confirmation checks explicitly "
+"identify a complete source set."
+msgstr "仅纳入明确选择的来源集合；只有范围和确认核查均明确完整时，才在该范围内视为完整。"

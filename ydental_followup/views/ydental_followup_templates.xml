@@ -214,7 +214,7 @@
                                             </form>
                                         </details>
                                         <details t-if="can_write and (row.state == 'closed' and row.ydental_lab_contact_stage != 'stopped')"><summary>Reopen with reason</summary>
-                                                <p><strong t-out="row.ydental_patient_id.name"/><span t-out="row.ydental_patient_id.ydental_number"/></p><form action="/ydental/followups/action" method="post">
+                                                <p><strong t-out="row.ydental_patient_id.name"/><span t-out="row.ydental_patient_id.ydental_number"/></p><p><strong>Follow-up plan:</strong> <span t-out="row.name"/> · <span>Planned time (UTC):</span> <span t-out="row.ydental_planned_at"/><br/><strong>Closure reason:</strong> <span t-out="row.ydental_closed_reason or ''"/></p><form action="/ydental/followups/action" method="post">
                                                     <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                                                     <input type="hidden" name="revision" t-att-value="revision"/>
                                                     <input type="hidden" name="operation" value="reopen"/>

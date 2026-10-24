@@ -41,12 +41,20 @@ def measure(page):
 
 
 def visit(page,path,directory,label):
-    response=page.goto(BASE+path,wait_until='networkidle',timeout=40000)
+    native=urlsplit(path).path.startswith('/odoo/')
+    response=page.goto(BASE+path,wait_until='domcontentloaded',timeout=40000)
+    if native:
+        page.locator('.o_form_view').wait_for(state='visible',timeout=30000)
+        identification=page.locator('.o_form_view .o_field_widget[name="ydental_internal_code"]')
+        identification.wait_for(state='visible',timeout=15000)
+        if not identification.inner_text().strip():raise RuntimeError('Native form source identification content is not loaded')
+    else:page.wait_for_load_state('networkidle',timeout=40000)
     page.evaluate('() => document.fonts.ready.then(()=>true)')
     dimensions=measure(page)
     item={'path':urlsplit(path).path,'query':parse_qs(urlsplit(path).query),'status':response.status if response else None,
           'headings':page.locator('h1,h2').all_text_contents()[:12],'dimensions':dimensions,
           'screenshot':screenshot(page,directory,label),'layer':'BROWSER'}
+    if native:item['native_object_ready']='FORM_VISIBLE_WITH_SOURCE_IDENTIFICATION'
     item['root_no_overflow']=dimensions['root']['scrollWidth']<=dimensions['root']['clientWidth']+1
     item['no_clipped_container']=not dimensions['clippedContainers']
     return item
@@ -89,7 +97,8 @@ def report_selector_interaction(page,directory,prefix,metric):
     options=form.locator('select[name="metric"] option').evaluate_all('(rows)=>rows.map(row=>({value:row.value,label:row.textContent}))')
     target=next((row for row in options if row['value']!=metric),None)
     if not target:return {'result':'ONLY_ONE_AUTHORIZED_METRIC'}
-    form.locator('select[name="metric"]').select_option(label=target['label'])
+    with page.expect_navigation(wait_until='domcontentloaded',timeout=30000):
+        form.locator('select[name="metric"]').select_option(label=target['label'])
     page.wait_for_load_state('networkidle',timeout=40000)
     changed=parse_qs(urlsplit(page.url).query)
     result={'selected_metric_by_label':target['label'],'metric':target['value'],'stale_currency_company_state_cleared':not any(k in changed for k in ('currency_id','company_id','state'))}
@@ -124,6 +133,7 @@ def main():
           'warehouse':[('/ydental/inventory','inventory'),(report('consumption'),'consumption')],
           'followup':[('/ydental/followups','followups'),('/ydental/followups?followup_id=280#followup-280','followup280'),('/ydental/followups?followup_id=277#followup-277','closed-followup277'),(report('followups'),'followups-report')]}
     sync=view.import_browser()
+    record['browser_environment']=view.loaded_browser_environment_facts()
     try:
         with sync() as pw:
             browser=pw.chromium.launch(headless=True,executable_path=str(view.CHROMIUM))
@@ -138,6 +148,7 @@ def main():
                         page.set_viewport_size({'width':width,'height':height})
                         for path,label in cases:
                             owned_service(args.run_id)
+                            record['current_case']={'alias':alias,'path':urlsplit(path).path,'label':label,'viewport':{'width':width,'height':height}}
                             prefix=f'{alias}-{label}-{width}x{height}'
                             item=visit(page,path,directory,prefix);item.update(alias=alias,viewport={'width':width,'height':height})
                             record['pages'].append(item)

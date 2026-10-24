@@ -4,6 +4,9 @@ The historical package directory name does not enable any synthetic clock.
 Only normal password login/store selection occurs; no profile/session is saved.
 """
 import os
+import hashlib
+import json
+import stat
 from pathlib import Path
 import sys
 from urllib.parse import urlencode, urlsplit
@@ -15,6 +18,64 @@ RUNTIME = ROOT / '.local/s11/operations/clock-operator-users-ui-c981cd0-attempt1
 CHROMIUM = ROOT / '.local/s11/browsers/chromium-1248/chrome-linux64/chrome'
 LIBS = ROOT / '.local/s11/browser-deps/root/usr/lib/x86_64-linux-gnu'
 FONTCONFIG = ROOT / '.local/s12/fontconfig/fonts.conf'
+BROWSER_NATIVE = ROOT / '.local/s13/browser-native'
+BROWSER_NATIVE_MANIFEST = ROOT / '.local/s13/browser-native-manifest.json'
+GREENLET_VERSION = '3.5.6'
+GREENLET_RANGE = '>=3.1.1,<4'
+NATIVE_MANIFEST_SHA256 = '7e6c0939fb0f0a0d50a29fb0d20bc353dcdc22bf765efe18d69b4687326f88d9'
+GREENLET_BINARY_SHA256 = 'a39d6693c3aee88d76b6156e2fe915639bd47b0106c88676efa96ccb62df4e65'
+
+
+def browser_environment_facts():
+    """Validate the explicit private corrective wheel without starting a driver.
+
+    This corrects an observed dependency-range mismatch. It does not establish
+    the cause of the earlier native crash or claim that it cannot recur.
+    """
+    info = BROWSER_NATIVE_MANIFEST.lstat()
+    if (BROWSER_NATIVE_MANIFEST.is_symlink() or not stat.S_ISREG(info.st_mode)
+            or info.st_uid != os.geteuid() or info.st_mode & 0o077):
+        raise RuntimeError('The explicit browser native manifest is not private and owned.')
+    raw = BROWSER_NATIVE_MANIFEST.read_bytes()
+    if hashlib.sha256(raw).hexdigest() != NATIVE_MANIFEST_SHA256:
+        raise RuntimeError('The reviewed corrective browser wheel manifest changed.')
+    manifest = json.loads(raw)
+    if (manifest.get('package') != 'greenlet' or manifest.get('version') != GREENLET_VERSION
+            or manifest.get('required_greenlet_range') != GREENLET_RANGE
+            or manifest.get('expected_playwright_version') != '1.64.0'):
+        raise RuntimeError('The fixed browser dependency binding differs from the reviewed versions.')
+    info = BROWSER_NATIVE.lstat()
+    if (BROWSER_NATIVE.is_symlink() or not stat.S_ISDIR(info.st_mode)
+            or info.st_uid != os.geteuid() or info.st_mode & 0o077):
+        raise RuntimeError('The corrective native dependency directory is not private and owned.')
+    expected = {}
+    for item in manifest['files']:
+        relative = Path(item['path'])
+        if relative.is_absolute() or '..' in relative.parts or item['path'] in expected:
+            raise RuntimeError('Unsafe or duplicate native dependency path.')
+        expected[item['path']] = item
+    actual = set()
+    for path in BROWSER_NATIVE.rglob('*'):
+        info = path.lstat()
+        if path.is_symlink() or info.st_uid != os.geteuid():
+            raise RuntimeError('Browser native dependency ownership or path mismatch.')
+        if not path.is_file():
+            continue
+        relative = path.relative_to(BROWSER_NATIVE).as_posix()
+        if '__pycache__' in path.parts or relative == '.lock' and info.st_size == 0:
+            continue
+        actual.add(relative)
+        if (relative not in expected or info.st_size != expected[relative]['bytes']
+                or hashlib.sha256(path.read_bytes()).hexdigest() != expected[relative]['sha256']):
+            raise RuntimeError('A corrective native dependency payload changed.')
+    if actual != set(expected):
+        raise RuntimeError('The corrective dependency file set differs from its fixed manifest.')
+    return {'playwright_version_expected': '1.64.0', 'greenlet_version_expected': GREENLET_VERSION,
+            'required_greenlet_range': GREENLET_RANGE, 'native_manifest_sha256': NATIVE_MANIFEST_SHA256,
+            'corrective_wheel_sha256': manifest['wheel']['sha256'],
+            'native_directory': str(BROWSER_NATIVE), 'original_snapshot_preserved': True,
+            'earlier_native_crash_cause': 'UNKNOWN'}
+
 
 
 def import_browser():
@@ -23,12 +84,41 @@ def import_browser():
     if not RUNTIME.is_dir() or not CHROMIUM.is_file() or not LIBS.is_dir() or not FONTCONFIG.is_file():
         raise RuntimeError('The existing private browser packages or font configuration are unavailable.')
     sys.dont_write_bytecode = True
-    sys.path.insert(0, str(RUNTIME))
+    browser_environment_facts()
+    loaded = sys.modules.get('greenlet')
+    if loaded is not None and Path(loaded.__file__).resolve() != BROWSER_NATIVE / 'greenlet/__init__.py':
+        raise RuntimeError('An incompatible greenlet was already loaded; do not reload a native extension in place.')
+    sys.path[:] = [str(BROWSER_NATIVE), str(RUNTIME), *[entry for entry in sys.path
+        if entry not in (str(BROWSER_NATIVE), str(RUNTIME))]]
     os.environ['LD_LIBRARY_PATH'] = str(LIBS) + (':' + os.environ['LD_LIBRARY_PATH'] if os.environ.get('LD_LIBRARY_PATH') else '')
     os.environ['FONTCONFIG_FILE'] = str(FONTCONFIG)
     os.environ['FONTCONFIG_PATH'] = str(FONTCONFIG.parent)
+    import greenlet
+    if (greenlet.__version__ != GREENLET_VERSION
+            or Path(greenlet.__file__).resolve() != BROWSER_NATIVE / 'greenlet/__init__.py'):
+        raise RuntimeError('The actual loaded corrective greenlet version or module path differs.')
+    extension = sys.modules.get('greenlet._greenlet')
+    expected_extension = BROWSER_NATIVE / 'greenlet/_greenlet.cpython-312-x86_64-linux-gnu.so'
+    if (extension is None or Path(extension.__file__).resolve() != expected_extension
+            or hashlib.sha256(expected_extension.read_bytes()).hexdigest() != GREENLET_BINARY_SHA256):
+        raise RuntimeError('The actual loaded greenlet native extension differs from the fixed payload.')
+    from playwright import _repo_version
+    if _repo_version.__version__ != '1.64.0':
+        raise RuntimeError('The existing approved Playwright API version changed.')
     from playwright.sync_api import sync_playwright
     return sync_playwright
+
+
+def loaded_browser_environment_facts():
+    facts = browser_environment_facts()
+    greenlet = sys.modules.get('greenlet')
+    extension = sys.modules.get('greenlet._greenlet')
+    if greenlet is not None:
+        facts.update(greenlet_version_loaded=greenlet.__version__, greenlet_module=str(Path(greenlet.__file__).resolve()))
+    if extension is not None:
+        facts.update(greenlet_extension=str(Path(extension.__file__).resolve()),
+                     greenlet_extension_sha256=hashlib.sha256(Path(extension.__file__).read_bytes()).hexdigest())
+    return facts
 
 
 def url_fact(url):

@@ -73,3 +73,35 @@ Credentials stay only in explicitly authorized normal local providers. No
 password, cookie, CSRF, session/profile, raw request body or connection secret is
 recorded in public output. Original PDFs, screenshots, raw results and hashes
 remain under ignored mode-0700 `.local/s13/` with mode-0600 files.
+
+## Corrective private browser dependency binding
+
+The earlier paired-image client exited with real SIGSEGV/139 after printing its
+manifest. That result remains failed at the process layer. Kernel evidence and
+original source/result hashes are private; its cause remains UNKNOWN. The Odoo
+owned service was separately checked and normally stopped, with child exit 0.
+
+Static investigation identified an actual independent dependency mismatch: the
+approved package snapshot contains Playwright 1.64.0 and greenlet 3.0.3, while
+Playwright declares `greenlet>=3.1.1,<4`. The old snapshot remains unchanged.
+Only a project-private fixed greenlet 3.5.6 wheel is installed under
+`.local/s13/browser-native`. The official PyPI wheel SHA256 is
+`975736b002ed080d124cf81a79cb7e05cb26d6b3f5c7a7b651c0fcce70353aa1`.
+The actual payload manifest is pinned by `browser_client.py`; it validates all
+101 installed files before import, then checks the actual loaded version,
+module path and CPython extension bytes. This keeps the same Python,
+Playwright API and Chromium, and changes no shared environment, authentication,
+platform configuration or old package snapshot. An already loaded incompatible
+native module is refused rather than reloaded in place.
+
+`browser_environment_facts()` performs file checks only; importing the browser
+API and starting a driver/browser are separate actions. A normal execution must
+record `loaded_browser_environment_facts()` and its real caller-observed exit.
+Do not turn dependency compatibility or a saved JSON into a Native root-cause
+finding or a claim of permanent stability. A bounded no-DB/no-login local HTML
+verification requires main-agent scheduling after independent source review.
+
+`paired_financial_after.py` holds browser proxies in `main`, closes the context
+and browser in `finally`, and releases local references before returning. It
+never masks a native signal or uses `os._exit`. This narrows lifecycle risks;
+it does not establish that lifecycle was the cause of the earlier fault.

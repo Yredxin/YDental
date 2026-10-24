@@ -21,10 +21,11 @@
             .o_ydental_print_rx_field strong {display: block; background: #e8edf0; padding: 3px 5px; page-break-after: avoid;}
             .o_ydental_print_rx_field p {margin: 2px 5px; page-break-inside: auto;}
             .o_ydental_print_section_intro {page-break-inside: avoid;}
-            .o_ydental_print_label {font-size: 9pt; line-height: 1.25;}
-            .o_ydental_print_label h1 {font-size: 12pt; margin-bottom: 3px;}
-            .o_ydental_print_label p {margin: 2px 0;}
-            .o_ydental_print_label_qr {float: right; width: 28mm; margin: 0 0 2mm 2mm;}
+            .o_ydental_print_label {font-size: 9pt; line-height: 1.2;}
+            .o_ydental_print_label h1 {font-size: 11pt; margin-bottom: 2px;}
+            .o_ydental_print_label h1 span {font-size: 9pt; font-weight: normal;}
+            .o_ydental_print_label p {margin: 1px 0; orphans: 2; widows: 2;}
+            .o_ydental_print_label_qr {float: right; width: 28mm; margin: 0 0 1mm 2mm;}
             .o_ydental_print_label_qr img {width: 28mm; height: 28mm;}
             .o_ydental_print_label_identity {font-weight: bold;}
             .o_ydental_print_finance_identity {margin-bottom: 5px;}
@@ -33,19 +34,20 @@
             <t t-set="financial" t-value="p.get('financial')"/>
             <t t-if="p['kind'] == 'lab_label'">
                 <article class="o_ydental_print_label">
-                    <h1>Laboratory identification label</h1>
+                    <h1><strong>Laboratory label</strong> <span t-if="p.get('synthetic')">Synthetic demonstration</span> <span t-out="p.get('template_state_label', '')"/></h1>
                     <div class="o_ydental_print_label_qr"><img t-att-src="'data:image/png;base64,' + p['barcode']['png']" alt="Internal package identification QR code"/></div>
                     <p class="o_ydental_print_label_identity"><span>Work order:</span> <t t-out="p['source_id']"/> / <span>Cycle:</span> <t t-out="p['versions']['cycle']"/></p>
-                    <p t-foreach="p.get('label_identity', p['identity'])" t-as="row"><strong t-out="row[0]"/>: <t t-out="row[1]"/></p>
-                    <p><strong>Source state at generation:</strong> <t t-out="p['status']"/></p>
-                    <p t-foreach="p.get('label_details', p['details'])" t-as="row"><strong t-out="row[0]"/>: <t t-out="row[1]"/></p>
+                    <p><strong>Store:</strong> <t t-out="p['label_business']['store']"/></p>
+                    <p><strong>Patient number:</strong> <t t-out="p['label_business']['patient_number']"/></p>
+                    <p><strong>Snapshot state:</strong> <t t-out="p['label_business']['state']"/></p>
+                    <p><strong>Teeth:</strong> <t t-out="p['label_business']['teeth']"/> / <strong>Quantity:</strong> <t t-out="p['label_business']['quantity']"/></p>
+                    <p><strong>Material / shade:</strong> <t t-out="p['label_business']['material']"/> / <t t-out="p['label_business']['shade']"/></p>
+                    <p style="clear: both"><strong>Processing:</strong> <t t-out="p['label_business']['instructions']"/></p>
                     <p style="clear: both"><strong>Identification code:</strong> <t t-out="p['barcode']['value']"/></p>
-                    <p t-if="p.get('synthetic')">SYNTHETIC TEST / 100 x 70 mm demonstration</p>
-                    <p>Identification only; no receipt, put-away or notification.</p>
-                    <p><span>Generated UTC:</span> <t t-out="p['generated_at']"/> / v<t t-out="p['version']"/></p>
-                    <p><span>Layout:</span> <t t-out="p.get('layout_version', p['template'])"/></p>
+                    <p>Identify only; no receipt, put-away or notice. No shipment or receipt is implied.</p>
+                    <p><span>Generated UTC:</span> <t t-out="p['generated_at']"/> / <span>Source v</span><t t-out="p['version']"/> / UX3</p>
                     <p t-foreach="p.get('template_paragraphs', [])" t-as="paragraph" t-out="paragraph"/>
-                    <p>Authorized source and full version trace: /ydental/documents</p>
+                    <p><span>Authorized trace:</span> /ydental/documents</p>
                 </article>
             </t>
             <t t-else="">

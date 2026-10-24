@@ -944,3 +944,18 @@ msgstr "来源文书"
 #: model:ir.model.fields,field_description:ydental_followup.field_ydental_followup__ydental_appointment_at
 msgid "Ydental Start"
 msgstr "预约时间"
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Follow-up plan:"
+msgstr "复诊计划："
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Planned time (UTC):"
+msgstr "计划时点（UTC）："
+
+#. module: ydental_followup
+#: model_terms:ir.ui.view,arch_db:ydental_followup.followup_list
+msgid "Closure reason:"
+msgstr "关闭原因："

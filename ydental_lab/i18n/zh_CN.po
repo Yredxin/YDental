@@ -786,7 +786,9 @@ msgid "State"
 msgstr "状态"
 
 #. module: ydental_lab
+#. odoo-python
 #: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_order__state__draft
+#: code:addons/ydental_lab/models/ydental_print_service.py:0
 msgid "Draft"
 msgstr "草稿"
 
@@ -796,7 +798,9 @@ msgid "Sent to laboratory"
 msgstr "工单已发送（不代表供应商发货或已收货）"
 
 #. module: ydental_lab
+#. odoo-python
 #: model:ir.model.fields.selection,name:ydental_lab.selection__ydental_lab_order__state__processing
+#: code:addons/ydental_lab/models/ydental_print_service.py:0
 msgid "Processing"
 msgstr "加工中"
 
@@ -1298,3 +1302,15 @@ msgstr "附加项目费用"
 #: model:ir.model.fields,field_description:ydental_lab.field_ydental_lab_charge__ydental_invoice_line_id
 msgid "Ydental Line"
 msgstr "原生账单明细行"
+
+#. module: ydental_lab
+#. odoo-python
+#: code:addons/ydental_lab/models/ydental_print_service.py:0
+msgid "Work order sent"
+msgstr "工单已发送"
+
+#. module: ydental_lab
+#. odoo-python
+#: code:addons/ydental_lab/models/ydental_print_service.py:0
+msgid "Not recorded"
+msgstr "未记录"

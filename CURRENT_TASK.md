@@ -2,6 +2,10 @@
 
 ## IN_PROGRESS｜仅岗位界面、中文报表与文书版式整理
 
+- 当前检查点（2026-10-24 06:21 UTC）：正常客户端只读财务截图工具在输出结果后进程139/kernel SIGSEGV（python3067608），首因UNKNOWN；已停止浏览器及后续经济动作，不用JSON完成冒exit0。Odoo本体随后精确正常stop，child_exit_code0/noNative/owned组停止；原Native回执`.local/s13/verification/browser-native-exit139.json` SHA18f1e081da9513444b5edb2f5a77e6a9fece5528ef85e9b38bf12703759e4b7c，服务器终态另列，不反签旧风险。SOURCE核实获准浏览器snapshot的Playwright1.64.0/greenlet3.0.3不满足该版官方greenlet>=3.1.1依赖，团队仅准备项目私有依赖与生命周期修复；未因此声称确诊139根因，修复后先独立审查及无DB/无登录小验证。
+- 正常新原件155已实际提交（lab214当前sent、source v3、前版93），文件SHA ddba24e87f4292388f7533ca88421d65aeaab8f52e91aa3a895f2607e26899ff；它是100×70mm却2页的真实版式FAIL，93与155均保护。新布局3仅源码修复中，后续只能从155正常续版，不覆盖或删失败样张。尚未执行新付款/退款/治疗/库存/接收/入库。
+- 已获分层证据：产品a711→63b890影响38唯一方法=29MODEL+7真实HttpCase+2显式授权/编码器seam，修复后0failed/0error/exit0（首次1fail2error保留）；独立回执e0e7d491…。e85dbd正常HTTP12指标/20拒绝通过；当前4角色export均非write，12CSV403非导出正例。42浏览器页面/视口及正常native214中文已采，首networkidle超时/metric等待竞态保留，不能总签通过。doctor9仅正常本人偏好改lang=zh_CN，组/ACL/身份未改。未授临时export、未新经济，旧业务保持待最终完整核验。
+
 - 首个产品/工具候选已固定 `a711d1edb9b76c3a07a5076e68ef6542510f5b97`。12指标中文呈现/授权选项、财务/标签新布局、岗位搜索及按需办理已落代码；SOURCE/PURE检查通过，尚未声明MODEL/HTTP/PDF/最终验收PASS。未实现者SOURCE指出的语言上下文、分页前版选择和精确来源钻取缺陷已修，继续按实际运行验证。
 - before14张普通角色两视口与初始完整RO保护baseline已采；旧S12 owned服务已正常stop(child0/noNative/18411 free)。新S13独立资源scope正常创建至2026-10-24T17:42:54Z，旧scope未改；完整即时pre145业务/13技术/所有关联原件已成功，尚待限定升级。证据索引见docs/reports/s13-ux/evidence-index.md。服务当前停止，非用户可接手浏览器。
 
